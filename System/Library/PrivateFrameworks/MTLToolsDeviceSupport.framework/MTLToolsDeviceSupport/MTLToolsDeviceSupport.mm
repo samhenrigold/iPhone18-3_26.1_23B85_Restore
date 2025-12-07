@@ -198,21 +198,6 @@ float64_t DYShaderProfilerTiming::Statistics::operator*=(float64x2_t *a1, double
   return result;
 }
 
-double DYShaderProfilerTiming::Statistics::operator+(double *a1, double *a2)
-{
-  result = *a1 + *a2;
-  v3 = a1[1] + a2[1];
-  v4 = a1[2] + a2[2];
-  return result;
-}
-
-double DYShaderProfilerTiming::Statistics::operator*(double *a1, double a2)
-{
-  v2 = a1[1] * a2;
-  v3 = a1[2] * a2;
-  return *a1 * a2;
-}
-
 DYShaderProfilerTiming *DYShaderProfilerTiming::SetCycle(DYShaderProfilerTiming *this, double a2, double a3, double a4)
 {
   this->_cycle.average = a2;
@@ -250,22 +235,22 @@ void sub_257A81988(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -311,33 +296,33 @@ uint64_t std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unord
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -345,49 +330,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_257A82048(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257A82048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -415,7 +400,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -431,7 +416,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -439,7 +424,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -463,7 +448,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -490,33 +475,33 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_
   *(a1 + 8) = 0;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -524,44 +509,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::~__hash_table(uint64_t a1)
@@ -609,7 +594,6 @@ BOOL GPUTools::MTL::Utils::DYMTLCounter::operator==(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -620,56 +604,56 @@ BOOL GPUTools::MTL::Utils::DYMTLCounter::operator==(void *a1, void *a2)
     return 0;
   }
 
-  v9 = *(v7 + 47);
-  if (v9 >= 0)
+  v8 = *(v7 + 47);
+  if (v8 >= 0)
   {
-    v10 = *(v7 + 47);
+    v9 = *(v7 + 47);
   }
 
   else
   {
-    v10 = v7[4];
+    v9 = v7[4];
   }
 
-  v11 = *(v6 + 47);
-  v12 = v11;
-  if ((v11 & 0x80u) != 0)
+  v10 = *(v6 + 47);
+  v11 = v10;
+  if ((v10 & 0x80u) != 0)
   {
-    v11 = v6[4];
+    v10 = v6[4];
   }
 
-  if (v10 != v11)
+  if (v9 != v10)
   {
     return 0;
   }
 
-  v15 = v7[3];
-  v14 = v7 + 3;
-  v13 = v15;
-  if (v9 >= 0)
+  v14 = v7[3];
+  v13 = v7 + 3;
+  v12 = v14;
+  if (v8 >= 0)
   {
-    v16 = v14;
+    v15 = v13;
   }
 
   else
   {
-    v16 = v13;
+    v15 = v12;
   }
 
-  v19 = v6[3];
-  v18 = v6 + 3;
-  v17 = v19;
-  if (v12 >= 0)
+  v18 = v6[3];
+  v17 = v6 + 3;
+  v16 = v18;
+  if (v11 >= 0)
   {
-    v20 = v18;
+    v19 = v17;
   }
 
   else
   {
-    v20 = v17;
+    v19 = v16;
   }
 
-  return memcmp(v16, v20, v10) == 0;
+  return memcmp(v15, v19, v9) == 0;
 }
 
 BOOL GPUTools::MTL::Utils::DYMTLCounterSet::operator==(void *a1, void *a2)
@@ -704,7 +688,6 @@ BOOL GPUTools::MTL::Utils::DYMTLCounterSet::operator==(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -715,65 +698,65 @@ BOOL GPUTools::MTL::Utils::DYMTLCounterSet::operator==(void *a1, void *a2)
     return 0;
   }
 
-  v9 = *(v7 + 47);
-  if (v9 >= 0)
+  v8 = *(v7 + 47);
+  if (v8 >= 0)
   {
-    v10 = *(v7 + 47);
+    v9 = *(v7 + 47);
   }
 
   else
   {
-    v10 = v7[4];
+    v9 = v7[4];
   }
 
-  v11 = *(v6 + 47);
-  v12 = v11;
-  if ((v11 & 0x80u) != 0)
+  v10 = *(v6 + 47);
+  v11 = v10;
+  if ((v10 & 0x80u) != 0)
   {
-    v11 = v6[4];
+    v10 = v6[4];
   }
 
-  if (v10 != v11)
-  {
-    return 0;
-  }
-
-  v13 = v9 >= 0 ? v7 + 3 : v7[3];
-  v14 = v12 >= 0 ? v6 + 3 : v6[3];
-  if (memcmp(v13, v14, v10))
+  if (v9 != v10)
   {
     return 0;
   }
 
-  v15 = v7[6];
-  if (v15 != v6[6] || v7[103] != v6[103])
+  v12 = v8 >= 0 ? v7 + 3 : v7[3];
+  v13 = v11 >= 0 ? v6 + 3 : v6[3];
+  if (memcmp(v12, v13, v9))
   {
     return 0;
   }
 
-  if (!v15)
+  v14 = v7[6];
+  if (v14 != v6[6] || v7[103] != v6[103])
+  {
+    return 0;
+  }
+
+  if (!v14)
   {
     return 1;
   }
 
-  v16 = v7 + 7;
-  v17 = v6 + 7;
-  v18 = v15 - 1;
+  v15 = v7 + 7;
+  v16 = v6 + 7;
+  v17 = v14 - 1;
   do
   {
-    v19 = v18;
-    result = GPUTools::MTL::Utils::DYMTLCounter::operator==(v16, v17);
+    v18 = v17;
+    result = GPUTools::MTL::Utils::DYMTLCounter::operator==(v15, v16);
     if (!result)
     {
       break;
     }
 
-    v18 = v19 - 1;
-    v17 += 6;
+    v17 = v18 - 1;
     v16 += 6;
+    v15 += 6;
   }
 
-  while (v19);
+  while (v18);
   return result;
 }
 
@@ -835,8 +818,7 @@ void GPUTools::MTL::Utils::MakeAliasResourceList(unint64_t *a1, const void **a2)
 
       else
       {
-        *v5 = v7;
-        v5 += 8;
+        *v5++ = v7;
       }
 
       a2[1] = v5;
@@ -900,7 +882,7 @@ LABEL_6:
 LABEL_14:
 }
 
-void **GPUTools::MTL::Utils::MakeDYMTLRenderPassDescriptor(uint64_t a1, void *a2)
+void **GPUTools::MTL::Utils::MakeDYMTLRenderPassDescriptor(unsigned int *a1, void *a2)
 {
   v4 = *a1;
   bzero(__src, 0x63BuLL);
@@ -930,9 +912,9 @@ void **GPUTools::MTL::Utils::MakeDYMTLRenderPassDescriptor(uint64_t a1, void *a2
   *&__src[89] = 0x3FF0000000000000;
   __src[90] = 0u;
   memcpy(a2, __src, 0x63BuLL);
-  *a2 = *(a1 + 8);
-  v26 = (a1 + 24);
-  for (j = *(a1 + 16); j != -1; ++v26)
+  *a2 = *(a1 + 1);
+  v26 = (a1 + 6);
+  for (j = *(a1 + 2); j != -1; ++v26)
   {
     GPUTools::MTL::Utils::MakeDYMTLRenderPassAttachmentDescriptor(&v26, &a2[18 * j + 2], v4);
     j = *v26;
@@ -1360,11 +1342,10 @@ LABEL_38:
 
 uint64_t GPUTools::MTL::Utils::MakeDYMTLTileRenderPipelineDescriptor(char *__s, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
   v3 = __s + 8;
   v4 = *__s;
   v5 = 0uLL;
-  memset(&v18[7], 0, 248);
+  memset(&v16[7], 0, 248);
   if (*(a2 + 23) < 0)
   {
     operator delete(*a2);
@@ -1378,22 +1359,22 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLTileRenderPipelineDescriptor(char *__s, 
   *(a2 + 48) = v5;
   *a2 = v5;
   *(a2 + 16) = v5;
-  *(a2 + 233) = *&v18[128];
-  *(a2 + 249) = *&v18[144];
-  *(a2 + 169) = *&v18[64];
-  *(a2 + 185) = *&v18[80];
-  *(a2 + 201) = *&v18[96];
-  *(a2 + 217) = *&v18[112];
-  *(a2 + 105) = *v18;
-  *(a2 + 121) = *&v18[16];
-  *(a2 + 137) = *&v18[32];
-  *(a2 + 153) = *&v18[48];
-  *(a2 + 297) = *&v18[192];
-  *(a2 + 313) = *&v18[208];
-  *(a2 + 329) = *&v18[224];
-  *(a2 + 344) = *&v18[239];
-  *(a2 + 265) = *&v18[160];
-  *(a2 + 281) = *&v18[176];
+  *(a2 + 233) = *&v16[128];
+  *(a2 + 249) = *&v16[144];
+  *(a2 + 169) = *&v16[64];
+  *(a2 + 185) = *&v16[80];
+  *(a2 + 201) = *&v16[96];
+  *(a2 + 217) = *&v16[112];
+  *(a2 + 105) = *v16;
+  *(a2 + 121) = *&v16[16];
+  *(a2 + 137) = *&v16[32];
+  *(a2 + 153) = *&v16[48];
+  *(a2 + 297) = *&v16[192];
+  *(a2 + 313) = *&v16[208];
+  *(a2 + 329) = *&v16[224];
+  *(a2 + 344) = *&v16[239];
+  *(a2 + 265) = *&v16[160];
+  *(a2 + 281) = *&v16[176];
   v6 = &v3[strlen(v3) & 0xFFFFFFFFFFFFFFF8];
   result = MEMORY[0x259C6C110](a2, v3);
   *(a2 + 24) = *(v6 + 1);
@@ -1433,34 +1414,35 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLTileRenderPipelineDescriptor(char *__s, 
     *(a2 + 128) = 0u;
     *(a2 + 144) = 0u;
     *(a2 + 112) = 0u;
-    v14 = *MEMORY[0x277D85DE8];
     return result;
   }
 
-  if (v4 < 0x1A)
+  if (v4 >= 0x1A)
   {
-    LODWORD(v13) = 31;
-    goto LABEL_12;
-  }
-
-  LODWORD(v13) = *(v8 + 2);
-  if (v13)
-  {
-    v12 = v8 + 2;
-LABEL_12:
-    v15 = (a2 + 112);
-    v13 = v13;
-    do
+    LODWORD(v13) = *(v8 + 2);
+    if (!v13)
     {
-      v16 = *v12++;
-      *v15++ = v16;
-      --v13;
+      return result;
     }
 
-    while (v13);
+    v12 = v8 + 2;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  else
+  {
+    LODWORD(v13) = 31;
+  }
+
+  v14 = (a2 + 112);
+  v13 = v13;
+  do
+  {
+    v15 = *v12++;
+    *v14++ = v15;
+    --v13;
+  }
+
+  while (v13);
   return result;
 }
 
@@ -1524,14 +1506,14 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLDeviceDescriptor(int *a1, uint64_t a2)
   *(a2 + 112) = *(a1 + 1);
   v7 = a1 + (strlen(a1 + 16) & 0xFFFFFFFFFFFFFFF8) + 16;
   result = MEMORY[0x259C6C110](a2 + 8, a1 + 4);
-  *(a2 + 120) = *(v7 + 8);
-  *(a2 + 128) = *(v7 + 16);
-  *(a2 + 136) = *(v7 + 24);
+  *(a2 + 120) = *(v7 + 1);
+  *(a2 + 128) = *(v7 + 2);
+  *(a2 + 136) = *(v7 + 3);
   v9 = v7 + 40;
-  *(a2 + 104) = *(v7 + 32);
+  *(a2 + 104) = v7[32];
   if (!*(a2 + 112))
   {
-    v10 = (v9 + (strlen((v7 + 40)) & 0xFFFFFFFFFFFFFFF8) + 8);
+    v10 = &v9[(strlen(v7 + 40) & 0xFFFFFFFFFFFFFFF8) + 8];
     MEMORY[0x259C6C110](a2 + 32, v7 + 40);
     v11 = &v10[(strlen(v10) & 0xFFFFFFFFFFFFFFF8) + 8];
     MEMORY[0x259C6C110](a2 + 56, v10);
@@ -1543,7 +1525,7 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLDeviceDescriptor(int *a1, uint64_t a2)
   }
 
   v13 = *a2;
-  if (*a2 < 0xCu || (*(a2 + 144) = *v9, *(a2 + 152) = *(v9 + 8), v13 <= 0xE))
+  if (*a2 < 0xCu || (*(a2 + 144) = *v9, *(a2 + 152) = *(v9 + 1), v13 <= 0xE))
   {
     *&v17 = -1;
     *(&v17 + 1) = -1;
@@ -1556,7 +1538,7 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLDeviceDescriptor(int *a1, uint64_t a2)
 
   else
   {
-    *(a2 + 107) = *(v9 + 16);
+    *(a2 + 107) = v9[16];
     *&v14 = -1;
     *(&v14 + 1) = -1;
     *(a2 + 184) = v14;
@@ -1566,25 +1548,25 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLDeviceDescriptor(int *a1, uint64_t a2)
     *(a2 + 248) = v14;
     if (v13 >= 0x19)
     {
-      v15 = *(v9 + 24);
+      v15 = *(v9 + 3);
       *(a2 + 184) = v15;
       if (v15 == -1)
       {
-        v16 = (v9 + 32);
+        v16 = v9 + 32;
       }
 
       else
       {
-        *(a2 + 192) = *(v9 + 32);
-        *(a2 + 200) = *(v9 + 40);
-        *(a2 + 208) = *(v9 + 48);
-        *(a2 + 216) = *(v9 + 56);
-        *(a2 + 224) = *(v9 + 64);
-        *(a2 + 232) = *(v9 + 72);
-        *(a2 + 240) = *(v9 + 80);
-        *(a2 + 248) = *(v9 + 88);
-        v16 = (v9 + 104);
-        *(a2 + 256) = *(v9 + 96);
+        *(a2 + 192) = *(v9 + 4);
+        *(a2 + 200) = *(v9 + 5);
+        *(a2 + 208) = *(v9 + 6);
+        *(a2 + 216) = *(v9 + 7);
+        *(a2 + 224) = *(v9 + 8);
+        *(a2 + 232) = *(v9 + 9);
+        *(a2 + 240) = *(v9 + 10);
+        *(a2 + 248) = *(v9 + 11);
+        v16 = v9 + 104;
+        *(a2 + 256) = *(v9 + 12);
       }
 
       if (v13 >= 0x1C)
@@ -1601,19 +1583,19 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLDeviceDescriptor(int *a1, uint64_t a2)
   return result;
 }
 
-void *GPUTools::MTL::Utils::MakeDYMTLComputePipelineDescriptor(uint64_t a1, char *a2)
+void *GPUTools::MTL::Utils::MakeDYMTLComputePipelineDescriptor(uint64_t a1, void **a2)
 {
   v4 = *a1;
-  if (a2[23] < 0)
+  if (*(a2 + 23) < 0)
   {
     operator delete(*a2);
   }
 
-  v5 = a2 + 1544;
+  v5 = (a2 + 193);
   bzero(a2, 0x702uLL);
-  *(a2 + 3) = *(a1 + 8);
+  a2[3] = *(a1 + 8);
   v6 = a1 + 24;
-  a2[1792] = *(a1 + 16) != 0;
+  *(a2 + 1792) = *(a1 + 16) != 0;
   v7 = strlen((a1 + 24));
   result = MEMORY[0x259C6C110](a2, v6);
   if (v4 < 0xB)
@@ -1689,26 +1671,26 @@ LABEL_14:
   }
 
   v23[93] = *v10;
-  result = memcpy(a2 + 40, v23, 0x5E0uLL);
+  result = memcpy(a2 + 5, v23, 0x5E0uLL);
 LABEL_18:
   if (v4 <= 0x11)
   {
 LABEL_21:
-    *(a2 + 223) = 0;
-    *(a2 + 1752) = 0u;
-    *(a2 + 1768) = 0u;
-    *(a2 + 1720) = 0u;
-    *(a2 + 1736) = 0u;
-    *(a2 + 1688) = 0u;
-    *(a2 + 1704) = 0u;
-    *(a2 + 1656) = 0u;
-    *(a2 + 1672) = 0u;
-    *(a2 + 1624) = 0u;
-    *(a2 + 1640) = 0u;
-    *(a2 + 1592) = 0u;
-    *(a2 + 1608) = 0u;
-    *(a2 + 1560) = 0u;
-    *(a2 + 1576) = 0u;
+    a2[223] = 0;
+    *(a2 + 219) = 0u;
+    *(a2 + 221) = 0u;
+    *(a2 + 215) = 0u;
+    *(a2 + 217) = 0u;
+    *(a2 + 211) = 0u;
+    *(a2 + 213) = 0u;
+    *(a2 + 207) = 0u;
+    *(a2 + 209) = 0u;
+    *(a2 + 203) = 0u;
+    *(a2 + 205) = 0u;
+    *(a2 + 199) = 0u;
+    *(a2 + 201) = 0u;
+    *(a2 + 195) = 0u;
+    *(a2 + 197) = 0u;
     *v5 = 0u;
     return result;
   }
@@ -1735,7 +1717,7 @@ LABEL_21:
     v22 = v20->i64[0];
     v20 = (v20 + 8);
     *v5 = v22;
-    v5 = (v5 + 8);
+    v5 += 8;
     --v21;
   }
 
@@ -1743,10 +1725,10 @@ LABEL_21:
 LABEL_26:
   if (v4 >= 0x1B)
   {
-    a2[1793] = v20->i32[0] == 0;
+    *(a2 + 1793) = v20->i32[0] == 0;
     if (v4 >= 0x25)
     {
-      *(a2 + 4) = v20->i64[1];
+      a2[4] = v20->i64[1];
     }
   }
 
@@ -2027,9 +2009,9 @@ void GPUTools::MTL::Utils::MakeDYMTLFunctionConstantValues(uint64_t a1, uint64_t
   }
 }
 
-void sub_257A84E08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257A84E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   GPUTools::MTL::Utils::DYMTLFunctionConstantValue::~DYMTLFunctionConstantValue(va);
   _Unwind_Resume(a1);
 }
@@ -2323,7 +2305,7 @@ LABEL_18:
   }
 }
 
-uint64_t GPUTools::MTL::Utils::MakeDYMTLMutableBufferAncestorMaps(uint64_t result, uint64_t a2)
+uint64_t GPUTools::MTL::Utils::MakeDYMTLMutableBufferAncestorMaps(uint64_t result, unint64_t *a2)
 {
   v11 = *(result + 8);
   if (v11)
@@ -2353,12 +2335,12 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLMutableBufferAncestorMaps(uint64_t resul
             v14 = *v3;
             v9 = v3[1];
             v21 = &v14;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v15, &v14)[3] = v9;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v15, &v14, &std::piecewise_construct, &v21)[3] = v9;
             v3 += 2;
           }
 
           v21 = &v18;
-          v10 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v19, &v18);
+          v10 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v19, &v18, &std::piecewise_construct, &v21);
           if (v10 + 3 != &v15)
           {
             *(v10 + 14) = i;
@@ -2383,17 +2365,17 @@ uint64_t GPUTools::MTL::Utils::MakeDYMTLMutableBufferAncestorMaps(uint64_t resul
   return result;
 }
 
-void sub_257A855C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_257A855C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t std::vector<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>::push_back[abi:ne200100](unint64_t *a1, uint64_t *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>::__emplace_back_slow_path<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>(a1, a2);
   }
@@ -2403,11 +2385,11 @@ uint64_t std::vector<std::unordered_map<unsigned long long,std::unordered_map<un
     result = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__hash_table(v3, a2) + 40;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-void GPUTools::MTL::Utils::MakeDYMTLIndirectArgumentBufferInfos(uint64_t a1, uint64_t a2)
+void GPUTools::MTL::Utils::MakeDYMTLIndirectArgumentBufferInfos(uint64_t a1, const void **a2)
 {
   v18 = *(a1 + 8);
   if (v18)
@@ -2518,11 +2500,11 @@ void sub_257A857C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<GPUTools::MTL::Utils::DYMTLIndirectArgumentBufferInfo>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<GPUTools::MTL::Utils::DYMTLIndirectArgumentBufferInfo>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -2564,8 +2546,8 @@ uint64_t std::vector<std::vector<GPUTools::MTL::Utils::DYMTLIndirectArgumentBuff
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -2582,14 +2564,14 @@ uint64_t std::vector<std::vector<GPUTools::MTL::Utils::DYMTLIndirectArgumentBuff
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -2851,28 +2833,28 @@ void GPUTools::MTL::Utils::MakeDYMTLRasterizationRateMapDescriptor(uint64_t a1, 
   }
 }
 
-void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::resize(void *a1, unint64_t a2)
+void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::resize(char **result, unint64_t a2)
 {
-  v3 = a1[1];
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((v3 - *a1) >> 3);
+  v3 = result[1];
+  v4 = 0x6DB6DB6DB6DB6DB7 * ((v3 - *result) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
   if (v6 != 0 && v5)
   {
 
-    std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::__append(a1, v6);
+    std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::__append(result, v6);
   }
 
   else if (!v5)
   {
-    v7 = *a1 + 56 * a2;
+    v7 = &(*result)[56 * a2];
     while (v3 != v7)
     {
       v3 -= 56;
-      std::allocator<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::destroy[abi:ne200100](a1, v3);
+      std::allocator<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::destroy[abi:ne200100](result, v3);
     }
 
-    a1[1] = v7;
+    result[1] = v7;
   }
 }
 
@@ -2887,7 +2869,7 @@ void GPUTools::MTL::Utils::DYMTLFunctionConstantValue::~DYMTLFunctionConstantVal
 GPUTools::MTL::Utils::DYMTLCounterSet *GPUTools::MTL::Utils::DYMTLCounterSet::DYMTLCounterSet(GPUTools::MTL::Utils::DYMTLCounterSet *this)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(this, "");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "");
   bzero(this + 48, 0x308uLL);
   return this;
 }
@@ -2902,7 +2884,7 @@ void sub_257A85FB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2916,13 +2898,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -2939,7 +2921,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::__vdeallocate(void **a1)
+void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -3010,23 +2992,20 @@ void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::_
   }
 }
 
-void *std::vector<float>::reserve(void *result, unint64_t a2)
+void std::vector<float>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3196,9 +3175,9 @@ uint64_t std::vector<GPUTools::MTL::Utils::DYMTLFunctionConstantValue>::__emplac
   return v17;
 }
 
-void sub_257A866A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_257A866A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<GPUTools::MTL::Utils::DYMTLFunctionConstantValue>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3231,7 +3210,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<GPUTools::MTL::Utils:
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GPUTools::MTL::Utils::DYMTLFunctionConstantValue>,GPUTools::MTL::Utils::DYMTLFunctionConstantValue*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GPUTools::MTL::Utils::DYMTLFunctionConstantValue>,GPUTools::MTL::Utils::DYMTLFunctionConstantValue*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   v14 = a4;
   v15 = a4;
@@ -3250,18 +3229,18 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GP
     do
     {
       v8 = *v7;
-      *(a4 + 16) = *(v7 + 16);
+      *(a4 + 16) = *(v7 + 2);
       *a4 = v8;
-      *(v7 + 8) = 0;
-      *(v7 + 16) = 0;
+      *(v7 + 1) = 0;
+      *(v7 + 2) = 0;
       *v7 = 0;
       v9 = *(v7 + 24);
-      *(a4 + 40) = *(v7 + 40);
+      *(a4 + 40) = *(v7 + 5);
       *(a4 + 24) = v9;
-      v10 = *(v7 + 48);
-      *(v7 + 48) = 0;
+      v10 = *(v7 + 6);
+      *(v7 + 6) = 0;
       *(a4 + 48) = v10;
-      v7 += 56;
+      v7 = (v7 + 56);
       a4 += 56;
     }
 
@@ -3271,7 +3250,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GP
     while (v5 != a3)
     {
       std::allocator<GPUTools::MTL::Utils::DYMTLFunctionConstantValue>::destroy[abi:ne200100](a1, v5);
-      v5 += 56;
+      v5 = (v5 + 56);
     }
   }
 
@@ -3460,12 +3439,12 @@ uint64_t std::vector<GPUTools::MTL::Utils::DYMTLPostVertexDumpOutput>::__emplace
   return v16;
 }
 
-void sub_257A86BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_257A86BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v4 + 23) < 0)
+  va_start(va, a7);
+  if (*(v7 + 23) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v7);
   }
 
   std::__split_buffer<GPUTools::MTL::Utils::DYMTLPostVertexDumpOutput>::~__split_buffer(va);
@@ -3482,7 +3461,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<GPUTools::MTL::Utils:
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GPUTools::MTL::Utils::DYMTLPostVertexDumpOutput>,GPUTools::MTL::Utils::DYMTLPostVertexDumpOutput*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GPUTools::MTL::Utils::DYMTLPostVertexDumpOutput>,GPUTools::MTL::Utils::DYMTLPostVertexDumpOutput*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   v13 = a4;
   v14 = a4;
@@ -3501,20 +3480,20 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GP
     do
     {
       v8 = *v7;
-      *(a4 + 16) = *(v7 + 16);
+      *(a4 + 16) = *(v7 + 2);
       *a4 = v8;
-      *(v7 + 8) = 0;
-      *(v7 + 16) = 0;
+      *(v7 + 1) = 0;
+      *(v7 + 2) = 0;
       *v7 = 0;
-      *(a4 + 24) = *(v7 + 24);
-      v9 = *(v7 + 32);
-      *(a4 + 48) = *(v7 + 48);
+      *(a4 + 24) = *(v7 + 3);
+      v9 = v7[2];
+      *(a4 + 48) = *(v7 + 6);
       *(a4 + 32) = v9;
-      *(v7 + 40) = 0;
-      *(v7 + 48) = 0;
-      *(v7 + 32) = 0;
-      *(a4 + 56) = *(v7 + 56);
-      v7 += 64;
+      *(v7 + 5) = 0;
+      *(v7 + 6) = 0;
+      *(v7 + 4) = 0;
+      *(a4 + 56) = *(v7 + 7);
+      v7 += 4;
       a4 += 64;
     }
 
@@ -3524,7 +3503,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GP
     while (v5 != a3)
     {
       std::allocator<GPUTools::MTL::Utils::DYMTLPostVertexDumpOutput>::destroy[abi:ne200100](a1, v5);
-      v5 += 64;
+      v5 += 4;
     }
   }
 
@@ -3597,33 +3576,33 @@ void std::__split_buffer<GPUTools::MTL::Utils::DYMTLPostVertexDumpOutput>::clear
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3631,73 +3610,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3705,49 +3684,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_257A87334(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257A87334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3798,7 +3777,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long l
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_multi<std::pair<unsigned long long const,unsigned long long> const&>();
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_multi<std::pair<unsigned long long const,unsigned long long> const&>(a1, a2 + 1);
   }
 }
 
@@ -3980,7 +3959,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3996,7 +3975,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long l
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -4004,7 +3983,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long l
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -4028,7 +4007,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long l
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -4055,21 +4034,21 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long l
   *(a1 + 8) = 0;
 }
 
-uint64_t std::vector<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>::__emplace_back_slow_path<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>(uint64_t a1, uint64_t *a2)
+uint64_t std::vector<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>::__emplace_back_slow_path<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>(unint64_t *a1, uint64_t *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x666666666666666)
   {
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
   {
     v6 = 0x666666666666666;
   }
@@ -4089,14 +4068,14 @@ uint64_t std::vector<std::unordered_map<unsigned long long,std::unordered_map<un
   v14 = 40 * v2;
   std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>>::__hash_table(40 * v2, a2);
   v15 = 40 * v2 + 40;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = 40 * v2 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>,std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -4105,9 +4084,9 @@ uint64_t std::vector<std::unordered_map<unsigned long long,std::unordered_map<un
   return v12;
 }
 
-void sub_257A87AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_257A87AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::unordered_map<unsigned long long,std::unordered_map<unsigned long long,unsigned long long>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4179,7 +4158,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::u
     while (v6 != a3)
     {
       std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,unsigned int>>>>::~__hash_table(v6);
-      v6 += 40;
+      v6 += 5;
     }
   }
 }
@@ -4253,20 +4232,20 @@ void std::__split_buffer<std::vector<GPUTools::MTL::Utils::DYMTLIndirectArgument
   }
 }
 
-void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::__append(uint64_t a1, unint64_t a2)
+void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::__append(char **a1, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (0x6DB6DB6DB6DB6DB7 * ((v4 - v5) >> 3) >= a2)
   {
     if (a2)
     {
       v10 = 56 * ((56 * a2 - 56) / 0x38) + 56;
-      bzero(*(a1 + 8), v10);
+      bzero(a1[1], v10);
       v5 += v10;
     }
 
-    *(a1 + 8) = v5;
+    a1[1] = v5;
   }
 
   else
@@ -4305,13 +4284,13 @@ void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::_
     v11 = 56 * ((56 * a2 - 56) / 0x38) + 56;
     bzero((56 * v6), v11);
     v18 = 56 * v6 + v11;
-    v12 = *(a1 + 8);
+    v12 = a1[1];
     v13 = (56 * v6 + *a1 - v12);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>,GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor*>(a1, *a1, v12, v13);
     v14 = *a1;
     *a1 = v13;
-    v15 = *(a1 + 16);
-    *(a1 + 8) = v18;
+    v15 = a1[2];
+    *(a1 + 1) = v18;
     *&v18 = v14;
     *(&v18 + 1) = v15;
     v16 = v14;
@@ -4320,9 +4299,9 @@ void std::vector<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::_
   }
 }
 
-void sub_257A87F40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257A87F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescriptor>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4441,15 +4420,15 @@ void std::__split_buffer<GPUTools::MTL::Utils::DYMTLRasterizationRateLayerDescri
   }
 }
 
-id DYGetMTLGuestAppClient()
+id DYGetMTLGuestAppClient(uint64_t a1, uint64_t a2)
 {
-  v1 = _guestAppClientMTL;
+  v3 = _guestAppClientMTL;
   if (!_guestAppClientMTL)
   {
     DYGetMTLGuestAppClient_cold_1();
   }
 
-  return v1;
+  return v3;
 }
 
 void DYMTLSetObjectRemappingBlock(void *a1, void *a2)
@@ -6285,7 +6264,7 @@ void sub_257A89D3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t GPUTools::MTL::CaptureHelper::SaveObject(id *this, MTLCompileOptions *a2, uint64_t a3)
+void *GPUTools::MTL::CaptureHelper::SaveObject(id *this, MTLCompileOptions *a2, uint64_t a3)
 {
   v5 = a2;
   if (v5)
@@ -8287,7 +8266,7 @@ void GPUTools::MTL::CaptureHelper::SaveObject(uint64_t a1, void *a2, uint64_t a3
 
   if (v5)
   {
-    [v5 maxThreadsPerThreadgroup];
+    objc_msgSend_maxThreadsPerThreadgroup(v5);
     v12 = v49;
   }
 
@@ -8314,7 +8293,7 @@ void GPUTools::MTL::CaptureHelper::SaveObject(uint64_t a1, void *a2, uint64_t a3
   *&v13[v14] = v12;
   if (v5)
   {
-    [v5 maxThreadsPerThreadgroup];
+    objc_msgSend_maxThreadsPerThreadgroup(v5);
     v15 = v50;
   }
 
@@ -8340,7 +8319,7 @@ void GPUTools::MTL::CaptureHelper::SaveObject(uint64_t a1, void *a2, uint64_t a3
   *&v16[v17] = v15;
   if (v5)
   {
-    [v5 maxThreadsPerThreadgroup];
+    objc_msgSend_maxThreadsPerThreadgroup(v5);
     v18 = v51;
   }
 
@@ -8567,7 +8546,7 @@ void sub_257A8D714(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t GPUTools::MTL::GetClientMemorySize(void *a1, void *a2, uint64_t *a3, unint64_t a4, unint64_t a5, unint64_t *a6, uint64_t *a7)
+uint64_t GPUTools::MTL::GetClientMemorySize(void *a1, void *a2, unint64_t *a3, unint64_t a4, unint64_t a5, size_t *a6, unint64_t *a7)
 {
   v11 = a1;
   v12 = a2;
@@ -8708,7 +8687,7 @@ uint64_t GPUTools::MTL::GetClientMemorySize(void *a1, void *a2, uint64_t *a3, un
 
 void GPUTools::MTL::CaptureHelper::EncodeChainedRenderPipelineStateInfo(GPUTools::MTL::CaptureHelper *a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v82[10] = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v51 = a5;
@@ -8888,13 +8867,13 @@ void GPUTools::MTL::CaptureHelper::EncodeChainedRenderPipelineStateInfo(GPUTools
     v37 = v48;
     v38 = v33;
     v39 = v51;
-    v82[0] = 0;
-    v40 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v37 requiringSecureCoding:1 error:v82];
-    v41 = v82[0];
+    v82 = 0;
+    v40 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v37 requiringSecureCoding:1 error:&v82];
+    v41 = v82;
     v81 = 0;
-    v42 = DYGetMTLGuestAppClient();
+    v43 = DYGetMTLGuestAppClient(v41, v42);
     [v40 length];
-    v43 = v40;
+    v44 = v40;
     [v40 bytes];
     GPUTools::Interpose::DYSavePointer();
 
@@ -8902,7 +8881,6 @@ void GPUTools::MTL::CaptureHelper::EncodeChainedRenderPipelineStateInfo(GPUTools
   }
 
   _Block_object_dispose(v79, 8);
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void sub_257A8E190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55)
@@ -8912,17 +8890,18 @@ void sub_257A8E190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void GPUTools::FB::Encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void GPUTools::FB::Encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = &a9;
-  GPUTools::FB::VAListArgumentProvider::VAListArgumentProvider(v9, &a9);
+  va_start(va, a8);
+  va_copy(v9, va);
+  GPUTools::FB::VAListArgumentProvider::VAListArgumentProvider(v8, va);
   GPUTools::FB::Encode();
-  GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(v9);
+  GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(v8);
 }
 
-void sub_257A8E37C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257A8E37C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(va);
   _Unwind_Resume(a1);
 }
@@ -8994,9 +8973,9 @@ LABEL_10:
   return v9 & 1;
 }
 
-void sub_257A8E578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_257A8E578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -9020,7 +8999,7 @@ void ___ZN8GPUTools3MTL13CaptureHelper36EncodeChainedRenderPipelineStateInfoEPNS
   Encode(*(a1 + 56), v5, 102, *(*(*(a1 + 40) + 8) + 24), *(a1 + 32));
 }
 
-void Encode(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
+void Encode(uint64_t a1, void *a2, uint64_t a3, unsigned int a4, void *a5)
 {
   v8 = a2;
   v6 = a5;
@@ -9172,23 +9151,23 @@ BOOL ___ZN8GPUTools3MTL13CaptureHelper27_EncodeImageBlockDataReturnEP27MTLRender
   return result;
 }
 
-uint64_t GPUTools::MTL::CaptureHelper::SaveObject(uint64_t a1, uint64_t a2, void *a3, void *a4)
+uint64_t GPUTools::MTL::CaptureHelper::SaveObject(char **a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a3;
-  v8 = *(a1 + 136);
+  v8 = a1[17];
   dispatch_semaphore_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
   v9 = *a1;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   if (v10 != *a1)
   {
-    *(a1 + 8) = v9;
+    a1[1] = v9;
     v10 = v9;
   }
 
   v11 = v10 - v9;
   if ((v10 - v9) > 0xFFFFFFFFFFFFFFF7)
   {
-    *(a1 + 8) = v10 + 8;
+    a1[1] = v10 + 8;
   }
 
   else
@@ -9199,10 +9178,10 @@ uint64_t GPUTools::MTL::CaptureHelper::SaveObject(uint64_t a1, uint64_t a2, void
 
   *&v9[v11] = 82;
   v12 = *a1;
-  v13 = *(a1 + 8) - *a1;
+  v13 = a1[1] - *a1;
   if (v13 > 0xFFFFFFFFFFFFFFF7)
   {
-    *(a1 + 8) = &v12[v13 + 8];
+    a1[1] = &v12[v13 + 8];
   }
 
   else
@@ -9214,10 +9193,10 @@ uint64_t GPUTools::MTL::CaptureHelper::SaveObject(uint64_t a1, uint64_t a2, void
   *&v12[v13] = a2;
   v14 = [v7 count];
   v15 = *a1;
-  v16 = *(a1 + 8) - *a1;
+  v16 = a1[1] - *a1;
   if (v16 > 0xFFFFFFFFFFFFFFF7)
   {
-    *(a1 + 8) = &v15[v16 + 8];
+    a1[1] = &v15[v16 + 8];
   }
 
   else
@@ -9233,8 +9212,8 @@ uint64_t GPUTools::MTL::CaptureHelper::SaveObject(uint64_t a1, uint64_t a2, void
   v19[3] = &__block_descriptor_40_e40_v32__0__MTLPostVertexDumpOutput_8Q16_B24l;
   v19[4] = a1;
   [v7 enumerateObjectsUsingBlock:v19];
-  memcpy(a4, *a1, *(a1 + 8) - *a1);
-  v17 = *(a1 + 8) - *a1;
+  memcpy(a4, *a1, a1[1] - *a1);
+  v17 = a1[1] - *a1;
   dispatch_semaphore_signal(v8);
 
   return v17;
@@ -9446,20 +9425,20 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<GPUTools::FB::Fbuf *>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void Encode(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void Encode(void *a1, void *a2, unsigned int a3, void *a4, uint64_t a5)
 {
-  v5 = *MEMORY[0x277D85DE8];
   a2;
   a4;
   operator new();
 }
 
+void Encode(uint64_t a1, void *a2, unsigned int a3, void *a4, uint64_t a5)
 {
-  v5 = a2;
+  v6 = a2;
   a4;
   if (objc_opt_respondsToSelector())
   {
-    [v5 argumentIndexStride];
+    [v6 argumentIndexStride];
   }
 
   operator new();
@@ -9494,17 +9473,17 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-void *std::vector<MTLSamplePosition>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<MTLSamplePosition>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<MTLSamplePosition>::__vallocate[abi:ne200100](result, a2);
+    std::vector<MTLSamplePosition>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_257A90BB4(_Unwind_Exception *exception_object)
@@ -9519,7 +9498,7 @@ void sub_257A90BB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MTLSamplePosition>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTLSamplePosition>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9557,11 +9536,11 @@ void DYInterposeArchiveFlushStream(void *a1, uint64_t a2, uint64_t a3, uint64_t 
 
 void DYInterposeArchiveStorePointer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:a4 length:a5 freeWhenDone:0];
-  v6 = DYGetMTLGuestAppClient();
-  v7 = [v6 localActiveArchive];
-  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:a3];
-  [v7 addFileWithName:v8 data:v9 options:0 error:0 waitUntilDone:1];
+  v10 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:a4 length:a5 freeWhenDone:0];
+  v7 = DYGetMTLGuestAppClient(v10, v6);
+  v8 = [v7 localActiveArchive];
+  v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:a3];
+  [v8 addFileWithName:v9 data:v10 options:0 error:0 waitUntilDone:1];
 }
 
 void sub_257A90E00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -9584,11 +9563,11 @@ void DYInterposeArchiveFlush(void)
 
 void ___Z23DYInterposeArchiveFlushv_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v8 = a2;
   v4 = a3;
-  v5 = DYGetMTLGuestAppClient();
-  v6 = [v5 localActiveArchive];
-  [v6 addFileWithName:v7 data:v4 options:0 error:0 waitUntilDone:1];
+  v6 = DYGetMTLGuestAppClient(v4, v5);
+  v7 = [v6 localActiveArchive];
+  [v7 addFileWithName:v8 data:v4 options:0 error:0 waitUntilDone:1];
 }
 
 void sub_257A90F38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -9600,10 +9579,10 @@ void sub_257A90F38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t DYDerivedCounterInfo::DYDerivedCounterInfo(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v42 = a3;
-  v39 = a4;
+  v41 = a3;
+  v38 = a4;
   *a1 = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 1065353216;
@@ -9623,95 +9602,95 @@ uint64_t DYDerivedCounterInfo::DYDerivedCounterInfo(uint64_t a1, void *a2, void 
   *(a1 + 200) = 1065353216;
   v8 = v7;
   *(a1 + 208) = v8;
-  v36 = *MEMORY[0x277D0B148];
-  v37 = v8;
+  v35 = *MEMORY[0x277D0B148];
+  v36 = v8;
   v9 = [v8 objectForKeyedSubscript:?];
   v10 = [v9 mutableCopy];
 
-  if (v39 && ([v39 containsString:@"AGX"] & 1) == 0)
+  if (v38 && ([v38 containsString:@"AGX"] & 1) == 0)
   {
-    v11 = [v37 objectForKeyedSubscript:@"Instruments"];
+    v11 = [v36 objectForKeyedSubscript:@"Instruments"];
     if (v11)
     {
-      v34 = v11;
-      v35 = [v11 objectForKeyedSubscript:@"Profiles"];
-      if (v35)
+      v33 = v11;
+      v34 = [v11 objectForKeyedSubscript:@"Profiles"];
+      if (v34)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = [v35 allKeys];
+          v12 = [v34 allKeys];
           v13 = v12;
           if (v12)
           {
-            v60 = 0u;
-            v61 = 0u;
-            v58 = 0u;
             v59 = 0u;
+            v60 = 0u;
+            v57 = 0u;
+            v58 = 0u;
             obj = v12;
-            v14 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+            v14 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
             if (v14)
             {
-              v32 = *v59;
+              v31 = *v58;
               do
               {
-                v33 = 0;
+                v32 = 0;
                 do
                 {
-                  if (*v59 != v32)
+                  if (*v58 != v31)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v15 = [v35 objectForKeyedSubscript:*(*(&v58 + 1) + 8 * v33)];
+                  v15 = [v34 objectForKeyedSubscript:*(*(&v57 + 1) + 8 * v32)];
                   if (v15)
                   {
-                    v31 = v15;
-                    v16 = [v15 objectForKeyedSubscript:v36];
-                    v56 = 0u;
-                    v57 = 0u;
-                    v54 = 0u;
+                    v30 = v15;
+                    v16 = [v15 objectForKeyedSubscript:v35];
                     v55 = 0u;
-                    v40 = v16;
-                    v17 = [v40 countByEnumeratingWithState:&v54 objects:v64 count:16];
+                    v56 = 0u;
+                    v53 = 0u;
+                    v54 = 0u;
+                    v39 = v16;
+                    v17 = [v39 countByEnumeratingWithState:&v53 objects:v63 count:16];
                     if (v17)
                     {
-                      v41 = *v55;
+                      v40 = *v54;
                       do
                       {
                         v18 = 0;
                         do
                         {
-                          if (*v55 != v41)
+                          if (*v54 != v40)
                           {
-                            objc_enumerationMutation(v40);
+                            objc_enumerationMutation(v39);
                           }
 
-                          v19 = [*(*(&v54 + 1) + 8 * v18) allValues];
-                          v53 = 0u;
-                          v51 = 0u;
+                          v19 = [*(*(&v53 + 1) + 8 * v18) allValues];
                           v52 = 0u;
                           v50 = 0u;
+                          v51 = 0u;
+                          v49 = 0u;
                           v20 = v19;
-                          v21 = [v20 countByEnumeratingWithState:&v50 objects:v63 count:16];
+                          v21 = [v20 countByEnumeratingWithState:&v49 objects:v62 count:16];
                           if (v21)
                           {
-                            v22 = *v51;
+                            v22 = *v50;
                             do
                             {
                               v23 = 0;
                               do
                               {
-                                if (*v51 != v22)
+                                if (*v50 != v22)
                                 {
                                   objc_enumerationMutation(v20);
                                 }
 
-                                [v10 removeObjectForKey:*(*(&v50 + 1) + 8 * v23++)];
+                                [v10 removeObjectForKey:*(*(&v49 + 1) + 8 * v23++)];
                               }
 
                               while (v21 != v23);
-                              v21 = [v20 countByEnumeratingWithState:&v50 objects:v63 count:16];
+                              v21 = [v20 countByEnumeratingWithState:&v49 objects:v62 count:16];
                             }
 
                             while (v21);
@@ -9721,20 +9700,20 @@ uint64_t DYDerivedCounterInfo::DYDerivedCounterInfo(uint64_t a1, void *a2, void 
                         }
 
                         while (v18 != v17);
-                        v17 = [v40 countByEnumeratingWithState:&v54 objects:v64 count:16];
+                        v17 = [v39 countByEnumeratingWithState:&v53 objects:v63 count:16];
                       }
 
                       while (v17);
                     }
 
-                    v15 = v31;
+                    v15 = v30;
                   }
 
-                  ++v33;
+                  ++v32;
                 }
 
-                while (v33 != v14);
-                v14 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+                while (v32 != v14);
+                v14 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
               }
 
               while (v14);
@@ -9743,14 +9722,14 @@ uint64_t DYDerivedCounterInfo::DYDerivedCounterInfo(uint64_t a1, void *a2, void 
         }
       }
 
-      v11 = v34;
+      v11 = v33;
     }
   }
 
   objc_storeStrong(location, v10);
-  if (v42)
+  if (v41)
   {
-    v24 = v42;
+    v24 = v41;
   }
 
   else
@@ -9758,28 +9737,28 @@ uint64_t DYDerivedCounterInfo::DYDerivedCounterInfo(uint64_t a1, void *a2, void 
     v24 = [*location allKeys];
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v43 = v24;
-  v25 = [v43 countByEnumeratingWithState:&v46 objects:v62 count:16];
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v42 = v24;
+  v25 = [v42 countByEnumeratingWithState:&v45 objects:v61 count:16];
   if (v25)
   {
-    v26 = *v47;
+    v26 = *v46;
     do
     {
       v27 = 0;
       do
       {
-        if (*v47 != v26)
+        if (*v46 != v26)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v42);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(__p, [*(*(&v46 + 1) + 8 * v27) UTF8String]);
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>((a1 + 168), __p);
-        if (v45 < 0)
+        std::string::basic_string[abi:ne200100]<0>(__p, [*(*(&v45 + 1) + 8 * v27) UTF8String]);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>((a1 + 168), __p, __p);
+        if (v44 < 0)
         {
           operator delete(__p[0]);
         }
@@ -9788,12 +9767,11 @@ uint64_t DYDerivedCounterInfo::DYDerivedCounterInfo(uint64_t a1, void *a2, void 
       }
 
       while (v25 != v27);
-      v25 = [v43 countByEnumeratingWithState:&v46 objects:v62 count:16];
+      v25 = [v42 countByEnumeratingWithState:&v45 objects:v61 count:16];
     }
 
     while (v25);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return a1;
 }

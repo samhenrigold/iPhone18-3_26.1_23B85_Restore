@@ -5,6 +5,7 @@
 - (void)_configureTitleLabelText;
 - (void)_keyboardWillShow:(id)show;
 - (void)dealloc;
+- (void)setUnlocking:(BOOL)unlocking;
 @end
 
 @implementation TSSIMUnlockDetailView
@@ -59,6 +60,21 @@
   v4.receiver = self;
   v4.super_class = TSSIMUnlockDetailView;
   [(TSSIMUnlockDetailView *)&v4 dealloc];
+}
+
+- (void)setUnlocking:(BOOL)unlocking
+{
+  if (self->_unlocking != unlocking)
+  {
+    unlockingCopy = unlocking;
+    self->_unlocking = unlocking;
+    entryView = [(TSSIMUnlockDetailView *)self entryView];
+    [entryView setUnlocking:unlockingCopy];
+
+    [(TSSIMUnlockDetailView *)self _configureTitleLabelText];
+
+    [(TSSIMUnlockDetailView *)self _configureDescriptionLabelText];
+  }
 }
 
 - (void)_keyboardWillShow:(id)show

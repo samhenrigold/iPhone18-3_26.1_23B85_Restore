@@ -176,49 +176,50 @@
     v5 = 1800.0;
   }
 
-  v6 = sub_100002880();
+  v6 = sub_100002880(v4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v40 = v5;
+    v42 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting timer to refresh beacon stats in %ld seconds", buf, 0xCu);
   }
 
   v7 = [FMDispatchTimer alloc];
   serialQueue = [(FMDSPStatusUtil *)self serialQueue];
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_1001E2C04;
-  v36[3] = &unk_1002CD518;
-  objc_copyWeak(&v37, &location);
-  v9 = [v7 initWithQueue:serialQueue timeout:v36 completion:v5];
+  v38[0] = _NSConcreteStackBlock;
+  v38[1] = 3221225472;
+  v38[2] = sub_1001E2C04;
+  v38[3] = &unk_1002CD518;
+  objc_copyWeak(&v39, &location);
+  v9 = [v7 initWithQueue:serialQueue timeout:v38 completion:v5];
   [(FMDSPStatusUtil *)self setTimer:v9];
 
   timer2 = [(FMDSPStatusUtil *)self timer];
   [timer2 start];
 
-  if (MKBDeviceUnlockedSinceBoot())
+  v11 = MKBDeviceUnlockedSinceBoot();
+  if (v11)
   {
     rawStats = [(FMDSPStatusUtil *)self rawStats];
-    v12 = [rawStats copy];
+    v13 = [rawStats copy];
 
-    v13 = [v12 mutableCopy];
+    v14 = [v13 mutableCopy];
     spFmipRegisterInfo = [(FMDSPStatusUtil *)self spFmipRegisterInfo];
     beaconZoneCreationErrorCode = [spFmipRegisterInfo beaconZoneCreationErrorCode];
-    [v13 fm_safelyMapKey:@"beaconZoneCreationErrorCode" toObject:beaconZoneCreationErrorCode];
+    [v14 fm_safelyMapKey:@"beaconZoneCreationErrorCode" toObject:beaconZoneCreationErrorCode];
 
     spFmipRegisterInfo2 = [(FMDSPStatusUtil *)self spFmipRegisterInfo];
     beaconZoneCreationDate = [spFmipRegisterInfo2 beaconZoneCreationDate];
-    [v13 fm_safelyMapKey:@"beaconZoneCreationDate" toObject:beaconZoneCreationDate];
+    [v14 fm_safelyMapKey:@"beaconZoneCreationDate" toObject:beaconZoneCreationDate];
 
     spFmipRegisterInfo3 = [(FMDSPStatusUtil *)self spFmipRegisterInfo];
     lastKeyRollDate = [spFmipRegisterInfo3 lastKeyRollDate];
-    [v13 fm_safelyMapKey:@"lastKeyRollDate" toObject:lastKeyRollDate];
+    [v14 fm_safelyMapKey:@"lastKeyRollDate" toObject:lastKeyRollDate];
 
-    v20 = [v13 copy];
-    [(FMDSPStatusUtil *)self setRawStats:v20];
+    v21 = [v14 copy];
+    [(FMDSPStatusUtil *)self setRawStats:v21];
 
-    v21 = [v12 isEqualToDictionary:v13];
+    v22 = [v13 isEqualToDictionary:v14];
     rawStats2 = [(FMDSPStatusUtil *)self rawStats];
     [FMPreferencesUtil setDictionary:rawStats2 forKey:off_1003139B8 inDomain:kFMDNotBackedUpPrefDomain];
 
@@ -230,11 +231,11 @@
     {
     }
 
-    else if (serviceState != SPServiceStateEnabled || ([(FMDSPStatusUtil *)self beaconZoneCreationDate], v27 = objc_claimAutoreleasedReturnValue(), v28 = v27 == 0, v27, !v28))
+    else if (serviceState != SPServiceStateEnabled || ([(FMDSPStatusUtil *)self beaconZoneCreationDate], v28 = objc_claimAutoreleasedReturnValue(), v29 = v28 == 0, v28, !v29))
     {
-      if (v21)
+      if (v22)
       {
-        statsChangeHandler = sub_100002880();
+        statsChangeHandler = sub_100002880(beaconZoneCreationErrorCode2);
         if (os_log_type_enabled(statsChangeHandler, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -244,32 +245,32 @@
 
       else
       {
-        v30 = sub_100002880();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v31 = sub_100002880(beaconZoneCreationErrorCode2);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Basic beacon stats do not show any failure. Sending the updated stats to the server", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Basic beacon stats do not show any failure. Sending the updated stats to the server", buf, 2u);
         }
 
         statsChangeHandler = [(FMDSPStatusUtil *)self statsChangeHandler];
         if (statsChangeHandler)
         {
-          v31 = dispatch_get_global_queue(0, 0);
+          v32 = dispatch_get_global_queue(0, 0);
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_1001E2C44;
           block[3] = &unk_1002CE250;
           statsChangeHandler = statsChangeHandler;
-          v35 = statsChangeHandler;
-          dispatch_async(v31, block);
+          v37 = statsChangeHandler;
+          dispatch_async(v32, block);
         }
       }
 
-      v32 = sub_100002880();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v34 = sub_100002880(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Canceling beacon stats refresh timer", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Canceling beacon stats refresh timer", buf, 2u);
       }
 
       timer3 = [(FMDSPStatusUtil *)self timer];
@@ -279,29 +280,29 @@
       goto LABEL_26;
     }
 
-    v26 = sub_100002880();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100002880(beaconZoneCreationErrorCode2);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Basic beacon stats is reporting a failure. Fetching detailed stats", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Basic beacon stats is reporting a failure. Fetching detailed stats", buf, 2u);
     }
 
-    [(FMDSPStatusUtil *)self _refreshDetailedStats:v21 ^ 1];
+    [(FMDSPStatusUtil *)self _refreshDetailedStats:v22 ^ 1];
 LABEL_26:
 
     goto LABEL_27;
   }
 
-  v12 = sub_100002880();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100002880(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Device not unlocked since boot. Will refresh beacon stats on next timer trigger.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Device not unlocked since boot. Will refresh beacon stats on next timer trigger.", buf, 2u);
   }
 
 LABEL_27:
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v39);
   objc_destroyWeak(&location);
 }
 

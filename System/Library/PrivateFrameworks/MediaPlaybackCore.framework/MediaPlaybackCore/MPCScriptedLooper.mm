@@ -136,7 +136,7 @@
 
 void __41__MPCScriptedLooper__executeCurrentScene__block_invoke(uint64_t a1)
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained currentScene];
   v4 = [v3 startFrame];
@@ -155,54 +155,54 @@ void __41__MPCScriptedLooper__executeCurrentScene__block_invoke(uint64_t a1)
 
     if (v8 == -1)
     {
-      v12 = objc_alloc(MEMORY[0x1E6970828]);
-      v13 = [*(a1 + 32) player];
-      v14 = [v13 currentItem];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __41__MPCScriptedLooper__executeCurrentScene__block_invoke_2;
-      v27[3] = &unk_1E8239578;
-      objc_copyWeak(&v28, (a1 + 40));
-      v15 = [v12 initWithName:*MEMORY[0x1E6987A10] object:v14 handler:v27];
-      [WeakRetained setItemDidPlayToEndObserver:v15];
+      v11 = objc_alloc(MEMORY[0x1E6970828]);
+      v12 = [*(a1 + 32) player];
+      v13 = [v12 currentItem];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __41__MPCScriptedLooper__executeCurrentScene__block_invoke_2;
+      v26[3] = &unk_1E8239578;
+      objc_copyWeak(&v27, (a1 + 40));
+      v14 = [v11 initWithName:*MEMORY[0x1E6987A10] object:v13 handler:v26];
+      [WeakRetained setItemDidPlayToEndObserver:v14];
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
     }
 
     else
     {
-      v25 = 0uLL;
-      v26 = 0;
+      v24 = 0uLL;
+      v25 = 0;
       v9 = *(a1 + 32);
       v10 = [v9 currentScene];
-      v11 = [v10 endFrame];
+      [v10 endFrame];
       if (v9)
       {
-        [v9 _CMTimeForFrame:v11 + 1];
+        objc_msgSend__CMTimeForFrame_(v9);
       }
 
       else
       {
-        v25 = 0uLL;
-        v26 = 0;
+        v24 = 0uLL;
+        v25 = 0;
       }
 
-      v16 = [*(a1 + 32) player];
+      v15 = [*(a1 + 32) player];
+      v22 = v24;
       v23 = v25;
-      v24 = v26;
-      v17 = [MEMORY[0x1E696B098] valueWithCMTime:&v23];
-      v29[0] = v17;
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
-      v19 = MEMORY[0x1E69E96A0];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __41__MPCScriptedLooper__executeCurrentScene__block_invoke_3;
-      v21[3] = &unk_1E8239500;
-      objc_copyWeak(&v22, (a1 + 40));
-      v20 = [v16 addBoundaryTimeObserverForTimes:v18 queue:MEMORY[0x1E69E96A0] usingBlock:v21];
-      [WeakRetained setTimeObserver:v20];
+      v16 = [MEMORY[0x1E696B098] valueWithCMTime:&v22];
+      v28[0] = v16;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+      v18 = MEMORY[0x1E69E96A0];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __41__MPCScriptedLooper__executeCurrentScene__block_invoke_3;
+      v20[3] = &unk_1E8239500;
+      objc_copyWeak(&v21, (a1 + 40));
+      v19 = [v15 addBoundaryTimeObserverForTimes:v17 queue:MEMORY[0x1E69E96A0] usingBlock:v20];
+      [WeakRetained setTimeObserver:v19];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v21);
     }
   }
 }
@@ -490,7 +490,7 @@ LABEL_40:
   v8 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -531,7 +531,7 @@ LABEL_40:
     goto LABEL_10;
   }
 
-  [(MPCScriptedLooper *)self _CMTimeForFrame:needed];
+  objc_msgSend__CMTimeForFrame_(self);
   value = time1.value;
   flags = time1.flags;
   timescale = time1.timescale;
@@ -919,11 +919,11 @@ void __48__MPCScriptedLooper_initWithAsset_audioSession___block_invoke(uint64_t 
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __48__MPCScriptedLooper_initWithAsset_audioSession___block_invoke_2(uint64_t result)
+void *__48__MPCScriptedLooper_initWithAsset_audioSession___block_invoke_2(void *result)
 {
-  if (*(*(*(result + 40) + 8) + 40))
+  if (*(*(result[5] + 8) + 40))
   {
-    return [*(*(*(result + 40) + 8) + 40) _createSceneCollectionForAssetWithPreloadedKeys:*(result + 32)];
+    return [*(*(result[5] + 8) + 40) _createSceneCollectionForAssetWithPreloadedKeys:result[4]];
   }
 
   return result;

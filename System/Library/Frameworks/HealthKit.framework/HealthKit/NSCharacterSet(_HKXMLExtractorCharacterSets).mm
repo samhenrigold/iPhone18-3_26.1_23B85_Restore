@@ -13,9 +13,9 @@
     +[NSCharacterSet(_HKXMLExtractorCharacterSets) hk_forwardSlashCharacterSet];
   }
 
-  v1 = hk_forwardSlashCharacterSet_sharedForwardSlashSet;
+  v2 = hk_forwardSlashCharacterSet_sharedForwardSlashSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)hk_percentCharacterSet
@@ -25,9 +25,9 @@
     +[NSCharacterSet(_HKXMLExtractorCharacterSets) hk_percentCharacterSet];
   }
 
-  v1 = hk_percentCharacterSet_sharedPercentSet;
+  v2 = hk_percentCharacterSet_sharedPercentSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)hk_equalCharacterSet
@@ -37,9 +37,9 @@
     +[NSCharacterSet(_HKXMLExtractorCharacterSets) hk_equalCharacterSet];
   }
 
-  v1 = hk_equalCharacterSet_sharedEqualSet;
+  v2 = hk_equalCharacterSet_sharedEqualSet;
 
-  return v1;
+  return v2;
 }
 
 @end

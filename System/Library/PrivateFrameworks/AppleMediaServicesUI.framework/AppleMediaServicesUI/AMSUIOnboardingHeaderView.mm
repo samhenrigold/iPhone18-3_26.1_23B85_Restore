@@ -14,10 +14,10 @@
 
 - (AMSUIOnboardingHeaderView)initWithFrame:(CGRect)frame
 {
-  v31[1] = *MEMORY[0x1E69E9840];
-  v30.receiver = self;
-  v30.super_class = AMSUIOnboardingHeaderView;
-  v3 = [(AMSUIOnboardingHeaderView *)&v30 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v30[1] = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = AMSUIOnboardingHeaderView;
+  v3 = [(AMSUIOnboardingHeaderView *)&v29 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
@@ -74,20 +74,19 @@
     [(AMSUIOnboardingHeaderView *)v3 setShowsVerticalScrollIndicator:0];
     [(AMSUIOnboardingHeaderView *)v3 setShowsHorizontalScrollIndicator:0];
     objc_initWeak(&location, v3);
-    v31[0] = objc_opt_class();
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __43__AMSUIOnboardingHeaderView_initWithFrame___block_invoke;
-    v27[3] = &unk_1E7F24690;
-    objc_copyWeak(&v28, &location);
-    v24 = [(AMSUIOnboardingHeaderView *)v3 registerForTraitChanges:v23 withHandler:v27];
+    v30[0] = objc_opt_class();
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __43__AMSUIOnboardingHeaderView_initWithFrame___block_invoke;
+    v26[3] = &unk_1E7F24690;
+    objc_copyWeak(&v27, &location);
+    v24 = [(AMSUIOnboardingHeaderView *)v3 registerForTraitChanges:v23 withHandler:v26];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

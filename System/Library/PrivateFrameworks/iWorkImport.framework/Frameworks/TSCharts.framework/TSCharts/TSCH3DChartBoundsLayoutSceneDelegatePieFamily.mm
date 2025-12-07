@@ -79,7 +79,7 @@
   v42 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v21, v23, v24, v25, v16);
   if (elementCopy)
   {
-    objc_msgSend_index(elementCopy, v41, v43, v44, v45);
+    objc_msgSend_index(elementCopy, v43, v44, v45);
   }
 
   else

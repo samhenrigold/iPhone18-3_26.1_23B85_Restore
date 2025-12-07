@@ -321,9 +321,9 @@ void __55__ICStorePlatformRequestOperation__enqueueDataRequest___block_invoke_3(
   dispatch_async(accessQueue, block);
 }
 
-uint64_t __41__ICStorePlatformRequestOperation_cancel__block_invoke(uint64_t result)
+void *__41__ICStorePlatformRequestOperation_cancel__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 296))
   {
     return [*(v1 + 312) cancelRequest:?];

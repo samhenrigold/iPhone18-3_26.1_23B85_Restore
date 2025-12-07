@@ -13,7 +13,7 @@ void __108___UIViewServiceSceneDelegate_badlyBehavedAppWantsUnnecessaryDelayForM
   else
   {
     v0 = _UIMainBundleIdentifier();
-    _MergedGlobals_1257 = [v0 isEqualToString:@"com.google.Dynamite.ShareExtension"];
+    _MergedGlobals_1257 = objc_msgSend_isEqualToString_(v0);
   }
 }
 

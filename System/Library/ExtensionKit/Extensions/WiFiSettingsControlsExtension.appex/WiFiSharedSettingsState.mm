@@ -28,21 +28,18 @@
 
 - (NSString)_wifiSettingsBundleIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC29WiFiSettingsControlsExtension23WiFiSharedSettingsState__wifiSettingsBundleIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC29WiFiSettingsControlsExtension23WiFiSharedSettingsState__wifiSettingsBundleIdentifier + 8);
 
-  v4 = sub_10001CC04();
+  v2 = sub_10001CC04();
 
-  return v4;
+  return v2;
 }
 
 - (void)set_wifiSettingsBundleIdentifier:(id)identifier
 {
   v4 = sub_10001CC14();
   v5 = (self + OBJC_IVAR____TtC29WiFiSettingsControlsExtension23WiFiSharedSettingsState__wifiSettingsBundleIdentifier);
-  v6 = *(self + OBJC_IVAR____TtC29WiFiSettingsControlsExtension23WiFiSharedSettingsState__wifiSettingsBundleIdentifier + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (NSString)wifiSettingsBundleIdentifier
@@ -52,12 +49,9 @@
   selfCopy = self;
   sub_10001CAA4();
 
-  v4 = *(selfCopy + OBJC_IVAR____TtC29WiFiSettingsControlsExtension23WiFiSharedSettingsState__wifiSettingsBundleIdentifier);
-  v5 = *(selfCopy + OBJC_IVAR____TtC29WiFiSettingsControlsExtension23WiFiSharedSettingsState__wifiSettingsBundleIdentifier + 8);
+  v4 = sub_10001CC04();
 
-  v6 = sub_10001CC04();
-
-  return v6;
+  return v4;
 }
 
 - (void)setWifiSettingsBundleIdentifier:(id)identifier

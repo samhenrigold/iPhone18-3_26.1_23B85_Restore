@@ -15,7 +15,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   announcement = [(_INPBSendAnnouncementIntent *)self announcement];
   dictionaryRepresentation = [announcement dictionaryRepresentation];
@@ -34,30 +34,30 @@
   if ([(NSArray *)self->_recipients count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = self->_recipients;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          dictionaryRepresentation3 = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -72,8 +72,6 @@
     v17 = [sharedUserID copy];
     [dictionary setObject:v17 forKeyedSubscript:@"sharedUserID"];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -282,7 +280,7 @@ LABEL_27:
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   toCopy = to;
   announcement = [(_INPBSendAnnouncementIntent *)self announcement];
 
@@ -302,51 +300,46 @@ LABEL_27:
 
   if ([(_INPBSendAnnouncementIntent *)self hasIsReply])
   {
-    isReply = self->_isReply;
     PBDataWriterWriteBOOLField();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v10 = self->_recipients;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v11)
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v9 = self->_recipients;
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v20;
+    v11 = v10;
+    v12 = *v16;
     do
     {
-      v14 = 0;
+      v13 = 0;
       do
       {
-        if (*v20 != v13)
+        if (*v16 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * v14);
         PBDataWriterWriteSubmessage();
-        ++v14;
+        ++v13;
       }
 
-      while (v12 != v14);
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      while (v11 != v13);
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
   sharedUserID = [(_INPBSendAnnouncementIntent *)self sharedUserID];
 
   if (sharedUserID)
   {
-    sharedUserID = self->_sharedUserID;
     PBDataWriterWriteStringField();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSharedUserID:(id)d

@@ -41,7 +41,7 @@
 - (BOOL)selectionInteraction:(id)interaction handleLassoSelection:(id)selection strokes:(id)strokes inAttachment:(id)attachment
 {
   type metadata accessor for UUID();
-  _s9Coherence9CRKeyPathVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  _s9Coherence9CRKeyPathVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   v10 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   interactionCopy = interaction;
   selectionCopy = selection;
@@ -129,18 +129,18 @@
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  v13 = &type metadata for PencilAndPaperFeatureFlags;
-  v14 = lazy protocol witness table accessor for type PencilAndPaperFeatureFlags and conformance PencilAndPaperFeatureFlags();
-  v12[0] = 0;
+  v12[3] = &type metadata for PencilAndPaperFeatureFlags;
+  v12[4] = lazy protocol witness table accessor for type PencilAndPaperFeatureFlags and conformance PencilAndPaperFeatureFlags();
+  LOBYTE(v12[0]) = 0;
   v7 = isFeatureEnabled(_:)();
   __swift_destroy_boxed_opaque_existential_0(v12);
-  if ((v7 & 1) != 0 || (v8 = CanvasViewSelectionInteractionDelegate.view(for:)(v15)) == 0)
+  if ((v7 & 1) != 0 || (v8 = CanvasViewSelectionInteractionDelegate.view(for:)(v13)) == 0)
   {
-    v17.origin.x = 0.0;
-    v17.origin.y = 0.0;
-    v17.size.width = 0.0;
-    v17.size.height = 0.0;
-    v10 = CGPathCreateWithRect(v17, 0);
+    v15.origin.x = 0.0;
+    v15.origin.y = 0.0;
+    v15.size.width = 0.0;
+    v15.size.height = 0.0;
+    v10 = CGPathCreateWithRect(v15, 0);
   }
 
   else
@@ -151,7 +151,7 @@
     selfCopy = v9;
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v15);
+  __swift_destroy_boxed_opaque_existential_0(v13);
 
   return v10;
 }
@@ -271,17 +271,18 @@
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  v11 = specialized CanvasViewSelectionInteractionDelegate.selectionInteraction(_:canPerformAction:withSender:inAttachment:)();
+  specialized CanvasViewSelectionInteractionDelegate.selectionInteraction(_:canPerformAction:withSender:inAttachment:)(action);
+  v13 = v12;
 
-  __swift_destroy_boxed_opaque_existential_0(&v13);
-  return v11 & 1;
+  __swift_destroy_boxed_opaque_existential_0(v15);
+  return v13 & 1;
 }
 
 - (id)selectionInteraction:(id)interaction pasteboardRepresentationsForElements:(id)elements strokes:(id)strokes inAttachment:(id)attachment
 {
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for UUID();
-  _s9Coherence9CRKeyPathVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  _s9Coherence9CRKeyPathVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   v10 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   interactionCopy = interaction;
   attachmentCopy = attachment;
@@ -290,7 +291,7 @@
 
   if (v14)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, &_sSDySSypGMR);
     v15.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -525,7 +526,7 @@
 
 - (void)selectionInteraction:(id)interaction handleGenerationToolForSelectedStrokes:(id)strokes inBounds:(CGRect)bounds inAttachment:(id)attachment
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   type metadata accessor for PKStroke();
@@ -543,7 +544,7 @@
   v14[5] = v10;
   _sScTss5NeverORs_rlE8detached4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntFZyt_Tt2g5(0, 0, v9, &async function pointer to partial apply for closure #1 in CanvasViewSelectionInteractionDelegate.selectionInteraction(_:handleGenerationToolForSelectedStrokes:inBounds:inAttachment:), v14);
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v9, &_sScPSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v9, &_sScPSgMd, &_sScPSgMR);
 }
 
 - (void)selectionInteraction:(id)interaction replaceStrokes:(id)strokes withString:(id)string proofreadingItem:(id)item inBounds:(CGRect)bounds inAttachment:(id)attachment

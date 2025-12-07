@@ -78,7 +78,7 @@ LABEL_12:
   return v11 & 1;
 }
 
-uint64_t __71__HUStringInLabelTapGestureRecognizerAccessibility_shouldReceiveEvent___block_invoke(uint64_t a1)
+void *__71__HUStringInLabelTapGestureRecognizerAccessibility_shouldReceiveEvent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _didTapAttributedTextInLabel:*(a1 + 40) targetRange:*(a1 + 64) event:{*(a1 + 72), *(a1 + 48)}];
   *(*(*(a1 + 56) + 8) + 24) = result;

@@ -292,7 +292,7 @@ uint64_t __57__ICTableColumnWidthManager_calculateIdealWidthOfColumn___block_inv
 
         v11 = *(*(&v32 + 1) + 8 * i);
         cachedActualColumnWidths = [(ICTableColumnWidthManager *)self cachedActualColumnWidths];
-        v13 = [cachedActualColumnWidths objectForKeyedSubscript:v11];
+        v13 = objc_msgSend_objectForKeyedSubscript_(cachedActualColumnWidths);
 
         if (v13)
         {
@@ -336,9 +336,9 @@ uint64_t __57__ICTableColumnWidthManager_calculateIdealWidthOfColumn___block_inv
         }
 
         v19 = *(*(&v28 + 1) + 8 * j);
-        v20 = [v5 objectForKeyedSubscript:v19];
+        v20 = objc_msgSend_objectForKeyedSubscript_(v5);
         cachedActualColumnWidths2 = [(ICTableColumnWidthManager *)self cachedActualColumnWidths];
-        v22 = [cachedActualColumnWidths2 objectForKeyedSubscript:v19];
+        v22 = objc_msgSend_objectForKeyedSubscript_(cachedActualColumnWidths2);
         v23 = [v20 isEqual:v22];
 
         if (v23)
@@ -493,13 +493,13 @@ uint64_t __57__ICTableColumnWidthManager_calculateIdealWidthOfColumn___block_inv
           }
 
           v29 = *(*(&v48 + 1) + 8 * i);
-          v30 = [v9 objectForKeyedSubscript:v29];
+          v30 = objc_msgSend_objectForKeyedSubscript_(v9);
           [v30 doubleValue];
           v32 = v31;
 
           v33 = v68[3];
           cachedMinimumColumnWidths = [(ICTableColumnWidthManager *)self cachedMinimumColumnWidths];
-          v35 = [cachedMinimumColumnWidths objectForKeyedSubscript:v29];
+          v35 = objc_msgSend_objectForKeyedSubscript_(cachedMinimumColumnWidths);
           [v35 doubleValue];
           v37 = v36;
 
@@ -508,7 +508,7 @@ uint64_t __57__ICTableColumnWidthManager_calculateIdealWidthOfColumn___block_inv
             v37 = v32 * (v20 / v33);
           }
 
-          v38 = [cachedActualColumnWidths objectForKeyedSubscript:v29];
+          v38 = objc_msgSend_objectForKeyedSubscript_(cachedActualColumnWidths);
           [v38 doubleValue];
           v39 = floor(v37);
           v41 = v40 != v39;
@@ -545,7 +545,7 @@ void __52__ICTableColumnWidthManager_recalculateActualWidths__block_invoke(uint6
   v12 = a2;
   ++*(*(*(a1 + 48) + 8) + 24);
   v6 = [*(a1 + 32) cachedIdealColumnWidths];
-  v7 = [v6 objectForKeyedSubscript:v12];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v6);
   [v7 doubleValue];
   v9 = v8;
 
@@ -573,13 +573,13 @@ void __52__ICTableColumnWidthManager_recalculateActualWidths__block_invoke(uint6
 
 uint64_t __52__ICTableColumnWidthManager_recalculateActualWidths__block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = [v5 objectForKeyedSubscript:a2];
-  v8 = [*(a1 + 32) objectForKeyedSubscript:v6];
+  v4 = *(a1 + 32);
+  v5 = a3;
+  v6 = objc_msgSend_objectForKeyedSubscript_(v4);
+  v7 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 32));
 
-  v9 = [v7 compare:v8];
-  return v9;
+  v8 = [v6 compare:v7];
+  return v8;
 }
 
 - (ICTable)table

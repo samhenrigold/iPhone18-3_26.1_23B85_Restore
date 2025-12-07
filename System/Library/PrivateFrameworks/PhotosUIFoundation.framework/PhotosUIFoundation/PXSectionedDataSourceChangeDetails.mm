@@ -145,28 +145,25 @@
   return v10;
 }
 
-void *__110__PXSectionedDataSourceChangeDetails_indexPathSetAfterRevertingChangesFromIndexPathSet_hasIncrementalChanges___block_invoke(void *a1, __int128 *a2)
+void *__110__PXSectionedDataSourceChangeDetails_indexPathSetAfterRevertingChangesFromIndexPathSet_hasIncrementalChanges___block_invoke(void *a1, const char *a2)
 {
-  v10 = 0;
-  v8 = 0u;
-  v9 = 0u;
+  v8 = 0;
+  v6 = 0u;
+  v7 = 0u;
   result = a1[4];
   if (result)
   {
-    v4 = a2[1];
-    v6 = *a2;
-    v7 = v4;
-    result = [result indexPathAfterRevertingChangesFromIndexPath:&v6 hasIncrementalChanges:&v10 objectChanged:0 changedProperties:0];
-    if (v8)
+    result = objc_msgSend_indexPathAfterRevertingChangesFromIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(result, *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3));
+    if (v6)
     {
-      v5 = a1[5];
-      v6 = v8;
-      v7 = v9;
-      result = [v5 addIndexPath:&v6];
+      v4 = a1[5];
+      v5[0] = v6;
+      v5[1] = v7;
+      result = [v4 addIndexPath:v5];
     }
   }
 
-  *(*(a1[6] + 8) + 24) &= v10;
+  *(*(a1[6] + 8) + 24) &= v8;
   return result;
 }
 
@@ -531,7 +528,7 @@ LABEL_8:
   v6 = *&changes->item;
   v8[0] = *&changes->dataSourceIdentifier;
   v8[1] = v6;
-  return [(PXSectionedDataSourceChangeDetails *)self indexPathAfterRevertingChangesFromIndexPath:v8 hasIncrementalChanges:changed objectChanged:a6 changedProperties:0];
+  return objc_msgSend_indexPathAfterRevertingChangesFromIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(self, path, v8, changed, a6, 0);
 }
 
 - (PXSimpleIndexPath)indexPathAfterApplyingChangesToIndexPath:(SEL)path hasIncrementalChanges:(PXSimpleIndexPath *)changes objectChanged:(BOOL *)changed changedProperties:(BOOL *)properties
@@ -695,7 +692,7 @@ LABEL_25:
   v6 = *&changes->item;
   v8[0] = *&changes->dataSourceIdentifier;
   v8[1] = v6;
-  return [(PXSectionedDataSourceChangeDetails *)self indexPathAfterApplyingChangesToIndexPath:v8 hasIncrementalChanges:changed objectChanged:a6 changedProperties:0];
+  return objc_msgSend_indexPathAfterApplyingChangesToIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(self, path, v8, changed, a6, 0);
 }
 
 void __69__PXSectionedDataSourceChangeDetails_hasAnyInsertionsRemovalsOrMoves__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -1168,7 +1165,7 @@ LABEL_37:
           }
 
           v39 = *(*(&v97 + 1) + 8 * j);
-          if (!v39 || (v89 = identifier4, v90 = v37, v91 = v35, v92 = v34, [v39 indexPathAfterApplyingChangesToIndexPath:&v89 hasIncrementalChanges:0 objectChanged:0 changedProperties:0], (identifier4 = v93) == 0))
+          if (!v39 || (v89 = identifier4, v90 = v37, v91 = v35, v92 = v34, objc_msgSend_indexPathAfterApplyingChangesToIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(v39), (identifier4 = v93) == 0))
           {
 
             v19 = v36;
@@ -1317,7 +1314,7 @@ LABEL_69:
           }
 
           v60 = *(*(&v81 + 1) + 8 * m);
-          if (!v60 || (v89 = identifier5, v90 = v57, v91 = v58, v92 = v55, [v60 indexPathAfterRevertingChangesFromIndexPath:&v89 hasIncrementalChanges:0 objectChanged:0 changedProperties:0], (identifier5 = v93) == 0))
+          if (!v60 || (v89 = identifier5, v90 = v57, v91 = v58, v92 = v55, objc_msgSend_indexPathAfterRevertingChangesFromIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(v60), (identifier5 = v93) == 0))
           {
 
             v11 = v71;
@@ -1724,7 +1721,7 @@ double __137__PXSectionedDataSourceChangeDetails_indexPathAfterRevertingChanges_
   v5 = *(v4 + 48);
   v9[0] = *(v4 + 32);
   v9[1] = v5;
-  [a2 indexPathAfterRevertingChangesFromIndexPath:v9 hasIncrementalChanges:&v12 objectChanged:&v12 + 1 changedProperties:v3];
+  objc_msgSend_indexPathAfterRevertingChangesFromIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(a2, a2, v9, &v12, &v12 + 1, v3);
   v6 = *(a1[5] + 8);
   result = *&v10;
   v8 = v11;
@@ -1740,84 +1737,68 @@ double __137__PXSectionedDataSourceChangeDetails_indexPathAfterRevertingChanges_
   v7 = *&incrementalChanges->item;
   v9[0] = *&incrementalChanges->dataSourceIdentifier;
   v9[1] = v7;
-  return [a2 indexPathAfterRevertingChanges:path fromIndexPath:v9 hasIncrementalChanges:changed objectChanged:a7 changedProperties:0];
+  return objc_msgSend_indexPathAfterRevertingChanges_fromIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(a2, changes, path, v9, changed, a7, 0);
 }
 
 + (PXSimpleIndexPath)indexPathAfterApplyingChanges:(SEL)changes toIndexPath:(id)path hasIncrementalChanges:(PXSimpleIndexPath *)incrementalChanges objectChanged:(BOOL *)changed changedProperties:(BOOL *)properties
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v14 = a8;
   v15 = *&incrementalChanges->item;
   *&retstr->dataSourceIdentifier = *&incrementalChanges->dataSourceIdentifier;
   *&retstr->item = v15;
-  v33 = 0u;
-  v34 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v16 = [pathCopy count] != 0;
-  v35 = 0u;
-  v36 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v17 = pathCopy;
-  v18 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = 0;
-    v21 = *v34;
+    v20 = *v27;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v34 != v21)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v33 + 1) + 8 * i);
-        v32 = 0;
-        if (v23)
+        v22 = *(*(&v26 + 1) + 8 * i);
+        if (v22)
         {
-          v24 = *&retstr->item;
-          v29[0] = *&retstr->dataSourceIdentifier;
-          v29[1] = v24;
-          [v23 indexPathAfterApplyingChangesToIndexPath:v29 hasIncrementalChanges:&v32 objectChanged:&v32 + 1 changedProperties:v14];
-          v25 = v32;
-          v26 = HIBYTE(v32);
+          objc_msgSend_indexPathAfterApplyingChangesToIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(v22, retstr->dataSourceIdentifier, retstr->section, retstr->item, retstr->subitem);
         }
 
         else
         {
-          v25 = 0;
-          v26 = 0;
-          v30 = 0u;
-          v31 = 0u;
+          v24 = 0u;
+          v25 = 0u;
         }
 
-        v27 = v31;
-        *&retstr->dataSourceIdentifier = v30;
-        *&retstr->item = v27;
-        v20 |= v26;
-        v16 &= v25;
+        *&retstr->dataSourceIdentifier = v24;
+        *&retstr->item = v25;
+        v16 = 0;
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v19);
   }
 
-  else
-  {
-    v20 = 0;
-  }
-
   if (properties)
   {
-    *properties = v20 & 1;
+    *properties = 0;
   }
 
   if (changed)
   {
-    *changed = v16 & 1;
+    *changed = v16;
   }
 
   return result;
@@ -1828,7 +1809,7 @@ double __137__PXSectionedDataSourceChangeDetails_indexPathAfterRevertingChanges_
   v7 = *&incrementalChanges->item;
   v9[0] = *&incrementalChanges->dataSourceIdentifier;
   v9[1] = v7;
-  return [a2 indexPathAfterApplyingChanges:path toIndexPath:v9 hasIncrementalChanges:changed objectChanged:a7 changedProperties:0];
+  return objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(a2, changes, path, v9, changed, a7, 0);
 }
 
 @end

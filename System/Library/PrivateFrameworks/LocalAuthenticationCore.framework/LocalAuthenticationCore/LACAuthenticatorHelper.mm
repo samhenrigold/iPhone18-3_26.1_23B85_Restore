@@ -11,10 +11,9 @@
 
 - (LACADMUserProviding)userProvider
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACAuthenticatorHelper_userProvider);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 + (LACAuthenticatorHelper)sharedInstance

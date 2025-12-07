@@ -806,9 +806,9 @@ LABEL_13:
 {
   viewCopy = view;
   [(MapsAppTest *)self willSetupForVKTest];
-  options = [(MapsAppTest *)self options];
+  v5 = objc_msgSend_options(self);
   v10 = 0uLL;
-  [options _mapstest_getSelectedFeatures:&v10 disabled:&v10 + 8];
+  [v5 _mapstest_getSelectedFeatures:&v10 disabled:&v10 + 8];
   v6 = *(&v10 + 1);
   if (v10 != 0)
   {
@@ -833,22 +833,22 @@ LABEL_13:
     [viewCopy setDisableTransitLines:(*(&v10 + 1) >> 8) & 1];
   }
 
-  if ([options _mapstest_hasMapType])
+  if ([v5 _mapstest_hasMapType])
   {
-    [options _mapstest_hasViewMode];
+    [v5 _mapstest_hasViewMode];
   }
 
-  if ([options _mapstest_hasViewMode])
+  if ([v5 _mapstest_hasViewMode])
   {
-    -[MapsAppTest switchToViewMode:](self, "switchToViewMode:", [options _mapstest_viewMode]);
+    -[MapsAppTest switchToViewMode:](self, "switchToViewMode:", [v5 _mapstest_viewMode]);
   }
 
   else
   {
-    -[MapsAppTest switchToMapType:](self, "switchToMapType:", [options _mapstest_mapType]);
+    -[MapsAppTest switchToMapType:](self, "switchToMapType:", [v5 _mapstest_mapType]);
   }
 
-  v7 = [options objectForKeyedSubscript:@"selectedFeatureId"];
+  v7 = [v5 objectForKeyedSubscript:@"selectedFeatureId"];
   if (v7)
   {
     v8 = [NSScanner scannerWithString:v7];
@@ -1041,8 +1041,8 @@ LABEL_15:
 
 - (NSArray)serialSubTests
 {
-  options = [(MapsAppTest *)self options];
-  _mapstest_serialSubTests = [options _mapstest_serialSubTests];
+  v2 = objc_msgSend_options(self, a2);
+  _mapstest_serialSubTests = [v2 _mapstest_serialSubTests];
 
   return _mapstest_serialSubTests;
 }

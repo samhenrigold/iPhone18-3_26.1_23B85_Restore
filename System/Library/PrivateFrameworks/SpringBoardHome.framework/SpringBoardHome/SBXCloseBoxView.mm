@@ -16,67 +16,69 @@
   return v3;
 }
 
-void __38__SBXCloseBoxView_defaultContentImage__block_invoke()
+void __38__SBXCloseBoxView_defaultContentImage__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = __sb__runningInSpringBoard();
-  v3 = v2;
-  if (v2)
+  v4 = __sb__runningInSpringBoard();
+  v5 = v4;
+  if (v4)
   {
     if (SBFEffectiveDeviceClass() != 2)
     {
-      v12 = @"IconCloseBoxX";
+      v6 = @"IconCloseBoxX";
+      v15 = @"IconCloseBoxX";
       goto LABEL_15;
     }
   }
 
   else
   {
-    v0 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v0 userInterfaceIdiom] != 1)
+    v2 = [MEMORY[0x1E69DC938] currentDevice];
+    if ([v2 userInterfaceIdiom] != 1)
     {
-      v12 = @"IconCloseBoxX";
+      v15 = @"IconCloseBoxX";
 LABEL_14:
 
       goto LABEL_15;
     }
   }
 
-  v4 = __sb__runningInSpringBoard();
-  v5 = v4;
-  if (v4)
+  v7 = __sb__runningInSpringBoard();
+  v8 = v7;
+  if (v7)
   {
     __sb__mainScreenReferenceBounds();
   }
 
   else
   {
-    v1 = [MEMORY[0x1E69DCEB0] mainScreen];
-    [v1 _referenceBounds];
+    v3 = [MEMORY[0x1E69DCEB0] mainScreen];
+    [v3 _referenceBounds];
   }
 
   BSSizeRoundForScale();
-  v6 = @"IconCloseBoxXLarge";
-  if (v7 < *(MEMORY[0x1E69D4380] + 280))
+  v9 = @"IconCloseBoxXLarge";
+  if (v10 < *(MEMORY[0x1E69D4380] + 280))
   {
-    v6 = @"IconCloseBoxX";
+    v9 = @"IconCloseBoxX";
   }
 
-  v12 = v6;
+  v6 = v9;
+  v15 = v6;
+  if ((v8 & 1) == 0)
+  {
+  }
+
   if ((v5 & 1) == 0)
-  {
-  }
-
-  if ((v3 & 1) == 0)
   {
     goto LABEL_14;
   }
 
 LABEL_15:
-  v8 = MEMORY[0x1E69DCAB8];
-  v9 = SBHBundle();
-  v10 = [v8 imageNamed:v12 inBundle:v9];
-  v11 = defaultContentImage___image;
-  defaultContentImage___image = v10;
+  v11 = MEMORY[0x1E69DCAB8];
+  v12 = SBHBundle(v6);
+  v13 = [v11 imageNamed:v15 inBundle:v12];
+  v14 = defaultContentImage___image;
+  defaultContentImage___image = v13;
 }
 
 @end

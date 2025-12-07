@@ -529,7 +529,7 @@ CRKResource *__56__CRKHostResourcesOperation_delegateResourcesDidPublish__block_
 - (void)IPAddressDidChange
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = _CRKLogOperation_1();
+  v3 = _CRKLogOperation_1(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     iPAddressProvider = [(CRKHostResourcesConfiguration *)self->mConfiguration IPAddressProvider];
@@ -566,32 +566,33 @@ CRKResource *__56__CRKHostResourcesOperation_delegateResourcesDidPublish__block_
 
 void __88__CRKHostResourcesOperation_netService_didAcceptConnectionWithInputStream_outputStream___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) isExecuting])
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) isExecuting];
+  if (v2)
   {
-    v2 = _CRKLogOperation_1();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _CRKLogOperation_1(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
-      v9 = 138543362;
-      v10 = v3;
-      _os_log_impl(&dword_243550000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Net service did accept connection", &v9, 0xCu);
+      v4 = *(a1 + 32);
+      v10 = 138543362;
+      v11 = v4;
+      _os_log_impl(&dword_243550000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Net service did accept connection", &v10, 0xCu);
     }
 
-    v4 = [objc_alloc(MEMORY[0x277CF9548]) initWithInputStream:*(a1 + 40) outputStream:*(a1 + 48)];
-    [v4 setDelegate:*(a1 + 32)];
-    v5 = [*(a1 + 32) hostingSocketOptions];
-    [v4 setSocketOptions:v5];
+    v5 = [objc_alloc(MEMORY[0x277CF9548]) initWithInputStream:*(a1 + 40) outputStream:*(a1 + 48)];
+    [v5 setDelegate:*(a1 + 32)];
+    v6 = [*(a1 + 32) hostingSocketOptions];
+    [v5 setSocketOptions:v6];
 
-    [*(*(a1 + 32) + 416) addObject:v4];
-    v6 = [*(*(a1 + 32) + 376) trustedCertificates];
-    v7 = [v6 crk_mapUsingBlock:&__block_literal_global_72];
+    [*(*(a1 + 32) + 416) addObject:v5];
+    v7 = [*(*(a1 + 32) + 376) trustedCertificates];
+    v8 = [v7 crk_mapUsingBlock:&__block_literal_global_72];
 
-    v8 = [*(*(a1 + 32) + 376) serverIdentity];
-    [v4 secureUsingServerIdentity:objc_msgSend(v8 trustedCertificates:{"underlyingIdentity"), v7}];
+    v9 = [*(*(a1 + 32) + 376) serverIdentity];
+    [v5 secureUsingServerIdentity:objc_msgSend(v9 trustedCertificates:{"underlyingIdentity"), v8}];
 
-    [v4 scheduleStreams];
-    [v4 open];
+    [v5 scheduleStreams];
+    [v5 open];
   }
 }
 
@@ -612,13 +613,13 @@ uint64_t __88__CRKHostResourcesOperation_netService_didAcceptConnectionWithInput
   [MEMORY[0x277CBEB88] cat_performBlockOnMainRunLoop:v3];
 }
 
-uint64_t __50__CRKHostResourcesOperation_netServiceDidPublish___block_invoke(uint64_t a1)
+void *__50__CRKHostResourcesOperation_netServiceDidPublish___block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isExecuting];
   if (result)
   {
-    v3 = _CRKLogOperation_1();
+    v3 = _CRKLogOperation_1(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
@@ -658,8 +659,8 @@ void __54__CRKHostResourcesOperation_netService_didNotPublish___block_invoke(uin
     v5 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x277CBAAB8]];
     v6 = [v3 errorWithDomain:v4 code:objc_msgSend(v5 userInfo:{"integerValue"), *(a1 + 40)}];
 
-    v7 = _CRKLogOperation_1();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CRKLogOperation_1(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __54__CRKHostResourcesOperation_netService_didNotPublish___block_invoke_cold_1(v2, v6);
     }
@@ -678,13 +679,13 @@ void __54__CRKHostResourcesOperation_netService_didNotPublish___block_invoke(uin
   [MEMORY[0x277CBEB88] cat_performBlockOnMainRunLoop:v3];
 }
 
-uint64_t __47__CRKHostResourcesOperation_netServiceDidStop___block_invoke(uint64_t a1)
+void *__47__CRKHostResourcesOperation_netServiceDidStop___block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isExecuting];
   if (result)
   {
-    v3 = _CRKLogOperation_1();
+    v3 = _CRKLogOperation_1(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
@@ -710,57 +711,59 @@ uint64_t __47__CRKHostResourcesOperation_netServiceDidStop___block_invoke(uint64
 
 - (void)connection:(id)connection didReceiveDataRequestWithURL:(id)l
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   lCopy = l;
-  if ([(CRKHostResourcesOperation *)self isExecuting])
+  isExecuting = [(CRKHostResourcesOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v8 = _CRKLogOperation_1();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _CRKLogOperation_1(isExecuting);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       absoluteString = [lCopy absoluteString];
       *buf = 138543874;
       selfCopy = self;
-      v22 = 2114;
-      v23 = connectionCopy;
       v24 = 2114;
-      v25 = absoluteString;
-      _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ did receive request for URL %{public}@", buf, 0x20u);
+      v25 = connectionCopy;
+      v26 = 2114;
+      v27 = absoluteString;
+      _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ did receive request for URL %{public}@", buf, 0x20u);
     }
 
     mFileURLsByFilePath = self->mFileURLsByFilePath;
     crk_escapedPath = [lCopy crk_escapedPath];
-    v12 = [(NSDictionary *)mFileURLsByFilePath objectForKeyedSubscript:crk_escapedPath];
+    v13 = [(NSDictionary *)mFileURLsByFilePath objectForKeyedSubscript:crk_escapedPath];
 
-    if ([(CRKHostResourcesOperation *)self downloadAllowedForFileURL:v12])
+    v14 = [(CRKHostResourcesOperation *)self downloadAllowedForFileURL:v13];
+    if (v14)
     {
-      v13 = [connectionCopy description];
-      [(CRKHostResourcesOperation *)self delegateDownloadStarted:v13 fileURL:v12];
+      v15 = [connectionCopy description];
+      [(CRKHostResourcesOperation *)self delegateDownloadStarted:v15 fileURL:v13];
 
-      [(CRKHostResourcesOperation *)self incrementStartedDownloadCountForFileURL:v12];
-      if ([v12 crk_isBundle])
+      [(CRKHostResourcesOperation *)self incrementStartedDownloadCountForFileURL:v13];
+      if ([v13 crk_isBundle])
       {
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __69__CRKHostResourcesOperation_connection_didReceiveDataRequestWithURL___block_invoke;
-        v15[3] = &unk_278DC2998;
-        v16 = connectionCopy;
-        v17 = lCopy;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __69__CRKHostResourcesOperation_connection_didReceiveDataRequestWithURL___block_invoke;
+        v17[3] = &unk_278DC2998;
+        v18 = connectionCopy;
+        v19 = lCopy;
         selfCopy2 = self;
-        v19 = v12;
-        [(CRKHostResourcesOperation *)self zipDirectoryAtURL:v19 completion:v15];
+        v21 = v13;
+        [(CRKHostResourcesOperation *)self zipDirectoryAtURL:v21 completion:v17];
       }
 
       else
       {
-        [(CRKHostResourcesOperation *)self serveItemAtURL:v12 toConnection:connectionCopy forRequestURL:lCopy originalItemURL:v12];
+        [(CRKHostResourcesOperation *)self serveItemAtURL:v13 toConnection:connectionCopy forRequestURL:lCopy originalItemURL:v13];
       }
     }
 
     else
     {
-      v14 = _CRKLogOperation_1();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = _CRKLogOperation_1(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [CRKHostResourcesOperation connection:? didReceiveDataRequestWithURL:?];
       }
@@ -773,26 +776,27 @@ uint64_t __47__CRKHostResourcesOperation_netServiceDidStop___block_invoke(uint64
 void __69__CRKHostResourcesOperation_connection_didReceiveDataRequestWithURL___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _CRKLogGeneral_9();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogGeneral_9(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __69__CRKHostResourcesOperation_connection_didReceiveDataRequestWithURL___block_invoke_cold_1(a1);
     }
 
-    v7 = *(a1 + 48);
-    if (*(v7 + 440))
+    v8 = *(a1 + 48);
+    if (*(v8 + 440))
     {
-      v8 = *(v7 + 440);
+      v9 = *(v8 + 440);
     }
 
     else
     {
-      v8 = v5;
+      v9 = v6;
     }
 
-    objc_storeStrong((v7 + 440), v8);
+    objc_storeStrong((v8 + 440), v9);
     [*(a1 + 32) close];
   }
 
@@ -830,7 +834,7 @@ LABEL_3:
   v10 = [(NSMutableDictionary *)self->mZipOperationsByDirectoryURL objectForKeyedSubscript:lCopy];
   if (!v10)
   {
-    v11 = _CRKLogGeneral_9();
+    v11 = _CRKLogGeneral_9(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       path = [lCopy path];
@@ -878,8 +882,8 @@ void __58__CRKHostResourcesOperation_zipDirectoryAtURL_completion___block_invoke
 
   if (v8 == failCopy)
   {
-    v9 = _CRKLogGeneral_9();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _CRKLogGeneral_9(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [CRKHostResourcesOperation zipOperationDidFail:lCopy directoryURL:failCopy];
     }
@@ -890,42 +894,43 @@ void __58__CRKHostResourcesOperation_zipDirectoryAtURL_completion___block_invoke
 
 - (void)serveItemAtURL:(id)l toConnection:(id)connection forRequestURL:(id)rL originalItemURL:(id)uRL
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   rLCopy = rL;
   uRLCopy = uRL;
   v13 = MEMORY[0x277CCA9E8];
   lCopy = l;
   v15 = [[v13 alloc] initWithFilePresenter:0];
-  v26 = 0;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_originalItemURL___block_invoke;
-  v22[3] = &unk_278DC29C0;
-  v22[4] = self;
+  v27 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_originalItemURL___block_invoke;
+  v23[3] = &unk_278DC29C0;
+  v23[4] = self;
   v16 = connectionCopy;
-  v23 = v16;
+  v24 = v16;
   v17 = rLCopy;
-  v24 = v17;
+  v25 = v17;
   v18 = uRLCopy;
-  v25 = v18;
-  [v15 coordinateReadingItemAtURL:lCopy options:8 error:&v26 byAccessor:v22];
+  v26 = v18;
+  [v15 coordinateReadingItemAtURL:lCopy options:8 error:&v27 byAccessor:v23];
 
-  v19 = v26;
+  v19 = v27;
+  v20 = v19;
   if (v19)
   {
-    v20 = _CRKLogOperation_1();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _CRKLogOperation_1(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138544130;
       selfCopy = self;
-      v29 = 2114;
-      v30 = v16;
-      v31 = 2114;
-      v32 = v19;
-      v33 = 2114;
-      v34 = v17;
-      _os_log_error_impl(&dword_243550000, v20, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: File coordinator error: %{public}@. Request URL: %{public}@", buf, 0x2Au);
+      v30 = 2114;
+      v31 = v16;
+      v32 = 2114;
+      v33 = v20;
+      v34 = 2114;
+      v35 = v17;
+      _os_log_error_impl(&dword_243550000, v21, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: File coordinator error: %{public}@. Request URL: %{public}@", buf, 0x2Au);
     }
 
     if (self->mStashedError)
@@ -935,7 +940,7 @@ void __58__CRKHostResourcesOperation_zipDirectoryAtURL_completion___block_invoke
 
     else
     {
-      mStashedError = v19;
+      mStashedError = v20;
     }
 
     objc_storeStrong(&self->mStashedError, mStashedError);
@@ -945,7 +950,7 @@ void __58__CRKHostResourcesOperation_zipDirectoryAtURL_completion___block_invoke
 
 void __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_originalItemURL___block_invoke(uint64_t a1, void *a2)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEAE0] inputStreamWithURL:v3];
   v5 = [MEMORY[0x277CCAA00] defaultManager];
@@ -953,24 +958,24 @@ void __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_o
   v7 = [v5 attributesOfItemAtPath:v6 error:0];
   v8 = [v7 fileSize];
 
-  v9 = _CRKLogOperation_1();
-  v10 = v9;
+  v10 = _CRKLogOperation_1(v9);
+  v11 = v10;
   if (v4 && v8)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
-      v13 = [*(a1 + 48) absoluteString];
-      v22 = 138544130;
-      v23 = v11;
-      v24 = 2114;
-      v25 = v12;
-      v26 = 2048;
-      v27 = v8;
-      v28 = 2114;
-      v29 = v13;
-      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: Serving file with size %lu bytes for request URL %{public}@", &v22, 0x2Au);
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v14 = [*(a1 + 48) absoluteString];
+      v23 = 138544130;
+      v24 = v12;
+      v25 = 2114;
+      v26 = v13;
+      v27 = 2048;
+      v28 = v8;
+      v29 = 2114;
+      v30 = v14;
+      _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: Serving file with size %lu bytes for request URL %{public}@", &v23, 0x2Au);
     }
 
     [*(a1 + 40) sendDataWithStream:v4 length:v8 userInfo:*(a1 + 56)];
@@ -978,30 +983,30 @@ void __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_o
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_originalItemURL___block_invoke_cold_1(a1, v3);
     }
 
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 440);
-    if (v15)
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 440);
+    if (v16)
     {
-      v16 = v15;
-      v17 = *(v14 + 440);
-      *(v14 + 440) = v16;
+      v17 = v16;
+      v18 = *(v15 + 440);
+      *(v15 + 440) = v17;
     }
 
     else
     {
-      v30 = @"kCRKItemNameErrorKey";
-      v17 = [v3 path];
-      v31[0] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      v19 = CRKErrorWithCodeAndUserInfo(12, v18);
-      v20 = *(a1 + 32);
-      v21 = *(v20 + 440);
-      *(v20 + 440) = v19;
+      v31 = @"kCRKItemNameErrorKey";
+      v18 = [v3 path];
+      v32[0] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      v20 = CRKErrorWithCodeAndUserInfo(12, v19);
+      v21 = *(a1 + 32);
+      v22 = *(v21 + 440);
+      *(v21 + 440) = v20;
     }
 
     [*(a1 + 40) close];
@@ -1010,50 +1015,52 @@ void __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_o
 
 - (void)connection:(id)connection didSendDataWithStream:(id)stream userInfo:(id)info
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   infoCopy = info;
-  if ([(CRKHostResourcesOperation *)self isExecuting])
+  isExecuting = [(CRKHostResourcesOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v9 = _CRKLogOperation_1();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _CRKLogOperation_1(isExecuting);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543874;
+      v13 = 138543874;
       selfCopy = self;
-      v14 = 2114;
-      v15 = connectionCopy;
-      v16 = 2114;
-      v17 = infoCopy;
-      _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ did send data with stream. File URL: %{public}@", &v12, 0x20u);
+      v15 = 2114;
+      v16 = connectionCopy;
+      v17 = 2114;
+      v18 = infoCopy;
+      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ did send data with stream. File URL: %{public}@", &v13, 0x20u);
     }
 
-    v10 = [connectionCopy description];
-    [(CRKHostResourcesOperation *)self delegateDownloadFinished:v10 fileURL:infoCopy error:0];
+    v11 = [connectionCopy description];
+    [(CRKHostResourcesOperation *)self delegateDownloadFinished:v11 fileURL:infoCopy error:0];
 
     [(CRKHostResourcesOperation *)self incrementFinishedDownloadCountForFileURL:infoCopy];
-    v11 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_connectionCloseDidTimeout_ selector:connectionCopy userInfo:0 repeats:30.0];
-    [(NSMutableSet *)self->mConnectionCloseTimers addObject:v11];
+    v12 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_connectionCloseDidTimeout_ selector:connectionCopy userInfo:0 repeats:30.0];
+    [(NSMutableSet *)self->mConnectionCloseTimers addObject:v12];
   }
 }
 
 - (void)connectionCloseDidTimeout:(id)timeout
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   timeoutCopy = timeout;
   if ([(CRKHostResourcesOperation *)self isExecuting])
   {
     [(NSMutableSet *)self->mConnectionCloseTimers removeObject:timeoutCopy];
     userInfo = [timeoutCopy userInfo];
-    if ([(NSMutableSet *)self->mConnections containsObject:userInfo])
+    v6 = [(NSMutableSet *)self->mConnections containsObject:userInfo];
+    if (v6)
     {
-      v6 = _CRKLogOperation_1();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _CRKLogOperation_1(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 138543618;
+        v8 = 138543618;
         selfCopy = self;
-        v9 = 2114;
-        v10 = userInfo;
-        _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection close timer fired. Closing %{public}@", &v7, 0x16u);
+        v10 = 2114;
+        v11 = userInfo;
+        _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection close timer fired. Closing %{public}@", &v8, 0x16u);
       }
 
       [userInfo close];
@@ -1063,29 +1070,30 @@ void __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_o
 
 - (void)connection:(id)connection didFailToSendDataWithStream:(id)stream userInfo:(id)info error:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   infoCopy = info;
   errorCopy = error;
-  if ([(CRKHostResourcesOperation *)self isExecuting])
+  isExecuting = [(CRKHostResourcesOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v12 = _CRKLogOperation_1();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _CRKLogOperation_1(isExecuting);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       verboseDescription = [errorCopy verboseDescription];
-      v15 = 138544130;
+      v16 = 138544130;
       selfCopy = self;
-      v17 = 2114;
-      v18 = connectionCopy;
-      v19 = 2114;
-      v20 = infoCopy;
-      v21 = 2114;
-      v22 = verboseDescription;
-      _os_log_error_impl(&dword_243550000, v12, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@ failed to send data with stream. File URL: %{public}@. Error: %{public}@", &v15, 0x2Au);
+      v18 = 2114;
+      v19 = connectionCopy;
+      v20 = 2114;
+      v21 = infoCopy;
+      v22 = 2114;
+      v23 = verboseDescription;
+      _os_log_error_impl(&dword_243550000, v13, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@ failed to send data with stream. File URL: %{public}@. Error: %{public}@", &v16, 0x2Au);
     }
 
-    v13 = [connectionCopy description];
-    [(CRKHostResourcesOperation *)self delegateDownloadFinished:v13 fileURL:infoCopy error:errorCopy];
+    v14 = [connectionCopy description];
+    [(CRKHostResourcesOperation *)self delegateDownloadFinished:v14 fileURL:infoCopy error:errorCopy];
 
     [(CRKHostResourcesOperation *)self incrementFinishedDownloadCountForFileURL:infoCopy];
     [connectionCopy close];
@@ -1094,22 +1102,23 @@ void __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_o
 
 - (void)connection:(id)connection didInterruptWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   errorCopy = error;
-  if ([(CRKHostResourcesOperation *)self isExecuting])
+  isExecuting = [(CRKHostResourcesOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v8 = _CRKLogOperation_1();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CRKLogOperation_1(isExecuting);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       verboseDescription = [errorCopy verboseDescription];
-      v10 = 138543874;
+      v11 = 138543874;
       selfCopy = self;
-      v12 = 2114;
-      v13 = connectionCopy;
-      v14 = 2114;
-      v15 = verboseDescription;
-      _os_log_error_impl(&dword_243550000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Connection %{public}@ did interrupt with error: %{public}@", &v10, 0x20u);
+      v13 = 2114;
+      v14 = connectionCopy;
+      v15 = 2114;
+      v16 = verboseDescription;
+      _os_log_error_impl(&dword_243550000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Connection %{public}@ did interrupt with error: %{public}@", &v11, 0x20u);
     }
 
     [connectionCopy close];
@@ -1118,32 +1127,37 @@ void __87__CRKHostResourcesOperation_serveItemAtURL_toConnection_forRequestURL_o
 
 - (void)connectionDidClose:(id)close
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   closeCopy = close;
-  if ([(CRKHostResourcesOperation *)self isExecuting])
+  isExecuting = [(CRKHostResourcesOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v5 = _CRKLogOperation_1();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _CRKLogOperation_1(isExecuting);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543618;
+      v9 = 138543618;
       selfCopy2 = self;
-      v9 = 2114;
-      v10 = closeCopy;
-      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection %{public}@ did close", &v7, 0x16u);
+      v11 = 2114;
+      v12 = closeCopy;
+      _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection %{public}@ did close", &v9, 0x16u);
     }
 
     [(NSMutableSet *)self->mConnections removeObject:closeCopy];
-    if (![(NSMutableSet *)self->mConnections count]&& [(CRKHostResourcesOperation *)self allDownloadsFinished])
+    if (![(NSMutableSet *)self->mConnections count])
     {
-      v6 = _CRKLogOperation_1();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      allDownloadsFinished = [(CRKHostResourcesOperation *)self allDownloadsFinished];
+      if (allDownloadsFinished)
       {
-        v7 = 138543362;
-        selfCopy2 = self;
-        _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: All downloads finished and all connections closed. Stopping net service.", &v7, 0xCu);
-      }
+        v8 = _CRKLogOperation_1(allDownloadsFinished);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          v9 = 138543362;
+          selfCopy2 = self;
+          _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: All downloads finished and all connections closed. Stopping net service.", &v9, 0xCu);
+        }
 
-      [(NSNetService *)self->mNetService stop];
+        [(NSNetService *)self->mNetService stop];
+      }
     }
   }
 }

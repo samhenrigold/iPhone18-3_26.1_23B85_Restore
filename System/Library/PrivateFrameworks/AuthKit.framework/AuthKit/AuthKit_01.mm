@@ -1,171 +1,3 @@
-void sub_100055084(id *a1)
-{
-  v24[2] = a1;
-  v24[1] = a1;
-  v12 = [a1[4] inProgressSurrogates];
-  v11 = [a1[5] _identifier];
-  v24[0] = [v12 objectForKeyedSubscript:?];
-  _objc_release(v11);
-  _objc_release(v12);
-  v13 = [v24[0] surrogateContext];
-  _objc_release(v13);
-  if (v13)
-  {
-    location = _AKLogSystem();
-    v22 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(location, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = [v24[0] surrogateContext];
-      v8 = [v9 _identifier];
-      sub_1000194D4(v25, v8);
-      _os_log_impl(&_mh_execute_header, location, v22, "UI surrogate %@ registered.", v25, 0xCu);
-      _objc_release(v8);
-      _objc_release(v9);
-    }
-
-    objc_storeStrong(&location, 0);
-    v5 = [v24[0] surrogateContext];
-    [v5 _updateWithValuesFromContext:a1[5]];
-    _objc_release(v5);
-    WeakRetained = objc_loadWeakRetained(a1[4] + 1);
-    queue = [WeakRetained uiWorkQueue];
-    v15 = _NSConcreteStackBlock;
-    v16 = -1073741824;
-    v17 = 0;
-    v18 = sub_100055480;
-    v19 = &unk_100320530;
-    v21 = _objc_retain(a1[6]);
-    v20 = _objc_retain(v24[0]);
-    dispatch_async(queue, &v15);
-    _objc_release(queue);
-    _objc_release(WeakRetained);
-    objc_storeStrong(&v20, 0);
-    objc_storeStrong(&v21, 0);
-  }
-
-  else
-  {
-    v2 = [a1[5] _identifier];
-    v14 = [NSString stringWithFormat:@"UI surrogate %@ not registered. Unable to do UI work.", v2];
-    _objc_release(v2);
-    v3 = a1[4];
-    v4 = [NSError ak_errorWithCode:-7014];
-    v1 = a1[6];
-    [v3 _handleError:? logMessage:? withUIWorkBlock:?];
-    _objc_release(v4);
-    objc_storeStrong(&v14, 0);
-  }
-
-  objc_storeStrong(v24, 0);
-}
-
-void sub_100055480(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v4 = [*(a1 + 32) surrogateClient];
-  v3 = [*(a1 + 32) surrogateContext];
-  (*(v2 + 16))(v2, v4);
-  _objc_release(v3);
-  _objc_release(v4);
-}
-
-void sub_1000556DC(uint64_t a1)
-{
-  v21[2] = a1;
-  v21[1] = a1;
-  v21[0] = [*(a1 + 32) _identifier];
-  v20 = [*(a1 + 40) _fetchSurrogateWithRegistrationID:v21[0]];
-  if (v20)
-  {
-    if ([v20 hasCheckedIn])
-    {
-      v17 = _AKLogSystem();
-      v16 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        sub_1000194D4(v23, v21[0]);
-        _os_log_error_impl(&_mh_execute_header, v17, v16, "UI surrogate with ID %@ has already checked in.", v23, 0xCu);
-      }
-
-      objc_storeStrong(&v17, 0);
-    }
-
-    else
-    {
-      v15 = _AKLogSystem();
-      v14 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-      {
-        sub_10001B098(v22, *(a1 + 48), v21[0]);
-        _os_log_impl(&_mh_execute_header, v15, v14, "UI surrogate client %@ with surrogate ID %@ is checking in.", v22, 0x16u);
-      }
-
-      objc_storeStrong(&v15, 0);
-      [v20 setSurrogateClient:*(a1 + 48)];
-      [v20 setSurrogateContext:*(a1 + 32)];
-      v13 = [v20 pendingClientUIWork];
-      v12 = [v20 pendingBGContext];
-      [v20 setPendingClientUIWork:0];
-      [v20 setPendingBGContext:0];
-      [v20 setHasCheckedIn:1];
-      [v20 setSurrogateCompletion:*(a1 + 56)];
-      if (v13)
-      {
-        if (v12)
-        {
-          v3 = [v20 surrogateContext];
-          [v3 _updateWithValuesFromContext:v12];
-          _objc_release(v3);
-        }
-
-        WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
-        queue = [WeakRetained uiWorkQueue];
-        v5 = _NSConcreteStackBlock;
-        v6 = -1073741824;
-        v7 = 0;
-        v8 = sub_100055B64;
-        v9 = &unk_100320530;
-        v11 = _objc_retain(v13);
-        v10 = _objc_retain(v20);
-        dispatch_async(queue, &v5);
-        _objc_release(queue);
-        _objc_release(WeakRetained);
-        objc_storeStrong(&v10, 0);
-        objc_storeStrong(&v11, 0);
-      }
-
-      objc_storeStrong(&v12, 0);
-      objc_storeStrong(&v13, 0);
-    }
-  }
-
-  else
-  {
-    location = _AKLogSystem();
-    v18 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(location, OS_LOG_TYPE_ERROR))
-    {
-      sub_1000194D4(v24, v21[0]);
-      _os_log_error_impl(&_mh_execute_header, location, v18, "Whoa! UI surrogate is checking in with an unexpected identifier %@.", v24, 0xCu);
-    }
-
-    objc_storeStrong(&location, 0);
-  }
-
-  objc_storeStrong(&v20, 0);
-  objc_storeStrong(v21, 0);
-}
-
-void sub_100055B64(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v4 = [*(a1 + 32) surrogateClient];
-  v3 = [*(a1 + 32) surrogateContext];
-  (*(v2 + 16))(v2, v4);
-  _objc_release(v3);
-  _objc_release(v4);
-}
-
 uint64_t sub_100058B0C(uint64_t a1)
 {
   v16 = a1;
@@ -195,10 +27,9 @@ uint64_t sub_100058B0C(uint64_t a1)
 uint64_t sub_100058C20(uint64_t a1)
 {
   memcpy(__dst, off_100320588, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   qword_100374660 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
@@ -209,7 +40,7 @@ uint64_t sub_100058CE0()
   v1 = sub_100058B0C(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -253,7 +84,7 @@ uint64_t sub_100058E8C(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "KCJoiningAcceptAccountCircleDelegate");
   }
 
   qword_100374668 = *(*(*(a1 + 32) + 8) + 24);
@@ -293,7 +124,7 @@ uint64_t sub_100059064(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "KCAESGCMDuplexSession");
   }
 
   qword_100374670 = *(*(*(a1 + 32) + 8) + 24);
@@ -333,7 +164,7 @@ uint64_t sub_10005923C(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "KCJoiningAcceptSession");
   }
 
   qword_100374678 = *(*(*(a1 + 32) + 8) + 24);
@@ -373,7 +204,7 @@ uint64_t sub_100059414(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "KCJoiningRequestSecretSession");
   }
 
   qword_100374680 = *(*(*(a1 + 32) + 8) + 24);
@@ -492,7 +323,6 @@ void sub_10005B990(uint64_t a1, int a2)
   _Block_object_dispose(&STACK[0x2F0], 8);
   _Block_object_dispose((v2 - 176), 8);
   _Block_object_dispose((v2 - 128), 8);
-  v3 = *(v2 - 216);
   JUMPOUT(0x10005B9F0);
 }
 
@@ -631,50 +461,48 @@ void sub_10005BD1C(uint64_t a1, void *a2, void *a3)
 
 void sub_10005C0A4(uint64_t a1)
 {
-  v16[2] = a1;
-  v16[1] = a1;
+  v14[2] = a1;
+  v14[1] = a1;
   [*(a1 + 32) addEntriesFromDictionary:*(*(*(a1 + 48) + 8) + 40)];
   [*(a1 + 32) addEntriesFromDictionary:*(*(*(a1 + 56) + 8) + 40)];
-  v16[0] = [[AKAttestationData alloc] initWithDictionary:*(a1 + 32)];
-  v15 = _objc_retain(*(*(*(a1 + 64) + 8) + 40));
-  if (!v15 && *(*(*(a1 + 72) + 8) + 40))
+  v14[0] = [[AKAttestationData alloc] initWithDictionary:*(a1 + 32)];
+  v13 = _objc_retain(*(*(*(a1 + 64) + 8) + 40));
+  if (!v13 && *(*(*(a1 + 72) + 8) + 40))
   {
     location = _AKLogSystem();
-    v13 = OS_LOG_TYPE_ERROR;
+    v11 = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(location, OS_LOG_TYPE_ERROR))
     {
-      sub_1000194D4(v18, *(*(*(a1 + 72) + 8) + 40));
-      _os_log_error_impl(&_mh_execute_header, location, v13, "Anisette succeeded, but BAA failed. This is not expected. Not blocking for error: %@", v18, 0xCu);
+      sub_1000194D4(v16, *(*(*(a1 + 72) + 8) + 40));
+      _os_log_error_impl(&_mh_execute_header, location, v11, "Anisette succeeded, but BAA failed. This is not expected. Not blocking for error: %@", v16, 0xCu);
     }
 
     objc_storeStrong(&location, 0);
   }
 
-  v1 = *(a1 + 80);
-  v2 = *(a1 + 88);
-  v12 = _AKSignpostGetNanoseconds() / 1000000000.0;
-  v11 = _AKSignpostLogSystem();
-  v10 = 2;
-  v9 = *(a1 + 80);
-  if (v9 && v9 != -1 && os_signpost_enabled(v11))
+  v10 = _AKSignpostGetNanoseconds() / 1000000000.0;
+  v9 = _AKSignpostLogSystem();
+  v8 = 2;
+  v7 = *(a1 + 80);
+  if (v7 && v7 != -1 && os_signpost_enabled(v9))
   {
-    v3 = v11;
-    v4 = v10;
-    spid = v9;
-    sub_10001CEEC(v8);
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, v4, spid, "SignAndAttestation", "", v8, 2u);
+    v1 = v9;
+    v2 = v8;
+    spid = v7;
+    sub_10001CEEC(v6);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v1, v2, spid, "SignAndAttestation", "", v6, 2u);
   }
 
-  objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v9, 0);
   oslog = _AKSignpostLogSystem();
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100034384(v17, *(a1 + 80), *&v12);
-    _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs:SignAndAttestation ", v17, 0x16u);
+    sub_100034384(v15, *(a1 + 80), *&v10);
+    _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs:SignAndAttestation ", v15, 0x16u);
   }
 
   objc_storeStrong(&oslog, 0);
-  if (v15)
+  if (v13)
   {
     if (*(a1 + 40))
     {
@@ -687,8 +515,8 @@ void sub_10005C0A4(uint64_t a1)
     (*(*(a1 + 40) + 16))();
   }
 
-  objc_storeStrong(&v15, 0);
-  objc_storeStrong(v16, 0);
+  objc_storeStrong(&v13, 0);
+  objc_storeStrong(v14, 0);
 }
 
 void sub_10005C680(uint64_t a1, void *a2, void *a3)
@@ -889,7 +717,7 @@ void sub_10005D9A0(id *a1)
   v9 = &unk_10031F078;
   v10 = _objc_retain(a1[4]);
   v11[0] = _objc_retain(a1[5]);
-  (v5)[2](v5, v4);
+  v5[2](v5, v4);
   _objc_release(v5);
   objc_storeStrong(v11, 0);
   objc_storeStrong(&v10, 0);
@@ -1840,7 +1668,6 @@ void sub_100066AC8(void *a1, void *a2)
   objc_storeStrong(location, a2);
   if (a1[5])
   {
-    v2 = a1[4];
     (*(a1[5] + 16))();
   }
 
@@ -1849,13 +1676,12 @@ void sub_100066AC8(void *a1, void *a2)
 
 void sub_100066B3C(uint64_t a1, char a2, id obj)
 {
-  v7 = a1;
-  v6 = a2;
+  v6 = a1;
+  v5 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
   if (*(a1 + 40))
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -2130,15 +1956,15 @@ void sub_100069AD8(id *a1, char a2, id obj)
 
 void sub_100069CAC(NSObject *a1, char a2, id obj)
 {
-  v9 = a1;
-  v8 = a2;
+  v8 = a1;
+  v7 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
   oslog[1] = a1;
   oslog[0] = _AKLogSystem();
   if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEBUG))
   {
-    if (v8)
+    if (v7)
     {
       v3 = @"YES";
     }
@@ -2148,14 +1974,13 @@ void sub_100069CAC(NSObject *a1, char a2, id obj)
       v3 = @"NO";
     }
 
-    sub_10001B098(v10, v3, location);
-    _os_log_debug_impl(&_mh_execute_header, oslog[0], OS_LOG_TYPE_DEBUG, "Code was shown with success: %@ error: %@", v10, 0x16u);
+    sub_10001B098(v9, v3, location);
+    _os_log_debug_impl(&_mh_execute_header, oslog[0], OS_LOG_TYPE_DEBUG, "Code was shown with success: %@ error: %@", v9, 0x16u);
   }
 
   objc_storeStrong(oslog, 0);
   if (a1[5].isa)
   {
-    isa = a1[4].isa;
     (*(a1[5].isa + 2))();
   }
 
@@ -2814,18 +2639,18 @@ void sub_1000770B8(uint64_t a1)
 {
   location[2] = a1;
   location[1] = a1;
-  v19 = [*(a1 + 32) bundleID];
-  _objc_release(v19);
-  if (v19)
+  v18 = [*(a1 + 32) bundleID];
+  _objc_release(v18);
+  if (v18)
   {
-    v33 = [*(a1 + 40) _clientBundleIDForContext:*(a1 + 48) client:*(a1 + 32)];
-    v32 = [*(a1 + 40) _activeSessionForContext:*(a1 + 48) client:*(a1 + 32)];
-    v31 = v32 == 0;
-    v30 = _AKLogSiwa();
-    v29 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v32 = [*(a1 + 40) _clientBundleIDForContext:*(a1 + 48) client:*(a1 + 32)];
+    v31 = [*(a1 + 40) _activeSessionForContext:*(a1 + 48) client:*(a1 + 32)];
+    v30 = v31 == 0;
+    v29 = _AKLogSiwa();
+    v28 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      if (v31)
+      if (v30)
       {
         v1 = @"YES";
       }
@@ -2835,62 +2660,62 @@ void sub_1000770B8(uint64_t a1)
         v1 = @"NO";
       }
 
-      sub_1000194D4(v39, v1);
-      _os_log_debug_impl(&_mh_execute_header, v30, v29, "AuthorizationSessionManager - should clear request: %@", v39, 0xCu);
+      sub_1000194D4(v38, v1);
+      _os_log_debug_impl(&_mh_execute_header, v29, v28, "AuthorizationSessionManager - should clear request: %@", v38, 0xCu);
     }
 
-    objc_storeStrong(&v30, 0);
-    if (v31)
+    objc_storeStrong(&v29, 0);
+    if (v30)
     {
-      v15 = +[NSUUID UUID];
-      v28 = [(NSUUID *)v15 UUIDString];
-      _objc_release(v15);
-      [*(a1 + 48) set_sessionID:v28];
+      v14 = +[NSUUID UUID];
+      v27 = [(NSUUID *)v14 UUIDString];
+      _objc_release(v14);
+      [*(a1 + 48) set_sessionID:v27];
       v2 = objc_alloc_init(AKAuthorizationSession);
       v3 = *(*(a1 + 64) + 8);
       v4 = *(v3 + 40);
       *(v3 + 40) = v2;
       _objc_release(v4);
-      [*(*(*(a1 + 64) + 8) + 40) setSessionID:v28];
+      [*(*(*(a1 + 64) + 8) + 40) setSessionID:v27];
       [*(*(*(a1 + 64) + 8) + 40) setCompletionHandler:*(a1 + 56)];
       [*(*(*(a1 + 64) + 8) + 40) setContext:*(a1 + 48)];
-      [*(*(*(a1 + 64) + 8) + 40) setClientBundleID:v33];
+      [*(*(*(a1 + 64) + 8) + 40) setClientBundleID:v32];
       [*(*(*(a1 + 64) + 8) + 40) setClient:*(a1 + 32)];
-      v27 = _AKLogSiwa();
-      v26 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v26 = _AKLogSiwa();
+      v25 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        sub_1000194D4(v38, *(*(*(a1 + 64) + 8) + 40));
-        _os_log_impl(&_mh_execute_header, v27, v26, "AuthorizationSessionManager - Processing clearance request: %@", v38, 0xCu);
+        sub_1000194D4(v37, *(*(*(a1 + 64) + 8) + 40));
+        _os_log_impl(&_mh_execute_header, v26, v25, "AuthorizationSessionManager - Processing clearance request: %@", v37, 0xCu);
       }
 
-      objc_storeStrong(&v27, 0);
-      v14 = +[NSDate date];
+      objc_storeStrong(&v26, 0);
+      v13 = +[NSDate date];
       [*(*(*(a1 + 64) + 8) + 40) setRequestTime:?];
-      _objc_release(v14);
-      v25 = _AKLogSiwa();
-      v24 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      _objc_release(v13);
+      v24 = _AKLogSiwa();
+      v23 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000194D4(v37, v33);
-        _os_log_debug_impl(&_mh_execute_header, v25, v24, "AuthorizationSessionManager - Adding %@ to list of authenticating apps", v37, 0xCu);
+        sub_1000194D4(v36, v32);
+        _os_log_debug_impl(&_mh_execute_header, v24, v23, "AuthorizationSessionManager - Adding %@ to list of authenticating apps", v36, 0xCu);
       }
 
-      objc_storeStrong(&v25, 0);
-      [*(*(a1 + 40) + 8) setObject:*(*(*(a1 + 64) + 8) + 40) forKeyedSubscript:v33];
+      objc_storeStrong(&v24, 0);
+      [*(*(a1 + 40) + 8) setObject:*(*(*(a1 + 64) + 8) + 40) forKeyedSubscript:v32];
       if ([*(a1 + 48) _clientShouldAuthenticateExternally] == 1)
       {
-        v23 = _AKLogSiwa();
-        v22 = 2;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v22 = _AKLogSiwa();
+        v21 = 2;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          v12 = v23;
-          v13 = v22;
-          sub_10001CEEC(v21);
-          _os_log_debug_impl(&_mh_execute_header, v12, v13, "AuthorizationSessionManager - Created OSTransaction", v21, 2u);
+          v11 = v22;
+          v12 = v21;
+          sub_10001CEEC(v20);
+          _os_log_debug_impl(&_mh_execute_header, v11, v12, "AuthorizationSessionManager - Created OSTransaction", v20, 2u);
         }
 
-        objc_storeStrong(&v23, 0);
+        objc_storeStrong(&v22, 0);
         v5 = os_transaction_create();
         v6 = *(a1 + 40);
         v7 = *(v6 + 32);
@@ -2898,7 +2723,7 @@ void sub_1000770B8(uint64_t a1)
         _objc_release(v7);
       }
 
-      objc_storeStrong(&v28, 0);
+      objc_storeStrong(&v27, 0);
     }
 
     else
@@ -2906,8 +2731,8 @@ void sub_1000770B8(uint64_t a1)
       oslog = _AKLogSiwa();
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000194D4(v36, v33);
-        _os_log_debug_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEBUG, "Authorization Session - Denying clearance for %@", v36, 0xCu);
+        sub_1000194D4(v35, v32);
+        _os_log_debug_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEBUG, "Authorization Session - Denying clearance for %@", v35, 0xCu);
       }
 
       objc_storeStrong(&oslog, 0);
@@ -2916,29 +2741,28 @@ void sub_1000770B8(uint64_t a1)
       v10 = *(v9 + 40);
       *(v9 + 40) = v8;
       _objc_release(v10);
-      v11 = *(*(*(a1 + 72) + 8) + 40);
       (*(*(a1 + 56) + 16))();
     }
 
+    objc_storeStrong(&v31, 0);
     objc_storeStrong(&v32, 0);
-    objc_storeStrong(&v33, 0);
   }
 
   else
   {
     location[0] = _AKLogSiwa();
-    v34 = OS_LOG_TYPE_FAULT;
+    v33 = OS_LOG_TYPE_FAULT;
     if (os_log_type_enabled(location[0], OS_LOG_TYPE_FAULT))
     {
-      sub_1000194D4(v40, *(a1 + 32));
-      _os_log_fault_impl(&_mh_execute_header, location[0], v34, "AuthorizationSessionManager - Client %@ lacks a bundle ID!", v40, 0xCu);
+      sub_1000194D4(v39, *(a1 + 32));
+      _os_log_fault_impl(&_mh_execute_header, location[0], v33, "AuthorizationSessionManager - Client %@ lacks a bundle ID!", v39, 0xCu);
     }
 
     objc_storeStrong(location, 0);
-    v16 = (*(a1 + 56) + 16);
-    v17 = [NSError ak_errorWithCode:-7074];
-    (*v16)();
-    _objc_release(v17);
+    v15 = (*(a1 + 56) + 16);
+    v16 = [NSError ak_errorWithCode:-7074];
+    (*v15)();
+    _objc_release(v16);
   }
 }
 
@@ -3118,10 +2942,9 @@ uint64_t sub_100079254(uint64_t a1)
 uint64_t sub_100079368(uint64_t a1)
 {
   memcpy(__dst, off_1003210F8, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   qword_1003746B8 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
@@ -3132,7 +2955,7 @@ uint64_t sub_100079428()
   v1 = sub_100079254(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -3176,7 +2999,7 @@ uint64_t sub_1000795D4(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "IDSService");
   }
 
   qword_1003746C0 = *(*(*(a1 + 32) + 8) + 24);
@@ -3216,7 +3039,7 @@ uint64_t sub_1000797AC(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "IDSMessageContext");
   }
 
   qword_1003746C8 = *(*(*(a1 + 32) + 8) + 24);
@@ -3256,7 +3079,7 @@ uint64_t sub_100079984(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "IDSDevice");
   }
 
   qword_1003746D0 = *(*(*(a1 + 32) + 8) + 24);
@@ -3299,16 +3122,16 @@ uint64_t sub_100079B34(uint64_t a1)
 
 id sub_100079BA0()
 {
-  v2 = sub_100079A2C();
-  if (!v2)
+  v3 = sub_100079A2C();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_100079C08()
@@ -3347,16 +3170,16 @@ uint64_t sub_100079D10(uint64_t a1)
 
 id sub_100079D7C()
 {
-  v2 = sub_100079C08();
-  if (!v2)
+  v3 = sub_100079C08();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_100079DE4()
@@ -3395,16 +3218,16 @@ uint64_t sub_100079EEC(uint64_t a1)
 
 id sub_100079F58()
 {
-  v2 = sub_100079DE4();
-  if (!v2)
+  v3 = sub_100079DE4();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_100079FC0()
@@ -3443,16 +3266,16 @@ uint64_t sub_10007A0C8(uint64_t a1)
 
 id sub_10007A134()
 {
-  v2 = sub_100079FC0();
-  if (!v2)
+  v3 = sub_100079FC0();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 void sub_10007B128(id a1)
@@ -3662,115 +3485,114 @@ void sub_10007C784(void *a1, char a2, id obj, void *a4)
 
 void sub_10007CC78(uint64_t a1)
 {
-  v40[2] = a1;
-  v40[1] = a1;
-  v40[0] = 0;
-  v39 = 0;
+  v39[2] = a1;
+  v39[1] = a1;
+  v39[0] = 0;
+  v38 = 0;
   location = _AKLogSystem();
-  v37 = OS_LOG_TYPE_DEFAULT;
+  v36 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(location, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1000194D4(v45, *(a1 + 32));
-    _os_log_impl(&_mh_execute_header, location, v37, "Command message ready for sending to to paired device: %@", v45, 0xCu);
+    sub_1000194D4(v44, *(a1 + 32));
+    _os_log_impl(&_mh_execute_header, location, v36, "Command message ready for sending to to paired device: %@", v44, 0xCu);
   }
 
   objc_storeStrong(&location, 0);
-  v36 = 0;
-  v36 = [*(a1 + 40) _activePairedTinkerDevice];
+  v35 = 0;
+  v35 = [*(a1 + 40) _activePairedTinkerDevice];
   _objc_release(0);
-  if (!v36)
+  if (!v35)
   {
-    v35 = _AKLogSystem();
-    v34 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v34 = _AKLogSystem();
+    v33 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v35;
-      v17 = v34;
-      sub_10001CEEC(v33);
-      _os_log_impl(&_mh_execute_header, v16, v17, "Setting paired device.", v33, 2u);
+      v15 = v34;
+      v16 = v33;
+      sub_10001CEEC(v32);
+      _os_log_impl(&_mh_execute_header, v15, v16, "Setting paired device.", v32, 2u);
     }
 
-    objc_storeStrong(&v35, 0);
+    objc_storeStrong(&v34, 0);
     v1 = sub_100079BA0();
-    v2 = v36;
-    v36 = v1;
+    v2 = v35;
+    v35 = v1;
     _objc_release(v2);
   }
 
-  v12 = *(*(a1 + 40) + 8);
-  v14 = [*(a1 + 32) transportRepresentation];
-  v13 = [NSSet setWithObject:v36];
-  v3 = *(a1 + 48);
-  v31 = v40[0];
-  v30 = v39;
-  v15 = [v12 sendMessage:v14 toDestinations:? priority:? options:? identifier:? error:?];
-  objc_storeStrong(v40, v31);
-  objc_storeStrong(&v39, v30);
+  v11 = *(*(a1 + 40) + 8);
+  v13 = [*(a1 + 32) transportRepresentation];
+  v12 = [NSSet setWithObject:v35];
+  v30 = v39[0];
+  v29 = v38;
+  v14 = [v11 sendMessage:v13 toDestinations:? priority:? options:? identifier:? error:?];
+  objc_storeStrong(v39, v30);
+  objc_storeStrong(&v38, v29);
+  _objc_release(v12);
   _objc_release(v13);
-  _objc_release(v14);
-  v32 = v15;
-  if (v15)
+  v31 = v14;
+  if (v14)
   {
     oslog = _AKLogSystem();
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1000194D4(v41, v40[0]);
-      _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "Message is on its way to paired device with transport ID: %@", v41, 0xCu);
+      sub_1000194D4(v40, v39[0]);
+      _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "Message is on its way to paired device with transport ID: %@", v40, 0xCu);
     }
 
     objc_storeStrong(&oslog, 0);
-    v6 = *(*(a1 + 40) + 24);
-    v8 = objc_retainBlock(*(a1 + 56));
-    v7 = [*(a1 + 32) identifier];
-    [v6 setObject:v8 forKey:?];
+    v5 = *(*(a1 + 40) + 24);
+    v7 = objc_retainBlock(*(a1 + 56));
+    v6 = [*(a1 + 32) identifier];
+    [v5 setObject:v7 forKey:?];
+    _objc_release(v6);
     _objc_release(v7);
-    _objc_release(v8);
-    v9 = *(*(a1 + 40) + 32);
-    v10 = [*(a1 + 32) identifier];
-    [v9 setObject:? forKey:?];
-    _objc_release(v10);
+    v8 = *(*(a1 + 40) + 32);
+    v9 = [*(a1 + 32) identifier];
+    [v8 setObject:? forKey:?];
+    _objc_release(v9);
   }
 
   else
   {
-    v29 = _AKLogSystem();
-    v28 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = _AKLogSystem();
+    v27 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      sub_1000194D4(v44, v39);
-      _os_log_error_impl(&_mh_execute_header, v29, v28, "IDSService sendMessage method failed. Error: %@", v44, 0xCu);
+      sub_1000194D4(v43, v38);
+      _os_log_error_impl(&_mh_execute_header, v28, v27, "IDSService sendMessage method failed. Error: %@", v43, 0xCu);
     }
 
-    objc_storeStrong(&v29, 0);
-    v27 = 0;
-    if (v39)
+    objc_storeStrong(&v28, 0);
+    v26 = 0;
+    if (v38)
     {
-      v42 = NSUnderlyingErrorKey;
-      v43 = v39;
-      v4 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-      v5 = v27;
-      v27 = v4;
-      _objc_release(v5);
+      v41 = NSUnderlyingErrorKey;
+      v42 = v38;
+      v3 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v4 = v26;
+      v26 = v3;
+      _objc_release(v4);
     }
 
     queue = dispatch_get_global_queue(21, 0);
-    v20 = _NSConcreteStackBlock;
-    v21 = -1073741824;
-    v22 = 0;
-    v23 = sub_10007D2AC;
-    v24 = &unk_100320530;
-    v26 = _objc_retain(*(a1 + 56));
-    v25 = _objc_retain(v27);
-    dispatch_async(queue, &v20);
+    v19 = _NSConcreteStackBlock;
+    v20 = -1073741824;
+    v21 = 0;
+    v22 = sub_10007D2AC;
+    v23 = &unk_100320530;
+    v25 = _objc_retain(*(a1 + 56));
+    v24 = _objc_retain(v26);
+    dispatch_async(queue, &v19);
     _objc_release(queue);
+    objc_storeStrong(&v24, 0);
     objc_storeStrong(&v25, 0);
     objc_storeStrong(&v26, 0);
-    objc_storeStrong(&v27, 0);
   }
 
-  objc_storeStrong(&v36, 0);
-  objc_storeStrong(&v39, 0);
-  objc_storeStrong(v40, 0);
+  objc_storeStrong(&v35, 0);
+  objc_storeStrong(&v38, 0);
+  objc_storeStrong(v39, 0);
 }
 
 void sub_10007D2AC(uint64_t a1)
@@ -3823,43 +3645,42 @@ void sub_10007D4C8(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 
 void sub_10007D9DC(uint64_t *a1)
 {
-  v15[2] = a1;
-  v15[1] = a1;
-  v15[0] = 0;
-  v14 = 0;
+  v14[2] = a1;
+  v14[1] = a1;
+  v14[0] = 0;
+  v13 = 0;
   location = _AKLogSystem();
-  v12 = OS_LOG_TYPE_DEFAULT;
+  v11 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(location, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1000194D4(v17, a1[4]);
-    _os_log_impl(&_mh_execute_header, location, v12, "Will send reply message to paired device: %@", v17, 0xCu);
+    sub_1000194D4(v16, a1[4]);
+    _os_log_impl(&_mh_execute_header, location, v11, "Will send reply message to paired device: %@", v16, 0xCu);
   }
 
   objc_storeStrong(&location, 0);
-  v2 = *(a1[5] + 8);
-  v5 = [a1[4] transportRepresentation];
-  v4 = sub_100079BA0();
-  v3 = [NSSet setWithObject:?];
-  v1 = a1[6];
-  v10 = v15[0];
-  v9 = v14;
-  v6 = [v2 sendMessage:v5 toDestinations:? priority:? options:? identifier:? error:?];
-  objc_storeStrong(v15, v10);
-  objc_storeStrong(&v14, v9);
+  v1 = *(a1[5] + 8);
+  v4 = [a1[4] transportRepresentation];
+  v3 = sub_100079BA0();
+  v2 = [NSSet setWithObject:?];
+  v9 = v14[0];
+  v8 = v13;
+  v5 = [v1 sendMessage:v4 toDestinations:? priority:? options:? identifier:? error:?];
+  objc_storeStrong(v14, v9);
+  objc_storeStrong(&v13, v8);
+  _objc_release(v2);
   _objc_release(v3);
   _objc_release(v4);
-  _objc_release(v5);
-  v11 = v6;
-  if ((v6 & 1) == 0)
+  v10 = v5;
+  if ((v5 & 1) == 0)
   {
-    v8 = _AKLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = _AKLogSystem();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1000194D4(v16, v14);
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "IDSService sendMessage method failed to send reply. Error: %@", v16, 0xCu);
+      sub_1000194D4(v15, v13);
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "IDSService sendMessage method failed to send reply. Error: %@", v15, 0xCu);
     }
 
-    objc_storeStrong(&v8, 0);
+    objc_storeStrong(&v7, 0);
   }
 
   if (a1[7])
@@ -3867,8 +3688,8 @@ void sub_10007D9DC(uint64_t *a1)
     (*(a1[7] + 16))();
   }
 
-  objc_storeStrong(&v14, 0);
-  objc_storeStrong(v15, 0);
+  objc_storeStrong(&v13, 0);
+  objc_storeStrong(v14, 0);
 }
 
 void sub_10007E67C(uint64_t a1, char a2, id obj, void *a4)
@@ -4990,19 +4811,16 @@ void sub_10008F688(void *a1, void *a2, void *a3, void *a4, void *a5)
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v14 = 0;
-  objc_storeStrong(&v14, a3);
-  v13 = 0;
-  objc_storeStrong(&v13, a4);
-  v12 = 0;
-  objc_storeStrong(&v12, a5);
-  v5 = a1[4];
-  v6 = a1[6];
-  v7 = a1[7];
+  v11 = 0;
+  objc_storeStrong(&v11, a3);
+  v10 = 0;
+  objc_storeStrong(&v10, a4);
+  v9 = 0;
+  objc_storeStrong(&v9, a5);
   (*(a1[5] + 16))();
-  objc_storeStrong(&v12, 0);
-  objc_storeStrong(&v13, 0);
-  objc_storeStrong(&v14, 0);
+  objc_storeStrong(&v9, 0);
+  objc_storeStrong(&v10, 0);
+  objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -5128,16 +4946,16 @@ void sub_100090360(NSObject *a1, void *a2, void *a3)
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v7 = 0;
-  objc_storeStrong(&v7, a3);
+  v6 = 0;
+  objc_storeStrong(&v6, a3);
   oslog[1] = a1;
-  if (v7)
+  if (v6)
   {
     oslog[0] = _AKLogSystem();
     if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
     {
-      sub_1000194D4(v9, v7);
-      _os_log_error_impl(&_mh_execute_header, oslog[0], OS_LOG_TYPE_ERROR, "Failed to fetch device list with error: %@", v9, 0xCu);
+      sub_1000194D4(v8, v6);
+      _os_log_error_impl(&_mh_execute_header, oslog[0], OS_LOG_TYPE_ERROR, "Failed to fetch device list with error: %@", v8, 0xCu);
     }
 
     objc_storeStrong(oslog, 0);
@@ -5152,12 +4970,11 @@ void sub_100090360(NSObject *a1, void *a2, void *a3)
     [(objc_class *)a1[4].isa updateWithDeviceRestrictionState:location[0]];
     if (a1[5].isa)
     {
-      isa = a1[4].isa;
       (*(a1[5].isa + 2))();
     }
   }
 
-  objc_storeStrong(&v7, 0);
+  objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -5483,295 +5300,294 @@ void sub_10009337C(void *a1)
 
 void sub_100093864(uint64_t a1)
 {
-  v96 = a1;
   v95 = a1;
-  v94 = 0uLL;
-  v28 = _AKSignpostLogSystem();
-  *&v93 = _AKSignpostCreate();
-  *(&v93 + 1) = v1;
-  _objc_release(v28);
+  v94 = a1;
+  v93 = 0uLL;
+  v27 = _AKSignpostLogSystem();
+  *&v92 = _AKSignpostCreate();
+  *(&v92 + 1) = v1;
+  _objc_release(v27);
   log = _AKSignpostLogSystem();
-  v91 = 1;
-  v90 = v93;
-  if (v93 && v90 != -1 && os_signpost_enabled(log))
+  v90 = 1;
+  v89 = v92;
+  if (v92 && v89 != -1 && os_signpost_enabled(log))
   {
-    v24 = log;
-    type = v91;
-    spid = v90;
-    sub_10001CEEC(v89);
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, type, spid, "UpdateStateWithAuthResponse", " enableTelemetry=YES ", v89, 2u);
+    v23 = log;
+    type = v90;
+    spid = v89;
+    sub_10001CEEC(v88);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, type, spid, "UpdateStateWithAuthResponse", " enableTelemetry=YES ", v88, 2u);
   }
 
   objc_storeStrong(&log, 0);
   oslog = _AKSignpostLogSystem();
-  v87 = OS_LOG_TYPE_DEFAULT;
+  v86 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100036FE8(v107, v93);
-    _os_log_impl(&_mh_execute_header, oslog, v87, "BEGIN [%lld]: UpdateStateWithAuthResponse  enableTelemetry=YES ", v107, 0xCu);
+    sub_100036FE8(v106, v92);
+    _os_log_impl(&_mh_execute_header, oslog, v86, "BEGIN [%lld]: UpdateStateWithAuthResponse  enableTelemetry=YES ", v106, 0xCu);
   }
 
   objc_storeStrong(&oslog, 0);
-  v94 = v93;
+  v93 = v92;
   if ([*(*(a1 + 32) + 8) hasWriteAccess])
   {
     if ([AKAppleIDServerResourceLoadDelegate signalFromServerResponse:*(a1 + 40)])
     {
-      v19 = [*(a1 + 48) username];
-      _objc_release(v19);
-      if (v19)
+      v18 = [*(a1 + 48) username];
+      _objc_release(v18);
+      if (v18)
       {
-        v12 = [AKAuthenticationServerResponse alloc];
-        v11 = *(a1 + 40);
-        v13 = [*(a1 + 48) username];
-        v55 = [(AKAuthenticationServerResponse *)v12 initWithServerResponse:v11 forAppleID:?];
-        _objc_release(v13);
-        v14 = *(*(a1 + 32) + 96);
-        v15 = [*(a1 + 48) username];
-        v54 = [v14 authKitAccountWithAppleID:? error:?];
-        _objc_release(v15);
-        v52 = 0;
-        v16 = 0;
-        if (!v54)
+        v11 = [AKAuthenticationServerResponse alloc];
+        v10 = *(a1 + 40);
+        v12 = [*(a1 + 48) username];
+        v54 = [(AKAuthenticationServerResponse *)v11 initWithServerResponse:v10 forAppleID:?];
+        _objc_release(v12);
+        v13 = *(*(a1 + 32) + 96);
+        v14 = [*(a1 + 48) username];
+        v53 = [v13 authKitAccountWithAppleID:? error:?];
+        _objc_release(v14);
+        v51 = 0;
+        v15 = 0;
+        if (!v53)
         {
-          v53 = [v55 appleID];
-          v52 = 1;
-          v16 = v53 != 0;
+          v52 = [v54 appleID];
+          v51 = 1;
+          v15 = v52 != 0;
         }
 
-        if (v52)
+        if (v51)
         {
-          _objc_release(v53);
+          _objc_release(v52);
         }
 
-        if (v16)
+        if (v15)
         {
-          v9 = *(*(a1 + 32) + 96);
-          v10 = [v55 appleID];
-          v2 = [v9 authKitAccountWithAppleID:? error:?];
-          v3 = v54;
-          v54 = v2;
+          v8 = *(*(a1 + 32) + 96);
+          v9 = [v54 appleID];
+          v2 = [v8 authKitAccountWithAppleID:? error:?];
+          v3 = v53;
+          v53 = v2;
           _objc_release(v3);
-          _objc_release(v10);
+          _objc_release(v9);
         }
 
-        if (v54)
+        if (v53)
         {
-          v41 = _AKLogSystem();
-          v40 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+          v40 = _AKLogSystem();
+          v39 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
-            sub_1000194D4(v97, v54);
-            _os_log_impl(&_mh_execute_header, v41, v40, "Updating IDMS account %@ with external server auth response...", v97, 0xCu);
+            sub_1000194D4(v96, v53);
+            _os_log_impl(&_mh_execute_header, v40, v39, "Updating IDMS account %@ with external server auth response...", v96, 0xCu);
           }
 
-          objc_storeStrong(&v41, 0);
-          v4 = *(a1 + 32);
+          objc_storeStrong(&v40, 0);
           queue = [objc_opt_class() _verificationQueue];
-          v29 = _NSConcreteStackBlock;
-          v30 = -1073741824;
-          v31 = 0;
-          v32 = sub_1000948AC;
-          v33 = &unk_100321A10;
-          v34 = _objc_retain(*(a1 + 32));
+          v28 = _NSConcreteStackBlock;
+          v29 = -1073741824;
+          v30 = 0;
+          v31 = sub_1000948AC;
+          v32 = &unk_100321A10;
+          v33 = _objc_retain(*(a1 + 32));
+          v34 = _objc_retain(v53);
           v35 = _objc_retain(v54);
-          v36 = _objc_retain(v55);
-          v37 = _objc_retain(*(a1 + 48));
-          v39 = v94;
-          v38 = _objc_retain(*(a1 + 56));
-          dispatch_async(queue, &v29);
+          v36 = _objc_retain(*(a1 + 48));
+          v38 = v93;
+          v37 = _objc_retain(*(a1 + 56));
+          dispatch_async(queue, &v28);
           _objc_release(queue);
-          objc_storeStrong(&v38, 0);
           objc_storeStrong(&v37, 0);
           objc_storeStrong(&v36, 0);
           objc_storeStrong(&v35, 0);
           objc_storeStrong(&v34, 0);
-          v42 = 0;
+          objc_storeStrong(&v33, 0);
+          v41 = 0;
         }
 
         else
         {
-          v51 = _AKLogSystem();
-          v50 = OS_LOG_TYPE_ERROR;
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v50 = _AKLogSystem();
+          v49 = OS_LOG_TYPE_ERROR;
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
-            v8 = [*(a1 + 48) username];
-            sub_1000194D4(v100, v8);
-            _os_log_error_impl(&_mh_execute_header, v51, v50, "No existing IDMS account for Apple ID: %@", v100, 0xCu);
-            _objc_release(v8);
+            v7 = [*(a1 + 48) username];
+            sub_1000194D4(v99, v7);
+            _os_log_error_impl(&_mh_execute_header, v50, v49, "No existing IDMS account for Apple ID: %@", v99, 0xCu);
+            _objc_release(v7);
           }
 
-          objc_storeStrong(&v51, 0);
-          v49 = [NSError ak_errorWithCode:-7023];
-          v48 = _AKSignpostGetNanoseconds() / 1000000000.0;
-          v47 = _AKSignpostLogSystem();
-          v46 = OS_SIGNPOST_INTERVAL_END;
-          v45 = v94;
-          if (v94 && v45 != -1 && os_signpost_enabled(v47))
+          objc_storeStrong(&v50, 0);
+          v48 = [NSError ak_errorWithCode:-7023];
+          v47 = _AKSignpostGetNanoseconds() / 1000000000.0;
+          v46 = _AKSignpostLogSystem();
+          v45 = OS_SIGNPOST_INTERVAL_END;
+          v44 = v93;
+          if (v93 && v44 != -1 && os_signpost_enabled(v46))
           {
-            sub_100034290(v99, [v49 code]);
-            _os_signpost_emit_with_name_impl(&_mh_execute_header, v47, v46, v45, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v99, 8u);
+            sub_100034290(v98, [v48 code]);
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v46, v45, v44, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v98, 8u);
           }
 
-          objc_storeStrong(&v47, 0);
-          v44 = _AKSignpostLogSystem();
-          v43 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          objc_storeStrong(&v46, 0);
+          v43 = _AKSignpostLogSystem();
+          v42 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
-            sub_1000343D0(v98, v94, *&v48, [v49 code]);
-            _os_log_impl(&_mh_execute_header, v44, v43, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v98, 0x1Cu);
+            sub_1000343D0(v97, v93, *&v47, [v48 code]);
+            _os_log_impl(&_mh_execute_header, v43, v42, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v97, 0x1Cu);
           }
 
-          objc_storeStrong(&v44, 0);
-          v6 = *(a1 + 56);
-          v7 = [NSError ak_errorWithCode:-7023];
-          (*(v6 + 16))(v6, 0);
-          _objc_release(v7);
-          v42 = 1;
-          objc_storeStrong(&v49, 0);
+          objc_storeStrong(&v43, 0);
+          v5 = *(a1 + 56);
+          v6 = [NSError ak_errorWithCode:-7023];
+          (*(v5 + 16))(v5, 0);
+          _objc_release(v6);
+          v41 = 1;
+          objc_storeStrong(&v48, 0);
         }
 
+        objc_storeStrong(&v53, 0);
         objc_storeStrong(&v54, 0);
-        objc_storeStrong(&v55, 0);
       }
 
       else
       {
-        v65 = _AKLogSystem();
-        v64 = OS_LOG_TYPE_ERROR;
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v64 = _AKLogSystem();
+        v63 = OS_LOG_TYPE_ERROR;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
-          v17 = v65;
-          v18 = v64;
-          sub_10001CEEC(v63);
-          _os_log_error_impl(&_mh_execute_header, v17, v18, "No Apple ID was provided.", v63, 2u);
+          v16 = v64;
+          v17 = v63;
+          sub_10001CEEC(v62);
+          _os_log_error_impl(&_mh_execute_header, v16, v17, "No Apple ID was provided.", v62, 2u);
         }
 
-        objc_storeStrong(&v65, 0);
-        v62 = [NSError ak_errorWithCode:-7022];
-        v61 = _AKSignpostGetNanoseconds() / 1000000000.0;
-        v60 = _AKSignpostLogSystem();
-        v59 = OS_SIGNPOST_INTERVAL_END;
-        v58 = v94;
-        if (v94 && v58 != -1 && os_signpost_enabled(v60))
+        objc_storeStrong(&v64, 0);
+        v61 = [NSError ak_errorWithCode:-7022];
+        v60 = _AKSignpostGetNanoseconds() / 1000000000.0;
+        v59 = _AKSignpostLogSystem();
+        v58 = OS_SIGNPOST_INTERVAL_END;
+        v57 = v93;
+        if (v93 && v57 != -1 && os_signpost_enabled(v59))
         {
-          sub_100034290(v102, [v62 code]);
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v60, v59, v58, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v102, 8u);
+          sub_100034290(v101, [v61 code]);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v59, v58, v57, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v101, 8u);
         }
 
-        objc_storeStrong(&v60, 0);
-        v57 = _AKSignpostLogSystem();
-        v56 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        objc_storeStrong(&v59, 0);
+        v56 = _AKSignpostLogSystem();
+        v55 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
-          sub_1000343D0(v101, v94, *&v61, [v62 code]);
-          _os_log_impl(&_mh_execute_header, v57, v56, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v101, 0x1Cu);
+          sub_1000343D0(v100, v93, *&v60, [v61 code]);
+          _os_log_impl(&_mh_execute_header, v56, v55, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v100, 0x1Cu);
         }
 
-        objc_storeStrong(&v57, 0);
+        objc_storeStrong(&v56, 0);
         (*(*(a1 + 56) + 16))();
-        objc_storeStrong(&v62, 0);
+        objc_storeStrong(&v61, 0);
       }
     }
 
     else
     {
-      v75 = _AKLogSystem();
-      v74 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v74 = _AKLogSystem();
+      v73 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
-        v20 = v75;
-        v21 = v74;
-        sub_10001CEEC(v73);
-        _os_log_error_impl(&_mh_execute_header, v20, v21, "The provided URL response is not formatted as a final auth response.", v73, 2u);
+        v19 = v74;
+        v20 = v73;
+        sub_10001CEEC(v72);
+        _os_log_error_impl(&_mh_execute_header, v19, v20, "The provided URL response is not formatted as a final auth response.", v72, 2u);
       }
 
-      objc_storeStrong(&v75, 0);
-      v72 = [NSError ak_errorWithCode:-7010];
-      v71 = _AKSignpostGetNanoseconds() / 1000000000.0;
-      v70 = _AKSignpostLogSystem();
-      v69 = OS_SIGNPOST_INTERVAL_END;
-      v68 = v94;
-      if (v94 && v68 != -1 && os_signpost_enabled(v70))
+      objc_storeStrong(&v74, 0);
+      v71 = [NSError ak_errorWithCode:-7010];
+      v70 = _AKSignpostGetNanoseconds() / 1000000000.0;
+      v69 = _AKSignpostLogSystem();
+      v68 = OS_SIGNPOST_INTERVAL_END;
+      v67 = v93;
+      if (v93 && v67 != -1 && os_signpost_enabled(v69))
       {
-        sub_100034290(v104, [v72 code]);
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v70, v69, v68, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v104, 8u);
+        sub_100034290(v103, [v71 code]);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v69, v68, v67, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v103, 8u);
       }
 
-      objc_storeStrong(&v70, 0);
-      v67 = _AKSignpostLogSystem();
-      v66 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+      objc_storeStrong(&v69, 0);
+      v66 = _AKSignpostLogSystem();
+      v65 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
-        sub_1000343D0(v103, v94, *&v71, [v72 code]);
-        _os_log_impl(&_mh_execute_header, v67, v66, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v103, 0x1Cu);
+        sub_1000343D0(v102, v93, *&v70, [v71 code]);
+        _os_log_impl(&_mh_execute_header, v66, v65, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v102, 0x1Cu);
       }
 
-      objc_storeStrong(&v67, 0);
+      objc_storeStrong(&v66, 0);
       (*(*(a1 + 56) + 16))();
-      objc_storeStrong(&v72, 0);
+      objc_storeStrong(&v71, 0);
     }
   }
 
   else
   {
-    v86 = _AKLogSystem();
-    v85 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v85 = _AKLogSystem();
+    v84 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
     {
-      v22 = v86;
-      v23 = v85;
-      sub_10001CEEC(v84);
-      _os_log_error_impl(&_mh_execute_header, v22, v23, "Write access entitlement required but missing!", v84, 2u);
+      v21 = v85;
+      v22 = v84;
+      sub_10001CEEC(v83);
+      _os_log_error_impl(&_mh_execute_header, v21, v22, "Write access entitlement required but missing!", v83, 2u);
     }
 
-    objc_storeStrong(&v86, 0);
-    v83 = [NSError ak_errorWithCode:-7026];
-    v82 = _AKSignpostGetNanoseconds() / 1000000000.0;
-    v81 = _AKSignpostLogSystem();
-    v80 = OS_SIGNPOST_INTERVAL_END;
-    v79 = v94;
-    if (v94 && v79 != -1 && os_signpost_enabled(v81))
+    objc_storeStrong(&v85, 0);
+    v82 = [NSError ak_errorWithCode:-7026];
+    v81 = _AKSignpostGetNanoseconds() / 1000000000.0;
+    v80 = _AKSignpostLogSystem();
+    v79 = OS_SIGNPOST_INTERVAL_END;
+    v78 = v93;
+    if (v93 && v78 != -1 && os_signpost_enabled(v80))
     {
-      sub_100034290(v106, [v83 code]);
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v81, v80, v79, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v106, 8u);
+      sub_100034290(v105, [v82 code]);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v80, v79, v78, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v105, 8u);
     }
 
-    objc_storeStrong(&v81, 0);
-    v78 = _AKSignpostLogSystem();
-    v77 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+    objc_storeStrong(&v80, 0);
+    v77 = _AKSignpostLogSystem();
+    v76 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1000343D0(v105, v94, *&v82, [v83 code]);
-      _os_log_impl(&_mh_execute_header, v78, v77, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v105, 0x1Cu);
+      sub_1000343D0(v104, v93, *&v81, [v82 code]);
+      _os_log_impl(&_mh_execute_header, v77, v76, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v104, 0x1Cu);
     }
 
-    objc_storeStrong(&v78, 0);
+    objc_storeStrong(&v77, 0);
     (*(*(a1 + 56) + 16))();
-    objc_storeStrong(&v83, 0);
+    objc_storeStrong(&v82, 0);
   }
 }
 
 void sub_1000948AC(void *a1)
 {
-  v52[2] = a1;
-  v52[1] = a1;
-  v52[0] = 0;
+  v49[2] = a1;
+  v49[1] = a1;
+  v49[0] = 0;
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
   v5 = a1[7];
   obj = 0;
   [v2 _updateAuthKitAccount:v3 withServerResponse:v4 context:v5 error:&obj];
-  objc_storeStrong(v52, obj);
-  if (v52[0])
+  objc_storeStrong(v49, obj);
+  if (v49[0])
   {
     oslog = _AKLogSystem();
     type = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      sub_10001B098(v57, a1[5], v52[0]);
-      _os_log_error_impl(&_mh_execute_header, oslog, type, "Unable to update IDMS account %@. Error: %@", v57, 0x16u);
+      sub_10001B098(v54, a1[5], v49[0]);
+      _os_log_error_impl(&_mh_execute_header, oslog, type, "Unable to update IDMS account %@. Error: %@", v54, 0x16u);
     }
 
     objc_storeStrong(&oslog, 0);
@@ -5779,83 +5595,81 @@ void sub_1000948AC(void *a1)
 
   else
   {
-    v48 = _AKLogSystem();
-    v47 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    v45 = _AKLogSystem();
+    v44 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000194D4(v56, a1[5]);
-      _os_log_debug_impl(&_mh_execute_header, v48, v47, "Successfully updated IDMS account %@", v56, 0xCu);
+      sub_1000194D4(v53, a1[5]);
+      _os_log_debug_impl(&_mh_execute_header, v45, v44, "Successfully updated IDMS account %@", v53, 0xCu);
     }
 
-    objc_storeStrong(&v48, 0);
+    objc_storeStrong(&v45, 0);
   }
 
-  v6 = a1[9];
-  v7 = a1[10];
-  v46 = _AKSignpostGetNanoseconds() / 1000000000.0;
-  v45 = _AKSignpostLogSystem();
-  v44 = OS_SIGNPOST_INTERVAL_END;
-  v43 = a1[9];
-  if (v43 && v43 != -1 && os_signpost_enabled(v45))
-  {
-    sub_100034290(v55, [v52[0] code]);
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v45, v44, v43, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v55, 8u);
-  }
-
-  objc_storeStrong(&v45, 0);
+  v43 = _AKSignpostGetNanoseconds() / 1000000000.0;
   v42 = _AKSignpostLogSystem();
-  v41 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v41 = OS_SIGNPOST_INTERVAL_END;
+  v40 = a1[9];
+  if (v40 && v40 != -1 && os_signpost_enabled(v42))
   {
-    sub_1000343D0(v54, a1[9], *&v46, [v52[0] code]);
-    _os_log_impl(&_mh_execute_header, v42, v41, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v54, 0x1Cu);
+    sub_100034290(v52, [v49[0] code]);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v42, v41, v40, "UpdateStateWithAuthResponse", " Error=%{public,signpost.telemetry:number2,name=Error}d ", v52, 8u);
   }
 
   objc_storeStrong(&v42, 0);
-  v40 = [a1[6] serviceTokens];
-  if ([v40 count])
+  v39 = _AKSignpostLogSystem();
+  v38 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = _AKLogSystem();
-    v35 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    sub_1000343D0(v51, a1[9], *&v43, [v49[0] code]);
+    _os_log_impl(&_mh_execute_header, v39, v38, "END [%lld] %fs:UpdateStateWithAuthResponse  Error=%{public,signpost.telemetry:number2,name=Error}d ", v51, 0x1Cu);
+  }
+
+  objc_storeStrong(&v39, 0);
+  v37 = [a1[6] serviceTokens];
+  if ([v37 count])
+  {
+    v33 = _AKLogSystem();
+    v32 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = v36;
-      v23 = v35;
-      sub_10001CEEC(v34);
-      _os_log_impl(&_mh_execute_header, v22, v23, "External auth response contains GS service tokens. Will persist those...", v34, 2u);
+      v19 = v33;
+      v20 = v32;
+      sub_10001CEEC(v31);
+      _os_log_impl(&_mh_execute_header, v19, v20, "External auth response contains GS service tokens. Will persist those...", v31, 2u);
     }
 
-    objc_storeStrong(&v36, 0);
-    v33 = [v40 allKeys];
-    v32 = objc_alloc_init(NSMutableDictionary);
+    objc_storeStrong(&v33, 0);
+    v30 = [v37 allKeys];
+    v29 = objc_alloc_init(NSMutableDictionary);
     memset(__b, 0, sizeof(__b));
-    v20 = _objc_retain(v33);
-    v21 = [v20 countByEnumeratingWithState:__b objects:v53 count:16];
-    if (v21)
+    v17 = _objc_retain(v30);
+    v18 = [v17 countByEnumeratingWithState:__b objects:v50 count:16];
+    if (v18)
     {
-      v17 = *__b[2];
-      v18 = 0;
-      v19 = v21;
+      v14 = *__b[2];
+      v15 = 0;
+      v16 = v18;
       while (1)
       {
-        v16 = v18;
-        if (*__b[2] != v17)
+        v13 = v15;
+        if (*__b[2] != v14)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v17);
         }
 
-        v31 = *(__b[1] + 8 * v18);
-        v29 = [v40 objectForKeyedSubscript:v31];
-        v15 = [v29 stringValue];
-        [v32 setObject:? forKeyedSubscript:?];
-        _objc_release(v15);
-        objc_storeStrong(&v29, 0);
-        ++v18;
-        if (v16 + 1 >= v19)
+        v28 = *(__b[1] + 8 * v15);
+        v26 = [v37 objectForKeyedSubscript:v28];
+        v12 = [v26 stringValue];
+        [v29 setObject:? forKeyedSubscript:?];
+        _objc_release(v12);
+        objc_storeStrong(&v26, 0);
+        ++v15;
+        if (v13 + 1 >= v16)
         {
-          v18 = 0;
-          v19 = [v20 countByEnumeratingWithState:__b objects:v53 count:16];
-          if (!v19)
+          v15 = 0;
+          v16 = [v17 countByEnumeratingWithState:__b objects:v50 count:16];
+          if (!v16)
           {
             break;
           }
@@ -5863,31 +5677,30 @@ void sub_1000948AC(void *a1)
       }
     }
 
-    _objc_release(v20);
-    v28 = 0;
-    v11 = a1[4];
-    v10 = v32;
-    v14 = [a1[6] altDSID];
-    v13 = [a1[6] dsid];
-    v12 = [a1[6] appleID];
-    v8 = a1[7];
-    v27 = v28;
-    [v11 _persistGrandSlamServiceTokens:v10 forAltDSID:v14 DSID:v13 appleID:? forContext:? error:?];
-    objc_storeStrong(&v28, v27);
-    _objc_release(v12);
-    _objc_release(v13);
-    _objc_release(v14);
-    if (v28 || v52[0])
+    _objc_release(v17);
+    v25 = 0;
+    v8 = a1[4];
+    v7 = v29;
+    v11 = [a1[6] altDSID];
+    v10 = [a1[6] dsid];
+    v9 = [a1[6] appleID];
+    v24 = v25;
+    [v8 _persistGrandSlamServiceTokens:v7 forAltDSID:v11 DSID:v10 appleID:? forContext:? error:?];
+    objc_storeStrong(&v25, v24);
+    _objc_release(v9);
+    _objc_release(v10);
+    _objc_release(v11);
+    if (v25 || v49[0])
     {
-      v9 = a1[8];
-      if (v52[0])
+      v6 = a1[8];
+      if (v49[0])
       {
-        (*(v9 + 16))(v9, 0, v52[0]);
+        (*(v6 + 16))(v6, 0, v49[0]);
       }
 
       else
       {
-        (*(v9 + 16))(v9, 0, v28);
+        (*(v6 + 16))(v6, 0, v25);
       }
     }
 
@@ -5896,29 +5709,29 @@ void sub_1000948AC(void *a1)
       (*(a1[8] + 16))();
     }
 
-    objc_storeStrong(&v28, 0);
-    objc_storeStrong(&v32, 0);
-    objc_storeStrong(&v33, 0);
+    objc_storeStrong(&v25, 0);
+    objc_storeStrong(&v29, 0);
+    objc_storeStrong(&v30, 0);
   }
 
   else
   {
-    v39 = _AKLogSystem();
-    v38 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v36 = _AKLogSystem();
+    v35 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = v39;
-      v25 = v38;
-      sub_10001CEEC(v37);
-      _os_log_impl(&_mh_execute_header, v24, v25, "No GS service tokens to update. Done.", v37, 2u);
+      v21 = v36;
+      v22 = v35;
+      sub_10001CEEC(v34);
+      _os_log_impl(&_mh_execute_header, v21, v22, "No GS service tokens to update. Done.", v34, 2u);
     }
 
-    objc_storeStrong(&v39, 0);
-    (*(a1[8] + 16))(a1[8], v52[0] == 0, v52[0]);
+    objc_storeStrong(&v36, 0);
+    (*(a1[8] + 16))(a1[8], v49[0] == 0, v49[0]);
   }
 
-  objc_storeStrong(&v40, 0);
-  objc_storeStrong(v52, 0);
+  objc_storeStrong(&v37, 0);
+  objc_storeStrong(v49, 0);
 }
 
 void sub_100095A98(void *a1)
@@ -6583,13 +6396,11 @@ uint64_t sub_10009BCF4(uint64_t a1)
   oslog[0] = _AKLogSystem();
   if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
   {
-    sub_1000194D4(v6, *(a1 + 32));
-    _os_log_impl(&_mh_execute_header, oslog[0], OS_LOG_TYPE_DEFAULT, "Cleared to end auth with context %@.", v6, 0xCu);
+    sub_1000194D4(v4, *(a1 + 32));
+    _os_log_impl(&_mh_execute_header, oslog[0], OS_LOG_TYPE_DEFAULT, "Cleared to end auth with context %@.", v4, 0xCu);
   }
 
   objc_storeStrong(oslog, 0);
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 48);
   return (*(*(a1 + 56) + 16))();
 }
 
@@ -7915,26 +7726,11 @@ void sub_1000A3C64(uint64_t a1, char a2, id obj)
 
 void sub_1000A3F58(uint64_t a1, char a2, id obj)
 {
-  v8 = a1;
-  v7 = a2;
+  v6 = a1;
+  v5 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  if (*(a1 + 32))
-  {
-    v3 = *(a1 + 32);
-    (*(*(a1 + 48) + 16))();
-  }
-
-  else
-  {
-    if (*(a1 + 56))
-    {
-      v4 = *(a1 + 40);
-    }
-
-    (*(*(a1 + 48) + 16))();
-  }
-
+  (*(*(a1 + 48) + 16))();
   objc_storeStrong(&location, 0);
 }
 
@@ -8069,27 +7865,27 @@ void sub_1000A51B0(NSObject *a1, char a2, id obj)
 
 void sub_1000A54C0(id *a1, char a2, id obj)
 {
-  v76 = a1;
-  v75 = a2;
+  v74 = a1;
+  v73 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v73[1] = a1;
+  v71[1] = a1;
   if ([a1[4] _shouldBroadcastForProximityAuthOnly])
   {
-    v73[0] = _AKLogSystem();
-    v72 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v73[0], OS_LOG_TYPE_DEFAULT))
+    v71[0] = _AKLogSystem();
+    v70 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v71[0], OS_LOG_TYPE_DEFAULT))
     {
-      log = v73[0];
-      type = v72;
-      sub_10001CEEC(v71);
-      _os_log_impl(&_mh_execute_header, log, type, "Client is asking for proximity based authentication...", v71, 2u);
+      log = v71[0];
+      type = v70;
+      sub_10001CEEC(v69);
+      _os_log_impl(&_mh_execute_header, log, type, "Client is asking for proximity based authentication...", v69, 2u);
     }
 
-    objc_storeStrong(v73, 0);
-    v33 = *(a1[5] + 6);
-    v34 = *(a1[5] + 1);
-    v35 = a1[4];
+    objc_storeStrong(v71, 0);
+    v31 = *(a1[5] + 6);
+    v32 = *(a1[5] + 1);
+    v33 = a1[4];
     if (sub_1001773DC(0))
     {
       v3 = objc_alloc_init(sub_100177804());
@@ -8100,119 +7896,118 @@ void sub_1000A54C0(id *a1, char a2, id obj)
       v3 = objc_alloc_init(0);
     }
 
-    v32 = v3;
-    v4 = a1[6];
-    v5 = [v33 beginAuthenticationWithClient:v34 context:v35 server:? completion:?];
-    v6 = a1[5];
-    v7 = v6[7];
-    v6[7] = v5;
-    _objc_release(v7);
-    _objc_release(v32);
-    v70 = _AKLogSystem();
-    v69 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+    v30 = v3;
+    v4 = [v31 beginAuthenticationWithClient:v32 context:v33 server:? completion:?];
+    v5 = a1[5];
+    v6 = v5[7];
+    v5[7] = v4;
+    _objc_release(v6);
+    _objc_release(v30);
+    v68 = _AKLogSystem();
+    v67 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001B098(v79, *(a1[5] + 6), *(a1[5] + 7));
-      _os_log_debug_impl(&_mh_execute_header, v70, v69, "Began proximity authentication with service provider: %@ and active prox auth token: %@", v79, 0x16u);
+      sub_10001B098(v77, *(a1[5] + 6), *(a1[5] + 7));
+      _os_log_debug_impl(&_mh_execute_header, v68, v67, "Began proximity authentication with service provider: %@ and active prox auth token: %@", v77, 0x16u);
     }
 
-    objc_storeStrong(&v70, 0);
+    objc_storeStrong(&v68, 0);
   }
 
   else
   {
-    v31 = 1;
+    v29 = 1;
     if ([a1[4] authenticationMode] != 2)
     {
-      v31 = [a1[4] authenticationMode] == 3;
+      v29 = [a1[4] authenticationMode] == 3;
     }
 
-    v68 = v31;
-    v29 = [a1[4] username];
-    v30 = 0;
-    if (v29)
+    v66 = v29;
+    v27 = [a1[4] username];
+    v28 = 0;
+    if (v27)
     {
-      v28 = 1;
+      v26 = 1;
       if ([a1[4] authenticationType] != 3)
       {
-        v28 = v68;
+        v26 = v66;
       }
 
-      v30 = v28;
+      v28 = v26;
     }
 
-    _objc_release(v29);
-    if (v30)
+    _objc_release(v27);
+    if (v28)
     {
-      if (v68)
-      {
-        v67 = _AKLogSystem();
-        v66 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
-        {
-          v27 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [a1[4] authenticationMode]);
-          sub_1000194D4(v78, v27);
-          _os_log_impl(&_mh_execute_header, v67, v66, "Authmode %@ supports passwordless auth + server UI. Time for SRP.", v78, 0xCu);
-          _objc_release(v27);
-        }
-
-        objc_storeStrong(&v67, 0);
-      }
-
-      else
+      if (v66)
       {
         v65 = _AKLogSystem();
         v64 = OS_LOG_TYPE_DEFAULT;
         if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [a1[4] authenticationMode]);
-          sub_1000194D4(v77, v26);
-          _os_log_impl(&_mh_execute_header, v65, v64, "Client is asking for passwordless auth with auth mode %@ and just a username... lets see how this goes", v77, 0xCu);
-          _objc_release(v26);
+          v25 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [a1[4] authenticationMode]);
+          sub_1000194D4(v76, v25);
+          _os_log_impl(&_mh_execute_header, v65, v64, "Authmode %@ supports passwordless auth + server UI. Time for SRP.", v76, 0xCu);
+          _objc_release(v25);
         }
 
         objc_storeStrong(&v65, 0);
       }
 
-      v25 = a1[5];
-      v24 = a1[4];
-      v56 = _NSConcreteStackBlock;
-      v57 = -1073741824;
-      v58 = 0;
-      v59 = sub_1000A5E08;
-      v60 = &unk_100321910;
-      v61 = _objc_retain(a1[5]);
-      v62 = _objc_retain(a1[4]);
-      v63 = _objc_retain(a1[6]);
-      [v25 _performPasswordlessAuth:v24 completion:&v56];
-      objc_storeStrong(&v63, 0);
-      objc_storeStrong(&v62, 0);
+      else
+      {
+        v63 = _AKLogSystem();
+        v62 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [a1[4] authenticationMode]);
+          sub_1000194D4(v75, v24);
+          _os_log_impl(&_mh_execute_header, v63, v62, "Client is asking for passwordless auth with auth mode %@ and just a username... lets see how this goes", v75, 0xCu);
+          _objc_release(v24);
+        }
+
+        objc_storeStrong(&v63, 0);
+      }
+
+      v23 = a1[5];
+      v22 = a1[4];
+      v54 = _NSConcreteStackBlock;
+      v55 = -1073741824;
+      v56 = 0;
+      v57 = sub_1000A5E08;
+      v58 = &unk_100321910;
+      v59 = _objc_retain(a1[5]);
+      v60 = _objc_retain(a1[4]);
+      v61 = _objc_retain(a1[6]);
+      [v23 _performPasswordlessAuth:v22 completion:&v54];
       objc_storeStrong(&v61, 0);
+      objc_storeStrong(&v60, 0);
+      objc_storeStrong(&v59, 0);
     }
 
     else
     {
-      v55 = _AKLogSystem();
-      v54 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v53 = _AKLogSystem();
+      v52 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = v55;
-        v23 = v54;
-        sub_10001CEEC(v53);
-        _os_log_impl(&_mh_execute_header, v22, v23, "Collecting user credentials...", v53, 2u);
+        v20 = v53;
+        v21 = v52;
+        sub_10001CEEC(v51);
+        _os_log_impl(&_mh_execute_header, v20, v21, "Collecting user credentials...", v51, 2u);
       }
 
-      objc_storeStrong(&v55, 0);
+      objc_storeStrong(&v53, 0);
       if ([a1[4] disableProximityAuth])
       {
         oslog = _AKLogSystem();
-        v51 = OS_LOG_TYPE_DEFAULT;
+        v49 = OS_LOG_TYPE_DEFAULT;
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = oslog;
-          v21 = v51;
-          sub_10001CEEC(v50);
-          _os_log_impl(&_mh_execute_header, v20, v21, "Client is asking to disable proximity based authentication...", v50, 2u);
+          v18 = oslog;
+          v19 = v49;
+          sub_10001CEEC(v48);
+          _os_log_impl(&_mh_execute_header, v18, v19, "Client is asking to disable proximity based authentication...", v48, 2u);
         }
 
         objc_storeStrong(&oslog, 0);
@@ -8220,55 +8015,54 @@ void sub_1000A54C0(id *a1, char a2, id obj)
 
       if ([a1[5] _shouldBroadcastForProximity:a1[4]])
       {
-        v17 = *(a1[5] + 6);
-        v18 = *(a1[5] + 1);
-        v19 = a1[4];
+        v15 = *(a1[5] + 6);
+        v16 = *(a1[5] + 1);
+        v17 = a1[4];
         if (sub_1001773DC(0))
         {
-          v8 = objc_alloc_init(sub_100177804());
+          v7 = objc_alloc_init(sub_100177804());
         }
 
         else
         {
-          v8 = objc_alloc_init(0);
+          v7 = objc_alloc_init(0);
         }
 
-        v16 = v8;
-        v9 = a1[6];
-        v10 = [v17 beginAuthenticationWithClient:v18 context:v19 server:? completion:?];
-        _objc_release(v16);
+        v14 = v7;
+        v8 = [v15 beginAuthenticationWithClient:v16 context:v17 server:? completion:?];
+        _objc_release(v14);
       }
 
       else
       {
-        v49 = _AKLogSystem();
-        v48 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v47 = _AKLogSystem();
+        v46 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = v49;
-          v15 = v48;
-          sub_10001CEEC(v47);
-          _os_log_impl(&_mh_execute_header, v14, v15, "Skipping proximity based auth..", v47, 2u);
+          v12 = v47;
+          v13 = v46;
+          sub_10001CEEC(v45);
+          _os_log_impl(&_mh_execute_header, v12, v13, "Skipping proximity based auth..", v45, 2u);
         }
 
-        objc_storeStrong(&v49, 0);
+        objc_storeStrong(&v47, 0);
       }
 
-      v13 = *(a1[5] + 5);
-      v11 = a1[4];
-      v12 = *(a1[5] + 1);
-      v39 = _NSConcreteStackBlock;
-      v40 = -1073741824;
-      v41 = 0;
-      v42 = sub_1000A5F34;
-      v43 = &unk_100321DC0;
-      v44 = _objc_retain(a1[5]);
-      v45 = _objc_retain(a1[4]);
-      v46 = _objc_retain(a1[6]);
-      [v13 presentBasicLoginUIForContext:v11 client:v12 completion:&v39];
-      objc_storeStrong(&v46, 0);
-      objc_storeStrong(&v45, 0);
+      v11 = *(a1[5] + 5);
+      v9 = a1[4];
+      v10 = *(a1[5] + 1);
+      v37 = _NSConcreteStackBlock;
+      v38 = -1073741824;
+      v39 = 0;
+      v40 = sub_1000A5F34;
+      v41 = &unk_100321DC0;
+      v42 = _objc_retain(a1[5]);
+      v43 = _objc_retain(a1[4]);
+      v44 = _objc_retain(a1[6]);
+      [v11 presentBasicLoginUIForContext:v9 client:v10 completion:&v37];
       objc_storeStrong(&v44, 0);
+      objc_storeStrong(&v43, 0);
+      objc_storeStrong(&v42, 0);
     }
   }
 
@@ -8577,8 +8371,8 @@ void sub_1000A9704(uint64_t a1, void *a2, void *a3)
 
 void sub_1000A988C(NSObject *a1, char a2, id obj)
 {
-  v9 = a1;
-  v8 = a2;
+  v7 = a1;
+  v6 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
   oslog[1] = a1;
@@ -8587,15 +8381,13 @@ void sub_1000A988C(NSObject *a1, char a2, id obj)
     oslog[0] = _AKLogSystem();
     if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
     {
-      sub_1000194D4(v10, location);
-      _os_log_error_impl(&_mh_execute_header, oslog[0], OS_LOG_TYPE_ERROR, "Unable to dismiss UI on client side! Error: %@", v10, 0xCu);
+      sub_1000194D4(v8, location);
+      _os_log_error_impl(&_mh_execute_header, oslog[0], OS_LOG_TYPE_ERROR, "Unable to dismiss UI on client side! Error: %@", v8, 0xCu);
     }
 
     objc_storeStrong(oslog, 0);
   }
 
-  isa = a1[4].isa;
-  v4 = a1[5].isa;
   (*(a1[6].isa + 2))();
   objc_storeStrong(&location, 0);
 }
@@ -9624,102 +9416,100 @@ void sub_1000B1918(uint64_t a1, char a2, id obj)
 
 void sub_1000B1F60(uint64_t a1)
 {
-  v36[2] = a1;
-  v36[1] = a1;
-  v36[0] = [*(a1 + 32) _authKitAccountFromContext:*(a1 + 40)];
-  v20 = 1;
-  if (v36[0])
+  v34[2] = a1;
+  v34[1] = a1;
+  v34[0] = [*(a1 + 32) _authKitAccountFromContext:*(a1 + 40)];
+  v18 = 1;
+  if (v34[0])
   {
-    v20 = [*(a1 + 32) _shouldSkipAccountUpdatesForAuthWithContext:*(a1 + 40)];
+    v18 = [*(a1 + 32) _shouldSkipAccountUpdatesForAuthWithContext:*(a1 + 40)];
   }
 
-  v35 = v20 & 1;
-  if (*(a1 + 80) & 1) != 0 || (v35)
+  v33 = v18 & 1;
+  if (*(a1 + 80) & 1) != 0 || (v33)
   {
-    if (v35)
+    if (v33)
     {
       [*(a1 + 32) _provideServiceTokensIfRequiredForContext:*(a1 + 40) authenticationResults:*(a1 + 56) serverResponse:*(a1 + 48) completion:*(a1 + 72)];
     }
 
     else
     {
-      v29 = _AKLogSystem();
-      v28 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v27 = _AKLogSystem();
+      v26 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = v29;
-        v16 = v28;
-        sub_10001CEEC(v27);
-        _os_log_impl(&_mh_execute_header, v15, v16, "Updating AK account...", v27, 2u);
+        v13 = v27;
+        v14 = v26;
+        sub_10001CEEC(v25);
+        _os_log_impl(&_mh_execute_header, v13, v14, "Updating AK account...", v25, 2u);
       }
 
-      objc_storeStrong(&v29, 0);
-      v26 = 0;
-      v6 = *(a1 + 32);
-      v7 = *(a1 + 48);
-      v8 = *(a1 + 40);
+      objc_storeStrong(&v27, 0);
       v24 = 0;
-      v14 = [v6 _updateAuthKitAccount:v36[0] withServerResponse:v7 context:v8 error:&v24];
-      objc_storeStrong(&v26, v24);
-      v25 = v14;
-      if (v14)
+      v4 = *(a1 + 32);
+      v5 = *(a1 + 48);
+      v6 = *(a1 + 40);
+      v22 = 0;
+      v12 = [v4 _updateAuthKitAccount:v34[0] withServerResponse:v5 context:v6 error:&v22];
+      objc_storeStrong(&v24, v22);
+      v23 = v12;
+      if (v12)
       {
-        v23 = _AKLogSystem();
-        v22 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v21 = _AKLogSystem();
+        v20 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = v23;
-          v13 = v22;
-          sub_10001CEEC(v21);
-          _os_log_impl(&_mh_execute_header, v12, v13, "Will check in with IDMS about push registration...", v21, 2u);
+          v10 = v21;
+          v11 = v20;
+          sub_10001CEEC(v19);
+          _os_log_impl(&_mh_execute_header, v10, v11, "Will check in with IDMS about push registration...", v19, 2u);
         }
 
-        objc_storeStrong(&v23, 0);
-        v11 = +[AKAppleIDCheckInHelperService sharedService];
-        [v11 performCheckInForAccount:v36[0] event:AKPostDataEventLiveness reason:5 completion:&stru_100322038];
-        _objc_release(v11);
+        objc_storeStrong(&v21, 0);
+        v9 = +[AKAppleIDCheckInHelperService sharedService];
+        [v9 performCheckInForAccount:v34[0] event:AKPostDataEventLiveness reason:5 completion:&stru_100322038];
+        _objc_release(v9);
         [*(a1 + 32) _provideServiceTokensIfRequiredForContext:*(a1 + 40) authenticationResults:*(a1 + 56) serverResponse:*(a1 + 48) completion:*(a1 + 72)];
       }
 
       else
       {
-        v9 = *(a1 + 72);
-        v10 = [NSError ak_errorWithCode:-7001 underlyingError:v26];
-        (*(v9 + 16))(v9, 0);
-        _objc_release(v10);
+        v7 = *(a1 + 72);
+        v8 = [NSError ak_errorWithCode:-7001 underlyingError:v24];
+        (*(v7 + 16))(v7, 0);
+        _objc_release(v8);
       }
 
-      objc_storeStrong(&v26, 0);
+      objc_storeStrong(&v24, 0);
     }
   }
 
   else
   {
     location = _AKLogSystem();
-    v33 = 2;
+    v31 = 2;
     if (os_log_type_enabled(location, OS_LOG_TYPE_DEBUG))
     {
       log = location;
-      type = v33;
-      sub_10001CEEC(v32);
-      _os_log_debug_impl(&_mh_execute_header, log, type, "Should conitnue returned NO, authkit account exists, will continue updating account.", v32, 2u);
+      type = v31;
+      sub_10001CEEC(v30);
+      _os_log_debug_impl(&_mh_execute_header, log, type, "Should conitnue returned NO, authkit account exists, will continue updating account.", v30, 2u);
     }
 
     objc_storeStrong(&location, 0);
-    v31 = 0;
+    v29 = 0;
     v1 = *(a1 + 32);
     v2 = *(a1 + 48);
     v3 = *(a1 + 40);
-    v30 = 0;
-    [v1 _updateAuthKitAccount:v36[0] withServerResponse:v2 context:v3 error:&v30];
-    objc_storeStrong(&v31, v30);
-    v4 = *(a1 + 56);
-    v5 = *(a1 + 64);
+    v28 = 0;
+    [v1 _updateAuthKitAccount:v34[0] withServerResponse:v2 context:v3 error:&v28];
+    objc_storeStrong(&v29, v28);
     (*(*(a1 + 72) + 16))();
-    objc_storeStrong(&v31, 0);
+    objc_storeStrong(&v29, 0);
   }
 
-  objc_storeStrong(v36, 0);
+  objc_storeStrong(v34, 0);
 }
 
 void sub_1000B2370(id a1, BOOL a2, NSError *a3)
@@ -9778,50 +9568,46 @@ void sub_1000B31B8(uint64_t a1, void *a2, void *a3)
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v17 = 0;
-  objc_storeStrong(&v17, a3);
-  v16[1] = a1;
-  if (v17)
+  v13 = 0;
+  objc_storeStrong(&v13, a3);
+  v12[1] = a1;
+  if (v13)
   {
-    v16[0] = _AKLogSystem();
-    v15 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v16[0], OS_LOG_TYPE_ERROR))
+    v12[0] = _AKLogSystem();
+    v11 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v12[0], OS_LOG_TYPE_ERROR))
     {
-      sub_10001B098(v20, *(a1 + 32), v17);
-      _os_log_error_impl(&_mh_execute_header, v16[0], v15, "Fetching tokens for service IDs %@ failed. Error: %@", v20, 0x16u);
+      sub_10001B098(v16, *(a1 + 32), v13);
+      _os_log_error_impl(&_mh_execute_header, v12[0], v11, "Fetching tokens for service IDs %@ failed. Error: %@", v16, 0x16u);
     }
 
-    objc_storeStrong(v16, 0);
-    v8 = *(a1 + 40);
-    v9 = [*(a1 + 48) serviceTokens];
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 64);
-    v5 = *(a1 + 72);
-    v6 = *(a1 + 80);
-    [v8 _completeAuthenticationWithServiceTokens:? tokenFetchError:? altDSID:? authenticationResults:? context:? completion:?];
-    _objc_release(v9);
+    objc_storeStrong(v12, 0);
+    v4 = *(a1 + 40);
+    v5 = [*(a1 + 48) serviceTokens];
+    [v4 _completeAuthenticationWithServiceTokens:? tokenFetchError:? altDSID:? authenticationResults:? context:? completion:?];
+    _objc_release(v5);
   }
 
   else
   {
-    v14 = _AKLogSystem();
-    v13 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v10 = _AKLogSystem();
+    v9 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1000194D4(v19, *(a1 + 32));
-      _os_log_impl(&_mh_execute_header, v14, v13, "Fetching tokens for service IDs %@ succeeded!", v19, 0xCu);
+      sub_1000194D4(v15, *(a1 + 32));
+      _os_log_impl(&_mh_execute_header, v10, v9, "Fetching tokens for service IDs %@ succeeded!", v15, 0xCu);
     }
 
-    objc_storeStrong(&v14, 0);
-    v7 = [*(a1 + 48) serviceTokens];
-    v12 = [v7 mutableCopy];
-    _objc_release(v7);
-    [v12 setValuesForKeysWithDictionary:location[0]];
-    [*(a1 + 40) _completeAuthenticationWithServiceTokens:v12 tokenFetchError:0 altDSID:*(a1 + 56) authenticationResults:*(a1 + 64) context:*(a1 + 72) completion:*(a1 + 80)];
-    objc_storeStrong(&v12, 0);
+    objc_storeStrong(&v10, 0);
+    v3 = [*(a1 + 48) serviceTokens];
+    v8 = [v3 mutableCopy];
+    _objc_release(v3);
+    [v8 setValuesForKeysWithDictionary:location[0]];
+    [*(a1 + 40) _completeAuthenticationWithServiceTokens:v8 tokenFetchError:0 altDSID:*(a1 + 56) authenticationResults:*(a1 + 64) context:*(a1 + 72) completion:*(a1 + 80)];
+    objc_storeStrong(&v8, 0);
   }
 
-  objc_storeStrong(&v17, 0);
+  objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -9945,4 +9731,241 @@ void sub_1000B4E88(uint64_t a1, char a2, id obj, void *a4, void *a5)
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(&location, 0);
+}
+
+void sub_1000B5210(uint64_t a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v5 = 0;
+  objc_storeStrong(&v5, a3);
+  [*(a1 + 32) _handleSecondFactorUICompletionWithCode:location[0] error:v5 idmsData:*(a1 + 40) piggybacking:*(a1 + 72) & 1 initialAuthResponse:*(a1 + 48) context:*(a1 + 56) completion:*(a1 + 64)];
+  objc_storeStrong(&v5, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1000B5888(uint64_t a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v28 = 0;
+  objc_storeStrong(&v28, a3);
+  v27 = a1;
+  if ([v28 ak_isUserCancelError])
+  {
+    v8 = *(a1 + 48);
+    v7 = v28;
+    v31 = AKAuthenticationDidPerformInteractiveAuth;
+    v32 = &__kCFBooleanTrue;
+    v10 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v9 = [v7 ak_errorByAppendingUserInfo:?];
+    (*(v8 + 16))(v8, 0);
+    _objc_release(v9);
+    _objc_release(v10);
+    v26 = 1;
+  }
+
+  else
+  {
+    v5 = [v28 domain];
+    v6 = 0;
+    if ([v5 isEqualToString:AKAppleIDAuthenticationErrorDomain])
+    {
+      v6 = [v28 code] == -7065;
+    }
+
+    _objc_release(v5);
+    if (v6)
+    {
+      (*(*(a1 + 48) + 16))();
+      v26 = 1;
+    }
+
+    else
+    {
+      v25 = [*(a1 + 32) username];
+      v24 = [*(a1 + 40) _srpAuthContextHelperWithContext:*(a1 + 32)];
+      [v24 setAuthKitAccount:location[0]];
+      [v24 setPasscodeAuthEnabled:{objc_msgSend(*(a1 + 32), "isContextEligibleForPasscodeAuth")}];
+      if (*(a1 + 56) == 2)
+      {
+        [v24 setPasscodeAuth:1];
+      }
+
+      else if (*(a1 + 56) == 1)
+      {
+        [v24 setBiometricAuth:1];
+      }
+
+      else
+      {
+        v23 = _AKLogSystem();
+        v22 = OS_LOG_TYPE_ERROR;
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          sub_10006A654(v30, *(a1 + 56));
+          _os_log_error_impl(&_mh_execute_header, v23, v22, "Unsupported prompt type encountered: %d", v30, 8u);
+        }
+
+        objc_storeStrong(&v23, 0);
+      }
+
+      v4 = *(a1 + 40);
+      v3 = v24;
+      v13 = _NSConcreteStackBlock;
+      v14 = -1073741824;
+      v15 = 0;
+      v16 = sub_1000B5D64;
+      v17 = &unk_100322190;
+      v21 = _objc_retain(*(a1 + 48));
+      v18 = _objc_retain(*(a1 + 40));
+      v19 = _objc_retain(v25);
+      v20 = _objc_retain(*(a1 + 32));
+      [v4 _performSRPAuthenticationWithContext:v3 completion:&v13];
+      objc_storeStrong(&v20, 0);
+      objc_storeStrong(&v19, 0);
+      objc_storeStrong(&v18, 0);
+      objc_storeStrong(&v21, 0);
+      objc_storeStrong(&v24, 0);
+      objc_storeStrong(&v25, 0);
+      v26 = 0;
+    }
+  }
+
+  objc_storeStrong(&v28, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1000B5D64(uint64_t a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v6 = 0;
+  objc_storeStrong(&v6, a3);
+  v5[1] = a1;
+  if (v6)
+  {
+    v5[0] = _AKLogSystem();
+    if (os_log_type_enabled(v5[0], OS_LOG_TYPE_ERROR))
+    {
+      sub_1000194D4(v8, v6);
+      _os_log_error_impl(&_mh_execute_header, v5[0], OS_LOG_TYPE_ERROR, "Passwordless auth failed: %@", v8, 0xCu);
+    }
+
+    objc_storeStrong(v5, 0);
+    (*(*(a1 + 56) + 16))();
+  }
+
+  else
+  {
+    [*(a1 + 32) _handleVerificationCompletionForUsername:*(a1 + 40) password:0 serverResponse:location[0] didShowServerUI:0 continuationData:0 error:0 context:*(a1 + 48) completion:*(a1 + 56)];
+  }
+
+  objc_storeStrong(&v6, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1000B6458(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v8 = 0;
+  objc_storeStrong(&v8, a3);
+  v7 = 0;
+  objc_storeStrong(&v7, a4);
+  [*(a1 + 32) _handleGrandslamResponse:v8 data:location[0] error:v7 serverResponse:*(a1 + 40) completion:*(a1 + 48)];
+  objc_storeStrong(&v7, 0);
+  objc_storeStrong(&v8, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1000B6D74(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id *location)
+{
+  *(v11 - 88) = a1;
+  *(v11 - 92) = a2;
+  objc_destroyWeak((v11 - 80));
+  _Unwind_Resume(*(v11 - 88));
+}
+
+void sub_1000B6DB4(uint64_t a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v7 = 0;
+  objc_storeStrong(&v7, a3);
+  v6[1] = a1;
+  v6[0] = objc_loadWeakRetained((a1 + 56));
+  if (v6[0])
+  {
+    if (v7)
+    {
+      oslog = _AKLogFido();
+      if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000194D4(v9, v7);
+        _os_log_error_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "Error starting fido auth flow: %@", v9, 0xCu);
+      }
+
+      objc_storeStrong(&oslog, 0);
+      (*(*(a1 + 48) + 16))();
+    }
+
+    else
+    {
+      [v6[0] _handleStartFidoAuthWithContext:*(a1 + 32) fidoContext:location[0] serverResponse:*(a1 + 40) completion:*(a1 + 48)];
+    }
+  }
+
+  objc_storeStrong(v6, 0);
+  objc_storeStrong(&v7, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1000B7254(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id *location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, int a25, uint64_t a26)
+{
+  objc_destroyWeak(location);
+  objc_destroyWeak((v26 - 120));
+  _Unwind_Resume(a1);
+}
+
+void sub_1000B729C(uint64_t a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v8 = 0;
+  objc_storeStrong(&v8, a3);
+  v7[1] = a1;
+  v7[0] = objc_loadWeakRetained((a1 + 48));
+  if (v7[0])
+  {
+    if (v8)
+    {
+      oslog = _AKLogFido();
+      if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000194D4(v10, v8);
+        _os_log_error_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "Error presenting fido auth prompt: %@", v10, 0xCu);
+      }
+
+      objc_storeStrong(&oslog, 0);
+      (*(*(a1 + 40) + 16))();
+    }
+
+    else
+    {
+      v3 = [v7[0] fidoHandler];
+      [v3 finishFidoAuthWithResponse:location[0] client:*(v7[0] + 1) context:*(a1 + 32) recoveryToken:0 completion:*(a1 + 40)];
+      _objc_release(v3);
+    }
+  }
+
+  objc_storeStrong(v7, 0);
+  objc_storeStrong(&v8, 0);
+  objc_storeStrong(location, 0);
 }

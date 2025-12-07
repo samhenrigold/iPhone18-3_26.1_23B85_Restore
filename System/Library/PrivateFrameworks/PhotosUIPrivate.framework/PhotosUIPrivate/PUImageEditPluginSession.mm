@@ -263,90 +263,90 @@ uint64_t __84__PUImageEditPluginSession_loadItemProviderWithSupportedAdjustmentD
   completionCopy = completion;
   if ([(PUImageEditPluginSession *)self allowSpatialPhotoExtensions])
   {
-    v39 = PULocalizedString(@"PLUGIN_DISABLES_SPATIAL_PHOTO_TITLE_FORMAT");
+    v51 = PULocalizedString(@"PLUGIN_DISABLES_SPATIAL_PHOTO_TITLE_FORMAT");
     title = [pluginCopy title];
-    v8 = PUStringWithValidatedFormat();
+    v15 = PUStringWithValidatedFormat(v51, @"%@", v9, v10, v11, v12, v13, v14, title);
 
-    v9 = MEMORY[0x1E69DC650];
-    v10 = PULocalizedString(@"PLUGIN_DISABLES_SPATIAL_PHOTO_MESSAGE");
-    v11 = [v9 alertControllerWithTitle:v8 message:v10 preferredStyle:{1, title}];
+    v16 = MEMORY[0x1E69DC650];
+    v17 = PULocalizedString(@"PLUGIN_DISABLES_SPATIAL_PHOTO_MESSAGE");
+    v18 = [v16 alertControllerWithTitle:v15 message:v17 preferredStyle:1];
 
-    v12 = MEMORY[0x1E69DC648];
-    v13 = PULocalizedString(@"OK");
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __58__PUImageEditPluginSession_shouldLaunchPlugin_completion___block_invoke;
-    v47[3] = &unk_1E7B80980;
-    v14 = pluginCopy;
-    v15 = completionCopy;
-    v16 = completionCopy;
-    v48 = v16;
-    v17 = [v12 actionWithTitle:v13 style:0 handler:v47];
-    [v11 addAction:v17];
+    v19 = MEMORY[0x1E69DC648];
+    v20 = PULocalizedString(@"OK");
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __58__PUImageEditPluginSession_shouldLaunchPlugin_completion___block_invoke;
+    v59[3] = &unk_1E7B80980;
+    v21 = pluginCopy;
+    v22 = completionCopy;
+    v23 = completionCopy;
+    v60 = v23;
+    v24 = [v19 actionWithTitle:v20 style:0 handler:v59];
+    [v18 addAction:v24];
 
-    v18 = MEMORY[0x1E69DC648];
-    v19 = PULocalizedString(@"CANCEL");
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __58__PUImageEditPluginSession_shouldLaunchPlugin_completion___block_invoke_2;
-    v45[3] = &unk_1E7B80980;
-    v20 = v16;
-    completionCopy = v15;
-    pluginCopy = v14;
-    v46 = v20;
-    v21 = [v18 actionWithTitle:v19 style:1 handler:v45];
-    [v11 addAction:v21];
+    v25 = MEMORY[0x1E69DC648];
+    v26 = PULocalizedString(@"CANCEL");
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __58__PUImageEditPluginSession_shouldLaunchPlugin_completion___block_invoke_2;
+    v57[3] = &unk_1E7B80980;
+    v27 = v23;
+    completionCopy = v22;
+    pluginCopy = v21;
+    v58 = v27;
+    v28 = [v25 actionWithTitle:v26 style:1 handler:v57];
+    [v18 addAction:v28];
 
-    [(PUEditPluginSession *)self presentAlertController:v11];
-    v22 = v48;
+    [(PUEditPluginSession *)self presentAlertController:v18];
+    v29 = v60;
   }
 
   else
   {
-    if (!-[PUImageEditPluginSession allowLivePhotoExtensions](self, "allowLivePhotoExtensions") || ([pluginCopy extension], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "pu_supportsMediaType:", 1), v23, (v24 & 1) != 0))
+    if (!-[PUImageEditPluginSession allowLivePhotoExtensions](self, "allowLivePhotoExtensions") || ([pluginCopy extension], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "pu_supportsMediaType:", 1), v30, (v31 & 1) != 0))
     {
-      v40.receiver = self;
-      v40.super_class = PUImageEditPluginSession;
-      [(PUEditPluginSession *)&v40 shouldLaunchPlugin:pluginCopy completion:completionCopy];
+      v52.receiver = self;
+      v52.super_class = PUImageEditPluginSession;
+      [(PUEditPluginSession *)&v52 shouldLaunchPlugin:pluginCopy completion:completionCopy];
       goto LABEL_7;
     }
 
-    v39 = PULocalizedString(@"PLUGIN_DISABLES_LIVE_PHOTO_TITLE_FORMAT");
+    v51 = PULocalizedString(@"PLUGIN_DISABLES_LIVE_PHOTO_TITLE_FORMAT");
     title2 = [pluginCopy title];
-    v8 = PUStringWithValidatedFormat();
+    v15 = PUStringWithValidatedFormat(v51, @"%@", v33, v34, v35, v36, v37, v38, title2);
 
-    v25 = MEMORY[0x1E69DC650];
-    v26 = PULocalizedString(@"PLUGIN_DISABLES_LIVE_PHOTO_MESSAGE");
-    v11 = [v25 alertControllerWithTitle:v8 message:v26 preferredStyle:{1, title2}];
+    v39 = MEMORY[0x1E69DC650];
+    v40 = PULocalizedString(@"PLUGIN_DISABLES_LIVE_PHOTO_MESSAGE");
+    v18 = [v39 alertControllerWithTitle:v15 message:v40 preferredStyle:1];
 
-    v27 = MEMORY[0x1E69DC648];
-    v28 = PULocalizedString(@"OK");
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __58__PUImageEditPluginSession_shouldLaunchPlugin_completion___block_invoke_3;
-    v43[3] = &unk_1E7B80980;
-    v29 = pluginCopy;
-    v30 = completionCopy;
-    v31 = completionCopy;
-    v44 = v31;
-    v32 = [v27 actionWithTitle:v28 style:0 handler:v43];
-    [v11 addAction:v32];
+    v41 = MEMORY[0x1E69DC648];
+    v42 = PULocalizedString(@"OK");
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = __58__PUImageEditPluginSession_shouldLaunchPlugin_completion___block_invoke_3;
+    v55[3] = &unk_1E7B80980;
+    v43 = pluginCopy;
+    v44 = completionCopy;
+    v45 = completionCopy;
+    v56 = v45;
+    v46 = [v41 actionWithTitle:v42 style:0 handler:v55];
+    [v18 addAction:v46];
 
-    v33 = MEMORY[0x1E69DC648];
-    v34 = PULocalizedString(@"CANCEL");
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __58__PUImageEditPluginSession_shouldLaunchPlugin_completion___block_invoke_4;
-    v41[3] = &unk_1E7B80980;
-    v35 = v31;
-    completionCopy = v30;
-    pluginCopy = v29;
-    v42 = v35;
-    v36 = [v33 actionWithTitle:v34 style:1 handler:v41];
-    [v11 addAction:v36];
+    v47 = MEMORY[0x1E69DC648];
+    v48 = PULocalizedString(@"CANCEL");
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __58__PUImageEditPluginSession_shouldLaunchPlugin_completion___block_invoke_4;
+    v53[3] = &unk_1E7B80980;
+    v49 = v45;
+    completionCopy = v44;
+    pluginCopy = v43;
+    v54 = v49;
+    v50 = [v47 actionWithTitle:v48 style:1 handler:v53];
+    [v18 addAction:v50];
 
-    [(PUEditPluginSession *)self presentAlertController:v11];
-    v22 = v44;
+    [(PUEditPluginSession *)self presentAlertController:v18];
+    v29 = v56;
   }
 
 LABEL_7:

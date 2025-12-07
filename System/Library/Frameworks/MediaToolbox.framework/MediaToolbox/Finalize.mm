@@ -31,10 +31,10 @@ void __servedPlayerState_Finalize_block_invoke(uint64_t a1)
 
 void __servedPlayerState_Finalize_block_invoke_2(uint64_t a1)
 {
-  FigBaseObject = FigPlayerGetFigBaseObject(*(a1 + 32));
-  if (FigBaseObject)
+  FigPlayerGetFigBaseObject();
+  if (v2)
   {
-    v3 = FigBaseObject;
+    v3 = v2;
     v4 = *(*(CMBaseObjectGetVTable() + 8) + 24);
     if (v4)
     {
@@ -68,10 +68,10 @@ void __servedPlaybackItemState_Finalize_block_invoke(uint64_t a1)
 
 void __servedPlaybackItemState_Finalize_block_invoke_2(uint64_t a1)
 {
-  FigBaseObject = FigPlaybackItemGetFigBaseObject(*(a1 + 32));
-  if (FigBaseObject)
+  FigPlaybackItemGetFigBaseObject();
+  if (v2)
   {
-    v3 = FigBaseObject;
+    v3 = v2;
     v4 = *(*(CMBaseObjectGetVTable() + 8) + 24);
     if (v4)
     {

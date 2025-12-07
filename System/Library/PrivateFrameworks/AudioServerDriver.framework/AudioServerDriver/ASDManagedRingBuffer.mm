@@ -38,7 +38,7 @@
   dispatch_sync(queue, block);
 }
 
-uint64_t __35__ASDManagedRingBuffer_startReader__block_invoke(uint64_t a1)
+void *__35__ASDManagedRingBuffer_startReader__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setReaderRunning:1];
   result = [*(a1 + 32) writerRunning];
@@ -63,7 +63,7 @@ uint64_t __35__ASDManagedRingBuffer_startReader__block_invoke(uint64_t a1)
   dispatch_sync(queue, block);
 }
 
-uint64_t __34__ASDManagedRingBuffer_stopReader__block_invoke(uint64_t a1)
+void *__34__ASDManagedRingBuffer_stopReader__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setReaderRunning:0];
   result = [*(a1 + 32) writerRunning];
@@ -88,7 +88,7 @@ uint64_t __34__ASDManagedRingBuffer_stopReader__block_invoke(uint64_t a1)
   dispatch_sync(queue, block);
 }
 
-uint64_t __35__ASDManagedRingBuffer_startWriter__block_invoke(uint64_t a1)
+void *__35__ASDManagedRingBuffer_startWriter__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setWriterRunning:1];
   result = [*(a1 + 32) readerRunning];
@@ -113,7 +113,7 @@ uint64_t __35__ASDManagedRingBuffer_startWriter__block_invoke(uint64_t a1)
   dispatch_sync(queue, block);
 }
 
-uint64_t __34__ASDManagedRingBuffer_stopWriter__block_invoke(uint64_t a1)
+void *__34__ASDManagedRingBuffer_stopWriter__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setWriterRunning:0];
   result = [*(a1 + 32) readerRunning];

@@ -33,10 +33,14 @@
 - (void)_syncWithStandardVoiceOverTapticChimesSoundType:(int64_t)type;
 - (void)_syncWithUnity25VoiceOverTapticChimesSoundType:(int64_t)type;
 - (void)setTapToSpeakTimeAvailability:(int64_t)availability;
+- (void)setTapToSpeakTimeEnabled:(BOOL)enabled;
+- (void)setVoiceOverTapticChimesEnabled:(BOOL)enabled;
 - (void)setVoiceOverTapticChimesFrequencyEncoding:(int64_t)encoding;
 - (void)setVoiceOverTapticChimesSoundType:(int64_t)type;
 - (void)setVoiceOverTapticChimesSoundTypeForCurrentFace:(int64_t)face;
+- (void)setVoiceOverTapticChimesUnity25Active:(BOOL)active;
 - (void)setVoiceOverTapticTimeEncoding:(int64_t)encoding;
+- (void)setVoiceOverTapticTimeMode:(BOOL)mode;
 @end
 
 @implementation AXTimeOutputPreferences
@@ -112,7 +116,7 @@ id __41__AXTimeOutputPreferences_sharedInstance__block_invoke()
 
 - (void)_setNPSValue:(id)value preferenceKey:(id)key
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   if (keyCopy)
@@ -131,8 +135,8 @@ id __41__AXTimeOutputPreferences_sharedInstance__block_invoke()
         v13 = objc_opt_new();
         domain2 = [v9 domain];
         v15 = MEMORY[0x277CBEB98];
-        v19[0] = keyCopy;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+        v18[0] = keyCopy;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
         v17 = [v15 setWithArray:v16];
         [v13 synchronizeNanoDomain:domain2 keys:v17];
       }
@@ -165,8 +169,6 @@ id __41__AXTimeOutputPreferences_sharedInstance__block_invoke()
       [AXTimeOutputPreferences _npsValueForPreferenceKey:expectedClass:];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_npsBoolValueForPreferenceKey:(id)key defaultValue:(BOOL)value
@@ -218,6 +220,13 @@ id __41__AXTimeOutputPreferences_sharedInstance__block_invoke()
   return selfCopy;
 }
 
+- (void)setTapToSpeakTimeEnabled:(BOOL)enabled
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  v4 = [(AXBaseSettings *)self preferenceKeyForSelector:sel_tapToSpeakTimeEnabled];
+  [(AXTimeOutputPreferences *)self _setNPSValue:v5 preferenceKey:v4];
+}
+
 - (int64_t)tapToSpeakTimeAvailability
 {
   v3 = [(AXBaseSettings *)self preferenceKeyForSelector:sel_tapToSpeakTimeAvailability];
@@ -244,6 +253,13 @@ id __41__AXTimeOutputPreferences_sharedInstance__block_invoke()
   return v5 & 1;
 }
 
+- (void)setVoiceOverTapticTimeMode:(BOOL)mode
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:mode];
+  v4 = [(AXBaseSettings *)self preferenceKeyForSelector:sel_voiceOverTapticTimeMode];
+  [(AXTimeOutputPreferences *)self _setNPSValue:v5 preferenceKey:v4];
+}
+
 - (int64_t)voiceOverTapticTimeEncoding
 {
   v3 = [(AXBaseSettings *)self preferenceKeyForSelector:sel_voiceOverTapticTimeEncoding];
@@ -266,6 +282,13 @@ id __41__AXTimeOutputPreferences_sharedInstance__block_invoke()
   LOBYTE(selfCopy) = [(AXTimeOutputPreferences *)selfCopy _npsBoolValueForPreferenceKey:v3 defaultValue:*MEMORY[0x277CE6858]];
 
   return selfCopy;
+}
+
+- (void)setVoiceOverTapticChimesEnabled:(BOOL)enabled
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  v4 = [(AXBaseSettings *)self preferenceKeyForSelector:sel_voiceOverTapticChimesEnabled];
+  [(AXTimeOutputPreferences *)self _setNPSValue:v5 preferenceKey:v4];
 }
 
 - (int64_t)voiceOverTapticChimesFrequencyEncoding
@@ -355,6 +378,13 @@ id __41__AXTimeOutputPreferences_sharedInstance__block_invoke()
   LOBYTE(selfCopy) = [(AXTimeOutputPreferences *)selfCopy _npsBoolValueForPreferenceKey:v3 defaultValue:0];
 
   return selfCopy;
+}
+
+- (void)setVoiceOverTapticChimesUnity25Active:(BOOL)active
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:active];
+  v4 = [(AXBaseSettings *)self preferenceKeyForSelector:sel_voiceOverTapticChimesUnity25Active];
+  [(AXTimeOutputPreferences *)self _setNPSValue:v5 preferenceKey:v4];
 }
 
 - (int64_t)_voiceOverTapticChimesUnity25SoundType
@@ -646,15 +676,13 @@ LABEL_6:
 
 - (void)_npsValueForPreferenceKey:(NSObject *)a3 expectedClass:.cold.1(uint64_t a1, Class aClass, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromClass(aClass);
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_fault_impl(&dword_23D6AA000, a3, OS_LOG_TYPE_FAULT, "unexpected object type! is=%@, expected=%@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_fault_impl(&dword_23D6AA000, a3, OS_LOG_TYPE_FAULT, "unexpected object type! is=%@, expected=%@", &v6, 0x16u);
 }
 
 @end

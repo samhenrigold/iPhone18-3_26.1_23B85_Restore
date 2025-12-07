@@ -47,53 +47,49 @@
 {
   if (*(self + OBJC_IVAR___IMMultiplexedDaemonConnection_context))
   {
-    v2 = *(self + OBJC_IVAR___IMMultiplexedDaemonConnection_context);
 
-    v3 = sub_1A84E5D2C();
+    v2 = sub_1A84E5D2C();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)connectWithCompletion:(id)completion
 {
   v5 = sub_1A83EA2FC(&qword_1EB2E6600, &qword_1A8507BA0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1A84E60BC();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1A84E60BC();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1A8507BB0;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1A8507BB0;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1A85008C0;
-  v13[5] = v12;
+  v12[4] = &unk_1A85008C0;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1A84CF9DC(0, 0, v8, &unk_1A8507BC0, v13);
+  sub_1A84CF9DC(0, 0, v7, &unk_1A8507BC0, v12);
 }
 
 - (NSString)label
 {
-  v2 = *(self + OBJC_IVAR___IMMultiplexedDaemonConnection_label);
-  v3 = *(self + OBJC_IVAR___IMMultiplexedDaemonConnection_label + 8);
 
-  v4 = sub_1A84E5D8C();
+  v2 = sub_1A84E5D8C();
 
-  return v4;
+  return v2;
 }
 
 - (void)waitForSetup
@@ -111,15 +107,14 @@
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
-  v5 = *(self + OBJC_IVAR___IMMultiplexedDaemonConnection_onDeinit);
-  v4 = *(self + OBJC_IVAR___IMMultiplexedDaemonConnection_onDeinit + 8);
+  v4 = *(self + OBJC_IVAR___IMMultiplexedDaemonConnection_onDeinit);
   selfCopy = self;
 
-  v5(v7);
+  v4(v6);
 
-  v8.receiver = selfCopy;
-  v8.super_class = ObjectType;
-  [(IMMultiplexedDaemonConnection *)&v8 dealloc];
+  v7.receiver = selfCopy;
+  v7.super_class = ObjectType;
+  [(IMMultiplexedDaemonConnection *)&v7 dealloc];
 }
 
 - (IMMultiplexedDaemonConnection)init

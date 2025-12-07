@@ -15,7 +15,7 @@
 
 + (Class)layerClass
 {
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for CAGradientLayer);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for CAGradientLayer, CAGradientLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }

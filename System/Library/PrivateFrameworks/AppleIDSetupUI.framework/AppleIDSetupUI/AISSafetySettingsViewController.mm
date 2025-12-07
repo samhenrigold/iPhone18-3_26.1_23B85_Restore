@@ -4,6 +4,7 @@
 - (AISSafetySettingsViewController)initWithSafetySettingsContext:(id)context;
 - (AISSafetySettingsViewControllerDelegate)delegate;
 - (void)shouldPresentSafetySettingsWithContext:(AISSafetySettingsContext *)context completionHandler:(id)handler;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)appear;
 @end
@@ -54,32 +55,55 @@
   sub_240966AB4(appear);
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E50B420, &qword_240A30800);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v15 - v6;
+  v8 = type metadata accessor for SafetySettingsViewController();
+  v15.receiver = self;
+  v15.super_class = v8;
+  selfCopy = self;
+  [(AISSafetySettingsViewController *)&v15 viewDidAppear:appearCopy];
+  v10 = sub_240A2C24C();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  sub_240A2C21C();
+  v11 = selfCopy;
+  v12 = sub_240A2C20C();
+  v13 = swift_allocObject();
+  v14 = MEMORY[0x277D85700];
+  v13[2] = v12;
+  v13[3] = v14;
+  v13[4] = v11;
+  sub_2409230D4(0, 0, v7, &unk_240A33608, v13);
+}
+
 - (void)shouldPresentSafetySettingsWithContext:(AISSafetySettingsContext *)context completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E50B420, &qword_240A30800);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8, v9);
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = context;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_240A2C24C();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
   v13 = swift_allocObject();
-  v13[2] = context;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = sub_240A2C24C();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_240A335F0;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_240A30840;
-  v16[5] = v15;
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_240A335F0;
+  v13[5] = v11;
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_240A30840;
+  v14[5] = v13;
   contextCopy = context;
   selfCopy = self;
-  sub_240A0B0A4(0, 0, v11, &unk_240A33600, v16);
+  sub_240A0B0A4(0, 0, v9, &unk_240A33600, v14);
 }
 
 - (AISSafetySettingsViewController)initWithNibName:(id)name bundle:(id)bundle

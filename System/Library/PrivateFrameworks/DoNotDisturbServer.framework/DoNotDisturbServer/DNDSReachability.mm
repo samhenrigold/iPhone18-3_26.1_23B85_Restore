@@ -2,6 +2,7 @@
 + (id)commonReachability;
 - (DNDSReachability)init;
 - (void)_informDelegates;
+- (void)_setReachable:(BOOL)reachable;
 - (void)_updateHandlerForPath:(id)path;
 - (void)addDelegate:(id)delegate;
 - (void)dealloc;
@@ -193,9 +194,39 @@ void __35__DNDSReachability_removeDelegate___block_invoke(uint64_t a1)
   }
 }
 
+- (void)_setReachable:(BOOL)reachable
+{
+  reachableCopy = reachable;
+  v14 = *MEMORY[0x277D85DE8];
+  queue = [(DNDSReachability *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if ([(DNDSReachability *)self isReachable]!= reachableCopy)
+  {
+    self->_reachable = reachableCopy;
+    if ([(DNDSReachability *)self isInitialized])
+    {
+      v6 = DNDSLogSystemState;
+      if (os_log_type_enabled(DNDSLogSystemState, OS_LOG_TYPE_INFO))
+      {
+        v7 = MEMORY[0x277CCABB0];
+        v8 = v6;
+        v9 = [v7 numberWithBool:reachableCopy];
+        v12 = 138412290;
+        v13 = v9;
+        _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_INFO, "Informed of reachability change to %@", &v12, 0xCu);
+      }
+
+      debounceTimer = [(DNDSReachability *)self debounceTimer];
+      v11 = dispatch_walltime(0, 1000000000);
+      dispatch_source_set_timer(debounceTimer, v11, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
+    }
+  }
+}
+
 - (void)_informDelegates
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   queue = [(DNDSReachability *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -211,7 +242,7 @@ void __35__DNDSReachability_removeDelegate___block_invoke(uint64_t a1)
       v17 = v6;
       v18 = [v16 numberWithBool:isReachable];
       *buf = 138412290;
-      v26 = v18;
+      v25 = v18;
       _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Debounced reachability state (%@) did not change. Ignoring.", buf, 0xCu);
     }
   }
@@ -224,43 +255,41 @@ void __35__DNDSReachability_removeDelegate___block_invoke(uint64_t a1)
       v9 = v6;
       v10 = [v8 numberWithBool:isReachable];
       *buf = 138412290;
-      v26 = v10;
+      v25 = v10;
       _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Informing delegates of debounced reachability state: %@", buf, 0xCu);
     }
 
     [(DNDSReachability *)self setLastInformedReachability:isReachable];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     delegates = [(DNDSReachability *)self delegates];
-    v12 = [delegates countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [delegates countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         v15 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(delegates);
           }
 
-          [*(*(&v20 + 1) + 8 * v15++) reachabilityChangedTo:isReachable];
+          [*(*(&v19 + 1) + 8 * v15++) reachabilityChangedTo:isReachable];
         }
 
         while (v13 != v15);
-        v13 = [delegates countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [delegates countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

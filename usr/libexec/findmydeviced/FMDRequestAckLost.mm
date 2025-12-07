@@ -1,10 +1,34 @@
 @interface FMDRequestAckLost
 - (BOOL)canReplace:(id)replace;
+- (FMDRequestAckLost)initWithProvider:(id)provider lostCommand:(id)command cmdStatusCode:(int64_t)code locationServicesStateChanged:(BOOL)changed ackURL:(id)l;
 - (FMDServiceProvider)provider;
 - (id)requestBody;
 @end
 
 @implementation FMDRequestAckLost
+
+- (FMDRequestAckLost)initWithProvider:(id)provider lostCommand:(id)command cmdStatusCode:(int64_t)code locationServicesStateChanged:(BOOL)changed ackURL:(id)l
+{
+  changedCopy = changed;
+  providerCopy = provider;
+  commandCopy = command;
+  lCopy = l;
+  account = [providerCopy account];
+  v18.receiver = self;
+  v18.super_class = FMDRequestAckLost;
+  v16 = [(FMDRequest *)&v18 initWithAccount:account];
+
+  if (v16)
+  {
+    [(FMDRequestAckLost *)v16 setProvider:providerCopy];
+    [(FMDRequestAckLost *)v16 setLostCommand:commandCopy];
+    [(FMDRequestAckLost *)v16 setAckURL:lCopy];
+    [(FMDRequestAckLost *)v16 setCmdStatusCode:code];
+    [(FMDRequestAckLost *)v16 setLocationServicesStateChanged:changedCopy];
+  }
+
+  return v16;
+}
 
 - (id)requestBody
 {

@@ -215,9 +215,9 @@ id sub_2644FB8B8(void *a1, const char *a2)
   return v8;
 }
 
-void sub_2644FBA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2644FBA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -270,9 +270,9 @@ id sub_2644FBBFC(uint64_t a1, const char *a2)
   return v9;
 }
 
-void sub_2644FBD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2644FBD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -316,9 +316,9 @@ id sub_2644FBEEC(uint64_t a1, const char *a2)
   return v7;
 }
 
-void sub_2644FC044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2644FC044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -334,19 +334,18 @@ void sub_2644FC05C(uint64_t a1, void *a2)
 
 void sub_2644FC250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  HIWORD(v18) = 111;
-  sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary processUnifiedAccessStepupAPDU:callbackQueue:responseHandler:]_block_invoke", 158, *(a1 + 32), @"Not initialized", a7, a8, v18);
+  v19[1] = *MEMORY[0x277D85DE8];
+  HIWORD(v17) = 111;
+  sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSHelperLibrary processUnifiedAccessStepupAPDU:callbackQueue:responseHandler:]_block_invoke", 158, *(a1 + 32), @"Not initialized", a7, a8, v17);
   v9 = *(a1 + 40);
-  v11 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v10, &v18 + 6, 2);
+  v11 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v10, &v17 + 6, 2);
   v12 = MEMORY[0x277CCA9B8];
-  v19 = *MEMORY[0x277CCA450];
-  v20[0] = @"Not initialized";
-  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v20, &v19, 1);
+  v18 = *MEMORY[0x277CCA450];
+  v19[0] = @"Not initialized";
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v19, &v18, 1);
   v16 = objc_msgSend_errorWithDomain_code_userInfo_(v12, v15, @"STSXPCHelperErrorDomain", 2, v14);
 
   (*(v9 + 16))(v9, v11, v16, 1);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2644FC574(uint64_t a1, void *a2, void *a3)
@@ -558,9 +557,9 @@ id sub_2644FD9CC(uint64_t a1, const char *a2)
   return v12;
 }
 
-void sub_2644FDB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2644FDB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -598,9 +597,9 @@ id sub_2644FE388(uint64_t a1, const char *a2)
   return v5;
 }
 
-void sub_2644FE48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2644FE48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -689,9 +688,9 @@ id sub_2644FEED4(void *a1, const char *a2)
   return v9;
 }
 
-void sub_2644FF02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2644FF02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -727,9 +726,9 @@ id sub_2644FF1A4(void *a1, const char *a2)
   return v9;
 }
 
-void sub_2644FF2FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2644FF2FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -765,9 +764,9 @@ id sub_2644FF504(uint64_t a1, const char *a2)
   return v9;
 }
 
-void sub_2644FF65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2644FF65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -813,9 +812,9 @@ id sub_2644FF864(uint64_t a1, const char *a2)
   return v10;
 }
 
-void sub_2644FF9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2644FF9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1165,7 +1164,7 @@ uint64_t sub_264500F60()
 
 void sub_264500F80(os_log_type_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (qword_27FF71B50 != -1)
   {
@@ -1179,12 +1178,10 @@ void sub_264500F80(os_log_type_t a1, void *a2, uint64_t a3)
   v13 = qword_27FF71B48;
   if (os_log_type_enabled(qword_27FF71B48, a1))
   {
-    v15 = 136446210;
-    v16 = v12;
-    _os_log_impl(&dword_2644F6000, v13, a1, "%{public}s", &v15, 0xCu);
+    v14 = 136446210;
+    v15 = v12;
+    _os_log_impl(&dword_2644F6000, v13, a1, "%{public}s", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_264501094()
@@ -1271,11 +1268,11 @@ uint64_t sub_264501338()
   return result;
 }
 
-void sub_264502078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_264502078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1326,19 +1323,19 @@ id *sub_2645022A4(id *a1, void *a2, char a3, void *a4)
   return a1;
 }
 
-uint64_t sub_264502394(uint64_t result, const char *a2, uint64_t a3)
+void *sub_264502394(void *result, const char *a2, uint64_t a3)
 {
   if (result)
   {
     v3 = result;
-    if (!*(result + 32))
+    if (!result[4])
     {
       v4 = objc_msgSend_anonymousListener(MEMORY[0x277CCAE98], a2, a3);
-      v5 = *(v3 + 32);
-      *(v3 + 32) = v4;
+      v5 = v3[4];
+      v3[4] = v4;
 
-      objc_msgSend_setDelegate_(*(v3 + 32), v6, v3);
-      v9 = *(v3 + 32);
+      objc_msgSend_setDelegate_(v3[4], v6, v3);
+      v9 = v3[4];
 
       return objc_msgSend_resume(v9, v7, v8);
     }
@@ -1357,7 +1354,7 @@ void sub_264502408(uint64_t a1, const char *a2, uint64_t a3)
   }
 }
 
-void **sub_264502450(void **a1, const char *a2, uint64_t a3)
+id *sub_264502450(id *a1, const char *a2, uint64_t a3)
 {
   if (a1)
   {
@@ -1552,16 +1549,16 @@ void sub_264502E78(uint64_t a1, void *a2, void *a3)
 
 void sub_264502F44(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v9 = a4;
   if (v7)
   {
     v10 = *(a1 + 48);
     v11 = MEMORY[0x277CCA9B8];
-    v38[0] = *MEMORY[0x277CCA450];
-    v40[0] = off_27FF71AA8;
-    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v40, v38, 1);
+    v37[0] = *MEMORY[0x277CCA450];
+    v39[0] = off_27FF71AA8;
+    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v39, v37, 1);
     v14 = objc_msgSend_errorWithDomain_code_userInfo_(v11, v13, @"STSXPCHelperErrorDomain", 11, v12);
 
     (*(v10 + 16))(v10, v7, v14, 1);
@@ -1576,30 +1573,30 @@ void sub_264502F44(uint64_t a1, char a2, void *a3, void *a4)
       v15 = v15[3];
     }
 
-    v37 = v15;
-    v19 = objc_msgSend_unsignedIntegerValue(v37, v17, v18);
+    v36 = v15;
+    v19 = objc_msgSend_unsignedIntegerValue(v36, v17, v18);
     v20 = *(a1 + 48);
     v21 = v20;
     if (v16)
     {
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = sub_264502C50;
-      v40[3] = &unk_279B60118;
-      v40[4] = v16;
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = sub_264502C50;
+      v39[3] = &unk_279B60118;
+      v39[4] = v16;
       v22 = v20;
-      v41 = v22;
-      v42 = v19;
+      v40 = v22;
+      v41 = v19;
       v23 = v9;
-      v24 = MEMORY[0x26673B1B0](v40);
+      v24 = MEMORY[0x26673B1B0](v39);
       WeakRetained = objc_loadWeakRetained((v16 + 8));
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = sub_264502DBC;
-      v38[3] = &unk_279B5FEA0;
-      v38[4] = v16;
-      v39 = v22;
-      v27 = objc_msgSend_asynchronousRemoteObjectProxyWithErrorHandler_(WeakRetained, v26, v38);
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = sub_264502DBC;
+      v37[3] = &unk_279B5FEA0;
+      v37[4] = v16;
+      v38 = v22;
+      v27 = objc_msgSend_asynchronousRemoteObjectProxyWithErrorHandler_(WeakRetained, v26, v37);
       v28 = sub_264502B94(v16);
       v30 = v16 + 16;
       v29 = *(v16 + 16);
@@ -1614,8 +1611,6 @@ void sub_264502F44(uint64_t a1, char a2, void *a3, void *a4)
     v35 = objc_msgSend_initWithBytes_length_(v33, v34, &unk_26450764D, 2);
     (*(*(a1 + 48) + 16))();
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void sub_264503228(uint64_t a1, void *a2, void *a3)
@@ -1694,16 +1689,16 @@ void sub_264503440(uint64_t a1, void *a2, void *a3)
 
 void sub_26450350C(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v9 = a4;
   if (v7)
   {
     v10 = *(a1 + 48);
     v11 = MEMORY[0x277CCA9B8];
-    v34 = *MEMORY[0x277CCA450];
-    v40[0] = off_27FF71AA8;
-    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v40, &v34, 1);
+    v33 = *MEMORY[0x277CCA450];
+    v39[0] = off_27FF71AA8;
+    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v39, &v33, 1);
     v14 = objc_msgSend_errorWithDomain_code_userInfo_(v11, v13, @"STSXPCHelperErrorDomain", 11, v12);
 
     (*(v10 + 16))(v10, v7, v14, 1);
@@ -1726,26 +1721,26 @@ void sub_26450350C(uint64_t a1, char a2, void *a3, void *a4)
       v22 = v21;
       if (v16)
       {
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = sub_264503228;
-        v40[3] = &unk_279B60118;
-        v40[4] = v16;
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = sub_264503228;
+        v39[3] = &unk_279B60118;
+        v39[4] = v16;
         v23 = v21;
-        v41 = v23;
-        v42 = v20;
+        v40 = v23;
+        v41 = v20;
         v24 = v9;
-        v25 = MEMORY[0x26673B1B0](v40);
+        v25 = MEMORY[0x26673B1B0](v39);
         WeakRetained = objc_loadWeakRetained((v16 + 8));
-        v34 = MEMORY[0x277D85DD0];
-        v35 = 3221225472;
-        v36 = sub_264503384;
-        v37 = &unk_279B5FEA0;
-        v38 = v16;
-        v39 = v23;
-        v28 = objc_msgSend_asynchronousRemoteObjectProxyWithErrorHandler_(WeakRetained, v27, &v34);
+        v33 = MEMORY[0x277D85DD0];
+        v34 = 3221225472;
+        v35 = sub_264503384;
+        v36 = &unk_279B5FEA0;
+        v37 = v16;
+        v38 = v23;
+        v28 = objc_msgSend_asynchronousRemoteObjectProxyWithErrorHandler_(WeakRetained, v27, &v33);
         v29 = sub_264502B94(v16);
-        objc_msgSend_processUnifiedAccessStepupExchangeCommand_forAcwg_callback_(v28, v30, v24, v29, v25, v34, v35, v36, v37, v38);
+        objc_msgSend_processUnifiedAccessStepupExchangeCommand_forAcwg_callback_(v28, v30, v24, v29, v25, v33, v34, v35, v36, v37);
       }
     }
 
@@ -1756,8 +1751,6 @@ void sub_26450350C(uint64_t a1, char a2, void *a3, void *a4)
       (*(*(a1 + 48) + 16))();
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2645037CC(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -1834,16 +1827,16 @@ void sub_2645039C8(uint64_t a1, void *a2, void *a3)
 
 void sub_264503A94(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v9 = a4;
   if (v7)
   {
     v10 = *(a1 + 48);
     v11 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA450];
-    v39[0] = off_27FF71AA8;
-    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v39, &v33, 1);
+    v32 = *MEMORY[0x277CCA450];
+    v38[0] = off_27FF71AA8;
+    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v38, &v32, 1);
     v14 = objc_msgSend_errorWithDomain_code_userInfo_(v11, v13, @"STSXPCHelperErrorDomain", 11, v12);
 
     (*(v10 + 16))(v10, v7, v14, 1);
@@ -1866,25 +1859,25 @@ void sub_264503A94(uint64_t a1, char a2, void *a3, void *a4)
       v22 = v21;
       if (v16)
       {
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = sub_2645037CC;
-        v39[3] = &unk_279B60168;
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = sub_2645037CC;
+        v38[3] = &unk_279B60168;
         v23 = v21;
-        v39[4] = v16;
-        v40 = v23;
-        v41 = v20;
+        v38[4] = v16;
+        v39 = v23;
+        v40 = v20;
         v24 = v9;
-        v25 = MEMORY[0x26673B1B0](v39);
+        v25 = MEMORY[0x26673B1B0](v38);
         WeakRetained = objc_loadWeakRetained((v16 + 8));
-        v33 = MEMORY[0x277D85DD0];
-        v34 = 3221225472;
-        v35 = sub_264503910;
-        v36 = &unk_279B5FEA0;
-        v37 = v16;
-        v38 = v23;
-        v28 = objc_msgSend_asynchronousRemoteObjectProxyWithErrorHandler_(WeakRetained, v27, &v33);
-        objc_msgSend_processHandoverRequest_callback_(v28, v29, v24, v25, v33, v34, v35, v36, v37);
+        v32 = MEMORY[0x277D85DD0];
+        v33 = 3221225472;
+        v34 = sub_264503910;
+        v35 = &unk_279B5FEA0;
+        v36 = v16;
+        v37 = v23;
+        v28 = objc_msgSend_asynchronousRemoteObjectProxyWithErrorHandler_(WeakRetained, v27, &v32);
+        objc_msgSend_processHandoverRequest_callback_(v28, v29, v24, v25, v32, v33, v34, v35, v36);
       }
     }
 
@@ -1895,13 +1888,11 @@ void sub_264503A94(uint64_t a1, char a2, void *a3, void *a4)
       (*(*(a1 + 48) + 16))();
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void sub_264503D44(void *a1, void *a2, void *a3)
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1934,9 +1925,9 @@ void sub_264503D44(void *a1, void *a2, void *a3)
     v16 = 0x277CCA000uLL;
     v17 = MEMORY[0x277CCA9B8];
     v18 = *MEMORY[0x277CCA450];
-    v70 = *MEMORY[0x277CCA450];
-    v71[0] = off_27FF71AA8;
-    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v71, &v70, 1);
+    v69 = *MEMORY[0x277CCA450];
+    v70[0] = off_27FF71AA8;
+    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v70, &v69, 1);
     v22 = objc_msgSend_errorWithDomain_code_userInfo_(v17, v21, @"STSXPCHelperErrorDomain", 11, v20);
 
     if (objc_msgSend_length(v15, v23, v24))
@@ -1950,25 +1941,25 @@ void sub_264503D44(void *a1, void *a2, void *a3)
         {
           if (v30[1] == 1)
           {
-            v68 = MEMORY[0x277CCA9B8];
-            v70 = v18;
-            v71[0] = STSXPCHelperErrorDescriptions;
-            v62 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, v71, &v70, 1);
-            v69 = objc_msgSend_errorWithDomain_code_userInfo_(v68, v63, @"STSXPCHelperErrorDomain", 0, v62);
+            v67 = MEMORY[0x277CCA9B8];
+            v69 = v18;
+            v70[0] = STSXPCHelperErrorDescriptions;
+            v61 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, v70, &v69, 1);
+            v68 = objc_msgSend_errorWithDomain_code_userInfo_(v67, v62, @"STSXPCHelperErrorDomain", 0, v61);
 
             if (v30[2] == 1)
             {
               v44 = 1;
-              sub_2645010D8(OS_LOG_TYPE_INFO, 0, "[STSUnifiedAccessHandler _extractContentFromTag41:isCompleted:]", 359, a1, @"CONTROL_FLOW returned Success", v64, v65, v67);
+              sub_2645010D8(OS_LOG_TYPE_INFO, 0, "[STSUnifiedAccessHandler _extractContentFromTag41:isCompleted:]", 359, a1, @"CONTROL_FLOW returned Success", v63, v64, v66);
             }
 
             else
             {
-              sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSUnifiedAccessHandler _extractContentFromTag41:isCompleted:]", 362, a1, @"CONTROL_FLOW returned Failure %d", v64, v65, v30[2]);
+              sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSUnifiedAccessHandler _extractContentFromTag41:isCompleted:]", 362, a1, @"CONTROL_FLOW returned Failure %d", v63, v64, v30[2]);
               v44 = 0;
             }
 
-            v22 = v69;
+            v22 = v68;
             v16 = 0x277CCA000;
 LABEL_14:
             v38 = v22;
@@ -1977,9 +1968,9 @@ LABEL_14:
             {
               v50 = v48;
               v51 = *(v16 + 2488);
-              v70 = v18;
-              v71[0] = off_27FF71AA8;
-              v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v49, v71, &v70, 1);
+              v69 = v18;
+              v70[0] = off_27FF71AA8;
+              v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v49, v70, &v69, 1);
               v54 = objc_msgSend_errorWithDomain_code_userInfo_(v51, v53, @"STSXPCHelperErrorDomain", 11, v52);
 
               v6[2](v6, v50, v54, 1);
@@ -1998,9 +1989,9 @@ LABEL_21:
               }
 
               v58 = *(v16 + 2488);
-              v70 = v18;
-              v71[0] = off_27FF71AD0;
-              v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v57, v71, &v70, 1);
+              v69 = v18;
+              v70[0] = off_27FF71AD0;
+              v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v57, v70, &v69, 1);
               v54 = objc_msgSend_errorWithDomain_code_userInfo_(v58, v60, @"STSXPCHelperErrorDomain", 16, v59);
 
               v6[2](v6, v50, v54, 1);
@@ -2033,49 +2024,47 @@ LABEL_21:
       v36 = 338;
     }
 
-    sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSUnifiedAccessHandler _extractContentFromTag41:isCompleted:]", v36, a1, v35, v25, v26, v67);
+    sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSUnifiedAccessHandler _extractContentFromTag41:isCompleted:]", v36, a1, v35, v25, v26, v66);
     v44 = 0;
     goto LABEL_14;
   }
 
-  sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSUnifiedAccessHandler _processControlFlow:callback:]", 374, a1, @"Unexpected payload length 0", v12, v13, v66);
+  sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSUnifiedAccessHandler _processControlFlow:callback:]", 374, a1, @"Unexpected payload length 0", v12, v13, v65);
   v38 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v37, &unk_26450764B, 2);
   v39 = MEMORY[0x277CCA9B8];
-  v70 = *MEMORY[0x277CCA450];
-  v71[0] = off_27FF71AA8;
-  v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, v71, &v70, 1);
+  v69 = *MEMORY[0x277CCA450];
+  v70[0] = off_27FF71AA8;
+  v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, v70, &v69, 1);
   v43 = objc_msgSend_errorWithDomain_code_userInfo_(v39, v42, @"STSXPCHelperErrorDomain", 11, v41);
 
   v6[2](v6, v38, v43, 1);
 LABEL_22:
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26450429C(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v164[1] = *MEMORY[0x277D85DE8];
+  v161[1] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (a1)
   {
-    v153[0] = MEMORY[0x277D85DD0];
-    v153[1] = 3221225472;
-    v153[2] = sub_264504CC0;
-    v153[3] = &unk_279B60190;
-    v154 = v7;
-    v155 = v8;
+    v150[0] = MEMORY[0x277D85DD0];
+    v150[1] = 3221225472;
+    v150[2] = sub_264504CC0;
+    v150[3] = &unk_279B60190;
+    v151 = v7;
+    v152 = v8;
     v9 = a2;
-    v10 = MEMORY[0x26673B1B0](v153);
+    v10 = MEMORY[0x26673B1B0](v150);
     v11 = sub_2644FF9FC(STSApdu, v9);
 
     if (!v11)
     {
       sub_2645010D8(OS_LOG_TYPE_DEFAULT, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", 419, a1, @"Invalid APDU: %@", v12, v13, 0);
       v26 = MEMORY[0x277CCA9B8];
-      v163 = *MEMORY[0x277CCA450];
-      v164[0] = @"Invalid APDU";
-      v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v27, v164, &v163, 1);
+      v160 = *MEMORY[0x277CCA450];
+      v161[0] = @"Invalid APDU";
+      v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v27, v161, &v160, 1);
       v30 = objc_msgSend_errorWithDomain_code_userInfo_(v26, v29, @"STSXPCHelperErrorDomain", 5, v28);
 
       v31 = v10[2];
@@ -2101,29 +2090,29 @@ LABEL_43:
 
           if (!v99)
           {
-            v159[0] = 0;
-            v128 = *(a1 + 48);
-            v129 = *(v11 + 24);
-            v132 = objc_msgSend_unsignedIntegerValue(v129, v130, v131);
-            v133 = sub_264505598(v128, v132, v159);
+            LOBYTE(v156) = 0;
+            v127 = *(a1 + 48);
+            v128 = *(v11 + 24);
+            v131 = objc_msgSend_unsignedIntegerValue(v128, v129, v130);
+            v132 = sub_264505598(v127, v131, &v156);
 
-            if (v133)
+            if (v132)
             {
-              v137 = 0;
+              v136 = 0;
             }
 
             else
             {
-              v142 = MEMORY[0x277CCA9B8];
-              v163 = *MEMORY[0x277CCA450];
-              v164[0] = off_27FF71A60;
-              v143 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v134, v164, &v163, 1);
-              v137 = objc_msgSend_errorWithDomain_code_userInfo_(v142, v144, @"STSXPCHelperErrorDomain", 2, v143);
+              v141 = MEMORY[0x277CCA9B8];
+              v160 = *MEMORY[0x277CCA450];
+              v161[0] = off_27FF71A60;
+              v142 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v133, v161, &v160, 1);
+              v136 = objc_msgSend_errorWithDomain_code_userInfo_(v141, v143, @"STSXPCHelperErrorDomain", 2, v142);
             }
 
-            sub_2645010D8(OS_LOG_TYPE_DEFAULT, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", 468, a1, @"respApdu=%@, error=%@, isLastChunk=%d", v135, v136, v133);
-            v145 = sub_264502B94(a1);
-            (v10[2])(v10, v133, v137, v159[0] & ~v145);
+            sub_2645010D8(OS_LOG_TYPE_DEFAULT, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", 468, a1, @"respApdu=%@, error=%@, isLastChunk=%d", v134, v135, v132);
+            v144 = sub_264502B94(a1);
+            (v10[2])(v10, v132, v136, (v156 != 0) & ~v144);
 
             goto LABEL_44;
           }
@@ -2136,9 +2125,9 @@ LABEL_43:
 
           if (!v104)
           {
-            sub_2645010D8(OS_LOG_TYPE_INFO, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", 430, a1, @"Missing payload", v106, v107, v148);
-            v138 = objc_alloc(MEMORY[0x277CBEA90]);
-            v116 = objc_msgSend_initWithBytes_length_(v138, v139, &unk_264507651, 2);
+            sub_2645010D8(OS_LOG_TYPE_INFO, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", 430, a1, @"Missing payload", v106, v107, v147);
+            v137 = objc_alloc(MEMORY[0x277CBEA90]);
+            v116 = objc_msgSend_initWithBytes_length_(v137, v138, &unk_264507651, 2);
             goto LABEL_42;
           }
 
@@ -2187,12 +2176,10 @@ LABEL_44:
               goto LABEL_36;
             }
 
-            v141 = 445;
+            v140 = 445;
             goto LABEL_72;
           }
 
-          v150 = *(a1 + 32);
-          v151 = *(a1 + 40);
           sub_2645010D8(OS_LOG_TYPE_DEFAULT, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", 454, a1, @"Unsupported instruction: %@ for applet %@ and protocol version 0x%x", v17, v18, v11);
           goto LABEL_40;
       }
@@ -2206,7 +2193,7 @@ LABEL_40:
 
     if (v14 == 60)
     {
-      sub_2645010D8(OS_LOG_TYPE_DEFAULT, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", 471, a1, @"Control Flow", v12, v13, v148);
+      sub_2645010D8(OS_LOG_TYPE_DEFAULT, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", 471, a1, @"Control Flow", v12, v13, v147);
       if (sub_264502B94(a1))
       {
         v110 = *(v11 + 16);
@@ -2231,11 +2218,11 @@ LABEL_73:
           goto LABEL_14;
         }
 
-        v141 = 474;
+        v140 = 474;
 LABEL_72:
-        sub_2645010D8(OS_LOG_TYPE_INFO, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", v141, a1, @"Missing payload", v24, v25, v149);
-        v146 = objc_alloc(MEMORY[0x277CBEA90]);
-        v114 = objc_msgSend_initWithBytes_length_(v146, v147, &unk_264507651, 2);
+        sub_2645010D8(OS_LOG_TYPE_INFO, 0, "[STSUnifiedAccessHandler processReceivedRequest:callbackQueue:callback:]", v140, a1, @"Missing payload", v24, v25, v148);
+        v145 = objc_alloc(MEMORY[0x277CBEA90]);
+        v114 = objc_msgSend_initWithBytes_length_(v145, v146, &unk_264507651, 2);
         goto LABEL_73;
       }
 
@@ -2263,43 +2250,43 @@ LABEL_72:
 
         if (!v48)
         {
-          v152 = objc_msgSend_data(MEMORY[0x277CBEB28], v49, v50);
-          v161 = -124;
-          v162 = 9;
-          objc_msgSend_appendBytes_length_(v152, v53, &v161, 1);
-          objc_msgSend_appendBytes_length_(v152, v54, &v162, 1);
-          objc_msgSend_appendBytes_length_(v152, v55, &unk_264507642, 9);
+          v149 = objc_msgSend_data(MEMORY[0x277CBEB28], v49, v50);
+          v158 = -124;
+          v159 = 9;
+          objc_msgSend_appendBytes_length_(v149, v53, &v158, 1);
+          objc_msgSend_appendBytes_length_(v149, v54, &v159, 1);
+          objc_msgSend_appendBytes_length_(v149, v55, &unk_264507642, 9);
           v58 = objc_msgSend_data(MEMORY[0x277CBEB28], v56, v57);
-          v160 = 0x80;
-          *v159 = 0;
-          v162 = 2;
-          objc_msgSend_appendBytes_length_(v58, v59, &v160, 1);
-          objc_msgSend_appendBytes_length_(v58, v60, &v162, 1);
-          objc_msgSend_appendBytes_length_(v58, v61, v159, 2);
+          v157 = 0x80;
+          v156 = 0;
+          v159 = 2;
+          objc_msgSend_appendBytes_length_(v58, v59, &v157, 1);
+          objc_msgSend_appendBytes_length_(v58, v60, &v159, 1);
+          objc_msgSend_appendBytes_length_(v58, v61, &v156, 2);
           v64 = objc_msgSend_data(MEMORY[0x277CBEB28], v62, v63);
-          v158 = 26239;
-          LODWORD(v164[0]) = 918018;
-          LODWORD(v163) = 918018;
-          v162 = 8;
-          objc_msgSend_appendBytes_length_(v64, v65, &v158, 2);
-          objc_msgSend_appendBytes_length_(v64, v66, &v162, 1);
-          objc_msgSend_appendBytes_length_(v64, v67, v164, 4);
-          objc_msgSend_appendBytes_length_(v64, v68, &v163, 4);
+          v155 = 26239;
+          LODWORD(v161[0]) = 918018;
+          LODWORD(v160) = 918018;
+          v159 = 8;
+          objc_msgSend_appendBytes_length_(v64, v65, &v155, 2);
+          objc_msgSend_appendBytes_length_(v64, v66, &v159, 1);
+          objc_msgSend_appendBytes_length_(v64, v67, v161, 4);
+          objc_msgSend_appendBytes_length_(v64, v68, &v160, 4);
           v71 = objc_msgSend_data(MEMORY[0x277CBEB28], v69, v70);
-          v157 = -91;
+          v154 = -91;
           v74 = objc_msgSend_length(v58, v72, v73);
-          v162 = objc_msgSend_length(v64, v75, v76) + v74;
-          objc_msgSend_appendBytes_length_(v71, v77, &v157, 1);
-          objc_msgSend_appendBytes_length_(v71, v78, &v162, 1);
+          v159 = objc_msgSend_length(v64, v75, v76) + v74;
+          objc_msgSend_appendBytes_length_(v71, v77, &v154, 1);
+          objc_msgSend_appendBytes_length_(v71, v78, &v159, 1);
           objc_msgSend_appendData_(v71, v79, v58);
           objc_msgSend_appendData_(v71, v80, v64);
           v83 = objc_msgSend_data(MEMORY[0x277CBEB28], v81, v82);
-          v156 = 111;
-          v86 = objc_msgSend_length(v152, v84, v85);
-          v162 = objc_msgSend_length(v71, v87, v88) + v86;
-          objc_msgSend_appendBytes_length_(v83, v89, &v156, 1);
-          objc_msgSend_appendBytes_length_(v83, v90, &v162, 1);
-          objc_msgSend_appendData_(v83, v91, v152);
+          v153 = 111;
+          v86 = objc_msgSend_length(v149, v84, v85);
+          v159 = objc_msgSend_length(v71, v87, v88) + v86;
+          objc_msgSend_appendBytes_length_(v83, v89, &v153, 1);
+          objc_msgSend_appendBytes_length_(v83, v90, &v159, 1);
+          objc_msgSend_appendData_(v83, v91, v149);
           objc_msgSend_appendData_(v83, v92, v71);
           v94 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v93, &unk_26450764D, 2);
           objc_msgSend_appendData_(v83, v95, v94);
@@ -2322,14 +2309,14 @@ LABEL_64:
     {
       if (v41 == 7)
       {
-        v118 = v36[2];
-        v119 = v118;
-        v122 = objc_msgSend_bytes(v119, v120, v121);
-        v124 = *v122 != 134217888 || *(v122 + 3) != 33642504;
+        v117 = v36[2];
+        v118 = v117;
+        v121 = objc_msgSend_bytes(v118, v119, v120);
+        v123 = *v121 != 134217888 || *(v121 + 3) != 33642504;
 
-        if (!v124)
+        if (!v123)
         {
-          objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v125, &unk_26450764D, 2);
+          objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v124, &unk_26450764D, 2);
           v83 = LABEL_63:;
           goto LABEL_64;
         }
@@ -2339,16 +2326,14 @@ LABEL_64:
       {
       }
 
-      sub_2645010D8(OS_LOG_TYPE_DEFAULT, 0, "[STSUnifiedAccessHandler _processSelectAID:]", 324, a1, @"Unexpected SELECT: %@", v126, v127, v36);
+      sub_2645010D8(OS_LOG_TYPE_DEFAULT, 0, "[STSUnifiedAccessHandler _processSelectAID:]", 324, a1, @"Unexpected SELECT: %@", v125, v126, v36);
     }
 
-    objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v140, &unk_26450764F, 2);
+    objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v139, &unk_26450764F, 2);
     goto LABEL_63;
   }
 
 LABEL_45:
-
-  v117 = *MEMORY[0x277D85DE8];
 }
 
 void sub_264504CC0(uint64_t a1, void *a2, void *a3, char a4)
@@ -2443,7 +2428,7 @@ void sub_264504FDC(id *a1, void *a2, void *a3)
   {
     if (v52)
     {
-      v6 = v52[2];
+      v6 = *(v52 + 2);
     }
 
     else
@@ -2458,7 +2443,7 @@ void sub_264504FDC(id *a1, void *a2, void *a3)
     {
       sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSNFCHandoverHandler processEnvelopeCommand:completionHandler:]", 116, a1, @"Unexpected payload length 0", v11, v12, v50);
       v31 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v30, &unk_264507657, 2);
-      (v5)[2](v5, 1, v31, a1[1]);
+      v5[2](v5, 1, v31, a1[1]);
 
       v32 = objc_alloc_init(MEMORY[0x277CBEB28]);
       v33 = a1[1];
@@ -2472,12 +2457,12 @@ void sub_264504FDC(id *a1, void *a2, void *a3)
     v14 = v13;
     if (v52)
     {
-      v15 = v52[2];
+      v15 = *(v52 + 2);
       objc_msgSend_appendData_(v14, v16, v15);
 
-      if ((v52[1] & 0x10) != 0)
+      if ((*(v52 + 8) & 0x10) != 0)
       {
-        (v5)[2](v5, 0, 0, a1[1]);
+        v5[2](v5, 0, 0, a1[1]);
         goto LABEL_18;
       }
     }
@@ -2559,7 +2544,7 @@ LABEL_16:
             v37 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v34, &unk_264507657, 2);
 LABEL_17:
             v38 = objc_msgSend_subdataWithRange_(a1[1], v34, v35, v36);
-            (v5)[2](v5, 1, v37, v38);
+            v5[2](v5, 1, v37, v38);
 
             v39 = objc_alloc_init(MEMORY[0x277CBEB28]);
             v40 = a1[1];
@@ -2605,7 +2590,7 @@ void sub_264505328(id *a1, void *a2, void *a3)
 
   if (v24)
   {
-    v6 = v24[2];
+    v6 = *(v24 + 2);
   }
 
   else
@@ -2620,7 +2605,7 @@ void sub_264505328(id *a1, void *a2, void *a3)
   {
     sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSNFCHandoverHandler processExchangeCommand:completionHandler:]", 146, a1, @"Unexpected payload length 0", v11, v12, v23);
     v20 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v19, &unk_264507657, 2);
-    (v5)[2](v5, 1, v20, a1[1]);
+    v5[2](v5, 1, v20, a1[1]);
 
 LABEL_10:
     v21 = objc_alloc_init(MEMORY[0x277CBEB28]);
@@ -2637,16 +2622,16 @@ LABEL_10:
   {
     objc_msgSend_appendData_(v13, 0, 0);
 
-    (v5)[2](v5, 1, 0, a1[1]);
+    v5[2](v5, 1, 0, a1[1]);
     goto LABEL_10;
   }
 
-  v15 = v24[2];
+  v15 = *(v24 + 2);
   objc_msgSend_appendData_(v14, v16, v15);
 
   v17 = v5[2];
   v18 = a1[1];
-  if ((v24[1] & 0x10) == 0)
+  if ((*(v24 + 8) & 0x10) == 0)
   {
     v17(v5, 1, 0, v18);
     goto LABEL_10;
@@ -2672,9 +2657,7 @@ void *sub_26450554C(void *result, void *a2)
   {
     v2 = result;
     result[3] = 0;
-    v3 = sub_264504E94(result, a2);
-    v4 = v2[2];
-    v2[2] = v3;
+    v2[2] = sub_264504E94(result, a2);
 
     return MEMORY[0x2821F96F8]();
   }

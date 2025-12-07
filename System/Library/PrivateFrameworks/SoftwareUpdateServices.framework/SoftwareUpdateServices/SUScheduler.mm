@@ -4,6 +4,7 @@
 - (BOOL)activityWasPreviouslyScheduledForFutureDate:(id)date passed:(BOOL *)passed copy:(id *)copy;
 - (SUScheduler)init;
 - (double)_autoDownloadTimeInterval;
+- (double)_autoScanTimeIntervalForType:(int)type;
 - (id)_autoInstallActivityCriteriaWithInstallDate:(id)date descriptor:(id)descriptor;
 - (id)_next7OClockFrom:(id)from after:(double)after;
 - (id)nextScheduledAutoScan;
@@ -787,14 +788,14 @@ void __82__SUScheduler_scheduleAutoInstallStartInstallTaskWithDate_descriptor_fr
 {
   v2 = MEMORY[0x277CBEBB8];
   v3 = a1[6];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __82__SUScheduler_scheduleAutoInstallStartInstallTaskWithDate_descriptor_fromFailure___block_invoke_5;
-  v18[3] = &unk_279CAC9D8;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __82__SUScheduler_scheduleAutoInstallStartInstallTaskWithDate_descriptor_fromFailure___block_invoke_5;
+  v17[3] = &unk_279CAC9D8;
   v4 = *(a1 + 5);
-  *&v18[4] = a1[4];
-  v19 = v4;
-  v5 = [v2 timerWithTimeInterval:0 repeats:v18 block:v3];
+  *&v17[4] = a1[4];
+  v18 = v4;
+  v5 = [v2 timerWithTimeInterval:0 repeats:v17 block:v3];
   v6 = *(a1 + 4);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
@@ -803,7 +804,6 @@ void __82__SUScheduler_scheduleAutoInstallStartInstallTaskWithDate_descriptor_fr
   [v8 addTimer:*(*(a1 + 4) + 40) forMode:*MEMORY[0x277CBE640]];
 
   v16 = [*(*(a1 + 4) + 40) fireDate];
-  v17 = *(*(a1 + 4) + 40);
   SULogInfo(@"%s: Try to reschedule %@ on %@ due to a previous failure; timer (%p)", v9, v10, v11, v12, v13, v14, v15, "[SUScheduler scheduleAutoInstallStartInstallTaskWithDate:descriptor:fromFailure:]_block_invoke_4");
 }
 
@@ -924,17 +924,16 @@ BOOL __48__SUScheduler_cancelAutoInstallStartInstallTask__block_invoke(uint64_t 
 
 - (void)_invalidateRetryAutoInstallaTimer
 {
-  retryAutoInstallTimer = self->_retryAutoInstallTimer;
   SULogInfo(@"%s: About to invalidate the retryAutoInstallTimer (%@)", a2, v2, v3, v4, v5, v6, v7, "[SUScheduler _invalidateRetryAutoInstallaTimer]");
-  v9 = self->_retryAutoInstallTimer;
-  if (v9)
+  retryAutoInstallTimer = self->_retryAutoInstallTimer;
+  if (retryAutoInstallTimer)
   {
-    isValid = [(NSTimer *)v9 isValid];
-    v9 = self->_retryAutoInstallTimer;
+    isValid = [(NSTimer *)retryAutoInstallTimer isValid];
+    retryAutoInstallTimer = self->_retryAutoInstallTimer;
     if (isValid)
     {
-      [(NSTimer *)v9 invalidate];
-      v9 = self->_retryAutoInstallTimer;
+      [(NSTimer *)retryAutoInstallTimer invalidate];
+      retryAutoInstallTimer = self->_retryAutoInstallTimer;
     }
   }
 
@@ -954,26 +953,28 @@ BOOL __48__SUScheduler_cancelAutoInstallStartInstallTask__block_invoke(uint64_t 
   bannerDelay = [v3 bannerDelay];
 
   v4 = 0x409C200000000000;
+  isKindOfClass = bannerDelay;
   if (bannerDelay)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      [bannerDelay doubleValue];
-      v4 = v5;
+      isKindOfClass = [bannerDelay doubleValue];
+      v4 = v6;
     }
   }
 
-  v6 = SULogBadging();
-  SULogInfoForSubsystem(v6, @"Delaying auto update for %f seconds", v7, v8, v9, v10, v11, v12, v4);
+  v7 = SULogBadging(isKindOfClass);
+  SULogInfoForSubsystem(v7, @"Delaying auto update for %f seconds", v8, v9, v10, v11, v12, v13, v4);
 
-  v13 = objc_alloc_init(MEMORY[0x277D64148]);
-  [v13 setWaking:2];
-  v14 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:*&v4];
-  [v13 setRunDate:v14];
+  v14 = objc_alloc_init(MEMORY[0x277D64148]);
+  [v14 setWaking:2];
+  v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:*&v4];
+  [v14 setRunDate:v15];
 
-  v15 = [objc_alloc(MEMORY[0x277D64140]) initWithActivityName:@"com.apple.softwareupdateservicesd.activity.presentBanner" options:v13];
-  [(SUScheduler *)self _scheduleActivity:v15];
+  v16 = [objc_alloc(MEMORY[0x277D64140]) initWithActivityName:@"com.apple.softwareupdateservicesd.activity.presentBanner" options:v14];
+  [(SUScheduler *)self _scheduleActivity:v16];
 }
 
 - (void)cancelPresentAutoUpdateBanner
@@ -1087,46 +1088,48 @@ uint64_t __44__SUScheduler_cancelPresentAutoUpdateBanner__block_invoke(uint64_t 
 - (void)scheduleAnalyticsSubmissionIfNecessary
 {
   v3 = [(SUScheduler *)self _activityIsScheduled:@"com.apple.softwareupdateservicesd.activity.analyticsSubmission" cancelIfExpired:1];
-  if (self->_useSUCoreXPCActivityManager && [(SUScheduler *)self activityWasPreviouslyScheduledForFutureDate:@"com.apple.softwareupdateservicesd.activity.analyticsSubmission" passed:0 copy:0])
+  v4 = v3;
+  if (self->_useSUCoreXPCActivityManager && (v3 = [(SUScheduler *)self activityWasPreviouslyScheduledForFutureDate:@"com.apple.softwareupdateservicesd.activity.analyticsSubmission" passed:0 copy:0], v3))
   {
-    v4 = [(SUCoreXPCActivityManager *)self->_coreXPCActivityScheduler getExpectedRunDateForActivity:@"com.apple.softwareupdateservicesd.activity.analyticsSubmission"];
-    v5 = [SUUtility prettyPrintDate:v4];
-    SULogInfo(@"Found previously tracked but currently unscheduled analytics submission event expecte to run at %@. Will reschedule", v6, v7, v8, v9, v10, v11, v12, v5);
+    v5 = [(SUCoreXPCActivityManager *)self->_coreXPCActivityScheduler getExpectedRunDateForActivity:@"com.apple.softwareupdateservicesd.activity.analyticsSubmission"];
+    v6 = [SUUtility prettyPrintDate:v5];
+    SULogInfo(@"Found previously tracked but currently unscheduled analytics submission event expecte to run at %@. Will reschedule", v7, v8, v9, v10, v11, v12, v13, v6);
   }
 
-  else if (v3)
+  else if (v4)
   {
-    v41 = SULogAnalytics();
-    SULogInfoForSubsystem(v41, @"Analytics event already scheduled", v13, v14, v15, v16, v17, v18, v40);
+    v43 = SULogAnalytics(v3);
+    SULogInfoForSubsystem(v43, @"Analytics event already scheduled", v14, v15, v16, v17, v18, v19, v42);
     goto LABEL_13;
   }
 
-  v19 = +[SUUtility currentReleaseType];
-  v20 = [v19 isEqualToString:@"Internal"];
+  v20 = +[SUUtility currentReleaseType];
+  v21 = [v20 isEqualToString:@"Internal"];
 
-  if (v20 && (+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), v21 = objc_claimAutoreleasedReturnValue(), [v21 analyticsSubmissionIntervalOverride], v22 = objc_claimAutoreleasedReturnValue(), v21, v22))
+  if (v21 && (+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), v22 = objc_claimAutoreleasedReturnValue(), [v22 analyticsSubmissionIntervalOverride], v23 = objc_claimAutoreleasedReturnValue(), v22, v23))
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v23 = SULogAnalytics();
-      unsignedIntValue = [v22 unsignedIntValue];
-      SULogInfoForSubsystem(v23, @"Setting analytics submission delay to %u", v25, v26, v27, v28, v29, v30, unsignedIntValue);
+      v25 = SULogAnalytics(isKindOfClass);
+      unsignedIntValue = [v23 unsignedIntValue];
+      SULogInfoForSubsystem(v25, @"Setting analytics submission delay to %u", v27, v28, v29, v30, v31, v32, unsignedIntValue);
     }
 
-    v31 = +[SUUtility randomIntWithMinVal:maxVal:](SUUtility, "randomIntWithMinVal:maxVal:", 30, 60 * [v22 unsignedIntValue]);
+    v33 = +[SUUtility randomIntWithMinVal:maxVal:](SUUtility, "randomIntWithMinVal:maxVal:", 30, 60 * [v23 unsignedIntValue]);
   }
 
   else
   {
-    v31 = [SUUtility randomIntWithMinVal:60 maxVal:86400];
+    v33 = [SUUtility randomIntWithMinVal:60 maxVal:86400];
   }
 
-  v41 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v31];
-  v32 = [SUUtility prettyPrintDate:v41];
-  SULogInfo(@"Expired or no analytics submission scheduled. Rescheduling for %@", v33, v34, v35, v36, v37, v38, v39, v32);
+  v43 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v33];
+  v34 = [SUUtility prettyPrintDate:v43];
+  SULogInfo(@"Expired or no analytics submission scheduled. Rescheduling for %@", v35, v36, v37, v38, v39, v40, v41, v34);
 
-  [(SUScheduler *)self scheduleAnalyticsSubmission:v41];
+  [(SUScheduler *)self scheduleAnalyticsSubmission:v43];
 LABEL_13:
 }
 
@@ -1328,7 +1331,6 @@ void __35__SUScheduler__unscheduleActivity___block_invoke(uint64_t a1, uint64_t 
 {
   if (*(a1 + 32))
   {
-    *(*(a1 + 40) + 16);
     SULogInfo(@"Unscheduling activity %@ with %@ scheduler", a2, a3, a4, a5, a6, a7, a8, *(a1 + 32));
     v10 = *(a1 + 40);
     if (*(v10 + 16) == 1)
@@ -1513,6 +1515,39 @@ LABEL_6:
   [v14 endTransaction:@"schedulerAction"];
 }
 
+- (double)_autoScanTimeIntervalForType:(int)type
+{
+  v4 = +[SUPreferences sharedInstance];
+  autoScanOverrideInterval = [v4 autoScanOverrideInterval];
+
+  if (autoScanOverrideInterval)
+  {
+    v6 = +[SUPreferences sharedInstance];
+    autoScanOverrideInterval2 = [v6 autoScanOverrideInterval];
+    SULogInfo(@"[Auto scan] Using auto scan override value: %@", v8, v9, v10, v11, v12, v13, v14, autoScanOverrideInterval2);
+
+    v15 = +[SUPreferences sharedInstance];
+    autoScanOverrideInterval3 = [v15 autoScanOverrideInterval];
+    intValue = [autoScanOverrideInterval3 intValue];
+
+LABEL_5:
+    return intValue;
+  }
+
+  softwareUpdateAutoScanInterval = [(SUServerConfigurationManager *)self->_serverConfigManager softwareUpdateAutoScanInterval];
+  if (softwareUpdateAutoScanInterval)
+  {
+    v15 = softwareUpdateAutoScanInterval;
+    intValue = (60 * [softwareUpdateAutoScanInterval intValue]);
+    intValue2 = [v15 intValue];
+    SULogInfo(@"Using server configured auto scan interval - scan once every %d minutes", v20, v21, v22, v23, v24, v25, v26, intValue2);
+    goto LABEL_5;
+  }
+
+  +[SUUtility autoScanTimeInterval];
+  return result;
+}
+
 - (double)_autoDownloadTimeInterval
 {
   v3 = +[SUPreferences sharedInstance];
@@ -1604,7 +1639,7 @@ LABEL_14:
 - (BOOL)_activityIsScheduled:(id)scheduled cancelIfExpired:(BOOL)expired scheduledActivity:(id *)activity
 {
   expiredCopy = expired;
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   scheduledCopy = scheduled;
   if (self->_useSUCoreXPCActivityManager)
   {
@@ -1649,12 +1684,12 @@ LABEL_32:
   else
   {
     copyScheduledActivities = [(SUCoreActivityScheduler *)self->_coreScheduler copyScheduledActivities];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
     obj = copyScheduledActivities;
-    v32 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+    v32 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
     if (v32)
     {
       v33 = v32;
@@ -1662,18 +1697,18 @@ LABEL_32:
       selfCopy = self;
       v34 = 0;
       v35 = 0;
-      v36 = *v67;
-      v64 = scheduledCopy;
+      v36 = *v66;
+      v63 = scheduledCopy;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v67 != v36)
+          if (*v66 != v36)
           {
             objc_enumerationMutation(obj);
           }
 
-          v38 = *(*(&v66 + 1) + 8 * i);
+          v38 = *(*(&v65 + 1) + 8 * i);
           activityName2 = [v38 activityName];
           v40 = [activityName2 isEqualToString:scheduledCopy];
 
@@ -1685,7 +1720,7 @@ LABEL_32:
             if (runDate)
             {
               v50 = runDate;
-              v63 = v35;
+              v62 = v35;
               runDate2 = [v38 runDate];
               date = [MEMORY[0x277CBEAA8] date];
               v53 = v33;
@@ -1701,19 +1736,19 @@ LABEL_32:
               if (!v57)
               {
                 [(SUScheduler *)selfCopy _unscheduleActivity:v38];
-                v48 = v63;
+                v48 = v62;
               }
             }
 
             if (v48 < 1)
             {
               v35 = v48;
-              scheduledCopy = v64;
+              scheduledCopy = v63;
             }
 
             else
             {
-              scheduledCopy = v64;
+              scheduledCopy = v63;
               if (!v34)
               {
                 v34 = v38;
@@ -1724,7 +1759,7 @@ LABEL_32:
           }
         }
 
-        v33 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+        v33 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
       }
 
       while (v33);
@@ -1746,13 +1781,12 @@ LABEL_32:
 
 LABEL_37:
 
-  v58 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)nextScheduledAutoScan
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_useSUCoreXPCActivityManager)
   {
     if ([(SUCoreXPCActivityManager *)self->_coreXPCActivityScheduler isActivityScheduled:@"com.apple.softwareupdateservicesd.activity.autoScan"])
@@ -1765,26 +1799,26 @@ LABEL_37:
   else
   {
     copyScheduledActivities = [(SUCoreActivityScheduler *)self->_coreScheduler copyScheduledActivities];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = copyScheduledActivities;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           activityName = [v10 activityName];
           v12 = [activityName isEqualToString:@"com.apple.softwareupdateservicesd.activity.autoScan"];
 
@@ -1796,7 +1830,7 @@ LABEL_37:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -1809,7 +1843,6 @@ LABEL_37:
 
   runDate = 0;
 LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
 
   return runDate;
 }
@@ -2081,164 +2114,165 @@ void __53__SUScheduler__queue_handleAnalyticsSubmission_info___block_invoke(uint
   v2 = [@"/var/MobileSoftwareUpdate/Controller/SUCoreAnalytics/" stringByAppendingPathComponent:@"updateDate"];
   v3 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v2];
   v4 = +[SUAnalyticsManager sharedManager];
-  v5 = SULogAnalytics();
-  SULogInfoForSubsystem(v5, @"Determining days since update", v6, v7, v8, v9, v10, v11, v71);
+  v5 = SULogAnalytics(v4);
+  SULogInfoForSubsystem(v5, @"Determining days since update", v6, v7, v8, v9, v10, v11, v74);
 
   if (v3)
   {
-    v74 = 0;
-    v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v74];
-    if (v12)
+    v77 = 0;
+    v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v77];
+    v14 = v13;
+    if (v13)
     {
-      v13 = v74 == 0;
+      v15 = v77 == 0;
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    if (!v13)
+    if (!v15)
     {
-      v14 = SULogAnalytics();
-      SULogErrorForSubsystem(v14, @"Failed to read valid update date", v15, v16, v17, v18, v19, v20, v72);
+      v16 = SULogAnalytics(v13);
+      SULogErrorForSubsystem(v16, @"Failed to read valid update date", v17, v18, v19, v20, v21, v22, v75);
 LABEL_30:
 
       goto LABEL_31;
     }
 
-    v14 = [[SUAnalyticsEvent alloc] initWithEventName:@"com.apple.SoftwareUpdate.EmbeddedSoftwareUpdateUsage"];
-    v27 = [MEMORY[0x277CBEA80] currentCalendar];
-    v28 = [MEMORY[0x277CBEAA8] date];
-    v29 = [v27 components:16 fromDate:v12 toDate:v28 options:0];
+    v16 = [[SUAnalyticsEvent alloc] initWithEventName:@"com.apple.SoftwareUpdate.EmbeddedSoftwareUpdateUsage"];
+    v29 = [MEMORY[0x277CBEA80] currentCalendar];
+    v30 = [MEMORY[0x277CBEAA8] date];
+    v31 = [v29 components:16 fromDate:v14 toDate:v30 options:0];
 
-    v30 = [v29 day];
-    if ((v30 & 0x8000000000000000) != 0)
+    v32 = [v31 day];
+    if ((v32 & 0x8000000000000000) != 0)
     {
-      v31 = 0;
+      v33 = 0;
     }
 
-    else if (v30 >= 0x1C)
+    else if (v32 >= 0x1C)
     {
-      if (v30 > 0x45)
+      if (v32 > 0x45)
       {
-        if (v30 > 0x6F)
+        if (v32 > 0x6F)
         {
-          if (v30 > 0xDE)
+          if (v32 > 0xDE)
           {
-            v31 = 421;
-            if (v30 != 223 && v30 <= 0x1A3)
+            v33 = 421;
+            if (v32 != 223 && v32 <= 0x1A3)
             {
-              v31 = v30 - v30 % 0x38u;
+              v33 = v32 - v32 % 0x38u;
             }
 
             goto LABEL_20;
           }
 
-          v33 = v30 / 0x1Cu;
-          v34 = 28;
+          v35 = v32 / 0x1Cu;
+          v36 = 28;
         }
 
         else
         {
-          v33 = v30 / 0xEu;
-          v34 = 14;
+          v35 = v32 / 0xEu;
+          v36 = 14;
         }
 
-        LOBYTE(v32) = v30 - v33 * v34;
+        LOBYTE(v34) = v32 - v35 * v36;
       }
 
       else
       {
-        v32 = v30 - 7 * ((((v30 - ((37 * v30) >> 8)) >> 1) + ((37 * v30) >> 8)) >> 2);
+        v34 = v32 - 7 * ((((v32 - ((37 * v32) >> 8)) >> 1) + ((37 * v32) >> 8)) >> 2);
       }
 
-      v31 = v30 - v32;
+      v33 = v32 - v34;
     }
 
     else
     {
-      v31 = v30;
+      v33 = v32;
     }
 
 LABEL_20:
-    v35 = SULogAnalytics();
-    SULogInfoForSubsystem(v35, @"%ld(bucketed) days since last successful ota", v36, v37, v38, v39, v40, v41, v31);
+    v37 = SULogAnalytics(v32);
+    SULogInfoForSubsystem(v37, @"%ld(bucketed) days since last successful ota", v38, v39, v40, v41, v42, v43, v33);
 
-    v42 = [MEMORY[0x277CCABB0] numberWithInteger:v31];
-    [(SUAnalyticsEvent *)v14 setEventPayloadEntry:@"DaysSinceLastUpdate" numberValue:v42];
-
-    v43 = +[SUPreferences sharedInstance];
-    v44 = [v43 isAutomaticUpdateV2Enabled];
+    v44 = [MEMORY[0x277CCABB0] numberWithInteger:v33];
+    [(SUAnalyticsEvent *)v16 setEventPayloadEntry:@"DaysSinceLastUpdate" numberValue:v44];
 
     v45 = +[SUPreferences sharedInstance];
-    v46 = [v45 autoUpdateForceOn];
+    v46 = [v45 isAutomaticUpdateV2Enabled];
 
-    if (v46)
+    v47 = +[SUPreferences sharedInstance];
+    v48 = [v47 autoUpdateForceOn];
+
+    if (v48)
     {
-      v47 = 1;
+      v49 = 1;
     }
 
     else
     {
-      v48 = +[SUPreferences sharedInstance];
-      v49 = [v48 autoUpdateForceOff];
+      v50 = +[SUPreferences sharedInstance];
+      v51 = [v50 autoUpdateForceOff];
 
-      v47 = (v49 ^ 1) & v44;
+      v49 = (v51 ^ 1) & v46;
     }
 
-    [(SUAnalyticsEvent *)v14 setEventPayloadEntry:@"CurrentAutoUpdateStatus" BOOLValue:v47];
-    v50 = +[SUPreferences sharedInstance];
-    v51 = [v50 autoInstallSystemAndDataFiles];
-
+    [(SUAnalyticsEvent *)v16 setEventPayloadEntry:@"CurrentAutoUpdateStatus" BOOLValue:v49];
     v52 = +[SUPreferences sharedInstance];
-    v53 = [v52 autoInstallSystemDataFilesForceOn];
+    v53 = [v52 autoInstallSystemAndDataFiles];
 
-    if (v53)
+    v54 = +[SUPreferences sharedInstance];
+    v55 = [v54 autoInstallSystemDataFilesForceOn];
+
+    if (v55)
     {
-      v54 = 1;
+      v56 = 1;
     }
 
     else
     {
-      v55 = +[SUPreferences sharedInstance];
-      v56 = [v55 autoInstallSystemDataFilesForceOff];
+      v57 = +[SUPreferences sharedInstance];
+      v58 = [v57 autoInstallSystemDataFilesForceOff];
 
-      v54 = (v56 ^ 1) & v51;
+      v56 = (v58 ^ 1) & v53;
     }
 
-    [(SUAnalyticsEvent *)v14 setEventPayloadEntry:@"CurrentAutoInstallSystemDataFilesStatus" BOOLValue:v54];
-    v57 = +[SUPreferences sharedInstance];
-    v58 = [v57 autoInstallSecurityResponse];
-
+    [(SUAnalyticsEvent *)v16 setEventPayloadEntry:@"CurrentAutoInstallSystemDataFilesStatus" BOOLValue:v56];
     v59 = +[SUPreferences sharedInstance];
-    v60 = [v59 autoInstallSecurityResponseForceOn];
+    v60 = [v59 autoInstallSecurityResponse];
 
-    if (v60)
+    v61 = +[SUPreferences sharedInstance];
+    v62 = [v61 autoInstallSecurityResponseForceOn];
+
+    if (v62)
     {
-      v61 = 1;
+      v63 = 1;
     }
 
     else
     {
-      v62 = +[SUPreferences sharedInstance];
-      v63 = [v62 autoInstallSecurityResponseForceOff];
+      v64 = +[SUPreferences sharedInstance];
+      v65 = [v64 autoInstallSecurityResponseForceOff];
 
-      v61 = (v63 ^ 1) & v58;
+      v63 = (v65 ^ 1) & v60;
     }
 
-    [(SUAnalyticsEvent *)v14 setEventPayloadEntry:@"kSUCurrentAutoInstallSecurityResponseStatus" BOOLValue:v61];
-    [v4 setEvent:v14];
+    [(SUAnalyticsEvent *)v16 setEventPayloadEntry:@"kSUCurrentAutoInstallSecurityResponseStatus" BOOLValue:v63];
+    [v4 setEvent:v16];
 
     goto LABEL_30;
   }
 
-  v12 = SULogAnalytics();
-  SULogErrorForSubsystem(v12, @"Unable to read updateDate file..bailing", v21, v22, v23, v24, v25, v26, v72);
+  v14 = SULogAnalytics(v12);
+  SULogErrorForSubsystem(v14, @"Unable to read updateDate file..bailing", v23, v24, v25, v26, v27, v28, v75);
 LABEL_31:
 
-  v64 = SULogAnalytics();
-  SULogInfoForSubsystem(v64, @"Submitting SU Coreanalytics events", v65, v66, v67, v68, v69, v70, v73);
+  v67 = SULogAnalytics(v66);
+  SULogInfoForSubsystem(v67, @"Submitting SU Coreanalytics events", v68, v69, v70, v71, v72, v73, v76);
 
   [v4 submitAllEvents];
   [*(a1 + 32) scheduleAnalyticsSubmissionIfNecessary];
@@ -2283,32 +2317,32 @@ LABEL_31:
 
 void __55__SUScheduler_serverConfigManager_configValuesChanged___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v47;
+    v5 = *v46;
     v6 = *MEMORY[0x277D64518];
-    v36 = *v47;
-    v35 = v2;
+    v35 = *v46;
+    v34 = v2;
     do
     {
       v7 = 0;
-      v37 = v4;
+      v36 = v4;
       do
       {
-        if (*v47 != v5)
+        if (*v46 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v46 + 1) + 8 * v7);
+        v8 = *(*(&v45 + 1) + 8 * v7);
         if ([v8 isEqualToString:@"Changed"])
         {
           v16 = [*(a1 + 32) objectForKeyedSubscript:v8];
@@ -2318,26 +2352,26 @@ void __55__SUScheduler_serverConfigManager_configValuesChanged___block_invoke(ui
             goto LABEL_38;
           }
 
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
           v43 = 0u;
+          v44 = 0u;
+          v41 = 0u;
+          v42 = 0u;
           v17 = [v16 allKeys];
-          v18 = [v17 countByEnumeratingWithState:&v42 objects:v51 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v41 objects:v50 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v43;
+            v20 = *v42;
             do
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v43 != v20)
+                if (*v42 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                if ([*(*(&v42 + 1) + 8 * i) isEqualToString:v6])
+                if ([*(*(&v41 + 1) + 8 * i) isEqualToString:v6])
                 {
                   v22 = [v16 objectForKeyedSubscript:v6];
                   if (v22)
@@ -2351,13 +2385,13 @@ void __55__SUScheduler_serverConfigManager_configValuesChanged___block_invoke(ui
                 }
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v42 objects:v51 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v41 objects:v50 count:16];
             }
 
             while (v19);
           }
 
-          v2 = v35;
+          v2 = v34;
         }
 
         else
@@ -2374,40 +2408,40 @@ void __55__SUScheduler_serverConfigManager_configValuesChanged___block_invoke(ui
             goto LABEL_38;
           }
 
-          v40 = 0u;
-          v41 = 0u;
-          v38 = 0u;
           v39 = 0u;
+          v40 = 0u;
+          v37 = 0u;
+          v38 = 0u;
           v16 = v16;
-          v30 = [v16 countByEnumeratingWithState:&v38 objects:v50 count:16];
+          v30 = [v16 countByEnumeratingWithState:&v37 objects:v49 count:16];
           if (v30)
           {
             v31 = v30;
-            v32 = *v39;
+            v32 = *v38;
             do
             {
               for (j = 0; j != v31; ++j)
               {
-                if (*v39 != v32)
+                if (*v38 != v32)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                if ([*(*(&v38 + 1) + 8 * j) isEqualToString:v6])
+                if ([*(*(&v37 + 1) + 8 * j) isEqualToString:v6])
                 {
                   [*(a1 + 40) _queue_handleScanIntervalConfigChange:0];
                 }
               }
 
-              v31 = [v16 countByEnumeratingWithState:&v38 objects:v50 count:16];
+              v31 = [v16 countByEnumeratingWithState:&v37 objects:v49 count:16];
             }
 
             while (v31);
           }
         }
 
-        v5 = v36;
-        v4 = v37;
+        v5 = v35;
+        v4 = v36;
 LABEL_38:
 
 LABEL_39:
@@ -2415,13 +2449,11 @@ LABEL_39:
       }
 
       while (v7 != v4);
-      v4 = [v2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
     while (v4);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 @end

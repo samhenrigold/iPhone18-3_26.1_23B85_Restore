@@ -43,7 +43,7 @@
   }
 
   v43 = v3;
-  v6 = __atxlog_handle_default();
+  v6 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(ATXExecutableReferenceManager *)v6 _loadReferences];
@@ -270,58 +270,62 @@ LABEL_45:
 
 uint64_t __48__ATXExecutableReferenceManager__loadReferences__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _readData];
+  v2 = [*(a1 + 32) _readData];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)_readData
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = open([(NSString *)self->_path fileSystemRepresentation], 0);
   if (v2 == -1)
   {
-    v6 = *__error();
-    v7 = __atxlog_handle_default();
-    v8 = v7;
-    if (v6 == 2)
+    v7 = __error();
+    v8 = *v7;
+    v9 = __atxlog_handle_default(v7);
+    v10 = v9;
+    if (v8 == 2)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "No recently engaged cache references file found.", buf, 2u);
+        _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "No recently engaged cache references file found.", buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXExecutableReferenceManager _readData];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
     v3 = v2;
-    ATXCacheFileRead();
+    v4 = ATXCacheFileRead();
     if ((v3 & 0x80000000) == 0)
     {
-      close(v3);
+      v4 = close(v3);
     }
 
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = @"ATXExecutableReferenceCache.pb";
-      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "Successfully read data from cache file: %@", buf, 0xCu);
+      v13 = @"ATXExecutableReferenceCache.pb";
+      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "Successfully read data from cache file: %@", buf, 0xCu);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)purgeReferencesIfPossible
@@ -505,39 +509,40 @@ uint64_t __48__ATXExecutableReferenceManager__loadReferences__block_invoke(uint6
 
 - (BOOL)_writeData:(id)data
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = open([(NSString *)self->_path fileSystemRepresentation], 514, 384);
   if (v5 == -1)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXEngagementRecordManager _writeData:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
     v6 = v5;
     v7 = ATXCacheFileWrite();
+    v8 = v7;
     if ((v6 & 0x80000000) == 0)
     {
-      close(v6);
+      v7 = close(v6);
     }
 
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = @"ATXExecutableReferenceCache.pb";
-      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "Successfully wrote data to cache file: %@", buf, 0xCu);
+      v12 = @"ATXExecutableReferenceCache.pb";
+      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Successfully wrote data to cache file: %@", buf, 0xCu);
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)performBatchUpdateOfReferencesWithBlock:(id)block
@@ -587,7 +592,7 @@ uint64_t __48__ATXExecutableReferenceManager__loadReferences__block_invoke(uint6
     else
     {
       selfCopy = self;
-      v6 = __atxlog_handle_default();
+      v6 = __atxlog_handle_default(referencesCopy);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         [ATXExecutableReferenceManager _writeReferences:v6];
@@ -739,7 +744,7 @@ LABEL_22:
 
       else
       {
-        v27 = __atxlog_handle_default();
+        v27 = __atxlog_handle_default(0);
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           [ATXExecutableReferenceManager _writeReferences:v27];
@@ -885,7 +890,7 @@ LABEL_22:
         v13 = ATXAllowedEngagementRecordManagerClasses();
         executableSpecification = [v12 executableSpecification];
         executableClassString = [executableSpecification executableClassString];
-        v16 = [v13 containsObject:executableClassString];
+        v16 = objc_msgSend_containsObject_(v13);
 
         if (v16)
         {
@@ -910,23 +915,23 @@ LABEL_22:
 
 - (void)updateReferencesForProactiveSuggestions:(id)suggestions clientModelId:(id)id
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   idCopy = id;
   _loadReferences = [(ATXExecutableReferenceManager *)self _loadReferences];
   v9 = [(ATXExecutableReferenceManager *)self _pairsForClientModelId:idCopy map:_loadReferences];
-  v56 = idCopy;
-  v57 = suggestionsCopy;
+  v58 = idCopy;
+  v59 = suggestionsCopy;
   v10 = [(ATXExecutableReferenceManager *)self _executablePairsForSuggestions:suggestionsCopy clientModelId:idCopy];
   date = [MEMORY[0x1E695DF00] date];
   v11 = [v9 mutableCopy];
   [v11 intersectSet:v10];
-  v53 = v10;
+  v55 = v10;
   v12 = [v10 mutableCopy];
   [v12 minusSet:v11];
-  v54 = v9;
+  v56 = v9;
   v13 = [v9 mutableCopy];
-  v51 = v11;
+  v53 = v11;
   [v13 minusSet:v11];
   v14 = [v12 count];
   v15 = v14 != 0;
@@ -935,28 +940,28 @@ LABEL_22:
     [(ATXExecutableReferenceManager *)self _addExecutablePairs:v12 toMap:_loadReferences];
   }
 
-  v52 = v12;
-  v55 = _loadReferences;
+  v54 = v12;
+  v57 = _loadReferences;
+  v68 = 0u;
+  v69 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
   obj = v13;
-  v16 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
+  v16 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v65;
+    v18 = *v67;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v65 != v18)
+        if (*v67 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v64 + 1) + 8 * i);
+        v20 = *(*(&v66 + 1) + 8 * i);
         reference = [v20 reference];
         shouldPurge = [reference shouldPurge];
 
@@ -971,86 +976,86 @@ LABEL_22:
 
           if (suggestionIsHidden)
           {
-            v26 = __atxlog_handle_default();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v27 = __atxlog_handle_default(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              v27 = objc_opt_class();
-              v28 = NSStringFromClass(v27);
+              v28 = objc_opt_class();
+              v29 = NSStringFromClass(v28);
               reference4 = [v20 reference];
               *buf = 138412546;
-              v70 = v28;
-              v71 = 2112;
-              v72 = reference4;
-              _os_log_impl(&dword_1BF549000, v26, OS_LOG_TYPE_DEFAULT, "%@ - updateReferencesForProactiveSuggestions marked hidden reference as purgable: %@", buf, 0x16u);
+              v72 = v29;
+              v73 = 2112;
+              v74 = reference4;
+              _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "%@ - updateReferencesForProactiveSuggestions marked hidden reference as purgable: %@", buf, 0x16u);
             }
           }
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
+      v17 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
     }
 
     while (v17);
   }
 
+  v64 = 0u;
+  v65 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v30 = v51;
-  v31 = [v30 countByEnumeratingWithState:&v60 objects:v68 count:16];
-  if (v31)
+  v31 = v53;
+  v32 = [v31 countByEnumeratingWithState:&v62 objects:v70 count:16];
+  if (v32)
   {
-    v32 = v31;
-    v33 = *v61;
+    v33 = v32;
+    v34 = *v63;
     do
     {
-      v34 = 0;
+      v35 = 0;
       do
       {
-        if (*v61 != v33)
+        if (*v63 != v34)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v31);
         }
 
-        v35 = *(*(&v60 + 1) + 8 * v34);
-        reference5 = [v35 reference];
+        v36 = *(*(&v62 + 1) + 8 * v35);
+        reference5 = [v36 reference];
         if (![reference5 shouldPurge])
         {
           goto LABEL_27;
         }
 
-        reference6 = [v35 reference];
+        reference6 = [v36 reference];
         date2 = [reference6 date];
         [date timeIntervalSinceDate:date2];
-        v40 = v39;
+        v41 = v40;
         minDurationForTrackedReferencesToStayAround = self->_minDurationForTrackedReferencesToStayAround;
 
-        if (v40 < minDurationForTrackedReferencesToStayAround)
+        if (v41 < minDurationForTrackedReferencesToStayAround)
         {
-          reference7 = [v35 reference];
+          reference7 = [v36 reference];
           shouldPurge2 = [reference7 shouldPurge];
 
           if (shouldPurge2)
           {
-            reference8 = [v35 reference];
+            reference8 = [v36 reference];
             [reference8 setShouldPurge:0];
 
-            reference9 = [v35 reference];
+            reference9 = [v36 reference];
             suggestionIsHidden2 = [reference9 suggestionIsHidden];
 
             if (suggestionIsHidden2)
             {
-              reference5 = __atxlog_handle_default();
+              reference5 = __atxlog_handle_default(v48);
               if (os_log_type_enabled(reference5, OS_LOG_TYPE_DEFAULT))
               {
-                v47 = objc_opt_class();
-                v48 = NSStringFromClass(v47);
-                reference10 = [v35 reference];
+                v49 = objc_opt_class();
+                v50 = NSStringFromClass(v49);
+                reference10 = [v36 reference];
                 *buf = 138412546;
-                v70 = v48;
-                v71 = 2112;
-                v72 = reference10;
+                v72 = v50;
+                v73 = 2112;
+                v74 = reference10;
                 _os_log_impl(&dword_1BF549000, reference5, OS_LOG_TYPE_DEFAULT, "%@ - updateReferencesForProactiveSuggestions unmarked hidden reference as purgable: %@", buf, 0x16u);
               }
 
@@ -1065,18 +1070,18 @@ LABEL_27:
         }
 
 LABEL_28:
-        ++v34;
+        ++v35;
       }
 
-      while (v32 != v34);
-      v50 = [v30 countByEnumeratingWithState:&v60 objects:v68 count:16];
-      v32 = v50;
+      while (v33 != v35);
+      v52 = [v31 countByEnumeratingWithState:&v62 objects:v70 count:16];
+      v33 = v52;
     }
 
-    while (v50);
+    while (v52);
   }
 
-  [(ATXExecutableReferenceManager *)self _purgeReferencesIfPossibleInMap:v55 forceWrite:v15];
+  [(ATXExecutableReferenceManager *)self _purgeReferencesIfPossibleInMap:v57 forceWrite:v15];
 }
 
 - (unint64_t)referenceCountForExecutable:(id)executable
@@ -1361,8 +1366,7 @@ LABEL_11:
 
                       if (v21 > 0.0)
                       {
-                        [v16 setShouldPurge:1];
-                        v22 = __atxlog_handle_default();
+                        v22 = __atxlog_handle_default([v16 setShouldPurge:1]);
                         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                         {
                           v23 = objc_opt_class();
@@ -1558,17 +1562,17 @@ LABEL_11:
 - (void)_purgeReferencesIfPossibleInMap:(id)map forceWrite:(BOOL)write
 {
   writeCopy = write;
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   date = [MEMORY[0x1E695DF00] date];
-  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v31 = mapCopy;
+  v42 = 0u;
+  v32 = mapCopy;
   v8 = [mapCopy copy];
-  v29 = [v8 countByEnumeratingWithState:&v38 objects:v47 count:16];
-  if (!v29)
+  v30 = [v8 countByEnumeratingWithState:&v39 objects:v48 count:16];
+  if (!v30)
   {
 
     if (!writeCopy)
@@ -1579,45 +1583,45 @@ LABEL_11:
     goto LABEL_25;
   }
 
-  v26 = writeCopy;
+  v27 = writeCopy;
   v9 = 0;
-  v27 = *v39;
-  v28 = v8;
+  v28 = *v40;
+  v29 = v8;
   do
   {
     v10 = 0;
     do
     {
-      if (*v39 != v27)
+      if (*v40 != v28)
       {
         objc_enumerationMutation(v8);
       }
 
-      v33 = v10;
-      v11 = *(*(&v38 + 1) + 8 * v10);
+      v34 = v10;
+      v11 = *(*(&v39 + 1) + 8 * v10);
       context = objc_autoreleasePoolPush();
-      v30 = v11;
-      v12 = [v31 objectForKey:v11];
-      v34 = 0u;
+      v31 = v11;
+      v12 = [v32 objectForKey:v11];
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
       v13 = [v12 copy];
-      v14 = [v13 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v35 objects:v47 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v35;
+        v16 = *v36;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v35 != v16)
+            if (*v36 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v34 + 1) + 8 * i);
+            v18 = *(*(&v35 + 1) + 8 * i);
             if ([v18 shouldPurge])
             {
               date2 = [v18 date];
@@ -1628,18 +1632,19 @@ LABEL_11:
               if (v21 >= minDurationForTrackedReferencesToStayAround)
               {
                 [v12 removeObject:v18];
-                if ([v18 suggestionIsHidden])
+                suggestionIsHidden = [v18 suggestionIsHidden];
+                if (suggestionIsHidden)
                 {
-                  v23 = __atxlog_handle_default();
-                  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+                  v24 = __atxlog_handle_default(suggestionIsHidden);
+                  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
                   {
-                    v24 = objc_opt_class();
-                    v25 = NSStringFromClass(v24);
+                    v25 = objc_opt_class();
+                    v26 = NSStringFromClass(v25);
                     *buf = 138412546;
-                    v43 = v25;
-                    v44 = 2112;
-                    v45 = v18;
-                    _os_log_impl(&dword_1BF549000, v23, OS_LOG_TYPE_DEFAULT, "%@ - purged hidden reference: %@", buf, 0x16u);
+                    v44 = v26;
+                    v45 = 2112;
+                    v46 = v18;
+                    _os_log_impl(&dword_1BF549000, v24, OS_LOG_TYPE_DEFAULT, "%@ - purged hidden reference: %@", buf, 0x16u);
                   }
                 }
 
@@ -1648,7 +1653,7 @@ LABEL_11:
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v34 objects:v46 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v35 objects:v47 count:16];
         }
 
         while (v15);
@@ -1656,25 +1661,25 @@ LABEL_11:
 
       if (![v12 count])
       {
-        [v31 removeObjectForKey:v30];
+        [v32 removeObjectForKey:v31];
         v9 = 1;
       }
 
       objc_autoreleasePoolPop(context);
-      v10 = v33 + 1;
-      v8 = v28;
+      v10 = v34 + 1;
+      v8 = v29;
     }
 
-    while (v33 + 1 != v29);
-    v29 = [v28 countByEnumeratingWithState:&v38 objects:v47 count:16];
+    while (v34 + 1 != v30);
+    v30 = [v29 countByEnumeratingWithState:&v39 objects:v48 count:16];
   }
 
-  while (v29);
+  while (v30);
 
-  if ((v9 | v26))
+  if ((v9 | v27))
   {
 LABEL_25:
-    [(ATXExecutableReferenceManager *)self _writeReferences:v31];
+    [(ATXExecutableReferenceManager *)self _writeReferences:v32];
   }
 
 LABEL_26:
@@ -1717,7 +1722,7 @@ LABEL_26:
         v15 = ATXAllowedEngagementRecordManagerClasses();
         executableSpecification = [v14 executableSpecification];
         executableClassString = [executableSpecification executableClassString];
-        v18 = [v15 containsObject:executableClassString];
+        v18 = objc_msgSend_containsObject_(v15);
 
         if (v18)
         {
@@ -1882,7 +1887,7 @@ LABEL_26:
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_19();
-  OUTLINED_FUNCTION_1_15(&dword_1BF549000, v1, v2, "Couldn't open recently engaged cache references file: [%i] %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_15(&dword_1BF549000, v1, v2, "Couldn't open recently engaged cache references file: [%i] %s", v3, v4, v5, v6);
 }
 
 @end

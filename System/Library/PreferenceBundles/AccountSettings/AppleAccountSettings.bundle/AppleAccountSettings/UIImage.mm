@@ -269,7 +269,7 @@ LABEL_8:
   v11 = [v9 imageWithActions:v14];
   if (!v11)
   {
-    v12 = _AAUILogSystem();
+    v12 = _AAUILogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_33054(v12);

@@ -706,7 +706,7 @@ LABEL_18:
   v33 = *MEMORY[0x1E69E9840];
   candidatesCopy = candidates;
   storedCandidatesCopy = storedCandidates;
-  if (![storedCandidatesCopy count])
+  if (!objc_msgSend_count(storedCandidatesCopy))
   {
     if (candidatesCopy)
     {
@@ -723,7 +723,7 @@ LABEL_24:
     goto LABEL_26;
   }
 
-  if ([candidatesCopy count])
+  if (objc_msgSend_count(candidatesCopy))
   {
     v29 = 0u;
     v30 = 0u;

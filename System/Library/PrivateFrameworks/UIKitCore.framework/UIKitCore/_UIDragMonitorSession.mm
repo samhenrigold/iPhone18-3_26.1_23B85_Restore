@@ -63,9 +63,9 @@
         }
 
         v12 = *(*(&v15 + 1) + 8 * i);
-        preview = [v12 preview];
+        v13 = objc_msgSend_preview(v12, v15);
         v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v12, "index")}];
-        [dictionary setObject:preview forKey:v14];
+        [dictionary setObject:v13 forKey:v14];
       }
 
       v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];

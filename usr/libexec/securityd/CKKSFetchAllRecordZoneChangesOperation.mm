@@ -5,6 +5,7 @@
 - (void)groupStart;
 - (void)performFetch;
 - (void)queryClientsForChangeTokens;
+- (void)sendChangesToClient:(id)client moreComing:(BOOL)coming;
 @end
 
 @implementation CKKSFetchAllRecordZoneChangesOperation
@@ -17,6 +18,85 @@
   v4.receiver = self;
   v4.super_class = CKKSFetchAllRecordZoneChangesOperation;
   [(CKKSGroupOperation *)&v4 cancel];
+}
+
+- (void)sendChangesToClient:(id)client moreComing:(BOOL)coming
+{
+  comingCopy = coming;
+  clientCopy = client;
+  clientMap = [(CKKSFetchAllRecordZoneChangesOperation *)self clientMap];
+  v8 = [clientMap objectForKeyedSubscript:clientCopy];
+
+  if (v8)
+  {
+    v9 = +[NSMutableArray array];
+    v10 = +[NSMutableArray array];
+    modifications = [(CKKSFetchAllRecordZoneChangesOperation *)self modifications];
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_10011AEEC;
+    v34[3] = &unk_1003376E8;
+    v30 = clientCopy;
+    v12 = clientCopy;
+    v35 = v12;
+    v13 = v9;
+    v36 = v13;
+    [modifications enumerateKeysAndObjectsUsingBlock:v34];
+
+    deletions = [(CKKSFetchAllRecordZoneChangesOperation *)self deletions];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10011B020;
+    v31[3] = &unk_100337710;
+    v15 = v12;
+    v32 = v15;
+    v16 = v10;
+    v33 = v16;
+    [deletions enumerateKeysAndObjectsUsingBlock:v31];
+
+    resyncingZones = [(CKKSFetchAllRecordZoneChangesOperation *)self resyncingZones];
+    v18 = [resyncingZones containsObject:v15];
+
+    reverseSyncingZones = [(CKKSFetchAllRecordZoneChangesOperation *)self reverseSyncingZones];
+    v20 = v8;
+    v21 = comingCopy;
+    v22 = [reverseSyncingZones containsObject:v15];
+
+    changeTokens = [(CKKSFetchAllRecordZoneChangesOperation *)self changeTokens];
+    v24 = [changeTokens objectForKeyedSubscript:v15];
+    LOBYTE(v29) = v22;
+    v25 = v21;
+    v8 = v20;
+    [v20 changesFetched:v13 deletedRecordIDs:v16 zoneID:v15 newChangeToken:v24 moreComing:v25 resync:v18 fetchNewestChangesFirst:v29];
+
+    if (v18 && !v25)
+    {
+      zoneName = [v15 zoneName];
+      v27 = sub_100019104(@"ckksfetch", zoneName);
+
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "No more changes for zone; turning off resync bit", buf, 2u);
+      }
+
+      resyncingZones2 = [(CKKSFetchAllRecordZoneChangesOperation *)self resyncingZones];
+      [resyncingZones2 removeObject:v15];
+    }
+
+    clientCopy = v30;
+  }
+
+  else
+  {
+    v13 = sub_100019104(@"ckksfetch", 0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v38 = clientCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "no client registered for %@, so why did we get any data?", buf, 0xCu);
+    }
+  }
 }
 
 - (void)performFetch

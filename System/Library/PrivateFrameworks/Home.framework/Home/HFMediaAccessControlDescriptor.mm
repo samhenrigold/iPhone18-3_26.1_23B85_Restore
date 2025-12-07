@@ -1,6 +1,7 @@
 @interface HFMediaAccessControlDescriptor
 + (NAIdentity)na_identity;
 + (id)defaultAccessControl;
++ (id)descriptorWithAccess:(unint64_t)access requiresPassword:(BOOL)password password:(id)a5;
 - (BOOL)accessSupportsPassword;
 - (BOOL)isEqual:(id)equal;
 - (HFMediaAccessControlDescriptor)init;
@@ -16,6 +17,15 @@
   v2 = [objc_alloc(objc_opt_class()) initWithAccess:0 requiresPassword:0 password:0];
 
   return v2;
+}
+
++ (id)descriptorWithAccess:(unint64_t)access requiresPassword:(BOOL)password password:(id)a5
+{
+  passwordCopy = password;
+  v7 = a5;
+  v8 = [objc_alloc(objc_opt_class()) initWithAccess:access requiresPassword:passwordCopy password:v7];
+
+  return v8;
 }
 
 - (HFMediaAccessControlDescriptor)initWithAccess:(unint64_t)access requiresPassword:(BOOL)password password:(id)a5

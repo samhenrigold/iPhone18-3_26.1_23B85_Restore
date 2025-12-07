@@ -27,31 +27,29 @@
 - (unint64_t)style
 {
   v3 = type metadata accessor for ControlIconView(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  v7 = OBJC_IVAR___CHUISControlIconView__controlIconView;
+  v5 = v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  v6 = OBJC_IVAR___CHUISControlIconView__controlIconView;
   swift_beginAccess();
-  sub_1D92936FC(self + v7, v11);
+  sub_1D92936FC(self + v6, v10);
   swift_dynamicCast();
-  v8 = *&v6[*(v3 + 20)];
-  sub_1D92D2EB0(v6);
-  return v8;
+  v7 = *&v5[*(v3 + 20)];
+  sub_1D92D2EB0(v5);
+  return v7;
 }
 
 - (void)setStyle:(unint64_t)style
 {
   v5 = type metadata accessor for ControlIconView(0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  v9 = OBJC_IVAR___CHUISControlIconView__controlIconView;
+  v7 = v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  v8 = OBJC_IVAR___CHUISControlIconView__controlIconView;
   swift_beginAccess();
-  sub_1D92936FC(self + v9, v12);
+  sub_1D92936FC(self + v8, v11);
   selfCopy = self;
   swift_dynamicCast();
-  *&v8[*(v5 + 20)] = style;
-  sub_1D92D2694(v8);
+  *&v7[*(v5 + 20)] = style;
+  sub_1D92D2694(v7);
 }
 
 - (CHUISControlIconView)initWithCoder:(id)coder

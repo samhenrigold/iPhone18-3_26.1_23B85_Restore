@@ -74,9 +74,7 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  cursor = self->_cursor;
-  return [v3 stringWithFormat:@"%@ (%p): from: %f, to: %f, cursor: %@, %@", v5, self, *&self->_from, *&self->_to, cursor, self->_readerRequest];
+  return [v3 stringWithFormat:@"%@ (%p): from: %f, to: %f, cursor: %@, %@", NSStringFromClass(v4), self, *&self->_from, *&self->_to, self->_cursor, self->_readerRequest];
 }
 
 @end

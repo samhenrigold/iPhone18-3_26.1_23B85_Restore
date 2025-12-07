@@ -6,35 +6,35 @@
 
 + (BOOL)properties:(id)properties areConsistentWithProperties:(id)withProperties toleranceFactor:(int64_t)factor
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   withPropertiesCopy = withProperties;
   allKeys = [propertiesCopy allKeys];
   allKeys2 = [withPropertiesCopy allKeys];
   if ([allKeys isEqualToArray:allKeys2])
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v10 = allKeys;
-    v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v11)
     {
       v12 = v11;
-      v30 = allKeys2;
-      v31 = allKeys;
-      v13 = *v34;
+      v29 = allKeys2;
+      v30 = allKeys;
+      v13 = *v33;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v34 != v13)
+          if (*v33 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v33 + 1) + 8 * i);
+          v15 = *(*(&v32 + 1) + 8 * i);
           v16 = objc_autoreleasePoolPush();
           v17 = [propertiesCopy objectForKeyedSubscript:v15];
           v18 = [withPropertiesCopy objectForKeyedSubscript:v15];
@@ -67,7 +67,7 @@ LABEL_20:
           objc_autoreleasePoolPop(v16);
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
         if (v12)
         {
           continue;
@@ -78,8 +78,8 @@ LABEL_20:
 
       v27 = 1;
 LABEL_21:
-      allKeys2 = v30;
-      allKeys = v31;
+      allKeys2 = v29;
+      allKeys = v30;
     }
 
     else
@@ -93,7 +93,6 @@ LABEL_21:
     v27 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

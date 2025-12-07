@@ -8,32 +8,31 @@
 
 + (BOOL)isPlistObject:(id)object
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (isPlistObject__onceToken != -1)
   {
     +[PSYPlistFilter isPlistObject:];
   }
 
-  v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = isPlistObject__plistClasses;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           LOBYTE(v5) = 1;
@@ -41,7 +40,7 @@
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -53,7 +52,6 @@
 
 LABEL_13:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -75,34 +73,34 @@ uint64_t __32__PSYPlistFilter_isPlistObject___block_invoke()
 
 + (id)filteredPlistDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (dictionaryCopy)
   {
     v4 = objc_opt_new();
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v5 = dictionaryCopy;
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v20 = dictionaryCopy;
+      v19 = dictionaryCopy;
       v8 = 0;
-      v9 = *v22;
+      v9 = *v21;
       while (1)
       {
         v10 = 0;
         do
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * v10);
+          v11 = *(*(&v20 + 1) + 8 * v10);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -148,13 +146,13 @@ LABEL_15:
         }
 
         while (v7 != v10);
-        v15 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v15 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
         v7 = v15;
         if (!v15)
         {
 
           v16 = v4;
-          dictionaryCopy = v20;
+          dictionaryCopy = v19;
           if (v8)
           {
             goto LABEL_26;
@@ -177,40 +175,39 @@ LABEL_25:
 LABEL_26:
   v17 = v4;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (id)filteredPlistArray:(id)array
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (arrayCopy)
   {
     v4 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v5 = arrayCopy;
-    v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v19 = arrayCopy;
+      v18 = arrayCopy;
       v8 = 0;
-      v9 = *v21;
+      v9 = *v20;
       while (1)
       {
         v10 = 0;
         do
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * v10);
+          v11 = *(*(&v19 + 1) + 8 * v10);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -245,13 +242,13 @@ LABEL_12:
         }
 
         while (v7 != v10);
-        v14 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v14 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
         v7 = v14;
         if (!v14)
         {
 
           v15 = v4;
-          arrayCopy = v19;
+          arrayCopy = v18;
           if (v8)
           {
             goto LABEL_23;
@@ -274,7 +271,6 @@ LABEL_22:
 LABEL_23:
   v16 = v4;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

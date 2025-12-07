@@ -11,28 +11,13 @@ uint64_t __29___DKAudioOutputMonitor_init__block_invoke(uint64_t a1, void *a2, v
   v7 = [v5 primaryValue];
   v8 = [v6 isEqual:v7];
 
-  if (!v8)
-  {
-    goto LABEL_4;
-  }
-
-  v9 = [v4 metadata];
-  v10 = [MEMORY[0x277CFE180] identifier];
-  v11 = [v9 objectForKeyedSubscript:v10];
-
-  v12 = [v5 metadata];
-  v13 = [MEMORY[0x277CFE180] identifier];
-  v14 = [v12 objectForKeyedSubscript:v13];
-
-  LOBYTE(v12) = [v11 isEqual:v14];
-  if (v12)
+  if (v8 && ([v4 metadata], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CFE180], "identifier"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectForKeyedSubscript:", v10), v11 = objc_claimAutoreleasedReturnValue(), v10, v9, objc_msgSend(v5, "metadata"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CFE180], "identifier"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "objectForKeyedSubscript:", v13), v14 = objc_claimAutoreleasedReturnValue(), v13, v12, LOBYTE(v12) = objc_msgSend(v11, "isEqual:", v14), v14, v11, (v12 & 1) != 0))
   {
     v15 = 0;
   }
 
   else
   {
-LABEL_4:
     v15 = -1;
   }
 

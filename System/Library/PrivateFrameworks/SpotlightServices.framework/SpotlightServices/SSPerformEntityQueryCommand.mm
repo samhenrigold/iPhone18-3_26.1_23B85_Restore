@@ -24,33 +24,32 @@
 
 - (SSPerformEntityQueryCommand)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = SSPerformEntityQueryCommand;
-  v5 = [(SSPerformEntityQueryCommand *)&v17 initWithCoder:coderCopy];
+  v16.receiver = self;
+  v16.super_class = SSPerformEntityQueryCommand;
+  v5 = [(SSPerformEntityQueryCommand *)&v16 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_fromSuggestion"];
     -[SSPerformEntityQueryCommand setFromSuggestion:](v5, "setFromSuggestion:", [v6 BOOLValue]);
 
     v7 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v9 = [v7 setWithArray:v8];
     v10 = [coderCopy decodeArrayOfObjectsOfClasses:v9 forKey:@"_searchBarButtonItems"];
     [(SSPerformEntityQueryCommand *)v5 setSearchBarButtonItems:v10];
 
     v11 = MEMORY[0x1E695DFD8];
-    v18 = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+    v17 = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeArrayOfObjectsOfClasses:v13 forKey:@"_folderScopeURLs"];
     [(SSPerformEntityQueryCommand *)v5 setFolderScopeURLs:v14];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

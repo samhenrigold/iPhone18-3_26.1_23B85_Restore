@@ -84,16 +84,16 @@
 
 - (NSDictionary)naturalLightingCurveResourceFileContent
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v3 = [v2 pathForResource:@"NaturalLightingCurve" ofType:@"plist"];
 
   if (v3)
   {
     v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:v3];
-    v16 = 0;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v4 error:&v16];
-    v6 = v16;
+    v15 = 0;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v4 error:&v15];
+    v6 = v15;
     if (v5)
     {
       v7 = v5;
@@ -107,11 +107,11 @@
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v4;
-        v21 = 2112;
-        v22 = v6;
+        v17 = v13;
+        v18 = 2112;
+        v19 = v4;
+        v20 = 2112;
+        v21 = v6;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to create dictionary from file URL %@:%@", buf, 0x20u);
       }
 
@@ -128,19 +128,17 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v18 = v10;
-      v19 = 2112;
-      v20 = @"NaturalLightingCurve";
-      v21 = 2112;
-      v22 = @"plist";
+      v17 = v10;
+      v18 = 2112;
+      v19 = @"NaturalLightingCurve";
+      v20 = 2112;
+      v21 = @"plist";
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to locate the resource file with name: %@ with extension: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = MEMORY[0x277CBEC10];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -33,7 +33,9 @@
 - (void)_pollFolders;
 - (void)_pruneFoldersToMonitorOfOrphanedFolders;
 - (void)_reallyAttemptInvitationLinkageForMetaDatas:(id)datas deliveryIdsToClear:(id)clear deliveryIdsToSoftClear:(id)softClear inFolderWithId:(id)id callback:(id)callback;
+- (void)_reallySyncFolderHierarchyWithConsumer:(id)consumer requestDataclasses:(int64_t)dataclasses requireChangedFolders:(BOOL)folders context:(id)context;
 - (void)_reallySyncLocallyChangedFolder:(id)folder consumer:(id)consumer dataclasses:(int64_t)dataclasses completionBlock:(id)block;
+- (void)_refirePingAfterDelay:(float)delay withGrowthAction:(int)action;
 - (void)_refirePingWithXPCActivityDelay:(int64_t)delay withGrowthAction:(int)action;
 - (void)_reissuePingFromXPCActivityWithGrowthAction:(int)action;
 - (void)_reissuePingTaskWithGrowthAction:(int)action;
@@ -75,8 +77,12 @@
 - (void)stopMonitoringFolderWithID:(id)d;
 - (void)stopMonitoringFoldersWithIDs:(id)ds;
 - (void)suspendMonitoringFoldersWithIDs:(id)ds;
+- (void)syncFolderHierarchyWithConsumer:(id)consumer requireChangedFolders:(BOOL)folders context:(id)context;
 - (void)syncLocallyChangedFolder:(id)folder consumer:(id)consumer completionBlock:(id)block;
+- (void)synchronizeContactsFolder:(id)folder previousTag:(id)tag previousSyncToken:(id)token actions:(id)actions highestIdContext:(id)context isInitialUberSync:(BOOL)sync isResyncAfterConnectionFailed:(BOOL)failed previousTagIsSuspect:(BOOL)self0 moreLocalChangesAvailable:(BOOL)self1 consumer:(id)self2;
+- (void)synchronizeEventsFolder:(id)folder previousTag:(id)tag actions:(id)actions highestIdContext:(id)context isInitialUberSync:(BOOL)sync isResyncAfterConnectionFailed:(BOOL)failed moreLocalChangesAvailable:(BOOL)available consumer:(id)self0;
 - (void)synchronizeNotesFolder:(id)folder noteContext:(id)context previousTag:(id)tag actions:(id)actions changeSet:(id)set notesToDeleteAfterSync:(id)sync isInitialUberSync:(BOOL)uberSync isResyncAfterConnectionFailed:(BOOL)self0 moreLocalChangesAvailable:(BOOL)self1 consumer:(id)self2;
+- (void)synchronizeToDosFolder:(id)folder previousTag:(id)tag actions:(id)actions highestIdContext:(id)context isInitialUberSync:(BOOL)sync isResyncAfterConnectionFailed:(BOOL)failed moreLocalChangesAvailable:(BOOL)available consumer:(id)self0;
 - (void)tearDown;
 - (void)updateOofSettingsWithParams:(id)params consumer:(id)consumer;
 @end
@@ -1301,6 +1307,81 @@ LABEL_17:
   }
 }
 
+- (void)_reallySyncFolderHierarchyWithConsumer:(id)consumer requestDataclasses:(int64_t)dataclasses requireChangedFolders:(BOOL)folders context:(id)context
+{
+  foldersCopy = folders;
+  consumerCopy = consumer;
+  contextCopy = context;
+  v11 = [ASFolderSyncTask alloc];
+  folderHierarchy = [(ASDaemonAccount *)self folderHierarchy];
+  foldersTag = [folderHierarchy foldersTag];
+  v14 = [v11 initWithPreviousSyncKey:foldersTag];
+
+  [v14 setDataclasses:dataclasses];
+  [v14 setContext:contextCopy];
+
+  [v14 setDelegate:self];
+  [v14 setRequireChangedFolders:foldersCopy];
+  if (consumerCopy)
+  {
+    [(ASDaemonAccount *)self setConsumer:consumerCopy forTask:v14];
+    taskManager = [(ASDaemonAccount *)self taskManager];
+    [taskManager submitExclusiveTask:v14];
+  }
+
+  else
+  {
+    taskManager = [(ASDaemonAccount *)self taskManager];
+    [taskManager submitIndependentTask:v14];
+  }
+}
+
+- (void)syncFolderHierarchyWithConsumer:(id)consumer requireChangedFolders:(BOOL)folders context:(id)context
+{
+  foldersCopy = folders;
+  consumerCopy = consumer;
+  contextCopy = context;
+  v10 = 2;
+  if (![(ASDaemonAccount *)self enabledForDADataclass:2])
+  {
+    v10 = 0;
+  }
+
+  if ([(ASDaemonAccount *)self enabledForDADataclass:4])
+  {
+    v10 |= 4uLL;
+  }
+
+  if ([(ASDaemonAccount *)self enabledForDADataclass:16])
+  {
+    v10 |= 0x10uLL;
+  }
+
+  if ([(ASDaemonAccount *)self isEnabledForDataclass:kAccountDataclassNotes])
+  {
+    v10 |= 0x20uLL;
+  }
+
+  if (v10)
+  {
+    v11 = +[DALocalDBGateKeeper sharedGateKeeper];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1D2B0;
+    v12[3] = &unk_6D0B8;
+    v13 = consumerCopy;
+    v14 = contextCopy;
+    selfCopy = self;
+    v16 = foldersCopy;
+    [v11 registerWaiter:self forDataclassLocks:v10 completionHandler:v12];
+  }
+
+  else
+  {
+    [(ASDaemonAccount *)self _reallySyncFolderHierarchyWithConsumer:consumerCopy requestDataclasses:0 requireChangedFolders:foldersCopy context:contextCopy];
+  }
+}
+
 - (BOOL)_handleNameCollisionOnAddedFolder:(id)folder consumer:(id)consumer completionBlock:(id)block
 {
   folderCopy = folder;
@@ -1583,6 +1664,87 @@ LABEL_14:
   {
     [(ASDaemonAccount *)self _reallySyncLocallyChangedFolder:folderCopy consumer:consumerCopy dataclasses:0 completionBlock:blockCopy];
   }
+}
+
+- (void)_refirePingAfterDelay:(float)delay withGrowthAction:(int)action
+{
+  v4 = *&action;
+  v7 = DALoggingwithCategory();
+  v8 = _CPLog_to_os_log_type[6];
+  if (os_log_type_enabled(v7, v8))
+  {
+    LOWORD(v26) = 0;
+    _os_log_impl(&dword_0, v7, v8, "Invoking _refirePingAfterDelay", &v26, 2u);
+  }
+
+  v9 = +[NSThread currentThread];
+  isMainThread = [v9 isMainThread];
+
+  if ((isMainThread & 1) == 0)
+  {
+    sub_48200();
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v12 = DALoggingwithCategory();
+  if (os_log_type_enabled(v12, v8))
+  {
+    WeakRetained = objc_loadWeakRetained(&selfCopy->_delayedPingTimer);
+    v26 = 138412290;
+    v27 = WeakRetained;
+    _os_log_impl(&dword_0, v12, v8, "_delayedPingTimer is %@", &v26, 0xCu);
+  }
+
+  v14 = objc_loadWeakRetained(&selfCopy->_delayedPingTimer);
+  v15 = v14 == 0;
+
+  if (v15)
+  {
+    v16 = +[NSRunLoop currentRunLoop];
+    currentMode = [v16 currentMode];
+    if (currentMode)
+    {
+      v18 = DALoggingwithCategory();
+      if (os_log_type_enabled(v18, v8))
+      {
+        _pingPowerAssertionIdentifier = [(ASDaemonAccount *)selfCopy _pingPowerAssertionIdentifier];
+        v26 = 138412290;
+        v27 = _pingPowerAssertionIdentifier;
+        _os_log_impl(&dword_0, v18, v8, "Retain power assertion %@", &v26, 0xCu);
+      }
+
+      [(ASDaemonAccount *)selfCopy _pingPowerAssertionIdentifier];
+      CPSetPowerAssertionWithIdentifier();
+      v20 = [[NSDate alloc] initWithTimeIntervalSinceNow:delay];
+      v21 = DALoggingwithCategory();
+      if (os_log_type_enabled(v21, v8))
+      {
+        LOWORD(v26) = 0;
+        _os_log_impl(&dword_0, v21, v8, "Creating _delayedPingTimer", &v26, 2u);
+      }
+
+      v22 = [NSTimer alloc];
+      v23 = [NSNumber numberWithInt:v4];
+      v24 = [v22 initWithFireDate:v20 interval:selfCopy target:"reissuePingFromTimer:" selector:v23 userInfo:0 repeats:0.0];
+
+      [v16 addTimer:v24 forMode:currentMode];
+      objc_storeWeak(&selfCopy->_delayedPingTimer, v24);
+    }
+
+    else
+    {
+      v20 = DALoggingwithCategory();
+      v25 = _CPLog_to_os_log_type[3];
+      if (os_log_type_enabled(v20, v25))
+      {
+        LOWORD(v26) = 0;
+        _os_log_impl(&dword_0, v20, v25, "Not going to ping, because there is no run loop mode to schedule our timer on", &v26, 2u);
+      }
+    }
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 - (void)_refirePingWithXPCActivityDelay:(int64_t)delay withGrowthAction:(int)action
@@ -3787,6 +3949,65 @@ LABEL_22:
   return 1;
 }
 
+- (void)synchronizeContactsFolder:(id)folder previousTag:(id)tag previousSyncToken:(id)token actions:(id)actions highestIdContext:(id)context isInitialUberSync:(BOOL)sync isResyncAfterConnectionFailed:(BOOL)failed previousTagIsSuspect:(BOOL)self0 moreLocalChangesAvailable:(BOOL)self1 consumer:(id)self2
+{
+  syncCopy = sync;
+  folderCopy = folder;
+  tagCopy = tag;
+  actionsCopy = actions;
+  consumerCopy = consumer;
+  contextCopy = context;
+  v22 = DALoggingwithCategory();
+  v23 = _CPLog_to_os_log_type[6];
+  if (os_log_type_enabled(v22, v23))
+  {
+    v24 = &stru_6D4A8;
+    *buf = 138413058;
+    v32 = folderCopy;
+    if (failed)
+    {
+      v24 = @" resync after connection failure";
+    }
+
+    v33 = 2112;
+    v34 = tagCopy;
+    v35 = 2112;
+    v36 = v24;
+    v37 = 2112;
+    v38 = actionsCopy;
+    _os_log_impl(&dword_0, v22, v23, "Syncing Contacts folder with id %@, previous key %@%@, actions %@", buf, 0x2Au);
+  }
+
+  v25 = [[ASFolderItemsSyncTask alloc] initWithFolderID:folderCopy];
+  [v25 setSourceApplicationBundleIdentifier:@"com.apple.MobileAddressBook"];
+  [v25 setPreviousSyncKey:tagCopy];
+  [v25 setWillUpdate:1];
+  [v25 setDelegate:self];
+  [v25 setIsInitialSync:syncCopy];
+  [v25 setDataclass:2];
+  [v25 setContext:contextCopy];
+
+  [v25 setIsResyncAfterConnectionFailed:failed];
+  [v25 setMoreLocalChangesAvailable:available];
+  v26 = _DASyncableActionsFromDAActions(actionsCopy, 0);
+  if (v26)
+  {
+    [v25 setActions:v26];
+  }
+
+  [v25 setPushedActions:actionsCopy];
+  v27 = _ASSyncTaskPreservedActionsFromActions(actionsCopy);
+  [v25 setPreservedActions:v27];
+  [(ASDaemonAccount *)self setConsumer:consumerCopy forTask:v25];
+
+  v30 = folderCopy;
+  v28 = [NSArray arrayWithObjects:&v30 count:1];
+  [(ASDaemonAccount *)self suspendMonitoringFoldersWithIDs:v28];
+
+  taskManager = [(ASDaemonAccount *)self taskManager];
+  [taskManager submitQueuedTask:v25];
+}
+
 - (void)sendMailTask:(id)task completedWithStatus:(int64_t)status error:(id)error
 {
   taskCopy = task;
@@ -3824,7 +4045,7 @@ LABEL_22:
   if (os_log_type_enabled(v10, v11))
   {
     *buf = 138412290;
-    *v131 = actionsCopy;
+    *v129 = actionsCopy;
     _os_log_impl(&dword_0, v10, v11, "_ASSyncTaskAndMeetingResponseCommandsFromDAEventActions, actions is %@", buf, 0xCu);
   }
 
@@ -3834,33 +4055,33 @@ LABEL_22:
   {
     invitationActionsInFlight = self->_invitationActionsInFlight;
     *buf = 138412290;
-    *v131 = invitationActionsInFlight;
+    *v129 = invitationActionsInFlight;
     _os_log_impl(&dword_0, v12, type, "_invitationActionsInFlight is currently %@", buf, 0xCu);
   }
 
   selfCopy = self;
 
   v14 = objc_opt_new();
+  v124 = 0u;
+  v125 = 0u;
   v126 = 0u;
   v127 = 0u;
-  v128 = 0u;
-  v129 = 0u;
   v15 = actionsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v126 objects:v138 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v124 objects:v136 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v127;
+    v18 = *v125;
     do
     {
       for (i = 0; i != v17; i = i + 1)
       {
-        if (*v127 != v18)
+        if (*v125 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v126 + 1) + 8 * i);
+        v20 = *(*(&v124 + 1) + 8 * i);
         if ([v20 itemChangeType] == &dword_4 + 2)
         {
           serverId = [v20 serverId];
@@ -3868,18 +4089,18 @@ LABEL_22:
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v126 objects:v138 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v124 objects:v136 count:16];
     }
 
     while (v17);
   }
 
-  v106 = responseActionsCopy;
-  v107 = v14;
+  v104 = responseActionsCopy;
+  v105 = v14;
 
-  v108 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v15, "count")}];
+  v106 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v15, "count")}];
   v22 = [v15 count];
-  v113 = v11;
+  v111 = v11;
   if (v22 >= 1)
   {
     for (j = (v22 & 0x7FFFFFFF) + 1; j > 1; --j)
@@ -3908,11 +4129,11 @@ LABEL_24:
             {
               v32 = [event meetingResponseForAccount:selfCopy];
               *buf = 67109632;
-              *v131 = calAttendeeStatus;
-              *&v131[4] = 1024;
-              *&v131[6] = calAttendeePendingStatus;
-              LOWORD(v132) = 1024;
-              *(&v132 + 2) = v32;
+              *v129 = calAttendeeStatus;
+              *&v129[4] = 1024;
+              *&v129[6] = calAttendeePendingStatus;
+              LOWORD(v130) = 1024;
+              *(&v130 + 2) = v32;
               _os_log_impl(&dword_0, v31, type, "Event has status %d, pending status %d, meeting response %d", buf, 0x14u);
             }
 
@@ -3922,7 +4143,7 @@ LABEL_24:
               if (os_log_type_enabled(v33, type))
               {
                 *buf = 138412290;
-                *v131 = event;
+                *v129 = event;
                 _os_log_impl(&dword_0, v33, type, "Dropping request to sync %@, as it's a un-acted-upon invitation and we're trying to do something other than modify it", buf, 0xCu);
               }
 
@@ -3939,19 +4160,19 @@ LABEL_24:
           if ([v25 itemChangeType] == &dword_0 + 1)
           {
             serverID = [event serverID];
-            v36 = [v107 objectForKeyedSubscript:serverID];
+            v36 = [v105 objectForKeyedSubscript:serverID];
 
             if (v36)
             {
               v37 = DALoggingwithCategory();
-              v11 = v113;
-              if (os_log_type_enabled(v37, v113))
+              v11 = v111;
+              if (os_log_type_enabled(v37, v111))
               {
                 serverID2 = [event serverID];
                 *buf = 138412290;
-                *v131 = serverID2;
+                *v129 = serverID2;
                 v39 = v37;
-                v40 = v113;
+                v40 = v111;
                 v41 = "Have a modify action nixed by a belay action for server id %@.  Dropping the modify";
                 goto LABEL_61;
               }
@@ -3964,14 +4185,14 @@ LABEL_24:
           if (Status == 3 && itemChangeType2 == &dword_0 + 1 && ([event cachedOrganizerIsSelfWithAccount:selfCopy] & 1) == 0)
           {
             v37 = DALoggingwithCategory();
-            v11 = v113;
-            if (os_log_type_enabled(v37, v113))
+            v11 = v111;
+            if (os_log_type_enabled(v37, v111))
             {
               serverID2 = [event serverID];
               *buf = 138412290;
-              *v131 = serverID2;
+              *v129 = serverID2;
               v39 = v37;
-              v40 = v113;
+              v40 = v111;
               v41 = "Do not respond to a canceled meeting for server id %@. Dropping the modify";
 LABEL_61:
               _os_log_impl(&dword_0, v39, v40, v41, buf, 0xCu);
@@ -3992,18 +4213,18 @@ LABEL_63:
             if (os_log_type_enabled(v44, type))
             {
               *buf = 138412290;
-              *v131 = event;
+              *v129 = event;
               _os_log_impl(&dword_0, v44, type, "Not syncing add of cancelled event that's not back by an exchange event.  Event %@", buf, 0xCu);
             }
 
             [eventsCopy addObject:event];
 LABEL_47:
-            v11 = v113;
+            v11 = v111;
             goto LABEL_63;
           }
 
           v45 = [event meetingResponseForAccount:selfCopy];
-          v11 = v113;
+          v11 = v111;
           if (v45)
           {
             if (v45 == 4)
@@ -4015,11 +4236,11 @@ LABEL_47:
               if (v46)
               {
                 v48 = DALoggingwithCategory();
-                if (os_log_type_enabled(v48, v113))
+                if (os_log_type_enabled(v48, v111))
                 {
                   *buf = 138412290;
-                  *v131 = event;
-                  _os_log_impl(&dword_0, v48, v113, "Dropping request to email about %@, as I currently have an invitation action in flight for it", buf, 0xCu);
+                  *v129 = event;
+                  _os_log_impl(&dword_0, v48, v111, "Dropping request to email about %@, as I currently have an invitation action in flight for it", buf, 0xCu);
                 }
 
                 goto LABEL_54;
@@ -4054,17 +4275,17 @@ LABEL_47:
               if ([(NSMutableSet *)selfCopy->_invitationActionsInFlight containsObject:uidForCalFramework2])
               {
                 v58 = DALoggingwithCategory();
-                if (os_log_type_enabled(v58, v113))
+                if (os_log_type_enabled(v58, v111))
                 {
                   *buf = 138412290;
-                  *v131 = event;
-                  _os_log_impl(&dword_0, v58, v113, "Dropping request to do a MeetingResponse for %@, as I currently have an invitation action in flight for it", buf, 0xCu);
+                  *v129 = event;
+                  _os_log_impl(&dword_0, v58, v111, "Dropping request to do a MeetingResponse for %@, as I currently have an invitation action in flight for it", buf, 0xCu);
                 }
               }
 
               else
               {
-                [v106 addObject:v25];
+                [v104 addObject:v25];
                 [(NSMutableSet *)selfCopy->_invitationActionsInFlight addObject:uidForCalFramework2];
               }
 
@@ -4115,7 +4336,7 @@ LABEL_54:
                     instanceId = [v25 instanceId];
                     v56 = [v62 initWithItemChangeType:1 changedItem:event serverId:serverId2 instanceId:instanceId];
 
-                    v11 = v113;
+                    v11 = v111;
                   }
 
                   else
@@ -4145,7 +4366,7 @@ LABEL_86:
           }
 
 LABEL_23:
-          [v108 addObject:event];
+          [v106 addObject:event];
           goto LABEL_63;
         }
       }
@@ -4172,31 +4393,31 @@ LABEL_64:
     }
   }
 
-  v67 = v106;
-  if ([v106 count])
+  v67 = v104;
+  if ([v104 count])
   {
-    v105 = v15;
-    v68 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v106, "count")}];
+    v103 = v15;
+    v68 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v104, "count")}];
+    v120 = 0u;
+    v121 = 0u;
     v122 = 0u;
     v123 = 0u;
-    v124 = 0u;
-    v125 = 0u;
-    v69 = v106;
-    v70 = [v69 countByEnumeratingWithState:&v122 objects:v137 count:16];
+    v69 = v104;
+    v70 = [v69 countByEnumeratingWithState:&v120 objects:v135 count:16];
     if (v70)
     {
       v71 = v70;
-      v72 = *v123;
+      v72 = *v121;
       do
       {
         for (k = 0; k != v71; k = k + 1)
         {
-          if (*v123 != v72)
+          if (*v121 != v72)
           {
             objc_enumerationMutation(v69);
           }
 
-          changedItem = [*(*(&v122 + 1) + 8 * k) changedItem];
+          changedItem = [*(*(&v120 + 1) + 8 * k) changedItem];
           [changedItem calEvent];
           v75 = CalEventCopyOriginalEvent();
           if (v75)
@@ -4206,36 +4427,36 @@ LABEL_64:
             CFRelease(v76);
             [v68 addObject:v77];
 
-            v11 = v113;
+            v11 = v111;
           }
         }
 
-        v71 = [v69 countByEnumeratingWithState:&v122 objects:v137 count:16];
+        v71 = [v69 countByEnumeratingWithState:&v120 objects:v135 count:16];
       }
 
       while (v71);
     }
 
+    v116 = 0u;
+    v117 = 0u;
     v118 = 0u;
     v119 = 0u;
-    v120 = 0u;
-    v121 = 0u;
     typea = [eventsCopy copy];
-    v78 = [typea countByEnumeratingWithState:&v118 objects:v136 count:16];
+    v78 = [typea countByEnumeratingWithState:&v116 objects:v134 count:16];
     if (v78)
     {
       v79 = v78;
-      v80 = *v119;
+      v80 = *v117;
       do
       {
         for (m = 0; m != v79; m = m + 1)
         {
-          if (*v119 != v80)
+          if (*v117 != v80)
           {
             objc_enumerationMutation(typea);
           }
 
-          v82 = *(*(&v118 + 1) + 8 * m);
+          v82 = *(*(&v116 + 1) + 8 * m);
           clientID = [v82 clientID];
           if (clientID && [v68 containsObject:clientID])
           {
@@ -4243,7 +4464,7 @@ LABEL_64:
             if (os_log_type_enabled(v84, v11))
             {
               *buf = 138412290;
-              *v131 = v82;
+              *v129 = v82;
               _os_log_impl(&dword_0, v84, v11, "Not emailing about event %@, as I'm sending a meeting response for someone in their chain", buf, 0xCu);
             }
 
@@ -4257,7 +4478,7 @@ LABEL_64:
             if (os_log_type_enabled(v86, v11))
             {
               *buf = 138412290;
-              *v131 = v82;
+              *v129 = v82;
               _os_log_impl(&dword_0, v86, v11, "Not emailing about event %@, as the originator requested no responses", buf, 0xCu);
             }
 
@@ -4265,55 +4486,51 @@ LABEL_64:
           }
         }
 
-        v79 = [typea countByEnumeratingWithState:&v118 objects:v136 count:16];
+        v79 = [typea countByEnumeratingWithState:&v116 objects:v134 count:16];
       }
 
       while (v79);
     }
 
+    v112 = 0u;
+    v113 = 0u;
     v114 = 0u;
     v115 = 0u;
-    v116 = 0u;
-    v117 = 0u;
-    v87 = [v108 copy];
-    v88 = [v87 countByEnumeratingWithState:&v114 objects:v135 count:16];
+    v87 = [v106 copy];
+    v88 = [v87 countByEnumeratingWithState:&v112 objects:v133 count:16];
     if (v88)
     {
       v89 = v88;
-      v90 = *v115;
+      v90 = *v113;
       v91 = _CPLog_to_os_log_type[3];
-      v92 = &PLLogRegisteredEvent_ptr;
       do
       {
         for (n = 0; n != v89; n = n + 1)
         {
-          if (*v115 != v90)
+          if (*v113 != v90)
           {
             objc_enumerationMutation(v87);
           }
 
-          v94 = *(*(&v114 + 1) + 8 * n);
-          if ([v94 itemChangeType] != &dword_0 + 2)
+          v93 = *(*(&v112 + 1) + 8 * n);
+          if ([v93 itemChangeType] != &dword_0 + 2)
           {
-            event2 = [v94 event];
-            v96 = v92[380];
+            event2 = [v93 event];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               clientID2 = [event2 clientID];
               if (clientID2 && [v68 containsObject:clientID2])
               {
-                v98 = DALoggingwithCategory();
-                if (os_log_type_enabled(v98, v113))
+                v96 = DALoggingwithCategory();
+                if (os_log_type_enabled(v96, v111))
                 {
                   *buf = 138412290;
-                  *v131 = v94;
-                  _os_log_impl(&dword_0, v98, v113, "Not syncing command %@, as I'm sending a meeting response for someone in their chain", buf, 0xCu);
+                  *v129 = v93;
+                  _os_log_impl(&dword_0, v96, v111, "Not syncing command %@, as I'm sending a meeting response for someone in their chain", buf, 0xCu);
                 }
 
-                [v108 removeObject:v94];
-LABEL_128:
-                v92 = &PLLogRegisteredEvent_ptr;
+                [v106 removeObject:v93];
               }
             }
 
@@ -4322,47 +4539,43 @@ LABEL_128:
               clientID2 = DALoggingwithCategory();
               if (os_log_type_enabled(clientID2, v91))
               {
-                itemChangeType5 = [v94 itemChangeType];
-                v100 = objc_opt_class();
+                itemChangeType5 = [v93 itemChangeType];
+                v98 = objc_opt_class();
                 *buf = 134218498;
-                *v131 = itemChangeType5;
-                *&v131[8] = 2112;
-                v132 = v100;
-                v133 = 2112;
-                v134 = event2;
-                v101 = v100;
+                *v129 = itemChangeType5;
+                *&v129[8] = 2112;
+                v130 = v98;
+                v131 = 2112;
+                v132 = event2;
+                v99 = v98;
                 _os_log_impl(&dword_0, clientID2, v91, "Alarm! We have a command of type %lu, but the event isn't an ASEvent, rather it has class %@, and is %@", buf, 0x20u);
-
-                goto LABEL_128;
               }
             }
-
-            continue;
           }
         }
 
-        v89 = [v87 countByEnumeratingWithState:&v114 objects:v135 count:16];
+        v89 = [v87 countByEnumeratingWithState:&v112 objects:v133 count:16];
       }
 
       while (v89);
     }
 
-    v67 = v106;
-    v11 = v113;
-    v15 = v105;
+    v67 = v104;
+    v11 = v111;
+    v15 = v103;
   }
 
-  allObjects = [v108 allObjects];
-  v103 = DALoggingwithCategory();
-  if (os_log_type_enabled(v103, v11))
+  allObjects = [v106 allObjects];
+  v101 = DALoggingwithCategory();
+  if (os_log_type_enabled(v101, v11))
   {
     *buf = 138412802;
-    *v131 = allObjects;
-    *&v131[8] = 2112;
-    v132 = v67;
-    v133 = 2112;
-    v134 = eventsCopy;
-    _os_log_impl(&dword_0, v103, v11, "_ASSyncTaskAndMeetingResponseCommandsFromDAEventActions, commands are %@, meetingResponseActions are %@ emails are %@", buf, 0x20u);
+    *v129 = allObjects;
+    *&v129[8] = 2112;
+    v130 = v67;
+    v131 = 2112;
+    v132 = eventsCopy;
+    _os_log_impl(&dword_0, v101, v11, "_ASSyncTaskAndMeetingResponseCommandsFromDAEventActions, commands are %@, meetingResponseActions are %@ emails are %@", buf, 0x20u);
   }
 
   return allObjects;
@@ -4912,6 +5125,163 @@ LABEL_62:
 
     consumerCopy = v77;
   }
+}
+
+- (void)synchronizeEventsFolder:(id)folder previousTag:(id)tag actions:(id)actions highestIdContext:(id)context isInitialUberSync:(BOOL)sync isResyncAfterConnectionFailed:(BOOL)failed moreLocalChangesAvailable:(BOOL)available consumer:(id)self0
+{
+  failedCopy = failed;
+  syncCopy = sync;
+  folderCopy = folder;
+  tagCopy = tag;
+  actionsCopy = actions;
+  v19 = tagCopy;
+  consumerCopy = consumer;
+  contextCopy = context;
+  v21 = DALoggingwithCategory();
+  v22 = _CPLog_to_os_log_type[6];
+  if (os_log_type_enabled(v21, v22))
+  {
+    v23 = &stru_6D4A8;
+    *buf = 138412802;
+    v41 = folderCopy;
+    v42 = 2112;
+    if (failedCopy)
+    {
+      v23 = @" resync after connection failure";
+    }
+
+    v43 = v19;
+    v44 = 2112;
+    v45 = v23;
+    _os_log_impl(&dword_0, v21, v22, "Syncing Calendar folder with id %@, previous key %@%@", buf, 0x20u);
+  }
+
+  v38 = folderCopy;
+  v24 = [[ASFolderItemsSyncTask alloc] initWithFolderID:folderCopy];
+  [v24 setSourceApplicationBundleIdentifier:@"com.apple.mobilecal"];
+  [v24 setPreviousSyncKey:v19];
+  [v24 setWillUpdate:1];
+  [v24 setDelegate:self];
+  [v24 setFilterDays:self->_eventsNumberOfPastDaysToSync];
+  [v24 setIsInitialSync:syncCopy];
+  [v24 setDataclass:4];
+  [v24 setContext:contextCopy];
+
+  [v24 setIsResyncAfterConnectionFailed:failedCopy];
+  if (actionsCopy && [actionsCopy count])
+  {
+    firstObject = [actionsCopy firstObject];
+    if (([firstObject isOrganizerUpdate] & 1) != 0 || objc_msgSend(firstObject, "isSkippedDetachment"))
+    {
+      [v24 setClientWinsOnSyncConflict:1];
+    }
+  }
+
+  [v24 setMoreLocalChangesAvailable:{available, v19}];
+  v26 = objc_opt_new();
+  v27 = objc_opt_new();
+  v28 = [actionsCopy mutableCopy];
+  v29 = [(ASDaemonAccount *)self _ASSyncTaskAndMeetingResponseCommandsFromDAEventActions:v28 meetingResponseActions:v26 emailEvents:v27];
+  if ([v26 count])
+  {
+    [(ASDaemonAccount *)self _respondToMeetingsForActions:v26 inFolderWithId:v38 consumer:consumerCopy];
+  }
+
+  if ([v27 count])
+  {
+    v30 = [(ASDaemonAccount *)self sendEmailsForCalEvents:v27 consumer:consumerCopy];
+    if (!v29)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_15;
+  }
+
+  v30 = 0;
+  if (v29)
+  {
+LABEL_15:
+    [v24 setActions:v29];
+  }
+
+LABEL_16:
+  [v24 setPushedActions:v28];
+  v31 = _ASSyncTaskPreservedActionsFromActions(actionsCopy);
+  [v24 setPreservedActions:v31];
+  [(ASDaemonAccount *)self setConsumer:consumerCopy forTask:v24];
+  v39 = v38;
+  v32 = [NSArray arrayWithObjects:&v39 count:1];
+  [(ASDaemonAccount *)self suspendMonitoringFoldersWithIDs:v32];
+
+  taskManager = [(ASDaemonAccount *)self taskManager];
+  [taskManager submitQueuedTask:v24];
+
+  if (v30)
+  {
+    v34 = +[ASLocalDBHelper sharedInstance];
+    accountID = [(ASDaemonAccount *)self accountID];
+    [v34 calSaveDatabaseForAccountID:accountID];
+  }
+}
+
+- (void)synchronizeToDosFolder:(id)folder previousTag:(id)tag actions:(id)actions highestIdContext:(id)context isInitialUberSync:(BOOL)sync isResyncAfterConnectionFailed:(BOOL)failed moreLocalChangesAvailable:(BOOL)available consumer:(id)self0
+{
+  failedCopy = failed;
+  syncCopy = sync;
+  folderCopy = folder;
+  tagCopy = tag;
+  actionsCopy = actions;
+  consumerCopy = consumer;
+  contextCopy = context;
+  v21 = DALoggingwithCategory();
+  v22 = _CPLog_to_os_log_type[6];
+  if (os_log_type_enabled(v21, v22))
+  {
+    v23 = &stru_6D4A8;
+    *buf = 138412802;
+    v32 = folderCopy;
+    v33 = 2112;
+    if (failedCopy)
+    {
+      v23 = @" resync after connection failure";
+    }
+
+    v34 = tagCopy;
+    v35 = 2112;
+    v36 = v23;
+    _os_log_impl(&dword_0, v21, v22, "Syncing ToDo folder with id %@, previous key %@%@", buf, 0x20u);
+  }
+
+  v24 = [[ASFolderItemsSyncTask alloc] initWithFolderID:folderCopy];
+  [v24 setSourceApplicationBundleIdentifier:@"com.apple.reminders"];
+  [v24 setPreviousSyncKey:tagCopy];
+  [v24 setWillUpdate:1];
+  [v24 setDelegate:self];
+  [v24 setIsInitialSync:syncCopy];
+  [v24 setDataclass:16];
+  [v24 setContext:contextCopy];
+
+  [v24 setIsResyncAfterConnectionFailed:failedCopy];
+  [v24 setMoreLocalChangesAvailable:available];
+  v25 = [actionsCopy mutableCopy];
+  v26 = _DASyncableActionsFromDAActions(actionsCopy, v25);
+  if (v26)
+  {
+    [v24 setActions:v26];
+  }
+
+  [v24 setPushedActions:v25];
+  v27 = _ASSyncTaskPreservedActionsFromActions(actionsCopy);
+  [v24 setPreservedActions:v27];
+  [(ASDaemonAccount *)self setConsumer:consumerCopy forTask:v24];
+
+  v30 = folderCopy;
+  v28 = [NSArray arrayWithObjects:&v30 count:1];
+  [(ASDaemonAccount *)self suspendMonitoringFoldersWithIDs:v28];
+
+  taskManager = [(ASDaemonAccount *)self taskManager];
+  [taskManager submitQueuedTask:v24];
 }
 
 - (void)synchronizeNotesFolder:(id)folder noteContext:(id)context previousTag:(id)tag actions:(id)actions changeSet:(id)set notesToDeleteAfterSync:(id)sync isInitialUberSync:(BOOL)uberSync isResyncAfterConnectionFailed:(BOOL)self0 moreLocalChangesAvailable:(BOOL)self1 consumer:(id)self2

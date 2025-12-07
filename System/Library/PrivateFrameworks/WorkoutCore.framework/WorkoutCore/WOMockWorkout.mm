@@ -155,7 +155,6 @@
   objc_storeStrong(&v74, 0);
   objc_storeStrong(&v75, 0);
   objc_storeStrong(&date, 0);
-  *MEMORY[0x277D85DE8];
 
   return v69;
 }
@@ -294,7 +293,6 @@
   objc_storeStrong(&v74, 0);
   objc_storeStrong(&v75, 0);
   objc_storeStrong(&date, 0);
-  *MEMORY[0x277D85DE8];
 
   return v69;
 }
@@ -432,7 +430,6 @@
   objc_storeStrong(&v77, 0);
   objc_storeStrong(&v78, 0);
   objc_storeStrong(&date, 0);
-  *MEMORY[0x277D85DE8];
 
   return v72;
 }

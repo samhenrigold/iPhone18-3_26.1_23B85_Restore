@@ -1262,7 +1262,7 @@ LABEL_15:
 
   [v11 removeContent];
   [v15 removeContent];
-  [(_UINavigationBarTransitionContext *)self _removeAllClippingViews];
+  [(_UINavigationBarTransitionContext *)&self->super.super.isa _removeAllClippingViews];
   [v13 cleanupAfterLayoutTransitionCompleted];
   [v9 cleanupAfterLayoutTransitionCompleted];
   v31 = *(MEMORY[0x1E695F058] + 16);

@@ -14,7 +14,7 @@
 
 - (id)editMenuInteraction:(id)interaction menuForConfiguration:(id)configuration suggestedActions:(id)actions
 {
-  sub_CE5C(0, &qword_C4F68);
+  sub_CE5C(0, &qword_C4F68, UIMenuElement_ptr);
   sub_8F6C4();
   v5 = sub_3AEDC();
 

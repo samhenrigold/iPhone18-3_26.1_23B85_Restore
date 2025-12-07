@@ -45,60 +45,58 @@
 
 void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 40);
-    v6 = [v3 identifier];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Device found: %{public}@", &v8, 0x16u);
+    v8 = *(a1 + 40);
+    v9 = [v3 identifier];
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Device found: %{public}@", &v10, 0x16u);
   }
 
   [*(a1 + 32) notifyObserversOfChangeForKey:@"CBDiscoveryObservation" newValue:0];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_12(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 40);
-    v6 = [v3 identifier];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Device lost: %{public}@", &v8, 0x16u);
+    v8 = *(a1 + 40);
+    v9 = [v3 identifier];
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Device lost: %{public}@", &v10, 0x16u);
   }
 
   [*(a1 + 32) notifyObserversOfChangeForKey:@"CBDiscoveryObservation" newValue:0];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_13(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_13_cold_1(a1, v3, v4);
+    __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_13_cold_1(a1, v3, v7);
   }
 }
 
 void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_16(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   os_unfair_lock_lock((*(a1 + 32) + 32));
   v4 = *(a1 + 32);
@@ -109,31 +107,28 @@ void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invok
   }
 
   os_unfair_lock_unlock((v4 + 32));
-  _HKInitializeLogging();
-  v5 = HKLogInfrastructure();
-  v6 = v5;
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogInfrastructure(v7, v8);
+  v10 = v9;
   if (v3)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_16_cold_1((a1 + 32), v3, v6);
+      __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_16_cold_1((a1 + 32), v3, v10);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = *(a1 + 40);
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2048;
-    v15 = v9;
-    v10 = v8;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Activated CBDiscovery:%p", &v12, 0x16u);
+    v11 = objc_opt_class();
+    v12 = *(a1 + 40);
+    v14 = 138543618;
+    v15 = v11;
+    v16 = 2048;
+    v17 = v12;
+    v13 = v11;
+    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Activated CBDiscovery:%p", &v14, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerObserverForDevicePairingChanges:(id)changes updateHandler:(id)handler
@@ -152,43 +147,45 @@ void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invok
 {
   keyCopy = key;
   handleCopy = handle;
-  if ([keyCopy isEqualToString:@"CBDiscoveryObservation"])
+  v8 = [keyCopy isEqualToString:@"CBDiscoveryObservation"];
+  if (v8)
   {
     selfCopy = [(HKBluetoothDeviceDataSource *)self _beginDiscoveryWithObserver:handleCopy];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v8 = HKLogInfrastructure();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    _HKInitializeLogging(v8, v9);
+    v12 = HKLogInfrastructure(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [HKBluetoothDeviceDataSource makeAndRegisterBridgedObserverForKey:handle:];
+      [HKBluetoothDeviceDataSource makeAndRegisterBridgedObserverForKey:? handle:?];
     }
 
     selfCopy = self;
   }
 
-  v10 = selfCopy;
+  v14 = selfCopy;
 
-  return v10;
+  return v14;
 }
 
 - (void)unregisterBridgedObserver:(id)observer forKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"CBDiscoveryObservation"])
+  v6 = [keyCopy isEqualToString:@"CBDiscoveryObservation"];
+  if (v6)
   {
     [(HKBluetoothDeviceDataSource *)self _endDiscovery];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v6 = HKLogInfrastructure();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    _HKInitializeLogging(v6, v7);
+    v10 = HKLogInfrastructure(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [HKBluetoothDeviceDataSource unregisterBridgedObserver:forKey:];
+      [HKBluetoothDeviceDataSource unregisterBridgedObserver:? forKey:?];
     }
   }
 }
@@ -253,113 +250,100 @@ void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invok
 
 - (id)_beginDiscoveryWithObserver:(id)observer
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (observer)
   {
     os_unfair_lock_lock(observer + 8);
     if (*(observer + 5))
     {
-      _HKInitializeLogging();
-      v4 = HKLogInfrastructure();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      _HKInitializeLogging(v4, v5);
+      v8 = HKLogInfrastructure(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v24 = objc_opt_class();
-        v13 = v24;
-        _os_log_fault_impl(&dword_19197B000, v4, OS_LOG_TYPE_FAULT, "[%{public}@] CBDiscovery beginning while another is currently running", buf, 0xCu);
+        v26 = objc_opt_class();
+        v15 = v26;
+        _os_log_fault_impl(&dword_19197B000, v8, OS_LOG_TYPE_FAULT, "[%{public}@] CBDiscovery beginning while another is currently running", buf, 0xCu);
       }
 
       [*(observer + 5) invalidate];
       *(observer + 48) = 0;
     }
 
-    v5 = *(observer + 7);
-    v6 = objc_alloc_init(objc_opt_class());
-    v7 = objc_opt_class();
-    [v6 setDiscoveryFlags:0x800000];
-    [v6 setLabel:@"HKBluetoothDeviceDataSource"];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke;
-    v20[3] = &unk_1E7383C38;
-    v22 = v7;
-    v8 = v3;
-    v21 = v8;
-    [v6 setDeviceFoundHandler:v20];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_12;
-    v17[3] = &unk_1E7383C38;
-    v19 = v7;
-    v18 = v8;
-    [v6 setDeviceLostHandler:v17];
+    v9 = objc_alloc_init(objc_opt_class());
+    v10 = objc_opt_class();
+    [v9 setDiscoveryFlags:0x800000];
+    [v9 setLabel:@"HKBluetoothDeviceDataSource"];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke;
+    v22[3] = &unk_1E7383C38;
+    v24 = v10;
+    v11 = v3;
+    v23 = v11;
+    [v9 setDeviceFoundHandler:v22];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_12;
+    v19[3] = &unk_1E7383C38;
+    v21 = v10;
+    v20 = v11;
+    [v9 setDeviceLostHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_13;
+    v18[3] = &__block_descriptor_40_e17_v16__0__NSError_8lu32l8;
+    v18[4] = v10;
+    [v9 setErrorHandler:v18];
     v16[0] = MEMORY[0x1E69E9820];
     v16[1] = 3221225472;
-    v16[2] = __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_13;
-    v16[3] = &__block_descriptor_40_e17_v16__0__NSError_8lu32l8;
-    v16[4] = v7;
-    [v6 setErrorHandler:v16];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_16;
-    v14[3] = &unk_1E7380648;
-    v14[4] = observer;
-    v9 = v6;
-    v15 = v9;
-    [v9 activateWithCompletion:v14];
-    objc_storeStrong(observer + 5, v6);
+    v16[2] = __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_16;
+    v16[3] = &unk_1E7380648;
+    v16[4] = observer;
+    v12 = v9;
+    v17 = v12;
+    [v12 activateWithCompletion:v16];
+    objc_storeStrong(observer + 5, v9);
     os_unfair_lock_unlock(observer + 8);
-    v10 = v15;
-    observer = v9;
+    v13 = v17;
+    observer = v12;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return observer;
 }
 
 void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_13_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error during CBDiscovery: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error during CBDiscovery: %{public}@", &v4, 0x16u);
 }
 
-void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_16_cold_1(uint64_t *a1, uint64_t a2, NSObject *a3)
+void __59__HKBluetoothDeviceDataSource__beginDiscoveryWithObserver___block_invoke_16_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = *a1;
-  v5 = objc_opt_class();
-  v6 = OUTLINED_FUNCTION_0_11(v5);
-  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Error activating CBDiscovery: %{public}@", v8, 0x16u);
-
   v7 = *MEMORY[0x1E69E9840];
+  v4 = objc_opt_class();
+  v5 = OUTLINED_FUNCTION_0_11(v4);
+  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Error activating CBDiscovery: %{public}@", v6, 0x16u);
 }
 
-- (void)makeAndRegisterBridgedObserverForKey:handle:.cold.1()
+- (void)makeAndRegisterBridgedObserverForKey:(uint64_t)a1 handle:.cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_11(v0);
-  OUTLINED_FUNCTION_1_13(&dword_19197B000, v2, v3, "[%{public}@] Unsupported registration key: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_11(v1);
+  OUTLINED_FUNCTION_1_13(&dword_19197B000, v3, v4, "[%{public}@] Unsupported registration key: %{public}@", v5, v6, v7, v8);
 }
 
-- (void)unregisterBridgedObserver:forKey:.cold.1()
+- (void)unregisterBridgedObserver:(uint64_t)a1 forKey:.cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_11(v0);
-  OUTLINED_FUNCTION_1_13(&dword_19197B000, v2, v3, "[%{public}@] Unsupported unregistration key: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_11(v1);
+  OUTLINED_FUNCTION_1_13(&dword_19197B000, v3, v4, "[%{public}@] Unsupported unregistration key: %{public}@", v5, v6, v7, v8);
 }
 
 @end

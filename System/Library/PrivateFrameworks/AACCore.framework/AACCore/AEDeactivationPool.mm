@@ -7,86 +7,86 @@
 
 void __47__AEDeactivationPool_deactivateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  [*(a1 + 32) endInterval];
-  if (v3 && (-[AEPersistentDeactivation deactivation](*(a1 + 40)), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 isFailable], v4, !v5))
+  v4 = [*(a1 + 32) endInterval];
+  if (v3 && (-[AEPersistentDeactivation deactivation](*(a1 + 40)), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 isFailable], v5, !v6))
   {
-    v19 = AECoreLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = AECoreLog(v4);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_cold_1((a1 + 40), v3, v19);
+      __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_cold_1((a1 + 40), v3, v21);
     }
 
-    v20 = AECoreLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v23 = AECoreLog(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = [(AEPersistentDeactivation *)*(a1 + 40) deactivation];
-      v22 = [v21 identifier];
+      v24 = [(AEPersistentDeactivation *)*(a1 + 40) deactivation];
+      v25 = [v24 identifier];
       *buf = 138543362;
-      v26 = v22;
-      _os_log_impl(&dword_23C1AA000, v20, OS_LOG_TYPE_DEFAULT, "Scratchpad will NOT be removed for failed deactivation with ID=%{public}@", buf, 0xCu);
+      v28 = v25;
+      _os_log_impl(&dword_23C1AA000, v23, OS_LOG_TYPE_DEFAULT, "Scratchpad will NOT be removed for failed deactivation with ID=%{public}@", buf, 0xCu);
     }
 
-    v13 = *(a1 + 56);
-    objc_sync_enter(v13);
+    v14 = *(a1 + 56);
+    objc_sync_enter(v14);
     [*(a1 + 56) addObject:v3];
-    objc_sync_exit(v13);
+    objc_sync_exit(v14);
   }
 
   else
   {
-    v6 = AECoreLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = AECoreLog(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [(AEPersistentDeactivation *)*(a1 + 40) deactivation];
-      v8 = [v7 identifier];
+      v8 = [(AEPersistentDeactivation *)*(a1 + 40) deactivation];
+      v9 = [v8 identifier];
       *buf = 138543362;
-      v26 = v8;
-      _os_log_impl(&dword_23C1AA000, v6, OS_LOG_TYPE_DEFAULT, "Removing scratchpad for completed deactivation with ID=%{public}@", buf, 0xCu);
+      v28 = v9;
+      _os_log_impl(&dword_23C1AA000, v7, OS_LOG_TYPE_DEFAULT, "Removing scratchpad for completed deactivation with ID=%{public}@", buf, 0xCu);
     }
 
-    v9 = *(a1 + 48);
-    if (v9)
+    v10 = *(a1 + 48);
+    if (v10)
     {
-      v9 = v9[2];
+      v10 = v10[2];
     }
 
-    v10 = *(a1 + 40);
-    v11 = v9;
-    v12 = [(AEPersistentDeactivation *)v10 scratchpadIdentifier];
-    v13 = [v11 readOnlyScratchpadForIdentifier:v12];
+    v11 = *(a1 + 40);
+    v12 = v10;
+    v13 = [(AEPersistentDeactivation *)v11 scratchpadIdentifier];
+    v14 = [v12 readOnlyScratchpadForIdentifier:v13];
 
-    v24 = 0;
-    v14 = [v13 removeWithError:&v24];
-    v15 = v24;
-    if (v15)
+    v26 = 0;
+    v15 = [v14 removeWithError:&v26];
+    v16 = v26;
+    v17 = v16;
+    if (v16)
     {
-      v16 = v14;
+      v18 = v15;
     }
 
     else
     {
-      v16 = 1;
+      v18 = 1;
     }
 
-    if ((v16 & 1) == 0)
+    if ((v18 & 1) == 0)
     {
-      v17 = AECoreLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = AECoreLog(v16);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_cold_2((a1 + 40), v17);
+        __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_cold_2((a1 + 40), v19);
       }
 
-      v18 = *(a1 + 56);
-      objc_sync_enter(v18);
-      [*(a1 + 56) addObject:v15];
-      objc_sync_exit(v18);
+      v20 = *(a1 + 56);
+      objc_sync_enter(v20);
+      [*(a1 + 56) addObject:v17];
+      objc_sync_exit(v20);
     }
   }
 
   dispatch_group_leave(*(a1 + 64));
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_1(uint64_t a1)
@@ -153,30 +153,30 @@ void __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_1(uint64_t
 
           v9 = *(*(&v29 + 1) + 8 * i);
           dispatch_group_enter(v5);
-          v10 = AECoreLog();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v11 = AECoreLog(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             deactivation = [(AEPersistentDeactivation *)v9 deactivation];
             identifier = [deactivation identifier];
             *buf = 138543362;
             v34 = identifier;
-            _os_log_impl(&dword_23C1AA000, v10, OS_LOG_TYPE_DEFAULT, "Running deactivation: %{public}@", buf, 0xCu);
+            _os_log_impl(&dword_23C1AA000, v11, OS_LOG_TYPE_DEFAULT, "Running deactivation: %{public}@", buf, 0xCu);
           }
 
           deactivation2 = [(AEPersistentDeactivation *)v9 deactivation];
-          v14 = AELoggingCategoryForEvent([deactivation2 event]);
+          v15 = AELoggingCategoryForEvent([deactivation2 event]);
 
-          v15 = *(completion + 24);
+          v16 = *(completion + 24);
           deactivation3 = [(AEPersistentDeactivation *)v9 deactivation];
           identifier2 = [deactivation3 identifier];
-          v18 = [v15 beginIntervalWithCategory:v14 name:identifier2];
+          v19 = [v16 beginIntervalWithCategory:v15 name:identifier2];
 
           deactivation4 = [(AEPersistentDeactivation *)v9 deactivation];
           v28[0] = MEMORY[0x277D85DD0];
           v28[1] = 3221225472;
           v28[2] = __47__AEDeactivationPool_deactivateWithCompletion___block_invoke;
           v28[3] = &unk_278BB70B8;
-          v28[4] = v18;
+          v28[4] = v19;
           v28[5] = v9;
           v28[6] = completion;
           v28[7] = v25;
@@ -190,7 +190,7 @@ void __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_1(uint64_t
       while (v7);
     }
 
-    v20 = *(completion + 32);
+    v21 = *(completion + 32);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_1;
@@ -198,37 +198,31 @@ void __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_1(uint64_t
     v4 = v22;
     block[4] = v25;
     v27 = v22;
-    dispatch_group_notify(v5, v20, block);
+    dispatch_group_notify(v5, v21, block);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_cold_1(uint64_t *a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [(AEPersistentDeactivation *)*a1 deactivation];
   v6 = [v5 identifier];
   v7 = [a2 ae_verboseDescription];
-  v9 = 138543618;
-  v10 = v6;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_error_impl(&dword_23C1AA000, a3, OS_LOG_TYPE_ERROR, "Encountered error running deactivation: %{public}@. Error: %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543618;
+  v9 = v6;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_error_impl(&dword_23C1AA000, a3, OS_LOG_TYPE_ERROR, "Encountered error running deactivation: %{public}@. Error: %{public}@", &v8, 0x16u);
 }
 
 void __47__AEDeactivationPool_deactivateWithCompletion___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [(AEPersistentDeactivation *)*a1 deactivation];
   v4 = [v3 identifier];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_23C1AA000, a2, OS_LOG_TYPE_ERROR, "An error occurred removing the scratchpad for deactivation with ID=%{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_23C1AA000, a2, OS_LOG_TYPE_ERROR, "An error occurred removing the scratchpad for deactivation with ID=%{public}@", &v5, 0xCu);
 }
 
 @end

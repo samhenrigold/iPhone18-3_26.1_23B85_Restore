@@ -321,9 +321,7 @@ LABEL_18:
 
 - (void)setFallbackTitle:(id)title
 {
-  v4 = [title copy];
-  fallbackTitle = self->_fallbackTitle;
-  self->_fallbackTitle = v4;
+  self->_fallbackTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

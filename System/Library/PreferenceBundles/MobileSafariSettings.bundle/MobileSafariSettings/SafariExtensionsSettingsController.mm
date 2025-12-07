@@ -24,6 +24,8 @@
 - (void)_updateRecommendedLockupViews;
 - (void)contentBlockerManagerExtensionListDidChange:(id)change;
 - (void)extensionsControllerExtensionListDidChange:(id)change;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariExtensionsSettingsController
@@ -44,6 +46,54 @@
   v4 = [profileServerIDToContentBlockerManagers objectForKeyedSubscript:WBSDefaultProfileIdentifier];
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v19.receiver = self;
+  v19.super_class = SafariExtensionsSettingsController;
+  [(SafariExtensionsSettingsController *)&v19 viewWillAppear:appear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  v5 = MCEffectiveSettingsChangedNotification;
+  v6 = +[MCProfileConnection sharedConnection];
+  [v4 addObserver:self selector:"_managedConfigurationSettingsDidChange:" name:v5 object:v6];
+
+  [v4 addObserver:self selector:"_extensionEnabledStateDidChange:" name:WBSExtensionEnabledStateDidChangeNotification object:0];
+  [v4 addObserver:self selector:"_cloudExtensionStateOrPrimaryAppleAccountDidChange:" name:WBSCloudExtensionStateDidChangeNotification object:0];
+  [v4 addObserver:self selector:"_cloudExtensionStateOrPrimaryAppleAccountDidChange:" name:WBSPrimaryAppleAccountDidChangeNotification object:0];
+  [v4 addObserver:self selector:"_cloudExtensionEligibilityStateDidChange:" name:WBSCloudExtensionManateeStateDidChangeNotification object:0];
+  v7 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.mobilesafari/WEB_EXTENSIONS"];
+  v8 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v8 bundleURL];
+
+  v10 = +[NSLocale currentLocale];
+  v11 = [[_NSLocalizedStringResource alloc] initWithKey:@"Extensions" table:@"Safari" locale:v10 bundleURL:bundleURL];
+  v12 = [[_NSLocalizedStringResource alloc] initWithKey:@"Apps" table:@"Safari" locale:v10 bundleURL:bundleURL];
+  v13 = [[_NSLocalizedStringResource alloc] initWithKey:@"Safari" table:@"Safari" locale:v10 bundleURL:bundleURL];
+  if (objc_opt_respondsToSelector())
+  {
+    v20[0] = v12;
+    v20[1] = v13;
+    v14 = [NSArray arrayWithObjects:v20 count:2];
+    [(SafariExtensionsSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilesafari" title:v11 localizedNavigationComponents:v14 deepLink:v7];
+  }
+
+  [v4 addObserver:self selector:"_managedConfigurationSettingsDidChange:" name:WBSManagedExtensionsStateDidChangeNotification object:0];
+  _webExtensionsController = [(SafariExtensionsSettingsController *)self _webExtensionsController];
+  [_webExtensionsController addObserver:self];
+
+  _contentBlockerManager = [(SafariExtensionsSettingsController *)self _contentBlockerManager];
+  [_contentBlockerManager addObserver:self];
+
+  v17 = +[WBSPrimaryAppleAccountObserver sharedObserver];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = __53__SafariExtensionsSettingsController_viewWillAppear___block_invoke;
+  v18[3] = &unk_89768;
+  v18[4] = self;
+  [v17 getPrimaryAppleAccountHasSafariSyncEnabledWithCompletionHandler:v18];
+
+  [(SafariExtensionsSettingsController *)self _updateLockupViews];
 }
 
 void __53__SafariExtensionsSettingsController_viewWillAppear___block_invoke(uint64_t a1, char a2)
@@ -92,6 +142,28 @@ _BYTE *__53__SafariExtensionsSettingsController_viewWillAppear___block_invoke_2(
   }
 
   return result;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v9.receiver = self;
+  v9.super_class = SafariExtensionsSettingsController;
+  [(SafariExtensionsSettingsController *)&v9 viewDidDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  v5 = MCEffectiveSettingsChangedNotification;
+  v6 = +[MCProfileConnection sharedConnection];
+  [v4 removeObserver:self name:v5 object:v6];
+
+  [v4 removeObserver:self name:WBSExtensionEnabledStateDidChangeNotification object:0];
+  [v4 removeObserver:self name:WBSCloudExtensionStateDidChangeNotification object:0];
+  [v4 removeObserver:self name:WBSPrimaryAppleAccountDidChangeNotification object:0];
+  [v4 removeObserver:self name:WBSCloudExtensionManateeStateDidChangeNotification object:0];
+  [v4 removeObserver:self name:WBSManagedExtensionsStateDidChangeNotification object:0];
+  _webExtensionsController = [(SafariExtensionsSettingsController *)self _webExtensionsController];
+  [_webExtensionsController removeObserver:self];
+
+  _contentBlockerManager = [(SafariExtensionsSettingsController *)self _contentBlockerManager];
+  [_contentBlockerManager removeObserver:self];
 }
 
 - (id)specifiers
@@ -332,29 +404,10 @@ _BYTE *__53__SafariExtensionsSettingsController_viewWillAppear___block_invoke_2(
           v41 = v16;
           [_webExtensionsController _isExtensionBlockedByBlocklist:extension completionHandler:v40];
 
-          if ([v9 isContentBlocker])
+          if (([v9 isContentBlocker] & 1) != 0 || (objc_msgSend(v9, "extension"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(_webExtensionsController, "webExtensionForExtension:", v17), v18 = objc_claimAutoreleasedReturnValue(), v17, !v18) || (objc_msgSend(v18, "preferencesIcon"), v19 = objc_claimAutoreleasedReturnValue(), +[ISImageDescriptor imageDescriptorNamed:](ISImageDescriptor, "imageDescriptorNamed:", v30), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "size"), +[WBSImageUtilities resizedImage:withSize:](WBSImageUtilities, "resizedImage:withSize:", v19), v21 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, !v21))
           {
-            goto LABEL_12;
-          }
-
-          extension2 = [v9 extension];
-          v18 = [_webExtensionsController webExtensionForExtension:extension2];
-
-          if (!v18)
-          {
-            goto LABEL_12;
-          }
-
-          preferencesIcon = [v18 preferencesIcon];
-          v20 = [ISImageDescriptor imageDescriptorNamed:v30];
-          [v20 size];
-          v21 = [WBSImageUtilities resizedImage:preferencesIcon withSize:?];
-
-          if (!v21)
-          {
-LABEL_12:
-            extension3 = [v9 extension];
-            _plugIn = [extension3 _plugIn];
+            extension2 = [v9 extension];
+            _plugIn = [extension2 _plugIn];
             uuid = [_plugIn uuid];
             v25 = [LSPlugInKitProxy pluginKitProxyForUUID:uuid];
 
@@ -446,14 +499,14 @@ id __59__SafariExtensionsSettingsController__webExtensionWrappers__block_invoke(
 
 - (id)_contentBlockerWrappers
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXExtensions();
+  v3 = WBS_LOG_CHANNEL_PREFIXExtensions(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = v3;
     _contentBlockerManager = [(SafariExtensionsSettingsController *)self _contentBlockerManager];
     extensions = [_contentBlockerManager extensions];
     *buf = 138477827;
-    v22 = extensions;
+    v24 = extensions;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Creating content blocker wrappers for: %{private}@", buf, 0xCu);
   }
 
@@ -461,21 +514,21 @@ id __59__SafariExtensionsSettingsController__webExtensionWrappers__block_invoke(
   _contentBlockerManager2 = [(SafariExtensionsSettingsController *)self _contentBlockerManager];
   extensions2 = [_contentBlockerManager2 extensions];
   allObjects = [extensions2 allObjects];
-  v15 = _NSConcreteStackBlock;
-  v16 = 3221225472;
-  v17 = __61__SafariExtensionsSettingsController__contentBlockerWrappers__block_invoke;
-  v18 = &unk_8A3A0;
-  v19 = _webExtensionsController;
+  v17 = _NSConcreteStackBlock;
+  v18 = 3221225472;
+  v19 = __61__SafariExtensionsSettingsController__contentBlockerWrappers__block_invoke;
+  v20 = &unk_8A3A0;
+  v21 = _webExtensionsController;
   selfCopy = self;
   v11 = _webExtensionsController;
-  v12 = [allObjects safari_mapAndFilterObjectsUsingBlock:&v15];
+  v12 = [allObjects safari_mapAndFilterObjectsUsingBlock:&v17];
 
-  v13 = WBS_LOG_CHANNEL_PREFIXExtensions();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v15 = WBS_LOG_CHANNEL_PREFIXExtensions(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v22 = v12;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "Created content blocker wrappers: %{private}@", buf, 0xCu);
+    v24 = v12;
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Created content blocker wrappers: %{private}@", buf, 0xCu);
   }
 
   self->_showingContentBlockers = [v12 count] != 0;

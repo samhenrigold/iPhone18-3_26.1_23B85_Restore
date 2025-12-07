@@ -3140,7 +3140,7 @@ LABEL_22:
   _Block_object_dispose(&v46, 8);
 }
 
-uint64_t __95__PXExploreLayoutGenerator_Rows___addThreeItemsToSixColumnRowWithHeroItemType_options_rowType___block_invoke_4(uint64_t a1, uint64_t a2)
+void *__95__PXExploreLayoutGenerator_Rows___addThreeItemsToSixColumnRowWithHeroItemType_options_rowType___block_invoke_4(uint64_t a1, void *a2)
 {
   result = [*(a1 + 32) nextHeroSide];
   if (result == a2 || *(a1 + 48) == 1)
@@ -4877,7 +4877,7 @@ LABEL_9:
   _Block_object_dispose(&v29, 8);
 }
 
-void __85__PXExploreLayoutGenerator_Rows___addTwoItemsForThreeColumnRowPreferringTallVariant___block_invoke_3(uint64_t a1, uint64_t a2)
+void __85__PXExploreLayoutGenerator_Rows___addTwoItemsForThreeColumnRowPreferringTallVariant___block_invoke_3(uint64_t a1, void *a2)
 {
   if ([*(a1 + 32) nextHeroSide] == a2 || objc_msgSend(*(a1 + 32), "canIgnoreNextHeroSide"))
   {
@@ -5056,18 +5056,19 @@ LABEL_15:
   [(PXExploreLayoutGenerator *)self beginRowWithNumberOfColumns:3];
   metrics = [(PXExploreLayoutGenerator *)self metrics];
   [metrics preferredFullWidthHeaderAspectRatio];
+  v7 = v6;
 
   metrics2 = [(PXExploreLayoutGenerator *)self metrics];
   if (![metrics2 allowSpecialPanoHeaders])
   {
 
 LABEL_6:
-    PXFloatApproximatelyEqualToFloat();
+    PXFloatApproximatelyEqualToFloat(v7);
   }
 
-  v7 = [(PXExploreLayoutGenerator *)self nextInputItems:2, 0];
+  v9 = [(PXExploreLayoutGenerator *)self nextInputItems:2, 0];
 
-  if (!v7)
+  if (!v9)
   {
     goto LABEL_6;
   }
@@ -5077,21 +5078,21 @@ LABEL_6:
   {
     [(PXExploreLayoutGenerator *)self addLocalItemWithType:0 atColumn:0 row:0 columnSpan:2 rowSpan:1];
     selfCopy2 = self;
-    v9 = 0;
-    v10 = 2;
-    v11 = 1;
-    v12 = 1;
+    v11 = 0;
+    v12 = 2;
+    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v9 = 2;
-    v10 = 0;
-    v11 = 3;
-    v12 = 2;
+    v11 = 2;
+    v12 = 0;
+    v13 = 3;
+    v14 = 2;
   }
 
-  [(PXExploreLayoutGenerator *)selfCopy2 addLocalItemWithType:v9 atColumn:v10 row:0 columnSpan:v11 rowSpan:v12];
+  [(PXExploreLayoutGenerator *)selfCopy2 addLocalItemWithType:v11 atColumn:v12 row:0 columnSpan:v13 rowSpan:v14];
 
   [(PXExploreLayoutGenerator *)self endRowWithType:0];
 }

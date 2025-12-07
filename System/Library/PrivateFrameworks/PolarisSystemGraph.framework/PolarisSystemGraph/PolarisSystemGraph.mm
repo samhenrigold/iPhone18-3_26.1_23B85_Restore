@@ -1,4 +1,4 @@
-uint64_t __PSSGLogSharedInstance()
+uint64_t __PSSGLogSharedInstance(uint64_t a1, uint64_t a2)
 {
   if (__PSSGLogSharedInstance_onceToken != -1)
   {
@@ -8,7 +8,7 @@ uint64_t __PSSGLogSharedInstance()
   return __PSSGLogSharedInstance_sharedInstance;
 }
 
-uint64_t __PSSysHealthLogSharedInstance()
+uint64_t __PSSysHealthLogSharedInstance(uint64_t a1, uint64_t a2)
 {
   if (__PSSysHealthLogSharedInstance_onceToken != -1)
   {

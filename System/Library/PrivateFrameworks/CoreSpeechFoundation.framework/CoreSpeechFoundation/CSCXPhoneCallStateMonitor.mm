@@ -24,29 +24,29 @@
 
 - (unint64_t)phoneCallState
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   [(CXCallObserver *)self->_callObserver calls];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  obj = v22 = 0u;
-  v2 = [obj countByEnumeratingWithState:&v19 objects:v33 count:16];
+  obj = v21 = 0u;
+  v2 = [obj countByEnumeratingWithState:&v18 objects:v32 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v20;
+    v5 = *v19;
     *&v3 = 136316162;
-    v17 = v3;
+    v16 = v3;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v18 + 1) + 8 * i);
         v8 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
@@ -55,16 +55,16 @@
           isOnHold = [v7 isOnHold];
           hasEnded = [v7 hasEnded];
           isOutgoing = [v7 isOutgoing];
-          *buf = v17;
-          v24 = "[CSCXPhoneCallStateMonitor phoneCallState]";
-          v25 = 1024;
-          v26 = hasConnected;
-          v27 = 1024;
-          v28 = isOnHold;
-          v29 = 1024;
-          v30 = hasEnded;
-          v31 = 1024;
-          v32 = isOutgoing;
+          *buf = v16;
+          v23 = "[CSCXPhoneCallStateMonitor phoneCallState]";
+          v24 = 1024;
+          v25 = hasConnected;
+          v26 = 1024;
+          v27 = isOnHold;
+          v28 = 1024;
+          v29 = hasEnded;
+          v30 = 1024;
+          v31 = isOutgoing;
           _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Call : [connected:%d] [onhold:%d] [hasEnd:%d] [isOutputgoing:%d]", buf, 0x24u);
         }
 
@@ -93,7 +93,7 @@
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v19 objects:v33 count:16];
+      v4 = [obj countByEnumeratingWithState:&v18 objects:v32 count:16];
       v14 = 0;
       if (v4)
       {
@@ -111,42 +111,41 @@
 
 LABEL_23:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)firstPartyCall
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   [(CXCallObserver *)self->_callObserver calls];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  obj = v22 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+  obj = v21 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v19;
     v6 = 1;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         providerIdentifier = [v8 providerIdentifier];
         v10 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v24 = "[CSCXPhoneCallStateMonitor firstPartyCall]";
-          v25 = 2112;
-          v26 = providerIdentifier;
+          v23 = "[CSCXPhoneCallStateMonitor firstPartyCall]";
+          v24 = 2112;
+          v25 = providerIdentifier;
           _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Call : [providerIdentifier: %@]", buf, 0x16u);
         }
 
@@ -169,9 +168,9 @@ LABEL_23:
               v14 = v13;
               providerIdentifier2 = [v8 providerIdentifier];
               *buf = 136315394;
-              v24 = "[CSCXPhoneCallStateMonitor firstPartyCall]";
-              v25 = 2112;
-              v26 = providerIdentifier2;
+              v23 = "[CSCXPhoneCallStateMonitor firstPartyCall]";
+              v24 = 2112;
+              v25 = providerIdentifier2;
               _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Call identifier is not first party: %@", buf, 0x16u);
 
               v6 = 0;
@@ -180,7 +179,7 @@ LABEL_23:
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v4 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v4)
       {
         continue;
@@ -197,13 +196,12 @@ LABEL_23:
 
 LABEL_18:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
 - (void)callObserver:(id)observer callChanged:(id)changed
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
@@ -215,25 +213,24 @@ LABEL_18:
     isOutgoing = [changedCopy isOutgoing];
 
     *buf = 136316162;
-    v16 = "[CSCXPhoneCallStateMonitor callObserver:callChanged:]";
-    v17 = 1024;
-    v18 = hasConnected;
-    v19 = 1024;
-    v20 = isOnHold;
-    v21 = 1024;
-    v22 = hasEnded;
-    v23 = 1024;
-    v24 = isOutgoing;
+    v15 = "[CSCXPhoneCallStateMonitor callObserver:callChanged:]";
+    v16 = 1024;
+    v17 = hasConnected;
+    v18 = 1024;
+    v19 = isOnHold;
+    v20 = 1024;
+    v21 = hasEnded;
+    v22 = 1024;
+    v23 = isOutgoing;
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Received Call Observer Input : [connected:%d] [onhold:%d] [hasEnd:%d] [isOutputgoing:%d]", buf, 0x24u);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __54__CSCXPhoneCallStateMonitor_callObserver_callChanged___block_invoke;
-  v14[3] = &unk_1E865CB20;
-  v14[4] = self;
-  [(CSEventMonitor *)self enumerateObserversInQueue:v14];
-  v13 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __54__CSCXPhoneCallStateMonitor_callObserver_callChanged___block_invoke;
+  v13[3] = &unk_1E865CB20;
+  v13[4] = self;
+  [(CSEventMonitor *)self enumerateObserversInQueue:v13];
 }
 
 void __54__CSCXPhoneCallStateMonitor_callObserver_callChanged___block_invoke(uint64_t a1, void *a2)
@@ -305,9 +302,11 @@ void __54__CSCXPhoneCallStateMonitor_callObserver_callChanged___block_invoke(uin
 
 uint64_t __43__CSCXPhoneCallStateMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_3884 = objc_alloc_init(CSCXPhoneCallStateMonitor);
+  v0 = objc_alloc_init(CSCXPhoneCallStateMonitor);
+  v1 = sharedInstance_sharedInstance_3884;
+  sharedInstance_sharedInstance_3884 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

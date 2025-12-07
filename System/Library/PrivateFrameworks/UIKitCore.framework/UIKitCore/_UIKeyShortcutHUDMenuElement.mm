@@ -59,7 +59,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
@@ -71,16 +71,16 @@
       uiMenuElement = [(_UIKeyShortcutHUDMenuElement *)self uiMenuElement];
       uiMenuElement2 = [(_UIKeyShortcutHUDMenuElement *)v5 uiMenuElement];
 
-      v8 = [uiMenuElement isEqual:uiMenuElement2];
+      isEqual = objc_msgSend_isEqual_(uiMenuElement);
     }
 
     else
     {
-      v8 = 0;
+      isEqual = 0;
     }
   }
 
-  return v8;
+  return isEqual;
 }
 
 - (void)encodeWithCoder:(id)coder

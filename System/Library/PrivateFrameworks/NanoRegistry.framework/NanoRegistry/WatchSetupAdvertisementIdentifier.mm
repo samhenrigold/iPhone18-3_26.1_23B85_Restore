@@ -38,13 +38,13 @@
 
 - (WatchSetupAdvertisementIdentifier)initWithPackedIdentifierData:(id)data
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length] == 4)
   {
-    v16.receiver = self;
-    v16.super_class = WatchSetupAdvertisementIdentifier;
-    v5 = [(WatchSetupAdvertisementIdentifier *)&v16 init];
+    v15.receiver = self;
+    v15.super_class = WatchSetupAdvertisementIdentifier;
+    v5 = [(WatchSetupAdvertisementIdentifier *)&v15 init];
     if (v5)
     {
       *buf = 0;
@@ -78,9 +78,9 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        v18 = 4;
-        v19 = 2048;
-        v20 = [dataCopy length];
+        v17 = 4;
+        v18 = 2048;
+        v19 = [dataCopy length];
         _os_log_error_impl(&dword_1E0ADF000, v13, OS_LOG_TYPE_ERROR, "Incorrect size of packed identifier data, expecting %lu but got %lu", buf, 0x16u);
       }
     }
@@ -88,7 +88,6 @@
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

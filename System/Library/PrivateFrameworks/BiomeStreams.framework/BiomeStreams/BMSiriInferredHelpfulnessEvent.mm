@@ -66,17 +66,17 @@
 
 - (id)jsonDict
 {
-  v14[5] = *MEMORY[0x1E69E9840];
-  v13[0] = @"absoluteTimeStamp";
+  v13[5] = *MEMORY[0x1E69E9840];
+  v12[0] = @"absoluteTimeStamp";
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_absoluteTimestamp];
-  v14[0] = v3;
-  v13[1] = @"inferredHelpfulnessScore";
+  v13[0] = v3;
+  v12[1] = @"inferredHelpfulnessScore";
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:self->_inferredHelpfulnessScore];
-  v14[1] = v4;
-  v13[2] = @"restatementScore";
+  v13[1] = v4;
+  v12[2] = @"restatementScore";
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->_restatementScore];
-  v14[2] = v5;
-  v13[3] = @"turnID";
+  v13[2] = v5;
+  v12[3] = @"turnID";
   turnID = self->_turnID;
   null = turnID;
   if (!turnID)
@@ -84,8 +84,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[3] = null;
-  v13[4] = @"modelID";
+  v13[3] = null;
+  v12[4] = @"modelID";
   modelID = self->_modelID;
   null2 = modelID;
   if (!modelID)
@@ -93,8 +93,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[4] = null2;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
+  v13[4] = null2;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:5];
   if (modelID)
   {
     if (turnID)
@@ -113,7 +113,6 @@
   }
 
 LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

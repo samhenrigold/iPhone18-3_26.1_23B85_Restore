@@ -12,9 +12,9 @@
 
 - (VKKeyboardCameraGuidanceView)initWithFrame:(CGRect)frame
 {
-  v21.receiver = self;
-  v21.super_class = VKKeyboardCameraGuidanceView;
-  v3 = [(VKKeyboardCameraGuidanceView *)&v21 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v19.receiver = self;
+  v19.super_class = VKKeyboardCameraGuidanceView;
+  v3 = [(VKKeyboardCameraGuidanceView *)&v19 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -52,10 +52,9 @@
     [(UILabel *)v4->_label setTextColor:whiteColor];
 
     [(VKKeyboardCameraGuidanceView *)v4 addSubview:v4->_blurView];
-    v16 = [(VKKeyboardCameraGuidanceView *)v4 addSubview:v4->_label];
-    v18 = vk_solariumEnabled(v16, v17);
+    v16 = vk_solariumEnabled([(VKKeyboardCameraGuidanceView *)v4 addSubview:v4->_label]);
     p_top = &v4->_contentEdgeInsets.top;
-    if (v18)
+    if (v16)
     {
       *p_top = xmmword_1B4428060;
       *&v4->_contentEdgeInsets.bottom = xmmword_1B4428060;
@@ -75,10 +74,10 @@
 - (void)setBounds:(CGRect)bounds
 {
   height = bounds.size.height;
-  v7.receiver = self;
-  v7.super_class = VKKeyboardCameraGuidanceView;
-  v5 = [(VKKeyboardCameraGuidanceView *)&v7 setBounds:bounds.origin.x, bounds.origin.y, bounds.size.width];
-  if (vk_solariumEnabled(v5, v6))
+  v6.receiver = self;
+  v6.super_class = VKKeyboardCameraGuidanceView;
+  v5 = [(VKKeyboardCameraGuidanceView *)&v6 setBounds:bounds.origin.x, bounds.origin.y, bounds.size.width];
+  if (vk_solariumEnabled(v5))
   {
     [(VKKeyboardCameraGuidanceView *)self _setContinuousCornerRadius:height * 0.5];
   }

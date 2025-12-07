@@ -111,7 +111,7 @@
 - (BOOL)hasRenderableObjects
 {
   selfCopy = self;
-  v3 = sub_1AFCBAFD0();
+  v3 = sub_1AFCBAFD0(selfCopy);
 
   return v3 & 1;
 }
@@ -209,11 +209,12 @@
   }
 
   v7 = (self + OBJC_IVAR____TtC3VFX17VFXRendererLegacy_postRenderCallback);
-  v8 = *(self + OBJC_IVAR____TtC3VFX17VFXRendererLegacy_postRenderCallback);
+  v9 = *(self + OBJC_IVAR____TtC3VFX17VFXRendererLegacy_postRenderCallback);
+  v8 = *(self + OBJC_IVAR____TtC3VFX17VFXRendererLegacy_postRenderCallback + 8);
   *v7 = v6;
   v7[1] = v4;
 
-  sub_1AF719C94(v8);
+  sub_1AF719C94(v9, v8);
 }
 
 @end

@@ -3,6 +3,7 @@
 + (id)databasePathForConfiguration:(id)configuration;
 - (BOOL)_deleteItems:(id)items leaveTombstones:(BOOL)tombstones cleanBookmarks:(BOOL)bookmarks;
 - (BOOL)_deleteTabGroup:(id)group leaveTombstone:(BOOL)tombstone;
+- (BOOL)_insertBookmark:(id)bookmark afterBookmark:(id)afterBookmark inFolderWithID:(int)d;
 - (BOOL)_insertItems:(id)items inParentWithID:(unsigned int)d afterItem:(id)item;
 - (BOOL)_insertItemsIntoPlace:(id)place inParentWithID:(unsigned int)d;
 - (BOOL)_reorderBookmarkIntoPlace:(id)place;
@@ -12,6 +13,7 @@
 - (BOOL)_saveItem:(id)item;
 - (BOOL)_saveItems:(id)items;
 - (BOOL)_saveSettingsIfNeededForItem:(id)item;
+- (BOOL)_updateItems:(id)items inParentWithID:(unsigned int)d;
 - (BOOL)_updatePinnedTabs:(id)tabs privatePinnedTabs:(id)pinnedTabs;
 - (BOOL)_updatePinnedTabsByProfileIdentifier:(id)identifier;
 - (BOOL)closeWindowState:(id)state;
@@ -48,13 +50,16 @@
 - (WBBookmarkDatabaseSyncData)databaseSyncData;
 - (WBBrowserState)browserState;
 - (WBBrowserState)lastSessionBrowserState;
+- (WBTabCollection)initWithConfiguration:(id)configuration openDatabase:(BOOL)database checkIntegrity:(BOOL)integrity;
 - (WBTabCollection)initWithTabCollection:(id)collection;
 - (id)_activeParticipantsFromParticipantData:(id)data;
 - (id)_allMutableTabGroupsUnsorted;
+- (id)_bookmarkListWithFolderID:(int)d usingFilter:(id)filter options:(unint64_t)options;
 - (id)_bookmarksForTabs:(id)tabs;
 - (id)_bookmarksForTabs:(id)tabs syncable:(BOOL)syncable;
 - (id)_bookmarksFromItems:(id)items;
 - (id)_collection;
+- (id)_collectionWithConfiguration:(id)configuration checkIntegrity:(BOOL)integrity;
 - (id)_descriptionForScopedBookmark:(id)bookmark;
 - (id)_lastSessionBrowserState;
 - (id)_participantDataForTab:(id)tab;
@@ -76,10 +81,13 @@
 - (id)profileWithServerID:(id)d;
 - (id)recordIDForTab:(id)tab;
 - (id)scopedBookmarkListWithID:(int)d;
+- (id)scopedBookmarkListWithID:(int)d filteredUsingString:(id)string;
 - (id)scopedBookmarkWithUUID:(id)d;
+- (id)serverIDForItemWithID:(int)d;
 - (id)shareRecordForTabGroup:(id)group;
 - (id)syncDataForItem:(id)item;
 - (id)syncDataForItemWithID:(int)d;
+- (id)tabCollectionDataSummaryLogHidingSensitiveData:(BOOL)data;
 - (id)tabGroupMatchingShare:(id)share inTabGroups:(id)groups;
 - (id)tabGroupUUIDForServerID:(id)d;
 - (id)tabGroupWithUUID:(id)d;
@@ -173,7 +181,7 @@ uint64_t __34__WBTabCollection_mutableProfiles__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)_profiles
@@ -311,6 +319,50 @@ void __31__WBTabCollection_browserState__block_invoke(uint64_t a1)
   return v3;
 }
 
+- (WBTabCollection)initWithConfiguration:(id)configuration openDatabase:(BOOL)database checkIntegrity:(BOOL)integrity
+{
+  integrityCopy = integrity;
+  databaseCopy = database;
+  configurationCopy = configuration;
+  collectionType = [configurationCopy collectionType];
+  if (collectionType == 1)
+  {
+    v25.receiver = self;
+    v25.super_class = WBTabCollection;
+    v11 = [(WBTabCollection *)&v25 init];
+    if (v11)
+    {
+      v12 = [configurationCopy copy];
+      configuration = v11->_configuration;
+      v11->_configuration = v12;
+
+      v11->_maximumTabsPerGroup = [configurationCopy maximumTabsPerTabGroup];
+      [(WBTabCollection *)v11 _createDatabaseQueue];
+      if (databaseCopy)
+      {
+        v14 = [(WBTabCollection *)v11 _collectionWithConfiguration:configurationCopy checkIntegrity:integrityCopy];
+        collection = v11->_collection;
+        v11->_collection = v14;
+
+        [(WBTabCollection *)v11 _commonInit];
+      }
+    }
+  }
+
+  else
+  {
+    v16 = WBS_LOG_CHANNEL_PREFIXTabGroup(collectionType, v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [(WBTabCollection *)v16 initWithConfiguration:v17 openDatabase:v18 checkIntegrity:v19, v20, v21, v22, v23];
+    }
+
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 - (WBTabCollection)initWithTabCollection:(id)collection
 {
   collectionCopy = collection;
@@ -339,6 +391,57 @@ void __31__WBTabCollection_browserState__block_invoke(uint64_t a1)
       [(WebBookmarkCollection *)self->_collection _interruptDatabase];
     }
   }
+}
+
+- (id)_collectionWithConfiguration:(id)configuration checkIntegrity:(BOOL)integrity
+{
+  integrityCopy = integrity;
+  configurationCopy = configuration;
+  if ([configurationCopy storeOwner] >= 3)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = objc_opt_class();
+  }
+
+  MEMORY[0x2743D62A0](v30, @"com.apple.WebBookmarks.WBTabCollection");
+  isReadonly = [configurationCopy isReadonly];
+  if (isReadonly & 1) != 0 || (v8 = [(objc_class *)v6 lockSync], (v8))
+  {
+    unlockSync = [[v6 alloc] initWithConfiguration:configurationCopy checkIntegrity:integrityCopy];
+    v12 = unlockSync;
+    if ((isReadonly & 1) == 0)
+    {
+      unlockSync = [(objc_class *)v6 unlockSync];
+    }
+
+    if (!v12)
+    {
+      v13 = WBS_LOG_CHANNEL_PREFIXTabGroup(unlockSync, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        [(WBTabCollection *)v13 _collectionWithConfiguration:v14 checkIntegrity:v15, v16, v17, v18, v19, v20];
+      }
+    }
+  }
+
+  else
+  {
+    v21 = WBS_LOG_CHANNEL_PREFIXTabGroup(v8, v9);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [(WBTabCollection *)v21 _collectionWithConfiguration:v22 checkIntegrity:v23, v24, v25, v26, v27, v28];
+    }
+
+    v12 = 0;
+  }
+
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v30);
+
+  return v12;
 }
 
 - (void)setCompletedMigration:(BOOL)migration
@@ -451,12 +554,12 @@ uint64_t __42__WBTabCollection_lastSessionBrowserState__block_invoke(uint64_t a1
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)_lastSessionBrowserState
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [WBBrowserState alloc];
   pinnedTabs = [(WebBookmarkTabCollection *)self->_collection pinnedTabs];
   privatePinnedTabs = [(WebBookmarkTabCollection *)self->_collection privatePinnedTabs];
@@ -464,25 +567,25 @@ uint64_t __42__WBTabCollection_lastSessionBrowserState__block_invoke(uint64_t a1
   v7 = [(WBBrowserState *)v3 initWithPinnedTabs:pinnedTabs privatePinnedTabs:privatePinnedTabs windowStates:lastSessionWindowStates];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   _profiles = [(WBTabCollection *)self _profiles];
-  v10 = [_profiles countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [_profiles countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(_profiles);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         if ([v13 kind])
         {
           collection = self->_collection;
@@ -493,14 +596,13 @@ uint64_t __42__WBTabCollection_lastSessionBrowserState__block_invoke(uint64_t a1
         }
       }
 
-      v10 = [_profiles countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [_profiles countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
 
   [(WBBrowserState *)v7 setPinnedTabsByProfileIdentifier:dictionary];
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -530,7 +632,7 @@ uint64_t __42__WBTabCollection_lastSessionBrowserState__block_invoke(uint64_t a1
   return self;
 }
 
-uint64_t __36__WBTabCollection_saveBrowserState___block_invoke(uint64_t a1)
+void *__36__WBTabCollection_saveBrowserState___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveBrowserState:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -555,7 +657,7 @@ uint64_t __36__WBTabCollection_saveBrowserState___block_invoke(uint64_t a1)
 
 uint64_t __37__WBTabCollection__saveBrowserState___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pinnedTabs];
   v3 = [v2 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_34];
 
@@ -566,25 +668,25 @@ uint64_t __37__WBTabCollection__saveBrowserState___block_invoke(uint64_t a1)
   {
     v8 = [*(a1 + 40) _collection];
     [*(a1 + 32) windowStates];
+    v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v9 = v17 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v15 = 0u;
+    v9 = v16 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          if (([v8 _saveWindowState:{*(*(&v16 + 1) + 8 * v12), v16}] & 1) == 0)
+          if (([v8 _saveWindowState:{*(*(&v15 + 1) + 8 * v12), v15}] & 1) == 0)
           {
 
             v13 = 0;
@@ -595,7 +697,7 @@ uint64_t __37__WBTabCollection__saveBrowserState___block_invoke(uint64_t a1)
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           continue;
@@ -614,7 +716,6 @@ LABEL_14:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -770,30 +871,30 @@ void __46__WBTabCollection_numberOfLocalTabsToBeClosed__block_invoke(uint64_t a1
 
 uint64_t __57__WBTabCollection__insertItems_inParentWithID_afterItem___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _collection];
   v3 = [*(a1 + 40) bookmark];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = *(a1 + 48);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       v7 = 0;
       v8 = v3;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v7);
+        v9 = *(*(&v12 + 1) + 8 * v7);
         v3 = [v9 bookmark];
         if (([v2 _saveAndMoveBookmark:v3 toFolderID:*(a1 + 56)] & 1) == 0 || !objc_msgSend(v2, "_reorderBookmark:afterBookmark:", v3, v8))
         {
@@ -810,7 +911,7 @@ uint64_t __57__WBTabCollection__insertItems_inParentWithID_afterItem___block_inv
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       v10 = 1;
       if (v5)
       {
@@ -828,7 +929,6 @@ uint64_t __57__WBTabCollection__insertItems_inParentWithID_afterItem___block_inv
 
 LABEL_13:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -861,7 +961,7 @@ LABEL_13:
   return itemCopy;
 }
 
-uint64_t __56__WBTabCollection_insertItems_inParentWithID_afterItem___block_invoke(uint64_t a1)
+void *__56__WBTabCollection_insertItems_inParentWithID_afterItem___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _insertItems:*(a1 + 40) inParentWithID:*(a1 + 64) afterItem:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -976,27 +1076,27 @@ uint64_t __68__WBTabCollection_insertItems_inParent_afterItem_completionHandler_
 
 uint64_t __56__WBTabCollection__insertItemsIntoPlace_inParentWithID___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _collection];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = [v7 bookmark];
         if ([v8 isSyncable])
         {
@@ -1019,7 +1119,7 @@ uint64_t __56__WBTabCollection__insertItemsIntoPlace_inParentWithID___block_invo
         [*(a1 + 32) _saveSettingsIfNeededForItem:v7];
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -1032,7 +1132,6 @@ uint64_t __56__WBTabCollection__insertItemsIntoPlace_inParentWithID___block_invo
   v11 = 1;
 LABEL_14:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1125,7 +1224,7 @@ uint64_t __67__WBTabCollection_insertItemsIntoPlace_inParent_completionHandler__
 
 - (BOOL)_saveItem:(id)item
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (self->_shouldPrepareBackgroundTaskExpiration)
   {
@@ -1134,7 +1233,7 @@ uint64_t __67__WBTabCollection_insertItemsIntoPlace_inParent_completionHandler__
     {
       privacyPreservingDescription = [itemCopy privacyPreservingDescription];
       *buf = 138543362;
-      v13 = privacyPreservingDescription;
+      v12 = privacyPreservingDescription;
       _os_log_impl(&dword_272C20000, _collection, OS_LOG_TYPE_INFO, "Background task will expire soon. Block performing saving bookmarks. %{public}@", buf, 0xCu);
     }
 
@@ -1144,16 +1243,15 @@ uint64_t __67__WBTabCollection_insertItemsIntoPlace_inParent_completionHandler__
   else
   {
     _collection = [(WBTabCollection *)self _collection];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __29__WBTabCollection__saveItem___block_invoke;
-    v10[3] = &unk_279E75968;
-    v10[4] = self;
-    v11 = itemCopy;
-    v7 = [_collection performDatabaseUpdatesWithTransaction:v10 secureDelete:0];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __29__WBTabCollection__saveItem___block_invoke;
+    v9[3] = &unk_279E75968;
+    v9[4] = self;
+    v10 = itemCopy;
+    v7 = [_collection performDatabaseUpdatesWithTransaction:v9 secureDelete:0];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1237,26 +1335,26 @@ void __48__WBTabCollection__saveSettingsIfNeededForItem___block_invoke(uint64_t 
 
 uint64_t __30__WBTabCollection__saveItems___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
-    v4 = *v14;
+    v4 = *v13;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
         v7 = [*(a1 + 40) _collection];
         v8 = [v6 bookmark];
         v9 = [v7 _saveBookmark:v8 withSpecialID:0 updateGenerationIfNeeded:1];
@@ -1268,7 +1366,7 @@ uint64_t __30__WBTabCollection__saveItems___block_invoke(uint64_t a1)
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       v10 = 1;
       if (v3)
       {
@@ -1286,7 +1384,6 @@ uint64_t __30__WBTabCollection__saveItems___block_invoke(uint64_t a1)
 
 LABEL_13:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1315,7 +1412,7 @@ LABEL_13:
   return self;
 }
 
-uint64_t __28__WBTabCollection_saveItem___block_invoke(uint64_t a1)
+void *__28__WBTabCollection_saveItem___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveItem:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1461,7 +1558,7 @@ uint64_t __42__WBTabCollection__reorderItem_afterItem___block_invoke(id *a1)
   return self;
 }
 
-uint64_t __41__WBTabCollection_reorderItem_afterItem___block_invoke(uint64_t a1)
+void *__41__WBTabCollection_reorderItem_afterItem___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _reorderItem:*(a1 + 40) afterItem:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -1631,7 +1728,7 @@ uint64_t __63__WBTabCollection__deleteItems_leaveTombstones_cleanBookmarks___blo
   return v11;
 }
 
-uint64_t __62__WBTabCollection_deleteItems_leaveTombstones_cleanBookmarks___block_invoke(uint64_t a1)
+void *__62__WBTabCollection_deleteItems_leaveTombstones_cleanBookmarks___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _deleteItems:*(a1 + 40) leaveTombstones:*(a1 + 56) cleanBookmarks:*(a1 + 57)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1664,7 +1761,7 @@ uint64_t __62__WBTabCollection_deleteItems_leaveTombstones_cleanBookmarks___bloc
   return v9;
 }
 
-uint64_t __47__WBTabCollection_deleteItems_leaveTombstones___block_invoke(uint64_t a1)
+void *__47__WBTabCollection_deleteItems_leaveTombstones___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _deleteItems:*(a1 + 40) leaveTombstones:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1712,6 +1809,18 @@ uint64_t __65__WBTabCollection_deleteItems_leaveTombstones_completionHandler___b
   return result;
 }
 
+- (BOOL)_updateItems:(id)items inParentWithID:(unsigned int)d
+{
+  v4 = *&d;
+  itemsCopy = items;
+  v7 = [itemsCopy safari_containsObjectPassingTest:&__block_literal_global_44];
+  _collection = [(WBTabCollection *)self _collection];
+  v9 = [(WBTabCollection *)self _bookmarksFromItems:itemsCopy];
+  LOBYTE(v4) = [_collection updateBookmarks:v9 inFolderWithID:v4 secureDelete:v7];
+
+  return v4;
+}
+
 - (id)_bookmarksFromItems:(id)items
 {
   v3 = [items safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_47];
@@ -1722,17 +1831,17 @@ uint64_t __65__WBTabCollection_deleteItems_leaveTombstones_completionHandler___b
 id __39__WBTabCollection__bookmarksFromItems___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = [v2 bookmark];
-  if (!v3)
+  v4 = [v2 bookmark];
+  if (!v4)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = WBS_LOG_CHANNEL_PREFIXTabGroup(0, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __39__WBTabCollection__bookmarksFromItems___block_invoke_cold_1(v2, v4);
+      __39__WBTabCollection__bookmarksFromItems___block_invoke_cold_1(v2, v5);
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)updateItems:(id)items inParentWithID:(unsigned int)d
@@ -1761,7 +1870,7 @@ id __39__WBTabCollection__bookmarksFromItems___block_invoke(uint64_t a1, void *a
   return d;
 }
 
-uint64_t __46__WBTabCollection_updateItems_inParentWithID___block_invoke(uint64_t a1)
+void *__46__WBTabCollection_updateItems_inParentWithID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _updateItems:*(a1 + 40) inParentWithID:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1879,27 +1988,27 @@ id __46__WBTabCollection_itemsInParentWithID_ofType___block_invoke_3(uint64_t a1
 
 id *__31__WBTabCollection_reloadItems___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v12;
     do
     {
       v5 = 0;
       do
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * v5);
+        v6 = *(*(&v11 + 1) + 8 * v5);
         v7 = [*(a1 + 40) _collection];
         v8 = [v6 bookmark];
         v9 = [v7 bookmarkWithID:{objc_msgSend(v8, "identifier")}];
@@ -1909,7 +2018,7 @@ id *__31__WBTabCollection_reloadItems___block_invoke(uint64_t a1)
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v3);
@@ -1919,10 +2028,9 @@ id *__31__WBTabCollection_reloadItems___block_invoke(uint64_t a1)
   if (result)
   {
     SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(result);
-    result = MEMORY[0x2743D62C0]();
+    return MEMORY[0x2743D62C0]();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1968,44 +2076,44 @@ void __63__WBTabCollection_enumerateDescendantsOfItemWithID_usingBlock___block_i
 
 - (BOOL)_updatePinnedTabs:(id)tabs privatePinnedTabs:(id)pinnedTabs
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   tabsCopy = tabs;
   pinnedTabsCopy = pinnedTabs;
   v8 = WBS_LOG_CHANNEL_PREFIXBookmarks();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v28 = [tabsCopy count];
-    v29 = 2048;
-    v30 = [pinnedTabsCopy count];
+    v27 = [tabsCopy count];
+    v28 = 2048;
+    v29 = [pinnedTabsCopy count];
     _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Update %zu pinned tabs and %zu private pinned tabs", buf, 0x16u);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = [tabsCopy arrayByAddingObjectsFromArray:{pinnedTabsCopy, 0}];
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         [v13 setSyncable:0];
         bookmark = [v13 bookmark];
         [(WBTabCollection *)self _readPropertiesOfBookmark:bookmark];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -2026,97 +2134,96 @@ void __63__WBTabCollection_enumerateDescendantsOfItemWithID_usingBlock___block_i
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)_updatePinnedTabsByProfileIdentifier:(id)identifier
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([identifierCopy count])
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __56__WBTabCollection__updatePinnedTabsByProfileIdentifier___block_invoke;
-    v40[3] = &unk_279E76A18;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __56__WBTabCollection__updatePinnedTabsByProfileIdentifier___block_invoke;
+    v39[3] = &unk_279E76A18;
     v5 = dictionary;
-    v41 = v5;
-    v23 = v5;
-    [identifierCopy enumerateKeysAndObjectsUsingBlock:v40];
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
+    v40 = v5;
+    v22 = v5;
+    [identifierCopy enumerateKeysAndObjectsUsingBlock:v39];
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     objectEnumerator = [v5 objectEnumerator];
-    v7 = [objectEnumerator countByEnumeratingWithState:&v36 objects:v43 count:16];
+    v7 = [objectEnumerator countByEnumeratingWithState:&v35 objects:v42 count:16];
     if (v7)
     {
-      v8 = *v37;
+      v8 = *v36;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v37 != v8)
+          if (*v36 != v8)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          v10 = *(*(&v36 + 1) + 8 * i);
+          v10 = *(*(&v35 + 1) + 8 * i);
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
           v11 = v10;
-          v12 = [v11 countByEnumeratingWithState:&v32 objects:v42 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v31 objects:v41 count:16];
           if (v12)
           {
-            v13 = *v33;
+            v13 = *v32;
             do
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v33 != v13)
+                if (*v32 != v13)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v15 = *(*(&v32 + 1) + 8 * j);
+                v15 = *(*(&v31 + 1) + 8 * j);
                 [v15 setSyncable:0];
                 bookmark = [v15 bookmark];
                 [(WBTabCollection *)self _readPropertiesOfBookmark:bookmark];
               }
 
-              v12 = [v11 countByEnumeratingWithState:&v32 objects:v42 count:16];
+              v12 = [v11 countByEnumeratingWithState:&v31 objects:v41 count:16];
             }
 
             while (v12);
           }
         }
 
-        v7 = [objectEnumerator countByEnumeratingWithState:&v36 objects:v43 count:16];
+        v7 = [objectEnumerator countByEnumeratingWithState:&v35 objects:v42 count:16];
       }
 
       while (v7);
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
     _collection = [(WBTabCollection *)self _collection];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __56__WBTabCollection__updatePinnedTabsByProfileIdentifier___block_invoke_3;
-    v25[3] = &unk_279E76A60;
-    v26 = _collection;
-    v27 = &v28;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __56__WBTabCollection__updatePinnedTabsByProfileIdentifier___block_invoke_3;
+    v24[3] = &unk_279E76A60;
+    v25 = _collection;
+    v26 = &v27;
     v18 = _collection;
-    [v23 enumerateKeysAndObjectsUsingBlock:v25];
-    v19 = *(v29 + 24);
+    [v22 enumerateKeysAndObjectsUsingBlock:v24];
+    v19 = *(v28 + 24);
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
     v20 = v19 ^ 1;
   }
 
@@ -2125,7 +2232,6 @@ void __63__WBTabCollection_enumerateDescendantsOfItemWithID_usingBlock___block_i
     v20 = 1;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20 & 1;
 }
 
@@ -2473,7 +2579,7 @@ uint64_t __56__WBTabCollection_mutableNamedTabGroupsInDefaultProfile__block_invo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (NSArray)allMutableNamedTabGroupsUnsorted
@@ -2508,7 +2614,7 @@ uint64_t __51__WBTabCollection_allMutableNamedTabGroupsUnsorted__block_invoke(ui
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)_allMutableTabGroupsUnsorted
@@ -2702,7 +2808,7 @@ id __43__WBTabCollection_tabGroupUUIDForServerID___block_invoke_2(uint64_t a1)
   return self;
 }
 
-uint64_t __34__WBTabCollection_deleteTabGroup___block_invoke(uint64_t a1)
+void *__34__WBTabCollection_deleteTabGroup___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _deleteTabGroup:*(a1 + 40) leaveTombstone:1];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -3236,34 +3342,34 @@ void __50__WBTabCollection_insertTabs_inTabGroup_afterTab___block_invoke(uint64_
 
 uint64_t __50__WBTabCollection_insertTabs_inTabGroup_afterTab___block_invoke_2(id *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] _collection];
   v3 = [a1[5] uuid];
   v4 = [v2 bookmarkWithUUID:v3];
 
   v5 = [a1[6] identifier];
   [a1[7] safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_84];
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v6 = v16 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v14 = 0u;
+  v6 = v15 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       v9 = 0;
       v10 = v4;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v9);
-        [v11 setSyncable:{objc_msgSend(a1[6], "isSyncable", v15)}];
+        v11 = *(*(&v14 + 1) + 8 * v9);
+        [v11 setSyncable:{objc_msgSend(a1[6], "isSyncable", v14)}];
         v4 = [v11 bookmark];
         if (([a1[4] _insertBookmark:v4 afterBookmark:v10 inFolderWithID:v5] & 1) == 0)
         {
@@ -3277,7 +3383,7 @@ uint64_t __50__WBTabCollection_insertTabs_inTabGroup_afterTab___block_invoke_2(i
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -3292,7 +3398,6 @@ uint64_t __50__WBTabCollection_insertTabs_inTabGroup_afterTab___block_invoke_2(i
   v10 = v4;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -3369,9 +3474,10 @@ void __41__WBTabCollection_updateTabs_inTabGroup___block_invoke(uint64_t a1)
 
 void __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_invoke(uint64_t a1, void *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  if (*(a1 + 56) == [v5 isSyncable])
+  v6 = [v5 isSyncable];
+  if (*(a1 + 56) == v6)
   {
     if (a3)
     {
@@ -3380,19 +3486,19 @@ void __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_invoke
 
     if ([v5 wasAdded])
     {
-      v6 = *(a1 + 48);
+      v8 = *(a1 + 48);
       if (*(a1 + 56) == 1)
       {
-        v13 = v5;
-        v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-        [v6 insertItemsIntoPlace:v7 inParent:*(a1 + 32) completionHandler:0];
+        v14 = v5;
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+        [v8 insertItemsIntoPlace:v9 inParent:*(a1 + 32) completionHandler:0];
       }
 
       else
       {
-        v12 = v5;
-        v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-        [v6 insertItems:v7 inParent:*(a1 + 32) afterItem:a3 completionHandler:0];
+        v13 = v5;
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+        [v8 insertItems:v9 inParent:*(a1 + 32) afterItem:a3 completionHandler:0];
       }
     }
 
@@ -3400,15 +3506,15 @@ void __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_invoke
     {
       if ([v5 wasMoved])
       {
-        v10 = *(a1 + 48);
+        v12 = *(a1 + 48);
         if (*(a1 + 56) == 1)
         {
-          [v10 reorderItemIntoPlace:v5 completionHandler:0];
+          [v12 reorderItemIntoPlace:v5 completionHandler:0];
         }
 
         else
         {
-          [v10 reorderItem:v5 afterItem:a3 completionHandler:0];
+          [v12 reorderItem:v5 afterItem:a3 completionHandler:0];
         }
       }
 
@@ -3423,16 +3529,14 @@ void __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_invoke
 
   else
   {
-    a3 = WBS_LOG_CHANNEL_PREFIXTabGroup();
+    a3 = WBS_LOG_CHANNEL_PREFIXTabGroup(v6, v7);
     if (os_log_type_enabled(a3, OS_LOG_TYPE_FAULT))
     {
-      v8 = [v5 privacyPreservingDescription];
-      v9 = [*(a1 + 32) privacyPreservingDescription];
-      __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_invoke_cold_1(v8, v9, buf, a3);
+      v10 = [v5 privacyPreservingDescription];
+      v11 = [*(a1 + 32) privacyPreservingDescription];
+      __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_invoke_cold_1(v10, v11, buf, a3);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_invoke_89(uint64_t a1)
@@ -3448,43 +3552,42 @@ uint64_t __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_in
 
 - (void)flushDeletedTabsInTabGroup:(id)group completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   handlerCopy = handler;
   deletedTabs = [groupCopy deletedTabs];
   v9 = [deletedTabs copy];
 
-  if ([v9 count])
+  v10 = [v9 count];
+  if (v10)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = WBS_LOG_CHANNEL_PREFIXTabGroup(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v11 = [v9 count];
+      v13 = [v9 count];
       privacyPreservingDescription = [groupCopy privacyPreservingDescription];
       *buf = 134349314;
-      v24 = v11;
-      v25 = 2114;
-      v26 = privacyPreservingDescription;
-      _os_log_impl(&dword_272C20000, v10, OS_LOG_TYPE_INFO, "Flushing %{public}zu deleted tabs in tab group: %{public}@", buf, 0x16u);
+      v25 = v13;
+      v26 = 2114;
+      v27 = privacyPreservingDescription;
+      _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Flushing %{public}zu deleted tabs in tab group: %{public}@", buf, 0x16u);
     }
   }
 
   [groupCopy clearDeletedTabs];
   isSyncable = [groupCopy isSyncable];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __64__WBTabCollection_flushDeletedTabsInTabGroup_completionHandler___block_invoke;
-  v18[3] = &unk_279E76C30;
-  v14 = groupCopy;
-  v19 = v14;
-  v15 = v9;
-  v20 = v15;
-  v16 = handlerCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __64__WBTabCollection_flushDeletedTabsInTabGroup_completionHandler___block_invoke;
+  v19[3] = &unk_279E76C30;
+  v16 = groupCopy;
+  v20 = v16;
+  v17 = v9;
+  v21 = v17;
+  v18 = handlerCopy;
   selfCopy = self;
-  v22 = v16;
-  [(WBTabCollection *)self deleteItems:v15 leaveTombstones:isSyncable completionHandler:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v23 = v18;
+  [(WBTabCollection *)self deleteItems:v17 leaveTombstones:isSyncable completionHandler:v19];
 }
 
 void __64__WBTabCollection_flushDeletedTabsInTabGroup_completionHandler___block_invoke(uint64_t a1, char a2)
@@ -3509,7 +3612,7 @@ void __64__WBTabCollection_flushDeletedTabsInTabGroup_completionHandler___block_
 
 - (id)topScopedBookmarkListForTabGroup:(id)group
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   if (self->_shouldPrepareBackgroundTaskExpiration)
   {
@@ -3527,29 +3630,27 @@ void __64__WBTabCollection_flushDeletedTabsInTabGroup_completionHandler___block_
 
   else
   {
-    MEMORY[0x2743D62A0](v14, @"com.apple.WebBookmarks.WBTabCollection");
+    MEMORY[0x2743D62A0](v13, @"com.apple.WebBookmarks.WBTabCollection");
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v16 = 0x3032000000;
-    v17 = __Block_byref_object_copy__4;
-    v18 = __Block_byref_object_dispose__4;
-    v19 = 0;
+    v15 = 0x3032000000;
+    v16 = __Block_byref_object_copy__4;
+    v17 = __Block_byref_object_dispose__4;
+    v18 = 0;
     databaseQueue = self->_databaseQueue;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __52__WBTabCollection_topScopedBookmarkListForTabGroup___block_invoke;
-    v11[3] = &unk_279E766C8;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __52__WBTabCollection_topScopedBookmarkListForTabGroup___block_invoke;
+    v10[3] = &unk_279E766C8;
     p_buf = &buf;
-    v11[4] = self;
-    v12 = groupCopy;
-    dispatch_sync(databaseQueue, v11);
+    v10[4] = self;
+    v11 = groupCopy;
+    dispatch_sync(databaseQueue, v10);
     v7 = *(*(&buf + 1) + 40);
 
     _Block_object_dispose(&buf, 8);
-    SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v14);
+    SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v13);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3615,31 +3716,68 @@ void __44__WBTabCollection_scopedBookmarkListWithID___block_invoke(uint64_t a1)
 
 id __44__WBTabCollection_scopedBookmarkListWithID___block_invoke_2(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _collection];
   v3 = [v2 bookmarkWithID:*(a1 + 40)];
 
-  if ([v3 subtype] == 1 && (objc_msgSend(v3, "isFolder") & 1) != 0)
+  v4 = [v3 subtype];
+  if (v4 == 1 && (v4 = [v3 isFolder], (v4 & 1) != 0))
   {
-    v4 = [*(a1 + 32) _bookmarkListWithFolderID:*(a1 + 40) usingFilter:0 options:8];
+    v6 = [*(a1 + 32) _bookmarkListWithFolderID:*(a1 + 40) usingFilter:0 options:8];
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXTabGroup(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 40);
-      v7 = [*(a1 + 32) _descriptionForScopedBookmark:v3];
-      __44__WBTabCollection_scopedBookmarkListWithID___block_invoke_2_cold_1(v7, v10, v6);
+      v8 = *(a1 + 40);
+      v9 = [*(a1 + 32) _descriptionForScopedBookmark:v3];
+      __44__WBTabCollection_scopedBookmarkListWithID___block_invoke_2_cold_1(v9, v11, v8);
     }
 
-    v4 = 0;
+    v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  return v6;
+}
 
-  return v4;
+- (id)scopedBookmarkListWithID:(int)d filteredUsingString:(id)string
+{
+  v4 = *&d;
+  stringCopy = string;
+  v7 = stringCopy;
+  if (v4 && ![stringCopy length])
+  {
+    v9 = [(WBTabCollection *)self scopedBookmarkListWithID:v4];
+  }
+
+  else
+  {
+    MEMORY[0x2743D62A0](v21, @"com.apple.WebBookmarks.WBTabCollection");
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy__4;
+    v19 = __Block_byref_object_dispose__4;
+    v20 = 0;
+    databaseQueue = self->_databaseQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __64__WBTabCollection_scopedBookmarkListWithID_filteredUsingString___block_invoke;
+    block[3] = &unk_279E76930;
+    v13 = &v15;
+    block[4] = self;
+    v14 = v4;
+    v12 = v7;
+    dispatch_sync(databaseQueue, block);
+    v9 = v16[5];
+
+    _Block_object_dispose(&v15, 8);
+    SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v21);
+  }
+
+  return v9;
 }
 
 void __64__WBTabCollection_scopedBookmarkListWithID_filteredUsingString___block_invoke(uint64_t a1)
@@ -3660,11 +3798,11 @@ void __64__WBTabCollection_scopedBookmarkListWithID_filteredUsingString___block_
 
 id __64__WBTabCollection_scopedBookmarkListWithID_filteredUsingString___block_invoke_2(uint64_t a1)
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _collection];
   v3 = [v2 bookmarkWithID:*(a1 + 48)];
 
-  if (!*(a1 + 48) || [v3 subtype] == 1 && objc_msgSend(v3, "isFolder"))
+  if (!*(a1 + 48) || (v6 = [v3 subtype], v6 == 1) && (v6 = objc_msgSend(v3, "isFolder"), v6))
   {
     if ([*(a1 + 40) length])
     {
@@ -3681,18 +3819,16 @@ id __64__WBTabCollection_scopedBookmarkListWithID_filteredUsingString___block_in
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXTabGroup(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 48);
-      v8 = [*(a1 + 32) _descriptionForScopedBookmark:v3];
-      __64__WBTabCollection_scopedBookmarkListWithID_filteredUsingString___block_invoke_2_cold_1(v8, v11, v7);
+      v9 = *(a1 + 48);
+      v10 = [*(a1 + 32) _descriptionForScopedBookmark:v3];
+      __64__WBTabCollection_scopedBookmarkListWithID_filteredUsingString___block_invoke_2_cold_1(v10, v12, v9);
     }
 
     v5 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -3749,24 +3885,26 @@ void __42__WBTabCollection_scopedBookmarkWithUUID___block_invoke(void *a1)
 
 id __42__WBTabCollection_scopedBookmarkWithUUID___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _collection];
   v3 = [v2 bookmarkWithUUID:*(a1 + 40)];
 
-  if (v3 && ([v3 subtype] != 1 || objc_msgSend(v3, "isFolder")))
+  if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = [v3 subtype];
+    if (v4 != 1 || (v4 = [v3 isFolder], v4))
     {
-      v5 = *(a1 + 40);
-      v6 = [*(a1 + 32) _descriptionForScopedBookmark:v3];
-      __42__WBTabCollection_scopedBookmarkWithUUID___block_invoke_2_cold_1(v5, v6, v9, v4);
+      v6 = WBS_LOG_CHANNEL_PREFIXTabGroup(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        v7 = *(a1 + 40);
+        v8 = [*(a1 + 32) _descriptionForScopedBookmark:v3];
+        __42__WBTabCollection_scopedBookmarkWithUUID___block_invoke_2_cold_1(v7, v8, v10, v6);
+      }
+
+      v3 = 0;
     }
-
-    v3 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -3901,6 +4039,16 @@ void __35__WBTabCollection_databaseSyncData__block_invoke(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
+- (id)serverIDForItemWithID:(int)d
+{
+  v3 = *&d;
+  dispatch_assert_queue_V2(self->_databaseQueue);
+  _collection = [(WBTabCollection *)self _collection];
+  v6 = [_collection serverIDForBookmarkID:v3];
+
+  return v6;
+}
+
 - (id)recordIDForTab:(id)tab
 {
   tabCopy = tab;
@@ -4024,7 +4172,7 @@ uint64_t __42__WBTabCollection_shareRecordForTabGroup___block_invoke(uint64_t a1
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)shareRecordForTabGroup:(id)group completionHandler:(id)handler
@@ -4106,21 +4254,21 @@ uint64_t __62__WBTabCollection_setHasSharedTabGroupsWithCompletionHandler___bloc
 
 - (id)activeParticipantsInTabGroup:(id)group
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   groupCopy = group;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__4;
-  v37 = __Block_byref_object_dispose__4;
-  v38 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__4;
-  v31 = __Block_byref_object_dispose__4;
   v32 = 0;
-  MEMORY[0x2743D62A0](v26, @"com.apple.WebBookmarks.WBTabCollection");
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__4;
+  v36 = __Block_byref_object_dispose__4;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__4;
+  v30 = __Block_byref_object_dispose__4;
+  v31 = 0;
+  MEMORY[0x2743D62A0](v25, @"com.apple.WebBookmarks.WBTabCollection");
   databaseQueue = self->_databaseQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -4128,37 +4276,37 @@ uint64_t __62__WBTabCollection_setHasSharedTabGroupsWithCompletionHandler___bloc
   block[3] = &unk_279E76D48;
   block[4] = self;
   v6 = groupCopy;
-  v23 = v6;
-  v24 = &v33;
-  v25 = &v27;
+  v22 = v6;
+  v23 = &v32;
+  v24 = &v26;
   dispatch_sync(databaseQueue, block);
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v26);
-  if (v34[5])
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v25);
+  if (v33[5])
   {
     array = [MEMORY[0x277CBEB18] array];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v8 = v34[5];
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v39 count:16];
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v8 = v33[5];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v38 count:16];
     if (v9)
     {
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           if (([v12 isCurrentUser] & 1) == 0 && objc_msgSend(v12, "acceptanceStatus") == 2)
           {
-            v13 = v28[5];
+            v13 = v27[5];
             safari_shareParticipantIdentifier = [v12 safari_shareParticipantIdentifier];
             LODWORD(v13) = [v13 containsObject:safari_shareParticipantIdentifier];
 
@@ -4169,7 +4317,7 @@ uint64_t __62__WBTabCollection_setHasSharedTabGroupsWithCompletionHandler___bloc
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v39 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v17 objects:v38 count:16];
       }
 
       while (v9);
@@ -4183,10 +4331,9 @@ uint64_t __62__WBTabCollection_setHasSharedTabGroupsWithCompletionHandler___bloc
     v15 = 0;
   }
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v26, 8);
 
-  _Block_object_dispose(&v33, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
 
   return v15;
 }
@@ -4249,7 +4396,7 @@ uint64_t __43__WBTabCollection_activeParticipantsInTab___block_invoke(uint64_t a
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)getActiveParticipantsInTab:(id)tab completionHandler:(id)handler
@@ -4343,32 +4490,32 @@ void __64__WBTabCollection_getActiveParticipantsInTab_completionHandler___block_
 
 - (id)_activeParticipantsFromParticipantData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   participants = [dataCopy participants];
 
   if (participants)
   {
-    v17 = [MEMORY[0x277CBEB58] set];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v16 = [MEMORY[0x277CBEB58] set];
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     participants2 = [dataCopy participants];
-    v5 = [participants2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = [participants2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v5)
     {
-      v6 = *v20;
+      v6 = *v19;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(participants2);
           }
 
-          v8 = *(*(&v19 + 1) + 8 * i);
+          v8 = *(*(&v18 + 1) + 8 * i);
           if (([v8 isCurrentUser] & 1) == 0 && objc_msgSend(v8, "acceptanceStatus") == 2)
           {
             userIdentity = [v8 userIdentity];
@@ -4379,26 +4526,24 @@ void __64__WBTabCollection_getActiveParticipantsInTab_completionHandler___block_
 
             if (v13)
             {
-              [v17 addObject:v8];
+              [v16 addObject:v8];
             }
           }
         }
 
-        v5 = [participants2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v5 = [participants2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v5);
     }
 
-    v14 = [v17 copy];
+    v14 = [v16 copy];
   }
 
   else
   {
     v14 = [MEMORY[0x277CBEB98] set];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -4692,7 +4837,7 @@ uint64_t __31__WBTabCollection_windowStates__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (BOOL)closeWindowState:(id)state
@@ -5007,14 +5152,14 @@ uint64_t __53__WBTabCollection_saveWindowState_completionHandler___block_invoke(
   dataCopy = data;
   stringCopy = string;
   handlerCopy = handler;
-  v11 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXTabGroup(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
     *&buf[4] = stringCopy;
     *&buf[12] = 2048;
     *&buf[14] = dataCopy;
-    _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Queueing save operation for Window(%{public}@) restoration archive(%p).", buf, 0x16u);
+    _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Queueing save operation for Window(%{public}@) restoration archive(%p).", buf, 0x16u);
   }
 
   if (!self->_shouldPrepareBackgroundTaskExpiration)
@@ -5025,14 +5170,12 @@ uint64_t __53__WBTabCollection_saveWindowState_completionHandler___block_invoke(
     operator new();
   }
 
-  v12 = WBS_LOG_CHANNEL_PREFIXBookmarks();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = WBS_LOG_CHANNEL_PREFIXBookmarks();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Background task will expire soon. Block performing database task", buf, 2u);
+    _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Background task will expire soon. Block performing database task", buf, 2u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __90__WBTabCollection_saveWindowRestorationArchiveData_forWindowUUIDString_completionHandler___block_invoke(uint64_t a1)
@@ -5093,6 +5236,36 @@ id __46__WBTabCollection__bookmarksForTabs_syncable___block_invoke(uint64_t a1, 
   }
 
   return v3;
+}
+
+- (id)_bookmarkListWithFolderID:(int)d usingFilter:(id)filter options:(unint64_t)options
+{
+  v6 = *&d;
+  filterCopy = filter;
+  v9 = [[WebBookmarkListQuery alloc] initWithFolderID:v6 inCollection:self->_collection usingFilter:filterCopy options:options];
+  v10 = [[WebBookmarkList alloc] initWithQuery:v9 skipOffset:0 collection:self->_collection queue:self->_databaseQueue];
+
+  return v10;
+}
+
+- (BOOL)_insertBookmark:(id)bookmark afterBookmark:(id)afterBookmark inFolderWithID:(int)d
+{
+  v5 = *&d;
+  bookmarkCopy = bookmark;
+  afterBookmarkCopy = afterBookmark;
+  _collection = [(WBTabCollection *)self _collection];
+  if ([_collection _saveAndMoveBookmark:bookmarkCopy toFolderID:v5])
+  {
+    v11 = [_collection bookmarkWithID:{objc_msgSend(afterBookmarkCopy, "identifier")}];
+    v12 = [_collection _reorderBookmark:bookmarkCopy afterBookmark:v11];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (void)_readPropertiesOfBookmark:(id)bookmark
@@ -5168,6 +5341,77 @@ void __37__WBTabCollection_performMaintenance__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) _collection];
   [v1 performMaintenance];
+}
+
+- (id)tabCollectionDataSummaryLogHidingSensitiveData:(BOOL)data
+{
+  dataCopy = data;
+  v29 = *MEMORY[0x277D85DE8];
+  v5 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  profiles = [(WBTabCollection *)self profiles];
+  [v5 appendFormat:@"Number of Profiles: %lu\n", objc_msgSend(profiles, "count")];
+  allNamedTabGroupsUnsorted = [(WBTabCollection *)self allNamedTabGroupsUnsorted];
+  [v5 appendFormat:@"Number of Tab Groups: %lu\n", objc_msgSend(allNamedTabGroupsUnsorted, "count")];
+
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  obj = profiles;
+  v7 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v7)
+  {
+    v8 = *v24;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v24 != v8)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v10 = *(*(&v23 + 1) + 8 * i);
+        [(WBTabCollection *)self _addProfile:v10 toLog:v5 hidingSensitiveData:dataCopy];
+        v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
+        identifier = [v10 identifier];
+        v12 = [(WBTabCollection *)self namedTabGroupsForProfileWithIdentifier:identifier];
+
+        v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        if (v13)
+        {
+          v14 = *v20;
+          do
+          {
+            for (j = 0; j != v13; ++j)
+            {
+              if (*v20 != v14)
+              {
+                objc_enumerationMutation(v12);
+              }
+
+              [(WBTabCollection *)self _addTabGroup:*(*(&v19 + 1) + 8 * j) toLog:v5 hidingSensitiveData:dataCopy];
+            }
+
+            v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          }
+
+          while (v13);
+        }
+      }
+
+      v7 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+    }
+
+    while (v7);
+  }
+
+  [v5 appendString:@"\n"];
+
+  return v5;
 }
 
 - (BOOL)copyTabsDatabase:(id)database hidingSensitiveData:(BOOL)data error:(id *)error
@@ -5277,16 +5521,16 @@ void __37__WBTabCollection_performMaintenance__block_invoke(uint64_t a1)
 
 void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_invoke(uint64_t a1)
 {
-  v126 = *MEMORY[0x277D85DE8];
-  v117[0] = MEMORY[0x277D85DD0];
-  v117[1] = 3221225472;
-  v117[2] = __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_invoke_2;
-  v117[3] = &unk_279E76E28;
+  v125 = *MEMORY[0x277D85DE8];
+  v116[0] = MEMORY[0x277D85DD0];
+  v116[1] = 3221225472;
+  v116[2] = __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_invoke_2;
+  v116[3] = &unk_279E76E28;
   v2 = a1 + 32;
   v1 = *(a1 + 32);
-  v119 = *(a1 + 56);
-  v118 = v1;
-  v84 = MEMORY[0x2743D6830](v117);
+  v118 = *(a1 + 56);
+  v117 = v1;
+  v83 = MEMORY[0x2743D6830](v116);
   v3 = *v2;
   v4 = *(*(v2 + 32) + 8);
   obj = *(v4 + 40);
@@ -5296,11 +5540,11 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
   {
     v6 = *(a1 + 32);
     v7 = *(*(a1 + 64) + 8);
-    v115 = *(v7 + 40);
-    v8 = [v6 executeQuery:@"BEGIN IMMEDIATE" error:&v115];
-    objc_storeStrong((v7 + 40), v115);
+    v114 = *(v7 + 40);
+    v8 = [v6 executeQuery:@"BEGIN IMMEDIATE" error:&v114];
+    objc_storeStrong((v7 + 40), v114);
     *(*(*(a1 + 56) + 8) + 24) = v8;
-    if (v84[2]())
+    if (v83[2]())
     {
       v9 = @"BEGIN IMMEDIATE";
     }
@@ -5309,14 +5553,14 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
     {
       v10 = [*(a1 + 32) fetchQuery:@"PRAGMA secure_delete = ON"];
       [*(*(a1 + 40) + 24) windowStates];
+      v112 = 0u;
       v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
-      v83 = v112 = 0u;
-      v11 = [v83 countByEnumeratingWithState:&v111 objects:v125 count:16];
+      v110 = 0u;
+      v82 = v111 = 0u;
+      v11 = [v82 countByEnumeratingWithState:&v110 objects:v124 count:16];
       if (v11)
       {
-        v12 = *v112;
+        v12 = *v111;
         v9 = @"BEGIN IMMEDIATE";
         while (2)
         {
@@ -5324,23 +5568,23 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
           v14 = v9;
           do
           {
-            if (*v112 != v12)
+            if (*v111 != v12)
             {
-              objc_enumerationMutation(v83);
+              objc_enumerationMutation(v82);
             }
 
-            v15 = [*(*(&v111 + 1) + 8 * v13) privateTabGroup];
+            v15 = [*(*(&v110 + 1) + 8 * v13) privateTabGroup];
             v16 = [v15 identifier];
 
             v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM bookmarks WHERE parent IN (SELECT folder_id FROM folder_ancestors WHERE ancestor_id = %d) OR parent = %d OR id = %d", v16, v16, v16];
 
             v17 = *(a1 + 32);
             v18 = *(*(a1 + 64) + 8);
-            v110 = *(v18 + 40);
-            v19 = [v17 executeQuery:v9 error:&v110];
-            objc_storeStrong((v18 + 40), v110);
+            v109 = *(v18 + 40);
+            v19 = [v17 executeQuery:v9 error:&v109];
+            objc_storeStrong((v18 + 40), v109);
             *(*(*(a1 + 56) + 8) + 24) = v19;
-            if (v84[2]())
+            if (v83[2]())
             {
 
               goto LABEL_76;
@@ -5351,7 +5595,7 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
           }
 
           while (v11 != v13);
-          v11 = [v83 countByEnumeratingWithState:&v111 objects:v125 count:16];
+          v11 = [v82 countByEnumeratingWithState:&v110 objects:v124 count:16];
           if (v11)
           {
             continue;
@@ -5368,60 +5612,60 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
 
       if (*(a1 + 72))
       {
-        v108 = 0u;
-        v109 = 0u;
-        v106 = 0u;
         v107 = 0u;
+        v108 = 0u;
+        v105 = 0u;
+        v106 = 0u;
         v20 = [*(a1 + 48) keyEnumerator];
-        v76 = v20;
+        v75 = v20;
         v21 = 0;
-        v22 = [v20 countByEnumeratingWithState:&v106 objects:v124 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v105 objects:v123 count:16];
         if (v22)
         {
-          v23 = *v107;
+          v23 = *v106;
           v24 = 0x277CBE000uLL;
-          v74 = *v107;
+          v73 = *v106;
           while (2)
           {
             v25 = 0;
-            v73 = v22;
+            v72 = v22;
             do
             {
-              if (*v107 != v23)
+              if (*v106 != v23)
               {
                 objc_enumerationMutation(v20);
               }
 
               v26 = *(v24 + 2968);
-              v79 = *(*(&v106 + 1) + 8 * v25);
+              v78 = *(*(&v105 + 1) + 8 * v25);
               v27 = [*(a1 + 48) objectForKeyedSubscript:?];
-              v75 = v25;
+              v74 = v25;
               v28 = [v26 setWithArray:v27];
 
               v29 = *(a1 + 32);
-              v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"select name from PRAGMA_TABLE_INFO('%@')", v79];
-              v77 = [v29 fetchQuery:v30];
+              v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"select name from PRAGMA_TABLE_INFO('%@')", v78];
+              v76 = [v29 fetchQuery:v30];
 
-              v81 = [MEMORY[0x277CBEB18] array];
-              v104 = 0u;
-              v105 = 0u;
-              v102 = 0u;
+              v80 = [MEMORY[0x277CBEB18] array];
               v103 = 0u;
-              v31 = v77;
-              v32 = [v31 countByEnumeratingWithState:&v102 objects:v123 count:16];
+              v104 = 0u;
+              v101 = 0u;
+              v102 = 0u;
+              v31 = v76;
+              v32 = [v31 countByEnumeratingWithState:&v101 objects:v122 count:16];
               if (v32)
               {
-                v33 = *v103;
+                v33 = *v102;
                 while (2)
                 {
                   for (i = 0; i != v32; ++i)
                   {
-                    if (*v103 != v33)
+                    if (*v102 != v33)
                     {
                       objc_enumerationMutation(v31);
                     }
 
-                    v35 = [*(*(&v102 + 1) + 8 * i) stringAtIndex:0];
+                    v35 = [*(*(&v101 + 1) + 8 * i) stringAtIndex:0];
                     if (!v35)
                     {
                       *(*(*(a1 + 56) + 8) + 24) = 0;
@@ -5431,12 +5675,12 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
 
                     if (([v28 containsObject:v35] & 1) == 0)
                     {
-                      [v81 addObject:v35];
+                      [v80 addObject:v35];
                       ++v21;
                     }
                   }
 
-                  v32 = [v31 countByEnumeratingWithState:&v102 objects:v123 count:16];
+                  v32 = [v31 countByEnumeratingWithState:&v101 objects:v122 count:16];
                   if (v32)
                   {
                     continue;
@@ -5449,35 +5693,35 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
               v36 = [v31 statement];
               [v36 invalidate];
 
-              v100 = 0u;
-              v101 = 0u;
-              v98 = 0u;
               v99 = 0u;
-              v78 = v81;
-              v37 = [v78 countByEnumeratingWithState:&v98 objects:v122 count:16];
+              v100 = 0u;
+              v97 = 0u;
+              v98 = 0u;
+              v77 = v80;
+              v37 = [v77 countByEnumeratingWithState:&v97 objects:v121 count:16];
               if (v37)
               {
-                v38 = *v99;
+                v38 = *v98;
                 while (2)
                 {
                   v39 = 0;
                   v40 = v9;
                   do
                   {
-                    if (*v99 != v38)
+                    if (*v98 != v38)
                     {
-                      objc_enumerationMutation(v78);
+                      objc_enumerationMutation(v77);
                     }
 
-                    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"UPDATE %@ SET %@ = 'redacted'", v79, *(*(&v98 + 1) + 8 * v39)];
+                    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"UPDATE %@ SET %@ = 'redacted'", v78, *(*(&v97 + 1) + 8 * v39)];
 
                     v41 = *(a1 + 32);
                     v42 = *(*(a1 + 64) + 8);
-                    v97 = *(v42 + 40);
-                    v43 = [v41 executeQuery:v9 error:&v97];
-                    objc_storeStrong((v42 + 40), v97);
+                    v96 = *(v42 + 40);
+                    v43 = [v41 executeQuery:v9 error:&v96];
+                    objc_storeStrong((v42 + 40), v96);
                     *(*(*(a1 + 56) + 8) + 24) = v43;
-                    if (v84[2]())
+                    if (v83[2]())
                     {
                       v44 = 0;
                       goto LABEL_41;
@@ -5488,7 +5732,7 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
                   }
 
                   while (v37 != v39);
-                  v37 = [v78 countByEnumeratingWithState:&v98 objects:v122 count:16];
+                  v37 = [v77 countByEnumeratingWithState:&v97 objects:v121 count:16];
                   if (v37)
                   {
                     continue;
@@ -5501,7 +5745,7 @@ void __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_in
               v44 = 1;
 LABEL_41:
 
-              v23 = v74;
+              v23 = v73;
               if (!v44)
               {
 LABEL_48:
@@ -5509,13 +5753,13 @@ LABEL_48:
                 goto LABEL_76;
               }
 
-              v20 = v76;
-              v25 = v75 + 1;
+              v20 = v75;
+              v25 = v74 + 1;
               v24 = 0x277CBE000;
             }
 
-            while (v75 + 1 != v73);
-            v22 = [v76 countByEnumeratingWithState:&v106 objects:v124 count:16];
+            while (v74 + 1 != v72);
+            v22 = [v75 countByEnumeratingWithState:&v105 objects:v123 count:16];
             if (v22)
             {
               continue;
@@ -5535,27 +5779,27 @@ LABEL_48:
 
         else
         {
-          v80 = [*(a1 + 32) fetchQuery:@"SELECT name FROM sqlite_master where type='table'"];
-          v82 = [MEMORY[0x277CBEB18] array];
-          v96 = 0u;
-          v94 = 0u;
+          v79 = [*(a1 + 32) fetchQuery:@"SELECT name FROM sqlite_master where type='table'"];
+          v81 = [MEMORY[0x277CBEB18] array];
           v95 = 0u;
           v93 = 0u;
-          v47 = v80;
-          v48 = [v47 countByEnumeratingWithState:&v93 objects:v121 count:16];
+          v94 = 0u;
+          v92 = 0u;
+          v47 = v79;
+          v48 = [v47 countByEnumeratingWithState:&v92 objects:v120 count:16];
           if (v48)
           {
-            v49 = *v94;
+            v49 = *v93;
             while (2)
             {
               for (j = 0; j != v48; ++j)
               {
-                if (*v94 != v49)
+                if (*v93 != v49)
                 {
                   objc_enumerationMutation(v47);
                 }
 
-                v51 = [*(*(&v93 + 1) + 8 * j) stringAtIndex:0];
+                v51 = [*(*(&v92 + 1) + 8 * j) stringAtIndex:0];
                 if (!v51)
                 {
                   *(*(*(a1 + 56) + 8) + 24) = 0;
@@ -5563,10 +5807,10 @@ LABEL_48:
                   goto LABEL_73;
                 }
 
-                [v82 addObject:v51];
+                [v81 addObject:v51];
               }
 
-              v48 = [v47 countByEnumeratingWithState:&v93 objects:v121 count:16];
+              v48 = [v47 countByEnumeratingWithState:&v92 objects:v120 count:16];
               if (v48)
               {
                 continue;
@@ -5579,25 +5823,25 @@ LABEL_48:
           v52 = [v47 statement];
           [v52 invalidate];
 
-          v91 = 0u;
-          v92 = 0u;
-          v89 = 0u;
           v90 = 0u;
-          v53 = v82;
-          v54 = [v53 countByEnumeratingWithState:&v89 objects:v120 count:16];
+          v91 = 0u;
+          v88 = 0u;
+          v89 = 0u;
+          v53 = v81;
+          v54 = [v53 countByEnumeratingWithState:&v88 objects:v119 count:16];
           if (v54)
           {
-            v55 = *v90;
+            v55 = *v89;
             while (2)
             {
               for (k = 0; k != v54; ++k)
               {
-                if (*v90 != v55)
+                if (*v89 != v55)
                 {
                   objc_enumerationMutation(v53);
                 }
 
-                v57 = *(*(&v89 + 1) + 8 * k);
+                v57 = *(*(&v88 + 1) + 8 * k);
                 v58 = [*(a1 + 48) objectForKeyedSubscript:v57];
                 if (v58)
                 {
@@ -5609,11 +5853,11 @@ LABEL_48:
 
                   v60 = *(a1 + 32);
                   v61 = *(*(a1 + 64) + 8);
-                  v88 = *(v61 + 40);
-                  v62 = [v60 executeQuery:v59 error:&v88];
-                  objc_storeStrong((v61 + 40), v88);
+                  v87 = *(v61 + 40);
+                  v62 = [v60 executeQuery:v59 error:&v87];
+                  objc_storeStrong((v61 + 40), v87);
                   *(*(*(a1 + 56) + 8) + 24) = v62;
-                  if (v84[2]())
+                  if (v83[2]())
                   {
 
                     goto LABEL_75;
@@ -5623,7 +5867,7 @@ LABEL_48:
                 }
               }
 
-              v54 = [v53 countByEnumeratingWithState:&v89 objects:v120 count:16];
+              v54 = [v53 countByEnumeratingWithState:&v88 objects:v119 count:16];
               if (v54)
               {
                 continue;
@@ -5646,33 +5890,33 @@ LABEL_73:
 
             v64 = *(a1 + 32);
             v65 = *(*(a1 + 64) + 8);
-            v87 = *(v65 + 40);
-            v66 = [v64 executeQuery:@"COMMIT" error:&v87];
-            objc_storeStrong((v65 + 40), v87);
+            v86 = *(v65 + 40);
+            v66 = [v64 executeQuery:@"COMMIT" error:&v86];
+            objc_storeStrong((v65 + 40), v86);
             *(*(*(a1 + 56) + 8) + 24) = v66;
-            if (v84[2]())
+            if (v83[2]())
             {
               v59 = @"COMMIT";
             }
 
             else
             {
-              v68 = *(a1 + 32);
-              v69 = *(*(a1 + 64) + 8);
-              v86 = *(v69 + 40);
-              v70 = [v68 executeQuery:@"VACUUM" error:&v86];
-              objc_storeStrong((v69 + 40), v86);
-              *(*(*(a1 + 56) + 8) + 24) = v70;
-              if (v84[2]())
+              v67 = *(a1 + 32);
+              v68 = *(*(a1 + 64) + 8);
+              v85 = *(v68 + 40);
+              v69 = [v67 executeQuery:@"VACUUM" error:&v85];
+              objc_storeStrong((v68 + 40), v85);
+              *(*(*(a1 + 56) + 8) + 24) = v69;
+              if (v83[2]())
               {
                 v59 = @"VACUUM";
               }
 
               else
               {
-                v71 = [*(a1 + 32) fetchQuery:@"PRAGMA wal_checkpoint(TRUNCATE)"];
-                v72 = [v71 nextObject];
-                *(*(*(a1 + 56) + 8) + 24) = [v72 intAtIndex:0] == 0;
+                v70 = [*(a1 + 32) fetchQuery:@"PRAGMA wal_checkpoint(TRUNCATE)"];
+                v71 = [v70 nextObject];
+                *(*(*(a1 + 56) + 8) + 24) = [v71 intAtIndex:0] == 0;
                 [*(a1 + 32) close];
 
                 v59 = @"PRAGMA wal_checkpoint(TRUNCATE)";
@@ -5694,8 +5938,6 @@ LABEL_75:
 LABEL_76:
     }
   }
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___block_invoke_2(uint64_t a1)
@@ -5730,10 +5972,10 @@ uint64_t __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___bloc
 - (void)_addTabGroup:(id)group toLog:(id)log hidingSensitiveData:(BOOL)data
 {
   dataCopy = data;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   logCopy = log;
-  v22 = groupCopy;
+  v21 = groupCopy;
   if (dataCopy)
   {
     [groupCopy privacyPreservingDescription];
@@ -5746,29 +5988,29 @@ uint64_t __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___bloc
   v8 = ;
   [logCopy appendFormat:@"%@\n", v8];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = [groupCopy tabs];
-  v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         v13 = MEMORY[0x277CCACA8];
         if (dataCopy)
         {
-          title = [*(*(&v25 + 1) + 8 * i) url];
+          title = [*(*(&v24 + 1) + 8 * i) url];
           absoluteString = [title absoluteString];
           safari_urlHashesOfComponents = [absoluteString safari_urlHashesOfComponents];
           v17 = [v13 stringWithFormat:@"hashed url: %@, ", safari_urlHashesOfComponents];
@@ -5776,7 +6018,7 @@ uint64_t __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___bloc
 
         else
         {
-          title = [*(*(&v25 + 1) + 8 * i) title];
+          title = [*(*(&v24 + 1) + 8 * i) title];
           absoluteString = [v12 url];
           v17 = [v13 stringWithFormat:@"title: %@, url: %@, ", title, absoluteString];
         }
@@ -5787,23 +6029,21 @@ uint64_t __62__WBTabCollection_copyTabsDatabase_hidingSensitiveData_error___bloc
         [logCopy appendFormat:@"Tab, %@identifier: %@, server_id: %@\n", v17, uuid, serverID];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
   }
 
   [logCopy appendString:@"\n\n"];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __39__WBTabCollection__bookmarksFromItems___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_fault_impl(&dword_272C20000, a2, OS_LOG_TYPE_FAULT, "Skipping item %{private}@ because underlying bookmark is nil", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_fault_impl(&dword_272C20000, a2, OS_LOG_TYPE_FAULT, "Skipping item %{private}@ because underlying bookmark is nil", &v2, 0xCu);
 }
 
 void __58__WBTabCollection_updateTabsInTabGroup_completionHandler___block_invoke_cold_1(void *a1, void *a2, uint8_t *buf, os_log_t log)

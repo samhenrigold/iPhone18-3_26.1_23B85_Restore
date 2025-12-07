@@ -48,9 +48,9 @@ LABEL_9:
 
 - (uint64_t)vui_keyPathsInPredicate
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 _vui_keyPathsInPredicate:self];
+  return [v3 _vui_keyPathsInPredicate:self];
 }
 
 + (id)_vui_keyPathsInPredicate:()VideosUICore

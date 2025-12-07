@@ -431,7 +431,7 @@ LABEL_196:
   return v16;
 }
 
-double issueDescription(char *__s1, int a2, int a3, int a4, unint64_t a5, char *__str, int a7, int a8, char *a9, char *a10, char *a11, char *a12, char *a13, int a14)
+double issueDescription(char *__s1, uint64_t a2, int a3, uint64_t a4, unint64_t a5, char *__str, int a7, int a8, char *a9, char *a10, char *a11, char *a12, char *a13, int a14)
 {
   v17 = a5 / 0xF4240;
   switch(a3)
@@ -445,7 +445,7 @@ double issueDescription(char *__s1, int a2, int a3, int a4, unint64_t a5, char *
 
       goto LABEL_22;
     case 1:
-      snprintf(__str, 0x200uLL, "%sThe timeout value passed exceeds 500 ms. This can result in a UI hang in heavy contention conditions. If possible, either bring that value down below the 500 ms threshold or move the work off the main thread");
+      snprintf(__str, 0x200uLL, "%sThe timeout value passed exceeds 500 ms. This can result in a UI hang in heavy contention conditions. If possible, either bring that value down below the 500 ms threshold or move the work off the main thread", a4);
       return result;
     case 2:
       snprintf(__str, 0x200uLL, "%sLocking blocked main thread for %llu ms. Consider moving to a design that eliminates lock contention on the main thread", "[Internal] ", a5 / 0xF4240);
@@ -538,7 +538,7 @@ LABEL_68:
 
       return result;
     case 5:
-      snprintf(__str, 0x200uLL, "%sMain thread run loop blocked for %llu ms");
+      snprintf(__str, 0x200uLL, "%sMain thread run loop blocked for %llu ms", a4);
       return result;
     case 6:
       snprintf(__str, 0x200uLL, "%sI/O blocked main thread for %llu ms. Consider doing this work on background thread", "[Internal] ", a5 / 0xF4240);
@@ -570,19 +570,19 @@ LABEL_43:
 
       goto LABEL_68;
     case 8:
-      snprintf(__str, 0x200uLL, "%sI/O blocked main thread for %llu ms. Issue being tracked in rdar://90077561");
+      snprintf(__str, 0x200uLL, "%sI/O blocked main thread for %llu ms. Issue being tracked in rdar://90077561", a4);
       return result;
     case 9:
-      snprintf(__str, 0x200uLL, "%sDon’t call this synchronous initializer on the main thread to request network-based URLs. It can hang the app for many seconds");
+      snprintf(__str, 0x200uLL, "%sDon’t call this synchronous initializer on the main thread to request network-based URLs. It can hang the app for many seconds", a4);
       return result;
     case 10:
-      snprintf(__str, 0x200uLL, "%sNetworking on another thread blocked main thread. Consider design that moves away from emulating synchronous networking behavior on the main thread");
+      snprintf(__str, 0x200uLL, "%sNetworking on another thread blocked main thread. Consider design that moves away from emulating synchronous networking behavior on the main thread", a4);
       return result;
     case 11:
-      snprintf(__str, 0x200uLL, "%sCostly protocol conformance check blocked main thread for %llu ms. Consider using respondsToSelector or other alternatives if possible. Explore alternatives to do this work on non-main thread");
+      snprintf(__str, 0x200uLL, "%sCostly protocol conformance check blocked main thread for %llu ms. Consider using respondsToSelector or other alternatives if possible. Explore alternatives to do this work on non-main thread", a4);
       return result;
     case 12:
-      snprintf(__str, 0x200uLL, "%s%s blocked main thread for %llu ms. Consider design that does non-UI work on non-main thread");
+      snprintf(__str, 0x200uLL, "%s%s blocked main thread for %llu ms. Consider design that does non-UI work on non-main thread", a4);
       return result;
     case 13:
       if (a7)
@@ -613,12 +613,12 @@ LABEL_43:
       {
         if (envEnableAGPCChecks && (isAppleInternalNoIO() & 1) == 0 && a8 && (envEnableExtendedDiagnosticFormat & 1) == 0)
         {
-          snprintf(__str, 0x200uLL, "%s%s should be called from background thread. Calling it on the main thread can lead to UI unresponsiveness");
+          snprintf(__str, 0x200uLL, "%s%s should be called from background thread. Calling it on the main thread can lead to UI unresponsiveness", a4);
         }
 
         else
         {
-          snprintf(__str, 0x200uLL, "%s should be called from background thread. Calling it on the main thread can lead to UI unresponsiveness");
+          snprintf(__str, 0x200uLL, "%s should be called from background thread. Calling it on the main thread can lead to UI unresponsiveness", a4);
         }
 
         LOBYTE(v20) = 0;
@@ -649,7 +649,7 @@ LABEL_43:
 
       return result;
     case 14:
-      snprintf(__str, 0x200uLL, "%s%s");
+      snprintf(__str, 0x200uLL, "%s%s", a4);
       return result;
     case 15:
       if (!strcmp(__s1, "UIGraphicsBeginImageContext") || !strcmp(__s1, "UIGraphicsBeginImageContextWithOptions"))
@@ -1029,7 +1029,7 @@ uint64_t trampoline_c(uint64_t a1)
   return *v1;
 }
 
-uint64_t (*initialize_trampolines_with_one_callback(uint64_t (*result)(void)))(void)
+uint64_t (*initialize_trampolines_with_one_callback(uint64_t (*result)(void), uint64_t a2))(void)
 {
   registered_callback = result;
   first_trampoline = __trampolines_one_callback;
@@ -1055,7 +1055,7 @@ uint64_t add_trampoline_one_callback(uint64_t a1, char *__s1, const char *a3, co
   }
 
   ++trampolines_used;
-  v20 = v9;
+  v19 = v9;
   v16 = &data + 56 * v9;
   *v16 = a1;
   *(v16 + 1) = strdup(__s1);
@@ -1097,7 +1097,6 @@ uint64_t add_trampoline_one_callback(uint64_t a1, char *__s1, const char *a3, co
 
     else if (envRPACTrampolineSwizzleDebug == 1)
     {
-      v18 = *a6;
       fprintf(__stderrp, "%s: Called with log sub type %d and issue type: %d\n");
     }
 
@@ -1107,7 +1106,7 @@ uint64_t add_trampoline_one_callback(uint64_t a1, char *__s1, const char *a3, co
 
   while (v17);
   *(v16 + 12) = a7;
-  return first_trampoline + 8 * v20;
+  return first_trampoline + 8 * v19;
 }
 
 BOOL isDatabaseTracked(uint64_t a1)
@@ -1162,12 +1161,12 @@ uint64_t trackDatabase(uint64_t a1, char a2)
 {
   if (a1)
   {
-    v8[0] = a1;
+    v8 = a1;
     TableIndex = getTableIndex(a1);
     os_unfair_lock_lock(&database_table_lock + TableIndex);
     v5 = sqliteDBTrackingTable[TableIndex];
-    v8[2] = v8;
-    v6 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, v8);
+    v9 = &v8;
+    v6 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, &v8, &std::piecewise_construct, &v9);
     *(v6 + 41) = 0u;
     v6 = (v6 + 41);
     *(v6 - 17) = a1;
@@ -1308,11 +1307,11 @@ uint64_t autoVacuumModeStatus(sqlite3 *a1)
   os_unfair_lock_lock(&database_table_lock + TableIndex);
   v3 = sqliteDBTrackingTable[TableIndex];
   *&v17[0] = &v15;
-  if (*(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v3, &v15) + 43) == 1)
+  if (*(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v3, &v15, &std::piecewise_construct, v17) + 43) == 1)
   {
     v4 = sqliteDBTrackingTable[TableIndex];
     *&v17[0] = &v15;
-    v5 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v15) + 108);
+    v5 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v15, &std::piecewise_construct, v17) + 108);
 LABEL_16:
     os_unfair_lock_unlock(&database_table_lock + TableIndex);
     return v5;
@@ -1352,10 +1351,10 @@ LABEL_16:
     os_unfair_lock_lock(&database_table_lock + TableIndex);
     v11 = sqliteDBTrackingTable[TableIndex];
     v16 = &v15;
-    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v15) + 43) = 1;
+    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v15, &std::piecewise_construct, &v16) + 43) = 1;
     v12 = sqliteDBTrackingTable[TableIndex];
     v16 = &v15;
-    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v15) + 108) = v5;
+    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v15, &std::piecewise_construct, &v16) + 108) = v5;
     goto LABEL_16;
   }
 
@@ -1532,10 +1531,10 @@ uint64_t isDBInWalMode(sqlite3 *a1)
     os_unfair_lock_lock(v3);
     v4 = sqliteDBTrackingTable[TableIndex];
     v15 = &v14;
-    v5 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v14) + 42);
+    v5 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v14, &std::piecewise_construct, &v15) + 42);
     v6 = sqliteDBTrackingTable[TableIndex];
     v15 = &v14;
-    v7 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v14) + 41);
+    v7 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v14, &std::piecewise_construct, &v15) + 41);
     os_unfair_lock_unlock(v3);
     if ((v5 & 1) == 0)
     {
@@ -1556,10 +1555,10 @@ uint64_t isDBInWalMode(sqlite3 *a1)
         os_unfair_lock_lock(v3);
         v10 = sqliteDBTrackingTable[TableIndex];
         v15 = &v14;
-        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v14) + 42) = 1;
+        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v14, &std::piecewise_construct, &v15) + 42) = 1;
         v11 = sqliteDBTrackingTable[TableIndex];
         v15 = &v14;
-        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v14) + 41) = v7;
+        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v14, &std::piecewise_construct, &v15) + 41) = v7;
         os_unfair_lock_unlock(v3);
       }
     }
@@ -1647,13 +1646,13 @@ uint64_t isDBAssociatedWithStmtInMemory(sqlite3_stmt *a1)
       isDBAssociatedWithStmtInMemory_cold_1();
     }
 
-    v8[0] = v3;
+    v8 = v3;
     TableIndex = getTableIndex(v3);
     v5 = (&database_table_lock + 4 * TableIndex);
     os_unfair_lock_lock(v5);
     v6 = sqliteDBTrackingTable[TableIndex];
-    v8[2] = v8;
-    v1 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, v8) + 40);
+    v9 = &v8;
+    v1 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v8, &std::piecewise_construct, &v9) + 40);
     os_unfair_lock_unlock(v5);
   }
 
@@ -1684,11 +1683,11 @@ uint64_t isExplicitVacuumStatement(sqlite3_stmt *a1)
     {
       v6 = sqliteDBTrackingTable[TableIndex];
       v12 = &v11;
-      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v11)[v5 + 6])
+      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v11, &std::piecewise_construct, &v12)[v5 + 6])
       {
         v7 = sqliteDBTrackingTable[TableIndex];
         v12 = &v11;
-        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11)[v5 + 6] == a1)
+        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11, &std::piecewise_construct, &v12)[v5 + 6] == a1)
         {
           break;
         }
@@ -1703,7 +1702,7 @@ uint64_t isExplicitVacuumStatement(sqlite3_stmt *a1)
 
     v10 = sqliteDBTrackingTable[TableIndex];
     v12 = &v11;
-    v8 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v11) + v5 + 336);
+    v8 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v11, &std::piecewise_construct, &v12) + v5 + 336);
     os_unfair_lock_unlock(v4);
   }
 
@@ -1745,11 +1744,11 @@ uint64_t isWriteStatement(sqlite3_stmt *a1)
     {
       v6 = sqliteDBTrackingTable[TableIndex];
       v12 = &v11;
-      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v11)[v5 + 6])
+      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v11, &std::piecewise_construct, &v12)[v5 + 6])
       {
         v7 = sqliteDBTrackingTable[TableIndex];
         v12 = &v11;
-        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11)[v5 + 6] == a1)
+        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11, &std::piecewise_construct, &v12)[v5 + 6] == a1)
         {
           break;
         }
@@ -1764,7 +1763,7 @@ uint64_t isWriteStatement(sqlite3_stmt *a1)
 
     v9 = sqliteDBTrackingTable[TableIndex];
     v12 = &v11;
-    v8 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v11) + v5 + 304);
+    v8 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v11, &std::piecewise_construct, &v12) + v5 + 304);
 LABEL_12:
     os_unfair_lock_unlock(&database_table_lock + TableIndex);
   }
@@ -1806,11 +1805,11 @@ uint64_t isBulkReadStatement(sqlite3_stmt *a1)
     {
       v6 = sqliteDBTrackingTable[TableIndex];
       v12 = &v11;
-      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v11)[v5 + 6])
+      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v11, &std::piecewise_construct, &v12)[v5 + 6])
       {
         v7 = sqliteDBTrackingTable[TableIndex];
         v12 = &v11;
-        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11)[v5 + 6] == a1)
+        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11, &std::piecewise_construct, &v12)[v5 + 6] == a1)
         {
           break;
         }
@@ -1825,7 +1824,7 @@ uint64_t isBulkReadStatement(sqlite3_stmt *a1)
 
     v9 = sqliteDBTrackingTable[TableIndex];
     v12 = &v11;
-    v8 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v11) + v5 + 368);
+    v8 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v11, &std::piecewise_construct, &v12) + v5 + 368);
 LABEL_12:
     os_unfair_lock_unlock(&database_table_lock + TableIndex);
   }
@@ -1867,11 +1866,11 @@ uint64_t isBulkWriteStatement(sqlite3_stmt *a1)
     {
       v6 = sqliteDBTrackingTable[TableIndex];
       v12 = &v11;
-      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v11)[v5 + 6])
+      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v11, &std::piecewise_construct, &v12)[v5 + 6])
       {
         v7 = sqliteDBTrackingTable[TableIndex];
         v12 = &v11;
-        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11)[v5 + 6] == a1)
+        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11, &std::piecewise_construct, &v12)[v5 + 6] == a1)
         {
           break;
         }
@@ -1886,7 +1885,7 @@ uint64_t isBulkWriteStatement(sqlite3_stmt *a1)
 
     v9 = sqliteDBTrackingTable[TableIndex];
     v12 = &v11;
-    v8 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v11) + v5 + 400);
+    v8 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v11, &std::piecewise_construct, &v12) + v5 + 400);
 LABEL_12:
     os_unfair_lock_unlock(&database_table_lock + TableIndex);
   }
@@ -1978,21 +1977,21 @@ LABEL_10:
     {
       v13 = sqliteDBTrackingTable[TableIndex];
       v30 = &v28;
-      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v28)[v11 + 6] == a2)
+      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v28, &std::piecewise_construct, &v30)[v11 + 6] == a2)
       {
         v22 = sqliteDBTrackingTable[TableIndex];
         v30 = &v28;
-        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v22, &v28) + v11 + 304) = v7;
+        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v22, &v28, &std::piecewise_construct, &v30) + v11 + 304) = v7;
         v23 = v29;
         v24 = sqliteDBTrackingTable[TableIndex];
         v30 = &v28;
-        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v24, &v28) + v11 + 336) = v23;
+        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v24, &v28, &std::piecewise_construct, &v30) + v11 + 336) = v23;
         v25 = sqliteDBTrackingTable[TableIndex];
         v30 = &v28;
-        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v25, &v28) + v11 + 368) = Query;
+        *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v25, &v28, &std::piecewise_construct, &v30) + v11 + 368) = Query;
         v26 = sqliteDBTrackingTable[TableIndex];
         v30 = &v28;
-        v21 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v26, &v28) + v11 + 400;
+        v21 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v26, &v28, &std::piecewise_construct, &v30) + v11 + 400;
         goto LABEL_20;
       }
 
@@ -2000,7 +1999,7 @@ LABEL_10:
       {
         v14 = sqliteDBTrackingTable[TableIndex];
         v30 = &v28;
-        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v28)[v11 + 6])
+        if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v28, &std::piecewise_construct, &v30)[v11 + 6])
         {
           v12 = -1;
         }
@@ -2022,20 +2021,20 @@ LABEL_10:
 
     v15 = sqliteDBTrackingTable[TableIndex];
     v30 = &v28;
-    std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v15, &v28)[v12 + 6] = a2;
+    std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v15, &v28, &std::piecewise_construct, &v30)[v12 + 6] = a2;
     v16 = sqliteDBTrackingTable[TableIndex];
     v30 = &v28;
-    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v16, &v28) + v12 + 304) = v7;
+    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v16, &v28, &std::piecewise_construct, &v30) + v12 + 304) = v7;
     v17 = v29;
     v18 = sqliteDBTrackingTable[TableIndex];
     v30 = &v28;
-    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v18, &v28) + v12 + 336) = v17;
+    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v18, &v28, &std::piecewise_construct, &v30) + v12 + 336) = v17;
     v19 = sqliteDBTrackingTable[TableIndex];
     v30 = &v28;
-    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v19, &v28) + 400) = Query;
+    *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v19, &v28, &std::piecewise_construct, &v30) + 400) = Query;
     v20 = sqliteDBTrackingTable[TableIndex];
     v30 = &v28;
-    v21 = (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v20, &v28) + 54);
+    v21 = (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v20, &v28, &std::piecewise_construct, &v30) + 54);
 LABEL_20:
     *v21 = v27;
 LABEL_21:
@@ -2063,10 +2062,10 @@ uint64_t updateWALModeTracker(uint64_t a1, char a2)
   v5 = sqliteDBTrackingTable[TableIndex];
   v10 = &v9;
   v6 = 1;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, &v9) + 42) = 1;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, &v9, &std::piecewise_construct, &v10) + 42) = 1;
   v7 = sqliteDBTrackingTable[TableIndex];
   v10 = &v9;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v9) + 41) = a2;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v9, &std::piecewise_construct, &v10) + 41) = a2;
   os_unfair_lock_unlock(&database_table_lock + TableIndex);
   return v6;
 }
@@ -2096,11 +2095,11 @@ uint64_t checkWalModeFromQuery(uint64_t a1, const char *a2)
     os_unfair_lock_lock(v6);
     v7 = sqliteDBTrackingTable[TableIndex];
     v11 = &v10;
-    if (*(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v10) + 42) == 1)
+    if (*(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v10, &std::piecewise_construct, &v11) + 42) == 1)
     {
       v8 = sqliteDBTrackingTable[TableIndex];
       v11 = &v10;
-      v4 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v10) + 41);
+      v4 = *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v10, &std::piecewise_construct, &v11) + 41);
     }
 
     else
@@ -2121,8 +2120,8 @@ uint64_t deleteTrackingStmt(sqlite3_stmt *a1)
     return 1;
   }
 
-  v17 = v1;
-  v18 = v2;
+  v16[9] = v1;
+  v16[10] = v2;
   if (!a1)
   {
     return 4294967294;
@@ -2141,12 +2140,12 @@ uint64_t deleteTrackingStmt(sqlite3_stmt *a1)
   while (1)
   {
     v7 = sqliteDBTrackingTable[TableIndex];
-    v16 = &v15;
-    if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v15)[v6 + 6])
+    v16[0] = &v15;
+    if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v15, &std::piecewise_construct, v16)[v6 + 6])
     {
       v8 = sqliteDBTrackingTable[TableIndex];
-      v16 = &v15;
-      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v15)[v6 + 6] == a1)
+      v16[0] = &v15;
+      if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v15, &std::piecewise_construct, v16)[v6 + 6] == a1)
       {
         break;
       }
@@ -2159,20 +2158,20 @@ uint64_t deleteTrackingStmt(sqlite3_stmt *a1)
   }
 
   v10 = sqliteDBTrackingTable[TableIndex];
-  v16 = &v15;
-  std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v15)[v6 + 6] = 0;
+  v16[0] = &v15;
+  std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v15, &std::piecewise_construct, v16)[v6 + 6] = 0;
   v11 = sqliteDBTrackingTable[TableIndex];
-  v16 = &v15;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v15) + v6 + 304) = 0;
+  v16[0] = &v15;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v15, &std::piecewise_construct, v16) + v6 + 304) = 0;
   v12 = sqliteDBTrackingTable[TableIndex];
-  v16 = &v15;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v15) + v6 + 336) = 0;
+  v16[0] = &v15;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v15, &std::piecewise_construct, v16) + v6 + 336) = 0;
   v13 = sqliteDBTrackingTable[TableIndex];
-  v16 = &v15;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v15) + v6 + 368) = 0;
+  v16[0] = &v15;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v15, &std::piecewise_construct, v16) + v6 + 368) = 0;
   v14 = sqliteDBTrackingTable[TableIndex];
-  v16 = &v15;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v15) + v6 + 400) = 0;
+  v16[0] = &v15;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v15, &std::piecewise_construct, v16) + v6 + 400) = 0;
 LABEL_13:
   os_unfair_lock_unlock(&database_table_lock + TableIndex);
   return 1;
@@ -2190,41 +2189,41 @@ uint64_t deleteDatabaseTracker(uint64_t a1)
   os_unfair_lock_lock(&database_table_lock + TableIndex);
   v2 = sqliteDBTrackingTable[TableIndex];
   v19 = &v18;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v2, &v18) + 41) = 0;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v2, &v18, &std::piecewise_construct, &v19) + 41) = 0;
   v3 = sqliteDBTrackingTable[TableIndex];
   v19 = &v18;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v3, &v18) + 108) = 0;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v3, &v18, &std::piecewise_construct, &v19) + 108) = 0;
   v4 = sqliteDBTrackingTable[TableIndex];
   v19 = &v18;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v18) + 40) = 0;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v18, &std::piecewise_construct, &v19) + 40) = 0;
   v5 = sqliteDBTrackingTable[TableIndex];
   v19 = &v18;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, &v18) + 42) = 0;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, &v18, &std::piecewise_construct, &v19) + 42) = 0;
   v6 = sqliteDBTrackingTable[TableIndex];
   v19 = &v18;
   v7 = 0;
-  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v18) + 43) = 0;
+  *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v6, &v18, &std::piecewise_construct, &v19) + 43) = 0;
   do
   {
     v8 = sqliteDBTrackingTable[TableIndex];
     v19 = &v18;
-    if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v18)[v7 + 6])
+    if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v18, &std::piecewise_construct, &v19)[v7 + 6])
     {
       v9 = sqliteDBTrackingTable[TableIndex];
       v19 = &v18;
-      std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v18)[v7 + 6] = 0;
+      std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v18, &std::piecewise_construct, &v19)[v7 + 6] = 0;
       v10 = sqliteDBTrackingTable[TableIndex];
       v19 = &v18;
-      *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v18) + v7 + 304) = 0;
+      *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v18, &std::piecewise_construct, &v19) + v7 + 304) = 0;
       v11 = sqliteDBTrackingTable[TableIndex];
       v19 = &v18;
-      *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v18) + v7 + 336) = 0;
+      *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v18, &std::piecewise_construct, &v19) + v7 + 336) = 0;
       v12 = sqliteDBTrackingTable[TableIndex];
       v19 = &v18;
-      *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v18) + v7 + 368) = 0;
+      *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v18, &std::piecewise_construct, &v19) + v7 + 368) = 0;
       v13 = sqliteDBTrackingTable[TableIndex];
       v19 = &v18;
-      *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v18) + v7 + 400) = 0;
+      *(std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v18, &std::piecewise_construct, &v19) + v7 + 400) = 0;
     }
 
     ++v7;
@@ -2233,11 +2232,11 @@ uint64_t deleteDatabaseTracker(uint64_t a1)
   while (v7 != 32);
   v14 = sqliteDBTrackingTable[TableIndex];
   v19 = &v18;
-  if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v18)[4])
+  if (std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v18, &std::piecewise_construct, &v19)[4])
   {
     v15 = sqliteDBTrackingTable[TableIndex];
     v19 = &v18;
-    v16 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v15, &v18);
+    v16 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v15, &v18, &std::piecewise_construct, &v19);
     free(v16[4]);
   }
 
@@ -2277,77 +2276,69 @@ void *std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unor
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2355,44 +2346,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__throw_bad_array_new_length[abi:ne200100]()
@@ -2401,7 +2392,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2417,7 +2408,7 @@ void std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unord
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2425,7 +2416,7 @@ void std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unord
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2449,7 +2440,7 @@ void std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unord
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -3076,21 +3067,21 @@ const char *logSubTypeString(int a1)
 
 CGImageRef interposed_CGImageSourceCreateThumbnailAtIndex(CGImageSource *a1, size_t a2, const __CFDictionary *a3)
 {
-  checkAndGenerateBT("CGImageSourceCreateThumbnailAtIndex", &_CGImageSourceCreateThumbnailAtIndex, 1, 17, 3, -1, 3, 1);
+  checkAndGenerateBT("CGImageSourceCreateThumbnailAtIndex", &_CGImageSourceCreateThumbnailAtIndex, 1, 17, 3, 0xFFFFFFFFLL, 3, 1);
 
   return CGImageSourceCreateThumbnailAtIndex(a1, a2, a3);
 }
 
 CGImageRef interposed_CGImageSourceCreateImageAtIndex(CGImageSource *a1, size_t a2, const __CFDictionary *a3)
 {
-  checkAndGenerateBT("CGImageSourceCreateImageAtIndex", &_CGImageSourceCreateImageAtIndex, 1, 17, 3, -1, 3, 1);
+  checkAndGenerateBT("CGImageSourceCreateImageAtIndex", &_CGImageSourceCreateImageAtIndex, 1, 17, 3, 0xFFFFFFFFLL, 3, 1);
 
   return CGImageSourceCreateImageAtIndex(a1, a2, a3);
 }
 
 BOOL interposed_CGImageDestinationFinalize(CGImageDestination *a1)
 {
-  checkAndGenerateBT("CGImageDestinationFinzalize", &_CGImageDestinationFinalize, 1, 17, 3, -1, 3, 1);
+  checkAndGenerateBT("CGImageDestinationFinzalize", &_CGImageDestinationFinalize, 1, 17, 3, 0xFFFFFFFFLL, 3, 1);
 
   return CGImageDestinationFinalize(a1);
 }
@@ -3505,99 +3496,99 @@ char *resetDyldInsertLibraries()
   if (result)
   {
     v1 = result;
-    strlen(result);
-    v2 = __chkstk_darwin();
-    v3 = &v14 - ((v2 + 16) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v3, v2 + 1);
-    v4 = *v1;
+    v2 = strlen(result);
+    v10 = __chkstk_darwin(v2, v3, v4, v5, v6, v7, v8, v9);
+    v11 = &v22 - ((v10 + 16) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v11, v10 + 1);
+    v12 = *v1;
     if (!*v1)
     {
       return unsetenv("DYLD_INSERT_LIBRARIES");
     }
 
-    v5 = v3;
-    v6 = *v1;
+    v13 = v11;
+    v14 = *v1;
     do
     {
-      for (i = 0; v6; v6 = v1[++i])
+      for (i = 0; v14; v14 = v1[++i])
       {
-        if (v6 == 58)
+        if (v14 == 58)
         {
           break;
         }
       }
 
-      v8 = v1;
+      v16 = v1;
       if (i)
       {
-        v9 = i;
-        while (v1[v9] != 47)
+        v17 = i;
+        while (v1[v17] != 47)
         {
-          if (!--v9)
+          if (!--v17)
           {
-            v4 = *v1;
-            v8 = v1;
+            v12 = *v1;
+            v16 = v1;
             goto LABEL_13;
           }
         }
 
-        v8 = &v1[v9];
-        v4 = 47;
+        v16 = &v1[v17];
+        v12 = 47;
       }
 
 LABEL_13:
-      v10 = v4 == 47;
-      v11 = v4 == 47;
-      if (v10)
+      v18 = v12 == 47;
+      v19 = v12 == 47;
+      if (v18)
       {
-        v12 = v8 + 1;
+        v20 = v16 + 1;
       }
 
       else
       {
-        v12 = v8;
+        v20 = v16;
       }
 
-      if (&v1[i] == v12)
+      if (&v1[i] == v20)
       {
         v1 += i;
       }
 
       else
       {
-        if (strncmp(v12, "libRPAC.dylib", v1 - v8 - v11 + i))
+        if (strncmp(v20, "libRPAC.dylib", v1 - v16 - v19 + i))
         {
-          if (v5 != v3)
+          if (v13 != v11)
           {
-            *v5++ = 58;
+            *v13++ = 58;
           }
 
-          v5 = stpncpy(v5, v1, i);
-          v6 = v1[i];
+          v13 = stpncpy(v13, v1, i);
+          v14 = v1[i];
         }
 
-        if (v6 == 58)
+        if (v14 == 58)
         {
-          v13 = v1 + 1;
+          v21 = v1 + 1;
         }
 
         else
         {
-          v13 = v1;
+          v21 = v1;
         }
 
-        v1 = &v13[i];
-        v6 = v13[i];
+        v1 = &v21[i];
+        v14 = v21[i];
       }
 
-      v4 = v6;
+      v12 = v14;
     }
 
-    while (v6);
-    if (v5 > v3)
+    while (v14);
+    if (v13 > v11)
     {
-      *v5 = 0;
-      return setenv("DYLD_INSERT_LIBRARIES", v3, 1);
+      *v13 = 0;
+      return setenv("DYLD_INSERT_LIBRARIES", v11, 1);
     }
 
     else
@@ -3625,7 +3616,7 @@ void ____library_initializer_block_invoke(id a1)
   }
 }
 
-uint64_t provideAGPCIssueDescription(uint64_t __str, char *__s1, int a3, char *a4, char *a5, char *a6, char *a7, int a8, int a9, int a10)
+uint64_t provideAGPCIssueDescription(uint64_t __str, char *__s1, uint64_t a3, char *a4, char *a5, char *a6, char *a7, int a8, int a9, int a10)
 {
   if (a8 != 17)
   {
@@ -4330,7 +4321,7 @@ uint64_t sqlite3_open_track_state(uint64_t result, uint64_t *a2, const char *a3,
       if (*a2)
       {
         v5 = result;
-        checkAndGenerateBT(a3, a4, 1, 17, 3, -1, 3, 1);
+        checkAndGenerateBT(a3, a4, 1, 17, 3, 0xFFFFFFFFLL, 3, 1);
         result = isDatabaseTracked(*a2);
         if ((result & 1) == 0)
         {
@@ -4372,7 +4363,7 @@ uint64_t sqlite3_close_track_state(uint64_t result, const char *a2, uint64_t a3)
   if (envEnableAGPCDiskwritesChecks == 1)
   {
     v3 = result;
-    checkAndGenerateBT(a2, a3, 1, 17, 3, -1, 3, 1);
+    checkAndGenerateBT(a2, a3, 1, 17, 3, 0xFFFFFFFFLL, 3, 1);
     result = isDatabaseTracked(v3);
     if (result)
     {
@@ -4462,7 +4453,7 @@ LABEL_40:
       {
 LABEL_38:
         v15 = 1;
-        v14 = -1;
+        v14 = 0xFFFFFFFFLL;
         goto LABEL_39;
       }
 
@@ -4510,7 +4501,7 @@ LABEL_39:
   return sqlite3_exec(a1, sql, callback, a4, errmsg);
 }
 
-uint64_t interposed_sqlite3_exec_b(sqlite3 *a1, char *a2)
+uint64_t interposed_sqlite3_exec_b(sqlite3 *a1, char *a2, uint64_t a3)
 {
   if (a1 && (envEnableAGPCDiskwritesChecks & 1) != 0 && (*(GetThreadLocalData() + 49) & 1) == 0)
   {
@@ -4520,10 +4511,10 @@ uint64_t interposed_sqlite3_exec_b(sqlite3 *a1, char *a2)
       *(GetThreadLocalData() + 48) = 1;
     }
 
-    v5 = sqlite3_exec_b();
+    v6 = sqlite3_exec_b();
     if (isTransactionBeginEndRollback(a2))
     {
-      return v5;
+      return v6;
     }
 
     if (checkWalModeFromQuery(a1, a2))
@@ -4541,19 +4532,19 @@ uint64_t interposed_sqlite3_exec_b(sqlite3 *a1, char *a2)
         {
           if (autoVacuumModeStatus(a1) >= 1)
           {
-            v6 = &_sqlite3_exec_b;
-            v7 = 3;
-            v8 = 8198;
+            v7 = &_sqlite3_exec_b;
+            v8 = 3;
+            v9 = 8198;
 LABEL_41:
-            checkAndGenerateBT("sqlite3_exec_b", v6, v7, 17, 3, v8, 3, 1);
+            checkAndGenerateBT("sqlite3_exec_b", v7, v8, 17, 3, v9, 3, 1);
             goto LABEL_42;
           }
 
-          v11 = &_sqlite3_exec;
+          v12 = &_sqlite3_exec;
 LABEL_40:
-          v6 = v11;
-          v7 = 3;
-          v8 = 8200;
+          v7 = v12;
+          v8 = 3;
+          v9 = 8200;
           goto LABEL_41;
         }
 
@@ -4564,7 +4555,7 @@ LABEL_42:
         *(GetThreadLocalData() + 9) = 0;
         *(GetThreadLocalData() + 10) = 0;
         *(GetThreadLocalData() + 11) = 0;
-        return v5;
+        return v6;
       }
 
       if (*(GetThreadLocalData() + 11) < 1 || *(GetThreadLocalData() + 48) != 1)
@@ -4574,14 +4565,14 @@ LABEL_42:
 
       if (autoVacuumModeStatus(a1) >= 1)
       {
-        v6 = &_sqlite3_exec_b;
-        v7 = 3;
-        v8 = 8196;
+        v7 = &_sqlite3_exec_b;
+        v8 = 3;
+        v9 = 8196;
         goto LABEL_41;
       }
 
 LABEL_36:
-      v11 = &_sqlite3_exec_b;
+      v12 = &_sqlite3_exec_b;
       goto LABEL_40;
     }
 
@@ -4600,24 +4591,24 @@ LABEL_36:
       {
         if (*(GetThreadLocalData() + 48) != 1 || autoVacuumModeStatus(a1) >= 1)
         {
-          v6 = &_sqlite3_exec_b;
-          v7 = 3;
-          v8 = 8197;
+          v7 = &_sqlite3_exec_b;
+          v8 = 3;
+          v9 = 8197;
           goto LABEL_41;
         }
 
         goto LABEL_36;
       }
 
-      v9 = *(GetThreadLocalData() + 11);
+      v10 = *(GetThreadLocalData() + 11);
       ThreadLocalData = GetThreadLocalData();
-      if (v9 >= 1)
+      if (v10 >= 1)
       {
         if (*(ThreadLocalData + 48) != 1 || autoVacuumModeStatus(a1) >= 1)
         {
-          v6 = &_sqlite3_exec_b;
-          v7 = 3;
-          v8 = 8194;
+          v7 = &_sqlite3_exec_b;
+          v8 = 3;
+          v9 = 8194;
           goto LABEL_41;
         }
 
@@ -4630,9 +4621,9 @@ LABEL_36:
       }
     }
 
-    v6 = &_sqlite3_exec_b;
-    v7 = 1;
-    v8 = -1;
+    v7 = &_sqlite3_exec_b;
+    v8 = 1;
+    v9 = 0xFFFFFFFFLL;
     goto LABEL_41;
   }
 
@@ -4651,7 +4642,7 @@ uint64_t interposed_sqlite3_finalize(sqlite3_stmt *pStmt)
       }
 
       v2 = 1;
-      v3 = -1;
+      v3 = 0xFFFFFFFFLL;
     }
 
     else
@@ -4675,7 +4666,7 @@ uint64_t interposed_sqlite3_prepare(sqlite3 *a1, char *a2, int a3, sqlite3_stmt 
   return v8;
 }
 
-const char *sqlite3_prepare_track_state(const char *result, char *a2, uint64_t *a3, const char *a4, uint64_t a5)
+sqlite3 *sqlite3_prepare_track_state(sqlite3 *result, char *a2, uint64_t *a3, const char *a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -4694,7 +4685,7 @@ const char *sqlite3_prepare_track_state(const char *result, char *a2, uint64_t *
   }
 
   result = GetThreadLocalData();
-  if (result[49])
+  if (*(result + 49))
   {
     return result;
   }
@@ -4898,7 +4889,7 @@ LABEL_37:
         }
 
         v10 = 1;
-        v11 = -1;
+        v11 = 0xFFFFFFFFLL;
         goto LABEL_35;
       }
     }
@@ -5050,14 +5041,14 @@ uint64_t interposed_dispatch_semaphore_create(intptr_t a1)
   {
     v4 = (&unfair_lock + 4 * getMapId(v2));
     os_unfair_lock_lock(v4);
-    if (findPrimitiveInfoNoAssert(v3))
+    if (findPrimitiveInfoNoAssert(v3, v5))
     {
-      v5 = *GetThreadLocalData();
-      v6 = GetThreadLocalData()[1];
-      v7 = *(GetThreadLocalData() + 4);
+      v6 = *GetThreadLocalData();
+      v7 = GetThreadLocalData()[1];
+      v8 = *(GetThreadLocalData() + 4);
       updateWaiterCountValueUnconditionally(v3, a1);
       updatePrimitiveWaiterQoSInfoUnconditionally(v3, 0, 0, 0);
-      updatePrimitiveSignallerQoSInfoUnconditionally(v3, 33, v5, v6, v7);
+      updatePrimitiveSignallerQoSInfoUnconditionally(v3, 33, v6, v7, v8);
     }
 
     else
@@ -5073,7 +5064,7 @@ uint64_t interposed_dispatch_semaphore_create(intptr_t a1)
 
 intptr_t interposed_dispatch_semaphore_wait(dispatch_semaphore_t dsema, dispatch_time_t timeout)
 {
-  if (envDisablePriorityInversions == 1 || (MapId = getMapId(dsema), v5 = (&unfair_lock + 4 * MapId), os_unfair_lock_lock(v5), PrimitiveInfoNoAssert = findPrimitiveInfoNoAssert(dsema), os_unfair_lock_unlock(v5), !PrimitiveInfoNoAssert))
+  if (envDisablePriorityInversions == 1 || (MapId = getMapId(dsema), v5 = (&unfair_lock + 4 * MapId), os_unfair_lock_lock(v5), PrimitiveInfoNoAssert = findPrimitiveInfoNoAssert(dsema, v6), os_unfair_lock_unlock(v5), !PrimitiveInfoNoAssert))
   {
 
     return dispatch_semaphore_wait(dsema, timeout);
@@ -5081,12 +5072,12 @@ intptr_t interposed_dispatch_semaphore_wait(dispatch_semaphore_t dsema, dispatch
 
   else
   {
-    v7 = mach_absolute_time();
-    v8 = dispatch_semaphore_wait(dsema, timeout);
-    v9 = mach_absolute_time();
+    v8 = mach_absolute_time();
+    v9 = dispatch_semaphore_wait(dsema, timeout);
+    v10 = mach_absolute_time();
     os_unfair_lock_lock(v5);
-    v10 = qos_class_self();
-    updatePrimitiveWaiterQoSInfo(dsema, v10, v7, v9);
+    v11 = qos_class_self();
+    updatePrimitiveWaiterQoSInfo(dsema, v11, v8, v10);
     if (updateAndGetWaiterCountValue(dsema, 0) == -1)
     {
       qosWaiterSignallerInvariantCheck(unlockLockInDispatchLockMap, MapId, dsema, 1, "dispatch_semaphore_wait");
@@ -5095,7 +5086,7 @@ intptr_t interposed_dispatch_semaphore_wait(dispatch_semaphore_t dsema, dispatch
     }
 
     os_unfair_lock_unlock(v5);
-    return v8;
+    return v9;
   }
 }
 
@@ -5105,13 +5096,13 @@ intptr_t interposed_dispatch_semaphore_signal(dispatch_semaphore_t dsema)
   {
     v2 = (&unfair_lock + 4 * getMapId(dsema));
     os_unfair_lock_lock(v2);
-    if (findPrimitiveInfoNoAssert(dsema))
+    if (findPrimitiveInfoNoAssert(dsema, v3))
     {
-      v3 = *GetThreadLocalData();
-      v4 = GetThreadLocalData()[1];
-      v5 = *(GetThreadLocalData() + 4);
-      v6 = qos_class_self();
-      updatePrimitiveSignallerQoSInfo(dsema, v6, v3, v4, v5);
+      v4 = *GetThreadLocalData();
+      v5 = GetThreadLocalData()[1];
+      v6 = *(GetThreadLocalData() + 4);
+      v7 = qos_class_self();
+      updatePrimitiveSignallerQoSInfo(dsema, v7, v4, v5, v6);
     }
 
     os_unfair_lock_unlock(v2);
@@ -5126,13 +5117,13 @@ void interposed_dispatch_group_leave(dispatch_group_t group)
   {
     v2 = (&unfair_lock + 4 * getMapId(group));
     os_unfair_lock_lock(v2);
-    if (findPrimitiveInfoNoAssert(group))
+    if (findPrimitiveInfoNoAssert(group, v3))
     {
-      v3 = *GetThreadLocalData();
-      v4 = GetThreadLocalData()[1];
-      v5 = *(GetThreadLocalData() + 4);
-      v6 = qos_class_self();
-      updatePrimitiveSignallerQoSInfo(group, v6, v3, v4, v5);
+      v4 = *GetThreadLocalData();
+      v5 = GetThreadLocalData()[1];
+      v6 = *(GetThreadLocalData() + 4);
+      v7 = qos_class_self();
+      updatePrimitiveSignallerQoSInfo(group, v7, v4, v5, v6);
     }
 
     else if (envRPACDebug == 1)
@@ -5159,7 +5150,7 @@ intptr_t interposed_dispatch_group_wait(dispatch_group_t group, dispatch_time_t 
     MapId = getMapId(group);
     v6 = (&unfair_lock + 4 * MapId);
     os_unfair_lock_lock(v6);
-    if (findPrimitiveInfoNoAssert(group))
+    if (findPrimitiveInfoNoAssert(group, v7))
     {
       PrimitiveEntry = 0;
     }
@@ -5170,17 +5161,17 @@ intptr_t interposed_dispatch_group_wait(dispatch_group_t group, dispatch_time_t 
     }
 
     os_unfair_lock_unlock(v6);
-    v8 = mach_absolute_time();
-    v9 = dispatch_group_wait(group, timeout);
-    v10 = mach_absolute_time();
+    v9 = mach_absolute_time();
+    v10 = dispatch_group_wait(group, timeout);
+    v11 = mach_absolute_time();
     if (PrimitiveEntry)
     {
-      v11 = v10;
+      v12 = v11;
       os_unfair_lock_lock(v6);
-      if (findPrimitiveInfoNoAssert(group))
+      if (findPrimitiveInfoNoAssert(group, v13))
       {
-        v12 = qos_class_self();
-        updatePrimitiveWaiterQoSInfo(group, v12, v8, v11);
+        v14 = qos_class_self();
+        updatePrimitiveWaiterQoSInfo(group, v14, v9, v12);
         qosWaiterSignallerInvariantCheck(unlockLockInDispatchLockMap, MapId, group, 1, "dispatch_group_wait");
         os_unfair_lock_lock(v6);
         deletePrimitiveEntry(group);
@@ -5189,7 +5180,7 @@ intptr_t interposed_dispatch_group_wait(dispatch_group_t group, dispatch_time_t 
       os_unfair_lock_unlock(v6);
     }
 
-    return v9;
+    return v10;
   }
 }
 
@@ -5281,7 +5272,7 @@ uint64_t subCategoryType(char *__s1)
   return result;
 }
 
-uint64_t issueType(const char **a1, int a2)
+uint64_t issueType(const char **a1, unsigned int a2)
 {
   v2 = 0;
   if (a1 && a2 >= 1)
@@ -5325,7 +5316,7 @@ uint64_t issueType(const char **a1, int a2)
   return v2;
 }
 
-uint64_t issueTypeStringList(int a1, char **a2, int a3)
+uint64_t issueTypeStringList(int a1, char **a2, unsigned int a3)
 {
   v3 = 0;
   if (a1 && a2 && a3 >= 1)
@@ -5363,7 +5354,7 @@ uint64_t issueTypeStringList(int a1, char **a2, int a3)
   return v3;
 }
 
-uint64_t shouldFlag(unint64_t a1, int a2)
+uint64_t shouldFlag(unint64_t a1, unsigned int a2)
 {
   if (simpleFlaggingPolicy_onceToken != -1)
   {
@@ -5434,14 +5425,13 @@ size_t printStatistics()
     {
       v1 = __stderrp;
       v2 = logTypeString(i);
-      v3 = threshold[i];
-      fprintf(v1, "%-35s %-25llu %-25llu %-25llu %-25llu %-25llu %-25llu\n", v2, v3, flagged[i], totalInstances[i], (100 * flagged[i]) / totalInstances[i], totalDuration[i] / totalInstances[i], maxDuration[i]);
+      fprintf(v1, "%-35s %-25llu %-25llu %-25llu %-25llu %-25llu %-25llu\n", v2, threshold[i], flagged[i], totalInstances[i], (100 * flagged[i]) / totalInstances[i], totalDuration[i] / totalInstances[i], maxDuration[i]);
     }
   }
 
-  v4 = __stderrp;
+  v3 = __stderrp;
 
-  return fwrite("=================================================================\n", 0x42uLL, 1uLL, v4);
+  return fwrite("=================================================================\n", 0x42uLL, 1uLL, v3);
 }
 
 void prepareInstanceMethodSwizzler(objc_class *a1, const char *a2, const char *a3)
@@ -5486,7 +5476,7 @@ void prepareClassMethodSwizzler(objc_class *a1, const char *a2, const char *a3)
   }
 }
 
-uint64_t getNumCPU()
+uint64_t getNumCPU(uint64_t a1, uint64_t a2)
 {
   if (getNumCPU_onceToken != -1)
   {
@@ -5577,7 +5567,7 @@ void __isAppleInternal_block_invoke(id a1)
 
 void __simpleFlaggingPolicy_block_invoke(id a1)
 {
-  threshold = envXPCWaitThreshold;
+  threshold[0] = envXPCWaitThreshold;
   *algn_2E4DD8 = envTimeoutThreshold;
   qword_2E4DE0 = envGlobalWaitThreshold;
   qword_2E4DF8 = envGlobalWaitThreshold;
@@ -5618,9 +5608,9 @@ void updateEntry(unint64_t a1, int a2)
     v4 = mach_absolute_time();
     v5 = ticks_to_ns(v4);
     v8 = &v7;
-    std::__hash_table<std::__hash_value_type<long,hashed_addr_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,hashed_addr_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,hashed_addr_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,hashed_addr_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v3, &v7)[7] = v5;
+    std::__hash_table<std::__hash_value_type<long,hashed_addr_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,hashed_addr_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,hashed_addr_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,hashed_addr_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v3, &v7, &std::piecewise_construct, &v8)[7] = v5;
     v8 = &v7;
-    v6 = std::__hash_table<std::__hash_value_type<long,hashed_addr_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,hashed_addr_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,hashed_addr_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,hashed_addr_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v3, &v7);
+    v6 = std::__hash_table<std::__hash_value_type<long,hashed_addr_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,hashed_addr_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,hashed_addr_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,hashed_addr_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v3, &v7, &std::piecewise_construct, &v8);
     ++*(v6 + 12);
     os_unfair_lock_unlock(&unfair_lock);
   }
@@ -5687,9 +5677,9 @@ void *addStringToSum(void *result, char *__s, unsigned int a3)
   return result;
 }
 
-void storeAddressHash(unint64_t a1, uint64_t a2, int a3, int a4, int a5)
+void storeAddressHash(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5)
 {
-  v29[0] = a1;
+  v29 = a1;
   switch(a5)
   {
     case 1:
@@ -5715,19 +5705,19 @@ void storeAddressHash(unint64_t a1, uint64_t a2, int a3, int a4, int a5)
     }
 
     initializeDuplicateBTMap();
-    if (a5 == 4)
+    switch(a5)
     {
-      v11 = duplicate_launches_bt_map_ptr;
-    }
-
-    else if (a5 == 2)
-    {
-      v11 = duplicate_diskwrites_bt_map_ptr;
-    }
-
-    else
-    {
-      v11 = duplicate_hangs_bt_map_ptr;
+      case 4:
+        v11 = duplicate_launches_bt_map_ptr;
+        break;
+      case 2:
+        v11 = duplicate_diskwrites_bt_map_ptr;
+        break;
+      case 1:
+        v11 = duplicate_hangs_bt_map_ptr;
+        break;
+      default:
+        updateEntry_cold_2();
     }
   }
 
@@ -5737,122 +5727,123 @@ void storeAddressHash(unint64_t a1, uint64_t a2, int a3, int a4, int a5)
   if (v13 - last_cleanup_event_timestamp > envOverrideCleanupThresholdValue)
   {
     v15 = v13;
-    if (a5 == 1)
+    switch(a5)
     {
-      v16 = &duplicate_hangs_bt_map_ptr;
-    }
-
-    else if (a5 == 4)
-    {
-      v16 = &duplicate_launches_bt_map_ptr;
-    }
-
-    else
-    {
-      v16 = &duplicate_diskwrites_bt_map_ptr;
+      case 1:
+        v16 = &duplicate_hangs_bt_map_ptr;
+        break;
+      case 4:
+        v16 = &duplicate_launches_bt_map_ptr;
+        break;
+      case 2:
+        v16 = &duplicate_diskwrites_bt_map_ptr;
+        break;
+      default:
+        updateEntry_cold_2();
     }
 
     v18 = *v16;
-    if (*v16)
+    if (!*v16)
     {
-      os_unfair_lock_lock(&unfair_lock);
-      v19 = v18[2];
-      if (!v19)
-      {
-        goto LABEL_27;
-      }
-
-      v20 = 0;
-      do
-      {
-        while (!*(v19 + 48) && v15 - *(v19 + 56) > 0x1C9C380)
-        {
-          v19 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::erase(v18, v19);
-          ++v20;
-          if (!v19)
-          {
-            goto LABEL_26;
-          }
-        }
-
-        v19 = *v19;
-      }
-
-      while (v19);
-LABEL_26:
-      v14 = &maxDuration[65094];
-      if (!v20)
-      {
-LABEL_27:
-        if (v18[3] >= 0xC8uLL)
-        {
-          if (envRPACDebug == 1)
-          {
-            fprintf(__stderrp, "%s: Aggressive cleanup triggered\n", "cleanupEntriesInDuplicateTable");
-          }
-
-          os_unfair_lock_unlock(&unfair_lock);
-          if (a5 == 1)
-          {
-            v21 = &duplicate_hangs_bt_map_ptr;
-          }
-
-          else if (a5 == 4)
-          {
-            v21 = &duplicate_launches_bt_map_ptr;
-          }
-
-          else
-          {
-            v21 = &duplicate_diskwrites_bt_map_ptr;
-          }
-
-          v22 = *v21;
-          if (!*v21)
-          {
-            goto LABEL_50;
-          }
-
-          os_unfair_lock_lock(&unfair_lock);
-          v23 = v22[2];
-          if (v23)
-          {
-            v24 = 0;
-            do
-            {
-              if (v15 - v23[7] <= 0x1C9C380)
-              {
-                v23 = *v23;
-              }
-
-              else
-              {
-                v23 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::erase(v22, v23);
-                ++v24;
-              }
-            }
-
-            while (v23);
-            v25 = v24 == 0;
-            v14 = maxDuration + 520752;
-          }
-
-          else
-          {
-            v25 = 1;
-          }
-
-          if (envRPACDebug == 1 && v25)
-          {
-            fprintf(__stderrp, "%s: No frames removed from duplicate bt map", "aggressiveCleanup");
-          }
-        }
-      }
-
-      os_unfair_lock_unlock(&unfair_lock);
+      goto LABEL_52;
     }
 
-LABEL_50:
+    os_unfair_lock_lock(&unfair_lock);
+    v19 = v18[2];
+    if (!v19)
+    {
+      goto LABEL_29;
+    }
+
+    v20 = 0;
+    do
+    {
+      while (!*(v19 + 48) && v15 - *(v19 + 56) > 0x1C9C380)
+      {
+        v19 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::erase(v18, v19);
+        ++v20;
+        if (!v19)
+        {
+          goto LABEL_28;
+        }
+      }
+
+      v19 = *v19;
+    }
+
+    while (v19);
+LABEL_28:
+    v14 = &maxDuration[65094];
+    if (!v20)
+    {
+LABEL_29:
+      if (v18[3] >= 0xC8uLL)
+      {
+        if (envRPACDebug == 1)
+        {
+          fprintf(__stderrp, "%s: Aggressive cleanup triggered\n", "cleanupEntriesInDuplicateTable");
+        }
+
+        os_unfair_lock_unlock(&unfair_lock);
+        if (a5 == 1)
+        {
+          v21 = &duplicate_hangs_bt_map_ptr;
+        }
+
+        else if (a5 == 4)
+        {
+          v21 = &duplicate_launches_bt_map_ptr;
+        }
+
+        else
+        {
+          v21 = &duplicate_diskwrites_bt_map_ptr;
+        }
+
+        v22 = *v21;
+        if (!*v21)
+        {
+          goto LABEL_52;
+        }
+
+        os_unfair_lock_lock(&unfair_lock);
+        v23 = v22[2];
+        if (v23)
+        {
+          v24 = 0;
+          do
+          {
+            if (v15 - v23[7] <= 0x1C9C380)
+            {
+              v23 = *v23;
+            }
+
+            else
+            {
+              v23 = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::erase(v22, v23);
+              ++v24;
+            }
+          }
+
+          while (v23);
+          v25 = v24 == 0;
+          v14 = maxDuration + 520752;
+        }
+
+        else
+        {
+          v25 = 1;
+        }
+
+        if (envRPACDebug == 1 && v25)
+        {
+          fprintf(__stderrp, "%s: No frames removed from duplicate bt map", "aggressiveCleanup");
+        }
+      }
+    }
+
+    os_unfair_lock_unlock(&unfair_lock);
+LABEL_52:
     v14[450] = v15;
   }
 
@@ -5864,8 +5855,8 @@ LABEL_50:
   v26 = mach_absolute_time();
   v27 = ticks_to_ns(v26);
   os_unfair_lock_lock(&unfair_lock);
-  v29[2] = v29;
-  v28 = std::__hash_table<std::__hash_value_type<long,hashed_addr_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,hashed_addr_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,hashed_addr_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,hashed_addr_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, v29);
+  v30 = &v29;
+  v28 = std::__hash_table<std::__hash_value_type<long,hashed_addr_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,hashed_addr_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,hashed_addr_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,hashed_addr_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v29, &std::piecewise_construct, &v30);
   v28[3] = a1;
   v28[4] = a2;
   *(v28 + 10) = a3;
@@ -5883,7 +5874,7 @@ void initializeDuplicateBTMap(void)
   }
 }
 
-uint64_t getDuplicateMapSize(int a1)
+uint64_t getDuplicateMapSize(uint64_t a1)
 {
   switch(a1)
   {
@@ -5911,8 +5902,9 @@ uint64_t getDuplicateMapSize(int a1)
   return v2;
 }
 
-BOOL preInitializationDuplicationCheck(unint64_t a1, int a2)
+BOOL preInitializationDuplicationCheck(unint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   switch(a2)
   {
     case 1:
@@ -5943,7 +5935,7 @@ BOOL preInitializationDuplicationCheck(unint64_t a1, int a2)
   duplicate_fun_ptr = postInitializationDuplicationCheck;
   os_unfair_lock_unlock(&unfair_lock);
 
-  return postInitializationDuplicationCheck(a1, a2);
+  return postInitializationDuplicationCheck(a1, v2);
 }
 
 BOOL postInitializationDuplicationCheck(unint64_t a1, int a2)
@@ -5970,33 +5962,33 @@ BOOL postInitializationDuplicationCheck(unint64_t a1, int a2)
   return v4;
 }
 
-void *std::__hash_table<std::__hash_value_type<long,hashed_addr_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,hashed_addr_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,hashed_addr_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,hashed_addr_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long,hashed_addr_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,hashed_addr_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,hashed_addr_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,hashed_addr_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6004,44 +5996,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 BOOL jsonVerified()
@@ -7153,7 +7145,7 @@ uint64_t interposed_dlclose(void *__handle)
 
   if (interposed_dlclose_dlclose_count <= 99)
   {
-    checkAndGenerateBT("dlclose", &_dlclose, 4, 17, -1, -1, 3, 1);
+    checkAndGenerateBT("dlclose", &_dlclose, 4, 17, 0xFFFFFFFFLL, 0xFFFFFFFFLL, 3, 1);
     ++interposed_dlclose_dlclose_count;
   }
 
@@ -7169,7 +7161,7 @@ void *interposed_dlopen(char *__path, int __mode)
 
   if (interposed_dlopen_dlopen_count <= 99)
   {
-    checkAndGenerateBT("dlopen", &_dlopen, 4, 17, -1, -1, 3, 1);
+    checkAndGenerateBT("dlopen", &_dlopen, 4, 17, 0xFFFFFFFFLL, 0xFFFFFFFFLL, 3, 1);
     ++interposed_dlopen_dlopen_count;
   }
 
@@ -7185,7 +7177,7 @@ uint64_t _interposed_dyld_register_for_image_loads(uint64_t a1)
 
   if (_interposed_dyld_register_for_image_loads_dyld_register_for_image_loads_count <= 99)
   {
-    checkAndGenerateBT("_dyld_register_for_image_loads", &__dyld_register_for_image_loads, 4, 17, -1, -1, 13, 1);
+    checkAndGenerateBT("_dyld_register_for_image_loads", &__dyld_register_for_image_loads, 4, 17, 0xFFFFFFFFLL, 0xFFFFFFFFLL, 13, 1);
     ++_interposed_dyld_register_for_image_loads_dyld_register_for_image_loads_count;
   }
 
@@ -7201,7 +7193,7 @@ uint64_t _interposed_dyld_register_for_bulk_image_loads(uint64_t a1)
 
   if (_interposed_dyld_register_for_bulk_image_loads_dyld_register_for_bulk_image_loads_count <= 99)
   {
-    checkAndGenerateBT("_dyld_register_for_bulk_image_loads", &__dyld_register_for_bulk_image_loads, 4, 17, -1, -1, 13, 1);
+    checkAndGenerateBT("_dyld_register_for_bulk_image_loads", &__dyld_register_for_bulk_image_loads, 4, 17, 0xFFFFFFFFLL, 0xFFFFFFFFLL, 13, 1);
     ++_interposed_dyld_register_for_bulk_image_loads_dyld_register_for_bulk_image_loads_count;
   }
 
@@ -7217,7 +7209,7 @@ void _interposed_dyld_register_func_for_add_image(void (__cdecl *func)(const mac
 
   if (_interposed_dyld_register_func_for_add_image_dyld_register_func_for_add_image_count <= 99)
   {
-    checkAndGenerateBT("_dyld_register_func_for_add_image", &__dyld_register_func_for_add_image, 4, 17, -1, -1, 13, 1);
+    checkAndGenerateBT("_dyld_register_func_for_add_image", &__dyld_register_func_for_add_image, 4, 17, 0xFFFFFFFFLL, 0xFFFFFFFFLL, 13, 1);
     ++_interposed_dyld_register_func_for_add_image_dyld_register_func_for_add_image_count;
   }
 
@@ -7233,7 +7225,7 @@ void _interposed_dyld_register_func_for_remove_image(void (__cdecl *func)(const 
 
   if (_interposed_dyld_register_func_for_remove_image_dyld_register_func_for_remove_image_count <= 99)
   {
-    checkAndGenerateBT("_dyld_register_func_for_remove_image", &__dyld_register_func_for_remove_image, 4, 17, -1, -1, 13, 1);
+    checkAndGenerateBT("_dyld_register_func_for_remove_image", &__dyld_register_func_for_remove_image, 4, 17, 0xFFFFFFFFLL, 0xFFFFFFFFLL, 13, 1);
     ++_interposed_dyld_register_func_for_remove_image_dyld_register_func_for_remove_image_count;
   }
 
@@ -7268,7 +7260,7 @@ xpc_object_t custom_xpc_connection_send_message_with_reply_sync(xpc_connection_t
   }
 }
 
-uint64_t swizzleMethods(objc_class *a1, const char *a2, const char *a3, const char **a4, unsigned int a5, int a6, int a7, unsigned int a8, int *a9, unsigned int a10, unsigned int a11, int a12)
+uint64_t swizzleMethods(objc_class *a1, const char *a2, const char *a3, const char **a4, unsigned int a5, int a6, int a7, unsigned int a8, int *a9, int a10, int a11, int a12)
 {
   if (!a4)
   {
@@ -7377,7 +7369,7 @@ uint64_t swizzleMethods(objc_class *a1, const char *a2, const char *a3, const ch
   return 1;
 }
 
-uint64_t prepareSwizzler(const char *a1, const char *a2, int a3, objc_method *a4, SEL sel, int a6, int a7, uint64_t a8, int *a9, unsigned int a10, unsigned int a11, int a12)
+uint64_t prepareSwizzler(const char *a1, const char *a2, int a3, objc_method *a4, SEL sel, int a6, int a7, uint64_t a8, int *a9, int a10, int a11, int a12)
 {
   if (!sel_getName(sel))
   {
@@ -7437,7 +7429,7 @@ void *ma_Append(void *result)
   return result;
 }
 
-uint64_t swizzleAllMethods(objc_class *a1, const char *a2, const char *a3, int a4, const char **a5, uint64_t a6, const char **a7, uint64_t a8, unsigned int a9, int *a10, unsigned int a11, unsigned int a12, int a13)
+uint64_t swizzleAllMethods(objc_class *a1, const char *a2, const char *a3, int a4, const char **a5, uint64_t a6, const char **a7, uint64_t a8, unsigned int a9, int *a10, int a11, int a12, int a13)
 {
   if (a1)
   {
@@ -7457,80 +7449,80 @@ uint64_t swizzleAllMethods(objc_class *a1, const char *a2, const char *a3, int a
     Name = class_getName(a1);
     if (Name)
     {
-      v17 = Name;
+      v18 = Name;
       Class = objc_getClass(Name);
       if (Class)
       {
-        v47 = a5;
+        v48 = a5;
         if (v13)
         {
-          v18 = a8 == 0;
+          v20 = a8 == 0;
         }
 
         else
         {
-          v18 = 1;
+          v20 = 1;
         }
 
-        v19 = v18;
-        v39 = v19;
-        v20 = 1;
-        *v44 = v17;
+        v21 = v20;
+        v40 = v21;
+        v22 = 1;
+        *v45 = v18;
         while (1)
         {
-          v21 = v20;
+          v23 = v22;
           outCount[0] = 0;
-          if (v20)
+          if (v22)
           {
-            v22 = Class;
+            v24 = Class;
           }
 
           else
           {
-            v22 = object_getClass(Class);
+            v24 = object_getClass(Class);
           }
 
-          v23 = class_copyMethodList(v22, outCount);
-          if (v23)
+          v25 = class_copyMethodList(v24, outCount);
+          if (v25)
           {
-            v49 = v21;
+            v50 = v23;
             if (outCount[0])
             {
-              v24 = 0;
-              v25 = "%s: Swizzling +[%s %s] for issue type %d\n";
-              if (v21)
+              v26 = 0;
+              v27 = "%s: Swizzling +[%s %s] for issue type %d\n";
+              if (v23)
               {
-                v25 = "%s: Swizzling [%s %s] for issue type %d\n";
+                v27 = "%s: Swizzling [%s %s] for issue type %d\n";
               }
 
-              v45 = v25;
+              v46 = v27;
               while (1)
               {
-                v26 = v23[v24];
-                v27 = method_getName(v26);
-                v28 = sel_getName(v27);
-                if (*v28 != 95)
+                v28 = v25[v26];
+                v29 = method_getName(v28);
+                v30 = sel_getName(v29);
+                if (*v30 != 95)
                 {
-                  v29 = v28;
-                  if (strcmp(v28, "retain"))
+                  v31 = v30;
+                  if (strcmp(v30, "retain"))
                   {
-                    if (strcmp(v29, "release") && strcmp(v29, "autorelease") && strcmp(v29, "retainCount") && strcmp(v29, "dealloc") && strcmp(v29, ".cxx_destruct"))
+                    if (strcmp(v31, "release") && strcmp(v31, "autorelease") && strcmp(v31, "retainCount") && strcmp(v31, "dealloc") && strcmp(v31, ".cxx_destruct"))
                     {
-                      v30 = v15;
-                      v31 = v13;
-                      if (v47)
+                      v32 = v15;
+                      v33 = v13;
+                      if (v48)
                       {
-                        v32 = a6;
-                        v33 = v47;
+                        v34 = a6;
+                        v35 = v48;
                         if (!a6)
                         {
 LABEL_34:
-                          v35 = a8;
-                          v13 = v31;
-                          v36 = v31;
-                          v15 = v30;
-                          v17 = *v44;
-                          if ((v39 & 1) == 0)
+                          v37 = a8;
+                          v13 = v33;
+                          v38 = v33;
+                          v15 = v32;
+                          v18 = *v45;
+                          if ((v40 & 1) == 0)
                           {
                             break;
                           }
@@ -7540,30 +7532,30 @@ LABEL_34:
 
                         while (1)
                         {
-                          v34 = strlen(*v33);
-                          if (!strncmp(v29, *v33, v34))
+                          v36 = strlen(*v35);
+                          if (!strncmp(v31, *v35, v36))
                           {
                             break;
                           }
 
-                          ++v33;
-                          if (!--v32)
+                          ++v35;
+                          if (!--v34)
                           {
                             goto LABEL_34;
                           }
                         }
                       }
 
-                      v13 = v31;
-                      v15 = v30;
-                      v17 = *v44;
+                      v13 = v33;
+                      v15 = v32;
+                      v18 = *v45;
                       if (!v13)
                       {
                         goto LABEL_41;
                       }
 
-                      v35 = a8;
-                      v36 = v13;
+                      v37 = a8;
+                      v38 = v13;
                       if (a8)
                       {
                         break;
@@ -7573,16 +7565,16 @@ LABEL_34:
                 }
 
 LABEL_44:
-                if (++v24 >= outCount[0])
+                if (++v26 >= outCount[0])
                 {
                   goto LABEL_45;
                 }
               }
 
-              while (!strstr(v29, *v36))
+              while (!strstr(v31, *v38))
               {
-                ++v36;
-                if (!--v35)
+                ++v38;
+                if (!--v37)
                 {
                   goto LABEL_44;
                 }
@@ -7591,25 +7583,24 @@ LABEL_44:
 LABEL_41:
               if (envRPACTrampolineSwizzleDebug == 1)
               {
-                fprintf(__stderrp, v45, "swizzleAllMethods", v17, v29, a11);
+                fprintf(__stderrp, v46, "swizzleAllMethods", v18, v31, a11);
               }
 
-              v50[0] = v27;
-              v50[1] = prepareSwizzler(a2, a3, v17, v26, v27, a4, 1, a9, a10, a11, a12, a13);
-              v50[2] = method_getTypeEncoding(v26);
-              ma_Append(v50);
+              v51[0] = v29;
+              v51[1] = prepareSwizzler(a2, a3, v18, v28, v29, a4, 1, a9, a10, a11, a12, a13);
+              v51[2] = method_getTypeEncoding(v28);
+              ma_Append(v51);
               goto LABEL_44;
             }
 
 LABEL_45:
-            free(v23);
-            v21 = v49;
+            free(v25);
+            v23 = v50;
             if (*(v15 + 934))
             {
-              if ((v49 & 1) == 0)
+              if ((v50 & 1) == 0)
               {
-                objc_getMetaClass(v17);
-                v37 = *(v15 + 934);
+                objc_getMetaClass(v18);
               }
 
               class_replaceMethodsBulk();
@@ -7623,8 +7614,8 @@ LABEL_45:
             fprintf(__stderrp, "%s: allMethods is NULL\n", "swizzleAllMethods");
           }
 
-          v20 = 0;
-          if ((v21 & 1) == 0)
+          v22 = 0;
+          if ((v23 & 1) == 0)
           {
             return 1;
           }
@@ -7633,29 +7624,29 @@ LABEL_45:
 
       if (envRPACTrampolineSwizzleDebug == 1)
       {
-        fprintf(__stderrp, "%s: cls is NULL\n");
+        fprintf(__stderrp, "%s: cls is NULL\n", v19);
       }
     }
 
     else if (envRPACTrampolineSwizzleDebug == 1)
     {
-      fprintf(__stderrp, "%s: clsName is NULL\n");
+      fprintf(__stderrp, "%s: clsName is NULL\n", v17);
     }
   }
 
   else if (envRPACTrampolineSwizzleDebug == 1)
   {
-    fprintf(__stderrp, "%s: unrealizedClass is NULL\n");
+    fprintf(__stderrp, "%s: unrealizedClass is NULL\n", a3);
   }
 
   return 0;
 }
 
-void main_thread_general_check(uint64_t a1)
+void main_thread_general_check(uint64_t a1, uint64_t a2)
 {
-  v2 = dyld_image_path_containing_address();
-  v3 = strrchr(v2, 47);
-  if (!v3 || strcmp(v3 + 1, "libRPAC.dylib"))
+  v3 = dyld_image_path_containing_address();
+  v4 = strrchr(v3, 47);
+  if (!v4 || strcmp(v4 + 1, "libRPAC.dylib"))
   {
     if (pthread_main_np())
     {
@@ -7689,38 +7680,38 @@ void main_thread_general_check(uint64_t a1)
   }
 }
 
-void invokeGenerateCulledBacktraceForEachIssue(uint64_t a1, int a2)
+void invokeGenerateCulledBacktraceForEachIssue(uint64_t result, int a2)
 {
   switch(a2)
   {
     case 4:
-      v3 = *(a1 + 16);
-      v2 = *(a1 + 24);
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 44);
-      v6 = *a1;
-      v7 = *(a1 + 8);
-      v8 = *(a1 + 52);
+      v3 = *(result + 16);
+      v2 = *(result + 24);
+      v4 = *(result + 32);
+      v5 = *(result + 44);
+      v6 = *result;
+      v7 = *(result + 8);
+      v8 = *(result + 52);
       v9 = 4;
       goto LABEL_7;
     case 2:
-      v3 = *(a1 + 16);
-      v2 = *(a1 + 24);
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 36);
-      v6 = *a1;
-      v7 = *(a1 + 8);
-      v8 = *(a1 + 52);
+      v3 = *(result + 16);
+      v2 = *(result + 24);
+      v4 = *(result + 32);
+      v5 = *(result + 36);
+      v6 = *result;
+      v7 = *(result + 8);
+      v8 = *(result + 52);
       v9 = 2;
       goto LABEL_7;
     case 1:
-      v3 = *(a1 + 16);
-      v2 = *(a1 + 24);
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      v6 = *a1;
-      v7 = *(a1 + 8);
-      v8 = *(a1 + 52);
+      v3 = *(result + 16);
+      v2 = *(result + 24);
+      v4 = *(result + 32);
+      v5 = *(result + 40);
+      v6 = *result;
+      v7 = *(result + 8);
+      v8 = *(result + 52);
       v9 = 1;
 LABEL_7:
       generateCulledBacktrace(v7, v2, v3, 0, v4, v5, 0, v6, v9, v8);
@@ -7768,11 +7759,11 @@ uint64_t trampoline_c_2(uint64_t a1, uint64_t a2)
   return *v3;
 }
 
-uint64_t initialize_trampolines_with_two_callbacks(uint64_t result)
+uint64_t initialize_trampolines_with_two_callbacks(uint64_t result, uint64_t a2)
 {
-  v1 = *(result + 8);
+  v2 = *(result + 8);
   registered_callbacks_0 = *result;
-  registered_callbacks_1 = v1;
+  registered_callbacks_1 = v2;
   first_trampoline_0 = __trampolines_two_callbacks;
   if (__trampolines_two_callbacks_end - __trampolines_two_callbacks != 0x40000)
   {
@@ -7796,7 +7787,7 @@ uint64_t add_trampoline_two_callbacks(uint64_t a1, char *__s1, const char *a3, c
   }
 
   ++trampolines_used_0;
-  v20 = v9;
+  v19 = v9;
   v16 = &data_0 + 56 * v9;
   *v16 = a1;
   *(v16 + 1) = strdup(__s1);
@@ -7838,7 +7829,6 @@ uint64_t add_trampoline_two_callbacks(uint64_t a1, char *__s1, const char *a3, c
 
     else if (envRPACTrampolineSwizzleDebug == 1)
     {
-      v18 = *a6;
       fprintf(__stderrp, "%s: Called with invalid log sub type %d\n");
     }
 
@@ -7848,49 +7838,49 @@ uint64_t add_trampoline_two_callbacks(uint64_t a1, char *__s1, const char *a3, c
 
   while (v17);
   *(v16 + 12) = a7;
-  return first_trampoline_0 + 8 * v20;
+  return first_trampoline_0 + 8 * v19;
 }
 
 void _replacement_NSCondition_wait(void *a1, uint64_t a2)
 {
   v3 = a1;
-  v12 = v3;
-  if (envDisablePriorityInversions == 1 || (v4 = GetThreadLocalData()[3], v3 = v12, v4 == v12))
+  v13 = v3;
+  if (envDisablePriorityInversions == 1 || (v4 = GetThreadLocalData()[3], v3 = v13, v4 == v13))
   {
     __original_NSCondition_wait(v3, a2);
   }
 
   else
   {
-    MapId = getMapId(v12);
+    MapId = getMapId(v13);
     v6 = (&unfair_lock + 4 * MapId);
     os_unfair_lock_lock(v6);
-    if (findPrimitiveInfoNoAssert(v12))
+    if (findPrimitiveInfoNoAssert(v13, v7))
     {
       PrimitiveEntry = 0;
     }
 
     else
     {
-      PrimitiveEntry = createPrimitiveEntry(v12, 0, 33, 0);
+      PrimitiveEntry = createPrimitiveEntry(v13, 0, 33, 0);
     }
 
-    GetThreadLocalData()[3] = v12;
+    GetThreadLocalData()[3] = v13;
     os_unfair_lock_unlock(v6);
-    v8 = mach_absolute_time();
-    __original_NSCondition_wait(v12, a2);
     v9 = mach_absolute_time();
+    __original_NSCondition_wait(v13, a2);
+    v10 = mach_absolute_time();
     if (PrimitiveEntry)
     {
-      v10 = v9;
+      v11 = v10;
       os_unfair_lock_lock(v6);
-      v11 = qos_class_self();
-      updatePrimitiveWaiterQoSInfo(v12, v11, v8, v10);
-      if (updateAndGetWaiterCountValue(v12, 0) == -1)
+      v12 = qos_class_self();
+      updatePrimitiveWaiterQoSInfo(v13, v12, v9, v11);
+      if (updateAndGetWaiterCountValue(v13, 0) == -1)
       {
-        qosWaiterSignallerInvariantCheck(unlockLockInNSConditionLockMap, MapId, v12, 1, "[NSCondition wait]");
+        qosWaiterSignallerInvariantCheck(unlockLockInNSConditionLockMap, MapId, v13, 1, "[NSCondition wait]");
         os_unfair_lock_lock(v6);
-        deletePrimitiveEntry(v12);
+        deletePrimitiveEntry(v13);
       }
 
       os_unfair_lock_unlock(v6);
@@ -7912,7 +7902,7 @@ uint64_t _replacement_NSCondition_waitUntilDate(void *a1, uint64_t a2, void *a3)
     MapId = getMapId(v5);
     v10 = (&unfair_lock + 4 * MapId);
     os_unfair_lock_lock(v10);
-    if (findPrimitiveInfoNoAssert(v5))
+    if (findPrimitiveInfoNoAssert(v5, v11))
     {
       PrimitiveEntry = 0;
     }
@@ -7924,15 +7914,15 @@ uint64_t _replacement_NSCondition_waitUntilDate(void *a1, uint64_t a2, void *a3)
 
     GetThreadLocalData()[3] = v5;
     os_unfair_lock_unlock(v10);
-    v12 = mach_absolute_time();
-    v7 = __original_NSCondition_waitUntilDate(v5, a2, v6);
     v13 = mach_absolute_time();
+    v7 = __original_NSCondition_waitUntilDate(v5, a2, v6);
+    v14 = mach_absolute_time();
     if (PrimitiveEntry)
     {
-      v14 = v13;
+      v15 = v14;
       os_unfair_lock_lock(v10);
-      v15 = qos_class_self();
-      updatePrimitiveWaiterQoSInfo(v5, v15, v12, v14);
+      v16 = qos_class_self();
+      updatePrimitiveWaiterQoSInfo(v5, v16, v13, v15);
       if (updateAndGetWaiterCountValue(v5, 0) == -1)
       {
         qosWaiterSignallerInvariantCheck(unlockLockInNSConditionLockMap, MapId, v5, 1, "[NSCondition waitUntilDate:]");
@@ -7960,13 +7950,13 @@ void _replacement_NSCondition_signal(void *a1, uint64_t a2)
     v5 = a1;
     v6 = (&unfair_lock + 4 * getMapId(a1));
     os_unfair_lock_lock(v6);
-    if (findPrimitiveInfoNoAssert(a1))
+    if (findPrimitiveInfoNoAssert(a1, v7))
     {
-      v7 = *GetThreadLocalData();
-      v8 = GetThreadLocalData()[1];
-      v9 = *(GetThreadLocalData() + 4);
-      v10 = qos_class_self();
-      updatePrimitiveSignallerQoSInfo(a1, v10, v7, v8, v9);
+      v8 = *GetThreadLocalData();
+      v9 = GetThreadLocalData()[1];
+      v10 = *(GetThreadLocalData() + 4);
+      v11 = qos_class_self();
+      updatePrimitiveSignallerQoSInfo(a1, v11, v8, v9, v10);
     }
 
     os_unfair_lock_unlock(v6);
@@ -7989,13 +7979,13 @@ void _replacement_NSCondition_broadcast(void *a1, uint64_t a2)
     v5 = a1;
     v6 = (&unfair_lock + 4 * getMapId(a1));
     os_unfair_lock_lock(v6);
-    if (findPrimitiveInfoNoAssert(a1))
+    if (findPrimitiveInfoNoAssert(a1, v7))
     {
-      v7 = *GetThreadLocalData();
-      v8 = GetThreadLocalData()[1];
-      v9 = *(GetThreadLocalData() + 4);
-      v10 = qos_class_self();
-      updatePrimitiveSignallerQoSInfo(a1, v10, v7, v8, v9);
+      v8 = *GetThreadLocalData();
+      v9 = GetThreadLocalData()[1];
+      v10 = *(GetThreadLocalData() + 4);
+      v11 = qos_class_self();
+      updatePrimitiveSignallerQoSInfo(a1, v11, v8, v9, v10);
     }
 
     os_unfair_lock_unlock(v6);
@@ -8038,7 +8028,7 @@ uint64_t getMapId(uint64_t a1)
   }
 }
 
-BOOL initializePrimitiveMap(void)
+BOOL initializePrimitiveMap(uint64_t a1, uint64_t a2)
 {
   if (initializePrimitiveMap(void)::onceToken != -1)
   {
@@ -8048,9 +8038,10 @@ BOOL initializePrimitiveMap(void)
   return (initializePrimitiveMap(void)::initialization_success & 1) == 0;
 }
 
-uint64_t createPrimitiveEntry(uint64_t a1, int a2, int a3, uint64_t a4)
+uint64_t createPrimitiveEntry(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v12[0] = a1;
+  v6 = a2;
+  v12 = a1;
   if (initializePrimitiveMap(void)::onceToken != -1)
   {
     initializePrimitiveMap();
@@ -8068,9 +8059,9 @@ uint64_t createPrimitiveEntry(uint64_t a1, int a2, int a3, uint64_t a4)
   }
 
   v10 = primitive_map[v9];
-  v12[2] = v12;
-  v11 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, v12);
-  *(v11 + 6) = a2;
+  v13 = &v12;
+  v11 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v12, &std::piecewise_construct, &v13);
+  *(v11 + 6) = v6;
   *(v11 + 7) = a3;
   v11[4] = a4;
   *(v11 + 5) = 0u;
@@ -8101,9 +8092,9 @@ uint64_t *deletePrimitiveEntry(uint64_t a1)
   return result;
 }
 
-void *findPrimitiveInfoNoAssert(uint64_t a1)
+void *findPrimitiveInfoNoAssert(uint64_t a1, uint64_t a2)
 {
-  v5[0] = a1;
+  v6 = a1;
   if (initializePrimitiveMap(void)::onceToken != -1)
   {
     initializePrimitiveMap();
@@ -8116,20 +8107,20 @@ void *findPrimitiveInfoNoAssert(uint64_t a1)
 
   if (a1 >> 3 <= 0)
   {
-    v3 = -(-(a1 >> 3) & 0x1F);
+    v4 = -(-(a1 >> 3) & 0x1F);
   }
 
   else
   {
-    v3 = (a1 >> 3) & 0x1F;
+    v4 = (a1 >> 3) & 0x1F;
   }
 
-  result = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::find<long>(primitive_map[v3], v5);
+  result = std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::find<long>(primitive_map[v4], &v6);
   if (result)
   {
-    v4 = primitive_map[v3];
-    v5[2] = v5;
-    return std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, v5) + 3;
+    v5 = primitive_map[v4];
+    v7 = &v6;
+    return std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, &v6, &std::piecewise_construct, &v7) + 3;
   }
 
   return result;
@@ -8137,7 +8128,7 @@ void *findPrimitiveInfoNoAssert(uint64_t a1)
 
 void *findSemaphoreInfo(uint64_t a1)
 {
-  v4[0] = a1;
+  v4 = a1;
   if (a1 >> 3 <= 0)
   {
     v1 = -(-(a1 >> 3) & 0x1F);
@@ -8148,14 +8139,14 @@ void *findSemaphoreInfo(uint64_t a1)
     v1 = (a1 >> 3) & 0x1F;
   }
 
-  if (!std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::find<long>(primitive_map[v1], v4))
+  if (!std::__hash_table<std::__hash_value_type<long,sqliteDBState_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,sqliteDBState_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,sqliteDBState_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,sqliteDBState_t>>>::find<long>(primitive_map[v1], &v4))
   {
     findSemaphoreInfo();
   }
 
   v2 = primitive_map[v1];
-  v4[2] = v4;
-  return std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v2, v4) + 3;
+  v5 = &v4;
+  return std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 3;
 }
 
 void *updatePrimitiveWaiterQoSInfoUnconditionally(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
@@ -8173,13 +8164,13 @@ void *updatePrimitiveWaiterQoSInfoUnconditionally(uint64_t a1, int a2, uint64_t 
 
   v7 = primitive_map[v6];
   v12 = &v11;
-  *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11) + 6) = a2;
+  *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v11, &std::piecewise_construct, &v12) + 6) = a2;
   v8 = primitive_map[v6];
   v12 = &v11;
-  std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v11)[5] = a3;
+  std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v11, &std::piecewise_construct, &v12)[5] = a3;
   v9 = primitive_map[v6];
   v12 = &v11;
-  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v11);
+  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &v11, &std::piecewise_construct, &v12);
   result[6] = a4;
   return result;
 }
@@ -8199,18 +8190,18 @@ void *updatePrimitiveWaiterQoSInfo(uint64_t a1, unsigned int a2, uint64_t a3, ui
 
   v8 = primitive_map[v7];
   v14 = &v13;
-  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v13);
+  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8, &v13, &std::piecewise_construct, &v14);
   if (*(result + 6) < a2)
   {
     v10 = primitive_map[v7];
     v14 = &v13;
-    *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v13) + 6) = a2;
+    *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v13, &std::piecewise_construct, &v14) + 6) = a2;
     v11 = primitive_map[v7];
     v14 = &v13;
-    std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v13)[5] = a3;
+    std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v13, &std::piecewise_construct, &v14)[5] = a3;
     v12 = primitive_map[v7];
     v14 = &v13;
-    result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v13);
+    result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v13, &std::piecewise_construct, &v14);
     result[6] = a4;
   }
 
@@ -8219,7 +8210,7 @@ void *updatePrimitiveWaiterQoSInfo(uint64_t a1, unsigned int a2, uint64_t a3, ui
 
 void *updateWaiterCountValueUnconditionally(uint64_t a1, uint64_t a2)
 {
-  v6[0] = a1;
+  v6 = a1;
   v3 = (a1 >> 3) & 0x1F;
   if (a1 >> 3 <= 0)
   {
@@ -8227,15 +8218,15 @@ void *updateWaiterCountValueUnconditionally(uint64_t a1, uint64_t a2)
   }
 
   v4 = primitive_map[v3];
-  v6[2] = v6;
-  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, v6);
+  v7 = &v6;
+  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v6, &std::piecewise_construct, &v7);
   result[4] = a2;
   return result;
 }
 
 uint64_t getWaiterCountValue(uint64_t a1)
 {
-  v4[0] = a1;
+  v4 = a1;
   v1 = (a1 >> 3) & 0x1F;
   if (a1 >> 3 <= 0)
   {
@@ -8243,8 +8234,8 @@ uint64_t getWaiterCountValue(uint64_t a1)
   }
 
   v2 = primitive_map[v1];
-  v4[2] = v4;
-  return std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v2, v4)[4];
+  v5 = &v4;
+  return std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5)[4];
 }
 
 uint64_t updateAndGetWaiterCountValue(uint64_t a1, int a2)
@@ -8261,20 +8252,20 @@ uint64_t updateAndGetWaiterCountValue(uint64_t a1, int a2)
   v10 = &v9;
   if (a2)
   {
-    v5 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v9);
+    v5 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v9, &std::piecewise_construct, &v10);
     v6 = 1;
   }
 
   else
   {
-    v5 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v9);
+    v5 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v4, &v9, &std::piecewise_construct, &v10);
     v6 = -1;
   }
 
   v5[4] += v6;
   v7 = primitive_map[v3];
   v10 = &v9;
-  return std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v9)[4];
+  return std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v7, &v9, &std::piecewise_construct, &v10)[4];
 }
 
 void *updatePrimitiveSignallerQoSInfoUnconditionally(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5)
@@ -8297,16 +8288,16 @@ void *updatePrimitiveSignallerQoSInfoUnconditionally(uint64_t a1, int a2, uint64
 
   v10 = primitive_map[v9];
   v16 = &v15;
-  *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v15) + 7) = a2;
+  *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v15, &std::piecewise_construct, &v16) + 7) = a2;
   v11 = primitive_map[v9];
   v16 = &v15;
-  std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v15)[8] = a3;
+  std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v11, &v15, &std::piecewise_construct, &v16)[8] = a3;
   v12 = primitive_map[v9];
   v16 = &v15;
-  std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v15)[7] = a4;
+  std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v15, &std::piecewise_construct, &v16)[7] = a4;
   v13 = primitive_map[v9];
   v16 = &v15;
-  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v15);
+  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v15, &std::piecewise_construct, &v16);
   *(result + 18) = a5;
   return result;
 }
@@ -8331,21 +8322,21 @@ void *updatePrimitiveSignallerQoSInfo(uint64_t a1, unsigned int a2, uint64_t a3,
 
   v10 = primitive_map[v9];
   v17 = &v16;
-  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v16);
+  result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, &v16, &std::piecewise_construct, &v17);
   if (*(result + 7) > a2)
   {
     v12 = primitive_map[v9];
     v17 = &v16;
-    *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v16) + 7) = a2;
+    *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v16, &std::piecewise_construct, &v17) + 7) = a2;
     v13 = primitive_map[v9];
     v17 = &v16;
-    std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v16)[8] = a3;
+    std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v13, &v16, &std::piecewise_construct, &v17)[8] = a3;
     v14 = primitive_map[v9];
     v17 = &v16;
-    std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v16)[7] = a4;
+    std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v16, &std::piecewise_construct, &v17)[7] = a4;
     v15 = primitive_map[v9];
     v17 = &v16;
-    result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v15, &v16);
+    result = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v15, &v16, &std::piecewise_construct, &v17);
     *(result + 18) = a5;
   }
 
@@ -8371,7 +8362,7 @@ void *qosWaiterSignallerInvariantCheck(uint64_t (*a1)(uint64_t), unsigned int a2
 
     v10 = primitive_map[v9];
     *__s1 = __str;
-    if (*(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, __str) + 18) > 62 || envProfileModeEnabled == 1 && envPriorityInversionDetectionOnMainThreadOnly == 1 && pthread_main_np() != 1)
+    if (*(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v10, __str, &std::piecewise_construct, __s1) + 18) > 62 || envProfileModeEnabled == 1 && envPriorityInversionDetectionOnMainThreadOnly == 1 && pthread_main_np() != 1)
     {
       return a1(a2);
     }
@@ -8385,23 +8376,23 @@ void *qosWaiterSignallerInvariantCheck(uint64_t (*a1)(uint64_t), unsigned int a2
     v11 = a2;
     v12 = primitive_map[a2];
     *__s1 = &v49;
-    v13 = *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v49) + 6);
+    v13 = *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v12, &v49, &std::piecewise_construct, __s1) + 6);
     v14 = primitive_map[a2];
     *__s1 = &v49;
-    v15 = *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v49) + 7);
+    v15 = *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v14, &v49, &std::piecewise_construct, __s1) + 7);
     v16 = primitive_map[a2];
     *__s1 = &v49;
-    v17 = *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v16, &v49) + 18);
+    v17 = *(std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v16, &v49, &std::piecewise_construct, __s1) + 18);
     bzero(__s1, 0x400uLL);
     *__str = 0u;
     v54 = 0u;
     snprintf(__str, 0x20uLL, "(base priority %d)", v17);
     v18 = primitive_map[a2];
     *__s2 = &v49;
-    v19 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v18, &v49)[6];
+    v19 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v18, &v49, &std::piecewise_construct, __s2)[6];
     v20 = primitive_map[v11];
     *__s2 = &v49;
-    v21 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v20, &v49);
+    v21 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v20, &v49, &std::piecewise_construct, __s2);
     v47 = ticks_to_ns(v19 - v21[5]);
     if (envExtraTimeInfo == 1 && isAppleInternalNoIO())
     {
@@ -8519,18 +8510,18 @@ void *qosWaiterSignallerInvariantCheck(uint64_t (*a1)(uint64_t), unsigned int a2
 
     v28 = primitive_map[v27];
     *__s2 = &v50;
-    v29 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v28, &v50)[5];
+    v29 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v28, &v50, &std::piecewise_construct, __s2)[5];
     v30 = primitive_map[v27];
     *__s2 = &v50;
     v34 = 0;
-    if (v29 <= std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v30, &v50)[7])
+    if (v29 <= std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v30, &v50, &std::piecewise_construct, __s2)[7])
     {
       v31 = primitive_map[v27];
       *__s2 = &v50;
-      v32 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v31, &v50)[7];
+      v32 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v31, &v50, &std::piecewise_construct, __s2)[7];
       v33 = primitive_map[v27];
       *__s2 = &v50;
-      if (v32 <= std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v33, &v50)[6])
+      if (v32 <= std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v33, &v50, &std::piecewise_construct, __s2)[6])
       {
         v34 = 1;
       }
@@ -8549,18 +8540,18 @@ void *qosWaiterSignallerInvariantCheck(uint64_t (*a1)(uint64_t), unsigned int a2
 
     v36 = primitive_map[v35];
     *__s2 = &v50;
-    v37 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v36, &v50)[5];
+    v37 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v36, &v50, &std::piecewise_construct, __s2)[5];
     v38 = primitive_map[v35];
     *__s2 = &v50;
     v42 = 0;
-    if (v37 <= std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v38, &v50)[8])
+    if (v37 <= std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v38, &v50, &std::piecewise_construct, __s2)[8])
     {
       v39 = primitive_map[v35];
       *__s2 = &v50;
-      v40 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v39, &v50)[8];
+      v40 = std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v39, &v50, &std::piecewise_construct, __s2)[8];
       v41 = primitive_map[v35];
       *__s2 = &v50;
-      if (v40 <= std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v41, &v50)[6])
+      if (v40 <= std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v41, &v50, &std::piecewise_construct, __s2)[6])
       {
         v42 = 1;
       }
@@ -8622,13 +8613,13 @@ LABEL_83:
             if (v42)
             {
               v44 = 4;
-              shouldFlag(0, 4);
+              shouldFlag(0, 4u);
             }
 
             else
             {
               v44 = 3;
-              shouldFlag(0, 3);
+              shouldFlag(0, 3u);
             }
 
             v46 = -1;
@@ -8637,7 +8628,7 @@ LABEL_83:
 
           else if (v42)
           {
-            shouldFlag(0, 4);
+            shouldFlag(0, 4u);
             v45 = 0;
             if (envEnableAGPCChecks)
             {
@@ -8654,7 +8645,7 @@ LABEL_83:
 
           else
           {
-            shouldFlag(0, 3);
+            shouldFlag(0, 3u);
             v45 = 0;
             if (envEnableAGPCChecks)
             {
@@ -8707,33 +8698,33 @@ void sub_8F4A4(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long,qos_info_t>,std::__unordered_map_hasher<long,std::__hash_value_type<long,qos_info_t>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,qos_info_t>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,qos_info_t>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8741,50 +8732,54 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-const char *checkAndGenerateBT(const char *result, uint64_t a2, char a3, int a4, int a5, int a6, int a7, int a8)
+const char *checkAndGenerateBT(const char *result, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
   if (envEnableAGPCChecks == 1)
   {
+    v9 = a7;
+    v10 = a6;
+    v11 = a5;
+    v12 = a4;
     v15 = result;
     result = GetThreadLocalData();
     if ((result[52] & 1) == 0)
@@ -8795,19 +8790,19 @@ const char *checkAndGenerateBT(const char *result, uint64_t a2, char a3, int a4,
         v16 = pthread_main_np();
         if (a3 & 2) != 0 && (envEnableAGPCDiskwritesChecks)
         {
-          generateCulledBacktrace(v15, 0, 0, 0, a4, a6, 0, a2, 2, 1);
+          generateCulledBacktrace(v15, 0, 0, 0, v12, v10, 0, a2, 2, 1);
         }
 
         if (v16)
         {
           if (a3)
           {
-            generateCulledBacktrace(v15, 0, 0, 0, a4, a5, 0, a2, 1, 1);
+            generateCulledBacktrace(v15, 0, 0, 0, v12, v11, 0, a2, 1, 1);
           }
 
           if ((a3 & 4) != 0)
           {
-            generateCulledBacktrace(v15, 0, 0, 0, a4, a7, 0, a2, 4, 1);
+            generateCulledBacktrace(v15, 0, 0, 0, v12, v9, 0, a2, 4, 1);
           }
         }
       }
@@ -8963,7 +8958,7 @@ void sub_8FC4C(_Unwind_Exception *a1)
 
 void culledOsLogFault(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
-  v9 = __chkstk_darwin();
+  v9 = __chkstk_darwin(a1, a2, a3, a4, a5, a6, a7, a8);
   v11 = v10;
   v13 = v12;
   v15 = v14;
@@ -9143,7 +9138,7 @@ void __generateCulledBacktrace_block_invoke_2(uint64_t a1)
   }
 
   v5 = malloc_type_calloc(1uLL, 0x3FDCuLL, 0x168DEF08uLL);
-  v122 = malloc_type_calloc(0x80uLL, 0x14uLL, 0x1000040A86A77D5uLL);
+  v116 = malloc_type_calloc(0x80uLL, 0x14uLL, 0x1000040A86A77D5uLL);
   v6 = &qword_6A5000;
   v7 = generateCulledBacktrace_prevCallstack != 0;
   if ((envRPACDebug & 1) != 0 || (envLogAGPCReportsToStderr & 1) != 0 || *(*(*(a1 + 32) + 8) + 24) != 17)
@@ -9157,12 +9152,6 @@ void __generateCulledBacktrace_block_invoke_2(uint64_t a1)
   }
 
   backtrace_image_offsets(*(a1 + 48), image_offsets, *(a1 + 116));
-  v158 = 0u;
-  v159 = 0u;
-  v156 = 0u;
-  v157 = 0u;
-  v154 = 0u;
-  v155 = 0u;
   v152 = 0u;
   v153 = 0u;
   v150 = 0u;
@@ -9187,10 +9176,16 @@ void __generateCulledBacktrace_block_invoke_2(uint64_t a1)
   v133 = 0u;
   v130 = 0u;
   v131 = 0u;
-  *v128 = 0u;
+  v128 = 0u;
   v129 = 0u;
+  v126 = 0u;
+  v127 = 0u;
+  v124 = 0u;
+  v125 = 0u;
+  *v122 = 0u;
+  v123 = 0u;
   v9 = *(*(*(a1 + 32) + 8) + 24);
-  v123 = v8;
+  v117 = v8;
   if (v9 == 17 && envLogAGPCReportsToStderr != 1)
   {
     LODWORD(v17) = 16347;
@@ -9198,9 +9193,9 @@ void __generateCulledBacktrace_block_invoke_2(uint64_t a1)
     goto LABEL_55;
   }
 
-  LOBYTE(v126.dli_fname) = 0;
-  issueDescription(*(a1 + 56), *(a1 + 64), v9, *(a1 + 120), *(a1 + 72), v128, 0, 0, &v126, 0, 0, 0, 0, *(a1 + 124));
-  v10 = snprintf(v5, 0x3FDBuLL, "Thread Performance Checker: %s", v128);
+  LOBYTE(v120.dli_fname) = 0;
+  issueDescription(*(a1 + 56), *(a1 + 64), v9, *(a1 + 120), *(a1 + 72), v122, 0, 0, &v120, 0, 0, 0, 0, *(a1 + 124));
+  v10 = snprintf(v5, 0x3FDBuLL, "Thread Performance Checker: %s", v122);
   v12 = v10 == -1 || v10 > 16347;
   if (v12)
   {
@@ -9302,7 +9297,7 @@ LABEL_45:
 
   v15 += v26;
 LABEL_55:
-  v127 = 0;
+  v121 = 0;
   if (envIgnoreCallersFromSlashSystem == 1 && (envEnableAGPCChecks & 1) == 0)
   {
     if (*(a1 + 116) < 1)
@@ -9310,121 +9305,119 @@ LABEL_55:
       goto LABEL_214;
     }
 
-    v115 = v5;
+    v109 = v5;
     __sizea = v17;
-    v110 = 0;
+    v104 = 0;
     __stra = v15;
-    v52 = v7;
+    v50 = v7;
+    v51 = 0;
+    v115 = 0;
+    v52 = 0;
+    v119 = 0;
     v53 = 0;
-    v121 = 0;
-    v54 = 0;
-    v125 = 0;
-    v55 = 0;
-    v56 = 1;
-    v57 = image_offsets;
+    v54 = 1;
+    v55 = image_offsets;
     while (1)
     {
-      memset(&v126, 0, sizeof(v126));
-      v58 = *(*(a1 + 48) + 8 * v53);
-      if (dyld_image_header_containing_address() != MyOwnMachHeader && dladdr(*(*(a1 + 48) + 8 * v53), &v126) && v126.dli_sname)
+      memset(&v120, 0, sizeof(v120));
+      if (dyld_image_header_containing_address() != MyOwnMachHeader && dladdr(*(*(a1 + 48) + 8 * v51), &v120) && v120.dli_sname)
       {
-        if (suppressionCheck(v126.dli_fname, v126.dli_sname, *(*(*(a1 + 32) + 8) + 24)))
+        if (suppressionCheck(v120.dli_fname, v120.dli_sname, *(*(*(a1 + 32) + 8) + 24)))
         {
-          v124 = v54;
-          v100 = *(*(a1 + 32) + 8);
-          if (*(v100 + 24) != 6)
+          v118 = v52;
+          v94 = *(*(a1 + 32) + 8);
+          if (*(v94 + 24) != 6)
           {
             goto LABEL_223;
           }
 
-          v51 = 0;
-          *(v100 + 24) = 8;
+          v49 = 0;
+          *(v94 + 24) = 8;
 LABEL_224:
           v6 = &qword_6A5000;
-          v5 = v115;
-          LODWORD(v7) = v52;
+          v5 = v109;
+          LODWORD(v7) = v50;
           goto LABEL_228;
         }
 
-        v59 = *(*(a1 + 48) + 8 * v53);
-        v60 = dyld_image_path_containing_address();
-        if (v55)
+        v56 = dyld_image_path_containing_address();
+        if (v53)
         {
 LABEL_132:
-          v55 = 1;
-          if (v56)
+          v53 = 1;
+          if (v54)
           {
             goto LABEL_133;
           }
 
 LABEL_139:
-          v56 = 0;
-          v64 = v54;
+          v54 = 0;
+          v60 = v52;
 LABEL_140:
-          v66 = isSystemFrame(v60);
-          offset = v57->offset;
-          v68 = &v122[20 * v54];
-          *v68 = *v57->uuid;
-          *(v68 + 4) = offset;
-          v69 = v64 + 1;
-          v54 = v69;
-          if (v123 && envLogBacktraceToStderr == 1 && v69 < *(a1 + 116))
+          v62 = isSystemFrame(v56);
+          offset = v55->offset;
+          v64 = &v116[20 * v52];
+          *v64 = *v55->uuid;
+          *(v64 + 4) = offset;
+          v65 = v60 + 1;
+          v52 = v65;
+          if (v117 && envLogBacktraceToStderr == 1 && v65 < *(a1 + 116))
           {
-            adjustFrameNumber(v123[v53], v69);
+            adjustFrameNumber(v117[v51], v65);
             if (__sizea >= 1)
             {
-              v70 = snprintf(__stra, __sizea, "%s\n", v123[v53]);
-              v72 = v70 == -1 || __sizea < v70;
-              v73 = !v72;
-              if (v72)
+              v66 = snprintf(__stra, __sizea, "%s\n", v117[v51]);
+              v68 = v66 == -1 || __sizea < v66;
+              v69 = !v68;
+              if (v68)
               {
-                v74 = 0;
+                v70 = 0;
               }
 
               else
               {
-                v74 = __sizea - v70;
+                v70 = __sizea - v66;
               }
 
-              __sizea = v74;
-              if (v73)
+              __sizea = v70;
+              if (v69)
               {
-                v75 = v70;
+                v71 = v66;
               }
 
               else
               {
-                v75 = 0;
+                v71 = 0;
               }
 
-              __stra += v75;
+              __stra += v71;
             }
 
-            v54 = v69;
+            v52 = v65;
           }
 
-          v125 += !v66;
-          if (v52)
+          v119 += !v62;
+          if (v50)
           {
-            v52 = 0;
+            v50 = 0;
             if (generateCulledBacktrace_prevLogType == *(*(*(a1 + 32) + 8) + 24) && generateCulledBacktrace_prevCallstack)
             {
-              if (*(generateCulledBacktrace_prevCallstack + 8 * v53) == *(*(a1 + 48) + 8 * v53))
+              if (*(generateCulledBacktrace_prevCallstack + 8 * v51) == *(*(a1 + 48) + 8 * v51))
               {
-                v52 = generateCulledBacktrace_prevIssueType == *(a1 + 124);
+                v50 = generateCulledBacktrace_prevIssueType == *(a1 + 124);
               }
 
               else
               {
-                ++v110;
-                v52 = 100 * v110 / *(a1 + 116) < 6;
+                ++v104;
+                v50 = 100 * v104 / *(a1 + 116) < 6;
               }
             }
           }
 
           else
           {
-            v52 = 0;
+            v50 = 0;
           }
 
           goto LABEL_164;
@@ -9432,59 +9425,59 @@ LABEL_140:
 
         if ((*(*(*(a1 + 32) + 8) + 24) - 3) > 1)
         {
-          v55 = 0;
-          if ((v56 & 1) == 0)
+          v53 = 0;
+          if ((v54 & 1) == 0)
           {
             goto LABEL_139;
           }
 
 LABEL_133:
-          if (!v60)
+          if (!v56)
           {
-            v124 = v54;
+            v118 = v52;
 LABEL_223:
-            v51 = 1;
+            v49 = 1;
             goto LABEL_224;
           }
 
-          v63 = isSystemFrame(v60);
-          v56 = v63;
-          v64 = v54;
-          v65 = envMaxAntipatternDistance == v54 && v63;
-          v121 |= v65;
+          v59 = isSystemFrame(v56);
+          v54 = v59;
+          v60 = v52;
+          v61 = envMaxAntipatternDistance == v52 && v59;
+          v115 |= v61;
           goto LABEL_140;
         }
 
-        v61 = strrchr(v126.dli_fname, 47);
-        if (v61)
+        v57 = strrchr(v120.dli_fname, 47);
+        if (v57)
         {
-          v62 = v61 + 1;
+          v58 = v57 + 1;
         }
 
         else
         {
-          v62 = v60;
+          v58 = v56;
         }
 
-        if (strncmp(v62, "libswiftDispatch.dylib", 0x16uLL))
+        if (strncmp(v58, "libswiftDispatch.dylib", 0x16uLL))
         {
           goto LABEL_132;
         }
 
-        v55 = 1;
+        v53 = 1;
       }
 
 LABEL_164:
-      ++v53;
-      ++v57;
-      if (v53 >= *(a1 + 116))
+      ++v51;
+      ++v55;
+      if (v51 >= *(a1 + 116))
       {
-        v124 = v54;
-        v51 = 0;
+        v118 = v52;
+        v49 = 0;
         v6 = &qword_6A5000;
-        v5 = v115;
-        v8 = v123;
-        LODWORD(v7) = v52;
+        v5 = v109;
+        v8 = v117;
+        LODWORD(v7) = v50;
         goto LABEL_229;
       }
     }
@@ -9497,165 +9490,163 @@ LABEL_164:
       goto LABEL_214;
     }
 
-    v116 = v5;
+    v110 = v5;
     __sizeb = v17;
     __strb = v15;
-    v76 = 0;
-    v124 = 0;
-    v125 = 0;
-    v77 = 0;
-    v78 = 0;
-    v79 = 1;
-    v80 = image_offsets;
+    v72 = 0;
+    v118 = 0;
+    v119 = 0;
+    v73 = 0;
+    v74 = 0;
+    v75 = 1;
+    v76 = image_offsets;
     while (1)
     {
-      memset(&v126, 0, sizeof(v126));
-      v81 = *(*(a1 + 48) + 8 * v76);
-      if (dyld_image_header_containing_address() == MyOwnMachHeader || !dladdr(*(*(a1 + 48) + 8 * v76), &v126) || !v126.dli_sname)
+      memset(&v120, 0, sizeof(v120));
+      if (dyld_image_header_containing_address() == MyOwnMachHeader || !dladdr(*(*(a1 + 48) + 8 * v72), &v120) || !v120.dli_sname)
       {
         goto LABEL_212;
       }
 
-      if (suppressionCheck(v126.dli_fname, v126.dli_sname, *(*(*(a1 + 32) + 8) + 24)))
+      if (suppressionCheck(v120.dli_fname, v120.dli_sname, *(*(*(a1 + 32) + 8) + 24)))
       {
-        v101 = *(*(a1 + 32) + 8);
-        if (*(v101 + 24) == 6)
+        v95 = *(*(a1 + 32) + 8);
+        if (*(v95 + 24) == 6)
         {
-          v51 = 0;
-          *(v101 + 24) = 8;
+          v49 = 0;
+          *(v95 + 24) = 8;
         }
 
         else
         {
-          v51 = 1;
+          v49 = 1;
         }
 
         v6 = &qword_6A5000;
-        v5 = v116;
+        v5 = v110;
         goto LABEL_227;
       }
 
-      v82 = v7;
-      v83 = *(*(a1 + 48) + 8 * v76);
-      v84 = dyld_image_path_containing_address();
-      if ((v77 & 1) == 0)
+      v77 = v7;
+      v78 = dyld_image_path_containing_address();
+      if ((v73 & 1) == 0)
       {
         if ((*(*(*(a1 + 32) + 8) + 24) - 3) > 1)
         {
-          v77 = 0;
+          v73 = 0;
           goto LABEL_182;
         }
 
-        v85 = strrchr(v126.dli_fname, 47);
-        if (v85)
+        v79 = strrchr(v120.dli_fname, 47);
+        if (v79)
         {
-          v86 = v85 + 1;
+          v80 = v79 + 1;
         }
 
         else
         {
-          v86 = v84;
+          v80 = v78;
         }
 
-        if (!strncmp(v86, "libswiftDispatch.dylib", 0x16uLL))
+        if (!strncmp(v80, "libswiftDispatch.dylib", 0x16uLL))
         {
-          v77 = 1;
-          v7 = v82;
+          v73 = 1;
+          v7 = v77;
           goto LABEL_212;
         }
       }
 
-      v77 = 1;
+      v73 = 1;
 LABEL_182:
       if (!generateCulledBacktrace_mainBundleURL)
       {
         goto LABEL_219;
       }
 
-      if (v79)
+      if (v75)
       {
-        if (!v84)
+        if (!v78)
         {
 LABEL_219:
-          v51 = 1;
+          v49 = 1;
           v6 = &qword_6A5000;
-          v5 = v116;
-          LODWORD(v7) = v82;
+          v5 = v110;
+          LODWORD(v7) = v77;
 LABEL_227:
-          v121 = 0;
+          v115 = 0;
           goto LABEL_228;
         }
 
-        v87 = strlen(generateCulledBacktrace_mainBundleURL);
-        if (strncmp(v84, (generateCulledBacktrace_mainBundleURL + 7), v87 - 7))
+        v81 = strlen(generateCulledBacktrace_mainBundleURL);
+        if (strncmp(v78, (generateCulledBacktrace_mainBundleURL + 7), v81 - 7))
         {
-          v121 = 0;
-          v51 = 1;
+          v115 = 0;
+          v49 = 1;
           v6 = &qword_6A5000;
-          v5 = v116;
-          LODWORD(v7) = v82;
+          v5 = v110;
+          LODWORD(v7) = v77;
           goto LABEL_229;
         }
       }
 
-      v88 = isSystemFrame(v84);
-      v89 = v80->offset;
-      v90 = &v122[20 * v124];
-      *v90 = *v80->uuid;
-      *(v90 + 4) = v89;
-      v91 = ++v124;
+      v82 = isSystemFrame(v78);
+      v83 = v76->offset;
+      v84 = &v116[20 * v118];
+      *v84 = *v76->uuid;
+      *(v84 + 4) = v83;
+      v85 = ++v118;
       if (v8)
       {
-        if (envLogBacktraceToStderr == 1 && v91 < *(a1 + 116))
+        if (envLogBacktraceToStderr == 1 && v85 < *(a1 + 116))
         {
-          adjustFrameNumber(v8[v76], v91);
+          adjustFrameNumber(v8[v72], v85);
           if (__sizeb >= 1)
           {
-            v92 = snprintf(__strb, __sizeb, "%s\n", v8[v76]);
-            v94 = v92 == -1 || __sizeb < v92;
-            v95 = !v94;
-            if (v94)
+            v86 = snprintf(__strb, __sizeb, "%s\n", v8[v72]);
+            v88 = v86 == -1 || __sizeb < v86;
+            v89 = !v88;
+            if (v88)
             {
-              v96 = 0;
+              v90 = 0;
             }
 
             else
             {
-              v96 = __sizeb - v92;
+              v90 = __sizeb - v86;
             }
 
-            __sizeb = v96;
-            if (v95)
+            __sizeb = v90;
+            if (v89)
             {
-              v97 = v92;
+              v91 = v86;
             }
 
             else
             {
-              v97 = 0;
+              v91 = 0;
             }
 
-            __strb += v97;
+            __strb += v91;
           }
         }
       }
 
-      v125 += !v88;
-      v79 = 0;
-      if (v82)
+      v119 += !v82;
+      v75 = 0;
+      if (v77)
       {
         if (generateCulledBacktrace_prevLogType == *(*(*(a1 + 32) + 8) + 24) && generateCulledBacktrace_prevCallstack)
         {
-          v79 = 0;
-          if (*(generateCulledBacktrace_prevCallstack + 8 * v76) == *(*(a1 + 48) + 8 * v76))
+          v75 = 0;
+          if (*(generateCulledBacktrace_prevCallstack + 8 * v72) == *(*(a1 + 48) + 8 * v72))
           {
             v7 = generateCulledBacktrace_prevIssueType == *(a1 + 124);
           }
 
           else
           {
-            ++v78;
-            v7 = 100 * v78 / *(a1 + 116) < 6;
+            ++v74;
+            v7 = 100 * v74 / *(a1 + 116) < 6;
           }
         }
 
@@ -9671,16 +9662,16 @@ LABEL_227:
       }
 
 LABEL_212:
+      ++v72;
       ++v76;
-      ++v80;
-      if (v76 >= *(a1 + 116))
+      if (v72 >= *(a1 + 116))
       {
-        v121 = 0;
-        v51 = 0;
+        v115 = 0;
+        v49 = 0;
         v6 = &qword_6A5000;
-        v5 = v116;
+        v5 = v110;
 LABEL_228:
-        v8 = v123;
+        v8 = v117;
         goto LABEL_229;
       }
     }
@@ -9689,40 +9680,38 @@ LABEL_228:
   if (*(a1 + 116) < 1)
   {
 LABEL_214:
-    v124 = 0;
-    v125 = 0;
-    v121 = 0;
-    v51 = 0;
+    v118 = 0;
+    v119 = 0;
+    v115 = 0;
+    v49 = 0;
     goto LABEL_229;
   }
 
-  v114 = v5;
+  v108 = v5;
   __size = v17;
-  v109 = 0;
+  v103 = 0;
   __str = v15;
   v27 = 0;
   v28 = 0;
-  v124 = 0;
-  v125 = 0;
+  v118 = 0;
+  v119 = 0;
   v29 = 0;
-  v120 = 1;
+  v114 = 1;
   while (1)
   {
-    memset(&v126, 0, sizeof(v126));
-    v30 = *(*(a1 + 48) + 8 * v27);
-    if (dyld_image_header_containing_address() == MyOwnMachHeader || !dladdr(*(*(a1 + 48) + 8 * v27), &v126) || !v126.dli_sname)
+    memset(&v120, 0, sizeof(v120));
+    if (dyld_image_header_containing_address() == MyOwnMachHeader || !dladdr(*(*(a1 + 48) + 8 * v27), &v120) || !v120.dli_sname)
     {
       goto LABEL_113;
     }
 
-    if (suppressionCheck(v126.dli_fname, v126.dli_sname, *(*(*(a1 + 32) + 8) + 24)))
+    if (suppressionCheck(v120.dli_fname, v120.dli_sname, *(*(*(a1 + 32) + 8) + 24)))
     {
       break;
     }
 
-    v31 = v7;
-    v32 = *(*(a1 + 48) + 8 * v27);
-    v33 = dyld_image_path_containing_address();
+    v30 = v7;
+    v31 = dyld_image_path_containing_address();
     if (v29)
     {
       goto LABEL_71;
@@ -9734,61 +9723,61 @@ LABEL_214:
       goto LABEL_73;
     }
 
-    v34 = strrchr(v126.dli_fname, 47);
-    if (v34)
+    v32 = strrchr(v120.dli_fname, 47);
+    if (v32)
     {
-      v35 = v34 + 1;
+      v33 = v32 + 1;
     }
 
     else
     {
-      v35 = v33;
+      v33 = v31;
     }
 
-    if (strncmp(v35, "libswiftDispatch.dylib", 0x16uLL))
+    if (strncmp(v33, "libswiftDispatch.dylib", 0x16uLL))
     {
 LABEL_71:
       v29 = 1;
 LABEL_73:
-      if (v120)
+      if (v114)
       {
-        if (v33)
+        if (v31)
         {
-          v36 = isSystemFrame(v33);
-          if (v36)
+          v34 = isSystemFrame(v31);
+          if (v34)
           {
-            v28 |= envMaxAntipatternDistance == v124;
+            v28 |= envMaxAntipatternDistance == v118;
           }
 
-          v120 = v36 & (v28 ^ 1);
+          v114 = v34 & (v28 ^ 1);
         }
 
         else
         {
-          v120 = 0;
+          v114 = 0;
           v28 = 1;
         }
       }
 
       else
       {
-        v120 = 0;
+        v114 = 0;
       }
 
       if (envEnableDuplicateDetection == 1)
       {
-        v37 = 0;
+        v35 = 0;
         while (1)
         {
-          v38 = strlen(generateCulledBacktrace_prefix[v37]);
-          if (!strncmp(generateCulledBacktrace_prefix[v37], v33, v38))
+          v36 = strlen(generateCulledBacktrace_prefix[v35]);
+          if (!strncmp(generateCulledBacktrace_prefix[v35], v31, v36))
           {
             break;
           }
 
-          if (++v37 == 3)
+          if (++v35 == 3)
           {
-            runningSumOfAddr(v126.dli_saddr, &v127, *(a1 + 132), v33);
+            runningSumOfAddr(v120.dli_saddr, &v121, *(a1 + 132), v31);
             break;
           }
         }
@@ -9796,57 +9785,57 @@ LABEL_73:
 
       if (envRPACDebug == 1 && envEnableDuplicateDetection == 1 && envLogAGPCReportsToStderr == 1)
       {
-        fprintf(__stderrp, "Running sum: %zd\n", v127);
+        fprintf(__stderrp, "Running sum: %zd\n", v121);
       }
 
-      v39 = isSystemFrame(v33);
-      v40 = &image_offsets[v27];
-      v41 = v40->offset;
-      v42 = *v40->uuid;
-      v8 = v123;
-      v43 = &v122[20 * v124];
-      *v43 = v42;
-      *(v43 + 4) = v41;
-      ++v124;
-      if (v123)
+      v37 = isSystemFrame(v31);
+      v38 = &image_offsets[v27];
+      v39 = v38->offset;
+      v40 = *v38->uuid;
+      v8 = v117;
+      v41 = &v116[20 * v118];
+      *v41 = v40;
+      *(v41 + 4) = v39;
+      ++v118;
+      if (v117)
       {
-        if (envLogBacktraceToStderr == 1 && v124 < *(a1 + 116))
+        if (envLogBacktraceToStderr == 1 && v118 < *(a1 + 116))
         {
-          adjustFrameNumber(v123[v27], v124);
+          adjustFrameNumber(v117[v27], v118);
           if (__size >= 1)
           {
-            v44 = snprintf(__str, __size, "%s\n", v123[v27]);
-            v46 = v44 == -1 || __size < v44;
-            v47 = !v46;
-            if (v46)
+            v42 = snprintf(__str, __size, "%s\n", v117[v27]);
+            v44 = v42 == -1 || __size < v42;
+            v45 = !v44;
+            if (v44)
             {
-              v48 = 0;
+              v46 = 0;
             }
 
             else
             {
-              v48 = __size - v44;
+              v46 = __size - v42;
             }
 
-            __size = v48;
-            if (v47)
+            __size = v46;
+            if (v45)
             {
-              v49 = v44;
+              v47 = v42;
             }
 
             else
             {
-              v49 = 0;
+              v47 = 0;
             }
 
-            __str += v49;
-            v8 = v123;
+            __str += v47;
+            v8 = v117;
           }
         }
       }
 
-      v125 += !v39;
-      if (!v31 || (generateCulledBacktrace_prevLogType == *(*(*(a1 + 32) + 8) + 24) ? (v50 = generateCulledBacktrace_prevCallstack == 0) : (v50 = 1), v50))
+      v119 += !v37;
+      if (!v30 || (generateCulledBacktrace_prevLogType == *(*(*(a1 + 32) + 8) + 24) ? (v48 = generateCulledBacktrace_prevCallstack == 0) : (v48 = 1), v48))
       {
         v7 = 0;
       }
@@ -9858,43 +9847,43 @@ LABEL_73:
 
       else
       {
-        ++v109;
-        v7 = 100 * v109 / *(a1 + 116) < 6;
+        ++v103;
+        v7 = 100 * v103 / *(a1 + 116) < 6;
       }
 
       goto LABEL_113;
     }
 
     v29 = 1;
-    v7 = v31;
+    v7 = v30;
 LABEL_113:
     if (++v27 >= *(a1 + 116))
     {
-      v121 = v28;
-      v51 = 0;
+      v115 = v28;
+      v49 = 0;
       goto LABEL_119;
     }
   }
 
-  v121 = v28;
-  v98 = *(*(a1 + 32) + 8);
-  v99 = *(v98 + 24);
-  v51 = v99 != 6;
-  if (v99 == 6)
+  v115 = v28;
+  v92 = *(*(a1 + 32) + 8);
+  v93 = *(v92 + 24);
+  v49 = v93 != 6;
+  if (v93 == 6)
   {
-    *(v98 + 24) = 8;
+    *(v92 + 24) = 8;
   }
 
 LABEL_119:
   v6 = &qword_6A5000;
-  v5 = v114;
+  v5 = v108;
 LABEL_229:
   suppressionCheck(0, 0, 0x10000);
   if (*(a1 + 124) == 2)
   {
     if (envEnableDuplicateDetection == 1)
     {
-      runningSumOfAddr(*(a1 + 88) + *(a1 + 120), &v127, 1, 0);
+      runningSumOfAddr(*(a1 + 88) + *(a1 + 120), &v121, 1, 0);
     }
   }
 
@@ -9902,36 +9891,36 @@ LABEL_229:
   {
     if (isAntipatternSupplementedDuplicateDetectionPolicy(*(*(*(a1 + 40) + 8) + 24)))
     {
-      runningSumOfAddr(*(a1 + 88), &v127, *(*(*(a1 + 40) + 8) + 24), 0);
+      runningSumOfAddr(*(a1 + 88), &v121, *(*(*(a1 + 40) + 8) + 24), 0);
     }
 
     if (isFrameworkSupplementedDuplicateDetectionPolicy(*(*(*(a1 + 40) + 8) + 24)))
     {
-      addStringToSum(&v127, *(a1 + 96), *(*(*(a1 + 40) + 8) + 24));
+      addStringToSum(&v121, *(a1 + 96), *(*(*(a1 + 40) + 8) + 24));
     }
 
     if (isClassSupplementedDuplicateDetectionPolicy(*(*(*(a1 + 40) + 8) + 24)))
     {
-      addStringToSum(&v127, *(a1 + 104), *(*(*(a1 + 40) + 8) + 24));
+      addStringToSum(&v121, *(a1 + 104), *(*(*(a1 + 40) + 8) + 24));
     }
   }
 
-  if (!v51)
+  if (!v49)
   {
-    v102 = shouldSuppressForActionability(*(a1 + 116), v125, *(a1 + 124));
-    if (v102 || v7)
+    v96 = shouldSuppressForActionability(*(a1 + 116), v119, *(a1 + 124));
+    if (v96 || v7)
     {
       goto LABEL_243;
     }
 
     if (envEnableDuplicateDetection == 1)
     {
-      if (isDuplicate(v127, *(a1 + 124)))
+      if (isDuplicate(v121, *(a1 + 124)))
       {
-        updateEntry(v127, *(a1 + 124));
+        updateEntry(v121, *(a1 + 124));
         if ((envRPACDebug & 1) != 0 && envEnableDuplicateDetection == 1)
         {
-          fprintf(__stderrp, "Duplication stats == Framework : %s, Class : %s, API : %s, Sum address : %zd, Log type : %d, Policy : %d, NonSystemFrames : %d\n", *(a1 + 96), *(a1 + 104), *(a1 + 56), v127, *(*(*(a1 + 32) + 8) + 24), *(*(*(a1 + 40) + 8) + 24), v125);
+          fprintf(__stderrp, "Duplication stats == Framework : %s, Class : %s, API : %s, Sum address : %zd, Log type : %d, Policy : %d, NonSystemFrames : %d\n", *(a1 + 96), *(a1 + 104), *(a1 + 56), v121, *(*(*(a1 + 32) + 8) + 24), *(*(*(a1 + 40) + 8) + 24), v119);
           fwrite("Duplicate being suppressed\n", 0x1BuLL, 1uLL, __stderrp);
           if (envLogReportsToStderr == 1)
           {
@@ -9942,12 +9931,12 @@ LABEL_229:
         goto LABEL_269;
       }
 
-      storeAddressHash(v127, v124, *(*(*(a1 + 32) + 8) + 24), *(a1 + 120), *(a1 + 124));
+      storeAddressHash(v121, v118, *(*(*(a1 + 32) + 8) + 24), *(a1 + 120), *(a1 + 124));
     }
 
     if (envRPACDebug == 1 && envEnableDuplicateDetection == 1 && envLogAGPCReportsToStderr == 1)
     {
-      fprintf(__stderrp, "No duplicate stats == %s : %s : %s : %zd : Log type : %d Policy : %d NonSystemFrames : %d\n", *(a1 + 96), *(a1 + 104), *(a1 + 56), v127, *(*(*(a1 + 32) + 8) + 24), *(*(*(a1 + 40) + 8) + 24), v125);
+      fprintf(__stderrp, "No duplicate stats == %s : %s : %s : %zd : Log type : %d Policy : %d NonSystemFrames : %d\n", *(a1 + 96), *(a1 + 104), *(a1 + 56), v121, *(*(*(a1 + 32) + 8) + 24), *(*(*(a1 + 40) + 8) + 24), v119);
     }
 
     if (envLogReportsToStderr != 1)
@@ -9955,41 +9944,41 @@ LABEL_229:
       goto LABEL_266;
     }
 
-    v103 = *(*(*(a1 + 32) + 8) + 24);
+    v97 = *(*(*(a1 + 32) + 8) + 24);
     if (envLogAGPCReportsToStderr)
     {
-      if (v103 == 17 || ((v121 ^ 1) & 1) != 0)
+      if (v97 == 17 || ((v115 ^ 1) & 1) != 0)
       {
         goto LABEL_265;
       }
     }
 
-    else if (!((v103 == 17) | v121 & 1))
+    else if (!((v97 == 17) | v115 & 1))
     {
 LABEL_265:
       fputs(v5, __stderrp);
     }
 
 LABEL_266:
-    if (envLogReportsToOsLog == 1 && v125)
+    if (envLogReportsToOsLog == 1 && v119)
     {
-      culledOsLogFault(*(a1 + 56), *(a1 + 64), *(*(*(a1 + 32) + 8) + 24), *(a1 + 120), *(a1 + 72), (20 * v124 + 20), v122, v121 & 1, *(a1 + 124));
+      culledOsLogFault(*(a1 + 56), *(a1 + 64), *(*(*(a1 + 32) + 8) + 24), *(a1 + 120), *(a1 + 72), (20 * v118 + 20), v116, v115 & 1, *(a1 + 124));
     }
 
     goto LABEL_269;
   }
 
-  v102 = 1;
+  v96 = 1;
 LABEL_243:
   if (envRPACDebug == 1)
   {
-    fprintf(__stderrp, "Framework : %s, Class : %s, API : %s, Sum address : %zd, Log type : %d, Policy : %d, NonSystemFrames : %d\n", *(a1 + 96), *(a1 + 104), *(a1 + 56), v127, *(*(*(a1 + 32) + 8) + 24), *(*(*(a1 + 40) + 8) + 24), v125);
+    fprintf(__stderrp, "Framework : %s, Class : %s, API : %s, Sum address : %zd, Log type : %d, Policy : %d, NonSystemFrames : %d\n", *(a1 + 96), *(a1 + 104), *(a1 + 56), v121, *(*(*(a1 + 32) + 8) + 24), *(*(*(a1 + 40) + 8) + 24), v119);
     if (v7)
     {
       fwrite("Gobbling up issue due to rate limiter engagement\n", 0x31uLL, 1uLL, __stderrp);
     }
 
-    if (v102)
+    if (v96)
     {
       fwrite("Gobbling up issue because of suppression engagement\n", 0x34uLL, 1uLL, __stderrp);
     }
@@ -10002,30 +9991,30 @@ LABEL_269:
   }
 
   free(*(a1 + 56));
-  v104 = *(a1 + 64);
-  if (v104)
+  v98 = *(a1 + 64);
+  if (v98)
   {
-    free(v104);
+    free(v98);
   }
 
-  v105 = *(a1 + 96);
-  if (v105)
+  v99 = *(a1 + 96);
+  if (v99)
   {
-    free(v105);
+    free(v99);
   }
 
-  v106 = *(a1 + 104);
-  if (v106)
+  v100 = *(a1 + 104);
+  if (v100)
   {
-    free(v106);
+    free(v100);
   }
 
-  free(v122);
+  free(v116);
   free(v5);
-  v107 = v6[6];
-  if (v107)
+  v101 = v6[6];
+  if (v101)
   {
-    free(v107);
+    free(v101);
   }
 
   generateCulledBacktrace_prevLogType = *(*(*(a1 + 32) + 8) + 24);
@@ -10055,21 +10044,21 @@ LABEL_269:
   {
     if (generateCulledBacktrace_inflight_issues > 99)
     {
-      v108 = 50;
+      v102 = 50;
       goto LABEL_292;
     }
 
     if (generateCulledBacktrace_inflight_issues > 49)
     {
-      v108 = 30;
+      v102 = 30;
       goto LABEL_292;
     }
 
     if (generateCulledBacktrace_inflight_issues >= 30)
     {
-      v108 = 15;
+      v102 = 15;
 LABEL_292:
-      generateCulledBacktrace_max_limit = v108;
+      generateCulledBacktrace_max_limit = v102;
     }
 
     if (envRPACDebug == 1)

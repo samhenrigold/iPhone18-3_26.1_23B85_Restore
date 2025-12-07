@@ -12,7 +12,7 @@
   if (*(self + OBJC_IVAR____TtC8Freeform35CRLiOSFreehandDrawingStrokeAnimator_incomingShapeItemUUIDs))
   {
     type metadata accessor for UUID();
-    sub_100068454(&qword_1019FB870, 255, &type metadata accessor for UUID);
+    sub_100068454(&qword_1019FB870, 255, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
 
     v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
   }
@@ -30,7 +30,7 @@
   if (ds)
   {
     type metadata accessor for UUID();
-    sub_100068454(&qword_1019FB870, 255, &type metadata accessor for UUID);
+    sub_100068454(&qword_1019FB870, 255, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
     v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

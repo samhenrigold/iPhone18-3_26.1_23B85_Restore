@@ -73,19 +73,17 @@
 
 void __41__BLSHXPCAssertionServiceHost_invalidate__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   [v4 invalidate];
   v5 = *(*(a1 + 32) + 8);
   v6 = MEMORY[0x277CCA9B8];
   v7 = *MEMORY[0x277CF0828];
-  v11 = *MEMORY[0x277CCA450];
-  v12[0] = @"service disconnected";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CCA450];
+  v11[0] = @"service disconnected";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v9 = [v6 errorWithDomain:v7 code:3 userInfo:v8];
   [v5 cancelAssertion:v4 withError:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)acquireAssertionForDescriptor:(id)descriptor error:(id *)error
@@ -203,7 +201,6 @@ LABEL_6:
 
 - (void)acquireAssertion:(id)assertion
 {
-  localService = self->_localService;
   [(BLSHXPCAssertionServiceHost *)self proxyForIdentifier:assertion];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_8() acquireAssertion:?];
@@ -219,7 +216,6 @@ LABEL_6:
 
 - (void)restartAssertionTimeoutTimer:(id)timer
 {
-  localService = self->_localService;
   [(BLSHXPCAssertionServiceHost *)self proxyForIdentifier:timer];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_8() restartAssertionTimeoutTimer:?];
@@ -227,25 +223,23 @@ LABEL_6:
 
 - (void)acquireAssertionForDescriptor:(uint64_t)a3 error:.cold.1(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138544642;
-  v10 = v5;
-  v11 = 2114;
-  v12 = v7;
-  v13 = 2048;
-  v14 = a2;
-  v15 = 2114;
-  v16 = @"BLSHXPCAssertionServiceHost.m";
-  v17 = 1024;
-  v18 = 105;
-  v19 = 2114;
-  v20 = a3;
-  _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138544642;
+  v9 = v5;
+  v10 = 2114;
+  v11 = v7;
+  v12 = 2048;
+  v13 = a2;
+  v14 = 2114;
+  v15 = @"BLSHXPCAssertionServiceHost.m";
+  v16 = 1024;
+  v17 = 105;
+  v18 = 2114;
+  v19 = a3;
+  _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v8, 0x3Au);
 }
 
 - (void)acquireAssertionForDescriptor:(void *)a3 error:.cold.2(uint64_t a1, uint64_t a2, void *a3)

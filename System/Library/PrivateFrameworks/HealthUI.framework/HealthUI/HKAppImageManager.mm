@@ -103,7 +103,7 @@ uint64_t __39__HKAppImageManager_sharedImageManager__block_invoke()
 void __35__HKAppImageManager_defaultAppIcon__block_invoke()
 {
   v0 = [MEMORY[0x1E69DCEB0] mainScreen];
-  [v0 scale];
+  objc_msgSend_scale(v0);
   v2 = v1;
 
   v10 = [MEMORY[0x1E69A8A00] genericApplicationIcon];
@@ -115,7 +115,7 @@ void __35__HKAppImageManager_defaultAppIcon__block_invoke()
   {
     v6 = MEMORY[0x1E69DCAB8];
     v7 = [v4 CGImage];
-    [v5 scale];
+    objc_msgSend_scale(v5);
     v8 = [v6 imageWithCGImage:v7 scale:0 orientation:?];
     v9 = defaultAppIcon___defaultAppIcon;
     defaultAppIcon___defaultAppIcon = v8;
@@ -137,7 +137,7 @@ void __35__HKAppImageManager_defaultAppIcon__block_invoke()
 void __42__HKAppImageManager_defaultAppIconTableUI__block_invoke()
 {
   v0 = [MEMORY[0x1E69DCEB0] mainScreen];
-  [v0 scale];
+  objc_msgSend_scale(v0);
   v2 = v1;
 
   v10 = [MEMORY[0x1E69A8A00] genericApplicationIcon];
@@ -149,7 +149,7 @@ void __42__HKAppImageManager_defaultAppIconTableUI__block_invoke()
   {
     v6 = MEMORY[0x1E69DCAB8];
     v7 = [v4 CGImage];
-    [v5 scale];
+    objc_msgSend_scale(v5);
     v8 = [v6 imageWithCGImage:v7 scale:0 orientation:?];
     v9 = defaultAppIconTableUI___defaultAppIconTableUI;
     defaultAppIconTableUI___defaultAppIconTableUI = v8;
@@ -662,14 +662,14 @@ LABEL_19:
   v10 = v44;
   v11 = [v44 CGImage];
   v12 = [MEMORY[0x1E69DCEB0] mainScreen];
-  [v12 scale];
+  objc_msgSend_scale(v12);
   v14 = [v9 imageWithCGImage:v11 scale:objc_msgSend(v44 orientation:{"imageOrientation"), v13}];
 
   [v14 size];
   v16 = v15;
   v18 = v17;
   v19 = [MEMORY[0x1E69DCEB0] mainScreen];
-  [v19 scale];
+  objc_msgSend_scale(v19);
   v21 = v20;
   v46.width = v16;
   v46.height = v18;
@@ -699,7 +699,7 @@ LABEL_19:
   }
 
   v33 = [MEMORY[0x1E69DCEB0] mainScreen];
-  [v33 scale];
+  objc_msgSend_scale(v33);
   if (v32 <= 29.0)
   {
     v35 = v34 * 0.100000001;
@@ -1031,7 +1031,7 @@ void __74__HKAppImageManager__queue_loadAppIconForSource_productType_onCompletio
   {
     v6 = MEMORY[0x1E69DCAB8];
     mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-    [mainScreen scale];
+    objc_msgSend_scale(mainScreen);
     v8 = [v6 _applicationIconImageForBundleIdentifier:identifierCopy format:0 scale:?];
 
     if (v8)
@@ -1263,10 +1263,10 @@ void __72__HKAppImageManager__enqueueRequestForAppIconForIdentifier_productType_
     }
 
     v20 = [MEMORY[0x1E69DCEB0] mainScreen];
-    [v20 scale];
+    objc_msgSend_scale(v20);
     v22 = v19 * v21;
     v23 = [MEMORY[0x1E69DCEB0] mainScreen];
-    [v23 scale];
+    objc_msgSend_scale(v23);
     v25 = [v18 URLWithSize:*MEMORY[0x1E698C608] cropStyle:*MEMORY[0x1E698C610] format:{v22, v19 * v24}];
 
     v26 = [*(a1 + 32) hasPrefix:@"com.apple.Nano"];

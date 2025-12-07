@@ -135,7 +135,7 @@ uint64_t mlir::pdl_interp::detail::GetResultsOpGenericAdaptorBase::getIndex(mlir
   return v2 | 0x100000000;
 }
 
-uint64_t mlir::pdl_interp::GetResultsOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::GetResultsOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v31 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 24);
@@ -546,7 +546,7 @@ unint64_t mlir::pdl_interp::GetResultsOp::getInherentAttr(uint64_t a1, void *a2,
   }
 }
 
-void *mlir::pdl_interp::GetResultsOp::setInherentAttr(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::pdl_interp::GetResultsOp::setInherentAttr(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 5 && *a2 == 1701080681 && *(a2 + 4) == 120)
   {
@@ -584,9 +584,9 @@ uint64_t mlir::pdl_interp::GetResultsOp::populateInherentAttrs(uint64_t a1, uint
   return result;
 }
 
-BOOL mlir::pdl_interp::GetResultsOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::GetResultsOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
@@ -645,7 +645,7 @@ uint64_t mlir::pdl_interp::GetResultsOp::setIndex(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t mlir::pdl_interp::GetResultsOp::build(uint64_t **I32IntegerAttr, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *mlir::pdl_interp::GetResultsOp::build(uint64_t **I32IntegerAttr, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if ((a5 & 0x100000000) != 0)
   {
@@ -667,7 +667,7 @@ uint64_t mlir::pdl_interp::GetResultsOp::build(uint64_t **I32IntegerAttr, uint64
   return mlir::pdl_interp::GetResultsOp::build(I32IntegerAttr, a2, a3, a4, v6);
 }
 
-uint64_t mlir::pdl_interp::GetResultsOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *mlir::pdl_interp::GetResultsOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = a4;
   result = mlir::OperationState::addOperands(a2, &v11, 1uLL);
@@ -693,7 +693,7 @@ uint64_t mlir::pdl_interp::GetResultsOp::build(uint64_t a1, uint64_t a2, uint64_
   return result;
 }
 
-uint64_t mlir::pdl_interp::GetResultsOp::build(mlir::MLIRContext **a1, uint64_t a2, uint64_t a3)
+void *mlir::pdl_interp::GetResultsOp::build(mlir::MLIRContext **a1, uint64_t a2, uint64_t a3)
 {
   TypeUniquer = mlir::MLIRContext::getTypeUniquer(*a1);
   SingletonImpl = mlir::StorageUniquer::getSingletonImpl(TypeUniquer, &mlir::detail::TypeIDResolver<mlir::pdl::ValueType,void>::id);
@@ -702,7 +702,7 @@ uint64_t mlir::pdl_interp::GetResultsOp::build(mlir::MLIRContext **a1, uint64_t 
   return mlir::pdl_interp::GetResultsOp::build(v7, a2, v7, a3, 0);
 }
 
-unint64_t mlir::pdl_interp::GetResultsOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *mlir::pdl_interp::GetResultsOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v15 = a5;
   result = mlir::OperationState::addOperands(a2, &v15, 1uLL);
@@ -803,19 +803,19 @@ uint64_t mlir::pdl_interp::GetResultsOp::build(uint64_t a1, uint64_t a2, uint64_
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
   return result;
 }
 
-uint64_t mlir::pdl_interp::GetResultsOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::pdl_interp::GetResultsOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v2 = *this;
   v3 = *(*this + 2 * ((*(*this + 11) >> 23) & 1) + 8);
   v7 = v2;
-  if ((mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps4(v3, "index", 5, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, &v7) & 1) == 0 || (mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps4(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1) == 0)
+  if (!mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps4(v3, "index", 5, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, &v7) || !mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps4(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0))
   {
     return 0;
   }
@@ -831,7 +831,7 @@ uint64_t mlir::pdl_interp::GetResultsOp::verifyInvariantsImpl(mlir::Operation **
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-  return mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps12(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0) & 1;
+  return mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps12(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0);
 }
 
 uint64_t mlir::pdl_interp::GetResultsOp::parse(mlir::pdl_interp::GetResultsOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
@@ -880,7 +880,7 @@ uint64_t mlir::pdl_interp::GetResultsOp::parse(mlir::pdl_interp::GetResultsOp *t
           v19[1] = &v14;
           v19[2] = a2;
           v10 = mlir::NamedAttrList::get(a2 + 112, **(v9 + 96));
-          if (!v10 || (mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps4(v10, "index", 5, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::GetResultsOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v19) & 1) != 0)
+          if (!v10 || mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps4(v10, "index", 5, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::GetResultsOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v19))
           {
             v11 = (*(*this + 32))(this);
             v12 = mlir::Builder::getType<mlir::pdl::OperationType>(v11);
@@ -1053,7 +1053,7 @@ uint64_t mlir::pdl_interp::GetUsersOp::build(uint64_t a1, uint64_t a2, uint64_t 
   return result;
 }
 
-unint64_t mlir::pdl_interp::GetUsersOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::pdl_interp::GetUsersOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v12 = a5;
   result = mlir::OperationState::addOperands(a2, &v12, 1uLL);
@@ -1081,7 +1081,7 @@ unint64_t mlir::pdl_interp::GetUsersOp::build(uint64_t a1, uint64_t a2, uint64_t
   return result;
 }
 
-unint64_t mlir::pdl_interp::GetUsersOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::pdl_interp::GetUsersOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -1125,7 +1125,7 @@ unint64_t mlir::pdl_interp::GetUsersOp::build(uint64_t a1, uint64_t a2, uint64_t
 BOOL mlir::pdl_interp::GetUsersOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v41 = *MEMORY[0x277D85DE8];
-  if ((mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps12(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1) == 0)
+  if (!mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps12(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0))
   {
     return 0;
   }
@@ -1296,7 +1296,7 @@ BOOL mlir::pdl_interp::GetUsersOp::verifyInvariantsImpl(mlir::Operation **this)
   return v16;
 }
 
-uint64_t mlir::pdl_interp::GetUsersOp::parse(mlir::pdl_interp::GetUsersOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL mlir::pdl_interp::GetUsersOp::parse(mlir::pdl_interp::GetUsersOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   memset(v20, 0, sizeof(v20));
   v21 = 0;
@@ -1346,7 +1346,7 @@ uint64_t mlir::pdl_interp::GetUsersOp::parse(mlir::pdl_interp::GetUsersOp *this,
 
   *(*(a2 + 8) + 8 * v15) = v14;
   ++*(a2 + 18);
-  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v19, v17, v10, a2 + 16) & 1;
+  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v19, v17, v10, a2 + 16);
 }
 
 void mlir::pdl_interp::GetUsersOp::print(mlir::Operation **this, mlir::OpAsmPrinter *a2)
@@ -1482,7 +1482,7 @@ uint64_t mlir::pdl_interp::GetValueTypeOp::build(uint64_t a1, uint64_t a2, uint6
   return result;
 }
 
-unint64_t mlir::pdl_interp::GetValueTypeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::pdl_interp::GetValueTypeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v12 = a5;
   result = mlir::OperationState::addOperands(a2, &v12, 1uLL);
@@ -1510,7 +1510,7 @@ unint64_t mlir::pdl_interp::GetValueTypeOp::build(uint64_t a1, uint64_t a2, uint
   return result;
 }
 
-unint64_t mlir::pdl_interp::GetValueTypeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::pdl_interp::GetValueTypeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -1554,7 +1554,7 @@ unint64_t mlir::pdl_interp::GetValueTypeOp::build(uint64_t a1, uint64_t a2, uint
 BOOL mlir::pdl_interp::GetValueTypeOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v55 = *MEMORY[0x277D85DE8];
-  if ((mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps12(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1) == 0)
+  if (!mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps12(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0))
   {
     return 0;
   }
@@ -1750,7 +1750,7 @@ BOOL mlir::pdl_interp::GetValueTypeOp::verifyInvariantsImpl(mlir::Operation **th
   }
 
   v41 = 259;
-  mlir::OpState::emitOpError(this, v40, v44);
+  mlir::OpState::emitOpError(v44, this, v40);
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v44);
   v31 = result;
   if (v44[0])
@@ -2026,7 +2026,7 @@ uint64_t mlir::pdl_interp::IsNotNullOp::build(uint64_t a1, uint64_t a2, uint64_t
   return result;
 }
 
-unint64_t mlir::pdl_interp::IsNotNullOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t mlir::pdl_interp::IsNotNullOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v19 = a5;
   result = mlir::OperationState::addOperands(a2, &v19, 1uLL);
@@ -2071,7 +2071,7 @@ unint64_t mlir::pdl_interp::IsNotNullOp::build(uint64_t a1, uint64_t a2, uint64_
   return result;
 }
 
-unint64_t mlir::pdl_interp::IsNotNullOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::pdl_interp::IsNotNullOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -2112,7 +2112,7 @@ unint64_t mlir::pdl_interp::IsNotNullOp::build(uint64_t a1, uint64_t a2, uint64_
   return result;
 }
 
-uint64_t mlir::pdl_interp::IsNotNullOp::parse(mlir::pdl_interp::IsNotNullOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::pdl_interp::IsNotNullOp::parse(mlir::pdl_interp::IsNotNullOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   v18[2] = *MEMORY[0x277D85DE8];
   memset(v13, 0, sizeof(v13));
@@ -2141,7 +2141,7 @@ uint64_t mlir::pdl_interp::IsNotNullOp::parse(mlir::pdl_interp::IsNotNullOp *thi
 LABEL_7:
           mlir::BlockRange::BlockRange(v15, v16, v17);
           mlir::OperationState::addSuccessors(a2, v15[0], v15[1]);
-          v7 = mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v12, v10, v5, a2 + 16) & 1;
+          v7 = mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v12, v10, v5, a2 + 16);
           goto LABEL_16;
         }
 
@@ -2468,7 +2468,7 @@ uint64_t mlir::pdl_interp::detail::RecordMatchOpGenericAdaptorBase::getBenefit(m
   return v2;
 }
 
-uint64_t mlir::pdl_interp::RecordMatchOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::pdl_interp::RecordMatchOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v53 = *MEMORY[0x277D85DE8];
   v3 = a1[3];
@@ -2853,7 +2853,7 @@ unint64_t mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(mlir::pdl
 
 uint64_t mlir::pdl_interp::RecordMatchOp::setPropertiesFromAttr(uint64_t *a1, uint64_t a2, void (*a3)(uint64_t *__return_ptr, uint64_t), uint64_t a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id)
   {
     v6 = a2;
@@ -2864,18 +2864,18 @@ uint64_t mlir::pdl_interp::RecordMatchOp::setPropertiesFromAttr(uint64_t *a1, ui
     v6 = 0;
   }
 
-  v51 = v6;
+  v53 = v6;
   if (!v6)
   {
-    a3(&v54, a4);
-    if (v54)
+    a3(&v56, a4);
+    if (v56)
     {
-      LODWORD(v52) = 3;
-      *(&v52 + 1) = "expected DictionaryAttr to set properties";
-      v53 = 41;
-      if (v57 >= v58)
+      LODWORD(v54) = 3;
+      *(&v54 + 1) = "expected DictionaryAttr to set properties";
+      v55 = 41;
+      if (v59 >= v60)
       {
-        if (v56 > &v52 || v56 + 24 * v57 <= &v52)
+        if (v58 > &v54 || v58 + 24 * v59 <= &v54)
         {
           llvm::SmallVectorBase<unsigned int>::grow_pod();
         }
@@ -2883,33 +2883,33 @@ uint64_t mlir::pdl_interp::RecordMatchOp::setPropertiesFromAttr(uint64_t *a1, ui
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      v22 = v56 + 24 * v57;
-      v23 = v52;
-      *(v22 + 2) = v53;
+      v22 = v58 + 24 * v59;
+      v23 = v54;
+      *(v22 + 2) = v55;
       *v22 = v23;
-      ++v57;
-      if (v54)
+      ++v59;
+      if (v56)
       {
-        mlir::InFlightDiagnostic::report(&v54);
+        mlir::InFlightDiagnostic::report(&v56);
       }
     }
 
-    if (v65 != 1)
+    if (v67 != 1)
     {
       return 0;
     }
 
-    if (v64 != &v65)
+    if (v66 != &v67)
     {
-      free(v64);
+      free(v66);
     }
 
     v24 = __p;
     if (__p)
     {
-      v25 = v63;
+      v25 = v65;
       v26 = __p;
-      if (v63 != __p)
+      if (v65 != __p)
       {
         do
         {
@@ -2920,27 +2920,27 @@ uint64_t mlir::pdl_interp::RecordMatchOp::setPropertiesFromAttr(uint64_t *a1, ui
         v26 = __p;
       }
 
-      v63 = v24;
+      v65 = v24;
       operator delete(v26);
     }
 
-    v17 = v60;
-    if (!v60)
+    v17 = v62;
+    if (!v62)
     {
       goto LABEL_70;
     }
 
-    v27 = v61;
-    v19 = v60;
-    if (v61 == v60)
+    v27 = v63;
+    v19 = v62;
+    if (v63 == v62)
     {
 LABEL_69:
-      v61 = v17;
+      v63 = v17;
       operator delete(v19);
 LABEL_70:
-      if (v56 != &v59)
+      if (v58 != &v61)
       {
-        free(v56);
+        free(v58);
       }
 
       return 0;
@@ -2959,24 +2959,24 @@ LABEL_70:
 
     while (v27 != v17);
 LABEL_68:
-    v19 = v60;
+    v19 = v62;
     goto LABEL_69;
   }
 
-  v8 = mlir::DictionaryAttr::get(&v51, "benefit", 7uLL);
+  v8 = mlir::DictionaryAttr::get(&v53, "benefit", 7uLL);
   if (v8)
   {
     if (*(*v8 + 136) != &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
     {
       v9 = v8;
-      a3(&v54, a4);
-      if (v54)
+      a3(&v56, a4);
+      if (v56)
       {
-        LODWORD(v52) = 3;
-        v53 = 52;
-        if (v57 >= v58)
+        LODWORD(v54) = 3;
+        v55 = 52;
+        if (v59 >= v60)
         {
-          if (v56 > &v52 || v56 + 24 * v57 <= &v52)
+          if (v58 > &v54 || v58 + 24 * v59 <= &v54)
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
@@ -2984,17 +2984,17 @@ LABEL_68:
           llvm::SmallVectorBase<unsigned int>::grow_pod();
         }
 
-        v10 = v56 + 24 * v57;
-        v11 = v52;
-        *(v10 + 2) = v53;
+        v10 = v58 + 24 * v59;
+        v11 = v54;
+        *(v10 + 2) = v55;
         *v10 = v11;
-        ++v57;
-        if (v54)
+        ++v59;
+        if (v56)
         {
-          mlir::DiagnosticArgument::DiagnosticArgument(&v52, v9);
-          if (v57 >= v58)
+          mlir::DiagnosticArgument::DiagnosticArgument(&v54, v9);
+          if (v59 >= v60)
           {
-            if (v56 > &v52 || v56 + 24 * v57 <= &v52)
+            if (v58 > &v54 || v58 + 24 * v59 <= &v54)
             {
               llvm::SmallVectorBase<unsigned int>::grow_pod();
             }
@@ -3002,34 +3002,34 @@ LABEL_68:
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v12 = v56 + 24 * v57;
-          v13 = v52;
-          *(v12 + 2) = v53;
+          v12 = v58 + 24 * v59;
+          v13 = v54;
+          *(v12 + 2) = v55;
           *v12 = v13;
-          ++v57;
-          if (v54)
+          ++v59;
+          if (v56)
           {
-            mlir::InFlightDiagnostic::report(&v54);
+            mlir::InFlightDiagnostic::report(&v56);
           }
         }
       }
 
-      if ((v65 & 1) == 0)
+      if ((v67 & 1) == 0)
       {
         return 0;
       }
 
-      if (v64 != &v65)
+      if (v66 != &v67)
       {
-        free(v64);
+        free(v66);
       }
 
       v14 = __p;
       if (__p)
       {
-        v15 = v63;
+        v15 = v65;
         v16 = __p;
-        if (v63 != __p)
+        if (v65 != __p)
         {
           do
           {
@@ -3040,19 +3040,19 @@ LABEL_68:
           v16 = __p;
         }
 
-        v63 = v14;
+        v65 = v14;
         operator delete(v16);
       }
 
-      v17 = v60;
-      if (!v60)
+      v17 = v62;
+      if (!v62)
       {
         goto LABEL_70;
       }
 
-      v18 = v61;
-      v19 = v60;
-      if (v61 == v60)
+      v18 = v63;
+      v19 = v62;
+      if (v63 == v62)
       {
         goto LABEL_69;
       }
@@ -3075,20 +3075,20 @@ LABEL_68:
     *a1 = v8;
   }
 
-  v30 = mlir::DictionaryAttr::get(&v51, "generatedOps", 0xCuLL);
+  v30 = mlir::DictionaryAttr::get(&v53, "generatedOps", 0xCuLL);
   if (v30)
   {
     if (*(*v30 + 136) != &mlir::detail::TypeIDResolver<mlir::ArrayAttr,void>::id)
     {
       v31 = v30;
-      a3(&v54, a4);
-      if (v54)
+      a3(&v56, a4);
+      if (v56)
       {
-        LODWORD(v52) = 3;
-        v53 = 57;
-        if (v57 >= v58)
+        LODWORD(v54) = 3;
+        v55 = 57;
+        if (v59 >= v60)
         {
-          if (v56 > &v52 || v56 + 24 * v57 <= &v52)
+          if (v58 > &v54 || v58 + 24 * v59 <= &v54)
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
@@ -3096,17 +3096,17 @@ LABEL_68:
           llvm::SmallVectorBase<unsigned int>::grow_pod();
         }
 
-        v32 = v56 + 24 * v57;
-        v33 = v52;
-        *(v32 + 2) = v53;
+        v32 = v58 + 24 * v59;
+        v33 = v54;
+        *(v32 + 2) = v55;
         *v32 = v33;
-        ++v57;
-        if (v54)
+        ++v59;
+        if (v56)
         {
-          mlir::DiagnosticArgument::DiagnosticArgument(&v52, v31);
-          if (v57 >= v58)
+          mlir::DiagnosticArgument::DiagnosticArgument(&v54, v31);
+          if (v59 >= v60)
           {
-            if (v56 > &v52 || v56 + 24 * v57 <= &v52)
+            if (v58 > &v54 || v58 + 24 * v59 <= &v54)
             {
               llvm::SmallVectorBase<unsigned int>::grow_pod();
             }
@@ -3114,34 +3114,34 @@ LABEL_68:
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v34 = v56 + 24 * v57;
-          v35 = v52;
-          *(v34 + 2) = v53;
+          v34 = v58 + 24 * v59;
+          v35 = v54;
+          *(v34 + 2) = v55;
           *v34 = v35;
-          ++v57;
-          if (v54)
+          ++v59;
+          if (v56)
           {
-            mlir::InFlightDiagnostic::report(&v54);
+            mlir::InFlightDiagnostic::report(&v56);
           }
         }
       }
 
-      if ((v65 & 1) == 0)
+      if ((v67 & 1) == 0)
       {
         return 0;
       }
 
-      if (v64 != &v65)
+      if (v66 != &v67)
       {
-        free(v64);
+        free(v66);
       }
 
       v36 = __p;
       if (__p)
       {
-        v37 = v63;
+        v37 = v65;
         v38 = __p;
-        if (v63 != __p)
+        if (v65 != __p)
         {
           do
           {
@@ -3152,19 +3152,19 @@ LABEL_68:
           v38 = __p;
         }
 
-        v63 = v36;
+        v65 = v36;
         operator delete(v38);
       }
 
-      v17 = v60;
-      if (!v60)
+      v17 = v62;
+      if (!v62)
       {
         goto LABEL_70;
       }
 
-      v39 = v61;
-      v19 = v60;
-      if (v61 == v60)
+      v39 = v63;
+      v19 = v62;
+      if (v63 == v62)
       {
         goto LABEL_69;
       }
@@ -3187,20 +3187,20 @@ LABEL_68:
     a1[1] = v30;
   }
 
-  v43 = mlir::DictionaryAttr::get(&v51, "rewriter", 8uLL);
+  v43 = mlir::DictionaryAttr::get(&v53, "rewriter", 8uLL);
   if (v43)
   {
     if (*(*v43 + 136) != &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id)
     {
       v44 = v43;
-      a3(&v54, a4);
-      if (v54)
+      a3(&v56, a4);
+      if (v56)
       {
-        LODWORD(v52) = 3;
-        v53 = 53;
-        if (v57 >= v58)
+        LODWORD(v54) = 3;
+        v55 = 53;
+        if (v59 >= v60)
         {
-          if (v56 > &v52 || v56 + 24 * v57 <= &v52)
+          if (v58 > &v54 || v58 + 24 * v59 <= &v54)
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
@@ -3208,17 +3208,17 @@ LABEL_68:
           llvm::SmallVectorBase<unsigned int>::grow_pod();
         }
 
-        v45 = v56 + 24 * v57;
-        v46 = v52;
-        *(v45 + 2) = v53;
+        v45 = v58 + 24 * v59;
+        v46 = v54;
+        *(v45 + 2) = v55;
         *v45 = v46;
-        ++v57;
-        if (v54)
+        ++v59;
+        if (v56)
         {
-          mlir::DiagnosticArgument::DiagnosticArgument(&v52, v44);
-          if (v57 >= v58)
+          mlir::DiagnosticArgument::DiagnosticArgument(&v54, v44);
+          if (v59 >= v60)
           {
-            if (v56 > &v52 || v56 + 24 * v57 <= &v52)
+            if (v58 > &v54 || v58 + 24 * v59 <= &v54)
             {
               llvm::SmallVectorBase<unsigned int>::grow_pod();
             }
@@ -3226,21 +3226,21 @@ LABEL_68:
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          v47 = v56 + 24 * v57;
-          v48 = v52;
-          *(v47 + 2) = v53;
+          v47 = v58 + 24 * v59;
+          v48 = v54;
+          *(v47 + 2) = v55;
           *v47 = v48;
-          ++v57;
-          if (v54)
+          ++v59;
+          if (v56)
           {
-            mlir::InFlightDiagnostic::report(&v54);
+            mlir::InFlightDiagnostic::report(&v56);
           }
         }
       }
 
-      if (v65 == 1)
+      if (v67 == 1)
       {
-        mlir::Diagnostic::~Diagnostic(&v55);
+        mlir::Diagnostic::~Diagnostic(&v57);
       }
 
       return 0;
@@ -3249,24 +3249,25 @@ LABEL_68:
     a1[2] = v43;
   }
 
-  v49 = mlir::DictionaryAttr::get(&v51, "rootKind", 8uLL);
-  *&v52 = v49;
+  v49 = mlir::DictionaryAttr::get(&v53, "rootKind", 8uLL);
+  *&v54 = v49;
   if (v49)
   {
     if (*(*v49 + 136) != &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id)
     {
-      a3(&v54, a4);
-      mlir::InFlightDiagnostic::operator<<<mlir::Attribute &>(v50, &v52);
-      mlir::InFlightDiagnostic::~InFlightDiagnostic(&v54);
+      a3(&v56, a4);
+      mlir::InFlightDiagnostic::operator<<<mlir::Attribute &>(v51, &v54, v50);
+      mlir::InFlightDiagnostic::~InFlightDiagnostic(&v56);
       return 0;
     }
 
     a1[3] = v49;
   }
 
-  if (mlir::DictionaryAttr::get(&v51, "operandSegmentSizes", 0x13uLL) || mlir::DictionaryAttr::get(&v51, "operand_segment_sizes", 0x15uLL))
+  v52 = mlir::DictionaryAttr::get(&v53, "operandSegmentSizes", 0x13uLL);
+  if (v52 || (v52 = mlir::DictionaryAttr::get(&v53, "operand_segment_sizes", 0x15uLL)) != 0)
   {
-    mlir::convertFromAttribute();
+    mlir::convertFromAttribute(a1 + 4, 2, v52, a3, a4);
   }
 
   return 1;
@@ -3373,7 +3374,7 @@ unint64_t mlir::pdl_interp::RecordMatchOp::computePropertiesHash(uint64_t a1)
   return llvm::hashing::detail::hash_combine_recursive_helper::combine(v23, v22, v18, v25);
 }
 
-uint64_t mlir::pdl_interp::RecordMatchOp::getInherentAttr(int a1, void *a2, char *__s1, uint64_t __n)
+uint64_t mlir::pdl_interp::RecordMatchOp::getInherentAttr(uint64_t a1, void *a2, char *__s1, uint64_t __n)
 {
   if (__n > 11)
   {
@@ -3607,16 +3608,16 @@ BOOL mlir::pdl_interp::RecordMatchOp::verifyInherentAttrs(uint64_t a1, uint64_t 
 {
   v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v8 || (mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps12(v8, "benefit", 7, a3, a4) & 1) != 0)
+  if (!v8 || mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps12(v8, "benefit", 7, a3, a4))
   {
     v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v9 || (mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(v9, "generatedOps", 12, a3, a4) & 1) != 0)
+    if (!v9 || mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(v9, "generatedOps", 0xC, a3, a4))
     {
       v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v10 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps11(v10, "rewriter", 8, a3, a4) & 1) != 0)
+      if (!v10 || mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps11(v10, "rewriter", 8, a3, a4))
       {
         v11 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 24));
-        if (!v11 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v11, "rootKind", 8, a3, a4) & 1) != 0)
+        if (!v11 || mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v11, "rootKind", 8, a3, a4))
         {
           return 1;
         }
@@ -3627,7 +3628,7 @@ BOOL mlir::pdl_interp::RecordMatchOp::verifyInherentAttrs(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps12(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
+BOOL mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps12(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
 {
   v45 = *MEMORY[0x277D85DE8];
   if (!a1)
@@ -3798,20 +3799,20 @@ LABEL_11:
   return v18;
 }
 
-uint64_t mlir::pdl_interp::RecordMatchOp::readProperties(uint64_t a1, uint64_t a2)
+uint64_t mlir::pdl_interp::RecordMatchOp::readProperties(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
   }
 
-  if ((mlir::DialectBytecodeReader::readAttribute<mlir::IntegerAttr>(a1, *(a2 + 256)) & 1) != 0 && mlir::DialectBytecodeReader::readOptionalAttribute<mlir::ArrayAttr>(a1, (v3 + 8)))
+  if (mlir::DialectBytecodeReader::readAttribute<mlir::IntegerAttr>(a1, a2[32]) && mlir::DialectBytecodeReader::readOptionalAttribute<mlir::ArrayAttr>(a1, (v3 + 8)))
   {
     if ((*(*a1 + 40))(a1) > 5)
     {
-      if (mlir::DialectBytecodeReader::readAttribute<mlir::SymbolRefAttr>(a1, (v3 + 16)) & 1) != 0 && mlir::DialectBytecodeReader::readOptionalAttribute<mlir::StringAttr>(a1, (v3 + 24)) && ((*(*a1 + 40))(a1) < 6 || (mlir::DialectBytecodeReader::readSparseArray<int>(a1, (v3 + 32), 2uLL)))
+      if (mlir::DialectBytecodeReader::readAttribute<mlir::SymbolRefAttr>(a1, (v3 + 16)) && mlir::DialectBytecodeReader::readOptionalAttribute<mlir::StringAttr>(a1, (v3 + 24)) && ((*(*a1 + 40))(a1) < 6 || (mlir::DialectBytecodeReader::readSparseArray<int>(a1, (v3 + 32), 2uLL) & 1) != 0))
       {
         return 1;
       }
@@ -3820,7 +3821,7 @@ uint64_t mlir::pdl_interp::RecordMatchOp::readProperties(uint64_t a1, uint64_t a
     else
     {
       v7 = 0;
-      if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<int>>(a1))
+      if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<int>>(a1, &v7))
       {
         if (mlir::DenseArrayAttr::getSize(&v7) < 3)
         {
@@ -3846,9 +3847,9 @@ uint64_t mlir::pdl_interp::RecordMatchOp::readProperties(uint64_t a1, uint64_t a
   return 0;
 }
 
-uint64_t mlir::OperationState::getOrAddProperties<mlir::pdl_interp::detail::RecordMatchOpGenericAdaptorBase::Properties>(uint64_t a1)
+uint64_t mlir::OperationState::getOrAddProperties<mlir::pdl_interp::detail::RecordMatchOpGenericAdaptorBase::Properties>(void *a1)
 {
-  result = *(a1 + 256);
+  result = a1[32];
   if (!result)
   {
     operator new();
@@ -3857,7 +3858,7 @@ uint64_t mlir::OperationState::getOrAddProperties<mlir::pdl_interp::detail::Reco
   return result;
 }
 
-uint64_t mlir::DialectBytecodeReader::readAttribute<mlir::SymbolRefAttr>(uint64_t a1, uint64_t *a2)
+BOOL mlir::DialectBytecodeReader::readAttribute<mlir::SymbolRefAttr>(uint64_t a1, uint64_t *a2)
 {
   v43 = *MEMORY[0x277D85DE8];
   v27 = 0;
@@ -4267,21 +4268,21 @@ uint64_t mlir::pdl_interp::RecordMatchOp::writeProperties(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t mlir::pdl_interp::RecordMatchOp::getRootKind@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t *mlir::pdl_interp::RecordMatchOp::getRootKind@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v4 = *(*this + 16 * ((*(*this + 44) >> 23) & 1) + 88);
   if (v4)
   {
     this = mlir::StringAttr::getValue(&v4);
-    *a2 = this;
-    *(a2 + 8) = v3;
-    *(a2 + 16) = 1;
+    *a1 = this;
+    a1[1] = v3;
+    *(a1 + 16) = 1;
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 16) = 0;
+    *a1 = 0;
+    *(a1 + 16) = 0;
   }
 
   return this;
@@ -4408,7 +4409,7 @@ LABEL_6:
   return result;
 }
 
-unint64_t mlir::pdl_interp::RecordMatchOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+uint64_t mlir::pdl_interp::RecordMatchOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   v15 = a6;
   mlir::OperationState::addOperands(a2, a5, a6);
@@ -4575,7 +4576,7 @@ LABEL_14:
   return result;
 }
 
-unint64_t mlir::pdl_interp::RecordMatchOp::build(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned __int16 a12, uint64_t a13)
+uint64_t mlir::pdl_interp::RecordMatchOp::build(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned __int16 a12, uint64_t a13)
 {
   v15 = a6;
   mlir::OperationState::addOperands(a2, a5, a6);
@@ -4729,7 +4730,7 @@ uint64_t mlir::pdl_interp::RecordMatchOp::build(uint64_t a1, uint64_t a2, uint64
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -4748,7 +4749,7 @@ BOOL mlir::pdl_interp::RecordMatchOp::verifyInvariantsImpl(mlir::Operation **thi
   {
     v57[0] = "requires attribute 'benefit'";
     v58 = 259;
-    mlir::OpState::emitOpError(this, v57, v61);
+    mlir::OpState::emitOpError(v61, this, v57);
     v15 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v61);
     if (v61[0])
     {
@@ -4826,7 +4827,7 @@ LABEL_48:
   {
     v57[0] = "requires attribute 'rewriter'";
     v58 = 259;
-    mlir::OpState::emitOpError(this, v57, v61);
+    mlir::OpState::emitOpError(v61, this, v57);
     v15 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v61);
     if (v61[0])
     {
@@ -4896,25 +4897,25 @@ LABEL_46:
   v8 = v4[1];
   v9 = v4[3];
   v61[0] = v2;
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps11(v7, "rewriter", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps11(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v61) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps11(v7, "rewriter", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps11(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v61))
   {
     return 0;
   }
 
   v61[0] = *this;
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v9, "rootKind", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v61) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps2(v9, "rootKind", 8, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v61))
   {
     return 0;
   }
 
   v61[0] = *this;
-  if ((mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(v8, "generatedOps", 12, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v61) & 1) == 0)
+  if (!mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(v8, "generatedOps", 0xC, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v61))
   {
     return 0;
   }
 
   v61[0] = *this;
-  if ((mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps12(v5, "benefit", 7, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps12(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v61) & 1) == 0)
+  if (!mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps12(v5, "benefit", 7, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps12(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v61))
   {
     return 0;
   }
@@ -5123,7 +5124,7 @@ LABEL_12:
 LABEL_9:
   v13 = 0;
   v14 = v12 + 24;
-  while ((mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps1(*this, *(*v14 + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, v13) & 1) != 0)
+  while (mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps1(*this, *(*v14 + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, v13))
   {
     ++v13;
     v14 += 32;
@@ -5327,7 +5328,7 @@ uint64_t mlir::pdl_interp::RecordMatchOp::parse(mlir::pdl_interp::RecordMatchOp 
   *(mlir::OperationState::getOrAddProperties<mlir::pdl_interp::detail::RecordMatchOpGenericAdaptorBase::Properties>(a2) + 32) = v22 | (v23 << 32);
   v24 = (*(*this + 32))(this);
   v25 = mlir::Builder::getType<mlir::pdl::OperationType>(v24);
-  if ((mlir::OpAsmParser::resolveOperands<llvm::SmallVector<mlir::OpAsmParser::UnresolvedOperand,4u> &,llvm::SmallVector<mlir::Type,1u> &>(this, &v44, v42, v9, a2 + 16) & 1) == 0)
+  if (!mlir::OpAsmParser::resolveOperands<llvm::SmallVector<mlir::OpAsmParser::UnresolvedOperand,4u> &,llvm::SmallVector<mlir::Type,1u> &>(this, &v44, v42, v9, a2 + 16))
   {
     goto LABEL_51;
   }
@@ -5500,7 +5501,7 @@ uint64_t mlir::pdl_interp::ReplaceOp::build(uint64_t a1, uint64_t a2, uint64_t a
   return mlir::OperationState::addOperands(a2, a4, a5);
 }
 
-unint64_t mlir::pdl_interp::ReplaceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
+uint64_t mlir::pdl_interp::ReplaceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
 {
   v16 = a5;
   mlir::OperationState::addOperands(a2, &v16, 1uLL);
@@ -5529,7 +5530,7 @@ unint64_t mlir::pdl_interp::ReplaceOp::build(uint64_t a1, uint64_t a2, uint64_t 
   return result;
 }
 
-unint64_t mlir::pdl_interp::ReplaceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::pdl_interp::ReplaceOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -5594,7 +5595,7 @@ uint64_t mlir::pdl_interp::ReplaceOp::verifyInvariantsImpl(mlir::Operation **thi
     }
 
     v6 = v5 + 24;
-    for (i = 1; (mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps7(*this, *(*v6 + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, i) & 1) != 0; ++i)
+    for (i = 1; mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps7(*this, *(*v6 + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, i); ++i)
     {
       v6 += 32;
       if (!--v4)
@@ -5631,7 +5632,7 @@ uint64_t mlir::pdl_interp::ReplaceOp::verifyInvariants(mlir::Operation **this)
     }
 
     v6 = v5 + 24;
-    for (i = 1; (mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps7(*this, *(*v6 + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, i) & 1) != 0; ++i)
+    for (i = 1; mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps7(*this, *(*v6 + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, i); ++i)
     {
       v6 += 32;
       if (!--v4)
@@ -5644,7 +5645,7 @@ uint64_t mlir::pdl_interp::ReplaceOp::verifyInvariants(mlir::Operation **this)
   return 0;
 }
 
-uint64_t mlir::pdl_interp::ReplaceOp::parse(mlir::pdl_interp::ReplaceOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::pdl_interp::ReplaceOp::parse(mlir::pdl_interp::ReplaceOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   v18[16] = *MEMORY[0x277D85DE8];
   memset(v10, 0, sizeof(v10));
@@ -5654,16 +5655,7 @@ uint64_t mlir::pdl_interp::ReplaceOp::parse(mlir::pdl_interp::ReplaceOp *this, m
   v14[0] = &v15;
   v14[1] = 0x100000000;
   (*(*this + 40))(this, a2, a3);
-  if ((*(*this + 704))(this, v10, 1) & 1) != 0 && (v13 = 257, ((*(*this + 400))(this, "with", 4, v12)) && ((*(*this + 280))(this) & 1) != 0 && (v5 = (*(*this + 40))(this), ((*(*this + 720))(this, &v16, 0, 1, 0xFFFFFFFFLL)) && (!v17 || ((*(*this + 104))(this) & 1) != 0 && (mlir::AsmParser::parseTypeList(this, v14)) && ((*(*this + 296))(this) & 1) != 0 && ((*(*this + 40))(this), ((*(*this + 488))(this, a2 + 112)) && (v6 = (*(*this + 32))(this), v7 = mlir::Builder::getType<mlir::pdl::OperationType>(v6), ((*(*this + 728))(this, v10, v7, a2 + 16)))
-  {
-    v8 = mlir::OpAsmParser::resolveOperands<llvm::SmallVector<mlir::OpAsmParser::UnresolvedOperand,4u> &,llvm::SmallVector<mlir::Type,1u> &>(this, &v16, v14, v5, a2 + 16) & 1;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
+  v8 = ((*(*this + 704))(this, v10, 1) & 1) != 0 && (v13 = 257, ((*(*this + 400))(this, "with", 4, v12) & 1) != 0) && ((*(*this + 280))(this) & 1) != 0 && (v5 = (*(*this + 40))(this), ((*(*this + 720))(this, &v16, 0, 1, 0xFFFFFFFFLL) & 1) != 0) && (!v17 || ((*(*this + 104))(this) & 1) != 0 && (mlir::AsmParser::parseTypeList(this, v14) & 1) != 0) && ((*(*this + 296))(this) & 1) != 0 && ((*(*this + 40))(this), ((*(*this + 488))(this, a2 + 112) & 1) != 0) && (v6 = (*(*this + 32))(this), v7 = mlir::Builder::getType<mlir::pdl::OperationType>(v6), ((*(*this + 728))(this, v10, v7, a2 + 16) & 1) != 0) && mlir::OpAsmParser::resolveOperands<llvm::SmallVector<mlir::OpAsmParser::UnresolvedOperand,4u> &,llvm::SmallVector<mlir::Type,1u> &>(this, &v16, v14, v5, a2 + 16);
   if (v14[0] != &v15)
   {
     free(v14[0]);
@@ -5796,7 +5788,7 @@ LABEL_15:
     goto LABEL_33;
   }
 
-  v16 = *(v14 + 9);
+  v16 = v14[9];
   v17 = v15 - 1;
   v18 = (*(*a2 + 16))(a2);
   if (v17)
@@ -5848,7 +5840,7 @@ LABEL_18:
   if ((*(*this + 46) & 0x80) != 0)
   {
     v28 = *(v27 + 17);
-    v29 = *(v27 + 9);
+    v29 = v27[9];
     v30 = v28 - 1;
   }
 
@@ -5860,7 +5852,7 @@ LABEL_18:
 
   v46[0] = v29 + 32;
   v46[1] = v30;
-  mlir::OperandRange::getTypes(v46, &v47);
+  mlir::OperandRange::getTypes(&v47, v46);
   v31 = v48;
   v32 = v50;
   if (v48 != v50)
@@ -5960,7 +5952,7 @@ uint64_t mlir::pdl_interp::detail::SwitchAttributeOpGenericAdaptorBase::SwitchAt
   return a1;
 }
 
-uint64_t mlir::pdl_interp::SwitchAttributeOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::SwitchAttributeOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -6338,7 +6330,7 @@ unint64_t mlir::pdl_interp::SwitchAttributeOp::getInherentAttr(uint64_t a1, void
   }
 }
 
-void *mlir::pdl_interp::SwitchAttributeOp::setInherentAttr(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::pdl_interp::SwitchAttributeOp::setInherentAttr(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 10 && *a2 == 0x756C615665736163 && *(a2 + 8) == 29541)
   {
@@ -6376,7 +6368,7 @@ uint64_t mlir::pdl_interp::SwitchAttributeOp::populateInherentAttrs(uint64_t a1,
   return result;
 }
 
-uint64_t mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps13(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps13(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   v36 = *MEMORY[0x277D85DE8];
   if (!a1 || *(*a1 + 136) == &mlir::detail::TypeIDResolver<mlir::ArrayAttr,void>::id)
@@ -6503,15 +6495,15 @@ uint64_t mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps13(uint6
   return v11;
 }
 
-uint64_t mlir::pdl_interp::SwitchAttributeOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::SwitchAttributeOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
   }
 
-  return mlir::DialectBytecodeReader::readAttribute<mlir::ArrayAttr>(a1, v2) & 1;
+  return mlir::DialectBytecodeReader::readAttribute<mlir::ArrayAttr>(a1, v2);
 }
 
 uint64_t mlir::pdl_interp::SwitchAttributeOp::build(mlir::MLIRContext **a1, uint64_t a2, uint64_t a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -6543,7 +6535,7 @@ uint64_t mlir::pdl_interp::SwitchAttributeOp::build(uint64_t a1, uint64_t a2, ui
   return mlir::OperationState::addSuccessors(a2, a6, a7);
 }
 
-unint64_t mlir::pdl_interp::SwitchAttributeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t mlir::pdl_interp::SwitchAttributeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v21 = a5;
   mlir::OperationState::addOperands(a2, &v21, 1uLL);
@@ -6649,7 +6641,7 @@ uint64_t mlir::pdl_interp::SwitchAttributeOp::build(uint64_t a1, uint64_t a2, ui
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -6663,22 +6655,14 @@ BOOL mlir::pdl_interp::SwitchAttributeOp::verifyInvariantsImpl(mlir::Operation *
   if (v1)
   {
     v15[0] = *this;
-    if (mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps13(v1, "caseValues", 10, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps13(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v15))
-    {
-      return mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps3(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1;
-    }
-
-    else
-    {
-      return 0;
-    }
+    return mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps13(v1, "caseValues", 0xA, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps13(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v15) && mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps3(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0);
   }
 
   else
   {
     v13 = "requires attribute 'caseValues'";
     v14 = 259;
-    mlir::OpState::emitOpError(this, &v13, v15);
+    mlir::OpState::emitOpError(v15, this, &v13);
     v3 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v15);
     if (v15[0])
     {
@@ -7069,7 +7053,7 @@ uint64_t mlir::pdl_interp::detail::SwitchOperandCountOpGenericAdaptorBase::Switc
   return a1;
 }
 
-uint64_t mlir::pdl_interp::SwitchOperandCountOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::SwitchOperandCountOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v32 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -7569,7 +7553,7 @@ uint64_t mlir::pdl_interp::SwitchOperandCountOp::populateInherentAttrs(uint64_t 
   return result;
 }
 
-uint64_t mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps14(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
+BOOL mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps14(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(uint64_t *__return_ptr, uint64_t), uint64_t a5)
 {
   v41 = *MEMORY[0x277D85DE8];
   if (!a1)
@@ -7708,9 +7692,9 @@ uint64_t mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps14(uint6
   return v11;
 }
 
-BOOL mlir::pdl_interp::SwitchOperandCountOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::SwitchOperandCountOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
@@ -7945,7 +7929,7 @@ uint64_t mlir::pdl_interp::SwitchOperandCountOp::build(uint64_t a1, uint64_t a2,
   return mlir::OperationState::addSuccessors(a2, a6, a7);
 }
 
-unint64_t mlir::pdl_interp::SwitchOperandCountOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t mlir::pdl_interp::SwitchOperandCountOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v21 = a5;
   mlir::OperationState::addOperands(a2, &v21, 1uLL);
@@ -8051,7 +8035,7 @@ uint64_t mlir::pdl_interp::SwitchOperandCountOp::build(uint64_t a1, uint64_t a2,
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -8065,22 +8049,14 @@ BOOL mlir::pdl_interp::SwitchOperandCountOp::verifyInvariantsImpl(mlir::Operatio
   if (v1)
   {
     v15[0] = *this;
-    if (mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps14(v1, "caseValues", 10, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps14(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v15))
-    {
-      return mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps4(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1;
-    }
-
-    else
-    {
-      return 0;
-    }
+    return mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps14(v1, "caseValues", 0xA, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps14(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v15) && mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps4(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0);
   }
 
   else
   {
     v13 = "requires attribute 'caseValues'";
     v14 = 259;
-    mlir::OpState::emitOpError(this, &v13, v15);
+    mlir::OpState::emitOpError(v15, this, &v13);
     v3 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v15);
     if (v15[0])
     {
@@ -8496,7 +8472,7 @@ uint64_t mlir::pdl_interp::detail::SwitchOperationNameOpGenericAdaptorBase::Swit
   return a1;
 }
 
-uint64_t mlir::pdl_interp::SwitchOperationNameOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::SwitchOperationNameOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v34 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -8964,7 +8940,7 @@ unint64_t mlir::pdl_interp::SwitchOperationNameOp::getInherentAttr(uint64_t a1, 
   }
 }
 
-void *mlir::pdl_interp::SwitchOperationNameOp::setInherentAttr(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::pdl_interp::SwitchOperationNameOp::setInherentAttr(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 10 && *a2 == 0x756C615665736163 && *(a2 + 8) == 29541)
   {
@@ -9002,18 +8978,18 @@ uint64_t mlir::pdl_interp::SwitchOperationNameOp::populateInherentAttrs(uint64_t
   return result;
 }
 
-uint64_t mlir::pdl_interp::SwitchOperationNameOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::SwitchOperationNameOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
   }
 
-  return mlir::DialectBytecodeReader::readAttribute<mlir::ArrayAttr>(a1, v2) & 1;
+  return mlir::DialectBytecodeReader::readAttribute<mlir::ArrayAttr>(a1, v2);
 }
 
-void mlir::pdl_interp::SwitchOperationNameOp::build(mlir::MLIRContext **a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void mlir::pdl_interp::SwitchOperationNameOp::build(mlir::StringAttr **a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a8;
   v9 = a7;
@@ -9085,7 +9061,7 @@ uint64_t mlir::pdl_interp::SwitchOperationNameOp::build(uint64_t a1, uint64_t a2
   return mlir::OperationState::addSuccessors(a2, a6, a7);
 }
 
-unint64_t mlir::pdl_interp::SwitchOperationNameOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t mlir::pdl_interp::SwitchOperationNameOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v21 = a5;
   mlir::OperationState::addOperands(a2, &v21, 1uLL);
@@ -9191,7 +9167,7 @@ uint64_t mlir::pdl_interp::SwitchOperationNameOp::build(uint64_t a1, uint64_t a2
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -9205,22 +9181,14 @@ BOOL mlir::pdl_interp::SwitchOperationNameOp::verifyInvariantsImpl(mlir::Operati
   if (v1)
   {
     v15[0] = *this;
-    if (mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(v1, "caseValues", 10, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v15))
-    {
-      return mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps4(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1;
-    }
-
-    else
-    {
-      return 0;
-    }
+    return mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(v1, "caseValues", 0xA, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps8(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v15) && mlir::pdl_interp::__mlir_ods_local_type_constraint_PDLInterpOps4(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0);
   }
 
   else
   {
     v13 = "requires attribute 'caseValues'";
     v14 = 259;
-    mlir::OpState::emitOpError(this, &v13, v15);
+    mlir::OpState::emitOpError(v15, this, &v13);
     v3 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v15);
     if (v15[0])
     {
@@ -9643,7 +9611,7 @@ uint64_t mlir::pdl_interp::detail::SwitchResultCountOpGenericAdaptorBase::Switch
   return a1;
 }
 
-uint64_t mlir::pdl_interp::SwitchResultCountOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::pdl_interp::SwitchResultCountOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v32 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -9801,4 +9769,232 @@ LABEL_36:
   }
 
   return v4;
+}
+
+uint64_t mlir::pdl_interp::SwitchResultCountOp::setPropertiesFromAttr(uint64_t *a1, uint64_t a2, void (*a3)(void *__return_ptr, uint64_t), uint64_t a4)
+{
+  v45 = *MEMORY[0x277D85DE8];
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id)
+  {
+    v6 = a2;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v31 = v6;
+  if (!v6)
+  {
+    a3(v34, a4);
+    if (v34[0])
+    {
+      LODWORD(v32) = 3;
+      *(&v32 + 1) = "expected DictionaryAttr to set properties";
+      v33 = 41;
+      if (v36 >= v37)
+      {
+        if (v35 > &v32 || v35 + 24 * v36 <= &v32)
+        {
+          llvm::SmallVectorBase<unsigned int>::grow_pod();
+        }
+
+        llvm::SmallVectorBase<unsigned int>::grow_pod();
+      }
+
+      v11 = v35 + 24 * v36;
+      v12 = v32;
+      *(v11 + 2) = v33;
+      *v11 = v12;
+      ++v36;
+      if (v34[0])
+      {
+        mlir::InFlightDiagnostic::report(v34);
+      }
+    }
+
+    if (v44 != 1)
+    {
+      return 0;
+    }
+
+    if (v43 != &v44)
+    {
+      free(v43);
+    }
+
+    v13 = __p;
+    if (__p)
+    {
+      v14 = v42;
+      v15 = __p;
+      if (v42 != __p)
+      {
+        do
+        {
+          v14 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v14 - 1);
+        }
+
+        while (v14 != v13);
+        v15 = __p;
+      }
+
+      v42 = v13;
+      operator delete(v15);
+    }
+
+    v16 = v39;
+    if (!v39)
+    {
+      goto LABEL_49;
+    }
+
+    v17 = v40;
+    v18 = v39;
+    if (v40 == v39)
+    {
+      goto LABEL_48;
+    }
+
+    do
+    {
+      v20 = *--v17;
+      v19 = v20;
+      *v17 = 0;
+      if (v20)
+      {
+        MEMORY[0x259C63150](v19, 0x1000C8077774924);
+      }
+    }
+
+    while (v17 != v16);
+    goto LABEL_47;
+  }
+
+  v8 = mlir::DictionaryAttr::get(&v31, "caseValues", 0xAuLL);
+  if (!v8)
+  {
+    return 1;
+  }
+
+  v9 = v8;
+  if (mlir::DenseIntElementsAttr::classof(v8))
+  {
+    *a1 = v9;
+    return 1;
+  }
+
+  a3(v34, a4);
+  if (v34[0])
+  {
+    LODWORD(v32) = 3;
+    v33 = 55;
+    if (v36 >= v37)
+    {
+      if (v35 > &v32 || v35 + 24 * v36 <= &v32)
+      {
+        llvm::SmallVectorBase<unsigned int>::grow_pod();
+      }
+
+      llvm::SmallVectorBase<unsigned int>::grow_pod();
+    }
+
+    v21 = v35 + 24 * v36;
+    v22 = v32;
+    *(v21 + 2) = v33;
+    *v21 = v22;
+    ++v36;
+    if (v34[0])
+    {
+      mlir::DiagnosticArgument::DiagnosticArgument(&v32, v9);
+      if (v36 >= v37)
+      {
+        if (v35 > &v32 || v35 + 24 * v36 <= &v32)
+        {
+          llvm::SmallVectorBase<unsigned int>::grow_pod();
+        }
+
+        llvm::SmallVectorBase<unsigned int>::grow_pod();
+      }
+
+      v23 = v35 + 24 * v36;
+      v24 = v32;
+      *(v23 + 2) = v33;
+      *v23 = v24;
+      ++v36;
+      if (v34[0])
+      {
+        mlir::InFlightDiagnostic::report(v34);
+      }
+    }
+  }
+
+  if (v44)
+  {
+    if (v43 != &v44)
+    {
+      free(v43);
+    }
+
+    v25 = __p;
+    if (__p)
+    {
+      v26 = v42;
+      v27 = __p;
+      if (v42 != __p)
+      {
+        do
+        {
+          v26 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v26 - 1);
+        }
+
+        while (v26 != v25);
+        v27 = __p;
+      }
+
+      v42 = v25;
+      operator delete(v27);
+    }
+
+    v16 = v39;
+    if (!v39)
+    {
+      goto LABEL_49;
+    }
+
+    v28 = v40;
+    v18 = v39;
+    if (v40 == v39)
+    {
+LABEL_48:
+      v40 = v16;
+      operator delete(v18);
+LABEL_49:
+      if (v35 != &v38)
+      {
+        free(v35);
+      }
+
+      return 0;
+    }
+
+    do
+    {
+      v30 = *--v28;
+      v29 = v30;
+      *v28 = 0;
+      if (v30)
+      {
+        MEMORY[0x259C63150](v29, 0x1000C8077774924);
+      }
+    }
+
+    while (v28 != v16);
+LABEL_47:
+    v18 = v39;
+    goto LABEL_48;
+  }
+
+  return 0;
 }

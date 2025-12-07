@@ -10,7 +10,7 @@
 
 - (HFAccessoryDiagnosticsControlItem)initWithValueSource:(id)source displayResults:(id)results
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CCFAD0];
   v7 = *MEMORY[0x277CCFA48];
   v8 = MEMORY[0x277CBEB98];
@@ -19,18 +19,17 @@
   v11 = [v8 setWithObject:v6];
   v12 = [MEMORY[0x277CBEB98] setWithObject:v7];
   v13 = [HFControlItemCharacteristicOptions alloc];
-  v20[0] = &unk_282523820;
-  v20[1] = &unk_282523838;
-  v21[0] = v12;
-  v21[1] = v11;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[0] = &unk_282523820;
+  v19[1] = &unk_282523838;
+  v20[0] = v12;
+  v20[1] = v11;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
   v15 = [(HFControlItemCharacteristicOptions *)v13 initWithCharacteristicTypesByUsage:v14];
 
-  v19.receiver = self;
-  v19.super_class = HFAccessoryDiagnosticsControlItem;
-  v16 = [(HFControlItem *)&v19 initWithValueSource:sourceCopy characteristicOptions:v15 displayResults:resultsCopy];
+  v18.receiver = self;
+  v18.super_class = HFAccessoryDiagnosticsControlItem;
+  v16 = [(HFControlItem *)&v18 initWithValueSource:sourceCopy characteristicOptions:v15 displayResults:resultsCopy];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -75,7 +74,7 @@
 
 - (id)characteristicValuesForValue:(id)value
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = objc_opt_class();
   v6 = valueCopy;
@@ -105,12 +104,10 @@
   v8 = 0;
 LABEL_8:
 
-  v15 = *MEMORY[0x277CCFA48];
-  v16[0] = v8;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = *MEMORY[0x277CCFA48];
+  v15[0] = v8;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = [(HFControlItem *)self normalizedCharacteristicValuesForValues:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

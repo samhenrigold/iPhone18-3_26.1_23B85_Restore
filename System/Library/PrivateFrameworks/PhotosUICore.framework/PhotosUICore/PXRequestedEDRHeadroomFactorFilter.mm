@@ -16,7 +16,7 @@
     return 0;
   }
 
-  [(PXNumberFilter *)self currentTime];
+  objc_msgSend_currentTime(self);
   if (v5 < v4)
   {
     return 0;
@@ -54,7 +54,7 @@
 
   else if (![(PXRequestedEDRHeadroomFactorFilter *)self isPaused])
   {
-    [(PXNumberFilter *)self currentTime];
+    objc_msgSend_currentTime(self);
     [(PXRequestedEDRHeadroomFactorFilter *)self setLastDecreaseTime:?];
     objc_initWeak(&location, self);
     [(PXRequestedEDRHeadroomFactorFilter *)self sustainDuration];

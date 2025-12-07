@@ -135,38 +135,37 @@
 
 - (void)_sceneConnect:(id)connect
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   _FBSScene = [connectCopy _FBSScene];
-  if (CPCurrentProcessHasTemplateEntitlement() && ([_FBSScene settings], v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v6, (isKindOfClass & 1) != 0))
+  HasTemplateEntitlement = CPCurrentProcessHasTemplateEntitlement(_FBSScene, v6, v7, v8);
+  if (HasTemplateEntitlement && ([_FBSScene settings], v10 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v10, (isKindOfClass & 1) != 0))
   {
-    v8 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v12 = CarPlayFrameworkGeneralLogging(HasTemplateEntitlement);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       _sceneIdentifier = [connectCopy _sceneIdentifier];
-      v21 = 138543362;
-      v22 = _sceneIdentifier;
-      _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "Connecting to listener endpoint for scene identifier: %{public}@", &v21, 0xCu);
+      v24 = 138543362;
+      v25 = _sceneIdentifier;
+      _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "Connecting to listener endpoint for scene identifier: %{public}@", &v24, 0xCu);
     }
 
-    v10 = objc_alloc_init(MEMORY[0x277CCAEA0]);
+    v14 = objc_alloc_init(MEMORY[0x277CCAEA0]);
     settings = [_FBSScene settings];
     templateEndpoint = [settings templateEndpoint];
-    [v10 _setEndpoint:templateEndpoint];
+    [v14 _setEndpoint:templateEndpoint];
 
-    [(CPInstrumentClusterController *)self _connectToListenerEndpoint:v10];
+    [(CPInstrumentClusterController *)self _connectToListenerEndpoint:v14];
   }
 
   else
   {
-    v10 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v14 = CarPlayFrameworkGeneralLogging(HasTemplateEntitlement);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(CPInstrumentClusterController *)v10 _sceneConnect:v13, v14, v15, v16, v17, v18, v19];
+      [(CPInstrumentClusterController *)v14 _sceneConnect:v17, v18, v19, v20, v21, v22, v23];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectToListenerEndpoint:(id)endpoint
@@ -203,7 +202,7 @@
 
 void __60__CPInstrumentClusterController__connectToListenerEndpoint___block_invoke(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __60__CPInstrumentClusterController__connectToListenerEndpoint___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -215,7 +214,7 @@ void __60__CPInstrumentClusterController__connectToListenerEndpoint___block_invo
 
 void __60__CPInstrumentClusterController__connectToListenerEndpoint___block_invoke_56(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __60__CPInstrumentClusterController__connectToListenerEndpoint___block_invoke_56_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);

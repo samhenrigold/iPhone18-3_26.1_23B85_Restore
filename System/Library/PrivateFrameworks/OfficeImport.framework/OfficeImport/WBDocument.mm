@@ -167,13 +167,14 @@ LABEL_18:
 
 + (void)readNoteSeparatorFrom:(id)from type:(int)type separator:(id)separator
 {
+  v6 = *&type;
   fromCopy = from;
   separatorCopy = separator;
   tableHeaders = [fromCopy tableHeaders];
   if (((*(tableHeaders + 16) - *(tableHeaders + 8)) & 0x3FFFC) != 0)
   {
     v10[0] = &unk_286ED3718;
-    WrdCPTableHeaders::getTextRun(tableHeaders, v10, type, 0);
+    WrdCPTableHeaders::getTextRun(tableHeaders, v10, v6, 0);
     [WBText readFrom:fromCopy text:separatorCopy textRun:v10];
     [separatorCopy removeLastCharacter:13];
   }

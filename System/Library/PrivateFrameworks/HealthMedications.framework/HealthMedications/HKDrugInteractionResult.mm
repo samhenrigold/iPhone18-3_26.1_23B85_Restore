@@ -132,26 +132,24 @@ LABEL_6:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v13 = *&self->_firstInteractionClass;
+  v12 = *&self->_firstInteractionClass;
   severity = self->_severity;
-  educationContent = self->_educationContent;
-  v7 = HKStringFromBool();
+  v6 = HKStringFromBool();
   identifier = self->_identifier;
   allObjects = [(NSSet *)self->_validRegionCodes allObjects];
-  v10 = [allObjects componentsJoinedByString:{@", "}];
-  v11 = [v3 stringWithFormat:@"<%@:%p\nfirst interaction class: %@, \nsecond interaction class: %@, \nseverity: %@, \neducationPresent: %@, \nontologyIdentifier: %@, \nvalidRegionCodes:[%@]>", v4, self, v13, severity, v7, identifier, v10];
+  v9 = [allObjects componentsJoinedByString:{@", "}];
+  v10 = [v3 stringWithFormat:@"<%@:%p\nfirst interaction class: %@, \nsecond interaction class: %@, \nseverity: %@, \neducationPresent: %@, \nontologyIdentifier: %@, \nvalidRegionCodes:[%@]>", v4, self, v12, severity, v6, identifier, v9];
 
-  return v11;
+  return v10;
 }
 
 - (id)interactionClasses
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   secondInteractionClass = self->_secondInteractionClass;
-  v6[0] = self->_firstInteractionClass;
-  v6[1] = secondInteractionClass;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = self->_firstInteractionClass;
+  v5[1] = secondInteractionClass;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
 
   return v3;
 }

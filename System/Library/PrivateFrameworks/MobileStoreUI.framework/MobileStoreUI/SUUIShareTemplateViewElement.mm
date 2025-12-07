@@ -53,7 +53,7 @@ void __42__SUUIShareTemplateViewElement_activities__block_invoke(uint64_t a1, vo
 
         v9 = *(*(&v12 + 1) + 8 * i);
         activityType = [v9 activityType];
-        if ([activityType isEqualToString:typeCopy])
+        if (objc_msgSend_isEqualToString_(activityType))
         {
           v6 = v9;
 
@@ -102,14 +102,14 @@ LABEL_11:
 
         v11 = *(*(&v18 + 1) + 8 * i);
         activityType = [v11 activityType];
-        if ([activityType isEqualToString:@"*"])
+        if (objc_msgSend_isEqualToString_(activityType))
         {
           v13 = v11;
 
           v8 = v13;
         }
 
-        if ([activityType isEqualToString:v4])
+        if (objc_msgSend_isEqualToString_(activityType))
         {
           v14 = v11;
 

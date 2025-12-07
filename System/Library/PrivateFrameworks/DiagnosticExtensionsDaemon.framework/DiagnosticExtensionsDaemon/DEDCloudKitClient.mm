@@ -7,12 +7,12 @@
 
 - (DEDCloudKitClient)initWithBugSession:(id)session configuration:(id)configuration
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   configurationCopy = configuration;
-  v26.receiver = self;
-  v26.super_class = DEDCloudKitClient;
-  v9 = [(DEDCloudKitClient *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = DEDCloudKitClient;
+  v9 = [(DEDCloudKitClient *)&v25 init];
   if (v9)
   {
     v10 = +[DEDConfiguration sharedInstance];
@@ -33,7 +33,7 @@
         v16 = v14;
         cloudkitData2 = [configurationCopy cloudkitData];
         *buf = 138543362;
-        v28 = cloudkitData2;
+        v27 = cloudkitData2;
         _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "cloudkitData: %{public}@", buf, 0xCu);
       }
     }
@@ -63,13 +63,12 @@
     v9->_container = v22;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)uploadRecords:(id)records taskIdentifier:(id)identifier totalUploadSize:(id)size perRecordProgressBlock:(id)block perRecordSaveBlock:(id)saveBlock completionBlock:(id)completionBlock
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   identifierCopy = identifier;
   sizeCopy = size;
@@ -77,35 +76,35 @@
   saveBlockCopy = saveBlock;
   completionBlockCopy = completionBlock;
   mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke;
-  v35[3] = &unk_278F66D88;
-  v35[4] = self;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke;
+  v34[3] = &unk_278F66D88;
+  v34[4] = self;
   v21 = identifierCopy;
-  v36 = v21;
-  v32 = recordsCopy;
-  v37 = v32;
+  v35 = v21;
+  v31 = recordsCopy;
+  v36 = v31;
   v22 = blockCopy;
-  v38 = v22;
+  v37 = v22;
   v23 = saveBlockCopy;
-  v39 = v23;
+  v38 = v23;
   v24 = completionBlockCopy;
-  v40 = v24;
-  [mEMORY[0x277CF0810] registerForTaskWithIdentifier:v21 usingQueue:0 launchHandler:v35];
+  v39 = v24;
+  [mEMORY[0x277CF0810] registerForTaskWithIdentifier:v21 usingQueue:0 launchHandler:v34];
 
   v25 = [objc_alloc(MEMORY[0x277CF07C8]) initWithIdentifier:v21];
   [v25 setPriority:2];
   [v25 setRequiresNetworkConnectivity:1];
   if (sizeCopy)
   {
-    [v25 setNetworkUploadSize:{objc_msgSend(sizeCopy, "integerValue", v32)}];
+    [v25 setNetworkUploadSize:{objc_msgSend(sizeCopy, "integerValue", v31)}];
   }
 
   mEMORY[0x277CF0810]2 = [MEMORY[0x277CF0810] sharedScheduler];
-  v34 = 0;
-  v27 = [mEMORY[0x277CF0810]2 submitTaskRequest:v25 error:&v34];
-  v28 = v34;
+  v33 = 0;
+  v27 = [mEMORY[0x277CF0810]2 submitTaskRequest:v25 error:&v33];
+  v28 = v33;
 
   v29 = [(DEDCloudKitClient *)self log];
   v30 = v29;
@@ -114,7 +113,7 @@
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v42 = v21;
+      v41 = v21;
       _os_log_impl(&dword_248AD7000, v30, OS_LOG_TYPE_DEFAULT, "Submitted task %{public}@", buf, 0xCu);
     }
   }
@@ -131,35 +130,33 @@
       (*(v24 + 2))(v24, v28);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_2;
-  v28[3] = &unk_278F66D10;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_2;
+  v27[3] = &unk_278F66D10;
   v4 = *(a1 + 40);
-  v28[4] = *(a1 + 32);
-  v29 = v4;
-  v30 = &v31;
-  [v3 setExpirationHandler:v28];
-  if ((v32[3] & 1) == 0)
+  v27[4] = *(a1 + 32);
+  v28 = v4;
+  v29 = &v30;
+  [v3 setExpirationHandler:v27];
+  if ((v31[3] & 1) == 0)
   {
     v5 = [*(a1 + 32) log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 40);
       *buf = 138543362;
-      v36 = v6;
+      v35 = v6;
       _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Task %{public}@ is running", buf, 0xCu);
     }
 
@@ -169,9 +166,9 @@ void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRe
       v8 = [*(a1 + 48) count];
       v9 = *(a1 + 48);
       *buf = 134218242;
-      v36 = v8;
-      v37 = 2112;
-      v38 = v9;
+      v35 = v8;
+      v36 = 2112;
+      v37 = v9;
       _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Uploading %lu records: %@", buf, 0x16u);
     }
 
@@ -185,56 +182,54 @@ void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRe
     v12 = [*(a1 + 56) copy];
     [v11 setPerRecordProgressBlock:v12];
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_17;
-    v26[3] = &unk_278F66D38;
-    v26[4] = *(a1 + 32);
-    v27 = *(a1 + 64);
-    [v11 setPerRecordSaveBlock:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_17;
+    v25[3] = &unk_278F66D38;
+    v25[4] = *(a1 + 32);
+    v26 = *(a1 + 64);
+    [v11 setPerRecordSaveBlock:v25];
     objc_initWeak(buf, v11);
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_19;
-    v20 = &unk_278F66D60;
-    objc_copyWeak(&v25, buf);
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_19;
+    v19 = &unk_278F66D60;
+    objc_copyWeak(&v24, buf);
     v13 = *(a1 + 40);
-    v21 = *(a1 + 32);
-    v22 = v13;
-    v23 = v3;
-    v24 = *(a1 + 72);
-    [v11 setCompletionBlock:&v17];
+    v20 = *(a1 + 32);
+    v21 = v13;
+    v22 = v3;
+    v23 = *(a1 + 72);
+    [v11 setCompletionBlock:&v16];
     v14 = [*(a1 + 32) container];
     v15 = [v14 publicCloudDatabase];
     [v15 addOperation:v11];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
 
-  _Block_object_dispose(&v31, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, "Task %{public}@ was expired by DAS", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, "Task %{public}@ was expired by DAS", &v4, 0xCu);
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 1;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_17(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -250,9 +245,9 @@ void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRe
 
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = v8;
-    _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "CloudKit successfully saved record: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v8;
+    _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "CloudKit successfully saved record: %@", &v13, 0xCu);
   }
 
   v12 = *(a1 + 40);
@@ -260,13 +255,11 @@ void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRe
   {
     (*(v12 + 16))(v12, v7, v8, v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_19(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained error];
 
@@ -277,7 +270,7 @@ void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRe
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = WeakRetained;
+      v33 = WeakRetained;
       _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Operation completed successfully: %@", buf, 0xCu);
     }
 
@@ -292,7 +285,7 @@ void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRe
     {
       v25 = *(a1 + 40);
       *buf = 138543362;
-      v34 = v25;
+      v33 = v25;
       _os_log_impl(&dword_248AD7000, v24, OS_LOG_TYPE_DEFAULT, "Task %{public}@ completed", buf, 0xCu);
     }
 
@@ -341,13 +334,13 @@ LABEL_29:
     goto LABEL_25;
   }
 
-  v29 = [WeakRetained error];
-  [v29 underlyingErrors];
-  v14 = v30 = v10;
+  v28 = [WeakRetained error];
+  [v28 underlyingErrors];
+  v14 = v29 = v10;
   v15 = [v14 firstObject];
-  v31 = [v15 code];
+  v30 = [v15 code];
 
-  if (v31 != 133)
+  if (v30 != 133)
   {
     goto LABEL_27;
   }
@@ -357,14 +350,14 @@ LABEL_29:
   {
     v17 = *(a1 + 40);
     *buf = 138543362;
-    v34 = v17;
+    v33 = v17;
     _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "Expiring task %{public}@", buf, 0xCu);
   }
 
   v18 = *(a1 + 48);
-  v32 = 0;
-  v19 = [v18 setTaskExpiredWithRetryAfter:&v32 error:0.0];
-  v20 = v32;
+  v31 = 0;
+  v19 = [v18 setTaskExpiredWithRetryAfter:&v31 error:0.0];
+  v20 = v31;
   if ((v19 & 1) == 0)
   {
     v21 = [*(a1 + 32) log];
@@ -383,48 +376,42 @@ LABEL_29:
   }
 
 LABEL_30:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadRecords:(NSObject *)a3 taskIdentifier:totalUploadSize:perRecordProgressBlock:perRecordSaveBlock:completionBlock:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_7_0(&dword_248AD7000, a2, a3, "Failed to submit task %{public}@: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_7_0(&dword_248AD7000, a2, a3, "Failed to submit task %{public}@: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_17_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_7_0(&dword_248AD7000, a2, a3, "CloudKit failed to save record: %@ with error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_7_0(&dword_248AD7000, a2, a3, "CloudKit failed to save record: %@ with error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_19_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Operation failed with error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Operation failed with error: %@", &v4, 0xCu);
 }
 
 void __124__DEDCloudKitClient_uploadRecords_taskIdentifier_totalUploadSize_perRecordProgressBlock_perRecordSaveBlock_completionBlock___block_invoke_19_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Failed to expire task %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Failed to expire task %{public}@", &v3, 0xCu);
 }
 
 @end

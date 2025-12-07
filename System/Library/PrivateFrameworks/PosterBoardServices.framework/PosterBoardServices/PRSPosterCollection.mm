@@ -8,57 +8,56 @@
 
 + (id)postersAtURL:(id)l error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if ([lCopy checkResourceIsReachableAndReturnError:error])
   {
-    v16 = lCopy;
+    v15 = lCopy;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     [self specificType];
-    v17 = objc_opt_new();
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
-    v31 = 0;
+    v16 = objc_opt_new();
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy_;
+    v28 = __Block_byref_object_dispose_;
+    v29 = 0;
     v7 = [defaultManager contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:0 options:5 error:0];
     if (![v7 count])
     {
       goto LABEL_14;
     }
 
-    v24 = 0u;
-    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v32 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v30 count:16];
     if (v9)
     {
-      v10 = *v23;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v19 = *(*(&v22 + 1) + 8 * i);
-          v20 = defaultManager;
-          v21 = v17;
+          v18 = defaultManager;
+          v19 = v16;
           PFServerPosterTypeEnumerate();
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v20 objects:v30 count:16];
       }
 
       while (v9);
     }
 
-    v12 = v27[5];
+    v12 = v25[5];
     if (v12)
     {
       v13 = 0;
@@ -71,19 +70,17 @@
     else
     {
 LABEL_14:
-      v13 = [[self alloc] initWithSet:v17];
+      v13 = [[self alloc] initWithSet:v16];
     }
 
-    _Block_object_dispose(&v26, 8);
-    lCopy = v16;
+    _Block_object_dispose(&v24, 8);
+    lCopy = v15;
   }
 
   else
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -126,67 +123,67 @@ void __42__PRSPosterCollection_postersAtURL_error___block_invoke(uint64_t a1, ui
 
 + (id)postersAtProviderURL:(id)l type:(int64_t)type fileManager:(id)manager error:(id *)error
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   lCopy = l;
   managerCopy = manager;
   if (type)
   {
     lastPathComponent = [lCopy lastPathComponent];
     uRLByDeletingLastPathComponent = [lCopy URLByDeletingLastPathComponent];
-    v45 = objc_opt_new();
+    v44 = objc_opt_new();
     v10 = 0x1E695D000uLL;
-    v43 = lCopy;
+    v42 = lCopy;
     typeCopy = type;
     [MEMORY[0x1E695DFF8] pf_posterPathTypeURLForProviderURL:lCopy type:type];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
-    v42 = v69 = 0u;
+    v41 = v68 = 0u;
     obj = [managerCopy contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
-    v51 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
-    if (v51)
+    v50 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
+    if (v50)
     {
-      v44 = type - 1;
-      v49 = *v67;
-      v55 = managerCopy;
+      v43 = type - 1;
+      v48 = *v66;
+      v54 = managerCopy;
       do
       {
-        for (i = 0; i != v51; ++i)
+        for (i = 0; i != v50; ++i)
         {
-          if (*v67 != v49)
+          if (*v66 != v48)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v66 + 1) + 8 * i);
+          v12 = *(*(&v65 + 1) + 8 * i);
           lastPathComponent2 = [v12 lastPathComponent];
-          v57 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:lastPathComponent2];
-          if (v57)
+          v56 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:lastPathComponent2];
+          if (v56)
           {
-            v54 = lastPathComponent2;
+            v53 = lastPathComponent2;
             v14 = [*(v10 + 4088) pf_posterPathVersionsURLForIdentifierURL:v12];
             v15 = objc_opt_new();
+            v61 = 0u;
             v62 = 0u;
             v63 = 0u;
             v64 = 0u;
-            v65 = 0u;
-            v56 = v14;
+            v55 = v14;
             v16 = [managerCopy contentsOfDirectoryAtURL:v14 includingPropertiesForKeys:0 options:5 error:0];
-            v17 = [v16 countByEnumeratingWithState:&v62 objects:v71 count:16];
+            v17 = [v16 countByEnumeratingWithState:&v61 objects:v70 count:16];
             if (v17)
             {
               v18 = v17;
-              v19 = *v63;
+              v19 = *v62;
               do
               {
                 for (j = 0; j != v18; ++j)
                 {
-                  if (*v63 != v19)
+                  if (*v62 != v19)
                   {
                     objc_enumerationMutation(v16);
                   }
 
-                  lastPathComponent3 = [*(*(&v62 + 1) + 8 * j) lastPathComponent];
+                  lastPathComponent3 = [*(*(&v61 + 1) + 8 * j) lastPathComponent];
                   integerValue = [lastPathComponent3 integerValue];
                   if (integerValue != 0x7FFFFFFFFFFFFFFFLL)
                   {
@@ -194,7 +191,7 @@ void __42__PRSPosterCollection_postersAtURL_error___block_invoke(uint64_t a1, ui
                   }
                 }
 
-                v18 = [v16 countByEnumeratingWithState:&v62 objects:v71 count:16];
+                v18 = [v16 countByEnumeratingWithState:&v61 objects:v70 count:16];
               }
 
               while (v18);
@@ -202,29 +199,29 @@ void __42__PRSPosterCollection_postersAtURL_error___block_invoke(uint64_t a1, ui
 
             lastIndex = [v15 lastIndex];
             [v15 removeAllIndexes];
-            v53 = [*(v10 + 4088) pf_posterPathInstanceURLForVersionsURL:v56 version:lastIndex];
+            v52 = [*(v10 + 4088) pf_posterPathInstanceURLForVersionsURL:v55 version:lastIndex];
             v24 = [*(v10 + 4088) pf_posterPathSupplementContainerURLForInstanceURL:?];
+            v57 = 0u;
             v58 = 0u;
             v59 = 0u;
             v60 = 0u;
-            v61 = 0u;
-            v52 = v24;
-            v25 = [v55 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
-            v26 = [v25 countByEnumeratingWithState:&v58 objects:v70 count:16];
+            v51 = v24;
+            v25 = [v54 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+            v26 = [v25 countByEnumeratingWithState:&v57 objects:v69 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v59;
+              v28 = *v58;
               do
               {
                 for (k = 0; k != v27; ++k)
                 {
-                  if (*v59 != v28)
+                  if (*v58 != v28)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  lastPathComponent4 = [*(*(&v58 + 1) + 8 * k) lastPathComponent];
+                  lastPathComponent4 = [*(*(&v57 + 1) + 8 * k) lastPathComponent];
                   integerValue2 = [lastPathComponent4 integerValue];
                   if (integerValue2 != 0x7FFFFFFFFFFFFFFFLL)
                   {
@@ -232,7 +229,7 @@ void __42__PRSPosterCollection_postersAtURL_error___block_invoke(uint64_t a1, ui
                   }
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v58 objects:v70 count:16];
+                v27 = [v25 countByEnumeratingWithState:&v57 objects:v69 count:16];
               }
 
               while (v27);
@@ -251,44 +248,42 @@ void __42__PRSPosterCollection_postersAtURL_error___block_invoke(uint64_t a1, ui
             v10 = 0x1E695D000uLL;
             v33 = [MEMORY[0x1E695DFF8] pf_roleIdentifierURLForType:typeCopy identifierURL:v12];
             v34 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v33 encoding:4 error:0];
-            managerCopy = v55;
+            managerCopy = v54;
             if (v34)
             {
               v35 = [MEMORY[0x1E695DFF8] pf_descriptorIdentifierURLForType:typeCopy identifierURL:v12];
               v36 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v35 encoding:4 error:0];
-              v37 = [objc_alloc(MEMORY[0x1E69C51E0]) _initWithProvider:lastPathComponent type:typeCopy role:v34 posterUUID:v57 version:lastIndex supplement:lastIndex2 descriptorIdentifier:v36];
+              v37 = [objc_alloc(MEMORY[0x1E69C51E0]) _initWithProvider:lastPathComponent type:typeCopy role:v34 posterUUID:v56 version:lastIndex supplement:lastIndex2 descriptorIdentifier:v36];
               v38 = [MEMORY[0x1E69C51E8] pathWithContainerURL:uRLByDeletingLastPathComponent identity:v37];
               if (typeCopy <= 4)
               {
-                v39 = [objc_alloc(*off_1E818CCF0[v44]) _initWithPath:v38];
-                [v45 addObject:v39];
+                v39 = [objc_alloc(*off_1E818CCF0[v43]) _initWithPath:v38];
+                [v44 addObject:v39];
               }
 
               v10 = 0x1E695D000;
-              managerCopy = v55;
+              managerCopy = v54;
             }
 
-            lastPathComponent2 = v54;
+            lastPathComponent2 = v53;
           }
         }
 
-        v51 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
+        v50 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
       }
 
-      while (v51);
+      while (v50);
     }
 
-    lCopy = v43;
+    lCopy = v42;
   }
 
   else
   {
-    v45 = [MEMORY[0x1E695DFD8] set];
+    v44 = [MEMORY[0x1E695DFD8] set];
   }
 
-  v40 = *MEMORY[0x1E69E9840];
-
-  return v45;
+  return v44;
 }
 
 + (BOOL)validatePoster:(id)poster

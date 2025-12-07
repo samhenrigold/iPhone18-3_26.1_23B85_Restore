@@ -37,11 +37,11 @@
     niSession = v10->_niSession;
     v10->_niSession = v13;
 
-    v15 = [objc_alloc(MEMORY[0x277CD8A60]) initWithName:@"inner" devicePresencePreset:2];
+    v15 = [objc_alloc(MEMORY[0x277CD8A60]) initWithName:? devicePresencePreset:?];
     innerPredicate = v10->_innerPredicate;
     v10->_innerPredicate = v15;
 
-    v17 = [objc_alloc(MEMORY[0x277CD8A60]) initWithName:@"outer" devicePresencePreset:5];
+    v17 = [objc_alloc(MEMORY[0x277CD8A60]) initWithName:? devicePresencePreset:?];
     outerPredicate = v10->_outerPredicate;
     v10->_outerPredicate = v17;
 
@@ -97,13 +97,13 @@
 
 void __53__CMContinuityCaptureProximityMonitor_beginTracking___block_invoke(uint64_t a1)
 {
-  if (([*(*(a1 + 32) + 64) containsObject:*(a1 + 40)] & 1) == 0)
+  if (([*(*(a1 + 32) + 64) containsObject:?] & 1) == 0)
   {
-    [*(*(a1 + 32) + 64) addObject:*(a1 + 40)];
-    if ([*(*(a1 + 32) + 80) containsObject:*(a1 + 40)])
+    [*(*(a1 + 32) + 64) addObject:?];
+    if ([*(*(a1 + 32) + 80) containsObject:?])
     {
       objc_copyWeak(&to, (*(a1 + 32) + 16));
-      v2 = [*(*(a1 + 32) + 72) containsObject:*(a1 + 40)];
+      v2 = [*(*(a1 + 32) + 72) containsObject:?];
       v3 = *(*(a1 + 32) + 32);
       v4[0] = MEMORY[0x277D85DD0];
       v4[1] = 3221225472;
@@ -125,9 +125,9 @@ void __53__CMContinuityCaptureProximityMonitor_beginTracking___block_invoke_2(ui
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained device:*(a1 + 32) isNearby:*(a1 + 48)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained device:? isNearby:?];
+    WeakRetained = v2;
   }
 }
 
@@ -178,9 +178,9 @@ void __53__CMContinuityCaptureProximityMonitor_beginTracking___block_invoke_2(ui
   return internalQueue;
 }
 
-uint64_t __54__CMContinuityCaptureProximityMonitor_isDeviceNearby___block_invoke(void *a1)
+void *__54__CMContinuityCaptureProximityMonitor_isDeviceNearby___block_invoke(void *a1)
 {
-  result = [*(a1[4] + 72) containsObject:a1[5]];
+  result = [*(a1[4] + 72) containsObject:?];
   *(*(a1[6] + 8) + 24) = result;
   return result;
 }
@@ -208,9 +208,9 @@ uint64_t __54__CMContinuityCaptureProximityMonitor_isDeviceNearby___block_invoke
   return internalQueue;
 }
 
-uint64_t __53__CMContinuityCaptureProximityMonitor_isDeviceKnown___block_invoke(void *a1)
+void *__53__CMContinuityCaptureProximityMonitor_isDeviceKnown___block_invoke(void *a1)
 {
-  result = [*(a1[4] + 80) containsObject:a1[5]];
+  result = [*(a1[4] + 80) containsObject:?];
   *(*(a1[6] + 8) + 24) = result;
   return result;
 }
@@ -240,37 +240,35 @@ uint64_t __53__CMContinuityCaptureProximityMonitor_isDeviceKnown___block_invoke(
   v3 = CMContinuityCaptureLog(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
+    v8 = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_242545000, v3, OS_LOG_TYPE_DEFAULT, "%@ : monitoring nearby interaction", &v10, 0xCu);
+    _os_log_impl(&dword_242545000, v3, OS_LOG_TYPE_DEFAULT, "%@ : monitoring nearby interaction", &v8, 0xCu);
   }
 
   v4 = objc_alloc(MEMORY[0x277CD8A28]);
-  innerPredicate = self->_innerPredicate;
-  outerPredicate = self->_outerPredicate;
-  v14 = 0;
-  v7 = [v4 initWithInnerBoundary:innerPredicate outerBoundary:outerPredicate error:&v14];
-  v8 = v14;
-  [v7 setAllowedDevices:2];
-  [v7 setMonitoringOption:1];
-  if (v8)
+  v12 = 0;
+  v5 = [v4 initWithInnerBoundary:? outerBoundary:? error:?];
+  v6 = v12;
+  [v5 setAllowedDevices:?];
+  [v5 setMonitoringOption:?];
+  if (v6)
   {
-    v9 = CMContinuityCaptureLog(1);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v7 = CMContinuityCaptureLog(1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
+      v8 = 138412546;
       selfCopy2 = self;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_242545000, v9, OS_LOG_TYPE_DEFAULT, "%@ ERROR in NIDevicePresenceConfiguration: %@", &v10, 0x16u);
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_242545000, v7, OS_LOG_TYPE_DEFAULT, "%@ ERROR in NIDevicePresenceConfiguration: %@", &v8, 0x16u);
     }
   }
 
   else
   {
-    [(NISession *)self->_niSession setDelegate:self];
-    [(NISession *)self->_niSession setDelegateQueue:self->_callbackQueue];
-    [(NISession *)self->_niSession runWithConfiguration:v7];
+    [(NISession *)self->_niSession setDelegate:?];
+    [(NISession *)self->_niSession setDelegateQueue:?];
+    [(NISession *)self->_niSession runWithConfiguration:?];
   }
 }
 
@@ -324,7 +322,7 @@ uint64_t __53__CMContinuityCaptureProximityMonitor_isDeviceKnown___block_invoke(
   }
 
   deviceIdentifier2 = [objectCopy deviceIdentifier];
-  v18 = [regionCopy isEqual:self->_innerPredicate];
+  v18 = [regionCopy isEqual:?];
   v27[0] = 0;
   v27[1] = v27;
   v27[2] = 0x2020000000;
@@ -350,7 +348,7 @@ uint64_t __53__CMContinuityCaptureProximityMonitor_isDeviceKnown___block_invoke(
   v21 = *(*&buf[8] + 40);
   if (v21)
   {
-    [v21 device:v20 isNearby:v18];
+    [v21 device:? isNearby:?];
   }
 
   _Block_object_dispose(buf, 8);
@@ -359,8 +357,8 @@ uint64_t __53__CMContinuityCaptureProximityMonitor_isDeviceKnown___block_invoke(
 
 void __85__CMContinuityCaptureProximityMonitor_session_object_didUpdateRegion_previousRegion___block_invoke(uint64_t a1)
 {
-  [*(*(a1 + 32) + 80) addObject:*(a1 + 40)];
-  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 32) + 72) containsObject:*(a1 + 40)];
+  [*(*(a1 + 32) + 80) addObject:?];
+  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 32) + 72) containsObject:?];
   v2 = *(a1 + 64);
   if (v2 != *(*(*(a1 + 48) + 8) + 24))
   {
@@ -379,7 +377,7 @@ void __85__CMContinuityCaptureProximityMonitor_session_object_didUpdateRegion_pr
         _os_log_impl(&dword_242545000, v3, OS_LOG_TYPE_INFO, "%@ : device entered inner boundary: %@", &v16, 0x16u);
       }
 
-      [*(*(a1 + 32) + 72) addObject:*(a1 + 40)];
+      [*(*(a1 + 32) + 72) addObject:?];
     }
 
     else
@@ -395,10 +393,10 @@ void __85__CMContinuityCaptureProximityMonitor_session_object_didUpdateRegion_pr
         _os_log_impl(&dword_242545000, v3, OS_LOG_TYPE_INFO, "%@ : device left inner boundary: %@", &v16, 0x16u);
       }
 
-      [*(*(a1 + 32) + 72) removeObject:*(a1 + 40)];
+      [*(*(a1 + 32) + 72) removeObject:?];
     }
 
-    if ([*(*(a1 + 32) + 64) containsObject:*(a1 + 40)])
+    if ([*(*(a1 + 32) + 64) containsObject:?])
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
       v10 = *(*(a1 + 56) + 8);
@@ -455,7 +453,7 @@ void __70__CMContinuityCaptureProximityMonitor_session_didInvalidateWithError___
   if (WeakRetained)
   {
     v6 = *(a1 + 40);
-    if (v6 && ([v6 code] + 5889) <= 1)
+    if (v6 && [v6 code] + 5889 <= 1)
     {
       [WeakRetained _invalidate];
       goto LABEL_15;

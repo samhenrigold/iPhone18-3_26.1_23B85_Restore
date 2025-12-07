@@ -71,11 +71,12 @@
     [denseOptionView3 setAccessibilityIdentifier:v22];
   }
 
-  if ([supportedDisplayZoomOptions containsObject:&unk_28349F490])
+  v24 = [supportedDisplayZoomOptions containsObject:&unk_28349F490];
+  if (v24)
   {
-    v24 = [[DBSDisplayZoomOptionView alloc] initWithFrame:3 displayZoomOption:*v5, v5[1], v5[2], v5[3]];
+    v26 = [[DBSDisplayZoomOptionView alloc] initWithFrame:3 displayZoomOption:*v5, v5[1], v5[2], v5[3]];
     denserOptionView = self->_denserOptionView;
-    self->_denserOptionView = v24;
+    self->_denserOptionView = v26;
 
     denserOptionView = [(DBSDisplayZoomTableViewCell *)self denserOptionView];
     [denserOptionView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -83,37 +84,37 @@
     denserOptionView2 = [(DBSDisplayZoomTableViewCell *)self denserOptionView];
     [denserOptionView2 setDelegate:self];
 
-    v28 = DBSStringForDisplayZoomOption(3);
+    v30 = DBSStringForDisplayZoomOption(3);
     denserOptionView3 = [(DBSDisplayZoomTableViewCell *)self denserOptionView];
-    [denserOptionView3 setAccessibilityIdentifier:v28];
+    [denserOptionView3 setAccessibilityIdentifier:v30];
   }
 
-  if (DBSReverseZoomEnabled())
+  if (DBSReverseZoomEnabled(v24, v25))
   {
     _optionViewsByDensity = [(DBSDisplayZoomTableViewCell *)self _optionViewsByDensity];
     if ([_optionViewsByDensity count] >= 4)
     {
-      v31 = [_optionViewsByDensity subarrayWithRange:{objc_msgSend(_optionViewsByDensity, "count") - 3, 3}];
+      v33 = [_optionViewsByDensity subarrayWithRange:{objc_msgSend(_optionViewsByDensity, "count") - 3, 3}];
 
-      _optionViewsByDensity = v31;
+      _optionViewsByDensity = v33;
     }
 
-    v32 = [_optionViewsByDensity objectAtIndexedSubscript:0];
-    v33 = [_optionViewsByDensity objectAtIndexedSubscript:1];
-    v34 = 0;
+    v34 = [_optionViewsByDensity objectAtIndexedSubscript:0];
+    v35 = [_optionViewsByDensity objectAtIndexedSubscript:1];
+    v36 = 0;
     if ([_optionViewsByDensity count] >= 3)
     {
-      v34 = [_optionViewsByDensity objectAtIndexedSubscript:2];
+      v36 = [_optionViewsByDensity objectAtIndexedSubscript:2];
     }
 
     if ([supportedDisplayZoomOptions count] == 2)
     {
-      [(DBSDisplayZoomTableViewCell *)self _configureForTwoDisplayOptionsWithLeadingView:v32 trailingView:v33];
+      [(DBSDisplayZoomTableViewCell *)self _configureForTwoDisplayOptionsWithLeadingView:v34 trailingView:v35];
     }
 
     else
     {
-      [(DBSDisplayZoomTableViewCell *)self _configureForThreeDisplayOptionsWithLeadingView:v32 middleView:v33 trailingView:v34];
+      [(DBSDisplayZoomTableViewCell *)self _configureForThreeDisplayOptionsWithLeadingView:v34 middleView:v35 trailingView:v36];
     }
   }
 
@@ -123,14 +124,14 @@
   }
 
   delegate2 = [(DBSDisplayZoomTableViewCell *)self delegate];
-  v36 = objc_opt_respondsToSelector();
+  v38 = objc_opt_respondsToSelector();
 
-  if (v36)
+  if (v38)
   {
     delegate3 = [(DBSDisplayZoomTableViewCell *)self delegate];
-    v38 = [delegate3 displayZoomTableViewCellCurrentlySelectedDisplayZoomOption:self];
+    v40 = [delegate3 displayZoomTableViewCellCurrentlySelectedDisplayZoomOption:self];
 
-    [(DBSDisplayZoomTableViewCell *)self updateSelectedViewWithOption:v38];
+    [(DBSDisplayZoomTableViewCell *)self updateSelectedViewWithOption:v40];
   }
 }
 

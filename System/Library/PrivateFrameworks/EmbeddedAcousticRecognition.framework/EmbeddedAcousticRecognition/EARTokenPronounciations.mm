@@ -68,7 +68,7 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      [v8 ear_toString];
+      objc_msgSend_ear_toString(v8, v16);
       v23 = 1;
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
@@ -126,7 +126,7 @@ LABEL_22:
   v14 = *(v2 + 8);
   if (v14)
   {
-    [v14 ear_toString];
+    objc_msgSend_ear_toString(v14);
   }
 
   else

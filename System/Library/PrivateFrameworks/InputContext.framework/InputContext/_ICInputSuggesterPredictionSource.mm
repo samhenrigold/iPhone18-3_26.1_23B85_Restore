@@ -7,7 +7,6 @@
 - (id)requestFromTrigger:(id)trigger searchContext:(id)context;
 - (void)getPeopleSuggester;
 - (void)hibernate;
-- (void)init;
 - (void)logEngagementForPredictedValues:(id)values position:(unint64_t)position;
 - (void)logImpressionForPredictedValues:(id)values;
 - (void)predictedItemsWithProactiveTrigger:(id)trigger searchContext:(id)context limit:(unint64_t)limit timeoutInMilliseconds:(unint64_t)milliseconds handler:(id)handler;
@@ -20,25 +19,24 @@
 
 - (void)warmUp
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   getPeopleSuggester = [(_ICInputSuggesterPredictionSource *)self getPeopleSuggester];
-  v3 = _ICProactiveQuickTypeOSLogFacility();
+  v3 = _ICProactiveQuickTypeOSLogFacility(getPeopleSuggester);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412546;
-    v6 = @"_ICPeopleSuggestorPredictionSource";
-    v7 = 2112;
-    v8 = getPeopleSuggester;
-    _os_log_impl(&dword_254BD0000, v3, OS_LOG_TYPE_INFO, "%@:  warming up %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = @"_ICPeopleSuggestorPredictionSource";
+    v6 = 2112;
+    v7 = getPeopleSuggester;
+    _os_log_impl(&dword_254BD0000, v3, OS_LOG_TYPE_INFO, "%@:  warming up %@", &v4, 0x16u);
   }
 
   [getPeopleSuggester warmUp];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getPeopleSuggester
 {
-  *&v13[5] = *MEMORY[0x277D85DE8];
+  *&v14[5] = *MEMORY[0x277D85DE8];
   inputSuggester = [(_ICInputSuggesterPredictionSource *)self inputSuggester];
 
   if (inputSuggester)
@@ -48,7 +46,8 @@ LABEL_2:
     goto LABEL_3;
   }
 
-  if (![MEMORY[0x277CCACC8] isMainThread])
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if (!isMainThread)
   {
     [(NSCondition *)self->_peopleSuggestorLoadedCondition lock];
     inputSuggester3 = [(_ICInputSuggesterPredictionSource *)self inputSuggester];
@@ -62,10 +61,10 @@ LABEL_2:
     {
       do
       {
-        v9 = _ICProactiveQuickTypeOSLogFacility();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v10 = _ICProactiveQuickTypeOSLogFacility(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          [(_ICInputSuggesterPredictionSource *)v12 getPeopleSuggester];
+          [(_ICInputSuggesterPredictionSource *)v13 getPeopleSuggester];
         }
 
         [(NSCondition *)self->_peopleSuggestorLoadedCondition wait];
@@ -73,9 +72,8 @@ LABEL_2:
       }
 
       while (!inputSuggester4);
-      [(NSCondition *)self->_peopleSuggestorLoadedCondition unlock];
-      v11 = _ICProactiveQuickTypeOSLogFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = _ICProactiveQuickTypeOSLogFacility([(NSCondition *)self->_peopleSuggestorLoadedCondition unlock]);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [_ICInputSuggesterPredictionSource getPeopleSuggester];
       }
@@ -84,7 +82,7 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  v7 = _ICProactiveQuickTypeOSLogFacility();
+  v7 = _ICProactiveQuickTypeOSLogFacility(isMainThread);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [_ICInputSuggesterPredictionSource getPeopleSuggester];
@@ -92,16 +90,15 @@ LABEL_2:
 
   inputSuggester2 = 0;
 LABEL_3:
-  v5 = *MEMORY[0x277D85DE8];
 
   return inputSuggester2;
 }
 
 - (_ICInputSuggesterPredictionSource)init
 {
-  v15.receiver = self;
-  v15.super_class = _ICInputSuggesterPredictionSource;
-  v2 = [(_ICInputSuggesterPredictionSource *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = _ICInputSuggesterPredictionSource;
+  v2 = [(_ICInputSuggesterPredictionSource *)&v16 init];
   v3 = v2;
   if (v2)
   {
@@ -116,22 +113,22 @@ LABEL_3:
     offered = v3->_offered;
     v3->_offered = array;
 
-    v9 = _ICProactiveQuickTypeOSLogFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _ICProactiveQuickTypeOSLogFacility(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [_ICInputSuggesterPredictionSource init];
     }
 
     objc_initWeak(&location, v3);
-    v10 = dispatch_get_global_queue(17, 0);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __41___ICInputSuggesterPredictionSource_init__block_invoke;
-    v12[3] = &unk_2797ADC20;
-    objc_copyWeak(&v13, &location);
-    dispatch_async(v10, v12);
+    v11 = dispatch_get_global_queue(17, 0);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __41___ICInputSuggesterPredictionSource_init__block_invoke;
+    v13[3] = &unk_2797ADC20;
+    objc_copyWeak(&v14, &location);
+    dispatch_async(v11, v13);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
   }
 
@@ -166,8 +163,8 @@ LABEL_3:
       v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       *error = [v8 errorWithDomain:@"com.apple.inputcontext.errors" code:5 userInfo:v9];
 
-      v10 = _ICProactiveQuickTypeOSLogFacility();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = _ICProactiveQuickTypeOSLogFacility(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [_ICInputSuggesterPredictionSource _populateError:withExplanations:];
       }
@@ -175,7 +172,7 @@ LABEL_3:
 
     else
     {
-      v7 = _ICProactiveQuickTypeOSLogFacility();
+      v7 = _ICProactiveQuickTypeOSLogFacility(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         [_ICInputSuggesterPredictionSource _populateError:withExplanations:];
@@ -185,20 +182,19 @@ LABEL_3:
     _Block_object_dispose(&v14, 8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6 == 0;
 }
 
 - (id)_quickTypeQueryWithTrigger:(id)trigger searchContext:(id)context limit:(unint64_t)limit timeoutInMilliseconds:(unint64_t)milliseconds errorWithExplanations:(id *)explanations
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   contextCopy = context;
-  v36 = 0;
-  v34 = @"_ICPeopleSuggestorPredictionSource_quickTypeQueryWithQuery";
+  v38 = 0;
+  v36 = @"_ICPeopleSuggestorPredictionSource_quickTypeQueryWithQuery";
   v12 = mach_absolute_time();
-  v35 = v12;
-  v13 = _ICProactiveQuickTypeOSLogFacility();
+  v37 = v12;
+  v13 = _ICProactiveQuickTypeOSLogFacility(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
@@ -215,73 +211,74 @@ LABEL_3:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v42 = __Block_byref_object_copy__2;
-    v43 = __Block_byref_object_dispose__2;
-    v44 = 0;
-    v31 = 0;
-    v32[0] = &v31;
-    v32[1] = 0x3032000000;
-    v32[2] = __Block_byref_object_copy__2;
-    v32[3] = __Block_byref_object_dispose__2;
+    v44 = __Block_byref_object_copy__2;
+    v45 = __Block_byref_object_dispose__2;
+    v46 = 0;
     v33 = 0;
+    v34[0] = &v33;
+    v34[1] = 0x3032000000;
+    v34[2] = __Block_byref_object_copy__2;
+    v34[3] = __Block_byref_object_dispose__2;
+    v35 = 0;
     inputSuggester = self->_inputSuggester;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __128___ICInputSuggesterPredictionSource__quickTypeQueryWithTrigger_searchContext_limit_timeoutInMilliseconds_errorWithExplanations___block_invoke;
-    v30[3] = &unk_2797ADDA0;
-    v30[4] = buf;
-    v30[5] = &v31;
-    [(PSGInputSuggester *)inputSuggester inputSuggestionsWithRequest:v15 completion:v30];
-    if (*(v32[0] + 40))
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __128___ICInputSuggesterPredictionSource__quickTypeQueryWithTrigger_searchContext_limit_timeoutInMilliseconds_errorWithExplanations___block_invoke;
+    v32[3] = &unk_2797ADDA0;
+    v32[4] = buf;
+    v32[5] = &v33;
+    v17 = [(PSGInputSuggester *)inputSuggester inputSuggestionsWithRequest:v15 completion:v32];
+    if (*(v34[0] + 40))
     {
-      v17 = _ICProactiveQuickTypeOSLogFacility();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = _ICProactiveQuickTypeOSLogFacility(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [_ICInputSuggesterPredictionSource _quickTypeQueryWithTrigger:v32 searchContext:v17 limit:? timeoutInMilliseconds:? errorWithExplanations:?];
+        [_ICInputSuggesterPredictionSource _quickTypeQueryWithTrigger:v34 searchContext:v18 limit:? timeoutInMilliseconds:? errorWithExplanations:?];
       }
 
-      *explanations = *(v32[0] + 40);
+      *explanations = *(v34[0] + 40);
       responseItems3 = MEMORY[0x277CBEBF8];
     }
 
     else
     {
       explanationSet = [*(*&buf[8] + 40) explanationSet];
+      v21 = explanationSet;
       if (explanationSet)
       {
         responseItems = [*(*&buf[8] + 40) responseItems];
-        v21 = [responseItems count] == 0;
+        v23 = [responseItems count] == 0;
 
-        if (v21)
+        if (v23)
         {
           explanationSet2 = [*(*&buf[8] + 40) explanationSet];
           [(_ICInputSuggesterPredictionSource *)self _populateError:explanations withExplanations:explanationSet2];
         }
       }
 
-      v23 = _ICProactiveQuickTypeOSLogFacility();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v25 = _ICProactiveQuickTypeOSLogFacility(explanationSet);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         responseItems2 = [*(*&buf[8] + 40) responseItems];
-        v25 = [responseItems2 count];
-        *v37 = 138412546;
-        v38 = @"_ICPeopleSuggestorPredictionSource";
-        v39 = 2048;
-        v40 = v25;
-        _os_log_impl(&dword_254BD0000, v23, OS_LOG_TYPE_INFO, "%@: _quickTypeQueryWithTrigger got %lu items", v37, 0x16u);
+        v27 = [responseItems2 count];
+        *v39 = 138412546;
+        v40 = @"_ICPeopleSuggestorPredictionSource";
+        v41 = 2048;
+        v42 = v27;
+        _os_log_impl(&dword_254BD0000, v25, OS_LOG_TYPE_INFO, "%@: _quickTypeQueryWithTrigger got %lu items", v39, 0x16u);
       }
 
       responseItems3 = [*(*&buf[8] + 40) responseItems];
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v33, 8);
 
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v15 = _ICProactiveQuickTypeOSLogFacility();
+    v15 = _ICProactiveQuickTypeOSLogFacility(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [_ICInputSuggesterPredictionSource _quickTypeQueryWithTrigger:v15 searchContext:? limit:? timeoutInMilliseconds:? errorWithExplanations:?];
@@ -290,15 +287,13 @@ LABEL_3:
     responseItems3 = MEMORY[0x277CBEBF8];
   }
 
-  v26 = mach_absolute_time();
-  _ICMachTimeToNanoseconds(v26 - v12);
-  v27 = _ICProactiveQuickTypeOSLogFacility();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v28 = mach_absolute_time();
+  v29 = _ICMachTimeToNanoseconds(v28 - v12);
+  v30 = _ICProactiveQuickTypeOSLogFacility(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     [_ICInputSuggesterPredictionSource _quickTypeQueryWithTrigger:searchContext:limit:timeoutInMilliseconds:errorWithExplanations:];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return responseItems3;
 }
@@ -313,7 +308,7 @@ LABEL_3:
   v48[1] = @"_ICPeopleSuggestorPredictionSource_predictedItemsWithProactiveTrigger";
   v35 = mach_absolute_time();
   v48[2] = v35;
-  v11 = _ICProactiveQuickTypeOSLogFacility();
+  v11 = _ICProactiveQuickTypeOSLogFacility(v35);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [_ICInputSuggesterPredictionSource predictedItemsWithProactiveTrigger:searchContext:limit:timeoutInMilliseconds:handler:];
@@ -398,14 +393,12 @@ LABEL_11:
 
   handlerCopy[2](handlerCopy, v42, v37);
   v31 = mach_absolute_time();
-  _ICMachTimeToNanoseconds(v31 - v35);
-  v32 = _ICProactiveQuickTypeOSLogFacility();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v32 = _ICMachTimeToNanoseconds(v31 - v35);
+  v33 = _ICProactiveQuickTypeOSLogFacility(v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
     [_ICInputSuggesterPredictionSource predictedItemsWithProactiveTrigger:searchContext:limit:timeoutInMilliseconds:handler:];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getPredictedItemFromStructuredInfo:(id)info
@@ -524,19 +517,17 @@ LABEL_11:
 
 - (void)hibernate
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _ICProactiveQuickTypeOSLogFacility();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _ICProactiveQuickTypeOSLogFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = @"_ICPeopleSuggestorPredictionSource";
-    _os_log_impl(&dword_254BD0000, v3, OS_LOG_TYPE_INFO, "%@: hibernating", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = @"_ICPeopleSuggestorPredictionSource";
+    _os_log_impl(&dword_254BD0000, v3, OS_LOG_TYPE_INFO, "%@: hibernating", &v5, 0xCu);
   }
 
   getPeopleSuggester = [(_ICInputSuggesterPredictionSource *)self getPeopleSuggester];
   [getPeopleSuggester hibernate];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logImpressionForPredictedValues:(id)values
@@ -549,23 +540,21 @@ LABEL_11:
 
 - (void)logEngagementForPredictedValues:(id)values position:(unint64_t)position
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D41EA0];
   valuesCopy = values;
   sharedInstance = [v5 sharedInstance];
-  v11 = *MEMORY[0x277D41F18];
+  v10 = *MEMORY[0x277D41F18];
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:position];
-  v12[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [sharedInstance logMetricForEventType:1 externalMetadata:v9 predictedValues:valuesCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provideFeedbackForString:(id)string type:(unsigned __int8)type style:(unsigned __int8)style
 {
   typeCopy = type;
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v8 = stringCopy;
   if (typeCopy == 3)
@@ -581,8 +570,7 @@ LABEL_11:
     {
       if ([(NSMutableArray *)offered count])
       {
-        [(PSGInputSuggester *)self->_inputSuggester logMetricForEventType:0 externalMetadata:0 predictedValues:self->_offered];
-        v16 = _ICProactiveQuickTypeOSLogFacility();
+        v16 = _ICProactiveQuickTypeOSLogFacility([(PSGInputSuggester *)self->_inputSuggester logMetricForEventType:0 externalMetadata:0 predictedValues:self->_offered]);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           [_ICInputSuggesterPredictionSource provideFeedbackForString:? type:? style:?];
@@ -599,7 +587,7 @@ LABEL_11:
 
   else if (typeCopy == 1)
   {
-    v9 = _ICProactiveQuickTypeOSLogFacility();
+    v9 = _ICProactiveQuickTypeOSLogFacility(stringCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [_ICInputSuggesterPredictionSource provideFeedbackForString:v8 type:? style:?];
@@ -609,15 +597,13 @@ LABEL_11:
     if (v10 != 0x7FFFFFFFFFFFFFFFLL)
     {
       inputSuggester = self->_inputSuggester;
-      v20 = *MEMORY[0x277D41F18];
+      v19 = *MEMORY[0x277D41F18];
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10 + 1];
-      v21[0] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v20[0] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       [(PSGInputSuggester *)inputSuggester logMetricForEventType:1 externalMetadata:v13 predictedValues:self->_prevOffered];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propogateMetrics:(id)metrics data:(id)data
@@ -634,99 +620,58 @@ LABEL_11:
   }
 }
 
-- (void)init
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)getPeopleSuggester
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_populateError:withExplanations:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_populateError:withExplanations:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  *buf = 138412290;
+  *a2 = @"_ICPeopleSuggestorPredictionSource";
+  _os_log_debug_impl(&dword_254BD0000, log, OS_LOG_TYPE_DEBUG, "%@: Request for uninitialized People Suggester on a background thread, waiting", buf, 0xCu);
 }
 
 - (void)_quickTypeQueryWithTrigger:(uint64_t)a1 searchContext:(NSObject *)a2 limit:timeoutInMilliseconds:errorWithExplanations:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 40);
-  v4 = 138412546;
-  v5 = @"_ICPeopleSuggestorPredictionSource";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_254BD0000, a2, OS_LOG_TYPE_ERROR, "%@: inputSuggestionsForRequest error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = @"_ICPeopleSuggestorPredictionSource";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_254BD0000, a2, OS_LOG_TYPE_ERROR, "%@: inputSuggestionsForRequest error: %@", &v3, 0x16u);
 }
 
 - (void)_quickTypeQueryWithTrigger:(os_log_t)log searchContext:limit:timeoutInMilliseconds:errorWithExplanations:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"_ICPeopleSuggestorPredictionSource";
-  _os_log_error_impl(&dword_254BD0000, log, OS_LOG_TYPE_ERROR, "%@: failed to get People Suggestor!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"_ICPeopleSuggestorPredictionSource";
+  _os_log_error_impl(&dword_254BD0000, log, OS_LOG_TYPE_ERROR, "%@: failed to get People Suggestor!", &v1, 0xCu);
 }
 
 - (void)_quickTypeQueryWithTrigger:searchContext:limit:timeoutInMilliseconds:errorWithExplanations:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)predictedItemsWithProactiveTrigger:searchContext:limit:timeoutInMilliseconds:handler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)predictedItemsWithProactiveTrigger:searchContext:limit:timeoutInMilliseconds:handler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provideFeedbackForString:(id *)a1 type:style:.cold.1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [*a1 count];
-  OUTLINED_FUNCTION_2_0(&dword_254BD0000, v1, v2, "Feedback Offered by _ICInputSuggesterPredictionSource with strings count = %lu", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [*a1 count];
+  OUTLINED_FUNCTION_2_0(&dword_254BD0000, v1, v2, "Feedback Offered by _ICInputSuggesterPredictionSource with strings count = %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)provideFeedbackForString:(void *)a1 type:style:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 length];
-  OUTLINED_FUNCTION_2_0(&dword_254BD0000, v1, v2, "Feedback Accepted by _ICInputSuggesterPredictionSource with string length = %lu", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 length];
+  OUTLINED_FUNCTION_2_0(&dword_254BD0000, v1, v2, "Feedback Accepted by _ICInputSuggesterPredictionSource with string length = %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

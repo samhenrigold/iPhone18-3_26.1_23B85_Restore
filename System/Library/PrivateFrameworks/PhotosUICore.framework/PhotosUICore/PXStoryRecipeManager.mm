@@ -582,7 +582,7 @@ LABEL_31:
   detailedSaliencyResult = [(PXStoryRecipeManager *)self detailedSaliencyResult];
   object4 = [detailedSaliencyResult object];
   chapterCollection = [(PXStoryRecipeManager *)self chapterCollection];
-  [(PXStoryRecipeManager *)self overallDurationInfo];
+  objc_msgSend_overallDurationInfo(self);
   persistableRecipeResult = [(PXStoryRecipeManager *)self persistableRecipeResult];
   object5 = [persistableRecipeResult object];
   recipe = [object5 recipe];
@@ -710,7 +710,7 @@ void __54__PXStoryRecipeManager__updateProducersLikelyToKeepUp__block_invoke(uin
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __59__PXStoryRecipeManager__handleAutoEditDecisionListsResult___block_invoke(uint64_t a1)
+void *__59__PXStoryRecipeManager__handleAutoEditDecisionListsResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setAutoEditDecisionListsResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -846,7 +846,7 @@ LABEL_14:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __65__PXStoryRecipeManager__handleInitialAutoEditDecisionListResult___block_invoke(uint64_t a1)
+void *__65__PXStoryRecipeManager__handleInitialAutoEditDecisionListResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setInitialAutoEditDecisionListResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -971,7 +971,7 @@ LABEL_14:
 - (void)_updateAutoEditDecisionListsProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  if (([configuration options] & 2) == 0)
+  if ((objc_msgSend_options(configuration) & 2) == 0)
   {
     curatedAssets = [(PXStoryRecipeManager *)self curatedAssets];
     if (curatedAssets && [(PXStoryRecipeManager *)self haveFinalMovieHighlightsBeenProduced])
@@ -990,7 +990,7 @@ LABEL_14:
         v15 = 0u;
         v16 = 0u;
         v14 = 0u;
-        [(PXStoryRecipeManager *)self overallDurationInfo];
+        objc_msgSend_overallDurationInfo(self);
         autoEditDecisionListsProducerFactory = [(PXStoryRecipeManager *)self autoEditDecisionListsProducerFactory];
         assetCollection = [(PXStoryRecipeManager *)self assetCollection];
         v13[2] = v16;
@@ -1027,7 +1027,7 @@ LABEL_14:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __52__PXStoryRecipeManager__handleAutoEditStylesResult___block_invoke(uint64_t a1)
+void *__52__PXStoryRecipeManager__handleAutoEditStylesResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setAutoEditStylesResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -1147,9 +1147,9 @@ LABEL_14:
 - (void)_updateAutoEditStylesProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  options = [configuration options];
+  v4 = objc_msgSend_options(configuration);
 
-  if ((options & 2) == 0)
+  if ((v4 & 2) == 0)
   {
     autoEditDecisionListsResult = [(PXStoryRecipeManager *)self autoEditDecisionListsResult];
     object = [autoEditDecisionListsResult object];
@@ -1182,7 +1182,7 @@ LABEL_14:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __50__PXStoryRecipeManager__handleInitialStyleResult___block_invoke(uint64_t a1)
+void *__50__PXStoryRecipeManager__handleInitialStyleResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setInitialStyleResult:*(a1 + 40)];
   [*(a1 + 32) setHasInitialStyleBeenProduced:1];
@@ -1296,7 +1296,7 @@ LABEL_14:
 
 - (void)_updateInitialStyleProducer
 {
-  if (!-[PXStoryRecipeManager hasInitialPersistableRecipeBeenProduced](self, "hasInitialPersistableRecipeBeenProduced") || (-[PXStoryRecipeManager configuration](self, "configuration"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 options], v3, (v4 & 2) != 0))
+  if (![(PXStoryRecipeManager *)self hasInitialPersistableRecipeBeenProduced]|| ([(PXStoryRecipeManager *)self configuration], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend_options(v3), v3, (v4 & 2) != 0))
   {
     stylesProducerFactory = [(PXStoryRecipeManager *)self stylesProducerFactory];
     configuration = [(PXStoryRecipeManager *)self configuration];
@@ -1349,7 +1349,7 @@ LABEL_7:
 
     else
     {
-      [(PXStoryRecipeManager *)self overallDurationInfo];
+      objc_msgSend_overallDurationInfo(self);
 
       if (v6 == 2)
       {
@@ -1393,7 +1393,7 @@ LABEL_10:
 
   if (assetsDataSource)
   {
-    [assetsDataSource firstSectionIndexPath];
+    objc_msgSend_firstSectionIndexPath(assetsDataSource);
   }
 
   else
@@ -1450,7 +1450,7 @@ LABEL_11:
   {
     if (assetsDataSource)
     {
-      [assetsDataSource firstSectionIndexPath];
+      objc_msgSend_firstSectionIndexPath(assetsDataSource);
     }
 
     else
@@ -1476,14 +1476,14 @@ LABEL_11:
   v20 = 0u;
   v21 = 0u;
   v19 = 0u;
-  [(PXStoryRecipeManager *)self overallDurationInfo];
+  objc_msgSend_overallDurationInfo(self, a2);
   persistableRecipeResult = [(PXStoryRecipeManager *)self persistableRecipeResult];
   object = [persistableRecipeResult object];
   recipe = [object recipe];
 
   if (recipe)
   {
-    [recipe overallDurationInfo];
+    objc_msgSend_overallDurationInfo(recipe);
     v21 = v16;
     v22 = v17;
     v23 = v18;
@@ -1516,7 +1516,7 @@ LABEL_11:
   v10 = recipeAssetEdits;
   if (recipeAssetEdits)
   {
-    [recipeAssetEdits overallDurationInfo];
+    objc_msgSend_overallDurationInfo(recipeAssetEdits);
     if (v14)
     {
       persistedRecipeAssetEdits = [(PXStoryRecipeManager *)self persistedRecipeAssetEdits];
@@ -1535,7 +1535,7 @@ LABEL_11:
         }
       }
 
-      [v10 overallDurationInfo];
+      objc_msgSend_overallDurationInfo(v10);
       v21 = v16;
       v22 = v17;
       v23 = v18;
@@ -1585,7 +1585,7 @@ LABEL_16:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __55__PXStoryRecipeManager__handleChapterCollectionResult___block_invoke(uint64_t a1)
+void *__55__PXStoryRecipeManager__handleChapterCollectionResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setChapterCollectionResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -1709,9 +1709,9 @@ LABEL_14:
 - (void)_updateChapterCollectionProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  options = [configuration options];
+  v4 = objc_msgSend_options(configuration);
 
-  if ((options & 2) == 0)
+  if ((v4 & 2) == 0)
   {
     chapterCollectionProducerFactory = [(PXStoryRecipeManager *)self chapterCollectionProducerFactory];
     configuration2 = [(PXStoryRecipeManager *)self configuration];
@@ -1739,7 +1739,7 @@ LABEL_14:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __54__PXStoryRecipeManager__handleDetailedSaliencyResult___block_invoke(uint64_t a1)
+void *__54__PXStoryRecipeManager__handleDetailedSaliencyResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setDetailedSaliencyResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -1854,9 +1854,9 @@ LABEL_14:
 - (void)_updateDetailedSaliencyProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  options = [configuration options];
+  v4 = objc_msgSend_options(configuration);
 
-  if ((options & 2) == 0)
+  if ((v4 & 2) == 0)
   {
     detailedSaliencyProducerFactory = [(PXStoryRecipeManager *)self detailedSaliencyProducerFactory];
     configuration2 = [(PXStoryRecipeManager *)self configuration];
@@ -1884,7 +1884,7 @@ LABEL_14:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __53__PXStoryRecipeManager__handleMovieHighlightsResult___block_invoke(uint64_t a1)
+void *__53__PXStoryRecipeManager__handleMovieHighlightsResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setMovieHighlightsResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -1999,9 +1999,9 @@ LABEL_14:
 - (void)_updateMovieHighlightsProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  options = [configuration options];
+  v4 = objc_msgSend_options(configuration);
 
-  if ((options & 2) == 0)
+  if ((v4 & 2) == 0)
   {
     movieHighlightsProducerFactory = [(PXStoryRecipeManager *)self movieHighlightsProducerFactory];
     configuration2 = [(PXStoryRecipeManager *)self configuration];
@@ -2148,9 +2148,9 @@ LABEL_14:
 - (void)_updateAutoCurationProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  options = [configuration options];
+  v4 = objc_msgSend_options(configuration);
 
-  if ((options & 2) == 0)
+  if ((v4 & 2) == 0)
   {
     autoCurationProducerFactory = [(PXStoryRecipeManager *)self autoCurationProducerFactory];
     configuration2 = [(PXStoryRecipeManager *)self configuration];
@@ -2178,7 +2178,7 @@ LABEL_14:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __43__PXStoryRecipeManager__handleSongsResult___block_invoke(uint64_t a1)
+void *__43__PXStoryRecipeManager__handleSongsResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setCuratedSongsResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -2308,9 +2308,9 @@ LABEL_14:
 - (void)_updateCuratedSongsProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  options = [configuration options];
+  v4 = objc_msgSend_options(configuration);
 
-  if ((options & 2) == 0)
+  if ((v4 & 2) == 0)
   {
     songsProducerFactory = [(PXStoryRecipeManager *)self songsProducerFactory];
     configuration2 = [(PXStoryRecipeManager *)self configuration];
@@ -2367,7 +2367,7 @@ LABEL_14:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __59__PXStoryRecipeManager__handlePersistedSongResourceResult___block_invoke(uint64_t a1)
+void *__59__PXStoryRecipeManager__handlePersistedSongResourceResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setPersistedSongResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -2481,9 +2481,9 @@ LABEL_14:
 - (void)_updatePersistedSongProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  options = [configuration options];
+  v4 = objc_msgSend_options(configuration);
 
-  if ((options & 2) == 0)
+  if ((v4 & 2) == 0)
   {
     songResourceProducerFactory = [(PXStoryRecipeManager *)self songResourceProducerFactory];
     persistableRecipeResult = [(PXStoryRecipeManager *)self persistableRecipeResult];
@@ -2514,7 +2514,7 @@ LABEL_14:
   [(PXStoryRecipeManager *)self performChanges:v6];
 }
 
-uint64_t __55__PXStoryRecipeManager__handlePersistableRecipeResult___block_invoke(uint64_t a1)
+void *__55__PXStoryRecipeManager__handlePersistableRecipeResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setPersistableRecipeResult:*(a1 + 40)];
   [*(a1 + 32) setHasInitialPersistableRecipeBeenProduced:1];
@@ -2629,9 +2629,9 @@ LABEL_14:
 - (void)_updatePersistableRecipeProducer
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  options = [configuration options];
+  v4 = objc_msgSend_options(configuration);
 
-  if ((options & 2) == 0)
+  if ((v4 & 2) == 0)
   {
     persistableRecipeProducerFactory = [(PXStoryRecipeManager *)self persistableRecipeProducerFactory];
     configuration2 = [(PXStoryRecipeManager *)self configuration];
@@ -2669,7 +2669,7 @@ LABEL_14:
   v6[4] = __Block_byref_object_dispose__136817;
   v6[5] = 0;
   configuration = [(PXStoryRecipeManager *)self configuration];
-  v4 = ([configuration options] & 1) == 0;
+  v4 = (objc_msgSend_options(configuration) & 1) == 0;
 
   if (v4)
   {
@@ -2885,7 +2885,7 @@ LABEL_14:
 
   if (recipeCopy)
   {
-    [recipeCopy overallDurationInfo];
+    objc_msgSend_overallDurationInfo(recipeCopy);
   }
 
   [v5 appendFormat:@"v%li.%li", objc_msgSend(recipeCopy, "majorVersion"), objc_msgSend(recipeCopy, "minorVersion")];
@@ -2894,11 +2894,11 @@ LABEL_14:
   return v11;
 }
 
-uint64_t __61__PXStoryRecipeManager__shortDescriptionOfPersistableRecipe___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__61__PXStoryRecipeManager__shortDescriptionOfPersistableRecipe___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    return [*(result + 32) appendFormat:@"%li %@\n", a2, a3];
+    return [result[4] appendFormat:@"%li %@\n", a2, a3];
   }
 
   return result;
@@ -5363,7 +5363,7 @@ LABEL_5:
 - (BOOL)wantsAutoEditResults
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  v3 = ([configuration options] & 1) == 0;
+  v3 = (objc_msgSend_options(configuration) & 1) == 0;
 
   return v3;
 }
@@ -5548,7 +5548,7 @@ LABEL_5:
 - (BOOL)shouldAvoidSynchronousProductions
 {
   configuration = [(PXStoryRecipeManager *)self configuration];
-  v3 = ([configuration options] & 0xC) != 0;
+  v3 = (objc_msgSend_options(configuration) & 0xC) != 0;
 
   return v3;
 }
@@ -5578,7 +5578,7 @@ LABEL_5:
       }
 
       self->_defaultRequestOptions = 0;
-      if (([(PXStoryConfiguration *)self->_configuration options]& 1) != 0)
+      if (objc_msgSend_options(self->_configuration))
       {
         self->_defaultRequestOptions |= 2uLL;
       }
@@ -5846,7 +5846,7 @@ LABEL_5:
     loadingStartDate = v28->_loadingStartDate;
     v28->_loadingStartDate = date;
 
-    if (([(PXStoryConfiguration *)v28->_configuration options]& 3) == 0)
+    if ((objc_msgSend_options(v28->_configuration) & 3) == 0)
     {
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;

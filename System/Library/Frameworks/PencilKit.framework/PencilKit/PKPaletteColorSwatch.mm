@@ -30,8 +30,8 @@
   v6 = v5;
   if (v5)
   {
-    *(v5 + 55) = a2;
-    *(v5 + 56) = inset;
+    v5[55] = a2;
+    v5[56] = inset;
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [v6 setBackgroundColor:clearColor];
 

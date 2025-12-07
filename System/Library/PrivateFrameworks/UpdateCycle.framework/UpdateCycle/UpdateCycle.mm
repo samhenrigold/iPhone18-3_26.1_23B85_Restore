@@ -189,13 +189,12 @@ double _UCTimeUnitSeconds_Load()
 
 uint64_t UC::MakeMethod<&UC::LoopTapCFRunLoop::timerCancel>::call(uint64_t a1)
 {
-  v2 = *(a1 + 16);
   mk_timer_cancel();
-  v3 = *(a1 + 16);
-  memset(v5, 0, sizeof(v5));
-  v5[0].msgh_local_port = v3;
-  v5[0].msgh_size = 48;
-  return mach_msg(v5, 258, 0, 0x30u, v3, 0, 0);
+  v2 = *(a1 + 16);
+  memset(v4, 0, sizeof(v4));
+  v4[0].msgh_local_port = v2;
+  v4[0].msgh_size = 48;
+  return mach_msg(v4, 258, 0, 0x30u, v2, 0, 0);
 }
 
 double UCTimeToSeconds(uint64_t a1)
@@ -303,13 +302,11 @@ void UCLoopTapCFRunLoopDeinit(uint64_t a1)
   CFRelease(*(a1 + 32));
   CFMachPortInvalidate(*(a1 + 24));
   CFRelease(*(a1 + 24));
-  v2 = *(a1 + 16);
   mk_timer_cancel();
-  v3 = *(a1 + 16);
   mk_timer_destroy();
-  v4 = *(a1 + 8);
+  v2 = *(a1 + 8);
 
-  CFRelease(v4);
+  CFRelease(v2);
 }
 
 void UCLoopTapCFRunLoopAddToMode(CFRunLoopRef *a1, CFRunLoopMode mode)
@@ -418,7 +415,7 @@ void *UCCoallocNVars(unsigned int a1, int a2, unsigned int *a3, uint64_t a4)
   return result;
 }
 
-uint64_t UC::SignalsCore::acceptProcessing(UC::SignalsCore *this, unint64_t a2, char a3, int a4)
+uint64_t UC::SignalsCore::acceptProcessing(UC::SignalsCore *this, unint64_t a2, char a3, unsigned int a4)
 {
   if (a3)
   {
@@ -494,14 +491,12 @@ uint64_t UC::SignalsCore::notifyLost(uint64_t this)
   *(this + 24) = 1;
   if (UCDebugTracingModeCheck)
   {
-    v1 = this;
     this = UCDebugTracingModeCheck();
     if (this)
     {
-      v2 = this;
-      v3 = *v1;
+      v1 = this;
       this = kdebug_trace();
-      if (v2 >= 2)
+      if (v1 >= 2)
       {
 
         return getppid();
@@ -539,7 +534,6 @@ uint64_t UC::MakeMethod<&UC::DriverCore::returnHandler>::call(uint64_t this)
     if (v2)
     {
       v3 = v2;
-      v4 = *(v1 + 76);
       kdebug_trace();
       if (v3 >= 2)
       {
@@ -559,13 +553,11 @@ uint64_t UC::DriverCore::continueProcessing(UC::DriverCore *this)
   {
     do
     {
-      if (UCDebugTracingModeCheck && (v11 = UCDebugTracingModeCheck()) != 0)
+      if (UCDebugTracingModeCheck && (v10 = UCDebugTracingModeCheck()) != 0)
       {
-        v12 = v11;
-        v13 = *(this + 76);
-        v14 = *(this + 8);
+        v11 = v10;
         kdebug_trace();
-        if (v12 >= 2)
+        if (v11 >= 2)
         {
           getppid();
           v4 = 0;
@@ -602,81 +594,79 @@ uint64_t UC::DriverCore::continueProcessing(UC::DriverCore *this)
     {
       if (*(this + 32) == 1)
       {
-        v10 = *(this + 1);
+        v9 = *(this + 1);
         while (1)
         {
-          atomic_compare_exchange_strong_explicit(v2, &v10, v8 & 0xFFFFFFFF7FFFFFFFLL, memory_order_relaxed, memory_order_relaxed);
-          if (v10 == v8)
+          atomic_compare_exchange_strong_explicit(v2, &v9, v8 & 0xFFFFFFFF7FFFFFFFLL, memory_order_relaxed, memory_order_relaxed);
+          if (v9 == v8)
           {
             break;
           }
 
-          v8 = v10;
-          if ((v10 & HIDWORD(v10)) != 0)
+          v8 = v9;
+          if ((v9 & HIDWORD(v9)) != 0)
           {
-            goto LABEL_12;
+            goto LABEL_11;
           }
         }
 
         if (!UCDebugTracingModeCheck)
         {
-          goto LABEL_19;
+          goto LABEL_18;
         }
 
         result = UCDebugTracingModeCheck();
         if (!result)
         {
-          goto LABEL_19;
+          goto LABEL_18;
         }
 
-        v20 = result;
+        v15 = result;
       }
 
       else
       {
         if (!UCDebugTracingModeCheck)
         {
-          goto LABEL_19;
+          goto LABEL_18;
         }
 
-        v19 = *(this + 1);
         result = UCDebugTracingModeCheck();
         if (!result)
         {
-          goto LABEL_19;
+          goto LABEL_18;
         }
 
-        v20 = result;
+        v15 = result;
       }
 
       result = kdebug_trace();
-      if (v20 > 1)
+      if (v15 > 1)
       {
-        goto LABEL_41;
+        goto LABEL_40;
       }
 
-LABEL_19:
+LABEL_18:
       *(this + 18) = 1;
       *(this + 38) = 0;
-      v15 = *(this + 10);
-      v16 = *(this + 11);
-      if (v15 == v16)
+      v12 = *(this + 10);
+      v13 = *(this + 11);
+      if (v12 == v13)
       {
         return result;
       }
 
-      if (v15 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v12 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (v16 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v13 != 0x7FFFFFFFFFFFFFFFLL)
         {
           result = (*(this + 15))(*(this + 14));
           if ((v4 & 1) == 0)
           {
-            v17 = *(this + 11);
             result = kdebug_trace();
             if (v3)
             {
-              goto LABEL_43;
+              goto LABEL_42;
             }
           }
         }
@@ -687,12 +677,10 @@ LABEL_19:
         result = (*(this + 13))(*(this + 12));
         if ((v4 & 1) == 0)
         {
-          v21 = *(this + 10);
-          v22 = *(this + 11);
           result = kdebug_trace();
           if (v3)
           {
-LABEL_43:
+LABEL_42:
             result = getppid();
           }
         }
@@ -702,20 +690,19 @@ LABEL_43:
       return result;
     }
 
-    v9 = *(this + 1);
-LABEL_12:
+LABEL_11:
     if (v7)
     {
       if (*(this + 32) == 1)
       {
         if (UCDebugTracingModeCheck)
         {
-          v23 = UCDebugTracingModeCheck();
-          if (v23)
+          v16 = UCDebugTracingModeCheck();
+          if (v16)
           {
-            v24 = v23;
+            v17 = v16;
             kdebug_trace();
-            if (v24 >= 2)
+            if (v17 >= 2)
             {
               getppid();
             }
@@ -730,17 +717,17 @@ LABEL_12:
         result = (UCDebugTracingModeCheck)(result);
         if (result)
         {
-          v18 = result;
+          v14 = result;
           result = kdebug_trace();
-          if (v18 >= 2)
+          if (v14 >= 2)
           {
-LABEL_41:
+LABEL_40:
             result = getppid();
           }
         }
       }
 
-      goto LABEL_19;
+      goto LABEL_18;
     }
 
     *(this + 56) = *(this + 40);
@@ -753,8 +740,6 @@ uint64_t UC::MakeMethod<&UC::DriverCore::timerHandler>::call(uint64_t result)
   if (UCDebugTracingModeCheck && (result = UCDebugTracingModeCheck(), result))
   {
     v4 = result;
-    v5 = *(v1 + 76);
-    v6 = *(v1 + 88);
     result = kdebug_trace();
     if (v4 >= 2)
     {
@@ -789,7 +774,6 @@ uint64_t UC::MakeMethod<&UC::DriverCore::timerHandler>::call(uint64_t result)
         *(v1 + 72) = 0;
         if ((v3 & 1) == 0)
         {
-          v7 = *(v1 + 76);
           kdebug_trace();
           if (v2)
           {
@@ -827,7 +811,7 @@ uint64_t UC::MakeMethod<&UC::DriverCore::signalHandler>::call(uint64_t a1)
 {
   if (*(a1 + 72))
   {
-    result = UC::SignalsCore::acceptProcessing((a1 + 8), *(a1 + 8), (*(a1 + 8) & HIDWORD(*(a1 + 8))) != 0, 1);
+    result = UC::SignalsCore::acceptProcessing((a1 + 8), *(a1 + 8), (*(a1 + 8) & HIDWORD(*(a1 + 8))) != 0, 1u);
     if (result)
     {
       *(a1 + 56) = *(a1 + 40);
@@ -839,7 +823,6 @@ uint64_t UC::MakeMethod<&UC::DriverCore::signalHandler>::call(uint64_t a1)
         if (v3)
         {
           v4 = v3;
-          v5 = *(a1 + 76);
           kdebug_trace();
           if (v4 >= 2)
           {
@@ -927,7 +910,7 @@ uint64_t UCDriverSetNextStep(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t UCDriverSetMask(uint64_t result, int a2)
+uint64_t UCDriverSetMask(uint64_t result, unsigned int a2)
 {
   atomic_fetch_xor_explicit((result + 8), (HIDWORD(*(result + 8)) ^ a2) << 32, memory_order_relaxed);
   if (UCDebugTracingModeCheck)
@@ -948,7 +931,7 @@ uint64_t UCDriverSetMask(uint64_t result, int a2)
   return result;
 }
 
-uint64_t UCDriverUpdateMask(uint64_t result, int a2, unsigned int a3)
+uint64_t UCDriverUpdateMask(uint64_t result, uint64_t a2, unsigned int a3)
 {
   atomic_fetch_xor_explicit((result + 8), ((HIDWORD(*(result + 8)) & ~a2 | a3) ^ HIDWORD(*(result + 8))) << 32, memory_order_relaxed);
   if (UCDebugTracingModeCheck)

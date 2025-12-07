@@ -10,9 +10,9 @@
   v9 = a5;
   scopedIdentifier = [self scopedIdentifier];
   scopeIdentifier = [scopedIdentifier scopeIdentifier];
-  v12 = [scopeIdentifier isEqualToString:v9];
+  isEqualToString = objc_msgSend_isEqualToString_(scopeIdentifier);
 
-  if (v12)
+  if (isEqualToString)
   {
     sharingScopeIdentifier = [self sharingScopeIdentifier];
     v14 = sharingScopeIdentifier;
@@ -23,7 +23,7 @@
 
     else if (a3 == 1)
     {
-      v15 = [sharingScopeIdentifier isEqualToString:v8];
+      v15 = objc_msgSend_isEqualToString_(sharingScopeIdentifier);
     }
 
     else

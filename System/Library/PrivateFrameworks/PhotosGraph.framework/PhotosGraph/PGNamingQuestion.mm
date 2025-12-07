@@ -10,7 +10,7 @@
 
 - (id)_personForContactSuggestion
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   photoLibrary = [(PHPerson *)self->_person photoLibrary];
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
@@ -18,20 +18,18 @@
   [librarySpecificFetchOptions setPredicate:v5];
 
   v6 = MEMORY[0x277CD9938];
-  v12[0] = self->_contactIdentifier;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = self->_contactIdentifier;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [v6 fetchPersonsForContactIdentifiers:v7 options:librarySpecificFetchOptions];
 
   firstObject = [v8 firstObject];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 - (void)persistWithCreationDate:(id)date questionVersion:(signed __int16)version
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   additionalInfo = [(PGNamingQuestion *)self additionalInfo];
 
@@ -46,8 +44,8 @@
     [(PGSurveyQuestion *)self score];
     v15 = v14;
     additionalInfo2 = [(PGNamingQuestion *)self additionalInfo];
-    LOWORD(v23) = version;
-    v17 = [v8 creationRequestForQuestionWithEntityIdentifier:entityIdentifier type:type state:state entityType:entityType displayType:displayType score:additionalInfo2 additionalInfo:v15 creationDate:dateCopy questionVersion:v23];
+    LOWORD(v22) = version;
+    v17 = [v8 creationRequestForQuestionWithEntityIdentifier:entityIdentifier type:type state:state entityType:entityType displayType:displayType score:additionalInfo2 additionalInfo:v15 creationDate:dateCopy questionVersion:v22];
   }
 
   else
@@ -60,19 +58,17 @@
       entityIdentifier2 = [(PGNamingQuestion *)self entityIdentifier];
       contactIdentifier = [(PGNamingQuestion *)self contactIdentifier];
       *buf = 138412546;
-      v25 = entityIdentifier2;
-      v26 = 2112;
-      v27 = contactIdentifier;
+      v24 = entityIdentifier2;
+      v25 = 2112;
+      v26 = contactIdentifier;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Cannot persist PGNamingQuestion (personUUID: %@, contactIdentifier: %@) with a nil additional info dictionary.", buf, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_additionalInfoFromContactIdentifier:(id)identifier serviceManager:(id)manager
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = MEMORY[0x277CBEB98];
   managerCopy = manager;
@@ -93,11 +89,11 @@
     v14 = [MEMORY[0x277CCAC08] localizedStringFromPersonNameComponents:loggingConnection2 style:1 options:0];
     if ([v14 length])
     {
-      v21[0] = @"contactName";
-      v21[1] = @"contactIdentifier";
-      v22[0] = v14;
-      v22[1] = identifierCopy;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+      v20[0] = @"contactName";
+      v20[1] = @"contactIdentifier";
+      v21[0] = v14;
+      v21[1] = identifierCopy;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
     }
 
     else
@@ -108,7 +104,7 @@
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = identifierCopy;
+        v23 = identifierCopy;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "No contact name resolved for contact identifier %@", buf, 0xCu);
       }
 
@@ -124,14 +120,12 @@
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = identifierCopy;
+      v23 = identifierCopy;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "Contact found to be nil for contact identifier %@", buf, 0xCu);
     }
 
     v15 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

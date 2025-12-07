@@ -8,24 +8,23 @@
 - (void)xpcDeviceID:(id)d needsPasscode:(id)passcode
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v11 - v7;
+  v7 = &v10 - v6;
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for UUID();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = type metadata accessor for UUID();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = type metadata accessor for UUID();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = type metadata accessor for UUID();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   specialized RegistryCrux.xpcDeviceID(_:needsPasscode:)();
-  outlined destroy of UUID?(v8, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined destroy of UUID?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 }
 
 - (void)xpcHasNewOOBKey:(id)key

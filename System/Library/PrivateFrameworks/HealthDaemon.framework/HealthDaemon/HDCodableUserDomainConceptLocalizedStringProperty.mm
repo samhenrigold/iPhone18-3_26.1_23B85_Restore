@@ -136,7 +136,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -156,12 +155,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  version = self->_version;
   PBDataWriterWriteInt64Field();
   if (*&self->_has)
   {
 LABEL_4:
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -178,7 +175,6 @@ LABEL_5:
 
   if ((*&self->_has & 8) != 0)
   {
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -301,7 +297,6 @@ LABEL_5:
     goto LABEL_23;
   }
 
-  v5 = *(equalCopy + 52);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_type != *(equalCopy + 2))
@@ -356,13 +351,13 @@ LABEL_5:
     }
   }
 
-  v8 = (*(equalCopy + 52) & 8) == 0;
+  v7 = (*(equalCopy + 52) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 52) & 8) == 0)
     {
 LABEL_23:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_24;
     }
 
@@ -379,12 +374,12 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_24:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

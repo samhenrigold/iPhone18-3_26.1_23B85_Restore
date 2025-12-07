@@ -1325,9 +1325,9 @@ LABEL_196:
         CCPBReaderReadDataNoCopy();
         errorCopy = error;
         v83 = v82 = dataCopy;
-        v155 = 0;
-        v84 = [(CCItemMessage *)v80 initWithData:v83 error:&v155];
-        v11 = v155;
+        v153 = 0;
+        v84 = [(CCItemMessage *)v80 initWithData:v83 error:&v153];
+        v11 = v153;
         v85 = self->_query;
         self->_query = v84;
 
@@ -1373,7 +1373,6 @@ LABEL_196:
           NSStringFromClass(v144);
           errorCopy2 = error;
           v146 = v145 = dataCopy;
-          v147 = *&v7[*v10];
           v11 = CCSkipFieldErrorForMessage();
 
           dataCopy = v145;
@@ -1453,24 +1452,23 @@ LABEL_222:
     if (!*&v7[*v10])
     {
       v11 = 0;
-      v152 = 1;
+      v150 = 1;
       goto LABEL_226;
     }
 
 LABEL_223:
-    v148 = objc_opt_class();
-    v149 = NSStringFromClass(v148);
-    v150 = *&v7[*v10];
-    v151 = CCInvalidBufferErrorForMessage();
+    v147 = objc_opt_class();
+    v148 = NSStringFromClass(v147);
+    v149 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v11 = 0;
   }
 
-  v152 = 0;
+  v150 = 0;
 LABEL_226:
 
-  return v152;
+  return v150;
 }
 
 - (CCToolKitToolTypeIdentifierBuiltin)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

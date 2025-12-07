@@ -99,24 +99,24 @@
 
 - (id)aida_deviceProvisioningInfo
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   aida_dsid = [self aida_dsid];
   v3 = MEMORY[0x1E696AE88];
   aida_dsid2 = [self aida_dsid];
   v5 = [v3 scannerWithString:aida_dsid2];
 
-  v24 = 0;
-  [v5 scanUnsignedLongLong:&v24];
-  v22 = 0;
   v23 = 0;
+  [v5 scanUnsignedLongLong:&v23];
   v21 = 0;
-  qi864985u0(v24, &v23, &v21 + 4, &v22, &v21);
+  v22 = 0;
+  v20 = 0;
+  qi864985u0(v23, &v22, &v20 + 4, &v21, &v20);
   if (v6)
   {
     v7 = v6;
     if (v6 == -45061)
     {
-      v8 = _AIDALogSystem();
+      v8 = _AIDALogSystem(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -130,11 +130,11 @@ LABEL_14:
 
     else
     {
-      v8 = _AIDALogSystem();
+      v8 = _AIDALogSystem(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v28) = v7;
+        LODWORD(v27) = v7;
         v9 = "ADIOTPRequest failed. ERROR: %d";
         v10 = v8;
         v11 = 8;
@@ -147,38 +147,37 @@ LABEL_14:
   }
 
   v12 = objc_alloc(MEMORY[0x1E695DEF0]);
-  v8 = [v12 initWithBytesNoCopy:v23 length:HIDWORD(v21) freeWhenDone:0];
+  v8 = [v12 initWithBytesNoCopy:v22 length:HIDWORD(v20) freeWhenDone:0];
   v13 = objc_alloc(MEMORY[0x1E695DEF0]);
-  v14 = [v13 initWithBytesNoCopy:v22 length:v21 freeWhenDone:0];
+  v14 = [v13 initWithBytesNoCopy:v21 length:v20 freeWhenDone:0];
   v15 = [v8 base64EncodedStringWithOptions:0];
   v16 = [v14 base64EncodedStringWithOptions:0];
-  v17 = _AIDALogSystem();
+  v17 = _AIDALogSystem(v16);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v28 = v15;
-    v29 = 2112;
-    v30 = v16;
+    v27 = v15;
+    v28 = 2112;
+    v29 = v16;
     _os_log_impl(&dword_1DEB1B000, v17, OS_LOG_TYPE_DEFAULT, "Provisioning Info: mid - %@ otp - %@", buf, 0x16u);
   }
 
-  v25[0] = @"mid";
-  v25[1] = @"otp";
-  v26[0] = v15;
-  v26[1] = v16;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
-  if (v23)
-  {
-    jk24uiwqrg(v23);
-  }
-
+  v24[0] = @"mid";
+  v24[1] = @"otp";
+  v25[0] = v15;
+  v25[1] = v16;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
   if (v22)
   {
     jk24uiwqrg(v22);
   }
 
+  if (v21)
+  {
+    jk24uiwqrg(v21);
+  }
+
 LABEL_16:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

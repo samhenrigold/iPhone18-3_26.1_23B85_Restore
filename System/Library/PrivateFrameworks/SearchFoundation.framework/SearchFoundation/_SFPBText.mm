@@ -177,9 +177,7 @@ LABEL_8:
 
 - (void)setText:(id)text
 {
-  v4 = [text copy];
-  text = self->_text;
-  self->_text = v4;
+  self->_text = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }

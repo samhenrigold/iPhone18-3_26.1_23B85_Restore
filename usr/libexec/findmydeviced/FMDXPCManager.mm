@@ -19,7 +19,7 @@
   v2 = qword_100314608;
   if (!qword_100314608)
   {
-    v3 = sub_100002880();
+    v3 = sub_100002880(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -34,7 +34,7 @@
 
 - (FMDXPCManager)init
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100227EFC(v3);
@@ -45,26 +45,27 @@
 
 - (id)initSingleton
 {
-  v5.receiver = self;
-  v5.super_class = FMDXPCManager;
-  v2 = [(FMDXPCManager *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = FMDXPCManager;
+  v2 = [(FMDXPCManager *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002880();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100002880(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_100227F40(v3);
+      sub_100227F40(v4);
     }
 
-    objc_storeStrong(&qword_100314608, v2);
+    objc_storeStrong(&qword_100314608, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1002258DC(self, v3);
@@ -80,7 +81,7 @@
 
 - (void)initializeXPC
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -107,7 +108,7 @@
 {
   connectionCopy = connection;
   listenerCopy = listener;
-  v8 = sub_100002880();
+  v8 = sub_100002880(listenerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412290;

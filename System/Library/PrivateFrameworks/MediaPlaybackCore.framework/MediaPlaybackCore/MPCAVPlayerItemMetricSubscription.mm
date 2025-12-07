@@ -9,7 +9,7 @@
   swift_unknownObjectRetain();
   eventCopy = event;
   selfCopy = self;
-  sub_1C5E438CC();
+  sub_1C5E438CC(publisher, eventCopy);
   swift_unknownObjectRelease();
 }
 

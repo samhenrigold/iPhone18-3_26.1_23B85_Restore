@@ -10,25 +10,27 @@
   if (identifier)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v6 = String._bridgeToObjectiveC()();
+    v7 = v6;
+    v8 = String._bridgeToObjectiveC()();
+    v7, v9, v10, v11, v12, v13, v14, v15;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for BaseTableViewCell();
-  v7 = [(BaseTableViewCell *)&v13 initWithStyle:style reuseIdentifier:v6];
+  v22.receiver = self;
+  v22.super_class = type metadata accessor for BaseTableViewCell();
+  v16 = [(BaseTableViewCell *)&v22 initWithStyle:style reuseIdentifier:v8];
 
-  v8 = *((swift_isaMask & v7->super.super.super.super.isa) + 0x50);
-  v9 = v7;
-  v10 = v8();
-  v11 = (*((swift_isaMask & v9->super.super.super.super.isa) + 0x58))(v10);
-  (*((swift_isaMask & v9->super.super.super.super.isa) + 0x60))(v11);
+  v17 = *((swift_isaMask & v16->super.super.super.super.isa) + 0x50);
+  v18 = v16;
+  v19 = v17();
+  v20 = (*((swift_isaMask & v18->super.super.super.super.isa) + 0x58))(v19);
+  (*((swift_isaMask & v18->super.super.super.super.isa) + 0x60))(v20);
 
-  return v9;
+  return v18;
 }
 
 - (_TtC11Diagnostics17BaseTableViewCell)initWithCoder:(id)coder

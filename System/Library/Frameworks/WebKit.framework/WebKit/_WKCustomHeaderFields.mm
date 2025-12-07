@@ -131,7 +131,7 @@
     }
 
     LODWORD(v12) = v5;
-    v11 = WTF::fastMalloc((16 * v5));
+    v11 = WTF::fastMalloc(0, (16 * v5));
   }
 
   v6 = malloc_type_malloc(0x28uLL, 0x10E004053C0834CuLL);
@@ -231,7 +231,7 @@
 
 - (uint64_t)setFields:
 {
-  MEMORY[0x19EB02040](&v22);
+  MEMORY[0x19EB02040](&v22, a2);
   MEMORY[0x19EB02040](&v21, a3);
   WebCore::HTTPHeaderField::create();
   v6 = v21;

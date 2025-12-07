@@ -7,14 +7,14 @@
 
 - (AXObserverWrapper)initWithSystemElement:(id)element runloop:(id)runloop notifications:(id)notifications handler:(id)handler error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   runloopCopy = runloop;
   notificationsCopy = notifications;
   handlerCopy = handler;
-  v41.receiver = self;
-  v41.super_class = AXObserverWrapper;
-  v16 = [(AXObserverWrapper *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = AXObserverWrapper;
+  v16 = [(AXObserverWrapper *)&v40 init];
   v17 = v16;
   if (!v16)
   {
@@ -36,43 +36,43 @@ LABEL_15:
     getCFRunLoop = [runloopCopy getCFRunLoop];
     RunLoopSource = AXObserverGetRunLoopSource([(AXObserverWrapper *)v17 observer]);
     CFRunLoopAddSource(getCFRunLoop, RunLoopSource, *MEMORY[0x277CBF058]);
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v22 = notificationsCopy;
-    v23 = [v22 countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v35 objects:v41 count:16];
     if (v23)
     {
       v24 = v23;
-      v33 = handlerCopy;
-      v34 = notificationsCopy;
-      v35 = runloopCopy;
-      v25 = *v37;
+      v32 = handlerCopy;
+      v33 = notificationsCopy;
+      v34 = runloopCopy;
+      v25 = *v36;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v37 != v25)
+          if (*v36 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          intValue = [*(*(&v36 + 1) + 8 * i) intValue];
+          intValue = [*(*(&v35 + 1) + 8 * i) intValue];
           observer = [(AXObserverWrapper *)v17 observer];
           systemElement = [(AXObserverWrapper *)v17 systemElement];
           uiElement = [systemElement uiElement];
           AXObserverAddNotification(observer, [uiElement axElement], intValue, v17);
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
       while (v24);
 
-      notificationsCopy = v34;
-      runloopCopy = v35;
-      handlerCopy = v33;
+      notificationsCopy = v33;
+      runloopCopy = v34;
+      handlerCopy = v32;
     }
 
     else
@@ -90,34 +90,33 @@ LABEL_15:
   v19 = 0;
 LABEL_16:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   notifications = [(AXObserverWrapper *)self notifications];
-  v4 = [notifications countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [notifications countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       v7 = 0;
       do
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(notifications);
         }
 
-        intValue = [*(*(&v17 + 1) + 8 * v7) intValue];
+        intValue = [*(*(&v16 + 1) + 8 * v7) intValue];
         observer = [(AXObserverWrapper *)self observer];
         systemElement = [(AXObserverWrapper *)self systemElement];
         uiElement = [systemElement uiElement];
@@ -127,7 +126,7 @@ LABEL_16:
       }
 
       while (v5 != v7);
-      v5 = [notifications countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [notifications countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
@@ -138,10 +137,9 @@ LABEL_16:
   RunLoopSource = AXObserverGetRunLoopSource([(AXObserverWrapper *)self observer]);
   CFRunLoopRemoveSource(getCFRunLoop, RunLoopSource, *MEMORY[0x277CBF058]);
 
-  v16.receiver = self;
-  v16.super_class = AXObserverWrapper;
-  [(AXObserverWrapper *)&v16 dealloc];
-  v15 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = AXObserverWrapper;
+  [(AXObserverWrapper *)&v15 dealloc];
 }
 
 @end

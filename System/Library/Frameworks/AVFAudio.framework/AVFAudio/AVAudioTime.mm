@@ -17,11 +17,11 @@
 
 - (id)description
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   mFlags = self->_ats.mFlags;
   if ((mFlags & 2) == 0)
   {
-    v9[0] = 0;
+    v8[0] = 0;
     if (mFlags)
     {
       goto LABEL_3;
@@ -35,12 +35,12 @@ LABEL_6:
     }
 
 LABEL_7:
-    v7[0] = 0;
-    goto LABEL_8;
+    v6[0] = 0;
+    return [MEMORY[0x1E696AEC0] stringWithFormat:@"<AVAudioTime %p: %s %s %s>", self, v8, __str, v6];
   }
 
   [AVAudioTime secondsForHostTime:self->_ats.mHostTime];
-  snprintf(v9, 0x20uLL, "%.6f s", v4);
+  snprintf(v8, 0x20uLL, "%.6f s", v4);
   mFlags = self->_ats.mFlags;
   if ((mFlags & 1) == 0)
   {
@@ -55,11 +55,8 @@ LABEL_3:
   }
 
 LABEL_4:
-  snprintf(v7, 0x20uLL, "%.6f rs", self->_ats.mRateScalar);
-LABEL_8:
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"<AVAudioTime %p: %s %s %s>", self, v9, __str, v7];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  snprintf(v6, 0x20uLL, "%.6f rs", self->_ats.mRateScalar);
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"<AVAudioTime %p: %s %s %s>", self, v8, __str, v6];
 }
 
 - (AudioTimeStamp)audioTimeStamp
@@ -101,7 +98,7 @@ LABEL_8:
   v14 = 0u;
   if (anchorTime)
   {
-    [(AVAudioTime *)anchorTime audioTimeStamp];
+    objc_msgSend_audioTimeStamp(anchorTime, a2);
   }
 
   sampleRate = self->_sampleRate;

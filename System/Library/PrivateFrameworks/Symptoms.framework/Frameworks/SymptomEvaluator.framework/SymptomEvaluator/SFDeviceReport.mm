@@ -42,7 +42,7 @@
 - (id)dictionaryReport:(BOOL)report
 {
   reportCopy = report;
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[SFDeviceReport timestampBucket](self, "timestampBucket")}];
   [v5 setObject:v6 forKeyedSubscript:@"timestampBucket"];
@@ -246,29 +246,29 @@ LABEL_33:
 
   if (v41)
   {
-    v101 = v5;
+    v100 = v5;
     v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v102 = 0u;
     v103 = 0u;
     v104 = 0u;
     v105 = 0u;
-    v106 = 0u;
     selfCopy = self;
     obj = [(SFDeviceReport *)self privacyProxyNetworkStatus];
-    v43 = [obj countByEnumeratingWithState:&v103 objects:v107 count:16];
+    v43 = [obj countByEnumeratingWithState:&v102 objects:v106 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v104;
+      v45 = *v103;
       do
       {
         for (i = 0; i != v44; ++i)
         {
-          if (*v104 != v45)
+          if (*v103 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v47 = *(*(&v103 + 1) + 8 * i);
+          v47 = *(*(&v102 + 1) + 8 * i);
           v48 = objc_alloc_init(MEMORY[0x277CBEB38]);
           type = [v47 type];
           if (type >= 5)
@@ -299,14 +299,14 @@ LABEL_33:
           [v42 addObject:v48];
         }
 
-        v44 = [obj countByEnumeratingWithState:&v103 objects:v107 count:16];
+        v44 = [obj countByEnumeratingWithState:&v102 objects:v106 count:16];
       }
 
       while (v44);
     }
 
-    v5 = v101;
-    [v101 setObject:v42 forKeyedSubscript:@"privacyProxyNetworkStatus"];
+    v5 = v100;
+    [v100 setObject:v42 forKeyedSubscript:@"privacyProxyNetworkStatus"];
 
     self = selfCopy;
   }
@@ -407,8 +407,6 @@ LABEL_33:
       [v5 setObject:dictionaryRepresentation forKeyedSubscript:@"batteryAccumulator"];
     }
   }
-
-  v98 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

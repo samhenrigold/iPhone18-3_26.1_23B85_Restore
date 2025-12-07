@@ -19,7 +19,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SpriteAnimator();
+  v7.super_class = type metadata accessor for SpriteAnimator(0);
   [(SpriteAnimator *)&v7 dealloc];
 }
 

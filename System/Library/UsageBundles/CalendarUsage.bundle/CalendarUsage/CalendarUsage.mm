@@ -1,4 +1,4 @@
-void sub_13F8()
+void sub_13F8(uint64_t result, uint64_t a2)
 {
   if (qword_8748 != -1)
   {

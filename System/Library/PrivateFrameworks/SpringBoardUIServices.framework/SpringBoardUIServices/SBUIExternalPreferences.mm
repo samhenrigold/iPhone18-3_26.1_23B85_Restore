@@ -51,9 +51,11 @@
 
 uint64_t __41__SBUIExternalPreferences_sharedInstance__block_invoke()
 {
-  sharedInstance___instance = objc_alloc_init(SBUIExternalPreferences);
+  v0 = objc_alloc_init(SBUIExternalPreferences);
+  v1 = sharedInstance___instance;
+  sharedInstance___instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -94,7 +94,7 @@
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%s Searching for alarm %@ in order to do an update", buf, 0x16u);
         }
 
-        v16 = [v5 objectForKey:v14];
+        v16 = objc_msgSend_objectForKey_(v5);
         if (!v16)
         {
           v16 = objc_alloc_init(NSMutableArray);

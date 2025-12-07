@@ -18,23 +18,22 @@ uint64_t start()
 void sub_100000C9C(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v4, "descriptionWithLocale:");
+  v3 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v3, "descriptionWithLocale:");
   if (!InstanceMethod)
   {
-    v7 = +[NSAssertionHandler currentHandler];
-    [v7 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"TRIDaemonScopedSwizzling.m" lineNumber:28 description:@"failed to lookup -[NSDate descriptionWithLocale:]"];
+    v6 = +[NSAssertionHandler currentHandler];
+    [v6 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"TRIDaemonScopedSwizzling.m" lineNumber:28 description:@"failed to lookup -[NSDate descriptionWithLocale:]"];
   }
 
-  v6 = class_getInstanceMethod(v4, "tri_memoryFriendlyDescriptionWithLocale:");
-  if (!v6)
+  v5 = class_getInstanceMethod(v3, "tri_memoryFriendlyDescriptionWithLocale:");
+  if (!v5)
   {
-    v8 = +[NSAssertionHandler currentHandler];
-    [v8 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"TRIDaemonScopedSwizzling.m" lineNumber:30 description:@"failed to lookup -[NSDate tri_memoryFriendlyDescriptionWithLocale:]"];
+    v7 = +[NSAssertionHandler currentHandler];
+    [v7 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"TRIDaemonScopedSwizzling.m" lineNumber:30 description:@"failed to lookup -[NSDate tri_memoryFriendlyDescriptionWithLocale:]"];
   }
 
-  method_exchangeImplementations(InstanceMethod, v6);
+  method_exchangeImplementations(InstanceMethod, v5);
 
   objc_autoreleasePoolPop(v2);
 }

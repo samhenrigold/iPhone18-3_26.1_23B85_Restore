@@ -1,6 +1,6 @@
 id OnDeviceACAMUtility::createRuntimeOptions(OnDeviceACAMUtility *this)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   if (!v1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -14,24 +14,24 @@ id OnDeviceACAMUtility::createRuntimeOptions(OnDeviceACAMUtility *this)
     v4 = [v2 objectForKey:@"OnDeviceACAM"];
     if (v4)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
-      v5 = [&unk_2853A81F8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      v5 = [&unk_2853A81F8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
-        v6 = *v16;
+        v6 = *v15;
         do
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v16 != v6)
+            if (*v15 != v6)
             {
               objc_enumerationMutation(&unk_2853A81F8);
             }
 
-            v8 = *(*(&v15 + 1) + 8 * i);
+            v8 = *(*(&v14 + 1) + 8 * i);
             v9 = [v4 objectForKey:v8];
             v10 = v9 == 0;
 
@@ -42,7 +42,7 @@ id OnDeviceACAMUtility::createRuntimeOptions(OnDeviceACAMUtility *this)
             }
           }
 
-          v5 = [&unk_2853A81F8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v5 = [&unk_2853A81F8 countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
         while (v5);
@@ -62,8 +62,6 @@ id OnDeviceACAMUtility::createRuntimeOptions(OnDeviceACAMUtility *this)
     v12 = &unk_2853A81F8;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
@@ -77,7 +75,7 @@ void sub_241A73EA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_241A746B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, char a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char *a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, ACAMPerformanceModelParameter *a59)
+void sub_241A746B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char *a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, ACAMPerformanceModelParameter *a59)
 {
   AugmentedBatteryHealthLib::ABHWeekly::~ABHWeekly(&a11);
   std::tuple<unsigned int,AugmentedBatteryHealthLib::ABHWeekly>::~tuple(&a21);
@@ -450,7 +448,7 @@ uint64_t ACAMUtility::string_hash(ACAMUtility *this, const char *a2, int a3)
   }
 }
 
-void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,16,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6)
+void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,16,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, double *a11, double *a12, uint64_t a13)
 {
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
@@ -485,32 +483,32 @@ void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,16,2
   *(a1 + 64) = xmmword_241AB1170;
   *(a1 + 80) = xmmword_241AB1180;
   *(a1 + 96) = xmmword_241AB1190;
-  v6 = *a2 > a2[189];
+  v13 = *a2 > a2[189];
   *(a1 + 112) = a2;
   *(a1 + 120) = 190;
-  *(a1 + 128) = v6;
-  v7 = *a3 > a3[148];
+  *(a1 + 128) = v13;
+  v14 = *a3 > a3[148];
   *(a1 + 136) = a2 + 190;
   *(a1 + 144) = a3;
   *(a1 + 152) = 149;
-  *(a1 + 160) = v7;
-  v8 = *a4 > a4[2];
+  *(a1 + 160) = v14;
+  v15 = *a4 > a4[2];
   *(a1 + 168) = a3 + 149;
   *(a1 + 176) = a4;
   *(a1 + 184) = 3;
-  *(a1 + 192) = v8;
-  v9 = *a5 > a5[15];
+  *(a1 + 192) = v15;
+  v16 = *a5 > a5[15];
   *(a1 + 200) = a5;
   *(a1 + 208) = 16;
-  *(a1 + 216) = v9;
-  v10 = *a6 > a6[1];
+  *(a1 + 216) = v16;
+  v17 = *a6 > a6[1];
   *(a1 + 224) = a6;
   *(a1 + 232) = 2;
-  *(a1 + 240) = v10;
+  *(a1 + 240) = v17;
   operator new[]();
 }
 
-void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<192,149,3,16,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6)
+void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<192,149,3,16,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, double *a11, double *a12, uint64_t a13)
 {
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
@@ -545,32 +543,32 @@ void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<192,149,3,16,2
   *(a1 + 64) = xmmword_241AB11F0;
   *(a1 + 80) = xmmword_241AB1200;
   *(a1 + 96) = xmmword_241AB1210;
-  v6 = *a2 > a2[191];
+  v13 = *a2 > a2[191];
   *(a1 + 112) = a2;
   *(a1 + 120) = 192;
-  *(a1 + 128) = v6;
-  v7 = *a3 > a3[148];
+  *(a1 + 128) = v13;
+  v14 = *a3 > a3[148];
   *(a1 + 136) = a2 + 192;
   *(a1 + 144) = a3;
   *(a1 + 152) = 149;
-  *(a1 + 160) = v7;
-  v8 = *a4 > a4[2];
+  *(a1 + 160) = v14;
+  v15 = *a4 > a4[2];
   *(a1 + 168) = a3 + 149;
   *(a1 + 176) = a4;
   *(a1 + 184) = 3;
-  *(a1 + 192) = v8;
-  v9 = *a5 > a5[15];
+  *(a1 + 192) = v15;
+  v16 = *a5 > a5[15];
   *(a1 + 200) = a5;
   *(a1 + 208) = 16;
-  *(a1 + 216) = v9;
-  v10 = *a6 > a6[1];
+  *(a1 + 216) = v16;
+  v17 = *a6 > a6[1];
   *(a1 + 224) = a6;
   *(a1 + 232) = 2;
-  *(a1 + 240) = v10;
+  *(a1 + 240) = v17;
   operator new[]();
 }
 
-void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,25,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6)
+void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,25,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, double *a11, double *a12, uint64_t a13)
 {
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
@@ -605,32 +603,32 @@ void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,25,2
   *(a1 + 64) = xmmword_241AB1240;
   *(a1 + 80) = xmmword_241AB1250;
   *(a1 + 96) = xmmword_241AB1260;
-  v6 = *a2 > a2[189];
+  v13 = *a2 > a2[189];
   *(a1 + 112) = a2;
   *(a1 + 120) = 190;
-  *(a1 + 128) = v6;
-  v7 = *a3 > a3[148];
+  *(a1 + 128) = v13;
+  v14 = *a3 > a3[148];
   *(a1 + 136) = a2 + 190;
   *(a1 + 144) = a3;
   *(a1 + 152) = 149;
-  *(a1 + 160) = v7;
-  v8 = *a4 > a4[2];
+  *(a1 + 160) = v14;
+  v15 = *a4 > a4[2];
   *(a1 + 168) = a3 + 149;
   *(a1 + 176) = a4;
   *(a1 + 184) = 3;
-  *(a1 + 192) = v8;
-  v9 = *a5 > a5[24];
+  *(a1 + 192) = v15;
+  v16 = *a5 > a5[24];
   *(a1 + 200) = a5;
   *(a1 + 208) = 25;
-  *(a1 + 216) = v9;
-  v10 = *a6 > a6[1];
+  *(a1 + 216) = v16;
+  v17 = *a6 > a6[1];
   *(a1 + 224) = a6;
   *(a1 + 232) = 2;
-  *(a1 + 240) = v10;
+  *(a1 + 240) = v17;
   operator new[]();
 }
 
-void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<234,148,3,25,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6)
+void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<234,148,3,25,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, double *a11, double *a12, uint64_t a13)
 {
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
@@ -665,32 +663,32 @@ void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<234,148,3,25,2
   *(a1 + 64) = xmmword_241AB12B0;
   *(a1 + 80) = xmmword_241AB12C0;
   *(a1 + 96) = xmmword_241AB12D0;
-  v6 = *a2 > a2[233];
+  v13 = *a2 > a2[233];
   *(a1 + 112) = a2;
   *(a1 + 120) = 234;
-  *(a1 + 128) = v6;
-  v7 = *a3 > a3[147];
+  *(a1 + 128) = v13;
+  v14 = *a3 > a3[147];
   *(a1 + 136) = a2 + 234;
   *(a1 + 144) = a3;
   *(a1 + 152) = 148;
-  *(a1 + 160) = v7;
-  v8 = *a4 > a4[2];
+  *(a1 + 160) = v14;
+  v15 = *a4 > a4[2];
   *(a1 + 168) = a3 + 148;
   *(a1 + 176) = a4;
   *(a1 + 184) = 3;
-  *(a1 + 192) = v8;
-  v9 = *a5 > a5[24];
+  *(a1 + 192) = v15;
+  v16 = *a5 > a5[24];
   *(a1 + 200) = a5;
   *(a1 + 208) = 25;
-  *(a1 + 216) = v9;
-  v10 = *a6 > a6[1];
+  *(a1 + 216) = v16;
+  v17 = *a6 > a6[1];
   *(a1 + 224) = a6;
   *(a1 + 232) = 2;
-  *(a1 + 240) = v10;
+  *(a1 + 240) = v17;
   operator new[]();
 }
 
-void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<198,149,3,19,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6)
+void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<198,149,3,19,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, double *a11, double *a12, uint64_t a13)
 {
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
@@ -725,32 +723,32 @@ void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<198,149,3,19,2
   *(a1 + 64) = xmmword_241AB1310;
   *(a1 + 80) = xmmword_241AB1320;
   *(a1 + 96) = xmmword_241AB1330;
-  v6 = *a2 > a2[197];
+  v13 = *a2 > a2[197];
   *(a1 + 112) = a2;
   *(a1 + 120) = 198;
-  *(a1 + 128) = v6;
-  v7 = *a3 > a3[148];
+  *(a1 + 128) = v13;
+  v14 = *a3 > a3[148];
   *(a1 + 136) = a2 + 198;
   *(a1 + 144) = a3;
   *(a1 + 152) = 149;
-  *(a1 + 160) = v7;
-  v8 = *a4 > a4[2];
+  *(a1 + 160) = v14;
+  v15 = *a4 > a4[2];
   *(a1 + 168) = a3 + 149;
   *(a1 + 176) = a4;
   *(a1 + 184) = 3;
-  *(a1 + 192) = v8;
-  v9 = *a5 > a5[18];
+  *(a1 + 192) = v15;
+  v16 = *a5 > a5[18];
   *(a1 + 200) = a5;
   *(a1 + 208) = 19;
-  *(a1 + 216) = v9;
-  v10 = *a6 > a6[1];
+  *(a1 + 216) = v16;
+  v17 = *a6 > a6[1];
   *(a1 + 224) = a6;
   *(a1 + 232) = 2;
-  *(a1 + 240) = v10;
+  *(a1 + 240) = v17;
   operator new[]();
 }
 
-void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,19,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6)
+void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,19,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, double *a11, double *a12, uint64_t a13)
 {
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
@@ -785,32 +783,32 @@ void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<190,149,3,19,2
   *(a1 + 64) = xmmword_241AB1370;
   *(a1 + 80) = xmmword_241AB1380;
   *(a1 + 96) = xmmword_241AB1390;
-  v6 = *a2 > a2[189];
+  v13 = *a2 > a2[189];
   *(a1 + 112) = a2;
   *(a1 + 120) = 190;
-  *(a1 + 128) = v6;
-  v7 = *a3 > a3[148];
+  *(a1 + 128) = v13;
+  v14 = *a3 > a3[148];
   *(a1 + 136) = a2 + 190;
   *(a1 + 144) = a3;
   *(a1 + 152) = 149;
-  *(a1 + 160) = v7;
-  v8 = *a4 > a4[2];
+  *(a1 + 160) = v14;
+  v15 = *a4 > a4[2];
   *(a1 + 168) = a3 + 149;
   *(a1 + 176) = a4;
   *(a1 + 184) = 3;
-  *(a1 + 192) = v8;
-  v9 = *a5 > a5[18];
+  *(a1 + 192) = v15;
+  v16 = *a5 > a5[18];
   *(a1 + 200) = a5;
   *(a1 + 208) = 19;
-  *(a1 + 216) = v9;
-  v10 = *a6 > a6[1];
+  *(a1 + 216) = v16;
+  v17 = *a6 > a6[1];
   *(a1 + 224) = a6;
   *(a1 + 232) = 2;
-  *(a1 + 240) = v10;
+  *(a1 + 240) = v17;
   operator new[]();
 }
 
-void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<198,149,3,16,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6)
+void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<198,149,3,16,2,103,3>(uint64_t a1, double *a2, double *a3, double *a4, double *a5, double *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, double *a11, double *a12, uint64_t a13)
 {
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
@@ -845,28 +843,28 @@ void ACAMPerformanceModelParameter::ACAMPerformanceModelParameter<198,149,3,16,2
   *(a1 + 64) = xmmword_241AB13C0;
   *(a1 + 80) = xmmword_241AB13D0;
   *(a1 + 96) = xmmword_241AB13E0;
-  v6 = *a2 > a2[197];
+  v13 = *a2 > a2[197];
   *(a1 + 112) = a2;
   *(a1 + 120) = 198;
-  *(a1 + 128) = v6;
-  v7 = *a3 > a3[148];
+  *(a1 + 128) = v13;
+  v14 = *a3 > a3[148];
   *(a1 + 136) = a2 + 198;
   *(a1 + 144) = a3;
   *(a1 + 152) = 149;
-  *(a1 + 160) = v7;
-  v8 = *a4 > a4[2];
+  *(a1 + 160) = v14;
+  v15 = *a4 > a4[2];
   *(a1 + 168) = a3 + 149;
   *(a1 + 176) = a4;
   *(a1 + 184) = 3;
-  *(a1 + 192) = v8;
-  v9 = *a5 > a5[15];
+  *(a1 + 192) = v15;
+  v16 = *a5 > a5[15];
   *(a1 + 200) = a5;
   *(a1 + 208) = 16;
-  *(a1 + 216) = v9;
-  v10 = *a6 > a6[1];
+  *(a1 + 216) = v16;
+  v17 = *a6 > a6[1];
   *(a1 + 224) = a6;
   *(a1 + 232) = 2;
-  *(a1 + 240) = v10;
+  *(a1 + 240) = v17;
   operator new[]();
 }
 
@@ -876,16 +874,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -908,9 +906,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_241A7A3D8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_241A7A3D8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x245CF6680](&a10);
+  MEMORY[0x245CF6680](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -1021,7 +1019,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1043,7 +1041,7 @@ void sub_241A7A778(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1116,7 +1114,7 @@ void ACAMUtility::ACAMParameterPack::~ACAMParameterPack(ACAMPerformanceModelPara
   }
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1235,20 +1233,17 @@ void std::vector<AugmentedBatteryHealthLib::BDCWeekly>::clear[abi:ne200100](uint
   a1[1] = v2;
 }
 
-void *std::vector<AugmentedBatteryHealthLib::DailyData>::reserve(void *result, unint64_t a2)
+void std::vector<AugmentedBatteryHealthLib::DailyData>::reserve(void *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 3) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x666666666666667)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::DailyData>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::DailyData>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::DailyData>>(uint64_t a1, unint64_t a2)
@@ -1261,14 +1256,12 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealt
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<AugmentedBatteryHealthLib::BDCWeekly>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<AugmentedBatteryHealthLib::BDCWeekly>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::BDCWeekly>>(result, a2);
     }
 
@@ -1278,9 +1271,9 @@ void *std::vector<AugmentedBatteryHealthLib::BDCWeekly>::reserve(void *result, u
   return result;
 }
 
-void sub_241A7AD5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241A7AD5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<AugmentedBatteryHealthLib::BDCWeekly>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1505,27 +1498,24 @@ uint64_t std::vector<AugmentedBatteryHealthLib::BDCWeekly>::__emplace_back_slow_
   return v16;
 }
 
-void sub_241A7B154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_241A7B154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<AugmentedBatteryHealthLib::BDCWeekly>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<AugmentedBatteryHealthLib::ACAMDailyData>::reserve(void *result, unint64_t a2)
+void std::vector<AugmentedBatteryHealthLib::ACAMDailyData>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::ACAMDailyData>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::ACAMDailyData>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::ACAMDailyData>>(uint64_t a1, unint64_t a2)
@@ -1538,14 +1528,12 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealt
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<AugmentedBatteryHealthLib::ACAMWeeklyData>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<AugmentedBatteryHealthLib::ACAMWeeklyData>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::BDCWeekly>>(result, a2);
     }
 
@@ -1555,9 +1543,9 @@ void *std::vector<AugmentedBatteryHealthLib::ACAMWeeklyData>::reserve(void *resu
   return result;
 }
 
-void sub_241A7B2F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241A7B2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<AugmentedBatteryHealthLib::BDCWeekly>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1724,37 +1712,35 @@ uint64_t std::vector<AugmentedBatteryHealthLib::ACAMWeeklyData>::__emplace_back_
   return v16;
 }
 
-void sub_241A7B5CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_241A7B5CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<AugmentedBatteryHealthLib::BDCWeekly>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-id AugmentedBatteryHealthLib::Serialization::createBDCWeekly(uint64_t a1)
+id AugmentedBatteryHealthLib::Serialization::createBDCWeekly(double **a1)
 {
-  v12[6] = *MEMORY[0x277D85DE8];
-  v11[0] = @"augmentedNCC";
-  v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 72)];
-  v12[0] = v2;
-  v11[1] = @"augmentedRdc";
-  v3 = BACore::CommonSerialization::convertVectorToNSArray<double>((a1 + 48));
-  v12[1] = v3;
-  v11[2] = @"augmentedQmax";
-  v4 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v12[2] = v4;
-  v11[3] = @"deltaNCC";
-  v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v12[3] = v5;
-  v11[4] = @"deltaRdc";
-  v6 = BACore::CommonSerialization::convertVectorToNSArray<double>((a1 + 8));
-  v12[4] = v6;
-  v11[5] = @"deltaQmax";
+  v11[6] = *MEMORY[0x277D85DE8];
+  v10[0] = @"augmentedNCC";
+  v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 9)];
+  v11[0] = v2;
+  v10[1] = @"augmentedRdc";
+  v3 = BACore::CommonSerialization::convertVectorToNSArray<double>(a1 + 6);
+  v11[1] = v3;
+  v10[2] = @"augmentedQmax";
+  v4 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 5)];
+  v11[2] = v4;
+  v10[3] = @"deltaNCC";
+  v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 4)];
+  v11[3] = v5;
+  v10[4] = @"deltaRdc";
+  v6 = BACore::CommonSerialization::convertVectorToNSArray<double>(a1 + 1);
+  v11[4] = v6;
+  v10[5] = @"deltaQmax";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:*a1];
-  v12[5] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[5] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:6];
 
   return v8;
 }
@@ -1864,12 +1850,12 @@ LABEL_10:
 
 uint64_t AugmentedBatteryHealthLib::Deserialization::setACAMDailyDataFromDictionary(void *a1, void *a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v14[0] = &unk_2853AFF90;
+  v13[0] = &unk_2853AFF90;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v14[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   v7 = BACore::CommonSerialization::validateDataFromDictionary(v3, &unk_2853AFBC0, &unk_2853AFBD8, v5, v6);
   if (v7)
@@ -1883,7 +1869,6 @@ uint64_t AugmentedBatteryHealthLib::Deserialization::setACAMDailyDataFromDiction
     *a1 = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1932,20 +1917,20 @@ uint64_t AugmentedBatteryHealthLib::Deserialization::setACAMWeeklyDataFromDictio
 
 BOOL AugmentedBatteryHealthLib::Deserialization::setDailyDataFromDictionary(uint64_t a1, void *a2, NSData *a3, double a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v22 = &unk_2853AFFA0;
-  v23 = &unk_2853AFFB0;
+  v21 = &unk_2853AFFA0;
+  v22 = &unk_2853AFFB0;
+  v23 = &unk_2853AFF90;
   v24 = &unk_2853AFF90;
-  v25 = &unk_2853AFF90;
   v8 = BACore::CommonSerialization::getTimestampUpperBound(v7);
-  v26 = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:5];
+  v25 = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:5];
 
   v11 = BACore::CommonSerialization::validateDataFromDictionaryWithTeq(v7, &unk_2853AFC08, a3, dbl_2853AFC20, a4, v9, v10);
   if (v11 >= 0.0)
   {
-    v12 = [(BACore::CommonSerialization *)v7 objectForKeyedSubscript:@"CycleCount", v22, v23, v24, v25];
+    v12 = [(BACore::CommonSerialization *)v7 objectForKeyedSubscript:@"CycleCount", v21, v22, v23, v24];
     [v12 doubleValue];
     *(a1 + 8) = v13;
 
@@ -1963,7 +1948,6 @@ BOOL AugmentedBatteryHealthLib::Deserialization::setDailyDataFromDictionary(uint
     *(a1 + 32) = v19;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11 >= 0.0;
 }
 
@@ -1974,7 +1958,7 @@ uint64_t AugmentedBatteryHealthLib::Deserialization::setWeeklyDataFromDictionary
   if (v5)
   {
     v6 = [(BACore::CommonSerialization *)v3 objectForKeyedSubscript:@"RaTableRaw0"];
-    BACore::CommonSerialization::getCppStringFromNSString(v6, &v10);
+    BACore::CommonSerialization::getCppStringFromNSString(&v10, v6);
     if (*(a1 + 31) < 0)
     {
       operator delete(*(a1 + 8));
@@ -2008,7 +1992,7 @@ void sub_241A7E9A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2022,19 +2006,19 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void sub_241A7F6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241A7F6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   CafeSwellAlgo::BDCInput::~BDCInput(va);
 
   _Unwind_Resume(a1);
@@ -2071,20 +2055,17 @@ void CafeSwellAlgo::BDCInput::~BDCInput(CafeSwellAlgo::BDCInput *this)
   }
 }
 
-void *std::vector<CafeSwellAlgo::ACAMDailyData>::reserve(void *result, unint64_t a2)
+void std::vector<CafeSwellAlgo::ACAMDailyData>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x555555555555556)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CafeSwellAlgo::ACAMDailyData>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<CafeSwellAlgo::ACAMDailyData>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<CafeSwellAlgo::ACAMDailyData>>(uint64_t a1, unint64_t a2)
@@ -2140,11 +2121,12 @@ void BACore::CommonSerialization::assignNSArrayToCArray<double,91ul>(void *a1, u
   }
 }
 
-void sub_241A8290C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_241A8290C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  AdaptiveOcvAlgo::BDCOutput::~BDCOutput(&a10);
+  va_start(va, a25);
 
-  AdaptiveOcvAlgo::PersistentState::~PersistentState(&a26);
+  AdaptiveOcvAlgo::BDCOutput::~BDCOutput(&a10);
+  AdaptiveOcvAlgo::PersistentState::~PersistentState(va);
   _Unwind_Resume(a1);
 }
 
@@ -2169,7 +2151,7 @@ void sub_241A82C78(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *AdaptiveOcvAlgo::BDCOutput::operator=(void *a1, uint64_t a2)
+uint64_t *AdaptiveOcvAlgo::BDCOutput::operator=(uint64_t *a1, uint64_t a2)
 {
   if (a1 != a2)
   {
@@ -2409,19 +2391,19 @@ AdaptiveOcvAlgo::BDCOutput *AdaptiveOcvAlgo::BDCOutput::BDCOutput(AdaptiveOcvAlg
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 6, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 3);
   *(this + 9) = 0;
   *(this + 10) = 0;
   *(this + 11) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 72, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 9, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 3);
   *(this + 12) = 0;
   *(this + 13) = 0;
   *(this + 14) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 96, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 12, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 3);
   *(this + 15) = *(a2 + 15);
   return this;
 }
@@ -2479,7 +2461,7 @@ void sub_241A842E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id OnDeviceACAMUtility::createDebugLogItem(OnDeviceACAMUtility *this, NSString *a2, objc_object *a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v4 = this;
   v5 = a2;
   v6 = [MEMORY[0x277CBEB68] null];
@@ -2487,27 +2469,25 @@ id OnDeviceACAMUtility::createDebugLogItem(OnDeviceACAMUtility *this, NSString *
 
   if (v7)
   {
-    v16 = @"message";
-    v17[0] = v4;
-    v8 = &v16;
-    v9 = v17;
+    v15 = @"message";
+    v16[0] = v4;
+    v8 = &v15;
+    v9 = v16;
     v10 = 1;
   }
 
   else
   {
-    v14[0] = @"message";
-    v14[1] = @"value";
-    v15[0] = v4;
-    v15[1] = v5;
-    v8 = v14;
-    v9 = v15;
+    v13[0] = @"message";
+    v13[1] = @"value";
+    v14[0] = v4;
+    v14[1] = v5;
+    v8 = v13;
+    v9 = v14;
     v10 = 2;
   }
 
   v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2568,10 +2548,10 @@ void saveCurrentSnapshotIntoDebugBuffer(OnDeviceACAM *a1, NSString *a2)
   }
 }
 
-void sub_241A847B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241A847B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v7 = v5;
+  va_start(va, a3);
+  v8 = v6;
 
   ACAMPersistentStates::~ACAMPersistentStates(va);
   _Unwind_Resume(a1);
@@ -2634,7 +2614,7 @@ void ACAMPersistentStates::~ACAMPersistentStates(ACAMPersistentStates *this)
   }
 }
 
-void sub_241A87F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58)
+void sub_241A87F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char *a58)
 {
   std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::~__hash_table(&a45);
   a58 = &a50;
@@ -2654,11 +2634,11 @@ uint64_t std::pair<std::string const,std::set<unsigned long>>::~pair(uint64_t a1
   return a1;
 }
 
-uint64_t std::vector<std::vector<SmartBatteryData>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<SmartBatteryData>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -2700,8 +2680,8 @@ uint64_t std::vector<std::vector<SmartBatteryData>>::push_back[abi:ne200100](uin
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -2718,23 +2698,23 @@ uint64_t std::vector<std::vector<SmartBatteryData>>::push_back[abi:ne200100](uin
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
   return result;
 }
 
-void sub_241A889E4(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_241A889E4(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
 
   ACAMPersistentStates::~ACAMPersistentStates(va);
   _Unwind_Resume(a1);
@@ -2798,7 +2778,7 @@ void *std::set<unsigned long>::set[abi:ne200100](void *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long,std::__tree_node<unsigned long,void *> *,long>>(uint64_t result, void *a2, void *a3)
+void *std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long,std::__tree_node<unsigned long,void *> *,long>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -2806,7 +2786,7 @@ uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterato
     v5 = result;
     do
     {
-      result = std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(v5, v5 + 1, v4 + 4, v4 + 4);
       v6 = v4[1];
       if (v6)
       {
@@ -2840,15 +2820,15 @@ uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterato
   return result;
 }
 
-uint64_t std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(void *a1, void *a2, unint64_t *a3)
+uint64_t std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(void *a1, void *a2, unint64_t *a3, void *a4)
 {
-  v3 = *std::__tree<unsigned long>::__find_equal<unsigned long>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<unsigned long>::__find_equal<unsigned long>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<unsigned long>::__find_equal<unsigned long>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -3042,7 +3022,7 @@ LABEL_48:
   return a4;
 }
 
-uint64_t *std::__tree<unsigned long>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<unsigned long>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3068,12 +3048,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3087,22 +3067,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -3136,13 +3116,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -3195,7 +3175,7 @@ void std::__tree<unsigned long>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t std::unordered_map<std::string,double>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,double>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -3205,7 +3185,7 @@ uint64_t std::unordered_map<std::string,double>::unordered_map(uint64_t a1, cons
     v5 = 32 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,double> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,double> const&>(a1, a2, a2);
       a2 += 4;
       v5 -= 32;
     }
@@ -3216,35 +3196,35 @@ uint64_t std::unordered_map<std::string,double>::unordered_map(uint64_t a1, cons
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,double> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,double> const&>(float *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__construct_node_hash<std::pair<std::string const,double> const&>();
@@ -3252,44 +3232,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_241A89980(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3309,9 +3289,9 @@ void sub_241A89A48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -3508,7 +3488,7 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3524,7 +3504,7 @@ void std::__hash_table<std::__hash_value_type<std::string,double>,std::__unorder
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -3532,7 +3512,7 @@ void std::__hash_table<std::__hash_value_type<std::string,double>,std::__unorder
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -3556,7 +3536,7 @@ void std::__hash_table<std::__hash_value_type<std::string,double>,std::__unorder
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -3601,9 +3581,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -3642,7 +3622,7 @@ void std::__throw_out_of_range[abi:ne200100](const char *a1)
   __cxa_throw(exception, off_278D050C8, MEMORY[0x277D825F8]);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -3718,41 +3698,41 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -3846,7 +3826,7 @@ void std::vector<std::vector<SmartBatteryData>>::clear[abi:ne200100](uint64_t *a
   a1[1] = v3;
 }
 
-uint64_t std::unordered_map<std::string,std::set<unsigned long>>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,std::set<unsigned long>>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -3856,7 +3836,7 @@ uint64_t std::unordered_map<std::string,std::set<unsigned long>>::unordered_map(
     v5 = 48 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::set<unsigned long>> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::set<unsigned long>> const&>(a1, a2, a2);
       a2 += 6;
       v5 -= 48;
     }
@@ -3867,35 +3847,35 @@ uint64_t std::unordered_map<std::string,std::set<unsigned long>>::unordered_map(
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::set<unsigned long>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::set<unsigned long>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::__construct_node_hash<std::pair<std::string const,std::set<unsigned long>> const&>();
@@ -3903,54 +3883,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_241A8A950(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241A8A950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::set<unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::set<unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::set<unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::set<unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::set<unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::set<unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -4078,7 +4058,7 @@ void std::__split_buffer<std::vector<SmartBatteryData>>::__destruct_at_end[abi:n
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -4147,7 +4127,7 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::set<unsig
   return i;
 }
 
-uint64_t std::unordered_map<std::string,BOOL>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,BOOL>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -4157,7 +4137,7 @@ uint64_t std::unordered_map<std::string,BOOL>::unordered_map(uint64_t a1, const 
     v5 = 32 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,BOOL>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BOOL>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BOOL>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,BOOL> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,BOOL>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BOOL>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BOOL>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,BOOL> const&>(a1, a2, a2);
       a2 += 4;
       v5 -= 32;
     }
@@ -4168,35 +4148,35 @@ uint64_t std::unordered_map<std::string,BOOL>::unordered_map(uint64_t a1, const 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,BOOL>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BOOL>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BOOL>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,BOOL> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,BOOL>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BOOL>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BOOL>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,BOOL> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,BOOL>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,BOOL>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,BOOL>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,BOOL>>>::__construct_node_hash<std::pair<std::string const,BOOL> const&>();
@@ -4204,44 +4184,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_241A8B018(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -4261,221 +4241,215 @@ void sub_241A8B0E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id ACAMSerialization::Serialization::createCoreAnalyticsFromACAM(ACAMSerialization::Serialization *this, const ACAM *a2, uint64_t a3, double *a4)
+id ACAMSerialization::Serialization::createCoreAnalyticsFromACAM(ACAMSerialization::Serialization *this, const ACAM *a2, double a3, double a4, __n128 a5, uint64_t a6, double *a7)
 {
-  v45[14] = *MEMORY[0x277D85DE8];
+  v47[14] = *MEMORY[0x277D85DE8];
+  v44 = 0u;
+  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
   v40 = 0u;
   v41 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v35 = 0u;
-  ACAMLogger::extractDaily(this, a4, &v35);
-  v44[0] = @"Qmax";
-  LODWORD(v5) = DWORD2(v37);
-  v34 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-  v45[0] = v34;
-  v44[1] = @"NCCp";
-  LODWORD(v6) = HIDWORD(v36);
-  v33 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-  v45[1] = v33;
-  v44[2] = @"wRaChangeRatio";
-  LODWORD(v7) = v37;
-  v32 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v45[2] = v32;
-  v44[3] = @"Qn";
-  LODWORD(v8) = v35;
-  v31 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v45[3] = v31;
-  v44[4] = @"Qp";
-  LODWORD(v9) = DWORD1(v35);
-  v30 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v45[4] = v30;
-  v44[5] = @"QLi";
-  LODWORD(v10) = DWORD2(v35);
-  v11 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v45[5] = v11;
-  v44[6] = @"x0";
-  LODWORD(v12) = HIDWORD(v35);
-  v13 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
-  v45[6] = v13;
-  v44[7] = @"x100";
-  LODWORD(v14) = v36;
-  v15 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-  v45[7] = v15;
-  v44[8] = @"y0";
-  LODWORD(v16) = DWORD1(v36);
-  v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-  v45[8] = v17;
-  v44[9] = @"y100";
-  LODWORD(v18) = DWORD2(v36);
-  v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-  v45[9] = v19;
-  v44[10] = @"protectiveBuffer";
-  LODWORD(v20) = DWORD1(v38);
-  v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
-  v45[10] = v21;
-  v44[11] = @"hardSwell";
-  LODWORD(v22) = HIDWORD(v37);
-  v23 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
-  v45[11] = v23;
-  v44[12] = @"gasSwell";
-  LODWORD(v24) = v38;
-  v25 = [MEMORY[0x277CCABB0] numberWithFloat:v24];
-  v45[12] = v25;
-  v44[13] = @"initType";
-  v26 = [MEMORY[0x277CCABB0] numberWithInt:*(this + 9486)];
-  v45[13] = v26;
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:14];
+  ACAMLogger::extractDaily(&v37, this, a7, a5);
+  v46[0] = @"Qmax";
+  LODWORD(v8) = DWORD2(v39);
+  v36 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+  v47[0] = v36;
+  v46[1] = @"NCCp";
+  LODWORD(v9) = HIDWORD(v38);
+  v35 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
+  v47[1] = v35;
+  v46[2] = @"wRaChangeRatio";
+  LODWORD(v10) = v39;
+  v34 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
+  v47[2] = v34;
+  v46[3] = @"Qn";
+  LODWORD(v11) = v37;
+  v33 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+  v47[3] = v33;
+  v46[4] = @"Qp";
+  LODWORD(v12) = DWORD1(v37);
+  v32 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
+  v47[4] = v32;
+  v46[5] = @"QLi";
+  LODWORD(v13) = DWORD2(v37);
+  v14 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+  v47[5] = v14;
+  v46[6] = @"x0";
+  LODWORD(v15) = HIDWORD(v37);
+  v16 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
+  v47[6] = v16;
+  v46[7] = @"x100";
+  LODWORD(v17) = v38;
+  v18 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
+  v47[7] = v18;
+  v46[8] = @"y0";
+  LODWORD(v19) = DWORD1(v38);
+  v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
+  v47[8] = v20;
+  v46[9] = @"y100";
+  LODWORD(v21) = DWORD2(v38);
+  v22 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
+  v47[9] = v22;
+  v46[10] = @"protectiveBuffer";
+  LODWORD(v23) = DWORD1(v40);
+  v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
+  v47[10] = v24;
+  v46[11] = @"hardSwell";
+  LODWORD(v25) = HIDWORD(v39);
+  v26 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
+  v47[11] = v26;
+  v46[12] = @"gasSwell";
+  LODWORD(v27) = v40;
+  v28 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
+  v47[12] = v28;
+  v46[13] = @"initType";
+  v29 = [MEMORY[0x277CCABB0] numberWithInt:*(this + 9486)];
+  v47[13] = v29;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:14];
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v30;
 }
 
-id ACAMSerialization::Serialization::createBDCDailyFromACAM(ACAMSerialization::Serialization *this, const ACAM *a2, double a3, uint64_t a4, double *a5)
+id ACAMSerialization::Serialization::createBDCDailyFromACAM(ACAMSerialization::Serialization *this, const ACAM *a2, double a3, double a4, __n128 a5, uint64_t a6, double *a7)
 {
-  v69[23] = *MEMORY[0x277D85DE8];
-  v65 = 0u;
+  v70[23] = *MEMORY[0x277D85DE8];
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
-  v61 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v59 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v58 = 0u;
-  ACAMLogger::extractDaily(this, a5, &v58);
-  v68[0] = @"timeSinceLastDaily";
-  v57 = [MEMORY[0x277CCABB0] numberWithDouble:a3];
-  v69[0] = v57;
-  v68[1] = @"Qn";
-  LODWORD(v6) = v58;
-  v56 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-  v69[1] = v56;
-  v68[2] = @"Qp";
-  LODWORD(v7) = DWORD1(v58);
-  v55 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v69[2] = v55;
-  v68[3] = @"QLi";
-  LODWORD(v8) = DWORD2(v58);
-  v54 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v69[3] = v54;
-  v68[4] = @"x0";
-  LODWORD(v9) = HIDWORD(v58);
-  v53 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v69[4] = v53;
-  v68[5] = @"x100";
-  LODWORD(v10) = v59;
-  v52 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v69[5] = v52;
-  v68[6] = @"y0";
-  LODWORD(v11) = DWORD1(v59);
-  v51 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-  v69[6] = v51;
-  v68[7] = @"y100";
-  LODWORD(v12) = DWORD2(v59);
-  v50 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
-  v69[7] = v50;
-  v68[8] = @"NCCp";
-  LODWORD(v13) = HIDWORD(v59);
-  v49 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-  v69[8] = v49;
-  v68[9] = @"wRaChangeRatio";
-  LODWORD(v14) = v60;
-  v48 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-  v69[9] = v48;
-  v68[10] = @"wRcChangeRatio";
-  LODWORD(v15) = DWORD1(v60);
-  v47 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
-  v69[10] = v47;
-  v68[11] = @"Qmax";
-  LODWORD(v16) = DWORD2(v60);
-  v46 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-  v69[11] = v46;
-  v68[12] = @"hardSwell";
-  LODWORD(v17) = HIDWORD(v60);
-  v45 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-  v69[12] = v45;
-  v68[13] = @"gasSwell";
-  LODWORD(v18) = v61;
-  v44 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-  v69[13] = v44;
-  v68[14] = @"protectiveBuffer";
-  LODWORD(v19) = DWORD1(v61);
-  v43 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-  v69[14] = v43;
-  v68[15] = @"statusBuffer";
-  v42 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v62];
-  v69[15] = v42;
-  v68[16] = @"sleepStatistics";
-  v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(&v62 + 1)];
-  v67[0] = v41;
-  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v63];
-  v67[1] = v40;
-  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(&v63 + 1)];
-  v67[2] = v39;
-  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v64];
-  v67[3] = v38;
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(&v64 + 1)];
-  v67[4] = v20;
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v65];
-  v67[5] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:6];
-  v69[16] = v22;
-  v68[17] = @"SOCBiasCorrection";
-  LODWORD(v23) = DWORD2(v61);
-  v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
-  v69[17] = v24;
-  v68[18] = @"apparentWRa";
-  LODWORD(v25) = DWORD2(v66);
+  v61 = 0u;
+  v59 = 0u;
+  ACAMLogger::extractDaily(&v59, this, a7, a5);
+  v69[0] = @"timeSinceLastDaily";
+  v58 = [MEMORY[0x277CCABB0] numberWithDouble:a3];
+  v70[0] = v58;
+  v69[1] = @"Qn";
+  LODWORD(v8) = v59;
+  v57 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+  v70[1] = v57;
+  v69[2] = @"Qp";
+  LODWORD(v9) = DWORD1(v59);
+  v56 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
+  v70[2] = v56;
+  v69[3] = @"QLi";
+  LODWORD(v10) = DWORD2(v59);
+  v55 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
+  v70[3] = v55;
+  v69[4] = @"x0";
+  LODWORD(v11) = HIDWORD(v59);
+  v54 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+  v70[4] = v54;
+  v69[5] = @"x100";
+  LODWORD(v12) = v60;
+  v53 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
+  v70[5] = v53;
+  v69[6] = @"y0";
+  LODWORD(v13) = DWORD1(v60);
+  v52 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+  v70[6] = v52;
+  v69[7] = @"y100";
+  LODWORD(v14) = DWORD2(v60);
+  v51 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
+  v70[7] = v51;
+  v69[8] = @"NCCp";
+  LODWORD(v15) = HIDWORD(v60);
+  v50 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
+  v70[8] = v50;
+  v69[9] = @"wRaChangeRatio";
+  LODWORD(v16) = v61;
+  v49 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
+  v70[9] = v49;
+  v69[10] = @"wRcChangeRatio";
+  LODWORD(v17) = DWORD1(v61);
+  v48 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
+  v70[10] = v48;
+  v69[11] = @"Qmax";
+  LODWORD(v18) = DWORD2(v61);
+  v47 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
+  v70[11] = v47;
+  v69[12] = @"hardSwell";
+  LODWORD(v19) = HIDWORD(v61);
+  v46 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
+  v70[12] = v46;
+  v69[13] = @"gasSwell";
+  LODWORD(v20) = v62;
+  v45 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+  v70[13] = v45;
+  v69[14] = @"protectiveBuffer";
+  LODWORD(v21) = DWORD1(v62);
+  v44 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
+  v70[14] = v44;
+  v69[15] = @"statusBuffer";
+  v43 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v63];
+  v70[15] = v43;
+  v69[16] = @"sleepStatistics";
+  v42 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(&v63 + 1)];
+  v68[0] = v42;
+  v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v64];
+  v68[1] = v41;
+  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(&v64 + 1)];
+  v68[2] = v40;
+  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v65];
+  v68[3] = v39;
+  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(&v65 + 1)];
+  v68[4] = v22;
+  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v66];
+  v68[5] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:6];
+  v70[16] = v24;
+  v69[17] = @"SOCBiasCorrection";
+  LODWORD(v25) = DWORD2(v62);
   v26 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
-  v69[18] = v26;
-  v68[19] = @"apparentQmax";
-  LODWORD(v27) = DWORD1(v66);
+  v70[17] = v26;
+  v69[18] = @"apparentWRa";
+  LODWORD(v27) = DWORD2(v67);
   v28 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
-  v69[19] = v28;
-  v68[20] = @"avgRaGrowthRatio";
-  LODWORD(v29) = DWORD2(v65);
+  v70[18] = v28;
+  v69[19] = @"apparentQmax";
+  LODWORD(v29) = DWORD1(v67);
   v30 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
-  v69[20] = v30;
-  v68[21] = @"avgRcGrowthRatio";
-  LODWORD(v31) = HIDWORD(v65);
+  v70[19] = v30;
+  v69[20] = @"avgRaGrowthRatio";
+  LODWORD(v31) = DWORD2(v66);
   v32 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
-  v69[21] = v32;
-  v68[22] = @"yShrink";
-  LODWORD(v33) = v66;
+  v70[20] = v32;
+  v69[21] = @"avgRcGrowthRatio";
+  LODWORD(v33) = HIDWORD(v66);
   v34 = [MEMORY[0x277CCABB0] numberWithFloat:v33];
-  v69[22] = v34;
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:23];
+  v70[21] = v34;
+  v69[22] = @"yShrink";
+  LODWORD(v35) = v67;
+  v36 = [MEMORY[0x277CCABB0] numberWithFloat:v35];
+  v70[22] = v36;
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:23];
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v35;
+  return v37;
 }
 
 id ACAMSerialization::Serialization::createBDCSBCFromACAM(ACAMSerialization::Serialization *this, const ACAM *a2, double a3)
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   SBC = ACAMLogger::extractSBC(this, a2);
   v6 = v5;
-  v15[0] = @"timeSinceLastSBC";
+  v14[0] = @"timeSinceLastSBC";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:a3];
-  v16[0] = v7;
-  v15[1] = @"potentialAnode";
+  v15[0] = v7;
+  v14[1] = @"potentialAnode";
   *&v8 = SBC;
   v9 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v16[1] = v9;
-  v15[2] = @"potentialCathode";
+  v15[1] = v9;
+  v14[2] = @"potentialCathode";
   LODWORD(v10) = v6;
   v11 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v16[2] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }
@@ -4512,7 +4486,7 @@ void ACAMSerialization::Serialization::createBDCWeeklyFromACAM(ACAMSerialization
   v4 = 0u;
   v5 = 0u;
   v3 = 0u;
-  ACAMLogger::extractWeekly(this, a2);
+  ACAMLogger::extractWeekly(this);
 }
 
 id BACore::CommonSerialization::convertCArrayToNSArray<float,101ul>(uint64_t a1)
@@ -4532,331 +4506,331 @@ id BACore::CommonSerialization::convertCArrayToNSArray<float,101ul>(uint64_t a1)
 
 id ACAMSerialization::Serialization::createDiskStateFromPersistentState(ACAMSerialization::Serialization *this, const ACAMPersistentStates *a2)
 {
-  v175[2] = *MEMORY[0x277D85DE8];
-  v122 = [MEMORY[0x277CBEB18] array];
+  v174[2] = *MEMORY[0x277D85DE8];
+  v121 = [MEMORY[0x277CBEB18] array];
   for (i = *(this + 102); i; i = *(i + 48))
   {
     v3 = *(i + 40);
-    v174[0] = @"batteryState";
-    v172[0] = @"V";
+    v173[0] = @"batteryState";
+    v171[0] = @"V";
     v4 = [MEMORY[0x277CCABB0] numberWithDouble:*i];
-    v173[0] = v4;
-    v172[1] = @"I";
+    v172[0] = v4;
+    v171[1] = @"I";
     v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(i + 8)];
-    v173[1] = v5;
-    v172[2] = @"T";
+    v172[1] = v5;
+    v171[2] = @"T";
     v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(i + 16)];
-    v173[2] = v6;
-    v172[3] = @"SOC";
+    v172[2] = v6;
+    v171[3] = @"SOC";
     v7 = [MEMORY[0x277CCABB0] numberWithDouble:*(i + 24)];
-    v173[3] = v7;
-    v172[4] = @"t";
+    v172[3] = v7;
+    v171[4] = @"t";
     v8 = [MEMORY[0x277CCABB0] numberWithDouble:*(i + 32)];
-    v173[4] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v173 forKeys:v172 count:5];
-    v174[1] = @"voltageChargeLimit";
-    v175[0] = v9;
+    v172[4] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v172 forKeys:v171 count:5];
+    v173[1] = @"voltageChargeLimit";
+    v174[0] = v9;
     v10 = [MEMORY[0x277CCABB0] numberWithDouble:v3];
-    v175[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v175 forKeys:v174 count:2];
-    [v122 addObject:v11];
+    v174[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v174 forKeys:v173 count:2];
+    [v121 addObject:v11];
   }
 
-  v123[0] = @"persistentState.BatteryStatePrevious.V";
-  v118 = [MEMORY[0x277CCABB0] numberWithDouble:*this];
-  v124[0] = v118;
-  v123[1] = @"persistentState.BatteryStatePrevious.I";
-  v117 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 1)];
-  v124[1] = v117;
-  v123[2] = @"persistentState.BatteryStatePrevious.T";
-  v116 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2)];
-  v124[2] = v116;
-  v123[3] = @"persistentState.BatteryStatePrevious.SOC";
-  v115 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 3)];
-  v124[3] = v115;
-  v123[4] = @"persistentState.BatteryStatePrevious.t";
-  v114 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 4)];
-  v124[4] = v114;
-  v123[5] = @"persistentState.BatteryStateCurrent.V";
-  v113 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 5)];
-  v124[5] = v113;
-  v123[6] = @"persistentState.BatteryStateCurrent.I";
-  v112 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 6)];
-  v124[6] = v112;
-  v123[7] = @"persistentState.BatteryStateCurrent.T";
-  v111 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 7)];
-  v124[7] = v111;
-  v123[8] = @"persistentState.BatteryStateCurrent.SOC";
-  v110 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 8)];
-  v124[8] = v110;
-  v123[9] = @"persistentState.BatteryStateCurrent.t";
-  v109 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 9)];
-  v124[9] = v109;
-  v123[10] = @"persistentState.ElectrodeStatePrevious.x";
-  v108 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 10)];
-  v124[10] = v108;
-  v123[11] = @"persistentState.ElectrodeStatePrevious.y";
-  v107 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 11)];
-  v124[11] = v107;
-  v123[12] = @"persistentState.ElectrodeStatePrevious.xLastExtreme";
-  v106 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 12)];
-  v124[12] = v106;
-  v123[13] = @"persistentState.ElectrodeStatePrevious.yLastExtreme";
-  v105 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 13)];
-  v124[13] = v105;
-  v123[14] = @"persistentState.ElectrodeStatePrevious.potentialAnode";
-  v104 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 14)];
-  v124[14] = v104;
-  v123[15] = @"persistentState.ElectrodeStatePrevious.potentialCathode";
-  v103 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 15)];
-  v124[15] = v103;
-  v123[16] = @"persistentState.ElectrodeStatePrevious.wRcFreshAtCurrentTemp";
-  v102 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 16)];
-  v124[16] = v102;
-  v123[17] = @"persistentState.ElectrodeStatePrevious.wRaFreshAtCurrentTemp";
-  v101 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 17)];
-  v124[17] = v101;
-  v123[18] = @"persistentState.ElectrodeStatePrevious.deltaResistancePos";
-  v100 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 18)];
-  v124[18] = v100;
-  v123[19] = @"persistentState.ElectrodeStatePrevious.deltaResistanceNeg";
-  v99 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 19)];
-  v124[19] = v99;
-  v123[20] = @"persistentState.ElectrodeStatePrevious.resistancePos";
-  v98 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 20)];
-  v124[20] = v98;
-  v123[21] = @"persistentState.ElectrodeStatePrevious.resistanceNeg";
-  v97 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 21)];
-  v124[21] = v97;
-  v123[22] = @"persistentState.ElectrodeStateCurrent.x";
-  v96 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 22)];
-  v124[22] = v96;
-  v123[23] = @"persistentState.ElectrodeStateCurrent.y";
-  v95 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 23)];
-  v124[23] = v95;
-  v123[24] = @"persistentState.ElectrodeStateCurrent.xLastExtreme";
-  v94 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 24)];
-  v124[24] = v94;
-  v123[25] = @"persistentState.ElectrodeStateCurrent.yLastExtreme";
-  v93 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 25)];
-  v124[25] = v93;
-  v123[26] = @"persistentState.ElectrodeStateCurrent.potentialAnode";
-  v92 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 26)];
-  v124[26] = v92;
-  v123[27] = @"persistentState.ElectrodeStateCurrent.potentialCathode";
-  v91 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 27)];
-  v124[27] = v91;
-  v123[28] = @"persistentState.ElectrodeStateCurrent.wRcFreshAtCurrentTemp";
-  v90 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 28)];
-  v124[28] = v90;
-  v123[29] = @"persistentState.ElectrodeStateCurrent.wRaFreshAtCurrentTemp";
-  v89 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 29)];
-  v124[29] = v89;
-  v123[30] = @"persistentState.ElectrodeStateCurrent.deltaResistancePos";
-  v88 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 30)];
-  v124[30] = v88;
-  v123[31] = @"persistentState.ElectrodeStateCurrent.deltaResistanceNeg";
-  v87 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 31)];
-  v124[31] = v87;
-  v123[32] = @"persistentState.ElectrodeStateCurrent.resistancePos";
-  v86 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 32)];
-  v124[32] = v86;
-  v123[33] = @"persistentState.ElectrodeStateCurrent.resistanceNeg";
-  v85 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 33)];
-  v124[33] = v85;
-  v123[34] = @"persistentState.AgingState.gasSwell";
-  v84 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 34)];
-  v124[34] = v84;
-  v123[35] = @"persistentState.AgingState.protectiveBuffer";
-  v83 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 35)];
-  v124[35] = v83;
-  v123[36] = @"persistentState.AgingState.timePassedOnset";
-  v82 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 36)];
-  v124[36] = v82;
-  v123[37] = @"persistentState.AgingState.hardSwell";
-  v81 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 37)];
-  v124[37] = v81;
-  v123[38] = @"persistentState.AgingState.expGammaHardSwell";
-  v80 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 38)];
-  v124[38] = v80;
-  v123[39] = @"persistentState.AgingState.wRaChangeRatio";
-  v79 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 39)];
-  v124[39] = v79;
-  v123[40] = @"persistentState.AgingState.wRcChangeRatio";
-  v78 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 40)];
-  v124[40] = v78;
-  v123[41] = @"persistentState.AgingState.Qp";
-  v77 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 41)];
-  v124[41] = v77;
-  v123[42] = @"persistentState.AgingState.QpLoss";
-  v76 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 42)];
-  v124[42] = v76;
-  v123[43] = @"persistentState.AgingState.QpPhaseLoss";
-  v75 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 43)];
-  v124[43] = v75;
-  v123[44] = @"persistentState.AgingState.QpAcidLoss";
-  v74 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 44)];
-  v124[44] = v74;
-  v123[45] = @"persistentState.AgingState.QpCrackLoss";
-  v73 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 45)];
-  v124[45] = v73;
-  v123[46] = @"persistentState.AgingState.Qn";
-  v72 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 46)];
-  v124[46] = v72;
-  v123[47] = @"persistentState.AgingState.QLi";
-  v71 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 47)];
-  v124[47] = v71;
-  v123[48] = @"persistentState.AgingState.integralJSEIdt";
-  v70 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 48)];
-  v124[48] = v70;
-  v123[49] = @"persistentState.AgingState.integralJWRadt";
-  v69 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 49)];
-  v124[49] = v69;
-  v123[50] = @"persistentState.AgingState.integralJWRcdt";
-  v68 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 50)];
-  v124[50] = v68;
-  v123[51] = @"persistentState.AgingState.integralJYShrinkdt";
-  v67 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 51)];
-  v124[51] = v67;
-  v123[52] = @"persistentState.AgingState.integralJAvgRadt";
-  v66 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 52)];
-  v124[52] = v66;
-  v123[53] = @"persistentState.AgingState.integralJAvgRcdt";
-  v65 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 53)];
-  v124[53] = v65;
-  v123[54] = @"persistentState.UpdatorState.x0";
-  v64 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 54)];
-  v124[54] = v64;
-  v123[55] = @"persistentState.UpdatorState.x100";
-  v63 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 55)];
-  v124[55] = v63;
-  v123[56] = @"persistentState.UpdatorState.y0";
-  v62 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 56)];
-  v124[56] = v62;
-  v123[57] = @"persistentState.UpdatorState.y100";
-  v61 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 57)];
-  v124[57] = v61;
-  v123[58] = @"persistentState.UpdatorState.Qmax";
-  v125 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 58)];
-  v123[59] = @"persistentState.UpdatorState.Qn";
-  v119 = v125;
-  v126 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 59)];
-  v123[60] = @"persistentState.UpdatorState.Qp";
-  v60 = v126;
-  v59 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 60)];
-  v127 = v59;
-  v123[61] = @"persistentState.UpdatorState.resistancePosChgRatio";
-  v58 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 61)];
-  v128 = v58;
-  v123[62] = @"persistentState.UpdatorState.resistanceNegChgRatio";
-  v57 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 62)];
-  v129 = v57;
-  v123[63] = @"persistentState.UpdatorState.resistancePosDcgRatio";
-  v56 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 63)];
-  v130 = v56;
-  v123[64] = @"persistentState.UpdatorState.resistanceNegDcgRatio";
-  v55 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 64)];
-  v131 = v55;
-  v123[65] = @"persistentState.UpdatorState.integralYShrinkdt";
-  v54 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 65)];
-  v132 = v54;
-  v123[66] = @"persistentState.Derivative.dProtectiveBufferdt";
-  v53 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 66)];
-  v133 = v53;
-  v123[67] = @"persistentState.Derivative.dGasSwelldt";
-  v52 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 67)];
-  v134 = v52;
-  v123[68] = @"persistentState.Derivative.dExpGammaHardSwelldt";
-  v51 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 68)];
-  v135 = v51;
-  v123[69] = @"persistentState.Derivative.dHardSwelldt";
-  v50 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 69)];
-  v136 = v50;
-  v123[70] = @"persistentState.Derivative.dQpdt";
-  v49 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 70)];
-  v137 = v49;
-  v123[71] = @"persistentState.Derivative.dQpPhasedt";
-  v48 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 71)];
-  v138 = v48;
-  v123[72] = @"persistentState.Derivative.dQpAciddt";
-  v47 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 72)];
-  v139 = v47;
-  v123[73] = @"persistentState.Derivative.dQpCrackdt";
-  v46 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 73)];
-  v140 = v46;
-  v123[74] = @"persistentState.Derivative.dQndt";
-  v45 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 74)];
-  v141 = v45;
-  v123[75] = @"persistentState.Derivative.dQLidt";
-  v44 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 75)];
-  v142 = v44;
-  v123[76] = @"persistentState.Derivative.JSEI";
-  v43 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 76)];
-  v143 = v43;
-  v123[77] = @"persistentState.Derivative.dWRadt";
-  v42 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 77)];
-  v144 = v42;
-  v123[78] = @"persistentState.Derivative.dWRcdt";
-  v41 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 78)];
-  v145 = v41;
-  v123[79] = @"persistentState.Derivative.dAvgRadt";
-  v40 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 80)];
-  v146 = v40;
-  v123[80] = @"persistentState.Derivative.dAvgRcdt";
-  v39 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 81)];
-  v147 = v39;
-  v123[81] = @"persistentState.Derivative.dYShrinkdt";
-  v38 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 79)];
-  v148 = v38;
-  v123[82] = @"persistentState.DynamicConfiguration.SOCBiasCorrection";
-  v37 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 82)];
-  v149 = v37;
-  v123[83] = @"persistentState.DynamicConfiguration.voltageChargeLimit";
-  v36 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 83)];
-  v150 = v36;
-  v123[84] = @"persistentState.Statistics.sleepStatistics[0]";
-  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 84)];
-  v151 = v35;
-  v123[85] = @"persistentState.Statistics.sleepStatistics[1]";
-  v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 85)];
-  v152 = v34;
-  v123[86] = @"persistentState.Statistics.sleepStatistics[2]";
-  v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 86)];
-  v153 = v33;
-  v123[87] = @"persistentState.Statistics.sleepStatistics[3]";
-  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 87)];
-  v154 = v32;
-  v123[88] = @"persistentState.Statistics.sleepStatistics[4]";
-  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 88)];
-  v155 = v31;
-  v123[89] = @"persistentState.Statistics.sleepStatistics[5]";
-  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 89)];
-  v156 = v30;
-  v123[90] = @"persistentState.Status.mPreviousAlgoStatus";
-  v29 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 180)];
-  v157 = v29;
-  v123[91] = @"persistentState.Status.mCurrentAlgoStatus";
-  v26 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 181)];
-  v158 = v26;
-  v123[92] = @"persistentState.Status.mCurrentDataError";
-  v25 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 182)];
-  v159 = v25;
-  v123[93] = @"persistentState.Status.mBuffer";
-  v28 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 183)];
-  v160 = v28;
-  v123[94] = @"persistentState.Status.mInitType";
-  v27 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 184)];
-  v161 = v27;
-  v123[95] = @"persistentState.Status.mFreshInitReason";
+  v122[0] = @"persistentState.BatteryStatePrevious.V";
+  v117 = [MEMORY[0x277CCABB0] numberWithDouble:*this];
+  v123[0] = v117;
+  v122[1] = @"persistentState.BatteryStatePrevious.I";
+  v116 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 1)];
+  v123[1] = v116;
+  v122[2] = @"persistentState.BatteryStatePrevious.T";
+  v115 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2)];
+  v123[2] = v115;
+  v122[3] = @"persistentState.BatteryStatePrevious.SOC";
+  v114 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 3)];
+  v123[3] = v114;
+  v122[4] = @"persistentState.BatteryStatePrevious.t";
+  v113 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 4)];
+  v123[4] = v113;
+  v122[5] = @"persistentState.BatteryStateCurrent.V";
+  v112 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 5)];
+  v123[5] = v112;
+  v122[6] = @"persistentState.BatteryStateCurrent.I";
+  v111 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 6)];
+  v123[6] = v111;
+  v122[7] = @"persistentState.BatteryStateCurrent.T";
+  v110 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 7)];
+  v123[7] = v110;
+  v122[8] = @"persistentState.BatteryStateCurrent.SOC";
+  v109 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 8)];
+  v123[8] = v109;
+  v122[9] = @"persistentState.BatteryStateCurrent.t";
+  v108 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 9)];
+  v123[9] = v108;
+  v122[10] = @"persistentState.ElectrodeStatePrevious.x";
+  v107 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 10)];
+  v123[10] = v107;
+  v122[11] = @"persistentState.ElectrodeStatePrevious.y";
+  v106 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 11)];
+  v123[11] = v106;
+  v122[12] = @"persistentState.ElectrodeStatePrevious.xLastExtreme";
+  v105 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 12)];
+  v123[12] = v105;
+  v122[13] = @"persistentState.ElectrodeStatePrevious.yLastExtreme";
+  v104 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 13)];
+  v123[13] = v104;
+  v122[14] = @"persistentState.ElectrodeStatePrevious.potentialAnode";
+  v103 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 14)];
+  v123[14] = v103;
+  v122[15] = @"persistentState.ElectrodeStatePrevious.potentialCathode";
+  v102 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 15)];
+  v123[15] = v102;
+  v122[16] = @"persistentState.ElectrodeStatePrevious.wRcFreshAtCurrentTemp";
+  v101 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 16)];
+  v123[16] = v101;
+  v122[17] = @"persistentState.ElectrodeStatePrevious.wRaFreshAtCurrentTemp";
+  v100 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 17)];
+  v123[17] = v100;
+  v122[18] = @"persistentState.ElectrodeStatePrevious.deltaResistancePos";
+  v99 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 18)];
+  v123[18] = v99;
+  v122[19] = @"persistentState.ElectrodeStatePrevious.deltaResistanceNeg";
+  v98 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 19)];
+  v123[19] = v98;
+  v122[20] = @"persistentState.ElectrodeStatePrevious.resistancePos";
+  v97 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 20)];
+  v123[20] = v97;
+  v122[21] = @"persistentState.ElectrodeStatePrevious.resistanceNeg";
+  v96 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 21)];
+  v123[21] = v96;
+  v122[22] = @"persistentState.ElectrodeStateCurrent.x";
+  v95 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 22)];
+  v123[22] = v95;
+  v122[23] = @"persistentState.ElectrodeStateCurrent.y";
+  v94 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 23)];
+  v123[23] = v94;
+  v122[24] = @"persistentState.ElectrodeStateCurrent.xLastExtreme";
+  v93 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 24)];
+  v123[24] = v93;
+  v122[25] = @"persistentState.ElectrodeStateCurrent.yLastExtreme";
+  v92 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 25)];
+  v123[25] = v92;
+  v122[26] = @"persistentState.ElectrodeStateCurrent.potentialAnode";
+  v91 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 26)];
+  v123[26] = v91;
+  v122[27] = @"persistentState.ElectrodeStateCurrent.potentialCathode";
+  v90 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 27)];
+  v123[27] = v90;
+  v122[28] = @"persistentState.ElectrodeStateCurrent.wRcFreshAtCurrentTemp";
+  v89 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 28)];
+  v123[28] = v89;
+  v122[29] = @"persistentState.ElectrodeStateCurrent.wRaFreshAtCurrentTemp";
+  v88 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 29)];
+  v123[29] = v88;
+  v122[30] = @"persistentState.ElectrodeStateCurrent.deltaResistancePos";
+  v87 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 30)];
+  v123[30] = v87;
+  v122[31] = @"persistentState.ElectrodeStateCurrent.deltaResistanceNeg";
+  v86 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 31)];
+  v123[31] = v86;
+  v122[32] = @"persistentState.ElectrodeStateCurrent.resistancePos";
+  v85 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 32)];
+  v123[32] = v85;
+  v122[33] = @"persistentState.ElectrodeStateCurrent.resistanceNeg";
+  v84 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 33)];
+  v123[33] = v84;
+  v122[34] = @"persistentState.AgingState.gasSwell";
+  v83 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 34)];
+  v123[34] = v83;
+  v122[35] = @"persistentState.AgingState.protectiveBuffer";
+  v82 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 35)];
+  v123[35] = v82;
+  v122[36] = @"persistentState.AgingState.timePassedOnset";
+  v81 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 36)];
+  v123[36] = v81;
+  v122[37] = @"persistentState.AgingState.hardSwell";
+  v80 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 37)];
+  v123[37] = v80;
+  v122[38] = @"persistentState.AgingState.expGammaHardSwell";
+  v79 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 38)];
+  v123[38] = v79;
+  v122[39] = @"persistentState.AgingState.wRaChangeRatio";
+  v78 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 39)];
+  v123[39] = v78;
+  v122[40] = @"persistentState.AgingState.wRcChangeRatio";
+  v77 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 40)];
+  v123[40] = v77;
+  v122[41] = @"persistentState.AgingState.Qp";
+  v76 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 41)];
+  v123[41] = v76;
+  v122[42] = @"persistentState.AgingState.QpLoss";
+  v75 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 42)];
+  v123[42] = v75;
+  v122[43] = @"persistentState.AgingState.QpPhaseLoss";
+  v74 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 43)];
+  v123[43] = v74;
+  v122[44] = @"persistentState.AgingState.QpAcidLoss";
+  v73 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 44)];
+  v123[44] = v73;
+  v122[45] = @"persistentState.AgingState.QpCrackLoss";
+  v72 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 45)];
+  v123[45] = v72;
+  v122[46] = @"persistentState.AgingState.Qn";
+  v71 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 46)];
+  v123[46] = v71;
+  v122[47] = @"persistentState.AgingState.QLi";
+  v70 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 47)];
+  v123[47] = v70;
+  v122[48] = @"persistentState.AgingState.integralJSEIdt";
+  v69 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 48)];
+  v123[48] = v69;
+  v122[49] = @"persistentState.AgingState.integralJWRadt";
+  v68 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 49)];
+  v123[49] = v68;
+  v122[50] = @"persistentState.AgingState.integralJWRcdt";
+  v67 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 50)];
+  v123[50] = v67;
+  v122[51] = @"persistentState.AgingState.integralJYShrinkdt";
+  v66 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 51)];
+  v123[51] = v66;
+  v122[52] = @"persistentState.AgingState.integralJAvgRadt";
+  v65 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 52)];
+  v123[52] = v65;
+  v122[53] = @"persistentState.AgingState.integralJAvgRcdt";
+  v64 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 53)];
+  v123[53] = v64;
+  v122[54] = @"persistentState.UpdatorState.x0";
+  v63 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 54)];
+  v123[54] = v63;
+  v122[55] = @"persistentState.UpdatorState.x100";
+  v62 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 55)];
+  v123[55] = v62;
+  v122[56] = @"persistentState.UpdatorState.y0";
+  v61 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 56)];
+  v123[56] = v61;
+  v122[57] = @"persistentState.UpdatorState.y100";
+  v60 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 57)];
+  v123[57] = v60;
+  v122[58] = @"persistentState.UpdatorState.Qmax";
+  v124 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 58)];
+  v122[59] = @"persistentState.UpdatorState.Qn";
+  v118 = v124;
+  v125 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 59)];
+  v122[60] = @"persistentState.UpdatorState.Qp";
+  v59 = v125;
+  v58 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 60)];
+  v126 = v58;
+  v122[61] = @"persistentState.UpdatorState.resistancePosChgRatio";
+  v57 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 61)];
+  v127 = v57;
+  v122[62] = @"persistentState.UpdatorState.resistanceNegChgRatio";
+  v56 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 62)];
+  v128 = v56;
+  v122[63] = @"persistentState.UpdatorState.resistancePosDcgRatio";
+  v55 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 63)];
+  v129 = v55;
+  v122[64] = @"persistentState.UpdatorState.resistanceNegDcgRatio";
+  v54 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 64)];
+  v130 = v54;
+  v122[65] = @"persistentState.UpdatorState.integralYShrinkdt";
+  v53 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 65)];
+  v131 = v53;
+  v122[66] = @"persistentState.Derivative.dProtectiveBufferdt";
+  v52 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 66)];
+  v132 = v52;
+  v122[67] = @"persistentState.Derivative.dGasSwelldt";
+  v51 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 67)];
+  v133 = v51;
+  v122[68] = @"persistentState.Derivative.dExpGammaHardSwelldt";
+  v50 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 68)];
+  v134 = v50;
+  v122[69] = @"persistentState.Derivative.dHardSwelldt";
+  v49 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 69)];
+  v135 = v49;
+  v122[70] = @"persistentState.Derivative.dQpdt";
+  v48 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 70)];
+  v136 = v48;
+  v122[71] = @"persistentState.Derivative.dQpPhasedt";
+  v47 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 71)];
+  v137 = v47;
+  v122[72] = @"persistentState.Derivative.dQpAciddt";
+  v46 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 72)];
+  v138 = v46;
+  v122[73] = @"persistentState.Derivative.dQpCrackdt";
+  v45 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 73)];
+  v139 = v45;
+  v122[74] = @"persistentState.Derivative.dQndt";
+  v44 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 74)];
+  v140 = v44;
+  v122[75] = @"persistentState.Derivative.dQLidt";
+  v43 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 75)];
+  v141 = v43;
+  v122[76] = @"persistentState.Derivative.JSEI";
+  v42 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 76)];
+  v142 = v42;
+  v122[77] = @"persistentState.Derivative.dWRadt";
+  v41 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 77)];
+  v143 = v41;
+  v122[78] = @"persistentState.Derivative.dWRcdt";
+  v40 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 78)];
+  v144 = v40;
+  v122[79] = @"persistentState.Derivative.dAvgRadt";
+  v39 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 80)];
+  v145 = v39;
+  v122[80] = @"persistentState.Derivative.dAvgRcdt";
+  v38 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 81)];
+  v146 = v38;
+  v122[81] = @"persistentState.Derivative.dYShrinkdt";
+  v37 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 79)];
+  v147 = v37;
+  v122[82] = @"persistentState.DynamicConfiguration.SOCBiasCorrection";
+  v36 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 82)];
+  v148 = v36;
+  v122[83] = @"persistentState.DynamicConfiguration.voltageChargeLimit";
+  v35 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 83)];
+  v149 = v35;
+  v122[84] = @"persistentState.Statistics.sleepStatistics[0]";
+  v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 84)];
+  v150 = v34;
+  v122[85] = @"persistentState.Statistics.sleepStatistics[1]";
+  v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 85)];
+  v151 = v33;
+  v122[86] = @"persistentState.Statistics.sleepStatistics[2]";
+  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 86)];
+  v152 = v32;
+  v122[87] = @"persistentState.Statistics.sleepStatistics[3]";
+  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 87)];
+  v153 = v31;
+  v122[88] = @"persistentState.Statistics.sleepStatistics[4]";
+  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 88)];
+  v154 = v30;
+  v122[89] = @"persistentState.Statistics.sleepStatistics[5]";
+  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 89)];
+  v155 = v29;
+  v122[90] = @"persistentState.Status.mPreviousAlgoStatus";
+  v28 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 180)];
+  v156 = v28;
+  v122[91] = @"persistentState.Status.mCurrentAlgoStatus";
+  v25 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 181)];
+  v157 = v25;
+  v122[92] = @"persistentState.Status.mCurrentDataError";
+  v24 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 182)];
+  v158 = v24;
+  v122[93] = @"persistentState.Status.mBuffer";
+  v27 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 183)];
+  v159 = v27;
+  v122[94] = @"persistentState.Status.mInitType";
+  v26 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 184)];
+  v160 = v26;
+  v122[95] = @"persistentState.Status.mFreshInitReason";
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:*(this + 185)];
-  v162 = v12;
-  v123[96] = @"persistentState.Status.mSystemSignal.batteryAuthentication";
+  v161 = v12;
+  v122[96] = @"persistentState.Status.mSystemSignal.batteryAuthentication";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:*(this + 744)];
-  v163 = v13;
-  v123[97] = @"persistentState.Status.mSystemSignal.batteryReplacement";
+  v162 = v13;
+  v122[97] = @"persistentState.Status.mSystemSignal.batteryReplacement";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:*(this + 745)];
-  v164 = v14;
-  v123[98] = @"persistentState.Status.mSystemSignal.batteryReplacementDate";
+  v163 = v14;
+  v122[98] = @"persistentState.Status.mSystemSignal.batteryReplacementDate";
   v15 = (this + 752);
   if (*(this + 775) < 0)
   {
@@ -4864,14 +4838,14 @@ id ACAMSerialization::Serialization::createDiskStateFromPersistentState(ACAMSeri
   }
 
   v16 = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-  v165 = v16;
-  v123[99] = @"persistentState.Status.mSystemSignal.time";
+  v164 = v16;
+  v122[99] = @"persistentState.Status.mSystemSignal.time";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 97)];
-  v166 = v17;
-  v123[100] = @"persistentState.Status.mSystemSignal.version";
+  v165 = v17;
+  v122[100] = @"persistentState.Status.mSystemSignal.version";
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 98)];
-  v167 = v18;
-  v123[101] = @"persistentState.Status.mSystemSignal.batteryInfo";
+  v166 = v18;
+  v122[101] = @"persistentState.Status.mSystemSignal.batteryInfo";
   v19 = (this + 792);
   if (*(this + 815) < 0)
   {
@@ -4879,20 +4853,18 @@ id ACAMSerialization::Serialization::createDiskStateFromPersistentState(ACAMSeri
   }
 
   v20 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-  v168 = v20;
-  v123[102] = @"persistentState.AlgorithmInitialized";
+  v167 = v20;
+  v122[102] = @"persistentState.AlgorithmInitialized";
   v21 = [MEMORY[0x277CCABB0] numberWithBool:*(this + 840)];
-  v169 = v21;
-  v123[103] = @"persistentState.ParameterVersion";
+  v168 = v21;
+  v122[103] = @"persistentState.ParameterVersion";
   v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(this + 106)];
-  v170 = v22;
-  v123[104] = @"persistentState.History";
-  v171 = v122;
-  v121 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v124 forKeys:v123 count:105];
+  v169 = v22;
+  v122[104] = @"persistentState.History";
+  v170 = v121;
+  v120 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:v122 count:105];
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v121;
+  return v120;
 }
 
 void sub_241A8D4A8(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, void *a18, void *a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, void *a29, void *a30, void *a31, void *a32, void *a33, void *a34, void *a35, void *a36, void *a37, void *a38, void *a39, void *a40, void *a41, void *a42, void *a43, void *a44, void *a45, void *a46, void *a47, void *a48, void *a49, void *a50, void *a51, void *a52, void *a53, void *a54, void *a55, void *a56, void *a57, void *a58, void *a59, void *a60, void *a61, void *a62, void *a63)
@@ -4904,437 +4876,432 @@ void sub_241A8D4A8(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
 
 void ACAMSerialization::Deserialization::setPersistentStatesFromDictionary(ACAMSerialization::Deserialization *this, ACAMPersistentStates *a2, const NSDictionary *a3)
 {
-  v229 = *MEMORY[0x277D85DE8];
-  v216 = a2;
-  v3 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.V"];
+  v225 = *MEMORY[0x277D85DE8];
+  v215 = a2;
+  v3 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.V"];
   [v3 doubleValue];
   *this = v4;
 
-  v5 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.I"];
+  v5 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.I"];
   [v5 doubleValue];
   *(this + 1) = v6;
 
-  v7 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.T"];
+  v7 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.T"];
   [v7 doubleValue];
   *(this + 2) = v8;
 
-  v9 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.SOC"];
+  v9 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.SOC"];
   [v9 doubleValue];
   *(this + 3) = v10;
 
-  v11 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.t"];
+  v11 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStatePrevious.t"];
   [v11 doubleValue];
   *(this + 4) = v12;
 
-  v13 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.V"];
+  v13 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.V"];
   [v13 doubleValue];
   *(this + 5) = v14;
 
-  v15 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.I"];
+  v15 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.I"];
   [v15 doubleValue];
   *(this + 6) = v16;
 
-  v17 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.T"];
+  v17 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.T"];
   [v17 doubleValue];
   *(this + 7) = v18;
 
-  v19 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.SOC"];
+  v19 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.SOC"];
   [v19 doubleValue];
   *(this + 8) = v20;
 
-  v21 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.t"];
+  v21 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.BatteryStateCurrent.t"];
   [v21 doubleValue];
   *(this + 9) = v22;
 
-  v23 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.x"];
+  v23 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.x"];
   [v23 doubleValue];
   *(this + 10) = v24;
 
-  v25 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.y"];
+  v25 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.y"];
   [v25 doubleValue];
   *(this + 11) = v26;
 
-  v27 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.xLastExtreme"];
+  v27 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.xLastExtreme"];
   [v27 doubleValue];
   *(this + 12) = v28;
 
-  v29 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.yLastExtreme"];
+  v29 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.yLastExtreme"];
   [v29 doubleValue];
   *(this + 13) = v30;
 
-  v31 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.potentialAnode"];
+  v31 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.potentialAnode"];
   [v31 doubleValue];
   *(this + 14) = v32;
 
-  v33 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.potentialCathode"];
+  v33 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.potentialCathode"];
   [v33 doubleValue];
   *(this + 15) = v34;
 
-  v35 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.wRcFreshAtCurrentTemp"];
+  v35 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.wRcFreshAtCurrentTemp"];
   [v35 doubleValue];
   *(this + 16) = v36;
 
-  v37 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.wRaFreshAtCurrentTemp"];
+  v37 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.wRaFreshAtCurrentTemp"];
   [v37 doubleValue];
   *(this + 17) = v38;
 
-  v39 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.deltaResistancePos"];
+  v39 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.deltaResistancePos"];
   [v39 doubleValue];
   *(this + 18) = v40;
 
-  v41 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.deltaResistanceNeg"];
+  v41 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.deltaResistanceNeg"];
   [v41 doubleValue];
   *(this + 19) = v42;
 
-  v43 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.resistancePos"];
+  v43 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.resistancePos"];
   [v43 doubleValue];
   *(this + 20) = v44;
 
-  v45 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.resistanceNeg"];
+  v45 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStatePrevious.resistanceNeg"];
   [v45 doubleValue];
   *(this + 21) = v46;
 
-  v47 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.x"];
+  v47 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.x"];
   [v47 doubleValue];
   *(this + 22) = v48;
 
-  v49 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.y"];
+  v49 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.y"];
   [v49 doubleValue];
   *(this + 23) = v50;
 
-  v51 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.xLastExtreme"];
+  v51 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.xLastExtreme"];
   [v51 doubleValue];
   *(this + 24) = v52;
 
-  v53 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.yLastExtreme"];
+  v53 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.yLastExtreme"];
   [v53 doubleValue];
   *(this + 25) = v54;
 
-  v55 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.potentialAnode"];
+  v55 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.potentialAnode"];
   [v55 doubleValue];
   *(this + 26) = v56;
 
-  v57 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.potentialCathode"];
+  v57 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.potentialCathode"];
   [v57 doubleValue];
   *(this + 27) = v58;
 
-  v59 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.wRcFreshAtCurrentTemp"];
+  v59 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.wRcFreshAtCurrentTemp"];
   [v59 doubleValue];
   *(this + 28) = v60;
 
-  v61 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.wRaFreshAtCurrentTemp"];
+  v61 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.wRaFreshAtCurrentTemp"];
   [v61 doubleValue];
   *(this + 29) = v62;
 
-  v63 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.deltaResistancePos"];
+  v63 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.deltaResistancePos"];
   [v63 doubleValue];
   *(this + 30) = v64;
 
-  v65 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.deltaResistanceNeg"];
+  v65 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.deltaResistanceNeg"];
   [v65 doubleValue];
   *(this + 31) = v66;
 
-  v67 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.resistancePos"];
+  v67 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.resistancePos"];
   [v67 doubleValue];
   *(this + 32) = v68;
 
-  v69 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.resistanceNeg"];
+  v69 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ElectrodeStateCurrent.resistanceNeg"];
   [v69 doubleValue];
   *(this + 33) = v70;
 
-  v71 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.gasSwell"];
+  v71 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.gasSwell"];
   [v71 doubleValue];
   *(this + 34) = v72;
 
-  v73 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.protectiveBuffer"];
+  v73 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.protectiveBuffer"];
   [v73 doubleValue];
   *(this + 35) = v74;
 
-  v75 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.timePassedOnset"];
+  v75 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.timePassedOnset"];
   [v75 doubleValue];
   *(this + 36) = v76;
 
-  v77 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.hardSwell"];
+  v77 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.hardSwell"];
   [v77 doubleValue];
   *(this + 37) = v78;
 
-  v79 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.expGammaHardSwell"];
+  v79 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.expGammaHardSwell"];
   [v79 doubleValue];
   *(this + 38) = v80;
 
-  v81 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.wRaChangeRatio"];
+  v81 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.wRaChangeRatio"];
   [v81 doubleValue];
   *(this + 39) = v82;
 
-  v83 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.wRcChangeRatio"];
+  v83 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.wRcChangeRatio"];
   [v83 doubleValue];
   *(this + 40) = v84;
 
-  v85 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.Qp"];
+  v85 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.Qp"];
   [v85 doubleValue];
   *(this + 41) = v86;
 
-  v87 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.QpLoss"];
+  v87 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.QpLoss"];
   [v87 doubleValue];
   *(this + 42) = v88;
 
-  v89 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.QpPhaseLoss"];
+  v89 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.QpPhaseLoss"];
   [v89 doubleValue];
   *(this + 43) = v90;
 
-  v91 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.QpAcidLoss"];
+  v91 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.QpAcidLoss"];
   [v91 doubleValue];
   *(this + 44) = v92;
 
-  v93 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.QpCrackLoss"];
+  v93 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.QpCrackLoss"];
   [v93 doubleValue];
   *(this + 45) = v94;
 
-  v95 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.Qn"];
+  v95 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.Qn"];
   [v95 doubleValue];
   *(this + 46) = v96;
 
-  v97 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.QLi"];
+  v97 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.QLi"];
   [v97 doubleValue];
   *(this + 47) = v98;
 
-  v99 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.integralJSEIdt"];
+  v99 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.integralJSEIdt"];
   [v99 doubleValue];
   *(this + 48) = v100;
 
-  v101 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.integralJWRadt"];
+  v101 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.integralJWRadt"];
   [v101 doubleValue];
   *(this + 49) = v102;
 
-  v103 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.integralJWRcdt"];
+  v103 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.integralJWRcdt"];
   [v103 doubleValue];
   *(this + 50) = v104;
 
-  v105 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.integralJAvgRadt"];
+  v105 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.integralJAvgRadt"];
   [v105 doubleValue];
   *(this + 52) = v106;
 
-  v107 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.integralJAvgRcdt"];
+  v107 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.integralJAvgRcdt"];
   [v107 doubleValue];
   *(this + 53) = v108;
 
-  v109 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AgingState.integralJYShrinkdt"];
+  v109 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AgingState.integralJYShrinkdt"];
   [v109 doubleValue];
   *(this + 51) = v110;
 
-  v111 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.x0"];
+  v111 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.x0"];
   [v111 doubleValue];
   *(this + 54) = v112;
 
-  v113 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.x100"];
+  v113 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.x100"];
   [v113 doubleValue];
   *(this + 55) = v114;
 
-  v115 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.y0"];
+  v115 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.y0"];
   [v115 doubleValue];
   *(this + 56) = v116;
 
-  v117 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.y100"];
+  v117 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.y100"];
   [v117 doubleValue];
   *(this + 57) = v118;
 
-  v119 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.Qmax"];
+  v119 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.Qmax"];
   [v119 doubleValue];
   *(this + 58) = v120;
 
-  v121 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.Qn"];
+  v121 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.Qn"];
   [v121 doubleValue];
   *(this + 59) = v122;
 
-  v123 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.Qp"];
+  v123 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.Qp"];
   [v123 doubleValue];
   *(this + 60) = v124;
 
-  v125 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.resistancePosChgRatio"];
+  v125 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.resistancePosChgRatio"];
   [v125 doubleValue];
   *(this + 61) = v126;
 
-  v127 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.resistanceNegChgRatio"];
+  v127 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.resistanceNegChgRatio"];
   [v127 doubleValue];
   *(this + 62) = v128;
 
-  v129 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.resistancePosDcgRatio"];
+  v129 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.resistancePosDcgRatio"];
   [v129 doubleValue];
   *(this + 63) = v130;
 
-  v131 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.resistanceNegDcgRatio"];
+  v131 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.resistanceNegDcgRatio"];
   [v131 doubleValue];
   *(this + 64) = v132;
 
-  v133 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.UpdatorState.integralYShrinkdt"];
+  v133 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.UpdatorState.integralYShrinkdt"];
   [v133 doubleValue];
   *(this + 65) = v134;
 
-  v135 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dProtectiveBufferdt"];
+  v135 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dProtectiveBufferdt"];
   [v135 doubleValue];
   *(this + 66) = v136;
 
-  v137 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dGasSwelldt"];
+  v137 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dGasSwelldt"];
   [v137 doubleValue];
   *(this + 67) = v138;
 
-  v139 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dExpGammaHardSwelldt"];
+  v139 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dExpGammaHardSwelldt"];
   [v139 doubleValue];
   *(this + 68) = v140;
 
-  v141 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dHardSwelldt"];
+  v141 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dHardSwelldt"];
   [v141 doubleValue];
   *(this + 69) = v142;
 
-  v143 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dQpdt"];
+  v143 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dQpdt"];
   [v143 doubleValue];
   *(this + 70) = v144;
 
-  v145 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dQpPhasedt"];
+  v145 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dQpPhasedt"];
   [v145 doubleValue];
   *(this + 71) = v146;
 
-  v147 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dQpAciddt"];
+  v147 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dQpAciddt"];
   [v147 doubleValue];
   *(this + 72) = v148;
 
-  v149 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dQpCrackdt"];
+  v149 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dQpCrackdt"];
   [v149 doubleValue];
   *(this + 73) = v150;
 
-  v151 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dQndt"];
+  v151 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dQndt"];
   [v151 doubleValue];
   *(this + 74) = v152;
 
-  v153 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dQLidt"];
+  v153 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dQLidt"];
   [v153 doubleValue];
   *(this + 75) = v154;
 
-  v155 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.JSEI"];
+  v155 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.JSEI"];
   [v155 doubleValue];
   *(this + 76) = v156;
 
-  v157 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dWRadt"];
+  v157 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dWRadt"];
   [v157 doubleValue];
   *(this + 77) = v158;
 
-  v159 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dWRcdt"];
+  v159 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dWRcdt"];
   [v159 doubleValue];
   *(this + 78) = v160;
 
-  v161 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dAvgRadt"];
+  v161 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dAvgRadt"];
   [v161 doubleValue];
   *(this + 80) = v162;
 
-  v163 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dAvgRcdt"];
+  v163 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dAvgRcdt"];
   [v163 doubleValue];
   *(this + 81) = v164;
 
-  v165 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Derivative.dYShrinkdt"];
+  v165 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Derivative.dYShrinkdt"];
   [v165 doubleValue];
   *(this + 79) = v166;
 
-  v167 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.DynamicConfiguration.SOCBiasCorrection"];
+  v167 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.DynamicConfiguration.SOCBiasCorrection"];
   [v167 doubleValue];
   *(this + 82) = v168;
 
-  v169 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.DynamicConfiguration.voltageChargeLimit"];
+  v169 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.DynamicConfiguration.voltageChargeLimit"];
   [v169 doubleValue];
   *(this + 83) = v170;
 
-  v171 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[0]"];
+  v171 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[0]"];
   *(this + 84) = [v171 unsignedLongValue];
 
-  v172 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[1]"];
+  v172 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[1]"];
   *(this + 85) = [v172 unsignedLongValue];
 
-  v173 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[2]"];
+  v173 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[2]"];
   *(this + 86) = [v173 unsignedLongValue];
 
-  v174 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[3]"];
+  v174 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[3]"];
   *(this + 87) = [v174 unsignedLongValue];
 
-  v175 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[4]"];
+  v175 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[4]"];
   *(this + 88) = [v175 unsignedLongValue];
 
-  v176 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[5]"];
+  v176 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Statistics.sleepStatistics[5]"];
   *(this + 89) = [v176 unsignedLongValue];
 
-  v177 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mPreviousAlgoStatus"];
+  v177 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mPreviousAlgoStatus"];
   *(this + 180) = [v177 intValue];
 
-  v178 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mCurrentAlgoStatus"];
+  v178 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mCurrentAlgoStatus"];
   *(this + 181) = [v178 intValue];
 
-  v179 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mCurrentDataError"];
+  v179 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mCurrentDataError"];
   *(this + 182) = [v179 intValue];
 
-  v180 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mBuffer"];
+  v180 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mBuffer"];
   *(this + 183) = [v180 intValue];
 
-  v181 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mInitType"];
+  v181 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mInitType"];
   ACAMStatus::setInitType(this + 720, [v181 intValue]);
 
-  v182 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mFreshInitReason"];
+  v182 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mFreshInitReason"];
   ACAMStatus::setFreshInitReason(this + 720, [v182 intValue]);
 
-  v183 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.batteryAuthentication"];
+  v183 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.batteryAuthentication"];
   *(this + 744) = [v183 BOOLValue];
 
-  v184 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.batteryReplacement"];
+  v184 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.batteryReplacement"];
   *(this + 745) = [v184 BOOLValue];
 
-  v185 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.batteryReplacementDate"];
-  BACore::CommonSerialization::getCppStringFromNSString(v185, &v219);
+  v185 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.batteryReplacementDate"];
+  BACore::CommonSerialization::getCppStringFromNSString(&v218, v185);
   v186 = (this + 752);
   if (*(this + 775) < 0)
   {
     operator delete(*v186);
   }
 
-  *v186 = v219;
-  *(this + 96) = v220;
-  HIBYTE(v220) = 0;
-  LOBYTE(v219) = 0;
+  *v186 = v218;
+  *(this + 96) = v219;
+  HIBYTE(v219) = 0;
+  LOBYTE(v218) = 0;
 
-  v187 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.time"];
+  v187 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.time"];
   *(this + 97) = [v187 unsignedLongValue];
 
-  v188 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.version"];
+  v188 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.version"];
   [v188 doubleValue];
   *(this + 98) = v189;
 
-  v190 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.batteryInfo"];
-  BACore::CommonSerialization::getCppStringFromNSString(v190, &v219);
+  v190 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.Status.mSystemSignal.batteryInfo"];
+  BACore::CommonSerialization::getCppStringFromNSString(&v218, v190);
   v191 = (this + 792);
   if (*(this + 815) < 0)
   {
     operator delete(*v191);
   }
 
-  *v191 = v219;
-  *(this + 101) = v220;
-  HIBYTE(v220) = 0;
-  LOBYTE(v219) = 0;
+  *v191 = v218;
+  *(this + 101) = v219;
+  HIBYTE(v219) = 0;
+  LOBYTE(v218) = 0;
 
-  v192 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.AlgorithmInitialized"];
+  v192 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.AlgorithmInitialized"];
   *(this + 840) = [v192 BOOLValue];
 
-  v193 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.ParameterVersion"];
+  v193 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.ParameterVersion"];
   *(this + 106) = [v193 unsignedLongValue];
 
-  v194 = [(ACAMPersistentStates *)v216 objectForKeyedSubscript:@"persistentState.History"];
-  v226 = 0u;
-  v227 = 0u;
-  v224 = 0u;
-  v225 = 0u;
+  v194 = [(ACAMPersistentStates *)v215 objectForKeyedSubscript:@"persistentState.History"];
+  memset(v223, 0, sizeof(v223));
   obj = v194;
-  if ([obj countByEnumeratingWithState:&v224 objects:v228 count:16])
+  if ([obj countByEnumeratingWithState:v223 objects:v224 count:16])
   {
-    *v225;
-    *v225;
-    v195 = **(&v224 + 1);
-    v196 = [**(&v224 + 1) objectForKeyedSubscript:@"batteryState"];
+    v195 = **(&v223[0] + 1);
+    v196 = [**(&v223[0] + 1) objectForKeyedSubscript:@"batteryState"];
     v197 = [v196 objectForKeyedSubscript:@"V"];
     [v197 doubleValue];
     v199 = v198;
@@ -5355,23 +5322,14 @@ void ACAMSerialization::Deserialization::setPersistentStatesFromDictionary(ACAMS
     [v212 doubleValue];
     v214 = v213;
 
-    *&v219 = v199;
-    *(&v219 + 1) = v202;
-    v220 = v205;
-    v221 = v208;
-    v222 = v211;
-    v223 = v214;
-    simpleList<ACAMHistory>::append(this + 102);
+    *&v218 = v199;
+    *(&v218 + 1) = v202;
+    v219 = v205;
+    v220 = v208;
+    v221 = v211;
+    v222 = v214;
+    simpleList<ACAMHistory>::append(this + 102, &v218);
   }
-
-  v215 = *MEMORY[0x277D85DE8];
-}
-
-void simpleList<ACAMHistory>::append(uint64_t *a1)
-{
-  ++a1[2];
-  v1 = *a1;
-  operator new();
 }
 
 uint64_t ACAMSerialization::Deserialization::setSystemSignalsFromDictionaries(ACAMSerialization::Deserialization *this, ACAMStatus::SystemSignals *a2, NSDictionary *a3, const NSDictionary *a4)
@@ -5392,7 +5350,7 @@ uint64_t ACAMSerialization::Deserialization::setSystemSignalsFromDictionaries(AC
     [&unk_2853AF980 doubleValue];
     *(this + 5) = v13;
     v14 = [(ACAMStatus::SystemSignals *)v6 objectForKeyedSubscript:@"Serial"];
-    BACore::CommonSerialization::getCppStringFromNSString(v14, &v17);
+    BACore::CommonSerialization::getCppStringFromNSString(&v17, v14);
     if (*(this + 71) < 0)
     {
       operator delete(*(this + 6));
@@ -5444,20 +5402,20 @@ BOOL ACAMSerialization::Deserialization::setSMCKeyDataFromDictionary(uint64_t a1
 
 BOOL ACAMSerialization::Deserialization::setDailyDataFromDictionary(uint64_t a1, NSData *a2, void *a3, double a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a3;
-  v19 = &unk_2853AFFF0;
-  v20 = &unk_2853B0000;
+  v18 = &unk_2853AFFF0;
+  v19 = &unk_2853B0000;
   v8 = BACore::CommonSerialization::getTimestampUpperBound(v7);
-  v21 = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:3];
+  v20 = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:3];
 
   v11 = BACore::CommonSerialization::validateDataFromDictionaryWithTeq(v7, &unk_2853AFD58, a2, dbl_2853AFD70, a4, v9, v10);
   v12 = v11;
   if (v11 >= 0.0)
   {
     *a1 = v11;
-    v13 = [(BACore::CommonSerialization *)v7 objectForKeyedSubscript:@"CycleCount", v19, v20];
+    v13 = [(BACore::CommonSerialization *)v7 objectForKeyedSubscript:@"CycleCount", v18, v19];
     [v13 doubleValue];
     *(a1 + 8) = v14;
 
@@ -5466,18 +5424,17 @@ BOOL ACAMSerialization::Deserialization::setDailyDataFromDictionary(uint64_t a1,
     *(a1 + 16) = v16;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12 >= 0.0;
 }
 
 uint64_t ACAMSerialization::Deserialization::setOBCDataFromDictionary(uint64_t a1, void *a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v14[0] = &unk_2853B0020;
+  v13[0] = &unk_2853B0020;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v14[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   v7 = BACore::CommonSerialization::validateDataFromDictionary(v3, &unk_2853AFD88, &unk_2853AFDA0, v5, v6);
   if (v7)
@@ -5491,26 +5448,25 @@ uint64_t ACAMSerialization::Deserialization::setOBCDataFromDictionary(uint64_t a
     *(a1 + 8) = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t ACAMSerialization::Deserialization::setSBCDataFromDictionary(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v19 = &unk_2853B0010;
   v20 = &unk_2853B0010;
   v21 = &unk_2853B0010;
-  v22 = &unk_2853B0010;
-  v23 = &unk_2853B0040;
+  v22 = &unk_2853B0040;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v24 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:5];
+  v23 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:5];
 
   v7 = BACore::CommonSerialization::validateDataFromDictionary(v3, &unk_2853AFDB8, &unk_2853AFDD0, v5, v6);
   if (v7)
   {
-    v8 = [(BACore::CommonSerialization *)v3 objectForKeyedSubscript:@"Voltage", v20, v21, v22, v23];
+    v8 = [(BACore::CommonSerialization *)v3 objectForKeyedSubscript:@"Voltage", v19, v20, v21, v22];
     [v8 doubleValue];
     *a1 = v9 / 1000.0;
 
@@ -5531,26 +5487,25 @@ uint64_t ACAMSerialization::Deserialization::setSBCDataFromDictionary(uint64_t a
     *(a1 + 32) = v17;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t ACAMSerialization::Deserialization::setSmartBatteryDataFromDictionary(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v20 = &unk_2853B0050;
+  v19 = &unk_2853B0050;
+  v20 = &unk_2853B0010;
   v21 = &unk_2853B0010;
-  v22 = &unk_2853B0010;
-  v23 = &unk_2853B0040;
+  v22 = &unk_2853B0040;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v24 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:5];
+  v23 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:5];
 
   v7 = BACore::CommonSerialization::validateDataFromDictionary(v3, &unk_2853AFDE8, &unk_2853AFE00, v5, v6);
   if (v7)
   {
-    v8 = [(BACore::CommonSerialization *)v3 objectForKeyedSubscript:@"Voltage", v20, v21, v22, v23];
+    v8 = [(BACore::CommonSerialization *)v3 objectForKeyedSubscript:@"Voltage", v19, v20, v21, v22];
     [v8 doubleValue];
     *a1 = v9 / 1000.0;
 
@@ -5571,7 +5526,6 @@ uint64_t ACAMSerialization::Deserialization::setSmartBatteryDataFromDictionary(u
     *(a1 + 32) = v17;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -5655,24 +5609,24 @@ void sub_241A8FEFC(_Unwind_Exception *a1)
 
 uint64_t BACore::CommonSerialization::validateDataFromDictionary(BACore::CommonSerialization *this, NSDictionary *a2, NSArray *a3, NSArray *a4, const NSArray *a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v8 = this;
   v9 = a2;
-  v29 = a3;
-  v30 = a4;
+  v28 = a3;
+  v29 = a4;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = v9;
-  v10 = [(NSDictionary *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v10 = [(NSDictionary *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v10)
   {
     v11 = 0;
-    v12 = *v34;
-    if (v29)
+    v12 = *v33;
+    if (v28)
     {
-      v13 = v30 == 0;
+      v13 = v29 == 0;
     }
 
     else
@@ -5681,18 +5635,18 @@ uint64_t BACore::CommonSerialization::validateDataFromDictionary(BACore::CommonS
     }
 
     v14 = !v13;
-    v32 = v14;
+    v31 = v14;
 LABEL_9:
     v15 = 0;
     while (1)
     {
-      if (*v34 != v12)
+      if (*v33 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v33 + 1) + 8 * v15);
-      v17 = [(BACore::CommonSerialization *)v8 objectForKeyedSubscript:v16, v29];
+      v16 = *(*(&v32 + 1) + 8 * v15);
+      v17 = [(BACore::CommonSerialization *)v8 objectForKeyedSubscript:v16, v28];
       if (!v17)
       {
         break;
@@ -5707,15 +5661,15 @@ LABEL_9:
         goto LABEL_23;
       }
 
-      if (v32)
+      if (v31)
       {
         v21 = [(BACore::CommonSerialization *)v8 objectForKeyedSubscript:v16];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v22 = [(BACore::CommonSerialization *)v8 objectForKeyedSubscript:v16];
-          v23 = [(NSArray *)v29 objectAtIndex:v11];
-          v24 = [(NSArray *)v30 objectAtIndex:v11];
+          v23 = [(NSArray *)v28 objectAtIndex:v11];
+          v24 = [(NSArray *)v29 objectAtIndex:v11];
           isBetween = BACore::CommonSerialization::isBetween(v22, v23, v24, v25);
 
           if (!isBetween)
@@ -5734,7 +5688,7 @@ LABEL_23:
       ++v11;
       if (v10 == ++v15)
       {
-        v10 = [(NSDictionary *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v10 = [(NSDictionary *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
         v17 = 1;
         if (v10)
         {
@@ -5751,31 +5705,30 @@ LABEL_23:
     v17 = 1;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 double BACore::CommonSerialization::validateDataFromDictionaryWithTeq(BACore::CommonSerialization *this, NSDictionary *a2, NSData *a3, double *a4, double a5, NSArray *a6, const NSArray *a7)
 {
-  v33 = a3;
-  v42 = *MEMORY[0x277D85DE8];
+  v32 = a3;
+  v41 = *MEMORY[0x277D85DE8];
   v11 = this;
   v12 = a2;
-  v34 = a4;
-  v35 = a6;
+  v33 = a4;
+  v34 = a6;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = v12;
-  v13 = [(NSDictionary *)obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v13 = [(NSDictionary *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v13)
   {
     v14 = 0;
-    v15 = *v38;
-    if (v34)
+    v15 = *v37;
+    if (v33)
     {
-      v16 = v35 == 0;
+      v16 = v34 == 0;
     }
 
     else
@@ -5789,13 +5742,13 @@ LABEL_9:
     v19 = 0;
     while (1)
     {
-      if (*v38 != v15)
+      if (*v37 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v37 + 1) + 8 * v19);
-      v21 = [(BACore::CommonSerialization *)v11 objectForKeyedSubscript:v20, v33];
+      v20 = *(*(&v36 + 1) + 8 * v19);
+      v21 = [(BACore::CommonSerialization *)v11 objectForKeyedSubscript:v20, v32];
       v22 = v21 == 0;
 
       if (v22)
@@ -5809,12 +5762,12 @@ LABEL_9:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v25 = BACore::CommonSerialization::convertTeqIntoScalar(v23, v33, v24, a5);
+          v25 = BACore::CommonSerialization::convertTeqIntoScalar(v23, v32, v24, a5);
         }
 
         else
         {
-          v25 = BACore::CommonSerialization::convertTeqIntoScalar(v23, v33, v24, a5);
+          v25 = BACore::CommonSerialization::convertTeqIntoScalar(v23, v32, v24, a5);
         }
 
         v18 = v25;
@@ -5835,8 +5788,8 @@ LABEL_24:
 
       if (v17)
       {
-        v27 = [v34 objectAtIndex:v14];
-        v28 = [(NSArray *)v35 objectAtIndex:v14];
+        v27 = [v33 objectAtIndex:v14];
+        v28 = [(NSArray *)v34 objectAtIndex:v14];
         isBetween = BACore::CommonSerialization::isBetween(v26, v27, v28, v29);
 
         if (!isBetween)
@@ -5848,7 +5801,7 @@ LABEL_24:
       ++v14;
       if (v13 == ++v19)
       {
-        v13 = [(NSDictionary *)obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v13 = [(NSDictionary *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
         if (v13)
         {
           goto LABEL_9;
@@ -5862,62 +5815,59 @@ LABEL_24:
   v18 = 0.0;
 LABEL_26:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-void BACore::CommonSerialization::getCppStringFromNSString(BACore::CommonSerialization *this@<X0>, _BYTE *a2@<X8>)
+void BACore::CommonSerialization::getCppStringFromNSString(uint64_t *__return_ptr a1@<X8>, BACore::CommonSerialization *this@<X0>)
 {
-  v7 = this;
-  v4 = [(BACore::CommonSerialization *)v7 UTF8String];
-  v5 = [(BACore::CommonSerialization *)v7 lengthOfBytesUsingEncoding:4];
-  v6 = v5;
-  if (v5 >= 0x7FFFFFFFFFFFFFF8)
+  v6 = this;
+  v3 = [(BACore::CommonSerialization *)v6 UTF8String];
+  v4 = [(BACore::CommonSerialization *)v6 lengthOfBytesUsingEncoding:4];
+  v5 = v4;
+  if (v4 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v5 >= 0x17)
+  if (v4 >= 0x17)
   {
     operator new();
   }
 
-  a2[23] = v5;
-  if (v5)
+  *(a1 + 23) = v4;
+  if (v4)
   {
-    memmove(a2, v4, v5);
+    memmove(a1, v3, v4);
   }
 
-  a2[v6] = 0;
+  *(a1 + v5) = 0;
 }
 
 id CafeSwellAlgo::Serialization::createDiskStateFromPersistentState(CafeSwellAlgo::Serialization *this, const State *a2)
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v13[0] = @"VCafe";
+  v13[7] = *MEMORY[0x277D85DE8];
+  v12[0] = @"VCafe";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*this];
-  v14[0] = v3;
-  v13[1] = @"lastBVVL";
+  v13[0] = v3;
+  v12[1] = @"lastBVVL";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 6)];
-  v14[1] = v4;
-  v13[2] = @"lastCafeFast";
+  v13[1] = v4;
+  v12[2] = @"lastCafeFast";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 4)];
-  v14[2] = v5;
-  v13[3] = @"lastCafeSlow";
+  v13[2] = v5;
+  v12[3] = @"lastCafeSlow";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 5)];
-  v14[3] = v6;
-  v13[4] = @"lastUpdateTime";
+  v13[3] = v6;
+  v12[4] = @"lastUpdateTime";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 7)];
-  v14[4] = v7;
-  v13[5] = @"longevityPredict";
+  v13[4] = v7;
+  v12[5] = @"longevityPredict";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2)];
-  v14[5] = v8;
-  v13[6] = @"mCafe";
+  v13[5] = v8;
+  v12[6] = @"mCafe";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 1)];
-  v14[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
 
   return v10;
 }
@@ -5982,12 +5932,12 @@ uint64_t CafeSwellAlgo::Deserialization::setSMCKeyDataFromDictionary(uint64_t a1
 
 uint64_t CafeSwellAlgo::Deserialization::setOBCDataFromDictionary(uint64_t a1, void *a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v14[0] = &unk_2853AF9F8;
+  v13[0] = &unk_2853AF9F8;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v14[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   v7 = BACore::CommonSerialization::validateDataFromDictionary(v3, &unk_2853AFE78, &unk_2853AFE90, v5, v6);
   if (v7)
@@ -6001,18 +5951,17 @@ uint64_t CafeSwellAlgo::Deserialization::setOBCDataFromDictionary(uint64_t a1, v
     *(a1 + 8) = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t CafeSwellAlgo::Deserialization::setSBCDataFromDictionary(uint64_t a1, void *a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v14[0] = &unk_2853AFA10;
+  v13[0] = &unk_2853AFA10;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v14[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   v7 = BACore::CommonSerialization::validateDataFromDictionary(v3, &unk_2853AFEA8, &unk_2853AFEC0, v5, v6);
   if (v7)
@@ -6026,22 +5975,21 @@ uint64_t CafeSwellAlgo::Deserialization::setSBCDataFromDictionary(uint64_t a1, v
     *(a1 + 8) = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t CafeSwellAlgo::Deserialization::setACAMDailyDataFromDictionary(uint64_t a1, void *a2)
 {
-  v21[6] = *MEMORY[0x277D85DE8];
+  v20[6] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v21[0] = &unk_2853B00B0;
-  v21[1] = &unk_2853B00B0;
-  v21[2] = &unk_2853B00B0;
-  v21[3] = &unk_2853B00B0;
-  v21[4] = &unk_2853B00C0;
+  v20[0] = &unk_2853B00B0;
+  v20[1] = &unk_2853B00B0;
+  v20[2] = &unk_2853B00B0;
+  v20[3] = &unk_2853B00B0;
+  v20[4] = &unk_2853B00C0;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v21[5] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:6];
+  v20[5] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:6];
 
   v7 = BACore::CommonSerialization::validateDataFromDictionary(v3, &unk_2853AFED8, &unk_2853AFEF0, v5, v6);
   if (v7)
@@ -6070,18 +6018,17 @@ uint64_t CafeSwellAlgo::Deserialization::setACAMDailyDataFromDictionary(uint64_t
     *(a1 + 40) = [v18 intValue];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t CafeSwellAlgo::Deserialization::setACAMSBCDataFromDictionary(void *a1, void *a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v14[0] = &unk_2853B00E0;
+  v13[0] = &unk_2853B00E0;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v14[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   v7 = BACore::CommonSerialization::validateDataFromDictionary(v3, &unk_2853AFF08, &unk_2853AFF20, v5, v6);
   if (v7)
@@ -6095,7 +6042,6 @@ uint64_t CafeSwellAlgo::Deserialization::setACAMSBCDataFromDictionary(void *a1, 
     *a1 = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6144,122 +6090,118 @@ char *createLogger(char *category)
 
 id AdaptiveOcvAlgo::Serialization::createDiskStateFromPersistentState(AdaptiveOcvAlgo::Serialization *this, const AdaptiveOcvAlgo::PersistentState *a2)
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v31[0] = @"state";
-  v33 = @"table_dist";
-  v30 = BACore::CommonSerialization::convertCArrayToNSArray<int const,100ul>(this);
-  v49 = v30;
-  v34 = @"table_dist_temp";
-  v50 = BACore::CommonSerialization::convertCArrayToNSArray<int const,50ul>(this + 400);
-  v35 = @"table_dist_day";
-  v28 = v50;
-  v51 = BACore::CommonSerialization::convertCArrayToNSArray<int const,15ul>(this + 600);
-  v36 = @"table_pntr";
-  v27 = v51;
-  v26 = BACore::CommonSerialization::convertCArrayToNSArray<int const,100ul>(this + 660);
-  v52 = v26;
-  v37 = @"table_data";
-  v25 = BACore::CommonSerialization::convertCArrayToNSArray<double const,5ul,500ul>(this + 1064);
-  v53 = v25;
-  v38 = @"f_mid_h";
-  v24 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2633)];
-  v54 = v24;
-  v39 = @"OCVcurvehysteresis_now";
-  v23 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2634)];
-  v55 = v23;
-  v40 = @"Vprev_mV";
-  v22 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2635)];
-  v56 = v22;
-  v41 = @"data_number";
+  v64 = *MEMORY[0x277D85DE8];
+  v30[0] = @"state";
+  v32 = @"table_dist";
+  v29 = BACore::CommonSerialization::convertCArrayToNSArray<int const,100ul>(this);
+  v48 = v29;
+  v33 = @"table_dist_temp";
+  v49 = BACore::CommonSerialization::convertCArrayToNSArray<int const,50ul>(this + 400);
+  v34 = @"table_dist_day";
+  v27 = v49;
+  v50 = BACore::CommonSerialization::convertCArrayToNSArray<int const,15ul>(this + 600);
+  v35 = @"table_pntr";
+  v26 = v50;
+  v25 = BACore::CommonSerialization::convertCArrayToNSArray<int const,100ul>(this + 660);
+  v51 = v25;
+  v36 = @"table_data";
+  v24 = BACore::CommonSerialization::convertCArrayToNSArray<double const,5ul,500ul>(this + 1064);
+  v52 = v24;
+  v37 = @"f_mid_h";
+  v23 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2633)];
+  v53 = v23;
+  v38 = @"OCVcurvehysteresis_now";
+  v22 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2634)];
+  v54 = v22;
+  v39 = @"Vprev_mV";
+  v21 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2635)];
+  v55 = v21;
+  v40 = @"data_number";
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(this + 5272)];
-  v57 = v3;
-  v42 = @"i3";
+  v56 = v3;
+  v41 = @"i3";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 2637)];
-  v58 = v4;
-  v43 = @"CtC3x3";
+  v57 = v4;
+  v42 = @"CtC3x3";
   v5 = BACore::CommonSerialization::convertCArrayToNSArray<double const,6ul>(this + 21104);
-  v59 = v5;
-  v44 = @"Cy3x1";
+  v58 = v5;
+  v43 = @"Cy3x1";
   v6 = BACore::CommonSerialization::convertCArrayToNSArray<double const,3ul>(this + 21152);
-  v60 = v6;
-  v45 = @"t_last";
+  v59 = v6;
+  v44 = @"t_last";
   v7 = [MEMORY[0x277CCABB0] numberWithInt:*(this + 5294)];
-  v61 = v7;
-  v46 = @"ChargeAccum_last";
+  v60 = v7;
+  v45 = @"ChargeAccum_last";
   v8 = [MEMORY[0x277CCABB0] numberWithInt:*(this + 5295)];
-  v62 = v8;
-  v47 = @"Thp_last";
+  v61 = v8;
+  v46 = @"Thp_last";
   v9 = [MEMORY[0x277CCABB0] numberWithInt:*(this + 5296)];
-  v63 = v9;
-  v48 = @"idx_selected_OCV";
+  v62 = v9;
+  v47 = @"idx_selected_OCV";
   v10 = [MEMORY[0x277CCABB0] numberWithInt:*(this + 5297)];
-  v64 = v10;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v33 count:16];
+  v63 = v10;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v32 count:16];
 
-  v31[1] = @"config_selected";
-  v32[0] = v29;
-  v33 = @"ChgOCV";
+  v30[1] = @"config_selected";
+  v31[0] = v28;
+  v32 = @"ChgOCV";
   v11 = BACore::CommonSerialization::convertCArrayToNSArray<double const,103ul>(this + 22840);
-  v49 = v11;
-  v34 = @"ChgOCV_temp_co";
+  v48 = v11;
+  v33 = @"ChgOCV_temp_co";
   v12 = BACore::CommonSerialization::convertCArrayToNSArray<double const,103ul>(this + 23664);
-  v50 = v12;
-  v35 = @"OCV";
+  v49 = v12;
+  v34 = @"OCV";
   v13 = BACore::CommonSerialization::convertCArrayToNSArray<double const,103ul>(this + 21192);
-  v51 = v13;
-  v36 = @"OCV_temp_co";
+  v50 = v13;
+  v35 = @"OCV_temp_co";
   v14 = BACore::CommonSerialization::convertCArrayToNSArray<double const,103ul>(this + 22016);
-  v52 = v14;
-  v37 = @"RefTemp";
+  v51 = v14;
+  v36 = @"RefTemp";
   v15 = [MEMORY[0x277CCABB0] numberWithDouble:*(this + 3164)];
-  v53 = v15;
-  v38 = @"SOC";
+  v52 = v15;
+  v37 = @"SOC";
   v16 = BACore::CommonSerialization::convertCArrayToNSArray<double const,103ul>(this + 24488);
-  v54 = v16;
-  v39 = @"ready";
+  v53 = v16;
+  v38 = @"ready";
   v17 = [MEMORY[0x277CCABB0] numberWithBool:*(this + 25320)];
-  v55 = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v33 count:7];
+  v54 = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v32 count:7];
 
-  v32[1] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v31[1] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
 
   return v19;
 }
 
 id AdaptiveOcvAlgo::Serialization::createBDCOutputFromPersistentState(double **this, const AdaptiveOcvAlgo::BDCOutput *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v18 = @"Weekly";
-  v15[0] = @"OCV_selected";
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17 = @"Weekly";
+  v14[0] = @"OCV_selected";
   v3 = BACore::CommonSerialization::convertVectorToNSArray<double>(this);
-  v16[0] = v3;
-  v15[1] = @"RMSE_ocv_candidates";
+  v15[0] = v3;
+  v14[1] = @"RMSE_ocv_candidates";
   v4 = BACore::CommonSerialization::convertVectorToNSArray<double>(this + 9);
-  v16[1] = v4;
-  v15[2] = @"V_captured";
+  v15[1] = v4;
+  v14[2] = @"V_captured";
   v5 = BACore::CommonSerialization::convertVectorToNSArray<double>(this + 3);
-  v16[2] = v5;
-  v15[3] = @"ccdrift_model_parameter";
+  v15[2] = v5;
+  v14[3] = @"ccdrift_model_parameter";
   v6 = BACore::CommonSerialization::convertVectorToNSArray<double>(this + 12);
-  v16[3] = v6;
-  v15[4] = @"cover_scores";
+  v15[3] = v6;
+  v14[4] = @"cover_scores";
   v7 = BACore::CommonSerialization::convertVectorToNSArray<double>(this + 6);
-  v16[4] = v7;
+  v15[4] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithInt:{*(this + 31), @"OCV_selected", @"RMSE_ocv_candidates", @"V_captured", @"ccdrift_model_parameter", @"cover_scores", @"data_number"}];
-  v16[5] = v8;
-  v15[6] = @"idx_min_rmse";
+  v15[5] = v8;
+  v14[6] = @"idx_min_rmse";
   v9 = [MEMORY[0x277CCABB0] numberWithInt:*(this + 30)];
-  v16[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
-  v17 = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  v19[0] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:7];
+  v16 = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v18[0] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
   return v12;
 }
@@ -6346,21 +6288,21 @@ void AdaptiveOcvAlgo::Deserialization::setPersistentStatesFromDictionary(Adaptiv
 
 uint64_t AdaptiveOcvAlgo::Deserialization::setSystemLoadBufferFromArray(AdaptiveOcvAlgo::Deserialization *this, AdaptiveOcvAlgo::SystemLoadBuffer *a2, const NSArray *a3)
 {
-  v22[6] = *MEMORY[0x277D85DE8];
+  v21[6] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v22[0] = &unk_2853B0110;
-  v22[1] = &unk_2853B0110;
-  v22[2] = &unk_2853B0110;
-  v22[3] = &unk_2853B0110;
-  v22[4] = &unk_2853B0110;
+  v21[0] = &unk_2853B0110;
+  v21[1] = &unk_2853B0110;
+  v21[2] = &unk_2853B0110;
+  v21[3] = &unk_2853B0110;
+  v21[4] = &unk_2853B0110;
   v4 = BACore::CommonSerialization::getTimestampUpperBound(v3);
-  v22[5] = v4;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:6];
+  v21[5] = v4;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:6];
 
   for (i = 0; i < [(AdaptiveOcvAlgo::SystemLoadBuffer *)v3 count]; ++i)
   {
     v6 = [(AdaptiveOcvAlgo::SystemLoadBuffer *)v3 objectAtIndex:i];
-    if (BACore::CommonSerialization::validateDataFromDictionary(v6, &unk_2853AFF50, &unk_2853AFF68, v21, v7))
+    if (BACore::CommonSerialization::validateDataFromDictionary(v6, &unk_2853AFF50, &unk_2853AFF68, v20, v7))
     {
       v8 = [v6 objectForKeyedSubscript:@"Timestamp"];
       v9 = [v8 intValue];
@@ -6384,7 +6326,6 @@ uint64_t AdaptiveOcvAlgo::Deserialization::setSystemLoadBufferFromArray(Adaptive
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -6393,16 +6334,7 @@ uint64_t AdaptiveOcvAlgo::Deserialization::setMlOcvFromDictionary(AdaptiveOcvAlg
   v4 = this;
   v5 = [(AdaptiveOcvAlgo::Deserialization *)v4 objectForKeyedSubscript:@"model_prediction"];
   v6 = [(AdaptiveOcvAlgo::Deserialization *)v4 objectForKeyedSubscript:@"model_prediction"];
-  if (!v6)
-  {
-    goto LABEL_3;
-  }
-
-  v7 = [(AdaptiveOcvAlgo::Deserialization *)v4 objectForKeyedSubscript:@"model_prediction"];
-  v8 = [MEMORY[0x277CBEB68] null];
-  v9 = [v7 isEqual:v8];
-
-  if ((v9 & 1) == 0)
+  if (v6 && (-[AdaptiveOcvAlgo::Deserialization objectForKeyedSubscript:](v4, "objectForKeyedSubscript:", @"model_prediction"), v7 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CBEB68] null], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqual:", v8), v8, v7, v6, (v9 & 1) == 0))
   {
     BACore::CommonSerialization::assignNSArrayToCArray<double,91ul>(v5, a2);
     v10 = 1;
@@ -6410,7 +6342,6 @@ uint64_t AdaptiveOcvAlgo::Deserialization::setMlOcvFromDictionary(AdaptiveOcvAlg
 
   else
   {
-LABEL_3:
     v10 = 0;
   }
 
@@ -6936,7 +6867,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(this, __n);
     }
 
@@ -7280,20 +7210,20 @@ LABEL_67:
   *(this + 16) = v79;
 }
 
-uint64_t *AdaptiveOcvAlgo::SystemLoadBuffer::view@<X0>(uint64_t *this@<X0>, uint64_t a2@<X8>)
+uint64_t *AdaptiveOcvAlgo::SystemLoadBuffer::view@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v2 = *this;
-  *(a2 + 88) = (this[1] - *this) >> 2;
+  a1[11] = (this[1] - *this) >> 2;
   v3 = this[3];
-  *(a2 + 8) = v2;
-  *(a2 + 16) = v3;
+  a1[1] = v2;
+  a1[2] = v3;
   v4 = this[9];
-  *(a2 + 24) = this[6];
-  *(a2 + 32) = v4;
+  a1[3] = this[6];
+  a1[4] = v4;
   v5 = this[15];
-  *(a2 + 40) = this[12];
-  *(a2 + 48) = v5;
-  *(a2 + 104) = 257;
+  a1[5] = this[12];
+  a1[6] = v5;
+  *(a1 + 52) = 257;
   return this;
 }
 
@@ -7389,15 +7319,6 @@ uint64_t AdaptiveOcvAlgo::CoreEngine::freeData4SympOCV(AdaptiveOcvAlgo::CoreEngi
   return result;
 }
 
-void AdaptiveOcvAlgo::CoreEngine::runAlgorithm(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = MEMORY[0x28223BE20](a1, a2, a3);
-  v5 = *(v4 + 88);
-  v7 = v3[6363];
-  v6 = v3[6364];
-  AdaptiveOcvAlgo::CoreEngine::prepData4SympOCV(v3, *(v4 + 40));
-}
-
 __n128 AdaptiveOcvAlgo::CoreEngine::getDriftState(uint64_t a1, char *__dst)
 {
   v4 = (a1 + 25504);
@@ -7442,7 +7363,8 @@ __n128 AdaptiveOcvAlgo::CoreEngine::setDriftState(uint64_t a1, uint64_t a2)
 
 void AdaptiveOcvAlgo::CoreEngine::getSelectedOCV(const void *a1, uint64_t a2, double *a3, char *a4, double a5, double a6)
 {
-  v12 = std::vector<double>::vector[abi:ne200100](__p, 0x67uLL);
+  v15 = 0;
+  v12 = std::vector<double>::vector[abi:ne200100](__p, 0x67uLL, &v15);
   AdaptiveOcvAlgo::CoreEngine::getOCVminRMSE(a5, a6, v12, a2, a2 + 4136, a2 + 8272, a3, __p);
   memcpy(a4, a1, 0x1021uLL);
   v13 = 0;
@@ -7511,7 +7433,7 @@ double AdaptiveOcvAlgo::CoreEngine::getOCVminRMSE(double a1, double a2, uint64_t
   return result;
 }
 
-void AdaptiveOcvAlgo::CoreEngine::getTelemetry(double a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, AdaptiveOcvAlgo::CoverageScoreParam *a6, uint64_t a7, double *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, double **a12, void *a13, int *a14, _DWORD *a15)
+void AdaptiveOcvAlgo::CoreEngine::getTelemetry(double a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, AdaptiveOcvAlgo::CoverageScoreParam *a6, uint64_t a7, double *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, double **a12, uint64_t *a13, int *a14, _DWORD *a15)
 {
   std::vector<double>::resize(a10, 0x64uLL);
   AdaptiveOcvAlgo::CoreEngine::getCapturedV(v24, a4 + 1064, a10);
@@ -7552,20 +7474,20 @@ void AdaptiveOcvAlgo::CoreEngine::getTelemetry(double a1, double a2, uint64_t a3
   *a15 = *(a4 + 21088);
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
@@ -7669,15 +7591,15 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(uint64_t a1, un
 
 AdaptiveOcvAlgo::CCdriftModel *AdaptiveOcvAlgo::CCdriftModel::CCdriftModel(AdaptiveOcvAlgo::CCdriftModel *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = this + 20480;
   *(this + 5400) = 0;
-  memset(v7, 0, sizeof(v7));
+  memset(v6, 0, sizeof(v6));
   *(this + 2701) = 0;
   *(this + 2703) = 0;
   *(this + 2702) = 0;
   v3 = 3;
-  std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(this + 21608, v7, &v8, 3uLL);
+  std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(this + 2701, v6, &v7, 3uLL);
   v2[1224] = 0;
   bzero(this, 0x5460uLL);
   v4 = this;
@@ -7694,11 +7616,10 @@ AdaptiveOcvAlgo::CCdriftModel *AdaptiveOcvAlgo::CCdriftModel::CCdriftModel(Adapt
   *(this + 1354) = 0u;
   *(this + 1353) = 0u;
   *(this + 1352) = 0u;
-  v5 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7720,29 +7641,17 @@ void sub_241A94AE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_241A94BB8(_Unwind_Exception *exception_object)
@@ -7912,9 +7821,10 @@ void AdaptiveOcvAlgo::Matrix::matmul(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint6
   v11 = *v7;
   v10 = v7[1];
   v12 = (v10 - *v7) >> 3;
-  std::vector<double>::vector[abi:ne200100](__p, v12);
+  v31 = 0;
+  std::vector<double>::vector[abi:ne200100](__p, v12, &v31);
   v29 = 0xAAAAAAAAAAAAAAABLL * (v30 - v4);
-  std::vector<std::vector<double>>::vector[abi:ne200100](a3, v29);
+  std::vector<std::vector<double>>::vector[abi:ne200100](a3, v29, __p);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -8013,7 +7923,7 @@ void AdaptiveOcvAlgo::Matrix::subtract(uint64_t **a1@<X0>, void *a2@<X1>, uint64
   v12 = 0xAAAAAAAAAAAAAAABLL * (v6 >> 3);
   v13 = v9 >> 3;
   std::vector<double>::vector[abi:ne200100](__p, v9 >> 3);
-  std::vector<std::vector<double>>::vector[abi:ne200100](a3, v12);
+  std::vector<std::vector<double>>::vector[abi:ne200100](a3, v12, __p);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -8120,7 +8030,7 @@ void AdaptiveOcvAlgo::Matrix::subMatrix(void *a1@<X0>, unint64_t a2@<X1>, unint6
   v9 = a2;
   v12 = a3 - a2;
   std::vector<double>::vector[abi:ne200100](__p, a5 - a4 + 1);
-  std::vector<std::vector<double>>::vector[abi:ne200100](a6, v12 + 1);
+  std::vector<std::vector<double>>::vector[abi:ne200100](a6, v12 + 1, __p);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -8170,7 +8080,7 @@ void AdaptiveOcvAlgo::Matrix::assembly(uint64_t *a1@<X0>, void *a2@<X1>, void *a
   v13 = 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3);
   v14 = v13 - 0x5555555555555555 * ((v10 - *a1) >> 3);
   std::vector<double>::vector[abi:ne200100](__p, v14);
-  std::vector<std::vector<double>>::vector[abi:ne200100](a5, v14);
+  std::vector<std::vector<double>>::vector[abi:ne200100](a5, v14, __p);
   v36 = v14;
   if (__p[0])
   {
@@ -8280,8 +8190,8 @@ void AdaptiveOcvAlgo::Matrix::inverse(double ***a1@<X0>, uint64_t *a2@<X8>)
     }
 
     *v30 = 1.0 / v4;
-    std::vector<double>::vector[abi:ne200100](v31, 1uLL);
-    std::vector<std::vector<double>>::vector[abi:ne200100](a2, 1uLL);
+    std::vector<double>::vector[abi:ne200100](v31, 1uLL, v30);
+    std::vector<std::vector<double>>::vector[abi:ne200100](a2, 1uLL, v31);
     if (v31[0])
     {
       v31[1] = v31[0];
@@ -8297,12 +8207,12 @@ void AdaptiveOcvAlgo::Matrix::inverse(double ***a1@<X0>, uint64_t *a2@<X8>)
     AdaptiveOcvAlgo::Matrix::subMatrix(a1, 0, v7 - 1, v7, --v6, v30);
     AdaptiveOcvAlgo::Matrix::subMatrix(a1, v7, v6, 0, v7 - 1, v29);
     AdaptiveOcvAlgo::Matrix::subMatrix(a1, v7, v6, v7, v6, v28);
-    AdaptiveOcvAlgo::Matrix::inverse(v27, v31);
+    AdaptiveOcvAlgo::Matrix::inverse(v31, v27);
     AdaptiveOcvAlgo::Matrix::matmul(v29, v27, v26);
     AdaptiveOcvAlgo::Matrix::matmul(v27, v30, v25);
     AdaptiveOcvAlgo::Matrix::matmul(v29, v25, v24);
     AdaptiveOcvAlgo::Matrix::subtract(v24, v28, v23);
-    AdaptiveOcvAlgo::Matrix::inverse(&v21, v23);
+    AdaptiveOcvAlgo::Matrix::inverse(v23, &v21);
     AdaptiveOcvAlgo::Matrix::matmul(v25, &v21, v20);
     AdaptiveOcvAlgo::Matrix::matmul(&v21, v26, v19);
     AdaptiveOcvAlgo::Matrix::matmul(v25, v19, v18);
@@ -8319,14 +8229,14 @@ void AdaptiveOcvAlgo::Matrix::inverse(double ***a1@<X0>, uint64_t *a2@<X8>)
       do
       {
         v11 = *v10;
-        v12 = v10[1];
+        v12 = *(v10 + 8);
         while (v11 != v12)
         {
           *v11 = -*v11;
           ++v11;
         }
 
-        v10 += 3;
+        v10 += 24;
       }
 
       while (v10 != v9);
@@ -8428,20 +8338,20 @@ void *std::operator<<[abi:ne200100]<std::char_traits<char>>(void *a1, char *__s)
   return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v4);
 }
 
-void *std::vector<std::vector<double>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<double>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<double>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<double>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8461,6 +8371,19 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<double>>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_241A95AFC(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -8473,7 +8396,7 @@ void sub_241A95AFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8490,7 +8413,7 @@ void sub_241A95B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -8507,8 +8430,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -8558,19 +8481,18 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<double>>,std:
 
 void AdaptiveOcvAlgo::getSOC(AdaptiveOcvAlgo *this, ConfigurationOCV *a2, double a3, double a4)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  bzero(v10, 0x338uLL);
+  v10 = *MEMORY[0x277D85DE8];
+  bzero(v9, 0x338uLL);
   v7 = 0;
   v8 = a4 - *(this + 515);
   do
   {
-    *&v10[v7] = *(this + v7) + v8 * *(this + v7 + 824);
+    *&v9[v7] = *(this + v7) + v8 * *(this + v7 + 824);
     v7 += 8;
   }
 
   while (v7 != 824);
-  AdaptiveOcvAlgo::interp(v10, this + 412, 0x67, a3);
-  v9 = *MEMORY[0x277D85DE8];
+  AdaptiveOcvAlgo::interp(v9, this + 412, 0x67, a3);
 }
 
 double AdaptiveOcvAlgo::interp(AdaptiveOcvAlgo *this, double *a2, double *a3, double a4)
@@ -8637,18 +8559,17 @@ double AdaptiveOcvAlgo::interp(AdaptiveOcvAlgo *this, double *a2, double *a3, do
 
 void AdaptiveOcvAlgo::getChrSOC(AdaptiveOcvAlgo *this, ConfigurationOCV *a2, double a3, double a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  bzero(v11, 0x338uLL);
+  v11 = *MEMORY[0x277D85DE8];
+  bzero(v10, 0x338uLL);
   v7 = (this + 1648);
   v8 = a4 - *(this + 515);
   for (i = 1648; i != 2472; i += 8)
   {
-    *&v11[i - 1648] = *v7 + v8 * v7[103];
+    *&v10[i - 1648] = *v7 + v8 * v7[103];
     ++v7;
   }
 
-  AdaptiveOcvAlgo::interp(v11, this + 412, 0x67, a3);
-  v10 = *MEMORY[0x277D85DE8];
+  AdaptiveOcvAlgo::interp(v10, this + 412, 0x67, a3);
 }
 
 void AdaptiveOcvAlgo::fitCCdriftModel(AdaptiveOcvAlgo *this, int *a2, AdaptiveOcvAlgo::CCdriftModel *a3, const int *a4, int *a5, const int *a6, AdaptiveOcvAlgo *a7, State *a8, AdaptiveOcvAlgo::CCdriftModel *a9)
@@ -8744,7 +8665,7 @@ void AdaptiveOcvAlgo::fitCCdriftModelLSiterative(AdaptiveOcvAlgo *this, State *a
   v31 = v20;
   v37[2] = 0;
   v33[0] = 0;
-  std::vector<double>::vector[abi:ne200100](&__p, 3uLL);
+  std::vector<double>::vector[abi:ne200100](&__p, 3uLL, v33);
   std::vector<std::vector<double>>::resize(v37, 3uLL, &__p);
   if (__p)
   {
@@ -8756,7 +8677,7 @@ void AdaptiveOcvAlgo::fitCCdriftModelLSiterative(AdaptiveOcvAlgo *this, State *a
   v35 = 0;
   v36 = 0;
   v38 = 0;
-  std::vector<double>::vector[abi:ne200100](v33, 1uLL);
+  std::vector<double>::vector[abi:ne200100](v33, 1uLL, &v38);
   std::vector<std::vector<double>>::resize(&__p, 3uLL, v33);
   v21 = -v6;
   if (v33[0])
@@ -8817,7 +8738,7 @@ void sub_241A963B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<double>>::resize(size_t *a1, unint64_t a2, uint64_t *a3)
+void std::vector<std::vector<double>>::resize(char **a1, unint64_t a2, uint64_t a3)
 {
   v4 = a1[1];
   v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
@@ -8831,18 +8752,18 @@ void std::vector<std::vector<double>>::resize(size_t *a1, unint64_t a2, uint64_t
 
   else if (!v6)
   {
-    v8 = *a1 + 24 * a2;
+    v8 = &(*a1)[24 * a2];
     if (v4 != v8)
     {
       v9 = a1[1];
       do
       {
-        v11 = *(v9 - 24);
+        v11 = *(v9 - 3);
         v9 -= 24;
         v10 = v11;
         if (v11)
         {
-          *(v4 - 16) = v10;
+          *(v4 - 2) = v10;
           operator delete(v10);
         }
 
@@ -8904,7 +8825,7 @@ void AdaptiveOcvAlgo::fitSOCCCModel(double *a1, uint64_t a2)
 
       v27[2] = 0;
       v23[0] = 0;
-      std::vector<double>::vector[abi:ne200100](&__p, 2uLL);
+      std::vector<double>::vector[abi:ne200100](&__p, 2uLL, v23);
       std::vector<std::vector<double>>::resize(v27, 2uLL, &__p);
       if (__p)
       {
@@ -8916,7 +8837,7 @@ void AdaptiveOcvAlgo::fitSOCCCModel(double *a1, uint64_t a2)
       v25 = 0;
       v26 = 0;
       v28 = 0;
-      std::vector<double>::vector[abi:ne200100](v23, 1uLL);
+      std::vector<double>::vector[abi:ne200100](v23, 1uLL, &v28);
       std::vector<std::vector<double>>::resize(&__p, 2uLL, v23);
       v16 = -v5;
       if (v23[0])
@@ -8997,62 +8918,60 @@ double AdaptiveOcvAlgo::calculateCCSOCRMSE(uint64_t a1)
 void AdaptiveOcvAlgo::fitSOCCCModelByOCVpool(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = MEMORY[0x28223BE20](a1, a2, a3);
-  v15 = v4;
+  v14 = v4;
   v6 = v5;
   v8 = v7;
   v10 = v9;
   v12 = v11;
   v13 = v3;
-  *v27 = *MEMORY[0x277D85DE8];
-  v20 = 0;
+  v26[0] = *MEMORY[0x277D85DE8];
+  v19 = 0;
   __src = xmmword_241AB15A0;
   __p = 0;
-  v23 = 0;
   v22 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(&__p, &__src, v27, 2uLL);
-  v16[0] = 0;
-  v25 = 0;
-  bzero(v17, 0x2F5CuLL);
-  v24 = 0x4059000000000000;
+  v21 = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(&__p, &__src, v26, 2uLL);
+  v15[0] = 0;
+  v24 = 0;
+  bzero(v16, 0x2F5CuLL);
+  v23 = 0x4059000000000000;
   __src = xmmword_241AB15A0;
-  std::vector<double>::__assign_with_size[abi:ne200100]<double const*,double const*>(&__p, &__src, v27, 2uLL);
+  std::vector<double>::__assign_with_size[abi:ne200100]<double const*,double const*>(&__p, &__src, v26, 2uLL);
+  bzero(v16, 0xFA0uLL);
   bzero(v17, 0xFA0uLL);
   bzero(v18, 0xFA0uLL);
-  bzero(v19, 0xFA0uLL);
   AdaptiveOcvAlgo::createSOCCCtable(v13, v12, v10);
-  AdaptiveOcvAlgo::fitSOCCCModel(v10, v16);
-  *v8 = v24;
-  v25 = 0;
-  v16[0] = 0;
-  v20 = 0;
-  v24 = 0x4059000000000000;
+  AdaptiveOcvAlgo::fitSOCCCModel(v10, v15);
+  *v8 = v23;
+  v24 = 0;
+  v15[0] = 0;
+  v19 = 0;
+  v23 = 0x4059000000000000;
   __src = xmmword_241AB15A0;
-  std::vector<double>::__assign_with_size[abi:ne200100]<double const*,double const*>(&__p, &__src, v27, 2uLL);
+  std::vector<double>::__assign_with_size[abi:ne200100]<double const*,double const*>(&__p, &__src, v26, 2uLL);
+  bzero(v16, 0xFA0uLL);
   bzero(v17, 0xFA0uLL);
   bzero(v18, 0xFA0uLL);
-  bzero(v19, 0xFA0uLL);
   AdaptiveOcvAlgo::createSOCCCtable(v13, v12, (v10 + 517));
-  AdaptiveOcvAlgo::fitSOCCCModel(v10, v16);
-  *v6 = v24;
-  v25 = 0;
-  v16[0] = 0;
-  v20 = 0;
-  v24 = 0x4059000000000000;
+  AdaptiveOcvAlgo::fitSOCCCModel(v10, v15);
+  *v6 = v23;
+  v24 = 0;
+  v15[0] = 0;
+  v19 = 0;
+  v23 = 0x4059000000000000;
   __src = xmmword_241AB15A0;
-  std::vector<double>::__assign_with_size[abi:ne200100]<double const*,double const*>(&__p, &__src, v27, 2uLL);
+  std::vector<double>::__assign_with_size[abi:ne200100]<double const*,double const*>(&__p, &__src, v26, 2uLL);
+  bzero(v16, 0xFA0uLL);
   bzero(v17, 0xFA0uLL);
   bzero(v18, 0xFA0uLL);
-  bzero(v19, 0xFA0uLL);
   AdaptiveOcvAlgo::createSOCCCtable(v13, v12, (v10 + 1034));
-  AdaptiveOcvAlgo::fitSOCCCModel(v10, v16);
-  *v15 = v24;
+  AdaptiveOcvAlgo::fitSOCCCModel(v10, v15);
+  *v14 = v23;
   if (__p)
   {
-    v22 = __p;
+    v21 = __p;
     operator delete(__p);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void AdaptiveOcvAlgo::createSOCCCtable(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -9347,4 +9266,84 @@ void AdaptiveOcvAlgo::selectUsefulData(int *a1, uint64_t a2, uint64_t a3, uint64
   {
     *(a12 + 12472) = 1;
   }
+}
+
+char **std::vector<std::vector<double>>::__append(char **result, unint64_t a2, uint64_t a3)
+{
+  v5 = result;
+  v7 = result[1];
+  v6 = result[2];
+  if (0xAAAAAAAAAAAAAAABLL * ((v6 - v7) >> 3) >= a2)
+  {
+    if (a2)
+    {
+      v12 = &v7[3 * a2];
+      v13 = 24 * a2;
+      do
+      {
+        *v7 = 0;
+        v7[1] = 0;
+        v7[2] = 0;
+        result = std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v7, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
+        v7 += 3;
+        v13 -= 24;
+      }
+
+      while (v13);
+      v7 = v12;
+    }
+
+    v5[1] = v7;
+  }
+
+  else
+  {
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - *result) >> 3);
+    v9 = v8 + a2;
+    if (v8 + a2 > 0xAAAAAAAAAAAAAAALL)
+    {
+      std::vector<double>::__throw_length_error[abi:ne200100]();
+    }
+
+    v10 = 0xAAAAAAAAAAAAAAABLL * ((v6 - *result) >> 3);
+    if (2 * v10 > v9)
+    {
+      v9 = 2 * v10;
+    }
+
+    if (v10 >= 0x555555555555555)
+    {
+      v11 = 0xAAAAAAAAAAAAAAALL;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    v21 = result;
+    if (v11)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<double>>>(result, v11);
+    }
+
+    v18 = 0;
+    v19 = 24 * v8;
+    v20 = 24 * v8;
+    std::__split_buffer<std::vector<double>>::__construct_at_end(&v18, a2, a3);
+    v14 = v5[1] - *v5;
+    v15 = (v19 - v14);
+    memcpy((v19 - v14), *v5, v14);
+    v16 = *v5;
+    *v5 = v15;
+    v17 = v5[2];
+    *(v5 + 1) = v20;
+    *&v20 = v16;
+    *(&v20 + 1) = v17;
+    v18 = v16;
+    v19 = v16;
+    return std::__split_buffer<std::vector<SmartBatteryData>>::~__split_buffer(&v18);
+  }
+
+  return result;
 }

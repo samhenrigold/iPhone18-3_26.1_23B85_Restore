@@ -45,7 +45,6 @@
   MEMORY[0x277D82BD8](centerXAnchor);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -90,7 +89,6 @@
   MEMORY[0x277D82BD8](centerXAnchor);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }

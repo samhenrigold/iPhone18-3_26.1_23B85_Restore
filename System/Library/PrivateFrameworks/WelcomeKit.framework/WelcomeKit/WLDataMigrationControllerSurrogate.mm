@@ -43,7 +43,7 @@ void __71__WLDataMigrationControllerSurrogate_startMigrationUsingRetryPolicies__
 
 - (void)_startMigrationUsingRetryPolicies:(BOOL)policies
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   if (!policies)
   {
     delegate = [(WLDataMigrationController *)self delegate];
@@ -103,25 +103,23 @@ void __71__WLDataMigrationControllerSurrogate_startMigrationUsingRetryPolicies__
   {
 LABEL_15:
     v15 = MEMORY[0x277CCA9B8];
-    v24 = @"com.apple.welcomekit.error.offerRetry";
-    v25[0] = MEMORY[0x277CBEC38];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v22 = @"com.apple.welcomekit.error.offerRetry";
+    v23[0] = MEMORY[0x277CBEC38];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v17 = [v15 errorWithDomain:@"com.apple.welcomekit" code:2 userInfo:v16];
 
     delegate8 = [(WLDataMigrationController *)self delegate];
     [delegate8 dataMigrator:0 didFailWithError:v17];
 
-    v19 = *MEMORY[0x277D85DE8];
     return;
   }
 
   delegate9 = [(WLDataMigrationController *)self delegate];
-  LODWORD(v21) = 1.0;
-  [delegate9 dataMigrator:0 didUpdateProgressPercentage:v21];
+  LODWORD(v20) = 1.0;
+  [delegate9 dataMigrator:0 didUpdateProgressPercentage:v20];
 
   delegate10 = [(WLDataMigrationController *)self delegate];
   [delegate10 dataMigratorDidFinish:0 withImportErrors:0 context:0];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

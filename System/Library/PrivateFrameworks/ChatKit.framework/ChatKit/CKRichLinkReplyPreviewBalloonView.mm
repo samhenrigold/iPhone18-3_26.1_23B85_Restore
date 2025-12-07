@@ -158,7 +158,7 @@
   [(CKColoredBalloonView *)&v10 configureForMessagePart:pluginCopy];
   if (pluginCopy)
   {
-    [pluginCopy balloonDescriptor];
+    objc_msgSend_balloonDescriptor(pluginCopy);
   }
 
   else

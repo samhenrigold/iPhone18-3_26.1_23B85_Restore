@@ -20,7 +20,7 @@
 
 + (void)cancelCurrentAudioRecordingSessionWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7C9F60);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7C9F60, &qword_1D4436200);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);

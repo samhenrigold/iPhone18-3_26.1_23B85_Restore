@@ -7,52 +7,49 @@
 
 + (void)StopService
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   InCider::InstanceOpt(self);
-  if (byte_28133BC80)
-  {
-    InCider::InstanceOpt(v2);
-    if (byte_28133BC80 == 1)
-    {
-      InCider::~InCider(&InCider::InstanceOpt(void)::theInstance);
-      *(v3 + 8) = 0;
-    }
-
-    util::server_log(v3);
-    v4 = util::server_log(void)::sLogCat;
-    if (os_log_type_enabled(util::server_log(void)::sLogCat, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 136315394;
-      v8 = "InCider.mm";
-      v9 = 1024;
-      v10 = 58;
-      v5 = "%25s:%-5d Shut down InCider service";
-LABEL_8:
-      _os_log_impl(&dword_24348C000, v4, OS_LOG_TYPE_ERROR, v5, &v7, 0x12u);
-    }
-  }
-
-  else
+  if ((byte_28133BC80 & 1) == 0)
   {
     util::server_log(v2);
     v4 = util::server_log(void)::sLogCat;
-    if (os_log_type_enabled(util::server_log(void)::sLogCat, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(util::server_log(void)::sLogCat, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "InCider.mm";
-      v9 = 1024;
-      v10 = 45;
-      v5 = "%25s:%-5d Request to shut down InCider but it is not running => no-op";
-      goto LABEL_8;
+      return;
     }
+
+    v6 = 136315394;
+    v7 = "InCider.mm";
+    v8 = 1024;
+    v9 = 45;
+    v5 = "%25s:%-5d Request to shut down InCider but it is not running => no-op";
+    goto LABEL_8;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  InCider::InstanceOpt(v2);
+  if (byte_28133BC80 == 1)
+  {
+    InCider::~InCider(&InCider::InstanceOpt(void)::theInstance);
+    *(v3 + 8) = 0;
+  }
+
+  util::server_log(v3);
+  v4 = util::server_log(void)::sLogCat;
+  if (os_log_type_enabled(util::server_log(void)::sLogCat, OS_LOG_TYPE_ERROR))
+  {
+    v6 = 136315394;
+    v7 = "InCider.mm";
+    v8 = 1024;
+    v9 = 58;
+    v5 = "%25s:%-5d Shut down InCider service";
+LABEL_8:
+    _os_log_impl(&dword_24348C000, v4, OS_LOG_TYPE_ERROR, v5, &v6, 0x12u);
+  }
 }
 
 + (void)StartService
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   InCider::InstanceOpt(self);
   if (byte_28133BC80 != 1)
   {
@@ -72,14 +69,12 @@ LABEL_8:
   v3 = util::server_log(void)::sLogCat;
   if (os_log_type_enabled(util::server_log(void)::sLogCat, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "InCider.mm";
-    v9 = 1024;
-    v10 = 25;
-    _os_log_impl(&dword_24348C000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Request to launch InCider but it is already running => no-op", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "InCider.mm";
+    v8 = 1024;
+    v9 = 25;
+    _os_log_impl(&dword_24348C000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Request to launch InCider but it is already running => no-op", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

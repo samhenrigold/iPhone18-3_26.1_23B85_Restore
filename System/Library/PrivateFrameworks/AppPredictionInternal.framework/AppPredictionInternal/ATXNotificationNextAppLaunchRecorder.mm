@@ -35,14 +35,11 @@
 
 - (NSString)defaultsKeyPrefix
 {
-  v2 = (self + OBJC_IVAR___ATXNotificationNextAppLaunchRecorder_defaultsKeyPrefix);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_2268363F8();
+  v2 = sub_2268363F8();
 
-  return v5;
+  return v2;
 }
 
 - (void)setDefaultsKeyPrefix:(id)prefix
@@ -51,7 +48,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___ATXNotificationNextAppLaunchRecorder_defaultsKeyPrefix);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -80,7 +76,6 @@
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR___ATXNotificationNextAppLaunchRecorder_installedAppsProvider);
   swift_beginAccess();
-  v7 = v6[1];
   *v6 = sub_2267A5B34;
   v6[1] = v5;
 }
@@ -114,9 +109,8 @@
 {
   v4 = sub_226836408();
   v5 = (self + OBJC_IVAR___ATXNotificationNextAppLaunchRecorder____lazy_storage___appLaunchTimestampKey);
-  v6 = *(self + OBJC_IVAR___ATXNotificationNextAppLaunchRecorder____lazy_storage___appLaunchTimestampKey + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (ATXNotificationNextAppLaunchRecorder)initWithDefaults:(id)defaults dataStore:(id)store

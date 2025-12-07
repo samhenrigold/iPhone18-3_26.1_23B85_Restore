@@ -25,54 +25,47 @@
 
 - (void)dealloc
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     if (self)
     {
-      v6 = self->_nrUUID;
+      nrUUID = self->_nrUUID;
     }
 
     else
     {
-      v6 = 0;
+      nrUUID = 0;
     }
 
-    v7 = v6;
-    v8 = _NRCopyLogObjectForNRUUID();
+    v6 = nrUUID;
+    v7 = _NRCopyLogObjectForNRUUID();
     agentDescription = [(NRCompanionProxyAgent *)self agentDescription];
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(v7, 0, "%s%.30s:%-4d Dealloc: %@", ", "[NRCompanionProxyAgent dealloc]"", 82, agentDescription);
   }
 
   if (self)
   {
     if (self->_isRegistered)
     {
-      v10 = self->_nrUUID;
-      v11 = _NRCopyLogObjectForNRUUID();
-      v12 = _NRLogIsLevelEnabled();
+      v9 = _NRCopyLogObjectForNRUUID();
+      v10 = _NRLogIsLevelEnabled();
 
-      if (v12)
+      if (v10)
       {
-        v13 = self->_nrUUID;
-        v14 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        v11 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v11, 17, "agent dealloc'd while being registered");
       }
     }
   }
 
   sub_100070270(self);
-  v15.receiver = self;
-  v15.super_class = NRCompanionProxyAgent;
-  [(NRCompanionProxyAgent *)&v15 dealloc];
+  v12.receiver = self;
+  v12.super_class = NRCompanionProxyAgent;
+  [(NRCompanionProxyAgent *)&v12 dealloc];
 }
 
 + (id)agentType

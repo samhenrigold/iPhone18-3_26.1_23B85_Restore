@@ -40,10 +40,10 @@
 
 - (SCNAnimationReference)initWithCoder:(id)coder
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = SCNAnimationReference;
-  v4 = [(SCNAnimationReference *)&v10 init];
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = SCNAnimationReference;
+  v4 = [(SCNAnimationReference *)&v12 init];
   if (v4)
   {
     -[SCNAnimationReference setReferenceName:](v4, "setReferenceName:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"referenceName"]);
@@ -53,23 +53,24 @@
     [(SCNAnimationReference *)v4 setRepeatDuration:v5];
     -[CAAnimation setUsesSceneTimeBase:](v4, "setUsesSceneTimeBase:", [coder decodeBoolForKey:@"usesSceneTimeBase"]);
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = [objc_msgSend(coder "assetCatalog")];
-      if (v6)
+      v8 = [objc_msgSend(coder "assetCatalog")];
+      if (v8)
       {
-        v7 = v6;
-        [v6 duration];
+        v9 = v8;
+        [v8 duration];
         [(SCNAnimationReference *)v4 setDuration:?];
-        v11[0] = v7;
-        -[SCNAnimationReference setAnimations:](v4, "setAnimations:", [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1]);
+        v13[0] = v9;
+        -[SCNAnimationReference setAnimations:](v4, "setAnimations:", [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1]);
       }
     }
 
     else
     {
-      v8 = scn_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = scn_default_log(isKindOfClass, v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [SCNAnimationReference initWithCoder:];
       }

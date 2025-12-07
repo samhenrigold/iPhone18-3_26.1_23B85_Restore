@@ -36,7 +36,7 @@
 {
   disappearCopy = disappear;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for CRLSEMainViewController();
+  v9.super_class = type metadata accessor for CRLSEMainViewController(0);
   v4 = v9.receiver;
   [(CRLSEMainViewController *)&v9 viewWillDisappear:disappearCopy];
   v5 = OBJC_IVAR____TtC24FreeformSharingExtension23CRLSEMainViewController_boardPickerContentSizeObservation;
@@ -71,7 +71,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for CRLSEMainViewController();
+  v6.super_class = type metadata accessor for CRLSEMainViewController(0);
   [(CRLSEMainViewController *)&v6 dealloc];
 }
 

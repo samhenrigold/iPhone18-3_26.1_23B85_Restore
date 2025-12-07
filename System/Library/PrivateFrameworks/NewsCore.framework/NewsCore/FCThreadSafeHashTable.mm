@@ -56,7 +56,7 @@
   return v3;
 }
 
-uint64_t __30__FCThreadSafeHashTable_count__block_invoke(uint64_t a1)
+void *__30__FCThreadSafeHashTable_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -157,7 +157,7 @@ uint64_t __35__FCThreadSafeHashTable_allObjects__block_invoke(uint64_t a1)
   return lock;
 }
 
-uint64_t __40__FCThreadSafeHashTable_containsObject___block_invoke(void *a1)
+void *__40__FCThreadSafeHashTable_containsObject___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

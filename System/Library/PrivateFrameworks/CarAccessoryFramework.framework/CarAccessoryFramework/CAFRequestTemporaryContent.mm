@@ -13,7 +13,9 @@
 - (NSString)displayZoneIdentifier;
 - (NSString)temporaryContentURL;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setOn:(BOOL)on;
 - (void)setTemporaryContentURL:(id)l;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -123,6 +125,13 @@
   return bOOLValue;
 }
 
+- (void)setOn:(BOOL)on
+{
+  onCopy = on;
+  onCharacteristic = [(CAFRequestTemporaryContent *)self onCharacteristic];
+  [onCharacteristic setBoolValue:onCopy];
+}
+
 - (CAFStringCharacteristic)temporaryContentURLCharacteristic
 {
   v3 = [(CAFService *)self car];
@@ -230,6 +239,106 @@
   stringValue = [displayZoneIdentifierCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFRequestTemporaryContent *)self onCharacteristic];
+    uniqueIdentifier2 = [onCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers requestTemporaryContentService:self didUpdateOn:{-[CAFRequestTemporaryContent on](self, "on")}];
+LABEL_18:
+
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000069"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    temporaryContentURLCharacteristic = [(CAFRequestTemporaryContent *)self temporaryContentURLCharacteristic];
+    uniqueIdentifier4 = [temporaryContentURLCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      temporaryContentURL = [(CAFRequestTemporaryContent *)self temporaryContentURL];
+      [observers requestTemporaryContentService:self didUpdateTemporaryContentURL:temporaryContentURL];
+LABEL_17:
+
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000037000007"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    displayPanelIdentifierCharacteristic = [(CAFRequestTemporaryContent *)self displayPanelIdentifierCharacteristic];
+    uniqueIdentifier6 = [displayPanelIdentifierCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers2 = [(CAFService *)self observers];
+      displayPanelIdentifier = [(CAFRequestTemporaryContent *)self displayPanelIdentifier];
+      [observers2 requestTemporaryContentService:self didUpdateDisplayPanelIdentifier:displayPanelIdentifier];
+LABEL_16:
+
+      observers = [(CAFService *)self observers];
+      temporaryContentURL = [(CAFRequestTemporaryContent *)self name];
+      [observers requestTemporaryContentService:self didUpdateName:temporaryContentURL];
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x000000003700000B"])
+  {
+    goto LABEL_18;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  displayZoneIdentifierCharacteristic = [(CAFRequestTemporaryContent *)self displayZoneIdentifierCharacteristic];
+  uniqueIdentifier8 = [displayZoneIdentifierCharacteristic uniqueIdentifier];
+  v29 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v29)
+  {
+    observers2 = [(CAFService *)self observers];
+    displayPanelIdentifier = [(CAFRequestTemporaryContent *)self displayZoneIdentifier];
+    [observers2 requestTemporaryContentService:self didUpdateDisplayZoneIdentifier:displayPanelIdentifier];
+    goto LABEL_16;
+  }
+
+LABEL_19:
+  v30.receiver = self;
+  v30.super_class = CAFRequestTemporaryContent;
+  [(CAFService *)&v30 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForOn

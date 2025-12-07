@@ -26,15 +26,13 @@
 
 void __45__BSServiceMainRunLoopQueue_commonModesQueue__block_invoke()
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   v0 = [BSServiceMainRunLoopQueue alloc];
-  v5[0] = *MEMORY[0x1E695DA28];
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  v4[0] = *MEMORY[0x1E695DA28];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   v2 = [(BSServiceMainRunLoopQueue *)v0 _initWithModes:v1];
   v3 = qword_1ED4A7B58;
   qword_1ED4A7B58 = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke(uint64_t a1)
@@ -59,43 +57,41 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
 
 - (void)assertBarrierOnQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"threading violation: expected the main thread"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"threading violation: expected the main thread"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138544642;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2048;
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      v9 = 138544642;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"BSServiceQueue.m";
-      v18 = 1024;
-      v19 = 272;
-      v20 = 2114;
-      v21 = v5;
-      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v10, 0x3Au);
+      v15 = 2114;
+      v16 = @"BSServiceQueue.m";
+      v17 = 1024;
+      v18 = 272;
+      v19 = 2114;
+      v20 = v4;
+      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
     }
 
-    v9 = v5;
-    [v5 UTF8String];
+    v8 = v4;
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A82A374);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (CFRunLoopSourceContext)_initWithModes:(CFIndex)modes
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (modes)
   {
@@ -109,9 +105,9 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
       v4 = MEMORY[0x1E695E4C0];
     }
 
-    v33.version = modes;
-    v33.info = BSServiceQueue;
-    v5 = [(CFRunLoopSourceContext *)&v33 init];
+    v32.version = modes;
+    v32.info = BSServiceQueue;
+    v5 = [(CFRunLoopSourceContext *)&v32 init];
     v6 = v5;
     if (v5)
     {
@@ -130,69 +126,69 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
       retain = v6->retain;
       v6->retain = v13;
 
-      v33.version = 0;
-      memset(&v33.retain, 0, 56);
-      v33.info = v6;
-      v33.perform = BSServiceMainRunLoopSourceHandler;
-      v15 = CFRunLoopSourceCreate(0, 0, &v33);
+      v32.version = 0;
+      memset(&v32.retain, 0, 56);
+      v32.info = v6;
+      v32.perform = BSServiceMainRunLoopSourceHandler;
+      v15 = CFRunLoopSourceCreate(0, 0, &v32);
       v6->copyDescription = v15;
       if (!v15)
       {
-        v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create source"];
+        v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create source"];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v25 = NSStringFromSelector(sel__initWithModes_);
-          v26 = objc_opt_class();
-          v27 = NSStringFromClass(v26);
+          v24 = NSStringFromSelector(sel__initWithModes_);
+          v25 = objc_opt_class();
+          v26 = NSStringFromClass(v25);
           *buf = 138544642;
-          v36 = v25;
-          v37 = 2114;
-          v38 = v27;
-          v39 = 2048;
-          v40 = v6;
-          v41 = 2114;
-          v42 = @"BSServiceQueue.m";
-          v43 = 1024;
-          v44 = 229;
-          v45 = 2114;
-          v46 = v24;
+          v35 = v24;
+          v36 = 2114;
+          v37 = v26;
+          v38 = 2048;
+          v39 = v6;
+          v40 = 2114;
+          v41 = @"BSServiceQueue.m";
+          v42 = 1024;
+          v43 = 229;
+          v44 = 2114;
+          v45 = v23;
           _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        v28 = v24;
-        [v24 UTF8String];
+        v27 = v23;
+        [v23 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x19A854B64);
       }
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v16 = v6->retain;
-      v17 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v17)
       {
-        v18 = *v30;
+        v18 = *v29;
         do
         {
           v19 = 0;
           do
           {
-            if (*v30 != v18)
+            if (*v29 != v18)
             {
               objc_enumerationMutation(v16);
             }
 
-            v20 = *(*(&v29 + 1) + 8 * v19);
+            v20 = *(*(&v28 + 1) + 8 * v19);
             Main = CFRunLoopGetMain();
             CFRunLoopAddSource(Main, v6->copyDescription, v20);
             ++v19;
           }
 
           while (v17 != v19);
-          v17 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
         while (v17);
@@ -205,7 +201,6 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
     v6 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -220,37 +215,37 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
 
 + (id)queueWithModes:(id)modes
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   modesCopy = modes;
   if (!modesCopy)
   {
-    v33 = MEMORY[0x1E696AEC0];
-    v34 = objc_opt_class();
-    v35 = NSStringFromClass(v34);
-    v36 = [v33 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"modes", v35];
+    v32 = MEMORY[0x1E696AEC0];
+    v33 = objc_opt_class();
+    v34 = NSStringFromClass(v33);
+    v35 = [v32 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"modes", v34];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v37 = NSStringFromSelector(a2);
-      v38 = objc_opt_class();
-      v39 = NSStringFromClass(v38);
+      v36 = NSStringFromSelector(a2);
+      v37 = objc_opt_class();
+      v38 = NSStringFromClass(v37);
       *buf = 138544642;
-      v63 = v37;
-      v64 = 2114;
-      v65 = v39;
-      v66 = 2048;
+      v62 = v36;
+      v63 = 2114;
+      v64 = v38;
+      v65 = 2048;
       selfCopy5 = self;
-      v68 = 2114;
-      v69 = @"BSServiceQueue.m";
-      v70 = 1024;
-      v71 = 254;
-      v72 = 2114;
-      v73 = v36;
+      v67 = 2114;
+      v68 = @"BSServiceQueue.m";
+      v69 = 1024;
+      v70 = 254;
+      v71 = 2114;
+      v72 = v35;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v40 = v36;
-    [v36 UTF8String];
+    v39 = v35;
+    [v35 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8551E0);
@@ -259,40 +254,40 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v41 = MEMORY[0x1E696AEC0];
+    v40 = MEMORY[0x1E696AEC0];
     classForCoder = [modesCopy classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v43 = NSStringFromClass(classForCoder);
-    v44 = objc_opt_class();
-    v45 = NSStringFromClass(v44);
-    v46 = [v41 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"modes", v43, v45];
+    v42 = NSStringFromClass(classForCoder);
+    v43 = objc_opt_class();
+    v44 = NSStringFromClass(v43);
+    v45 = [v40 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"modes", v42, v44];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v47 = NSStringFromSelector(a2);
-      v48 = objc_opt_class();
-      v49 = NSStringFromClass(v48);
+      v46 = NSStringFromSelector(a2);
+      v47 = objc_opt_class();
+      v48 = NSStringFromClass(v47);
       *buf = 138544642;
-      v63 = v47;
-      v64 = 2114;
-      v65 = v49;
-      v66 = 2048;
+      v62 = v46;
+      v63 = 2114;
+      v64 = v48;
+      v65 = 2048;
       selfCopy5 = self;
-      v68 = 2114;
-      v69 = @"BSServiceQueue.m";
-      v70 = 1024;
-      v71 = 254;
-      v72 = 2114;
-      v73 = v46;
+      v67 = 2114;
+      v68 = @"BSServiceQueue.m";
+      v69 = 1024;
+      v70 = 254;
+      v71 = 2114;
+      v72 = v45;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v50 = v46;
-    [v46 UTF8String];
+    v49 = v45;
+    [v45 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A85532CLL);
@@ -300,83 +295,83 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
 
   if (![modesCopy count])
   {
-    v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[modes count] > 0"];
+    v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[modes count] > 0"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v52 = NSStringFromSelector(a2);
-      v53 = objc_opt_class();
-      v54 = NSStringFromClass(v53);
+      v51 = NSStringFromSelector(a2);
+      v52 = objc_opt_class();
+      v53 = NSStringFromClass(v52);
       *buf = 138544642;
-      v63 = v52;
-      v64 = 2114;
-      v65 = v54;
-      v66 = 2048;
+      v62 = v51;
+      v63 = 2114;
+      v64 = v53;
+      v65 = 2048;
       selfCopy5 = self;
-      v68 = 2114;
-      v69 = @"BSServiceQueue.m";
-      v70 = 1024;
-      v71 = 255;
-      v72 = 2114;
-      v73 = v51;
+      v67 = 2114;
+      v68 = @"BSServiceQueue.m";
+      v69 = 1024;
+      v70 = 255;
+      v71 = 2114;
+      v72 = v50;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v55 = v51;
-    [v51 UTF8String];
+    v54 = v50;
+    [v50 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A855434);
   }
 
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(modesCopy, "count")}];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v6 = modesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v57 objects:v61 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v56 objects:v60 count:16];
   if (v7)
   {
-    v8 = *v58;
+    v8 = *v57;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v58 != v8)
+        if (*v57 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v57 + 1) + 8 * i);
+        v10 = *(*(&v56 + 1) + 8 * i);
         v11 = MEMORY[0x1E696AEC0];
         if (!v10)
         {
-          v16 = objc_opt_class();
-          v17 = NSStringFromClass(v16);
-          v18 = [v11 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"mode", v17];
+          v15 = objc_opt_class();
+          v16 = NSStringFromClass(v15);
+          v17 = [v11 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"mode", v16];
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v19 = NSStringFromSelector(a2);
-            v20 = objc_opt_class();
-            v21 = NSStringFromClass(v20);
+            v18 = NSStringFromSelector(a2);
+            v19 = objc_opt_class();
+            v20 = NSStringFromClass(v19);
             *buf = 138544642;
-            v63 = v19;
-            v64 = 2114;
-            v65 = v21;
-            v66 = 2048;
+            v62 = v18;
+            v63 = 2114;
+            v64 = v20;
+            v65 = 2048;
             selfCopy5 = self;
-            v68 = 2114;
-            v69 = @"BSServiceQueue.m";
-            v70 = 1024;
-            v71 = 258;
-            v72 = 2114;
-            v73 = v18;
+            v67 = 2114;
+            v68 = @"BSServiceQueue.m";
+            v69 = 1024;
+            v70 = 258;
+            v71 = 2114;
+            v72 = v17;
             _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
           }
 
-          v22 = v18;
-          [v18 UTF8String];
+          v21 = v17;
+          [v17 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x19A854F6CLL);
@@ -385,40 +380,40 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v23 = MEMORY[0x1E696AEC0];
+          v22 = MEMORY[0x1E696AEC0];
           classForCoder2 = [v10 classForCoder];
           if (!classForCoder2)
           {
             classForCoder2 = objc_opt_class();
           }
 
-          v25 = NSStringFromClass(classForCoder2);
-          v26 = objc_opt_class();
-          v27 = NSStringFromClass(v26);
-          v28 = [v23 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"mode", v25, v27];
+          v24 = NSStringFromClass(classForCoder2);
+          v25 = objc_opt_class();
+          v26 = NSStringFromClass(v25);
+          v27 = [v22 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"mode", v24, v26];
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v29 = NSStringFromSelector(a2);
-            v30 = objc_opt_class();
-            v31 = NSStringFromClass(v30);
+            v28 = NSStringFromSelector(a2);
+            v29 = objc_opt_class();
+            v30 = NSStringFromClass(v29);
             *buf = 138544642;
-            v63 = v29;
-            v64 = 2114;
-            v65 = v31;
-            v66 = 2048;
+            v62 = v28;
+            v63 = 2114;
+            v64 = v30;
+            v65 = 2048;
             selfCopy5 = self;
-            v68 = 2114;
-            v69 = @"BSServiceQueue.m";
-            v70 = 1024;
-            v71 = 258;
-            v72 = 2114;
-            v73 = v28;
+            v67 = 2114;
+            v68 = @"BSServiceQueue.m";
+            v69 = 1024;
+            v70 = 258;
+            v71 = 2114;
+            v72 = v27;
             _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
           }
 
-          v32 = v28;
-          [v28 UTF8String];
+          v31 = v27;
+          [v27 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x19A8550B8);
@@ -428,14 +423,13 @@ void __58__BSServiceMainRunLoopQueue__performNextFromRunLoopSource__block_invoke
         [v5 addObject:v12];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v56 objects:v60 count:16];
     }
 
     while (v7);
   }
 
   v13 = [[BSServiceMainRunLoopQueue alloc] _initWithModes:v5];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

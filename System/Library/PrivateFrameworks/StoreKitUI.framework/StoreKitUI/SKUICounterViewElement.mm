@@ -22,22 +22,22 @@
   if (v11)
   {
     v12 = [elementCopy getAttribute:@"type"];
-    v11->_counterType = [v12 isEqualToString:@"timer"] ^ 1;
+    v11->_counterType = objc_msgSend_isEqualToString_(v12) ^ 1;
     v13 = [elementCopy getAttribute:@"dateFormat"];
 
-    if ([v13 isEqualToString:@"hm"])
+    if (objc_msgSend_isEqualToString_(v13))
     {
       v14 = 3;
     }
 
-    else if ([v13 isEqualToString:@"hms"])
+    else if (objc_msgSend_isEqualToString_(v13))
     {
       v14 = 2;
     }
 
     else
     {
-      if ([v13 isEqualToString:@"dhms"])
+      if (objc_msgSend_isEqualToString_(v13))
       {
         v11->_dateFormatType = 0;
 LABEL_14:

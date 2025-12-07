@@ -8,6 +8,7 @@
 - (void)_didFinishUpdateTransactionWithAffectedItems:(id)items;
 - (void)_invalidateItemsIfNecessary;
 - (void)_updateInvalidationTimer;
+- (void)updateNeedsInvalidation:(BOOL)invalidation forStatusItem:(id)item;
 @end
 
 @implementation HFHomeStatusItemManager
@@ -36,9 +37,31 @@
   return 0;
 }
 
+- (void)updateNeedsInvalidation:(BOOL)invalidation forStatusItem:(id)item
+{
+  invalidationCopy = invalidation;
+  v15 = *MEMORY[0x277D85DE8];
+  itemCopy = item;
+  v7 = HFLogForCategory(0x2CuLL);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:invalidationCopy];
+    v9 = 138412802;
+    selfCopy = self;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = itemCopy;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%@ Asked to update needsInvalidation: %@ for status item: %@", &v9, 0x20u);
+  }
+
+  [itemCopy setNeedsInvalidation:invalidationCopy];
+  [(HFHomeStatusItemManager *)self _updateInvalidationTimer];
+}
+
 - (id)_buildItemProvidersForHome:(id)home
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = [HFStatusItemProvider alloc];
   room = [(HFHomeStatusItemManager *)self room];
@@ -46,10 +69,8 @@
 
   [(HFHomeStatusItemManager *)self setStatusItemProvider:v7];
   statusItemProvider = [(HFHomeStatusItemManager *)self statusItemProvider];
-  v12[0] = statusItemProvider;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = statusItemProvider;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
   return v9;
 }
@@ -210,7 +231,7 @@ uint64_t __38__HFHomeStatusItemManager_statusItems__block_invoke(uint64_t a1, vo
 
 - (void)_updateInvalidationTimer
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   statusItems = [(HFHomeStatusItemManager *)self statusItems];
   v4 = [statusItems na_filter:&__block_literal_global_25_12];
   allObjects = [v4 allObjects];
@@ -235,8 +256,8 @@ uint64_t __38__HFHomeStatusItemManager_statusItems__block_invoke(uint64_t a1, vo
         {
           *buf = 138412546;
           selfCopy3 = self;
-          v30 = 2112;
-          v31 = invalidationDate;
+          v29 = 2112;
+          v30 = invalidationDate;
           _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "%@ Updating item invalidation timer to fire at date: %@", buf, 0x16u);
         }
 
@@ -252,8 +273,8 @@ uint64_t __38__HFHomeStatusItemManager_statusItems__block_invoke(uint64_t a1, vo
       {
         *buf = 138412546;
         selfCopy3 = self;
-        v30 = 2112;
-        v31 = invalidationDate;
+        v29 = 2112;
+        v30 = invalidationDate;
         _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "%@ Scheduling item invalidation timer to fire at date: %@", buf, 0x16u);
       }
 
@@ -261,15 +282,15 @@ uint64_t __38__HFHomeStatusItemManager_statusItems__block_invoke(uint64_t a1, vo
       v19 = v18;
       objc_initWeak(buf, self);
       v20 = MEMORY[0x277CBEBB8];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __51__HFHomeStatusItemManager__updateInvalidationTimer__block_invoke_30;
-      v26[3] = &unk_277DF9BF0;
-      objc_copyWeak(&v27, buf);
-      v21 = [v20 scheduledTimerWithTimeInterval:0 repeats:v26 block:v19];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __51__HFHomeStatusItemManager__updateInvalidationTimer__block_invoke_30;
+      v25[3] = &unk_277DF9BF0;
+      objc_copyWeak(&v26, buf);
+      v21 = [v20 scheduledTimerWithTimeInterval:0 repeats:v25 block:v19];
       [(HFHomeStatusItemManager *)self setInvalidationTimer:v21];
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(buf);
     }
   }
@@ -294,8 +315,6 @@ uint64_t __38__HFHomeStatusItemManager_statusItems__block_invoke(uint64_t a1, vo
       [(HFHomeStatusItemManager *)self setInvalidationTimer:0];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __51__HFHomeStatusItemManager__updateInvalidationTimer__block_invoke(uint64_t a1, void *a2)
@@ -363,7 +382,7 @@ void __51__HFHomeStatusItemManager__updateInvalidationTimer__block_invoke_30(uin
 
 - (void)_invalidateItemsIfNecessary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   statusItems = [(HFHomeStatusItemManager *)self statusItems];
   v5 = [statusItems na_filter:&__block_literal_global_33_3];
 
@@ -371,15 +390,14 @@ void __51__HFHomeStatusItemManager__updateInvalidationTimer__block_invoke_30(uin
   v6 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
+    v8 = 138412546;
     selfCopy = self;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%@ Invalidating status items: %@", &v9, 0x16u);
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%@ Invalidating status items: %@", &v8, 0x16u);
   }
 
   v7 = [(HFItemManager *)self updateResultsForItems:v5 senderSelector:a2];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __54__HFHomeStatusItemManager__invalidateItemsIfNecessary__block_invoke(uint64_t a1, void *a2)

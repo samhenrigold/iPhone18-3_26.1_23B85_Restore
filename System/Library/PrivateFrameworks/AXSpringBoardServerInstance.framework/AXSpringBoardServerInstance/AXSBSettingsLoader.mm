@@ -5,6 +5,7 @@
 + (void)_checkClosedCaptioningSetByiTunes;
 + (void)_checkContrastSetting;
 + (void)_checkForDataResetFile;
++ (void)_checkForHomeButtonBreakage:(BOOL)breakage;
 + (void)_checkInvertColorsSetByiTunes;
 + (void)_checkMonoAudioSetByiTunes;
 + (void)_checkSpeakAutofillSetByiTunes;
@@ -396,35 +397,38 @@ uint64_t __47__AXSBSettingsLoader_checkAccessibilityOptions__block_invoke()
 void __62__AXSBSettingsLoader__findNoteFromLoginSessionWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
+  v6 = v5;
   if (a3)
   {
     v12 = 0;
-    v6 = [MEMORY[0x277CCAC58] propertyListWithData:a3 options:0 format:0 error:&v12];
-    v7 = v12;
+    v7 = [MEMORY[0x277CCAC58] propertyListWithData:a3 options:0 format:0 error:&v12];
+    v8 = v12;
 
-    if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v8 = [v6 objectForKeyedSubscript:*MEMORY[0x277CE7C38]];
-      v9 = [v8 BOOLValue];
+      v9 = [v7 objectForKeyedSubscript:*MEMORY[0x277CE7C38]];
+      [v9 BOOLValue];
 
-      v10 = [v6 objectForKeyedSubscript:*MEMORY[0x277CE7C40]];
-      v11 = [v10 BOOLValue];
+      v10 = [v7 objectForKeyedSubscript:*MEMORY[0x277CE7C40]];
+      [v10 BOOLValue];
 
-      (*(*(a1 + 32) + 16))(*(a1 + 32), v9, v11);
+      v11 = *(*(a1 + 32) + 16);
     }
 
     else
     {
-      _AXLogWithFacility();
-      (*(*(a1 + 32) + 16))(*(a1 + 32), 0, 0);
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not property deserialize note as a plist: %@", v8);
+      v11 = *(*(a1 + 32) + 16);
     }
+
+    v11();
   }
 
   else
   {
-    _AXLogWithFacility();
-    (*(*(a1 + 32) + 16))(*(a1 + 32), 0, 0);
-    v7 = v5;
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not read the login session note: %@", v5);
+    (*(*(a1 + 32) + 16))();
+    v8 = v6;
   }
 }
 
@@ -443,28 +447,27 @@ void __62__AXSBSettingsLoader__findNoteFromLoginSessionWithCompletion___block_in
 
 uint64_t __32__AXSBSettingsLoader_initialize__block_invoke(uint64_t a1)
 {
-  v2 = objc_alloc_init(AXSBSettingsLoader);
-  v3 = _AXSettingsLoaderDelegate;
-  _AXSettingsLoaderDelegate = v2;
+  v1 = objc_alloc_init(AXSBSettingsLoader);
+  v2 = _AXSettingsLoaderDelegate;
+  _AXSettingsLoaderDelegate = v1;
 
-  v5 = *(a1 + 32);
   return AXPerformBlockOnMainThreadAfterDelay();
 }
 
 + (void)_checkForDataResetFile
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_21FE6B000, a2, a3, "Could not remove data settings file: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_21FE6B000, a2, a3, "Could not remove data settings file: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_initializeDelayedSpringBoardSettings
 {
   [self _updateSpringBoardHelper];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_invoke;
-  v18 = &__block_descriptor_40_e5_v8__0l;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_invoke;
+  v19 = &__block_descriptor_40_e5_v8__0l;
   selfCopy = self;
   AXPerformBlockOnMainThreadAfterDelay();
   [self _registerForNotifications];
@@ -473,18 +476,18 @@ uint64_t __32__AXSBSettingsLoader_initialize__block_invoke(uint64_t a1)
     AXPerformBlockOnMainThreadAfterDelay();
   }
 
-  AXPerformBlockOnMainThreadAfterDelay();
-  _accessibilityInitializeSpeakTypingServer();
+  v3 = AXPerformBlockOnMainThreadAfterDelay();
+  _accessibilityInitializeSpeakTypingServer(v3);
   if (AXIsBuddyCompleted())
   {
-    v3 = _AXSTripleClickCopyOptions();
+    v4 = _AXSTripleClickCopyOptions();
     if (_AXSTripleClickContainsOption())
     {
-      v4 = AXLogCommon();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = AXLogCommon();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21FE6B000, v4, OS_LOG_TYPE_DEFAULT, "Triple click buddy still in settings, need to remove", buf, 2u);
+        _os_log_impl(&dword_21FE6B000, v5, OS_LOG_TYPE_DEFAULT, "Triple click buddy still in settings, need to remove", buf, 2u);
       }
 
       _AXSTripleClickRemoveOption();
@@ -523,16 +526,16 @@ uint64_t __32__AXSBSettingsLoader_initialize__block_invoke(uint64_t a1)
   if (AXDeviceHasJindo())
   {
     mEMORY[0x277D12DE8] = [MEMORY[0x277D12DE8] sharedInstance];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_invoke_2_359;
-    v13[3] = &__block_descriptor_40_e11_v20__0d8B16l;
-    v13[4] = self;
-    [mEMORY[0x277D12DE8] registerListener:self forLiveListenLevelsHandler:v13];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_invoke_2_359;
+    v14[3] = &__block_descriptor_40_e11_v20__0d8B16l;
+    v14[4] = self;
+    [mEMORY[0x277D12DE8] registerListener:self forLiveListenLevelsHandler:v14];
   }
 }
 
-uint64_t __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_invoke(uint64_t a1)
+void *__59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _checkForDataResetFile];
   if (_AXSVoiceOverTouchEnabled())
@@ -595,7 +598,7 @@ uint64_t __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_i
   if (!_AXSHomeButtonRestingUnlockEverSet() && _AXSAssistiveTouchEnabled())
   {
     _AXSHomeButtonSetRestingUnlock();
-    _AXLogWithFacility();
+    _AXLogWithFacility(0xFFFFFFFFLL, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Enabling resting unlock because AST was on and we had never set this before", v4);
   }
 
   result = AXDeviceIsMultiUser();
@@ -609,20 +612,19 @@ uint64_t __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_i
   return result;
 }
 
-uint64_t __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_invoke_2(uint64_t a1, int a2, int a3)
+void __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_invoke_2(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   if (a2)
   {
-    result = _AXSVoiceOverTouchSetEnabled();
+    _AXSVoiceOverTouchSetEnabled();
   }
 
-  if (a3)
+  if (v3)
   {
 
-    return _AXSZoomTouchSetEnabled();
+    _AXSZoomTouchSetEnabled();
   }
-
-  return result;
 }
 
 + (void)_handleLiveListenEventIsListening:(BOOL)listening audioLevel:(double)level
@@ -660,19 +662,17 @@ uint64_t __59__AXSBSettingsLoader__initializeDelayedSpringBoardSettings__block_i
 - (void)_ensureUltronAppVisibility:(BOOL)visibility
 {
   visibilityCopy = visibility;
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   CFPreferencesSetAppValue(@"SBIconVisibility", [MEMORY[0x277CCABB0] numberWithBool:?], @"com.apple.imgaudio.UltronApp");
   CFPreferencesSynchronize(@"com.apple.imgaudio.UltronApp", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
   notify_post("com.apple.springboard.appIconVisibilityPreferencesChanged");
   v4 = AXLogUltron();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = visibilityCopy;
-    _os_log_impl(&dword_21FE6B000, v4, OS_LOG_TYPE_DEFAULT, "Writing visiblity for ultron app: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = visibilityCopy;
+    _os_log_impl(&dword_21FE6B000, v4, OS_LOG_TYPE_DEFAULT, "Writing visiblity for ultron app: %d", v5, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_bootstrapSoundDetection
@@ -724,7 +724,7 @@ uint64_t __41__AXSBSettingsLoader__performValidations__block_invoke_2(uint64_t a
 
 + (void)_registerForHomeButtonBreakageNotification
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6978] = [MEMORY[0x277CE6978] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6978] ignoreLogging];
 
@@ -748,15 +748,15 @@ uint64_t __41__AXSBSettingsLoader__performValidations__block_invoke_2(uint64_t a
   }
 
   notification = 0;
-  v23[0] = @"DeviceUsagePage";
-  v23[1] = @"DeviceUsage";
+  v22[0] = @"DeviceUsagePage";
+  v22[1] = @"DeviceUsage";
   *&buf = &unk_2833B1708;
   *(&buf + 1) = &unk_2833B1720;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v23 count:2];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v22 count:2];
   v17 = deviceUsagePairs(v9, v10, v11, v12, v13, v14, v15, v16, 0);
-  v23[0] = @"DeviceUsagePairs";
+  v22[0] = @"DeviceUsagePairs";
   *&buf = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v23 count:1];
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v22 count:1];
   v19 = [v18 mutableCopy];
 
   [v19 setObject:@"AppleSPUHIDDevice" forKey:@"IOProviderClass"];
@@ -765,8 +765,6 @@ uint64_t __41__AXSBSettingsLoader__performValidations__block_invoke_2(uint64_t a
   v20 = IONotificationPortCreate(v18);
   IOServiceAddInterestNotification(v20, v19, "IOGeneralInterest", _homeButtonBreakageMessageHandler, 0, &notification);
   IONotificationPortSetDispatchQueue(v20, MEMORY[0x277D85CD0]);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_alreadyRebootedGracefullyOnce
@@ -779,7 +777,7 @@ uint64_t __41__AXSBSettingsLoader__performValidations__block_invoke_2(uint64_t a
 
 + (void)_setRebootedGracefullyOnce
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE6978] = [MEMORY[0x277CE6978] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6978] ignoreLogging];
 
@@ -795,9 +793,9 @@ uint64_t __41__AXSBSettingsLoader__performValidations__block_invoke_2(uint64_t a
       v8 = _AXStringForArgs();
       if (os_log_type_enabled(v5, v6))
       {
-        v12 = 138543362;
-        v13 = v8;
-        _os_log_impl(&dword_21FE6B000, v5, v6, "%{public}@", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v8;
+        _os_log_impl(&dword_21FE6B000, v5, v6, "%{public}@", &v11, 0xCu);
       }
     }
   }
@@ -807,8 +805,6 @@ uint64_t __41__AXSBSettingsLoader__performValidations__block_invoke_2(uint64_t a
 
   standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults2 synchronize];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_gracefulRebootForBrokenHomeButton
@@ -821,7 +817,7 @@ uint64_t __41__AXSBSettingsLoader__performValidations__block_invoke_2(uint64_t a
 
 uint64_t __56__AXSBSettingsLoader__gracefulRebootForBrokenHomeButton__block_invoke_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CE6978] sharedInstance];
   v1 = [v0 ignoreLogging];
 
@@ -837,16 +833,14 @@ uint64_t __56__AXSBSettingsLoader__gracefulRebootForBrokenHomeButton__block_invo
       v6 = _AXStringForArgs();
       if (os_log_type_enabled(v3, v4))
       {
-        v9 = 138543362;
-        v10 = v6;
-        _os_log_impl(&dword_21FE6B000, v3, v4, "%{public}@", &v9, 0xCu);
+        v8 = 138543362;
+        v9 = v6;
+        _os_log_impl(&dword_21FE6B000, v3, v4, "%{public}@", &v8, 0xCu);
       }
     }
   }
 
-  result = AXPerformSafeBlock();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return AXPerformSafeBlock();
 }
 
 void __56__AXSBSettingsLoader__gracefulRebootForBrokenHomeButton__block_invoke_439()
@@ -857,39 +851,39 @@ void __56__AXSBSettingsLoader__gracefulRebootForBrokenHomeButton__block_invoke_4
 
 + (void)_startAssistiveTouchForBrokenHomeButton
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (_AXSAssistiveTouchEnabled())
   {
     mEMORY[0x277CE6978] = [MEMORY[0x277CE6978] sharedInstance];
     ignoreLogging = [mEMORY[0x277CE6978] ignoreLogging];
 
-    if ((ignoreLogging & 1) == 0)
+    if (ignoreLogging)
     {
-      identifier = [MEMORY[0x277CE6978] identifier];
-      v5 = AXLoggerForFacility();
+      return;
+    }
 
-      v6 = AXOSLogLevelFromAXLogLevel();
-      if (os_log_type_enabled(v5, v6))
-      {
-        v7 = AXColorizeFormatLog();
-        v8 = _AXStringForArgs();
-        if (os_log_type_enabled(v5, v6))
-        {
-          v17 = 138543362;
-          v18 = v8;
-LABEL_15:
-          _os_log_impl(&dword_21FE6B000, v5, v6, "%{public}@", &v17, 0xCu);
-          goto LABEL_16;
-        }
+    identifier = [MEMORY[0x277CE6978] identifier];
+    v5 = AXLoggerForFacility();
 
-        goto LABEL_16;
-      }
-
+    v6 = AXOSLogLevelFromAXLogLevel();
+    if (!os_log_type_enabled(v5, v6))
+    {
       goto LABEL_17;
     }
+
+    v7 = AXColorizeFormatLog();
+    v8 = _AXStringForArgs();
+    if (!os_log_type_enabled(v5, v6))
+    {
+      goto LABEL_16;
+    }
+
+    v16 = 138543362;
+    v17 = v8;
+    goto LABEL_15;
   }
 
-  else if (UIAccessibilityIsSwitchControlRunning())
+  if (UIAccessibilityIsSwitchControlRunning())
   {
     v9 = +[AXSpringBoardServerHelper sharedServerHelper];
     [v9 handleBrokenHomeButtonAlert];
@@ -897,66 +891,226 @@ LABEL_15:
     mEMORY[0x277CE6978]2 = [MEMORY[0x277CE6978] sharedInstance];
     ignoreLogging2 = [mEMORY[0x277CE6978]2 ignoreLogging];
 
-    if ((ignoreLogging2 & 1) == 0)
+    if (ignoreLogging2)
     {
-      identifier2 = [MEMORY[0x277CE6978] identifier];
-      v5 = AXLoggerForFacility();
+      return;
+    }
 
-      v6 = AXOSLogLevelFromAXLogLevel();
-      if (os_log_type_enabled(v5, v6))
-      {
-        v7 = AXColorizeFormatLog();
-        v8 = _AXStringForArgs();
-        if (os_log_type_enabled(v5, v6))
-        {
-          v17 = 138543362;
-          v18 = v8;
-          goto LABEL_15;
-        }
+    identifier2 = [MEMORY[0x277CE6978] identifier];
+    v5 = AXLoggerForFacility();
 
+    v6 = AXOSLogLevelFromAXLogLevel();
+    if (!os_log_type_enabled(v5, v6))
+    {
+      goto LABEL_17;
+    }
+
+    v7 = AXColorizeFormatLog();
+    v8 = _AXStringForArgs();
+    if (!os_log_type_enabled(v5, v6))
+    {
+      goto LABEL_16;
+    }
+
+    v16 = 138543362;
+    v17 = v8;
+    goto LABEL_15;
+  }
+
+  _AXSAssistiveTouchSetRepairIncarnationModeEnabled();
+  mEMORY[0x277CE6978]3 = [MEMORY[0x277CE6978] sharedInstance];
+  ignoreLogging3 = [mEMORY[0x277CE6978]3 ignoreLogging];
+
+  if (ignoreLogging3)
+  {
+    return;
+  }
+
+  identifier3 = [MEMORY[0x277CE6978] identifier];
+  v5 = AXLoggerForFacility();
+
+  v6 = AXOSLogLevelFromAXLogLevel();
+  if (os_log_type_enabled(v5, v6))
+  {
+    v7 = AXColorizeFormatLog();
+    v8 = _AXStringForArgs();
+    if (!os_log_type_enabled(v5, v6))
+    {
 LABEL_16:
-      }
+
+      goto LABEL_17;
+    }
+
+    v16 = 138543362;
+    v17 = v8;
+LABEL_15:
+    _os_log_impl(&dword_21FE6B000, v5, v6, "%{public}@", &v16, 0xCu);
+    goto LABEL_16;
+  }
 
 LABEL_17:
+}
+
++ (void)_checkForHomeButtonBreakage:(BOOL)breakage
+{
+  breakageCopy = breakage;
+  v48 = *MEMORY[0x277D85DE8];
+  mainPort = 0;
+  MEMORY[0x223D728E0](*MEMORY[0x277D85F18], &mainPort);
+  existing = 0;
+  v5 = IOServiceMatching("AppleSPUHIDDevice");
+  IOServiceGetMatchingServices(mainPort, v5, &existing);
+  v6 = IOIteratorNext(existing);
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *MEMORY[0x277CBECE8];
+    while (1)
+    {
+      CFProperty = IORegistryEntryCreateCFProperty(v7, @"button-err-state", v8, 0);
+      if (CFProperty)
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          break;
+        }
+      }
+
+      IOObjectRelease(v7);
+
+      v7 = IOIteratorNext(existing);
+      if (!v7)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    bOOLValue = [CFProperty BOOLValue];
+    mEMORY[0x277CE6978] = [MEMORY[0x277CE6978] sharedInstance];
+    ignoreLogging = [mEMORY[0x277CE6978] ignoreLogging];
+
+    if ((ignoreLogging & 1) == 0)
+    {
+      identifier = [MEMORY[0x277CE6978] identifier];
+      v14 = AXLoggerForFacility();
+
+      v15 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(v14, v15))
+      {
+        v16 = AXColorizeFormatLog();
+        v40 = bOOLValue;
+        v17 = _AXStringForArgs();
+        if (os_log_type_enabled(v14, v15))
+        {
+          *buf = 138543362;
+          v47 = v17;
+          _os_log_impl(&dword_21FE6B000, v14, v15, "%{public}@", buf, 0xCu);
+        }
+      }
     }
   }
 
   else
   {
-    _AXSAssistiveTouchSetRepairIncarnationModeEnabled();
+LABEL_6:
+    bOOLValue = 0;
+  }
+
+  _alreadyRebootedGracefullyOnce = [self _alreadyRebootedGracefullyOnce];
+  mEMORY[0x277CE6978]2 = [MEMORY[0x277CE6978] sharedInstance];
+  ignoreLogging2 = [mEMORY[0x277CE6978]2 ignoreLogging];
+
+  if ((ignoreLogging2 & 1) == 0)
+  {
+    identifier2 = [MEMORY[0x277CE6978] identifier];
+    v22 = AXLoggerForFacility();
+
+    v23 = AXOSLogLevelFromAXLogLevel();
+    if (os_log_type_enabled(v22, v23))
+    {
+      v24 = AXColorizeFormatLog();
+      v42 = breakageCopy;
+      v43 = _alreadyRebootedGracefullyOnce;
+      v41 = bOOLValue;
+      v25 = _AXStringForArgs();
+      if (os_log_type_enabled(v22, v23))
+      {
+        *buf = 138543362;
+        v47 = v25;
+        _os_log_impl(&dword_21FE6B000, v22, v23, "%{public}@", buf, 0xCu);
+      }
+    }
+  }
+
+  if (bOOLValue)
+  {
+    if (breakageCopy | _alreadyRebootedGracefullyOnce)
+    {
+      [self _startAssistiveTouchForBrokenHomeButton];
+      AXPerformBlockOnMainThreadAfterDelay();
+    }
+
+    else
+    {
+      [self _gracefulRebootForBrokenHomeButton];
+    }
+  }
+
+  else if (_AXSAssistiveTouchRepairIncarnationModeEnabled())
+  {
     mEMORY[0x277CE6978]3 = [MEMORY[0x277CE6978] sharedInstance];
     ignoreLogging3 = [mEMORY[0x277CE6978]3 ignoreLogging];
 
     if ((ignoreLogging3 & 1) == 0)
     {
       identifier3 = [MEMORY[0x277CE6978] identifier];
-      v5 = AXLoggerForFacility();
+      v29 = AXLoggerForFacility();
 
-      v6 = AXOSLogLevelFromAXLogLevel();
-      if (os_log_type_enabled(v5, v6))
+      v30 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(v29, v30))
       {
-        v7 = AXColorizeFormatLog();
-        v8 = _AXStringForArgs();
-        if (os_log_type_enabled(v5, v6))
+        v31 = AXColorizeFormatLog();
+        v32 = _AXStringForArgs();
+        if (os_log_type_enabled(v29, v30))
         {
-          v17 = 138543362;
-          v18 = v8;
-          goto LABEL_15;
+          *buf = 138543362;
+          v47 = v32;
+          _os_log_impl(&dword_21FE6B000, v29, v30, "%{public}@", buf, 0xCu);
         }
-
-        goto LABEL_16;
       }
-
-      goto LABEL_17;
     }
+
+    _AXSAssistiveTouchSetRepairIncarnationModeEnabled();
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CE6978]4 = [MEMORY[0x277CE6978] sharedInstance];
+  ignoreLogging4 = [mEMORY[0x277CE6978]4 ignoreLogging];
+
+  if ((ignoreLogging4 & 1) == 0)
+  {
+    identifier4 = [MEMORY[0x277CE6978] identifier];
+    v36 = AXLoggerForFacility();
+
+    v37 = AXOSLogLevelFromAXLogLevel();
+    if (os_log_type_enabled(v36, v37))
+    {
+      v38 = AXColorizeFormatLog();
+      _AXSAssistiveTouchRepairIncarnationModeEnabled();
+      v39 = _AXStringForArgs();
+      if (os_log_type_enabled(v36, v37))
+      {
+        *buf = 138543362;
+        v47 = v39;
+        _os_log_impl(&dword_21FE6B000, v36, v37, "%{public}@", buf, 0xCu);
+      }
+    }
+  }
 }
 
 uint64_t __50__AXSBSettingsLoader__checkForHomeButtonBreakage___block_invoke()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CE7E20] sharedInstance];
   v1 = [v0 brokenHomeButtonCount] + 1;
 
@@ -979,28 +1133,24 @@ uint64_t __50__AXSBSettingsLoader__checkForHomeButtonBreakage___block_invoke()
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v13 = v9;
+        v12 = v9;
         _os_log_impl(&dword_21FE6B000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
   }
 
-  result = AnalyticsSendEventLazy();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return AnalyticsSendEventLazy();
 }
 
 id __50__AXSBSettingsLoader__checkForHomeButtonBreakage___block_invoke_472()
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"resetCount";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"resetCount";
   v0 = MEMORY[0x277CCABB0];
   v1 = [MEMORY[0x277CE7E20] sharedInstance];
   v2 = [v0 numberWithInteger:{objc_msgSend(v1, "brokenHomeButtonCount")}];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -1048,15 +1198,14 @@ void __71__AXSBSettingsLoader__handleGuidedAccessManagedConfigurationDidChange__
 
 uint64_t __71__AXSBSettingsLoader__handleGuidedAccessManagedConfigurationDidChange___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  _AXLogWithFacility();
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Did get profile changed notification from MC:%@. Will check to see if GAX should be loaded", *(a1 + 32));
 
   return +[AXSBSettingsLoader bootstrapGuidedAccessIfNeeded];
 }
 
 + (void)bootstrapGuidedAccessIfNeeded
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!_AXSGuidedAccessEnabledByManagedConfiguration())
   {
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
@@ -1070,11 +1219,11 @@ uint64_t __71__AXSBSettingsLoader__handleGuidedAccessManagedConfigurationDidChan
       v6 = GAXLogCommon();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v9 = 138543618;
-        v10 = effectiveWhitelistedAppsAndOptions;
-        v11 = 2114;
-        v12 = autonomousSingleAppModePermittedBundleIDs;
-        _os_log_impl(&dword_21FE6B000, v6, OS_LOG_TYPE_INFO, "allowedApps (%{public}@) or appSelfLockIDs (%{public}@) exist. WIll enable GAX (Single App Mode) now", &v9, 0x16u);
+        v8 = 138543618;
+        v9 = effectiveWhitelistedAppsAndOptions;
+        v10 = 2114;
+        v11 = autonomousSingleAppModePermittedBundleIDs;
+        _os_log_impl(&dword_21FE6B000, v6, OS_LOG_TYPE_INFO, "allowedApps (%{public}@) or appSelfLockIDs (%{public}@) exist. WIll enable GAX (Single App Mode) now", &v8, 0x16u);
       }
 
       _AXSGuidedAccessSetEnabledByManagedConfiguration();
@@ -1082,16 +1231,14 @@ uint64_t __71__AXSBSettingsLoader__handleGuidedAccessManagedConfigurationDidChan
 
     else
     {
-      v8 = GAXLogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v7 = GAXLogCommon();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v9) = 0;
-        _os_log_impl(&dword_21FE6B000, v8, OS_LOG_TYPE_INFO, "allowedApps and appSelfLockIDs both nil.  No need to enable GAX (Single App Mode)", &v9, 2u);
+        LOWORD(v8) = 0;
+        _os_log_impl(&dword_21FE6B000, v7, OS_LOG_TYPE_INFO, "allowedApps and appSelfLockIDs both nil.  No need to enable GAX (Single App Mode)", &v8, 2u);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (AXSBSettingsLoader)init
@@ -1204,7 +1351,7 @@ void __26__AXSBSettingsLoader_init__block_invoke_499(uint64_t a1)
     mEMORY[0x277CEC5C8] = [MEMORY[0x277CEC5C8] sharedInstance];
     [mEMORY[0x277CEC5C8] registerNetworkDefaultsForAppID:@"com.apple.accessibility.remote"];
 
-    _AXLogWithFacility();
+    _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VOWORK: Registering for remote network update", v7);
   }
 
   [(AXSBSettingsLoader *)self _updateRemoteAccessibilitySettings];
@@ -1222,26 +1369,25 @@ void __26__AXSBSettingsLoader_init__block_invoke_499(uint64_t a1)
 - (void)_hideVoiceOverEnabler
 {
   callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-  LOBYTE(v4) = 1;
-  _AXLogWithFacility();
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VOWORK: HIDE ENABLER %@", callStackSymbols);
 
-  [(AXAccessQueueTimer *)self->_voiceOverActivationCanceler cancel:v4];
+  [(AXAccessQueueTimer *)self->_voiceOverActivationCanceler cancel];
   if (!_AXSVoiceOverTouchEnabled())
   {
     [(AXSBSettingsLoader *)self _playVOActivationSoundEnded];
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __43__AXSBSettingsLoader__hideVoiceOverEnabler__block_invoke;
-  v7[3] = &unk_27842BB18;
-  v7[4] = self;
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
-  v6[2] = __43__AXSBSettingsLoader__hideVoiceOverEnabler__block_invoke_2;
-  v6[3] = &unk_27842C4F8;
+  v6[2] = __43__AXSBSettingsLoader__hideVoiceOverEnabler__block_invoke;
+  v6[3] = &unk_27842BB18;
   v6[4] = self;
-  [MEMORY[0x277D75D18] animateWithDuration:v7 animations:v6 completion:0.25];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __43__AXSBSettingsLoader__hideVoiceOverEnabler__block_invoke_2;
+  v5[3] = &unk_27842C4F8;
+  v5[4] = self;
+  [MEMORY[0x277D75D18] animateWithDuration:v6 animations:v5 completion:0.25];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D81E80] object:0];
 }
@@ -1319,7 +1465,7 @@ void __43__AXSBSettingsLoader__hideVoiceOverEnabler__block_invoke(uint64_t a1)
     v20.size.width = v9;
     v20.size.height = v11;
     v18 = NSStringFromCGRect(v20);
-    _AXLogWithFacility();
+    _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VOWORK: SWIPE GO AWAY: %@", v18);
   }
 }
 
@@ -1329,7 +1475,7 @@ uint64_t __43__AXSBSettingsLoader__hideVoiceOverEnabler__block_invoke_2(uint64_t
   v2 = *(v1 + 8);
   *(v1 + 8) = 0;
 
-  return _AXLogWithFacility();
+  return _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VOWORK: window is gone", vars0);
 }
 
 - (void)_makeVoiceOverVibrateWindow
@@ -1361,17 +1507,16 @@ uint64_t __43__AXSBSettingsLoader__hideVoiceOverEnabler__block_invoke_2(uint64_t
 
 - (void)_playVOActivationSoundEnded
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   if (_playVOActivationSoundEnded_onceToken != -1)
   {
     [AXSBSettingsLoader _playVOActivationSoundEnded];
   }
 
-  v3 = *MEMORY[0x277CBA638];
-  v4[0] = &unk_2833B1738;
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v2 = *MEMORY[0x277CBA638];
+  v3[0] = &unk_2833B1738;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   AudioServicesPlaySystemSoundWithOptions();
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __49__AXSBSettingsLoader__playVOActivationSoundEnded__block_invoke()
@@ -1388,17 +1533,16 @@ void __49__AXSBSettingsLoader__playVOActivationSoundEnded__block_invoke()
 
 - (void)_playVOActivationSoundStarted
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   if (_playVOActivationSoundStarted_onceToken != -1)
   {
     [AXSBSettingsLoader _playVOActivationSoundStarted];
   }
 
-  v3 = *MEMORY[0x277CBA638];
-  v4[0] = &unk_2833B1738;
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v2 = *MEMORY[0x277CBA638];
+  v3[0] = &unk_2833B1738;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   AudioServicesPlaySystemSoundWithOptions();
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __51__AXSBSettingsLoader__playVOActivationSoundStarted__block_invoke()
@@ -1594,7 +1738,7 @@ void __52__AXSBSettingsLoader__showSwipeDetectionEnablerView__block_invoke(uint6
   v16.size.width = v5;
   v16.size.height = v7;
   v14 = NSStringFromCGRect(v16);
-  _AXLogWithFacility();
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VOWORK: start frame: %@", v14);
 }
 
 - (void)_showVibrationVoiceOverEnablerView
@@ -1642,7 +1786,7 @@ void __52__AXSBSettingsLoader__showSwipeDetectionEnablerView__block_invoke(uint6
   v4 = [userInfo objectForKey:*MEMORY[0x277CEC510]];
   bOOLValue = [v4 BOOLValue];
 
-  _AXLogWithFacility();
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VOWORK: reachability changed, isReachable: %d", bOOLValue);
   if (bOOLValue)
   {
     AXPerformBlockOnMainThreadAfterDelay();
@@ -1654,10 +1798,9 @@ void __43__AXSBSettingsLoader__reachabilityChanged___block_invoke(uint64_t a1)
   v2 = [MEMORY[0x277CEC5C8] sharedInstance];
   v3 = [v2 registerNetworkDefaultsForAppIDs:&unk_2833B1798 forceUpdate:1];
 
-  LOBYTE(v4) = 1;
-  _AXLogWithFacility();
-  v5 = [MEMORY[0x277CEC5B8] sharedNetworkObserver];
-  [v5 removeObserver:*(a1 + 32) forHostname:@"configuration.apple.com"];
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VOWORK: force registration again: %d", v3);
+  v4 = [MEMORY[0x277CEC5B8] sharedNetworkObserver];
+  [v4 removeObserver:*(a1 + 32) forHostname:@"configuration.apple.com"];
 }
 
 - (void)_registerReachability
@@ -1675,12 +1818,11 @@ void __43__AXSBSettingsLoader__reachabilityChanged___block_invoke(uint64_t a1)
 
 void __43__AXSBSettingsLoader__registerReachability__block_invoke(uint64_t a1)
 {
-  v3 = [MEMORY[0x277CCACC8] callStackSymbols];
-  LOBYTE(v2) = 1;
-  _AXLogWithFacility();
+  v2 = [MEMORY[0x277CCACC8] callStackSymbols];
+  _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VOWORK: register for reachability changed %@", v2);
 
-  v4 = [MEMORY[0x277CEC5B8] sharedNetworkObserver];
-  [v4 addObserver:*(a1 + 32) selector:sel__reachabilityChanged_ forHostname:@"configuration.apple.com"];
+  v3 = [MEMORY[0x277CEC5B8] sharedNetworkObserver];
+  [v3 addObserver:*(a1 + 32) selector:sel__reachabilityChanged_ forHostname:@"configuration.apple.com"];
 }
 
 @end

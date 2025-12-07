@@ -108,9 +108,9 @@ uint64_t __48__PhotosControlCommand_installInterruptHandler___block_invoke_2(uin
   integerValue = [argumentCopy integerValue];
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
   stringValue = [v6 stringValue];
-  v8 = [stringValue isEqualToString:argumentCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(stringValue);
 
-  if (v8)
+  if (isEqualToString)
   {
     if ((integerValue - 1) >= 3)
     {
@@ -284,7 +284,7 @@ LABEL_20:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"PhotosControlCommand.m" lineNumber:295 description:{@"Invalid parameter not satisfying: %@", @"path"}];
 
 LABEL_3:
-  if ([v9 isEqualToString:@"-"])
+  if (objc_msgSend_isEqualToString_(v9))
   {
     fileHandleWithStandardOutput = [MEMORY[0x1E696AC00] fileHandleWithStandardOutput];
     v21 = 0;
@@ -330,7 +330,7 @@ LABEL_3:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PhotosControlCommand.m" lineNumber:272 description:{@"Invalid parameter not satisfying: %@", @"path"}];
   }
 
-  if (![stdinCopy isEqualToString:@"-"])
+  if (!objc_msgSend_isEqualToString_(stdinCopy))
   {
     v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:stdinCopy isDirectory:0];
     v13 = 0;

@@ -45,15 +45,15 @@
           }
 
           v12 = *(*(&v37 + 1) + 8 * i);
-          if (([v12 isEqualToString:0x1F21836D0] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", 0x1F2183E10))
+          if ((objc_msgSend_isEqualToString_(v12) & 1) != 0 || objc_msgSend_isEqualToString_(v12))
           {
             v13 = [data objectForKeyedSubscript:v12];
             if (v13)
             {
               v14 = v13;
-              v15 = [v12 isEqualToString:0x1F21836D0];
+              isEqualToString = objc_msgSend_isEqualToString_(v12);
               v35 = 0;
-              if (v15)
+              if (isEqualToString)
               {
                 v16 = 1;
               }
@@ -67,7 +67,7 @@
               v34 = 0u;
               v32 = 0u;
               memset(v31, 0, sizeof(v31));
-              if ([v12 isEqualToString:0x1F21836D0])
+              if (objc_msgSend_isEqualToString_(v12))
               {
                 v17 = v29;
               }
@@ -110,7 +110,7 @@
 
   else
   {
-    [FigCaptureAPSSphereInteractionCalibrationContext reportLoggingWithCalibrationData:isValid:magneticFieldMagnitude:];
+    [FigCaptureAPSSphereInteractionCalibrationContext reportLoggingWithCalibrationData:a2 isValid:magnitude magneticFieldMagnitude:?];
   }
 }
 
@@ -146,7 +146,7 @@
           }
 
           v9 = *(*(&v20 + 1) + 8 * i);
-          if (([v9 isEqualToString:0x1F21836D0] & 1) != 0 || objc_msgSend(v9, "isEqualToString:", 0x1F2183E10))
+          if ((objc_msgSend_isEqualToString_(v9) & 1) != 0 || objc_msgSend_isEqualToString_(v9))
           {
             v10 = [logging objectForKeyedSubscript:v9];
             if (v10)
@@ -173,7 +173,7 @@
 
   else
   {
-    +[FigCaptureAPSSphereInteractionCalibrationContext calibrationDataStringForInternalLogging:];
+    [(FigCaptureAPSSphereInteractionCalibrationContext *)self calibrationDataStringForInternalLogging:a2];
     return 0;
   }
 
@@ -195,20 +195,6 @@
   v9.receiver = self;
   v9.super_class = FigCaptureAPSSphereInteractionCalibrationContext;
   return [(FigCaptureCalibrationContext *)&v9 initWithPreferenceString:@"APSSphereInteractionCalibrationData" withActivityName:@"com.apple.coremedia.apssphere.calibration" withPropertyName:v7 withExpectedDataSize:84 withInterval:CFPreferenceNumberWithDefault withMinimumBatteryLevel:v6 withInternalLogName:@"apsspherecal" supportedDeviceNames:names];
-}
-
-- (uint64_t)reportLoggingWithCalibrationData:isValid:magneticFieldMagnitude:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)calibrationDataStringForInternalLogging:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

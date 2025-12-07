@@ -28,11 +28,9 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [GDDistanceBucketValue allocWithZone:zone];
-  bucket = self->_bucket;
-  bucketValue = self->_bucketValue;
+  v3 = [GDDistanceBucketValue allocWithZone:zone];
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithBucket_bucketValue_);
+  return MEMORY[0x1EEE66B58](v3, sel_initWithBucket_bucketValue_);
 }
 
 - (GDDistanceBucketValue)initWithCoder:(id)coder

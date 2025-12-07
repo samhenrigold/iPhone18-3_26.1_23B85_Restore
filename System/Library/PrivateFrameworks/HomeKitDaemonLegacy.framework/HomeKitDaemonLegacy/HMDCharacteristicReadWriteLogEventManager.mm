@@ -8,6 +8,7 @@
 - (void)_updateBluetoothStatisticsForLogEvent:(id)event;
 - (void)_updateNetworkStatisticsForLogEvent:(id)event;
 - (void)_updateWiFiStatisticsForLogEvent:(id)event;
+- (void)updateBrowseStatus:(BOOL)status forAccessoryUUID:(id)d;
 - (void)updateSessionConnectivity:(BOOL)connectivity withSessionInfo:(id)info forAccessoryUUID:(id)d;
 - (void)updateStatisticsForLogEvent:(id)event;
 @end
@@ -80,6 +81,21 @@
   [(HMDCharacteristicReadWriteLogEventManager *)self elapsedTimeInterval:?];
   [eventCopy setNoSessionDuration:?];
   [eventCopy setConsecutiveSuccessCount:{objc_msgSend(v8, "consecutiveSuccessCount")}];
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)updateBrowseStatus:(BOOL)status forAccessoryUUID:(id)d
+{
+  statusCopy = status;
+  dCopy = d;
+  os_unfair_lock_lock_with_options();
+  v6 = [(HMDCharacteristicReadWriteLogEventManager *)self _getOrCreateAccessoryStatisticsForAccessoryUUID:dCopy];
+  [v6 setIsCurrentlySeen:statusCopy];
+  if (statusCopy)
+  {
+    [v6 setHasEverBeenSeen:1];
+  }
 
   os_unfair_lock_unlock(&self->_lock);
 }

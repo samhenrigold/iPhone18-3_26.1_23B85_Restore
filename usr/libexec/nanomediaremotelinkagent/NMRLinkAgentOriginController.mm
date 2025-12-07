@@ -10,7 +10,6 @@
 - (void)_refreshArtworkWithCompletion:(id)completion;
 - (void)_refreshCurrentNowPlayingApplicationInfoWithCompletion:(id)completion;
 - (void)_refreshCurrentNowPlayingInfoWithCompletion:(id)completion;
-- (void)_refreshCurrentSupportedCommands;
 - (void)_registerForMediaRemoteNotifications;
 - (void)_scheduleEagerUpdate:(unsigned int)update;
 - (void)_updateNowPlayingInfoWithContentItem:(void *)item;
@@ -377,15 +376,13 @@
     *&buf[12] = 2112;
     *&buf[14] = uniqueIdentifier;
     *&buf[22] = 2112;
-    v75 = CFAutorelease(v8);
+    v72 = CFAutorelease(v8);
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Updating now playing content item %@", buf, 0x20u);
   }
 
   if (sub_10001615C(self->_nowPlayingContentItemRef, item))
   {
-    nowPlayingContentItemRef = self->_nowPlayingContentItemRef;
     MRContentItemMerge();
-    v10 = self->_nowPlayingContentItemRef;
   }
 
   else
@@ -395,68 +392,67 @@
       CFRetain(item);
     }
 
-    v11 = self->_nowPlayingContentItemRef;
-    if (v11)
+    nowPlayingContentItemRef = self->_nowPlayingContentItemRef;
+    if (nowPlayingContentItemRef)
     {
-      CFRelease(v11);
+      CFRelease(nowPlayingContentItemRef);
     }
 
     self->_nowPlayingContentItemRef = item;
   }
 
-  v12 = MRContentItemCopyNowPlayingInfo();
-  v13 = [v12 mutableCopy];
+  v10 = MRContentItemCopyNowPlayingInfo();
+  v11 = [v10 mutableCopy];
 
-  v14 = self->_nowPlayingContentItemRef;
-  v15 = MRContentItemGetArtworkData();
-  v16 = v15;
-  v69 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [v15 bytes], objc_msgSend(v15, "length"));
-  v17 = sub_100008964(v69);
-  if (v17)
+  v12 = MRContentItemGetArtworkData();
+  v13 = v12;
+  v66 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [v12 bytes], objc_msgSend(v12, "length"));
+  v14 = sub_100008964(v66);
+  if (v14)
   {
-    [(NSDictionary *)v13 setObject:v17 forKeyedSubscript:@"NMRAugmentedNowPlayingInfoArtworkDataDigest"];
+    [(NSDictionary *)v11 setObject:v14 forKeyedSubscript:@"NMRAugmentedNowPlayingInfoArtworkDataDigest"];
   }
 
-  v18 = [(NSDictionary *)v13 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoIsMusicApp];
-  bOOLValue = [v18 BOOLValue];
+  v15 = [(NSDictionary *)v11 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoIsMusicApp];
+  bOOLValue = [v15 BOOLValue];
 
   if ((bOOLValue & 1) == 0)
   {
-    [(NSDictionary *)v13 removeObjectForKey:kMRMediaRemoteNowPlayingInfoUniqueIdentifier];
+    [(NSDictionary *)v11 removeObjectForKey:kMRMediaRemoteNowPlayingInfoUniqueIdentifier];
   }
 
   p_currentNowPlayingInfo = &self->_currentNowPlayingInfo;
   currentNowPlayingInfo = self->_currentNowPlayingInfo;
-  v22 = v13;
+  v19 = v11;
   if (!currentNowPlayingInfo)
   {
     goto LABEL_41;
   }
 
-  v22 = v13;
-  if (!v13)
+  v19 = v11;
+  if (!v11)
   {
     goto LABEL_41;
   }
 
-  v23 = currentNowPlayingInfo;
-  v24 = v13;
-  v25 = v24;
-  if (v23 == v24)
+  v20 = currentNowPlayingInfo;
+  v21 = v11;
+  v22 = v21;
+  if (v20 == v21)
   {
   }
 
   else
   {
-    v26 = [(NSDictionary *)v23 count];
-    if (v26 != [(NSDictionary *)v25 count])
+    v23 = [(NSDictionary *)v20 count];
+    if (v23 != [(NSDictionary *)v22 count])
     {
 
-      v22 = v13;
+      v19 = v11;
 LABEL_41:
-      v62 = v22;
-      v63 = self->_currentNowPlayingInfo;
-      self->_currentNowPlayingInfo = v13;
+      v59 = v19;
+      v60 = self->_currentNowPlayingInfo;
+      self->_currentNowPlayingInfo = v11;
 
       previousIgnoredNowPlayingInfo = self->_previousIgnoredNowPlayingInfo;
       self->_previousIgnoredNowPlayingInfo = 0;
@@ -465,103 +461,103 @@ LABEL_41:
       goto LABEL_42;
     }
 
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x2020000000;
-    v73 = 1;
+    v67 = 0;
+    v68 = &v67;
+    v69 = 0x2020000000;
+    v70 = 1;
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_100018624;
-    v75 = &unk_100049160;
-    v27 = v25;
-    v76 = v27;
-    v77 = &v70;
-    [(NSDictionary *)v23 enumerateKeysAndObjectsUsingBlock:buf];
-    v28 = *(v71 + 24);
+    v72 = &unk_100049160;
+    v24 = v22;
+    v73 = v24;
+    v74 = &v67;
+    [(NSDictionary *)v20 enumerateKeysAndObjectsUsingBlock:buf];
+    v25 = *(v68 + 24);
 
-    _Block_object_dispose(&v70, 8);
-    v22 = v13;
-    if ((v28 & 1) == 0)
+    _Block_object_dispose(&v67, 8);
+    v19 = v11;
+    if ((v25 & 1) == 0)
     {
       goto LABEL_41;
     }
   }
 
-  v29 = self->_currentNowPlayingInfo;
-  v30 = kMRMediaRemoteNowPlayingInfoElapsedTime;
-  v31 = [(NSDictionary *)v25 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoElapsedTime];
+  v26 = self->_currentNowPlayingInfo;
+  v27 = kMRMediaRemoteNowPlayingInfoElapsedTime;
+  v28 = [(NSDictionary *)v22 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoElapsedTime];
+  [v28 doubleValue];
+  v30 = v29;
+
+  v31 = [(NSDictionary *)v26 objectForKeyedSubscript:v27];
   [v31 doubleValue];
   v33 = v32;
 
-  v34 = [(NSDictionary *)v29 objectForKeyedSubscript:v30];
-  [v34 doubleValue];
-  v36 = v35;
-
   location = &self->_previousIgnoredNowPlayingInfo;
-  v37 = kMRMediaRemoteNowPlayingInfoTimestamp;
-  v68 = [(NSDictionary *)self->_previousIgnoredNowPlayingInfo objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoTimestamp];
-  [v68 timeIntervalSinceNow];
-  if (v38 >= 0.0)
+  v34 = kMRMediaRemoteNowPlayingInfoTimestamp;
+  v65 = [(NSDictionary *)self->_previousIgnoredNowPlayingInfo objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoTimestamp];
+  [v65 timeIntervalSinceNow];
+  if (v35 >= 0.0)
   {
-    v39 = v38;
+    v36 = v35;
   }
 
   else
   {
-    v39 = -v38;
+    v36 = -v35;
   }
 
-  v40 = v29;
-  v41 = [(NSDictionary *)v40 objectForKeyedSubscript:v37];
-  if (v41)
+  v37 = v26;
+  v38 = [(NSDictionary *)v37 objectForKeyedSubscript:v34];
+  if (v38)
   {
-    v42 = [(NSDictionary *)v40 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoPlaybackRate];
-    [v42 floatValue];
+    v39 = [(NSDictionary *)v37 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoPlaybackRate];
+    [v39 floatValue];
+    v41 = v40;
+
+    v42 = [(NSDictionary *)v37 objectForKeyedSubscript:v27];
+    [v42 doubleValue];
     v44 = v43;
 
-    v45 = [(NSDictionary *)v40 objectForKeyedSubscript:v30];
-    [v45 doubleValue];
+    v45 = +[NSDate date];
+    [v45 timeIntervalSinceDate:v38];
     v47 = v46;
 
-    v48 = +[NSDate date];
-    [v48 timeIntervalSinceDate:v41];
-    v50 = v49;
-
-    v51 = v47 + fmax(v50 * v44, 0.0);
+    v48 = v44 + fmax(v47 * v41, 0.0);
   }
 
   else
   {
-    v51 = 0.0;
+    v48 = 0.0;
   }
 
-  v52 = [(NSDictionary *)v40 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoDuration];
-  [v52 doubleValue];
-  v54 = v53;
+  v49 = [(NSDictionary *)v37 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoDuration];
+  [v49 doubleValue];
+  v51 = v50;
 
-  if (v51 < v54)
+  if (v48 < v51)
   {
-    v54 = v51;
+    v51 = v48;
   }
 
-  v55 = v54 - v33;
-  if (v54 - v33 < 0.0)
+  v52 = v51 - v30;
+  if (v51 - v30 < 0.0)
   {
-    v55 = -(v54 - v33);
+    v52 = -(v51 - v30);
   }
 
-  v56 = v39 > 30.0;
-  if (v55 > 5.0)
+  v53 = v36 > 30.0;
+  if (v52 > 5.0)
   {
-    v56 = 1;
+    v53 = 1;
   }
 
-  v57 = v33 < v36 || v56;
-  v58 = sub_10002C180(2);
-  v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
-  if (v57)
+  v54 = v30 < v33 || v53;
+  v55 = sub_10002C180(2);
+  v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
+  if (v54)
   {
-    if (v59)
+    if (v56)
     {
       displayName2 = [(NMROrigin *)self->_origin displayName];
       uniqueIdentifier2 = [(NMROrigin *)self->_origin uniqueIdentifier];
@@ -569,14 +565,14 @@ LABEL_41:
       *&buf[4] = displayName2;
       *&buf[12] = 2112;
       *&buf[14] = uniqueIdentifier2;
-      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Allowing now-playing update with only elapsed time difference", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Allowing now-playing update with only elapsed time difference", buf, 0x16u);
     }
 
-    v22 = v25;
+    v19 = v22;
     goto LABEL_41;
   }
 
-  if (v59)
+  if (v56)
   {
     displayName3 = [(NMROrigin *)self->_origin displayName];
     uniqueIdentifier3 = [(NMROrigin *)self->_origin uniqueIdentifier];
@@ -584,15 +580,15 @@ LABEL_41:
     *&buf[4] = displayName3;
     *&buf[12] = 2112;
     *&buf[14] = uniqueIdentifier3;
-    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Suppressing now-playing update with only elapsed time difference", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Suppressing now-playing update with only elapsed time difference", buf, 0x16u);
   }
 
   if (!*location)
   {
-    objc_storeStrong(location, v13);
+    objc_storeStrong(location, v11);
   }
 
-  objc_storeStrong(p_currentNowPlayingInfo, v13);
+  objc_storeStrong(p_currentNowPlayingInfo, v11);
 LABEL_42:
 }
 
@@ -617,9 +613,9 @@ LABEL_42:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v16 = sub_100016C20;
-  v17 = sub_100016C30;
-  v18 = 0;
+  v15 = sub_100016C20;
+  v16 = sub_100016C30;
+  v17 = 0;
   serialQueue = self->_serialQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -641,8 +637,7 @@ LABEL_42:
   v11 = v10;
   MRPlaybackQueueRequestSetIncludeMetadata();
   MRPlaybackQueueRequestSetIncludeArtwork();
-  v12 = self->_serialQueue;
-  v13 = completionCopy;
+  v12 = completionCopy;
   MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
   if (v8)
   {
@@ -661,45 +656,44 @@ LABEL_42:
 {
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_refreshingQueue);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_100016C20;
-  v22 = sub_100016C30;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_100016C20;
+  v21 = sub_100016C30;
+  v22 = 0;
   serialQueue = self->_serialQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100017270;
   block[3] = &unk_100048DF0;
   block[4] = self;
-  block[5] = &v18;
+  block[5] = &v17;
   dispatch_sync(serialQueue, block);
-  if (v19[5])
+  if (v18[5])
   {
     v6 = sub_10002C180(2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       displayName = [(NMROrigin *)self->_origin displayName];
       uniqueIdentifier = [(NMROrigin *)self->_origin uniqueIdentifier];
-      v9 = v19[5];
+      v9 = v18[5];
       *buf = 138412802;
-      v26 = displayName;
-      v27 = 2112;
-      v28 = uniqueIdentifier;
-      v29 = 2112;
-      v30 = v9;
+      v25 = displayName;
+      v26 = 2112;
+      v27 = uniqueIdentifier;
+      v28 = 2112;
+      v29 = v9;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Fetching artwork for %@", buf, 0x20u);
     }
 
     [(NMROrigin *)self->_origin mediaRemoteOrigin];
     v10 = MRNowPlayingPlayerPathCreate();
-    v24 = v19[5];
-    [NSArray arrayWithObjects:&v24 count:1];
+    v23 = v18[5];
+    [NSArray arrayWithObjects:&v23 count:1];
     v11 = MRPlaybackQueueRequestCreateWithIdentifiers();
     MRPlaybackQueueRequestSetIncludeArtwork();
-    v12 = self->_serialQueue;
-    v16 = completionCopy;
+    v15 = completionCopy;
     MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
     if (v10)
     {
@@ -714,16 +708,16 @@ LABEL_42:
 
   else
   {
-    v13 = sub_10002C180(2);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10002C180(2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       displayName2 = [(NMROrigin *)self->_origin displayName];
       uniqueIdentifier2 = [(NMROrigin *)self->_origin uniqueIdentifier];
       *buf = 138412546;
-      v26 = displayName2;
-      v27 = 2112;
-      v28 = uniqueIdentifier2;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) No contentItemIdentifier, not fetching artwork", buf, 0x16u);
+      v25 = displayName2;
+      v26 = 2112;
+      v27 = uniqueIdentifier2;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) No contentItemIdentifier, not fetching artwork", buf, 0x16u);
     }
 
     if (completionCopy)
@@ -732,14 +726,7 @@ LABEL_42:
     }
   }
 
-  _Block_object_dispose(&v18, 8);
-}
-
-- (void)_refreshCurrentSupportedCommands
-{
-  [(NMROrigin *)self->_origin mediaRemoteOrigin];
-  serialQueue = self->_serialQueue;
-  MRMediaRemoteGetSupportedCommandsForOrigin();
+  _Block_object_dispose(&v17, 8);
 }
 
 - (void)_refreshCurrentNowPlayingApplicationInfoWithCompletion:(id)completion
@@ -751,43 +738,41 @@ LABEL_42:
     displayName = [(NMROrigin *)self->_origin displayName];
     uniqueIdentifier = [(NMROrigin *)self->_origin uniqueIdentifier];
     *buf = 138412546;
-    v29 = displayName;
-    v30 = 2112;
-    v31 = uniqueIdentifier;
+    v27 = displayName;
+    v28 = 2112;
+    v29 = uniqueIdentifier;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Fetching now playing application info", buf, 0x16u);
   }
 
   v8 = dispatch_group_create();
   dispatch_group_enter(v8);
   [(NMROrigin *)self->_origin mediaRemoteOrigin];
-  serialQueue = self->_serialQueue;
-  v22 = _NSConcreteStackBlock;
-  v23 = 3221225472;
-  v24 = sub_100017848;
-  v25 = &unk_1000490C0;
+  v20 = _NSConcreteStackBlock;
+  v21 = 3221225472;
+  v22 = sub_100017848;
+  v23 = &unk_1000490C0;
   selfCopy = self;
-  v27 = v8;
+  v25 = v8;
   MRMediaRemoteGetNowPlayingApplicationPlaybackStateForOrigin();
-  dispatch_group_enter(v27);
+  dispatch_group_enter(v25);
   [(NMROrigin *)self->_origin mediaRemoteOrigin];
-  v10 = self->_serialQueue;
-  v16 = _NSConcreteStackBlock;
-  v17 = 3221225472;
-  v18 = sub_100017968;
-  v19 = &unk_1000490E8;
+  v14 = _NSConcreteStackBlock;
+  v15 = 3221225472;
+  v16 = sub_100017968;
+  v17 = &unk_1000490E8;
   selfCopy2 = self;
-  v21 = v27;
-  v11 = v27;
+  v19 = v25;
+  v9 = v25;
   MRMediaRemoteGetNowPlayingClientForOrigin();
-  v12 = self->_serialQueue;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100017B34;
-  v14[3] = &unk_100048FF8;
-  v14[4] = self;
-  v15 = completionCopy;
+  serialQueue = self->_serialQueue;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100017B34;
+  v12[3] = &unk_100048FF8;
+  v12[4] = self;
   v13 = completionCopy;
-  dispatch_group_notify(v11, v12, v14);
+  v11 = completionCopy;
+  dispatch_group_notify(v9, serialQueue, v12);
 }
 
 - (id)_currentNowPlayingIgnoringDigestMatches:(BOOL)matches digest:(id)digest digestMatched:(BOOL *)matched
@@ -884,17 +869,16 @@ LABEL_42:
 
 - (void)_registerForMediaRemoteNotifications
 {
-  v4 = +[NSNotificationCenter defaultCenter];
-  serialQueue = self->_serialQueue;
+  v3 = +[NSNotificationCenter defaultCenter];
   MRMediaRemoteRegisterForNowPlayingNotifications();
-  [v4 addObserver:self selector:"_handleMRNotification:" name:kMRNowPlayingPlaybackQueueChangedNotification object:0];
-  [v4 addObserver:self selector:"_handleMRNotification:" name:kMRPlaybackQueueContentItemsChangedNotification object:0];
-  [v4 addObserver:self selector:"_handleMRNotification:" name:kMRPlaybackQueueContentItemArtworkChangedNotification object:0];
+  [v3 addObserver:self selector:"_handleMRNotification:" name:kMRNowPlayingPlaybackQueueChangedNotification object:0];
+  [v3 addObserver:self selector:"_handleMRNotification:" name:kMRPlaybackQueueContentItemsChangedNotification object:0];
+  [v3 addObserver:self selector:"_handleMRNotification:" name:kMRPlaybackQueueContentItemArtworkChangedNotification object:0];
   MRMediaRemoteSetWantsSupportedCommandsChangedNotifications();
-  [v4 addObserver:self selector:"_handleMRNotification:" name:kMRMediaRemoteSupportedCommandsDidChangeNotification object:0];
-  [v4 addObserver:self selector:"_handleMRNotification:" name:kMRMediaRemoteNowPlayingApplicationPlaybackStateDidChangeNotification object:0];
-  [v4 addObserver:self selector:"_handleMRNotification:" name:kMRMediaRemoteNowPlayingApplicationDidChangeNotification object:0];
-  [v4 addObserver:self selector:"_handleMRNotification:" name:kMRMediaRemoteNowPlayingApplicationIsPlayingDidChangeNotification object:0];
+  [v3 addObserver:self selector:"_handleMRNotification:" name:kMRMediaRemoteSupportedCommandsDidChangeNotification object:0];
+  [v3 addObserver:self selector:"_handleMRNotification:" name:kMRMediaRemoteNowPlayingApplicationPlaybackStateDidChangeNotification object:0];
+  [v3 addObserver:self selector:"_handleMRNotification:" name:kMRMediaRemoteNowPlayingApplicationDidChangeNotification object:0];
+  [v3 addObserver:self selector:"_handleMRNotification:" name:kMRMediaRemoteNowPlayingApplicationIsPlayingDidChangeNotification object:0];
   [(NMRMediaRemoteUpdater *)self->_nowPlayingInfoUpdater executeUpdateBlock];
   [(NMRMediaRemoteUpdater *)self->_applicationInfoUpdater executeUpdateBlock];
   [(NMRLinkAgentOriginController *)self _refreshCurrentSupportedCommands];

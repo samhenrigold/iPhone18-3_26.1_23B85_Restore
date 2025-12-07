@@ -898,8 +898,8 @@ LABEL_15:
     v8 = v7;
     [(PBFPosterGalleryPreviewComplicationContentView *)self bounds];
     v10 = v9 / v8;
-    metrics = [requestCopy metrics];
-    [metrics _effectiveCornerRadius];
+    v11 = objc_msgSend_metrics(requestCopy);
+    [v11 _effectiveCornerRadius];
     v13 = v12 * v10;
   }
 
@@ -1138,18 +1138,18 @@ void __90__PBFPosterGalleryPreviewComplicationContentView_prepareComplicationPre
   previewCopy = preview;
   if (!requestCopy)
   {
-    [PBFPosterGalleryPreviewComplicationContentView _updatePreviewWithComplicationImage:a2 error:? complicationSnapshotRequest:? posterPreview:?];
+    [PBFPosterGalleryPreviewComplicationContentView _updatePreviewWithComplicationImage:a2 error:self complicationSnapshotRequest:? posterPreview:?];
   }
 
   v15 = previewCopy;
   if (!previewCopy)
   {
-    [PBFPosterGalleryPreviewComplicationContentView _updatePreviewWithComplicationImage:a2 error:? complicationSnapshotRequest:? posterPreview:?];
+    [PBFPosterGalleryPreviewComplicationContentView _updatePreviewWithComplicationImage:a2 error:self complicationSnapshotRequest:? posterPreview:?];
   }
 
   if (self->_posterPreview == previewCopy)
   {
-    v16 = PBFLogGallery();
+    v16 = PBFLogGallery(previewCopy);
     v17 = v16;
     if (errorCopy)
     {
@@ -1232,46 +1232,46 @@ void __90__PBFPosterGalleryPreviewComplicationContentView_prepareComplicationPre
   _os_log_debug_impl(&dword_21B526000, v0, OS_LOG_TYPE_DEBUG, "Laying out poster preview complication request '%{public}@' for poster preview '%{public}@'", v1, 0x16u);
 }
 
-- (void)_updatePreviewWithComplicationImage:(const char *)a1 error:complicationSnapshotRequest:posterPreview:.cold.3(const char *a1)
+- (void)_updatePreviewWithComplicationImage:(const char *)a1 error:(uint64_t)a2 complicationSnapshotRequest:posterPreview:.cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterPreview"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterPreview"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"PBFPosterGalleryPreviewComplicationContentView.m";
-    v9 = 1024;
-    v10 = 510;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PBFPosterGalleryPreviewComplicationContentView.m";
+    v10 = 1024;
+    v11 = 510;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21B526000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_updatePreviewWithComplicationImage:(const char *)a1 error:complicationSnapshotRequest:posterPreview:.cold.4(const char *a1)
+- (void)_updatePreviewWithComplicationImage:(const char *)a1 error:(uint64_t)a2 complicationSnapshotRequest:posterPreview:.cold.4(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"complicationSnapshotRequest"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"complicationSnapshotRequest"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"PBFPosterGalleryPreviewComplicationContentView.m";
-    v9 = 1024;
-    v10 = 509;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PBFPosterGalleryPreviewComplicationContentView.m";
+    v10 = 1024;
+    v11 = 509;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21B526000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

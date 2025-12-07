@@ -14,9 +14,11 @@
 - (void)captureSession:(id)session isRunning:(BOOL)running;
 - (void)cellularConfirmationCodeViewController:(id)controller confirmedWithCode:(id)code;
 - (void)enterFauxCardDataManually:(id)manually;
+- (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated;
 - (void)presentConfirmationCodeRequest;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NPHBSCellularFauxCardViewController
@@ -103,6 +105,14 @@
   [navigationController setDelegate:self];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = NPHBSCellularFauxCardViewController;
+  [(NPHBSCellularFauxCardViewController *)&v4 viewWillAppear:appear];
+  [(NPHCellularBridgeBarcodeScannerView *)self->_scannerView startRunning];
+}
+
 - (void)viewDidLayoutSubviews
 {
   scannerView = self->_scannerView;
@@ -141,6 +151,28 @@
   -[CAShapeLayer setPath:](self->_fillWithHoleLayer, "setPath:", [v21 CGPath]);
   v20 = [MEMORY[0x277D75208] bezierPathWithRect:{v15, (v13 - v14) * 0.5, v14, v14}];
   -[CAShapeLayer setPath:](self->_holeOutlineLayer, "setPath:", [v20 CGPath]);
+}
+
+- (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated
+{
+  if (viewController == self)
+  {
+    navigationBar = [controller navigationBar];
+    [navigationBar setBarStyle:1];
+    [navigationBar _setHidesShadow:1];
+    v6 = BPSBridgeTintColor();
+    [navigationBar setTintColor:v6];
+  }
+
+  else
+  {
+    v5 = [(NPHBSCellularFauxCardViewController *)self navigationController:controller];
+    navigationBar = [v5 navigationBar];
+
+    [navigationBar setBarStyle:0];
+    [navigationBar _setHidesShadow:0];
+    [navigationBar setTintColor:0];
+  }
 }
 
 - (void)bypassFauxCard:(id)card
@@ -182,35 +214,33 @@
 - (void)captureSession:(id)session isRunning:(BOOL)running
 {
   runningCopy = running;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
-  v6 = nph_general_log();
+  v6 = nph_general_log(sessionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315650;
-    v9 = "[NPHBSCellularFauxCardViewController captureSession:isRunning:]";
-    v10 = 2112;
-    v11 = sessionCopy;
-    v12 = 1024;
-    v13 = runningCopy;
-    _os_log_impl(&dword_243333000, v6, OS_LOG_TYPE_DEFAULT, "%s captureSession: %@ isRunning: %d", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "[NPHBSCellularFauxCardViewController captureSession:isRunning:]";
+    v9 = 2112;
+    v10 = sessionCopy;
+    v11 = 1024;
+    v12 = runningCopy;
+    _os_log_impl(&dword_243333000, v6, OS_LOG_TYPE_DEFAULT, "%s captureSession: %@ isRunning: %d", &v7, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)captureOutput:(id)output didOutputMetadataObjects:(id)objects fromConnection:(id)connection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   objectsCopy = objects;
-  v9 = nph_general_log();
+  v9 = nph_general_log(objectsCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v20 = "[NPHBSCellularFauxCardViewController captureOutput:didOutputMetadataObjects:fromConnection:]";
-    v21 = 2112;
-    v22 = outputCopy;
+    v19 = "[NPHBSCellularFauxCardViewController captureOutput:didOutputMetadataObjects:fromConnection:]";
+    v20 = 2112;
+    v21 = outputCopy;
     _os_log_impl(&dword_243333000, v9, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
   }
 
@@ -225,28 +255,26 @@
     block[1] = 3221225472;
     block[2] = __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataObjects_fromConnection___block_invoke;
     block[3] = &unk_278DAC9F0;
-    v16 = objectsCopy;
-    objc_copyWeak(&v18, buf);
+    v15 = objectsCopy;
+    objc_copyWeak(&v17, buf);
     selfCopy = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
 
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataObjects_fromConnection___block_invoke(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] firstObject];
   v3 = [v2 stringValue];
-  v4 = nph_general_log();
+  v4 = nph_general_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&dword_243333000, v4, OS_LOG_TYPE_DEFAULT, "########### scannedCode %@", buf, 0xCu);
   }
 
@@ -262,21 +290,19 @@ void __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataOb
 
     [a1[5] _setFauxCardData:v3];
     v9 = MEMORY[0x277D75D18];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataObjects_fromConnection___block_invoke_18;
-    v12[3] = &unk_278DAC9C8;
-    objc_copyWeak(&v13, a1 + 6);
     v11[0] = MEMORY[0x277D85DD0];
     v11[1] = 3221225472;
-    v11[2] = __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataObjects_fromConnection___block_invoke_2;
-    v11[3] = &unk_278DAC7D8;
-    v11[4] = a1[5];
-    [v9 animateWithDuration:v12 animations:v11 completion:0.25];
-    objc_destroyWeak(&v13);
+    v11[2] = __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataObjects_fromConnection___block_invoke_18;
+    v11[3] = &unk_278DAC9C8;
+    objc_copyWeak(&v12, a1 + 6);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataObjects_fromConnection___block_invoke_2;
+    v10[3] = &unk_278DAC7D8;
+    v10[4] = a1[5];
+    [v9 animateWithDuration:v11 animations:v10 completion:0.25];
+    objc_destroyWeak(&v12);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataObjects_fromConnection___block_invoke_18(uint64_t a1)
@@ -310,14 +336,14 @@ void __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataOb
 
 - (void)addNewRemotePlanWithCardData:(id)data confirmationCode:(id)code
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   codeCopy = code;
-  v8 = nph_general_log();
+  v8 = nph_general_log(codeCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[NPHBSCellularFauxCardViewController addNewRemotePlanWithCardData:confirmationCode:]";
+    v18 = "[NPHBSCellularFauxCardViewController addNewRemotePlanWithCardData:confirmationCode:]";
     _os_log_impl(&dword_243333000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -328,44 +354,40 @@ void __93__NPHBSCellularFauxCardViewController_captureOutput_didOutputMetadataOb
   _currentDeviceCSN = [v11 _currentDeviceCSN];
   subscriptionContext = self->_subscriptionContext;
   userConsentResponse = self->_userConsentResponse;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __85__NPHBSCellularFauxCardViewController_addNewRemotePlanWithCardData_confirmationCode___block_invoke;
-  v16[3] = &unk_278DACA18;
-  objc_copyWeak(&v17, buf);
-  v16[4] = self;
-  [mEMORY[0x277CF96D8] addNewRemotePlanWithCardData:dataCopy confirmationCode:codeCopy isPairing:v10 withCSN:_currentDeviceCSN withContext:subscriptionContext userConsent:userConsentResponse completion:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __85__NPHBSCellularFauxCardViewController_addNewRemotePlanWithCardData_confirmationCode___block_invoke;
+  v15[3] = &unk_278DACA18;
+  objc_copyWeak(&v16, buf);
+  v15[4] = self;
+  [mEMORY[0x277CF96D8] addNewRemotePlanWithCardData:dataCopy confirmationCode:codeCopy isPairing:v10 withCSN:_currentDeviceCSN withContext:subscriptionContext userConsent:userConsentResponse completion:v15];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __85__NPHBSCellularFauxCardViewController_addNewRemotePlanWithCardData_confirmationCode___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = nph_general_log();
+  v4 = nph_general_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[NPHBSCellularFauxCardViewController addNewRemotePlanWithCardData:confirmationCode:]_block_invoke";
+    v11 = "[NPHBSCellularFauxCardViewController addNewRemotePlanWithCardData:confirmationCode:]_block_invoke";
     _os_log_impl(&dword_243333000, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __85__NPHBSCellularFauxCardViewController_addNewRemotePlanWithCardData_confirmationCode___block_invoke_23;
-  v7[3] = &unk_278DAC9F0;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __85__NPHBSCellularFauxCardViewController_addNewRemotePlanWithCardData_confirmationCode___block_invoke_23;
+  v6[3] = &unk_278DAC9F0;
   v5 = v3;
-  v8 = v5;
-  objc_copyWeak(&v10, (a1 + 40));
-  v9 = *(a1 + 32);
-  nph_ensure_on_main_queue(v7);
-  objc_destroyWeak(&v10);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = v5;
+  objc_copyWeak(&v9, (a1 + 40));
+  v8 = *(a1 + 32);
+  nph_ensure_on_main_queue(v6);
+  objc_destroyWeak(&v9);
 }
 
 void __85__NPHBSCellularFauxCardViewController_addNewRemotePlanWithCardData_confirmationCode___block_invoke_23(uint64_t a1)
@@ -377,112 +399,104 @@ void __85__NPHBSCellularFauxCardViewController_addNewRemotePlanWithCardData_conf
   v5 = [WeakRetained subscriptionContext];
   v6 = [v2 NPHCellularSanitizedError:v3 forSubscriptionContext:v5];
 
-  v7 = nph_general_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = nph_general_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 136315394;
     v21 = "[NPHBSCellularFauxCardViewController addNewRemotePlanWithCardData:confirmationCode:]_block_invoke";
     v22 = 2112;
     v23 = v6;
-    _os_log_impl(&dword_243333000, v7, OS_LOG_TYPE_DEFAULT, "%s sanitizedError:%@", &v20, 0x16u);
+    _os_log_impl(&dword_243333000, v8, OS_LOG_TYPE_DEFAULT, "%s sanitizedError:%@", &v20, 0x16u);
   }
 
   if (!v6)
   {
-    v10 = [*(a1 + 40) navigationController];
-    [v10 dismissViewControllerAnimated:1 completion:0];
+    v11 = [*(a1 + 40) navigationController];
+    [v11 dismissViewControllerAnimated:1 completion:0];
 
-    v11 = objc_loadWeakRetained((a1 + 48));
-    v12 = [v11 completion];
+    v12 = objc_loadWeakRetained((a1 + 48));
+    v13 = [v12 completion];
 
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_12;
     }
 
-    v13 = objc_loadWeakRetained((a1 + 48));
-    v14 = [v13 completion];
-    v14[2](v14, 0);
+    v14 = objc_loadWeakRetained((a1 + 48));
+    v15 = [v14 completion];
+    v15[2](v15, 0);
 LABEL_11:
 
     goto LABEL_12;
   }
 
-  v8 = [v6 domain];
-  if (![v8 isEqualToString:*MEMORY[0x277CF9680]])
+  v9 = [v6 domain];
+  if (![v9 isEqualToString:*MEMORY[0x277CF9680]])
   {
 
     goto LABEL_10;
   }
 
-  v9 = [v6 code];
+  v10 = [v6 code];
 
-  if (v9 != 19)
+  if (v10 != 19)
   {
 LABEL_10:
     [NPHCellularBridgeUIManager presentCellularError:v6 onViewController:*(a1 + 40)];
-    v15 = objc_loadWeakRetained((a1 + 48));
-    v16 = [v15 cutoutView];
-    [v16 setAlpha:0.0];
+    v16 = objc_loadWeakRetained((a1 + 48));
+    v17 = [v16 cutoutView];
+    [v17 setAlpha:0.0];
 
-    v17 = objc_loadWeakRetained((a1 + 48));
-    v18 = [v17 bypassFauxCardButton];
-    [v18 setEnabled:1];
+    v18 = objc_loadWeakRetained((a1 + 48));
+    v19 = [v18 bypassFauxCardButton];
+    [v19 setEnabled:1];
 
-    v13 = objc_loadWeakRetained((a1 + 48));
-    v14 = [v13 enterFauxCardDataManuallyButton];
-    [v14 setEnabled:1];
+    v14 = objc_loadWeakRetained((a1 + 48));
+    v15 = [v14 enterFauxCardDataManuallyButton];
+    [v15 setEnabled:1];
     goto LABEL_11;
   }
 
   [*(a1 + 40) presentConfirmationCodeRequest];
 LABEL_12:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentConfirmationCodeRequest
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = nph_general_log();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = nph_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[NPHBSCellularFauxCardViewController presentConfirmationCodeRequest]";
-    _os_log_impl(&dword_243333000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[NPHBSCellularFauxCardViewController presentConfirmationCodeRequest]";
+    _os_log_impl(&dword_243333000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   v4 = objc_alloc_init(NPHBSCellularConfirmationCodeViewController);
   [(NPHBSCellularConfirmationCodeViewController *)v4 setDelegate:self];
   navigationController = [(NPHBSCellularFauxCardViewController *)self navigationController];
   [navigationController pushViewController:v4 animated:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cellularConfirmationCodeViewController:(id)controller confirmedWithCode:(id)code
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   codeCopy = code;
-  v6 = nph_general_log();
+  v6 = nph_general_log(codeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[NPHBSCellularFauxCardViewController cellularConfirmationCodeViewController:confirmedWithCode:]";
-    _os_log_impl(&dword_243333000, v6, OS_LOG_TYPE_DEFAULT, "%s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[NPHBSCellularFauxCardViewController cellularConfirmationCodeViewController:confirmedWithCode:]";
+    _os_log_impl(&dword_243333000, v6, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
   }
 
   _getFauxCardData = [(NPHBSCellularFauxCardViewController *)self _getFauxCardData];
   [(NPHBSCellularFauxCardViewController *)self addNewRemotePlanWithCardData:_getFauxCardData confirmationCode:codeCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setFauxCardData:(id)data
 {
-  v4 = [data copy];
-  fauxCardData = self->_fauxCardData;
-  self->_fauxCardData = v4;
+  self->_fauxCardData = [data copy];
 
   MEMORY[0x2821F96F8]();
 }

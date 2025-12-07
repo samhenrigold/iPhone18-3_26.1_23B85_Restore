@@ -11,39 +11,39 @@
 
 + (id)_partsOfDayAsNumbersFromStrings:(id)strings
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   if ([stringsCopy count])
   {
     _partsOfDayNumbersByString = [self _partsOfDayNumbersByString];
     array = [MEMORY[0x277CBEB18] array];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = stringsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [_partsOfDayNumbersByString objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * i), v15}];
+          v12 = [_partsOfDayNumbersByString objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
           if (v12)
           {
             [array addObject:v12];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -54,8 +54,6 @@
   {
     array = MEMORY[0x277CBEBF8];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -90,38 +88,38 @@
 
 - (BOOL)_passesPartsOfDayWithMomentNodePartsOfDay:(unint64_t)day positivePartsOfDay:(id)ofDay negativePartsOfDay:(id)partsOfDay
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   ofDayCopy = ofDay;
   partsOfDayCopy = partsOfDay;
   if ([ofDayCopy count] || objc_msgSend(partsOfDayCopy, "count"))
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v9 = ofDayCopy;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
 LABEL_5:
       v13 = 0;
       while (1)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        if (([*(*(&v25 + 1) + 8 * v13) unsignedIntegerValue] & day) != 0)
+        if (([*(*(&v24 + 1) + 8 * v13) unsignedIntegerValue] & day) != 0)
         {
           break;
         }
 
         if (v11 == ++v13)
         {
-          v11 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
           if (v11)
           {
             goto LABEL_5;
@@ -131,12 +129,12 @@ LABEL_5:
         }
       }
 
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v9 = partsOfDayCopy;
-      v15 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
       if (!v15)
       {
         v14 = 1;
@@ -144,24 +142,24 @@ LABEL_5:
       }
 
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
 LABEL_14:
       v18 = 0;
       while (1)
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v9);
         }
 
-        if (([*(*(&v21 + 1) + 8 * v18) unsignedIntegerValue] & day) != 0)
+        if (([*(*(&v20 + 1) + 8 * v18) unsignedIntegerValue] & day) != 0)
         {
           break;
         }
 
         if (v16 == ++v18)
         {
-          v16 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v16 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
           v14 = 1;
           if (v16)
           {
@@ -183,7 +181,6 @@ LABEL_22:
     v14 = 1;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -212,34 +209,34 @@ LABEL_22:
 
 - (BOOL)isValid
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   _partsOfDayNumbersByString = [objc_opt_class() _partsOfDayNumbersByString];
   positiveSignificantPartsOfDayStrings = [(PGMeaningPartsOfDayCriteria *)self positiveSignificantPartsOfDayStrings];
   selfCopy = self;
   negativeSignificantPartsOfDayStrings = [(PGMeaningPartsOfDayCriteria *)self negativeSignificantPartsOfDayStrings];
   v6 = [positiveSignificantPartsOfDayStrings arrayByAddingObjectsFromArray:negativeSignificantPartsOfDayStrings];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v36 objects:v43 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v35 objects:v42 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v37;
+    v10 = *v36;
     v11 = 1;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
+        v13 = *(*(&v35 + 1) + 8 * i);
         v14 = [_partsOfDayNumbersByString objectForKeyedSubscript:v13];
 
         if (!v14)
@@ -250,7 +247,7 @@ LABEL_22:
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v42 = v13;
+            v41 = v13;
             _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[MEANING CRITERIA] Invalid significant part of day %@", buf, 0xCu);
           }
 
@@ -258,7 +255,7 @@ LABEL_22:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v36 objects:v43 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
     while (v9);
@@ -273,26 +270,26 @@ LABEL_22:
   negativePartsOfDayStrings = [(PGMeaningPartsOfDayCriteria *)selfCopy negativePartsOfDayStrings];
   v19 = [positivePartsOfDayStrings arrayByAddingObjectsFromArray:negativePartsOfDayStrings];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v20 = v19;
-  v21 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v33;
+    v23 = *v32;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v33 != v23)
+        if (*v32 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v32 + 1) + 8 * j);
+        v25 = *(*(&v31 + 1) + 8 * j);
         v26 = [_partsOfDayNumbersByString objectForKeyedSubscript:v25];
 
         if (!v26)
@@ -303,7 +300,7 @@ LABEL_22:
           if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v42 = v25;
+            v41 = v25;
             _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "[MEANING CRITERIA] Invalid part of day %@", buf, 0xCu);
           }
 
@@ -311,13 +308,12 @@ LABEL_22:
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v22);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 

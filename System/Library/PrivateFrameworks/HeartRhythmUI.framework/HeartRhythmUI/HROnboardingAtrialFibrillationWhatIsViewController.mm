@@ -72,7 +72,7 @@
   videoPlayerView = self->_videoPlayerView;
   if (!videoPlayerView)
   {
-    v4 = HRHeartRhythmUIFrameworkBundle();
+    v4 = HRHeartRhythmUIFrameworkBundle(0);
     v5 = [v4 URLForResource:@"Atrial_Fibrillation_Detection_HowitWorks_h264" withExtension:@"mov"];
 
     v6 = [HRVideoPlayerView playerViewWithURL:v5 looping:1];
@@ -88,7 +88,7 @@
 
 - (id)titleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_HOW_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -96,7 +96,7 @@
 
 - (id)bodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_HOW_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;
@@ -104,7 +104,7 @@
 
 - (id)buttonTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
 
   return v3;

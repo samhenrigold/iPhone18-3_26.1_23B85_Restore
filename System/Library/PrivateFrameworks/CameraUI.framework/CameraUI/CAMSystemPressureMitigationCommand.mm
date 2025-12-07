@@ -53,9 +53,9 @@
       v23 = recommendedFrameRateRangeForPortrait;
       if (recommendedFrameRateRangeForPortrait)
       {
-        [recommendedFrameRateRangeForPortrait maxFrameDuration];
+        objc_msgSend_maxFrameDuration(recommendedFrameRateRangeForPortrait);
         v34 = time2;
-        [v23 minFrameDuration];
+        objc_msgSend_minFrameDuration(v23);
       }
 
       else
@@ -69,7 +69,7 @@
 
     if (currentVideoDevice)
     {
-      [currentVideoDevice activeVideoMinFrameDuration];
+      objc_msgSend_activeVideoMinFrameDuration(currentVideoDevice);
     }
 
     else
@@ -85,7 +85,7 @@
 
     if (currentVideoDevice)
     {
-      [currentVideoDevice activeVideoMaxFrameDuration];
+      objc_msgSend_activeVideoMaxFrameDuration(currentVideoDevice);
     }
 
     else
@@ -122,9 +122,9 @@ LABEL_19:
       {
         if (currentVideoDevice)
         {
-          [currentVideoDevice activeVideoMinFrameDuration];
+          objc_msgSend_activeVideoMinFrameDuration(currentVideoDevice);
           v27 = CMTimeCopyDescription(v24, &time2);
-          [currentVideoDevice activeVideoMaxFrameDuration];
+          objc_msgSend_activeVideoMaxFrameDuration(currentVideoDevice);
         }
 
         else

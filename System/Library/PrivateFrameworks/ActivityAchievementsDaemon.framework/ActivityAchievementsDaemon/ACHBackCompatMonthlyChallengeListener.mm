@@ -154,14 +154,14 @@ void __82__ACHBackCompatMonthlyChallengeListener_database_protectedDataDidBecome
 
 - (BOOL)_readAndSaveBackCompatDefinitions
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D10718]);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v5 = [v3 initWithCategory:105 domainName:@"DynamicAchievements" profile:WeakRetained];
 
-  v49 = 0;
-  v6 = [v5 allValuesWithError:&v49];
-  v7 = v49;
+  v48 = 0;
+  v6 = [v5 allValuesWithError:&v48];
+  v7 = v48;
   injectedKeyValuePairs = [(ACHBackCompatMonthlyChallengeListener *)self injectedKeyValuePairs];
   v9 = injectedKeyValuePairs == 0;
 
@@ -230,47 +230,47 @@ void __82__ACHBackCompatMonthlyChallengeListener_database_protectedDataDidBecome
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v53 = __Block_byref_object_copy__8;
-    v54 = __Block_byref_object_dispose__8;
-    v55 = MEMORY[0x277CBEBF8];
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __74__ACHBackCompatMonthlyChallengeListener__readAndSaveBackCompatDefinitions__block_invoke_310;
-    v48[3] = &unk_278491748;
-    v48[4] = buf;
-    v20 = [v17 hk_map:v48];
+    v52 = __Block_byref_object_copy__8;
+    v53 = __Block_byref_object_dispose__8;
+    v54 = MEMORY[0x277CBEBF8];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __74__ACHBackCompatMonthlyChallengeListener__readAndSaveBackCompatDefinitions__block_invoke_310;
+    v47[3] = &unk_278491748;
+    v47[4] = buf;
+    v20 = [v17 hk_map:v47];
     v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
     templateStore = [(ACHBackCompatMonthlyChallengeListener *)self templateStore];
     allTemplates = [templateStore allTemplates];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __74__ACHBackCompatMonthlyChallengeListener__readAndSaveBackCompatDefinitions__block_invoke_2;
-    v44[3] = &unk_278491798;
-    v40 = v20;
-    v45 = v40;
-    v47 = buf;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __74__ACHBackCompatMonthlyChallengeListener__readAndSaveBackCompatDefinitions__block_invoke_2;
+    v43[3] = &unk_278491798;
+    v39 = v20;
+    v44 = v39;
+    v46 = buf;
     v24 = v21;
-    v46 = v24;
-    v25 = [allTemplates hk_map:v44];
+    v45 = v24;
+    v25 = [allTemplates hk_map:v43];
 
     v26 = MEMORY[0x277CCAC30];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __74__ACHBackCompatMonthlyChallengeListener__readAndSaveBackCompatDefinitions__block_invoke_4;
-    v42[3] = &unk_278491088;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __74__ACHBackCompatMonthlyChallengeListener__readAndSaveBackCompatDefinitions__block_invoke_4;
+    v41[3] = &unk_278491088;
     v27 = v24;
-    v43 = v27;
-    v28 = [v26 predicateWithBlock:v42];
+    v42 = v27;
+    v28 = [v26 predicateWithBlock:v41];
     v29 = [v17 filteredArrayUsingPredicate:v28];
 
-    if ([v25 count] && (-[ACHBackCompatMonthlyChallengeListener templateStore](self, "templateStore", v40), v30 = objc_claimAutoreleasedReturnValue(), v41 = 0, objc_msgSend(v30, "removeTemplates:error:", v25, &v41), v7 = v41, v30, v7))
+    if ([v25 count] && (-[ACHBackCompatMonthlyChallengeListener templateStore](self, "templateStore", v39), v30 = objc_claimAutoreleasedReturnValue(), v40 = 0, objc_msgSend(v30, "removeTemplates:error:", v25, &v40), v7 = v40, v30, v7))
     {
       templateStore2 = ACHLogDefault();
       if (os_log_type_enabled(templateStore2, OS_LOG_TYPE_DEFAULT))
       {
-        *v50 = 138412290;
-        v51 = v7;
-        _os_log_impl(&dword_221DDC000, templateStore2, OS_LOG_TYPE_DEFAULT, "Back compat monthly challenge listener failed to remove existing templates: %@", v50, 0xCu);
+        *v49 = 138412290;
+        v50 = v7;
+        _os_log_impl(&dword_221DDC000, templateStore2, OS_LOG_TYPE_DEFAULT, "Back compat monthly challenge listener failed to remove existing templates: %@", v49, 0xCu);
       }
 
       v32 = 0;
@@ -324,7 +324,6 @@ LABEL_34:
   v14 = 0;
 LABEL_35:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -467,11 +466,10 @@ id __71__ACHBackCompatMonthlyChallengeListener__definitionsFromKeyValuePairs___b
 
 - (void)_readAndSaveBackCompatDefinitions
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Failed to read legacy dynamic definitions from key value domain with error %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Failed to read legacy dynamic definitions from key value domain with error %{public}@", &v2, 0xCu);
 }
 
 @end

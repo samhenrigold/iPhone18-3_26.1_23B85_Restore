@@ -433,7 +433,7 @@ uint64_t __75__FCPersistentAssetKeyCache_activityObservingApplicationDidEnterBac
 
 - (void)_loadFromDisk
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v3 = [defaultManager fileExistsAtPath:*(self + 16)];
 
@@ -450,10 +450,10 @@ uint64_t __75__FCPersistentAssetKeyCache_activityObservingApplicationDidEnterBac
 
   v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:*(self + 16)];
   v6 = +[FCPersistentAssetKeyCache _persistenceCoder];
-  v27 = v5;
+  v26 = v5;
   v7 = [(FCPersistenceCoder *)v6 encodeData:v5];
 
-  v26 = v7;
+  v25 = v7;
   v8 = [objc_alloc(MEMORY[0x1E69B6E80]) initWithData:v7];
   v9 = objc_alloc(MEMORY[0x1E695DF90]);
   entries = [v8 entries];
@@ -461,41 +461,41 @@ uint64_t __75__FCPersistentAssetKeyCache_activityObservingApplicationDidEnterBac
   v12 = *(self + 24);
   *(self + 24) = v11;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
-  v25 = v8;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v24 = v8;
   entries2 = [v8 entries];
-  v14 = [entries2 countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v14 = [entries2 countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = MEMORY[0x1E69E9C10];
-    v17 = *v29;
+    v17 = *v28;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(entries2);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * i);
+        v19 = *(*(&v27 + 1) + 8 * i);
         v20 = [v19 key];
 
         if (!v20 && os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"WARNING: the persisted asset key cache should never contain an entry without a key"];
           value = 136315906;
-          v33 = "[FCPersistentAssetKeyCache _loadFromDisk]";
-          v34 = 2080;
-          v35 = "FCAssetKeyCache.m";
-          v36 = 1024;
-          v37 = 199;
-          v38 = 2114;
-          v39 = v23;
+          v32 = "[FCPersistentAssetKeyCache _loadFromDisk]";
+          v33 = 2080;
+          v34 = "FCAssetKeyCache.m";
+          v35 = 1024;
+          v36 = 199;
+          v37 = 2114;
+          v38 = v23;
           _os_log_error_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &value, 0x26u);
         }
 
@@ -504,13 +504,11 @@ uint64_t __75__FCPersistentAssetKeyCache_activityObservingApplicationDidEnterBac
         [v21 fc_safelySetObject:v19 forKey:v22];
       }
 
-      v15 = [entries2 countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v15 = [entries2 countByEnumeratingWithState:&v27 objects:v39 count:16];
     }
 
     while (v15);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_persistenceCoder
@@ -521,9 +519,9 @@ uint64_t __75__FCPersistentAssetKeyCache_activityObservingApplicationDidEnterBac
     dispatch_once(&qword_1EDB277C0, &__block_literal_global_22_1);
   }
 
-  v0 = _MergedGlobals_189;
+  v1 = _MergedGlobals_189;
 
-  return v0;
+  return v1;
 }
 
 void __40__FCPersistentAssetKeyCache__saveToDisk__block_invoke(uint64_t a1)
@@ -618,13 +616,13 @@ BOOL __40__FCPersistentAssetKeyCache__saveToDisk__block_invoke_3(uint64_t a1, ui
 
 void __46__FCPersistentAssetKeyCache__persistenceCoder__block_invoke()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6 = xmmword_1B681B4A0;
-  v7 = xmmword_1B681B490;
-  v5[0] = 0;
-  v5[1] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v5 = xmmword_1B681B4A0;
+  v6 = xmmword_1B681B490;
+  v4[0] = 0;
+  v4[1] = 0;
   v0 = FCDeviceUUIDForVendor();
-  [v0 getUUIDBytes:v5];
+  [v0 getUUIDBytes:v4];
 
   v1 = [MEMORY[0x1E695DF88] dataWithLength:64];
   ccsha512_di();
@@ -634,8 +632,6 @@ void __46__FCPersistentAssetKeyCache__persistenceCoder__block_invoke()
   v2 = [[FCPersistenceCoder alloc] initWithKey:v1];
   v3 = _MergedGlobals_189;
   _MergedGlobals_189 = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

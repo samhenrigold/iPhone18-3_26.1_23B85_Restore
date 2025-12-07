@@ -19,46 +19,44 @@
 - (void)setPearlErrorState:(BOOL)state
 {
   stateCopy = state;
-  v18 = *MEMORY[0x1E69E9840];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __40__AWUnitTestSampler_setPearlErrorState___block_invoke;
-  v10[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
+  v17 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __40__AWUnitTestSampler_setPearlErrorState___block_invoke;
+  v9[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
   stateCopy2 = state;
-  v4 = [(AWUnitTestSampler *)self invokeSampler:v10];
+  v4 = [(AWUnitTestSampler *)self invokeSampler:v9];
   if (v4 && currentLogLevel >= 3)
   {
     v5 = _AALog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = absTimeNS();
-      if (v7 == -1)
+      v6 = absTimeNS();
+      if (v6 == -1)
       {
-        v8 = INFINITY;
+        v7 = INFINITY;
       }
 
       else
       {
-        v8 = v7 / 1000000000.0;
+        v7 = v6 / 1000000000.0;
       }
 
-      v9 = "clear";
+      v8 = "clear";
       *buf = 134218498;
-      v13 = v8;
+      v12 = v7;
       if (stateCopy)
       {
-        v9 = "set";
+        v8 = "set";
       }
 
-      v14 = 2080;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v4;
+      v13 = 2080;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v4;
       _os_log_error_impl(&dword_1BB2EF000, v5, OS_LOG_TYPE_ERROR, "%13.5f: failed to %s error: %@", buf, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __40__AWUnitTestSampler_setPearlErrorState___block_invoke(uint64_t a1, void *a2)
@@ -98,46 +96,44 @@ void __40__AWUnitTestSampler_setPearlErrorState___block_invoke_2(uint64_t a1, vo
 - (void)setCarPlayConnected:(BOOL)connected
 {
   connectedCopy = connected;
-  v18 = *MEMORY[0x1E69E9840];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __41__AWUnitTestSampler_setCarPlayConnected___block_invoke;
-  v10[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
+  v17 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __41__AWUnitTestSampler_setCarPlayConnected___block_invoke;
+  v9[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
   connectedCopy2 = connected;
-  v4 = [(AWUnitTestSampler *)self invokeSampler:v10];
+  v4 = [(AWUnitTestSampler *)self invokeSampler:v9];
   if (v4 && currentLogLevel >= 3)
   {
     v5 = _AALog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = absTimeNS();
-      if (v7 == -1)
+      v6 = absTimeNS();
+      if (v6 == -1)
       {
-        v8 = INFINITY;
+        v7 = INFINITY;
       }
 
       else
       {
-        v8 = v7 / 1000000000.0;
+        v7 = v6 / 1000000000.0;
       }
 
-      v9 = "disconnected";
+      v8 = "disconnected";
       *buf = 134218498;
-      v13 = v8;
+      v12 = v7;
       if (connectedCopy)
       {
-        v9 = "connected";
+        v8 = "connected";
       }
 
-      v14 = 2080;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v4;
+      v13 = 2080;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v4;
       _os_log_error_impl(&dword_1BB2EF000, v5, OS_LOG_TYPE_ERROR, "%13.5f: failed to set CarPlay connected %s: %@", buf, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __41__AWUnitTestSampler_setCarPlayConnected___block_invoke(uint64_t a1, void *a2)
@@ -177,46 +173,44 @@ void __41__AWUnitTestSampler_setCarPlayConnected___block_invoke_2(uint64_t a1, v
 - (void)setSmartCoverClosed:(BOOL)closed
 {
   closedCopy = closed;
-  v18 = *MEMORY[0x1E69E9840];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __41__AWUnitTestSampler_setSmartCoverClosed___block_invoke;
-  v10[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
+  v17 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __41__AWUnitTestSampler_setSmartCoverClosed___block_invoke;
+  v9[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
   closedCopy2 = closed;
-  v4 = [(AWUnitTestSampler *)self invokeSampler:v10];
+  v4 = [(AWUnitTestSampler *)self invokeSampler:v9];
   if (v4 && currentLogLevel >= 3)
   {
     v5 = _AALog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = absTimeNS();
-      if (v7 == -1)
+      v6 = absTimeNS();
+      if (v6 == -1)
       {
-        v8 = INFINITY;
+        v7 = INFINITY;
       }
 
       else
       {
-        v8 = v7 / 1000000000.0;
+        v7 = v6 / 1000000000.0;
       }
 
-      v9 = "open";
+      v8 = "open";
       *buf = 134218498;
-      v13 = v8;
+      v12 = v7;
       if (closedCopy)
       {
-        v9 = "closed";
+        v8 = "closed";
       }
 
-      v14 = 2080;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v4;
+      v13 = 2080;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v4;
       _os_log_error_impl(&dword_1BB2EF000, v5, OS_LOG_TYPE_ERROR, "%13.5f: failed to set smart cover state %s: %@", buf, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __41__AWUnitTestSampler_setSmartCoverClosed___block_invoke(uint64_t a1, void *a2)
@@ -256,47 +250,45 @@ void __41__AWUnitTestSampler_setSmartCoverClosed___block_invoke_2(uint64_t a1, v
 - (void)setSampleState:(BOOL)state deliverEvent:(BOOL)event
 {
   stateCopy = state;
-  v20 = *MEMORY[0x1E69E9840];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __49__AWUnitTestSampler_setSampleState_deliverEvent___block_invoke;
-  v11[3] = &__block_descriptor_34_e38___NSError_16__0___AWUnitTestSampler__8l;
+  v19 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __49__AWUnitTestSampler_setSampleState_deliverEvent___block_invoke;
+  v10[3] = &__block_descriptor_34_e38___NSError_16__0___AWUnitTestSampler__8l;
   stateCopy2 = state;
   eventCopy = event;
-  v5 = [(AWUnitTestSampler *)self invokeSampler:v11];
+  v5 = [(AWUnitTestSampler *)self invokeSampler:v10];
   if (v5 && currentLogLevel >= 3)
   {
     v6 = _AALog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = absTimeNS();
-      if (v8 == -1)
+      v7 = absTimeNS();
+      if (v7 == -1)
       {
-        v9 = INFINITY;
+        v8 = INFINITY;
       }
 
       else
       {
-        v9 = v8 / 1000000000.0;
+        v8 = v7 / 1000000000.0;
       }
 
-      v10 = "absent";
+      v9 = "absent";
       *buf = 134218498;
-      v15 = v9;
+      v14 = v8;
       if (stateCopy)
       {
-        v10 = "present";
+        v9 = "present";
       }
 
-      v16 = 2080;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v5;
+      v15 = 2080;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v5;
       _os_log_error_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_ERROR, "%13.5f: failed to set sample state %s: %@", buf, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 id __49__AWUnitTestSampler_setSampleState_deliverEvent___block_invoke(uint64_t a1, void *a2)
@@ -337,46 +329,44 @@ void __49__AWUnitTestSampler_setSampleState_deliverEvent___block_invoke_2(uint64
 - (void)setSampleState:(BOOL)state
 {
   stateCopy = state;
-  v18 = *MEMORY[0x1E69E9840];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __36__AWUnitTestSampler_setSampleState___block_invoke;
-  v10[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
+  v17 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __36__AWUnitTestSampler_setSampleState___block_invoke;
+  v9[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
   stateCopy2 = state;
-  v4 = [(AWUnitTestSampler *)self invokeSampler:v10];
+  v4 = [(AWUnitTestSampler *)self invokeSampler:v9];
   if (v4 && currentLogLevel >= 3)
   {
     v5 = _AALog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = absTimeNS();
-      if (v7 == -1)
+      v6 = absTimeNS();
+      if (v6 == -1)
       {
-        v8 = INFINITY;
+        v7 = INFINITY;
       }
 
       else
       {
-        v8 = v7 / 1000000000.0;
+        v7 = v6 / 1000000000.0;
       }
 
-      v9 = "absent";
+      v8 = "absent";
       *buf = 134218498;
-      v13 = v8;
+      v12 = v7;
       if (stateCopy)
       {
-        v9 = "present";
+        v8 = "present";
       }
 
-      v14 = 2080;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v4;
+      v13 = 2080;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v4;
       _os_log_error_impl(&dword_1BB2EF000, v5, OS_LOG_TYPE_ERROR, "%13.5f: failed to set sample state %s: %@", buf, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __36__AWUnitTestSampler_setSampleState___block_invoke(uint64_t a1, void *a2)
@@ -416,46 +406,44 @@ void __36__AWUnitTestSampler_setSampleState___block_invoke_2(uint64_t a1, void *
 - (void)setDisplayState:(BOOL)state
 {
   stateCopy = state;
-  v18 = *MEMORY[0x1E69E9840];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __37__AWUnitTestSampler_setDisplayState___block_invoke;
-  v10[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
+  v17 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __37__AWUnitTestSampler_setDisplayState___block_invoke;
+  v9[3] = &__block_descriptor_33_e38___NSError_16__0___AWUnitTestSampler__8l;
   stateCopy2 = state;
-  v4 = [(AWUnitTestSampler *)self invokeSampler:v10];
+  v4 = [(AWUnitTestSampler *)self invokeSampler:v9];
   if (v4 && currentLogLevel >= 3)
   {
     v5 = _AALog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = absTimeNS();
-      if (v7 == -1)
+      v6 = absTimeNS();
+      if (v6 == -1)
       {
-        v8 = INFINITY;
+        v7 = INFINITY;
       }
 
       else
       {
-        v8 = v7 / 1000000000.0;
+        v7 = v6 / 1000000000.0;
       }
 
-      v9 = "off";
+      v8 = "off";
       *buf = 134218498;
-      v13 = v8;
+      v12 = v7;
       if (stateCopy)
       {
-        v9 = "on";
+        v8 = "on";
       }
 
-      v14 = 2080;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v4;
+      v13 = 2080;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v4;
       _os_log_error_impl(&dword_1BB2EF000, v5, OS_LOG_TYPE_ERROR, "%13.5f: failed to set display state %s: %@", buf, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __37__AWUnitTestSampler_setDisplayState___block_invoke(uint64_t a1, void *a2)
@@ -494,7 +482,7 @@ void __37__AWUnitTestSampler_setDisplayState___block_invoke_2(uint64_t a1, void 
 
 - (void)resetStats
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [(AWUnitTestSampler *)self invokeSampler:&__block_literal_global_1646];
   if (v2)
   {
@@ -511,63 +499,61 @@ void __37__AWUnitTestSampler_setDisplayState___block_invoke_2(uint64_t a1, void 
     v4 = _AALog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = absTimeNS();
-      if (v6 == -1)
+      v5 = absTimeNS();
+      if (v5 == -1)
       {
-        v7 = INFINITY;
+        v6 = INFINITY;
       }
 
       else
       {
-        v7 = v6 / 1000000000.0;
+        v6 = v5 / 1000000000.0;
       }
 
-      v8 = 134218242;
-      v9 = v7;
-      v10 = 2112;
-      v11 = v2;
-      _os_log_error_impl(&dword_1BB2EF000, v4, OS_LOG_TYPE_ERROR, "%13.5f: failed to reset unit test sampler stats: %@", &v8, 0x16u);
+      v7 = 134218242;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v2;
+      _os_log_error_impl(&dword_1BB2EF000, v4, OS_LOG_TYPE_ERROR, "%13.5f: failed to reset unit test sampler stats: %@", &v7, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStatsWithBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3810000000;
-  v15 = &unk_1BB3357FB;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3810000000;
+  v14 = &unk_1BB3357FB;
+  v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __39__AWUnitTestSampler_getStatsWithBlock___block_invoke;
-  v11[3] = &unk_1E7F37A70;
-  v11[4] = &v12;
-  v5 = [(AWUnitTestSampler *)self invokeSampler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __39__AWUnitTestSampler_getStatsWithBlock___block_invoke;
+  v10[3] = &unk_1E7F37A70;
+  v10[4] = &v11;
+  v5 = [(AWUnitTestSampler *)self invokeSampler:v10];
   if (v5 && currentLogLevel >= 3)
   {
     v6 = _AALog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = absTimeNS();
-      if (v9 == -1)
+      v8 = absTimeNS();
+      if (v8 == -1)
       {
-        v10 = INFINITY;
+        v9 = INFINITY;
       }
 
       else
       {
-        v10 = v9 / 1000000000.0;
+        v9 = v8 / 1000000000.0;
       }
 
       *buf = 134218242;
-      *&buf[4] = v10;
+      *&buf[4] = v9;
       *&buf[12] = 2112;
       *&buf[14] = v5;
       _os_log_error_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_ERROR, "%13.5f: failed to get unit test sampler stats: %@", buf, 0x16u);
@@ -575,12 +561,11 @@ void __37__AWUnitTestSampler_setDisplayState___block_invoke_2(uint64_t a1, void 
   }
 
   v7 = blockCopy[2];
-  *buf = *(v13 + 2);
-  *&buf[16] = v13[6];
+  *buf = *(v12 + 2);
+  *&buf[16] = v12[6];
   v7(blockCopy, buf);
 
-  _Block_object_dispose(&v12, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v11, 8);
 }
 
 uint64_t __39__AWUnitTestSampler_getStatsWithBlock___block_invoke(uint64_t a1, void *a2)
@@ -631,13 +616,13 @@ __n128 __39__AWUnitTestSampler_getStatsWithBlock___block_invoke_2(uint64_t a1, _
 
 void __35__AWUnitTestSampler_invokeSampler___block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x1E69E9840];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__1630;
-  v40 = __Block_byref_object_dispose__1631;
-  v41 = 0;
+  v51 = *MEMORY[0x1E69E9840];
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__1630;
+  v39 = __Block_byref_object_dispose__1631;
+  v40 = 0;
   v2 = *(*(a1 + 32) + 8);
   if (!v2)
   {
@@ -650,12 +635,12 @@ void __35__AWUnitTestSampler_invokeSampler___block_invoke(uint64_t a1)
   v6 = 1;
   while (1)
   {
-    v35[0] = v4;
-    v35[1] = 3221225472;
-    v35[2] = __35__AWUnitTestSampler_invokeSampler___block_invoke_2;
-    v35[3] = v5;
-    v35[4] = &v36;
-    v7 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v35];
+    v34[0] = v4;
+    v34[1] = 3221225472;
+    v34[2] = __35__AWUnitTestSampler_invokeSampler___block_invoke_2;
+    v34[3] = v5;
+    v34[4] = &v35;
+    v7 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v34];
     v8 = (*(*(a1 + 40) + 16))();
     v9 = *(*(a1 + 48) + 8);
     v10 = *(v9 + 40);
@@ -666,7 +651,7 @@ void __35__AWUnitTestSampler_invokeSampler___block_invoke(uint64_t a1)
       break;
     }
 
-    v11 = v37[5];
+    v11 = v36[5];
     if (!v11)
     {
       break;
@@ -688,19 +673,19 @@ void __35__AWUnitTestSampler_invokeSampler___block_invoke(uint64_t a1)
           v24 = v23 / 1000000000.0;
         }
 
-        v25 = v37[5];
+        v25 = v36[5];
         *buf = 134218242;
-        v45 = v24;
-        v46 = 2112;
-        *v47 = v25;
+        v44 = v24;
+        v45 = 2112;
+        *v46 = v25;
         _os_log_error_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_ERROR, "%13.5f: XPC proxy error: %@", buf, 0x16u);
       }
 
-      v11 = v37[5];
+      v11 = v36[5];
     }
 
     v13 = [v11 domain];
-    if (v13 != v3 || [v37[5] code] != 4099)
+    if (v13 != v3 || [v36[5] code] != 4099)
     {
 LABEL_34:
 
@@ -748,8 +733,8 @@ LABEL_18:
       }
 
 LABEL_21:
-      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed: %@", v14];
-      v21 = v34;
+      v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed: %@", v14];
+      v21 = v33;
     }
 
     else
@@ -765,15 +750,15 @@ LABEL_23:
     }
 
     *buf = 136316162;
-    v45 = *&v17;
-    v46 = 1024;
-    *v47 = 91;
-    *&v47[4] = 2048;
-    *&v47[6] = v20;
-    v48 = 1024;
-    v49 = 1;
-    v50 = 2112;
-    v51 = v21;
+    v44 = *&v17;
+    v45 = 1024;
+    *v46 = 91;
+    *&v46[4] = 2048;
+    *&v46[6] = v20;
+    v47 = 1024;
+    v48 = 1;
+    v49 = 2112;
+    v50 = v21;
     _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: XPC proxy invalid: reconnect %u %@", buf, 0x2Cu);
     v5 = v16;
     if (v14)
@@ -783,8 +768,8 @@ LABEL_23:
 LABEL_26:
 
 LABEL_27:
-    v22 = v37[5];
-    v37[5] = 0;
+    v22 = v36[5];
+    v36[5] = 0;
 
     v6 = 0;
     v2 = *(*(a1 + 32) + 8);
@@ -792,9 +777,9 @@ LABEL_27:
     {
 LABEL_33:
       v26 = MEMORY[0x1E696ABC0];
-      v42 = *MEMORY[0x1E696A578];
-      v43 = @" Not connected to server";
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = *MEMORY[0x1E696A578];
+      v42 = @" Not connected to server";
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       v27 = [v26 errorWithDomain:*MEMORY[0x1E696A798] code:57 userInfo:v7];
       v28 = *(*(a1 + 48) + 8);
       v13 = *(v28 + 40);
@@ -808,16 +793,14 @@ LABEL_33:
   v30 = (v29 + 40);
   if (!v31)
   {
-    v32 = v37[5];
+    v32 = v36[5];
     if (v32)
     {
       objc_storeStrong(v30, v32);
     }
   }
 
-  _Block_object_dispose(&v36, 8);
-
-  v33 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v35, 8);
 }
 
 - (id)connect
@@ -886,22 +869,21 @@ uint64_t __29__AWUnitTestSampler__connect__block_invoke(uint64_t a1, void *a2)
 
 void __34__AWUnitTestSampler_sharedSampler__block_invoke(uint64_t a1)
 {
-  v2 = objc_alloc_init(AWUnitTestSampler);
-  v3 = sharedSampler_sampler;
-  sharedSampler_sampler = v2;
+  v1 = objc_alloc_init(AWUnitTestSampler);
+  v2 = sharedSampler_sampler;
+  sharedSampler_sampler = v1;
 
-  v4 = [sharedSampler_sampler _connect];
-  if (v4)
+  v3 = [sharedSampler_sampler _connect];
+  if (v3)
   {
-    v5 = MEMORY[0x1E695DF30];
-    v6 = *MEMORY[0x1E696A790];
-    v10 = v4;
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    [v5 raise:v6 format:{@"%@ sharedSampler not available", v9}];
+    v4 = MEMORY[0x1E695DF30];
+    v5 = *MEMORY[0x1E696A790];
+    v8 = v3;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    [v4 raise:v5 format:{@"%@ sharedSampler not available", v7}];
 
-    v4 = v10;
+    v3 = v8;
   }
 }
 

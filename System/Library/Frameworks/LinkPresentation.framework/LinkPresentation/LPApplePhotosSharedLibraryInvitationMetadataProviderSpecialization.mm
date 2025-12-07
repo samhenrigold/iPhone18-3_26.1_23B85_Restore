@@ -35,114 +35,115 @@
 
 void __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__2;
-    v28 = __Block_byref_object_dispose__2;
-    v29 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2050000000;
-    v7 = getPHShareParticipantClass_softClass;
-    v33 = getPHShareParticipantClass_softClass;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy__2;
+    v31 = __Block_byref_object_dispose__2;
+    v32 = 0;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2050000000;
+    v8 = getPHShareParticipantClass_softClass;
+    v36 = getPHShareParticipantClass_softClass;
     if (!getPHShareParticipantClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
-      v35 = 3221225472;
-      v36 = __getPHShareParticipantClass_block_invoke;
-      v37 = &unk_1E7A35518;
-      v38 = &v30;
+      v38 = 3221225472;
+      v39 = __getPHShareParticipantClass_block_invoke;
+      v40 = &unk_1E7A35518;
+      v41 = &v33;
       __getPHShareParticipantClass_block_invoke(buf);
-      v7 = v31[3];
+      v8 = v34[3];
     }
 
-    v8 = v7;
-    _Block_object_dispose(&v30, 8);
-    v9 = [v7 fetchParticipantsInShare:v5 options:*(a1 + 48)];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke_5;
-    v23[3] = &unk_1E7A36380;
-    v23[4] = &v24;
-    [v9 enumerateObjectsUsingBlock:v23];
-    v10 = v25[5];
-    if (!v10)
+    v9 = v8;
+    _Block_object_dispose(&v33, 8);
+    v10 = [v8 fetchParticipantsInShare:v5 options:*(a1 + 48)];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke_5;
+    v26[3] = &unk_1E7A36380;
+    v26[4] = &v27;
+    v11 = [v10 enumerateObjectsUsingBlock:v26];
+    v12 = v28[5];
+    if (!v12)
     {
-      v16 = sharedLibraryLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = sharedLibraryLog(v11);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v17 = [v5 localIdentifier];
-        __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke_cold_2(v17, buf, v16);
+        v19 = [v5 localIdentifier];
+        __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke_cold_2(v19, buf, v18);
       }
 
       [*(a1 + 40) completeWithOriginatorDisplayName:0];
       goto LABEL_21;
     }
 
-    v11 = v10;
-    v12 = [v11 nameComponents];
-    if (v12)
+    v13 = v12;
+    v14 = [v13 nameComponents];
+    if (v14)
     {
-      v13 = objc_alloc_init(MEMORY[0x1E696ADF8]);
-      [v13 setStyle:1];
-      v14 = [v13 stringFromPersonNameComponents:v12];
+      v15 = objc_alloc_init(MEMORY[0x1E696ADF8]);
+      [v15 setStyle:1];
+      v16 = [v15 stringFromPersonNameComponents:v14];
     }
 
     else
     {
-      v13 = [v11 emailAddress];
-      if (![v13 length])
+      v15 = [v13 emailAddress];
+      if (![v15 length])
       {
-        v22 = [v11 phoneNumber];
-        if ([v22 length])
+        v25 = [v13 phoneNumber];
+        if ([v25 length])
         {
-          v18 = v22;
+          v20 = v25;
         }
 
         else
         {
-          v18 = 0;
+          v20 = 0;
         }
 
         goto LABEL_16;
       }
 
-      v14 = v13;
-      v13 = v14;
+      v16 = v15;
+      v15 = v16;
     }
 
-    v18 = v14;
+    v20 = v16;
 LABEL_16:
 
-    if (!v18)
+    if (!v20)
     {
-      v19 = sharedLibraryLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = sharedLibraryLog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v20 = [v25[5] localIdentifier];
-        v21 = [v5 localIdentifier];
-        __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke_cold_1(v20, v21, buf, v19);
+        v23 = [v28[5] localIdentifier];
+        v24 = [v5 localIdentifier];
+        __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke_cold_1(v23, v24, buf, v22);
       }
     }
 
-    [*(a1 + 40) completeWithOriginatorDisplayName:v18];
+    [*(a1 + 40) completeWithOriginatorDisplayName:v20];
 
 LABEL_21:
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v27, 8);
 
     goto LABEL_22;
   }
 
-  v15 = sharedLibraryLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v17 = sharedLibraryLog(v6);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke_cold_3(a1, v6, v15);
+    __75__LPApplePhotosSharedLibraryInvitationMetadataProviderSpecialization_start__block_invoke_cold_3(a1, v7, v17);
   }
 
   [*(a1 + 40) completeWithOriginatorDisplayName:0];

@@ -124,7 +124,7 @@ id __50__FCNotificationPayloadOperation_performOperation__block_invoke_2(uint64_
 
 uint64_t __50__FCNotificationPayloadOperation_performOperation__block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
@@ -132,11 +132,11 @@ uint64_t __50__FCNotificationPayloadOperation_performOperation__block_invoke_3(u
     v6 = *(a1 + 32);
     v7 = v5;
     v8 = [v6 shortOperationDescription];
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2048;
-    v16 = [v4 count];
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will finish with %lu notification payloads", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2048;
+    v15 = [v4 count];
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will finish with %lu notification payloads", &v12, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -153,7 +153,6 @@ uint64_t __50__FCNotificationPayloadOperation_performOperation__block_invoke_3(u
 
   [v10 finishedPerformingOperationWithError:0];
 
-  v11 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -192,7 +191,7 @@ uint64_t __50__FCNotificationPayloadOperation_performOperation__block_invoke_3(u
 
 void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -211,7 +210,7 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
     {
       v11 = [*(a1 + 32) shortOperationDescription];
       v12 = *(a1 + 32);
-      v35 = v6;
+      v34 = v6;
       if (v12)
       {
         v12 = v12[48];
@@ -228,14 +227,14 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
       v16 = v15;
       v17 = [v16 fc_arrayByTransformingWithBlock:&__block_literal_global_20_2];
       *buf = 138543874;
-      v50 = v11;
-      v51 = 2048;
-      v52 = v14;
-      v53 = 2114;
-      v54 = v17;
+      v49 = v11;
+      v50 = 2048;
+      v51 = v14;
+      v52 = 2114;
+      v53 = v17;
       _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch payloads for %lu notification items: %{public}@@", buf, 0x20u);
 
-      v6 = v35;
+      v6 = v34;
     }
 
     v18 = objc_alloc_init(FCCKMultiFetchQueryOperation);
@@ -255,20 +254,20 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
     [(FCCKMultiFetchQueryOperation *)v18 setDatabase:v22];
 
     v23 = MEMORY[0x1E695DEC8];
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_23;
-    v45[3] = &unk_1E7C36D40;
-    v46 = v9;
-    v24 = [v23 fc_array:v45];
-    [(FCCKMultiFetchQueryOperation *)v18 setRecordIDs:v24];
-
     v44[0] = MEMORY[0x1E69E9820];
     v44[1] = 3221225472;
-    v44[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_3_27;
+    v44[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_23;
     v44[3] = &unk_1E7C36D40;
-    v44[4] = *(a1 + 32);
-    v25 = [MEMORY[0x1E695DEC8] fc_array:v44];
+    v45 = v9;
+    v24 = [v23 fc_array:v44];
+    [(FCCKMultiFetchQueryOperation *)v18 setRecordIDs:v24];
+
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_3_27;
+    v43[3] = &unk_1E7C36D40;
+    v43[4] = *(a1 + 32);
+    v25 = [MEMORY[0x1E695DEC8] fc_array:v43];
     [(FCCKMultiFetchQueryOperation *)v18 setRecordSpecs:v25];
 
     v26 = objc_opt_new();
@@ -277,28 +276,28 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
     newValue[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_4_30;
     newValue[3] = &unk_1E7C37FE0;
     v28 = v26;
-    v43 = v28;
+    v42 = v28;
     if (v18)
     {
       objc_setProperty_nonatomic_copy(v18, v27, newValue, 440);
     }
 
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_5;
-    v36[3] = &unk_1E7C47F90;
-    v40 = v6;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_5;
+    v35[3] = &unk_1E7C47F90;
+    v39 = v6;
     v29 = *(a1 + 32);
     v30 = *(a1 + 40);
-    v37 = v28;
-    v38 = v29;
-    v39 = v30;
-    v41 = v5;
+    v36 = v28;
+    v37 = v29;
+    v38 = v30;
+    v40 = v5;
     v31 = v5;
     v33 = v28;
     if (v18)
     {
-      objc_setProperty_nonatomic_copy(v18, v32, v36, 448);
+      objc_setProperty_nonatomic_copy(v18, v32, v35, 448);
     }
 
     [*(a1 + 32) associateChildOperation:v18];
@@ -307,36 +306,32 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
 
   else
   {
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_4;
-    v47[3] = &unk_1E7C37BC0;
-    v47[4] = *(a1 + 32);
-    v48 = v5;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_4;
+    v46[3] = &unk_1E7C37BC0;
+    v46[4] = *(a1 + 32);
+    v47 = v5;
     v18 = v5;
-    __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_4(v47);
+    __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_4(v46);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_4(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will end early because there are no notification items", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will end early because there are no notification items", &v7, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_23(uint64_t a1, void *a2)
@@ -362,7 +357,7 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
 
 void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_3_27(uint64_t a1, void *a2)
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
   v6 = v4;
@@ -371,8 +366,8 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
     objc_setProperty_nonatomic_copy(v4, v5, @"NotificationItem", 16);
   }
 
-  v46[0] = @"body";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
+  v45[0] = @"body";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
   v9 = v7;
   if (v6)
   {
@@ -412,9 +407,9 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
     objc_setProperty_nonatomic_copy(v13, v18, v19, 24);
   }
 
-  v45[0] = @"sourceChannelTagID";
-  v45[1] = @"parentIssueID";
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+  v44[0] = @"sourceChannelTagID";
+  v44[1] = @"parentIssueID";
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
   if (v13)
   {
     objc_setProperty_nonatomic_copy(v13, v20, v21, 32);
@@ -489,8 +484,6 @@ void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfig
   }
 
   [v3 addObject:v35];
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
@@ -703,7 +696,7 @@ FCNotificationPayload *__80__FCNotificationPayloadOperation__promiseNotification
 
 uint64_t __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_12(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -711,20 +704,19 @@ uint64_t __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithCo
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     v6 = [*(a1 + 40) articleID];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ omitting payload for notification item because it has no headline, articleID=%{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ omitting payload for notification item because it has no headline, articleID=%{public}@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithConfiguration___block_invoke_43(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -732,14 +724,13 @@ uint64_t __80__FCNotificationPayloadOperation__promiseNotificationPayloadsWithCo
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     v6 = [*(a1 + 40) articleID];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ omitting payload for notification item because it has no body text, articleID=%{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ omitting payload for notification item because it has no body text, articleID=%{public}@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

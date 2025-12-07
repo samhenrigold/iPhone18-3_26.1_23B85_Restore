@@ -368,8 +368,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
@@ -412,7 +410,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "key=%@ property=%@ (%{public}s)", v12, 0x20u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -462,7 +459,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   }
 
   MEMORY[0x1E69E5920](v9);
-  *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -502,7 +498,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   }
 
   MEMORY[0x1E69E5920](v7);
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -543,7 +538,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   }
 
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNotificationBlock:(id)block
@@ -583,7 +577,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   }
 
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNotificationBlock:(id)block forProperties:(id)properties
@@ -616,7 +609,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   }
 
   [(BrightnessSystemClientInternal *)self->bsci registerNotificationBlock:block forProperties:properties];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNotificationForKey:(id)key
@@ -652,8 +644,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   {
     [(BrightnessSystemClientInternal *)self->bsci addPropertyForNotification:key];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterNotificationForKey:(id)key
@@ -689,8 +679,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   {
     [(BrightnessSystemClientInternal *)self->bsci removePropertyFromNotification:key];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNotificationForKeys:(id)keys
@@ -726,8 +714,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   {
     [(BrightnessSystemClientInternal *)self->bsci addPropertiesForNotification:keys];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterNotificationForKeys:(id)keys
@@ -763,8 +749,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   {
     [(BrightnessSystemClientInternal *)self->bsci removePropertiesFromNotification:keys];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNotificationForKeys:(id)keys andDisplay:(unint64_t)display
@@ -804,7 +788,6 @@ void __30__BrightnessSystemClient_init__block_invoke(uint64_t a1, void *a2, uint
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
 }
 
 double __65__BrightnessSystemClient_registerNotificationForKeys_andDisplay___block_invoke(uint64_t a1, uint64_t a2)
@@ -857,7 +840,6 @@ double __65__BrightnessSystemClient_registerNotificationForKeys_andDisplay___blo
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
 }
 
 double __67__BrightnessSystemClient_unregisterNotificationForKeys_andDisplay___block_invoke(uint64_t a1, uint64_t a2)
@@ -909,7 +891,6 @@ double __67__BrightnessSystemClient_unregisterNotificationForKeys_andDisplay___b
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterNotificationForKey:(id)key andDisplay:(unint64_t)display
@@ -948,7 +929,6 @@ double __67__BrightnessSystemClient_unregisterNotificationForKeys_andDisplay___b
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property withKey:(id)key keyboardID:(unint64_t)d
@@ -997,7 +977,6 @@ double __67__BrightnessSystemClient_unregisterNotificationForKeys_andDisplay___b
   }
 
   MEMORY[0x1E69E5920](v9);
-  *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1037,7 +1016,6 @@ double __67__BrightnessSystemClient_unregisterNotificationForKeys_andDisplay___b
   }
 
   MEMORY[0x1E69E5920](v7);
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1078,7 +1056,6 @@ double __67__BrightnessSystemClient_unregisterNotificationForKeys_andDisplay___b
   }
 
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNotificationForKeys:(id)keys keyboardID:(unint64_t)d
@@ -1118,7 +1095,6 @@ double __67__BrightnessSystemClient_unregisterNotificationForKeys_andDisplay___b
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
 }
 
 double __65__BrightnessSystemClient_registerNotificationForKeys_keyboardID___block_invoke(uint64_t a1, uint64_t a2)
@@ -1171,7 +1147,6 @@ double __65__BrightnessSystemClient_registerNotificationForKeys_keyboardID___blo
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
 }
 
 double __67__BrightnessSystemClient_unregisterNotificationForKeys_keyboardID___block_invoke(uint64_t a1, uint64_t a2)

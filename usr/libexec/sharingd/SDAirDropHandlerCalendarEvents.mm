@@ -168,7 +168,7 @@ LABEL_13:
 
 - (id)importURLsWithError:(id *)error
 {
-  off_100970DB0[0]();
+  off_100970DB0(self, a2);
   v4 = objc_opt_new();
   v26 = 0u;
   v27 = 0u;

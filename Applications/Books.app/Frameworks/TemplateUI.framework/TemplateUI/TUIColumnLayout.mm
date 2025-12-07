@@ -32,7 +32,7 @@
   }
 
   v20 = layoutAncestor;
-  v7 = [(TUILayout *)self box];
+  v7 = objc_msgSend_box(self);
   columnSpan = [v7 columnSpan];
   v9 = [v20 columnLayoutProviderColumnSpanForColumnSpan:columnSpan];
 
@@ -40,7 +40,7 @@
   {
     if ((v6 & 1) == 0)
     {
-      v10 = [(TUILayout *)self box];
+      v10 = objc_msgSend_box(self);
       [v10 containerFraction];
       v9 = [v20 columnLayoutProviderColumnsForContainerFraction:?];
 
@@ -68,12 +68,12 @@ LABEL_11:
 
   v11 = NAN;
 LABEL_18:
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v15 = objc_msgSend_children(self);
+  firstObject = [v15 firstObject];
 
   [firstObject setContainingWidth:v11];
-  [firstObject validateLayout];
-  [firstObject computedTransformedSize];
+  objc_msgSend_validateLayout(firstObject);
+  objc_msgSend_computedTransformedSize(firstObject);
   v18 = v17;
   [firstObject setComputedOrigin:{(v11 - v19) * 0.5, 0.0}];
   [(TUILayout *)self setComputedNaturalSize:v11, v18];

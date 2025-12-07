@@ -344,7 +344,7 @@ void __47__WGWidgetListFooterView_setVisibleWidgetsIDs___block_invoke_2(uint64_t
 {
   height = fits.height;
   width = fits.width;
-  v44 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   _referenceFont = [(WGWidgetListFooterView *)self _referenceFont];
   [_referenceFont _scaledValueForValue:12.0];
   v8 = v7;
@@ -380,51 +380,51 @@ void __47__WGWidgetListFooterView_setVisibleWidgetsIDs___block_invoke_2(uint64_t
   }
 
   v20 = v17 + v14;
+  v43 = 0u;
+  v44 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   allValues = [(NSMutableDictionary *)self->_widgetIDsToAttributionViews allValues];
-  v22 = [allValues countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v22 = [allValues countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v40;
+    v24 = *v42;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v40 != v24)
+        if (*v42 != v24)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v26 = *(*(&v39 + 1) + 8 * i);
-        [v26 layoutIfNeeded];
-        WGMainScreenReferenceBounds();
-        [v26 sizeThatFits:{v27 + -40.0, 0.0}];
-        v29 = v28;
+        v26 = *(*(&v41 + 1) + 8 * i);
+        layoutIfNeeded = [v26 layoutIfNeeded];
+        WGMainScreenReferenceBounds(layoutIfNeeded, v28);
+        [v26 sizeThatFits:{v29 + -40.0, 0.0}];
+        v31 = v30;
         [v26 textContainerInset];
-        v31 = v29 - v30;
-        [_referenceFont lineHeight];
         v33 = v31 - v32;
+        [_referenceFont lineHeight];
+        v35 = v33 - v34;
         [v26 textContainerInset];
-        v20 = v20 + v33 - v34;
+        v20 = v20 + v35 - v36;
       }
 
-      v23 = [allValues countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v23 = [allValues countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
     while (v23);
   }
 
   [_referenceFont _scaledValueForValue:5.5];
-  v36 = v35;
+  v38 = v37;
 
-  v37 = v20 + v36;
-  v38 = width;
-  result.height = v37;
-  result.width = v38;
+  v39 = v20 + v38;
+  v40 = width;
+  result.height = v39;
+  result.width = v40;
   return result;
 }
 
@@ -440,10 +440,10 @@ void __47__WGWidgetListFooterView_setVisibleWidgetsIDs___block_invoke_2(uint64_t
 
 - (void)layoutSubviews
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v74.receiver = self;
-  v74.super_class = WGWidgetListFooterView;
-  [(WGWidgetListFooterView *)&v74 layoutSubviews];
+  v84 = *MEMORY[0x277D85DE8];
+  v82.receiver = self;
+  v82.super_class = WGWidgetListFooterView;
+  [(WGWidgetListFooterView *)&v82 layoutSubviews];
   [(WGWidgetListFooterView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -453,114 +453,114 @@ void __47__WGWidgetListFooterView_setVisibleWidgetsIDs___block_invoke_2(uint64_t
   [_referenceFont _scaledValueForValue:12.0];
   v13 = v12;
 
-  v69 = v13;
+  v77 = v13;
   if (self->_shouldSizeContent)
   {
     [(UIView *)self->_contentView setFrame:v4, v6, v8, v10];
   }
 
   [(WGShortLookStyleButton *)self->_editButton sizeToFit];
-  [(WGShortLookStyleButton *)self->_editButton bounds];
-  v66 = _WGMainScreenScale();
+  bounds = [(WGShortLookStyleButton *)self->_editButton bounds];
+  v74 = _WGMainScreenScale(bounds, v15);
   UIRectCenteredIntegralRectScale();
-  v15 = v14;
-  [(WGShortLookStyleButton *)self->_editButton setFrame:*&v66];
-  v16 = v8;
-  [(UIButton *)self->_customizeButton setFrame:0.0, v69, v8, 20.0];
+  v17 = v16;
+  [(WGShortLookStyleButton *)self->_editButton setFrame:*&v74];
+  v18 = v8;
+  [(UIButton *)self->_customizeButton setFrame:0.0, v77, v8, 20.0];
   _referenceFont2 = [(WGWidgetListFooterView *)self _referenceFont];
-  [_referenceFont2 _scaledValueForValue:v15];
-  v19 = v69 + v18;
+  [_referenceFont2 _scaledValueForValue:v17];
+  v21 = v77 + v20;
 
   widgetAvailableButton = self->_widgetAvailableButton;
   if (widgetAvailableButton && [(WGNewWidgetsButton *)widgetAvailableButton badgeNumber])
   {
     [(WGNewWidgetsButton *)self->_widgetAvailableButton sizeToFit];
-    [(WGNewWidgetsButton *)self->_widgetAvailableButton size];
-    WGMainScreenReferenceBounds();
+    v23 = [(WGNewWidgetsButton *)self->_widgetAvailableButton size];
+    WGMainScreenReferenceBounds(v23, v24);
     [(WGNewWidgetsButton *)self->_widgetAvailableButton size];
     BSRectWithSize();
-    [(WGNewWidgetsButton *)self->_widgetAvailableButton frame];
-    v22 = v19 + v21;
-    v67 = _WGMainScreenScale();
+    frame = [(WGNewWidgetsButton *)self->_widgetAvailableButton frame];
+    v27 = v21 + v26;
+    v75 = _WGMainScreenScale(frame, v28);
     UIRectCenteredIntegralRectScale();
-    v24 = v23;
-    v26 = v25;
-    v28 = v27;
+    v30 = v29;
+    v32 = v31;
+    v34 = v33;
     _referenceFont3 = [(WGWidgetListFooterView *)self _referenceFont];
-    [_referenceFont3 _scaledValueForValue:v22];
-    v31 = v30;
+    [_referenceFont3 _scaledValueForValue:v27];
+    v37 = v36;
     _referenceFont4 = [(WGWidgetListFooterView *)self _referenceFont];
     [_referenceFont4 ascender];
-    v34 = v31 - v33;
+    v40 = v37 - v39;
 
-    [(WGNewWidgetsButton *)self->_widgetAvailableButton setFrame:v24, v34, v26, v28];
-    v19 = v22 + 22.0;
+    [(WGNewWidgetsButton *)self->_widgetAvailableButton setFrame:v30, v40, v32, v34];
+    v21 = v27 + 22.0;
   }
 
   if ([(NSMutableDictionary *)self->_widgetIDsToAttributionViews count])
   {
     _referenceFont5 = [(WGWidgetListFooterView *)self _referenceFont];
     [_referenceFont5 _scaledValueForValue:7.0];
-    v19 = v19 + v36;
+    v21 = v21 + v42;
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v37 = +[WGWidgetAttributionView widgetAttributionIDsInOrder];
-  v38 = [v37 countByEnumeratingWithState:&v70 objects:v75 count:16];
-  if (v38)
+  v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v43 = +[WGWidgetAttributionView widgetAttributionIDsInOrder];
+  v44 = [v43 countByEnumeratingWithState:&v78 objects:v83 count:16];
+  if (v44)
   {
-    v39 = v38;
-    v40 = *v71;
+    v45 = v44;
+    v46 = *v79;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v45; ++i)
       {
-        if (*v71 != v40)
+        if (*v79 != v46)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v43);
         }
 
-        v42 = [(NSMutableDictionary *)self->_widgetIDsToAttributionViews objectForKey:*(*(&v70 + 1) + 8 * i)];
-        if (v42)
+        v48 = [(NSMutableDictionary *)self->_widgetIDsToAttributionViews objectForKey:*(*(&v78 + 1) + 8 * i)];
+        if (v48)
         {
           _referenceFont6 = [(WGWidgetListFooterView *)self _referenceFont];
           [_referenceFont6 _scaledValueForValue:15.0];
-          v45 = v19 + v44;
+          v51 = v21 + v50;
 
-          [v42 sizeThatFits:{v16 + -40.0, 0.0}];
-          BSRectWithSize();
-          v68 = _WGMainScreenScale();
+          [v48 sizeThatFits:{v18 + -40.0, 0.0}];
+          v52 = BSRectWithSize();
+          v76 = _WGMainScreenScale(v52, v53);
           UIRectCenteredIntegralRectScale();
-          v47 = v46;
-          v49 = v48;
-          v51 = v50;
+          v55 = v54;
+          v57 = v56;
+          v59 = v58;
           _referenceFont7 = [(WGWidgetListFooterView *)self _referenceFont];
-          [_referenceFont7 _scaledValueForValue:v45];
-          v54 = v53;
+          [_referenceFont7 _scaledValueForValue:v51];
+          v62 = v61;
           _referenceFont8 = [(WGWidgetListFooterView *)self _referenceFont];
           [_referenceFont8 ascender];
-          v57 = v54 - v56;
+          v65 = v62 - v64;
 
-          [v42 setFrame:{v47, v57, v49, v51}];
-          [v42 bounds];
-          v59 = v58;
-          [v42 textContainerInset];
-          v61 = v59 - v60;
+          [v48 setFrame:{v55, v65, v57, v59}];
+          [v48 bounds];
+          v67 = v66;
+          [v48 textContainerInset];
+          v69 = v67 - v68;
           _referenceFont9 = [(WGWidgetListFooterView *)self _referenceFont];
           [_referenceFont9 lineHeight];
-          v64 = v61 - v63;
-          [v42 textContainerInset];
-          v19 = v45 + v64 - v65;
+          v72 = v69 - v71;
+          [v48 textContainerInset];
+          v21 = v51 + v72 - v73;
         }
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v70 objects:v75 count:16];
+      v45 = [v43 countByEnumeratingWithState:&v78 objects:v83 count:16];
     }
 
-    while (v39);
+    while (v45);
   }
 }
 

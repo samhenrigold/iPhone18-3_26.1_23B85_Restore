@@ -7,46 +7,46 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = *(*arguments + 8);
-  v36 = 0;
-  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 1, &v36);
-  v11 = v36;
-  v35[0] = objc_msgSend_decimalRepresentation(v10, v12, v13, v14, v15);
-  v35[1] = v16;
+  v31 = 0;
+  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 1, &v31);
+  v11 = v31;
+  v30[0] = objc_msgSend_decimalRepresentation(v10, v12, v13, v14);
+  v30[1] = v15;
   if (v11)
   {
-    v19 = objc_msgSend_raiseErrorOrConvert_(context, v16, v11, v17, v18);
+    v17 = objc_msgSend_raiseErrorOrConvert_(context, v15, v11, v16);
   }
 
   else
   {
-    v20 = **arguments;
-    v34 = 0;
-    v21 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v20, v16, context, spec, 0, 1, &v34);
-    v11 = v34;
+    v18 = **arguments;
+    v29 = 0;
+    v19 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v18, v15, context, spec, 0, 1, &v29);
+    v11 = v29;
     if (v11)
     {
-      v19 = objc_msgSend_raiseErrorOrConvert_(context, v22, v11, v23, v24);
+      v17 = objc_msgSend_raiseErrorOrConvert_(context, v20, v11, v21);
     }
 
     else
     {
-      v19 = objc_msgSend_computeWithVector_functionSpec_vector_percentile_isExclusive_ignoreError_(TSCEFunction_PERCENTILE, v22, context, spec, v21, v35, 1, 0);
-      if (v21)
+      v17 = objc_msgSend_computeWithVector_functionSpec_vector_percentile_isExclusive_ignoreError_(TSCEFunction_PERCENTILE, v20, context, spec, v19, v30, 1, 0);
+      if (v19)
       {
-        objc_msgSend_formatWithContext_(v21, v25, context, v26, v27);
+        objc_msgSend_formatWithContext_(v19, v22, context, v23);
       }
 
       else
       {
-        memset(&v32, 0, sizeof(v32));
+        memset(&v27, 0, sizeof(v27));
       }
 
-      TSCEFormat::TSCEFormat(&v33, &v32);
-      objc_msgSend_setFormat_(v19, v28, &v33, v29, v30);
+      TSCEFormat::TSCEFormat(&v28, &v27);
+      objc_msgSend_setFormat_(v17, v24, &v28, v25);
     }
   }
 
-  return v19;
+  return v17;
 }
 
 @end

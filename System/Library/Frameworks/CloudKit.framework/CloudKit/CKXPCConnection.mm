@@ -39,7 +39,7 @@
 
 - (NSXPCConnection)connection
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = selfCopy->_connection;
@@ -75,26 +75,26 @@
     v5 = objc_msgSend_initWithMachServiceName_options_(v14, v15, v6, 0);
 
     objc_initWeak(&location, selfCopy);
-    v51[0] = 0;
-    v51[1] = v51;
-    v51[2] = 0x2020000000;
-    v51[3] = v5;
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = sub_1885AF9DC;
-    v49[3] = &unk_1E70BEA20;
-    objc_copyWeak(&v50, &location);
-    v49[4] = v51;
-    objc_msgSend_setInterruptionHandler_(v5, v16, v49);
-    v42 = MEMORY[0x1E69E9820];
-    v43 = 3221225472;
-    v44 = sub_1885AFB58;
-    v45 = &unk_1E70BEA48;
-    objc_copyWeak(&v48, &location);
-    v46 = selfCopy;
-    v47 = v51;
-    objc_msgSend_setInvalidationHandler_(v5, v17, &v42);
-    v20 = objc_msgSend_CKXPCClientToDaemonMuxerInterface(CKXPCConnection, v18, v19, v42, v43, v44, v45);
+    v50[0] = 0;
+    v50[1] = v50;
+    v50[2] = 0x2020000000;
+    v50[3] = v5;
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = sub_1885AF9DC;
+    v48[3] = &unk_1E70BEA20;
+    objc_copyWeak(&v49, &location);
+    v48[4] = v50;
+    objc_msgSend_setInterruptionHandler_(v5, v16, v48);
+    v41 = MEMORY[0x1E69E9820];
+    v42 = 3221225472;
+    v43 = sub_1885AFB58;
+    v44 = &unk_1E70BEA48;
+    objc_copyWeak(&v47, &location);
+    v45 = selfCopy;
+    v46 = v50;
+    objc_msgSend_setInvalidationHandler_(v5, v17, &v41);
+    v20 = objc_msgSend_CKXPCClientToDaemonMuxerInterface(CKXPCConnection, v18, v19, v41, v42, v43, v44);
     objc_msgSend_setRemoteObjectInterface_(v5, v21, v20);
 
     v24 = objc_msgSend_CKXPCDaemonToClientMuxerInterface(CKXPCConnection, v22, v23);
@@ -110,7 +110,7 @@
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v54 = v5;
+      v53 = v5;
       _os_log_impl(&dword_1883EA000, v27, OS_LOG_TYPE_INFO, "Created a new connection: %@", buf, 0xCu);
     }
 
@@ -124,15 +124,13 @@
     v38 = objc_msgSend_remoteObjectProxy(v5, v36, v37);
     objc_msgSend_noteClientProcessScopedMetadata_(v38, v39, v35);
 
-    objc_destroyWeak(&v48);
-    objc_destroyWeak(&v50);
-    _Block_object_dispose(v51, 8);
+    objc_destroyWeak(&v47);
+    objc_destroyWeak(&v49);
+    _Block_object_dispose(v50, 8);
     objc_destroyWeak(&location);
   }
 
   objc_sync_exit(selfCopy);
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -187,13 +185,13 @@
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   if (selfCopy)
   {
     invalidationCompletionHandlers = selfCopy->_invalidationCompletionHandlers;
@@ -205,35 +203,34 @@
   }
 
   v4 = invalidationCompletionHandlers;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v12, v16, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v11, v15, 16);
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v8++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v8++) + 16))();
       }
 
       while (v6 != v8);
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v9, &v12, v16, 16);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v9, &v11, v15, 16);
     }
 
     while (v6);
   }
 
   objc_sync_exit(selfCopy);
-  v11.receiver = selfCopy;
-  v11.super_class = CKXPCConnection;
-  [(CKXPCConnection *)&v11 dealloc];
-  v10 = *MEMORY[0x1E69E9840];
+  v10.receiver = selfCopy;
+  v10.super_class = CKXPCConnection;
+  [(CKXPCConnection *)&v10 dealloc];
 }
 
 - (int)processIdentifier
@@ -346,7 +343,7 @@
 {
   synchronousCopy = synchronous;
   handlerCopy = handler;
-  if ((__sTestOverridesAvailable[0] & 1) == 0)
+  if ((__sTestOverridesAvailable & 1) == 0)
   {
     v15 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v7, v8);
     objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v15, v16, a2, self, @"CKXPCConnection.m", 126, @"Test hooks aren't supported in this process");

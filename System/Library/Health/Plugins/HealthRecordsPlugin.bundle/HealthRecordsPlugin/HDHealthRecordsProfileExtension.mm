@@ -660,7 +660,7 @@
     v12 = HKLogNotifications;
     if (os_log_type_enabled(HKLogNotifications, OS_LOG_TYPE_ERROR))
     {
-      sub_A28EC(v12);
+      sub_A28EC(v12, self, action);
     }
   }
 
@@ -733,7 +733,7 @@
 
     else if (os_log_type_enabled(HKLogNotifications, OS_LOG_TYPE_ERROR))
     {
-      sub_A299C(v18);
+      sub_A299C(v18, self);
     }
   }
 
@@ -741,7 +741,7 @@
   {
     if (os_log_type_enabled(HKLogNotifications, OS_LOG_TYPE_ERROR))
     {
-      sub_A2A40(v8);
+      sub_A2A40(v8, self);
     }
 
     v17 = v7;

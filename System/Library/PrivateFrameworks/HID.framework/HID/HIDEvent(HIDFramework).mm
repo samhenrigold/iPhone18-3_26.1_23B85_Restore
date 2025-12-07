@@ -11,32 +11,29 @@
 
 - (void)initWithType:()HIDFramework timestamp:senderID:
 {
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = IOHIDEventCreate();
+  v6 = IOHIDEventCreate();
 
-  if (v3)
+  if (v6)
   {
     IOHIDEventSetSenderID();
-    v4 = v3;
+    v7 = v6;
   }
 
-  return v3;
+  return v6;
 }
 
 - (uint64_t)initWithData:()HIDFramework
 {
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = IOHIDEventCreateWithData();
+  v4 = IOHIDEventCreateWithData();
 
-  return v3;
+  return v4;
 }
 
 - (uint64_t)initWithBytes:()HIDFramework length:
 {
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = IOHIDEventCreateWithBytes();
+  v5 = IOHIDEventCreateWithBytes();
 
-  return v3;
+  return v5;
 }
 
 - (uint64_t)isEqual:()HIDFramework
@@ -77,7 +74,6 @@
 
   else
   {
-    v6 = *MEMORY[0x277CBECE8];
     Data = IOHIDEventCreateData();
     if (!a4)
     {
@@ -97,40 +93,36 @@ LABEL_7:
 
 - (void)removeAllEvents
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
   children = [self children];
-  v2 = [children countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [children countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v9;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(children);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
         IOHIDEventRemoveEvent();
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [children countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [children countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

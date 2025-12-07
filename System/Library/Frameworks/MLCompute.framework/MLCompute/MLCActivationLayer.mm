@@ -21,6 +21,7 @@
 + (MLCActivationLayer)seluLayer;
 + (MLCActivationLayer)sigmoidLayer;
 + (MLCActivationLayer)softPlusLayer;
++ (MLCActivationLayer)softPlusLayerWithBeta:(float)beta;
 + (MLCActivationLayer)softShrinkLayer;
 + (MLCActivationLayer)softShrinkLayerWithA:(float)a;
 + (MLCActivationLayer)softSignLayer;
@@ -119,6 +120,15 @@
   LODWORD(v2) = 1.0;
   LODWORD(v3) = 1.0;
   v5 = [MLCActivationDescriptor descriptorWithType:7 a:v2 b:v3];
+  v6 = [[self alloc] initWithDescriptor:v5];
+
+  return v6;
+}
+
++ (MLCActivationLayer)softPlusLayerWithBeta:(float)beta
+{
+  *&v4 = 1.0 / beta;
+  v5 = [MLCActivationDescriptor descriptorWithType:7 a:v4 b:?];
   v6 = [[self alloc] initWithDescriptor:v5];
 
   return v6;
@@ -291,7 +301,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -305,13 +315,13 @@
     v23 = +[MLCLog framework];
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v32 = NSStringFromSelector(a2);
+      v31 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v36 = v32;
-      v37 = 1024;
-      v38 = dataType;
-      v39 = 2112;
-      v40 = deviceCopy;
+      v35 = v31;
+      v36 = 1024;
+      v37 = dataType;
+      v38 = 2112;
+      v39 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v23, OS_LOG_TYPE_ERROR, "%@: activation layer with data type = %d is not supported on a device = %@", buf, 0x1Cu);
     }
 
@@ -323,14 +333,14 @@
 
   if (v17)
   {
-    v34 = 0;
+    v33 = 0;
     *buf = 0;
     fusedLayers2 = [(MLCLayer *)self fusedLayers];
     v19 = [fusedLayers2 mutableCopy];
 
-    if ([MLCPatternMatcher canTransformToReLUNFromLayer:self stopGradientTensorList:0 fusedLayers:v19 alpha:buf beta:&v34])
+    if ([MLCPatternMatcher canTransformToReLUNFromLayer:self stopGradientTensorList:0 fusedLayers:v19 alpha:buf beta:&v33])
     {
-      LODWORD(v21) = v34;
+      LODWORD(v21) = v33;
       LODWORD(v20) = *buf;
       v22 = [MLCActivationDescriptor descriptorWithType:10 a:v20 b:v21];
     }
@@ -387,12 +397,11 @@ LABEL_20:
   computeEngine2 = [deviceCopy computeEngine];
   v28 = [computeEngine2 compileLayerDeviceOps:v19 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-  v33.receiver = self;
-  v33.super_class = MLCActivationLayer;
-  [(MLCLayer *)&v33 bindDevice:deviceCopy deviceOps:v19];
+  v32.receiver = self;
+  v32.super_class = MLCActivationLayer;
+  [(MLCLayer *)&v32 bindDevice:deviceCopy deviceOps:v19];
 
 LABEL_21:
-  v30 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -474,22 +483,16 @@ LABEL_21:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v2, v3, "%@: failure to create deviceOps=%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v2, v3, "%@: failure to create deviceOps=%@", v4, v5, v6, v7);
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.2(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v2, v3, "%@: failure to create deviceOps=%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v2, v3, "%@: failure to create deviceOps=%@", v4, v5, v6, v7);
 }
 
 @end

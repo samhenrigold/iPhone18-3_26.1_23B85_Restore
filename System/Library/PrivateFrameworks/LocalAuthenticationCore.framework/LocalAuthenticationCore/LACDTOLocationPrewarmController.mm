@@ -57,37 +57,38 @@ void __77__LACDTOLocationPrewarmController_notificationCenter_didReceiveNotifica
 - (void)prewarmWithCompletion:(id)completion
 {
   completionCopy = completion;
+  v5 = completionCopy;
   if (self->_running)
   {
-    v5 = LACLogDTOLocation();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = LACLogDTOLocation(completionCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [LACDTOLocationPrewarmController prewarmWithCompletion:v5];
+      [LACDTOLocationPrewarmController prewarmWithCompletion:v6];
     }
 
-    completionCopy[2](completionCopy, 1);
+    v5[2](v5, 1);
   }
 
   else
   {
     self->_running = 1;
-    objc_initWeak(&location, self);
-    v6 = LACLogDTOLocation();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(&location, self);
+    v8 = LACLogDTOLocation(inited);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Will start location prewarm", buf, 2u);
+      _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "Will start location prewarm", buf, 2u);
     }
 
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __57__LACDTOLocationPrewarmController_prewarmWithCompletion___block_invoke;
-    v7[3] = &unk_1E7A977A8;
-    objc_copyWeak(&v9, &location);
-    v8 = completionCopy;
-    [(LACDTOLocationPrewarmController *)self _prewarmWithCompletion:v7];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __57__LACDTOLocationPrewarmController_prewarmWithCompletion___block_invoke;
+    v9[3] = &unk_1E7A977A8;
+    objc_copyWeak(&v11, &location);
+    v10 = v5;
+    [(LACDTOLocationPrewarmController *)self _prewarmWithCompletion:v9];
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
 }
@@ -96,22 +97,21 @@ void __57__LACDTOLocationPrewarmController_prewarmWithCompletion___block_invoke(
 {
   v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = LACLogDTOLocation();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LACLogDTOLocation(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = NSStringFromLACDTOLocationPrewarmResult(a2);
+      v7 = NSStringFromLACDTOLocationPrewarmResult(a2);
       v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "Did finish location prewarm with result: %{public}@", &v8, 0xCu);
+      v9 = v7;
+      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Did finish location prewarm with result: %{public}@", &v8, 0xCu);
     }
 
-    WeakRetained[8] = 0;
+    v5[8] = 0;
     (*(*(a1 + 32) + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_prewarmWithCompletion:(id)completion

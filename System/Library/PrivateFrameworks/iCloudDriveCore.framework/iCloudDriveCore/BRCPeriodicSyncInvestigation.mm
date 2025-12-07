@@ -51,11 +51,10 @@
 
 - (void)startInvestigation
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] starting periodic sync investigation%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] starting periodic sync investigation%@", &v2, 0xCu);
 }
 
 - (void)addEditingDevice:(id)device
@@ -190,10 +189,81 @@ uint64_t __60__BRCPeriodicSyncInvestigation__shouldCompleteInvestigation__block_
 
 - (void)completeInvestigation
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] These are the zones with no real changes: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_investigationStarted)
+  {
+    obj->_investigationStarted = 0;
+    allObjects = [(NSMutableSet *)obj->_editingDevices allObjects];
+    editingDevices = obj->_editingDevices;
+    obj->_editingDevices = 0;
+
+    allObjects2 = [(NSMutableSet *)obj->_zonesWithNoRealChanges allObjects];
+    zonesWithNoRealChanges = obj->_zonesWithNoRealChanges;
+    obj->_zonesWithNoRealChanges = 0;
+
+    objc_sync_exit(obj);
+    if (allObjects)
+    {
+      v6 = brc_bread_crumbs();
+      v7 = brc_default_log();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      {
+        [BRCPeriodicSyncInvestigation completeInvestigation];
+      }
+    }
+
+    if (allObjects2)
+    {
+      v8 = brc_bread_crumbs();
+      v9 = brc_default_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      {
+        [BRCPeriodicSyncInvestigation completeInvestigation];
+      }
+    }
+
+    zonesOutOfSync = obj->_zonesOutOfSync;
+    if ([allObjects2 count] == zonesOutOfSync)
+    {
+      goto LABEL_20;
+    }
+
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CFABD0] code:162 userInfo:0];
+    if (allObjects)
+    {
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@" Please collect sysdiagnose from these devices if you own them: %@.\n", allObjects];
+      if (allObjects2)
+      {
+LABEL_13:
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu zone(s) with no real changes.", objc_msgSend(allObjects2, "count")];
+LABEL_19:
+        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Found zones not synced with the server.\n%@%@", v12, v13];
+        [(BRCTapToRadarManager *)obj->_tapToRadarManager requestTapToRadarWithTitle:@"[Periodic Sync] Found zones not synced with the server" description:v14 keywords:MEMORY[0x277CBEBF8] attachments:MEMORY[0x277CBEBF8] sendFullLog:1 displayReason:@"Found zones not synced with the server" triggerRootCause:v11 additionalDevices:allObjects];
+
+LABEL_20:
+        analyticsReporter = obj->_analyticsReporter;
+        v16 = +[AppTelemetryTimeSeriesEvent newMissingPushEventWithZonesOutOfSync:zonesType:zonesWithNoRealChanges:](AppTelemetryTimeSeriesEvent, "newMissingPushEventWithZonesOutOfSync:zonesType:zonesWithNoRealChanges:", obj->_zonesOutOfSync, obj->_zonesType, [allObjects2 count]);
+        [(BRCAnalyticsReporter *)analyticsReporter postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v16];
+
+        return;
+      }
+    }
+
+    else
+    {
+      v12 = &stru_2837504F0;
+      if (allObjects2)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    v13 = &stru_2837504F0;
+    goto LABEL_19;
+  }
+
+  objc_sync_exit(obj);
 }
 
 - (void)completeInvestigationIfNecessaryWithOldSyncState:(unsigned int)state newSyncState:(unsigned int)syncState

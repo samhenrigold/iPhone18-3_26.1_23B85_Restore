@@ -14,9 +14,9 @@
     +[NSXPCInterface(AuthenticationServicesExtras) _as_credentialProviderHostInterface];
   }
 
-  v1 = _as_credentialProviderHostInterface_interface;
+  v2 = _as_credentialProviderHostInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 + (id)_as_credentialProviderExtensionInterface
@@ -26,9 +26,9 @@
     +[NSXPCInterface(AuthenticationServicesExtras) _as_credentialProviderExtensionInterface];
   }
 
-  v1 = _as_credentialProviderExtensionInterface_interface;
+  v2 = _as_credentialProviderExtensionInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 + (id)_as_accountModificationHostInterface
@@ -38,9 +38,9 @@
     +[NSXPCInterface(AuthenticationServicesExtras) _as_accountModificationHostInterface];
   }
 
-  v1 = _as_accountModificationHostInterface_interface;
+  v2 = _as_accountModificationHostInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 + (id)_as_accountModificationExtensionInterface
@@ -50,9 +50,9 @@
     +[NSXPCInterface(AuthenticationServicesExtras) _as_accountModificationExtensionInterface];
   }
 
-  v1 = _as_accountModificationExtensionInterface_interface;
+  v2 = _as_accountModificationExtensionInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 @end

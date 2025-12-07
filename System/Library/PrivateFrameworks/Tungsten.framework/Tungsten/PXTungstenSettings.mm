@@ -6,7 +6,7 @@
 
 + (PXTungstenSettings)sharedInstance
 {
-  v2 = sub_21AD5CE18();
+  v2 = sub_21AD5CE18(self);
 
   return v2;
 }

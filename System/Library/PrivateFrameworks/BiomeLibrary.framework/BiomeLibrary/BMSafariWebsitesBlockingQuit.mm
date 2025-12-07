@@ -56,26 +56,26 @@ LABEL_9:
 
 - (id)jsonDictionary
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   domain = [(BMSafariWebsitesBlockingQuit *)self domain];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSafariWebsitesBlockingQuit blockingReason](self, "blockingReason")}];
-  v10[0] = @"domain";
+  v9[0] = @"domain";
   null = domain;
   if (!domain)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"blockingReason";
-  v11[0] = null;
+  v9[1] = @"blockingReason";
+  v10[0] = null;
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (v4)
   {
     if (domain)
@@ -94,14 +94,13 @@ LABEL_9:
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (BMSafariWebsitesBlockingQuit)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"domain"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -118,10 +117,10 @@ LABEL_7:
 
       v12 = objc_alloc(MEMORY[0x1E696ABC0]);
       v13 = *MEMORY[0x1E698F240];
-      v24 = *MEMORY[0x1E696A578];
+      v23 = *MEMORY[0x1E696A578];
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"domain"];
-      v25[0] = v10;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v24[0] = v10;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       v14 = [v12 initWithDomain:v13 code:2 userInfo:v9];
       v8 = 0;
       selfCopy = 0;
@@ -153,13 +152,13 @@ LABEL_7:
       {
         if (error)
         {
-          v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v19 = *MEMORY[0x1E698F240];
-          v22 = *MEMORY[0x1E696A578];
-          v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"blockingReason"];
-          v23 = v20;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-          *error = [v18 initWithDomain:v19 code:2 userInfo:v21];
+          v17 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v18 = *MEMORY[0x1E698F240];
+          v21 = *MEMORY[0x1E696A578];
+          v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"blockingReason"];
+          v22 = v19;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+          *error = [v17 initWithDomain:v18 code:2 userInfo:v20];
         }
 
         v10 = 0;
@@ -183,7 +182,6 @@ LABEL_7:
 LABEL_17:
 
 LABEL_18:
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -204,7 +202,6 @@ LABEL_18:
     PBDataWriterWriteStringField();
   }
 
-  blockingReason = self->_blockingReason;
   PBDataWriterWriteUint32Field();
 }
 
@@ -375,28 +372,24 @@ LABEL_39:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"domain" number:1 type:13 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"blockingReason" number:2 type:4 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"domain" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"blockingReason" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

@@ -87,7 +87,7 @@
 - (id)featuresInImage:(id)image options:(id)options
 {
   v76[1] = *MEMORY[0x1E69E9840];
-  v7 = ci_signpost_log_detector();
+  v7 = ci_signpost_log_detector(self, a2);
   if (&self->super.super.isa + 1 >= 2)
   {
     v12 = v7;
@@ -373,21 +373,21 @@ LABEL_58:
   }
 
 LABEL_59:
-  v71(v70);
+  (v71)(v70);
   return image;
 }
 
-void __47__CIRectangleDetector_featuresInImage_options___block_invoke(uint64_t a1)
+void __47__CIRectangleDetector_featuresInImage_options___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = ci_signpost_log_detector();
-  v3 = *(a1 + 32);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v5 = ci_signpost_log_detector(a1, a2);
+  v6 = *(a1 + 32);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v7 = v5;
+    if (os_signpost_enabled(v5))
     {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "CIRectangleDetector", &unk_19CFBCBAE, v5, 2u);
+      *v8 = 0;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v7, OS_SIGNPOST_INTERVAL_END, v6, "CIRectangleDetector", &unk_19CFBCBAE, v8, 2u);
     }
   }
 }

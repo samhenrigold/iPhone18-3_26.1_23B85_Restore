@@ -60,7 +60,7 @@
     while (begin != p_end_node);
   }
 
-  std::__tree<VKPolylineGroupOverlay * {__strong}>::destroy(self->_observedGroupsSet.__tree_.__end_node_.__left_);
+  std::__tree<VKPolylineGroupOverlay * {__strong}>::destroy(self->_observedGroupsSet.__tree_.__end_node_.__left_, a2);
   self->_observedGroupsSet.__tree_.__end_node_.__left_ = 0;
   self->_observedGroupsSet.__tree_.__size_ = 0;
   self->_observedGroupsSet.__tree_.__begin_node_ = p_end_node;

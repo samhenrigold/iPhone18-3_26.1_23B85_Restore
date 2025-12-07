@@ -11,7 +11,7 @@
 
 + (id)appleCardIcon
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (appleCardIcon_onceToken != -1)
   {
     +[AMSUICardMetadata appleCardIcon];
@@ -35,24 +35,24 @@
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Checking for card icon", buf, 0x16u);
   }
 
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2050000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2050000000;
   v6 = getPKVirtualCardClass_softClass;
-  v20 = getPKVirtualCardClass_softClass;
+  v19 = getPKVirtualCardClass_softClass;
   if (!getPKVirtualCardClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getPKVirtualCardClass_block_invoke;
-    v22 = &unk_1E7F241B0;
-    v23 = &v17;
+    v21 = &unk_1E7F241B0;
+    v22 = &v16;
     __getPKVirtualCardClass_block_invoke(buf);
-    v6 = v18[3];
+    v6 = v17[3];
   }
 
   v7 = v6;
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
   v8 = objc_alloc_init(v6);
   v9 = v8;
   if (v8)
@@ -83,49 +83,44 @@
     cardIcon = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return cardIcon;
 }
 
 void __34__AMSUICardMetadata_appleCardIcon__block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!PassKitUIFoundationLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __PassKitUIFoundationLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E7F24840;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __PassKitUIFoundationLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E7F24840;
+    v3 = 0;
     PassKitUIFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (PassKitUIFoundationLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (id)appleCardIconString
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   appleCardIcon = [self appleCardIcon];
   v3 = UIImagePNGRepresentation(appleCardIcon);
   v4 = v3;
@@ -150,16 +145,14 @@ LABEL_4:
       v10 = v9;
       v11 = AMSSetLogKeyIfNeeded();
       *buf = 138543618;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v11;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v11;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch card icon", buf, 0x16u);
     }
 
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -195,11 +188,11 @@ void __98__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtw
 
 + (id)metadataForPassTypeIdentifier:(id)identifier serialNumber:(id)number cardArtworkSize:(id)size
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   numberCopy = number;
   sizeCopy = size;
-  v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v10 = AMSSetLogKeyIfNeeded();
   v11 = [self _passesForPassTypeIdentifier:identifierCopy serialNumber:numberCopy];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
@@ -216,49 +209,47 @@ void __98__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtw
     v16 = v14;
     v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
     *buf = 138543874;
-    v33 = v14;
-    v34 = 2114;
-    v35 = v10;
-    v36 = 2114;
-    v37 = v17;
+    v32 = v14;
+    v33 = 2114;
+    v34 = v10;
+    v35 = 2114;
+    v36 = v17;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Found %{public}@ payment passes", buf, 0x20u);
   }
 
   objc_initWeak(buf, self);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtworkSize___block_invoke;
-  v27[3] = &unk_1E7F24820;
-  objc_copyWeak(&v31, buf);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtworkSize___block_invoke;
+  v26[3] = &unk_1E7F24820;
+  objc_copyWeak(&v30, buf);
   v18 = sizeCopy;
-  v28 = v18;
+  v27 = v18;
   v19 = v10;
-  v29 = v19;
-  v20 = v25;
-  v30 = v20;
-  [v11 enumerateObjectsUsingBlock:v27];
+  v28 = v19;
+  v20 = v24;
+  v29 = v20;
+  [v11 enumerateObjectsUsingBlock:v26];
   v21 = [v20 copy];
 
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(buf);
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 void __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtworkSize___block_invoke(uint64_t a1, void *a2)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = objc_alloc_init(MEMORY[0x1E698C850]);
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__0;
-  v52 = __Block_byref_object_dispose__0;
-  v53 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__0;
+  v51 = __Block_byref_object_dispose__0;
+  v52 = 0;
   [*(a1 + 32) floatValue];
   if (v6 <= 0.0)
   {
@@ -288,8 +279,8 @@ void __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtw
     if ([MEMORY[0x1E696AF00] isMainThread])
     {
       v8 = [WeakRetained _cardArtworkForPaymentPass:v3 width:v7];
-      v9 = v49[5];
-      v49[5] = v8;
+      v9 = v48[5];
+      v48[5] = v8;
     }
 
     else
@@ -298,20 +289,20 @@ void __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtw
       block[1] = 3221225472;
       block[2] = __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtworkSize___block_invoke_22;
       block[3] = &unk_1E7F247F8;
-      v46 = &v48;
+      v45 = &v47;
       block[4] = WeakRetained;
-      v45 = v3;
-      v47 = v7;
+      v44 = v3;
+      v46 = v7;
       dispatch_sync(MEMORY[0x1E69E96A0], block);
     }
 
-    v15 = v49[5];
+    v15 = v48[5];
     if (v15)
     {
       v10 = [v15 base64EncodedStringWithOptions:1];
       v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"data:image/pngbase64, %@", v10];;
       [v5 setCardArtwork:v11];
-      [v5 setCardArtworkData:v49[5]];
+      [v5 setCardArtworkData:v48[5]];
     }
 
     else
@@ -346,24 +337,24 @@ void __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtw
   v21 = [v3 passTypeIdentifier];
   [v5 setPassTypeIdentifier:v21];
 
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2050000000;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2050000000;
   v22 = getPKPaymentPassClass_softClass;
-  v57 = getPKPaymentPassClass_softClass;
+  v56 = getPKPaymentPassClass_softClass;
   if (!getPKPaymentPassClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getPKPaymentPassClass_block_invoke;
-    v59 = &unk_1E7F241B0;
-    v60 = &v54;
+    v58 = &unk_1E7F241B0;
+    v59 = &v53;
     __getPKPaymentPassClass_block_invoke(buf);
-    v22 = v55[3];
+    v22 = v54[3];
   }
 
   v23 = v22;
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v53, 8);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -458,9 +449,7 @@ void __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtw
   [v5 setPaymentNetwork:{objc_msgSend(v42, "paymentNetworkIdentifier")}];
 
   [*(a1 + 48) addObject:v5];
-  _Block_object_dispose(&v48, 8);
-
-  v43 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v47, 8);
 }
 
 uint64_t __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_cardArtworkSize___block_invoke_22(uint64_t a1)
@@ -470,12 +459,12 @@ uint64_t __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_card
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 + (id)_cardArtworkForPaymentPass:(id)pass width:(double)width
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   passCopy = pass;
   if (_cardArtworkForPaymentPass_width__onceToken != -1)
   {
@@ -503,80 +492,75 @@ uint64_t __80__AMSUICardMetadata_metadataForPassTypeIdentifier_serialNumber_card
       v11 = objc_opt_class();
       v12 = v11;
       v13 = AMSSetLogKeyIfNeeded();
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2114;
-      v19 = v13;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to obtain card artwork", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2114;
+      v18 = v13;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to obtain card artwork", &v15, 0x16u);
     }
 
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 void __54__AMSUICardMetadata__cardArtworkForPaymentPass_width___block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!PassKitUILibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __PassKitUILibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E7F24870;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __PassKitUILibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E7F24870;
+    v3 = 0;
     PassKitUILibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (PassKitUILibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_passesForPassTypeIdentifier:(id)identifier serialNumber:(id)number
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   numberCopy = number;
   v7 = AMSSetLogKeyIfNeeded();
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2050000000;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2050000000;
   v8 = getPKPassLibraryClass_softClass;
-  v33 = getPKPassLibraryClass_softClass;
+  v32 = getPKPassLibraryClass_softClass;
   if (!getPKPassLibraryClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getPKPassLibraryClass_block_invoke;
-    v36 = &unk_1E7F241B0;
-    v37 = &v30;
+    v35 = &unk_1E7F241B0;
+    v36 = &v29;
     __getPKPassLibraryClass_block_invoke(buf);
-    v8 = v31[3];
+    v8 = v30[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v29, 8);
   v10 = objc_alloc_init(v8);
   if (identifierCopy)
   {
@@ -614,8 +598,8 @@ LABEL_4:
     v19 = v18;
     if (v18)
     {
-      v34 = v18;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+      v33 = v18;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
     }
 
     else
@@ -663,8 +647,6 @@ LABEL_4:
 
     v20 = [v10 passesOfType:1];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

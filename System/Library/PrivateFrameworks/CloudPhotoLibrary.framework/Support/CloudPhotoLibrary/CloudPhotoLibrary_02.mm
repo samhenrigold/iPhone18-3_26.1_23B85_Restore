@@ -2,10 +2,9 @@ void sub_100072CD8(uint64_t a1, uint64_t a2, int a3)
 {
   if (a2 || !a3)
   {
-    v10 = *(a1 + 48);
-    v11 = *(*(a1 + 48) + 16);
+    v10 = *(*(a1 + 48) + 16);
 
-    v11();
+    v10();
   }
 
   else
@@ -16,13 +15,13 @@ void sub_100072CD8(uint64_t a1, uint64_t a2, int a3)
     v7 = [v4 initWithZoneName:v5 ownerName:v6];
 
     v8 = *(a1 + 56);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100072E04;
-    v12[3] = &unk_100275890;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100072E04;
+    v11[3] = &unk_100275890;
     v9 = *(a1 + 40);
-    v13 = *(a1 + 48);
-    [v9 _fetchZoneForZoneID:v7 operationType:v8 completionHandler:v12];
+    v12 = *(a1 + 48);
+    [v9 _fetchZoneForZoneID:v7 operationType:v8 completionHandler:v11];
   }
 }
 
@@ -71,9 +70,9 @@ void sub_100072FA0(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_100073174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100073174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -115,61 +114,59 @@ void sub_1000737A0(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 72);
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 72) + 16);
+    v3 = *(*(a1 + 72) + 16);
 
-    v5();
+    v3();
     return;
   }
 
   if ([*(a1 + 40) count])
   {
-    v6 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v7 = *(a1 + 48);
-    v8 = [v7 countByEnumeratingWithState:&v36 objects:v44 count:16];
-    if (v8)
+    v4 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
+    v32 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v5 = *(a1 + 48);
+    v6 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    if (v6)
     {
-      v9 = v8;
-      v10 = *v37;
-      v11 = 1;
+      v7 = v6;
+      v8 = *v33;
+      v9 = 1;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v37 != v10)
+          if (*v33 != v8)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v5);
           }
 
-          v13 = *(*(&v36 + 1) + 8 * i);
-          v14 = [*(a1 + 64) _recordWithRecordID:v13 usingRealRecords:*(a1 + 56) remappedRecordIDs:*(a1 + 40) wantsAllRecords:*(a1 + 80)];
-          if (v14)
+          v11 = *(*(&v32 + 1) + 8 * i);
+          v12 = [*(a1 + 64) _recordWithRecordID:v11 usingRealRecords:*(a1 + 56) remappedRecordIDs:*(a1 + 40) wantsAllRecords:*(a1 + 80)];
+          if (v12)
           {
-            [v6 setObject:v14 forKeyedSubscript:v13];
+            [v4 setObject:v12 forKeyedSubscript:v11];
           }
 
           else
           {
-            v11 = 0;
+            v9 = 0;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
-      while (v9);
+      while (v7);
 
-      if (!(v11 & 1 | ((*(a1 + 80) & 1) == 0)))
+      if (!(v9 & 1 | ((*(a1 + 80) & 1) == 0)))
       {
-        v15 = *(a1 + 72);
-        v16 = *(a1 + 32);
-        v17 = [CPLErrors cplErrorWithCode:25 description:@"Record not found"];
-        (*(v15 + 16))(v15, 0, v16, v17);
+        v13 = *(a1 + 72);
+        v14 = *(a1 + 32);
+        v15 = [CPLErrors cplErrorWithCode:25 description:@"Record not found"];
+        (*(v13 + 16))(v13, 0, v14, v15);
 
 LABEL_25:
         return;
@@ -180,67 +177,64 @@ LABEL_25:
     {
     }
 
-    v22 = *(a1 + 32);
     (*(*(a1 + 72) + 16))();
     goto LABEL_25;
   }
 
-  if (*(a1 + 80) == 1 && (v18 = [*(a1 + 48) count], v18 != objc_msgSend(*(a1 + 56), "count")))
+  if (*(a1 + 80) == 1 && (v16 = [*(a1 + 48) count], v16 != objc_msgSend(*(a1 + 56), "count")))
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v23 = *(a1 + 48);
-    v24 = [v23 countByEnumeratingWithState:&v40 objects:v47 count:16];
-    if (v24)
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v18 = *(a1 + 48);
+    v19 = [v18 countByEnumeratingWithState:&v36 objects:v43 count:16];
+    if (v19)
     {
-      v25 = v24;
-      v26 = *v41;
-      v35 = 138543362;
+      v20 = v19;
+      v21 = *v37;
+      v31 = 138543362;
       do
       {
-        for (j = 0; j != v25; j = j + 1)
+        for (j = 0; j != v20; j = j + 1)
         {
-          if (*v41 != v26)
+          if (*v37 != v21)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v18);
           }
 
-          v28 = *(*(&v40 + 1) + 8 * j);
-          v29 = [*(a1 + 56) objectForKeyedSubscript:{v28, v35}];
+          v23 = *(*(&v36 + 1) + 8 * j);
+          v24 = [*(a1 + 56) objectForKeyedSubscript:{v23, v31}];
 
-          if (!v29 && (_CPLSilentLogging & 1) == 0)
+          if (!v24 && (_CPLSilentLogging & 1) == 0)
           {
-            v30 = sub_100003898();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v26 = sub_100003898(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              *buf = v35;
-              v46 = v28;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%{public}@ record not found on server", buf, 0xCu);
+              *buf = v31;
+              v42 = v23;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%{public}@ record not found on server", buf, 0xCu);
             }
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v40 objects:v47 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v36 objects:v43 count:16];
       }
 
-      while (v25);
+      while (v20);
     }
 
-    v31 = *(a1 + 72);
-    v32 = *(a1 + 32);
-    v33 = [CPLErrors cplErrorWithCode:25 description:@"Record not found"];
-    (*(v31 + 16))(v31, 0, v32, v33);
+    v27 = *(a1 + 72);
+    v28 = *(a1 + 32);
+    v29 = [CPLErrors cplErrorWithCode:25 description:@"Record not found"];
+    (*(v27 + 16))(v27, 0, v28, v29);
   }
 
   else
   {
-    v19 = *(a1 + 72);
-    v20 = [*(a1 + 56) copy];
-    v21 = *(a1 + 32);
-    v34 = v20;
-    (*(v19 + 16))(v19);
+    v17 = *(a1 + 72);
+    v30 = [*(a1 + 56) copy];
+    (*(v17 + 16))(v17);
   }
 }
 
@@ -301,28 +295,30 @@ void sub_100074DE0(uint64_t a1)
       sub_1001A4C3C(a1, v2, v3);
     }
 
-    if (([v6 isCPLOperationCancelledError] & 1) == 0)
+    v7 = [v6 isCPLOperationCancelledError];
+    if ((v7 & 1) == 0)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v7 = sub_1000038DC();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = sub_1000038DC(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v10 = 138412290;
-          v11 = v3;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to fix-up records: %@", &v10, 0xCu);
+          v12 = 138412290;
+          v13 = v3;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fix-up records: %@", &v12, 0xCu);
         }
       }
 
-      if ([v6 isCPLErrorWithCode:18] && (_CPLSilentLogging & 1) == 0)
+      v9 = [v6 isCPLErrorWithCode:18];
+      if (v9 && (_CPLSilentLogging & 1) == 0)
       {
-        v8 = sub_1000038DC();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = sub_1000038DC(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = *(a1 + 48);
-          v10 = 138412290;
-          v11 = v9;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Rejected CK updates: %@", &v10, 0xCu);
+          v11 = *(a1 + 48);
+          v12 = 138412290;
+          v13 = v11;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Rejected CK updates: %@", &v12, 0xCu);
         }
       }
     }
@@ -404,11 +400,11 @@ id sub_1000753E0(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1000756E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000756E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 152), 8);
+  _Block_object_dispose((v23 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -452,7 +448,7 @@ void sub_1000757BC(uint64_t a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_100003920();
+      v11 = sub_100003920(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = [*(*(a1 + 40) + 272) cpl_redactedShareURL];
@@ -665,15 +661,15 @@ void sub_10007691C(uint64_t a1)
 
     if (v12)
     {
-      v54 = a1;
-      v56 = objc_alloc_init(NSMutableIndexSet);
+      v55 = a1;
+      v57 = objc_alloc_init(NSMutableIndexSet);
       v13 = +[NSCharacterSet whitespaceCharacterSet];
       v14 = objc_alloc_init(NSMutableArray);
       v60 = 0u;
       v61 = 0u;
       v62 = 0u;
       v63 = 0u;
-      v53 = v12;
+      v54 = v12;
       obj = [v12 componentsSeparatedByString:{@", "}];
       v15 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
       if (v15)
@@ -695,14 +691,14 @@ void sub_10007691C(uint64_t a1)
             v22 = v21;
             if (v21)
             {
-              [v56 addIndex:{objc_msgSend(v21, "unsignedIntegerValue")}];
+              [v57 addIndex:{objc_msgSend(v21, "unsignedIntegerValue")}];
               [v14 addObject:v20];
             }
 
             else if ((_CPLSilentLogging & 1) == 0)
             {
               v23 = v14;
-              v24 = sub_1000770DC();
+              v24 = sub_1000770DC(0);
               if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
                 LODWORD(buf) = 138412290;
@@ -720,25 +716,25 @@ void sub_10007691C(uint64_t a1)
         while (v16);
       }
 
-      v12 = v53;
-      a1 = v54;
+      v12 = v54;
+      a1 = v55;
       if ([v14 count])
       {
-        objc_storeStrong((*(v54 + 32) + 56), v14);
-        *(*(v54 + 32) + 32) = 1;
-        objc_storeStrong((*(v54 + 32) + 40), v56);
+        objc_storeStrong((*(v55 + 32) + 56), v14);
+        *(*(v55 + 32) + 32) = 1;
+        objc_storeStrong((*(v55 + 32) + 40), v57);
         v25 = +[NSUserDefaults standardUserDefaults];
-        *(*(v54 + 32) + 48) = [v25 BOOLForKey:@"CPLRejectVideoStreamingAtContentLevel"];
+        *(*(v55 + 32) + 48) = [v25 BOOLForKey:@"CPLRejectVideoStreamingAtContentLevel"];
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v26 = sub_1000770DC();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v27 = sub_1000770DC(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = [v14 componentsJoinedByString:{@", "}];
+            v28 = [v14 componentsJoinedByString:{@", "}];
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v27;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Will automatically reject video streaming for the following intents: %@", &buf, 0xCu);
+            *(&buf + 4) = v28;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Will automatically reject video streaming for the following intents: %@", &buf, 0xCu);
           }
         }
       }
@@ -746,77 +742,76 @@ void sub_10007691C(uint64_t a1)
 
     if (!*(*(a1 + 32) + 64))
     {
-      v28 = [CPLCloudKitOperationGroupMapper alloc];
-      v29 = [*(a1 + 32) engineLibrary];
-      v30 = [v29 clientLibraryBaseURL];
-      v31 = [(CPLCloudKitOperationGroupMapper *)v28 initWithMappingInFolderWithURL:v30];
-      v32 = *(a1 + 32);
-      v33 = *(v32 + 64);
-      *(v32 + 64) = v31;
+      v29 = [CPLCloudKitOperationGroupMapper alloc];
+      v30 = [*(a1 + 32) engineLibrary];
+      v31 = [v30 clientLibraryBaseURL];
+      v32 = [(CPLCloudKitOperationGroupMapper *)v29 initWithMappingInFolderWithURL:v31];
+      v33 = *(a1 + 32);
+      v34 = *(v33 + 64);
+      *(v33 + 64) = v32;
     }
   }
 
-  v34 = [*(a1 + 32) engineLibrary];
-  v35 = [v34 cloudLibraryResourceStorageURL];
+  v35 = [*(a1 + 32) engineLibrary];
+  v36 = [v35 cloudLibraryResourceStorageURL];
 
-  v36 = [v35 URLByAppendingPathComponent:@"CloudKit" isDirectory:1];
-  v37 = *(a1 + 32);
-  v38 = *(v37 + 192);
-  *(v37 + 192) = v36;
+  v37 = [v36 URLByAppendingPathComponent:@"CloudKit" isDirectory:1];
+  v38 = *(a1 + 32);
+  v39 = *(v38 + 192);
+  *(v38 + 192) = v37;
 
-  v39 = +[NSFileManager defaultManager];
-  [v39 removeItemAtURL:*(*(a1 + 32) + 192) error:0];
+  v40 = +[NSFileManager defaultManager];
+  [v40 removeItemAtURL:*(*(a1 + 32) + 192) error:0];
 
-  v40 = dispatch_get_global_queue(0, 0);
+  v41 = dispatch_get_global_queue(0, 0);
   v58[0] = _NSConcreteStackBlock;
   v58[1] = 3221225472;
   v58[2] = sub_100077120;
   v58[3] = &unk_100271F40;
-  v41 = v35;
-  v59 = v41;
-  v42 = v58;
+  v42 = v36;
+  v59 = v42;
+  v43 = v58;
   *&buf = _NSConcreteStackBlock;
   *(&buf + 1) = 3221225472;
   v67 = sub_100002AD4;
   v68 = &unk_100271E98;
-  v69 = v42;
-  v43 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
-  dispatch_async(v40, v43);
+  v69 = v43;
+  v44 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
+  dispatch_async(v41, v44);
 
   [*(*(a1 + 32) + 240) registerClient:?];
-  v44 = [*(a1 + 32) duetTicketProvider];
-  [v44 addBudgetDelegate:*(a1 + 32)];
+  v45 = [*(a1 + 32) duetTicketProvider];
+  [v45 addBudgetDelegate:*(a1 + 32)];
 
   [*(a1 + 32) _updateBudgets];
-  v45 = *(a1 + 32);
-  if (!v45[28])
+  v46 = *(a1 + 32);
+  if (!v46[28])
   {
-    v46 = +[CPLFingerprintContext sharedContext];
-    v47 = *(a1 + 32);
-    v48 = *(v47 + 224);
-    *(v47 + 224) = v46;
+    v47 = +[CPLFingerprintContext sharedContext];
+    v48 = *(a1 + 32);
+    v49 = *(v48 + 224);
+    *(v48 + 224) = v47;
 
-    v45 = *(a1 + 32);
+    v46 = *(a1 + 32);
   }
 
-  if (!v45[29])
+  if (!v46[29])
   {
-    v49 = +[CPLCloudKitDefaultZoneManager sharedInstance];
-    v50 = *(a1 + 32);
-    v51 = *(v50 + 232);
-    *(v50 + 232) = v49;
+    v50 = +[CPLCloudKitDefaultZoneManager sharedInstance];
+    v51 = *(a1 + 32);
+    v52 = *(v51 + 232);
+    *(v51 + 232) = v50;
 
-    v45 = *(a1 + 32);
+    v46 = *(a1 + 32);
   }
 
-  [v45 setOpened:1];
-  v57 = *(a1 + 32);
+  [v46 setOpened:1];
   [CPLCallObserver observeAsyncCallOn:"observeAsyncCallOn:selector:block:" selector:? block:?];
   [*(*(a1 + 32) + 208) setDelegate:?];
-  v52 = *(a1 + 40);
-  if (v52)
+  v53 = *(a1 + 40);
+  if (v53)
   {
-    (*(v52 + 16))(v52, 0);
+    (*(v53 + 16))(v53, 0);
   }
 }
 
@@ -832,16 +827,16 @@ void sub_100077090(uint64_t a1, void *a2)
   }
 }
 
-id sub_1000770DC()
+id sub_1000770DC(uint64_t a1)
 {
   if (qword_1002C5408 != -1)
   {
     sub_1001A5DD0();
   }
 
-  v1 = qword_1002C5410;
+  v2 = qword_1002C5410;
 
-  return v1;
+  return v2;
 }
 
 void sub_100077120(uint64_t a1)
@@ -1555,7 +1550,7 @@ void sub_10007E130(uint64_t a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_1000770DC();
+      v3 = sub_1000770DC(_CPLSilentLogging);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v4 = *(a1 + 40);
@@ -1691,7 +1686,7 @@ LABEL_37:
 
   else
   {
-    sub_1001A6EE0(_CPLSilentLogging, a1);
+    sub_1001A6EE0(_CPLSilentLogging);
   }
 }
 
@@ -1731,8 +1726,7 @@ void sub_10007E7B4(uint64_t a1)
   {
     if (v2 == 2)
     {
-      v5 = *(a1 + 64);
-      v4 = *(*(a1 + 64) + 16);
+      v3 = *(*(a1 + 64) + 16);
     }
 
     else
@@ -1742,34 +1736,32 @@ void sub_10007E7B4(uint64_t a1)
         return;
       }
 
-      v3 = *(a1 + 64);
-      v4 = *(*(a1 + 64) + 16);
+      v3 = *(*(a1 + 64) + 16);
     }
 
-    v4();
+    v3();
   }
 
   else
   {
-    v7 = (a1 + 32);
-    v6 = *(a1 + 32);
+    v4 = (a1 + 32);
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && ([*v7 previewImageData], (v8 = objc_claimAutoreleasedReturnValue()) != 0))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && ([*v4 previewImageData], (v5 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v9 = v8;
-      v10 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_10007E908;
-      v12[3] = &unk_100275C70;
-      v13 = *(a1 + 64);
-      [v10 _withTempCKAssetForData:v9 tempFolderURL:v11 block:v12];
+      v6 = v5;
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_10007E908;
+      v9[3] = &unk_100275C70;
+      v10 = *(a1 + 64);
+      [v7 _withTempCKAssetForData:v6 tempFolderURL:v8 block:v9];
     }
 
     else
     {
-      sub_1001A7310(a1, (a1 + 32));
+      sub_1001A7310(a1);
     }
   }
 }
@@ -1786,7 +1778,7 @@ void sub_10007E908(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    sub_1001A73D8(v6, a1);
+    sub_1001A73D8(v6);
   }
 }
 
@@ -1829,27 +1821,26 @@ void sub_10007EB0C(uint64_t a1)
     case 0:
       if (*(a1 + 80))
       {
-        v6 = *(a1 + 32);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          sub_1001A7498(a1, (a1 + 32));
+          sub_1001A7498(a1);
           return;
         }
 
-        v7 = *(a1 + 80);
+        v4 = *(a1 + 80);
       }
 
       else
       {
-        v7 = 0;
+        v4 = 0;
       }
 
-      v8 = objc_opt_class();
-      v9 = *(a1 + 32);
-      if (v7 == v8)
+      v5 = objc_opt_class();
+      v6 = *(a1 + 32);
+      if (v4 == v5)
       {
-        v11 = [v9 resourceData];
-        if (v11)
+        v8 = [v6 resourceData];
+        if (v8)
         {
           goto LABEL_15;
         }
@@ -1857,41 +1848,39 @@ void sub_10007EB0C(uint64_t a1)
 
       else
       {
-        v10 = [v9 customUserAssetList];
-        v11 = [v10 data];
+        v7 = [v6 customUserAssetList];
+        v8 = [v7 data];
 
-        if (v11)
+        if (v8)
         {
 LABEL_15:
-          v12 = *(a1 + 48);
-          v13 = *(a1 + 56);
-          v14[0] = _NSConcreteStackBlock;
-          v14[1] = 3221225472;
-          v14[2] = sub_10007ECAC;
-          v14[3] = &unk_100275C70;
-          v15 = *(a1 + 64);
-          [v12 _withTempCKAssetForData:v11 tempFolderURL:v13 block:v14];
+          v9 = *(a1 + 48);
+          v10 = *(a1 + 56);
+          v11[0] = _NSConcreteStackBlock;
+          v11[1] = 3221225472;
+          v11[2] = sub_10007ECAC;
+          v11[3] = &unk_100275C70;
+          v12 = *(a1 + 64);
+          [v9 _withTempCKAssetForData:v8 tempFolderURL:v10 block:v11];
 
 LABEL_16:
           return;
         }
       }
 
-      sub_1001A7560((a1 + 32), a1);
+      sub_1001A7560(a1 + 32);
       goto LABEL_16;
     case 2:
-      v5 = *(a1 + 64);
-      v4 = *(*(a1 + 64) + 16);
+      v3 = *(*(a1 + 64) + 16);
       break;
     case 1:
-      v3 = *(a1 + 64);
-      v4 = *(*(a1 + 64) + 16);
+      v3 = *(*(a1 + 64) + 16);
       break;
     default:
       return;
   }
 
-  v4();
+  v3();
 }
 
 void sub_10007ECAC(uint64_t a1, void *a2, void *a3)
@@ -1906,7 +1895,7 @@ void sub_10007ECAC(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    sub_1001A7620(v6, a1);
+    sub_1001A7620(v6);
   }
 }
 
@@ -1947,8 +1936,7 @@ id sub_10007EE80(uint64_t a1)
   {
     if (v2 == 2)
     {
-      v5 = *(a1 + 56);
-      v4 = *(*(a1 + 56) + 16);
+      v3 = *(*(a1 + 56) + 16);
     }
 
     else
@@ -1958,32 +1946,31 @@ id sub_10007EE80(uint64_t a1)
         goto LABEL_9;
       }
 
-      v3 = *(a1 + 56);
-      v4 = *(*(a1 + 56) + 16);
+      v3 = *(*(a1 + 56) + 16);
     }
 
-    v4();
+    v3();
   }
 
   else
   {
-    v6 = [*(a1 + 32) identity];
-    v7 = [v6 fileURL];
+    v4 = [*(a1 + 32) identity];
+    v5 = [v4 fileURL];
 
-    if (!v7)
+    if (!v5)
     {
       sub_1001A76E0(a1, (a1 + 32));
     }
 
-    v8 = [[CKAsset alloc] initWithFileURL:v7];
+    v6 = [[CKAsset alloc] initWithFileURL:v5];
     (*(*(a1 + 56) + 16))();
   }
 
 LABEL_9:
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 48);
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
 
-  return [v9 _cleanTempRecoveredDataURL:v10];
+  return [v7 _cleanTempRecoveredDataURL:v8];
 }
 
 void sub_10007F0D4(uint64_t a1, uint64_t a2)
@@ -2164,7 +2151,7 @@ LABEL_4:
 
       else
       {
-        sub_1001A7DFC(a1 + 5, a1);
+        sub_1001A7DFC((a1 + 5), a1);
       }
     }
 
@@ -2180,7 +2167,7 @@ LABEL_4:
 
       else
       {
-        sub_1001A7D2C(a1 + 5, v14, a1);
+        sub_1001A7D2C((a1 + 5), v14);
       }
     }
 
@@ -2280,14 +2267,15 @@ void sub_100081004(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_10008151C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, void *a7)
 {
-  v16 = a2;
+  v17 = a2;
   v12 = a3;
   v13 = a4;
   v14 = a5;
   v15 = a7;
-  if ([v15 isCPLErrorWithCode:2002])
+  v16 = [v15 isCPLErrorWithCode:2002];
+  if (v16)
   {
-    CPLDisableCloudKitUseGateKeeper();
+    CPLDisableCloudKitUseGateKeeper(v16);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -2295,10 +2283,11 @@ void sub_10008151C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, uint64_t
 
 void sub_1000815EC(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if ([v3 isCPLErrorWithCode:2002])
+  v4 = a2;
+  v3 = [v4 isCPLErrorWithCode:2002];
+  if (v3)
   {
-    CPLDisableCloudKitUseGateKeeper();
+    CPLDisableCloudKitUseGateKeeper(v3);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -2596,9 +2585,9 @@ void sub_1000842C8(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100084618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100084618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2888,10 +2877,11 @@ void sub_100085754(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_1000859D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1000859D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3025,30 +3015,13 @@ void sub_1000860D8(uint64_t a1, void *a2, void *a3)
 
           v17 = [*(a1 + 40) objectForKeyedSubscript:v16];
           v18 = v17;
-          if (!v17)
-          {
-            goto LABEL_11;
-          }
-
-          v19 = [v17 recordChangeData];
-          v20 = v19 == 0;
-
-          if (v20)
-          {
-            goto LABEL_11;
-          }
-
-          v21 = [v18 recordChangeData];
-          v22 = [CPLArchiver unarchiveObjectWithData:v21 ofClass:objc_opt_class()];
-
-          if (v22)
+          if (v17 && ([v17 recordChangeData], v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 == 0, v19, !v20) && (objc_msgSend(v18, "recordChangeData"), v21 = objc_claimAutoreleasedReturnValue(), +[CPLArchiver unarchiveObjectWithData:ofClass:](CPLArchiver, "unarchiveObjectWithData:ofClass:", v21, objc_opt_class()), v22 = objc_claimAutoreleasedReturnValue(), v21, v22))
           {
             [v31 setObject:v22 forKeyedSubscript:v13];
           }
 
           else
           {
-LABEL_11:
             [v9 addObject:v13];
           }
         }
@@ -3224,18 +3197,17 @@ void sub_100086958(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 64);
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = [*(a1 + 48) cloudKitScope];
-    [v5 uploadRecords:v6 cloudKitScope:v7 scopeProvider:*(a1 + 56) completionHandler:*(a1 + 64)];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = [*(a1 + 48) cloudKitScope];
+    [v4 uploadRecords:v5 cloudKitScope:v6 scopeProvider:*(a1 + 56) completionHandler:*(a1 + 64)];
   }
 }
 
@@ -3395,7 +3367,7 @@ uint64_t sub_1000881D8(uint64_t a1, void *a2, void *a3)
         goto LABEL_26;
       }
 
-      v24 = sub_1000039EC();
+      v24 = sub_1000039EC(-1);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         v29 = 138412802;
@@ -3430,7 +3402,8 @@ LABEL_27:
 
       if (v18 && v22)
       {
-        if (([v18 isEqual:v22] & 1) == 0)
+        v23 = [v18 isEqual:v22];
+        if ((v23 & 1) == 0)
         {
           goto LABEL_12;
         }
@@ -3448,7 +3421,7 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v24 = sub_1000039EC();
+      v24 = sub_1000039EC(v23);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         v29 = 138413314;
@@ -3490,63 +3463,64 @@ id sub_100088508(uint64_t a1, void *a2, void *a3, void *a4)
   v14 = [v10 URLByAppendingPathComponent:v13 isDirectory:0];
 
   v15 = *(*(a1 + 48) + 280);
-  v35 = 0;
-  v16 = [v15 encryptFileAtURL:v9 outputFileURL:v14 error:&v35];
-  v34 = v35;
+  v36 = 0;
+  v16 = [v15 encryptFileAtURL:v9 outputFileURL:v14 error:&v36];
+  v17 = v36;
+  v35 = v17;
   if (v16)
   {
-    v17 = [[CKAsset alloc] initWithFileURL:v14];
-    [v17 setItemTypeHint:@"fxd"];
-    [v7 setCKAsset:v17 forKey:@"resComputeStateData"];
-    v33 = [v8 version];
-    [v7 setObject:v33 forKey:@"computeStateVersion"];
-    v18 = [v8 adjustmentFingerprint];
-    [v7 setEncryptedObject:v18 forKey:@"computeStateAdjustmentFingerprintEnc" validateClass:objc_opt_class()];
+    v18 = [[CKAsset alloc] initWithFileURL:v14];
+    [v18 setItemTypeHint:@"fxd"];
+    [v7 setCKAsset:v18 forKey:@"resComputeStateData"];
+    v34 = [v8 version];
+    [v7 setObject:v34 forKey:@"computeStateVersion"];
+    v19 = [v8 adjustmentFingerprint];
+    [v7 setEncryptedObject:v19 forKey:@"computeStateAdjustmentFingerprintEnc" validateClass:objc_opt_class()];
     [v8 lastUpdatedDate];
-    v19 = v14;
-    v20 = v9;
-    v21 = v6;
-    v23 = v22 = v16;
-    [v7 setEncryptedObject:v23 forKey:@"computeStateLastUpdatedDateEnc" validateClass:objc_opt_class()];
+    v20 = v14;
+    v21 = v9;
+    v22 = v6;
+    v24 = v23 = v16;
+    [v7 setEncryptedObject:v24 forKey:@"computeStateLastUpdatedDateEnc" validateClass:objc_opt_class()];
     [*(a1 + 56) addObject:v8];
 
-    v16 = v22;
-    v6 = v21;
-    v9 = v20;
-    v14 = v19;
-    v24 = v34;
+    v16 = v23;
+    v6 = v22;
+    v9 = v21;
+    v14 = v20;
+    v25 = v35;
   }
 
   else
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v25 = sub_1000039EC();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = sub_1000039EC(v17);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v26 = [v9 path];
-        v27 = [v14 path];
+        v27 = [v9 path];
+        v28 = [v14 path];
         *buf = 138413058;
-        v37 = v6;
-        v38 = 2112;
-        v39 = v26;
-        v40 = 2112;
-        v41 = v27;
-        v42 = 2112;
-        v43 = v34;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "[CCSS] Failed to encrypt compute state %@ from %@ to %@: %@", buf, 0x2Au);
+        v38 = v6;
+        v39 = 2112;
+        v40 = v27;
+        v41 = 2112;
+        v42 = v28;
+        v43 = 2112;
+        v44 = v35;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "[CCSS] Failed to encrypt compute state %@ from %@ to %@: %@", buf, 0x2Au);
       }
     }
 
-    v28 = [v9 path];
-    v29 = [v14 path];
-    v24 = v34;
-    v17 = [CPLErrors cplErrorWithCode:70 underlyingError:v34 description:@"Failed to encrypt compute state %@ from %@ to %@", v6, v28, v29];
+    v29 = [v9 path];
+    v30 = [v14 path];
+    v25 = v35;
+    v18 = [CPLErrors cplErrorWithCode:70 underlyingError:v35 description:@"Failed to encrypt compute state %@ from %@ to %@", v6, v29, v30];
 
     if (a4)
     {
-      v30 = v17;
-      *a4 = v17;
+      v31 = v18;
+      *a4 = v18;
     }
   }
 
@@ -3684,16 +3658,16 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-id sub_10008C178()
+id sub_10008C178(uint64_t a1)
 {
   if (qword_1002C5578 != -1)
   {
     sub_1001A9640();
   }
 
-  v1 = qword_1002C5570;
+  v2 = qword_1002C5570;
 
-  return v1;
+  return v2;
 }
 
 void sub_10008E170(id a1)
@@ -3766,6 +3740,13 @@ void sub_10008F5BC(uint64_t a1)
   (*(*(a1 + 40) + 16))();
 }
 
+void sub_10008FC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_10008FC54(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -3811,7 +3792,7 @@ void sub_10008FD90(uint64_t a1)
       goto LABEL_4;
     }
 
-    sub_1001A9AF0();
+    sub_1001A9AF0(v5);
   }
 
   v6 = 0;
@@ -3820,7 +3801,7 @@ LABEL_4:
   v8 = v7;
   if (v6 && !v7)
   {
-    sub_1001A9D94();
+    sub_1001A9D94(v5);
     goto LABEL_17;
   }
 
@@ -3873,68 +3854,68 @@ LABEL_17:
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v26 = sub_100003A30();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v27 = sub_100003A30(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          v27 = [v9 path];
-          v28 = [v19 path];
-          v29 = *(*(*(a1 + 96) + 8) + 40);
+          v28 = [v9 path];
+          v29 = [v19 path];
+          v30 = *(*(*(a1 + 96) + 8) + 40);
           *buf = 138413058;
-          v47 = v5;
-          v48 = 2112;
-          v49 = v27;
-          v50 = 2112;
-          v51 = v28;
-          v52 = 2112;
-          v53 = v29;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "[CCSS] Failed to decrypt downloaded compute state %@ from %@ to %@: %@", buf, 0x2Au);
+          v48 = v5;
+          v49 = 2112;
+          v50 = v28;
+          v51 = 2112;
+          v52 = v29;
+          v53 = 2112;
+          v54 = v30;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "[CCSS] Failed to decrypt downloaded compute state %@ from %@ to %@: %@", buf, 0x2Au);
         }
       }
 
-      v30 = [*(*(*(a1 + 96) + 8) + 40) domain];
-      v31 = [v30 isEqualToString:@"CPLComputeStateEncryptionError"];
+      v31 = [*(*(*(a1 + 96) + 8) + 40) domain];
+      v32 = [v31 isEqualToString:@"CPLComputeStateEncryptionError"];
 
-      if (!v31)
+      if (!v32)
       {
         goto LABEL_33;
       }
 
-      v32 = [*(*(*(a1 + 96) + 8) + 40) code];
-      if (v32 == 1)
+      v33 = [*(*(*(a1 + 96) + 8) + 40) code];
+      if (v33 == 1)
       {
-        v36 = *(*(*(a1 + 96) + 8) + 40);
-        v35 = [v9 path];
-        v34 = [v19 path];
-        v37 = [CPLErrors cplErrorWithCode:70 underlyingError:v36 description:@"Failed to decrypt downloaded compute state %@ from %@ to %@", v5, v35, v34];
-        v38 = *(*(a1 + 96) + 8);
-        v39 = *(v38 + 40);
-        *(v38 + 40) = v37;
+        v37 = *(*(*(a1 + 96) + 8) + 40);
+        v36 = [v9 path];
+        v35 = [v19 path];
+        v38 = [CPLErrors cplErrorWithCode:70 underlyingError:v37 description:@"Failed to decrypt downloaded compute state %@ from %@ to %@", v5, v36, v35];
+        v39 = *(*(a1 + 96) + 8);
+        v40 = *(v39 + 40);
+        *(v39 + 40) = v38;
       }
 
       else
       {
-        if (v32 != 3)
+        if (v33 != 3)
         {
 LABEL_33:
 
           if (!*(*(*(a1 + 96) + 8) + 40) && v19)
           {
-            v40 = [*(a1 + 56) cpl_decryptedObjectForKey:@"computeStateAdjustmentFingerprintEnc" validateClass:objc_opt_class()];
-            v41 = [*(a1 + 56) cpl_decryptedObjectForKey:@"computeStateLastUpdatedDateEnc" validateClass:objc_opt_class()];
-            v42 = [CPLRecordComputeState alloc];
-            v43 = [*(a1 + 56) objectForKeyedSubscript:@"computeStateVersion"];
-            v44 = [v42 initWithItemScopedIdentifier:v5 fileStorageIdentifier:0 version:v43 fileURL:v19 adjustmentFingerprint:v40 lastUpdatedDate:v41];
+            v41 = [*(a1 + 56) cpl_decryptedObjectForKey:@"computeStateAdjustmentFingerprintEnc" validateClass:objc_opt_class()];
+            v42 = [*(a1 + 56) cpl_decryptedObjectForKey:@"computeStateLastUpdatedDateEnc" validateClass:objc_opt_class()];
+            v43 = [CPLRecordComputeState alloc];
+            v44 = [*(a1 + 56) objectForKeyedSubscript:@"computeStateVersion"];
+            v45 = [v43 initWithItemScopedIdentifier:v5 fileStorageIdentifier:0 version:v44 fileURL:v19 adjustmentFingerprint:v41 lastUpdatedDate:v42];
 
-            [*(a1 + 88) setObject:v44 forKeyedSubscript:v5];
+            [*(a1 + 88) setObject:v45 forKeyedSubscript:v5];
           }
 
           goto LABEL_15;
         }
 
-        v33 = *(*(a1 + 96) + 8);
-        v34 = *(v33 + 40);
-        *(v33 + 40) = 0;
-        v35 = v19;
+        v34 = *(*(a1 + 96) + 8);
+        v35 = *(v34 + 40);
+        *(v34 + 40) = 0;
+        v36 = v19;
         v19 = 0;
       }
 
@@ -4004,92 +3985,100 @@ void sub_10009042C(uint64_t a1)
 
   if (v2)
   {
-    v4 = *(*(a1 + 48) + 288);
+    v3 = *(*(a1 + 48) + 288);
     if (*(*(*(a1 + 80) + 8) + 40))
     {
-      (*(v4 + 16))(v4, 0);
+      (*(v3 + 16))(v3, 0);
     }
 
     else
     {
-      v5 = [*(a1 + 56) copy];
-      (*(v4 + 16))(v4, v5, 0);
+      v4 = [*(a1 + 56) copy];
+      (*(v3 + 16))(v3, v4, 0);
     }
   }
 
   else
   {
-    v3 = *(*(a1 + 48) + 288);
     (*(*(*(a1 + 48) + 288) + 16))();
   }
 
-  v6 = +[NSFileManager defaultManager];
-  v7 = *(a1 + 64);
+  v5 = +[NSFileManager defaultManager];
+  v6 = *(a1 + 64);
   v28[0] = _NSConcreteStackBlock;
   v28[1] = 3221225472;
   v28[2] = sub_1001A99AC;
   v28[3] = &unk_100276310;
-  v8 = v6;
-  v29 = v8;
-  [v7 enumerateKeysAndObjectsUsingBlock:v28];
+  v7 = v5;
+  v29 = v7;
+  [v6 enumerateKeysAndObjectsUsingBlock:v28];
   if (!*(a1 + 32) || *(*(*(a1 + 80) + 8) + 40))
   {
     v26 = 0u;
     v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v9 = *(a1 + 72);
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v34 count:16];
-    if (v10)
+    v8 = *(a1 + 72);
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    if (v9)
     {
-      v12 = v10;
-      v13 = *v25;
-      *&v11 = 138412546;
-      v22 = v11;
+      v11 = v9;
+      v12 = *v25;
+      *&v10 = 138412546;
+      v22 = v10;
       do
       {
-        for (i = 0; i != v12; i = i + 1)
+        v13 = 0;
+        do
         {
-          if (*v25 != v13)
+          if (*v25 != v12)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * v13);
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v16 = sub_100003A30();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v15 = sub_100003A30(v9);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
-              v17 = [v15 path];
+              v16 = [v14 path];
               *buf = 138412290;
-              v31 = v17;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[CCSS] Removing discarded decrypted payload at %@", buf, 0xCu);
+              v31 = v16;
+              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[CCSS] Removing discarded decrypted payload at %@", buf, 0xCu);
             }
           }
 
           v23 = 0;
-          v18 = [v8 removeItemAtURL:v15 error:{&v23, v22}];
-          v19 = v23;
-          if ((v18 & 1) == 0 && ([v8 cplIsFileDoesNotExistError:v19] & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+          v17 = [v7 removeItemAtURL:v14 error:{&v23, v22}];
+          v18 = v23;
+          if ((v17 & 1) == 0)
           {
-            v20 = sub_100003A30();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v19 = [v7 cplIsFileDoesNotExistError:v18];
+            if ((v19 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
             {
-              v21 = [v15 path];
-              *buf = v22;
-              v31 = v21;
-              v32 = 2112;
-              v33 = v19;
-              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "[CCSS] Failed to delete discarded decrypted at %@: %@", buf, 0x16u);
+              v20 = sub_100003A30(v19);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              {
+                v21 = [v14 path];
+                *buf = v22;
+                v31 = v21;
+                v32 = 2112;
+                v33 = v18;
+                _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "[CCSS] Failed to delete discarded decrypted at %@: %@", buf, 0x16u);
+              }
             }
           }
+
+          v13 = v13 + 1;
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v24 objects:v34 count:16];
+        while (v11 != v13);
+        v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v11 = v9;
       }
 
-      while (v12);
+      while (v9);
     }
   }
 }
@@ -4142,54 +4131,54 @@ void sub_1000911A8(uint64_t a1, void *a2)
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_100003A74();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100003A74(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [v5 batch];
-        v14 = [v13 summaryDescription];
+        v14 = [v5 batch];
+        v15 = [v14 summaryDescription];
         *buf = 138412546;
-        v31 = v14;
-        v32 = 2112;
-        v33 = v3;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Replacing error uploading %@ with rejection error: %@", buf, 0x16u);
+        v32 = v15;
+        v33 = 2112;
+        v34 = v3;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Replacing error uploading %@ with rejection error: %@", buf, 0x16u);
       }
     }
 
-    v25 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v15 = [v5 batch];
-    v16 = [v15 countByEnumeratingWithState:&v23 objects:v29 count:16];
-    if (v16)
+    v25 = 0u;
+    v16 = [v5 batch];
+    v17 = [v16 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v24;
+      v18 = v17;
+      v19 = *v25;
       do
       {
-        for (i = 0; i != v17; i = i + 1)
+        for (i = 0; i != v18; i = i + 1)
         {
-          if (*v24 != v18)
+          if (*v25 != v19)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v20 = [*(*(&v23 + 1) + 8 * i) scopedIdentifier];
-          [v8 setObject:v11 forKeyedSubscript:v20];
+          v21 = [*(*(&v24 + 1) + 8 * i) scopedIdentifier];
+          [v8 setObject:v11 forKeyedSubscript:v21];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
-    v27 = CPLErrorRejectedRecordIdentifiersAndReasonsKey;
-    v28 = v8;
-    v21 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-    v22 = [CPLErrors cplErrorWithCode:18 underlyingError:0 userInfo:v21 description:@"Some records are rejected for testing purpose"];
+    v28 = CPLErrorRejectedRecordIdentifiersAndReasonsKey;
+    v29 = v8;
+    v22 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v23 = [CPLErrors cplErrorWithCode:18 underlyingError:0 userInfo:v22 description:@"Some records are rejected for testing purpose"];
 
-    v3 = v22;
+    v3 = v23;
   }
 
   (*(*(a1 + 32) + 16))();
@@ -4252,37 +4241,36 @@ void sub_100092528(uint64_t a1, void *a2, void *a3, void *a4)
   v9 = a4;
   if (v7)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
-    v24 = 1;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 1;
+    v14[0] = 0;
+    v14[1] = v14;
+    v14[2] = 0x3032000000;
+    v14[3] = sub_1000044B0;
+    v14[4] = sub_10000533C;
     v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = sub_1000044B0;
-    v19 = sub_10000533C;
-    v20 = 0;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000926E4;
-    v11[3] = &unk_1002763E8;
-    v13 = &v21;
-    v12 = *(a1 + 32);
-    v14 = &v15;
-    [v7 enumerateKeysAndObjectsUsingBlock:v11];
-    if (v22[3])
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_1000926E4;
+    v10[3] = &unk_1002763E8;
+    v12 = &v16;
+    v11 = *(a1 + 32);
+    v13 = v14;
+    [v7 enumerateKeysAndObjectsUsingBlock:v10];
+    if (v17[3])
     {
       [*(a1 + 40) _uploadBatchFromPlanner:*(a1 + 32) completionHandler:*(a1 + 48)];
     }
 
     else
     {
-      v10 = v16[5];
       (*(*(a1 + 48) + 16))();
     }
 
-    _Block_object_dispose(&v15, 8);
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(v14, 8);
+    _Block_object_dispose(&v16, 8);
   }
 
   else
@@ -4291,11 +4279,11 @@ void sub_100092528(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_1000926C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000926C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4304,25 +4292,26 @@ void sub_1000926E4(void *a1, void *a2, void *a3, _BYTE *a4)
   v7 = a2;
   v8 = a3;
   v9 = a1[4];
-  v14 = 0;
-  v10 = [v9 didFetchSharedCKRecord:v8 forRecordWithRecordID:v7 error:&v14];
-  v11 = v14;
-  v12 = v14;
+  v15 = 0;
+  v10 = [v9 didFetchSharedCKRecord:v8 forRecordWithRecordID:v7 error:&v15];
+  v11 = v15;
+  v12 = v15;
+  v13 = v12;
   *(*(a1[5] + 8) + 24) = v10;
   if ((*(*(a1[5] + 8) + 24) & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = sub_100003A74();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_100003A74(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v16 = v8;
-        v17 = 2112;
-        v18 = v7;
-        v19 = 2112;
-        v20 = v12;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Planner failed to ingest fetched shared record %@ for %@: %@", buf, 0x20u);
+        v17 = v8;
+        v18 = 2112;
+        v19 = v7;
+        v20 = 2112;
+        v21 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Planner failed to ingest fetched shared record %@ for %@: %@", buf, 0x20u);
       }
     }
 
@@ -4338,37 +4327,36 @@ void sub_100092A1C(uint64_t a1, void *a2, void *a3, void *a4)
   v9 = a4;
   if (v7)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
-    v24 = 1;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 1;
+    v14[0] = 0;
+    v14[1] = v14;
+    v14[2] = 0x3032000000;
+    v14[3] = sub_1000044B0;
+    v14[4] = sub_10000533C;
     v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = sub_1000044B0;
-    v19 = sub_10000533C;
-    v20 = 0;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100092BD8;
-    v11[3] = &unk_1002763E8;
-    v13 = &v21;
-    v12 = *(a1 + 32);
-    v14 = &v15;
-    [v7 enumerateKeysAndObjectsUsingBlock:v11];
-    if (v22[3])
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100092BD8;
+    v10[3] = &unk_1002763E8;
+    v12 = &v16;
+    v11 = *(a1 + 32);
+    v13 = v14;
+    [v7 enumerateKeysAndObjectsUsingBlock:v10];
+    if (v17[3])
     {
       [*(a1 + 40) _uploadSharedBatchFromPlanner:*(a1 + 32) completionHandler:*(a1 + 48)];
     }
 
     else
     {
-      v10 = v16[5];
       (*(*(a1 + 48) + 16))();
     }
 
-    _Block_object_dispose(&v15, 8);
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(v14, 8);
+    _Block_object_dispose(&v16, 8);
   }
 
   else
@@ -4377,11 +4365,11 @@ void sub_100092A1C(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_100092BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100092BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4390,25 +4378,26 @@ void sub_100092BD8(void *a1, void *a2, void *a3, _BYTE *a4)
   v7 = a2;
   v8 = a3;
   v9 = a1[4];
-  v14 = 0;
-  v10 = [v9 didFetchPrivateCKRecord:v8 forRecordWithRecordID:v7 error:&v14];
-  v11 = v14;
-  v12 = v14;
+  v15 = 0;
+  v10 = [v9 didFetchPrivateCKRecord:v8 forRecordWithRecordID:v7 error:&v15];
+  v11 = v15;
+  v12 = v15;
+  v13 = v12;
   *(*(a1[5] + 8) + 24) = v10;
   if ((*(*(a1[5] + 8) + 24) & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = sub_100003A74();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_100003A74(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v16 = v8;
-        v17 = 2112;
-        v18 = v7;
-        v19 = 2112;
-        v20 = v12;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Planner failed to ingest fetched private record %@ for %@: %@", buf, 0x20u);
+        v17 = v8;
+        v18 = 2112;
+        v19 = v7;
+        v20 = 2112;
+        v21 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Planner failed to ingest fetched private record %@ for %@: %@", buf, 0x20u);
       }
     }
 
@@ -4522,100 +4511,103 @@ void sub_1000935BC(uint64_t a1)
   v3 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
   if (v3)
   {
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_1000939C8;
-    v21[3] = &unk_100276488;
-    v22 = *(a1 + 48);
-    v23 = *(a1 + 64);
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1000939C8;
+    v26[3] = &unk_100276488;
+    v27 = *(a1 + 48);
+    v28 = *(a1 + 64);
     v4 = *(a1 + 80);
     v5 = [*(a1 + 32) lastOperationRequestUUIDs];
-    v6 = [CPLCloudKitErrors CPLErrorForCloudKitUploadError:v3 getDestinationRecordIDs:v21 scopeProvider:v4 withRequestUUIDs:v5 uploadAction:@"upload"];
+    v6 = [CPLCloudKitErrors CPLErrorForCloudKitUploadError:v3 getDestinationRecordIDs:v26 scopeProvider:v4 withRequestUUIDs:v5 uploadAction:@"upload"];
 
     if (!v6)
     {
       sub_1001AA578(a1, v2, v3);
     }
 
-    if (([v6 isCPLOperationCancelledError] & 1) == 0)
+    v7 = [v6 isCPLOperationCancelledError];
+    if ((v7 & 1) == 0)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v7 = sub_100003A74();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = sub_100003A74(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v25 = v3;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to upload batch: %@", buf, 0xCu);
+          v30 = v3;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to upload batch: %@", buf, 0xCu);
         }
       }
 
-      if ([v6 isCPLErrorWithCode:18] && (_CPLSilentLogging & 1) == 0)
+      v9 = [v6 isCPLErrorWithCode:18];
+      if (v9 && (_CPLSilentLogging & 1) == 0)
       {
-        v8 = sub_100003A74();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = sub_100003A74(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = *(*v2 + 344);
+          v11 = *(*v2 + 344);
           *buf = 138412290;
-          v25 = v9;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Rejected high level batch:\n%@", buf, 0xCu);
+          v30 = v11;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Rejected high level batch:\n%@", buf, 0xCu);
         }
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v10 = sub_100003A74();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v13 = sub_100003A74(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v11 = [v6 userInfo];
-            v12 = [v11 objectForKeyedSubscript:CPLErrorRejectedRecordIdentifiersAndReasonsKey];
+            v14 = [v6 userInfo];
+            v15 = [v14 objectForKeyedSubscript:CPLErrorRejectedRecordIdentifiersAndReasonsKey];
             *buf = 138412290;
-            v25 = v12;
-            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Rejected scoped identifiers:\n%@", buf, 0xCu);
+            v30 = v15;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Rejected scoped identifiers:\n%@", buf, 0xCu);
           }
 
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v13 = sub_100003A74();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v17 = sub_100003A74(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = *(a1 + 48);
-              v15 = *(a1 + 64);
+              v18 = *(a1 + 48);
+              v19 = *(a1 + 64);
               *buf = 138412546;
-              v25 = v14;
-              v26 = 2112;
-              v27 = v15;
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Rejected CK updates: %@\nDeletes: %@", buf, 0x16u);
+              v30 = v18;
+              v31 = 2112;
+              v32 = v19;
+              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Rejected CK updates: %@\nDeletes: %@", buf, 0x16u);
             }
           }
         }
       }
     }
 
-    v16 = v22;
+    v20 = v27;
 LABEL_28:
 
     goto LABEL_29;
   }
 
-  v17 = [*(a1 + 48) count];
-  if (v17 != [*(a1 + 56) count])
+  v21 = [*(a1 + 48) count];
+  if (v21 != [*(a1 + 56) count])
   {
-    sub_1001AA654((a1 + 48), (a1 + 56));
+    sub_1001AA654(a1 + 48);
   }
 
-  v18 = [*(a1 + 64) count];
-  if (v18 != [*(a1 + 72) count] && (_CPLSilentLogging & 1) == 0)
+  v22 = [*(a1 + 64) count];
+  v23 = [*(a1 + 72) count];
+  if (v22 != v23 && (_CPLSilentLogging & 1) == 0)
   {
-    v16 = sub_100003A74();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = sub_100003A74(v23);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v19 = *(a1 + 64);
-      v20 = *(a1 + 72);
+      v24 = *(a1 + 64);
+      v25 = *(a1 + 72);
       *buf = 138412546;
-      v25 = v19;
-      v26 = 2112;
-      v27 = v20;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Requested deletions: %@. Deleted records by CloudKit: %@", buf, 0x16u);
+      v30 = v24;
+      v31 = 2112;
+      v32 = v25;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Requested deletions: %@. Deleted records by CloudKit: %@", buf, 0x16u);
     }
 
     v6 = 0;
@@ -4744,18 +4736,17 @@ uint64_t sub_10009460C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    return v5();
+    return v4();
   }
 
   else
   {
     [*(a1 + 32) updateTargetMappingAfterUploadWithRealSourceRecordIDs:a2];
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    return v7();
+    return v6();
   }
 }
 
@@ -4833,9 +4824,9 @@ id sub_100094D44(uint64_t a1)
   return v2;
 }
 
-void sub_100095084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100095084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4880,7 +4871,7 @@ void sub_10009509C(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 
       else
       {
-        sub_1001AA910();
+        sub_1001AA910(0);
         v18 = +[CPLErrors unknownError];
         v19 = *(*(a1 + 56) + 8);
         v20 = *(v19 + 40);
@@ -4903,7 +4894,7 @@ LABEL_14:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v11 = sub_100003A74();
+    v11 = sub_100003A74(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -4917,7 +4908,7 @@ LABEL_14:
 LABEL_15:
 }
 
-void sub_1000952FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _BYTE *a10, void *a11)
+void sub_1000952FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _BYTE *a10, uint64_t a11)
 {
   if (a2)
   {
@@ -5023,9 +5014,9 @@ void sub_100096330(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_100096B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100096B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5146,21 +5137,22 @@ void sub_1000976A0(id a1)
   qword_1002C55E8 = v1;
 }
 
-void sub_100097DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100097DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100097E1C(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v9 = a2;
+  v10 = a2;
   v7 = a3;
   v8 = a4;
-  if ([v8 isCPLErrorWithCode:2002])
+  v9 = [v8 isCPLErrorWithCode:2002];
+  if (v9)
   {
-    CPLDisableCloudKitUseGateKeeper();
+    CPLDisableCloudKitUseGateKeeper(v9);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -5186,50 +5178,50 @@ void sub_100097EBC(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 
     else
     {
-      v28 = [v11 downloadURL];
+      v29 = [v11 downloadURL];
       v17 = [v11 downloadURLExpiration];
       v18 = [v11 mediaItemMaker];
       if (v18)
       {
         v19 = [v11 mediaItemMaker];
-        v29 = 0;
-        v20 = [v19 dataRepresentationWithError:&v29];
-        v27 = v29;
+        v30 = 0;
+        v20 = [v19 dataRepresentationWithError:&v30];
+        v28 = v30;
 
         if (!v20)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v21 = sub_100003AB8();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v22 = sub_100003AB8(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              v22 = [*(a1 + 32) recordID];
-              v23 = [*(a1 + 32) filename];
+              v23 = [*(a1 + 32) recordID];
+              v24 = [*(a1 + 32) filename];
               *buf = 138412802;
-              v31 = v22;
-              v32 = 2112;
-              v33 = v23;
-              v34 = 2112;
-              v35 = v27;
-              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Unable to serialize media item maker for %@/%@: %@", buf, 0x20u);
+              v32 = v23;
+              v33 = 2112;
+              v34 = v24;
+              v35 = 2112;
+              v36 = v28;
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Unable to serialize media item maker for %@/%@: %@", buf, 0x20u);
             }
           }
 
           v20 = 0;
         }
 
-        v24 = v27;
+        v25 = v28;
       }
 
       else
       {
         v20 = 0;
-        v24 = 0;
+        v25 = 0;
       }
 
-      v25 = *(a1 + 40);
-      v26 = [*(a1 + 32) fingerPrint];
-      (*(v25 + 16))(v25, v28, v20, v17, v26, 0);
+      v26 = *(a1 + 40);
+      v27 = [*(a1 + 32) fingerPrint];
+      (*(v26 + 16))(v26, v29, v20, v17, v27, 0);
     }
   }
 }
@@ -5302,12 +5294,12 @@ void sub_100098900(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
 
 void sub_100098A50(uint64_t a1)
 {
-  v14 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
-  if (v14)
+  v10 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
+  if (v10)
   {
     v2 = [*(a1 + 32) lastOperationRequestUUIDs];
     v3 = +[CPLResource shortDescriptionForResourceType:](CPLResource, "shortDescriptionForResourceType:", [*(*(a1 + 32) + 280) resourceType]);
-    v4 = [CPLCloudKitErrors CPLErrorForCloudKitError:v14 withRequestUUIDs:v2 description:@"Failed to get streaming url for %@", v3];
+    v4 = [CPLCloudKitErrors CPLErrorForCloudKitError:v10 withRequestUUIDs:v2 description:@"Failed to get streaming url for %@", v3];
 LABEL_3:
 
     goto LABEL_8;
@@ -5329,14 +5321,10 @@ LABEL_3:
 
   v4 = 0;
 LABEL_8:
-  v9 = *(a1 + 56);
-  v8 = *(a1 + 64);
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 80);
   (*(*(*(a1 + 32) + 304) + 16))();
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 304);
-  *(v12 + 304) = 0;
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 304);
+  *(v8 + 304) = 0;
 }
 
 void sub_100099080(id a1)
@@ -5347,17 +5335,11 @@ void sub_100099080(id a1)
   qword_1002C55F8 = v2;
 }
 
-uint64_t sub_1000990C0(uint64_t a1)
+void sub_1000990E8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *v1 = a1;
-  v3 = *(v2 + 16);
-  return v2;
-}
+  va_start(va, a8);
 
-void sub_1000990E8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_100099274(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5431,22 +5413,25 @@ uint64_t sub_1000A1028(uint64_t result)
   return result;
 }
 
-void sub_1000A1044(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000A1044(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_1000A1064(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000A1064(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_1000A19B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1000A19B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 136), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5464,42 +5449,41 @@ void sub_1000A19FC(uint64_t a1, void *a2, void *a3, _BYTE *a4)
       goto LABEL_18;
     }
 
-    v11 = *(a1 + 64);
     if ((objc_opt_isKindOfClass() & 1) != 0 && [*(a1 + 72) _isCKErrorForRejectedRecord:v8])
     {
-      v12 = *(a1 + 32);
-      v13 = [v7 zoneID];
-      v14 = [v12 scopeIdentifierFromZoneID:v13];
+      v11 = *(a1 + 32);
+      v12 = [v7 zoneID];
+      v13 = [v11 scopeIdentifierFromZoneID:v12];
 
-      if (v14)
+      if (v13)
       {
         *(*(*(a1 + 40) + 8) + 24) = 1;
         if (!*(*(*(a1 + 48) + 8) + 40))
         {
-          v15 = objc_alloc_init(NSMutableDictionary);
-          v16 = *(*(a1 + 48) + 8);
-          v17 = *(v16 + 40);
-          *(v16 + 40) = v15;
+          v14 = objc_alloc_init(NSMutableDictionary);
+          v15 = *(*(a1 + 48) + 8);
+          v16 = *(v15 + 40);
+          *(v15 + 40) = v14;
         }
 
-        v18 = [*(a1 + 32) rejectedScopedIdentifierForRejectedCKRecordID:v7];
-        v19 = v18;
-        if (v18)
+        v17 = [*(a1 + 32) rejectedScopedIdentifierForRejectedCKRecordID:v7];
+        v18 = v17;
+        if (v17)
         {
-          v20 = *(a1 + 72);
-          v21 = [v18 identifier];
-          v22 = [v20 _rejectionReasonFromPartialError:v8 identifier:v21];
-          [*(*(*(a1 + 48) + 8) + 40) setObject:v22 forKeyedSubscript:v19];
+          v19 = *(a1 + 72);
+          v20 = [v17 identifier];
+          v21 = [v19 _rejectionReasonFromPartialError:v8 identifier:v20];
+          [*(*(*(a1 + 48) + 8) + 40) setObject:v21 forKeyedSubscript:v18];
         }
 
         else if ((_CPLSilentLogging & 1) == 0)
         {
-          v23 = __CPLGenericOSLogDomain();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v22 = __CPLGenericOSLogDomain();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v27 = 138543362;
-            v28 = v7;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to find a scoped identifier for %{public}@", &v27, 0xCu);
+            v26 = 138543362;
+            v27 = v7;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to find a scoped identifier for %{public}@", &v26, 0xCu);
           }
         }
       }
@@ -5508,10 +5492,10 @@ void sub_1000A19FC(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v24 = [*(a1 + 72) _betterErrorForRecordId:v7 recordError:v8];
-    v25 = *(*(a1 + 56) + 8);
-    v26 = *(v25 + 40);
-    *(v25 + 40) = v24;
+    v23 = [*(a1 + 72) _betterErrorForRecordId:v7 recordError:v8];
+    v24 = *(*(a1 + 56) + 8);
+    v25 = *(v24 + 40);
+    *(v24 + 40) = v23;
 
     *a4 = 1;
   }
@@ -5519,17 +5503,17 @@ void sub_1000A19FC(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 LABEL_18:
 }
 
-void sub_1000A3194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A3194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5550,33 +5534,32 @@ id sub_1000A31C8(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 
 void sub_1000A33F8(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v8 = a2;
   v5 = a3;
-  v6 = *(a1 + 48);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_1001AC94C(a1, (a1 + 48));
   }
 
-  v7 = [*(a1 + 32) domain];
-  if (![v7 isEqualToString:CKErrorDomain])
+  v6 = [*(a1 + 32) domain];
+  if (![v6 isEqualToString:CKErrorDomain])
   {
 
     goto LABEL_6;
   }
 
-  v8 = [*(a1 + 32) code];
+  v7 = [*(a1 + 32) code];
 
-  if (v8 != 22)
+  if (v7 != 22)
   {
 LABEL_6:
-    [*(a1 + 40) setObject:v5 forKeyedSubscript:v9];
+    [*(a1 + 40) setObject:v5 forKeyedSubscript:v8];
   }
 }
 
-void sub_1000A3704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A3704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5967,7 +5950,7 @@ void sub_1000A45AC(uint64_t a1, void *a2)
     v3 = v7;
   }
 
-  (*(v3 + 2))();
+  v3[2]();
 }
 
 void sub_1000A4650(uint64_t a1)
@@ -5978,21 +5961,22 @@ void sub_1000A4650(uint64_t a1)
   [*(*(*(a1 + 32) + 8) + 40) setImageDimensions:v2];
 }
 
-void sub_1000A4BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000A4BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1000A4C10(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v10 = a2;
+  v11 = a2;
   v8 = a3;
   v9 = a5;
-  if ([v9 isCPLErrorWithCode:2002])
+  v10 = [v9 isCPLErrorWithCode:2002];
+  if (v10)
   {
-    CPLDisableCloudKitUseGateKeeper();
+    CPLDisableCloudKitUseGateKeeper(v10);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -6136,9 +6120,9 @@ id sub_1000A58FC(uint64_t a1)
   return result;
 }
 
-void sub_1000A5A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A5A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6489,6 +6473,13 @@ id sub_1000A8140(uint64_t a1, uint64_t a2)
   }
 }
 
+void sub_1000A8648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1000A8668(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -6506,8 +6497,7 @@ void sub_1000A8668(uint64_t a1, void *a2)
 
 void sub_1000A8708(uint64_t a1)
 {
-  v3 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
-  v2 = *(*(*(a1 + 48) + 8) + 40);
+  v2 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
   (*(*(*(a1 + 32) + 280) + 16))();
 }
 
@@ -6696,14 +6686,13 @@ void sub_1000A9560(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_1000A957C(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  if (!v6)
+  v5 = a2;
+  if (!v5)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     v4 = WeakRetained;
     if (WeakRetained)
     {
-      v5 = *(WeakRetained + 39);
       *(WeakRetained + 39) = 0;
     }
 
@@ -6729,7 +6718,7 @@ void sub_1000A9BA8(uint64_t a1, void *a2, void *a3)
     *(*(a1 + 32) + 312) += v7;
     if (*(a1 + 80))
     {
-      sub_1001ADB54((a1 + 40), a1, v8);
+      sub_1001ADB54(a1 + 40, a1, v8);
     }
 
     else
@@ -6824,29 +6813,26 @@ void sub_1000AA230(uint64_t a1)
       v6 = [v4 initWithCKRecord:v3 zone:v5];
 
       v7 = [v6 assetCounts];
-      v12 = 0;
-      v13 = &v12;
-      v14 = 0x2020000000;
-      v15 = 0;
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_1000AA3C4;
-      v11[3] = &unk_100276CC8;
-      v11[4] = &v12;
-      [v7 enumerateKeysAndObjectsUsingBlock:v11];
-      v8 = *(a1 + 32);
-      v9 = v13[3];
-      v10 = *(v8 + 312);
-      (*(*(v8 + 272) + 16))();
+      v9[0] = 0;
+      v9[1] = v9;
+      v9[2] = 0x2020000000;
+      v9[3] = 0;
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_1000AA3C4;
+      v8[3] = &unk_100276CC8;
+      v8[4] = v9;
+      [v7 enumerateKeysAndObjectsUsingBlock:v8];
+      (*(*(*(a1 + 32) + 272) + 16))();
       *(*(a1 + 32) + 312) = 0;
-      _Block_object_dispose(&v12, 8);
+      _Block_object_dispose(v9, 8);
     }
   }
 }
 
-void sub_1000AA3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AA3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7061,16 +7047,16 @@ uint64_t sub_1000ABACC()
   return v0;
 }
 
-id sub_1000ABB78()
+id sub_1000ABB78(uint64_t a1)
 {
   if (qword_1002C5658 != -1)
   {
     sub_1001AEA58();
   }
 
-  v1 = qword_1002C5660;
+  v2 = qword_1002C5660;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_1000AC9F4(uint64_t result)
@@ -7196,41 +7182,41 @@ void sub_1000AD974(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (!v6)
   {
-    v40 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v5, "count")}];
-    v41 = [*(a1 + 32) currentUserID];
-    if (!v41)
+    v42 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v5, "count")}];
+    v43 = [*(a1 + 32) currentUserID];
+    if (!v43)
     {
       sub_1001AF048(a1, (a1 + 32));
     }
 
+    v46 = 0u;
+    v47 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v44 objects:v52 count:16];
     if (v8)
     {
       v9 = v8;
-      v37 = (a1 + 32);
-      v38 = v5;
-      v39 = a1;
+      v39 = (a1 + 32);
+      v40 = v5;
+      v41 = a1;
       v10 = 0;
-      v11 = *v43;
+      v11 = *v45;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v43 != v11)
+          if (*v45 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v42 + 1) + 8 * i);
+          v13 = *(*(&v44 + 1) + 8 * i);
           v14 = [v13 participantUserID];
           if (v14)
           {
-            v15 = [v41 recordName];
+            v15 = [v43 recordName];
             v16 = [v15 isEqualToString:v14];
 
             if (v16)
@@ -7246,76 +7232,76 @@ void sub_1000AD974(uint64_t a1, void *a2, void *a3)
             {
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v19 = sub_100003BC8();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+                v20 = sub_100003BC8(v19);
+                if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                 {
-                  v20 = [v13 participantUserID];
-                  v21 = [v13 error];
+                  v21 = [v13 participantUserID];
+                  v22 = [v13 error];
                   *buf = 138543618;
-                  v47 = v20;
-                  v48 = 2112;
                   v49 = v21;
-                  _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to start exiting %{public}@: %@", buf, 0x16u);
+                  v50 = 2112;
+                  v51 = v22;
+                  _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to start exiting %{public}@: %@", buf, 0x16u);
                 }
               }
             }
 
             else
             {
-              [v40 addObject:v14];
+              [v42 addObject:v14];
             }
           }
 
           else if ((_CPLSilentLogging & 1) == 0)
           {
-            v22 = sub_100003BC8();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v23 = sub_100003BC8(0);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Received an exit response without a user identifier", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Received an exit response without a user identifier", buf, 2u);
             }
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v44 objects:v52 count:16];
       }
 
       while (v9);
 
       v6 = 0;
-      v5 = v38;
-      a1 = v39;
+      v5 = v40;
+      a1 = v41;
       if (v10)
       {
-        v23 = [v10 error];
-        if (v23)
+        v25 = [v10 error];
+        if (v25)
         {
-          v24 = *(v39 + 48);
-          v25 = [*(v39 + 32) _exitErrorFromError:v23];
-          (*(v24 + 16))(v24, 0, 0, 0, v25);
+          v26 = *(v41 + 48);
+          v27 = [*(v41 + 32) _exitErrorFromError:v25];
+          (*(v26 + 16))(v26, 0, 0, 0, v27);
         }
 
         else
         {
-          v25 = [v10 stagingZoneID];
-          if (v25)
+          v27 = [v10 stagingZoneID];
+          if (v27)
           {
-            v32 = [*v37 scopeIdentifierFromZoneID:v25];
-            if (!v32)
+            v34 = [*v39 scopeIdentifierFromZoneID:v27];
+            if (!v34)
             {
-              sub_1001AEEAC(v39, v37, v25);
+              sub_1001AEEAC(v41, v39, v27);
             }
 
-            v33 = v32;
-            v34 = -[CPLCloudKitScope initWithZoneID:options:]([CPLCloudKitScope alloc], "initWithZoneID:options:", v25, [*(*(v39 + 32) + 280) options]);
-            v35 = *(v39 + 48);
-            v36 = [(CPLCloudKitScope *)v34 transportScope];
-            (*(v35 + 16))(v35, v33, v36, v40, 0);
+            v35 = v34;
+            v36 = -[CPLCloudKitScope initWithZoneID:options:]([CPLCloudKitScope alloc], "initWithZoneID:options:", v27, [*(*(v41 + 32) + 280) options]);
+            v37 = *(v41 + 48);
+            v38 = [(CPLCloudKitScope *)v36 transportScope];
+            (*(v37 + 16))(v37, v35, v38, v42, 0);
           }
 
           else
           {
-            sub_1001AEFA0(v39);
+            sub_1001AEFA0(v41);
           }
         }
 
@@ -7331,18 +7317,18 @@ void sub_1000AD974(uint64_t a1, void *a2, void *a3)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v26 = sub_100003BC8();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v28 = sub_100003BC8(v24);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v27 = *(a1 + 40);
-          v28 = [v41 recordName];
+          v29 = *(a1 + 40);
+          v30 = [v43 recordName];
           *buf = 138412546;
-          v47 = v27;
-          v48 = 2114;
-          v49 = v28;
-          v29 = "Trying to dismantle %@ but %{public}@ was not marked as an exiting user";
+          v49 = v29;
+          v50 = 2114;
+          v51 = v30;
+          v31 = "Trying to dismantle %@ but %{public}@ was not marked as an exiting user";
 LABEL_35:
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, v29, buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, v31, buf, 0x16u);
 
           goto LABEL_36;
         }
@@ -7353,25 +7339,25 @@ LABEL_35:
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      v26 = sub_100003BC8();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = sub_100003BC8(v24);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v30 = *(a1 + 40);
-        v28 = [v41 recordName];
+        v32 = *(a1 + 40);
+        v30 = [v43 recordName];
         *buf = 138412546;
-        v47 = v30;
-        v48 = 2114;
-        v49 = v28;
-        v29 = "Trying to self exit from %@ but %{public}@ was not marked as an exiting user";
+        v49 = v32;
+        v50 = 2114;
+        v51 = v30;
+        v31 = "Trying to self exit from %@ but %{public}@ was not marked as an exiting user";
         goto LABEL_35;
       }
 
 LABEL_36:
     }
 
-    v31 = *(a1 + 48);
+    v33 = *(a1 + 48);
     v10 = +[CPLErrors unknownError];
-    (*(v31 + 16))(v31, 0, 0, 0, v10);
+    (*(v33 + 16))(v33, 0, 0, 0, v10);
 LABEL_42:
 
     goto LABEL_43;
@@ -7391,29 +7377,29 @@ void sub_1000ADFC0(uint64_t a1, void *a2, uint64_t a3)
 
   else
   {
-    v19 = a1;
+    v20 = a1;
     v6 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v5, "count")}];
-    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v20 = v5;
+    v25 = 0u;
+    v21 = v5;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v23;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v22 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v22 + 1) + 8 * i);
           v13 = [v12 participantUserID];
           if (v13)
           {
@@ -7423,16 +7409,16 @@ void sub_1000ADFC0(uint64_t a1, void *a2, uint64_t a3)
             {
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v15 = sub_100003BC8();
-                if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+                v16 = sub_100003BC8(v15);
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                 {
-                  v16 = [v12 participantUserID];
-                  v17 = [v12 error];
+                  v17 = [v12 participantUserID];
+                  v18 = [v12 error];
                   *buf = 138543618;
-                  v26 = v16;
-                  v27 = 2112;
-                  v28 = v17;
-                  _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to start exiting %{public}@: %@", buf, 0x16u);
+                  v27 = v17;
+                  v28 = 2112;
+                  v29 = v18;
+                  _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to start exiting %{public}@: %@", buf, 0x16u);
                 }
               }
             }
@@ -7445,23 +7431,23 @@ void sub_1000ADFC0(uint64_t a1, void *a2, uint64_t a3)
 
           else if ((_CPLSilentLogging & 1) == 0)
           {
-            v18 = sub_100003BC8();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v19 = sub_100003BC8(0);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Received an exit response without a user identifier", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Received an exit response without a user identifier", buf, 2u);
             }
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v9);
     }
 
-    (*(*(v19 + 32) + 16))();
-    v5 = v20;
+    (*(*(v20 + 32) + 16))();
+    v5 = v21;
   }
 }
 
@@ -7500,7 +7486,8 @@ void sub_1000AEAE8(uint64_t a1)
     v5 = *v21;
     do
     {
-      for (i = 0; i != v4; i = i + 1)
+      v6 = 0;
+      do
       {
         if (*v21 != v5)
         {
@@ -7509,8 +7496,8 @@ void sub_1000AEAE8(uint64_t a1)
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v7 = *(*(&v20 + 1) + 8 * i);
-          v8 = sub_100003BC8();
+          v7 = *(*(&v20 + 1) + 8 * v6);
+          v8 = sub_100003BC8(v3);
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             v9 = [v7 participantUserID];
@@ -7525,32 +7512,36 @@ void sub_1000AEAE8(uint64_t a1)
             _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "ParticipantUserID: %@ StagingZoneID: %@ error %@", buf, 0x20u);
           }
         }
+
+        v6 = v6 + 1;
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      while (v4 != v6);
+      v3 = [v2 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
   if (v19)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_100003BC8();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100003BC8(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 56);
+        v14 = *(a1 + 56);
         *buf = 138412546;
-        v25 = v13;
+        v25 = v14;
         v26 = 2112;
         v27 = v19;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Exit shared library operation %@ failed: %@", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Exit shared library operation %@ failed: %@", buf, 0x16u);
       }
     }
 
-    v14 = [*(a1 + 32) lastOperationRequestUUIDs];
-    v15 = [CPLCloudKitErrors CPLErrorForCloudKitError:v19 withRequestUUIDs:v14 description:@"Failed to request exit from shared library"];
+    v15 = [*(a1 + 32) lastOperationRequestUUIDs];
+    v16 = [CPLCloudKitErrors CPLErrorForCloudKitError:v19 withRequestUUIDs:v15 description:@"Failed to request exit from shared library"];
 
     (*(*(*(a1 + 32) + 272) + 16))();
   }
@@ -7559,17 +7550,16 @@ void sub_1000AEAE8(uint64_t a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v16 = sub_100003BC8();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100003BC8(v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(a1 + 56);
+        v18 = *(a1 + 56);
         *buf = 138412290;
-        v25 = v17;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Exit shared library operation %@ succeeded", buf, 0xCu);
+        v25 = v18;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Exit shared library operation %@ succeeded", buf, 0xCu);
       }
     }
 
-    v18 = *(a1 + 48);
     (*(*(*(a1 + 32) + 272) + 16))();
   }
 }
@@ -7721,9 +7711,9 @@ void sub_1000AF660(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, uint6
   }
 }
 
-void sub_1000AFA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1000AFA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7830,48 +7820,46 @@ void sub_1000B007C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
   if (a4)
   {
     v8 = [CPLCloudKitErrors CPLErrorForCloudKitError:a4 withRequestUUIDs:a3 description:@"Error fetching scope-level info records"];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 280);
-    (*(*(v9 + 272) + 16))();
+    (*(*(*(a1 + 32) + 272) + 16))();
   }
 
   else
   {
-    v11 = [*(a1 + 40) scopeTypeForCloudKitScope:*(*(a1 + 32) + 296) proposedScopeType:*(*(a1 + 32) + 280) fetchedRecords:v7 currentUserID:*(a1 + 48)];
-    if (v11)
+    v9 = [*(a1 + 40) scopeTypeForCloudKitScope:*(*(a1 + 32) + 296) proposedScopeType:*(*(a1 + 32) + 280) fetchedRecords:v7 currentUserID:*(a1 + 48)];
+    if (v9)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v12 = sub_100003C0C();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v10 = sub_100003C0C(_CPLSilentLogging);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = [*(*(a1 + 32) + 304) scopeIdentifier];
-          v14 = [CPLScopeChange descriptionForScopeType:v11];
-          v24 = 138412546;
-          v25 = v13;
-          v26 = 2112;
-          v27 = v14;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Determined scope type for %@: %@", &v24, 0x16u);
+          v11 = [*(*(a1 + 32) + 304) scopeIdentifier];
+          v12 = [CPLScopeChange descriptionForScopeType:v9];
+          v22 = 138412546;
+          v23 = v11;
+          v24 = 2112;
+          v25 = v12;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Determined scope type for %@: %@", &v22, 0x16u);
         }
       }
 
-      v15 = [CPLEngineScope alloc];
-      v16 = [*(*(a1 + 32) + 304) scopeIdentifier];
-      v17 = [v15 initWithScopeIdentifier:v16 scopeType:v11];
+      v13 = [CPLEngineScope alloc];
+      v14 = [*(*(a1 + 32) + 304) scopeIdentifier];
+      v15 = [v13 initWithScopeIdentifier:v14 scopeType:v9];
 
-      v18 = [*(a1 + 40) zoneIdentificationForCloudKitScope:*(*(a1 + 32) + 296) engineScope:v17];
-      v19 = [v18 scopeChangeFromCKRecords:v7 currentUserID:*(a1 + 48) previousScopeChange:0];
-      v20 = [v18 scopeFlagsUpdateFromCKRecords:v7];
-      [*(a1 + 32) _determineSharedScopeFromFetchedRecords:v7 scopeChange:v19 zoneIdentification:v18 currentUserID:*(a1 + 48)];
-      v21 = *(*(a1 + 32) + 272);
-      v22 = [v18 cloudKitScope];
-      v23 = [v22 transportScope];
-      (*(v21 + 16))(v21, v11, v19, v20, v23, 0);
+      v16 = [*(a1 + 40) zoneIdentificationForCloudKitScope:*(*(a1 + 32) + 296) engineScope:v15];
+      v17 = [v16 scopeChangeFromCKRecords:v7 currentUserID:*(a1 + 48) previousScopeChange:0];
+      v18 = [v16 scopeFlagsUpdateFromCKRecords:v7];
+      [*(a1 + 32) _determineSharedScopeFromFetchedRecords:v7 scopeChange:v17 zoneIdentification:v16 currentUserID:*(a1 + 48)];
+      v19 = *(*(a1 + 32) + 272);
+      v20 = [v16 cloudKitScope];
+      v21 = [v20 transportScope];
+      (*(v19 + 16))(v19, v9, v17, v18, v21, 0);
     }
 
     else
     {
-      sub_1001AF4E4(_CPLSilentLogging, a1 + 32, 280);
+      sub_1001AF4E4(_CPLSilentLogging, a1 + 32);
     }
   }
 }
@@ -7896,17 +7884,14 @@ void sub_1000B0770(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   {
     v5 = [CPLCloudKitErrors CPLErrorForCloudKitError:a4 withRequestUUIDs:a3 description:@"Error fetching scope-level info records"];
     v6 = *(*(*(a1 + 32) + 272) + 16);
-    v11 = v5;
+    v8 = v5;
   }
 
   else
   {
     v7 = [*(a1 + 40) scopeChangeFromCKRecords:a2 currentUserID:*(a1 + 48) previousScopeChange:*(*(a1 + 32) + 304)];
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 56);
-    v10 = *(v8 + 280);
-    v6 = *(*(v8 + 272) + 16);
-    v11 = v7;
+    v6 = *(*(*(a1 + 32) + 272) + 16);
+    v8 = v7;
   }
 
   v6();
@@ -7969,7 +7954,7 @@ void sub_1000B0F80(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v10 = sub_100003C0C();
+        v10 = sub_100003C0C(_CPLSilentLogging);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           v11 = [*(a1 + 64) cpl_zoneName];
@@ -8108,7 +8093,7 @@ void sub_1000B16A4(uint64_t a1, uint64_t a2)
 
   else
   {
-    sub_1001AF8DC(_CPLSilentLogging, a1);
+    sub_1001AF8DC(_CPLSilentLogging);
   }
 }
 
@@ -8120,16 +8105,18 @@ void sub_1000B1758(id a1)
   qword_1002C5690 = v2;
 }
 
-void sub_1000B17BC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000B17BC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
-void sub_1000B17DC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000B17DC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 void sub_1000B1D34(uint64_t a1, void *a2)
@@ -8238,8 +8225,8 @@ void sub_1000B1FE8(uint64_t a1, void *a2, uint64_t a3, void *a4)
 
 void sub_1000B20C8(uint64_t a1)
 {
-  v14 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
-  if (v14)
+  v13 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
+  if (v13)
   {
     v2 = [*(a1 + 32) lastOperationRequestUUIDs];
     if (*(a1 + 64))
@@ -8252,35 +8239,34 @@ void sub_1000B20C8(uint64_t a1)
       v3 = "private";
     }
 
-    v4 = [CPLCloudKitErrors CPLErrorForCloudKitError:v14 withRequestUUIDs:v2 description:@"failed to fetch %s database changes", v3];
+    v4 = [CPLCloudKitErrors CPLErrorForCloudKitError:v13 withRequestUUIDs:v2 description:@"failed to fetch %s database changes", v3];
 
     v5 = *(*(*(a1 + 32) + 288) + 16);
   }
 
   else
   {
-    v6 = *(a1 + 48);
-    v7 = (*(*(a1 + 56) + 16))();
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 272);
-    *(v8 + 272) = v7;
+    v6 = (*(*(a1 + 56) + 16))();
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 272);
+    *(v7 + 272) = v6;
 
     if ((*(a1 + 64) & 1) == 0)
     {
-      v10 = [*(a1 + 32) controller];
-      v11 = [v10 supportsSharedDatabase];
+      v9 = [*(a1 + 32) controller];
+      v10 = [v9 supportsSharedDatabase];
 
-      if (v11)
+      if (v10)
       {
         [*(a1 + 32) _launchOperationForSharedDatabase:1];
         goto LABEL_11;
       }
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 288);
-    v4 = [*(v12 + 272) scopeListSyncAnchor];
-    v5 = *(v13 + 16);
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 288);
+    v4 = [*(v11 + 272) scopeListSyncAnchor];
+    v5 = *(v12 + 16);
   }
 
   v5();
@@ -8569,7 +8555,7 @@ void sub_1000B4000(uint64_t a1, void *a2, void *a3)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = sub_100003C94();
+      v7 = sub_100003C94(_CPLSilentLogging);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
@@ -8580,28 +8566,28 @@ void sub_1000B4000(uint64_t a1, void *a2, void *a3)
     v8 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(*(*(a1 + 32) + 280), "count")}];
     v9 = objc_alloc_init(NSMutableDictionary);
     v10 = *(a1 + 40);
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_1000B4258;
-    v15[3] = &unk_100277178;
-    v16 = v5;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000B4258;
+    v16[3] = &unk_100277178;
+    v17 = v5;
     v11 = v9;
     v12 = *(a1 + 32);
-    v17 = v11;
-    v18 = v12;
+    v18 = v11;
+    v19 = v12;
     v13 = v8;
-    v19 = v13;
-    [v10 enumerateKeysAndObjectsUsingBlock:v15];
+    v20 = v13;
+    v14 = [v10 enumerateKeysAndObjectsUsingBlock:v16];
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = sub_100003C94();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = sub_100003C94(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v21 = v13;
-        v22 = 2112;
-        v23 = v11;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Matched resources %@ Mismatched resources %@", buf, 0x16u);
+        v22 = v13;
+        v23 = 2112;
+        v24 = v11;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Matched resources %@ Mismatched resources %@", buf, 0x16u);
       }
     }
 
@@ -8684,24 +8670,15 @@ void sub_1000B46E8(id a1)
 uint64_t Rpcproto_ErrorInfo.cloudDbErrorName.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t Rpcproto_ErrorInfo.cloudDbErrorName.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
-  return result;
-}
-
-uint64_t Goldilocks_ErrorInfo.DatabaseFailure.clientCode.getter()
-{
-  result = *(v0 + 32);
-  v2 = *(v0 + 40);
   return result;
 }
 
@@ -8709,13 +8686,6 @@ uint64_t Goldilocks_ErrorInfo.DatabaseFailure.clientCode.setter(uint64_t result,
 {
   *(v2 + 32) = result;
   *(v2 + 40) = a2 & 1;
-  return result;
-}
-
-uint64_t Goldilocks_ErrorInfo.DatabaseFailure.serverCode.getter()
-{
-  result = *(v0 + 48);
-  v2 = *(v0 + 56);
   return result;
 }
 
@@ -8729,14 +8699,12 @@ uint64_t Goldilocks_ErrorInfo.DatabaseFailure.serverCode.setter(uint64_t result,
 uint64_t Goldilocks_ErrorInfo.ResultError.localizedErrorDescription.getter()
 {
   v1 = *(v0 + 64);
-  v2 = *(v0 + 72);
 
   return v1;
 }
 
 uint64_t Goldilocks_ErrorInfo.ResultError.localizedErrorDescription.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 72);
 
   *(v2 + 64) = a1;
   *(v2 + 72) = a2;
@@ -8745,7 +8713,6 @@ uint64_t Goldilocks_ErrorInfo.ResultError.localizedErrorDescription.setter(uint6
 
 uint64_t Rpcproto_ErrorInfo.loggingDetails.setter(uint64_t a1)
 {
-  v3 = *(v1 + 88);
 
   *(v1 + 88) = a1;
   return result;
@@ -8767,13 +8734,6 @@ uint64_t Rpcproto_ErrorInfo.unknownFields.setter(uint64_t a1)
   v5 = *(*(v4 - 8) + 40);
 
   return v5(v1 + v3, a1, v4);
-}
-
-uint64_t Goldilocks_OperationControl.optionalUnshareOperationPercentage.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
-  return result;
 }
 
 uint64_t Goldilocks_OperationControl.optionalUnshareOperationPercentage.setter(uint64_t result, char a2)
@@ -8883,10 +8843,8 @@ void sub_1000B4F80(void *a1@<X8>)
   *a1 = v2;
 }
 
-Swift::Int sub_1000B4FA4()
+Swift::Int sub_1000B4FA4(uint64_t a1, uint64_t a2)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
@@ -8899,10 +8857,8 @@ uint64_t sub_1000B5010(uint64_t a1, uint64_t a2)
   return Enum.hash(into:)(a1, a2, v4);
 }
 
-Swift::Int sub_1000B505C()
+Swift::Int sub_1000B505C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
@@ -8925,25 +8881,23 @@ BOOL sub_1000B50C4(uint64_t *a1, uint64_t *a2)
   return v2 == v3;
 }
 
-uint64_t sub_1000B5114@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1000B5114@<X0>(void (*a1)(void)@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 1;
-  v2 = a2 + *(a1(0) + 20);
+  a1(0);
   return UnknownStorage.init()();
 }
 
 uint64_t Rpcproto_ErrorInfo.LoggingDetail.key.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t Rpcproto_ErrorInfo.LoggingDetail.key.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -8974,7 +8928,7 @@ uint64_t Rpcproto_ErrorInfo.LoggingDetail.init()@<X0>(void *a1@<X8>)
   a1[1] = 0xE000000000000000;
   a1[2] = 0;
   a1[3] = 0xE000000000000000;
-  v1 = a1 + *(type metadata accessor for Rpcproto_ErrorInfo.LoggingDetail(0) + 24);
+  type metadata accessor for Rpcproto_ErrorInfo.LoggingDetail(0);
   return UnknownStorage.init()();
 }
 
@@ -8992,18 +8946,17 @@ uint64_t Rpcproto_ErrorInfo.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 72) = 0xE000000000000000;
   *(a1 + 80) = 0;
   *(a1 + 88) = &_swiftEmptyArrayStorage;
-  v1 = a1 + *(type metadata accessor for Rpcproto_ErrorInfo(0) + 44);
+  type metadata accessor for Rpcproto_ErrorInfo(0);
   return UnknownStorage.init()();
 }
 
 uint64_t sub_1000B54D4(uint64_t a1, uint64_t *a2)
 {
   swift_beginAccess();
-  v4 = *a2;
   *a2 = a1;
 }
 
-uint64_t sub_1000B5584@<X0>(void *a1@<X2>, void *a2@<X8>)
+uint64_t sub_1000B5584@<X0>(uint64_t *a1@<X2>, uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   *a2 = *a1;
@@ -9071,4 +9024,68 @@ uint64_t sub_1000B55F8()
   v18[16] = 2;
   v7();
   return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t Rpcproto_ErrorInfo.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result <= 4)
+      {
+        switch(result)
+        {
+          case 1:
+LABEL_4:
+            dispatch thunk of Decoder.decodeSingularStringField(value:)();
+            goto LABEL_5;
+          case 3:
+            v6 = v3;
+            sub_1000BA0CC();
+            break;
+          case 4:
+            v6 = v3;
+            sub_1000BA078();
+            break;
+          default:
+            goto LABEL_5;
+        }
+
+        v3 = v6;
+        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+      }
+
+      else
+      {
+        if (result <= 6)
+        {
+          goto LABEL_4;
+        }
+
+        if (result == 7)
+        {
+          dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
+        }
+
+        else if (result == 8)
+        {
+          type metadata accessor for Rpcproto_ErrorInfo.LoggingDetail(0);
+          sub_1000BA290(&qword_1002C0820, type metadata accessor for Rpcproto_ErrorInfo.LoggingDetail, &protocol conformance descriptor for Rpcproto_ErrorInfo.LoggingDetail);
+          dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
+        }
+      }
+
+LABEL_5:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
 }

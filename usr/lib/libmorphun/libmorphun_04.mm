@@ -45,44 +45,42 @@ uint64_t morphun::dictionary::metadata::MarisaTrie<int>::find(marisa::Trie *a1, 
 
 uint64_t morphun::dictionary::metadata::MarisaTrie<int>::getKeyId(marisa::Trie *a1, const std::string::value_type *a2, uint64_t a3)
 {
-  __p = 0;
-  v12 = 0;
-  v13 = 0;
-  v10 = 0u;
-  memset(v9, 0, sizeof(v9));
+  memset(&__p, 0, sizeof(__p));
+  v12 = 0u;
+  memset(v11, 0, sizeof(v11));
   morphun::dictionary::metadata::CharsetConverter::encode(a1 + 8, &__p, a2, a3);
-  if (v13 >= 0)
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
   else
   {
-    p_p = __p;
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  if (v13 >= 0)
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v5 = HIBYTE(v13);
+    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v5 = v12;
+    size = __p.__r_.__value_.__l.__size_;
   }
 
-  marisa::Agent::set_query(v9, p_p, v5);
-  v6 = marisa::Trie::lookup(a1, v9);
-  v7 = DWORD1(v10);
-  marisa::scoped_ptr<marisa::grimoire::trie::State>::~scoped_ptr(&v10 + 1);
-  if (SHIBYTE(v13) < 0)
+  marisa::Agent::set_query(v11, p_p, size);
+  v8 = marisa::Trie::lookup(a1, v11, v6, v7);
+  v9 = DWORD1(v12);
+  marisa::scoped_ptr<marisa::grimoire::trie::State>::~scoped_ptr(&v12 + 1);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v6)
+  if (v8)
   {
-    return v7;
+    return v9;
   }
 
   else
@@ -162,13 +160,13 @@ LABEL_6:
 
 void morphun::grammar::synthesis::EsGrammarSynthesizer_CountGenderLookupFunction::determine(uint64_t a1@<X0>, uint64_t a2@<X1>, std::basic_string<char16_t> *a3@<X8>)
 {
-  v54[2] = *MEMORY[0x1E69E9840];
-  morphun::dialog::DictionaryLookupFunction::determinePhrase(a1, a2, 1, &v51);
-  size = HIBYTE(v51.__r_.__value_.__r.__words[2]);
-  v7 = SHIBYTE(v51.__r_.__value_.__r.__words[2]);
-  if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v53[2] = *MEMORY[0x1E69E9840];
+  morphun::dialog::DictionaryLookupFunction::determinePhrase(a1, a2, 1, &v50);
+  size = HIBYTE(v50.__r_.__value_.__r.__words[2]);
+  v7 = SHIBYTE(v50.__r_.__value_.__r.__words[2]);
+  if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v51.__r_.__value_.__l.__size_;
+    size = v50.__r_.__value_.__l.__size_;
   }
 
   if (size)
@@ -176,20 +174,20 @@ void morphun::grammar::synthesis::EsGrammarSynthesizer_CountGenderLookupFunction
     goto LABEL_4;
   }
 
-  v9 = *(a2 + 23);
-  if (v9 < 0)
+  v8 = *(a2 + 23);
+  if (v8 < 0)
   {
-    v9 = *(a2 + 8);
-    if (v9)
+    v8 = *(a2 + 8);
+    if (v8)
     {
-      v50 = 0;
-      v10 = *a2;
+      v49 = 0;
+      v9 = *a2;
       goto LABEL_11;
     }
 
 LABEL_4:
-    *a3 = v51;
-    goto LABEL_5;
+    *a3 = v50;
+    return;
   }
 
   if (!*(a2 + 23))
@@ -197,98 +195,98 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v50 = 0;
-  v10 = a2;
+  v49 = 0;
+  v9 = a2;
 LABEL_11:
-  CombinedBinaryType = morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(*(a1 + 208), &v50, v10, v9);
-  if (*(a1 + 232) || !CombinedBinaryType || (*(a1 + 224) & v50) != 0)
+  CombinedBinaryType = morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(*(a1 + 208), &v49, v9, v8);
+  if (*(a1 + 232) || !CombinedBinaryType || (*(a1 + 224) & v49) != 0)
   {
+    v46 = 0;
     v47 = 0;
     v48 = 0;
-    v49 = 0;
     morphun::dialog::DictionaryLookupFunction::getFirstWord(&__p, *(a1 + 160), a2);
-    v12 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    v13 = __p.__r_.__value_.__r.__words[0];
-    v14 = __p.__r_.__value_.__r.__words[1];
-    v16 = morphun::util::LocaleUtils::SPANISH(v15);
-    if ((v12 & 0x80u) == 0)
+    v11 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v12 = __p.__r_.__value_.__r.__words[0];
+    v13 = __p.__r_.__value_.__r.__words[1];
+    v15 = morphun::util::LocaleUtils::SPANISH(v14);
+    if ((v11 & 0x80u) == 0)
     {
       p_p = &__p;
     }
 
     else
     {
-      p_p = v13;
+      p_p = v12;
     }
 
-    if ((v12 & 0x80u) == 0)
+    if ((v11 & 0x80u) == 0)
     {
-      v18 = v12;
+      v17 = v11;
     }
 
     else
     {
-      v18 = v14;
+      v17 = v13;
     }
 
-    morphun::util::StringViewUtils::lowercase(&v47, p_p, v18, v16);
+    morphun::util::StringViewUtils::lowercase(&v46, p_p, v17, v15);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v19 = *(a1 + 232);
-    if (v19 == 1)
+    v18 = *(a1 + 232);
+    if (v18 == 1)
     {
-      v36 = 0;
-      v37 = HIBYTE(v49);
-      v38 = &v47;
-      if (v49 < 0)
+      v35 = 0;
+      v36 = HIBYTE(v48);
+      v37 = &v46;
+      if (v48 < 0)
       {
-        v38 = v47;
-        v37 = v48;
+        v37 = v46;
+        v36 = v47;
       }
 
-      v52 = v38;
-      v53 = v37;
+      v51 = v37;
+      v52 = v36;
       while (1)
       {
-        v39 = *(&off_1E8059958 + v36);
-        if (!v39)
+        v38 = *(&off_1E8059958 + v35);
+        if (!v38)
         {
 LABEL_85:
           __break(1u);
         }
 
-        if (*v39)
+        if (*v38)
         {
-          v40 = 0;
+          v39 = 0;
           do
           {
-            v41 = v40 + 1;
+            v40 = v39 + 1;
           }
 
-          while (v39[++v40]);
+          while (v38[++v39]);
         }
 
         else
         {
-          v41 = 0;
+          v40 = 0;
         }
 
-        v43 = std::u16string_view::ends_with[abi:se200100](&v52, v39, v41);
-        if (v43)
+        v42 = std::u16string_view::ends_with[abi:se200100](&v51, v38, v40);
+        if (v42)
         {
           break;
         }
 
-        v36 += 8;
-        if (v36 == 24)
+        v35 += 8;
+        if (v35 == 24)
         {
-          v43 = std::u16string_view::ends_with[abi:se200100](&v52, word_1BE80EB90, 1uLL);
-          if (v43)
+          v42 = std::u16string_view::ends_with[abi:se200100](&v51, word_1BE80EB90, 1uLL);
+          if (v42)
           {
-            v35 = morphun::grammar::synthesis::GrammemeConstants::NUMBER_PLURAL(v43);
+            v34 = morphun::grammar::synthesis::GrammemeConstants::NUMBER_PLURAL(v42);
             goto LABEL_75;
           }
 
@@ -296,29 +294,39 @@ LABEL_85:
         }
       }
 
-      v35 = morphun::grammar::synthesis::GrammemeConstants::NUMBER_SINGULAR(v43);
+      v34 = morphun::grammar::synthesis::GrammemeConstants::NUMBER_SINGULAR(v42);
 LABEL_75:
-      if ((*(v35 + 23) & 0x80000000) == 0)
+      if ((*(v34 + 23) & 0x80000000) == 0)
       {
         goto LABEL_76;
       }
 
-      std::basic_string<char16_t>::__init_copy_ctor_external(&__p, *v35, *(v35 + 8));
+      std::basic_string<char16_t>::__init_copy_ctor_external(&__p, *v34, *(v34 + 8));
 LABEL_78:
       if (v7 < 0)
       {
-        operator delete(v51.__r_.__value_.__l.__data_);
+        operator delete(v50.__r_.__value_.__l.__data_);
       }
 
-      v51 = __p;
+      v50 = __p;
     }
 
-    else if (!v19)
+    else if (!v18)
     {
-      v45 = 0;
-      if (v49 >= 0)
+      v44 = 0;
+      if (v48 >= 0)
       {
-        v20 = &v47;
+        v19 = &v46;
+      }
+
+      else
+      {
+        v19 = v46;
+      }
+
+      if (v48 >= 0)
+      {
+        v20 = HIBYTE(v48);
       }
 
       else
@@ -326,127 +334,117 @@ LABEL_78:
         v20 = v47;
       }
 
-      if (v49 >= 0)
+      v21 = morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(*(a1 + 208), &v44, v19, v20);
+      v22 = 0;
+      v23 = HIBYTE(v48);
+      if (v48 >= 0)
       {
-        v21 = HIBYTE(v49);
+        v24 = &v46;
       }
 
       else
       {
-        v21 = v48;
+        v24 = v46;
       }
 
-      v22 = morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(*(a1 + 208), &v45, v20, v21);
-      v23 = 0;
-      v24 = HIBYTE(v49);
-      if (v49 >= 0)
+      if (v48 < 0)
       {
-        v25 = &v47;
+        v23 = v47;
       }
 
-      else
-      {
-        v25 = v47;
-      }
-
-      if (v49 < 0)
-      {
-        v24 = v48;
-      }
-
-      v52 = v25;
-      v53 = v24;
+      v51 = v24;
+      v52 = v23;
       while (1)
       {
-        v26 = off_1E8059928[v23];
-        if (!v26)
+        v25 = off_1E8059928[v22];
+        if (!v25)
         {
           goto LABEL_85;
         }
 
-        if (*v26)
+        if (*v25)
         {
-          v27 = 0;
+          v26 = 0;
           do
           {
-            v28 = v27 + 1;
+            v27 = v26 + 1;
           }
 
-          while (v26[++v27]);
+          while (v25[++v26]);
         }
 
         else
         {
-          v28 = 0;
+          v27 = 0;
         }
 
-        v30 = std::u16string_view::ends_with[abi:se200100](&v52, v26, v28);
-        if (v30)
+        v29 = std::u16string_view::ends_with[abi:se200100](&v51, v25, v27);
+        if (v29)
         {
           break;
         }
 
-        if (++v23 == 6)
+        if (++v22 == 6)
         {
-          if (!v22)
+          if (!v21)
           {
-            v54[0] = L"as";
-            v54[1] = "a";
+            v53[0] = L"as";
+            v53[1] = "a";
             while (1)
             {
-              v31 = *(v54 + v22);
-              if (!v31)
+              v30 = *(v53 + v21);
+              if (!v30)
               {
                 goto LABEL_85;
               }
 
-              if (*v31)
+              if (*v30)
               {
-                v32 = 0;
+                v31 = 0;
                 do
                 {
-                  v33 = v32 + 1;
+                  v32 = v31 + 1;
                 }
 
-                while (v31[++v32]);
+                while (v30[++v31]);
               }
 
               else
               {
-                v33 = 0;
+                v32 = 0;
               }
 
-              v30 = std::u16string_view::ends_with[abi:se200100](&v52, v31, v33);
-              if (v30)
+              v29 = std::u16string_view::ends_with[abi:se200100](&v51, v30, v32);
+              if (v29)
               {
                 break;
               }
 
-              if (++v22 == 16)
+              if (++v21 == 16)
               {
                 goto LABEL_54;
               }
             }
 
-            v35 = morphun::grammar::synthesis::GrammemeConstants::GENDER_FEMININE(v30);
-            if (*(v35 + 23) < 0)
+            v34 = morphun::grammar::synthesis::GrammemeConstants::GENDER_FEMININE(v29);
+            if (*(v34 + 23) < 0)
             {
 LABEL_73:
-              std::basic_string<char16_t>::__init_copy_ctor_external(&__p, *v35, *(v35 + 8));
+              std::basic_string<char16_t>::__init_copy_ctor_external(&__p, *v34, *(v34 + 8));
               goto LABEL_78;
             }
 
 LABEL_76:
-            v44 = *v35;
-            __p.__r_.__value_.__r.__words[2] = *(v35 + 16);
-            *&__p.__r_.__value_.__l.__data_ = v44;
+            v43 = *v34;
+            __p.__r_.__value_.__r.__words[2] = *(v34 + 16);
+            *&__p.__r_.__value_.__l.__data_ = v43;
             goto LABEL_78;
           }
 
 LABEL_54:
-          v35 = morphun::grammar::synthesis::GrammemeConstants::GENDER_MASCULINE(v30);
+          v34 = morphun::grammar::synthesis::GrammemeConstants::GENDER_MASCULINE(v29);
 LABEL_72:
-          if ((*(v35 + 23) & 0x80000000) == 0)
+          if ((*(v34 + 23) & 0x80000000) == 0)
           {
             goto LABEL_76;
           }
@@ -455,13 +453,13 @@ LABEL_72:
         }
       }
 
-      v35 = morphun::grammar::synthesis::GrammemeConstants::GENDER_FEMININE(v30);
+      v34 = morphun::grammar::synthesis::GrammemeConstants::GENDER_FEMININE(v29);
       goto LABEL_72;
     }
 
-    if (SHIBYTE(v49) < 0)
+    if (SHIBYTE(v48) < 0)
     {
-      operator delete(v47);
+      operator delete(v46);
     }
 
     goto LABEL_4;
@@ -472,11 +470,8 @@ LABEL_72:
   a3->__r_.__value_.__r.__words[2] = 0;
   if (v7 < 0)
   {
-    operator delete(v51.__r_.__value_.__l.__data_);
+    operator delete(v50.__r_.__value_.__l.__data_);
   }
-
-LABEL_5:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BE5B902C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25)
@@ -520,39 +515,39 @@ void morphun::grammar::synthesis::EsGrammarSynthesizer_CountGenderLookupFunction
   *(this + 1) = &unk_1F3CD2000;
 }
 
-void morphun::grammar::synthesis::EsGrammarSynthesizer_CountGenderLookupFunction::EsGrammarSynthesizer_CountGenderLookupFunction(morphun::util::LocaleUtils *a1)
+void morphun::grammar::synthesis::EsGrammarSynthesizer_CountGenderLookupFunction::EsGrammarSynthesizer_CountGenderLookupFunction(morphun::util::LocaleUtils *a1, int a2, uint64_t a3)
 {
   __p[3] = *MEMORY[0x1E69E9840];
   *a1 = &off_1F3CE6308;
-  v1 = morphun::util::LocaleUtils::SPANISH(a1);
-  v2 = morphun::grammar::synthesis::GrammemeConstants::POS_NOUN(v1);
-  if (*(v2 + 23) < 0)
-  {
-    std::basic_string<char16_t>::__init_copy_ctor_external(&v6, *v2, *(v2 + 8));
-  }
-
-  else
-  {
-    v3 = *v2;
-    v6.__r_.__value_.__r.__words[2] = *(v2 + 16);
-    *&v6.__r_.__value_.__l.__data_ = v3;
-  }
-
-  v4 = morphun::grammar::synthesis::GrammemeConstants::POS_ADJECTIVE(v2);
+  v3 = morphun::util::LocaleUtils::SPANISH(a1);
+  v4 = morphun::grammar::synthesis::GrammemeConstants::POS_NOUN(v3);
   if (*(v4 + 23) < 0)
   {
-    std::basic_string<char16_t>::__init_copy_ctor_external(&v7, *v4, *(v4 + 8));
+    std::basic_string<char16_t>::__init_copy_ctor_external(&v8, *v4, *(v4 + 8));
   }
 
   else
   {
     v5 = *v4;
-    v7.__r_.__value_.__r.__words[2] = *(v4 + 16);
-    *&v7.__r_.__value_.__l.__data_ = v5;
+    v8.__r_.__value_.__r.__words[2] = *(v4 + 16);
+    *&v8.__r_.__value_.__l.__data_ = v5;
+  }
+
+  v6 = morphun::grammar::synthesis::GrammemeConstants::POS_ADJECTIVE(v4);
+  if (*(v6 + 23) < 0)
+  {
+    std::basic_string<char16_t>::__init_copy_ctor_external(&v9, *v6, *(v6 + 8));
+  }
+
+  else
+  {
+    v7 = *v6;
+    v9.__r_.__value_.__r.__words[2] = *(v6 + 16);
+    *&v9.__r_.__value_.__l.__data_ = v7;
   }
 
   memset(__p, 0, 24);
-  std::vector<std::basic_string<char16_t>>::__init_with_size[abi:se200100]<std::basic_string<char16_t> const*,std::basic_string<char16_t> const*>(__p, &v6, __p, 2uLL);
+  std::vector<std::basic_string<char16_t>>::__init_with_size[abi:se200100]<std::basic_string<char16_t> const*,std::basic_string<char16_t> const*>(__p, &v8, __p, 2uLL);
 }
 
 void sub_1BE5B9388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -725,59 +720,39 @@ CFStringRef mtok_getValueCopy(uint64_t a1)
   return CFStringCreateWithCharacters(0, v6, v7);
 }
 
-uint64_t mtok_getType(char **a1)
+uint64_t mtok_getType(const void *a1)
 {
   npc<morphun::Token const>(a1);
-  v2 = *a1;
-  v3 = **a1;
   {
     return 6;
   }
 
-  v5 = *v2;
   result = 0;
-  if (!v6)
+  if (!v3)
   {
-    v7 = *v2;
     {
       return 1;
     }
 
+    {
+      return 3;
+    }
+
+    {
+      return 4;
+    }
+
+    {
+      return 5;
+    }
+
+    {
+      return 2;
+    }
+
     else
     {
-      v8 = *v2;
-      {
-        return 3;
-      }
-
-      else
-      {
-        v9 = *v2;
-        {
-          return 4;
-        }
-
-        else
-        {
-          v10 = *v2;
-          {
-            return 5;
-          }
-
-          else
-          {
-            v11 = *v2;
-            {
-              return 2;
-            }
-
-            else
-            {
-              return 7;
-            }
-          }
-        }
-      }
+      return 7;
     }
   }
 
@@ -1419,7 +1394,7 @@ LABEL_136:
   return (*(*v81 + 16))(v81);
 }
 
-void sub_1BE5BAB90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_1BE5BAB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   if (a20 < 0)
   {
@@ -1436,16 +1411,15 @@ void sub_1BE5BAB90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a27);
   }
 
-  (*(*v32 + 16))(v32);
+  (*(*v32 + 16))(v32, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 uint64_t morphun::dialog::language::PlCommonConceptFactory::getCase(std::basic_string<char16_t> *a1, uint64_t a2, uint64_t a3)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
-  result = (*(*a3 + 104))(a3);
+  result = (*(*a3 + 104))(a3, a2);
   v5 = result;
   if (result)
   {
@@ -1471,10 +1445,9 @@ void sub_1BE5BAD48(_Unwind_Exception *exception_object)
 
 uint64_t morphun::dialog::language::PlCommonConceptFactory::getGender(std::basic_string<char16_t> *a1, uint64_t a2, uint64_t a3)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
-  result = (*(*a3 + 104))(a3);
+  result = (*(*a3 + 104))(a3, a2);
   v5 = result;
   if (result)
   {
@@ -1500,10 +1473,9 @@ void sub_1BE5BAE30(_Unwind_Exception *exception_object)
 
 uint64_t morphun::dialog::language::PlCommonConceptFactory::getAnimacy(std::basic_string<char16_t> *a1, uint64_t a2, uint64_t a3)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
-  result = (*(*a3 + 104))(a3);
+  result = (*(*a3 + 104))(a3, a2);
   v5 = result;
   if (result)
   {
@@ -2295,7 +2267,7 @@ LABEL_133:
   goto LABEL_85;
 }
 
-void sub_1BE5BB8A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
+void sub_1BE5BB8A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
 {
   if (a23 < 0)
   {
@@ -2351,12 +2323,12 @@ uint64_t morphun::analysis::filter::SplitPunctuationFilter::incrementToken(morph
   v3 = (this + 312);
   v4 = (this + 336);
   v5 = (this + 360);
-  v50 = (this + 336);
+  v49 = (this + 336);
   __str = (this + 312);
-  v49 = (this + 360);
+  v48 = (this + 360);
   while (1)
   {
-    v52 = v2;
+    v51 = v2;
     v6 = *(this + 335);
     if (v6 < 0)
     {
@@ -2452,13 +2424,13 @@ LABEL_22:
     {
       v19 = 0;
       v17 = 0;
-      v53 = 0;
+      v52 = 0;
     }
 
     else
     {
       v16 = 0;
-      v53 = 0;
+      v52 = 0;
       v17 = 0;
       v18 = 0;
       do
@@ -2474,29 +2446,38 @@ LABEL_22:
 
           if (v18)
           {
-            v21 = **(this + 37);
-            v22 = uset_containsAllCodePoints();
+            v21 = uset_containsAllCodePoints();
             if (*(this + 20))
             {
-              v23 = morphun::analysis::filter::LanguageExpansion::expandWithWorkspace(this + 144, v7, v8, this + 384) != 0;
+              v22 = morphun::analysis::filter::LanguageExpansion::expandWithWorkspace(this + 144, v7, v8, this + 384) != 0;
             }
 
             else
             {
-              v23 = 0;
+              v22 = 0;
             }
 
-            v24 = *(this + 38);
-            v25 = morphun::util::StringViewUtils::codePointAt(v7, v8, v53);
-            LOBYTE(v24) = MEMORY[0x1BFB49A20](*v24, v25);
-            v26 = *(this + 38);
-            v27 = morphun::util::StringViewUtils::codePointAt(v7, v8, v17);
-            v28 = MEMORY[0x1BFB49A20](*v26, v27);
-            isAdjacentDigit = morphun::analysis::filter::SplitPunctuationFilter::isAdjacentDigit(v7, v8, v53 - 1);
-            v30 = morphun::analysis::filter::SplitPunctuationFilter::isAdjacentDigit(v7, v8, v17 + 1);
-            if (v24)
+            v23 = *(this + 38);
+            v24 = morphun::util::StringViewUtils::codePointAt(v7, v8, v52);
+            LOBYTE(v23) = MEMORY[0x1BFB49A20](*v23, v24);
+            v25 = *(this + 38);
+            v26 = morphun::util::StringViewUtils::codePointAt(v7, v8, v17);
+            v27 = MEMORY[0x1BFB49A20](*v25, v26);
+            isAdjacentDigit = morphun::analysis::filter::SplitPunctuationFilter::isAdjacentDigit(v7, v8, v52 - 1);
+            v29 = morphun::analysis::filter::SplitPunctuationFilter::isAdjacentDigit(v7, v8, v17 + 1);
+            if (v23)
             {
-              v31 = isAdjacentDigit;
+              v30 = isAdjacentDigit;
+            }
+
+            else
+            {
+              v30 = 0;
+            }
+
+            if (v27)
+            {
+              v31 = v29;
             }
 
             else
@@ -2504,26 +2485,16 @@ LABEL_22:
               v31 = 0;
             }
 
-            if (v28)
-            {
-              v32 = v30;
-            }
-
-            else
-            {
-              v32 = 0;
-            }
-
-            if (!v22 && !v23 && !v31 && !v32)
+            if (!v21 && !v22 && !v30 && !v31)
             {
               v19 = v17;
-              v5 = v49;
-              v4 = v50;
+              v5 = v48;
+              v4 = v49;
               goto LABEL_57;
             }
 
             v19 = v17;
-            if (!isAdjacentDigit && !v30)
+            if (!isAdjacentDigit && !v29)
             {
               goto LABEL_108;
             }
@@ -2532,45 +2503,45 @@ LABEL_22:
           v18 = 0;
           if (v20 < 0x10000)
           {
-            v33 = 1;
+            v32 = 1;
           }
 
           else
           {
-            v33 = 2;
+            v32 = 2;
           }
 
-          v19 += v33;
+          v19 += v32;
           if (v19 >= v8)
           {
-            v5 = v49;
-            v4 = v50;
+            v5 = v48;
+            v4 = v49;
             goto LABEL_57;
           }
         }
 
-        v34 = v53;
+        v33 = v52;
         if ((v18 & 1) == 0)
         {
-          v34 = v19;
+          v33 = v19;
         }
 
-        v53 = v34;
+        v52 = v33;
         v18 = 1;
         if (v20 < 0x10000)
         {
-          v35 = 1;
+          v34 = 1;
         }
 
         else
         {
-          v35 = 2;
+          v34 = 2;
         }
 
-        v16 = v35 + v19;
+        v16 = v34 + v19;
         v17 = v19;
-        v5 = v49;
-        v4 = v50;
+        v5 = v48;
+        v4 = v49;
       }
 
       while (v16 < v8);
@@ -2580,8 +2551,8 @@ LABEL_57:
     if (v19 >= v8)
     {
 LABEL_108:
-      v46 = npc<morphun::analysis::tokenattributes::CharTermAttribute>(*(this + 16));
-      std::basic_string<char16_t>::operator=((v46 + *(*v46 - 96)), __str);
+      v45 = npc<morphun::analysis::tokenattributes::CharTermAttribute>(*(this + 16));
+      std::basic_string<char16_t>::operator=((v45 + *(*v45 - 96)), __str);
       if (*(this + 335) < 0)
       {
         **(this + 39) = 0;
@@ -2596,7 +2567,7 @@ LABEL_108:
 
 LABEL_111:
       v2 = 1;
-      return (v52 | v2) & 1;
+      return (v51 | v2) & 1;
     }
 
     if (*(this + 359) < 0)
@@ -2651,7 +2622,22 @@ LABEL_111:
 
     if (*(this + 359) < 0)
     {
-      v36 = (*(this + 44) & 0x7FFFFFFFFFFFFFFFLL) - 1;
+      v35 = (*(this + 44) & 0x7FFFFFFFFFFFFFFFLL) - 1;
+    }
+
+    else
+    {
+      v35 = 10;
+    }
+
+    if (v8 >= v35)
+    {
+      std::basic_string<char16_t>::reserve(v4, v8);
+    }
+
+    if (*(this + 383) < 0)
+    {
+      v36 = (*(this + 47) & 0x7FFFFFFFFFFFFFFFLL) - 1;
     }
 
     else
@@ -2661,60 +2647,45 @@ LABEL_111:
 
     if (v8 >= v36)
     {
-      std::basic_string<char16_t>::reserve(v4, v8);
-    }
-
-    if (*(this + 383) < 0)
-    {
-      v37 = (*(this + 47) & 0x7FFFFFFFFFFFFFFFLL) - 1;
-    }
-
-    else
-    {
-      v37 = 10;
-    }
-
-    if (v8 >= v37)
-    {
       std::basic_string<char16_t>::reserve(v5, v8);
     }
 
     if (v8 >= 1)
     {
-      v38 = 0;
+      v37 = 0;
       do
       {
-        v39 = morphun::util::StringViewUtils::codePointAt(v7, v8, v38);
-        v40 = v4;
-        if (v38 < v53 || (v40 = v5, v38 > v17))
+        v38 = morphun::util::StringViewUtils::codePointAt(v7, v8, v37);
+        v39 = v4;
+        if (v37 < v52 || (v39 = v5, v37 > v17))
         {
-          morphun::util::StringUtils::appendCodePoint(v40, v39);
+          morphun::util::StringUtils::appendCodePoint(v39, v38);
         }
 
-        if (v39 < 0x10000)
+        if (v38 < 0x10000)
         {
-          v41 = 1;
+          v40 = 1;
         }
 
         else
         {
-          v41 = 2;
+          v40 = 2;
         }
 
-        v38 += v41;
+        v37 += v40;
       }
 
-      while (v38 < v8);
+      while (v37 < v8);
     }
 
-    v42 = *(this + 383);
-    if (v42 < 0)
+    v41 = *(this + 383);
+    if (v41 < 0)
     {
-      v42 = *(this + 46);
+      v41 = *(this + 46);
     }
 
     v3 = __str;
-    if (v42)
+    if (v41)
     {
       std::basic_string<char16_t>::operator=(__str, v5);
     }
@@ -2731,7 +2702,7 @@ LABEL_111:
       *(this + 335) = 0;
     }
 
-    v43 = *(this + 359);
+    v42 = *(this + 359);
     if ((*(this + 359) & 0x80000000) == 0)
     {
       if (!*(this + 359))
@@ -2740,9 +2711,9 @@ LABEL_111:
       }
 
 LABEL_98:
-      v44 = npc<morphun::analysis::tokenattributes::CharTermAttribute>(*(this + 16));
-      std::basic_string<char16_t>::operator=((v44 + *(*v44 - 96)), v4);
-      v43 = *(this + 359);
+      v43 = npc<morphun::analysis::tokenattributes::CharTermAttribute>(*(this + 16));
+      std::basic_string<char16_t>::operator=((v43 + *(*v43 - 96)), v4);
+      v42 = *(this + 359);
       goto LABEL_99;
     }
 
@@ -2752,31 +2723,31 @@ LABEL_98:
     }
 
 LABEL_99:
-    if ((v43 & 0x80) != 0)
+    if ((v42 & 0x80) != 0)
     {
-      v43 = *(this + 43);
+      v42 = *(this + 43);
     }
 
-    if (v43)
+    if (v42)
     {
       goto LABEL_111;
     }
 
-    v45 = *(this + 383);
-    if (v45 < 0)
+    v44 = *(this + 383);
+    if (v44 < 0)
     {
-      v45 = *(this + 46);
+      v44 = *(this + 46);
     }
 
     v2 = 1;
-    if (!v45)
+    if (!v44)
     {
-      return (v52 | v2) & 1;
+      return (v51 | v2) & 1;
     }
   }
 
   v2 = 0;
-  return (v52 | v2) & 1;
+  return (v51 | v2) & 1;
 }
 
 BOOL morphun::analysis::filter::SplitPunctuationFilter::isAdjacentDigit(uint64_t a1, unint64_t a2, signed int a3)
@@ -2895,7 +2866,7 @@ std::basic_string<char16_t> *morphun::util::lemmatization::FeedForwardInflection
     morphun::exception::NullPointerException::NullPointerException(v8);
   }
 
-  morphun::util::lemmatization::FeedForwardInflectionAnalyzer::infer(v11, v3, __p);
+  morphun::util::lemmatization::FeedForwardInflectionAnalyzer::infer(v3, __p, v11);
   v4 = a1[1];
   if (!v4)
   {
@@ -3082,48 +3053,48 @@ void sub_1BE5BC6EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double morphun::util::lemmatization::FeedForwardInflectionAnalyzer::infer@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double morphun::util::lemmatization::FeedForwardInflectionAnalyzer::infer@<D0>(uint64_t *a1@<X1>, uint64_t *a2@<X8>, uint64_t a3@<X0>)
 {
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  std::vector<double>::__init_with_size[abi:se200100]<double *,double *>(a3, *a1, a1[1], (a1[1] - *a1) >> 3);
-  v6 = *a2;
-  v7 = *(a2 + 8);
-  if (*a2 != v7)
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  std::vector<double>::__init_with_size[abi:se200100]<double *,double *>(a2, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
+  v6 = *a1;
+  v7 = a1[1];
+  if (*a1 != v7)
   {
     v8 = 1;
     do
     {
-      morphun::util::lemmatization::FeedForwardInflectionAnalyzer::preMultiply(v6, a3, &v14);
-      if (*a3)
+      morphun::util::lemmatization::FeedForwardInflectionAnalyzer::preMultiply(v6, a2, &v14);
+      if (*a2)
       {
-        operator delete(*a3);
+        operator delete(*a2);
       }
 
       v9 = v14;
-      *a3 = v14;
-      *(a3 + 16) = v15;
+      *a2 = v14;
+      a2[2] = v15;
       v10 = v9;
       v11 = (v6 + 3);
-      morphun::util::lemmatization::FeedForwardInflectionAnalyzer::add(a3, v11, &v14);
+      morphun::util::lemmatization::FeedForwardInflectionAnalyzer::add(a2, v11, &v14);
       if (v10)
       {
         operator delete(v10);
       }
 
       v12 = v14;
-      *a3 = v14;
-      *(a3 + 16) = v15;
+      *a2 = v14;
+      a2[2] = v15;
       v13 = v12;
-      if (v8 == -1431655765 * ((*(a2 + 8) - *a2) >> 4))
+      if (v8 == -1431655765 * ((a1[1] - *a1) >> 4))
       {
-        morphun::util::lemmatization::FeedForwardInflectionAnalyzer::softMax(a3, &v14);
+        morphun::util::lemmatization::FeedForwardInflectionAnalyzer::softMax(a2, &v14);
       }
 
       else
       {
-        morphun::util::lemmatization::FeedForwardInflectionAnalyzer::rectifiedLinear(a3, &v14);
+        morphun::util::lemmatization::FeedForwardInflectionAnalyzer::rectifiedLinear(a2, &v14);
       }
 
       if (v13)
@@ -3132,8 +3103,8 @@ double morphun::util::lemmatization::FeedForwardInflectionAnalyzer::infer@<D0>(u
       }
 
       result = *&v14;
-      *a3 = v14;
-      *(a3 + 16) = v15;
+      *a2 = v14;
+      a2[2] = v15;
       ++v8;
       v6 = v11 + 3;
     }
@@ -3156,7 +3127,7 @@ void sub_1BE5BC854(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-std::basic_string<char16_t> *morphun::util::lemmatization::FeedForwardInflectionAnalyzer::asInflectionLikelihoods(uint64_t a1, void *a2, void *a3)
+std::basic_string<char16_t> *morphun::util::lemmatization::FeedForwardInflectionAnalyzer::asInflectionLikelihoods(void *result, void *a2, uint64_t *a3)
 {
   memset(&v15, 0, sizeof(v15));
   v14[0] = 0;
@@ -3182,8 +3153,8 @@ LABEL_12:
   while (v7 < (a2[1] - *a2) >> 3 && 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3) > v7)
   {
     v10 = *(*a2 + 8 * v7);
-    result = std::__tree<std::basic_string<char16_t>>::__find_equal<std::basic_string<char16_t>>(&v13, &v16, (*a3 + v6));
-    if (!result->__r_.__value_.__r.__words[0])
+    v11 = std::__tree<std::basic_string<char16_t>>::__find_equal<std::basic_string<char16_t>>(&v13, &v16, (*a3 + v6));
+    if (!v11->__r_.__value_.__r.__words[0])
     {
       operator new();
     }
@@ -3195,7 +3166,7 @@ LABEL_12:
         break;
       }
 
-      result = std::basic_string<char16_t>::operator=(&v15, (*a3 + v6));
+      v11 = std::basic_string<char16_t>::operator=(&v15, (*a3 + v6));
       v9 = v10;
     }
 
@@ -3208,7 +3179,7 @@ LABEL_12:
   }
 
   __break(1u);
-  return result;
+  return v11;
 }
 
 void sub_1BE5BCAB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -3223,7 +3194,7 @@ void sub_1BE5BCAB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:se200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:se200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3261,14 +3232,14 @@ LABEL_23:
   {
     v21 = a1;
     exception = __cxa_allocate_exception(0x38uLL);
-    morphun::util::StringUtils::to_u16string((a2[1] - *a2), &v27);
+    morphun::util::StringUtils::to_u16string(&v27, (a2[1] - *a2));
     std::basic_string<char16_t>::insert(&v27, L"must be v->size() == m->size(), v->size()=", 0x2A, v23);
     v28 = v27;
     memset(&v27, 0, sizeof(v27));
     std::basic_string<char16_t>::append(&v28, ",", 0xDuLL);
     v29 = v28;
     memset(&v28, 0, sizeof(v28));
-    morphun::util::StringUtils::to_u16string((0xAAAAAAAAAAAAAAABLL * ((v21[1] - *v21) >> 3)), &v26);
+    morphun::util::StringUtils::to_u16string(&v26, (0xAAAAAAAAAAAAAAABLL * ((v21[1] - *v21) >> 3)));
     if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v24 = &v26;
@@ -3301,7 +3272,7 @@ LABEL_23:
   {
     v9 = 0;
     v10 = *a2;
-    v11 = a2[1] - *a2;
+    v11 = (a2[1] - *a2);
     v12 = *result;
     v13 = (result[1] - *result) >> 3;
     while (v7 < 1)
@@ -3397,7 +3368,7 @@ LABEL_14:
   goto LABEL_14;
 }
 
-double **morphun::util::lemmatization::FeedForwardInflectionAnalyzer::add@<X0>(void *a1@<X0>, double **a2@<X1>, void *a3@<X8>)
+uint64_t *morphun::util::lemmatization::FeedForwardInflectionAnalyzer::add@<X0>(void *a1@<X0>, double **a2@<X1>, uint64_t *a3@<X8>)
 {
   v6 = a1[1] - *a1;
   if (v6 != a2[1] - *a2)
@@ -3405,14 +3376,14 @@ double **morphun::util::lemmatization::FeedForwardInflectionAnalyzer::add@<X0>(v
     exception = __cxa_allocate_exception(0x38uLL);
     v20 = a1;
     v21 = exception;
-    morphun::util::StringUtils::to_u16string(((v20[1] - *v20) >> 3), &v26);
+    morphun::util::StringUtils::to_u16string(&v26, ((v20[1] - *v20) >> 3));
     std::basic_string<char16_t>::insert(&v26, "m", 0x29, v22);
     v27 = v26;
     memset(&v26, 0, sizeof(v26));
     std::basic_string<char16_t>::append(&v27, ",", 0xCuLL);
     v28 = v27;
     memset(&v27, 0, sizeof(v27));
-    morphun::util::StringUtils::to_u16string((a2[1] - *a2), &v25);
+    morphun::util::StringUtils::to_u16string(&v25, (a2[1] - *a2));
     if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v23 = &v25;
@@ -3454,7 +3425,8 @@ double **morphun::util::lemmatization::FeedForwardInflectionAnalyzer::add@<X0>(v
     {
       v16 = *v11++;
       v17 = v16;
-      v18 = *v13++;
+      v18 = *v13;
+      v13 += 8;
       *v8++ = v17 + v18;
       --v10;
       --v14;
@@ -3514,56 +3486,55 @@ LABEL_14:
 
 void morphun::util::lemmatization::FeedForwardInflectionAnalyzer::softMax(double **a1@<X0>, long double **a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = *a1;
-  if (v4 == *a1)
+  v3 = a1[1];
+  v4 = *a1;
+  if (v3 == *a1)
   {
 LABEL_14:
     __break(1u);
     return;
   }
 
-  v7 = v4 - *a1;
-  v8 = *v5;
-  v9 = *a1;
+  v6 = v3 - *a1;
+  v7 = *v4;
+  v8 = *a1;
   do
   {
-    v10 = *v9++;
-    v11 = v10;
-    if (v10 > v8)
+    v9 = *v8++;
+    v10 = v9;
+    if (v9 > v7)
     {
-      v8 = v11;
+      v7 = v10;
     }
   }
 
-  while (v9 != v4);
-  v12 = 0.0;
+  while (v8 != v3);
+  v11 = 0.0;
   do
   {
-    v13 = *v5++;
-    v12 = v12 + exp(v13 - v8);
+    v12 = *v4++;
+    v11 = v11 + exp(v12 - v7);
   }
 
-  while (v5 != v4);
-  std::vector<double>::vector[abi:se200100](a2, v7);
-  v15 = a1;
-  v14 = *a1;
-  v16 = v15[1] - v14;
-  v17 = v16 >> 3;
-  if ((v16 >> 3) >= 1)
+  while (v4 != v3);
+  std::vector<double>::vector[abi:se200100](a2, v6);
+  v14 = a1;
+  v13 = *a1;
+  v15 = v14[1] - v13;
+  v16 = v15 >> 3;
+  if ((v15 >> 3) >= 1)
   {
-    v19 = a2;
-    v18 = *a2;
-    v20 = v19[1] - v18;
-    v21 = (v16 >> 3) & 0x7FFFFFFF;
-    while (v17 && v20)
+    v18 = a2;
+    v17 = *a2;
+    v19 = v18[1] - v17;
+    v20 = (v15 >> 3) & 0x7FFFFFFF;
+    while (v16 && v19)
     {
-      v22 = *v14++;
-      *v18++ = exp(v22 - v8) / v12;
-      --v20;
-      --v17;
-      if (!--v21)
+      v21 = *v13++;
+      *v17++ = exp(v21 - v7) / v11;
+      --v19;
+      --v16;
+      if (!--v20)
       {
         return;
       }
@@ -3573,7 +3544,7 @@ LABEL_14:
   }
 }
 
-double **morphun::util::lemmatization::FeedForwardInflectionAnalyzer::rectifiedLinear@<X0>(double **a1@<X0>, void *a2@<X8>)
+uint64_t *morphun::util::lemmatization::FeedForwardInflectionAnalyzer::rectifiedLinear@<X0>(double **a1@<X0>, uint64_t *a2@<X8>)
 {
   result = std::vector<double>::vector[abi:se200100](a2, a1[1] - *a1);
   v4 = *result;
@@ -3602,17 +3573,17 @@ double **morphun::util::lemmatization::FeedForwardInflectionAnalyzer::rectifiedL
   return result;
 }
 
-void *std::vector<double>::vector[abi:se200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:se200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:se200100](result, a2);
+    std::vector<double>::__vallocate[abi:se200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1BE5BD2D8(_Unwind_Exception *exception_object)
@@ -3652,9 +3623,9 @@ std::basic_string<char16_t> *morphun::util::lemmatization::FeedForwardInflection
   return this;
 }
 
-BOOL morphun::transliteration::ICUScriptTransliterator::transliterate(uint64_t a1, void **a2, unint64_t a3, uint64_t a4)
+BOOL morphun::transliteration::ICUScriptTransliterator::transliterate(void *a1, void **a2, unint64_t a3, uint64_t a4)
 {
-  if (!morphun::util::UnicodeSetUtils::containsSome(a1 + 136, a2, a3))
+  if (!morphun::util::UnicodeSetUtils::containsSome(a1 + 17, a2, a3))
   {
     return 0;
   }
@@ -3680,7 +3651,7 @@ LABEL_36:
     std::__allocate_at_least[abi:se200100]<std::allocator<char16_t>>(v8);
   }
 
-  v22 = a3;
+  v23 = a3;
   v9 = (__p + 2 * a3);
   if (__p <= a2 && v9 > a2)
   {
@@ -3694,18 +3665,19 @@ LABEL_36:
   }
 
   *v9 = 0;
-  if (*(a1 + 168))
+  v21 = a3;
+  v10 = a1[21];
+  if (v10)
   {
-    icu4cxx::Transliterator::trans();
+    icu4cxx::Transliterator::trans(v10, __p, &v21);
   }
 
-  v10 = *(a1 + 152);
-  icu4cxx::Transliterator::trans();
-  v11 = v22;
+  icu4cxx::Transliterator::trans(a1[19], __p, &v21);
+  v11 = v23;
   v12 = __p[0];
-  if ((v22 & 0x80u) == 0)
+  if ((v23 & 0x80u) == 0)
   {
-    v13 = v22;
+    v13 = v23;
   }
 
   else
@@ -3719,7 +3691,7 @@ LABEL_36:
     {
 LABEL_25:
       v17 = 1;
-      if ((v22 & 0x80) == 0)
+      if ((v23 & 0x80) == 0)
       {
         return !v17;
       }
@@ -3730,7 +3702,7 @@ LABEL_33:
     }
 
     v14 = __p;
-    if ((v22 & 0x80u) != 0)
+    if ((v23 & 0x80u) != 0)
     {
       v14 = __p[0];
     }
@@ -3761,7 +3733,7 @@ LABEL_33:
 
   morphun::transliteration::Transliterator::matchCase(a1, a4, v19, v13, a2, a3, isAllLowerCase);
   v17 = 0;
-  if ((v22 & 0x80) != 0)
+  if ((v23 & 0x80) != 0)
   {
     goto LABEL_33;
   }
@@ -3821,7 +3793,7 @@ std::basic_string<char16_t> *U16replace(void **a1, int a2, int a3, const std::ba
   return std::basic_string<char16_t>::replace(v9, a2, a3 - a2, a4, a5);
 }
 
-uint64_t U16char32At(void *const *a1, int a2)
+uint64_t U16char32At(void *const *a1, unsigned int a2)
 {
   result = npc<std::basic_string<char16_t> const>(a1);
   v4 = *(result + 23);
@@ -3857,7 +3829,7 @@ uint64_t U16char32At(void *const *a1, int a2)
 
   if ((v8 & 0x400) != 0)
   {
-    v10 = (a2 - 1);
+    v10 = a2 - 1;
     if (a2 >= 1)
     {
       if ((v4 & 0x80000000) != 0)
@@ -3925,7 +3897,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t U16charAt(void *const *a1, unsigned int a2)
+uint64_t U16charAt(void *const *a1, int a2)
 {
   v3 = npc<std::basic_string<char16_t> const>(a1);
   v4 = *(v3 + 23);
@@ -3984,12 +3956,11 @@ void icu4cxx::Transliterator::~Transliterator(icu4cxx::Transliterator *this)
 {
   if (*(this + 8) == 1)
   {
-    v1 = *this;
     utrans_close();
   }
 }
 
-const char *morphun::transliteration::ICUScriptTransliterator::createTransliterator(morphun::transliteration::ICUScriptTransliterator *this, const morphun::util::ULocale *a2, const morphun::util::ULocale *a3, icu4cxx::UnicodeSet *a4)
+std::basic_string<char16_t> *morphun::transliteration::ICUScriptTransliterator::createTransliterator(morphun::transliteration::ICUScriptTransliterator *this, const morphun::util::ULocale *a2, const morphun::util::ULocale *a3, icu4cxx::UnicodeSet *a4)
 {
   v6 = this;
   v95 = *MEMORY[0x1E69E9840];
@@ -4034,42 +4005,32 @@ const char *morphun::transliteration::ICUScriptTransliterator::createTranslitera
   v17 = memcmp(v13, v16, v10);
   if (!v17)
   {
-    v61 = morphun::util::LocaleUtils::ENGLISH(v17);
-    morphun::util::ULocale::ULocale(&v93, v61);
-    *&v62 = -1;
-    *(&v62 + 1) = -1;
-    __src = v62;
-    v92 = v62;
-    v19 = uscript_getCode();
-    v63 = v19 - 1;
-    if (v19 >= 1)
+    v62 = morphun::util::LocaleUtils::ENGLISH(v17);
+    morphun::util::ULocale::ULocale(&v93, v62);
+    *&v63 = -1;
+    *(&v63 + 1) = -1;
+    __src = v63;
+    v92 = v63;
+    v18 = uscript_getCode();
+    v64 = v18 - 1;
+    if (v18 >= 1)
     {
-      if (v63 >= 7)
+      if (v64 >= 7)
       {
-        v63 = 7;
+        v64 = 7;
       }
 
-      memcpy(__dst, &__src, 4 * v63 + 4);
+      memcpy(__dst, &__src, 4 * v64 + 4);
     }
   }
 
   else
   {
 LABEL_13:
-    if (*(v6 + 127) < 0)
-    {
-      v18 = *(v6 + 13);
-    }
-
-    v19 = uscript_getCode();
+    v18 = uscript_getCode();
   }
 
   v89 = -1;
-  if (*(a2 + 127) < 0)
-  {
-    v20 = *(a2 + 13);
-  }
-
   uscript_getCode();
   __src = 0uLL;
   *&v92 = 0;
@@ -4077,25 +4038,25 @@ LABEL_13:
   std::string::basic_string[abi:se200100]<0>(&v93, Name);
   if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v22 = &v93;
+    v20 = &v93;
   }
 
   else
   {
-    v22 = v93.__r_.__value_.__r.__words[0];
+    v20 = v93.__r_.__value_.__r.__words[0];
   }
 
   if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v23 = HIBYTE(v93.__r_.__value_.__r.__words[2]);
+    v21 = HIBYTE(v93.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v23 = v93.__r_.__value_.__r.__words[1];
+    v21 = v93.__r_.__value_.__r.__words[1];
   }
 
-  morphun::util::StringViewUtils::convert(&__src, v22, v23);
+  morphun::util::StringViewUtils::convert(&__src, v20, v21);
   if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v93.__r_.__value_.__l.__data_);
@@ -4103,32 +4064,32 @@ LABEL_13:
 
   memset(&v88, 0, sizeof(v88));
   memset(&v87, 0, sizeof(v87));
-  if (v19 < 1)
+  if (v18 < 1)
   {
-LABEL_169:
+LABEL_171:
     if (!a3)
     {
       if ((SHIBYTE(v87.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
       {
         if (*(&v87.__r_.__value_.__s + 23))
         {
-          goto LABEL_179;
+          goto LABEL_181;
         }
 
-LABEL_188:
-        v64 = 0;
-        goto LABEL_180;
+LABEL_190:
+        v65 = 0;
+        goto LABEL_182;
       }
 
       if (!v87.__r_.__value_.__l.__size_)
       {
-        goto LABEL_188;
+        goto LABEL_190;
       }
     }
 
-LABEL_179:
-    v64 = utrans_openU();
-LABEL_180:
+LABEL_181:
+    v65 = utrans_openU();
+LABEL_182:
     if (code >= U_ILLEGAL_ARGUMENT_ERROR)
     {
       utrans_close();
@@ -4151,15 +4112,14 @@ LABEL_180:
       operator delete(__src);
     }
 
-    v65 = *MEMORY[0x1E69E9840];
-    return v64;
+    return v65;
   }
 
-  v24 = v19;
-  v25 = __dst;
+  v22 = v18;
+  v23 = __dst;
   while (1)
   {
-    v26 = *v25++;
+    v23 = (v23 + 4);
     size = HIBYTE(v88.__r_.__value_.__r.__words[2]);
     if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
@@ -4175,35 +4135,35 @@ LABEL_180:
     v85 = 0;
     v86 = 0;
     result = uscript_getName();
-    v29 = result;
+    v26 = result;
     if (!result)
     {
       break;
     }
 
-    v30 = strlen(result);
-    morphun::util::StringViewUtils::convert(&v84, v29, v30);
+    v27 = strlen(result);
+    morphun::util::StringViewUtils::convert(&v84, v26, v27);
     if (v86 >= 0)
     {
-      v31 = &v84;
+      v28 = &v84;
     }
 
     else
     {
-      v31 = v84;
+      v28 = v84;
     }
 
     if (v86 >= 0)
     {
-      v32 = HIBYTE(v86);
+      v29 = HIBYTE(v86);
     }
 
     else
     {
-      v32 = v85;
+      v29 = v85;
     }
 
-    std::basic_string<char16_t>::append(&v88, v31, v32);
+    std::basic_string<char16_t>::append(&v88, v28, v29);
     std::basic_string<char16_t>::append(&v88, "-", 1uLL);
     if ((SBYTE7(v92) & 0x80u) == 0)
     {
@@ -4217,22 +4177,44 @@ LABEL_180:
 
     if ((SBYTE7(v92) & 0x80u) == 0)
     {
-      v34 = BYTE7(v92);
+      v31 = BYTE7(v92);
     }
 
     else
     {
-      v34 = *(&__src + 1);
+      v31 = *(&__src + 1);
     }
 
-    std::basic_string<char16_t>::append(&v88, p_src, v34);
+    std::basic_string<char16_t>::append(&v88, p_src, v31);
     if (a3)
     {
       std::operator+<char16_t>(&v83, L"[:", &v84);
       std::basic_string<char16_t>::append(&v83, ":", 2uLL);
+      v32 = v83.__r_.__value_.__r.__words[2];
       v93 = v83;
       memset(&v83, 0, sizeof(v83));
-      icu4cxx::UnicodeSet::UnicodeSet(&v82);
+      v33 = HIBYTE(v32);
+      if ((v33 & 0x80u) == 0)
+      {
+        v34 = &v93;
+      }
+
+      else
+      {
+        v34 = v93.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v33 & 0x80u) == 0)
+      {
+        v35 = v33;
+      }
+
+      else
+      {
+        v35 = v93.__r_.__value_.__l.__size_;
+      }
+
+      icu4cxx::UnicodeSet::UnicodeSet(&v82, v34, v35);
       if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v93.__r_.__value_.__l.__data_);
@@ -4252,74 +4234,74 @@ LABEL_180:
 
     else
     {
-      morphun::util::ResourceLocator::getRootForLocale(v6, &v76);
+      morphun::util::ResourceLocator::getRootForLocale(&v76, v6);
       std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v74, L"/transliteration/");
       if ((v75 & 0x80u) == 0)
       {
-        v35 = v74;
+        v36 = v74;
       }
 
       else
       {
-        v35 = v74[0];
+        v36 = v74[0];
       }
 
       if ((v75 & 0x80u) == 0)
       {
-        v36 = v75;
+        v37 = v75;
       }
 
       else
       {
-        v36 = v74[1];
+        v37 = v74[1];
       }
 
-      std::basic_string<char16_t>::append(&v76, v35, v36);
+      std::basic_string<char16_t>::append(&v76, v36, v37);
       v77 = v76;
       memset(&v76, 0, sizeof(v76));
-      v37 = *(a2 + 31);
-      if (v37 >= 0)
+      v38 = *(a2 + 31);
+      if (v38 >= 0)
       {
-        v38 = a2 + 8;
+        v39 = a2 + 8;
       }
 
       else
       {
-        v38 = *(a2 + 1);
+        v39 = *(a2 + 1);
       }
 
-      if (v37 >= 0)
+      if (v38 >= 0)
       {
-        LODWORD(v39) = *(a2 + 31);
+        LODWORD(v40) = *(a2 + 31);
       }
 
       else
       {
-        v39 = *(a2 + 2);
+        v40 = *(a2 + 2);
       }
 
-      morphun::util::StringViewUtils::to_u16string(v38, v39, &v73);
+      morphun::util::StringViewUtils::to_u16string(v39, v40, &v73);
       if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v40 = &v73;
+        v41 = &v73;
       }
 
       else
       {
-        v40 = v73.__r_.__value_.__r.__words[0];
+        v41 = v73.__r_.__value_.__r.__words[0];
       }
 
       if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v41 = HIBYTE(v73.__r_.__value_.__r.__words[2]);
+        v42 = HIBYTE(v73.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v41 = v73.__r_.__value_.__l.__size_;
+        v42 = v73.__r_.__value_.__l.__size_;
       }
 
-      std::basic_string<char16_t>::append(&v77, v40, v41);
+      std::basic_string<char16_t>::append(&v77, v41, v42);
       v78 = v77;
       memset(&v77, 0, sizeof(v77));
       std::basic_string<char16_t>::append(&v78, "/", 1uLL);
@@ -4328,119 +4310,119 @@ LABEL_180:
       std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v71, L"transliteration_map_");
       if ((v72 & 0x80u) == 0)
       {
-        v42 = v71;
+        v43 = v71;
       }
 
       else
       {
-        v42 = v71[0];
+        v43 = v71[0];
       }
 
       if ((v72 & 0x80u) == 0)
       {
-        v43 = v72;
+        v44 = v72;
       }
 
       else
       {
-        v43 = v71[1];
+        v44 = v71[1];
       }
 
-      std::basic_string<char16_t>::append(&v79, v42, v43);
+      std::basic_string<char16_t>::append(&v79, v43, v44);
       v80 = v79;
       memset(&v79, 0, sizeof(v79));
       if (v86 >= 0)
       {
-        v44 = &v84;
+        v45 = &v84;
       }
 
       else
       {
-        v44 = v84;
+        v45 = v84;
       }
 
       if (v86 >= 0)
       {
-        v45 = HIBYTE(v86);
+        v46 = HIBYTE(v86);
       }
 
       else
       {
-        v45 = v85;
+        v46 = v85;
       }
 
-      std::basic_string<char16_t>::append(&v80, v44, v45);
+      std::basic_string<char16_t>::append(&v80, v45, v46);
       v81 = v80;
       memset(&v80, 0, sizeof(v80));
       std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v69, L"_");
       if ((v70 & 0x80u) == 0)
       {
-        v46 = v69;
+        v47 = v69;
       }
 
       else
       {
-        v46 = v69[0];
+        v47 = v69[0];
       }
 
       if ((v70 & 0x80u) == 0)
       {
-        v47 = v70;
+        v48 = v70;
       }
 
       else
       {
-        v47 = v69[1];
+        v48 = v69[1];
       }
 
-      std::basic_string<char16_t>::append(&v81, v46, v47);
+      std::basic_string<char16_t>::append(&v81, v47, v48);
       v82 = v81;
       memset(&v81, 0, sizeof(v81));
       if ((SBYTE7(v92) & 0x80u) == 0)
       {
-        v48 = &__src;
+        v49 = &__src;
       }
 
       else
       {
-        v48 = __src;
+        v49 = __src;
       }
 
       if ((SBYTE7(v92) & 0x80u) == 0)
       {
-        v49 = BYTE7(v92);
+        v50 = BYTE7(v92);
       }
 
       else
       {
-        v49 = *(&__src + 1);
+        v50 = *(&__src + 1);
       }
 
-      std::basic_string<char16_t>::append(&v82, v48, v49);
+      std::basic_string<char16_t>::append(&v82, v49, v50);
       v93 = v82;
       memset(&v82, 0, sizeof(v82));
       std::basic_string<char16_t>::basic_string[abi:se200100]<0>(__p, L".rules");
       if ((v68 & 0x80u) == 0)
       {
-        v50 = __p;
+        v51 = __p;
       }
 
       else
       {
-        v50 = __p[0];
+        v51 = __p[0];
       }
 
       if ((v68 & 0x80u) == 0)
       {
-        v51 = v68;
+        v52 = v68;
       }
 
       else
       {
-        v51 = __p[1];
+        v52 = __p[1];
       }
 
-      std::basic_string<char16_t>::append(&v93, v50, v51);
+      std::basic_string<char16_t>::append(&v93, v51, v52);
       v83 = v93;
       memset(&v93, 0, sizeof(v93));
       if (v68 < 0)
@@ -4510,38 +4492,38 @@ LABEL_180:
       memset(&v82, 0, sizeof(v82));
       if ((v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v52 = &v83;
+        v53 = &v83;
       }
 
       else
       {
-        v52 = v83.__r_.__value_.__r.__words[0];
+        v53 = v83.__r_.__value_.__r.__words[0];
       }
 
       if ((v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v53 = HIBYTE(v83.__r_.__value_.__r.__words[2]);
+        v54 = HIBYTE(v83.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v53 = v83.__r_.__value_.__r.__words[1];
+        v54 = v83.__r_.__value_.__r.__words[1];
       }
 
-      morphun::util::StringViewUtils::convert(&v82, v52, v53);
+      morphun::util::StringViewUtils::convert(&v82, v53, v54);
       if ((v82.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v54 = &v82;
+        v55 = &v82;
       }
 
       else
       {
-        v54 = v82.__r_.__value_.__r.__words[0];
+        v55 = v82.__r_.__value_.__r.__words[0];
       }
 
-      if (access(v54, 0) != -1)
+      if (access(v55, 0) != -1)
       {
-        result = morphun::util::MemoryMappedFile::MemoryMappedFile(&v93, &v83);
+        result = morphun::util::MemoryMappedFile::MemoryMappedFile(&v93, &v83.__r_.__value_.__l.__data_);
         if (!v93.__r_.__value_.__r.__words[0] && v93.__r_.__value_.__l.__size_)
         {
           break;
@@ -4552,7 +4534,7 @@ LABEL_180:
           std::basic_string<char16_t>::__throw_length_error[abi:se200100]();
         }
 
-        v55 = v6;
+        v56 = v6;
         if (v93.__r_.__value_.__l.__size_ > 0x16)
         {
           operator new();
@@ -4560,8 +4542,8 @@ LABEL_180:
 
         *(&v80.__r_.__value_.__s + 23) = v93.__r_.__value_.__r.__words[1];
         result = &v80;
-        v56 = &v80 + v93.__r_.__value_.__l.__size_;
-        if (&v80 <= v93.__r_.__value_.__r.__words[0] && v56 > v93.__r_.__value_.__r.__words[0])
+        v57 = &v80 + v93.__r_.__value_.__l.__size_;
+        if (&v80 <= v93.__r_.__value_.__r.__words[0] && v57 > v93.__r_.__value_.__r.__words[0])
         {
           break;
         }
@@ -4571,50 +4553,50 @@ LABEL_180:
           memmove(&v80, v93.__r_.__value_.__l.__data_, v93.__r_.__value_.__l.__size_);
         }
 
-        *v56 = 0;
+        *v57 = 0;
         if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v57 = &v80;
+          v58 = &v80;
         }
 
         else
         {
-          v57 = v80.__r_.__value_.__r.__words[0];
+          v58 = v80.__r_.__value_.__r.__words[0];
         }
 
         if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v58 = HIBYTE(v80.__r_.__value_.__r.__words[2]);
+          v59 = HIBYTE(v80.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v58 = v80.__r_.__value_.__r.__words[1];
+          v59 = v80.__r_.__value_.__r.__words[1];
         }
 
-        morphun::util::StringViewUtils::to_u16string(v57, v58, &v81);
+        morphun::util::StringViewUtils::to_u16string(v58, v59, &v81);
         if ((v81.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v59 = &v81;
+          v60 = &v81;
         }
 
         else
         {
-          v59 = v81.__r_.__value_.__r.__words[0];
+          v60 = v81.__r_.__value_.__r.__words[0];
         }
 
         if ((v81.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v60 = HIBYTE(v81.__r_.__value_.__r.__words[2]);
+          v61 = HIBYTE(v81.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v60 = v81.__r_.__value_.__l.__size_;
+          v61 = v81.__r_.__value_.__l.__size_;
         }
 
-        std::basic_string<char16_t>::append(&v87, v59, v60);
-        v6 = v55;
+        std::basic_string<char16_t>::append(&v87, v60, v61);
+        v6 = v56;
         if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v81.__r_.__value_.__l.__data_);
@@ -4644,9 +4626,9 @@ LABEL_180:
       operator delete(v84);
     }
 
-    if (!--v24)
+    if (!--v22)
     {
-      goto LABEL_169;
+      goto LABEL_171;
     }
   }
 
@@ -4713,12 +4695,12 @@ void sub_1BE5BE594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_1BE5BE59C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
-  if (*(v75 - 233) < 0)
+  if (*(v70 - 233) < 0)
   {
-    operator delete(*(v75 - 256));
+    operator delete(*(v70 - 256));
   }
 
-  if (a75 < 0)
+  if (a70 < 0)
   {
     operator delete(__p);
   }
@@ -4728,12 +4710,12 @@ void sub_1BE5BE59C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     operator delete(a14);
   }
 
-  if (a73 < 0)
+  if (a68 < 0)
   {
-    operator delete(a72);
+    operator delete(a67);
   }
 
-  if (a70 < 0)
+  if (a66 < 0)
   {
     operator delete(a65);
   }
@@ -4805,40 +4787,40 @@ void sub_1BE5BE6E8()
 {
   if (*(v0 - 233) < 0)
   {
-    v1 = *(v0 - 256);
     JUMPOUT(0x1BE5BE6F8);
   }
 
   JUMPOUT(0x1BE5BE6FCLL);
 }
 
-void sub_1BE5BE710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_1BE5BE710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
-  icu4cxx::UnicodeSet::~UnicodeSet(&a49);
-  if (v51 < 0)
+  va_start(va, a48);
+  icu4cxx::UnicodeSet::~UnicodeSet(va);
+  if (v50 < 0)
   {
-    operator delete(v50);
+    operator delete(v49);
   }
 
-  if (v53 < 0)
+  if (v52 < 0)
   {
-    operator delete(v52);
+    operator delete(v51);
   }
 
-  if (v55 < 0)
+  if (v54 < 0)
   {
-    operator delete(v54);
+    operator delete(v53);
   }
 
-  if (v57 < 0)
+  if (v56 < 0)
   {
-    operator delete(v56);
+    operator delete(v55);
   }
 
   _Unwind_Resume(a1);
 }
 
-char *std::string::basic_string[abi:se200100]<0>(char *a1, char *__s)
+char **std::string::basic_string[abi:se200100]<0>(char **a1, char *__s)
 {
   if (!__s)
   {
@@ -4856,8 +4838,8 @@ char *std::string::basic_string[abi:se200100]<0>(char *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
-  v5 = &a1[v4];
+  *(a1 + 23) = v4;
+  v5 = a1 + v4;
   if (a1 <= __s && v5 > __s)
   {
 LABEL_13:
@@ -5094,16 +5076,16 @@ void sub_1BE5BEF6C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,morphun::tokenizer::dictionary::ParsingsScorer::_getBestLeaf(std::vector<std::shared_ptr<morphun::tokenizer::dictionary::Segment>> *)::$_0 &,std::shared_ptr<morphun::tokenizer::dictionary::Segment>*,false>(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned int a4)
+void std::__introsort<std::_ClassicAlgPolicy,morphun::tokenizer::dictionary::ParsingsScorer::_getBestLeaf(std::vector<std::shared_ptr<morphun::tokenizer::dictionary::Segment>> *)::$_0 &,std::shared_ptr<morphun::tokenizer::dictionary::Segment>*,false>(char *a1, char *a2, uint64_t a3, unsigned int a4)
 {
 LABEL_1:
-  v7 = (a2 - 2);
-  v192 = a2 - 1;
+  v7 = (a2 - 16);
+  v192 = a2 - 8;
   v8 = a1;
   while (1)
   {
     a1 = v8;
-    v9 = (a2 - v8) >> 4;
+    v9 = &a2[-v8] >> 4;
     v10 = v9 - 2;
     if (v9 > 2)
     {
@@ -5112,7 +5094,7 @@ LABEL_1:
         case 3:
           v76 = *a1;
           LODWORD(v14) = *(*a1 + 96);
-          v13 = a1[2];
+          v13 = *(a1 + 2);
           v103 = *(v13 + 24);
           v104 = *v7;
           v105 = *(*v7 + 96);
@@ -5123,22 +5105,22 @@ LABEL_1:
               return;
             }
 
-            a1[2] = v104;
+            *(a1 + 2) = v104;
             *v7 = v13;
-            v176 = a1[3];
-            a1[3] = *v192;
+            v176 = *(a1 + 3);
+            *(a1 + 3) = *v192;
             *v192 = v176;
             v177 = *a1;
-            v178 = a1[2];
+            v178 = *(a1 + 2);
             if (*(*a1 + 96) >= *(v178 + 96))
             {
               return;
             }
 
             *a1 = v178;
-            a1[2] = v177;
-            v106 = a1 + 1;
-            v192 = a1 + 3;
+            *(a1 + 2) = v177;
+            v106 = a1 + 8;
+            v192 = a1 + 24;
 LABEL_217:
             v191 = *v106;
             *v106 = *v192;
@@ -5148,7 +5130,7 @@ LABEL_217:
 
           if (v103 < v105)
           {
-            v106 = a1 + 1;
+            v106 = a1 + 8;
             *a1 = v104;
 LABEL_216:
             *v7 = v76;
@@ -5156,19 +5138,19 @@ LABEL_216:
           }
 
 LABEL_214:
-          v106 = a1 + 3;
-          v189 = a1[3];
-          v190 = a1[1];
+          v106 = a1 + 24;
+          v189 = *(a1 + 3);
+          v190 = *(a1 + 1);
           *a1 = v13;
-          a1[1] = v189;
-          a1[2] = v76;
-          a1[3] = v190;
+          *(a1 + 1) = v189;
+          *(a1 + 2) = v76;
+          *(a1 + 3) = v190;
           if (*&v14 >= *(*v7 + 96))
           {
             return;
           }
 
-          a1[2] = *v7;
+          *(a1 + 2) = *v7;
           goto LABEL_216;
         case 4:
 
@@ -5176,41 +5158,41 @@ LABEL_214:
           return;
         case 5:
           std::__sort4[abi:se200100]<std::_ClassicAlgPolicy,morphun::tokenizer::dictionary::ParsingsScorer::_getBestLeaf(std::vector<std::shared_ptr<morphun::tokenizer::dictionary::Segment>> *)::$_0 &,std::shared_ptr<morphun::tokenizer::dictionary::Segment>*,0>(a1, a1 + 2, a1 + 4, a1 + 6);
-          v107 = a1[6];
+          v107 = *(a1 + 6);
           if (*(v107 + 96) < *(*v7 + 96))
           {
-            a1[6] = *v7;
+            *(a1 + 6) = *v7;
             *v7 = v107;
-            v108 = a1[7];
-            a1[7] = *v192;
+            v108 = *(a1 + 7);
+            *(a1 + 7) = *v192;
             *v192 = v108;
-            v109 = a1[4];
-            v110 = a1[6];
+            v109 = *(a1 + 4);
+            v110 = *(a1 + 6);
             v111 = *(v110 + 96);
             if (*(v109 + 96) < v111)
             {
-              v112 = a1[5];
-              v113 = a1[7];
-              a1[4] = v110;
-              a1[5] = v113;
-              a1[6] = v109;
-              a1[7] = v112;
-              v114 = a1[2];
+              v112 = *(a1 + 5);
+              v113 = *(a1 + 7);
+              *(a1 + 4) = v110;
+              *(a1 + 5) = v113;
+              *(a1 + 6) = v109;
+              *(a1 + 7) = v112;
+              v114 = *(a1 + 2);
               if (*(v114 + 96) < v111)
               {
-                v115 = a1[3];
-                a1[2] = v110;
-                a1[3] = v113;
-                a1[4] = v114;
-                a1[5] = v115;
+                v115 = *(a1 + 3);
+                *(a1 + 2) = v110;
+                *(a1 + 3) = v113;
+                *(a1 + 4) = v114;
+                *(a1 + 5) = v115;
                 v116 = *a1;
                 if (*(*a1 + 96) < v111)
                 {
-                  v117 = a1[1];
+                  v117 = *(a1 + 1);
                   *a1 = v110;
-                  a1[1] = v113;
-                  a1[2] = v116;
-                  a1[3] = v117;
+                  *(a1 + 1) = v113;
+                  *(a1 + 2) = v116;
+                  *(a1 + 3) = v117;
                 }
               }
             }
@@ -5234,8 +5216,8 @@ LABEL_214:
         {
           *a1 = *v7;
           *v7 = v118;
-          v119 = a1[1];
-          a1[1] = *v192;
+          v119 = *(a1 + 1);
+          *(a1 + 1) = *v192;
           *v192 = v119;
         }
 
@@ -5263,19 +5245,19 @@ LABEL_214:
         if (v135 >= v136)
         {
           v138 = (2 * v136) | 1;
-          v139 = &a1[2 * v138];
-          if (2 * v137 + 2 < v9 && *(v139[2] + 96) < *(*v139 + 96))
+          v139 = &a1[16 * v138];
+          if (2 * v137 + 2 < v9 && *(*(v139 + 2) + 96) < *(*v139 + 96))
           {
-            v139 += 2;
+            v139 += 16;
             v138 = 2 * v137 + 2;
           }
 
-          v140 = &a1[2 * v137];
+          v140 = &a1[16 * v137];
           if (*(*v140 + 96) >= *(*v139 + 96))
           {
             v141 = *v140;
             *v140 = 0;
-            v140[1] = 0;
+            *(v140 + 1) = 0;
             v194 = v141;
             v142 = v141;
             do
@@ -5283,8 +5265,8 @@ LABEL_214:
               v143 = v139;
               v144 = *v139;
               *v139 = 0;
-              v139[1] = 0;
-              v145 = v140[1];
+              *(v139 + 1) = 0;
+              v145 = *(v140 + 1);
               *v140 = v144;
               if (v145)
               {
@@ -5298,11 +5280,11 @@ LABEL_214:
 
               v146 = 2 * v138;
               v138 = (2 * v138) | 1;
-              v139 = &a1[2 * v138];
+              v139 = &a1[16 * v138];
               v147 = v146 + 2;
-              if (v147 < v9 && *(v139[2] + 96) < *(*v139 + 96))
+              if (v147 < v9 && *(*(v139 + 2) + 96) < *(*v139 + 96))
               {
-                v139 += 2;
+                v139 += 16;
                 v138 = v147;
               }
 
@@ -5310,7 +5292,7 @@ LABEL_214:
             }
 
             while (*(v142 + 96) >= *(*v139 + 96));
-            v148 = v143[1];
+            v148 = *(v143 + 1);
             *v143 = v194;
             if (v148)
             {
@@ -5328,21 +5310,21 @@ LABEL_214:
         v149 = 0;
         v150 = a2;
         v152 = *a1;
-        v151 = a1[1];
+        v151 = *(a1 + 1);
         *a1 = 0;
-        a1[1] = 0;
+        *(a1 + 1) = 0;
         v153 = a1;
         do
         {
-          v154 = &v153[2 * v149];
-          v155 = (v154 + 2);
+          v154 = &v153[16 * v149];
+          v155 = v154 + 16;
           v156 = 2 * v149;
           v149 = (2 * v149) | 1;
           v157 = v156 + 2;
           if (v157 < v9)
           {
-            v159 = v154[4];
-            v158 = (v154 + 4);
+            v159 = *(v154 + 4);
+            v158 = v154 + 32;
             if (*(v159 + 96) < *(*(v158 - 2) + 96))
             {
               v155 = v158;
@@ -5353,7 +5335,7 @@ LABEL_214:
           v160 = *v155;
           *v155 = 0;
           *(v155 + 1) = 0;
-          v161 = v153[1];
+          v161 = *(v153 + 1);
           *v153 = v160;
           if (v161)
           {
@@ -5364,8 +5346,8 @@ LABEL_214:
         }
 
         while (v149 <= ((v9 - 2) >> 1));
-        a2 -= 2;
-        if (v155 == (v150 - 2))
+        a2 -= 16;
+        if (v155 == v150 - 16)
         {
           v175 = *(v155 + 1);
           *v155 = v152;
@@ -5405,7 +5387,7 @@ LABEL_214:
           }
 
           v168 = v167 >> 1;
-          v169 = &a1[2 * (v167 >> 1)];
+          v169 = &a1[16 * (v167 >> 1)];
           v170 = *v155;
           if (*(*v155 + 96) >= *(*v169 + 96))
           {
@@ -5420,7 +5402,7 @@ LABEL_214:
             v172 = v169;
             v173 = *v169;
             *v169 = 0;
-            v169[1] = 0;
+            *(v169 + 1) = 0;
             v174 = *(v155 + 1);
             *v155 = v173;
             if (v174)
@@ -5434,14 +5416,14 @@ LABEL_214:
             }
 
             v168 = (v168 - 1) >> 1;
-            v169 = &a1[2 * v168];
+            v169 = &a1[16 * v168];
             v155 = v172;
           }
 
           while (*(v170 + 96) < *(*v169 + 96));
-          v175 = v172[1];
+          v175 = *(v172 + 1);
           *v172 = v170;
-          v172[1] = v171;
+          *(v172 + 1) = v171;
           if (!v175)
           {
 LABEL_195:
@@ -5462,7 +5444,7 @@ LABEL_195:
       goto LABEL_195;
     }
 
-    v11 = &a1[2 * (v9 >> 1)];
+    v11 = &a1[16 * (v9 >> 1)];
     v12 = v11;
     v13 = *v7;
     LODWORD(v14) = *(*v7 + 96);
@@ -5478,15 +5460,15 @@ LABEL_195:
         {
           *v11 = v13;
           *v7 = v17;
-          v25 = v11 + 1;
-          v26 = v11[1];
-          v11[1] = *v192;
+          v25 = v11 + 8;
+          v26 = *(v11 + 1);
+          *(v11 + 1) = *v192;
           *v192 = v26;
           v27 = *a1;
           if (*(*a1 + 96) < *(*v11 + 96))
           {
             *a1 = *v11;
-            v19 = a1 + 1;
+            v19 = a1 + 8;
             *v11 = v27;
             goto LABEL_27;
           }
@@ -5497,24 +5479,24 @@ LABEL_195:
       {
         if (v18 < *&v14)
         {
-          v19 = a1 + 1;
+          v19 = a1 + 8;
           *a1 = v13;
           goto LABEL_26;
         }
 
-        v19 = v11 + 1;
-        v30 = v11[1];
-        v31 = a1[1];
+        v19 = v11 + 8;
+        v30 = *(v11 + 1);
+        v31 = *(a1 + 1);
         *a1 = v17;
-        a1[1] = v30;
+        *(a1 + 1) = v30;
         *v11 = v15;
-        v11[1] = v31;
+        *(v11 + 1) = v31;
         if (v16 < *(*v7 + 96))
         {
           *v11 = *v7;
 LABEL_26:
           *v7 = v15;
-          v25 = a2 - 1;
+          v25 = a2 - 8;
 LABEL_27:
           v32 = *v19;
           *v19 = *v25;
@@ -5522,9 +5504,9 @@ LABEL_27:
         }
       }
 
-      v13 = v11 - 2;
+      v13 = v11 - 16;
       v33 = *(v11 - 2);
-      v34 = a1[2];
+      v34 = *(a1 + 2);
       v35 = *(v34 + 96);
       v36 = *(v33 + 96);
       v37 = *(a2 - 4);
@@ -5535,16 +5517,16 @@ LABEL_27:
         {
           *v13 = v37;
           *(a2 - 4) = v33;
-          v40 = v11 - 1;
+          v40 = v11 - 8;
           v41 = *(v11 - 1);
           *(v11 - 1) = *(a2 - 3);
           *(a2 - 3) = v41;
-          v42 = a1[2];
+          v42 = *(a1 + 2);
           if (*(v42 + 96) < *(*v13 + 96))
           {
-            a1[2] = *v13;
+            *(a1 + 2) = *v13;
             *v13 = v42;
-            v39 = a1 + 3;
+            v39 = a1 + 24;
             goto LABEL_41;
           }
         }
@@ -5554,16 +5536,16 @@ LABEL_27:
       {
         if (v36 < v38)
         {
-          v39 = a1 + 3;
-          a1[2] = v37;
+          v39 = a1 + 24;
+          *(a1 + 2) = v37;
           goto LABEL_40;
         }
 
-        v39 = v11 - 1;
+        v39 = v11 - 8;
         v44 = *(v11 - 1);
-        v45 = a1[3];
-        a1[2] = v33;
-        a1[3] = v44;
+        v45 = *(a1 + 3);
+        *(a1 + 2) = v33;
+        *(a1 + 3) = v44;
         *v13 = v34;
         *(v11 - 1) = v45;
         v46 = *(a2 - 4);
@@ -5572,7 +5554,7 @@ LABEL_27:
           *v13 = v46;
 LABEL_40:
           *(a2 - 4) = v34;
-          v40 = a2 - 3;
+          v40 = a2 - 24;
 LABEL_41:
           v47 = *v39;
           *v39 = *v40;
@@ -5580,10 +5562,10 @@ LABEL_41:
         }
       }
 
-      v50 = v11[2];
-      v48 = v11 + 2;
+      v50 = *(v11 + 2);
+      v48 = v11 + 16;
       v49 = v50;
-      v51 = a1[4];
+      v51 = *(a1 + 4);
       v52 = *(v51 + 96);
       v53 = *(v50 + 96);
       v54 = *(a2 - 6);
@@ -5594,17 +5576,17 @@ LABEL_41:
         {
           *v48 = v54;
           *(a2 - 6) = v49;
-          v58 = v48 + 1;
-          v57 = v48[1];
-          v48[1] = *(a2 - 5);
+          v58 = v48 + 8;
+          v57 = *(v48 + 1);
+          *(v48 + 1) = *(a2 - 5);
           *(a2 - 5) = v57;
-          v59 = a1[4];
+          v59 = *(a1 + 4);
           v49 = *v48;
           if (*(v59 + 96) < *(*v48 + 96))
           {
-            a1[4] = v49;
+            *(a1 + 4) = v49;
             *v48 = v59;
-            v56 = a1 + 5;
+            v56 = a1 + 40;
             goto LABEL_51;
           }
         }
@@ -5614,18 +5596,18 @@ LABEL_41:
       {
         if (v53 < v55)
         {
-          v56 = a1 + 5;
-          a1[4] = v54;
+          v56 = a1 + 40;
+          *(a1 + 4) = v54;
           goto LABEL_50;
         }
 
-        v56 = v48 + 1;
-        v60 = v48[1];
-        v61 = a1[5];
-        a1[4] = v49;
-        a1[5] = v60;
+        v56 = v48 + 8;
+        v60 = *(v48 + 1);
+        v61 = *(a1 + 5);
+        *(a1 + 4) = v49;
+        *(a1 + 5) = v60;
         *v48 = v51;
-        v48[1] = v61;
+        *(v48 + 1) = v61;
         v62 = *(a2 - 6);
         if (v52 >= *(v62 + 96))
         {
@@ -5637,7 +5619,7 @@ LABEL_41:
           *v48 = v62;
 LABEL_50:
           *(a2 - 6) = v51;
-          v58 = a2 - 5;
+          v58 = a2 - 40;
 LABEL_51:
           v63 = *v56;
           *v56 = *v58;
@@ -5649,7 +5631,7 @@ LABEL_51:
       v64 = *v13;
       v65 = *(*v13 + 96);
       v66 = *v12;
-      v67 = *(*v12 + 96);
+      v67 = *(*v12 + 24);
       v68 = *(v49 + 96);
       if (v65 >= v67)
       {
@@ -5658,12 +5640,13 @@ LABEL_51:
           v70 = v12 + 1;
           v71 = v12[1];
           *v12 = v49;
-          v12[1] = v48[1];
+          v12[1] = *(v48 + 1);
           *v48 = v66;
-          v48[1] = v71;
+          *(v48 + 1) = v71;
           if (v65 < v68)
           {
-            *v13++ = v49;
+            *v13 = v49;
+            v13 += 8;
             *v12 = v64;
             goto LABEL_61;
           }
@@ -5674,24 +5657,25 @@ LABEL_51:
       {
         if (v67 < v68)
         {
-          *v13++ = v49;
+          *v13 = v49;
+          v13 += 8;
           *v48 = v64;
-          v69 = v48 + 1;
+          v69 = (v48 + 8);
           goto LABEL_60;
         }
 
         v72 = v12[1];
         *v12 = v64;
-        v73 = v13[1];
+        v73 = *(v13 + 1);
         *v13 = v66;
-        v13[1] = v72;
+        *(v13 + 1) = v72;
         v12[1] = v73;
         if (v65 < v68)
         {
           *v12 = v49;
           *v48 = v64;
-          v69 = v48 + 1;
-          v13 = v12 + 1;
+          v69 = (v48 + 8);
+          v13 = (v12 + 1);
 LABEL_60:
           v70 = v69;
 LABEL_61:
@@ -5717,16 +5701,16 @@ LABEL_61:
       {
         *a1 = v13;
         *v7 = v22;
-        v28 = a1 + 1;
-        v29 = a1[1];
-        a1[1] = *v192;
+        v28 = a1 + 8;
+        v29 = *(a1 + 1);
+        *(a1 + 1) = *v192;
         *v192 = v29;
         v13 = *v12;
-        LODWORD(v14) = *(*v12 + 96);
+        LODWORD(v14) = *(*v12 + 24);
         if (*&v14 < *(*a1 + 96))
         {
           *v12 = *a1;
-          v24 = (v12 + 1);
+          v24 = v12 + 1;
           *a1 = v13;
 LABEL_37:
           v13 = *v24;
@@ -5741,25 +5725,25 @@ LABEL_37:
       if (v23 < *&v14)
       {
         *v11 = v13;
-        v24 = (v11 + 1);
+        v24 = (v11 + 8);
         *v7 = v20;
 LABEL_36:
-        v28 = a2 - 1;
+        v28 = a2 - 8;
         goto LABEL_37;
       }
 
-      v13 = a1[1];
-      v43 = v11[1];
+      v13 = *(a1 + 1);
+      v43 = *(v11 + 1);
       *v11 = v22;
-      v11[1] = v13;
+      *(v11 + 1) = v13;
       *a1 = v20;
-      a1[1] = v43;
+      *(a1 + 1) = v43;
       LODWORD(v14) = *(*v7 + 96);
       if (v21 < *&v14)
       {
         *a1 = *v7;
         *v7 = v20;
-        v24 = (a1 + 1);
+        v24 = (a1 + 8);
         goto LABEL_36;
       }
     }
@@ -5768,12 +5752,12 @@ LABEL_63:
     --a3;
     v75 = *a1;
     v76 = a4;
-    if ((a4 & 1) != 0 || (LODWORD(v14) = *(v75 + 96), v76 = *(a1 - 2), *&v14 < *(v76 + 96)))
+    if ((a4 & 1) != 0 || (LODWORD(v14) = *(v75 + 96), v76 = *(a1 - 2), *&v14 < *(v76 + 24)))
     {
-      v77 = a1[1];
-      v13 = a1 + 2;
+      v77 = *(a1 + 1);
+      v13 = a1 + 16;
       *a1 = 0;
-      a1[1] = 0;
+      *(a1 + 1) = 0;
       do
       {
         if (v13 == a2)
@@ -5783,10 +5767,10 @@ LABEL_63:
 
         v78 = v13;
         LODWORD(v14) = *(v75 + 96);
-        v79 = v13 - 2;
+        v79 = v13 - 16;
         v76 = *v13;
         v80 = *(*v13 + 96);
-        v13 += 2;
+        v13 += 16;
       }
 
       while (*&v14 < v80);
@@ -5796,7 +5780,7 @@ LABEL_63:
         while (v81 != a1)
         {
           v82 = *(v81 - 2);
-          v81 -= 2;
+          v81 -= 16;
           if (*&v14 < *(v82 + 96))
           {
             goto LABEL_75;
@@ -5815,7 +5799,7 @@ LABEL_63:
         }
 
         v83 = *(v81 - 2);
-        v81 -= 2;
+        v81 -= 16;
       }
 
       while (*&v14 >= *(v83 + 96));
@@ -5828,22 +5812,22 @@ LABEL_75:
 LABEL_77:
         *v8 = v13;
         *v84 = v76;
-        v76 = v8[1];
-        v8[1] = v84[1];
-        v84[1] = v76;
-        v13 = v8 + 2;
+        v76 = *(v8 + 8);
+        *(v8 + 8) = *(v84 + 1);
+        *(v84 + 1) = v76;
+        v13 = (v8 + 16);
         while (v13 != a2)
         {
           v8 = v13;
           v85 = *v13;
-          v13 += 2;
+          v13 += 16;
           v76 = v85;
-          if (*&v14 >= *(v85 + 96))
+          if (*&v14 >= *(v85 + 24))
           {
             while (v84 != a1)
             {
               v86 = *(v84 - 2);
-              v84 -= 2;
+              v84 -= 16;
               v13 = v86;
               if (*&v14 < *(v86 + 96))
               {
@@ -5865,13 +5849,13 @@ LABEL_77:
 
       v8 = v78;
 LABEL_85:
-      v87 = v8 - 2;
-      if (v8 - 2 != a1)
+      v87 = (v8 - 16);
+      if ((v8 - 16) != a1)
       {
         v88 = *v87;
         *v87 = 0;
-        *(v8 - 1) = 0;
-        v89 = a1[1];
+        *(v8 - 8) = 0;
+        v89 = *(a1 + 1);
         *a1 = v88;
         if (v89)
         {
@@ -5879,9 +5863,9 @@ LABEL_85:
         }
       }
 
-      v90 = *(v8 - 1);
-      *(v8 - 2) = v75;
-      *(v8 - 1) = v77;
+      v90 = *(v8 - 8);
+      *(v8 - 16) = v75;
+      *(v8 - 8) = v77;
       if (v90)
       {
         std::__shared_weak_count::__release_shared[abi:se200100](v90);
@@ -5890,12 +5874,12 @@ LABEL_85:
       if (v78 < v81)
       {
 LABEL_93:
-        std::__introsort<std::_ClassicAlgPolicy,morphun::tokenizer::dictionary::ParsingsScorer::_getBestLeaf(std::vector<std::shared_ptr<morphun::tokenizer::dictionary::Segment>> *)::$_0 &,std::shared_ptr<morphun::tokenizer::dictionary::Segment>*,false>(a1, v8 - 2, a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,morphun::tokenizer::dictionary::ParsingsScorer::_getBestLeaf(std::vector<std::shared_ptr<morphun::tokenizer::dictionary::Segment>> *)::$_0 &,std::shared_ptr<morphun::tokenizer::dictionary::Segment>*,false>(a1, (v8 - 16), a3, a4 & 1);
         a4 = 0;
         continue;
       }
 
-      v91 = std::__insertion_sort_incomplete[abi:se200100]<std::_ClassicAlgPolicy,morphun::tokenizer::dictionary::ParsingsScorer::_getBestLeaf(std::vector<std::shared_ptr<morphun::tokenizer::dictionary::Segment>> *)::$_0 &,std::shared_ptr<morphun::tokenizer::dictionary::Segment>*>(a1, v8 - 2);
+      v91 = std::__insertion_sort_incomplete[abi:se200100]<std::_ClassicAlgPolicy,morphun::tokenizer::dictionary::ParsingsScorer::_getBestLeaf(std::vector<std::shared_ptr<morphun::tokenizer::dictionary::Segment>> *)::$_0 &,std::shared_ptr<morphun::tokenizer::dictionary::Segment>*>(a1, (v8 - 16));
       if (!std::__insertion_sort_incomplete[abi:se200100]<std::_ClassicAlgPolicy,morphun::tokenizer::dictionary::ParsingsScorer::_getBestLeaf(std::vector<std::shared_ptr<morphun::tokenizer::dictionary::Segment>> *)::$_0 &,std::shared_ptr<morphun::tokenizer::dictionary::Segment>*>(v8, a2))
       {
         if (v91)
@@ -5906,7 +5890,7 @@ LABEL_93:
         goto LABEL_93;
       }
 
-      a2 = v8 - 2;
+      a2 = (v8 - 16);
       if (v91)
       {
         return;
@@ -5915,11 +5899,11 @@ LABEL_93:
       goto LABEL_1;
     }
 
-    v92 = a1[1];
+    v92 = *(a1 + 1);
     *a1 = 0;
-    a1[1] = 0;
+    *(a1 + 1) = 0;
     LODWORD(v14) = *(v75 + 96);
-    v76 = (a1 + 2);
+    v76 = a1 + 16;
     if (*(*v7 + 96) >= *&v14)
     {
       do
@@ -5959,7 +5943,7 @@ LABEL_93:
       v76 = a2;
       while (v76 != a1)
       {
-        v94 = *(v76 - 16);
+        v94 = *(v76 - 2);
         v76 -= 16;
         if (*(v94 + 96) >= *&v14)
         {
@@ -5979,10 +5963,10 @@ LABEL_105:
       {
         *v8 = v13;
         *v76 = v95;
-        v96 = v8[1];
-        v8[1] = *(v76 + 8);
-        *(v76 + 8) = v96;
-        v13 = v8 + 2;
+        v96 = *(v8 + 8);
+        *(v8 + 8) = *(v76 + 1);
+        *(v76 + 1) = v96;
+        v13 = (v8 + 16);
         do
         {
           if (v13 == a2)
@@ -5992,11 +5976,11 @@ LABEL_105:
 
           v8 = v13;
           v97 = *v13;
-          v13 += 2;
+          v13 += 16;
           v95 = v97;
         }
 
-        while (*(v97 + 96) >= *&v14);
+        while (*(v97 + 24) >= *&v14);
         do
         {
           if (v76 == a1)
@@ -6004,7 +5988,7 @@ LABEL_105:
             goto LABEL_213;
           }
 
-          v98 = *(v76 - 16);
+          v98 = *(v76 - 2);
           v76 -= 16;
           v13 = v98;
         }
@@ -6015,13 +5999,13 @@ LABEL_105:
       while (v8 < v76);
     }
 
-    v99 = v8 - 2;
-    if (v8 - 2 != a1)
+    v99 = (v8 - 16);
+    if ((v8 - 16) != a1)
     {
       v100 = *v99;
       *v99 = 0;
-      *(v8 - 1) = 0;
-      v101 = a1[1];
+      *(v8 - 8) = 0;
+      v101 = *(a1 + 1);
       *a1 = v100;
       if (v101)
       {
@@ -6030,9 +6014,9 @@ LABEL_105:
     }
 
     a4 = 0;
-    v102 = *(v8 - 1);
-    *(v8 - 2) = v75;
-    *(v8 - 1) = v92;
+    v102 = *(v8 - 8);
+    *(v8 - 16) = v75;
+    *(v8 - 8) = v92;
     if (v102)
     {
       std::__shared_weak_count::__release_shared[abi:se200100](v102);
@@ -6040,7 +6024,7 @@ LABEL_105:
     }
   }
 
-  v120 = a1 + 2;
+  v120 = a1 + 16;
   v122 = a1 == a2 || v120 == a2;
   if ((a4 & 1) == 0)
   {
@@ -6064,26 +6048,26 @@ LABEL_105:
       }
 
 LABEL_211:
-      v181 = (a1 + v179);
+      v181 = &a1[v179];
       v180 = v179 + 16;
-      v120 = (a1 + v179 + 16);
+      v120 = &a1[v179 + 16];
       if (v120 == a2)
       {
         return;
       }
     }
 
-    v183 = v181[3];
+    v183 = *(v181 + 3);
     *v120 = 0;
-    v120[1] = 0;
+    *(v120 + 1) = 0;
     while (1)
     {
-      v76 = a1 + v182;
-      v14 = *(a1 + v182);
+      v76 = &a1[v182];
+      v14 = *&a1[v182];
       *v76 = 0;
-      *(v76 + 8) = 0;
-      v184 = *(a1 + v182 + 24);
-      *(v76 + 16) = v14;
+      *(v76 + 1) = 0;
+      v184 = *&a1[v182 + 24];
+      *(v76 + 1) = v14;
       if (v184)
       {
         std::__shared_weak_count::__release_shared[abi:se200100](v184);
@@ -6095,11 +6079,11 @@ LABEL_211:
       }
 
       v185 = v182 - 16;
-      v186 = *(*(a1 + v182 - 16) + 96);
+      v186 = *(*&a1[v182 - 16] + 96);
       v182 -= 16;
       if (v186 >= v7[24])
       {
-        v187 = a1 + v185;
+        v187 = &a1[v185];
         v188 = *(v187 + 3);
         *(v187 + 2) = v7;
         *(v187 + 3) = v183;
@@ -6125,20 +6109,20 @@ LABEL_213:
     {
       v125 = v124;
       v124 = v120;
-      v126 = v125[2];
+      v126 = *(v125 + 2);
       if (*(*v125 + 96) < *(v126 + 96))
       {
-        v127 = v125[3];
+        v127 = *(v125 + 3);
         v128 = v123;
         *v120 = 0;
-        v120[1] = 0;
+        *(v120 + 1) = 0;
         while (1)
         {
-          v129 = a1 + v128;
-          v130 = *(a1 + v128);
+          v129 = &a1[v128];
+          v130 = *&a1[v128];
           *v129 = 0;
           *(v129 + 1) = 0;
-          v131 = *(a1 + v128 + 24);
+          v131 = *&a1[v128 + 24];
           *(v129 + 1) = v130;
           if (v131)
           {
@@ -6150,31 +6134,31 @@ LABEL_213:
             break;
           }
 
-          v132 = *(*(a1 + v128 - 16) + 96);
+          v132 = *(*&a1[v128 - 16] + 96);
           v128 -= 16;
           if (v132 >= *(v126 + 96))
           {
-            v133 = (a1 + v128 + 16);
+            v133 = &a1[v128 + 16];
             goto LABEL_150;
           }
         }
 
         v133 = a1;
 LABEL_150:
-        v134 = v133[1];
+        v134 = *(v133 + 1);
         *v133 = v126;
-        v133[1] = v127;
+        *(v133 + 1) = v127;
         if (v134)
         {
           std::__shared_weak_count::__release_shared[abi:se200100](v134);
         }
       }
 
-      v120 = v124 + 2;
+      v120 = v124 + 16;
       v123 += 16;
     }
 
-    while (v124 + 2 != a2);
+    while (v124 + 16 != a2);
   }
 }
 
@@ -6547,21 +6531,21 @@ LABEL_45:
   }
 }
 
-uint64_t std::unordered_map<std::u16string_view,std::map<std::u16string_view,char16_t const*> (*)(void),std::hash<std::u16string_view>,std::equal_to<std::u16string_view>,std::allocator<std::pair<std::u16string_view const,std::map<std::u16string_view,char16_t const*> (*)(void)>>>::unordered_map(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *std::unordered_map<std::u16string_view,std::map<std::u16string_view,char16_t const*> (*)(void),std::hash<std::u16string_view>,std::equal_to<std::u16string_view>,std::allocator<std::pair<std::u16string_view const,std::map<std::u16string_view,char16_t const*> (*)(void)>>>::unordered_map(uint64_t *a1, __int128 *a2, uint64_t a3)
 {
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   if (a3)
   {
     v4 = a2;
-    v5 = a2 + 24 * a3;
+    v5 = (a2 + 24 * a3);
     do
     {
       v6 = *v4;
-      v7 = *(v4 + 8);
+      v7 = *(v4 + 1);
       v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:se200100](*v4, 2 * v7);
-      v9 = *(a1 + 8);
+      v9 = a1[1];
       if (!*&v9)
       {
         goto LABEL_23;
@@ -6648,7 +6632,7 @@ LABEL_22:
       }
 
 LABEL_24:
-      v4 += 24;
+      v4 = (v4 + 24);
     }
 
     while (v4 != v5);
@@ -6689,609 +6673,501 @@ uint64_t std::__hash_table<std::__hash_value_type<std::u16string_view,std::map<s
   return a1;
 }
 
-void *com::apple::morphun::tokenizer::config_zh_TW::getContent@<X0>(void *a1@<X8>)
+uint64_t **com::apple::morphun::tokenizer::config_zh_TW::getContent@<X0>(uint64_t **a1@<X8>)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805AA38;
-  v5 = "z";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_zh_Hant::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805AA08;
-  v4[1] = *&off_1E805AA18;
-  v4[2] = xmmword_1E805AA28;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_zh_Hans::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A9D8;
-  v4[1] = *&off_1E805A9E8;
-  v4[2] = xmmword_1E805A9F8;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_zh_HK::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A9A8;
-  v4[1] = *&off_1E805A9B8;
-  v4[2] = xmmword_1E805A9C8;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_zh_CN::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A990;
-  v5 = L"zh_Hans";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_zh::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4[2] = xmmword_1E805A968;
-  v4[3] = *&off_1E805A978;
-  v5 = L"/zh-Hant";
-  v4[0] = xmmword_1E805A948;
-  v4[1] = *&off_1E805A958;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 3);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_yue_Hant::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A9A8;
-  v4[1] = *&off_1E805A9B8;
-  v4[2] = xmmword_1E805A9C8;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_yue_Hans::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A9D8;
-  v4[1] = *&off_1E805A9E8;
-  v4[2] = xmmword_1E805A9F8;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_yue_CN::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A930;
-  v5 = 0x1BE80759ELL;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_yue::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A9D8;
-  v4[1] = *&off_1E805A9E8;
-  v4[2] = xmmword_1E805A9F8;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_wuu::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A990;
-  v5 = L"zh_Hans";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_vi::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_uk::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_tr::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A8E8;
-  v4[1] = *&off_1E805A8F8;
-  v4[2] = xmmword_1E805A908;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_th::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A8D0;
-  v5 = "l";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_sv::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A8A0;
-  v4[1] = *&off_1E805A8B0;
-  v4[2] = xmmword_1E805A8C0;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_sk::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_ru::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_ro::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_pt::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_pl::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_no::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A888;
-  v5 = "n";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_nl::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A858;
-  v4[1] = *&off_1E805A868;
-  v4[2] = xmmword_1E805A878;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_nb::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A828;
-  v4[1] = *&off_1E805A838;
-  v4[2] = xmmword_1E805A848;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_ms::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4[2] = xmmword_1E805A800;
-  v4[3] = *&off_1E805A810;
-  v5 = 0x1BE807336;
-  v4[0] = xmmword_1E805A7E0;
-  v4[1] = *&off_1E805A7F0;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 3);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_lt::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_ko::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A7C8;
-  v5 = "l";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_kk::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_ja::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4[2] = xmmword_1E805A7A0;
-  v4[3] = *&off_1E805A7B0;
-  v5 = &unk_1BE8074B0;
-  v4[0] = xmmword_1E805A780;
-  v4[1] = *&off_1E805A790;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 3);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_iw::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A768;
-  v5 = "h";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_it::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A738;
-  v4[1] = *&off_1E805A748;
-  v4[2] = xmmword_1E805A758;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_is::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_in::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A720;
-  v5 = L"id";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_id::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4[2] = xmmword_1E805A800;
-  v4[3] = *&off_1E805A810;
-  v5 = 0x1BE807336;
-  v4[0] = xmmword_1E805A7E0;
-  v4[1] = *&off_1E805A7F0;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 3);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_hu::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_hr::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_hi::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_he::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4[2] = xmmword_1E805A6F8;
-  v4[3] = *&off_1E805A708;
-  v5 = 0x1BE80727ELL;
-  v4[0] = xmmword_1E805A6D8;
-  v4[1] = *&off_1E805A6E8;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 3);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_fr::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A6A8;
-  v4[1] = *&off_1E805A6B8;
-  v4[2] = xmmword_1E805A6C8;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_fi::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E805A678;
-  v4[1] = *&off_1E805A688;
-  v4[2] = xmmword_1E805A698;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_et::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_es::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_el::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_de::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4[2] = xmmword_1E805A650;
-  v4[3] = *&off_1E805A660;
-  v5 = 0x1BE807162;
-  v4[0] = xmmword_1E805A630;
-  v4[1] = *&off_1E805A640;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 3);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_da::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4[2] = xmmword_1E805A608;
-  v4[3] = *&off_1E805A618;
-  v5 = L"(her|der)(fra|til)";
-  v4[0] = xmmword_1E805A5E8;
-  v4[1] = *&off_1E805A5F8;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 3);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_cs::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_cmn_Hant::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805AA38;
-  v5 = "z";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_cmn_Hans::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A990;
-  v5 = L"zh_Hans";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_ca::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_bg::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = xmmword_1E805A918;
-  v5 = L"DefaultTokenizer";
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::tokenizer::config_ar::getContent@<X0>(void *a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4[8] = xmmword_1E805A5A8;
-  v4[9] = *&off_1E805A5B8;
-  v4[10] = xmmword_1E805A5C8;
-  v4[11] = unk_1E805A5D8;
-  v4[4] = xmmword_1E805A568;
-  v4[5] = unk_1E805A578;
-  v4[6] = xmmword_1E805A588;
-  v4[7] = *&off_1E805A598;
-  v4[0] = xmmword_1E805A528;
-  v4[1] = *&off_1E805A538;
-  v4[2] = xmmword_1E805A548;
-  v4[3] = *&off_1E805A558;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 8);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *com::apple::morphun::locale::supported_locales::getContent@<X0>(void *a1@<X8>)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  memcpy(__dst, &off_1E805A198, sizeof(__dst));
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, __dst, 38);
   v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v2 = xmmword_1E805AA38;
+  v3 = "z";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
 }
 
-void *com::apple::morphun::locale::fallback_locales::getContent@<X0>(void *a1@<X8>)
+uint64_t **com::apple::morphun::tokenizer::config_zh_Hant::getContent@<X0>(uint64_t **a1@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = xmmword_1E8059FE8;
-  v4[1] = *&off_1E8059FF8;
-  v4[2] = xmmword_1E805A008;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 2);
   v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v2[0] = xmmword_1E805AA08;
+  v2[1] = *&off_1E805AA18;
+  v2[2] = xmmword_1E805AA28;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
 }
 
-void *com::apple::morphun::inflection::pronoun::getContent@<X0>(void *a1@<X8>)
+uint64_t **com::apple::morphun::tokenizer::config_zh_Hans::getContent@<X0>(uint64_t **a1@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4[2] = xmmword_1E8059FA8;
-  v4[3] = *&off_1E8059FB8;
-  v4[4] = xmmword_1E8059FC8;
-  v4[5] = unk_1E8059FD8;
-  v4[0] = xmmword_1E8059F88;
-  v4[1] = *&off_1E8059F98;
-  result = std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v4, 4);
   v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v2[0] = xmmword_1E805A9D8;
+  v2[1] = *&off_1E805A9E8;
+  v2[2] = xmmword_1E805A9F8;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
 }
 
-uint64_t std::unordered_map<std::u16string_view,char16_t const*>::unordered_map(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t **com::apple::morphun::tokenizer::config_zh_HK::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A9A8;
+  v2[1] = *&off_1E805A9B8;
+  v2[2] = xmmword_1E805A9C8;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_zh_CN::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A990;
+  v3 = L"zh_Hans";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_zh::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2[2] = xmmword_1E805A968;
+  v2[3] = *&off_1E805A978;
+  v3 = L"/zh-Hant";
+  v2[0] = xmmword_1E805A948;
+  v2[1] = *&off_1E805A958;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 3);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_yue_Hant::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A9A8;
+  v2[1] = *&off_1E805A9B8;
+  v2[2] = xmmword_1E805A9C8;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_yue_Hans::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A9D8;
+  v2[1] = *&off_1E805A9E8;
+  v2[2] = xmmword_1E805A9F8;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_yue_CN::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A930;
+  v3 = 0x1BE80759ELL;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_yue::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A9D8;
+  v2[1] = *&off_1E805A9E8;
+  v2[2] = xmmword_1E805A9F8;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_wuu::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A990;
+  v3 = L"zh_Hans";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_vi::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_uk::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_tr::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A8E8;
+  v2[1] = *&off_1E805A8F8;
+  v2[2] = xmmword_1E805A908;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_th::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A8D0;
+  v3 = "l";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_sv::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A8A0;
+  v2[1] = *&off_1E805A8B0;
+  v2[2] = xmmword_1E805A8C0;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_sk::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_ru::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_ro::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_pt::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_pl::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_no::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A888;
+  v3 = "n";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_nl::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A858;
+  v2[1] = *&off_1E805A868;
+  v2[2] = xmmword_1E805A878;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_nb::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A828;
+  v2[1] = *&off_1E805A838;
+  v2[2] = xmmword_1E805A848;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_ms::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2[2] = xmmword_1E805A800;
+  v2[3] = *&off_1E805A810;
+  v3 = 0x1BE807336;
+  v2[0] = xmmword_1E805A7E0;
+  v2[1] = *&off_1E805A7F0;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 3);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_lt::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_ko::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A7C8;
+  v3 = "l";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_kk::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_ja::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2[2] = xmmword_1E805A7A0;
+  v2[3] = *&off_1E805A7B0;
+  v3 = &unk_1BE8074B0;
+  v2[0] = xmmword_1E805A780;
+  v2[1] = *&off_1E805A790;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 3);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_iw::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A768;
+  v3 = "h";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_it::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A738;
+  v2[1] = *&off_1E805A748;
+  v2[2] = xmmword_1E805A758;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_is::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_in::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A720;
+  v3 = L"id";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_id::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2[2] = xmmword_1E805A800;
+  v2[3] = *&off_1E805A810;
+  v3 = 0x1BE807336;
+  v2[0] = xmmword_1E805A7E0;
+  v2[1] = *&off_1E805A7F0;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 3);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_hu::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_hr::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_hi::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_he::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2[2] = xmmword_1E805A6F8;
+  v2[3] = *&off_1E805A708;
+  v3 = 0x1BE80727ELL;
+  v2[0] = xmmword_1E805A6D8;
+  v2[1] = *&off_1E805A6E8;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 3);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_fr::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A6A8;
+  v2[1] = *&off_1E805A6B8;
+  v2[2] = xmmword_1E805A6C8;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_fi::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E805A678;
+  v2[1] = *&off_1E805A688;
+  v2[2] = xmmword_1E805A698;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_et::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_es::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_el::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_de::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2[2] = xmmword_1E805A650;
+  v2[3] = *&off_1E805A660;
+  v3 = 0x1BE807162;
+  v2[0] = xmmword_1E805A630;
+  v2[1] = *&off_1E805A640;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 3);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_da::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2[2] = xmmword_1E805A608;
+  v2[3] = *&off_1E805A618;
+  v3 = L"(her|der)(fra|til)";
+  v2[0] = xmmword_1E805A5E8;
+  v2[1] = *&off_1E805A5F8;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 3);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_cs::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_cmn_Hant::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805AA38;
+  v3 = "z";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_cmn_Hans::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A990;
+  v3 = L"zh_Hans";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_ca::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_bg::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1E805A918;
+  v3 = L"DefaultTokenizer";
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, &v2, 1);
+}
+
+uint64_t **com::apple::morphun::tokenizer::config_ar::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[8] = xmmword_1E805A5A8;
+  v2[9] = *&off_1E805A5B8;
+  v2[10] = xmmword_1E805A5C8;
+  v2[11] = unk_1E805A5D8;
+  v2[4] = xmmword_1E805A568;
+  v2[5] = unk_1E805A578;
+  v2[6] = xmmword_1E805A588;
+  v2[7] = *&off_1E805A598;
+  v2[0] = xmmword_1E805A528;
+  v2[1] = *&off_1E805A538;
+  v2[2] = xmmword_1E805A548;
+  v2[3] = *&off_1E805A558;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 8);
+}
+
+uint64_t **com::apple::morphun::locale::supported_locales::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  memcpy(__dst, &off_1E805A198, sizeof(__dst));
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, __dst, 38);
+}
+
+uint64_t **com::apple::morphun::locale::fallback_locales::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = xmmword_1E8059FE8;
+  v2[1] = *&off_1E8059FF8;
+  v2[2] = xmmword_1E805A008;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 2);
+}
+
+uint64_t **com::apple::morphun::inflection::pronoun::getContent@<X0>(uint64_t **a1@<X8>)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v2[2] = xmmword_1E8059FA8;
+  v2[3] = *&off_1E8059FB8;
+  v2[4] = xmmword_1E8059FC8;
+  v2[5] = unk_1E8059FD8;
+  v2[0] = xmmword_1E8059F88;
+  v2[1] = *&off_1E8059F98;
+  return std::map<std::u16string_view,char16_t const*>::map[abi:se200100](a1, v2, 4);
+}
+
+uint64_t *std::unordered_map<std::u16string_view,char16_t const*>::unordered_map(uint64_t *a1, __int128 *a2, uint64_t a3)
 {
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   if (a3)
   {
     v4 = a2;
-    v5 = a2 + 24 * a3;
+    v5 = (a2 + 24 * a3);
     do
     {
       v6 = *v4;
-      v7 = *(v4 + 8);
+      v7 = *(v4 + 1);
       v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:se200100](*v4, 2 * v7);
-      v9 = *(a1 + 8);
+      v9 = a1[1];
       if (!*&v9)
       {
         goto LABEL_23;
@@ -7378,7 +7254,7 @@ LABEL_22:
       }
 
 LABEL_24:
-      v4 += 24;
+      v4 = (v4 + 24);
     }
 
     while (v4 != v5);
@@ -7805,7 +7681,7 @@ uint64_t morphun::dialog::SpeakableString::SpeakableString(uint64_t a1, uint64_t
 
     while (*v13 == *v14)
     {
-      ++v14;
+      v14 = (v14 + 2);
       ++v13;
       if (!--v9)
       {
@@ -7890,7 +7766,7 @@ uint64_t morphun::dialog::SpeakableString::SpeakableString(uint64_t a1, __int128
 
     while (*v11 == *v12)
     {
-      ++v12;
+      v12 = (v12 + 2);
       ++v11;
       if (!--v7)
       {
@@ -8108,156 +7984,155 @@ void morphun::dialog::SpeakableString::operator+(uint64_t a1@<X0>, uint64_t a2@<
   v6 = (a1 + 8);
   if (*(a1 + 31) < 0)
   {
-    std::basic_string<char16_t>::__init_copy_ctor_external(&v22, *(a1 + 8), *(a1 + 16));
+    std::basic_string<char16_t>::__init_copy_ctor_external(&v21, *(a1 + 8), *(a1 + 16));
   }
 
   else
   {
-    *&v22.__r_.__value_.__l.__data_ = *v6;
-    v22.__r_.__value_.__r.__words[2] = *(a1 + 24);
+    *&v21.__r_.__value_.__l.__data_ = *v6;
+    v21.__r_.__value_.__r.__words[2] = *(a1 + 24);
   }
 
-  v7 = *(a2 + 8);
-  v8 = *(a2 + 31);
-  if (v8 >= 0)
+  v7 = *(a2 + 31);
+  if (v7 >= 0)
   {
-    v9 = (a2 + 8);
-  }
-
-  else
-  {
-    v9 = *(a2 + 8);
-  }
-
-  if (v8 >= 0)
-  {
-    v10 = *(a2 + 31);
+    v8 = (a2 + 8);
   }
 
   else
   {
-    v10 = *(a2 + 16);
+    v8 = *(a2 + 8);
   }
 
-  std::basic_string<char16_t>::append(&v22, v9, v10);
-  v11 = *(a1 + 32);
-  if (v11 | *(a2 + 32))
+  if (v7 >= 0)
   {
-    memset(&v21, 0, sizeof(v21));
-    if (v11)
+    v9 = *(a2 + 31);
+  }
+
+  else
+  {
+    v9 = *(a2 + 16);
+  }
+
+  std::basic_string<char16_t>::append(&v21, v8, v9);
+  v10 = *(a1 + 32);
+  if (v10 | *(a2 + 32))
+  {
+    memset(&v20, 0, sizeof(v20));
+    if (v10)
     {
-      v12 = *(v11 + 23);
-      if (v12 >= 0)
+      v11 = *(v10 + 23);
+      if (v11 >= 0)
       {
-        v13 = v11;
+        v12 = v10;
       }
 
       else
       {
-        v13 = *v11;
+        v12 = *v10;
       }
 
-      if (v12 >= 0)
+      if (v11 >= 0)
       {
-        v14 = *(v11 + 23);
+        v13 = *(v10 + 23);
       }
 
       else
       {
-        v14 = *(v11 + 8);
+        v13 = *(v10 + 8);
       }
     }
 
     else
     {
-      v15 = *(a1 + 31);
-      if (v15 >= 0)
+      v14 = *(a1 + 31);
+      if (v14 >= 0)
       {
-        v13 = v6;
+        v12 = v6;
       }
 
       else
       {
-        v13 = *(a1 + 8);
+        v12 = *(a1 + 8);
       }
 
-      if (v15 >= 0)
+      if (v14 >= 0)
       {
-        v14 = *(a1 + 31);
+        v13 = *(a1 + 31);
       }
 
       else
       {
-        v14 = *(a1 + 16);
+        v13 = *(a1 + 16);
       }
     }
 
-    std::basic_string<char16_t>::append(&v21, v13, v14);
-    v16 = *(a2 + 32);
-    if (v16)
+    std::basic_string<char16_t>::append(&v20, v12, v13);
+    v15 = *(a2 + 32);
+    if (v15)
     {
-      v17 = *(v16 + 23);
-      if (v17 >= 0)
+      v16 = *(v15 + 23);
+      if (v16 >= 0)
       {
-        v18 = *(a2 + 32);
+        v17 = *(a2 + 32);
       }
 
       else
       {
-        v18 = *v16;
+        v17 = *v15;
       }
 
-      if (v17 >= 0)
+      if (v16 >= 0)
       {
-        v19 = *(v16 + 23);
+        v18 = *(v15 + 23);
       }
 
       else
       {
-        v19 = *(v16 + 8);
+        v18 = *(v15 + 8);
       }
     }
 
     else
     {
-      v20 = *(a2 + 31);
-      if (v20 >= 0)
+      v19 = *(a2 + 31);
+      if (v19 >= 0)
       {
-        v18 = (a2 + 8);
+        v17 = (a2 + 8);
       }
 
       else
       {
-        v18 = *(a2 + 8);
+        v17 = *(a2 + 8);
       }
 
-      if (v20 >= 0)
+      if (v19 >= 0)
       {
-        v19 = *(a2 + 31);
+        v18 = *(a2 + 31);
       }
 
       else
       {
-        v19 = *(a2 + 16);
+        v18 = *(a2 + 16);
       }
     }
 
-    std::basic_string<char16_t>::append(&v21, v18, v19);
-    morphun::dialog::SpeakableString::SpeakableString(a3, &v22, &v21);
-    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    std::basic_string<char16_t>::append(&v20, v17, v18);
+    morphun::dialog::SpeakableString::SpeakableString(a3, &v21, &v20);
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v21.__r_.__value_.__l.__data_);
+      operator delete(v20.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    morphun::dialog::SpeakableString::SpeakableString(a3, &v22);
+    morphun::dialog::SpeakableString::SpeakableString(a3, &v21);
   }
 
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v22.__r_.__value_.__l.__data_);
+    operator delete(v21.__r_.__value_.__l.__data_);
   }
 }
 
@@ -8306,9 +8181,9 @@ uint64_t morphun::dialog::SpeakableString::operator+=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_1BE5C3838(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BE5C3838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Unwind_Resume(a1);
 }
 
@@ -9141,7 +9016,7 @@ void sub_1BE5C48DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   v11 = *(v9 - 144);
   if (v11)
   {
-    MEMORY[0x1BFB49140](v11, 0x1000C8077774924);
+    MEMORY[0x1BFB49140](v11, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   marisa::grimoire::trie::Tail::~Tail(&a9);
@@ -9845,4 +9720,135 @@ _BYTE *marisa::grimoire::vector::Vector<char>::realloc(uint64_t *a1, size_t __sz
   }
 
   return result;
+}
+
+_DWORD *marisa::grimoire::vector::Vector<unsigned int>::realloc(uint64_t *a1, uint64_t a2)
+{
+  result = operator new[](4 * a2, MEMORY[0x1E69E5398]);
+  v5 = a1[3];
+  if (v5)
+  {
+    v6 = a1[1];
+    v7 = result;
+    do
+    {
+      v8 = *v6++;
+      *v7++ = v8;
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  v9 = *a1;
+  *a1 = result;
+  a1[1] = result;
+  a1[2] = result;
+  a1[4] = a2;
+  if (v9)
+  {
+
+    JUMPOUT(0x1BFB49140);
+  }
+
+  return result;
+}
+
+uint64_t marisa::grimoire::vector::BitVector::map(marisa::grimoire::vector::BitVector *this, marisa::grimoire::io::Mapper *a2)
+{
+  memset(v13, 0, 41);
+  memset(v17, 0, 41);
+  memset(v18, 0, 41);
+  v14 = 0u;
+  v15 = 0u;
+  memset(v16, 0, 25);
+  marisa::grimoire::vector::Vector<unsigned long long>::map(v13, a2);
+  v4 = *marisa::grimoire::io::Mapper::map_data(a2, 4uLL);
+  *&v14 = v4;
+  v5 = marisa::grimoire::io::Mapper::map_data(a2, 4uLL);
+  if (v4 < *v5)
+  {
+    exception = __cxa_allocate_exception(0x20uLL);
+    *exception = &unk_1F3CD9BC8;
+    exception[1] = "ext/lib/Marisa/marisa-trie/lib/marisa/grimoire/vector/bit-vector.h";
+    exception[2] = 0xA00000087;
+    exception[3] = "ext/lib/Marisa/marisa-trie/lib/marisa/grimoire/vector/bit-vector.h:135: MARISA_FORMAT_ERROR: temp_num_1s > size_";
+  }
+
+  *(&v14 + 1) = *v5;
+  v6 = marisa::grimoire::io::Mapper::map_data(a2, 8uLL);
+  v7 = *v6 / 0xCuLL;
+  if (*v6 % 0xCuLL)
+  {
+    v12 = __cxa_allocate_exception(0x20uLL);
+    *v12 = &unk_1F3CD9BC8;
+    v12[1] = "ext/lib/Marisa/marisa-trie/lib/marisa/grimoire/vector/vector.h";
+    v12[2] = 0xA000000CALL;
+    v12[3] = "ext/lib/Marisa/marisa-trie/lib/marisa/grimoire/vector/vector.h:202: MARISA_FORMAT_ERROR: (total_size % sizeof(T)) != 0";
+  }
+
+  v8 = marisa::grimoire::io::Mapper::map_data(a2, 12 * v7);
+  marisa::grimoire::io::Mapper::seek(a2, (-12 * v7) & 4);
+  v9 = v15;
+  v15 = 0uLL;
+  *&v16[0] = v8;
+  *(v16 + 8) = v7;
+  BYTE8(v16[1]) = 1;
+  if (v9)
+  {
+    MEMORY[0x1BFB49140](v9, 0x1000C8077774924);
+  }
+
+  marisa::grimoire::vector::Vector<unsigned int>::map(v17, a2);
+  marisa::grimoire::vector::Vector<unsigned int>::map(v18, a2);
+  marisa::grimoire::vector::BitVector::swap(this, v13);
+  if (*&v18[0])
+  {
+    MEMORY[0x1BFB49140](*&v18[0], 0x1000C8077774924);
+  }
+
+  if (*&v17[0])
+  {
+    MEMORY[0x1BFB49140](*&v17[0], 0x1000C8077774924);
+  }
+
+  if (v15)
+  {
+    MEMORY[0x1BFB49140](v15, 0x1000C8077774924);
+  }
+
+  result = *&v13[0];
+  if (*&v13[0])
+  {
+
+    JUMPOUT(0x1BFB49140);
+  }
+
+  return result;
+}
+
+void marisa::grimoire::vector::BitVector::~BitVector(marisa::grimoire::vector::BitVector *this)
+{
+  v2 = *(this + 20);
+  if (v2)
+  {
+    MEMORY[0x1BFB49140](v2, 0x1000C8077774924);
+  }
+
+  v3 = *(this + 14);
+  if (v3)
+  {
+    MEMORY[0x1BFB49140](v3, 0x1000C8077774924);
+  }
+
+  v4 = *(this + 8);
+  if (v4)
+  {
+    MEMORY[0x1BFB49140](v4, 0x1000C8077774924);
+  }
+
+  if (*this)
+  {
+    MEMORY[0x1BFB49140](*this, 0x1000C8077774924);
+  }
 }

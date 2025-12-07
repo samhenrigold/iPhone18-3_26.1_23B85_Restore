@@ -16,9 +16,9 @@ uint64_t sub_100002380(uint64_t a1)
   return _objc_release_x1();
 }
 
-void sub_1000027CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000027CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -285,10 +285,11 @@ FBSSceneTransitionContext *__cdecl sub_100004C40(id a1, FBSMutableSceneClientSet
   return v2;
 }
 
-void sub_100004D28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004D28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_100004D50(uint64_t *a1, uint64_t *a2)
@@ -296,7 +297,6 @@ uint64_t sub_100004D50(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -304,7 +304,7 @@ uint64_t sub_100004D50(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_100004D98(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100004D98(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -323,11 +323,11 @@ uint64_t sub_100004DE0()
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_100007B20;
   v1 = type metadata accessor for SpotlightUISharedPackage();
-  v2 = sub_100004D98(&qword_100011E48, &type metadata accessor for SpotlightUISharedPackage);
+  v2 = sub_100004D98(&qword_100011E48, &type metadata accessor for SpotlightUISharedPackage, &protocol conformance descriptor for SpotlightUISharedPackage);
   *(v0 + 32) = v1;
   *(v0 + 40) = v2;
   v3 = type metadata accessor for SearchUIAppIntentsPackage();
-  v4 = sub_100004D98(&qword_100011E50, &type metadata accessor for SearchUIAppIntentsPackage);
+  v4 = sub_100004D98(&qword_100011E50, &type metadata accessor for SearchUIAppIntentsPackage, &protocol conformance descriptor for SearchUIAppIntentsPackage);
   *(v0 + 48) = v3;
   *(v0 + 56) = v4;
   return v0;
@@ -365,51 +365,47 @@ id SPUIMediaUtilities.init()()
   return objc_msgSendSuper2(&v2, "init");
 }
 
-id SPUIMediaUtilities.__deallocating_deinit()
+id SPUIMediaUtilities.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SPUIMediaUtilities();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for SPUIMediaUtilities();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 uint64_t sub_1000050E8(char a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_100011FC0 != -1)
   {
     swift_once();
   }
 
-  v7 = sub_100004F48(v2, qword_100011FC8);
+  v6 = sub_100004F48(v2, qword_100011FC8);
   swift_beginAccess();
-  (*(v3 + 16))(v6, v7, v2);
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v8, v9))
+  (*(v3 + 16))(v5, v6, v2);
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v7, v8))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 67109120;
-    *(v10 + 4) = a1 & 1;
-    _os_log_impl(&_mh_execute_header, v8, v9, "SiriAudioAppPredictor released: %{BOOL}d", v10, 8u);
+    v9 = swift_slowAlloc();
+    *v9 = 67109120;
+    *(v9 + 4) = a1 & 1;
+    _os_log_impl(&_mh_execute_header, v7, v8, "SiriAudioAppPredictor released: %{BOOL}d", v9, 8u);
   }
 
-  return (*(v3 + 8))(v6, v2);
+  return (*(v3 + 8))(v5, v2);
 }
 
 uint64_t *sub_1000052CC(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

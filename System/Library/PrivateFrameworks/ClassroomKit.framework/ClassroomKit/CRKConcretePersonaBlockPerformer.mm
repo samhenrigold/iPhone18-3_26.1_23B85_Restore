@@ -7,7 +7,7 @@
 
 - (void)adoptPersonaWithUniqueString:(id)string andPerformBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   blockCopy = block;
   if (!stringCopy)
@@ -22,7 +22,7 @@ LABEL_8:
   v9 = currentPersona;
   if (!currentPersona)
   {
-    v14 = _CRKLogASM_0();
+    v14 = _CRKLogASM_0(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CRKConcretePersonaBlockPerformer adoptPersonaWithUniqueString:v14 andPerformBlock:?];
@@ -41,34 +41,35 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v22 = 0;
-  v13 = [v9 copyCurrentPersonaContextWithError:&v22];
-  v18 = v22;
+  v25 = 0;
+  v13 = [v9 copyCurrentPersonaContextWithError:&v25];
+  v19 = v25;
+  v20 = v19;
   if (v13)
   {
-    v19 = [v9 createPersonaContextForBackgroundProcessingWithPersonaUniqueString:stringCopy];
+    v21 = [v9 createPersonaContextForBackgroundProcessingWithPersonaUniqueString:stringCopy];
 
-    if (!v19)
+    if (!v21)
     {
       goto LABEL_9;
     }
 
-    v20 = _CRKLogASM_0();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v23 = _CRKLogASM_0(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [CRKConcretePersonaBlockPerformer adoptPersonaWithUniqueString:stringCopy andPerformBlock:v20];
+      [CRKConcretePersonaBlockPerformer adoptPersonaWithUniqueString:stringCopy andPerformBlock:v23];
     }
 
-    v18 = v19;
+    v20 = v21;
   }
 
   else
   {
-    v20 = _CRKLogASM_0();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v23 = _CRKLogASM_0(v19);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      verboseDescription = [v18 verboseDescription];
-      [(CRKConcretePersonaBlockPerformer *)verboseDescription adoptPersonaWithUniqueString:buf andPerformBlock:v20];
+      verboseDescription = [v20 verboseDescription];
+      [(CRKConcretePersonaBlockPerformer *)verboseDescription adoptPersonaWithUniqueString:buf andPerformBlock:v23];
     }
   }
 
@@ -77,13 +78,14 @@ LABEL_9:
   if (v13)
   {
     v15 = [v9 restorePersonaWithSavedPersonaContext:v13];
+    v16 = v15;
     if (v15)
     {
-      v16 = _CRKLogASM_0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = _CRKLogASM_0(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        verboseDescription2 = [v15 verboseDescription];
-        [(CRKConcretePersonaBlockPerformer *)verboseDescription2 adoptPersonaWithUniqueString:v23 andPerformBlock:v16];
+        verboseDescription2 = [v16 verboseDescription];
+        [(CRKConcretePersonaBlockPerformer *)verboseDescription2 adoptPersonaWithUniqueString:v26 andPerformBlock:v17];
       }
     }
   }

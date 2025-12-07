@@ -861,22 +861,26 @@ void __50__PXPhotosViewModel_observable_didChange_context___block_invoke(uint64_
 - (void)setFilterState:(id)state
 {
   stateCopy = state;
+  v5 = stateCopy;
   if (self->_filterState != stateCopy)
   {
-    v7 = stateCopy;
-    if (([(PXFilterState *)stateCopy isEqual:?]& 1) == 0)
+    v8 = stateCopy;
+    stateCopy = [stateCopy isEqual:?];
+    v5 = v8;
+    if ((stateCopy & 1) == 0)
     {
-      v5 = [(PXFilterState *)v7 copyWithZone:0];
+      v6 = [v8 copyWithZone:0];
       filterState = self->_filterState;
-      self->_filterState = v5;
+      self->_filterState = v6;
 
       [(PXPhotosViewModel *)self signalChange:0x2000000];
       [(PXPhotosViewModel *)self _invalidateAssetsDataSourceManager];
-      [(PXPhotosViewModel *)self _invalidateWantsLensControlVisible];
+      stateCopy = [(PXPhotosViewModel *)self _invalidateWantsLensControlVisible];
+      v5 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](stateCopy, v5);
 }
 
 - (void)setCaptionsVisible:(BOOL)visible
@@ -1030,18 +1034,21 @@ void __50__PXPhotosViewModel_observable_didChange_context___block_invoke(uint64_
   if (availableLenses != lensesCopy)
   {
     v8 = lensesCopy;
-    if (([(NSArray *)availableLenses isEqual:lensesCopy]& 1) == 0)
+    availableLenses = [availableLenses isEqual:lensesCopy];
+    lensesCopy = v8;
+    if ((availableLenses & 1) == 0)
     {
-      v6 = [(NSArray *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_availableLenses;
       self->_availableLenses = v6;
 
       [(PXPhotosViewModel *)self signalChange:0x100000000000];
-      [(PXPhotosViewModel *)self _invalidateCurrentLens];
+      availableLenses = [(PXPhotosViewModel *)self _invalidateCurrentLens];
+      lensesCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](availableLenses, lensesCopy);
 }
 
 - (void)setCurrentLens:(id)lens
@@ -1267,9 +1274,11 @@ void __50__PXPhotosViewModel_observable_didChange_context___block_invoke(uint64_
   if (userWantsAspectFitContent != contentCopy)
   {
     v12 = contentCopy;
-    if (([(NSNumber *)userWantsAspectFitContent isEqual:contentCopy]& 1) == 0)
+    userWantsAspectFitContent = [userWantsAspectFitContent isEqual:contentCopy];
+    contentCopy = v12;
+    if ((userWantsAspectFitContent & 1) == 0)
     {
-      v6 = [(NSNumber *)v12 copy];
+      v6 = [v12 copy];
       v7 = self->_userWantsAspectFitContent;
       self->_userWantsAspectFitContent = v6;
 
@@ -1286,7 +1295,8 @@ void __50__PXPhotosViewModel_observable_didChange_context___block_invoke(uint64_
 LABEL_8:
 
           [(PXPhotosViewModel *)self signalChange:0x4000000];
-          [(PXPhotosViewModel *)self _invalidateAspectFitContent];
+          userWantsAspectFitContent = [(PXPhotosViewModel *)self _invalidateAspectFitContent];
+          contentCopy = v12;
           goto LABEL_9;
         }
       }
@@ -1303,7 +1313,7 @@ LABEL_8:
 
 LABEL_9:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](userWantsAspectFitContent, contentCopy);
 }
 
 - (BOOL)shouldAspectFitContentByDefault
@@ -1333,9 +1343,11 @@ LABEL_9:
 
 - (void)setTopDismissAreaHeight:(id)height
 {
-  self->_topDismissAreaHeight = [height copy];
+  v4 = [height copy];
+  topDismissAreaHeight = self->_topDismissAreaHeight;
+  self->_topDismissAreaHeight = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, topDismissAreaHeight);
 }
 
 - (BOOL)wantsSelectButton
@@ -1428,7 +1440,7 @@ LABEL_9:
 
   v11 = 0u;
   v12 = 0u;
-  if (selectionSnapshot && (([selectionSnapshot firstSelectedIndexPath], v11 != *MEMORY[0x277D3CF78]) ? (v5 = v12 == 0x7FFFFFFFFFFFFFFFLL) : (v5 = 1), !v5 ? (v6 = *(&v12 + 1) == 0x7FFFFFFFFFFFFFFFLL) : (v6 = 0), v6))
+  if (selectionSnapshot && ((objc_msgSend_firstSelectedIndexPath(selectionSnapshot), v11 != *MEMORY[0x277D3CF78]) ? (v5 = v12 == 0x7FFFFFFFFFFFFFFFLL) : (v5 = 1), !v5 ? (v6 = *(&v12 + 1) == 0x7FFFFFFFFFFFFFFFLL) : (v6 = 0), v6))
   {
     currentDataSource = [(PXPhotosViewModel *)self currentDataSource];
     v10[0] = v11;
@@ -1562,37 +1574,61 @@ LABEL_9:
 - (void)setNavigationBarBottomPaletteContentView:(id)view
 {
   viewCopy = view;
-  if (self->_navigationBarBottomPaletteContentView != viewCopy && ([(UIView *)viewCopy isEqual:?]& 1) == 0)
+  v6 = viewCopy;
+  if (self->_navigationBarBottomPaletteContentView != viewCopy)
   {
-    objc_storeStrong(&self->_navigationBarBottomPaletteContentView, view);
-    [(PXPhotosViewModel *)self signalChange:32];
+    v7 = viewCopy;
+    viewCopy = [viewCopy isEqual:?];
+    v6 = v7;
+    if ((viewCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_navigationBarBottomPaletteContentView, view);
+      viewCopy = [(PXPhotosViewModel *)self signalChange:32];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](viewCopy, v6);
 }
 
 - (void)setCustomTrailingAccessoryBarButtonItems:(id)items
 {
   itemsCopy = items;
-  if (self->_customTrailingAccessoryBarButtonItems != itemsCopy && ([(NSArray *)itemsCopy isEqual:?]& 1) == 0)
+  v6 = itemsCopy;
+  if (self->_customTrailingAccessoryBarButtonItems != itemsCopy)
   {
-    objc_storeStrong(&self->_customTrailingAccessoryBarButtonItems, items);
-    [(PXPhotosViewModel *)self signalChange:32];
+    v7 = itemsCopy;
+    itemsCopy = [itemsCopy isEqual:?];
+    v6 = v7;
+    if ((itemsCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_customTrailingAccessoryBarButtonItems, items);
+      itemsCopy = [(PXPhotosViewModel *)self signalChange:32];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](itemsCopy, v6);
 }
 
 - (void)setCustomLeadingAccessoryBarButtonItems:(id)items
 {
   itemsCopy = items;
-  if (self->_customLeadingAccessoryBarButtonItems != itemsCopy && ([(NSArray *)itemsCopy isEqual:?]& 1) == 0)
+  v6 = itemsCopy;
+  if (self->_customLeadingAccessoryBarButtonItems != itemsCopy)
   {
-    objc_storeStrong(&self->_customLeadingAccessoryBarButtonItems, items);
-    [(PXPhotosViewModel *)self signalChange:32];
+    v7 = itemsCopy;
+    itemsCopy = [itemsCopy isEqual:?];
+    v6 = v7;
+    if ((itemsCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_customLeadingAccessoryBarButtonItems, items);
+      itemsCopy = [(PXPhotosViewModel *)self signalChange:32];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](itemsCopy, v6);
 }
 
 - (void)setCustomBannerView:(id)view
@@ -1659,17 +1695,20 @@ LABEL_9:
   if (headerSubtitle != subtitleCopy)
   {
     v8 = subtitleCopy;
-    if (([(NSAttributedString *)headerSubtitle isEqual:subtitleCopy]& 1) == 0)
+    headerSubtitle = [headerSubtitle isEqual:subtitleCopy];
+    subtitleCopy = v8;
+    if ((headerSubtitle & 1) == 0)
     {
-      v6 = [(NSAttributedString *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_headerSubtitle;
       self->_headerSubtitle = v6;
 
-      [(PXPhotosViewModel *)self signalChange:0x80000000000000];
+      headerSubtitle = [(PXPhotosViewModel *)self signalChange:0x80000000000000];
+      subtitleCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](headerSubtitle, subtitleCopy);
 }
 
 - (void)setHeaderTitle:(id)title
@@ -1679,17 +1718,20 @@ LABEL_9:
   if (headerTitle != titleCopy)
   {
     v8 = titleCopy;
-    if (([(NSAttributedString *)headerTitle isEqual:titleCopy]& 1) == 0)
+    headerTitle = [headerTitle isEqual:titleCopy];
+    titleCopy = v8;
+    if ((headerTitle & 1) == 0)
     {
-      v6 = [(NSAttributedString *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_headerTitle;
       self->_headerTitle = v6;
 
-      [(PXPhotosViewModel *)self signalChange:0x80000000000000];
+      headerTitle = [(PXPhotosViewModel *)self signalChange:0x80000000000000];
+      titleCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](headerTitle, titleCopy);
 }
 
 - (void)setScrolledToBottom:(BOOL)bottom
@@ -2239,7 +2281,7 @@ LABEL_3:
   v6 = currentDataSource;
   if (currentDataSource)
   {
-    [currentDataSource indexPathForAssetCollectionReference:referenceCopy];
+    objc_msgSend_indexPathForAssetCollectionReference_(currentDataSource);
   }
 
   else
@@ -2267,7 +2309,7 @@ LABEL_3:
   v8 = currentDataSource;
   if (currentDataSource)
   {
-    [currentDataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(currentDataSource);
   }
 
   else
@@ -2388,7 +2430,7 @@ uint64_t __64__PXPhotosViewModel_clickSelectIndexPath_updateCursorIndexPath___bl
   v8 = currentDataSource;
   if (currentDataSource)
   {
-    [currentDataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(currentDataSource);
   }
 
   else
@@ -2832,7 +2874,7 @@ void __51__PXPhotosViewModel__updateAssetsDataSourceManager__block_invoke_2(uint
     v10 = *(a1 + 40);
     if (v10)
     {
-      [v10 indexPathForAssetCollectionReference:v9];
+      objc_msgSend_indexPathForAssetCollectionReference_(v10);
       if (*&v18[0] != *MEMORY[0x277D3CF78] && *(&v18[0] + 1) != 0x7FFFFFFFFFFFFFFFLL && *&v18[1] == 0x7FFFFFFFFFFFFFFFLL)
       {
         [v3 setBackgroundFetchOriginSection:?];

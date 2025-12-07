@@ -172,45 +172,45 @@
 
 + (void)unrollLoopNodesForStaticTreeWithRoot:(id)root
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = 0x278A57000uLL;
   [GLKShaderBlockNode buildUnrollNodeArray:root array:v4];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v29 = [v4 countByEnumeratingWithState:&v34 objects:v38 count:16];
-  if (v29)
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v28 = [v4 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v28)
   {
-    v28 = *v35;
+    v27 = *v34;
     v6 = @"%@%d";
     do
     {
       v7 = 0;
       do
       {
-        if (*v35 != v28)
+        if (*v34 != v27)
         {
           objc_enumerationMutation(v4);
         }
 
-        v30 = v7;
-        v8 = *(*(&v34 + 1) + 8 * v7);
+        v29 = v7;
+        v8 = *(*(&v33 + 1) + 8 * v7);
         label = [v8 label];
-        v32 = v8;
+        v31 = v8;
         unrollCt = [v8 unrollCt];
         if (unrollCt >= 2)
         {
           v11 = 1;
           v12 = v8;
-          v31 = unrollCt;
+          v30 = unrollCt;
           do
           {
-            v33 = v12;
-            v12 = [*(v5 + 3056) copyTreeWithRootButNotSiblings:v32 parent:{objc_msgSend(v32, "parent")}];
+            v32 = v12;
+            v12 = [*(v5 + 3056) copyTreeWithRootButNotSiblings:v31 parent:{objc_msgSend(v31, "parent")}];
             [v12 setIndex:v11];
-            [v12 setPropertyClass:{objc_msgSend(v32, "propertyClass") + v11}];
+            [v12 setPropertyClass:{objc_msgSend(v31, "propertyClass") + v11}];
             [v12 setLabel:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", v6, label, v11)}];
             [v12 setType:1];
             v13 = *(v5 + 3056);
@@ -218,8 +218,8 @@
             children = [v12 children];
             v16 = label;
             v17 = v6;
-            loopVar = [v32 loopVar];
-            propertyClass = [v32 propertyClass];
+            loopVar = [v31 loopVar];
+            propertyClass = [v31 propertyClass];
             v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v11];
             v21 = children;
             v5 = v14;
@@ -227,70 +227,68 @@
             v6 = v17;
             label = v16;
             [v13 setIndicesForRoot:v21 andReplaceLoopVar:v22 baseLabel:v16 basePropertyClass:propertyClass usingIndex:v11 indexString:v20];
-            [*(v14 + 3056) insertNode:v12 afterSibling:v33];
+            [*(v14 + 3056) insertNode:v12 afterSibling:v32];
             v11 = (v11 + 1);
           }
 
-          while (v31 != v11);
+          while (v30 != v11);
         }
 
         v23 = *(v5 + 3056);
-        children2 = [v32 children];
-        loopVar2 = [v32 loopVar];
-        propertyClass2 = [v32 propertyClass];
+        children2 = [v31 children];
+        loopVar2 = [v31 loopVar];
+        propertyClass2 = [v31 propertyClass];
         [v23 setIndicesForRoot:children2 andReplaceLoopVar:loopVar2 baseLabel:label basePropertyClass:propertyClass2 usingIndex:0 indexString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%d", 0)}];
-        [v32 setLabel:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", v6, objc_msgSend(v32, "label"), 0)}];
-        [v32 setType:1];
-        v7 = v30 + 1;
+        [v31 setLabel:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", v6, objc_msgSend(v31, "label"), 0)}];
+        [v31 setType:1];
+        v7 = v29 + 1;
       }
 
-      while (v30 + 1 != v29);
-      v29 = [v4 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      while (v29 + 1 != v28);
+      v28 = [v4 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (GLKEffect)initWithPropertyArray:(id)array
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = [(GLKEffect *)self init];
   if (!v4)
   {
-    goto LABEL_31;
+    return v4;
   }
 
   v4->_lightProperties = objc_alloc_init(MEMORY[0x277CBEB18]);
   *&v4->_vshName = 0;
   v4->_programName = 0;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v5 = [array countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v5 = [array countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v30;
-    v24 = 1;
+    v9 = *v29;
+    v23 = 1;
     while (2)
     {
       v10 = 0;
       v11 = (v7 + 1);
-      v23 = v7 + v6;
+      v22 = v7 + v6;
       do
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(array);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * v10);
+        v12 = *(*(&v28 + 1) + 8 * v10);
         if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"GLKEffect effectWithAttribs: bad argument type for argument %d: %p", v11, v12];
@@ -318,9 +316,9 @@
             ++v4->_numTextures;
           }
 
-          else if (v24 == 1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          else if (v23 == 1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v24 = 0;
+            v23 = 0;
             *(v4->_effectShaderArray + 1) = v12;
             v8 = v12;
           }
@@ -359,8 +357,8 @@
       }
 
       while (v6 != v10);
-      v6 = [array countByEnumeratingWithState:&v29 objects:v34 count:16];
-      v7 = v23;
+      v6 = [array countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = v22;
       if (v6)
       {
         continue;
@@ -372,7 +370,7 @@
     Error = glGetError();
     if (!Error)
     {
-      if (v24)
+      if (v23)
       {
         goto LABEL_32;
       }
@@ -390,46 +388,43 @@ LABEL_32:
       [(GLKEffect *)v4 addTransformProperty];
       v8 = [(NSMutableArray *)v4->_properties objectAtIndex:0];
 LABEL_33:
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       lightProperties = v4->_lightProperties;
-      v18 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v25 objects:v33 count:16];
-      if (v18)
+      v17 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v24 objects:v32 count:16];
+      if (v17)
       {
-        v19 = v18;
-        v20 = *v26;
+        v18 = v17;
+        v19 = *v25;
         do
         {
-          for (i = 0; i != v19; ++i)
+          for (i = 0; i != v18; ++i)
           {
-            if (*v26 != v20)
+            if (*v25 != v19)
             {
               objc_enumerationMutation(lightProperties);
             }
 
-            [*(*(&v25 + 1) + 8 * i) setTransform:v8];
+            [*(*(&v24 + 1) + 8 * i) setTransform:v8];
           }
 
-          v19 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v18 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v24 objects:v32 count:16];
         }
 
-        while (v19);
+        while (v18);
       }
 
       _lightStateChanged(v4);
-      goto LABEL_31;
+      return v4;
     }
   }
 
-  v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"GL ERROR: 0x%04x", Error, v22];
+  v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"GL ERROR: 0x%04x", Error, v21];
 LABEL_30:
   NSLog(&stru_284B43120.isa, v14);
-  v4 = 0;
-LABEL_31:
-  v15 = *MEMORY[0x277D85DE8];
-  return v4;
+  return 0;
 }
 
 - (void)setTextureOrder:(id)order
@@ -498,41 +493,41 @@ LABEL_18:
 
 - (void)setTextureIndices
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   params = 0;
   [GLKEffectPropertyTexture clearAllTexturingMasks:self->_vshMask fshMask:self->_fshMask];
   textureOrder = self->_textureOrder;
   if (textureOrder)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v4 = [(NSArray *)textureOrder countByEnumeratingWithState:&v22 objects:v31 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v4 = [(NSArray *)textureOrder countByEnumeratingWithState:&v21 objects:v30 count:16];
     if (v4)
     {
       v5 = v4;
       LODWORD(v6) = 0;
-      v7 = *v23;
+      v7 = *v22;
       do
       {
         v8 = 0;
         v6 = v6;
         do
         {
-          if (*v23 != v7)
+          if (*v22 != v7)
           {
             objc_enumerationMutation(textureOrder);
           }
 
-          v9 = *(*(&v22 + 1) + 8 * v8);
+          v9 = *(*(&v21 + 1) + 8 * v8);
           [v9 setTextureIndex:v6];
           self->_effectShaderArray[v6++ + 11] = v9;
           ++v8;
         }
 
         while (v5 != v8);
-        v5 = [(NSArray *)textureOrder countByEnumeratingWithState:&v22 objects:v31 count:16];
+        v5 = [(NSArray *)textureOrder countByEnumeratingWithState:&v21 objects:v30 count:16];
       }
 
       while (v5);
@@ -548,27 +543,27 @@ LABEL_18:
     v13 = 3553;
     do
     {
-      v21 = v11;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
+      v20 = v11;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       properties = self->_properties;
-      v15 = [(NSMutableArray *)properties countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v15 = [(NSMutableArray *)properties countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v27;
+        v17 = *v26;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v27 != v17)
+            if (*v26 != v17)
             {
               objc_enumerationMutation(properties);
             }
 
-            v19 = *(*(&v26 + 1) + 8 * i);
+            v19 = *(*(&v25 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) != 0 && [v19 target] == v13)
             {
@@ -579,57 +574,55 @@ LABEL_18:
             }
           }
 
-          v16 = [(NSMutableArray *)properties countByEnumeratingWithState:&v26 objects:v32 count:16];
+          v16 = [(NSMutableArray *)properties countByEnumeratingWithState:&v25 objects:v31 count:16];
         }
 
         while (v16);
       }
 
-      v11 = v21 + 1;
-      v13 = dword_2389150C0[v21 + 1];
+      v11 = v20 + 1;
+      v13 = dword_2389150C0[v20 + 1];
     }
 
-    while (v21 != 1);
+    while (v20 != 1);
     -[GLKEffect setTextureOrder:](self, "setTextureOrder:", [MEMORY[0x277CBEA60] arrayWithArray:v10]);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)useTexCoordAttrib
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   textureOrder = self->_textureOrder;
-  v3 = [(NSArray *)textureOrder countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSArray *)textureOrder countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(textureOrder);
         }
 
-        if ([*(*(&v9 + 1) + 8 * v6) useTexCoordAttribMask])
+        if ([*(*(&v8 + 1) + 8 * v6) useTexCoordAttribMask])
         {
           LOBYTE(v3) = 1;
-          goto LABEL_11;
+          return v3;
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v3 = [(NSArray *)textureOrder countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [(NSArray *)textureOrder countByEnumeratingWithState:&v8 objects:v12 count:16];
       v4 = v3;
       if (v3)
       {
@@ -640,8 +633,6 @@ LABEL_18:
     }
   }
 
-LABEL_11:
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -880,15 +871,15 @@ LABEL_11:
 
 - (void)createAndUseProgramWithShadingHash:(id)hash
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   if (!self->_masksInitialized)
   {
     [(GLKEffect *)self initializeMasks];
   }
 
+  v67 = 0;
   v68 = 0;
-  v69 = 0;
-  *v67 = 0;
+  *v66 = 0;
   if (__purgeShadingHash == 1 && __hashedShaders >= 0x101)
   {
     params = 0;
@@ -937,13 +928,13 @@ LABEL_11:
       glLabelObjectEXT(0x8B48u, self->_vshName, 0, [(NSString *)label cStringUsingEncoding:1]);
     }
 
-    glGetShaderiv(self->_vshName, 0x8B81u, &v67[1]);
-    if (!v67[1])
+    glGetShaderiv(self->_vshName, 0x8B81u, &v66[1]);
+    if (!v66[1])
     {
       vshName = self->_vshName;
 LABEL_57:
       glDeleteShader(vshName);
-      goto LABEL_58;
+      return;
     }
 
     [hash setCompiledVsh:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithLong:", self->_vshName), v9}];
@@ -970,8 +961,8 @@ LABEL_57:
     glLabelObjectEXT(0x8B48u, self->_fshName, 0, [(NSString *)v15 cStringUsingEncoding:1]);
   }
 
-  glGetShaderiv(self->_fshName, 0x8B81u, &v67[1]);
-  if (!v67[1])
+  glGetShaderiv(self->_fshName, 0x8B81u, &v66[1]);
+  if (!v66[1])
   {
     vshName = self->_fshName;
     goto LABEL_57;
@@ -981,9 +972,9 @@ LABEL_57:
   ++__hashedShaders;
   fshName = self->_fshName;
 LABEL_25:
-  v68 = fshName | (self->_vshName << 32);
-  v69 = [objc_msgSend(MEMORY[0x277CD9388] "currentContext")];
-  v16 = [[GLKHashableBigInt alloc] initWithBigInt:&v68];
+  v67 = fshName | (self->_vshName << 32);
+  v68 = [objc_msgSend(MEMORY[0x277CD9388] "currentContext")];
+  v16 = [[GLKHashableBigInt alloc] initWithBigInt:&v67];
   v17 = [(NSMutableDictionary *)self->_programHash objectForKey:v16];
   if (v17)
   {
@@ -991,35 +982,35 @@ LABEL_25:
     self->_programName = intValue;
     glUseProgram(intValue);
     [(GLKEffect *)self setShaderBindings];
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     properties = self->_properties;
-    v20 = [(NSMutableArray *)properties countByEnumeratingWithState:&v62 objects:v73 count:16];
+    v20 = [(NSMutableArray *)properties countByEnumeratingWithState:&v61 objects:v72 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v63;
+      v22 = *v62;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v63 != v22)
+          if (*v62 != v22)
           {
             objc_enumerationMutation(properties);
           }
 
-          [*(*(&v62 + 1) + 8 * i) setShaderBindings];
+          [*(*(&v61 + 1) + 8 * i) setShaderBindings];
         }
 
-        v21 = [(NSMutableArray *)properties countByEnumeratingWithState:&v62 objects:v73 count:16];
+        v21 = [(NSMutableArray *)properties countByEnumeratingWithState:&v61 objects:v72 count:16];
       }
 
       while (v21);
     }
 
-    goto LABEL_58;
+    return;
   }
 
   Program = glCreateProgram();
@@ -1038,34 +1029,34 @@ LABEL_25:
     goto LABEL_39;
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   textureOrder = self->_textureOrder;
-  v41 = [(NSArray *)textureOrder countByEnumeratingWithState:&v58 objects:v72 count:16];
-  if (v41)
+  v40 = [(NSArray *)textureOrder countByEnumeratingWithState:&v57 objects:v71 count:16];
+  if (v40)
   {
-    v42 = v41;
-    v43 = *v59;
+    v41 = v40;
+    v42 = *v58;
 LABEL_63:
-    v44 = 0;
+    v43 = 0;
     while (1)
     {
-      if (*v59 != v43)
+      if (*v58 != v42)
       {
         objc_enumerationMutation(textureOrder);
       }
 
-      if ([*(*(&v58 + 1) + 8 * v44) normalizedNormalsMask])
+      if ([*(*(&v57 + 1) + 8 * v43) normalizedNormalsMask])
       {
         break;
       }
 
-      if (v42 == ++v44)
+      if (v41 == ++v43)
       {
-        v42 = [(NSArray *)textureOrder countByEnumeratingWithState:&v58 objects:v72 count:16];
-        if (v42)
+        v41 = [(NSArray *)textureOrder countByEnumeratingWithState:&v57 objects:v71 count:16];
+        if (v41)
         {
           goto LABEL_63;
         }
@@ -1091,38 +1082,38 @@ LABEL_40:
   }
 
   glLinkProgram(self->_programName);
-  glGetProgramiv(self->_programName, 0x8B82u, v67);
+  glGetProgramiv(self->_programName, 0x8B82u, v66);
   programName = self->_programName;
-  if (!v67[0])
+  if (!v66[0])
   {
     goto LABEL_54;
   }
 
   glUseProgram(programName);
   [(GLKEffect *)self setShaderBindings];
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v26 = self->_properties;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v54 objects:v71 count:16];
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v53 objects:v70 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v55;
+    v29 = *v54;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v55 != v29)
+        if (*v54 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [*(*(&v54 + 1) + 8 * j) setShaderBindings];
+        [*(*(&v53 + 1) + 8 * j) setShaderBindings];
       }
 
-      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v54 objects:v71 count:16];
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v53 objects:v70 count:16];
     }
 
     while (v28);
@@ -1148,7 +1139,7 @@ LABEL_40:
     programName = self->_programName;
 LABEL_54:
     glDeleteProgram(programName);
-    goto LABEL_58;
+    return;
   }
 
   Error = glGetError();
@@ -1160,42 +1151,39 @@ LABEL_54:
   else
   {
     -[NSMutableDictionary setObject:forKey:](self->_programHash, "setObject:forKey:", [MEMORY[0x277CCABB0] numberWithLong:self->_programName], v16);
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
-    v45 = self->_properties;
-    v46 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v50 objects:v70 count:16];
-    if (v46)
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v44 = self->_properties;
+    v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v49 objects:v69 count:16];
+    if (v45)
     {
-      v47 = v46;
-      v48 = *v51;
+      v46 = v45;
+      v47 = *v50;
       do
       {
-        for (k = 0; k != v47; ++k)
+        for (k = 0; k != v46; ++k)
         {
-          if (*v51 != v48)
+          if (*v50 != v47)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v44);
           }
 
-          [*(*(&v50 + 1) + 8 * k) dirtyAllUniforms];
+          [*(*(&v49 + 1) + 8 * k) dirtyAllUniforms];
         }
 
-        v47 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v50 objects:v70 count:16];
+        v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v49 objects:v69 count:16];
       }
 
-      while (v47);
+      while (v46);
     }
   }
-
-LABEL_58:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bind
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   if (self->_textureOrderStale)
   {
     [(GLKEffect *)self setTextureIndices];
@@ -1228,16 +1216,16 @@ LABEL_58:
         NSLog(&cfstr_NoOpenglContex_0.isa);
       }
 
-      goto LABEL_46;
+      return;
     }
 
     sharegroup = [currentContext sharegroup];
     *params = 0;
     *&params[2] = params;
-    v67 = 0x3052000000;
-    v68 = __Block_byref_object_copy_;
-    v69 = __Block_byref_object_dispose_;
-    v70 = 0;
+    v66 = 0x3052000000;
+    v67 = __Block_byref_object_copy_;
+    v68 = __Block_byref_object_dispose_;
+    v69 = 0;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __17__GLKEffect_bind__block_invoke;
@@ -1255,29 +1243,29 @@ LABEL_58:
 
   if (self->_textureOrderStale)
   {
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     textureOrder = self->_textureOrder;
-    v10 = [(NSArray *)textureOrder countByEnumeratingWithState:&v61 objects:v73 count:16];
+    v10 = [(NSArray *)textureOrder countByEnumeratingWithState:&v60 objects:v72 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v62;
+      v12 = *v61;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v62 != v12)
+          if (*v61 != v12)
           {
             objc_enumerationMutation(textureOrder);
           }
 
-          [*(*(&v61 + 1) + 8 * i) setShaderBindings];
+          [*(*(&v60 + 1) + 8 * i) setShaderBindings];
         }
 
-        v11 = [(NSArray *)textureOrder countByEnumeratingWithState:&v61 objects:v73 count:16];
+        v11 = [(NSArray *)textureOrder countByEnumeratingWithState:&v60 objects:v72 count:16];
       }
 
       while (v11);
@@ -1310,45 +1298,45 @@ LABEL_58:
 
       if (!self->_colorMaterialEnabled && *(self->_effectShaderArray + 10) && (([(GLKEffect *)self dirtyUniforms]& 0x1000000) != 0 || ([(GLKEffect *)self dirtyUniforms]& 0x40000000) != 0))
       {
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
         v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         lightProperties = self->_lightProperties;
-        v35 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v57 objects:v72 count:16];
-        if (v35)
+        v34 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v56 objects:v71 count:16];
+        if (v34)
         {
-          v36 = v35;
-          v37 = *v58;
+          v35 = v34;
+          v36 = *v57;
           do
           {
-            for (j = 0; j != v36; ++j)
+            for (j = 0; j != v35; ++j)
             {
-              if (*v58 != v37)
+              if (*v57 != v36)
               {
                 objc_enumerationMutation(lightProperties);
               }
 
-              v39 = *(*(&v57 + 1) + 8 * j);
+              v38 = *(*(&v56 + 1) + 8 * j);
               memset(params, 0, sizeof(params));
               [self->_effectShaderArray[10] ambientColor];
-              v49 = v41;
-              v50 = v40;
+              v48 = v40;
+              v49 = v39;
+              v50 = v41;
               v51 = v42;
-              v52 = v43;
-              [v39 ambientColor];
-              v44.i64[0] = __PAIR64__(v49, v50);
-              v44.i64[1] = __PAIR64__(v52, v51);
-              v46.i32[1] = v45;
-              v46.i64[1] = __PAIR64__(v48, v47);
-              *params = vmulq_f32(v44, v46);
-              glUniform4fv([v39 ambientTermLoc], 1, params);
+              [v38 ambientColor];
+              v43.i64[0] = __PAIR64__(v48, v49);
+              v43.i64[1] = __PAIR64__(v51, v50);
+              v45.i32[1] = v44;
+              v45.i64[1] = __PAIR64__(v47, v46);
+              *params = vmulq_f32(v43, v45);
+              glUniform4fv([v38 ambientTermLoc], 1, params);
             }
 
-            v36 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v57 objects:v72 count:16];
+            v35 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v56 objects:v71 count:16];
           }
 
-          while (v36);
+          while (v35);
         }
       }
     }
@@ -1365,36 +1353,33 @@ LABEL_58:
     glVertexAttrib4fv(self->_aColorLoc, params);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   properties = self->_properties;
-  v29 = [(NSMutableArray *)properties countByEnumeratingWithState:&v53 objects:v71 count:16];
+  v29 = [(NSMutableArray *)properties countByEnumeratingWithState:&v52 objects:v70 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v54;
+    v31 = *v53;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v54 != v31)
+        if (*v53 != v31)
         {
           objc_enumerationMutation(properties);
         }
 
-        [*(*(&v53 + 1) + 8 * k) bind];
+        [*(*(&v52 + 1) + 8 * k) bind];
       }
 
-      v30 = [(NSMutableArray *)properties countByEnumeratingWithState:&v53 objects:v71 count:16];
+      v30 = [(NSMutableArray *)properties countByEnumeratingWithState:&v52 objects:v70 count:16];
     }
 
     while (v30);
   }
-
-LABEL_46:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __17__GLKEffect_bind__block_invoke(uint64_t a1)
@@ -1524,7 +1509,7 @@ uint64_t __17__GLKEffect_bind__block_invoke(uint64_t a1)
 
 - (BOOL)includeShaderTextForRootNode:(id)node
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if ([objc_msgSend(node "label")])
   {
     goto LABEL_2;
@@ -1567,9 +1552,7 @@ LABEL_4:
       goto LABEL_4;
     }
 
-LABEL_18:
-    LOBYTE(v6) = 0;
-    goto LABEL_6;
+    goto LABEL_18;
   }
 
   if ([objc_msgSend(node "label")])
@@ -1580,10 +1563,12 @@ LABEL_8:
       colorMaterialEnabled = self->_perVertexLightingEnabled;
 LABEL_9:
       LOBYTE(v6) = colorMaterialEnabled == 0;
-      goto LABEL_6;
+      return v6;
     }
 
-    goto LABEL_21;
+LABEL_21:
+    LOBYTE(v6) = 1;
+    return v6;
   }
 
   if ([objc_msgSend(node "label")])
@@ -1594,8 +1579,6 @@ LABEL_2:
       perVertexLightingEnabled = self->_perPixelLightingEnabled;
 LABEL_5:
       LOBYTE(v6) = perVertexLightingEnabled != 0;
-LABEL_6:
-      v7 = *MEMORY[0x277D85DE8];
       return v6;
     }
 
@@ -1619,43 +1602,43 @@ LABEL_6:
     {
       if (!self->_perVertexLightingEnabled && !self->_perPixelLightingEnabled)
       {
-        v44 = 0u;
-        v45 = 0u;
         v42 = 0u;
         v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
         textureOrder = self->_textureOrder;
-        v6 = [(NSArray *)textureOrder countByEnumeratingWithState:&v42 objects:v49 count:16];
+        v6 = [(NSArray *)textureOrder countByEnumeratingWithState:&v40 objects:v47 count:16];
         if (!v6)
         {
-          goto LABEL_6;
+          return v6;
         }
 
-        v11 = v6;
-        v12 = *v43;
+        v9 = v6;
+        v10 = *v41;
 LABEL_37:
-        v13 = 0;
+        v11 = 0;
         while (1)
         {
-          if (*v43 != v12)
+          if (*v41 != v10)
           {
             objc_enumerationMutation(textureOrder);
           }
 
-          if ([*(*(&v42 + 1) + 8 * v13) normalizedNormalsMask])
+          if ([*(*(&v40 + 1) + 8 * v11) normalizedNormalsMask])
           {
             break;
           }
 
-          if (v11 == ++v13)
+          if (v9 == ++v11)
           {
-            v11 = [(NSArray *)textureOrder countByEnumeratingWithState:&v42 objects:v49 count:16];
+            v9 = [(NSArray *)textureOrder countByEnumeratingWithState:&v40 objects:v47 count:16];
             LOBYTE(v6) = 0;
-            if (v11)
+            if (v9)
             {
               goto LABEL_37;
             }
 
-            goto LABEL_6;
+            return v6;
           }
         }
       }
@@ -1665,143 +1648,135 @@ LABEL_37:
 
     if ([objc_msgSend(node "label")])
     {
-      v40 = 0u;
-      v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v14 = self->_textureOrder;
-      v15 = [(NSArray *)v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
-      if (v15)
+      v36 = 0u;
+      v37 = 0u;
+      v12 = self->_textureOrder;
+      v13 = [(NSArray *)v12 countByEnumeratingWithState:&v36 objects:v46 count:16];
+      if (v13)
       {
-        v16 = v15;
-        v17 = *v39;
+        v14 = v13;
+        v15 = *v37;
 LABEL_47:
-        v18 = 0;
+        v16 = 0;
         while (1)
         {
-          if (*v39 != v17)
+          if (*v37 != v15)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v12);
           }
 
-          if ([*(*(&v38 + 1) + 8 * v18) vPositionEyeMask])
+          if ([*(*(&v36 + 1) + 8 * v16) vPositionEyeMask])
           {
-            break;
+            goto LABEL_21;
           }
 
-          if (v16 == ++v18)
+          if (v14 == ++v16)
           {
-            v16 = [(NSArray *)v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
-            if (v16)
+            v14 = [(NSArray *)v12 countByEnumeratingWithState:&v36 objects:v46 count:16];
+            if (v14)
             {
               goto LABEL_47;
             }
 
-            goto LABEL_53;
+            break;
           }
         }
       }
 
-      else
+      if (self->_perPixelLightingEnabled)
       {
-LABEL_53:
-        if (!self->_perPixelLightingEnabled)
-        {
-          goto LABEL_18;
-        }
-
-        v36 = 0u;
-        v37 = 0u;
         v34 = 0u;
         v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         lightProperties = self->_lightProperties;
-        v6 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v34 objects:v47 count:16];
+        v6 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v32 objects:v45 count:16];
         if (!v6)
         {
-          goto LABEL_6;
+          return v6;
         }
 
-        v20 = v6;
-        v21 = *v35;
+        v18 = v6;
+        v19 = *v33;
 LABEL_56:
-        v22 = 0;
+        v20 = 0;
         while (1)
         {
-          if (*v35 != v21)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(lightProperties);
           }
 
-          v23 = *(*(&v34 + 1) + 8 * v22);
-          if ([v23 enabled])
+          v21 = *(*(&v32 + 1) + 8 * v20);
+          if ([v21 enabled])
           {
-            [v23 position];
-            if (v24 != 0.0)
+            [v21 position];
+            if (v22 != 0.0)
             {
-              break;
+              goto LABEL_21;
             }
           }
 
-          if (v20 == ++v22)
+          if (v18 == ++v20)
           {
-            v20 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v34 objects:v47 count:16];
+            v18 = [(NSMutableArray *)lightProperties countByEnumeratingWithState:&v32 objects:v45 count:16];
             LOBYTE(v6) = 0;
-            if (v20)
+            if (v18)
             {
               goto LABEL_56;
             }
 
-            goto LABEL_6;
+            return v6;
           }
         }
       }
 
-LABEL_21:
-      LOBYTE(v6) = 1;
-      goto LABEL_6;
+      goto LABEL_18;
     }
 
     if ([objc_msgSend(node "label")])
     {
       if (!self->_perPixelLightingEnabled)
       {
-        v32 = 0u;
-        v33 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v25 = self->_textureOrder;
-        v6 = [(NSArray *)v25 countByEnumeratingWithState:&v30 objects:v46 count:16];
+        v28 = 0u;
+        v29 = 0u;
+        v23 = self->_textureOrder;
+        v6 = [(NSArray *)v23 countByEnumeratingWithState:&v28 objects:v44 count:16];
         if (!v6)
         {
-          goto LABEL_6;
+          return v6;
         }
 
-        v26 = v6;
-        v27 = *v31;
+        v24 = v6;
+        v25 = *v29;
 LABEL_68:
-        v28 = 0;
+        v26 = 0;
         while (1)
         {
-          if (*v31 != v27)
+          if (*v29 != v25)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v23);
           }
 
-          if ([*(*(&v30 + 1) + 8 * v28) vNormalEyeMask])
+          if ([*(*(&v28 + 1) + 8 * v26) vNormalEyeMask])
           {
             break;
           }
 
-          if (v26 == ++v28)
+          if (v24 == ++v26)
           {
-            v26 = [(NSArray *)v25 countByEnumeratingWithState:&v30 objects:v46 count:16];
+            v24 = [(NSArray *)v23 countByEnumeratingWithState:&v28 objects:v44 count:16];
             LOBYTE(v6) = 0;
-            if (v26)
+            if (v24)
             {
               goto LABEL_68;
             }
 
-            goto LABEL_6;
+            return v6;
           }
         }
       }
@@ -1837,12 +1812,14 @@ LABEL_68:
         }
 
 LABEL_77:
-        if (!self->_lightModelTwoSided)
+        if (self->_lightModelTwoSided)
         {
-          goto LABEL_18;
+          goto LABEL_21;
         }
 
-        goto LABEL_21;
+LABEL_18:
+        LOBYTE(v6) = 0;
+        return v6;
       }
 
       if (![objc_msgSend(node "label")] || !self->_perPixelLightingEnabled)
@@ -1851,15 +1828,13 @@ LABEL_77:
       }
     }
 
-    if (self->_lightModelTwoSided)
+    if (!self->_lightModelTwoSided)
     {
-      goto LABEL_18;
+      goto LABEL_21;
     }
 
-    goto LABEL_21;
+    goto LABEL_18;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   LOBYTE(v6) = [(GLKEffect *)self useTexCoordAttrib];
   return v6;
@@ -1952,10 +1927,6 @@ LABEL_77:
 
 - (_GLKVector4)lightModelAmbientColor
 {
-  x = self->_lightModelAmbientColor.x;
-  y = self->_lightModelAmbientColor.y;
-  z = self->_lightModelAmbientColor.z;
-  w = self->_lightModelAmbientColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -1963,10 +1934,6 @@ LABEL_77:
 
 - (_GLKVector4)baseLightingColor
 {
-  x = self->_baseLightingColor.x;
-  y = self->_baseLightingColor.y;
-  z = self->_baseLightingColor.z;
-  w = self->_baseLightingColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;

@@ -22,11 +22,11 @@ uint64_t sub_12E0()
   return v0;
 }
 
-uint64_t sub_1320()
+uint64_t sub_1320(uint64_t a1)
 {
-  sub_1238(v1);
+  sub_1238(v2);
   sub_1718();
-  return sub_1488(v1);
+  return sub_1488(v2);
 }
 
 uint64_t sub_1374()
@@ -68,7 +68,6 @@ uint64_t sub_154C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

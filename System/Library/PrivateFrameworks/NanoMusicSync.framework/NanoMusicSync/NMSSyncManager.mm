@@ -7,6 +7,7 @@
 + (void)_gizmoSyncStates;
 - (NMSSyncManager)init;
 - (id)_addedTracksPredicateForMediaType:(unsigned int)type;
+- (id)_addedTracksQueryForMediaType:(unsigned int)type;
 - (id)_assetTypeForMediaType:(unsigned int)type;
 - (id)_defaultProgressInfoDict;
 - (id)_defaultSyncProgressInfoForAssetType:(id)type;
@@ -14,6 +15,8 @@
 - (id)_tracksPredicateWithPersistentIDs:(id)ds;
 - (id)_tracksQueryWithPredicate:(id)predicate;
 - (id)_updateProgressInfoForAssetType:(id)type assetItemsTotal:(int64_t)total assetItemsSyncedForSyncSession:(int64_t)session bytesToSyncTotal:(unint64_t)syncTotal bytesSyncedThisSyncSession:(unint64_t)syncSession;
+- (id)progressInfoForMediaType:(unsigned int)type;
+- (unint64_t)_aggregateAssetItemBytesAddedForMediaType:(unsigned int)type;
 - (unint64_t)_estimatedAssetAggregateItemSizeInBytesWithQuery:(id)query;
 - (unint64_t)_numberOfItemsNeedingDownloadForAssetType:(id)type;
 - (void)_handleSyncStateDidChangeNotification;
@@ -96,19 +99,17 @@ uint64_t __31__NMSSyncManager_sharedManager__block_invoke()
 
 - (id)_defaultProgressInfoDict
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"Music";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"Music";
   v3 = [(NMSSyncManager *)self _defaultSyncProgressInfoForAssetType:?];
-  v10[0] = v3;
-  v9[1] = @"Podcast";
+  v9[0] = v3;
+  v8[1] = @"Podcast";
   v4 = [(NMSSyncManager *)self _defaultSyncProgressInfoForAssetType:?];
-  v10[1] = v4;
-  v9[2] = @"Audiobook";
+  v9[1] = v4;
+  v8[2] = @"Audiobook";
   v5 = [(NMSSyncManager *)self _defaultSyncProgressInfoForAssetType:?];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -212,12 +213,28 @@ void __52__NMSSyncManager__addedTracksPredicateForMediaType___block_invoke(uint6
   }
 }
 
+- (id)_addedTracksQueryForMediaType:(unsigned int)type
+{
+  v4 = [(NMSSyncManager *)self _addedTracksPredicateForMediaType:*&type];
+  v5 = [(NMSSyncManager *)self _tracksQueryWithPredicate:v4];
+
+  return v5;
+}
+
 - (unint64_t)_estimatedAssetAggregateItemSizeInBytesWithQuery:(id)query
 {
   v3 = [query valueForAggregateFunction:*MEMORY[0x277D2B520] onEntitiesForProperty:*MEMORY[0x277D2B588]];
   unsignedLongLongValue = [v3 unsignedLongLongValue];
 
   return unsignedLongLongValue;
+}
+
+- (unint64_t)_aggregateAssetItemBytesAddedForMediaType:(unsigned int)type
+{
+  v4 = [(NMSSyncManager *)self _addedTracksQueryForMediaType:*&type];
+  v5 = [(NMSSyncManager *)self _estimatedAssetAggregateItemSizeInBytesWithQuery:v4];
+
+  return v5;
 }
 
 - (id)_assetTypeForMediaType:(unsigned int)type
@@ -257,6 +274,14 @@ void __52__NMSSyncManager__addedTracksPredicateForMediaType___block_invoke(uint6
   }
 
   return v4;
+}
+
+- (id)progressInfoForMediaType:(unsigned int)type
+{
+  v4 = [(NMSSyncManager *)self _assetTypeForMediaType:*&type];
+  v5 = [(NMSSyncManager *)self _syncProgressInfoByAssetType:v4];
+
+  return v5;
 }
 
 - (void)beginReceivingSyncProgressUpdates
@@ -337,7 +362,7 @@ void __52__NMSSyncManager__addedTracksPredicateForMediaType___block_invoke(uint6
 
 void __44__NMSSyncManager__updateObservedSyncSession__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _stopObservingSyncSession];
   v2 = [MEMORY[0x277CEA468] sessionsWithSessionTypeIdentifier:*MEMORY[0x277CEA408] dataClass:@"Media"];
   v3 = [v2 lastObject];
@@ -357,83 +382,79 @@ void __44__NMSSyncManager__updateObservedSyncSession__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(*(a1 + 32) + 32);
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2114;
-      v16 = v6;
-      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "Active sync session identifier changed (%{public}@, previously %{public}@)", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "Active sync session identifier changed (%{public}@, previously %{public}@)", &v12, 0x16u);
     }
   }
 
   [*(a1 + 32) _startObservingSyncSession];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingSyncSession
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = NMLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     observedSession = self->_observedSession;
     *buf = 138412290;
-    v17 = observedSession;
+    v16 = observedSession;
     _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "Stopping observation of sync session: %@", buf, 0xCu);
   }
 
   [(ATSession *)self->_observedSession removeObserver:self];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   allValues = [(NSMutableDictionary *)self->_syncProgressInfoByAssetType allValues];
-  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v9) setNumberOfAssetItemsSynced:{objc_msgSend(*(*(&v11 + 1) + 8 * v9), "numberOfAssetItems")}];
+        [*(*(&v10 + 1) + 8 * v9) setNumberOfAssetItemsSynced:{objc_msgSend(*(*(&v10 + 1) + 8 * v9), "numberOfAssetItems")}];
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(NMSSyncManager *)self _updateSyncProgress];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingSyncSession
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = NMLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     observedSession = self->_observedSession;
-    v6 = 138412290;
-    v7 = observedSession;
-    _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "Starting observation of sync session: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = observedSession;
+    _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "Starting observation of sync session: %@", &v5, 0xCu);
   }
 
   [(ATSession *)self->_observedSession removeObserver:self];
   [(ATSession *)self->_observedSession addObserver:self];
   [(NMSSyncManager *)self _updateSyncProgress];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invokeOnMainThread:(id)thread
@@ -463,7 +484,7 @@ void __44__NMSSyncManager__updateObservedSyncSession__block_invoke(uint64_t a1)
 
 + (unint64_t)_syncStateForProgressInfo:(id)info session:(id)session
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = +[NMSyncDefaults sharedDefaults];
   clientPinningSettingsToken = [v7 clientPinningSettingsToken];
@@ -482,8 +503,8 @@ void __44__NMSSyncManager__updateObservedSyncSession__block_invoke(uint64_t a1)
         _gizmoSyncStates = NMLogForCategory(5);
         if (os_log_type_enabled(_gizmoSyncStates, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&dword_25B27B000, _gizmoSyncStates, OS_LOG_TYPE_INFO, "[SyncStatus] Asset Syncing", &v21, 2u);
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_25B27B000, _gizmoSyncStates, OS_LOG_TYPE_INFO, "[SyncStatus] Asset Syncing", &v20, 2u);
         }
 
         unsignedIntegerValue = 99;
@@ -495,8 +516,8 @@ void __44__NMSSyncManager__updateObservedSyncSession__block_invoke(uint64_t a1)
         v16 = NMLogForCategory(5);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&dword_25B27B000, v16, OS_LOG_TYPE_INFO, "[SyncStatus] Asset Syncing done", &v21, 2u);
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_25B27B000, v16, OS_LOG_TYPE_INFO, "[SyncStatus] Asset Syncing done", &v20, 2u);
         }
       }
     }
@@ -512,17 +533,16 @@ void __44__NMSSyncManager__updateObservedSyncSession__block_invoke(uint64_t a1)
   _gizmoSyncStates = NMLogForCategory(5);
   if (os_log_type_enabled(_gizmoSyncStates, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138543618;
-    v22 = clientPinningSettingsToken;
-    v23 = 2114;
-    v24 = v11;
-    _os_log_impl(&dword_25B27B000, _gizmoSyncStates, OS_LOG_TYPE_DEFAULT, "[SyncStatus] Mismatched tokens; resolvedMusicSyncState & resolvedPodcastsSyncState -> pending (local: %{public}@; remote: %{public}@)", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = clientPinningSettingsToken;
+    v22 = 2114;
+    v23 = v11;
+    _os_log_impl(&dword_25B27B000, _gizmoSyncStates, OS_LOG_TYPE_DEFAULT, "[SyncStatus] Mismatched tokens; resolvedMusicSyncState & resolvedPodcastsSyncState -> pending (local: %{public}@; remote: %{public}@)", &v20, 0x16u);
   }
 
   unsignedIntegerValue = 2;
 LABEL_18:
 
-  v19 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 
@@ -566,7 +586,7 @@ LABEL_18:
 
 - (id)_updateProgressInfoForAssetType:(id)type assetItemsTotal:(int64_t)total assetItemsSyncedForSyncSession:(int64_t)session bytesToSyncTotal:(unint64_t)syncTotal bytesSyncedThisSyncSession:(unint64_t)syncSession
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v11 = [(NMSSyncManager *)self _syncProgressInfoByAssetType:type];
   [v11 setNumberOfAssetItems:total];
   [v11 setNumberOfAssetItemsSynced:session];
@@ -574,15 +594,15 @@ LABEL_18:
   v12 = NMLogForCategory(5);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v21 = 134218752;
+    v20 = 134218752;
     syncSessionCopy3 = total;
-    v23 = 2048;
+    v22 = 2048;
     sessionCopy = session;
-    v25 = 2048;
-    v26 = *&syncTotal;
-    v27 = 2048;
+    v24 = 2048;
+    v25 = *&syncTotal;
+    v26 = 2048;
     syncSessionCopy = syncSession;
-    _os_log_debug_impl(&dword_25B27B000, v12, OS_LOG_TYPE_DEBUG, "numberOfAssetItems = %li,numberOfAssetItemsSynced = %li, aggregateAssetItemBytesAdded = %llu, aggregateAssetItemBytesSynced = %llu", &v21, 0x2Au);
+    _os_log_debug_impl(&dword_25B27B000, v12, OS_LOG_TYPE_DEBUG, "numberOfAssetItems = %li,numberOfAssetItemsSynced = %li, aggregateAssetItemBytesAdded = %llu, aggregateAssetItemBytesSynced = %llu", &v20, 0x2Au);
   }
 
   v13 = syncSession / [v11 aggregateAssetItemBytesAdded];
@@ -591,13 +611,13 @@ LABEL_18:
   {
     aggregateAssetItemBytesAdded = [v11 aggregateAssetItemBytesAdded];
     v15 = v13;
-    v21 = 134218496;
+    v20 = 134218496;
     syncSessionCopy3 = syncSession;
-    v23 = 2048;
+    v22 = 2048;
     sessionCopy = aggregateAssetItemBytesAdded;
-    v25 = 2048;
-    v26 = v13;
-    _os_log_debug_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEBUG, "estimatedSyncProgress = %llu / %llu = %f", &v21, 0x20u);
+    v24 = 2048;
+    v25 = v13;
+    _os_log_debug_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEBUG, "estimatedSyncProgress = %llu / %llu = %f", &v20, 0x20u);
   }
 
   else
@@ -611,27 +631,26 @@ LABEL_18:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       aggregateAssetItemBytesAdded2 = [v11 aggregateAssetItemBytesAdded];
-      v21 = 134218496;
+      v20 = 134218496;
       syncSessionCopy3 = syncSession;
-      v23 = 2048;
+      v22 = 2048;
       sessionCopy = aggregateAssetItemBytesAdded2;
-      v25 = 2048;
-      v26 = v15;
-      _os_log_error_impl(&dword_25B27B000, v16, OS_LOG_TYPE_ERROR, "[SyncStatus] estimatedSyncProgress > 1.0, %llu / %llu = %f; pinning at 1.0", &v21, 0x20u);
+      v24 = 2048;
+      v25 = v15;
+      _os_log_error_impl(&dword_25B27B000, v16, OS_LOG_TYPE_ERROR, "[SyncStatus] estimatedSyncProgress > 1.0, %llu / %llu = %f; pinning at 1.0", &v20, 0x20u);
     }
 
     v13 = 1.0;
   }
 
   [v11 setEstimatedSyncProgress:{COERCE_DOUBLE(COERCE_UNSIGNED_INT(fmaxf(v13, 0.0)))}];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (void)_updateSyncProgress
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v2 = self->_observedSession;
   sessionTasks = [(ATSession *)v2 sessionTasks];
   v4 = NMLogForCategory(5);
@@ -639,7 +658,7 @@ LABEL_18:
   {
     sessionIdentifier = [(ATSession *)v2 sessionIdentifier];
     *buf = 138543362;
-    v74 = sessionIdentifier;
+    v73 = sessionIdentifier;
     _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Start updating sync progress - session identifier is %{public}@", buf, 0xCu);
   }
 
@@ -651,42 +670,42 @@ LABEL_18:
       v7 = [sessionTasks count];
       isCancelled = [(ATSession *)v2 isCancelled];
       *buf = 134218240;
-      v74 = v7;
-      v75 = 1024;
-      v76 = isCancelled;
+      v73 = v7;
+      v74 = 1024;
+      v75 = isCancelled;
       _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Num session tasks: %lu; isCancelled: %d", buf, 0x12u);
     }
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v9 = sessionTasks;
-  v10 = [v9 countByEnumeratingWithState:&v66 objects:v72 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v65 objects:v71 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v67;
+    v13 = *v66;
     v14 = *MEMORY[0x277CEA560];
     *&v11 = 138543362;
-    v45 = v11;
-    v48 = v9;
-    v49 = v2;
-    v46 = *MEMORY[0x277CEA560];
-    v47 = *v67;
+    v44 = v11;
+    v47 = v9;
+    v48 = v2;
+    v45 = *MEMORY[0x277CEA560];
+    v46 = *v66;
     do
     {
       v15 = 0;
-      v50 = v12;
+      v49 = v12;
       do
       {
-        if (*v67 != v13)
+        if (*v66 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v66 + 1) + 8 * v15);
+        v16 = *(*(&v65 + 1) + 8 * v15);
         if ([v16 isCancelled])
         {
           properties = NMLogForCategory(5);
@@ -694,7 +713,7 @@ LABEL_18:
           {
             sessionTaskIdentifier = [v16 sessionTaskIdentifier];
             *buf = 138412290;
-            v74 = sessionTaskIdentifier;
+            v73 = sessionTaskIdentifier;
             _os_log_impl(&dword_25B27B000, properties, OS_LOG_TYPE_DEFAULT, "Task %@ is cancelled", buf, 0xCu);
           }
         }
@@ -702,48 +721,48 @@ LABEL_18:
         else
         {
           [v16 sessionGroupingKey];
-          v19 = v53 = v15;
+          v19 = v52 = v15;
           v20 = [v19 isEqualToString:v14];
 
-          v15 = v53;
+          v15 = v52;
           if (!v20)
           {
             goto LABEL_29;
           }
 
           properties = [v16 properties];
-          v52 = [properties objectForKeyedSubscript:@"DetailedProgressByAssetType"];
-          if ([v52 count])
+          v51 = [properties objectForKeyedSubscript:@"DetailedProgressByAssetType"];
+          if ([v51 count])
           {
-            v51 = properties;
+            v50 = properties;
             v21 = NMLogForCategory(5);
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v45;
-              v74 = v52;
+              *buf = v44;
+              v73 = v51;
               _os_log_impl(&dword_25B27B000, v21, OS_LOG_TYPE_DEFAULT, "Detailed sync progress by asset type <%{public}@>", buf, 0xCu);
             }
 
-            v64 = 0u;
-            v65 = 0u;
-            v62 = 0u;
             v63 = 0u;
-            obj = [v52 allValues];
-            v22 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+            v64 = 0u;
+            v61 = 0u;
+            v62 = 0u;
+            obj = [v51 allValues];
+            v22 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
             if (v22)
             {
               v23 = v22;
-              v55 = *v63;
+              v54 = *v62;
               do
               {
                 for (i = 0; i != v23; ++i)
                 {
-                  if (*v63 != v55)
+                  if (*v62 != v54)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v25 = *(*(&v62 + 1) + 8 * i);
+                  v25 = *(*(&v61 + 1) + 8 * i);
                   v26 = [v25 objectForKeyedSubscript:@"AssetType"];
                   v27 = [v25 objectForKeyedSubscript:@"TotalAssetsToSync"];
                   integerValue = [v27 integerValue];
@@ -755,19 +774,19 @@ LABEL_18:
                   v34 = -[NMSSyncManager _updateProgressInfoForAssetType:assetItemsTotal:assetItemsSyncedForSyncSession:bytesToSyncTotal:bytesSyncedThisSyncSession:](self, "_updateProgressInfoForAssetType:assetItemsTotal:assetItemsSyncedForSyncSession:bytesToSyncTotal:bytesSyncedThisSyncSession:", v26, integerValue, integerValue2, unsignedLongLongValue, [v33 unsignedLongLongValue]);
                 }
 
-                v23 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+                v23 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
               }
 
               while (v23);
             }
 
-            v9 = v48;
-            v2 = v49;
-            v12 = v50;
-            v14 = v46;
-            v13 = v47;
-            v15 = v53;
-            properties = v51;
+            v9 = v47;
+            v2 = v48;
+            v12 = v49;
+            v14 = v45;
+            v13 = v46;
+            v15 = v52;
+            properties = v50;
           }
         }
 
@@ -776,32 +795,32 @@ LABEL_29:
       }
 
       while (v15 != v12);
-      v12 = [v9 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v65 objects:v71 count:16];
     }
 
     while (v12);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   allValues = [(NSMutableDictionary *)self->_syncProgressInfoByAssetType allValues];
-  v36 = [allValues countByEnumeratingWithState:&v58 objects:v70 count:16];
+  v36 = [allValues countByEnumeratingWithState:&v57 objects:v69 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v59;
+    v38 = *v58;
     do
     {
       for (j = 0; j != v37; ++j)
       {
-        if (*v59 != v38)
+        if (*v58 != v38)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v40 = *(*(&v58 + 1) + 8 * j);
+        v40 = *(*(&v57 + 1) + 8 * j);
         assetType = [v40 assetType];
         [v40 setNumberOfAssetItemsNeedingDownload:{-[NMSSyncManager _numberOfItemsNeedingDownloadForAssetType:](self, "_numberOfItemsNeedingDownloadForAssetType:", assetType)}];
 
@@ -809,7 +828,7 @@ LABEL_29:
         [v40 setSyncWaitingSubstate:{objc_msgSend(objc_opt_class(), "_syncWaitingSubstateForProgressInfo:", v40)}];
       }
 
-      v37 = [allValues countByEnumeratingWithState:&v58 objects:v70 count:16];
+      v37 = [allValues countByEnumeratingWithState:&v57 objects:v69 count:16];
     }
 
     while (v37);
@@ -820,7 +839,7 @@ LABEL_29:
   {
     syncProgressInfoByAssetType = self->_syncProgressInfoByAssetType;
     *buf = 138543362;
-    v74 = syncProgressInfoByAssetType;
+    v73 = syncProgressInfoByAssetType;
     _os_log_impl(&dword_25B27B000, v42, OS_LOG_TYPE_DEFAULT, "Finished updating sync progress: %{public}@", buf, 0xCu);
   }
 
@@ -830,8 +849,6 @@ LABEL_29:
   block[3] = &unk_27993DD20;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
@@ -870,7 +887,7 @@ void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
 
 + (id)_gizmoSyncStates
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v2 = +[NMSyncDefaults sharedDefaults];
   syncStateDict = [v2 syncStateDict];
 
@@ -878,7 +895,7 @@ void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v44 = syncStateDict;
+    v43 = syncStateDict;
     _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[SyncStatus] sync state dict %{public}@", buf, 0xCu);
   }
 
@@ -894,7 +911,7 @@ void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
   v12 = [v11 objectForKeyedSubscript:@"SyncStatesByMediaType"];
   v13 = [v12 objectForKeyedSubscript:@"Audiobook"];
 
-  v40 = v7;
+  v39 = v7;
   if (v7 || v10 || v13)
   {
     if (v7)
@@ -905,7 +922,7 @@ void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
       {
         v20 = [NMSSyncProgressInfo _stringFromSyncState:unsignedIntegerValue];
         *buf = 138543362;
-        v44 = v20;
+        v43 = v20;
         _os_log_impl(&dword_25B27B000, v19, OS_LOG_TYPE_DEFAULT, "[SyncStatus] Music sync state from gizmo: %{public}@", buf, 0xCu);
       }
     }
@@ -934,7 +951,7 @@ void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
       {
         v23 = [NMSSyncProgressInfo _stringFromSyncState:unsignedIntegerValue2];
         *buf = 138543362;
-        v44 = v23;
+        v43 = v23;
         _os_log_impl(&dword_25B27B000, v22, OS_LOG_TYPE_DEFAULT, "[SyncStatus] Podcasts sync state from gizmo: %{public}@", buf, 0xCu);
       }
     }
@@ -963,7 +980,7 @@ void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
       {
         v25 = [NMSSyncProgressInfo _stringFromSyncState:unsignedIntegerValue3];
         *buf = 138543362;
-        v44 = v25;
+        v43 = v25;
         _os_log_impl(&dword_25B27B000, v15, OS_LOG_TYPE_DEFAULT, "[SyncStatus] Audiobooks sync state from gizmo: %{public}@", buf, 0xCu);
       }
     }
@@ -997,7 +1014,7 @@ void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
       {
         v18 = [NMSSyncProgressInfo _stringFromSyncState:unsignedIntegerValue];
         *buf = 138543362;
-        v44 = v18;
+        v43 = v18;
         _os_log_impl(&dword_25B27B000, v17, OS_LOG_TYPE_DEFAULT, "[SyncStatus] Legacy Music sync state from gizmo: %{public}@", buf, 0xCu);
       }
     }
@@ -1036,17 +1053,17 @@ void __37__NMSSyncManager__updateSyncProgress__block_invoke(uint64_t a1)
     v29 = [NMSSyncProgressInfo _stringFromSyncState:unsignedIntegerValue2];
     v30 = [NMSSyncProgressInfo _stringFromSyncState:unsignedIntegerValue3];
     *buf = 138544642;
-    v44 = v28;
-    v45 = 2048;
-    v46 = unsignedIntegerValue;
-    v47 = 2114;
-    v48 = v29;
-    v49 = 2048;
-    v50 = unsignedIntegerValue2;
-    v51 = 2114;
-    v52 = v30;
-    v53 = 2048;
-    v54 = unsignedIntegerValue3;
+    v43 = v28;
+    v44 = 2048;
+    v45 = unsignedIntegerValue;
+    v46 = 2114;
+    v47 = v29;
+    v48 = 2048;
+    v49 = unsignedIntegerValue2;
+    v50 = 2114;
+    v51 = v30;
+    v52 = 2048;
+    v53 = unsignedIntegerValue3;
     _os_log_impl(&dword_25B27B000, v27, OS_LOG_TYPE_DEFAULT, "[SyncStatus] resolvedMusicSyncState: %{public}@ [%tu] -- resolvedPodcastsSyncState: %{public}@ [%tu] -- resolvedAudiobooksSyncState: %{public}@ [%tu]", buf, 0x3Eu);
   }
 
@@ -1099,30 +1116,25 @@ LABEL_45:
   }
 
 LABEL_48:
-  v41[0] = @"Music";
+  v40[0] = @"Music";
   v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-  v42[0] = v34;
-  v41[1] = @"Podcast";
+  v41[0] = v34;
+  v40[1] = @"Podcast";
   v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue2];
-  v42[1] = v35;
-  v41[2] = @"Audiobook";
+  v41[1] = v35;
+  v40[2] = @"Audiobook";
   v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue3];
-  v42[2] = v36;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
-
-  v38 = *MEMORY[0x277D85DE8];
+  v41[2] = v36;
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
 
   return v37;
 }
 
 + (void)_gizmoSyncStates
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [NMSSyncProgressInfo _stringFromSyncState:0];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4_0(&dword_25B27B000, v1, v2, "[SyncStatus] Unexpected _gizmoSyncState (Audiobooks): %{public}@; syncStateDict:%{public}@; resolvedSyncState -> idle", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_25B27B000, v1, v2, "[SyncStatus] Unexpected _gizmoSyncState (Audiobooks): %{public}@; syncStateDict:%{public}@; resolvedSyncState -> idle", v3, v4, v5, v6);
 }
 
 @end

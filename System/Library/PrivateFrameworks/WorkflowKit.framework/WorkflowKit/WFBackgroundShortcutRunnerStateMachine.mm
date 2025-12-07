@@ -8,6 +8,7 @@
 - (void)idleStateWithReason:(id)reason;
 - (void)invalidate;
 - (void)invalidateWithReason:(id)reason;
+- (void)startRunningShortcutWithEnvironment:(int64_t)environment reference:(id)reference isPersonalAutomation:(BOOL)automation reason:(id)reason;
 - (void)stopShortcutWithError:(id)error reason:(id)reason;
 @end
 
@@ -31,7 +32,7 @@
 
 - (void)invalidateWithReason:(id)reason
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   currentState = [(WFStateMachine *)self currentState];
   if (currentState && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -40,14 +41,14 @@
     {
       if ([currentState stage] == 4 || objc_msgSend(currentState, "stage") == 5)
       {
-        v7 = getWFStateMachineLogObject();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v6 = getWFStateMachineLogObject();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = 136315394;
-          v9 = "[WFBackgroundShortcutRunnerStateMachine invalidateWithReason:]";
-          v10 = 2112;
-          v11 = reasonCopy;
-          _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ while finishing shortcut or exiting runner. Exiting should already be in process, not transitioning.", &v8, 0x16u);
+          v7 = 136315394;
+          v8 = "[WFBackgroundShortcutRunnerStateMachine invalidateWithReason:]";
+          v9 = 2112;
+          v10 = reasonCopy;
+          _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s %@ while finishing shortcut or exiting runner. Exiting should already be in process, not transitioning.", &v7, 0x16u);
         }
       }
     }
@@ -63,28 +64,25 @@
 
     currentState = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = getWFStateMachineLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[WFBackgroundShortcutRunnerStateMachine invalidate]";
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s State machine invalidated", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFBackgroundShortcutRunnerStateMachine invalidate]";
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s State machine invalidated", &v4, 0xCu);
   }
 
   [(WFBackgroundShortcutRunnerStateMachine *)self invalidateWithReason:@"state machine invalidated"];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)exitWithReason:(id)reason
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if ([(WFBackgroundShortcutRunnerStateMachine *)self processPolicy]== 1)
   {
@@ -92,9 +90,9 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v11 = "[WFBackgroundShortcutRunnerStateMachine exitWithReason:]";
-      v12 = 2114;
-      v13 = reasonCopy;
+      v10 = "[WFBackgroundShortcutRunnerStateMachine exitWithReason:]";
+      v11 = 2114;
+      v12 = reasonCopy;
       _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s exit was requested for reason '%{public}@', but not exiting because process policy is a shared runner", buf, 0x16u);
     }
   }
@@ -119,8 +117,6 @@
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __57__WFBackgroundShortcutRunnerStateMachine_exitWithReason___block_invoke(uint64_t a1)
@@ -163,7 +159,7 @@ void __73__WFBackgroundShortcutRunnerStateMachine_finishRunningWithReason_result
 
 - (void)stopShortcutWithError:(id)error reason:(id)reason
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   reasonCopy = reason;
   currentState = [(WFStateMachine *)self currentState];
@@ -183,13 +179,13 @@ void __73__WFBackgroundShortcutRunnerStateMachine_finishRunningWithReason_result
           if (delegate)
           {
             delegateQueue = [(WFBackgroundShortcutRunnerStateMachine *)self delegateQueue];
-            v14[0] = MEMORY[0x1E69E9820];
-            v14[1] = 3221225472;
-            v14[2] = __71__WFBackgroundShortcutRunnerStateMachine_stopShortcutWithError_reason___block_invoke;
-            v14[3] = &unk_1E837F870;
-            v14[4] = self;
-            v15 = errorCopy;
-            dispatch_async(delegateQueue, v14);
+            v13[0] = MEMORY[0x1E69E9820];
+            v13[1] = 3221225472;
+            v13[2] = __71__WFBackgroundShortcutRunnerStateMachine_stopShortcutWithError_reason___block_invoke;
+            v13[3] = &unk_1E837F870;
+            v13[4] = self;
+            v14 = errorCopy;
+            dispatch_async(delegateQueue, v13);
           }
         }
       }
@@ -200,18 +196,16 @@ void __73__WFBackgroundShortcutRunnerStateMachine_finishRunningWithReason_result
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v17 = "[WFBackgroundShortcutRunnerStateMachine stopShortcutWithError:reason:]";
-          v18 = 2114;
-          v19 = reasonCopy;
-          v20 = 2048;
+          v16 = "[WFBackgroundShortcutRunnerStateMachine stopShortcutWithError:reason:]";
+          v17 = 2114;
+          v18 = reasonCopy;
+          v19 = 2048;
           stage = [currentState stage];
           _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s stop was requested because %{public}@, but we're already in the process of stopping/finishing (current stage: %lu)", buf, 0x20u);
         }
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __71__WFBackgroundShortcutRunnerStateMachine_stopShortcutWithError_reason___block_invoke(uint64_t a1)
@@ -220,9 +214,26 @@ void __71__WFBackgroundShortcutRunnerStateMachine_stopShortcutWithError_reason__
   [v2 runnerStateMachine:*(a1 + 32) didRequestStoppingShortcutWithError:*(a1 + 40)];
 }
 
+- (void)startRunningShortcutWithEnvironment:(int64_t)environment reference:(id)reference isPersonalAutomation:(BOOL)automation reason:(id)reason
+{
+  automationCopy = automation;
+  referenceCopy = reference;
+  reasonCopy = reason;
+  v12 = [[WFRunnerRunningState alloc] initWithEnvironment:environment isPersonalAutomation:automationCopy];
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __116__WFBackgroundShortcutRunnerStateMachine_startRunningShortcutWithEnvironment_reference_isPersonalAutomation_reason___block_invoke;
+  v17 = &unk_1E837F870;
+  v18 = referenceCopy;
+  selfCopy = self;
+  v13 = referenceCopy;
+  [(WFRunnerRunningState *)v12 setTimeoutHandler:&v14];
+  [(WFStateMachine *)self transitionToState:v12 withReason:reasonCopy, v14, v15, v16, v17];
+}
+
 void __116__WFBackgroundShortcutRunnerStateMachine_startRunningShortcutWithEnvironment_reference_isPersonalAutomation_reason___block_invoke(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = MEMORY[0x1E696AEC0];
@@ -237,16 +248,15 @@ void __116__WFBackgroundShortcutRunnerStateMachine_startRunningShortcutWithEnvir
   }
 
   v6 = MEMORY[0x1E696ABC0];
-  v11[0] = *MEMORY[0x1E696A578];
+  v10[0] = *MEMORY[0x1E696A578];
   v7 = WFLocalizedString(@"Shortcut Timed Out");
-  v11[1] = *MEMORY[0x1E696A588];
-  v12[0] = v7;
-  v12[1] = v5;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[1] = *MEMORY[0x1E696A588];
+  v11[0] = v7;
+  v11[1] = v5;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v9 = [v6 errorWithDomain:@"WFBackgroundShortcutRunnerErrorDomain" code:11 userInfo:v8];
 
   [*(a1 + 40) stopShortcutWithError:v9 reason:@"runner timed out"];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlingRequestStateWithReason:(id)reason

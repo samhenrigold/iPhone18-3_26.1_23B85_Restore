@@ -29,7 +29,7 @@
 
 void __84__MUPlaceCardImpressionsLogger_logImpressionElementDidExit_usingEnterDate_exitDate___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) customData];
   v3 = MUGetMUPlaceCardImpressionLoggingLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
@@ -38,11 +38,11 @@ void __84__MUPlaceCardImpressionsLogger_logImpressionElementDidExit_usingEnterDa
     v5 = *(a1 + 40);
     v6 = *(a1 + 48);
     *buf = 138412802;
-    v17 = v4;
-    v18 = 2048;
-    v19 = v5;
-    v20 = 2048;
-    v21 = v6;
+    v16 = v4;
+    v17 = 2048;
+    v18 = v5;
+    v19 = 2048;
+    v20 = v6;
     _os_log_impl(&dword_1C5620000, v3, OS_LOG_TYPE_INFO, "Logging element did exit @%@ with start date %f, end date %f", buf, 0x20u);
   }
 
@@ -53,11 +53,9 @@ void __84__MUPlaceCardImpressionsLogger_logImpressionElementDidExit_usingEnterDa
   v11 = [v2 localSearchProviderId];
   v12 = [v2 moduleIndex];
   v13 = [v2 moduleType];
-  HIDWORD(v15) = 2;
-  LOBYTE(v15) = [v2 isEnriched];
-  [v7 capturePlaceCardImpressionEventWithImpressionObjectId:v8 query:v9 businessId:v10 localSearchProviderId:v11 elementIndex:v12 moduleType:v13 isEnriched:*(a1 + 40) impressionEvent:*(a1 + 48) impressionVisibleTimestamp:v15 impressionNonvisibleTimestamp:?];
-
-  v14 = *MEMORY[0x1E69E9840];
+  HIDWORD(v14) = 2;
+  LOBYTE(v14) = [v2 isEnriched];
+  [v7 capturePlaceCardImpressionEventWithImpressionObjectId:v8 query:v9 businessId:v10 localSearchProviderId:v11 elementIndex:v12 moduleType:v13 isEnriched:*(a1 + 40) impressionEvent:*(a1 + 48) impressionVisibleTimestamp:v14 impressionNonvisibleTimestamp:?];
 }
 
 - (void)logImpressionElementDidEnter:(id)enter onDate:(id)date
@@ -78,7 +76,7 @@ void __84__MUPlaceCardImpressionsLogger_logImpressionElementDidExit_usingEnterDa
 
 void __68__MUPlaceCardImpressionsLogger_logImpressionElementDidEnter_onDate___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) customData];
   [*(a1 + 40) timeIntervalSinceReferenceDate];
   v4 = v3;
@@ -87,9 +85,9 @@ void __68__MUPlaceCardImpressionsLogger_logImpressionElementDidEnter_onDate___bl
   {
     v6 = [*(a1 + 32) debugString];
     *buf = 138412546;
-    v17 = v6;
-    v18 = 2048;
-    v19 = v4;
+    v16 = v6;
+    v17 = 2048;
+    v18 = v4;
     _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_INFO, "Logging element did enter @%@ with start date %f", buf, 0x16u);
   }
 
@@ -100,11 +98,9 @@ void __68__MUPlaceCardImpressionsLogger_logImpressionElementDidEnter_onDate___bl
   v11 = [v2 localSearchProviderId];
   v12 = [v2 moduleIndex];
   v13 = [v2 moduleType];
-  HIDWORD(v15) = 1;
-  LOBYTE(v15) = [v2 isEnriched];
-  [v7 capturePlaceCardImpressionEventWithImpressionObjectId:v8 query:v9 businessId:v10 localSearchProviderId:v11 elementIndex:v12 moduleType:v13 isEnriched:v4 impressionEvent:0.0 impressionVisibleTimestamp:v15 impressionNonvisibleTimestamp:?];
-
-  v14 = *MEMORY[0x1E69E9840];
+  HIDWORD(v14) = 1;
+  LOBYTE(v14) = [v2 isEnriched];
+  [v7 capturePlaceCardImpressionEventWithImpressionObjectId:v8 query:v9 businessId:v10 localSearchProviderId:v11 elementIndex:v12 moduleType:v13 isEnriched:v4 impressionEvent:0.0 impressionVisibleTimestamp:v14 impressionNonvisibleTimestamp:?];
 }
 
 - (MUPlaceCardImpressionsLogger)init

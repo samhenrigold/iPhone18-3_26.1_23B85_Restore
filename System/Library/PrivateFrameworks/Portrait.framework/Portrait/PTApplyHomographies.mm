@@ -11,12 +11,12 @@
 {
   height = disparitySize.height;
   width = disparitySize.width;
-  v114 = size.width;
-  v115 = size.height;
+  v122 = size.width;
+  v123 = size.height;
   contextCopy = context;
-  v118.receiver = self;
-  v118.super_class = PTApplyHomographies;
-  v10 = [(PTApplyHomographies *)&v118 init];
+  v126.receiver = self;
+  v126.super_class = PTApplyHomographies;
+  v10 = [(PTApplyHomographies *)&v126 init];
   v11 = v10;
   if (v10)
   {
@@ -25,8 +25,8 @@
     v13 = v11[12];
     v11[12] = v12;
 
-    v14.f64[0] = v114;
-    v14.f64[1] = v115;
+    v14.f64[0] = v122;
+    v14.f64[1] = v123;
     v11[17] = vmovn_s64(vcvtq_u64_f64(v14));
     v11[18].i16[0] = 256;
     v15 = [[PTColorConversion alloc] initWithMetalContext:*&v11[1]];
@@ -35,190 +35,190 @@
 
     if (!*&v11[4])
     {
-      v17 = _PTLogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = _PTLogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(PTApplyHomographies *)v17 initWithMetalContext:v55 colorSize:v56 disparitySize:v57, v58, v59, v60, v61];
+        [(PTApplyHomographies *)v18 initWithMetalContext:v63 colorSize:v64 disparitySize:v65, v66, v67, v68, v69];
       }
 
-      v54 = 0;
+      v62 = 0;
       goto LABEL_36;
     }
 
-    v17 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:v114 height:v115 mipmapped:0];
-    [v17 setUsage:7];
-    device = [*&v11[1] device];
-    v19 = [device newTextureWithDescriptor:v17];
-    v20 = v11[5];
-    v11[5] = v19;
+    v18 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:v122 height:v123 mipmapped:0];
+    [v18 setUsage:7];
+    v19 = objc_msgSend_device(*&v11[1]);
+    v20 = [v19 newTextureWithDescriptor:v18];
+    v21 = v11[5];
+    v11[5] = v20;
 
     if (v11[5])
     {
-      [v17 setUsage:7];
-      device2 = [*&v11[1] device];
-      v22 = [device2 newTextureWithDescriptor:v17];
-      v23 = v11[6];
-      v11[6] = v22;
+      [v18 setUsage:7];
+      v23 = objc_msgSend_device(*&v11[1]);
+      v24 = [v23 newTextureWithDescriptor:v18];
+      v25 = v11[6];
+      v11[6] = v24;
 
       if (v11[6])
       {
-        [v17 setWidth:width];
-        [v17 setHeight:height];
-        [v17 setPixelFormat:25];
-        device3 = [*&v11[1] device];
-        v25 = [device3 newTextureWithDescriptor:v17];
-        v26 = v11[7];
-        v11[7] = v25;
+        [v18 setWidth:width];
+        [v18 setHeight:height];
+        [v18 setPixelFormat:25];
+        v27 = objc_msgSend_device(*&v11[1]);
+        v28 = [v27 newTextureWithDescriptor:v18];
+        v29 = v11[7];
+        v11[7] = v28;
 
         if (v11[7])
         {
-          v27 = objc_opt_new();
-          v28 = v11[21];
-          v11[21] = v27;
+          v31 = objc_opt_new();
+          v32 = v11[21];
+          v11[21] = v31;
 
           colorAttachments = [*&v11[21] colorAttachments];
-          v30 = [colorAttachments objectAtIndexedSubscript:0];
-          [v30 setLoadAction:0];
+          v34 = [colorAttachments objectAtIndexedSubscript:0];
+          [v34 setLoadAction:0];
 
           colorAttachments2 = [*&v11[21] colorAttachments];
-          v32 = [colorAttachments2 objectAtIndexedSubscript:0];
-          [v32 setStoreAction:1];
+          v36 = [colorAttachments2 objectAtIndexedSubscript:0];
+          [v36 setStoreAction:1];
 
           colorAttachments3 = [*&v11[21] colorAttachments];
-          v34 = [colorAttachments3 objectAtIndexedSubscript:0];
-          [v34 setClearColor:{0.0, 1.0, 0.0, 1.0}];
+          v38 = [colorAttachments3 objectAtIndexedSubscript:0];
+          [v38 setClearColor:{0.0, 1.0, 0.0, 1.0}];
 
-          v35 = objc_alloc_init(MEMORY[0x277CD6F78]);
-          v36 = [*&v11[1] functionWithName:@"vertexShaderHomography" withConstants:0];
-          [v35 setVertexFunction:v36];
+          v39 = objc_alloc_init(MEMORY[0x277CD6F78]);
+          v40 = [*&v11[1] functionWithName:@"vertexShaderHomography" withConstants:0];
+          [v39 setVertexFunction:v40];
 
-          vertexFunction = [v35 vertexFunction];
+          vertexFunction = [v39 vertexFunction];
 
           if (vertexFunction)
           {
-            v38 = [*&v11[1] functionWithName:@"fragmentShaderSample" withConstants:0];
-            [v35 setFragmentFunction:v38];
+            v43 = [*&v11[1] functionWithName:@"fragmentShaderSample" withConstants:0];
+            [v39 setFragmentFunction:v43];
 
-            fragmentFunction = [v35 fragmentFunction];
+            fragmentFunction = [v39 fragmentFunction];
 
             if (fragmentFunction)
             {
               pixelFormat = [*&v11[6] pixelFormat];
-              colorAttachments4 = [v35 colorAttachments];
-              v42 = [colorAttachments4 objectAtIndexedSubscript:0];
-              [v42 setPixelFormat:pixelFormat];
+              colorAttachments4 = [v39 colorAttachments];
+              v48 = [colorAttachments4 objectAtIndexedSubscript:0];
+              [v48 setPixelFormat:pixelFormat];
 
-              device4 = [*&v11[1] device];
-              v117 = 0;
-              v44 = [device4 newRenderPipelineStateWithDescriptor:v35 error:&v117];
-              v45 = v117;
-              v46 = v11[19];
-              v11[19] = v44;
+              v49 = objc_msgSend_device(*&v11[1]);
+              v125 = 0;
+              v50 = [v49 newRenderPipelineStateWithDescriptor:v39 error:&v125];
+              v51 = v125;
+              v52 = v11[19];
+              v11[19] = v50;
 
               if (v11[19])
               {
                 pixelFormat2 = [*&v11[7] pixelFormat];
-                colorAttachments5 = [v35 colorAttachments];
-                v49 = [colorAttachments5 objectAtIndexedSubscript:0];
-                [v49 setPixelFormat:pixelFormat2];
+                colorAttachments5 = [v39 colorAttachments];
+                v56 = [colorAttachments5 objectAtIndexedSubscript:0];
+                [v56 setPixelFormat:pixelFormat2];
 
-                device5 = [*&v11[1] device];
-                v116 = v45;
-                v51 = [device5 newRenderPipelineStateWithDescriptor:v35 error:&v116];
-                v52 = v116;
+                v57 = objc_msgSend_device(*&v11[1]);
+                v124 = v51;
+                v58 = [v57 newRenderPipelineStateWithDescriptor:v39 error:&v124];
+                v59 = v124;
 
-                v53 = v11[20];
-                v11[20] = v51;
+                v60 = v11[20];
+                v11[20] = v58;
 
                 if (v11[20])
                 {
-                  v54 = v11;
+                  v62 = v11;
                 }
 
                 else
                 {
-                  v105 = _PTLogSystem();
-                  if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+                  v113 = _PTLogSystem(v61);
+                  if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTApplyHomographies *)v105 initWithMetalContext:v106 colorSize:v107 disparitySize:v108, v109, v110, v111, v112];
+                    [(PTApplyHomographies *)v113 initWithMetalContext:v114 colorSize:v115 disparitySize:v116, v117, v118, v119, v120];
                   }
 
-                  v54 = 0;
+                  v62 = 0;
                 }
 
-                v45 = v52;
+                v51 = v59;
                 goto LABEL_34;
               }
 
-              v97 = _PTLogSystem();
-              if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+              v105 = _PTLogSystem(v53);
+              if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
               {
-                [(PTApplyHomographies *)v97 initWithMetalContext:v98 colorSize:v99 disparitySize:v100, v101, v102, v103, v104];
+                [(PTApplyHomographies *)v105 initWithMetalContext:v106 colorSize:v107 disparitySize:v108, v109, v110, v111, v112];
               }
             }
 
             else
             {
-              v45 = _PTLogSystem();
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+              v51 = _PTLogSystem(v45);
+              if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
               {
-                [(PTApplyHomographies *)v45 initWithMetalContext:v90 colorSize:v91 disparitySize:v92, v93, v94, v95, v96];
+                [(PTApplyHomographies *)v51 initWithMetalContext:v98 colorSize:v99 disparitySize:v100, v101, v102, v103, v104];
               }
             }
           }
 
           else
           {
-            v45 = _PTLogSystem();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+            v51 = _PTLogSystem(v42);
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
             {
-              [(PTApplyHomographies *)v45 initWithMetalContext:v83 colorSize:v84 disparitySize:v85, v86, v87, v88, v89];
+              [(PTApplyHomographies *)v51 initWithMetalContext:v91 colorSize:v92 disparitySize:v93, v94, v95, v96, v97];
             }
           }
 
-          v54 = 0;
+          v62 = 0;
 LABEL_34:
 
           goto LABEL_35;
         }
 
-        v35 = _PTLogSystem();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v39 = _PTLogSystem(v30);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          [(PTApplyHomographies *)v35 initWithMetalContext:v76 colorSize:v77 disparitySize:v78, v79, v80, v81, v82];
+          [(PTApplyHomographies *)v39 initWithMetalContext:v84 colorSize:v85 disparitySize:v86, v87, v88, v89, v90];
         }
       }
 
       else
       {
-        v35 = _PTLogSystem();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v39 = _PTLogSystem(v26);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          [(PTApplyHomographies *)v35 initWithMetalContext:v69 colorSize:v70 disparitySize:v71, v72, v73, v74, v75];
+          [(PTApplyHomographies *)v39 initWithMetalContext:v77 colorSize:v78 disparitySize:v79, v80, v81, v82, v83];
         }
       }
     }
 
     else
     {
-      v35 = _PTLogSystem();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v39 = _PTLogSystem(v22);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        [(PTApplyHomographies *)v35 initWithMetalContext:v62 colorSize:v63 disparitySize:v64, v65, v66, v67, v68];
+        [(PTApplyHomographies *)v39 initWithMetalContext:v70 colorSize:v71 disparitySize:v72, v73, v74, v75, v76];
       }
     }
 
-    v54 = 0;
+    v62 = 0;
 LABEL_35:
 
 LABEL_36:
     goto LABEL_37;
   }
 
-  v54 = 0;
+  v62 = 0;
 LABEL_37:
 
-  return v54;
+  return v62;
 }
 
 - (void)_ensureSufficientBufferSizesNumberOfRows:(int)rows numberOfCols:(int)cols
@@ -229,21 +229,21 @@ LABEL_37:
   v8 = (cols * rows) << 6;
   if (v8 > [(MTLBuffer *)self->_vertexBufferHomography[0] length])
   {
-    device = [(PTMetalContext *)self->_metalContext device];
-    v10 = [device newBufferWithLength:v8 options:0];
+    v9 = objc_msgSend_device(self->_metalContext);
+    v10 = [v9 newBufferWithLength:v8 options:0];
     v11 = self->_vertexBufferHomography[0];
     self->_vertexBufferHomography[0] = v10;
 
-    device2 = [(PTMetalContext *)self->_metalContext device];
-    v13 = [device2 newBufferWithLength:v8 options:0];
+    v12 = objc_msgSend_device(self->_metalContext);
+    v13 = [v12 newBufferWithLength:v8 options:0];
     v14 = self->_vertexBufferHomography[1];
     self->_vertexBufferHomography[1] = v13;
   }
 
   if (self->_numberOfRowsOverscan != rows || self->_numberOfColsOverscan != cols)
   {
-    device3 = [(PTMetalContext *)self->_metalContext device];
-    v15 = [device3 newBufferWithLength:2 * v7 options:0];
+    v17 = objc_msgSend_device(self->_metalContext);
+    v15 = [v17 newBufferWithLength:2 * v7 options:0];
     indexBufferHomography = self->_indexBufferHomography;
     self->_indexBufferHomography = v15;
   }
@@ -304,6 +304,62 @@ LABEL_37:
   v14 = v13;
 
   return v13;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_renderPipelineStateDisparity";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_renderPipelineState";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "renderPipelineDescriptor.fragmentFunction";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "renderPipelineDescriptor.vertexFunction";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityVIS";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_rgbaLinearVIS";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_rgbaLinear";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 .cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_colorConversion";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

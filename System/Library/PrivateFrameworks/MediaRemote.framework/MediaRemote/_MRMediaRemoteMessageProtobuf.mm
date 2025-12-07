@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -43,520 +44,945 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)typeAsString:(int)string
+{
+  v4 = @"Unknown";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_12;
+    case 1:
+      v4 = @"SendCommand";
+
+      break;
+    case 2:
+      v4 = @"SendCommandResult";
+
+      break;
+    case 3:
+      v4 = @"GetState";
+
+      break;
+    case 4:
+      v4 = @"SetState";
+
+      break;
+    case 5:
+      v4 = @"SetArtwork";
+
+      break;
+    case 6:
+      v4 = @"RegisterHIDDevice";
+
+      break;
+    case 7:
+      v4 = @"RegisterHIDDeviceResult";
+
+      break;
+    case 8:
+      v4 = @"SendHIDEvent";
+
+      break;
+    case 9:
+      v4 = @"SendHIDReport";
+
+      break;
+    case 10:
+      v4 = @"SendVirtualTouchEvent";
+
+      break;
+    case 11:
+      v4 = @"Notification";
+
+      break;
+    case 15:
+      v4 = @"DeviceInfo";
+
+      break;
+    case 16:
+      v4 = @"ClientUpdatesConfiguration";
+
+      break;
+    case 17:
+      v4 = @"LegacyVolumeControlCapabilitiesDidChange";
+
+      break;
+    case 18:
+      v4 = @"GameController";
+
+      break;
+    case 19:
+      v4 = @"RegisterGameController";
+
+      break;
+    case 20:
+      v4 = @"RegisterGameControllerResponse";
+
+      break;
+    case 21:
+      v4 = @"UnregisterGameController";
+
+      break;
+    case 22:
+      v4 = @"RegisterForGameControllerEvents";
+
+      break;
+    case 23:
+      v4 = @"Keyboard";
+
+      break;
+    case 24:
+      v4 = @"GetKeyboardSession";
+
+      break;
+    case 25:
+      v4 = @"TextInput";
+
+      break;
+    case 26:
+      v4 = @"GetVoiceInputDevices";
+
+      break;
+    case 27:
+      v4 = @"GetVoiceInputDevicesResponse";
+
+      break;
+    case 28:
+      v4 = @"RegisterVoiceInputDevice";
+
+      break;
+    case 29:
+      v4 = @"RegisterVoiceInputDeviceResponse";
+
+      break;
+    case 30:
+      v4 = @"SetVoiceInputRecordingState";
+
+      break;
+    case 31:
+      v4 = @"SendVoiceInput";
+
+      break;
+    case 32:
+      v4 = @"PlaybackQueueRequest";
+
+      break;
+    case 33:
+      v4 = @"Transaction";
+
+      break;
+    case 34:
+      v4 = @"CryptoPairing";
+
+      break;
+    case 35:
+      v4 = @"GameControllerProperties";
+
+      break;
+    case 36:
+      v4 = @"SetReadyState";
+
+      break;
+    case 37:
+      v4 = @"DeviceInfoUpdate";
+
+      break;
+    case 38:
+      v4 = @"SetConnectionState";
+
+      break;
+    case 39:
+      v4 = @"SendButtonEvent";
+
+      break;
+    case 40:
+      v4 = @"SetHiliteMode";
+
+      break;
+    case 41:
+      v4 = @"WakeDevice";
+
+      break;
+    case 42:
+      v4 = @"Generic";
+
+      break;
+    case 43:
+      v4 = @"SendPackedVirtualTouchEvent";
+
+      break;
+    case 44:
+      v4 = @"SendLyricsEventMessage";
+
+      break;
+    case 46:
+      v4 = @"SetNowPlayingClient";
+
+      break;
+    case 47:
+      v4 = @"SetNowPlayingPlayer";
+
+      break;
+    case 48:
+      v4 = @"ModifyOutputContextRequest";
+
+      break;
+    case 49:
+      v4 = @"GetVolume";
+
+      break;
+    case 50:
+      v4 = @"GetVolumeResult";
+
+      break;
+    case 51:
+      v4 = @"SetVolume";
+
+      break;
+    case 52:
+      v4 = @"VolumeDidChange";
+
+      break;
+    case 53:
+      v4 = @"RemoveClient";
+
+      break;
+    case 54:
+      v4 = @"RemovePlayer";
+
+      break;
+    case 55:
+      v4 = @"UpdateClient";
+
+      break;
+    case 56:
+      v4 = @"UpdateContentItems";
+
+      break;
+    case 57:
+      v4 = @"UpdateContentItemArtwork";
+
+      break;
+    case 58:
+      v4 = @"UpdatePlayer";
+
+      break;
+    case 59:
+      v4 = @"PromptForRouteAuthorization";
+
+      break;
+    case 60:
+      v4 = @"PromptForRouteAuthorizationResponse";
+
+      break;
+    case 61:
+      v4 = @"PresentRouteAuthorizationStatus";
+
+      break;
+    case 62:
+      v4 = @"GetVolumeControlCapabilities";
+
+      break;
+    case 63:
+      v4 = @"GetVolumeControlCapabilitiesResult";
+
+      break;
+    case 64:
+      v4 = @"VolumeControlCapabilitiesDidChange";
+
+      break;
+    case 65:
+      v4 = @"UpdateOutputDevices";
+
+      break;
+    case 66:
+      v4 = @"RemoveOutputDevices";
+
+      break;
+    case 67:
+      v4 = @"RemoteTextInput";
+
+      break;
+    case 68:
+      v4 = @"GetRemoteTextInputSession";
+
+      break;
+    case 69:
+      v4 = @"RemoveFromParentGroup";
+
+      break;
+    case 70:
+      v4 = @"PlaybackSessionRequest";
+
+      break;
+    case 71:
+      v4 = @"PlaybackSessionResponse";
+
+      break;
+    case 72:
+      v4 = @"SetDefaultSupportedCommands";
+
+      break;
+    case 73:
+      v4 = @"PlaybackSessionMigrateRequest";
+
+      break;
+    case 74:
+      v4 = @"PlaybackSessionMigrateResponse";
+
+      break;
+    case 75:
+      v4 = @"PlaybackSessionMigrateBegin";
+
+      break;
+    case 76:
+      v4 = @"PlaybackSessionMigrateEnd";
+
+      break;
+    case 77:
+      v4 = @"UpdateActiveSystemEndpoint";
+
+      break;
+    case 78:
+      v4 = @"PlaybackSessionMigratePost";
+
+      break;
+    case 101:
+      v4 = @"SetDiscoveryMode";
+
+      break;
+    case 102:
+      v4 = @"UpdateEndpoints";
+
+      break;
+    case 103:
+      v4 = @"RemoveEndpoints";
+
+      break;
+    case 104:
+      v4 = @"SetPlayerClientProperties";
+
+      break;
+    case 105:
+      v4 = @"SetOriginClientProperties";
+
+      break;
+    case 106:
+      v4 = @"AudioFade";
+
+      break;
+    case 107:
+      v4 = @"AudioFadeResponse";
+
+      break;
+    case 108:
+      v4 = @"DiscoveryUpdateEndpoints";
+
+      break;
+    case 109:
+      v4 = @"DiscoveryUpdateOutputDevices";
+
+      break;
+    case 110:
+      v4 = @"SetListeningMode";
+
+      break;
+    case 120:
+      v4 = @"ConfigureConnection";
+
+      break;
+    case 121:
+      v4 = @"CreatedHostedEndpointRequest";
+
+      break;
+    case 122:
+      v4 = @"CreatedHostedEndpointResponse";
+
+      break;
+    case 125:
+      v4 = @"AdjustVolume";
+
+      break;
+    case 126:
+      v4 = @"GetVolumeMuted";
+
+      break;
+    case 127:
+      v4 = @"GetVolumeMutedResult";
+
+      break;
+    case 128:
+      v4 = @"SetVolumeMuted";
+
+      break;
+    case 129:
+      v4 = @"VolumeMutedDidChange";
+
+      break;
+    case 130:
+      v4 = @"SetConversationDetectionEnabled";
+
+      break;
+    case 131:
+      v4 = @"PlayerClientParticipantsUpdate";
+
+      break;
+    case 132:
+      v4 = @"RequestGroupSession";
+
+      break;
+    case 133:
+      v4 = @"ConfigureConnectionService";
+
+      break;
+    case 134:
+      v4 = @"CreateApplicationConnection";
+
+      break;
+    case 135:
+      v4 = @"ApplicationConnectionProtocolMessage";
+
+      break;
+    case 136:
+      v4 = @"InvalidateApplicationConnection";
+
+      break;
+    case 137:
+      v4 = @"MicrophoneConnectionRequest";
+
+      break;
+    case 138:
+      v4 = @"MicrophoneConnectionResponse";
+
+      break;
+    case 139:
+      v4 = @"LastMessageType";
+
+      break;
+    default:
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_12:
+
+      break;
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"SendCommand"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"SendCommandResult"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"GetState"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"SetState"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"SetArtwork"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"RegisterHIDDevice"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 6;
   }
 
-  else if ([typeCopy isEqualToString:@"RegisterHIDDeviceResult"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 7;
   }
 
-  else if ([typeCopy isEqualToString:@"SendHIDEvent"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
 
-  else if ([typeCopy isEqualToString:@"SendHIDReport"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 9;
   }
 
-  else if ([typeCopy isEqualToString:@"SendVirtualTouchEvent"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 10;
   }
 
-  else if ([typeCopy isEqualToString:@"Notification"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 11;
   }
 
-  else if ([typeCopy isEqualToString:@"DeviceInfo"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 15;
   }
 
-  else if ([typeCopy isEqualToString:@"ClientUpdatesConfiguration"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 16;
   }
 
-  else if ([typeCopy isEqualToString:@"LegacyVolumeControlCapabilitiesDidChange"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 17;
   }
 
-  else if ([typeCopy isEqualToString:@"GameController"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 18;
   }
 
-  else if ([typeCopy isEqualToString:@"RegisterGameController"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 19;
   }
 
-  else if ([typeCopy isEqualToString:@"RegisterGameControllerResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 20;
   }
 
-  else if ([typeCopy isEqualToString:@"UnregisterGameController"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 21;
   }
 
-  else if ([typeCopy isEqualToString:@"RegisterForGameControllerEvents"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 22;
   }
 
-  else if ([typeCopy isEqualToString:@"Keyboard"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 23;
   }
 
-  else if ([typeCopy isEqualToString:@"GetKeyboardSession"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 24;
   }
 
-  else if ([typeCopy isEqualToString:@"TextInput"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 25;
   }
 
-  else if ([typeCopy isEqualToString:@"GetVoiceInputDevices"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 26;
   }
 
-  else if ([typeCopy isEqualToString:@"GetVoiceInputDevicesResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 27;
   }
 
-  else if ([typeCopy isEqualToString:@"RegisterVoiceInputDevice"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 28;
   }
 
-  else if ([typeCopy isEqualToString:@"RegisterVoiceInputDeviceResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 29;
   }
 
-  else if ([typeCopy isEqualToString:@"SetVoiceInputRecordingState"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 30;
   }
 
-  else if ([typeCopy isEqualToString:@"SendVoiceInput"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 31;
   }
 
-  else if ([typeCopy isEqualToString:@"PlaybackQueueRequest"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 32;
   }
 
-  else if ([typeCopy isEqualToString:@"Transaction"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 33;
   }
 
-  else if ([typeCopy isEqualToString:@"CryptoPairing"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 34;
   }
 
-  else if ([typeCopy isEqualToString:@"GameControllerProperties"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 35;
   }
 
-  else if ([typeCopy isEqualToString:@"SetReadyState"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 36;
   }
 
-  else if ([typeCopy isEqualToString:@"DeviceInfoUpdate"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 37;
   }
 
-  else if ([typeCopy isEqualToString:@"SetConnectionState"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 38;
   }
 
-  else if ([typeCopy isEqualToString:@"SendButtonEvent"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 39;
   }
 
-  else if ([typeCopy isEqualToString:@"SetHiliteMode"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 40;
   }
 
-  else if ([typeCopy isEqualToString:@"WakeDevice"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 41;
   }
 
-  else if ([typeCopy isEqualToString:@"Generic"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 42;
   }
 
-  else if ([typeCopy isEqualToString:@"SendPackedVirtualTouchEvent"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 43;
   }
 
-  else if ([typeCopy isEqualToString:@"SendLyricsEventMessage"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 44;
   }
 
-  else if ([typeCopy isEqualToString:@"SetNowPlayingClient"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 46;
   }
 
-  else if ([typeCopy isEqualToString:@"SetNowPlayingPlayer"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 47;
   }
 
-  else if ([typeCopy isEqualToString:@"ModifyOutputContextRequest"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 48;
   }
 
-  else if ([typeCopy isEqualToString:@"GetVolume"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 49;
   }
 
-  else if ([typeCopy isEqualToString:@"GetVolumeResult"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 50;
   }
 
-  else if ([typeCopy isEqualToString:@"SetVolume"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 51;
   }
 
-  else if ([typeCopy isEqualToString:@"VolumeDidChange"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 52;
   }
 
-  else if ([typeCopy isEqualToString:@"RemoveClient"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 53;
   }
 
-  else if ([typeCopy isEqualToString:@"RemovePlayer"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 54;
   }
 
-  else if ([typeCopy isEqualToString:@"UpdateClient"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 55;
   }
 
-  else if ([typeCopy isEqualToString:@"UpdateContentItems"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 56;
   }
 
-  else if ([typeCopy isEqualToString:@"UpdateContentItemArtwork"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 57;
   }
 
-  else if ([typeCopy isEqualToString:@"UpdatePlayer"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 58;
   }
 
-  else if ([typeCopy isEqualToString:@"PromptForRouteAuthorization"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 59;
   }
 
-  else if ([typeCopy isEqualToString:@"PromptForRouteAuthorizationResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 60;
   }
 
-  else if ([typeCopy isEqualToString:@"PresentRouteAuthorizationStatus"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 61;
   }
 
-  else if ([typeCopy isEqualToString:@"GetVolumeControlCapabilities"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 62;
   }
 
-  else if ([typeCopy isEqualToString:@"GetVolumeControlCapabilitiesResult"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 63;
   }
 
-  else if ([typeCopy isEqualToString:@"VolumeControlCapabilitiesDidChange"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 64;
   }
 
-  else if ([typeCopy isEqualToString:@"UpdateOutputDevices"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 65;
   }
 
-  else if ([typeCopy isEqualToString:@"RemoveOutputDevices"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 66;
   }
 
-  else if ([typeCopy isEqualToString:@"RemoteTextInput"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 67;
   }
 
-  else if ([typeCopy isEqualToString:@"GetRemoteTextInputSession"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 68;
   }
 
-  else if ([typeCopy isEqualToString:@"RemoveFromParentGroup"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 69;
   }
 
-  else if ([typeCopy isEqualToString:@"PlaybackSessionRequest"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 70;
   }
 
-  else if ([typeCopy isEqualToString:@"PlaybackSessionResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 71;
   }
 
-  else if ([typeCopy isEqualToString:@"SetDefaultSupportedCommands"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 72;
   }
 
-  else if ([typeCopy isEqualToString:@"PlaybackSessionMigrateRequest"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 73;
   }
 
-  else if ([typeCopy isEqualToString:@"PlaybackSessionMigrateResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 74;
   }
 
-  else if ([typeCopy isEqualToString:@"PlaybackSessionMigrateBegin"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 75;
   }
 
-  else if ([typeCopy isEqualToString:@"PlaybackSessionMigrateEnd"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 76;
   }
 
-  else if ([typeCopy isEqualToString:@"UpdateActiveSystemEndpoint"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 77;
   }
 
-  else if ([typeCopy isEqualToString:@"PlaybackSessionMigratePost"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 78;
   }
 
-  else if ([typeCopy isEqualToString:@"SetDiscoveryMode"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 101;
   }
 
-  else if ([typeCopy isEqualToString:@"UpdateEndpoints"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 102;
   }
 
-  else if ([typeCopy isEqualToString:@"RemoveEndpoints"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 103;
   }
 
-  else if ([typeCopy isEqualToString:@"SetPlayerClientProperties"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 104;
   }
 
-  else if ([typeCopy isEqualToString:@"SetOriginClientProperties"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 105;
   }
 
-  else if ([typeCopy isEqualToString:@"AudioFade"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 106;
   }
 
-  else if ([typeCopy isEqualToString:@"AudioFadeResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 107;
   }
 
-  else if ([typeCopy isEqualToString:@"DiscoveryUpdateEndpoints"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 108;
   }
 
-  else if ([typeCopy isEqualToString:@"DiscoveryUpdateOutputDevices"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 109;
   }
 
-  else if ([typeCopy isEqualToString:@"SetListeningMode"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 110;
   }
 
-  else if ([typeCopy isEqualToString:@"ConfigureConnection"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 120;
   }
 
-  else if ([typeCopy isEqualToString:@"CreatedHostedEndpointRequest"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 121;
   }
 
-  else if ([typeCopy isEqualToString:@"CreatedHostedEndpointResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 122;
   }
 
-  else if ([typeCopy isEqualToString:@"AdjustVolume"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 125;
   }
 
-  else if ([typeCopy isEqualToString:@"GetVolumeMuted"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 126;
   }
 
-  else if ([typeCopy isEqualToString:@"GetVolumeMutedResult"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 127;
   }
 
-  else if ([typeCopy isEqualToString:@"SetVolumeMuted"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 128;
   }
 
-  else if ([typeCopy isEqualToString:@"VolumeMutedDidChange"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 129;
   }
 
-  else if ([typeCopy isEqualToString:@"SetConversationDetectionEnabled"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 130;
   }
 
-  else if ([typeCopy isEqualToString:@"PlayerClientParticipantsUpdate"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 131;
   }
 
-  else if ([typeCopy isEqualToString:@"RequestGroupSession"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 132;
   }
 
-  else if ([typeCopy isEqualToString:@"ConfigureConnectionService"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 133;
   }
 
-  else if ([typeCopy isEqualToString:@"CreateApplicationConnection"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 134;
   }
 
-  else if ([typeCopy isEqualToString:@"ApplicationConnectionProtocolMessage"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 135;
   }
 
-  else if ([typeCopy isEqualToString:@"InvalidateApplicationConnection"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 136;
   }
 
-  else if ([typeCopy isEqualToString:@"MicrophoneConnectionRequest"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 137;
   }
 
-  else if ([typeCopy isEqualToString:@"MicrophoneConnectionResponse"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 138;
   }
 
-  else if ([typeCopy isEqualToString:@"LastMessageType"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 139;
   }
@@ -1667,652 +2093,649 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_replyIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_authenticationToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendCommandMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendCommandResultMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getStateMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setStateMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setArtworkMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_registerHIDDeviceMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_registerHIDDeviceResultMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendHIDEventMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendHIDReportMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendVirtualTouchEventMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_notificationMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_contentItemsChangedNotificationMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_deviceInfoMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_clientUpdatesConfigMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_masterVolumeControlCapabilitiesDidChangeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_gameController)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_registerGameController)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_registerGameControllerResponse)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_unregisterGameController)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_registerForGameControllerEvents)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_keyboardMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getKeyboardMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_textInputMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getVoiceInputDevicesMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getVoiceInputDevicesResponseMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_registerVoiceInputDeviceMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_registerVoiceInputDeviceResponseMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setRecordingStateMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendVoiceInputMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playbackQueueRequest)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_transactionPackets)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_cryptoPairingMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_gameControllerProperties)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_readyStateMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_connectionState)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendButtonEventMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setHiliteModeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_wakeDeviceMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_genericMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendPackedVirtualTouchEventMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sendLyricsEventMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setNowPlayingClientMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setNowPlayingPlayerMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_modifyOutputContextRequestMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getVolumeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getVolumeResultMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setVolumeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_volumeDidChangeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_removeClientMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_removePlayerMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_updateClientMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_updateContentItemMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_updateContentItemArtworkMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_updatePlayerMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_promptForRouteAuthorizationMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_promptForRouteAuthorizationResponseMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_presentRouteAuthorizationStatusMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getVolumeControlCapabilitiesMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getVolumeControlCapabilitiesResultMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_volumeControlCapabilitiesDidChangeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_updateOutputDevicesMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_removeOutputDevicesMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_remoteTextInputMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getRemoteTextInputSessionMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playbackSessionRequestMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playbackSessionResponseMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setDefaultSupportedCommandsMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playbackSessionMigrateRequestMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playbackSessionMigrateResponseMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_errorDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playbackSessionMigrateBeginMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playbackSessionMigrateEndMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_updateActiveSystemEndpointMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_discoveryModeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_updateEndpointsMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_removeEndpointsMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_uniqueIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playerClientPropertiesMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_originClientPropertiesMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_audioFadeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_audioFadeResponseMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_discoveryUpdateEndpointsMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_discoveryUpdateOutputDevicesMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setListeningModeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_error)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_configureConnectionMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_createHostedEndpointRequest)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_createHostedEndpointResponse)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_adjustVolumeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getVolumeMutedMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_getVolumeMutedResultMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setVolumeMutedMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_volumeMutedDidChangeMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setConversationDetectionEnabledMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playerClientParticipantsUpdateMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_requestGroupSessionMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_createApplicationConnectionMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_applicationConnectionProtocolMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_invalidateApplicationConnectionMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_microphoneConnectionRequestMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_microphoneConnectionResponseMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_playbackSessionMigratePostMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -3416,7 +3839,6 @@
     goto LABEL_225;
   }
 
-  v5 = *(equalCopy + 864);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 864) & 4) == 0 || self->_type != *(equalCopy + 188))
@@ -3428,7 +3850,7 @@
   else if ((*(equalCopy + 864) & 4) != 0)
   {
 LABEL_225:
-    v111 = 0;
+    v109 = 0;
     goto LABEL_226;
   }
 
@@ -3447,7 +3869,6 @@ LABEL_225:
     }
   }
 
-  v8 = *(equalCopy + 864);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 864) & 2) == 0 || self->_errorCode != *(equalCopy + 40))
@@ -4383,17 +4804,17 @@ LABEL_225:
   playbackSessionMigratePostMessage = self->_playbackSessionMigratePostMessage;
   if (playbackSessionMigratePostMessage | *(equalCopy + 47))
   {
-    v111 = [(_MRPlaybackSessionMigratePostMessageProtobuf *)playbackSessionMigratePostMessage isEqual:?];
+    v109 = [(_MRPlaybackSessionMigratePostMessageProtobuf *)playbackSessionMigratePostMessage isEqual:?];
   }
 
   else
   {
-    v111 = 1;
+    v109 = 1;
   }
 
 LABEL_226:
 
-  return v111;
+  return v109;
 }
 
 - (unint64_t)hash

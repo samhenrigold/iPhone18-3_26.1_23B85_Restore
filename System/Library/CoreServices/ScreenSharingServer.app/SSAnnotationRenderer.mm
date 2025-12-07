@@ -9,6 +9,7 @@
 - (void)dealloc;
 - (void)drawPointerWithRect:(CGRect)rect flags:(unsigned int)flags;
 - (void)drawSafeViewSlateWithRect:(CGRect)rect flags:(unsigned int)flags orientation:(int64_t)orientation;
+- (void)handleSafeViewAnnotation:(CGPoint)annotation flags:(unsigned int)flags orientation:(int64_t)orientation;
 - (void)screenDidChange:(id)change;
 - (void)stopAnnotation;
 @end
@@ -407,6 +408,196 @@ LABEL_15:
       [uiClient2 sendAsynchronousMessage:v10 withIdentifier:1 targetAccessQueue:0 completion:v26];
     }
   }
+}
+
+- (void)handleSafeViewAnnotation:(CGPoint)annotation flags:(unsigned int)flags orientation:(int64_t)orientation
+{
+  v6 = *&flags;
+  y = annotation.y;
+  x = annotation.x;
+  if (!flags && annotation.x == 0.0 && annotation.y == 0.0)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "SS hide ptr", buf, 2u);
+    }
+
+    v10 = CGRectZero.origin.x;
+    v11 = CGRectZero.origin.y;
+    width = CGRectZero.size.width;
+    height = CGRectZero.size.height;
+    selfCopy2 = self;
+    v15 = 0;
+LABEL_48:
+    [(SSAnnotationRenderer *)selfCopy2 drawPointerWithRect:v15 flags:v10, v11, width, height];
+    return;
+  }
+
+  mainScreen = [(SSAnnotationRenderer *)self mainScreen];
+  [mainScreen bounds];
+  v18 = v17;
+  v20 = v19;
+
+  orientationObserver = [(SSAnnotationRenderer *)self orientationObserver];
+  activeInterfaceOrientation = [orientationObserver activeInterfaceOrientation];
+
+  v23 = sub_1000423E0();
+  if (v23)
+  {
+    v24 = sub_100042E68(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      v42 = "[SSAnnotationRenderer handleSafeViewAnnotation:flags:orientation:]";
+      v43 = 1024;
+      *v44 = 310;
+      *&v44[4] = 2048;
+      *&v44[6] = orientation;
+      *&v44[14] = 2048;
+      *&v44[16] = activeInterfaceOrientation;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[%s:%d] orientation from message %ld actual orientation %ld", buf, 0x26u);
+    }
+  }
+
+  sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/SSAnnotationRenderer.m", 113, 310, "[SSAnnotationRenderer handleSafeViewAnnotation:flags:orientation:]", 7, 0, "orientation from message %ld actual orientation %ld", orientation, activeInterfaceOrientation);
+  if (activeInterfaceOrientation <= 1)
+  {
+    if (!activeInterfaceOrientation)
+    {
+      v28 = sub_1000423E0();
+      if (v28)
+      {
+        v29 = sub_100042E68(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v42 = "[SSAnnotationRenderer handleSafeViewAnnotation:flags:orientation:]";
+          v43 = 1024;
+          *v44 = 316;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "[%s:%d] interface orientation is unknown", buf, 0x12u);
+        }
+      }
+
+      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/SSAnnotationRenderer.m", 113, 316, "[SSAnnotationRenderer handleSafeViewAnnotation:flags:orientation:]", 3, 0, "interface orientation is unknown");
+      goto LABEL_30;
+    }
+
+    orientationCopy = 0;
+    if (activeInterfaceOrientation == 1)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  else
+  {
+    switch(activeInterfaceOrientation)
+    {
+      case 2:
+        orientationCopy = 1;
+        goto LABEL_31;
+      case 3:
+        orientationCopy = 3;
+        goto LABEL_31;
+      case 4:
+        orientationCopy = 2;
+        goto LABEL_31;
+    }
+  }
+
+  v26 = sub_1000423E0();
+  if (v26)
+  {
+    v27 = sub_100042E68(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v42 = "[SSAnnotationRenderer handleSafeViewAnnotation:flags:orientation:]";
+      v43 = 1024;
+      *v44 = 336;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "[%s:%d] invalid result", buf, 0x12u);
+    }
+  }
+
+  sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/SSAnnotationRenderer.m", 113, 336, "[SSAnnotationRenderer handleSafeViewAnnotation:flags:orientation:]", 3, 0, "invalid result");
+LABEL_30:
+  orientationCopy = orientation;
+LABEL_31:
+  v30 = orientationCopy;
+  v31 = orientationCopy & 0xFFFFFFFE;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    mainScreen2 = [(SSAnnotationRenderer *)self mainScreen];
+    [mainScreen2 scale];
+    *buf = 134219008;
+    v42 = *&v18;
+    v43 = 2048;
+    *v44 = v20;
+    *&v44[8] = 2048;
+    *&v44[10] = v33;
+    *&v44[18] = 2048;
+    *&v44[20] = v30;
+    v45 = 1024;
+    v46 = v31 == 2;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "main screen point width: %f height: %f  scaling: %f orientation %ld landscape: %d", buf, 0x30u);
+  }
+
+  if (v31 == 2)
+  {
+    v34 = v18;
+  }
+
+  else
+  {
+    v34 = v20;
+  }
+
+  if (v31 == 2)
+  {
+    v35 = v20;
+  }
+
+  else
+  {
+    v35 = v18;
+  }
+
+  v36 = y * (v34 + -1.0) / 100.0;
+  v37 = floor(x * (v35 + -1.0) / 100.0);
+  v38 = floor(v36);
+  if ((v6 & 7) != 3)
+  {
+    if (v18 >= 768.0)
+    {
+      v40 = 66;
+    }
+
+    else
+    {
+      v40 = 44;
+    }
+
+    width = v40;
+    v10 = v37 - v40;
+    v11 = v38 - (v40 >> 1);
+    selfCopy2 = self;
+    height = v40;
+    v15 = v6;
+    goto LABEL_48;
+  }
+
+  if (v18 >= 768.0)
+  {
+    v39 = 33;
+  }
+
+  else
+  {
+    v39 = 22;
+  }
+
+  [(SSAnnotationRenderer *)self drawSafeViewSlateWithRect:v6 flags:v30 orientation:v37 - v39, v38 - (v39 >> 1), v39, v39];
 }
 
 - (void)drawSafeViewSlateWithRect:(CGRect)rect flags:(unsigned int)flags orientation:(int64_t)orientation

@@ -38,7 +38,7 @@ id __39___UIContextMenuTVPlatformMetrics_init__block_invoke_2(uint64_t a1, void 
   return v6;
 }
 
-id __39___UIContextMenuTVPlatformMetrics_init__block_invoke_3(uint64_t a1, char a2, char a3)
+id __39___UIContextMenuTVPlatformMetrics_init__block_invoke_3(uint64_t a1, char a2, uint64_t a3)
 {
   if ((a2 & 9) != 0)
   {
@@ -91,7 +91,7 @@ id __39___UIContextMenuTVPlatformMetrics_init__block_invoke_5(uint64_t a1, char 
   {
     if ((a2 & 9) != 0)
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
 
     else
@@ -300,7 +300,7 @@ id __45___UIContextMenuTVPlatformMetrics_Glass_init__block_invoke_3(uint64_t a1,
   {
     if ((a2 & 9) != 0)
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
 
     else

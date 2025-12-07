@@ -696,8 +696,8 @@ void __38__ASCLockupPresenter_performIconFetch__block_invoke_2(uint64_t a1, void
   if (!lockup)
   {
     view = [(ASCLockupPresenter *)self view];
-    v7 = ASCLocalizedString(@"LOADING", v6);
-    [view setTitle:v7];
+    v6 = ASCLocalizedString(@"LOADING");
+    [view setTitle:v6];
 
     [(ASCLockupPresenter *)self showLoadingState];
   }
@@ -825,11 +825,11 @@ LABEL_15:
 LABEL_6:
 }
 
-void __47__ASCLockupPresenter_request_didFailWithError___block_invoke(uint64_t a1)
+void __47__ASCLockupPresenter_request_didFailWithError___block_invoke(void *a1)
 {
   v24 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 32);
-  v3 = [*(a1 + 32) request];
+  v2 = a1 + 4;
+  v3 = [a1[4] request];
   v4 = v3;
   v5 = v2[1];
   if (v3)
@@ -854,37 +854,37 @@ LABEL_10:
         __47__ASCLockupPresenter_request_didFailWithError___block_invoke_cold_1(v2, a1, v10);
       }
 
-      v11 = [*(a1 + 32) view];
+      v11 = [a1[4] view];
       [v11 setLoading:0];
 
-      v12 = [*(a1 + 32) offerPresenter];
+      v12 = [a1[4] offerPresenter];
       [v12 setOffer:0];
 
-      [*(a1 + 32) setLockup:0];
-      [*(a1 + 32) setPendingViewRender:0];
+      [a1[4] setLockup:0];
+      [a1[4] setPendingViewRender:0];
       v7 = [ASCImageRenderer systemImageNamed:@"arrow.counterclockwise.circle" compatibleWithTraitCollection:0];
-      v13 = [*(a1 + 32) view];
+      v13 = [a1[4] view];
       v14 = +[ASCLockupPresenter iconPlaceholderDecoration];
       [v13 setIconImage:v7 withDecoration:v14];
 
-      v15 = [*(a1 + 32) view];
+      v15 = [a1[4] view];
       [v15 setHeading:0];
 
-      v16 = [*(a1 + 32) view];
+      v16 = [a1[4] view];
       [v16 setTitle:0];
 
-      v17 = [*(a1 + 32) view];
-      v18 = ASCLocalizedPlatformString(@"VIEW_ERROR");
+      v17 = [a1[4] view];
+      v18 = ASCLocalizedPlatformString();
       [v17 setSubtitle:v18];
 
-      v19 = [*(a1 + 32) view];
-      [v19 setPrefersRightToLeftLayout:{objc_msgSend(*(a1 + 32), "prefersRightToLeftViewLayout")}];
+      v19 = [a1[4] view];
+      [v19 setPrefersRightToLeftLayout:{objc_msgSend(a1[4], "prefersRightToLeftViewLayout")}];
 
-      v20 = [*(a1 + 32) observer];
-      [v20 lockupPresenterDidFailRequestWithError:*(a1 + 48)];
+      v20 = [a1[4] observer];
+      [v20 lockupPresenterDidFailRequestWithError:a1[6]];
 
-      v21 = [*(a1 + 32) metricsPresenter];
-      [v21 viewDidFailRequest:*(a1 + 40) withError:*(a1 + 48)];
+      v21 = [a1[4] metricsPresenter];
+      [v21 viewDidFailRequest:a1[5] withError:a1[6]];
 
       goto LABEL_13;
     }
@@ -1216,7 +1216,7 @@ void __56__ASCLockupPresenter_iconArtwork_didFailFetchWithError___block_invoke(u
   }
 }
 
-uint64_t __33__ASCLockupPresenter_retryGroup___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__33__ASCLockupPresenter_retryGroup___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (!a2 && a3)
@@ -1225,13 +1225,13 @@ uint64_t __33__ASCLockupPresenter_retryGroup___block_invoke(uint64_t result, uin
     v4 = +[ASCLockupPresenter log];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v5 = *(v3 + 32);
+      v5 = *(v3 + 4);
       v6 = 138543362;
       v7 = v5;
       _os_log_impl(&dword_21571A000, v4, OS_LOG_TYPE_INFO, "%{public}@: Retrying failed request as part of group", &v6, 0xCu);
     }
 
-    return [*(v3 + 32) performLockupFetch];
+    return [*(v3 + 4) performLockupFetch];
   }
 
   return result;

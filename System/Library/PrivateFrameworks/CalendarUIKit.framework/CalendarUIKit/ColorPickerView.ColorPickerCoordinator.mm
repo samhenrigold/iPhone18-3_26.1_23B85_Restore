@@ -12,7 +12,7 @@
   selfCopy = self;
   sub_1CAD4D7D4();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464870);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464870, &qword_1CAD5D3E0);
   sub_1CAD4DAC4();
 }
 
@@ -22,7 +22,7 @@
   selfCopy = self;
   [finishCopy dismissViewControllerAnimated:1 completion:0];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4631E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4631E0, &qword_1CAD595D0);
   sub_1CAD4DAC4();
 }
 

@@ -23,24 +23,22 @@
 
 void __50__GKFriendRequestInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = *(a1 + 32);
-  v7.super_class = &OBJC_METACLASS___GKFriendRequestInternal;
-  v1 = objc_msgSendSuper2(&v7, sel_secureCodedPropertyKeys);
+  v8[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = *(a1 + 32);
+  v6.super_class = &OBJC_METACLASS___GKFriendRequestInternal;
+  v1 = objc_msgSendSuper2(&v6, sel_secureCodedPropertyKeys);
   v2 = [v1 mutableCopy];
 
-  v8[0] = @"date";
+  v7[0] = @"date";
   v3 = objc_opt_class();
-  v8[1] = @"message";
-  v9[0] = v3;
-  v9[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v7[1] = @"message";
+  v8[0] = v3;
+  v8[1] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
   [v2 addEntriesFromDictionary:v4];
 
   v5 = secureCodedPropertyKeys_sSecureCodedKeys_629;
   secureCodedPropertyKeys_sSecureCodedKeys_629 = v2;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

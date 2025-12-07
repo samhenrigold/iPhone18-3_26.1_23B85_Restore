@@ -230,34 +230,34 @@ LABEL_15:
 
 - (void)_replyToWaitingClients:(id)clients state:(int64_t)state
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = clients;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v33, v37, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v32, v36, 16);
   if (v6)
   {
     v10 = v6;
-    v11 = *v34;
+    v11 = *v33;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v34 != v11)
+        if (*v33 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * i);
+        v13 = *(*(&v32 + 1) + 8 * i);
         if ((state & 0xFFFFFFFFFFFFFFFBLL) == 0x4651)
         {
           v14 = objc_msgSend_poolManager(self, v7, v8, v9);
           v18 = objc_msgSend_data(v13, v15, v16, v17);
-          v32 = 0;
-          v20 = objc_msgSend_signatureForData_error_(v14, v19, v18, &v32);
-          v21 = v32;
+          v31 = 0;
+          v20 = objc_msgSend_signatureForData_error_(v14, v19, v18, &v31);
+          v21 = v31;
 
           if (!(v20 | v21))
           {
@@ -276,13 +276,11 @@ LABEL_15:
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v33, v37, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v32, v36, 16);
     }
 
     while (v10);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)rotateWithError:(id *)error

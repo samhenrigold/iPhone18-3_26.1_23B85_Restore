@@ -9,21 +9,20 @@
 
 + (id)new
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"AFError.m" lineNumber:57 description:@"AFError is not designed to be instantiated."];
 
   v5 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315394;
-    v9 = "+[AFError new]";
-    v10 = 2080;
-    v11 = "+[AFError new]";
-    _os_log_fault_impl(&dword_1912FE000, v5, OS_LOG_TYPE_FAULT, "%s %s is not available, as AFError is not designed to be instantiated. Returning nil.", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[AFError new]";
+    v9 = 2080;
+    v10 = "+[AFError new]";
+    _os_log_fault_impl(&dword_1912FE000, v5, OS_LOG_TYPE_FAULT, "%s %s is not available, as AFError is not designed to be instantiated. Returning nil.", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -94,21 +93,20 @@
 
 - (AFError)init
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"AFError.m" lineNumber:65 description:@"AFError is not designed to be instantiated."];
 
   v5 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315394;
-    v9 = "[AFError init]";
-    v10 = 2080;
-    v11 = "[AFError init]";
-    _os_log_fault_impl(&dword_1912FE000, v5, OS_LOG_TYPE_FAULT, "%s %s is not available, as AFError is not designed to be instantiated. Returning nil.", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[AFError init]";
+    v9 = 2080;
+    v10 = "[AFError init]";
+    _os_log_fault_impl(&dword_1912FE000, v5, OS_LOG_TYPE_FAULT, "%s %s is not available, as AFError is not designed to be instantiated. Returning nil.", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

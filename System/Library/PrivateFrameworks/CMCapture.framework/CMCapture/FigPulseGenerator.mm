@@ -68,14 +68,14 @@ void __44__FigPulseGenerator_sharedFigPulseGenerator__block_invoke()
   os_unfair_lock_unlock(v0);
 }
 
-uint64_t __32__FigPulseGenerator_isSupported__block_invoke()
+void __32__FigPulseGenerator_isSupported__block_invoke()
 {
   if (FigCaptureCurrentProcessHasEntitlement(@"com.apple.private.master-sync-generator.user-access"))
   {
-    result = +[FigPulseGenerator anyCaptureSourceSupportsMSG];
+    v0 = +[FigPulseGenerator anyCaptureSourceSupportsMSG];
     if (MEMORY[0x1EEE83A20])
     {
-      v1 = result;
+      v1 = v0;
     }
 
     else
@@ -88,12 +88,11 @@ uint64_t __32__FigPulseGenerator_isSupported__block_invoke()
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
     v1 = 0;
   }
 
   isSupported_result = v1;
-  return result;
 }
 
 + (BOOL)anyCaptureSourceSupportsMSG
@@ -218,7 +217,7 @@ uint64_t __32__FigPulseGenerator_isSupported__block_invoke()
   var0 = rate.var0;
   if (dword_1EB58DD60)
   {
-    LODWORD(v30) = 0;
+    LODWORD(v31) = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -229,7 +228,8 @@ uint64_t __32__FigPulseGenerator_isSupported__block_invoke()
   {
     if (dword_1EB58DD60)
     {
-      LODWORD(v30) = 0;
+      selfCopy = self;
+      LODWORD(v31) = 0;
       v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -248,10 +248,9 @@ uint64_t __32__FigPulseGenerator_isSupported__block_invoke()
   {
 LABEL_26:
     v19 = var1;
-    v28 = v29;
     LODWORD(v26) = var1;
-    FigDebugAssert3();
-    LODWORD(v30) = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v26, v29, selfCopy, v29, v30, v31, *v32, *&v32[8]);
+    LODWORD(v31) = 0;
     v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
   }
@@ -263,9 +262,9 @@ LABEL_26:
 LABEL_17:
       if (dword_1EB58DD60)
       {
-        LODWORD(v30) = 0;
+        LODWORD(v31) = 0;
         v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v17 = v30;
+        v17 = v31;
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           v18 = v17;
@@ -278,8 +277,8 @@ LABEL_17:
 
         if (v18)
         {
-          v31 = 136315138;
-          v32 = "[FigPulseGenerator startWithFrameRate:cmClock:clientAudioClockDeviceUIDOut:externalSync:]";
+          *v32 = 136315138;
+          *&v32[4] = "[FigPulseGenerator startWithFrameRate:cmClock:clientAudioClockDeviceUIDOut:externalSync:]";
           _os_log_send_and_compose_impl();
         }
 
@@ -290,26 +289,25 @@ LABEL_17:
       goto LABEL_25;
     }
 
-    v30 = *MEMORY[0x1E69DA108];
-    CMClockFromTimeSyncMSGClock = [(FigPulseGenerator *)self _getOrCreateTimeSyncMSGClockIdentifier:var0 tsClockIdentifierOut:var1, &v30];
-    if (!CMClockFromTimeSyncMSGClock && (!clock || (CMClockFromTimeSyncMSGClock = FigCaptureCreateCMClockFromTimeSyncMSGClock(v30, clock)) == 0) && (!out || (CMClockFromTimeSyncMSGClock = [(FigPulseGenerator *)self _getTimeSyncClock:v30 clockOut:out]) == 0))
+    v31 = *MEMORY[0x1E69DA108];
+    CMClockFromTimeSyncMSGClock = [(FigPulseGenerator *)self _getOrCreateTimeSyncMSGClockIdentifier:var0 tsClockIdentifierOut:var1, &v31];
+    if (!CMClockFromTimeSyncMSGClock && (!clock || (CMClockFromTimeSyncMSGClock = FigCaptureCreateCMClockFromTimeSyncMSGClock(v31, clock)) == 0) && (!out || (CMClockFromTimeSyncMSGClock = [(FigPulseGenerator *)self _getTimeSyncClock:v31 clockOut:out]) == 0))
     {
-      [(FigPulseGenerator *)self _notifyDelegate:v30 withError:0, v26];
+      [(FigPulseGenerator *)self _notifyDelegate:v31 withError:0, v26];
       goto LABEL_17;
     }
 
     v19 = CMClockFromTimeSyncMSGClock;
-    v28 = v29;
     LODWORD(v26) = CMClockFromTimeSyncMSGClock;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v26, v29, selfCopy, v29, v30, v31, *v32, *&v32[8]);
     v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
   }
 
   fig_log_call_emit_and_clean_up_after_send_and_compose();
-  LODWORD(v30) = 0;
+  LODWORD(v31) = 0;
   v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v24 = v30;
+  v24 = v31;
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     v25 = v24;
@@ -322,17 +320,15 @@ LABEL_17:
 
   if (v25)
   {
-    v31 = 136315394;
-    v32 = "[FigPulseGenerator startWithFrameRate:cmClock:clientAudioClockDeviceUIDOut:externalSync:]";
+    *v32 = 136315394;
+    *&v32[4] = "[FigPulseGenerator startWithFrameRate:cmClock:clientAudioClockDeviceUIDOut:externalSync:]";
     v33 = 1024;
     LODWORD(v34) = v19;
-    LODWORD(v28) = 18;
-    v26 = &v31;
     _os_log_send_and_compose_impl();
   }
 
   fig_log_call_emit_and_clean_up_after_send_and_compose();
-  [(FigPulseGenerator *)self _resetState:v26];
+  [(FigPulseGenerator *)self _resetState];
 LABEL_25:
   os_unfair_lock_unlock(&self->_configureLock);
   return v19;
@@ -359,100 +355,100 @@ LABEL_25:
   {
     if ((delay->var2 & 0x1D) != 1)
     {
-      v9 = -73194;
-      FigDebugAssert3();
-      v32 = 0;
-      v31 = OS_LOG_TYPE_DEFAULT;
+      v10 = -73194;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -73194, v3, v26, v27.value, v27.timescale, v27.epoch, time2.value, time2.timescale);
+      v34 = 0;
+      v33 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
 LABEL_30:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      return v9;
+      return v10;
     }
 
-    v5 = FigCaptureFrameRateAsFloat(*&self->_currentFrameRate.u, self->_currentFrameRate.tag);
-    memset(&v28, 0, sizeof(v28));
-    v6 = 1.0 / v5;
-    CMTimeMakeWithSeconds(&v28, v6, 24000000);
-    v27 = *delay;
+    v6 = FigCaptureFrameRateAsFloat(*&self->_currentFrameRate.u, self->_currentFrameRate.tag);
+    memset(&v30, 0, sizeof(v30));
+    v7 = 1.0 / v6;
+    CMTimeMakeWithSeconds(&v30, v7, 24000000);
+    v29 = *delay;
     *time1 = *&delay->var0;
     *&time1[16] = delay->var3;
-    time2 = v28;
+    time2 = v30;
     if ((CMTimeCompare(time1, &time2) & 0x80000000) == 0 || (*time1 = *&delay->var0, *&time1[16] = delay->var3, time2 = **&MEMORY[0x1E6960CC0], CMTimeCompare(time1, &time2) < 0))
     {
       *time1 = *&delay->var0;
       *&time1[16] = delay->var3;
       Seconds = CMTimeGetSeconds(time1);
-      v8 = fmod(Seconds, v6);
-      if (v8 < 0.0)
+      v9 = fmod(Seconds, v7);
+      if (v9 < 0.0)
       {
-        v8 = v6 + v8;
+        v9 = v7 + v9;
       }
 
-      CMTimeMakeWithSeconds(&v27, v8, 24000000);
+      CMTimeMakeWithSeconds(&v29, v9, 24000000);
     }
 
-    memset(&v25, 0, sizeof(v25));
-    *time1 = v27;
-    CMTimeConvertScale(&v25, time1, 24000000, kCMTimeRoundingMethod_RoundTowardZero);
-    if ((v25.flags & 1) == 0)
+    memset(&v27, 0, sizeof(v27));
+    *time1 = v29;
+    CMTimeConvertScale(&v27, time1, 24000000, kCMTimeRoundingMethod_RoundTowardZero);
+    if ((v27.flags & 1) == 0)
     {
-      v9 = -73194;
-      FigDebugAssert3();
-      v32 = 0;
-      v31 = OS_LOG_TYPE_DEFAULT;
-      v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v12 = v32;
-      if (os_log_type_enabled(v11, v31))
+      v10 = -73194;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -73194, v3, v26, v27.value, v27.timescale, v27.epoch, time2.value, time2.timescale);
+      v34 = 0;
+      v33 = OS_LOG_TYPE_DEFAULT;
+      v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v13 = v34;
+      if (os_log_type_enabled(v12, v33))
       {
-        v13 = v12;
+        v14 = v13;
       }
 
       else
       {
-        v13 = v12 & 0xFFFFFFFE;
+        v14 = v13 & 0xFFFFFFFE;
       }
 
-      if (!v13)
+      if (!v14)
       {
         goto LABEL_30;
       }
 
       *time1 = *&delay->var0;
       *&time1[16] = delay->var3;
-      v14 = CMTimeCopyDescription(0, time1);
+      v15 = CMTimeCopyDescription(0, time1);
       LODWORD(time2.value) = 136315394;
       *(&time2.value + 4) = "[FigPulseGenerator applySignalCompensationDelay:]";
       LOWORD(time2.flags) = 2112;
-      *(&time2.flags + 2) = v14;
+      *(&time2.flags + 2) = v15;
       goto LABEL_29;
     }
 
-    self->_activeDerivedSyncConfig.offset.whole = v25.value;
+    self->_activeDerivedSyncConfig.offset.whole = v27.value;
     *&self->_activeDerivedSyncConfig.offset.frac = 0;
     assert_duration = self->_activeDerivedSyncConfig.assert_duration;
     *time1 = *&self->_activeDerivedSyncConfig.timer_sel;
     *&time1[16] = assert_duration;
     offset = self->_activeDerivedSyncConfig.offset;
-    v16 = MSGConfigureDerivedSync();
-    if (v16)
+    v17 = MSGConfigureDerivedSync();
+    if (v17)
     {
-      v9 = v16;
-      v32 = 0;
-      v31 = OS_LOG_TYPE_DEFAULT;
-      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v18 = v32;
-      if (os_log_type_enabled(v17, v31))
+      v10 = v17;
+      v34 = 0;
+      v33 = OS_LOG_TYPE_DEFAULT;
+      v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v19 = v34;
+      if (os_log_type_enabled(v18, v33))
       {
-        v19 = v18;
+        v20 = v19;
       }
 
       else
       {
-        v19 = v18 & 0xFFFFFFFE;
+        v20 = v19 & 0xFFFFFFFE;
       }
 
-      if (!v19)
+      if (!v20)
       {
         goto LABEL_30;
       }
@@ -460,28 +456,28 @@ LABEL_30:
       goto LABEL_28;
     }
 
-    v20 = self->_activeDerivedSyncConfig.assert_duration;
+    v21 = self->_activeDerivedSyncConfig.assert_duration;
     *time1 = *&self->_activeDerivedSyncConfig.timer_sel;
-    *&time1[16] = v20;
+    *&time1[16] = v21;
     offset = self->_activeDerivedSyncConfig.offset;
-    v9 = MSGConfigureDerivedSync();
-    if (v9)
+    v10 = MSGConfigureDerivedSync();
+    if (v10)
     {
-      v32 = 0;
-      v31 = OS_LOG_TYPE_DEFAULT;
-      v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v22 = v32;
-      if (os_log_type_enabled(v21, v31))
+      v34 = 0;
+      v33 = OS_LOG_TYPE_DEFAULT;
+      v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v23 = v34;
+      if (os_log_type_enabled(v22, v33))
       {
-        v23 = v22;
+        v24 = v23;
       }
 
       else
       {
-        v23 = v22 & 0xFFFFFFFE;
+        v24 = v23 & 0xFFFFFFFE;
       }
 
-      if (!v23)
+      if (!v24)
       {
         goto LABEL_30;
       }
@@ -490,7 +486,7 @@ LABEL_28:
       LODWORD(time2.value) = 136315394;
       *(&time2.value + 4) = "[FigPulseGenerator applySignalCompensationDelay:]";
       LOWORD(time2.flags) = 1024;
-      *(&time2.flags + 2) = v9;
+      *(&time2.flags + 2) = v10;
 LABEL_29:
       _os_log_send_and_compose_impl();
       goto LABEL_30;
@@ -499,11 +495,11 @@ LABEL_29:
 
   else
   {
-    v9 = -73194;
-    FigDebugAssert3();
+    v10 = -73194;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -73194, v3, v26, v27.value, v27.timescale, v27.epoch, time2.value, time2.timescale);
   }
 
-  return v9;
+  return v10;
 }
 
 - (int)_startSyncs:(id)syncs
@@ -513,16 +509,12 @@ LABEL_29:
   v7 = syncs.var1;
   if (!FigCaptureFrameRateIsValidRational(*&syncs.var0, syncs.var1))
   {
-    v14 = v3;
-    LODWORD(v13) = -536870206;
-    FigDebugAssert3();
-    v16 = 0;
-    v15 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -536870206, v3, v13, v14, v15, v16, v17, v18);
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
 LABEL_15:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    [(FigPulseGenerator *)self _resetMsgSyncs:v13];
+    [(FigPulseGenerator *)self _resetMsgSyncs];
     self->_currentFrameRate.u = 0;
     self->_currentFrameRate.tag = 0;
     return -73196;
@@ -531,11 +523,7 @@ LABEL_15:
   v8 = [(FigPulseGenerator *)self _leaderSyncInit:self->_msgHandleLeader trigger:1];
   if (v8 || (v8 = [(FigPulseGenerator *)self _followSyncInit:self->_msgHandleRear leader:0 trigger:1]) != 0 || (v8 = [(FigPulseGenerator *)self _followSyncInit:self->_msgHandleFront leader:0 trigger:1]) != 0 || (v8 = [(FigPulseGenerator *)self _configureLeaderSync:self->_msgHandleLeader frameRate:*&var0 assertDur:v7, 1000]) != 0 || (v8 = [(FigPulseGenerator *)self _configureFollowSync:self->_msgHandleRear assertDur:1000 offset:0]) != 0 || (v8 = [(FigPulseGenerator *)self _configureFollowSync:self->_msgHandleFront assertDur:1000 offset:0]) != 0 || (v8 = [(FigPulseGenerator *)self _syncInterruptEnable:self->_msgHandleLeader]) != 0 || (v8 = [(FigPulseGenerator *)self _startSync:self->_msgHandleLeader]) != 0 || (v8 = [(FigPulseGenerator *)self _startSync:self->_msgHandleRear]) != 0 || (v8 = [(FigPulseGenerator *)self _startSync:self->_msgHandleFront]) != 0)
   {
-    v14 = v3;
-    LODWORD(v13) = v8;
-    FigDebugAssert3();
-    v16 = 0;
-    v15 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v3, v13, v14, v15, v16, v17, v18);
     v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     goto LABEL_15;
@@ -543,8 +531,6 @@ LABEL_15:
 
   if (dword_1EB58DD60)
   {
-    v16 = 0;
-    v15 = 0;
     v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -777,9 +763,9 @@ LABEL_5:
 
   +[FigPulseGenerator kV5XTriggerID];
   FigGetUpTimeNanoseconds();
-  v4 = TimeSyncMSGStartExternalSync();
+  v5 = TimeSyncMSGStartExternalSync();
   FigGetUpTimeNanoseconds();
-  if (!v4)
+  if (!v5)
   {
     if (dword_1EB58DD60)
     {
@@ -794,11 +780,11 @@ LABEL_5:
     return result;
   }
 
-  FigDebugAssert3();
-  v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v3, v9, v10, v11, v12, v13, v14);
+  v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
-  if (v4 == -536870186)
+  if (v5 == -536870186)
   {
     return -73195;
   }
@@ -835,28 +821,29 @@ LABEL_5:
 
 - (int)_resetMsgSyncs
 {
-  v3 = [(FigPulseGenerator *)self _syncReset:self->_msgHandleRear];
-  if (v3 || (v3 = [(FigPulseGenerator *)self _syncReset:self->_msgHandleFront]) != 0)
+  v4 = [(FigPulseGenerator *)self _syncReset:self->_msgHandleRear];
+  if (v4 || (v4 = [(FigPulseGenerator *)self _syncReset:self->_msgHandleFront]) != 0)
   {
-    v4 = v3;
-    FigDebugAssert3();
+    v6 = v4;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v2, v10, v11, v12, v13, v14, v15);
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
 LABEL_8:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    return v4;
+    return v6;
   }
 
-  v4 = [(FigPulseGenerator *)self _syncReset:self->_msgHandleLeader];
-  if (v4)
+  v5 = [(FigPulseGenerator *)self _syncReset:self->_msgHandleLeader];
+  v6 = v5;
+  if (v5)
   {
-    FigDebugAssert3();
-    v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v2, v10, v11, v12, v13, v14, v15);
+    v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     goto LABEL_8;
   }
 
-  return v4;
+  return v6;
 }
 
 - (int)_getOrCreateTimeSyncMSGClockIdentifier:(id)identifier tsClockIdentifierOut:(unint64_t *)out
@@ -864,40 +851,40 @@ LABEL_8:
   timeSyncMSGClockIdentifier = self->_timeSyncMSGClockIdentifier;
   if (timeSyncMSGClockIdentifier == *MEMORY[0x1E69DA108])
   {
-    v7 = TimeSyncMSGAddClockInstance();
-    if (v7 == timeSyncMSGClockIdentifier)
+    v8 = TimeSyncMSGAddClockInstance();
+    if (v8 == timeSyncMSGClockIdentifier)
     {
-      v8 = -73194;
-      FigDebugAssert3();
+      v9 = -73194;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -73194, v4, v14, v15, v16, v17, v18, v19);
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v11 = self->_timeSyncMSGClockIdentifier;
+      v12 = self->_timeSyncMSGClockIdentifier;
     }
 
     else
     {
-      v11 = v7;
+      v12 = v8;
       if (dword_1EB58DD60)
       {
-        v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+        v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v8 = 0;
-      self->_timeSyncMSGClockIdentifier = v11;
+      v9 = 0;
+      self->_timeSyncMSGClockIdentifier = v12;
     }
   }
 
   else
   {
-    v8 = 0;
-    v11 = self->_timeSyncMSGClockIdentifier;
+    v9 = 0;
+    v12 = self->_timeSyncMSGClockIdentifier;
   }
 
-  *out = v11;
-  return v8;
+  *out = v12;
+  return v9;
 }
 
 - (int)_configureLeaderSync:(SyncHandle *)sync frameRate:(id)rate assertDur:(unint64_t)dur
@@ -971,12 +958,13 @@ LABEL_8:
   return [(FigPulseGenerator *)self _followSyncConfig:sync config:&v6];
 }
 
-- (uint64_t)_getTimeSyncClock:clockOut:.cold.1()
+- (double)_getTimeSyncClock:clockOut:.cold.1()
 {
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v0, v3, v4, v5, v6, v7, v8);
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-  return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  return result;
 }
 
 @end

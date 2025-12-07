@@ -7,6 +7,8 @@
 - (id)serviceViewControllerProxy;
 - (void)_prepareForAction:(id)action inActionController:(id)controller;
 - (void)actionCanBeCancelledExternally:(BOOL)externally;
+- (void)actionDidFinishShouldDismiss:(BOOL)dismiss;
+- (void)adaptForPresentationInPopover:(BOOL)popover;
 - (void)getIsBeingPresentedInPopover:(id)popover;
 - (void)viewControllerReady;
 - (void)viewServiceDidTerminateWithError:(id)error;
@@ -129,6 +131,13 @@ LABEL_15:
   [(_UIRemoteViewController *)&v8 viewServiceDidTerminateWithError:v5];
 }
 
+- (void)adaptForPresentationInPopover:(BOOL)popover
+{
+  popoverCopy = popover;
+  serviceViewControllerProxy = [(DDRemoteActionViewController *)self serviceViewControllerProxy];
+  [serviceViewControllerProxy adaptForPresentationInPopover:popoverCopy];
+}
+
 - (CGSize)preferredContentSize
 {
   v4.receiver = self;
@@ -202,6 +211,37 @@ void __81__DDRemoteActionViewController_prepareViewController_forAction_actionCo
   [WeakRetained action:v5 presentationShouldBeModal:!externallyCopy];
 }
 
+- (void)actionDidFinishShouldDismiss:(BOOL)dismiss
+{
+  if (!self->_receivedActionDidFinish)
+  {
+    dismissCopy = dismiss;
+    self->_receivedActionDidFinish = 1;
+    WeakRetained = objc_loadWeakRetained(&self->_action);
+    delegate = [WeakRetained delegate];
+
+    if (delegate)
+    {
+      v8 = objc_loadWeakRetained(&self->_action);
+      delegate2 = [v8 delegate];
+      v10 = objc_opt_respondsToSelector();
+
+      if (v10)
+      {
+        v11 = objc_loadWeakRetained(&self->_action);
+        delegate3 = [v11 delegate];
+        v13 = objc_loadWeakRetained(&self->_action);
+        [delegate3 actionDidFinish:v13 shouldDismiss:dismissCopy];
+      }
+    }
+
+    v14 = objc_loadWeakRetained(&self->_action);
+    [v14 invalidate];
+
+    objc_storeWeak(&self->_action, 0);
+  }
+}
+
 - (void)getIsBeingPresentedInPopover:(id)popover
 {
   popoverCopy = popover;
@@ -221,38 +261,6 @@ void __81__DDRemoteActionViewController_prepareViewController_forAction_actionCo
   WeakRetained = objc_loadWeakRetained(&self->_actionController);
 
   return WeakRetained;
-}
-
-- (void)viewServiceDidTerminateWithError:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_5(&dword_21AB70000, MEMORY[0x277D86220], v0, "View service did terminate with error %@ before completing its action", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)viewServiceDidTerminateWithError:.cold.2()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_5(&dword_21AB70000, MEMORY[0x277D86220], v0, "View service did terminate with error %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)viewServiceDidTerminateWithError:.cold.4()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_5(&dword_21AB70000, MEMORY[0x277D86220], v0, "View service did terminate with error while preparing itself %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __81__DDRemoteActionViewController_prepareViewController_forAction_actionController___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_5(&dword_21AB70000, MEMORY[0x277D86220], v0, "Could not get an out-of-process view controller. Error %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

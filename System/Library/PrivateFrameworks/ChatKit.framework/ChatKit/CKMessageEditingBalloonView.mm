@@ -296,9 +296,9 @@ LABEL_6:
 
   if (mEMORY[0x1E69A8070])
   {
-    v15 = CKFrameworkBundle();
-    v16 = [v15 localizedStringForKey:@"TEXT_EFFECTS" value:&stru_1F04268F8 table:@"ChatKit"];
-    [mEMORY[0x1E69A8070] setTitle:v16];
+    v16 = CKFrameworkBundle(v15);
+    v17 = [v16 localizedStringForKey:@"TEXT_EFFECTS" value:&stru_1F04268F8 table:@"ChatKit"];
+    [mEMORY[0x1E69A8070] setTitle:v17];
 
 LABEL_11:
     [v8 insertObject:mEMORY[0x1E69A8070] atIndex:v13];
@@ -307,11 +307,11 @@ LABEL_11:
 LABEL_12:
 
 LABEL_13:
-  v17 = MEMORY[0x1E69DCC60];
-  v18 = [v8 copy];
-  v19 = [v17 menuWithChildren:v18];
+  v18 = MEMORY[0x1E69DCC60];
+  v19 = [v8 copy];
+  v20 = [v18 menuWithChildren:v19];
 
-  return v19;
+  return v20;
 }
 
 - (void)textViewDidChange:(id)change

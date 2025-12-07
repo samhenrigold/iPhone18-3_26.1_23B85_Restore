@@ -40,10 +40,10 @@ id __pathForKeyAndExtension(void *a1, void *a2, void *a3)
   return v9;
 }
 
-id _readCPBitmapImageFromPathWithOptions(void *a1)
+id _readCPBitmapImageFromPathWithOptions(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v1 = a1;
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = a1;
   MappedDataFromPath = CPBitmapCreateMappedDataFromPath();
   if (MappedDataFromPath)
   {
@@ -56,29 +56,29 @@ id _readCPBitmapImageFromPathWithOptions(void *a1)
         goto LABEL_7;
       }
 
-      v5 = BSLogCommon();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = BSLogCommon();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v10 = CFArrayGetCount(ImagesFromData);
+        v11 = CFArrayGetCount(ImagesFromData);
         LODWORD(valuePtr) = 67109378;
-        HIDWORD(valuePtr) = v10;
-        v12 = 2114;
-        v13 = v1;
-        _os_log_error_impl(&dword_1A2D36000, v5, OS_LOG_TYPE_ERROR, "BSUIMappedImageCache: unexpected imageCount=%i in CPBitmapData from path=%{public}@", &valuePtr, 0x12u);
+        HIDWORD(valuePtr) = v11;
+        v13 = 2114;
+        v14 = v2;
+        _os_log_error_impl(&dword_1A2D36000, v6, OS_LOG_TYPE_ERROR, "BSUIMappedImageCache: unexpected imageCount=%i in CPBitmapData from path=%{public}@", &valuePtr, 0x12u);
       }
 
       if (Count >= 1)
       {
 LABEL_7:
         valuePtr = 1.0;
-        v6 = objc_alloc(MEMORY[0x1E69DCAB8]);
+        v7 = objc_alloc(MEMORY[0x1E69DCAB8]);
         ValueAtIndex = CFArrayGetValueAtIndex(ImagesFromData, 0);
-        v8 = [v6 initWithCGImage:ValueAtIndex scale:0 orientation:valuePtr];
+        v9 = [v7 initWithCGImage:ValueAtIndex scale:0 orientation:valuePtr];
       }
 
       else
       {
-        v8 = 0;
+        v9 = 0;
       }
 
       CFRelease(ImagesFromData);
@@ -86,7 +86,7 @@ LABEL_7:
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
     CFRelease(MappedDataFromPath);
@@ -94,10 +94,10 @@ LABEL_7:
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 id _workBlockGenerator(void *a1, void *a2, char a3, void *a4, uint64_t a5, int a6, void *a7, void *a8, void *a9, void *a10, void *a11, void *a12)
@@ -442,43 +442,43 @@ LABEL_18:
   }
 }
 
-uint64_t ___workBlockGenerator_block_invoke_4(uint64_t a1)
+uint64_t ___workBlockGenerator_block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 32);
-  v3 = [v2 CGImage];
-  v4 = v3;
-  if (v3)
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 32);
+  v4 = [v3 CGImage];
+  v5 = v4;
+  if (v4)
   {
-    if ((v1 & 4) == 0 && (v1 & 8) == 0 && !CGImageIsMask(v3) && (CGImageHasAlpha() & 1) == 0)
+    if ((v2 & 4) == 0 && (v2 & 8) == 0 && !CGImageIsMask(v4) && (CGImageHasAlpha() & 1) == 0)
     {
-      ColorSpace = CGImageGetColorSpace(v4);
+      ColorSpace = CGImageGetColorSpace(v5);
       if (CGColorSpaceGetNumberOfComponents(ColorSpace) >= 3)
       {
-        CGImageGetBitsPerComponent(v4);
+        CGImageGetBitsPerComponent(v5);
       }
     }
 
-    [v2 scale];
-    valuePtr = v7;
+    [v3 scale];
+    valuePtr = v8;
     if (BSFloatIsOne())
     {
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v8 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberCGFloatType, &valuePtr);
+      v9 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberCGFloatType, &valuePtr);
     }
 
-    v9 = CPBitmapWriterCreateWithFileDescriptor();
-    if (v9)
+    v10 = CPBitmapWriterCreateWithFileDescriptor();
+    if (v10)
     {
-      v6 = CPBitmapWriterAddImage();
+      v7 = CPBitmapWriterAddImage();
       CPBitmapWriterFinalize();
-      CFRelease(v9);
-      if (!v8)
+      CFRelease(v10);
+      if (!v9)
       {
         goto LABEL_17;
       }
@@ -486,34 +486,34 @@ uint64_t ___workBlockGenerator_block_invoke_4(uint64_t a1)
       goto LABEL_16;
     }
 
-    v6 = 0;
-    if (v8)
+    v7 = 0;
+    if (v9)
     {
 LABEL_16:
-      CFRelease(v8);
+      CFRelease(v9);
     }
   }
 
   else
   {
-    v5 = BSLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = BSLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_1A2D36000, v5, OS_LOG_TYPE_ERROR, "BSUIMappedImageCache: error serializing non-CGImage to CPBitmap", buf, 2u);
+      _os_log_error_impl(&dword_1A2D36000, v6, OS_LOG_TYPE_ERROR, "BSUIMappedImageCache: error serializing non-CGImage to CPBitmap", buf, 2u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
 LABEL_17:
 
-  return v6;
+  return v7;
 }
 
 id ___workBlockGenerator_block_invoke_5(uint64_t a1, void *a2)
 {
-  v2 = _readCPBitmapImageFromPathWithOptions(a2);
+  v2 = _readCPBitmapImageFromPathWithOptions(a2, *(a1 + 32));
 
   return v2;
 }
@@ -728,78 +728,72 @@ float _curve(double a1, float a2, double a3, __n128 a4)
   return v11;
 }
 
-uint64_t BSIntervalInterpolatorUIRubberBanding_block_invoke()
+void BSIntervalInterpolatorUIRubberBanding_block_invoke(uint64_t a1, __int128 *a2)
 {
   BSIntervalMin();
   BSIntervalMax();
-  result = BSFloatIsZero();
-  if ((result & 1) == 0)
+  if ((BSFloatIsZero() & 1) == 0)
   {
-    return BSIntervalMin();
+    BSIntervalMin();
   }
-
-  return result;
 }
 
-uint64_t BSIntervalInterpolatorInvertUIRubberBanding_block_invoke_2()
+void BSIntervalInterpolatorInvertUIRubberBanding_block_invoke_2(double a1, uint64_t a2, __int128 *a3)
 {
   BSIntervalMin();
   BSIntervalMax();
-  result = BSFloatIsZero();
-  if ((result & 1) == 0)
+  if ((BSFloatIsZero() & 1) == 0)
   {
-    return BSIntervalMin();
+    BSIntervalMin();
   }
-
-  return result;
 }
 
-double BSUIConstrainValueToIntervalWithRubberBand(double a1)
+double BSUIConstrainValueToIntervalWithRubberBand(__int128 *a1, double a2, double a3)
 {
   BSIntervalMin();
-  v3 = v2;
+  v5 = v4;
   BSIntervalMax();
-  if (v3 <= a1)
+  if (v5 <= a2)
   {
-    v6 = v4;
-    if (v4 < a1)
+    v8 = v6;
+    if (v6 < a2)
     {
       BSIntervalInterpolate();
-      return v6 + v7;
+      return v8 + v9;
     }
   }
 
   else
   {
     BSIntervalInterpolate();
-    return v3 - v5;
+    return v5 - v7;
   }
 
-  return a1;
+  return a2;
 }
 
-double BSUIInvertRubberBandValueForInterval(double a1)
+double BSUIInvertRubberBandValueForInterval(__int128 *a1, double a2, double a3)
 {
   BSIntervalMin();
-  v3 = v2;
+  v5 = v4;
   BSIntervalMax();
-  if (v3 <= a1)
+  if (v5 <= a2)
   {
-    v6 = v4;
-    if (v4 < a1)
+    v8 = v6;
+    if (v6 < a2)
     {
       BSIntervalInterpolate();
-      return v6 + v7;
+      return v8 + v9;
     }
   }
 
   else
   {
     BSIntervalInterpolate();
-    return v3 - v5;
+    return v5 - v7;
   }
 
-  return a1;
+  return a2;
 }
 
 void sub_1A2D3F13C(_Unwind_Exception *a1)
@@ -1096,10 +1090,10 @@ void sub_1A2D432E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A2D43BD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1A2D43BD4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = BSUIRelativeDateLabel;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1122,7 +1116,7 @@ BOOL __writeDataToFileDescriptor(int __fd, uint64_t a2, unint64_t a3)
   return v7 >= 0;
 }
 
-void sub_1A2D45D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_1A2D45D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a23, 8);
@@ -1131,7 +1125,7 @@ void sub_1A2D45D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1A2D46068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_1A2D46068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a23, 8);
@@ -1201,12 +1195,12 @@ void sub_1A2D4B2AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A2D4C8A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1A2D4C8A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = BSUIDefaultDateLabel;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 

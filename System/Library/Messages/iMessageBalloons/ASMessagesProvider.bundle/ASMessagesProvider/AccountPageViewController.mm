@@ -9,7 +9,7 @@
 - (_TtC18ASMessagesProvider25AccountPageViewController)initWithAccountURL:(id)l
 {
   ObjectType = swift_getObjectType();
-  v6 = sub_BD88(&unk_93FD30);
+  v6 = sub_BD88(&unk_93FD30, qword_77F240);
   __chkstk_darwin(v6 - 8);
   v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);

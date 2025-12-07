@@ -186,10 +186,9 @@ uint64_t __65___RECoreLocationLocationManager__notifyUpdateHandlersWithError___b
   v3 = *(a1 + 48);
   if (v3)
   {
-    v4 = *(a1 + 40);
-    v6 = v2;
+    v5 = v2;
     v3 = (*(v3 + 16))();
-    v2 = v6;
+    v2 = v5;
   }
 
   return MEMORY[0x2821F96F8](v3, v2);
@@ -200,12 +199,11 @@ void __70___RECoreLocationLocationManager__notifyVisitUpdateHandlersWithVisit___
   v2 = [*(a1 + 32) currentVisit];
   if (*(a1 + 40))
   {
-    v5 = v2;
+    v4 = v2;
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v4 = WeakRetained[7];
     (*(*(a1 + 40) + 16))();
 
-    v2 = v5;
+    v2 = v4;
   }
 }
 

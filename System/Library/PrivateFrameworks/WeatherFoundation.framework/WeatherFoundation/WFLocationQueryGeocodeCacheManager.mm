@@ -26,9 +26,11 @@
 
 uint64_t __51__WFLocationQueryGeocodeCacheManager_sharedManager__block_invoke()
 {
-  sharedManager_geocodeCacheManager = objc_alloc_init(WFLocationQueryGeocodeCacheManager);
+  v0 = objc_alloc_init(WFLocationQueryGeocodeCacheManager);
+  v1 = sharedManager_geocodeCacheManager;
+  sharedManager_geocodeCacheManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WFLocationQueryGeocodeCacheManager)init

@@ -1,9 +1,9 @@
 @interface BWTimeOfFlightSynchronizerNode
 - (BWTimeOfFlightSynchronizerNode)init;
+- (id)_cleanupPointCloudBufferQueue;
+- (id)_tryToEmitBuffers;
 - (uint64_t)_attachPointCloudsToSampleBufferOrReportMissing:(_BYTE *)missing pointCloudsAreMissing:;
 - (uint64_t)_mergePointClouds:(__CVBuffer *)clouds intoDataBuffer:(_DWORD *)buffer numberOfPoints:;
-- (unint64_t)_cleanupPointCloudBufferQueue;
-- (unint64_t)_tryToEmitBuffers;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
 - (void)didReachEndOfDataForInput:(id)input;
@@ -77,7 +77,7 @@
 {
   if (self->_videoInput == input)
   {
-    if ([key isEqualToString:@"PrimaryFormat"])
+    if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
     {
       [(BWNodeOutput *)self->super._output setFormat:format];
     }
@@ -139,7 +139,7 @@
   }
 
   [*(&self->super.super.isa + *v7) addObject:buffer];
-  [(BWTimeOfFlightSynchronizerNode *)self _tryToEmitBuffers];
+  [(BWTimeOfFlightSynchronizerNode *)&self->super.super.isa _tryToEmitBuffers];
 
   os_unfair_lock_unlock(&self->_bufferServicingLock);
 }
@@ -163,12 +163,12 @@
   }
 }
 
-- (unint64_t)_tryToEmitBuffers
+- (id)_tryToEmitBuffers
 {
   if (result)
   {
     v1 = result;
-    if ([*(result + 168) count])
+    if ([result[21] count])
     {
       v2 = *off_1E798A3C8;
       v3 = *off_1E798A420;
@@ -234,73 +234,73 @@
     return 0;
   }
 
-  v36 = 0;
+  v40 = 0;
   lastObject = [*(self + 160) lastObject];
   if (!lastObject)
   {
     return 0;
   }
 
-  v7 = *off_1E798A3C8;
-  v8 = CMGetAttachment(lastObject, *off_1E798A3C8, 0);
-  v9 = *off_1E798A420;
-  CMTimeMakeFromDictionary(&time, [v8 objectForKeyedSubscript:*off_1E798A420]);
+  v8 = *off_1E798A3C8;
+  v9 = CMGetAttachment(lastObject, *off_1E798A3C8, 0);
+  v10 = *off_1E798A420;
+  CMTimeMakeFromDictionary(&time, [v9 objectForKeyedSubscript:*off_1E798A420]);
   Seconds = CMTimeGetSeconds(&time);
-  v11 = CMGetAttachment(a2, v7, 0);
-  CMTimeMakeFromDictionary(&time, [v11 objectForKeyedSubscript:v9]);
-  v12 = CMTimeGetSeconds(&time);
-  [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B2A8), "doubleValue"}];
-  v14 = v12 + v13 * 0.5;
-  if (Seconds + 0.0083 <= v14 + 0.0166)
+  v12 = CMGetAttachment(a2, v8, 0);
+  CMTimeMakeFromDictionary(&time, [v12 objectForKeyedSubscript:v10]);
+  v13 = CMTimeGetSeconds(&time);
+  [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B2A8), "doubleValue"}];
+  v15 = v13 + v14 * 0.5;
+  if (Seconds + 0.0083 <= v15 + 0.0166)
   {
     return 0;
   }
 
-  v29 = a2;
+  v32 = a2;
   missingCopy = missing;
   array = [MEMORY[0x1E695DF70] array];
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v16 = *(self + 160);
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v17 = *(self + 160);
   OUTLINED_FUNCTION_13_14();
-  v17 = [v16 countByEnumeratingWithState:? objects:? count:?];
-  if (v17)
+  v18 = [v17 countByEnumeratingWithState:? objects:? count:?];
+  if (v18)
   {
-    v18 = v17;
-    v19 = *v33;
+    v19 = v18;
+    v20 = *v37;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v33 != v19)
+        if (*v37 != v20)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v32 + 1) + 8 * i);
-        v22 = [CMGetAttachment(v21 v7];
-        CMTimeMakeFromDictionary(&time, v22);
-        v23 = CMTimeGetSeconds(&time);
-        if (v23 > v14 + -0.0166 && v23 <= v14 + 0.0166)
+        v22 = *(*(&v36 + 1) + 8 * i);
+        v23 = [CMGetAttachment(v22 v8];
+        CMTimeMakeFromDictionary(&time, v23);
+        v24 = CMTimeGetSeconds(&time);
+        if (v24 > v15 + -0.0166 && v24 <= v15 + 0.0166)
         {
-          [array addObject:v21];
+          [array addObject:v22];
         }
       }
 
       OUTLINED_FUNCTION_13_14();
-      v18 = [v16 countByEnumeratingWithState:? objects:? count:?];
+      v19 = [v17 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v18);
+    while (v19);
   }
 
-  if (![array count] && Seconds > v14)
+  if (![array count] && Seconds > v15)
   {
-    v25 = 0;
+    v26 = 0;
     *missingCopy = 1;
-    return v25;
+    return v26;
   }
 
   if (![array count])
@@ -314,41 +314,41 @@
     return 0;
   }
 
-  v27 = newDataBuffer;
-  v31[0] = 0;
-  if ([(BWTimeOfFlightSynchronizerNode *)self _mergePointClouds:array intoDataBuffer:newDataBuffer numberOfPoints:v31])
+  v28 = newDataBuffer;
+  HIDWORD(v34[0]) = 0;
+  if ([(BWTimeOfFlightSynchronizerNode *)self _mergePointClouds:array intoDataBuffer:newDataBuffer numberOfPoints:v34 + 1])
   {
     time = **&MEMORY[0x1E6960C70];
-    BWSampleBufferCreateFromDataBufferWithNumberOfPoints(v27, &time, 0x6A737070u, (self + 176), &v36, v31[0]);
-    if (v36)
+    BWSampleBufferCreateFromDataBufferWithNumberOfPoints(v28, &time, 1785950320, (self + 176), &v40, HIDWORD(v34[0]));
+    if (v40)
     {
-      BWSampleBufferSetAttachedMedia(v29, 0x1F21AAA30, v36);
-      v25 = 1;
+      BWSampleBufferSetAttachedMedia(v32, 0x1F21AAA30, v40);
+      v26 = 1;
       goto LABEL_24;
     }
 
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v30, v31, v3, v32, missingCopy, v34[0], v34[1], v35);
   }
 
-  v25 = 0;
+  v26 = 0;
 LABEL_24:
-  CFRelease(v27);
-  if (v36)
+  CFRelease(v28);
+  if (v40)
   {
-    CFRelease(v36);
+    CFRelease(v40);
   }
 
-  return v25;
+  return v26;
 }
 
-- (unint64_t)_cleanupPointCloudBufferQueue
+- (id)_cleanupPointCloudBufferQueue
 {
   if (result)
   {
     v1 = result;
-    result = [*(result + 160) count];
+    result = [result[20] count];
     if (result)
     {
       v2 = *off_1E798A3C8;
@@ -359,11 +359,11 @@ LABEL_24:
         v5 = [CMGetAttachment(v4 v2];
         CMTimeMakeFromDictionary(&time, v5);
         Seconds = CMTimeGetSeconds(&time);
-        v7 = *(v1 + 136);
+        v7 = *(v1 + 17);
         if (v7 == 0.0 || Seconds > v7 + 0.0166)
         {
           result = [OUTLINED_FUNCTION_3_37() count];
-          if (result <= *(v1 + 192))
+          if (result <= *(v1 + 48))
           {
             break;
           }
@@ -385,7 +385,7 @@ LABEL_24:
   if (result)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v15 = OUTLINED_FUNCTION_4_34(array, v8, v9, v10, v11, v12, v13, v14, v41, v43, v45, buffer, v50, array, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102);
+    v15 = OUTLINED_FUNCTION_4_34(array, v8, v9, v10, v11, v12, v13, v14, v41, v43, v45, buffer, v50, array, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100);
     if (v15)
     {
       v16 = v15;
@@ -412,7 +412,7 @@ LABEL_4:
         v23 = [obj addObject:v22];
         if (v16 == ++v19)
         {
-          v16 = OUTLINED_FUNCTION_4_34(v23, v24, v25, v26, v27, v28, v29, v30, v42, v44, v46, buffera, v51, obj, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103);
+          v16 = OUTLINED_FUNCTION_4_34(v23, v24, v25, v26, v27, v28, v29, v30, v42, v44, v46, buffera, v51, obj, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101);
           if (v16)
           {
             goto LABEL_4;
@@ -435,7 +435,7 @@ LABEL_12:
 LABEL_24:
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
         return 0;
       }
 

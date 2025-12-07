@@ -5,6 +5,7 @@
 - (STBackgroundActivityVisualDescriptorColorRepresentation)initWithPatternColorKitImageName:(id)name;
 - (STBackgroundActivityVisualDescriptorColorRepresentation)initWithPlistRepresentation:(id)representation;
 - (STBackgroundActivityVisualDescriptorColorRepresentation)initWithSystemColorName:(id)name;
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
@@ -16,7 +17,7 @@
 
 - (STBackgroundActivityVisualDescriptorColorRepresentation)initWithPlistRepresentation:(id)representation
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy bs_safeStringForKey:@"SystemColorName"];
   v6 = [representationCopy bs_safeArrayForKey:@"RGBAColor"];
@@ -78,9 +79,9 @@ LABEL_17:
     v24 = STSystemStatusLogBundleLoading();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v27 = 138543362;
-      v28 = v10;
-      _os_log_error_impl(&dword_1DA9C2000, v24, OS_LOG_TYPE_ERROR, "Expected an RGB or RGBA color as an array of numbers, but got: '%{public}@'", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v10;
+      _os_log_error_impl(&dword_1DA9C2000, v24, OS_LOG_TYPE_ERROR, "Expected an RGB or RGBA color as an array of numbers, but got: '%{public}@'", &v26, 0xCu);
     }
 
     v23 = 0;
@@ -94,7 +95,6 @@ LABEL_3:
   selfCopy2 = self;
 LABEL_18:
 
-  v25 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -218,6 +218,26 @@ LABEL_18:
   build = [v3 build];
 
   return build;
+}
+
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug
+{
+  debugCopy = debug;
+  prefixCopy = prefix;
+  succinctDescriptionBuilder = [(STBackgroundActivityVisualDescriptorColorRepresentation *)self succinctDescriptionBuilder];
+  [succinctDescriptionBuilder setUseDebugDescription:debugCopy];
+  [succinctDescriptionBuilder setActiveMultilinePrefix:prefixCopy];
+
+  systemColorName = [(STBackgroundActivityVisualDescriptorColorRepresentation *)self systemColorName];
+  [succinctDescriptionBuilder appendString:systemColorName withName:@"systemColorName" skipIfEmpty:1];
+
+  bSColor = [(STBackgroundActivityVisualDescriptorColorRepresentation *)self BSColor];
+  v10 = [succinctDescriptionBuilder appendObject:bSColor withName:@"BSColor" skipIfNil:1];
+
+  patternColorKitImageName = [(STBackgroundActivityVisualDescriptorColorRepresentation *)self patternColorKitImageName];
+  [succinctDescriptionBuilder appendString:patternColorKitImageName withName:@"patternColorKitImageName" skipIfEmpty:1];
+
+  return succinctDescriptionBuilder;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -99,7 +99,7 @@
 
 - (BOOL)isSupportedFHIRResourceType:(id)type FHIRRelease:(id)release
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   releaseCopy = release;
   v8 = [(NSMutableDictionary *)self->_releasesTable objectForKeyedSubscript:releaseCopy];
@@ -124,15 +124,15 @@
     v13 = *MEMORY[0x277CCC2C0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEBUG))
     {
-      v16 = v13;
-      v18 = 138543874;
-      v19 = objc_opt_class();
-      v20 = 2114;
-      v21 = releaseCopy;
-      v22 = 2114;
-      v23 = typeCopy;
-      v17 = v19;
-      _os_log_debug_impl(&dword_2519FE000, v16, OS_LOG_TYPE_DEBUG, "%{public}@ FHIR release %{public}@ is supported but resource type %{public}@ is not", &v18, 0x20u);
+      v15 = v13;
+      v17 = 138543874;
+      v18 = objc_opt_class();
+      v19 = 2114;
+      v20 = releaseCopy;
+      v21 = 2114;
+      v22 = typeCopy;
+      v16 = v18;
+      _os_log_debug_impl(&dword_2519FE000, v15, OS_LOG_TYPE_DEBUG, "%{public}@ FHIR release %{public}@ is supported but resource type %{public}@ is not", &v17, 0x20u);
     }
 
 LABEL_8:
@@ -143,7 +143,6 @@ LABEL_8:
   v12 = 1;
 LABEL_9:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -276,52 +275,42 @@ LABEL_9:
 - (void)isSupportedFHIRVersionString:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v11 = *MEMORY[0x277D85DE8];
   v3 = v2;
   v4 = OUTLINED_FUNCTION_4();
   v5 = [v0 localizedDescription];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v6, v7, OS_LOG_TYPE_ERROR, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isSupportedFHIRRelease:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_4();
   v4 = v3;
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isSupportedFHIRResourceType:FHIRVersionString:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v11 = *MEMORY[0x277D85DE8];
   v3 = v2;
   v4 = OUTLINED_FUNCTION_4();
   v5 = [v0 localizedDescription];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v6, v7, OS_LOG_TYPE_ERROR, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)emetConfiguration
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
-  v4 = v0;
-  _os_log_error_impl(&dword_2519FE000, v1, OS_LOG_TYPE_ERROR, "%{public}@ failed to add DSTU-2 release to Emet configuration: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_2519FE000, v1, OS_LOG_TYPE_ERROR, "%{public}@ failed to add DSTU-2 release to Emet configuration: %{public}@", v2, 0x16u);
 }
 
 @end

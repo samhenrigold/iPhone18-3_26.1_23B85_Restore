@@ -57,14 +57,13 @@
 
 - (id)getTypeInternal
 {
-  type = self->type_;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->type_;
+  type = self->type_;
   if (isKindOfClass)
   {
     objc_opt_class();
-    if (!v5)
+    if (!type)
     {
       JreThrowNullPointerException();
     }
@@ -75,16 +74,16 @@ LABEL_8:
       JreThrowClassCastException();
     }
 
-    v5 = [v5 get];
+    type = [type get];
   }
 
   objc_opt_class();
-  if (v5 && (objc_opt_isKindOfClass() & 1) == 0)
+  if (type && (objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_8;
   }
 
-  return v5;
+  return type;
 }
 
 - (id)getType
@@ -101,12 +100,13 @@ LABEL_8:
     JreThrowNullPointerException();
   }
 
-  if ([getTypeInternal isPrimitive])
+  isPrimitive = [getTypeInternal isPrimitive];
+  if (isPrimitive)
   {
     return v4;
   }
 
-  return NSObject_class_();
+  return NSObject_class_(isPrimitive, v6);
 }
 
 - (unsigned)getTypeCode
@@ -193,8 +193,8 @@ LABEL_8:
   {
     if ([(JavaIoObjectStreamField *)self isPrimitive])
     {
-      v7 = NSString_valueOfChar_([(JavaIoObjectStreamField *)self getTypeCode]);
-      JreStrongAssign(p_typeString, v7);
+      v6 = NSString_valueOfChar_([(JavaIoObjectStreamField *)self getTypeCode]);
+      JreStrongAssign(p_typeString, v6);
     }
 
     typeString = *p_typeString;
@@ -209,32 +209,32 @@ LABEL_8:
     return;
   }
 
-  v8 = [(NSString *)*p_typeString replace:47 withChar:46];
-  if (!v8)
+  v7 = [(NSString *)*p_typeString replace:47 withChar:46];
+  if (!v7)
   {
 LABEL_15:
     JreThrowNullPointerException();
   }
 
-  v9 = v8;
-  if ([v8 charAtWithInt:0] == 76)
+  v8 = v7;
+  if ([v7 charAtWithInt:0] == 76)
   {
-    v9 = [v9 substring:1 endIndex:{objc_msgSend(v9, "length") - 1}];
+    v8 = [v8 substring:1 endIndex:{objc_msgSend(v8, "length") - 1}];
   }
 
-  v10 = IOSClass_forName_initialize_classLoader_(v9, 0, loader);
-  v11 = v10;
-  if (!v10)
+  v9 = IOSClass_forName_initialize_classLoader_(v8);
+  v10 = v9;
+  if (!v9)
   {
     JreThrowNullPointerException();
   }
 
-  if ([(JavaLangRefWeakReference *)v10 getClassLoader])
+  if ([(JavaLangRefWeakReference *)v9 getClassLoader])
   {
-    v11 = new_JavaLangRefWeakReference_initWithId_(v11);
+    v10 = new_JavaLangRefWeakReference_initWithId_(v10);
   }
 
-  JreStrongAssign(&self->type_, v11);
+  JreStrongAssign(&self->type_, v10);
 }
 
 - (uint64_t)defaultResolve
@@ -252,13 +252,13 @@ LABEL_15:
     {
       if (v3 == 83)
       {
-        v4 = +[IOSClass shortClass];
+        v5 = +[IOSClass shortClass];
         goto LABEL_21;
       }
 
       if (v3 == 90)
       {
-        v4 = +[IOSClass BOOLeanClass];
+        v5 = +[IOSClass BOOLeanClass];
         goto LABEL_21;
       }
     }
@@ -267,20 +267,20 @@ LABEL_15:
     {
       if (v3 == 73)
       {
-        v4 = +[IOSClass intClass];
+        v5 = +[IOSClass intClass];
         goto LABEL_21;
       }
 
       if (v3 == 74)
       {
-        v4 = +[IOSClass longClass];
+        v5 = +[IOSClass longClass];
         goto LABEL_21;
       }
     }
 
 LABEL_23:
-    v5 = NSObject_class_();
-    v6 = 0;
+    v6 = NSObject_class_(v3, v4);
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -288,13 +288,13 @@ LABEL_23:
   {
     if (v3 == 68)
     {
-      v4 = +[IOSClass doubleClass];
+      v5 = +[IOSClass doubleClass];
       goto LABEL_21;
     }
 
     if (v3 == 70)
     {
-      v4 = +[IOSClass floatClass];
+      v5 = +[IOSClass floatClass];
       goto LABEL_21;
     }
 
@@ -303,7 +303,7 @@ LABEL_23:
 
   if (v3 == 66)
   {
-    v4 = +[IOSClass byteClass];
+    v5 = +[IOSClass byteClass];
     goto LABEL_21;
   }
 
@@ -312,13 +312,13 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v4 = +[IOSClass charClass];
+  v5 = +[IOSClass charClass];
 LABEL_21:
-  v5 = v4;
-  v6 = 1;
+  v6 = v5;
+  v7 = 1;
 LABEL_22:
-  JreStrongAssign((self + 24), v5);
-  return v6;
+  JreStrongAssign((self + 24), v6);
+  return v7;
 }
 
 - (void)dealloc

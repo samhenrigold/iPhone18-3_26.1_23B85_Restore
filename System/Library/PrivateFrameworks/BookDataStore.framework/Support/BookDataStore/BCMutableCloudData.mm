@@ -42,8 +42,8 @@
 
     if (!privacyDelegate)
     {
-      v7 = sub_100002660();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_100002660(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_1001C095C();
       }
@@ -91,7 +91,7 @@
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001C0990();
@@ -105,7 +105,7 @@
 
 - (NSData)ckSystemFields
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1001C09C4();
@@ -118,7 +118,7 @@
 
 - (id)recordType
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1001C09F8();
@@ -129,7 +129,7 @@
 
 - (id)identifier
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1001C0A2C();
@@ -140,7 +140,7 @@
 
 - (id)zoneName
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_1001C08F4();

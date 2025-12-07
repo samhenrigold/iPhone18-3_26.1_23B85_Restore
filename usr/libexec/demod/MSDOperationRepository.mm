@@ -28,7 +28,7 @@
 
   else
   {
-    v8 = sub_100063A54();
+    v8 = sub_100063A54(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000D8E94();

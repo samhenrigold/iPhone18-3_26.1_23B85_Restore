@@ -59,7 +59,7 @@ LABEL_6:
 
 - (id)debugDescriptionExtraInfoDictionary
 {
-  v17[5] = *MEMORY[0x277D85DE8];
+  v16[5] = *MEMORY[0x277D85DE8];
   _wiFiConfigurationData = [(BCSWiFiConfigurationAction *)self _wiFiConfigurationData];
   ssid = [_wiFiConfigurationData ssid];
   password = [_wiFiConfigurationData password];
@@ -76,8 +76,8 @@ LABEL_6:
     v8 = &stru_2853953A0;
   }
 
-  v16[0] = @"ssid";
-  v16[1] = @"password";
+  v15[0] = @"ssid";
+  v15[1] = @"password";
   if (password)
   {
     v9 = password;
@@ -88,11 +88,11 @@ LABEL_6:
     v9 = &stru_2853953A0;
   }
 
-  v17[0] = v8;
-  v17[1] = v9;
+  v16[0] = v8;
+  v16[1] = v9;
   v10 = @"false";
-  v16[2] = @"isWEP";
-  v16[3] = @"isHidden";
+  v15[2] = @"isWEP";
+  v15[3] = @"isHidden";
   if (isWEP)
   {
     v11 = @"true";
@@ -108,22 +108,20 @@ LABEL_6:
     v10 = @"true";
   }
 
-  v17[2] = v11;
-  v17[3] = v10;
-  v16[4] = @"airplayPlayload";
+  v16[2] = v11;
+  v16[3] = v10;
+  v15[4] = @"airplayPlayload";
   hasAirplayPayload = [_wiFiConfigurationData hasAirplayPayload];
   if (hasAirplayPayload)
   {
     airplayBrokerID = [_wiFiConfigurationData airplayBrokerID];
   }
 
-  v17[4] = airplayBrokerID;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+  v16[4] = airplayBrokerID;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
   if (hasAirplayPayload)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -379,7 +377,7 @@ void __72__BCSWiFiConfigurationAction_performDefaultActionWithCompletionHandler_
 
 - (id)actionPickerItems
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = _BCSLocalizedString(@"Join Network", &_BCSLocalizableStringsBundleOnceToken, &_BCSLocalizableStringsBundle);
   _wiFiConfigurationData = [(BCSWiFiConfigurationAction *)self _wiFiConfigurationData];
   hasAirplayPayload = [_wiFiConfigurationData hasAirplayPayload];
@@ -395,23 +393,19 @@ void __72__BCSWiFiConfigurationAction_performDefaultActionWithCompletionHandler_
   actionIcon = [(BCSAction *)self actionIcon];
   [(BCSWiFiConfigurationActionPickerItem *)v7 setIcon:actionIcon];
 
-  v12[0] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
   return v9;
 }
 
 void __72__BCSWiFiConfigurationAction_performDefaultActionWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
-  v3 = 138543362;
-  v4 = v1;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSWiFiConfigurationAction: Error applying WiFi configuration: %{public}@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = v1;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSWiFiConfigurationAction: Error applying WiFi configuration: %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -47,20 +47,19 @@ LABEL_4:
 
   v18 = objc_autoreleasePoolPush();
   v19 = v12;
-  v20 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v21 = HMFGetOSLogHandle(v19, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v21 = HMFGetLogIdentifier(v19);
+    v22 = HMFGetLogIdentifier(v19);
     *buf = 138543362;
-    v26 = v21;
-    _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to create message", buf, 0xCu);
+    v26 = v22;
+    _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to create message", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
   v17 = 0;
 LABEL_8:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -79,16 +78,14 @@ LABEL_8:
 
 - (id)attributeDescriptions
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   v4 = MEMORY[0x277CCACA8];
   request = [(_HMFCFHTTPServerResponse *)self request];
   v6 = [v4 stringWithFormat:@"%@", request];
   v7 = [(HMFAttributeDescription *)v3 initWithName:@"Request" value:v6];
-  v11[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 
   return v8;
 }

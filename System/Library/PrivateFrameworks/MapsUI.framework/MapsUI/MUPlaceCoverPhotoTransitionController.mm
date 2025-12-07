@@ -50,7 +50,7 @@
 
 - (double)_logoImageAlphaForVerticalDrag
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [(MUPlaceCoverPhotoTransitionController *)self expansionProgress];
   v4 = v3;
   startingLogoAlphaTransitionValue = self->_metrics.coverPhotoMetrics.startingLogoAlphaTransitionValue;
@@ -65,9 +65,9 @@
       v9 = endingLogoAlphaTransitionValue - startingLogoAlphaTransitionValue;
       if (MUGetMUPlaceCoverPhotoTransitionControllerLog_onceToken != -1)
       {
-        v13 = v9;
+        v12 = v9;
         dispatch_once(&MUGetMUPlaceCoverPhotoTransitionControllerLog_onceToken, &__block_literal_global_274);
-        v9 = v13;
+        v9 = v12;
       }
 
       v10 = MUGetMUPlaceCoverPhotoTransitionControllerLog_log;
@@ -75,15 +75,14 @@
       if (os_log_type_enabled(MUGetMUPlaceCoverPhotoTransitionControllerLog_log, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v15 = v4;
-        v16 = 2048;
-        v17 = v6;
+        v14 = v4;
+        v15 = 2048;
+        v16 = v6;
         _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_DEBUG, "Progress for logo transition is %f and evaluated alpha is %f", buf, 0x16u);
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

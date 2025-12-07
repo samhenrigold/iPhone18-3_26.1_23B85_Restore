@@ -31,7 +31,7 @@
 {
   capturedCopy = captured;
   selfCopy = self;
-  NetworkAnalytics.logSessionConnectionSnapshotCaptured(_:)();
+  NetworkAnalytics.logSessionConnectionSnapshotCaptured(_:)(capturedCopy);
 }
 
 - (void)logDebugSessionConnectionSnapshotCaptured:(id)captured
@@ -63,27 +63,26 @@
 - (void)setNetworkConnectionId:(id)id
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (id)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for UUID();
-    v10 = 0;
+    v8 = type metadata accessor for UUID();
+    v9 = 0;
   }
 
   else
   {
-    v9 = type metadata accessor for UUID();
-    v10 = 1;
+    v8 = type metadata accessor for UUID();
+    v9 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v8, v10, 1, v9);
+  __swift_storeEnumTagSinglePayload(v7, v9, 1, v8);
   selfCopy = self;
   NetworkAnalytics.setNetworkConnectionId(_:)();
 
-  outlined destroy of NetworkConnectionProtocol?(v8, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  outlined destroy of NetworkConnectionProtocol?(v7, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
 }
 
 - (unsigned)getSequenceNumber

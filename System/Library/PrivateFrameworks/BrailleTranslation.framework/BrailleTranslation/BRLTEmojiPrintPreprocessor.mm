@@ -52,65 +52,64 @@
   rangesCopy = ranges;
   if (stringCopy)
   {
-    v25 = rangesCopy;
-    v11 = [stringCopy length];
+    v23 = rangesCopy;
+    v10 = [stringCopy length];
     string = [MEMORY[0x277CCAB68] string];
     if (map)
     {
-      v13 = [MEMORY[0x277CBEB28] dataWithLength:0];
+      v12 = [MEMORY[0x277CBEB28] dataWithLength:0];
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
     [stringCopy length];
-    locale = self->_locale;
-    v16 = stringCopy;
-    v17 = string;
-    v18 = v13;
+    v14 = stringCopy;
+    v15 = string;
+    v16 = v12;
     CEMEnumerateEmojiTokensInStringWithLocaleAndBlock();
-    v19 = v27[3];
-    if (v11 > v19)
+    v17 = v25[3];
+    if (v10 > v17)
     {
-      v20 = v17;
-      v21 = v18;
-      v22 = [v16 substringWithRange:{v19, v11 - v19}];
-      [v20 appendString:v22];
+      v18 = v15;
+      v19 = v16;
+      v20 = [v14 substringWithRange:{v17, v10 - v17}];
+      [v18 appendString:v20];
 
       do
       {
-        v30 = v19;
-        [v21 appendBytes:&v30 length:8];
-        ++v19;
+        v28 = v17;
+        [v19 appendBytes:&v28 length:8];
+        ++v17;
       }
 
-      while (v11 != v19);
+      while (v10 != v17);
     }
 
     if (map)
     {
-      v23 = v18;
-      *map = v18;
+      v21 = v16;
+      *map = v16;
     }
 
-    v14 = v17;
+    v13 = v15;
 
-    _Block_object_dispose(&v26, 8);
-    rangesCopy = v25;
+    _Block_object_dispose(&v24, 8);
+    rangesCopy = v23;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 void __100__BRLTEmojiPrintPreprocessor_preprocessPrintString_withLocationMap_isEightDot_textFormattingRanges___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)

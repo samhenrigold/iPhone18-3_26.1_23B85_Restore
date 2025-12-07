@@ -10,30 +10,28 @@
 
 - (id)attributeDescriptions
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   recordID = [(HMBCloudZoneRecordPushConflict *)self recordID];
   hmbDescription = [recordID hmbDescription];
-  v19 = [v3 initWithName:@"Record ID" value:hmbDescription];
-  v22[0] = v19;
+  v18 = [v3 initWithName:@"Record ID" value:hmbDescription];
+  v21[0] = v18;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   clientRecord = [(HMBCloudZoneRecordPushConflict *)self clientRecord];
   hmbDescription2 = [clientRecord hmbDescription];
   v7 = [v4 initWithName:@"Client Record" value:hmbDescription2];
-  v22[1] = v7;
+  v21[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   serverRecord = [(HMBCloudZoneRecordPushConflict *)self serverRecord];
   hmbDescription3 = [serverRecord hmbDescription];
   v11 = [v8 initWithName:@"Server Record" value:hmbDescription3];
-  v22[2] = v11;
+  v21[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   ancestorRecord = [(HMBCloudZoneRecordPushConflict *)self ancestorRecord];
   hmbDescription4 = [ancestorRecord hmbDescription];
   v15 = [v12 initWithName:@"Ancestor Record" value:hmbDescription4];
-  v22[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v21[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
 
   return v16;
 }
@@ -65,25 +63,7 @@
   {
     recordID = [(HMBCloudZoneRecordPushConflict *)self recordID];
     recordID2 = [v6 recordID];
-    if (![recordID isEqual:recordID2])
-    {
-      goto LABEL_9;
-    }
-
-    clientRecord = [(HMBCloudZoneRecordPushConflict *)self clientRecord];
-    clientRecord2 = [v6 clientRecord];
-    v11 = HMFEqualObjects();
-
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-
-    serverRecord = [(HMBCloudZoneRecordPushConflict *)self serverRecord];
-    serverRecord2 = [v6 serverRecord];
-    v14 = HMFEqualObjects();
-
-    if (v14)
+    if ([recordID isEqual:recordID2] && (-[HMBCloudZoneRecordPushConflict clientRecord](self, "clientRecord"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "clientRecord"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v11) && (-[HMBCloudZoneRecordPushConflict serverRecord](self, "serverRecord"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "serverRecord"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14))
     {
       ancestorRecord = [(HMBCloudZoneRecordPushConflict *)self ancestorRecord];
       ancestorRecord2 = [v6 ancestorRecord];
@@ -92,7 +72,6 @@
 
     else
     {
-LABEL_9:
       v17 = 0;
     }
   }
@@ -138,7 +117,7 @@ LABEL_9:
 
 - (HMBCloudZoneRecordPushConflict)initWithRecordID:(id)d error:(id)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dCopy = d;
   errorCopy = error;
   if (![errorCopy hmbIsCloudKitError])
@@ -220,68 +199,67 @@ LABEL_18:
 
       else
       {
-        v31 = objc_autoreleasePoolPush();
+        v30 = objc_autoreleasePoolPush();
         self = self;
-        v32 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v33 = HMFGetLogIdentifier();
+          v32 = HMFGetLogIdentifier();
           userInfo4 = [errorCopy userInfo];
-          v35 = 138543618;
-          v36 = v33;
-          v37 = 2112;
-          v38 = userInfo4;
-          _os_log_impl(&dword_22AD27000, v32, OS_LOG_TYPE_ERROR, "%{public}@Server record changed error user info does not have ancestor record: %@", &v35, 0x16u);
+          v34 = 138543618;
+          v35 = v32;
+          v36 = 2112;
+          v37 = userInfo4;
+          _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_ERROR, "%{public}@Server record changed error user info does not have ancestor record: %@", &v34, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v31);
+        objc_autoreleasePoolPop(v30);
         selfCopy2 = 0;
       }
     }
 
     else
     {
-      v27 = objc_autoreleasePoolPush();
+      v26 = objc_autoreleasePoolPush();
       self = self;
-      v28 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v29 = HMFGetLogIdentifier();
+        v28 = HMFGetLogIdentifier();
         userInfo5 = [errorCopy userInfo];
-        v35 = 138543618;
-        v36 = v29;
-        v37 = 2112;
-        v38 = userInfo5;
-        _os_log_impl(&dword_22AD27000, v28, OS_LOG_TYPE_ERROR, "%{public}@Server record changed error user info does not have server record: %@", &v35, 0x16u);
+        v34 = 138543618;
+        v35 = v28;
+        v36 = 2112;
+        v37 = userInfo5;
+        _os_log_impl(&dword_22AD27000, v27, OS_LOG_TYPE_ERROR, "%{public}@Server record changed error user info does not have server record: %@", &v34, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v27);
+      objc_autoreleasePoolPop(v26);
       selfCopy2 = 0;
     }
   }
 
   else
   {
-    v23 = objc_autoreleasePoolPush();
+    v22 = objc_autoreleasePoolPush();
     self = self;
-    v24 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v25 = HMFGetLogIdentifier();
+      v24 = HMFGetLogIdentifier();
       userInfo6 = [errorCopy userInfo];
-      v35 = 138543618;
-      v36 = v25;
-      v37 = 2112;
-      v38 = userInfo6;
-      _os_log_impl(&dword_22AD27000, v24, OS_LOG_TYPE_ERROR, "%{public}@Server record changed error user info does not have client record: %@", &v35, 0x16u);
+      v34 = 138543618;
+      v35 = v24;
+      v36 = 2112;
+      v37 = userInfo6;
+      _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_ERROR, "%{public}@Server record changed error user info does not have client record: %@", &v34, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v23);
+    objc_autoreleasePoolPop(v22);
     selfCopy2 = 0;
   }
 
 LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 

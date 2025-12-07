@@ -13,20 +13,20 @@
 
   if (_NRIsInternalInstall___internalInstall == 1)
   {
-    v2 = [self description];
+    v3 = [self description];
   }
 
   else
   {
-    v3 = MEMORY[0x1E696AEC0];
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = MEMORY[0x1E696AEC0];
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     name = [self name];
     reason = [self reason];
-    v2 = [v3 stringWithFormat:@"class=%@ name=%@ reason=%@", v5, name, reason];
+    v3 = [v4 stringWithFormat:@"class=%@ name=%@ reason=%@", v6, name, reason];
   }
 
-  return v2;
+  return v3;
 }
 
 @end

@@ -1,6 +1,7 @@
 @interface QuickReminderViewController
 - (_TtC19RemindersAppIntents27QuickReminderViewController)initWithCoder:(id)coder;
 - (_TtC19RemindersAppIntents27QuickReminderViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -28,6 +29,20 @@
 {
   selfCopy = self;
   QuickReminderViewController.viewDidLoad()();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(QuickReminderViewController *)&v5 viewDidAppear:appearCopy];
+  if (v4[OBJC_IVAR____TtC19RemindersAppIntents27QuickReminderViewController_configurationUsesLastSelectedLocationInViewDidAppear] == 1 && *&v4[OBJC_IVAR____TtC19RemindersAppIntents27QuickReminderViewController_quickReminderModuleInterface])
+  {
+    swift_getObjectType();
+    sub_261CFE594();
+  }
 }
 
 - (_TtC19RemindersAppIntents27QuickReminderViewController)initWithNibName:(id)name bundle:(id)bundle

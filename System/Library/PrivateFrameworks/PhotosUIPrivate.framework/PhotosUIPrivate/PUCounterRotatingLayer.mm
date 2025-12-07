@@ -23,7 +23,7 @@
     v10 = fromValue;
     if (fromValue)
     {
-      [fromValue CATransform3DValue];
+      objc_msgSend_CATransform3DValue(fromValue);
     }
 
     else

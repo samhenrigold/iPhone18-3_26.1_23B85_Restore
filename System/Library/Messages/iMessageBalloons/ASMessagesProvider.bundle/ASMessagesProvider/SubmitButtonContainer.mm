@@ -17,7 +17,7 @@
   v11.receiver = self;
   v11.super_class = type metadata accessor for SubmitButtonContainer();
   height = [(SubmitButtonContainer *)&v11 initWithFrame:x, y, width, height];
-  sub_BE70(0, &qword_93E540);
+  sub_BE70(0, &qword_93E540, UIColor_ptr);
   v8 = height;
   v9 = sub_76A080();
   [(SubmitButtonContainer *)v8 setBackgroundColor:v9];

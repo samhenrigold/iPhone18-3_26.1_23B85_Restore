@@ -94,8 +94,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  errorOccurred = self->_errorOccurred;
-  v7 = toCopy;
   PBDataWriterWriteBOOLField();
   if (self->_signedData)
   {
@@ -107,53 +105,53 @@
     PBDataWriterWriteDataField();
   }
 
-  v6 = v7;
+  v4 = toCopy;
   if (self->_refKeySignature)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_refKeyAttestation)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_baaSignature)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_baaAttestation)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_finalRequestJsonData)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_refKeyError)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_signatureError)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_baaError)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 }
 
@@ -278,7 +276,6 @@
     goto LABEL_26;
   }
 
-  v5 = *(equalCopy + 88);
   if (self->_errorOccurred)
   {
     if ((*(equalCopy + 88) & 1) == 0)
@@ -290,7 +287,7 @@
   else if (*(equalCopy + 88))
   {
 LABEL_26:
-    v16 = 0;
+    v15 = 0;
     goto LABEL_27;
   }
 
@@ -375,17 +372,17 @@ LABEL_26:
   baaError = self->_baaError;
   if (baaError | *(equalCopy + 2))
   {
-    v16 = [(NSString *)baaError isEqual:?];
+    v15 = [(NSString *)baaError isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v15 = 1;
   }
 
 LABEL_27:
 
-  return v16;
+  return v15;
 }
 
 - (unint64_t)hash

@@ -17,16 +17,14 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  matchingFieldType = self->_matchingFieldType;
-  v5 = [v3 initWithFormat:@"<SGContactMatch contact=%@ matchingFieldRecordId=%@ tokens=%@ type=%lld matchesDetails=%@>", self->_contact, self->_matchingFieldRecordId, self->_matchTokens, matchingFieldType, self->_matchedDetails];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<SGContactMatch contact=%@ matchingFieldRecordId=%@ tokens=%@ type=%lld matchesDetails=%@>", self->_contact, self->_matchingFieldRecordId, self->_matchTokens, self->_matchingFieldType, self->_matchedDetails];
 
-  return v5;
+  return v2;
 }
 
 - (SGObject)matchingField
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   matchingFieldType = self->_matchingFieldType;
   phones = MEMORY[0x1E695E0F0];
   if (matchingFieldType <= 2)
@@ -69,26 +67,26 @@
     }
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = phones;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         recordId2 = [v14 recordId];
         v16 = [recordId2 isEqualToRecordId:self->_matchingFieldRecordId];
 
@@ -100,7 +98,7 @@
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         continue;
@@ -112,8 +110,6 @@
 
   name2 = 0;
 LABEL_24:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return name2;
 }

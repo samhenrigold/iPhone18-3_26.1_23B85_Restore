@@ -24,15 +24,13 @@
 
 + (id)errorWithMXErrorCode:()MetricKit
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v5 = [self alloc];
-  v11 = *MEMORY[0x277CCA450];
+  v10 = *MEMORY[0x277CCA450];
   v6 = [(objc_class *)self _defaultDescriptionForMXErrorCode:a3];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v5 initWithDomain:@"MXErrorDomain" code:a3 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

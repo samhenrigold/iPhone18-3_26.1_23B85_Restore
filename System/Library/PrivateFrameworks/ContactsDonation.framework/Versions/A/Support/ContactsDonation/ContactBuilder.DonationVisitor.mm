@@ -23,15 +23,14 @@
 {
   v6 = type metadata accessor for PersonNameComponents();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6, v9);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6, v8);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
   valueCopy = value;
   selfCopy = self;
   sub_10001BABC();
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 - (void)visitDonationValue:(id)value emailAddress:(id)address label:(id)label

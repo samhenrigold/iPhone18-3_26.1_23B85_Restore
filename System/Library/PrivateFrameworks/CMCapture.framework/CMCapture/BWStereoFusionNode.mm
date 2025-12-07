@@ -1,17 +1,17 @@
 @interface BWStereoFusionNode
+- (BOOL)_receivedExpectedNumberOfFramesOrErrors;
+- (_BYTE)_setExpectedInputFramesWithResolvedCaptureSettings:(_BYTE *)result;
 - (id)_initWithTelephotoSensorIDDictionary:(id)dictionary cameraInfoByPortType:(id)type sbpCreationFunction:(void *)function treatSoftErrorsAsHardErrors:(BOOL)errors;
+- (id)_sampleBufferProcessorOutputReady:(const void *)ready sampleBuffer:;
+- (id)sbpOptionsDictionary;
 - (uint64_t)_processSampleBufferInSampleBufferProcessor:(void *)processor metadataDictionary:;
 - (uint64_t)_processSequenceInSampleBufferProcessor;
-- (uint64_t)_receivedExpectedNumberOfFramesOrErrors;
-- (uint64_t)_sampleBufferProcessorOutputReady:(const void *)ready sampleBuffer:;
-- (uint64_t)_setExpectedInputFramesWithResolvedCaptureSettings:(uint64_t)result;
 - (uint64_t)_setPropertyOnSampleBufferProcessorWithKey:(uint64_t)key value:;
 - (uint64_t)_setupSampleBufferProcessor;
-- (uint64_t)sbpOptionsDictionary;
 - (void)_clearCaptureRequestState;
 - (void)_endSequence;
 - (void)_handleError:(uint64_t)error forSampleBuffer:(uint64_t)buffer input:(uint64_t)input metadata:;
-- (void)_setZoomRectangleOnSampleBufferProcessorIfNecessaryBasedOnMetadata:(uint64_t)metadata captureType:(void *)type;
+- (void)_setZoomRectangleOnSampleBufferProcessorIfNecessaryBasedOnMetadata:(uint64_t)result captureType:(void *)type;
 - (void)_setZoomRectangleOnSampleBufferProcessorWithRectangle:(double)rectangle;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
@@ -339,29 +339,29 @@
     return 0;
   }
 
-  v9 = 0;
+  v11 = 0;
   sbpOptionsDictionary = [(BWStereoFusionNode *)self sbpOptionsDictionary];
   if (!sbpOptionsDictionary || (v3 = *(self + 128)) == 0)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_2_33();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
     return 0;
   }
 
-  v4 = v3(*MEMORY[0x1E695E480], @"StereoFusion", sbpOptionsDictionary, &v9);
+  v4 = v3(*MEMORY[0x1E695E480], @"StereoFusion", sbpOptionsDictionary, &v11);
   if (v4)
   {
     v7 = v4;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_2_33();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, v14, v15);
   }
 
   else
   {
-    v5 = v9;
-    *(self + 136) = v9;
+    v5 = v11;
+    *(self + 136) = v11;
     v6 = *(*(CMBaseObjectGetVTable() + 16) + 8);
     if (v6)
     {
@@ -403,10 +403,10 @@
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_5_53();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v27, v28, v29, v30, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_7_43();
     OUTLINED_FUNCTION_8_34();
-    v34 = 308;
+    v38 = 308;
     goto LABEL_47;
   }
 
@@ -435,16 +435,16 @@
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_5_53();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v39, v40, v41, v42, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_7_43();
     OUTLINED_FUNCTION_8_34();
-    v34 = 311;
+    v38 = 311;
 LABEL_47:
-    FigCapturePleaseFileRadar(v27, v28, v29, v30, v31, v34, v32, v33, v50);
+    FigCapturePleaseFileRadar(v31, v32, v33, v34, v35, v38, v36, v37, v66);
     v11 = 0;
 LABEL_52:
     free(v4);
-    [(BWStereoFusionNode *)self _handleError:v49 forSampleBuffer:input input:v11 metadata:?];
+    [(BWStereoFusionNode *)self _handleError:v65 forSampleBuffer:input input:v11 metadata:?];
     goto LABEL_20;
   }
 
@@ -471,14 +471,14 @@ LABEL_52:
       _os_log_send_and_compose_impl();
     }
 
-    v4 = v50;
+    v4 = v66;
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_5_53();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v43, v44, v45, v46, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_7_43();
     OUTLINED_FUNCTION_8_34();
-    FigCapturePleaseFileRadar(v35, v36, v37, v38, v39, 315, v40, v41, v50);
+    FigCapturePleaseFileRadar(v47, v48, v49, v50, v51, 315, v52, v53, v66);
     goto LABEL_52;
   }
 
@@ -505,14 +505,14 @@ LABEL_52:
       _os_log_send_and_compose_impl();
     }
 
-    v4 = v50;
+    v4 = v66;
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_5_53();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v54, v55, v56, v57, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_7_43();
     OUTLINED_FUNCTION_8_34();
-    FigCapturePleaseFileRadar(v42, v43, v44, v45, v46, 318, v47, v48, v50);
+    FigCapturePleaseFileRadar(v58, v59, v60, v61, v62, 318, v63, v64, v66);
     goto LABEL_52;
   }
 
@@ -599,7 +599,7 @@ LABEL_20:
   return result;
 }
 
-- (uint64_t)_setExpectedInputFramesWithResolvedCaptureSettings:(uint64_t)result
+- (_BYTE)_setExpectedInputFramesWithResolvedCaptureSettings:(_BYTE *)result
 {
   if (result)
   {
@@ -665,7 +665,7 @@ LABEL_20:
   }
 }
 
-- (uint64_t)_receivedExpectedNumberOfFramesOrErrors
+- (BOOL)_receivedExpectedNumberOfFramesOrErrors
 {
   if (!self)
   {
@@ -681,7 +681,7 @@ LABEL_20:
   if (*(self + 202) == 1)
   {
     v3 = (*(self + 203) & 1) != 0 || [*(self + 232) count] == 1;
-    return v2 & v3;
+    return v2 && v3;
   }
 
   return v2;
@@ -748,7 +748,7 @@ LABEL_18:
     }
 
     v18 = *(self + *v17);
-    v19 = OUTLINED_FUNCTION_1_3(v9, v10, v11, v12, v13, v14, v15, v16, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, 0);
+    v19 = OUTLINED_FUNCTION_1_3(v9, v10, v11, v12, v13, v14, v15, v16, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
     if (v19)
     {
       v20 = v19;
@@ -765,7 +765,7 @@ LABEL_18:
           v23 = [v18 emitNodeError:*(8 * i)];
         }
 
-        v20 = OUTLINED_FUNCTION_1_3(v23, v24, v25, v26, v27, v28, v29, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v63);
+        v20 = OUTLINED_FUNCTION_1_3(v23, v24, v25, v26, v27, v28, v29, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62);
       }
 
       while (v20);
@@ -780,29 +780,30 @@ LABEL_18:
   [(BWStereoFusionNode *)self _clearCaptureRequestState];
 }
 
-- (uint64_t)sbpOptionsDictionary
+- (id)sbpOptionsDictionary
 {
   if (result)
   {
     v1 = result;
-    v2 = [*(result + 144) objectForKeyedSubscript:@"StereoFusionParameters"];
+    v2 = [result[18] objectForKeyedSubscript:@"StereoFusionParameters"];
     if (v2)
     {
       v3 = *off_1E798D370;
-      v4[0] = *off_1E798A9D0;
-      v4[1] = v3;
-      v5[0] = v2;
-      v5[1] = &unk_1F2244980;
-      v4[2] = *off_1E798A970;
-      v5[2] = *(v1 + 152);
-      return [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
+      v6 = *off_1E798A9D0;
+      v7 = v3;
+      v9 = v2;
+      v10 = &unk_1F2244980;
+      v8 = *off_1E798A970;
+      v11 = v1[19];
+      return [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v6 count:3];
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_2_33();
-      FigDebugAssert3();
+      v4 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, v10, v11);
       return 0;
     }
   }
@@ -828,11 +829,11 @@ LABEL_18:
   return result;
 }
 
-- (void)_setZoomRectangleOnSampleBufferProcessorIfNecessaryBasedOnMetadata:(uint64_t)metadata captureType:(void *)type
+- (void)_setZoomRectangleOnSampleBufferProcessorIfNecessaryBasedOnMetadata:(uint64_t)result captureType:(void *)type
 {
-  if (metadata && [objc_msgSend(type objectForKeyedSubscript:{*off_1E798B710), "BOOLValue"}])
+  if (result && [objc_msgSend(type objectForKeyedSubscript:{*off_1E798B710), "BOOLValue"}])
   {
-    if ([objc_msgSend(type objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0C0}])
+    if (objc_msgSend_isEqualToString_([type objectForKeyedSubscript:*off_1E798B540]))
     {
       v9.origin = *MEMORY[0x1E695F050];
       v9.size = *(MEMORY[0x1E695F050] + 16);
@@ -864,7 +865,7 @@ LABEL_18:
     height = 1.0;
     x = 0.0;
 LABEL_10:
-    [(BWStereoFusionNode *)metadata _setZoomRectangleOnSampleBufferProcessorWithRectangle:y, width, height];
+    [(BWStereoFusionNode *)result _setZoomRectangleOnSampleBufferProcessorWithRectangle:y, width, height];
   }
 }
 
@@ -876,16 +877,20 @@ LABEL_10:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_2_33();
-      FigDebugAssert3();
+      v9 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v11, v12, v13, v14, v15, v16, v17);
       return;
     }
 
     DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*&a2);
-    if ([(BWStereoFusionNode *)self _setPropertyOnSampleBufferProcessorWithKey:DictionaryRepresentation value:?])
+    v7 = [(BWStereoFusionNode *)self _setPropertyOnSampleBufferProcessorWithKey:DictionaryRepresentation value:?];
+    if (v7)
     {
+      v8 = v7;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_2_33();
-      FigDebugAssert3();
+      v10 = v8;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v11, v12, v13, v14, v15, v16, v17);
       if (!DictionaryRepresentation)
       {
         return;
@@ -905,15 +910,15 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_sampleBufferProcessorOutputReady:(const void *)ready sampleBuffer:
+- (id)_sampleBufferProcessorOutputReady:(const void *)ready sampleBuffer:
 {
   if (result)
   {
     v6 = result;
     v7 = &OBJC_IVAR___BWStereoFusionNode__defaultOutput;
-    if ([objc_msgSend(*(result + 160) "captureSettings")] == 3)
+    if ([objc_msgSend(result[20] "captureSettings")] == 3)
     {
-      v8 = [objc_msgSend(*(v6 + 160) "captureSettings")];
+      v8 = [objc_msgSend(v6[20] "captureSettings")];
       v9 = (v8 & 0x400) >> 10;
       if ((v8 & 0x400) != 0)
       {
@@ -948,20 +953,19 @@ LABEL_10:
 
       else
       {
-        [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0C0}];
+        objc_msgSend_isEqualToString_([v13 objectForKeyedSubscript:*off_1E798B540]);
       }
     }
 
-    v14 = *(v6 + 208);
-    *(v6 + 208) = 0;
+    v14 = v6[26];
+    v6[26] = 0;
     if (v11)
     {
       fig_log_get_emitter();
-      LODWORD(v33) = v11;
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v3, v41, v42, LODWORD(rect.origin.x), *&rect.origin.y, *&rect.size.width, LODWORD(rect.size.height));
 
-      v32 = [BWNodeError newError:v11 sourceNode:v6 stillImageSettings:*(v6 + 160) metadata:v13, v33, v3];
-      [v10 emitNodeError:v32];
+      v40 = [BWNodeError newError:v11 sourceNode:v6 stillImageSettings:v6[20] metadata:v13];
+      [v10 emitNodeError:v40];
     }
 
     else
@@ -972,27 +976,34 @@ LABEL_10:
       rect.size = v16;
       if (CGRectMakeWithDictionaryRepresentation(v14, &rect))
       {
-        v36.origin.x = 0.0;
-        v36.origin.y = 0.0;
-        v36.size.width = 1.0;
-        v36.size.height = 1.0;
-        if (!CGRectEqualToRect(rect, v36))
+        v45.origin.x = 0.0;
+        v45.origin.y = 0.0;
+        v45.size.width = 1.0;
+        v45.size.height = 1.0;
+        if (!CGRectEqualToRect(rect, v45))
         {
-          v17 = [objc_msgSend(*(v6 + 160) "requestedSettings")];
-          v34 = v17;
-          v18 = [objc_msgSend(*(v6 + 160) "requestedSettings")];
+          v17 = [objc_msgSend(v6[20] "requestedSettings")];
+          v43 = v17;
+          v18 = [objc_msgSend(v6[20] "requestedSettings")];
           v19 = v17 / v18;
           width = [OUTLINED_FUNCTION_12_32() width];
           height = [OUTLINED_FUNCTION_12_32() height];
-          FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(width, height, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, v19);
-          v23 = v22;
-          v25 = v24;
-          v27 = v26;
-          v29 = v28;
+          v22.n128_u64[0] = *&rect.origin.x;
+          v23.n128_u64[0] = *&rect.size.width;
+          v24.n128_u64[0] = *&rect.size.height;
+          v25.n128_f64[0] = v19;
+          FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(width, height, v22, rect.origin.y, v23, v24, v25, v26);
+          v28 = v27;
+          v30 = v29;
+          v32 = v31;
+          v34 = v33;
           LODWORD(width) = [OUTLINED_FUNCTION_12_32() width];
           height2 = [OUTLINED_FUNCTION_12_32() height];
-          FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v13, width | (height2 << 32), v34 | (v18 << 32), v23, v25, v27, v29, *v15, v15[1], v15[2], v15[3]);
-          FigCaptureMetadataUtilitiesPreventFurtherCropping(v13, v31);
+          v36.n128_u64[0] = v28;
+          v37.n128_u64[0] = v30;
+          v38.n128_u64[0] = v32;
+          FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v13, width | (height2 << 32), v43 | (v18 << 32), v36, v37, v38, v34, *v15, v15[1], v15[2], v15[3]);
+          FigCaptureMetadataUtilitiesPreventFurtherCropping(v13, v39);
         }
       }
 

@@ -81,10 +81,10 @@
 
 - (id)runAction
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v41.receiver = self;
-  v41.super_class = AMSUIWebODIAssessmentAction;
-  runAction = [(AMSUIWebAction *)&v41 runAction];
+  v45 = *MEMORY[0x1E69E9840];
+  v40.receiver = self;
+  v40.super_class = AMSUIWebODIAssessmentAction;
+  runAction = [(AMSUIWebAction *)&v40 runAction];
   rawAccountType = [(AMSUIWebODIAssessmentAction *)self rawAccountType];
   v5 = [(AMSUIWebODIAssessmentAction *)self accountTypeForString:rawAccountType];
 
@@ -119,9 +119,9 @@ LABEL_17:
     v21 = objc_opt_class();
     v22 = AMSLogKey();
     *buf = 138543618;
-    v43 = v21;
-    v44 = 2114;
-    v45 = v22;
+    v42 = v21;
+    v43 = 2114;
+    v44 = v22;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No bundle identifier passed. Will fallback to process bundle identifier.", buf, 0x16u);
   }
 
@@ -148,9 +148,9 @@ LABEL_3:
       v27 = objc_opt_class();
       v28 = AMSLogKey();
       *buf = 138543618;
-      v43 = v27;
-      v44 = 2114;
-      v45 = v28;
+      v42 = v27;
+      v43 = 2114;
+      v44 = v28;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No bundle identifier found. Terminating assessment action.", buf, 0x16u);
     }
 
@@ -172,13 +172,13 @@ LABEL_3:
     v16 = [v14 initWithAttributes:additionalAttributes2];
 
     v17 = [v12 provideUpdateWithAttributes:v16];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __40__AMSUIWebODIAssessmentAction_runAction__block_invoke;
-    v39[3] = &unk_1E7F26898;
-    v39[4] = self;
-    v40 = v12;
-    getAssessment = [v17 continueWithBlock:v39];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __40__AMSUIWebODIAssessmentAction_runAction__block_invoke;
+    v38[3] = &unk_1E7F26898;
+    v38[4] = self;
+    v39 = v12;
+    getAssessment = [v17 continueWithBlock:v38];
   }
 
   else
@@ -195,33 +195,32 @@ LABEL_3:
       v33 = objc_opt_class();
       v34 = AMSLogKey();
       *buf = 138543618;
-      v43 = v33;
-      v44 = 2114;
-      v45 = v34;
+      v42 = v33;
+      v43 = 2114;
+      v44 = v34;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running ODISession to get assessment.", buf, 0x16u);
     }
 
     getAssessment = [v12 getAssessment];
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __40__AMSUIWebODIAssessmentAction_runAction__block_invoke_28;
-  v37[3] = &unk_1E7F268C0;
-  v37[4] = self;
-  v38 = v12;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __40__AMSUIWebODIAssessmentAction_runAction__block_invoke_28;
+  v36[3] = &unk_1E7F268C0;
+  v36[4] = self;
+  v37 = v12;
   v29 = v12;
-  v30 = [getAssessment thenWithBlock:v37];
+  v30 = [getAssessment thenWithBlock:v36];
 
 LABEL_24:
-  v35 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
 
 id __40__AMSUIWebODIAssessmentAction_runAction__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v2)
   {
@@ -231,25 +230,23 @@ id __40__AMSUIWebODIAssessmentAction_runAction__block_invoke(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v10 = 138543618;
+    v4 = objc_opt_class();
+    v5 = AMSLogKey();
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
     v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running ODISession to get assessment.", &v10, 0x16u);
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running ODISession to get assessment.", &v8, 0x16u);
   }
 
-  v7 = [*(a1 + 40) getAssessment];
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = [*(a1 + 40) getAssessment];
 
-  return v7;
+  return v6;
 }
 
 id __40__AMSUIWebODIAssessmentAction_runAction__block_invoke_28(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698C968];
   v4 = a2;
   v5 = [v3 sharedWebUIConfig];
@@ -261,29 +258,26 @@ id __40__AMSUIWebODIAssessmentAction_runAction__block_invoke_28(uint64_t a1, voi
   v6 = [v5 OSLogObject];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = AMSLogKey();
+    v7 = objc_opt_class();
+    v8 = AMSLogKey();
     *buf = 138543618;
+    v18 = v7;
+    v19 = 2114;
     v20 = v8;
-    v21 = 2114;
-    v22 = v9;
     _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully fetched assessment", buf, 0x16u);
   }
 
-  v10 = MEMORY[0x1E698CAD0];
-  v11 = [v4 stringValue];
+  v9 = MEMORY[0x1E698CAD0];
+  v10 = [v4 stringValue];
 
-  v17[1] = @"cacheIdentifier";
-  v18[0] = v11;
-  v12 = [*(a1 + 40) cacheIdentifier];
-  v18[1] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v14 = [v10 promiseWithResult:v13];
+  v15[1] = @"cacheIdentifier";
+  v16[0] = v10;
+  v11 = [*(a1 + 40) cacheIdentifier];
+  v16[1] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v13 = [v9 promiseWithResult:v12];
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 - (unint64_t)accountTypeForString:(id)string
@@ -307,21 +301,19 @@ id __40__AMSUIWebODIAssessmentAction_runAction__block_invoke_28(uint64_t a1, voi
 
 - (id)sessionIdentifierForString:(id)string
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698C710];
-  v11[0] = @"create";
-  v11[1] = @"submit";
+  v10[0] = @"create";
+  v10[1] = @"submit";
   v4 = *MEMORY[0x1E698C718];
-  v12[0] = v3;
-  v12[1] = v4;
-  v11[2] = @"idUpdate";
-  v12[2] = *MEMORY[0x1E698C720];
+  v11[0] = v3;
+  v11[1] = v4;
+  v10[2] = @"idUpdate";
+  v11[2] = *MEMORY[0x1E698C720];
   v5 = MEMORY[0x1E695DF20];
   stringCopy = string;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:v10 count:3];
   v8 = [v7 objectForKeyedSubscript:stringCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

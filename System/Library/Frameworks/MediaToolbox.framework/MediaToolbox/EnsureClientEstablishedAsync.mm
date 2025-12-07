@@ -7,7 +7,7 @@ uint64_t __remoteXPCVideoTargetClient_EnsureClientEstablishedAsync_block_invoke(
 {
   if (!a2 && a3 != 1)
   {
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, v7, vars0);
   }
 
   v4 = *(*(a1 + 32) + 16);

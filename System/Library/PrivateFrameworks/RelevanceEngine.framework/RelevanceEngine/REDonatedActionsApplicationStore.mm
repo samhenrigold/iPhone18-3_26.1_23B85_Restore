@@ -263,7 +263,7 @@ void __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fro
 
 void __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fromOnlyRecentPlatform_block___block_invoke_2(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     [*(a1 + 32) bundlesFromMostRecentlyProvidingPlatforms];
@@ -276,62 +276,60 @@ void __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fro
   v2 = ;
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
   v4 = objc_alloc_init(REExpectation);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = v2;
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       v8 = 0;
       do
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * v8);
+        v9 = *(*(&v23 + 1) + 8 * v8);
         [(REExpectation *)v4 beginOperation];
         v10 = [*(a1 + 40) objectForKeyedSubscript:v9];
         v11 = *(a1 + 48);
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fromOnlyRecentPlatform_block___block_invoke_3;
-        v20[3] = &unk_2785FDB10;
-        v20[4] = v11;
-        v21 = v3;
-        v22 = v9;
-        v23 = v4;
-        [v11 _sortDonationsByCount:v10 completion:v20];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fromOnlyRecentPlatform_block___block_invoke_3;
+        v19[3] = &unk_2785FDB10;
+        v19[4] = v11;
+        v20 = v3;
+        v21 = v9;
+        v22 = v4;
+        [v11 _sortDonationsByCount:v10 completion:v19];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v6);
   }
 
   v12 = *(*(a1 + 48) + 32);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fromOnlyRecentPlatform_block___block_invoke_5;
-  v17[3] = &unk_2785FA150;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fromOnlyRecentPlatform_block___block_invoke_5;
+  v16[3] = &unk_2785FA150;
   v13 = *(a1 + 56);
-  v18 = v3;
-  v19 = v13;
+  v17 = v3;
+  v18 = v13;
   v14 = v3;
-  [(REExpectation *)v4 notifyOperationsCompleteOnQueue:v12 block:v17];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(REExpectation *)v4 notifyOperationsCompleteOnQueue:v12 block:v16];
 }
 
 void __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fromOnlyRecentPlatform_block___block_invoke_3(uint64_t a1, void *a2)
@@ -392,57 +390,57 @@ void __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fro
 
 - (void)_sortDonationsByCount:(id)count completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   countCopy = count;
   completionCopy = completion;
   if (completionCopy)
   {
     if ([countCopy count] > 1)
     {
-      v22 = completionCopy;
+      v21 = completionCopy;
       v9 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(countCopy, "count")}];
       v10 = dispatch_group_create();
       v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(countCopy, "count")}];
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
-      v23 = countCopy;
+      v22 = countCopy;
       obj = countCopy;
-      v12 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v12 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v35;
+        v14 = *v34;
         do
         {
           v15 = 0;
           do
           {
-            if (*v35 != v14)
+            if (*v34 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v34 + 1) + 8 * v15);
+            v16 = *(*(&v33 + 1) + 8 * v15);
             dispatch_group_enter(v10);
             cache = self->_cache;
-            v29[0] = MEMORY[0x277D85DD0];
-            v29[1] = 3221225472;
-            v29[2] = __69__REDonatedActionsApplicationStore__sortDonationsByCount_completion___block_invoke;
-            v29[3] = &unk_2785FDB88;
-            v29[4] = v16;
-            v30 = v10;
+            v28[0] = MEMORY[0x277D85DD0];
+            v28[1] = 3221225472;
+            v28[2] = __69__REDonatedActionsApplicationStore__sortDonationsByCount_completion___block_invoke;
+            v28[3] = &unk_2785FDB88;
+            v28[4] = v16;
+            v29 = v10;
             selfCopy = self;
-            v32 = v9;
-            v33 = v11;
-            [(REDonatedActionFilteredCache *)cache fetchCountForAction:v16 usingBlock:v29];
+            v31 = v9;
+            v32 = v11;
+            [(REDonatedActionFilteredCache *)cache fetchCountForAction:v16 usingBlock:v28];
 
             ++v15;
           }
 
           while (v13 != v15);
-          v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
         }
 
         while (v13);
@@ -453,15 +451,15 @@ void __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fro
       block[1] = 3221225472;
       block[2] = __69__REDonatedActionsApplicationStore__sortDonationsByCount_completion___block_invoke_3;
       block[3] = &unk_2785F99C8;
-      v26 = v11;
-      v27 = v9;
-      completionCopy = v22;
-      v28 = v22;
+      v25 = v11;
+      v26 = v9;
+      completionCopy = v21;
+      v27 = v21;
       v19 = v9;
       v20 = v11;
       dispatch_group_notify(v10, queue, block);
 
-      countCopy = v23;
+      countCopy = v22;
     }
 
     else
@@ -479,8 +477,6 @@ void __98__REDonatedActionsApplicationStore_fetchTopDonationsForApplications_fro
       (*(completionCopy + 2))(completionCopy, v8);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __69__REDonatedActionsApplicationStore__sortDonationsByCount_completion___block_invoke(uint64_t a1, unint64_t a2)

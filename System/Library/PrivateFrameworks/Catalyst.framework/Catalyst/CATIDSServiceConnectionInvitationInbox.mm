@@ -12,41 +12,40 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allValues = [(NSMutableDictionary *)self->mAcknowledgeTimersByInvitationID allValues];
-  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) invalidate];
+        [*(*(&v9 + 1) + 8 * v7++) invalidate];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = CATIDSServiceConnectionInvitationInbox;
-  [(CATIDSServiceConnectionInvitationInbox *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CATIDSServiceConnectionInvitationInbox;
+  [(CATIDSServiceConnectionInvitationInbox *)&v8 dealloc];
 }
 
 - (CATIDSServiceConnectionInvitationInbox)initWithTimerSource:(id)source assertionProvider:(id)provider workQueue:(id)queue acknowledgeTimeout:(double)timeout
@@ -171,10 +170,10 @@ void __128__CATIDSServiceConnectionInvitationInbox_receiveInvitationWithIdentifi
   v9 = v8;
   if (!v8)
   {
-    v19 = _CATLogGeneral();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = _CATLogGeneral(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(CATIDSServiceConnectionInvitationInbox *)identifierCopy receiveAcknowledgeForInvitationIdentifier:connectionIdentifierCopy connectionIdentifier:v19];
+      [(CATIDSServiceConnectionInvitationInbox *)identifierCopy receiveAcknowledgeForInvitationIdentifier:connectionIdentifierCopy connectionIdentifier:v20];
     }
 
     goto LABEL_8;
@@ -185,8 +184,8 @@ void __128__CATIDSServiceConnectionInvitationInbox_receiveInvitationWithIdentifi
 
   if ((v11 & 1) == 0)
   {
-    v19 = _CATLogGeneral();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = _CATLogGeneral(v12);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       connectionIdentifier2 = [v9 connectionIdentifier];
       *buf = 138543874;
@@ -195,7 +194,7 @@ void __128__CATIDSServiceConnectionInvitationInbox_receiveInvitationWithIdentifi
       v25 = connectionIdentifierCopy;
       v26 = 2114;
       v27 = connectionIdentifier2;
-      _os_log_error_impl(&dword_24329F000, v19, OS_LOG_TYPE_ERROR, "Found mismatch connection identifier for invitation %{public}@. Received %{public}@ but expected %{public}@", buf, 0x20u);
+      _os_log_error_impl(&dword_24329F000, v20, OS_LOG_TYPE_ERROR, "Found mismatch connection identifier for invitation %{public}@. Received %{public}@ but expected %{public}@", buf, 0x20u);
     }
 
 LABEL_8:
@@ -203,8 +202,8 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v12 = [(NSMutableDictionary *)self->mAcknowledgeTimersByInvitationID objectForKeyedSubscript:identifierCopy];
-  [v12 invalidate];
+  v13 = [(NSMutableDictionary *)self->mAcknowledgeTimersByInvitationID objectForKeyedSubscript:identifierCopy];
+  [v13 invalidate];
 
   [(NSMutableDictionary *)self->mAcknowledgeTimersByInvitationID setObject:0 forKeyedSubscript:identifierCopy];
   [(NSMutableDictionary *)self->mInvitationsByInvitationID setObject:0 forKeyedSubscript:identifierCopy];
@@ -217,7 +216,6 @@ LABEL_8:
   [delegate connectionInvitationInbox:self foundConection:connectionIdentifierCopy senderAppleID:senderAppleID senderAddress:senderAddress assertion:assertion messagingVersion:messagingVersion userInfo:userInfo];
 
 LABEL_9:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acknowledgeTimerFiredWithInvitationIdentifier:(id)identifier
@@ -256,13 +254,12 @@ LABEL_9:
 
 - (void)receiveAcknowledgeForInvitationIdentifier:(os_log_t)log connectionIdentifier:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_24329F000, log, OS_LOG_TYPE_ERROR, "Found acknowledge for unexpected invitation %{public}@ with connection identifier %{public}@.", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_24329F000, log, OS_LOG_TYPE_ERROR, "Found acknowledge for unexpected invitation %{public}@ with connection identifier %{public}@.", &v3, 0x16u);
 }
 
 @end

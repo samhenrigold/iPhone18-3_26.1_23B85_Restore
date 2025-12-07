@@ -5,6 +5,10 @@
 - (__n128)overrideMaximumSampleCountForSource:count:;
 - (__n128)overrideSampleHistoryLengthForSource:length:;
 - (__n128)overrideSampleSubdivisionIndexForSource:index:;
+- (uint64_t)overrideGeometrySubdivisionForSource:subdivideGeometry:;
+- (uint64_t)overrideMaximumSampleCountForSource:count:;
+- (uint64_t)overrideSampleHistoryLengthForSource:length:;
+- (uint64_t)overrideSampleSubdivisionIndexForSource:index:;
 - (void)beginTrackingAudibleGeometryForSource:(id)source callback:(id)callback;
 - (void)beginTrackingAudibleGeometryForSource:callback:;
 - (void)beginTrackingSource:(id)source callback:(id)callback;
@@ -12,13 +16,9 @@
 - (void)endTrackingAudibleGeometryForSource:(id)source;
 - (void)endTrackingSource:(id)source;
 - (void)overrideGeometrySubdivisionForSource:(id)source subdivideGeometry:(BOOL)geometry;
-- (void)overrideGeometrySubdivisionForSource:subdivideGeometry:;
 - (void)overrideMaximumSampleCountForSource:(id)source count:(int64_t)count;
-- (void)overrideMaximumSampleCountForSource:count:;
 - (void)overrideSampleHistoryLengthForSource:(id)source length:(int64_t)length;
-- (void)overrideSampleHistoryLengthForSource:length:;
 - (void)overrideSampleSubdivisionIndexForSource:(id)source index:(int64_t)index;
-- (void)overrideSampleSubdivisionIndexForSource:index:;
 @end
 
 @implementation PHASETransmissionModelerView
@@ -369,13 +369,13 @@
   return result;
 }
 
-- (void)overrideMaximumSampleCountForSource:count:
+- (uint64_t)overrideMaximumSampleCountForSource:count:
 {
   v2 = *a2;
   v3 = *(self + 16);
-  v5[0] = *(self + 8);
-  v5[2] = v5;
-  result = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>(v2 + 16, v5);
+  v5 = *(self + 8);
+  v6 = &v5;
+  result = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>((v2 + 16), &v5, &std::piecewise_construct, &v6);
   *(result + 10) = v3;
   return result;
 }
@@ -388,13 +388,13 @@
   return result;
 }
 
-- (void)overrideSampleHistoryLengthForSource:length:
+- (uint64_t)overrideSampleHistoryLengthForSource:length:
 {
   v2 = *a2;
   v3 = *(self + 16);
-  v5[0] = *(self + 8);
-  v5[2] = v5;
-  result = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>(v2 + 16, v5);
+  v5 = *(self + 8);
+  v6 = &v5;
+  result = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>((v2 + 16), &v5, &std::piecewise_construct, &v6);
   *(result + 11) = v3;
   return result;
 }
@@ -407,13 +407,13 @@
   return result;
 }
 
-- (void)overrideSampleSubdivisionIndexForSource:index:
+- (uint64_t)overrideSampleSubdivisionIndexForSource:index:
 {
   v2 = *a2;
   v3 = *(self + 16);
-  v5[0] = *(self + 8);
-  v5[2] = v5;
-  result = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>(v2 + 16, v5);
+  v5 = *(self + 8);
+  v6 = &v5;
+  result = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>((v2 + 16), &v5, &std::piecewise_construct, &v6);
   *(result + 12) = v3;
   return result;
 }
@@ -428,13 +428,13 @@
   return result;
 }
 
-- (void)overrideGeometrySubdivisionForSource:subdivideGeometry:
+- (uint64_t)overrideGeometrySubdivisionForSource:subdivideGeometry:
 {
   v2 = *a2;
   v3 = *(self + 16);
-  v5[0] = *(self + 8);
-  v5[2] = v5;
-  result = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>(v2 + 16, v5);
+  v5 = *(self + 8);
+  v6 = &v5;
+  result = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>((v2 + 16), &v5, &std::piecewise_construct, &v6);
   *(result + 52) = v3;
   return result;
 }

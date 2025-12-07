@@ -9,27 +9,24 @@
 
 - (NSString)itemIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant20FBAFFUValidationCell_itemIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC18Feedback_Assistant20FBAFFUValidationCell_itemIdentifier + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (void)setItemIdentifier:(id)identifier
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = (self + OBJC_IVAR____TtC18Feedback_Assistant20FBAFFUValidationCell_itemIdentifier);
-  v6 = *(self + OBJC_IVAR____TtC18Feedback_Assistant20FBAFFUValidationCell_itemIdentifier + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (void)awakeFromNib
 {
   selfCopy = self;
-  sub_100086D44();
+  sub_100086D44(selfCopy, v2);
 }
 
 - (_TtC18Feedback_Assistant20FBAFFUValidationCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier

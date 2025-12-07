@@ -151,7 +151,7 @@ LABEL_5:
   v6 = TVMLKitImageLogObject;
   if (os_log_type_enabled(TVMLKitImageLogObject, OS_LOG_TYPE_DEBUG))
   {
-    [TVURLImageLoader imageKeyForObject:v6];
+    [(TVURLImageLoader *)v6 imageKeyForObject:objectCopy];
   }
 
   v5 = 0;
@@ -190,7 +190,7 @@ LABEL_9:
       v43 = TVMLKitImageLogObject;
       if (os_log_type_enabled(TVMLKitImageLogObject, OS_LOG_TYPE_DEBUG))
       {
-        [TVURLImageLoader loadImageForObject:v43 scaleToSize:? cropToFit:? imageDirection:? requestLoader:? completionHandler:?];
+        [TVURLImageLoader loadImageForObject:v43 scaleToSize:objectCopy cropToFit:? imageDirection:? requestLoader:? completionHandler:?];
       }
 
       v27 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-50 userInfo:0];
@@ -341,7 +341,7 @@ void __108__TVURLImageLoader_loadImageForObject_scaleToSize_cropToFit_imageDirec
     v9 = TVMLKitImageLogObject;
     if (os_log_type_enabled(TVMLKitImageLogObject, OS_LOG_TYPE_DEBUG))
     {
-      __108__TVURLImageLoader_loadImageForObject_scaleToSize_cropToFit_imageDirection_requestLoader_completionHandler___block_invoke_cold_2(a1, v9);
+      __108__TVURLImageLoader_loadImageForObject_scaleToSize_cropToFit_imageDirection_requestLoader_completionHandler___block_invoke_cold_2(a1, v9, (a1 + 48));
     }
 
     v10 = [*(a1 + 64) copy];
@@ -764,15 +764,15 @@ void __57__TVURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_
   }
 }
 
-uint64_t __57__TVURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_2(uint64_t result)
+id *__57__TVURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_2(id *result)
 {
-  if (*(result + 56))
+  if (result[7])
   {
     v1 = result;
-    result = [*(result + 32) state];
+    result = [result[4] state];
     if (result != 2)
     {
-      v2 = *(*(v1 + 56) + 16);
+      v2 = *(v1[7] + 2);
 
       return v2();
     }
@@ -791,25 +791,33 @@ void __57__TVURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_
   }
 }
 
-- (void)imageKeyForObject:(void *)a1 .cold.1(void *a1)
+- (void)imageKeyForObject:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v3, v4, "URLImageLoader cannot create key for object of type [%@]", v5, v6, v7, v8, 2u);
+  v2 = a1;
+  LODWORD(v10) = 138412290;
+  *(&v10 + 4) = objc_opt_class();
+  v3 = *(&v10 + 4);
+  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v4, v5, "URLImageLoader cannot create key for object of type [%@]", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
-- (void)loadImageForObject:(void *)a1 scaleToSize:cropToFit:imageDirection:requestLoader:completionHandler:.cold.1(void *a1)
+- (void)loadImageForObject:(void *)a1 scaleToSize:(uint64_t)a2 cropToFit:imageDirection:requestLoader:completionHandler:.cold.1(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v3, v4, "URLImageLoader cannot load image for object of type [%@]", v5, v6, v7, v8, 2u);
+  v2 = a1;
+  LODWORD(v10) = 138412290;
+  *(&v10 + 4) = objc_opt_class();
+  v3 = *(&v10 + 4);
+  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v4, v5, "URLImageLoader cannot load image for object of type [%@]", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
-void __108__TVURLImageLoader_loadImageForObject_scaleToSize_cropToFit_imageDirection_requestLoader_completionHandler___block_invoke_cold_2(uint64_t a1, void *a2)
+void __108__TVURLImageLoader_loadImageForObject_scaleToSize_cropToFit_imageDirection_requestLoader_completionHandler___block_invoke_cold_2(uint64_t a1, void *a2, void *a3)
 {
-  v3 = a2;
-  v4 = [OUTLINED_FUNCTION_2_0() description];
-  OUTLINED_FUNCTION_1_0(&dword_26CD9A000, v5, v6, "URLImageLoader Loading task %@ URL %@", v7, v8, v9, v10, 2u);
+  v5 = a2;
+  v6 = [OUTLINED_FUNCTION_2_0() description];
+  *v13 = 138412546;
+  *&v13[4] = v6;
+  *&v13[12] = 2112;
+  *&v13[14] = *a3;
+  OUTLINED_FUNCTION_1_0(&dword_26CD9A000, v7, v8, "URLImageLoader Loading task %@ URL %@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 void __31__TVURLImageLoader_cancelLoad___block_invoke_cold_2(void *a1)
@@ -817,7 +825,7 @@ void __31__TVURLImageLoader_cancelLoad___block_invoke_cold_2(void *a1)
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() description];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_26CD9A000, v4, v5, "URLImageLoader Canceling task %@ URL %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_26CD9A000, v4, v5, "URLImageLoader Canceling task %@ URL %@", v6, v7, v8, v9);
 }
 
 void __57__TVURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -825,7 +833,7 @@ void __57__TVURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_2_0() description];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_26CD9A000, v5, v6, "URLImageLoader Finished loading task %@ url %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_0(&dword_26CD9A000, v5, v6, "URLImageLoader Finished loading task %@ url %@", v7, v8, v9, v10);
 }
 
 void __57__TVURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_cold_2(uint64_t a1, void *a2)
@@ -833,7 +841,7 @@ void __57__TVURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_2_0() description];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_26CD9A000, v5, v6, "URLImageLoader Finished loading task %@ url %@ with no data", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_0(&dword_26CD9A000, v5, v6, "URLImageLoader Finished loading task %@ url %@ with no data", v7, v8, v9, v10);
 }
 
 @end

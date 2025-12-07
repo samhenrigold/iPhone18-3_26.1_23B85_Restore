@@ -41,32 +41,30 @@ id __96__ATXSuggestedPagesGlobalModeAffinityAppDataSource_provideAppsForSuggeste
   if (v5 && v7)
   {
     [v7 doubleValue];
-    if (v9 <= 9.0 || [v5 integerValue] < 2)
+    if (v9 <= 9.0 || (v10 = [v5 integerValue], v10 < 2))
     {
       v8 = 0;
     }
 
     else
     {
-      v10 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = __atxlog_handle_modes(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v11 = [v2 identifier];
+        v12 = [v2 identifier];
         v16 = 138412546;
-        v17 = v11;
+        v17 = v12;
         v18 = 2112;
         v19 = v7;
-        _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "ATXSuggestedPagesGlobalModeAffinityAppDataSource: %@ passes threshold with score: %@", &v16, 0x16u);
+        _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "ATXSuggestedPagesGlobalModeAffinityAppDataSource: %@ passes threshold with score: %@", &v16, 0x16u);
       }
 
-      v12 = objc_alloc(MEMORY[0x277CEB560]);
-      v13 = [v2 identifier];
+      v13 = objc_alloc(MEMORY[0x277CEB560]);
+      v14 = [v2 identifier];
       [v7 doubleValue];
-      v8 = [v12 initWithBundleId:v13 predictionSource:@"Global Mode Entity" score:?];
+      v8 = [v13 initWithBundleId:v14 predictionSource:@"Global Mode Entity" score:?];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

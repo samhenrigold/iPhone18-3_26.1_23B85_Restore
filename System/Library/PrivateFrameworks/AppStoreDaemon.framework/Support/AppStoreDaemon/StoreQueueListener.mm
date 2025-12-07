@@ -32,7 +32,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: checkQueueWithOptionsclient: %{public}@", &v16, 0x16u);
   }
 
-  v12 = sub_10037E764();
+  v12 = sub_10037E764(StoreQueueManager);
   if ([optionsCopy reason] == 1)
   {
     v13 = sub_1001D10E4(self);
@@ -80,7 +80,7 @@ LABEL_9:
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: claimApplicationsWithOptions client: %{public}@", &v14, 0x16u);
   }
 
-  v12 = sub_10037E764();
+  v12 = sub_10037E764(StoreQueueManager);
   v13 = sub_1001D10E4(self);
   sub_10037E8D0(v12, optionsCopy, v13);
 }
@@ -111,7 +111,7 @@ LABEL_9:
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "[%{public}@] ASDManagedApplicationRequest start with clientID: %{public}@ qoS: %{public}@ (0x%x)", &v16, 0x26u);
   }
 
-  v15 = sub_10037E764();
+  v15 = sub_10037E764(StoreQueueManager);
   sub_10037E988(v15, optionsCopy, bundleIdentifier, v10, blockCopy);
 }
 

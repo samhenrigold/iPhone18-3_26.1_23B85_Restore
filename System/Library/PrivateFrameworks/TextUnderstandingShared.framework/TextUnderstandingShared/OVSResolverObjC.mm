@@ -21,7 +21,7 @@
 
 + (BOOL)containsOVSInTokens:(id)tokens forLocaleIdentifier:(id)identifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   identifierCopy = identifier;
   if ([tokensCopy count])
@@ -41,29 +41,29 @@
     CFRelease(Mutable);
     if (v12)
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v13 = tokensCopy;
-      v14 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (v14)
       {
         v15 = v14;
-        v26 = v10;
-        v27 = identifierCopy;
-        v16 = *v29;
+        v25 = v10;
+        v26 = identifierCopy;
+        v16 = *v28;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v29 != v16)
+            if (*v28 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v28 + 1) + 8 * i);
-            v19 = [(__CFString *)v18 localizedLowercaseString:v26];
+            v18 = *(*(&v27 + 1) + 8 * i);
+            v19 = [(__CFString *)v18 localizedLowercaseString:v25];
             if ([v19 lengthOfBytesUsingEncoding:4] || CFStringGetCStringPtr(v18, 4u))
             {
               if ([self _lexiconTokenForToken:v19 lexicon:v12])
@@ -81,7 +81,7 @@
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
           if (v15)
           {
             continue;
@@ -92,8 +92,8 @@
 
         v22 = 0;
 LABEL_23:
-        v10 = v26;
-        identifierCopy = v27;
+        v10 = v25;
+        identifierCopy = v26;
       }
 
       else
@@ -115,7 +115,7 @@ LABEL_23:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v35 = v12;
+        v34 = v12;
         _os_log_error_impl(&dword_26EF75000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "OVSResolverObjC: Error finding an appropriate lexicon: %@", buf, 0xCu);
       }
 
@@ -131,7 +131,6 @@ LABEL_27:
   v22 = 0;
 LABEL_28:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

@@ -87,7 +87,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([v15 isEqualToString:@"lockup"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = 0;
 LABEL_15:
@@ -95,19 +95,19 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    if ([v15 isEqualToString:@"brick"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = 2;
       goto LABEL_15;
     }
 
-    if ([v15 isEqualToString:@"editorial"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = 3;
       goto LABEL_15;
     }
 
-    if ([v15 isEqualToString:@"media"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = 4;
       goto LABEL_15;
@@ -636,7 +636,7 @@ LABEL_6:
   return v7;
 }
 
-uint64_t __55__SKUIGridComponent__updateWithInvalidItemIdentifiers___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__55__SKUIGridComponent__updateWithInvalidItemIdentifiers___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)
@@ -689,7 +689,7 @@ void __45__SKUIGridComponent__updateWithMissingItems___block_invoke(uint64_t a1,
       v14 = 0;
       if (v8)
       {
-        [v8 lockupStyle];
+        objc_msgSend_lockupStyle(v8);
       }
 
       if ([v5 itemKind] == 17)
@@ -923,6 +923,48 @@ LABEL_16:
   *&retstr->bodyFontSize = v3;
   *&retstr->titleFontSize = self[1].titleFontWeight;
   return self;
+}
+
+- (void)initWithBrickItems:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridComponent initWithBrickItems:]";
+}
+
+- (void)initWithCustomPageContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridComponent initWithCustomPageContext:]";
+}
+
+- (void)initWithFeaturedContentContext:(uint64_t)a3 kind:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridComponent initWithFeaturedContentContext:kind:]";
+}
+
+- (void)initWithGridItems:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridComponent initWithGridItems:]";
+}
+
+- (void)initWithLockups:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridComponent initWithLockups:]";
+}
+
+- (void)initWithRoomContext:(uint64_t)a3 gridType:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridComponent initWithRoomContext:gridType:]";
+}
+
+- (void)initWithViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridComponent initWithViewElement:]";
 }
 
 @end

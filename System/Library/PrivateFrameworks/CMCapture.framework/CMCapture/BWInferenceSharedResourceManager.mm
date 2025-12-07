@@ -1,10 +1,10 @@
 @interface BWInferenceSharedResourceManager
 + (void)initialize;
 - (BWInferenceSharedResourceManager)init;
+- (double)_purgeAllSharedResources;
+- (id)_addSharedResource:(uint64_t)resource toSharedResourceDirectoryForResourceCategory:;
 - (id)description;
 - (id)retrieveSharedResourceForResourceCategoryAndLockIfNotAvailable:(id)available;
-- (uint64_t)_addSharedResource:(uint64_t)resource toSharedResourceDirectoryForResourceCategory:;
-- (uint64_t)_purgeAllSharedResources;
 - (void)dealloc;
 - (void)finalizeResourceCreationAttemptForCategory:(id)category;
 - (void)stashSharedResource:(id)resource forResourceCategory:(id)category;
@@ -41,16 +41,16 @@
 
 - (void)dealloc
 {
-  [(BWInferenceSharedResourceManager *)self _purgeAllSharedResources];
-  v3.receiver = self;
-  v3.super_class = BWInferenceSharedResourceManager;
-  [(BWInferenceSharedResourceManager *)&v3 dealloc];
+  _purgeAllSharedResources = [(BWInferenceSharedResourceManager *)self _purgeAllSharedResources];
+  v4.receiver = self;
+  v4.super_class = BWInferenceSharedResourceManager;
+  [(BWInferenceSharedResourceManager *)&v4 dealloc];
 }
 
 - (void)stashSharedResource:(id)resource forResourceCategory:(id)category
 {
   pthread_rwlock_wrlock(&self->_sharedResourceDirectoryRWLock);
-  [(BWInferenceSharedResourceManager *)self _addSharedResource:resource toSharedResourceDirectoryForResourceCategory:category];
+  [(BWInferenceSharedResourceManager *)&self->super.isa _addSharedResource:resource toSharedResourceDirectoryForResourceCategory:category];
   __dmb(0xBu);
   pthread_rwlock_unlock(&self->_sharedResourceDirectoryRWLock);
   pthread_mutex_lock(&self->_resourceCreationMutex);
@@ -143,9 +143,10 @@ void __60__BWInferenceSharedResourceManager__purgeAllSharedResources__block_invo
   free(v3);
 }
 
-uint64_t __85__BWInferenceSharedResourceManager__removeSharedResourcesFromSharedResourceContainer__block_invoke(uint64_t a1, void *a2, void *a3)
+void *__85__BWInferenceSharedResourceManager__removeSharedResourcesFromSharedResourceContainer__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  result = [a2 isEqualToString:{+[BWInferenceSharedE5ANEMemoryProvider resourceCategory](BWInferenceSharedE5ANEMemoryProvider, "resourceCategory")}];
+  +[BWInferenceSharedE5ANEMemoryProvider resourceCategory];
+  result = objc_msgSend_isEqualToString_(a2);
   if (result)
   {
     [a3 pointerValue];
@@ -180,22 +181,21 @@ uint64_t __85__BWInferenceSharedResourceManager__removeSharedResourcesFromShared
   return v3;
 }
 
-- (uint64_t)_purgeAllSharedResources
+- (double)_purgeAllSharedResources
 {
-  if (result)
+  if (self)
   {
-    v1 = result;
     if (dword_1EB58E140)
     {
       v2 = OUTLINED_FUNCTION_1_85();
-      if (os_log_type_enabled(v2, v6))
+      if (os_log_type_enabled(v2, v7))
       {
-        v3 = v7;
+        v3 = v8;
       }
 
       else
       {
-        v3 = v7 & 0xFFFFFFFE;
+        v3 = v8 & 0xFFFFFFFE;
       }
 
       if (v3)
@@ -208,33 +208,33 @@ uint64_t __85__BWInferenceSharedResourceManager__removeSharedResourcesFromShared
     }
 
     mach_absolute_time();
-    pthread_rwlock_wrlock((v1 + 8));
-    [*(v1 + 208) enumerateKeysAndObjectsUsingBlock:&__block_literal_global_23];
-    [*(v1 + 208) removeAllObjects];
+    pthread_rwlock_wrlock((self + 8));
+    [*(self + 208) enumerateKeysAndObjectsUsingBlock:&__block_literal_global_23];
+    [*(self + 208) removeAllObjects];
 
-    pthread_rwlock_unlock((v1 + 8));
-    pthread_rwlock_destroy((v1 + 8));
-    pthread_mutex_lock((v1 + 216));
+    pthread_rwlock_unlock((self + 8));
+    pthread_rwlock_destroy((self + 8));
+    pthread_mutex_lock((self + 216));
 
-    [*(v1 + 288) enumerateKeysAndObjectsUsingBlock:&__block_literal_global_81];
-    [*(v1 + 288) removeAllObjects];
+    [*(self + 288) enumerateKeysAndObjectsUsingBlock:&__block_literal_global_81];
+    [*(self + 288) removeAllObjects];
 
-    pthread_mutex_unlock((v1 + 216));
-    result = pthread_mutex_destroy((v1 + 216));
+    pthread_mutex_unlock((self + 216));
+    pthread_mutex_destroy((self + 216));
     if (dword_1EB58E140)
     {
-      v4 = OUTLINED_FUNCTION_1_85();
-      if (os_log_type_enabled(v4, v6))
+      v5 = OUTLINED_FUNCTION_1_85();
+      if (os_log_type_enabled(v5, v7))
       {
-        v5 = v7;
+        v6 = v8;
       }
 
       else
       {
-        v5 = v7 & 0xFFFFFFFE;
+        v6 = v8 & 0xFFFFFFFE;
       }
 
-      if (v5)
+      if (v6)
       {
         mach_absolute_time();
         FigHostTimeToNanoseconds();
@@ -242,25 +242,25 @@ uint64_t __85__BWInferenceSharedResourceManager__removeSharedResourcesFromShared
       }
 
       OUTLINED_FUNCTION_0_77();
-      return fig_log_call_emit_and_clean_up_after_send_and_compose();
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
   return result;
 }
 
-- (uint64_t)_addSharedResource:(uint64_t)resource toSharedResourceDirectoryForResourceCategory:
+- (id)_addSharedResource:(uint64_t)resource toSharedResourceDirectoryForResourceCategory:
 {
   if (result)
   {
     v5 = result;
-    if ([*(result + 208) objectForKeyedSubscript:?])
+    if ([result[26] objectForKeyedSubscript:?])
     {
-      [*(v5 + 208) enumerateKeysAndObjectsUsingBlock:&__block_literal_global_23];
-      [*(v5 + 208) removeAllObjects];
+      [v5[26] enumerateKeysAndObjectsUsingBlock:&__block_literal_global_23];
+      [v5[26] removeAllObjects];
     }
 
-    v6 = *(v5 + 208);
+    v6 = v5[26];
 
     return [v6 setObject:a2 forKeyedSubscript:resource];
   }

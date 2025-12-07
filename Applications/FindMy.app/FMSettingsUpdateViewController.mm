@@ -31,7 +31,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1003446B8();
+  sub_1003446B8(selfCopy, v2);
 }
 
 - (void)backAction

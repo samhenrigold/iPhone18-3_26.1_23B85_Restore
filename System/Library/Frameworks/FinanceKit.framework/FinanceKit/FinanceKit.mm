@@ -11,19 +11,17 @@ void sub_1000011B4()
 {
   v0 = type metadata accessor for DispatchQoS.QoSClass();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin();
-  v4 = &v38 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v36 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
-  isCurrentExecutor = swift_task_isCurrentExecutor();
-  if ((isCurrentExecutor & 1) == 0)
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
-    isCurrentExecutor = swift_task_reportUnexpectedExecutor();
+    swift_task_reportUnexpectedExecutor();
   }
 
-  nullsub_1(isCurrentExecutor);
+  nullsub_1();
   if (MKBGetDeviceLockState() == 3)
   {
     if (qword_100008030 != -1)
@@ -31,15 +29,15 @@ void sub_1000011B4()
       swift_once();
     }
 
-    v6 = type metadata accessor for Logger();
-    sub_100001FEC(v6, static Logger.daemon);
-    v7 = Logger.logObject.getter();
-    v8 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v7, v8))
+    v4 = type metadata accessor for Logger();
+    sub_100001FEC(v4, static Logger.daemon);
+    v5 = Logger.logObject.getter();
+    v6 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v5, v6))
     {
-      v9 = swift_slowAlloc();
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v7, v8, "Key bag disabled, proceeding as if the device was unlocked since boot", v9, 2u);
+      v7 = swift_slowAlloc();
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, v6, "Key bag disabled, proceeding as if the device was unlocked since boot", v7, 2u);
     }
 
     goto LABEL_10;
@@ -53,15 +51,15 @@ LABEL_10:
       swift_once();
     }
 
-    v10 = type metadata accessor for Logger();
-    sub_100001FEC(v10, static Logger.daemon);
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v11, v12))
+    v8 = type metadata accessor for Logger();
+    sub_100001FEC(v8, static Logger.daemon);
+    v9 = Logger.logObject.getter();
+    v10 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v9, v10))
     {
-      v13 = swift_slowAlloc();
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v11, v12, "Device was unlocked since boot, starting daemon", v13, 2u);
+      v11 = swift_slowAlloc();
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, v10, "Device was unlocked since boot, starting daemon", v11, 2u);
     }
 
     sub_10000195C();
@@ -73,91 +71,91 @@ LABEL_10:
     swift_once();
   }
 
-  v14 = type metadata accessor for Logger();
-  sub_100001FEC(v14, static Logger.daemon);
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v15, v16))
+  v12 = type metadata accessor for Logger();
+  sub_100001FEC(v12, static Logger.daemon);
+  v13 = Logger.logObject.getter();
+  v14 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v13, v14))
   {
-    v17 = swift_slowAlloc();
-    *v17 = 0;
-    _os_log_impl(&_mh_execute_header, v15, v16, "Device wasn't unlocked since boot, waiting for first unlock", v17, 2u);
+    v15 = swift_slowAlloc();
+    *v15 = 0;
+    _os_log_impl(&_mh_execute_header, v13, v14, "Device wasn't unlocked since boot, waiting for first unlock", v15, 2u);
   }
 
   sub_100002024();
-  (*(v1 + 104))(v4, enum case for DispatchQoS.QoSClass.utility(_:), v0);
-  v18 = static OS_dispatch_queue.global(qos:)();
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 104))(v3, enum case for DispatchQoS.QoSClass.utility(_:), v0);
+  v16 = static OS_dispatch_queue.global(qos:)();
+  (*(v1 + 8))(v3, v0);
   out_token = -1;
-  v19 = Logger.logObject.getter();
-  v20 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v19, v20))
+  v17 = Logger.logObject.getter();
+  v18 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v17, v18))
   {
-    v21 = swift_slowAlloc();
-    *v21 = 0;
-    _os_log_impl(&_mh_execute_header, v19, v20, "Registering for first unlock notification", v21, 2u);
+    v19 = swift_slowAlloc();
+    *v19 = 0;
+    _os_log_impl(&_mh_execute_header, v17, v18, "Registering for first unlock notification", v19, 2u);
   }
 
-  v44 = sub_100001B54;
-  v45 = 0;
+  v42 = sub_100001B54;
+  v43 = 0;
   aBlock = _NSConcreteStackBlock;
-  v41 = 1107296256;
-  v42 = sub_100001C24;
-  v43 = &unk_100004258;
-  v22 = _Block_copy(&aBlock);
-  v23 = v18;
-  v24 = notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, v23, v22);
-  _Block_release(v22);
-  if (v24 || out_token == -1)
+  v39 = 1107296256;
+  v40 = sub_100001C24;
+  v41 = &unk_100004258;
+  v20 = _Block_copy(&aBlock);
+  v21 = v16;
+  v22 = notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, v21, v20);
+  _Block_release(v20);
+  if (v22 || out_token == -1)
   {
 
-    v31 = Logger.logObject.getter();
-    v32 = static os_log_type_t.fault.getter();
-    if (!os_log_type_enabled(v31, v32))
+    v29 = Logger.logObject.getter();
+    v30 = static os_log_type_t.fault.getter();
+    if (!os_log_type_enabled(v29, v30))
     {
       goto LABEL_35;
     }
 
-    v33 = swift_slowAlloc();
-    *v33 = 0;
-    v34 = "Failed to register for first unlock notification";
+    v31 = swift_slowAlloc();
+    *v31 = 0;
+    v32 = "Failed to register for first unlock notification";
     goto LABEL_34;
   }
 
-  v39 = -1;
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v25, v26))
+  v37 = -1;
+  v23 = Logger.logObject.getter();
+  v24 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v23, v24))
   {
-    v27 = swift_slowAlloc();
-    *v27 = 0;
-    _os_log_impl(&_mh_execute_header, v25, v26, "Registering for lock status notification", v27, 2u);
+    v25 = swift_slowAlloc();
+    *v25 = 0;
+    _os_log_impl(&_mh_execute_header, v23, v24, "Registering for lock status notification", v25, 2u);
   }
 
-  v44 = sub_100001C78;
-  v45 = 0;
+  v42 = sub_100001C78;
+  v43 = 0;
   aBlock = _NSConcreteStackBlock;
-  v41 = 1107296256;
-  v42 = sub_100001C24;
-  v43 = &unk_100004280;
-  v28 = _Block_copy(&aBlock);
-  v29 = notify_register_dispatch("com.apple.mobile.keybagd.lock_status", &v39, v23, v28);
-  _Block_release(v28);
+  v39 = 1107296256;
+  v40 = sub_100001C24;
+  v41 = &unk_100004280;
+  v26 = _Block_copy(&aBlock);
+  v27 = notify_register_dispatch("com.apple.mobile.keybagd.lock_status", &v37, v21, v26);
+  _Block_release(v26);
 
-  if (v29 || v39 == -1)
+  if (v27 || v37 == -1)
   {
-    v31 = Logger.logObject.getter();
-    v32 = static os_log_type_t.fault.getter();
-    if (!os_log_type_enabled(v31, v32))
+    v29 = Logger.logObject.getter();
+    v30 = static os_log_type_t.fault.getter();
+    if (!os_log_type_enabled(v29, v30))
     {
       goto LABEL_35;
     }
 
-    v33 = swift_slowAlloc();
-    *v33 = 0;
-    v34 = "Failed to register for lock status notification";
+    v31 = swift_slowAlloc();
+    *v31 = 0;
+    v32 = "Failed to register for lock status notification";
 LABEL_34:
-    _os_log_impl(&_mh_execute_header, v31, v32, v34, v33, 2u);
+    _os_log_impl(&_mh_execute_header, v29, v30, v32, v31, 2u);
 
 LABEL_35:
 
@@ -166,21 +164,21 @@ LABEL_35:
 
   if (MKBDeviceUnlockedSinceBoot() == 1)
   {
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v35, v36))
+    v33 = Logger.logObject.getter();
+    v34 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v33, v34))
     {
-      v37 = swift_slowAlloc();
-      *v37 = 0;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Device was unlocked already, exiting", v37, 2u);
+      v35 = swift_slowAlloc();
+      *v35 = 0;
+      _os_log_impl(&_mh_execute_header, v33, v34, "Device was unlocked already, exiting", v35, 2u);
     }
 
     exit(0);
   }
 
 LABEL_29:
-  v30 = [objc_opt_self() mainRunLoop];
-  [v30 run];
+  v28 = [objc_opt_self() mainRunLoop];
+  [v28 run];
 }
 
 uint64_t sub_10000195C()
@@ -201,23 +199,21 @@ uint64_t sub_10000195C()
     _os_log_impl(&_mh_execute_header, v1, v2, "Starting daemon", v3, 2u);
   }
 
-  v4 = type metadata accessor for Daemon();
-  v5 = *(v4 + 48);
-  v6 = *(v4 + 52);
+  type metadata accessor for Daemon();
   swift_allocObject();
   qword_1000080F8 = Daemon.init()();
 
   Daemon.run()();
-  v7 = [objc_opt_self() defaultCenter];
-  v11[4] = sub_100001E28;
-  v11[5] = 0;
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 1107296256;
-  v11[2] = sub_100001EF8;
-  v11[3] = &unk_1000042A8;
-  v8 = _Block_copy(v11);
-  v9 = [v7 addObserverForName:NSCurrentLocaleDidChangeNotification object:0 queue:0 usingBlock:v8];
-  _Block_release(v8);
+  v4 = [objc_opt_self() defaultCenter];
+  v8[4] = sub_100001E28;
+  v8[5] = 0;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 1107296256;
+  v8[2] = sub_100001EF8;
+  v8[3] = &unk_1000042A8;
+  v5 = _Block_copy(v8);
+  v6 = [v4 addObserverForName:NSCurrentLocaleDidChangeNotification object:0 queue:0 usingBlock:v5];
+  _Block_release(v5);
 
   return swift_unknownObjectRelease();
 }
@@ -245,10 +241,9 @@ void sub_100001B54()
 
 uint64_t sub_100001C24(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
 void sub_100001C78()
@@ -312,20 +307,18 @@ void sub_100001E28()
   exit(0);
 }
 
-uint64_t sub_100001EF8(uint64_t a1)
+uint64_t sub_100001EF8(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for Notification();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
+  v3 = type metadata accessor for Notification();
+  v4 = *(v3 - 8);
   __chkstk_darwin();
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(a1 + 32);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v8(v6);
+  v7(v6);
 
-  return (*(v3 + 8))(v6, v2);
+  return (*(v4 + 8))(v6, v3);
 }
 
 uint64_t sub_100001FEC(uint64_t a1, uint64_t a2)
@@ -398,11 +391,11 @@ uint64_t sub_100002B9C()
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t sub_100002C8C(uint64_t a1, uint64_t *a2)
+uint64_t sub_100002C8C(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = type metadata accessor for Logger();
-  sub_100002F00(v3, a2);
-  sub_100001FEC(v3, a2);
+  v5 = type metadata accessor for Logger();
+  sub_100002F00(v5, a2);
+  sub_100001FEC(v5, a2);
   return Logger.init(subsystem:category:)();
 }
 
@@ -414,42 +407,39 @@ uint64_t sub_100002D4C()
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t sub_100002DF0(void *a1, uint64_t a2)
+uint64_t sub_100002DF0(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = type metadata accessor for Logger();
+  v4 = type metadata accessor for Logger();
 
-  return sub_100001FEC(v3, a2);
+  return sub_100001FEC(v4, a2);
 }
 
-uint64_t sub_100002E68@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_100002E68@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for Logger();
-  v6 = sub_100001FEC(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = type metadata accessor for Logger();
+  v7 = sub_100001FEC(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t *sub_100002F00(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

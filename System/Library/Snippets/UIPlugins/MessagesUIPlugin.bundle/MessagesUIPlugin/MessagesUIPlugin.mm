@@ -1,4 +1,4 @@
-uint64_t type metadata accessor for MessagesUIPlugin()
+uint64_t type metadata accessor for MessagesUIPlugin(uint64_t a1)
 {
   result = qword_80E0;
   if (!qword_80E0)
@@ -7,14 +7,6 @@ uint64_t type metadata accessor for MessagesUIPlugin()
   }
 
   return result;
-}
-
-uint64_t sub_13B4()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  swift_allocObject();
-  return sub_1420();
 }
 
 uint64_t sub_13E8()

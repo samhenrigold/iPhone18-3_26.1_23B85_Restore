@@ -63,20 +63,20 @@
 
 + (id)systemInfoFromFile:(id)file
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if ([defaultManager fileExistsAtPath:fileCopy])
   {
-    v12 = 0;
-    v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:fileCopy options:2 error:&v12];
-    v6 = v12;
+    v11 = 0;
+    v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:fileCopy options:2 error:&v11];
+    v6 = v11;
     if (v5)
     {
-      v11 = v6;
-      v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v11];
+      v10 = v6;
+      v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v10];
       v8 = v6;
-      v6 = v11;
+      v6 = v10;
     }
 
     else
@@ -85,9 +85,9 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v14 = fileCopy;
-        v15 = 2112;
-        v16 = v6;
+        v13 = fileCopy;
+        v14 = 2112;
+        v15 = v6;
         _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "failed to read system info from file %@: %@", buf, 0x16u);
       }
 
@@ -99,8 +99,6 @@
   {
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -310,18 +308,18 @@
 
 - (BOOL)saveToFile:(id)file
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v20 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v20];
-  v6 = v20;
+  v19 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v19];
+  v6 = v19;
   if (!v5)
   {
     v12 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = v6;
+      v21 = v6;
       v13 = "failed to encode system info -- %@";
       v14 = v12;
       v15 = 12;
@@ -335,9 +333,9 @@ LABEL_12:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v19 = v6;
-  v8 = [defaultManager triCreateDirectoryForPath:fileCopy isDirectory:0 error:&v19];
-  v9 = v19;
+  v18 = v6;
+  v8 = [defaultManager triCreateDirectoryForPath:fileCopy isDirectory:0 error:&v18];
+  v9 = v18;
 
   if (!v8)
   {
@@ -345,9 +343,9 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v22 = fileCopy;
-      v23 = 2112;
-      v24 = v9;
+      v21 = fileCopy;
+      v22 = 2112;
+      v23 = v9;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "failed to create directory for path %@ -- %@", buf, 0x16u);
     }
 
@@ -355,10 +353,10 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v18 = v9;
+  v17 = v9;
   v10 = 1;
-  v11 = [v5 writeToFile:fileCopy options:1 error:&v18];
-  v6 = v18;
+  v11 = [v5 writeToFile:fileCopy options:1 error:&v17];
+  v6 = v17;
 
   if ((v11 & 1) == 0)
   {
@@ -366,9 +364,9 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v22 = fileCopy;
-      v23 = 2112;
-      v24 = v6;
+      v21 = fileCopy;
+      v22 = 2112;
+      v23 = v6;
       v13 = "failed to write system info to path %@ -- %@";
       v14 = v12;
       v15 = 22;
@@ -382,7 +380,6 @@ LABEL_8:
 
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -470,21 +467,20 @@ void __48__TRISystemInfo__sysEnabledInputModeIdentifiers__block_invoke()
 {
   v0 = objc_autoreleasePoolPush();
   gotLoadHelper_x8__OBJC_CLASS___TIInputModeController(v1);
-  v3 = *(v2 + 896);
-  v4 = objc_opt_new();
-  v5 = [v4 enabledInputModeIdentifiers];
-  v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__TRISystemInfo__sysEnabledInputModeIdentifiers__block_invoke_2;
-  v10[3] = &unk_279DE1310;
-  v11 = v6;
-  v7 = v6;
-  [v5 enumerateObjectsUsingBlock:v10];
-  v8 = [v7 copy];
+  v2 = objc_opt_new();
+  v3 = [v2 enabledInputModeIdentifiers];
+  v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__TRISystemInfo__sysEnabledInputModeIdentifiers__block_invoke_2;
+  v8[3] = &unk_279DE1310;
+  v9 = v4;
+  v5 = v4;
+  [v3 enumerateObjectsUsingBlock:v8];
+  v6 = [v5 copy];
 
-  v9 = qword_2815977E0;
-  qword_2815977E0 = v8;
+  v7 = qword_2815977E0;
+  qword_2815977E0 = v6;
 
   objc_autoreleasePoolPop(v0);
 }
@@ -521,7 +517,7 @@ void __48__TRISystemInfo__sysEnabledInputModeIdentifiers__block_invoke_2(uint64_
 
 + (id)_iCloudIdentifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (_iCloudIdentifier__pasOnceToken13 != -1)
   {
     dispatch_once(&_iCloudIdentifier__pasOnceToken13, &__block_literal_global_107);
@@ -533,15 +529,13 @@ void __48__TRISystemInfo__sysEnabledInputModeIdentifiers__block_invoke_2(uint64_
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
-    v12 = 138412290;
-    v13 = aa_primaryAppleAccount;
-    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Updating iCloudID using Alt. DSID of account: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = aa_primaryAppleAccount;
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Updating iCloudID using Alt. DSID of account: %@", &v11, 0xCu);
   }
 
   aa_primaryAppleAccount2 = [defaultStore aa_primaryAppleAccount];
   aa_altDSID = [aa_primaryAppleAccount2 aa_altDSID];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return aa_altDSID;
 }
@@ -580,14 +574,13 @@ void __24__TRISystemInfo__hasAne__block_invoke()
 {
   v1 = objc_autoreleasePoolPush();
   gotLoadHelper_x20__OBJC_CLASS____ANEDeviceInfo(v2);
-  v3 = *(v0 + 2400);
-  v4 = objc_opt_class();
-  if (v4)
+  v3 = objc_opt_class();
+  if (v3)
   {
-    LODWORD(v4) = [*(v0 + 2400) hasANE];
+    LODWORD(v3) = [*(v0 + 2400) hasANE];
   }
 
-  _MergedGlobals_35 = v4;
+  _MergedGlobals_35 = v3;
 
   objc_autoreleasePoolPop(v1);
 }
@@ -610,15 +603,14 @@ void __28__TRISystemInfo__aneVersion__block_invoke()
 {
   v1 = objc_autoreleasePoolPush();
   gotLoadHelper_x20__OBJC_CLASS____ANEDeviceInfo(v2);
-  v3 = *(v0 + 2400);
-  v4 = objc_opt_class();
-  if (v4)
+  v3 = objc_opt_class();
+  if (v3)
   {
-    v4 = [*(v0 + 2400) aneSubType];
+    v3 = [*(v0 + 2400) aneSubType];
   }
 
-  v5 = qword_2815977F8;
-  qword_2815977F8 = v4;
+  v4 = qword_2815977F8;
+  qword_2815977F8 = v3;
 
   objc_autoreleasePoolPop(v1);
 }
@@ -651,11 +643,11 @@ void __28__TRISystemInfo__aneVersion__block_invoke()
 
 void __34__TRISystemInfo__isVirtualMachine__block_invoke()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
-  v6 = 0;
-  v5 = 4;
-  v1 = sysctlbyname("kern.hv_vmm_present", &v6, &v5, 0, 0);
+  v5 = 0;
+  v4 = 4;
+  v1 = sysctlbyname("kern.hv_vmm_present", &v5, &v4, 0, 0);
   if (v1)
   {
     v2 = v1;
@@ -663,14 +655,13 @@ void __34__TRISystemInfo__isVirtualMachine__block_invoke()
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v8 = v2;
+      v7 = v2;
       _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "Unable to read 'kern.hv_vmm_present' code: %d", buf, 8u);
     }
   }
 
-  dword_2815977CC = v6 != 0;
+  dword_2815977CC = v5 != 0;
   objc_autoreleasePoolPop(v0);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

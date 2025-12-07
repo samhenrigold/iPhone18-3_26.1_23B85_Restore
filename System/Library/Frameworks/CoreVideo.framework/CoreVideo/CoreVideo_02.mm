@@ -1,55 +1,3 @@
-void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_422YpCbCr10BiPlanarFullRange(int a1)
-{
-  if (a1)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return &unk_1F108FB38;
-  }
-}
-
-void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_444YpCbCr10BiPlanarFullRange(int a1)
-{
-  if (a1)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return &unk_1F108FB60;
-  }
-}
-
-void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8_420YpCbCr8BiPlanarVideoRange(int a1)
-{
-  if (a1)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return &unk_1F108FB88;
-  }
-}
-
-void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8_422YpCbCr8BiPlanarVideoRange(int a1)
-{
-  if (a1)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return &unk_1F108FBB0;
-  }
-}
-
 void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8_444YpCbCr8BiPlanarVideoRange(int a1)
 {
   if (a1)
@@ -551,7 +499,7 @@ void *_getCVDataBufferPool(void *result)
   {
     v1 = result;
     v2 = CFGetTypeID(result);
-    if (v2 == CVDataBufferPoolGetTypeID())
+    if (v2 == CVDataBufferPoolGetTypeID(v2, v3))
     {
       return v1[2];
     }
@@ -725,7 +673,7 @@ __IOSurface *dataBufferPoolScanIOSurfacesCallback(__IOSurface *result, _BYTE *a2
   return result;
 }
 
-void *CVDataBufferGetIOSurface(void *a1)
+void *CVDataBufferGetIOSurface(__CVBuffer *a1)
 {
   result = _getCVDataBuffer(a1);
   if (result)
@@ -744,7 +692,7 @@ void *_getCVDataBuffer(void *result)
   {
     v1 = result;
     v2 = CFGetTypeID(result);
-    if (v2 == CVDataBufferGetTypeID())
+    if (v2 == CVDataBufferGetTypeID(v2, v3))
     {
       return v1[2];
     }
@@ -786,7 +734,7 @@ void *CVDataBufferGetPixelFormatType(void *a1)
 
 uint64_t CVDataBufferCreateWithIOSurface(CFAllocatorRef allocator, __IOSurface *a2, const __CFDictionary *a3, CVBuffer ***a4)
 {
-  v32 = 0;
+  v34 = 0;
   if (!a4 || !a2)
   {
     return -6661;
@@ -812,19 +760,19 @@ uint64_t CVDataBufferCreateWithIOSurface(CFAllocatorRef allocator, __IOSurface *
   AllocSize = IOSurfaceGetAllocSize(a2);
   if (!AllocSize || (v10 = AllocSize, PixelFormat = IOSurfaceGetPixelFormat(a2), !PixelFormat))
   {
-    v22 = -6680;
+    v23 = -6680;
 LABEL_22:
-    v32 = v22;
-    v23 = v8;
+    v34 = v23;
+    v24 = v8;
 LABEL_42:
-    CFRelease(v23);
-    return v32;
+    CFRelease(v24);
+    return v34;
   }
 
   v12 = PixelFormat;
   if (IOSurfaceGetWidth(a2) || IOSurfaceGetHeight(a2) || IOSurfaceGetBytesPerRow(a2) || IOSurfaceGetBytesPerElement(a2) != 1 || IOSurfaceGetElementWidth(a2) != 1 || IOSurfaceGetElementHeight(a2) != 1)
   {
-    v22 = -6662;
+    v23 = -6662;
     goto LABEL_22;
   }
 
@@ -833,7 +781,7 @@ LABEL_42:
   if (v15)
   {
     v16 = v15;
-    if (!(*(*v15[2] + 176))(v15[2], v12, v10, v8, 0, a2, &v32))
+    if (!(*(*v15[2] + 176))(v15[2], v12, v10, v8, 0, a2, &v34))
     {
       v18 = 0;
       goto LABEL_38;
@@ -846,28 +794,28 @@ LABEL_42:
       if (v19 == CFDictionaryGetValue(v8, @"IOSurfaceDoNotIncrementUseCount"))
       {
         v20 = CFGetTypeID(v18);
-        if (v20 == CVDataBufferGetTypeID())
+        if (v20 == CVDataBufferGetTypeID(v20, v21))
         {
-          v21 = v18[2];
+          v22 = v18[2];
         }
 
         else
         {
-          v21 = 0;
+          v22 = 0;
         }
 
-        CVDataBuffer::setDoNotAutomaticallyBumpUseCount(v21);
+        CVDataBuffer::setDoNotAutomaticallyBumpUseCount(v22);
       }
 
       if ((*(*v18[2] + 160))(v18[2], v16[2]))
       {
-        v24 = CFGetTypeID(v18);
-        if (v24 == CVDataBufferGetTypeID())
+        v25 = CFGetTypeID(v18);
+        if (v25 == CVDataBufferGetTypeID(v25, v26))
         {
-          v25 = v18[2];
-          if (v25)
+          v27 = v18[2];
+          if (v27)
           {
-            CVDataBuffer::pullAttachmentsFromIOSurface(v25, v13);
+            CVDataBuffer::pullAttachmentsFromIOSurface(v27, v13);
           }
         }
 
@@ -877,11 +825,11 @@ LABEL_42:
           Value = CFDictionaryGetValue(v13, *MEMORY[0x1E696CF98]);
           if (Value)
           {
-            v27 = Value;
-            v28 = CFGetTypeID(Value);
-            if (v28 == CFStringGetTypeID())
+            v29 = Value;
+            v30 = CFGetTypeID(Value);
+            if (v30 == CFStringGetTypeID())
             {
-              CVBufferBacking::setPoolName(v16[2], v27);
+              CVBufferBacking::setPoolName(v16[2], v29);
             }
           }
         }
@@ -891,22 +839,22 @@ LABEL_42:
         goto LABEL_37;
       }
 
-      v29 = -6660;
+      v31 = -6660;
     }
 
     else
     {
-      v29 = -6662;
+      v31 = -6662;
     }
 
-    v32 = v29;
+    v34 = v31;
 LABEL_37:
     CFRelease(v16);
     goto LABEL_38;
   }
 
   v18 = 0;
-  v32 = -6662;
+  v34 = -6662;
 LABEL_38:
   CFRelease(v8);
   if (v13)
@@ -916,11 +864,11 @@ LABEL_38:
 
   if (v18)
   {
-    v23 = v18;
+    v24 = v18;
     goto LABEL_42;
   }
 
-  return v32;
+  return v34;
 }
 
 uint64_t ElementModifyFlags(uint64_t a1, int a2, int a3)
@@ -1017,13 +965,15 @@ void CVAtomicBunchDestroy(OSQueueHead *__list)
 
 CVObject **CVOpenGLESContext::alloc(CVOpenGLESContext *this, const __CFAllocator *a2)
 {
+  v2 = this;
   if (_cvUseTrackingAllocator)
   {
     this = _cvTrackingGetCFAllocator(@"CVOpenGLESContext");
+    v2 = this;
   }
 
-  TypeID = CVObjectGetTypeID();
-  v4 = CVObject::alloc(TypeID, this, 0x18, 0x68uLL);
+  TypeID = CVObjectGetTypeID(this, a2);
+  v4 = CVObject::alloc(TypeID, v2, 0x18, 0x68uLL);
   v5 = v4;
   if (v4)
   {
@@ -1034,7 +984,7 @@ CVObject **CVOpenGLESContext::alloc(CVOpenGLESContext *this, const __CFAllocator
   return v5;
 }
 
-uint64_t CVOpenGLESContext::finalize(CVOpenGLESContext *this)
+void CVOpenGLESContext::finalize(CVOpenGLESContext *this)
 {
   pthread_mutex_destroy((this + 16));
   v2 = *(this + 10);
@@ -1042,16 +992,16 @@ uint64_t CVOpenGLESContext::finalize(CVOpenGLESContext *this)
   {
   }
 
-  return CVObject::finalize(this);
+  CVObject::finalize(this);
 }
 
 CVOpenGLESContext *CVOpenGLESContext::initWithContext(CVOpenGLESContext *this, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  pthread_mutexattr_init(&v7);
-  pthread_mutexattr_settype(&v7, 2);
-  pthread_mutex_init((this + 16), &v7);
-  pthread_mutexattr_destroy(&v7);
+  v7 = *MEMORY[0x1E69E9840];
+  pthread_mutexattr_init(&v6);
+  pthread_mutexattr_settype(&v6, 2);
+  pthread_mutex_init((this + 16), &v6);
+  pthread_mutexattr_destroy(&v6);
   *(this + 96) = 1;
   if (CVOpenGLESContext::initWithContext(void *)::sCVEAGLContextOnce != -1)
   {
@@ -1068,10 +1018,9 @@ CVOpenGLESContext *CVOpenGLESContext::initWithContext(CVOpenGLESContext *this, v
   else
   {
     (*(*this + 40))(this);
-    this = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -1084,15 +1033,14 @@ Class ___ZN17CVOpenGLESContext15initWithContextEPv_block_invoke()
 
 CVOpenGLESContext *CVOpenGLESContext::initWithNonRetainedContext(CVOpenGLESContext *this, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  pthread_mutexattr_init(&v6);
-  pthread_mutexattr_settype(&v6, 2);
-  pthread_mutex_init((this + 16), &v6);
-  pthread_mutexattr_destroy(&v6);
+  v6 = *MEMORY[0x1E69E9840];
+  pthread_mutexattr_init(&v5);
+  pthread_mutexattr_settype(&v5, 2);
+  pthread_mutex_init((this + 16), &v5);
+  pthread_mutexattr_destroy(&v5);
   *(this + 96) = 0;
   *(this + 10) = a2;
   *(this + 11) = [a2 getMacroContextPrivate];
-  v4 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -1189,7 +1137,7 @@ void CVMetalBufferRelease(CFTypeRef cf)
   }
 }
 
-uint64_t CVMetalBufferGetTypeID()
+uint64_t CVMetalBufferGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (CVMetalBufferGetTypeID::once != -1)
   {
@@ -1237,7 +1185,7 @@ void CVMetalBuffer::CVMetalBuffer(CVMetalBuffer *this, const void *a2)
   v2[12] = 0;
 }
 
-uint64_t CVMetalBuffer::finalize(CVMetalBuffer *this)
+void CVMetalBuffer::finalize(CVMetalBuffer *this)
 {
   v2 = *(this + 12);
   if (v2)
@@ -1247,7 +1195,7 @@ uint64_t CVMetalBuffer::finalize(CVMetalBuffer *this)
     *(this + 12) = 0;
   }
 
-  return CVBuffer::finalize(this);
+  CVBuffer::finalize(this);
 }
 
 CFTypeRef *CVMetalBuffer::initWithBufferBacking(CFTypeRef *this, CVMetalBufferBacking *a2)
@@ -1427,7 +1375,7 @@ CFStringRef classCopyFormatDescription_CVOpenGLESTexture(void *a1, const __CFDic
   return CFStringCreateWithFormat(0, a2, @"<CVOpenGLESTextureRef %p obj=%p refcnt=%ld>", a1, v4, v5);
 }
 
-uint64_t CVBufferPool::finalize(CVBufferPool *this)
+void CVBufferPool::finalize(CVBufferPool *this)
 {
   v2 = (*(*this + 24))(this);
   v3 = *(this + 2);
@@ -1466,14 +1414,14 @@ LABEL_6:
 
   *(this + 3) = 0;
 
-  return CVObject::finalize(this);
+  CVObject::finalize(this);
 }
 
-uint64_t dumpToQTESWithParams(const char *a1, signed int a2, int a3, _DWORD *a4, _DWORD *a5, uint64_t a6, uint64_t a7, const __CFDictionary *a8)
+uint64_t dumpToQTESWithParams(const char *a1, unsigned int a2, unsigned int a3, _DWORD *a4, _DWORD *a5, uint64_t a6, uint64_t a7, const __CFDictionary *a8)
 {
   v12 = a1;
-  v54 = *MEMORY[0x1E69E9840];
-  v50 = 1;
+  v53 = *MEMORY[0x1E69E9840];
+  v49 = 1;
   valuePtr = 8;
   v13 = strlen(a1);
   v14 = malloc_type_malloc(v13 + 5, 0x100004077774924uLL);
@@ -1502,15 +1450,15 @@ uint64_t dumpToQTESWithParams(const char *a1, signed int a2, int a3, _DWORD *a4,
     if (a3 == 1)
     {
 LABEL_9:
-      v42 = v12;
-      v43 = a2;
-      v44 = a8;
+      v41 = v12;
+      v42 = a2;
+      v43 = a8;
       v21 = 0;
       v19 = 0;
-      v46 = a3;
+      v45 = a3;
       do
       {
-        v50 = 1;
+        v49 = 1;
         valuePtr = 8;
         v22 = ValueAtIndex;
         if (theArray)
@@ -1527,11 +1475,11 @@ LABEL_9:
         v24 = CFDictionaryGetValue(ValueAtIndex, @"BlockWidth");
         if (v24)
         {
-          CFNumberGetValue(v24, kCFNumberIntType, &v50);
+          CFNumberGetValue(v24, kCFNumberIntType, &v49);
         }
 
         v25 = a5[v21];
-        v26 = valuePtr / 8 * ((a4[v21] + v50 - 1) / v50);
+        v26 = valuePtr / 8 * ((a4[v21] + v49 - 1) / v49);
         if (v25 >= 1)
         {
           v27 = *(a7 + 8 * v21);
@@ -1551,14 +1499,14 @@ LABEL_9:
         ValueAtIndex = v22;
       }
 
-      while (v21 != v46);
+      while (v21 != v45);
       goto LABEL_20;
     }
 
     v39 = "pixel format only expects one plane.";
 LABEL_38:
     puts(v39);
-    goto LABEL_39;
+    return 0xFFFFFFFFLL;
   }
 
   if (CFArrayGetCount(Value) != a3)
@@ -1573,24 +1521,22 @@ LABEL_38:
   }
 
 LABEL_6:
-  v42 = v12;
-  v43 = a2;
-  v44 = a8;
+  v41 = v12;
+  v42 = a2;
+  v43 = a8;
   v19 = 0;
 LABEL_20:
   fclose(v15);
   v20 = 0;
-  a2 = v43;
-  a8 = v44;
-  v12 = v42;
+  a2 = v42;
+  a8 = v43;
+  v12 = v41;
 LABEL_21:
   v29 = fopen(v12, "w");
   if (!v29)
   {
     printf("Failed to open file for writing: %s", v12);
-LABEL_39:
-    v20 = 0xFFFFFFFFLL;
-    goto LABEL_40;
+    return 0xFFFFFFFFLL;
   }
 
   v30 = v29;
@@ -1601,7 +1547,7 @@ LABEL_39:
   fprintf(v30, "\t\tsrc=file://localhost%s.vid\n", v12);
   if (a2 > 0x28)
   {
-    fprintf(v30, "\t\tcodec=%c%c%c%c\n", (a2 >> 24), (a2 << 8 >> 24), (a2 >> 8), a2);
+    fprintf(v30, "\t\tcodec=%c%c%c%c\n", (a2 >> 24), ((a2 << 8) >> 24), (a2 >> 8), a2);
     a2 = 24;
   }
 
@@ -1623,8 +1569,8 @@ LABEL_39:
     {
       v32 = v31;
       CFStringGetCString(@"CVImageBufferYCbCrMatrix", buffer, 512, 0x600u);
-      CFStringGetCString(v32, v52, 512, 0x600u);
-      fprintf(v30, "\t\t%s=%s\n", buffer, v52);
+      CFStringGetCString(v32, v51, 512, 0x600u);
+      fprintf(v30, "\t\t%s=%s\n", buffer, v51);
     }
 
     v33 = CFDictionaryGetValue(a8, @"CVImageBufferChromaLocationTopField");
@@ -1632,8 +1578,8 @@ LABEL_39:
     {
       v34 = v33;
       CFStringGetCString(@"CVImageBufferChromaLocationTopField", buffer, 512, 0x600u);
-      CFStringGetCString(v34, v52, 512, 0x600u);
-      fprintf(v30, "\t\t%s=%s\n", buffer, v52);
+      CFStringGetCString(v34, v51, 512, 0x600u);
+      fprintf(v30, "\t\t%s=%s\n", buffer, v51);
     }
 
     v35 = CFDictionaryGetValue(a8, @"CVImageBufferChromaLocationBottomField");
@@ -1641,8 +1587,8 @@ LABEL_39:
     {
       v36 = v35;
       CFStringGetCString(@"CVImageBufferChromaLocationBottomField", buffer, 512, 0x600u);
-      CFStringGetCString(v36, v52, 512, 0x600u);
-      fprintf(v30, "\t\t%s=%s\n", buffer, v52);
+      CFStringGetCString(v36, v51, 512, 0x600u);
+      fprintf(v30, "\t\t%s=%s\n", buffer, v51);
     }
 
     v37 = CFDictionaryGetValue(a8, @"CVImageBufferChromaSubsampling");
@@ -1650,16 +1596,14 @@ LABEL_39:
     {
       v38 = v37;
       CFStringGetCString(@"CVImageBufferChromaSubsampling", buffer, 512, 0x600u);
-      CFStringGetCString(v38, v52, 512, 0x600u);
-      fprintf(v30, "\t\t%s=%s\n", buffer, v52);
+      CFStringGetCString(v38, v51, 512, 0x600u);
+      fprintf(v30, "\t\t%s=%s\n", buffer, v51);
     }
   }
 
   fwrite("\t/>\n", 4uLL, 1uLL, v30);
   fwrite("</elementary_streams>\n", 0x16uLL, 1uLL, v30);
   fclose(v30);
-LABEL_40:
-  v40 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -2017,13 +1961,11 @@ __CFString *CVCreateHexDumpString(const unsigned __int8 *a1, uint64_t a2)
 
 __CFString *CVCreateSHA1DigestString(const void *a1, CC_LONG a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   CC_SHA1_Init(&c);
   CC_SHA1_Update(&c, a1, a2);
   CC_SHA1_Final(md, &c);
-  result = CVCreateHexDumpString(md, 20);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return CVCreateHexDumpString(md, 20);
 }
 
 __CFString *CVCreateSHA1DigestStringFromData(const __CFData *a1)
@@ -2098,7 +2040,7 @@ const __CFDictionary *CVIsPixelFormatCompressed(unsigned int a1)
   return result;
 }
 
-uint64_t CVLockingBunchPairGetTypeID(void)
+uint64_t CVLockingBunchPairGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (CVLockingBunchPairGetTypeID(void)::once != -1)
   {
@@ -2117,11 +2059,11 @@ uint64_t classInitialize_CVLockingBunchPair(void *a1)
 
 uint64_t CVLockingBunchPair::initCVBufferPoolMutex(CVLockingBunchPair *this)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = malloc_type_malloc(0x40uLL, 0x1000040FA0F61DDuLL);
-  pthread_mutexattr_init(&v5);
-  pthread_mutexattr_settype(&v5, 2);
-  pthread_mutex_init(v1, &v5);
+  pthread_mutexattr_init(&v4);
+  pthread_mutexattr_settype(&v4, 2);
+  pthread_mutex_init(v1, &v4);
   v2 = 0;
   atomic_compare_exchange_strong_explicit(&CVLockingBunchPair::_bufferPoolMutex, &v2, v1, memory_order_relaxed, memory_order_relaxed);
   if (v2)
@@ -2130,19 +2072,17 @@ uint64_t CVLockingBunchPair::initCVBufferPoolMutex(CVLockingBunchPair *this)
     free(v1);
   }
 
-  result = pthread_mutexattr_destroy(&v5);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return pthread_mutexattr_destroy(&v4);
 }
 
-uint64_t CVLockingBunchPair::finalize(CVLockingBunchPair *this)
+void CVLockingBunchPair::finalize(CVLockingBunchPair *this)
 {
   (*(*this + 160))(this);
   (*(*this + 56))(this);
   (*(*this + 168))(this);
   pthread_cond_destroy((this + 264));
 
-  return CVBunchPair::finalize(this);
+  CVBunchPair::finalize(this);
 }
 
 uint64_t CVLockingBunchPair::cleanup(CVLockingBunchPair *this)
@@ -2617,13 +2557,13 @@ __CFDictionary *CVCreateIOSurfacePropertyDictionaryFromCVBufferAttachmentDiction
 
 uint64_t convertAttachmentToIOSurfaceStruct(const void *a1, const __CFString *a2, uint64_t a3, uint64_t *a4)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (CFEqual(a1, @"CVCleanAperture"))
   {
-    v38 = 0.0;
-    valuePtr = 0.0;
-    v36 = 0.0;
     v37 = 0.0;
+    valuePtr = 0.0;
+    v35 = 0.0;
+    v36 = 0.0;
     if (!a2)
     {
       *a3 = 0u;
@@ -2632,15 +2572,15 @@ uint64_t convertAttachmentToIOSurfaceStruct(const void *a1, const __CFString *a2
     }
 
     TypeID = CFDictionaryGetTypeID();
-    if (TypeID == CFGetTypeID(a2) && cvGetDoubleFromDictionary(a2, @"Width", &valuePtr) && cvGetDoubleFromDictionary(a2, @"Height", &v38) && cvGetDoubleFromDictionary(a2, @"HorizontalOffset", &v37) && cvGetDoubleFromDictionary(a2, @"VerticalOffset", &v36))
+    if (TypeID == CFGetTypeID(a2) && cvGetDoubleFromDictionary(a2, @"Width", &valuePtr) && cvGetDoubleFromDictionary(a2, @"Height", &v37) && cvGetDoubleFromDictionary(a2, @"HorizontalOffset", &v36) && cvGetDoubleFromDictionary(a2, @"VerticalOffset", &v35))
     {
-      v9 = llround(v38 * 16.0);
+      v9 = llround(v37 * 16.0);
       *a3 = llround(valuePtr * 16.0);
       *(a3 + 4) = 16;
-      v10 = llround(v37 * 16.0);
+      v10 = llround(v36 * 16.0);
       *(a3 + 8) = v9;
       *(a3 + 12) = 16;
-      v11 = llround(v36 * 16.0);
+      v11 = llround(v35 * 16.0);
       *(a3 + 16) = v10;
       *(a3 + 20) = 16;
       *(a3 + 24) = v11;
@@ -2649,46 +2589,44 @@ LABEL_18:
       v15 = *a4 | 1;
 LABEL_86:
       *a4 = v15;
-      goto LABEL_87;
+      return 1;
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferCleanApertureKey, attachmentValue is invalid.";
+      v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferCleanApertureKey, attachmentValue is invalid.";
       v14 = MEMORY[0x1E69E9C10];
 LABEL_25:
       _os_log_impl(&dword_19D11B000, v14, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
-      goto LABEL_87;
+      return 1;
     }
 
-    goto LABEL_87;
+    return 1;
   }
 
   if (CFEqual(a1, @"CVPixelAspectRatio"))
   {
-    v38 = 0.0;
+    v37 = 0.0;
     valuePtr = 0.0;
     if (a2)
     {
       v12 = CFDictionaryGetTypeID();
-      if (v12 != CFGetTypeID(a2) || !cvGetDoubleFromDictionary(a2, @"HorizontalSpacing", &v38) || !cvGetDoubleFromDictionary(a2, @"VerticalSpacing", &valuePtr))
+      if (v12 != CFGetTypeID(a2) || !cvGetDoubleFromDictionary(a2, @"HorizontalSpacing", &v37) || !cvGetDoubleFromDictionary(a2, @"VerticalSpacing", &valuePtr))
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferPixelAspectRatioKey, attachmentValue is invalid.";
+          v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferPixelAspectRatioKey, attachmentValue is invalid.";
           v14 = MEMORY[0x1E69E9C10];
           goto LABEL_25;
         }
 
-LABEL_87:
-        result = 1;
-        goto LABEL_88;
+        return 1;
       }
 
       v13 = llround(valuePtr * 16.0);
-      *(a3 + 32) = llround(v38 * 16.0);
+      *(a3 + 32) = llround(v37 * 16.0);
       *(a3 + 36) = 16;
       *(a3 + 40) = v13;
       *(a3 + 44) = 16;
@@ -2714,11 +2652,11 @@ LABEL_87:
       {
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_87;
+          return 1;
         }
 
         *buf = 136315138;
-        v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferGammaLevelKey, attachmentValue is invalid.";
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferGammaLevelKey, attachmentValue is invalid.";
         v14 = MEMORY[0x1E69E9C10];
         goto LABEL_25;
       }
@@ -2747,11 +2685,11 @@ LABEL_87:
       {
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_87;
+          return 1;
         }
 
         *buf = 136315138;
-        v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferFieldCountKey, attachmentValue is invalid.";
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferFieldCountKey, attachmentValue is invalid.";
         v14 = MEMORY[0x1E69E9C10];
         goto LABEL_25;
       }
@@ -2759,7 +2697,7 @@ LABEL_87:
       CFNumberGetValue(a2, kCFNumberSInt8Type, &valuePtr);
       if (SLOBYTE(valuePtr) < 1)
       {
-        goto LABEL_87;
+        return 1;
       }
 
       *(a3 + 56) = LOBYTE(valuePtr);
@@ -2774,337 +2712,159 @@ LABEL_87:
     goto LABEL_86;
   }
 
-  if (!CFEqual(a1, @"CVFieldDetail"))
+  if (CFEqual(a1, @"CVFieldDetail"))
   {
-    if (CFEqual(a1, @"CVImageBufferYCbCrMatrix"))
+    if (a2)
     {
-      if (a2)
+      v18 = CFStringGetTypeID();
+      if (v18 != CFGetTypeID(a2))
       {
-        IntegerCodePointForString = CVYCbCrMatrixGetIntegerCodePointForString(a2);
-        if ((IntegerCodePointForString & 0xFFFFFFFD) == 0)
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_87;
-          }
-
-          *buf = 136315138;
-          v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferYCbCrMatrixKey, attachmentValue is invalid.";
-          v14 = MEMORY[0x1E69E9C10];
-          goto LABEL_25;
+          return 1;
         }
 
-        *(a3 + 58) = IntegerCodePointForString;
+        *buf = 136315138;
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferFieldDetailKey, attachmentValue is invalid.";
+        v14 = MEMORY[0x1E69E9C10];
+        goto LABEL_25;
+      }
+
+      if (CFEqual(a2, @"TemporalTopFirst"))
+      {
+        result = 1;
+        *(a3 + 57) = 1;
+        v20 = *a4 | 0x10;
+LABEL_42:
+        *a4 = v20;
+        return result;
+      }
+
+      if (CFEqual(a2, @"TemporalBottomFirst"))
+      {
+        v23 = 6;
+      }
+
+      else if (CFEqual(a2, @"SpatialFirstLineEarly"))
+      {
+        v23 = 9;
       }
 
       else
       {
-        *(a3 + 58) = 0;
+        if (!CFEqual(a2, @"SpatialFirstLineLate"))
+        {
+          return 1;
+        }
+
+        v23 = 14;
       }
 
-      v15 = *a4 | 0x20;
-      goto LABEL_86;
+      *(a3 + 57) = v23;
     }
 
-    if (CFEqual(a1, @"CVImageBufferColorPrimaries"))
+    else
     {
-      if (a2)
-      {
-        v22 = CVColorPrimariesGetIntegerCodePointForString(a2);
-        if ((v22 & 0xFFFFFFFD) == 0)
-        {
-          if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_87;
-          }
-
-          *buf = 136315138;
-          v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferColorPrimariesKey, attachmentValue is invalid.";
-          v14 = MEMORY[0x1E69E9C10];
-          goto LABEL_25;
-        }
-
-        *(a3 + 59) = v22;
-      }
-
-      else
-      {
-        *(a3 + 59) = 0;
-      }
-
-      v15 = *a4 | 0x40;
-      goto LABEL_86;
+      *(a3 + 57) = 0;
     }
 
-    if (CFEqual(a1, @"CVImageBufferTransferFunction"))
+    v15 = *a4 | 0x10;
+    goto LABEL_86;
+  }
+
+  if (CFEqual(a1, @"CVImageBufferYCbCrMatrix"))
+  {
+    if (a2)
     {
-      if (a2)
+      IntegerCodePointForString = CVYCbCrMatrixGetIntegerCodePointForString(a2);
+      if ((IntegerCodePointForString & 0xFFFFFFFD) == 0)
       {
-        v24 = CVTransferFunctionGetIntegerCodePointForString(a2);
-        v25 = v24;
-        if ((v24 & 0xFFFFFFFD) == 0 && !CFEqual(@"UseGamma", a2))
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_87;
-          }
-
-          *buf = 136315138;
-          v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferTransferFunctionKey, attachmentValue is invalid.";
-          v14 = MEMORY[0x1E69E9C10];
-          goto LABEL_25;
+          return 1;
         }
 
-        *(a3 + 60) = v25;
+        *buf = 136315138;
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferYCbCrMatrixKey, attachmentValue is invalid.";
+        v14 = MEMORY[0x1E69E9C10];
+        goto LABEL_25;
       }
 
-      else
-      {
-        *(a3 + 60) = 0;
-      }
-
-      v15 = *a4 | 0x80;
-      goto LABEL_86;
+      *(a3 + 58) = IntegerCodePointForString;
     }
 
-    if (!CFEqual(a1, @"CVImageBufferChromaLocationTopField"))
+    else
     {
-      if (!CFEqual(a1, @"CVImageBufferChromaLocationBottomField"))
-      {
-        if (!CFEqual(a1, @"CVImageBufferChromaSubsampling"))
-        {
-          if (CFEqual(a1, @"MasteringDisplayColorVolume"))
-          {
-            if (a2)
-            {
-              v31 = CFDataGetTypeID();
-              if (v31 != CFGetTypeID(a2) || CFDataGetLength(a2) != 24)
-              {
-                if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-                {
-                  goto LABEL_87;
-                }
-
-                *buf = 136315138;
-                v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferMasteringDisplayColorVolumeKey, attachmentValue is invalid.";
-                v14 = MEMORY[0x1E69E9C10];
-                goto LABEL_25;
-              }
-
-              v47.location = 0;
-              v47.length = 24;
-              CFDataGetBytes(a2, v47, buf);
-              *(a3 + 64) = bswap32(*buf) >> 16;
-              *(a3 + 66) = bswap32(*&buf[2]) >> 16;
-              *(a3 + 68) = bswap32(v41) >> 16;
-              *(a3 + 70) = bswap32(WORD1(v41)) >> 16;
-              *(a3 + 72) = bswap32(WORD2(v41)) >> 16;
-              *(a3 + 74) = bswap32(HIWORD(v41)) >> 16;
-              *(a3 + 76) = bswap32(v42) >> 16;
-              *(a3 + 78) = bswap32(v43) >> 16;
-              v32 = bswap32(v45);
-              *(a3 + 80) = bswap32(v44);
-              *(a3 + 84) = v32;
-            }
-
-            else
-            {
-              *(a3 + 64) = 0;
-              *(a3 + 72) = 0;
-              *(a3 + 80) = 0;
-            }
-
-            v15 = *a4 | 0x800;
-            goto LABEL_86;
-          }
-
-          if (!CFEqual(a1, @"ContentLightLevelInfo"))
-          {
-            result = CFEqual(a1, @"AlphaChannelMode");
-            if (!result)
-            {
-              goto LABEL_88;
-            }
-
-            if (a2)
-            {
-              if (CFEqual(a2, @"StraightAlpha"))
-              {
-                *(a3 + 100) = 1;
-                *a4 |= 0x4000uLL;
-              }
-
-              if (!CFEqual(a2, @"PremultipliedAlpha"))
-              {
-                goto LABEL_87;
-              }
-
-              *(a3 + 100) = 2;
-            }
-
-            else
-            {
-              *(a3 + 100) = 0;
-            }
-
-            v15 = *a4 | 0x4000;
-            goto LABEL_86;
-          }
-
-          if (a2)
-          {
-            v34 = CFDataGetTypeID();
-            if (v34 != CFGetTypeID(a2) || CFDataGetLength(a2) != 4)
-            {
-              if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-              {
-                goto LABEL_87;
-              }
-
-              *buf = 136315138;
-              v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferContentLightLevelInfoKey, attachmentValue is invalid.";
-              v14 = MEMORY[0x1E69E9C10];
-              goto LABEL_25;
-            }
-
-            v48.location = 0;
-            v48.length = 4;
-            CFDataGetBytes(a2, v48, buf);
-            *(a3 + 88) = bswap32(*buf) >> 16;
-            *(a3 + 90) = bswap32(*&buf[2]) >> 16;
-          }
-
-          else
-          {
-            *(a3 + 88) = 0;
-          }
-
-          v15 = *a4 | 0x1000;
-          goto LABEL_86;
-        }
-
-        if (a2)
-        {
-          v29 = CFStringGetTypeID();
-          if (v29 != CFGetTypeID(a2))
-          {
-            if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-            {
-              goto LABEL_87;
-            }
-
-            *buf = 136315138;
-            v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferChromaSubsamplingKey, attachmentValue is invalid.";
-            v14 = MEMORY[0x1E69E9C10];
-            goto LABEL_25;
-          }
-
-          if (CFEqual(a2, @"4:2:0"))
-          {
-            result = 1;
-            *(a3 + 63) = 1;
-            v20 = *a4 | 0x400;
-            goto LABEL_42;
-          }
-
-          if (CFEqual(a2, @"4:2:2"))
-          {
-            v35 = 2;
-          }
-
-          else
-          {
-            if (!CFEqual(a2, @"4:1:1"))
-            {
-              goto LABEL_87;
-            }
-
-            v35 = 3;
-          }
-
-          *(a3 + 63) = v35;
-        }
-
-        else
-        {
-          *(a3 + 63) = 0;
-        }
-
-        v15 = *a4 | 0x400;
-        goto LABEL_86;
-      }
-
-      if (a2)
-      {
-        v28 = CFStringGetTypeID();
-        if (v28 != CFGetTypeID(a2))
-        {
-          if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_87;
-          }
-
-          *buf = 136315138;
-          v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferChromaLocationBottomFieldKey, attachmentValue is invalid.";
-          v14 = MEMORY[0x1E69E9C10];
-          goto LABEL_25;
-        }
-
-        if (CFEqual(a2, @"Left"))
-        {
-          result = 1;
-          *(a3 + 62) = 1;
-          v20 = *a4 | 0x200;
-          goto LABEL_42;
-        }
-
-        if (CFEqual(a2, @"Center"))
-        {
-          v33 = 2;
-        }
-
-        else if (CFEqual(a2, @"TopLeft"))
-        {
-          v33 = 3;
-        }
-
-        else if (CFEqual(a2, @"Top"))
-        {
-          v33 = 4;
-        }
-
-        else if (CFEqual(a2, @"BottomLeft"))
-        {
-          v33 = 5;
-        }
-
-        else if (CFEqual(a2, @"Bottom"))
-        {
-          v33 = 6;
-        }
-
-        else
-        {
-          if (!CFEqual(a2, @"DV 4:2:0"))
-          {
-            goto LABEL_87;
-          }
-
-          v33 = 7;
-        }
-
-        *(a3 + 62) = v33;
-      }
-
-      else
-      {
-        *(a3 + 62) = 0;
-      }
-
-      v15 = *a4 | 0x200;
-      goto LABEL_86;
+      *(a3 + 58) = 0;
     }
 
+    v15 = *a4 | 0x20;
+    goto LABEL_86;
+  }
+
+  if (CFEqual(a1, @"CVImageBufferColorPrimaries"))
+  {
+    if (a2)
+    {
+      v22 = CVColorPrimariesGetIntegerCodePointForString(a2);
+      if ((v22 & 0xFFFFFFFD) == 0)
+      {
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          return 1;
+        }
+
+        *buf = 136315138;
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferColorPrimariesKey, attachmentValue is invalid.";
+        v14 = MEMORY[0x1E69E9C10];
+        goto LABEL_25;
+      }
+
+      *(a3 + 59) = v22;
+    }
+
+    else
+    {
+      *(a3 + 59) = 0;
+    }
+
+    v15 = *a4 | 0x40;
+    goto LABEL_86;
+  }
+
+  if (CFEqual(a1, @"CVImageBufferTransferFunction"))
+  {
+    if (a2)
+    {
+      v24 = CVTransferFunctionGetIntegerCodePointForString(a2);
+      v25 = v24;
+      if ((v24 & 0xFFFFFFFD) == 0 && !CFEqual(@"UseGamma", a2))
+      {
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          return 1;
+        }
+
+        *buf = 136315138;
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferTransferFunctionKey, attachmentValue is invalid.";
+        v14 = MEMORY[0x1E69E9C10];
+        goto LABEL_25;
+      }
+
+      *(a3 + 60) = v25;
+    }
+
+    else
+    {
+      *(a3 + 60) = 0;
+    }
+
+    v15 = *a4 | 0x80;
+    goto LABEL_86;
+  }
+
+  if (CFEqual(a1, @"CVImageBufferChromaLocationTopField"))
+  {
     if (a2)
     {
       v26 = CFStringGetTypeID();
@@ -3112,11 +2872,11 @@ LABEL_87:
       {
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_87;
+          return 1;
         }
 
         *buf = 136315138;
-        v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferChromaLocationTopFieldKey, attachmentValue is invalid.";
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferChromaLocationTopFieldKey, attachmentValue is invalid.";
         v14 = MEMORY[0x1E69E9C10];
         goto LABEL_25;
       }
@@ -3131,40 +2891,40 @@ LABEL_87:
 
       if (CFEqual(a2, @"Center"))
       {
-        v30 = 2;
+        v29 = 2;
       }
 
       else if (CFEqual(a2, @"TopLeft"))
       {
-        v30 = 3;
+        v29 = 3;
       }
 
       else if (CFEqual(a2, @"Top"))
       {
-        v30 = 4;
+        v29 = 4;
       }
 
       else if (CFEqual(a2, @"BottomLeft"))
       {
-        v30 = 5;
+        v29 = 5;
       }
 
       else if (CFEqual(a2, @"Bottom"))
       {
-        v30 = 6;
+        v29 = 6;
       }
 
       else
       {
         if (!CFEqual(a2, @"DV 4:2:0"))
         {
-          goto LABEL_87;
+          return 1;
         }
 
-        v30 = 7;
+        v29 = 7;
       }
 
-      *(a3 + 61) = v30;
+      *(a3 + 61) = v29;
     }
 
     else
@@ -3176,61 +2936,239 @@ LABEL_87:
     goto LABEL_86;
   }
 
-  if (!a2)
+  if (CFEqual(a1, @"CVImageBufferChromaLocationBottomField"))
   {
-    *(a3 + 57) = 0;
-    goto LABEL_85;
-  }
-
-  v18 = CFStringGetTypeID();
-  if (v18 != CFGetTypeID(a2))
-  {
-    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    if (a2)
     {
-      goto LABEL_87;
-    }
+      v27 = CFStringGetTypeID();
+      if (v27 != CFGetTypeID(a2))
+      {
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          return 1;
+        }
 
-    *buf = 136315138;
-    v41 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferFieldDetailKey, attachmentValue is invalid.";
-    v14 = MEMORY[0x1E69E9C10];
-    goto LABEL_25;
-  }
+        *buf = 136315138;
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferChromaLocationBottomFieldKey, attachmentValue is invalid.";
+        v14 = MEMORY[0x1E69E9C10];
+        goto LABEL_25;
+      }
 
-  if (!CFEqual(a2, @"TemporalTopFirst"))
-  {
-    if (CFEqual(a2, @"TemporalBottomFirst"))
-    {
-      v23 = 6;
-    }
+      if (CFEqual(a2, @"Left"))
+      {
+        result = 1;
+        *(a3 + 62) = 1;
+        v20 = *a4 | 0x200;
+        goto LABEL_42;
+      }
 
-    else if (CFEqual(a2, @"SpatialFirstLineEarly"))
-    {
-      v23 = 9;
+      if (CFEqual(a2, @"Center"))
+      {
+        v32 = 2;
+      }
+
+      else if (CFEqual(a2, @"TopLeft"))
+      {
+        v32 = 3;
+      }
+
+      else if (CFEqual(a2, @"Top"))
+      {
+        v32 = 4;
+      }
+
+      else if (CFEqual(a2, @"BottomLeft"))
+      {
+        v32 = 5;
+      }
+
+      else if (CFEqual(a2, @"Bottom"))
+      {
+        v32 = 6;
+      }
+
+      else
+      {
+        if (!CFEqual(a2, @"DV 4:2:0"))
+        {
+          return 1;
+        }
+
+        v32 = 7;
+      }
+
+      *(a3 + 62) = v32;
     }
 
     else
     {
-      if (!CFEqual(a2, @"SpatialFirstLineLate"))
-      {
-        goto LABEL_87;
-      }
-
-      v23 = 14;
+      *(a3 + 62) = 0;
     }
 
-    *(a3 + 57) = v23;
-LABEL_85:
-    v15 = *a4 | 0x10;
+    v15 = *a4 | 0x200;
     goto LABEL_86;
   }
 
-  result = 1;
-  *(a3 + 57) = 1;
-  v20 = *a4 | 0x10;
-LABEL_42:
-  *a4 = v20;
-LABEL_88:
-  v27 = *MEMORY[0x1E69E9840];
+  if (CFEqual(a1, @"CVImageBufferChromaSubsampling"))
+  {
+    if (a2)
+    {
+      v28 = CFStringGetTypeID();
+      if (v28 != CFGetTypeID(a2))
+      {
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          return 1;
+        }
+
+        *buf = 136315138;
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferChromaSubsamplingKey, attachmentValue is invalid.";
+        v14 = MEMORY[0x1E69E9C10];
+        goto LABEL_25;
+      }
+
+      if (CFEqual(a2, @"4:2:0"))
+      {
+        result = 1;
+        *(a3 + 63) = 1;
+        v20 = *a4 | 0x400;
+        goto LABEL_42;
+      }
+
+      if (CFEqual(a2, @"4:2:2"))
+      {
+        v34 = 2;
+      }
+
+      else
+      {
+        if (!CFEqual(a2, @"4:1:1"))
+        {
+          return 1;
+        }
+
+        v34 = 3;
+      }
+
+      *(a3 + 63) = v34;
+    }
+
+    else
+    {
+      *(a3 + 63) = 0;
+    }
+
+    v15 = *a4 | 0x400;
+    goto LABEL_86;
+  }
+
+  if (CFEqual(a1, @"MasteringDisplayColorVolume"))
+  {
+    if (a2)
+    {
+      v30 = CFDataGetTypeID();
+      if (v30 != CFGetTypeID(a2) || CFDataGetLength(a2) != 24)
+      {
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          return 1;
+        }
+
+        *buf = 136315138;
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferMasteringDisplayColorVolumeKey, attachmentValue is invalid.";
+        v14 = MEMORY[0x1E69E9C10];
+        goto LABEL_25;
+      }
+
+      v46.location = 0;
+      v46.length = 24;
+      CFDataGetBytes(a2, v46, buf);
+      *(a3 + 64) = bswap32(*buf) >> 16;
+      *(a3 + 66) = bswap32(*&buf[2]) >> 16;
+      *(a3 + 68) = bswap32(v40) >> 16;
+      *(a3 + 70) = bswap32(WORD1(v40)) >> 16;
+      *(a3 + 72) = bswap32(WORD2(v40)) >> 16;
+      *(a3 + 74) = bswap32(HIWORD(v40)) >> 16;
+      *(a3 + 76) = bswap32(v41) >> 16;
+      *(a3 + 78) = bswap32(v42) >> 16;
+      v31 = bswap32(v44);
+      *(a3 + 80) = bswap32(v43);
+      *(a3 + 84) = v31;
+    }
+
+    else
+    {
+      *(a3 + 64) = 0;
+      *(a3 + 72) = 0;
+      *(a3 + 80) = 0;
+    }
+
+    v15 = *a4 | 0x800;
+    goto LABEL_86;
+  }
+
+  if (CFEqual(a1, @"ContentLightLevelInfo"))
+  {
+    if (a2)
+    {
+      v33 = CFDataGetTypeID();
+      if (v33 != CFGetTypeID(a2) || CFDataGetLength(a2) != 4)
+      {
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          return 1;
+        }
+
+        *buf = 136315138;
+        v40 = "convertAttachmentToIOSurfaceStruct Error: For kCVImageBufferContentLightLevelInfoKey, attachmentValue is invalid.";
+        v14 = MEMORY[0x1E69E9C10];
+        goto LABEL_25;
+      }
+
+      v47.location = 0;
+      v47.length = 4;
+      CFDataGetBytes(a2, v47, buf);
+      *(a3 + 88) = bswap32(*buf) >> 16;
+      *(a3 + 90) = bswap32(*&buf[2]) >> 16;
+    }
+
+    else
+    {
+      *(a3 + 88) = 0;
+    }
+
+    v15 = *a4 | 0x1000;
+    goto LABEL_86;
+  }
+
+  result = CFEqual(a1, @"AlphaChannelMode");
+  if (result)
+  {
+    if (a2)
+    {
+      if (CFEqual(a2, @"StraightAlpha"))
+      {
+        *(a3 + 100) = 1;
+        *a4 |= 0x4000uLL;
+      }
+
+      if (!CFEqual(a2, @"PremultipliedAlpha"))
+      {
+        return 1;
+      }
+
+      *(a3 + 100) = 2;
+    }
+
+    else
+    {
+      *(a3 + 100) = 0;
+    }
+
+    v15 = *a4 | 0x4000;
+    goto LABEL_86;
+  }
+
   return result;
 }
 
@@ -3258,7 +3196,7 @@ uint64_t cvGetDoubleFromDictionary(const __CFDictionary *a1, const __CFString *a
 
 void createAttachmentsDictionaryFromIOSurfaceStruct(uint64_t a1, __CFDictionary **a2)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
   if (*(a1 + 4))
@@ -3269,9 +3207,9 @@ void createAttachmentsDictionaryFromIOSurfaceStruct(uint64_t a1, __CFDictionary 
       {
         if (*(a1 + 28))
         {
-          v50 = 0.0;
-          v51 = 0.0;
           v49 = 0.0;
+          v50 = 0.0;
+          v48 = 0.0;
           v6 = CFDictionaryCreateMutable(v4, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
           if (v6)
           {
@@ -3285,8 +3223,8 @@ void createAttachmentsDictionaryFromIOSurfaceStruct(uint64_t a1, __CFDictionary 
               CFRelease(v9);
             }
 
-            v51 = *(a1 + 8) / *(a1 + 12);
-            v10 = CFNumberCreate(v4, kCFNumberDoubleType, &v51);
+            v50 = *(a1 + 8) / *(a1 + 12);
+            v10 = CFNumberCreate(v4, kCFNumberDoubleType, &v50);
             if (v10)
             {
               v11 = v10;
@@ -3294,8 +3232,8 @@ void createAttachmentsDictionaryFromIOSurfaceStruct(uint64_t a1, __CFDictionary 
               CFRelease(v11);
             }
 
-            v50 = *(a1 + 16) / *(a1 + 20);
-            v12 = CFNumberCreate(v4, kCFNumberDoubleType, &v50);
+            v49 = *(a1 + 16) / *(a1 + 20);
+            v12 = CFNumberCreate(v4, kCFNumberDoubleType, &v49);
             if (v12)
             {
               v13 = v12;
@@ -3303,8 +3241,8 @@ void createAttachmentsDictionaryFromIOSurfaceStruct(uint64_t a1, __CFDictionary 
               CFRelease(v13);
             }
 
-            v49 = *(a1 + 24) / *(a1 + 28);
-            v14 = CFNumberCreate(v4, kCFNumberDoubleType, &v49);
+            v48 = *(a1 + 24) / *(a1 + 28);
+            v14 = CFNumberCreate(v4, kCFNumberDoubleType, &v48);
             if (v14)
             {
               v15 = v14;
@@ -3324,7 +3262,7 @@ void createAttachmentsDictionaryFromIOSurfaceStruct(uint64_t a1, __CFDictionary 
   {
     if (*(a1 + 44))
     {
-      v51 = 0.0;
+      v50 = 0.0;
       valuePtr = 0.0;
       v16 = CFDictionaryCreateMutable(v4, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       if (v16)
@@ -3339,8 +3277,8 @@ void createAttachmentsDictionaryFromIOSurfaceStruct(uint64_t a1, __CFDictionary 
           CFRelease(v19);
         }
 
-        v51 = *(a1 + 40) / *(a1 + 44);
-        v20 = CFNumberCreate(v4, kCFNumberDoubleType, &v51);
+        v50 = *(a1 + 40) / *(a1 + 44);
+        v20 = CFNumberCreate(v4, kCFNumberDoubleType, &v50);
         if (v20)
         {
           v21 = v20;
@@ -3492,19 +3430,19 @@ LABEL_49:
                     BYTE5(valuePtr) = v35;
                     BYTE6(valuePtr) = HIBYTE(v36);
                     HIBYTE(valuePtr) = v36;
-                    v53 = HIBYTE(v37);
-                    v54 = v37;
-                    v55 = HIBYTE(v38);
-                    v56 = v38;
-                    v57 = HIBYTE(v39);
-                    v58 = v39;
-                    v59 = HIBYTE(v40);
-                    v60 = v40;
-                    v61 = HIBYTE(v41);
-                    v62 = BYTE2(v41);
-                    v63 = BYTE1(v41);
-                    v64 = v41;
-                    v65 = bswap32(*(a1 + 84));
+                    v52 = HIBYTE(v37);
+                    v53 = v37;
+                    v54 = HIBYTE(v38);
+                    v55 = v38;
+                    v56 = HIBYTE(v39);
+                    v57 = v39;
+                    v58 = HIBYTE(v40);
+                    v59 = v40;
+                    v60 = HIBYTE(v41);
+                    v61 = BYTE2(v41);
+                    v62 = BYTE1(v41);
+                    v63 = v41;
+                    v64 = bswap32(*(a1 + 84));
                     v42 = CFDataCreate(v4, &valuePtr, 24);
                     CFDictionarySetValue(Mutable, @"MasteringDisplayColorVolume", v42);
                     CFRelease(v42);
@@ -3556,8 +3494,6 @@ LABEL_73:
   {
     *a2 = Mutable;
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t CVMetalBufferGetBuffer(void *a1)
@@ -3568,23 +3504,23 @@ uint64_t CVMetalBufferGetBuffer(void *a1)
   }
 
   v2 = CFGetTypeID(a1);
-  if (v2 != CVMetalBufferGetTypeID())
+  if (v2 != CVMetalBufferGetTypeID(v2, v3))
   {
     return 0;
   }
 
-  v3 = a1[2];
-  if (!v3)
+  v4 = a1[2];
+  if (!v4)
   {
     return 0;
   }
 
-  v4 = *(**(v3 + 96) + 184);
+  v5 = *(**(v4 + 96) + 184);
 
-  return v4();
+  return v5();
 }
 
-uint64_t CVDataBufferGetTypeID()
+uint64_t CVDataBufferGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (CVDataBufferGetTypeID::once != -1)
   {
@@ -3636,7 +3572,7 @@ void CVDataBuffer::CVDataBuffer(CVDataBuffer *this, const void *a2)
   *(v2 + 100) = 0;
 }
 
-uint64_t CVDataBuffer::finalize(CVDataBuffer *this)
+void CVDataBuffer::finalize(CVDataBuffer *this)
 {
   v2 = *(this + 14);
   if (v2)
@@ -3648,11 +3584,11 @@ uint64_t CVDataBuffer::finalize(CVDataBuffer *this)
       do
       {
         v5 = v4;
-        v7 = 0;
+        v6 = 0;
         do
         {
-          CVDecrementAtomicCounter(this + v3 + 25, &v7);
-          if (!v7)
+          CVDecrementAtomicCounter(this + v3 + 25, &v6);
+          if (!v6)
           {
             break;
           }
@@ -3660,7 +3596,7 @@ uint64_t CVDataBuffer::finalize(CVDataBuffer *this)
           IOSurfaceDecrementUseCountForCategory();
         }
 
-        while (v7);
+        while (v6);
         v4 = 0;
         v3 = 1;
       }
@@ -3677,7 +3613,7 @@ uint64_t CVDataBuffer::finalize(CVDataBuffer *this)
     *(this + 14) = 0;
   }
 
-  return CVBuffer::finalize(this);
+  CVBuffer::finalize(this);
 }
 
 CFTypeRef *CVDataBuffer::initWithDataBufferBacking(CFTypeRef *this, CVDataBufferBacking *a2)
@@ -3801,13 +3737,14 @@ void CVDataBuffer::removeAttachment(CVDataBuffer *this, const __CFString *a2)
   }
 }
 
-uint64_t CVDataBuffer::incrementUseCountForCategory(CVDataBuffer *this, unsigned int a2)
+uint64_t CVDataBuffer::incrementUseCountForCategory(CVDataBuffer *this, uint64_t a2)
 {
+  v2 = a2;
   v5 = 0;
   result = (*(**(this + 14) + 208))(*(this + 14));
   if (result)
   {
-    CVIncrementAtomicCounter(this + a2 + 25, &v5);
+    CVIncrementAtomicCounter(this + v2 + 25, &v5);
     if (v5)
     {
       IOSurfaceIncrementUseCountForCategory();
@@ -3823,13 +3760,14 @@ uint64_t CVDataBuffer::incrementUseCountForCategory(CVDataBuffer *this, unsigned
   return result;
 }
 
-uint64_t CVDataBuffer::decrementUseCountForCategory(CVDataBuffer *this, unsigned int a2)
+uint64_t CVDataBuffer::decrementUseCountForCategory(CVDataBuffer *this, uint64_t a2)
 {
+  v2 = a2;
   v5 = 0;
   result = (*(**(this + 14) + 208))(*(this + 14));
   if (result)
   {
-    CVDecrementAtomicCounter(this + a2 + 25, &v5);
+    CVDecrementAtomicCounter(this + v2 + 25, &v5);
     if (v5)
     {
       IOSurfaceDecrementUseCountForCategory();
@@ -4120,8 +4058,8 @@ char *fillExtended64(char *result, uint64_t a2, uint64_t a3, size_t __n, uint64_
     do
     {
       v18 = &result[v15 * __n + -8 * a5];
-      v19 = *(v18 + 8 * a5);
-      v20 = (v18 + 8);
+      v19 = *&v18[8 * a5];
+      v20 = v18 + 8;
       v21 = (a5 + 1) & 0xFFFFFFFFFFFFFFFELL;
       v22 = xmmword_19D17B510;
       do
@@ -4157,8 +4095,8 @@ char *fillExtended64(char *result, uint64_t a2, uint64_t a3, size_t __n, uint64_
     do
     {
       v27 = &result[8 * a2 + v24 * __n];
-      v28 = *(v27 - 8);
-      v29 = (v27 + 8);
+      v28 = *(v27 - 1);
+      v29 = v27 + 8;
       v30 = (a6 + 1) & 0xFFFFFFFFFFFFFFFELL;
       v31 = xmmword_19D17B510;
       do
@@ -4429,8 +4367,8 @@ char *fillExtended32(char *result, uint64_t a2, uint64_t a3, size_t __n, uint64_
     do
     {
       v18 = &result[v15 * __n + -4 * a5];
-      v19 = *(v18 + 4 * a5);
-      v20 = (v18 + 8);
+      v19 = *&v18[4 * a5];
+      v20 = v18 + 8;
       v21 = (a5 + 3) & 0xFFFFFFFFFFFFFFFCLL;
       v22 = xmmword_19D17B510;
       v23 = xmmword_19D17B520;
@@ -4474,8 +4412,8 @@ char *fillExtended32(char *result, uint64_t a2, uint64_t a3, size_t __n, uint64_
     do
     {
       v28 = &result[4 * a2 + v25 * __n];
-      v29 = *(v28 - 4);
-      v30 = (v28 + 8);
+      v29 = *(v28 - 1);
+      v30 = v28 + 8;
       v31 = (a6 + 3) & 0xFFFFFFFFFFFFFFFCLL;
       v32 = xmmword_19D17B510;
       v33 = xmmword_19D17B520;
@@ -4680,8 +4618,8 @@ char *fillExtended16(char *result, uint64_t a2, uint64_t a3, size_t __n, uint64_
     do
     {
       v18 = &result[v15 * __n + -2 * a5];
-      v19 = *(v18 + 2 * a5);
-      v20 = (v18 + 8);
+      v19 = *&v18[2 * a5];
+      v20 = v18 + 8;
       v21 = (a5 + 7) & 0xFFFFFFFFFFFFFFF8;
       v22 = xmmword_19D17B510;
       v23 = xmmword_19D17B520;
@@ -4746,9 +4684,9 @@ char *fillExtended16(char *result, uint64_t a2, uint64_t a3, size_t __n, uint64_
     do
     {
       v31 = &result[2 * a2 + v28 * __n];
-      v32 = (v31 + 8);
+      v32 = v31 + 8;
       v33 = (a6 + 7) & 0xFFFFFFFFFFFFFFF8;
-      v34 = *(v31 - 2);
+      v34 = *(v31 - 1);
       v35 = xmmword_19D17B510;
       v36 = xmmword_19D17B520;
       v37 = xmmword_19D17B540;
@@ -6252,7 +6190,7 @@ void CVMetalTextureBacking::CVMetalTextureBacking(CVMetalTextureBacking *this, c
   v2[24] = 0;
 }
 
-uint64_t CVMetalTextureBacking::finalize(CVMetalTextureBacking *this)
+void CVMetalTextureBacking::finalize(CVMetalTextureBacking *this)
 {
   v2 = *(this + 21);
   if (v2)
@@ -6289,7 +6227,7 @@ uint64_t CVMetalTextureBacking::finalize(CVMetalTextureBacking *this)
     *(this + 28) = 0;
   }
 
-  return CVImageBacking::finalize(this);
+  CVImageBacking::finalize(this);
 }
 
 CVMetalTextureBacking *CVMetalTextureBacking::initWithBackingDevice(CVMetalTextureBacking *this, CVImageBacking *a2, void *a3, uint64_t a4, uint64_t a5, char a6)
@@ -6339,13 +6277,6 @@ CFTypeRef CVMetalTextureBacking::setIOSurface(CVMetalTextureBacking *this, CFTyp
   return result;
 }
 
-double CVMetalTextureBacking::getSize(CVMetalTextureBacking *this)
-{
-  result = *(this + 22);
-  v2 = *(this + 23);
-  return result;
-}
-
 uint64_t CVMetalTextureBacking::retainBackingUsage(CVMetalTextureBacking *this)
 {
   result = *(this + 21);
@@ -6389,20 +6320,22 @@ uint64_t CVMetalTextureBacking::provideImageTexture(uint64_t a1, uint64_t a2, ui
 {
   *a6 = 0;
   *(a6 + 8) = 0;
-  *(a6 + 16) = (*(*a1 + 176))(a1);
+  *(a6 + 16) = (*(*a1 + 176))(a1, a2, a3, a4, a5);
   *(a6 + 24) = v7;
   return 0;
 }
 
 CVBufferBacking **CVMetalBufferBacking::alloc(CVMetalBufferBacking *this, const __CFAllocator *a2)
 {
+  v2 = this;
   if (_cvUseTrackingAllocator)
   {
     this = _cvTrackingGetCFAllocator(@"CVMetalBufferBacking");
+    v2 = this;
   }
 
-  TypeID = CVObjectGetTypeID();
-  v4 = CVObject::alloc(TypeID, this, 0x18, 0xA8uLL);
+  TypeID = CVObjectGetTypeID(this, a2);
+  v4 = CVObject::alloc(TypeID, v2, 0x18, 0xA8uLL);
   v5 = v4;
   if (v4)
   {
@@ -6423,7 +6356,7 @@ void CVMetalBufferBacking::CVMetalBufferBacking(CVMetalBufferBacking *this, cons
   *(v2 + 152) = 0u;
 }
 
-uint64_t CVMetalBufferBacking::finalize(CVMetalBufferBacking *this)
+void CVMetalBufferBacking::finalize(CVMetalBufferBacking *this)
 {
   v2 = *(this + 17);
   if (v2)
@@ -6453,7 +6386,7 @@ uint64_t CVMetalBufferBacking::finalize(CVMetalBufferBacking *this)
     *(this + 20) = 0;
   }
 
-  return CVBufferBacking::finalize(this);
+  CVBufferBacking::finalize(this);
 }
 
 CVMetalBufferBacking *CVMetalBufferBacking::init(CVMetalBufferBacking *this, CVBufferBacking *a2, void *a3)
@@ -6650,7 +6583,7 @@ void CVOpenGLESTextureBacking::CVOpenGLESTextureBacking(CVOpenGLESTextureBacking
   *(v2 + 176) = 0;
 }
 
-uint64_t CVOpenGLESTextureBacking::finalize(CVOpenGLESTextureBacking *this)
+void CVOpenGLESTextureBacking::finalize(CVOpenGLESTextureBacking *this)
 {
   v2 = *(this + 21);
   if (v2)
@@ -6680,7 +6613,7 @@ uint64_t CVOpenGLESTextureBacking::finalize(CVOpenGLESTextureBacking *this)
     *(this + 27) = 0;
   }
 
-  return CVImageBacking::finalize(this);
+  CVImageBacking::finalize(this);
 }
 
 CVOpenGLESTextureBacking *CVOpenGLESTextureBacking::initWithBackingContext(CVOpenGLESTextureBacking *this, CVImageBacking *a2, CVOpenGLESContext *a3, int a4, int a5, char a6)
@@ -6772,7 +6705,7 @@ uint64_t CVOpenGLESTextureBacking::provideImageTexture(uint64_t a1, uint64_t a2,
 {
   *a6 = 0;
   *(a6 + 8) = 0;
-  *(a6 + 16) = (*(*a1 + 176))(a1);
+  *(a6 + 16) = (*(*a1 + 176))(a1, a2, a3, a4, a5);
   *(a6 + 24) = v7;
   return 0;
 }
@@ -6802,7 +6735,7 @@ uint64_t classInitialize_CVPixelBufferPool(void *a1)
   return result;
 }
 
-uint64_t CVPixelBufferPool::finalize(CVPixelBufferPool *this)
+void CVPixelBufferPool::finalize(CVPixelBufferPool *this)
 {
   (*(*this + 24))(this);
   kdebug_trace();
@@ -6833,7 +6766,7 @@ uint64_t CVPixelBufferPool::finalize(CVPixelBufferPool *this)
   *(this + 104) = 0u;
   *(this + 120) = 0u;
 
-  return CVBufferPool::finalize(this);
+  CVBufferPool::finalize(this);
 }
 
 uint64_t forceIOSurfaceBackingByDefault(void)
@@ -6971,7 +6904,7 @@ CFStringRef classCopyFormatDescription_CVPixelBufferPool(void *a1, const __CFDic
   return CFStringCreateWithFormat(0, a2, @"<CVPixelBufferPoolRef %p obj=%p refcnt=%ld>", a1, v4, v5);
 }
 
-uint64_t CVMetalBufferCacheCreate(CVMetalBufferCache *this, CFTypeRef cf, uint64_t a3, CVBufferPool ***a4)
+uint64_t CVMetalBufferCacheCreate(CVMetalBufferCache *this, CFTypeRef cf, uint64_t a3, uint64_t *a4)
 {
   if (!a4)
   {
@@ -7045,7 +6978,7 @@ void *_getCVMetalBufferCache(void *result)
   {
     v1 = result;
     v2 = CFGetTypeID(result);
-    if (v2 == CVMetalBufferCacheGetTypeID())
+    if (v2 == CVMetalBufferCacheGetTypeID(v2, v3))
     {
       return v1[2];
     }
@@ -7110,15 +7043,15 @@ CFIndex CVMetalBufferCache::freeBackingCount(CVMetalBufferCache *this)
   return Count;
 }
 
-uint64_t CVPixelBufferCreateWithParentIOSurface(CFAllocatorRef allocator, IOSurfaceRef buffer, uint64_t a3, uint64_t a4, unsigned int a5, unint64_t a6, uint64_t *a7, uint64_t *a8, CFDictionaryRef theDict, uint64_t **a10)
+uint64_t CVPixelBufferCreateWithParentIOSurface(CFAllocatorRef allocator, IOSurfaceRef buffer, uint64_t a3, uint64_t a4, unsigned int a5, unint64_t a6, uint64_t *a7, uint64_t *a8, CFDictionaryRef theDict, CVPixelBuffer ***a10)
 {
-  v57[0] = 0;
+  v63[0] = 0;
   if (!buffer || (v10 = a3) == 0 || (v11 = a4) == 0 || a6 - 17 <= 0xFFFFFFFFFFFFFFEFLL || !a7 || !a8 || !a10)
   {
-    v48 = -6661;
+    v54 = -6661;
 LABEL_51:
-    v57[0] = v48;
-    return v57[0];
+    v63[0] = v54;
+    return v63[0];
   }
 
   *a10 = 0;
@@ -7141,7 +7074,7 @@ LABEL_51:
   v19 = MutableCopy;
   if (!MutableCopy)
   {
-    v48 = -6662;
+    v54 = -6662;
     goto LABEL_51;
   }
 
@@ -7153,7 +7086,7 @@ LABEL_51:
     }
 
 LABEL_53:
-    v44 = -6680;
+    v50 = -6680;
     goto LABEL_38;
   }
 
@@ -7165,17 +7098,17 @@ LABEL_53:
 
   CFDictionarySetValue(v19, @"PixelFormatDescription", DescriptionWithPixelFormatType);
 LABEL_18:
-  v56 = a7;
+  v62 = a7;
   ProhibitUseCount = IOSurfaceGetProhibitUseCount();
   v21 = *MEMORY[0x1E695E4D0];
   Value = CFDictionaryGetValue(v19, @"IOSurfaceDoNotIncrementUseCount");
-  v55 = v21;
+  v61 = v21;
   if ((ProhibitUseCount != 0) != (v21 == Value))
   {
     goto LABEL_36;
   }
 
-  v53 = Value;
+  v59 = Value;
   CVDictionarySetSInt64Value(v19, @"BytesPerRowAlignment", *a8);
   CVDictionarySetSInt64Value(v19, @"Width", v10);
   CVDictionarySetSInt64Value(v19, @"Height", v11);
@@ -7193,9 +7126,9 @@ LABEL_18:
   if (v26 != CFDictionaryGetTypeID())
   {
 LABEL_36:
-    v44 = -6661;
+    v50 = -6661;
 LABEL_38:
-    v57[0] = v44;
+    v63[0] = v50;
     goto LABEL_39;
   }
 
@@ -7203,19 +7136,19 @@ LABEL_38:
   v10 = v25;
 LABEL_23:
   v28 = Mutable;
-  v29 = v56;
+  v29 = v62;
   if (!Mutable)
   {
     goto LABEL_37;
   }
 
-  CVDictionarySetSInt64Value(Mutable, *MEMORY[0x1E696CFA8], *v56);
+  CVDictionarySetSInt64Value(Mutable, *MEMORY[0x1E696CFA8], *v62);
   if (a6 >= 2)
   {
-    v49 = v28;
-    v50 = v10;
-    v51 = v11;
-    v52 = allocator;
+    v55 = v28;
+    v56 = v10;
+    v57 = v11;
+    v58 = allocator;
     v30 = CFArrayCreateMutable(0, a6, MEMORY[0x1E695E9C0]);
     v31 = 0;
     v32 = 1;
@@ -7231,96 +7164,96 @@ LABEL_23:
     }
 
     while (v31 < a6);
-    v28 = v49;
-    CFDictionarySetValue(v49, @"Planes", v30);
+    v28 = v55;
+    CFDictionarySetValue(v55, @"Planes", v30);
     CFRelease(v30);
-    v11 = v51;
-    allocator = v52;
-    v10 = v50;
-    v29 = v56;
+    v11 = v57;
+    allocator = v58;
+    v10 = v56;
+    v29 = v62;
   }
 
   if (ProhibitUseCount)
   {
-    CFDictionarySetValue(v28, *MEMORY[0x1E696D0E8], v55);
+    CFDictionarySetValue(v28, *MEMORY[0x1E696D0E8], v61);
   }
 
   CFDictionarySetValue(v19, @"IOSurfaceProperties", v28);
   CFRelease(v28);
-  v37 = CVPixelBufferBacking::alloc(allocator, v36);
-  if (!v37)
+  v40 = CVPixelBufferBacking::alloc(allocator, v36, v37, v38, v39);
+  if (!v40)
   {
 LABEL_37:
-    v44 = -6662;
+    v50 = -6662;
     goto LABEL_38;
   }
 
-  v38 = v37;
-  if (!(*(*v37[2] + 248))(v37[2], v10, v11, 0, 0, *a8, a6, 0, 0, 0, a8, 0, 0, 0, v19, 0, 0, buffer, 0, v29, v57))
+  v41 = v40;
+  if (!(*(*v40[2] + 248))(v40[2], v10, v11, 0, 0, *a8, a6, 0, 0, 0, a8, 0, 0, 0, v19, 0, 0, buffer, 0, v29, v63))
   {
 LABEL_39:
-    v45 = v19;
+    v51 = v19;
     goto LABEL_40;
   }
 
-  v40 = CVPixelBuffer::alloc(allocator, v39);
-  v41 = v40;
-  if (!v40)
+  v46 = CVPixelBuffer::alloc(allocator, v42, v43, v44, v45);
+  v47 = v46;
+  if (!v46)
   {
-    v47 = -6662;
+    v53 = -6662;
     goto LABEL_47;
   }
 
-  if (v55 == v53)
+  if (v61 == v59)
   {
-    v42 = CFGetTypeID(v40);
-    if (v42 == CVPixelBufferGetTypeID())
+    v48 = CFGetTypeID(v46);
+    if (v48 == CVPixelBufferGetTypeID())
     {
-      v43 = v41[2];
+      v49 = v47[2];
     }
 
     else
     {
-      v43 = 0;
+      v49 = 0;
     }
 
-    CVPixelBuffer::setDoNotAutomaticallyBumpUseCount(v43);
+    CVPixelBuffer::setDoNotAutomaticallyBumpUseCount(v49);
   }
 
-  if (!(*(*v41[2] + 248))(v41[2], v38[2]))
+  if (!(*(*v47[2] + 248))(v47[2], v41[2]))
   {
-    v47 = -6660;
+    v53 = -6660;
 LABEL_47:
-    v57[0] = v47;
+    v63[0] = v53;
     goto LABEL_48;
   }
 
-  CVTracePoolAction(1, 0, v38, "created from parent IOSurface", 0, 0);
-  *a10 = v41;
-  v41 = 0;
+  CVTracePoolAction(1, 0, v41, "created from parent IOSurface", 0, 0);
+  *a10 = v47;
+  v47 = 0;
 LABEL_48:
-  CFRelease(v38);
+  CFRelease(v41);
   CFRelease(v19);
-  if (!v41)
+  if (!v47)
   {
-    return v57[0];
+    return v63[0];
   }
 
-  v45 = v41;
+  v51 = v47;
 LABEL_40:
-  CFRelease(v45);
-  return v57[0];
+  CFRelease(v51);
+  return v63[0];
 }
 
 uint64_t CVPixelBufferCreateWithParentPixelBuffer(const __CFAllocator *a1, CVPixelBufferRef pixelBuffer, uint64_t a3, uint64_t a4, unsigned int a5, unint64_t a6, uint64_t *a7, uint64_t *a8, CFDictionaryRef theDict, void *a10)
 {
-  v55[0] = 0;
+  v61[0] = 0;
   if (!pixelBuffer || (v10 = a3) == 0 || !a4 || a6 - 17 <= 0xFFFFFFFFFFFFFFEFLL || !a7 || !a8 || !a10 || (IOSurface = CVPixelBufferGetIOSurface(pixelBuffer)) == 0)
   {
-    v47 = -6661;
+    v53 = -6661;
 LABEL_52:
-    v55[0] = v47;
-    return v55[0];
+    v61[0] = v53;
+    return v61[0];
   }
 
   *a10 = 0;
@@ -7343,7 +7276,7 @@ LABEL_52:
   v19 = MutableCopy;
   if (!MutableCopy)
   {
-    v47 = -6662;
+    v53 = -6662;
     goto LABEL_52;
   }
 
@@ -7355,7 +7288,7 @@ LABEL_52:
     }
 
 LABEL_54:
-    v43 = -6680;
+    v49 = -6680;
     goto LABEL_39;
   }
 
@@ -7367,19 +7300,19 @@ LABEL_54:
 
   CFDictionarySetValue(v19, @"PixelFormatDescription", DescriptionWithPixelFormatType);
 LABEL_19:
-  v54 = a4;
+  v60 = a4;
   v21 = a1;
   v22 = a10;
   ProhibitUseCount = IOSurfaceGetProhibitUseCount();
-  v52 = *MEMORY[0x1E695E4D0];
-  if ((ProhibitUseCount != 0) != (v52 == CFDictionaryGetValue(v19, @"IOSurfaceDoNotIncrementUseCount")))
+  v58 = *MEMORY[0x1E695E4D0];
+  if ((ProhibitUseCount != 0) != (v58 == CFDictionaryGetValue(v19, @"IOSurfaceDoNotIncrementUseCount")))
   {
     goto LABEL_37;
   }
 
   CVDictionarySetSInt64Value(v19, @"BytesPerRowAlignment", *a8);
   CVDictionarySetSInt64Value(v19, @"Width", v10);
-  CVDictionarySetSInt64Value(v19, @"Height", v54);
+  CVDictionarySetSInt64Value(v19, @"Height", v60);
   CVDictionarySetSInt64Value(v19, @"PixelFormatType", a5);
   Value = CFDictionaryGetValue(v19, @"IOSurfaceProperties");
   if (!Value)
@@ -7394,9 +7327,9 @@ LABEL_19:
   if (v26 != CFDictionaryGetTypeID())
   {
 LABEL_37:
-    v43 = -6661;
+    v49 = -6661;
 LABEL_39:
-    v55[0] = v43;
+    v61[0] = v49;
     goto LABEL_40;
   }
 
@@ -7413,9 +7346,9 @@ LABEL_24:
   CVDictionarySetSInt64Value(Mutable, *MEMORY[0x1E696CFA8], *a7);
   if (a6 >= 2)
   {
-    v48 = v28;
-    v49 = v10;
-    v50 = v21;
+    v54 = v28;
+    v55 = v10;
+    v56 = v21;
     v30 = CFArrayCreateMutable(0, a6, MEMORY[0x1E695E9C0]);
     v31 = 0;
     v32 = 1;
@@ -7431,84 +7364,84 @@ LABEL_24:
     }
 
     while (v31 < a6);
-    v28 = v48;
-    CFDictionarySetValue(v48, @"Planes", v30);
+    v28 = v54;
+    CFDictionarySetValue(v54, @"Planes", v30);
     CFRelease(v30);
-    v21 = v50;
+    v21 = v56;
     v22 = a10;
-    v10 = v49;
+    v10 = v55;
     v29 = a7;
   }
 
   if (ProhibitUseCount)
   {
-    CFDictionarySetValue(v28, *MEMORY[0x1E696D0E8], v52);
+    CFDictionarySetValue(v28, *MEMORY[0x1E696D0E8], v58);
   }
 
   CFDictionarySetValue(v19, @"IOSurfaceProperties", v28);
   CFRelease(v28);
-  v37 = CVPixelBufferBacking::alloc(v21, v36);
-  if (!v37)
+  v40 = CVPixelBufferBacking::alloc(v21, v36, v37, v38, v39);
+  if (!v40)
   {
 LABEL_38:
-    v43 = -6662;
+    v49 = -6662;
     goto LABEL_39;
   }
 
-  v38 = v37;
-  if (!(*(*v37[2] + 248))(v37[2], v10, v54, 0, 0, *a8, a6, 0, 0, 0, a8, 0, 0, 0, v19, 0, 0, 0, pixelBuffer, v29, v55))
+  v41 = v40;
+  if (!(*(*v40[2] + 248))(v40[2], v10, v60, 0, 0, *a8, a6, 0, 0, 0, a8, 0, 0, 0, v19, 0, 0, 0, pixelBuffer, v29, v61))
   {
 LABEL_40:
-    v44 = v19;
+    v50 = v19;
     goto LABEL_41;
   }
 
-  v40 = CVPixelBuffer::alloc(v21, v39);
-  if (!v40)
+  v46 = CVPixelBuffer::alloc(v21, v42, v43, v44, v45);
+  if (!v46)
   {
-    v46 = -6662;
+    v52 = -6662;
     goto LABEL_48;
   }
 
-  if (v52 == CFDictionaryGetValue(v19, @"IOSurfaceDoNotIncrementUseCount"))
+  if (v58 == CFDictionaryGetValue(v19, @"IOSurfaceDoNotIncrementUseCount"))
   {
-    v41 = CFGetTypeID(v40);
-    if (v41 == CVPixelBufferGetTypeID())
+    v47 = CFGetTypeID(v46);
+    if (v47 == CVPixelBufferGetTypeID())
     {
-      v42 = v40[2];
+      v48 = v46[2];
     }
 
     else
     {
-      v42 = 0;
+      v48 = 0;
     }
 
-    CVPixelBuffer::setDoNotAutomaticallyBumpUseCount(v42);
+    CVPixelBuffer::setDoNotAutomaticallyBumpUseCount(v48);
   }
 
-  if (!(*(*v40[2] + 248))(v40[2], v38[2]))
+  if (!(*(*v46[2] + 248))(v46[2], v41[2]))
   {
-    v46 = -6660;
+    v52 = -6660;
 LABEL_48:
-    v55[0] = v46;
+    v61[0] = v52;
     goto LABEL_49;
   }
 
-  CVTracePoolAction(1, 0, v38, "created from parent IOSurface", 0, 0);
-  *v22 = v40;
-  v40 = 0;
+  CVTracePoolAction(1, 0, v41, "created from parent IOSurface", 0, 0);
+  *v22 = v46;
+  v46 = 0;
 LABEL_49:
-  CFRelease(v38);
+  CFRelease(v41);
   CFRelease(v19);
-  if (!v40)
+  if (!v46)
   {
-    return v55[0];
+    return v61[0];
   }
 
-  v44 = v40;
+  v50 = v46;
 LABEL_41:
-  CFRelease(v44);
-  return v55[0];
+  CFRelease(v50);
+  return v61[0];
 }
 
 CVReturn CVPixelBufferFillExtendedPixels(CVPixelBufferRef pixelBuffer)
@@ -7710,12 +7643,10 @@ uint64_t CVPixelBufferGetFixedPointPaddingBits(__CVBuffer *a1)
 
 unint64_t CVPixelBufferCalculateCompressedTileDataRegionMemoryUsedOfPlane(__CVBuffer *a1, size_t a2)
 {
-  v5[16] = *MEMORY[0x1E69E9840];
-  v4 = 0;
-  calculateSparseHistogramAndSizeOfCompressedTileDataUsageOfPlane(a1, a2, 0, 0, 1uLL, 1uLL, v5, &v4, 0);
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[16] = *MEMORY[0x1E69E9840];
+  v3 = 0;
+  calculateSparseHistogramAndSizeOfCompressedTileDataUsageOfPlane(a1, a2, 0, 0, 1uLL, 1uLL, v4, &v3, 0);
+  return v3;
 }
 
 uint64_t OUTLINED_FUNCTION_3()
@@ -7776,7 +7707,7 @@ void CVOpenGLESTextureCache::CVOpenGLESTextureCache(CVOpenGLESTextureCache *this
   v2[4] = 0;
 }
 
-uint64_t CVOpenGLESTextureCache::finalize(CVOpenGLESTextureCache *this)
+void CVOpenGLESTextureCache::finalize(CVOpenGLESTextureCache *this)
 {
   v2 = *(this + 8);
   if (v2)
@@ -7795,9 +7726,9 @@ uint64_t CVOpenGLESTextureCache::finalize(CVOpenGLESTextureCache *this)
   v4 = *(this + 5);
   if (v4)
   {
-    v12.length = CFArrayGetCount(*(this + 5));
-    v12.location = 0;
-    CFArrayApplyFunction(v4, v12, _invalidateBacking, 0);
+    v11.length = CFArrayGetCount(*(this + 5));
+    v11.location = 0;
+    CFArrayApplyFunction(v4, v11, _invalidateBacking, 0);
   }
 
   v5 = *(this + 6);
@@ -7836,7 +7767,7 @@ uint64_t CVOpenGLESTextureCache::finalize(CVOpenGLESTextureCache *this)
 
   *(this + 4) = 0;
 
-  return CVBufferPool::finalize(this);
+  CVBufferPool::finalize(this);
 }
 
 CFTypeRef *CVOpenGLESTextureCache::initWithContext(CFTypeRef *this, void *a2, const __CFDictionary *a3, const __CFDictionary *a4)
@@ -8558,31 +8489,35 @@ void CVOpenGLESTextureGetCleanTexCoords(CVOpenGLESTextureRef image, GLfloat *low
   }
 }
 
-void CVOpenGLESTextureGetBounds(__CVBuffer *a1, GLfloat *a2, GLfloat *a3, GLfloat *a4, GLfloat *a5)
+GLfloat CVOpenGLESTextureGetBounds(__CVBuffer *a1, GLfloat *a2, GLfloat *a3, float *a4, float *a5)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  CVOpenGLESTextureGetCleanTexCoords(a1, lowerLeft, &lowerRight, upperRight, &upperLeft);
+  v16 = *MEMORY[0x1E69E9840];
+  CVOpenGLESTextureGetCleanTexCoords(a1, &lowerLeft, &lowerRight, &upperRight, &upperLeft);
   if (a2)
   {
-    *a2 = lowerLeft[0];
+    result = lowerLeft;
+    *a2 = lowerLeft;
   }
 
   if (a3)
   {
-    *a3 = upperRight[0];
+    result = upperRight;
+    *a3 = upperRight;
   }
 
   if (a4)
   {
-    *a4 = upperRight[1];
+    result = v12;
+    *a4 = v12;
   }
 
   if (a5)
   {
-    *a5 = lowerLeft[1];
+    result = v15;
+    *a5 = v15;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void *CVOpenGLESTextureBackingImage(void *a1)
@@ -8661,6 +8596,41 @@ CVReturn CVOpenGLESTextureCacheCreate(CFAllocatorRef allocator, CFDictionaryRef 
       {
         return -6662;
       }
+    }
+  }
+
+  return result;
+}
+
+CVReturn CVOpenGLESTextureCacheCreateTextureFromImage(CFAllocatorRef allocator, CVOpenGLESTextureCacheRef textureCache, CVImageBufferRef sourceImage, CFDictionaryRef textureAttributes, GLenum target, GLint internalFormat, GLsizei width, GLsizei height, GLenum format, GLenum type, size_t planeIndex, CVOpenGLESTextureRef *textureOut)
+{
+  v12 = *&height;
+  v13 = *&width;
+  v14 = *&internalFormat;
+  v15 = *&target;
+  CVOpenGLESTextureCache = _getCVOpenGLESTextureCache(textureCache);
+  if (!sourceImage)
+  {
+    return -6661;
+  }
+
+  v19 = CVOpenGLESTextureCache;
+  v20 = CFGetTypeID(sourceImage);
+  if (v20 != CVPixelBufferGetTypeID() && v20 != CVOpenGLESTextureGetTypeID())
+  {
+    return -6661;
+  }
+
+  v21 = *(sourceImage + 2);
+  v23 = -6660;
+  result = -6661;
+  if (textureOut && v19)
+  {
+    if (v21)
+    {
+      *textureOut = (*(*v19 + 104))(v19, allocator, v21, v15, v14, v13, v12, format, type, planeIndex, &v23);
+      (*(*v19 + 120))(v19, 0);
+      return v23;
     }
   }
 
@@ -9792,13 +9762,15 @@ LABEL_25:
 
 CVOpenGLESTextureBacking **CVPixelBufferOpenGLESTextureBacking::alloc(CVPixelBufferOpenGLESTextureBacking *this, const __CFAllocator *a2)
 {
+  v2 = this;
   if (_cvUseTrackingAllocator)
   {
     this = _cvTrackingGetCFAllocator(@"CVPixelBufferOpenGLESTextureBacking");
+    v2 = this;
   }
 
-  TypeID = CVObjectGetTypeID();
-  v4 = CVObject::alloc(TypeID, this, 0x18, 0x210uLL);
+  TypeID = CVObjectGetTypeID(this, a2);
+  v4 = CVObject::alloc(TypeID, v2, 0x18, 0x210uLL);
   v5 = v4;
   if (v4)
   {

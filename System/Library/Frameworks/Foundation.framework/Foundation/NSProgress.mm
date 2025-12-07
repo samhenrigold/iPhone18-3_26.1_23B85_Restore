@@ -521,7 +521,7 @@ NSXPCInterface *__33__NSProgress__publisherInterface__block_invoke()
   [(NSLock *)self->_lock unlock];
 }
 
-uint64_t __21__NSProgress_publish__block_invoke(uint64_t a1, void *a2)
+void *__21__NSProgress_publish__block_invoke(uint64_t a1, void *a2)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -543,7 +543,8 @@ uint64_t __21__NSProgress_publish__block_invoke(uint64_t a1, void *a2)
           objc_enumerationMutation(a2);
         }
 
-        [*(a1 + 32) appWithBundleID:*(*(&v9 + 1) + 8 * v7++) didAcknowledgeWithSuccess:0];
+        [*(a1 + 32) appWithBundleID:*(*(&v9 + 1) + 8 * v7) didAcknowledgeWithSuccess:0];
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -633,7 +634,7 @@ uint64_t __21__NSProgress_publish__block_invoke(uint64_t a1, void *a2)
   values = self->_values;
   if (values)
   {
-    [(NSProgressValues *)values overallFraction];
+    objc_msgSend_overallFraction(values);
   }
 
   else
@@ -899,7 +900,7 @@ id __51__NSProgress__notifyRemoteObserversOfValueForKeys___block_invoke()
 - (void)_updateFractionCompleted:(_NSProgressFractionTuple *)completed
 {
   v9 = *MEMORY[0x1E69E9840];
-  if ((_NSProgressFractionIsEqual(&completed->var0.completed, &completed->var1.completed) & 1) == 0)
+  if (!_NSProgressFractionIsEqual(&completed->var0.completed, &completed->var1.completed))
   {
     _parent = [(NSProgress *)self _parent];
     portionOfParent = self->_values->_portionOfParent;
@@ -955,7 +956,7 @@ id __51__NSProgress__notifyRemoteObserversOfValueForKeys___block_invoke()
 double __32__NSProgress_setTotalUnitCount___block_invoke_2(void *a1, int64_t *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v4 = *(a1[4] + 8);
   *(v4 + 48) = v14;
   *(v4 + 32) = v13;
@@ -971,7 +972,7 @@ double __32__NSProgress_setTotalUnitCount___block_invoke_2(void *a1, int64_t *a2
   }
 
   a2[3] = v6;
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v8 = *(a1[4] + 8);
   result = *&v10;
   *(v8 + 56) = v10;
@@ -1023,12 +1024,12 @@ double __32__NSProgress_setTotalUnitCount___block_invoke_2(void *a1, int64_t *a2
 
 double __36__NSProgress_setCompletedUnitCount___block_invoke_2(void *a1, void *a2)
 {
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v4 = *(a1[4] + 8);
   *(v4 + 32) = v9;
   *(v4 + 48) = v10;
   a2[2] = a1[6];
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v5 = *(a1[4] + 8);
   result = *&v7;
   *(v5 + 56) = v7;
@@ -1080,12 +1081,12 @@ double __36__NSProgress_setCompletedUnitCount___block_invoke_2(void *a1, void *a
 
 double __37__NSProgress__addCompletedUnitCount___block_invoke_2(void *a1, void *a2)
 {
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v4 = *(a1[4] + 8);
   *(v4 + 32) = v9;
   *(v4 + 48) = v10;
   a2[2] += a1[6];
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v5 = *(a1[4] + 8);
   result = *&v7;
   *(v5 + 56) = v7;
@@ -1139,13 +1140,13 @@ double __37__NSProgress__addCompletedUnitCount___block_invoke_2(void *a1, void *
 
 double __52__NSProgress__setCompletedUnitCount_totalUnitCount___block_invoke_2(void *a1, void *a2)
 {
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v4 = *(a1[4] + 8);
   *(v4 + 32) = v9;
   *(v4 + 48) = v10;
   a2[2] = a1[6];
   a2[3] = a1[7];
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v5 = *(a1[4] + 8);
   result = *&v7;
   *(v5 + 56) = v7;
@@ -1256,7 +1257,7 @@ void *__44__NSProgress__updateChild_fraction_portion___block_invoke(uint64_t a1,
   v28 = v31;
   _NSProgressFractionAddFraction(&v27, (a2 + 16));
   memset(v26, 0, sizeof(v26));
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   if ((_NSProgressFractionIsFractionCompletedEqual(&v27, v26) & 1) == 0)
   {
     [v4 addObject:@"fractionCompleted"];
@@ -1325,7 +1326,7 @@ LABEL_35:
 double __44__NSProgress__updateChild_fraction_portion___block_invoke_2(uint64_t a1, void *a2)
 {
   v26 = *MEMORY[0x1E69E9840];
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v4 = *(*(a1 + 48) + 8);
   *(v4 + 32) = v24;
   *(v4 + 48) = v25;
@@ -1391,7 +1392,7 @@ double __44__NSProgress__updateChild_fraction_portion___block_invoke_2(uint64_t 
     }
   }
 
-  [a2 overallFraction];
+  objc_msgSend_overallFraction(a2);
   v14 = *(*(a1 + 48) + 8);
   result = *&v16;
   *(v14 + 56) = v16;
@@ -1429,7 +1430,7 @@ void *__38__NSProgress_setLocalizedDescription___block_invoke(uint64_t a1, uint6
   }
 }
 
-uint64_t __38__NSProgress_setLocalizedDescription___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__38__NSProgress_setLocalizedDescription___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) copy];
   *(a2 + 72) = result;
@@ -1444,7 +1445,7 @@ uint64_t __38__NSProgress_setLocalizedDescription___block_invoke_2(uint64_t a1, 
   v4 = values->_localizedDescription;
   if (!v4)
   {
-    if (![(NSString *)values->_kind isEqualToString:@"NSProgressKindFile"])
+    if (!objc_msgSend_isEqualToString_(values->_kind))
     {
       completed = values->_selfFraction.completed;
       if (completed < 0 || ((total = values->_selfFraction.total, v14 = total | completed, total >= 1) ? (v15 = v14 == 0) : (v15 = 1), v15))
@@ -1534,55 +1535,55 @@ LABEL_17:
     }
 
     v16 = [(NSMutableDictionary *)values->_userInfo objectForKey:@"NSProgressFileOperationKindKey"];
-    if ([v16 isEqualToString:@"NSProgressFileOperationKindDownloading"])
+    if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"Downloading";
     }
 
-    else if ([v16 isEqualToString:@"NSProgressFileOperationKindUploading"])
+    else if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"Uploading";
     }
 
-    else if ([v16 isEqualToString:@"NSProgressFileOperationKindDecompressingAfterDownloading"])
+    else if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"DecompressingAfterDownloading";
     }
 
-    else if ([v16 isEqualToString:@"NSProgressFileOperationKindReceiving"])
+    else if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"Receiving";
     }
 
-    else if ([v16 isEqualToString:@"NSProgressFileOperationKindCopying"])
+    else if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"Copying";
     }
 
-    else if ([v16 isEqualToString:@"NSProgressFileOperationKindDuplicating"])
+    else if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"Duplicating";
     }
 
-    else if ([v16 isEqualToString:@"NSProgressFileOperationKindCompressing"])
+    else if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"Compressing";
     }
 
-    else if ([v16 isEqualToString:@"NSProgressFileOperationKindDecompressing"])
+    else if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"Decompressing";
     }
 
-    else if ([v16 isEqualToString:@"NSProgressFileOperationKindArchiving"])
+    else if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = _NSFoundationBundle();
       v18 = @"Archiving";
@@ -1590,9 +1591,9 @@ LABEL_17:
 
     else
     {
-      v24 = [v16 isEqualToString:@"NSProgressFileOperationKindUnarchiving"];
+      isEqualToString = objc_msgSend_isEqualToString_(v16);
       v17 = _NSFoundationBundle();
-      if (v24)
+      if (isEqualToString)
       {
         v18 = @"Unarchiving";
       }
@@ -1687,7 +1688,7 @@ void *__48__NSProgress_setLocalizedAdditionalDescription___block_invoke(uint64_t
   }
 }
 
-uint64_t __48__NSProgress_setLocalizedAdditionalDescription___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__48__NSProgress_setLocalizedAdditionalDescription___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) copy];
   *(a2 + 80) = result;
@@ -1709,7 +1710,7 @@ LABEL_3:
 
   v7 = [(NSMutableDictionary *)values->_userInfo objectForKey:@"NSProgressByteTotalCountKey"];
   v8 = [(NSMutableDictionary *)values->_userInfo objectForKey:@"NSProgressByteCompletedCountKey"];
-  if ([(NSString *)values->_kind isEqualToString:@"NSProgressKindFile"]|| (v8 ? (v9 = v7 == 0) : (v9 = 1), !v9))
+  if ((objc_msgSend_isEqualToString_(values->_kind) & 1) != 0 || (v8 ? (v9 = v7 == 0) : (v9 = 1), !v9))
   {
     locked = _lockedLocalizedTimeRemaining(values);
     v11 = _localizedAppendedTimeRemaining(locked);
@@ -1777,7 +1778,7 @@ LABEL_25:
       }
 
       v29 = [(NSMutableDictionary *)values->_userInfo objectForKey:@"NSProgressFileOperationKindKey"];
-      if ([v29 isEqualToString:@"NSProgressFileOperationKindDownloading"] & 1) != 0 || (objc_msgSend(v29, "isEqualToString:", @"NSProgressFileOperationKindUploading"))
+      if (objc_msgSend_isEqualToString_(v29) & 1) != 0 || (objc_msgSend_isEqualToString_(v29))
       {
         if (!v28)
         {
@@ -1785,7 +1786,7 @@ LABEL_25:
         }
       }
 
-      else if (![v29 isEqualToString:@"NSProgressFileOperationKindReceiving"] || !v28)
+      else if (!objc_msgSend_isEqualToString_(v29) || !v28)
       {
         goto LABEL_38;
       }
@@ -2441,7 +2442,7 @@ void *__42__NSProgress_ownedDictionaryKeyEnumerator__block_invoke(uint64_t a1, v
   v6 = [(NSMutableDictionary *)values->_userInfo objectForKey:key];
   if (!v6)
   {
-    if ([key isEqualToString:@"NSProgressPhysicalFileURLKey"])
+    if (objc_msgSend_isEqualToString_(key))
     {
       v7 = [(NSMutableDictionary *)values->_userInfo objectForKey:@"NSProgressFileURLKey"];
 LABEL_7:
@@ -2554,7 +2555,7 @@ void *__22__NSProgress_setKind___block_invoke(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t __22__NSProgress_setKind___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__22__NSProgress_setKind___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) copy];
   *(a2 + 88) = result;
@@ -2829,7 +2830,7 @@ uint64_t __39__NSProgress__setRemoteValues_forKeys___block_invoke(uint64_t a1, u
     {
       v6 = [*(a1 + 32) objectAtIndexedSubscript:v5];
       v7 = [*(a1 + 40) objectAtIndexedSubscript:v5];
-      if (!-[__CFString isEqualToString:](v7, "isEqualToString:", @"fractionCompleted") || (v8 = *(a2 + 64), [v6 doubleValue], v8 == v9))
+      if (!objc_msgSend_isEqualToString_(v7) || (v8 = *(a2 + 64), [v6 doubleValue], v8 == v9))
       {
         v10 = v4;
         v11 = v7;
@@ -2851,17 +2852,17 @@ uint64_t __39__NSProgress__setRemoteValues_forKeys___block_invoke(uint64_t a1, u
   return v4;
 }
 
-uint64_t __39__NSProgress__setRemoteValues_forKeys___block_invoke_2(uint64_t result, void *a2)
+void *__39__NSProgress__setRemoteValues_forKeys___block_invoke_2(void *result, void *a2)
 {
   v20 = *MEMORY[0x1E69E9840];
-  if (*(result + 56))
+  if (result[7])
   {
     v3 = result;
-    for (i = 0; i < *(v3 + 56); ++i)
+    for (i = 0; i < v3[7]; ++i)
     {
-      v5 = [*(v3 + 32) objectAtIndexedSubscript:i];
-      v6 = [*(v3 + 40) objectAtIndexedSubscript:i];
-      if ([v6 isEqualToString:@"fractionCompleted"])
+      v5 = [v3[4] objectAtIndexedSubscript:i];
+      v6 = [v3[5] objectAtIndexedSubscript:i];
+      if (objc_msgSend_isEqualToString_(v6))
       {
         result = [v5 doubleValue];
         a2[8] = v7;
@@ -2869,36 +2870,36 @@ uint64_t __39__NSProgress__setRemoteValues_forKeys___block_invoke_2(uint64_t res
 
       else
       {
-        if ([v6 isEqualToString:@"completedUnitCount"])
+        if (objc_msgSend_isEqualToString_(v6))
         {
-          [a2 overallFraction];
+          objc_msgSend_overallFraction(a2);
           v18 = v16;
           *v19 = v17;
           a2[2] = [v5 longLongValue];
-          [a2 overallFraction];
+          objc_msgSend_overallFraction(a2);
           *&v19[24] = v15;
           v8 = v14[3];
         }
 
         else
         {
-          if (![v6 isEqualToString:@"totalUnitCount"])
+          if (!objc_msgSend_isEqualToString_(v6))
           {
             result = [a2 setValue:v5 forKey:v6];
             continue;
           }
 
-          [a2 overallFraction];
+          objc_msgSend_overallFraction(a2);
           v18 = v12;
           *v19 = v13;
           a2[3] = [v5 longLongValue];
-          [a2 overallFraction];
+          objc_msgSend_overallFraction(a2);
           *&v19[24] = v11;
           v8 = v10;
         }
 
         *&v19[8] = v8;
-        v9 = *(v3 + 48);
+        v9 = v3[6];
         v14[0] = v18;
         v14[1] = *v19;
         v14[2] = *&v19[16];

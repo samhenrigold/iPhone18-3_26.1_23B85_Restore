@@ -29,15 +29,15 @@
   {
     firstObject = [animatedCopy firstObject];
     role = [firstObject role];
-    v6 = [role isEqualToString:@"com.apple.stickers.role.animated"];
+    isEqualToString = objc_msgSend_isEqualToString_(role);
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 + (int64_t)effectTypeForSticker:(id)sticker

@@ -236,36 +236,36 @@ LABEL_42:
 
 - (id)parseArgumentsArray:(id)array withBlock:(id)block
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   blockCopy = block;
   v8 = malloc_type_malloc(8 * [arrayCopy count] + 8, 0x10040436913F5uLL);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = arrayCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   v11 = v8;
   if (v10)
   {
     v12 = v10;
-    v13 = *v20;
+    v13 = *v19;
     v11 = v8;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
+        v15 = *(*(&v18 + 1) + 8 * i);
         *v11++ = [v15 UTF8String];
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
@@ -274,8 +274,6 @@ LABEL_42:
   *v11 = 0;
   v16 = [(VMUOptionParser *)self parseArguments:v8 withBlock:blockCopy];
   free(v8);
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -611,27 +609,27 @@ LABEL_59:
 
 - (void)printOptionDescriptions:(id)descriptions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = descriptions;
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v15 = *v17;
+    v14 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v15)
+        if (*v16 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = [v7 rangeOfString:@"[@@@spacing@@@]"];
         v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%*s", self->_spacing - v8, ""];
         v10 = [v7 stringByReplacingOccurrencesOfString:@"[@@@spacing@@@]" withString:v9];
@@ -644,13 +642,11 @@ LABEL_59:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

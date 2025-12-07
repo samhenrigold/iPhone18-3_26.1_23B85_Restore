@@ -10,7 +10,9 @@
 - (CAFStringCharacteristic)vehicleLayoutKeyCharacteristic;
 - (NSString)vehicleLayoutKey;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setOn:(BOOL)on;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -109,6 +111,13 @@
   return bOOLValue;
 }
 
+- (void)setOn:(BOOL)on
+{
+  onCopy = on;
+  onCharacteristic = [(CAFZoneOn *)self onCharacteristic];
+  [onCharacteristic setBoolValue:onCopy];
+}
+
 - (BOOL)onDisabled
 {
   onCharacteristic = [(CAFZoneOn *)self onCharacteristic];
@@ -165,6 +174,62 @@
   stringValue = [vehicleLayoutKeyCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFZoneOn *)self onCharacteristic];
+    uniqueIdentifier2 = [onCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers zoneOnService:self didUpdateOn:{-[CAFZoneOn on](self, "on")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFZoneOn *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier4 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFZoneOn *)self vehicleLayoutKey];
+    [observers2 zoneOnService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    name = [(CAFZoneOn *)self name];
+    [observers zoneOnService:self didUpdateName:name];
+
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v20.receiver = self;
+  v20.super_class = CAFZoneOn;
+  [(CAFService *)&v20 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForOn

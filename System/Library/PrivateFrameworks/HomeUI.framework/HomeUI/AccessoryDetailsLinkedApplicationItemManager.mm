@@ -11,7 +11,7 @@
   selfCopy = self;
   sub_20CF767A4();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70, &unk_20D5BCEC0);
   v6 = sub_20D567A58();
 
   return v6;

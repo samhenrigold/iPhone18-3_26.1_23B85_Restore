@@ -1,5 +1,4 @@
 @interface SRReaderFetchRequest
-- (NSString)description;
 - (SRReaderFetchRequest)init;
 - (SRReaderFetchRequest)initWithCoder:(id)coder;
 - (void)dealloc;
@@ -61,14 +60,6 @@
   }
 
   return v4;
-}
-
-- (NSString)description
-{
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  cursor = self->_cursor;
-  return [NSString stringWithFormat:@"%@ (%p): from: %f, to: %f, cursor: %@, %@", v4, self, *&self->_from, *&self->_to, cursor, self->_readerRequest];
 }
 
 @end

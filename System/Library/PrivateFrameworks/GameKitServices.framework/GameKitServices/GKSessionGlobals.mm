@@ -11,25 +11,24 @@
 
 - (GKSessionGlobals)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6.receiver = self;
-  v6.super_class = GKSessionGlobals;
-  v2 = [(GKSessionGlobals *)&v6 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = GKSessionGlobals;
+  v2 = [(GKSessionGlobals *)&v5 init];
   v3 = v2;
   if (v2)
   {
     v2->_activePIDList = 0;
     v2->_activePIDListSize = 0;
     v2->_activePIDListCount = 0;
-    v7.__sig = 0xAAAAAAAAAAAAAAAALL;
-    *v7.__opaque = 0xAAAAAAAAAAAAAAAALL;
-    pthread_mutexattr_init(&v7);
-    pthread_mutexattr_settype(&v7, 2);
-    pthread_mutex_init(&v3->_lock, &v7);
-    pthread_mutexattr_destroy(&v7);
+    v6.__sig = 0xAAAAAAAAAAAAAAAALL;
+    *v6.__opaque = 0xAAAAAAAAAAAAAAAALL;
+    pthread_mutexattr_init(&v6);
+    pthread_mutexattr_settype(&v6, 2);
+    pthread_mutex_init(&v3->_lock, &v6);
+    pthread_mutexattr_destroy(&v6);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -122,27 +121,23 @@ LABEL_7:
 - (void)lock
 {
   OUTLINED_FUNCTION_6_2();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 - (void)unlock
 {
   OUTLINED_FUNCTION_6_2();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 @end

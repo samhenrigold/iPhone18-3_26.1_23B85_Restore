@@ -41,7 +41,7 @@
 
 - (NSURL)URL
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   sandboxExtensionToken = [(CXSandboxExtendedURL *)self sandboxExtensionToken];
   if (sandboxExtensionToken)
   {
@@ -55,7 +55,7 @@
       [(CXSandboxExtendedURL *)self setSandboxExtensionHandle:sandbox_extension_consume()];
 
       sandboxExtensionHandle2 = [(CXSandboxExtendedURL *)self sandboxExtensionHandle];
-      v8 = CXDefaultLog();
+      v8 = CXDefaultLog(sandboxExtensionHandle2);
       v9 = v8;
       if (sandboxExtensionHandle2 < 1)
       {
@@ -68,9 +68,9 @@
       else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         URL = self->_URL;
-        v14 = 138412290;
-        v15 = URL;
-        _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully consumed sandbox extension for URL %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = URL;
+        _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully consumed sandbox extension for URL %@", &v13, 0xCu);
       }
 
       [(CXSandboxExtendedURL *)self setSandboxExtensionToken:0];
@@ -78,7 +78,6 @@
   }
 
   v11 = self->_URL;
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -182,24 +181,23 @@ LABEL_10:
   v6 = NSStringFromSelector("URL");
   [coderCopy encodeObject:v5 forKey:v6];
 
-  v7 = *MEMORY[0x1E69E9BA8];
-  v8 = [(CXSandboxExtendedURL *)self URL];
-  path = [v8 path];
+  v7 = [(CXSandboxExtendedURL *)self URL];
+  path = [v7 path];
   [path fileSystemRepresentation];
-  v10 = sandbox_extension_issue_file();
+  v9 = sandbox_extension_issue_file();
 
-  if (v10)
+  if (v9)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v10];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v9];
     v12 = NSStringFromSelector(sel_sandboxExtensionToken);
     [coderCopy encodeObject:v11 forKey:v12];
 
-    free(v10);
+    free(v9);
   }
 
   else
   {
-    v13 = CXDefaultLog();
+    v13 = CXDefaultLog(v10);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(CXSandboxExtendedURL *)self encodeWithCoder:v13];
@@ -209,26 +207,22 @@ LABEL_10:
 
 - (void)URL
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   sandboxExtensionToken = [self sandboxExtensionToken];
-  v6 = 138412546;
-  v7 = sandboxExtensionToken;
-  v8 = 2048;
+  v5 = 138412546;
+  v6 = sandboxExtensionToken;
+  v7 = 2048;
   sandboxExtensionHandle = [self sandboxExtensionHandle];
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Unable to consume sandbox extension with token %@, received handle %lld", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Unable to consume sandbox extension with token %@, received handle %lld", &v5, 0x16u);
 }
 
 - (void)encodeWithCoder:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 URL];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Unable to issue sandbox extension for URL %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Unable to issue sandbox extension for URL %@", &v4, 0xCu);
 }
 
 @end

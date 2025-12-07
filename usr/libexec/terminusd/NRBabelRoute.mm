@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)matchesPrefix:(id)prefix neighbor:(id)neighbor;
 - (NRBabelInstance)instance;
+- (NRBabelRoute)initWithPrefix:(id)prefix neighbor:(id)neighbor routerID:(unint64_t)d seqno:(unsigned __int16)seqno interval:(unsigned __int16)interval receivedMetric:(unsigned __int16)metric nextHop:(const in6_addr *)hop instance:(id)self0;
 - (id)description;
 - (in6_addr)nextHopInner;
 - (unsigned)metric;
@@ -51,7 +52,7 @@
           dispatch_once(&qword_100229100, &stru_1001FB6C8);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002290F8, 1, "%s%.30s:%-4d skipping apply of v4 %@", ", "[NRBabelRoute applyUsingSystem]"", 2154, selfCopy);
       }
 
       goto LABEL_21;
@@ -84,8 +85,8 @@
       block[1] = 3221225472;
       block[2] = sub_1000D2D9C;
       block[3] = &unk_1001FD060;
-      v29 = v19;
-      v30 = v13;
+      v30 = v19;
+      v31 = v13;
       v20 = v13;
       v21 = v19;
       dispatch_async(v21, block);
@@ -100,17 +101,17 @@ LABEL_21:
     if (IsLevelEnabled)
     {
       v24 = sub_1000CB9A8();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v24, 16, "%s%.30s:%-4d ABORTING: dispatch_queue_create(%s) failed", ", "nr_dispatch_queue_create", 196, "terminusd.babel.commands"");
     }
 
-    _os_log_pack_size();
+    v25 = _os_log_pack_size();
     v14 = (&block[-1] - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0));
-    v25 = *__error();
-    v26 = _os_log_pack_fill();
-    *v26 = 136446466;
-    *(v26 + 4) = "nr_dispatch_queue_create";
-    *(v26 + 12) = 2080;
-    *(v26 + 14) = "terminusd.babel.commands";
+    v26 = __error();
+    v27 = _os_log_pack_fill(v14, v25, *v26, &_mh_execute_header, "%{public}s dispatch_queue_create(%s) failed");
+    *v27 = 136446466;
+    *(v27 + 4) = "nr_dispatch_queue_create";
+    *(v27 + 12) = 2080;
+    *(v27 + 14) = "terminusd.babel.commands";
     sub_1000CB9A8();
     _NRLogAbortWithPack();
     goto LABEL_26;
@@ -130,7 +131,7 @@ LABEL_9:
       neighbor = selfCopy->_neighbor;
       v16 = v14[31];
       babelInterface3 = [(NRBabelNeighbor *)neighbor babelInterface];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v16, 1, "%s%.30s:%-4d skipping apply of non-socket %@, neighbor %@, if %@", ", "[NRBabelRoute applyUsingSystem]"", 2148, selfCopy, neighbor, babelInterface3);
 
       v17 = babelInterface3;
 
@@ -242,6 +243,69 @@ LABEL_26:
   }
 
   return v7;
+}
+
+- (NRBabelRoute)initWithPrefix:(id)prefix neighbor:(id)neighbor routerID:(unint64_t)d seqno:(unsigned __int16)seqno interval:(unsigned __int16)interval receivedMetric:(unsigned __int16)metric nextHop:(const in6_addr *)hop instance:(id)self0
+{
+  seqnoCopy = seqno;
+  prefixCopy = prefix;
+  neighborCopy = neighbor;
+  instanceCopy = instance;
+  v38.receiver = self;
+  v38.super_class = NRBabelRoute;
+  v20 = [(NRBabelRoute *)&v38 init];
+  v21 = v20;
+  if (!v20)
+  {
+    v28 = sub_1000CB9A8();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if (IsLevelEnabled)
+    {
+      v30 = sub_1000CB9A8();
+      _NRLogWithArgs(v30, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBabelRoute initWithPrefix:neighbor:routerID:seqno:interval:receivedMetric:nextHop:instance:]"", 2050);
+    }
+
+    v31 = _os_log_pack_size();
+    v32 = __error();
+    v33 = _os_log_pack_fill(&handler[-1] - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0), v31, *v32, &_mh_execute_header, "%{public}s [super init] failed");
+    *v33 = 136446210;
+    *(v33 + 4) = "[NRBabelRoute initWithPrefix:neighbor:routerID:seqno:interval:receivedMetric:nextHop:instance:]";
+    sub_1000CB9A8();
+    _NRLogAbortWithPack();
+    __break(1u);
+  }
+
+  objc_storeStrong(&v20->_bPrefix, prefix);
+  objc_storeStrong(&v21->_neighbor, neighbor);
+  v21->_routerID = d;
+  [(NRBabelRoute *)v21 setSeqno:seqnoCopy];
+  v21->_interval = interval;
+  v21->_receivedMetric = metric;
+  v21->_nextHopInner = *hop;
+  [(NRBabelRoute *)v21 setInstance:instanceCopy];
+  routes = [instanceCopy routes];
+  [routes addObject:v21];
+
+  objc_initWeak(&location, v21);
+  queue = [instanceCopy queue];
+  v24 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, queue);
+  expiryTimer = v21->_expiryTimer;
+  v21->_expiryTimer = v24;
+
+  v26 = v21->_expiryTimer;
+  handler[0] = _NSConcreteStackBlock;
+  handler[1] = 3221225472;
+  handler[2] = sub_1000D3518;
+  handler[3] = &unk_1001FC730;
+  objc_copyWeak(&v36, &location);
+  dispatch_source_set_event_handler(v26, handler);
+  dispatch_activate(v21->_expiryTimer);
+  [(NRBabelRoute *)v21 resetExpiryTimer];
+  objc_destroyWeak(&v36);
+  objc_destroyWeak(&location);
+
+  return v21;
 }
 
 @end

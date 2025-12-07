@@ -631,7 +631,7 @@ LABEL_43:
 
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else
@@ -655,7 +655,7 @@ LABEL_43:
 
     else
     {
-      [PAEPhotosFilters lutBitmapForFilter:"lutBitmapForFilter:lutDimensions:" lutDimensions:?];
+      objc_msgSend_lutBitmapForFilter_lutDimensions_(self);
       v11 = 24;
     }
 

@@ -252,7 +252,7 @@ LABEL_27:
 
 - (void)performWithTargetResponder:(id)responder completionHandler:(id)handler
 {
-  v80[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   responderCopy = responder;
   handlerCopy = handler;
   videosPlayables = [(VUIActionPlay *)self videosPlayables];
@@ -260,11 +260,11 @@ LABEL_27:
   if (videosPlayables)
   {
     appContext = [(VUIActionPlay *)self appContext];
-    v71 = handlerCopy;
+    v72 = handlerCopy;
     if (![(VUIActionPlay *)self shouldPunchoutToTVApp])
     {
-      v69 = appContext;
-      v39 = responderCopy;
+      v70 = appContext;
+      v40 = responderCopy;
       playbackContext = [(VUIActionPlay *)self playbackContext];
       if (!playbackContext)
       {
@@ -280,7 +280,7 @@ LABEL_27:
         }
       }
 
-      v42 = objc_opt_class();
+      v43 = objc_opt_class();
       videosPlayables2 = [(VUIActionPlay *)self videosPlayables];
       multiviewPlayables = [(VUIActionPlay *)self multiviewPlayables];
       watchType = [(VUIActionPlay *)self watchType];
@@ -288,12 +288,12 @@ LABEL_27:
       userPlaybackInitiationDate = [(VUIActionPlay *)self userPlaybackInitiationDate];
       openURLCompletionDate2 = [(VUIActionPlay *)self openURLCompletionDate];
       playType = [(VUIActionPlay *)self playType];
-      v50 = v42;
-      appContext = v69;
-      [v50 _playPlayables:videosPlayables2 multiviewPlayables:multiviewPlayables appContext:v69 watchType:watchType isUpNextPlayback:isUpNextPlayback userPlaybackInitiationDate:userPlaybackInitiationDate openURLCompletionDate:openURLCompletionDate2 playType:playType playbackContext:playbackContext targetResponder:v39];
+      v51 = v43;
+      appContext = v70;
+      [v51 _playPlayables:videosPlayables2 multiviewPlayables:multiviewPlayables appContext:v70 watchType:watchType isUpNextPlayback:isUpNextPlayback userPlaybackInitiationDate:userPlaybackInitiationDate openURLCompletionDate:openURLCompletionDate2 playType:playType playbackContext:playbackContext targetResponder:v40];
 
-      responderCopy = v39;
-      handlerCopy = v71;
+      responderCopy = v40;
+      handlerCopy = v72;
       goto LABEL_28;
     }
 
@@ -325,25 +325,26 @@ LABEL_27:
           v22 = [v20 _punchoutURLForDirectPlayback:tvAppDeeplinkURL ignoreExtras:v19];
 
           defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
-          v76 = 0;
-          v24 = [defaultWorkspace openURL:v22 withOptions:MEMORY[0x1E695E0F8] error:&v76];
-          v25 = v76;
+          v77 = 0;
+          v24 = [defaultWorkspace openURL:v22 withOptions:MEMORY[0x1E695E0F8] error:&v77];
+          v25 = v77;
 
-          if (+[VUITVExtension isRunningInTVExtension])
+          v26 = +[VUITVExtension isRunningInTVExtension];
+          if (v26)
           {
-            v79 = @"result";
-            v80[0] = @"open";
-            v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:&v79 count:1];
+            v80 = @"result";
+            v81[0] = @"open";
+            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
             defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-            [defaultCenter postNotificationName:@"VUIActionAskToBuyNotification" object:0 userInfo:v26];
+            [defaultCenter postNotificationName:@"VUIActionAskToBuyNotification" object:0 userInfo:v27];
           }
 
           if ((v24 & 1) == 0)
           {
-            v28 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v29 = VUIDefaultLogObject(v26);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
-              [VUIActionPlay performWithTargetResponder:v25 completionHandler:v28];
+              [VUIActionPlay performWithTargetResponder:v25 completionHandler:v29];
             }
           }
 
@@ -352,23 +353,23 @@ LABEL_27:
       }
     }
 
-    v70 = objc_opt_class();
+    v71 = objc_opt_class();
     videosPlayables4 = [(VUIActionPlay *)self videosPlayables];
     multiviewPlayables2 = [(VUIActionPlay *)self multiviewPlayables];
     isUpNextPlayback2 = [(VUIActionPlay *)self isUpNextPlayback];
     [(VUIActionPlay *)self userPlaybackInitiationDate];
-    v64 = v63 = responderCopy;
+    v65 = v64 = responderCopy;
     [(VUIActionPlay *)self openURLCompletionDate];
-    v65 = firstObject;
-    v67 = v66 = appContext;
+    v66 = firstObject;
+    v68 = v67 = appContext;
     playType2 = [(VUIActionPlay *)self playType];
-    [v70 _playPlayables:videosPlayables4 multiviewPlayables:multiviewPlayables2 appContext:v66 watchType:2 isUpNextPlayback:isUpNextPlayback2 userPlaybackInitiationDate:v64 openURLCompletionDate:v67 playType:playType2 playbackContext:-[VUIActionPlay playbackContext](self targetResponder:{"playbackContext"), v63}];
+    [v71 _playPlayables:videosPlayables4 multiviewPlayables:multiviewPlayables2 appContext:v67 watchType:2 isUpNextPlayback:isUpNextPlayback2 userPlaybackInitiationDate:v65 openURLCompletionDate:v68 playType:playType2 playbackContext:-[VUIActionPlay playbackContext](self targetResponder:{"playbackContext"), v64}];
 
-    appContext = v66;
-    firstObject = v65;
+    appContext = v67;
+    firstObject = v66;
 
-    responderCopy = v63;
-    handlerCopy = v71;
+    responderCopy = v64;
+    handlerCopy = v72;
 
 LABEL_27:
     goto LABEL_28;
@@ -378,25 +379,25 @@ LABEL_27:
 
   if (mpMediaItem)
   {
-    v30 = [VUIMediaInfo alloc];
+    v31 = [VUIMediaInfo alloc];
     playbackContext2 = [(VUIActionPlay *)self playbackContext];
     mpMediaItem2 = [(VUIActionPlay *)self mpMediaItem];
-    v78 = mpMediaItem2;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
-    v34 = [(VUIMediaInfo *)v30 initWithPlaybackContext:playbackContext2 mpMediaItems:v33];
+    v79 = mpMediaItem2;
+    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:1];
+    v35 = [(VUIMediaInfo *)v31 initWithPlaybackContext:playbackContext2 mpMediaItems:v34];
 
-    [(VUIMediaInfo *)v34 setIntent:1];
-    v35 = objc_opt_class();
+    [(VUIMediaInfo *)v35 setIntent:1];
+    v36 = objc_opt_class();
     watchType2 = [(VUIActionPlay *)self watchType];
     isRentAndWatchNow = [(VUIActionPlay *)self isRentAndWatchNow];
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __62__VUIActionPlay_performWithTargetResponder_completionHandler___block_invoke;
-    v74[3] = &unk_1E8733A10;
-    v75 = v34;
-    appContext = v34;
-    [v35 _playMediaInfo:appContext multiviewMediaInfos:MEMORY[0x1E695E0F0] watchType:watchType2 extrasInfo:0 playType:@"play" isRentAndWatchNow:isRentAndWatchNow targetResponder:responderCopy completion:v74];
-    v38 = v75;
+    v75[0] = MEMORY[0x1E69E9820];
+    v75[1] = 3221225472;
+    v75[2] = __62__VUIActionPlay_performWithTargetResponder_completionHandler___block_invoke;
+    v75[3] = &unk_1E8733A10;
+    v76 = v35;
+    appContext = v35;
+    [v36 _playMediaInfo:appContext multiviewMediaInfos:MEMORY[0x1E695E0F0] watchType:watchType2 extrasInfo:0 playType:@"play" isRentAndWatchNow:isRentAndWatchNow targetResponder:responderCopy completion:v75];
+    v39 = v76;
   }
 
   else
@@ -408,25 +409,25 @@ LABEL_27:
       goto LABEL_29;
     }
 
-    v52 = [VUIMediaInfo alloc];
+    v53 = [VUIMediaInfo alloc];
     playbackContext3 = [(VUIActionPlay *)self playbackContext];
     sidebandLibraryAdamID2 = [(VUIActionPlay *)self sidebandLibraryAdamID];
-    v77 = sidebandLibraryAdamID2;
-    v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
-    v56 = [(VUIMediaInfo *)v52 initWithPlaybackContext:playbackContext3 sidebandLibraryAdamIDs:v55];
+    v78 = sidebandLibraryAdamID2;
+    v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
+    v57 = [(VUIMediaInfo *)v53 initWithPlaybackContext:playbackContext3 sidebandLibraryAdamIDs:v56];
 
-    [(VUIMediaInfo *)v56 setIntent:1];
-    v57 = objc_opt_class();
+    [(VUIMediaInfo *)v57 setIntent:1];
+    v58 = objc_opt_class();
     watchType3 = [(VUIActionPlay *)self watchType];
     isRentAndWatchNow2 = [(VUIActionPlay *)self isRentAndWatchNow];
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __62__VUIActionPlay_performWithTargetResponder_completionHandler___block_invoke_2;
-    v72[3] = &unk_1E8733A10;
-    v73 = v56;
-    appContext = v56;
-    [v57 _playMediaInfo:appContext multiviewMediaInfos:MEMORY[0x1E695E0F0] watchType:watchType3 extrasInfo:0 playType:@"play" isRentAndWatchNow:isRentAndWatchNow2 targetResponder:responderCopy completion:v72];
-    v38 = v73;
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 3221225472;
+    v73[2] = __62__VUIActionPlay_performWithTargetResponder_completionHandler___block_invoke_2;
+    v73[3] = &unk_1E8733A10;
+    v74 = v57;
+    appContext = v57;
+    [v58 _playMediaInfo:appContext multiviewMediaInfos:MEMORY[0x1E695E0F0] watchType:watchType3 extrasInfo:0 playType:@"play" isRentAndWatchNow:isRentAndWatchNow2 targetResponder:responderCopy completion:v73];
+    v39 = v74;
   }
 
 LABEL_28:
@@ -525,11 +526,11 @@ void __62__VUIActionPlay_performWithTargetResponder_completionHandler___block_in
   [v32 _playMediaInfo:v37 multiviewMediaInfos:v33 watchType:type extrasInfo:extrasInfo playType:playTypeCopy isRentAndWatchNow:0 targetResponder:responderCopy completion:v43];
 }
 
-uint64_t __179__VUIActionPlay__playPlayables_multiviewPlayables_appContext_watchType_isUpNextPlayback_userPlaybackInitiationDate_openURLCompletionDate_playType_playbackContext_targetResponder___block_invoke(uint64_t result, int a2, int a3)
+void *__179__VUIActionPlay__playPlayables_multiviewPlayables_appContext_watchType_isUpNextPlayback_userPlaybackInitiationDate_openURLCompletionDate_playType_playbackContext_targetResponder___block_invoke(void *result, int a2, int a3)
 {
   if (a2)
   {
-    return [VUIMetricsMediaEvent recordPlay:*(result + 32) isLaunchingExtras:a3 ^ 1u];
+    return [VUIMetricsMediaEvent recordPlay:result[4] isLaunchingExtras:a3 ^ 1u];
   }
 
   return result;
@@ -583,9 +584,9 @@ uint64_t __90__VUIActionPlay_playMediaInfo_multiviewMediaInfos_watchType_isRentA
   sharedWatchId = [firstObject sharedWatchId];
 
   v24 = [VUIGroupActivitiesManagerObjC isSharedWatchIdValidForCurrentSession:sharedWatchId];
-  if (type == 1 && sharedWatchId && !v24)
+  if (type == 1 && sharedWatchId && (v24 & 1) == 0)
   {
-    v25 = VUIDefaultLogObject();
+    v25 = VUIDefaultLogObject(v24);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -632,67 +633,67 @@ uint64_t __127__VUIActionPlay__playMediaInfo_multiviewMediaInfos_watchType_extra
 
 void __127__VUIActionPlay__playMediaInfo_multiviewMediaInfos_watchType_extrasInfo_playType_isRentAndWatchNow_targetResponder_completion___block_invoke_68(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, void *a8)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v13 = a8;
-  v14 = VUIDefaultLogObject();
+  v14 = VUIDefaultLogObject(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
-    v23 = a2;
-    v24 = 2048;
-    v25 = a3;
+    v25 = a2;
     v26 = 2048;
-    v27 = a4;
+    v27 = a3;
     v28 = 2048;
-    v29 = a5;
+    v29 = a4;
+    v30 = 2048;
+    v31 = a5;
     _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Startup coordinator finished startup flow.  startPlayback == %ld, isCoWatching == %ld, forceDownloadToStream == %ld, allowCellular == %ld", buf, 0x2Au);
   }
 
-  v15 = VUIDefaultLogObject();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v16 = VUIDefaultLogObject(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
-    if (v16)
+    if (v17)
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Starting playback since startup flow allowed it", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Starting playback since startup flow allowed it", buf, 2u);
     }
 
     if (a3 && *(a1 + 88) == 1)
     {
-      v17 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = VUIDefaultLogObject(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Playback will be co-watched, will use existing resume time for join", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Playback will be co-watched, will use existing resume time for join", buf, 2u);
       }
     }
 
     if (a4)
     {
-      v18 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = VUIDefaultLogObject(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v18, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Forcing downloaded video to be streamed", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Forcing downloaded video to be streamed", buf, 2u);
       }
 
-      v19 = [*(a1 + 40) tvpPlaylist];
-      v20 = [v19 currentMediaItem];
+      v21 = [*(a1 + 40) tvpPlaylist];
+      v22 = [v21 currentMediaItem];
 
-      [v20 setMediaItemMetadata:MEMORY[0x1E695E118] forProperty:*MEMORY[0x1E69D5BD0]];
+      [v22 setMediaItemMetadata:MEMORY[0x1E695E118] forProperty:*MEMORY[0x1E69D5BD0]];
     }
 
-    LOBYTE(v21) = a5;
-    [VUIActionPlay presentPlaybackWithMediaInfo:*(a1 + 40) multiviewMediaInfos:*(a1 + 48) extrasInfo:*(a1 + 56) isCoWatching:a3 watchType:*(a1 + 88) playType:*(a1 + 64) allowsCellular:v21 previewMetadata:v13 targetResponder:*(a1 + 72) completion:*(a1 + 80)];
+    LOBYTE(v23) = a5;
+    [VUIActionPlay presentPlaybackWithMediaInfo:*(a1 + 40) multiviewMediaInfos:*(a1 + 48) extrasInfo:*(a1 + 56) isCoWatching:a3 watchType:*(a1 + 88) playType:*(a1 + 64) allowsCellular:v23 previewMetadata:v13 targetResponder:*(a1 + 72) completion:*(a1 + 80)];
   }
 
   else
   {
-    if (v16)
+    if (v17)
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Not starting playback since startup flow disallowed it", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUIActionPlay - Not starting playback since startup flow disallowed it", buf, 2u);
     }
 
     (*(*(a1 + 80) + 16))();
@@ -917,7 +918,7 @@ uint64_t __167__VUIActionPlay_presentPlaybackWithMediaInfo_multiviewMediaInfos_e
   if (*(result + 32))
   {
     v1 = result;
-    v2 = VUIDefaultLogObject();
+    v2 = VUIDefaultLogObject(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = [MEMORY[0x1E695DF00] date];

@@ -47,6 +47,7 @@
 - (void)cancelRequestWithUUID:(id)d peer:(id)peer type:(int64_t)type reply:(id)reply;
 - (void)dealloc;
 - (void)listFilesFromPeer:(id)peer remoteDirPath:(id)path reply:(id)reply;
+- (void)log:(id)log timestamp:(BOOL)timestamp;
 - (void)queryDatabaseForPeer:(id)peer fetch:(id)fetch reply:(id)reply;
 - (void)queryDebugConfigurationForPeer:(id)peer reply:(id)reply;
 - (void)queryRegisteredDiagnosticsPeersWithReply:(id)reply;
@@ -86,68 +87,29 @@ W5Client *__24__W5Client_sharedClient__block_invoke()
   v16.receiver = self;
   v16.super_class = W5Client;
   v2 = [(W5Client *)&v16 init];
-  if (!v2)
+  if (v2 && (v3 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.wifivelocity.client.%@", objc_msgSend(objc_msgSend(MEMORY[0x277CCAD78], "UUID"), "UUIDString")), "UTF8String"], v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v5 = dispatch_queue_create(v3, v4), (*(v2 + 2) = v5) != 0) && (dispatch_queue_set_specific(v5, v2 + 16, 1, 0), v6 = objc_alloc_init(MEMORY[0x277CBEB18]), (*(v2 + 4) = v6) != 0) && (v7 = objc_alloc_init(MEMORY[0x277CBEB18]), (*(v2 + 5) = v7) != 0) && (v8 = objc_alloc_init(MEMORY[0x277CBEB58]), (*(v2 + 8) = v8) != 0) && (v9 = objc_alloc_init(MEMORY[0x277CBEB38]), (*(v2 + 6) = v9) != 0) && (v10 = objc_alloc_init(MEMORY[0x277CBEB38]), (*(v2 + 7) = v10) != 0) && (v11 = objc_msgSend(objc_alloc(MEMORY[0x277CCAE80]), "initWithMachServiceName:options:", @"com.apple.wifivelocityd", 4096), (*(v2 + 1) = v11) != 0))
   {
-    goto LABEL_11;
-  }
-
-  v3 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.wifivelocity.client.%@", objc_msgSend(objc_msgSend(MEMORY[0x277CCAD78], "UUID"), "UUIDString")), "UTF8String"];
-  v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v5 = dispatch_queue_create(v3, v4);
-  v2->_queue = v5;
-  if (!v5)
-  {
-    goto LABEL_11;
-  }
-
-  dispatch_queue_set_specific(v5, &v2->_queue, 1, 0);
-  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v2->_mutableEventIDs = v6;
-  if (!v6)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v2->_mutableUUIDs = v7;
-  if (!v7)
-  {
-    goto LABEL_11;
-  }
-
-  v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v2->_mutableFaultEventMonitoringPeers = v8;
-  if (!v8)
-  {
-    goto LABEL_11;
-  }
-
-  v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v2->_mutableEventCallbackMap = v9;
-  if (v9 && (v10 = objc_alloc_init(MEMORY[0x277CBEB38]), (v2->_mutablePeerEventCallbackMap = v10) != 0) && (v11 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.wifivelocityd" options:4096], (v2->_conn = v11) != 0))
-  {
-    [(NSXPCConnection *)v2->_conn setRemoteObjectInterface:W5XPCRequestDelegateInterface()];
-    [(NSXPCConnection *)v2->_conn setExportedInterface:W5XPCEventDelegateInterface()];
-    dispatch_set_context(v2->_queue, v2);
-    queue = v2->_queue;
+    [*(v2 + 1) setRemoteObjectInterface:W5XPCRequestDelegateInterface()];
+    [*(v2 + 1) setExportedInterface:W5XPCEventDelegateInterface()];
+    dispatch_set_context(*(v2 + 2), v2);
+    v12 = *(v2 + 2);
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
     v15[2] = __16__W5Client_init__block_invoke;
     v15[3] = &unk_279ECE1E0;
-    v15[4] = queue;
-    [(NSXPCConnection *)v2->_conn setInterruptionHandler:v15];
+    v15[4] = v12;
+    [*(v2 + 1) setInterruptionHandler:v15];
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
     v14[2] = __16__W5Client_init__block_invoke_13;
     v14[3] = &unk_279ECE1E0;
-    v14[4] = queue;
-    [(NSXPCConnection *)v2->_conn setInvalidationHandler:v14];
-    [(NSXPCConnection *)v2->_conn resume];
+    v14[4] = v12;
+    [*(v2 + 1) setInvalidationHandler:v14];
+    [*(v2 + 1) resume];
   }
 
   else
   {
-LABEL_11:
 
     return 0;
   }
@@ -168,20 +130,19 @@ void __16__W5Client_init__block_invoke(uint64_t a1)
 
 void __16__W5Client_init__block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   OSLog = W5GetOSLog();
   if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136315650;
-    v21 = "[W5Client init]_block_invoke_2";
-    v22 = 2080;
-    v23 = "W5Client.m";
-    v24 = 1024;
-    v25 = 94;
-    LODWORD(v14) = 28;
-    v13 = &v20;
-    _os_log_send_and_compose_impl();
+    v18 = 136315650;
+    v19 = "[W5Client init]_block_invoke_2";
+    v20 = 2080;
+    v21 = "W5Client.m";
+    v22 = 1024;
+    v23 = 94;
+    LODWORD(v12) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) XPC connection interrupted", &v18, v12, v13);
   }
 
   context = dispatch_get_context(*(a1 + 32));
@@ -192,29 +153,29 @@ void __16__W5Client_init__block_invoke_2(uint64_t a1)
     if (v6 - *(v5 + 3) >= 10.0)
     {
       *(v5 + 3) = v6;
-      v17 = 0u;
-      v18 = 0u;
       v15 = 0u;
       v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v7 = *(v5 + 8);
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v16;
+        v10 = *v14;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v16 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            [v5 startMonitoringFaultEventsForPeer:*(*(&v15 + 1) + 8 * i) eventHandler:objc_msgSend(*(v5 + 6) error:{"objectForKeyedSubscript:", objc_msgSend(v5, "__eventCallbackSignatureForEventID:peer:", 38, *(*(&v15 + 1) + 8 * i), v13, v14)), 0}];
+            [v5 startMonitoringFaultEventsForPeer:*(*(&v13 + 1) + 8 * i) eventHandler:objc_msgSend(*(v5 + 6) error:{"objectForKeyedSubscript:", objc_msgSend(v5, "__eventCallbackSignatureForEventID:peer:", 38, *(*(&v13 + 1) + 8 * i))), 0}];
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v9);
@@ -228,21 +189,26 @@ void __16__W5Client_init__block_invoke_2(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __16__W5Client_init__block_invoke_2_14()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
   OSLog = W5GetOSLog();
   if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v3 = 136315650;
+    v4 = "[W5Client init]_block_invoke_2";
+    v5 = 2080;
+    v6 = "W5Client.m";
+    v7 = 1024;
+    v8 = 125;
+    v2 = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) XPC connection invalidated", &v3, v2);
   }
 
   objc_autoreleasePoolPop(v0);
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -392,31 +358,31 @@ void __42__W5Client___startMonitoringEvents_reply___block_invoke_2(int8x16_t *a1
 
 void __42__W5Client___startMonitoringEvents_reply___block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(a1 + 40) + 32) removeObjectIdenticalTo:*(*(&v12 + 1) + 8 * i)];
+        [*(*(a1 + 40) + 32) removeObjectIdenticalTo:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -428,14 +394,13 @@ void __42__W5Client___startMonitoringEvents_reply___block_invoke_3(uint64_t a1)
   }
 
   global_queue = dispatch_get_global_queue(0, 0);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __42__W5Client___startMonitoringEvents_reply___block_invoke_4;
-  v10[3] = &unk_279ECE208;
-  v11 = *(a1 + 48);
-  dispatch_async(global_queue, v10);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __42__W5Client___startMonitoringEvents_reply___block_invoke_4;
+  v9[3] = &unk_279ECE208;
+  v10 = *(a1 + 48);
+  dispatch_async(global_queue, v9);
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __42__W5Client___startMonitoringEvents_reply___block_invoke_4(uint64_t a1)
@@ -466,33 +431,33 @@ void __42__W5Client___startMonitoringEvents_reply___block_invoke_5(int8x16_t *a1
 
 void __42__W5Client___startMonitoringEvents_reply___block_invoke_6(void *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if (a1[4])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v3 = a1[5];
-    v4 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v17;
+      v6 = *v16;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v17 != v6)
+          if (*v16 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(a1[6] + 32) removeObjectIdenticalTo:*(*(&v16 + 1) + 8 * i)];
+          [*(a1[6] + 32) removeObjectIdenticalTo:*(*(&v15 + 1) + 8 * i)];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
       }
 
       while (v5);
@@ -509,11 +474,11 @@ void __42__W5Client___startMonitoringEvents_reply___block_invoke_6(void *a1)
     if (v9)
     {
       v11 = a1[5];
-      v20 = 138543618;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v10;
-      _os_log_send_and_compose_impl();
+      v19 = 138543618;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v10;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] Failed to start monitoring events %{public}@, returned error %{public}@", &v19, 22);
       v10 = a1[4];
     }
   }
@@ -533,7 +498,6 @@ void __42__W5Client___startMonitoringEvents_reply___block_invoke_6(void *a1)
   block[5] = v13;
   dispatch_async(global_queue, block);
   objc_autoreleasePoolPop(v2);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __42__W5Client___startMonitoringEvents_reply___block_invoke_20(uint64_t a1)
@@ -550,23 +514,21 @@ void __42__W5Client___startMonitoringEvents_reply___block_invoke_20(uint64_t a1)
 
 - (void)startMonitoringEvents:(id)events
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = dispatch_semaphore_create(0);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __34__W5Client_startMonitoringEvents___block_invoke;
-  v8[3] = &unk_279ECE258;
-  v8[4] = v5;
-  [(W5Client *)self __startMonitoringEvents:events reply:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __34__W5Client_startMonitoringEvents___block_invoke;
+  v7[3] = &unk_279ECE258;
+  v7[4] = v5;
+  [(W5Client *)self __startMonitoringEvents:events reply:v7];
   v6 = dispatch_time(0, 4000000000);
   if (dispatch_semaphore_wait(v5, v6) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v10 = 0x4010000000000000;
+    v9 = 0x4010000000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__stopMonitoringEvents:(id)events reply:(id)reply
@@ -676,23 +638,21 @@ void __41__W5Client___stopMonitoringEvents_reply___block_invoke_6(uint64_t a1)
 
 - (void)stopMonitoringEvents:(id)events
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = dispatch_semaphore_create(0);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __33__W5Client_stopMonitoringEvents___block_invoke;
-  v8[3] = &unk_279ECE258;
-  v8[4] = v5;
-  [(W5Client *)self __stopMonitoringEvents:events reply:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __33__W5Client_stopMonitoringEvents___block_invoke;
+  v7[3] = &unk_279ECE258;
+  v7[4] = v5;
+  [(W5Client *)self __stopMonitoringEvents:events reply:v7];
   v6 = dispatch_time(0, 4000000000);
   if (dispatch_semaphore_wait(v5, v6) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v10 = 0x4010000000000000;
+    v9 = 0x4010000000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__queryLocalPeerAndReply:(id)reply
@@ -779,33 +739,32 @@ void __37__W5Client___queryLocalPeerAndReply___block_invoke_5(void *a1)
 
 - (id)localPeer
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3052000000;
-  v13 = __Block_byref_object_copy__0;
-  v14 = __Block_byref_object_dispose__0;
-  v15 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3052000000;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
   v3 = dispatch_semaphore_create(0);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __21__W5Client_localPeer__block_invoke;
-  v9[3] = &unk_279ECE2F8;
-  v9[4] = v3;
-  v9[5] = &v10;
-  [(W5Client *)self __queryLocalPeerAndReply:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __21__W5Client_localPeer__block_invoke;
+  v8[3] = &unk_279ECE2F8;
+  v8[4] = v3;
+  v8[5] = &v9;
+  [(W5Client *)self __queryLocalPeerAndReply:v8];
   v4 = dispatch_time(0, 4000000000);
   if (dispatch_semaphore_wait(v3, v4) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v17 = 0x4010000000000000;
+    v16 = 0x4010000000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v5 = v11[5];
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  v5 = v10[5];
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
   return v6;
 }
 
@@ -954,69 +913,68 @@ void __37__W5Client_queryStatusForPeer_reply___block_invoke_7(void *a1)
 
 - (id)queryStatusForPeer:(id)peer error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3052000000;
-  v29 = __Block_byref_object_copy__0;
-  v30 = __Block_byref_object_dispose__0;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3052000000;
-  v23 = __Block_byref_object_copy__0;
-  v24 = __Block_byref_object_dispose__0;
+  v33 = *MEMORY[0x277D85DE8];
   v25 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
+  v26 = &v25;
+  v27 = 0x3052000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = __Block_byref_object_copy__0;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v7 = dispatch_semaphore_create(0);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __37__W5Client_queryStatusForPeer_error___block_invoke;
-  v15[3] = &unk_279ECE398;
-  v15[6] = &v16;
-  v15[7] = &v20;
-  v15[8] = &v26;
-  v15[4] = self;
-  v15[5] = v7;
-  [(W5Client *)self queryStatusForPeer:peer reply:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __37__W5Client_queryStatusForPeer_error___block_invoke;
+  v14[3] = &unk_279ECE398;
+  v14[6] = &v15;
+  v14[7] = &v19;
+  v14[8] = &v25;
+  v14[4] = self;
+  v14[5] = v7;
+  [(W5Client *)self queryStatusForPeer:peer reply:v14];
   v8 = dispatch_time(0, 4000000000);
   if (dispatch_semaphore_wait(v7, v8) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v33 = 0x4010000000000000;
+    v32 = 0x4010000000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
   objc_sync_enter(self);
-  if (*(v17 + 24) == 1)
+  if (*(v16 + 24) == 1)
   {
-    v9 = v21[5];
-    v10 = v27[5];
+    v9 = v20[5];
+    v10 = v26[5];
   }
 
   else
   {
-    *(v17 + 24) = 1;
+    *(v16 + 24) = 1;
   }
 
   objc_sync_exit(self);
   if (error)
   {
-    v11 = v21[5];
+    v11 = v20[5];
     if (v11)
     {
       *error = v11;
     }
   }
 
-  v12 = v27[5];
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v26, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = v26[5];
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
   return v12;
 }
 
@@ -1484,51 +1442,50 @@ void __49__W5Client_queryDebugConfigurationForPeer_reply___block_invoke_5(void *
 
 - (id)queryDebugConfigurationForPeer:(id)peer error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3052000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
-  v27 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3052000000;
-  v19 = __Block_byref_object_copy__0;
-  v20 = __Block_byref_object_dispose__0;
+  v29 = *MEMORY[0x277D85DE8];
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x3052000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
+  v26 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3052000000;
+  v18 = __Block_byref_object_copy__0;
+  v19 = __Block_byref_object_dispose__0;
+  v20 = 0;
   v7 = dispatch_semaphore_create(0);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __49__W5Client_queryDebugConfigurationForPeer_error___block_invoke;
-  v15[3] = &unk_279ECE438;
-  v15[5] = &v16;
-  v15[6] = &v22;
-  v15[4] = v7;
-  [(W5Client *)self queryDebugConfigurationForPeer:peer reply:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __49__W5Client_queryDebugConfigurationForPeer_error___block_invoke;
+  v14[3] = &unk_279ECE438;
+  v14[5] = &v15;
+  v14[6] = &v21;
+  v14[4] = v7;
+  [(W5Client *)self queryDebugConfigurationForPeer:peer reply:v14];
   v8 = dispatch_time(0, 4000000000);
   if (dispatch_semaphore_wait(v7, v8) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v29 = 0x4010000000000000;
+    v28 = 0x4010000000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v9 = v17[5];
-  v10 = v23[5];
+  v9 = v16[5];
+  v10 = v22[5];
   if (error)
   {
-    v11 = v17[5];
+    v11 = v16[5];
     if (v11)
     {
       *error = v11;
     }
   }
 
-  v12 = v23[5];
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v22, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = v22[5];
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
   return v12;
 }
 
@@ -1628,32 +1585,32 @@ void __45__W5Client_setDebugConfiguration_peer_reply___block_invoke_5(uint64_t a
 
 - (BOOL)setDebugConfiguration:(id)configuration peer:(id)peer error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3052000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
+  v25 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3052000000;
+  v20 = __Block_byref_object_copy__0;
+  v21 = __Block_byref_object_dispose__0;
+  v22 = 0;
   v9 = dispatch_semaphore_create(0);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __45__W5Client_setDebugConfiguration_peer_error___block_invoke;
-  v17[3] = &unk_279ECE460;
-  v17[4] = v9;
-  v17[5] = &v18;
-  [(W5Client *)self setDebugConfiguration:configuration peer:peer reply:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __45__W5Client_setDebugConfiguration_peer_error___block_invoke;
+  v16[3] = &unk_279ECE460;
+  v16[4] = v9;
+  v16[5] = &v17;
+  [(W5Client *)self setDebugConfiguration:configuration peer:peer reply:v16];
   v10 = dispatch_time(0, 4000000000);
   if (dispatch_semaphore_wait(v9, v10) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v25 = 0x4010000000000000;
+    v24 = 0x4010000000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v11 = v19[5];
-  v12 = v19;
-  v13 = v19[5];
+  v11 = v18[5];
+  v12 = v18;
+  v13 = v18[5];
   if (error && v13)
   {
     *error = v13;
@@ -1661,8 +1618,7 @@ void __45__W5Client_setDebugConfiguration_peer_reply___block_invoke_5(uint64_t a
   }
 
   v14 = v13 == 0;
-  _Block_object_dispose(&v18, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
   return v14;
 }
 
@@ -1838,51 +1794,50 @@ void __54__W5Client_runDiagnostics_configuration_update_reply___block_invoke_7(v
 
 - (id)runDiagnostics:(id)diagnostics configuration:(id)configuration update:(id)update error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3052000000;
-  v29 = __Block_byref_object_copy__0;
-  v30 = __Block_byref_object_dispose__0;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3052000000;
-  v23 = __Block_byref_object_copy__0;
-  v24 = __Block_byref_object_dispose__0;
+  v33 = *MEMORY[0x277D85DE8];
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x3052000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = __Block_byref_object_copy__0;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = 0;
   v11 = dispatch_semaphore_create(0);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __54__W5Client_runDiagnostics_configuration_update_error___block_invoke;
-  v19[3] = &unk_279ECE4B0;
-  v19[5] = &v20;
-  v19[6] = &v26;
-  v19[4] = v11;
-  [(W5Client *)self runDiagnostics:diagnostics configuration:configuration update:update reply:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __54__W5Client_runDiagnostics_configuration_update_error___block_invoke;
+  v18[3] = &unk_279ECE4B0;
+  v18[5] = &v19;
+  v18[6] = &v25;
+  v18[4] = v11;
+  [(W5Client *)self runDiagnostics:diagnostics configuration:configuration update:update reply:v18];
   v12 = dispatch_time(0, 600000000000);
   if (dispatch_semaphore_wait(v11, v12) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v33 = 0x4082C00000000000;
+    v32 = 0x4082C00000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v13 = v21[5];
-  v14 = v27[5];
+  v13 = v20[5];
+  v14 = v26[5];
   if (error)
   {
-    v15 = v21[5];
+    v15 = v20[5];
     if (v15)
     {
       *error = v15;
     }
   }
 
-  v16 = v27[5];
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v26, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = v26[5];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
   return v16;
 }
 
@@ -2095,14 +2050,14 @@ void __70__W5Client_registerRemoteDiagnosticEventsForPeer_configuration_error___
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __70__W5Client_registerRemoteDiagnosticEventsForPeer_configuration_error___block_invoke_2(uint64_t a1, void *a2)
+void *__70__W5Client_registerRemoteDiagnosticEventsForPeer_configuration_error___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
   return result;
 }
 
-uint64_t __70__W5Client_registerRemoteDiagnosticEventsForPeer_configuration_error___block_invoke_3(uint64_t a1, void *a2)
+void *__70__W5Client_registerRemoteDiagnosticEventsForPeer_configuration_error___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -2182,14 +2137,14 @@ void __72__W5Client_unregisterRemoteDiagnosticEventsForPeer_configuration_error_
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __72__W5Client_unregisterRemoteDiagnosticEventsForPeer_configuration_error___block_invoke_2(uint64_t a1, void *a2)
+void *__72__W5Client_unregisterRemoteDiagnosticEventsForPeer_configuration_error___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
   return result;
 }
 
-uint64_t __72__W5Client_unregisterRemoteDiagnosticEventsForPeer_configuration_error___block_invoke_3(uint64_t a1, void *a2)
+void *__72__W5Client_unregisterRemoteDiagnosticEventsForPeer_configuration_error___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -2716,32 +2671,32 @@ void __51__W5Client_queryDiagnosticsModeForPeer_info_reply___block_invoke_7(void
 
 - (void)__purgeFilesInDirectory:(id)directory matching:(id)matching maxAge:(unint64_t)age maxCount:(unint64_t)count
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v11 = v10;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v12 = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
+  v37 = 0u;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v39 objects:v46 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v40;
+    v15 = *v38;
     ageCopy = age;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v40 != v15)
+        if (*v38 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v39 + 1) + 8 * i);
+        v18 = *(*(&v37 + 1) + 8 * i);
         [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
         v20 = v19;
         if (!matching || [matching numberOfMatchesInString:v18 options:0 range:{0, objc_msgSend(v18, "length")}])
@@ -2759,7 +2714,7 @@ void __51__W5Client_queryDiagnosticsModeForPeer_info_reply___block_invoke_7(void
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
     while (v14);
@@ -2778,97 +2733,94 @@ void __51__W5Client_queryDiagnosticsModeForPeer_info_reply___block_invoke_7(void
     while (v23 < [v22 count] - count);
   }
 
-  v37 = 0u;
-  v38 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v24 = [array countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v33 = 0u;
+  v34 = 0u;
+  v24 = [array countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v36;
+    v26 = *v34;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v36 != v26)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(array);
         }
 
-        v28 = *(*(&v35 + 1) + 8 * j);
+        v28 = *(*(&v33 + 1) + 8 * j);
         OSLog = W5GetOSLog();
         if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
         {
-          v43 = 138543362;
-          v44 = v28;
-          LODWORD(v32) = 12;
-          v31 = &v43;
-          _os_log_send_and_compose_impl();
+          v41 = 138543362;
+          v42 = v28;
+          LODWORD(v30) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] PURGE obsolete WiFi log content, path='%{public}@'", &v41, v30);
         }
 
-        [objc_msgSend(MEMORY[0x277CCAA00] defaultManager];
+        [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
       }
 
-      v25 = [array countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v25 = [array countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
     while (v25);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)__mostRecentInDirectories:(id)directories include:(id)include exclude:(id)exclude maxAge:(double)age
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v11 = v10;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v39 = [MEMORY[0x277CBEB58] set];
+  v38 = [MEMORY[0x277CBEB58] set];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = directories;
-  v35 = [directories countByEnumeratingWithState:&v44 objects:v49 count:16];
-  if (v35)
+  v34 = [directories countByEnumeratingWithState:&v43 objects:v48 count:16];
+  if (v34)
   {
-    v34 = *v45;
+    v33 = *v44;
     do
     {
       v12 = 0;
       do
       {
-        if (*v45 != v34)
+        if (*v44 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = v12;
-        v13 = *(*(&v44 + 1) + 8 * v12);
+        v36 = v12;
+        v13 = *(*(&v43 + 1) + 8 * v12);
         context = objc_autoreleasePoolPush();
         v14 = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
-        v15 = [v14 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v39 objects:v47 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v41;
+          v17 = *v40;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v41 != v17)
+              if (*v40 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = *(*(&v40 + 1) + 8 * i);
+              v19 = *(*(&v39 + 1) + 8 * i);
               v20 = objc_autoreleasePoolPush();
               v21 = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
               [objc_msgSend(v21 "fileCreationDate")];
@@ -2878,7 +2830,7 @@ void __51__W5Client_queryDiagnosticsModeForPeer_info_reply___block_invoke_7(void
               v26 = v11 - v23;
               v27 = v11 - v25;
               v28 = v11 - v23 > age && v27 > age;
-              if (!v28 && (!include || [include numberOfMatchesInString:v19 options:0 range:{0, objc_msgSend(v19, "length", v26, v27)}]) && (!exclude || !objc_msgSend(exclude, "numberOfMatchesInString:options:range:", v19, 0, 0, objc_msgSend(v19, "length", v26, v27))) && (objc_msgSend(v39, "containsObject:", v19, v26, v27) & 1) == 0)
+              if (!v28 && (!include || [include numberOfMatchesInString:v19 options:0 range:{0, objc_msgSend(v19, "length", v26, v27)}]) && (!exclude || !objc_msgSend(exclude, "numberOfMatchesInString:options:range:", v19, 0, 0, objc_msgSend(v19, "length", v26, v27))) && (objc_msgSend(v38, "containsObject:", v19, v26, v27) & 1) == 0)
               {
                 if (v23 <= v25)
                 {
@@ -2891,33 +2843,31 @@ void __51__W5Client_queryDiagnosticsModeForPeer_info_reply___block_invoke_7(void
                 }
 
                 [dictionary setObject:objc_msgSend(MEMORY[0x277CCABB0] forKeyedSubscript:{"numberWithDouble:", v29), objc_msgSend(v13, "stringByAppendingPathComponent:", v19)}];
-                [v39 addObject:v19];
+                [v38 addObject:v19];
               }
 
               objc_autoreleasePoolPop(v20);
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v39 objects:v47 count:16];
           }
 
           while (v16);
         }
 
         objc_autoreleasePoolPop(context);
-        v12 = v37 + 1;
+        v12 = v36 + 1;
       }
 
-      while (v37 + 1 != v35);
-      v35 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      while (v36 + 1 != v34);
+      v34 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
-    while (v35);
+    while (v34);
   }
 
   [array addObjectsFromArray:{objc_msgSend(dictionary, "keysSortedByValueUsingComparator:", &__block_literal_global_36)}];
-  result = [array copy];
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return [array copy];
 }
 
 - (id)__collectJetsamFallbackLogsWithReason:(id)reason compress:(BOOL)compress
@@ -3006,24 +2956,22 @@ void __51__W5Client_queryDiagnosticsModeForPeer_info_reply___block_invoke_7(void
 
 void __59__W5Client___collectJetsamFallbackLogsWithReason_compress___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   OSLog = W5GetOSLog();
   if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) path];
-    v8[0] = 67109378;
-    v8[1] = 120;
-    v9 = 2114;
-    v10 = v4;
-    LODWORD(v7) = 18;
-    v6 = v8;
-    _os_log_send_and_compose_impl();
+    v6[0] = 67109378;
+    v6[1] = 120;
+    v7 = 2114;
+    v8 = v4;
+    v5 = 18;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] CLEANUP obsolete jetsam fallback WiFi log content (delay=%ds, path='%{public}@')", v6, v5);
   }
 
-  [objc_msgSend(MEMORY[0x277CCAA00] defaultManager];
+  [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
   objc_autoreleasePoolPop(v2);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)__collectBusyFallbackLogsWithReason:(id)reason compress:(BOOL)compress
@@ -3099,129 +3047,126 @@ void __59__W5Client___collectJetsamFallbackLogsWithReason_compress___block_invok
 
 void __57__W5Client___collectBusyFallbackLogsWithReason_compress___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   OSLog = W5GetOSLog();
   if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) path];
-    v8[0] = 67109378;
-    v8[1] = 120;
-    v9 = 2114;
-    v10 = v4;
-    LODWORD(v7) = 18;
-    v6 = v8;
-    _os_log_send_and_compose_impl();
+    v6[0] = 67109378;
+    v6[1] = 120;
+    v7 = 2114;
+    v8 = v4;
+    v5 = 18;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] CLEANUP obsolete busy fallback WiFi log content (delay=%ds, path='%{public}@')", v6, v5);
   }
 
-  [objc_msgSend(MEMORY[0x277CCAA00] defaultManager];
+  [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
   objc_autoreleasePoolPop(v2);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__logsCollectedWithTemporaryURL:(id)l outputURL:(id)rL keepParent:(BOOL)parent compress:(BOOL)compress reply:(id)reply
 {
   compressCopy = compress;
-  v51 = *MEMORY[0x277D85DE8];
-  v41 = 0;
+  v49 = *MEMORY[0x277D85DE8];
+  v39 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v40 = 0;
-  if (([defaultManager fileExistsAtPath:objc_msgSend(rL isDirectory:{"path"), &v40}] & 1) == 0)
+  v38 = 0;
+  if (([defaultManager fileExistsAtPath:objc_msgSend(rL isDirectory:{"path"), &v38}] & 1) == 0)
   {
-    [defaultManager createDirectoryAtURL:rL withIntermediateDirectories:1 attributes:0 error:&v41];
-    if (![defaultManager fileExistsAtPath:objc_msgSend(rL isDirectory:{"path"), &v40}])
+    [defaultManager createDirectoryAtURL:rL withIntermediateDirectories:1 attributes:0 error:&v39];
+    if (![defaultManager fileExistsAtPath:objc_msgSend(rL isDirectory:{"path"), &v38}])
     {
       if (!reply)
       {
-        goto LABEL_32;
+        return;
       }
 
-      v25 = v41;
+      v25 = v39;
       goto LABEL_22;
     }
   }
 
-  if (v40 != 1)
+  if (v38 != 1)
   {
     if (!reply)
     {
-      goto LABEL_32;
+      return;
     }
 
     v24 = *MEMORY[0x277CCA5B8];
-    v42 = *MEMORY[0x277CCA470];
-    v43 = @"ENOENT";
-    v25 = [MEMORY[0x277CCA9B8] errorWithDomain:v24 code:2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v43, &v42, 1)}];
+    v40 = *MEMORY[0x277CCA470];
+    v41 = @"ENOENT";
+    v25 = [MEMORY[0x277CCA9B8] errorWithDomain:v24 code:2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v41, &v40, 1)}];
 LABEL_22:
     (*(reply + 2))(reply, v25, 0);
-    goto LABEL_32;
+    return;
   }
 
   if (parent || compressCopy)
   {
     rL = [rL URLByAppendingPathComponent:{objc_msgSend(l, "lastPathComponent")}];
-    v15 = [defaultManager copyItemAtURL:l toURL:rL error:&v41];
-    if (v41)
+    v15 = [defaultManager copyItemAtURL:l toURL:rL error:&v39];
+    if (v39)
     {
       OSLog = W5GetOSLog();
       if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
       {
         path = [l path];
         path2 = [rL path];
-        v45 = 138543874;
-        v46 = path;
+        v43 = 138543874;
+        v44 = path;
+        v45 = 2114;
+        v46 = path2;
         v47 = 2114;
-        v48 = path2;
-        v49 = 2114;
-        v50 = v41;
-        _os_log_send_and_compose_impl();
+        v48 = v39;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] FAILED to copy WiFi logs to final destination '%{public}@' --> '%{public}@', returned error [%{public}@]", &v43, 32);
       }
     }
   }
 
   else
   {
+    v34 = 0u;
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    obj = [defaultManager contentsOfDirectoryAtPath:objc_msgSend(l error:{"path"), &v41}];
-    v13 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+    obj = [defaultManager contentsOfDirectoryAtPath:objc_msgSend(l error:{"path"), &v39}];
+    v13 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v13)
     {
       v14 = v13;
       replyCopy = reply;
       v15 = 0;
-      v16 = *v37;
+      v16 = *v35;
       do
       {
         v17 = 0;
         do
         {
-          if (*v37 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v36 + 1) + 8 * v17);
+          v18 = *(*(&v34 + 1) + 8 * v17);
           rLCopy = rL;
-          v20 = [defaultManager copyItemAtURL:objc_msgSend(l toURL:"URLByAppendingPathComponent:" error:{v18, v31, v32), objc_msgSend(rL, "URLByAppendingPathComponent:", v18), &v41}];
-          if (v41)
+          v20 = [defaultManager copyItemAtURL:objc_msgSend(l toURL:"URLByAppendingPathComponent:" error:{v18), objc_msgSend(rL, "URLByAppendingPathComponent:", v18), &v39}];
+          if (v39)
           {
             v21 = W5GetOSLog();
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              v33 = [objc_msgSend(l URLByAppendingPathComponent:{v18), "path"}];
+              v31 = [objc_msgSend(l URLByAppendingPathComponent:{v18), "path"}];
               v22 = [objc_msgSend(rLCopy URLByAppendingPathComponent:{v18), "path"}];
-              v45 = 138543874;
-              v46 = v33;
+              v43 = 138543874;
+              v44 = v31;
+              v45 = 2114;
+              v46 = v22;
               v47 = 2114;
-              v48 = v22;
-              v49 = 2114;
-              v50 = v41;
-              LODWORD(v32) = 32;
-              v31 = &v45;
-              _os_log_send_and_compose_impl();
+              v48 = v39;
+              LODWORD(v30) = 32;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v21, 0, "[wifivelocity] FAILED to copy WiFi log item to final destination '%{public}@' --> '%{public}@', returned error [%{public}@]", &v43, v30);
             }
           }
 
@@ -3231,7 +3176,7 @@ LABEL_22:
         }
 
         while (v14 != v17);
-        v23 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v23 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
         v14 = v23;
       }
 
@@ -3257,11 +3202,8 @@ LABEL_22:
       rLCopy2 = 0;
     }
 
-    (*(reply + 2))(reply, v41, rLCopy2);
+    (*(reply + 2))(reply, v39, rLCopy2);
   }
-
-LABEL_32:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)collectLogs:(id)logs configuration:(id)configuration update:(id)update reply:(id)reply
@@ -3283,7 +3225,8 @@ LABEL_32:
     v26 = [objc_msgSend(MEMORY[0x277CCAC38] "processInfo")];
     v27 = 2114;
     v28 = [objc_msgSend(uUID "UUIDString")];
-    _os_log_send_and_compose_impl();
+    v15 = 54;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) WiFi log collection requested (proc=%{public}@[%d], uuid=%{public}@)", &v17, v15);
   }
 
   queue = self->_queue;
@@ -3298,7 +3241,6 @@ LABEL_32:
   block[8] = update;
   block[9] = reply;
   dispatch_async(queue, block);
-  v14 = *MEMORY[0x277D85DE8];
   return uUID;
 }
 
@@ -3581,49 +3523,49 @@ uint64_t __51__W5Client_collectLogs_configuration_update_reply___block_invoke_9(
 
 - (id)collectLogs:(id)logs configuration:(id)configuration update:(id)update receipts:(id *)receipts error:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3052000000;
-  v39 = __Block_byref_object_copy__0;
-  v40 = __Block_byref_object_dispose__0;
-  v41 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3052000000;
-  v33 = __Block_byref_object_copy__0;
-  v34 = __Block_byref_object_dispose__0;
+  v43 = *MEMORY[0x277D85DE8];
   v35 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3052000000;
-  v27 = __Block_byref_object_copy__0;
-  v28 = __Block_byref_object_dispose__0;
+  v36 = &v35;
+  v37 = 0x3052000000;
+  v38 = __Block_byref_object_copy__0;
+  v39 = __Block_byref_object_dispose__0;
+  v40 = 0;
   v29 = 0;
+  v30 = &v29;
+  v31 = 0x3052000000;
+  v32 = __Block_byref_object_copy__0;
+  v33 = __Block_byref_object_dispose__0;
+  v34 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3052000000;
+  v26 = __Block_byref_object_copy__0;
+  v27 = __Block_byref_object_dispose__0;
+  v28 = 0;
   v13 = dispatch_semaphore_create(0);
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __60__W5Client_collectLogs_configuration_update_receipts_error___block_invoke;
-  v23[3] = &unk_279ECE6D8;
-  v23[6] = &v30;
-  v23[7] = &v36;
-  v23[4] = v13;
-  v23[5] = &v24;
-  [(W5Client *)self collectLogs:logs configuration:configuration update:update reply:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __60__W5Client_collectLogs_configuration_update_receipts_error___block_invoke;
+  v22[3] = &unk_279ECE6D8;
+  v22[6] = &v29;
+  v22[7] = &v35;
+  v22[4] = v13;
+  v22[5] = &v23;
+  [(W5Client *)self collectLogs:logs configuration:configuration update:update reply:v22];
   v14 = dispatch_time(0, 600000000000);
   if (dispatch_semaphore_wait(v13, v14) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v43 = 0x4082C00000000000;
+    v42 = 0x4082C00000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v15 = v25[5];
-  v16 = v31[5];
-  v17 = v37[5];
+  v15 = v24[5];
+  v16 = v30[5];
+  v17 = v36[5];
   if (error)
   {
-    v18 = v25[5];
+    v18 = v24[5];
     if (v18)
     {
       *error = v18;
@@ -3632,18 +3574,17 @@ uint64_t __51__W5Client_collectLogs_configuration_update_reply___block_invoke_9(
 
   if (receipts)
   {
-    v19 = v31[5];
+    v19 = v30[5];
     if (v19)
     {
       *receipts = v19;
     }
   }
 
-  v20 = v37[5];
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v36, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = v36[5];
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
   return v20;
 }
 
@@ -3676,7 +3617,8 @@ intptr_t __60__W5Client_collectLogs_configuration_update_receipts_error___block_
     v24 = [objc_msgSend(MEMORY[0x277CCAC38] "processInfo")];
     v25 = 2114;
     v26 = [objc_msgSend(uUID "UUIDString")];
-    _os_log_send_and_compose_impl();
+    v13 = 54;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) WiFi log collection requested (proc=%{public}@[%d], uuid=%{public}@)", &v15, v13);
   }
 
   queue = self->_queue;
@@ -3690,7 +3632,6 @@ intptr_t __60__W5Client_collectLogs_configuration_update_receipts_error___block_
   block[7] = update;
   block[8] = reply;
   dispatch_async(queue, block);
-  v12 = *MEMORY[0x277D85DE8];
   return uUID;
 }
 
@@ -3943,49 +3884,49 @@ uint64_t __51__W5Client_collectLogsDiagnosticMode_update_reply___block_invoke_9(
 
 - (id)collectLogsDiagnosticMode:(id)mode update:(id)update receipts:(id *)receipts error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3052000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
-  v39 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3052000000;
-  v31 = __Block_byref_object_copy__0;
-  v32 = __Block_byref_object_dispose__0;
+  v41 = *MEMORY[0x277D85DE8];
   v33 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3052000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
+  v34 = &v33;
+  v35 = 0x3052000000;
+  v36 = __Block_byref_object_copy__0;
+  v37 = __Block_byref_object_dispose__0;
+  v38 = 0;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x3052000000;
+  v30 = __Block_byref_object_copy__0;
+  v31 = __Block_byref_object_dispose__0;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3052000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
+  v26 = 0;
   v11 = dispatch_semaphore_create(0);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __60__W5Client_collectLogsDiagnosticMode_update_receipts_error___block_invoke;
-  v21[3] = &unk_279ECE6D8;
-  v21[6] = &v28;
-  v21[7] = &v34;
-  v21[4] = v11;
-  v21[5] = &v22;
-  [(W5Client *)self collectLogsDiagnosticMode:mode update:update reply:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __60__W5Client_collectLogsDiagnosticMode_update_receipts_error___block_invoke;
+  v20[3] = &unk_279ECE6D8;
+  v20[6] = &v27;
+  v20[7] = &v33;
+  v20[4] = v11;
+  v20[5] = &v21;
+  [(W5Client *)self collectLogsDiagnosticMode:mode update:update reply:v20];
   v12 = dispatch_time(0, 600000000000);
   if (dispatch_semaphore_wait(v11, v12) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v41 = 0x4082C00000000000;
+    v40 = 0x4082C00000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v13 = v23[5];
-  v14 = v29[5];
-  v15 = v35[5];
+  v13 = v22[5];
+  v14 = v28[5];
+  v15 = v34[5];
   if (error)
   {
-    v16 = v23[5];
+    v16 = v22[5];
     if (v16)
     {
       *error = v16;
@@ -3994,18 +3935,17 @@ uint64_t __51__W5Client_collectLogsDiagnosticMode_update_reply___block_invoke_9(
 
   if (receipts)
   {
-    v17 = v29[5];
+    v17 = v28[5];
     if (v17)
     {
       *receipts = v17;
     }
   }
 
-  v18 = v35[5];
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v34, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = v34[5];
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
   return v18;
 }
 
@@ -4475,21 +4415,19 @@ void __68__W5Client_associateToNetworkOnPeer_scanResult_configuration_reply___bl
 
 - (id)runWiFiSnifferOnChannel:(id)channel duration:(double)duration peer:(id)peer reply:(id)reply
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v15[0] = channel;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __56__W5Client_runWiFiSnifferOnChannel_duration_peer_reply___block_invoke;
-  v14[3] = &unk_279ECE798;
-  v14[4] = channel;
-  v14[5] = reply;
-  result = [(W5Client *)self runWiFiSnifferOnChannels:v11 duration:peer peer:v14 reply:duration];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v14[0] = channel;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __56__W5Client_runWiFiSnifferOnChannel_duration_peer_reply___block_invoke;
+  v13[3] = &unk_279ECE798;
+  v13[4] = channel;
+  v13[5] = reply;
+  return [(W5Client *)self runWiFiSnifferOnChannels:v11 duration:peer peer:v13 reply:duration];
 }
 
-uint64_t __56__W5Client_runWiFiSnifferOnChannel_duration_peer_reply___block_invoke(uint64_t result, uint64_t a2, void *a3, void *a4)
+uint64_t __56__W5Client_runWiFiSnifferOnChannel_duration_peer_reply___block_invoke(uint64_t result, void *a2, void *a3, void *a4)
 {
   v4 = *(result + 40);
   if (a2)
@@ -4664,70 +4602,67 @@ void __57__W5Client_runWiFiSnifferOnChannels_duration_peer_reply___block_invoke_
 
 - (id)runWiFiSnifferOnChannel:(id)channel duration:(double)duration peer:(id)peer error:(id *)error
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v9[0] = channel;
-  result = [-[W5Client runWiFiSnifferOnChannels:duration:peer:snifferErrors:error:](self runWiFiSnifferOnChannels:objc_msgSend(MEMORY[0x277CBEA60] duration:"arrayWithObjects:count:" peer:v9 snifferErrors:1) error:{peer, &v8, error, duration), "objectForKey:", channel}];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v8[0] = channel;
+  return [-[W5Client runWiFiSnifferOnChannels:duration:peer:snifferErrors:error:](self runWiFiSnifferOnChannels:objc_msgSend(MEMORY[0x277CBEA60] duration:"arrayWithObjects:count:" peer:v8 snifferErrors:1) error:{peer, &v7, error, duration), "objectForKey:", channel}];
 }
 
 - (id)runWiFiSnifferOnChannels:(id)channels duration:(double)duration peer:(id)peer snifferErrors:(id *)errors error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3052000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
-  v39 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3052000000;
-  v31 = __Block_byref_object_copy__0;
-  v32 = __Block_byref_object_dispose__0;
+  v41 = *MEMORY[0x277D85DE8];
   v33 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3052000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
+  v34 = &v33;
+  v35 = 0x3052000000;
+  v36 = __Block_byref_object_copy__0;
+  v37 = __Block_byref_object_dispose__0;
+  v38 = 0;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x3052000000;
+  v30 = __Block_byref_object_copy__0;
+  v31 = __Block_byref_object_dispose__0;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3052000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
+  v26 = 0;
   v12 = dispatch_semaphore_create(0);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __71__W5Client_runWiFiSnifferOnChannels_duration_peer_snifferErrors_error___block_invoke;
-  v21[3] = &unk_279ECE860;
-  v21[6] = &v34;
-  v21[7] = &v22;
-  v21[4] = v12;
-  v21[5] = &v28;
-  [(W5Client *)self runWiFiSnifferOnChannels:channels duration:peer peer:v21 reply:duration];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __71__W5Client_runWiFiSnifferOnChannels_duration_peer_snifferErrors_error___block_invoke;
+  v20[3] = &unk_279ECE860;
+  v20[6] = &v33;
+  v20[7] = &v21;
+  v20[4] = v12;
+  v20[5] = &v27;
+  [(W5Client *)self runWiFiSnifferOnChannels:channels duration:peer peer:v20 reply:duration];
   v13 = dispatch_time(0, 600000000000);
   if (dispatch_semaphore_wait(v12, v13) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v41 = 0x4082C00000000000;
+    v40 = 0x4082C00000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v14 = v29[5];
-  v15 = v35[5];
-  v16 = v23[5];
+  v14 = v28[5];
+  v15 = v34[5];
+  v16 = v22[5];
   if (error)
   {
-    v17 = v29[5];
+    v17 = v28[5];
     if (v17)
     {
       *error = v17;
     }
   }
 
-  v18 = v35[5];
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v34, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = v34[5];
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
   return v18;
 }
 
@@ -4879,51 +4814,50 @@ void __68__W5Client_runWiFiSnifferWithTCPDumpOnChannels_duration_peer_reply___bl
 
 - (id)runWiFiSnifferWithTCPDumpOnChannels:(id)channels duration:(double)duration peer:(id)peer error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3052000000;
-  v29 = __Block_byref_object_copy__0;
-  v30 = __Block_byref_object_dispose__0;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3052000000;
-  v23 = __Block_byref_object_copy__0;
-  v24 = __Block_byref_object_dispose__0;
+  v33 = *MEMORY[0x277D85DE8];
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x3052000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = __Block_byref_object_copy__0;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = 0;
   v11 = dispatch_semaphore_create(0);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __68__W5Client_runWiFiSnifferWithTCPDumpOnChannels_duration_peer_error___block_invoke;
-  v19[3] = &unk_279ECE4B0;
-  v19[5] = &v20;
-  v19[6] = &v26;
-  v19[4] = v11;
-  [(W5Client *)self runWiFiSnifferWithTCPDumpOnChannels:channels duration:peer peer:v19 reply:duration];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __68__W5Client_runWiFiSnifferWithTCPDumpOnChannels_duration_peer_error___block_invoke;
+  v18[3] = &unk_279ECE4B0;
+  v18[5] = &v19;
+  v18[6] = &v25;
+  v18[4] = v11;
+  [(W5Client *)self runWiFiSnifferWithTCPDumpOnChannels:channels duration:peer peer:v18 reply:duration];
   v12 = dispatch_time(0, 600000000000);
   if (dispatch_semaphore_wait(v11, v12) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v33 = 0x4082C00000000000;
+    v32 = 0x4082C00000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v13 = v21[5];
-  v14 = v27[5];
+  v13 = v20[5];
+  v14 = v26[5];
   if (error)
   {
-    v15 = v21[5];
+    v15 = v20[5];
     if (v15)
     {
       *error = v15;
     }
   }
 
-  v16 = v27[5];
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v26, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = v26[5];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
   return v16;
 }
 
@@ -5070,33 +5004,33 @@ void __61__W5Client_runWiFiPerformanceLoggingWithConfiguration_reply___block_inv
 
 - (id)runWiFiPerformanceLoggingWithConfiguration:(id)configuration error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3052000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
+  v25 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3052000000;
+  v20 = __Block_byref_object_copy__0;
+  v21 = __Block_byref_object_dispose__0;
+  v22 = 0;
   v7 = dispatch_semaphore_create(0);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __61__W5Client_runWiFiPerformanceLoggingWithConfiguration_error___block_invoke;
-  v17[3] = &unk_279ECE460;
-  v17[4] = v7;
-  v17[5] = &v18;
-  v8 = [(W5Client *)self runWiFiPerformanceLoggingWithConfiguration:configuration reply:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __61__W5Client_runWiFiPerformanceLoggingWithConfiguration_error___block_invoke;
+  v16[3] = &unk_279ECE460;
+  v16[4] = v7;
+  v16[5] = &v17;
+  v8 = [(W5Client *)self runWiFiPerformanceLoggingWithConfiguration:configuration reply:v16];
   v9 = dispatch_time(0, 600000000000);
   if (dispatch_semaphore_wait(v7, v9) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v25 = 0x4082C00000000000;
+    v24 = 0x4082C00000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v10 = v19[5];
+  v10 = v18[5];
   v11 = v8;
-  v12 = v19;
-  v13 = v19[5];
+  v12 = v18;
+  v13 = v18[5];
   if (error && v13)
   {
     *error = v13;
@@ -5113,8 +5047,7 @@ void __61__W5Client_runWiFiPerformanceLoggingWithConfiguration_reply___block_inv
     v14 = v8;
   }
 
-  _Block_object_dispose(&v18, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
   return v14;
 }
 
@@ -5226,39 +5159,36 @@ void __42__W5Client___cancelRequestWithUUID_reply___block_invoke_5(uint64_t a1)
 
 void __42__W5Client___cancelRequestWithUUID_reply___block_invoke_6(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   if (v3)
   {
-    v5 = *MEMORY[0x277CCA470];
-    v6[0] = @"W5ParamErr";
-    (*(v3 + 16))(v3, [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:1 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v6, &v5, 1)}]);
+    v4 = *MEMORY[0x277CCA470];
+    v5[0] = @"W5ParamErr";
+    (*(v3 + 16))(v3, [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:1 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v5, &v4, 1)}]);
   }
 
   objc_autoreleasePoolPop(v2);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelRequestWithUUID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = dispatch_semaphore_create(0);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __34__W5Client_cancelRequestWithUUID___block_invoke;
-  v8[3] = &unk_279ECE258;
-  v8[4] = v5;
-  [(W5Client *)self __cancelRequestWithUUID:d reply:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __34__W5Client_cancelRequestWithUUID___block_invoke;
+  v7[3] = &unk_279ECE258;
+  v7[4] = v5;
+  [(W5Client *)self __cancelRequestWithUUID:d reply:v7];
   v6 = dispatch_time(0, 4000000000);
   if (dispatch_semaphore_wait(v5, v6) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v10 = 0x4010000000000000;
+    v9 = 0x4010000000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__cancelAllRequestsAndReply:(id)reply
@@ -5344,23 +5274,21 @@ void __40__W5Client___cancelAllRequestsAndReply___block_invoke_5(uint64_t a1)
 
 - (void)cancelAllRequests
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = dispatch_semaphore_create(0);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __29__W5Client_cancelAllRequests__block_invoke;
-  v6[3] = &unk_279ECE258;
-  v6[4] = v3;
-  [(W5Client *)self __cancelAllRequestsAndReply:v6];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __29__W5Client_cancelAllRequests__block_invoke;
+  v5[3] = &unk_279ECE258;
+  v5[4] = v3;
+  [(W5Client *)self __cancelAllRequestsAndReply:v5];
   v4 = dispatch_time(0, 4000000000);
   if (dispatch_semaphore_wait(v3, v4) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v8 = 0x4010000000000000;
+    v7 = 0x4010000000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelRequestWithUUID:(id)d peer:(id)peer type:(int64_t)type reply:(id)reply
@@ -5535,6 +5463,26 @@ void __34__W5Client___log_timestamp_reply___block_invoke_5(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
+- (void)log:(id)log timestamp:(BOOL)timestamp
+{
+  timestampCopy = timestamp;
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = dispatch_semaphore_create(0);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __26__W5Client_log_timestamp___block_invoke;
+  v9[3] = &unk_279ECE258;
+  v9[4] = v7;
+  [(W5Client *)self __log:log timestamp:timestampCopy reply:v9];
+  v8 = dispatch_time(0, 4000000000);
+  if (dispatch_semaphore_wait(v7, v8) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134349056;
+    v11 = 0x4010000000000000;
+    _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
+  }
+}
+
 - (BOOL)startMonitoringFaultEventsForPeer:(id)peer eventHandler:(id)handler error:(id *)error
 {
   v20 = 0;
@@ -5614,14 +5562,14 @@ void __65__W5Client_startMonitoringFaultEventsForPeer_eventHandler_error___block
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __65__W5Client_startMonitoringFaultEventsForPeer_eventHandler_error___block_invoke_182(uint64_t a1, void *a2)
+void *__65__W5Client_startMonitoringFaultEventsForPeer_eventHandler_error___block_invoke_182(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
   return result;
 }
 
-uint64_t __65__W5Client_startMonitoringFaultEventsForPeer_eventHandler_error___block_invoke_2(uint64_t a1, void *a2)
+void *__65__W5Client_startMonitoringFaultEventsForPeer_eventHandler_error___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -5695,14 +5643,14 @@ void __65__W5Client_startMonitoringFaultEventsForPeer_eventHandler_error___block
   return v13;
 }
 
-uint64_t __51__W5Client_stopMonitoringFaultEventsForPeer_error___block_invoke(uint64_t a1, void *a2)
+void *__51__W5Client_stopMonitoringFaultEventsForPeer_error___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
   return result;
 }
 
-uint64_t __51__W5Client_stopMonitoringFaultEventsForPeer_error___block_invoke_2(uint64_t a1, void *a2)
+void *__51__W5Client_stopMonitoringFaultEventsForPeer_error___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -5768,14 +5716,14 @@ void __51__W5Client_stopMonitoringFaultEventsForPeer_error___block_invoke_3(uint
   return v11;
 }
 
-uint64_t __35__W5Client_submitFaultEvent_error___block_invoke(uint64_t a1, void *a2)
+void *__35__W5Client_submitFaultEvent_error___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
   return result;
 }
 
-uint64_t __35__W5Client_submitFaultEvent_error___block_invoke_2(uint64_t a1, void *a2)
+void *__35__W5Client_submitFaultEvent_error___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -5835,14 +5783,14 @@ uint64_t __35__W5Client_submitFaultEvent_error___block_invoke_2(uint64_t a1, voi
   return v12;
 }
 
-uint64_t __41__W5Client_faultEventCacheForPeer_error___block_invoke(uint64_t a1, void *a2)
+void *__41__W5Client_faultEventCacheForPeer_error___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
   return result;
 }
 
-uint64_t __41__W5Client_faultEventCacheForPeer_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void *__41__W5Client_faultEventCacheForPeer_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   *(*(*(a1 + 32) + 8) + 40) = [a2 copy];
   result = [a3 copy];
@@ -5874,7 +5822,6 @@ void __26__W5Client_receivedEvent___block_invoke(uint64_t a1)
   v4 = *(a1 + 40);
   if (*(v4 + 72) && [*(v4 + 32) containsObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(*(a1 + 32), "eventID"))}])
   {
-    v5 = *(a1 + 32);
     (*(*(*(a1 + 40) + 72) + 16))();
   }
 
@@ -5895,33 +5842,31 @@ void __26__W5Client_receivedEvent___block_invoke(uint64_t a1)
 
 void __39__W5Client_receivedPeerDiscoveryEvent___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   OSLog = W5GetOSLog();
   if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v9 = 136315906;
-    v10 = "[W5Client receivedPeerDiscoveryEvent:]_block_invoke";
-    v11 = 2080;
-    v12 = "W5Client.m";
-    v13 = 1024;
-    v14 = 2612;
-    v15 = 2114;
-    v16 = v4;
-    LODWORD(v8) = 38;
-    v7 = &v9;
-    _os_log_send_and_compose_impl();
+    v7 = 136315906;
+    v8 = "[W5Client receivedPeerDiscoveryEvent:]_block_invoke";
+    v9 = 2080;
+    v10 = "W5Client.m";
+    v11 = 1024;
+    v12 = 2612;
+    v13 = 2114;
+    v14 = v4;
+    v6 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) received peer discovery event='%{public}@'", &v7, v6);
   }
 
-  v5 = [*(*(a1 + 40) + 56) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(objc_msgSend(*(a1 + 32), "info", v7, v8), "objectForKeyedSubscript:", @"UUID", "UUIDString")}];
+  v5 = [*(*(a1 + 40) + 56) objectForKeyedSubscript:{objc_msgSend(objc_msgSend(objc_msgSend(*(a1 + 32), "info"), "objectForKeyedSubscript:", @"UUID", "UUIDString")}];
   if (v5)
   {
     (*(v5 + 16))(v5, 0, *(a1 + 32));
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -36,7 +36,7 @@
 
 - (void)_postWACMatchingAccessoryFound:(id)found
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   foundCopy = found;
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -44,11 +44,11 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v9;
-    v23 = 2112;
-    v24 = foundCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Post-WAC matching accessory found: %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v9;
+    v22 = 2112;
+    v23 = foundCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Post-WAC matching accessory found: %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -61,9 +61,9 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Post-WAC accessory found, but WAC hasn't completed.  Holding on to accessory until completion", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Post-WAC accessory found, but WAC hasn't completed.  Holding on to accessory until completion", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -85,22 +85,20 @@
     {
       v18 = HMFGetLogIdentifier();
       v19 = selfCopy->_state;
-      v21 = 138543618;
-      v22 = v18;
-      v23 = 2048;
-      v24 = v19;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Invalid state (%ld) for postWACMatchingAccessoryFound call", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v18;
+      v22 = 2048;
+      v23 = v19;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Invalid state (%ld) for postWACMatchingAccessoryFound call", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_abort:(id)_abort
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   _abortCopy = _abort;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -110,9 +108,9 @@
     v8 = HMFGetLogIdentifier();
     wacDevice = selfCopy->_wacDevice;
     *buf = 138543618;
-    v51 = v8;
-    v52 = 2112;
-    v53 = wacDevice;
+    v50 = v8;
+    v51 = 2112;
+    v52 = wacDevice;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Cancelling WAC assocciation for %@", buf, 0x16u);
   }
 
@@ -130,7 +128,7 @@
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v24;
+        v50 = v24;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Cancel: cancel WAC and notify delegate", buf, 0xCu);
       }
 
@@ -145,7 +143,7 @@
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v51 = v29;
+          v50 = v29;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Notifying delegate that WAC was cancelled", buf, 0xCu);
         }
 
@@ -162,23 +160,23 @@
         v33 = HMFGetLogIdentifier();
         v34 = v31->_wacDevice;
         *buf = 138543618;
-        v51 = v33;
-        v52 = 2112;
-        v53 = v34;
+        v50 = v33;
+        v51 = 2112;
+        v52 = v34;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_DEBUG, "%{public}@Cancelling WAC operation for %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v30);
       v35 = v31->_wacDevice;
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __38__HMDUnassociatedWACAccessory__abort___block_invoke;
-      v46[3] = &unk_279731EB8;
-      objc_copyWeak(&v48, &location);
-      v47 = _abortCopy;
-      [(HMDWACDevice *)v35 cancelConfigurationWithCompletionHandler:v46];
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __38__HMDUnassociatedWACAccessory__abort___block_invoke;
+      v45[3] = &unk_279731EB8;
+      objc_copyWeak(&v47, &location);
+      v46 = _abortCopy;
+      [(HMDWACDevice *)v35 cancelConfigurationWithCompletionHandler:v45];
 
-      objc_destroyWeak(&v48);
+      objc_destroyWeak(&v47);
       objc_destroyWeak(&location);
 
       goto LABEL_31;
@@ -193,7 +191,7 @@
       {
         v39 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v39;
+        v50 = v39;
         _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_DEBUG, "%{public}@Notifying delegate that WAC was cancelled", buf, 0xCu);
       }
 
@@ -224,7 +222,7 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v15;
+      v50 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Cancel: notify delegate of cancellation", buf, 0xCu);
     }
 
@@ -239,7 +237,7 @@
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v20;
+        v50 = v20;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Notifying delegate that WAC was cancelled", buf, 0xCu);
       }
 
@@ -265,7 +263,7 @@ LABEL_28:
     {
       v44 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v44;
+      v50 = v44;
       _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_DEBUG, "%{public}@Cancel: no action required", buf, 0xCu);
     }
 
@@ -277,8 +275,6 @@ LABEL_28:
   }
 
 LABEL_32:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HMDUnassociatedWACAccessory__abort___block_invoke(uint64_t a1)
@@ -309,16 +305,16 @@ void __38__HMDUnassociatedWACAccessory__abort___block_invoke_2(uint64_t a1)
 
 - (void)_postWACMatchTimeout
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v6 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Timeout waiting to find device post-WAC", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Timeout waiting to find device post-WAC", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -332,13 +328,11 @@ void __38__HMDUnassociatedWACAccessory__abort___block_invoke_2(uint64_t a1)
 
   __callCompletion(selfCopy, v7, 0, "[HMDUnassociatedWACAccessory _postWACMatchTimeout]");
   selfCopy->_state = 7;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_waitForPostWACMatch
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (self->_postWACAccessory)
   {
     v3 = objc_autoreleasePoolPush();
@@ -347,9 +341,9 @@ void __38__HMDUnassociatedWACAccessory__abort___block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Post WAC accessory already located, handoff", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Post WAC accessory already located, handoff", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -387,23 +381,21 @@ void __38__HMDUnassociatedWACAccessory__abort___block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v17;
-      v21 = 2112;
-      v22 = v10;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Starting Post-WAC match timeout for %@ seconds", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v17;
+      v20 = 2112;
+      v21 = v10;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Starting Post-WAC match timeout for %@ seconds", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
     [(HMFTimer *)self->_handoffExpirationTimer resume];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureDeviceCompleted:(id)completed
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -411,11 +403,11 @@ void __38__HMDUnassociatedWACAccessory__abort___block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = completedCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@WAC completed with %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v8;
+    v21 = 2112;
+    v22 = completedCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@WAC completed with %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -438,11 +430,11 @@ void __38__HMDUnassociatedWACAccessory__abort___block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2112;
-      v23 = completedCopy;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@WAC Failed with %@, device should still be WAC-able", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2112;
+      v22 = completedCopy;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@WAC Failed with %@, device should still be WAC-able", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -456,9 +448,9 @@ void __38__HMDUnassociatedWACAccessory__abort___block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v17;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@No delegate assigned, cannot continue WAC association", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@No delegate assigned, cannot continue WAC association", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -468,13 +460,11 @@ void __38__HMDUnassociatedWACAccessory__abort___block_invoke_2(uint64_t a1)
 
   v12->_state = 0;
 LABEL_13:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureDevice
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   delegate = [(HMDUnassociatedWACAccessory *)self delegate];
   v4 = delegate;
   if (delegate)
@@ -489,22 +479,22 @@ LABEL_13:
       v8 = HMFGetLogIdentifier();
       wacDevice = selfCopy->_wacDevice;
       *buf = 138543618;
-      v21 = v8;
-      v22 = 2112;
-      v23 = wacDevice;
+      v20 = v8;
+      v21 = 2112;
+      v22 = wacDevice;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Starting WAC process for %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     selfCopy->_state = 4;
     v10 = selfCopy->_wacDevice;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke;
-    v17[3] = &unk_279734708;
-    objc_copyWeak(&v18, &location);
-    [(HMDWACDevice *)v10 startConfigurationWithCompletionHandler:v17];
-    objc_destroyWeak(&v18);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke;
+    v16[3] = &unk_279734708;
+    objc_copyWeak(&v17, &location);
+    [(HMDWACDevice *)v10 startConfigurationWithCompletionHandler:v16];
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
 
@@ -517,7 +507,7 @@ LABEL_13:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v14;
+      v20 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@No delegate assigned, cannot continue WAC association", buf, 0xCu);
     }
 
@@ -527,8 +517,6 @@ LABEL_13:
 
     selfCopy2->_state = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke(uint64_t a1, void *a2)
@@ -552,7 +540,7 @@ void __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke(uint64_t a
 - (void)_userPermissionResponse:(BOOL)response
 {
   responseCopy = response;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -566,11 +554,11 @@ void __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke(uint64_t a
       v10 = @"Denied";
     }
 
-    v17 = 138543618;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Permission to share network: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Permission to share network: %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -585,9 +573,9 @@ void __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke(uint64_t a
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@User permission denied, return to ready state", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@User permission denied, return to ready state", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -599,13 +587,11 @@ void __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke(uint64_t a
     selfCopy->_state = 3;
     __run(selfCopy);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestUserPermission
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   delegate = [(HMDUnassociatedWACAccessory *)self delegate];
   if (delegate)
   {
@@ -618,18 +604,18 @@ void __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke(uint64_t a
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v7;
+      v17 = v7;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Request user permission to share network", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __53__HMDUnassociatedWACAccessory__requestUserPermission__block_invoke;
-    v14[3] = &unk_27972C850;
-    objc_copyWeak(&v15, &location);
-    [delegate requestPermissionToAssociateWACAccessory:selfCopy completionHandler:v14];
-    objc_destroyWeak(&v15);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __53__HMDUnassociatedWACAccessory__requestUserPermission__block_invoke;
+    v13[3] = &unk_27972C850;
+    objc_copyWeak(&v14, &location);
+    [delegate requestPermissionToAssociateWACAccessory:selfCopy completionHandler:v13];
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
   }
 
@@ -642,7 +628,7 @@ void __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke(uint64_t a
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v11;
+      v17 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@No delegate assigned, cannot continue WAC association", buf, 0xCu);
     }
 
@@ -652,8 +638,6 @@ void __47__HMDUnassociatedWACAccessory__configureDevice__block_invoke(uint64_t a
 
     selfCopy2->_state = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDUnassociatedWACAccessory__requestUserPermission__block_invoke(uint64_t a1, char a2)
@@ -689,7 +673,7 @@ void __53__HMDUnassociatedWACAccessory__requestUserPermission__block_invoke(uint
 
 - (void)cancelConfigurationWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -698,22 +682,20 @@ void __53__HMDUnassociatedWACAccessory__requestUserPermission__block_invoke(uint
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Cancellation requested, aborting association", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   queue = selfCopy->_queue;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __72__HMDUnassociatedWACAccessory_cancelConfigurationWithCompletionHandler___block_invoke;
-  v12[3] = &unk_279735738;
-  v12[4] = selfCopy;
-  v13 = handlerCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __72__HMDUnassociatedWACAccessory_cancelConfigurationWithCompletionHandler___block_invoke;
+  v11[3] = &unk_279735738;
+  v11[4] = selfCopy;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  dispatch_async(queue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v11);
 }
 
 - (void)startConfigurationWithCompletionHandler:(id)handler
@@ -732,7 +714,7 @@ void __53__HMDUnassociatedWACAccessory__requestUserPermission__block_invoke(uint
 
 void __71__HMDUnassociatedWACAccessory_startConfigurationWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 160);
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -743,9 +725,9 @@ void __71__HMDUnassociatedWACAccessory_startConfigurationWithCompletionHandler__
     if (v6)
     {
       v7 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v7;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@WAC association already in progress", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v7;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@WAC association already in progress", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -760,11 +742,11 @@ void __71__HMDUnassociatedWACAccessory_startConfigurationWithCompletionHandler__
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(*(a1 + 32) + 136);
-      v16 = 138543618;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Kicking off WAC association for %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Kicking off WAC association for %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -775,8 +757,6 @@ void __71__HMDUnassociatedWACAccessory_startConfigurationWithCompletionHandler__
 
     __run(*(a1 + 32));
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)wacDeviceID
@@ -875,12 +855,11 @@ void __71__HMDUnassociatedWACAccessory_startConfigurationWithCompletionHandler__
 
 uint64_t __42__HMDUnassociatedWACAccessory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v33_69596;
-  logCategory__hmf_once_v33_69596 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v33_69596;
+  logCategory__hmf_once_v33_69596 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

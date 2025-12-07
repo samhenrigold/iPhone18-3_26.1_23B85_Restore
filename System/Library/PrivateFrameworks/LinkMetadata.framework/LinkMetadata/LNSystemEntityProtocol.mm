@@ -127,7 +127,7 @@
 
 + (LNSystemEntityProtocol)protocolWithIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -144,12 +144,10 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v13 = identifierCopy;
+      v12 = identifierCopy;
       _os_log_impl(&dword_18EF7E000, v8, OS_LOG_TYPE_ERROR, "%{public}@ is not a valid LNSystemEntityProtocolIdentifier", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -176,60 +174,58 @@
 
 void __50__LNSystemEntityProtocol_allProtocolsByIdentifier__block_invoke()
 {
-  v20[16] = *MEMORY[0x1E69E9840];
-  v19[0] = @"com.apple.appintents.entity.AssistantEntity";
-  v18 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.AssistantEntity"];
-  v20[0] = v18;
-  v19[1] = @"com.apple.appintents.entity.MailAccount";
-  v17 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MailAccount"];
-  v20[1] = v17;
-  v19[2] = @"com.apple.appintents.entity.MailAddressee";
-  v16 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MailAddressee"];
-  v20[2] = v16;
-  v19[3] = @"com.apple.appintents.entity.MailMessage";
-  v15 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MailMessage"];
-  v20[3] = v15;
-  v19[4] = @"com.apple.appintents.entity.Mailbox";
-  v14 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.Mailbox"];
-  v20[4] = v14;
-  v19[5] = @"com.apple.appintents.entity.IntentMessage";
-  v13 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.IntentMessage"];
-  v20[5] = v13;
-  v19[6] = @"com.apple.appintents.entity.MessageGroup";
-  v12 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MessageGroup"];
-  v20[6] = v12;
-  v19[7] = @"com.apple.appintents.entity.MessageParticipant";
+  v19[16] = *MEMORY[0x1E69E9840];
+  v18[0] = @"com.apple.appintents.entity.AssistantEntity";
+  v17 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.AssistantEntity"];
+  v19[0] = v17;
+  v18[1] = @"com.apple.appintents.entity.MailAccount";
+  v16 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MailAccount"];
+  v19[1] = v16;
+  v18[2] = @"com.apple.appintents.entity.MailAddressee";
+  v15 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MailAddressee"];
+  v19[2] = v15;
+  v18[3] = @"com.apple.appintents.entity.MailMessage";
+  v14 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MailMessage"];
+  v19[3] = v14;
+  v18[4] = @"com.apple.appintents.entity.Mailbox";
+  v13 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.Mailbox"];
+  v19[4] = v13;
+  v18[5] = @"com.apple.appintents.entity.IntentMessage";
+  v12 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.IntentMessage"];
+  v19[5] = v12;
+  v18[6] = @"com.apple.appintents.entity.MessageGroup";
+  v11 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MessageGroup"];
+  v19[6] = v11;
+  v18[7] = @"com.apple.appintents.entity.MessageParticipant";
   v0 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.MessageParticipant"];
-  v20[7] = v0;
-  v19[8] = @"com.apple.appintents.entity.SingleEntity";
+  v19[7] = v0;
+  v18[8] = @"com.apple.appintents.entity.SingleEntity";
   v1 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.SingleEntity"];
-  v20[8] = v1;
-  v19[9] = @"com.apple.appintents.entity.Updatable";
+  v19[8] = v1;
+  v18[9] = @"com.apple.appintents.entity.Updatable";
   v2 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.Updatable"];
-  v20[9] = v2;
-  v19[10] = @"com.apple.appintents.entity.Indexed";
+  v19[9] = v2;
+  v18[10] = @"com.apple.appintents.entity.Indexed";
   v3 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.Indexed"];
-  v20[10] = v3;
-  v19[11] = @"com.apple.appintents.entity.PersistentFileIdentifiable";
+  v19[10] = v3;
+  v18[11] = @"com.apple.appintents.entity.PersistentFileIdentifiable";
   v4 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.PersistentFileIdentifiable"];
-  v20[11] = v4;
-  v19[12] = @"com.apple.appintents.entity.VisualSearch";
+  v19[11] = v4;
+  v18[12] = @"com.apple.appintents.entity.VisualSearch";
   v5 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.VisualSearch"];
-  v20[12] = v5;
-  v19[13] = @"com.apple.appintents.entity.VisualSearchOCR";
+  v19[12] = v5;
+  v18[13] = @"com.apple.appintents.entity.VisualSearchOCR";
   v6 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.VisualSearchOCR"];
-  v20[13] = v6;
-  v19[14] = @"com.apple.appintents.entity.URLRepresentable";
+  v19[13] = v6;
+  v18[14] = @"com.apple.appintents.entity.URLRepresentable";
   v7 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.URLRepresentable"];
-  v20[14] = v7;
-  v19[15] = @"com.apple.appintents.entity.StructuredDataRepresentableType";
+  v19[14] = v7;
+  v18[15] = @"com.apple.appintents.entity.StructuredDataRepresentableType";
   v8 = [[LNSystemEntityProtocol alloc] initWithIdentifier:@"com.apple.appintents.entity.StructuredDataRepresentableType"];
-  v20[15] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:16];
+  v19[15] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:16];
   v10 = allProtocolsByIdentifier_protocolsByIdentifier;
   allProtocolsByIdentifier_protocolsByIdentifier = v9;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (LNSystemEntityProtocol)structuredDataRepresentableTypeProtocol

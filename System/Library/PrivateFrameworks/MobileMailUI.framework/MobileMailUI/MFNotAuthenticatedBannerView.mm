@@ -20,7 +20,7 @@
 {
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](self, v4);
-  sub_214A0C8FC();
+  sub_214A0C8FC(delegate);
   MEMORY[0x277D82BD8](self);
 }
 

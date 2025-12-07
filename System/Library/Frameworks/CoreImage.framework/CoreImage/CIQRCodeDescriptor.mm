@@ -15,35 +15,35 @@
 {
   if ((self->symbolVersion - 41) <= 0xFFFFFFFFFFFFFFD7)
   {
-    v2 = ci_logger_api();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
-    if (!v3)
+    v3 = ci_logger_api(self, a2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    if (!v4)
     {
-      return v3;
+      return v4;
     }
 
-    [CIQRCodeDescriptor isValid];
+    [(CIQRCodeDescriptor *)self isValid];
     goto LABEL_10;
   }
 
-  v4 = self->errorCorrectionLevel - 72;
-  if (v4 >= 0xA || ((0x231u >> v4) & 1) == 0)
+  v5 = self->errorCorrectionLevel - 72;
+  if (v5 >= 0xA || ((0x231u >> v5) & 1) == 0)
   {
-    v5 = ci_logger_api();
-    v3 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-    if (!v3)
+    v6 = ci_logger_api(self, a2);
+    v4 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (!v4)
     {
-      return v3;
+      return v4;
     }
 
-    [CIQRCodeDescriptor isValid];
+    [(CIQRCodeDescriptor *)self isValid];
 LABEL_10:
-    LOBYTE(v3) = 0;
-    return v3;
+    LOBYTE(v4) = 0;
+    return v4;
   }
 
-  LOBYTE(v3) = 1;
-  return v3;
+  LOBYTE(v4) = 1;
+  return v4;
 }
 
 - (CIQRCodeDescriptor)initWithPayload:(NSData *)errorCorrectedPayload symbolVersion:(NSInteger)symbolVersion maskPattern:(uint8_t)maskPattern errorCorrectionLevel:(CIQRCodeErrorCorrectionLevel)errorCorrectionLevel
@@ -132,8 +132,9 @@ LABEL_10:
 - (void)isValid
 {
   objc_opt_class();
+  v8 = 136446466;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v0, v1, "%{public}s %{public}@: symbolVersion must be in the range of [1,40]", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v2, v3, "%{public}s %{public}@: symbolVersion must be in the range of [1,40]", v4, v5, v6, v7, v8);
 }
 
 @end

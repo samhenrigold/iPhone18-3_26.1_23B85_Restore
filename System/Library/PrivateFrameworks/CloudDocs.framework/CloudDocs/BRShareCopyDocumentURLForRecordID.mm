@@ -41,12 +41,22 @@
 
 - (void)main
 {
-  v8 = *MEMORY[0x1E69E9840];
-  *(self + 352);
-  v7 = *(self + 344);
-  OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = brc_bread_crumbs("[BRShareCopyDocumentURLForRecordID main]", 987);
+  v4 = brc_default_log(1, 0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRShareCopyDocumentURLForRecordID main];
+  }
+
+  remoteObject = [(BRShareOperation *)self remoteObject];
+  recordID = self->_recordID;
+  withServerLookup = self->_withServerLookup;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __41__BRShareCopyDocumentURLForRecordID_main__block_invoke;
+  v8[3] = &unk_1E7A14D20;
+  v8[4] = self;
+  [remoteObject startOperation:self toCopyDocumentURLForRecordID:recordID syncIfNeeded:withServerLookup reply:v8];
 }
 
 void __41__BRShareCopyDocumentURLForRecordID_main__block_invoke(uint64_t a1, void *a2, void *a3)

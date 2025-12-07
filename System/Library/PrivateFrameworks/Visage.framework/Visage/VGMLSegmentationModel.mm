@@ -10,33 +10,33 @@
 
 - (VGMLSegmentationModel)init
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = VGMLSegmentationModel;
-  v2 = [(VGMLSegmentationModel *)&v28 init];
+  v30 = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = VGMLSegmentationModel;
+  v2 = [(VGMLSegmentationModel *)&v27 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
     humanAttributesMap();
+    v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v4 = v25 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v23 = 0u;
+    v4 = v24 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v5)
     {
-      v6 = *v25;
+      v6 = *v24;
       do
       {
         v7 = 0;
         do
         {
-          if (*v25 != v6)
+          if (*v24 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v24 + 1) + 8 * v7);
+          v8 = *(*(&v23 + 1) + 8 * v7);
           v9 = [v4 objectForKeyedSubscript:v8];
           [v3 addObject:v9];
 
@@ -44,40 +44,40 @@
         }
 
         while (v5 != v7);
-        v5 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
       while (v5);
     }
 
     [v3 addObject:@"person"];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = personInstancesMapNames();
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v29 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v28 count:16];
     if (v11)
     {
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         v13 = 0;
         do
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * v13);
-          [v3 addObject:{v14, v20}];
+          v14 = *(*(&v19 + 1) + 8 * v13);
+          [v3 addObject:{v14, v19}];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v20 objects:v29 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v19 objects:v28 count:16];
       }
 
       while (v11);
@@ -90,29 +90,28 @@
     v17 = v2;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)_performSegmentationRequest:(id)request onPixelBuffer:(__CVBuffer *)buffer segmentationRequestRevision:(unint64_t)revision error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v10 = objc_alloc(MEMORY[0x277CE2D50]);
   v11 = [v10 initWithCVPixelBuffer:buffer options:MEMORY[0x277CBEC10]];
   if (!v11)
   {
-    v15 = __VGLogSharedInstance();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __VGLogSharedInstance(0);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 0;
-    v16 = " Vision request handler failed to instantiate ";
+    v17 = " Vision request handler failed to instantiate ";
 LABEL_23:
-    v18 = v15;
-    v19 = 2;
+    v21 = v16;
+    v22 = 2;
     goto LABEL_24;
   }
 
@@ -126,74 +125,76 @@ LABEL_23:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = __VGLogSharedInstance();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __VGLogSharedInstance(isKindOfClass);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 0;
-    v16 = " Unsupported type received for VNGenerateSegmentationRequest. ";
+    v17 = " Unsupported type received for VNGenerateSegmentationRequest. ";
     goto LABEL_23;
   }
 
-  v15 = requestCopy;
-  [v15 setQualityLevel:0];
-  if (([v15 setRevision:revision error:error]& 1) == 0)
+  v16 = requestCopy;
+  [v16 setQualityLevel:0];
+  v19 = [v16 setRevision:revision error:error];
+  if ((v19 & 1) == 0)
   {
-    v21 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v25 = __VGLogSharedInstance(v19);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v22 = *error;
+      v26 = *error;
       *buf = 138412290;
-      v27 = v22;
-      _os_log_impl(&dword_270F06000, v21, OS_LOG_TYPE_ERROR, " Error setting revision for person instance model %@ ", buf, 0xCu);
+      v30 = v26;
+      _os_log_impl(&dword_270F06000, v25, OS_LOG_TYPE_ERROR, " Error setting revision for person instance model %@ ", buf, 0xCu);
     }
 
     goto LABEL_25;
   }
 
-  [v15 setMinimumConfidence:0.0];
-  [v15 setOutputPixelFormat:1278226534];
+  [v16 setMinimumConfidence:0.0];
+  [v16 setOutputPixelFormat:1278226534];
 LABEL_4:
 
-  v25 = requestCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+  v28 = requestCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
   v14 = [v11 performRequests:v13 error:error];
 
   if (v14)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), v23 = objc_opt_isKindOfClass(), (v23))
     {
       results = [requestCopy results];
       goto LABEL_26;
     }
 
-    v15 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __VGLogSharedInstance(v23);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v16 = " SegmentationRequest not of supported type. ";
+      v17 = " SegmentationRequest not of supported type. ";
       goto LABEL_23;
     }
   }
 
   else
   {
-    v15 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __VGLogSharedInstance(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v17 = *error;
+      v20 = *error;
       *buf = 138412290;
-      v27 = v17;
-      v16 = " Failed to process segmentation request %@ ";
-      v18 = v15;
-      v19 = 12;
+      v30 = v20;
+      v17 = " Failed to process segmentation request %@ ";
+      v21 = v16;
+      v22 = 12;
 LABEL_24:
-      _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_ERROR, v16, buf, v19);
+      _os_log_impl(&dword_270F06000, v21, OS_LOG_TYPE_ERROR, v17, buf, v22);
     }
   }
 
@@ -201,8 +202,6 @@ LABEL_25:
 
   results = 0;
 LABEL_26:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return results;
 }
@@ -217,217 +216,214 @@ LABEL_26:
 
 - (id)segmentationSurfaces:(__CVBuffer *)surfaces
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   Width = CVPixelBufferGetWidth(surfaces);
   Height = CVPixelBufferGetHeight(surfaces);
-  v45 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{-[NSOrderedSet count](self->_outputSegmentationMaps, "count")}];
-  v56 = 0;
-  v35 = objc_opt_new();
+  v48 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{-[NSOrderedSet count](self->_outputSegmentationMaps, "count")}];
+  v59 = 0;
+  v38 = objc_opt_new();
   surfacesCopy = surfaces;
-  v37 = [VGMLSegmentationModel _performSegmentationRequest:"_performSegmentationRequest:onPixelBuffer:segmentationRequestRevision:error:" onPixelBuffer:? segmentationRequestRevision:? error:?];
-  v36 = 0;
-  if (v36)
+  v40 = [VGMLSegmentationModel _performSegmentationRequest:"_performSegmentationRequest:onPixelBuffer:segmentationRequestRevision:error:" onPixelBuffer:? segmentationRequestRevision:? error:?];
+  v5 = 0;
+  v39 = v5;
+  if (v5)
   {
-    v5 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __VGLogSharedInstance(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v60 = v36;
-      _os_log_impl(&dword_270F06000, v5, OS_LOG_TYPE_ERROR, " Could not perform human attributes segmentation request. %@ ", buf, 0xCu);
+      v63 = v39;
+      _os_log_impl(&dword_270F06000, v6, OS_LOG_TYPE_ERROR, " Could not perform human attributes segmentation request. %@ ", buf, 0xCu);
     }
   }
 
   else
   {
-    v54 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v5 = v37;
-    obj = v5;
-    v6 = [v5 countByEnumeratingWithState:&v52 objects:v58 count:16];
-    if (v6)
+    v56 = 0u;
+    v6 = v40;
+    obj = v6;
+    v7 = [v6 countByEnumeratingWithState:&v55 objects:v61 count:16];
+    if (v7)
     {
-      v7 = *v53;
+      v8 = *v56;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v53 != v7)
+          if (*v56 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v52 + 1) + 8 * i);
-          v10 = humanAttributesMap();
-          featureName = [v9 featureName];
-          v12 = [v10 objectForKey:featureName];
-          v13 = v12 == 0;
+          v10 = *(*(&v55 + 1) + 8 * i);
+          v11 = humanAttributesMap();
+          featureName = [v10 featureName];
+          v13 = [v11 objectForKey:featureName];
+          v14 = v13 == 0;
 
-          if (v13)
+          if (v14)
           {
-            v14 = __VGLogSharedInstance();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v16 = __VGLogSharedInstance(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              featureName2 = [v9 featureName];
+              featureName2 = [v10 featureName];
               *buf = 138412290;
-              v60 = featureName2;
-              _os_log_impl(&dword_270F06000, v14, OS_LOG_TYPE_ERROR, " Received an unexpected output map from VNGenerateHumanAttributesSegmentationRequest: %@ ", buf, 0xCu);
+              v63 = featureName2;
+              _os_log_impl(&dword_270F06000, v16, OS_LOG_TYPE_ERROR, " Received an unexpected output map from VNGenerateHumanAttributesSegmentationRequest: %@ ", buf, 0xCu);
             }
           }
 
           else
           {
-            v14 = -[VGMLSegmentationModel _resizePixelBuffer:width:height:](self, "_resizePixelBuffer:width:height:", [v9 pixelBuffer], Width, Height);
-            featureName3 = [v9 featureName];
-            v16 = [v10 objectForKeyedSubscript:featureName3];
-            [v45 setObject:v14 forKey:v16];
+            v16 = -[VGMLSegmentationModel _resizePixelBuffer:width:height:](self, "_resizePixelBuffer:width:height:", [v10 pixelBuffer], Width, Height);
+            featureName3 = [v10 featureName];
+            v18 = [v11 objectForKeyedSubscript:featureName3];
+            [v48 setObject:v16 forKey:v18];
           }
         }
 
-        v5 = obj;
-        v6 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+        v6 = obj;
+        v7 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
   }
 
-  v51 = v36;
-  v38 = objc_opt_new();
-  v40 = [VGMLSegmentationModel _performSegmentationRequest:"_performSegmentationRequest:onPixelBuffer:segmentationRequestRevision:error:" onPixelBuffer:? segmentationRequestRevision:? error:?];
-  obja = v36;
+  v54 = v39;
+  v41 = objc_opt_new();
+  v43 = [VGMLSegmentationModel _performSegmentationRequest:"_performSegmentationRequest:onPixelBuffer:segmentationRequestRevision:error:" onPixelBuffer:? segmentationRequestRevision:? error:?];
+  obja = v39;
 
   if (obja)
   {
-    v18 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = __VGLogSharedInstance(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v60 = obja;
-      _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_ERROR, " Could not perform person segmentation request. %@ ", buf, 0xCu);
+      v63 = obja;
+      _os_log_impl(&dword_270F06000, v21, OS_LOG_TYPE_ERROR, " Could not perform person segmentation request. %@ ", buf, 0xCu);
     }
   }
 
   else
   {
-    v18 = personInstancesMapNames();
-    v49 = 0u;
+    v21 = personInstancesMapNames();
+    v52 = 0u;
+    v53 = 0u;
     v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v19 = v40;
-    v20 = [v19 countByEnumeratingWithState:&v47 objects:v57 count:16];
-    if (v20)
+    v51 = 0u;
+    v22 = v43;
+    v23 = [v22 countByEnumeratingWithState:&v50 objects:v60 count:16];
+    if (v23)
     {
-      v21 = 0;
-      v22 = *v48;
+      v24 = 0;
+      v25 = *v51;
       do
       {
-        for (j = 0; j != v20; ++j)
+        for (j = 0; j != v23; ++j)
         {
-          if (*v48 != v22)
+          if (*v51 != v25)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v22);
           }
 
-          v24 = *(*(&v47 + 1) + 8 * j);
-          v25 = -[VGMLSegmentationModel _resizePixelBuffer:width:height:](self, "_resizePixelBuffer:width:height:", [v24 pixelBuffer], Width, Height);
-          v26 = [v18 objectAtIndexedSubscript:v21];
-          [v45 setObject:v25 forKey:v26];
+          v27 = *(*(&v50 + 1) + 8 * j);
+          v28 = -[VGMLSegmentationModel _resizePixelBuffer:width:height:](self, "_resizePixelBuffer:width:height:", [v27 pixelBuffer], Width, Height);
+          v29 = [v21 objectAtIndexedSubscript:v24];
+          [v48 setObject:v28 forKey:v29];
 
-          ++v21;
+          ++v24;
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v47 objects:v57 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v50 objects:v60 count:16];
       }
 
-      while (v20);
+      while (v23);
     }
   }
 
-  v27 = objc_opt_new();
-  v46 = obja;
-  v28 = [(VGMLSegmentationModel *)self _performSegmentationRequest:v27 onPixelBuffer:surfacesCopy segmentationRequestRevision:1 error:&v46];
-  v29 = v46;
+  v30 = objc_opt_new();
+  v49 = obja;
+  v31 = [(VGMLSegmentationModel *)self _performSegmentationRequest:v30 onPixelBuffer:surfacesCopy segmentationRequestRevision:1 error:&v49];
+  v32 = v49;
 
-  if (v29)
+  if (v32)
   {
-    v30 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = __VGLogSharedInstance(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v60 = v29;
-      _os_log_impl(&dword_270F06000, v30, OS_LOG_TYPE_ERROR, " Could not perform person segmentation request. %@ ", buf, 0xCu);
+      v63 = v32;
+      _os_log_impl(&dword_270F06000, v34, OS_LOG_TYPE_ERROR, " Could not perform person segmentation request. %@ ", buf, 0xCu);
     }
 
     goto LABEL_30;
   }
 
-  if (![v28 count])
+  if (![v31 count])
   {
 LABEL_30:
-    v31 = 0;
+    v35 = 0;
     goto LABEL_33;
   }
 
-  v32 = [v28 objectAtIndexedSubscript:0];
-  v31 = -[VGMLSegmentationModel _resizePixelBuffer:width:height:](self, "_resizePixelBuffer:width:height:", [v32 pixelBuffer], Width, Height);
+  v36 = [v31 objectAtIndexedSubscript:0];
+  v35 = -[VGMLSegmentationModel _resizePixelBuffer:width:height:](self, "_resizePixelBuffer:width:height:", [v36 pixelBuffer], Width, Height);
 
-  [v45 setObject:v31 forKey:@"person"];
+  [v48 setObject:v35 forKey:@"person"];
 LABEL_33:
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return v48;
 }
 
 - (id)segmentationMaps:(__CVBuffer *)maps
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v15 = [(VGMLSegmentationModel *)self segmentationSurfaces:maps];
-  v3 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v15, "count")}];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = [(VGMLSegmentationModel *)self segmentationSurfaces:maps];
+  v3 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v14, "count")}];
   v18 = 0u;
-  v4 = v15;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v4 = v14;
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
-        v9 = [v4 objectForKeyedSubscript:{v8, v15}];
+        v8 = *(*(&v16 + 1) + 8 * i);
+        v9 = [v4 objectForKeyedSubscript:{v8, v14}];
         CVPixelBufferFromIOSurface = createCVPixelBufferFromIOSurface(v9);
 
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __42__VGMLSegmentationModel_segmentationMaps___block_invoke;
-        v16[3] = &__block_descriptor_40_e5_v8__0l;
-        v16[4] = CVPixelBufferFromIOSurface;
-        v11 = MEMORY[0x2743B9AA0](v16);
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __42__VGMLSegmentationModel_segmentationMaps___block_invoke;
+        v15[3] = &__block_descriptor_40_e5_v8__0l;
+        v15[4] = CVPixelBufferFromIOSurface;
+        v11 = MEMORY[0x2743B9AA0](v15);
         v12 = [[VGMLImageIOData alloc] initWithCVPixelBufferRef:CVPixelBufferFromIOSurface];
         [v3 setObject:v12 forKey:v8];
 
         v11[2](v11);
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

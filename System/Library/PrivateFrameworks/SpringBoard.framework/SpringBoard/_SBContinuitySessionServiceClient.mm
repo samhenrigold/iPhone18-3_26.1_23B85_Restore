@@ -280,7 +280,7 @@ LABEL_14:
     _os_log_debug_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEBUG, "[%{public}@] session did update state %{public}@ + reasons %{public}@", &v15, 0x20u);
   }
 
-  if (!self->_main_suppressClientCallouts || self->_state <= 2 && ([(NSSet *)self->_stateReasons containsObject:@"block._SBContinuitySessionServiceClient.waiting-for-clientActivation"]|| [(NSSet *)self->_stateReasons containsObject:@"block.session.client-connected"]))
+  if (!self->_main_suppressClientCallouts || self->_state <= 2 && ((objc_msgSend_containsObject_(self->_stateReasons) & 1) != 0 || (objc_msgSend_containsObject_(self->_stateReasons) & 1) != 0))
   {
     [(_SBContinuitySessionServiceClient *)self _pushLatestStateToClient];
   }

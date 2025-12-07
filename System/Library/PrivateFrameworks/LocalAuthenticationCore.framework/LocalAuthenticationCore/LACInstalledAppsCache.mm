@@ -1,8 +1,12 @@
 @interface LACInstalledAppsCache
 + (id)sharedInstance;
+- (id)_bundleForPid:(int)pid;
 - (id)_localizedNameForBundle:(id)bundle;
 - (id)_localizedNameForPath:(id)path;
 - (id)_localizedNameFromInfoDict:(id)dict path:(id)path;
+- (id)binaryNameForPid:(int)pid;
+- (id)bundlePathForPid:(int)pid stripXPCService:(BOOL)service;
+- (id)infoForPid:(int)pid;
 - (id)pathForPid:(int)pid;
 @end
 
@@ -22,42 +26,164 @@
 
 uint64_t __39__LACInstalledAppsCache_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_1 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sharedInstance_1;
+  sharedInstance_sharedInstance_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
+}
+
+- (id)infoForPid:(int)pid
+{
+  v3 = *&pid;
+  v5 = [(LACInstalledAppsCache *)self _bundleForPid:?];
+  bundleIdentifier = [v5 bundleIdentifier];
+  if (v5)
+  {
+    v7 = [(LACInstalledAppsCache *)self _localizedNameForBundle:v5];
+  }
+
+  else
+  {
+    v8 = [(LACInstalledAppsCache *)self pathForPid:v3];
+    v7 = [(LACInstalledAppsCache *)self _localizedNameForPath:v8];
+  }
+
+  v9 = [[LACClientInfo alloc] initWithBundleId:bundleIdentifier displayName:v7];
+
+  return v9;
 }
 
 - (id)pathForPid:(int)pid
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = [(LACInstalledAppsCache *)self _bundlePathForPid:?];
+  v5 = v4;
   if (!v4)
   {
-    v5 = proc_pidpath(pid, v9, 0x1000u);
-    if (v5 < 1)
+    v4 = proc_pidpath(pid, v8, 0x1000u);
+    if (v4 < 1)
     {
-      v4 = 0;
+      v5 = 0;
     }
 
     else
     {
-      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v9 length:v5 encoding:4];
+      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v8 length:v4 encoding:4];
+      v5 = v4;
     }
   }
 
-  v6 = LACLogEnvironment();
+  v6 = LACLogEnvironment(v4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109378;
-    v9[1] = pid;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Determined path for PID %d: %{public}@", v9, 0x12u);
+    v8[0] = 67109378;
+    v8[1] = pid;
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Determined path for PID %d: %{public}@", v8, 0x12u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  return v5;
+}
 
-  return v4;
+- (id)bundlePathForPid:(int)pid stripXPCService:(BOOL)service
+{
+  serviceCopy = service;
+  v5 = *&pid;
+  v7 = [(LACInstalledAppsCache *)self _bundleForPid:?];
+  v8 = v7;
+  if (v7)
+  {
+    [v7 bundlePath];
+  }
+
+  else
+  {
+    [(LACInstalledAppsCache *)self pathForPid:v5];
+  }
+  v9 = ;
+  v10 = v9;
+  if (serviceCopy)
+  {
+    v11 = [v9 rangeOfString:@"/Contents/XPCServices/"];
+    if (v11 != 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v12 = [v10 substringToIndex:v11];
+
+      v10 = v12;
+    }
+  }
+
+  return v10;
+}
+
+- (id)binaryNameForPid:(int)pid
+{
+  v3 = [(LACInstalledAppsCache *)self pathForPid:*&pid];
+  lastPathComponent = [v3 lastPathComponent];
+  stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
+
+  return stringByDeletingPathExtension;
+}
+
+- (id)_bundleForPid:(int)pid
+{
+  v3 = *&pid;
+  v5 = [(LACInstalledAppsCache *)self _bundlePathForPid:?];
+  if (!v5 || ([MEMORY[0x1E696AAE8] bundleWithPath:v5], (v6 = objc_claimAutoreleasedReturnValue()) == 0))
+  {
+    v7 = [(LACInstalledAppsCache *)self pathForPid:v3];
+    if (v7)
+    {
+      v8 = v7;
+      v6 = [MEMORY[0x1E696AAE8] bundleWithPath:v7];
+      if (!v6)
+      {
+        v6 = CFURLCreateWithFileSystemPath(*MEMORY[0x1E695E480], v8, kCFURLPOSIXPathStyle, 0);
+        if (v6)
+        {
+          v11 = _CFBundleCreateWithExecutableURLIfLooksLikeBundle();
+          CFRelease(v6);
+          if (v11)
+          {
+            v12 = CFBundleCopyBundleURL(v11);
+            if (v12)
+            {
+              v13 = v12;
+              v6 = [MEMORY[0x1E696AAE8] bundleWithURL:v12];
+              CFRelease(v13);
+            }
+
+            else
+            {
+              v6 = 0;
+            }
+
+            CFRelease(v11);
+          }
+
+          else
+          {
+            v6 = 0;
+          }
+        }
+      }
+    }
+
+    else
+    {
+      v9 = LACLogEnvironment(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        [(LACInstalledAppsCache *)v3 _bundleForPid:v9];
+      }
+
+      v6 = 0;
+    }
+  }
+
+  return v6;
 }
 
 - (id)_localizedNameFromInfoDict:(id)dict path:(id)path
@@ -174,8 +300,8 @@ LABEL_9:
   stringByDeletingPathExtension = v20;
 LABEL_10:
 
-  v16 = LACLogEnvironment();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = LACLogEnvironment(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = [bundleCopy bundleIdentifier];
     *buf = 138543618;
@@ -183,8 +309,6 @@ LABEL_10:
     v30 = 2114;
     v31 = stringByDeletingPathExtension;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return stringByDeletingPathExtension;
 }
@@ -227,8 +351,8 @@ LABEL_8:
 
   CFRelease(v6);
 LABEL_9:
-  v11 = LACLogEnvironment();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = LACLogEnvironment(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     v16 = pathCopy;
@@ -237,18 +361,16 @@ LABEL_9:
   }
 
 LABEL_12:
-  v12 = *MEMORY[0x1E69E9840];
 
   return stringByDeletingPathExtension;
 }
 
 - (void)_bundleForPid:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Failed to determine path for pid: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Failed to determine path for pid: %d", v2, 8u);
 }
 
 @end

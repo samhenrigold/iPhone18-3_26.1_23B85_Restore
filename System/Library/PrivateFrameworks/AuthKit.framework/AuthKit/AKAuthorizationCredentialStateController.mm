@@ -583,130 +583,128 @@ LABEL_19:
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, request);
-  v61 = 0;
-  objc_storeStrong(&v61, completion);
-  v60 = dispatch_group_create();
-  dispatch_group_enter(v60);
-  v53 = 0;
-  v54 = &v53;
-  v55 = 838860800;
-  v56 = 48;
-  v57 = sub_100003B3C;
-  v58 = sub_100011290;
   v59 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x20000000;
-  v51 = 32;
-  v52 = 2;
-  v14 = selfCopy;
-  v13 = location[0];
-  v42 = _NSConcreteStackBlock;
-  v43 = -1073741824;
-  v44 = 0;
-  v45 = sub_100116EB8;
-  v46 = &unk_100323AC0;
-  v47[1] = &v53;
-  v47[2] = &v48;
-  v47[0] = _objc_retain(v60);
-  [(AKAuthorizationCredentialStateController *)v14 _getLocalCredentialStateWithStateRequest:v13 completion:&v42];
-  v36[0] = 0;
-  v36[1] = v36;
-  v37 = 838860800;
-  v38 = 48;
-  v39 = sub_100003B3C;
-  v40 = sub_100011290;
-  v41 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x20000000;
-  v34 = 32;
-  v35 = 2;
+  objc_storeStrong(&v59, completion);
+  v58 = dispatch_group_create();
+  dispatch_group_enter(v58);
+  v51 = 0;
+  v52 = &v51;
+  v53 = 838860800;
+  v54 = 48;
+  v55 = sub_100003B3C;
+  v56 = sub_100011290;
+  v57 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x20000000;
+  v49 = 32;
+  v50 = 2;
+  v12 = selfCopy;
+  v11 = location[0];
+  v40 = _NSConcreteStackBlock;
+  v41 = -1073741824;
+  v42 = 0;
+  v43 = sub_100116EB8;
+  v44 = &unk_100323AC0;
+  v45[1] = &v51;
+  v45[2] = &v46;
+  v45[0] = _objc_retain(v58);
+  [(AKAuthorizationCredentialStateController *)v12 _getLocalCredentialStateWithStateRequest:v11 completion:&v40];
+  v34[0] = 0;
+  v34[1] = v34;
+  v35 = 838860800;
+  v36 = 48;
+  v37 = sub_100003B3C;
+  v38 = sub_100011290;
+  v39 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x20000000;
+  v32 = 32;
+  v33 = 2;
   if (selfCopy->_sharedAccountsStorageController)
   {
-    dispatch_group_enter(v60);
-    v12 = selfCopy;
-    v11 = location[0];
-    v25 = _NSConcreteStackBlock;
-    v26 = -1073741824;
-    v27 = 0;
-    v28 = sub_100116F54;
-    v29 = &unk_100323AC0;
-    v30[1] = v36;
-    v30[2] = &v31;
-    v30[0] = _objc_retain(v60);
-    [(AKAuthorizationCredentialStateController *)v12 _getSharedCredentialStateRequest:v11 completion:&v25];
-    objc_storeStrong(v30, 0);
+    dispatch_group_enter(v58);
+    v10 = selfCopy;
+    v9 = location[0];
+    v23 = _NSConcreteStackBlock;
+    v24 = -1073741824;
+    v25 = 0;
+    v26 = sub_100116F54;
+    v27 = &unk_100323AC0;
+    v28[1] = v34;
+    v28[2] = &v29;
+    v28[0] = _objc_retain(v58);
+    [(AKAuthorizationCredentialStateController *)v10 _getSharedCredentialStateRequest:v9 completion:&v23];
+    objc_storeStrong(v28, 0);
   }
 
-  dispatch_group_wait(v60, 0xFFFFFFFFFFFFFFFFLL);
-  v24 = v32[3] == 1;
-  v10 = 1;
-  if (v49[3] != 1)
+  dispatch_group_wait(v58, 0xFFFFFFFFFFFFFFFFLL);
+  v22 = v30[3] == 1;
+  v8 = 1;
+  if (v47[3] != 1)
   {
-    v10 = v49[3] == 3;
+    v8 = v47[3] == 3;
   }
 
-  v23 = v10;
-  if (v24 && v23)
+  v21 = v8;
+  if (v22 && v21)
   {
     oslog = _AKLogSiwa();
     type = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       log = oslog;
-      v9 = type;
-      sub_10001CEEC(v20);
-      _os_log_impl(&_mh_execute_header, log, v9, "We have both shared and personal credentials", v20, 2u);
+      v7 = type;
+      sub_10001CEEC(v18);
+      _os_log_impl(&_mh_execute_header, log, v7, "We have both shared and personal credentials", v18, 2u);
     }
 
     objc_storeStrong(&oslog, 0);
-    (*(v61 + 2))();
+    (*(v59 + 2))();
   }
 
-  else if (!v24 || v23)
+  else if (!v22 || v21)
   {
-    if (!v24)
+    if (!v22)
     {
-      v16 = _AKLogSiwa();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v14 = _AKLogSiwa();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        sub_100116FF0(v64, v49[3], v54[5]);
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Using personal credential state - %ld, error - %@", v64, 0x16u);
+        sub_100116FF0(v62, v47[3], v52[5]);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Using personal credential state - %ld, error - %@", v62, 0x16u);
       }
 
-      objc_storeStrong(&v16, 0);
-      v4 = v49[3];
-      v5 = v54[5];
-      (*(v61 + 2))();
+      objc_storeStrong(&v14, 0);
+      (*(v59 + 2))();
     }
   }
 
   else
   {
-    v19 = _AKLogSiwa();
-    v18 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v17 = _AKLogSiwa();
+    v16 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = v19;
-      v7 = v18;
-      sub_10001CEEC(v17);
-      _os_log_impl(&_mh_execute_header, v6, v7, "We have a shared credential but no personal credential", v17, 2u);
+      v4 = v17;
+      v5 = v16;
+      sub_10001CEEC(v15);
+      _os_log_impl(&_mh_execute_header, v4, v5, "We have a shared credential but no personal credential", v15, 2u);
     }
 
-    objc_storeStrong(&v19, 0);
-    (*(v61 + 2))();
+    objc_storeStrong(&v17, 0);
+    (*(v59 + 2))();
   }
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(v36, 8);
-  objc_storeStrong(&v41, 0);
-  objc_storeStrong(v47, 0);
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(v34, 8);
+  objc_storeStrong(&v39, 0);
+  objc_storeStrong(v45, 0);
+  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v51, 8);
+  objc_storeStrong(&v57, 0);
+  objc_storeStrong(&v58, 0);
   objc_storeStrong(&v59, 0);
-  objc_storeStrong(&v60, 0);
-  objc_storeStrong(&v61, 0);
   objc_storeStrong(location, 0);
 }
 

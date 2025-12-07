@@ -39,10 +39,9 @@
 
 + (id)attributeClasses
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -91,7 +90,7 @@
 - (void)activate:(BOOL)activate withEntry:(id)entry
 {
   activateCopy = activate;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   v8 = [(BLSHPreventBacklightIdleAttributeHandler *)self typeForEntry:entryCopy];
   os_unfair_lock_lock(&self->_lock);
@@ -101,7 +100,7 @@
     [BLSHPreventBacklightIdleAttributeHandler activate:a2 withEntry:?];
   }
 
-  v24 = entryCopy;
+  v23 = entryCopy;
   v10 = self->_active[2];
   v11 = self->_active[1] || v10;
   v12 = *active || v11;
@@ -118,18 +117,18 @@
     if (v18)
     {
       *buf = 67109888;
-      v26 = v12;
-      v27 = 1024;
-      v28 = v15;
-      v29 = 1024;
-      v30 = v11;
-      v31 = 1024;
-      v32 = v14;
+      v25 = v12;
+      v26 = 1024;
+      v27 = v15;
+      v28 = 1024;
+      v29 = v11;
+      v30 = 1024;
+      v31 = v14;
       _os_log_debug_impl(&dword_21FD11000, v17, OS_LOG_TYPE_DEBUG, "received first assertion acquired event oldPreventIdle=%{BOOL}u preventIdle=%{BOOL}u oldRestartTimer=%{BOOL}u restartTimer=%{BOOL}u", buf, 0x1Au);
     }
 
     v19 = v12;
-    v20 = v24;
+    v20 = v23;
     if (v19 != v15)
     {
       [(BLSHBacklightIdleProvider *)WeakRetained setSuppressed:?];
@@ -148,21 +147,21 @@
     if (v18)
     {
       *buf = 67110400;
-      v26 = v10;
-      v27 = 1024;
-      v28 = v21;
-      v29 = 1024;
-      v30 = v11;
-      v31 = 1024;
-      v32 = v14;
-      v33 = 1024;
-      v34 = v12;
-      v35 = 1024;
-      v36 = v15;
+      v25 = v10;
+      v26 = 1024;
+      v27 = v21;
+      v28 = 1024;
+      v29 = v11;
+      v30 = 1024;
+      v31 = v14;
+      v32 = 1024;
+      v33 = v12;
+      v34 = 1024;
+      v35 = v15;
       _os_log_debug_impl(&dword_21FD11000, v17, OS_LOG_TYPE_DEBUG, "received last assertion dropped event oldClearUserInteraction=%{BOOL}u clearUserInteraction=%{BOOL}u  oldRestartTimer=%{BOOL}u restartTimer=%{BOOL}u  oldPreventIdle=%{BOOL}u preventIdle=%{BOOL}u", buf, 0x26u);
     }
 
-    v20 = v24;
+    v20 = v23;
     if (v10 != v21)
     {
       [(os_unfair_lock_s *)WeakRetained reset];
@@ -178,8 +177,6 @@
       [(BLSHBacklightIdleProvider *)WeakRetained setSuppressed:?];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BLSHBacklightIdleProvider)provider
@@ -191,15 +188,14 @@
 
 - (void)typeForEntry:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[attribute isKindOfClass:[BLSPreventBacklightIdleAttribute class]]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[attribute isKindOfClass:[BLSPreventBacklightIdleAttribute class]]", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -209,15 +205,14 @@
 
 - (void)typeForEntry:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[attribute restartTimerOnInvalidation]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[attribute restartTimerOnInvalidation]", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -227,15 +222,14 @@
 
 - (void)activate:(char *)a1 withEntry:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_active[type] == !isActivate"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_active[type] == !isActivate", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

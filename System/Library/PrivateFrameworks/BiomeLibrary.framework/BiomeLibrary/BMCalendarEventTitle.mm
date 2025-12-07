@@ -16,14 +16,12 @@
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"title" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"interaction" dataType:4 requestOnly:0 fieldNumber:2 protoDataType:14 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -82,28 +80,28 @@ LABEL_12:
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   title = [(BMCalendarEventTitle *)self title];
   interaction = [(BMCalendarEventTitle *)self interaction];
   v5 = [interaction base64EncodedStringWithOptions:0];
 
-  v11[0] = @"title";
+  v10[0] = @"title";
   null = title;
   if (!title)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"interaction";
-  v12[0] = null;
+  v10[1] = @"interaction";
+  v11[0] = null;
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (v5)
   {
     if (title)
@@ -122,14 +120,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMCalendarEventTitle)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"title"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -164,30 +161,30 @@ LABEL_7:
 
       if (error)
       {
-        v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v18 = *MEMORY[0x1E698F240];
-        v26 = *MEMORY[0x1E696A578];
-        v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"interaction"];
-        v27 = v19;
-        v20 = MEMORY[0x1E695DF20];
-        v21 = &v27;
-        v22 = &v26;
+        v16 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v17 = *MEMORY[0x1E698F240];
+        v25 = *MEMORY[0x1E696A578];
+        v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"interaction"];
+        v26 = v18;
+        v19 = MEMORY[0x1E695DF20];
+        v20 = &v26;
+        v21 = &v25;
 LABEL_22:
-        v23 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:1];
-        *error = [v17 initWithDomain:v18 code:2 userInfo:v23];
+        v22 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:1];
+        *error = [v16 initWithDomain:v17 code:2 userInfo:v22];
       }
     }
 
     else if (error)
     {
-      v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v18 = *MEMORY[0x1E698F240];
-      v24 = *MEMORY[0x1E696A578];
-      v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"interaction"];
-      v25 = v19;
-      v20 = MEMORY[0x1E695DF20];
-      v21 = &v25;
-      v22 = &v24;
+      v16 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v17 = *MEMORY[0x1E698F240];
+      v23 = *MEMORY[0x1E696A578];
+      v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"interaction"];
+      v24 = v18;
+      v19 = MEMORY[0x1E695DF20];
+      v20 = &v24;
+      v21 = &v23;
       goto LABEL_22;
     }
 
@@ -210,20 +207,19 @@ LABEL_22:
     goto LABEL_9;
   }
 
-  v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v15 = *MEMORY[0x1E698F240];
-  v28 = *MEMORY[0x1E696A578];
+  v13 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v14 = *MEMORY[0x1E698F240];
+  v27 = *MEMORY[0x1E696A578];
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"title"];
-  v29[0] = v10;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-  v16 = [v14 initWithDomain:v15 code:2 userInfo:v9];
+  v28[0] = v10;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v15 = [v13 initWithDomain:v14 code:2 userInfo:v9];
   v8 = 0;
   selfCopy = 0;
-  *error = v16;
+  *error = v15;
 LABEL_8:
 
 LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -392,14 +388,12 @@ LABEL_27:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"title" number:1 type:13 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"interaction" number:2 type:14 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

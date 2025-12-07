@@ -87,15 +87,14 @@ void __67__ETSketchMessageAccessibility__accessibilityStringForColorCounts___blo
   v8 = accessibilityLocalizedString(@"stroke.color.description");
   v9 = [v6 integerValue];
 
-  v15 = [v5 localizedStringWithFormat:v8, v9];
+  v14 = [v5 localizedStringWithFormat:v8, v9];
 
-  v10 = *(*(*(a1 + 32) + 8) + 40);
-  v11 = [v7 axColorStringForSpeaking];
+  v10 = [v7 axColorStringForSpeaking];
 
-  v12 = __AXStringForVariables();
-  v13 = *(*(a1 + 32) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
+  v11 = __AXStringForVariables();
+  v12 = *(*(a1 + 32) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 }
 
 - (void)_accessibilityIncrementNumberOfKey:(id)key inDictionary:(id)dictionary

@@ -11,53 +11,51 @@
 {
   v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v21 = 136446210;
       v22 = "[SSFamilyCircleRequest startWithResponseBlock:]";
-      LODWORD(v18) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v18}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
@@ -70,7 +68,7 @@ LABEL_16:
   v19[3] = &unk_1E84ABEF0;
   v19[4] = self;
   v20 = blockCopy;
-  v17 = blockCopy;
+  v18 = blockCopy;
   [(SSRequest *)self _startWithMessageID:141 messageBlock:v19];
 }
 
@@ -142,7 +140,7 @@ uint64_t __50__SSFamilyCircleRequest_startWithCompletionBlock___block_invoke(uin
       v6->_authenticationPromptStyle = xpc_dictionary_get_int64(v5, "1");
       v8 = objc_opt_class();
       v9 = SSXPCDictionaryCopyObjectWithClass(v5, "0", v8);
-      v6->_fetchITunesAccountNames = [v9 BOOLValue];
+      v6->_fetchITunesAccountNames = [(__CFDate *)v9 BOOLValue];
     }
   }
 

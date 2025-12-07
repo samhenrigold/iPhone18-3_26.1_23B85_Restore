@@ -64,23 +64,23 @@ LABEL_8:
   bytes = [dataCopy bytes];
   if (v6)
   {
-    v8 = bytes;
-    v9 = 0;
+    v9 = bytes;
     v10 = 0;
+    v11 = 0;
     while (1)
     {
-      LODWORD(v11) = 0;
-      v12 = (v8 + v10);
+      LODWORD(v12) = 0;
+      v13 = (v9 + v11);
       do
       {
-        v13 = *v12++;
-        v11 = v13 & 0x7Fu | (v11 << 7);
-        ++v10;
+        v14 = *v13++;
+        v12 = v14 & 0x7Fu | (v12 << 7);
+        ++v11;
       }
 
-      while (v13 < 0);
-      v14 = v10 + v11;
-      if (!v11 || v14 > v6)
+      while (v14 < 0);
+      v15 = v11 + v12;
+      if (!v12 || v15 > v6)
       {
         break;
       }
@@ -89,44 +89,43 @@ LABEL_8:
       v22 = 0;
       *buf = [data length];
       LODWORD(v22) = 0;
-      HIDWORD(v22) = v11;
+      HIDWORD(v22) = v12;
       [data2 appendBytes:buf length:16];
-      [data appendBytes:v12 length:v11];
-      ++v9;
-      v10 += v11;
-      if (v14 >= v6)
+      bytes = [data appendBytes:v13 length:v12];
+      ++v10;
+      v11 += v12;
+      if (v15 >= v6)
       {
         goto LABEL_15;
       }
     }
 
-    v16 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _LTOSLogSpeech(bytes, v8);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109632;
-      *&buf[4] = v11;
+      *&buf[4] = v12;
       LOWORD(v22) = 1024;
-      *(&v22 + 2) = v10;
+      *(&v22 + 2) = v11;
       HIWORD(v22) = 1024;
       v23 = v6;
-      _os_log_error_impl(&dword_232E53000, v16, OS_LOG_TYPE_ERROR, "Invalid chunk size: %d at offset %d, bytes count = %d\n", buf, 0x14u);
+      _os_log_error_impl(&dword_232E53000, v17, OS_LOG_TYPE_ERROR, "Invalid chunk size: %d at offset %d, bytes count = %d\n", buf, 0x14u);
     }
 
-    v17 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
 LABEL_15:
-    self->_packetCount = v9;
+    self->_packetCount = v10;
     objc_storeStrong(&self->_packetDescriptions, data2);
     objc_storeStrong(&self->_rawData, data);
-    v17 = 1;
+    v18 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v18;
 }
 
 - (void)writeToURL:(id)l
@@ -140,18 +139,19 @@ LABEL_15:
 
     if ([defaultManager fileExistsAtPath:path])
     {
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v15 = 0;
-      [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v15];
-      v8 = v15;
-      if (v8)
+      v20 = 0;
+      [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v20];
+      v11 = v20;
+      v9 = v11;
+      if (v11)
       {
-        v10 = _LTOSLogSpeech();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v13 = _LTOSLogSpeech(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           [_LTAudioData writeToURL:];
         }
@@ -159,13 +159,14 @@ LABEL_15:
     }
 
     rawData = self->_rawData;
-    v14 = 0;
-    [(NSData *)rawData writeToURL:lCopy options:0 error:&v14];
-    v12 = v14;
-    if (v12)
+    v19 = 0;
+    [(NSData *)rawData writeToURL:lCopy options:0 error:&v19];
+    v15 = v19;
+    v17 = v15;
+    if (v15)
     {
-      v13 = _LTOSLogSpeech();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v18 = _LTOSLogSpeech(v15, v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [_LTAudioData writeToURL:];
       }
@@ -174,10 +175,10 @@ LABEL_15:
 
   else
   {
-    v9 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _LTOSLogSpeech(0, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [_LTAudioData writeToURL:v9];
+      [_LTAudioData writeToURL:v10];
     }
   }
 }
@@ -189,22 +190,6 @@ LABEL_15:
   *&retstr->mBytesPerPacket = v3;
   *&retstr->mBitsPerChannel = self[1].mSampleRate;
   return self;
-}
-
-- (void)writeToURL:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_232E53000, v0, v1, "error %@ creating directory at path %{private}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)writeToURL:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_232E53000, v0, v1, "error %@ writing to url %{private}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -38,8 +38,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFResidentDeviceStatusDetailsItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -47,8 +47,8 @@
 - (id)reloadItems
 {
   objc_initWeak(&location, self);
-  home = [(HFResidentDeviceStatusDetailsItemProvider *)self home];
-  residentDevices = [home residentDevices];
+  v3 = objc_msgSend_home(self);
+  residentDevices = [v3 residentDevices];
   filter = [(HFResidentDeviceStatusDetailsItemProvider *)self filter];
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
@@ -73,7 +73,7 @@ HFResidentDeviceStatusDetailsItem *__56__HFResidentDeviceStatusDetailsItemProvid
 {
   v3 = a2;
   v4 = [HFResidentDeviceStatusDetailsItem alloc];
-  v5 = [*(a1 + 32) home];
+  v5 = objc_msgSend_home(*(a1 + 32));
   v6 = [(HFResidentDeviceStatusDetailsItem *)v4 initWithHome:v5 residentDevice:v3];
 
   return v6;

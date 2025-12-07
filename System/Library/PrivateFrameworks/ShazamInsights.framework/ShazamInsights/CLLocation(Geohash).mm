@@ -101,7 +101,7 @@
 
 - (double)sh_geoHashToCoordinates:()Geohash
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a3;
   uTF8String = [v3 UTF8String];
   v5 = 5 * strlen(uTF8String);
@@ -133,11 +133,11 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = *uTF8String;
-      v22 = 138412546;
-      v23 = v3;
-      v24 = 1024;
-      v25 = v19;
-      _os_log_impl(&dword_265F78000, v18, OS_LOG_TYPE_ERROR, "Invalid character in geohash %@: %c", &v22, 0x12u);
+      v21 = 138412546;
+      v22 = v3;
+      v23 = 1024;
+      v24 = v19;
+      _os_log_impl(&dword_265F78000, v18, OS_LOG_TYPE_ERROR, "Invalid character in geohash %@: %c", &v21, 0x12u);
     }
   }
 
@@ -185,7 +185,6 @@ LABEL_7:
     *&v6 = *&CLLocationCoordinate2DMake(v16 + (v16 - v15) * 0.5, v14 + (v14 - v13) * 0.5);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

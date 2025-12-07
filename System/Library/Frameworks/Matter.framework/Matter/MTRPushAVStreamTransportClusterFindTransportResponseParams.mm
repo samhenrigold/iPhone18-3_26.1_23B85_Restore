@@ -55,11 +55,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:1365 commandID:7 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -116,37 +116,37 @@ LABEL_6:
 - (ChipError)_setFieldsFromDecodableStruct:(const void *)struct
 {
   v4 = objc_opt_new();
-  sub_238E71468(struct, v169);
-  v162 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-  while (sub_238E714BC(v169))
+  sub_238E71468(v237, struct);
+  v230 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+  while (sub_238E714BC(v237))
   {
     v5 = objc_opt_new();
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v170];
+    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v238];
     [v5 setConnectionID:v6];
 
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v171];
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v239];
     [v5 setTransportStatus:v7];
 
-    if (v172[0] == 1)
+    if (v240[0] == 1)
     {
       v8 = objc_opt_new();
       [v5 setTransportOptions:v8];
 
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36B8(v172)];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{*sub_238DE36B8(v240, v9)}];
       transportOptions = [v5 transportOptions];
-      [transportOptions setStreamUsage:v9];
+      [transportOptions setStreamUsage:v10];
 
-      if (sub_238DE36B8(v172)[2] == 1 && (v11 = sub_238DE36B8(v172), (sub_238E0A934(v11 + 2)[2] & 1) != 0))
+      if (sub_238DE36B8(v240, v12)[2] == 1 && (v14 = sub_238DE36B8(v240, v13), (BYTE2(sub_238E0A934(v14 + 2, v15)->super.isa) & 1) != 0))
       {
-        v12 = MEMORY[0x277CCABB0];
-        v13 = sub_238DE36B8(v172);
-        v14 = sub_238E0A934(v13 + 2);
-        if ((v14[2] & 1) == 0)
+        v17 = MEMORY[0x277CCABB0];
+        v18 = sub_238DE36B8(v240, v16);
+        v20 = sub_238E0A934(v18 + 2, v19);
+        if ((BYTE2(v20->super.isa) & 1) == 0)
         {
           goto LABEL_73;
         }
 
-        transportOptions3 = [v12 numberWithUnsignedShort:*v14];
+        transportOptions3 = [v17 numberWithUnsignedShort:LOWORD(v20->super.isa)];
         transportOptions2 = [v5 transportOptions];
         [transportOptions2 setVideoStreamID:transportOptions3];
       }
@@ -157,17 +157,17 @@ LABEL_6:
         [transportOptions3 setVideoStreamID:0];
       }
 
-      if (sub_238DE36B8(v172)[8] == 1 && (v17 = sub_238DE36B8(v172), (sub_238E0A934(v17 + 8)[2] & 1) != 0))
+      if (sub_238DE36B8(v240, v23)[8] == 1 && (v25 = sub_238DE36B8(v240, v24), (BYTE2(sub_238E0A934(v25 + 8, v26)->super.isa) & 1) != 0))
       {
-        v18 = MEMORY[0x277CCABB0];
-        v19 = sub_238DE36B8(v172);
-        v20 = sub_238E0A934(v19 + 8);
-        if (v20[2] != 1)
+        v28 = MEMORY[0x277CCABB0];
+        v29 = sub_238DE36B8(v240, v27);
+        v31 = sub_238E0A934(v29 + 8, v30);
+        if (BYTE2(v31->super.isa) != 1)
         {
           goto LABEL_73;
         }
 
-        transportOptions5 = [v18 numberWithUnsignedShort:*v20];
+        transportOptions5 = [v28 numberWithUnsignedShort:LOWORD(v31->super.isa)];
         transportOptions4 = [v5 transportOptions];
         [transportOptions4 setAudioStreamID:transportOptions5];
       }
@@ -178,86 +178,86 @@ LABEL_6:
         [transportOptions5 setAudioStreamID:0];
       }
 
-      v23 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(sub_238DE36B8(v172) + 7)];
+      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{*(sub_238DE36B8(v240, v34) + 7)}];
       transportOptions6 = [v5 transportOptions];
-      [transportOptions6 setEndpointID:v23];
+      [transportOptions6 setEndpointID:v35];
 
-      v25 = sub_238DE36B8(v172);
-      v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*(v25 + 2) length:*(v25 + 3) encoding:4];
+      v38 = sub_238DE36B8(v240, v37);
+      v39 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*(v38 + 2) length:*(v38 + 3) encoding:4];
       transportOptions7 = [v5 transportOptions];
-      [transportOptions7 setUrl:v26];
+      [transportOptions7 setUrl:v39];
 
       transportOptions8 = [v5 transportOptions];
-      v29 = [transportOptions8 url];
+      v42 = [transportOptions8 url];
 
-      if (!v29)
+      if (!v42)
       {
-        v158 = 0x95DD00000000;
+        v226 = 0x95DD00000000;
         goto LABEL_69;
       }
 
-      v30 = objc_opt_new();
+      v43 = objc_opt_new();
       transportOptions9 = [v5 transportOptions];
-      [transportOptions9 setTriggerOptions:v30];
+      [transportOptions9 setTriggerOptions:v43];
 
-      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:sub_238DE36B8(v172)[32]];
+      v46 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{sub_238DE36B8(v240, v45)[32]}];
       transportOptions10 = [v5 transportOptions];
       triggerOptions = [transportOptions10 triggerOptions];
-      [triggerOptions setTriggerType:v32];
+      [triggerOptions setTriggerType:v46];
 
-      if (sub_238DE36B8(v172)[40] == 1 && (v35 = sub_238DE36B8(v172), (sub_238DE36B8(v35 + 40)[72] & 1) != 0))
+      if (sub_238DE36B8(v240, v49)[40] == 1 && (v51 = sub_238DE36B8(v240, v50), (sub_238DE36B8(v51 + 40, v52)[72] & 1) != 0))
       {
         transportOptions12 = objc_opt_new();
-        v37 = sub_238DE36B8(v172);
-        v38 = sub_238DE36B8(v37 + 40);
-        if ((v38[72] & 1) == 0)
+        v55 = sub_238DE36B8(v240, v54);
+        v57 = sub_238DE36B8(v55 + 40, v56);
+        if ((v57[72] & 1) == 0)
         {
           sub_238EA195C();
         }
 
-        sub_2393C5AAC(v165);
-        v163 = 0;
-        v164 = 0;
-        sub_2393C5BDC(v165, v38);
-        LOBYTE(v166) = 0;
-        v167 = 0;
-        v168[0] = 0;
-        while (sub_238EA1A80(&v163) && sub_238EA45DC(&v163))
+        sub_2393C5AAC(v233);
+        v231 = 0;
+        v232 = 0;
+        sub_2393C5BDC(v233, v57);
+        LOBYTE(v234) = 0;
+        v235 = 0;
+        v236[0] = 0;
+        while (sub_238EA1A80(&v231) && sub_238EA45DC(&v231))
         {
-          v39 = objc_opt_new();
-          v40 = v39;
-          if (v167)
+          v58 = objc_opt_new();
+          v59 = v58;
+          if (v235)
           {
-            v41 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v166];
-            [v40 setZone:v41];
+            v60 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v234];
+            [v59 setZone:v60];
           }
 
           else
           {
-            [v39 setZone:0];
+            [v58 setZone:0];
           }
 
-          if (v168[0] == 1)
+          if (v236[0] == 1)
           {
-            v42 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v168)];
-            [v40 setSensitivity:v42];
+            v62 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v236, v61)->super.isa)}];
+            [v59 setSensitivity:v62];
           }
 
           else
           {
-            [v40 setSensitivity:0];
+            [v59 setSensitivity:0];
           }
 
-          [transportOptions12 addObject:v40];
+          [transportOptions12 addObject:v59];
         }
 
-        if (v163 != 33)
+        if (v231 != 33)
         {
-          v44 = v163;
-          if (v163)
+          v64 = v231;
+          if (v231)
           {
-            v158 = v163 & 0xFFFFFFFF00000000;
-            v162 = v164;
+            v226 = v231 & 0xFFFFFFFF00000000;
+            v230 = v232;
 
             goto LABEL_70;
           }
@@ -275,18 +275,18 @@ LABEL_6:
         [transportOptions11 setMotionZones:0];
       }
 
-      if (sub_238DE36B8(v172)[128] == 1 && (v46 = sub_238DE36B8(v172), (sub_238DE36D8(v46 + 128)[1] & 1) != 0))
+      if (sub_238DE36B8(v240, v66)[128] == 1 && (v68 = sub_238DE36B8(v240, v67), (BYTE1(sub_238DE36D8(v68 + 128, v69)->super.isa) & 1) != 0))
       {
-        v47 = MEMORY[0x277CCABB0];
-        v48 = sub_238DE36B8(v172);
-        v49 = sub_238DE36D8(v48 + 128);
-        if (v49[1] != 1)
+        v71 = MEMORY[0x277CCABB0];
+        v72 = sub_238DE36B8(v240, v70);
+        v74 = sub_238DE36D8(v72 + 128, v73);
+        if (v74[1] != 1)
         {
 LABEL_73:
           sub_238EA195C();
         }
 
-        transportOptions14 = [v47 numberWithUnsignedChar:*v49];
+        transportOptions14 = [v71 numberWithUnsignedChar:*v74];
         transportOptions13 = [v5 transportOptions];
         triggerOptions3 = [transportOptions13 triggerOptions];
         [triggerOptions3 setMotionSensitivity:transportOptions14];
@@ -299,40 +299,40 @@ LABEL_73:
         [transportOptions13 setMotionSensitivity:0];
       }
 
-      if (sub_238DE36B8(v172)[132] == 1)
+      if (sub_238DE36B8(v240, v78)[132] == 1)
       {
-        v53 = objc_opt_new();
+        v79 = objc_opt_new();
         transportOptions15 = [v5 transportOptions];
         triggerOptions4 = [transportOptions15 triggerOptions];
-        [triggerOptions4 setMotionTimeControl:v53];
+        [triggerOptions4 setMotionTimeControl:v79];
 
-        v56 = MEMORY[0x277CCABB0];
-        v57 = sub_238DE36B8(v172);
-        v58 = [v56 numberWithUnsignedShort:*sub_238DE3698(v57 + 132)];
+        v82 = MEMORY[0x277CCABB0];
+        v84 = sub_238DE36B8(v240, v83);
+        v86 = [v82 numberWithUnsignedShort:{*sub_238DE3698(v84 + 132, v85)}];
         transportOptions16 = [v5 transportOptions];
         triggerOptions5 = [transportOptions16 triggerOptions];
         motionTimeControl = [triggerOptions5 motionTimeControl];
-        [motionTimeControl setInitialDuration:v58];
+        [motionTimeControl setInitialDuration:v86];
 
-        v62 = MEMORY[0x277CCABB0];
-        v63 = sub_238DE36B8(v172);
-        v64 = [v62 numberWithUnsignedShort:*(sub_238DE3698(v63 + 132) + 1)];
+        v90 = MEMORY[0x277CCABB0];
+        v92 = sub_238DE36B8(v240, v91);
+        v94 = [v90 numberWithUnsignedShort:{*(sub_238DE3698(v92 + 132, v93) + 1)}];
         transportOptions17 = [v5 transportOptions];
         triggerOptions6 = [transportOptions17 triggerOptions];
         motionTimeControl2 = [triggerOptions6 motionTimeControl];
-        [motionTimeControl2 setAugmentationDuration:v64];
+        [motionTimeControl2 setAugmentationDuration:v94];
 
-        v68 = MEMORY[0x277CCABB0];
-        v69 = sub_238DE36B8(v172);
-        v70 = [v68 numberWithUnsignedInt:*(sub_238DE3698(v69 + 132) + 1)];
+        v98 = MEMORY[0x277CCABB0];
+        v100 = sub_238DE36B8(v240, v99);
+        v102 = [v98 numberWithUnsignedInt:{*(sub_238DE3698(v100 + 132, v101) + 1)}];
         transportOptions18 = [v5 transportOptions];
         triggerOptions7 = [transportOptions18 triggerOptions];
         motionTimeControl3 = [triggerOptions7 motionTimeControl];
-        [motionTimeControl3 setMaxDuration:v70];
+        [motionTimeControl3 setMaxDuration:v102];
 
-        v74 = MEMORY[0x277CCABB0];
-        v75 = sub_238DE36B8(v172);
-        transportOptions20 = [v74 numberWithUnsignedShort:*(sub_238DE3698(v75 + 132) + 4)];
+        v106 = MEMORY[0x277CCABB0];
+        v108 = sub_238DE36B8(v240, v107);
+        transportOptions20 = [v106 numberWithUnsignedShort:{*(sub_238DE3698(v108 + 132, v109) + 4)}];
         transportOptions19 = [v5 transportOptions];
         triggerOptions8 = [transportOptions19 triggerOptions];
         motionTimeControl4 = [triggerOptions8 motionTimeControl];
@@ -346,11 +346,11 @@ LABEL_73:
         [transportOptions19 setMotionTimeControl:0];
       }
 
-      if (sub_238DE36B8(v172)[148] == 1)
+      if (sub_238DE36B8(v240, v114)[148] == 1)
       {
-        v80 = MEMORY[0x277CCABB0];
-        v81 = sub_238DE36B8(v172);
-        transportOptions22 = [v80 numberWithUnsignedShort:*sub_238E0A934(v81 + 148)];
+        v116 = MEMORY[0x277CCABB0];
+        v117 = sub_238DE36B8(v240, v115);
+        transportOptions22 = [v116 numberWithUnsignedShort:{LOWORD(sub_238E0A934(v117 + 148, v118)->super.isa)}];
         transportOptions21 = [v5 transportOptions];
         triggerOptions9 = [transportOptions21 triggerOptions];
         [triggerOptions9 setMaxPreRollLen:transportOptions22];
@@ -363,65 +363,65 @@ LABEL_73:
         [transportOptions21 setMaxPreRollLen:0];
       }
 
-      v85 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:sub_238DE36B8(v172)[152]];
+      v123 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{sub_238DE36B8(v240, v122)[152]}];
       transportOptions23 = [v5 transportOptions];
-      [transportOptions23 setIngestMethod:v85];
+      [transportOptions23 setIngestMethod:v123];
 
-      v87 = objc_opt_new();
+      v125 = objc_opt_new();
       transportOptions24 = [v5 transportOptions];
-      [transportOptions24 setContainerOptions:v87];
+      [transportOptions24 setContainerOptions:v125];
 
-      v89 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:sub_238DE36B8(v172)[160]];
+      v128 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{sub_238DE36B8(v240, v127)[160]}];
       transportOptions25 = [v5 transportOptions];
       containerOptions = [transportOptions25 containerOptions];
-      [containerOptions setContainerType:v89];
+      [containerOptions setContainerType:v128];
 
-      if (sub_238DE36B8(v172)[168] == 1)
+      if (sub_238DE36B8(v240, v131)[168] == 1)
       {
-        v92 = objc_opt_new();
+        v132 = objc_opt_new();
         transportOptions26 = [v5 transportOptions];
         containerOptions2 = [transportOptions26 containerOptions];
-        [containerOptions2 setCmafContainerOptions:v92];
+        [containerOptions2 setCmafContainerOptions:v132];
 
-        v95 = MEMORY[0x277CCABB0];
-        v96 = sub_238DE36B8(v172);
-        v97 = [v95 numberWithUnsignedChar:*sub_238DE36B8(v96 + 168)];
+        v135 = MEMORY[0x277CCABB0];
+        v137 = sub_238DE36B8(v240, v136);
+        v139 = [v135 numberWithUnsignedChar:{*sub_238DE36B8(v137 + 168, v138)}];
         transportOptions27 = [v5 transportOptions];
         containerOptions3 = [transportOptions27 containerOptions];
         cmafContainerOptions = [containerOptions3 cmafContainerOptions];
-        [cmafContainerOptions setCmafInterface:v97];
+        [cmafContainerOptions setCmafInterface:v139];
 
-        v101 = MEMORY[0x277CCABB0];
-        v102 = sub_238DE36B8(v172);
-        v103 = [v101 numberWithUnsignedShort:*(sub_238DE36B8(v102 + 168) + 1)];
+        v143 = MEMORY[0x277CCABB0];
+        v145 = sub_238DE36B8(v240, v144);
+        v147 = [v143 numberWithUnsignedShort:{*(sub_238DE36B8(v145 + 168, v146) + 1)}];
         transportOptions28 = [v5 transportOptions];
         containerOptions4 = [transportOptions28 containerOptions];
         cmafContainerOptions2 = [containerOptions4 cmafContainerOptions];
-        [cmafContainerOptions2 setSegmentDuration:v103];
+        [cmafContainerOptions2 setSegmentDuration:v147];
 
-        v107 = MEMORY[0x277CCABB0];
-        v108 = sub_238DE36B8(v172);
-        v109 = [v107 numberWithUnsignedShort:*(sub_238DE36B8(v108 + 168) + 2)];
+        v151 = MEMORY[0x277CCABB0];
+        v153 = sub_238DE36B8(v240, v152);
+        v155 = [v151 numberWithUnsignedShort:{*(sub_238DE36B8(v153 + 168, v154) + 2)}];
         transportOptions29 = [v5 transportOptions];
         containerOptions5 = [transportOptions29 containerOptions];
         cmafContainerOptions3 = [containerOptions5 cmafContainerOptions];
-        [cmafContainerOptions3 setChunkDuration:v109];
+        [cmafContainerOptions3 setChunkDuration:v155];
 
-        v113 = MEMORY[0x277CCABB0];
-        v114 = sub_238DE36B8(v172);
-        v115 = [v113 numberWithUnsignedChar:sub_238DE36B8(v114 + 168)[6]];
+        v159 = MEMORY[0x277CCABB0];
+        v161 = sub_238DE36B8(v240, v160);
+        v163 = [v159 numberWithUnsignedChar:{sub_238DE36B8(v161 + 168, v162)[6]}];
         transportOptions30 = [v5 transportOptions];
         containerOptions6 = [transportOptions30 containerOptions];
         cmafContainerOptions4 = [containerOptions6 cmafContainerOptions];
-        [cmafContainerOptions4 setSessionGroup:v115];
+        [cmafContainerOptions4 setSessionGroup:v163];
 
-        v119 = sub_238DE36B8(v172);
-        v120 = sub_238DE36B8(v119 + 168);
-        v121 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*(v120 + 1) length:*(v120 + 2) encoding:4];
+        v168 = sub_238DE36B8(v240, v167);
+        v170 = sub_238DE36B8(v168 + 168, v169);
+        v171 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*(v170 + 1) length:*(v170 + 2) encoding:4];
         transportOptions31 = [v5 transportOptions];
         containerOptions7 = [transportOptions31 containerOptions];
         cmafContainerOptions5 = [containerOptions7 cmafContainerOptions];
-        [cmafContainerOptions5 setTrackName:v121];
+        [cmafContainerOptions5 setTrackName:v171];
 
         transportOptions32 = [v5 transportOptions];
         containerOptions8 = [transportOptions32 containerOptions];
@@ -430,21 +430,21 @@ LABEL_73:
 
         if (!trackName)
         {
-          v158 = 0x962500000000;
+          v226 = 0x962500000000;
 LABEL_69:
-          v44 = 47;
+          v64 = 47;
 LABEL_70:
 
           goto LABEL_71;
         }
 
-        v129 = sub_238DE36B8(v172);
-        if (sub_238DE36B8(v129 + 168)[24] == 1)
+        v180 = sub_238DE36B8(v240, v179);
+        if (sub_238DE36B8(v180 + 168, v181)[24] == 1)
         {
-          v130 = sub_238DE36B8(v172);
-          v131 = sub_238DE36B8(v130 + 168);
-          v132 = sub_238DE36B8(v131 + 24);
-          transportOptions34 = [MEMORY[0x277CBEA90] dataWithBytes:*v132 length:v132[1]];
+          v183 = sub_238DE36B8(v240, v182);
+          v185 = sub_238DE36B8(v183 + 168, v184);
+          v187 = sub_238DE36B8(v185 + 24, v186);
+          transportOptions34 = [MEMORY[0x277CBEA90] dataWithBytes:*v187 length:v187[1]];
           transportOptions33 = [v5 transportOptions];
           containerOptions9 = [transportOptions33 containerOptions];
           cmafContainerOptions7 = [containerOptions9 cmafContainerOptions];
@@ -459,13 +459,13 @@ LABEL_70:
           [containerOptions9 setCencKey:0];
         }
 
-        v139 = sub_238DE36B8(v172);
-        if (sub_238DE36B8(v139 + 168)[48] == 1)
+        v195 = sub_238DE36B8(v240, v194);
+        if (sub_238DE36B8(v195 + 168, v196)[48] == 1)
         {
-          v140 = sub_238DE36B8(v172);
-          v141 = sub_238DE36B8(v140 + 168);
-          v142 = sub_238DE36B8(v141 + 48);
-          transportOptions36 = [MEMORY[0x277CBEA90] dataWithBytes:*v142 length:v142[1]];
+          v198 = sub_238DE36B8(v240, v197);
+          v200 = sub_238DE36B8(v198 + 168, v199);
+          v202 = sub_238DE36B8(v200 + 48, v201);
+          transportOptions36 = [MEMORY[0x277CBEA90] dataWithBytes:*v202 length:v202[1]];
           transportOptions35 = [v5 transportOptions];
           containerOptions10 = [transportOptions35 containerOptions];
           cmafContainerOptions8 = [containerOptions10 cmafContainerOptions];
@@ -480,13 +480,13 @@ LABEL_70:
           [containerOptions10 setCencKeyID:0];
         }
 
-        v147 = sub_238DE36B8(v172);
-        if (sub_238DE36B8(v147 + 168)[72] == 1)
+        v208 = sub_238DE36B8(v240, v207);
+        if (sub_238DE36B8(v208 + 168, v209)[72] == 1)
         {
-          v148 = MEMORY[0x277CCABB0];
-          v149 = sub_238DE36B8(v172);
-          v150 = sub_238DE36B8(v149 + 168);
-          transportOptions38 = [v148 numberWithBool:*sub_238DE36D8(v150 + 72)];
+          v211 = MEMORY[0x277CCABB0];
+          v212 = sub_238DE36B8(v240, v210);
+          v214 = sub_238DE36B8(v212 + 168, v213);
+          transportOptions38 = [v211 numberWithBool:{LOBYTE(sub_238DE36D8(v214 + 72, v215)->super.isa)}];
           transportOptions37 = [v5 transportOptions];
           containerOptions11 = [transportOptions37 containerOptions];
           cmafContainerOptions9 = [containerOptions11 cmafContainerOptions];
@@ -509,11 +509,11 @@ LABEL_70:
         [transportOptions37 setCmafContainerOptions:0];
       }
 
-      if (sub_238DE36B8(v172)[256] == 1)
+      if (sub_238DE36B8(v240, v218)[256] == 1)
       {
-        v153 = MEMORY[0x277CCABB0];
-        v154 = sub_238DE36B8(v172);
-        transportOptions40 = [v153 numberWithUnsignedInt:*sub_238DE3698(v154 + 256)];
+        v220 = MEMORY[0x277CCABB0];
+        v221 = sub_238DE36B8(v240, v219);
+        transportOptions40 = [v220 numberWithUnsignedInt:{*sub_238DE3698(v221 + 256, v222)}];
         transportOptions39 = [v5 transportOptions];
         [transportOptions39 setExpiryTime:transportOptions40];
       }
@@ -530,31 +530,31 @@ LABEL_70:
       [v5 setTransportOptions:0];
     }
 
-    v157 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v172[272]];
-    [v5 setFabricIndex:v157];
+    v225 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v240[272]];
+    [v5 setFabricIndex:v225];
 
     [v4 addObject:v5];
   }
 
-  if (LODWORD(v169[0]) == 33 || (v44 = LODWORD(v169[0]), !LODWORD(v169[0])))
+  if (LODWORD(v237[0]) == 33 || (v64 = LODWORD(v237[0]), !LODWORD(v237[0])))
   {
     [(MTRPushAVStreamTransportClusterFindTransportResponseParams *)self setTransportConfigurations:v4];
 
-    v159 = 0;
-    v160 = 0;
+    v227 = 0;
+    v228 = 0;
     goto LABEL_75;
   }
 
-  v162 = v169[1];
-  v158 = v169[0] & 0xFFFFFFFF00000000;
+  v230 = v237[1];
+  v226 = v237[0] & 0xFFFFFFFF00000000;
 LABEL_71:
 
-  v160 = v44 | v158;
-  v159 = v162;
+  v228 = v64 | v226;
+  v227 = v230;
 LABEL_75:
-  result.mFile = v159;
-  result.mError = v160;
-  result.mLine = HIDWORD(v160);
+  result.mFile = v227;
+  result.mError = v228;
+  result.mLine = HIDWORD(v228);
   return result;
 }
 

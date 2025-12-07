@@ -59,32 +59,31 @@
 
 - (void)_queue_scheduleTimerWithTimeInterval:(double)interval
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   [(BKUserEventTimer *)self _queue_clearTimer];
   if (BKSHIDServicesUserEventTimerIntervalForever == interval)
   {
-    v6 = sub_100052774();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100052774();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Disabling timer because scheduled interval exceeds 'forever' threshold", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Disabling timer because scheduled interval exceeds 'forever' threshold", buf, 2u);
     }
   }
 
   else
   {
-    v7 = [BSTimer alloc];
-    v8 = self->_queue;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100040D9C;
-    v11[3] = &unk_1000FCF78;
-    *&v11[5] = interval;
-    v11[4] = self;
-    v9 = [v7 initWithFireInterval:v8 queue:v11 handler:interval];
+    v6 = [BSTimer alloc];
+    queue = self->_queue;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100040D9C;
+    v10[3] = &unk_1000FCF78;
+    *&v10[5] = interval;
+    v10[4] = self;
+    v8 = [v6 initWithFireInterval:queue queue:v10 handler:interval];
     timer = self->_timer;
-    self->_timer = v9;
+    self->_timer = v8;
 
     [(BSTimer *)self->_timer schedule];
   }
@@ -92,40 +91,37 @@
 
 - (void)_queue_userEventOccurredInPresenceMode
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   if (self->_timer && self->_isIdle)
   {
     self->_isIdle = 0;
-    v4 = kBKSHIDServicesUserEventPresent;
+    v3 = kBKSHIDServicesUserEventPresent;
 
-    [(BKUserEventTimer *)self _queue_postNotification:v4];
+    [(BKUserEventTimer *)self _queue_postNotification:v3];
   }
 }
 
 - (void)_queue_userEventOccurredInIdleMode
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   if (self->_isIdle)
   {
     self->_isIdle = 0;
-    v4 = kBKSHIDServicesUserEventUnIdled;
+    v3 = kBKSHIDServicesUserEventUnIdled;
 
-    [(BKUserEventTimer *)self _queue_postNotification:v4];
+    [(BKUserEventTimer *)self _queue_postNotification:v3];
   }
 }
 
 - (void)_queue_postNotification:(__CFString *)notification
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v5 = sub_100052774();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100052774();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     notificationCopy = notification;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "postNotification: %{public}@", &v7, 0xCu);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "postNotification: %{public}@", &v6, 0xCu);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -199,16 +195,15 @@
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
   succinctDescriptionBuilder = [(BKUserEventTimer *)self succinctDescriptionBuilder];
-  currentMode = self->_currentMode;
-  v6 = NSStringFromBKSHIDServicesUserEventTimerMode();
-  v7 = [succinctDescriptionBuilder appendObject:v6 withName:@"currentMode"];
+  v5 = NSStringFromBKSHIDServicesUserEventTimerMode();
+  v6 = [succinctDescriptionBuilder appendObject:v5 withName:@"currentMode"];
 
-  v8 = [succinctDescriptionBuilder appendTimeInterval:@"currentTimeout" withName:0 decomposeUnits:self->_currentTimeout];
-  v9 = [succinctDescriptionBuilder appendTimeInterval:@"lastUserEventTime" withName:0 decomposeUnits:self->_lastUserEvent];
-  v10 = [succinctDescriptionBuilder appendTimeInterval:@"lastResetTimerRequestTime" withName:0 decomposeUnits:self->_lastResetTimerRequest];
-  v11 = [succinctDescriptionBuilder appendBool:self->_isIdle withName:@"_isIdle"];
-  v12 = [succinctDescriptionBuilder appendBool:self->_shouldNotify withName:@"_shouldNotify"];
-  v13 = [succinctDescriptionBuilder appendBool:self->_safeToResetIdleTimer withName:@"_safeToResetIdleTimer"];
+  v7 = [succinctDescriptionBuilder appendTimeInterval:@"currentTimeout" withName:0 decomposeUnits:self->_currentTimeout];
+  v8 = [succinctDescriptionBuilder appendTimeInterval:@"lastUserEventTime" withName:0 decomposeUnits:self->_lastUserEvent];
+  v9 = [succinctDescriptionBuilder appendTimeInterval:@"lastResetTimerRequestTime" withName:0 decomposeUnits:self->_lastResetTimerRequest];
+  v10 = [succinctDescriptionBuilder appendBool:self->_isIdle withName:@"_isIdle"];
+  v11 = [succinctDescriptionBuilder appendBool:self->_shouldNotify withName:@"_shouldNotify"];
+  v12 = [succinctDescriptionBuilder appendBool:self->_safeToResetIdleTimer withName:@"_safeToResetIdleTimer"];
 
   return succinctDescriptionBuilder;
 }

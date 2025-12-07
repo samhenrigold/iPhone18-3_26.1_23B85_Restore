@@ -101,7 +101,7 @@
 
 - (MXMSampleSet)range
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   if ([(MXMSampleSet *)self length])
   {
     v3 = [(MXMSampleSet *)self min];
@@ -112,22 +112,20 @@
     [v6 floatValue];
     v8 = v7;
 
-    v17[0] = v5;
-    v17[1] = v8;
+    v16[0] = v5;
+    v16[1] = v8;
     v9 = [MXMSampleSet alloc];
     timeIndex = [(MXMSampleSet *)self timeIndex];
     v11 = [(MXMSampleSet *)self tag];
     unit = [(MXMSampleSet *)self unit];
     attributes = [(MXMSampleSet *)self attributes];
-    v14 = [(MXMSampleSet *)v9 initWithTime:timeIndex tag:v11 unit:unit attributes:attributes doubleValues:v17 length:2];
+    v14 = [(MXMSampleSet *)v9 initWithTime:timeIndex tag:v11 unit:unit attributes:attributes doubleValues:v16 length:2];
   }
 
   else
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -265,26 +263,26 @@
 
 - (MXMSampleSet)initWithTime:(id)time tag:(id)tag unit:(id)unit attributes:(id)attributes values:(void *)values length:(unint64_t)length valueSize:(unint64_t)size
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   tagCopy = tag;
   unitCopy = unit;
   attributesCopy = attributes;
-  v49.receiver = self;
-  v49.super_class = MXMSampleSet;
-  v20 = [(MXMSampleSet *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = MXMSampleSet;
+  v20 = [(MXMSampleSet *)&v48 init];
   v21 = v20;
   if (v20)
   {
     __src = values;
-    v44 = timeCopy;
+    v43 = timeCopy;
     objc_storeStrong(&v20->_timeIndex, time);
-    v42 = tagCopy;
+    v41 = tagCopy;
     v22 = [tagCopy copy];
     tag = v21->_tag;
     v21->_tag = v22;
 
-    v41 = unitCopy;
+    v40 = unitCopy;
     v24 = [unitCopy copy];
     unit = v21->_unit;
     v21->_unit = v24;
@@ -293,33 +291,33 @@
     attributesMap = v21->_attributesMap;
     v21->_attributesMap = dictionary;
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v28 = attributesCopy;
-    v29 = [v28 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v44 objects:v49 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v46;
+      v31 = *v45;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v46 != v31)
+          if (*v45 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v45 + 1) + 8 * i);
+          v33 = *(*(&v44 + 1) + 8 * i);
           v34 = [v33 copy];
           v35 = v21->_attributesMap;
           name = [v33 name];
           [(NSMutableDictionary *)v35 setObject:v34 forKeyedSubscript:name];
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
       while (v30);
@@ -333,12 +331,11 @@
     v38 = malloc_type_malloc(size * length, 0xF7BB96BuLL);
     v21->_underlyingBuffer = v38;
     memcpy(v38, __src, v21->_index->var0 * length);
-    timeCopy = v44;
-    unitCopy = v41;
-    tagCopy = v42;
+    timeCopy = v43;
+    unitCopy = v40;
+    tagCopy = v41;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -510,38 +507,36 @@ LABEL_8:
 
 - (void)_appendSet:(id)set
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   setCopy = set;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [setCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [setCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(setCopy);
         }
 
-        [(MXMSampleSet *)self _appendSample:*(*(&v10 + 1) + 8 * v8++)];
+        [(MXMSampleSet *)self _appendSample:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [setCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [setCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_appendSample:(id)sample

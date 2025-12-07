@@ -11,19 +11,17 @@
 
 + (id)supportedBundleIds
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  if (SSSpotlightUIPlusEnabled())
+  v4[1] = *MEMORY[0x1E69E9840];
+  if (SSSpotlightUIPlusEnabled(self, a2))
   {
     v2 = 0;
   }
 
   else
   {
-    v5[0] = @"com.apple.searchd.syndicatedPhotos";
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+    v4[0] = @"com.apple.searchd.syndicatedPhotos";
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -80,7 +78,7 @@ uint64_t __58__SSPhotosSectionBuilder_maxVisibleColumnsInPhotosSection__block_in
   {
     v4 = objc_opt_new();
     results = [section results];
-    v6 = [results count];
+    v6 = objc_msgSend_count(results);
     if (v6 < 2 * [objc_opt_class() maxVisibleColumnsInPhotosSection])
     {
       v7 = 1;
@@ -106,31 +104,31 @@ uint64_t __58__SSPhotosSectionBuilder_maxVisibleColumnsInPhotosSection__block_in
 
 - (id)buildCardSections
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v29.receiver = self;
-  v29.super_class = SSPhotosSectionBuilder;
-  buildCardSections = [(SSSectionBuilder *)&v29 buildCardSections];
+  v32 = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = SSPhotosSectionBuilder;
+  buildCardSections = [(SSSectionBuilder *)&v28 buildCardSections];
   string = [MEMORY[0x1E696AD60] string];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v3 = buildCardSections;
-  v4 = [v3 countByEnumeratingWithState:&v25 objects:v32 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v24 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -159,7 +157,7 @@ uint64_t __58__SSPhotosSectionBuilder_maxVisibleColumnsInPhotosSection__block_in
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v24 objects:v31 count:16];
     }
 
     while (v5);
@@ -173,11 +171,9 @@ uint64_t __58__SSPhotosSectionBuilder_maxVisibleColumnsInPhotosSection__block_in
   {
     uTF8String = [string UTF8String];
     *buf = 136315138;
-    v31 = uTF8String;
+    v30 = uTF8String;
     _os_signpost_emit_with_name_impl(&dword_1D9F69000, v20, OS_SIGNPOST_EVENT, v18, "ResultPhotos", "%{name=photoIdentifiers}s", buf, 0xCu);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

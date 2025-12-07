@@ -24,10 +24,10 @@
 
 - (CCWalletExtractedOrderContent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v120 = 0;
+  v119 = 0;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
   v8 = 0;
   if (IsInstanceOfExpectedClass)
@@ -39,9 +39,9 @@
     if (v12)
     {
       v13 = v12;
-      v102 = v10;
+      v101 = v10;
       objc_opt_class();
-      v119 = v8;
+      v118 = v8;
       v14 = CCValidateIsInstanceOfExpectedClass();
       v15 = v8;
 
@@ -50,41 +50,41 @@
         CCSetError();
         v36 = 0;
         v16 = v13;
-        v10 = v102;
+        v10 = v101;
 LABEL_77:
 
         v8 = v15;
         goto LABEL_78;
       }
 
-      v93 = v9;
+      v92 = v9;
       errorCopy = error;
-      v101 = v11;
+      v100 = v11;
       v16 = objc_opt_new();
+      v114 = 0u;
       v115 = 0u;
       v116 = 0u;
       v117 = 0u;
-      v118 = 0u;
       v17 = v13;
-      v18 = [v17 countByEnumeratingWithState:&v115 objects:v122 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v114 objects:v121 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v116;
+        v20 = *v115;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v116 != v20)
+            if (*v115 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v115 + 1) + 8 * i);
+            v22 = *(*(&v114 + 1) + 8 * i);
             v23 = [CCWalletExtractedOrderContentExtractedEmail alloc];
-            v114 = 0;
-            v24 = [(CCWalletExtractedOrderContentExtractedEmail *)v23 initWithJSONDictionary:v22 error:&v114];
-            v25 = v114;
+            v113 = 0;
+            v24 = [(CCWalletExtractedOrderContentExtractedEmail *)v23 initWithJSONDictionary:v22 error:&v113];
+            v25 = v113;
             if (v24)
             {
               v26 = v25 == 0;
@@ -102,24 +102,24 @@ LABEL_77:
 
               v36 = 0;
               v16 = v17;
-              v9 = v93;
-              v10 = v102;
+              v9 = v92;
+              v10 = v101;
               goto LABEL_76;
             }
 
             [v16 addObject:v24];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v115 objects:v122 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v114 objects:v121 count:16];
         }
 
         while (v19);
       }
 
-      v11 = v101;
-      v9 = v93;
+      v11 = v100;
+      v9 = v92;
       error = errorCopy;
-      v10 = v102;
+      v10 = v101;
     }
 
     else
@@ -130,16 +130,16 @@ LABEL_77:
 
     v27 = [dictionaryCopy objectForKeyedSubscript:@"orderDate"];
     v28 = [dictionaryCopy objectForKeyedSubscript:@"merchant"];
-    v101 = v11;
+    v100 = v11;
     if (v28)
     {
       selfCopy = self;
       v29 = v9;
       v30 = v27;
-      v113 = 0;
+      v112 = 0;
       v31 = v28;
-      v32 = [[CCWalletPaymentsCommerceTrackedOrderMerchant alloc] initWithJSONDictionary:v28 error:&v113];
-      v33 = v113;
+      v32 = [[CCWalletPaymentsCommerceTrackedOrderMerchant alloc] initWithJSONDictionary:v28 error:&v112];
+      v33 = v112;
       v34 = v33;
       if (!v32 || v33)
       {
@@ -153,7 +153,7 @@ LABEL_77:
         goto LABEL_75;
       }
 
-      v92 = v32;
+      v91 = v32;
       v27 = v30;
       v9 = v29;
       self = selfCopy;
@@ -161,16 +161,16 @@ LABEL_77:
 
     else
     {
-      v92 = 0;
+      v91 = 0;
     }
 
     v37 = [dictionaryCopy objectForKeyedSubscript:@"shippingFulfillments"];
     if (v37)
     {
       v38 = v37;
-      v103 = v10;
+      v102 = v10;
       objc_opt_class();
-      v112 = v15;
+      v111 = v15;
       v39 = CCValidateIsInstanceOfExpectedClass();
       v40 = v15;
 
@@ -180,40 +180,40 @@ LABEL_77:
         v36 = 0;
         v15 = v40;
         v34 = v38;
-        v10 = v103;
-        v58 = v92;
+        v10 = v102;
+        v58 = v91;
         goto LABEL_75;
       }
 
-      v89 = v27;
-      v91 = v40;
-      v94 = v9;
+      v88 = v27;
+      v90 = v40;
+      v93 = v9;
       errorCopy2 = error;
       v34 = objc_opt_new();
+      v107 = 0u;
       v108 = 0u;
       v109 = 0u;
       v110 = 0u;
-      v111 = 0u;
       v41 = v38;
-      v42 = [v41 countByEnumeratingWithState:&v108 objects:v121 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v107 objects:v120 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v109;
+        v44 = *v108;
         do
         {
           for (j = 0; j != v43; ++j)
           {
-            if (*v109 != v44)
+            if (*v108 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v46 = *(*(&v108 + 1) + 8 * j);
+            v46 = *(*(&v107 + 1) + 8 * j);
             v47 = [CCWalletExtractedOrderContentShippingFulfillment alloc];
-            v107 = 0;
-            v48 = [(CCWalletExtractedOrderContentShippingFulfillment *)v47 initWithJSONDictionary:v46 error:&v107];
-            v49 = v107;
+            v106 = 0;
+            v48 = [(CCWalletExtractedOrderContentShippingFulfillment *)v47 initWithJSONDictionary:v46 error:&v106];
+            v49 = v106;
             if (v48)
             {
               v50 = v49 == 0;
@@ -231,94 +231,94 @@ LABEL_77:
 
               v36 = 0;
               v34 = v41;
-              v27 = v89;
-              v15 = v91;
-              v58 = v92;
-              v9 = v94;
-              v10 = v103;
+              v27 = v88;
+              v15 = v90;
+              v58 = v91;
+              v9 = v93;
+              v10 = v102;
               goto LABEL_75;
             }
 
             [v34 addObject:v48];
           }
 
-          v43 = [v41 countByEnumeratingWithState:&v108 objects:v121 count:16];
+          v43 = [v41 countByEnumeratingWithState:&v107 objects:v120 count:16];
         }
 
         while (v43);
       }
 
       error = errorCopy2;
-      v9 = v94;
-      v10 = v103;
+      v9 = v93;
+      v10 = v102;
     }
 
     else
     {
       v34 = 0;
-      v91 = v15;
+      v90 = v15;
     }
 
     v51 = [dictionaryCopy objectForKeyedSubscript:@"customer"];
-    v58 = v92;
-    v90 = v27;
+    v58 = v91;
+    v89 = v27;
     if (v51)
     {
-      v106 = 0;
-      v52 = [[CCWalletPaymentsCommerceTrackedOrderCustomer alloc] initWithJSONDictionary:v51 error:&v106];
-      v53 = v106;
-      v104 = v52;
+      v105 = 0;
+      v52 = [[CCWalletPaymentsCommerceTrackedOrderCustomer alloc] initWithJSONDictionary:v51 error:&v105];
+      v53 = v105;
+      v103 = v52;
       if (!v52 || v53)
       {
-        v95 = v51;
-        v100 = v53;
+        v94 = v51;
+        v99 = v53;
         CCSetError();
         v36 = 0;
-        v27 = v90;
-        v15 = v91;
+        v27 = v89;
+        v15 = v90;
         goto LABEL_74;
       }
 
       v51 = v52;
-      v27 = v90;
+      v27 = v89;
     }
 
     v54 = [dictionaryCopy objectForKeyedSubscript:@"payment"];
-    v95 = v51;
+    v94 = v51;
     if (v54)
     {
-      v105 = 0;
-      v100 = v54;
-      v55 = [[CCWalletPaymentsCommerceTrackedOrderPayment alloc] initWithJSONDictionary:v54 error:&v105];
-      v56 = v105;
+      v104 = 0;
+      v99 = v54;
+      v55 = [[CCWalletPaymentsCommerceTrackedOrderPayment alloc] initWithJSONDictionary:v54 error:&v104];
+      v56 = v104;
       if (!v55 || v56)
       {
-        v104 = v56;
+        v103 = v56;
         CCSetError();
 
         v36 = 0;
-        v15 = v91;
-        v58 = v92;
+        v15 = v90;
+        v58 = v91;
         goto LABEL_74;
       }
 
       errorCopy4 = error;
 
-      v100 = v55;
+      v99 = v55;
     }
 
     else
     {
       errorCopy4 = error;
-      v100 = 0;
+      v99 = 0;
     }
 
     v59 = [dictionaryCopy objectForKeyedSubscript:@"orderUpdateDate"];
     if (!v59)
     {
-      v104 = 0;
+      v103 = 0;
 LABEL_58:
-      v87 = [dictionaryCopy objectForKeyedSubscript:@"trackedOrderIdentifier"];
+      v86 = [dictionaryCopy objectForKeyedSubscript:@"trackedOrderIdentifier"];
       v66 = [dictionaryCopy objectForKeyedSubscript:@"orderStatus"];
       v67 = v66;
       if (v66)
@@ -332,73 +332,73 @@ LABEL_58:
       }
 
       v68 = [dictionaryCopy objectForKeyedSubscript:@"earliestEmailDateSent"];
-      v83 = v67;
+      v82 = v67;
       if (v68)
       {
         objc_opt_class();
-        v88 = v68;
+        v87 = v68;
         v69 = CCValidateIsInstanceOfExpectedClass();
-        v84 = v91;
+        v83 = v90;
 
         if ((v69 & 1) == 0)
         {
-          v15 = v84;
+          v15 = v83;
           CCSetError();
           v36 = 0;
-          v58 = v92;
+          v58 = v91;
 LABEL_73:
 
           goto LABEL_74;
         }
 
         v70 = objc_alloc(MEMORY[0x1E695DF00]);
-        [v88 doubleValue];
+        [v87 doubleValue];
         v68 = [v70 initWithTimeIntervalSinceReferenceDate:?];
 
-        v91 = v84;
+        v90 = v83;
       }
 
       v71 = [dictionaryCopy objectForKeyedSubscript:@"orderStatusUpdateDate"];
-      v88 = v68;
+      v87 = v68;
       if (v71)
       {
         v72 = v71;
         objc_opt_class();
-        v85 = CCValidateIsInstanceOfExpectedClass();
-        v73 = v91;
+        v84 = CCValidateIsInstanceOfExpectedClass();
+        v73 = v90;
 
-        if ((v85 & 1) == 0)
+        if ((v84 & 1) == 0)
         {
           v15 = v73;
           CCSetError();
-          v82 = v72;
+          v81 = v72;
           v36 = 0;
-          v58 = v92;
+          v58 = v91;
           goto LABEL_72;
         }
 
-        v86 = v73;
+        v85 = v73;
         v74 = objc_alloc(MEMORY[0x1E695DF00]);
         [v72 doubleValue];
         v75 = [v74 initWithTimeIntervalSinceReferenceDate:?];
 
-        v82 = v75;
+        v81 = v75;
         v76 = errorCopy4;
-        v68 = v88;
+        v68 = v87;
       }
 
       else
       {
-        v82 = 0;
-        v86 = v91;
+        v81 = 0;
+        v85 = v90;
         v76 = errorCopy4;
       }
 
-      v80 = v68;
-      LODWORD(v79) = unsignedIntegerValue;
-      v58 = v92;
-      v36 = [[CCWalletExtractedOrderContent alloc] initWithOrderTypeIdentifier:v9 orderIdentifier:v10 orderNumber:v101 orderEmails:v16 orderDate:v27 merchant:v92 shippingFulfillments:v34 customer:v51 payment:v100 orderUpdateDate:v104 trackedOrderIdentifier:v87 orderStatus:v79 earliestEmailDateSent:v80 orderStatusUpdateDate:v82 error:v76];
-      v15 = v86;
+      v79 = v68;
+      LODWORD(v78) = unsignedIntegerValue;
+      v58 = v91;
+      v36 = [[CCWalletExtractedOrderContent alloc] initWithOrderTypeIdentifier:v9 orderIdentifier:v10 orderNumber:v100 orderEmails:v16 orderDate:v27 merchant:v91 shippingFulfillments:v34 customer:v51 payment:v99 orderUpdateDate:v103 trackedOrderIdentifier:v86 orderStatus:v78 earliestEmailDateSent:v79 orderStatusUpdateDate:v81 error:v76];
+      v15 = v85;
 LABEL_72:
 
       goto LABEL_73;
@@ -408,7 +408,7 @@ LABEL_72:
     v61 = v10;
     objc_opt_class();
     v62 = CCValidateIsInstanceOfExpectedClass();
-    v63 = v91;
+    v63 = v90;
 
     if (v62)
     {
@@ -416,25 +416,25 @@ LABEL_72:
       [v60 doubleValue];
       v65 = [v64 initWithTimeIntervalSinceReferenceDate:?];
 
-      v104 = v65;
-      v91 = v63;
+      v103 = v65;
+      v90 = v63;
       v10 = v61;
-      v27 = v90;
+      v27 = v89;
       goto LABEL_58;
     }
 
-    v104 = v60;
+    v103 = v60;
     CCSetError();
     v36 = 0;
     v15 = v63;
     v10 = v61;
-    v27 = v90;
-    v58 = v92;
+    v27 = v89;
+    v58 = v91;
 LABEL_74:
 
 LABEL_75:
 LABEL_76:
-    v11 = v101;
+    v11 = v100;
     goto LABEL_77;
   }
 
@@ -442,13 +442,12 @@ LABEL_76:
   v36 = 0;
 LABEL_78:
 
-  v77 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
 - (id)jsonDictionary
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_orderTypeIdentifier)
   {
@@ -471,30 +470,30 @@ LABEL_78:
   if (self->_orderEmails)
   {
     v7 = objc_opt_new();
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     orderEmails = [(CCWalletExtractedOrderContent *)self orderEmails];
-    v9 = [orderEmails countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v9 = [orderEmails countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v41;
+      v11 = *v40;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v41 != v11)
+          if (*v40 != v11)
           {
             objc_enumerationMutation(orderEmails);
           }
 
-          jsonDictionary = [*(*(&v40 + 1) + 8 * i) jsonDictionary];
+          jsonDictionary = [*(*(&v39 + 1) + 8 * i) jsonDictionary];
           [v7 addObject:jsonDictionary];
         }
 
-        v10 = [orderEmails countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v10 = [orderEmails countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v10);
@@ -519,30 +518,30 @@ LABEL_78:
   if (self->_shippingFulfillments)
   {
     v17 = objc_opt_new();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     shippingFulfillments = [(CCWalletExtractedOrderContent *)self shippingFulfillments];
-    v19 = [shippingFulfillments countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v19 = [shippingFulfillments countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v37;
+      v21 = *v36;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(shippingFulfillments);
           }
 
-          jsonDictionary3 = [*(*(&v36 + 1) + 8 * j) jsonDictionary];
+          jsonDictionary3 = [*(*(&v35 + 1) + 8 * j) jsonDictionary];
           [v17 addObject:jsonDictionary3];
         }
 
-        v20 = [shippingFulfillments countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v20 = [shippingFulfillments countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v20);
@@ -593,8 +592,6 @@ LABEL_78:
   }
 
   v33 = [v3 copy];
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v33;
 }
@@ -809,7 +806,7 @@ LABEL_78:
   if (*&v5[*MEMORY[0x1E6993AB8]] >= *&v5[*MEMORY[0x1E6993AB0]])
   {
     v9 = 0;
-    v71 = 0;
+    v68 = 0;
 LABEL_78:
     v8 = 0;
   }
@@ -817,7 +814,7 @@ LABEL_78:
   else
   {
     v8 = 0;
-    v71 = 0;
+    v68 = 0;
     v9 = 0;
     v10 = MEMORY[0x1E6993AA8];
     v11 = MEMORY[0x1E6993AA0];
@@ -910,21 +907,21 @@ LABEL_21:
           goto LABEL_46;
         case 4u:
           v33 = CCPBReaderReadDataNoCopy();
-          if (!v71)
+          if (!v68)
           {
-            v71 = objc_opt_new();
+            v68 = objc_opt_new();
           }
 
           v43 = [CCWalletExtractedOrderContentExtractedEmail alloc];
-          v76 = 0;
-          v44 = [(CCItemMessage *)v43 initWithData:v33 error:&v76];
-          v8 = v76;
+          v73 = 0;
+          v44 = [(CCItemMessage *)v43 initWithData:v33 error:&v73];
+          v8 = v73;
           if (v8 || !v44)
           {
             goto LABEL_54;
           }
 
-          v45 = v71;
+          v45 = v68;
           goto LABEL_53;
         case 5u:
           v24 = CCPBReaderReadStringNoCopy();
@@ -933,9 +930,9 @@ LABEL_21:
         case 6u:
           v32 = [CCWalletPaymentsCommerceTrackedOrderMerchant alloc];
           v33 = CCPBReaderReadDataNoCopy();
-          v75 = 0;
-          v34 = [(CCItemMessage *)v32 initWithData:v33 error:&v75];
-          v8 = v75;
+          v72 = 0;
+          v34 = [(CCItemMessage *)v32 initWithData:v33 error:&v72];
+          v8 = v72;
           v35 = 112;
           goto LABEL_60;
         case 7u:
@@ -946,9 +943,9 @@ LABEL_21:
           }
 
           v47 = [CCWalletExtractedOrderContentShippingFulfillment alloc];
-          v74 = 0;
-          v44 = [(CCItemMessage *)v47 initWithData:v33 error:&v74];
-          v8 = v74;
+          v71 = 0;
+          v44 = [(CCItemMessage *)v47 initWithData:v33 error:&v71];
+          v8 = v71;
           if (v8 || !v44)
           {
             goto LABEL_54;
@@ -963,17 +960,17 @@ LABEL_54:
         case 8u:
           v48 = [CCWalletPaymentsCommerceTrackedOrderCustomer alloc];
           v33 = CCPBReaderReadDataNoCopy();
-          v73 = 0;
-          v34 = [(CCItemMessage *)v48 initWithData:v33 error:&v73];
-          v8 = v73;
+          v70 = 0;
+          v34 = [(CCItemMessage *)v48 initWithData:v33 error:&v70];
+          v8 = v70;
           v35 = 128;
           goto LABEL_60;
         case 9u:
           v52 = [CCWalletPaymentsCommerceTrackedOrderPayment alloc];
           v33 = CCPBReaderReadDataNoCopy();
-          v72 = 0;
-          v34 = [(CCItemMessage *)v52 initWithData:v33 error:&v72];
-          v8 = v72;
+          v69 = 0;
+          v34 = [(CCItemMessage *)v52 initWithData:v33 error:&v69];
+          v8 = v69;
           v35 = 136;
 LABEL_60:
           v53 = *(&self->super.super.isa + v35);
@@ -997,7 +994,7 @@ LABEL_60:
 
           v8 = 0;
           self->_raw_orderUpdateDate = v51;
-          v56 = 16;
+          v55 = 16;
           goto LABEL_74;
         case 0xCu:
           v24 = CCPBReaderReadStringNoCopy();
@@ -1029,7 +1026,7 @@ LABEL_46:
 
           v8 = 0;
           self->_raw_earliestEmailDateSent = v31;
-          v56 = 32;
+          v55 = 32;
           goto LABEL_74;
         case 0xFu:
           v26 = *v6;
@@ -1048,9 +1045,9 @@ LABEL_46:
 
           v8 = 0;
           self->_raw_orderStatusUpdateDate = v28;
-          v56 = 48;
+          v55 = 48;
 LABEL_74:
-          *(&self->super.super.isa + v56) = 1;
+          *(&self->super.super.isa + v55) = 1;
           continue;
         default:
           if (CCPBReaderSkipValueWithTag())
@@ -1063,7 +1060,6 @@ LABEL_47:
           {
             v54 = objc_opt_class();
             v33 = NSStringFromClass(v54);
-            v55 = *&v5[*v10];
             v8 = CCSkipFieldErrorForMessage();
 LABEL_61:
           }
@@ -1113,48 +1109,46 @@ LABEL_67:
     while (*&v5[*v6] < *&v5[*v7]);
   }
 
-  v57 = [v71 copy];
+  v56 = [v68 copy];
   orderEmails = self->_orderEmails;
-  self->_orderEmails = v57;
+  self->_orderEmails = v56;
 
-  v59 = [v9 copy];
+  v58 = [v9 copy];
   shippingFulfillments = self->_shippingFulfillments;
-  self->_shippingFulfillments = v59;
+  self->_shippingFulfillments = v58;
 
   if (v8)
   {
     CCSetError();
-    v61 = 0;
-    v62 = dataCopy;
+    v60 = 0;
+    v61 = dataCopy;
   }
 
   else
   {
-    v63 = MEMORY[0x1E6993AA8];
-    v62 = dataCopy;
+    v61 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v64 = objc_opt_class();
-      v65 = NSStringFromClass(v64);
-      v66 = *&v5[*v63];
-      v67 = CCInvalidBufferErrorForMessage();
+      v62 = objc_opt_class();
+      v63 = NSStringFromClass(v62);
+      v64 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v61 = 0;
+      v60 = 0;
     }
 
     else
     {
-      v61 = 1;
+      v60 = 1;
     }
   }
 
-  return v61;
+  return v60;
 }
 
 - (CCWalletExtractedOrderContent)initWithOrderTypeIdentifier:(id)identifier orderIdentifier:(id)orderIdentifier orderNumber:(id)number orderEmails:(id)emails orderDate:(id)date merchant:(id)merchant shippingFulfillments:(id)fulfillments customer:(id)self0 payment:(id)self1 orderUpdateDate:(id)self2 trackedOrderIdentifier:(id)self3 orderStatus:(unsigned int)self4 earliestEmailDateSent:(id)self5 orderStatusUpdateDate:(id)self6 error:(id *)self7
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   orderIdentifierCopy = orderIdentifier;
   numberCopy = number;
@@ -1169,17 +1163,16 @@ LABEL_67:
   sentCopy = sent;
   statusUpdateDateCopy = statusUpdateDate;
   v27 = objc_opt_new();
-  v28 = 0x1E696A000uLL;
   if (identifierCopy)
   {
     objc_opt_class();
-    v95 = 0;
+    v91 = 0;
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-    v30 = 0;
+    v29 = 0;
     if (!IsInstanceOfExpectedClass)
     {
       CCSetError();
-      v40 = 0;
+      v39 = 0;
       selfCopy3 = self;
       goto LABEL_70;
     }
@@ -1189,13 +1182,13 @@ LABEL_67:
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  v71 = fulfillmentsCopy;
+  v67 = fulfillmentsCopy;
   if (!orderIdentifierCopy)
   {
-    v32 = v30;
+    v31 = v29;
     if (!numberCopy)
     {
       goto LABEL_8;
@@ -1203,11 +1196,11 @@ LABEL_67:
 
 LABEL_20:
     objc_opt_class();
-    v93 = v32;
-    v42 = CCValidateIsInstanceOfExpectedClass();
-    v30 = v32;
+    v89 = v31;
+    v41 = CCValidateIsInstanceOfExpectedClass();
+    v29 = v31;
 
-    if (!v42)
+    if (!v41)
     {
       goto LABEL_67;
     }
@@ -1222,11 +1215,11 @@ LABEL_20:
   }
 
   objc_opt_class();
-  v94 = v30;
-  v31 = CCValidateIsInstanceOfExpectedClass();
-  v32 = v30;
+  v90 = v29;
+  v30 = CCValidateIsInstanceOfExpectedClass();
+  v31 = v29;
 
-  if (!v31)
+  if (!v30)
   {
     goto LABEL_62;
   }
@@ -1238,67 +1231,65 @@ LABEL_20:
   }
 
 LABEL_8:
-  v30 = v32;
+  v29 = v31;
   if (emailsCopy)
   {
 LABEL_9:
     objc_opt_class();
-    v92 = v30;
-    v33 = CCValidateArrayValues();
-    v32 = v30;
+    v88 = v29;
+    v32 = CCValidateArrayValues();
+    v31 = v29;
 
-    if (!v33)
+    if (!v32)
     {
       goto LABEL_62;
     }
 
-    v69 = identifierCopy;
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v34 = emailsCopy;
-    v35 = [v34 countByEnumeratingWithState:&v88 objects:v97 count:16];
-    if (v35)
+    v65 = identifierCopy;
+    v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v33 = emailsCopy;
+    v34 = [v33 countByEnumeratingWithState:&v84 objects:v93 count:16];
+    if (v34)
     {
-      v36 = v35;
-      v37 = *v89;
+      v35 = v34;
+      v36 = *v85;
       do
       {
-        for (i = 0; i != v36; ++i)
+        for (i = 0; i != v35; ++i)
         {
-          if (*v89 != v37)
+          if (*v85 != v36)
           {
-            objc_enumerationMutation(v34);
+            objc_enumerationMutation(v33);
           }
 
-          data = [*(*(&v88 + 1) + 8 * i) data];
+          data = [*(*(&v84 + 1) + 8 * i) data];
           CCPBDataWriterWriteDataField();
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v88 objects:v97 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v84 objects:v93 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
 
-    identifierCopy = v69;
-    v28 = 0x1E696A000;
+    identifierCopy = v65;
     goto LABEL_23;
   }
 
 LABEL_22:
-  v32 = v30;
+  v31 = v29;
 LABEL_23:
   if (dateCopy)
   {
-    v43 = *(v28 + 3776);
     objc_opt_class();
-    v87 = v32;
-    v44 = CCValidateIsInstanceOfExpectedClass();
-    v30 = v32;
+    v83 = v31;
+    v42 = CCValidateIsInstanceOfExpectedClass();
+    v29 = v31;
 
-    if (!v44)
+    if (!v42)
     {
       goto LABEL_67;
     }
@@ -1308,44 +1299,44 @@ LABEL_23:
 
   else
   {
-    v30 = v32;
+    v29 = v31;
   }
 
   if (merchantCopy)
   {
     objc_opt_class();
-    v86 = v30;
-    v45 = CCValidateIsInstanceOfExpectedClass();
-    v32 = v30;
+    v82 = v29;
+    v43 = CCValidateIsInstanceOfExpectedClass();
+    v31 = v29;
 
-    if (!v45)
+    if (!v43)
     {
       goto LABEL_62;
     }
 
-    v68 = emailsCopy;
+    v64 = emailsCopy;
     data2 = [merchantCopy data];
     CCPBDataWriterWriteDataField();
   }
 
   else
   {
-    v68 = emailsCopy;
-    v32 = v30;
+    v64 = emailsCopy;
+    v31 = v29;
   }
 
-  if (!v71)
+  if (!v67)
   {
-    v30 = v32;
-    emailsCopy = v68;
+    v29 = v31;
+    emailsCopy = v64;
 LABEL_42:
     if (customerCopy)
     {
       objc_opt_class();
-      v54 = CCValidateIsInstanceOfExpectedClass();
-      v32 = v30;
+      v52 = CCValidateIsInstanceOfExpectedClass();
+      v31 = v29;
 
-      if (!v54)
+      if (!v52)
       {
         goto LABEL_62;
       }
@@ -1356,16 +1347,16 @@ LABEL_42:
 
     else
     {
-      v32 = v30;
+      v31 = v29;
     }
 
     if (paymentCopy)
     {
       objc_opt_class();
-      v56 = CCValidateIsInstanceOfExpectedClass();
-      v30 = v32;
+      v54 = CCValidateIsInstanceOfExpectedClass();
+      v29 = v31;
 
-      if (!v56)
+      if (!v54)
       {
         goto LABEL_67;
       }
@@ -1376,16 +1367,16 @@ LABEL_42:
 
     else
     {
-      v30 = v32;
+      v29 = v31;
     }
 
     if (updateDateCopy)
     {
       objc_opt_class();
-      v58 = CCValidateIsInstanceOfExpectedClass();
-      v32 = v30;
+      v56 = CCValidateIsInstanceOfExpectedClass();
+      v31 = v29;
 
-      if (!v58)
+      if (!v56)
       {
         goto LABEL_62;
       }
@@ -1396,17 +1387,16 @@ LABEL_42:
 
     else
     {
-      v32 = v30;
+      v31 = v29;
     }
 
     if (trackedOrderIdentifierCopy)
     {
-      v59 = *(v28 + 3776);
       objc_opt_class();
-      v60 = CCValidateIsInstanceOfExpectedClass();
-      v30 = v32;
+      v57 = CCValidateIsInstanceOfExpectedClass();
+      v29 = v31;
 
-      if (!v60)
+      if (!v57)
       {
         goto LABEL_67;
       }
@@ -1416,33 +1406,33 @@ LABEL_42:
 
     else
     {
-      v30 = v32;
+      v29 = v31;
     }
 
     if (!status)
     {
-      v32 = v30;
+      v31 = v29;
       goto LABEL_64;
     }
 
-    v61 = CCValidateEnumField();
-    v32 = v30;
+    v58 = CCValidateEnumField();
+    v31 = v29;
 
-    if (v61)
+    if (v58)
     {
       CCPBDataWriterWriteUint32Field();
 LABEL_64:
       if (!sentCopy)
       {
-        v30 = v32;
+        v29 = v31;
         goto LABEL_72;
       }
 
       objc_opt_class();
-      v62 = CCValidateIsInstanceOfExpectedClass();
-      v30 = v32;
+      v59 = CCValidateIsInstanceOfExpectedClass();
+      v29 = v31;
 
-      if (v62)
+      if (v59)
       {
         [sentCopy timeIntervalSinceReferenceDate];
         CCPBDataWriterWriteDoubleField();
@@ -1453,97 +1443,95 @@ LABEL_75:
           immutableData = [v27 immutableData];
           selfCopy3 = [(CCItemMessage *)self initWithData:immutableData error:error];
 
-          v40 = selfCopy3;
+          v39 = selfCopy3;
           goto LABEL_69;
         }
 
         objc_opt_class();
-        v65 = CCValidateIsInstanceOfExpectedClass();
-        v66 = v30;
+        v61 = CCValidateIsInstanceOfExpectedClass();
+        v62 = v29;
 
-        if (v65)
+        if (v61)
         {
           [statusUpdateDateCopy timeIntervalSinceReferenceDate];
           CCPBDataWriterWriteDoubleField();
-          v30 = v66;
+          v29 = v62;
           goto LABEL_75;
         }
 
         CCSetError();
-        v40 = 0;
-        v30 = v66;
+        v39 = 0;
+        v29 = v62;
 LABEL_68:
         selfCopy3 = self;
 LABEL_69:
-        fulfillmentsCopy = v71;
+        fulfillmentsCopy = v67;
         goto LABEL_70;
       }
 
 LABEL_67:
       CCSetError();
-      v40 = 0;
+      v39 = 0;
       goto LABEL_68;
     }
 
 LABEL_62:
     CCSetError();
-    v40 = 0;
-    v30 = v32;
+    v39 = 0;
+    v29 = v31;
     goto LABEL_68;
   }
 
   objc_opt_class();
-  v85 = v32;
-  v47 = CCValidateArrayValues();
-  v30 = v32;
+  v81 = v31;
+  v45 = CCValidateArrayValues();
+  v29 = v31;
 
-  if (v47)
+  if (v45)
   {
-    v70 = identifierCopy;
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v48 = v71;
-    v49 = [v48 countByEnumeratingWithState:&v81 objects:v96 count:16];
-    emailsCopy = v68;
-    if (v49)
+    v66 = identifierCopy;
+    v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
+    v46 = v67;
+    v47 = [v46 countByEnumeratingWithState:&v77 objects:v92 count:16];
+    emailsCopy = v64;
+    if (v47)
     {
-      v50 = v49;
-      v51 = *v82;
+      v48 = v47;
+      v49 = *v78;
       do
       {
-        for (j = 0; j != v50; ++j)
+        for (j = 0; j != v48; ++j)
         {
-          if (*v82 != v51)
+          if (*v78 != v49)
           {
-            objc_enumerationMutation(v48);
+            objc_enumerationMutation(v46);
           }
 
-          data5 = [*(*(&v81 + 1) + 8 * j) data];
+          data5 = [*(*(&v77 + 1) + 8 * j) data];
           CCPBDataWriterWriteDataField();
         }
 
-        v50 = [v48 countByEnumeratingWithState:&v81 objects:v96 count:16];
+        v48 = [v46 countByEnumeratingWithState:&v77 objects:v92 count:16];
       }
 
-      while (v50);
+      while (v48);
     }
 
-    identifierCopy = v70;
-    v28 = 0x1E696A000;
+    identifierCopy = v66;
     goto LABEL_42;
   }
 
   CCSetError();
-  v40 = 0;
+  v39 = 0;
   selfCopy3 = self;
-  fulfillmentsCopy = v71;
-  emailsCopy = v68;
+  fulfillmentsCopy = v67;
+  emailsCopy = v64;
 LABEL_70:
 
-  v63 = *MEMORY[0x1E69E9840];
-  return v40;
+  return v39;
 }
 
 + (id)descriptionForTypeIdentifier:(unsigned __int16)identifier

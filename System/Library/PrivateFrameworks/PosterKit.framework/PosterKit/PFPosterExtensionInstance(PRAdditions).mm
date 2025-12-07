@@ -72,7 +72,7 @@
   if (v2)
   {
     v4 = MEMORY[0x1E698E620];
-    [v2 auditToken];
+    objc_msgSend_auditToken(v2);
     v5 = [v4 tokenFromAuditToken:&v11];
     v6 = MEMORY[0x1E69C7640];
     processIdentity = [self processIdentity];
@@ -144,88 +144,88 @@
 
 - (id)pr_updateDescriptors:()PRAdditions sessionInfo:
 {
-  v73 = *MEMORY[0x1E69E9840];
-  v41 = a3;
-  v40 = a4;
-  v6 = PRLogUpdatingService();
+  v76 = *MEMORY[0x1E69E9840];
+  v44 = a3;
+  v43 = a4;
+  v6 = PRLogUpdatingService(v43);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v41;
+    *(&buf + 4) = v44;
     _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: starting for descriptors: %{pubic}@", &buf, 0xCu);
   }
 
   v7 = MEMORY[0x1E69C5268];
   pr_reloadDescriptorOperationQueue = [self pr_reloadDescriptorOperationQueue];
-  v43 = [v7 operationQueueSchedulerWithOperationQueue:pr_reloadDescriptorOperationQueue qualityOfService:4];
+  v46 = [v7 operationQueueSchedulerWithOperationQueue:pr_reloadDescriptorOperationQueue qualityOfService:4];
 
   v9 = objc_alloc_init(MEMORY[0x1E69C5260]);
   future = [v9 future];
   v10 = objc_opt_new();
   v11 = objc_opt_new();
-  v63[0] = MEMORY[0x1E69E9820];
-  v63[1] = 3221225472;
-  v63[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke;
-  v63[3] = &unk_1E7843070;
-  v39 = v11;
-  v64 = v39;
+  v66[0] = MEMORY[0x1E69E9820];
+  v66[1] = 3221225472;
+  v66[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke;
+  v66[3] = &unk_1E7843070;
+  v42 = v11;
+  v67 = v42;
   v12 = v10;
-  v65 = v12;
-  v13 = MEMORY[0x1AC574C60](v63);
+  v68 = v12;
+  v13 = MEMORY[0x1AC574C60](v66);
   v14 = objc_opt_new();
-  v59[0] = MEMORY[0x1E69E9820];
-  v59[1] = 3221225472;
-  v59[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke_26;
-  v59[3] = &unk_1E7844E70;
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3221225472;
+  v62[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke_26;
+  v62[3] = &unk_1E7844E70;
   v15 = v14;
-  v60 = v15;
+  v63 = v15;
   v16 = v9;
-  v61 = v16;
+  v64 = v16;
   v17 = v13;
-  v62 = v17;
-  v18 = MEMORY[0x1AC574C60](v59);
+  v65 = v17;
+  v18 = MEMORY[0x1AC574C60](v62);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__5;
-  v71 = __Block_byref_object_dispose__5;
-  v72 = 0;
+  v72 = 0x3032000000;
+  v73 = __Block_byref_object_copy__5;
+  v74 = __Block_byref_object_dispose__5;
+  v75 = 0;
   extension = [self extension];
   posterExtensionBundleIdentifier = [extension posterExtensionBundleIdentifier];
 
-  v21 = PRLogUpdatingService();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = PRLogUpdatingService(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    *v66 = 138543362;
-    v67 = posterExtensionBundleIdentifier;
-    _os_log_impl(&dword_1A8AA7000, v21, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: creating finishTask assertion for bundle: %{public}@", v66, 0xCu);
+    *v69 = 138543362;
+    v70 = posterExtensionBundleIdentifier;
+    _os_log_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: creating finishTask assertion for bundle: %{public}@", v69, 0xCu);
   }
 
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke_29;
-  v55[3] = &unk_1E7844EC0;
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke_29;
+  v58[3] = &unk_1E7844EC0;
   p_buf = &buf;
-  v22 = posterExtensionBundleIdentifier;
-  v56 = v22;
-  v23 = v18;
-  v57 = v23;
-  [v12 mutateUserInfo:v55];
-  v24 = PRLogUpdatingService();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v23 = posterExtensionBundleIdentifier;
+  v59 = v23;
+  v24 = v18;
+  v60 = v24;
+  v25 = PRLogUpdatingService([v12 mutateUserInfo:v58]);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    *v66 = 0;
-    _os_log_impl(&dword_1A8AA7000, v24, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: acquiring finishTask assertion", v66, 2u);
+    *v69 = 0;
+    _os_log_impl(&dword_1A8AA7000, v25, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: acquiring finishTask assertion", v69, 2u);
   }
 
-  v25 = *(*(&buf + 1) + 40);
-  v54 = 0;
-  [v25 acquireWithError:&v54];
-  v26 = v54;
-  if (v26)
+  v26 = *(*(&buf + 1) + 40);
+  v57 = 0;
+  [v26 acquireWithError:&v57];
+  v27 = v57;
+  v28 = v27;
+  if (v27)
   {
-    v27 = PRLogUpdatingService();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = PRLogUpdatingService(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [PFPosterExtensionInstance(PRAdditions) pr_updateDescriptors:sessionInfo:];
     }
@@ -233,48 +233,48 @@
 
   else
   {
-    v27 = PRLogUpdatingService();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v29 = PRLogUpdatingService(0);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      *v66 = 0;
-      _os_log_impl(&dword_1A8AA7000, v27, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: finishTask assertion acquired successfully", v66, 2u);
+      *v69 = 0;
+      _os_log_impl(&dword_1A8AA7000, v29, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: finishTask assertion acquired successfully", v69, 2u);
     }
   }
 
-  v28 = PRLogUpdatingService();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v31 = PRLogUpdatingService(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    *v66 = 0;
-    _os_log_impl(&dword_1A8AA7000, v28, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: scheduling work on operation queue", v66, 2u);
+    *v69 = 0;
+    _os_log_impl(&dword_1A8AA7000, v31, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: scheduling work on operation queue", v69, 2u);
   }
 
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke_34;
-  v46[3] = &unk_1E7844FB0;
-  v46[4] = self;
-  v29 = v23;
-  v52 = v29;
-  v30 = v12;
-  v47 = v30;
-  v31 = v22;
-  v48 = v31;
-  v32 = v41;
-  v49 = v32;
-  v33 = v40;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke_34;
+  v49[3] = &unk_1E7844FB0;
+  v49[4] = self;
+  v32 = v24;
+  v55 = v32;
+  v33 = v12;
   v50 = v33;
-  v34 = v16;
+  v34 = v23;
   v51 = v34;
-  v35 = v17;
-  v53 = v35;
-  [v43 performBlock:v46];
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke_70;
-  v44[3] = &unk_1E7844E98;
-  v36 = v29;
-  v45 = v36;
-  v37 = [future timeoutAfter:v44 cleanup:300.0];
+  v35 = v44;
+  v52 = v35;
+  v36 = v43;
+  v53 = v36;
+  v37 = v16;
+  v54 = v37;
+  v38 = v17;
+  v56 = v38;
+  [v46 performBlock:v49];
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __75__PFPosterExtensionInstance_PRAdditions__pr_updateDescriptors_sessionInfo___block_invoke_70;
+  v47[3] = &unk_1E7844E98;
+  v39 = v32;
+  v48 = v39;
+  v40 = [future timeoutAfter:v47 cleanup:300.0];
 
   _Block_object_dispose(&buf, 8);
 
@@ -285,106 +285,107 @@
 {
   v8 = a3;
   v9 = a4;
-  v42 = a5;
+  v43 = a5;
   v10 = MEMORY[0x1E69C5268];
   pr_reloadDescriptorOperationQueue = [self pr_reloadDescriptorOperationQueue];
-  v44 = [v10 operationQueueSchedulerWithOperationQueue:pr_reloadDescriptorOperationQueue qualityOfService:4];
+  v45 = [v10 operationQueueSchedulerWithOperationQueue:pr_reloadDescriptorOperationQueue qualityOfService:4];
 
   v12 = objc_alloc_init(MEMORY[0x1E69C5260]);
   future = [v12 future];
   v13 = objc_opt_new();
   v14 = objc_opt_new();
-  v72[0] = MEMORY[0x1E69E9820];
-  v72[1] = 3221225472;
-  v72[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke;
-  v72[3] = &unk_1E7843070;
-  v41 = v13;
-  v73 = v41;
+  v73[0] = MEMORY[0x1E69E9820];
+  v73[1] = 3221225472;
+  v73[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke;
+  v73[3] = &unk_1E7843070;
+  v42 = v13;
+  v74 = v42;
   v15 = v14;
-  v74 = v15;
-  v16 = MEMORY[0x1AC574C60](v72);
+  v75 = v15;
+  v16 = MEMORY[0x1AC574C60](v73);
   v17 = objc_opt_new();
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke_74;
-  v68[3] = &unk_1E7844E70;
-  v40 = v17;
-  v69 = v40;
+  v69[0] = MEMORY[0x1E69E9820];
+  v69[1] = 3221225472;
+  v69[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke_74;
+  v69[3] = &unk_1E7844E70;
+  v41 = v17;
+  v70 = v41;
   v18 = v12;
-  v70 = v18;
+  v71 = v18;
   v19 = v16;
-  v71 = v19;
-  v20 = MEMORY[0x1AC574C60](v68);
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = __Block_byref_object_copy__5;
-  v66 = __Block_byref_object_dispose__5;
-  v67 = 0;
+  v72 = v19;
+  v20 = MEMORY[0x1AC574C60](v69);
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = __Block_byref_object_copy__5;
+  v67 = __Block_byref_object_dispose__5;
+  v68 = 0;
   extension = [self extension];
   posterExtensionBundleIdentifier = [extension posterExtensionBundleIdentifier];
 
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke_75;
-  v58[3] = &unk_1E7844EC0;
-  v61 = &v62;
+  v59[0] = MEMORY[0x1E69E9820];
+  v59[1] = 3221225472;
+  v59[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke_75;
+  v59[3] = &unk_1E7844EC0;
+  v62 = &v63;
   v23 = posterExtensionBundleIdentifier;
-  v59 = v23;
+  v60 = v23;
   v24 = v20;
-  v60 = v24;
-  [v15 mutateUserInfo:v58];
-  v25 = v63[5];
-  v57 = 0;
-  [v25 acquireWithError:&v57];
-  v26 = v57;
+  v61 = v24;
+  [v15 mutateUserInfo:v59];
+  v25 = v64[5];
+  v58 = 0;
+  [v25 acquireWithError:&v58];
+  v26 = v58;
+  v27 = v26;
   if (v26)
   {
-    v27 = PRLogUpdatingService();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = PRLogUpdatingService(v26);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [PFPosterExtensionInstance(PRAdditions) pr_updateSuggestions:forConfiguration:sessionInfo:];
     }
   }
 
-  v28 = PRLogUpdatingService();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = PRLogUpdatingService(v26);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A8AA7000, v28, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: scheduling work on operation queue", buf, 2u);
+    _os_log_impl(&dword_1A8AA7000, v29, OS_LOG_TYPE_DEFAULT, "pr_updateDescriptors:sessionInfo: scheduling work on operation queue", buf, 2u);
   }
 
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke_79;
-  v47[3] = &unk_1E7845000;
-  v47[4] = self;
-  v29 = v24;
-  v54 = v29;
-  v30 = v15;
-  v48 = v30;
-  v31 = v23;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke_79;
+  v48[3] = &unk_1E7845000;
+  v48[4] = self;
+  v30 = v24;
+  v55 = v30;
+  v31 = v15;
   v49 = v31;
-  v32 = v9;
+  v32 = v23;
   v50 = v32;
-  v33 = v8;
+  v33 = v9;
   v51 = v33;
-  v34 = v42;
+  v34 = v8;
   v52 = v34;
-  v35 = v18;
+  v35 = v43;
   v53 = v35;
-  v36 = v19;
-  v55 = v36;
-  [v44 performBlock:v47];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke_8;
-  v45[3] = &unk_1E7844E98;
-  v37 = v29;
-  v46 = v37;
-  v38 = [future timeoutAfter:v45 cleanup:300.0];
+  v36 = v18;
+  v54 = v36;
+  v37 = v19;
+  v56 = v37;
+  [v45 performBlock:v48];
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __92__PFPosterExtensionInstance_PRAdditions__pr_updateSuggestions_forConfiguration_sessionInfo___block_invoke_8;
+  v46[3] = &unk_1E7844E98;
+  v38 = v30;
+  v47 = v38;
+  v39 = [future timeoutAfter:v46 cleanup:300.0];
 
-  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v63, 8);
 
   return future;
 }

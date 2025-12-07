@@ -58,37 +58,41 @@
     v49 = objc_msgSend_universalPlaybackQueueIdentifierForPodcastUuid_podcastFeedUrl_podcastStoreId_sampPlaybackOrder_(v42, v48, v20, v37, 0, v47);
   }
 
-  else if (objc_msgSend_isEqualToString_(v11, v24, @"store", v26, v27))
-  {
-    v54 = objc_msgSend_sharedInstance(MTPlaybackIdentifierUtil, v50, v51, v52, v53);
-    v59 = objc_msgSend_episodePlaybackOrder(self, v55, v56, v57, v58);
-    v49 = objc_msgSend_playbackQueueIdentifierForPodcastAdamId_sampPlaybackOrder_(v54, v60, v20, v59, v61);
-
-    if (identifiers)
-    {
-      *identifiers = 1;
-    }
-  }
-
   else
   {
-    POLogInitIfNeeded();
-    if (POLogContextCommand)
+    isEqualToString = objc_msgSend_isEqualToString_(v11, v24, @"store", v26, v27);
+    if (isEqualToString)
     {
-      v62 = POLogContextCommand;
+      v55 = objc_msgSend_sharedInstance(MTPlaybackIdentifierUtil, v51, v52, v53, v54);
+      v60 = objc_msgSend_episodePlaybackOrder(self, v56, v57, v58, v59);
+      v49 = objc_msgSend_playbackQueueIdentifierForPodcastAdamId_sampPlaybackOrder_(v55, v61, v20, v60, v62);
+
+      if (identifiers)
+      {
+        *identifiers = 1;
+      }
     }
 
     else
     {
-      v62 = MEMORY[0x277D86220];
-    }
+      POLogInitIfNeeded(isEqualToString, v51);
+      if (POLogContextCommand)
+      {
+        v63 = POLogContextCommand;
+      }
 
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
-    {
-      sub_233538728(v62, self);
-    }
+      else
+      {
+        v63 = MEMORY[0x277D86220];
+      }
 
-    v49 = 0;
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      {
+        sub_233538728(v63, self);
+      }
+
+      v49 = 0;
+    }
   }
 
   return v49;

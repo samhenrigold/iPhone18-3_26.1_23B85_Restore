@@ -61,11 +61,11 @@
 
 - (CESRDirectDonationConfig)initWithJsonObject:(id)object
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v13.receiver = self;
-  v13.super_class = CESRDirectDonationConfig;
-  v5 = [(CESRDirectDonationConfig *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = CESRDirectDonationConfig;
+  v5 = [(CESRDirectDonationConfig *)&v12 init];
   v6 = v5;
   if (!v5)
   {
@@ -82,9 +82,9 @@ LABEL_5:
     {
       fieldTypeToMapping = v6->_fieldTypeToMapping;
       *buf = 136315394;
-      v15 = "[CESRDirectDonationConfig initWithJsonObject:]";
-      v16 = 2112;
-      v17 = fieldTypeToMapping;
+      v14 = "[CESRDirectDonationConfig initWithJsonObject:]";
+      v15 = 2112;
+      v16 = fieldTypeToMapping;
       _os_log_debug_impl(&dword_225EEB000, v8, OS_LOG_TYPE_DEBUG, "%s Direct donation mapping: %@", buf, 0x16u);
     }
 
@@ -94,115 +94,107 @@ LABEL_5:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v15 = "[CESRDirectDonationConfig initWithJsonObject:]";
+    v14 = "[CESRDirectDonationConfig initWithJsonObject:]";
     _os_log_error_impl(&dword_225EEB000, v8, OS_LOG_TYPE_ERROR, "%s Failed to parse Direct Donation section of json.", buf, 0xCu);
   }
 
   v9 = 0;
 LABEL_9:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (id)_parseFieldTypeMappings:(id)mappings
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   mappingsCopy = mappings;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v5 = mappingsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = 0x277CBE000uLL;
-    v9 = *v35;
-    v31 = v5;
-    v32 = dictionary;
+    v8 = *v31;
+    v27 = v5;
+    v28 = dictionary;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v35 != v9)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * i);
-        v12 = *(v8 + 2752);
+        v10 = *(*(&v30 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = v11;
-          v14 = [v13 objectForKeyedSubscript:@"fieldType"];
+          v11 = v10;
+          v12 = [v11 objectForKeyedSubscript:@"fieldType"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v15 = v14;
-            v16 = [v13 objectForKeyedSubscript:@"primaryLme"];
-            v17 = *(v8 + 2752);
+            v13 = v12;
+            v14 = [v11 objectForKeyedSubscript:@"primaryLme"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v18 = v16;
-              v19 = [v18 objectForKeyedSubscript:@"templateName"];
+              v15 = v14;
+              v16 = [v15 objectForKeyedSubscript:@"templateName"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v33 = v19;
-                v20 = [v18 objectForKeyedSubscript:@"tagName"];
+                v29 = v16;
+                v17 = [v15 objectForKeyedSubscript:@"tagName"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v30 = v20;
-                  v21 = v20;
-                  if ([v15 length] && objc_msgSend(v33, "length") && objc_msgSend(v21, "length"))
+                  v26 = v17;
+                  v18 = v17;
+                  if ([v13 length] && objc_msgSend(v29, "length") && objc_msgSend(v18, "length"))
                   {
-                    v28 = v21;
-                    v29 = [[CESRVocabularyLabel alloc] initWithLmeTemplate:v33 lmeTag:v21];
-                    v27 = [[CESRFieldTypeMapping alloc] initWithFieldTypeName:v15 vocabularyLabel:v29];
-                    v22 = [v32 objectForKeyedSubscript:v15];
-                    if (v22)
+                    v24 = v18;
+                    v25 = [[CESRVocabularyLabel alloc] initWithLmeTemplate:v29 lmeTag:v18];
+                    v23 = [[CESRFieldTypeMapping alloc] initWithFieldTypeName:v13 vocabularyLabel:v25];
+                    v19 = [v28 objectForKeyedSubscript:v13];
+                    if (v19)
                     {
-                      [v32 setObject:v22 forKeyedSubscript:v15];
+                      [v28 setObject:v19 forKeyedSubscript:v13];
                     }
 
                     else
                     {
-                      v25 = [MEMORY[0x277CBEB58] set];
-                      [v32 setObject:v25 forKeyedSubscript:v15];
+                      v21 = [MEMORY[0x277CBEB58] set];
+                      [v28 setObject:v21 forKeyedSubscript:v13];
                     }
 
-                    v26 = [v32 objectForKeyedSubscript:v15];
-                    [v26 addObject:v27];
+                    v22 = [v28 objectForKeyedSubscript:v13];
+                    [v22 addObject:v23];
 
-                    v21 = v28;
+                    v18 = v24;
                   }
 
-                  v20 = v30;
+                  v17 = v26;
                 }
               }
 
-              v5 = v31;
-              dictionary = v32;
+              v5 = v27;
+              dictionary = v28;
             }
-
-            v8 = 0x277CBE000;
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v7);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

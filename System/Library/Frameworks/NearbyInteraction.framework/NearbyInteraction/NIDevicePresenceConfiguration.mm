@@ -18,12 +18,12 @@
 
 - (NIDevicePresenceConfiguration)initWithInnerBoundary:(id)boundary outerBoundary:(id)outerBoundary error:(id *)error
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   boundaryCopy = boundary;
   outerBoundaryCopy = outerBoundary;
-  v22.receiver = self;
-  v22.super_class = NIDevicePresenceConfiguration;
-  initInternal = [(NIConfiguration *)&v22 initInternal];
+  v21.receiver = self;
+  v21.super_class = NIDevicePresenceConfiguration;
+  initInternal = [(NIConfiguration *)&v21 initInternal];
   if (!initInternal)
   {
     goto LABEL_6;
@@ -46,9 +46,9 @@
     initInternal[8] = v15;
   }
 
-  v23[0] = initInternal[7];
-  v23[1] = initInternal[8];
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[0] = initInternal[7];
+  v22[1] = initInternal[8];
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v18 = initInternal[9];
   initInternal[9] = v17;
 
@@ -73,7 +73,6 @@ LABEL_6:
 
 LABEL_10:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -94,7 +93,7 @@ LABEL_10:
 
 - (NIDevicePresenceConfiguration)initWithDiscoveryToken:(id)token regions:(id)regions preferredUpdateRate:(int64_t)rate error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   regionsCopy = regions;
   v13 = objc_alloc(objc_opt_class());
@@ -107,30 +106,30 @@ LABEL_10:
     objc_storeStrong(&v16->_token, token);
     v16->_allowedDevices = 2;
     v16->_monitoringOption = 1;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v17 = regionsCopy;
-    v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v18)
     {
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         v20 = 0;
         do
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          [*(*(&v25 + 1) + 8 * v20++) setPreferredUpdateRate:{rate, v25}];
+          [*(*(&v24 + 1) + 8 * v20++) setPreferredUpdateRate:{rate, v24}];
         }
 
         while (v18 != v20);
-        v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v18);
@@ -141,7 +140,6 @@ LABEL_10:
     v16->_monitoredRegions = v21;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -193,32 +191,7 @@ LABEL_10:
   v18.receiver = self;
   v18.super_class = NIDevicePresenceConfiguration;
   v5 = [(NIConfiguration *)&v18 initWithCoder:coderCopy];
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"monitoredRegions"];
-  monitoredRegions = v5->_monitoredRegions;
-  v5->_monitoredRegions = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"innerboundary"];
-  innerBoundary = v5->_innerBoundary;
-  v5->_innerBoundary = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"outerboundary"];
-  outerBoundary = v5->_outerBoundary;
-  v5->_outerBoundary = v10;
-
-  v12 = [coderCopy decodeIntegerForKey:@"allowedDevices"];
-  if (![NIInternalUtils isIntValidRelationshipSpecifier:v12])
-  {
-    goto LABEL_5;
-  }
-
-  v5->_allowedDevices = v12;
-  v13 = [coderCopy decodeIntegerForKey:@"monitoringOption"];
-  if ((v13 - 1) < 3)
+  if (v5 && ([coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"monitoredRegions"], v6 = objc_claimAutoreleasedReturnValue(), monitoredRegions = v5->_monitoredRegions, v5->_monitoredRegions = v6, monitoredRegions, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"innerboundary"), v8 = objc_claimAutoreleasedReturnValue(), innerBoundary = v5->_innerBoundary, v5->_innerBoundary = v8, innerBoundary, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"outerboundary"), v10 = objc_claimAutoreleasedReturnValue(), outerBoundary = v5->_outerBoundary, v5->_outerBoundary = v10, outerBoundary, v12 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"allowedDevices"), +[NIInternalUtils isIntValidRelationshipSpecifier:](NIInternalUtils, "isIntValidRelationshipSpecifier:", v12)) && (v5->_allowedDevices = v12, v13 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"monitoringOption"), (v13 - 1) < 3))
   {
     v5->_monitoringOption = v13;
     v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"token"];
@@ -231,7 +204,6 @@ LABEL_10:
 
   else
   {
-LABEL_5:
     v16 = 0;
   }
 

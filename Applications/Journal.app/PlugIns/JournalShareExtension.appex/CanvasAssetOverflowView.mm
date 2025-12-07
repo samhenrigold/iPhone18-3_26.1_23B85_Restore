@@ -12,7 +12,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC21JournalShareExtension23CanvasAssetOverflowView_overflowCountLabel) = 0;
-  v7 = (&self->super.super.super.isa + OBJC_IVAR____TtC21JournalShareExtension23CanvasAssetOverflowView_tapCompletion);
+  v7 = (self + OBJC_IVAR____TtC21JournalShareExtension23CanvasAssetOverflowView_tapCompletion);
   *v7 = nullsub_1;
   v7[1] = 0;
   v10.receiver = self;
@@ -27,7 +27,7 @@
 - (_TtC21JournalShareExtension23CanvasAssetOverflowView)initWithCoder:(id)coder
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC21JournalShareExtension23CanvasAssetOverflowView_overflowCountLabel) = 0;
-  v3 = (&self->super.super.super.isa + OBJC_IVAR____TtC21JournalShareExtension23CanvasAssetOverflowView_tapCompletion);
+  v3 = (self + OBJC_IVAR____TtC21JournalShareExtension23CanvasAssetOverflowView_tapCompletion);
   *v3 = nullsub_1;
   v3[1] = 0;
   result = sub_100101D94();

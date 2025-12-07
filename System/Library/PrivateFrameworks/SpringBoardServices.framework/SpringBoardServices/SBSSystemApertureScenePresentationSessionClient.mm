@@ -37,12 +37,12 @@ void __63__SBSSystemApertureScenePresentationSessionClient_requestScene__block_i
   [v4 setInvalidationHandler:&__block_literal_global_13];
 }
 
-void __63__SBSSystemApertureScenePresentationSessionClient_requestScene__block_invoke_2()
+void __63__SBSSystemApertureScenePresentationSessionClient_requestScene__block_invoke_2(uint64_t a1)
 {
-  v0 = SBLogSystemApertureHosting();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = SBLogSystemApertureHosting(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __59__SBSSpotlightActivationRequest_requestSpotlightActivation__block_invoke_2_cold_1(v0);
+    __59__SBSSpotlightActivationRequest_requestSpotlightActivation__block_invoke_2_cold_1(v1);
   }
 }
 

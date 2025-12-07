@@ -23,12 +23,9 @@
 
 - (void)main
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 296);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __30__BRShareAcceptOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)

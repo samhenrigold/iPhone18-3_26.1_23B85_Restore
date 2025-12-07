@@ -28,30 +28,30 @@
 
 + (id)parametersFromQueryString:(id)string
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v18 = stringCopy;
+  v17 = stringCopy;
   v5 = [stringCopy componentsSeparatedByString:@"&"];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v19 + 1) + 8 * i) componentsSeparatedByString:@"="];
+        v10 = [*(*(&v18 + 1) + 8 * i) componentsSeparatedByString:@"="];
         if ([v10 count] == 2)
         {
           v11 = [v10 objectAtIndex:0];
@@ -77,13 +77,11 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -311,28 +309,28 @@ LABEL_18:
 
 - (void)updateCurrentBootstrapProfileWithName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   profiles = [(ENOAuthAuthenticator *)self profiles];
-  v6 = [profiles countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [profiles countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(profiles);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         name = [v10 name];
         v12 = [nameCopy isEqualToString:name];
 
@@ -349,7 +347,7 @@ LABEL_18:
         }
       }
 
-      v7 = [profiles countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [profiles countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -362,7 +360,6 @@ LABEL_18:
 LABEL_11:
 
   [(ENOAuthAuthenticator *)self startOauthAuthentication];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)switchProfile
@@ -440,7 +437,7 @@ LABEL_11:
 
 - (void)didFinishLoading
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   if (![(ENOAuthAuthenticator *)self isCancelled])
   {
     v3 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -457,9 +454,9 @@ LABEL_11:
       if (v9)
       {
         v28 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-        v32 = @"statusCode";
-        v33[0] = v28;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v31 = @"statusCode";
+        v32[0] = v28;
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       }
 
       v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ENErrorDomain" code:1 userInfo:v9];
@@ -480,12 +477,12 @@ LABEL_11:
         v13 = [MEMORY[0x277CBEBC0] URLWithString:v12];
         delegate = [(ENOAuthAuthenticator *)self delegate];
         oauthCallback = [(ENOAuthAuthenticator *)self oauthCallback];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __40__ENOAuthAuthenticator_didFinishLoading__block_invoke;
-        v31[3] = &unk_278C19140;
-        v31[4] = self;
-        [delegate authenticatorShouldShowAuthorizationUIWithURL:v13 callbackPrefix:oauthCallback completionBlock:v31];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __40__ENOAuthAuthenticator_didFinishLoading__block_invoke;
+        v30[3] = &unk_278C19140;
+        v30[4] = self;
+        [delegate authenticatorShouldShowAuthorizationUIWithURL:v13 callbackPrefix:oauthCallback completionBlock:v30];
       }
 
       else
@@ -502,7 +499,7 @@ LABEL_11:
         {
           v20 = [ENCredentials alloc];
           [(ENOAuthAuthenticator *)self host];
-          v30 = v16;
+          v29 = v16;
           v21 = oauthCallback;
           v22 = v19;
           v23 = delegate;
@@ -515,7 +512,7 @@ LABEL_11:
           delegate = v23;
           v19 = v22;
           oauthCallback = v21;
-          v16 = v30;
+          v16 = v29;
           [(ENOAuthAuthenticator *)self completeAuthenticationWithCredentials:v27 usesLinkedAppNotebook:[(ENOAuthAuthenticator *)self userSelectedLinkedAppNotebook]];
           [(ENOAuthAuthenticator *)self setState:3];
         }
@@ -531,8 +528,6 @@ LABEL_11:
     [(ENOAuthAuthenticator *)self setReceivedData:0];
     [(ENOAuthAuthenticator *)self setResponse:0];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(id)data
@@ -574,23 +569,23 @@ LABEL_11:
 
 - (id)userAuthorizationURLStringWithParameters:(id)parameters
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   parametersCopy = parameters;
   string = [v4 string];
   deviceDescription = [objc_opt_class() deviceDescription];
   v8 = MEMORY[0x277CBEB38];
-  v18[0] = @"oauth_token";
+  v17[0] = @"oauth_token";
   v9 = [parametersCopy objectForKey:?];
 
-  v19[0] = v9;
-  v19[1] = @"ios";
-  v18[1] = @"inapp";
-  v18[2] = @"deviceDescription";
-  v18[3] = @"deviceIdentifier";
-  v19[2] = deviceDescription;
-  v19[3] = string;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v18[0] = v9;
+  v18[1] = @"ios";
+  v17[1] = @"inapp";
+  v17[2] = @"deviceDescription";
+  v17[3] = @"deviceIdentifier";
+  v18[2] = deviceDescription;
+  v18[3] = string;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
   v11 = [v8 dictionaryWithDictionary:v10];
 
   if ([(ENOAuthAuthenticator *)self supportsLinkedAppNotebook])
@@ -607,8 +602,6 @@ LABEL_11:
   v13 = MEMORY[0x277CCACA8];
   host = [(ENOAuthAuthenticator *)self host];
   v15 = [v13 stringWithFormat:@"%@://%@/OAuth.action?%@", @"https", host, v12];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -755,32 +748,32 @@ void __36__ENOAuthAuthenticator_authenticate__block_invoke(uint64_t a1, void *a2
 
 - (void)emptyCookieJar
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   host = [(ENOAuthAuthenticator *)self host];
 
   if (host)
   {
     mEMORY[0x277CBAB38] = [MEMORY[0x277CBAB38] sharedHTTPCookieStorage];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     cookies = [mEMORY[0x277CBAB38] cookies];
-    v6 = [cookies countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [cookies countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(cookies);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           domain = [v10 domain];
           host2 = [(ENOAuthAuthenticator *)self host];
           v13 = [domain hasSuffix:host2];
@@ -791,14 +784,12 @@ void __36__ENOAuthAuthenticator_authenticate__block_invoke(uint64_t a1, void *a2
           }
         }
 
-        v7 = [cookies countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [cookies countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,4 +1,5 @@
 @interface TRIRolloutHistoryRecord
++ (id)recordWithEventLogTime:(id)time eventType:(unsigned __int8)type rolloutId:(id)id rampId:(id)rampId factorPackSetId:(id)setId deploymentId:(int)deploymentId namespaces:(id)namespaces;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRecord:(id)record;
 - (TRIRolloutHistoryRecord)initWithCoder:(id)coder;
@@ -63,6 +64,20 @@ LABEL_3:
   return v19;
 }
 
++ (id)recordWithEventLogTime:(id)time eventType:(unsigned __int8)type rolloutId:(id)id rampId:(id)rampId factorPackSetId:(id)setId deploymentId:(int)deploymentId namespaces:(id)namespaces
+{
+  v9 = *&deploymentId;
+  typeCopy = type;
+  namespacesCopy = namespaces;
+  setIdCopy = setId;
+  rampIdCopy = rampId;
+  idCopy = id;
+  timeCopy = time;
+  v21 = [[self alloc] initWithEventLogTime:timeCopy eventType:typeCopy rolloutId:idCopy rampId:rampIdCopy factorPackSetId:setIdCopy deploymentId:v9 namespaces:namespacesCopy];
+
+  return v21;
+}
+
 - (id)copyWithReplacementEventLogTime:(id)time
 {
   timeCopy = time;
@@ -107,105 +122,8 @@ LABEL_3:
 {
   recordCopy = record;
   v5 = recordCopy;
-  if (!recordCopy)
+  if (!recordCopy || (v6 = self->_eventLogTime == 0, [recordCopy eventLogTime], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (eventLogTime = self->_eventLogTime) != 0 && (objc_msgSend(v5, "eventLogTime"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSDate isEqual:](eventLogTime, "isEqual:", v10), v10, !v11) || (eventType = self->_eventType, eventType != objc_msgSend(v5, "eventType")) || (v13 = self->_rolloutId == 0, objc_msgSend(v5, "rolloutId"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15) || (rolloutId = self->_rolloutId) != 0 && (objc_msgSend(v5, "rolloutId"), v17 = objc_claimAutoreleasedReturnValue(), v18 = -[NSString isEqual:](rolloutId, "isEqual:", v17), v17, !v18) || (v19 = self->_rampId == 0, objc_msgSend(v5, "rampId"), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 != 0, v20, v19 == v21) || (rampId = self->_rampId) != 0 && (objc_msgSend(v5, "rampId"), v23 = objc_claimAutoreleasedReturnValue(), v24 = -[NSString isEqual:](rampId, "isEqual:", v23), v23, !v24) || (v25 = self->_factorPackSetId == 0, objc_msgSend(v5, "factorPackSetId"), v26 = objc_claimAutoreleasedReturnValue(), v27 = v26 != 0, v26, v25 == v27) || (factorPackSetId = self->_factorPackSetId) != 0 && (objc_msgSend(v5, "factorPackSetId"), v29 = objc_claimAutoreleasedReturnValue(), v30 = -[TRIFactorPackSetId isEqual:](factorPackSetId, "isEqual:", v29), v29, !v30) || (deploymentId = self->_deploymentId, deploymentId != objc_msgSend(v5, "deploymentId")) || (v32 = self->_namespaces == 0, objc_msgSend(v5, "namespaces"), v33 = objc_claimAutoreleasedReturnValue(), v34 = v33 != 0, v33, v32 == v34))
   {
-    goto LABEL_19;
-  }
-
-  v6 = self->_eventLogTime == 0;
-  eventLogTime = [recordCopy eventLogTime];
-  v8 = eventLogTime != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_19;
-  }
-
-  eventLogTime = self->_eventLogTime;
-  if (eventLogTime)
-  {
-    eventLogTime2 = [v5 eventLogTime];
-    v11 = [(NSDate *)eventLogTime isEqual:eventLogTime2];
-
-    if (!v11)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  eventType = self->_eventType;
-  if (eventType != [v5 eventType])
-  {
-    goto LABEL_19;
-  }
-
-  v13 = self->_rolloutId == 0;
-  rolloutId = [v5 rolloutId];
-  v15 = rolloutId != 0;
-
-  if (v13 == v15)
-  {
-    goto LABEL_19;
-  }
-
-  rolloutId = self->_rolloutId;
-  if (rolloutId)
-  {
-    rolloutId2 = [v5 rolloutId];
-    v18 = [(NSString *)rolloutId isEqual:rolloutId2];
-
-    if (!v18)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  v19 = self->_rampId == 0;
-  rampId = [v5 rampId];
-  v21 = rampId != 0;
-
-  if (v19 == v21)
-  {
-    goto LABEL_19;
-  }
-
-  rampId = self->_rampId;
-  if (rampId)
-  {
-    rampId2 = [v5 rampId];
-    v24 = [(NSString *)rampId isEqual:rampId2];
-
-    if (!v24)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  v25 = self->_factorPackSetId == 0;
-  factorPackSetId = [v5 factorPackSetId];
-  v27 = factorPackSetId != 0;
-
-  if (v25 == v27)
-  {
-    goto LABEL_19;
-  }
-
-  factorPackSetId = self->_factorPackSetId;
-  if (factorPackSetId)
-  {
-    factorPackSetId2 = [v5 factorPackSetId];
-    v30 = [(TRIFactorPackSetId *)factorPackSetId isEqual:factorPackSetId2];
-
-    if (!v30)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  deploymentId = self->_deploymentId;
-  if (deploymentId != [v5 deploymentId] || (v32 = self->_namespaces == 0, objc_msgSend(v5, "namespaces"), v33 = objc_claimAutoreleasedReturnValue(), v34 = v33 != 0, v33, v32 == v34))
-  {
-LABEL_19:
     v37 = 0;
   }
 
@@ -257,7 +175,7 @@ LABEL_19:
 
 - (TRIRolloutHistoryRecord)initWithCoder:(id)coder
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"eventLogTime"];
   if (!v5)
@@ -269,9 +187,9 @@ LABEL_19:
       goto LABEL_15;
     }
 
-    v61 = *MEMORY[0x277CCA450];
-    v62[0] = @"Retrieved nil serialized value for nonnull TRIRolloutHistoryRecord.eventLogTime";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+    v60 = *MEMORY[0x277CCA450];
+    v61[0] = @"Retrieved nil serialized value for nonnull TRIRolloutHistoryRecord.eventLogTime";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v60 count:1];
     v18 = objc_alloc(MEMORY[0x277CCA9B8]);
     v19 = 2;
     goto LABEL_11;
@@ -285,9 +203,9 @@ LABEL_19:
     v21 = objc_opt_class();
     v8 = NSStringFromClass(v21);
     v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIRolloutHistoryRecord key eventLogTime (expected %@, decoded %@)", v7, v8, 0];
-    v59 = *MEMORY[0x277CCA450];
-    v60 = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+    v58 = *MEMORY[0x277CCA450];
+    v59 = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
     v24 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIRolloutHistoryRecordOCNTErrorDomain" code:3 userInfo:v23];
     [coderCopy failWithError:v24];
 
@@ -321,9 +239,9 @@ LABEL_40:
           goto LABEL_41;
         }
 
-        v55 = *MEMORY[0x277CCA450];
-        v56 = @"Retrieved nil serialized value for nonnull TRIRolloutHistoryRecord.rolloutId";
-        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+        v54 = *MEMORY[0x277CCA450];
+        v55 = @"Retrieved nil serialized value for nonnull TRIRolloutHistoryRecord.rolloutId";
+        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
         v9 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIRolloutHistoryRecordOCNTErrorDomain" code:2 userInfo:v8];
         [coderCopy failWithError:v9];
         goto LABEL_30;
@@ -348,17 +266,17 @@ LABEL_40:
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v10 = objc_opt_class();
-          v46 = NSStringFromClass(v10);
+          v45 = NSStringFromClass(v10);
           v11 = objc_opt_class();
           v12 = NSStringFromClass(v11);
-          v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIRolloutHistoryRecord key factorPackSetId (expected %@, decoded %@)", v46, v12, 0];
-          v53 = *MEMORY[0x277CCA450];
-          v54 = v13;
-          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+          v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIRolloutHistoryRecord key factorPackSetId (expected %@, decoded %@)", v45, v12, 0];
+          v52 = *MEMORY[0x277CCA450];
+          v53 = v13;
+          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
           v15 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIRolloutHistoryRecordOCNTErrorDomain" code:3 userInfo:v14];
           [coderCopy failWithError:v15];
 
-          v16 = v46;
+          v16 = v45;
 LABEL_36:
           selfCopy = 0;
           goto LABEL_37;
@@ -388,9 +306,9 @@ LABEL_36:
       {
         if (([coderCopy containsValueForKey:@"deploymentId"] & 1) == 0)
         {
-          v51 = *MEMORY[0x277CCA450];
-          v52 = @"Missing serialized value for TRIRolloutHistoryRecord.deploymentId";
-          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+          v50 = *MEMORY[0x277CCA450];
+          v51 = @"Missing serialized value for TRIRolloutHistoryRecord.deploymentId";
+          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
           v42 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIRolloutHistoryRecordOCNTErrorDomain" code:1 userInfo:v16];
           [coderCopy failWithError:v42];
 
@@ -398,7 +316,7 @@ LABEL_36:
         }
 
 LABEL_25:
-        v47 = v30;
+        v46 = v30;
         v31 = objc_alloc(MEMORY[0x277CBEB98]);
         v32 = objc_opt_class();
         v33 = [v31 initWithObjects:{v32, objc_opt_class(), 0}];
@@ -410,14 +328,14 @@ LABEL_25:
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             v34 = objc_opt_class();
-            v48 = NSStringFromClass(v34);
+            v47 = NSStringFromClass(v34);
             v35 = objc_opt_class();
-            v45 = NSStringFromClass(v35);
+            v44 = NSStringFromClass(v35);
             v36 = v16;
-            v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIRolloutHistoryRecord key namespaces (expected %@, decoded %@)", v48, v45, 0];
-            v49 = *MEMORY[0x277CCA450];
-            v50 = v37;
-            v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+            v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIRolloutHistoryRecord key namespaces (expected %@, decoded %@)", v47, v44, 0];
+            v48 = *MEMORY[0x277CCA450];
+            v49 = v37;
+            v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
             v39 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIRolloutHistoryRecordOCNTErrorDomain" code:3 userInfo:v38];
             [coderCopy failWithError:v39];
 
@@ -437,7 +355,7 @@ LABEL_25:
           }
         }
 
-        self = [(TRIRolloutHistoryRecord *)self initWithEventLogTime:v5 eventType:v6 rolloutId:v7 rampId:v8 factorPackSetId:v9 deploymentId:v47 namespaces:v16];
+        self = [(TRIRolloutHistoryRecord *)self initWithEventLogTime:v5 eventType:v6 rolloutId:v7 rampId:v8 factorPackSetId:v9 deploymentId:v46 namespaces:v16];
         selfCopy = self;
 LABEL_37:
 
@@ -451,9 +369,9 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v57 = *MEMORY[0x277CCA450];
-    v58 = @"Missing serialized value for TRIRolloutHistoryRecord.eventType";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v56 = *MEMORY[0x277CCA450];
+    v57 = @"Missing serialized value for TRIRolloutHistoryRecord.eventType";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
     v18 = objc_alloc(MEMORY[0x277CCA9B8]);
     v19 = 1;
 LABEL_11:
@@ -470,7 +388,6 @@ LABEL_15:
   selfCopy = 0;
 LABEL_41:
 
-  v43 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -20,7 +20,7 @@
   if (result)
   {
     v10 = result;
-    v11 = objc_allocWithZone(type metadata accessor for MapsSuggestionsCurrentLocationSource());
+    v11 = objc_allocWithZone(type metadata accessor for MapsSuggestionsCurrentLocationSource(0));
     v12 = sub_10020B920(oneSourceDelegate, v10, v5, v7);
     swift_unknownObjectRelease();
     swift_getObjectType();

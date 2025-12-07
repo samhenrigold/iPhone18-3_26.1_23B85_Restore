@@ -232,7 +232,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    int32Value = self->_int32Value;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -252,7 +251,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  floatValue = self->_floatValue;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -267,7 +265,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  doubleValue = self->_doubleValue;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -282,7 +279,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  BOOLValue = self->_BOOLValue;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -297,7 +293,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  int64Value = self->_int64Value;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -312,12 +307,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  isUnsigned = self->_isUnsigned;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_8:
-    isShortOrChar = self->_isShortOrChar;
     PBDataWriterWriteBOOLField();
   }
 
@@ -575,7 +568,6 @@ LABEL_8:
       goto LABEL_38;
     }
 
-    v5 = *(equalCopy + 32);
     if (self->_BOOLValue)
     {
       if ((*(equalCopy + 32) & 1) == 0)
@@ -615,7 +607,6 @@ LABEL_8:
       goto LABEL_38;
     }
 
-    v8 = *(equalCopy + 34);
     if (self->_isUnsigned)
     {
       if ((*(equalCopy + 34) & 1) == 0)
@@ -635,7 +626,7 @@ LABEL_8:
     goto LABEL_38;
   }
 
-  v6 = (*(equalCopy + 36) & 0x20) == 0;
+  v5 = (*(equalCopy + 36) & 0x20) == 0;
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 36) & 0x20) != 0)
@@ -651,18 +642,18 @@ LABEL_8:
       else if (!*(equalCopy + 33))
       {
 LABEL_46:
-        v6 = 1;
+        v5 = 1;
         goto LABEL_39;
       }
     }
 
 LABEL_38:
-    v6 = 0;
+    v5 = 0;
   }
 
 LABEL_39:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

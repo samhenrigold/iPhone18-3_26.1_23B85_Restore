@@ -1,20 +1,20 @@
 void sub_270F38BA4(_Unwind_Exception *a1)
 {
-  __57__VGFaceFittingFrameSelector_getFaceKitTrackedLandmarks___block_invoke();
+  __57__VGFaceFittingFrameSelector_getFaceKitTrackedLandmarks___block_invoke(v6);
 
   _Unwind_Resume(a1);
 }
 
-id VGLogVGFaceFittingFrameSelector(void)
+id VGLogVGFaceFittingFrameSelector(uint64_t a1)
 {
   if (VGLogVGFaceFittingFrameSelector(void)::onceToken != -1)
   {
     VGLogVGFaceFittingFrameSelector();
   }
 
-  v1 = VGLogVGFaceFittingFrameSelector(void)::handle;
+  v2 = VGLogVGFaceFittingFrameSelector(void)::handle;
 
-  return v1;
+  return v2;
 }
 
 void sub_270F39010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15)
@@ -24,26 +24,27 @@ void sub_270F39010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
+  v17 = a14;
   if (a14)
   {
     operator delete(a14);
   }
 
-  __69__VGFaceFittingFrameSelector_checkMotionBlurFilter_frameTimestampMS___block_invoke();
+  __69__VGFaceFittingFrameSelector_checkMotionBlurFilter_frameTimestampMS___block_invoke(v17);
 
   _Unwind_Resume(a1);
 }
 
 void sub_270F39200(_Unwind_Exception *a1)
 {
-  __54__VGFaceFittingFrameSelector_getValidDataFrameBounds___block_invoke();
+  __54__VGFaceFittingFrameSelector_getValidDataFrameBounds___block_invoke(a1);
 
   _Unwind_Resume(a1);
 }
 
 void sub_270F3ACDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, uint64_t a26, void *a27, void *a28)
 {
-  __91__VGFaceFittingFrameSelector_addPoseWithCaptureData_tracking_externalTracking_metricsData___block_invoke();
+  __91__VGFaceFittingFrameSelector_addPoseWithCaptureData_tracking_externalTracking_metricsData___block_invoke(v33);
 
   _Unwind_Resume(a1);
 }
@@ -77,48 +78,48 @@ vg::frame_selection::VGBlurDetector *std::unique_ptr<vg::frame_selection::VGBlur
   return result;
 }
 
-void *std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -144,12 +145,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -163,22 +164,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -212,13 +213,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -262,50 +263,47 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
 id vg::frame_selection::detail::capturedStatesFromCapturedPoses(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB38] dictionary];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = MEMORY[0x277CCABB0];
-        v9 = [v3 objectForKey:{v7, v14}];
+        v9 = [v3 objectForKey:{v7, v13}];
         v10 = [v8 numberWithBool:{objc_msgSend(v9, "valid")}];
         [v2 setObject:v10 forKeyedSubscript:v7];
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
 
   v11 = [v2 copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 void vg::frame_selection::VGEarFrameSelectorImpl::init(vg::frame_selection::VGEarFrameSelectorImpl *this, const vg::frame_selection::VGEarCaptureOptions *a2)
 {
-  v2 = *a2;
-  v3 = *(a2 + 4);
   if (*(a2 + 111) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *(a2 + 11), *(a2 + 12));
@@ -339,76 +337,70 @@ id vg::frame_selection::VGEarFrameSelectorImpl::enrolledPoses(vg::frame_selectio
 
 id vg::frame_selection::VGEarFrameSelectorImpl::posesFromSelectors(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CBEB18] array];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*(*(&v13 + 1) + 8 * i) yawResults];
+        v8 = [*(*(&v12 + 1) + 8 * i) yawResults];
         v9 = [v8 allValues];
         [v3 addObjectsFromArray:v9];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
   v10 = [v3 copy];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 id vg::frame_selection::VGEarFrameSelectorImpl::allPoseSelectors(vg::frame_selection::VGEarFrameSelectorImpl *this)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v1 = *(this + 2);
-  v5[0] = *(this + 1);
-  v5[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[0] = *(this + 1);
+  v4[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 id vg::frame_selection::VGEarFrameSelectorImpl::leftEarEnrolledPoses(vg::frame_selection::VGEarFrameSelectorImpl *this)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *(this + 1);
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *(this + 1);
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = vg::frame_selection::VGEarFrameSelectorImpl::posesFromSelectors(v1, v1);
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 id vg::frame_selection::VGEarFrameSelectorImpl::rightEarEnrolledPoses(vg::frame_selection::VGEarFrameSelectorImpl *this)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *(this + 2);
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *(this + 2);
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = vg::frame_selection::VGEarFrameSelectorImpl::posesFromSelectors(v1, v1);
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -472,20 +464,19 @@ void vg::frame_selection::VGEarFrameSelectorImpl::currentState(id *this@<X0>, ui
     *a2 = v7 == 0;
     *(a2 + 4) = (v6 - v7) / v6;
     *(a2 + 200) = [this[1] results];
-    *(a2 + 208) = [this[2] results];
+    v11 = [this[2] results];
+    *(a2 + 208) = v11;
   }
 
-  v11 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = __VGLogSharedInstance(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109376;
     v18 = v7;
     v19 = 1024;
     v20 = v6;
-    _os_log_impl(&dword_270F06000, v11, OS_LOG_TYPE_DEBUG, " %u/%u ", buf, 0xEu);
+    _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_DEBUG, " %u/%u ", buf, 0xEu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void vg::frame_selection::VGEarFrameSelectorImpl::addPoseWithCaptureData(vg::frame_selection::VGEarFrameSelectorImpl *this@<X0>, VGCaptureData *a2@<X1>, uint64_t a3@<X8>)
@@ -528,7 +519,7 @@ void vg::frame_selection::VGEarFrameSelectorImpl::addPoseWithCaptureData(vg::fra
 
   if (v5)
   {
-    [(VGCaptureData *)v5 timestamp];
+    objc_msgSend_timestamp(v5);
   }
 
   else
@@ -540,7 +531,7 @@ void vg::frame_selection::VGEarFrameSelectorImpl::addPoseWithCaptureData(vg::fra
   v14 = CVPixelBufferGetIOSurface([(VGCaptureData *)v5 yuvRectified]);
   if (!v14)
   {
-    v19 = __VGLogSharedInstance();
+    v19 = __VGLogSharedInstance(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *time = 0;
@@ -579,7 +570,7 @@ void vg::frame_selection::VGEarFrameSelectorImpl::addPoseWithCaptureData(vg::fra
   v15 = CVPixelBufferGetIOSurface([(VGCaptureData *)v5 depth]);
   if (!v15)
   {
-    v26 = __VGLogSharedInstance();
+    v26 = __VGLogSharedInstance(0);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *time = 0;
@@ -628,7 +619,7 @@ void vg::frame_selection::VGEarFrameSelectorImpl::addPoseWithCaptureData(vg::fra
       vg::frame_selection::VGBlurDetector::resetPreviousState(v33);
     }
 
-    v34 = __VGLogSharedInstance();
+    v34 = __VGLogSharedInstance(v33);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
@@ -776,7 +767,7 @@ void vg::frame_selection::VGEarFrameSelectorImpl::addPoseWithCaptureData(vg::fra
     v49 = vg::frame_selection::VGBlurDetector::detectMotionBlur(*(this + 25), v103);
     if (v50 & 1) == 0 || (v49)
     {
-      v51 = __VGLogSharedInstance();
+      v51 = __VGLogSharedInstance(v49);
       if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
       {
         *v105 = 134217984;
@@ -852,14 +843,14 @@ void vg::frame_selection::VGEarFrameSelectorImpl::addPoseWithCaptureData(vg::fra
       {
         if (([*(this + 2) completed] & 1) == 0)
         {
-          v87 = *(this + 2);
+          v86 = *(this + 2);
           *v103 = 0;
           *&v103[8] = 0;
           __asm { FMOV            V4.2D, #1.0 }
 
           *&v103[16] = _Q4;
           v104 = 1;
-          v73 = [v87 processCaptureData:v5 trackingData:v65 framePose:v103 validDataFrameBounds:{*&v108, *&v109, *&v110, *&v111}];
+          v73 = [v86 processCaptureData:v5 trackingData:v65 framePose:v103 validDataFrameBounds:{*&v108, *&v109, *&v110, *&v111}];
           goto LABEL_84;
         }
 
@@ -924,12 +915,12 @@ LABEL_84:
           v75 = v73;
           if (v73)
           {
-            [v73 rejectionState];
-            v89 = *v103 == 0;
+            objc_msgSend_rejectionState(v73);
+            v88 = *v103 == 0;
 
-            if (v89)
+            if (v88)
             {
-              v90 = __VGLogSharedInstance();
+              v90 = __VGLogSharedInstance(v89);
               if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
               {
                 v91 = @"RIGHT";
@@ -1083,11 +1074,9 @@ LABEL_78:
     *(&__src + 1) = __src;
     operator delete(__src);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
-void sub_270F3D6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_270F3D6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
 {
   vg::ear_detection::EarPose::~EarPose(&a25);
   vg::ear_detection::EarPCADetector::EarDetectionOutput::~EarDetectionOutput(&a47);
@@ -1125,24 +1114,23 @@ void vg::frame_selection::VGEarFrameSelectorImpl::writeToPath(vg::frame_selectio
   vg::common::dumpDebugObject(v6, v9, 1);
 }
 
-void vg::frame_selection::VGEarFrameSelector::create(vg::frame_selection::VGEarFrameSelector *this)
+void vg::frame_selection::VGEarFrameSelector::create()
 {
-  v2 = xmmword_270FA6670;
-  v3 = 1061997773;
-  v4 = xmmword_270FA6680;
-  v5 = xmmword_270FA6690;
-  v6 = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v7, "");
+  std::string::basic_string[abi:ne200100]<0>(&v1, "");
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  v9 = 1;
-  v10 = 1083808154;
-  v11 = &unk_2880F5D70;
-  vg::frame_selection::VGEarFrameSelector::create(&v2, v1);
+  v3 = 1;
+  v4 = 1083808154;
+  v5 = &unk_2880F5D70;
+  vg::frame_selection::VGEarFrameSelector::create();
 }
 
-void sub_270F3DB38(_Unwind_Exception *a1, uint64_t a2, ...)
 {
-  va_start(va, a2);
+  operator new();
+}
+
+void sub_270F3DB38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   std::unique_ptr<vg::frame_selection::VGEarFrameSelector>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1181,8 +1169,8 @@ vg::frame_selection::VGEarFrameSelectorImpl *vg::frame_selection::VGEarFrameSele
   *(this + 5) = xmmword_270FA6680;
   *(this + 6) = xmmword_270FA6690;
   *(this + 112) = 0;
-  std::string::basic_string[abi:ne200100]<0>(this + 120, "");
-  std::string::basic_string[abi:ne200100]<0>(this + 144, "");
+  std::string::basic_string[abi:ne200100]<0>(this + 15, "");
+  std::string::basic_string[abi:ne200100]<0>(this + 18, "");
   *(this + 168) = 1;
   *(this + 43) = 1083808154;
   *(this + 22) = &unk_2880F5D70;
@@ -1243,14 +1231,15 @@ void vg::hrtf::unwrapPhaseAngles(float **a1@<X0>, const void **a2@<X8>)
   }
 
   v5 = v3 >> 2;
-  std::vector<float>::vector[abi:ne200100](__p, v3 >> 2);
+  v43 = 0;
+  std::vector<float>::vector[abi:ne200100](__p, v3 >> 2, &v43);
   v6 = *a1;
   v7 = a1[1];
   if (*a1 != v7)
   {
     v8 = __p[0];
     v10 = *v6;
-    v9 = v6 + 1;
+    v9 = (v6 + 4);
     v11 = v10;
     *__p[0] = v10;
     if (v9 != v7)
@@ -1429,7 +1418,7 @@ void sub_270F40920(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void vg::hrtf::tukeyWindow(unint64_t this@<X0>, int32x2_t a2@<D0>, void *a3@<X8>)
+void vg::hrtf::tukeyWindow(unint64_t this@<X0>, int32x2_t a2@<D0>, uint64_t *a3@<X8>)
 {
   if (this <= 1)
   {
@@ -1449,16 +1438,17 @@ void vg::hrtf::tukeyWindow(unint64_t this@<X0>, int32x2_t a2@<D0>, void *a3@<X8>
 
   *a2.i32 = (this - 1) * *a2.i32;
   v5 = vcvtms_u32_f32(*a2.i32 * 0.5);
-  v6 = (this - v5);
+  v6 = this - v5;
   if (this <= v5)
   {
     vg::hrtf::tukeyWindow();
   }
 
+  v64 = 1065353216;
   *a2.i32 = 2.0 / *a2.i32;
   v40 = a2;
   v7 = 0;
-  v8 = *std::vector<float>::vector[abi:ne200100](a3, this);
+  v8 = *std::vector<float>::vector[abi:ne200100](a3, this, &v64);
   v9 = vdupq_n_s64(v5);
   v44 = vdupq_n_s32(0x40490FDBu);
   v45 = vdupq_lane_s32(v40, 0);
@@ -1529,13 +1519,13 @@ void vg::hrtf::tukeyWindow(unint64_t this@<X0>, int32x2_t a2@<D0>, void *a3@<X8>
     v42 = vdupq_n_s32(0x40490FDBu);
     do
     {
-      v31 = &v6[v27 - 1];
+      v31 = v6 + v27 - 1;
       v53 = vdupq_n_s64(v27);
       v32 = vcgeq_u64(v9, vorrq_s8(v53, xmmword_270FA6720));
       v33 = vmovn_s64(v32);
       *v32.i32 = v31;
       v51 = vuzp1_s16(v33, *v32.i8);
-      *&v32.i32[1] = &v6[v27];
+      *&v32.i32[1] = (v6 + v27);
       v55 = vaddq_s64(vdupq_n_s64(v31), v30);
       v63 = vmulq_f32(vmlaq_f32(v46, v49, vcvt_hight_f32_f64(*v32.i8, vcvtq_f64_u64(v55))), v42);
       v59 = cosf(v63.f32[1]);
@@ -2067,20 +2057,17 @@ void sub_270F4154C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::array<float,3ul>>::reserve(void *result, unint64_t a2)
+void std::vector<std::array<float,3ul>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 2) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x1555555555555556)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::array<float,3ul>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::array<float,3ul>>>(a1, a2);
     }
 
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void vg::hrtf::PhaseShiftParameters::~PhaseShiftParameters(vg::hrtf::PhaseShiftParameters *this)
@@ -2143,16 +2130,16 @@ void vg::hrtf::addDelayFractions(uint64_t a1, uint64_t a2, const vDSP_DFT_SetupS
 
   v11 = v5 >> 2;
   LODWORD(__Or[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](v32, v5 >> 2);
+  std::vector<float>::vector[abi:ne200100](v32, v5 >> 2, __Or);
   LODWORD(__Oi[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](__Or, v11);
+  std::vector<float>::vector[abi:ne200100](__Or, v11, __Oi);
   LODWORD(v29[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](__Oi, v11);
+  std::vector<float>::vector[abi:ne200100](__Oi, v11, v29);
   vDSP_DFT_Execute(a3, *a1, v32[0], __Or[0], __Oi[0]);
   LODWORD(__p[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](v29, v11);
+  std::vector<float>::vector[abi:ne200100](v29, v11, __p);
   LODWORD(__B.realp) = 0;
-  std::vector<float>::vector[abi:ne200100](__p, v11);
+  std::vector<float>::vector[abi:ne200100](__p, v11, &__B);
   v12 = 0;
   v13 = v11 >> 1;
   if (v11 >> 1 <= 1)
@@ -2285,43 +2272,34 @@ void std::exp[abi:ne200100]<float>(float *a1)
     return;
   }
 
-  if (fabsf(v1) != INFINITY)
+  if (fabsf(v1) == INFINITY)
   {
-    goto LABEL_12;
-  }
+    if (v1 >= 0.0)
+    {
+      if ((LODWORD(v2) & 0x7FFFFFFFu) >= 0x7F800000)
+      {
+        return;
+      }
+    }
 
-  if (v1 < 0.0)
-  {
-    if ((LODWORD(v2) & 0x7FFFFFFFu) >= 0x7F800000)
+    else if ((LODWORD(v2) & 0x7FFFFFFFu) >= 0x7F800000)
     {
       v2 = 1.0;
     }
-
-    goto LABEL_12;
   }
 
-  if ((LODWORD(v2) & 0x7FFFFFFFu) < 0x7F800000)
-  {
-LABEL_12:
-    v4 = v2;
-    expf(v1);
-    __sincosf_stret(v4);
-    return;
-  }
-
-  if (fabsf(v2) != INFINITY)
-  {
-    v3 = *(a1 + 1);
-  }
+  v3 = v2;
+  expf(v1);
+  __sincosf_stret(v3);
 }
 
 void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const vDSP_DFT_SetupStruct *a4@<X3>, uint64_t a5@<X4>, const vDSP_biquad_SetupStruct *a6@<X5>, uint64_t a7@<X8>, float a8@<S0>)
 {
-  v73[0] = a8;
+  v74[0] = a8;
   v9 = *(a1 + 8) - *a1;
   v10 = v9 >> 2;
-  v71 = v9 >> 2;
-  v72 = a5;
+  v72 = v9 >> 2;
+  v73 = a5;
   if (!v9)
   {
     vg::hrtf::addDelayFractions();
@@ -2338,36 +2316,38 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
     vg::hrtf::addDelayFractions();
   }
 
-  std::vector<float>::vector[abi:ne200100](v69, v9 >> 2);
+  LODWORD(v68.realp) = 0;
+  std::vector<float>::vector[abi:ne200100](v70, v9 >> 2, &v68);
   LODWORD(__C.realp) = 0;
-  std::vector<float>::vector[abi:ne200100](v70, v71);
-  v67.realp = v69[0];
-  v67.imagp = v70[0];
-  vg::hrtf::addDelayFractions(a1, a2, a4, &v67, *(a1 + 24));
-  std::vector<float>::vector[abi:ne200100](&v67, v71);
-  LODWORD(v66[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](v68, v71);
-  __C.realp = v67.realp;
-  __C.imagp = v68[0];
+  std::vector<float>::vector[abi:ne200100](v71, v72, &__C);
+  v68.realp = v70[0];
+  v68.imagp = v71[0];
+  vg::hrtf::addDelayFractions(a1, a2, a4, &v68, *(a1 + 24));
+  LODWORD(__C.realp) = 0;
+  std::vector<float>::vector[abi:ne200100](&v68, v72, &__C);
+  LODWORD(v67[0]) = 0;
+  std::vector<float>::vector[abi:ne200100](v69, v72, v67);
+  __C.realp = v68.realp;
+  __C.imagp = v69[0];
   vg::hrtf::addDelayFractions(v12, a2, a4, &__C, *(a1 + 56));
   v17 = v10 >> 1;
   LODWORD(__A.realp) = 0;
-  std::vector<float>::vector[abi:ne200100](&__C, v10 >> 1);
-  __A.realp = v69[0];
-  __A.imagp = v70[0];
+  std::vector<float>::vector[abi:ne200100](&__C, v10 >> 1, &__A);
+  __A.realp = v70[0];
+  __A.imagp = v71[0];
   vDSP_zvphas(&__A, 1, __C.realp, 1, v10 >> 1);
-  vg::hrtf::unwrapPhaseAngles(&__C.realp, v66);
+  vg::hrtf::unwrapPhaseAngles(&__C.realp, v67);
   if (__C.realp)
   {
     __C.imagp = __C.realp;
     operator delete(__C.realp);
   }
 
-  LODWORD(v64.realp) = 0;
-  std::vector<float>::vector[abi:ne200100](&__C, v10 >> 1);
-  v64.realp = v67.realp;
-  v64.imagp = v68[0];
-  vDSP_zvphas(&v64, 1, __C.realp, 1, v10 >> 1);
+  LODWORD(v65.realp) = 0;
+  std::vector<float>::vector[abi:ne200100](&__C, v10 >> 1, &v65);
+  v65.realp = v68.realp;
+  v65.imagp = v69[0];
+  vDSP_zvphas(&v65, 1, __C.realp, 1, v10 >> 1);
   vg::hrtf::unwrapPhaseAngles(&__C.realp, &__A.realp);
   if (__C.realp)
   {
@@ -2376,14 +2356,14 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
   }
 
   LODWORD(__C.realp) = 0;
-  std::vector<float>::vector[abi:ne200100](&v64, v10 >> 1);
-  MEMORY[0x2743B9D80](v66[0], 1, __A.realp, 1, v64.realp, 1, v10 >> 1);
+  std::vector<float>::vector[abi:ne200100](&v65, v10 >> 1, &__C);
+  MEMORY[0x2743B9D80](v67[0], 1, __A.realp, 1, v65.realp, 1, v10 >> 1);
   LODWORD(__C.realp) = 0;
-  std::vector<float>::vector[abi:ne200100](__p, v10 >> 1);
+  std::vector<float>::vector[abi:ne200100](__p, v10 >> 1, &__C);
   if (*(a1 + 24) >= *(a1 + 56))
   {
-    *v57 = -v73[0];
-    MEMORY[0x2743B9D60](v64.realp, 1, v57, __p[0], 1, v10 >> 1);
+    *v58 = -v74[0];
+    MEMORY[0x2743B9D60](v65.realp, 1, v58, __p[0], 1, v10 >> 1);
     MEMORY[0x2743B9D50](__p[0], 1, *a3, 1, __p[0], 1, v10 >> 1);
     v33 = 0;
     v34 = v17 - 1;
@@ -2404,33 +2384,33 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
       *(__X + 1) = v36;
       std::exp[abi:ne200100]<float>(__X);
       __C.realp = __PAIR64__(v38, v37);
-      v39 = *(v70[0] + 4 * v33);
-      *__X = v69[0][v33];
+      v39 = *(v71[0] + 4 * v33);
+      LODWORD(__X[0]) = *(v70[0] + 4 * v33);
       HIDWORD(__X[0]) = v39;
       v40 = std::operator*[abi:ne200100]<float,0>(__X, &__C);
-      v41 = v69[0];
-      v69[0][v33] = v40;
-      v42 = v70[0];
-      *(v70[0] + 4 * v33++) = v43;
+      v41 = v70[0];
+      *(v70[0] + 4 * v33) = v40;
+      v42 = v71[0];
+      *(v71[0] + 4 * v33++) = v43;
     }
 
     while (v35 != v33);
-    v41[v17] = 0.0;
+    *(v41 + 4 * v17) = 0;
     *(v42 + 4 * v17) = 0;
     if (v10 >= 3)
     {
       v44 = v42 - 4;
-      v45 = v41 - 1;
+      v45 = v41 - 4;
       v46 = v42 + 4;
-      v47 = v41 + 1;
+      v47 = v41 + 4;
       do
       {
-        v47[v17] = v45[v17];
+        *(v47 + 4 * v17) = *(v45 + 4 * v17);
         *(v46 + 4 * v17) = -*(v44 + 4 * v17);
         v44 -= 4;
-        --v45;
+        v45 -= 4;
         v46 += 4;
-        ++v47;
+        v47 += 4;
         --v34;
       }
 
@@ -2440,7 +2420,7 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
 
   else
   {
-    MEMORY[0x2743B9D60](v64.realp, 1, v73, __p[0], 1, v10 >> 1);
+    MEMORY[0x2743B9D60](v65.realp, 1, v74, __p[0], 1, v10 >> 1);
     MEMORY[0x2743B9D50](__p[0], 1, *a3, 1, __p[0], 1, v10 >> 1);
     v18 = 0;
     v19 = v17 - 1;
@@ -2461,14 +2441,14 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
       *(__X + 1) = -v21;
       std::exp[abi:ne200100]<float>(__X);
       __C.realp = __PAIR64__(v23, v22);
-      v24 = *(v68[0] + 4 * v18);
-      *__X = v67.realp[v18];
+      v24 = *(v69[0] + 4 * v18);
+      *__X = v68.realp[v18];
       HIDWORD(__X[0]) = v24;
       v25 = std::operator*[abi:ne200100]<float,0>(__X, &__C);
-      realp = v67.realp;
-      v67.realp[v18] = v25;
-      v27 = v68[0];
-      *(v68[0] + 4 * v18++) = v28;
+      realp = v68.realp;
+      v68.realp[v18] = v25;
+      v27 = v69[0];
+      *(v69[0] + 4 * v18++) = v28;
     }
 
     while (v20 != v18);
@@ -2495,21 +2475,21 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
     }
   }
 
-  v62 = 1.0 / v71;
+  v63 = 1.0 / v72;
   __C.realp = a2;
-  __C.imagp = &v72;
-  v60 = &v71;
-  v61 = &v62;
-  vg::hrtf::phaseShift(vg::hrtf::IRFilters const&,vg::hrtf::PhaseShiftParameters const&,float,std::vector<float> const&,vDSP_DFT_SetupStruct *,vDSP_DFT_SetupStruct *,vDSP_biquad_SetupStruct *)::$_3::operator()(&__C, v69, __X);
-  vg::hrtf::phaseShift(vg::hrtf::IRFilters const&,vg::hrtf::PhaseShiftParameters const&,float,std::vector<float> const&,vDSP_DFT_SetupStruct *,vDSP_DFT_SetupStruct *,vDSP_biquad_SetupStruct *)::$_3::operator()(&__C, &v67.realp, v57);
-  v56 = 0.0;
+  __C.imagp = &v73;
+  v61 = &v72;
+  v62 = &v63;
+  vg::hrtf::phaseShift(vg::hrtf::IRFilters const&,vg::hrtf::PhaseShiftParameters const&,float,std::vector<float> const&,vDSP_DFT_SetupStruct *,vDSP_DFT_SetupStruct *,vDSP_biquad_SetupStruct *)::$_3::operator()(&__C, v70, __X);
+  vg::hrtf::phaseShift(vg::hrtf::IRFilters const&,vg::hrtf::PhaseShiftParameters const&,float,std::vector<float> const&,vDSP_DFT_SetupStruct *,vDSP_DFT_SetupStruct *,vDSP_biquad_SetupStruct *)::$_3::operator()(&__C, &v68.realp, v58);
+  v57 = 0.0;
   v48 = __X;
   if (*(a1 + 24) >= *(a1 + 56))
   {
-    v48 = v57;
+    v48 = v58;
   }
 
-  vDSP_vfill(&v56, *v48, 1, a2[32]);
+  vDSP_vfill(&v57, *v48, 1, a2[32]);
   *a7 = 0;
   *(a7 + 8) = 0;
   *(a7 + 16) = 0;
@@ -2517,24 +2497,25 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
   *(a7 + 40) = 0;
   *(a7 + 48) = 0;
   LODWORD(__Delay[0]) = 0;
-  std::vector<float>::resize(a7, v71, __Delay, v49);
+  std::vector<float>::resize(a7, v72, __Delay, v49);
   *(a7 + 24) = 0;
   LODWORD(__Delay[0]) = 0;
-  std::vector<float>::resize((a7 + 32), v71, __Delay, v50);
+  std::vector<float>::resize((a7 + 32), v72, __Delay, v50);
   *(a7 + 56) = 0;
-  std::vector<float>::vector[abi:ne200100](__Delay, 4uLL);
-  vDSP_biquad(a6, __Delay[0], __X[0], 1, *a7, 1, v71);
-  vDSP_biquad(a6, __Delay[0], v57[0], 1, *(a7 + 32), 1, v71);
+  v55 = 0;
+  std::vector<float>::vector[abi:ne200100](__Delay, 4uLL, &v55);
+  vDSP_biquad(a6, __Delay[0], __X[0], 1, *a7, 1, v72);
+  vDSP_biquad(a6, __Delay[0], v58[0], 1, *(a7 + 32), 1, v72);
   if (__Delay[0])
   {
     __Delay[1] = __Delay[0];
     operator delete(__Delay[0]);
   }
 
-  if (v57[0])
+  if (v58[0])
   {
-    v57[1] = v57[0];
-    operator delete(v57[0]);
+    v58[1] = v58[0];
+    operator delete(v58[0]);
   }
 
   if (__X[0])
@@ -2549,10 +2530,10 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
     operator delete(__p[0]);
   }
 
-  if (v64.realp)
+  if (v65.realp)
   {
-    v64.imagp = v64.realp;
-    operator delete(v64.realp);
+    v65.imagp = v65.realp;
+    operator delete(v65.realp);
   }
 
   if (__A.realp)
@@ -2561,55 +2542,57 @@ void vg::hrtf::phaseShift(uint64_t a1@<X0>, float *a2@<X1>, void *a3@<X2>, const
     operator delete(__A.realp);
   }
 
-  if (v66[0])
+  if (v67[0])
   {
-    v66[1] = v66[0];
-    operator delete(v66[0]);
+    v67[1] = v67[0];
+    operator delete(v67[0]);
   }
 
   for (i = 0; i != -6; i -= 3)
   {
-    v52 = v68[i];
+    v52 = v69[i];
     if (v52)
     {
-      v68[i + 1] = v52;
+      v69[i + 1] = v52;
       operator delete(v52);
     }
   }
 
   for (j = 0; j != -6; j -= 3)
   {
-    v54 = v69[j + 3];
+    v54 = v70[j + 3];
     if (v54)
     {
-      v70[j + 1] = v54;
+      v71[j + 1] = v54;
       operator delete(v54);
     }
   }
 }
 
-void vg::hrtf::phaseShift(vg::hrtf::IRFilters const&,vg::hrtf::PhaseShiftParameters const&,float,std::vector<float> const&,vDSP_DFT_SetupStruct *,vDSP_DFT_SetupStruct *,vDSP_biquad_SetupStruct *)::$_3::operator()(uint64_t a1@<X0>, const float **a2@<X1>, void *a3@<X8>)
+void vg::hrtf::phaseShift(vg::hrtf::IRFilters const&,vg::hrtf::PhaseShiftParameters const&,float,std::vector<float> const&,vDSP_DFT_SetupStruct *,vDSP_DFT_SetupStruct *,vDSP_biquad_SetupStruct *)::$_3::operator()(uint64_t a1@<X0>, const float **a2@<X1>, uint64_t *a3@<X8>)
 {
   v6 = **(a1 + 16);
-  LODWORD(v13[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](&__Or, v6);
-  std::vector<float>::vector[abi:ne200100](__Oi, **(a1 + 16));
+  LODWORD(v15[0]) = 0;
+  std::vector<float>::vector[abi:ne200100](&__Or, v6, v15);
+  v7 = **(a1 + 16);
+  v11 = 0;
+  std::vector<float>::vector[abi:ne200100](__Oi, v7, &v11);
   vDSP_DFT_Execute(**(a1 + 8), *a2, a2[3], __Or, __Oi[0]);
   MEMORY[0x2743B9D70](__Or, 1, *(a1 + 24), __Or, 1, **(a1 + 16));
-  v7 = &v11[-4 * *(*a1 + 128)];
-  std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<float *>>,std::reverse_iterator<std::__wrap_iter<float *>>>(v11, v11, v7, v7, __Or, __Or, v13);
+  v8 = &v13[-4 * *(*a1 + 128)];
+  std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<float *>>,std::reverse_iterator<std::__wrap_iter<float *>>>(v13, v13, v8, __Or, __Or, v15, v8);
   MEMORY[0x2743B9D50](__Or, 1, *(*a1 + 160), 1, __Or, 1, **(a1 + 16));
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a3, __Or, v11, (v11 - __Or) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a3, __Or, v13, (v13 - __Or) >> 2);
   for (i = 0; i != -6; i -= 3)
   {
-    v9 = __Oi[i];
-    if (v9)
+    v10 = __Oi[i];
+    if (v10)
     {
-      __Oi[i + 1] = v9;
-      operator delete(v9);
+      __Oi[i + 1] = v10;
+      operator delete(v10);
     }
   }
 }
@@ -2636,20 +2619,20 @@ void sub_270F4243C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void std::vector<float>::resize(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
+    std::vector<float>::__append(result, a2 - v4, a3, a4);
   }
 }
 
@@ -2670,22 +2653,23 @@ void vg::hrtf::IRFilters::~IRFilters(vg::hrtf::IRFilters *this)
   }
 }
 
-void vg::hrtf::ITDWindow(vg::hrtf *this@<X0>, float a2@<S0>, float a3@<S1>, uint64_t a4@<X1>, float **a5@<X8>)
+void vg::hrtf::ITDWindow(vg::hrtf *this@<X0>, float a2@<S0>, float a3@<S1>, uint64_t a4@<X1>, uint64_t *a5@<X8>)
 {
-  v10 = fmodf(a3, 180.0);
-  v11 = a2 * 3.14159265 / 180.0;
-  v12 = cosf(v11);
-  std::vector<float>::vector[abi:ne200100](a5, this);
+  v9 = fmodf(a3, 180.0);
+  v10 = a2 * 3.14159265 / 180.0;
+  v11 = cosf(v10);
+  v17 = 0;
+  std::vector<float>::vector[abi:ne200100](a5, this, &v17);
   if (this)
   {
-    v13 = 90.0 - fabsf(v10 + -90.0);
-    v14 = (*(a4 + 132) - *(a4 + 120)) / (fabsf(*(a4 + 136) + -45.0) + 45.0);
-    v15 = *(a4 + 72);
-    v16 = *a5;
+    v12 = 90.0 - fabsf(v9 + -90.0);
+    v13 = (*(a4 + 132) - *(a4 + 120)) / (fabsf(*(a4 + 136) + -45.0) + 45.0);
+    v14 = *(a4 + 72);
+    v15 = *a5;
     do
     {
-      v17 = *v15++;
-      *v16++ = (1.0 - tanhf(((*(a4 + 120) + ((v14 * vabds_f32(v13, *(a4 + 136))) * v12)) - v17) / *(a4 + 124))) * 0.5;
+      v16 = *v14++;
+      *v15++ = (1.0 - tanhf(((*(a4 + 120) + ((v13 * vabds_f32(v12, *(a4 + 136))) * v11)) - v16) / *(a4 + 124))) * 0.5;
       this = (this - 1);
     }
 
@@ -2713,102 +2697,103 @@ float64_t vg::hrtf::biquadParameters@<D0>(uint64_t a1@<X0>, float32x2_t *a2@<X1>
 void vg::hrtf::modifyIRDataWithITD(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v4 = *(a1 + 8);
-  v90 = *a1;
-  v91 = v4;
+  v93 = *a1;
+  v94 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  vg::hrtf::getIRValues(&v90, &v92);
-  if (v91)
+  vg::hrtf::getIRValues(&v93, &v95);
+  v5 = v94;
+  if (v94)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v94);
   }
 
-  if (v96)
+  if (v99)
   {
-    memset(v89, 0, sizeof(v89));
-    std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(v89, v94, v95, (v95 - v94) >> 6);
-    if ((v96 & 1) == 0)
+    memset(v92, 0, sizeof(v92));
+    std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(v92, v97, v98, (v98 - v97) >> 6);
+    if ((v99 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v86 = 0;
-    v87 = 0;
-    v88 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&v86, v92, v93, (v93 - v92) >> 3);
+    v89 = 0;
+    v90 = 0;
+    v91 = 0;
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&v89, v95, v96, (v96 - v95) >> 3);
     FilterLength = IR::IRData::getFilterLength(*a1);
     if (FilterLength)
     {
-      v31 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v34 = __VGLogSharedInstance(FilterLength);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        *v71 = 0;
-        v32 = " Number of IR taps must be multiple of 2. ";
+        *v74 = 0;
+        v35 = " Number of IR taps must be multiple of 2. ";
 LABEL_38:
-        _os_log_impl(&dword_270F06000, v31, OS_LOG_TYPE_ERROR, v32, v71, 2u);
+        _os_log_impl(&dword_270F06000, v34, OS_LOG_TYPE_ERROR, v35, v74, 2u);
       }
     }
 
     else
     {
-      v6 = FilterLength;
+      v7 = FilterLength;
       Setup = vDSP_DFT_zop_CreateSetup(0, FilterLength, vDSP_DFT_FORWARD);
-      v8 = Setup;
+      v9 = Setup;
       if (Setup)
       {
-        v85[0] = MEMORY[0x277D85DD0];
-        v85[1] = 3221225472;
-        v85[2] = ___ZN2vg4hrtf19modifyIRDataWithITDENSt3__110shared_ptrIN2IR6IRDataEEE_block_invoke;
-        v85[3] = &__block_descriptor_40_e5_v8__0l;
-        v85[4] = Setup;
-        v9 = MEMORY[0x2743B9AA0](v85);
-        v10 = vDSP_DFT_zop_CreateSetup(0, v6, vDSP_DFT_INVERSE);
-        v11 = v10;
-        if (v10)
+        v88[0] = MEMORY[0x277D85DD0];
+        v88[1] = 3221225472;
+        v88[2] = ___ZN2vg4hrtf19modifyIRDataWithITDENSt3__110shared_ptrIN2IR6IRDataEEE_block_invoke;
+        v88[3] = &__block_descriptor_40_e5_v8__0l;
+        v88[4] = Setup;
+        v10 = MEMORY[0x2743B9AA0](v88);
+        v11 = vDSP_DFT_zop_CreateSetup(0, v7, vDSP_DFT_INVERSE);
+        v12 = v11;
+        if (v11)
         {
-          v84[0] = MEMORY[0x277D85DD0];
-          v84[1] = 3221225472;
-          v84[2] = ___ZN2vg4hrtf19modifyIRDataWithITDENSt3__110shared_ptrIN2IR6IRDataEEE_block_invoke_10;
-          v84[3] = &__block_descriptor_40_e5_v8__0l;
-          v84[4] = v10;
-          v12 = MEMORY[0x2743B9AA0](v84);
+          v87[0] = MEMORY[0x277D85DD0];
+          v87[1] = 3221225472;
+          v87[2] = ___ZN2vg4hrtf19modifyIRDataWithITDENSt3__110shared_ptrIN2IR6IRDataEEE_block_invoke_10;
+          v87[3] = &__block_descriptor_40_e5_v8__0l;
+          v87[4] = v11;
+          v13 = MEMORY[0x2743B9AA0](v87);
           IR::IRData::getSampleRate(*a1);
-          vg::hrtf::getPhaseShiftParameters(&v86, v6, v71, v13);
-          if (v83)
+          vg::hrtf::getPhaseShiftParameters(&v89, v7, v74, v14);
+          if (v86)
           {
-            v38 = v9;
-            v39 = v12;
-            vg::hrtf::PhaseShiftParameters::PhaseShiftParameters(v59, v71);
-            v56 = 0;
-            v57 = 0;
-            v58 = 0;
-            std::vector<vg::hrtf::IRFilters>::reserve(&v56, (v87 - v86) >> 3);
-            v14 = v86;
-            v15 = v87;
-            if (v87 == v86)
+            v41 = v10;
+            v42 = v13;
+            vg::hrtf::PhaseShiftParameters::PhaseShiftParameters(v62, v74);
+            v59 = 0;
+            v60 = 0;
+            v61 = 0;
+            std::vector<vg::hrtf::IRFilters>::reserve(&v59, (v90 - v89) >> 3);
+            v16 = v89;
+            v17 = v90;
+            if (v90 == v89)
             {
-              v29 = (v87 - v86) >> 3;
+              v32 = (v90 - v89) >> 3;
 LABEL_47:
               *buf = 0;
-              v44 = 0;
-              v45 = 0;
-              _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(buf, v14, v15, v29);
-              v46 = 0;
-              __p = 0;
+              v47 = 0;
               v48 = 0;
-              std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(&v46, v56, v57, (v57 - v56) >> 6);
+              _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(buf, v16, v17, v32);
+              v49 = 0;
+              __p = 0;
+              v51 = 0;
+              std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(&v49, v59, v60, (v60 - v59) >> 6);
               PeriodForCyclicalDimensions = IR::IRData::getPeriodForCyclicalDimensions(*a1);
               __Coefficients = 0uLL;
-              *&v51 = 0;
-              std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__Coefficients, *PeriodForCyclicalDimensions, PeriodForCyclicalDimensions[1], (PeriodForCyclicalDimensions[1] - *PeriodForCyclicalDimensions) >> 2);
+              *&v54 = 0;
+              std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__Coefficients, *PeriodForCyclicalDimensions, *(PeriodForCyclicalDimensions + 8), (*(PeriodForCyclicalDimensions + 8) - *PeriodForCyclicalDimensions) >> 2);
               InterpolationMethod = IR::IRData::getInterpolationMethod(*a1);
-              v53 = 0;
-              v54 = 0;
-              v55 = 0;
-              std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v53, *InterpolationMethod, InterpolationMethod[1], (InterpolationMethod[1] - *InterpolationMethod) >> 2);
+              v56 = 0;
+              v57 = 0;
+              v58 = 0;
+              std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v56, *InterpolationMethod, *(InterpolationMethod + 8), (*(InterpolationMethod + 8) - *InterpolationMethod) >> 2);
               IR::IRData::getUserData(&cf, *a1);
               if (cf)
               {
@@ -2818,239 +2803,240 @@ LABEL_47:
               vg::hrtf::getIRData(buf);
             }
 
-            v41 = v11;
-            v16 = 0;
-            v17 = 0;
+            v44 = v12;
             v18 = 0;
             v19 = 0;
-            v40 = a2;
+            v20 = 0;
+            v21 = 0;
+            v43 = a2;
             while (1)
             {
-              vg::hrtf::ITDWindow(v6, v14[v18], v14[v18 + 1], v59, &v53);
-              if (fabsf(*(v61 + v17)) < 0.00000001)
+              vg::hrtf::ITDWindow(v7, v16[v20], v16[v20 + 1], v62, &v56);
+              v22 = v64 + v19;
+              if (fabsf(*(v64 + v19)) < 0.00000001)
               {
                 break;
               }
 
-              v52 = 0;
+              v55 = 0;
               __Coefficients = 0u;
-              v51 = 0u;
-              vg::hrtf::biquadParameters(v61 + v17, (v63 + v17), &__Coefficients);
-              v20 = vDSP_biquad_CreateSetup(__Coefficients.f64, 1uLL);
-              v21 = v20;
-              if (v20)
+              v54 = 0u;
+              vg::hrtf::biquadParameters(v22, (v66 + v19), &__Coefficients);
+              v23 = vDSP_biquad_CreateSetup(__Coefficients.f64, 1uLL);
+              v24 = v23;
+              if (v23)
               {
-                v22 = v6;
-                v49[0] = MEMORY[0x277D85DD0];
-                v49[1] = 3221225472;
-                v49[2] = ___ZN2vg4hrtf19modifyIRDataWithITDENSt3__110shared_ptrIN2IR6IRDataEEE_block_invoke_11;
-                v49[3] = &__block_descriptor_40_e5_v8__0l;
-                v49[4] = v20;
-                v23 = MEMORY[0x2743B9AA0](v49);
-                v24 = v8;
-                vg::hrtf::phaseShift(v89[0] + v16, v59, &v53, v8, v41, v21, buf, *(*v59 + 4 * v19));
-                v25 = v57;
-                if (v57 >= v58)
+                v25 = v7;
+                v52[0] = MEMORY[0x277D85DD0];
+                v52[1] = 3221225472;
+                v52[2] = ___ZN2vg4hrtf19modifyIRDataWithITDENSt3__110shared_ptrIN2IR6IRDataEEE_block_invoke_11;
+                v52[3] = &__block_descriptor_40_e5_v8__0l;
+                v52[4] = v23;
+                v26 = MEMORY[0x2743B9AA0](v52);
+                v27 = v9;
+                vg::hrtf::phaseShift(v92[0] + v18, v62, &v56, v9, v44, v24, buf, *(*v62 + 4 * v21));
+                v28 = v60;
+                if (v60 >= v61)
                 {
-                  v27 = std::vector<vg::hrtf::IRFilters>::__emplace_back_slow_path<vg::hrtf::IRFilters&>(&v56, buf);
+                  v30 = std::vector<vg::hrtf::IRFilters>::__emplace_back_slow_path<vg::hrtf::IRFilters&>(&v59, buf);
                 }
 
                 else
                 {
-                  v26.n128_f32[0] = std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>(&v56, v57, buf);
-                  v27 = v25 + 64;
+                  v29.n128_f32[0] = std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>(&v59, v60, buf);
+                  v30 = v28 + 8;
                 }
 
-                v8 = v24;
-                v57 = v27;
-                v6 = v22;
+                v9 = v27;
+                v60 = v30;
+                v7 = v25;
                 if (__p)
                 {
-                  v48 = __p;
+                  v51 = __p;
                   operator delete(__p);
                 }
 
                 if (*buf)
                 {
-                  v44 = *buf;
+                  v47 = *buf;
                   operator delete(*buf);
                 }
 
-                v23[2](v23, v26);
+                v26[2](v26, v29);
               }
 
               else
               {
-                v28 = __VGLogSharedInstance();
-                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                v31 = __VGLogSharedInstance(0);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_270F06000, v28, OS_LOG_TYPE_ERROR, " Failed to setup biquadratic filter. ", buf, 2u);
+                  _os_log_impl(&dword_270F06000, v31, OS_LOG_TYPE_ERROR, " Failed to setup biquadratic filter. ", buf, 2u);
                 }
 
-                *v40 = 0;
-                v40[1] = 0;
+                *v43 = 0;
+                v43[1] = 0;
               }
 
-              if (v53)
+              if (v56)
               {
-                v54 = v53;
-                operator delete(v53);
+                v57 = v56;
+                operator delete(v56);
               }
 
-              if (!v21)
+              if (!v24)
               {
                 goto LABEL_54;
               }
 
-              ++v19;
-              v14 = v86;
-              v15 = v87;
-              v18 += 2;
-              v17 += 12;
-              v16 += 64;
-              if (v19 >= (v87 - v86) >> 3)
+              ++v21;
+              v16 = v89;
+              v17 = v90;
+              v20 += 2;
+              v19 += 12;
+              v18 += 64;
+              if (v21 >= (v90 - v89) >> 3)
               {
-                v29 = (v87 - v86) >> 3;
+                v32 = (v90 - v89) >> 3;
                 goto LABEL_47;
               }
             }
 
-            v37 = __VGLogSharedInstance();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v40 = __VGLogSharedInstance(v22);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_270F06000, v37, OS_LOG_TYPE_ERROR, " IIR biquad a0 filter too small. ", buf, 2u);
+              _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_ERROR, " IIR biquad a0 filter too small. ", buf, 2u);
             }
 
-            *v40 = 0;
-            v40[1] = 0;
-            if (v53)
+            *v43 = 0;
+            v43[1] = 0;
+            if (v56)
             {
-              v54 = v53;
-              operator delete(v53);
+              v57 = v56;
+              operator delete(v56);
             }
 
 LABEL_54:
-            *buf = &v56;
+            *buf = &v59;
             std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](buf);
-            if (v69)
+            if (v72)
             {
-              v70 = v69;
-              operator delete(v69);
+              v73 = v72;
+              operator delete(v72);
             }
 
-            v9 = v38;
-            v12 = v39;
-            if (v67)
+            v10 = v41;
+            v13 = v42;
+            if (v70)
             {
-              v68 = v67;
-              operator delete(v67);
+              v71 = v70;
+              operator delete(v70);
             }
 
-            if (v65)
+            if (v68)
             {
-              v66 = v65;
-              operator delete(v65);
+              v69 = v68;
+              operator delete(v68);
             }
 
-            if (v63)
+            if (v66)
             {
-              v64 = v63;
-              operator delete(v63);
+              v67 = v66;
+              operator delete(v66);
             }
 
-            if (v61)
+            if (v64)
             {
-              v62 = v61;
-              operator delete(v61);
+              v65 = v64;
+              operator delete(v64);
             }
 
-            if (*v59)
+            if (*v62)
             {
-              v60 = *v59;
-              operator delete(*v59);
+              v63 = *v62;
+              operator delete(*v62);
             }
           }
 
           else
           {
-            v34 = __VGLogSharedInstance();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v37 = __VGLogSharedInstance(v15);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
-              *v59 = 0;
-              _os_log_impl(&dword_270F06000, v34, OS_LOG_TYPE_ERROR, " Failed to compute phaseShift params. ", v59, 2u);
+              *v62 = 0;
+              _os_log_impl(&dword_270F06000, v37, OS_LOG_TYPE_ERROR, " Failed to compute phaseShift params. ", v62, 2u);
             }
 
             *a2 = 0;
             a2[1] = 0;
           }
 
-          if (v83 == 1)
+          if (v86 == 1)
           {
-            if (v81)
+            if (v84)
             {
-              v82 = v81;
-              operator delete(v81);
+              v85 = v84;
+              operator delete(v84);
             }
 
-            if (v79)
+            if (v82)
             {
-              v80 = v79;
-              operator delete(v79);
+              v83 = v82;
+              operator delete(v82);
             }
 
-            if (v77)
+            if (v80)
             {
-              v78 = v77;
-              operator delete(v77);
+              v81 = v80;
+              operator delete(v80);
             }
 
-            if (v75)
+            if (v78)
             {
-              v76 = v75;
-              operator delete(v75);
+              v79 = v78;
+              operator delete(v78);
             }
 
-            if (v73)
+            if (v76)
             {
-              v74 = v73;
-              operator delete(v73);
+              v77 = v76;
+              operator delete(v76);
             }
 
-            if (*v71)
+            if (*v74)
             {
-              v72 = *v71;
-              operator delete(*v71);
+              v75 = *v74;
+              operator delete(*v74);
             }
           }
 
-          v12[2](v12);
+          v13[2](v13);
         }
 
         else
         {
-          v33 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v36 = __VGLogSharedInstance(0);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            *v71 = 0;
-            _os_log_impl(&dword_270F06000, v33, OS_LOG_TYPE_ERROR, " Failed to setup inverse fft. ", v71, 2u);
+            *v74 = 0;
+            _os_log_impl(&dword_270F06000, v36, OS_LOG_TYPE_ERROR, " Failed to setup inverse fft. ", v74, 2u);
           }
 
           *a2 = 0;
           a2[1] = 0;
         }
 
-        v9[2](v9);
+        v10[2](v10);
 
         goto LABEL_81;
       }
 
-      v31 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v34 = __VGLogSharedInstance(0);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        *v71 = 0;
-        v32 = " Failed to setup fft. ";
+        *v74 = 0;
+        v35 = " Failed to setup fft. ";
         goto LABEL_38;
       }
     }
@@ -3058,40 +3044,40 @@ LABEL_54:
     *a2 = 0;
     a2[1] = 0;
 LABEL_81:
-    if (v86)
+    if (v89)
     {
-      v87 = v86;
-      operator delete(v86);
+      v90 = v89;
+      operator delete(v89);
     }
 
-    *v71 = v89;
-    std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](v71);
+    *v74 = v92;
+    std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](v74);
     goto LABEL_84;
   }
 
-  v30 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v33 = __VGLogSharedInstance(v5);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
-    *v71 = 0;
-    _os_log_impl(&dword_270F06000, v30, OS_LOG_TYPE_ERROR, " Failed to read coefficients and delay values from IRData. ", v71, 2u);
+    *v74 = 0;
+    _os_log_impl(&dword_270F06000, v33, OS_LOG_TYPE_ERROR, " Failed to read coefficients and delay values from IRData. ", v74, 2u);
   }
 
   *a2 = 0;
   a2[1] = 0;
 LABEL_84:
-  if (v96 == 1)
+  if (v99 == 1)
   {
-    *v71 = &v94;
-    std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](v71);
-    if (v92)
+    *v74 = &v97;
+    std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](v74);
+    if (v95)
     {
-      v93 = v92;
-      operator delete(v92);
+      v96 = v95;
+      operator delete(v95);
     }
   }
 }
 
-void sub_270F42EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void (**a10)(void), void (**a11)(void), uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_270F42EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void (**a10)(void), void (**a11)(void), uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (__p)
   {
@@ -3102,20 +3088,20 @@ void sub_270F42EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   a17 = &a40;
   std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](&a17);
   vg::hrtf::PhaseShiftParameters::~PhaseShiftParameters(&a43);
-  std::optional<vg::hrtf::PhaseShiftParameters>::~optional(&a67);
+  std::optional<vg::hrtf::PhaseShiftParameters>::~optional(&a65);
   a11[2]();
 
   a10[2]();
-  v69 = *(v67 - 240);
-  if (v69)
+  v67 = *(v65 - 240);
+  if (v67)
   {
-    *(v67 - 232) = v69;
-    operator delete(v69);
+    *(v65 - 232) = v67;
+    operator delete(v67);
   }
 
-  a67 = v67 - 216;
-  std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](&a67);
-  std::optional<vg::hrtf::IRGrid>::~optional(v67 - 176);
+  a65 = v65 - 216;
+  std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](&a65);
+  std::optional<vg::hrtf::IRGrid>::~optional(v65 - 176);
   _Unwind_Resume(a1);
 }
 
@@ -3130,14 +3116,12 @@ void sub_270F430B4()
   JUMPOUT(0x270F430ACLL);
 }
 
-void *std::vector<vg::hrtf::IRFilters>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<vg::hrtf::IRFilters>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 6)
   {
     if (!(a2 >> 58))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<vg::hrtf::IRFilters>>(result, a2);
     }
 
@@ -3147,9 +3131,9 @@ void *std::vector<vg::hrtf::IRFilters>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_270F43184(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F43184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<vg::hrtf::IRFilters>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3173,7 +3157,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::array<float,3ul>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::array<float,3ul>>::__init_with_size[abi:ne200100]<std::array<float,3ul>*,std::array<float,3ul>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::array<float,3ul>>::__init_with_size[abi:ne200100]<std::array<float,3ul>*,std::array<float,3ul>*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3195,7 +3179,7 @@ void sub_270F4328C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::array<float,3ul>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::array<float,3ul>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -3205,79 +3189,75 @@ void std::vector<std::array<float,3ul>>::__vallocate[abi:ne200100](uint64_t a1, 
   std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
 }
 
-char *std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<float *>>,std::reverse_iterator<std::__wrap_iter<float *>>>@<X0>(char *result@<X0>, char *a2@<X1>, char *a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, char *a6@<X5>, void *a7@<X8>)
+char *std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<float *>>,std::reverse_iterator<std::__wrap_iter<float *>>>@<X0>(char *result@<X0>, int *a2@<X1>, int *a3@<X3>, char *a4@<X4>, int *a5@<X5>, char **a6@<X8>, char *a7@<X2>)
 {
-  v7 = a6;
-  if (a2 != a4)
+  v7 = a5;
+  if (a2 != a3)
   {
-    if (a4 == a6)
+    if (a3 == a5)
     {
-      *a7 = result;
-      a7[1] = a2;
-      v7 = a4;
+      *a6 = result;
+      a6[1] = a2;
+      v7 = a3;
       goto LABEL_17;
     }
 
-    if (a2 - 4 == a4)
+    if (a2 - 1 == a3)
     {
-      v10 = a2 - 4;
+      v10 = a2 - 1;
       v11 = *(a2 - 1);
       do
       {
-        v12 = *(a4 - 1);
-        a4 -= 4;
-        *v10 = v12;
-        v10 -= 4;
-        a2 -= 4;
+        v12 = *--a3;
+        *v10-- = v12;
+        --a2;
       }
 
-      while (a4 != a6);
+      while (a3 != a5);
       *v10 = v11;
     }
 
     else
     {
-      if (a4 - 4 == a6)
+      if (a3 - 1 == a5)
       {
-        v13 = a6 + 4;
-        v14 = *a6;
-        v15 = a6;
-        if (a6 + 4 != a2)
+        v13 = a5 + 1;
+        v14 = *a5;
+        v15 = a5;
+        if (a5 + 1 != a2)
         {
-          v15 = a6;
-          v16 = a6;
+          v15 = a5;
+          v16 = a5;
           do
           {
-            v17 = *v13;
-            v13 += 4;
-            *v16 = v17;
-            v16 += 4;
-            v15 += 4;
+            v17 = *v13++;
+            *v16++ = v17;
+            ++v15;
           }
 
           while (v13 != a2);
         }
 
         *(a2 - 1) = v14;
-        result = a5;
+        result = a4;
         goto LABEL_16;
       }
 
-      result = std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<float *>>>(result, a2, a3, a4, a5, a6);
+      result = std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<float *>>>(result, a2, a7, a3, a4, a5);
     }
 
     v15 = a2;
 LABEL_16:
-    *a7 = result;
-    a7[1] = v15;
+    *a6 = result;
+    a6[1] = v15;
     goto LABEL_17;
   }
 
-  *a7 = a5;
-  a7[1] = a6;
+  *a6 = a4;
+  a6[1] = a5;
 LABEL_17:
-  a7[2] = a5;
-  a7[3] = v7;
+  a6[2] = a4;
+  a6[3] = v7;
   return result;
 }
 
@@ -3489,7 +3469,7 @@ void std::vector<float>::__append(uint64_t a1, unint64_t a2, __int32 *a3, int16x
   }
 }
 
-uint64_t std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3499,14 +3479,14 @@ uint64_t std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hr
   return result;
 }
 
-void sub_270F437BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_270F437BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<vg::hrtf::IRFilters>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<vg::hrtf::IRFilters>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -3526,7 +3506,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<vg::hrtf::IRFilters>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<vg::hrtf::IRFilters>,vg::hrtf::IRFilters*,vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<vg::hrtf::IRFilters>,vg::hrtf::IRFilters*,vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a2 != a3)
   {
@@ -3536,7 +3516,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<v
     {
       std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>(a1, a4, v6);
       v6 += 64;
-      a4 += 64;
+      a4 += 8;
       v8 -= 64;
     }
 
@@ -3564,20 +3544,20 @@ void sub_270F438D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+float std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   v5 = *(a3 + 24);
-  *(a2 + 32) = 0;
-  *(a2 + 24) = v5;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2 + 32, *(a3 + 32), *(a3 + 40), (*(a3 + 40) - *(a3 + 32)) >> 2);
+  a2[4] = 0;
+  *(a2 + 6) = v5;
+  a2[5] = 0;
+  a2[6] = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2 + 4, *(a3 + 32), *(a3 + 40), (*(a3 + 40) - *(a3 + 32)) >> 2);
   result = *(a3 + 56);
-  *(a2 + 56) = result;
+  *(a2 + 14) = result;
   return result;
 }
 
@@ -3646,19 +3626,19 @@ vg::hrtf::PhaseShiftParameters *vg::hrtf::PhaseShiftParameters::PhaseShiftParame
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<std::array<float,3ul>>::__init_with_size[abi:ne200100]<std::array<float,3ul>*,std::array<float,3ul>*>(this + 24, *(a2 + 3), *(a2 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 4) - *(a2 + 3)) >> 2));
+  std::vector<std::array<float,3ul>>::__init_with_size[abi:ne200100]<std::array<float,3ul>*,std::array<float,3ul>*>(this + 3, *(a2 + 3), *(a2 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 4) - *(a2 + 3)) >> 2));
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  std::vector<std::array<float,3ul>>::__init_with_size[abi:ne200100]<std::array<float,3ul>*,std::array<float,3ul>*>(this + 48, *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 2));
+  std::vector<std::array<float,3ul>>::__init_with_size[abi:ne200100]<std::array<float,3ul>*,std::array<float,3ul>*>(this + 6, *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 2));
   *(this + 9) = 0;
   *(this + 10) = 0;
   *(this + 11) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 72, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 9, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 2);
   *(this + 12) = 0;
   *(this + 13) = 0;
   *(this + 14) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 96, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 12, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 2);
   v4 = *(a2 + 120);
   v5 = *(a2 + 136);
   v6 = *(a2 + 19);
@@ -3668,7 +3648,7 @@ vg::hrtf::PhaseShiftParameters *vg::hrtf::PhaseShiftParameters::PhaseShiftParame
   *(this + 120) = v4;
   *(this + 21) = 0;
   *(this + 22) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 160, *(a2 + 20), *(a2 + 21), (*(a2 + 21) - *(a2 + 20)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 20, *(a2 + 20), *(a2 + 21), (*(a2 + 21) - *(a2 + 20)) >> 2);
   return this;
 }
 
@@ -3801,7 +3781,7 @@ uint64_t std::vector<vg::hrtf::IRFilters>::__emplace_back_slow_path<vg::hrtf::IR
 
   v14 = 0;
   v15 = v2 << 6;
-  std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>(a1, v2 << 6, a2);
+  std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>(a1, (v2 << 6), a2);
   v16 = ((v2 << 6) + 64);
   v8 = a1[1];
   v9 = (v2 << 6) + *a1 - v8;
@@ -3819,9 +3799,9 @@ uint64_t std::vector<vg::hrtf::IRFilters>::__emplace_back_slow_path<vg::hrtf::IR
   return v13;
 }
 
-void sub_270F43DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_270F43DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<vg::hrtf::IRFilters>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3939,11 +3919,11 @@ void vg::hrtf::addDelayFractions()
 
 BOOL vg::hrtf::HRTFDecoderModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v6 = __VGLogSharedInstance();
+  v32[2] = *MEMORY[0x277D85DE8];
+  v6 = __VGLogSharedInstance(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v26) = 0;
+    LOWORD(v26.__r_.__value_.__l.__data_) = 0;
     _os_log_impl(&dword_270F06000, v6, OS_LOG_TYPE_DEBUG, " Initializing HRTFDecoderModel (EspressoV1)... ", &v26, 2u);
   }
 
@@ -3959,9 +3939,9 @@ BOOL vg::hrtf::HRTFDecoderModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uin
   }
 
   v9 = [v7 initWithCString:v8];
-  v29 = 0;
-  v10 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v9 options:0 error:&v29];
-  v11 = v29;
+  v28 = 0;
+  v10 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v9 options:0 error:&v28];
+  v11 = v28;
   if (v11)
   {
     v12 = v11;
@@ -3970,29 +3950,29 @@ BOOL vg::hrtf::HRTFDecoderModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uin
 
   else
   {
-    v28 = 0;
-    v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v10 options:0 error:&v28];
-    v12 = v28;
+    v27 = 0;
+    v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v10 options:0 error:&v27];
+    v12 = v27;
     v15 = [v14 objectForKeyedSubscript:@"properties"];
     v16 = v15;
     v13 = 0;
     if (!v12 && v15)
     {
-      v33[0] = v9;
-      v32[0] = @"model_path";
-      v32[1] = @"config";
-      v30[0] = @"version";
+      v32[0] = v9;
+      v31[0] = @"model_path";
+      v31[1] = @"config";
+      v29[0] = @"version";
       v17 = [v15 objectForKeyedSubscript:?];
-      v31[0] = v17;
-      v31[1] = @"CPU";
-      v30[1] = @"engine";
-      v30[2] = @"input_name";
-      v30[3] = @"output_name";
-      v31[2] = &unk_2880F5D88;
-      v31[3] = &unk_2880F5DA0;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
-      v33[1] = v18;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+      v30[0] = v17;
+      v30[1] = @"CPU";
+      v29[1] = @"engine";
+      v29[2] = @"input_name";
+      v29[3] = @"output_name";
+      v30[2] = &unk_2880F5D88;
+      v30[3] = &unk_2880F5DA0;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+      v32[1] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
       v20 = [[VGMLEspressoModel alloc] initWithModelInfo:v19];
       v21 = *(a1 + 24);
@@ -4002,44 +3982,41 @@ BOOL vg::hrtf::HRTFDecoderModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uin
       v13 = v22 != 0;
       if (v22)
       {
-        std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>("", a3, &v26);
+        std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(&v26, "", a3);
         if (*(a1 + 23) < 0)
         {
           operator delete(*a1);
         }
 
         *a1 = v26;
-        *(a1 + 16) = v27;
-        v23 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v24 = __VGLogSharedInstance(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v26) = 0;
-          _os_log_impl(&dword_270F06000, v23, OS_LOG_TYPE_DEBUG, " Successfully initialized HRTFDecoderModel (EspressoV1) ", &v26, 2u);
+          LOWORD(v26.__r_.__value_.__l.__data_) = 0;
+          _os_log_impl(&dword_270F06000, v24, OS_LOG_TYPE_DEBUG, " Successfully initialized HRTFDecoderModel (EspressoV1) ", &v26, 2u);
         }
       }
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-void std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(char *__s@<X1>, uint64_t a2@<X0>, uint64_t a3@<X8>)
+void std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(std::string *__return_ptr a1@<X8>, char *__s@<X1>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 24) == 1)
+  if (*(a3 + 24) == 1)
   {
-    if (*(a2 + 23) < 0)
+    if (*(a3 + 23) < 0)
     {
-      v7 = *a2;
-      v8 = *(a2 + 8);
+      v7 = *a3;
+      v8 = *(a3 + 8);
 
-      std::string::__init_copy_ctor_external(a3, v7, v8);
+      std::string::__init_copy_ctor_external(a1, v7, v8);
     }
 
     else
     {
-      *a3 = *a2;
-      *(a3 + 16) = *(a2 + 16);
+      *a1 = *a3;
     }
   }
 
@@ -4057,19 +4034,19 @@ void std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(char *
       operator new();
     }
 
-    *(a3 + 23) = v5;
+    *(&a1->__r_.__value_.__s + 23) = v5;
     if (v5)
     {
-      memcpy(a3, __s, v5);
+      memcpy(a1, __s, v5);
     }
 
-    *(a3 + v6) = 0;
+    a1->__r_.__value_.__s.__data_[v6] = 0;
   }
 }
 
 void vg::hrtf::HRTFDecoderModelEspressoImpl::predict(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = __VGLogSharedInstance();
+  v6 = __VGLogSharedInstance(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -4078,13 +4055,13 @@ void vg::hrtf::HRTFDecoderModelEspressoImpl::predict(uint64_t a1@<X0>, uint64_t 
 
   if (*(a2 + 16) != 32)
   {
-    v17 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = __VGLogSharedInstance(v7);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v18 = " Face encoding input dimension mismatch. ";
+      v20 = " Face encoding input dimension mismatch. ";
 LABEL_16:
-      _os_log_impl(&dword_270F06000, v17, OS_LOG_TYPE_ERROR, v18, buf, 2u);
+      _os_log_impl(&dword_270F06000, v19, OS_LOG_TYPE_ERROR, v20, buf, 2u);
     }
 
 LABEL_17:
@@ -4096,52 +4073,51 @@ LABEL_17:
 
   if (*(a2 + 40) != 64)
   {
-    v17 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = __VGLogSharedInstance(v7);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v18 = " Ear encoding input dimension mismatch. ";
+      v20 = " Ear encoding input dimension mismatch. ";
       goto LABEL_16;
     }
 
     goto LABEL_17;
   }
 
-  v19 = [[VGMLFloatIOData alloc] initWithSize:32 withData:*a2];
-  v7 = [[VGMLFloatIOData alloc] initWithSize:64 withData:*(a2 + 24)];
-  v8 = [*(a1 + 24) getOutputSize];
-  v9 = (4 * v8 + 31) & 0x7FFFFFFE0;
+  v21 = [[VGMLFloatIOData alloc] initWithSize:32 withData:*a2];
+  v8 = [[VGMLFloatIOData alloc] initWithSize:64 withData:*(a2 + 24)];
+  v9 = [*(a1 + 24) getOutputSize];
+  v10 = (4 * v9 + 31) & 0x7FFFFFFE0;
   *buf = 0;
-  malloc_type_posix_memalign(buf, 0x20uLL, v9, 0xE1AC2527uLL);
-  v10 = *buf;
-  v11 = [[VGMLFloatIOData alloc] initWithSize:v8 withData:*buf];
-  v12 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v19, v7, 0}];
-  v13 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v11, 0}];
-  v14 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_270F06000, v14, OS_LOG_TYPE_DEBUG, " Running infer for HRTFDecoderModel (EspressoV1)... ", buf, 2u);
-  }
-
-  [*(a1 + 24) inferInputs:v12 toOutputs:v13];
-  v15 = __VGLogSharedInstance();
+  malloc_type_posix_memalign(buf, 0x20uLL, v10, 0xE1AC2527uLL);
+  v11 = *buf;
+  v12 = [[VGMLFloatIOData alloc] initWithSize:v9 withData:*buf];
+  v13 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v21, v8, 0}];
+  v14 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v12, 0}];
+  v15 = __VGLogSharedInstance(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_270F06000, v15, OS_LOG_TYPE_DEBUG, " Successfully completed infer for HRTFDecoderModel (EspressoV1) ", buf, 2u);
+    _os_log_impl(&dword_270F06000, v15, OS_LOG_TYPE_DEBUG, " Running infer for HRTFDecoderModel (EspressoV1)... ", buf, 2u);
   }
 
-  v16 = __VGLogSharedInstance();
+  v16 = __VGLogSharedInstance([*(a1 + 24) inferInputs:v13 toOutputs:v14]);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_270F06000, v16, OS_LOG_TYPE_DEBUG, " Successfully completed predict for HRTFDecoderModel (EspressoV1) ", buf, 2u);
+    _os_log_impl(&dword_270F06000, v16, OS_LOG_TYPE_DEBUG, " Successfully completed infer for HRTFDecoderModel (EspressoV1) ", buf, 2u);
   }
 
-  *a3 = v10;
-  *(a3 + 8) = v9 >> 2;
-  *(a3 + 16) = v8;
+  v18 = __VGLogSharedInstance(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_DEBUG, " Successfully completed predict for HRTFDecoderModel (EspressoV1) ", buf, 2u);
+  }
+
+  *a3 = v11;
+  *(a3 + 8) = v10 >> 2;
+  *(a3 + 16) = v9;
   *(a3 + 24) = 1;
 }
 
@@ -4152,9 +4128,9 @@ void sub_270F44780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_270F44890(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F44890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<vg::hrtf::HRTFDecoderModelEspresso>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4199,7 +4175,7 @@ void vg::hrtf::HRTFDecoderModelEspresso::~HRTFDecoderModelEspresso(vg::hrtf::HRT
 
 BOOL vg::hrtf::DTFModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   v6 = objc_alloc(MEMORY[0x277CCACA8]);
   if (*(a2 + 23) >= 0)
   {
@@ -4212,9 +4188,9 @@ BOOL vg::hrtf::DTFModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3
   }
 
   v8 = [v6 initWithCString:v7];
-  v27 = 0;
-  v9 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v8 options:0 error:&v27];
-  v10 = v27;
+  v25 = 0;
+  v9 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v8 options:0 error:&v25];
+  v10 = v25;
   if (v10)
   {
     v11 = v10;
@@ -4223,29 +4199,29 @@ BOOL vg::hrtf::DTFModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3
 
   else
   {
-    v26 = 0;
-    v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v9 options:0 error:&v26];
-    v11 = v26;
+    v24 = 0;
+    v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v9 options:0 error:&v24];
+    v11 = v24;
     v14 = [v13 objectForKeyedSubscript:@"properties"];
     v15 = v14;
     v12 = 0;
     if (!v11 && v14)
     {
-      v31[0] = v8;
-      v30[0] = @"model_path";
-      v30[1] = @"config";
-      v28[0] = @"version";
+      v29[0] = v8;
+      v28[0] = @"model_path";
+      v28[1] = @"config";
+      v26[0] = @"version";
       v16 = [v14 objectForKeyedSubscript:?];
-      v29[0] = v16;
-      v29[1] = @"CPU";
-      v28[1] = @"engine";
-      v28[2] = @"input_name";
-      v28[3] = @"output_name";
-      v29[2] = &unk_2880F5DB8;
-      v29[3] = &unk_2880F5DD0;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
-      v31[1] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+      v27[0] = v16;
+      v27[1] = @"CPU";
+      v26[1] = @"engine";
+      v26[2] = @"input_name";
+      v26[3] = @"output_name";
+      v27[2] = &unk_2880F5DB8;
+      v27[3] = &unk_2880F5DD0;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+      v29[1] = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
       v19 = [[VGMLEspressoModel alloc] initWithModelInfo:v18];
       v20 = *(a1 + 24);
@@ -4255,19 +4231,17 @@ BOOL vg::hrtf::DTFModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3
       v12 = v21 != 0;
       if (v21)
       {
-        std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>("", a3, &v24);
+        std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(&v23, "", a3);
         if (*(a1 + 23) < 0)
         {
           operator delete(*a1);
         }
 
-        *a1 = v24;
-        *(a1 + 16) = v25;
+        *a1 = v23;
       }
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -4370,7 +4344,7 @@ void vg::hrtf::DTFModelEspressoImpl::predict(uint64_t a1@<X0>, uint64_t a2@<X1>,
 
   else
   {
-    v27 = __VGLogSharedInstance();
+    v27 = __VGLogSharedInstance(a1);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       LOWORD(memptr) = 0;
@@ -4410,9 +4384,9 @@ void sub_270F44FD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_270F45148(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F45148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<vg::hrtf::DTFModelEspresso>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4457,7 +4431,7 @@ void vg::hrtf::DTFModelEspresso::~DTFModelEspresso(vg::hrtf::DTFModelEspresso *t
 
 BOOL vg::hrtf::DTFBiasModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   v6 = objc_alloc(MEMORY[0x277CCACA8]);
   if (*(a2 + 23) >= 0)
   {
@@ -4470,9 +4444,9 @@ BOOL vg::hrtf::DTFBiasModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_
   }
 
   v8 = [v6 initWithCString:v7];
-  v27 = 0;
-  v9 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v8 options:0 error:&v27];
-  v10 = v27;
+  v25 = 0;
+  v9 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v8 options:0 error:&v25];
+  v10 = v25;
   if (v10)
   {
     v11 = v10;
@@ -4481,29 +4455,29 @@ BOOL vg::hrtf::DTFBiasModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_
 
   else
   {
-    v26 = 0;
-    v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v9 options:0 error:&v26];
-    v11 = v26;
+    v24 = 0;
+    v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v9 options:0 error:&v24];
+    v11 = v24;
     v14 = [v13 objectForKeyedSubscript:@"properties"];
     v15 = v14;
     v12 = 0;
     if (!v11 && v14)
     {
-      v31[0] = v8;
-      v30[0] = @"model_path";
-      v30[1] = @"config";
-      v28[0] = @"version";
+      v29[0] = v8;
+      v28[0] = @"model_path";
+      v28[1] = @"config";
+      v26[0] = @"version";
       v16 = [v14 objectForKeyedSubscript:?];
-      v29[0] = v16;
-      v29[1] = @"CPU";
-      v28[1] = @"engine";
-      v28[2] = @"input_name";
-      v28[3] = @"output_name";
-      v29[2] = &unk_2880F5DE8;
-      v29[3] = &unk_2880F5E00;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
-      v31[1] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+      v27[0] = v16;
+      v27[1] = @"CPU";
+      v26[1] = @"engine";
+      v26[2] = @"input_name";
+      v26[3] = @"output_name";
+      v27[2] = &unk_2880F5DE8;
+      v27[3] = &unk_2880F5E00;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+      v29[1] = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
       v19 = [[VGMLEspressoModel alloc] initWithModelInfo:v18];
       v20 = *(a1 + 24);
@@ -4513,19 +4487,17 @@ BOOL vg::hrtf::DTFBiasModelEspressoImpl::init(uint64_t a1, uint64_t *a2, uint64_
       v12 = v21 != 0;
       if (v21)
       {
-        std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>("", a3, &v24);
+        std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(&v23, "", a3);
         if (*(a1 + 23) < 0)
         {
           operator delete(*a1);
         }
 
-        *a1 = v24;
-        *(a1 + 16) = v25;
+        *a1 = v23;
       }
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -4604,7 +4576,7 @@ void vg::hrtf::DTFBiasModelEspressoImpl::predict(uint64_t a1@<X0>, uint64_t *a2@
 
   else
   {
-    v24 = __VGLogSharedInstance();
+    v24 = __VGLogSharedInstance(a1);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -4631,9 +4603,9 @@ void sub_270F457CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_270F458E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F458E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<vg::hrtf::DTFBiasModelEspresso>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4674,6 +4646,19 @@ void vg::hrtf::DTFBiasModelEspresso::~DTFBiasModelEspresso(vg::hrtf::DTFBiasMode
 
     MEMORY[0x2743B9370](v1, 0x1092C40BF85EB35);
   }
+}
+
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_270F45AAC(_Unwind_Exception *exception_object)
@@ -4797,7 +4782,7 @@ uint64_t vg::hrtf::detail::map<unsigned char>(uint64_t a1, uint64_t a2, void *a3
 
   else
   {
-    v28 = __VGLogSharedInstance();
+    v28 = __VGLogSharedInstance(v14);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -4889,7 +4874,7 @@ uint64_t vg::hrtf::detail::map<unsigned short>(uint64_t *a1, uint64_t a2, void *
 
   else
   {
-    v30 = __VGLogSharedInstance();
+    v30 = __VGLogSharedInstance(v14);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -4904,32 +4889,37 @@ uint64_t vg::hrtf::RectifyImpl::rectifyDepth(vg::hrtf::RectifyImpl *this, IOSurf
 {
   v5 = a2;
   v6 = a3;
-  if ([(IOSurface *)v5 pixelFormat]!= 1278226534 && [(IOSurface *)v5 pixelFormat]!= 1717855600)
+  if ([(IOSurface *)v5 pixelFormat]!= 1278226534)
   {
-    v25 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v7 = [(IOSurface *)v5 pixelFormat];
+    if (v7 != 1717855600)
     {
-      LOWORD(buf[0]) = 0;
-      v26 = " Invalid depth image format. ";
-      goto LABEL_19;
-    }
+      v27 = __VGLogSharedInstance(v7);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(buf[0]) = 0;
+        v28 = " Invalid depth image format. ";
+        goto LABEL_19;
+      }
 
 LABEL_20:
 
-    v24 = 0;
-    goto LABEL_21;
+      v26 = 0;
+      goto LABEL_21;
+    }
   }
 
-  v7 = *(this + 16);
-  if (v7 != 2 * [(IOSurface *)v5 width]|| (v8 = *(this + 17), [(IOSurface *)v5 height]!= v8))
+  v8 = *(this + 16);
+  v9 = [(IOSurface *)v5 width];
+  if (v8 != 2 * v9 || (v10 = *(this + 17), v9 = [(IOSurface *)v5 height], v9 != v10))
   {
-    v25 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = __VGLogSharedInstance(v9);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf[0]) = 0;
-      v26 = " Depth lookup table dimension mismatch. ";
+      v28 = " Depth lookup table dimension mismatch. ";
 LABEL_19:
-      _os_log_impl(&dword_270F06000, v25, OS_LOG_TYPE_ERROR, v26, buf, 2u);
+      _os_log_impl(&dword_270F06000, v27, OS_LOG_TYPE_ERROR, v28, buf, 2u);
       goto LABEL_20;
     }
 
@@ -4937,73 +4927,73 @@ LABEL_19:
   }
 
   vg::IOSurfaceData::IOSurfaceData(buf, v5, 1);
-  vg::IOSurfaceData::IOSurfaceData(v28, v6, 0);
-  v9 = [(IOSurface *)v5 height];
-  v10 = [(IOSurface *)v5 width];
-  if (v9)
+  vg::IOSurfaceData::IOSurfaceData(v30, v6, 0);
+  v11 = [(IOSurface *)v5 height];
+  v12 = [(IOSurface *)v5 width];
+  if (v11)
   {
-    v11 = 0;
-    v12 = v28[4];
-    v13 = v28[5];
+    v13 = 0;
+    v14 = v30[4];
+    v15 = v30[5];
     do
     {
-      if (v10)
+      if (v12)
       {
-        v14 = *(this + 6);
-        v15 = v30;
-        v16 = v31;
+        v16 = *(this + 6);
         v17 = v32;
-        v18 = *(this + 16) * v11;
-        v19 = 1;
-        v20 = v12;
+        v18 = v33;
+        v19 = v34;
+        v20 = *(this + 16) * v13;
+        v21 = 1;
+        v22 = v14;
         do
         {
-          v21 = *(v14 + 4 * v18);
-          if ((v21 & 0x80000000) != 0)
+          v23 = *(v16 + 4 * v20);
+          if ((v23 & 0x80000000) != 0)
           {
-            v22 = 0;
+            v24 = 0;
           }
 
           else
           {
-            v22 = *(v15 + v16 * *(v14 + 4 * (v18 + 1)) + v17 * v21);
+            v24 = *(v17 + v18 * *(v16 + 4 * (v20 + 1)) + v19 * v23);
           }
 
-          *v20 = v22;
-          v20 += 4;
-          v23 = v10 > v19++;
-          v18 += 2;
+          *v22 = v24;
+          v22 += 4;
+          v25 = v12 > v21++;
+          v20 += 2;
         }
 
-        while (v23);
+        while (v25);
       }
 
-      ++v11;
-      v12 = &v13[v12];
+      ++v13;
+      v14 = &v15[v14];
     }
 
-    while (v9 > v11);
+    while (v11 > v13);
   }
 
-  vg::IOSurfaceData::~IOSurfaceData(v28);
+  vg::IOSurfaceData::~IOSurfaceData(v30);
   vg::IOSurfaceData::~IOSurfaceData(buf);
-  v24 = 1;
+  v26 = 1;
 LABEL_21:
 
-  return v24;
+  return v26;
 }
 
-void sub_270F463DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F463DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, id);
-  v7 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, id);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   vg::IOSurfaceData::~IOSurfaceData(va);
   vg::IOSurfaceData::~IOSurfaceData(va1);
 
@@ -5012,32 +5002,32 @@ void sub_270F463DC(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void vg::hrtf::RectifyImpl::process(float32x2_t *this@<X0>, IOSurface *a2@<X1>, IOSurface *a3@<X2>, IOSurface *a4@<X3>, IOSurface *a5@<X4>, simd_float3x3 a6@<0:Q0, 16:Q1, 32:Q2>, VGHRTFDepthCalibrationData *a7@<X5>, uint64_t a8@<X8>)
 {
-  v62 = a6;
+  v64 = a6;
   v14 = a2;
   v15 = a3;
   v16 = a4;
-  v68 = a5;
+  v70 = a5;
   v17 = a7;
   v18 = [(VGHRTFDepthCalibrationData *)v17 lensDistortionLut];
   v19 = [v18 length];
   v20 = [v18 bytes];
   v19 >>= 2;
-  v72 = 0;
-  v73 = 0;
   v74 = 0;
-  std::vector<float>::reserve(&v72, v19);
-  std::__copy_impl::operator()[abi:ne200100]<float const*,float const*,std::back_insert_iterator<std::vector<float>>>(buf, v20, &v20[v19], &v72);
+  v75 = 0;
+  v76 = 0;
+  std::vector<float>::reserve(&v74, v19);
+  std::__copy_impl::operator()[abi:ne200100]<float const*,float const*,std::back_insert_iterator<std::vector<float>>>(buf, v20, &v20[v19], &v74);
 
   if (this[20].i8[0] == 1)
   {
-    v21 = v72;
+    v21 = v74;
     v22 = this[17];
-    if (v73 - v72 == *&this[18] - v22)
+    if (v75 - v74 == *&this[18] - v22)
     {
-      if (v73 == v72)
+      if (v75 == v74)
       {
 LABEL_8:
-        [(VGHRTFDepthCalibrationData *)v17 lensDistortionCenter:*v62.columns];
+        [(VGHRTFDepthCalibrationData *)v17 lensDistortionCenter:*v64.columns];
         v25 = vsub_f32(v24, this[16]);
         if (fabsf(v25.f32[0]) <= 0.000001 && fabsf(v25.f32[1]) <= 0.000001)
         {
@@ -5047,7 +5037,7 @@ LABEL_8:
 
       else
       {
-        v23 = (v73 - v72) >> 2;
+        v23 = (v75 - v74) >> 2;
         if (v23 <= 1)
         {
           v23 = 1;
@@ -5066,118 +5056,120 @@ LABEL_8:
     }
   }
 
-  v26 = [(IOSurface *)v16 width:*v62.columns];
+  v26 = [(IOSurface *)v16 width:*v64.columns];
   [(VGHRTFDepthCalibrationData *)v17 intrinsicMatrixReferenceDimension];
-  v66 = v27;
+  v68 = v27;
   [(VGHRTFDepthCalibrationData *)v17 lensDistortionCenter];
-  v64 = v28;
+  v66 = v28;
   [(VGHRTFDepthCalibrationData *)v17 lensDistortionCenter];
-  v63 = v29;
+  v65 = v29;
   v30 = [(IOSurface *)v14 width];
   v31 = [(IOSurface *)v16 width];
   v32 = [(IOSurface *)v14 width];
   v33 = [(IOSurface *)v14 height];
-  v34 = v26 / v66;
-  v35.f32[0] = v34 * v64;
-  v65 = v34;
-  v35.i32[1] = vmuls_lane_f32(v34, v63, 1);
-  v67 = *&v35;
+  v34 = v26 / v68;
+  v35.f32[0] = v34 * v66;
+  v67 = v34;
+  v35.i32[1] = vmuls_lane_f32(v34, v65, 1);
+  v69 = *&v35;
   v36 = vmul_n_f32(v35, v30 / v31);
   *&v37 = v32;
   *(&v37 + 1) = v33;
-  vg::hrtf::detail::buildLUT(&v72, buf, v37, *&v36);
+  vg::hrtf::detail::buildLUT(&v74, buf, v37, *&v36);
   v38 = *this;
-  v39 = v70;
+  v39 = v72;
   *this = *buf;
   this[1] = v39;
-  this[2] = v71;
+  this[2] = v73;
   free(v38);
   v40 = [(IOSurface *)v14 width];
   v41 = [(IOSurface *)v14 height];
   *&v42 = (v40 / 2);
   *(&v42 + 1) = (v41 / 2);
-  vg::hrtf::detail::buildLUT(&v72, buf, v42, COERCE_DOUBLE(vmul_f32(v36, 0x3F0000003F000000)));
+  vg::hrtf::detail::buildLUT(&v74, buf, v42, COERCE_DOUBLE(vmul_f32(v36, 0x3F0000003F000000)));
   v43 = this[3];
-  v44 = v70;
+  v44 = v72;
   this[3] = *buf;
   this[4] = v44;
-  this[5] = v71;
+  this[5] = v73;
   free(v43);
   v45 = [(IOSurface *)v16 width];
   v46 = [(IOSurface *)v16 height];
   *&v47 = v45;
   *(&v47 + 1) = v46;
-  vg::hrtf::detail::buildLUT(&v72, buf, v47, v67);
+  vg::hrtf::detail::buildLUT(&v74, buf, v47, v69);
   v48 = this[6];
-  v49 = v70;
+  v49 = v72;
   this[6] = *buf;
   this[7] = v49;
-  this[8] = v71;
+  this[8] = v73;
   free(v48);
   [(VGHRTFDepthCalibrationData *)v17 intrinsicMatrix];
-  v51 = vmulq_n_f32(v50, v65);
-  v53 = vmulq_n_f32(v52, v65);
+  v51 = vmulq_n_f32(v50, v67);
+  v53 = vmulq_n_f32(v52, v67);
   this[11].i32[0] = v51.i32[2];
   this[10] = *v51.f32;
   this[13].i32[0] = v53.i32[2];
   this[12] = *v53.f32;
   this[15].i32[0] = 1065353216;
-  this[14] = vmulq_n_f32(v54, v65).u64[0];
+  this[14] = vmulq_n_f32(v54, v67).u64[0];
   [(VGHRTFDepthCalibrationData *)v17 lensDistortionCenter];
   this[16] = v55;
-  if (&this[17] != &v72)
+  if (&this[17] != &v74)
   {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&this[17], v72, v73, (v73 - v72) >> 2);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&this[17], v74, v75, (v75 - v74) >> 2);
   }
 
   this[20].i8[0] = 1;
 LABEL_13:
-  if (vg::hrtf::RectifyImpl::rectifyColor(this, v14, v15))
+  v56 = vg::hrtf::RectifyImpl::rectifyColor(this, v14, v15);
+  if (v56)
   {
-    if (vg::hrtf::RectifyImpl::rectifyDepth(this, v16, v68))
+    v57 = vg::hrtf::RectifyImpl::rectifyDepth(this, v16, v70);
+    if (v57)
     {
-      v56 = v15;
-      v57 = v68;
-      *a8 = v56;
-      *(a8 + 16) = v62;
-      *(a8 + 64) = v57;
-      v58 = *this[12].f32;
+      v58 = v15;
+      v59 = v70;
+      *a8 = v58;
+      *(a8 + 16) = v64;
+      *(a8 + 64) = v59;
+      v60 = *this[12].f32;
       *(a8 + 80) = *this[10].f32;
-      *(a8 + 96) = v58;
-      v59 = 1;
+      *(a8 + 96) = v60;
+      v61 = 1;
       *(a8 + 112) = *this[14].f32;
       goto LABEL_22;
     }
 
-    v60 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    v62 = __VGLogSharedInstance(v57);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v61 = " Failed to rectify depth image. ";
+      v63 = " Failed to rectify depth image. ";
       goto LABEL_20;
     }
   }
 
   else
   {
-    v60 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    v62 = __VGLogSharedInstance(v56);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v61 = " Failed to rectify YUV image. ";
+      v63 = " Failed to rectify YUV image. ";
 LABEL_20:
-      _os_log_impl(&dword_270F06000, v60, OS_LOG_TYPE_ERROR, v61, buf, 2u);
+      _os_log_impl(&dword_270F06000, v62, OS_LOG_TYPE_ERROR, v63, buf, 2u);
     }
   }
 
-  v59 = 0;
+  v61 = 0;
   *a8 = 0;
 LABEL_22:
-  *(a8 + 128) = v59;
-  if (v72)
+  *(a8 + 128) = v61;
+  if (v74)
   {
-    v73 = v72;
-    operator delete(v72);
+    v75 = v74;
+    operator delete(v74);
   }
 }
 
@@ -5312,71 +5304,70 @@ void vg::hrtf::Rectify::~Rectify(vg::hrtf::Rectify *this)
   }
 }
 
-void vg::hrtf::Rectify::process(float32x2_t **this@<X0>, IOSurface *a2@<X1>, IOSurface *a3@<X2>, simd_float3x3 a4@<0:Q0, 16:Q1, 32:Q2>, VGHRTFDepthCalibrationData *a5@<X3>, uint64_t a6@<X8>)
+void vg::hrtf::Rectify::process(uint64_t *__return_ptr a1@<X8>, float32x2_t **this@<X0>, IOSurface *a3@<X1>, IOSurface *a4@<X2>, simd_float3x3 a5@<0:Q0, 16:Q1, 32:Q2>, VGHRTFDepthCalibrationData *a6@<X3>)
 {
-  v47[4] = *MEMORY[0x277D85DE8];
-  v8 = a2;
-  v38 = a3;
-  v37 = a5;
+  v46[4] = *MEMORY[0x277D85DE8];
+  v8 = a3;
+  v37 = a4;
+  v36 = a6;
   v9 = objc_alloc(MEMORY[0x277CD2930]);
-  v46[0] = *MEMORY[0x277CD2928];
-  v10 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface width](v38, "width")}];
-  v47[0] = v10;
-  v46[1] = *MEMORY[0x277CD28D0];
-  v11 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface height](v38, "height")}];
+  v45[0] = *MEMORY[0x277CD2928];
+  v10 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface width](v37, "width")}];
+  v46[0] = v10;
+  v45[1] = *MEMORY[0x277CD28D0];
+  v11 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface height](v37, "height")}];
   v12 = *MEMORY[0x277CD28D8];
-  v47[1] = v11;
-  v47[2] = &unk_2880F5FC8;
+  v46[1] = v11;
+  v46[2] = &unk_2880F5FC8;
   v13 = *MEMORY[0x277CD28B0];
-  v46[2] = v12;
-  v46[3] = v13;
-  v47[3] = &unk_2880F5FE0;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:4];
-  v36 = [v9 initWithProperties:v14];
+  v45[2] = v12;
+  v45[3] = v13;
+  v46[3] = &unk_2880F5FE0;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:4];
+  v35 = [v9 initWithProperties:v14];
 
   v15 = MEMORY[0x277CD2920];
-  v43[0] = *MEMORY[0x277CD2920];
+  v42[0] = *MEMORY[0x277CD2920];
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface width](v8, "width")}];
-  v44[0] = v16;
+  v43[0] = v16;
   v17 = MEMORY[0x277CD2900];
-  v43[1] = *MEMORY[0x277CD2900];
+  v42[1] = *MEMORY[0x277CD2900];
   v18 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface height](v8, "height")}];
   v19 = MEMORY[0x277CD28E0];
-  v43[2] = *MEMORY[0x277CD28E0];
-  v44[1] = v18;
-  v44[2] = &unk_2880F5FF8;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:3];
-  v45[0] = v20;
-  v41[0] = *v15;
+  v42[2] = *MEMORY[0x277CD28E0];
+  v43[1] = v18;
+  v43[2] = &unk_2880F5FF8;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+  v44[0] = v20;
+  v40[0] = *v15;
   v21 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface width](v8, "width") / 2}];
-  v42[0] = v21;
-  v41[1] = *v17;
+  v41[0] = v21;
+  v40[1] = *v17;
   v22 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface height](v8, "height") / 2}];
-  v41[2] = *v19;
-  v42[1] = v22;
-  v42[2] = &unk_2880F6010;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
-  v45[1] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+  v40[2] = *v19;
+  v41[1] = v22;
+  v41[2] = &unk_2880F6010;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
+  v44[1] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
 
   v25 = objc_alloc(MEMORY[0x277CD2930]);
-  v39[0] = *MEMORY[0x277CD2928];
+  v38[0] = *MEMORY[0x277CD2928];
   v26 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface width](v8, "width")}];
-  v40[0] = v26;
-  v39[1] = *MEMORY[0x277CD28D0];
+  v39[0] = v26;
+  v38[1] = *MEMORY[0x277CD28D0];
   v27 = [MEMORY[0x277CCABB0] numberWithInteger:{-[IOSurface height](v8, "height")}];
   v28 = *MEMORY[0x277CD28D8];
-  v40[1] = v27;
-  v40[2] = &unk_2880F6028;
+  v39[1] = v27;
+  v39[2] = &unk_2880F6028;
   v29 = *MEMORY[0x277CD2908];
-  v39[2] = v28;
-  v39[3] = v29;
-  v40[3] = v24;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
+  v38[2] = v28;
+  v38[3] = v29;
+  v39[3] = v24;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
   v31 = [v25 initWithProperties:v30];
 
-  vg::hrtf::RectifyImpl::process(*this, v8, v31, v38, v36, a4, v37, a6);
-  v32 = *MEMORY[0x277D85DE8];
+  vg::hrtf::RectifyImpl::process(*this, v8, v31, v37, v35, a5, v36, a1);
 }
 
 _DWORD *std::__copy_impl::operator()[abi:ne200100]<float const*,float const*,std::back_insert_iterator<std::vector<float>>>(uint64_t a1, _DWORD *a2, _DWORD *a3, const void **a4)
@@ -5452,17 +5443,17 @@ _DWORD *std::__copy_impl::operator()[abi:ne200100]<float const*,float const*,std
 
 id vg::hrtf::createUserData(uint64_t a1, uint64_t a2)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
   if (!v2)
   {
-    v5 = __VGLogSharedInstance();
+    v5 = __VGLogSharedInstance(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v16 = 0;
+      *v15 = 0;
       v13 = " No CTF values found for user data field in IRData. ";
 LABEL_12:
-      _os_log_impl(&dword_270F06000, v5, OS_LOG_TYPE_ERROR, v13, v16, 2u);
+      _os_log_impl(&dword_270F06000, v5, OS_LOG_TYPE_ERROR, v13, v15, 2u);
     }
 
 LABEL_13:
@@ -5472,10 +5463,10 @@ LABEL_13:
 
   if (*(a2 + 16) != v2)
   {
-    v5 = __VGLogSharedInstance();
+    v5 = __VGLogSharedInstance(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v16 = 0;
+      *v15 = 0;
       v13 = " Left and right CTF values must be of same length. ";
       goto LABEL_12;
     }
@@ -5507,118 +5498,116 @@ LABEL_13:
   }
 
   while (v8 != v10);
-  v17[0] = @"DiffuseFieldPowerRMS";
-  v17[1] = @"CTF";
-  v18[0] = &unk_2880F5D18;
-  v18[1] = v5;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = @"DiffuseFieldPowerRMS";
+  v16[1] = @"CTF";
+  v17[0] = &unk_2880F5D18;
+  v17[1] = v5;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 void vg::hrtf::hrtfToIRData(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 16);
   if (v6 == *(a2 + 16) && (v9 = *(a1 + 20), v9 == *(a2 + 20)) && *(a3 + 16) == *(a4 + 16))
   {
-    LODWORD(v49) = 0;
-    std::vector<float>::vector[abi:ne200100](v51, 4 * v6);
-    std::vector<std::vector<float>>::vector[abi:ne200100](v48, v9);
-    if (*v51)
+    LODWORD(v50) = 0;
+    std::vector<float>::vector[abi:ne200100](v52, 4 * v6, &v50);
+    std::vector<std::vector<float>>::vector[abi:ne200100](v49, v9, v52);
+    if (*v52)
     {
-      v52 = *v51;
-      operator delete(*v51);
+      v53 = *v52;
+      operator delete(*v52);
     }
 
     if (!v9)
     {
 LABEL_27:
-      LODWORD(v49) = 0;
-      std::vector<float>::vector[abi:ne200100](v51, 2uLL);
-      std::vector<std::vector<float>>::vector[abi:ne200100](&v46, v9);
-      if (*v51)
+      LODWORD(v50) = 0;
+      std::vector<float>::vector[abi:ne200100](v52, 2uLL, &v50);
+      std::vector<std::vector<float>>::vector[abi:ne200100](&v47, v9, v52);
+      if (*v52)
       {
-        v52 = *v51;
-        operator delete(*v51);
+        v53 = *v52;
+        operator delete(*v52);
       }
 
       if (v9)
       {
-        v17 = *a3;
-        v18 = v46;
-        v19 = v9;
-        v20 = *a4;
+        v19 = *a3;
+        v20 = v47;
+        v21 = v9;
+        v22 = *a4;
         do
         {
-          v21 = *v17++;
-          v22 = v21;
-          v24 = *v18;
-          v18 += 3;
-          v23 = v24;
-          *v24 = v22;
-          LODWORD(v24) = *v20++;
-          v23[1] = v24;
-          --v19;
+          v23 = *v19++;
+          v24 = v23;
+          v26 = *v20;
+          v20 += 3;
+          v25 = v26;
+          *v26 = v24;
+          LODWORD(v26) = *v22++;
+          v25[1] = v26;
+          --v21;
         }
 
-        while (v19);
-        v25 = v46;
+        while (v21);
+        v27 = v47;
         do
         {
-          v27 = *v25;
-          v25 += 3;
-          v26 = v27;
           v29 = *v27;
-          v28 = v27[1];
-          if (v28 >= *v27)
+          v27 += 3;
+          v28 = v29;
+          v31 = *v29;
+          v30 = v29[1];
+          if (v30 >= *v29)
           {
-            v30 = v29;
+            v32 = v31;
           }
 
           else
           {
-            v30 = v28;
+            v32 = v30;
           }
 
-          *v26 = v29 - v30;
-          v26[1] = v28 - v30;
+          *v28 = v31 - v32;
+          v28[1] = v30 - v32;
           --v9;
         }
 
         while (v9);
       }
 
-      *v51 = 1;
-      v44 = 0;
+      *v52 = 1;
       v45 = 0;
+      v46 = 0;
       __p = 0;
-      std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(&__p, v51, &v52, 2uLL);
-      v31 = [MEMORY[0x277CCA8D8] vg_resourcePath];
-      v32 = [v31 stringByAppendingPathComponent:@"ir_coordinates/ir_dimensions.bin"];
+      std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(&__p, v52, &v53, 2uLL);
+      v33 = [MEMORY[0x277CCA8D8] vg_resourcePath];
+      v34 = [v33 stringByAppendingPathComponent:@"ir_coordinates/ir_dimensions.bin"];
 
-      v33 = v32;
-      v34 = std::string::basic_string[abi:ne200100]<0>(v51, [v32 UTF8String]);
-      vg::load2DVectorData<float>(v34, 0xB1AuLL, 2uLL, &v49);
-      if (v53 < 0)
+      v35 = v34;
+      v36 = std::string::basic_string[abi:ne200100]<0>(v52, [v34 UTF8String]);
+      vg::load2DVectorData<float>(v36, 0xB1AuLL, 2uLL, &v50);
+      if (v54 < 0)
       {
-        operator delete(*v51);
+        operator delete(*v52);
       }
 
-      vg::toStdVector<float>(&v49, buf);
-      free(v49);
-      *v51 = 0x43B4000000000000;
+      vg::toStdVector<float>(&v50, buf);
+      free(v50);
+      *v52 = 0x43B4000000000000;
+      memset(v42, 0, sizeof(v42));
+      std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v42, v52, &v53, 2uLL);
+      *v52 = 0x100000001;
       memset(v41, 0, sizeof(v41));
-      std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v41, v51, &v52, 2uLL);
-      *v51 = 0x100000001;
-      memset(v40, 0, sizeof(v40));
-      std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v40, v51, &v52, 2uLL);
-      v39[0] = 0;
-      v39[1] = 0;
-      v39[2] = applesauce::CF::details::make_CFDictionaryRef(v39);
+      std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v41, v52, &v53, 2uLL);
+      v40[0] = 0;
+      v40[1] = 0;
+      v40[2] = applesauce::CF::details::make_CFDictionaryRef(v40);
       operator new();
     }
 
@@ -5627,40 +5616,42 @@ LABEL_27:
     v13 = 2 * v6;
     while (1)
     {
-      vg::hrtf::getTaps(a1, v12, v51);
-      vg::hrtf::getTaps(a2, v12, &v49);
+      vg::hrtf::getTaps(a1, v12, v52);
+      vg::hrtf::getTaps(a2, v12, &v50);
       LODWORD(__p) = 0;
-      std::vector<float>::vector[abi:ne200100](&v46, v13);
-      if (!vg::hrtf::makeMinimumPhase(v51, &v46))
+      std::vector<float>::vector[abi:ne200100](&v47, v13, &__p);
+      MinimumPhase = vg::hrtf::makeMinimumPhase(v52, &v47);
+      if (!MinimumPhase)
       {
         break;
       }
 
       LODWORD(buf[0]) = 0;
-      std::vector<float>::vector[abi:ne200100](&__p, v13);
-      MinimumPhase = vg::hrtf::makeMinimumPhase(&v49, &__p);
-      if (MinimumPhase)
+      std::vector<float>::vector[abi:ne200100](&__p, v13, buf);
+      v15 = vg::hrtf::makeMinimumPhase(&v50, &__p);
+      v16 = v15;
+      if (v15)
       {
-        v15 = *(v48[0] + v11);
-        if (v47 != v46)
+        v17 = *(v49[0] + v11);
+        if (v48 != v47)
         {
-          memmove(v15, v46, v47 - v46);
-          v15 = *(v48[0] + v11);
+          memmove(v17, v47, v48 - v47);
+          v17 = *(v49[0] + v11);
         }
 
-        if (v44 != __p)
+        if (v45 != __p)
         {
-          memmove((&v15[v47] - v46), __p, v44 - __p);
+          memmove((&v17[v48] - v47), __p, v45 - __p);
         }
       }
 
       else
       {
-        v16 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v18 = __VGLogSharedInstance(v15);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           LOWORD(buf[0]) = 0;
-          _os_log_impl(&dword_270F06000, v16, OS_LOG_TYPE_ERROR, " Failed to transform right HRTF coefficients from the frequency domain to the time domain. ", buf, 2u);
+          _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_ERROR, " Failed to transform right HRTF coefficients from the frequency domain to the time domain. ", buf, 2u);
         }
 
         *a5 = 0;
@@ -5669,29 +5660,29 @@ LABEL_27:
 
       if (__p)
       {
-        v44 = __p;
+        v45 = __p;
         operator delete(__p);
       }
 
-      if (v46)
+      if (v47)
       {
-        v47 = v46;
-        operator delete(v46);
+        v48 = v47;
+        operator delete(v47);
       }
 
-      if (v49)
+      if (v50)
       {
-        v50 = v49;
-        operator delete(v49);
+        v51 = v50;
+        operator delete(v50);
       }
 
-      if (*v51)
+      if (*v52)
       {
-        v52 = *v51;
-        operator delete(*v51);
+        v53 = *v52;
+        operator delete(*v52);
       }
 
-      if (!MinimumPhase)
+      if (!v16)
       {
         goto LABEL_40;
       }
@@ -5704,52 +5695,50 @@ LABEL_27:
       }
     }
 
-    v37 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v38 = __VGLogSharedInstance(MinimumPhase);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       LOWORD(__p) = 0;
-      _os_log_impl(&dword_270F06000, v37, OS_LOG_TYPE_ERROR, " Failed to transform left HRTF coefficients from the frequency domain to the time domain. ", &__p, 2u);
+      _os_log_impl(&dword_270F06000, v38, OS_LOG_TYPE_ERROR, " Failed to transform left HRTF coefficients from the frequency domain to the time domain. ", &__p, 2u);
     }
 
     *a5 = 0;
     a5[1] = 0;
-    if (v46)
+    if (v47)
     {
-      v47 = v46;
-      operator delete(v46);
+      v48 = v47;
+      operator delete(v47);
     }
 
-    if (v49)
+    if (v50)
     {
-      v50 = v49;
-      operator delete(v49);
+      v51 = v50;
+      operator delete(v50);
     }
 
-    if (*v51)
+    if (*v52)
     {
-      v52 = *v51;
-      operator delete(*v51);
+      v53 = *v52;
+      operator delete(*v52);
     }
 
 LABEL_40:
-    *v51 = v48;
-    std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v51);
+    *v52 = v49;
+    std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v52);
   }
 
   else
   {
-    v35 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v37 = __VGLogSharedInstance(a1);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      *v51 = 0;
-      _os_log_impl(&dword_270F06000, v35, OS_LOG_TYPE_ERROR, " Invalid inputs for HRTF to IRData conversion. ", v51, 2u);
+      *v52 = 0;
+      _os_log_impl(&dword_270F06000, v37, OS_LOG_TYPE_ERROR, " Invalid inputs for HRTF to IRData conversion. ", v52, 2u);
     }
 
     *a5 = 0;
     a5[1] = 0;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void sub_270F47B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33)
@@ -5872,7 +5861,7 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
   v8 = v6 - *a2;
   v9 = v8 >> 2;
   LODWORD(__Ii[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](v55, v8 >> 2);
+  std::vector<float>::vector[abi:ne200100](v56, v8 >> 2, __Ii);
   v10 = v4 - v5;
   v11 = v10 >> 2;
   if (v10)
@@ -5888,7 +5877,7 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
       v13 = v10 >> 2;
     }
 
-    v14 = (v55[0] + 4);
+    v14 = (v56[0] + 4);
     do
     {
       v15 = *v12++;
@@ -5908,8 +5897,8 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
   if (v11 + 1 < v9)
   {
     v17 = v9 + ~v11;
-    v18 = v55[0] + 4 * v11 + 4;
-    v19 = (v55[0] + v10 - 4);
+    v18 = v56[0] + 4 * v11 + 4;
+    v19 = (v56[0] + v10 - 4);
     do
     {
       v20 = *v19--;
@@ -5921,16 +5910,16 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
   }
 
   LODWORD(__Or[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](__Ii, v8 >> 2);
+  std::vector<float>::vector[abi:ne200100](__Ii, v8 >> 2, __Or);
   LODWORD(__Oi[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](__Or, v8 >> 2);
+  std::vector<float>::vector[abi:ne200100](__Or, v8 >> 2, __Oi);
   LODWORD(__Ir[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](__Oi, v8 >> 2);
+  std::vector<float>::vector[abi:ne200100](__Oi, v8 >> 2, __Ir);
   Setup = vDSP_DFT_zop_CreateSetup(0, v8 >> 2, vDSP_DFT_INVERSE);
   v22 = Setup;
   if (Setup)
   {
-    vDSP_DFT_Execute(Setup, v55[0], __Ii[0], __Or[0], __Oi[0]);
+    vDSP_DFT_Execute(Setup, v56[0], __Ii[0], __Or[0], __Oi[0]);
     vDSP_DFT_DestroySetup(v22);
     v23 = 1.0 / v9;
     if (v6 != v7)
@@ -5956,8 +5945,8 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
       while (v25);
     }
 
-    LODWORD(v50[0]) = 0;
-    std::vector<float>::vector[abi:ne200100](__Ir, v8 >> 2);
+    LODWORD(v51[0]) = 0;
+    std::vector<float>::vector[abi:ne200100](__Ir, v8 >> 2, v51);
     v26 = __Or[0];
     v27 = __Ir[0];
     *__Ir[0] = *__Or[0];
@@ -5996,15 +5985,16 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
     {
       vDSP_DFT_Execute(v35, __Ir[0], __Ii[0], __Or[0], __Oi[0]);
       vDSP_DFT_DestroySetup(v36);
-      LODWORD(v49[0]) = 0;
-      std::vector<float>::vector[abi:ne200100](v50, v9);
-      std::vector<float>::vector[abi:ne200100](v49, v9);
+      LODWORD(v50[0]) = 0;
+      std::vector<float>::vector[abi:ne200100](v51, v9, v50);
+      v49 = 0;
+      std::vector<float>::vector[abi:ne200100](v50, v9, &v49);
       if (v6 != v7)
       {
         v37 = __Or[0];
         v38 = __Oi[0];
-        v39 = v50[0];
-        v40 = v49[0];
+        v39 = v51[0];
+        v40 = v50[0];
         if (v9 <= 1)
         {
           v41 = 1;
@@ -6029,7 +6019,7 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
       }
 
       v45 = vDSP_DFT_zop_CreateSetup(0, v9, vDSP_DFT_INVERSE);
-      vDSP_DFT_Execute(v45, v50[0], v49[0], *a2, __Oi[0]);
+      vDSP_DFT_Execute(v45, v51[0], v50[0], *a2, __Oi[0]);
       vDSP_DFT_DestroySetup(v45);
       if (v6 != v7)
       {
@@ -6054,16 +6044,16 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
         while (v47);
       }
 
-      if (v49[0])
-      {
-        v49[1] = v49[0];
-        operator delete(v49[0]);
-      }
-
       if (v50[0])
       {
         v50[1] = v50[0];
         operator delete(v50[0]);
+      }
+
+      if (v51[0])
+      {
+        v51[1] = v51[0];
+        operator delete(v51[0]);
       }
     }
 
@@ -6092,10 +6082,10 @@ BOOL vg::hrtf::makeMinimumPhase(float **a1, float **a2)
     operator delete(__Ii[0]);
   }
 
-  if (v55[0])
+  if (v56[0])
   {
-    v55[1] = v55[0];
-    operator delete(v55[0]);
+    v56[1] = v56[0];
+    operator delete(v56[0]);
   }
 
   return v22;
@@ -6140,7 +6130,7 @@ void vg::toStdVector<float>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *(a1 + 4);
   std::vector<float>::vector[abi:ne200100](__p, *(a1 + 5));
-  std::vector<std::vector<float>>::vector[abi:ne200100](a2, v4);
+  std::vector<std::vector<float>>::vector[abi:ne200100](a2, v4, __p);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -6190,259 +6180,257 @@ void sub_270F48398(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void vg::hrtf::getIRValues(IR::IRData **a1@<X0>, uint64_t a2@<X8>)
 {
-  if (IR::IRData::getNumFiltersPerSpatialPoint(*a1) == 2)
+  NumFiltersPerSpatialPoint = IR::IRData::getNumFiltersPerSpatialPoint(*a1);
+  if (NumFiltersPerSpatialPoint == 2)
   {
-    IR::IRData::getCoordinateTree(&buf, *a1);
+    CoordinateTree = IR::IRData::getCoordinateTree(&buf, *a1);
     if (buf == 1)
     {
-      v4 = v54;
-      v3 = v55;
-      if (0x6DB6DB6DB6DB6DB7 * ((v56[1] - v56[0]) >> 3) == (v55 - v54) >> 2)
+      v6 = v52;
+      v5 = v53;
+      if (0x6DB6DB6DB6DB6DB7 * ((v54[1] - v54[0]) >> 3) == (v53 - v52) >> 2)
       {
         __p = 0;
-        v51 = 0;
-        v52 = 0;
-        if (v55 == v54)
+        v49 = 0;
+        v50 = 0;
+        if (v53 == v52)
         {
-          v6 = 0;
+          v8 = 0;
 LABEL_39:
           FilterLength = IR::IRData::getFilterLength(*a1);
-          vg::hrtf::IRGrid::GetIRGrid(v6, FilterLength, v46);
-          if (v6)
+          vg::hrtf::IRGrid::GetIRGrid(v44, v8, FilterLength);
+          if (v8)
           {
-            v22 = 0;
             v23 = 0;
+            v24 = 0;
             do
             {
-              std::vector<float>::vector[abi:ne200100](v43, FilterLength);
-              std::vector<std::vector<float>>::vector[abi:ne200100](v45, 2uLL);
-              if (v43[0])
+              std::vector<float>::vector[abi:ne200100](v41, FilterLength);
+              std::vector<std::vector<float>>::vector[abi:ne200100](v43, 2uLL, v41);
+              if (v41[0])
               {
-                v43[1] = v43[0];
-                operator delete(v43[0]);
+                v41[1] = v41[0];
+                operator delete(v41[0]);
               }
 
-              std::vector<float>::vector[abi:ne200100](v44, 2uLL);
-              IR::IRCoordinates::IRCoordinates(v43);
-              v24 = *(__p + v23);
+              std::vector<float>::vector[abi:ne200100](v42, 2uLL);
+              IR::IRCoordinates::IRCoordinates(v41);
               IR::IRCoordinates::set();
-              v25 = *(__p + v23 + 4);
               IR::IRCoordinates::set();
-              v26 = *a1;
               IR::IRData::getInterpolatedTimeDomainCoeffs();
-              v27 = *&v46[8];
-              if (*&v46[8] >= v47)
+              v25 = *&v44[8];
+              if (*&v44[8] >= v45)
               {
-                v29 = (*&v46[8] - *v46) >> 3;
-                if ((v29 + 1) >> 61)
+                v27 = (*&v44[8] - *v44) >> 3;
+                if ((v27 + 1) >> 61)
                 {
                   std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
                 }
 
-                v30 = (v47 - *v46) >> 2;
-                if (v30 <= v29 + 1)
+                v28 = (v45 - *v44) >> 2;
+                if (v28 <= v27 + 1)
                 {
-                  v30 = v29 + 1;
+                  v28 = v27 + 1;
                 }
 
-                if (v47 - *v46 >= 0x7FFFFFFFFFFFFFF8)
+                if (v45 - *v44 >= 0x7FFFFFFFFFFFFFF8)
                 {
-                  v31 = 0x1FFFFFFFFFFFFFFFLL;
+                  v29 = 0x1FFFFFFFFFFFFFFFLL;
                 }
 
                 else
                 {
-                  v31 = v30;
+                  v29 = v28;
                 }
 
-                if (v31)
+                if (v29)
                 {
-                  _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v46, v31);
+                  _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v44, v29);
                 }
 
-                v32 = (8 * v29);
-                *v32 = *(__p + v23);
-                v28 = 8 * v29 + 8;
-                v33 = v32 - (*&v46[8] - *v46);
-                memcpy(v33, *v46, *&v46[8] - *v46);
-                v34 = *v46;
-                *v46 = v33;
-                *&v46[8] = v28;
-                v47 = 0;
-                if (v34)
+                v30 = (8 * v27);
+                *v30 = *(__p + v24);
+                v26 = 8 * v27 + 8;
+                v31 = v30 - (*&v44[8] - *v44);
+                memcpy(v31, *v44, *&v44[8] - *v44);
+                v32 = *v44;
+                *v44 = v31;
+                *&v44[8] = v26;
+                v45 = 0;
+                if (v32)
                 {
-                  operator delete(v34);
+                  operator delete(v32);
                 }
               }
 
               else
               {
-                **&v46[8] = *(__p + v23);
-                v28 = v27 + 8;
+                **&v44[8] = *(__p + v24);
+                v26 = v25 + 8;
               }
 
-              *&v46[8] = v28;
-              v35 = v45[0];
-              v36 = v48;
-              if (v48 + v22 != v45[0])
+              *&v44[8] = v26;
+              v33 = v43[0];
+              v34 = v46;
+              if (v46 + v23 != v43[0])
               {
-                std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((v48 + v22), *v45[0], *(v45[0] + 8), (*(v45[0] + 8) - *v45[0]) >> 2);
-                v35 = v45[0];
-                v36 = v48;
+                std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((v46 + v23), *v43[0], *(v43[0] + 8), (*(v43[0] + 8) - *v43[0]) >> 2);
+                v33 = v43[0];
+                v34 = v46;
               }
 
-              v37 = (v36 + v22 + 32);
-              if (v37 != (v35 + 24))
+              v35 = (v34 + v23 + 32);
+              if (v35 != (v33 + 24))
               {
-                std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v37, *(v35 + 24), *(v35 + 32), (*(v35 + 32) - *(v35 + 24)) >> 2);
-                v36 = v48;
+                std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v35, *(v33 + 24), *(v33 + 32), (*(v33 + 32) - *(v33 + 24)) >> 2);
+                v34 = v46;
               }
 
-              v38 = v44[0];
-              v39 = v36 + v22;
-              *(v39 + 24) = *v44[0];
-              *(v39 + 56) = v38[1];
-              v44[1] = v38;
-              operator delete(v38);
-              v43[0] = v45;
-              std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v43);
-              v23 += 8;
-              v22 += 64;
-              v6 = (v6 - 1);
+              v36 = v42[0];
+              v37 = v34 + v23;
+              *(v37 + 24) = *v42[0];
+              *(v37 + 56) = v36[1];
+              v42[1] = v36;
+              operator delete(v36);
+              v41[0] = v43;
+              std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v41);
+              v24 += 8;
+              v23 += 64;
+              v8 = (v8 - 1);
             }
 
-            while (v6);
+            while (v8);
           }
 
-          *a2 = *v46;
-          *(a2 + 16) = v47;
-          memset(v46, 0, sizeof(v46));
-          *(a2 + 24) = v48;
-          *(a2 + 40) = v49;
+          *a2 = *v44;
+          *(a2 + 16) = v45;
+          memset(v44, 0, sizeof(v44));
+          *(a2 + 24) = v46;
+          *(a2 + 40) = v47;
+          v45 = 0;
+          v46 = 0uLL;
           v47 = 0;
-          v48 = 0uLL;
-          v49 = 0;
           *(a2 + 48) = 1;
-          v43[0] = &v48;
-          std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](v43);
-          if (*v46)
+          v41[0] = &v46;
+          std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](v41);
+          if (*v44)
           {
-            *&v46[8] = *v46;
-            operator delete(*v46);
+            *&v44[8] = *v44;
+            operator delete(*v44);
           }
         }
 
         else
         {
-          v5 = 0;
-          v6 = 0;
           v7 = 0;
+          v8 = 0;
+          v9 = 0;
           while (1)
           {
-            v8 = v56[0] + 56 * v7;
-            if (*v8)
+            v10 = v54[0] + 56 * v9;
+            if (*v10)
             {
-              v40 = __VGLogSharedInstance();
-              if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              v38 = __VGLogSharedInstance(CoordinateTree);
+              if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_67;
               }
 
-              *v46 = 0;
-              v41 = " Subnode dimension must be of Azimuth type. ";
+              *v44 = 0;
+              v39 = " Subnode dimension must be of Azimuth type. ";
               goto LABEL_66;
             }
 
-            if (*(v8 + 32) != *(v8 + 40))
+            if (*(v10 + 32) != *(v10 + 40))
             {
               break;
             }
 
-            v10 = *(v8 + 8);
-            v9 = *(v8 + 16);
-            if (v10 != v9)
+            v12 = *(v10 + 8);
+            v11 = *(v10 + 16);
+            if (v12 != v11)
             {
-              v11 = v4[v7];
+              v13 = v6[v9];
               do
               {
-                v12 = *v10;
-                if (v5 >= v52)
+                v14 = *v12;
+                if (v7 >= v50)
                 {
-                  v13 = (v5 - __p) >> 3;
-                  if ((v13 + 1) >> 61)
+                  v15 = (v7 - __p) >> 3;
+                  if ((v15 + 1) >> 61)
                   {
                     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
                   }
 
-                  v14 = (v52 - __p) >> 2;
-                  if (v14 <= v13 + 1)
+                  v16 = (v50 - __p) >> 2;
+                  if (v16 <= v15 + 1)
                   {
-                    v14 = v13 + 1;
+                    v16 = v15 + 1;
                   }
 
-                  if (v52 - __p >= 0x7FFFFFFFFFFFFFF8)
+                  if (v50 - __p >= 0x7FFFFFFFFFFFFFF8)
                   {
-                    v15 = 0x1FFFFFFFFFFFFFFFLL;
+                    v17 = 0x1FFFFFFFFFFFFFFFLL;
                   }
 
                   else
                   {
-                    v15 = v14;
+                    v17 = v16;
                   }
 
-                  if (v15)
-                  {
-                    _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(&__p, v15);
-                  }
-
-                  v16 = (8 * v13);
-                  *v16 = v11;
-                  v16[1] = v12;
-                  v5 = (8 * v13 + 8);
-                  memcpy((8 * v13 - (v51 - __p)), __p, v51 - __p);
-                  v17 = __p;
-                  __p = (8 * v13 - (v51 - __p));
-                  v51 = v5;
-                  v52 = 0;
                   if (v17)
                   {
-                    operator delete(v17);
+                    _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(&__p, v17);
+                  }
+
+                  v18 = (8 * v15);
+                  *v18 = v13;
+                  v18[1] = v14;
+                  v7 = (8 * v15 + 8);
+                  memcpy((8 * v15 - (v49 - __p)), __p, v49 - __p);
+                  CoordinateTree = __p;
+                  __p = (8 * v15 - (v49 - __p));
+                  v49 = v7;
+                  v50 = 0;
+                  if (CoordinateTree)
+                  {
+                    operator delete(CoordinateTree);
                   }
                 }
 
                 else
                 {
-                  *v5 = v11;
-                  *(v5 + 1) = v12;
-                  v5 += 8;
+                  *v7 = v13;
+                  *(v7 + 1) = v14;
+                  v7 += 8;
                 }
 
-                v51 = v5;
-                v6 = (v6 + 1);
-                ++v10;
+                v49 = v7;
+                v8 = (v8 + 1);
+                ++v12;
               }
 
-              while (v10 != v9);
-              v4 = v54;
-              v3 = v55;
+              while (v12 != v11);
+              v6 = v52;
+              v5 = v53;
             }
 
-            if (++v7 >= ((v3 - v4) >> 2))
+            if (++v9 >= ((v5 - v6) >> 2))
             {
               goto LABEL_39;
             }
           }
 
-          v40 = __VGLogSharedInstance();
-          if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v38 = __VGLogSharedInstance(CoordinateTree);
+          if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_67;
           }
 
-          *v46 = 0;
-          v41 = " Unexpected dimension in subnode. ";
+          *v44 = 0;
+          v39 = " Unexpected dimension in subnode. ";
 LABEL_66:
-          _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_ERROR, v41, v46, 2u);
+          _os_log_impl(&dword_270F06000, v38, OS_LOG_TYPE_ERROR, v39, v44, 2u);
 LABEL_67:
 
           *a2 = 0;
@@ -6451,53 +6439,53 @@ LABEL_67:
 
         if (__p)
         {
-          v51 = __p;
+          v49 = __p;
           operator delete(__p);
         }
 
         goto LABEL_35;
       }
 
-      v19 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = __VGLogSharedInstance(CoordinateTree);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        *v46 = 0;
-        v20 = " Wrong subnode count in coordinate tree. ";
+        *v44 = 0;
+        v21 = " Wrong subnode count in coordinate tree. ";
         goto LABEL_33;
       }
     }
 
     else
     {
-      v19 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = __VGLogSharedInstance(CoordinateTree);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        *v46 = 0;
-        v20 = " Elevation must be the first level of coordinates in coordinate tree. ";
+        *v44 = 0;
+        v21 = " Elevation must be the first level of coordinates in coordinate tree. ";
 LABEL_33:
-        _os_log_impl(&dword_270F06000, v19, OS_LOG_TYPE_ERROR, v20, v46, 2u);
+        _os_log_impl(&dword_270F06000, v20, OS_LOG_TYPE_ERROR, v21, v44, 2u);
       }
     }
 
     *a2 = 0;
     *(a2 + 48) = 0;
 LABEL_35:
-    *v46 = v56;
-    std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](v46);
-    if (v54)
+    *v44 = v54;
+    std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](v44);
+    if (v52)
     {
-      v55 = v54;
-      operator delete(v54);
+      v53 = v52;
+      operator delete(v52);
     }
 
     return;
   }
 
-  v18 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v19 = __VGLogSharedInstance(NumFiltersPerSpatialPoint);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_ERROR, " Incorrect number of filters in IRData. Expected two filters, left and right ears. ", &buf, 2u);
+    _os_log_impl(&dword_270F06000, v19, OS_LOG_TYPE_ERROR, " Incorrect number of filters in IRData. Expected two filters, left and right ears. ", &buf, 2u);
   }
 
   *a2 = 0;
@@ -6515,14 +6503,14 @@ void sub_270F4895C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void vg::hrtf::IRGrid::GetIRGrid(vg::hrtf::IRGrid *this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void vg::hrtf::IRGrid::GetIRGrid(uint64_t *__return_ptr a1@<X8>, vg::hrtf::IRGrid *this@<X0>, unint64_t a3@<X1>)
 {
   v4 = this;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 0u;
-  *a3 = 0u;
-  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(a3, this);
-  std::vector<vg::hrtf::IRFilters>::reserve((a3 + 24), v4);
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(a1, this);
+  std::vector<vg::hrtf::IRFilters>::reserve(a1 + 3, v4);
   for (; v4; v4 = (v4 - 1))
   {
     v8 = 0;
@@ -6531,21 +6519,21 @@ void vg::hrtf::IRGrid::GetIRGrid(vg::hrtf::IRGrid *this@<X0>, unint64_t a2@<X1>,
     v12 = 0;
     v13 = 0;
     __p = 0;
-    std::vector<float>::reserve(&v8, a2);
-    std::vector<float>::reserve(&__p, a2);
-    v6 = *(a3 + 32);
-    if (v6 >= *(a3 + 40))
+    std::vector<float>::reserve(&v8, a3);
+    std::vector<float>::reserve(&__p, a3);
+    v6 = a1[4];
+    if (v6 >= a1[5])
     {
-      v7 = std::vector<vg::hrtf::IRFilters>::__emplace_back_slow_path<vg::hrtf::IRFilters&>((a3 + 24), &v8);
+      v7 = std::vector<vg::hrtf::IRFilters>::__emplace_back_slow_path<vg::hrtf::IRFilters&>(a1 + 3, &v8);
     }
 
     else
     {
-      std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>(a3 + 24, *(a3 + 32), &v8);
+      std::allocator_traits<std::allocator<vg::hrtf::IRFilters>>::construct[abi:ne200100]<vg::hrtf::IRFilters,vg::hrtf::IRFilters&,void,0>((a1 + 3), a1[4], &v8);
       v7 = v6 + 64;
     }
 
-    *(a3 + 32) = v7;
+    a1[4] = v7;
     if (__p)
     {
       v12 = __p;
@@ -6574,89 +6562,89 @@ void IR::IRCoordinateTree::~IRCoordinateTree(IR::IRCoordinateTree *this)
 
 void vg::hrtf::getIRData(uint64_t *a1)
 {
-  v28[2] = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v2 = a1[1];
-  v4 = a1[3];
-  v6 = *v4;
-  v5 = v4[1];
+  v33[2] = *MEMORY[0x277D85DE8];
+  v8 = *a1;
+  v7 = a1[1];
+  v9 = a1[3];
+  v11 = *v9;
+  v10 = v9[1];
   LODWORD(__p) = 0;
-  std::vector<float>::vector[abi:ne200100](&v27, 2uLL);
-  v7 = (v2 - v3) >> 3;
-  std::vector<std::vector<float>>::vector[abi:ne200100](v25, v7);
-  v8 = v5 - v6;
-  if (v27)
+  std::vector<float>::vector[abi:ne200100](&v32, 2uLL, &__p);
+  v12 = (v7 - v8) >> 3;
+  std::vector<std::vector<float>>::vector[abi:ne200100](v30, v12, &v32);
+  v13 = v10 - v11;
+  if (v32)
   {
-    v28[0] = v27;
-    operator delete(v27);
+    v33[0] = v32;
+    operator delete(v32);
   }
 
   LODWORD(__p) = 0;
-  std::vector<float>::vector[abi:ne200100](&v27, v8 >> 1);
-  std::vector<std::vector<float>>::vector[abi:ne200100](v24, (v2 - v3) >> 3);
-  if (v27)
+  std::vector<float>::vector[abi:ne200100](&v32, v13 >> 1, &__p);
+  std::vector<std::vector<float>>::vector[abi:ne200100](v29, (v7 - v8) >> 3, &v32);
+  if (v32)
   {
-    v28[0] = v27;
-    operator delete(v27);
+    v33[0] = v32;
+    operator delete(v32);
   }
 
   LODWORD(__p) = 0;
-  std::vector<float>::vector[abi:ne200100](&v27, 2uLL);
-  std::vector<std::vector<float>>::vector[abi:ne200100](v23, (v2 - v3) >> 3);
-  if (v27)
+  std::vector<float>::vector[abi:ne200100](&v32, 2uLL, &__p);
+  std::vector<std::vector<float>>::vector[abi:ne200100](v28, (v7 - v8) >> 3, &v32);
+  if (v32)
   {
-    v28[0] = v27;
-    operator delete(v27);
+    v33[0] = v32;
+    operator delete(v32);
   }
 
-  v27 = 1;
-  memset(v22, 0, sizeof(v22));
-  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v22, &v27, v28, 2uLL);
-  if (v2 != v3)
+  v32 = 1;
+  memset(v27, 0, sizeof(v27));
+  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v27, &v32, v33, 2uLL);
+  if (v7 != v8)
   {
-    v9 = 0;
-    v10 = 0;
-    if (v7 <= 1)
+    v14 = 0;
+    v15 = 0;
+    if (v12 <= 1)
     {
-      v7 = 1;
+      v12 = 1;
     }
 
-    v11 = 4;
+    v16 = 4;
     do
     {
-      v12 = (*a1 + v11);
-      v13 = *(v25[0] + v10);
-      *v13 = *(v12 - 1);
-      v13[1] = *v12;
-      v14 = a1[3];
-      v15 = *(v23[0] + v10);
-      *v15 = *(v14 + v9 + 24);
-      v15[1] = *(v14 + v9 + 56);
-      v16 = *(v14 + v9);
-      v17 = *(v14 + v9 + 8);
-      v18 = *(v24[0] + v10);
-      if (v17 != v16)
+      v17 = (*a1 + v16);
+      v18 = *(v30[0] + v15);
+      *v18 = *(v17 - 1);
+      v18[1] = *v17;
+      v19 = a1[3];
+      v20 = *(v28[0] + v15);
+      *v20 = *(v19 + v14 + 24);
+      v20[1] = *(v19 + v14 + 56);
+      v21 = *(v19 + v14);
+      v22 = *(v19 + v14 + 8);
+      v23 = *(v29[0] + v15);
+      if (v22 != v21)
       {
-        memmove(v18, v16, v17 - v16);
-        v14 = a1[3];
-        v18 = *(v24[0] + v10);
+        memmove(v23, v21, v22 - v21);
+        v19 = a1[3];
+        v23 = *(v29[0] + v15);
       }
 
-      v19 = v14 + v9;
-      v20 = *(v19 + 32);
-      v21 = *(v19 + 40);
-      if (v21 != v20)
+      v24 = v19 + v14;
+      v25 = *(v24 + 32);
+      v26 = *(v24 + 40);
+      if (v26 != v25)
       {
-        memmove(&v18[v8], v20, v21 - v20);
+        memmove(&v23[v13], v25, v26 - v25);
       }
 
-      v10 += 24;
-      v11 += 8;
-      v9 += 64;
-      --v7;
+      v15 += 24;
+      v16 += 8;
+      v14 += 64;
+      --v12;
     }
 
-    while (v7);
+    while (v12);
   }
 
   operator new();
@@ -6719,49 +6707,49 @@ void vg::hrtf::createIRDataWithUserData(uint64_t a1@<X0>, void *a2@<X1>, void *a
 {
   v5 = a2;
   v6 = *(a1 + 8);
-  v24[0] = *a1;
-  v24[1] = v6;
+  v25[0] = *a1;
+  v25[1] = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
   }
 
-  vg::hrtf::getIRValues(v24, &v25);
+  vg::hrtf::getIRValues(v25, &v26);
   if (v6)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (v29)
+  if (v30)
   {
-    v21 = 0;
     v22 = 0;
     v23 = 0;
-    std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(&v21, v27, v28, (v28 - v27) >> 6);
-    if (v29)
+    v24 = 0;
+    std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(&v22, v28, v29, (v29 - v28) >> 6);
+    if (v30)
     {
-      v18 = 0;
       v19 = 0;
       v20 = 0;
-      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&v18, v25, v26, (v26 - v25) >> 3);
+      v21 = 0;
+      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&v19, v26, v27, (v27 - v26) >> 3);
       IR::IRData::getSampleRate(*a1);
       *buf = 0;
-      v15 = 0;
       v16 = 0;
-      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(buf, v18, v19, (v19 - v18) >> 3);
-      memset(v17, 0, 24);
-      std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(v17, v21, v22, (v22 - v21) >> 6);
+      v17 = 0;
+      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(buf, v19, v20, (v20 - v19) >> 3);
+      memset(v18, 0, 24);
+      std::vector<vg::hrtf::IRFilters>::__init_with_size[abi:ne200100]<vg::hrtf::IRFilters*,vg::hrtf::IRFilters*>(v18, v22, v23, (v23 - v22) >> 6);
       PeriodForCyclicalDimensions = IR::IRData::getPeriodForCyclicalDimensions(*a1);
-      memset(v13, 0, sizeof(v13));
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v13, *PeriodForCyclicalDimensions, PeriodForCyclicalDimensions[1], (PeriodForCyclicalDimensions[1] - *PeriodForCyclicalDimensions) >> 2);
+      memset(v14, 0, sizeof(v14));
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v14, *PeriodForCyclicalDimensions, *(PeriodForCyclicalDimensions + 8), (*(PeriodForCyclicalDimensions + 8) - *PeriodForCyclicalDimensions) >> 2);
       InterpolationMethod = IR::IRData::getInterpolationMethod(*a1);
       memset(__p, 0, sizeof(__p));
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, *InterpolationMethod, InterpolationMethod[1], (InterpolationMethod[1] - *InterpolationMethod) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, *InterpolationMethod, *(InterpolationMethod + 8), (*(InterpolationMethod + 8) - *InterpolationMethod) >> 2);
       if (v5)
       {
         CFRetain(v5);
-        v9 = CFGetTypeID(v5);
-        if (v9 != CFDictionaryGetTypeID())
+        v10 = CFGetTypeID(v5);
+        if (v10 != CFDictionaryGetTypeID())
         {
           exception = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(exception, "Could not construct");
@@ -6777,23 +6765,23 @@ void vg::hrtf::createIRDataWithUserData(uint64_t a1@<X0>, void *a2@<X1>, void *a
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v10 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = __VGLogSharedInstance(v7);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_270F06000, v10, OS_LOG_TYPE_ERROR, " Failed to create IR values from IRData. ", buf, 2u);
+    _os_log_impl(&dword_270F06000, v11, OS_LOG_TYPE_ERROR, " Failed to create IR values from IRData. ", buf, 2u);
   }
 
   *a3 = 0;
   a3[1] = 0;
-  if (v29 == 1)
+  if (v30 == 1)
   {
-    *buf = &v27;
+    *buf = &v28;
     std::vector<vg::hrtf::IRFilters>::__destroy_vector::operator()[abi:ne200100](buf);
-    if (v25)
+    if (v26)
     {
-      v26 = v25;
-      operator delete(v25);
+      v27 = v26;
+      operator delete(v26);
     }
   }
 }
@@ -6838,20 +6826,20 @@ void sub_270F49360()
   JUMPOUT(0x270F49354);
 }
 
-void *std::vector<std::vector<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<float>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<float>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6871,7 +6859,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float>>>(
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7124,20 +7112,17 @@ void sub_270F49928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(a1, a2);
     }
 
     std::vector<vg::hrtf::FaceFrameData>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(uint64_t a1, unint64_t a2)
@@ -7150,7 +7135,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(uint64_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   if (*v2)
@@ -7162,25 +7147,25 @@ void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne20010
   }
 }
 
-void std::vector<IR::IRCoordinateTree>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<IR::IRCoordinateTree>::__base_destruct_at_end[abi:ne200100](uint64_t a1, void **a2)
 {
   v4 = *(a1 + 8);
   if (v4 != a2)
   {
-    v5 = v4 - 24;
+    v5 = v4 - 3;
     do
     {
       v8 = v5;
       std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](&v8);
-      v6 = *(v5 - 24);
+      v6 = *(v5 - 3);
       if (v6)
       {
-        *(v5 - 16) = v6;
+        *(v5 - 2) = v6;
         operator delete(v6);
       }
 
-      v7 = v5 - 32;
-      v5 -= 56;
+      v7 = v5 - 4;
+      v5 -= 7;
     }
 
     while (v7 != a2);
@@ -7200,18 +7185,18 @@ void std::__shared_ptr_emplace<IR::IRData>::~__shared_ptr_emplace(std::__shared_
 uint64_t vg::hrtf::HRTFDecoderModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   isANESupported = vg::shared::VGE5RT::isANESupported(a1);
-  vg::shared::VGE5RT::compileModel(a2, isANESupported, __p);
-  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, __p);
-  v7 = __p[0];
-  __p[0] = 0;
+  vg::shared::VGE5RT::compileModel(a2, isANESupported, &__p);
+  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, &__p);
+  v7 = __p.__r_.__value_.__r.__words[0];
+  __p.__r_.__value_.__r.__words[0] = 0;
   if (v7)
   {
     (*(*v7 + 8))(v7);
   }
 
   InputPorts = E5RT::ExecutionStreamOperation::GetInputPorts(*a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, "face_encodings");
-  v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(InputPorts, __p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "face_encodings");
+  v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(InputPorts, &__p);
   if (!v9)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7232,14 +7217,14 @@ uint64_t vg::hrtf::HRTFDecoderModelImpl::init(uint64_t a1, uint64_t *a2, uint64_
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
-  if (SHIBYTE(v33) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   v13 = E5RT::ExecutionStreamOperation::GetInputPorts(*a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, "ear_encodings");
-  v14 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(v13, __p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "ear_encodings");
+  v14 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(v13, &__p);
   if (!v14)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7260,14 +7245,14 @@ uint64_t vg::hrtf::HRTFDecoderModelImpl::init(uint64_t a1, uint64_t *a2, uint64_
     std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
-  if (SHIBYTE(v33) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   OutputPorts = E5RT::ExecutionStreamOperation::GetOutputPorts(*a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, "hrtf");
-  v19 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(OutputPorts, __p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "hrtf");
+  v19 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(OutputPorts, &__p);
   if (!v19)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7288,9 +7273,9 @@ uint64_t vg::hrtf::HRTFDecoderModelImpl::init(uint64_t a1, uint64_t *a2, uint64_
     std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
-  if (SHIBYTE(v33) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(*(a1 + 64));
@@ -7298,47 +7283,44 @@ uint64_t vg::hrtf::HRTFDecoderModelImpl::init(uint64_t a1, uint64_t *a2, uint64_
   if (result)
   {
     E5RT::TensorDescriptor::AllocateMemory();
-    std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>((a1 + 80), __p);
-    v25 = __p[0];
-    __p[0] = 0;
+    std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>((a1 + 80), &__p);
+    v25 = __p.__r_.__value_.__r.__words[0];
+    __p.__r_.__value_.__r.__words[0] = 0;
     if (v25)
     {
       (*(*v25 + 8))(v25);
     }
 
-    v26 = *(a1 + 64);
-    v27 = *(a1 + 88);
-    v30 = *(a1 + 80);
-    v31 = v27;
-    if (v27)
+    v26 = *(a1 + 88);
+    v29 = v26;
+    if (v26)
     {
-      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     E5RT::IOPort::BindMemoryObject();
-    v28 = v31;
-    if (v31)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
-    }
-
-    E5RT::ExecutionStream::CreateExecutionStream(__p, v28);
-    std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>((a1 + 16), __p);
-    v29 = __p[0];
-    __p[0] = 0;
+    v27 = v29;
     if (v29)
     {
-      (*(*v29 + 8))(v29);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
     }
 
-    std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>("", a3, __p);
+    E5RT::ExecutionStream::CreateExecutionStream(&__p, v27);
+    std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>((a1 + 16), &__p);
+    v28 = __p.__r_.__value_.__r.__words[0];
+    __p.__r_.__value_.__r.__words[0] = 0;
+    if (v28)
+    {
+      (*(*v28 + 8))(v28);
+    }
+
+    std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(&__p, "", a3);
     if (*(a1 + 119) < 0)
     {
       operator delete(*(a1 + 96));
     }
 
-    *(a1 + 96) = *__p;
-    *(a1 + 112) = v33;
+    *(a1 + 96) = __p;
     return *(a1 + 16) && *a1 != 0;
   }
 
@@ -7349,13 +7331,13 @@ void vg::hrtf::HRTFDecoderModelImpl::predict(uint64_t *a1@<X0>, uint64_t a2@<X1>
 {
   if (*(a2 + 16) != 32)
   {
-    v9 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = __VGLogSharedInstance(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v22[0]) = 0;
-      v10 = " Face encoding input dimension mismatch. ";
+      LOWORD(v18[0]) = 0;
+      v9 = " Face encoding input dimension mismatch. ";
 LABEL_9:
-      _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, v10, v22, 2u);
+      _os_log_impl(&dword_270F06000, v8, OS_LOG_TYPE_ERROR, v9, v18, 2u);
     }
 
 LABEL_10:
@@ -7367,11 +7349,11 @@ LABEL_10:
 
   if (*(a2 + 40) != 64)
   {
-    v9 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = __VGLogSharedInstance(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v22[0]) = 0;
-      v10 = " Ear encoding input dimension mismatch. ";
+      LOWORD(v18[0]) = 0;
+      v9 = " Ear encoding input dimension mismatch. ";
       goto LABEL_9;
     }
 
@@ -7380,69 +7362,65 @@ LABEL_10:
 
   PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(a1[4]);
   v7 = E5RT::OperandDescriptor::TryAsTensorDescriptor(PortDescriptorRef);
-  v8 = a1[4];
   vg::shared::VGE5RT::convert1DVectorToSurface(a2, v7);
   E5RT::BufferObject::CreateBufferFromHandle<__IOSurface *>();
-  v28 = v22[0];
-  if (v22[0])
+  v24 = v18[0];
+  if (v18[0])
   {
     operator new();
   }
 
-  v29 = 0;
+  v25 = 0;
   E5RT::IOPort::BindMemoryObject();
-  v22[0] = 0;
-  v11 = E5RT::IOPort::GetPortDescriptorRef(a1[6]);
-  v12 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v11);
-  v13 = a1[6];
-  vg::shared::VGE5RT::convert1DVectorToSurface(a2 + 24, v12);
+  v18[0] = 0;
+  v10 = E5RT::IOPort::GetPortDescriptorRef(a1[6]);
+  v11 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v10);
+  vg::shared::VGE5RT::convert1DVectorToSurface(a2 + 24, v11);
   E5RT::BufferObject::CreateBufferFromHandle<__IOSurface *>();
-  v26 = 0;
-  v27 = 0;
+  v22 = 0;
+  v23 = 0;
   E5RT::IOPort::BindMemoryObject();
-  v22[0] = 0;
-  v15 = a1[1];
-  v14 = a1[2];
-  v24 = *a1;
-  v25 = v15;
-  if (v15)
+  v18[0] = 0;
+  v12 = a1[1];
+  v20 = *a1;
+  v21 = v12;
+  if (v12)
   {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   E5RT::ExecutionStream::EncodeOperation();
-  if (v25)
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
   E5RT::ExecutionStream::ExecuteStreamSync(a1[2]);
   E5RT::ExecutionStream::ResetStream(a1[2]);
-  v16 = a1[10];
-  v17 = E5RT::BufferObject::GetHandle<__IOSurface *>();
-  v18 = E5RT::IOPort::GetPortDescriptorRef(a1[8]);
-  v19 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v18);
-  vg::shared::VGE5RT::convertSurfaceTo1DVector(v17, v19, v20, v22);
-  v21 = v22[1];
-  *a3 = v22[0];
-  *(a3 + 8) = v21;
-  *(a3 + 16) = v23;
+  v13 = E5RT::BufferObject::GetHandle<__IOSurface *>();
+  v14 = E5RT::IOPort::GetPortDescriptorRef(a1[8]);
+  v15 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v14);
+  vg::shared::VGE5RT::convertSurfaceTo1DVector(v18, v13, v15, v16);
+  v17 = v18[1];
+  *a3 = v18[0];
+  *(a3 + 8) = v17;
+  *(a3 + 16) = v19;
   *(a3 + 24) = 1;
 }
 
-void sub_270F4A218(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_270F4A218(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_270F4A360(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F4A360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<vg::hrtf::HRTFDecoderModel>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7522,18 +7500,18 @@ void vg::hrtf::HRTFDecoderModel::~HRTFDecoderModel(vg::hrtf::HRTFDecoderModel *t
 
 BOOL vg::hrtf::DTFModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  vg::shared::VGE5RT::compileModel(a2, 1, __p);
-  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, __p);
-  v5 = __p[0];
-  __p[0] = 0;
+  vg::shared::VGE5RT::compileModel(a2, 1, &__p);
+  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, &__p);
+  v5 = __p.__r_.__value_.__r.__words[0];
+  __p.__r_.__value_.__r.__words[0] = 0;
   if (v5)
   {
     (*(*v5 + 8))(v5);
   }
 
   InputPorts = E5RT::ExecutionStreamOperation::GetInputPorts(*a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, "hrtf");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(InputPorts, __p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "hrtf");
+  v7 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(InputPorts, &__p);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7554,14 +7532,14 @@ BOOL vg::hrtf::DTFModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
     std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   OutputPorts = E5RT::ExecutionStreamOperation::GetOutputPorts(*a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, "dtf");
-  v12 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(OutputPorts, __p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "dtf");
+  v12 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(OutputPorts, &__p);
   if (!v12)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7582,14 +7560,14 @@ BOOL vg::hrtf::DTFModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
     std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   v16 = E5RT::ExecutionStreamOperation::GetOutputPorts(*a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, "ctf");
-  v17 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(v16, __p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "ctf");
+  v17 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(v16, &__p);
   if (!v17)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7610,9 +7588,9 @@ BOOL vg::hrtf::DTFModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
     std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(*(a1 + 48));
@@ -7623,82 +7601,77 @@ BOOL vg::hrtf::DTFModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
   if (v22 && v24)
   {
     E5RT::TensorDescriptor::AllocateMemory();
-    std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>((a1 + 80), __p);
-    v26 = __p[0];
-    __p[0] = 0;
+    std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>((a1 + 80), &__p);
+    v26 = __p.__r_.__value_.__r.__words[0];
+    __p.__r_.__value_.__r.__words[0] = 0;
     if (v26)
     {
       (*(*v26 + 8))(v26);
     }
 
     E5RT::TensorDescriptor::AllocateMemory();
-    std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>((a1 + 96), __p);
-    v27 = __p[0];
-    __p[0] = 0;
+    std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>((a1 + 96), &__p);
+    v27 = __p.__r_.__value_.__r.__words[0];
+    __p.__r_.__value_.__r.__words[0] = 0;
     if (v27)
     {
       (*(*v27 + 8))(v27);
     }
 
-    v28 = *(a1 + 48);
-    v29 = *(a1 + 88);
-    v36 = *(a1 + 80);
-    v37 = v29;
+    v28 = *(a1 + 88);
+    v33 = v28;
+    if (v28)
+    {
+      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    E5RT::IOPort::BindMemoryObject();
+    if (v33)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+    }
+
+    v29 = *(a1 + 104);
+    v32 = v29;
     if (v29)
     {
       atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     E5RT::IOPort::BindMemoryObject();
-    if (v37)
+    v30 = v32;
+    if (v32)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v32);
     }
 
-    v30 = *(a1 + 64);
-    v31 = *(a1 + 104);
-    v34 = *(a1 + 96);
-    v35 = v31;
+    E5RT::ExecutionStream::CreateExecutionStream(&__p, v30);
+    std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>((a1 + 16), &__p);
+    v31 = __p.__r_.__value_.__r.__words[0];
+    __p.__r_.__value_.__r.__words[0] = 0;
     if (v31)
     {
-      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      (*(*v31 + 8))(v31);
     }
 
-    E5RT::IOPort::BindMemoryObject();
-    v32 = v35;
-    if (v35)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-    }
-
-    E5RT::ExecutionStream::CreateExecutionStream(__p, v32);
-    std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>((a1 + 16), __p);
-    v33 = __p[0];
-    __p[0] = 0;
-    if (v33)
-    {
-      (*(*v33 + 8))(v33);
-    }
-
-    std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>("", a3, __p);
+    std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(&__p, "", a3);
     if (*(a1 + 135) < 0)
     {
       operator delete(*(a1 + 112));
     }
 
-    *(a1 + 112) = *__p;
-    *(a1 + 128) = v39;
+    *(a1 + 112) = __p;
     return *(a1 + 16) && *a1 != 0;
   }
 
   return result;
 }
 
-void sub_270F4A8BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_270F4A8BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
   if (__p)
   {
-    vg::hrtf::HRTFDecoderModelImpl::init(__p);
+    vg::hrtf::HRTFDecoderModelImpl::init();
   }
 
   _Unwind_Resume(exception_object);
@@ -7710,61 +7683,57 @@ void vg::hrtf::DTFModelImpl::predict(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64
   {
     PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(a1[4]);
     v7 = E5RT::OperandDescriptor::TryAsTensorDescriptor(PortDescriptorRef);
-    v8 = a1[4];
     vg::shared::VGE5RT::convert1DVectorToSurface(a2, v7);
     E5RT::BufferObject::CreateBufferFromHandle<__IOSurface *>();
-    v29 = v23;
-    if (v23)
+    v25 = v19;
+    if (v19)
     {
       operator new();
     }
 
-    v30 = 0;
+    v26 = 0;
     E5RT::IOPort::BindMemoryObject();
-    v23 = 0;
-    v11 = a1[1];
-    v10 = a1[2];
-    v27 = *a1;
-    v28 = v11;
-    if (v11)
+    v19 = 0;
+    v9 = a1[1];
+    v23 = *a1;
+    v24 = v9;
+    if (v9)
     {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     E5RT::ExecutionStream::EncodeOperation();
-    if (v28)
+    if (v24)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
 
     E5RT::ExecutionStream::ExecuteStreamSync(a1[2]);
     E5RT::ExecutionStream::ResetStream(a1[2]);
-    v12 = a1[10];
-    v13 = E5RT::BufferObject::GetHandle<__IOSurface *>();
-    v14 = a1[12];
-    v15 = E5RT::BufferObject::GetHandle<__IOSurface *>();
-    v16 = E5RT::IOPort::GetPortDescriptorRef(a1[6]);
-    v17 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v16);
-    v18 = E5RT::IOPort::GetPortDescriptorRef(a1[8]);
-    v19 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v18);
-    vg::shared::VGE5RT::convertSurfaceTo2DMatrix(v13, v17, v20, &v23);
-    vg::shared::VGE5RT::convertSurfaceTo1DVector(v15, v19, v21, v25);
-    *a3 = v23;
-    *(a3 + 8) = v24;
-    v22 = v25[1];
-    *(a3 + 24) = v25[0];
-    *(a3 + 32) = v22;
-    *(a3 + 40) = v26;
+    v10 = E5RT::BufferObject::GetHandle<__IOSurface *>();
+    v11 = E5RT::BufferObject::GetHandle<__IOSurface *>();
+    v12 = E5RT::IOPort::GetPortDescriptorRef(a1[6]);
+    v13 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v12);
+    v14 = E5RT::IOPort::GetPortDescriptorRef(a1[8]);
+    v15 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v14);
+    vg::shared::VGE5RT::convertSurfaceTo2DMatrix(&v19, v10, v13, v16);
+    vg::shared::VGE5RT::convertSurfaceTo1DVector(v21, v11, v15, v17);
+    *a3 = v19;
+    *(a3 + 8) = v20;
+    v18 = v21[1];
+    *(a3 + 24) = v21[0];
+    *(a3 + 32) = v18;
+    *(a3 + 40) = v22;
     *(a3 + 48) = 1;
   }
 
   else
   {
-    v9 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = __VGLogSharedInstance(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, " HRTF input dimension mismatch. ", &v23, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_270F06000, v8, OS_LOG_TYPE_ERROR, " HRTF input dimension mismatch. ", &v19, 2u);
     }
 
     *a3 = 0;
@@ -7772,19 +7741,19 @@ void vg::hrtf::DTFModelImpl::predict(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64
   }
 }
 
-void sub_270F4AB9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_270F4AB9C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_270F4ACF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F4ACF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<vg::hrtf::DTFModel>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7824,20 +7793,20 @@ void vg::hrtf::DTFModel::~DTFModel(void ***this)
 
 uint64_t vg::hrtf::DTFBiasModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   isANESupported = vg::shared::VGE5RT::isANESupported(a1);
-  vg::shared::VGE5RT::compileModel(a2, isANESupported, __p);
-  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, __p);
-  v7 = __p[0];
-  __p[0] = 0;
+  vg::shared::VGE5RT::compileModel(a2, isANESupported, &__p);
+  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, &__p);
+  v7 = __p.__r_.__value_.__r.__words[0];
+  __p.__r_.__value_.__r.__words[0] = 0;
   if (v7)
   {
     (*(*v7 + 8))(v7);
   }
 
   InputPorts = E5RT::ExecutionStreamOperation::GetInputPorts(*a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, "dtf");
-  v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(InputPorts, __p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "dtf");
+  v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(InputPorts, &__p);
   if (!v9)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7858,14 +7827,14 @@ uint64_t vg::hrtf::DTFBiasModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
-  if (SHIBYTE(v29) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   OutputPorts = E5RT::ExecutionStreamOperation::GetOutputPorts(*a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, "dtf_bias");
-  v14 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(OutputPorts, __p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "dtf_bias");
+  v14 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::find<std::string>(OutputPorts, &__p);
   if (!v14)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7886,9 +7855,9 @@ uint64_t vg::hrtf::DTFBiasModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3
     std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
-  if (SHIBYTE(v29) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(*(a1 + 48));
@@ -7896,59 +7865,47 @@ uint64_t vg::hrtf::DTFBiasModelImpl::init(uint64_t a1, uint64_t *a2, uint64_t a3
   if (result)
   {
     E5RT::TensorDescriptor::AllocateMemory();
-    std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>((a1 + 64), __p);
-    v20 = __p[0];
-    __p[0] = 0;
+    std::shared_ptr<E5RT::BufferObject>::operator=[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>((a1 + 64), &__p);
+    v20 = __p.__r_.__value_.__r.__words[0];
+    __p.__r_.__value_.__r.__words[0] = 0;
     if (v20)
     {
       (*(*v20 + 8))(v20);
     }
 
-    v21 = *(a1 + 48);
-    v22 = *(a1 + 72);
-    v26 = *(a1 + 64);
-    v27 = v22;
-    if (v22)
+    v21 = *(a1 + 72);
+    v24 = v21;
+    if (v21)
     {
-      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     E5RT::IOPort::BindMemoryObject();
-    v23 = v27;
-    if (v27)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-    }
-
-    E5RT::ExecutionStream::CreateExecutionStream(__p, v23);
-    std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>((a1 + 16), __p);
-    v24 = __p[0];
-    __p[0] = 0;
+    v22 = v24;
     if (v24)
     {
-      (*(*v24 + 8))(v24);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
 
-    std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>("", a3, __p);
+    E5RT::ExecutionStream::CreateExecutionStream(&__p, v22);
+    std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>((a1 + 16), &__p);
+    v23 = __p.__r_.__value_.__r.__words[0];
+    __p.__r_.__value_.__r.__words[0] = 0;
+    if (v23)
+    {
+      (*(*v23 + 8))(v23);
+    }
+
+    std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(&__p, "", a3);
     if (*(a1 + 103) < 0)
     {
       operator delete(*(a1 + 80));
     }
 
-    *(a1 + 80) = *__p;
-    *(a1 + 96) = v29;
-    if (*(a1 + 16))
-    {
-      result = *a1 != 0;
-    }
-
-    else
-    {
-      result = 0;
-    }
+    *(a1 + 80) = __p;
+    return *(a1 + 16) && *a1 != 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7968,52 +7925,49 @@ void vg::hrtf::DTFBiasModelImpl::predict(uint64_t *a1@<X0>, uint64_t a2@<X1>, ui
   {
     PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(a1[4]);
     v7 = E5RT::OperandDescriptor::TryAsTensorDescriptor(PortDescriptorRef);
-    v8 = a1[4];
     vg::shared::VGE5RT::convert2DMatrixToSurface(a2, v7);
     E5RT::BufferObject::CreateBufferFromHandle<__IOSurface *>();
-    v21 = v17;
-    if (v17)
+    v18 = v14;
+    if (v14)
     {
       operator new();
     }
 
-    v22 = 0;
+    v19 = 0;
     E5RT::IOPort::BindMemoryObject();
-    v17 = 0;
-    v11 = a1[1];
-    v10 = a1[2];
-    v19 = *a1;
-    v20 = v11;
-    if (v11)
+    v14 = 0;
+    v9 = a1[1];
+    v16 = *a1;
+    v17 = v9;
+    if (v9)
     {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     E5RT::ExecutionStream::EncodeOperation();
-    if (v20)
+    if (v17)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
     E5RT::ExecutionStream::ExecuteStreamSync(a1[2]);
     E5RT::ExecutionStream::ResetStream(a1[2]);
-    v12 = a1[8];
-    v13 = E5RT::BufferObject::GetHandle<__IOSurface *>();
-    v14 = E5RT::IOPort::GetPortDescriptorRef(a1[6]);
-    v15 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v14);
-    vg::shared::VGE5RT::convertSurfaceTo2DMatrix(v13, v15, v16, &v17);
-    *a3 = v17;
-    *(a3 + 8) = v18;
+    v10 = E5RT::BufferObject::GetHandle<__IOSurface *>();
+    v11 = E5RT::IOPort::GetPortDescriptorRef(a1[6]);
+    v12 = E5RT::OperandDescriptor::TryAsTensorDescriptor(v11);
+    vg::shared::VGE5RT::convertSurfaceTo2DMatrix(&v14, v10, v12, v13);
+    *a3 = v14;
+    *(a3 + 8) = v15;
     *(a3 + 24) = 1;
   }
 
   else
   {
-    v9 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = __VGLogSharedInstance(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, " DTF input dimension mismatch. ", &v17, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_270F06000, v8, OS_LOG_TYPE_ERROR, " DTF input dimension mismatch. ", &v14, 2u);
     }
 
     *a3 = 0;
@@ -8021,19 +7975,19 @@ void vg::hrtf::DTFBiasModelImpl::predict(uint64_t *a1@<X0>, uint64_t a2@<X1>, ui
   }
 }
 
-void sub_270F4B440(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_270F4B440(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_270F4B570(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_270F4B570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<vg::hrtf::DTFBiasModel>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8155,25 +8109,25 @@ void vg::hrtf::DTFModelImpl::~DTFModelImpl(void **this)
   }
 }
 
-uint64_t vg::hrtf::HRTFDecoderModelImpl::init(uint64_t *a1)
+uint64_t vg::hrtf::HRTFDecoderModelImpl::init()
 {
-  v1 = OUTLINED_FUNCTION_0_0(a1);
-  return (*(v2 + 8))(v1);
+  OUTLINED_FUNCTION_0_0();
+  return (*(v0 + 8))();
 }
 
 {
-  v1 = OUTLINED_FUNCTION_0_0(a1);
-  return (*(v2 + 8))(v1);
+  OUTLINED_FUNCTION_0_0();
+  return (*(v0 + 8))();
 }
 
 {
-  v1 = OUTLINED_FUNCTION_0_0(a1);
-  return (*(v2 + 8))(v1);
+  OUTLINED_FUNCTION_0_0();
+  return (*(v0 + 8))();
 }
 
-std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg::hrtf::HRTFModelImplInput *a2)
+std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg::hrtf::HRTFModelImplInput *a2, NSString *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
@@ -8181,9 +8135,9 @@ std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg:
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
     this->__r_.__value_.__r.__words[2] = *(a2 + 2);
-    *&this->__r_.__value_.__l.__data_ = v4;
+    *&this->__r_.__value_.__l.__data_ = v5;
   }
 
   if (*(a2 + 47) < 0)
@@ -8193,9 +8147,9 @@ std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg:
 
   else
   {
-    v5 = *(a2 + 24);
+    v6 = *(a2 + 24);
     this[1].__r_.__value_.__r.__words[2] = *(a2 + 5);
-    *&this[1].__r_.__value_.__l.__data_ = v5;
+    *&this[1].__r_.__value_.__l.__data_ = v6;
   }
 
   if (*(a2 + 71) < 0)
@@ -8205,9 +8159,9 @@ std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg:
 
   else
   {
-    v6 = *(a2 + 3);
+    v7 = *(a2 + 3);
     this[2].__r_.__value_.__r.__words[2] = *(a2 + 8);
-    *&this[2].__r_.__value_.__l.__data_ = v6;
+    *&this[2].__r_.__value_.__l.__data_ = v7;
   }
 
   if (*(a2 + 95) < 0)
@@ -8217,9 +8171,9 @@ std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg:
 
   else
   {
-    v7 = *(a2 + 72);
+    v8 = *(a2 + 72);
     this[3].__r_.__value_.__r.__words[2] = *(a2 + 11);
-    *&this[3].__r_.__value_.__l.__data_ = v7;
+    *&this[3].__r_.__value_.__l.__data_ = v8;
   }
 
   if (*(a2 + 119) < 0)
@@ -8229,9 +8183,9 @@ std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg:
 
   else
   {
-    v8 = *(a2 + 6);
+    v9 = *(a2 + 6);
     this[4].__r_.__value_.__r.__words[2] = *(a2 + 14);
-    *&this[4].__r_.__value_.__l.__data_ = v8;
+    *&this[4].__r_.__value_.__l.__data_ = v9;
   }
 
   if (*(a2 + 143) < 0)
@@ -8241,9 +8195,9 @@ std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg:
 
   else
   {
-    v9 = *(a2 + 120);
+    v10 = *(a2 + 120);
     this[5].__r_.__value_.__r.__words[2] = *(a2 + 17);
-    *&this[5].__r_.__value_.__l.__data_ = v9;
+    *&this[5].__r_.__value_.__l.__data_ = v10;
   }
 
   if (*(a2 + 167) < 0)
@@ -8253,39 +8207,38 @@ std::string *vg::hrtf::HRTFModelImpl::HRTFModelImpl(std::string *this, const vg:
 
   else
   {
-    v10 = *(a2 + 9);
+    v11 = *(a2 + 9);
     this[6].__r_.__value_.__r.__words[2] = *(a2 + 20);
-    *&this[6].__r_.__value_.__l.__data_ = v10;
+    *&this[6].__r_.__value_.__l.__data_ = v11;
   }
 
   this[7].__r_.__value_.__s.__data_[0] = 0;
   LOBYTE(__p[0]) = 0;
   vg::hrtf::HRTFModelImpl::setDefaultsWithSuiteName(__p, @"com.apple.visage");
   this[7].__r_.__value_.__s.__data_[0] = __p[0];
-  v11 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v13 = __VGLogSharedInstance(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    vg::hrtf::HRTFModelImpl::HRTFModelOptions::description(&this[7], __p);
-    if (v16 >= 0)
+    vg::hrtf::HRTFModelImpl::HRTFModelOptions::description(__p, &this[7]);
+    if (v17 >= 0)
     {
-      v12 = __p;
+      v14 = __p;
     }
 
     else
     {
-      v12 = __p[0];
+      v14 = __p[0];
     }
 
     *buf = 136315138;
-    v18 = v12;
-    _os_log_impl(&dword_270F06000, v11, OS_LOG_TYPE_INFO, " HRTFModel initialized with options:\n%s ", buf, 0xCu);
-    if (v16 < 0)
+    v19 = v14;
+    _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_INFO, " HRTFModel initialized with options:\n%s ", buf, 0xCu);
+    if (v17 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -8324,16 +8277,16 @@ void sub_270F4BA78(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vg::hrtf::HRTFModelImpl::initOptions(vg::hrtf::HRTFModelImpl *this)
+uint64_t vg::hrtf::HRTFModelImpl::initOptions(vg::hrtf::HRTFModelImpl *this, uint64_t a2, NSString *a3)
 {
-  v2 = 0;
-  vg::hrtf::HRTFModelImpl::setDefaultsWithSuiteName(&v2, @"com.apple.visage");
-  return v2;
+  v4 = 0;
+  vg::hrtf::HRTFModelImpl::setDefaultsWithSuiteName(&v4, @"com.apple.visage");
+  return v4;
 }
 
-void vg::hrtf::HRTFModelImpl::HRTFModelOptions::description(vg::hrtf::HRTFModelImpl::HRTFModelOptions *this@<X0>, _BYTE *a2@<X8>)
+void vg::hrtf::HRTFModelImpl::HRTFModelOptions::description(uint64_t *__return_ptr a1@<X8>, vg::hrtf::HRTFModelImpl::HRTFModelOptions *this@<X0>)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*this)
   {
     v3 = "true";
@@ -8344,17 +8297,17 @@ void vg::hrtf::HRTFModelImpl::HRTFModelOptions::description(vg::hrtf::HRTFModelI
     v3 = "false";
   }
 
-  v8[2] = 12;
   v7[2] = 12;
-  v8[0] = v3;
-  v9 = v13;
+  v6[2] = 12;
+  v7[0] = v3;
+  v8 = v12;
   *__len = xmmword_270FA6E30;
-  v11 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-  v12 = 0;
-  __src = v13;
-  v7[0] = 1;
-  v7[1] = v8;
-  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v9, "Skip DtfBias model: {}", 22, v7);
+  v10 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+  v11 = 0;
+  __src = v12;
+  v6[0] = 1;
+  v6[1] = v7;
+  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v8, "Skip DtfBias model: {}", 22, v6);
   v4 = __len[1];
   if (__len[1] >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8367,19 +8320,17 @@ void vg::hrtf::HRTFModelImpl::HRTFModelOptions::description(vg::hrtf::HRTFModelI
     operator new();
   }
 
-  a2[23] = __len[1];
+  *(a1 + 23) = __len[1];
   if (v4)
   {
-    memmove(a2, v5, v4);
+    memmove(a1, v5, v4);
   }
 
-  a2[v4] = 0;
-  if (__src != v13)
+  *(a1 + v4) = 0;
+  if (__src != v12)
   {
     operator delete(__src);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_270F4BCDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p)
@@ -8404,77 +8355,77 @@ void vg::hrtf::HRTFModelImpl::setDefaultsWithSuiteName(_BYTE *a1, void *a2)
   }
 }
 
-void vg::hrtf::HRTFModelImpl::preprocessData(const vg::hrtf::HRTFModelInputs *a1@<X1>, uint64_t a2@<X8>)
+void vg::hrtf::HRTFModelImpl::preprocessData(const vg::hrtf::HRTFModelInputs *a1@<X1>, uint64_t a2@<X8>, uint64_t a3@<X0>)
 {
-  v5 = VGLogHRTFModel();
+  v5 = VGLogHRTFModel(a3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     vg::hrtf::HRTFModelImpl::preprocessData();
   }
 
-  v6 = *a1;
+  v7 = *a1;
   if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 1) - *a1) >> 5) > 2)
   {
-    memset(v26, 0, sizeof(v26));
-    std::vector<vg::hrtf::FaceFrameData>::__init_with_size[abi:ne200100]<std::__wrap_iter<vg::hrtf::FaceFrameData const*>,std::__wrap_iter<vg::hrtf::FaceFrameData const*>>(v26, v6, v6 + 288, 3uLL);
-    vg::hrtf::preprocessFaceCaptureData(v26, 320, 240, &v23);
-    if (v25)
+    memset(v30, 0, sizeof(v30));
+    std::vector<vg::hrtf::FaceFrameData>::__init_with_size[abi:ne200100]<std::__wrap_iter<vg::hrtf::FaceFrameData const*>,std::__wrap_iter<vg::hrtf::FaceFrameData const*>>(v30, v7, v7 + 288, 3uLL);
+    vg::hrtf::preprocessFaceCaptureData(v30, 320, 240, &v27);
+    if (v29)
     {
-      vg::hrtf::preprocessEarCaptureData(a1 + 3, 320, 240, 0, &v20);
-      if (v22)
+      vg::hrtf::preprocessEarCaptureData(a1 + 3, 320, 240, 0, &v24);
+      if (v26)
       {
-        vg::hrtf::preprocessEarCaptureData(a1 + 6, 320, 240, 1, &v17);
-        if (v19)
+        vg::hrtf::preprocessEarCaptureData(a1 + 6, 320, 240, 1, &v21);
+        if (v23)
         {
-          if ((v25 & 1) == 0)
-          {
-            std::__throw_bad_optional_access[abi:ne200100]();
-          }
-
-          v11 = 0uLL;
-          v12 = 0;
-          std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]<vg::hrtf::ProcessedROIData*,vg::hrtf::ProcessedROIData*>(&v11, v23, v24, 0xCCCCCCCCCCCCCCCDLL * ((v24 - v23) >> 4));
-          if ((v22 & 1) == 0)
-          {
-            std::__throw_bad_optional_access[abi:ne200100]();
-          }
-
-          v13 = 0uLL;
-          v14 = 0;
-          std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]<vg::hrtf::ProcessedROIData*,vg::hrtf::ProcessedROIData*>(&v13, v20, v21, 0xCCCCCCCCCCCCCCCDLL * ((v21 - v20) >> 4));
-          if ((v19 & 1) == 0)
+          if ((v29 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
           v15 = 0uLL;
           v16 = 0;
-          std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]<vg::hrtf::ProcessedROIData*,vg::hrtf::ProcessedROIData*>(&v15, v17, v18, 0xCCCCCCCCCCCCCCCDLL * ((v18 - v17) >> 4));
-          *a2 = v11;
-          *(a2 + 16) = v12;
-          v12 = 0;
-          v11 = 0uLL;
-          *(a2 + 24) = v13;
-          *(a2 + 40) = v14;
-          v14 = 0;
-          v13 = 0uLL;
-          *(a2 + 48) = v15;
-          *(a2 + 64) = v16;
+          std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]<vg::hrtf::ProcessedROIData*,vg::hrtf::ProcessedROIData*>(&v15, v27, v28, 0xCCCCCCCCCCCCCCCDLL * ((v28 - v27) >> 4));
+          if ((v26 & 1) == 0)
+          {
+            std::__throw_bad_optional_access[abi:ne200100]();
+          }
+
+          v17 = 0uLL;
+          v18 = 0;
+          std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]<vg::hrtf::ProcessedROIData*,vg::hrtf::ProcessedROIData*>(&v17, v24, v25, 0xCCCCCCCCCCCCCCCDLL * ((v25 - v24) >> 4));
+          if ((v23 & 1) == 0)
+          {
+            std::__throw_bad_optional_access[abi:ne200100]();
+          }
+
+          v19 = 0uLL;
+          v20 = 0;
+          std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]<vg::hrtf::ProcessedROIData*,vg::hrtf::ProcessedROIData*>(&v19, v21, v22, 0xCCCCCCCCCCCCCCCDLL * ((v22 - v21) >> 4));
+          *a2 = v15;
+          *(a2 + 16) = v16;
           v16 = 0;
           v15 = 0uLL;
+          *(a2 + 24) = v17;
+          *(a2 + 40) = v18;
+          v18 = 0;
+          v17 = 0uLL;
+          *(a2 + 48) = v19;
+          *(a2 + 64) = v20;
+          v20 = 0;
+          v19 = 0uLL;
           *(a2 + 72) = 1;
-          v27 = &v15;
-          std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v27);
-          v27 = &v13;
-          std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v27);
-          v27 = &v11;
-          std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v27);
+          v31 = &v19;
+          std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v31);
+          v31 = &v17;
+          std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v31);
+          v31 = &v15;
+          std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v31);
         }
 
         else
         {
-          v10 = VGLogHRTFModel();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v14 = VGLogHRTFModel(v11);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             vg::hrtf::HRTFModelImpl::preprocessData();
           }
@@ -8483,17 +8434,17 @@ void vg::hrtf::HRTFModelImpl::preprocessData(const vg::hrtf::HRTFModelInputs *a1
           *(a2 + 72) = 0;
         }
 
-        if (v19 == 1)
+        if (v23 == 1)
         {
-          *&v11 = &v17;
-          std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v11);
+          *&v15 = &v21;
+          std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v15);
         }
       }
 
       else
       {
-        v9 = VGLogHRTFModel();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v13 = VGLogHRTFModel(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           vg::hrtf::HRTFModelImpl::preprocessData();
         }
@@ -8502,17 +8453,17 @@ void vg::hrtf::HRTFModelImpl::preprocessData(const vg::hrtf::HRTFModelInputs *a1
         *(a2 + 72) = 0;
       }
 
-      if (v22 == 1)
+      if (v26 == 1)
       {
-        *&v11 = &v20;
-        std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v11);
+        *&v15 = &v24;
+        std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v15);
       }
     }
 
     else
     {
-      v8 = VGLogHRTFModel();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = VGLogHRTFModel(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         vg::hrtf::HRTFModelImpl::preprocessData();
       }
@@ -8521,20 +8472,20 @@ void vg::hrtf::HRTFModelImpl::preprocessData(const vg::hrtf::HRTFModelInputs *a1
       *(a2 + 72) = 0;
     }
 
-    if (v25 == 1)
+    if (v29 == 1)
     {
-      *&v11 = &v23;
-      std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v11);
+      *&v15 = &v27;
+      std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v15);
     }
 
-    *&v11 = v26;
-    std::vector<vg::hrtf::FaceFrameData>::__destroy_vector::operator()[abi:ne200100](&v11);
+    *&v15 = v30;
+    std::vector<vg::hrtf::FaceFrameData>::__destroy_vector::operator()[abi:ne200100](&v15);
   }
 
   else
   {
-    v7 = VGLogHRTFModel();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VGLogHRTFModel(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       vg::hrtf::HRTFModelImpl::preprocessData();
     }
@@ -8573,141 +8524,52 @@ void sub_270F4C128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id VGLogHRTFModel(void)
+id VGLogHRTFModel(uint64_t a1)
 {
   if (VGLogHRTFModel(void)::onceToken != -1)
   {
     VGLogHRTFModel();
   }
 
-  v1 = VGLogHRTFModel(void)::handle;
+  v2 = VGLogHRTFModel(void)::handle;
 
-  return v1;
+  return v2;
 }
 
-void vg::hrtf::HRTFModelImpl::predictHRTFData()
+void vg::hrtf::HRTFModelImpl::predictHRTFData(uint64_t a1)
 {
-  v0 = VGLogHRTFModel();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v5 = VGLogHRTFModel(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     vg::hrtf::HRTFModelImpl::predictHRTFData();
   }
 
-  LOBYTE(v6) = 0;
-  v7 = 0;
-  v5 = 0;
-  if (vg::shared::VGE5RT::isANESupported(objc_autoreleasePoolPush()))
+  LOBYTE(v12) = 0;
+  v13 = 0;
+  v11 = 0;
+  isANESupported = vg::shared::VGE5RT::isANESupported(objc_autoreleasePoolPush());
+  if (isANESupported)
   {
-    v1 = VGLogHRTFModel();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+    v7 = VGLogHRTFModel(isANESupported);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       vg::hrtf::HRTFModelImpl::predictHRTFData();
     }
 
     LOBYTE(__p[0]) = 0;
-    LOBYTE(v4[0]) = 0;
+    LOBYTE(v10[0]) = 0;
     vg::hrtf::HRTFDecoderModel::create();
   }
 
-  v2 = VGLogHRTFModel();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v8 = VGLogHRTFModel(isANESupported);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     vg::hrtf::HRTFModelImpl::predictHRTFData();
   }
 
   LOBYTE(__p[0]) = 0;
-  LOBYTE(v4[0]) = 0;
+  LOBYTE(v10[0]) = 0;
   vg::hrtf::HRTFDecoderModelEspresso::create();
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Creating HRTFDecoderModel...", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Initializing HRTFDecoderModel for ANE.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Running prediction for HRTFDecoderModel...", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "HRTFDecoderModel falling back to EspressoV1.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Running prediction for HRTFDecoderModel (EspressoV1)...", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to create HRTFDecoderModel.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to predict HRTF decoder model.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Creating DTFModel...", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Running prediction for DTFModel...", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "DTFModel falling back to EspressoV1.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to create DTFModel.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to predict dtf values.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Creating DTFBiasModel...", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Running prediction for DTFBiasModel...", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "DTFBiasModel falling back to EspressoV1.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_270F06000, v0, v1, "Running prediction for DTFBiasModel (EspressoV1)...", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to predict bias dtf values.", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270F06000, v0, v1, "Failed to create DTFBiasModel.", v2, v3, v4, v5, v6);
 }
 
 void sub_270F4CDA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, void *a32, uint64_t a33, uint64_t a34, char a35)
@@ -8755,78 +8617,78 @@ id vg::hrtf::HRTFModelImpl::predict(uint64_t a1, const vg::hrtf::HRTFModelInputs
 {
   if (*(a2 + 4) - *(a2 + 3) == *(a2 + 7) - *(a2 + 6))
   {
-    LOBYTE(v22) = 0;
-    v23 = 0;
-    LOBYTE(v20) = 0;
-    v21 = 0;
-    LOBYTE(v18) = 0;
-    v19 = 0;
+    LOBYTE(v23) = 0;
+    v24 = 0;
+    LOBYTE(v21) = 0;
+    v22 = 0;
+    LOBYTE(v19) = 0;
+    v20 = 0;
     v6 = objc_autoreleasePoolPush();
-    vg::hrtf::HRTFModelImpl::preprocessData(a2, v10);
-    if (v13)
+    vg::hrtf::HRTFModelImpl::preprocessData(a2, v11, v6);
+    if (v14)
     {
       if (*(a3 + 24) == 1)
       {
-        vg::hrtf::writeDebugPreprocessedData(v10, a3);
+        vg::hrtf::writeDebugPreprocessedData(v11, a3);
       }
 
       if (*(a1 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v14, *a1, *(a1 + 8));
+        std::string::__init_copy_ctor_external(&v15, *a1, *(a1 + 8));
       }
 
       else
       {
-        v14 = *a1;
+        v15 = *a1;
       }
 
-      LOBYTE(v15) = 1;
-      std::string::basic_string[abi:ne200100]<0>(v17, "faceEncoderModel");
-      if (v13)
+      LOBYTE(v16) = 1;
+      std::string::basic_string[abi:ne200100]<0>(&v18, "faceEncoderModel");
+      if (v14)
       {
-        vg::hrtf::HRTFModelImpl::predict(vg::hrtf::HRTFModelInputs const&,std::optional<std::string> const&)const::$_0::operator()(&v14, v17);
+        vg::hrtf::HRTFModelImpl::predict(vg::hrtf::HRTFModelInputs const&,std::optional<std::string> const&)const::$_0::operator()(&v15);
       }
 
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v8 = VGLogHRTFModel();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = VGLogHRTFModel(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       vg::hrtf::HRTFModelImpl::predict();
     }
 
-    if (v13 == 1)
+    if (v14 == 1)
     {
-      v16 = &v12;
-      std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v16);
-      v16 = &v11;
-      std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v16);
-      v16 = v10;
-      std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v16);
+      v17 = &v13;
+      std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v17);
+      v17 = &v12;
+      std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v17);
+      v17 = v11;
+      std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&v17);
     }
 
     objc_autoreleasePoolPop(v6);
-    if (v19 == 1)
+    if (v20 == 1)
     {
-      free(v18);
+      free(v19);
     }
 
-    if (v21 == 1)
+    if (v22 == 1)
     {
-      free(v20);
+      free(v21);
     }
 
-    if (v23 == 1)
+    if (v24 == 1)
     {
-      free(v22);
+      free(v23);
     }
   }
 
   else
   {
-    v7 = VGLogHRTFModel();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VGLogHRTFModel(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       vg::hrtf::HRTFModelImpl::predict();
     }
@@ -8864,34 +8726,38 @@ void sub_270F4D998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void vg::hrtf::HRTFModelImpl::predict(vg::hrtf::HRTFModelInputs const&,std::optional<std::string> const&)const::$_0::operator()(uint64_t a1, uint64_t *a2)
+void vg::hrtf::HRTFModelImpl::predict(vg::hrtf::HRTFModelInputs const&,std::optional<std::string> const&)const::$_0::operator()(uint64_t a1)
 {
-  v4 = VGLogHRTFModel();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = VGLogHRTFModel(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    vg::hrtf::HRTFModelImpl::predict(vg::hrtf::HRTFModelInputs const&,std::optional<std::string> const&)const::$_0::operator()(a2);
+    vg::hrtf::HRTFModelImpl::predict(vg::hrtf::HRTFModelInputs const&,std::optional<std::string> const&)const::$_0::operator()();
   }
 
-  v9 = 0;
-  if (*(a1 + 24) == 1 && vg::shared::VGE5RT::isANESupported(v5))
+  v10 = 0;
+  if (*(a1 + 24) == 1)
   {
-    LOBYTE(__p) = 0;
-    v8 = 0;
-    vg::hrtf::EncoderModel::create();
+    isANESupported = vg::shared::VGE5RT::isANESupported(isANESupported);
+    if (isANESupported)
+    {
+      LOBYTE(__p) = 0;
+      v9 = 0;
+      vg::hrtf::EncoderModel::create();
+    }
   }
 
-  v6 = VGLogHRTFModel();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = VGLogHRTFModel(isANESupported);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    vg::hrtf::HRTFModelImpl::predict(vg::hrtf::HRTFModelInputs const&,std::optional<std::string> const&)const::$_0::operator()(a2);
+    vg::hrtf::HRTFModelImpl::predict(vg::hrtf::HRTFModelInputs const&,std::optional<std::string> const&)const::$_0::operator()();
   }
 
   LOBYTE(__p) = 0;
-  v8 = 0;
+  v9 = 0;
   vg::hrtf::EncoderModelEspresso::create();
 }
 
-vg::hrtf::DelayCoefficientsModel **std::unique_ptr<vg::hrtf::DelayCoefficientsModel>::~unique_ptr[abi:ne200100](vg::hrtf::DelayCoefficientsModel **a1)
+void ****std::unique_ptr<vg::hrtf::DelayCoefficientsModel>::~unique_ptr[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -8965,9 +8831,9 @@ void vg::hrtf::HRTFModel::~HRTFModel(void ***this)
   }
 }
 
-void vg::hrtf::HRTFModel::create(uint64_t *a1@<X0>, void *a2@<X8>)
+void vg::hrtf::HRTFModel::create(uint64_t a1@<X0>, vg::hrtf::HRTFModel **a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (*(a1 + 23) >= 0)
   {
     v4 = *(a1 + 23);
@@ -8975,10 +8841,10 @@ void vg::hrtf::HRTFModel::create(uint64_t *a1@<X0>, void *a2@<X8>)
 
   else
   {
-    v4 = a1[1];
+    v4 = *(a1 + 8);
   }
 
-  v5 = VGLogHRTFModel();
+  v5 = VGLogHRTFModel(a1);
   v6 = v5;
   if (v4)
   {
@@ -9010,88 +8876,88 @@ void vg::hrtf::HRTFModel::create(uint64_t *a1@<X0>, void *a2@<X8>)
     }
 
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
-    v24 = 0u;
-    memset(&v25, 0, sizeof(v25));
+    v23 = 0u;
+    memset(&v24, 0, sizeof(v24));
+    *v21 = 0u;
     *v22 = 0u;
-    *v23 = 0u;
-    *v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     *v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    *v18 = 0u;
     *buf = 0u;
-    *v17 = 0u;
+    *v16 = 0u;
     __str.__r_.__value_.__s.__data_[0] = 0;
-    v15 = 0;
-    detail::getModelPath(v9, &cfstr_FaceEncoderMlm.isa, &cfstr_FaceEncoderMod.isa, &__p);
+    v14 = 0;
+    detail::getModelPath(&__p, v9, &cfstr_FaceEncoderMlm.isa, &cfstr_FaceEncoderMod.isa);
     std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(&__str, &__p);
-    if (v13 == 1 && v12 < 0)
+    if (v12 == 1 && v11 < 0)
     {
       operator delete(__p.n128_u64[0]);
     }
 
-    if (v15)
+    if (v14)
     {
       std::string::operator=(buf, &__str);
-      detail::getModelPath(v9, &cfstr_EarEncoderMlmo.isa, &cfstr_EarEncoderMode.isa, &__p);
+      detail::getModelPath(&__p, v9, &cfstr_EarEncoderMlmo.isa, &cfstr_EarEncoderMode.isa);
       std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(&__str, &__p);
-      if (v13 == 1 && v12 < 0)
+      if (v12 == 1 && v11 < 0)
       {
         operator delete(__p.n128_u64[0]);
       }
 
-      if (v15)
+      if (v14)
       {
-        std::string::operator=(&v17[1], &__str);
-        detail::getModelPath(v9, &cfstr_LeftDtfMlmodel.isa, &cfstr_LeftDtfModelEs.isa, &__p);
+        std::string::operator=(&v16[1], &__str);
+        detail::getModelPath(&__p, v9, &cfstr_LeftDtfMlmodel.isa, &cfstr_LeftDtfModelEs.isa);
         std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(&__str, &__p);
-        if (v13 == 1 && v12 < 0)
+        if (v12 == 1 && v11 < 0)
         {
           operator delete(__p.n128_u64[0]);
         }
 
-        if (v15)
+        if (v14)
         {
-          std::string::operator=(v19, &__str);
-          detail::getModelPath(v9, &cfstr_RightDtfMlmode.isa, &cfstr_RightDtfModelE.isa, &__p);
+          std::string::operator=(v18, &__str);
+          detail::getModelPath(&__p, v9, &cfstr_RightDtfMlmode.isa, &cfstr_RightDtfModelE.isa);
           std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(&__str, &__p);
-          if (v13 == 1 && v12 < 0)
+          if (v12 == 1 && v11 < 0)
           {
             operator delete(__p.n128_u64[0]);
           }
 
-          if (v15)
+          if (v14)
           {
-            std::string::operator=(&v20[1], &__str);
-            detail::getModelPath(v9, &cfstr_HrtfDecoderMlm.isa, &cfstr_HrtfDecoderMod.isa, &__p);
+            std::string::operator=(&v19[1], &__str);
+            detail::getModelPath(&__p, v9, &cfstr_HrtfDecoderMlm.isa, &cfstr_HrtfDecoderMod.isa);
             std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(&__str, &__p);
-            if (v13 == 1 && v12 < 0)
+            if (v12 == 1 && v11 < 0)
             {
               operator delete(__p.n128_u64[0]);
             }
 
-            if (v15)
+            if (v14)
             {
-              std::string::operator=(v22, &__str);
-              detail::getModelPath(v9, &cfstr_DtfBiasMlmodel.isa, &cfstr_DtfBiasModelEs.isa, &__p);
+              std::string::operator=(v21, &__str);
+              detail::getModelPath(&__p, v9, &cfstr_DtfBiasMlmodel.isa, &cfstr_DtfBiasModelEs.isa);
               std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(&__str, &__p);
-              if (v13 == 1 && v12 < 0)
+              if (v12 == 1 && v11 < 0)
               {
                 operator delete(__p.n128_u64[0]);
               }
 
-              if (v15)
+              if (v14)
               {
-                std::string::operator=(&v23[1], &__str);
-                detail::getModelPath(v9, &cfstr_DelayMlmodel.isa, &cfstr_DelayModelEspr.isa, &__p);
+                std::string::operator=(&v22[1], &__str);
+                detail::getModelPath(&__p, v9, &cfstr_DelayMlmodel.isa, &cfstr_DelayModelEspr.isa);
                 std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(&__str, &__p);
-                if (v13 == 1 && v12 < 0)
+                if (v12 == 1 && v11 < 0)
                 {
                   operator delete(__p.n128_u64[0]);
                 }
 
-                if (v15)
+                if (v14)
                 {
-                  std::string::operator=(&v25, &__str);
+                  std::string::operator=(&v24, &__str);
                   operator new();
                 }
               }
@@ -9102,37 +8968,37 @@ void vg::hrtf::HRTFModel::create(uint64_t *a1@<X0>, void *a2@<X8>)
     }
 
     *a2 = 0;
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v25.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v24) < 0)
+    if (SHIBYTE(v23) < 0)
     {
-      operator delete(v23[1]);
+      operator delete(v22[1]);
     }
 
-    if (SHIBYTE(v23[0]) < 0)
+    if (SHIBYTE(v22[0]) < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v21[0]);
     }
 
-    if (SHIBYTE(v21) < 0)
+    if (SHIBYTE(v20) < 0)
     {
-      operator delete(v20[1]);
+      operator delete(v19[1]);
     }
 
-    if (SHIBYTE(v20[0]) < 0)
+    if (SHIBYTE(v19[0]) < 0)
     {
-      operator delete(v19[0]);
+      operator delete(v18[0]);
     }
 
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
-      operator delete(v17[1]);
+      operator delete(v16[1]);
     }
 
-    if (SHIBYTE(v17[0]) < 0)
+    if (SHIBYTE(v16[0]) < 0)
     {
       operator delete(*buf);
     }
@@ -9147,13 +9013,11 @@ void vg::hrtf::HRTFModel::create(uint64_t *a1@<X0>, void *a2@<X8>)
 
     *a2 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_270F4E450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, int a20, void *a21)
+void sub_270F4E450(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, int a20, void *a21)
 {
-  MEMORY[0x2743B9370](v22, 0x20C4093837F09);
+  MEMORY[0x2743B9370](v22, 0x20C4093837F09, a3, a4, a5, a6, a7, a8);
   if (a19 == 1 && a18 < 0)
   {
     operator delete(__p);
@@ -9164,60 +9028,59 @@ void sub_270F4E450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void detail::getModelPath(detail *this@<X0>, NSString *a2@<X1>, NSString *a3@<X2>, _BYTE *a4@<X8>)
+void detail::getModelPath(uint64_t *__return_ptr a1@<X8>, detail *this@<X0>, NSString *a3@<X1>, NSString *a4@<X2>)
 {
-  v26[3] = *MEMORY[0x277D85DE8];
-  v8 = this;
-  v9 = a2;
-  v10 = a3;
-  v11 = MEMORY[0x277CCACA8];
-  v26[0] = v8;
-  v26[1] = v9;
-  v26[2] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
-  v13 = [v11 pathWithComponents:v12];
+  v25[3] = *MEMORY[0x277D85DE8];
+  v7 = this;
+  v8 = a3;
+  v9 = a4;
+  v10 = MEMORY[0x277CCACA8];
+  v25[0] = v7;
+  v25[1] = v8;
+  v25[2] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+  v12 = [v10 pathWithComponents:v11];
 
-  v14 = [MEMORY[0x277CCAA00] defaultManager];
-  v15 = v14;
-  if (!v13)
+  v13 = [MEMORY[0x277CCAA00] defaultManager];
+  v14 = v13;
+  if (!v12)
   {
-    v18 = VGLogHRTFModel();
+    v18 = VGLogHRTFModel(v13);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138412802;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v10;
-      _os_log_error_impl(&dword_270F06000, v18, OS_LOG_TYPE_ERROR, "Failed to create model path from modelRootPath %@ with directory %@ and model file %@", &v20, 0x20u);
+      v19 = 138412802;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v9;
+      _os_log_error_impl(&dword_270F06000, v18, OS_LOG_TYPE_ERROR, "Failed to create model path from modelRootPath %@ with directory %@ and model file %@", &v19, 0x20u);
     }
 
     goto LABEL_8;
   }
 
-  if (([v14 fileExistsAtPath:v13] & 1) == 0)
+  v15 = [v13 fileExistsAtPath:v12];
+  if ((v15 & 1) == 0)
   {
-    v18 = VGLogHRTFModel();
+    v18 = VGLogHRTFModel(v15);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      vg::ear_detection::EarLandmarksModel::create(v13, v18);
+      vg::ear_detection::EarLandmarksModel::create(v12, v18);
     }
 
 LABEL_8:
 
     v17 = 0;
-    *a4 = 0;
+    *a1 = 0;
     goto LABEL_9;
   }
 
-  v16 = v13;
-  std::string::basic_string[abi:ne200100]<0>(a4, [v13 UTF8String]);
+  v16 = v12;
+  std::string::basic_string[abi:ne200100]<0>(a1, [v12 UTF8String]);
   v17 = 1;
 LABEL_9:
-  a4[24] = v17;
-
-  v19 = *MEMORY[0x277D85DE8];
+  *(a1 + 24) = v17;
 }
 
 void ___ZL14VGLogHRTFModelv_block_invoke()
@@ -9228,7 +9091,7 @@ void ___ZL14VGLogHRTFModelv_block_invoke()
   VGLogHRTFModel(void)::handle = v0;
 }
 
-uint64_t std::vector<vg::hrtf::FaceFrameData>::__init_with_size[abi:ne200100]<std::__wrap_iter<vg::hrtf::FaceFrameData const*>,std::__wrap_iter<vg::hrtf::FaceFrameData const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<vg::hrtf::FaceFrameData>::__init_with_size[abi:ne200100]<std::__wrap_iter<vg::hrtf::FaceFrameData const*>,std::__wrap_iter<vg::hrtf::FaceFrameData const*>>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9245,7 +9108,7 @@ void sub_270F4E7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<vg::hrtf::FaceFrameData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<vg::hrtf::FaceFrameData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2AAAAAAAAAAAAABLL)
   {
@@ -9322,7 +9185,7 @@ void std::vector<vg::hrtf::FaceFrameData>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v2;
 }
 
-uint64_t std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]<vg::hrtf::ProcessedROIData*,vg::hrtf::ProcessedROIData*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]<vg::hrtf::ProcessedROIData*,vg::hrtf::ProcessedROIData*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9332,14 +9195,14 @@ uint64_t std::vector<vg::hrtf::ProcessedROIData>::__init_with_size[abi:ne200100]
   return result;
 }
 
-void sub_270F4EA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_270F4EA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<vg::hrtf::ProcessedROIData>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<vg::hrtf::ProcessedROIData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<vg::hrtf::ProcessedROIData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -9521,7 +9384,7 @@ vg::hrtf::EncoderModelEspresso **std::unique_ptr<vg::hrtf::EncoderModelEspresso>
   return a1;
 }
 
-vg::hrtf::EncoderModel *std::unique_ptr<vg::hrtf::EncoderModel>::reset[abi:ne200100](vg::hrtf::EncoderModel **a1, vg::hrtf::EncoderModel *a2)
+vg::hrtf::EncoderModelImpl **std::unique_ptr<vg::hrtf::EncoderModel>::reset[abi:ne200100](vg::hrtf::EncoderModelImpl ***a1, vg::hrtf::EncoderModelImpl **a2)
 {
   result = *a1;
   *a1 = a2;
@@ -9701,11 +9564,170 @@ __n128 std::__optional_storage_base<std::string,false>::__assign_from[abi:ne2001
     result = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
     *a1 = result;
-    a2->n128_u64[1] = 0;
-    a2[1].n128_u64[0] = 0;
+    *(a2 + 8) = 0uLL;
     a2->n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
 
   return result;
+}
+
+void vg::hrtf::HRTFModelImplInput::~HRTFModelImplInput(void **this)
+{
+  if (*(this + 167) < 0)
+  {
+    operator delete(this[18]);
+  }
+
+  if (*(this + 143) < 0)
+  {
+    operator delete(this[15]);
+  }
+
+  if (*(this + 119) < 0)
+  {
+    operator delete(this[12]);
+  }
+
+  if (*(this + 95) < 0)
+  {
+    operator delete(this[9]);
+  }
+
+  if (*(this + 71) < 0)
+  {
+    operator delete(this[6]);
+  }
+
+  if (*(this + 47) < 0)
+  {
+    operator delete(this[3]);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+void std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = v2 * 1.6;
+  if (v2 + a2 <= v3)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = v2 + a2;
+  }
+
+  std::__format::__allocating_buffer<char>::__grow_buffer[abi:ne200100](a1, v4);
+}
+
+void std::__format::__allocating_buffer<char>::__grow_buffer[abi:ne200100](uint64_t a1, unint64_t a2)
+{
+  if (a2 >= 0x100)
+  {
+    operator new();
+  }
+}
+
+unsigned __int8 *std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
+{
+  v4 = *a4;
+  v14[0] = a2;
+  v14[1] = &a2[a3];
+  v15 = 0;
+  v16 = 0;
+  v17 = v4;
+  v10 = *a4;
+  v11 = a4[2];
+  LOBYTE(v7.__locale_) = 0;
+  v8 = 0;
+  v9 = a1;
+  LOBYTE(v12.__locale_) = 0;
+  v13 = 0;
+  v5 = std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v14, &v9);
+  if (v13 == 1)
+  {
+    std::locale::~locale(&v12);
+  }
+
+  return v5;
+}
+
+void sub_270F4F440(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+{
+  if (a17 == 1)
+  {
+    std::locale::~locale(v17 + 4);
+    if (a11)
+    {
+      std::locale::~locale(&a10);
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+unsigned __int8 *std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 **a1, unsigned __int8 **a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = *a2;
+  if (*a1 != v2)
+  {
+    while (1)
+    {
+      v7 = *v3;
+      if (v7 == 125)
+      {
+        break;
+      }
+
+      if (v7 != 123)
+      {
+        goto LABEL_10;
+      }
+
+      if (++v3 == v2)
+      {
+        std::__throw_format_error[abi:ne200100]("The format string terminates at a '{'");
+      }
+
+      if (*v3 == 123)
+      {
+LABEL_10:
+        ++v3;
+        std::__format::__output_buffer<char>::push_back[abi:ne200100](v4, v7);
+        if (v3 == v2)
+        {
+          return v4;
+        }
+      }
+
+      else
+      {
+        *a2 = v4;
+        v3 = std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v3, v2, a1, a2);
+        v4 = *a2;
+        if (v3 == v2)
+        {
+          return v4;
+        }
+      }
+    }
+
+    if (++v3 == v2 || *v3 != 125)
+    {
+      std::__throw_format_error[abi:ne200100]("The format string contains an invalid escape sequence");
+    }
+
+    goto LABEL_10;
+  }
+
+  return v4;
 }

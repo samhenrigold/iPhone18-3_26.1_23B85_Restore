@@ -40,7 +40,6 @@
 
   v10 = [v9 init];
   v11 = &v10[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration];
-  v12 = *&v10[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 32];
   *v11 = v3;
   v11[1] = v4;
   *(v11 + 1) = v5;
@@ -72,7 +71,6 @@
   }
 
   v6 = self + OBJC_IVAR___CHUISControlInstanceConfiguration__configuration;
-  v7 = *&self->super._configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 24];
   *(v6 + 3) = v4;
   *(v6 + 4) = v5;
 }

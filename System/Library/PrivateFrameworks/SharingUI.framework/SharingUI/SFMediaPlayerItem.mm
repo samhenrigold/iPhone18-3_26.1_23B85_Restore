@@ -80,59 +80,78 @@
 
 - (id)description
 {
-  v11 = objc_opt_class();
-  NSAppendPrintF();
-  v14 = 0;
-  v12 = [(NSURL *)self->_url path:v11];
-  NSAppendPrintF();
-  v3 = v14;
+  v25 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v25, "<%@ %{ptr}", v3, self);
+  v4 = v25;
+  v24 = v4;
+  path = [(NSURL *)self->_url path];
+  NSAppendPrintF(&v24, ", url: %@", path);
+  v6 = v24;
 
   if ([(NSMutableArray *)self->_playerItems count])
   {
+    v23 = v6;
     firstObject = [(NSMutableArray *)self->_playerItems firstObject];
-    NSAppendPrintF();
-    v4 = v3;
+    NSAppendPrintF(&v23, ", playerItem: %@", firstObject);
+    v8 = v23;
 
-    v3 = v4;
+    v6 = v8;
   }
 
   if (self->_shouldLoop)
   {
-    NSAppendPrintF();
-    v5 = v3;
+    v22 = v6;
+    NSAppendPrintF(&v22, ", loops");
+    v9 = v22;
 
-    v3 = v5;
+    v6 = v9;
   }
 
   if ([(NSArray *)self->_playbackNotificationTimeRanges count])
   {
-    [(NSArray *)self->_playbackNotificationTimeRanges count];
-    NSAppendPrintF();
-    v6 = v3;
+    v21 = v6;
+    v10 = [(NSArray *)self->_playbackNotificationTimeRanges count];
+    if (self->_timeRangeHandler)
+    {
+      v11 = "yes";
+    }
 
-    v3 = v6;
+    else
+    {
+      v11 = "no";
+    }
+
+    NSAppendPrintF(&v21, ", time ranges: %lu, handler: %s", v10, v11);
+    v12 = v21;
+
+    v6 = v12;
   }
 
   if (self->_startedHandler)
   {
-    NSAppendPrintF();
-    v7 = v3;
+    v20 = v6;
+    NSAppendPrintF(&v20, ", startedHandler");
+    v13 = v20;
 
-    v3 = v7;
+    v6 = v13;
   }
 
   if (self->_completedHandler)
   {
-    NSAppendPrintF();
-    v8 = v3;
+    v19 = v6;
+    NSAppendPrintF(&v19, ", completedHandler");
+    v14 = v19;
 
-    v3 = v8;
+    v6 = v14;
   }
 
-  NSAppendPrintF();
-  v9 = v3;
+  v18 = v6;
+  NSAppendPrintF(&v18, ">");
+  v15 = v18;
+  v16 = v18;
 
-  return v3;
+  return v15;
 }
 
 - (unint64_t)hash

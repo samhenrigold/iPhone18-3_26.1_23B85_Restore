@@ -1,4 +1,4 @@
-id MapsSuggestionsShortcutTypeStyleAttributes(uint64_t a1)
+id MapsSuggestionsShortcutTypeStyleAttributes(unint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   if (a1 <= 2)
@@ -96,13 +96,6 @@ uint64_t ___ZL30_minVisitsForProposedShortcutsv_block_invoke()
 {
   result = GEOConfigGetInteger();
   _minVisitsForProposedShortcuts(void)::s_value = result;
-  return result;
-}
-
-uint64_t ___ZL27_maxAgeForProposedShortcutsv_block_invoke()
-{
-  result = GEOConfigGetDouble();
-  _maxAgeForProposedShortcuts(void)::s_value = v1;
   return result;
 }
 
@@ -262,13 +255,12 @@ void MapsSuggestionsResetCurrentLocation()
   objc_sync_exit(obj);
 }
 
-uint64_t __MapsSuggestionsBestLocation_block_invoke()
+void __MapsSuggestionsBestLocation_block_invoke()
 {
   GEOConfigGetDouble();
   MapsSuggestionsBestLocation_s_tooOld = v0;
-  result = GEOConfigGetDouble();
-  MapsSuggestionsBestLocation_s_sameTimeThreshold = v2;
-  return result;
+  GEOConfigGetDouble();
+  MapsSuggestionsBestLocation_s_sameTimeThreshold = v1;
 }
 
 BOOL MapsSuggestionsIsValidVisit(void *a1)
@@ -1970,16 +1962,16 @@ id MapsSuggestionsLocalizedSiriFoundInCalendarString()
   return v1;
 }
 
-id MapsSuggestionsLocalizedAddYourHomeShortcutString()
+id MapsSuggestionsLocalizedAddYourHomeShortcutString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedAddYourHomeShortcutString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedAddYourHomeShortcutString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedAddYourHomeShortcutString_s_string;
+  v2 = MapsSuggestionsLocalizedAddYourHomeShortcutString_s_string;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedAddYourHomeShortcutString_block_invoke()
@@ -2001,16 +1993,16 @@ void __MapsSuggestionsLocalizedAddYourHomeShortcutString_block_invoke()
   MapsSuggestionsLocalizedAddYourHomeShortcutString_s_string = v2;
 }
 
-id MapsSuggestionsLocalizedAddYourWorkShortcutString()
+id MapsSuggestionsLocalizedAddYourWorkShortcutString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedAddYourWorkShortcutString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedAddYourWorkShortcutString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedAddYourWorkShortcutString_s_string;
+  v2 = MapsSuggestionsLocalizedAddYourWorkShortcutString_s_string;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedAddYourWorkShortcutString_block_invoke()
@@ -2032,16 +2024,16 @@ void __MapsSuggestionsLocalizedAddYourWorkShortcutString_block_invoke()
   MapsSuggestionsLocalizedAddYourWorkShortcutString_s_string = v2;
 }
 
-id MapsSuggestionsLocalizedAddYourSchoolShortcutString()
+id MapsSuggestionsLocalizedAddYourSchoolShortcutString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedAddYourSchoolShortcutString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedAddYourSchoolShortcutString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedAddYourSchoolShortcutString_s_string;
+  v2 = MapsSuggestionsLocalizedAddYourSchoolShortcutString_s_string;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedAddYourSchoolShortcutString_block_invoke()
@@ -2063,16 +2055,16 @@ void __MapsSuggestionsLocalizedAddYourSchoolShortcutString_block_invoke()
   MapsSuggestionsLocalizedAddYourSchoolShortcutString_s_string = v2;
 }
 
-id MapsSuggestionsLocalizedAddShortcutString()
+id MapsSuggestionsLocalizedAddShortcutString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedAddShortcutString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedAddShortcutString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedAddShortcutString_s_string;
+  v2 = MapsSuggestionsLocalizedAddShortcutString_s_string;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedAddShortcutString_block_invoke()
@@ -2094,16 +2086,16 @@ void __MapsSuggestionsLocalizedAddShortcutString_block_invoke()
   MapsSuggestionsLocalizedAddShortcutString_s_string = v2;
 }
 
-id MapsSuggestionsLocalizedRecentlyViewedString()
+id MapsSuggestionsLocalizedRecentlyViewedString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedRecentlyViewedString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedRecentlyViewedString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedRecentlyViewedString_s_recentHistorySubtitle;
+  v2 = MapsSuggestionsLocalizedRecentlyViewedString_s_recentHistorySubtitle;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedRecentlyViewedString_block_invoke()
@@ -2711,16 +2703,16 @@ id __MapsSuggestionsLocalizedParkedCarLowerCaseNearString_block_invoke_2(uint64_
   return v8;
 }
 
-id MapsSuggestionsLocalizedSnoozeInMapsString()
+id MapsSuggestionsLocalizedSnoozeInMapsString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedSnoozeInMapsString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedSnoozeInMapsString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedSnoozeInMapsString_s_str;
+  v2 = MapsSuggestionsLocalizedSnoozeInMapsString_s_str;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedSnoozeInMapsString_block_invoke()
@@ -2742,16 +2734,16 @@ void __MapsSuggestionsLocalizedSnoozeInMapsString_block_invoke()
   MapsSuggestionsLocalizedSnoozeInMapsString_s_str = v2;
 }
 
-id MapsSuggestionsLocalizedHideInMapsString()
+id MapsSuggestionsLocalizedHideInMapsString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedHideInMapsString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedHideInMapsString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedHideInMapsString_s_str;
+  v2 = MapsSuggestionsLocalizedHideInMapsString_s_str;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedHideInMapsString_block_invoke()
@@ -2773,16 +2765,16 @@ void __MapsSuggestionsLocalizedHideInMapsString_block_invoke()
   MapsSuggestionsLocalizedHideInMapsString_s_str = v2;
 }
 
-id MapsSuggestionsLocalizedDeleteFromCalendarString()
+id MapsSuggestionsLocalizedDeleteFromCalendarString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedDeleteFromCalendarString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedDeleteFromCalendarString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedDeleteFromCalendarString_s_str;
+  v2 = MapsSuggestionsLocalizedDeleteFromCalendarString_s_str;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedDeleteFromCalendarString_block_invoke()
@@ -2804,16 +2796,16 @@ void __MapsSuggestionsLocalizedDeleteFromCalendarString_block_invoke()
   MapsSuggestionsLocalizedDeleteFromCalendarString_s_str = v2;
 }
 
-id MapsSuggestionsLocalizedDeclineCalendarEventString()
+id MapsSuggestionsLocalizedDeclineCalendarEventString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedDeclineCalendarEventString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedDeclineCalendarEventString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedDeclineCalendarEventString_s_str;
+  v2 = MapsSuggestionsLocalizedDeclineCalendarEventString_s_str;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedDeclineCalendarEventString_block_invoke()
@@ -2835,16 +2827,16 @@ void __MapsSuggestionsLocalizedDeclineCalendarEventString_block_invoke()
   MapsSuggestionsLocalizedDeclineCalendarEventString_s_str = v2;
 }
 
-id MapsSuggestionsLocalizedForgetMyVisitsString()
+id MapsSuggestionsLocalizedForgetMyVisitsString(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedForgetMyVisitsString_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedForgetMyVisitsString_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedForgetMyVisitsString_s_str;
+  v2 = MapsSuggestionsLocalizedForgetMyVisitsString_s_str;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedForgetMyVisitsString_block_invoke()
@@ -2915,16 +2907,16 @@ id __MapsSuggestionsLocalizedTitleFormatForVehicleSetup_block_invoke_2(uint64_t 
   return v5;
 }
 
-id MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup()
+id MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup_s_titleFormat;
+  v2 = MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup_s_titleFormat;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup_block_invoke()
@@ -2946,16 +2938,16 @@ void __MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup_block_invoke()
   MapsSuggestionsLocalizedBackupTitleFormatForVehicleSetup_s_titleFormat = v2;
 }
 
-id MapsSuggestionsLocalizedSubtitleForVehicleSetup()
+id MapsSuggestionsLocalizedSubtitleForVehicleSetup(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedSubtitleForVehicleSetup_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedSubtitleForVehicleSetup_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedSubtitleForVehicleSetup_s_subtitle;
+  v2 = MapsSuggestionsLocalizedSubtitleForVehicleSetup_s_subtitle;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedSubtitleForVehicleSetup_block_invoke()
@@ -2977,16 +2969,16 @@ void __MapsSuggestionsLocalizedSubtitleForVehicleSetup_block_invoke()
   MapsSuggestionsLocalizedSubtitleForVehicleSetup_s_subtitle = v2;
 }
 
-id MapsSuggestionsLocalizedSubtitleForRatingRequest()
+id MapsSuggestionsLocalizedSubtitleForRatingRequest(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedSubtitleForRatingRequest_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedSubtitleForRatingRequest_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedSubtitleForRatingRequest_s_subtitle;
+  v2 = MapsSuggestionsLocalizedSubtitleForRatingRequest_s_subtitle;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedSubtitleForRatingRequest_block_invoke()
@@ -3064,16 +3056,16 @@ id __MapsSuggestionsLocalizedVisitedTimeAgo_block_invoke_2(uint64_t a1, double a
   return v9;
 }
 
-id MapsSuggestionsLocalizedVisitedToday()
+id MapsSuggestionsLocalizedVisitedToday(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedVisitedToday_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedVisitedToday_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedVisitedToday_s_subtitle;
+  v2 = MapsSuggestionsLocalizedVisitedToday_s_subtitle;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedVisitedToday_block_invoke()
@@ -3145,16 +3137,16 @@ id __MapsSuggestionsLocalizedTitleFormatForVenueWelcomeNotification_block_invoke
   return v5;
 }
 
-id MapsSuggestionsLocalizedSubtitleForVenueWelcomeNotification()
+id MapsSuggestionsLocalizedSubtitleForVenueWelcomeNotification(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedSubtitleForVenueWelcomeNotification_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedSubtitleForVenueWelcomeNotification_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedSubtitleForVenueWelcomeNotification_s_subtitle;
+  v2 = MapsSuggestionsLocalizedSubtitleForVenueWelcomeNotification_s_subtitle;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedSubtitleForVenueWelcomeNotification_block_invoke()
@@ -3226,16 +3218,16 @@ id __MapsSuggestionsLocalizedTitleFormatForAirportArrivalNotification_block_invo
   return v5;
 }
 
-id MapsSuggestionsLocalizedMessageForAirportArrivalNotification()
+id MapsSuggestionsLocalizedMessageForAirportArrivalNotification(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedMessageForAirportArrivalNotification_s_onceToken != -1)
   {
     MapsSuggestionsLocalizedMessageForAirportArrivalNotification_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedMessageForAirportArrivalNotification_s_message;
+  v2 = MapsSuggestionsLocalizedMessageForAirportArrivalNotification_s_message;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedMessageForAirportArrivalNotification_block_invoke()
@@ -3447,16 +3439,16 @@ id __MapsSuggestionsLocalizedSubtitleFormatForEVResumeRouteEntry_block_invoke_2(
   return v5;
 }
 
-id MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry()
+id MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry_onceToken != -1)
   {
     MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry_s_formatString_subtitlePortraitSiriSuggestion;
+  v2 = MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry_s_formatString_subtitlePortraitSiriSuggestion;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry_block_invoke()
@@ -3478,16 +3470,16 @@ void __MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry_bloc
   MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry_s_formatString_subtitlePortraitSiriSuggestion = v2;
 }
 
-id MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry()
+id MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry(uint64_t a1)
 {
   if (MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry_onceToken != -1)
   {
     MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry_cold_1();
   }
 
-  v1 = MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry_s_formatString_subtitlePortraitHomePod;
+  v2 = MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry_s_formatString_subtitlePortraitHomePod;
 
-  return v1;
+  return v2;
 }
 
 void __MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry_block_invoke()
@@ -6326,14 +6318,14 @@ LABEL_16:
   return v12;
 }
 
-void sub_1C523CFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C523CFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
 
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
@@ -6619,29 +6611,29 @@ uint64_t GEOTransportModeForTransportTypePreference(unint64_t a1)
   }
 }
 
-void ___ZL22_MapsSuggestionsBundlePKc_block_invoke_0()
+void ___ZL22_MapsSuggestionsBundlePKc_block_invoke_0(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!_MapsSuggestionsBundle(char const*)::s_bundleWithMapsSuggestionsIdentifier)
   {
-    v0 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.MapsSuggestions"];
-    v1 = _MapsSuggestionsBundle(char const*)::s_bundleWithMapsSuggestionsIdentifier;
-    _MapsSuggestionsBundle(char const*)::s_bundleWithMapsSuggestionsIdentifier = v0;
+    v1 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.MapsSuggestions"];
+    v2 = _MapsSuggestionsBundle(char const*)::s_bundleWithMapsSuggestionsIdentifier;
+    _MapsSuggestionsBundle(char const*)::s_bundleWithMapsSuggestionsIdentifier = v1;
 
     if (!_MapsSuggestionsBundle(char const*)::s_bundleWithMapsSuggestionsIdentifier)
     {
-      v2 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v3 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v3 = 136446978;
-        v4 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDefines.h";
-        v5 = 1024;
-        v6 = 341;
-        v7 = 2082;
-        v8 = "NSBundle * _Nonnull _MapsSuggestionsBundle(const char * _Nonnull)_block_invoke";
-        v9 = 2082;
-        v10 = "nil == s_bundleWithMapsSuggestionsIdentifier";
-        _os_log_impl(&dword_1C5126000, v2, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires bundleWithIdentifier:@com.apple.MapsSuggestions", &v3, 0x26u);
+        v4 = 136446978;
+        v5 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDefines.h";
+        v6 = 1024;
+        v7 = 341;
+        v8 = 2082;
+        v9 = "NSBundle * _Nonnull _MapsSuggestionsBundle(const char * _Nonnull)_block_invoke";
+        v10 = 2082;
+        v11 = "nil == s_bundleWithMapsSuggestionsIdentifier";
+        _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires bundleWithIdentifier:@com.apple.MapsSuggestions", &v4, 0x26u);
       }
     }
   }
@@ -7020,7 +7012,7 @@ void MSg::NotificationSender::notify(MSg::NotificationSender *this, NSString *a2
 
 void sub_1C52419CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
 {
-  MEMORY[0x1C6943A40](v17, 0x1092C40D553986CLL);
+  MEMORY[0x1C6943A40](v17, 0x1092C40D553986CLL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -7046,16 +7038,16 @@ void sub_1C5241FC0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C5242130(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+void sub_1C5242130(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
 {
-  MEMORY[0x1C6943A40](v17, 0x1092C40D553986CLL);
+  MEMORY[0x1C6943A40](v17, 0x1092C40D553986CLL, a3, a4, a5, a6, a7, a8);
 
   objc_destroyWeak((v18 + 32));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -7069,13 +7061,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -7209,7 +7201,7 @@ void ___ZNK3MSg5Queue5asyncI45MapsSuggestionsPortraitRelevanceScoreProviderEEvPT
   }
 }
 
-uint64_t std::vector<MapsSuggestionsEntryType>::__init_with_size[abi:ne200100]<MapsSuggestionsEntryType*,MapsSuggestionsEntryType*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MapsSuggestionsEntryType>::__init_with_size[abi:ne200100]<MapsSuggestionsEntryType*,MapsSuggestionsEntryType*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7296,7 +7288,7 @@ uint64_t sub_1C524D010()
   v0[7] = v0 + 18;
   v0[3] = sub_1C524D138;
   v2 = swift_continuation_init();
-  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC155DE8);
+  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC155DE8, &qword_1C52A8EC8);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = sub_1C524D5EC;
@@ -7439,7 +7431,7 @@ LABEL_17:
   return v28(v24, v23);
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -7451,12 +7443,12 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_1C524D5EC(uint64_t a1)
+uint64_t sub_1C524D5EC(uint64_t a1, uint64_t a2)
 {
-  v1 = *__swift_project_boxed_opaque_existential_0((a1 + 32), *(a1 + 56));
-  **(*(v1 + 64) + 40) = sub_1C529D7DC();
+  v2 = *__swift_project_boxed_opaque_existential_0((a1 + 32), *(a1 + 56));
+  **(*(v2 + 64) + 40) = sub_1C529D7DC();
 
-  return MEMORY[0x1EEE6DED8](v1);
+  return MEMORY[0x1EEE6DED8](v2);
 }
 
 uint64_t sub_1C524D65C(uint64_t a1, uint64_t a2)
@@ -7467,9 +7459,9 @@ uint64_t sub_1C524D65C(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -7480,7 +7472,7 @@ uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
   }
 }
 
-uint64_t sub_1C524D88C(int a1, void *aBlock, void *a3)
+uint64_t sub_1C524D88C(uint64_t a1, void *aBlock, void *a3)
 {
   v3[2] = a3;
   v3[3] = _Block_copy(aBlock);
@@ -7577,7 +7569,7 @@ uint64_t sub_1C524DB08()
       *(v0 + 120) = v3;
       *(v0 + 88) = sub_1C524E08C;
       v28 = swift_continuation_init();
-      *(v0 + 200) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC155DF8);
+      *(v0 + 200) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC155DF8, &qword_1C52A8ED8);
       *(v0 + 144) = MEMORY[0x1E69E9820];
       *(v0 + 152) = 1107296256;
       *(v0 + 160) = sub_1C524E2B4;
@@ -7624,7 +7616,7 @@ uint64_t sub_1C524DB08()
       *(v0 + 56) = v3;
       *(v0 + 24) = sub_1C524E1D4;
       v30 = swift_continuation_init();
-      *(v0 + 200) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC155DF8);
+      *(v0 + 200) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC155DF8, &qword_1C52A8ED8);
       *(v0 + 144) = MEMORY[0x1E69E9820];
       *(v0 + 152) = 1107296256;
       *(v0 + 160) = sub_1C524E2B4;
@@ -7846,14 +7838,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_1C524E9CC(uint64_t a1, unint64_t a2)
+void *sub_1C524E9CC(uint64_t a1, unint64_t a2)
 {
   v3 = sub_1C524EA18(a1, a2);
   sub_1C524EB48(&unk_1F4449E90);
   return v3;
 }
 
-uint64_t sub_1C524EA18(uint64_t a1, unint64_t a2)
+void *sub_1C524EA18(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -8034,7 +8026,7 @@ void *sub_1C524EC34(uint64_t a1, uint64_t a2)
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC155E00);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC155E00, &qword_1C52A8F78);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -8084,7 +8076,7 @@ char *sub_1C524ECA8(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC155E00);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC155E00, &qword_1C52A8F78);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -8331,26 +8323,26 @@ uint64_t sub_1C524F778(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_1C524F7B4(uint64_t a1, unint64_t *a2)
+void sub_1C524F7B4(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-id MapsSuggestionsBluetoothCondition.__allocating_init(name:)()
+id MapsSuggestionsBluetoothCondition.__allocating_init(name:)(uint64_t a1, uint64_t a2)
 {
-  v1 = objc_allocWithZone(v0);
-  v2 = sub_1C529D71C();
+  v3 = objc_allocWithZone(v2);
+  v4 = sub_1C529D71C();
 
-  v3 = [v1 initWithName_];
+  v5 = [v3 initWithName_];
 
-  return v3;
+  return v5;
 }
 
 char *MapsSuggestionsBluetoothCondition.init(name:)(uint64_t a1, uint64_t a2)
@@ -8374,7 +8366,7 @@ char *MapsSuggestionsBluetoothCondition.init(name:)(uint64_t a1, uint64_t a2)
   sub_1C529D68C();
   aBlock = MEMORY[0x1E69E7CC0];
   sub_1C52500B8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1562F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1562F0, &unk_1C52A8FF0);
   sub_1C5250110();
   sub_1C529D9CC();
   (*(v3 + 104))(v5, *MEMORY[0x1E69E8090], v30);
@@ -8477,7 +8469,7 @@ unint64_t sub_1C5250110()
   result = qword_1EDC51B10;
   if (!qword_1EDC51B10)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EC1562F0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EC1562F0, &unk_1C52A8FF0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EDC51B10);
   }
@@ -8485,7 +8477,7 @@ unint64_t sub_1C5250110()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -8637,7 +8629,7 @@ char *MapsSuggestionsEventStreamer.init(lookAheadPeriod:pingInterval:notificatio
   *v17 = 0;
   *(v17 + 1) = 0;
   *&v7[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__scanTimer] = 0;
-  v40[1] = sub_1C5143DC8(0, &qword_1EDC51AF0);
+  v40[1] = sub_1C5143DC8(0, &qword_1EDC51AF0, 0x1E69E9610);
   aBlock = a3;
   v46 = a4;
 
@@ -8646,9 +8638,9 @@ char *MapsSuggestionsEventStreamer.init(lookAheadPeriod:pingInterval:notificatio
   v40[0] = v46;
   sub_1C529D68C();
   aBlock = MEMORY[0x1E69E7CC0];
-  sub_1C513A534(&qword_1EDC51B00, MEMORY[0x1E69E8030]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1562F0);
-  sub_1C5139198(&qword_1EDC51B10, &unk_1EC1562F0);
+  sub_1C513A534(&qword_1EDC51B00, MEMORY[0x1E69E8030], MEMORY[0x1E69E8040]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1562F0, &unk_1C52A8FF0);
+  sub_1C5139198(&qword_1EDC51B10, &unk_1EC1562F0, &unk_1C52A8FF0);
   sub_1C529D9CC();
   (*(v41 + 104))(v14, *MEMORY[0x1E69E8090], v42);
   *&v7[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__queue] = sub_1C529D92C();
@@ -8657,7 +8649,7 @@ char *MapsSuggestionsEventStreamer.init(lookAheadPeriod:pingInterval:notificatio
   v18 = &v7[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer_notificationName];
   v19 = v44;
   *v18 = v43;
-  *(v18 + 1) = v19;
+  v18[1] = v19;
   *&v7[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__notifyTimers] = MEMORY[0x1E69E7CC0];
   GEOConfigGetDouble();
   *&v7[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__delay] = v20;
@@ -8749,9 +8741,9 @@ uint64_t sub_1C5251364(uint64_t a1, uint64_t a2)
 
   sub_1C529D68C();
   v32 = MEMORY[0x1E69E7CC0];
-  sub_1C513A534(qword_1EDC51A50, MEMORY[0x1E69E7F60]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1566E0);
-  sub_1C5139198(&unk_1EDC51A40, &unk_1EC1566E0);
+  sub_1C513A534(qword_1EDC51A50, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1566E0, &qword_1C52A9B00);
+  sub_1C5139198(&unk_1EDC51A40, &unk_1EC1566E0, &qword_1C52A9B00);
   v23 = v27;
   v24 = v29;
   sub_1C529D9CC();
@@ -8931,31 +8923,31 @@ void sub_1C5251ECC()
   sub_1C5251794(v4, v0 + v3, v5);
 }
 
-uint64_t sub_1C5251F5C(NSObject *a1, char *a2, char *a3)
+void sub_1C5251F5C(NSObject *a1, char *a2, char *a3)
 {
   v6 = sub_1C529D3AC();
   v7 = *(v6 - 8);
   v8 = MEMORY[0x1EEE9AC00](v6);
-  v75 = &v72 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v74 = &v71 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = MEMORY[0x1EEE9AC00](v8);
-  v80 = &v72 - v11;
+  v79 = &v71 - v11;
   v12 = MEMORY[0x1EEE9AC00](v10);
-  v79 = &v72 - v13;
+  v78 = &v71 - v13;
   v14 = MEMORY[0x1EEE9AC00](v12);
-  v16 = &v72 - v15;
+  v16 = &v71 - v15;
   v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v72 - v18;
+  v19 = &v71 - v18;
   v20 = MEMORY[0x1EEE9AC00](v17);
-  v22 = &v72 - v21;
+  v22 = &v71 - v21;
   MEMORY[0x1EEE9AC00](v20);
-  v24 = &v72 - v23;
+  v24 = &v71 - v23;
   v25 = MapsSuggestionsNow();
   sub_1C529D37C();
 
-  v76 = a2;
+  v75 = a2;
   sub_1C529D2FC();
-  v77 = a3;
-  v78 = v16;
+  v76 = a3;
+  v77 = v16;
   v26 = *&a3[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer_pingInterval];
   v27 = MapsSuggestionsCoarseLocationFilter;
   if (v28 < v26)
@@ -8973,27 +8965,27 @@ uint64_t sub_1C5251F5C(NSObject *a1, char *a2, char *a3)
     if (os_log_type_enabled(v30, v31))
     {
       v32 = swift_slowAlloc();
-      v74 = a1;
+      v73 = a1;
       v33 = v32;
-      v73 = swift_slowAlloc();
-      v81 = v73;
+      v72 = swift_slowAlloc();
+      v80 = v72;
       *v33 = 136315138;
-      sub_1C513A534(&unk_1EC156160, MEMORY[0x1E6969530]);
+      sub_1C513A534(&unk_1EC156160, MEMORY[0x1E6969530], MEMORY[0x1E6969570]);
       v34 = sub_1C529DB2C();
       v35 = v24;
       v37 = v36;
       (*(v7 + 8))(v22, v6);
-      v38 = sub_1C524E7F4(v34, v37, &v81);
+      v38 = sub_1C524E7F4(v34, v37, &v80);
       v24 = v35;
       v27 = MapsSuggestionsCoarseLocationFilter;
 
       *(v33 + 4) = v38;
       _os_log_impl(&dword_1C5126000, v30, v31, "Event has ended. Canceling timer. Broadcasting notification for the last time. %s", v33, 0xCu);
-      v39 = v73;
-      __swift_destroy_boxed_opaque_existential_0(v73);
+      v39 = v72;
+      __swift_destroy_boxed_opaque_existential_0(v72);
       MEMORY[0x1C69445C0](v39, -1, -1);
       v40 = v33;
-      a1 = v74;
+      a1 = v73;
       MEMORY[0x1C69445C0](v40, -1, -1);
     }
 
@@ -9003,7 +8995,7 @@ uint64_t sub_1C5251F5C(NSObject *a1, char *a2, char *a3)
       (*(v7 + 8))(v22, v6);
     }
 
-    v16 = v78;
+    v16 = v77;
     [a1 unschedule];
   }
 
@@ -9016,13 +9008,13 @@ uint64_t sub_1C5251F5C(NSObject *a1, char *a2, char *a3)
   __swift_project_value_buffer(v41, qword_1EDC51F78);
   v42 = *(v7 + 16);
   v42(v19, v24, v6);
-  v43 = v76;
-  v42(v16, v76, v6);
-  v44 = v79;
-  v42(v79, v43, v6);
-  v45 = v80;
-  v42(v80, v24, v6);
-  v46 = v77;
+  v43 = v75;
+  v42(v16, v75, v6);
+  v44 = v78;
+  v42(v78, v43, v6);
+  v45 = v79;
+  v42(v79, v24, v6);
+  v46 = v76;
   v47 = sub_1C529D62C();
   v48 = sub_1C529D87C();
   if (!os_log_type_enabled(v47, v48))
@@ -9031,106 +9023,107 @@ uint64_t sub_1C5251F5C(NSObject *a1, char *a2, char *a3)
     v54(v44, v6);
     v54(v45, v6);
 
-    v54(v78, v6);
+    v54(v77, v6);
     v54(v19, v6);
     goto LABEL_16;
   }
 
-  LODWORD(v73) = v48;
-  v74 = v47;
-  v77 = v24;
+  LODWORD(v72) = v48;
+  v73 = v47;
+  v76 = v24;
   v49 = swift_slowAlloc();
-  v72 = swift_slowAlloc();
-  v81 = v72;
+  v71 = swift_slowAlloc();
+  v80 = v71;
   *v49 = 136315906;
-  v76 = v46;
-  *(v49 + 4) = sub_1C524E7F4(*&v46[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer_notificationName], *&v46[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer_notificationName + 8], &v81);
+  v75 = v46;
+  *(v49 + 4) = sub_1C524E7F4(*&v46[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer_notificationName], *&v46[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer_notificationName + 8], &v80);
   *(v49 + 12) = 2080;
-  v50 = v75;
+  v50 = v74;
   sub_1C529D34C();
-  sub_1C513A534(&unk_1EC156160, MEMORY[0x1E6969530]);
+  sub_1C513A534(&unk_1EC156160, MEMORY[0x1E6969530], MEMORY[0x1E6969570]);
   v51 = sub_1C529DB2C();
   v53 = v52;
   v54 = *(v7 + 8);
   v54(v50, v6);
   v54(v19, v6);
-  v55 = sub_1C524E7F4(v51, v53, &v81);
+  v55 = sub_1C524E7F4(v51, v53, &v80);
 
   *(v49 + 14) = v55;
   *(v49 + 22) = 2080;
-  v56 = v78;
+  v56 = v77;
   v57 = sub_1C529DB2C();
   v59 = v58;
   v54(v56, v6);
-  v60 = sub_1C524E7F4(v57, v59, &v81);
+  v60 = sub_1C524E7F4(v57, v59, &v80);
 
   *(v49 + 24) = v60;
   *(v49 + 32) = 2048;
-  v61 = v79;
-  v62 = v80;
-  result = sub_1C529D2FC();
-  v65 = v64 / v26;
-  if ((*&v65 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  v61 = v78;
+  v62 = v79;
+  sub_1C529D2FC();
+  v64 = v63 / v26;
+  if ((*&v64 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     __break(1u);
     goto LABEL_18;
   }
 
-  if (v65 <= -9.22337204e18)
+  if (v64 <= -9.22337204e18)
   {
 LABEL_18:
     __break(1u);
     goto LABEL_19;
   }
 
-  if (v65 < 9.22337204e18)
+  if (v64 < 9.22337204e18)
   {
-    v66 = v61;
-    v67 = v65;
-    v54(v66, v6);
+    v65 = v61;
+    v66 = v64;
+    v54(v65, v6);
     v54(v62, v6);
-    v68 = v76;
+    v67 = v75;
 
-    *(v49 + 34) = v67;
-    v69 = v74;
-    _os_log_impl(&dword_1C5126000, v74, v73, "Posting: %s. Next one around: %s. Will stream until: %s. Possible notifications left: %ld", v49, 0x2Au);
-    v70 = v72;
+    *(v49 + 34) = v66;
+    v68 = v73;
+    _os_log_impl(&dword_1C5126000, v73, v72, "Posting: %s. Next one around: %s. Will stream until: %s. Possible notifications left: %ld", v49, 0x2Au);
+    v69 = v71;
     swift_arrayDestroy();
-    MEMORY[0x1C69445C0](v70, -1, -1);
+    MEMORY[0x1C69445C0](v69, -1, -1);
     MEMORY[0x1C69445C0](v49, -1, -1);
 
-    v24 = v77;
+    v24 = v76;
 LABEL_16:
-    v71 = sub_1C529D75C();
-    notify_post((v71 + 32));
+    v70 = sub_1C529D75C();
+    notify_post((v70 + 32));
     v54(v24, v6);
+
+    return;
   }
 
 LABEL_19:
   __break(1u);
-  return result;
 }
 
-void sub_1C5252874()
+void sub_1C5252874(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     sub_1C525297C();
   }
 
   swift_beginAccess();
-  v2 = swift_unknownObjectWeakLoadStrong();
-  if (v2)
+  v3 = swift_unknownObjectWeakLoadStrong();
+  if (v3)
   {
-    v3 = v2;
-    (*((*MEMORY[0x1E69E7D40] & *v2) + 0xF0))();
+    v4 = v3;
+    (*((*MEMORY[0x1E69E7D40] & *v3) + 0xF0))();
   }
 }
 
-uint64_t sub_1C525299C(uint64_t a1, uint64_t a2)
+double sub_1C525299C(uint64_t a1, uint64_t a2)
 {
   v5 = sub_1C529D66C();
   v16 = *(v5 - 8);
@@ -9153,62 +9146,64 @@ uint64_t sub_1C525299C(uint64_t a1, uint64_t a2)
 
   sub_1C529D68C();
   v17 = MEMORY[0x1E69E7CC0];
-  sub_1C513A534(qword_1EDC51A50, MEMORY[0x1E69E7F60]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1566E0);
-  sub_1C5139198(&unk_1EDC51A40, &unk_1EC1566E0);
+  sub_1C513A534(qword_1EDC51A50, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1566E0, &qword_1C52A9B00);
+  sub_1C5139198(&unk_1EDC51A40, &unk_1EC1566E0, &qword_1C52A9B00);
   sub_1C529D9CC();
   MEMORY[0x1C69433C0](0, v10, v7, v12);
   _Block_release(v12);
   (*(v16 + 8))(v7, v5);
   (*(v8 + 8))(v10, v15);
+
+  return result;
 }
 
-void sub_1C5252C68()
+void sub_1C5252C68(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     if (qword_1EDC519A0 != -1)
     {
       swift_once();
     }
 
-    v2 = sub_1C529D64C();
-    __swift_project_value_buffer(v2, qword_1EDC51F78);
-    v3 = sub_1C529D62C();
-    v4 = sub_1C529D87C();
-    if (os_log_type_enabled(v3, v4))
+    v3 = sub_1C529D64C();
+    __swift_project_value_buffer(v3, qword_1EDC51F78);
+    v4 = sub_1C529D62C();
+    v5 = sub_1C529D87C();
+    if (os_log_type_enabled(v4, v5))
     {
-      v5 = swift_slowAlloc();
-      *v5 = 0;
-      _os_log_impl(&dword_1C5126000, v3, v4, "Inside _invalidateAllTimers.", v5, 2u);
-      MEMORY[0x1C69445C0](v5, -1, -1);
+      v6 = swift_slowAlloc();
+      *v6 = 0;
+      _os_log_impl(&dword_1C5126000, v4, v5, "Inside _invalidateAllTimers.", v6, 2u);
+      MEMORY[0x1C69445C0](v6, -1, -1);
     }
 
-    v6 = OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__scanTimer;
-    v7 = *&v1[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__scanTimer];
-    if (v7)
+    v7 = OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__scanTimer;
+    v8 = *&v2[OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__scanTimer];
+    if (v8)
     {
-      [v7 unschedule];
-      v8 = *&v1[v6];
+      [v8 unschedule];
+      v9 = *&v2[v7];
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    *&v1[v6] = 0;
+    *&v2[v7] = 0;
 
-    v13 = OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__notifyTimers;
+    v14 = OBJC_IVAR____TtC15MapsSuggestions28MapsSuggestionsEventStreamer__notifyTimers;
     swift_beginAccess();
-    v14 = *&v1[v13];
-    if (v14 >> 62)
+    v15 = *&v2[v14];
+    if (v15 >> 62)
     {
-      v15 = sub_1C529DA9C();
-      if (v15)
+      v16 = sub_1C529DA9C();
+      if (v16)
       {
         goto LABEL_15;
       }
@@ -9216,27 +9211,27 @@ void sub_1C5252C68()
 
     else
     {
-      v15 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (v15)
+      v16 = *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (v16)
       {
 LABEL_15:
-        if (v15 >= 1)
+        if (v16 >= 1)
         {
 
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if ((v14 & 0xC000000000000001) != 0)
+            if ((v15 & 0xC000000000000001) != 0)
             {
-              v17 = MEMORY[0x1C69434E0](i, v14);
+              v18 = MEMORY[0x1C69434E0](i, v15);
             }
 
             else
             {
-              v17 = *(v14 + 8 * i + 32);
+              v18 = *(v15 + 8 * i + 32);
             }
 
-            v18 = v17;
-            [v17 unschedule];
+            v19 = v18;
+            [v18 unschedule];
           }
 
           goto LABEL_22;
@@ -9248,7 +9243,7 @@ LABEL_15:
     }
 
 LABEL_22:
-    *&v1[v13] = MEMORY[0x1E69E7CC0];
+    *&v2[v14] = MEMORY[0x1E69E7CC0];
 
     return;
   }
@@ -9259,16 +9254,16 @@ LABEL_26:
     swift_once();
   }
 
-  v9 = sub_1C529D64C();
-  __swift_project_value_buffer(v9, qword_1EDC51F78);
-  v10 = sub_1C529D62C();
-  v11 = sub_1C529D88C();
-  if (os_log_type_enabled(v10, v11))
+  v10 = sub_1C529D64C();
+  __swift_project_value_buffer(v10, qword_1EDC51F78);
+  v11 = sub_1C529D62C();
+  v12 = sub_1C529D88C();
+  if (os_log_type_enabled(v11, v12))
   {
-    v12 = swift_slowAlloc();
-    *v12 = 0;
-    _os_log_impl(&dword_1C5126000, v10, v11, "self became nil. Returning, and not invalidating timers", v12, 2u);
-    MEMORY[0x1C69445C0](v12, -1, -1);
+    v13 = swift_slowAlloc();
+    *v13 = 0;
+    _os_log_impl(&dword_1C5126000, v11, v12, "self became nil. Returning, and not invalidating timers", v13, 2u);
+    MEMORY[0x1C69445C0](v13, -1, -1);
   }
 }
 
@@ -9292,6 +9287,17 @@ uint64_t MapsSuggestionsFakeStreamer.callBackBlock.getter()
   v1 = (v0 + OBJC_IVAR____TtC15MapsSuggestions27MapsSuggestionsFakeStreamer_callBackBlock);
   swift_beginAccess();
   v2 = *v1;
-  sub_1C513B684(*v1);
+  sub_1C513B684(*v1, v1[1]);
   return v2;
+}
+
+uint64_t MapsSuggestionsFakeStreamer.callBackBlock.setter(uint64_t a1, uint64_t a2)
+{
+  v5 = (v2 + OBJC_IVAR____TtC15MapsSuggestions27MapsSuggestionsFakeStreamer_callBackBlock);
+  swift_beginAccess();
+  v6 = *v5;
+  v7 = v5[1];
+  *v5 = a1;
+  v5[1] = a2;
+  return sub_1C513EDF0(v6, v7);
 }

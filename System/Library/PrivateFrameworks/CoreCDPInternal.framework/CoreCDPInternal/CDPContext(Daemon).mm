@@ -56,10 +56,9 @@
 
 - (void)populateWalrusStatus
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24510B000, v0, OS_LOG_TYPE_ERROR, "Error populating walrus status on context - %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24510B000, v0, OS_LOG_TYPE_ERROR, "Error populating walrus status on context - %@", v1, 0xCu);
 }
 
 @end

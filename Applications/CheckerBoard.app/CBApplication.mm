@@ -778,35 +778,35 @@ LABEL_8:
   mainConfiguration = [v8 mainConfiguration];
   v10 = [v7 initWithDisplayConfiguration:mainConfiguration];
 
-  v11 = sub_1000352D8();
-  v12 = +[FBDisplayManager sharedInstance];
-  mainConfiguration2 = [v12 mainConfiguration];
+  v13 = sub_1000352D8(v11, v12);
+  v14 = +[FBDisplayManager sharedInstance];
+  mainConfiguration2 = [v14 mainConfiguration];
   [v10 setDisplayConfiguration:mainConfiguration2];
 
-  v14 = sub_1000364DC(v11);
-  [v10 setDisplayEdgeInfo:v14];
+  v16 = sub_1000364DC(v13);
+  [v10 setDisplayEdgeInfo:v16];
 
-  v15 = sub_1000368D4(v11);
-  [v10 setExclusionArea:v15];
+  v17 = sub_1000368D4(v13);
+  [v10 setExclusionArea:v17];
 
-  [v10 setArtworkSubtype:sub_1000353D0()];
-  v16 = +[UIUserInterfaceStyleArbiter sharedInstance];
-  v17 = v16;
-  if (v16)
+  [v10 setArtworkSubtype:{sub_1000353D0(v18, v19)}];
+  v20 = +[UIUserInterfaceStyleArbiter sharedInstance];
+  v21 = v20;
+  if (v20)
   {
-    [v10 setUserInterfaceStyle:{objc_msgSend(v16, "currentStyle")}];
+    [v10 setUserInterfaceStyle:{objc_msgSend(v20, "currentStyle")}];
   }
 
-  v18 = [[UISMutableApplicationInitializationContext alloc] initWithDisplayContext:v10 deviceContext:v2 persistedSceneIdentifiers:0 supportAppSceneRequests:1];
-  v19 = +[NSBundle mainBundle];
-  bundleIdentifier = [v19 bundleIdentifier];
-  v21 = [FBSSceneIdentity identityForIdentifier:bundleIdentifier];
+  v22 = [[UISMutableApplicationInitializationContext alloc] initWithDisplayContext:v10 deviceContext:v2 persistedSceneIdentifiers:0 supportAppSceneRequests:1];
+  v23 = +[NSBundle mainBundle];
+  bundleIdentifier = [v23 bundleIdentifier];
+  v25 = [FBSSceneIdentity identityForIdentifier:bundleIdentifier];
 
-  v22 = +[FBSceneManager sharedInstance];
-  v23 = [v22 newSceneIdentityTokenForIdentity:v21];
+  v26 = +[FBSceneManager sharedInstance];
+  v27 = [v26 newSceneIdentityTokenForIdentity:v25];
 
-  [v18 setDefaultSceneToken:v23];
-  return v18;
+  [v22 setDefaultSceneToken:v27];
+  return v22;
 }
 
 - (void)_createInitialAppScene

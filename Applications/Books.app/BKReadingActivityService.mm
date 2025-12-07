@@ -57,33 +57,37 @@
 - (int64_t)currentStreak
 {
   selfCopy = self;
-  v3 = ReadingActivityService.currentStreak.getter();
+  ReadingActivityService.currentStreak.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)allTimeRecordStreak
 {
   selfCopy = self;
-  v3 = ReadingActivityService.allTimeRecordStreak.getter();
+  ReadingActivityService.allTimeRecordStreak.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)timeReadToday
 {
   selfCopy = self;
-  v3 = ReadingActivityService.timeReadToday.getter();
+  ReadingActivityService.timeReadToday.getter(v3);
+  v5 = v4;
 
-  return v3;
+  return v5;
 }
 
 - (BOOL)todayIsStreakDay
 {
   selfCopy = self;
-  IsStreak = ReadingActivityService.todayIsStreakDay.getter();
+  ReadingActivityService.todayIsStreakDay.getter(v3);
+  v5 = v4;
 
-  return IsStreak & 1;
+  return v5 & 1;
 }
 
 - (double)readingTimeTodayIncludingUnflushed
@@ -269,7 +273,7 @@
 
 - (void)willMarkAsset:(id)asset finished:(BOOL)finished finishedDate:(id)date
 {
-  v7 = sub_1001F1160(&unk_100ADB5C0);
+  v7 = sub_1001F1160(&unk_100ADB5C0, &unk_100816880);
   __chkstk_darwin(v7 - 8);
   v9 = &v13 - v8;
   sub_1007A2254();
@@ -292,7 +296,7 @@
 
     sub_10079EAD4();
 
-    sub_100007840(v9, &unk_100ADB5C0);
+    sub_100007840(v9, &unk_100ADB5C0, &unk_100816880);
   }
 
   else

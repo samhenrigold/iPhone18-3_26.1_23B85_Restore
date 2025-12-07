@@ -40,6 +40,8 @@
   v5 = sub_1BE052744();
   selfCopy = self;
   sub_1BD9C0B40(v5);
+
+  v5, v7, v8, v9, v10, v11, v12, v13;
 }
 
 @end

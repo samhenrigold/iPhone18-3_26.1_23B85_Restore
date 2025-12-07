@@ -48,8 +48,8 @@
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:_AXSEnhanceTextLegibilityEnabled()];
   [(NTKFaceSnapshotContext *)v2 setEnhanceTextLegibilityEnabled:v14];
 
-  v15 = NTKLunarCalendarLocaleID();
-  [(NTKFaceSnapshotContext *)v2 setLunarCalendarLocaleID:v15];
+  v16 = NTKLunarCalendarLocaleID(v15);
+  [(NTKFaceSnapshotContext *)v2 setLunarCalendarLocaleID:v16];
 
   return v2;
 }

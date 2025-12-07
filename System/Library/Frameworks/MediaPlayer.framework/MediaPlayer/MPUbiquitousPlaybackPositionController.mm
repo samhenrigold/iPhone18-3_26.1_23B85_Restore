@@ -148,7 +148,7 @@ void __84__MPUbiquitousPlaybackPositionController_sharedUbiquitousPlaybackPositi
   return isHomeSharingLibrary ^ 1;
 }
 
-uint64_t __85__MPUbiquitousPlaybackPositionController__onServiceQueue_updateActiveServiceIfNeeded__block_invoke(uint64_t a1)
+void *__85__MPUbiquitousPlaybackPositionController__onServiceQueue_updateActiveServiceIfNeeded__block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 8);
   result = [*(a1 + 32) _onQueue_shouldBeActive];
@@ -167,7 +167,7 @@ uint64_t __85__MPUbiquitousPlaybackPositionController__onServiceQueue_updateActi
   dispatch_sync(queue, block);
 }
 
-uint64_t __77__MPUbiquitousPlaybackPositionController__onServiceQueue_becomeActiveService__block_invoke(uint64_t a1)
+void *__77__MPUbiquitousPlaybackPositionController__onServiceQueue_becomeActiveService__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _onQueue_shouldBeActive];
   if (result)
@@ -547,7 +547,7 @@ void __84__MPUbiquitousPlaybackPositionController__defaultMediaLibraryDidChangeN
   _Block_object_dispose(&v5, 8);
 }
 
-uint64_t __84__MPUbiquitousPlaybackPositionController__defaultMediaLibraryDidChangeNotification___block_invoke_2(uint64_t a1)
+void *__84__MPUbiquitousPlaybackPositionController__defaultMediaLibraryDidChangeNotification___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _onQueue_shouldBeActive];
   *(*(*(a1 + 40) + 8) + 24) = result;

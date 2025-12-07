@@ -3,7 +3,10 @@
 - (NSString)priceString;
 - (NSString)productName;
 - (UIEdgeInsets)contentInsets;
+- (void)indexString;
 - (void)layoutSubviews;
+- (void)priceString;
+- (void)productName;
 - (void)setBackgroundColor:(id)color;
 - (void)setColorScheme:(id)scheme;
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
@@ -117,10 +120,10 @@
     }
 
     nameLabel = self->_nameLabel;
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v21 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v21)
     {
-      [(UILabel *)nameLabel setTextColor:primaryTextColor];
+      [(UILabel *)nameLabel setTextColor:v21];
     }
 
     else
@@ -148,7 +151,7 @@
 
   indexString = [(SKUIProductPageInAppPurchaseTableCell *)self indexString];
   v14 = indexString;
-  if (indexString != stringCopy && ([indexString isEqualToString:stringCopy] & 1) == 0)
+  if (indexString != stringCopy && (objc_msgSend_isEqualToString_(indexString) & 1) == 0)
   {
     v15 = [stringCopy length];
     indexLabel = self->_indexLabel;
@@ -219,7 +222,7 @@
 
   priceString = [(SKUIProductPageInAppPurchaseTableCell *)self priceString];
   v14 = priceString;
-  if (priceString != stringCopy && ([priceString isEqualToString:stringCopy] & 1) == 0)
+  if (priceString != stringCopy && (objc_msgSend_isEqualToString_(priceString) & 1) == 0)
   {
     v15 = [stringCopy length];
     priceLabel = self->_priceLabel;
@@ -290,7 +293,7 @@
 
   productName = [(SKUIProductPageInAppPurchaseTableCell *)self productName];
   v14 = productName;
-  if (productName != nameCopy && ([productName isEqualToString:nameCopy] & 1) == 0)
+  if (productName != nameCopy && (objc_msgSend_isEqualToString_(productName) & 1) == 0)
   {
     v15 = [nameCopy length];
     nameLabel = self->_nameLabel;
@@ -311,10 +314,10 @@
         [(UILabel *)v21 setFont:v22];
 
         v23 = self->_nameLabel;
-        primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v24 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v24)
         {
-          [(UILabel *)v23 setTextColor:primaryTextColor];
+          [(UILabel *)v23 setTextColor:v24];
         }
 
         else
@@ -345,68 +348,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIProductPageInAppPurchaseTableCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUIProductPageInAppPurchaseTableCell *)self bounds];
-  v12 = v11;
-  v14 = v13;
-  v15 = self->_contentInsets.left + 15.0;
-  indexLabel = self->_indexLabel;
-  if (indexLabel)
-  {
-    [(UILabel *)indexLabel sizeToFit];
-    [(UILabel *)self->_indexLabel frame];
-    if (v17 < 15.0)
-    {
-      v17 = 15.0;
-    }
-
-    v19 = (v14 - v18) * 0.5;
-    [(UILabel *)self->_indexLabel setFrame:v15 + floor((15.0 - v17) * 0.5), ceilf(v19)];
-    v15 = v15 + 15.0 + 15.0;
-  }
-
-  v20 = v12 + -15.0;
-  priceLabel = self->_priceLabel;
-  if (priceLabel)
-  {
-    [(UILabel *)priceLabel sizeToFit];
-    [(UILabel *)self->_priceLabel frame];
-    v23 = v22;
-    v25 = v24;
-    v26 = v20 - v22;
-    v27 = (v14 - v24) * 0.5;
-    v28 = ceilf(v27);
-    [(UILabel *)self->_priceLabel setFrame:v26, v28];
-    v33.origin.x = v26;
-    v33.origin.y = v28;
-    v33.size.width = v23;
-    v33.size.height = v25;
-    v20 = floor(CGRectGetMinX(v33) + -22.5);
-  }
-
-  nameLabel = self->_nameLabel;
-  if (nameLabel)
-  {
-    [(UILabel *)nameLabel sizeToFit];
-    [(UILabel *)self->_nameLabel frame];
-    v31 = (v14 - v30) * 0.5;
-    [(UILabel *)self->_nameLabel setFrame:v15, ceilf(v31), v20 - v15];
-  }
-
-  v32.receiver = self;
-  v32.super_class = SKUIProductPageInAppPurchaseTableCell;
-  [(SKUITableViewCell *)&v32 layoutSubviews];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -467,6 +410,66 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)indexString
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell indexString]";
+}
+
+- (void)priceString
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell priceString]";
+}
+
+- (void)productName
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell productName]";
+}
+
+- (void)setColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell setColorScheme:]";
+}
+
+- (void)setIndexString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell setIndexString:]";
+}
+
+- (void)setPriceString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell setPriceString:]";
+}
+
+- (void)setProductName:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell setProductName:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell setBackgroundColor:]";
+}
+
+- (void)setHighlighted:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell setHighlighted:animated:]";
+}
+
+- (void)setSelected:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageInAppPurchaseTableCell setSelected:animated:]";
 }
 
 @end

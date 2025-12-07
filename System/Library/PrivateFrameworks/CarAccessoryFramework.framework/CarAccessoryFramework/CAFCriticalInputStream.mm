@@ -7,6 +7,7 @@
 - (CAFStringCharacteristic)inputStreamUIDCharacteristic;
 - (NSString)inputStreamUID;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -138,6 +139,61 @@
   bOOLValue = [onCharacteristic BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000044000000"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    inputStreamUIDCharacteristic = [(CAFCriticalInputStream *)self inputStreamUIDCharacteristic];
+    uniqueIdentifier2 = [inputStreamUIDCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      inputStreamUID = [(CAFCriticalInputStream *)self inputStreamUID];
+      [observers criticalInputStreamService:self didUpdateInputStreamUID:inputStreamUID];
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFCriticalInputStream *)self name];
+      [observers2 criticalInputStreamService:self didUpdateName:name];
+
+LABEL_8:
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if (![observers2 isEqual:@"0x0000000030000002"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  onCharacteristic = [(CAFCriticalInputStream *)self onCharacteristic];
+  uniqueIdentifier4 = [onCharacteristic uniqueIdentifier];
+  v19 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v19)
+  {
+    observers2 = [(CAFService *)self observers];
+    [observers2 criticalInputStreamService:self didUpdateOn:{-[CAFCriticalInputStream on](self, "on")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v20.receiver = self;
+  v20.super_class = CAFCriticalInputStream;
+  [(CAFService *)&v20 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForInputStreamUID

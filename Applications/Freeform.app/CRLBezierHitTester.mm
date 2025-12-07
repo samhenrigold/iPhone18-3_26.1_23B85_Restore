@@ -115,17 +115,17 @@
 
   else
   {
-    sub_1000D82DC(&self->_allPathMap.__table_.__bucket_list_.__ptr_, &dCopy);
+    sub_1000D82DC(&self->_allPathMap, &dCopy, &dCopy, &pathCopy);
     [(NSHashTable *)self->_allPathTable addObject:pathCopy];
     v25 = 0;
     v26 = 0;
     v24 = &v25;
-    sub_1000D8844(&self->_allNonFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, &pathCopy);
+    sub_1000D8844(&self->_allNonFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, &pathCopy, &pathCopy, &v24);
     sub_1000D87F0(&v24, v25);
     v25 = 0;
     v26 = 0;
     v24 = &v25;
-    sub_1000D8844(&self->_allFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, &pathCopy);
+    sub_1000D8844(&self->_allFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, &pathCopy, &pathCopy, &v24);
     sub_1000D87F0(&v24, v25);
     if (filledCopy)
     {
@@ -201,10 +201,10 @@ LABEL_5:
   v30[1] = 0;
   v29 = v30;
   v23 = &v28;
-  v9 = sub_1000D8B70(&self->_allNonFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, &v28);
+  v9 = sub_1000D8B70(&self->_allNonFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, &v28, &unk_101462700, &v23);
   sub_1000D8DCC(&v25, (v9 + 3));
-  v21 = &v28;
-  v10 = sub_1000D8B70(&self->_allFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, &v28);
+  v21 = COERCE_DOUBLE(&v28);
+  v10 = sub_1000D8B70(&self->_allFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, &v28, &unk_101462700, &v21);
   sub_1000D8DCC(&v23, (v10 + 3));
   sub_1000D5E38(&v29, v25, &v26);
   sub_1000D5E38(&v29, v23, &v24);
@@ -215,12 +215,12 @@ LABEL_5:
     {
       v12 = v11[4];
       v13 = v11[5];
-      v21 = 0;
+      v21 = 0.0;
       v22 = 0.0;
       bucketSize = self->_bucketSize;
       v15 = sub_1004C3204(v12, bucketSize);
       v16 = sub_1004C3204(v13, bucketSize);
-      v21 = *&v15;
+      v21 = v15;
       v22 = v16;
       v17 = sub_1000D9360(&self->_pointInfoGridMap.__table_.__bucket_list_.__ptr_, &v21);
       if (v17)
@@ -382,7 +382,7 @@ LABEL_24:
 
 - (id)wrappedClosestHitsTo:(CGPoint)to withSearchThreshold:(double)threshold passingTest:(id)test
 {
-  [(CRLBezierHitTester *)self closestHitsTo:test withSearchThreshold:to.x passingTest:to.y, threshold];
+  objc_msgSend_closestHitsTo_withSearchThreshold_passingTest_(self, a2, test, to.x, to.y, threshold);
   v6 = [(CRLBezierHitTester *)self p_wrapHitInfos:__p];
   if (__p[0])
   {
@@ -469,7 +469,7 @@ LABEL_24:
 
 - (id)wrappedAllHitsAlongPath:(id)path withSearchThreshold:(double)threshold
 {
-  [(CRLBezierHitTester *)self allHitsAlongPath:path withSearchThreshold:threshold];
+  objc_msgSend_allHitsAlongPath_withSearchThreshold_(self, a2, path, threshold);
   v5 = [(CRLBezierHitTester *)self p_wrapHitInfos:__p];
   if (__p[0])
   {
@@ -774,44 +774,44 @@ LABEL_30:
 {
   y = struct->var0.y;
   bucketSize = self->_bucketSize;
-  v12.x = sub_1004C3204(struct->var0.x, bucketSize);
-  v12.y = sub_1004C3204(y, bucketSize);
-  v7 = sub_1000D9360(&self->_pointInfoGridMap.__table_.__bucket_list_.__ptr_, &v12.x);
+  v13.x = sub_1004C3204(struct->var0.x, bucketSize);
+  v13.y = sub_1004C3204(y, bucketSize);
+  v7 = sub_1000D9360(&self->_pointInfoGridMap.__table_.__bucket_list_.__ptr_, &v13.x);
   if (v7)
   {
-    sub_1000DA1C8((v7 + 4), struct);
+    sub_1000DA1C8(v7 + 4, struct, struct);
   }
 
   else
   {
     v8 = *&struct->var1;
     var0 = struct->var0;
-    v14 = v8;
-    v15 = *&struct->var3;
-    sub_1000DA264(v11, &var0, 1);
-    var0 = v12;
-    sub_1000D8DCC(&v14, v11);
-    sub_1000DA2E8(&self->_pointInfoGridMap.__table_.__bucket_list_.__ptr_, &var0.x);
-    sub_1000D87F0(&v14, *(&v14 + 1));
-    sub_1000D87F0(v11, v11[1]);
+    v15 = v8;
+    v16 = *&struct->var3;
+    sub_1000DA264(v12, &var0, 1);
+    var0 = v13;
+    sub_1000D8DCC(&v15, v12);
+    sub_1000DA2E8(&self->_pointInfoGridMap.__table_.__bucket_list_.__ptr_, &var0.x, v9);
+    sub_1000D87F0(&v15, *(&v15 + 1));
+    sub_1000D87F0(v12, v12[1]);
   }
 
   p_var1 = &struct->var1;
   if (struct->var3)
   {
     *&var0.x = &struct->var1;
-    *&var0.x = sub_1000DA634(&self->_allPathMap.__table_.__bucket_list_.__ptr_, p_var1) + 3;
-    v10 = sub_1000D8B70(&self->_allFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, *&var0.x);
+    *&var0.x = sub_1000DA634(&self->_allPathMap.__table_.__bucket_list_.__ptr_, p_var1, &unk_101462700, &var0) + 3;
+    v11 = sub_1000D8B70(&self->_allFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, *&var0.x, &unk_101462700, &var0);
   }
 
   else
   {
     *&var0.x = &struct->var1;
-    *&var0.x = sub_1000DA634(&self->_allPathMap.__table_.__bucket_list_.__ptr_, p_var1) + 3;
-    v10 = sub_1000D8B70(&self->_allNonFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, *&var0.x);
+    *&var0.x = sub_1000DA634(&self->_allPathMap.__table_.__bucket_list_.__ptr_, p_var1, &unk_101462700, &var0) + 3;
+    v11 = sub_1000D8B70(&self->_allNonFilledPointInfosForPathMap.__table_.__bucket_list_.__ptr_, *&var0.x, &unk_101462700, &var0);
   }
 
-  sub_1000DA1C8((v10 + 3), struct);
+  sub_1000DA1C8(v11 + 3, struct, struct);
 }
 
 - (void)p_addOpenPathToGrid:(id)grid withPathId:(unint64_t)id crawlingDistance:(double)distance clippedToRect:(CGRect)rect

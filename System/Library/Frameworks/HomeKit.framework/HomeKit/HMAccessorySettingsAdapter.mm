@@ -35,6 +35,7 @@
 - (id)findOrAddAccessorySettingGroupWithKeyPath:(id)path;
 - (id)groupKeyArrayFromKeyPath:(id)path;
 - (id)languageSelectionItemFromValue:(id)value;
+- (id)legacyLanguageSettingFromSelectedSetting:(id)setting selections:(id)selections settingsReflected:(BOOL)reflected;
 - (id)logIdentifier;
 - (id)numberSettingValueWithKeyPath:(id)path;
 - (id)settingKeyFromKeyPath:(id)path;
@@ -76,7 +77,7 @@
 
 - (id)logIdentifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   containerType = [(HMAccessorySettingsAdapter *)self containerType];
   if (containerType == 2)
   {
@@ -102,15 +103,14 @@ LABEL_5:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v10;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unknown settings container type", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v10;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unknown settings container type", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
   uUIDString = @"wrong-log-identifier";
 LABEL_9:
-  v11 = *MEMORY[0x1E69E9840];
 
   return uUIDString;
 }
@@ -359,9 +359,36 @@ HMAccessorySelectionSettingItem *__59__HMAccessorySettingsAdapter_createTapAssis
   return v11;
 }
 
+- (id)legacyLanguageSettingFromSelectedSetting:(id)setting selections:(id)selections settingsReflected:(BOOL)reflected
+{
+  reflectedCopy = reflected;
+  selectionsCopy = selections;
+  settingCopy = setting;
+  selectedLanguageSettingKeyPath = [objc_opt_class() selectedLanguageSettingKeyPath];
+  v11 = [(HMAccessorySettingsAdapter *)self settingKeyFromKeyPath:selectedLanguageSettingKeyPath];
+
+  languageValues = [selectionsCopy languageValues];
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __100__HMAccessorySettingsAdapter_legacyLanguageSettingFromSelectedSetting_selections_settingsReflected___block_invoke;
+  v18[3] = &unk_1E7549240;
+  v18[4] = self;
+  v13 = [languageValues na_map:v18];
+
+  languageValue = [settingCopy languageValue];
+
+  v15 = [(HMAccessorySettingsAdapter *)self languageSelectionItemFromValue:languageValue];
+
+  v16 = [[HMAccessorySelectionSetting alloc] initWithKey:v11 properties:3 value:v15 items:v13];
+  [(HMAccessorySetting *)v16 updateReflected:reflectedCopy];
+
+  return v16;
+}
+
 - (BOOL)_addOrUpdateLanguageSetting:(id)setting availableLanguagesSetting:(id)languagesSetting
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   settingCopy = setting;
   languagesSettingCopy = languagesSetting;
   selectedLanguageSettingKeyPath = [objc_opt_class() selectedLanguageSettingKeyPath];
@@ -370,8 +397,8 @@ HMAccessorySelectionSettingItem *__59__HMAccessorySettingsAdapter_createTapAssis
     rootGroup = [(HMAccessorySettingsAdapter *)self rootGroup];
     v10 = [(HMAccessorySettingsAdapter *)self _findSettingInGroupForKeyPath:selectedLanguageSettingKeyPath group:rootGroup];
 
-    v37 = [(HMAccessorySettingsAdapter *)self groupKeyArrayFromKeyPath:selectedLanguageSettingKeyPath];
-    v38 = [(HMAccessorySettingsAdapter *)self findOrAddAccessorySettingGroupWithKeyPath:?];
+    v36 = [(HMAccessorySettingsAdapter *)self groupKeyArrayFromKeyPath:selectedLanguageSettingKeyPath];
+    v37 = [(HMAccessorySettingsAdapter *)self findOrAddAccessorySettingGroupWithKeyPath:?];
     v11 = v10;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -409,7 +436,7 @@ HMAccessorySelectionSettingItem *__59__HMAccessorySettingsAdapter_createTapAssis
       accessoryContext = [(HMAccessorySettingsAdapter *)self accessoryContext];
       [internal configureWithAccessorySettings:accessorySettings context:accessoryContext shouldHandleUpdatedValue:0];
 
-      [v38 addSetting:v15];
+      [v37 addSetting:v15];
     }
 
     v21 = [(HMAccessorySettingsAdapter *)self legacyLanguageSettingFromSelectedSetting:settingCopy selections:languagesSettingCopy settingsReflected:[(HMAccessorySettingsAdapter *)self settingsReflected]];
@@ -438,24 +465,23 @@ HMAccessorySelectionSettingItem *__59__HMAccessorySettingsAdapter_createTapAssis
       v31 = MEMORY[0x1E696AD98];
       availableLanguageSetting = [(HMAccessorySettingsAdapter *)selfCopy availableLanguageSetting];
       [availableLanguageSetting languageValues];
-      v33 = v39 = v26;
+      v33 = v38 = v26;
       v34 = [v31 numberWithUnsignedInteger:{objc_msgSend(v33, "count")}];
       *buf = 138543874;
-      v41 = v29;
-      v42 = 2112;
-      v43 = selectedLanguageSetting;
-      v44 = 2112;
-      v45 = v34;
+      v40 = v29;
+      v41 = 2112;
+      v42 = selectedLanguageSetting;
+      v43 = 2112;
+      v44 = v34;
       _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_INFO, "%{public}@Missing selected language: %@ or available language settings (count): %@", buf, 0x20u);
 
-      v26 = v39;
+      v26 = v38;
     }
 
     objc_autoreleasePoolPop(v26);
     v14 = 0;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -521,7 +547,7 @@ uint64_t __66__HMAccessorySettingsAdapter__findSettingInGroupForKeyPath_group___
 
 - (BOOL)_handleLanguageSettingUpdate:(id)update
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   keyPath = [updateCopy keyPath];
   selectedLanguageSettingKeyPath = [objc_opt_class() selectedLanguageSettingKeyPath];
@@ -551,13 +577,13 @@ uint64_t __66__HMAccessorySettingsAdapter__findSettingInGroupForKeyPath_group___
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v27 = 138543874;
-        v28 = v14;
-        v29 = 2112;
-        v30 = 0;
-        v31 = 2112;
-        v32 = v8;
-        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected setting type for setting = %@, cast from object:%@", &v27, 0x20u);
+        v26 = 138543874;
+        v27 = v14;
+        v28 = 2112;
+        v29 = 0;
+        v30 = 2112;
+        v31 = v8;
+        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected setting type for setting = %@, cast from object:%@", &v26, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -584,11 +610,11 @@ LABEL_16:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         v21 = HMFGetLogIdentifier();
-        v27 = 138543618;
-        v28 = v21;
-        v29 = 2112;
-        v30 = 0;
-        _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unexpected setting type for setting = %@", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v21;
+        v28 = 2112;
+        v29 = 0;
+        _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unexpected setting type for setting = %@", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -603,7 +629,6 @@ LABEL_17:
   availableLanguageSetting = [(HMAccessorySettingsAdapter *)self availableLanguageSetting];
   v24 = [(HMAccessorySettingsAdapter *)self _addOrUpdateLanguageSetting:selectedLanguageSetting availableLanguagesSetting:availableLanguageSetting];
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -626,7 +651,7 @@ LABEL_17:
 
 void __119__HMAccessorySettingsAdapter_accessorySettingsDataSource_didReceiveSettingsUpdatesForAccessoryWithIdentifier_settings___block_invoke(uint64_t a1)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   if (![*(a1 + 32) hmf_isEmpty])
   {
     v6 = [*(a1 + 40) accessorySettings];
@@ -639,18 +664,18 @@ void __119__HMAccessorySettingsAdapter_accessorySettingsDataSource_didReceiveSet
         v8 = objc_autoreleasePoolPush();
         v9 = *(a1 + 40);
         v10 = HMFGetOSLogHandle();
-        v58 = v7;
+        v52 = v7;
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v11 = HMFGetLogIdentifier();
           v12 = *(a1 + 48);
           v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
           *buf = 138543874;
-          v70 = v11;
-          v71 = 2112;
-          v72 = v12;
-          v73 = 2112;
-          v74 = v13;
+          v64 = v11;
+          v65 = 2112;
+          v66 = v12;
+          v67 = 2112;
+          v68 = v13;
           v14 = "%{public}@Adapter did receive setting update: accessory: %@ settings (count): %@";
 LABEL_14:
           _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, v14, buf, 0x20u);
@@ -668,18 +693,18 @@ LABEL_14:
       v10 = v18;
       if (v17 == 2)
       {
-        v58 = v7;
+        v52 = v7;
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v11 = HMFGetLogIdentifier();
           v19 = *(a1 + 48);
           v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
           *buf = 138543874;
-          v70 = v11;
-          v71 = 2112;
-          v72 = v19;
-          v73 = 2112;
-          v74 = v13;
+          v64 = v11;
+          v65 = 2112;
+          v66 = v19;
+          v67 = 2112;
+          v68 = v13;
           v14 = "%{public}@Adapter did receive setting update: media system: %@ settings (count): %@";
           goto LABEL_14;
         }
@@ -687,180 +712,173 @@ LABEL_14:
 LABEL_15:
 
         objc_autoreleasePoolPop(v8);
-        v61 = [MEMORY[0x1E695DF70] array];
-        v60 = [*(a1 + 40) delegate];
-        v64 = 0u;
-        v65 = 0u;
-        v66 = 0u;
-        v67 = 0u;
+        v55 = [MEMORY[0x1E695DF70] array];
+        v54 = [*(a1 + 40) delegate];
+        v58 = 0u;
+        v59 = 0u;
+        v60 = 0u;
+        v61 = 0u;
         obj = *(a1 + 32);
-        v63 = [obj countByEnumeratingWithState:&v64 objects:v68 count:16];
-        if (v63)
+        v57 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+        if (v57)
         {
-          v20 = *v65;
-          v21 = off_1E7545000;
+          v20 = *v59;
           do
           {
-            for (i = 0; i != v63; ++i)
+            for (i = 0; i != v57; ++i)
             {
-              if (*v65 != v20)
+              if (*v59 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v23 = *(*(&v64 + 1) + 8 * i);
-              v24 = [v23 keyPath];
+              v22 = *(*(&v58 + 1) + 8 * i);
+              v23 = [v22 keyPath];
               if (([*(a1 + 40) didReceiveFirstUpdateEvent] & 1) == 0)
               {
-                v25 = [*(a1 + 40) accessorySettings];
+                v24 = [*(a1 + 40) accessorySettings];
 
-                if (v25)
+                if (v24)
                 {
-                  v26 = objc_autoreleasePoolPush();
-                  v27 = *(a1 + 40);
-                  v28 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+                  v25 = objc_autoreleasePoolPush();
+                  v26 = *(a1 + 40);
+                  v27 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
                   {
-                    v29 = HMFGetLogIdentifier();
+                    v28 = HMFGetLogIdentifier();
                     *buf = 138543362;
-                    v70 = v29;
-                    _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_INFO, "%{public}@Received first update event, notifying delegate we have a valid settings tree.", buf, 0xCu);
+                    v64 = v28;
+                    _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Received first update event, notifying delegate we have a valid settings tree.", buf, 0xCu);
                   }
 
-                  objc_autoreleasePoolPop(v26);
-                  v30 = *(a1 + 40);
-                  v31 = [v30 accessorySettings];
-                  [v60 adapter:v30 didUpdateSettings:v31];
+                  objc_autoreleasePoolPop(v25);
+                  v29 = *(a1 + 40);
+                  v30 = [v29 accessorySettings];
+                  [v54 adapter:v29 didUpdateSettings:v30];
 
                   [*(a1 + 40) setDidReceiveFirstUpdateEvent:1];
                 }
               }
 
-              v32 = v21[88];
-              v33 = v23;
+              v31 = v22;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v34 = v33;
+                v32 = v31;
               }
 
               else
               {
-                v34 = 0;
+                v32 = 0;
               }
 
-              v35 = v34;
+              v33 = v32;
 
-              if (v35)
+              if (v33)
               {
-                if ([*(a1 + 40) updateBooleanSettingWithKeyPath:v24 value:{objc_msgSend(v35, "BOOLValue")}])
+                if ([*(a1 + 40) updateBooleanSettingWithKeyPath:v23 value:{objc_msgSend(v33, "BOOLValue")}])
                 {
-                  [v61 addObject:v24];
+                  [v55 addObject:v23];
                 }
               }
 
               else
               {
-                v36 = v33;
+                v34 = v31;
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v37 = v36;
+                  v35 = v34;
                 }
 
                 else
                 {
-                  v37 = 0;
+                  v35 = 0;
                 }
 
-                v38 = v37;
+                v36 = v35;
 
-                if (v38)
+                if (v36)
                 {
-                  v39 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v38, "integerValue")}];
-                  v40 = *(a1 + 40);
-                  v41 = [objc_opt_class() scaleDownNumberSettingValue:v39];
-                  v42 = *(a1 + 40);
-                  if ([objc_opt_class() isKeyPathForTapAssistanceSelectionSettingType:v24])
+                  v37 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v36, "integerValue")}];
+                  v38 = [objc_opt_class() scaleDownNumberSettingValue:v37];
+                  if ([objc_opt_class() isKeyPathForTapAssistanceSelectionSettingType:v23])
                   {
-                    v43 = [*(a1 + 40) transformIntegerToSelection:{objc_msgSend(v41, "integerValue")}];
-                    if (v43 && [*(a1 + 40) updateTapAssistanceSelectionSettingWithKeyPath:v24 value:v43])
+                    v39 = [*(a1 + 40) transformIntegerToSelection:{objc_msgSend(v38, "integerValue")}];
+                    if (v39 && [*(a1 + 40) updateTapAssistanceSelectionSettingWithKeyPath:v23 value:v39])
                     {
-                      [v61 addObject:v24];
+                      [v55 addObject:v23];
                     }
                   }
 
-                  else if ([*(a1 + 40) updateNumberSettingWithKeyPath:v24 value:v41])
+                  else if ([*(a1 + 40) updateNumberSettingWithKeyPath:v23 value:v38])
                   {
-                    [v61 addObject:v24];
+                    [v55 addObject:v23];
                   }
                 }
 
                 else
                 {
-                  v44 = *(a1 + 40);
-                  v45 = [objc_opt_class() languageKeyPaths];
-                  v46 = [v45 containsObject:v24];
+                  v40 = [objc_opt_class() languageKeyPaths];
+                  v41 = [v40 containsObject:v23];
 
-                  if (v46)
+                  if (v41)
                   {
-                    if ([*(a1 + 40) _handleLanguageSettingUpdate:v36])
+                    if ([*(a1 + 40) _handleLanguageSettingUpdate:v34])
                     {
-                      [v61 addObject:v24];
+                      [v55 addObject:v23];
                     }
                   }
 
                   else
                   {
-                    v47 = objc_autoreleasePoolPush();
-                    v48 = *(a1 + 40);
-                    v49 = HMFGetOSLogHandle();
-                    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+                    v42 = objc_autoreleasePoolPush();
+                    v43 = *(a1 + 40);
+                    v44 = HMFGetOSLogHandle();
+                    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                     {
                       HMFGetLogIdentifier();
-                      v50 = v59 = v47;
-                      v51 = [v36 keyPath];
+                      v45 = v53 = v42;
+                      v46 = [v34 keyPath];
                       *buf = 138543618;
-                      v70 = v50;
-                      v71 = 2112;
-                      v72 = v51;
-                      _os_log_impl(&dword_19BB39000, v49, OS_LOG_TYPE_ERROR, "%{public}@The setting object for key path: %@ is not supported in the adapter.", buf, 0x16u);
+                      v64 = v45;
+                      v65 = 2112;
+                      v66 = v46;
+                      _os_log_impl(&dword_19BB39000, v44, OS_LOG_TYPE_ERROR, "%{public}@The setting object for key path: %@ is not supported in the adapter.", buf, 0x16u);
 
-                      v47 = v59;
+                      v42 = v53;
                     }
 
-                    objc_autoreleasePoolPop(v47);
+                    objc_autoreleasePoolPop(v42);
                   }
                 }
-
-                v21 = off_1E7545000;
               }
             }
 
-            v63 = [obj countByEnumeratingWithState:&v64 objects:v68 count:16];
+            v57 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
           }
 
-          while (v63);
+          while (v57);
         }
 
-        v7 = v58;
-        if ([v61 count])
+        v7 = v52;
+        if ([v55 count])
         {
-          v52 = objc_autoreleasePoolPush();
-          v53 = *(a1 + 40);
-          v54 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+          v47 = objc_autoreleasePoolPush();
+          v48 = *(a1 + 40);
+          v49 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
           {
-            v55 = HMFGetLogIdentifier();
+            v50 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v70 = v55;
-            v71 = 2112;
-            v72 = v61;
-            _os_log_impl(&dword_19BB39000, v54, OS_LOG_TYPE_INFO, "%{public}@Adapter did update for settings %@", buf, 0x16u);
+            v64 = v50;
+            v65 = 2112;
+            v66 = v55;
+            _os_log_impl(&dword_19BB39000, v49, OS_LOG_TYPE_INFO, "%{public}@Adapter did update for settings %@", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v52);
-          [v60 adapter:*(a1 + 40) didUpdateSettingKeyPaths:v61];
+          objc_autoreleasePoolPop(v47);
+          [v54 adapter:*(a1 + 40) didUpdateSettingKeyPaths:v55];
         }
 
         goto LABEL_60;
@@ -868,9 +886,9 @@ LABEL_15:
 
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v56 = HMFGetLogIdentifier();
+        v51 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v70 = v56;
+        v64 = v51;
         _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown settings container type this adapter", buf, 0xCu);
       }
     }
@@ -885,9 +903,9 @@ LABEL_15:
         v15 = HMFGetLogIdentifier();
         v16 = [*(a1 + 40) accessorySettings];
         *buf = 138543618;
-        v70 = v15;
-        v71 = 2112;
-        v72 = v16;
+        v64 = v15;
+        v65 = 2112;
+        v66 = v16;
         _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@settings container not found, not processing. settings: %@", buf, 0x16u);
       }
     }
@@ -895,7 +913,7 @@ LABEL_15:
     objc_autoreleasePoolPop(v8);
 LABEL_60:
 
-    goto LABEL_61;
+    return;
   }
 
   v2 = objc_autoreleasePoolPush();
@@ -905,18 +923,16 @@ LABEL_60:
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v70 = v5;
+    v64 = v5;
     _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Event delegate call from dataSource has empty settings array.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-LABEL_61:
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateTapAssistanceSelectionSettingWithKeyPath:(id)path value:(id)value
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   valueCopy = value;
   v8 = [(HMAccessorySettingsAdapter *)self tapAssistanceSelectionSetting:pathCopy];
@@ -933,15 +949,15 @@ LABEL_61:
       v14 = HMFGetLogIdentifier();
       keyPath = [v9 keyPath];
       value2 = [v9 value];
-      v21 = 138544130;
-      v22 = v14;
-      v23 = 2112;
-      v24 = keyPath;
-      v25 = 2112;
-      v26 = value;
-      v27 = 2112;
-      v28 = value2;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Successfully updated the tap assistance selection setting: %@, old value: %@, new value: %@", &v21, 0x2Au);
+      v20 = 138544130;
+      v21 = v14;
+      v22 = 2112;
+      v23 = keyPath;
+      v24 = 2112;
+      v25 = value;
+      v26 = 2112;
+      v27 = value2;
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Successfully updated the tap assistance selection setting: %@, old value: %@, new value: %@", &v20, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -954,13 +970,12 @@ LABEL_61:
     LOBYTE(v18) = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (BOOL)updateNumberSettingWithKeyPath:(id)path value:(id)value
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   valueCopy = value;
   v8 = [(HMAccessorySettingsAdapter *)self accessorySettingWithKeyPath:pathCopy];
@@ -989,21 +1004,21 @@ LABEL_61:
     {
       v16 = HMFGetLogIdentifier();
       [v8 keyPath];
-      v17 = v22 = v13;
+      v17 = v21 = v13;
       [v10 value];
-      v18 = v23 = valueCopy;
+      v18 = v22 = valueCopy;
       *buf = 138544130;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v17;
-      v28 = 2112;
-      v29 = value;
-      v30 = 2112;
-      v31 = v18;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2112;
+      v28 = value;
+      v29 = 2112;
+      v30 = v18;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully updated the number setting: %@, old value: %@, new value: %@", buf, 0x2Au);
 
-      valueCopy = v23;
-      v13 = v22;
+      valueCopy = v22;
+      v13 = v21;
     }
 
     objc_autoreleasePoolPop(v13);
@@ -1015,14 +1030,13 @@ LABEL_61:
     LOBYTE(v19) = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (BOOL)updateBooleanSettingWithKeyPath:(id)path value:(BOOL)value
 {
   valueCopy = value;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [(HMAccessorySettingsAdapter *)self accessorySettingWithKeyPath:pathCopy];
   objc_opt_class();
@@ -1057,18 +1071,18 @@ LABEL_61:
       v16 = HMFGetLogIdentifier();
       keyPath = [v7 keyPath];
       [v9 value];
-      v18 = v22 = v13;
+      v18 = v21 = v13;
       *buf = 138544130;
-      v24 = v16;
-      v25 = 2112;
-      v26 = keyPath;
-      v27 = 2112;
-      v28 = value;
-      v29 = 2112;
-      v30 = v18;
+      v23 = v16;
+      v24 = 2112;
+      v25 = keyPath;
+      v26 = 2112;
+      v27 = value;
+      v28 = 2112;
+      v29 = v18;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully updated the BOOLean setting: %@, old value: %@, new value: %@", buf, 0x2Au);
 
-      v13 = v22;
+      v13 = v21;
     }
 
     objc_autoreleasePoolPop(v13);
@@ -1080,13 +1094,12 @@ LABEL_61:
     LOBYTE(v19) = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (id)accessorySettingWithKeyPath:(id)path
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v5 = [(HMAccessorySettingsAdapter *)self groupKeyArrayFromKeyPath:pathCopy];
   if ([v5 hmf_isEmpty])
@@ -1103,30 +1116,30 @@ LABEL_61:
 
     if (v10)
     {
-      v25 = pathCopy;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
+      v24 = pathCopy;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v11 = v5;
-      v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v27;
+        v14 = *v26;
         v15 = 1;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v27 != v14)
+            if (*v26 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
             if ((v15 & 1) == 0)
             {
-              v17 = [(HMAccessorySettingsAdapter *)self appendKeyPath:keyPath withNextKey:*(*(&v26 + 1) + 8 * i)];
+              v17 = [(HMAccessorySettingsAdapter *)self appendKeyPath:keyPath withNextKey:*(*(&v25 + 1) + 8 * i)];
 
               v18 = [rootGroup accessorySettingGroupWithKeyPath:v17];
 
@@ -1139,16 +1152,16 @@ LABEL_61:
                 {
                   v22 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v31 = v22;
-                  v32 = 2112;
-                  v33 = v17;
+                  v30 = v22;
+                  v31 = 2112;
+                  v32 = v17;
                   _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Cannot find group with the key path: %@", buf, 0x16u);
                 }
 
                 objc_autoreleasePoolPop(v19);
                 rootGroup = 0;
                 v6 = 0;
-                pathCopy = v25;
+                pathCopy = v24;
                 goto LABEL_20;
               }
 
@@ -1159,7 +1172,7 @@ LABEL_61:
             v15 = 0;
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
           v15 = 0;
           if (v13)
           {
@@ -1170,8 +1183,8 @@ LABEL_61:
         }
       }
 
-      pathCopy = v25;
-      v6 = [rootGroup accessorySettingWithKeyPath:v25];
+      pathCopy = v24;
+      v6 = [rootGroup accessorySettingWithKeyPath:v24];
     }
 
     else
@@ -1182,8 +1195,6 @@ LABEL_61:
     v17 = keyPath;
 LABEL_20:
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1220,7 +1231,7 @@ LABEL_20:
 
 - (id)createTapAssistanceSelectionSettingFromNumberConstraint:(id)constraint properties:(unint64_t)properties value:(id)value min:(id)min max:(id)max step:(id)step
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   constraintCopy = constraint;
   valueCopy = value;
   minCopy = min;
@@ -1254,8 +1265,8 @@ LABEL_20:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       v31 = HMFGetLogIdentifier();
-      v35 = 138543362;
-      v36 = v31;
+      v34 = 138543362;
+      v35 = v31;
       v32 = "%{public}@Tab assistance selections array is nil or the number selection items is not 3";
       goto LABEL_9;
     }
@@ -1269,11 +1280,11 @@ LABEL_20:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       v31 = HMFGetLogIdentifier();
-      v35 = 138543362;
-      v36 = v31;
+      v34 = 138543362;
+      v35 = v31;
       v32 = "%{public}@Invalid number constraints for tab assistance selection item";
 LABEL_9:
-      _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, v32, &v35, 0xCu);
+      _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, v32, &v34, 0xCu);
     }
   }
 
@@ -1281,15 +1292,13 @@ LABEL_9:
   v27 = 0;
 LABEL_11:
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
 - (void)createRootSettingGroup
 {
   selfCopy = self;
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   rootGroup = [(HMAccessorySettingsAdapter *)self rootGroup];
 
   if (rootGroup)
@@ -1301,12 +1310,12 @@ LABEL_11:
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v66 = v7;
+      v65 = v7;
       _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Warning: Settings adapter root group has already been constructed.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    goto LABEL_35;
+    return;
   }
 
   createTapAssistanceSelections = [(HMAccessorySettingsAdapter *)selfCopy createTapAssistanceSelections];
@@ -1315,32 +1324,32 @@ LABEL_11:
   defaultSettings = [objc_opt_class() defaultSettings];
   allKeys = [defaultSettings allKeys];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = allKeys;
-  v59 = [obj countByEnumeratingWithState:&v61 objects:v71 count:16];
-  if (!v59)
+  v58 = [obj countByEnumeratingWithState:&v60 objects:v70 count:16];
+  if (!v58)
   {
     goto LABEL_24;
   }
 
-  v58 = *v62;
+  v57 = *v61;
   *&v11 = 138543618;
-  v52 = v11;
+  v51 = v11;
   do
   {
-    for (i = 0; i != v59; ++i)
+    for (i = 0; i != v58; ++i)
     {
-      if (*v62 != v58)
+      if (*v61 != v57)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v61 + 1) + 8 * i);
-      v14 = [(HMAccessorySettingsAdapter *)selfCopy groupKeyArrayFromKeyPath:v13, v52];
-      v60 = [(HMAccessorySettingsAdapter *)selfCopy findOrAddAccessorySettingGroupWithKeyPath:v14];
+      v13 = *(*(&v60 + 1) + 8 * i);
+      v14 = [(HMAccessorySettingsAdapter *)selfCopy groupKeyArrayFromKeyPath:v13, v51];
+      v59 = [(HMAccessorySettingsAdapter *)selfCopy findOrAddAccessorySettingGroupWithKeyPath:v14];
       v15 = [(HMAccessorySettingsAdapter *)selfCopy settingKeyFromKeyPath:v13];
       defaultSettings2 = [objc_opt_class() defaultSettings];
       v17 = [defaultSettings2 hmf_arrayForKey:v13];
@@ -1351,9 +1360,9 @@ LABEL_11:
         v19 = [v17 objectAtIndexedSubscript:1];
         v20 = [v17 objectAtIndexedSubscript:2];
         v21 = [v17 objectAtIndexedSubscript:3];
-        v56 = v20;
-        v57 = v15;
-        v55 = v21;
+        v55 = v20;
+        v56 = v15;
+        v54 = v21;
         if ([objc_opt_class() isKeyPathForTapAssistanceSelectionSettingType:v13])
         {
           v22 = [(HMAccessorySettingsAdapter *)selfCopy createTapAssistanceSelectionSettingFromNumberConstraint:v15 properties:3 value:v21 min:v18 max:v19 step:v20];
@@ -1364,16 +1373,16 @@ LABEL_11:
             v25 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              v53 = HMFGetLogIdentifier();
-              *buf = v52;
-              v66 = v53;
-              v67 = 2112;
-              v68 = v13;
+              v52 = HMFGetLogIdentifier();
+              *buf = v51;
+              v65 = v52;
+              v66 = 2112;
+              v67 = v13;
               _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Error in creating setting for keypath %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v23);
-            v26 = v60;
+            v26 = v59;
             goto LABEL_21;
           }
         }
@@ -1399,11 +1408,11 @@ LABEL_11:
         v14 = v35;
         v17 = v34;
 
-        v26 = v60;
-        [v60 addSetting:v22];
+        v26 = v59;
+        [v59 addSetting:v22];
 
 LABEL_21:
-        v15 = v57;
+        v15 = v56;
         goto LABEL_22;
       }
 
@@ -1415,21 +1424,21 @@ LABEL_21:
         HMFGetLogIdentifier();
         v31 = v30 = v15;
         *buf = 138543362;
-        v66 = v31;
+        v65 = v31;
         _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Value array size mismatch", buf, 0xCu);
 
         v15 = v30;
       }
 
       objc_autoreleasePoolPop(v27);
-      v26 = v60;
+      v26 = v59;
 LABEL_22:
     }
 
-    v59 = [obj countByEnumeratingWithState:&v61 objects:v71 count:16];
+    v58 = [obj countByEnumeratingWithState:&v60 objects:v70 count:16];
   }
 
-  while (v59);
+  while (v58);
 LABEL_24:
 
   if ([(HMAccessorySettingsAdapter *)selfCopy containerType]== 1)
@@ -1443,11 +1452,11 @@ LABEL_24:
       homeIdentifier = [(HMAccessorySettingsAdapter *)v41 homeIdentifier];
       settingsContainerIdentifier = [(HMAccessorySettingsAdapter *)v41 settingsContainerIdentifier];
       *buf = 138543874;
-      v66 = v43;
-      v67 = 2112;
-      v68 = homeIdentifier;
-      v69 = 2112;
-      v70 = settingsContainerIdentifier;
+      v65 = v43;
+      v66 = 2112;
+      v67 = homeIdentifier;
+      v68 = 2112;
+      v69 = settingsContainerIdentifier;
       v46 = "%{public}@Root group created for home: %@, accessory: %@";
       goto LABEL_30;
     }
@@ -1471,11 +1480,11 @@ LABEL_24:
       homeIdentifier = [(HMAccessorySettingsAdapter *)v48 homeIdentifier];
       settingsContainerIdentifier = [(HMAccessorySettingsAdapter *)v48 settingsContainerIdentifier];
       *buf = 138543874;
-      v66 = v43;
-      v67 = 2112;
-      v68 = homeIdentifier;
-      v69 = 2112;
-      v70 = settingsContainerIdentifier;
+      v65 = v43;
+      v66 = 2112;
+      v67 = homeIdentifier;
+      v68 = 2112;
+      v69 = settingsContainerIdentifier;
       v46 = "%{public}@Root group created for home: %@, media system: %@";
 LABEL_30:
       _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_INFO, v46, buf, 0x20u);
@@ -1491,9 +1500,9 @@ LABEL_30:
       v43 = HMFGetLogIdentifier();
       homeIdentifier2 = [(HMAccessorySettingsAdapter *)v48 homeIdentifier];
       *buf = 138543618;
-      v66 = v43;
-      v67 = 2112;
-      v68 = homeIdentifier2;
+      v65 = v43;
+      v66 = 2112;
+      v67 = homeIdentifier2;
       _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_ERROR, "%{public}@Error in root group creation for home: %@", buf, 0x16u);
     }
   }
@@ -1501,13 +1510,11 @@ LABEL_30:
 LABEL_34:
 
   objc_autoreleasePoolPop(v40);
-LABEL_35:
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 - (id)findOrAddAccessorySettingGroupWithKeyPath:(id)path
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   rootGroup = [(HMAccessorySettingsAdapter *)self rootGroup];
   if (rootGroup)
@@ -1539,7 +1546,7 @@ LABEL_35:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v53 = v18;
+        v52 = v18;
         _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Creating RootGroup and AccessorySettings for the adapter", buf, 0xCu);
       }
 
@@ -1566,7 +1573,7 @@ LABEL_35:
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v53 = v27;
+          v52 = v27;
           _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Group key array cannot be empty.", buf, 0xCu);
         }
 
@@ -1580,30 +1587,30 @@ LABEL_35:
 
         if (v34)
         {
-          v49 = 0u;
-          v50 = 0u;
-          v47 = 0u;
           v48 = 0u;
-          v46 = pathCopy;
+          v49 = 0u;
+          v46 = 0u;
+          v47 = 0u;
+          v45 = pathCopy;
           v35 = pathCopy;
-          v36 = [v35 countByEnumeratingWithState:&v47 objects:v51 count:16];
+          v36 = [v35 countByEnumeratingWithState:&v46 objects:v50 count:16];
           if (v36)
           {
             v37 = v36;
-            v38 = *v48;
+            v38 = *v47;
             v39 = 1;
             do
             {
               for (i = 0; i != v37; ++i)
               {
-                if (*v48 != v38)
+                if (*v47 != v38)
                 {
                   objc_enumerationMutation(v35);
                 }
 
                 if ((v39 & 1) == 0)
                 {
-                  v41 = *(*(&v47 + 1) + 8 * i);
+                  v41 = *(*(&v46 + 1) + 8 * i);
                   v42 = [(HMAccessorySettingsAdapter *)self appendKeyPath:keyPath withNextKey:v41];
 
                   v43 = [rootGroup4 accessorySettingGroupWithKeyPath:v42];
@@ -1620,7 +1627,7 @@ LABEL_35:
                 v39 = 0;
               }
 
-              v37 = [v35 countByEnumeratingWithState:&v47 objects:v51 count:16];
+              v37 = [v35 countByEnumeratingWithState:&v46 objects:v50 count:16];
               v39 = 0;
             }
 
@@ -1629,7 +1636,7 @@ LABEL_35:
 
           rootGroup4 = rootGroup4;
           v32 = rootGroup4;
-          pathCopy = v46;
+          pathCopy = v45;
           goto LABEL_30;
         }
       }
@@ -1648,15 +1655,13 @@ LABEL_30:
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v53 = v31;
+    v52 = v31;
     _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, "%{public}@Root group or accessory settings object is nil", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v28);
   v32 = 0;
 LABEL_31:
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
@@ -1697,7 +1702,7 @@ LABEL_31:
 
 - (id)createKeyPathArrayWithKeyPath:(id)path
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v5 = [pathCopy componentsSeparatedByString:@"."];
   if ([v5 count] > 1)
@@ -1713,20 +1718,18 @@ LABEL_31:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543874;
-      v14 = v9;
-      v15 = 2112;
-      v16 = pathCopy;
-      v17 = 2048;
-      v18 = [v5 count];
-      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@The keypath %@ needs at least 2 keys, but only has %lu component.", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v9;
+      v14 = 2112;
+      v15 = pathCopy;
+      v16 = 2048;
+      v17 = [v5 count];
+      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@The keypath %@ needs at least 2 keys, but only has %lu component.", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
     v10 = MEMORY[0x1E695E0F0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1745,164 +1748,156 @@ LABEL_31:
 
 void __54__HMAccessorySettingsAdapter_updateSettingsReflected___block_invoke(uint64_t a1)
 {
-  v1 = a1;
-  v64 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() defaultSettings];
-  v48 = v3;
-  if (v3)
+  v58 = *MEMORY[0x1E69E9840];
+  v2 = [objc_opt_class() defaultSettings];
+  v42 = v2;
+  if (v2)
   {
-    v4 = v3;
-    [v3 allKeys];
-    v53 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v5 = v56 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v53 objects:v63 count:16];
-    v51 = v5;
-    if (v6)
+    v3 = v2;
+    [v2 allKeys];
+    v47 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v4 = v50 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v47 objects:v57 count:16];
+    v45 = v4;
+    if (v5)
     {
-      v8 = v6;
-      v9 = *v54;
-      *&v7 = 138543874;
-      v47 = v7;
-      v50 = *v54;
+      v7 = v5;
+      v8 = *v48;
+      *&v6 = 138543874;
+      v41 = v6;
+      v44 = *v48;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v54 != v9)
+          if (*v48 != v8)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v4);
           }
 
-          v11 = *(*(&v53 + 1) + 8 * i);
-          v12 = [v4 objectForKey:{v11, v47}];
-          if (v12)
+          v10 = *(*(&v47 + 1) + 8 * i);
+          v11 = [v3 objectForKey:{v10, v41}];
+          if (v11)
           {
-            v13 = [*(v1 + 32) accessorySettingWithKeyPath:v11];
-            v14 = [v12 objectAtIndexedSubscript:5];
-            v15 = v14;
-            if (v13)
+            v12 = [*(a1 + 32) accessorySettingWithKeyPath:v10];
+            v13 = [v11 objectAtIndexedSubscript:5];
+            v14 = v13;
+            if (v12)
             {
-              v16 = v14 == 0;
+              v15 = v13 == 0;
             }
 
             else
             {
-              v16 = 1;
+              v15 = 1;
             }
 
-            if (!v16 && [v14 BOOLValue])
+            if (!v15 && [v13 BOOLValue])
             {
               context = objc_autoreleasePoolPush();
-              v17 = *(v1 + 32);
+              v16 = *(a1 + 32);
               HMFGetOSLogHandle();
-              v19 = v18 = v1;
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+              v18 = v17 = a1;
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
               {
-                v49 = HMFGetLogIdentifier();
-                v20 = *(v18 + 40);
-                v21 = HMFBooleanToString();
-                *buf = v47;
-                v58 = v49;
-                v59 = 2112;
-                v60 = v11;
-                v61 = 2112;
-                v62 = v21;
-                v22 = v21;
-                _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@Updating setting %@ reflected to: %@", buf, 0x20u);
+                v43 = HMFGetLogIdentifier();
+                v19 = HMFBooleanToString();
+                *buf = v41;
+                v52 = v43;
+                v53 = 2112;
+                v54 = v10;
+                v55 = 2112;
+                v56 = v19;
+                v20 = v19;
+                _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Updating setting %@ reflected to: %@", buf, 0x20u);
 
-                v4 = v48;
+                v3 = v42;
               }
 
               objc_autoreleasePoolPop(context);
-              [v13 updateReflected:*(v18 + 40)];
-              v1 = v18;
-              v9 = v50;
-              v5 = v51;
+              [v12 updateReflected:*(v17 + 40)];
+              a1 = v17;
+              v8 = v44;
+              v4 = v45;
             }
           }
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v53 objects:v63 count:16];
+        v7 = [v4 countByEnumeratingWithState:&v47 objects:v57 count:16];
       }
 
-      while (v8);
+      while (v7);
     }
 
-    v23 = *(v1 + 32);
-    v24 = [objc_opt_class() selectedLanguageSettingKeyPath];
-    v25 = [v23 accessorySettingWithKeyPath:v24];
+    v21 = *(a1 + 32);
+    v22 = [objc_opt_class() selectedLanguageSettingKeyPath];
+    v23 = [v21 accessorySettingWithKeyPath:v22];
 
-    if (v25)
+    if (v23)
     {
-      v26 = objc_autoreleasePoolPush();
-      v27 = *(v1 + 32);
-      v28 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v24 = objc_autoreleasePoolPush();
+      v25 = *(a1 + 32);
+      v26 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v29 = HMFGetLogIdentifier();
-        v30 = *(v1 + 32);
-        v31 = [objc_opt_class() selectedLanguageSettingKeyPath];
-        v32 = *(v1 + 40);
-        v33 = HMFBooleanToString();
+        v27 = HMFGetLogIdentifier();
+        v28 = [objc_opt_class() selectedLanguageSettingKeyPath];
+        v29 = HMFBooleanToString();
         *buf = 138543874;
-        v58 = v29;
-        v59 = 2112;
-        v60 = v31;
-        v61 = 2112;
-        v62 = v33;
-        _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_INFO, "%{public}@Updating language setting %@ reflected to: %@", buf, 0x20u);
+        v52 = v27;
+        v53 = 2112;
+        v54 = v28;
+        v55 = 2112;
+        v56 = v29;
+        _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_INFO, "%{public}@Updating language setting %@ reflected to: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v26);
-      [v25 updateReflected:*(v1 + 40)];
+      objc_autoreleasePoolPop(v24);
+      [v23 updateReflected:*(a1 + 40)];
     }
 
-    v34 = objc_autoreleasePoolPush();
-    v35 = *(v1 + 32);
-    v36 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v30 = objc_autoreleasePoolPush();
+    v31 = *(a1 + 32);
+    v32 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
-      v37 = HMFGetLogIdentifier();
-      v38 = *(v1 + 40);
-      v39 = HMFBooleanToString();
+      v33 = HMFGetLogIdentifier();
+      v34 = HMFBooleanToString();
       *buf = 138543618;
-      v58 = v37;
-      v59 = 2112;
-      v60 = v39;
-      _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_INFO, "%{public}@Setting adapter needReflectSettings to %@", buf, 0x16u);
+      v52 = v33;
+      v53 = 2112;
+      v54 = v34;
+      _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_INFO, "%{public}@Setting adapter needReflectSettings to %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v34);
-    [*(v1 + 32) setSettingsReflected:*(v1 + 40)];
+    objc_autoreleasePoolPop(v30);
+    [*(a1 + 32) setSettingsReflected:*(a1 + 40)];
   }
 
   else
   {
-    v40 = objc_autoreleasePoolPush();
-    v41 = v1;
-    v42 = v40;
-    v43 = *(v41 + 32);
-    v44 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v35 = objc_autoreleasePoolPush();
+    v36 = a1;
+    v37 = v35;
+    v38 = *(v36 + 32);
+    v39 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v45 = HMFGetLogIdentifier();
+      v40 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v45;
-      _os_log_impl(&dword_19BB39000, v44, OS_LOG_TYPE_ERROR, "%{public}@Default settings do not exist", buf, 0xCu);
+      v52 = v40;
+      _os_log_impl(&dword_19BB39000, v39, OS_LOG_TYPE_ERROR, "%{public}@Default settings do not exist", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v42);
+    objc_autoreleasePoolPop(v37);
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithKeyPath:(id)path value:(id)value completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   valueCopy = value;
   handlerCopy = handler;
@@ -1920,11 +1915,11 @@ void __54__HMAccessorySettingsAdapter_updateSettingsReflected___block_invoke(uin
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v37 = v20;
-        v38 = 2112;
-        v39 = pathCopy;
-        v40 = 2112;
-        v41 = valueCopy;
+        v36 = v20;
+        v37 = 2112;
+        v38 = pathCopy;
+        v39 = 2112;
+        v40 = valueCopy;
         _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Error in adapter updating keypath: %@ value: %@", buf, 0x20u);
       }
 
@@ -1945,55 +1940,32 @@ void __54__HMAccessorySettingsAdapter_updateSettingsReflected___block_invoke(uin
     }
   }
 
-  else
+  else if (-[HMAccessorySettingsAdapter containerType](self, "containerType") != 2 || ((-[HMAccessorySettingsAdapter settingsContainer](self, "settingsContainer"), v14 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v15 = 0) : (v15 = v14), (v16 = v15, v14, !v16) ? (settingsContainerIdentifier = 0) : ([v16 targetAccessoryIdentifierBySerial], settingsContainerIdentifier = objc_claimAutoreleasedReturnValue()), v16, !settingsContainerIdentifier))
   {
-    if ([(HMAccessorySettingsAdapter *)self containerType]!= 2)
-    {
-      goto LABEL_18;
-    }
-
-    settingsContainer = [(HMAccessorySettingsAdapter *)self settingsContainer];
-    objc_opt_class();
-    v15 = (objc_opt_isKindOfClass() & 1) != 0 ? settingsContainer : 0;
-    v16 = v15;
-
-    if (v16)
-    {
-      settingsContainerIdentifier = [v16 targetAccessoryIdentifierBySerial];
-    }
-
-    else
-    {
-      settingsContainerIdentifier = 0;
-    }
-
-    if (!settingsContainerIdentifier)
-    {
 LABEL_18:
-      v26 = objc_autoreleasePoolPush();
-      selfCopy2 = self;
-      v28 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-      {
-        v29 = HMFGetLogIdentifier();
-        *buf = 138543874;
-        v37 = v29;
-        v38 = 2112;
-        v39 = pathCopy;
-        v40 = 2112;
-        v41 = valueCopy;
-        _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Error in updating keypath: %@ value: %@", buf, 0x20u);
-      }
-
-      objc_autoreleasePoolPop(v26);
-      v21 = MEMORY[0x1E696ABC0];
-      v22 = @"Settings container is not supported in the adapter";
-      v23 = @"Only accessory or media system is supported";
-LABEL_21:
-      v25 = [v21 hmfErrorWithCode:3 reason:v22 suggestion:v23];
-      handlerCopy[2](handlerCopy, v25);
-      goto LABEL_22;
+    v26 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      v29 = HMFGetLogIdentifier();
+      *buf = 138543874;
+      v36 = v29;
+      v37 = 2112;
+      v38 = pathCopy;
+      v39 = 2112;
+      v40 = valueCopy;
+      _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Error in updating keypath: %@ value: %@", buf, 0x20u);
     }
+
+    objc_autoreleasePoolPop(v26);
+    v21 = MEMORY[0x1E696ABC0];
+    v22 = @"Settings container is not supported in the adapter";
+    v23 = @"Only accessory or media system is supported";
+LABEL_21:
+    v25 = [v21 hmfErrorWithCode:3 reason:v22 suggestion:v23];
+    handlerCopy[2](handlerCopy, v25);
+    goto LABEL_22;
   }
 
   workQueue = [(HMAccessorySettingsAdapter *)self workQueue];
@@ -2002,64 +1974,62 @@ LABEL_21:
   block[2] = __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler___block_invoke;
   block[3] = &unk_1E754D7A8;
   block[4] = self;
-  v32 = pathCopy;
-  v33 = valueCopy;
-  v34 = settingsContainerIdentifier;
-  v35 = handlerCopy;
+  v31 = pathCopy;
+  v32 = valueCopy;
+  v33 = settingsContainerIdentifier;
+  v34 = handlerCopy;
   v25 = settingsContainerIdentifier;
   dispatch_async(workQueue, block);
 
 LABEL_22:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() languageKeyPaths];
-  v4 = [v3 containsObject:*(a1 + 40)];
+  v53 = *MEMORY[0x1E69E9840];
+  v2 = [objc_opt_class() languageKeyPaths];
+  v3 = [v2 containsObject:*(a1 + 40)];
 
-  if (v4)
+  if (v3)
   {
-    v5 = [*(a1 + 32) _transformAccessorySettingToLanguageSetting:*(a1 + 48)];
-    if (v5)
+    v4 = [*(a1 + 32) _transformAccessorySettingToLanguageSetting:*(a1 + 48)];
+    if (v4)
     {
-      v6 = [*(a1 + 32) accessorySettingsController];
-      v7 = [*(a1 + 32) homeIdentifier];
-      v8 = *(a1 + 56);
-      v9 = *(a1 + 40);
-      v10 = [v5 languageValue];
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 3221225472;
-      v50[2] = __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler___block_invoke_33;
-      v50[3] = &unk_1E754D898;
-      v50[4] = *(a1 + 32);
-      v51 = v5;
-      v52 = *(a1 + 64);
-      [v6 updateAccessorySettingWithHomeIdentifier:v7 accessoryIdentifier:v8 keyPath:v9 settingValue:v10 completionHandler:v50];
+      v5 = [*(a1 + 32) accessorySettingsController];
+      v6 = [*(a1 + 32) homeIdentifier];
+      v7 = *(a1 + 56);
+      v8 = *(a1 + 40);
+      v9 = [v4 languageValue];
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler___block_invoke_33;
+      v44[3] = &unk_1E754D898;
+      v44[4] = *(a1 + 32);
+      v45 = v4;
+      v46 = *(a1 + 64);
+      [v5 updateAccessorySettingWithHomeIdentifier:v6 accessoryIdentifier:v7 keyPath:v8 settingValue:v9 completionHandler:v44];
 
 LABEL_30:
-      goto LABEL_31;
+      return;
     }
 
-    v24 = objc_autoreleasePoolPush();
-    v25 = *(a1 + 32);
-    v26 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v21 = objc_autoreleasePoolPush();
+    v22 = *(a1 + 32);
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v27 = HMFGetLogIdentifier();
+      v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v54 = v27;
-      v55 = 2112;
-      v56 = 0;
-      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Nil setting transformation for setting = %@", buf, 0x16u);
+      v48 = v24;
+      v49 = 2112;
+      v50 = 0;
+      _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Nil setting transformation for setting = %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v24);
-    v28 = *(a1 + 64);
-    v29 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:8];
-    (*(v28 + 16))(v28, v29);
+    objc_autoreleasePoolPop(v21);
+    v25 = *(a1 + 64);
+    v26 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:8];
+    (*(v25 + 16))(v25, v26);
 LABEL_29:
 
     goto LABEL_30;
@@ -2067,130 +2037,124 @@ LABEL_29:
 
   if (![objc_opt_class() isKeyPathForBooleanSettingType:*(a1 + 40)])
   {
-    v13 = *(a1 + 32);
     if ([objc_opt_class() isKeyPathForConstrainedNumberSettingType:*(a1 + 40)])
     {
       [*(a1 + 48) floatValue];
-      v5 = [MEMORY[0x1E696AD98] numberWithFloat:?];
-      v14 = *(a1 + 32);
-      v15 = [objc_opt_class() scaleUpNumberSettingValue:v5];
-      v12 = -[HMSettingIntegerValue initWithIntegerValue:]([HMSettingIntegerValue alloc], "initWithIntegerValue:", [v15 integerValue]);
-      [*(a1 + 32) updateNumberSettingWithKeyPath:*(a1 + 40) value:v5];
+      v4 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+      v12 = [objc_opt_class() scaleUpNumberSettingValue:v4];
+      v11 = -[HMSettingIntegerValue initWithIntegerValue:]([HMSettingIntegerValue alloc], "initWithIntegerValue:", [v12 integerValue]);
+      [*(a1 + 32) updateNumberSettingWithKeyPath:*(a1 + 40) value:v4];
 LABEL_8:
 
       goto LABEL_9;
     }
 
-    v30 = *(a1 + 32);
     if ([objc_opt_class() isKeyPathForTapAssistanceSelectionSettingType:*(a1 + 40)])
     {
-      v49 = -1;
-      v31 = *(a1 + 48);
+      v43 = -1;
+      v27 = *(a1 + 48);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v32 = v31;
+        v28 = v27;
       }
 
       else
       {
-        v32 = 0;
+        v28 = 0;
       }
 
-      v5 = v32;
+      v4 = v28;
 
-      if (v5 && [*(a1 + 32) transformSelectionToInteger:v5 integerValue:&v49])
+      if (v4 && [*(a1 + 32) transformSelectionToInteger:v4 integerValue:&v43])
       {
-        v15 = [MEMORY[0x1E696AD98] numberWithInteger:v49];
-        v33 = *(a1 + 32);
-        v34 = [objc_opt_class() scaleUpNumberSettingValue:v15];
-        v12 = -[HMSettingIntegerValue initWithIntegerValue:]([HMSettingIntegerValue alloc], "initWithIntegerValue:", [v34 integerValue]);
-        [*(a1 + 32) updateTapAssistanceSelectionSettingWithKeyPath:*(a1 + 40) value:v5];
+        v12 = [MEMORY[0x1E696AD98] numberWithInteger:v43];
+        v29 = [objc_opt_class() scaleUpNumberSettingValue:v12];
+        v11 = -[HMSettingIntegerValue initWithIntegerValue:]([HMSettingIntegerValue alloc], "initWithIntegerValue:", [v29 integerValue]);
+        [*(a1 + 32) updateTapAssistanceSelectionSettingWithKeyPath:*(a1 + 40) value:v4];
 
         goto LABEL_8;
       }
 
-      v41 = objc_autoreleasePoolPush();
-      v42 = *(a1 + 32);
-      v43 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v36 = objc_autoreleasePoolPush();
+      v37 = *(a1 + 32);
+      v38 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        v44 = HMFGetLogIdentifier();
-        v45 = *(a1 + 48);
+        v39 = HMFGetLogIdentifier();
+        v40 = *(a1 + 48);
         *buf = 138543618;
-        v54 = v44;
-        v55 = 2112;
-        v56 = v45;
-        _os_log_impl(&dword_19BB39000, v43, OS_LOG_TYPE_ERROR, "%{public}@Wrong update value for tap assistance: %@", buf, 0x16u);
+        v48 = v39;
+        v49 = 2112;
+        v50 = v40;
+        _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, "%{public}@Wrong update value for tap assistance: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v41);
-      v29 = [*(a1 + 32) accessoryContext];
-      v40 = [v29 delegateCaller];
-      v46 = *(a1 + 64);
-      v47 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:3];
-      [v40 callCompletion:v46 error:v47];
+      objc_autoreleasePoolPop(v36);
+      v26 = [*(a1 + 32) accessoryContext];
+      v35 = [v26 delegateCaller];
+      v41 = *(a1 + 64);
+      v42 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:3];
+      [v35 callCompletion:v41 error:v42];
     }
 
     else
     {
-      v35 = objc_autoreleasePoolPush();
-      v36 = *(a1 + 32);
-      v37 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v30 = objc_autoreleasePoolPush();
+      v31 = *(a1 + 32);
+      v32 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v38 = HMFGetLogIdentifier();
-        v39 = *(a1 + 40);
+        v33 = HMFGetLogIdentifier();
+        v34 = *(a1 + 40);
         *buf = 138543618;
-        v54 = v38;
-        v55 = 2112;
-        v56 = v39;
-        _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_ERROR, "%{public}@Keypath is of an unknown type that is not supported: %@", buf, 0x16u);
+        v48 = v33;
+        v49 = 2112;
+        v50 = v34;
+        _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Keypath is of an unknown type that is not supported: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v35);
-      v5 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:3 reason:@"Keypath is of unknown setting type" suggestion:@"Only Boolean and Number Setting are supported"];
-      v29 = [*(a1 + 32) accessoryContext];
-      v40 = [v29 delegateCaller];
-      [v40 callCompletion:*(a1 + 64) error:v5];
+      objc_autoreleasePoolPop(v30);
+      v4 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:3 reason:@"Keypath is of unknown setting type" suggestion:@"Only Boolean and Number Setting are supported"];
+      v26 = [*(a1 + 32) accessoryContext];
+      v35 = [v26 delegateCaller];
+      [v35 callCompletion:*(a1 + 64) error:v4];
     }
 
     goto LABEL_29;
   }
 
-  v11 = [*(a1 + 48) BOOLValue];
-  v12 = [[HMSettingBooleanValue alloc] initWithBoolValue:v11];
-  [*(a1 + 32) updateBooleanSettingWithKeyPath:*(a1 + 40) value:v11];
+  v10 = [*(a1 + 48) BOOLValue];
+  v11 = [[HMSettingBooleanValue alloc] initWithBoolValue:v10];
+  [*(a1 + 32) updateBooleanSettingWithKeyPath:*(a1 + 40) value:v10];
 LABEL_9:
-  v16 = [*(a1 + 32) accessorySettingsController];
-  v17 = [*(a1 + 32) homeIdentifier];
-  [v16 updateAccessorySettingWithHomeIdentifier:v17 accessoryIdentifier:*(a1 + 56) keyPath:*(a1 + 40) settingValue:v12 completionHandler:*(a1 + 64)];
+  v13 = [*(a1 + 32) accessorySettingsController];
+  v14 = [*(a1 + 32) homeIdentifier];
+  [v13 updateAccessorySettingWithHomeIdentifier:v14 accessoryIdentifier:*(a1 + 56) keyPath:*(a1 + 40) settingValue:v11 completionHandler:*(a1 + 64)];
 
-  v18 = objc_autoreleasePoolPush();
-  v19 = *(a1 + 32);
-  v20 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v15 = objc_autoreleasePoolPush();
+  v16 = *(a1 + 32);
+  v17 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v21 = HMFGetLogIdentifier();
-    v22 = *(a1 + 40);
-    v23 = *(a1 + 48);
+    v18 = HMFGetLogIdentifier();
+    v19 = *(a1 + 40);
+    v20 = *(a1 + 48);
     *buf = 138543874;
-    v54 = v21;
-    v55 = 2112;
-    v56 = v22;
-    v57 = 2112;
-    v58 = v23;
-    _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Update setting keypath: %@ value: %@", buf, 0x20u);
+    v48 = v18;
+    v49 = 2112;
+    v50 = v19;
+    v51 = 2112;
+    v52 = v20;
+    _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Update setting keypath: %@ value: %@", buf, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v18);
-LABEL_31:
-  v48 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v15);
 }
 
 void __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler___block_invoke_33(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
@@ -2198,8 +2162,8 @@ void __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler_
     v4 = [*(a1 + 32) delegate];
     v5 = *(a1 + 32);
     v6 = [objc_opt_class() selectedLanguageSettingKeyPath];
-    v14[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     [v4 adapter:v5 didUpdateSettingKeyPaths:v7];
 
     v8 = *(a1 + 32);
@@ -2211,8 +2175,6 @@ void __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler_
   v11 = [*(a1 + 32) accessoryContext];
   v12 = [v11 delegateCaller];
   [v12 callCompletion:*(a1 + 48) error:v3];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_transformAccessorySettingToLanguageSetting:(id)setting
@@ -2291,7 +2253,7 @@ void __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler_
 
 - (void)_configureForMediaSystemWithCompletionHandler:(id)handler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   defaultSettings = [objc_opt_class() defaultSettings];
   allKeys = [defaultSettings allKeys];
@@ -2308,13 +2270,13 @@ void __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler_
     homeIdentifier = [(HMAccessorySettingsAdapter *)selfCopy homeIdentifier];
     settingsContainerIdentifier = [(HMAccessorySettingsAdapter *)selfCopy settingsContainerIdentifier];
     *buf = 138544130;
-    v25 = v12;
-    v26 = 2112;
-    v27 = homeIdentifier;
-    v28 = 2112;
-    v29 = settingsContainerIdentifier;
-    v30 = 2112;
-    v31 = v8;
+    v24 = v12;
+    v25 = 2112;
+    v26 = homeIdentifier;
+    v27 = 2112;
+    v28 = settingsContainerIdentifier;
+    v29 = 2112;
+    v30 = v8;
     _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Adapter subscribes to media system settings, home identifier: %@, media system identifier: %@, key paths: %@", buf, 0x2Au);
   }
 
@@ -2322,23 +2284,21 @@ void __72__HMAccessorySettingsAdapter_updateWithKeyPath_value_completionHandler_
   accessoryDataSource = [(HMAccessorySettingsAdapter *)selfCopy accessoryDataSource];
   homeIdentifier2 = [(HMAccessorySettingsAdapter *)selfCopy homeIdentifier];
   settingsContainerIdentifier2 = [(HMAccessorySettingsAdapter *)selfCopy settingsContainerIdentifier];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __76__HMAccessorySettingsAdapter__configureForMediaSystemWithCompletionHandler___block_invoke;
-  v21[3] = &unk_1E754D898;
-  v21[4] = selfCopy;
-  v22 = v8;
-  v23 = handlerCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __76__HMAccessorySettingsAdapter__configureForMediaSystemWithCompletionHandler___block_invoke;
+  v20[3] = &unk_1E754D898;
+  v20[4] = selfCopy;
+  v21 = v8;
+  v22 = handlerCopy;
   v18 = handlerCopy;
   v19 = v8;
-  [accessoryDataSource subscribeToMediaSystemSettingsWithHomeIdentifier:homeIdentifier2 mediaSystemIdentifier:settingsContainerIdentifier2 keyPaths:v19 options:0 completionHandler:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [accessoryDataSource subscribeToMediaSystemSettingsWithHomeIdentifier:homeIdentifier2 mediaSystemIdentifier:settingsContainerIdentifier2 keyPaths:v19 options:0 completionHandler:v20];
 }
 
 void __76__HMAccessorySettingsAdapter__configureForMediaSystemWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2353,12 +2313,12 @@ void __76__HMAccessorySettingsAdapter__configureForMediaSystemWithCompletionHand
 
     v8 = HMFGetLogIdentifier();
     v9 = *(a1 + 40);
-    v17 = 138543874;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v3;
+    v16 = 138543874;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v3;
     v10 = "%{public}@Failed to subscribe to media system settings with key paths: %@ :%@";
     v11 = v7;
     v12 = OS_LOG_TYPE_ERROR;
@@ -2374,17 +2334,17 @@ void __76__HMAccessorySettingsAdapter__configureForMediaSystemWithCompletionHand
 
     v8 = HMFGetLogIdentifier();
     v14 = *(a1 + 40);
-    v17 = 138543618;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v14;
+    v16 = 138543618;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v14;
     v10 = "%{public}@Successfully subscribed to media system settings with key paths: %@";
     v11 = v7;
     v12 = OS_LOG_TYPE_INFO;
     v13 = 22;
   }
 
-  _os_log_impl(&dword_19BB39000, v11, v12, v10, &v17, v13);
+  _os_log_impl(&dword_19BB39000, v11, v12, v10, &v16, v13);
 
 LABEL_7:
   objc_autoreleasePoolPop(v4);
@@ -2393,13 +2353,11 @@ LABEL_7:
   {
     (*(v15 + 16))(v15, v3);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_configureForAccessoryWithCompletionHandler:(id)handler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   defaultSettings = [objc_opt_class() defaultSettings];
   allKeys = [defaultSettings allKeys];
@@ -2416,13 +2374,13 @@ LABEL_7:
     homeIdentifier = [(HMAccessorySettingsAdapter *)selfCopy homeIdentifier];
     settingsContainerIdentifier = [(HMAccessorySettingsAdapter *)selfCopy settingsContainerIdentifier];
     *buf = 138544130;
-    v25 = v12;
-    v26 = 2112;
-    v27 = homeIdentifier;
-    v28 = 2112;
-    v29 = settingsContainerIdentifier;
-    v30 = 2112;
-    v31 = v8;
+    v24 = v12;
+    v25 = 2112;
+    v26 = homeIdentifier;
+    v27 = 2112;
+    v28 = settingsContainerIdentifier;
+    v29 = 2112;
+    v30 = v8;
     _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Adapter subscribes to accessory settings, home identifier: %@, accessory identifier: %@, key paths: %@\a", buf, 0x2Au);
   }
 
@@ -2430,23 +2388,21 @@ LABEL_7:
   accessoryDataSource = [(HMAccessorySettingsAdapter *)selfCopy accessoryDataSource];
   homeIdentifier2 = [(HMAccessorySettingsAdapter *)selfCopy homeIdentifier];
   settingsContainerIdentifier2 = [(HMAccessorySettingsAdapter *)selfCopy settingsContainerIdentifier];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __74__HMAccessorySettingsAdapter__configureForAccessoryWithCompletionHandler___block_invoke;
-  v21[3] = &unk_1E754D898;
-  v21[4] = selfCopy;
-  v22 = v8;
-  v23 = handlerCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __74__HMAccessorySettingsAdapter__configureForAccessoryWithCompletionHandler___block_invoke;
+  v20[3] = &unk_1E754D898;
+  v20[4] = selfCopy;
+  v21 = v8;
+  v22 = handlerCopy;
   v18 = handlerCopy;
   v19 = v8;
-  [accessoryDataSource subscribeToAccessorySettingsWithHomeIdentifier:homeIdentifier2 accessoryIdentifier:settingsContainerIdentifier2 keyPaths:v19 options:0 completionHandler:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [accessoryDataSource subscribeToAccessorySettingsWithHomeIdentifier:homeIdentifier2 accessoryIdentifier:settingsContainerIdentifier2 keyPaths:v19 options:0 completionHandler:v20];
 }
 
 void __74__HMAccessorySettingsAdapter__configureForAccessoryWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2461,12 +2417,12 @@ void __74__HMAccessorySettingsAdapter__configureForAccessoryWithCompletionHandle
 
     v8 = HMFGetLogIdentifier();
     v9 = *(a1 + 40);
-    v17 = 138543874;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v3;
+    v16 = 138543874;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v3;
     v10 = "%{public}@Failed to subscribe to the accessory settings with key paths: %@ :%@";
     v11 = v7;
     v12 = OS_LOG_TYPE_ERROR;
@@ -2482,17 +2438,17 @@ void __74__HMAccessorySettingsAdapter__configureForAccessoryWithCompletionHandle
 
     v8 = HMFGetLogIdentifier();
     v14 = *(a1 + 40);
-    v17 = 138543618;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v14;
+    v16 = 138543618;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v14;
     v10 = "%{public}@Successfully subscribed to the accessory settings with key paths: %@";
     v11 = v7;
     v12 = OS_LOG_TYPE_INFO;
     v13 = 22;
   }
 
-  _os_log_impl(&dword_19BB39000, v11, v12, v10, &v17, v13);
+  _os_log_impl(&dword_19BB39000, v11, v12, v10, &v16, v13);
 
 LABEL_7:
   objc_autoreleasePoolPop(v4);
@@ -2501,8 +2457,6 @@ LABEL_7:
   {
     (*(v15 + 16))(v15, v3);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unconfigure
@@ -2527,7 +2481,7 @@ LABEL_7:
 
 void __61__HMAccessorySettingsAdapter_configureWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) createRootSettingGroup];
   v2 = *(a1 + 32);
   v3 = [v2 accessoryDataSource];
@@ -2538,45 +2492,41 @@ void __61__HMAccessorySettingsAdapter_configureWithCompletionHandler___block_inv
   if (v4 == 1)
   {
     v6 = *(a1 + 40);
-    v7 = *MEMORY[0x1E69E9840];
 
     [v5 _configureForAccessoryWithCompletionHandler:v6];
   }
 
   else if ([v5 containerType] == 2)
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = *MEMORY[0x1E69E9840];
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
 
-    [v8 _configureForMediaSystemWithCompletionHandler:v9];
+    [v7 _configureForMediaSystemWithCompletionHandler:v8];
   }
 
   else
   {
-    v11 = objc_autoreleasePoolPush();
-    v12 = *(a1 + 32);
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v9 = objc_autoreleasePoolPush();
+    v10 = *(a1 + 32);
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = HMFGetLogIdentifier();
-      v15 = [*(a1 + 32) settingsContainer];
-      v19 = 138543618;
-      v20 = v14;
-      v21 = 2112;
-      v22 = v15;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unknown settings container: %@", &v19, 0x16u);
+      v12 = HMFGetLogIdentifier();
+      v13 = [*(a1 + 32) settingsContainer];
+      v16 = 138543618;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unknown settings container: %@", &v16, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v11);
-    v16 = *(a1 + 40);
-    if (v16)
+    objc_autoreleasePoolPop(v9);
+    v14 = *(a1 + 40);
+    if (v14)
     {
-      v17 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:3 reason:@"Unknown settings container" suggestion:@"Only accessory or media system can be container"];
-      (*(v16 + 16))(v16, v17);
+      v15 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:3 reason:@"Unknown settings container" suggestion:@"Only accessory or media system can be container"];
+      (*(v14 + 16))(v14, v15);
     }
-
-    v18 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -2634,12 +2584,11 @@ void __61__HMAccessorySettingsAdapter_configureWithCompletionHandler___block_inv
 
 uint64_t __41__HMAccessorySettingsAdapter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v65;
-  logCategory__hmf_once_v65 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v65;
+  logCategory__hmf_once_v65 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)scaleDownNumberSettingValue:(id)value

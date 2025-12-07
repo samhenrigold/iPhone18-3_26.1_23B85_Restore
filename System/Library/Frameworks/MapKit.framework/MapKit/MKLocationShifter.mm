@@ -3,40 +3,40 @@
 
 @implementation MKLocationShifter
 
-void __91___MKLocationShifter__prepareShiftForLocation_withCompletionHandler_withShiftRequestBlock___block_invoke(uint64_t a1, double a2, double a3)
+void __91___MKLocationShifter__prepareShiftForLocation_withCompletionHandler_withShiftRequestBlock___block_invoke(uint64_t a1, const char *a2, double a3, double a4)
 {
-  v15 = 0u;
-  memset(v16, 0, 60);
-  memset(v14, 0, sizeof(v14));
-  v13 = 0u;
-  memset(&v12[2], 0, 32);
-  v6 = *(a1 + 32);
-  if (v6)
+  v16 = 0u;
+  memset(v17, 0, 60);
+  memset(v15, 0, sizeof(v15));
+  v14 = 0u;
+  memset(&v13[2], 0, 32);
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    [v6 clientLocation];
-    v6 = *(a1 + 32);
+    objc_msgSend_clientLocation(v7, a2);
+    v7 = *(a1 + 32);
   }
 
-  *(&v12[2] + 4) = a2;
-  *(&v12[2] + 12) = a3;
-  [v6 rawCourse];
-  *(v14 + 12) = v7;
-  *(v16 + 4) = a2;
-  *(v16 + 12) = a3;
-  DWORD1(v16[2]) = 2;
-  v8 = objc_alloc(MEMORY[0x1E6985C40]);
-  v9 = [*(a1 + 32) coarseMetaData];
-  v11[6] = v16[0];
-  v11[7] = v16[1];
-  v12[0] = v16[2];
-  *(v12 + 12) = *(&v16[2] + 12);
-  v11[2] = v13;
-  v11[3] = v14[0];
-  v11[4] = v14[1];
-  v11[5] = v15;
-  v11[0] = v12[2];
-  v11[1] = v12[3];
-  v10 = [v8 initWithClientLocation:v11 coarseMetaData:v9];
+  *(&v13[2] + 4) = a3;
+  *(&v13[2] + 12) = a4;
+  [v7 rawCourse];
+  *(v15 + 12) = v8;
+  *(v17 + 4) = a3;
+  *(v17 + 12) = a4;
+  DWORD1(v17[2]) = 2;
+  v9 = objc_alloc(MEMORY[0x1E6985C40]);
+  v10 = [*(a1 + 32) coarseMetaData];
+  v12[6] = v17[0];
+  v12[7] = v17[1];
+  v13[0] = v17[2];
+  *(v13 + 12) = *(&v17[2] + 12);
+  v12[2] = v14;
+  v12[3] = v15[0];
+  v12[4] = v15[1];
+  v12[5] = v16;
+  v12[0] = v13[2];
+  v12[1] = v13[3];
+  v11 = [v9 initWithClientLocation:v12 coarseMetaData:v10];
 
   (*(*(a1 + 40) + 16))();
 }

@@ -1,6 +1,7 @@
 @interface MFIMAPCommandPipeline
 - (id)failureResponsesFromSendingCommandsWithConnection:(id)connection;
 - (void)_removeFetchUnitMatchingResponse:(id)response;
+- (void)addFetchCommandForUid:(unsigned int)uid fetchItem:(id)item expectedLength:(unint64_t)length bodyDataConsumer:(id)consumer consumerSection:(id)section;
 - (void)dealloc;
 @end
 
@@ -11,6 +12,40 @@
   v3.receiver = self;
   v3.super_class = MFIMAPCommandPipeline;
   [(MFIMAPCommandPipeline *)&v3 dealloc];
+}
+
+- (void)addFetchCommandForUid:(unsigned int)uid fetchItem:(id)item expectedLength:(unint64_t)length bodyDataConsumer:(id)consumer consumerSection:(id)section
+{
+  v11 = *&uid;
+  [(MFIMAPCommandPipeline *)self mf_lock];
+  if (!self->_fetchUnits)
+  {
+    self->_fetchUnits = objc_alloc_init(MEMORY[0x277CBEB18]);
+  }
+
+  v13 = objc_alloc_init(_MFIMAPFetchUnit);
+  [(_MFIMAPFetchUnit *)v13 setUid:v11];
+  [(_MFIMAPFetchUnit *)v13 setFetchItem:item];
+  [(_MFIMAPFetchUnit *)v13 setBodyDataConsumer:consumer];
+  [(_MFIMAPFetchUnit *)v13 setConsumerSection:section];
+  [(NSMutableArray *)self->_fetchUnits addObject:v13];
+
+  chunkSize = self->_chunkSize;
+  v15 = self->_expectedSize + length;
+  self->_expectedSize = v15;
+  if (v15 < chunkSize)
+  {
+    v16 = *(self + 24) & 0xFE;
+  }
+
+  else
+  {
+    v16 = (*(self + 24) & 0xFE) + 1;
+  }
+
+  *(self + 24) = v16;
+
+  [(MFIMAPCommandPipeline *)self mf_unlock];
 }
 
 - (void)_removeFetchUnitMatchingResponse:(id)response
@@ -37,7 +72,7 @@
 
 - (id)failureResponsesFromSendingCommandsWithConnection:(id)connection
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   [(MFIMAPCommandPipeline *)self mf_lock];
   v5 = [(NSMutableArray *)self->_fetchUnits count];
   if (!v5)
@@ -49,7 +84,7 @@
 
   v6 = v5;
   connectionCopy = connection;
-  v38 = 0;
+  v37 = 0;
   v7 = 0;
   v8 = 0;
   for (i = 0; i < v6; ++i)
@@ -57,7 +92,7 @@
     connectionCopy = [(NSMutableArray *)self->_fetchUnits objectAtIndex:i, connectionCopy];
     v11 = [connectionCopy uid];
     fetchItem = [connectionCopy fetchItem];
-    v39 = v8;
+    v38 = v8;
     if ([connectionCopy bodyDataConsumer] && objc_msgSend(connectionCopy, "consumerSection"))
     {
       v13 = objc_alloc_init(MFIMAPResponseConsumer);
@@ -113,7 +148,7 @@
       while (v6 != v14);
     }
 
-    if (v39 != v38)
+    if (v38 != v37)
     {
       if (!v15)
       {
@@ -126,12 +161,12 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    v17 = v39 + 16;
-    v38 = v39 + 16;
+    v17 = v38 + 16;
+    v37 = v38 + 16;
     if (v7)
     {
       v7 = malloc_type_realloc(v7, 40 * v17, 0x1080040706A240DuLL);
-      bzero(&v7[40 * v39], 0x280uLL);
+      bzero(&v7[40 * v38], 0x280uLL);
       if (v15)
       {
         goto LABEL_26;
@@ -148,21 +183,21 @@ LABEL_26:
     }
 
 LABEL_27:
-    v18 = &v7[40 * v39];
+    v18 = &v7[40 * v38];
     *v18 = 21;
     *(v18 + 4) = v13;
-    v45[0] = EFStringWithInt();
-    v45[1] = fetchItem;
-    *(v18 + 1) = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:v45 count:2];
+    v44[0] = EFStringWithInt();
+    v44[1] = fetchItem;
+    *(v18 + 1) = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:v44 count:2];
     if (v15)
     {
     }
 
-    v8 = v39 + 1;
+    v8 = v38 + 1;
   }
 
   v19 = v7;
-  if (v39 != -1)
+  if (v38 != -1)
   {
     *(self + 24) |= 2u;
     [connectionCopy mf_lock];
@@ -175,32 +210,32 @@ LABEL_27:
     do
     {
       v23 = *&v7[40 * v21 + 16];
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
-      v24 = [v23 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v24 = [v23 countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v41;
+        v26 = *v40;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v41 != v26)
+            if (*v40 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v40 + 1) + 8 * j);
+            v28 = *(*(&v39 + 1) + 8 * j);
             if ([v28 isUntagged] && objc_msgSend(v28, "responseType") == 17)
             {
               [(MFIMAPCommandPipeline *)self _removeFetchUnitMatchingResponse:v28];
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v39 objects:v43 count:16];
         }
 
         while (v25);
@@ -267,9 +302,7 @@ LABEL_49:
     fetchUnits = 0;
   }
 
-  result = fetchUnits;
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
+  return fetchUnits;
 }
 
 @end

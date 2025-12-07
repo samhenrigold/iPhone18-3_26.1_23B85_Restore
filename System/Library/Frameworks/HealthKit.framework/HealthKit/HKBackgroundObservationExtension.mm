@@ -9,27 +9,28 @@
 
 - (HKBackgroundObservationExtension)init
 {
-  v11.receiver = self;
-  v11.super_class = HKBackgroundObservationExtension;
-  v2 = [(HKBackgroundObservationExtension *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = HKBackgroundObservationExtension;
+  v2 = [(HKBackgroundObservationExtension *)&v13 init];
   if (v2)
   {
     v3 = objc_opt_class();
     v4 = objc_opt_class();
     InstanceMethod = class_getInstanceMethod(v4, sel_beginRequestWithExtensionContext_);
-    if (InstanceMethod != class_getInstanceMethod(v3, sel_beginRequestWithExtensionContext_))
+    v6 = class_getInstanceMethod(v3, sel_beginRequestWithExtensionContext_);
+    if (InstanceMethod != v6)
     {
-      _HKInitializeLogging();
-      v6 = HKLogBackgroundUpdates;
+      _HKInitializeLogging(v6, v7);
+      v8 = HKLogBackgroundUpdates;
       if (os_log_type_enabled(HKLogBackgroundUpdates, OS_LOG_TYPE_ERROR))
       {
-        [(HKBackgroundObservationExtension *)v6 init];
+        [(HKBackgroundObservationExtension *)v8 init];
       }
 
-      v7 = MEMORY[0x1E695DF30];
-      v8 = *MEMORY[0x1E695D920];
-      v9 = NSStringFromClass(v3);
-      [v7 raise:v8 format:{@"You have overridden 'beginRequestWithExtensionContext:' on your subclass (%@) - this is not allowed", v9}];
+      v9 = MEMORY[0x1E695DF30];
+      v10 = *MEMORY[0x1E695D920];
+      v11 = NSStringFromClass(v3);
+      [v9 raise:v10 format:{@"You have overridden 'beginRequestWithExtensionContext:' on your subclass (%@) - this is not allowed", v11}];
     }
   }
 
@@ -48,11 +49,11 @@
     [HKBackgroundObservationExtension didReceiveUpdateForSampleType:a2 completionHandler:self];
   }
 
-  _HKInitializeLogging();
-  v10 = HKLogBackgroundUpdates;
+  _HKInitializeLogging(v10, v11);
+  v12 = HKLogBackgroundUpdates;
   if (os_log_type_enabled(HKLogBackgroundUpdates, OS_LOG_TYPE_DEBUG))
   {
-    [HKBackgroundObservationExtension didReceiveUpdateForSampleType:v10 completionHandler:?];
+    [HKBackgroundObservationExtension didReceiveUpdateForSampleType:v12 completionHandler:?];
   }
 
   handlerCopy[2](handlerCopy);
@@ -60,7 +61,7 @@
 
 - (void)backgroundObservationExtensionTimeWillExpire
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(self, a2);
   v2 = HKLogBackgroundUpdates;
   if (os_log_type_enabled(HKLogBackgroundUpdates, OS_LOG_TYPE_DEBUG))
   {

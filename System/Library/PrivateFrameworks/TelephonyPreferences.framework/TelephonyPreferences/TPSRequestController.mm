@@ -162,32 +162,32 @@ uint64_t __35__TPSRequestController_addRequest___block_invoke(uint64_t a1)
 
 - (void)postResponse:(id)response
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   serialDispatchQueue = [(TPSRequestController *)self serialDispatchQueue];
   dispatch_assert_queue_V2(serialDispatchQueue);
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = [(TPSRequestController *)self delegateToQueue];
-  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       v9 = 0;
       do
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * v9);
+        v10 = *(*(&v20 + 1) + 8 * v9);
         delegateToQueue = [(TPSRequestController *)self delegateToQueue];
         v12 = [delegateToQueue objectForKey:v10];
 
@@ -197,14 +197,14 @@ uint64_t __35__TPSRequestController_addRequest___block_invoke(uint64_t a1)
         block[3] = &unk_2782E3888;
         block[4] = v10;
         block[5] = self;
-        v20 = responseCopy;
+        v19 = responseCopy;
         dispatch_async(v12, block);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -220,21 +220,18 @@ uint64_t __35__TPSRequestController_addRequest___block_invoke(uint64_t a1)
     [(TPSRequestController *)self setPendingRequest:0];
     [(TPSRequestController *)self execute];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__TPSRequestController_postResponse___block_invoke(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 requestController:v5 didReceiveResponse:v6];
+    return [v3 requestController:v4 didReceiveResponse:v5];
   }
 
   return result;

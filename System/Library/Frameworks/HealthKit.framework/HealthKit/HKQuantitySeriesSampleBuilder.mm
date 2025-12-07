@@ -197,9 +197,10 @@
 void __40__HKQuantitySeriesSampleBuilder_discard__block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
       __40__HKQuantitySeriesSampleBuilder_discard__block_invoke_cold_1(a1);
@@ -290,22 +291,23 @@ void __68__HKQuantitySeriesSampleBuilder__insertQuantity_dateInterval_error___bl
 void __68__HKQuantitySeriesSampleBuilder__insertQuantity_dateInterval_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEBUG))
     {
       __68__HKQuantitySeriesSampleBuilder__insertQuantity_dateInterval_error___block_invoke_2_cold_1(a1);
     }
 
-    [*(a1 + 32) _changeStateForFatalError:v5];
+    [*(a1 + 32) _changeStateForFatalError:v7];
   }
 
-  v6 = _Block_copy(*(*(a1 + 32) + 96));
-  v7 = v6;
-  if (v6)
+  v8 = _Block_copy(*(*(a1 + 32) + 96));
+  v9 = v8;
+  if (v8)
   {
-    (*(v6 + 2))(v6, a2, v5);
+    (*(v8 + 2))(v8, a2, v7);
   }
 }
 
@@ -369,9 +371,10 @@ void __78__HKQuantitySeriesSampleBuilder__finishSeriesWithMetadata_endDate_compl
 - (void)_discardWithCompletion:(id)completion
 {
   v4 = [(HKProxyProvider *)self->_proxyProvider clientQueueActionHandlerWithCompletion:completion];
-  v7 = 0;
-  v5 = [(HKQuantitySeriesSampleBuilder *)self _changeStateForDiscardWithError:&v7];
-  v6 = v7;
+  v9 = 0;
+  v5 = [(HKQuantitySeriesSampleBuilder *)self _changeStateForDiscardWithError:&v9];
+  v6 = v9;
+  v8 = v6;
   if (v5)
   {
     [(HKQuantitySeriesSampleBuilder *)self _taskServer_discardWithCompletion:v4];
@@ -379,13 +382,13 @@ void __78__HKQuantitySeriesSampleBuilder__finishSeriesWithMetadata_endDate_compl
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v6, v7);
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
       [HKQuantitySeriesSampleBuilder _discardWithCompletion:?];
     }
 
-    (v4)[2](v4, 0, v6);
+    (v4)[2](v4, 0, v8);
   }
 }
 
@@ -564,7 +567,7 @@ LABEL_12:
     v7 = *(v6 + 40);
     *(v6 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v7);
   }
 
   if (v3)
@@ -675,7 +678,7 @@ LABEL_12:
     v7 = *(v6 + 40);
     *(v6 + 40) = v4;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v4, v7);
     return;
   }
 
@@ -787,7 +790,7 @@ LABEL_12:
     v7 = *(v6 + 40);
     *(v6 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v7);
   }
 
   if (v3 < 2)
@@ -950,33 +953,28 @@ void __59__HKQuantitySeriesSampleBuilder__changeStateForFatalError___block_invok
 
 void __40__HKQuantitySeriesSampleBuilder_discard__block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "%{public}@: error discarding quantity sample series builder: %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "%{public}@: error discarding quantity sample series builder: %{public}@", v3, DWORD2(v3));
 }
 
 void __68__HKQuantitySeriesSampleBuilder__insertQuantity_dateInterval_error___block_invoke_2_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v4 = 138543618;
-  v5 = v1;
+  v3 = 138543618;
+  v4 = v1;
   OUTLINED_FUNCTION_0_10();
-  _os_log_debug_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEBUG, "%{public}@: error inserting quantity: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEBUG, "%{public}@: error inserting quantity: %{public}@", &v3, 0x16u);
 }
 
 - (void)_discardWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "%{public}@: cannot discard quantity sample series builder: %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "%{public}@: cannot discard quantity sample series builder: %{public}@", v3, DWORD2(v3));
 }
 
 @end

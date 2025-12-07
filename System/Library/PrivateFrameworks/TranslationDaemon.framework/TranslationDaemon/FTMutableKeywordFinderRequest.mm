@@ -2,6 +2,7 @@
 - (BOOL)enable_sanitization;
 - (FTMutableKeywordFinderRequest)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setEnable_sanitization:(BOOL)enable_sanitization;
 - (void)setKeywords:(id)keywords;
 - (void)setLanguage:(id)language;
 - (void)setRecognition_result:(id)recognition_result;
@@ -72,6 +73,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setEnable_sanitization:(BOOL)enable_sanitization
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:enable_sanitization];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

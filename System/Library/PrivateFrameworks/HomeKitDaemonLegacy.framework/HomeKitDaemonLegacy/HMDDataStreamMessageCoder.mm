@@ -9,43 +9,63 @@
 + (id)_encryptEncryptedOPACKHeader:(id)header payload:(id)payload sessionEncryption:(id)encryption error:(id *)error;
 + (id)eventHeaderForProtocol:(id)protocol topic:(id)topic;
 + (id)requestHeaderForProtocol:(id)protocol topic:(id)topic identifier:(id)identifier;
++ (id)responseHeaderForRequestHeader:(id)header status:(unsigned __int16)status;
 @end
 
 @implementation HMDDataStreamMessageCoder
 
++ (id)responseHeaderForRequestHeader:(id)header status:(unsigned __int16)status
+{
+  statusCopy = status;
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = @"protocol";
+  headerCopy = header;
+  v6 = [headerCopy objectForKeyedSubscript:@"protocol"];
+  v13[0] = v6;
+  v12[1] = @"response";
+  v7 = [headerCopy objectForKeyedSubscript:@"request"];
+  v13[1] = v7;
+  v12[2] = @"id";
+  v8 = [headerCopy objectForKeyedSubscript:?];
+
+  v13[2] = v8;
+  v12[3] = @"status";
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:statusCopy];
+  v13[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+
+  return v10;
+}
+
 + (id)requestHeaderForProtocol:(id)protocol topic:(id)topic identifier:(id)identifier
 {
-  v15[3] = *MEMORY[0x277D85DE8];
-  v14[0] = @"protocol";
-  v14[1] = @"request";
-  v15[0] = protocol;
-  v15[1] = topic;
-  v14[2] = @"id";
-  v15[2] = identifier;
+  v14[3] = *MEMORY[0x277D85DE8];
+  v13[0] = @"protocol";
+  v13[1] = @"request";
+  v14[0] = protocol;
+  v14[1] = topic;
+  v13[2] = @"id";
+  v14[2] = identifier;
   v7 = MEMORY[0x277CBEAC0];
   identifierCopy = identifier;
   topicCopy = topic;
   protocolCopy = protocol;
-  v11 = [v7 dictionaryWithObjects:v15 forKeys:v14 count:3];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [v7 dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   return v11;
 }
 
 + (id)eventHeaderForProtocol:(id)protocol topic:(id)topic
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"protocol";
-  v11[1] = @"event";
-  v12[0] = protocol;
-  v12[1] = topic;
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = @"protocol";
+  v10[1] = @"event";
+  v11[0] = protocol;
+  v11[1] = topic;
   v5 = MEMORY[0x277CBEAC0];
   topicCopy = topic;
   protocolCopy = protocol;
-  v8 = [v5 dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = [v5 dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }
@@ -280,23 +300,22 @@ LABEL_20:
 
   if (v11 && v11 - 1 >= *bytes)
   {
-    v13 = *bytes;
-    v14 = OPACKDecodeBytes();
-    if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v13 = OPACKDecodeBytes();
+    if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v15 = OPACKDecodeBytes();
-      if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      v14 = OPACKDecodeBytes();
+      if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         if (header)
         {
-          v16 = v14;
-          *header = v14;
+          v15 = v13;
+          *header = v13;
         }
 
         if (payload)
         {
-          v17 = v15;
-          *payload = v15;
+          v16 = v14;
+          *payload = v14;
         }
 
         v12 = 1;

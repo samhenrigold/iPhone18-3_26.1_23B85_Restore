@@ -478,9 +478,9 @@ LABEL_9:
       goto LABEL_32;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_33;
     }
@@ -501,7 +501,7 @@ LABEL_9:
       goto LABEL_32;
     }
 
-    v13 = [(NSString *)v6 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v6);
 
     if (!v13)
     {
@@ -524,7 +524,7 @@ LABEL_9:
       goto LABEL_32;
     }
 
-    v16 = [(NSString *)v6 isEqualToString:v15];
+    v16 = objc_msgSend_isEqualToString_(v6);
 
     if (!v16)
     {
@@ -547,7 +547,7 @@ LABEL_9:
       goto LABEL_32;
     }
 
-    v19 = [(NSString *)v6 isEqualToString:v18];
+    v19 = objc_msgSend_isEqualToString_(v6);
 
     if (!v19)
     {
@@ -572,7 +572,7 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v22 = [(NSString *)v6 isEqualToString:v21];
+  v22 = objc_msgSend_isEqualToString_(v6);
 
   if (!v22)
   {
@@ -700,7 +700,7 @@ LABEL_34:
   v11 = v10;
   if (v9 == v10)
   {
-    v13 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -717,16 +717,16 @@ LABEL_34:
 
     if (v12)
     {
-      v13 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v13 = [v9 isEqualToString:v10];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
     }
   }
 
-  return v13;
+  return isEqualToString;
 }
 
 - (id)signedData
@@ -762,7 +762,7 @@ LABEL_34:
         }
 
         v11 = *(*(&v22 + 1) + 8 * i);
-        if ([v11 isEqualToString:{@"nonce", v22}])
+        if (objc_msgSend_isEqualToString_(v11, v22))
         {
           pk_decodeHexadecimal = [(NSString *)self->_nonce pk_decodeHexadecimal];
 LABEL_11:
@@ -770,7 +770,7 @@ LABEL_11:
           goto LABEL_13;
         }
 
-        if ([v11 isEqualToString:@"ampEnrollmentPinning"])
+        if (objc_msgSend_isEqualToString_(v11))
         {
           pk_decodeHexadecimal = self->_ampEnrollmentPinning;
           goto LABEL_11;

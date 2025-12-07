@@ -77,24 +77,22 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v10[9] = *MEMORY[0x1E69E9840];
+  v9[9] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v9.receiver = self;
-  v9.super_class = MTLFunctionStitchingInputBufferAddress;
-  v6 = [(MTLFunctionStitchingInputBufferAddress *)&v9 description];
-  v10[0] = v4;
-  v10[1] = @"bind index = ";
-  v10[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_bindIndex];
-  v10[3] = v4;
-  v10[4] = @"byte offset = ";
-  v10[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_byteOffset];
-  v10[6] = v4;
-  v10[7] = @"dereference = ";
-  v10[8] = [MEMORY[0x1E696AD98] numberWithBool:self->_dereference];
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v10, 9), "componentsJoinedByString:", @" "];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v8.receiver = self;
+  v8.super_class = MTLFunctionStitchingInputBufferAddress;
+  v6 = [(MTLFunctionStitchingInputBufferAddress *)&v8 description];
+  v9[0] = v4;
+  v9[1] = @"bind index = ";
+  v9[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_bindIndex];
+  v9[3] = v4;
+  v9[4] = @"byte offset = ";
+  v9[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_byteOffset];
+  v9[6] = v4;
+  v9[7] = @"dereference = ";
+  v9[8] = [MEMORY[0x1E696AD98] numberWithBool:self->_dereference];
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v9, 9), "componentsJoinedByString:", @" "];
 }
 
 @end

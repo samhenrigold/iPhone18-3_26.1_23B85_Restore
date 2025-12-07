@@ -76,10 +76,10 @@
 
 - (MTLGPUBVHBuilder)initWithDevice:(id)device
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = MTLGPUBVHBuilder;
-  v4 = [(MTLBVHBuilder *)&v13 init];
+  v16 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = MTLGPUBVHBuilder;
+  v4 = [(MTLBVHBuilder *)&v12 init];
   if (v4)
   {
     *(v4 + 1) = device;
@@ -137,33 +137,32 @@
     v4[10] = 64;
     v4[11] = getDispatchBinsSmallTGSize(device);
     *(v4 + 48) = [device supportsFamily:1006];
-    v12 = 0;
-    *(v4 + 7) = [device newLibraryWithURL:objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8] error:{"bundleForClass:", objc_opt_class()), "URLForResource:withExtension:", @"MTLBVHBuilder", @"metallib", &v12}];
+    v11 = 0;
+    *(v4 + 7) = [device newLibraryWithURL:objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8] error:{"bundleForClass:", objc_opt_class()), "URLForResource:withExtension:", @"MTLBVHBuilder", @"metallib", &v11}];
     *(v4 + 13) = v4[4];
-    *&v14 = &unk_1EF474C18;
-    *(&v14 + 1) = v4;
-    v16 = &v14;
-    std::__function::__value_func<objc_object  {objcproto23MTLComputePipelineState}* ()(PipelineKey const&)>::swap[abi:ne200100](&v14, v4 + 14);
-    std::__function::__value_func<objc_object  {objcproto23MTLComputePipelineState}* ()(PipelineKey const&)>::~__value_func[abi:ne200100](&v14);
+    *&v13 = &unk_1EF474C18;
+    *(&v13 + 1) = v4;
+    v15 = &v13;
+    std::__function::__value_func<objc_object  {objcproto23MTLComputePipelineState}* ()(PipelineKey const&)>::swap[abi:ne200100](&v13, v4 + 14);
+    std::__function::__value_func<objc_object  {objcproto23MTLComputePipelineState}* ()(PipelineKey const&)>::~__value_func[abi:ne200100](&v13);
     v8 = *(v4 + 1);
     if (v8)
     {
-      [v8 maxThreadsPerThreadgroup];
+      objc_msgSend_maxThreadsPerThreadgroup(v8);
     }
 
     else
     {
-      v14 = 0uLL;
-      v15 = 0;
+      v13 = 0uLL;
+      v14 = 0;
     }
 
-    v9 = v15;
-    *(v4 + 38) = v14;
+    v9 = v14;
+    *(v4 + 38) = v13;
     *(v4 + 21) = v9;
     [v4 initPipelinesWithDevice:device];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -572,12 +571,12 @@
 
 - (void)setResourceBufferWithDescriptor:(id)descriptor retainedResources:(id)resources onEncoder:(id)encoder atIndex:(unint64_t)index
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   geometryDescriptors = [descriptor geometryDescriptors];
   primitiveMotion = [descriptor primitiveMotion];
   v13 = [geometryDescriptors count];
-  v23 = 0;
-  v14 = computeResourceBufferLength(primitiveMotion, &v23, v13, geometryDescriptors);
+  v21 = 0;
+  v14 = computeResourceBufferLength(primitiveMotion, &v21, v13, geometryDescriptors);
   v15 = v14;
   if (v13 > 0x10)
   {
@@ -591,30 +590,28 @@
 
   if (v16)
   {
-    v22 = [(MTLDevice *)self->_device newBufferWithLength:v14 options:0];
-    contents = [v22 contents];
+    v20 = [(MTLDevice *)self->_device newBufferWithLength:v14 options:0];
+    contents = [v20 contents];
   }
 
   else
   {
-    contents = &v21 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+    contents = &v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(contents, v14);
-    v22 = 0;
+    v20 = 0;
   }
 
-  setResourceBufferContents(contents, primitiveMotion, v23, v13, geometryDescriptors, [v22 gpuAddress]);
+  setResourceBufferContents(contents, primitiveMotion, v21, v13, geometryDescriptors, [v20 gpuAddress]);
   if (v16)
   {
-    [encoder setBuffer:v22 offset:0 atIndex:index];
-    [resources addObject:v22];
-    v18 = *MEMORY[0x1E69E9840];
-    v19 = v22;
+    [encoder setBuffer:v20 offset:0 atIndex:index];
+    [resources addObject:v20];
+    v18 = v20;
   }
 
   else
   {
     [encoder setBytes:contents length:v15 atIndex:index];
-    v20 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1848,22 +1845,22 @@ LABEL_87:
 
 - (void)buildWithEncoder:(id)encoder descriptor:(id)descriptor scratchBuffer:(id)buffer scratchBufferOffset:(unint64_t)offset fragmentBuffer:(id)fragmentBuffer fragmentBufferOffset:(unint64_t)bufferOffset fragmentIndexBuffer0:(id)buffer0 fragmentIndexBuffer0Offset:(unint64_t)self0 nodeBuffer:(id)self1 nodeBufferOffset:(unint64_t)self2 childIndexBuffer:(id)self3 childIndexBufferOffset:(unint64_t)self4 counterBuffer:(id)self5 counterBufferOffset:(unint64_t)self6 fragmentCountBuffer:(id)self7 fragmentCountBufferOffset:(unint64_t)self8 boundsMinBuffer:(id)self9 boundsMinBufferOffset:(unint64_t)minBufferOffset boundsMaxBuffer:(id)maxBuffer boundsMaxBufferOffset:(unint64_t)maxBufferOffset boundsEndMinBuffer:(id)endMinBuffer boundsEndMinBufferOffset:(unint64_t)endMinBufferOffset boundsEndMaxBuffer:(id)endMaxBuffer boundsEndMaxBufferOffset:(unint64_t)endMaxBufferOffset boundsEndTimeBuffer:(id)timeBuffer boundsEndTimeBufferOffset:(unint64_t)timeBufferOffset boundsStartTimeBuffer:(id)startTimeBuffer boundsStartTimeBufferOffset:(unint64_t)encoder0 scratchBufferOffsets:(ScratchBufferOffset *)encoder1
 {
-  v307 = *MEMORY[0x1E69E9840];
-  v300 = 0;
-  v299 = 0;
+  v305 = *MEMORY[0x1E69E9840];
   v298 = 0;
   v297 = 0;
   v296 = 0;
-  [(MTLBVHBuilder *)self getCapacitiesForDescriptor:descriptor fragmentCapacity:&v300 fragmentIndexCapacity:&v296 innerNodeCapacity:&v299 leafNodeCapacity:&v298 primitiveDataCapacity:&v297];
+  v295 = 0;
+  v294 = 0;
+  [(MTLBVHBuilder *)self getCapacitiesForDescriptor:descriptor fragmentCapacity:&v298 fragmentIndexCapacity:&v294 innerNodeCapacity:&v297 leafNodeCapacity:&v296 primitiveDataCapacity:&v295];
   var1 = offsets->var1;
   var2 = offsets->var2;
   fragmentCount = [descriptor fragmentCount];
   v35 = 0;
   v36 = 0;
-  if (v296 > 0x2000)
+  if (v294 > 0x2000)
   {
     batchSize = self->_batchSize;
-    v38 = (v296 + batchSize) / (batchSize + 1);
+    v38 = (v294 + batchSize) / (batchSize + 1);
     if (v38 >= 2)
     {
       v35 = 2 * v38;
@@ -1874,28 +1871,28 @@ LABEL_87:
       v35 = 2;
     }
 
-    if ((v296 + batchSize - 1) / batchSize <= 1)
+    if ((v294 + batchSize - 1) / batchSize <= 1)
     {
       v36 = 1;
     }
 
     else
     {
-      v36 = (v296 + batchSize - 1) / batchSize;
+      v36 = (v294 + batchSize - 1) / batchSize;
     }
   }
 
-  v39 = 8 * v298 + 255;
-  v250 = (offset + 255) & 0xFFFFFFFFFFFFFF00;
-  v254 = (v39 + v250) & 0xFFFFFFFFFFFFFF00;
-  v203 = v39 + v254;
-  v204 = v39 + v254 + 768 * v36;
+  v39 = 8 * v296 + 255;
+  v248 = (offset + 255) & 0xFFFFFFFFFFFFFF00;
+  v252 = (v39 + v248) & 0xFFFFFFFFFFFFFF00;
+  v201 = v39 + v252;
+  v202 = v39 + v252 + 768 * v36;
   v40 = 192 * v36 + 255;
-  v205 = (v204 + 768 * v36) & 0xFFFFFFFFFFFFFF00;
-  v206 = (v40 + v205) & 0xFFFFFFFFFFFFFF00;
-  v207 = (v40 + v206) & 0xFFFFFFFFFFFFFF00;
+  v203 = (v202 + 768 * v36) & 0xFFFFFFFFFFFFFF00;
+  v204 = (v40 + v203) & 0xFFFFFFFFFFFFFF00;
+  v205 = (v40 + v204) & 0xFFFFFFFFFFFFFF00;
   v41 = 24 * v35 + 255;
-  v208 = (v40 + v207) & 0xFFFFFFFFFFFFFF00;
+  v206 = (v40 + v205) & 0xFFFFFFFFFFFFFF00;
   [descriptor motion];
   if ([descriptor motion])
   {
@@ -1918,7 +1915,7 @@ LABEL_87:
     v43 = 0;
   }
 
-  v198 = v43;
+  v196 = v43;
   [descriptor motion];
   if ([descriptor motion])
   {
@@ -1930,7 +1927,7 @@ LABEL_87:
     v44 = 0;
   }
 
-  v197 = v44;
+  v195 = v44;
   [descriptor motion];
   if ([descriptor motion])
   {
@@ -1942,13 +1939,13 @@ LABEL_87:
     v45 = 0;
   }
 
-  v196 = v45;
+  v194 = v45;
   [descriptor motion];
   [descriptor motion];
   obj = [descriptor geometryDescriptors];
-  v46 = v296;
-  v240 = [MTLBVHBuilder useTemporalSplitsForDescriptor:descriptor];
-  v222 = v46;
+  v46 = v294;
+  v238 = [MTLBVHBuilder useTemporalSplitsForDescriptor:descriptor];
+  v220 = v46;
   if (v46 <= 0x2000)
   {
     v48 = &OBJC_IVAR___MTLGPUBVHBuilder__dispatchBinsTGSize;
@@ -1961,7 +1958,7 @@ LABEL_87:
     v48 = &OBJC_IVAR___MTLGPUBVHBuilder__dispatchBinsSmallTGSize;
   }
 
-  v243 = *(&self->super.super.isa + *v48);
+  v241 = *(&self->super.super.isa + *v48);
   binningTGSize = self->_binningTGSize;
   spatialBinningTGSize = self->_spatialBinningTGSize;
   splitTGSize = self->_splitTGSize;
@@ -1986,9 +1983,9 @@ LABEL_87:
     [descriptor updatePipelineKey];
   }
 
-  v211 = minPrimitivesPerLeaf;
-  v218 = (v41 + v208) & 0xFFFFFFFFFFFFFF00;
-  v51 = v41 + v218;
+  v209 = minPrimitivesPerLeaf;
+  v216 = (v41 + v206) & 0xFFFFFFFFFFFFFF00;
+  v51 = v41 + v216;
   deterministic = [descriptor deterministic];
   if (maxPrimitivesPerInnerNode)
   {
@@ -2000,302 +1997,302 @@ LABEL_87:
     v52 = 3;
   }
 
-  v294 = v52;
-  v293 = 0;
-  v291 = 0u;
-  v292 = 0u;
-  v237 = dispatchBinsTGSize;
-  PipelineCache<PipelineKey>::getPipelineKey(&self->_pipelineCache, self->KERNEL_INDEX_DISPATCH_BINS, descriptor, dispatchBinsTGSize, &v294, &v291);
+  v292 = v52;
+  v291 = 0;
+  v289 = 0u;
+  v290 = 0u;
+  v235 = dispatchBinsTGSize;
+  PipelineCache<PipelineKey>::getPipelineKey(&self->_pipelineCache, self->KERNEL_INDEX_DISPATCH_BINS, descriptor, dispatchBinsTGSize, &v292, &v289);
   p_pipelineCache = &self->_pipelineCache;
-  Pipeline = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, &v291);
-  v238 = 0;
+  Pipeline = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, &v289);
+  v236 = 0;
   if ([descriptor branchingFactor] != 2)
   {
     KERNEL_INDEX_DISPATCH_BINS_WIDE_low = LOBYTE(self->KERNEL_INDEX_DISPATCH_BINS_WIDE);
-    *v301 = v291;
-    *&v301[16] = v292;
-    *&v301[32] = v293;
-    v54 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_DISPATCH_BINS_WIDE_low;
+    *v299 = v289;
+    *&v299[16] = v290;
+    *&v299[32] = v291;
+    v54 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_DISPATCH_BINS_WIDE_low;
     if (dispatchBinsTGSize)
     {
       v54 = v54 & 0xFFFE1FFFFFFFFFFFLL | ((log2(dispatchBinsTGSize) & 0xFLL) << 45);
     }
 
-    *v301 = v54;
-    v238 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
+    *v299 = v54;
+    v236 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
   }
 
   v55 = v51 & 0xFFFFFFFFFFFFFF00;
   KERNEL_INDEX_DISPATCH_BINS_low = LOBYTE(self->KERNEL_INDEX_DISPATCH_BINS);
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v57 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_DISPATCH_BINS_low;
-  if (v243)
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v57 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_DISPATCH_BINS_low;
+  if (v241)
   {
-    v57 = v57 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v243) & 0xFLL) << 45);
+    v57 = v57 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v241) & 0xFLL) << 45);
   }
 
   v58 = v55 + v42 * v35;
-  *v301 = v57;
-  v241 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
+  *v299 = v57;
+  v239 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
   if ([descriptor branchingFactor] == 2)
   {
-    v242 = 0;
+    v240 = 0;
     v59 = binningTGSize;
   }
 
   else
   {
     v60 = LOBYTE(self->KERNEL_INDEX_DISPATCH_BINS_WIDE);
-    *v301 = v291;
-    *&v301[16] = v292;
-    *&v301[32] = v293;
-    v61 = v291 & 0xFFFFFFFFFFFFFF00 | v60;
-    if (v243)
+    *v299 = v289;
+    *&v299[16] = v290;
+    *&v299[32] = v291;
+    v61 = v289 & 0xFFFFFFFFFFFFFF00 | v60;
+    if (v241)
     {
-      v61 = v61 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v243) & 0xFLL) << 45);
+      v61 = v61 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v241) & 0xFLL) << 45);
     }
 
     v59 = binningTGSize;
-    *v301 = v61;
-    v242 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
+    *v299 = v61;
+    v240 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
   }
 
   v62 = v58 + 255;
   KERNEL_INDEX_BIN_FRAGMENTS_low = LOBYTE(self->KERNEL_INDEX_BIN_FRAGMENTS);
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v64 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_BIN_FRAGMENTS_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v64 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_BIN_FRAGMENTS_low;
   if (v59)
   {
     v64 = v64 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v59) & 0xFLL) << 45);
   }
 
-  v257 = v62 & 0xFFFFFFFFFFFFFF00;
+  v255 = v62 & 0xFFFFFFFFFFFFFF00;
   v65 = 4 * v36 + 255;
-  *v301 = v64;
-  v235 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
+  *v299 = v64;
+  v233 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
   KERNEL_INDEX_CLEAR_BATCHES_low = LOBYTE(self->KERNEL_INDEX_CLEAR_BATCHES);
   threadgroupSize = self->_threadgroupSize;
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v68 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_CLEAR_BATCHES_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v68 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_CLEAR_BATCHES_low;
   if (threadgroupSize)
   {
     v68 = v68 & 0xFFFE1FFFFFFFFFFFLL | ((log2(threadgroupSize) & 0xFLL) << 45);
   }
 
-  *v301 = v68;
-  v249 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
+  *v299 = v68;
+  v247 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
   KERNEL_INDEX_CREATE_BVH_NODES_low = LOBYTE(self->KERNEL_INDEX_CREATE_BVH_NODES);
   v70 = self->_threadgroupSize;
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v71 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_CREATE_BVH_NODES_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v71 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_CREATE_BVH_NODES_low;
   if (v70)
   {
     v71 = v71 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v70) & 0xFLL) << 45);
   }
 
-  v252 = (v65 + v257) & 0xFFFFFFFFFFFFFF00;
-  *v301 = v71;
-  v234 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
+  v250 = (v65 + v255) & 0xFFFFFFFFFFFFFF00;
+  *v299 = v71;
+  v232 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
   KERNEL_INDEX_FIND_BEST_SPLIT_low = LOBYTE(self->KERNEL_INDEX_FIND_BEST_SPLIT);
   v73 = self->_threadgroupSize;
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v74 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_FIND_BEST_SPLIT_low;
-  v202 = v55;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v74 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_FIND_BEST_SPLIT_low;
+  v200 = v55;
   if (v73)
   {
     v74 = v74 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v73) & 0xFLL) << 45);
   }
 
   v75 = 16 * v36;
-  v76 = v65 + v252;
-  *v301 = v74;
-  v233 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
+  v76 = v65 + v250;
+  *v299 = v74;
+  v231 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
   if (deterministic)
   {
-    LODWORD(v289) = v52;
+    LODWORD(v287) = v52;
     KERNEL_INDEX_SPLIT_FRAGMENTS = self->KERNEL_INDEX_SPLIT_FRAGMENTS;
-    memset(v301, 0, sizeof(v301));
-    PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_SPLIT_FRAGMENTS, descriptor, splitTGSize, &v289, v301);
-    v230 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301, 0);
+    memset(v299, 0, sizeof(v299));
+    PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_SPLIT_FRAGMENTS, descriptor, splitTGSize, &v287, v299);
+    v228 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299, 0);
     KERNEL_INDEX_SPLIT_FRAGMENTS_PREFIX_SUM = self->KERNEL_INDEX_SPLIT_FRAGMENTS_PREFIX_SUM;
-    memset(v301, 0, sizeof(v301));
-    PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_SPLIT_FRAGMENTS_PREFIX_SUM, descriptor, 0x400uLL, &v289, v301);
-    v229 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301, 0);
-    LODWORD(v289) = v289 | 4;
+    memset(v299, 0, sizeof(v299));
+    PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_SPLIT_FRAGMENTS_PREFIX_SUM, descriptor, 0x400uLL, &v287, v299);
+    v227 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299, 0);
+    LODWORD(v287) = v287 | 4;
     v79 = self->KERNEL_INDEX_SPLIT_FRAGMENTS;
-    memset(v301, 0, sizeof(v301));
-    PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, v79, descriptor, splitTGSize, &v289, v301);
-    v232 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301, 0);
+    memset(v299, 0, sizeof(v299));
+    PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, v79, descriptor, splitTGSize, &v287, v299);
+    v230 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299, 0);
     v80 = &self->_pipelineCache;
-    v81 = v218;
+    v81 = v216;
   }
 
   else
   {
     KERNEL_INDEX_SPLIT_FRAGMENTS_low = LOBYTE(self->KERNEL_INDEX_SPLIT_FRAGMENTS);
-    *v301 = v291;
-    *&v301[16] = v292;
-    *&v301[32] = v293;
-    v83 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_SPLIT_FRAGMENTS_low;
+    *v299 = v289;
+    *&v299[16] = v290;
+    *&v299[32] = v291;
+    v83 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_SPLIT_FRAGMENTS_low;
     if (splitTGSize)
     {
       v83 = v83 & 0xFFFE1FFFFFFFFFFFLL | ((log2(splitTGSize) & 0xFLL) << 45);
     }
 
-    v81 = v218;
-    *v301 = v83;
+    v81 = v216;
+    *v299 = v83;
     v80 = &self->_pipelineCache;
-    v232 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
-    v229 = 0;
-    v230 = 0;
+    v230 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
+    v227 = 0;
+    v228 = 0;
   }
 
   v84 = v76 & 0xFFFFFFFFFFFFFF00;
   v85 = v75 + 255;
   KERNEL_INDEX_BIN_FRAGMENTS_SPATIAL_low = LOBYTE(self->KERNEL_INDEX_BIN_FRAGMENTS_SPATIAL);
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v87 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_BIN_FRAGMENTS_SPATIAL_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v87 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_BIN_FRAGMENTS_SPATIAL_low;
   if (spatialBinningTGSize)
   {
     v87 = v87 & 0xFFFE1FFFFFFFFFFFLL | ((log2(spatialBinningTGSize) & 0xFLL) << 45);
   }
 
-  v201 = v84;
+  v199 = v84;
   v88 = v85 + v84;
-  *v301 = v87;
-  v228 = PipelineCache<PipelineKey>::getPipeline(v80, v301);
+  *v299 = v87;
+  v226 = PipelineCache<PipelineKey>::getPipeline(v80, v299);
   KERNEL_INDEX_FIND_BEST_SPATIAL_SPLIT_low = LOBYTE(self->KERNEL_INDEX_FIND_BEST_SPATIAL_SPLIT);
   v90 = self->_threadgroupSize;
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v91 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_FIND_BEST_SPATIAL_SPLIT_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v91 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_FIND_BEST_SPATIAL_SPLIT_low;
   if (v90)
   {
     v91 = v91 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v90) & 0xFLL) << 45);
   }
 
   v92 = v88 & 0xFFFFFFFFFFFFFF00;
-  *v301 = v91;
-  v227 = PipelineCache<PipelineKey>::getPipeline(v80, v301);
+  *v299 = v91;
+  v225 = PipelineCache<PipelineKey>::getPipeline(v80, v299);
   KERNEL_INDEX_INITIALIZE_QUEUE_low = LOBYTE(self->KERNEL_INDEX_INITIALIZE_QUEUE);
   v94 = self->_threadgroupSize;
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v95 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_INITIALIZE_QUEUE_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v95 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_INITIALIZE_QUEUE_low;
   if (v94)
   {
     v95 = v95 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v94) & 0xFLL) << 45);
   }
 
   v96 = v85 + v92;
-  *v301 = v95;
-  v97 = PipelineCache<PipelineKey>::getPipeline(v80, v301);
+  *v299 = v95;
+  v97 = PipelineCache<PipelineKey>::getPipeline(v80, v299);
   KERNEL_INDEX_INITIALIZE_FRAGMENT_INDICES_low = LOBYTE(self->KERNEL_INDEX_INITIALIZE_FRAGMENT_INDICES);
   v99 = self->_threadgroupSize;
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v100 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_INITIALIZE_FRAGMENT_INDICES_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v100 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_INITIALIZE_FRAGMENT_INDICES_low;
   if (v99)
   {
     v100 = v100 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v99) & 0xFLL) << 45);
   }
 
-  v260 = v96 & 0xFFFFFFFFFFFFFF00;
-  *v301 = v100;
-  v101 = PipelineCache<PipelineKey>::getPipeline(v80, v301);
+  v258 = v96 & 0xFFFFFFFFFFFFFF00;
+  *v299 = v100;
+  v101 = PipelineCache<PipelineKey>::getPipeline(v80, v299);
   KERNEL_INDEX_COPY_FRAGMENT_INDICES_low = LOBYTE(self->KERNEL_INDEX_COPY_FRAGMENT_INDICES);
   v103 = self->_threadgroupSize;
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v104 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_COPY_FRAGMENT_INDICES_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v104 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_COPY_FRAGMENT_INDICES_low;
   descriptorCopy = descriptor;
-  v200 = v101;
+  v198 = v101;
   if (v103)
   {
     v104 = v104 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v103) & 0xFLL) << 45);
   }
 
-  *v301 = v104;
-  v209 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
+  *v299 = v104;
+  v207 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
   KERNEL_INDEX_FINISH_BUILD_ITERATION_low = LOBYTE(self->KERNEL_INDEX_FINISH_BUILD_ITERATION);
   v106 = self->_threadgroupSize;
-  *v301 = v291;
-  *&v301[16] = v292;
-  *&v301[32] = v293;
-  v107 = v291 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_FINISH_BUILD_ITERATION_low;
+  *v299 = v289;
+  *&v299[16] = v290;
+  *&v299[32] = v291;
+  v107 = v289 & 0xFFFFFFFFFFFFFF00 | KERNEL_INDEX_FINISH_BUILD_ITERATION_low;
   if (v106)
   {
     v107 = v107 & 0xFFFE1FFFFFFFFFFFLL | ((log2(v106) & 0xFLL) << 45);
   }
 
-  v263 = (v260 + 275) & 0xFFFFFFFFFFFFFF00;
-  *v301 = v107;
-  v246 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
-  if (v240)
+  v261 = (v258 + 275) & 0xFFFFFFFFFFFFFF00;
+  *v299 = v107;
+  v244 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
+  if (v238)
   {
     KERNEL_INDEX_BIN_FRAGMENTS_TEMPORAL = self->KERNEL_INDEX_BIN_FRAGMENTS_TEMPORAL;
-    LODWORD(v289) = v52;
-    memset(v301, 0, sizeof(v301));
+    LODWORD(v287) = v52;
+    memset(v299, 0, sizeof(v299));
     descriptorCopy3 = descriptor;
-    PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_BIN_FRAGMENTS_TEMPORAL, descriptor, binningTGSize, &v289, v301);
-    v226 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301);
-    v225 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, self->KERNEL_INDEX_FIND_BEST_TEMPORAL_SPLIT, descriptor, maxPrimitivesPerInnerNode == 0, 1);
+    PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_BIN_FRAGMENTS_TEMPORAL, descriptor, binningTGSize, &v287, v299);
+    v224 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299);
+    v223 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, self->KERNEL_INDEX_FIND_BEST_TEMPORAL_SPLIT, descriptor, maxPrimitivesPerInnerNode == 0, 1);
   }
 
   else
   {
-    v225 = 0;
-    v226 = 0;
+    v223 = 0;
+    v224 = 0;
     descriptorCopy3 = descriptor;
   }
 
   [encoder setBuffer:nodeBuffer offset:nodeBufferOffset atIndex:0];
-  [encoder setBuffer:buffer offset:v250 atIndex:1];
+  [encoder setBuffer:buffer offset:v248 atIndex:1];
   [encoder setBuffer:buffer0 offset:buffer0Offset atIndex:2];
   [encoder setBuffer:countBuffer offset:countBufferOffset atIndex:3];
-  [encoder setBytes:&v296 length:8 atIndex:4];
+  [encoder setBytes:&v294 length:8 atIndex:4];
   [encoder setBuffer:minBuffer offset:minBufferOffset atIndex:5];
   [encoder setBuffer:maxBuffer offset:maxBufferOffset atIndex:6];
-  [encoder setBuffer:buffer offset:v260 atIndex:7];
+  [encoder setBuffer:buffer offset:v258 atIndex:7];
   [encoder setBuffer:counterBuffer offset:counterBufferOffset atIndex:8];
   v110 = descriptorCopy3;
   if ([descriptorCopy3 motion])
   {
     [encoder setBuffer:endMinBuffer offset:endMinBufferOffset atIndex:9];
     v110 = descriptorCopy;
-    v81 = v218;
+    v81 = v216;
     [encoder setBuffer:endMaxBuffer offset:endMaxBufferOffset atIndex:10];
     [encoder setBuffer:startTimeBuffer offset:startTimeBufferOffset atIndex:11];
     [encoder setBuffer:timeBuffer offset:timeBufferOffset atIndex:12];
   }
 
   [encoder setBytes:&maxDepth length:4 atIndex:13];
-  [encoder setBuffer:buffer offset:v263 atIndex:30];
-  if (v240)
+  [encoder setBuffer:buffer offset:v261 atIndex:30];
+  if (v238)
   {
     [v110 primitiveMotionStartTime];
-    *v301 = v111;
+    *v299 = v111;
     [v110 primitiveMotionEndTime];
-    *&v301[4] = v112;
-    *&v301[8] = [v110 primitiveKeyframeCount];
-    *&v301[12] = var2 - var1;
-    [encoder setBytes:v301 length:16 atIndex:14];
+    *&v299[4] = v112;
+    *&v299[8] = [v110 primitiveKeyframeCount];
+    *&v299[12] = var2 - var1;
+    [encoder setBytes:v299 length:16 atIndex:14];
   }
 
   [encoder setComputePipelineState:v97];
@@ -2304,26 +2301,26 @@ LABEL_87:
     [encoder memoryBarrierWithScope:1];
   }
 
-  *v301 = vdupq_n_s64(1uLL);
-  *&v301[16] = 1;
-  v289 = self->_threadgroupSize;
-  v290 = *v301;
-  [encoder dispatchThreadgroups:v301 threadsPerThreadgroup:&v289];
-  [(MTLGPUBVHBuilder *)self dispatchIndirect:v200 counterBuffer:buffer counterBufferOffset:v263 threadgroupSize:self->_threadgroupSize encoder:encoder];
-  [encoder setBuffer:buffer offset:v260 atIndex:0];
+  *v299 = vdupq_n_s64(1uLL);
+  *&v299[16] = 1;
+  v287 = self->_threadgroupSize;
+  v288 = *v299;
+  [encoder dispatchThreadgroups:v299 threadsPerThreadgroup:&v287];
+  [(MTLGPUBVHBuilder *)self dispatchIndirect:v198 counterBuffer:buffer counterBufferOffset:v261 threadgroupSize:self->_threadgroupSize encoder:encoder];
+  [encoder setBuffer:buffer offset:v258 atIndex:0];
   [encoder setBuffer:fragmentBuffer offset:bufferOffset atIndex:2];
-  [encoder setBuffer:buffer offset:v203 & 0xFFFFFFFFFFFFFF00 atIndex:7];
-  [encoder setBuffer:buffer offset:v204 & 0xFFFFFFFFFFFFFF00 atIndex:8];
-  [encoder setBuffer:buffer offset:v205 atIndex:9];
-  [encoder setBuffer:buffer offset:v257 atIndex:10];
-  [encoder setBuffer:buffer offset:v252 atIndex:11];
-  [encoder setBuffer:buffer offset:v206 atIndex:12];
-  [encoder setBuffer:buffer offset:v207 atIndex:13];
-  [encoder setBuffer:buffer offset:v208 atIndex:14];
+  [encoder setBuffer:buffer offset:v201 & 0xFFFFFFFFFFFFFF00 atIndex:7];
+  [encoder setBuffer:buffer offset:v202 & 0xFFFFFFFFFFFFFF00 atIndex:8];
+  [encoder setBuffer:buffer offset:v203 atIndex:9];
+  [encoder setBuffer:buffer offset:v255 atIndex:10];
+  [encoder setBuffer:buffer offset:v250 atIndex:11];
+  [encoder setBuffer:buffer offset:v204 atIndex:12];
+  [encoder setBuffer:buffer offset:v205 atIndex:13];
+  [encoder setBuffer:buffer offset:v206 atIndex:14];
   [encoder setBuffer:buffer offset:v81 atIndex:15];
-  [encoder setBuffer:buffer offset:v201 atIndex:16];
+  [encoder setBuffer:buffer offset:v199 atIndex:16];
   [encoder setBuffer:buffer offset:v92 atIndex:17];
-  [encoder setBuffer:buffer offset:v202 atIndex:18];
+  [encoder setBuffer:buffer offset:v200 atIndex:18];
   [encoder setBuffer:nodeBuffer offset:nodeBufferOffset atIndex:19];
   [encoder setBuffer:indexBuffer offset:indexBufferOffset atIndex:24];
   [encoder setBuffer:counterBuffer offset:counterBufferOffset atIndex:22];
@@ -2346,12 +2343,12 @@ LABEL_81:
 
   else if ([v110 motion])
   {
-    v118 = v263 + 267 + v198;
-    v119 = (v118 + v197) & 0xFFFFFFFFFFFFFF00;
-    [encoder setBuffer:buffer offset:(v263 + 267) & 0xFFFFFFFFFFFFFF00 atIndex:25];
+    v118 = v261 + 267 + v196;
+    v119 = (v118 + v195) & 0xFFFFFFFFFFFFFF00;
+    [encoder setBuffer:buffer offset:(v261 + 267) & 0xFFFFFFFFFFFFFF00 atIndex:25];
     [encoder setBuffer:buffer offset:v118 & 0xFFFFFFFFFFFFFF00 atIndex:26];
     [encoder setBuffer:buffer offset:v119 atIndex:20];
-    indexBufferOffset = (v196 + v119) & 0xFFFFFFFFFFFFFF00;
+    indexBufferOffset = (v194 + v119) & 0xFFFFFFFFFFFFFF00;
     encoderCopy2 = encoder;
     bufferCopy = buffer;
     goto LABEL_81;
@@ -2359,50 +2356,50 @@ LABEL_81:
 
   if ([v110 requiresResourceBuffer])
   {
-    v287 = 0u;
-    v288 = 0u;
     v285 = 0u;
     v286 = 0u;
-    v261 = [obj countByEnumeratingWithState:&v285 objects:v306 count:16];
-    if (v261)
+    v283 = 0u;
+    v284 = 0u;
+    v259 = [obj countByEnumeratingWithState:&v283 objects:v304 count:16];
+    if (v259)
     {
-      v258 = *v286;
+      v256 = *v284;
       do
       {
-        for (i = 0; i != v261; ++i)
+        for (i = 0; i != v259; ++i)
         {
-          if (*v286 != v258)
+          if (*v284 != v256)
           {
             objc_enumerationMutation(obj);
           }
 
-          v121 = *(*(&v285 + 1) + 8 * i);
+          v121 = *(*(&v283 + 1) + 8 * i);
           v122 = objc_opt_class();
           if ([v122 isSubclassOfClass:objc_opt_class()])
           {
-            v283 = 0u;
-            v284 = 0u;
             v281 = 0u;
             v282 = 0u;
+            v279 = 0u;
+            v280 = 0u;
             vertexBuffers = [v121 vertexBuffers];
-            v124 = [vertexBuffers countByEnumeratingWithState:&v281 objects:v305 count:16];
+            v124 = [vertexBuffers countByEnumeratingWithState:&v279 objects:v303 count:16];
             if (v124)
             {
               v125 = v124;
-              v126 = *v282;
+              v126 = *v280;
               do
               {
                 for (j = 0; j != v125; ++j)
                 {
-                  if (*v282 != v126)
+                  if (*v280 != v126)
                   {
                     objc_enumerationMutation(vertexBuffers);
                   }
 
-                  [encoder useResource:objc_msgSend(*(*(&v281 + 1) + 8 * j) usage:{"buffer"), 1}];
+                  [encoder useResource:objc_msgSend(*(*(&v279 + 1) + 8 * j) usage:{"buffer"), 1}];
                 }
 
-                v125 = [vertexBuffers countByEnumeratingWithState:&v281 objects:v305 count:16];
+                v125 = [vertexBuffers countByEnumeratingWithState:&v279 objects:v303 count:16];
               }
 
               while (v125);
@@ -2432,57 +2429,57 @@ LABEL_125:
                 goto LABEL_126;
               }
 
-              v275 = 0u;
-              v276 = 0u;
               v273 = 0u;
               v274 = 0u;
+              v271 = 0u;
+              v272 = 0u;
               controlPointBuffers = [v121 controlPointBuffers];
-              v137 = [controlPointBuffers countByEnumeratingWithState:&v273 objects:v303 count:16];
+              v137 = [controlPointBuffers countByEnumeratingWithState:&v271 objects:v301 count:16];
               if (v137)
               {
                 v138 = v137;
-                v139 = *v274;
+                v139 = *v272;
                 do
                 {
                   for (k = 0; k != v138; ++k)
                   {
-                    if (*v274 != v139)
+                    if (*v272 != v139)
                     {
                       objc_enumerationMutation(controlPointBuffers);
                     }
 
-                    [encoder useResource:objc_msgSend(*(*(&v273 + 1) + 8 * k) usage:{"buffer"), 1}];
+                    [encoder useResource:objc_msgSend(*(*(&v271 + 1) + 8 * k) usage:{"buffer"), 1}];
                   }
 
-                  v138 = [controlPointBuffers countByEnumeratingWithState:&v273 objects:v303 count:16];
+                  v138 = [controlPointBuffers countByEnumeratingWithState:&v271 objects:v301 count:16];
                 }
 
                 while (v138);
               }
 
-              v271 = 0u;
-              v272 = 0u;
               v269 = 0u;
               v270 = 0u;
+              v267 = 0u;
+              v268 = 0u;
               radiusBuffers = [v121 radiusBuffers];
-              v142 = [radiusBuffers countByEnumeratingWithState:&v269 objects:v302 count:16];
+              v142 = [radiusBuffers countByEnumeratingWithState:&v267 objects:v300 count:16];
               if (v142)
               {
                 v143 = v142;
-                v144 = *v270;
+                v144 = *v268;
                 do
                 {
                   for (m = 0; m != v143; ++m)
                   {
-                    if (*v270 != v144)
+                    if (*v268 != v144)
                     {
                       objc_enumerationMutation(radiusBuffers);
                     }
 
-                    [encoder useResource:objc_msgSend(*(*(&v269 + 1) + 8 * m) usage:{"buffer"), 1}];
+                    [encoder useResource:objc_msgSend(*(*(&v267 + 1) + 8 * m) usage:{"buffer"), 1}];
                   }
 
-                  v143 = [radiusBuffers countByEnumeratingWithState:&v269 objects:v302 count:16];
+                  v143 = [radiusBuffers countByEnumeratingWithState:&v267 objects:v300 count:16];
                 }
 
                 while (v143);
@@ -2492,29 +2489,29 @@ LABEL_125:
               goto LABEL_125;
             }
 
-            v279 = 0u;
-            v280 = 0u;
             v277 = 0u;
             v278 = 0u;
+            v275 = 0u;
+            v276 = 0u;
             boundingBoxBuffers = [v121 boundingBoxBuffers];
-            v131 = [boundingBoxBuffers countByEnumeratingWithState:&v277 objects:v304 count:16];
+            v131 = [boundingBoxBuffers countByEnumeratingWithState:&v275 objects:v302 count:16];
             if (v131)
             {
               v132 = v131;
-              v133 = *v278;
+              v133 = *v276;
               do
               {
                 for (n = 0; n != v132; ++n)
                 {
-                  if (*v278 != v133)
+                  if (*v276 != v133)
                   {
                     objc_enumerationMutation(boundingBoxBuffers);
                   }
 
-                  [encoder useResource:objc_msgSend(*(*(&v277 + 1) + 8 * n) usage:{"buffer"), 1}];
+                  [encoder useResource:objc_msgSend(*(*(&v275 + 1) + 8 * n) usage:{"buffer"), 1}];
                 }
 
-                v132 = [boundingBoxBuffers countByEnumeratingWithState:&v277 objects:v304 count:16];
+                v132 = [boundingBoxBuffers countByEnumeratingWithState:&v275 objects:v302 count:16];
               }
 
               while (v132);
@@ -2528,43 +2525,43 @@ LABEL_126:
           }
         }
 
-        v261 = [obj countByEnumeratingWithState:&v285 objects:v306 count:16];
+        v259 = [obj countByEnumeratingWithState:&v283 objects:v304 count:16];
       }
 
-      while (v261);
+      while (v259);
     }
   }
 
   v146 = descriptorCopy;
-  v245 = [(MTLGPUBVHBuilder *)self useSpatialSplitsForDescriptor:descriptorCopy];
+  v243 = [(MTLGPUBVHBuilder *)self useSpatialSplitsForDescriptor:descriptorCopy];
   branchingFactor = [descriptorCopy branchingFactor];
   [descriptorCopy branchingFactor];
-  v268 = 0;
-  if (v222 > 0x2000)
+  v266 = 0;
+  if (v220 > 0x2000)
   {
     KERNEL_INDEX_INITIALIZE_BINNING_COUNTERS_low = LOBYTE(self->KERNEL_INDEX_INITIALIZE_BINNING_COUNTERS);
-    memset(&v301[8], 0, 32);
-    *v301 = KERNEL_INDEX_INITIALIZE_BINNING_COUNTERS_low | ((log2(self->_pipelineCache.baseThreadgroupSize) & 0xF) << 45);
-    PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301, &v268);
+    memset(&v299[8], 0, 32);
+    *v299 = KERNEL_INDEX_INITIALIZE_BINNING_COUNTERS_low | ((log2(self->_pipelineCache.baseThreadgroupSize) & 0xF) << 45);
+    PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299, &v266);
   }
 
   v148 = maxDepth;
-  v149 = v250;
+  v149 = v248;
   if (maxDepth)
   {
     v150 = log2(branchingFactor);
     v151 = 0;
-    v217 = v150;
-    v152 = v240;
-    if (v222 <= 0x2000)
+    v215 = v150;
+    v152 = v238;
+    if (v220 <= 0x2000)
     {
       v152 = 0;
     }
 
-    v213 = v152;
+    v211 = v152;
     while (1)
     {
-      v267 = 0;
+      v265 = 0;
       v153 = v151 == v148 - 1 || maxPrimitivesPerInnerNode == 0;
       v154 = v151 != v148 - 1 || maxPrimitivesPerInnerNode == 0;
       if (v153)
@@ -2577,37 +2574,37 @@ LABEL_126:
         v155 = v148 - 1;
       }
 
-      v223 = v151;
-      v266[0] = v151;
-      v266[1] = v155;
-      [encoder setBytes:v266 length:12 atIndex:1];
+      v221 = v151;
+      v264[0] = v151;
+      v264[1] = v155;
+      [encoder setBytes:v264 length:12 atIndex:1];
       v156 = v149;
       [encoder setBuffer:buffer offset:v149 atIndex:5];
-      [encoder setBuffer:buffer offset:v254 atIndex:6];
+      [encoder setBuffer:buffer offset:v252 atIndex:6];
       if (!v154)
       {
-        [v146 setMinPrimitivesPerLeaf:v211];
+        [v146 setMinPrimitivesPerLeaf:v209];
         [v146 setMaxPrimitivesPerLeaf:maxPrimitivesPerLeaf];
         [v146 updatePipelineKey];
         maxDepth = [v146 maxDepth];
-        LODWORD(v265) = 9;
+        LODWORD(v263) = 9;
         KERNEL_INDEX_DISPATCH_BINS = self->KERNEL_INDEX_DISPATCH_BINS;
-        memset(v301, 0, sizeof(v301));
-        PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_DISPATCH_BINS, v146, v243, &v265, v301);
-        v241 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301, 0);
-        v242 = 0;
+        memset(v299, 0, sizeof(v299));
+        PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_DISPATCH_BINS, v146, v241, &v263, v299);
+        v239 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299, 0);
+        v240 = 0;
         if ([v146 branchingFactor] != 2)
         {
           KERNEL_INDEX_DISPATCH_BINS_WIDE = self->KERNEL_INDEX_DISPATCH_BINS_WIDE;
-          memset(v301, 0, sizeof(v301));
-          PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_DISPATCH_BINS_WIDE, v146, v243, &v265, v301);
-          v242 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301, 0);
+          memset(v299, 0, sizeof(v299));
+          PipelineCache<PipelineKey>::getPipelineKey(p_pipelineCache, KERNEL_INDEX_DISPATCH_BINS_WIDE, v146, v241, &v263, v299);
+          v240 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299, 0);
         }
 
         v159 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, self->KERNEL_INDEX_ENQUEUE_LEAF_NODE_SPLITS, v146, self->_threadgroupSize);
-        v289 = [counterBuffer gpuAddress] + counterBufferOffset;
-        *&v290 = 0;
-        [(MTLGPUBVHBuilder *)self setCounters:&v289 numCounters:1 encoder:encoder];
+        v287 = ([counterBuffer gpuAddress] + counterBufferOffset);
+        *&v288 = 0;
+        [(MTLGPUBVHBuilder *)self setCounters:&v287 numCounters:1 encoder:encoder];
         v160 = self->_threadgroupSize;
         if (self->_supportsDispatchThreadsWithIndirectBuffer)
         {
@@ -2617,14 +2614,14 @@ LABEL_126:
             [encoder memoryBarrierWithScope:1];
           }
 
-          *v301 = v160;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1536 threadsPerThreadgroup:v301];
+          *v299 = v160;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1536 threadsPerThreadgroup:v299];
         }
 
         else
         {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v159 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:6 threadgroupDivisor:v160 threadgroupSize:v160 encoder:encoder];
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v159 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:6 threadgroupDivisor:v160 threadgroupSize:v160 encoder:encoder];
         }
       }
 
@@ -2635,12 +2632,12 @@ LABEL_126:
         v162 = [v146 deterministic] ^ 1;
       }
 
-      v259 = v162;
+      v257 = v162;
       v163 = [v146 branchingFactor] - 1;
-      v265 = 0;
-      if (v222 <= 0x2000)
+      v263 = 0;
+      if (v220 <= 0x2000)
       {
-        v244 = 0;
+        v242 = 0;
         if (v163 >= 2)
         {
           v163 = 2;
@@ -2650,63 +2647,63 @@ LABEL_126:
       else
       {
         v164 = LOBYTE(self->KERNEL_INDEX_INITIALIZE_BINNING_COUNTERS);
-        memset(&v301[8], 0, 32);
-        *v301 = v164 | ((log2(self->_pipelineCache.baseThreadgroupSize) & 0xF) << 45);
-        v244 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v301, &v265);
+        memset(&v299[8], 0, 32);
+        *v299 = v164 | ((log2(self->_pipelineCache.baseThreadgroupSize) & 0xF) << 45);
+        v242 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v299, &v263);
       }
 
       v165 = v156;
-      v166 = v254;
+      v166 = v252;
       v167 = branchingFactor - 1;
       if (v154)
       {
-        v167 = v217;
+        v167 = v215;
       }
 
-      v168 = v259 ? v167 : v163;
+      v168 = v257 ? v167 : v163;
       if (v168)
       {
         break;
       }
 
-      v191 = v254;
-      v192 = v165;
+      v190 = v252;
+      v191 = v165;
 LABEL_285:
-      v254 = v192;
-      [encoder setComputePipelineState:v246];
+      v252 = v191;
+      [encoder setComputePipelineState:v244];
       if ([encoder dispatchType] == 1)
       {
         [encoder memoryBarrierWithScope:1];
       }
 
-      *v301 = vdupq_n_s64(1uLL);
-      *&v301[16] = 1;
-      v289 = self->_threadgroupSize;
-      v290 = *v301;
-      [encoder dispatchThreadgroups:v301 threadsPerThreadgroup:&v289];
-      v193 = (fragmentCount * 1.08);
-      if (!v245)
+      *v299 = vdupq_n_s64(1uLL);
+      *&v299[16] = 1;
+      v287 = self->_threadgroupSize;
+      v288 = *v299;
+      [encoder dispatchThreadgroups:v299 threadsPerThreadgroup:&v287];
+      v192 = (fragmentCount * 1.08);
+      if (!v243)
       {
-        v193 = fragmentCount;
+        v192 = fragmentCount;
       }
 
-      fragmentCount = ((1.4 / branchingFactor) * v193);
-      v151 = v223 + 1;
+      fragmentCount = ((1.4 / branchingFactor) * v192);
+      v151 = v221 + 1;
       v148 = maxDepth;
-      v149 = v191;
+      v149 = v190;
       v146 = descriptorCopy;
-      if (v223 + 1 >= maxDepth)
+      if (v221 + 1 >= maxDepth)
       {
         goto LABEL_290;
       }
     }
 
     v169 = 0;
-    v170 = v222 > 0x2000 && v154;
-    v262 = v170;
-    if (v223)
+    v170 = v220 > 0x2000 && v154;
+    v260 = v170;
+    if (v221)
     {
-      v171 = v259;
+      v171 = v257;
     }
 
     else
@@ -2716,19 +2713,19 @@ LABEL_285:
 
     obja = v154 & v171;
     v172 = fragmentCount > 0x100 && v154;
-    v253 = v172;
+    v251 = v172;
     while (1)
     {
       [encoder setBuffer:buffer offset:v165 atIndex:5];
       [encoder setBuffer:buffer offset:v166 atIndex:6];
-      if (v262)
+      if (v260)
       {
-        [encoder setComputePipelineState:v244];
-        *v301 = vdupq_n_s64(1uLL);
-        *&v301[16] = 1;
-        v289 = v265;
-        v290 = *v301;
-        [encoder dispatchThreadgroups:v301 threadsPerThreadgroup:&v289];
+        [encoder setComputePipelineState:v242];
+        *v299 = vdupq_n_s64(1uLL);
+        *&v299[16] = 1;
+        v287 = v263;
+        v288 = *v299;
+        [encoder dispatchThreadgroups:v299 threadsPerThreadgroup:&v287];
       }
 
       if ([encoder dispatchType] == 1)
@@ -2746,17 +2743,17 @@ LABEL_285:
         v173 = obja;
       }
 
-      if ((v173 & (v259 | v213)) == 1)
+      if ((v173 & (v257 | v211)) == 1)
       {
-        v267 = v169;
-        [encoder setBytes:v266 length:12 atIndex:1];
+        v265 = v169;
+        [encoder setBytes:v264 length:12 atIndex:1];
       }
 
-      if (v253)
+      if (v251)
       {
         if (v173)
         {
-          v174 = v238;
+          v174 = v236;
         }
 
         else
@@ -2765,51 +2762,51 @@ LABEL_285:
         }
 
         [encoder setComputePipelineState:v174];
-        v175 = v237;
+        v175 = v235;
       }
 
       else
       {
         if (v173)
         {
-          v176 = v242;
+          v176 = v240;
         }
 
         else
         {
-          v176 = v241;
+          v176 = v239;
         }
 
         [encoder setComputePipelineState:v176];
-        v175 = v243;
+        v175 = v241;
       }
 
-      *v301 = v175;
-      *&v301[8] = vdupq_n_s64(1uLL);
-      [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset threadsPerThreadgroup:v301];
-      if (!v262)
+      *v299 = v175;
+      *&v299[8] = vdupq_n_s64(1uLL);
+      [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset threadsPerThreadgroup:v299];
+      if (!v260)
       {
         goto LABEL_275;
       }
 
-      v251 = v165;
+      v249 = v165;
       v177 = self->_threadgroupSize;
       if (self->_supportsDispatchThreadsWithIndirectBuffer)
       {
-        [encoder setComputePipelineState:v249];
+        [encoder setComputePipelineState:v247];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
         }
 
-        *v301 = v177;
-        *&v301[8] = vdupq_n_s64(1uLL);
-        [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v301];
+        *v299 = v177;
+        *&v299[8] = vdupq_n_s64(1uLL);
+        [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v299];
       }
 
       else
       {
-        [(MTLGPUBVHBuilder *)self dispatchIndirect:v249 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+        [(MTLGPUBVHBuilder *)self dispatchIndirect:v247 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
       }
 
       if (self->_supportsDispatchThreadsWithIndirectBuffer)
@@ -2820,60 +2817,60 @@ LABEL_285:
           v178 = self->_threadgroupSize;
         }
 
-        [encoder setComputePipelineState:v235];
-        if ([encoder dispatchType] == 1)
-        {
-          [encoder memoryBarrierWithScope:1];
-        }
-
-        *v301 = v178;
-        *&v301[8] = vdupq_n_s64(1uLL);
-        [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1024 threadsPerThreadgroup:v301];
-      }
-
-      else
-      {
-        [(MTLGPUBVHBuilder *)self dispatchIndirect:v235 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:4 threadgroupDivisor:1 threadgroupSize:binningTGSize encoder:encoder];
-      }
-
-      v179 = self->_threadgroupSize;
-      if (self->_supportsDispatchThreadsWithIndirectBuffer)
-      {
         [encoder setComputePipelineState:v233];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
         }
 
-        *v301 = v179;
-        *&v301[8] = vdupq_n_s64(1uLL);
-        [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v301];
+        *v299 = v178;
+        *&v299[8] = vdupq_n_s64(1uLL);
+        [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1024 threadsPerThreadgroup:v299];
       }
 
       else
       {
-        [(MTLGPUBVHBuilder *)self dispatchIndirect:v233 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+        [(MTLGPUBVHBuilder *)self dispatchIndirect:v233 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:4 threadgroupDivisor:1 threadgroupSize:binningTGSize encoder:encoder];
       }
 
-      if (v245)
+      v179 = self->_threadgroupSize;
+      if (self->_supportsDispatchThreadsWithIndirectBuffer)
+      {
+        [encoder setComputePipelineState:v231];
+        if ([encoder dispatchType] == 1)
+        {
+          [encoder memoryBarrierWithScope:1];
+        }
+
+        *v299 = v179;
+        *&v299[8] = vdupq_n_s64(1uLL);
+        [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v299];
+      }
+
+      else
+      {
+        [(MTLGPUBVHBuilder *)self dispatchIndirect:v231 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+      }
+
+      if (v243)
       {
         v180 = self->_threadgroupSize;
         if (self->_supportsDispatchThreadsWithIndirectBuffer)
         {
-          [encoder setComputePipelineState:v249];
+          [encoder setComputePipelineState:v247];
           if ([encoder dispatchType] == 1)
           {
             [encoder memoryBarrierWithScope:1];
           }
 
-          *v301 = v180;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v301];
+          *v299 = v180;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v299];
         }
 
         else
         {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v249 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v247 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
         }
 
         if (self->_supportsDispatchThreadsWithIndirectBuffer)
@@ -2884,61 +2881,61 @@ LABEL_285:
             v181 = self->_threadgroupSize;
           }
 
-          [encoder setComputePipelineState:v228];
+          [encoder setComputePipelineState:v226];
           if ([encoder dispatchType] == 1)
           {
             [encoder memoryBarrierWithScope:1];
           }
 
-          *v301 = v181;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1280 threadsPerThreadgroup:v301];
+          *v299 = v181;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1280 threadsPerThreadgroup:v299];
         }
 
         else
         {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v228 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:5 threadgroupDivisor:1 threadgroupSize:spatialBinningTGSize encoder:encoder];
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v226 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:5 threadgroupDivisor:1 threadgroupSize:spatialBinningTGSize encoder:encoder];
         }
 
         v182 = self->_threadgroupSize;
         if (self->_supportsDispatchThreadsWithIndirectBuffer)
         {
-          [encoder setComputePipelineState:v227];
+          [encoder setComputePipelineState:v225];
           if ([encoder dispatchType] == 1)
           {
             [encoder memoryBarrierWithScope:1];
           }
 
-          *v301 = v182;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 768 threadsPerThreadgroup:v301];
+          *v299 = v182;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 768 threadsPerThreadgroup:v299];
         }
 
         else
         {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v227 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:3 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v225 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:3 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
         }
       }
 
-      if (v240)
+      if (v238)
       {
         v183 = self->_threadgroupSize;
         if (self->_supportsDispatchThreadsWithIndirectBuffer)
         {
-          [encoder setComputePipelineState:v249];
+          [encoder setComputePipelineState:v247];
           if ([encoder dispatchType] == 1)
           {
             [encoder memoryBarrierWithScope:1];
           }
 
-          *v301 = v183;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v301];
+          *v299 = v183;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v299];
         }
 
         else
         {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v249 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v247 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
         }
 
         if (self->_supportsDispatchThreadsWithIndirectBuffer)
@@ -2949,47 +2946,89 @@ LABEL_285:
             v184 = self->_threadgroupSize;
           }
 
-          [encoder setComputePipelineState:v226];
+          [encoder setComputePipelineState:v224];
           if ([encoder dispatchType] == 1)
           {
             [encoder memoryBarrierWithScope:1];
           }
 
-          *v301 = v184;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1280 threadsPerThreadgroup:v301];
+          *v299 = v184;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1280 threadsPerThreadgroup:v299];
         }
 
         else
         {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v226 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:5 threadgroupDivisor:1 threadgroupSize:binningTGSize encoder:encoder];
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v224 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:5 threadgroupDivisor:1 threadgroupSize:binningTGSize encoder:encoder];
         }
 
         v185 = self->_threadgroupSize;
         if (self->_supportsDispatchThreadsWithIndirectBuffer)
         {
-          [encoder setComputePipelineState:v225];
+          [encoder setComputePipelineState:v223];
           if ([encoder dispatchType] == 1)
           {
             [encoder memoryBarrierWithScope:1];
           }
 
-          *v301 = v185;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 768 threadsPerThreadgroup:v301];
+          *v299 = v185;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 768 threadsPerThreadgroup:v299];
         }
 
         else
         {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v225 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:3 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v223 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:3 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
         }
       }
 
-      supportsDispatchThreadsWithIndirectBuffer = self->_supportsDispatchThreadsWithIndirectBuffer;
       if (deterministic)
       {
         if (self->_supportsDispatchThreadsWithIndirectBuffer)
         {
+          v186 = splitTGSize;
+          if (!splitTGSize)
+          {
+            v186 = self->_threadgroupSize;
+          }
+
+          [encoder setComputePipelineState:v228];
+          if ([encoder dispatchType] == 1)
+          {
+            [encoder memoryBarrierWithScope:1];
+          }
+
+          *v299 = v186;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1024 threadsPerThreadgroup:v299];
+        }
+
+        else
+        {
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v228 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:4 threadgroupDivisor:1 threadgroupSize:splitTGSize encoder:encoder];
+        }
+
+        if (self->_supportsDispatchThreadsWithIndirectBuffer)
+        {
+          [encoder setComputePipelineState:v227];
+          if ([encoder dispatchType] == 1)
+          {
+            [encoder memoryBarrierWithScope:1];
+          }
+
+          *v299 = xmmword_185DC62D0;
+          *&v299[16] = 1;
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v299];
+        }
+
+        else
+        {
+          [(MTLGPUBVHBuilder *)self dispatchIndirect:v227 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:1024 encoder:encoder];
+        }
+
+        if (self->_supportsDispatchThreadsWithIndirectBuffer)
+        {
+LABEL_264:
           v187 = splitTGSize;
           if (!splitTGSize)
           {
@@ -3002,52 +3041,9 @@ LABEL_285:
             [encoder memoryBarrierWithScope:1];
           }
 
-          *v301 = v187;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1024 threadsPerThreadgroup:v301];
-        }
-
-        else
-        {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v230 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:4 threadgroupDivisor:1 threadgroupSize:splitTGSize encoder:encoder];
-        }
-
-        if (self->_supportsDispatchThreadsWithIndirectBuffer)
-        {
-          [encoder setComputePipelineState:v229];
-          if ([encoder dispatchType] == 1)
-          {
-            [encoder memoryBarrierWithScope:1];
-          }
-
-          *v301 = xmmword_185DC62D0;
-          *&v301[16] = 1;
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v301];
-        }
-
-        else
-        {
-          [(MTLGPUBVHBuilder *)self dispatchIndirect:v229 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:1024 encoder:encoder];
-        }
-
-        if (self->_supportsDispatchThreadsWithIndirectBuffer)
-        {
-LABEL_264:
-          v188 = splitTGSize;
-          if (!splitTGSize)
-          {
-            v188 = self->_threadgroupSize;
-          }
-
-          [encoder setComputePipelineState:v232];
-          if ([encoder dispatchType] == 1)
-          {
-            [encoder memoryBarrierWithScope:1];
-          }
-
-          *v301 = v188;
-          *&v301[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1024 threadsPerThreadgroup:v301];
+          *v299 = v187;
+          *&v299[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1024 threadsPerThreadgroup:v299];
           goto LABEL_269;
         }
       }
@@ -3057,61 +3053,61 @@ LABEL_264:
         goto LABEL_264;
       }
 
-      [(MTLGPUBVHBuilder *)self dispatchIndirect:v232 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:4 threadgroupDivisor:1 threadgroupSize:splitTGSize encoder:encoder];
+      [(MTLGPUBVHBuilder *)self dispatchIndirect:v230 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:4 threadgroupDivisor:1 threadgroupSize:splitTGSize encoder:encoder];
 LABEL_269:
-      v189 = self->_threadgroupSize;
+      v188 = self->_threadgroupSize;
       if (self->_supportsDispatchThreadsWithIndirectBuffer)
       {
-        [encoder setComputePipelineState:v234];
+        [encoder setComputePipelineState:v232];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
         }
 
-        *v301 = v189;
-        *&v301[8] = vdupq_n_s64(1uLL);
-        [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v301];
+        *v299 = v188;
+        *&v299[8] = vdupq_n_s64(1uLL);
+        [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 512 threadsPerThreadgroup:v299];
       }
 
       else
       {
-        [(MTLGPUBVHBuilder *)self dispatchIndirect:v234 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+        [(MTLGPUBVHBuilder *)self dispatchIndirect:v232 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:2 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
       }
 
-      v165 = v251;
+      v165 = v249;
 LABEL_275:
-      v190 = v259 ^ 1;
+      v189 = v257 ^ 1;
       if (v168 == 1)
       {
-        v190 = 1;
+        v189 = 1;
       }
 
-      if (v190)
+      if (v189)
       {
-        v191 = v166;
+        v190 = v166;
         v166 = v165;
       }
 
       else
       {
-        [encoder setComputePipelineState:v246];
+        [encoder setComputePipelineState:v244];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
         }
 
-        *v301 = vdupq_n_s64(1uLL);
-        *&v301[16] = 1;
-        v289 = self->_threadgroupSize;
-        v290 = *v301;
-        [encoder dispatchThreadgroups:v301 threadsPerThreadgroup:&v289];
-        v191 = v165;
+        *v299 = vdupq_n_s64(1uLL);
+        *&v299[16] = 1;
+        v287 = self->_threadgroupSize;
+        v288 = *v299;
+        [encoder dispatchThreadgroups:v299 threadsPerThreadgroup:&v287];
+        v190 = v165;
         v165 = v166;
       }
 
       ++v169;
-      v192 = v166;
-      v166 = v191;
+      v191 = v166;
+      v166 = v190;
       if (!--v168)
       {
         goto LABEL_285;
@@ -3120,26 +3116,24 @@ LABEL_275:
   }
 
 LABEL_290:
-  v194 = self->_threadgroupSize;
+  v193 = self->_threadgroupSize;
   if (self->_supportsDispatchThreadsWithIndirectBuffer)
   {
-    [encoder setComputePipelineState:v209];
+    [encoder setComputePipelineState:v207];
     if ([encoder dispatchType] == 1)
     {
       [encoder memoryBarrierWithScope:1];
     }
 
-    *v301 = v194;
-    *&v301[8] = vdupq_n_s64(1uLL);
-    [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1536 threadsPerThreadgroup:v301];
+    *v299 = v193;
+    *&v299[8] = vdupq_n_s64(1uLL);
+    [encoder dispatchThreadgroupsWithIndirectBuffer:counterBuffer indirectBufferOffset:counterBufferOffset + 1536 threadsPerThreadgroup:v299];
   }
 
   else
   {
-    [(MTLGPUBVHBuilder *)self dispatchIndirect:v209 indirectBuffer:buffer indirectBufferOffset:v263 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:6 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
+    [(MTLGPUBVHBuilder *)self dispatchIndirect:v207 indirectBuffer:buffer indirectBufferOffset:v261 counterBuffer:counterBuffer counterBufferOffset:counterBufferOffset counterIndex:6 threadgroupDivisor:1 threadgroupSize:self->_threadgroupSize encoder:encoder];
   }
-
-  v195 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeBVHHeaderWithEncoder:(id)encoder descriptor:(id)descriptor tmpCounterBuffer:(id)buffer tmpCounterBufferOffset:(unint64_t)offset nodeBuffer:(id)nodeBuffer nodeBufferOffset:(unint64_t)bufferOffset headerBuffer:(id)headerBuffer headerBufferOffset:(unint64_t)self0 nodeOffset:(unint64_t)self1 fragmentOffset:(unint64_t)self2 fragmentIndexOffset:(unint64_t)self3 childIndexOffset:(unint64_t)self4 size:(unint64_t)self5
@@ -3174,29 +3168,28 @@ LABEL_290:
 
 - (void)initializeCounterBuffer:(id)buffer counterBuffer:(id)counterBuffer counterBufferOffset:(unint64_t)offset
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   binningTGSize = self->_binningTGSize;
   spatialBinningTGSize = self->_spatialBinningTGSize;
   threadgroupSize = self->_threadgroupSize;
-  v16 = vdupq_n_s32(threadgroupSize);
-  v17 = binningTGSize;
-  v18 = spatialBinningTGSize;
-  v19 = v16;
-  v20 = threadgroupSize;
+  v15 = vdupq_n_s32(threadgroupSize);
+  v16 = binningTGSize;
+  v17 = spatialBinningTGSize;
+  v18 = v15;
+  v19 = threadgroupSize;
   [buffer setComputePipelineState:{PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_INITIALIZE_COUNTERS, self->_pipelineCache.baseThreadgroupSize, 0)}];
   [buffer setBuffer:counterBuffer offset:offset atIndex:29];
-  [buffer setBytes:&v16 length:44 atIndex:30];
+  [buffer setBytes:&v15 length:44 atIndex:30];
   if ([buffer dispatchType] == 1)
   {
     [buffer memoryBarrierWithScope:1];
   }
 
-  v14 = xmmword_185DC62E0;
-  v15 = 1;
-  v12 = xmmword_185DC62F0;
-  v13 = 1;
-  [buffer dispatchThreads:&v14 threadsPerThreadgroup:&v12];
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = xmmword_185DC62E0;
+  v14 = 1;
+  v11 = xmmword_185DC62F0;
+  v12 = 1;
+  [buffer dispatchThreads:&v13 threadsPerThreadgroup:&v11];
 }
 
 - (void)buildGenericBVHWithEncoder:(id)encoder descriptor:(id)descriptor outputBuffer:(id)buffer outputBufferOffset:(unint64_t)offset scratchBuffer:(id)scratchBuffer scratchBufferOffset:(unint64_t)bufferOffset primitiveCountBuffer:(id)countBuffer primitiveCountBufferOffset:(unint64_t)self0
@@ -3678,7 +3671,7 @@ LABEL_31:
 
 - ($D4F0DBFB58BF58C1D2D6E8FF21CEAEC6)getMTLSWBVHSizeAndOffsetsForDescriptor:(SEL)descriptor bvhDescriptor:(id)bvhDescriptor
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   *&retstr->var8 = 0u;
   *&retstr->var10 = 0u;
   *&retstr->var4 = 0u;
@@ -3695,7 +3688,7 @@ LABEL_31:
     v13 = 16;
   }
 
-  v47 = v13;
+  v46 = v13;
   if (MTLSWBVHType)
   {
     v14 = 0;
@@ -3715,12 +3708,12 @@ LABEL_31:
 
     if (MTLSWBVHPrimitiveType - 1 >= 2 && !MTLSWBVHPrimitiveType)
     {
-      v46 = 8;
+      v45 = 8;
       goto LABEL_12;
     }
   }
 
-  v46 = 0;
+  v45 = 0;
 LABEL_12:
   if (MTLSWBVHMotion)
   {
@@ -3737,12 +3730,12 @@ LABEL_12:
     v14 *= [a5 primitiveKeyframeCount];
   }
 
-  v55 = 0;
-  v56 = 0;
-  v53 = 0;
   v54 = 0;
+  v55 = 0;
   v52 = 0;
-  [(MTLBVHBuilder *)self getCapacitiesForDescriptor:a5 fragmentCapacity:&v56 fragmentIndexCapacity:&v52 innerNodeCapacity:&v55 leafNodeCapacity:&v54 primitiveDataCapacity:&v53];
+  v53 = 0;
+  v51 = 0;
+  [(MTLBVHBuilder *)self getCapacitiesForDescriptor:a5 fragmentCapacity:&v55 fragmentIndexCapacity:&v51 innerNodeCapacity:&v54 leafNodeCapacity:&v53 primitiveDataCapacity:&v52];
   if (MTLSWBVHType)
   {
     v16 = objc_opt_class();
@@ -3787,30 +3780,30 @@ LABEL_38:
   }
 
   v19 = [objc_msgSend(bvhDescriptor "geometryDescriptors")];
-  if (MTLSWBVHPrimitiveType == 2 && (v50 = 0u, v51 = 0u, v48 = 0u, v49 = 0u, v20 = [a5 geometryDescriptors], (v21 = objc_msgSend(v20, "countByEnumeratingWithState:objects:count:", &v48, v57, 16)) != 0))
+  if (MTLSWBVHPrimitiveType == 2 && (v49 = 0u, v50 = 0u, v47 = 0u, v48 = 0u, v20 = [a5 geometryDescriptors], (v21 = objc_msgSend(v20, "countByEnumeratingWithState:objects:count:", &v47, v56, 16)) != 0))
   {
     v22 = v21;
-    v45 = v19;
+    v44 = v19;
     v23 = 0;
-    v24 = *v49;
+    v24 = *v48;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v49 != v24)
+        if (*v48 != v24)
         {
           objc_enumerationMutation(v20);
         }
 
-        v23 += [*(*(&v48 + 1) + 8 * i) controlPointCount];
+        v23 += [*(*(&v47 + 1) + 8 * i) controlPointCount];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v22);
     v26 = 16 * v23;
-    v19 = v45;
+    v19 = v44;
   }
 
   else
@@ -3829,12 +3822,12 @@ LABEL_39:
     v30 = (8 * [a5 maxDepth] + 511) & 0xFFFFFFFFFFFFFF00;
   }
 
-  v31 = v54;
-  v32 = (v15 + v15 * v55 + v30 + 252) & 0xFFFFFFFFFFFFFF00;
+  v31 = v53;
+  v32 = (v15 + v15 * v54 + v30 + 252) & 0xFFFFFFFFFFFFFF00;
   retstr->var2 = v30;
   retstr->var3 = v32;
-  v33 = (v32 + v31 * v47 + 255) & 0xFFFFFFFFFFFFFF00;
-  v34 = v33 + v52 * v14 + 255;
+  v33 = (v32 + v31 * v46 + 255) & 0xFFFFFFFFFFFFFF00;
+  v34 = v33 + v51 * v14 + 255;
   retstr->var4 = v33;
   retstr->var5 = v34 & 0xFFFFFFFFFFFFFF00;
   if ([a5 motion])
@@ -3850,7 +3843,7 @@ LABEL_39:
   v36 = (v34 | 0xFF) + primitiveKeyframeCount * v26;
   retstr->var6 = v36 & 0xFFFFFFFFFFFFFF00;
   result = [bvhDescriptor usage];
-  v38 = ((v36 | 0xF8) + (((result << 63) >> 63) & (v52 * v46))) & 0xFFFFFFFFFFFFFF00;
+  v38 = ((v36 | 0xF8) + (((result << 63) >> 63) & (v51 * v45))) & 0xFFFFFFFFFFFFFF00;
   v39 = (v29 + v38) & 0xFFFFFFFFFFFFFF00;
   retstr->var7 = v38;
   retstr->var8 = v39;
@@ -3859,10 +3852,9 @@ LABEL_39:
   v42 = (v41 + (v28 << 7) + 255) & 0xFFFFFFFFFFFFFF00;
   retstr->var9 = v41;
   retstr->var10 = v42;
-  v43 = (v53 + v42 + 255) & 0xFFFFFFFFFFFFFF00;
+  v43 = (v52 + v42 + 255) & 0xFFFFFFFFFFFFFF00;
   retstr->var11 = v43;
   retstr->var0 = (v40 + v43) & 0xFFFFFFFFFFFFFF00;
-  v44 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3870,7 +3862,7 @@ LABEL_39:
 {
   if (self)
   {
-    [self getMTLSWBVHSizeAndOffsetsForDescriptor:descriptor bvhDescriptor:bvhDescriptor];
+    objc_msgSend_getMTLSWBVHSizeAndOffsetsForDescriptor_bvhDescriptor_(self, a2, descriptor, bvhDescriptor);
     self = 0;
   }
 
@@ -3891,8 +3883,8 @@ LABEL_39:
 {
   if (self)
   {
-    [self getMTLSWBVHSizeAndOffsetsForDescriptor:descriptor bvhDescriptor:bvhDescriptor];
-    return v4;
+    objc_msgSend_getMTLSWBVHSizeAndOffsetsForDescriptor_bvhDescriptor_(self, a2, descriptor, bvhDescriptor);
+    return v4[0];
   }
 
   return self;
@@ -3935,35 +3927,34 @@ LABEL_39:
 
 - (void)setGeometryBufferWithGeometryDescriptors:(id)descriptors retainedResources:(id)resources onEncoder:(id)encoder atIndex:(unint64_t)index
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v11 = [descriptors count];
   v12 = v11;
   if (v11 >= 0x11)
   {
-    v20[0] = [(MTLDevice *)self->_device newBufferWithLength:8 * v11 options:0];
-    contents = [v20[0] contents];
+    v18[0] = [(MTLDevice *)self->_device newBufferWithLength:8 * v11 options:0];
+    contents = [v18[0] contents];
   }
 
   else
   {
-    contents = v20 - ((8 * v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+    contents = v18 - ((8 * v11 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(contents, 8 * v11);
     if (!v12)
     {
 LABEL_11:
       [encoder setBytes:contents length:8 * v12 atIndex:index];
-      v19 = *MEMORY[0x1E69E9840];
       return;
     }
 
-    v20[0] = 0;
+    v18[0] = 0;
   }
 
   v14 = 0;
   v15 = contents + 4;
   do
   {
-    v16 = [descriptors objectAtIndexedSubscript:{v14, v20[0]}];
+    v16 = [descriptors objectAtIndexedSubscript:{v14, v18[0]}];
     *(v15 - 1) = [v16 opaque];
     *v15 = [v16 intersectionFunctionTableOffset];
     v15 += 2;
@@ -3971,66 +3962,65 @@ LABEL_11:
   }
 
   while (v12 != v14);
-  if (!v20[0])
+  if (!v18[0])
   {
     goto LABEL_11;
   }
 
-  [resources addObject:v20[0]];
-  v17 = *MEMORY[0x1E69E9840];
-  v18 = v20[0];
+  [resources addObject:v18[0]];
+  v17 = v18[0];
 }
 
 - (void)encodeMTLSWBVHWithEncoder:(id)encoder descriptor:(id)descriptor bvhDescriptor:(id)bvhDescriptor outputBuffer:(id)buffer outputBufferOffset:(unint64_t)offset genericBVHBuffer:(id)hBuffer genericBVHBufferOffset:(unint64_t)bufferOffset scratchBuffer:(id)self0 scratchBufferOffset:(unint64_t)self1 gpuResourceID:(MTLResourceID)self2 accelerationStructureUniqueIdentifier:(unint64_t)self3
 {
   selfCopy = self;
-  v226 = *MEMORY[0x1E69E9840];
-  v143 = [(MTLGPUBVHBuilder *)self retainedResourcesArrayWithEncoder:?];
-  v217 = 0;
-  v218 = 0;
-  v215 = 0;
+  v225 = *MEMORY[0x1E69E9840];
+  v142 = [(MTLGPUBVHBuilder *)self retainedResourcesArrayWithEncoder:?];
   v216 = 0;
-  [(MTLBVHBuilder *)selfCopy getCapacitiesForDescriptor:bvhDescriptor fragmentCapacity:&v218 innerNodeCapacity:&v217 leafNodeCapacity:&v216 primitiveDataCapacity:&v215];
-  v213 = 0;
+  v217 = 0;
   v214 = 0;
-  v211 = 0;
+  v215 = 0;
+  [(MTLBVHBuilder *)selfCopy getCapacitiesForDescriptor:bvhDescriptor fragmentCapacity:&v217 innerNodeCapacity:&v216 leafNodeCapacity:&v215 primitiveDataCapacity:&v214];
   v212 = 0;
-  [(MTLGPUBVHBuilder *)selfCopy getGenericBVHSizeForDescriptor:bvhDescriptor nodeOffset:&v214 fragmentOffset:&v213 fragmentIndexOffset:&v212 childIndexOffset:&v211];
-  v210 = 0u;
-  memset(&v209[1], 0, 80);
+  v213 = 0;
+  v210 = 0;
+  v211 = 0;
+  [(MTLGPUBVHBuilder *)selfCopy getGenericBVHSizeForDescriptor:bvhDescriptor nodeOffset:&v213 fragmentOffset:&v212 fragmentIndexOffset:&v211 childIndexOffset:&v210];
+  v209 = 0u;
+  memset(&v208[1], 0, 80);
   if (selfCopy)
   {
-    [(MTLGPUBVHBuilder *)selfCopy getMTLSWBVHSizeAndOffsetsForDescriptor:descriptor bvhDescriptor:bvhDescriptor];
+    objc_msgSend_getMTLSWBVHSizeAndOffsetsForDescriptor_bvhDescriptor_(selfCopy);
   }
 
   bvhDescriptorCopy = bvhDescriptor;
-  v17 = (((scratchBufferOffset + 255) | 0xFC) + 4 * (v217 + v216)) & 0xFFFFFFFFFFFFFF00;
-  v148 = (v17 + 3071) & 0xFFFFFFFFFFFFFF00;
-  v18 = ([MTLGPUBVHBuilder breadthFirstLayoutScratchBufferSizeWithLeafNodeCapacity:?]+ ((v148 + 1023) & 0xFFFFFFFFFFFFFF00) + 255) & 0xFFFFFFFFFFFFFF00;
+  v17 = (((scratchBufferOffset + 255) | 0xFC) + 4 * (v216 + v215)) & 0xFFFFFFFFFFFFFF00;
+  v147 = (v17 + 3071) & 0xFFFFFFFFFFFFFF00;
+  v18 = ([MTLGPUBVHBuilder breadthFirstLayoutScratchBufferSizeWithLeafNodeCapacity:?]+ ((v147 + 1023) & 0xFFFFFFFFFFFFFF00) + 255) & 0xFFFFFFFFFFFFFF00;
   v19 = (v18 + 4 * [bvhDescriptorCopy maxDepth] + 255) & 0xFFFFFFFFFFFFFF00;
   [bvhDescriptorCopy maxDepth];
   [bvhDescriptorCopy updatePipelineKey];
-  v134 = v18;
+  v133 = v18;
   scratchBufferCopy = scratchBuffer;
-  v135 = v19;
-  v138 = v17;
+  v134 = v19;
+  v137 = v17;
   v20 = bvhDescriptorCopy;
   [MTLGPUBVHBuilder layoutNodesBreadthFirstWithEncoder:selfCopy descriptor:"layoutNodesBreadthFirstWithEncoder:descriptor:BVHBuffer:BVHBufferOffset:counterBuffer:counterBufferOffset:nodeMappingBuffer:nodeMappingBufferOffset:levelOffsetsBuffer:levelOffsetsBufferOffset:levelCountsBuffer:levelCountsBufferOffset:scratchBuffer:scratchBufferOffset:" BVHBuffer:encoder BVHBufferOffset:bvhDescriptorCopy counterBuffer:hBuffer counterBufferOffset:bufferOffset nodeMappingBuffer:? nodeMappingBufferOffset:? levelOffsetsBuffer:? levelOffsetsBufferOffset:? levelCountsBuffer:? levelCountsBufferOffset:? scratchBuffer:? scratchBufferOffset:?];
   MTLSWBVHType = getMTLSWBVHType(descriptor);
   MTLSWBVHPrimitiveType = getMTLSWBVHPrimitiveType(descriptor);
   MTLSWBVHMotion = getMTLSWBVHMotion(descriptor);
   Pipeline = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_BVH_NODE0, bvhDescriptorCopy);
-  v209[0] = 0;
-  v208 = 0;
+  v208[0] = 0;
+  v207 = 0;
   p_pipelineCache = &selfCopy->_pipelineCache;
   descriptorCopy = descriptor;
-  v154 = MTLSWBVHPrimitiveType;
-  v147 = MTLSWBVHType;
+  v153 = MTLSWBVHPrimitiveType;
+  v146 = MTLSWBVHType;
   if (!MTLSWBVHType)
   {
     descriptorCopy2 = descriptor;
-    v136 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_PRIMITIVE_BVH, bvhDescriptorCopy);
-    v137 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_PRIMITIVE_BVH_INNER_NODE, bvhDescriptorCopy);
+    v135 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_PRIMITIVE_BVH, bvhDescriptorCopy);
+    v136 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_PRIMITIVE_BVH_INNER_NODE, bvhDescriptorCopy);
     v32 = &OBJC_IVAR___MTLGPUBVHBuilder_KERNEL_INDEX_ENCODE_MTL_CURVE_BVH_LEAF_NODE;
     if (MTLSWBVHPrimitiveType == 1)
     {
@@ -4042,64 +4032,64 @@ LABEL_11:
       v32 = &OBJC_IVAR___MTLGPUBVHBuilder_KERNEL_INDEX_ENCODE_MTL_TRIANGLE_BVH_LEAF_NODE;
     }
 
-    v131 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, *(&selfCopy->super.super.isa + *v32), bvhDescriptorCopy);
+    v130 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, *(&selfCopy->super.super.isa + *v32), bvhDescriptorCopy);
     obj = [bvhDescriptorCopy geometryDescriptors];
-    v141 = [obj count];
-    if (v141)
+    v140 = [obj count];
+    if (v140)
     {
       if ([bvhDescriptorCopy requiresResourceBuffer])
       {
-        v206 = 0u;
-        v207 = 0u;
-        v204 = 0u;
         v205 = 0u;
-        v33 = [obj countByEnumeratingWithState:&v204 objects:v225 count:16];
+        v206 = 0u;
+        v203 = 0u;
+        v204 = 0u;
+        v33 = [obj countByEnumeratingWithState:&v203 objects:v224 count:16];
         if (v33)
         {
           v34 = v33;
-          v129 = selfCopy;
-          v152 = 0;
-          v35 = *v205;
+          v128 = selfCopy;
+          v151 = 0;
+          v35 = *v204;
           while (1)
           {
             for (i = 0; i != v34; ++i)
             {
-              if (*v205 != v35)
+              if (*v204 != v35)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v37 = *(*(&v204 + 1) + 8 * i);
+              v37 = *(*(&v203 + 1) + 8 * i);
               if (MTLSWBVHPrimitiveType)
               {
                 if (MTLSWBVHPrimitiveType == 1)
                 {
-                  v198 = 0uLL;
-                  v199 = 0uLL;
-                  v196 = 0uLL;
                   v197 = 0uLL;
+                  v198 = 0uLL;
+                  v195 = 0uLL;
+                  v196 = 0uLL;
                   boundingBoxBuffers = [v37 boundingBoxBuffers];
-                  v39 = [boundingBoxBuffers countByEnumeratingWithState:&v196 objects:v223 count:16];
+                  v39 = [boundingBoxBuffers countByEnumeratingWithState:&v195 objects:v222 count:16];
                   if (!v39)
                   {
                     goto LABEL_56;
                   }
 
                   v40 = v39;
-                  v41 = *v197;
+                  v41 = *v196;
                   do
                   {
                     for (j = 0; j != v40; ++j)
                     {
-                      if (*v197 != v41)
+                      if (*v196 != v41)
                       {
                         objc_enumerationMutation(boundingBoxBuffers);
                       }
 
-                      [encoder useResource:objc_msgSend(*(*(&v196 + 1) + 8 * j) usage:{"buffer"), 1}];
+                      [encoder useResource:objc_msgSend(*(*(&v195 + 1) + 8 * j) usage:{"buffer"), 1}];
                     }
 
-                    v40 = [boundingBoxBuffers countByEnumeratingWithState:&v196 objects:v223 count:16];
+                    v40 = [boundingBoxBuffers countByEnumeratingWithState:&v195 objects:v222 count:16];
                   }
 
                   while (v40);
@@ -4107,92 +4097,92 @@ LABEL_11:
 
                 else
                 {
-                  v194 = 0uLL;
-                  v195 = 0uLL;
-                  v192 = 0uLL;
                   v193 = 0uLL;
+                  v194 = 0uLL;
+                  v191 = 0uLL;
+                  v192 = 0uLL;
                   controlPointBuffers = [v37 controlPointBuffers];
-                  v49 = [controlPointBuffers countByEnumeratingWithState:&v192 objects:v222 count:16];
+                  v49 = [controlPointBuffers countByEnumeratingWithState:&v191 objects:v221 count:16];
                   if (v49)
                   {
                     v50 = v49;
-                    v51 = *v193;
+                    v51 = *v192;
                     do
                     {
                       for (k = 0; k != v50; ++k)
                       {
-                        if (*v193 != v51)
+                        if (*v192 != v51)
                         {
                           objc_enumerationMutation(controlPointBuffers);
                         }
 
-                        [encoder useResource:objc_msgSend(*(*(&v192 + 1) + 8 * k) usage:{"buffer"), 1}];
+                        [encoder useResource:objc_msgSend(*(*(&v191 + 1) + 8 * k) usage:{"buffer"), 1}];
                       }
 
-                      v50 = [controlPointBuffers countByEnumeratingWithState:&v192 objects:v222 count:16];
+                      v50 = [controlPointBuffers countByEnumeratingWithState:&v191 objects:v221 count:16];
                     }
 
                     while (v50);
                   }
 
-                  v190 = 0u;
-                  v191 = 0u;
-                  v188 = 0u;
                   v189 = 0u;
+                  v190 = 0u;
+                  v187 = 0u;
+                  v188 = 0u;
                   radiusBuffers = [v37 radiusBuffers];
-                  v54 = [radiusBuffers countByEnumeratingWithState:&v188 objects:v221 count:16];
+                  v54 = [radiusBuffers countByEnumeratingWithState:&v187 objects:v220 count:16];
                   if (v54)
                   {
                     v55 = v54;
-                    v56 = *v189;
+                    v56 = *v188;
                     do
                     {
                       for (m = 0; m != v55; ++m)
                       {
-                        if (*v189 != v56)
+                        if (*v188 != v56)
                         {
                           objc_enumerationMutation(radiusBuffers);
                         }
 
-                        [encoder useResource:objc_msgSend(*(*(&v188 + 1) + 8 * m) usage:{"buffer"), 1}];
+                        [encoder useResource:objc_msgSend(*(*(&v187 + 1) + 8 * m) usage:{"buffer"), 1}];
                       }
 
-                      v55 = [radiusBuffers countByEnumeratingWithState:&v188 objects:v221 count:16];
+                      v55 = [radiusBuffers countByEnumeratingWithState:&v187 objects:v220 count:16];
                     }
 
                     while (v55);
                   }
 
                   [encoder useResource:objc_msgSend(v37 usage:{"indexBuffer"), 1}];
-                  v152 += [v37 controlPointCount];
+                  v151 += [v37 controlPointCount];
                 }
               }
 
               else
               {
-                v202 = 0uLL;
-                v203 = 0uLL;
-                v200 = 0uLL;
                 v201 = 0uLL;
+                v202 = 0uLL;
+                v199 = 0uLL;
+                v200 = 0uLL;
                 vertexBuffers = [v37 vertexBuffers];
-                v44 = [vertexBuffers countByEnumeratingWithState:&v200 objects:v224 count:16];
+                v44 = [vertexBuffers countByEnumeratingWithState:&v199 objects:v223 count:16];
                 if (v44)
                 {
                   v45 = v44;
-                  v46 = *v201;
+                  v46 = *v200;
                   do
                   {
                     for (n = 0; n != v45; ++n)
                     {
-                      if (*v201 != v46)
+                      if (*v200 != v46)
                       {
                         objc_enumerationMutation(vertexBuffers);
                       }
 
-                      [encoder useResource:objc_msgSend(*(*(&v200 + 1) + 8 * n) usage:{"buffer"), 1}];
+                      [encoder useResource:objc_msgSend(*(*(&v199 + 1) + 8 * n) usage:{"buffer"), 1}];
                     }
 
-                    v45 = [vertexBuffers countByEnumeratingWithState:&v200 objects:v224 count:16];
+                    v45 = [vertexBuffers countByEnumeratingWithState:&v199 objects:v223 count:16];
                   }
 
                   while (v45);
@@ -4209,7 +4199,7 @@ LABEL_11:
                 }
               }
 
-              MTLSWBVHPrimitiveType = v154;
+              MTLSWBVHPrimitiveType = v153;
 LABEL_56:
               if ([v37 primitiveDataBuffer])
               {
@@ -4217,32 +4207,32 @@ LABEL_56:
               }
             }
 
-            v34 = [obj countByEnumeratingWithState:&v204 objects:v225 count:16];
+            v34 = [obj countByEnumeratingWithState:&v203 objects:v224 count:16];
             if (!v34)
             {
-              selfCopy = v129;
+              selfCopy = v128;
               v20 = bvhDescriptorCopy;
               goto LABEL_95;
             }
           }
         }
 
-        LODWORD(v152) = 0;
+        LODWORD(v151) = 0;
 LABEL_95:
         descriptor = descriptorCopy;
-        v62 = v138;
+        v62 = v137;
 LABEL_96:
-        v130 = -[MTLGPUBVHBuilder newGeometryBufferWithGeometryDescriptors:retainedResources:](selfCopy, "newGeometryBufferWithGeometryDescriptors:retainedResources:", [descriptor geometryDescriptors], v143);
+        v129 = -[MTLGPUBVHBuilder newGeometryBufferWithGeometryDescriptors:retainedResources:](selfCopy, "newGeometryBufferWithGeometryDescriptors:retainedResources:", [descriptor geometryDescriptors], v142);
         motionTransformType = 0;
         v64 = 0;
         v66 = 0;
         obja = 0;
-        v67 = v141;
-        v65 = v152;
+        v67 = v140;
+        v65 = v151;
         goto LABEL_105;
       }
 
-      v62 = v138;
+      v62 = v137;
       if (!MTLSWBVHPrimitiveType)
       {
         v68 = [obj objectAtIndexedSubscript:0];
@@ -4253,13 +4243,13 @@ LABEL_96:
         [encoder setBuffer:indexBuffer offset:objc_msgSend(v70 atIndex:{"indexBufferOffset"), 6}];
       }
 
-      LODWORD(v152) = 0;
+      LODWORD(v151) = 0;
     }
 
     else
     {
-      LODWORD(v152) = 0;
-      v62 = v138;
+      LODWORD(v151) = 0;
+      v62 = v137;
     }
 
     descriptor = descriptorCopy2;
@@ -4278,12 +4268,12 @@ LABEL_96:
       v65 = 0;
       v66 = 0;
       v67 = 0;
+      v129 = 0;
       v130 = 0;
-      v131 = 0;
       obja = 0;
+      v135 = 0;
       v136 = 0;
-      v137 = 0;
-      v62 = v138;
+      v62 = v137;
       v20 = bvhDescriptorCopy;
       goto LABEL_105;
     }
@@ -4291,9 +4281,9 @@ LABEL_96:
     v59 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_INSTANCE_BVH, bvhDescriptorCopy);
     v60 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_INSTANCE_BVH_INNER_NODE, bvhDescriptorCopy);
     instanceDescriptorType = [descriptor instanceDescriptorType];
-    v62 = v138;
-    v136 = v59;
-    v137 = v60;
+    v62 = v137;
+    v135 = v59;
+    v136 = v60;
     if (instanceDescriptorType == 4)
     {
       maxMotionTransformCount = [descriptorCopy3 maxMotionTransformCount];
@@ -4304,32 +4294,32 @@ LABEL_96:
       maxMotionTransformCount = [descriptorCopy3 maxInstanceCount];
     }
 
-    v153 = maxMotionTransformCount;
-    *v219 = 3;
+    v152 = maxMotionTransformCount;
+    *v218 = 3;
     instanceTransformationMatrixLayout = [descriptorCopy3 instanceTransformationMatrixLayout];
-    *v219 = *v219 & 0xFFFFFFEF | (16 * (instanceTransformationMatrixLayout == 1));
+    *v218 = *v218 & 0xFFFFFFEF | (16 * (instanceTransformationMatrixLayout == 1));
     v64 = [descriptorCopy3 instanceTransformationMatrixLayout] == 1;
     motionTransformType = [descriptorCopy3 motionTransformType];
     if (instanceDescriptorType == 3 || instanceDescriptorType == 4)
     {
       KERNEL_INDEX_ENCODE_MTL_INSTANCE_BVH_LEAF_NODE_INDIRECT = selfCopy->KERNEL_INDEX_ENCODE_MTL_INSTANCE_BVH_LEAF_NODE_INDIRECT;
-      *&v172 = 0;
-      v171 = 0u;
+      *&v171 = 0;
       v170 = 0u;
-      PipelineCache<PipelineKey>::getPipelineKey(&selfCopy->_pipelineCache, KERNEL_INDEX_ENCODE_MTL_INSTANCE_BVH_LEAF_NODE_INDIRECT, bvhDescriptorCopy, selfCopy->_pipelineCache.baseThreadgroupSize, v219, &v170);
-      v131 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, &v170, 0);
+      v169 = 0u;
+      PipelineCache<PipelineKey>::getPipelineKey(&selfCopy->_pipelineCache, KERNEL_INDEX_ENCODE_MTL_INSTANCE_BVH_LEAF_NODE_INDIRECT, bvhDescriptorCopy, selfCopy->_pipelineCache.baseThreadgroupSize, v218, &v169);
+      v130 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, &v169, 0);
     }
 
     else
     {
       MTLReportFailure(0, "[MTLGPUBVHBuilder encodeMTLSWBVHWithEncoder:descriptor:bvhDescriptor:outputBuffer:outputBufferOffset:genericBVHBuffer:genericBVHBufferOffset:scratchBuffer:scratchBufferOffset:gpuResourceID:accelerationStructureUniqueIdentifier:]", 6652, @"Unhandled instance descriptor type", v83, v84, v85, v86, scratchBuffer);
-      v131 = 0;
+      v130 = 0;
     }
 
     descriptor = descriptorCopy;
     [encoder setBuffer:objc_msgSend(descriptorCopy offset:"instanceDescriptorBuffer") atIndex:{objc_msgSend(descriptorCopy, "instanceDescriptorBufferOffset"), 8}];
-    LODWORD(v208) = [descriptorCopy instanceDescriptorStride];
-    obja = [(MTLGPUBVHBuilder *)selfCopy newInstanceBufferWithBVHs:0 retainedResources:v143 encoder:encoder encodedStride:v209];
+    LODWORD(v207) = [descriptorCopy instanceDescriptorStride];
+    obja = [(MTLGPUBVHBuilder *)selfCopy newInstanceBufferWithBVHs:0 retainedResources:v142 encoder:encoder encodedStride:v208];
     [encoder setBuffer:? offset:? atIndex:?];
     if ([descriptorCopy instanceDescriptorType] == 4)
     {
@@ -4339,7 +4329,7 @@ LABEL_96:
     usage = [descriptorCopy usage];
     v65 = 0;
     v67 = 0;
-    v130 = 0;
+    v129 = 0;
     if ((usage & 4) != 0)
     {
       v89 = -1;
@@ -4350,7 +4340,7 @@ LABEL_96:
       v89 = 255;
     }
 
-    HIDWORD(v208) = v89;
+    HIDWORD(v207) = v89;
     v20 = bvhDescriptorCopy;
     goto LABEL_104;
   }
@@ -4359,8 +4349,8 @@ LABEL_96:
   v26 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_INSTANCE_BVH_INNER_NODE, bvhDescriptorCopy);
   instanceDescriptorType2 = [descriptor instanceDescriptorType];
   v28 = instanceDescriptorType2;
-  v136 = v25;
-  v137 = v26;
+  v135 = v25;
+  v136 = v26;
   if (instanceDescriptorType2 == 4 || instanceDescriptorType2 == 2)
   {
     descriptorCopy5 = descriptor;
@@ -4373,10 +4363,10 @@ LABEL_96:
     motionTransformCount = [descriptor instanceCount];
   }
 
-  v153 = motionTransformCount;
-  *v219 = 3;
+  v152 = motionTransformCount;
+  *v218 = 3;
   instanceTransformationMatrixLayout2 = [descriptorCopy5 instanceTransformationMatrixLayout];
-  *v219 = *v219 & 0xFFFFFFEF | (16 * (instanceTransformationMatrixLayout2 == 1));
+  *v218 = *v218 & 0xFFFFFFEF | (16 * (instanceTransformationMatrixLayout2 == 1));
   v72 = [descriptorCopy5 instanceTransformationMatrixLayout] == 1;
   motionTransformType = [descriptorCopy5 motionTransformType];
   if (v28 > 1)
@@ -4394,11 +4384,11 @@ LABEL_96:
     v77 = 316;
 LABEL_82:
     v78 = *(&selfCopy->super.super.isa + v77);
-    *&v172 = 0;
-    v171 = 0u;
+    *&v171 = 0;
     v170 = 0u;
-    PipelineCache<PipelineKey>::getPipelineKey(&selfCopy->_pipelineCache, v78, bvhDescriptorCopy, selfCopy->_pipelineCache.baseThreadgroupSize, v219, &v170);
-    v131 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, &v170, 0);
+    v169 = 0u;
+    PipelineCache<PipelineKey>::getPipelineKey(&selfCopy->_pipelineCache, v78, bvhDescriptorCopy, selfCopy->_pipelineCache.baseThreadgroupSize, v218, &v169);
+    v130 = PipelineCache<PipelineKey>::getPipeline(&selfCopy->_pipelineCache, &v169, 0);
     goto LABEL_83;
   }
 
@@ -4417,13 +4407,13 @@ LABEL_81:
 
 LABEL_93:
   MTLReportFailure(0, "[MTLGPUBVHBuilder encodeMTLSWBVHWithEncoder:descriptor:bvhDescriptor:outputBuffer:outputBufferOffset:genericBVHBuffer:genericBVHBufferOffset:scratchBuffer:scratchBufferOffset:gpuResourceID:accelerationStructureUniqueIdentifier:]", 6590, @"Unhandled instance descriptor type", v73, v74, v75, v76, scratchBuffer);
-  v131 = 0;
+  v130 = 0;
 LABEL_83:
   v64 = v72;
   descriptor = descriptorCopy;
   [encoder setBuffer:objc_msgSend(descriptorCopy offset:"instanceDescriptorBuffer") atIndex:{objc_msgSend(descriptorCopy, "instanceDescriptorBufferOffset"), 8}];
-  LODWORD(v208) = [descriptorCopy instanceDescriptorStride];
-  obja = -[MTLGPUBVHBuilder newInstanceBufferWithBVHs:retainedResources:encoder:encodedStride:](selfCopy, "newInstanceBufferWithBVHs:retainedResources:encoder:encodedStride:", [descriptorCopy instancedAccelerationStructures], v143, encoder, v209);
+  LODWORD(v207) = [descriptorCopy instanceDescriptorStride];
+  obja = -[MTLGPUBVHBuilder newInstanceBufferWithBVHs:retainedResources:encoder:encodedStride:](selfCopy, "newInstanceBufferWithBVHs:retainedResources:encoder:encodedStride:", [descriptorCopy instancedAccelerationStructures], v142, encoder, v208);
   [encoder setBuffer:? offset:? atIndex:?];
   if (v28 == 4 || v28 == 2)
   {
@@ -4433,7 +4423,7 @@ LABEL_83:
   usage2 = [descriptorCopy usage];
   v65 = 0;
   v67 = 0;
-  v130 = 0;
+  v129 = 0;
   if ((usage2 & 4) != 0)
   {
     v80 = -1;
@@ -4444,39 +4434,39 @@ LABEL_83:
     v80 = 255;
   }
 
-  HIDWORD(v208) = v80;
+  HIDWORD(v207) = v80;
   v20 = bvhDescriptorCopy;
-  v62 = v138;
+  v62 = v137;
 LABEL_104:
-  v66 = v153;
+  v66 = v152;
 LABEL_105:
-  v186 = 0u;
-  v187 = 0u;
-  v184 = 0u;
   v185 = 0u;
+  v186 = 0u;
   v183 = 0u;
+  v184 = 0u;
+  v182 = 0u;
+  v178 = 0u;
   v179 = 0u;
-  v180 = 0u;
-  v170 = 0u;
-  *&v171 = 0;
-  v172 = 0u;
-  v173 = *&v209[2];
-  v174 = *&v209[4];
-  v175 = *&v209[6];
-  v176 = *&v209[8];
-  HIDWORD(v172) = v209[0];
-  v177 = v209[10];
-  v178 = v209[1];
-  *(&v171 + 1) = __PAIR64__(v67, v65);
-  LODWORD(v170) = (2 * (v154 & 3)) | v147;
-  *&v179 = identifier;
-  *&v184 = *(&v210 + 1);
-  v142 = v67;
-  DWORD1(v172) = v66;
-  v181 = v210;
-  v182 = v215;
+  v169 = 0u;
+  *&v170 = 0;
+  v171 = 0u;
+  v172 = *&v208[2];
+  v173 = *&v208[4];
+  v174 = *&v208[6];
+  v175 = *&v208[8];
+  HIDWORD(v171) = v208[0];
+  v176 = v208[10];
+  v177 = v208[1];
+  *(&v170 + 1) = __PAIR64__(v67, v65);
+  LODWORD(v169) = (2 * (v153 & 3)) | v146;
+  *&v178 = identifier;
+  *&v183 = *(&v209 + 1);
+  v141 = v67;
+  DWORD1(v171) = v66;
+  v180 = v209;
+  v181 = v214;
   maxDepth = [v20 maxDepth];
-  LODWORD(v170) = v170 & 0xFFFF80FF | ((maxDepth & 0x7F) << 8);
+  LODWORD(v169) = v169 & 0xFFFF80FF | ((maxDepth & 0x7F) << 8);
   usage3 = [descriptor usage];
   if (MTLSWBVHMotion)
   {
@@ -4488,30 +4478,30 @@ LABEL_105:
     v92 = 0;
   }
 
-  LODWORD(v170) = v170 & 0xFFFFFFE7 | v92 & 0xFFFFFFEF | (16 * (usage3 & 1));
-  *(&v187 + 1) = __PAIR64__(motionTransformType, v64);
-  if (!v147)
+  LODWORD(v169) = v169 & 0xFFFFFFE7 | v92 & 0xFFFFFFEF | (16 * (usage3 & 1));
+  *(&v186 + 1) = __PAIR64__(motionTransformType, v64);
+  if (!v146)
   {
-    DWORD2(v172) = [descriptorCopy motionKeyframeCount];
+    DWORD2(v171) = [descriptorCopy motionKeyframeCount];
     [descriptorCopy motionStartTime];
-    DWORD1(v170) = v93;
+    DWORD1(v169) = v93;
     [descriptorCopy motionEndTime];
-    DWORD2(v170) = v94;
+    DWORD2(v169) = v94;
     motionStartBorderMode = [descriptorCopy motionStartBorderMode];
-    LODWORD(v170) = v170 & 0xFFFFFFDF | (32 * (motionStartBorderMode & 1));
+    LODWORD(v169) = v169 & 0xFFFFFFDF | (32 * (motionStartBorderMode & 1));
     motionEndBorderMode = [descriptorCopy motionEndBorderMode];
-    LODWORD(v170) = v170 & 0xFFFFFFBF | ((motionEndBorderMode & 1) << 6);
+    LODWORD(v169) = v169 & 0xFFFFFFBF | ((motionEndBorderMode & 1) << 6);
   }
 
-  [encoder setBytes:&v208 length:8 atIndex:0];
-  [encoder setBytes:&v170 length:256 atIndex:9];
+  [encoder setBytes:&v207 length:8 atIndex:0];
+  [encoder setBytes:&v169 length:256 atIndex:9];
   [encoder setBuffer:hBuffer offset:bufferOffset atIndex:1];
   [encoder setBuffer:buffer offset:offset atIndex:2];
   [encoder setBuffer:scratchBuffer offset:(scratchBufferOffset + 255) & 0xFFFFFFFFFFFFFF00 atIndex:3];
   [encoder setBuffer:scratchBuffer offset:v62 atIndex:4];
-  [encoder setBuffer:buffer offset:v210 + offset atIndex:12];
-  [encoder setBuffer:scratchBuffer offset:v134 atIndex:13];
-  [encoder setBuffer:scratchBuffer offset:v135 atIndex:14];
+  [encoder setBuffer:buffer offset:v209 + offset atIndex:12];
+  [encoder setBuffer:scratchBuffer offset:v133 atIndex:13];
+  [encoder setBuffer:scratchBuffer offset:v134 atIndex:14];
   threadgroupSize = selfCopy->_threadgroupSize;
   [encoder setComputePipelineState:Pipeline];
   v98 = p_pipelineCache;
@@ -4520,12 +4510,12 @@ LABEL_105:
     [encoder memoryBarrierWithScope:1];
   }
 
-  *v219 = vdupq_n_s64(1uLL);
-  *&v219[16] = 1;
-  v165 = threadgroupSize;
-  v166 = *v219;
-  [encoder dispatchThreadgroups:v219 threadsPerThreadgroup:&v165];
-  if (v215)
+  *v218 = vdupq_n_s64(1uLL);
+  *&v218[16] = 1;
+  v164 = threadgroupSize;
+  v165 = *v218;
+  [encoder dispatchThreadgroups:v218 threadsPerThreadgroup:&v164];
+  if (v214)
   {
     [encoder setComputePipelineState:{PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_PRIMITIVE_DATA, bvhDescriptorCopy)}];
     if ([encoder dispatchType] == 1)
@@ -4533,65 +4523,65 @@ LABEL_105:
       [encoder memoryBarrierWithScope:1];
     }
 
-    *v219 = vdupq_n_s64(1uLL);
-    *&v219[16] = 1;
-    v165 = threadgroupSize;
-    v166 = *v219;
-    [encoder dispatchThreadgroups:v219 threadsPerThreadgroup:&v165];
+    *v218 = vdupq_n_s64(1uLL);
+    *&v218[16] = 1;
+    v164 = threadgroupSize;
+    v165 = *v218;
+    [encoder dispatchThreadgroups:v218 threadsPerThreadgroup:&v164];
   }
 
-  v165 = [scratchBuffer gpuAddress] + v62;
-  *&v166 = [scratchBuffer gpuAddress] + v148;
+  v164 = [scratchBuffer gpuAddress] + v62;
+  *&v165 = [scratchBuffer gpuAddress] + v147;
   v99 = selfCopy->_threadgroupSize;
-  DWORD2(v166) = 1536;
-  HIDWORD(v166) = v99;
-  v167 = 0x101000900;
-  v168 = 33556480;
-  v169 = v99;
+  DWORD2(v165) = 1536;
+  HIDWORD(v165) = v99;
+  v166 = 0x101000900;
+  v167 = 33556480;
+  v168 = v99;
   if ([encoder dispatchType] == 1)
   {
     [encoder memoryBarrierWithScope:1];
   }
 
   KERNEL_INDEX_COPY_COUNTERS_low = LOBYTE(selfCopy->KERNEL_INDEX_COPY_COUNTERS);
-  v164 = 0;
-  memset(&v219[8], 0, 32);
-  *v219 = KERNEL_INDEX_COPY_COUNTERS_low | ((log2(*(p_pipelineCache + 40)) & 0xF) << 45);
-  [encoder setComputePipelineState:{PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v219, &v164)}];
-  [encoder setBytes:&v165 length:40 atIndex:30];
-  *v219 = xmmword_185DC6310;
-  *&v219[16] = 1;
-  v162 = v164;
-  v163 = vdupq_n_s64(1uLL);
-  [encoder dispatchThreads:v219 threadsPerThreadgroup:&v162];
+  v163 = 0;
+  memset(&v218[8], 0, 32);
+  *v218 = KERNEL_INDEX_COPY_COUNTERS_low | ((log2(*(p_pipelineCache + 40)) & 0xF) << 45);
+  [encoder setComputePipelineState:{PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v218, &v163)}];
+  [encoder setBytes:&v164 length:40 atIndex:30];
+  *v218 = xmmword_185DC6310;
+  *&v218[16] = 1;
+  v161 = v163;
+  v162 = vdupq_n_s64(1uLL);
+  [encoder dispatchThreads:v218 threadsPerThreadgroup:&v161];
+  if ([encoder dispatchType] == 1)
+  {
+    [encoder memoryBarrierWithScope:1];
+  }
+
+  [encoder setComputePipelineState:v135];
+  *v218 = selfCopy->_threadgroupSize;
+  *&v218[8] = vdupq_n_s64(1uLL);
+  [encoder dispatchThreadgroupsWithIndirectBuffer:scratchBuffer indirectBufferOffset:v147 threadsPerThreadgroup:v218];
+  if ([encoder dispatchType] == 1)
+  {
+    [encoder memoryBarrierWithScope:1];
+  }
+
+  [encoder setComputePipelineState:v130];
+  *v218 = selfCopy->_threadgroupSize;
+  *&v218[8] = vdupq_n_s64(1uLL);
+  [encoder dispatchThreadgroupsWithIndirectBuffer:scratchBuffer indirectBufferOffset:v147 + 256 threadsPerThreadgroup:v218];
   if ([encoder dispatchType] == 1)
   {
     [encoder memoryBarrierWithScope:1];
   }
 
   [encoder setComputePipelineState:v136];
-  *v219 = selfCopy->_threadgroupSize;
-  *&v219[8] = vdupq_n_s64(1uLL);
-  [encoder dispatchThreadgroupsWithIndirectBuffer:scratchBuffer indirectBufferOffset:v148 threadsPerThreadgroup:v219];
-  if ([encoder dispatchType] == 1)
-  {
-    [encoder memoryBarrierWithScope:1];
-  }
-
-  [encoder setComputePipelineState:v131];
-  *v219 = selfCopy->_threadgroupSize;
-  *&v219[8] = vdupq_n_s64(1uLL);
-  [encoder dispatchThreadgroupsWithIndirectBuffer:scratchBuffer indirectBufferOffset:v148 + 256 threadsPerThreadgroup:v219];
-  if ([encoder dispatchType] == 1)
-  {
-    [encoder memoryBarrierWithScope:1];
-  }
-
-  [encoder setComputePipelineState:v137];
-  *v219 = selfCopy->_threadgroupSize;
-  *&v219[8] = vdupq_n_s64(1uLL);
-  [encoder dispatchThreadgroupsWithIndirectBuffer:scratchBuffer indirectBufferOffset:v148 + 512 threadsPerThreadgroup:v219];
-  if (v147)
+  *v218 = selfCopy->_threadgroupSize;
+  *&v218[8] = vdupq_n_s64(1uLL);
+  [encoder dispatchThreadgroupsWithIndirectBuffer:scratchBuffer indirectBufferOffset:v147 + 512 threadsPerThreadgroup:v218];
+  if (v146)
   {
     v101 = objc_opt_class();
     if ([v101 isSubclassOfClass:objc_opt_class()])
@@ -4601,7 +4591,7 @@ LABEL_105:
       instanceCount = [descriptorCopy instanceCount];
       [encoder setBytes:&instanceCount length:4 atIndex:15];
       v104 = v102;
-      v105 = -[MTLGPUBVHBuilder newResourceIDsBufferWithBVHs:retainedResources:encoder:](v102, "newResourceIDsBufferWithBVHs:retainedResources:encoder:", [descriptorCopy instancedAccelerationStructures], v143, encoder);
+      v105 = -[MTLGPUBVHBuilder newResourceIDsBufferWithBVHs:retainedResources:encoder:](v102, "newResourceIDsBufferWithBVHs:retainedResources:encoder:", [descriptorCopy instancedAccelerationStructures], v142, encoder);
       [encoder setBuffer:v105 offset:0 atIndex:16];
       if (!instanceCount)
       {
@@ -4640,11 +4630,11 @@ LABEL_151:
 LABEL_152:
             [encoder setComputePipelineState:v125];
             v126 = v104->_threadgroupSize;
-            *v219 = (instanceCount + v126 - 1) / v126;
-            *&v219[8] = vdupq_n_s64(1uLL);
-            v162 = v126;
-            v163 = *&v219[8];
-            [encoder dispatchThreadgroups:v219 threadsPerThreadgroup:&v162];
+            *v218 = (instanceCount + v126 - 1) / v126;
+            *&v218[8] = vdupq_n_s64(1uLL);
+            v161 = v126;
+            v162 = *&v218[8];
+            [encoder dispatchThreadgroups:v218 threadsPerThreadgroup:&v161];
             goto LABEL_153;
           }
 
@@ -4685,49 +4675,49 @@ LABEL_153:
     goto LABEL_154;
   }
 
-  [(MTLGPUBVHBuilder *)selfCopy copyFromBuffer:v130 sourceBufferOffset:0 toBuffer:buffer destinationBufferOffset:v209[8] + offset length:8 * v142 encoder:encoder];
+  [(MTLGPUBVHBuilder *)selfCopy copyFromBuffer:v129 sourceBufferOffset:0 toBuffer:buffer destinationBufferOffset:v208[8] + offset length:8 * v141 encoder:encoder];
   v105 = 0;
   v110 = obja;
-  if (v154 == 2)
+  if (v153 == 2)
   {
     [encoder setComputePipelineState:{PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, selfCopy->KERNEL_INDEX_ENCODE_MTL_CURVE_BVH_CONTROL_POINTS, bvhDescriptorCopy)}];
     instanceCount = 0;
+    v156 = 0u;
     v157 = 0u;
     v158 = 0u;
     v159 = 0u;
-    v160 = 0u;
     geometryDescriptors = [bvhDescriptorCopy geometryDescriptors];
-    v105 = [geometryDescriptors countByEnumeratingWithState:&v157 objects:v220 count:16];
+    v105 = [geometryDescriptors countByEnumeratingWithState:&v156 objects:v219 count:16];
     if (v105)
     {
-      v112 = *v158;
-      v155 = vdupq_n_s64(1uLL);
+      v112 = *v157;
+      v154 = vdupq_n_s64(1uLL);
       do
       {
         for (ii = 0; ii != v105; ii = ii + 1)
         {
-          if (*v158 != v112)
+          if (*v157 != v112)
           {
             objc_enumerationMutation(geometryDescriptors);
           }
 
-          controlPointCount = [*(*(&v157 + 1) + 8 * ii) controlPointCount];
+          controlPointCount = [*(*(&v156 + 1) + 8 * ii) controlPointCount];
           if (controlPointCount)
           {
             [encoder setBytes:&controlPointCount length:4 atIndex:15];
             [encoder setBytes:&instanceCount length:4 atIndex:16];
             v114 = selfCopy->_threadgroupSize;
-            *v219 = (controlPointCount + v114 - 1) / v114;
-            *&v219[8] = v155;
-            v162 = v114;
-            v163 = v155;
-            [encoder dispatchThreadgroups:v219 threadsPerThreadgroup:&v162];
+            *v218 = (controlPointCount + v114 - 1) / v114;
+            *&v218[8] = v154;
+            v161 = v114;
+            v162 = v154;
+            [encoder dispatchThreadgroups:v218 threadsPerThreadgroup:&v161];
           }
 
           ++instanceCount;
         }
 
-        v105 = [geometryDescriptors countByEnumeratingWithState:&v157 objects:v220 count:16];
+        v105 = [geometryDescriptors countByEnumeratingWithState:&v156 objects:v219 count:16];
       }
 
       while (v105);
@@ -4735,8 +4725,6 @@ LABEL_153:
   }
 
 LABEL_154:
-
-  v127 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeMTLSWBVHSizeWithEncoder:(id)encoder BVHBuffer:(id)buffer BVHBufferOffset:(unint64_t)offset toBuffer:(id)toBuffer sizeBufferOffset:(unint64_t)bufferOffset
@@ -4801,7 +4789,7 @@ LABEL_154:
 {
   primitiveDataCopy = primitiveData;
   dataCopy = data;
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   [encoder setBuffer:buffer offset:offset atIndex:{0, toBuffer, bufferOffset, d._impl}];
   [encoder setBuffer:toBuffer offset:bufferOffset atIndex:1];
   [encoder setBytes:&identifier length:8 atIndex:2];
@@ -4826,31 +4814,31 @@ LABEL_154:
       [encoder memoryBarrierWithScope:1];
     }
 
-    *v49 = v23;
-    *&v49[8] = vdupq_n_s64(1uLL);
+    *v48 = v23;
+    *&v48[8] = vdupq_n_s64(1uLL);
     threadgroupSize = self->_threadgroupSize;
-    v57 = *&v49[8];
-    [encoder dispatchThreadgroups:v49 threadsPerThreadgroup:&threadgroupSize];
+    v56 = *&v48[8];
+    [encoder dispatchThreadgroups:v48 threadsPerThreadgroup:&threadgroupSize];
     threadgroupSize = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_INNER_NODES, self->_pipelineCache.baseThreadgroupSize, 0);
-    *&v57 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_LEAF_NODES, self->_pipelineCache.baseThreadgroupSize, 0);
-    *(&v57 + 1) = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_PRIMITIVES, self->_pipelineCache.baseThreadgroupSize, 0);
+    *&v56 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_LEAF_NODES, self->_pipelineCache.baseThreadgroupSize, 0);
+    *(&v56 + 1) = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_PRIMITIVES, self->_pipelineCache.baseThreadgroupSize, 0);
     Pipeline = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_GEOMETRIES, self->_pipelineCache.baseThreadgroupSize, 0);
-    v59 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_TRANSFORMS, self->_pipelineCache.baseThreadgroupSize, 0);
-    v60 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_PRIMITIVE_BVHS, self->_pipelineCache.baseThreadgroupSize, 0);
-    v61 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_CONTROL_POINTS, self->_pipelineCache.baseThreadgroupSize, 0);
-    v62 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_RESOURCE_IDS, self->_pipelineCache.baseThreadgroupSize, 0);
+    v58 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_TRANSFORMS, self->_pipelineCache.baseThreadgroupSize, 0);
+    v59 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_PRIMITIVE_BVHS, self->_pipelineCache.baseThreadgroupSize, 0);
+    v60 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_CONTROL_POINTS, self->_pipelineCache.baseThreadgroupSize, 0);
+    v61 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, self->KERNEL_INDEX_COPY_MTL_BVH_RESOURCE_IDS, self->_pipelineCache.baseThreadgroupSize, 0);
     KERNEL_INDEX_COPY_COUNTERS_low = LOBYTE(self->KERNEL_INDEX_COPY_COUNTERS);
-    v55 = 0;
-    v50 = 0u;
-    *&v49[8] = 0u;
-    *v49 = KERNEL_INDEX_COPY_COUNTERS_low | ((log2(self->_pipelineCache.baseThreadgroupSize) & 0xF) << 45);
-    v47 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v49, &v55);
+    v54 = 0;
+    v49 = 0u;
+    *&v48[8] = 0u;
+    *v48 = KERNEL_INDEX_COPY_COUNTERS_low | ((log2(self->_pipelineCache.baseThreadgroupSize) & 0xF) << 45);
+    v46 = PipelineCache<PipelineKey>::getPipeline(p_pipelineCache, v48, &v54);
     if (self->_supportsDispatchThreadsWithIndirectBuffer)
     {
       v25 = self->_threadgroupSize;
-      *v49 = [buffer gpuAddress] + offset;
+      *v48 = [buffer gpuAddress] + offset;
       v26 = 0;
-      *&v49[8] = offset + [buffer gpuAddress] + 200;
+      *&v48[8] = offset + [buffer gpuAddress] + 200;
       do
       {
         v27 = 0;
@@ -4865,7 +4853,7 @@ LABEL_154:
           v29 = 7 - v26;
         }
 
-        v30 = &v49[20];
+        v30 = &v48[20];
         do
         {
           *(v30 - 2) = word_185DC6330[v26 + v27];
@@ -4876,18 +4864,18 @@ LABEL_154:
         }
 
         while (v29 + 1 != v27);
-        [encoder setComputePipelineState:v47];
-        [encoder setBytes:v49 length:48 atIndex:30];
+        [encoder setComputePipelineState:v46];
+        [encoder setBytes:v48 length:48 atIndex:30];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
         }
 
-        *v54 = v29 + 1;
-        *&v54[8] = vdupq_n_s64(1uLL);
-        v52 = v55;
-        v53 = *&v54[8];
-        [encoder dispatchThreads:v54 threadsPerThreadgroup:&v52];
+        *v53 = v29 + 1;
+        *&v53[8] = vdupq_n_s64(1uLL);
+        v51 = v54;
+        v52 = *&v53[8];
+        [encoder dispatchThreads:v53 threadsPerThreadgroup:&v51];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
@@ -4901,9 +4889,9 @@ LABEL_154:
         {
           v34 = *v33++;
           [encoder setComputePipelineState:v34];
-          *v54 = self->_threadgroupSize;
-          *&v54[8] = vdupq_n_s64(1uLL);
-          [encoder dispatchThreadgroupsWithIndirectBuffer:buffer indirectBufferOffset:v32 threadsPerThreadgroup:v54];
+          *v53 = self->_threadgroupSize;
+          *&v53[8] = vdupq_n_s64(1uLL);
+          [encoder dispatchThreadgroupsWithIndirectBuffer:buffer indirectBufferOffset:v32 threadsPerThreadgroup:v53];
           v32 += 12;
           --v31;
         }
@@ -4918,21 +4906,21 @@ LABEL_154:
     else
     {
       v35 = [(MTLGPUBVHBuilder *)self retainedResourcesArrayWithEncoder:encoder];
-      v51 = 0;
-      v36 = [(MTLGPUBVHBuilder *)self newIndirectBufferWithCapacity:8 withRetainedResources:v35 indirectBufferStride:&v51];
+      v50 = 0;
+      v36 = [(MTLGPUBVHBuilder *)self newIndirectBufferWithCapacity:8 withRetainedResources:v35 indirectBufferStride:&v50];
       [v35 addObject:v36];
       v37 = self->_threadgroupSize;
-      *v49 = [buffer gpuAddress] + offset;
+      *v48 = [buffer gpuAddress] + offset;
       gpuAddress = [v36 gpuAddress];
       v39 = 0;
       v40 = 0;
-      *&v49[8] = gpuAddress;
+      *&v48[8] = gpuAddress;
       v41 = word_185DC6330;
-      v42 = v51;
+      v42 = v50;
       do
       {
         v43 = *v41++;
-        v44 = &v49[v40];
+        v44 = &v48[v40];
         *(v44 + 8) = v43;
         *(v44 + 9) = v39;
         *(v44 + 5) = v37;
@@ -4941,18 +4929,18 @@ LABEL_154:
       }
 
       while (v40 != 64);
-      [encoder setComputePipelineState:v47];
-      [encoder setBytes:v49 length:80 atIndex:30];
+      [encoder setComputePipelineState:v46];
+      [encoder setBytes:v48 length:80 atIndex:30];
       if ([encoder dispatchType] == 1)
       {
         [encoder memoryBarrierWithScope:1];
       }
 
-      *&v54[16] = 1;
-      v52 = v55;
-      v53 = vdupq_n_s64(1uLL);
-      *v54 = xmmword_185DC6320;
-      [encoder dispatchThreads:v54 threadsPerThreadgroup:&v52];
+      *&v53[16] = 1;
+      v51 = v54;
+      v52 = vdupq_n_s64(1uLL);
+      *v53 = xmmword_185DC6320;
+      [encoder dispatchThreads:v53 threadsPerThreadgroup:&v51];
       v20 = 0x1EA8D2000uLL;
       if ([encoder dispatchType] == 1)
       {
@@ -4960,13 +4948,13 @@ LABEL_154:
       }
 
       v45 = 0;
-      v48 = vdupq_n_s64(1uLL);
+      v47 = vdupq_n_s64(1uLL);
       do
       {
         [encoder setComputePipelineState:*(&threadgroupSize + v45)];
-        *v54 = self->_threadgroupSize;
-        *&v54[8] = v48;
-        [encoder dispatchThreadgroupsWithIndirectBuffer:v36 indirectBufferOffset:v51 * v45++ threadsPerThreadgroup:v54];
+        *v53 = self->_threadgroupSize;
+        *&v53[8] = v47;
+        [encoder dispatchThreadgroupsWithIndirectBuffer:v36 indirectBufferOffset:v50 * v45++ threadsPerThreadgroup:v53];
       }
 
       while (v45 != 8);
@@ -4981,14 +4969,12 @@ LABEL_154:
     }
 
     [encoder setComputePipelineState:{PipelineCache<PipelineKey>::getPipeline(self + *(v20 + 1744), self->KERNEL_INDEX_COPY_PRIMITIVE_DATA, *(&self->_dispatchBinsTGSize + *(v20 + 1744)), 0)}];
-    *v49 = vdupq_n_s64(1uLL);
-    *&v49[16] = 1;
+    *v48 = vdupq_n_s64(1uLL);
+    *&v48[16] = 1;
     threadgroupSize = self->_threadgroupSize;
-    v57 = *v49;
-    [encoder dispatchThreadgroups:v49 threadsPerThreadgroup:&threadgroupSize];
+    v56 = *v48;
+    [encoder dispatchThreadgroups:v48 threadsPerThreadgroup:&threadgroupSize];
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyMTLSWBVHWithEncoder:(id)encoder sourceBuffer:(id)buffer sourceBufferOffset:(unint64_t)offset toBuffer:(id)toBuffer destinationBufferOffset:(unint64_t)bufferOffset destinationMTLResourceID:(MTLResourceID)d destinationAccelerationStructureUniqueIdentifier:(unint64_t)identifier
@@ -5075,13 +5061,13 @@ LABEL_154:
 
 - (void)getMTLInstanceBoundingBoxesWithEncoder:(id)encoder descriptor:(id)descriptor boundingBoxBuffer:(id)buffer boundingBoxBufferOffset:(unint64_t)offset
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v11 = objc_opt_class();
   if ([v11 isSubclassOfClass:objc_opt_class()])
   {
     if (![descriptor instanceCount])
     {
-      goto LABEL_50;
+      return;
     }
 
     v12 = [(MTLGPUBVHBuilder *)self retainedResourcesArrayWithEncoder:encoder];
@@ -5090,15 +5076,15 @@ LABEL_154:
     useResourcesBatched(instancedAccelerationStructures, 1, encoder);
     instanceCount = [descriptor instanceCount];
     instanceDescriptorStride = [descriptor instanceDescriptorStride];
-    v48 = 0;
+    v47 = 0;
     instanceDescriptorType = [descriptor instanceDescriptorType];
     instanceTransformationMatrixLayout = [descriptor instanceTransformationMatrixLayout];
-    v52 = 0;
-    memset(v51, 0, sizeof(v51));
+    v51 = 0;
+    memset(v50, 0, sizeof(v50));
     v17 = log2(self->_threadgroupSize);
     Pipeline = 0;
     v19 = (v17 & 0xF) << 45;
-    WORD4(v51[0]) = (instanceTransformationMatrixLayout == 1) << 8;
+    WORD4(v50[0]) = (instanceTransformationMatrixLayout == 1) << 8;
     if (instanceDescriptorType <= 1)
     {
       if (instanceDescriptorType)
@@ -5133,8 +5119,8 @@ LABEL_154:
 LABEL_22:
           v30 = v19 | *(&self->super.super.isa + v20) | 0x1000000000;
 LABEL_26:
-          *&v51[0] = v30;
-          Pipeline = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, v51, &v48);
+          *&v50[0] = v30;
+          Pipeline = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, v50, &v47);
         }
 
 LABEL_27:
@@ -5149,50 +5135,50 @@ LABEL_27:
           [encoder setBuffer:objc_msgSend(descriptor offset:"motionTransformBuffer") atIndex:{objc_msgSend(descriptor, "motionTransformBufferOffset"), 5}];
         }
 
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
         v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         instancedAccelerationStructures2 = [descriptor instancedAccelerationStructures];
-        v32 = [instancedAccelerationStructures2 countByEnumeratingWithState:&v44 objects:v53 count:16];
+        v32 = [instancedAccelerationStructures2 countByEnumeratingWithState:&v43 objects:v52 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v45;
+          v34 = *v44;
           do
           {
             v35 = 0;
             do
             {
-              if (*v45 != v34)
+              if (*v44 != v34)
               {
                 objc_enumerationMutation(instancedAccelerationStructures2);
               }
 
-              [encoder useResource:*(*(&v44 + 1) + 8 * v35++) usage:1];
+              [encoder useResource:*(*(&v43 + 1) + 8 * v35++) usage:1];
             }
 
             while (v33 != v35);
-            v33 = [instancedAccelerationStructures2 countByEnumeratingWithState:&v44 objects:v53 count:16];
+            v33 = [instancedAccelerationStructures2 countByEnumeratingWithState:&v43 objects:v52 count:16];
           }
 
           while (v33);
         }
 
-        v36 = v48;
+        v36 = v47;
         v37 = (v36 + [descriptor instanceCount] - 1) / v36;
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
         }
 
-        *&v51[0] = v37;
-        *(v51 + 8) = vdupq_n_s64(1uLL);
-        v42 = v36;
-        v43 = *(v51 + 8);
-        [encoder dispatchThreadgroups:v51 threadsPerThreadgroup:&v42];
+        *&v50[0] = v37;
+        *(v50 + 8) = vdupq_n_s64(1uLL);
+        v41 = v36;
+        v42 = *(v50 + 8);
+        [encoder dispatchThreadgroups:v50 threadsPerThreadgroup:&v41];
 
-        goto LABEL_50;
+        return;
       }
 
       v28 = 396;
@@ -5205,19 +5191,19 @@ LABEL_27:
   v21 = objc_opt_class();
   if (![v21 isSubclassOfClass:objc_opt_class()] || !objc_msgSend(descriptor, "maxInstanceCount"))
   {
-    goto LABEL_50;
+    return;
   }
 
   instanceCount = [descriptor instanceDescriptorStride];
-  v48 = 0;
+  v47 = 0;
   instanceDescriptorType2 = [descriptor instanceDescriptorType];
   instanceTransformationMatrixLayout2 = [descriptor instanceTransformationMatrixLayout];
-  v52 = 0;
-  memset(v51, 0, sizeof(v51));
+  v51 = 0;
+  memset(v50, 0, sizeof(v50));
   v24 = log2(self->_threadgroupSize);
   v25 = 0;
   v26 = (v24 & 0xF) << 45;
-  WORD4(v51[0]) = (instanceTransformationMatrixLayout2 == 1) << 8;
+  WORD4(v50[0]) = (instanceTransformationMatrixLayout2 == 1) << 8;
   if (instanceDescriptorType2 <= 1)
   {
     if (instanceDescriptorType2)
@@ -5253,8 +5239,8 @@ LABEL_43:
 LABEL_40:
       v38 = v26 | *(&self->super.super.isa + v27) | 0x1000000000;
 LABEL_44:
-      *&v51[0] = v38;
-      v25 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, v51, &v48);
+      *&v50[0] = v38;
+      v25 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, v50, &v47);
       break;
   }
 
@@ -5269,20 +5255,18 @@ LABEL_45:
     [encoder setBuffer:objc_msgSend(descriptor offset:"motionTransformBuffer") atIndex:{objc_msgSend(descriptor, "motionTransformBufferOffset"), 5}];
   }
 
-  v39 = v48;
+  v39 = v47;
   v40 = (v39 + [descriptor maxInstanceCount] - 1) / v39;
   if ([encoder dispatchType] == 1)
   {
     [encoder memoryBarrierWithScope:1];
   }
 
-  *&v51[0] = v40;
-  *(v51 + 8) = vdupq_n_s64(1uLL);
-  v42 = v39;
-  v43 = *(v51 + 8);
-  [encoder dispatchThreadgroups:v51 threadsPerThreadgroup:&v42];
-LABEL_50:
-  v41 = *MEMORY[0x1E69E9840];
+  *&v50[0] = v40;
+  *(v50 + 8) = vdupq_n_s64(1uLL);
+  v41 = v39;
+  v42 = *(v50 + 8);
+  [encoder dispatchThreadgroups:v50 threadsPerThreadgroup:&v41];
 }
 
 - (unint64_t)getRefitScratchBufferSizeForDescriptor:(id)descriptor bvhDescriptor:(id)bvhDescriptor
@@ -5298,7 +5282,7 @@ LABEL_50:
 - (void)refitVertexDataWithEncoder:(id)encoder descriptor:(id)descriptor bvhDescriptor:(id)bvhDescriptor inPlace:(BOOL)place sourceBuffer:(id)buffer sourceBufferOffset:(unint64_t)offset scratchBuffer:(id)scratchBuffer scratchBufferOffset:(unint64_t)self0 retainedResources:(id)self1 innerNodeCapacity:(unint64_t)self2 leafNodeCapacity:(unint64_t)self3
 {
   placeCopy = place;
-  v137 = *MEMORY[0x1E69E9840];
+  v136 = *MEMORY[0x1E69E9840];
   MTLSWBVHType = getMTLSWBVHType(descriptor);
   MTLSWBVHPrimitiveType = getMTLSWBVHPrimitiveType(descriptor);
   p_pipelineCache = &self->_pipelineCache;
@@ -5314,7 +5298,7 @@ LABEL_50:
 
   Pipeline = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, *(&self->super.super.isa + *v21), bvhDescriptor);
   descriptorCopy = descriptor;
-  v118 = MTLSWBVHType;
+  v117 = MTLSWBVHType;
   if (!MTLSWBVHType)
   {
     geometryDescriptors = [bvhDescriptor geometryDescriptors];
@@ -5349,11 +5333,11 @@ LABEL_50:
         [encoder memoryBarrierWithScope:1];
       }
 
-      *&v131[0] = v39;
-      *(v131 + 8) = vdupq_n_s64(1uLL);
+      *&v130[0] = v39;
+      *(v130 + 8) = vdupq_n_s64(1uLL);
       threadgroupSize = self->_threadgroupSize;
-      v134 = *(v131 + 8);
-      [encoder dispatchThreadgroups:v131 threadsPerThreadgroup:&threadgroupSize];
+      v133 = *(v130 + 8);
+      [encoder dispatchThreadgroups:v130 threadsPerThreadgroup:&threadgroupSize];
       offsetCopy5 = offset;
     }
 
@@ -5387,7 +5371,7 @@ LABEL_47:
         }
 
         v30 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, *(&self->super.super.isa + *v44), bvhDescriptor);
-        v114 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, *(&self->super.super.isa + *v45), bvhDescriptor);
+        v113 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, *(&self->super.super.isa + *v45), bvhDescriptor);
         goto LABEL_63;
       }
 
@@ -5409,9 +5393,9 @@ LABEL_47:
 
     v30 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, *(&self->super.super.isa + *v41), bvhDescriptor);
 LABEL_58:
-    v114 = 0;
+    v113 = 0;
 LABEL_63:
-    v115 = 0;
+    v114 = 0;
     goto LABEL_64;
   }
 
@@ -5422,8 +5406,8 @@ LABEL_63:
     offsetCopy5 = offset;
     if (![v33 isSubclassOfClass:objc_opt_class()])
     {
+      v113 = 0;
       v114 = 0;
-      v115 = 0;
       v30 = 0;
       goto LABEL_64;
     }
@@ -5445,36 +5429,36 @@ LABEL_63:
       {
         if ([descriptor instanceDescriptorType] != 3 && objc_msgSend(descriptor, "instanceDescriptorType") != 4)
         {
-          MTLReportFailure(0, "[MTLGPUBVHBuilder refitVertexDataWithEncoder:descriptor:bvhDescriptor:inPlace:sourceBuffer:sourceBufferOffset:scratchBuffer:scratchBufferOffset:retainedResources:innerNodeCapacity:leafNodeCapacity:]", 8036, @"Unhandled instance descriptor type", v104, v105, v106, v107, v109);
+          MTLReportFailure(0, "[MTLGPUBVHBuilder refitVertexDataWithEncoder:descriptor:bvhDescriptor:inPlace:sourceBuffer:sourceBufferOffset:scratchBuffer:scratchBufferOffset:retainedResources:innerNodeCapacity:leafNodeCapacity:]", 8036, @"Unhandled instance descriptor type", v103, v104, v105, v106, v108);
           v30 = 0;
           goto LABEL_37;
         }
 
-        v108 = &OBJC_IVAR___MTLGPUBVHBuilder_KERNEL_INDEX_REFIT_INSTANCE_LEAF_NODE_INDIRECT;
+        v107 = &OBJC_IVAR___MTLGPUBVHBuilder_KERNEL_INDEX_REFIT_INSTANCE_LEAF_NODE_INDIRECT;
         if (placeCopy)
         {
-          v108 = &OBJC_IVAR___MTLGPUBVHBuilder_KERNEL_INDEX_REFIT_INSTANCE_LEAF_NODE_INDIRECT_IN_PLACE;
+          v107 = &OBJC_IVAR___MTLGPUBVHBuilder_KERNEL_INDEX_REFIT_INSTANCE_LEAF_NODE_INDIRECT_IN_PLACE;
         }
 
-        v38 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, *(&self->super.super.isa + *v108), bvhDescriptor, &threadgroupSize, 0);
+        v38 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, *(&self->super.super.isa + *v107), bvhDescriptor, &threadgroupSize, 0);
 LABEL_36:
         v30 = v38;
 LABEL_37:
         [encoder setBuffer:objc_msgSend(descriptor offset:"instanceDescriptorBuffer") atIndex:{objc_msgSend(descriptor, "instanceDescriptorBufferOffset"), 6}];
-        LODWORD(v131[0]) = [descriptor instanceDescriptorStride];
-        [encoder setBytes:v131 length:4 atIndex:7];
+        LODWORD(v130[0]) = [descriptor instanceDescriptorStride];
+        [encoder setBytes:v130 length:4 atIndex:7];
         if ([descriptor motionTransformBuffer])
         {
           [encoder setBuffer:objc_msgSend(descriptor offset:"motionTransformBuffer") atIndex:{objc_msgSend(descriptor, "motionTransformBufferOffset"), 11}];
         }
 
-        LODWORD(v128) = 255;
+        LODWORD(v127) = 255;
         if (([descriptor usage] & 4) != 0)
         {
-          LODWORD(v128) = -1;
+          LODWORD(v127) = -1;
         }
 
-        [encoder setBytes:&v128 length:4 atIndex:12];
+        [encoder setBytes:&v127 length:4 atIndex:12];
         goto LABEL_58;
       }
 
@@ -5494,17 +5478,17 @@ LABEL_37:
     }
 
     v37 = *(&self->super.super.isa + *v35);
-    v132 = 0;
-    memset(v131, 0, sizeof(v131));
-    PipelineCache<PipelineKey>::getPipelineKey(&self->_pipelineCache, v37, bvhDescriptor, self->_pipelineCache.baseThreadgroupSize, &threadgroupSize, v131);
-    v38 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, v131, 0);
+    v131 = 0;
+    memset(v130, 0, sizeof(v130));
+    PipelineCache<PipelineKey>::getPipelineKey(&self->_pipelineCache, v37, bvhDescriptor, self->_pipelineCache.baseThreadgroupSize, &threadgroupSize, v130);
+    v38 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, v130, 0);
     goto LABEL_36;
   }
 
   instancedAccelerationStructures = [descriptor instancedAccelerationStructures];
   v24 = [(MTLGPUBVHBuilder *)self newInstanceBufferWithBVHs:instancedAccelerationStructures retainedResources:resources encoder:encoder];
   useResourcesBatched(instancedAccelerationStructures, 1, encoder);
-  v115 = v24;
+  v114 = v24;
   [encoder setBuffer:v24 offset:0 atIndex:10];
   if ([descriptor instanceTransformationMatrixLayout] == 1)
   {
@@ -5529,10 +5513,10 @@ LABEL_12:
     }
 
     v29 = *(&self->super.super.isa + *v27);
-    v132 = 0;
-    memset(v131, 0, sizeof(v131));
-    PipelineCache<PipelineKey>::getPipelineKey(&self->_pipelineCache, v29, bvhDescriptor, self->_pipelineCache.baseThreadgroupSize, &threadgroupSize, v131);
-    v30 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, v131, 0);
+    v131 = 0;
+    memset(v130, 0, sizeof(v130));
+    PipelineCache<PipelineKey>::getPipelineKey(&self->_pipelineCache, v29, bvhDescriptor, self->_pipelineCache.baseThreadgroupSize, &threadgroupSize, v130);
+    v30 = PipelineCache<PipelineKey>::getPipeline(&self->_pipelineCache, v130, 0);
     goto LABEL_15;
   }
 
@@ -5550,40 +5534,40 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  MTLReportFailure(0, "[MTLGPUBVHBuilder refitVertexDataWithEncoder:descriptor:bvhDescriptor:inPlace:sourceBuffer:sourceBufferOffset:scratchBuffer:scratchBufferOffset:retainedResources:innerNodeCapacity:leafNodeCapacity:]", 7998, @"Unhandled instance descriptor type", v100, v101, v102, v103, v109);
+  MTLReportFailure(0, "[MTLGPUBVHBuilder refitVertexDataWithEncoder:descriptor:bvhDescriptor:inPlace:sourceBuffer:sourceBufferOffset:scratchBuffer:scratchBufferOffset:retainedResources:innerNodeCapacity:leafNodeCapacity:]", 7998, @"Unhandled instance descriptor type", v99, v100, v101, v102, v108);
   v30 = 0;
 LABEL_15:
   [encoder setBuffer:objc_msgSend(descriptor offset:"instanceDescriptorBuffer") atIndex:{objc_msgSend(descriptor, "instanceDescriptorBufferOffset"), 6}];
-  LODWORD(v131[0]) = [descriptor instanceDescriptorStride];
-  [encoder setBytes:v131 length:4 atIndex:7];
+  LODWORD(v130[0]) = [descriptor instanceDescriptorStride];
+  [encoder setBytes:v130 length:4 atIndex:7];
   if ([descriptor motionTransformBuffer])
   {
     [encoder setBuffer:objc_msgSend(descriptor offset:"motionTransformBuffer") atIndex:{objc_msgSend(descriptor, "motionTransformBufferOffset"), 11}];
   }
 
-  LODWORD(v128) = 255;
+  LODWORD(v127) = 255;
   if (([descriptor usage] & 4) != 0)
   {
-    LODWORD(v128) = -1;
+    LODWORD(v127) = -1;
   }
 
-  [encoder setBytes:&v128 length:4 atIndex:12];
-  v114 = 0;
+  [encoder setBytes:&v127 length:4 atIndex:12];
+  v113 = 0;
 LABEL_64:
   maxDepth = [bvhDescriptor maxDepth];
   v47 = (bufferOffset + 255) & 0xFFFFFFFFFFFFFF00;
-  v116 = &self->_pipelineCache;
-  v119 = maxDepth;
-  v120 = v47;
+  v115 = &self->_pipelineCache;
+  v118 = maxDepth;
+  v119 = v47;
   if (self->_supportsDispatchThreadsWithIndirectBuffer)
   {
-    v110 = v30;
-    v113 = 4 * maxDepth + 256;
+    v109 = v30;
+    v112 = 4 * maxDepth + 256;
     v48 = self->_threadgroupSize;
     v49 = maxDepth;
-    *&v131[0] = [buffer gpuAddress] + offsetCopy5;
-    *(&v131[0] + 1) = [scratchBuffer gpuAddress] + v47;
-    if (v118)
+    *&v130[0] = [buffer gpuAddress] + offsetCopy5;
+    *(&v130[0] + 1) = [scratchBuffer gpuAddress] + v47;
+    if (v117)
     {
       v50 = v48;
     }
@@ -5593,8 +5577,8 @@ LABEL_64:
       v50 = 0;
     }
 
-    LODWORD(v131[1]) = 16;
-    DWORD1(v131[1]) = v50;
+    LODWORD(v130[1]) = 16;
+    DWORD1(v130[1]) = v50;
     if (v49 >= 0x1F)
     {
       v51 = 31;
@@ -5607,8 +5591,8 @@ LABEL_64:
 
     if (v49)
     {
-      v52 = &v131[1] + 3;
-      v53 = 4 * v49 + v113 - 4;
+      v52 = &v130[1] + 3;
+      v53 = 4 * v49 + v112 - 4;
       v54 = 1;
       v55 = v51;
       do
@@ -5627,27 +5611,27 @@ LABEL_64:
 
     bvhDescriptorCopy = bvhDescriptor;
     KERNEL_INDEX_COPY_COUNTERS_low = LOBYTE(self->KERNEL_INDEX_COPY_COUNTERS);
-    v130 = 0;
-    v135 = 0u;
+    v129 = 0;
     v134 = 0u;
+    v133 = 0u;
     threadgroupSize = KERNEL_INDEX_COPY_COUNTERS_low | ((log2(self->_pipelineCache.baseThreadgroupSize) & 0xF) << 45);
-    [encoder setComputePipelineState:{PipelineCache<PipelineKey>::getPipeline(v116, &threadgroupSize, &v130)}];
-    [encoder setBytes:v131 length:8 * (v51 + 1) + 16 atIndex:30];
+    [encoder setComputePipelineState:{PipelineCache<PipelineKey>::getPipeline(v115, &threadgroupSize, &v129)}];
+    [encoder setBytes:v130 length:8 * (v51 + 1) + 16 atIndex:30];
     if ([encoder dispatchType] == 1)
     {
       [encoder memoryBarrierWithScope:1];
     }
 
     threadgroupSize = v51 + 1;
-    v134 = vdupq_n_s64(1uLL);
-    v128 = v130;
-    v129 = v134;
-    [encoder dispatchThreads:&threadgroupSize threadsPerThreadgroup:&v128];
-    v57 = v119;
-    if (v119 >= 0x20)
+    v133 = vdupq_n_s64(1uLL);
+    v127 = v129;
+    v128 = v133;
+    [encoder dispatchThreads:&threadgroupSize threadsPerThreadgroup:&v127];
+    v57 = v118;
+    if (v118 >= 0x20)
     {
-      v58 = v119 - v51;
-      v59 = 4 * v49 + v113 - 4 * v51 - 4;
+      v58 = v118 - v51;
+      v59 = 4 * v49 + v112 - 4 * v51 - 4;
       do
       {
         v60 = 0;
@@ -5676,7 +5660,7 @@ LABEL_64:
         }
 
         v65 = v59;
-        v66 = &v131[1] + 1;
+        v66 = &v130[1] + 1;
         do
         {
           *(v66 - 2) = v65;
@@ -5688,35 +5672,35 @@ LABEL_64:
         }
 
         while (v61 != v60);
-        [encoder setBytes:v131 length:8 * v64 + 16 atIndex:30];
+        [encoder setBytes:v130 length:8 * v64 + 16 atIndex:30];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
         }
 
         threadgroupSize = v64;
-        v134 = vdupq_n_s64(1uLL);
-        v128 = v130;
-        v129 = v134;
-        [encoder dispatchThreads:&threadgroupSize threadsPerThreadgroup:&v128];
+        v133 = vdupq_n_s64(1uLL);
+        v127 = v129;
+        v128 = v133;
+        [encoder dispatchThreads:&threadgroupSize threadsPerThreadgroup:&v127];
         v51 += 32;
         v59 -= 128;
-        v57 = v119;
+        v57 = v118;
       }
 
-      while (v51 < v119);
+      while (v51 < v118);
     }
 
     bvhDescriptor = bvhDescriptorCopy;
     p_pipelineCache = &self->_pipelineCache;
     offsetCopy5 = offset;
-    v30 = v110;
+    v30 = v109;
     v47 = (bufferOffset + 255) & 0xFFFFFFFFFFFFFF00;
   }
 
   else
   {
-    v113 = (4 * maxDepth + 256) >> 2;
+    v112 = (4 * maxDepth + 256) >> 2;
   }
 
   if ([encoder dispatchType] == 1)
@@ -5727,15 +5711,15 @@ LABEL_64:
   if (self->_supportsDispatchThreadsWithIndirectBuffer)
   {
     [(MTLGPUBVHBuilder *)self dispatchIndirect:v30 counterBuffer:scratchBuffer counterBufferOffset:v47 threadgroupSize:self->_threadgroupSize encoder:encoder];
-    if (v119)
+    if (v118)
     {
-      v67 = -v119;
-      v68 = v120 + 12;
-      v69 = v119 - 1;
+      v67 = -v118;
+      v68 = v119 + 12;
+      v69 = v118 - 1;
       do
       {
-        LODWORD(v131[0]) = v69;
-        [encoder setBytes:v131 length:4 atIndex:14];
+        LODWORD(v130[0]) = v69;
+        [encoder setBytes:v130 length:4 atIndex:14];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
@@ -5753,7 +5737,7 @@ LABEL_64:
 
   else
   {
-    if (v118)
+    if (v117)
     {
       v70 = self->_threadgroupSize;
     }
@@ -5764,21 +5748,21 @@ LABEL_64:
     }
 
     [(MTLGPUBVHBuilder *)self dispatchIndirect:v30 indirectBuffer:scratchBuffer indirectBufferOffset:v47 threadCountBuffer:buffer threadCountBufferOffset:offsetCopy5 threadCountIndex:4 threadgroupDivisor:v70 encoder:encoder];
-    if (v119)
+    if (v118)
     {
-      v71 = -v119;
-      v72 = v119 - 1;
-      v73 = v119 + v113 - 1;
+      v71 = -v118;
+      v72 = v118 - 1;
+      v73 = v118 + v112 - 1;
       do
       {
-        LODWORD(v131[0]) = v72;
-        [encoder setBytes:v131 length:4 atIndex:14];
+        LODWORD(v130[0]) = v72;
+        [encoder setBytes:v130 length:4 atIndex:14];
         if ([encoder dispatchType] == 1)
         {
           [encoder memoryBarrierWithScope:1];
         }
 
-        [(MTLGPUBVHBuilder *)self dispatchIndirect:Pipeline indirectBuffer:scratchBuffer indirectBufferOffset:v120 threadCountBuffer:buffer threadCountBufferOffset:offsetCopy5 threadCountIndex:v73 threadgroupDivisor:self->_threadgroupSize encoder:encoder];
+        [(MTLGPUBVHBuilder *)self dispatchIndirect:Pipeline indirectBuffer:scratchBuffer indirectBufferOffset:v119 threadCountBuffer:buffer threadCountBufferOffset:offsetCopy5 threadCountIndex:v73 threadgroupDivisor:self->_threadgroupSize encoder:encoder];
         --v72;
         --v73;
         v62 = __CFADD__(v71++, 1);
@@ -5801,55 +5785,55 @@ LABEL_64:
     [encoder memoryBarrierWithScope:1];
   }
 
-  *&v131[0] = v75;
-  *(v131 + 8) = vdupq_n_s64(1uLL);
+  *&v130[0] = v75;
+  *(v130 + 8) = vdupq_n_s64(1uLL);
   threadgroupSize = self->_threadgroupSize;
-  v134 = *(v131 + 8);
-  [encoder dispatchThreadgroups:v131 threadsPerThreadgroup:&threadgroupSize];
-  if (v114)
+  v133 = *(v130 + 8);
+  [encoder dispatchThreadgroups:v130 threadsPerThreadgroup:&threadgroupSize];
+  if (v113)
   {
     [encoder setComputePipelineState:?];
-    LODWORD(v128) = 0;
+    LODWORD(v127) = 0;
+    v123 = 0u;
     v124 = 0u;
     v125 = 0u;
     v126 = 0u;
-    v127 = 0u;
     geometryDescriptors2 = [bvhDescriptor geometryDescriptors];
-    v77 = [geometryDescriptors2 countByEnumeratingWithState:&v124 objects:v136 count:16];
+    v77 = [geometryDescriptors2 countByEnumeratingWithState:&v123 objects:v135 count:16];
     if (v77)
     {
       v78 = v77;
-      v79 = *v125;
-      v123 = vdupq_n_s64(1uLL);
+      v79 = *v124;
+      v122 = vdupq_n_s64(1uLL);
       do
       {
         for (i = 0; i != v78; ++i)
         {
-          if (*v125 != v79)
+          if (*v124 != v79)
           {
             objc_enumerationMutation(geometryDescriptors2);
           }
 
-          LODWORD(v130) = [*(*(&v124 + 1) + 8 * i) controlPointCount];
-          [encoder setBytes:&v130 length:4 atIndex:15];
-          [encoder setBytes:&v128 length:4 atIndex:16];
+          LODWORD(v129) = [*(*(&v123 + 1) + 8 * i) controlPointCount];
+          [encoder setBytes:&v129 length:4 atIndex:15];
+          [encoder setBytes:&v127 length:4 atIndex:16];
           v81 = self->_threadgroupSize;
-          *&v131[0] = (v130 + v81 - 1) / v81;
-          *(v131 + 8) = v123;
+          *&v130[0] = (v129 + v81 - 1) / v81;
+          *(v130 + 8) = v122;
           threadgroupSize = v81;
-          v134 = v123;
-          [encoder dispatchThreadgroups:v131 threadsPerThreadgroup:&threadgroupSize];
-          LODWORD(v128) = v128 + 1;
+          v133 = v122;
+          [encoder dispatchThreadgroups:v130 threadsPerThreadgroup:&threadgroupSize];
+          LODWORD(v127) = v127 + 1;
         }
 
-        v78 = [geometryDescriptors2 countByEnumeratingWithState:&v124 objects:v136 count:16];
+        v78 = [geometryDescriptors2 countByEnumeratingWithState:&v123 objects:v135 count:16];
       }
 
       while (v78);
     }
   }
 
-  if (!v118)
+  if (!v117)
   {
     goto LABEL_136;
   }
@@ -5858,11 +5842,11 @@ LABEL_64:
   if ([v82 isSubclassOfClass:objc_opt_class()])
   {
     instanceDescriptorType = [descriptorCopy instanceDescriptorType];
-    LODWORD(v128) = [descriptorCopy instanceCount];
-    [encoder setBytes:&v128 length:4 atIndex:15];
+    LODWORD(v127) = [descriptorCopy instanceCount];
+    [encoder setBytes:&v127 length:4 atIndex:15];
     v84 = -[MTLGPUBVHBuilder newResourceIDsBufferWithBVHs:retainedResources:encoder:](self, "newResourceIDsBufferWithBVHs:retainedResources:encoder:", [descriptorCopy instancedAccelerationStructures], resources, encoder);
     [encoder setBuffer:v84 offset:0 atIndex:16];
-    if (!v128)
+    if (!v127)
     {
       goto LABEL_145;
     }
@@ -5880,16 +5864,16 @@ LABEL_130:
         }
 
 LABEL_153:
-        MTLReportFailure(0, "[MTLGPUBVHBuilder refitVertexDataWithEncoder:descriptor:bvhDescriptor:inPlace:sourceBuffer:sourceBufferOffset:scratchBuffer:scratchBufferOffset:retainedResources:innerNodeCapacity:leafNodeCapacity:]", 8253, @"Unexpected MTLAccelerationStructureInstanceDescriptorType", v85, v86, v87, v88, v109);
+        MTLReportFailure(0, "[MTLGPUBVHBuilder refitVertexDataWithEncoder:descriptor:bvhDescriptor:inPlace:sourceBuffer:sourceBufferOffset:scratchBuffer:scratchBufferOffset:retainedResources:innerNodeCapacity:leafNodeCapacity:]", 8253, @"Unexpected MTLAccelerationStructureInstanceDescriptorType", v85, v86, v87, v88, v108);
         v97 = 0;
 LABEL_144:
         [encoder setComputePipelineState:v97];
         v98 = self->_threadgroupSize;
-        *&v131[0] = (v128 + v98 - 1) / v98;
-        *(v131 + 8) = vdupq_n_s64(1uLL);
+        *&v130[0] = (v127 + v98 - 1) / v98;
+        *(v130 + 8) = vdupq_n_s64(1uLL);
         threadgroupSize = v98;
-        v134 = *(v131 + 8);
-        [encoder dispatchThreadgroups:v131 threadsPerThreadgroup:&threadgroupSize];
+        v133 = *(v130 + 8);
+        [encoder dispatchThreadgroups:v130 threadsPerThreadgroup:&threadgroupSize];
         goto LABEL_145;
       }
     }
@@ -5906,7 +5890,7 @@ LABEL_141:
           v95 = v96;
         }
 
-        v97 = PipelineCache<PipelineKey>::getPipeline(v116, *(&self->super.super.isa + *v95), bvhDescriptor);
+        v97 = PipelineCache<PipelineKey>::getPipeline(v115, *(&self->super.super.isa + *v95), bvhDescriptor);
         goto LABEL_144;
       }
 
@@ -5921,7 +5905,7 @@ LABEL_141:
   v89 = objc_opt_class();
   if (![v89 isSubclassOfClass:objc_opt_class()])
   {
-    MTLReportFailure(0, "[MTLGPUBVHBuilder refitVertexDataWithEncoder:descriptor:bvhDescriptor:inPlace:sourceBuffer:sourceBufferOffset:scratchBuffer:scratchBufferOffset:retainedResources:innerNodeCapacity:leafNodeCapacity:]", 8231, @"Unexpected MTLAccelerationStructureDescriptor type", v90, v91, v92, v93, v109);
+    MTLReportFailure(0, "[MTLGPUBVHBuilder refitVertexDataWithEncoder:descriptor:bvhDescriptor:inPlace:sourceBuffer:sourceBufferOffset:scratchBuffer:scratchBufferOffset:retainedResources:innerNodeCapacity:leafNodeCapacity:]", 8231, @"Unexpected MTLAccelerationStructureDescriptor type", v90, v91, v92, v93, v108);
 LABEL_136:
     v84 = 0;
     goto LABEL_145;
@@ -5929,7 +5913,7 @@ LABEL_136:
 
   instanceDescriptorType = [descriptorCopy instanceDescriptorType];
   maxInstanceCount = [descriptorCopy maxInstanceCount];
-  LODWORD(v128) = maxInstanceCount;
+  LODWORD(v127) = maxInstanceCount;
   [encoder setBuffer:objc_msgSend(descriptorCopy offset:"instanceCountBuffer") atIndex:{objc_msgSend(descriptorCopy, "instanceCountBufferOffset"), 15}];
   v84 = 0;
   if (maxInstanceCount)
@@ -5938,8 +5922,6 @@ LABEL_136:
   }
 
 LABEL_145:
-
-  v99 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refitPrimitiveData:(id)data inPlace:(BOOL)place bvhDescriptor:(id)descriptor
@@ -5967,22 +5949,22 @@ LABEL_145:
 - (void)refitMTLSWBVHWithEncoder:(id)encoder descriptor:(id)descriptor bvhDescriptor:(id)bvhDescriptor sourceBuffer:(id)buffer sourceBufferOffset:(unint64_t)offset destinationBuffer:(id)destinationBuffer destinationBufferOffset:(unint64_t)bufferOffset destinationMTLResourceID:(MTLResourceID)self0 destinationAccelerationStructureUniqueIdentifier:(unint64_t)self1 scratchBuffer:(id)self2 scratchBufferOffset:(unint64_t)self3 options:(unint64_t)self4
 {
   optionsCopy = options;
-  v99 = *MEMORY[0x1E69E9840];
-  v62 = [(MTLGPUBVHBuilder *)self retainedResourcesArrayWithEncoder:?];
+  v98 = *MEMORY[0x1E69E9840];
+  v61 = [(MTLGPUBVHBuilder *)self retainedResourcesArrayWithEncoder:?];
   MTLSWBVHType = getMTLSWBVHType(descriptor);
   descriptorCopy = descriptor;
   MTLSWBVHPrimitiveType = getMTLSWBVHPrimitiveType(descriptor);
   [bvhDescriptor updatePipelineKey];
-  v92 = 0;
-  v93 = 0;
-  v90 = 0;
   v91 = 0;
+  v92 = 0;
+  v89 = 0;
+  v90 = 0;
   bvhDescriptorCopy = bvhDescriptor;
   selfCopy = self;
   bvhDescriptorCopy2 = bvhDescriptor;
   v25 = MTLSWBVHPrimitiveType;
-  [(MTLBVHBuilder *)self getCapacitiesForDescriptor:bvhDescriptorCopy2 fragmentCapacity:&v93 innerNodeCapacity:&v92 leafNodeCapacity:&v91 primitiveDataCapacity:&v90];
-  ++v92;
+  [(MTLBVHBuilder *)self getCapacitiesForDescriptor:bvhDescriptorCopy2 fragmentCapacity:&v92 innerNodeCapacity:&v91 leafNodeCapacity:&v90 primitiveDataCapacity:&v89];
+  ++v91;
   v27 = buffer == destinationBuffer && offset == bufferOffset;
   if (destinationBuffer)
   {
@@ -5994,7 +5976,7 @@ LABEL_145:
     v28 = 1;
   }
 
-  v65 = v28;
+  v64 = v28;
   bufferCopy = buffer;
   offsetCopy = offset;
   [encoder setBuffer:buffer offset:offset atIndex:0];
@@ -6004,29 +5986,29 @@ LABEL_145:
   {
     if ([(MTLGPUBVHBuilder *)self useResourceBufferForDescriptor:bvhDescriptorCopy])
     {
-      [(MTLGPUBVHBuilder *)self setResourceBufferWithDescriptor:bvhDescriptorCopy retainedResources:v62 onEncoder:encoder atIndex:23];
-      v88 = 0u;
-      v89 = 0u;
-      v86 = 0u;
+      [(MTLGPUBVHBuilder *)self setResourceBufferWithDescriptor:bvhDescriptorCopy retainedResources:v61 onEncoder:encoder atIndex:23];
       v87 = 0u;
+      v88 = 0u;
+      v85 = 0u;
+      v86 = 0u;
       obj = [bvhDescriptorCopy geometryDescriptors];
-      v29 = [obj countByEnumeratingWithState:&v86 objects:v98 count:16];
+      v29 = [obj countByEnumeratingWithState:&v85 objects:v97 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v87;
-        v68 = *v87;
+        v31 = *v86;
+        v67 = *v86;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v87 != v31)
+            if (*v86 != v31)
             {
               objc_enumerationMutation(obj);
             }
 
-            v33 = *(*(&v86 + 1) + 8 * i);
-            if ((optionsCopy & 2) != 0 && [*(*(&v86 + 1) + 8 * i) primitiveDataBuffer])
+            v33 = *(*(&v85 + 1) + 8 * i);
+            if ((optionsCopy & 2) != 0 && [*(*(&v85 + 1) + 8 * i) primitiveDataBuffer])
             {
               [encoder useResource:objc_msgSend(v33 usage:{"primitiveDataBuffer"), 1}];
             }
@@ -6035,29 +6017,29 @@ LABEL_145:
             {
               if (v25 == 1)
               {
-                v80 = 0u;
-                v81 = 0u;
-                v78 = 0u;
                 v79 = 0u;
+                v80 = 0u;
+                v77 = 0u;
+                v78 = 0u;
                 boundingBoxBuffers = [v33 boundingBoxBuffers];
-                v42 = [boundingBoxBuffers countByEnumeratingWithState:&v78 objects:v96 count:16];
+                v42 = [boundingBoxBuffers countByEnumeratingWithState:&v77 objects:v95 count:16];
                 if (v42)
                 {
                   v43 = v42;
-                  v44 = *v79;
+                  v44 = *v78;
                   do
                   {
                     for (j = 0; j != v43; ++j)
                     {
-                      if (*v79 != v44)
+                      if (*v78 != v44)
                       {
                         objc_enumerationMutation(boundingBoxBuffers);
                       }
 
-                      [encoder useResource:objc_msgSend(*(*(&v78 + 1) + 8 * j) usage:{"buffer"), 1}];
+                      [encoder useResource:objc_msgSend(*(*(&v77 + 1) + 8 * j) usage:{"buffer"), 1}];
                     }
 
-                    v43 = [boundingBoxBuffers countByEnumeratingWithState:&v78 objects:v96 count:16];
+                    v43 = [boundingBoxBuffers countByEnumeratingWithState:&v77 objects:v95 count:16];
                   }
 
                   while (v43);
@@ -6069,57 +6051,57 @@ LABEL_145:
                 v34 = v25;
                 if (v25)
                 {
-                  v76 = 0uLL;
-                  v77 = 0uLL;
-                  v74 = 0uLL;
                   v75 = 0uLL;
+                  v76 = 0uLL;
+                  v73 = 0uLL;
+                  v74 = 0uLL;
                   controlPointBuffers = [v33 controlPointBuffers];
-                  v47 = [controlPointBuffers countByEnumeratingWithState:&v74 objects:v95 count:16];
+                  v47 = [controlPointBuffers countByEnumeratingWithState:&v73 objects:v94 count:16];
                   if (v47)
                   {
                     v48 = v47;
-                    v49 = *v75;
+                    v49 = *v74;
                     do
                     {
                       for (k = 0; k != v48; ++k)
                       {
-                        if (*v75 != v49)
+                        if (*v74 != v49)
                         {
                           objc_enumerationMutation(controlPointBuffers);
                         }
 
-                        [encoder useResource:objc_msgSend(*(*(&v74 + 1) + 8 * k) usage:{"buffer"), 1}];
+                        [encoder useResource:objc_msgSend(*(*(&v73 + 1) + 8 * k) usage:{"buffer"), 1}];
                       }
 
-                      v48 = [controlPointBuffers countByEnumeratingWithState:&v74 objects:v95 count:16];
+                      v48 = [controlPointBuffers countByEnumeratingWithState:&v73 objects:v94 count:16];
                     }
 
                     while (v48);
                   }
 
-                  v72 = 0u;
-                  v73 = 0u;
-                  v70 = 0u;
                   v71 = 0u;
+                  v72 = 0u;
+                  v69 = 0u;
+                  v70 = 0u;
                   radiusBuffers = [v33 radiusBuffers];
-                  v52 = [radiusBuffers countByEnumeratingWithState:&v70 objects:v94 count:16];
+                  v52 = [radiusBuffers countByEnumeratingWithState:&v69 objects:v93 count:16];
                   if (v52)
                   {
                     v53 = v52;
-                    v54 = *v71;
+                    v54 = *v70;
                     do
                     {
                       for (m = 0; m != v53; ++m)
                       {
-                        if (*v71 != v54)
+                        if (*v70 != v54)
                         {
                           objc_enumerationMutation(radiusBuffers);
                         }
 
-                        [encoder useResource:objc_msgSend(*(*(&v70 + 1) + 8 * m) usage:{"buffer"), 1}];
+                        [encoder useResource:objc_msgSend(*(*(&v69 + 1) + 8 * m) usage:{"buffer"), 1}];
                       }
 
-                      v53 = [radiusBuffers countByEnumeratingWithState:&v70 objects:v94 count:16];
+                      v53 = [radiusBuffers countByEnumeratingWithState:&v69 objects:v93 count:16];
                     }
 
                     while (v53);
@@ -6127,33 +6109,33 @@ LABEL_145:
 
                   indexBuffer = [v33 indexBuffer];
                   v25 = v34;
-                  v31 = v68;
+                  v31 = v67;
                   goto LABEL_57;
                 }
 
-                v84 = 0uLL;
-                v85 = 0uLL;
-                v82 = 0uLL;
                 v83 = 0uLL;
+                v84 = 0uLL;
+                v81 = 0uLL;
+                v82 = 0uLL;
                 vertexBuffers = [v33 vertexBuffers];
-                v36 = [vertexBuffers countByEnumeratingWithState:&v82 objects:v97 count:16];
+                v36 = [vertexBuffers countByEnumeratingWithState:&v81 objects:v96 count:16];
                 if (v36)
                 {
                   v37 = v36;
-                  v38 = *v83;
+                  v38 = *v82;
                   do
                   {
                     for (n = 0; n != v37; ++n)
                     {
-                      if (*v83 != v38)
+                      if (*v82 != v38)
                       {
                         objc_enumerationMutation(vertexBuffers);
                       }
 
-                      [encoder useResource:objc_msgSend(*(*(&v82 + 1) + 8 * n) usage:{"buffer"), 1}];
+                      [encoder useResource:objc_msgSend(*(*(&v81 + 1) + 8 * n) usage:{"buffer"), 1}];
                     }
 
-                    v37 = [vertexBuffers countByEnumeratingWithState:&v82 objects:v97 count:16];
+                    v37 = [vertexBuffers countByEnumeratingWithState:&v81 objects:v96 count:16];
                   }
 
                   while (v37);
@@ -6165,7 +6147,7 @@ LABEL_145:
                 }
 
                 v25 = v34;
-                v31 = v68;
+                v31 = v67;
                 if ([v33 transformationMatrixBuffer])
                 {
                   indexBuffer = [v33 transformationMatrixBuffer];
@@ -6177,7 +6159,7 @@ LABEL_57:
             }
           }
 
-          v30 = [obj countByEnumeratingWithState:&v86 objects:v98 count:16];
+          v30 = [obj countByEnumeratingWithState:&v85 objects:v97 count:16];
         }
 
         while (v30);
@@ -6188,27 +6170,25 @@ LABEL_57:
   [encoder setBytes:&identifier length:8 atIndex:9];
   if (optionsCopy)
   {
-    [(MTLGPUBVHBuilder *)selfCopy refitVertexDataWithEncoder:encoder descriptor:descriptorCopy bvhDescriptor:bvhDescriptorCopy inPlace:v65 sourceBuffer:bufferCopy sourceBufferOffset:offsetCopy scratchBuffer:scratchBuffer scratchBufferOffset:scratchBufferOffset retainedResources:v62 innerNodeCapacity:v92 leafNodeCapacity:v91];
+    [(MTLGPUBVHBuilder *)selfCopy refitVertexDataWithEncoder:encoder descriptor:descriptorCopy bvhDescriptor:bvhDescriptorCopy inPlace:v64 sourceBuffer:bufferCopy sourceBufferOffset:offsetCopy scratchBuffer:scratchBuffer scratchBufferOffset:scratchBufferOffset retainedResources:v61 innerNodeCapacity:v91 leafNodeCapacity:v90];
   }
 
-  if ((optionsCopy & 2) != 0 && v90)
+  if ((optionsCopy & 2) != 0 && v89)
   {
-    [(MTLGPUBVHBuilder *)selfCopy refitPrimitiveData:encoder inPlace:v65 bvhDescriptor:bvhDescriptorCopy];
+    [(MTLGPUBVHBuilder *)selfCopy refitPrimitiveData:encoder inPlace:v64 bvhDescriptor:bvhDescriptorCopy];
   }
 
-  if ((v65 & 1) == 0)
+  if ((v64 & 1) == 0)
   {
-    v57 = (optionsCopy & 2) == 0 && v90 != 0;
+    v57 = (optionsCopy & 2) == 0 && v89 != 0;
     if ((optionsCopy & 1) == 0 || v57)
     {
-      BYTE2(v59) = v57;
-      BYTE1(v59) = (optionsCopy & 1) == 0;
-      LOBYTE(v59) = 0;
-      [MTLGPUBVHBuilder copyMTLSWBVHWithEncoder:selfCopy sourceBuffer:"copyMTLSWBVHWithEncoder:sourceBuffer:sourceBufferOffset:toBuffer:destinationBufferOffset:destinationMTLResourceID:destinationAccelerationStructureUniqueIdentifier:compact:copyVertexData:copyPerPrimitiveData:" sourceBufferOffset:encoder toBuffer:bufferCopy destinationBufferOffset:offsetCopy destinationMTLResourceID:destinationBufferCopy destinationAccelerationStructureUniqueIdentifier:bufferOffset compact:d._impl copyVertexData:identifier copyPerPrimitiveData:v59];
+      BYTE2(v58) = v57;
+      BYTE1(v58) = (optionsCopy & 1) == 0;
+      LOBYTE(v58) = 0;
+      [MTLGPUBVHBuilder copyMTLSWBVHWithEncoder:selfCopy sourceBuffer:"copyMTLSWBVHWithEncoder:sourceBuffer:sourceBufferOffset:toBuffer:destinationBufferOffset:destinationMTLResourceID:destinationAccelerationStructureUniqueIdentifier:compact:copyVertexData:copyPerPrimitiveData:" sourceBufferOffset:encoder toBuffer:bufferCopy destinationBufferOffset:offsetCopy destinationMTLResourceID:destinationBufferCopy destinationAccelerationStructureUniqueIdentifier:bufferOffset compact:d._impl copyVertexData:identifier copyPerPrimitiveData:v58];
     }
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeSerializedMTLSWBVHSizeWithEncoder:(id)encoder BVHBuffer:(id)buffer BVHBufferOffset:(unint64_t)offset toBuffer:(id)toBuffer sizeBufferOffset:(unint64_t)bufferOffset

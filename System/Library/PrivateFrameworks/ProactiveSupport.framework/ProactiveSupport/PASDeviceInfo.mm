@@ -17,7 +17,7 @@ uint64_t __28___PASDeviceInfo_deviceUUID__block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __36___PASDeviceInfo_internalDeviceCode__block_invoke(uint64_t a1)
+void *__36___PASDeviceInfo_internalDeviceCode__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isInternalBuild];
   if (result)
@@ -32,7 +32,7 @@ uint64_t __36___PASDeviceInfo_internalDeviceCode__block_invoke(uint64_t a1)
 
 void __45___PASDeviceInfo_shouldIncludePredictionLogs__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695E000] standardUserDefaults];
   v3 = [v2 objectForKey:@"EnablePredictionLogging"];
 
@@ -59,14 +59,12 @@ void __45___PASDeviceInfo_shouldIncludePredictionLogs__block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
-    v7[0] = 67109376;
-    v7[1] = shouldIncludePredictionLogs_isPredictionLoggingEnabled;
-    v8 = 1024;
-    v9 = v3 != 0;
-    _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Prediction Logging Enabled: %d (controlled by setting: %d)", v7, 0xEu);
+    v6[0] = 67109376;
+    v6[1] = shouldIncludePredictionLogs_isPredictionLoggingEnabled;
+    v7 = 1024;
+    v8 = v3 != 0;
+    _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Prediction Logging Enabled: %d (controlled by setting: %d)", v6, 0xEu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __24___PASDeviceInfo_isiPad__block_invoke()

@@ -3,9 +3,12 @@
 + (BOOL)validateMangledIDString:(id)string strict:(BOOL)strict;
 + (BOOL)validateOwnerName:(id)name;
 + (id)_containerIDFromSharedContainerID:(id)d validate:(BOOL)validate;
++ (id)_containerIDFromSharedMangledIDString:(id)string validate:(BOOL)validate;
++ (id)_mangledIDStringFromZoneName:(id)name ownerName:(id)ownerName validate:(BOOL)validate;
 + (id)_ownerNameFromSharedMangledIDString:(id)string validate:(BOOL)validate;
 + (id)_privateMangledContainerID:(id)d validate:(BOOL)validate;
 + (id)_privateUnmangledContainerID:(id)d validate:(BOOL)validate;
++ (id)_sharedMangledIDStringWithContainerID:(id)d ownerName:(id)name validate:(BOOL)validate;
 + (id)cloudDocsMangledID;
 + (id)containerMetadataMangledID;
 + (id)desktopMangledID;
@@ -105,7 +108,7 @@
 
 - (BRMangledID)initWithAppLibraryName:(id)name
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (![BRMangledID validateContainerID:nameCopy])
   {
@@ -114,9 +117,9 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = nameCopy;
-      v14 = 2112;
-      v15 = v7;
+      v12 = nameCopy;
+      v13 = 2112;
+      v14 = v7;
       _os_log_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] invalid library name %@%@", buf, 0x16u);
     }
 
@@ -124,9 +127,9 @@
     goto LABEL_7;
   }
 
-  v11.receiver = self;
-  v11.super_class = BRMangledID;
-  v5 = [(BRMangledID *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = BRMangledID;
+  v5 = [(BRMangledID *)&v10 init];
   if (v5)
   {
     v6 = [BRMangledID _privateMangledContainerID:nameCopy validate:1];
@@ -135,7 +138,6 @@
 LABEL_7:
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -349,7 +351,7 @@ LABEL_7:
 
 + (BOOL)validateContainerID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (![dCopy length])
   {
@@ -363,10 +365,10 @@ LABEL_7:
         v9 = "nil";
       }
 
-      v16 = 136315394;
-      v17 = v9;
-      v18 = 2112;
-      *v19 = v4;
+      v15 = 136315394;
+      v16 = v9;
+      v17 = 2112;
+      *v18 = v4;
       v6 = "[WARNING] invalid container name (%s)%@";
       v7 = v5;
       v8 = 22;
@@ -382,17 +384,17 @@ LABEL_7:
     v5 = brc_default_log(1, 0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412802;
-      v17 = dCopy;
-      v18 = 1024;
-      *v19 = 150;
-      *&v19[4] = 2112;
-      *&v19[6] = v4;
+      v15 = 138412802;
+      v16 = dCopy;
+      v17 = 1024;
+      *v18 = 150;
+      *&v18[4] = 2112;
+      *&v18[6] = v4;
       v6 = "[WARNING] invalid container name '%@', max length is %u%@";
       v7 = v5;
       v8 = 28;
 LABEL_17:
-      _os_log_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEFAULT, v6, &v16, v8);
+      _os_log_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEFAULT, v6, &v15, v8);
       goto LABEL_18;
     }
 
@@ -405,8 +407,8 @@ LABEL_17:
     v5 = brc_default_log(1, 0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v4;
+      v15 = 138412290;
+      v16 = v4;
       v6 = "[WARNING] nil containerID%@";
       v7 = v5;
       v8 = 12;
@@ -432,13 +434,13 @@ LABEL_18:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       pattern = [validateContainerID____regex pattern];
-      v16 = 138412802;
-      v17 = dCopy;
-      v18 = 2112;
-      *v19 = pattern;
-      *&v19[8] = 2112;
-      *&v19[10] = v4;
-      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] invalid container name '%@', expected regex %@%@", &v16, 0x20u);
+      v15 = 138412802;
+      v16 = dCopy;
+      v17 = 2112;
+      *v18 = pattern;
+      *&v18[8] = 2112;
+      *&v18[10] = v4;
+      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] invalid container name '%@', expected regex %@%@", &v15, 0x20u);
     }
 
     goto LABEL_18;
@@ -447,7 +449,6 @@ LABEL_18:
   v12 = 1;
 LABEL_19:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -555,6 +556,67 @@ LABEL_9:
   return v10;
 }
 
++ (id)_mangledIDStringFromZoneName:(id)name ownerName:(id)ownerName validate:(BOOL)validate
+{
+  validateCopy = validate;
+  v19 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  ownerNameCopy = ownerName;
+  if (_mangledIDStringFromZoneName_ownerName_validate__onceToken != -1)
+  {
+    +[BRMangledID _mangledIDStringFromZoneName:ownerName:validate:];
+  }
+
+  if (!_mangledIDStringFromZoneName_ownerName_validate___defaultOwnerName || ([ownerNameCopy isEqualToString:?] & 1) == 0)
+  {
+    if (![BRMangledID validateContainerID:nameCopy])
+    {
+      goto LABEL_11;
+    }
+
+    if (ownerNameCopy)
+    {
+      if ([BRMangledID validateOwnerName:ownerNameCopy])
+      {
+        v9 = [BRMangledID _sharedMangledIDStringWithContainerID:nameCopy ownerName:ownerNameCopy validate:validateCopy];
+
+        goto LABEL_15;
+      }
+
+      goto LABEL_11;
+    }
+
+LABEL_14:
+    v9 = [BRMangledID _privateMangledContainerID:nameCopy validate:validateCopy];
+    goto LABEL_15;
+  }
+
+  if ([BRMangledID validateContainerID:nameCopy])
+  {
+    goto LABEL_14;
+  }
+
+  ownerNameCopy = 0;
+LABEL_11:
+  v10 = brc_bread_crumbs("+[BRMangledID _mangledIDStringFromZoneName:ownerName:validate:]", 347);
+  v11 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+  {
+    v13 = 138412802;
+    v14 = nameCopy;
+    v15 = 2112;
+    v16 = ownerNameCopy;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_fault_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid zone %@ or owner name %@%@", &v13, 0x20u);
+  }
+
+  v9 = 0;
+LABEL_15:
+
+  return v9;
+}
+
 uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___block_invoke()
 {
   v0 = getCKCurrentUserDefaultName();
@@ -592,6 +654,31 @@ uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___blo
   }
 
   v7 = [v6 stringByReplacingOccurrencesOfString:@"~" withString:@"."];
+
+  return v7;
+}
+
++ (id)_sharedMangledIDStringWithContainerID:(id)d ownerName:(id)name validate:(BOOL)validate
+{
+  validateCopy = validate;
+  nameCopy = name;
+  v9 = [self _privateMangledContainerID:d validate:validateCopy];
+  v10 = v9;
+  if (!nameCopy || !v9)
+  {
+    +[BRMangledID _sharedMangledIDStringWithContainerID:ownerName:validate:];
+  }
+
+  nameCopy = [v10 stringByAppendingFormat:@":%@", nameCopy];
+
+  return nameCopy;
+}
+
++ (id)_containerIDFromSharedMangledIDString:(id)string validate:(BOOL)validate
+{
+  validateCopy = validate;
+  v6 = [self _containerIDFromSharedContainerID:string validate:?];
+  v7 = [self _privateUnmangledContainerID:v6 validate:validateCopy];
 
   return v7;
 }
@@ -644,18 +731,16 @@ uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___blo
 
 - (void)initWithMangledString:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_4_1();
-  *v5 = v1;
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v1, v2, "[CRIT] UNREACHABLE: invalid mangled string %@%@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v1, v2, "[CRIT] UNREACHABLE: invalid mangled string %@%@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 - (void)initWithAliasTargetContainerString:.cold.1()
 {
-  v13 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("[BRMangledID initWithAliasTargetContainerString:]", 70);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6_0();
@@ -663,54 +748,46 @@ uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___blo
   if (OUTLINED_FUNCTION_5_0(v4))
   {
     OUTLINED_FUNCTION_3_1();
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: ![aliasTargetString containsString:@/]%@", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v5, v6, "[CRIT] Assertion failed: ![aliasTargetString containsString:@/]%@", v7, v8, v9, v10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_4_1();
-  *v5 = v1;
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v1, v2, "[CRIT] UNREACHABLE: encoded object has bogus mangledID %@%@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v1, v2, "[CRIT] UNREACHABLE: encoded object has bogus mangledID %@%@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 + (void)validateOwnerName:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = [validateOwnerName____regex pattern];
-  v10 = 138412802;
-  v11 = a1;
+  v9 = 138412802;
+  v10 = a1;
   OUTLINED_FUNCTION_4_1();
-  v12 = v7;
-  v13 = v8;
-  v14 = a2;
-  _os_log_error_impl(&dword_1AE2A9000, a3, 0x90u, "[ERROR] invalid owner name '%@', expected regex %@%@", &v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = v7;
+  v12 = v8;
+  v13 = a2;
+  _os_log_error_impl(&dword_1AE2A9000, a3, 0x90u, "[ERROR] invalid owner name '%@', expected regex %@%@", &v9, 0x20u);
 }
 
 + (void)validateOwnerName:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = [validateOwnerName____regex pattern];
-  v6 = 138412546;
-  v7 = v4;
+  v5 = 138412546;
+  v6 = v4;
   OUTLINED_FUNCTION_4_1();
-  v8 = a1;
-  _os_log_error_impl(&dword_1AE2A9000, a2, 0x90u, "[ERROR] invalid owner name nil, expected regex %@%@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7 = a1;
+  _os_log_error_impl(&dword_1AE2A9000, a2, 0x90u, "[ERROR] invalid owner name nil, expected regex %@%@", &v5, 0x16u);
 }
 
 + (void)_privateMangledContainerID:validate:.cold.1()
 {
-  v13 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("+[BRMangledID _privateMangledContainerID:validate:]", 356);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6_0();
@@ -718,15 +795,12 @@ uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___blo
   if (OUTLINED_FUNCTION_5_0(v4))
   {
     OUTLINED_FUNCTION_3_1();
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: !validate || ![containerID containsString:@~]%@", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v5, v6, "[CRIT] Assertion failed: !validate || ![containerID containsString:@~]%@", v7, v8, v9, v10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_privateUnmangledContainerID:validate:.cold.1()
 {
-  v13 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("+[BRMangledID _privateUnmangledContainerID:validate:]", 362);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6_0();
@@ -734,15 +808,12 @@ uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___blo
   if (OUTLINED_FUNCTION_5_0(v4))
   {
     OUTLINED_FUNCTION_3_1();
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: !validate || ![mangledContainerID containsString:@.]%@", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v5, v6, "[CRIT] Assertion failed: !validate || ![mangledContainerID containsString:@.]%@", v7, v8, v9, v10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_sharedMangledIDStringWithContainerID:ownerName:validate:.cold.1()
 {
-  v13 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("+[BRMangledID _sharedMangledIDStringWithContainerID:ownerName:validate:]", 369);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6_0();
@@ -750,15 +821,12 @@ uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___blo
   if (OUTLINED_FUNCTION_5_0(v4))
   {
     OUTLINED_FUNCTION_3_1();
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: ownerName && mangledContainerID%@", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v5, v6, "[CRIT] Assertion failed: ownerName && mangledContainerID%@", v7, v8, v9, v10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_ownerNameFromSharedMangledIDString:validate:.cold.1()
 {
-  v13 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("+[BRMangledID _ownerNameFromSharedMangledIDString:validate:]", 383);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6_0();
@@ -766,15 +834,12 @@ uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___blo
   if (OUTLINED_FUNCTION_5_0(v4))
   {
     OUTLINED_FUNCTION_3_1();
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: !validate%@", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v5, v6, "[CRIT] Assertion failed: !validate%@", v7, v8, v9, v10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_containerIDFromSharedContainerID:validate:.cold.1()
 {
-  v13 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("+[BRMangledID _containerIDFromSharedContainerID:validate:]", 395);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6_0();
@@ -782,10 +847,8 @@ uint64_t __63__BRMangledID__mangledIDStringFromZoneName_ownerName_validate___blo
   if (OUTLINED_FUNCTION_5_0(v4))
   {
     OUTLINED_FUNCTION_3_1();
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: !validate%@", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v5, v6, "[CRIT] Assertion failed: !validate%@", v7, v8, v9, v10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

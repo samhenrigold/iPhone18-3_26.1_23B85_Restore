@@ -8,7 +8,7 @@
 
 - (GDKnosisExecStep)initWithCoder:(id)coder
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_kgQueryNode);
@@ -46,12 +46,12 @@ LABEL_10:
         goto LABEL_9;
       }
 
-      v20 = MEMORY[0x1E696ABC0];
-      v23 = *MEMORY[0x1E696A578];
-      v24[0] = @"GDKnosisExecStep messages is nil";
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-      v22 = [v20 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v21];
-      [coderCopy failWithError:v22];
+      v19 = MEMORY[0x1E696ABC0];
+      v22 = *MEMORY[0x1E696A578];
+      v23[0] = @"GDKnosisExecStep messages is nil";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v21 = [v19 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v20];
+      [coderCopy failWithError:v21];
     }
 
     self = [(GDKnosisExecStep *)self initWithKgQueryNode:v7 indexQuery:v12 messages:v16];
@@ -64,7 +64,6 @@ LABEL_9:
   selfCopy = 0;
 LABEL_11:
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

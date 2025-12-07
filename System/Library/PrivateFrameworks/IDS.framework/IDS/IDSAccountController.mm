@@ -2,6 +2,7 @@
 - (IDSAccountController)initWithService:(id)service;
 - (NSSet)accounts;
 - (id)_initWithService:(id)service;
+- (id)_initWithService:(id)service onIDSQueue:(BOOL)queue;
 - (id)_internal;
 - (id)accountWithLoginID:(id)d service:(id)service;
 - (id)accountWithUniqueID:(id)d;
@@ -73,6 +74,117 @@
   v6.receiver = self;
   v6.super_class = IDSAccountController;
   [(IDSAccountController *)&v6 dealloc];
+}
+
+- (id)_initWithService:(id)service onIDSQueue:(BOOL)queue
+{
+  selfCopy2 = queue;
+  serviceCopy = service;
+  if (_IDSRunningInDaemon())
+  {
+    v7 = +[IDSLogging IDSAccountController];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B2B6D0(self, v7);
+    }
+
+    selfCopy2 = 0;
+    goto LABEL_21;
+  }
+
+  v8 = +[IDSInternalQueueController sharedInstance];
+  v9 = v8;
+  if (selfCopy2)
+  {
+    assertQueueIsCurrent = [v8 assertQueueIsCurrent];
+
+    if (assertQueueIsCurrent)
+    {
+      utilities = [MEMORY[0x1E69A5270] utilities];
+      if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+      {
+        sub_195B2B62C();
+      }
+
+LABEL_12:
+    }
+  }
+
+  else
+  {
+    assertQueueIsNotCurrent = [v8 assertQueueIsNotCurrent];
+
+    if (assertQueueIsNotCurrent)
+    {
+      utilities = [MEMORY[0x1E69A5270] utilities];
+      if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+      {
+        sub_195B2B588();
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  v36.receiver = self;
+  v36.super_class = IDSAccountController;
+  v13 = [(IDSAccountController *)&v36 init];
+  if (!v13)
+  {
+    goto LABEL_20;
+  }
+
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_195A00744;
+  v34 = sub_195A03D48;
+  v35 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = sub_195A60A24;
+  v21 = &unk_1E74408A0;
+  v24 = &v30;
+  v22 = serviceCopy;
+  v25 = &v26;
+  self = v13;
+  selfCopy = self;
+  v14 = MEMORY[0x19A8BBEF0](&v18);
+  v15 = v14;
+  if (selfCopy2)
+  {
+    (*(v14 + 16))(v14);
+  }
+
+  else
+  {
+    selfCopy2 = [IDSInternalQueueController sharedInstance:v18];
+    [selfCopy2 performBlock:v15 waitUntilDone:1];
+  }
+
+  v16 = *(v27 + 24);
+  if (v16 == 1)
+  {
+    selfCopy2 = v31[5];
+  }
+
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
+
+  if ((v16 & 1) == 0)
+  {
+LABEL_20:
+    self = v13;
+    selfCopy2 = self;
+  }
+
+LABEL_21:
+
+  return selfCopy2;
 }
 
 - (id)_initWithService:(id)service
@@ -329,7 +441,7 @@
 
 - (void)setupAccountWithSetupParameters:(id)parameters aliases:(id)aliases completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   aliasesCopy = aliases;
   handlerCopy = handler;
@@ -337,82 +449,76 @@
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = aliasesCopy;
+    v21 = aliasesCopy;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "* Request to setup account with aliases: %@ and parameters:", buf, 0xCu);
   }
 
   [parametersCopy enumerateKeysAndObjectsUsingBlock:&unk_1F09E6120];
   v12 = +[IDSInternalQueueController sharedInstance];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_195A61D9C;
-  v17[3] = &unk_1E743F318;
-  v17[4] = self;
-  v18 = parametersCopy;
-  v19 = aliasesCopy;
-  v20 = handlerCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_195A61D9C;
+  v16[3] = &unk_1E743F318;
+  v16[4] = self;
+  v17 = parametersCopy;
+  v18 = aliasesCopy;
+  v19 = handlerCopy;
   v13 = handlerCopy;
   v14 = aliasesCopy;
   v15 = parametersCopy;
-  [v12 performBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [v12 performBlock:v16];
 }
 
 - (void)addAccount:(id)account
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [(IDSAccountController *)self serviceName];
     *buf = 138412546;
-    v13 = accountCopy;
-    v14 = 2112;
-    v15 = serviceName;
+    v12 = accountCopy;
+    v13 = 2112;
+    v14 = serviceName;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "* Request to add account: %@   service: %@", buf, 0x16u);
   }
 
   v7 = +[IDSInternalQueueController sharedInstance];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_195A61F0C;
-  v10[3] = &unk_1E743EA30;
-  v10[4] = self;
-  v11 = accountCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_195A61F0C;
+  v9[3] = &unk_1E743EA30;
+  v9[4] = self;
+  v10 = accountCopy;
   v8 = accountCopy;
-  [v7 performBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [v7 performBlock:v9];
 }
 
 - (void)removeAccount:(id)account
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [(IDSAccountController *)self serviceName];
     *buf = 138412546;
-    v13 = accountCopy;
-    v14 = 2112;
-    v15 = serviceName;
+    v12 = accountCopy;
+    v13 = 2112;
+    v14 = serviceName;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "* Request to remove account: %@   service: %@", buf, 0x16u);
   }
 
   v7 = +[IDSInternalQueueController sharedInstance];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_195A62074;
-  v10[3] = &unk_1E743EA30;
-  v10[4] = self;
-  v11 = accountCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_195A62074;
+  v9[3] = &unk_1E743EA30;
+  v9[4] = self;
+  v10 = accountCopy;
   v8 = accountCopy;
-  [v7 performBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [v7 performBlock:v9];
 }
 
 - (void)_removeAccount:(id)account
@@ -431,58 +537,54 @@
 
 - (void)_enableAccount:(id)account
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [(IDSAccountController *)self serviceName];
     *buf = 138412546;
-    v13 = accountCopy;
-    v14 = 2112;
-    v15 = serviceName;
+    v12 = accountCopy;
+    v13 = 2112;
+    v14 = serviceName;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "* Request to enable account: %@   service: %@", buf, 0x16u);
   }
 
   v7 = +[IDSInternalQueueController sharedInstance];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_195A622A8;
-  v10[3] = &unk_1E743EA30;
-  v10[4] = self;
-  v11 = accountCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_195A622A8;
+  v9[3] = &unk_1E743EA30;
+  v9[4] = self;
+  v10 = accountCopy;
   v8 = accountCopy;
-  [v7 performBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [v7 performBlock:v9];
 }
 
 - (void)_disableAccount:(id)account
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [(IDSAccountController *)self serviceName];
     *buf = 138412546;
-    v13 = accountCopy;
-    v14 = 2112;
-    v15 = serviceName;
+    v12 = accountCopy;
+    v13 = 2112;
+    v14 = serviceName;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "* Request to disable account: %@   service: %@", buf, 0x16u);
   }
 
   v7 = +[IDSInternalQueueController sharedInstance];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_195A62410;
-  v10[3] = &unk_1E743EA30;
-  v10[4] = self;
-  v11 = accountCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_195A62410;
+  v9[3] = &unk_1E743EA30;
+  v9[4] = self;
+  v10 = accountCopy;
   v8 = accountCopy;
-  [v7 performBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [v7 performBlock:v9];
 }
 
 @end

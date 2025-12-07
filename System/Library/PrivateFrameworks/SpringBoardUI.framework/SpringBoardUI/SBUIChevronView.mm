@@ -1,5 +1,6 @@
 @interface SBUIChevronView
 - (BOOL)_setState:(int64_t)state;
+- (BOOL)_setUnified:(BOOL)unified;
 - (CGAffineTransform)_transformForGrabberView:(SEL)view forState:(id)state;
 - (CGRect)_frameForGrabberView:(id)view forState:(int64_t)state unified:(BOOL)unified;
 - (CGSize)sizeThatFits:(CGSize)fits;
@@ -203,32 +204,22 @@ LABEL_9:
 
 - (CGRect)_frameForGrabberView:(id)view forState:(int64_t)state unified:(BOOL)unified
 {
-  if (state != -1 && state != 1)
-  {
-    self->_leftGrabberView;
-    if (state)
-    {
-      v5 = *(MEMORY[0x277CBF3A0] + 8);
-      v6 = *MEMORY[0x277CBF3A0];
-    }
-  }
-
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
   UIRectIntegralWithScale();
+  v7 = v6;
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  v15 = v14;
 
-  v16 = v9;
-  v17 = v11;
-  v18 = v13;
-  v19 = v15;
-  result.size.height = v19;
-  result.size.width = v18;
-  result.origin.y = v17;
-  result.origin.x = v16;
+  v14 = v7;
+  v15 = v9;
+  v16 = v11;
+  v17 = v13;
+  result.size.height = v17;
+  result.size.width = v16;
+  result.origin.y = v15;
+  result.origin.x = v14;
   return result;
 }
 
@@ -242,7 +233,7 @@ LABEL_9:
   [viewCopy setTransform:&v8];
   [(SBUIChevronView *)self _frameForGrabberView:viewCopy forState:state unified:self->_unified, v8, v9, v10];
   [viewCopy setFrame:?];
-  [(SBUIChevronView *)self _transformForGrabberView:viewCopy forState:state];
+  objc_msgSend__transformForGrabberView_forState_(self);
   [viewCopy setTransform:&v8];
 }
 
@@ -271,6 +262,36 @@ LABEL_9:
   self->_state = state;
   [(SBUIChevronView *)self setNeedsLayout:v3];
   return 1;
+}
+
+- (BOOL)_setUnified:(BOOL)unified
+{
+  unifiedCopy = unified;
+  unified = self->_unified;
+  if (unified != unified)
+  {
+    self->_unified = unified;
+    [(UIView *)self->_rightGrabberView setHidden:unified];
+    layer = [(UIView *)self->_alphaContainerView layer];
+    [layer setAllowsGroupOpacity:!self->_unified];
+
+    v7 = 1.0;
+    alphaComponent = 1.0;
+    if (!self->_unified)
+    {
+      alphaComponent = self->_alphaComponent;
+    }
+
+    [(UIView *)self->_alphaContainerView setAlpha:alphaComponent];
+    if (self->_unified)
+    {
+      v7 = self->_alphaComponent;
+    }
+
+    [(UIView *)self->_leftGrabberView setAlpha:v7];
+  }
+
+  return unified != unifiedCopy;
 }
 
 - (void)setState:(int64_t)state animated:(BOOL)animated

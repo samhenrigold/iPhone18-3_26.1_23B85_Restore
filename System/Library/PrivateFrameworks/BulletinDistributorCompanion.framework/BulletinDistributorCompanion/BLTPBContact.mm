@@ -86,7 +86,6 @@
     PBDataWriterWriteStringField();
   }
 
-  handleType = self->_handleType;
   PBDataWriterWriteUint32Field();
   if (self->_serviceName)
   {
@@ -108,19 +107,17 @@
     PBDataWriterWriteStringField();
   }
 
-  cnContactIdentifierSuggested = self->_cnContactIdentifierSuggested;
   PBDataWriterWriteBOOLField();
   if (*&self->_has)
   {
-    displayNameSuggested = self->_displayNameSuggested;
     PBDataWriterWriteBOOLField();
   }
 
-  v7 = toCopy;
+  v4 = toCopy;
   if (self->_customIdentifier)
   {
     PBDataWriterWriteStringField();
-    v7 = toCopy;
+    v4 = toCopy;
   }
 }
 
@@ -269,7 +266,6 @@
     }
   }
 
-  v10 = *(equalCopy + 64);
   if (self->_cnContactIdentifierSuggested)
   {
     if ((*(equalCopy + 64) & 1) == 0)
@@ -283,7 +279,7 @@
     goto LABEL_22;
   }
 
-  v11 = *(equalCopy + 68);
+  v10 = *(equalCopy + 68);
   if ((*&self->_has & 1) == 0)
   {
     goto LABEL_18;
@@ -294,17 +290,17 @@
     goto LABEL_22;
   }
 
-  v11 = *(equalCopy + 65);
+  v10 = *(equalCopy + 65);
   if (!self->_displayNameSuggested)
   {
 LABEL_18:
-    if ((v11 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
       goto LABEL_19;
     }
 
 LABEL_22:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_23;
   }
 
@@ -317,17 +313,17 @@ LABEL_19:
   customIdentifier = self->_customIdentifier;
   if (customIdentifier | *(equalCopy + 3))
   {
-    v13 = [(NSString *)customIdentifier isEqual:?];
+    v12 = [(NSString *)customIdentifier isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_23:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

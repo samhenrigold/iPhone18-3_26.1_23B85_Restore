@@ -149,7 +149,7 @@ void __74__PLSearchIndexDateFormatter_newLocalizedComponentsFromDate_includeMont
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  if ([*(*(*(a1 + 48) + 8) + 40) count] == 2)
+  if (objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40)) == 2)
   {
     if (*(a1 + 56))
     {
@@ -194,7 +194,7 @@ void __60__PLSearchIndexDateFormatter_localizedMonthStringsFromDate___block_invo
   v2 = [*(*(a1 + 32) + 16) calendar];
   v3 = [v2 component:8 fromDate:*(a1 + 40)];
 
-  if (v3 >= 1 && v3 - 1 < [*(*(a1 + 32) + 64) count])
+  if (v3 >= 1 && v3 - 1 < objc_msgSend_count(*(*(a1 + 32) + 64)))
   {
     v4 = [*(*(a1 + 32) + 64) objectAtIndex:v3 - 1];
     v5 = *(*(a1 + 48) + 8);
@@ -213,7 +213,7 @@ void __60__PLSearchIndexDateFormatter_localizedMonthStringsFromDate___block_invo
   }
 
   dateFormat = [(NSDateFormatter *)self->_dateFormatter dateFormat];
-  if (dateFormat != formatCopy && ([dateFormat isEqualToString:formatCopy] & 1) == 0)
+  if (dateFormat != formatCopy && (objc_msgSend_isEqualToString_(dateFormat) & 1) == 0)
   {
     [(NSDateFormatter *)self->_dateFormatter setDateFormat:formatCopy];
   }
@@ -298,7 +298,7 @@ void __60__PLSearchIndexDateFormatter_localizedMonthStringsFromDate___block_invo
   array = [MEMORY[0x1E695DF70] array];
   v37 = v11;
   firstObject = [v11 firstObject];
-  v13 = [firstObject count];
+  v13 = objc_msgSend_count(firstObject);
 
   v35 = v13;
   if (v13)
@@ -441,8 +441,8 @@ BOOL __51__PLSearchIndexDateFormatter__arrangedMonthSymbols__block_invoke(uint64
   v2 = MEMORY[0x1E695DFD8];
   v3 = a2;
   v4 = [v2 setWithArray:v3];
-  v5 = [v4 count];
-  v6 = [v3 count];
+  v5 = objc_msgSend_count(v4);
+  v6 = objc_msgSend_count(v3);
 
   return v5 == v6;
 }

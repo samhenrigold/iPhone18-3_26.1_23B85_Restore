@@ -284,25 +284,25 @@ LABEL_45:
   return result;
 }
 
-uint64_t CSCppCoreFileExclavesMetadata::CSCppCoreFileExclavesMetadata(uint64_t a1, int a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10)
+uint64_t CSCppCoreFileExclavesMetadata::CSCppCoreFileExclavesMetadata(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10)
 {
   __p = 0;
-  v21 = 0;
   v22 = 0;
-  std::vector<mapped_memory_core_file_dumped_region_info_t>::__init_with_size[abi:ne200100]<mapped_memory_core_file_dumped_region_info_t*,mapped_memory_core_file_dumped_region_info_t*>(&__p, *a3, a3[1], 0xCCCCCCCCCCCCCCCDLL * ((a3[1] - *a3) >> 3));
-  std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>::map[abi:ne200100](v19, a5);
+  v23 = 0;
+  std::vector<mapped_memory_core_file_dumped_region_info_t>::__init_with_size[abi:ne200100]<mapped_memory_core_file_dumped_region_info_t*,mapped_memory_core_file_dumped_region_info_t*>(&__p, *a3, *(a3 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 8) - *a3) >> 3));
+  std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>::map[abi:ne200100](v20, a5);
   std::__optional_copy_base<CSCppCoreFileRegionsTree,false>::__optional_copy_base[abi:ne200100](v18, a8);
-  CSCppCoreFileMetadata::CSCppCoreFileMetadata(a1, a2, &__p, a4, v19, a6, a7, v18);
-  if (v18[24] == 1)
+  CSCppCoreFileMetadata::CSCppCoreFileMetadata(a1, a2, &__p, a4, v20, a6, a7, v18);
+  if (v19 == 1)
   {
-    v23 = v18;
-    std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v23);
+    v24 = v18;
+    std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v24);
   }
 
-  std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::destroy(v19, v19[1]);
+  std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::destroy(v20, v20[1]);
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -370,61 +370,62 @@ void set_up_mapped_memory_cache_for_exclave_core_file<SizeAndEndianness<Pointer6
         v7 = v5;
       }
 
-      *&v16 = v2;
-      *(&v16 + 1) = v7;
-      v19 = 0;
-      v18 = 0;
+      *&v17 = v2;
+      *(&v17 + 1) = v7;
       v20 = 0;
+      v19 = 0;
+      v21 = 0;
       v8 = *(a1 + 25);
-      v17 = 1;
-      v21 = v8;
-      memset(v23, 0, sizeof(v23));
-      v22 = 0;
-      v24 = 3;
-      v25 = 0;
+      v18 = 1;
+      v22 = v8;
+      memset(v24, 0, sizeof(v24));
+      v23 = 0;
+      v25 = 3;
       v26 = 0;
       v27 = 0;
       v28 = 0;
+      v29 = 0;
       v9 = *(a1 + 28);
-      v29 = 3;
-      v30 = v9;
-      LOBYTE(v31) = 0;
-      v33 = 0;
+      v30 = 3;
+      v31 = v9;
+      LOBYTE(v32) = 0;
+      v34 = 0;
       v10 = v7 >> 14;
-      v13 = 0;
-      std::vector<unsigned short>::vector[abi:ne200100](v14, v7 >> 14);
-      v34 = *v14;
-      v35 = v15;
-      v14[1] = 0;
-      v15 = 0;
-      v14[0] = 0;
-      v36 = 1;
-      std::vector<unsigned short>::vector[abi:ne200100](__p, v10);
-      v37 = *__p;
-      v38 = v12;
+      v14 = 0;
+      std::vector<unsigned short>::vector[abi:ne200100](v15, v7 >> 14, &v14);
+      v35 = *v15;
+      v36 = v16;
+      v15[1] = 0;
+      v16 = 0;
+      v15[0] = 0;
+      v37 = 1;
+      v11 = 0;
+      std::vector<unsigned short>::vector[abi:ne200100](__p, v10, &v11);
+      v38 = *__p;
+      v39 = v13;
       __p[1] = 0;
-      v12 = 0;
+      v13 = 0;
       __p[0] = 0;
-      v39 = 1;
-      memset(v40, 0, sizeof(v40));
-      std::vector<CSCppCoreFileRegionInfo>::push_back[abi:ne200100](v6, &v16);
-      v41 = v40;
-      std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v41);
-      if (v39 == 1 && v37)
+      v40 = 1;
+      memset(v41, 0, sizeof(v41));
+      std::vector<CSCppCoreFileRegionInfo>::push_back[abi:ne200100](v6, &v17);
+      v42 = v41;
+      std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v42);
+      if (v40 == 1 && v38)
       {
-        *(&v37 + 1) = v37;
-        operator delete(v37);
+        *(&v38 + 1) = v38;
+        operator delete(v38);
       }
 
-      if (v36 == 1 && v34)
+      if (v37 == 1 && v35)
       {
-        *(&v34 + 1) = v34;
-        operator delete(v34);
+        *(&v35 + 1) = v35;
+        operator delete(v35);
       }
 
-      if (v33 == 1 && v32 < 0)
+      if (v34 == 1 && v33 < 0)
       {
-        operator delete(v31);
+        operator delete(v32);
       }
 
       if (__p[0])
@@ -433,10 +434,10 @@ void set_up_mapped_memory_cache_for_exclave_core_file<SizeAndEndianness<Pointer6
         operator delete(__p[0]);
       }
 
-      if (v14[0])
+      if (v15[0])
       {
-        v14[1] = v14[0];
-        operator delete(v14[0]);
+        v15[1] = v15[0];
+        operator delete(v15[0]);
       }
 
       v2 += 104857600;
@@ -457,7 +458,7 @@ void sub_1D97C5D68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer6412LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(unint64_t a1, __int128 *a2, uint64_t a3, char a4)
+void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer6412LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(__int128 *a1, __int128 *a2, uint64_t a3, char a4)
 {
 LABEL_1:
   v6 = a2;
@@ -503,27 +504,27 @@ LABEL_136:
 
     if (v10 == 4)
     {
-      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, (a1 + 224), (a1 + 448), v7);
+      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, v7);
       return;
     }
 
     if (v10 == 5)
     {
-      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, (a1 + 224), (a1 + 448), (a1 + 672));
+      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, a1 + 42);
       v98 = *(v6 - 28);
       v97 = v6 - 14;
-      if (v98 < *(a1 + 672))
+      if (v98 < *(a1 + 84))
       {
-        std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 672), v97);
-        if (*(a1 + 672) < *(a1 + 448))
+        std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 42, v97);
+        if (*(a1 + 84) < *(a1 + 56))
         {
-          std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 448), (a1 + 672));
-          if (*(a1 + 448) < *(a1 + 224))
+          std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 28, a1 + 42);
+          if (*(a1 + 56) < *(a1 + 28))
           {
-            std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 224), (a1 + 448));
-            if (*(a1 + 224) < *a1)
+            std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, a1 + 28);
+            if (*(a1 + 28) < *a1)
             {
-              v95 = (a1 + 224);
+              v95 = a1 + 14;
               v96 = a1;
               goto LABEL_137;
             }
@@ -541,8 +542,8 @@ LABEL_9:
       {
         if (a1 != v6)
         {
-          v99 = a1 + 224;
-          if ((a1 + 224) != a2)
+          v99 = (a1 + 14);
+          if (a1 + 14 != a2)
           {
             v100 = 0;
             v101 = a1;
@@ -697,14 +698,14 @@ LABEL_160:
 
       else if (a1 != v6)
       {
-        v204 = a1 + 224;
-        if ((a1 + 224) != a2)
+        v204 = (a1 + 14);
+        if (a1 + 14 != a2)
         {
-          v205 = a1 - 224;
+          v205 = (a1 - 14);
           do
           {
             v206 = v204;
-            if (*(a1 + 224) < *a1)
+            if (*(a1 + 28) < *a1)
             {
               v207 = *v204;
               v208 = *(v204 + 32);
@@ -722,11 +723,11 @@ LABEL_160:
               v256 = 0;
               if (*(a1 + 352) == 1)
               {
-                v255 = *(a1 + 344);
+                v255 = *(a1 + 43);
                 v254 = *(a1 + 328);
-                *(a1 + 336) = 0;
-                *(a1 + 344) = 0;
-                *(a1 + 328) = 0;
+                *(a1 + 42) = 0;
+                *(a1 + 43) = 0;
+                *(a1 + 41) = 0;
                 v256 = 1;
               }
 
@@ -736,10 +737,10 @@ LABEL_160:
               if (*(a1 + 384) == 1)
               {
                 v257 = *v212;
-                v258 = *(a1 + 376);
+                v258 = *(a1 + 47);
                 v212->n128_u64[0] = 0;
-                *(a1 + 368) = 0;
-                *(a1 + 376) = 0;
+                *(a1 + 46) = 0;
+                *(a1 + 47) = 0;
                 v259 = 1;
               }
 
@@ -748,63 +749,63 @@ LABEL_160:
               if (*(a1 + 416) == 1)
               {
                 __p = *(a1 + 392);
-                v261 = *(a1 + 408);
-                *(a1 + 392) = 0;
-                *(a1 + 400) = 0;
-                *(a1 + 408) = 0;
+                v261 = *(a1 + 51);
+                *(a1 + 49) = 0;
+                *(a1 + 50) = 0;
+                *(a1 + 51) = 0;
                 v262 = 1;
               }
 
               v263[0] = *(a1 + 424);
-              *&v263[1] = *(a1 + 440);
-              *(a1 + 424) = 0;
-              *(a1 + 432) = 0;
-              *(a1 + 440) = 0;
+              *&v263[1] = *(a1 + 55);
+              *(a1 + 53) = 0;
+              *(a1 + 54) = 0;
+              *(a1 + 55) = 0;
               v213 = v205;
               do
               {
-                v214 = *(v213 + 304);
-                *(v213 + 512) = *(v213 + 288);
-                *(v213 + 528) = v214;
-                *(v213 + 544) = *(v213 + 320);
-                v215 = *(v213 + 240);
-                *(v213 + 448) = *(v213 + 224);
-                *(v213 + 464) = v215;
-                v216 = *(v213 + 272);
-                *(v213 + 480) = *(v213 + 256);
-                *(v213 + 496) = v216;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v213 + 552, (v213 + 328));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 584, (v213 + 360));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 616, (v213 + 392));
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v213 + 648));
-                *(v213 + 648) = *(v213 + 424);
-                *(v213 + 664) = *(v213 + 440);
-                *(v213 + 424) = 0;
-                *(v213 + 432) = 0;
-                *(v213 + 440) = 0;
+                v214 = *(v213 + 19);
+                *(v213 + 32) = *(v213 + 18);
+                *(v213 + 33) = v214;
+                v213[68] = v213[40];
+                v215 = *(v213 + 15);
+                *(v213 + 28) = *(v213 + 14);
+                *(v213 + 29) = v215;
+                v216 = *(v213 + 17);
+                *(v213 + 30) = *(v213 + 16);
+                *(v213 + 31) = v216;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v213 + 69), (v213 + 41));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 73), (v213 + 45));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 77), (v213 + 49));
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v213 + 81);
+                *(v213 + 81) = *(v213 + 53);
+                v213[83] = v213[55];
+                v213[53] = 0;
+                v213[54] = 0;
+                v213[55] = 0;
                 v217 = *v213;
-                v213 -= 224;
+                v213 -= 28;
               }
 
               while (v247 < v217);
               v218 = v247;
               v219 = v249;
-              *(v213 + 464) = v248;
-              *(v213 + 480) = v219;
-              *(v213 + 448) = v218;
+              *(v213 + 29) = v248;
+              *(v213 + 30) = v219;
+              *(v213 + 28) = v218;
               v220 = v250;
               v221 = v251;
               v222 = v252;
-              *(v213 + 544) = v253;
-              *(v213 + 512) = v221;
-              *(v213 + 528) = v222;
-              *(v213 + 496) = v220;
-              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v213 + 552, &v254);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 584, &v257);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 616, &__p);
-              std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v213 + 648));
-              *(v213 + 648) = v263[0];
-              *(v213 + 664) = *&v263[1];
+              v213[68] = v253;
+              *(v213 + 32) = v221;
+              *(v213 + 33) = v222;
+              *(v213 + 31) = v220;
+              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v213 + 69), &v254);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 73), &v257);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 77), &__p);
+              std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v213 + 81);
+              *(v213 + 81) = v263[0];
+              v213[83] = *&v263[1];
               memset(v263, 0, 24);
               *&v228 = v263;
               std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v228);
@@ -827,7 +828,7 @@ LABEL_160:
             }
 
             v204 = v206 + 224;
-            v205 += 224;
+            v205 += 28;
             a1 = v206;
           }
 
@@ -850,7 +851,7 @@ LABEL_160:
           if (v123 >= v124)
           {
             v126 = (2 * v124) | 1;
-            v127 = (a1 + 224 * v126);
+            v127 = &a1[14 * v126];
             if (2 * v125 + 2 >= v10)
             {
               v128 = *v127;
@@ -859,31 +860,31 @@ LABEL_160:
             else
             {
               v128 = *v127;
-              v129 = *(v127 + 28);
+              v129 = v127[28];
               if (*v127 <= v129)
               {
-                v128 = *(v127 + 28);
+                v128 = v127[28];
               }
 
               if (*v127 < v129)
               {
-                v127 += 14;
+                v127 += 28;
                 v126 = 2 * v125 + 2;
               }
             }
 
-            v130 = a1 + 224 * v125;
+            v130 = &a1[14 * v125];
             if (v128 >= *v130)
             {
               v131 = *v130;
-              v132 = *(v130 + 32);
-              v248 = *(v130 + 16);
+              v132 = *(v130 + 2);
+              v248 = *(v130 + 1);
               v249 = v132;
               v247 = v131;
-              v133 = *(v130 + 48);
-              v134 = *(v130 + 64);
-              v135 = *(v130 + 80);
-              v253 = *(v130 + 96);
+              v133 = *(v130 + 3);
+              v134 = *(v130 + 4);
+              v135 = *(v130 + 5);
+              v253 = v130[12];
               v251 = v134;
               v252 = v135;
               v250 = v133;
@@ -891,12 +892,12 @@ LABEL_160:
               v256 = 0;
               if (*(v130 + 128) == 1)
               {
-                v136 = *(v130 + 104);
-                v255 = *(v130 + 120);
+                v136 = *(v130 + 13);
+                v255 = v130[15];
                 v254 = v136;
-                *(v130 + 112) = 0;
-                *(v130 + 120) = 0;
-                *(v130 + 104) = 0;
+                v130[14] = 0;
+                v130[15] = 0;
+                v130[13] = 0;
                 v256 = 1;
               }
 
@@ -904,11 +905,11 @@ LABEL_160:
               v259 = 0;
               if (*(v130 + 160) == 1)
               {
-                v257 = *(v130 + 136);
-                v258 = *(v130 + 152);
-                *(v130 + 136) = 0;
-                *(v130 + 144) = 0;
-                *(v130 + 152) = 0;
+                v257 = *(v130 + 17);
+                v258 = v130[19];
+                v130[17] = 0;
+                v130[18] = 0;
+                v130[19] = 0;
                 v259 = 1;
               }
 
@@ -916,40 +917,40 @@ LABEL_160:
               v262 = 0;
               if (*(v130 + 192) == 1)
               {
-                __p = *(v130 + 168);
-                v261 = *(v130 + 184);
-                *(v130 + 168) = 0;
-                *(v130 + 176) = 0;
-                *(v130 + 184) = 0;
+                __p = *(v130 + 21);
+                v261 = v130[23];
+                v130[21] = 0;
+                v130[22] = 0;
+                v130[23] = 0;
                 v262 = 1;
               }
 
-              v263[0] = *(v130 + 200);
-              *&v263[1] = *(v130 + 216);
-              *(v130 + 200) = 0;
-              *(v130 + 208) = 0;
-              *(v130 + 216) = 0;
+              v263[0] = *(v130 + 25);
+              *&v263[1] = v130[27];
+              v130[25] = 0;
+              v130[26] = 0;
+              v130[27] = 0;
               do
               {
                 v137 = v127;
                 v138 = *v127;
-                v139 = v127[2];
-                *(v130 + 16) = v127[1];
-                *(v130 + 32) = v139;
+                v139 = *(v127 + 2);
+                *(v130 + 1) = *(v127 + 1);
+                *(v130 + 2) = v139;
                 *v130 = v138;
-                v140 = v127[3];
-                v141 = v127[4];
-                v142 = v127[5];
-                *(v130 + 96) = *(v127 + 12);
-                *(v130 + 64) = v141;
-                *(v130 + 80) = v142;
-                *(v130 + 48) = v140;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v130 + 104, (v127 + 104));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v130 + 136, (v137 + 136));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v130 + 168, (v137 + 168));
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v130 + 200));
-                *(v130 + 200) = *(v137 + 200);
-                *(v130 + 216) = *(v137 + 27);
+                v140 = *(v127 + 3);
+                v141 = *(v127 + 4);
+                v142 = *(v127 + 5);
+                v130[12] = v127[12];
+                *(v130 + 4) = v141;
+                *(v130 + 5) = v142;
+                *(v130 + 3) = v140;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v130 + 13), (v127 + 13));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v130 + 17), (v137 + 136));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v130 + 21), (v137 + 168));
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v130 + 25);
+                *(v130 + 25) = *(v137 + 200);
+                v130[27] = *(v137 + 27);
                 *(v137 + 25) = 0;
                 *(v137 + 26) = 0;
                 *(v137 + 27) = 0;
@@ -958,7 +959,7 @@ LABEL_160:
                   break;
                 }
 
-                v127 = (a1 + 224 * ((2 * v126) | 1));
+                v127 = &a1[14 * ((2 * v126) | 1)];
                 if (2 * v126 + 2 >= v10)
                 {
                   v143 = *v127;
@@ -968,10 +969,10 @@ LABEL_160:
                 else
                 {
                   v143 = *v127;
-                  v144 = *(v127 + 28);
+                  v144 = v127[28];
                   if (*v127 <= v144)
                   {
-                    v143 = *(v127 + 28);
+                    v143 = v127[28];
                   }
 
                   if (*v127 >= v144)
@@ -981,7 +982,7 @@ LABEL_160:
 
                   else
                   {
-                    v127 += 14;
+                    v127 += 28;
                     v126 = 2 * v126 + 2;
                   }
                 }
@@ -1038,14 +1039,14 @@ LABEL_160:
         do
         {
           v151 = *a1;
-          v152 = *(a1 + 32);
-          v229 = *(a1 + 16);
+          v152 = a1[2];
+          v229 = a1[1];
           v230 = v152;
           v228 = v151;
-          v153 = *(a1 + 48);
-          v154 = *(a1 + 64);
-          v155 = *(a1 + 80);
-          v234 = *(a1 + 96);
+          v153 = a1[3];
+          v154 = a1[4];
+          v155 = a1[5];
+          v234 = *(a1 + 12);
           v232 = v154;
           v233 = v155;
           v231 = v153;
@@ -1054,11 +1055,11 @@ LABEL_160:
           if (*(a1 + 128) == 1)
           {
             v156 = *(a1 + 104);
-            v236 = *(a1 + 120);
+            v236 = *(a1 + 15);
             v235 = v156;
-            *(a1 + 112) = 0;
-            *(a1 + 120) = 0;
-            *(a1 + 104) = 0;
+            *(a1 + 14) = 0;
+            *(a1 + 15) = 0;
+            *(a1 + 13) = 0;
             v237 = 1;
           }
 
@@ -1067,10 +1068,10 @@ LABEL_160:
           if (*(a1 + 160) == 1)
           {
             v238 = *(a1 + 136);
-            v239 = *(a1 + 152);
-            *(a1 + 136) = 0;
-            *(a1 + 144) = 0;
-            *(a1 + 152) = 0;
+            v239 = *(a1 + 19);
+            *(a1 + 17) = 0;
+            *(a1 + 18) = 0;
+            *(a1 + 19) = 0;
             v240 = 1;
           }
 
@@ -1080,19 +1081,19 @@ LABEL_160:
           if (*(a1 + 192) == 1)
           {
             v241 = *(a1 + 168);
-            v242 = *(a1 + 184);
-            *(a1 + 168) = 0;
-            *(a1 + 176) = 0;
-            *(a1 + 184) = 0;
+            v242 = *(a1 + 23);
+            *(a1 + 21) = 0;
+            *(a1 + 22) = 0;
+            *(a1 + 23) = 0;
             v243 = 1;
           }
 
           v157 = 0;
           v244 = *(a1 + 200);
-          v245 = *(a1 + 216);
-          *(a1 + 200) = 0;
-          *(a1 + 208) = 0;
-          *(a1 + 216) = 0;
+          v245 = *(a1 + 27);
+          *(a1 + 25) = 0;
+          *(a1 + 26) = 0;
+          *(a1 + 27) = 0;
           v158 = a1;
           do
           {
@@ -1213,7 +1214,7 @@ LABEL_160:
             if (v178 >= 225)
             {
               v179 = (0x6DB6DB6DB6DB6DB7 * (v178 >> 5) - 2) >> 1;
-              v180 = (a1 + 224 * v179);
+              v180 = &a1[14 * v179];
               if (*v180 < *v160)
               {
                 v181 = *v160;
@@ -1274,55 +1275,55 @@ LABEL_160:
                 {
                   v187 = v180;
                   v188 = *v180;
-                  v189 = v180[2];
-                  *(v160 + 16) = v180[1];
+                  v189 = *(v180 + 2);
+                  *(v160 + 16) = *(v180 + 1);
                   *(v160 + 32) = v189;
                   *v160 = v188;
-                  v190 = v180[3];
-                  v191 = v180[4];
-                  v192 = v180[5];
-                  *(v160 + 96) = *(v180 + 12);
+                  v190 = *(v180 + 3);
+                  v191 = *(v180 + 4);
+                  v192 = *(v180 + 5);
+                  *(v160 + 96) = v180[12];
                   *(v160 + 64) = v191;
                   *(v160 + 80) = v192;
                   *(v160 + 48) = v190;
-                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, (v180 + 104));
+                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, (v180 + 13));
                   std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 136, (v187 + 136));
                   std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 168, (v187 + 168));
                   std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v160 + 200));
                   *(v160 + 200) = *(v187 + 200);
-                  *(v160 + 216) = *(v187 + 27);
-                  *(v187 + 25) = 0;
-                  *(v187 + 26) = 0;
-                  *(v187 + 27) = 0;
+                  *(v160 + 216) = *(v187 + 216);
+                  *(v187 + 200) = 0;
+                  *(v187 + 208) = 0;
+                  *(v187 + 216) = 0;
                   if (!v179)
                   {
                     break;
                   }
 
                   v179 = (v179 - 1) >> 1;
-                  v180 = (a1 + 224 * v179);
+                  v180 = &a1[14 * v179];
                   v160 = v187;
                 }
 
                 while (*v180 < v247);
                 v193 = v247;
                 v194 = v249;
-                v187[1] = v248;
-                v187[2] = v194;
+                *(v187 + 16) = v248;
+                *(v187 + 32) = v194;
                 *v187 = v193;
                 v195 = v250;
                 v196 = v251;
                 v197 = v252;
-                *(v187 + 12) = v253;
-                v187[4] = v196;
-                v187[5] = v197;
-                v187[3] = v195;
+                *(v187 + 96) = v253;
+                *(v187 + 64) = v196;
+                *(v187 + 80) = v197;
+                *(v187 + 48) = v195;
                 std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v187 + 104, &v254);
                 std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v187 + 136, &v257);
                 std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v187 + 168, &__p);
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v187 + 25);
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v187 + 200));
                 *(v187 + 200) = v263[0];
-                *(v187 + 27) = *&v263[1];
+                *(v187 + 216) = *&v263[1];
                 memset(v263, 0, 24);
                 v246 = v263;
                 std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v246);
@@ -1373,7 +1374,7 @@ LABEL_160:
     }
 
     v12 = v10 >> 1;
-    v13 = (a1 + 224 * (v10 >> 1));
+    v13 = &a1[14 * (v10 >> 1)];
     v14 = *v7;
     if (v9 > 0x7000)
     {
@@ -1411,19 +1412,19 @@ LABEL_25:
         }
       }
 
-      v21 = a1 + 224 * v12;
-      v24 = *(v21 - 224);
-      v23 = (v21 - 224);
+      v21 = &a1[14 * v12];
+      v24 = *(v21 - 28);
+      v23 = (v21 - 28);
       v22 = v24;
       v25 = *v224;
-      if (v24 >= *(a1 + 224))
+      if (v24 >= *(a1 + 28))
       {
         if (v25 < v22)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v23, v224);
-          if (*v23 < *(a1 + 224))
+          if (*v23 < *(a1 + 28))
           {
-            v26 = (a1 + 224);
+            v26 = a1 + 14;
             v27 = v23;
             goto LABEL_37;
           }
@@ -1432,7 +1433,7 @@ LABEL_25:
 
       else
       {
-        v26 = (a1 + 224);
+        v26 = a1 + 14;
         if (v25 < v22)
         {
           goto LABEL_30;
@@ -1449,19 +1450,19 @@ LABEL_37:
         }
       }
 
-      v28 = a1 + 224 * v12;
-      v31 = *(v28 + 224);
-      v30 = (v28 + 224);
+      v28 = &a1[14 * v12];
+      v31 = v28[28];
+      v30 = (v28 + 28);
       v29 = v31;
       v32 = *v223;
-      if (v31 >= *(a1 + 448))
+      if (v31 >= *(a1 + 56))
       {
         if (v32 < v29)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v30, v223);
-          if (*v30 < *(a1 + 448))
+          if (*v30 < *(a1 + 56))
           {
-            v33 = (a1 + 448);
+            v33 = a1 + 28;
             v34 = v30;
             goto LABEL_46;
           }
@@ -1470,7 +1471,7 @@ LABEL_37:
 
       else
       {
-        v33 = (a1 + 448);
+        v33 = a1 + 28;
         if (v32 < v29)
         {
           goto LABEL_42;
@@ -1566,17 +1567,17 @@ LABEL_57:
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v19, v20);
 LABEL_58:
     --a3;
-    if ((a4 & 1) != 0 || *(a1 - 224) < *a1)
+    if ((a4 & 1) != 0 || *(a1 - 28) < *a1)
     {
       v39 = *a1;
-      v40 = *(a1 + 32);
-      v248 = *(a1 + 16);
+      v40 = a1[2];
+      v248 = a1[1];
       v249 = v40;
       v247 = v39;
-      v41 = *(a1 + 48);
-      v42 = *(a1 + 64);
-      v43 = *(a1 + 80);
-      v253 = *(a1 + 96);
+      v41 = a1[3];
+      v42 = a1[4];
+      v43 = a1[5];
+      v253 = *(a1 + 12);
       v251 = v42;
       v252 = v43;
       v250 = v41;
@@ -1585,11 +1586,11 @@ LABEL_58:
       if (*(a1 + 128) == 1)
       {
         v44 = *(a1 + 104);
-        v255 = *(a1 + 120);
+        v255 = *(a1 + 15);
         v254 = v44;
-        *(a1 + 112) = 0;
-        *(a1 + 120) = 0;
-        *(a1 + 104) = 0;
+        *(a1 + 14) = 0;
+        *(a1 + 15) = 0;
+        *(a1 + 13) = 0;
         v256 = 1;
       }
 
@@ -1598,10 +1599,10 @@ LABEL_58:
       if (*(a1 + 160) == 1)
       {
         v257 = *(a1 + 136);
-        v258 = *(a1 + 152);
-        *(a1 + 136) = 0;
-        *(a1 + 144) = 0;
-        *(a1 + 152) = 0;
+        v258 = *(a1 + 19);
+        *(a1 + 17) = 0;
+        *(a1 + 18) = 0;
+        *(a1 + 19) = 0;
         v259 = 1;
       }
 
@@ -1610,29 +1611,29 @@ LABEL_58:
       if (*(a1 + 192) == 1)
       {
         __p = *(a1 + 168);
-        v261 = *(a1 + 184);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-        *(a1 + 184) = 0;
+        v261 = *(a1 + 23);
+        *(a1 + 21) = 0;
+        *(a1 + 22) = 0;
+        *(a1 + 23) = 0;
         v262 = 1;
       }
 
       v45 = 0;
       v263[0] = *(a1 + 200);
-      *&v263[1] = *(a1 + 216);
-      *(a1 + 200) = 0;
-      *(a1 + 208) = 0;
-      *(a1 + 216) = 0;
+      *&v263[1] = *(a1 + 27);
+      *(a1 + 25) = 0;
+      *(a1 + 26) = 0;
+      *(a1 + 27) = 0;
       v46 = v247;
       do
       {
-        v47 = *(a1 + v45 + 224);
-        v45 += 224;
+        v47 = *&a1[v45 + 14];
+        v45 += 14;
       }
 
       while (v47 < v247);
-      v48 = a1 + v45;
-      if (v45 == 224)
+      v48 = &a1[v45];
+      if (v45 == 14)
       {
         v6 = a2;
         do
@@ -1660,7 +1661,7 @@ LABEL_58:
         while (v49 >= v247);
       }
 
-      v8 = a1 + v45;
+      v8 = &a1[v45];
       if (v48 < v6)
       {
         v51 = v6;
@@ -1687,26 +1688,26 @@ LABEL_58:
       }
 
       v54 = (v8 - 224);
-      if (v8 - 224 != a1)
+      if ((v8 - 224) != a1)
       {
         v55 = *v54;
         v56 = *(v8 - 192);
-        *(a1 + 16) = *(v8 - 208);
-        *(a1 + 32) = v56;
+        a1[1] = *(v8 - 208);
+        a1[2] = v56;
         *a1 = v55;
         v57 = *(v8 - 176);
         v58 = *(v8 - 160);
         v59 = *(v8 - 144);
-        *(a1 + 96) = *(v8 - 128);
-        *(a1 + 64) = v58;
-        *(a1 + 80) = v59;
-        *(a1 + 48) = v57;
+        *(a1 + 12) = *(v8 - 128);
+        a1[4] = v58;
+        a1[5] = v59;
+        a1[3] = v57;
         std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + 104, (v8 - 120));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 136, (v8 - 88));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 168, (v8 - 56));
-        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + 200));
+        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(a1 + 25);
         *(a1 + 200) = *(v8 - 24);
-        *(a1 + 216) = *(v8 - 8);
+        *(a1 + 27) = *(v8 - 8);
         *(v8 - 24) = 0;
         *(v8 - 16) = 0;
         *(v8 - 8) = 0;
@@ -1772,7 +1773,7 @@ LABEL_58:
       if (!v66)
       {
 LABEL_95:
-        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer6412LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(a1, v8 - 224, a3, a4 & 1);
+        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer6412LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(a1, (v8 - 224), a3, a4 & 1);
         goto LABEL_96;
       }
     }
@@ -1780,14 +1781,14 @@ LABEL_95:
     else
     {
       v67 = *a1;
-      v68 = *(a1 + 32);
-      v248 = *(a1 + 16);
+      v68 = a1[2];
+      v248 = a1[1];
       v249 = v68;
       v247 = v67;
-      v69 = *(a1 + 48);
-      v70 = *(a1 + 64);
-      v71 = *(a1 + 80);
-      v253 = *(a1 + 96);
+      v69 = a1[3];
+      v70 = a1[4];
+      v71 = a1[5];
+      v253 = *(a1 + 12);
       v251 = v70;
       v252 = v71;
       v250 = v69;
@@ -1796,11 +1797,11 @@ LABEL_95:
       if (*(a1 + 128) == 1)
       {
         v72 = *(a1 + 104);
-        v255 = *(a1 + 120);
+        v255 = *(a1 + 15);
         v254 = v72;
-        *(a1 + 112) = 0;
-        *(a1 + 120) = 0;
-        *(a1 + 104) = 0;
+        *(a1 + 14) = 0;
+        *(a1 + 15) = 0;
+        *(a1 + 13) = 0;
         v256 = 1;
       }
 
@@ -1809,10 +1810,10 @@ LABEL_95:
       if (*(a1 + 160) == 1)
       {
         v257 = *(a1 + 136);
-        v258 = *(a1 + 152);
-        *(a1 + 136) = 0;
-        *(a1 + 144) = 0;
-        *(a1 + 152) = 0;
+        v258 = *(a1 + 19);
+        *(a1 + 17) = 0;
+        *(a1 + 18) = 0;
+        *(a1 + 19) = 0;
         v259 = 1;
       }
 
@@ -1821,22 +1822,22 @@ LABEL_95:
       if (*(a1 + 192) == 1)
       {
         __p = *(a1 + 168);
-        v261 = *(a1 + 184);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-        *(a1 + 184) = 0;
+        v261 = *(a1 + 23);
+        *(a1 + 21) = 0;
+        *(a1 + 22) = 0;
+        *(a1 + 23) = 0;
         v262 = 1;
       }
 
       v263[0] = *(a1 + 200);
-      *&v263[1] = *(a1 + 216);
-      *(a1 + 200) = 0;
-      *(a1 + 208) = 0;
-      *(a1 + 216) = 0;
+      *&v263[1] = *(a1 + 27);
+      *(a1 + 25) = 0;
+      *(a1 + 26) = 0;
+      *(a1 + 27) = 0;
       v73 = v247;
       if (v247 >= *v7)
       {
-        v75 = a1 + 224;
+        v75 = (a1 + 14);
         do
         {
           v8 = v75;
@@ -1896,26 +1897,26 @@ LABEL_95:
       }
 
       v80 = (v8 - 224);
-      if (v8 - 224 != a1)
+      if ((v8 - 224) != a1)
       {
         v81 = *v80;
         v82 = *(v8 - 192);
-        *(a1 + 16) = *(v8 - 208);
-        *(a1 + 32) = v82;
+        a1[1] = *(v8 - 208);
+        a1[2] = v82;
         *a1 = v81;
         v83 = *(v8 - 176);
         v84 = *(v8 - 160);
         v85 = *(v8 - 144);
-        *(a1 + 96) = *(v8 - 128);
-        *(a1 + 64) = v84;
-        *(a1 + 80) = v85;
-        *(a1 + 48) = v83;
+        *(a1 + 12) = *(v8 - 128);
+        a1[4] = v84;
+        a1[5] = v85;
+        a1[3] = v83;
         std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + 104, (v8 - 120));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 136, (v8 - 88));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 168, (v8 - 56));
-        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + 200));
+        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(a1 + 25);
         *(a1 + 200) = *(v8 - 24);
-        *(a1 + 216) = *(v8 - 8);
+        *(a1 + 27) = *(v8 - 8);
         *(v8 - 24) = 0;
         *(v8 - 16) = 0;
         *(v8 - 8) = 0;
@@ -1964,7 +1965,7 @@ LABEL_96:
     }
   }
 
-  v91 = *(a1 + 224);
+  v91 = *(a1 + 28);
   v94 = *(v6 - 28);
   v93 = v6 - 14;
   v92 = v94;
@@ -1975,14 +1976,14 @@ LABEL_96:
       goto LABEL_136;
     }
 
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, (a1 + 224));
-    if (*v93 >= *(a1 + 224))
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, a1 + 14);
+    if (*v93 >= *(a1 + 28))
     {
       return;
     }
 
     v95 = v93;
-    v96 = (a1 + 224);
+    v96 = a1 + 14;
 LABEL_137:
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v96, v95);
     return;
@@ -1990,11 +1991,11 @@ LABEL_137:
 
   if (v92 < v91)
   {
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 224), v93);
-    if (*(a1 + 224) < *a1)
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, v93);
+    if (*(a1 + 28) < *a1)
     {
       v96 = a1;
-      v95 = (a1 + 224);
+      v95 = a1 + 14;
       goto LABEL_137;
     }
   }
@@ -2286,7 +2287,7 @@ LABEL_45:
   return result;
 }
 
-void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer6412LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E1_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(unint64_t a1, __int128 *a2, uint64_t a3, char a4)
+void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer6412LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E1_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(__int128 *a1, __int128 *a2, uint64_t a3, char a4)
 {
 LABEL_1:
   v6 = a2;
@@ -2332,27 +2333,27 @@ LABEL_136:
 
     if (v10 == 4)
     {
-      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, (a1 + 224), (a1 + 448), v7);
+      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, v7);
       return;
     }
 
     if (v10 == 5)
     {
-      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, (a1 + 224), (a1 + 448), (a1 + 672));
+      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, a1 + 42);
       v98 = *(v6 - 28);
       v97 = v6 - 14;
-      if (v98 < *(a1 + 672))
+      if (v98 < *(a1 + 84))
       {
-        std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 672), v97);
-        if (*(a1 + 672) < *(a1 + 448))
+        std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 42, v97);
+        if (*(a1 + 84) < *(a1 + 56))
         {
-          std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 448), (a1 + 672));
-          if (*(a1 + 448) < *(a1 + 224))
+          std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 28, a1 + 42);
+          if (*(a1 + 56) < *(a1 + 28))
           {
-            std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 224), (a1 + 448));
-            if (*(a1 + 224) < *a1)
+            std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, a1 + 28);
+            if (*(a1 + 28) < *a1)
             {
-              v95 = (a1 + 224);
+              v95 = a1 + 14;
               v96 = a1;
               goto LABEL_137;
             }
@@ -2370,8 +2371,8 @@ LABEL_9:
       {
         if (a1 != v6)
         {
-          v99 = a1 + 224;
-          if ((a1 + 224) != a2)
+          v99 = (a1 + 14);
+          if (a1 + 14 != a2)
           {
             v100 = 0;
             v101 = a1;
@@ -2526,14 +2527,14 @@ LABEL_160:
 
       else if (a1 != v6)
       {
-        v204 = a1 + 224;
-        if ((a1 + 224) != a2)
+        v204 = (a1 + 14);
+        if (a1 + 14 != a2)
         {
-          v205 = a1 - 224;
+          v205 = (a1 - 14);
           do
           {
             v206 = v204;
-            if (*(a1 + 224) < *a1)
+            if (*(a1 + 28) < *a1)
             {
               v207 = *v204;
               v208 = *(v204 + 32);
@@ -2551,11 +2552,11 @@ LABEL_160:
               v256 = 0;
               if (*(a1 + 352) == 1)
               {
-                v255 = *(a1 + 344);
+                v255 = *(a1 + 43);
                 v254 = *(a1 + 328);
-                *(a1 + 336) = 0;
-                *(a1 + 344) = 0;
-                *(a1 + 328) = 0;
+                *(a1 + 42) = 0;
+                *(a1 + 43) = 0;
+                *(a1 + 41) = 0;
                 v256 = 1;
               }
 
@@ -2565,10 +2566,10 @@ LABEL_160:
               if (*(a1 + 384) == 1)
               {
                 v257 = *v212;
-                v258 = *(a1 + 376);
+                v258 = *(a1 + 47);
                 v212->n128_u64[0] = 0;
-                *(a1 + 368) = 0;
-                *(a1 + 376) = 0;
+                *(a1 + 46) = 0;
+                *(a1 + 47) = 0;
                 v259 = 1;
               }
 
@@ -2577,63 +2578,63 @@ LABEL_160:
               if (*(a1 + 416) == 1)
               {
                 __p = *(a1 + 392);
-                v261 = *(a1 + 408);
-                *(a1 + 392) = 0;
-                *(a1 + 400) = 0;
-                *(a1 + 408) = 0;
+                v261 = *(a1 + 51);
+                *(a1 + 49) = 0;
+                *(a1 + 50) = 0;
+                *(a1 + 51) = 0;
                 v262 = 1;
               }
 
               v263[0] = *(a1 + 424);
-              *&v263[1] = *(a1 + 440);
-              *(a1 + 424) = 0;
-              *(a1 + 432) = 0;
-              *(a1 + 440) = 0;
+              *&v263[1] = *(a1 + 55);
+              *(a1 + 53) = 0;
+              *(a1 + 54) = 0;
+              *(a1 + 55) = 0;
               v213 = v205;
               do
               {
-                v214 = *(v213 + 304);
-                *(v213 + 512) = *(v213 + 288);
-                *(v213 + 528) = v214;
-                *(v213 + 544) = *(v213 + 320);
-                v215 = *(v213 + 240);
-                *(v213 + 448) = *(v213 + 224);
-                *(v213 + 464) = v215;
-                v216 = *(v213 + 272);
-                *(v213 + 480) = *(v213 + 256);
-                *(v213 + 496) = v216;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v213 + 552, (v213 + 328));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 584, (v213 + 360));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 616, (v213 + 392));
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v213 + 648));
-                *(v213 + 648) = *(v213 + 424);
-                *(v213 + 664) = *(v213 + 440);
-                *(v213 + 424) = 0;
-                *(v213 + 432) = 0;
-                *(v213 + 440) = 0;
+                v214 = *(v213 + 19);
+                *(v213 + 32) = *(v213 + 18);
+                *(v213 + 33) = v214;
+                v213[68] = v213[40];
+                v215 = *(v213 + 15);
+                *(v213 + 28) = *(v213 + 14);
+                *(v213 + 29) = v215;
+                v216 = *(v213 + 17);
+                *(v213 + 30) = *(v213 + 16);
+                *(v213 + 31) = v216;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v213 + 69), (v213 + 41));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 73), (v213 + 45));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 77), (v213 + 49));
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v213 + 81);
+                *(v213 + 81) = *(v213 + 53);
+                v213[83] = v213[55];
+                v213[53] = 0;
+                v213[54] = 0;
+                v213[55] = 0;
                 v217 = *v213;
-                v213 -= 224;
+                v213 -= 28;
               }
 
               while (v247 < v217);
               v218 = v247;
               v219 = v249;
-              *(v213 + 464) = v248;
-              *(v213 + 480) = v219;
-              *(v213 + 448) = v218;
+              *(v213 + 29) = v248;
+              *(v213 + 30) = v219;
+              *(v213 + 28) = v218;
               v220 = v250;
               v221 = v251;
               v222 = v252;
-              *(v213 + 544) = v253;
-              *(v213 + 512) = v221;
-              *(v213 + 528) = v222;
-              *(v213 + 496) = v220;
-              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v213 + 552, &v254);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 584, &v257);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 616, &__p);
-              std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v213 + 648));
-              *(v213 + 648) = v263[0];
-              *(v213 + 664) = *&v263[1];
+              v213[68] = v253;
+              *(v213 + 32) = v221;
+              *(v213 + 33) = v222;
+              *(v213 + 31) = v220;
+              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v213 + 69), &v254);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 73), &v257);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 77), &__p);
+              std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v213 + 81);
+              *(v213 + 81) = v263[0];
+              v213[83] = *&v263[1];
               memset(v263, 0, 24);
               *&v228 = v263;
               std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v228);
@@ -2656,7 +2657,7 @@ LABEL_160:
             }
 
             v204 = v206 + 224;
-            v205 += 224;
+            v205 += 28;
             a1 = v206;
           }
 
@@ -2679,7 +2680,7 @@ LABEL_160:
           if (v123 >= v124)
           {
             v126 = (2 * v124) | 1;
-            v127 = (a1 + 224 * v126);
+            v127 = &a1[14 * v126];
             if (2 * v125 + 2 >= v10)
             {
               v128 = *v127;
@@ -2688,31 +2689,31 @@ LABEL_160:
             else
             {
               v128 = *v127;
-              v129 = *(v127 + 28);
+              v129 = v127[28];
               if (*v127 <= v129)
               {
-                v128 = *(v127 + 28);
+                v128 = v127[28];
               }
 
               if (*v127 < v129)
               {
-                v127 += 14;
+                v127 += 28;
                 v126 = 2 * v125 + 2;
               }
             }
 
-            v130 = a1 + 224 * v125;
+            v130 = &a1[14 * v125];
             if (v128 >= *v130)
             {
               v131 = *v130;
-              v132 = *(v130 + 32);
-              v248 = *(v130 + 16);
+              v132 = *(v130 + 2);
+              v248 = *(v130 + 1);
               v249 = v132;
               v247 = v131;
-              v133 = *(v130 + 48);
-              v134 = *(v130 + 64);
-              v135 = *(v130 + 80);
-              v253 = *(v130 + 96);
+              v133 = *(v130 + 3);
+              v134 = *(v130 + 4);
+              v135 = *(v130 + 5);
+              v253 = v130[12];
               v251 = v134;
               v252 = v135;
               v250 = v133;
@@ -2720,12 +2721,12 @@ LABEL_160:
               v256 = 0;
               if (*(v130 + 128) == 1)
               {
-                v136 = *(v130 + 104);
-                v255 = *(v130 + 120);
+                v136 = *(v130 + 13);
+                v255 = v130[15];
                 v254 = v136;
-                *(v130 + 112) = 0;
-                *(v130 + 120) = 0;
-                *(v130 + 104) = 0;
+                v130[14] = 0;
+                v130[15] = 0;
+                v130[13] = 0;
                 v256 = 1;
               }
 
@@ -2733,11 +2734,11 @@ LABEL_160:
               v259 = 0;
               if (*(v130 + 160) == 1)
               {
-                v257 = *(v130 + 136);
-                v258 = *(v130 + 152);
-                *(v130 + 136) = 0;
-                *(v130 + 144) = 0;
-                *(v130 + 152) = 0;
+                v257 = *(v130 + 17);
+                v258 = v130[19];
+                v130[17] = 0;
+                v130[18] = 0;
+                v130[19] = 0;
                 v259 = 1;
               }
 
@@ -2745,40 +2746,40 @@ LABEL_160:
               v262 = 0;
               if (*(v130 + 192) == 1)
               {
-                __p = *(v130 + 168);
-                v261 = *(v130 + 184);
-                *(v130 + 168) = 0;
-                *(v130 + 176) = 0;
-                *(v130 + 184) = 0;
+                __p = *(v130 + 21);
+                v261 = v130[23];
+                v130[21] = 0;
+                v130[22] = 0;
+                v130[23] = 0;
                 v262 = 1;
               }
 
-              v263[0] = *(v130 + 200);
-              *&v263[1] = *(v130 + 216);
-              *(v130 + 200) = 0;
-              *(v130 + 208) = 0;
-              *(v130 + 216) = 0;
+              v263[0] = *(v130 + 25);
+              *&v263[1] = v130[27];
+              v130[25] = 0;
+              v130[26] = 0;
+              v130[27] = 0;
               do
               {
                 v137 = v127;
                 v138 = *v127;
-                v139 = v127[2];
-                *(v130 + 16) = v127[1];
-                *(v130 + 32) = v139;
+                v139 = *(v127 + 2);
+                *(v130 + 1) = *(v127 + 1);
+                *(v130 + 2) = v139;
                 *v130 = v138;
-                v140 = v127[3];
-                v141 = v127[4];
-                v142 = v127[5];
-                *(v130 + 96) = *(v127 + 12);
-                *(v130 + 64) = v141;
-                *(v130 + 80) = v142;
-                *(v130 + 48) = v140;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v130 + 104, (v127 + 104));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v130 + 136, (v137 + 136));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v130 + 168, (v137 + 168));
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v130 + 200));
-                *(v130 + 200) = *(v137 + 200);
-                *(v130 + 216) = *(v137 + 27);
+                v140 = *(v127 + 3);
+                v141 = *(v127 + 4);
+                v142 = *(v127 + 5);
+                v130[12] = v127[12];
+                *(v130 + 4) = v141;
+                *(v130 + 5) = v142;
+                *(v130 + 3) = v140;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v130 + 13), (v127 + 13));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v130 + 17), (v137 + 136));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v130 + 21), (v137 + 168));
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v130 + 25);
+                *(v130 + 25) = *(v137 + 200);
+                v130[27] = *(v137 + 27);
                 *(v137 + 25) = 0;
                 *(v137 + 26) = 0;
                 *(v137 + 27) = 0;
@@ -2787,7 +2788,7 @@ LABEL_160:
                   break;
                 }
 
-                v127 = (a1 + 224 * ((2 * v126) | 1));
+                v127 = &a1[14 * ((2 * v126) | 1)];
                 if (2 * v126 + 2 >= v10)
                 {
                   v143 = *v127;
@@ -2797,10 +2798,10 @@ LABEL_160:
                 else
                 {
                   v143 = *v127;
-                  v144 = *(v127 + 28);
+                  v144 = v127[28];
                   if (*v127 <= v144)
                   {
-                    v143 = *(v127 + 28);
+                    v143 = v127[28];
                   }
 
                   if (*v127 >= v144)
@@ -2810,7 +2811,7 @@ LABEL_160:
 
                   else
                   {
-                    v127 += 14;
+                    v127 += 28;
                     v126 = 2 * v126 + 2;
                   }
                 }
@@ -2867,14 +2868,14 @@ LABEL_160:
         do
         {
           v151 = *a1;
-          v152 = *(a1 + 32);
-          v229 = *(a1 + 16);
+          v152 = a1[2];
+          v229 = a1[1];
           v230 = v152;
           v228 = v151;
-          v153 = *(a1 + 48);
-          v154 = *(a1 + 64);
-          v155 = *(a1 + 80);
-          v234 = *(a1 + 96);
+          v153 = a1[3];
+          v154 = a1[4];
+          v155 = a1[5];
+          v234 = *(a1 + 12);
           v232 = v154;
           v233 = v155;
           v231 = v153;
@@ -2883,11 +2884,11 @@ LABEL_160:
           if (*(a1 + 128) == 1)
           {
             v156 = *(a1 + 104);
-            v236 = *(a1 + 120);
+            v236 = *(a1 + 15);
             v235 = v156;
-            *(a1 + 112) = 0;
-            *(a1 + 120) = 0;
-            *(a1 + 104) = 0;
+            *(a1 + 14) = 0;
+            *(a1 + 15) = 0;
+            *(a1 + 13) = 0;
             v237 = 1;
           }
 
@@ -2896,10 +2897,10 @@ LABEL_160:
           if (*(a1 + 160) == 1)
           {
             v238 = *(a1 + 136);
-            v239 = *(a1 + 152);
-            *(a1 + 136) = 0;
-            *(a1 + 144) = 0;
-            *(a1 + 152) = 0;
+            v239 = *(a1 + 19);
+            *(a1 + 17) = 0;
+            *(a1 + 18) = 0;
+            *(a1 + 19) = 0;
             v240 = 1;
           }
 
@@ -2909,19 +2910,19 @@ LABEL_160:
           if (*(a1 + 192) == 1)
           {
             v241 = *(a1 + 168);
-            v242 = *(a1 + 184);
-            *(a1 + 168) = 0;
-            *(a1 + 176) = 0;
-            *(a1 + 184) = 0;
+            v242 = *(a1 + 23);
+            *(a1 + 21) = 0;
+            *(a1 + 22) = 0;
+            *(a1 + 23) = 0;
             v243 = 1;
           }
 
           v157 = 0;
           v244 = *(a1 + 200);
-          v245 = *(a1 + 216);
-          *(a1 + 200) = 0;
-          *(a1 + 208) = 0;
-          *(a1 + 216) = 0;
+          v245 = *(a1 + 27);
+          *(a1 + 25) = 0;
+          *(a1 + 26) = 0;
+          *(a1 + 27) = 0;
           v158 = a1;
           do
           {
@@ -3042,7 +3043,7 @@ LABEL_160:
             if (v178 >= 225)
             {
               v179 = (0x6DB6DB6DB6DB6DB7 * (v178 >> 5) - 2) >> 1;
-              v180 = (a1 + 224 * v179);
+              v180 = &a1[14 * v179];
               if (*v180 < *v160)
               {
                 v181 = *v160;
@@ -3103,55 +3104,55 @@ LABEL_160:
                 {
                   v187 = v180;
                   v188 = *v180;
-                  v189 = v180[2];
-                  *(v160 + 16) = v180[1];
+                  v189 = *(v180 + 2);
+                  *(v160 + 16) = *(v180 + 1);
                   *(v160 + 32) = v189;
                   *v160 = v188;
-                  v190 = v180[3];
-                  v191 = v180[4];
-                  v192 = v180[5];
-                  *(v160 + 96) = *(v180 + 12);
+                  v190 = *(v180 + 3);
+                  v191 = *(v180 + 4);
+                  v192 = *(v180 + 5);
+                  *(v160 + 96) = v180[12];
                   *(v160 + 64) = v191;
                   *(v160 + 80) = v192;
                   *(v160 + 48) = v190;
-                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, (v180 + 104));
+                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, (v180 + 13));
                   std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 136, (v187 + 136));
                   std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 168, (v187 + 168));
                   std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v160 + 200));
                   *(v160 + 200) = *(v187 + 200);
-                  *(v160 + 216) = *(v187 + 27);
-                  *(v187 + 25) = 0;
-                  *(v187 + 26) = 0;
-                  *(v187 + 27) = 0;
+                  *(v160 + 216) = *(v187 + 216);
+                  *(v187 + 200) = 0;
+                  *(v187 + 208) = 0;
+                  *(v187 + 216) = 0;
                   if (!v179)
                   {
                     break;
                   }
 
                   v179 = (v179 - 1) >> 1;
-                  v180 = (a1 + 224 * v179);
+                  v180 = &a1[14 * v179];
                   v160 = v187;
                 }
 
                 while (*v180 < v247);
                 v193 = v247;
                 v194 = v249;
-                v187[1] = v248;
-                v187[2] = v194;
+                *(v187 + 16) = v248;
+                *(v187 + 32) = v194;
                 *v187 = v193;
                 v195 = v250;
                 v196 = v251;
                 v197 = v252;
-                *(v187 + 12) = v253;
-                v187[4] = v196;
-                v187[5] = v197;
-                v187[3] = v195;
+                *(v187 + 96) = v253;
+                *(v187 + 64) = v196;
+                *(v187 + 80) = v197;
+                *(v187 + 48) = v195;
                 std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v187 + 104, &v254);
                 std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v187 + 136, &v257);
                 std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v187 + 168, &__p);
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v187 + 25);
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v187 + 200));
                 *(v187 + 200) = v263[0];
-                *(v187 + 27) = *&v263[1];
+                *(v187 + 216) = *&v263[1];
                 memset(v263, 0, 24);
                 v246 = v263;
                 std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v246);
@@ -3202,7 +3203,7 @@ LABEL_160:
     }
 
     v12 = v10 >> 1;
-    v13 = (a1 + 224 * (v10 >> 1));
+    v13 = &a1[14 * (v10 >> 1)];
     v14 = *v7;
     if (v9 > 0x7000)
     {
@@ -3240,19 +3241,19 @@ LABEL_25:
         }
       }
 
-      v21 = a1 + 224 * v12;
-      v24 = *(v21 - 224);
-      v23 = (v21 - 224);
+      v21 = &a1[14 * v12];
+      v24 = *(v21 - 28);
+      v23 = (v21 - 28);
       v22 = v24;
       v25 = *v224;
-      if (v24 >= *(a1 + 224))
+      if (v24 >= *(a1 + 28))
       {
         if (v25 < v22)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v23, v224);
-          if (*v23 < *(a1 + 224))
+          if (*v23 < *(a1 + 28))
           {
-            v26 = (a1 + 224);
+            v26 = a1 + 14;
             v27 = v23;
             goto LABEL_37;
           }
@@ -3261,7 +3262,7 @@ LABEL_25:
 
       else
       {
-        v26 = (a1 + 224);
+        v26 = a1 + 14;
         if (v25 < v22)
         {
           goto LABEL_30;
@@ -3278,19 +3279,19 @@ LABEL_37:
         }
       }
 
-      v28 = a1 + 224 * v12;
-      v31 = *(v28 + 224);
-      v30 = (v28 + 224);
+      v28 = &a1[14 * v12];
+      v31 = v28[28];
+      v30 = (v28 + 28);
       v29 = v31;
       v32 = *v223;
-      if (v31 >= *(a1 + 448))
+      if (v31 >= *(a1 + 56))
       {
         if (v32 < v29)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v30, v223);
-          if (*v30 < *(a1 + 448))
+          if (*v30 < *(a1 + 56))
           {
-            v33 = (a1 + 448);
+            v33 = a1 + 28;
             v34 = v30;
             goto LABEL_46;
           }
@@ -3299,7 +3300,7 @@ LABEL_37:
 
       else
       {
-        v33 = (a1 + 448);
+        v33 = a1 + 28;
         if (v32 < v29)
         {
           goto LABEL_42;
@@ -3395,17 +3396,17 @@ LABEL_57:
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v19, v20);
 LABEL_58:
     --a3;
-    if ((a4 & 1) != 0 || *(a1 - 224) < *a1)
+    if ((a4 & 1) != 0 || *(a1 - 28) < *a1)
     {
       v39 = *a1;
-      v40 = *(a1 + 32);
-      v248 = *(a1 + 16);
+      v40 = a1[2];
+      v248 = a1[1];
       v249 = v40;
       v247 = v39;
-      v41 = *(a1 + 48);
-      v42 = *(a1 + 64);
-      v43 = *(a1 + 80);
-      v253 = *(a1 + 96);
+      v41 = a1[3];
+      v42 = a1[4];
+      v43 = a1[5];
+      v253 = *(a1 + 12);
       v251 = v42;
       v252 = v43;
       v250 = v41;
@@ -3414,11 +3415,11 @@ LABEL_58:
       if (*(a1 + 128) == 1)
       {
         v44 = *(a1 + 104);
-        v255 = *(a1 + 120);
+        v255 = *(a1 + 15);
         v254 = v44;
-        *(a1 + 112) = 0;
-        *(a1 + 120) = 0;
-        *(a1 + 104) = 0;
+        *(a1 + 14) = 0;
+        *(a1 + 15) = 0;
+        *(a1 + 13) = 0;
         v256 = 1;
       }
 
@@ -3427,10 +3428,10 @@ LABEL_58:
       if (*(a1 + 160) == 1)
       {
         v257 = *(a1 + 136);
-        v258 = *(a1 + 152);
-        *(a1 + 136) = 0;
-        *(a1 + 144) = 0;
-        *(a1 + 152) = 0;
+        v258 = *(a1 + 19);
+        *(a1 + 17) = 0;
+        *(a1 + 18) = 0;
+        *(a1 + 19) = 0;
         v259 = 1;
       }
 
@@ -3439,29 +3440,29 @@ LABEL_58:
       if (*(a1 + 192) == 1)
       {
         __p = *(a1 + 168);
-        v261 = *(a1 + 184);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-        *(a1 + 184) = 0;
+        v261 = *(a1 + 23);
+        *(a1 + 21) = 0;
+        *(a1 + 22) = 0;
+        *(a1 + 23) = 0;
         v262 = 1;
       }
 
       v45 = 0;
       v263[0] = *(a1 + 200);
-      *&v263[1] = *(a1 + 216);
-      *(a1 + 200) = 0;
-      *(a1 + 208) = 0;
-      *(a1 + 216) = 0;
+      *&v263[1] = *(a1 + 27);
+      *(a1 + 25) = 0;
+      *(a1 + 26) = 0;
+      *(a1 + 27) = 0;
       v46 = v247;
       do
       {
-        v47 = *(a1 + v45 + 224);
-        v45 += 224;
+        v47 = *&a1[v45 + 14];
+        v45 += 14;
       }
 
       while (v47 < v247);
-      v48 = a1 + v45;
-      if (v45 == 224)
+      v48 = &a1[v45];
+      if (v45 == 14)
       {
         v6 = a2;
         do
@@ -3489,7 +3490,7 @@ LABEL_58:
         while (v49 >= v247);
       }
 
-      v8 = a1 + v45;
+      v8 = &a1[v45];
       if (v48 < v6)
       {
         v51 = v6;
@@ -3516,26 +3517,26 @@ LABEL_58:
       }
 
       v54 = (v8 - 224);
-      if (v8 - 224 != a1)
+      if ((v8 - 224) != a1)
       {
         v55 = *v54;
         v56 = *(v8 - 192);
-        *(a1 + 16) = *(v8 - 208);
-        *(a1 + 32) = v56;
+        a1[1] = *(v8 - 208);
+        a1[2] = v56;
         *a1 = v55;
         v57 = *(v8 - 176);
         v58 = *(v8 - 160);
         v59 = *(v8 - 144);
-        *(a1 + 96) = *(v8 - 128);
-        *(a1 + 64) = v58;
-        *(a1 + 80) = v59;
-        *(a1 + 48) = v57;
+        *(a1 + 12) = *(v8 - 128);
+        a1[4] = v58;
+        a1[5] = v59;
+        a1[3] = v57;
         std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + 104, (v8 - 120));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 136, (v8 - 88));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 168, (v8 - 56));
-        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + 200));
+        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(a1 + 25);
         *(a1 + 200) = *(v8 - 24);
-        *(a1 + 216) = *(v8 - 8);
+        *(a1 + 27) = *(v8 - 8);
         *(v8 - 24) = 0;
         *(v8 - 16) = 0;
         *(v8 - 8) = 0;
@@ -3601,7 +3602,7 @@ LABEL_58:
       if (!v66)
       {
 LABEL_95:
-        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer6412LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E1_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(a1, v8 - 224, a3, a4 & 1);
+        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer6412LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E1_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(a1, (v8 - 224), a3, a4 & 1);
         goto LABEL_96;
       }
     }
@@ -3609,14 +3610,14 @@ LABEL_95:
     else
     {
       v67 = *a1;
-      v68 = *(a1 + 32);
-      v248 = *(a1 + 16);
+      v68 = a1[2];
+      v248 = a1[1];
       v249 = v68;
       v247 = v67;
-      v69 = *(a1 + 48);
-      v70 = *(a1 + 64);
-      v71 = *(a1 + 80);
-      v253 = *(a1 + 96);
+      v69 = a1[3];
+      v70 = a1[4];
+      v71 = a1[5];
+      v253 = *(a1 + 12);
       v251 = v70;
       v252 = v71;
       v250 = v69;
@@ -3625,11 +3626,11 @@ LABEL_95:
       if (*(a1 + 128) == 1)
       {
         v72 = *(a1 + 104);
-        v255 = *(a1 + 120);
+        v255 = *(a1 + 15);
         v254 = v72;
-        *(a1 + 112) = 0;
-        *(a1 + 120) = 0;
-        *(a1 + 104) = 0;
+        *(a1 + 14) = 0;
+        *(a1 + 15) = 0;
+        *(a1 + 13) = 0;
         v256 = 1;
       }
 
@@ -3638,10 +3639,10 @@ LABEL_95:
       if (*(a1 + 160) == 1)
       {
         v257 = *(a1 + 136);
-        v258 = *(a1 + 152);
-        *(a1 + 136) = 0;
-        *(a1 + 144) = 0;
-        *(a1 + 152) = 0;
+        v258 = *(a1 + 19);
+        *(a1 + 17) = 0;
+        *(a1 + 18) = 0;
+        *(a1 + 19) = 0;
         v259 = 1;
       }
 
@@ -3650,22 +3651,22 @@ LABEL_95:
       if (*(a1 + 192) == 1)
       {
         __p = *(a1 + 168);
-        v261 = *(a1 + 184);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-        *(a1 + 184) = 0;
+        v261 = *(a1 + 23);
+        *(a1 + 21) = 0;
+        *(a1 + 22) = 0;
+        *(a1 + 23) = 0;
         v262 = 1;
       }
 
       v263[0] = *(a1 + 200);
-      *&v263[1] = *(a1 + 216);
-      *(a1 + 200) = 0;
-      *(a1 + 208) = 0;
-      *(a1 + 216) = 0;
+      *&v263[1] = *(a1 + 27);
+      *(a1 + 25) = 0;
+      *(a1 + 26) = 0;
+      *(a1 + 27) = 0;
       v73 = v247;
       if (v247 >= *v7)
       {
-        v75 = a1 + 224;
+        v75 = (a1 + 14);
         do
         {
           v8 = v75;
@@ -3725,26 +3726,26 @@ LABEL_95:
       }
 
       v80 = (v8 - 224);
-      if (v8 - 224 != a1)
+      if ((v8 - 224) != a1)
       {
         v81 = *v80;
         v82 = *(v8 - 192);
-        *(a1 + 16) = *(v8 - 208);
-        *(a1 + 32) = v82;
+        a1[1] = *(v8 - 208);
+        a1[2] = v82;
         *a1 = v81;
         v83 = *(v8 - 176);
         v84 = *(v8 - 160);
         v85 = *(v8 - 144);
-        *(a1 + 96) = *(v8 - 128);
-        *(a1 + 64) = v84;
-        *(a1 + 80) = v85;
-        *(a1 + 48) = v83;
+        *(a1 + 12) = *(v8 - 128);
+        a1[4] = v84;
+        a1[5] = v85;
+        a1[3] = v83;
         std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + 104, (v8 - 120));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 136, (v8 - 88));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 168, (v8 - 56));
-        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + 200));
+        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(a1 + 25);
         *(a1 + 200) = *(v8 - 24);
-        *(a1 + 216) = *(v8 - 8);
+        *(a1 + 27) = *(v8 - 8);
         *(v8 - 24) = 0;
         *(v8 - 16) = 0;
         *(v8 - 8) = 0;
@@ -3793,7 +3794,7 @@ LABEL_96:
     }
   }
 
-  v91 = *(a1 + 224);
+  v91 = *(a1 + 28);
   v94 = *(v6 - 28);
   v93 = v6 - 14;
   v92 = v94;
@@ -3804,14 +3805,14 @@ LABEL_96:
       goto LABEL_136;
     }
 
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, (a1 + 224));
-    if (*v93 >= *(a1 + 224))
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, a1 + 14);
+    if (*v93 >= *(a1 + 28))
     {
       return;
     }
 
     v95 = v93;
-    v96 = (a1 + 224);
+    v96 = a1 + 14;
 LABEL_137:
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v96, v95);
     return;
@@ -3819,11 +3820,11 @@ LABEL_137:
 
   if (v92 < v91)
   {
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 224), v93);
-    if (*(a1 + 224) < *a1)
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, v93);
+    if (*(a1 + 28) < *a1)
     {
       v96 = a1;
-      v95 = (a1 + 224);
+      v95 = a1 + 14;
       goto LABEL_137;
     }
   }
@@ -4202,33 +4203,33 @@ void std::allocator<mapped_region_node_internal_t>::allocate_at_least[abi:ne2001
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,mapped_memory_t *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,mapped_memory_t *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,mapped_memory_t *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,mapped_memory_t *>>>::__emplace_unique_key_args<unsigned int,unsigned int &,mapped_memory_t *&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,mapped_memory_t *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,mapped_memory_t *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,mapped_memory_t *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,mapped_memory_t *>>>::__emplace_unique_key_args<unsigned int,unsigned int &,mapped_memory_t *&>(void *a1, unsigned int *a2, _DWORD *a3, void *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4236,44 +4237,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,mapped_memory_t *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,mapped_memory_t *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,mapped_memory_t *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,mapped_memory_t *>>>::__erase_unique<unsigned int>(void *a1, unsigned int *a2)
@@ -4302,41 +4303,41 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned int,mapped_memory_t *
   return v2;
 }
 
-void *std::__tree<mapped_region_node_internal_t,CompareMappedRegionNode,std::allocator<mapped_region_node_internal_t>>::__emplace_unique_key_args<mapped_region_node_internal_t,mapped_region_node_internal_t const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<mapped_region_node_internal_t,CompareMappedRegionNode,std::allocator<mapped_region_node_internal_t>>::__emplace_unique_key_args<mapped_region_node_internal_t,mapped_region_node_internal_t const&>(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4377,7 +4378,7 @@ uint64_t std::__tree<mapped_region_node_internal_t,CompareMappedRegionNode,std::
   return 1;
 }
 
-const char *CSDwarfExpression::Evaluate(uint64_t (*a1)(uint64_t, void, char *), uint64_t (*a2)(uint64_t, uint64_t, char *), uint64_t a3, CSBinaryDataRef *this, unsigned int a5, uint64_t a6, void *a7, void *a8)
+const char *CSDwarfExpression::Evaluate(uint64_t (*a1)(uint64_t, void, char *), uint64_t (*a2)(uint64_t, uint64_t, char *), uint64_t a3, CSBinaryDataRef *this, unsigned int a5, uint64_t a6, uint64_t *a7, void *a8)
 {
   __p = 0;
   v75 = 0;
@@ -4509,7 +4510,7 @@ LABEL_118:
           goto LABEL_115;
         }
 
-        v24 = v75 - 8;
+        v24 = (v75 - 8);
 LABEL_18:
         std::vector<unsigned long long>::push_back[abi:ne200100](&__p, v24);
         goto LABEL_19;
@@ -4530,7 +4531,7 @@ LABEL_18:
           goto LABEL_115;
         }
 
-        v24 = v75 - 16;
+        v24 = (v75 - 16);
         goto LABEL_18;
       case 21:
         v34 = CSBinaryDataRef::Get8(this, &v73);
@@ -5158,7 +5159,7 @@ void sub_1D97CAD80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SymbolicationSession::SymbolicationSession(SymbolicationSession *this)
+void SymbolicationSession::SymbolicationSession(SymbolicationSession *this, int a2)
 {
   *(this + 2) = 1;
   *this = &unk_1F55089F0;
@@ -5184,16 +5185,16 @@ void SymbolicationSession::SymbolicationSession(SymbolicationSession *this)
   operator new();
 }
 
-void sub_1D97CAF08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D97CAF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<std::unique_ptr<AS::Operator>>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<unsigned long>>>>::~__hash_table(v4);
-  std::__hash_table<char const*,std::hash<char const*>,std::equal_to<char const*>,std::allocator<char const*>>::~__hash_table(v2 + 144);
+  std::__hash_table<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<unsigned long>>>>::~__hash_table(v5);
+  std::__hash_table<char const*,std::hash<char const*>,std::equal_to<char const*>,std::allocator<char const*>>::~__hash_table(v3 + 144);
   std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<char const*,std::hash<char const*>,std::equal_to<char const*>,std::allocator<char const*>>::~__hash_table(v2 + 80);
+  std::__hash_table<char const*,std::hash<char const*>,std::equal_to<char const*>,std::allocator<char const*>>::~__hash_table(v3 + 80);
   std::vector<LibraryDescription>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v3);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v4);
   _Unwind_Resume(a1);
 }
 
@@ -5222,14 +5223,14 @@ void SymbolicationSession::~SymbolicationSession(SymbolicationSession *this)
 
   v6 = (this + 224);
   std::vector<std::vector<std::unique_ptr<AS::Operator>>>::__destroy_vector::operator()[abi:ne200100](&v6);
-  std::__hash_table<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<unsigned long>>>>::~__hash_table(this + 184);
+  std::__hash_table<std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<unsigned long>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<unsigned long>>>>::~__hash_table(this + 23);
   std::__hash_table<char const*,std::hash<char const*>,std::equal_to<char const*>,std::allocator<char const*>>::~__hash_table(this + 144);
   v6 = (this + 120);
   std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__destroy_vector::operator()[abi:ne200100](&v6);
   std::__hash_table<char const*,std::hash<char const*>,std::equal_to<char const*>,std::allocator<char const*>>::~__hash_table(this + 80);
   v6 = (this + 56);
   std::vector<LibraryDescription>::__destroy_vector::operator()[abi:ne200100](&v6);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 2);
 }
 
 {
@@ -5240,9 +5241,10 @@ void SymbolicationSession::~SymbolicationSession(SymbolicationSession *this)
 
 unint64_t SymbolicationSession::register_library(SymbolicationSession *this, LibraryDescription *a2)
 {
-  std::vector<LibraryDescription>::push_back[abi:ne200100](this + 56, a2);
+  std::vector<LibraryDescription>::push_back[abi:ne200100](this + 7, a2);
   v4 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 8) - *(this + 7)) >> 5) - 1;
-  std::__hash_table<std::__hash_value_type<UUID,unsigned long>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,unsigned long>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,unsigned long>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,unsigned long>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(this + 10, a2)[4] = v4;
+  v6 = a2;
+  std::__hash_table<std::__hash_value_type<UUID,unsigned long>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,unsigned long>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,unsigned long>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,unsigned long>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(this + 10, a2, &std::piecewise_construct, &v6)[4] = v4;
   return v4;
 }
 
@@ -5349,28 +5351,28 @@ unint64_t SymbolicationSession::lookup_or_register_process(SymbolicationSession 
   }
 
   v23[0] = &v22;
-  std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 18, &v22)[3] = v4;
+  std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 18, &v22, &std::piecewise_construct, v23)[3] = v4;
   return v4;
 }
 
-void sub_1D97CB33C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t *a11)
+void sub_1D97CB33C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    SymbolicationSession::lookup_or_register_process(a11);
+    SymbolicationSession::lookup_or_register_process();
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1D97CB42C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_1D97CB42C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1DA736760](v12, v11);
+  MEMORY[0x1DA736760](v12, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -5392,7 +5394,7 @@ uint64_t SymbolicationSession::process_ats_dsc_and_pid_chunks(SymbolicationSessi
 
 void ___ZN20SymbolicationSession30process_ats_dsc_and_pid_chunksEPK8__CFDataS2__block_invoke(uint64_t a1, FlatbufferSymbols::Symbolicator *this)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = (this - *this);
   if (*v2 >= 9u && (v3 = v2[4]) != 0)
   {
@@ -5408,9 +5410,9 @@ void ___ZN20SymbolicationSession30process_ats_dsc_and_pid_chunksEPK8__CFDataS2__
   v6 = FlatbufferSymbols::Symbolicator::metadata_as_DyldSharedCacheMetadata(this);
   if (v6)
   {
-    v7 = (v6 + *(v6 - *v6 + 4));
-    CSUUIDStringToCFUUIDBytes(v7 + *v7 + 4, &v27);
-    memset(v12, 0, sizeof(v12));
+    v7 = v6 + *(v6 - *v6 + 4);
+    CSUUIDStringToCFUUIDBytes(&v7[*v7 + 4], &v26);
+    memset(v11, 0, sizeof(v11));
     v8 = (4 * *v4);
     if (v8)
     {
@@ -5418,41 +5420,41 @@ void ___ZN20SymbolicationSession30process_ats_dsc_and_pid_chunksEPK8__CFDataS2__
       do
       {
         v10 = *v9;
-        LOBYTE(v13) = 0;
-        v14 = 0;
-        SymbolicationSession::transform_fbs_owner((v9 + v10), v5, 1, v21);
-        std::__optional_copy_base<LibraryDescription,false>::__optional_copy_base[abi:ne200100](&v13, v21);
-        if ((v20 & 1) == 0)
+        LOBYTE(v12) = 0;
+        v13 = 0;
+        SymbolicationSession::transform_fbs_owner(v20, (v9 + v10), v5, 1);
+        std::__optional_copy_base<LibraryDescription,false>::__optional_copy_base[abi:ne200100](&v12, v20);
+        if ((v19 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        std::vector<LibraryDescription>::push_back[abi:ne200100](v12, &v13);
-        if (v20 == 1)
+        std::vector<LibraryDescription>::push_back[abi:ne200100](v11, &v12);
+        if (v19 == 1)
         {
           if (__p)
           {
-            v19 = __p;
+            v18 = __p;
             operator delete(__p);
           }
 
-          if (v17 == 1 && v16 < 0)
+          if (v16 == 1 && v15 < 0)
           {
-            operator delete(v15);
+            operator delete(v14);
           }
         }
 
-        if (v26 == 1)
+        if (v25 == 1)
         {
-          if (v24)
+          if (v23)
           {
-            v25 = v24;
-            operator delete(v24);
+            v24 = v23;
+            operator delete(v23);
           }
 
-          if (v23 == 1 && v22 < 0)
+          if (v22 == 1 && v21 < 0)
           {
-            operator delete(v21[3]);
+            operator delete(v20[3]);
           }
         }
 
@@ -5463,204 +5465,202 @@ void ___ZN20SymbolicationSession30process_ats_dsc_and_pid_chunksEPK8__CFDataS2__
       while (v8);
     }
 
-    SymbolicationSession::register_dsc(v5, &v27, v12);
-    v21[0] = v12;
-    std::vector<LibraryDescription>::__destroy_vector::operator()[abi:ne200100](v21);
+    SymbolicationSession::register_dsc(v5, &v26, v11);
+    v20[0] = v11;
+    std::vector<LibraryDescription>::__destroy_vector::operator()[abi:ne200100](v20);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1D97CB6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void **a25)
+void sub_1D97CB6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t *a25)
 {
   a25 = &a9;
   std::vector<LibraryDescription>::__destroy_vector::operator()[abi:ne200100](&a25);
   _Unwind_Resume(a1);
 }
 
-void *SymbolicationSession::transform_fbs_owner@<X0>(FlatbufferSymbols::SymbolOwner *this@<X1>, uint64_t a2@<X0>, char a3@<W2>, uint64_t a4@<X8>)
+void SymbolicationSession::transform_fbs_owner(uint64_t *__return_ptr a1@<X8>, FlatbufferSymbols::SymbolOwner *this@<X1>, uint64_t a3@<X0>, char a4@<W2>)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v40 = FlatbufferSymbols::SymbolOwner::metadata_as_MachoMetadata(this);
-  v8 = (v40 + *(v40 - *v40 + 4));
-  CSUUIDStringToCFUUIDBytes(v8 + *v8 + 4, &v44);
-  if ((a3 & 1) != 0 || (result = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<CSCppSymbolOwner>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<CSCppSymbolOwner>>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<CSCppSymbolOwner>>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<CSCppSymbolOwner>>>>::find<UUID>((a2 + 80), &v44)) == 0)
+  v46 = *MEMORY[0x1E69E9840];
+  v41 = FlatbufferSymbols::SymbolOwner::metadata_as_MachoMetadata(this);
+  v10 = v41 + *(v41 - *v41 + 4);
+  CSUUIDStringToCFUUIDBytes(&v10[*v10 + 4], &v45);
+  if ((a4 & 1) != 0 || (v11 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<CSCppSymbolOwner>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<CSCppSymbolOwner>>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<CSCppSymbolOwner>>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<CSCppSymbolOwner>>>>::find<UUID>((a3 + 80), &v45)) == 0)
   {
-    v39 = a2;
-    v11 = *(this - *this + 8);
-    v12 = *(this + v11);
-    v13 = (this + v11 + v12);
+    v40 = a3;
+    v13 = *(this - *this + 8);
+    v14 = *(this + v13);
+    v15 = (this + v13 + v14);
     __p = 0;
-    v42 = 0;
     v43 = 0;
-    v14 = (4 * *v13);
-    if (v14)
+    v44 = 0;
+    v16 = (4 * *v15);
+    if (v16)
     {
-      v15 = 0;
-      v16 = 0;
-      v17 = this + v11 + v12;
+      v17 = 0;
+      v18 = 0;
+      v19 = this + v13 + v14;
       do
       {
-        v18 = v13[v15 / 4 + 1];
-        v19 = v18 - *(&v13[v15 / 4 + 1] + v18);
-        v20 = &v17[v15 + v19];
-        v21 = *(v20 + 2);
-        if (v21 >= 5)
+        v20 = v15[v17 / 4 + 1];
+        v21 = v20 - *(&v15[v17 / 4 + 1] + v20);
+        v22 = &v19[v17 + v21];
+        v23 = *(v22 + 2);
+        if (v23 >= 5)
         {
-          v22 = *(v20 + 4);
-          if (v22)
+          v24 = *(v22 + 4);
+          if (v24)
           {
-            v23 = &v17[v15 + v18 + v22 + *&v17[v15 + 4 + v18 + v22]];
-            if (!strstr(v23 + 8, "__LINKINFO"))
+            v25 = &v19[v17 + v20 + v24 + *&v19[v17 + 4 + v20 + v24]];
+            if (!strstr(v25 + 8, "__LINKINFO"))
             {
-              if (v21 < 7)
+              if (v23 < 7)
               {
-                v25 = 0;
-                v24 = -1;
+                v27 = 0;
+                v26 = -1;
               }
 
               else
               {
-                if (*&v17[v15 + 10 + v19])
+                if (*&v19[v17 + 10 + v21])
                 {
-                  v24 = *&v17[v15 + 4 + v18 + *&v17[v15 + 10 + v19]];
+                  v26 = *&v19[v17 + 4 + v20 + *&v19[v17 + 10 + v21]];
                 }
 
                 else
                 {
-                  v24 = -1;
+                  v26 = -1;
                 }
 
-                if (v21 >= 9 && *&v17[v15 + 12 + v19])
+                if (v23 >= 9 && *&v19[v17 + 12 + v21])
                 {
-                  v25 = *&v17[v15 + 4 + v18 + *&v17[v15 + 12 + v19]];
+                  v27 = *&v19[v17 + 4 + v20 + *&v19[v17 + 12 + v21]];
                 }
 
                 else
                 {
-                  v25 = 0;
+                  v27 = 0;
                 }
               }
 
-              if (v16 >= v43)
+              if (v18 >= v44)
               {
-                v26 = (v16 - __p) >> 5;
-                if ((v26 + 1) >> 59)
+                v28 = (v18 - __p) >> 5;
+                if ((v28 + 1) >> 59)
                 {
                   std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
                 }
 
-                v27 = (v43 - __p) >> 4;
-                if (v27 <= v26 + 1)
+                v29 = (v44 - __p) >> 4;
+                if (v29 <= v28 + 1)
                 {
-                  v27 = v26 + 1;
+                  v29 = v28 + 1;
                 }
 
-                if (v43 - __p >= 0x7FFFFFFFFFFFFFE0)
+                if (v44 - __p >= 0x7FFFFFFFFFFFFFE0)
                 {
-                  v28 = 0x7FFFFFFFFFFFFFFLL;
+                  v30 = 0x7FFFFFFFFFFFFFFLL;
                 }
 
                 else
                 {
-                  v28 = v27;
+                  v30 = v29;
                 }
 
-                if (v28)
+                if (v30)
                 {
-                  std::allocator<CSCppSegmentRange>::allocate_at_least[abi:ne200100](&__p, v28);
+                  std::allocator<CSCppSegmentRange>::allocate_at_least[abi:ne200100](&__p, v30);
                 }
 
-                CSCppSegmentRange::CSCppSegmentRange((32 * v26), v24, v25, (v23 + 8), 0);
-                v16 = (v29 + 32);
-                v30 = (v29 - (v42 - __p));
-                memcpy(v30, __p, v42 - __p);
-                v31 = __p;
-                __p = v30;
-                v42 = v16;
-                v43 = 0;
-                if (v31)
+                CSCppSegmentRange::CSCppSegmentRange((32 * v28), v26, v27, (v25 + 8), 0);
+                v18 = (v31 + 32);
+                v32 = (v31 - (v43 - __p));
+                memcpy(v32, __p, v43 - __p);
+                v33 = __p;
+                __p = v32;
+                v43 = v18;
+                v44 = 0;
+                if (v33)
                 {
-                  operator delete(v31);
+                  operator delete(v33);
                 }
               }
 
               else
               {
-                CSCppSegmentRange::CSCppSegmentRange(v16, v24, v25, (v23 + 8), 0);
-                v16 = (v16 + 32);
+                CSCppSegmentRange::CSCppSegmentRange(v18, v26, v27, (v25 + 8), 0);
+                v18 = (v18 + 32);
               }
 
-              v42 = v16;
+              v43 = v18;
             }
           }
         }
 
-        v15 += 4;
+        v17 += 4;
       }
 
-      while (v14 != v15);
+      while (v16 != v17);
     }
 
-    v32 = (v40 - *v40);
-    v33 = *v32;
-    v34 = "<unknown>";
-    if (v33 < 7)
+    v34 = (v41 - *v41);
+    v35 = *v34;
+    v36 = "<unknown>";
+    if (v35 < 7)
     {
 LABEL_50:
-      CSCppStringCache::intern((v39 + 16), v34);
+      CSCppStringCache::intern((v40 + 16), v36);
     }
 
-    v35 = v32[3];
-    if (v32[3])
+    v37 = v34[3];
+    if (v34[3])
     {
-      v35 += v40 + *(v40 + v35);
+      v37 += v41 + *(v41 + v37);
     }
 
-    if (v33 < 0x13)
+    if (v35 < 0x13)
     {
-      if (v33 < 0x11)
+      if (v35 < 0x11)
       {
-        if (!v35)
+        if (!v37)
         {
-          v37 = 0;
+          v39 = 0;
 LABEL_48:
-          if (v37)
+          if (v39)
           {
-            v34 = (v37 + 4);
+            v36 = (v39 + 4);
           }
 
           goto LABEL_50;
         }
 
 LABEL_46:
-        v34 = (v35 + 4);
+        v36 = (v37 + 4);
         goto LABEL_50;
       }
 
-      v36 = 0;
+      v38 = 0;
     }
 
     else
     {
-      v36 = v32[9];
-      if (v32[9])
+      v38 = v34[9];
+      if (v34[9])
       {
-        v36 += v40 + *(v40 + v36);
+        v38 += v41 + *(v41 + v38);
       }
     }
 
-    v37 = v32[8];
-    if (v37)
+    v39 = v34[8];
+    if (v39)
     {
-      v37 += v40 + *(v40 + v37);
+      v39 += v41 + *(v41 + v39);
     }
 
-    if (!v35)
+    if (!v37)
     {
-      if (v36)
+      if (v38)
       {
-        v34 = (v36 + 4);
+        v36 = (v38 + 4);
         goto LABEL_50;
       }
 
@@ -5670,13 +5670,11 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v10 = result[4];
-  *a4 = 0;
-  *(a4 + 96) = 0;
-  *(a4 + 104) = v10;
-  *(a4 + 112) = 1;
-  v38 = *MEMORY[0x1E69E9840];
-  return result;
+  v12 = v11[4];
+  *a1 = 0;
+  *(a1 + 96) = 0;
+  a1[13] = v12;
+  *(a1 + 112) = 1;
 }
 
 void sub_1D97CBF08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, char a52)
@@ -5694,22 +5692,22 @@ void sub_1D97CBF08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<LibraryDescription>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+uint64_t std::vector<LibraryDescription>::push_back[abi:ne200100](unint64_t *a1, __int128 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<LibraryDescription>::__emplace_back_slow_path<LibraryDescription const&>(a1, a2);
   }
 
   else
   {
-    std::__construct_at[abi:ne200100]<LibraryDescription,LibraryDescription const&,LibraryDescription*>(*(a1 + 8), a2);
+    std::__construct_at[abi:ne200100]<LibraryDescription,LibraryDescription const&,LibraryDescription*>(a1[1], a2);
     result = v3 + 96;
-    *(a1 + 8) = v3 + 96;
+    a1[1] = v3 + 96;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -5733,11 +5731,11 @@ uint64_t std::optional<LibraryDescription>::~optional(uint64_t a1)
   return a1;
 }
 
-uint64_t SymbolicationSession::register_dsc(uint64_t a1, _OWORD *a2, uint64_t *a3)
+char *SymbolicationSession::register_dsc(uint64_t a1, _OWORD *a2, uint64_t *a3)
 {
   v5 = *(a1 + 128);
   v4 = *(a1 + 136);
-  v6 = a1 + 120;
+  v6 = (a1 + 120);
   if (v5 >= v4)
   {
     result = std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__emplace_back_slow_path<UUID const&,std::vector<LibraryDescription> const&>(v6, a2, a3);
@@ -5746,143 +5744,143 @@ uint64_t SymbolicationSession::register_dsc(uint64_t a1, _OWORD *a2, uint64_t *a
   else
   {
     std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__construct_one_at_end[abi:ne200100]<UUID const&,std::vector<LibraryDescription> const&>(v6, a2, a3);
-    result = v5 + 40;
+    result = (v5 + 40);
   }
 
   *(a1 + 128) = result;
   return result;
 }
 
-FlatbufferSymbols::SymbolOwner *___ZN20SymbolicationSession30process_ats_dsc_and_pid_chunksEPK8__CFDataS2__block_invoke_2(uint64_t a1, FlatbufferSymbols::SymbolOwner *this)
+void ___ZN20SymbolicationSession30process_ats_dsc_and_pid_chunksEPK8__CFDataS2__block_invoke_2(uint64_t a1, FlatbufferSymbols::SymbolOwner *this)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  result = FlatbufferSymbols::SymbolOwner::metadata_as_MachoMetadata(this);
-  if (result)
+  v4 = FlatbufferSymbols::SymbolOwner::metadata_as_MachoMetadata(this);
+  if (v4)
   {
-    v5 = result;
-    v6 = (result - *result);
+    v5 = v4;
+    v6 = &v4[-*v4];
     if (*v6 >= 7u)
     {
-      v7 = v6[3];
+      v7 = *(v6 + 3);
       if (v7)
       {
-        v8 = *(result + v7);
+        v8 = *&v4[v7];
         if (v8 >= 1)
         {
-          result = _findPrimarySharedCacheInFlatbufferSymbolicator(this);
-          if (result)
+          PrimarySharedCacheInFlatbufferSymbolicator = _findPrimarySharedCacheInFlatbufferSymbolicator(this);
+          if (PrimarySharedCacheInFlatbufferSymbolicator)
           {
-            v9 = (result - *result);
-            if (*v9 >= 9u && (v10 = v9[4]) != 0)
+            v10 = (PrimarySharedCacheInFlatbufferSymbolicator - *PrimarySharedCacheInFlatbufferSymbolicator);
+            if (*v10 >= 9u && (v11 = v10[4]) != 0)
             {
-              v11 = *(result + v10);
+              v12 = *(PrimarySharedCacheInFlatbufferSymbolicator + v11);
             }
 
             else
             {
-              v11 = -1;
+              v12 = -1;
             }
 
-            v33 = v11;
-            result = FlatbufferSymbols::SymbolOwner::metadata_as_MachoMetadata(result);
-            if (result)
+            v35 = v12;
+            v13 = FlatbufferSymbols::SymbolOwner::metadata_as_MachoMetadata(PrimarySharedCacheInFlatbufferSymbolicator);
+            if (v13)
             {
-              v12 = result;
-              v13 = (result + *(result - *result + 4));
-              CSUUIDStringToCFUUIDBytes(v13 + *v13 + 4, v44);
-              result = SymbolicationSession::find_dsc(v3, v44);
-              if ((v14 & 1) == 0)
+              v14 = v13;
+              v15 = v13 + *(v13 - *v13 + 4);
+              CSUUIDStringToCFUUIDBytes(&v15[*v15 + 4], v46);
+              dsc = SymbolicationSession::find_dsc(v3, v46);
+              if ((v17 & 1) == 0)
               {
-                memset(v36, 0, 24);
-                SymbolicationSession::register_dsc(v3, v44, v36);
-                v32[0] = v36;
-                std::vector<LibraryDescription>::__destroy_vector::operator()[abi:ne200100](v32);
-                result = SymbolicationSession::find_dsc(v3, v44);
+                memset(v38, 0, 24);
+                SymbolicationSession::register_dsc(v3, v46, v38);
+                v34[0] = v38;
+                std::vector<LibraryDescription>::__destroy_vector::operator()[abi:ne200100](v34);
+                dsc = SymbolicationSession::find_dsc(v3, v46);
               }
 
-              if (v14)
+              if (v17)
               {
-                v32[3] = result;
-                v15 = (v12 - *v12);
-                if (*v15 >= 0x15u && (v16 = v15[10]) != 0)
+                v34[3] = dsc;
+                v18 = (v14 - *v14);
+                if (*v18 >= 0x15u && (v19 = v18[10]) != 0)
                 {
-                  v17 = *(v12 + v16);
+                  v20 = *(v14 + v19);
                 }
 
                 else
                 {
-                  v17 = -1;
+                  v20 = -1;
                 }
 
                 SymbolicationSession::lookup_or_register_process(v3, v8);
-                v18 = (v5 - *v5);
-                if (*v18 >= 0xBu)
+                v21 = &v5[-*v5];
+                if (*v21 >= 0xBu)
                 {
-                  v19 = v18[5];
-                  if (v19)
+                  v22 = *(v21 + 5);
+                  if (v22)
                   {
-                    CSUUIDStringToCFUUIDBytes(v5 + v19 + *(v5 + v19) + 4, &v43);
+                    CSUUIDStringToCFUUIDBytes(&v5[v22 + 4 + *&v5[v22]], &v45);
                   }
                 }
 
-                v20 = *(this - *this + 8);
-                v21 = *(this + v20);
-                v22 = (this + v20 + v21);
-                memset(v32, 0, 24);
-                v23 = (4 * *v22);
-                if (v23)
+                v23 = *(this - *this + 8);
+                v24 = *(this + v23);
+                v25 = (this + v23 + v24);
+                memset(v34, 0, 24);
+                v26 = (4 * *v25);
+                if (v26)
                 {
-                  v24 = 0;
-                  v25 = this + v20 + v21;
+                  v27 = 0;
+                  v28 = this + v23 + v24;
                   do
                   {
-                    v26 = v22[v24 / 4 + 1];
-                    v27 = &v22[v24 / 4] + v26;
-                    v34 = v43;
-                    v35 = 1;
-                    SymbolicationSession::transform_fbs_owner((v27 + 4), v3, 0, v36);
-                    v28 = &v25[v24 + v26 - *(v27 + 1)];
-                    if (*(v28 + 2) >= 0xBu && (v29 = *(v28 + 7)) != 0)
+                    v29 = v25[v27 / 4 + 1];
+                    v30 = &v25[v27 / 4] + v29;
+                    v36 = v45;
+                    v37 = 1;
+                    SymbolicationSession::transform_fbs_owner(v38, (v30 + 4), v3, 0);
+                    v31 = &v28[v27 + v29 - *(v30 + 1)];
+                    if (*(v31 + 2) >= 0xBu && (v32 = *(v31 + 7)) != 0)
                     {
-                      v30 = *&v25[v24 + 4 + v26 + v29];
+                      v33 = *&v28[v27 + 4 + v29 + v32];
                     }
 
                     else
                     {
-                      v30 = -1;
+                      v33 = -1;
                     }
 
-                    v34 = 0uLL;
-                    if ((v42 & 1) == 0)
+                    v36 = 0;
+                    if ((v44 & 1) == 0)
                     {
                       std::__throw_bad_optional_access[abi:ne200100]();
                     }
 
-                    *&v34 = v41;
-                    *(&v34 + 1) = v30;
-                    std::vector<_CSTypeRef>::push_back[abi:ne200100](v32, &v34);
-                    if (v40 == 1)
+                    *&v36.byte0 = v43;
+                    *&v36.byte8 = v33;
+                    std::vector<_CSTypeRef>::push_back[abi:ne200100](v34, &v36);
+                    if (v42 == 1)
                     {
                       if (__p)
                       {
                         operator delete(__p);
                       }
 
-                      if (v38 == 1 && v37 < 0)
+                      if (v40 == 1 && v39 < 0)
                       {
-                        operator delete(v36[3]);
+                        operator delete(v38[3]);
                       }
                     }
 
-                    v24 += 4;
+                    v27 += 4;
                   }
 
-                  while (v23 != v24);
-                  v11 = v33;
+                  while (v26 != v27);
+                  v12 = v35;
                 }
 
-                v36[0] = v11 + v17;
+                v38[0] = v12 + v20;
                 std::make_unique[abi:ne200100]<AS::FullCreationOperator,unsigned long &,unsigned long long &,unsigned long long,std::vector<AS::LoadDescription> &,0>();
               }
             }
@@ -5891,9 +5889,6 @@ FlatbufferSymbols::SymbolOwner *___ZN20SymbolicationSession30process_ats_dsc_and
       }
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1D97CC470(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18)
@@ -5935,14 +5930,14 @@ uint64_t SymbolicationSession::find_dsc(SymbolicationSession *this, const UUID *
   return result;
 }
 
-void sub_1D97CC63C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_1D97CC63C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1DA736760](v12, v11);
+  MEMORY[0x1DA736760](v12, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -5958,14 +5953,14 @@ uint64_t SymbolicationSession::process_ats_kernel_chunk(SymbolicationSession *th
 
 void ___ZN20SymbolicationSession24process_ats_kernel_chunkEPK8__CFData_block_invoke(uint64_t a1, FlatbufferSymbols::SymbolOwner *this)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = FlatbufferSymbols::SymbolOwner::metadata_as_MachoMetadata(this);
   v5 = v4;
-  v6 = (v4 - *v4);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
+  v6 = &v4[-*v4];
+  if (*v6 >= 7u && (v7 = *(v6 + 3)) != 0)
   {
-    v8 = *(v4 + v7);
+    v8 = *&v4[v7];
   }
 
   else
@@ -5974,13 +5969,13 @@ void ___ZN20SymbolicationSession24process_ats_kernel_chunkEPK8__CFData_block_inv
   }
 
   SymbolicationSession::lookup_or_register_process(v3, v8);
-  v9 = (v5 - *v5);
+  v9 = &v5[-*v5];
   if (*v9 >= 0xBu)
   {
-    v10 = v9[5];
+    v10 = *(v9 + 5);
     if (v10)
     {
-      CSUUIDStringToCFUUIDBytes(v5 + v10 + *(v5 + v10) + 4, &v27);
+      CSUUIDStringToCFUUIDBytes(&v5[v10 + 4 + *&v5[v10]], &v26);
     }
   }
 
@@ -5994,27 +5989,27 @@ void ___ZN20SymbolicationSession24process_ats_kernel_chunkEPK8__CFData_block_inv
     do
     {
       v15 = *v14;
-      v17 = v27;
+      v17 = v26;
       v18 = 1;
-      SymbolicationSession::transform_fbs_owner((v14 + v15), v3, 0, v19);
-      v17 = 0uLL;
-      if ((v26 & 1) == 0)
+      SymbolicationSession::transform_fbs_owner(v19, (v14 + v15), v3, 0);
+      v17 = 0;
+      if ((v25 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      v17 = v25;
+      v17 = v24;
       std::vector<_CSTypeRef>::push_back[abi:ne200100](v16, &v17);
-      if (v24 == 1)
+      if (v23 == 1)
       {
         if (__p)
         {
           operator delete(__p);
         }
 
-        if (v22 == 1 && v21 < 0)
+        if (v21 == 1 && v20 < 0)
         {
-          operator delete(v20);
+          operator delete(v19[3]);
         }
       }
 
@@ -6038,20 +6033,20 @@ void sub_1D97CC938(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SymbolicationSession::process_kernel_plist_chunk(SymbolicationSession *a1, const __CFData *a2)
+void SymbolicationSession::process_kernel_plist_chunk(SymbolicationSession *a1, const __CFData *a2, uint64_t a3)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   cf = CFPropertyListCreateWithData(0, a2, 0, 0, 0);
   Value = CFDictionaryGetValue(cf, @"Binaries");
-  v57 = 0;
   v58 = 0;
   v59 = 0;
-  v49 = a1;
+  v60 = 0;
+  v50 = a1;
   SymbolicationSession::lookup_or_register_process(a1, 0);
   if (Value)
   {
-    v4 = CFGetTypeID(Value);
-    if (v4 == CFArrayGetTypeID())
+    v5 = CFGetTypeID(Value);
+    if (v5 == CFArrayGetTypeID())
     {
       Count = CFArrayGetCount(Value);
       if (Count >= 1)
@@ -6059,28 +6054,28 @@ void SymbolicationSession::process_kernel_plist_chunk(SymbolicationSession *a1, 
         for (i = 0; i != Count; ++i)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(Value, i);
-          v7 = ValueAtIndex;
+          v8 = ValueAtIndex;
           if (ValueAtIndex)
           {
-            v8 = CFGetTypeID(ValueAtIndex);
-            if (v8 == CFDictionaryGetTypeID())
+            v9 = CFGetTypeID(ValueAtIndex);
+            if (v9 == CFDictionaryGetTypeID())
             {
-              v9 = CFDictionaryGetValue(v7, @"Flags");
-              v10 = v9;
-              if (v9)
+              v10 = CFDictionaryGetValue(v8, @"Flags");
+              v11 = v10;
+              if (v10)
               {
-                v11 = CFGetTypeID(v9);
-                if (v11 == CFNumberGetTypeID())
+                v12 = CFGetTypeID(v10);
+                if (v12 == CFNumberGetTypeID())
                 {
-                  v12 = v10;
+                  v13 = v11;
                 }
 
                 else
                 {
-                  v12 = 0;
+                  v13 = 0;
                 }
 
-                number = v12;
+                number = v13;
               }
 
               else
@@ -6088,22 +6083,22 @@ void SymbolicationSession::process_kernel_plist_chunk(SymbolicationSession *a1, 
                 number = 0;
               }
 
-              v13 = CFDictionaryGetValue(v7, @"UUID_String");
-              v14 = v13;
-              if (v13)
+              v14 = CFDictionaryGetValue(v8, @"UUID_String");
+              v15 = v14;
+              if (v14)
               {
-                v15 = CFGetTypeID(v13);
-                if (v15 == CFStringGetTypeID())
+                v16 = CFGetTypeID(v14);
+                if (v16 == CFStringGetTypeID())
                 {
-                  v16 = v14;
+                  v17 = v15;
                 }
 
                 else
                 {
-                  v16 = 0;
+                  v17 = 0;
                 }
 
-                theString = v16;
+                theString = v17;
               }
 
               else
@@ -6111,145 +6106,145 @@ void SymbolicationSession::process_kernel_plist_chunk(SymbolicationSession *a1, 
                 theString = 0;
               }
 
-              v17 = CFDictionaryGetValue(v7, @"Path");
-              v18 = v17;
-              if (v17)
+              v18 = CFDictionaryGetValue(v8, @"Path");
+              v19 = v18;
+              if (v18)
               {
-                v19 = CFGetTypeID(v17);
-                if (v19 != CFStringGetTypeID())
+                v20 = CFGetTypeID(v18);
+                if (v20 != CFStringGetTypeID())
                 {
-                  v18 = 0;
+                  v19 = 0;
                 }
               }
 
-              v20 = CFDictionaryGetValue(v7, @"Segments");
+              v21 = CFDictionaryGetValue(v8, @"Segments");
               if (number)
               {
                 if (theString)
                 {
-                  if (v18)
+                  if (v19)
                   {
-                    v21 = v20;
-                    if (v20)
+                    v22 = v21;
+                    if (v21)
                     {
-                      v22 = CFGetTypeID(v20);
-                      if (v22 == CFArrayGetTypeID())
+                      v23 = CFGetTypeID(v21);
+                      if (v23 == CFArrayGetTypeID())
                       {
-                        v23 = CFArrayGetCount(v21);
+                        v24 = CFArrayGetCount(v22);
                         __p = 0;
-                        v55 = 0;
                         v56 = 0;
-                        if (v23 >= 1)
+                        v57 = 0;
+                        if (v24 >= 1)
                         {
-                          for (j = 0; j != v23; ++j)
+                          for (j = 0; j != v24; ++j)
                           {
-                            v25 = CFArrayGetValueAtIndex(v21, j);
-                            v26 = CFDictionaryGetValue(v25, @"Address");
-                            v27 = v26;
-                            if (v26)
+                            v26 = CFArrayGetValueAtIndex(v22, j);
+                            v27 = CFDictionaryGetValue(v26, @"Address");
+                            v28 = v27;
+                            if (v27)
                             {
-                              v28 = CFGetTypeID(v26);
-                              if (v28 == CFNumberGetTypeID())
+                              v29 = CFGetTypeID(v27);
+                              if (v29 == CFNumberGetTypeID())
                               {
-                                v29 = v27;
+                                v30 = v28;
                               }
 
                               else
                               {
-                                v29 = 0;
+                                v30 = 0;
                               }
                             }
 
                             else
                             {
-                              v29 = 0;
+                              v30 = 0;
                             }
 
-                            v30 = CFDictionaryGetValue(v25, @"Size");
-                            v31 = v30;
-                            if (v30)
+                            v31 = CFDictionaryGetValue(v26, @"Size");
+                            v32 = v31;
+                            if (v31)
                             {
-                              v32 = CFGetTypeID(v30);
-                              if (v32 != CFNumberGetTypeID())
+                              v33 = CFGetTypeID(v31);
+                              if (v33 != CFNumberGetTypeID())
                               {
-                                v31 = 0;
+                                v32 = 0;
                               }
                             }
 
-                            v33 = CFDictionaryGetValue(v25, @"Name");
-                            v34 = v33;
-                            if (v33)
+                            v34 = CFDictionaryGetValue(v26, @"Name");
+                            v35 = v34;
+                            if (v34)
                             {
-                              v35 = CFGetTypeID(v33);
+                              v36 = CFGetTypeID(v34);
                               TypeID = CFStringGetTypeID();
-                              if (v35 != TypeID)
+                              if (v36 != TypeID)
                               {
-                                v34 = 0;
+                                v35 = 0;
                               }
 
-                              if (v29)
+                              if (v30)
                               {
-                                if (v31)
+                                if (v32)
                                 {
-                                  if (v35 == TypeID)
+                                  if (v36 == TypeID)
                                   {
                                     *&valuePtr = 0;
-                                    CFNumberGetValue(v29, kCFNumberLongLongType, &valuePtr);
-                                    v53 = 0;
-                                    CFNumberGetValue(v31, kCFNumberLongLongType, &v53);
-                                    if (CFStringGetCString(v34, buffer, 50, 0x8000100u))
+                                    CFNumberGetValue(v30, kCFNumberLongLongType, &valuePtr);
+                                    v54 = 0;
+                                    CFNumberGetValue(v32, kCFNumberLongLongType, &v54);
+                                    if (CFStringGetCString(v35, buffer, 50, 0x8000100u))
                                     {
-                                      v37 = v55;
-                                      if (v55 >= v56)
+                                      v38 = v56;
+                                      if (v56 >= v57)
                                       {
-                                        v39 = (v55 - __p) >> 5;
-                                        if ((v39 + 1) >> 59)
+                                        v40 = (v56 - __p) >> 5;
+                                        if ((v40 + 1) >> 59)
                                         {
                                           std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
                                         }
 
-                                        v40 = (v56 - __p) >> 4;
-                                        if (v40 <= v39 + 1)
+                                        v41 = (v57 - __p) >> 4;
+                                        if (v41 <= v40 + 1)
                                         {
-                                          v40 = v39 + 1;
+                                          v41 = v40 + 1;
                                         }
 
-                                        if (v56 - __p >= 0x7FFFFFFFFFFFFFE0)
+                                        if (v57 - __p >= 0x7FFFFFFFFFFFFFE0)
                                         {
-                                          v41 = 0x7FFFFFFFFFFFFFFLL;
+                                          v42 = 0x7FFFFFFFFFFFFFFLL;
                                         }
 
                                         else
                                         {
-                                          v41 = v40;
+                                          v42 = v41;
                                         }
 
-                                        if (v41)
+                                        if (v42)
                                         {
-                                          std::allocator<CSCppSegmentRange>::allocate_at_least[abi:ne200100](&__p, v41);
+                                          std::allocator<CSCppSegmentRange>::allocate_at_least[abi:ne200100](&__p, v42);
                                         }
 
-                                        CSCppSegmentRange::CSCppSegmentRange((32 * v39), valuePtr, v53, buffer, 0);
-                                        v38 = (v42 + 32);
-                                        v43 = (v42 - (v55 - __p));
-                                        memcpy(v43, __p, v55 - __p);
-                                        v44 = __p;
-                                        __p = v43;
-                                        v55 = v38;
-                                        v56 = 0;
-                                        if (v44)
+                                        CSCppSegmentRange::CSCppSegmentRange((32 * v40), valuePtr, v54, buffer, 0);
+                                        v39 = (v43 + 32);
+                                        v44 = (v43 - (v56 - __p));
+                                        memcpy(v44, __p, v56 - __p);
+                                        v45 = __p;
+                                        __p = v44;
+                                        v56 = v39;
+                                        v57 = 0;
+                                        if (v45)
                                         {
-                                          operator delete(v44);
+                                          operator delete(v45);
                                         }
                                       }
 
                                       else
                                       {
-                                        CSCppSegmentRange::CSCppSegmentRange(v55, valuePtr, v53, buffer, 0);
-                                        v38 = (v37 + 32);
+                                        CSCppSegmentRange::CSCppSegmentRange(v56, valuePtr, v54, buffer, 0);
+                                        v39 = (v38 + 32);
                                       }
 
-                                      v55 = v38;
+                                      v56 = v39;
                                     }
                                   }
                                 }
@@ -6258,16 +6253,16 @@ void SymbolicationSession::process_kernel_plist_chunk(SymbolicationSession *a1, 
                           }
                         }
 
-                        Length = CFStringGetLength(v18);
+                        Length = CFStringGetLength(v19);
                         MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-                        v47 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
-                        if (!CFStringGetCString(v18, v47, MaximumSizeForEncoding + 1, 0x8000100u))
+                        v48 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
+                        if (!CFStringGetCString(v19, v48, MaximumSizeForEncoding + 1, 0x8000100u))
                         {
-                          free(v47);
-                          v47 = 0;
+                          free(v48);
+                          v48 = 0;
                         }
 
-                        CSCppStringCache::intern((v49 + 16), v47);
+                        CSCppStringCache::intern((v50 + 16), v48);
                       }
                     }
                   }
@@ -6310,7 +6305,7 @@ std::string *std::optional<std::string>::operator=[abi:ne200100]<char const*,voi
   return a1;
 }
 
-uint64_t *std::vector<std::unique_ptr<AS::Operator>>::push_back[abi:ne200100](uint64_t *result, uint64_t *a2)
+const void **std::vector<std::unique_ptr<AS::Operator>>::push_back[abi:ne200100](const void **result, uint64_t *a2)
 {
   v3 = result;
   v5 = result[1];
@@ -6367,7 +6362,7 @@ uint64_t *std::vector<std::unique_ptr<AS::Operator>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *a2 = 0;
     *v5 = v6;
-    v7 = v5 + 1;
+    v7 = v5 + 8;
   }
 
   v3[1] = v7;
@@ -6399,13 +6394,13 @@ void *SymbolicationSession::advance_managed_symbolicators(SymbolicationSession *
   return result;
 }
 
-uint64_t SymbolicationSession::create_pid_symbolicator(SymbolicationSession *this, int a2)
+CSCppReferenceCount *SymbolicationSession::create_pid_symbolicator(SymbolicationSession *this, int a2, int a3)
 {
-  v5 = a2;
-  v2 = std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::find<int>(this + 18, &v5);
-  if (v2)
+  v6 = a2;
+  v3 = std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::find<int>(this + 18, &v6);
+  if (v3)
   {
-    v4 = v2[3];
+    v5 = v3[3];
     operator new();
   }
 
@@ -6427,24 +6422,22 @@ void sub_1D97CD4C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SymbolicationSession::create_symbolicator(SymbolicationSession *this, void *a2, uint64_t a3, int a4)
+void SymbolicationSession::create_symbolicator(SymbolicationSession *this, void *a3, uint64_t a4, int a5)
 {
-  v6 = *(this + 64);
-  if (v6)
+  v8 = *(this + 64);
+  if (v8)
   {
-    SymbolicationSession::fixup_address_space(this, a3);
+    SymbolicationSession::fixup_address_space(this, a4);
   }
 
-  v7 = (*(this + 28) + 24 * a3);
-  v26 = 0uLL;
-  v27 = 0;
-  if (v6 & 2) == 0 || (a4)
+  v9 = (*(this + 28) + 24 * a4);
+  v22 = 0uLL;
+  v23 = 0;
+  if (v8 & 2) == 0 || (a5)
   {
-    if ((v6 & 2) != 0 && a4)
+    if ((v8 & 2) != 0 && a5)
     {
-      v13 = **v7;
-      v14 = **v13;
-      if (!v15)
+      if (!v13)
       {
         __cxa_bad_cast();
       }
@@ -6452,57 +6445,53 @@ void SymbolicationSession::create_symbolicator(SymbolicationSession *this, void 
 
     else
     {
-      v16 = **v7;
-      v17 = **v16;
-      if (!v15)
+      if (!v13)
       {
         __cxa_bad_cast();
       }
     }
 
-    AS::LoadOperator::generate_owners(v15, this, &v20);
-    std::vector<std::shared_ptr<CSCppSymbolOwner>>::__vdeallocate(&v26);
-    v26 = v20;
-    v27 = v21;
-    *&v21 = 0;
-    v20 = 0uLL;
-    *&v18 = &v20;
-    std::vector<std::shared_ptr<CSCppSymbolOwner>>::__destroy_vector::operator()[abi:ne200100](&v18);
+    AS::LoadOperator::generate_owners(&v16, v13, this);
+    std::vector<std::shared_ptr<CSCppSymbolOwner>>::__vdeallocate(&v22);
+    v22 = v16;
+    v23 = v17;
+    *&v17 = 0;
+    v16 = 0uLL;
+    *&v14 = &v16;
+    std::vector<std::shared_ptr<CSCppSymbolOwner>>::__destroy_vector::operator()[abi:ne200100](&v14);
   }
 
   else
   {
-    v8 = **v7;
-    v9 = **v8;
     if (!v10)
     {
       __cxa_bad_cast();
     }
 
-    v11 = v10[1];
-    *&v20 = &unk_1F5508B48;
-    *(&v20 + 1) = v11;
-    v12 = v10[4];
-    v21 = *(v10 + 1);
-    v22 = v12;
+    v11 = *(v10 + 1);
+    *&v16 = &unk_1F5508B48;
+    *(&v16 + 1) = v11;
+    v12 = *(v10 + 4);
+    v17 = *(v10 + 1);
+    v18 = v12;
     __p = 0;
-    v24 = 0;
-    v25 = 0;
-    std::vector<AS::LoadDescription>::__init_with_size[abi:ne200100]<AS::LoadDescription*,AS::LoadDescription*>(&__p, v10[5], v10[6], (v10[6] - v10[5]) >> 4);
-    (*(**a2 + 80))(*a2, *(this + 15) + 40 * v21);
-    (*(**a2 + 88))(*a2, v22);
-    AS::FullCreationOperator::generate_owners(&v20, this, &v18);
-    std::vector<std::shared_ptr<CSCppSymbolOwner>>::__vdeallocate(&v26);
-    v26 = v18;
-    v27 = v19;
-    v19 = 0;
-    v18 = 0uLL;
-    v28 = &v18;
-    std::vector<std::shared_ptr<CSCppSymbolOwner>>::__destroy_vector::operator()[abi:ne200100](&v28);
-    *&v20 = &unk_1F5508B48;
+    v20 = 0;
+    v21 = 0;
+    std::vector<AS::LoadDescription>::__init_with_size[abi:ne200100]<AS::LoadDescription*,AS::LoadDescription*>(&__p, *(v10 + 5), *(v10 + 6), (*(v10 + 6) - *(v10 + 5)) >> 4);
+    (*(**a3 + 80))(*a3, *(this + 15) + 40 * v17);
+    (*(**a3 + 88))(*a3, v18);
+    AS::FullCreationOperator::generate_owners(&v14, &v16, this);
+    std::vector<std::shared_ptr<CSCppSymbolOwner>>::__vdeallocate(&v22);
+    v22 = v14;
+    v23 = v15;
+    v15 = 0;
+    v14 = 0uLL;
+    v24 = &v14;
+    std::vector<std::shared_ptr<CSCppSymbolOwner>>::__destroy_vector::operator()[abi:ne200100](&v24);
+    *&v16 = &unk_1F5508B48;
     if (__p)
     {
-      v24 = __p;
+      v20 = __p;
       operator delete(__p);
     }
   }
@@ -6527,8 +6516,8 @@ void sub_1D97CD8E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void SymbolicationSession::fixup_address_space(SymbolicationSession *this, uint64_t a2)
 {
   v2 = (*(this + 28) + 24 * a2);
-  memset(v21, 0, sizeof(v21));
-  v22 = 1065353216;
+  memset(v16, 0, sizeof(v16));
+  v17 = 1065353216;
   memset(__p, 0, sizeof(__p));
   v3 = *v2;
   v4 = ((v2[1] - *v2) >> 3) - 1;
@@ -6540,36 +6529,33 @@ void SymbolicationSession::fixup_address_space(SymbolicationSession *this, uint6
       v6 = *(v3 + 8 * v5);
       if (v6)
       {
-        v7 = *v6;
-        v8 = **v6;
-        if (v9)
+        if (v7)
         {
-          if (*(v9 + 40) == 1)
+          if (*(v7 + 40) == 1)
           {
-            v10 = v9[2];
-            v11 = v9[3];
-            while (v10 != v11)
+            v8 = v7[2];
+            v9 = v7[3];
+            while (v8 != v9)
             {
-              std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::__emplace_unique_key_args<AS::LoadDescription,AS::LoadDescription const&>(v21, v10);
-              v10 += 2;
+              std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::__emplace_unique_key_args<AS::LoadDescription,AS::LoadDescription const&>(v16, v8, v8);
+              v8 += 2;
             }
           }
 
           else
           {
-            std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::__emplace_unique_key_args<AS::LoadDescription,AS::LoadDescription const&>(v21, v9 + 2);
+            std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::__emplace_unique_key_args<AS::LoadDescription,AS::LoadDescription const&>(v16, v7 + 2, v7 + 1);
           }
         }
 
         else
         {
-          v12 = *v7;
-          if (v13)
+          if (v10)
           {
-            v14 = v13;
-            if (!std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::find<AS::LoadDescription>(v21, v13 + 2))
+            v11 = v10;
+            if (!std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::find<AS::LoadDescription>(v16, v10 + 2))
             {
-              std::vector<_CSTypeRef>::push_back[abi:ne200100](__p, v14 + 1);
+              std::vector<_CSTypeRef>::push_back[abi:ne200100](__p, v11 + 1);
             }
           }
         }
@@ -6583,31 +6569,30 @@ void SymbolicationSession::fixup_address_space(SymbolicationSession *this, uint6
     while (v4 > v5);
   }
 
-  v15 = *(v3 + 8 * v4);
-  v16 = **v15;
-  v18 = v17[2];
-  v19 = v17[3];
-  while (v18 != v19)
+  v13 = v12[2];
+  v14 = v12[3];
+  while (v13 != v14)
   {
-    if (!std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::find<AS::LoadDescription>(v21, v18))
+    if (!std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::find<AS::LoadDescription>(v16, v13))
     {
-      std::vector<_CSTypeRef>::push_back[abi:ne200100](__p, v18);
+      std::vector<_CSTypeRef>::push_back[abi:ne200100](__p, v13);
     }
 
-    ++v18;
+    ++v13;
   }
 
   std::make_unique[abi:ne200100]<AS::LoadOperator,std::vector<AS::LoadDescription> &,unsigned long long const&,0>();
 }
 
-void sub_1D97CDC54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+void sub_1D97CDC54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (__p)
   {
     operator delete(__p);
   }
 
-  std::__hash_table<char const*,std::hash<char const*>,std::equal_to<char const*>,std::allocator<char const*>>::~__hash_table(&a13);
+  std::__hash_table<char const*,std::hash<char const*>,std::equal_to<char const*>,std::allocator<char const*>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
@@ -6631,16 +6616,15 @@ uint64_t SymbolicationSession::foreach_pid(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-char **SymbolicationSession::dsc_slide_for_pid(SymbolicationSession *this, int a2)
+void *SymbolicationSession::dsc_slide_for_pid(SymbolicationSession *this, int a2)
 {
-  v5 = a2;
-  result = std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::find<int>(this + 18, &v5);
+  v4 = a2;
+  result = std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::find<int>(this + 18, &v4);
   if (result)
   {
     result = **(*(this + 28) + 24 * result[3]);
     if (result)
     {
-      v4 = **result;
       if (result)
       {
         return result[3];
@@ -6651,7 +6635,7 @@ char **SymbolicationSession::dsc_slide_for_pid(SymbolicationSession *this, int a
   return result;
 }
 
-void std::vector<std::vector<std::unique_ptr<AS::Operator>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::unique_ptr<AS::Operator>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6748,14 +6732,14 @@ void std::vector<LibraryDescription>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-void std::vector<LibraryDescription>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<LibraryDescription>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<LibraryDescription>>::destroy[abi:ne200100]<LibraryDescription,void,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<LibraryDescription>>::destroy[abi:ne200100]<LibraryDescription,void,0>(result, i))
   {
     i -= 96;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<LibraryDescription>>::destroy[abi:ne200100]<LibraryDescription,void,0>(uint64_t a1, uint64_t a2)
@@ -6822,7 +6806,7 @@ uint64_t std::pair<unsigned long const,LibraryConstructionState>::~pair(uint64_t
   return a1;
 }
 
-uint64_t std::vector<AS::LoadDescription>::__init_with_size[abi:ne200100]<AS::LoadDescription*,AS::LoadDescription*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<AS::LoadDescription>::__init_with_size[abi:ne200100]<AS::LoadDescription*,AS::LoadDescription*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6878,7 +6862,7 @@ uint64_t std::__construct_at[abi:ne200100]<LibraryDescription,LibraryDescription
   *(a1 + 56) = v5;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>(a1 + 64, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 5);
+  std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>((a1 + 64), *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 5);
   *(a1 + 88) = *(a2 + 22);
   return a1;
 }
@@ -6893,21 +6877,21 @@ void sub_1D97CE26C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<LibraryDescription>::__emplace_back_slow_path<LibraryDescription const&>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<LibraryDescription>::__emplace_back_slow_path<LibraryDescription const&>(unint64_t *a1, __int128 *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
   if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
   {
     std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
   {
     v6 = 0x2AAAAAAAAAAAAAALL;
   }
@@ -6927,14 +6911,14 @@ uint64_t std::vector<LibraryDescription>::__emplace_back_slow_path<LibraryDescri
   v14 = 96 * v2;
   std::__construct_at[abi:ne200100]<LibraryDescription,LibraryDescription const&,LibraryDescription*>(96 * v2, a2);
   v15 = 96 * v2 + 96;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = 96 * v2 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<LibraryDescription>,LibraryDescription*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -6943,9 +6927,9 @@ uint64_t std::vector<LibraryDescription>::__emplace_back_slow_path<LibraryDescri
   return v12;
 }
 
-void sub_1D97CE3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D97CE3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<LibraryDescription>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7009,8 +6993,7 @@ __n128 std::construct_at[abi:ne200100]<LibraryDescription,LibraryDescription,Lib
     v3 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v3;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     *(a1 + 48) = 1;
   }
@@ -7022,8 +7005,7 @@ __n128 std::construct_at[abi:ne200100]<LibraryDescription,LibraryDescription,Lib
   result = a2[4];
   *(a1 + 64) = result;
   *(a1 + 80) = *(a2 + 10);
-  *(a2 + 8) = 0;
-  *(a2 + 9) = 0;
+  a2[4] = 0uLL;
   *(a2 + 10) = 0;
   *(a1 + 88) = *(a2 + 22);
   return result;
@@ -7085,33 +7067,33 @@ void std::__split_buffer<LibraryDescription>::__destruct_at_end[abi:ne200100](ui
   }
 }
 
-uint64_t std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__construct_one_at_end[abi:ne200100]<UUID const&,std::vector<LibraryDescription> const&>(uint64_t a1, _OWORD *a2, uint64_t *a3)
+uint64_t *std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__construct_one_at_end[abi:ne200100]<UUID const&,std::vector<LibraryDescription> const&>(uint64_t a1, _OWORD *a2, uint64_t *a3)
 {
   v4 = *(a1 + 8);
   *v4 = *a2;
   *(v4 + 24) = 0;
   *(v4 + 32) = 0;
   *(v4 + 16) = 0;
-  result = std::vector<LibraryDescription>::__init_with_size[abi:ne200100]<LibraryDescription*,LibraryDescription*>(v4 + 16, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 5));
+  result = std::vector<LibraryDescription>::__init_with_size[abi:ne200100]<LibraryDescription*,LibraryDescription*>((v4 + 16), *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 5));
   *(a1 + 8) = v4 + 40;
   return result;
 }
 
-uint64_t std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__emplace_back_slow_path<UUID const&,std::vector<LibraryDescription> const&>(uint64_t a1, _OWORD *a2, uint64_t *a3)
+char *std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__emplace_back_slow_path<UUID const&,std::vector<LibraryDescription> const&>(const void **a1, _OWORD *a2, uint64_t *a3)
 {
-  v3 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3);
+  v3 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v4 = v3 + 1;
   if (v3 + 1 > 0x666666666666666)
   {
     std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v4)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v4)
   {
-    v4 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
+    v4 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
   {
     v7 = 0x666666666666666;
   }
@@ -7136,16 +7118,16 @@ uint64_t std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__emplace
   *(v8 + 24) = 0;
   *(v8 + 32) = 0;
   *(v8 + 16) = 0;
-  std::vector<LibraryDescription>::__init_with_size[abi:ne200100]<LibraryDescription*,LibraryDescription*>(40 * v3 + 16, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 5));
-  v9 = v17 + 40;
-  v10 = *(a1 + 8) - *a1;
+  std::vector<LibraryDescription>::__init_with_size[abi:ne200100]<LibraryDescription*,LibraryDescription*>((40 * v3 + 16), *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 5));
+  v9 = (v17 + 40);
+  v10 = a1[1] - *a1;
   v11 = &v16[-v10];
   memcpy(&v16[-v10], *a1, v10);
   v12 = *a1;
   *a1 = v11;
-  *(a1 + 8) = v9;
-  v13 = *(a1 + 16);
-  *(a1 + 16) = v18;
+  a1[1] = v9;
+  v13 = a1[2];
+  a1[2] = v18;
   v17 = v12;
   v18 = v13;
   v15 = v12;
@@ -7154,14 +7136,14 @@ uint64_t std::vector<std::pair<UUID,std::vector<LibraryDescription>>>::__emplace
   return v9;
 }
 
-void sub_1D97CE800(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D97CE800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<UUID,std::vector<LibraryDescription>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<LibraryDescription>::__init_with_size[abi:ne200100]<LibraryDescription*,LibraryDescription*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<LibraryDescription>::__init_with_size[abi:ne200100]<LibraryDescription*,LibraryDescription*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7178,7 +7160,7 @@ void sub_1D97CE87C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<LibraryDescription>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<LibraryDescription>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2AAAAAAAAAAAAABLL)
   {
@@ -7212,7 +7194,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<L
       *(v4 + 56) = v9;
       *(v4 + 72) = 0;
       *(v4 + 80) = 0;
-      std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>(v4 + 64, *(v6 + 40), *(v6 + 48), (*(v6 + 48) - *(v6 + 40)) >> 5);
+      std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>((v4 + 64), *(v6 + 40), *(v6 + 48), (*(v6 + 48) - *(v6 + 40)) >> 5);
       *(v4 + 88) = *(v6 + 64);
       v4 = v14 + 96;
       v14 += 96;
@@ -7385,33 +7367,33 @@ uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__uno
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned long>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned long>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned long>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7419,73 +7401,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<UUID,unsigned long>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,unsigned long>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,unsigned long>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,unsigned long>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<UUID,unsigned long>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,unsigned long>,UUIDHashFunctor,UUIDEqualsFunctor,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,unsigned long>,UUIDEqualsFunctor,UUIDHashFunctor,true>,std::allocator<std::__hash_value_type<UUID,unsigned long>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = a2[1] ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v7 = a2[1] ^ *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -7493,135 +7475,60 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v9[2] != *a2 || v9[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<CSCppSymbolicator *>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<CSCppSymbolicator *>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<CSCppSymbolicator *>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<CSCppSymbolicator *>>>>::__emplace_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<CSCppSymbolicator *>>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<CSCppSymbolicator *>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<CSCppSymbolicator *>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<CSCppSymbolicator *>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<CSCppSymbolicator *>>>>::__emplace_unique_key_args<unsigned long,std::pair<unsigned long const,std::vector<CSCppSymbolicator *>>>(void *a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (v2 >= *&v3)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v7[2] != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void *std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::__emplace_unique_key_args<AS::LoadDescription,AS::LoadDescription const&>(void *a1, void *a2)
-{
-  v2 = a2[1];
-  v3 = (v2 + (*a2 << 6) + (*a2 >> 2) + 2654435769) ^ *a2;
+  v3 = *a2;
   v4 = a1[1];
   if (!*&v4)
   {
-    goto LABEL_22;
+    goto LABEL_18;
   }
 
   v5 = vcnt_s8(v4);
   v5.i16[0] = vaddlv_u8(v5);
   if (v5.u32[0] > 1uLL)
   {
-    v6 = (v2 + (*a2 << 6) + (*a2 >> 2) + 2654435769) ^ *a2;
+    v6 = *a2;
     if (v3 >= *&v4)
     {
       v6 = v3 % *&v4;
@@ -7630,13 +7537,13 @@ void *std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::
 
   else
   {
-    v6 = v3 & (*&v4 - 1);
+    v6 = (*&v4 - 1) & v3;
   }
 
   v7 = *(*a1 + 8 * v6);
   if (!v7 || (v8 = *v7) == 0)
   {
-LABEL_22:
+LABEL_18:
     operator new();
   }
 
@@ -7663,23 +7570,98 @@ LABEL_22:
 
     if (v9 != v6)
     {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v8 = *v8;
+    if (!v8)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v8[2] != v3)
+  {
+    goto LABEL_17;
+  }
+
+  return v8;
+}
+
+void *std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::__emplace_unique_key_args<AS::LoadDescription,AS::LoadDescription const&>(void *a1, void *a2, _OWORD *a3)
+{
+  v3 = a2[1];
+  v4 = (v3 + (*a2 << 6) + (*a2 >> 2) + 2654435769) ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
+  {
+    goto LABEL_22;
+  }
+
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
+  {
+    v7 = (v3 + (*a2 << 6) + (*a2 >> 2) + 2654435769) ^ *a2;
+    if (v4 >= *&v5)
+    {
+      v7 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v7 = v4 & (*&v5 - 1);
+  }
+
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
+  {
+LABEL_22:
+    operator new();
+  }
+
+  while (1)
+  {
+    v10 = v9[1];
+    if (v10 == v4)
+    {
+      break;
+    }
+
+    if (v6.u32[0] > 1uLL)
+    {
+      if (v10 >= *&v5)
+      {
+        v10 %= *&v5;
+      }
+    }
+
+    else
+    {
+      v10 &= *&v5 - 1;
+    }
+
+    if (v10 != v7)
+    {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v8 = *v8;
-    if (!v8)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v8[2] != *a2 || v8[3] != v2)
+  if (v9[2] != *a2 || v9[3] != v3)
   {
     goto LABEL_21;
   }
 
-  return v8;
+  return v9;
 }
 
 void *std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::equal_to<AS::LoadDescription>,std::allocator<AS::LoadDescription>>::find<AS::LoadDescription>(void *a1, void *a2)
@@ -7714,45 +7696,37 @@ void *std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::
     return 0;
   }
 
-  result = *v7;
-  if (*v7)
+  for (result = *v7; result; result = *result)
   {
-    do
+    v9 = result[1];
+    if (v9 == v4)
     {
-      v9 = result[1];
-      if (v9 == v4)
+      if (result[2] == *a2 && result[3] == v3)
       {
-        if (result[2] == *a2 && result[3] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v5.u32[0] > 1uLL)
+      {
+        if (v9 >= *&v2)
         {
-          return result;
+          v9 %= *&v2;
         }
       }
 
       else
       {
-        if (v5.u32[0] > 1uLL)
-        {
-          if (v9 >= *&v2)
-          {
-            v9 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v9 &= *&v2 - 1;
-        }
-
-        if (v9 != v6)
-        {
-          return 0;
-        }
+        v9 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v9 != v6)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -7760,46 +7734,49 @@ void *std::__hash_table<AS::LoadDescription,std::hash<AS::LoadDescription>,std::
 
 uint64_t catch_mach_exception_raise_state(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, const void *a6, unsigned int a7, uint64_t a8, unsigned int *a9)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  if (*a3 == 1 || (*ref_count = 0, v12 = a3[1], vm_map_page_query(*MEMORY[0x1E69E9A60], v12, &ref_count[1], ref_count)))
+  v21 = *MEMORY[0x1E69E9840];
+  if (*a3 == 1)
   {
-    result = 5;
+    return 5;
   }
 
-  else
+  *ref_count = 0;
+  v12 = a3[1];
+  if (vm_map_page_query(*MEMORY[0x1E69E9A60], v12, &ref_count[1], ref_count))
   {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134218240;
-      v19 = v12;
-      v20 = 1024;
-      v21 = ref_count[1];
-      _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Caught EXC_BAD_ACCESS at 0x%llx, valid page mapping, page query flags (0x%x)\n", buf, 0x12u);
-    }
-
-    result = 5;
-    if (a7 <= 0xF5 && *a9 >= a7)
-    {
-      memcpy(a8, a6, 4 * a7);
-      *a9 = a7;
-      v15 = *(a8 + 276);
-      if (thread_exit_due_to_bad_access)
-      {
-        v16 = thread_exit_due_to_bad_access;
-      }
-
-      else
-      {
-        v16 = 0;
-      }
-
-      result = 0;
-      *(a8 + 264) = v16;
-      *(a8 + 276) = v15 & 0xFFFFFFFB;
-    }
+    return 5;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    v18 = v12;
+    v19 = 1024;
+    v20 = ref_count[1];
+    _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Caught EXC_BAD_ACCESS at 0x%llx, valid page mapping, page query flags (0x%x)\n", buf, 0x12u);
+  }
+
+  result = 5;
+  if (a7 <= 0xF5 && *a9 >= a7)
+  {
+    memcpy(a8, a6, 4 * a7);
+    *a9 = a7;
+    v14 = *(a8 + 276);
+    if (thread_exit_due_to_bad_access)
+    {
+      v15 = thread_exit_due_to_bad_access;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    result = 0;
+    *(a8 + 264) = v15;
+    *(a8 + 276) = v14 & 0xFFFFFFFB;
+  }
+
   return result;
 }
 
@@ -7816,7 +7793,7 @@ void thread_exit_due_to_bad_access(void)
 
 uint64_t catch_mach_exception_raise_identity_protected(uint64_t a1, uint64_t a2, mach_port_name_t a3, uint64_t a4, void *a5)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   act_listCnt = 0;
   act_list = 0;
   task_threads(*MEMORY[0x1E69E9A60], &act_list, &act_listCnt);
@@ -7843,7 +7820,7 @@ LABEL_13:
         {
           v10 = mach_error_string(v9);
           *buf = 136315138;
-          v35 = v10;
+          v34 = v10;
           _os_log_impl(&dword_1D96E9000, v7, OS_LOG_TYPE_ERROR, "thread_info failed due to %s", buf, 0xCu);
         }
 
@@ -7908,7 +7885,7 @@ LABEL_20:
     {
       v19 = mach_error_string(state);
       *buf = 136315138;
-      v35 = v19;
+      v34 = v19;
       _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "thread_get_state failed due to %s", buf, 0xCu);
     }
 
@@ -7927,24 +7904,24 @@ LABEL_20:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v35 = v22;
-      v36 = 1024;
-      v37 = act_listCnt;
+      v34 = v22;
+      v35 = 1024;
+      v36 = act_listCnt;
       _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Caught EXC_BAD_ACCESS at 0x%llx, valid page mapping, page query flags (0x%x)\n", buf, 0x12u);
     }
 
     if (thread_exit_due_to_bad_access)
     {
-      v25 = thread_exit_due_to_bad_access;
+      v24 = thread_exit_due_to_bad_access;
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
-    v29 = v25;
-    v30 &= ~4u;
+    v28 = v24;
+    v29 &= ~4u;
     state = thread_set_state(v14, 1, thread_info_out, act_list);
     if (!state)
     {
@@ -7954,7 +7931,6 @@ LABEL_20:
   }
 
   mach_port_deallocate(*MEMORY[0x1E69E9A60], v14);
-  v23 = *MEMORY[0x1E69E9840];
   return state;
 }
 
@@ -7986,7 +7962,7 @@ void CSCppExceptionSafeThread::CSCppExceptionSafeThread(CSCppExceptionSafeThread
 
 uint64_t CSCppExceptionSafeThread::register_for_exceptions(mach_port_name_t *this, thread_act_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E69E9A60];
   if (CSTaskIsTranslated(*MEMORY[0x1E69E9A60]))
   {
@@ -8005,7 +7981,7 @@ uint64_t CSCppExceptionSafeThread::register_for_exceptions(mach_port_name_t *thi
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v13 = mach_error_string(v7);
+      v12 = mach_error_string(v7);
       _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure while allocating exception port: %s\n", buf, 0xCu);
     }
 
@@ -8021,28 +7997,25 @@ uint64_t CSCppExceptionSafeThread::register_for_exceptions(mach_port_name_t *thi
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t CSCppExceptionSafeThread::run(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (CSCppExceptionSafeThread::is_current_thread(a1))
   {
     *buf = a3;
     std::deque<void({block_pointer})(void),std::allocator<void({block_pointer})(void)>>::push_back((a1 + 136), buf);
     (*(a2 + 16))(a2);
     CSCppExceptionSafeThread::pop_recovery_block(a1);
-LABEL_12:
-    v14 = 4096;
-    goto LABEL_13;
+    return 4096;
   }
 
   if (!*(a1 + 8))
   {
     (*(a2 + 16))(a2);
-    goto LABEL_12;
+    return 4096;
   }
 
   os_unfair_lock_lock((a1 + 184));
@@ -8065,8 +8038,8 @@ LABEL_12:
         v10 = mach_error_string(v9);
         *buf = 136315394;
         *&buf[4] = v10;
-        v18 = 1024;
-        v19 = v9;
+        v17 = 1024;
+        v18 = v9;
         _os_log_impl(&dword_1D96E9000, v6, OS_LOG_TYPE_ERROR, "error handling EST message: %s (%u)\n", buf, 0x12u);
       }
 
@@ -8081,8 +8054,6 @@ LABEL_12:
   while (v13 < 0x1000);
   v14 = atomic_load((a1 + 12));
   os_unfair_lock_unlock((a1 + 184));
-LABEL_13:
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -8220,44 +8191,41 @@ void CSCppExceptionSafeThread::runloop_exit_due_to_bad_access(CSCppExceptionSafe
   CSCppExceptionSafeThread::runloop(this);
 }
 
-void *std::deque<void({block_pointer})(void),std::allocator<void({block_pointer})(void)>>::push_back(void *result, void *a2)
+void std::deque<void({block_pointer})(void),std::allocator<void({block_pointer})(void)>>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  v7 = ((v5 - v6) << 6) - 1;
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  v6 = ((v4 - v5) << 6) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = result[5] + result[4];
-  if (v7 == v8)
+  v7 = result[5] + result[4];
+  if (v6 == v7)
   {
-    result = std::deque<void({block_pointer})(void),std::allocator<void({block_pointer})(void)>>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5] + v3[4];
+    std::deque<void({block_pointer})(void),std::allocator<void({block_pointer})(void)>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
-  *(*(v6 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  ++v3[5];
-  return result;
+  *(*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF)) = *a2;
+  ++result[5];
 }
 
-void *std::deque<void({block_pointer})(void),std::allocator<void({block_pointer})(void)>>::__add_back_capacity(void *a1)
+void std::deque<void({block_pointer})(void),std::allocator<void({block_pointer})(void)>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -8265,25 +8233,25 @@ void *std::deque<void({block_pointer})(void),std::allocator<void({block_pointer}
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<TRawSymbol<Pointer32> **>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<TRawSymbol<Pointer32> **>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<TRawSymbol<Pointer32> **,std::allocator<TRawSymbol<Pointer32> **>>::emplace_back<TRawSymbol<Pointer32> **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<TRawSymbol<Pointer32> **,std::allocator<TRawSymbol<Pointer32> **>>::emplace_back<TRawSymbol<Pointer32> **&>(a1, &v9);
 }
 
 void sub_1D97D0708(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -8420,18 +8388,18 @@ void CSCallFrameInfoForBinary::ParseEHFrameData(CSCallFrameInfoForBinary *this, 
   *(this + 104) = 1;
 }
 
-uint64_t CSCallFrameInfoForBinary::ParseCIE(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, void *a7)
+uint64_t CSCallFrameInfoForBinary::ParseCIE(uint64_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, void *a7)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v27 = a5;
-  v28 = a2;
-  LOBYTE(v32) = 0;
+  v32 = *MEMORY[0x1E69E9840];
+  v26 = a5;
+  v27 = a2;
+  LOBYTE(v31) = 0;
   v10 = 0;
-  LOBYTE(v30) = CSBinaryDataRef::Get8((a1 + 56), &v27);
+  LOBYTE(v29) = CSBinaryDataRef::Get8((a1 + 56), &v26);
   while (1)
   {
-    v11 = CSBinaryDataRef::Get8((a1 + 56), &v27);
-    *(&v30 + v10 + 1) = v11;
+    v11 = CSBinaryDataRef::Get8((a1 + 56), &v26);
+    *(&v29 + v10 + 1) = v11;
     if (!v11)
     {
       break;
@@ -8445,50 +8413,49 @@ uint64_t CSCallFrameInfoForBinary::ParseCIE(uint64_t a1, unsigned int a2, uint64
 
   if (v10 <= 6)
   {
-    bzero(&v30 + v10 + 2, 7 - v10);
+    bzero(&v29 + v10 + 2, 7 - v10);
     goto LABEL_10;
   }
 
 LABEL_7:
-  if (v10 == 8 && BYTE8(v30))
+  if (v10 == 8 && BYTE8(v29))
   {
     fprintf(*MEMORY[0x1E69E9848], "CIE parse error: CIE augmentation string was too large for the fixed sized buffer of %d bytes.\n", 8);
-    result = 0;
-    goto LABEL_27;
+    return 0;
   }
 
 LABEL_10:
-  HIDWORD(v30) = CSBinaryDataRef::Get_ULEB128((a1 + 56), &v27);
-  LODWORD(v31) = CSBinaryDataRef::Get_SLEB128((a1 + 56), &v27);
-  DWORD1(v31) = CSBinaryDataRef::Get8((a1 + 56), &v27);
-  v13 = BYTE1(v30);
-  if (BYTE1(v30))
+  HIDWORD(v29) = CSBinaryDataRef::Get_ULEB128((a1 + 56), &v26);
+  LODWORD(v30) = CSBinaryDataRef::Get_SLEB128((a1 + 56), &v26);
+  DWORD1(v30) = CSBinaryDataRef::Get8((a1 + 56), &v26);
+  v13 = BYTE1(v29);
+  if (BYTE1(v29))
   {
-    ULEB128 = CSBinaryDataRef::Get_ULEB128((a1 + 56), &v27);
-    v15 = v27;
-    v16 = strlen(&v30 + 1);
+    ULEB128 = CSBinaryDataRef::Get_ULEB128((a1 + 56), &v26);
+    v15 = v26;
+    v16 = strlen(&v29 + 1);
     if (v13 == 122 && v16 >= 2)
     {
       v17 = v16 - 1;
-      v18 = &v30 + 2;
+      v18 = &v29 + 2;
       do
       {
         v20 = *v18++;
         v19 = v20;
         if (v20 == 82)
         {
-          LOBYTE(v32) = CSBinaryDataRef::Get8((a1 + 56), &v27);
+          LOBYTE(v31) = CSBinaryDataRef::Get8((a1 + 56), &v26);
         }
 
         else if (v19 == 80)
         {
-          v21 = CSBinaryDataRef::Get8((a1 + 56), &v27);
-          CSBinaryDataRef::GetDwarfEHPtr((a1 + 56), &v27, v21, a7);
+          v21 = CSBinaryDataRef::Get8((a1 + 56), &v26);
+          CSBinaryDataRef::GetDwarfEHPtr((a1 + 56), &v26, v21, a7);
         }
 
         else if (v19 == 76)
         {
-          CSBinaryDataRef::Get8((a1 + 56), &v27);
+          CSBinaryDataRef::Get8((a1 + 56), &v26);
         }
 
         --v17;
@@ -8498,12 +8465,12 @@ LABEL_10:
     }
 
     v22 = v15 + ULEB128;
-    v27 = v15 + ULEB128;
+    v26 = v15 + ULEB128;
   }
 
   else
   {
-    v22 = v27;
+    v22 = v26;
   }
 
   v23 = a6 - v22;
@@ -8514,21 +8481,18 @@ LABEL_10:
 
   else
   {
-    DWORD2(v31) = v22;
-    v27 = a6;
+    DWORD2(v30) = v22;
+    v26 = a6;
   }
 
-  HIDWORD(v31) = v23;
-  v29 = &v28;
-  v24 = std::__tree<std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 112, &v28);
-  v25 = v31;
-  *(v24 + 2) = v30;
+  HIDWORD(v30) = v23;
+  v28 = &v27;
+  v24 = std::__tree<std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CSCallFrameInfoForBinary::CIE>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 112, &v27, &std::piecewise_construct, &v28);
+  v25 = v30;
+  *(v24 + 2) = v29;
   *(v24 + 3) = v25;
-  *(v24 + 16) = v32;
-  result = v27;
-LABEL_27:
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  *(v24 + 16) = v31;
+  return v26;
 }
 
 uint64_t CSCallFrameInfoForBinary::ParseFDE(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, void *a7, int a8, void *a9)
@@ -8572,12 +8536,12 @@ LABEL_12:
     v19 = *MEMORY[0x1E69E9848];
     if (a8)
     {
-      fprintf(v19, "CoreSymbolication warning: Unable to locate CIE at 0x%8.8x = 0x%8.8x - (0x%8.8x + 4)\n");
+      fprintf(v19, "CoreSymbolication warning: Unable to locate CIE at 0x%8.8x = 0x%8.8x - (0x%8.8x + 4)\n", a3);
     }
 
     else
     {
-      fprintf(v19, "CoreSymbolication warning: Unable to locate CIE with ID 0x%8.8x\n");
+      fprintf(v19, "CoreSymbolication warning: Unable to locate CIE with ID 0x%8.8x\n", a3);
     }
 
     return v9;
@@ -8711,7 +8675,7 @@ void CSCallFrameInfoForBinary::ParseInstructions(void *a1, const CSThread **a2, 
   v11 = a1 + 15;
   do
   {
-    v12 = v6[7];
+    v12 = *(v6 + 28);
     v24 = v12 >= v10;
     v13 = v12 < v10;
     if (v24)
@@ -8719,17 +8683,17 @@ void CSCallFrameInfoForBinary::ParseInstructions(void *a1, const CSThread **a2, 
       v11 = v6;
     }
 
-    v6 = *&v6[2 * v13];
+    v6 = *(v6 + 8 * v13);
   }
 
   while (v6);
-  if (v11 == (a1 + 15) || v11[7] > v10)
+  if (v11 == a1 + 15 || *(v11 + 7) > v10)
   {
     return;
   }
 
-  v87 = v11[11];
-  v84 = v11[12];
+  v87 = *(v11 + 11);
+  v84 = *(v11 + 12);
   v14 = *a2;
   v15 = a2[1];
   if (v15)
@@ -8768,8 +8732,8 @@ void CSCallFrameInfoForBinary::ParseInstructions(void *a1, const CSThread **a2, 
 
     else
     {
-      v19 = v11[14];
-      v18 = v11[15];
+      v19 = *(v11 + 14);
+      v18 = *(v11 + 15);
       if (!v18)
       {
         goto LABEL_27;
@@ -8946,7 +8910,7 @@ LABEL_87:
 
                 break;
               case 0xAu:
-                std::__list_imp<CSCallFrameInfoForBinary::RegLocations>::__create_node[abi:ne200100]<CSCallFrameInfoForBinary::RegLocations const&>();
+                std::__list_imp<CSCallFrameInfoForBinary::RegLocations>::__create_node[abi:ne200100]<CSCallFrameInfoForBinary::RegLocations const&>(v101, 0, 0);
               case 0xBu:
                 v46 = v102;
                 if (v102)
@@ -9272,7 +9236,7 @@ uint64_t CSCallFrameInfoForBinary::FindFDE(CSCallFrameInfoForBinary *this, unint
   return result;
 }
 
-uint64_t CSCallFrameInfoForBinary::UnwindThreadState(CSCallFrameInfoForBinary *a1, const CSThread **a2, uint64_t a3, uint64_t *a4, unint64_t a5, __n128 a6)
+uint64_t CSCallFrameInfoForBinary::UnwindThreadState(CSCallFrameInfoForBinary *a1, const CSThread **a2, uint64_t a3, CSThread **a4, unint64_t a5, __n128 a6)
 {
   FDE = CSCallFrameInfoForBinary::FindFDE(a1, a5, a6);
   if (!FDE)
@@ -9328,7 +9292,7 @@ uint64_t CSCallFrameInfoForBinary::UnwindThreadState(CSCallFrameInfoForBinary *a
       v23[1] = v20;
       if (v20)
       {
-        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(v20 + 1, 1uLL, memory_order_relaxed);
       }
 
       v15 = CSCallFrameInfoForBinary::UnwindRegisterAtIndex(v15, v17, v24, v28, a3, v23);
@@ -9395,7 +9359,7 @@ BOOL FindRowForAddress(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
   return result;
 }
 
-uint64_t CSCallFrameInfoForBinary::UnwindRegisterAtIndex(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t CSCallFrameInfoForBinary::UnwindRegisterAtIndex(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, CSThread **a6)
 {
   v41 = 0;
   v11 = *(a4 + 24);
@@ -9624,14 +9588,12 @@ char *DWARFExpressionReadMemoryCallback(uint64_t a1, tree *a2, unsigned __int8 *
 {
   v4 = *(a1 + 16);
   v5 = *(a1 + 24);
-  v20 = 0;
-  v6 = mapped_memory_read(v4, a2, *(a3 + 1), &v20);
+  v16 = 0;
+  v6 = mapped_memory_read(v4, a2, *(a3 + 1), &v16);
   if (v6)
   {
-    v7 = mach_error_string(v6);
-    v8 = *(a3 + 2);
-    v9 = DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error;
-    if (v7)
+    v7 = DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error;
+    if (mach_error_string(v6))
     {
       snprintf(DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error, 0x400uLL, "memory read of %u bytes at address 0x%8.8llx failed: %s");
     }
@@ -9642,62 +9604,60 @@ char *DWARFExpressionReadMemoryCallback(uint64_t a1, tree *a2, unsigned __int8 *
     }
   }
 
-  else if (v20)
+  else if (v16)
   {
-    v10 = *a3;
-    if (v10 > 8 || ((1 << v10) & 0x1E2) == 0)
+    v8 = *a3;
+    if (v8 > 8 || ((1 << v8) & 0x1E2) == 0)
     {
-      if (v10 == 128)
+      if (v8 == 128)
       {
-        v9 = 0;
-        *(a3 + 4) = v20;
+        v7 = 0;
+        *(a3 + 4) = v16;
       }
 
       else
       {
-        v9 = DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error;
-        v17 = *a3;
+        v7 = DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error;
         snprintf(DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error, 0x400uLL, "Unsupported DW_ATE encoding in value argument: %u");
       }
     }
 
     else
     {
-      v19 = 0;
-      CSBinaryDataRef::CSBinaryDataRef(v18, v20, *(a3 + 1), v5);
-      Max64 = CSBinaryDataRef::GetMax64(v18, &v19, *(a3 + 2));
+      v15 = 0;
+      CSBinaryDataRef::CSBinaryDataRef(v14, v16, *(a3 + 1), v5);
+      Max64 = CSBinaryDataRef::GetMax64(v14, &v15, *(a3 + 2));
       *(a3 + 4) = Max64;
       if (*a3 - 5 <= 1)
       {
-        v13 = *(a3 + 1);
-        if (v13 <= 7)
+        v11 = *(a3 + 1);
+        if (v11 <= 7)
         {
-          v14 = 8 * v13;
-          if ((Max64 >> (v14 - 1)))
+          v12 = 8 * v11;
+          if ((Max64 >> (v12 - 1)))
           {
-            *(a3 + 4) = (-1 << v14) | Max64;
+            *(a3 + 4) = (-1 << v12) | Max64;
           }
         }
       }
 
-      CSCppAddressSet::sort(v18);
+      CSCppAddressSet::sort(v14);
       return 0;
     }
   }
 
   else
   {
-    v15 = *(a3 + 1);
-    v9 = DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error;
+    v7 = DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error;
     snprintf(DWARFExpressionReadMemoryCallback(void *,unsigned long long,CSDwarfExpression::Value *)::g_expr_error, 0x400uLL, "memory read of %u bytes at address 0x%8.8llx failed: NULL data returned");
   }
 
-  return v9;
+  return v7;
 }
 
-void sub_1D97D2360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D97D2360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   CSCppAddressSet::sort(va);
   _Unwind_Resume(a1);
 }
@@ -9753,10 +9713,9 @@ void sub_1D97D2444(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *,false>(uint64_t a1, __int128 *a2, uint64_t a3, char a4, __n128 a5)
+__n128 std::__introsort<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *,false>(__n128 *a1, __n128 *a2, uint64_t a3, char a4, __n128 result)
 {
-  v236 = *MEMORY[0x1E69E9840];
-LABEL_2:
+LABEL_1:
   v9 = a2 - 2;
   v10 = a2 - 4;
   v11 = a2 - 6;
@@ -9765,317 +9724,438 @@ LABEL_2:
   {
     a1 = v12;
     v13 = (a2 - v12) >> 5;
-    if (v13 > 2)
+    if (v13 <= 2)
+    {
+      if (v13 < 2)
+      {
+        return result;
+      }
+
+      if (v13 == 2)
+      {
+        if (a2[-2].n128_u64[1] < v12->n128_u64[1])
+        {
+          v184 = *v12;
+          v218 = v12[1];
+          v88 = a2[-1];
+          *v12 = a2[-2];
+          v12[1] = v88;
+          result = v184;
+          a2[-2] = v184;
+          a2[-1] = v218;
+        }
+
+        return result;
+      }
+
+      goto LABEL_9;
+    }
+
+    if (v13 == 3)
     {
       break;
     }
 
-    if (v13 < 2)
+    if (v13 == 4)
     {
-      goto LABEL_188;
-    }
-
-    if (v13 == 2)
-    {
-      if (*(a2 - 3) < *(v12 + 8))
+      v93 = v12[2].n128_u64[1];
+      v94 = v12[4].n128_u64[1];
+      if (v93 >= v12->n128_u64[1])
       {
-        v192 = *v12;
-        v226 = *(v12 + 16);
-        v89 = *(a2 - 1);
-        *v12 = *(a2 - 2);
-        *(v12 + 16) = v89;
-        *(a2 - 2) = v192;
-        *(a2 - 1) = v226;
+        if (v94 < v93)
+        {
+          v144 = v12[2];
+          result = v12[3];
+          v145 = v12[5];
+          v12[2] = v12[4];
+          v12[3] = v145;
+          v12[4] = v144;
+          v12[5] = result;
+          if (v12[2].n128_u64[1] < v12->n128_u64[1])
+          {
+            v190 = *v12;
+            v223 = v12[1];
+            v146 = v12[3];
+            *v12 = v12[2];
+            v12[1] = v146;
+            result = v190;
+            v12[2] = v190;
+            v12[3] = v223;
+          }
+        }
       }
 
-      goto LABEL_188;
+      else if (v94 >= v93)
+      {
+        v193 = *v12;
+        v225 = v12[1];
+        v155 = v12[3];
+        *v12 = v12[2];
+        v12[1] = v155;
+        result = v193;
+        v12[2] = v193;
+        v12[3] = v225;
+        if (v94 < v12[2].n128_u64[1])
+        {
+          v156 = v12[2];
+          result = v12[3];
+          v157 = v12[5];
+          v12[2] = v12[4];
+          v12[3] = v157;
+          v12[4] = v156;
+          v12[5] = result;
+        }
+      }
+
+      else
+      {
+        v186 = *v12;
+        v220 = v12[1];
+        v95 = v12[5];
+        *v12 = v12[4];
+        v12[1] = v95;
+        result = v186;
+        v12[4] = v186;
+        v12[5] = v220;
+      }
+
+      if (a2[-2].n128_u64[1] >= v12[4].n128_u64[1])
+      {
+        return result;
+      }
+
+      result = v12[4];
+      v226 = v12[5];
+      v158 = a2[-1];
+      v12[4] = *v9;
+      v12[5] = v158;
+      *v9 = result;
+      a2[-1] = v226;
+      if (v12[4].n128_u64[1] >= v12[2].n128_u64[1])
+      {
+        return result;
+      }
+
+      v159 = v12[2];
+      result = v12[3];
+      v160 = v12[5];
+      v12[2] = v12[4];
+      v12[3] = v160;
+      v12[4] = v159;
+      v12[5] = result;
+LABEL_185:
+      if (v12[2].n128_u64[1] < v12->n128_u64[1])
+      {
+        v194 = *v12;
+        v227 = v12[1];
+        v161 = v12[3];
+        *v12 = v12[2];
+        v12[1] = v161;
+        result = v194;
+        v12[2] = v194;
+        v12[3] = v227;
+      }
+
+      return result;
     }
 
-LABEL_10:
+    if (v13 == 5)
+    {
+
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *,0>(v12, &v12[2], &v12[4], &v12[6], &a2[-2], result).n128_u64[0];
+      return result;
+    }
+
+LABEL_9:
     if (v13 <= 23)
     {
-      v98 = (v12 + 32);
-      v100 = v12 == a2 || v98 == a2;
+      v96 = v12 + 2;
+      v98 = v12 == a2 || v96 == a2;
       if (a4)
       {
-        if (!v100)
+        if (!v98)
         {
-          v101 = 0;
-          v102 = v12;
+          v99 = 0;
+          v100 = v12;
           do
           {
-            v103 = v98;
-            v104 = v102[5];
-            if (v104 < v102[1])
+            v101 = v96;
+            v102 = v100[2].n128_u64[1];
+            if (v102 < v100->n128_u64[1])
             {
-              v105 = *v103;
-              v195 = *(v102 + 3);
-              v106 = v101;
+              v103 = v101->n128_u64[0];
+              v187 = v100[3];
+              v104 = v99;
               while (1)
               {
-                v107 = v12 + v106;
-                v108 = *(v12 + v106 + 16);
-                *(v107 + 32) = *(v12 + v106);
-                *(v107 + 48) = v108;
-                if (!v106)
+                v105 = (v12 + v104);
+                v106 = *(v12 + v104 + 16);
+                v105[2] = *(v12 + v104);
+                v105[3] = v106;
+                if (!v104)
                 {
                   break;
                 }
 
-                v106 -= 32;
-                if (v104 >= *(v107 - 24))
+                v104 -= 32;
+                if (v102 >= v105[-2].n128_u64[1])
                 {
-                  v109 = v12 + v106 + 32;
-                  goto LABEL_130;
+                  v107 = &v12[2] + v104;
+                  goto LABEL_129;
                 }
               }
 
-              v109 = v12;
-LABEL_130:
-              *v109 = v105;
-              *(v109 + 8) = v104;
-              *(v109 + 16) = v195;
+              v107 = v12;
+LABEL_129:
+              *v107 = v103;
+              *(v107 + 8) = v102;
+              result = v187;
+              *(v107 + 16) = v187;
             }
 
-            v98 = v103 + 2;
-            v101 += 32;
-            v102 = v103;
+            v96 = v101 + 2;
+            v99 += 32;
+            v100 = v101;
           }
 
-          while (v103 + 2 != a2);
+          while (&v101[2] != a2);
         }
       }
 
-      else if (!v100)
+      else if (!v98)
       {
         do
         {
-          v151 = v98;
-          v152 = *(a1 + 40);
-          if (v152 < *(a1 + 8))
+          v147 = v96;
+          v148 = a1[2].n128_u64[1];
+          if (v148 < a1->n128_u64[1])
           {
-            v153 = *v98;
-            v199 = *(a1 + 48);
-            v154 = v151;
+            v149 = v96->n128_u64[0];
+            v191 = a1[3];
+            v150 = v147;
             do
             {
-              v155 = *(v154 - 1);
-              *v154 = *(v154 - 2);
-              v154[1] = v155;
-              v156 = *(v154 - 7);
-              v154 -= 2;
+              v151 = v150[-1];
+              *v150 = v150[-2];
+              v150[1] = v151;
+              v152 = v150[-4].n128_u64[1];
+              v150 -= 2;
             }
 
-            while (v152 < v156);
-            *v154 = v153;
-            *(v154 + 1) = v152;
-            v154[1] = v199;
+            while (v148 < v152);
+            v150->n128_u64[0] = v149;
+            v150->n128_u64[1] = v148;
+            result = v191;
+            v150[1] = v191;
           }
 
-          v98 = v151 + 2;
-          a1 = v151;
+          v96 = v147 + 2;
+          a1 = v147;
         }
 
-        while (v151 + 2 != a2);
+        while (&v147[2] != a2);
       }
 
-      goto LABEL_188;
+      return result;
     }
 
     if (!a3)
     {
       if (v12 != a2)
       {
-        v110 = (v13 - 2) >> 1;
-        v111 = v110;
+        v108 = (v13 - 2) >> 1;
+        v109 = v108;
         do
         {
-          v112 = v111;
-          if (v110 >= v111)
+          v110 = v109;
+          if (v108 >= v109)
           {
-            v113 = (2 * v111) | 1;
-            v114 = v12 + 32 * v113;
-            if (2 * v112 + 2 < v13)
+            v111 = (2 * v109) | 1;
+            v112 = &v12[2 * v111];
+            if (2 * v110 + 2 < v13)
             {
-              v115 = *(v114 + 8);
-              v116 = *(v114 + 40);
-              v114 += 32 * (v115 < v116);
-              if (v115 < v116)
+              v113 = v112->n128_u64[1];
+              v114 = v112[2].n128_u64[1];
+              v112 += 2 * (v113 < v114);
+              if (v113 < v114)
               {
-                v113 = 2 * v112 + 2;
+                v111 = 2 * v110 + 2;
               }
             }
 
-            v117 = v12 + 32 * v112;
-            v118 = *(v117 + 8);
-            if (*(v114 + 8) >= v118)
+            v115 = &v12[2 * v110];
+            v116 = v115->n128_u64[1];
+            if (v112->n128_u64[1] >= v116)
             {
-              v119 = *v117;
-              v196 = *(v117 + 16);
+              v117 = v115->n128_u64[0];
+              v188 = v115[1];
               do
               {
-                v120 = v117;
-                v117 = v114;
-                v121 = *(v114 + 16);
-                *v120 = *v114;
-                v120[1] = v121;
-                if (v110 < v113)
+                v118 = v115;
+                v115 = v112;
+                v119 = v112[1];
+                *v118 = *v112;
+                v118[1] = v119;
+                if (v108 < v111)
                 {
                   break;
                 }
 
-                v122 = (2 * v113) | 1;
-                v114 = v12 + 32 * v122;
-                v123 = 2 * v113 + 2;
-                if (v123 < v13)
+                v120 = (2 * v111) | 1;
+                v112 = &v12[2 * v120];
+                v121 = 2 * v111 + 2;
+                if (v121 < v13)
                 {
-                  v124 = *(v114 + 8);
-                  v125 = *(v114 + 40);
-                  v114 += 32 * (v124 < v125);
-                  if (v124 < v125)
+                  v122 = v112->n128_u64[1];
+                  v123 = v112[2].n128_u64[1];
+                  v112 += 2 * (v122 < v123);
+                  if (v122 < v123)
                   {
-                    v122 = v123;
+                    v120 = v121;
                   }
                 }
 
-                v113 = v122;
+                v111 = v120;
               }
 
-              while (*(v114 + 8) >= v118);
-              *v117 = v119;
-              *(v117 + 8) = v118;
-              *(v117 + 16) = v196;
+              while (v112->n128_u64[1] >= v116);
+              v115->n128_u64[0] = v117;
+              v115->n128_u64[1] = v116;
+              v115[1] = v188;
             }
           }
 
-          v111 = v112 - 1;
+          v109 = v110 - 1;
         }
 
-        while (v112);
+        while (v110);
         do
         {
-          v126 = 0;
-          v197 = *v12;
-          v229 = *(v12 + 16);
-          v127 = v12;
+          v124 = 0;
+          v189 = *v12;
+          v221 = v12[1];
+          v125 = v12;
           do
           {
-            v128 = &v127[2 * v126];
-            v129 = v128 + 2;
-            v130 = (2 * v126) | 1;
-            v126 = 2 * v126 + 2;
-            if (v126 >= v13)
+            v126 = &v125[2 * v124];
+            v127 = v126 + 2;
+            v128 = (2 * v124) | 1;
+            v124 = 2 * v124 + 2;
+            if (v124 >= v13)
             {
-              v126 = v130;
+              v124 = v128;
             }
 
             else
             {
-              v131 = *(v128 + 5);
-              v132 = *(v128 + 9);
-              v133 = v128 + 4;
-              if (v131 >= v132)
+              v129 = v126[2].n128_u64[1];
+              v130 = v126[4].n128_u64[1];
+              v131 = v126 + 4;
+              if (v129 >= v130)
               {
-                v126 = v130;
+                v124 = v128;
               }
 
               else
               {
-                v129 = v133;
+                v127 = v131;
               }
             }
 
-            v134 = v129[1];
-            *v127 = *v129;
-            v127[1] = v134;
-            v127 = v129;
+            v132 = v127[1];
+            *v125 = *v127;
+            v125[1] = v132;
+            v125 = v127;
           }
 
-          while (v126 <= ((v13 - 2) >> 1));
+          while (v124 <= ((v13 - 2) >> 1));
           a2 -= 2;
-          if (v129 == a2)
+          if (v127 == a2)
           {
-            *v129 = v197;
-            v129[1] = v229;
+            result = v189;
+            *v127 = v189;
+            v127[1] = v221;
           }
 
           else
           {
-            v135 = a2[1];
-            *v129 = *a2;
-            v129[1] = v135;
-            *a2 = v197;
-            a2[1] = v229;
-            v136 = (v129 - v12 + 32) >> 5;
-            v137 = v136 < 2;
-            v138 = v136 - 2;
-            if (!v137)
+            v133 = a2[1];
+            *v127 = *a2;
+            v127[1] = v133;
+            result = v189;
+            *a2 = v189;
+            a2[1] = v221;
+            v134 = (v127 - v12 + 32) >> 5;
+            v135 = v134 < 2;
+            v136 = v134 - 2;
+            if (!v135)
             {
-              v139 = v138 >> 1;
-              v140 = v12 + 32 * (v138 >> 1);
-              v141 = *(v129 + 1);
-              if (*(v140 + 8) < v141)
+              v137 = v136 >> 1;
+              v138 = &v12[2 * (v136 >> 1)];
+              v139 = v127->n128_u64[1];
+              if (v138->n128_u64[1] < v139)
               {
-                v142 = *v129;
-                v172 = v129[1];
+                v140 = v127->n128_u64[0];
+                v164 = v127[1];
                 do
                 {
-                  v143 = v129;
-                  v129 = v140;
-                  v144 = *(v140 + 16);
-                  *v143 = *v140;
-                  v143[1] = v144;
-                  if (!v139)
+                  v141 = v127;
+                  v127 = v138;
+                  v142 = v138[1];
+                  *v141 = *v138;
+                  v141[1] = v142;
+                  if (!v137)
                   {
                     break;
                   }
 
-                  v139 = (v139 - 1) >> 1;
-                  v140 = v12 + 32 * v139;
+                  v137 = (v137 - 1) >> 1;
+                  v138 = &v12[2 * v137];
                 }
 
-                while (*(v140 + 8) < v141);
-                *v129 = v142;
-                *(v129 + 1) = v141;
-                v129[1] = v172;
+                while (v138->n128_u64[1] < v139);
+                v127->n128_u64[0] = v140;
+                v127->n128_u64[1] = v139;
+                result = v164;
+                v127[1] = v164;
               }
             }
           }
 
-          v137 = v13-- <= 2;
+          v135 = v13-- <= 2;
         }
 
-        while (!v137);
+        while (!v135);
       }
 
-      goto LABEL_188;
+      return result;
     }
 
-    v14 = v12 + 32 * (v13 >> 1);
-    v15 = *(a2 - 3);
+    v14 = &v12[2 * (v13 >> 1)];
+    v15 = a2[-2].n128_u64[1];
     if (v13 >= 0x81)
     {
-      v16 = *(v14 + 8);
-      if (v16 >= *(v12 + 8))
+      v16 = v14->n128_u64[1];
+      if (v16 >= v12->n128_u64[1])
       {
         if (v15 < v16)
         {
-          v175 = *v14;
-          v205 = *(v14 + 16);
-          v20 = *(a2 - 1);
+          v167 = *v14;
+          v197 = v14[1];
+          v20 = a2[-1];
           *v14 = *v9;
-          *(v14 + 16) = v20;
-          *v9 = v175;
-          *(a2 - 1) = v205;
-          if (*(v14 + 8) < *(v12 + 8))
+          v14[1] = v20;
+          *v9 = v167;
+          a2[-1] = v197;
+          if (v14->n128_u64[1] < v12->n128_u64[1])
           {
-            v176 = *v12;
-            v206 = *(v12 + 16);
-            v21 = *(v14 + 16);
+            v168 = *v12;
+            v198 = v12[1];
+            v21 = v14[1];
             *v12 = *v14;
-            *(v12 + 16) = v21;
-            *v14 = v176;
-            *(v14 + 16) = v206;
+            v12[1] = v21;
+            *v14 = v168;
+            v14[1] = v198;
           }
         }
       }
@@ -10084,57 +10164,57 @@ LABEL_130:
       {
         if (v15 < v16)
         {
-          v173 = *v12;
-          v203 = *(v12 + 16);
-          v17 = *(a2 - 1);
+          v165 = *v12;
+          v195 = v12[1];
+          v17 = a2[-1];
           *v12 = *v9;
-          *(v12 + 16) = v17;
-          goto LABEL_27;
+          v12[1] = v17;
+          goto LABEL_26;
         }
 
-        v179 = *v12;
-        v209 = *(v12 + 16);
-        v24 = *(v14 + 16);
+        v171 = *v12;
+        v201 = v12[1];
+        v24 = v14[1];
         *v12 = *v14;
-        *(v12 + 16) = v24;
-        *v14 = v179;
-        *(v14 + 16) = v209;
-        if (*(a2 - 3) < *(v14 + 8))
+        v12[1] = v24;
+        *v14 = v171;
+        v14[1] = v201;
+        if (a2[-2].n128_u64[1] < v14->n128_u64[1])
         {
-          v173 = *v14;
-          v203 = *(v14 + 16);
-          v25 = *(a2 - 1);
+          v165 = *v14;
+          v195 = v14[1];
+          v25 = a2[-1];
           *v14 = *v9;
-          *(v14 + 16) = v25;
-LABEL_27:
-          *v9 = v173;
-          *(a2 - 1) = v203;
+          v14[1] = v25;
+LABEL_26:
+          *v9 = v165;
+          a2[-1] = v195;
         }
       }
 
-      v26 = (v14 - 32);
-      v27 = *(v14 - 24);
-      v28 = *(a2 - 7);
-      if (v27 >= *(v12 + 40))
+      v26 = v14 - 2;
+      v27 = v14[-2].n128_u64[1];
+      v28 = a2[-4].n128_u64[1];
+      if (v27 >= v12[2].n128_u64[1])
       {
         if (v28 < v27)
         {
-          v180 = *v26;
-          v210 = *(v14 - 16);
-          v32 = *(a2 - 3);
+          v172 = *v26;
+          v202 = v14[-1];
+          v32 = a2[-3];
           *v26 = *v10;
-          *(v14 - 16) = v32;
-          *v10 = v180;
-          *(a2 - 3) = v210;
-          if (*(v14 - 24) < *(v12 + 40))
+          v14[-1] = v32;
+          *v10 = v172;
+          a2[-3] = v202;
+          if (v14[-2].n128_u64[1] < v12[2].n128_u64[1])
           {
-            v33 = *(v12 + 32);
-            v211 = *(v12 + 48);
-            v34 = *(v14 - 16);
-            *(v12 + 32) = *v26;
-            *(v12 + 48) = v34;
+            v33 = v12[2];
+            v203 = v12[3];
+            v34 = v14[-1];
+            v12[2] = *v26;
+            v12[3] = v34;
             *v26 = v33;
-            *(v14 - 16) = v211;
+            v14[-1] = v203;
           }
         }
       }
@@ -10143,58 +10223,58 @@ LABEL_27:
       {
         if (v28 < v27)
         {
-          v29 = *(v12 + 32);
-          v30 = *(v12 + 48);
-          v31 = *(a2 - 3);
-          *(v12 + 32) = *v10;
-          *(v12 + 48) = v31;
-          goto LABEL_39;
+          v29 = v12[2];
+          v30 = v12[3];
+          v31 = a2[-3];
+          v12[2] = *v10;
+          v12[3] = v31;
+          goto LABEL_38;
         }
 
-        v37 = *(v12 + 32);
-        v213 = *(v12 + 48);
-        v38 = *(v14 - 16);
-        *(v12 + 32) = *v26;
-        *(v12 + 48) = v38;
+        v37 = v12[2];
+        v205 = v12[3];
+        v38 = v14[-1];
+        v12[2] = *v26;
+        v12[3] = v38;
         *v26 = v37;
-        *(v14 - 16) = v213;
-        if (*(a2 - 7) < *(v14 - 24))
+        v14[-1] = v205;
+        if (a2[-4].n128_u64[1] < v14[-2].n128_u64[1])
         {
-          v182 = *v26;
-          v214 = *(v14 - 16);
-          v39 = *(a2 - 3);
+          v174 = *v26;
+          v206 = v14[-1];
+          v39 = a2[-3];
           *v26 = *v10;
-          *(v14 - 16) = v39;
-          v29 = v182;
-          v30 = v214;
-LABEL_39:
+          v14[-1] = v39;
+          v29 = v174;
+          v30 = v206;
+LABEL_38:
           *v10 = v29;
-          *(a2 - 3) = v30;
+          a2[-3] = v30;
         }
       }
 
-      v40 = *(v14 + 40);
-      v41 = *(a2 - 11);
-      if (v40 >= *(v12 + 72))
+      v40 = v14[2].n128_u64[1];
+      v41 = a2[-6].n128_u64[1];
+      if (v40 >= v12[4].n128_u64[1])
       {
         if (v41 < v40)
         {
-          v183 = *(v14 + 32);
-          v215 = *(v14 + 48);
-          v45 = *(a2 - 5);
-          *(v14 + 32) = *v11;
-          *(v14 + 48) = v45;
-          *v11 = v183;
-          *(a2 - 5) = v215;
-          if (*(v14 + 40) < *(v12 + 72))
+          v175 = v14[2];
+          v207 = v14[3];
+          v45 = a2[-5];
+          v14[2] = *v11;
+          v14[3] = v45;
+          *v11 = v175;
+          a2[-5] = v207;
+          if (v14[2].n128_u64[1] < v12[4].n128_u64[1])
           {
-            v46 = *(v12 + 64);
-            v216 = *(v12 + 80);
-            v47 = *(v14 + 48);
-            *(v12 + 64) = *(v14 + 32);
-            *(v12 + 80) = v47;
-            *(v14 + 32) = v46;
-            *(v14 + 48) = v216;
+            v46 = v12[4];
+            v208 = v12[5];
+            v47 = v14[3];
+            v12[4] = v14[2];
+            v12[5] = v47;
+            v14[2] = v46;
+            v14[3] = v208;
           }
         }
       }
@@ -10203,58 +10283,58 @@ LABEL_39:
       {
         if (v41 < v40)
         {
-          v42 = *(v12 + 64);
-          v43 = *(v12 + 80);
-          v44 = *(a2 - 5);
-          *(v12 + 64) = *v11;
-          *(v12 + 80) = v44;
-          goto LABEL_48;
+          v42 = v12[4];
+          v43 = v12[5];
+          v44 = a2[-5];
+          v12[4] = *v11;
+          v12[5] = v44;
+          goto LABEL_47;
         }
 
-        v48 = *(v12 + 64);
-        v217 = *(v12 + 80);
-        v49 = *(v14 + 48);
-        *(v12 + 64) = *(v14 + 32);
-        *(v12 + 80) = v49;
-        *(v14 + 32) = v48;
-        *(v14 + 48) = v217;
-        if (*(a2 - 11) < *(v14 + 40))
+        v48 = v12[4];
+        v209 = v12[5];
+        v49 = v14[3];
+        v12[4] = v14[2];
+        v12[5] = v49;
+        v14[2] = v48;
+        v14[3] = v209;
+        if (a2[-6].n128_u64[1] < v14[2].n128_u64[1])
         {
-          v184 = *(v14 + 32);
-          v218 = *(v14 + 48);
-          v50 = *(a2 - 5);
-          *(v14 + 32) = *v11;
-          *(v14 + 48) = v50;
-          v42 = v184;
-          v43 = v218;
-LABEL_48:
+          v176 = v14[2];
+          v210 = v14[3];
+          v50 = a2[-5];
+          v14[2] = *v11;
+          v14[3] = v50;
+          v42 = v176;
+          v43 = v210;
+LABEL_47:
           *v11 = v42;
-          *(a2 - 5) = v43;
+          a2[-5] = v43;
         }
       }
 
-      v51 = *(v14 + 8);
-      v52 = *(v14 + 40);
-      if (v51 >= *(v14 - 24))
+      v51 = v14->n128_u64[1];
+      v52 = v14[2].n128_u64[1];
+      if (v51 >= v14[-2].n128_u64[1])
       {
         if (v52 < v51)
         {
-          v186 = *v14;
-          v220 = *(v14 + 16);
-          v54 = *(v14 + 48);
-          *v14 = *(v14 + 32);
-          *(v14 + 16) = v54;
-          *(v14 + 32) = v186;
-          *(v14 + 48) = v220;
-          if (*(v14 + 8) < *(v14 - 24))
+          v178 = *v14;
+          v212 = v14[1];
+          v54 = v14[3];
+          *v14 = v14[2];
+          v14[1] = v54;
+          v14[2] = v178;
+          v14[3] = v212;
+          if (v14->n128_u64[1] < v14[-2].n128_u64[1])
           {
-            v187 = *v26;
-            v221 = *(v14 - 16);
-            v55 = *(v14 + 16);
+            v179 = *v26;
+            v213 = v14[-1];
+            v55 = v14[1];
             *v26 = *v14;
-            *(v14 - 16) = v55;
-            *v14 = v187;
-            *(v14 + 16) = v221;
+            v14[-1] = v55;
+            *v14 = v179;
+            v14[1] = v213;
           }
         }
       }
@@ -10263,130 +10343,130 @@ LABEL_48:
       {
         if (v52 < v51)
         {
-          v185 = *v26;
-          v219 = *(v14 - 16);
-          v53 = *(v14 + 48);
-          *v26 = *(v14 + 32);
-          *(v14 - 16) = v53;
-          goto LABEL_57;
+          v177 = *v26;
+          v211 = v14[-1];
+          v53 = v14[3];
+          *v26 = v14[2];
+          v14[-1] = v53;
+          goto LABEL_56;
         }
 
-        v188 = *v26;
-        v222 = *(v14 - 16);
-        v56 = *(v14 + 16);
+        v180 = *v26;
+        v214 = v14[-1];
+        v56 = v14[1];
         *v26 = *v14;
-        *(v14 - 16) = v56;
-        *v14 = v188;
-        *(v14 + 16) = v222;
-        if (*(v14 + 40) < *(v14 + 8))
+        v14[-1] = v56;
+        *v14 = v180;
+        v14[1] = v214;
+        if (v14[2].n128_u64[1] < v14->n128_u64[1])
         {
-          v185 = *v14;
-          v219 = *(v14 + 16);
-          v57 = *(v14 + 48);
-          *v14 = *(v14 + 32);
-          *(v14 + 16) = v57;
-LABEL_57:
-          *(v14 + 32) = v185;
-          *(v14 + 48) = v219;
+          v177 = *v14;
+          v211 = v14[1];
+          v57 = v14[3];
+          *v14 = v14[2];
+          v14[1] = v57;
+LABEL_56:
+          v14[2] = v177;
+          v14[3] = v211;
         }
       }
 
-      v189 = *v12;
-      v223 = *(v12 + 16);
-      v58 = *(v14 + 16);
+      v181 = *v12;
+      v215 = v12[1];
+      v58 = v14[1];
       *v12 = *v14;
-      *(v12 + 16) = v58;
-      *v14 = v189;
-      *(v14 + 16) = v223;
-      goto LABEL_59;
+      v12[1] = v58;
+      *v14 = v181;
+      v14[1] = v215;
+      goto LABEL_58;
     }
 
-    v18 = *(v12 + 8);
-    if (v18 >= *(v14 + 8))
+    v18 = v12->n128_u64[1];
+    if (v18 >= v14->n128_u64[1])
     {
       if (v15 < v18)
       {
-        v177 = *v12;
-        v207 = *(v12 + 16);
-        v22 = *(a2 - 1);
+        v169 = *v12;
+        v199 = v12[1];
+        v22 = a2[-1];
         *v12 = *v9;
-        *(v12 + 16) = v22;
-        *v9 = v177;
-        *(a2 - 1) = v207;
-        if (*(v12 + 8) < *(v14 + 8))
+        v12[1] = v22;
+        *v9 = v169;
+        a2[-1] = v199;
+        if (v12->n128_u64[1] < v14->n128_u64[1])
         {
-          v178 = *v14;
-          v208 = *(v14 + 16);
-          v23 = *(v12 + 16);
+          v170 = *v14;
+          v200 = v14[1];
+          v23 = v12[1];
           *v14 = *v12;
-          *(v14 + 16) = v23;
-          *v12 = v178;
-          *(v12 + 16) = v208;
+          v14[1] = v23;
+          *v12 = v170;
+          v12[1] = v200;
         }
       }
 
-      goto LABEL_59;
+      goto LABEL_58;
     }
 
     if (v15 < v18)
     {
-      v174 = *v14;
-      v204 = *(v14 + 16);
-      v19 = *(a2 - 1);
+      v166 = *v14;
+      v196 = v14[1];
+      v19 = a2[-1];
       *v14 = *v9;
-      *(v14 + 16) = v19;
-LABEL_36:
-      *v9 = v174;
-      *(a2 - 1) = v204;
-      goto LABEL_59;
+      v14[1] = v19;
+LABEL_35:
+      *v9 = v166;
+      a2[-1] = v196;
+      goto LABEL_58;
     }
 
-    v181 = *v14;
-    v212 = *(v14 + 16);
-    v35 = *(v12 + 16);
+    v173 = *v14;
+    v204 = v14[1];
+    v35 = v12[1];
     *v14 = *v12;
-    *(v14 + 16) = v35;
-    *v12 = v181;
-    *(v12 + 16) = v212;
-    if (*(a2 - 3) < *(v12 + 8))
+    v14[1] = v35;
+    *v12 = v173;
+    v12[1] = v204;
+    if (a2[-2].n128_u64[1] < v12->n128_u64[1])
     {
-      v174 = *v12;
-      v204 = *(v12 + 16);
-      v36 = *(a2 - 1);
+      v166 = *v12;
+      v196 = v12[1];
+      v36 = a2[-1];
       *v12 = *v9;
-      *(v12 + 16) = v36;
-      goto LABEL_36;
+      v12[1] = v36;
+      goto LABEL_35;
     }
 
-LABEL_59:
+LABEL_58:
     --a3;
     if (a4)
     {
-      v59 = *(v12 + 8);
-LABEL_62:
+      v59 = v12->n128_u64[1];
+LABEL_61:
       v60 = 0;
-      v61 = *v12;
-      v170 = *(v12 + 16);
+      v61 = v12->n128_u64[0];
+      v162 = v12[1];
       do
       {
-        v62 = *(v12 + v60 + 40);
-        v60 += 32;
+        v62 = v12[v60 + 2].n128_u64[1];
+        v60 += 2;
       }
 
       while (v62 < v59);
-      v63 = v12 + v60;
+      v63 = &v12[v60];
       v64 = a2;
-      if (v60 == 32)
+      if (v60 == 2)
       {
         v67 = a2;
         while (v63 < v67)
         {
           v65 = v67 - 2;
-          v68 = *(v67 - 3);
+          v68 = v67[-2].n128_u64[1];
           v67 -= 2;
           if (v68 < v59)
           {
-            goto LABEL_72;
+            goto LABEL_71;
           }
         }
 
@@ -10398,37 +10478,37 @@ LABEL_62:
         do
         {
           v65 = v64 - 2;
-          v66 = *(v64 - 3);
+          v66 = v64[-2].n128_u64[1];
           v64 -= 2;
         }
 
         while (v66 >= v59);
       }
 
-LABEL_72:
+LABEL_71:
       v12 = v63;
       if (v63 < v65)
       {
         v69 = v65;
         do
         {
-          v190 = *v12;
-          v224 = *(v12 + 16);
+          v182 = *v12;
+          v216 = v12[1];
           v70 = v69[1];
           *v12 = *v69;
-          *(v12 + 16) = v70;
-          *v69 = v190;
-          v69[1] = v224;
+          v12[1] = v70;
+          *v69 = v182;
+          v69[1] = v216;
           do
           {
-            v71 = *(v12 + 40);
-            v12 += 32;
+            v71 = v12[2].n128_u64[1];
+            v12 += 2;
           }
 
           while (v71 < v59);
           do
           {
-            v72 = *(v69 - 3);
+            v72 = v69[-2].n128_u64[1];
             v69 -= 2;
           }
 
@@ -10438,64 +10518,65 @@ LABEL_72:
         while (v12 < v69);
       }
 
-      if (v12 - 32 != a1)
+      if (&v12[-2] != a1)
       {
-        v73 = *(v12 - 16);
-        *a1 = *(v12 - 32);
-        *(a1 + 16) = v73;
+        v73 = v12[-1];
+        *a1 = v12[-2];
+        a1[1] = v73;
       }
 
-      *(v12 - 32) = v61;
-      *(v12 - 24) = v59;
-      *(v12 - 16) = v170;
+      v12[-2].n128_u64[0] = v61;
+      v12[-2].n128_u64[1] = v59;
+      result = v162;
+      v12[-1] = v162;
       if (v63 < v65)
       {
-        goto LABEL_83;
+        goto LABEL_82;
       }
 
-      v74 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *>(a1, v12 - 32, v170);
+      v74 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *>(a1, &v12[-2], v162);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *>(v12, a2, v75))
       {
-        a2 = (v12 - 32);
+        a2 = v12 - 2;
         if (!v74)
         {
-          goto LABEL_2;
+          goto LABEL_1;
         }
 
-        goto LABEL_188;
+        return result;
       }
 
       if (!v74)
       {
-LABEL_83:
-        std::__introsort<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *,false>(a1, v12 - 32, a3, a4 & 1);
+LABEL_82:
+        result = std::__introsort<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *,false>(a1, v12 - 2, a3, a4 & 1, result);
         a4 = 0;
       }
     }
 
     else
     {
-      v59 = *(v12 + 8);
-      if (*(v12 - 24) < v59)
+      v59 = v12->n128_u64[1];
+      if (v12[-2].n128_u64[1] < v59)
       {
-        goto LABEL_62;
+        goto LABEL_61;
       }
 
-      v76 = *v12;
-      v171 = *(v12 + 16);
-      if (v59 >= *(a2 - 3))
+      v76 = v12->n128_u64[0];
+      v163 = v12[1];
+      if (v59 >= a2[-2].n128_u64[1])
       {
-        v79 = v12 + 32;
+        n128_u64 = v12[2].n128_u64;
         do
         {
-          v12 = v79;
-          if (v79 >= a2)
+          v12 = n128_u64;
+          if (n128_u64 >= a2)
           {
             break;
           }
 
-          v80 = *(v79 + 8);
-          v79 += 32;
+          v80 = *(n128_u64 + 8);
+          n128_u64 += 32;
         }
 
         while (v59 >= v80);
@@ -10506,9 +10587,9 @@ LABEL_83:
         v77 = v12;
         do
         {
-          v12 = v77 + 32;
-          v78 = *(v77 + 40);
-          v77 += 32;
+          v12 = v77 + 2;
+          v78 = v77[2].n128_u64[1];
+          v77 += 2;
         }
 
         while (v59 >= v78);
@@ -10521,7 +10602,7 @@ LABEL_83:
         do
         {
           v81 = v82 - 2;
-          v83 = *(v82 - 3);
+          v83 = v82[-2].n128_u64[1];
           v82 -= 2;
         }
 
@@ -10530,206 +10611,97 @@ LABEL_83:
 
       while (v12 < v81)
       {
-        v191 = *v12;
-        v225 = *(v12 + 16);
+        v183 = *v12;
+        v217 = v12[1];
         v84 = v81[1];
         *v12 = *v81;
-        *(v12 + 16) = v84;
-        *v81 = v191;
-        v81[1] = v225;
+        v12[1] = v84;
+        *v81 = v183;
+        v81[1] = v217;
         do
         {
-          v85 = *(v12 + 40);
-          v12 += 32;
+          v85 = v12[2].n128_u64[1];
+          v12 += 2;
         }
 
         while (v59 >= v85);
         do
         {
-          v86 = *(v81 - 3);
+          v86 = v81[-2].n128_u64[1];
           v81 -= 2;
         }
 
         while (v59 < v86);
       }
 
-      if (v12 - 32 != a1)
+      if (&v12[-2] != a1)
       {
-        v87 = *(v12 - 16);
-        *a1 = *(v12 - 32);
-        *(a1 + 16) = v87;
+        v87 = v12[-1];
+        *a1 = v12[-2];
+        a1[1] = v87;
       }
 
       a4 = 0;
-      *(v12 - 32) = v76;
-      *(v12 - 24) = v59;
-      a5 = v171;
-      *(v12 - 16) = v171;
+      v12[-2].n128_u64[0] = v76;
+      v12[-2].n128_u64[1] = v59;
+      result = v163;
+      v12[-1] = v163;
     }
   }
 
-  if (v13 == 3)
+  v89 = v12[2].n128_u64[1];
+  v90 = a2[-2].n128_u64[1];
+  if (v89 >= v12->n128_u64[1])
   {
-    v90 = *(v12 + 40);
-    v91 = *(a2 - 3);
-    if (v90 >= *(v12 + 8))
+    if (v90 >= v89)
     {
-      if (v91 < v90)
-      {
-        v145 = *(v12 + 32);
-        v230 = *(v12 + 48);
-        v146 = *(a2 - 1);
-        *(v12 + 32) = *v9;
-        *(v12 + 48) = v146;
-        *v9 = v145;
-        *(a2 - 1) = v230;
-LABEL_186:
-        if (*(v12 + 40) < *(v12 + 8))
-        {
-          v202 = *v12;
-          v235 = *(v12 + 16);
-          v168 = *(v12 + 48);
-          *v12 = *(v12 + 32);
-          *(v12 + 16) = v168;
-          *(v12 + 32) = v202;
-          *(v12 + 48) = v235;
-        }
-      }
+      return result;
     }
 
-    else
-    {
-      if (v91 < v90)
-      {
-        v193 = *v12;
-        v227 = *(v12 + 16);
-        v92 = *(a2 - 1);
-        *v12 = *v9;
-        *(v12 + 16) = v92;
-        v93 = v193;
-        v94 = v227;
-LABEL_180:
-        *v9 = v93;
-        *(a2 - 1) = v94;
-        goto LABEL_188;
-      }
-
-      v200 = *v12;
-      v232 = *(v12 + 16);
-      v157 = *(v12 + 48);
-      *v12 = *(v12 + 32);
-      *(v12 + 16) = v157;
-      *(v12 + 32) = v200;
-      *(v12 + 48) = v232;
-      if (*(a2 - 3) < *(v12 + 40))
-      {
-        v93 = *(v12 + 32);
-        v94 = *(v12 + 48);
-        v158 = *(a2 - 1);
-        *(v12 + 32) = *v9;
-        *(v12 + 48) = v158;
-        goto LABEL_180;
-      }
-    }
-
-LABEL_188:
-    v169 = *MEMORY[0x1E69E9840];
-    return;
+    result = v12[2];
+    v222 = v12[3];
+    v143 = a2[-1];
+    v12[2] = *v9;
+    v12[3] = v143;
+    *v9 = result;
+    a2[-1] = v222;
+    goto LABEL_185;
   }
 
-  if (v13 == 4)
+  if (v90 >= v89)
   {
-    v95 = *(v12 + 40);
-    v96 = *(v12 + 72);
-    if (v95 >= *(v12 + 8))
+    v192 = *v12;
+    v224 = v12[1];
+    v153 = v12[3];
+    *v12 = v12[2];
+    v12[1] = v153;
+    result = v192;
+    v12[2] = v192;
+    v12[3] = v224;
+    if (a2[-2].n128_u64[1] >= v12[2].n128_u64[1])
     {
-      if (v96 < v95)
-      {
-        v148 = *(v12 + 32);
-        v147 = *(v12 + 48);
-        v149 = *(v12 + 80);
-        *(v12 + 32) = *(v12 + 64);
-        *(v12 + 48) = v149;
-        *(v12 + 64) = v148;
-        *(v12 + 80) = v147;
-        if (*(v12 + 40) < *(v12 + 8))
-        {
-          v198 = *v12;
-          v231 = *(v12 + 16);
-          v150 = *(v12 + 48);
-          *v12 = *(v12 + 32);
-          *(v12 + 16) = v150;
-          *(v12 + 32) = v198;
-          *(v12 + 48) = v231;
-        }
-      }
+      return result;
     }
 
-    else if (v96 >= v95)
-    {
-      v201 = *v12;
-      v233 = *(v12 + 16);
-      v159 = *(v12 + 48);
-      *v12 = *(v12 + 32);
-      *(v12 + 16) = v159;
-      *(v12 + 32) = v201;
-      *(v12 + 48) = v233;
-      if (v96 < *(v12 + 40))
-      {
-        v161 = *(v12 + 32);
-        v160 = *(v12 + 48);
-        v162 = *(v12 + 80);
-        *(v12 + 32) = *(v12 + 64);
-        *(v12 + 48) = v162;
-        *(v12 + 64) = v161;
-        *(v12 + 80) = v160;
-      }
-    }
-
-    else
-    {
-      v194 = *v12;
-      v228 = *(v12 + 16);
-      v97 = *(v12 + 80);
-      *v12 = *(v12 + 64);
-      *(v12 + 16) = v97;
-      *(v12 + 64) = v194;
-      *(v12 + 80) = v228;
-    }
-
-    if (*(a2 - 3) >= *(v12 + 72))
-    {
-      goto LABEL_188;
-    }
-
-    v163 = *(v12 + 64);
-    v234 = *(v12 + 80);
-    v164 = *(a2 - 1);
-    *(v12 + 64) = *v9;
-    *(v12 + 80) = v164;
-    *v9 = v163;
-    *(a2 - 1) = v234;
-    if (*(v12 + 72) >= *(v12 + 40))
-    {
-      goto LABEL_188;
-    }
-
-    v166 = *(v12 + 32);
-    v165 = *(v12 + 48);
-    v167 = *(v12 + 80);
-    *(v12 + 32) = *(v12 + 64);
-    *(v12 + 48) = v167;
-    *(v12 + 64) = v166;
-    *(v12 + 80) = v165;
-    goto LABEL_186;
+    result = v12[2];
+    v92 = v12[3];
+    v154 = a2[-1];
+    v12[2] = *v9;
+    v12[3] = v154;
   }
 
-  if (v13 != 5)
+  else
   {
-    goto LABEL_10;
+    v185 = *v12;
+    v219 = v12[1];
+    v91 = a2[-1];
+    *v12 = *v9;
+    v12[1] = v91;
+    result = v185;
+    v92 = v219;
   }
 
-  v88 = *MEMORY[0x1E69E9840];
-
-  std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,CSCallFrameInfoForBinary::ParseEHFrameData(void)::$_0 &,CSCallFrameInfoForBinary::FDE *,0>(v12, (v12 + 32), (v12 + 64), (v12 + 96), a2 - 2, a5);
+  *v9 = result;
+  a2[-1] = v92;
+  return result;
 }

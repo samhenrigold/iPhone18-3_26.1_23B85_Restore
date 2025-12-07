@@ -282,13 +282,13 @@ LABEL_21:
 
     if (stateCopy)
     {
-      [stateCopy time];
+      objc_msgSend_time(stateCopy);
       if ((v75 & 0x100000000) != 0)
       {
         v18 = NULogger_30639();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          [stateCopy time];
+          objc_msgSend_time(stateCopy);
           v19 = NUStringFromTime(&buf);
           v20 = *error;
           LODWORD(buf.value) = 138543618;
@@ -328,7 +328,7 @@ LABEL_45:
             {
               if (stateCopy)
               {
-                [stateCopy time];
+                objc_msgSend_time(stateCopy);
               }
 
               else
@@ -572,12 +572,12 @@ LABEL_47:
         }
       }
 
-      [v10 extent];
+      objc_msgSend_extent(v10);
       v13 = v12;
       v15 = v14;
       v17 = v16;
       v19 = v18;
-      [v6 extent];
+      objc_msgSend_extent(v6);
       v53.origin.x = v20;
       v53.origin.y = v21;
       v53.size.width = v22;
@@ -589,7 +589,7 @@ LABEL_47:
       if (!CGRectEqualToRect(v52, v53))
       {
         imageByClampingToExtent = [v10 imageByClampingToExtent];
-        [v6 extent];
+        objc_msgSend_extent(v6);
         v25 = [imageByClampingToExtent imageByCroppingToRect:?];
 
         v10 = v25;

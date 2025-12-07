@@ -18,15 +18,15 @@
   if (identifier)
   {
     identifier = sub_1D139016C();
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return sub_1D115FF4C(style, identifier, v6);
+  return sub_1D115FF4C(style, identifier, v7, v4);
 }
 
 - (HRNoGatewaysFoundTableViewCell)initWithCoder:(id)coder

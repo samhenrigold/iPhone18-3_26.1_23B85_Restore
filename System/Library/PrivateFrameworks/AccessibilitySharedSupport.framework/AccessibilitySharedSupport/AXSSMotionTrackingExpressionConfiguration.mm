@@ -52,15 +52,15 @@
 
 - (AXSSMotionTrackingExpressionConfiguration)initWithPlistDictionary:(id)dictionary
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__1;
-  v27 = __Block_byref_object_dispose__1;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__1;
+  v26 = __Block_byref_object_dispose__1;
   _defaultSensitivitiesForAllFacialExpressions = [objc_opt_class() _defaultSensitivitiesForAllFacialExpressions];
-  v28 = [_defaultSensitivitiesForAllFacialExpressions mutableCopy];
+  v27 = [_defaultSensitivitiesForAllFacialExpressions mutableCopy];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -70,42 +70,41 @@
 
     v8 = MEMORY[0x1E696ACD0];
     v9 = MEMORY[0x1E695DFD8];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v11 = [v9 setWithArray:v10];
-    v22 = 0;
-    v12 = [v8 unarchivedObjectOfClasses:v11 fromData:v7 error:&v22];
-    v13 = v22;
+    v21 = 0;
+    v12 = [v8 unarchivedObjectOfClasses:v11 fromData:v7 error:&v21];
+    v13 = v21;
 
     if (!v13)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __69__AXSSMotionTrackingExpressionConfiguration_initWithPlistDictionary___block_invoke;
-        v19[3] = &unk_1E8134E48;
-        v21 = &v23;
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __69__AXSSMotionTrackingExpressionConfiguration_initWithPlistDictionary___block_invoke;
+        v18[3] = &unk_1E8134E48;
+        v20 = &v22;
         selfCopy = self;
-        [v12 enumerateKeysAndObjectsUsingBlock:v19];
+        [v12 enumerateKeysAndObjectsUsingBlock:v18];
       }
     }
   }
 
-  v18.receiver = self;
-  v18.super_class = AXSSMotionTrackingExpressionConfiguration;
-  v14 = [(AXSSMotionTrackingExpressionConfiguration *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = AXSSMotionTrackingExpressionConfiguration;
+  v14 = [(AXSSMotionTrackingExpressionConfiguration *)&v17 init];
   v15 = v14;
   if (v14)
   {
-    objc_storeStrong(&v14->__facialExpressionToSensitivity, v24[5]);
+    objc_storeStrong(&v14->__facialExpressionToSensitivity, v23[5]);
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1084,13 +1083,13 @@ uint64_t __158__AXSSMotionTrackingExpressionConfiguration__populateExpressionArr
 
 void __89__AXSSMotionTrackingExpressionConfiguration__defaultSensitivitiesForAllFacialExpressions__block_invoke()
 {
-  v9[9] = *MEMORY[0x1E69E9840];
+  v8[9] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DF90];
-  v8[0] = &unk_1F4066750;
+  v7[0] = &unk_1F4066750;
+  v7[1] = &unk_1F4066720;
+  v8[0] = &unk_1F4066720;
   v8[1] = &unk_1F4066720;
-  v9[0] = &unk_1F4066720;
-  v9[1] = &unk_1F4066720;
-  v8[2] = &unk_1F4066708;
+  v7[2] = &unk_1F4066708;
   v1 = MEMORY[0x1E696AD98];
   if (_AXSMossdeepEnabled())
   {
@@ -1103,25 +1102,23 @@ void __89__AXSSMotionTrackingExpressionConfiguration__defaultSensitivitiesForAll
   }
 
   v3 = [v1 numberWithUnsignedInteger:v2];
-  v9[2] = v3;
-  v9[3] = &unk_1F4066720;
-  v8[3] = &unk_1F4066738;
-  v8[4] = &unk_1F4066768;
-  v9[4] = &unk_1F4066720;
-  v9[5] = &unk_1F4066720;
-  v8[5] = &unk_1F4066780;
-  v8[6] = &unk_1F4066798;
-  v9[6] = &unk_1F4066720;
-  v9[7] = &unk_1F4066720;
-  v8[7] = &unk_1F40667C8;
-  v8[8] = &unk_1F40667B0;
-  v9[8] = &unk_1F4066720;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:9];
+  v8[2] = v3;
+  v8[3] = &unk_1F4066720;
+  v7[3] = &unk_1F4066738;
+  v7[4] = &unk_1F4066768;
+  v8[4] = &unk_1F4066720;
+  v8[5] = &unk_1F4066720;
+  v7[5] = &unk_1F4066780;
+  v7[6] = &unk_1F4066798;
+  v8[6] = &unk_1F4066720;
+  v8[7] = &unk_1F4066720;
+  v7[7] = &unk_1F40667C8;
+  v7[8] = &unk_1F40667B0;
+  v8[8] = &unk_1F4066720;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:9];
   v5 = [v0 dictionaryWithDictionary:v4];
   v6 = _defaultSensitivitiesForAllFacialExpressions_facialExpressionToSensitivity;
   _defaultSensitivitiesForAllFacialExpressions_facialExpressionToSensitivity = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_safelySetSensitivity:(unint64_t)sensitivity forFacialExpression:(unint64_t)expression inDictionary:(id)dictionary
@@ -1166,93 +1163,91 @@ void __89__AXSSMotionTrackingExpressionConfiguration__defaultSensitivitiesForAll
 
 void __89__AXSSMotionTrackingExpressionConfiguration__facialExpressionToSensitivityToValueMapping__block_invoke()
 {
-  v31[9] = *MEMORY[0x1E69E9840];
-  v30[0] = &unk_1F4066750;
-  v28[0] = &unk_1F4066750;
-  v28[1] = &unk_1F4066720;
-  v29[0] = &unk_1F4067058;
-  v29[1] = &unk_1F4067068;
-  v28[2] = &unk_1F4066708;
-  v29[2] = &unk_1F4067078;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
-  v31[0] = v11;
-  v30[1] = &unk_1F4066720;
-  v26[0] = &unk_1F4066750;
-  v26[1] = &unk_1F4066720;
-  v27[0] = &unk_1F4067088;
-  v27[1] = &unk_1F4067068;
-  v26[2] = &unk_1F4066708;
-  v27[2] = &unk_1F4067098;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
-  v31[1] = v10;
-  v30[2] = &unk_1F4066708;
-  v24[0] = &unk_1F4066750;
-  v24[1] = &unk_1F4066720;
-  v25[0] = &unk_1F40670A8;
-  v25[1] = &unk_1F40670B8;
-  v24[2] = &unk_1F4066708;
-  v25[2] = &unk_1F40670C8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
-  v31[2] = v9;
-  v30[3] = &unk_1F4066738;
-  v22[0] = &unk_1F4066750;
-  v22[1] = &unk_1F4066720;
-  v23[0] = &unk_1F4067058;
-  v23[1] = &unk_1F40670C8;
-  v22[2] = &unk_1F4066708;
-  v23[2] = &unk_1F40670D8;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v31[3] = v8;
-  v30[4] = &unk_1F4066768;
-  v20[0] = &unk_1F4066750;
-  v20[1] = &unk_1F4066720;
-  v21[0] = &unk_1F4067068;
-  v21[1] = &unk_1F40670C8;
-  v20[2] = &unk_1F4066708;
-  v21[2] = &unk_1F40670E8;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
-  v31[4] = v7;
-  v30[5] = &unk_1F4066780;
-  v18[0] = &unk_1F4066750;
-  v18[1] = &unk_1F4066720;
-  v19[0] = &unk_1F40670F8;
-  v19[1] = &unk_1F40670B8;
-  v18[2] = &unk_1F4066708;
-  v19[2] = &unk_1F4067098;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
-  v31[5] = v0;
-  v30[6] = &unk_1F4066798;
-  v16[0] = &unk_1F4066750;
-  v16[1] = &unk_1F4066720;
-  v17[0] = &unk_1F4067108;
-  v17[1] = &unk_1F4067068;
-  v16[2] = &unk_1F4066708;
-  v17[2] = &unk_1F4067118;
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
-  v31[6] = v1;
-  v30[7] = &unk_1F40667C8;
-  v14[0] = &unk_1F4066750;
-  v14[1] = &unk_1F4066720;
-  v15[0] = &unk_1F4067128;
-  v15[1] = &unk_1F4067068;
-  v14[2] = &unk_1F4066708;
-  v15[2] = &unk_1F4067098;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v31[7] = v2;
-  v30[8] = &unk_1F40667B0;
-  v12[0] = &unk_1F4066750;
-  v12[1] = &unk_1F4066720;
-  v13[0] = &unk_1F4067128;
-  v13[1] = &unk_1F4067068;
-  v12[2] = &unk_1F4066708;
-  v13[2] = &unk_1F4067098;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v31[8] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:9];
+  v30[9] = *MEMORY[0x1E69E9840];
+  v29[0] = &unk_1F4066750;
+  v27[0] = &unk_1F4066750;
+  v27[1] = &unk_1F4066720;
+  v28[0] = &unk_1F4067058;
+  v28[1] = &unk_1F4067068;
+  v27[2] = &unk_1F4066708;
+  v28[2] = &unk_1F4067078;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  v30[0] = v10;
+  v29[1] = &unk_1F4066720;
+  v25[0] = &unk_1F4066750;
+  v25[1] = &unk_1F4066720;
+  v26[0] = &unk_1F4067088;
+  v26[1] = &unk_1F4067068;
+  v25[2] = &unk_1F4066708;
+  v26[2] = &unk_1F4067098;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v30[1] = v9;
+  v29[2] = &unk_1F4066708;
+  v23[0] = &unk_1F4066750;
+  v23[1] = &unk_1F4066720;
+  v24[0] = &unk_1F40670A8;
+  v24[1] = &unk_1F40670B8;
+  v23[2] = &unk_1F4066708;
+  v24[2] = &unk_1F40670C8;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v30[2] = v8;
+  v29[3] = &unk_1F4066738;
+  v21[0] = &unk_1F4066750;
+  v21[1] = &unk_1F4066720;
+  v22[0] = &unk_1F4067058;
+  v22[1] = &unk_1F40670C8;
+  v21[2] = &unk_1F4066708;
+  v22[2] = &unk_1F40670D8;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v30[3] = v7;
+  v29[4] = &unk_1F4066768;
+  v19[0] = &unk_1F4066750;
+  v19[1] = &unk_1F4066720;
+  v20[0] = &unk_1F4067068;
+  v20[1] = &unk_1F40670C8;
+  v19[2] = &unk_1F4066708;
+  v20[2] = &unk_1F40670E8;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v30[4] = v6;
+  v29[5] = &unk_1F4066780;
+  v17[0] = &unk_1F4066750;
+  v17[1] = &unk_1F4066720;
+  v18[0] = &unk_1F40670F8;
+  v18[1] = &unk_1F40670B8;
+  v17[2] = &unk_1F4066708;
+  v18[2] = &unk_1F4067098;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v30[5] = v0;
+  v29[6] = &unk_1F4066798;
+  v15[0] = &unk_1F4066750;
+  v15[1] = &unk_1F4066720;
+  v16[0] = &unk_1F4067108;
+  v16[1] = &unk_1F4067068;
+  v15[2] = &unk_1F4066708;
+  v16[2] = &unk_1F4067118;
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v30[6] = v1;
+  v29[7] = &unk_1F40667C8;
+  v13[0] = &unk_1F4066750;
+  v13[1] = &unk_1F4066720;
+  v14[0] = &unk_1F4067128;
+  v14[1] = &unk_1F4067068;
+  v13[2] = &unk_1F4066708;
+  v14[2] = &unk_1F4067098;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v30[7] = v2;
+  v29[8] = &unk_1F40667B0;
+  v11[0] = &unk_1F4066750;
+  v11[1] = &unk_1F4066720;
+  v12[0] = &unk_1F4067128;
+  v12[1] = &unk_1F4067068;
+  v11[2] = &unk_1F4066708;
+  v12[2] = &unk_1F4067098;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v30[8] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:9];
   v5 = _facialExpressionToSensitivityToValueMapping_facialExpressionToSensitivityToValueMapping;
   _facialExpressionToSensitivityToValueMapping_facialExpressionToSensitivityToValueMapping = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_jawOpenStartingWithValue:(float)value mouthClose:(float)close expressionConfiguration:(id)configuration
@@ -1269,106 +1264,102 @@ void __89__AXSSMotionTrackingExpressionConfiguration__facialExpressionToSensitiv
 
 void __96__AXSSMotionTrackingExpressionConfiguration_Exclave__facialExpressionToActivationToValueMapping__block_invoke()
 {
-  v31[9] = *MEMORY[0x1E69E9840];
-  v30[0] = &unk_1F4066828;
-  v28[0] = &unk_1F40667E0;
-  v28[1] = &unk_1F40667F8;
-  v29[0] = &unk_1F4067138;
-  v29[1] = &unk_1F4067148;
-  v28[2] = &unk_1F4066810;
-  v29[2] = &unk_1F4067158;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
-  v31[0] = v11;
-  v30[1] = &unk_1F40667E0;
-  v26[0] = &unk_1F40667E0;
-  v26[1] = &unk_1F40667F8;
-  v27[0] = &unk_1F4067168;
-  v27[1] = &unk_1F4067148;
-  v26[2] = &unk_1F4066810;
-  v27[2] = &unk_1F4067178;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
-  v31[1] = v10;
-  v30[2] = &unk_1F40667F8;
-  v24[0] = &unk_1F40667E0;
-  v24[1] = &unk_1F40667F8;
-  v25[0] = &unk_1F4067188;
-  v25[1] = &unk_1F4067198;
-  v24[2] = &unk_1F4066810;
-  v25[2] = &unk_1F40671A8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
-  v31[2] = v9;
-  v30[3] = &unk_1F4066810;
-  v22[0] = &unk_1F40667E0;
-  v22[1] = &unk_1F40667F8;
-  v23[0] = &unk_1F4067138;
-  v23[1] = &unk_1F40671A8;
-  v22[2] = &unk_1F4066810;
-  v23[2] = &unk_1F40671B8;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v31[3] = v8;
-  v30[4] = &unk_1F4066840;
-  v20[0] = &unk_1F40667E0;
-  v20[1] = &unk_1F40667F8;
-  v21[0] = &unk_1F4067148;
-  v21[1] = &unk_1F40671A8;
-  v20[2] = &unk_1F4066810;
-  v21[2] = &unk_1F40671C8;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
-  v31[4] = v7;
-  v30[5] = &unk_1F4066858;
-  v18[0] = &unk_1F40667E0;
-  v18[1] = &unk_1F40667F8;
-  v19[0] = &unk_1F40671D8;
-  v19[1] = &unk_1F4067198;
-  v18[2] = &unk_1F4066810;
-  v19[2] = &unk_1F4067178;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
-  v31[5] = v0;
-  v30[6] = &unk_1F4066870;
-  v16[0] = &unk_1F40667E0;
-  v16[1] = &unk_1F40667F8;
-  v17[0] = &unk_1F40671E8;
-  v17[1] = &unk_1F4067148;
-  v16[2] = &unk_1F4066810;
-  v17[2] = &unk_1F40671F8;
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
-  v31[6] = v1;
-  v30[7] = &unk_1F4066888;
-  v14[0] = &unk_1F40667E0;
-  v14[1] = &unk_1F40667F8;
-  v15[0] = &unk_1F4067208;
-  v15[1] = &unk_1F4067148;
-  v14[2] = &unk_1F4066810;
-  v15[2] = &unk_1F4067178;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v31[7] = v2;
-  v30[8] = &unk_1F40668A0;
-  v12[0] = &unk_1F40667E0;
-  v12[1] = &unk_1F40667F8;
-  v13[0] = &unk_1F4067208;
-  v13[1] = &unk_1F4067148;
-  v12[2] = &unk_1F4066810;
-  v13[2] = &unk_1F4067178;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v31[8] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:9];
+  v30[9] = *MEMORY[0x1E69E9840];
+  v29[0] = &unk_1F4066828;
+  v27[0] = &unk_1F40667E0;
+  v27[1] = &unk_1F40667F8;
+  v28[0] = &unk_1F4067138;
+  v28[1] = &unk_1F4067148;
+  v27[2] = &unk_1F4066810;
+  v28[2] = &unk_1F4067158;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  v30[0] = v10;
+  v29[1] = &unk_1F40667E0;
+  v25[0] = &unk_1F40667E0;
+  v25[1] = &unk_1F40667F8;
+  v26[0] = &unk_1F4067168;
+  v26[1] = &unk_1F4067148;
+  v25[2] = &unk_1F4066810;
+  v26[2] = &unk_1F4067178;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v30[1] = v9;
+  v29[2] = &unk_1F40667F8;
+  v23[0] = &unk_1F40667E0;
+  v23[1] = &unk_1F40667F8;
+  v24[0] = &unk_1F4067188;
+  v24[1] = &unk_1F4067198;
+  v23[2] = &unk_1F4066810;
+  v24[2] = &unk_1F40671A8;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v30[2] = v8;
+  v29[3] = &unk_1F4066810;
+  v21[0] = &unk_1F40667E0;
+  v21[1] = &unk_1F40667F8;
+  v22[0] = &unk_1F4067138;
+  v22[1] = &unk_1F40671A8;
+  v21[2] = &unk_1F4066810;
+  v22[2] = &unk_1F40671B8;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v30[3] = v7;
+  v29[4] = &unk_1F4066840;
+  v19[0] = &unk_1F40667E0;
+  v19[1] = &unk_1F40667F8;
+  v20[0] = &unk_1F4067148;
+  v20[1] = &unk_1F40671A8;
+  v19[2] = &unk_1F4066810;
+  v20[2] = &unk_1F40671C8;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v30[4] = v6;
+  v29[5] = &unk_1F4066858;
+  v17[0] = &unk_1F40667E0;
+  v17[1] = &unk_1F40667F8;
+  v18[0] = &unk_1F40671D8;
+  v18[1] = &unk_1F4067198;
+  v17[2] = &unk_1F4066810;
+  v18[2] = &unk_1F4067178;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v30[5] = v0;
+  v29[6] = &unk_1F4066870;
+  v15[0] = &unk_1F40667E0;
+  v15[1] = &unk_1F40667F8;
+  v16[0] = &unk_1F40671E8;
+  v16[1] = &unk_1F4067148;
+  v15[2] = &unk_1F4066810;
+  v16[2] = &unk_1F40671F8;
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v30[6] = v1;
+  v29[7] = &unk_1F4066888;
+  v13[0] = &unk_1F40667E0;
+  v13[1] = &unk_1F40667F8;
+  v14[0] = &unk_1F4067208;
+  v14[1] = &unk_1F4067148;
+  v13[2] = &unk_1F4066810;
+  v14[2] = &unk_1F4067178;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v30[7] = v2;
+  v29[8] = &unk_1F40668A0;
+  v11[0] = &unk_1F40667E0;
+  v11[1] = &unk_1F40667F8;
+  v12[0] = &unk_1F4067208;
+  v12[1] = &unk_1F4067148;
+  v11[2] = &unk_1F4066810;
+  v12[2] = &unk_1F4067178;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v30[8] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:9];
   v5 = _facialExpressionToActivationToValueMapping_facialExpressionToSensitivityToValueMapping;
   _facialExpressionToActivationToValueMapping_facialExpressionToSensitivityToValueMapping = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)plistDictionary
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   _facialExpressionToSensitivity = [self _facialExpressionToSensitivity];
-  v7 = 138412546;
-  v8 = _facialExpressionToSensitivity;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1C0E8A000, a3, OS_LOG_TYPE_ERROR, "ERROR: Couldn't encode object %@, encountered error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = _facialExpressionToSensitivity;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1C0E8A000, a3, OS_LOG_TYPE_ERROR, "ERROR: Couldn't encode object %@, encountered error: %@", &v6, 0x16u);
 }
 
 @end

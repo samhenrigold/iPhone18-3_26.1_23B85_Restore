@@ -158,34 +158,31 @@ void __20__EDPersistence_log__block_invoke(uint64_t a1)
 
 - (id)persistenceStateWithStatistics:(id)statistics
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
-  v11[0] = *MEMORY[0x1E699AA70];
+  v10[0] = *MEMORY[0x1E699AA70];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "messages")}];
-  v12[0] = v4;
-  v11[1] = *MEMORY[0x1E699AA60];
+  v11[0] = v4;
+  v10[1] = *MEMORY[0x1E699AA60];
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "messageData")}];
-  v12[1] = v5;
-  v11[2] = *MEMORY[0x1E699AA78];
+  v11[1] = v5;
+  v10[2] = *MEMORY[0x1E699AA78];
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "messagesDeleted")}];
-  v12[2] = v6;
-  v11[3] = *MEMORY[0x1E699AA68];
+  v11[2] = v6;
+  v10[3] = *MEMORY[0x1E699AA68];
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(statisticsCopy, "messageDataDeleted")}];
-  v12[3] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[3] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   return v8;
 }
 
 - (void)reportWorkloadToDAS
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to report # of emails to DAS: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to report # of emails to DAS: %@", &v2, 0xCu);
 }
 
 @end

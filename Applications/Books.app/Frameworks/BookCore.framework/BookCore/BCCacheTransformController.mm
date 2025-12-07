@@ -41,33 +41,33 @@
   v11 = objc_alloc_init(BICDescribedImagePair);
   [(BICDescribedImagePair *)v11 setSourceImage:sourceCopy];
   [(BICDescribedImagePair *)v11 setDestinationImage:toCopy];
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v32 = sub_1400A4;
-  v33 = &unk_2C7BC0;
-  v36 = &v37;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v33 = sub_1400A4;
+  v34 = &unk_2C7BC0;
+  v37 = &v38;
   selfCopy = self;
   v12 = v11;
-  v35 = v12;
-  v13 = v31;
+  v36 = v12;
+  v13 = v32;
   os_unfair_lock_lock(&self->_accessLock);
-  v32(v13);
+  v33(v13);
   os_unfair_lock_unlock(&self->_accessLock);
 
-  if (v38[3])
+  if (v39[3])
   {
-    v14 = BCImageCacheLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = BCImageCacheLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v42 = toCopy;
-      v43 = 2112;
-      v44 = requestCopy;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "BCCacheTransformController: Transform is already in progress for: %@ for request: %@", buf, 0x16u);
+      v43 = toCopy;
+      v44 = 2112;
+      v45 = requestCopy;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "BCCacheTransformController: Transform is already in progress for: %@ for request: %@", buf, 0x16u);
     }
   }
 
@@ -75,43 +75,43 @@
   {
     objc_initWeak(buf, self);
     processingOptions = [toCopy processingOptions];
-    v16 = kBICCacheStatsCounterTransformSpine;
+    v17 = kBICCacheStatsCounterTransformSpine;
     if (!processingOptions)
     {
-      v16 = kBICCacheStatsCounterTransformResize;
+      v17 = kBICCacheStatsCounterTransformResize;
     }
 
-    [BICCacheStats incrementCounter:*v16];
+    [BICCacheStats incrementCounter:*v17];
     [BICCacheStats logOperation:BICCacheStatsOperationTransformQueueStart[0] forRequest:requestCopy];
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v27 = sub_140104;
-    v28 = &unk_2C7BE8;
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v28 = sub_140104;
+    v29 = &unk_2C7BE8;
     selfCopy2 = self;
-    v17 = v12;
-    v30 = v17;
-    v18 = v26;
+    v18 = v12;
+    v31 = v18;
+    v19 = v27;
     os_unfair_lock_lock(&self->_accessLock);
-    v27(v18);
+    v28(v19);
     os_unfair_lock_unlock(&self->_accessLock);
 
     workQueue = [(BCCacheTransformController *)self workQueue];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_140158;
-    v20[3] = &unk_2CDED8;
-    v21 = requestCopy;
-    objc_copyWeak(&v25, buf);
-    v22 = sourceCopy;
-    v23 = toCopy;
-    v24 = v17;
-    [workQueue addWorkItemWithPriority:v21 description:@"Transformer transform" block:v20];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_140158;
+    v21[3] = &unk_2CDED8;
+    v22 = requestCopy;
+    objc_copyWeak(&v26, buf);
+    v23 = sourceCopy;
+    v24 = toCopy;
+    v25 = v18;
+    [workQueue addWorkItemWithPriority:v22 description:@"Transformer transform" block:v21];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
 
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v38, 8);
 }
 
 - (void)_transformCompleteSource:(id)source to:(id)to forRequest:(id)request

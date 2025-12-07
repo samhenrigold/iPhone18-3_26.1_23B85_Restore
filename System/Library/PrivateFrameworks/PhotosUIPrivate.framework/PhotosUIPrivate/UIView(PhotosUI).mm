@@ -95,7 +95,7 @@
 - (uint64_t)pu_addTransform:()PhotosUI
 {
   memset(&v10, 0, sizeof(v10));
-  [self transform];
+  objc_msgSend_transform(self, a2);
   t1 = v10;
   memset(&v9, 0, sizeof(v9));
   v5 = a3[1];
@@ -133,7 +133,7 @@
       goto LABEL_6;
     }
 
-    (*(v12 + 2))();
+    v12[2]();
   }
 
   else

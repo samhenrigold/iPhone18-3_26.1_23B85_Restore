@@ -91,9 +91,9 @@
 
 - (id)filteredPointSelectionContexts:(id)contexts forTouchPoints:(id)points resultsDidChange:(BOOL *)change
 {
-  sub_1C3C27CB4(0, &unk_1EC0866A0);
+  sub_1C3C27CB4(0, &unk_1EC0866A0, off_1E81B2740);
   v7 = sub_1C3D202B4();
-  sub_1C3C27CB4(0, &qword_1EC086590);
+  sub_1C3C27CB4(0, &qword_1EC086590, 0x1E696B098);
   v8 = sub_1C3D202B4();
   selfCopy = self;
   sub_1C3C73500(v7, v8, change);

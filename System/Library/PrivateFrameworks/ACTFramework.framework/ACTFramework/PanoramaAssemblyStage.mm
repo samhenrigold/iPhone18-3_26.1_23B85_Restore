@@ -5,13 +5,13 @@
 - (__n64)_stagingHomography;
 - (int)_addStagingBuffer;
 - (int)_bindOutput;
+- (int)addHomogToStaging:(float32x4_t)staging;
 - (int)addStagingToOutput:(id)output;
 - (int)clearStagingBuffer:(id)buffer withEncoder:(id)encoder;
 - (int)finishProcessing;
 - (int)prepareToProcess:(int)process sliceWidth:(unint64_t)width sliceHeight:(unint64_t)height gridWidth:(unint64_t)gridWidth gridHeight:(unint64_t)gridHeight;
 - (int)renderDirtyStagingBuffers;
 - (int)resetState;
-- (uint64_t)addHomogToStaging:(uint64_t)staging;
 - (uint64_t)addSlice:(double)slice metadata:(double)metadata sliceHomography:(double)homography stitchingMask:(double)mask roi:(double)roi sliceType:(double)type;
 - (uint64_t)addSliceToProjectiveGrid:(__n128)grid atlasHomography:(__n128)homography panoHomography:(__n128)panoHomography encoder:(__n128)encoder sliceType:(__n128)type;
 - (uint64_t)addSliceToStagingBuffer:(float32x4_t)buffer sliceLuma:(float32x4_t)luma sliceChroma:(uint64_t)chroma sliceMask:(void *)mask sliceGlobalHomography:(void *)homography encoder:(void *)encoder;
@@ -59,176 +59,176 @@
   shaders = self->_shaders;
   encoderCopy = encoder;
   bufferCopy = buffer;
-  v12 = objc_msgSend_resetSliceSizedState(shaders, v9, v10, v11);
-  getThreadgroupSizeForShader(v12, &v65);
+  resetSliceSizedState = [(PanoramaAssemblyShaders *)shaders resetSliceSizedState];
+  getThreadgroupSizeForShader(resetSliceSizedState, &v24);
 
-  v16 = objc_msgSend_resetSliceSizedState(self->_shaders, v13, v14, v15);
-  objc_msgSend_setComputePipelineState_(encoderCopy, v17, v16, v18);
+  resetSliceSizedState2 = [(PanoramaAssemblyShaders *)self->_shaders resetSliceSizedState];
+  [encoderCopy setComputePipelineState:resetSliceSizedState2];
 
-  v22 = objc_msgSend_luma(bufferCopy, v19, v20, v21);
-  objc_msgSend_setTexture_atIndex_(encoderCopy, v23, v22, 0);
+  luma = [bufferCopy luma];
+  [encoderCopy setTexture:luma atIndex:0];
 
-  v27 = objc_msgSend_chroma(bufferCopy, v24, v25, v26);
-  objc_msgSend_setTexture_atIndex_(encoderCopy, v28, v27, 1);
+  chroma = [bufferCopy chroma];
+  [encoderCopy setTexture:chroma atIndex:1];
 
-  v32 = objc_msgSend_weights(bufferCopy, v29, v30, v31);
-  objc_msgSend_setTexture_atIndex_(encoderCopy, v33, v32, 2);
+  weights = [bufferCopy weights];
+  [encoderCopy setTexture:weights atIndex:2];
 
-  v37 = objc_msgSend_chroma(bufferCopy, v34, v35, v36);
-  v41 = objc_msgSend_width(v37, v38, v39, v40);
-  v45 = objc_msgSend_chroma(bufferCopy, v42, v43, v44);
-  v64[0] = v41;
-  v64[1] = objc_msgSend_height(v45, v46, v47, v48);
-  v64[2] = 1;
-  v62 = v65;
-  v63 = v66;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(encoderCopy, v49, v64, &v62);
+  chroma2 = [bufferCopy chroma];
+  width = [chroma2 width];
+  chroma3 = [bufferCopy chroma];
+  v23[0] = width;
+  v23[1] = [chroma3 height];
+  v23[2] = 1;
+  v21 = v24;
+  v22 = v25;
+  [encoderCopy dispatchThreads:v23 threadsPerThreadgroup:&v21];
 
-  v60 = *(MEMORY[0x277D860B0] + 16);
-  v61 = *MEMORY[0x277D860B0];
-  v59 = *(MEMORY[0x277D860B0] + 32);
-  objc_msgSend_setHomographyToReference_(bufferCopy, v50, v51, v52);
-  objc_msgSend_setAtlasHomography_(bufferCopy, v53, v54, v55, *&v61, *&v60, *&v59);
-  objc_msgSend_setDirty_(bufferCopy, v56, 0, v57);
+  v19 = *(MEMORY[0x277D860B0] + 16);
+  v20 = *MEMORY[0x277D860B0];
+  v18 = *(MEMORY[0x277D860B0] + 32);
+  [bufferCopy setHomographyToReference:?];
+  [bufferCopy setAtlasHomography:{*&v20, *&v19, *&v18}];
+  [bufferCopy setDirty:0];
 
   return 0;
 }
 
 - (int)resetState
 {
-  v152 = *MEMORY[0x277D85DE8];
-  v149 = 1056964608;
-  v150 = 0;
-  v5 = objc_msgSend_commandQueue(self->_metal, a2, v2, v3);
-  v9 = objc_msgSend_commandBuffer(v5, v6, v7, v8);
+  v49 = *MEMORY[0x277D85DE8];
+  v46 = 1056964608;
+  v47 = 0;
+  commandQueue = [(FigMetalContext *)self->_metal commandQueue];
+  commandBuffer = [commandQueue commandBuffer];
 
-  objc_msgSend_setLabel_(v9, v10, @"Panorama:AssemblyStage:resetState", v11);
-  v138 = v9;
-  v15 = objc_msgSend_computeCommandEncoder(v9, v12, v13, v14);
-  v19 = objc_msgSend_resetPanoSizedState(self->_shaders, v16, v17, v18);
-  getThreadgroupSizeForShader(v19, &v147);
+  [commandBuffer setLabel:@"Panorama:AssemblyStage:resetState"];
+  v35 = commandBuffer;
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  resetPanoSizedState = [(PanoramaAssemblyShaders *)self->_shaders resetPanoSizedState];
+  getThreadgroupSizeForShader(resetPanoSizedState, &v44);
 
   if (self->_projectiveGrid)
   {
-    v23 = objc_msgSend_resetPanoSizedState(self->_shaders, v20, v21, v22);
-    objc_msgSend_setComputePipelineState_(v15, v24, v23, v25);
+    resetPanoSizedState2 = [(PanoramaAssemblyShaders *)self->_shaders resetPanoSizedState];
+    [computeCommandEncoder setComputePipelineState:resetPanoSizedState2];
 
-    objc_msgSend_setTexture_atIndex_(v15, v26, self->_projectiveGrid, 0);
-    objc_msgSend_setBytes_length_atIndex_(v15, v27, &v150, 4, 0);
-    v31 = objc_msgSend_width(self->_projectiveGrid, v28, v29, v30);
-    v35 = objc_msgSend_height(self->_projectiveGrid, v32, v33, v34);
-    *&v145 = v31;
-    *(&v145 + 1) = v35;
-    v146 = 1;
-    v143 = v147;
-    v144 = v148;
-    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v15, v36, &v145, &v143);
-    v40 = objc_msgSend_resetPanoSizedState(self->_shaders, v37, v38, v39);
-    objc_msgSend_setComputePipelineState_(v15, v41, v40, v42);
+    [computeCommandEncoder setTexture:self->_projectiveGrid atIndex:0];
+    [computeCommandEncoder setBytes:&v47 length:4 atIndex:0];
+    width = [(MTLTexture *)self->_projectiveGrid width];
+    height = [(MTLTexture *)self->_projectiveGrid height];
+    *&v42 = width;
+    *(&v42 + 1) = height;
+    v43 = 1;
+    v40 = v44;
+    v41 = v45;
+    [computeCommandEncoder dispatchThreads:&v42 threadsPerThreadgroup:&v40];
+    resetPanoSizedState3 = [(PanoramaAssemblyShaders *)self->_shaders resetPanoSizedState];
+    [computeCommandEncoder setComputePipelineState:resetPanoSizedState3];
 
-    objc_msgSend_setTexture_atIndex_(v15, v43, self->_outputMask, 0);
-    objc_msgSend_setBytes_length_atIndex_(v15, v44, &v150, 4, 0);
-    v48 = objc_msgSend_width(self->_outputMask, v45, v46, v47);
-    v52 = objc_msgSend_height(self->_outputMask, v49, v50, v51);
-    *&v145 = v48;
-    *(&v145 + 1) = v52;
-    v146 = 1;
-    v143 = v147;
-    v144 = v148;
-    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v15, v53, &v145, &v143);
+    [computeCommandEncoder setTexture:self->_outputMask atIndex:0];
+    [computeCommandEncoder setBytes:&v47 length:4 atIndex:0];
+    width2 = [(MTLTexture *)self->_outputMask width];
+    height2 = [(MTLTexture *)self->_outputMask height];
+    *&v42 = width2;
+    *(&v42 + 1) = height2;
+    v43 = 1;
+    v40 = v44;
+    v41 = v45;
+    [computeCommandEncoder dispatchThreads:&v42 threadsPerThreadgroup:&v40];
   }
 
   if (self->_outputBoundLuma)
   {
-    v54 = objc_msgSend_resetPanoSizedState(self->_shaders, v20, v21, v22);
-    objc_msgSend_setComputePipelineState_(v15, v55, v54, v56);
+    resetPanoSizedState4 = [(PanoramaAssemblyShaders *)self->_shaders resetPanoSizedState];
+    [computeCommandEncoder setComputePipelineState:resetPanoSizedState4];
 
-    objc_msgSend_setTexture_atIndex_(v15, v57, self->_outputBoundLuma, 0);
-    objc_msgSend_setBytes_length_atIndex_(v15, v58, &v150, 4, 0);
-    v62 = objc_msgSend_width(self->_outputBoundLuma, v59, v60, v61);
-    v66 = objc_msgSend_height(self->_outputBoundLuma, v63, v64, v65);
-    *&v145 = v62;
-    *(&v145 + 1) = v66;
-    v146 = 1;
-    v143 = v147;
-    v144 = v148;
-    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v15, v67, &v145, &v143);
+    [computeCommandEncoder setTexture:self->_outputBoundLuma atIndex:0];
+    [computeCommandEncoder setBytes:&v47 length:4 atIndex:0];
+    width3 = [(MTLTexture *)self->_outputBoundLuma width];
+    height3 = [(MTLTexture *)self->_outputBoundLuma height];
+    *&v42 = width3;
+    *(&v42 + 1) = height3;
+    v43 = 1;
+    v40 = v44;
+    v41 = v45;
+    [computeCommandEncoder dispatchThreads:&v42 threadsPerThreadgroup:&v40];
   }
 
   if (self->_outputBoundChroma)
   {
-    v68 = objc_msgSend_resetPanoSizedState(self->_shaders, v20, v21, v22);
-    objc_msgSend_setComputePipelineState_(v15, v69, v68, v70);
+    resetPanoSizedState5 = [(PanoramaAssemblyShaders *)self->_shaders resetPanoSizedState];
+    [computeCommandEncoder setComputePipelineState:resetPanoSizedState5];
 
-    objc_msgSend_setTexture_atIndex_(v15, v71, self->_outputBoundChroma, 0);
-    objc_msgSend_setBytes_length_atIndex_(v15, v72, &v149, 4, 0);
-    v76 = objc_msgSend_width(self->_outputBoundChroma, v73, v74, v75);
-    v80 = objc_msgSend_height(self->_outputBoundChroma, v77, v78, v79);
-    *&v145 = v76;
-    *(&v145 + 1) = v80;
-    v146 = 1;
-    v143 = v147;
-    v144 = v148;
-    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v15, v81, &v145, &v143);
+    [computeCommandEncoder setTexture:self->_outputBoundChroma atIndex:0];
+    [computeCommandEncoder setBytes:&v46 length:4 atIndex:0];
+    width4 = [(MTLTexture *)self->_outputBoundChroma width];
+    height4 = [(MTLTexture *)self->_outputBoundChroma height];
+    *&v42 = width4;
+    *(&v42 + 1) = height4;
+    v43 = 1;
+    v40 = v44;
+    v41 = v45;
+    [computeCommandEncoder dispatchThreads:&v42 threadsPerThreadgroup:&v40];
   }
 
-  v82 = objc_msgSend_resetSliceSizedState(self->_shaders, v20, v21, v22);
-  getThreadgroupSizeForShader(v82, &v145);
-  v147 = v145;
-  v148 = v146;
+  resetSliceSizedState = [(PanoramaAssemblyShaders *)self->_shaders resetSliceSizedState];
+  getThreadgroupSizeForShader(resetSliceSizedState, &v42);
+  v44 = v42;
+  v45 = v43;
 
-  v141 = 0u;
-  v142 = 0u;
-  v139 = 0u;
-  v140 = 0u;
-  v83 = self->_dirtyStagingBuffers;
-  v85 = objc_msgSend_countByEnumeratingWithState_objects_count_(v83, v84, &v139, v151, 16);
-  if (v85)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v20 = self->_dirtyStagingBuffers;
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v36 objects:v48 count:16];
+  if (v21)
   {
-    v89 = v85;
-    v90 = *v140;
+    v22 = v21;
+    v23 = *v37;
     do
     {
-      for (i = 0; i != v89; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v140 != v90)
+        if (*v37 != v23)
         {
-          objc_enumerationMutation(v83);
+          objc_enumerationMutation(v20);
         }
 
-        v92 = *(*(&v139 + 1) + 8 * i);
-        v93 = objc_msgSend_resetSliceSizedState(self->_shaders, v86, v87, v88);
-        objc_msgSend_setComputePipelineState_(v15, v94, v93, v95);
+        v25 = *(*(&v36 + 1) + 8 * i);
+        resetSliceSizedState2 = [(PanoramaAssemblyShaders *)self->_shaders resetSliceSizedState];
+        [computeCommandEncoder setComputePipelineState:resetSliceSizedState2];
 
-        v99 = objc_msgSend_luma(v92, v96, v97, v98);
-        objc_msgSend_setTexture_atIndex_(v15, v100, v99, 0);
+        luma = [v25 luma];
+        [computeCommandEncoder setTexture:luma atIndex:0];
 
-        v104 = objc_msgSend_chroma(v92, v101, v102, v103);
-        objc_msgSend_setTexture_atIndex_(v15, v105, v104, 1);
+        chroma = [v25 chroma];
+        [computeCommandEncoder setTexture:chroma atIndex:1];
 
-        v109 = objc_msgSend_weights(v92, v106, v107, v108);
-        objc_msgSend_setTexture_atIndex_(v15, v110, v109, 2);
+        weights = [v25 weights];
+        [computeCommandEncoder setTexture:weights atIndex:2];
 
-        v114 = objc_msgSend_chroma(v92, v111, v112, v113);
-        v118 = objc_msgSend_width(v114, v115, v116, v117);
-        v122 = objc_msgSend_chroma(v92, v119, v120, v121);
-        v126 = objc_msgSend_height(v122, v123, v124, v125);
-        *&v145 = v118;
-        *(&v145 + 1) = v126;
-        v146 = 1;
-        v143 = v147;
-        v144 = v148;
-        objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v15, v127, &v145, &v143);
+        chroma2 = [v25 chroma];
+        width5 = [chroma2 width];
+        chroma3 = [v25 chroma];
+        height5 = [chroma3 height];
+        *&v42 = width5;
+        *(&v42 + 1) = height5;
+        v43 = 1;
+        v40 = v44;
+        v41 = v45;
+        [computeCommandEncoder dispatchThreads:&v42 threadsPerThreadgroup:&v40];
       }
 
-      v89 = objc_msgSend_countByEnumeratingWithState_objects_count_(v83, v86, &v139, v151, 16);
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v36 objects:v48 count:16];
     }
 
-    while (v89);
+    while (v22);
   }
 
-  objc_msgSend_endEncoding(v15, v128, v129, v130);
-  objc_msgSend_commit(v138, v131, v132, v133);
+  [computeCommandEncoder endEncoding];
+  [v35 commit];
   self->_sliceBufferLength = 0;
   if (self->_assemblyParams.enableTranslationCorrection)
   {
@@ -238,207 +238,207 @@
 
   else if (self->_assemblyParams.verticalDriftFilterWeight > 0.0)
   {
-    objc_msgSend_resetState(self->_atlasFilter, v134, v135, v136);
+    [(ButterworthHighPassFilter *)self->_atlasFilter resetState];
   }
 
   return 0;
 }
 
-- (uint64_t)addHomogToStaging:(uint64_t)staging
+- (int)addHomogToStaging:(float32x4_t)staging
 {
-  v7 = result;
-  v8 = MEMORY[0x277D860B0];
-  v9 = *(MEMORY[0x277D860B0] + 12);
-  v10 = *(MEMORY[0x277D860B0] + 28);
-  v11 = *(MEMORY[0x277D860B0] + 44);
-  v12 = *(result + 160);
-  if (v12)
+  v4 = result;
+  v5 = MEMORY[0x277D860B0];
+  v6 = *(MEMORY[0x277D860B0] + 12);
+  v7 = *(MEMORY[0x277D860B0] + 28);
+  v8 = *(MEMORY[0x277D860B0] + 44);
+  v9 = *(result + 20);
+  if (v9)
   {
-    v13 = 0;
-    v14 = *(result + 168);
-    v15 = v14 + 48 * v12;
-    v16 = *(v15 - 32);
-    v17 = *(v15 - 16);
-    v63 = *(v15 - 48);
-    v64 = v16;
-    v65 = v17;
-    v66 = 0u;
-    v67 = 0u;
-    v68 = 0u;
+    v10 = 0;
+    v11 = *(result + 21);
+    v12 = v11 + 48 * v9;
+    v13 = *(v12 - 32);
+    v14 = *(v12 - 16);
+    v60 = *(v12 - 48);
+    v61 = v13;
+    v62 = v14;
+    v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     do
     {
-      *(&v66 + v13) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a5, COERCE_FLOAT(*(&v63 + v13))), a6, *(&v63 + v13), 1), a7, *(&v63 + v13), 2);
-      v13 += 16;
+      *(&v63 + v10) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(*(&v60 + v10))), staging, *(&v60 + v10), 1), a4, *(&v60 + v10), 2);
+      v10 += 16;
     }
 
-    while (v13 != 48);
-    v19 = v66;
-    v18 = v67;
-    v20 = v68;
+    while (v10 != 48);
+    v16 = v63;
+    v15 = v64;
+    v17 = v65;
   }
 
   else
   {
-    v18 = *(MEMORY[0x277D860B0] + 16);
-    v20 = *(MEMORY[0x277D860B0] + 32);
-    v19 = *MEMORY[0x277D860B0];
-    v14 = *(result + 168);
+    v15 = *(MEMORY[0x277D860B0] + 16);
+    v17 = *(MEMORY[0x277D860B0] + 32);
+    v16 = *MEMORY[0x277D860B0];
+    v11 = *(result + 21);
   }
 
-  v21 = *v8;
-  v22 = v8[1];
-  v23 = v14 + 48 * v12;
-  *v23 = v19.i64[0];
-  *(v23 + 8) = v19.i32[2];
-  *(v23 + 12) = v9;
-  *(v23 + 16) = v18.i64[0];
-  *(v23 + 24) = v18.i32[2];
-  *(v23 + 28) = v10;
-  *(v23 + 32) = v20.i64[0];
-  *(v23 + 40) = v20.i32[2];
-  *(v23 + 44) = v11;
-  v24 = *(result + 160);
+  v18 = *v5;
+  v19 = v5[1];
+  v20 = v11 + 48 * v9;
+  *v20 = v16.i64[0];
+  *(v20 + 8) = v16.i32[2];
+  *(v20 + 12) = v6;
+  *(v20 + 16) = v15.i64[0];
+  *(v20 + 24) = v15.i32[2];
+  *(v20 + 28) = v7;
+  *(v20 + 32) = v17.i64[0];
+  *(v20 + 40) = v17.i32[2];
+  *(v20 + 44) = v8;
+  v21 = *(result + 20);
   __asm { FMOV            V4.2S, #1.0 }
 
-  if (v24)
+  if (v21)
   {
-    v30.i64[0] = 0x3F0000003F000000;
-    v30.i64[1] = 0x3F0000003F000000;
-    v31 = vaddq_f32(a7, vmlaq_f32(vmulq_f32(a5, v30), v30, a6));
-    *v31.i8 = vadd_f32(vdiv_f32(*v31.i8, vdup_laneq_s32(v31, 2)), 0xBF000000BF000000);
-    v32.i64[0] = v31.i64[0];
-    *&v32.u32[2] = _D4;
+    v27.i64[0] = 0x3F0000003F000000;
+    v27.i64[1] = 0x3F0000003F000000;
+    v28 = vaddq_f32(a4, vmlaq_f32(vmulq_f32(a2, v27), v27, staging));
+    *v28.i8 = vadd_f32(vdiv_f32(*v28.i8, vdup_laneq_s32(v28, 2)), 0xBF000000BF000000);
+    v29.i64[0] = v28.i64[0];
+    *&v29.u32[2] = _D4;
     if (*(result + 112) == 1)
     {
-      v33 = *(result + 116);
-      v34 = *(result + 268);
-      if (v24 <= v33)
+      v30 = result[29];
+      v31 = *(result + 67);
+      if (v21 <= v30)
       {
-        *(result + 268) = *v31.i32 + v34;
-        *(*(result + 272) + 4 * ((v24 - 1) % v33)) = v31.i32[0];
-        v38 = *(result + 268) / v24;
+        *(result + 67) = *v28.i32 + v31;
+        *(*(result + 34) + 4 * ((v21 - 1) % v30)) = v28.i32[0];
+        v35 = *(result + 67) / v21;
       }
 
       else
       {
-        v35 = *(result + 272);
-        v36 = (v24 - 1) % v33;
-        v37 = *v31.i32 + (v34 - *(v35 + 4 * v36));
-        *(result + 268) = v37;
-        v38 = v37 / v33;
-        *(v35 + 4 * v36) = v31.i32[0];
+        v32 = *(result + 34);
+        v33 = (v21 - 1) % v30;
+        v34 = *v28.i32 + (v31 - *(v32 + 4 * v33));
+        *(result + 67) = v34;
+        v35 = v34 / v30;
+        *(v32 + 4 * v33) = v28.i32[0];
       }
 
-      v42 = *(result + 120);
-      if (v24 == v42)
+      v39 = result[30];
+      if (v21 == v39)
       {
-        *(result + 264) = v38;
+        *(result + 66) = v35;
       }
 
-      v43 = 0;
-      v44 = *(result + 176) + 48 * v24;
-      v45 = *(v44 - 32);
-      v46 = *(v44 - 16);
-      v63 = *(v44 - 48);
-      v64 = v45;
-      v65 = v46;
-      v66 = 0u;
-      v67 = 0u;
-      v68 = 0u;
+      v40 = 0;
+      v41 = *(result + 22) + 48 * v21;
+      v42 = *(v41 - 32);
+      v43 = *(v41 - 16);
+      v60 = *(v41 - 48);
+      v61 = v42;
+      v62 = v43;
+      v63 = 0u;
+      v64 = 0u;
+      v65 = 0u;
       do
       {
-        *(&v66 + v43) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*(&v63 + v43))), v22, *(&v63 + v43), 1), v32, *(&v63 + v43), 2);
-        v43 += 16;
+        *(&v63 + v40) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18, COERCE_FLOAT(*(&v60 + v40))), v19, *(&v60 + v40), 1), v29, *(&v60 + v40), 2);
+        v40 += 16;
       }
 
-      while (v43 != 48);
-      v21 = v66;
-      v22 = v67;
-      if (v24 < v42)
+      while (v40 != 48);
+      v18 = v63;
+      v19 = v64;
+      if (v21 < v39)
       {
         goto LABEL_23;
       }
 
-      v47 = fabsf(v68.f32[0]);
-      if (v47 <= *(result + 124) || v47 >= *(result + 128))
+      v44 = fabsf(v65.f32[0]);
+      if (v44 <= *(result + 31) || v44 >= *(result + 32))
       {
         goto LABEL_23;
       }
 
-      *v31.i32 = *v31.i32 - (*(result + 132) * v38);
-      v31.i32[1] = v32.i32[1];
-      v31.i32[2] = _D4.i32[0];
+      *v28.i32 = *v28.i32 - (*(result + 33) * v35);
+      v28.i32[1] = v29.i32[1];
+      v28.i32[2] = _D4.i32[0];
     }
 
     else
     {
-      v41 = *(result + 136);
-      if (v41 <= 0.0)
+      v38 = *(result + 34);
+      if (v38 <= 0.0)
       {
         goto LABEL_23;
       }
 
-      v61 = v22;
-      v62 = v21;
-      v59 = v32;
-      v60 = _D4;
-      v58 = *v31.i32;
-      result = objc_msgSend_filterSample_(*(result + 328), a2, staging, a4);
-      _D4 = v60;
-      v22 = v61;
-      v21 = v62;
-      *v31.i32 = (v41 * *v31.i32) + ((1.0 - v41) * v58);
-      *(v31.i64 + 4) = *(v59.i64 + 4);
-      v24 = *(v7 + 160);
+      v58 = v19;
+      v59 = v18;
+      v56 = v29;
+      v57 = _D4;
+      v55 = *v28.i32;
+      result = [*(result + 41) filterSample:?];
+      _D4 = v57;
+      v19 = v58;
+      v18 = v59;
+      *v28.i32 = (v38 * *v28.i32) + ((1.0 - v38) * v55);
+      *(v28.i64 + 4) = *(v56.i64 + 4);
+      v21 = *(v4 + 20);
     }
 
-    v32 = v31;
+    v29 = v28;
 LABEL_23:
-    v48 = 0;
-    v40 = *(v7 + 176);
-    v49 = v40 + 48 * v24;
-    v50 = *(v49 - 32);
-    v51 = *(v49 - 16);
-    v63 = *(v49 - 48);
-    v64 = v50;
-    v65 = v51;
-    v66 = 0u;
-    v67 = 0u;
-    v68 = 0u;
+    v45 = 0;
+    v37 = *(v4 + 22);
+    v46 = v37 + 48 * v21;
+    v47 = *(v46 - 32);
+    v48 = *(v46 - 16);
+    v60 = *(v46 - 48);
+    v61 = v47;
+    v62 = v48;
+    v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     do
     {
-      *(&v66 + v48) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*(&v63 + v48))), v22, *(&v63 + v48), 1), v32, *(&v63 + v48), 2);
-      v48 += 16;
+      *(&v63 + v45) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18, COERCE_FLOAT(*(&v60 + v45))), v19, *(&v60 + v45), 1), v29, *(&v60 + v45), 2);
+      v45 += 16;
     }
 
-    while (v48 != 48);
-    v21 = v66;
-    v22 = v67;
-    v39 = v68;
+    while (v45 != 48);
+    v18 = v63;
+    v19 = v64;
+    v36 = v65;
     goto LABEL_26;
   }
 
-  v39 = v8[2];
-  v40 = *(result + 176);
+  v36 = v5[2];
+  v37 = *(result + 22);
 LABEL_26:
-  v52 = (v40 + 48 * v24);
-  *v52 = v21;
-  v52[1] = v22;
-  v52[2] = v39;
-  v53 = *(v7 + 384);
-  v54 = vcvt_f32_f64(vminnmq_f64(vcvtq_f64_f32(*v39.f32), v53));
-  v55 = vcvtq_f64_f32(vsub_f32(vcvt_f32_f64(vmaxnmq_f64(vcvtq_f64_f32(vadd_f32(*v39.f32, _D4)), vaddq_f64(v53, *(v7 + 400)))), v54));
-  *(v7 + 384) = vcvtq_f64_f32(v54);
-  *(v7 + 400) = v55;
-  v56 = *(v7 + 152);
-  v57 = *(v7 + 160) + 1;
-  *(v7 + 160) = v57;
-  if (v57 == v56)
+  v49 = (v37 + 48 * v21);
+  *v49 = v18;
+  v49[1] = v19;
+  v49[2] = v36;
+  v50 = *(v4 + 24);
+  v51 = vcvt_f32_f64(vminnmq_f64(vcvtq_f64_f32(*v36.f32), v50));
+  v52 = vcvtq_f64_f32(vsub_f32(vcvt_f32_f64(vmaxnmq_f64(vcvtq_f64_f32(vadd_f32(*v36.f32, _D4)), vaddq_f64(v50, *(v4 + 25)))), v51));
+  *(v4 + 24) = vcvtq_f64_f32(v51);
+  *(v4 + 25) = v52;
+  v53 = *(v4 + 19);
+  v54 = *(v4 + 20) + 1;
+  *(v4 + 20) = v54;
+  if (v54 == v53)
   {
-    *(v7 + 152) = 2 * v57;
-    *(v7 + 168) = malloc_type_realloc(*(v7 + 168), 96 * v57, 0x1000040EED21634uLL);
-    result = malloc_type_realloc(*(v7 + 176), 48 * *(v7 + 152), 0x1000040EED21634uLL);
-    *(v7 + 176) = result;
+    *(v4 + 19) = 2 * v54;
+    *(v4 + 21) = malloc_type_realloc(*(v4 + 21), 96 * v54, 0x1000040EED21634uLL);
+    result = malloc_type_realloc(*(v4 + 22), 48 * *(v4 + 19), 0x1000040EED21634uLL);
+    *(v4 + 22) = result;
   }
 
   return result;
@@ -446,49 +446,50 @@ LABEL_26:
 
 - (__n128)panoHomography
 {
-  v10 = *MEMORY[0x277D860B0];
-  v9 = objc_msgSend_width(*(self + 280), a2, a3, a4) / *(self + 24);
-  objc_msgSend_height(*(self + 280), v5, v6, v7);
-  result.n128_f32[0] = v9;
-  *(result.n128_u64 + 4) = *(&v10 + 4);
+  v5 = *MEMORY[0x277D860B0];
+  v2.n128_f32[0] = [*(self + 280) width] / *(self + 24);
+  v4 = v2;
+  [*(self + 280) height];
+  result = v4;
+  *(result.n128_u64 + 4) = *(&v5 + 4);
   return result;
 }
 
 - (uint64_t)addSliceToProjectiveGrid:(__n128)grid atlasHomography:(__n128)homography panoHomography:(__n128)panoHomography encoder:(__n128)encoder sliceType:(__n128)type
 {
-  v56[0] = a2;
-  v56[1] = grid;
-  v56[2] = homography;
-  v55[0] = panoHomography;
-  v55[1] = encoder;
-  v55[2] = type;
-  v54[0] = a15;
-  v54[1] = a16;
-  v54[2] = a17;
+  v35[0] = a2;
+  v35[1] = grid;
+  v35[2] = homography;
+  v34[0] = panoHomography;
+  v34[1] = encoder;
+  v34[2] = type;
+  v33[0] = a15;
+  v33[1] = a16;
+  v33[2] = a17;
   v19 = *(self + 16);
   v20 = a9;
-  v24 = objc_msgSend_addSliceToProjectiveGrid(v19, v21, v22, v23);
-  getThreadgroupSizeForShader(v24, &v52);
+  addSliceToProjectiveGrid = [v19 addSliceToProjectiveGrid];
+  getThreadgroupSizeForShader(addSliceToProjectiveGrid, &v31);
 
-  v50 = *(self + 56);
-  v51 = a10;
-  v28 = objc_msgSend_addSliceToProjectiveGrid(*(self + 16), v25, v26, v27);
-  objc_msgSend_setComputePipelineState_(v20, v29, v28, v30);
+  v29 = *(self + 56);
+  v30 = a10;
+  addSliceToProjectiveGrid2 = [*(self + 16) addSliceToProjectiveGrid];
+  [v20 setComputePipelineState:addSliceToProjectiveGrid2];
 
-  objc_msgSend_setTexture_atIndex_(v20, v31, *(self + 184), 0);
-  objc_msgSend_setBytes_length_atIndex_(v20, v32, v56, 48, 0);
-  objc_msgSend_setBytes_length_atIndex_(v20, v33, v55, 48, 1);
-  objc_msgSend_setBytes_length_atIndex_(v20, v34, v54, 48, 2);
-  objc_msgSend_setBytes_length_atIndex_(v20, v35, &v51, 4, 3);
-  objc_msgSend_setBytes_length_atIndex_(v20, v36, &v50, 4, 4);
-  v40 = objc_msgSend_width(*(self + 184), v37, v38, v39);
-  v44 = objc_msgSend_height(*(self + 184), v41, v42, v43);
-  v49[0] = v40;
-  v49[1] = v44;
-  v49[2] = 1;
-  v47 = v52;
-  v48 = v53;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v20, v45, v49, &v47);
+  [v20 setTexture:*(self + 184) atIndex:0];
+  [v20 setBytes:v35 length:48 atIndex:0];
+  [v20 setBytes:v34 length:48 atIndex:1];
+  [v20 setBytes:v33 length:48 atIndex:2];
+  [v20 setBytes:&v30 length:4 atIndex:3];
+  [v20 setBytes:&v29 length:4 atIndex:4];
+  width = [*(self + 184) width];
+  height = [*(self + 184) height];
+  v28[0] = width;
+  v28[1] = height;
+  v28[2] = 1;
+  v26 = v31;
+  v27 = v32;
+  [v20 dispatchThreads:v28 threadsPerThreadgroup:&v26];
 
   return 0;
 }
@@ -509,287 +510,287 @@ LABEL_26:
   encoderCopy = encoder;
   v18 = a9;
   v19 = a10;
-  objc_msgSend_homographyToReference(maskCopy, v20, v21, v22);
-  v104 = __invert_f3(v103);
-  v26 = 0;
-  v99 = v104;
-  v100 = 0u;
-  v101 = 0u;
-  v102 = 0u;
+  [maskCopy homographyToReference];
+  v54 = __invert_f3(v53);
+  v20 = 0;
+  v49 = v54;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   do
   {
-    *(&v100 + v26 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(*&v99.columns[v26])), buffer, *v99.columns[v26].f32, 1), luma, v99.columns[v26], 2);
-    ++v26;
+    *(&v50 + v20 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(*&v49.columns[v20])), buffer, *v49.columns[v20].f32, 1), luma, v49.columns[v20], 2);
+    ++v20;
   }
 
-  while (v26 != 3);
-  v97 = 0u;
-  v98 = 0u;
-  v96 = 0u;
-  v96.i32[2] = DWORD2(v100);
-  v97.i32[2] = DWORD2(v101);
-  v96.i64[0] = v100;
-  v97.i64[0] = v101;
-  v98.i32[2] = DWORD2(v102);
-  v98.i64[0] = v102;
-  objc_msgSend__stagingHomography(self, v23, v24, v25);
-  v30 = 0;
-  v31 = v96;
-  v32 = v97;
-  v33 = v98;
-  v99.columns[0] = v34;
-  v99.columns[1] = v35;
-  v99.columns[2] = v36;
-  v100 = 0u;
-  v101 = 0u;
-  v102 = 0u;
+  while (v20 != 3);
+  v47 = 0u;
+  v48 = 0u;
+  v46 = 0u;
+  v46.i32[2] = DWORD2(v50);
+  v47.i32[2] = DWORD2(v51);
+  v46.i64[0] = v50;
+  v47.i64[0] = v51;
+  v48.i32[2] = DWORD2(v52);
+  v48.i64[0] = v52;
+  [self _stagingHomography];
+  v21 = 0;
+  v22 = v46;
+  v23 = v47;
+  v24 = v48;
+  v49.columns[0] = v25;
+  v49.columns[1] = v26;
+  v49.columns[2] = v27;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   do
   {
-    *(&v100 + v30 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v31, COERCE_FLOAT(*&v99.columns[v30])), v32, *v99.columns[v30].f32, 1), v33, v99.columns[v30], 2);
-    ++v30;
+    *(&v50 + v21 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v22, COERCE_FLOAT(*&v49.columns[v21])), v23, *v49.columns[v21].f32, 1), v24, v49.columns[v21], 2);
+    ++v21;
   }
 
-  while (v30 != 3);
-  v96.i32[2] = DWORD2(v100);
-  v97.i32[2] = DWORD2(v101);
-  v96.i64[0] = v100;
-  v97.i64[0] = v101;
-  v98.i32[2] = DWORD2(v102);
-  v98.i64[0] = v102;
-  v37 = objc_msgSend_dirty(maskCopy, v27, v28, v29);
-  v94 = *(self + 296);
-  v95 = v37;
-  v41 = objc_msgSend_addSliceToStaging(*(self + 16), v38, v39, v40);
-  getThreadgroupSizeForShader(v41, &v100);
+  while (v21 != 3);
+  v46.i32[2] = DWORD2(v50);
+  v47.i32[2] = DWORD2(v51);
+  v46.i64[0] = v50;
+  v47.i64[0] = v51;
+  v48.i32[2] = DWORD2(v52);
+  v48.i64[0] = v52;
+  dirty = [maskCopy dirty];
+  v44 = *(self + 296);
+  v45 = dirty;
+  addSliceToStaging = [*(self + 16) addSliceToStaging];
+  getThreadgroupSizeForShader(addSliceToStaging, &v50);
 
-  v45 = objc_msgSend_addSliceToStaging(*(self + 16), v42, v43, v44);
-  objc_msgSend_setComputePipelineState_(v19, v46, v45, v47);
+  addSliceToStaging2 = [*(self + 16) addSliceToStaging];
+  [v19 setComputePipelineState:addSliceToStaging2];
 
-  objc_msgSend_setTexture_atIndex_(v19, v48, homographyCopy, 0);
-  objc_msgSend_setTexture_atIndex_(v19, v49, encoderCopy, 1);
-  objc_msgSend_setTexture_atIndex_(v19, v50, v18, 2);
-  v54 = objc_msgSend_luma(maskCopy, v51, v52, v53);
-  objc_msgSend_setTexture_atIndex_(v19, v55, v54, 3);
+  [v19 setTexture:homographyCopy atIndex:0];
+  [v19 setTexture:encoderCopy atIndex:1];
+  [v19 setTexture:v18 atIndex:2];
+  luma = [maskCopy luma];
+  [v19 setTexture:luma atIndex:3];
 
-  v59 = objc_msgSend_chroma(maskCopy, v56, v57, v58);
-  objc_msgSend_setTexture_atIndex_(v19, v60, v59, 4);
+  chroma = [maskCopy chroma];
+  [v19 setTexture:chroma atIndex:4];
 
-  v64 = objc_msgSend_weights(maskCopy, v61, v62, v63);
-  objc_msgSend_setTexture_atIndex_(v19, v65, v64, 5);
+  weights = [maskCopy weights];
+  [v19 setTexture:weights atIndex:5];
 
-  objc_msgSend_setBytes_length_atIndex_(v19, v66, &v96, 48, 0);
-  objc_msgSend_setBytes_length_atIndex_(v19, v67, &v94, 4, 1);
-  objc_msgSend_setBytes_length_atIndex_(v19, v68, &v95, 4, 2);
-  v72 = objc_msgSend_chroma(maskCopy, v69, v70, v71);
-  v76 = objc_msgSend_width(v72, v73, v74, v75);
-  v80 = objc_msgSend_chroma(maskCopy, v77, v78, v79);
-  v84 = objc_msgSend_height(v80, v81, v82, v83);
-  v99.columns[0].i64[0] = v76;
-  v99.columns[0].i64[1] = v84;
-  v99.columns[1].i64[0] = 1;
-  v92 = v100;
-  v93 = v101;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v19, v85, &v99, &v92);
+  [v19 setBytes:&v46 length:48 atIndex:0];
+  [v19 setBytes:&v44 length:4 atIndex:1];
+  [v19 setBytes:&v45 length:4 atIndex:2];
+  chroma2 = [maskCopy chroma];
+  width = [chroma2 width];
+  chroma3 = [maskCopy chroma];
+  height = [chroma3 height];
+  v49.columns[0].i64[0] = width;
+  v49.columns[0].i64[1] = height;
+  v49.columns[1].i64[0] = 1;
+  v42 = v50;
+  v43 = v51;
+  [v19 dispatchThreads:&v49 threadsPerThreadgroup:&v42];
 
-  objc_msgSend_setDirty_(maskCopy, v86, 1, v87);
+  [maskCopy setDirty:1];
   return 0;
 }
 
 - (int)addStagingToOutput:(id)output
 {
   outputCopy = output;
-  v185 = 0u;
-  v186 = 0u;
-  v184 = 0u;
-  objc_msgSend_homographyToReference(outputCopy, v5, v6, v7);
-  DWORD2(v184) = v8;
-  DWORD2(v185) = v9;
-  *&v184 = v10;
-  *&v185 = v11;
-  DWORD2(v186) = v12;
-  *&v186 = v13;
-  v183 = 0;
-  v17 = objc_msgSend_commandQueue(self->_metal, v14, v15, v16);
-  v21 = objc_msgSend_commandBuffer(v17, v18, v19, v20);
+  v46 = 0u;
+  v47 = 0u;
+  v45 = 0u;
+  [outputCopy homographyToReference];
+  DWORD2(v45) = v5;
+  DWORD2(v46) = v6;
+  *&v45 = v7;
+  *&v46 = v8;
+  DWORD2(v47) = v9;
+  *&v47 = v10;
+  v44 = 0;
+  commandQueue = [(FigMetalContext *)self->_metal commandQueue];
+  commandBuffer = [commandQueue commandBuffer];
 
-  objc_msgSend_setLabel_(v21, v22, @"Panorama:AssemblyStage:prepareForDenoising", v23);
-  v27 = objc_msgSend_computeCommandEncoder(v21, v24, v25, v26);
-  v31 = objc_msgSend_prepareForDenoising(self->_shaders, v28, v29, v30);
-  getThreadgroupSizeForShader(v31, &v181);
+  [commandBuffer setLabel:@"Panorama:AssemblyStage:prepareForDenoising"];
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  prepareForDenoising = [(PanoramaAssemblyShaders *)self->_shaders prepareForDenoising];
+  getThreadgroupSizeForShader(prepareForDenoising, &v42);
 
-  v35 = objc_msgSend_prepareForDenoising(self->_shaders, v32, v33, v34);
-  objc_msgSend_setComputePipelineState_(v27, v36, v35, v37);
+  prepareForDenoising2 = [(PanoramaAssemblyShaders *)self->_shaders prepareForDenoising];
+  [computeCommandEncoder setComputePipelineState:prepareForDenoising2];
 
-  v41 = objc_msgSend_luma(outputCopy, v38, v39, v40);
-  objc_msgSend_setTexture_atIndex_(v27, v42, v41, 0);
+  luma = [outputCopy luma];
+  [computeCommandEncoder setTexture:luma atIndex:0];
 
-  v46 = objc_msgSend_chroma(outputCopy, v43, v44, v45);
-  objc_msgSend_setTexture_atIndex_(v27, v47, v46, 1);
+  chroma = [outputCopy chroma];
+  [computeCommandEncoder setTexture:chroma atIndex:1];
 
-  objc_msgSend_setTexture_atIndex_(v27, v48, self->_nrfInputLuma, 2);
-  objc_msgSend_setTexture_atIndex_(v27, v49, self->_nrfInputChroma, 3);
-  v53 = objc_msgSend_weights(outputCopy, v50, v51, v52);
-  objc_msgSend_setTexture_atIndex_(v27, v54, v53, 4);
+  [computeCommandEncoder setTexture:self->_nrfInputLuma atIndex:2];
+  [computeCommandEncoder setTexture:self->_nrfInputChroma atIndex:3];
+  weights = [outputCopy weights];
+  [computeCommandEncoder setTexture:weights atIndex:4];
 
-  v58 = objc_msgSend_width(self->_nrfInputChroma, v55, v56, v57);
-  v62 = objc_msgSend_height(self->_nrfInputChroma, v59, v60, v61);
-  *&v190 = v58;
-  *(&v190 + 1) = v62;
-  *&v191 = 1;
-  v187 = v181;
-  *&v188 = v182;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v27, v63, &v190, &v187);
-  objc_msgSend_endEncoding(v27, v64, v65, v66);
-  objc_msgSend_commit(v21, v67, v68, v69);
-  objc_msgSend_waitUntilCompleted(v21, v70, v71, v72);
+  width = [(MTLTexture *)self->_nrfInputChroma width];
+  height = [(MTLTexture *)self->_nrfInputChroma height];
+  *&v51 = width;
+  *(&v51 + 1) = height;
+  *&v52 = 1;
+  v48 = v42;
+  *&v49 = v43;
+  [computeCommandEncoder dispatchThreads:&v51 threadsPerThreadgroup:&v48];
+  [computeCommandEncoder endEncoding];
+  [commandBuffer commit];
+  [commandBuffer waitUntilCompleted];
   if (self->_assemblyParams.bitDepth == 2)
   {
     objc_storeStrong(&self->_nrfOutputLuma, self->_nrfInputLuma);
-    v76 = self->_nrfInputChroma;
+    v21 = self->_nrfInputChroma;
     nrfOutputChroma = self->_nrfOutputChroma;
-    self->_nrfOutputChroma = v76;
+    self->_nrfOutputChroma = v21;
   }
 
   else
   {
     nrfInputSampleBuffer = self->_nrfInputSampleBuffer;
-    v79 = objc_msgSend_metadata(outputCopy, v73, v74, v75);
-    v83 = objc_msgSend_copy(v79, v80, v81, v82);
-    CMSetAttachment(nrfInputSampleBuffer, @"MetadataDictionary", v83, 0);
+    metadata = [outputCopy metadata];
+    v25 = [metadata copy];
+    CMSetAttachment(nrfInputSampleBuffer, @"MetadataDictionary", v25, 0);
 
     NSClassFromString(&cfstr_Nrfpreparedesc.isa);
-    v84 = objc_opt_new();
-    objc_msgSend_setWidth_(v84, v85, LODWORD(self->_stagingWidth), v86);
-    objc_msgSend_setHeight_(v84, v87, LODWORD(self->_stagingHeight), v88);
-    objc_msgSend_setPixelFormat_(v84, v89, self->_CVPixelFormat, v90);
-    nrfProcessor = self->_nrfProcessor;
+    v26 = objc_opt_new();
+    [v26 setWidth:LODWORD(self->_stagingWidth)];
+    [v26 setHeight:LODWORD(self->_stagingHeight)];
+    [v26 setPixelFormat:self->_CVPixelFormat];
     if (self->_assemblyParams.useNRFTypePano)
     {
-      objc_msgSend_prepareToProcess_prepareDescriptor_(nrfProcessor, v91, 8, v84);
+      v27 = 8;
     }
 
     else
     {
-      objc_msgSend_prepareToProcess_prepareDescriptor_(nrfProcessor, v91, 0, v84);
+      v27 = 0;
     }
 
+    [(NRFProcessor *)self->_nrfProcessor prepareToProcess:v27 prepareDescriptor:v26];
     NSClassFromString(&cfstr_Nrfubfusionout.isa);
     nrfOutputChroma = objc_opt_new();
-    objc_msgSend_setPixelBuffer_(nrfOutputChroma, v93, self->_nrfOutputPixelBuffer, v94);
-    v95 = objc_opt_new();
-    objc_msgSend_setMetadata_(nrfOutputChroma, v96, v95, v97);
+    [nrfOutputChroma setPixelBuffer:self->_nrfOutputPixelBuffer];
+    v28 = objc_opt_new();
+    [nrfOutputChroma setMetadata:v28];
 
-    objc_msgSend_setOutput_(self->_nrfProcessor, v98, nrfOutputChroma, v99);
-    objc_msgSend_addFrame_(self->_nrfProcessor, v100, self->_nrfInputSampleBuffer, v101);
-    objc_msgSend_process(self->_nrfProcessor, v102, v103, v104);
-    objc_msgSend_finishScheduling(self->_nrfProcessor, v105, v106, v107);
-    objc_msgSend_resetState(self->_nrfProcessor, v108, v109, v110);
+    [(NRFProcessor *)self->_nrfProcessor setOutput:nrfOutputChroma];
+    [(NRFProcessor *)self->_nrfProcessor addFrame:self->_nrfInputSampleBuffer];
+    [(NRFProcessor *)self->_nrfProcessor process];
+    [(NRFProcessor *)self->_nrfProcessor finishScheduling];
+    [(NRFProcessor *)self->_nrfProcessor resetState];
   }
 
-  objc_msgSend__stagingHomography(self, v111, v112, v113);
-  v194 = __invert_f3(v193);
-  v117 = 0;
-  v187 = v184;
-  v188 = v185;
-  v189 = v186;
-  v190 = 0u;
-  v191 = 0u;
-  v192 = 0u;
+  [(PanoramaAssemblyStage *)self _stagingHomography];
+  v55 = __invert_f3(v54);
+  v29 = 0;
+  v48 = v45;
+  v49 = v46;
+  v50 = v47;
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   do
   {
-    *(&v190 + v117) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v194.columns[0], COERCE_FLOAT(*(&v187 + v117))), v194.columns[1], *(&v187 + v117), 1), v194.columns[2], *(&v187 + v117), 2);
-    v117 += 16;
+    *(&v51 + v29) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v55.columns[0], COERCE_FLOAT(*(&v48 + v29))), v55.columns[1], *(&v48 + v29), 1), v55.columns[2], *(&v48 + v29), 2);
+    v29 += 16;
   }
 
-  while (v117 != 48);
-  DWORD2(v184) = DWORD2(v190);
-  DWORD2(v185) = DWORD2(v191);
-  *&v184 = v190;
-  *&v185 = v191;
-  DWORD2(v186) = DWORD2(v192);
-  *&v186 = v192;
-  v118 = objc_msgSend_commandQueue(self->_metal, v114, v115, v116);
-  v122 = objc_msgSend_commandBuffer(v118, v119, v120, v121);
+  while (v29 != 48);
+  DWORD2(v45) = DWORD2(v51);
+  DWORD2(v46) = DWORD2(v52);
+  *&v45 = v51;
+  *&v46 = v52;
+  DWORD2(v47) = DWORD2(v53);
+  *&v47 = v53;
+  commandQueue2 = [(FigMetalContext *)self->_metal commandQueue];
+  commandBuffer2 = [commandQueue2 commandBuffer];
 
-  objc_msgSend_setLabel_(v122, v123, @"Panorama:AssemblyStage:addStagingToOutput", v124);
-  v128 = objc_msgSend_computeCommandEncoder(v122, v125, v126, v127);
+  [commandBuffer2 setLabel:@"Panorama:AssemblyStage:addStagingToOutput"];
+  computeCommandEncoder2 = [commandBuffer2 computeCommandEncoder];
 
-  objc_msgSend_atlasHomography(outputCopy, v129, v130, v131);
-  v183 = v132;
-  *(&v183 + 1) = *(&v132 + 1) / (objc_msgSend_height(self->_outputBoundLuma, v133, v134, v135) / self->_sliceHeight);
-  v139 = objc_msgSend_width(self->_outputBoundLuma, v136, v137, v138);
+  [outputCopy atlasHomography];
+  v44 = v33;
+  *(&v44 + 1) = *(&v33 + 1) / ([(MTLTexture *)self->_outputBoundLuma height]/ self->_sliceHeight);
+  width2 = [(MTLTexture *)self->_outputBoundLuma width];
   shaders = self->_shaders;
-  *&v183 = *&v183 / (v139 / self->_sliceWidth);
-  v144 = objc_msgSend_addStagingToOutput(shaders, v141, v142, v143);
-  getThreadgroupSizeForShader(v144, &v190);
-  v181 = v190;
-  v182 = v191;
+  *&v44 = *&v44 / (width2 / self->_sliceWidth);
+  addStagingToOutput = [(PanoramaAssemblyShaders *)shaders addStagingToOutput];
+  getThreadgroupSizeForShader(addStagingToOutput, &v51);
+  v42 = v51;
+  v43 = v52;
 
-  v148 = objc_msgSend_addStagingToOutput(self->_shaders, v145, v146, v147);
-  objc_msgSend_setComputePipelineState_(v128, v149, v148, v150);
+  addStagingToOutput2 = [(PanoramaAssemblyShaders *)self->_shaders addStagingToOutput];
+  [computeCommandEncoder2 setComputePipelineState:addStagingToOutput2];
 
-  objc_msgSend_setTexture_atIndex_(v128, v151, self->_nrfOutputLuma, 0);
-  objc_msgSend_setTexture_atIndex_(v128, v152, self->_nrfOutputChroma, 1);
-  v156 = objc_msgSend_weights(outputCopy, v153, v154, v155);
-  objc_msgSend_setTexture_atIndex_(v128, v157, v156, 2);
+  [computeCommandEncoder2 setTexture:self->_nrfOutputLuma atIndex:0];
+  [computeCommandEncoder2 setTexture:self->_nrfOutputChroma atIndex:1];
+  weights2 = [outputCopy weights];
+  [computeCommandEncoder2 setTexture:weights2 atIndex:2];
 
-  objc_msgSend_setTexture_atIndex_(v128, v158, self->_projectiveGrid, 3);
-  objc_msgSend_setTexture_atIndex_(v128, v159, self->_outputBoundLuma, 4);
-  objc_msgSend_setTexture_atIndex_(v128, v160, self->_outputBoundChroma, 5);
-  objc_msgSend_setTexture_atIndex_(v128, v161, self->_outputMask, 6);
-  objc_msgSend_setBytes_length_atIndex_(v128, v162, &v184, 48, 0);
-  objc_msgSend_setBytes_length_atIndex_(v128, v163, &v183, 8, 1);
-  objc_msgSend_setBytes_length_atIndex_(v128, v164, &self->_direction, 8, 2);
-  v168 = objc_msgSend_width(self->_outputBoundChroma, v165, v166, v167);
-  v172 = objc_msgSend_height(self->_outputBoundChroma, v169, v170, v171);
-  *&v190 = v168;
-  *(&v190 + 1) = v172;
-  *&v191 = 1;
-  v187 = v181;
-  *&v188 = v182;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v128, v173, &v190, &v187);
-  objc_msgSend_endEncoding(v128, v174, v175, v176);
-  objc_msgSend_commit(v122, v177, v178, v179);
+  [computeCommandEncoder2 setTexture:self->_projectiveGrid atIndex:3];
+  [computeCommandEncoder2 setTexture:self->_outputBoundLuma atIndex:4];
+  [computeCommandEncoder2 setTexture:self->_outputBoundChroma atIndex:5];
+  [computeCommandEncoder2 setTexture:self->_outputMask atIndex:6];
+  [computeCommandEncoder2 setBytes:&v45 length:48 atIndex:0];
+  [computeCommandEncoder2 setBytes:&v44 length:8 atIndex:1];
+  [computeCommandEncoder2 setBytes:&self->_direction length:8 atIndex:2];
+  width3 = [(MTLTexture *)self->_outputBoundChroma width];
+  height2 = [(MTLTexture *)self->_outputBoundChroma height];
+  *&v51 = width3;
+  *(&v51 + 1) = height2;
+  *&v52 = 1;
+  v48 = v42;
+  *&v49 = v43;
+  [computeCommandEncoder2 dispatchThreads:&v51 threadsPerThreadgroup:&v48];
+  [computeCommandEncoder2 endEncoding];
+  [commandBuffer2 commit];
 
   return 0;
 }
 
 - (int)renderDirtyStagingBuffers
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v3 = self->_dirtyStagingBuffers;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v22, v26, 16);
-  if (v5)
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v4)
   {
-    v8 = v5;
-    v9 = *v23;
+    v5 = v4;
+    v6 = *v15;
     while (2)
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v9)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
-        v12 = objc_msgSend_addStagingToOutput_(self, v6, v11, v7, v22);
-        if (v12)
+        v8 = *(*(&v14 + 1) + 8 * i);
+        v9 = [(PanoramaAssemblyStage *)self addStagingToOutput:v8, v14];
+        if (v9)
         {
-          v20 = v12;
+          v12 = v9;
 
-          return v20;
+          return v12;
         }
 
-        objc_msgSend_addObject_(self->_stagingBufferPool, v13, v11, v14);
+        [(NSMutableArray *)self->_stagingBufferPool addObject:v8];
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v22, v26, 16);
-      if (v8)
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v5)
       {
         continue;
       }
@@ -798,11 +799,11 @@ LABEL_26:
     }
   }
 
-  v15 = objc_opt_new();
+  v10 = objc_opt_new();
   dirtyStagingBuffers = self->_dirtyStagingBuffers;
-  self->_dirtyStagingBuffers = v15;
+  self->_dirtyStagingBuffers = v10;
 
-  objc_msgSend_removeAllObjects(self->_stagingBufferPool, v17, v18, v19);
+  [(NSMutableArray *)self->_stagingBufferPool removeAllObjects];
   return 0;
 }
 
@@ -818,9 +819,9 @@ LABEL_26:
 
 - (int)finishProcessing
 {
-  objc_msgSend_adjustBoundingBox(self, a2, v2, v3);
+  [(PanoramaAssemblyStage *)self adjustBoundingBox];
 
-  return MEMORY[0x2821F9670](self, sel_renderDirtyStagingBuffers, v5, v6);
+  return MEMORY[0x2821F9670](self, sel_renderDirtyStagingBuffers);
 }
 
 - (CGRect)boundingBox
@@ -839,22 +840,22 @@ LABEL_26:
 - (PanoramaAssemblyStage)initWithContext:(id)context robustPanoParams:(id *)params
 {
   contextCopy = context;
-  v31.receiver = self;
-  v31.super_class = PanoramaAssemblyStage;
-  v8 = [(PanoramaAssemblyStage *)&v31 init];
+  v25.receiver = self;
+  v25.super_class = PanoramaAssemblyStage;
+  v8 = [(PanoramaAssemblyStage *)&v25 init];
   v9 = v8;
-  if (v8 && (objc_storeStrong(&v8->_metal, context), v10 = [PanoramaAssemblyShaders alloc], v13 = objc_msgSend_initWithContext_(v10, v11, contextCopy, v12), shaders = v9->_shaders, v9->_shaders = v13, shaders, v9->_shaders))
+  if (v8 && (objc_storeStrong(&v8->_metal, context), v10 = [[PanoramaAssemblyShaders alloc] initWithContext:contextCopy], shaders = v9->_shaders, v9->_shaders = v10, shaders, v9->_shaders))
   {
     *&v9->_sliceBufferAllocSize = xmmword_23C47A550;
     v9->_sliceHomographies = malloc_type_calloc(0x400uLL, 0x30uLL, 0x1000040EED21634uLL);
     v9->_atlasHomographies = malloc_type_calloc(v9->_sliceBufferAllocSize, 0x30uLL, 0x1000040EED21634uLL);
-    v15 = objc_opt_new();
+    v12 = objc_opt_new();
     stagingBufferPool = v9->_stagingBufferPool;
-    v9->_stagingBufferPool = v15;
+    v9->_stagingBufferPool = v12;
 
-    v17 = objc_opt_new();
+    v14 = objc_opt_new();
     dirtyStagingBuffers = v9->_dirtyStagingBuffers;
-    v9->_dirtyStagingBuffers = v17;
+    v9->_dirtyStagingBuffers = v14;
 
     v9->_direction = 1;
     outputBoundLuma = v9->_outputBoundLuma;
@@ -872,31 +873,31 @@ LABEL_26:
 
     else if (v9->_assemblyParams.verticalDriftFilterWeight > 0.0)
     {
-      v21 = [ButterworthHighPassFilter alloc];
-      LODWORD(v22) = 1148846080;
-      LODWORD(v23) = 30.0;
-      v27 = objc_msgSend_initWithCutoffFrequency_sampleRate_(v21, v24, v25, v26, v23, v22);
+      v18 = [ButterworthHighPassFilter alloc];
+      LODWORD(v19) = 1148846080;
+      LODWORD(v20) = 30.0;
+      v21 = [(ButterworthHighPassFilter *)v18 initWithCutoffFrequency:v20 sampleRate:v19];
       atlasFilter = v9->_atlasFilter;
-      v9->_atlasFilter = v27;
+      v9->_atlasFilter = v21;
     }
 
     v9->_MTLPixelFormatY = getLumaMTLPixelFormat(v9->_assemblyParams.bitDepth);
     v9->_MTLPixelFormatUV = getChromaMTLPixelFormat(v9->_assemblyParams.bitDepth);
     v9->_CVPixelFormat = getCVPixelFormat(v9->_assemblyParams.bitDepth);
-    v29 = v9;
+    v23 = v9;
   }
 
   else
   {
-    v29 = 0;
+    v23 = 0;
   }
 
-  return v29;
+  return v23;
 }
 
 - (int)prepareToProcess:(int)process sliceWidth:(unint64_t)width sliceHeight:(unint64_t)height gridWidth:(unint64_t)gridWidth gridHeight:(unint64_t)gridHeight
 {
-  v70[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   self->_assemblyMode = process;
   self->_panoWidth = CVPixelBufferGetWidth(self->_output);
   self->_panoHeight = CVPixelBufferGetHeight(self->_output);
@@ -904,45 +905,45 @@ LABEL_26:
   self->_sliceHeight = height;
   self->_stagingWidth = self->_panoWidth;
   self->_stagingHeight = height;
-  v69 = *MEMORY[0x277CC4DE8];
-  v70[0] = MEMORY[0x277CBEC10];
-  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v70, &v69, 1);
+  v32 = *MEMORY[0x277CC4DE8];
+  v33[0] = MEMORY[0x277CBEC10];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
   if (self->_projectiveGrid)
   {
-    v17 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v18 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v13, 125, gridWidth, gridHeight, 0);
-    objc_msgSend_setUsage_(v18, v19, 3, v20);
-    v24 = objc_msgSend_device(self->_metal, v21, v22, v23);
-    v27 = objc_msgSend_newTextureWithDescriptor_(v24, v25, v18, v26);
+    v14 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:125 width:gridWidth height:gridHeight mipmapped:0];
+    [v14 setUsage:3];
+    device = [(FigMetalContext *)self->_metal device];
+    v16 = [device newTextureWithDescriptor:v14];
     projectiveGrid = self->_projectiveGrid;
-    self->_projectiveGrid = v27;
+    self->_projectiveGrid = v16;
 
     if (!self->_projectiveGrid)
     {
       goto LABEL_21;
     }
 
-    v17 = v18;
+    v13 = v14;
   }
 
   if (self->_outputMask)
   {
-    v18 = v17;
+    v14 = v13;
   }
 
   else
   {
-    v18 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v13, 10, self->_panoWidth >> 1, self->_panoHeight >> 1, 0);
+    v14 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:10 width:self->_panoWidth >> 1 height:self->_panoHeight >> 1 mipmapped:0];
 
-    objc_msgSend_setUsage_(v18, v29, 3, v30);
-    v34 = objc_msgSend_device(self->_metal, v31, v32, v33);
-    v37 = objc_msgSend_newTextureWithDescriptor_(v34, v35, v18, v36);
+    [v14 setUsage:3];
+    device2 = [(FigMetalContext *)self->_metal device];
+    v19 = [device2 newTextureWithDescriptor:v14];
     outputMask = self->_outputMask;
-    self->_outputMask = v37;
+    self->_outputMask = v19;
 
     if (!self->_outputMask)
     {
@@ -952,70 +953,68 @@ LABEL_26:
 
   if (!self->_nrfOutputPixelBuffer)
   {
-    sub_23C44B74C(v16);
+    sub_23C44B74C(v12);
     if (!self->_nrfOutputPixelBuffer)
     {
       goto LABEL_21;
     }
 
-    v39 = sub_23C44B778();
-    v43 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(v39, v40, v41, v42);
+    v21 = [sub_23C44B778() bindPixelBufferToMTL2DTexture:? pixelFormat:? usage:? plane:?];
     nrfOutputLuma = self->_nrfOutputLuma;
-    self->_nrfOutputLuma = v43;
+    self->_nrfOutputLuma = v21;
 
-    v46 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v45, self->_nrfOutputPixelBuffer, 30, 3, 1);
+    v23 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:self->_nrfOutputPixelBuffer pixelFormat:30 usage:3 plane:1];
     nrfOutputChroma = self->_nrfOutputChroma;
-    self->_nrfOutputChroma = v46;
+    self->_nrfOutputChroma = v23;
   }
 
   if (!self->_nrfInputPixelBuffer)
   {
-    sub_23C44B74C(v16);
+    sub_23C44B74C(v12);
     if (self->_nrfInputPixelBuffer)
     {
-      v48 = sub_23C44B778();
-      v52 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(v48, v49, v50, v51);
+      v25 = [sub_23C44B778() bindPixelBufferToMTL2DTexture:? pixelFormat:? usage:? plane:?];
       nrfInputLuma = self->_nrfInputLuma;
-      self->_nrfInputLuma = v52;
+      self->_nrfInputLuma = v25;
 
-      v55 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v54, self->_nrfInputPixelBuffer, 30, 3, 1);
+      v27 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:self->_nrfInputPixelBuffer pixelFormat:30 usage:3 plane:1];
       nrfInputChroma = self->_nrfInputChroma;
-      self->_nrfInputChroma = v55;
+      self->_nrfInputChroma = v27;
 
       self->_nrfInputSampleBuffer = CreateSampleBuffer();
       goto LABEL_14;
     }
 
 LABEL_21:
-    v67 = 2;
+    v30 = 2;
     goto LABEL_20;
   }
 
 LABEL_14:
-  v57 = objc_msgSend__bindOutput(self, v13, v14, v15);
-  if (v57)
+  _bindOutput = [(PanoramaAssemblyStage *)self _bindOutput];
+  if (_bindOutput)
   {
     goto LABEL_19;
   }
 
-  v57 = objc_msgSend_resetState(self, v58, v59, v60);
-  if (v57)
+  _bindOutput = [(PanoramaAssemblyStage *)self resetState];
+  if (_bindOutput)
   {
     goto LABEL_19;
   }
 
-  if (!objc_msgSend_count(self->_dirtyStagingBuffers, v61, v62, v63))
+  if (![(NSMutableArray *)self->_dirtyStagingBuffers count])
   {
-    v57 = objc_msgSend__addStagingBuffer(self, v64, v65, v66);
+    _bindOutput = [(PanoramaAssemblyStage *)self _addStagingBuffer];
 LABEL_19:
-    v67 = v57;
+    v30 = _bindOutput;
     goto LABEL_20;
   }
 
-  v67 = 0;
+  v30 = 0;
 LABEL_20:
 
-  return v67;
+  return v30;
 }
 
 - (int)_bindOutput
@@ -1027,16 +1026,16 @@ LABEL_20:
   }
 
   v4 = 3;
-  v5 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, a2, output, self->_MTLPixelFormatY, 3, 0);
+  v5 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:output pixelFormat:self->_MTLPixelFormatY usage:3 plane:0];
   outputBoundLuma = self->_outputBoundLuma;
   self->_outputBoundLuma = v5;
 
   if (self->_outputBoundLuma)
   {
     v4 = 3;
-    v8 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v7, self->_output, self->_MTLPixelFormatUV, 3, 1);
+    v7 = [(FigMetalContext *)self->_metal bindPixelBufferToMTL2DTexture:self->_output pixelFormat:self->_MTLPixelFormatUV usage:3 plane:1];
     outputBoundChroma = self->_outputBoundChroma;
-    self->_outputBoundChroma = v8;
+    self->_outputBoundChroma = v7;
 
     if (self->_outputBoundChroma)
     {
@@ -1054,49 +1053,54 @@ LABEL_20:
 
 - (int)_addStagingBuffer
 {
-  v5 = objc_msgSend_count(self->_stagingBufferPool, a2, v2, v3);
-  v9 = MEMORY[0x277D860B0];
-  if (v5)
+  v3 = [(NSMutableArray *)self->_stagingBufferPool count];
+  v4 = MEMORY[0x277D860B0];
+  if (v3)
   {
-    v10 = objc_msgSend_lastObject(self->_stagingBufferPool, v6, v7, v8);
-    objc_msgSend_removeLastObject(self->_stagingBufferPool, v11, v12, v13);
+    lastObject = [(NSMutableArray *)self->_stagingBufferPool lastObject];
+    [(NSMutableArray *)self->_stagingBufferPool removeLastObject];
   }
 
   else
   {
-    v16 = [StagingBuffer alloc];
-    v10 = objc_msgSend_initWithContext_stagingWidth_stagingHeight_homography_atlasHomography_(v16, v17, self->_metal, self->_stagingWidth, self->_stagingHeight, *v9, v9[2], v9[4], *v9, v9[2], v9[4]);
-    if (!v10)
+    lastObject = [[StagingBuffer alloc] initWithContext:self->_metal stagingWidth:self->_stagingWidth stagingHeight:self->_stagingHeight homography:*MEMORY[0x277D860B0] atlasHomography:*(MEMORY[0x277D860B0] + 16), *(MEMORY[0x277D860B0] + 32), *MEMORY[0x277D860B0], *(MEMORY[0x277D860B0] + 16), *(MEMORY[0x277D860B0] + 32)];
+    if (!lastObject)
     {
       return 2;
     }
   }
 
-  objc_msgSend_addObject_(self->_dirtyStagingBuffers, v14, v10, v15);
-  v21 = objc_msgSend_commandQueue(self->_metal, v18, v19, v20);
-  v25 = objc_msgSend_commandBuffer(v21, v22, v23, v24);
+  [(NSMutableArray *)self->_dirtyStagingBuffers addObject:lastObject];
+  commandQueue = [(FigMetalContext *)self->_metal commandQueue];
+  commandBuffer = [commandQueue commandBuffer];
 
-  objc_msgSend_setLabel_(v25, v26, @"Panorama:AssemblyStage:_addStagingBuffer", v27);
-  v31 = objc_msgSend_computeCommandEncoder(v25, v28, v29, v30);
-  objc_msgSend_clearStagingBuffer_withEncoder_(self, v32, v10, v31);
-  objc_msgSend_endEncoding(v31, v33, v34, v35);
-  objc_msgSend_commit(v25, v36, v37, v38);
+  [commandBuffer setLabel:@"Panorama:AssemblyStage:_addStagingBuffer"];
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  [(PanoramaAssemblyStage *)self clearStagingBuffer:lastObject withEncoder:computeCommandEncoder];
+  [computeCommandEncoder endEncoding];
+  [commandBuffer commit];
   sliceBufferLength = self->_sliceBufferLength;
   if (sliceBufferLength)
   {
-    objc_msgSend_setHomographyToReference_(v10, v39, v40, v41, *(self->_sliceHomographies + 6 * sliceBufferLength - 6), *(self->_sliceHomographies + 6 * sliceBufferLength - 4), *(self->_sliceHomographies + 6 * sliceBufferLength - 2));
-    v43 = (self->_atlasHomographies + 48 * self->_sliceBufferLength);
-    objc_msgSend_setAtlasHomography_(v10, v44, v45, v46, *(v43 - 6), *(v43 - 4), *(v43 - 2));
+    [(StagingBuffer *)lastObject setHomographyToReference:*(self->_sliceHomographies + 6 * sliceBufferLength - 6), *(self->_sliceHomographies + 6 * sliceBufferLength - 4), *(self->_sliceHomographies + 6 * sliceBufferLength - 2)];
+    v10 = self->_atlasHomographies + 48 * self->_sliceBufferLength;
+    v11 = *(v10 - 3);
+    v12 = *(v10 - 2);
+    v13 = *(v10 - 1);
   }
 
   else
   {
-    v52 = *(v9 + 1);
-    v53 = *v9;
-    v51 = *(v9 + 2);
-    objc_msgSend_setHomographyToReference_(v10, v39, v40, v41);
-    objc_msgSend_setAtlasHomography_(v10, v47, v48, v49, *&v53, *&v52, *&v51);
+    v16 = v4[1];
+    v17 = *v4;
+    v15 = v4[2];
+    [(StagingBuffer *)lastObject setHomographyToReference:?];
+    *&v13 = v15;
+    *&v12 = v16;
+    *&v11 = v17;
   }
+
+  [(StagingBuffer *)lastObject setAtlasHomography:*&v11, *&v12, *&v13];
 
   return 0;
 }
@@ -1105,165 +1109,162 @@ LABEL_20:
 {
   v21 = a11;
   v22 = a12;
-  v25 = objc_msgSend_objectForKeyedSubscript_(v21, v23, @"SliceNumber", v24);
-  v29 = objc_msgSend_intValue(v25, v26, v27, v28);
+  v23 = [v21 objectForKeyedSubscript:@"SliceNumber"];
+  intValue = [v23 intValue];
 
-  objc_msgSend_addHomogToStaging_(self, v30, v31, v32, a2, slice, metadata);
-  objc_msgSend_panoHomography(self, v33, v34, v35);
-  v153 = v36;
-  v149 = v38;
-  v151 = v37;
-  v39 = 48 * *(self + 160) - 48;
-  v40 = (*(self + 168) + v39);
-  v161 = *v40;
-  v139 = *v161.columns[1].i64;
-  v140 = v40->columns[0];
-  v138 = *v161.columns[2].i64;
-  v162 = __invert_f3(*v40);
-  v147 = *v162.columns[1].i64;
-  v148 = *v162.columns[0].i64;
-  v146 = *v162.columns[2].i64;
-  v41 = (*(self + 176) + v39);
-  v158 = v41[1];
-  v160 = *v41;
-  v156 = v41[2];
-  v44 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(*(self + 8), v42, a10, *(self + 304), 1, 0);
-  if (!v44 || (objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(*(self + 8), v43, a10, *(self + 312), 1, 1), (v145 = objc_claimAutoreleasedReturnValue()) == 0))
+  [self addHomogToStaging:{a2, slice, metadata}];
+  [self panoHomography];
+  v78 = v25;
+  v74 = v27;
+  v76 = v26;
+  v28 = 48 * *(self + 160) - 48;
+  v29 = (*(self + 168) + v28);
+  v86 = *v29;
+  v64 = *v86.columns[1].i64;
+  v65 = v29->columns[0];
+  v63 = *v86.columns[2].i64;
+  v87 = __invert_f3(*v29);
+  v72 = *v87.columns[1].i64;
+  v73 = *v87.columns[0].i64;
+  v71 = *v87.columns[2].i64;
+  v30 = (*(self + 176) + v28);
+  v83 = v30[1];
+  v85 = *v30;
+  v81 = v30[2];
+  v31 = [*(self + 8) bindPixelBufferToMTL2DTexture:a10 pixelFormat:*(self + 304) usage:1 plane:0];
+  if (!v31 || ([*(self + 8) bindPixelBufferToMTL2DTexture:a10 pixelFormat:*(self + 312) usage:1 plane:1], (v70 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v114 = 0;
-    v145 = 0;
-    v58 = 0;
+    v54 = 0;
+    v70 = 0;
+    v34 = 0;
+    v35 = 0;
+    v60 = 0;
     v59 = 0;
-    v135 = 0;
-    v131 = 0;
-    v121 = 3;
+    v57 = 3;
     goto LABEL_21;
   }
 
-  v137 = a13;
-  v144 = v44;
-  v142 = v21;
-  v48 = objc_msgSend_commandQueue(*(self + 8), v45, v46, v47);
-  v52 = objc_msgSend_commandBuffer(v48, v49, v50, v51);
+  v62 = a13;
+  v69 = v31;
+  v67 = v21;
+  commandQueue = [*(self + 8) commandQueue];
+  commandBuffer = [commandQueue commandBuffer];
 
-  objc_msgSend_setLabel_(v52, v53, @"Panorama:AssemblyStage:addSlice", v54);
-  v141 = v52;
-  v143 = objc_msgSend_computeCommandEncoder(v52, v55, v56, v57);
-  v58 = objc_opt_new();
-  v59 = objc_opt_new();
-  v60 = (self + 200);
-  if (objc_msgSend_count(*(self + 200), v61, v62, v63))
+  [commandBuffer setLabel:@"Panorama:AssemblyStage:addSlice"];
+  v66 = commandBuffer;
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  v34 = objc_opt_new();
+  v35 = objc_opt_new();
+  v36 = (self + 200);
+  if ([*(self + 200) count])
   {
-    v66 = 0;
-    v67 = 0.0;
+    v37 = 0;
+    v38 = 0.0;
     while (1)
     {
-      v68 = objc_msgSend_objectAtIndexedSubscript_(*v60, v64, v66, v65);
-      objc_msgSend_overlapWithAtlasHomography_roi_(v68, v69, v70, v71, *&v160, *&v158, *&v156, homography, mask, roi, type);
-      v75 = v74;
-      if (v74 <= 0.25)
+      v39 = [*v36 objectAtIndexedSubscript:v37];
+      [v39 overlapWithAtlasHomography:*&v85 roi:{*&v83, *&v81, homography, mask, roi, type}];
+      v41 = v40;
+      if (v40 <= 0.25)
       {
-        v80 = objc_msgSend_addStagingToOutput_(self, v72, v68, v73);
-        if (v80)
+        v43 = [self addStagingToOutput:v39];
+        if (v43)
         {
-          v121 = v80;
+          v57 = v43;
 
-          v135 = 0;
-          v131 = v52;
-          v21 = v142;
-          v44 = v144;
-          v114 = v143;
+          v60 = 0;
+          v59 = commandBuffer;
+          v21 = v67;
+          v31 = v69;
+          v54 = computeCommandEncoder;
           goto LABEL_21;
         }
 
-        objc_msgSend_addObject_(*(self + 192), v81, v68, v82);
+        [*(self + 192) addObject:v39];
         HostTime = ACT_getHostTime();
-        panoLog(32, "FrameID:%04d time %.3f: assembly commits staging buffer %zu to output\n", v29, HostTime, v66);
+        panoLog(32, "FrameID:%04d time %.3f: assembly commits staging buffer %zu to output\n", intValue, HostTime, v37);
       }
 
       else
       {
-        objc_msgSend_addObject_(v58, v72, v68, v73);
+        [v34 addObject:v39];
       }
 
-      v67 = fmaxf(v75, v67);
-      *&v79 = v75;
-      v84 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v76, v77, v78, v79);
-      objc_msgSend_addObject_(v59, v85, v84, v86);
+      v38 = fmaxf(v41, v38);
+      *&v42 = v41;
+      v45 = [MEMORY[0x277CCABB0] numberWithFloat:v42];
+      [v35 addObject:v45];
 
-      if (++v66 >= objc_msgSend_count(*v60, v87, v88, v89))
+      if (++v37 >= [*v36 count])
       {
         goto LABEL_12;
       }
     }
   }
 
-  v67 = 0.0;
+  v38 = 0.0;
 LABEL_12:
-  v90 = v153;
-  HIDWORD(v90) = 0;
-  v154 = v90;
-  v91 = v151;
-  HIDWORD(v91) = 0;
-  v152 = v91;
-  v92 = v149;
-  HIDWORD(v92) = 0;
-  v150 = v92;
-  objc_storeStrong((self + 200), v58);
-  v96 = objc_msgSend_description(v59, v93, v94, v95);
-  v98 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v96, v97, @"\n", @", ");
+  v46 = v78;
+  HIDWORD(v46) = 0;
+  v79 = v46;
+  v47 = v76;
+  HIDWORD(v47) = 0;
+  v77 = v47;
+  v48 = v74;
+  HIDWORD(v48) = 0;
+  v75 = v48;
+  objc_storeStrong((self + 200), v34);
+  v49 = [v35 description];
+  v50 = [v49 stringByReplacingOccurrencesOfString:@"\n" withString:{@", "}];
 
-  v99 = ACT_getHostTime();
-  v100 = v98;
-  v104 = objc_msgSend_UTF8String(v100, v101, v102, v103);
-  v108 = objc_msgSend_count(*v60, v105, v106, v107);
-  panoLog(32, "FrameID:%04d time %.3f: assembly overlaps %s maxOverlap %f _dirtyStagingBuffers.count %lu isLastSlice %d\n", v29, v99, v104, v67, v108, v137 == 2);
-  if (v67 <= 0.85 || (v112 = objc_msgSend_count(*v60, v109, v110, v111), v137 == 2) || !v112)
+  v51 = ACT_getHostTime();
+  panoLog(32, "FrameID:%04d time %.3f: assembly overlaps %s maxOverlap %f _dirtyStagingBuffers.count %lu isLastSlice %d\n", intValue, v51, [v50 UTF8String], v38, objc_msgSend(*v36, "count"), v62 == 2);
+  if (v38 <= 0.85 || (v52 = [*v36 count], v62 == 2) || !v52)
   {
-    objc_msgSend__addStagingBuffer(self, v109, v110, v111);
-    v113 = ACT_getHostTime();
-    panoLog(32, "FrameID:%04d time %.3f: assembly new staging buffer added\n", v29, v113);
+    [self _addStagingBuffer];
+    v53 = ACT_getHostTime();
+    panoLog(32, "FrameID:%04d time %.3f: assembly new staging buffer added\n", intValue, v53);
   }
 
-  v114 = v143;
-  v115 = objc_msgSend_addSliceToProjectiveGrid_atlasHomography_panoHomography_encoder_sliceType_(self, v109, v143, v137, v148, v147, v146, *&v160, *&v158, *&v156, v154, v152, v150);
-  v44 = v144;
-  if (v115)
+  v54 = computeCommandEncoder;
+  v55 = [self addSliceToProjectiveGrid:computeCommandEncoder atlasHomography:v62 panoHomography:v73 encoder:v72 sliceType:{v71, *&v85, *&v83, *&v81, v79, v77, v75}];
+  v31 = v69;
+  if (v55)
   {
-    v121 = v115;
-    v131 = v141;
-    v21 = v142;
+    v57 = v55;
+    v59 = v66;
+    v21 = v67;
   }
 
   else
   {
-    v119 = objc_msgSend_lastObject(*(self + 200), v116, v117, v118);
-    v121 = objc_msgSend_addSliceToStagingBuffer_sliceLuma_sliceChroma_sliceMask_sliceGlobalHomography_encoder_(self, v120, v119, v144, v145, v22, v143, *v140.i64, v139, v138);
+    lastObject = [*(self + 200) lastObject];
+    v57 = [self addSliceToStagingBuffer:lastObject sliceLuma:v69 sliceChroma:v70 sliceMask:v22 sliceGlobalHomography:computeCommandEncoder encoder:{*v65.i64, v64, v63}];
 
-    if (v121)
+    if (v57)
     {
-      v131 = v141;
-      v21 = v142;
+      v59 = v66;
+      v21 = v67;
     }
 
     else
     {
-      v125 = objc_msgSend_lastObject(*v60, v122, v123, v124);
-      v21 = v142;
-      objc_msgSend_setMetadata_(v125, v126, v142, v127);
+      lastObject2 = [*v36 lastObject];
+      v21 = v67;
+      [lastObject2 setMetadata:v67];
 
-      objc_msgSend_endEncoding(v143, v128, v129, v130);
-      v131 = v141;
-      objc_msgSend_commit(v141, v132, v133, v134);
+      [computeCommandEncoder endEncoding];
+      v59 = v66;
+      [v66 commit];
     }
 
-    v114 = v143;
+    v54 = computeCommandEncoder;
   }
 
-  v135 = v98;
+  v60 = v50;
 LABEL_21:
 
-  return v121;
+  return v57;
 }
 
 @end

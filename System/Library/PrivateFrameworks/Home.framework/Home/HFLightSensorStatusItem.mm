@@ -15,40 +15,38 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   serviceTypes = [objc_opt_class() serviceTypes];
   anyObject = [serviceTypes anyObject];
 
   v7 = [objc_opt_class() characteristicTypesForServiceType:anyObject includingAssociatedTypes:1];
-  v21[0] = anyObject;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = anyObject;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   allObjects = [v7 allObjects];
   v10 = [(HFStatusItem *)self filteredServicesOfTypes:v8 containingCharacteristicTypes:allObjects];
 
   objc_initWeak(&location, self);
   valueSource = [(HFStatusItem *)self valueSource];
   v12 = [valueSource readValuesForCharacteristicTypes:v7 inServices:v10];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __55__HFLightSensorStatusItem__subclass_updateWithOptions___block_invoke;
-  v17[3] = &unk_277DF61A0;
-  objc_copyWeak(&v19, &location);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __55__HFLightSensorStatusItem__subclass_updateWithOptions___block_invoke;
+  v16[3] = &unk_277DF61A0;
+  objc_copyWeak(&v18, &location);
   v13 = anyObject;
-  v18 = v13;
-  v14 = [v12 flatMap:v17];
+  v17 = v13;
+  v14 = [v12 flatMap:v16];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 id __55__HFLightSensorStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -72,18 +70,18 @@ id __55__HFLightSensorStatusItem__subclass_updateWithOptions___block_invoke(uint
       v14 = [v3 servicesWithValuesPassingTest:&__block_literal_global_46 forCharacteristicType:*MEMORY[0x277CCF830]];
       if ([v14 count])
       {
-        v30 = 0;
-        v31 = &v30;
-        v32 = 0x2020000000;
-        v33 = 0;
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __55__HFLightSensorStatusItem__subclass_updateWithOptions___block_invoke_3;
-        v27[3] = &unk_277DF6178;
-        v28 = v3;
-        v29 = &v30;
-        [v14 na_each:v27];
-        v15 = [MEMORY[0x277CCABB0] numberWithDouble:{v31[3] / objc_msgSend(v14, "count")}];
+        v29 = 0;
+        v30 = &v29;
+        v31 = 0x2020000000;
+        v32 = 0;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __55__HFLightSensorStatusItem__subclass_updateWithOptions___block_invoke_3;
+        v26[3] = &unk_277DF6178;
+        v27 = v3;
+        v28 = &v29;
+        [v14 na_each:v26];
+        v15 = [MEMORY[0x277CCABB0] numberWithDouble:{v30[3] / objc_msgSend(v14, "count")}];
         v16 = +[HFFormatterManager sharedInstance];
         v17 = [v16 luxFormatter];
 
@@ -98,7 +96,7 @@ id __55__HFLightSensorStatusItem__subclass_updateWithOptions___block_invoke(uint
         v22 = [v17 stringForObjectValue:v15];
         [v7 setObject:v22 forKeyedSubscript:@"description"];
 
-        _Block_object_dispose(&v30, 8);
+        _Block_object_dispose(&v29, 8);
       }
 
       v23 = MEMORY[0x277D2C900];
@@ -110,14 +108,12 @@ id __55__HFLightSensorStatusItem__subclass_updateWithOptions___block_invoke(uint
   else
   {
     v12 = MEMORY[0x277D2C900];
-    v34 = @"hidden";
-    v35[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v33 = @"hidden";
+    v34[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
     v13 = [HFItemUpdateOutcome outcomeWithResults:v7];
     v11 = [v12 futureWithResult:v13];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

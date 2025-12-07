@@ -3,6 +3,7 @@
 - (_INPBMediaItemValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)addNamedEntities:(id)entities;
@@ -22,7 +23,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_artist)
   {
@@ -52,30 +53,30 @@
   if ([(NSArray *)self->_namedEntities count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v13 = self->_namedEntities;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v41;
+      v16 = *v40;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v41 != v16)
+          if (*v40 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation2 = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v15);
@@ -98,30 +99,30 @@
   if ([(NSArray *)self->_topics count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v24 = self->_topics;
-    v25 = [(NSArray *)v24 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v25 = [(NSArray *)v24 countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v37;
+      v27 = *v36;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v37 != v27)
+          if (*v36 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          dictionaryRepresentation4 = [*(*(&v36 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v35 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation4];
         }
 
-        v26 = [(NSArray *)v24 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v26 = [(NSArray *)v24 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v26);
@@ -149,8 +150,6 @@
   valueMetadata = [(_INPBMediaItemValue *)self valueMetadata];
   dictionaryRepresentation5 = [valueMetadata dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation5 forKeyedSubscript:@"valueMetadata"];
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -504,13 +503,12 @@ LABEL_52:
 
 - (void)writeTo:(id)to
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   toCopy = to;
   artist = [(_INPBMediaItemValue *)self artist];
 
   if (artist)
   {
-    artist = self->_artist;
     PBDataWriterWriteStringField();
   }
 
@@ -526,7 +524,6 @@ LABEL_52:
 
   if (assetInfo)
   {
-    assetInfo = self->_assetInfo;
     PBDataWriterWriteStringField();
   }
 
@@ -534,40 +531,38 @@ LABEL_52:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v13 = self->_namedEntities;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
-  if (v14)
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v10 = self->_namedEntities;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v11)
   {
-    v15 = v14;
-    v16 = *v38;
+    v12 = v11;
+    v13 = *v30;
     do
     {
-      v17 = 0;
+      v14 = 0;
       do
       {
-        if (*v38 != v16)
+        if (*v30 != v13)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v10);
         }
 
-        v18 = *(*(&v37 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v14;
       }
 
-      while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v15);
+    while (v12);
   }
 
   privateMediaItemValueData = [(_INPBMediaItemValue *)self privateMediaItemValueData];
@@ -582,45 +577,42 @@ LABEL_52:
 
   if (title)
   {
-    title = self->_title;
     PBDataWriterWriteStringField();
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v23 = self->_topics;
-  v24 = [(NSArray *)v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
-  if (v24)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v18 = self->_topics;
+  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  if (v19)
   {
-    v25 = v24;
-    v26 = *v34;
+    v20 = v19;
+    v21 = *v26;
     do
     {
-      v27 = 0;
+      v22 = 0;
       do
       {
-        if (*v34 != v26)
+        if (*v26 != v21)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v18);
         }
 
-        v28 = *(*(&v33 + 1) + 8 * v27);
         PBDataWriterWriteSubmessage();
-        ++v27;
+        ++v22;
       }
 
-      while (v25 != v27);
-      v25 = [(NSArray *)v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      while (v20 != v22);
+      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
-    while (v25);
+    while (v20);
   }
 
   if ([(_INPBMediaItemValue *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -631,8 +623,6 @@ LABEL_52:
     valueMetadata2 = [(_INPBMediaItemValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsType:(id)type
@@ -746,6 +736,21 @@ LABEL_52:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 0x15)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7285CF0[string];
   }
 
   return v4;

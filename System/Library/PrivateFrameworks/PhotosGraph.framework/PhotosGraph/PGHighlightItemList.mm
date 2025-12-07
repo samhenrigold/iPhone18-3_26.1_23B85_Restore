@@ -14,7 +14,10 @@
 - (NSString)description;
 - (NSString)uuid;
 - (PGHighlightItemList)initWithParentHighlightItem:(id)item childHighlightItems:(id)items;
+- (id)childHighlightItemsForHighlightFilter:(unsigned __int16)filter;
 - (id)initAsNewList;
+- (id)keyAssetForHighlightFilter:(unsigned __int16)filter;
+- (unint64_t)numberOfAssetsInExtendedForSharingFilter:(unsigned __int16)filter;
 - (unsigned)mixedSharingCompositionKeyAssetRelationship;
 - (unsigned)sharingComposition;
 - (unsigned)visibilityStateForHighlightFilter:(unsigned __int16)filter;
@@ -25,6 +28,63 @@
 @end
 
 @implementation PGHighlightItemList
+
+- (id)childHighlightItemsForHighlightFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  v19 = *MEMORY[0x277D85DE8];
+  sharingComposition = [(PGHighlightItemList *)self sharingComposition];
+  if ([PGHighlightEnrichmentUtilities canUseSharingComposition:sharingComposition forSharingFilter:filterCopy])
+  {
+    if (sharingComposition == 2)
+    {
+      sortedChildHighlightItems2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v14 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      sortedChildHighlightItems = [(PGHighlightItemList *)self sortedChildHighlightItems];
+      v8 = [sortedChildHighlightItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v8)
+      {
+        v9 = v8;
+        v10 = *v15;
+        do
+        {
+          for (i = 0; i != v9; ++i)
+          {
+            if (*v15 != v10)
+            {
+              objc_enumerationMutation(sortedChildHighlightItems);
+            }
+
+            v12 = *(*(&v14 + 1) + 8 * i);
+            if (+[PGHighlightEnrichmentUtilities canUseSharingComposition:forSharingFilter:](PGHighlightEnrichmentUtilities, "canUseSharingComposition:forSharingFilter:", [v12 sharingComposition], filterCopy))
+            {
+              [sortedChildHighlightItems2 addObject:v12];
+            }
+          }
+
+          v9 = [sortedChildHighlightItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+        }
+
+        while (v9);
+      }
+    }
+
+    else
+    {
+      sortedChildHighlightItems2 = [(PGHighlightItemList *)self sortedChildHighlightItems];
+    }
+  }
+
+  else
+  {
+    sortedChildHighlightItems2 = MEMORY[0x277CBEBF8];
+  }
+
+  return sortedChildHighlightItems2;
+}
 
 - (void)setVisibilityState:(unsigned __int16)state forSharingFilter:(unsigned __int16)filter
 {
@@ -60,31 +120,31 @@
 
 - (void)_updateHighlightItemsOrdering
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   internalHighlightItems = self->_internalHighlightItems;
   timeSortDescriptors = [objc_opt_class() timeSortDescriptors];
   [(NSMutableOrderedSet *)internalHighlightItems sortUsingDescriptors:timeSortDescriptors];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v5 = self->_internalHighlightItems;
-  v6 = [(NSMutableOrderedSet *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [(NSMutableOrderedSet *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v23 + 1) + 8 * i) kind] != 3)
+        if ([*(*(&v22 + 1) + 8 * i) kind] != 3)
         {
           firstObject = [(NSMutableOrderedSet *)self->_internalHighlightItems firstObject];
           startDate = [firstObject startDate];
@@ -110,7 +170,7 @@
         }
       }
 
-      v7 = [(NSMutableOrderedSet *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [(NSMutableOrderedSet *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v7)
       {
         continue;
@@ -121,8 +181,6 @@
   }
 
 LABEL_11:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeHighlightItem:(id)item
@@ -203,6 +261,26 @@ LABEL_11:
   return extendedCuratedAssets;
 }
 
+- (id)keyAssetForHighlightFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  sharingComposition = [(PGHighlightItemList *)self sharingComposition];
+  mixedSharingCompositionKeyAssetRelationship = [(PGHighlightItemList *)self mixedSharingCompositionKeyAssetRelationship];
+  v9[4] = self;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __50__PGHighlightItemList_keyAssetForHighlightFilter___block_invoke;
+  v10[3] = &unk_278884470;
+  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __50__PGHighlightItemList_keyAssetForHighlightFilter___block_invoke_2;
+  v9[3] = &unk_278884470;
+  v7 = [PGHighlightEnrichmentUtilities selectKeyAssetForSharingComposition:sharingComposition mixedSharingCompositionKeyAssetRelationship:mixedSharingCompositionKeyAssetRelationship givenHighlightFilter:filterCopy privateHandler:v10 sharedHandler:v9];
+
+  return v7;
+}
+
 - (unsigned)mixedSharingCompositionKeyAssetRelationship
 {
   if (![(PGHighlightItemList *)self isCandidateForReuse])
@@ -218,28 +296,28 @@ LABEL_11:
 
 - (NSArray)sortedHighlightItemModelObjects
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableOrderedSet count](self->_internalHighlightItems, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_internalHighlightItems;
-  v5 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         modelObject = [v9 modelObject];
 
         if (modelObject)
@@ -249,15 +327,54 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (unint64_t)numberOfAssetsInExtendedForSharingFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = self->_internalHighlightItems;
+  v5 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = 0;
+    v8 = *v12;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v12 != v8)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v7 += [*(*(&v11 + 1) + 8 * i) numberOfAssetsInExtendedForSharingFilter:{filterCopy, v11}];
+      }
+
+      v6 = [(NSMutableOrderedSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v6);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
 }
 
 - (NSString)uuid
@@ -432,90 +549,90 @@ LABEL_11:
 
 + (void)updateParentHighlightItemLists:(id)lists withChildHighlightItems:(id)items
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   listsCopy = lists;
   itemsCopy = items;
   v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v44;
+    v11 = *v43;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v44 != v11)
+        if (*v43 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * i);
+        v13 = *(*(&v42 + 1) + 8 * i);
         uuid = [v13 uuid];
         [v7 setObject:v13 forKeyedSubscript:uuid];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v10);
   }
 
-  v30 = v8;
+  v29 = v8;
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = listsCopy;
-  v33 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
+  if (v32)
   {
-    v32 = *v40;
+    v31 = *v39;
     do
     {
-      for (j = 0; j != v33; ++j)
+      for (j = 0; j != v32; ++j)
       {
-        if (*v40 != v32)
+        if (*v39 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v39 + 1) + 8 * j);
+        v16 = *(*(&v38 + 1) + 8 * j);
         internalAddedHighlightItems = [v16 internalAddedHighlightItems];
         [internalAddedHighlightItems removeAllObjects];
 
         internalRemovedHighlightItems = [v16 internalRemovedHighlightItems];
         [internalRemovedHighlightItems removeAllObjects];
 
-        v34 = v16;
+        v33 = v16;
         internalHighlightItems = [v16 internalHighlightItems];
         v20 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(internalHighlightItems, "count")}];
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
         v21 = internalHighlightItems;
-        v22 = [v21 countByEnumeratingWithState:&v35 objects:v47 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v34 objects:v46 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v36;
+          v24 = *v35;
           do
           {
             for (k = 0; k != v23; ++k)
             {
-              if (*v36 != v24)
+              if (*v35 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v35 + 1) + 8 * k);
+              v26 = *(*(&v34 + 1) + 8 * k);
               uuid2 = [v26 uuid];
               v28 = [v7 objectForKeyedSubscript:uuid2];
 
@@ -527,33 +644,29 @@ LABEL_11:
               [v20 addObject:v28];
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v35 objects:v47 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v34 objects:v46 count:16];
           }
 
           while (v23);
         }
 
-        [v34 setInternalHighlightItems:v20];
-        [v34 _updateHighlightItemsOrdering];
+        [v33 setInternalHighlightItems:v20];
+        [v33 _updateHighlightItemsOrdering];
       }
 
-      v33 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v32 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 + (id)timeSortDescriptors
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }

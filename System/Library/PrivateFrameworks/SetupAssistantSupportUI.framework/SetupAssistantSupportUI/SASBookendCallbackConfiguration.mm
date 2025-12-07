@@ -57,10 +57,11 @@
   v6 = (self + OBJC_IVAR___SASBookendCallbackConfiguration_onAnimationWillBegin);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_265A56D6C(v7);
+  sub_265A56D6C(v7, v8);
 }
 
 - (id)onAnimationDidFinish
@@ -105,10 +106,11 @@
   v6 = (self + OBJC_IVAR___SASBookendCallbackConfiguration_onAnimationDidFinish);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_265A56D6C(v7);
+  sub_265A56D6C(v7, v8);
 }
 
 - (id)onAnimationUIUpdateSignal
@@ -153,10 +155,11 @@
   v6 = (self + OBJC_IVAR___SASBookendCallbackConfiguration_onAnimationUIUpdateSignal);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_265A56D6C(v7);
+  sub_265A56D6C(v7, v8);
 }
 
 - (id)onAnimationError
@@ -201,10 +204,11 @@
   v6 = (self + OBJC_IVAR___SASBookendCallbackConfiguration_onAnimationError);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_265A56D6C(v7);
+  sub_265A56D6C(v7, v8);
 }
 
 - (id)onAnimationWillBeginLegacy

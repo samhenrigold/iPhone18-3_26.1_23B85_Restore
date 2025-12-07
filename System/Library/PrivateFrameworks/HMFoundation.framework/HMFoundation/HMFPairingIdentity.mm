@@ -15,14 +15,14 @@
 
 + (id)pairingIdentity
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   cced25519_make_key_pair_compat();
   v2 = [HMFPairingKey alloc];
-  v3 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:v15 length:32];
+  v3 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:v14 length:32];
   v4 = [(HMFPairingKey *)v2 initWithPairingKeyData:v3];
 
   v5 = [HMFPairingKey alloc];
-  v6 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:v14 length:32];
+  v6 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:v13 length:32];
   v7 = [(HMFPairingKey *)v5 initWithPairingKeyData:v6];
 
   cc_clear();
@@ -31,8 +31,6 @@
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
   v11 = [v8 initWithIdentifier:uUIDString publicKey:v4 privateKey:v7];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -52,7 +50,7 @@
 
 - (HMFPairingIdentity)initWithIdentifier:(id)identifier publicKey:(id)key privateKey:(id)privateKey
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   keyCopy = key;
   privateKeyCopy = privateKey;
@@ -60,15 +58,15 @@
   {
     v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle(selfCopy2, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier(selfCopy2);
+      v23 = HMFGetLogIdentifier(selfCopy2);
       *buf = 138543362;
-      v28 = v22;
-      v23 = "%{public}@The identifier is required";
+      v29 = v23;
+      v24 = "%{public}@The identifier is required";
 LABEL_10:
-      _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_ERROR, v23, buf, 0xCu);
+      _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_ERROR, v24, buf, 0xCu);
     }
 
 LABEL_11:
@@ -82,22 +80,22 @@ LABEL_11:
   {
     v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle(selfCopy2, v25);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier(selfCopy2);
+      v23 = HMFGetLogIdentifier(selfCopy2);
       *buf = 138543362;
-      v28 = v22;
-      v23 = "%{public}@The public key is required";
+      v29 = v23;
+      v24 = "%{public}@The public key is required";
       goto LABEL_10;
     }
 
     goto LABEL_11;
   }
 
-  v26.receiver = self;
-  v26.super_class = HMFPairingIdentity;
-  v11 = [(HMFPairingIdentity *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = HMFPairingIdentity;
+  v11 = [(HMFPairingIdentity *)&v27 init];
   if (v11)
   {
     v12 = [identifierCopy copy];
@@ -117,7 +115,6 @@ LABEL_11:
   v19 = selfCopy2;
 LABEL_12:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -180,22 +177,20 @@ LABEL_12:
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   identifier = [(HMFPairingIdentity *)self identifier];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Identifier" value:identifier];
   v6 = [HMFAttributeDescription alloc];
   publicKey = [(HMFPairingIdentity *)self publicKey];
   v8 = [(HMFAttributeDescription *)v6 initWithName:@"Public Key" value:publicKey];
-  v16[1] = v8;
+  v15[1] = v8;
   v9 = [HMFAttributeDescription alloc];
   privateKey = [(HMFPairingIdentity *)self privateKey];
   v11 = +[HMFPrivateObjectFormatter defaultFormatter];
   v12 = [(HMFAttributeDescription *)v9 initWithName:@"Private Key" value:privateKey options:2 formatter:v11];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }

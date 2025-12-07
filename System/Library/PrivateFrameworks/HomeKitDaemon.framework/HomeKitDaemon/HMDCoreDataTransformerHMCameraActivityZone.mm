@@ -105,7 +105,7 @@ LABEL_20:
   v10 = v8;
   [points2 hmf_enumerateWithAutoreleasePoolUsingBlock:v13];
 
-  v11 = [v10 copy];
+  v11 = objc_msgSend_copy(v10);
 
   return v11;
 }

@@ -4,6 +4,7 @@
 - (float)threshold;
 - (id)_init;
 - (id)_initWithVocabulary:(id)vocabulary weights:(id)weights;
+- (id)_payloadForTopic:(unsigned int)topic;
 - (unint64_t)outputTopicCount;
 - (void)dealloc;
 - (void)iterateTopicsForText:(id)text block:(id)block;
@@ -29,11 +30,35 @@
   return v3;
 }
 
-uint64_t __42__PPTextToTopicTransform_outputTopicCount__block_invoke(uint64_t a1, uint64_t a2)
+void *__42__PPTextToTopicTransform_outputTopicCount__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a2 + 16) outputTopicCount];
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
+}
+
+- (id)_payloadForTopic:(unsigned int)topic
+{
+  v3 = *&topic;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__14103;
+  v13 = __Block_byref_object_dispose__14104;
+  v14 = 0;
+  lock = self->_lock;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __43__PPTextToTopicTransform__payloadForTopic___block_invoke;
+  v8[3] = &unk_2789752A8;
+  v8[4] = &v9;
+  [(_PASLock *)lock runWithLockAcquired:v8];
+  v5 = v10[5];
+  _Block_object_dispose(&v9, 8);
+
+  v6 = [v5 payloadForTopic:v3];
+
+  return v6;
 }
 
 - (void)iterateTopicsForText:(id)text block:(id)block
@@ -56,20 +81,20 @@ uint64_t __42__PPTextToTopicTransform_outputTopicCount__block_invoke(uint64_t a1
 
 void __53__PPTextToTopicTransform_iterateTopicsForText_block___block_invoke(uint64_t a1, void *a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v39 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:{4 * objc_msgSend(*(a1 + 32), "outputTopicCount")}];
+  v38 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:{4 * objc_msgSend(*(a1 + 32), "outputTopicCount")}];
   v4 = *(a1 + 40);
-  v55.length = [(__CFString *)v4 length];
-  v55.location = 0;
-  v5 = CFStringTokenizerCreate(0, v4, v55, 0, 0);
+  v54.length = [(__CFString *)v4 length];
+  v54.location = 0;
+  v5 = CFStringTokenizerCreate(0, v4, v54, 0, 0);
   if (!v5)
   {
-    v32 = [MEMORY[0x277CCA890] currentHandler];
-    v33 = *(a1 + 56);
-    v34 = *(a1 + 32);
-    v35 = NSStringFromSelector(v33);
-    [v32 handleFailureInMethod:v33 object:v34 file:@"PPTextToTopicTransform.m" lineNumber:161 description:{@"tokenizer was nil in %@", v35}];
+    v31 = [MEMORY[0x277CCA890] currentHandler];
+    v32 = *(a1 + 56);
+    v33 = *(a1 + 32);
+    v34 = NSStringFromSelector(v32);
+    [v31 handleFailureInMethod:v32 object:v33 file:@"PPTextToTopicTransform.m" lineNumber:161 description:{@"tokenizer was nil in %@", v34}];
   }
 
   v6 = objc_opt_new();
@@ -112,64 +137,64 @@ void __53__PPTextToTopicTransform_iterateTopicsForText_block___block_invoke(uint
   CFRelease(v5);
   if ([v6 count])
   {
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x2020000000;
-    v52 = 0;
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x2020000000;
+    v51 = 0;
     v16 = malloc_type_malloc(4 * [v6 count], 0x100004052888210uLL);
     if (!v16)
+    {
+      v35 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v35);
+    }
+
+    v49[3] = v16;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
+    v17 = malloc_type_malloc(4 * [v6 count], 0x100004052888210uLL);
+    if (!v17)
     {
       v36 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
       objc_exception_throw(v36);
     }
 
-    v50[3] = v16;
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
-    v48 = 0;
-    v17 = malloc_type_malloc(4 * [v6 count], 0x100004052888210uLL);
-    if (!v17)
-    {
-      v37 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v37);
-    }
-
-    v46[3] = v17;
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = 0;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __53__PPTextToTopicTransform_iterateTopicsForText_block___block_invoke_2;
-    v40[3] = &unk_2789752D0;
-    v40[4] = &v49;
-    v40[5] = &v41;
-    v40[6] = &v45;
-    [v6 enumerateKeysAndObjectsUsingBlock:v40];
-    [v3[2] applyFeatureSmoothing:v46[3] vectorLength:v42[6]];
-    [v3[2] applyFeatureScaling:v46[3] vectorLength:v42[6]];
-    [v3[2] applyFeatureNormalization:v46[3] vectorLength:v42[6]];
+    v45[3] = v17;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __53__PPTextToTopicTransform_iterateTopicsForText_block___block_invoke_2;
+    v39[3] = &unk_2789752D0;
+    v39[4] = &v48;
+    v39[5] = &v40;
+    v39[6] = &v44;
+    [v6 enumerateKeysAndObjectsUsingBlock:v39];
+    [v3[2] applyFeatureSmoothing:v45[3] vectorLength:v41[6]];
+    [v3[2] applyFeatureScaling:v45[3] vectorLength:v41[6]];
+    [v3[2] applyFeatureNormalization:v45[3] vectorLength:v41[6]];
     v18 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:{2 * objc_msgSend(*(a1 + 32), "outputTopicCount")}];
-    v19 = v39;
-    v20 = [v39 mutableBytes];
+    v19 = v38;
+    v20 = [v38 mutableBytes];
     v21 = v18;
     v22 = [v18 mutableBytes];
-    if (v42[6] >= 1)
+    if (v41[6] >= 1)
     {
       v24 = 0;
       do
       {
-        LODWORD(v23) = *(v46[3] + 4 * v24);
-        [v3[2] addWeightedTopicScoreToBuffer:v20 countNonZeroComponentsInBuffer:v22 qid:*(v50[3] + 4 * v24++) score:v23];
+        LODWORD(v23) = *(v45[3] + 4 * v24);
+        [v3[2] addWeightedTopicScoreToBuffer:v20 countNonZeroComponentsInBuffer:v22 qid:*(v49[3] + 4 * v24++) score:v23];
       }
 
-      while (v24 < v42[6]);
+      while (v24 < v41[6]);
     }
 
-    free(v50[3]);
-    free(v46[3]);
+    free(v49[3]);
+    free(v45[3]);
     [v3[2] addBias:v20];
     [v3[2] applyOutputScaling:v20 vectorLength:{objc_msgSend(*(a1 + 32), "outputTopicCount")}];
     [v3[2] applyOutputActivation:v20];
@@ -194,12 +219,10 @@ void __53__PPTextToTopicTransform_iterateTopicsForText_block___block_invoke(uint
       objc_autoreleasePoolPop(v27);
     }
 
-    _Block_object_dispose(&v41, 8);
-    _Block_object_dispose(&v45, 8);
-    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v48, 8);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PPTextToTopicTransform_iterateTopicsForText_block___block_invoke_2(void *a1, void *a2, void *a3)
@@ -230,7 +253,7 @@ void __53__PPTextToTopicTransform_iterateTopicsForText_block___block_invoke_2(vo
   return v3;
 }
 
-uint64_t __35__PPTextToTopicTransform_threshold__block_invoke(uint64_t a1, uint64_t a2)
+void *__35__PPTextToTopicTransform_threshold__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a2 + 16) threshold];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -297,68 +320,64 @@ void __54__PPTextToTopicTransform__initWithVocabulary_weights___block_invoke(uin
 
 - (BOOL)_updateFromAssetData
 {
-  v20 = *MEMORY[0x277D85DE8];
-  if (self)
+  v19 = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    v2 = [objc_alloc(MEMORY[0x277D42558]) initWithPath:self[3]];
-    if (v2)
+    return 0;
+  }
+
+  v2 = [objc_alloc(MEMORY[0x277D42558]) initWithPath:self[3]];
+  if (v2)
+  {
+    v3 = [[PPTopicTransform alloc] initWithPath:self[4] mappingId:self[5]];
+    v4 = v3 != 0;
+    if (v3)
     {
-      v3 = [[PPTopicTransform alloc] initWithPath:self[4] mappingId:self[5]];
-      v4 = v3 != 0;
-      if (v3)
-      {
-        v5 = self[1];
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __46__PPTextToTopicTransform__updateFromAssetData__block_invoke;
-        v13[3] = &unk_278975280;
-        v14 = v2;
-        v15 = v3;
-        [v5 runWithLockAcquired:v13];
+      v5 = self[1];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __46__PPTextToTopicTransform__updateFromAssetData__block_invoke;
+      v12[3] = &unk_278975280;
+      v13 = v2;
+      v14 = v3;
+      [v5 runWithLockAcquired:v12];
 
-        v6 = v14;
-      }
-
-      else
-      {
-        v6 = pp_topics_log_handle();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-        {
-          v11 = self[4];
-          v12 = NSStringFromSelector(sel__updateFromAssetData);
-          *buf = 138412546;
-          v17 = v11;
-          v18 = 2112;
-          v19 = v12;
-          _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "nil topicTransform loaded from %@ in %@", buf, 0x16u);
-        }
-      }
+      v6 = v13;
     }
 
     else
     {
-      v3 = pp_default_log_handle();
-      if (os_log_type_enabled(&v3->super, OS_LOG_TYPE_ERROR))
+      v6 = pp_topics_log_handle();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v9 = self[3];
-        v10 = NSStringFromSelector(sel__updateFromAssetData);
+        v10 = self[4];
+        v11 = NSStringFromSelector(sel__updateFromAssetData);
         *buf = 138412546;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v10;
-        _os_log_error_impl(&dword_23224A000, &v3->super, OS_LOG_TYPE_ERROR, "nil vocabulary trie loaded from %@ in %@", buf, 0x16u);
+        v16 = v10;
+        v17 = 2112;
+        v18 = v11;
+        _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "nil topicTransform loaded from %@ in %@", buf, 0x16u);
       }
-
-      v4 = 0;
     }
   }
 
   else
   {
+    v3 = pp_default_log_handle();
+    if (os_log_type_enabled(&v3->super, OS_LOG_TYPE_ERROR))
+    {
+      v8 = self[3];
+      v9 = NSStringFromSelector(sel__updateFromAssetData);
+      *buf = 138412546;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      _os_log_error_impl(&dword_23224A000, &v3->super, OS_LOG_TYPE_ERROR, "nil vocabulary trie loaded from %@ in %@", buf, 0x16u);
+    }
+
     v4 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -371,7 +390,7 @@ void __46__PPTextToTopicTransform__updateFromAssetData__block_invoke(uint64_t a1
 
 - (id)_init
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = +[PPTrialWrapper sharedInstance];
   v5 = [v4 filepathForFactor:@"highLevelTextTopics.trie" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
 
@@ -381,9 +400,9 @@ void __46__PPTextToTopicTransform__updateFromAssetData__block_invoke(uint64_t a1
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = NSStringFromSelector(a2);
-      v14 = 138412290;
-      v15 = v9;
-      _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "trie path not found in %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v9;
+      _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "trie path not found in %@", &v13, 0xCu);
     }
 
     goto LABEL_9;
@@ -397,10 +416,10 @@ void __46__PPTextToTopicTransform__updateFromAssetData__block_invoke(uint64_t a1
     v10 = pp_default_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = NSStringFromSelector(a2);
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "weights path not found in %@", &v14, 0xCu);
+      v12 = NSStringFromSelector(a2);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "weights path not found in %@", &v13, 0xCu);
     }
 
 LABEL_9:
@@ -412,7 +431,6 @@ LABEL_9:
   selfCopy = self;
 LABEL_10:
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -1,7 +1,9 @@
 @interface _MLCCPUArithmetic
 + (BOOL)compileWithDevice:(id)device deviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor;
++ (id)layerWithDevice:(id)device operation:(int)operation;
 + (int)arithmeticOperatorTypeFor:(int)for;
 + (unsigned)bnnsArithmeticFunctionFor:(int)for;
+- (_MLCCPUArithmetic)initWithDevice:(id)device operation:(int)operation;
 @end
 
 @implementation _MLCCPUArithmetic
@@ -33,6 +35,71 @@
   }
 
   return 0;
+}
+
+- (_MLCCPUArithmetic)initWithDevice:(id)device operation:(int)operation
+{
+  v4 = *&operation;
+  v30 = *MEMORY[0x277D85DE8];
+  deviceCopy = device;
+  v7 = [MEMORY[0x277CBEBF8] mutableCopy];
+  memset(v22, 0, sizeof(v22));
+  v8 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:64];
+  bytes = [v8 bytes];
+  *bytes = [objc_opt_class() bnnsArithmeticFunctionFor:v4];
+  memset(v29, 0, sizeof(v29));
+  memset(v28, 0, sizeof(v28));
+  memset(v27, 0, sizeof(v27));
+  v10 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:176];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:176];
+  if ([objc_opt_class() arithmeticOperatorTypeFor:v4] == 2)
+  {
+    v12 = [MEMORY[0x277CBEA90] dataWithBytes:v29 length:176];
+    v26[0] = v10;
+    v26[1] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25 = v11;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    v15 = [MLCCPUDeviceOps deviceOpsWithType:1 params:v8 inDeltaData:v13 outDeltaData:v14 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
+
+    [v15 setBinaryOperation:1];
+    if (!v15)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  v24 = v10;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v23 = v11;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v15 = [MLCCPUDeviceOps deviceOpsWithType:1 params:v8 inDeltaData:v16 outDeltaData:v17 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
+
+  [v15 setBinaryOperation:0];
+  if (v15)
+  {
+LABEL_5:
+    [v7 addObject:v15];
+  }
+
+LABEL_6:
+  v18 = [v7 copy];
+  v21.receiver = self;
+  v21.super_class = _MLCCPUArithmetic;
+  v19 = [(_MLCCPULayer *)&v21 initWithDevice:deviceCopy deviceOps:v18];
+
+  return v19;
+}
+
++ (id)layerWithDevice:(id)device operation:(int)operation
+{
+  v4 = *&operation;
+  deviceCopy = device;
+  v7 = [[self alloc] initWithDevice:deviceCopy operation:v4];
+
+  return v7;
 }
 
 + (BOOL)compileWithDevice:(id)device deviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor
@@ -513,15 +580,13 @@ LABEL_64:
 
 + (void)bnnsArithmeticFunctionFor:(NSObject *)a3 .cold.1(const char *a1, int a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Unknown arithmetic operation type %d", &v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 1024;
+  v9 = a2;
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Unknown arithmetic operation type %d", &v6, 0x12u);
 }
 
 @end

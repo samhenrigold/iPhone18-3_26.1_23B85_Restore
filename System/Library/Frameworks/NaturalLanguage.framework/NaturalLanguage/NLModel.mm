@@ -2,6 +2,7 @@
 + (NLModel)modelWithContentsOfURL:(NSURL *)url error:(NSError *)error;
 + (NLModel)modelWithData:(id)data error:(id *)error;
 + (NLModel)modelWithMLModel:(MLModel *)mlModel error:(NSError *)error;
+- (BOOL)writeMLModelToURL:(id)l atomically:(BOOL)atomically error:(id *)error;
 - (BOOL)writeMLModelToURL:(id)l options:(id)options error:(id *)error;
 - (BOOL)writeToURL:(id)l atomically:(BOOL)atomically error:(id *)error;
 - (NLModel)initWithClassifierMLModel:(id)model;
@@ -73,18 +74,18 @@
 
 - (NLModel)initWithData:(id)data mlModel:(id)model error:(id *)error
 {
-  v84[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   modelCopy = model;
   if (!dataCopy)
   {
     if (error)
     {
-      v14 = MEMORY[0x1E696ABC0];
-      v79 = *MEMORY[0x1E696A578];
-      v80 = @"Failed to load model file, data is nil";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
-      *error = [v14 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v15];
+      v12 = MEMORY[0x1E696ABC0];
+      v76 = *MEMORY[0x1E696A578];
+      v77 = @"Failed to load model file, data is nil";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+      *error = [v12 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v13];
     }
 
     goto LABEL_90;
@@ -97,11 +98,11 @@
   {
     if (error)
     {
-      v33 = MEMORY[0x1E696ABC0];
-      v77 = *MEMORY[0x1E696A578];
-      v78 = @"Failed to load model file, cannot read container";
-      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-      *error = [v33 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v34];
+      v31 = MEMORY[0x1E696ABC0];
+      v74 = *MEMORY[0x1E696A578];
+      v75 = @"Failed to load model file, cannot read container";
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      *error = [v31 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v32];
     }
 
     goto LABEL_90;
@@ -118,162 +119,160 @@ LABEL_90:
       goto LABEL_91;
     }
 
-    v30 = MEMORY[0x1E696ABC0];
-    v81 = *MEMORY[0x1E696A578];
-    v82 = @"Failed to load model file, invalid container type";
-    v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-    *error = [v30 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v76];
+    v28 = MEMORY[0x1E696ABC0];
+    v78 = *MEMORY[0x1E696A578];
+    v79 = @"Failed to load model file, invalid container type";
+    v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+    *error = [v28 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v73];
 LABEL_35:
 
     goto LABEL_89;
   }
 
   Type = NLModelContainerGetType();
-  v11 = Type - 1;
-  if (Type - 1) <= 8 && ((0x1EFu >> v11))
+  if (Type - 1) <= 8 && ((0x1EFu >> (Type - 1)))
   {
-    v12 = *off_1E7628F78[v11];
-    v13 = objc_opt_class();
+    v11 = objc_opt_class();
   }
 
   else
   {
-    v13 = 0;
+    v11 = 0;
   }
 
-  v72 = v13;
+  v69 = v11;
   Revision = NLModelContainerGetRevision();
   ModelDataCount = NLModelContainerGetModelDataCount();
-  v76 = NLModelContainerCopyInfoDictionary();
-  v18 = MEMORY[0x1E695DF90];
-  v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:Revision];
-  v20 = [v18 dictionaryWithObject:v19 forKey:@"Revision"];
+  v73 = NLModelContainerCopyInfoDictionary();
+  v16 = MEMORY[0x1E695DF90];
+  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:Revision];
+  v18 = [v16 dictionaryWithObject:v17 forKey:@"Revision"];
 
-  v21 = unsignedIntegerForKey(v76, @"ModelType", Type == 1);
-  v22 = stringForKey(v76, @"Language", 0);
-  if (!v22)
+  v19 = unsignedIntegerForKey(v73, @"ModelType", Type == 1);
+  v20 = stringForKey(v73, @"Language", 0);
+  if (!v20)
   {
-    v22 = stringForKey(v76, @"TrainingLanguage", 0);
+    v20 = stringForKey(v73, @"TrainingLanguage", 0);
   }
 
-  i = stringForKeyWithDefault(v76, @"EmbeddingType", @"Static");
-  v24 = BOOLForKeyWithDefault(v76, @"UseBidirectionalNeuralNetwork");
-  if (v22)
+  i = stringForKeyWithDefault(v73, @"EmbeddingType", @"Static");
+  v22 = BOOLForKeyWithDefault(v73, @"UseBidirectionalNeuralNetwork");
+  if (v20)
   {
-    [v20 setObject:v22 forKey:@"Language"];
+    [v18 setObject:v20 forKey:@"Language"];
   }
 
   if (i)
   {
-    [v20 setObject:i forKey:@"EmbeddingType"];
+    [v18 setObject:i forKey:@"EmbeddingType"];
   }
 
-  if (v21)
+  if (v19)
   {
-    v25 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v25 = v24;
+    v23 = v22;
   }
 
-  if (v25 == 1)
+  if (v23 == 1)
   {
-    v26 = [MEMORY[0x1E696AD98] numberWithBool:1];
-    [v20 setObject:v26 forKey:@"UseBidirectionalNeuralNetwork"];
+    v24 = [MEMORY[0x1E696AD98] numberWithBool:1];
+    [v18 setObject:v24 forKey:@"UseBidirectionalNeuralNetwork"];
   }
 
-  v73 = [NLModelConfiguration defaultModelConfigurationForType:v21 options:v20 error:error];
+  v70 = [NLModelConfiguration defaultModelConfigurationForType:v19 options:v18 error:error];
 
-  if (!v72 || !v73 || !ModelDataCount)
+  if (!v69 || !v70 || !ModelDataCount)
   {
     if (error)
     {
-      v28 = MEMORY[0x1E696ABC0];
-      v83 = *MEMORY[0x1E696A578];
-      v84[0] = @"Failed to load model file, invalid configuration or data";
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:&v83 count:1];
-      *error = [v28 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v29];
+      v26 = MEMORY[0x1E696ABC0];
+      v80 = *MEMORY[0x1E696A578];
+      v81[0] = @"Failed to load model file, invalid configuration or data";
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
+      *error = [v26 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v27];
     }
 
     goto LABEL_35;
   }
 
-  v65 = NLModelContainerCopyModelDataAtIndex();
+  v62 = NLModelContainerCopyModelDataAtIndex();
   if (ModelDataCount >= 2)
   {
-    v27 = NLModelContainerCopyModelDataAtIndex();
+    v25 = NLModelContainerCopyModelDataAtIndex();
     if (ModelDataCount == 2)
     {
-      v61 = 0;
-      v62 = 0;
+      v58 = 0;
+      v59 = 0;
     }
 
     else
     {
-      v62 = NLModelContainerCopyModelDataAtIndex();
+      v59 = NLModelContainerCopyModelDataAtIndex();
       if (ModelDataCount >= 4)
       {
-        v31 = NLModelContainerCopyModelDataAtIndex();
+        v29 = NLModelContainerCopyModelDataAtIndex();
         if (ModelDataCount == 4)
         {
-          v61 = 0;
+          v58 = 0;
         }
 
         else
         {
-          v61 = NLModelContainerCopyModelDataAtIndex();
+          v58 = NLModelContainerCopyModelDataAtIndex();
         }
 
         goto LABEL_42;
       }
 
-      v61 = 0;
+      v58 = 0;
     }
 
-    v31 = 0;
+    v29 = 0;
 LABEL_42:
-    v32 = v27;
+    v30 = v25;
     goto LABEL_43;
   }
 
-  v61 = 0;
-  v62 = 0;
-  v31 = 0;
-  v32 = 0;
+  v58 = 0;
+  v59 = 0;
+  v29 = 0;
+  v30 = 0;
 LABEL_43:
-  v60 = v32;
-  v64 = stringArrayRepresentationFromData(v32);
-  v66 = stringArrayRepresentationFromData(v62);
-  v71 = v31;
-  v35 = v71;
-  bytes = [v71 bytes];
-  if ([v71 length] >= 9 && !strncmp(bytes, "bplist00", 8uLL))
+  v57 = v30;
+  v61 = stringArrayRepresentationFromData(v30);
+  v63 = stringArrayRepresentationFromData(v59);
+  v68 = v29;
+  v33 = v68;
+  bytes = [v68 bytes];
+  if ([v68 length] >= 9 && !strncmp(bytes, "bplist00", 8uLL))
   {
-    v63 = [MEMORY[0x1E696AE40] propertyListWithData:v71 options:0 format:0 error:0];
+    v60 = [MEMORY[0x1E696AE40] propertyListWithData:v68 options:0 format:0 error:0];
   }
 
   else
   {
-    v63 = 0;
+    v60 = 0;
   }
 
-  if (v64 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v61 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v37 = v64;
+    v35 = v61;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v38 = [v37 count];
-    if (v38)
+    v36 = [v35 count];
+    if (v36)
     {
-      for (i = 0; i != v38; i = (i + 1))
+      for (i = 0; i != v36; i = (i + 1))
       {
-        v39 = [v37 objectAtIndex:i];
+        v37 = [v35 objectAtIndex:i];
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v39 length])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v37 length])
         {
-          v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:i];
-          [dictionary setObject:v39 forKey:v40];
+          v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:i];
+          [dictionary setObject:v37 forKey:v38];
         }
       }
     }
@@ -284,21 +283,21 @@ LABEL_43:
     dictionary = 0;
   }
 
-  if (v66 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v63 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v41 = v66;
+    v39 = v63;
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-    v42 = [v41 count];
-    if (v42)
+    v40 = [v39 count];
+    if (v40)
     {
-      for (i = 0; i != v42; i = (i + 1))
+      for (i = 0; i != v40; i = (i + 1))
       {
-        v43 = [v41 objectAtIndex:i];
+        v41 = [v39 objectAtIndex:i];
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v43 length])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v41 length])
         {
-          v44 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:i];
-          [dictionary2 setObject:v44 forKey:v43];
+          v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:i];
+          [dictionary2 setObject:v42 forKey:v41];
         }
       }
     }
@@ -309,26 +308,26 @@ LABEL_43:
     dictionary2 = 0;
   }
 
-  if (v63 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v60 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v45 = [v66 count];
-    v46 = v63;
+    v43 = [v63 count];
+    v44 = v60;
     dictionary3 = [MEMORY[0x1E695DF90] dictionary];
-    v48 = [v46 count];
-    if (v45)
+    v46 = [v44 count];
+    if (v43)
     {
-      v49 = v48;
-      for (i = 0; v45 != i; i = (i + 1))
+      v47 = v46;
+      for (i = 0; v43 != i; i = (i + 1))
       {
-        if (i >= v49)
+        if (i >= v47)
         {
-          v50 = 0;
+          v48 = 0;
         }
 
         else
         {
-          v50 = [v46 objectAtIndex:i];
-          if (v50)
+          v48 = [v44 objectAtIndex:i];
+          if (v48)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -338,12 +337,12 @@ LABEL_43:
           }
         }
 
-        v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:1];
+        v49 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:1];
 
-        v50 = v51;
+        v48 = v49;
 LABEL_76:
-        v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:i];
-        [dictionary3 setObject:v50 forKey:v52];
+        v50 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:i];
+        [dictionary3 setObject:v48 forKey:v50];
       }
     }
   }
@@ -353,30 +352,30 @@ LABEL_76:
     dictionary3 = 0;
   }
 
-  if ([(objc_class *)v72 isEqual:objc_opt_class()])
+  if ([(objc_class *)v69 isEqual:objc_opt_class()])
   {
-    if ([v65 length] >= 4)
+    if ([v62 length] >= 4)
     {
-      v53 = v65;
-      if (*[v65 bytes] == 12648430)
+      v51 = v62;
+      if (*[v62 bytes] == 12648430)
       {
-        v72 = objc_opt_class();
+        v69 = objc_opt_class();
       }
     }
   }
 
-  v54 = [[v72 alloc] initWithModelData:v65 configuration:v73 labelMap:dictionary vocabularyMap:dictionary2 documentFrequencyMap:dictionary3 customEmbeddingData:v61 trainingInfo:v76 error:error];
-  if (v54)
+  v52 = [[v69 alloc] initWithModelData:v62 configuration:v70 labelMap:dictionary vocabularyMap:dictionary2 documentFrequencyMap:dictionary3 customEmbeddingData:v58 trainingInfo:v73 error:error];
+  if (v52)
   {
-    v55 = [(NLModel *)self initWithConfiguration:v73 modelImpl:v54];
-    v56 = v55;
-    if (v55)
+    v53 = [(NLModel *)self initWithConfiguration:v70 modelImpl:v52];
+    v54 = v53;
+    if (v53)
     {
-      objc_storeStrong(&v55->_data, obj);
-      objc_storeStrong(&v56->_mlModel, modelCopy2);
-      v56->_container = v9;
-      i = v56;
-      v57 = 0;
+      objc_storeStrong(&v53->_data, obj);
+      objc_storeStrong(&v54->_mlModel, modelCopy2);
+      v54->_container = v9;
+      i = v54;
+      v55 = 0;
       self = i;
       goto LABEL_88;
     }
@@ -384,17 +383,16 @@ LABEL_76:
     self = 0;
   }
 
-  v57 = 1;
+  v55 = 1;
 LABEL_88:
 
-  if (v57)
+  if (v55)
   {
     goto LABEL_89;
   }
 
 LABEL_91:
 
-  v58 = *MEMORY[0x1E69E9840];
   return i;
 }
 
@@ -418,7 +416,7 @@ LABEL_91:
 
 - (NLModel)initWithMLModel:(id)model error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -467,9 +465,9 @@ LABEL_20:
           if (error)
           {
             v18 = MEMORY[0x1E696ABC0];
-            v27 = *MEMORY[0x1E696A578];
-            v28[0] = @"MLModel does not have supported input and output descriptions for use with NLModel";
-            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+            v26 = *MEMORY[0x1E696A578];
+            v27[0] = @"MLModel does not have supported input and output descriptions for use with NLModel";
+            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
             *error = [v18 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:2 userInfo:v19];
           }
 
@@ -485,9 +483,9 @@ LABEL_20:
   if (error)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v26 = @"MLModel is nil, cannot create NLModel";
-    modelParameterData = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25 = @"MLModel is nil, cannot create NLModel";
+    modelParameterData = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     [v17 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:2 userInfo:modelParameterData];
     *error = selfCopy = 0;
     goto LABEL_23;
@@ -496,31 +494,13 @@ LABEL_20:
   selfCopy = 0;
 LABEL_24:
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NLModel)initWithContentsOfURL:(id)l error:(id *)error
 {
   lCopy = l;
-  if (![lCopy isFileURL])
-  {
-    goto LABEL_7;
-  }
-
-  path = [lCopy path];
-  v8 = open([path fileSystemRepresentation], 0);
-
-  if (v8 < 0)
-  {
-    goto LABEL_7;
-  }
-
-  v15 = 0;
-  v9 = read(v8, &v15, 4uLL);
-  v10 = v15;
-  close(v8);
-  if (v9 == 4 && v10 == 156685278)
+  if ([lCopy isFileURL] && (objc_msgSend(lCopy, "path"), v7 = objc_claimAutoreleasedReturnValue(), v8 = open(objc_msgSend(v7, "fileSystemRepresentation"), 0), v7, (v8 & 0x80000000) == 0) && (v15 = 0, v9 = read(v8, &v15, 4uLL), v10 = v15, close(v8), v9 == 4) && v10 == 156685278)
   {
     v11 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:1 error:error];
     v12 = v11;
@@ -534,7 +514,6 @@ LABEL_9:
 
   else
   {
-LABEL_7:
     v11 = [MEMORY[0x1E695FE90] modelWithContentsOfURL:lCopy error:error];
     v12 = v11;
     if (v11)
@@ -564,68 +543,68 @@ LABEL_7:
 
 - (id)data
 {
-  v64[16] = *MEMORY[0x1E69E9840];
+  v62[16] = *MEMORY[0x1E69E9840];
   labelMap = [(NLModel *)self labelMap];
-  v57 = stringArrayRepresentationFromInverseMap(labelMap);
+  v55 = stringArrayRepresentationFromInverseMap(labelMap);
 
   selfCopy = self;
   vocabularyMap = [(NLModel *)self vocabularyMap];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v58 = 0u;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
   v6 = vocabularyMap;
-  v7 = [v6 countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v58 objects:v62 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v61;
+    v9 = *v59;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v61 != v9)
+        if (*v59 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v60 + 1) + 8 * i);
+        v11 = *(*(&v58 + 1) + 8 * i);
         v12 = [v6 objectForKey:v11];
         [dictionary setObject:v11 forKey:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v58 objects:v62 count:16];
     }
 
     while (v8);
   }
 
-  v58 = stringArrayRepresentationFromInverseMap(dictionary);
+  v56 = stringArrayRepresentationFromInverseMap(dictionary);
 
   documentFrequencyMap = [(NLModel *)selfCopy documentFrequencyMap];
   array = [MEMORY[0x1E695DF70] array];
+  v58 = 0u;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
   allKeys = [documentFrequencyMap allKeys];
-  v16 = [allKeys countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v16 = [allKeys countByEnumeratingWithState:&v58 objects:v62 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
-    v19 = *v61;
+    v19 = *v59;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v61 != v19)
+        if (*v59 != v19)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v21 = *(*(&v60 + 1) + 8 * j);
+        v21 = *(*(&v58 + 1) + 8 * j);
         v22 = [documentFrequencyMap objectForKey:v21];
         unsignedIntegerValue = [v22 unsignedIntegerValue];
 
@@ -639,7 +618,7 @@ LABEL_7:
         }
       }
 
-      v17 = [allKeys countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v17 = [allKeys countByEnumeratingWithState:&v58 objects:v62 count:16];
     }
 
     while (v17);
@@ -716,23 +695,22 @@ LABEL_7:
   [v35 addEntriesFromDictionary:v32];
 
   modelData = [(NLModelImpl *)selfCopy->_modelImpl modelData];
-  v44 = v57;
-  v45 = dataFromStringArrayRepresentation(v57);
-  v46 = dataFromStringArrayRepresentation(v58);
+  v44 = v55;
+  v45 = dataFromStringArrayRepresentation(v55);
+  v46 = dataFromStringArrayRepresentation(v56);
   v47 = [MEMORY[0x1E696AE40] dataWithPropertyList:array format:200 options:0 error:0];
   customEmbeddingData = [(NLModelImpl *)selfCopy->_modelImpl customEmbeddingData];
   v49 = 0;
   if (v35 && modelData && v45)
   {
-    modelImpl = selfCopy->_modelImpl;
-    v51 = objc_opt_class();
-    v52 = modelMethodTypeForImplClass(v51);
-    v64[0] = 0;
-    if (v52 && ([MEMORY[0x1E695DEC8] arrayWithObjects:{modelData, v45, v46, v47, customEmbeddingData, 0}], (v53 = NLModelContainerCreate()) != 0))
+    v50 = objc_opt_class();
+    v51 = modelMethodTypeForImplClass(v50);
+    v62[0] = 0;
+    if (v51 && ([MEMORY[0x1E695DEC8] arrayWithObjects:{modelData, v45, v46, v47, customEmbeddingData, 0}], (v52 = NLModelContainerCreate()) != 0))
     {
-      v54 = v53;
+      v53 = v52;
       v49 = NLModelContainerCopyContainerData();
-      CFRelease(v54);
+      CFRelease(v53);
     }
 
     else
@@ -740,10 +718,8 @@ LABEL_7:
       v49 = 0;
     }
 
-    v44 = v57;
+    v44 = v55;
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v49;
 }
@@ -769,70 +745,69 @@ LABEL_7:
 
 - (BOOL)writeMLModelToURL:(id)l options:(id)options error:(id *)error
 {
-  v69[5] = *MEMORY[0x1E69E9840];
+  v67[5] = *MEMORY[0x1E69E9840];
   lCopy = l;
   optionsCopy = options;
   configuration = [(NLModel *)self configuration];
   type = [configuration type];
 
-  modelImpl = self->_modelImpl;
-  v11 = objc_opt_class();
-  v50 = modelMethodTypeForImplClass(v11);
+  v10 = objc_opt_class();
+  v48 = modelMethodTypeForImplClass(v10);
   systemVersion = [(NLModel *)self systemVersion];
   configuration2 = [(NLModel *)self configuration];
   language = [configuration2 language];
 
   labelArray = [(NLModel *)self labelArray];
-  v13 = optionsCopy;
+  v12 = optionsCopy;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v15 = *MEMORY[0x1E695FDD0];
-  v69[0] = *MEMORY[0x1E695FDB8];
-  v69[1] = v15;
-  v16 = *MEMORY[0x1E695FDC8];
-  v69[2] = *MEMORY[0x1E695FDA8];
-  v69[3] = v16;
-  v69[4] = *MEMORY[0x1E695FDB0];
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:5];
+  v14 = *MEMORY[0x1E695FDD0];
+  v67[0] = *MEMORY[0x1E695FDB8];
+  v67[1] = v14;
+  v15 = *MEMORY[0x1E695FDC8];
+  v67[2] = *MEMORY[0x1E695FDA8];
+  v67[3] = v15;
+  v67[4] = *MEMORY[0x1E695FDB0];
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:5];
+  v62 = 0u;
+  v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v17 = v67 = 0u;
-  v18 = [v17 countByEnumeratingWithState:&v64 objects:v68 count:16];
-  if (v18)
+  v16 = v65 = 0u;
+  v17 = [v16 countByEnumeratingWithState:&v62 objects:v66 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v65;
+    v18 = v17;
+    v19 = *v63;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v65 != v20)
+        if (*v63 != v19)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        v22 = *(*(&v64 + 1) + 8 * i);
-        v23 = [v13 objectForKey:v22];
-        if (v23)
+        v21 = *(*(&v62 + 1) + 8 * i);
+        v22 = [v12 objectForKey:v21];
+        if (v22)
         {
-          [dictionary setObject:v23 forKey:v22];
+          [dictionary setObject:v22 forKey:v21];
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v64 objects:v68 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v62 objects:v66 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 
   if (type)
   {
     if (type != 1)
     {
-      v31 = 0;
-      v39 = 0;
+      v30 = 0;
+      v38 = 0;
       errorCopy5 = error;
-      v32 = lCopy;
+      v31 = lCopy;
       if (!error)
       {
         goto LABEL_38;
@@ -841,181 +816,193 @@ LABEL_7:
       goto LABEL_37;
     }
 
-    v24 = stringForKey(v13, @"InputFeatureName", @"text");
-    v25 = stringForKey(v13, @"OutputFeatureName", @"labels");
-    v26 = objc_alloc(MEMORY[0x1E695FE20]);
+    v23 = stringForKey(v12, @"InputFeatureName", @"text");
+    v24 = stringForKey(v12, @"OutputFeatureName", @"labels");
+    v25 = objc_alloc(MEMORY[0x1E695FE20]);
     data = [(NLModel *)self data];
-    v28 = [labelArray count];
-    v29 = &unk_1F10D13A0;
-    if (v28)
+    v27 = [labelArray count];
+    v28 = &unk_1F10D13A0;
+    if (v27)
     {
-      v29 = labelArray;
+      v28 = labelArray;
     }
 
-    v63 = 0;
-    v30 = [v26 initWithData:systemVersion language:language inputFeatureName:v24 tokensFeatureName:@"tokens" tokenTagsFeatureName:v25 tokenLocationsFeatureName:@"locations" tokenLengthsFeatureName:@"lengths" modelData:data tagNames:v29 metadata:dictionary error:&v63];
-    v31 = v63;
+    v61 = 0;
+    v29 = [v25 initWithData:systemVersion language:language inputFeatureName:v23 tokensFeatureName:@"tokens" tokenTagsFeatureName:v24 tokenLocationsFeatureName:@"locations" tokenLengthsFeatureName:@"lengths" modelData:data tagNames:v28 metadata:dictionary error:&v61];
+    v30 = v61;
 
-    v32 = lCopy;
-    if (v30)
+    v31 = lCopy;
+    if (v29)
     {
-      v62 = v31;
-      v33 = &v62;
-      v34 = [MEMORY[0x1E695FE18] saveAppleWordTaggingModelToURL:lCopy wordTaggerParameters:v30 error:&v62];
+      v60 = v30;
+      v32 = &v60;
+      v33 = [MEMORY[0x1E695FE18] saveAppleWordTaggingModelToURL:lCopy wordTaggerParameters:v29 error:&v60];
 LABEL_27:
-      v39 = v34;
+      v38 = v33;
       errorCopy5 = error;
 LABEL_35:
-      v46 = *v33;
+      v45 = *v32;
 
-      v31 = v46;
+      v30 = v45;
       goto LABEL_36;
     }
 
     goto LABEL_28;
   }
 
-  v24 = stringForKey(v13, @"InputFeatureName", @"text");
-  if (v50 == 7)
+  v23 = stringForKey(v12, @"InputFeatureName", @"text");
+  if (v48 == 7)
   {
-    v25 = stringForKey(v13, @"OutputFeatureName", @"label");
-    v40 = objc_alloc(MEMORY[0x1E695FDE0]);
+    v24 = stringForKey(v12, @"OutputFeatureName", @"label");
+    v39 = objc_alloc(MEMORY[0x1E695FDE0]);
     data2 = [(NLModel *)self data];
     if ([labelArray count])
     {
-      v42 = labelArray;
+      v41 = labelArray;
     }
 
     else
     {
-      v42 = &unk_1F10D13B8;
+      v41 = &unk_1F10D13B8;
     }
 
-    v59 = 0;
-    v30 = [v40 initWithData:systemVersion language:language inputFeatureName:v24 outputFeatureName:v25 modelData:data2 labelNames:v42 metadata:dictionary error:&v59];
-    v31 = v59;
+    v57 = 0;
+    v29 = [v39 initWithData:systemVersion language:language inputFeatureName:v23 outputFeatureName:v24 modelData:data2 labelNames:v41 metadata:dictionary error:&v57];
+    v30 = v57;
 
-    v32 = lCopy;
-    if (v30)
+    v31 = lCopy;
+    if (v29)
     {
-      v58 = v31;
-      v33 = &v58;
-      v34 = [MEMORY[0x1E695FDD8] saveAppleGazetteerModelToURL:lCopy gazetteerParameters:v30 error:&v58];
+      v56 = v30;
+      v32 = &v56;
+      v33 = [MEMORY[0x1E695FDD8] saveAppleGazetteerModelToURL:lCopy gazetteerParameters:v29 error:&v56];
       goto LABEL_27;
     }
 
 LABEL_28:
-    v39 = 0;
+    v38 = 0;
     errorCopy5 = error;
     goto LABEL_36;
   }
 
-  v32 = lCopy;
-  if (v50 == 8)
+  v31 = lCopy;
+  if (v48 == 8)
   {
-    v25 = stringForKey(v13, @"OutputFeatureName", @"vector");
-    v35 = objc_alloc(MEMORY[0x1E695FE10]);
+    v24 = stringForKey(v12, @"OutputFeatureName", @"vector");
+    v34 = objc_alloc(MEMORY[0x1E695FE10]);
     data3 = [(NLModel *)self data];
-    v61 = 0;
-    v30 = [v35 initWithData:systemVersion language:language inputFeatureName:v24 outputFeatureName:v25 modelData:data3 metadata:dictionary error:&v61];
-    v31 = v61;
+    v59 = 0;
+    v29 = [v34 initWithData:systemVersion language:language inputFeatureName:v23 outputFeatureName:v24 modelData:data3 metadata:dictionary error:&v59];
+    v30 = v59;
 
     errorCopy5 = error;
-    if (v30)
+    if (v29)
     {
-      v60 = v31;
-      v33 = &v60;
-      v38 = [MEMORY[0x1E695FE08] saveAppleWordEmbeddingModelToURL:lCopy wordEmbeddingParameters:v30 error:&v60];
+      v58 = v30;
+      v32 = &v58;
+      v37 = [MEMORY[0x1E695FE08] saveAppleWordEmbeddingModelToURL:lCopy wordEmbeddingParameters:v29 error:&v58];
 LABEL_34:
-      v39 = v38;
+      v38 = v37;
       goto LABEL_35;
     }
   }
 
   else
   {
-    v25 = stringForKey(v13, @"OutputFeatureName", @"label");
-    v43 = objc_alloc(MEMORY[0x1E695FE00]);
+    v24 = stringForKey(v12, @"OutputFeatureName", @"label");
+    v42 = objc_alloc(MEMORY[0x1E695FE00]);
     data4 = [(NLModel *)self data];
     if ([labelArray count])
     {
-      v45 = labelArray;
+      v44 = labelArray;
     }
 
     else
     {
-      v45 = &unk_1F10D13D0;
+      v44 = &unk_1F10D13D0;
     }
 
-    v57 = 0;
-    v30 = [v43 initWithData:systemVersion language:language inputFeatureName:v24 outputFeatureName:v25 modelData:data4 labelNames:v45 metadata:dictionary error:&v57];
-    v31 = v57;
+    v55 = 0;
+    v29 = [v42 initWithData:systemVersion language:language inputFeatureName:v23 outputFeatureName:v24 modelData:data4 labelNames:v44 metadata:dictionary error:&v55];
+    v30 = v55;
 
     errorCopy5 = error;
-    if (v30)
+    if (v29)
     {
-      v56 = v31;
-      v33 = &v56;
-      v38 = [MEMORY[0x1E695FDF8] saveAppleTextClassifierModelToURL:lCopy textClassifierParameters:v30 error:&v56];
+      v54 = v30;
+      v32 = &v54;
+      v37 = [MEMORY[0x1E695FDF8] saveAppleTextClassifierModelToURL:lCopy textClassifierParameters:v29 error:&v54];
       goto LABEL_34;
     }
   }
 
-  v39 = 0;
+  v38 = 0;
 LABEL_36:
 
   if (errorCopy5)
   {
 LABEL_37:
-    v47 = v31;
-    *errorCopy5 = v31;
+    v46 = v30;
+    *errorCopy5 = v30;
   }
 
 LABEL_38:
 
-  v48 = *MEMORY[0x1E69E9840];
-  return v39;
+  return v38;
+}
+
+- (BOOL)writeMLModelToURL:(id)l atomically:(BOOL)atomically error:(id *)error
+{
+  atomicallyCopy = atomically;
+  v14[1] = *MEMORY[0x1E69E9840];
+  v13 = @"AtomicWrite";
+  v8 = MEMORY[0x1E696AD98];
+  lCopy = l;
+  v10 = [v8 numberWithBool:atomicallyCopy];
+  v14[0] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  LOBYTE(error) = [(NLModel *)self writeMLModelToURL:lCopy options:v11 error:error];
+
+  return error;
 }
 
 - (id)labelArray
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   labelMap = [(NLModel *)self labelMap];
   v5 = stringArrayRepresentationFromInverseMap(labelMap);
 
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 length] && (objc_msgSend(array, "containsObject:", v10) & 1) == 0)
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -1054,10 +1041,7 @@ LABEL_38:
 
 uint64_t __35__NLModel_predictedLabelForString___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 24) predictedLabelForString:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) predictedLabelForString:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1092,53 +1076,50 @@ uint64_t __35__NLModel_predictedLabelForString___block_invoke(void *a1)
 
 uint64_t __36__NLModel_predictedLabelsForTokens___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 24) predictedLabelsForTokens:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) predictedLabelsForTokens:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)predictedLabelArraysForTokenArrays:(id)arrays
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   arraysCopy = arrays;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy_;
-  v21 = __Block_byref_object_dispose_;
-  v22 = MEMORY[0x1E695E0F0];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  v21 = MEMORY[0x1E695E0F0];
   v5 = arraysCopy;
   if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v5 count])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v7)
     {
-      v8 = *v24;
+      v8 = *v23;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v24 != v8)
+          if (*v23 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          if (!isAcceptableTokenArray(*(*(&v23 + 1) + 8 * i)))
+          if (!isAcceptableTokenArray(*(*(&v22 + 1) + 8 * i)))
           {
 
             goto LABEL_14;
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v7)
         {
           continue;
@@ -1153,9 +1134,9 @@ uint64_t __36__NLModel_predictedLabelsForTokens___block_invoke(void *a1)
     block[1] = 3221225472;
     block[2] = __46__NLModel_predictedLabelArraysForTokenArrays___block_invoke;
     block[3] = &unk_1E7628F30;
-    v16 = &v17;
+    v15 = &v16;
     block[4] = self;
-    v15 = v6;
+    v14 = v6;
     dispatch_sync(clientQueue, block);
   }
 
@@ -1164,20 +1145,15 @@ uint64_t __36__NLModel_predictedLabelsForTokens___block_invoke(void *a1)
   }
 
 LABEL_14:
-  v11 = v18[5];
-  _Block_object_dispose(&v17, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
   return v11;
 }
 
 uint64_t __46__NLModel_predictedLabelArraysForTokenArrays___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 24) predictedLabelArraysForTokenArrays:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) predictedLabelArraysForTokenArrays:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1220,7 +1196,7 @@ uint64_t __46__NLModel_predictedLabelArraysForTokenArrays___block_invoke(void *a
 
 void __58__NLModel_predictedLabelHypothesesForString_maximumCount___block_invoke(void *a1)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 24) predictedLabelHypothesesForString:a1[5] maximumCount:a1[7]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -1232,17 +1208,15 @@ void __58__NLModel_predictedLabelHypothesesForString_maximumCount___block_invoke
     v6 = v5;
     if (v5)
     {
-      v12 = v5;
+      v11 = v5;
       v7 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
-      v13[0] = v7;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v12[0] = v7;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       v9 = *(a1[6] + 8);
       v10 = *(v9 + 40);
       *(v9 + 40) = v8;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)predictedLabelHypothesesForTokens:(NSArray *)tokens maximumCount:(NSUInteger)maximumCount
@@ -1276,7 +1250,7 @@ void __58__NLModel_predictedLabelHypothesesForString_maximumCount___block_invoke
 
 void __58__NLModel_predictedLabelHypothesesForTokens_maximumCount___block_invoke(void *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 24) predictedLabelHypothesesForTokens:a1[5] maximumCount:a1[7]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -1286,32 +1260,32 @@ void __58__NLModel_predictedLabelHypothesesForTokens_maximumCount___block_invoke
   {
     v5 = [*(a1[4] + 24) predictedLabelsForTokens:a1[5]];
     v6 = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         v11 = 0;
         do
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
           if (a1[7])
           {
-            v21 = *(*(&v17 + 1) + 8 * v11);
-            v12 = [MEMORY[0x1E696AD98] numberWithDouble:{1.0, v17}];
-            v22 = v12;
-            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+            v20 = *(*(&v16 + 1) + 8 * v11);
+            v12 = [MEMORY[0x1E696AD98] numberWithDouble:{1.0, v16}];
+            v21 = v12;
+            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
           }
 
           else
@@ -1319,13 +1293,13 @@ void __58__NLModel_predictedLabelHypothesesForTokens_maximumCount___block_invoke
             v13 = MEMORY[0x1E695E0F8];
           }
 
-          [v6 addObject:{v13, v17}];
+          [v6 addObject:{v13, v16}];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v9);
@@ -1335,8 +1309,6 @@ void __58__NLModel_predictedLabelHypothesesForTokens_maximumCount___block_invoke
     v15 = *(v14 + 40);
     *(v14 + 40) = v6;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)classifierTestResultsWithDataProvider:(id)provider

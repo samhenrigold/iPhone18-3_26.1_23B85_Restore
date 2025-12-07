@@ -15,9 +15,9 @@
 - (REHTTPServer)initWithPort:(unsigned __int16)port delegate:(id)delegate
 {
   delegateCopy = delegate;
-  v23.receiver = self;
-  v23.super_class = REHTTPServer;
-  v8 = [(REHTTPServer *)&v23 init];
+  v19.receiver = self;
+  v19.super_class = REHTTPServer;
+  v8 = [(REHTTPServer *)&v19 init];
   v9 = v8;
   if (v8)
   {
@@ -31,23 +31,19 @@
     v9->_connections = array;
 
     [MEMORY[0x277CCAE60] valueWithWeakObject:v9];
-    v22 = off_283B964A0;
-    v20 = xmmword_283B96480;
-    v21 = *off_283B96490;
+    v18 = off_283B964A0;
+    v16 = xmmword_283B96480;
+    v17 = *off_283B96490;
     v9->_port = port;
-    v14 = *MEMORY[0x277CBECE8];
     v9->_server = _CFHTTPServerCreateService();
-    v15 = v9->_queue;
     _CFHTTPServerSetDispatchQueue();
     if (!v9->_port)
     {
-      server = v9->_server;
-      v17 = *MEMORY[0x277CBAC70];
-      v18 = _CFHTTPServerCopyProperty();
+      v14 = _CFHTTPServerCopyProperty();
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v18 unsignedIntegerValue])
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v14 unsignedIntegerValue])
       {
-        v9->_port = [v18 unsignedIntegerValue];
+        v9->_port = [v14 unsignedIntegerValue];
       }
     }
   }
@@ -86,32 +82,32 @@
 
 - (void)invalidated
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v3 = self->_connections;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       v7 = 0;
       do
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v17 + 1) + 8 * v7++) invalidate];
+        [*(*(&v16 + 1) + 8 * v7++) invalidate];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
@@ -123,8 +119,6 @@
   {
     [(REHTTPServer *)v8 invalidated:v9];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didRecievedError:(id)error
@@ -222,22 +216,19 @@ void __56__REHTTPServer_connection_didReceiveRequest_completion___block_invoke(u
 
 - (void)didRecievedError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_22859F000, a2, OS_LOG_TYPE_DEBUG, "Server encountered error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_22859F000, a2, OS_LOG_TYPE_DEBUG, "Server encountered error %@", &v2, 0xCu);
 }
 
 - (void)connection:(void *)a1 didReceiveRequest:(NSObject *)a2 completion:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 url];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_22859F000, a2, OS_LOG_TYPE_DEBUG, "Received request at path %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_22859F000, a2, OS_LOG_TYPE_DEBUG, "Received request at path %@", &v4, 0xCu);
 }
 
 @end

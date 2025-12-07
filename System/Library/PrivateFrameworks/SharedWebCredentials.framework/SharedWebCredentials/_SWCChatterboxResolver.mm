@@ -51,7 +51,7 @@ LABEL_4:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (qword_280B21858 != -1)
   {
     dispatch_once(&qword_280B21858, &__block_literal_global_98);
@@ -65,15 +65,14 @@ LABEL_4:
     _os_log_debug_impl(&dword_265F54000, v3, OS_LOG_TYPE_DEBUG, "Deallocating %p", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = _SWCChatterboxResolver;
-  [(_SWCChatterboxResolver *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = _SWCChatterboxResolver;
+  [(_SWCChatterboxResolver *)&v4 dealloc];
 }
 
 - (void)resolveWithCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v6 = self->_URLComponents;
   v7 = objc_opt_class();
@@ -102,7 +101,7 @@ LABEL_4:
     if (os_log_type_enabled(qword_280B21850, OS_LOG_TYPE_INFO))
     {
       *buf = 138739971;
-      v20 = v8;
+      v19 = v8;
       _os_log_impl(&dword_265F54000, v9, OS_LOG_TYPE_INFO, "Resolving Chatterbox URL %{sensitive}@", buf, 0xCu);
     }
 
@@ -132,19 +131,17 @@ LABEL_4:
     if (os_log_type_enabled(qword_280B21850, OS_LOG_TYPE_INFO))
     {
       *buf = 138739971;
-      v20 = v8;
+      v19 = v8;
       _os_log_impl(&dword_265F54000, v15, OS_LOG_TYPE_INFO, "URL %{sensitive}@ is not from Chatterbox, returning verbatim.", buf, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, v8, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   responseCopy = response;
   handlerCopy = handler;
@@ -166,11 +163,11 @@ LABEL_4:
     originalRequest = [taskCopy originalRequest];
     v15 = [originalRequest URL];
     *buf = 134218499;
-    v25 = statusCode;
-    v26 = 2117;
-    v27 = v15;
-    v28 = 2117;
-    v29 = responseCopy;
+    v24 = statusCode;
+    v25 = 2117;
+    v26 = v15;
+    v27 = 2117;
+    v28 = responseCopy;
     _os_log_impl(&dword_265F54000, v13, OS_LOG_TYPE_INFO, "Got HTTP response %li for Chatterbox URL %{sensitive}@: %{sensitive}@", buf, 0x20u);
   }
 
@@ -180,8 +177,8 @@ LABEL_4:
     {
       v17 = objc_alloc(MEMORY[0x277CCA9B8]);
       v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"+[_SWCChatterboxResolver URLSession:dataTask:didReceiveResponse:completionHandler:]", @"Line", @"Function", &unk_2877A73C0}];
-      v23[1] = v16;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:2];
+      v22[1] = v16;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:2];
       v19 = [v17 initWithDomain:@"HTTP" code:statusCode userInfo:v18];
       [self _invokeCompletionHandlerForTask:taskCopy result:0 error:v19];
 
@@ -200,13 +197,11 @@ LABEL_10:
   v20 = 0;
 LABEL_12:
   handlerCopy[2](handlerCopy, v20);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   redirectionCopy = redirection;
@@ -224,9 +219,9 @@ LABEL_12:
     v17 = [originalRequest URL];
     v18 = [requestCopy URL];
     *buf = 138740227;
-    v35 = v17;
-    v36 = 2117;
-    v37 = v18;
+    v34 = v17;
+    v35 = 2117;
+    v36 = v18;
     _os_log_impl(&dword_265F54000, v15, OS_LOG_TYPE_INFO, "Redirecting Chatterbox URL %{sensitive}@ => %{sensitive}@", buf, 0x16u);
   }
 
@@ -241,26 +236,26 @@ LABEL_12:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       originalRequest2 = [taskCopy originalRequest];
-      v29 = [originalRequest2 URL];
+      v28 = [originalRequest2 URL];
       *buf = 138739971;
-      v35 = v29;
+      v34 = v28;
       _os_log_error_impl(&dword_265F54000, v19, OS_LOG_TYPE_ERROR, "Chatterbox URL %{sensitive}@: resolution failed server-side and redirected to a generic error page.", buf, 0xCu);
     }
 
     v20 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v33[0] = &unk_2877A73D8;
-    v32[0] = @"Line";
-    v32[1] = @"Function";
+    v32[0] = &unk_2877A73D8;
+    v31[0] = @"Line";
+    v31[1] = @"Function";
     v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[_SWCChatterboxResolver URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:]"];
     v22 = *MEMORY[0x277CCA068];
-    v33[1] = v21;
-    v33[2] = @"The specified Chatterbox URL redirected to an error page.";
+    v32[1] = v21;
+    v32[2] = @"The specified Chatterbox URL redirected to an error page.";
     v23 = *MEMORY[0x277CCA760];
-    v32[2] = v22;
-    v32[3] = v23;
+    v31[2] = v22;
+    v31[3] = v23;
     v24 = [requestCopy URL];
-    v33[3] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+    v32[3] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
     v26 = [v20 initWithDomain:@"SWCErrorDomain" code:9 userInfo:v25];
     [self _invokeCompletionHandlerForTask:taskCopy result:0 error:v26];
 
@@ -268,13 +263,11 @@ LABEL_12:
   }
 
   handlerCopy[2](handlerCopy, requestCopy);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
@@ -289,12 +282,12 @@ LABEL_12:
     if (os_log_type_enabled(currentRequest, OS_LOG_TYPE_ERROR))
     {
       originalRequest = [taskCopy originalRequest];
-      v18 = [originalRequest URL];
-      v19 = 138740227;
-      v20 = v18;
-      v21 = 2112;
-      v22 = errorCopy;
-      _os_log_error_impl(&dword_265F54000, currentRequest, OS_LOG_TYPE_ERROR, "Error handling Chatterbox URL %{sensitive}@: %@", &v19, 0x16u);
+      v17 = [originalRequest URL];
+      v18 = 138740227;
+      v19 = v17;
+      v20 = 2112;
+      v21 = errorCopy;
+      _os_log_error_impl(&dword_265F54000, currentRequest, OS_LOG_TYPE_ERROR, "Error handling Chatterbox URL %{sensitive}@: %@", &v18, 0x16u);
     }
 
     v12 = 0;
@@ -312,9 +305,9 @@ LABEL_12:
     {
       originalRequest2 = [taskCopy originalRequest];
       v15 = [originalRequest2 URL];
-      v19 = 138739971;
-      v20 = v15;
-      _os_log_impl(&dword_265F54000, v13, OS_LOG_TYPE_INFO, "Finished handling Chatterbox URL %{sensitive}@", &v19, 0xCu);
+      v18 = 138739971;
+      v19 = v15;
+      _os_log_impl(&dword_265F54000, v13, OS_LOG_TYPE_INFO, "Finished handling Chatterbox URL %{sensitive}@", &v18, 0xCu);
     }
 
     currentRequest = [taskCopy currentRequest];
@@ -325,8 +318,6 @@ LABEL_12:
   if (!errorCopy)
   {
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_queue
@@ -389,7 +380,7 @@ LABEL_12:
 
 + (void)_invokeCompletionHandlerForTask:(id)task result:(id)result error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   resultCopy = result;
   errorCopy = error;
@@ -433,20 +424,18 @@ LABEL_12:
     v18 = qword_280B21850;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v20 = MEMORY[0x2667737C0](v14);
+      v19 = MEMORY[0x2667737C0](v14);
       originalRequest = [taskCopy originalRequest];
-      v22 = [originalRequest URL];
-      v23 = 138412547;
-      v24 = v20;
-      v25 = 2117;
-      v26 = v22;
-      _os_log_debug_impl(&dword_265F54000, v18, OS_LOG_TYPE_DEBUG, "Invoking completion handler %@ for Chatterbox URL %{sensitive}@", &v23, 0x16u);
+      v21 = [originalRequest URL];
+      v22 = 138412547;
+      v23 = v19;
+      v24 = 2117;
+      v25 = v21;
+      _os_log_debug_impl(&dword_265F54000, v18, OS_LOG_TYPE_DEBUG, "Invoking completion handler %@ for Chatterbox URL %{sensitive}@", &v22, 0x16u);
     }
 
     (v14)[2](v14, resultCopy, errorCopy);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_looksLikeChatterboxURLComponents:(id)components

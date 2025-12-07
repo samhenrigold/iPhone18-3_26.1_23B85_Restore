@@ -52,14 +52,14 @@
 
 + (id)vc_partialPersistenceErrorWithPartialErrors:()VCError
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = v3;
   if (v3)
   {
-    v9 = @"VCPartialErrorsByItemIDKey";
-    v10[0] = v3;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"VCPartialErrorsByItemIDKey";
+    v9[0] = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -68,8 +68,6 @@
   }
 
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCVoiceShortcutsErrorDomain" code:1006 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -135,19 +133,19 @@
 
 + (id)vc_voiceShortcutErrorWithCode:()VCError underlyingError:reason:
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v12 = a4;
   v13 = a5;
-  v19 = &a9;
+  v18 = &a9;
   if (v13)
   {
     v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v13 arguments:&a9];
     if (v12)
     {
 LABEL_3:
-      v20 = *MEMORY[0x1E696AA08];
-      v21[0] = v12;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:{1, &a9}];
+      v19 = *MEMORY[0x1E696AA08];
+      v20[0] = v12;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:{1, &a9}];
       goto LABEL_6;
     }
   }
@@ -163,9 +161,7 @@ LABEL_3:
 
   v15 = 0;
 LABEL_6:
-  v16 = [self _vc_voiceShortcutErrorWithCode:a3 extraUserInfo:v15 reason:{v14, v19}];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = [self _vc_voiceShortcutErrorWithCode:a3 extraUserInfo:v15 reason:{v14, v18}];
 
   return v16;
 }

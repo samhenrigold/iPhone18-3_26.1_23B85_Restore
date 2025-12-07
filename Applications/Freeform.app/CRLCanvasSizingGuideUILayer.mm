@@ -51,7 +51,7 @@
   v18 = 0u;
   if (layoutCopy)
   {
-    [layoutCopy transformInRoot];
+    objc_msgSend_transformInRoot(layoutCopy);
     v15 = *&v20;
   }
 

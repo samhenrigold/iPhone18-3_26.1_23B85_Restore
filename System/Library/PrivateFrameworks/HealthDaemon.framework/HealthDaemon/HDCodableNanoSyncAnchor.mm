@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (id)nanoSyncDescription;
+- (id)objectTypeAsString:(int)string;
 - (int)StringAsObjectType:(id)type;
 - (int)objectType;
 - (unint64_t)hash;
@@ -95,6 +96,22 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)objectTypeAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 0x32 && ((0x3EF9FF2FFFFFFuLL >> v4))
+  {
+    v5 = off_278616B30[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
 }
 
 - (int)StringAsObjectType:(id)type
@@ -382,26 +399,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    objectType = self->_objectType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    anchor = self->_anchor;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_entityIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -463,7 +478,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0 || self->_objectType != *(equalCopy + 6))
@@ -475,7 +489,7 @@
   else if ((*(equalCopy + 28) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -495,17 +509,17 @@ LABEL_14:
   entityIdentifier = self->_entityIdentifier;
   if (entityIdentifier | *(equalCopy + 2))
   {
-    v7 = [(HDCodableEntityIdentifier *)entityIdentifier isEqual:?];
+    v6 = [(HDCodableEntityIdentifier *)entityIdentifier isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -556,18 +570,30 @@ LABEL_3:
   v8 = v5[2];
   if (entityIdentifier)
   {
-    if (v8)
+    if (!v8)
     {
-      [(HDCodableEntityIdentifier *)entityIdentifier mergeFrom:?];
+      goto LABEL_11;
     }
+
+    v9 = v5;
+    entityIdentifier = [(HDCodableEntityIdentifier *)entityIdentifier mergeFrom:?];
   }
 
-  else if (v8)
+  else
   {
-    [(HDCodableNanoSyncAnchor *)self setEntityIdentifier:?];
+    if (!v8)
+    {
+      goto LABEL_11;
+    }
+
+    v9 = v5;
+    entityIdentifier = [(HDCodableNanoSyncAnchor *)self setEntityIdentifier:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  v5 = v9;
+LABEL_11:
+
+  MEMORY[0x2821F96F8](entityIdentifier, v5);
 }
 
 @end

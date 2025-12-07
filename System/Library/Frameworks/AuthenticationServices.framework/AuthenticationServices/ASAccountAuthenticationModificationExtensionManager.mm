@@ -56,81 +56,79 @@ void __80___ASAccountAuthenticationModificationExtensionManager__beginExtensionD
 
 void __129___ASAccountAuthenticationModificationExtensionManager__buildDomainToExtensionDictionaryWithSharedWebCredentialsDatabaseEntries___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionary];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
-  v25 = a1;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v24 = a1;
   obj = *(*(a1 + 32) + 40);
-  v3 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v3 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v31;
+    v5 = *v30;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v31 != v5)
+        if (*v30 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
         v8 = MEMORY[0x1E69635E0];
         v9 = [v7 _plugIn];
         v10 = [v9 containingUrl];
         v11 = [v8 applicationProxyForBundleURL:v10];
         v12 = [v11 bundleIdentifier];
 
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
-        v13 = [*(v25 + 40) objectForKeyedSubscript:v12];
-        v14 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v13 = [*(v24 + 40) objectForKeyedSubscript:v12];
+        v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v27;
+          v16 = *v26;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v27 != v16)
+              if (*v26 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              [v2 setObject:v7 forKeyedSubscript:*(*(&v26 + 1) + 8 * j)];
+              [v2 setObject:v7 forKeyedSubscript:*(*(&v25 + 1) + 8 * j)];
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v15);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v4 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v4);
   }
 
-  v18 = *(v25 + 32);
+  v18 = *(v24 + 32);
   v19 = *(v18 + 32);
   *(v18 + 32) = v2;
   v20 = v2;
 
-  dispatch_resume(*(*(v25 + 32) + 16));
-  v21 = *(v25 + 32);
+  dispatch_resume(*(*(v24 + 32) + 16));
+  v21 = *(v24 + 32);
   v22 = [v21[6] array];
   [v21 _notifyObservers:v22];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __93___ASAccountAuthenticationModificationExtensionManager_extensionForDomain_completionHandler___block_invoke(uint64_t a1)
@@ -158,7 +156,7 @@ void __93___ASAccountAuthenticationModificationExtensionManager_extensionForDoma
   }
 }
 
-uint64_t __74___ASAccountAuthenticationModificationExtensionManager_addChangeObserver___block_invoke(uint64_t a1)
+void *__74___ASAccountAuthenticationModificationExtensionManager_addChangeObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 48) addObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 48) count];
@@ -172,7 +170,7 @@ uint64_t __74___ASAccountAuthenticationModificationExtensionManager_addChangeObs
   return result;
 }
 
-uint64_t __77___ASAccountAuthenticationModificationExtensionManager_removeChangeObserver___block_invoke(uint64_t a1)
+void *__77___ASAccountAuthenticationModificationExtensionManager_removeChangeObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 48) removeObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 48) count];
@@ -188,44 +186,42 @@ uint64_t __77___ASAccountAuthenticationModificationExtensionManager_removeChange
 
 void __73___ASAccountAuthenticationModificationExtensionManager__notifyObservers___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 accountModificationExtensionManagerExtensionListDidChange:{*(a1 + 40), v9}];
+          [v7 accountModificationExtensionManagerExtensionListDidChange:{*(a1 + 40), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

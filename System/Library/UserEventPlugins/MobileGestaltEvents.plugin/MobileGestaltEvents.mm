@@ -157,19 +157,18 @@ void sub_C94(id a1)
 
 void sub_CD0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = +[NSMutableDictionary dictionary];
+  v5 = +[NSMutableDictionary dictionary];
   if (a2)
   {
-    [v7 setObject:a2 forKeyedSubscript:@"ChangedQuestions"];
+    [v5 setObject:a2 forKeyedSubscript:@"ChangedQuestions"];
   }
 
   if (a3)
   {
-    [v7 setObject:a3 forKeyedSubscript:@"AdditionalInfo"];
+    [v5 setObject:a3 forKeyedSubscript:@"AdditionalInfo"];
   }
 
   _CFXPCCreateXPCObjectFromCFObject();
-  v6 = *(a1 + 32);
   xpc_event_provider_token_fire();
 }
 

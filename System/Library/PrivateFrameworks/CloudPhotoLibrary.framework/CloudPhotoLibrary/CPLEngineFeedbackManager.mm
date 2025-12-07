@@ -199,7 +199,7 @@ uint64_t __60__CPLEngineFeedbackManager_testKey_value_completionHandler___block_
 
 - (void)_reallySendFeedbackToServer
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!self->_closed && self->_opened && !self->_sendTask)
   {
     date = [MEMORY[0x1E695DF00] date];
@@ -214,7 +214,7 @@ uint64_t __60__CPLEngineFeedbackManager_testKey_value_completionHandler___block_
       {
         v6 = [(NSMutableArray *)self->_messagesToSend count];
         *buf = 134217984;
-        v17 = v6;
+        v16 = v6;
         _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Sending feedback to server with %lu messages", buf, 0xCu);
       }
     }
@@ -226,19 +226,17 @@ uint64_t __60__CPLEngineFeedbackManager_testKey_value_completionHandler___block_
     WeakRetained = objc_loadWeakRetained(&self->_engineLibrary);
     transport = [WeakRetained transport];
     v11 = self->_messagesSending;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke;
-    v15[3] = &unk_1E8620A88;
-    v15[4] = self;
-    v12 = [transport sendFeedbackTaskForMessages:v11 completionHandler:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke;
+    v14[3] = &unk_1E8620A88;
+    v14[4] = self;
+    v12 = [transport sendFeedbackTaskForMessages:v11 completionHandler:v14];
     sendTask = self->_sendTask;
     self->_sendTask = v12;
 
     [(CPLEngineTransportSendFeedbackTask *)self->_sendTask runWithNoSyncSession];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke(uint64_t a1, void *a2)
@@ -266,7 +264,7 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke(ui
 
 void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 16))
   {
@@ -278,9 +276,9 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
         {
           v4 = *(a1 + 40);
-          v13 = 138412290;
-          v14 = v4;
-          _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Failed to send feedback. Will retry later. Error: %@", &v13, 0xCu);
+          v12 = 138412290;
+          v13 = v4;
+          _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Failed to send feedback. Will retry later. Error: %@", &v12, 0xCu);
         }
       }
     }
@@ -294,11 +292,11 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
         {
           v6 = [*(*(a1 + 32) + 32) count];
           [*(*(a1 + 32) + 40) timeIntervalSinceNow];
-          v13 = 134218240;
-          v14 = v6;
-          v15 = 2048;
-          v16 = -v7;
-          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "%lu feedback messages sent in %.1fs", &v13, 0x16u);
+          v12 = 134218240;
+          v13 = v6;
+          v14 = 2048;
+          v15 = -v7;
+          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "%lu feedback messages sent in %.1fs", &v12, 0x16u);
         }
 
         v2 = *(a1 + 32);
@@ -316,13 +314,11 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
   v10 = *(a1 + 32);
   v11 = *(v10 + 16);
   *(v10 + 16) = 0;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_appendMessages:(id)messages
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   if (!self->_deactivated && !self->_disableFeedback)
   {
@@ -335,33 +331,33 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
       self->_messagesToSend = v5;
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = messagesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [[CPLSerializedFeedbackMessage alloc] initWithMessage:*(*(&v15 + 1) + 8 * i)];
+          v12 = [[CPLSerializedFeedbackMessage alloc] initWithMessage:*(*(&v14 + 1) + 8 * i)];
           if ((_CPLSilentLogging & 1) == 0)
           {
             v13 = __CPLFeedbackOSLogDomain();
             if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v20 = v12;
+              v19 = v12;
               _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Scheduling feedback message %@", buf, 0xCu);
             }
           }
@@ -369,7 +365,7 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
           [(NSMutableArray *)self->_messagesToSend addObject:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v20 count:16];
       }
 
       while (v9);
@@ -378,13 +374,11 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
     [(CPLEngineFeedbackManager *)self _save];
     [(CPLEngineFeedbackManager *)self _sendFeedbackToServerIfNecessary];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_appendMessage:(id)message
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if (!self->_deactivated && !self->_disableFeedback)
   {
@@ -403,9 +397,9 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
       v8 = __CPLFeedbackOSLogDomain();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
-        v11 = v7;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Scheduling feedback message %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v7;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Scheduling feedback message %@", &v9, 0xCu);
       }
     }
 
@@ -413,8 +407,6 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
     [(CPLEngineFeedbackManager *)self _save];
     [(CPLEngineFeedbackManager *)self _sendFeedbackToServerIfNecessary];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_load
@@ -491,73 +483,74 @@ void __55__CPLEngineFeedbackManager__reallySendFeedbackToServer__block_invoke_2(
 
 - (void)_save
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (self->_closed || (messagesToSend = self->_messagesToSend) == 0)
+  v21 = *MEMORY[0x1E69E9840];
+  if (!self->_closed)
   {
-LABEL_12:
-    v12 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if ([(NSMutableArray *)messagesToSend count])
-  {
-    v5 = objc_autoreleasePoolPush();
-    if ([(NSMutableArray *)self->_messagesToSend count]>= 0xB)
+    messagesToSend = self->_messagesToSend;
+    if (messagesToSend)
     {
-      v6 = [(NSMutableArray *)self->_messagesToSend count]- 10;
-      if ((_CPLSilentLogging & 1) == 0)
+      if ([(NSMutableArray *)messagesToSend count])
       {
-        v7 = __CPLFeedbackOSLogDomain();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v5 = objc_autoreleasePoolPush();
+        if ([(NSMutableArray *)self->_messagesToSend count]>= 0xB)
         {
-          *buf = 134217984;
-          v22 = v6;
-          _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Too many messages to send to the server. Will drop %lu messages", buf, 0xCu);
+          v6 = [(NSMutableArray *)self->_messagesToSend count]- 10;
+          if ((_CPLSilentLogging & 1) == 0)
+          {
+            v7 = __CPLFeedbackOSLogDomain();
+            if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 134217984;
+              v20 = v6;
+              _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Too many messages to send to the server. Will drop %lu messages", buf, 0xCu);
+            }
+          }
+
+          [(NSMutableArray *)self->_messagesToSend removeObjectsInRange:0, v6];
         }
+
+        v17[0] = @"messages";
+        v8 = [CPLSerializedFeedbackMessage plistRepresentationForMessages:self->_messagesToSend];
+        v17[1] = @"lastAttempt";
+        v18[0] = v8;
+        v18[1] = self->_lastAttemptDate;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+
+        v16 = 0;
+        v10 = [MEMORY[0x1E696AE40] dataWithPropertyList:v9 format:200 options:0 error:&v16];
+        v11 = v16;
+        if (!v10)
+        {
+          if ((_CPLSilentLogging & 1) == 0)
+          {
+            v12 = __CPLGenericOSLogDomain();
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138412290;
+              v20 = v11;
+              _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Failed to create feedback messages serialization: %@", buf, 0xCu);
+            }
+          }
+
+          currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+          v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Feedback/CPLEngineFeedbackManager.m"];
+          [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:160 description:{@"Failed to create feedback messages serialization: %@", v11}];
+
+          abort();
+        }
+
+        [v10 writeToURL:self->_feedbackMessagesURL atomically:1];
+
+        objc_autoreleasePoolPop(v5);
       }
 
-      [(NSMutableArray *)self->_messagesToSend removeObjectsInRange:0, v6];
-    }
-
-    v19[0] = @"messages";
-    v8 = [CPLSerializedFeedbackMessage plistRepresentationForMessages:self->_messagesToSend];
-    v19[1] = @"lastAttempt";
-    v20[0] = v8;
-    v20[1] = self->_lastAttemptDate;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
-
-    v18 = 0;
-    v10 = [MEMORY[0x1E696AE40] dataWithPropertyList:v9 format:200 options:0 error:&v18];
-    v11 = v18;
-    if (!v10)
-    {
-      if ((_CPLSilentLogging & 1) == 0)
+      else
       {
-        v14 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138412290;
-          v22 = v11;
-          _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Failed to create feedback messages serialization: %@", buf, 0xCu);
-        }
+        defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+        [defaultManager removeItemAtURL:self->_feedbackMessagesURL error:0];
       }
-
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Feedback/CPLEngineFeedbackManager.m"];
-      [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:160 description:{@"Failed to create feedback messages serialization: %@", v11}];
-
-      abort();
     }
-
-    [v10 writeToURL:self->_feedbackMessagesURL atomically:1];
-
-    objc_autoreleasePoolPop(v5);
-    goto LABEL_12;
   }
-
-  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  [defaultManager removeItemAtURL:self->_feedbackMessagesURL error:0];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStatusWithCompletionHandler:(id)handler

@@ -92,7 +92,7 @@
 
 - (MRPlaybackQueue)initWithContentItem:(id)item
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (item)
   {
     itemCopy = item;
@@ -100,7 +100,7 @@
     itemCopy2 = item;
     v6 = [v4 arrayWithObjects:&itemCopy count:1];
 
-    self = [(MRPlaybackQueue *)self initWithContentItems:v6, itemCopy, v11];
+    self = [(MRPlaybackQueue *)self initWithContentItems:v6, itemCopy, v10];
     selfCopy = self;
   }
 
@@ -109,7 +109,6 @@
     selfCopy = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -432,9 +431,9 @@ MRContentItem *__36__MRPlaybackQueue_initWithProtobuf___block_invoke(uint64_t a1
     {
       requestIdentifier3 = [(MRPlaybackQueue *)equalCopy requestIdentifier];
       requestIdentifier4 = [(MRPlaybackQueue *)self requestIdentifier];
-      v12 = [requestIdentifier3 isEqualToString:requestIdentifier4];
+      isEqualToString = objc_msgSend_isEqualToString_(requestIdentifier3);
 
-      if (!v12)
+      if (!isEqualToString)
       {
         goto LABEL_30;
       }
@@ -451,7 +450,7 @@ MRContentItem *__36__MRPlaybackQueue_initWithProtobuf___block_invoke(uint64_t a1
     {
       queueIdentifier3 = [(MRPlaybackQueue *)equalCopy queueIdentifier];
       queueIdentifier4 = [(MRPlaybackQueue *)self queueIdentifier];
-      v19 = [queueIdentifier3 isEqualToString:queueIdentifier4];
+      v19 = objc_msgSend_isEqualToString_(queueIdentifier3);
 
       if (!v19)
       {
@@ -697,38 +696,38 @@ void __41__MRPlaybackQueue_contentItemWithOffset___block_invoke()
 
 - (id)contentItemForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   contentItems = [(MRPlaybackQueue *)self contentItems];
-  v6 = [contentItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [contentItems countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(contentItems);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
-        v11 = [identifier isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;
         }
       }
 
-      v6 = [contentItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [contentItems countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -740,61 +739,59 @@ void __41__MRPlaybackQueue_contentItemWithOffset___block_invoke()
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)mergeFrom:(id)from
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   fromCopy = from;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [(MRPlaybackQueue *)self contentItems];
-  v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v19)
+  v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v18)
   {
-    v17 = *v25;
+    v16 = *v24;
     do
     {
       v4 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v24 + 1) + 8 * v4);
+        v5 = *(*(&v23 + 1) + 8 * v4);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         contentItems = [fromCopy contentItems];
-        v7 = [contentItems countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v7 = [contentItems countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v21;
+          v9 = *v20;
           do
           {
             v10 = 0;
             do
             {
-              if (*v21 != v9)
+              if (*v20 != v9)
               {
                 objc_enumerationMutation(contentItems);
               }
 
-              v11 = *(*(&v20 + 1) + 8 * v10);
+              v11 = *(*(&v19 + 1) + 8 * v10);
               identifier = [v5 identifier];
               identifier2 = [v11 identifier];
-              v14 = [identifier isEqualToString:identifier2];
+              isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-              if (v14)
+              if (isEqualToString)
               {
                 MRContentItemMerge(v5, v11);
               }
@@ -803,7 +800,7 @@ LABEL_11:
             }
 
             while (v8 != v10);
-            v8 = [contentItems countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v8 = [contentItems countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v8);
@@ -812,14 +809,12 @@ LABEL_11:
         ++v4;
       }
 
-      while (v4 != v19);
-      v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      while (v4 != v18);
+      v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergePropertiesFromPlaybackQueue:(id)queue

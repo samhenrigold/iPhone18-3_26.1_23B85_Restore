@@ -2,6 +2,7 @@
 + (id)supportedMetricKeys;
 - (BOOL)submitMetricsWithError:(id *)error;
 - (MOMediaPlayMetrics)initWithFirstPartyAppRatio:(double)ratio firstPartyAppTime:(double)time musciAppTime:(double)appTime;
+- (MOMediaPlayMetrics)initWithLoggingEnabled:(BOOL)enabled;
 - (void)setValues;
 @end
 
@@ -29,6 +30,51 @@
   }
 
   return result;
+}
+
+- (MOMediaPlayMetrics)initWithLoggingEnabled:(BOOL)enabled
+{
+  v16.receiver = self;
+  v16.super_class = MOMediaPlayMetrics;
+  v3 = [(MOMetric *)&v16 initWithLoggingEnabled:enabled];
+  if (v3)
+  {
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    bucketedKeys = [objc_opt_class() bucketedKeys];
+    v5 = [bucketedKeys countByEnumeratingWithState:&v12 objects:v17 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v13;
+      do
+      {
+        v8 = 0;
+        do
+        {
+          if (*v13 != v7)
+          {
+            objc_enumerationMutation(bucketedKeys);
+          }
+
+          v9 = *(*(&v12 + 1) + 8 * v8);
+          metrics = [(MOMetric *)v3 metrics];
+          [metrics setObject:&off_100369058 forKeyedSubscript:v9];
+
+          v8 = v8 + 1;
+        }
+
+        while (v6 != v8);
+        v6 = [bucketedKeys countByEnumeratingWithState:&v12 objects:v17 count:16];
+      }
+
+      while (v6);
+    }
+  }
+
+  return v3;
 }
 
 + (id)supportedMetricKeys

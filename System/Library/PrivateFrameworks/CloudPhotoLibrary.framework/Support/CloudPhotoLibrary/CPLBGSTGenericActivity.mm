@@ -43,12 +43,11 @@
 - (id)description
 {
   v3 = [NSString alloc];
-  task = self->_task;
-  v5 = objc_opt_class();
+  v4 = objc_opt_class();
   identifier = [(BGSystemTask *)self->_task identifier];
-  v7 = [v3 initWithFormat:@"[%@ for %@]", v5, identifier];
+  v6 = [v3 initWithFormat:@"[%@ for %@]", v4, identifier];
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)shouldDefer

@@ -224,22 +224,22 @@ LABEL_20:
 
 id __82__REMList_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjectIDBlock__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = a4;
   v10 = v9;
   if (a3)
   {
-    v23 = 0;
-    v11 = &v23;
-    v12 = [v9 fetchListIncludingConcealedWithObjectID:v8 error:&v23];
+    v22 = 0;
+    v11 = &v22;
+    v12 = [v9 fetchListIncludingConcealedWithObjectID:v8 error:&v22];
   }
 
   else
   {
-    v22 = 0;
-    v11 = &v22;
-    v12 = [v9 fetchListWithObjectID:v8 error:&v22];
+    v21 = 0;
+    v11 = &v21;
+    v12 = [v9 fetchListWithObjectID:v8 error:&v21];
   }
 
   v13 = v12;
@@ -250,14 +250,14 @@ id __82__REMList_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjec
     v16 = +[REMLog changeTracking];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-      v21 = [v15 localizedDescription];
+      v19 = [MEMORY[0x1E696AD98] numberWithBool:a3];
+      v20 = [v15 localizedDescription];
       *buf = 138543874;
-      v25 = v8;
-      v26 = 2114;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v21;
+      v24 = v8;
+      v25 = 2114;
+      v26 = v19;
+      v27 = 2112;
+      v28 = v20;
       _os_log_error_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_ERROR, "REMDAChangeTrackingHelper:_REMDAChangeTrackableModel: ERROR: Failed to fetch REMList {objectID: %{public}@, includeConcealedObjects: %{public}@, error: %@}.", buf, 0x20u);
     }
   }
@@ -267,8 +267,6 @@ id __82__REMList_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjec
     v17 = v15;
     *a5 = v15;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -762,74 +760,64 @@ LABEL_16:
 
 - (void)hack_overrideReminderIDsOrderingWithOrderedObjectIDs:(id)ds
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = +[REMLogStore read];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dsCopy, "count")}];
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "hack_overrideReminderIDsOrderingWithOrderedObjectIDs: reminderIDsMergeableOrdering set {ids.count: %@}", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "hack_overrideReminderIDsOrderingWithOrderedObjectIDs: reminderIDsMergeableOrdering set {ids.count: %@}", &v8, 0xCu);
   }
 
   storage = [(REMList *)self storage];
   [storage setReminderIDsMergeableOrdering:dsCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __83__REMList_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjectIDsBlock__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5_0();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_4_3(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_4_3(v0 v1)];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __101__REMList_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_deletedKeyFromConcealedModelObjectBlock__block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = +[REMLog changeTracking];
   if (OUTLINED_FUNCTION_7_0(v3))
   {
-    v5 = [a1 objectID];
+    v4 = [a1 objectID];
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_0_2();
-    _os_log_fault_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_fault_impl(v5, v6, v7, v8, v9, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reminderIDsOrdering
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = +[REMLogStore read];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     objectID = [self objectID];
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v5, v6, "rem_log_fault_if (self.storage.reminderIDsMergeableOrdering == nil) -- list.store.reminderIDsMergeableOrdering should not be nil {objectID: %{public}@}", v7, v8, v9, v10, 2u);
+    LODWORD(v10) = 138543362;
+    *(&v10 + 4) = objectID;
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v4, v5, "rem_log_fault_if (self.storage.reminderIDsMergeableOrdering == nil) -- list.store.reminderIDsMergeableOrdering should not be nil {objectID: %{public}@}", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shouldUseExternalIdentifierAsDeletionKey
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = +[REMLogStore read];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     objectID = [self objectID];
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v5, v6, "rem_log_fault_if (self.account == nil) -- REMList.account is nil for -shouldUseExternalIdentifierAsDeletionKey {listID: %{public}@}", v7, v8, v9, v10, 2u);
+    LODWORD(v10) = 138543362;
+    *(&v10 + 4) = objectID;
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v4, v5, "rem_log_fault_if (self.account == nil) -- REMList.account is nil for -shouldUseExternalIdentifierAsDeletionKey {listID: %{public}@}", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

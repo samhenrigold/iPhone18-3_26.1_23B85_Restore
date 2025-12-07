@@ -22,12 +22,12 @@
 
 - (IDSGroupEncryptionKeyMaterial)initWithIndex:(id)index groupID:(id)d participantID:(unint64_t)iD
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   dCopy = d;
-  v30.receiver = self;
-  v30.super_class = IDSGroupEncryptionKeyMaterial;
-  v10 = [(IDSGroupEncryptionKeyMaterial *)&v30 init];
+  v48.receiver = self;
+  v48.super_class = IDSGroupEncryptionKeyMaterial;
+  v10 = [(IDSGroupEncryptionKeyMaterial *)&v48 init];
   if (!v10)
   {
     goto LABEL_13;
@@ -45,7 +45,7 @@
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = cf;
+      v50 = cf;
       _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "SecMWCreateSessionSeed for Key Material (error %@)", buf, 0xCu);
     }
 
@@ -53,22 +53,22 @@
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSRTEncryptionKeyMaterial", @"IDS", @"SecMWCreateSessionSeed for Key Material (error %@)");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSRTEncryptionKeyMaterial", @"IDS", @"SecMWCreateSessionSeed for Key Material (error %@)", v26, v27, v28, v29, v30, cf);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSRTEncryptionKeyMaterial", @"SecMWCreateSessionSeed for Key Material (error %@)");
+          _IDSLogV(0, @"IDSFoundation", @"IDSRTEncryptionKeyMaterial", @"SecMWCreateSessionSeed for Key Material (error %@)", v31, v32, v33, v34, cf);
         }
       }
     }
 
-    v26 = cf;
+    v35 = cf;
     if (!cf)
     {
       goto LABEL_30;
     }
 
 LABEL_29:
-    CFRelease(v26);
+    CFRelease(v35);
 LABEL_30:
     v24 = 0;
     goto LABEL_31;
@@ -81,27 +81,27 @@ LABEL_30:
 
   if (!off_1EB2BBEF0 || (v12 = off_1EB2BBEF0(0, &cf)) == 0 || cf)
   {
-    v27 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v36 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = cf;
-      _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "_SecMWCreateSessionSalt for Key Salt (error %@)", buf, 0xCu);
+      v50 = cf;
+      _os_log_impl(&dword_1A7AD9000, v36, OS_LOG_TYPE_DEFAULT, "_SecMWCreateSessionSalt for Key Salt (error %@)", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSRTEncryptionKeyMaterial", @"IDS", @"_SecMWCreateSessionSalt for Key Salt (error %@)");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSRTEncryptionKeyMaterial", @"IDS", @"_SecMWCreateSessionSalt for Key Salt (error %@)", v37, v38, v39, v40, v41, cf);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSRTEncryptionKeyMaterial", @"_SecMWCreateSessionSalt for Key Salt (error %@)");
+          _IDSLogV(0, @"IDSFoundation", @"IDSRTEncryptionKeyMaterial", @"_SecMWCreateSessionSalt for Key Salt (error %@)", v42, v43, v44, v45, cf);
         }
       }
     }
 
-    v26 = cf;
+    v35 = cf;
     if (!cf)
     {
       goto LABEL_30;
@@ -288,16 +288,16 @@ LABEL_31:
 
 - (void)changeCreatedAt:(id)at
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   atCopy = at;
   v5 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     createdAt = self->_createdAt;
     *buf = 138412546;
-    v12 = createdAt;
-    v13 = 2112;
-    v14 = atCopy;
+    v19 = createdAt;
+    v20 = 2112;
+    v21 = atCopy;
     _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "change CreatedAt from %@ to %@", buf, 0x16u);
   }
 
@@ -305,21 +305,17 @@ LABEL_31:
   {
     if (_IDSShouldLogTransport())
     {
-      v9 = self->_createdAt;
-      v10 = atCopy;
-      _IDSLogTransport(@"IDSRTEncryptionKeyMaterial", @"IDS", @"change CreatedAt from %@ to %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"IDSRTEncryptionKeyMaterial", @"IDS", @"change CreatedAt from %@ to %@", v7, v8, v9, v10, v11, self->_createdAt);
+      if (_IDSShouldLog(0))
       {
-        v9 = self->_createdAt;
-        v10 = atCopy;
-        _IDSLogV(0, @"IDSFoundation", @"IDSRTEncryptionKeyMaterial", @"change CreatedAt from %@ to %@");
+        _IDSLogV(0, @"IDSFoundation", @"IDSRTEncryptionKeyMaterial", @"change CreatedAt from %@ to %@", v12, v13, v14, v15, self->_createdAt);
       }
     }
   }
 
-  v7 = [atCopy copy];
-  v8 = self->_createdAt;
-  self->_createdAt = v7;
+  v16 = [atCopy copy];
+  v17 = self->_createdAt;
+  self->_createdAt = v16;
 }
 
 + (NSUUID)keyOriginIdentifier

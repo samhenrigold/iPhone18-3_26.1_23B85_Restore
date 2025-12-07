@@ -21,30 +21,30 @@
 
 - (void)notifySubscribers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (([(FPItemCollection *)self->_itemCollection isGathering]& 1) == 0)
   {
     items = [(FPItemCollection *)self->_itemCollection items];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     subscribers = [(DOCItemCollectionObserver *)self subscribers];
-    v5 = [subscribers countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [subscribers countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(subscribers);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           updateBlock = [v9 updateBlock];
 
           if (updateBlock)
@@ -54,14 +54,12 @@
           }
         }
 
-        v6 = [subscribers countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [subscribers countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (DOCItemCollectionObserver)initWithItemCollection:(id)collection
@@ -262,7 +260,7 @@ BOOL __53__DOCItemCollectionObserver__purgeOrphanedContainers__block_invoke(uint
 
 - (void)_enumerateItemCollectionIndexPathBasedDelegatesWithBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = blockCopy;
   if (self->_soleUpdatableDelegate)
@@ -272,27 +270,27 @@ BOOL __53__DOCItemCollectionObserver__purgeOrphanedContainers__block_invoke(uint
 
   else
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = self->_delegates;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          weakObjectValue = [*(*(&v13 + 1) + 8 * v10) weakObjectValue];
+          weakObjectValue = [*(*(&v12 + 1) + 8 * v10) weakObjectValue];
           if ([weakObjectValue conformsToProtocol:&unk_285C792E0])
           {
             (v5)[2](v5, weakObjectValue);
@@ -302,14 +300,12 @@ BOOL __53__DOCItemCollectionObserver__purgeOrphanedContainers__block_invoke(uint
         }
 
         while (v8 != v10);
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collection:(id)collection didInsertItemsAtIndexPaths:(id)paths

@@ -28,7 +28,7 @@
     Weak = objc_loadWeak(&self->_webViewToTrack.m_weakReference);
     if (Weak)
     {
-      [Weak _page];
+      objc_msgSend__page(Weak);
       if (v9)
       {
         v4 = *(v9 + 1169);
@@ -158,7 +158,7 @@
   Weak = objc_loadWeak(&self->_webViewToTrack.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
   }
 
   else
@@ -200,7 +200,7 @@
   Weak = objc_loadWeak(&self->_webViewToTrack.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     if (v3)
     {
       WebKit::WebPageProxy::applicationDidEnterBackground(v3);
@@ -215,7 +215,7 @@
   Weak = objc_loadWeak(&self->_webViewToTrack.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     v4 = v7;
     if (v7)
     {
@@ -243,7 +243,7 @@
   Weak = objc_loadWeak(&self->_webViewToTrack.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     if (v3)
     {
       WebKit::WebPageProxy::applicationWillEnterForeground(v3);
@@ -258,7 +258,7 @@
   Weak = objc_loadWeak(&self->_webViewToTrack.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     if (v6)
     {
       if ([(UIView *)[(WKApplicationStateTrackingView *)self _contentView] window])
@@ -299,7 +299,7 @@
   Weak = objc_loadWeak(&self->_webViewToTrack.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     if (v6)
     {
       if ([(UIView *)[(WKApplicationStateTrackingView *)self _contentView] window])

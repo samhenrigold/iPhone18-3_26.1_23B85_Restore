@@ -85,7 +85,7 @@
 - (BOOL)enclosedInUIPDocumentLanding
 {
   selfCopy = self;
-  v3 = specialized DOCUIPTraitEnvironment<>._enclosedInUIPDocumentLanding.getter(&lazy cache variable for type metadata for UIView);
+  v3 = specialized DOCUIPTraitEnvironment<>._enclosedInUIPDocumentLanding.getter(&lazy cache variable for type metadata for UIView, 0x277D75D18);
 
   return v3 & 1;
 }

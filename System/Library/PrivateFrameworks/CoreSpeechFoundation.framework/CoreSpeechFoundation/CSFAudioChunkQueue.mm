@@ -19,34 +19,34 @@
 
 - (id)copyChunkFromStartSampleCount:(unint64_t)count toEndSampleCount:(unint64_t)sampleCount
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v27 = sampleCount - count;
+  v32 = *MEMORY[0x1E69E9840];
+  v26 = sampleCount - count;
   if (sampleCount >= count)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     circularQueue = [(CSFAudioChunkQueue *)self circularQueue];
-    v10 = [circularQueue countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v10 = [circularQueue countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (!v10)
     {
       goto LABEL_26;
     }
 
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(circularQueue);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         if ([v14 startSampleCount] <= count)
         {
           startSampleCount = [v14 startSampleCount];
@@ -92,7 +92,7 @@ LABEL_21:
 
             v20 = count - [v14 startSampleCount];
             v19 = v14;
-            v18 = v27;
+            v18 = v26;
           }
 
           goto LABEL_21;
@@ -104,21 +104,18 @@ LABEL_21:
         }
       }
 
-      v11 = [circularQueue countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v11 = [circularQueue countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (!v11)
       {
 LABEL_26:
 
         v4 = [array copy];
-        goto LABEL_27;
+        return v4;
       }
     }
   }
 
-  v4 = 0;
-LABEL_27:
-  v25 = *MEMORY[0x1E69E9840];
-  return v4;
+  return 0;
 }
 
 - (void)addChunk:(id)chunk

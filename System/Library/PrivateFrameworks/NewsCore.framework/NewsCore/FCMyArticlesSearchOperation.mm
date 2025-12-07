@@ -25,37 +25,37 @@
 
 - (BOOL)validateOperation
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   context = [(FCMyArticlesSearchOperation *)self context];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"articles search operation requires a context"];
-    v19 = 136315906;
-    v20 = "[FCMyArticlesSearchOperation validateOperation]";
-    v21 = 2080;
-    v22 = "FCMyArticlesSearchOperation.m";
-    v23 = 1024;
-    v24 = 51;
-    v25 = 2114;
-    v26 = v17;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v19, 0x26u);
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"articles search operation requires a context"];
+    v18 = 136315906;
+    v19 = "[FCMyArticlesSearchOperation validateOperation]";
+    v20 = 2080;
+    v21 = "FCMyArticlesSearchOperation.m";
+    v22 = 1024;
+    v23 = 51;
+    v24 = 2114;
+    v25 = v16;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v18, 0x26u);
   }
 
   feature = [(FCMyArticlesSearchOperation *)self feature];
 
   if (!feature && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"articles search operation requires a feature"];
-    v19 = 136315906;
-    v20 = "[FCMyArticlesSearchOperation validateOperation]";
-    v21 = 2080;
-    v22 = "FCMyArticlesSearchOperation.m";
-    v23 = 1024;
-    v24 = 52;
-    v25 = 2114;
-    v26 = v18;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v19, 0x26u);
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"articles search operation requires a feature"];
+    v18 = 136315906;
+    v19 = "[FCMyArticlesSearchOperation validateOperation]";
+    v20 = 2080;
+    v21 = "FCMyArticlesSearchOperation.m";
+    v22 = 1024;
+    v23 = 52;
+    v24 = 2114;
+    v25 = v17;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v18, 0x26u);
   }
 
   dateRange = [(FCMyArticlesSearchOperation *)self dateRange];
@@ -63,16 +63,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"articles search operation requires a finite date range"];
-      v19 = 136315906;
-      v20 = "[FCMyArticlesSearchOperation validateOperation]";
-      v21 = 2080;
-      v22 = "FCMyArticlesSearchOperation.m";
-      v23 = 1024;
-      v24 = 53;
-      v25 = 2114;
-      v26 = v16;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v19, 0x26u);
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"articles search operation requires a finite date range"];
+      v18 = 136315906;
+      v19 = "[FCMyArticlesSearchOperation validateOperation]";
+      v20 = 2080;
+      v21 = "FCMyArticlesSearchOperation.m";
+      v22 = 1024;
+      v23 = 53;
+      v24 = 2114;
+      v25 = v15;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v18, 0x26u);
     }
   }
 
@@ -106,7 +106,6 @@
     isFinite = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return isFinite;
 }
 
@@ -125,7 +124,7 @@
 
 void __47__FCMyArticlesSearchOperation_performOperation__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -143,26 +142,24 @@ void __47__FCMyArticlesSearchOperation_performOperation__block_invoke(uint64_t a
     [(FCFeedRequestOperation *)v10 setConfiguration:v8];
     [(FCFeedRequestOperation *)v10 setFeedRequests:v7];
     v12 = [*(a1 + 32) filterOptions];
-    v19 = [*(a1 + 32) context];
-    v13 = [v19 configurationManager];
+    v18 = [*(a1 + 32) context];
+    v13 = [v18 configurationManager];
     v14 = [v13 configuration];
     v15 = [*(a1 + 32) context];
     v16 = [FCFeedTransformationFilter transformationWithFilterOptions:v12 configuration:v14 context:v15];
-    v21[0] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     [(FCFeedRequestOperation *)v10 setFeedTransformations:v17];
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __47__FCMyArticlesSearchOperation_performOperation__block_invoke_2;
-    v20[3] = &unk_1E7C39A20;
-    v20[4] = *(a1 + 32);
-    [(FCFeedRequestOperation *)v10 setRequestCompletionHandler:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __47__FCMyArticlesSearchOperation_performOperation__block_invoke_2;
+    v19[3] = &unk_1E7C39A20;
+    v19[4] = *(a1 + 32);
+    [(FCFeedRequestOperation *)v10 setRequestCompletionHandler:v19];
     [*(a1 + 32) associateChildOperation:v10];
     [(FCOperation *)v10 start];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __47__FCMyArticlesSearchOperation_performOperation__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -356,43 +353,42 @@ void __83__FCMyArticlesSearchOperation__generateFeedRequestsForFeedRange_complet
     aBlock[1] = 3221225472;
     aBlock[2] = __83__FCMyArticlesSearchOperation__generateFeedRequestsForFeedRange_completionHandler___block_invoke_5;
     aBlock[3] = &unk_1E7C39AE8;
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 32);
-    v32 = v10;
-    aBlock[4] = v11;
-    v12 = v4;
-    v13 = *(a1 + 72);
-    v30 = v12;
-    v33 = v13;
-    v31 = *(a1 + 40);
-    v24 = _Block_copy(aBlock);
-    v23 = *(*(*(a1 + 56) + 8) + 40);
-    v28 = [*(a1 + 32) context];
-    v27 = [v28 subscriptionList];
-    v22 = [v27 mutedTagIDs];
-    v26 = [*(a1 + 32) context];
-    v25 = [v26 purchaseController];
-    v14 = [v25 allPurchasedTagIDs];
-    v15 = [*(a1 + 32) context];
-    v16 = [v15 bundleSubscriptionManager];
-    v17 = *(*(*(a1 + 72) + 8) + 40);
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 32);
+    v31 = v9;
+    aBlock[4] = v10;
+    v11 = v4;
+    v12 = *(a1 + 72);
+    v29 = v11;
+    v32 = v12;
+    v30 = *(a1 + 40);
+    v23 = _Block_copy(aBlock);
+    v22 = *(*(*(a1 + 56) + 8) + 40);
+    v27 = [*(a1 + 32) context];
+    v26 = [v27 subscriptionList];
+    v21 = [v26 mutedTagIDs];
+    v25 = [*(a1 + 32) context];
+    v24 = [v25 purchaseController];
+    v13 = [v24 allPurchasedTagIDs];
+    v14 = [*(a1 + 32) context];
+    v15 = [v14 bundleSubscriptionManager];
+    v16 = *(*(*(a1 + 72) + 8) + 40);
+    v17 = [*(a1 + 32) context];
     v18 = [*(a1 + 32) context];
-    v19 = [*(a1 + 32) context];
-    v20 = [v19 pptContext];
-    LOBYTE(v21) = [v20 isRunningPPT] ^ 1;
-    +[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:](FCForYouQueryUtilities, "fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:", v23, v22, v14, v16, v17, v18, v21, [*(a1 + 32) qualityOfService], v24);
+    v19 = [v18 pptContext];
+    LOBYTE(v20) = [v19 isRunningPPT] ^ 1;
+    +[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:](FCForYouQueryUtilities, "fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:", v22, v21, v13, v15, v16, v17, v20, [*(a1 + 32) qualityOfService], v23);
   }
 
   else
   {
-    v9 = *(*(*(a1 + 72) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
 }
 
 void __83__FCMyArticlesSearchOperation__generateFeedRequestsForFeedRange_completionHandler___block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
@@ -406,8 +402,8 @@ void __83__FCMyArticlesSearchOperation__generateFeedRequestsForFeedRange_complet
     aBlock[2] = __83__FCMyArticlesSearchOperation__generateFeedRequestsForFeedRange_completionHandler___block_invoke_6;
     aBlock[3] = &unk_1E7C39AC0;
     aBlock[4] = *(a1 + 32);
-    v27 = _Block_copy(aBlock);
-    v28 = *(a1 + 40);
+    v25 = _Block_copy(aBlock);
+    v26 = *(a1 + 40);
     v6 = [*(a1 + 32) context];
     v7 = [v6 bundleSubscriptionManager];
     v8 = *(*(*(a1 + 64) + 8) + 40);
@@ -416,50 +412,47 @@ void __83__FCMyArticlesSearchOperation__generateFeedRequestsForFeedRange_complet
     v11 = [*(a1 + 32) sidecar];
     v12 = [*(a1 + 32) context];
     v13 = [v12 pptContext];
-    LOBYTE(v26) = [v13 isRunningPPT];
-    v25 = v10;
+    LOBYTE(v24) = [v13 isRunningPPT];
+    v23 = v10;
     v5 = v9;
-    v14 = [FCForYouQueryUtilities feedRequestsForTags:v9 tagBinProvider:v27 hiddenFeedIDs:MEMORY[0x1E695E0F0] allowPaidBundleFeed:1 purchasedTagIDs:v28 bundleSubscriptionProvider:v7 configuration:v8 maxCount:0 feedRange:v25 sidecar:v11 isRunningPPT:v26];
+    v14 = [FCForYouQueryUtilities feedRequestsForTags:v9 tagBinProvider:v25 hiddenFeedIDs:MEMORY[0x1E695E0F0] allowPaidBundleFeed:1 purchasedTagIDs:v26 bundleSubscriptionProvider:v7 configuration:v8 maxCount:0 feedRange:v23 sidecar:v11 isRunningPPT:v24];
 
     v15 = [v14 feedContextByFeedID];
     [*(a1 + 32) setResultFeedContextByFeedID:v15];
 
     v16 = [v14 allRequests];
+    v27 = 0u;
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v17 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v30;
+      v19 = *v28;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v30 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * i);
+          v21 = *(*(&v27 + 1) + 8 * i);
           [v21 setCachedOnly:{objc_msgSend(*(a1 + 32), "cachedOnly")}];
           v22 = [*(a1 + 32) feature];
           [v21 setRequiredFeature:v22];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v18);
     }
 
-    v23 = *(*(*(a1 + 64) + 8) + 40);
     (*(*(a1 + 56) + 16))();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __83__FCMyArticlesSearchOperation__generateFeedRequestsForFeedRange_completionHandler___block_invoke_6(uint64_t a1, void *a2)

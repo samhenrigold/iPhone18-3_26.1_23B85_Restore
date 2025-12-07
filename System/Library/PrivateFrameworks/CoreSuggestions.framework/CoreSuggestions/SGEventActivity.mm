@@ -9,23 +9,23 @@
 
 - (id)jsonObject
 {
-  v23[5] = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v22[5] = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
   v3 = dispatch_semaphore_create(0);
   userActivity = self->_userActivity;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __29__SGEventActivity_jsonObject__block_invoke;
-  v13[3] = &unk_1E7EFAC90;
-  v15 = &v16;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __29__SGEventActivity_jsonObject__block_invoke;
+  v12[3] = &unk_1E7EFAC90;
+  v14 = &v15;
   v5 = v3;
-  v14 = v5;
-  [(NSUserActivity *)userActivity _createUserActivityStringsWithOptions:0 completionHandler:v13];
+  v13 = v5;
+  [(NSUserActivity *)userActivity _createUserActivityStringsWithOptions:0 completionHandler:v12];
   if ([MEMORY[0x1E69C5D10] waitForSemaphore:v5 timeoutSeconds:1.0] == 1)
   {
     v6 = 0;
@@ -33,25 +33,24 @@
 
   else
   {
-    v23[0] = self->_teamIdentifier;
-    v22[0] = @"SGEventActivityTeamIdentifierKey";
-    v22[1] = @"SGEventActivityTypeKey";
+    v22[0] = self->_teamIdentifier;
+    v21[0] = @"SGEventActivityTeamIdentifierKey";
+    v21[1] = @"SGEventActivityTypeKey";
     v7 = [objc_opt_class() describeType:self->_type];
-    v8 = v17[5];
-    v23[1] = v7;
-    v23[2] = v8;
-    v22[2] = @"SGEventActivityUserActivityStringKey";
-    v22[3] = @"SGEventActivityStartDateKey";
+    v8 = v16[5];
+    v22[1] = v7;
+    v22[2] = v8;
+    v21[2] = @"SGEventActivityUserActivityStringKey";
+    v21[3] = @"SGEventActivityStartDateKey";
     v9 = [MEMORY[0x1E696AD98] numberWithDouble:self->_validStartDate];
-    v23[3] = v9;
-    v22[4] = @"SGEventActivityEndDateKey";
+    v22[3] = v9;
+    v21[4] = @"SGEventActivityEndDateKey";
     v10 = [MEMORY[0x1E696AD98] numberWithDouble:self->_validEndDate];
-    v23[4] = v10;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:5];
+    v22[4] = v10;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:5];
   }
 
-  _Block_object_dispose(&v16, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
 
   return v6;
 }

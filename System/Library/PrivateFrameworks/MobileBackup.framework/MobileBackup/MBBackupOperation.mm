@@ -1,4 +1,6 @@
 @interface MBBackupOperation
++ (id)backupOperationWithType:(int)type domain:(id)domain fileID:(id)d path:(id)path size:(unint64_t)size;
++ (id)backupOperationWithType:(int)type domain:(id)domain fileID:(id)d path:(id)path size:(unint64_t)size flags:(unsigned __int8)flags;
 + (id)nameForType:(int)type;
 - (MBBackupOperation)initWithDecoder:(id)decoder;
 - (MBBackupOperation)initWithDecoder:(id)decoder domainManager:(id)manager;
@@ -19,6 +21,33 @@
   {
     return *(&off_1003C1D58 + type);
   }
+}
+
++ (id)backupOperationWithType:(int)type domain:(id)domain fileID:(id)d path:(id)path size:(unint64_t)size
+{
+  v10 = *&type;
+  pathCopy = path;
+  dCopy = d;
+  domainCopy = domain;
+  v14 = objc_alloc_init(MBBackupOperation);
+  [(MBBackupOperation *)v14 setType:v10];
+  [(MBBackupOperation *)v14 setDomain:domainCopy];
+
+  [(MBBackupOperation *)v14 setFileID:dCopy];
+  [(MBBackupOperation *)v14 setPath:pathCopy];
+
+  [(MBBackupOperation *)v14 setSize:size];
+
+  return v14;
+}
+
++ (id)backupOperationWithType:(int)type domain:(id)domain fileID:(id)d path:(id)path size:(unint64_t)size flags:(unsigned __int8)flags
+{
+  flagsCopy = flags;
+  v9 = [self backupOperationWithType:*&type domain:domain fileID:d path:path size:size];
+  [v9 setFlags:flagsCopy];
+
+  return v9;
 }
 
 - (MBBackupOperation)initWithDecoder:(id)decoder

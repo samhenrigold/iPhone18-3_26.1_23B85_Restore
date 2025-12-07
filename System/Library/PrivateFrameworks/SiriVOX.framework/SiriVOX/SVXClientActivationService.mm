@@ -45,17 +45,17 @@
 
 - (BOOL)_validateSystemEventForActivation:(id)activation
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   activationCopy = activation;
   v4 = MEMORY[0x277CEF098];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v29 = 136315394;
-    v30 = "[SVXClientActivationService _validateSystemEventForActivation:]";
-    v31 = 2112;
-    v32 = activationCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Validating system event %@ for activation...", &v29, 0x16u);
+    v28 = 136315394;
+    v29 = "[SVXClientActivationService _validateSystemEventForActivation:]";
+    v30 = 2112;
+    v31 = activationCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Validating system event %@ for activation...", &v28, 0x16u);
   }
 
   if (!activationCopy)
@@ -63,9 +63,9 @@
     v13 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
     {
-      v29 = 136315138;
-      v30 = "[SVXClientActivationService _validateSystemEventForActivation:]";
-      _os_log_error_impl(&dword_2695B9000, v13, OS_LOG_TYPE_ERROR, "%s Rejected system event for activation because it is nil.", &v29, 0xCu);
+      v28 = 136315138;
+      v29 = "[SVXClientActivationService _validateSystemEventForActivation:]";
+      _os_log_error_impl(&dword_2695B9000, v13, OS_LOG_TYPE_ERROR, "%s Rejected system event for activation because it is nil.", &v28, 0xCu);
     }
 
     goto LABEL_14;
@@ -109,12 +109,12 @@
             v17 = off_279C68068[type2];
           }
 
-          v27 = v17;
-          v29 = 136315394;
-          v30 = "[SVXClientActivationService _validateSystemEventForActivation:]";
-          v31 = 2112;
-          v32 = v27;
-          v28 = "%s Rejected system event for activation because the type is %@, but speechSynthesisRequest is nil.";
+          v26 = v17;
+          v28 = 136315394;
+          v29 = "[SVXClientActivationService _validateSystemEventForActivation:]";
+          v30 = 2112;
+          v31 = v26;
+          v27 = "%s Rejected system event for activation because the type is %@, but speechSynthesisRequest is nil.";
           goto LABEL_40;
         }
 
@@ -133,27 +133,27 @@
 
       if (!deviceSetupFlowScene)
       {
-        v24 = *v4;
+        v23 = *v4;
         if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
         {
-          v10 = v24;
+          v10 = v23;
           type3 = [(__CFString *)activationCopy type];
           if (type3 > 0xD)
           {
-            v26 = @"(unknown)";
+            v25 = @"(unknown)";
           }
 
           else
           {
-            v26 = off_279C68068[type3];
+            v25 = off_279C68068[type3];
           }
 
-          v27 = v26;
-          v29 = 136315394;
-          v30 = "[SVXClientActivationService _validateSystemEventForActivation:]";
-          v31 = 2112;
-          v32 = v27;
-          v28 = "%s Rejected system event for activation because the type is %@, but the deviceSetupFlowScene is nil.";
+          v26 = v25;
+          v28 = 136315394;
+          v29 = "[SVXClientActivationService _validateSystemEventForActivation:]";
+          v30 = 2112;
+          v31 = v26;
+          v27 = "%s Rejected system event for activation because the type is %@, but the deviceSetupFlowScene is nil.";
           goto LABEL_40;
         }
 
@@ -184,14 +184,14 @@
             v12 = off_279C68068[type4];
           }
 
-          v27 = v12;
-          v29 = 136315394;
-          v30 = "[SVXClientActivationService _validateSystemEventForActivation:]";
-          v31 = 2112;
-          v32 = v27;
-          v28 = "%s Rejected system event for activation because the type is %@, but the storeDemo is nil.";
+          v26 = v12;
+          v28 = 136315394;
+          v29 = "[SVXClientActivationService _validateSystemEventForActivation:]";
+          v30 = 2112;
+          v31 = v26;
+          v27 = "%s Rejected system event for activation because the type is %@, but the storeDemo is nil.";
 LABEL_40:
-          _os_log_error_impl(&dword_2695B9000, v10, OS_LOG_TYPE_ERROR, v28, &v29, 0x16u);
+          _os_log_error_impl(&dword_2695B9000, v10, OS_LOG_TYPE_ERROR, v27, &v28, 0x16u);
 
           goto LABEL_14;
         }
@@ -205,27 +205,27 @@ LABEL_24:
     }
   }
 
-  v21 = *v4;
+  v20 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
   {
-    v10 = v21;
+    v10 = v20;
     type5 = [(__CFString *)activationCopy type];
     if (type5 > 0xD)
     {
-      v23 = @"(unknown)";
+      v22 = @"(unknown)";
     }
 
     else
     {
-      v23 = off_279C68068[type5];
+      v22 = off_279C68068[type5];
     }
 
-    v27 = v23;
-    v29 = 136315394;
-    v30 = "[SVXClientActivationService _validateSystemEventForActivation:]";
-    v31 = 2112;
-    v32 = v27;
-    v28 = "%s Rejected system event for activation because the type is %@.";
+    v26 = v22;
+    v28 = 136315394;
+    v29 = "[SVXClientActivationService _validateSystemEventForActivation:]";
+    v30 = 2112;
+    v31 = v26;
+    v27 = "%s Rejected system event for activation because the type is %@.";
     goto LABEL_40;
   }
 
@@ -233,23 +233,22 @@ LABEL_14:
   v7 = 0;
 LABEL_25:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)_validateButtonEventForActivation:(id)activation
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   activationCopy = activation;
   v4 = MEMORY[0x277CEF098];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v17 = 136315394;
-    v18 = "[SVXClientActivationService _validateButtonEventForActivation:]";
-    v19 = 2112;
-    v20 = activationCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Validating button event %@ for activation...", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "[SVXClientActivationService _validateButtonEventForActivation:]";
+    v18 = 2112;
+    v19 = activationCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Validating button event %@ for activation...", &v16, 0x16u);
   }
 
   if (!activationCopy)
@@ -257,9 +256,9 @@ LABEL_25:
     v7 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315138;
-      v18 = "[SVXClientActivationService _validateButtonEventForActivation:]";
-      _os_log_error_impl(&dword_2695B9000, v7, OS_LOG_TYPE_ERROR, "%s Rejected button event for activation because it is nil.", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[SVXClientActivationService _validateButtonEventForActivation:]";
+      _os_log_error_impl(&dword_2695B9000, v7, OS_LOG_TYPE_ERROR, "%s Rejected button event for activation because it is nil.", &v16, 0xCu);
     }
 
     goto LABEL_13;
@@ -287,12 +286,12 @@ LABEL_13:
       v11 = off_279C68050[type];
     }
 
-    v15 = v11;
-    v17 = 136315394;
-    v18 = "[SVXClientActivationService _validateButtonEventForActivation:]";
-    v19 = 2112;
-    v20 = v15;
-    _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s Rejected button event for activation because the type is %@.", &v17, 0x16u);
+    v14 = v11;
+    v16 = 136315394;
+    v17 = "[SVXClientActivationService _validateButtonEventForActivation:]";
+    v18 = 2112;
+    v19 = v14;
+    _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s Rejected button event for activation because the type is %@.", &v16, 0x16u);
 
 LABEL_18:
     goto LABEL_13;
@@ -308,18 +307,17 @@ LABEL_18:
 
     v9 = v12;
     timestamp = [(__CFString *)activationCopy timestamp];
-    v17 = 136315394;
-    v18 = "[SVXClientActivationService _validateButtonEventForActivation:]";
-    v19 = 2048;
-    v20 = timestamp;
-    _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s Rejected button event for activation because the timestamp is %llu.", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "[SVXClientActivationService _validateButtonEventForActivation:]";
+    v18 = 2048;
+    v19 = timestamp;
+    _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s Rejected button event for activation because the timestamp is %llu.", &v16, 0x16u);
     goto LABEL_18;
   }
 
   v6 = 1;
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -343,7 +341,7 @@ void __56__SVXClientActivationService__buttonHoldToTalkThreshold__block_invoke()
 
 - (void)_preheatTimerArrivedWithToken:(id)token
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([(NSUUID *)self->_preheatToken isEqual:token])
   {
     preheatToken = self->_preheatToken;
@@ -352,41 +350,37 @@ void __56__SVXClientActivationService__buttonHoldToTalkThreshold__block_invoke()
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[SVXClientActivationService _preheatTimerArrivedWithToken:]";
-      _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Preheat timer fired!", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[SVXClientActivationService _preheatTimerArrivedWithToken:]";
+      _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Preheat timer fired!", &v6, 0xCu);
     }
 
     [(SVXClientActivationService *)self _preheatWithActivationSource:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopPreheatTimer
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   preheatToken = self->_preheatToken;
   if (preheatToken)
   {
     v4 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v6 = 136315138;
-      v7 = "[SVXClientActivationService _stopPreheatTimer]";
-      _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Stopped preheat timer.", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SVXClientActivationService _stopPreheatTimer]";
+      _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Stopped preheat timer.", &v5, 0xCu);
       preheatToken = self->_preheatToken;
     }
 
     self->_preheatToken = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startPreheatTimer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_preheatToken)
   {
     v3 = objc_alloc_init(MEMORY[0x277CCAD78]);
@@ -396,179 +390,166 @@ void __56__SVXClientActivationService__buttonHoldToTalkThreshold__block_invoke()
     [(SVXClientActivationService *)self _buttonHoldToPreheatThreshold];
     v6 = v5;
     performer = self->_performer;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __48__SVXClientActivationService__startPreheatTimer__block_invoke;
-    v11[3] = &unk_279C68FE8;
-    v11[4] = self;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __48__SVXClientActivationService__startPreheatTimer__block_invoke;
+    v10[3] = &unk_279C68FE8;
+    v10[4] = self;
     v8 = v3;
-    v12 = v8;
-    [(SVXPerforming *)performer performBlock:v11 afterDelay:v6];
+    v11 = v8;
+    [(SVXPerforming *)performer performBlock:v10 afterDelay:v6];
     v9 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v14 = "[SVXClientActivationService _startPreheatTimer]";
-      v15 = 2048;
-      v16 = v6;
+      v13 = "[SVXClientActivationService _startPreheatTimer]";
+      v14 = 2048;
+      v15 = v6;
       _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Started preheat timer for %f seconds.", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_preheatWithActivationSource:(int64_t)source
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v10 = "[SVXClientActivationService _preheatWithActivationSource:]";
+    v9 = "[SVXClientActivationService _preheatWithActivationSource:]";
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   clientServiceProvider = self->_clientServiceProvider;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __59__SVXClientActivationService__preheatWithActivationSource___block_invoke;
-  v8[3] = &__block_descriptor_40_e28_v16__0___SVXClientService__8l;
-  v8[4] = source;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v8 errorHandler:&__block_literal_global_18_6226];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __59__SVXClientActivationService__preheatWithActivationSource___block_invoke;
+  v7[3] = &__block_descriptor_40_e28_v16__0___SVXClientService__8l;
+  v7[4] = source;
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v7 errorHandler:&__block_literal_global_18_6226];
 }
 
 void __59__SVXClientActivationService__preheatWithActivationSource___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientActivationService _preheatWithActivationSource:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientActivationService _preheatWithActivationSource:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitToAutomaticEndpointingWithTimestamp:(unint64_t)timestamp
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v11 = "[SVXClientActivationService _transitToAutomaticEndpointingWithTimestamp:]";
-    v12 = 2048;
+    v10 = "[SVXClientActivationService _transitToAutomaticEndpointingWithTimestamp:]";
+    v11 = 2048;
     timestampCopy = timestamp;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Endpoint trigger timestamp = %lld", buf, 0x16u);
   }
 
   clientServiceProvider = self->_clientServiceProvider;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __74__SVXClientActivationService__transitToAutomaticEndpointingWithTimestamp___block_invoke;
-  v9[3] = &__block_descriptor_40_e28_v16__0___SVXClientService__8l;
-  v9[4] = timestamp;
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
-  v8[2] = __74__SVXClientActivationService__transitToAutomaticEndpointingWithTimestamp___block_invoke_2;
-  v8[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v8[2] = __74__SVXClientActivationService__transitToAutomaticEndpointingWithTimestamp___block_invoke;
+  v8[3] = &__block_descriptor_40_e28_v16__0___SVXClientService__8l;
   v8[4] = timestamp;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v9 errorHandler:v8];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __74__SVXClientActivationService__transitToAutomaticEndpointingWithTimestamp___block_invoke_2;
+  v7[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v7[4] = timestamp;
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v8 errorHandler:v7];
 }
 
 void __74__SVXClientActivationService__transitToAutomaticEndpointingWithTimestamp___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[SVXClientActivationService _transitToAutomaticEndpointingWithTimestamp:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@, Endpoint trigger timestamp = %lld", &v7, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = 136315650;
+    v7 = "[SVXClientActivationService _transitToAutomaticEndpointingWithTimestamp:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2048;
+    v11 = v5;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@, Endpoint trigger timestamp = %lld", &v6, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performManualEndpointing
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SVXClientActivationService _performManualEndpointing]";
-    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SVXClientActivationService _performManualEndpointing]";
+    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   [(SVXClientServiceProviding *)self->_clientServiceProvider getClientServiceUsingBlock:&__block_literal_global_6234 errorHandler:&__block_literal_global_15];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SVXClientActivationService__performManualEndpointing__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientActivationService _performManualEndpointing]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientActivationService _performManualEndpointing]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deactivateWithContext:(id)context completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v19 = "[SVXClientActivationService _deactivateWithContext:completion:]";
-    v20 = 2112;
-    v21 = contextCopy;
+    v18 = "[SVXClientActivationService _deactivateWithContext:completion:]";
+    v19 = 2112;
+    v20 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   [(SVXClientActivationService *)self _stopPreheatTimer];
   clientServiceProvider = self->_clientServiceProvider;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __64__SVXClientActivationService__deactivateWithContext_completion___block_invoke;
-  v15[3] = &unk_279C67F98;
-  v16 = contextCopy;
-  v17 = completionCopy;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __64__SVXClientActivationService__deactivateWithContext_completion___block_invoke_13;
-  v13[3] = &unk_279C680E0;
-  v14 = v17;
-  v10 = v17;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __64__SVXClientActivationService__deactivateWithContext_completion___block_invoke;
+  v14[3] = &unk_279C67F98;
+  v15 = contextCopy;
+  v16 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __64__SVXClientActivationService__deactivateWithContext_completion___block_invoke_13;
+  v12[3] = &unk_279C680E0;
+  v13 = v16;
+  v10 = v16;
   v11 = contextCopy;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v15 errorHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v14 errorHandler:v12];
 }
 
 void __64__SVXClientActivationService__deactivateWithContext_completion___block_invoke(uint64_t a1, void *a2)
@@ -585,16 +566,16 @@ void __64__SVXClientActivationService__deactivateWithContext_completion___block_
 
 void __64__SVXClientActivationService__deactivateWithContext_completion___block_invoke_13(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientActivationService _deactivateWithContext:completion:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientActivationService _deactivateWithContext:completion:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -602,68 +583,63 @@ void __64__SVXClientActivationService__deactivateWithContext_completion___block_
   {
     (*(v5 + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__SVXClientActivationService__deactivateWithContext_completion___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SVXClientActivationService _deactivateWithContext:completion:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s done (context = %@)", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SVXClientActivationService _deactivateWithContext:completion:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s done (context = %@)", &v5, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_activateWithContext:(id)context completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v20 = "[SVXClientActivationService _activateWithContext:completion:]";
-    v21 = 2112;
-    v22 = contextCopy;
+    v19 = "[SVXClientActivationService _activateWithContext:completion:]";
+    v20 = 2112;
+    v21 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   [(SVXClientActivationService *)self _stopPreheatTimer];
   clientServiceProvider = self->_clientServiceProvider;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __62__SVXClientActivationService__activateWithContext_completion___block_invoke;
-  v15[3] = &unk_279C675A0;
-  v16 = contextCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __62__SVXClientActivationService__activateWithContext_completion___block_invoke;
+  v14[3] = &unk_279C675A0;
+  v15 = contextCopy;
   selfCopy = self;
-  v18 = completionCopy;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __62__SVXClientActivationService__activateWithContext_completion___block_invoke_12;
-  v13[3] = &unk_279C680E0;
-  v14 = v18;
-  v10 = v18;
+  v17 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __62__SVXClientActivationService__activateWithContext_completion___block_invoke_12;
+  v12[3] = &unk_279C680E0;
+  v13 = v17;
+  v10 = v17;
   v11 = contextCopy;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v15 errorHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v14 errorHandler:v12];
 }
 
 void __62__SVXClientActivationService__activateWithContext_completion___block_invoke(uint64_t a1, void *a2)
@@ -682,16 +658,16 @@ void __62__SVXClientActivationService__activateWithContext_completion___block_in
 
 void __62__SVXClientActivationService__activateWithContext_completion___block_invoke_12(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientActivationService _activateWithContext:completion:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientActivationService _activateWithContext:completion:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -699,24 +675,22 @@ void __62__SVXClientActivationService__activateWithContext_completion___block_in
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SVXClientActivationService__activateWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
     *buf = 136315650;
-    v17 = "[SVXClientActivationService _activateWithContext:completion:]_block_invoke_2";
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v3;
+    v16 = "[SVXClientActivationService _activateWithContext:completion:]_block_invoke_2";
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v3;
     _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s done (context = %@, error = %@)", buf, 0x20u);
   }
 
@@ -727,24 +701,22 @@ void __62__SVXClientActivationService__activateWithContext_completion___block_in
   }
 
   v7 = *(*(a1 + 40) + 8);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__SVXClientActivationService__activateWithContext_completion___block_invoke_11;
-  v12[3] = &unk_279C68ED0;
-  v13 = v3;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__SVXClientActivationService__activateWithContext_completion___block_invoke_11;
+  v11[3] = &unk_279C68ED0;
+  v12 = v3;
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
-  v14 = v8;
-  v15 = v9;
+  v13 = v8;
+  v14 = v9;
   v10 = v3;
-  [v7 performBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v7 performBlock:v11];
 }
 
 void __62__SVXClientActivationService__activateWithContext_completion___block_invoke_11(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32) && [*(a1 + 40) source] == 1)
   {
     v2 = [*(a1 + 40) buttonEvent];
@@ -761,18 +733,16 @@ void __62__SVXClientActivationService__activateWithContext_completion___block_in
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
         v8 = *(*(a1 + 48) + 40);
-        v10 = 136315394;
-        v11 = "[SVXClientActivationService _activateWithContext:completion:]_block_invoke";
-        v12 = 2112;
-        v13 = v8;
-        _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s _lastButtonActivationContext = %@", &v10, 0x16u);
+        v9 = 136315394;
+        v10 = "[SVXClientActivationService _activateWithContext:completion:]_block_invoke";
+        v11 = 2112;
+        v12 = v8;
+        _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s _lastButtonActivationContext = %@", &v9, 0x16u);
       }
 
       [*(a1 + 48) _processLastButtonActivationContext];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prewarmWithContext:(id)context completion:(id)completion
@@ -809,16 +779,16 @@ void __61__SVXClientActivationService__prewarmWithContext_completion___block_inv
 
 void __61__SVXClientActivationService__prewarmWithContext_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientActivationService _prewarmWithContext:completion:]_block_invoke_3";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientActivationService _prewarmWithContext:completion:]_block_invoke_3";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -826,8 +796,6 @@ void __61__SVXClientActivationService__prewarmWithContext_completion___block_inv
   {
     (*(v5 + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__SVXClientActivationService__prewarmWithContext_completion___block_invoke_2(uint64_t a1)
@@ -843,16 +811,16 @@ uint64_t __61__SVXClientActivationService__prewarmWithContext_completion___block
 
 - (BOOL)_requestPermissionToActivateWithContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315394;
-    v13 = "[SVXClientActivationService _requestPermissionToActivateWithContext:]";
-    v14 = 2112;
-    v15 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SVXClientActivationService _requestPermissionToActivateWithContext:]";
+    v13 = 2112;
+    v14 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v11, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -869,13 +837,12 @@ uint64_t __61__SVXClientActivationService__prewarmWithContext_completion___block
     v9 = 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)_processLastButtonActivationContext
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   lastButtonActivationContext = self->_lastButtonActivationContext;
   if (lastButtonActivationContext)
   {
@@ -888,29 +855,29 @@ uint64_t __61__SVXClientActivationService__prewarmWithContext_completion___block
         if (timestamp)
         {
           v6 = timestamp;
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
           v43 = 0u;
+          v44 = 0u;
+          v41 = 0u;
+          v42 = 0u;
           v7 = self->_queuedButtonEvents;
-          v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v42 objects:v54 count:16];
+          v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v41 objects:v53 count:16];
           if (v8)
           {
             v9 = v8;
-            v41 = buttonEvent;
+            v40 = buttonEvent;
             timestamp3 = 0;
             v11 = 0;
-            v12 = *v43;
+            v12 = *v42;
 LABEL_7:
             v13 = 0;
             while (1)
             {
-              if (*v43 != v12)
+              if (*v42 != v12)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v14 = *(*(&v42 + 1) + 8 * v13);
+              v14 = *(*(&v41 + 1) + 8 * v13);
               timestamp2 = [v14 timestamp];
               if (timestamp2 < v6)
               {
@@ -928,9 +895,9 @@ LABEL_7:
                 if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136315394;
-                  v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
-                  v48 = 2048;
-                  v49 = *&timestamp3;
+                  v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
+                  v47 = 2048;
+                  v48 = *&timestamp3;
                   _os_log_debug_impl(&dword_2695B9000, v20, OS_LOG_TYPE_DEBUG, "%s queuedButtonEvent: button up, timestamp = %lld", buf, 0x16u);
                 }
 
@@ -943,9 +910,9 @@ LABEL_7:
                 if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136315394;
-                  v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
-                  v48 = 2048;
-                  v49 = *&v16;
+                  v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
+                  v47 = 2048;
+                  v48 = *&v16;
                   _os_log_debug_impl(&dword_2695B9000, v18, OS_LOG_TYPE_DEBUG, "%s queuedButtonEvent: button down, timestamp = %lld", buf, 0x16u);
                 }
 
@@ -957,7 +924,7 @@ LABEL_7:
 
               if (v9 == ++v13)
               {
-                v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v42 objects:v54 count:16];
+                v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v41 objects:v53 count:16];
                 if (v9)
                 {
                   goto LABEL_7;
@@ -967,7 +934,7 @@ LABEL_7:
               }
             }
 
-            buttonEvent = v41;
+            buttonEvent = v40;
             if (v11)
             {
               v21 = *MEMORY[0x277CEF098];
@@ -975,13 +942,13 @@ LABEL_7:
               {
                 v22 = self->_lastButtonActivationContext;
                 *buf = 136315906;
-                v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
-                v48 = 2112;
-                v49 = *&v11;
-                v50 = 2112;
-                v51 = v41;
-                v52 = 2112;
-                v53 = v22;
+                v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
+                v47 = 2112;
+                v48 = *&v11;
+                v49 = 2112;
+                v50 = v40;
+                v51 = 2112;
+                v52 = v22;
                 _os_log_impl(&dword_2695B9000, v21, OS_LOG_TYPE_INFO, "%s Matched button up event %@ for button down event %@ of last button activation context %@.", buf, 0x2Au);
               }
 
@@ -991,9 +958,9 @@ LABEL_7:
               if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
               {
                 *buf = 136315394;
-                v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
-                v48 = 2048;
-                v49 = v24;
+                v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
+                v47 = 2048;
+                v48 = v24;
                 _os_log_impl(&dword_2695B9000, v25, OS_LOG_TYPE_INFO, "%s buttonHoldDuration = %f", buf, 0x16u);
               }
 
@@ -1028,11 +995,11 @@ LABEL_7:
             queuedButtonEvents = self->_queuedButtonEvents;
             v35 = self->_lastButtonActivationContext;
             *buf = 136315650;
-            v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
-            v48 = 2112;
-            v49 = *&v35;
-            v50 = 2112;
-            v51 = queuedButtonEvents;
+            v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
+            v47 = 2112;
+            v48 = *&v35;
+            v49 = 2112;
+            v50 = queuedButtonEvents;
             _os_log_error_impl(&dword_2695B9000, v34, OS_LOG_TYPE_ERROR, "%s Ignored because no matching button up event can be found in the button event queue. (_lastButtonActivationContext = %@, _queuedButtonEvents = %@)", buf, 0x20u);
           }
 
@@ -1047,14 +1014,14 @@ LABEL_37:
           self->_lastButtonActivationContext = 0;
 
 LABEL_43:
-          goto LABEL_44;
+          return;
         }
 
-        v40 = self->_lastButtonActivationContext;
+        v39 = self->_lastButtonActivationContext;
         *buf = 136315394;
-        v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
-        v48 = 2112;
-        v49 = *&v40;
+        v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
+        v47 = 2112;
+        v48 = *&v39;
         v32 = "%s Ignored because the timestamp of the button event in last button activation context is 0. (_lastButtonActivationContext = %@)";
       }
 
@@ -1068,9 +1035,9 @@ LABEL_43:
 
         v31 = self->_lastButtonActivationContext;
         *buf = 136315394;
-        v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
-        v48 = 2112;
-        v49 = *&v31;
+        v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
+        v47 = 2112;
+        v48 = *&v31;
         v32 = "%s Ignored because the type of the button event in last button activation context is not down. (_lastButtonActivationContext = %@)";
       }
 
@@ -1081,11 +1048,11 @@ LABEL_43:
     v28 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v39 = self->_lastButtonActivationContext;
+      v38 = self->_lastButtonActivationContext;
       *buf = 136315394;
-      v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
-      v48 = 2112;
-      v49 = *&v39;
+      v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
+      v47 = 2112;
+      v48 = *&v38;
       _os_log_error_impl(&dword_2695B9000, v28, OS_LOG_TYPE_ERROR, "%s Ignored because the source of the last button activation context is not button. (_lastButtonActivationContext = %@)", buf, 0x16u);
     }
 
@@ -1099,18 +1066,15 @@ LABEL_43:
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v47 = "[SVXClientActivationService _processLastButtonActivationContext]";
+      v46 = "[SVXClientActivationService _processLastButtonActivationContext]";
       _os_log_impl(&dword_2695B9000, v27, OS_LOG_TYPE_INFO, "%s Ignored because the last button activation context is nil.", buf, 0xCu);
     }
   }
-
-LABEL_44:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enqueueButtonEvent:(id)event
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -1151,23 +1115,23 @@ LABEL_44:
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
   timestamp = 0x7FFFFFFFFFFFFFFFLL;
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __50__SVXClientActivationService__enqueueButtonEvent___block_invoke;
-  v20 = &unk_279C67578;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __50__SVXClientActivationService__enqueueButtonEvent___block_invoke;
+  v19 = &unk_279C67578;
   v13 = eventCopy;
-  v21 = v13;
-  v22 = buf;
-  [(NSMutableArray *)queuedButtonEvents enumerateObjectsUsingBlock:&v17];
+  v20 = v13;
+  v21 = buf;
+  [(NSMutableArray *)queuedButtonEvents enumerateObjectsUsingBlock:&v16];
   v14 = self->_queuedButtonEvents;
   if (*(*&buf[8] + 24) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    [(NSMutableArray *)v14 addObject:v13, v17, v18, v19, v20];
+    [(NSMutableArray *)v14 addObject:v13, v16, v17, v18, v19];
   }
 
   else
   {
-    [(NSMutableArray *)v14 insertObject:v13 atIndex:v17, v18, v19, v20];
+    [(NSMutableArray *)v14 insertObject:v13 atIndex:v16, v17, v18, v19];
   }
 
   if ([(NSMutableArray *)self->_queuedButtonEvents count]>= 0x11)
@@ -1188,7 +1152,6 @@ LABEL_44:
   }
 
   _Block_object_dispose(buf, 8);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SVXClientActivationService__enqueueButtonEvent___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -1207,7 +1170,7 @@ void __50__SVXClientActivationService__enqueueButtonEvent___block_invoke(uint64_
 
 - (void)deactivateWithButtonEvent:(id)event userInfo:(id)info options:(id)options completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   infoCopy = info;
   optionsCopy = options;
@@ -1217,13 +1180,13 @@ void __50__SVXClientActivationService__enqueueButtonEvent___block_invoke(uint64_
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v27 = "[SVXClientActivationService deactivateWithButtonEvent:userInfo:options:completion:]";
-    v28 = 2112;
-    v29 = eventCopy;
-    v30 = 2112;
-    v31 = infoCopy;
-    v32 = 2112;
-    v33 = optionsCopy;
+    v26 = "[SVXClientActivationService deactivateWithButtonEvent:userInfo:options:completion:]";
+    v27 = 2112;
+    v28 = eventCopy;
+    v29 = 2112;
+    v30 = infoCopy;
+    v31 = 2112;
+    v32 = optionsCopy;
     _os_log_impl(&dword_2695B9000, v15, OS_LOG_TYPE_INFO, "%s buttonEvent = %@, userInfo = %@, options = %@", buf, 0x2Au);
   }
 
@@ -1232,18 +1195,16 @@ void __50__SVXClientActivationService__enqueueButtonEvent___block_invoke(uint64_
   v18 = [(SVXDeactivationContext *)v16 initWithSource:1 timestamp:v14 buttonEvent:eventCopy clientInfo:v17 userInfo:infoCopy options:optionsCopy];
 
   performer = self->_performer;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __84__SVXClientActivationService_deactivateWithButtonEvent_userInfo_options_completion___block_invoke;
-  v23[3] = &unk_279C68EA8;
-  v23[4] = self;
-  v24 = v18;
-  v25 = completionCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __84__SVXClientActivationService_deactivateWithButtonEvent_userInfo_options_completion___block_invoke;
+  v22[3] = &unk_279C68EA8;
+  v22[4] = self;
+  v23 = v18;
+  v24 = completionCopy;
   v20 = completionCopy;
   v21 = v18;
-  [(SVXPerforming *)performer performBlock:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v22];
 }
 
 void __84__SVXClientActivationService_deactivateWithButtonEvent_userInfo_options_completion___block_invoke(uint64_t a1)
@@ -1277,7 +1238,7 @@ void __84__SVXClientActivationService_deactivateWithButtonEvent_userInfo_options
 
 - (void)deactivateWithUserInfo:(id)info options:(id)options completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   optionsCopy = options;
   completionCopy = completion;
@@ -1286,11 +1247,11 @@ void __84__SVXClientActivationService_deactivateWithButtonEvent_userInfo_options
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v24 = "[SVXClientActivationService deactivateWithUserInfo:options:completion:]";
-    v25 = 2112;
-    v26 = infoCopy;
-    v27 = 2112;
-    v28 = optionsCopy;
+    v23 = "[SVXClientActivationService deactivateWithUserInfo:options:completion:]";
+    v24 = 2112;
+    v25 = infoCopy;
+    v26 = 2112;
+    v27 = optionsCopy;
     _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s userInfo = %@, options = %@", buf, 0x20u);
   }
 
@@ -1299,18 +1260,16 @@ void __84__SVXClientActivationService_deactivateWithButtonEvent_userInfo_options
   v15 = [(SVXDeactivationContext *)v13 initWithSource:2 timestamp:v11 buttonEvent:0 clientInfo:v14 userInfo:infoCopy options:optionsCopy];
 
   performer = self->_performer;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __72__SVXClientActivationService_deactivateWithUserInfo_options_completion___block_invoke;
-  v20[3] = &unk_279C68EA8;
-  v20[4] = self;
-  v21 = v15;
-  v22 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __72__SVXClientActivationService_deactivateWithUserInfo_options_completion___block_invoke;
+  v19[3] = &unk_279C68EA8;
+  v19[4] = self;
+  v20 = v15;
+  v21 = completionCopy;
   v17 = completionCopy;
   v18 = v15;
-  [(SVXPerforming *)performer performBlock:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v19];
 }
 
 void __72__SVXClientActivationService_deactivateWithUserInfo_options_completion___block_invoke(uint64_t a1)
@@ -1344,7 +1303,7 @@ void __72__SVXClientActivationService_deactivateWithUserInfo_options_completion_
 
 - (void)deactivateWithUserInfo:(id)info completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   completionCopy = completion;
   v8 = MEMORY[0x277CEF098];
@@ -1352,7 +1311,7 @@ void __72__SVXClientActivationService_deactivateWithUserInfo_options_completion_
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v25 = "[SVXClientActivationService deactivateWithUserInfo:completion:]";
+    v24 = "[SVXClientActivationService deactivateWithUserInfo:completion:]";
     _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s Deprecated. Please use -deactivateWithUserInfo:options:completion: or -deactiateWithButtonEvent:userInfo:options:completion:", buf, 0xCu);
   }
 
@@ -1361,9 +1320,9 @@ void __72__SVXClientActivationService_deactivateWithUserInfo_options_completion_
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "[SVXClientActivationService deactivateWithUserInfo:completion:]";
-    v26 = 2112;
-    v27 = infoCopy;
+    v24 = "[SVXClientActivationService deactivateWithUserInfo:completion:]";
+    v25 = 2112;
+    v26 = infoCopy;
     _os_log_impl(&dword_2695B9000, v11, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
@@ -1392,18 +1351,16 @@ void __72__SVXClientActivationService_deactivateWithUserInfo_options_completion_
   v16 = [(SVXDeactivationContext *)v14 initWithSource:v13 timestamp:v10 buttonEvent:0 clientInfo:v15 userInfo:infoCopy options:0];
 
   performer = self->_performer;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __64__SVXClientActivationService_deactivateWithUserInfo_completion___block_invoke;
-  v21[3] = &unk_279C68EA8;
-  v21[4] = self;
-  v22 = v16;
-  v23 = completionCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __64__SVXClientActivationService_deactivateWithUserInfo_completion___block_invoke;
+  v20[3] = &unk_279C68EA8;
+  v20[4] = self;
+  v21 = v16;
+  v22 = completionCopy;
   v18 = completionCopy;
   v19 = v16;
-  [(SVXPerforming *)performer performBlock:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v20];
 }
 
 void __64__SVXClientActivationService_deactivateWithUserInfo_completion___block_invoke(uint64_t a1)
@@ -1437,7 +1394,7 @@ void __64__SVXClientActivationService_deactivateWithUserInfo_completion___block_
 
 - (void)activateWithSystemEvent:(id)event userInfo:(id)info completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   infoCopy = info;
   completionCopy = completion;
@@ -1446,11 +1403,11 @@ void __64__SVXClientActivationService_deactivateWithUserInfo_completion___block_
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v23 = "[SVXClientActivationService activateWithSystemEvent:userInfo:completion:]";
-    v24 = 2112;
-    v25 = eventCopy;
-    v26 = 2112;
-    v27 = infoCopy;
+    v22 = "[SVXClientActivationService activateWithSystemEvent:userInfo:completion:]";
+    v23 = 2112;
+    v24 = eventCopy;
+    v25 = 2112;
+    v26 = infoCopy;
     _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s systemEvent = %@, userInfo = %@", buf, 0x20u);
   }
 
@@ -1461,18 +1418,16 @@ void __64__SVXClientActivationService_deactivateWithUserInfo_completion___block_
     v15 = [(SVXActivationContext *)v13 initWithSource:5 timestamp:v11 buttonEvent:0 systemEvent:eventCopy clientInfo:v14 requestInfo:0 userInfo:infoCopy];
 
     performer = self->_performer;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __74__SVXClientActivationService_activateWithSystemEvent_userInfo_completion___block_invoke;
-    v19[3] = &unk_279C68EA8;
-    v19[4] = self;
-    v20 = v15;
-    v21 = completionCopy;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __74__SVXClientActivationService_activateWithSystemEvent_userInfo_completion___block_invoke;
+    v18[3] = &unk_279C68EA8;
+    v18[4] = self;
+    v19 = v15;
+    v20 = completionCopy;
     v17 = v15;
-    [(SVXPerforming *)performer performBlock:v19];
+    [(SVXPerforming *)performer performBlock:v18];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SVXClientActivationService_activateWithSystemEvent_userInfo_completion___block_invoke(uint64_t a1)
@@ -1511,7 +1466,7 @@ void __74__SVXClientActivationService_activateWithSystemEvent_userInfo_completio
 
 - (void)prewarmForSystemEvent:(id)event completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   completionCopy = completion;
   v8 = mach_absolute_time();
@@ -1519,9 +1474,9 @@ void __74__SVXClientActivationService_activateWithSystemEvent_userInfo_completio
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v20 = "[SVXClientActivationService prewarmForSystemEvent:completion:]";
-    v21 = 2112;
-    v22 = eventCopy;
+    v19 = "[SVXClientActivationService prewarmForSystemEvent:completion:]";
+    v20 = 2112;
+    v21 = eventCopy;
     _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s systemEvent = %@", buf, 0x16u);
   }
 
@@ -1532,18 +1487,16 @@ void __74__SVXClientActivationService_activateWithSystemEvent_userInfo_completio
     v12 = [(SVXActivationContext *)v10 initWithSource:5 timestamp:v8 buttonEvent:0 systemEvent:eventCopy clientInfo:v11 requestInfo:0 userInfo:0];
 
     performer = self->_performer;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __63__SVXClientActivationService_prewarmForSystemEvent_completion___block_invoke;
-    v16[3] = &unk_279C68EA8;
-    v16[4] = self;
-    v17 = v12;
-    v18 = completionCopy;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __63__SVXClientActivationService_prewarmForSystemEvent_completion___block_invoke;
+    v15[3] = &unk_279C68EA8;
+    v15[4] = self;
+    v16 = v12;
+    v17 = completionCopy;
     v14 = v12;
-    [(SVXPerforming *)performer performBlock:v16];
+    [(SVXPerforming *)performer performBlock:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SVXClientActivationService_prewarmForSystemEvent_completion___block_invoke(uint64_t a1)
@@ -1577,7 +1530,7 @@ void __63__SVXClientActivationService_prewarmForSystemEvent_completion___block_i
 
 - (void)activateWithButtonEvent:(id)event userInfo:(id)info completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   infoCopy = info;
   completionCopy = completion;
@@ -1586,11 +1539,11 @@ void __63__SVXClientActivationService_prewarmForSystemEvent_completion___block_i
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v23 = "[SVXClientActivationService activateWithButtonEvent:userInfo:completion:]";
-    v24 = 2112;
-    v25 = eventCopy;
-    v26 = 2112;
-    v27 = infoCopy;
+    v22 = "[SVXClientActivationService activateWithButtonEvent:userInfo:completion:]";
+    v23 = 2112;
+    v24 = eventCopy;
+    v25 = 2112;
+    v26 = infoCopy;
     _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s buttonEvent = %@, userInfo = %@", buf, 0x20u);
   }
 
@@ -1601,18 +1554,16 @@ void __63__SVXClientActivationService_prewarmForSystemEvent_completion___block_i
     v15 = [(SVXActivationContext *)v13 initWithSource:1 timestamp:v11 buttonEvent:eventCopy systemEvent:0 clientInfo:v14 requestInfo:0 userInfo:infoCopy];
 
     performer = self->_performer;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __74__SVXClientActivationService_activateWithButtonEvent_userInfo_completion___block_invoke;
-    v19[3] = &unk_279C68EA8;
-    v19[4] = self;
-    v20 = v15;
-    v21 = completionCopy;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __74__SVXClientActivationService_activateWithButtonEvent_userInfo_completion___block_invoke;
+    v18[3] = &unk_279C68EA8;
+    v18[4] = self;
+    v19 = v15;
+    v20 = completionCopy;
     v17 = v15;
-    [(SVXPerforming *)performer performBlock:v19];
+    [(SVXPerforming *)performer performBlock:v18];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SVXClientActivationService_activateWithButtonEvent_userInfo_completion___block_invoke(uint64_t a1)
@@ -1651,7 +1602,7 @@ void __74__SVXClientActivationService_activateWithButtonEvent_userInfo_completio
 
 - (void)activateWithText:(id)text completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   textCopy = text;
   completionCopy = completion;
   v8 = mach_absolute_time();
@@ -1659,9 +1610,9 @@ void __74__SVXClientActivationService_activateWithButtonEvent_userInfo_completio
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v22 = "[SVXClientActivationService activateWithText:completion:]";
-    v23 = 2112;
-    v24 = textCopy;
+    v21 = "[SVXClientActivationService activateWithText:completion:]";
+    v22 = 2112;
+    v23 = textCopy;
     _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s text = %@", buf, 0x16u);
   }
 
@@ -1672,18 +1623,16 @@ void __74__SVXClientActivationService_activateWithButtonEvent_userInfo_completio
   v13 = [(SVXActivationContext *)v11 initWithSource:2 timestamp:v8 buttonEvent:0 systemEvent:0 clientInfo:v12 requestInfo:v10 userInfo:0];
 
   performer = self->_performer;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __58__SVXClientActivationService_activateWithText_completion___block_invoke;
-  v18[3] = &unk_279C68EA8;
-  v18[4] = self;
-  v19 = v13;
-  v20 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __58__SVXClientActivationService_activateWithText_completion___block_invoke;
+  v17[3] = &unk_279C68EA8;
+  v17[4] = self;
+  v18 = v13;
+  v19 = completionCopy;
   v15 = completionCopy;
   v16 = v13;
-  [(SVXPerforming *)performer performBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v17];
 }
 
 void __58__SVXClientActivationService_activateWithText_completion___block_invoke(uint64_t a1)
@@ -1722,7 +1671,7 @@ void __58__SVXClientActivationService_activateWithText_completion___block_invoke
 
 - (void)activateWithUserInfo:(id)info completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   completionCopy = completion;
   v8 = mach_absolute_time();
@@ -1730,9 +1679,9 @@ void __58__SVXClientActivationService_activateWithText_completion___block_invoke
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v21 = "[SVXClientActivationService activateWithUserInfo:completion:]";
-    v22 = 2112;
-    v23 = infoCopy;
+    v20 = "[SVXClientActivationService activateWithUserInfo:completion:]";
+    v21 = 2112;
+    v22 = infoCopy;
     _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
@@ -1741,18 +1690,16 @@ void __58__SVXClientActivationService_activateWithText_completion___block_invoke
   v12 = [(SVXActivationContext *)v10 initWithSource:2 timestamp:v8 buttonEvent:0 systemEvent:0 clientInfo:v11 requestInfo:0 userInfo:infoCopy];
 
   performer = self->_performer;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __62__SVXClientActivationService_activateWithUserInfo_completion___block_invoke;
-  v17[3] = &unk_279C68EA8;
-  v17[4] = self;
-  v18 = v12;
-  v19 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __62__SVXClientActivationService_activateWithUserInfo_completion___block_invoke;
+  v16[3] = &unk_279C68EA8;
+  v16[4] = self;
+  v17 = v12;
+  v18 = completionCopy;
   v14 = completionCopy;
   v15 = v12;
-  [(SVXPerforming *)performer performBlock:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v16];
 }
 
 void __62__SVXClientActivationService_activateWithUserInfo_completion___block_invoke(uint64_t a1)
@@ -1791,7 +1738,7 @@ void __62__SVXClientActivationService_activateWithUserInfo_completion___block_in
 
 - (void)enqueueButtonEvent:(id)event
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = mach_absolute_time();
   v6 = MEMORY[0x277CEF098];
@@ -1799,9 +1746,9 @@ void __62__SVXClientActivationService_activateWithUserInfo_completion___block_in
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v31 = "[SVXClientActivationService enqueueButtonEvent:]";
-    v32 = 2112;
-    v33 = eventCopy;
+    v30 = "[SVXClientActivationService enqueueButtonEvent:]";
+    v31 = 2112;
+    v32 = eventCopy;
     _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s buttonEvent = %@", buf, 0x16u);
   }
 
@@ -1823,9 +1770,9 @@ void __62__SVXClientActivationService_activateWithUserInfo_completion___block_in
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v31 = "[SVXClientActivationService enqueueButtonEvent:]";
-      v32 = 2048;
-      v33 = v18;
+      v30 = "[SVXClientActivationService enqueueButtonEvent:]";
+      v31 = 2048;
+      v32 = v18;
       _os_log_debug_impl(&dword_2695B9000, v19, OS_LOG_TYPE_DEBUG, "%s SVXButtonEventTypeUp: time = %lld", buf, 0x16u);
     }
 
@@ -1863,9 +1810,9 @@ void __62__SVXClientActivationService_activateWithUserInfo_completion___block_in
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v31 = "[SVXClientActivationService enqueueButtonEvent:]";
-      v32 = 2048;
-      v33 = v10;
+      v30 = "[SVXClientActivationService enqueueButtonEvent:]";
+      v31 = 2048;
+      v32 = v10;
       _os_log_debug_impl(&dword_2695B9000, v11, OS_LOG_TYPE_DEBUG, "%s SVXButtonEventTypeDown: time = %lld", buf, 0x16u);
     }
 
@@ -1891,41 +1838,37 @@ LABEL_23:
   v22 = *v6;
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEBUG))
   {
-    v26 = v22;
+    v25 = v22;
     type2 = [eventCopy type];
     *buf = 136315394;
-    v31 = "[SVXClientActivationService enqueueButtonEvent:]";
-    v32 = 2048;
-    v33 = type2;
-    _os_log_debug_impl(&dword_2695B9000, v26, OS_LOG_TYPE_DEBUG, "%s Unspecified or unknown button event = %ld", buf, 0x16u);
+    v30 = "[SVXClientActivationService enqueueButtonEvent:]";
+    v31 = 2048;
+    v32 = type2;
+    _os_log_debug_impl(&dword_2695B9000, v25, OS_LOG_TYPE_DEBUG, "%s Unspecified or unknown button event = %ld", buf, 0x16u);
   }
 
 LABEL_26:
   performer = self->_performer;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __49__SVXClientActivationService_enqueueButtonEvent___block_invoke;
-  v28[3] = &unk_279C68FE8;
-  v28[4] = self;
-  v29 = eventCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __49__SVXClientActivationService_enqueueButtonEvent___block_invoke;
+  v27[3] = &unk_279C68FE8;
+  v27[4] = self;
+  v28 = eventCopy;
   v24 = eventCopy;
-  [(SVXPerforming *)performer performBlock:v28];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v27];
 }
 
 - (void)handleButtonEvent:(id)event
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[SVXClientActivationService handleButtonEvent:]";
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s This SPI has been deprecated, please use -enqueueButtonEvent: instead.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SVXClientActivationService handleButtonEvent:]";
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s This SPI has been deprecated, please use -enqueueButtonEvent: instead.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDidDeactivateWithContext:(id)context

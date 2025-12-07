@@ -28,9 +28,10 @@
 - (BOOL)hasNonDefaultValues
 {
   selfCopy = self;
-  v3 = PhotoStyleElement.hasNonDefaultValues.getter();
+  PhotoStyleElement.hasNonDefaultValues.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)resetToDefaultValues
@@ -125,25 +126,28 @@
 - (double)defaultTone
 {
   selfCopy = self;
-  v3 = sub_1A40D61C8();
+  sub_1A40D61C8();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (double)defaultColor
 {
   selfCopy = self;
-  v3 = sub_1A40D6360();
+  sub_1A40D6360();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (double)defaultIntensity
 {
   selfCopy = self;
-  v3 = sub_1A40D64FC();
+  sub_1A40D64FC();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)updateWithTone:(double)tone color:(double)color intensity:(double)intensity

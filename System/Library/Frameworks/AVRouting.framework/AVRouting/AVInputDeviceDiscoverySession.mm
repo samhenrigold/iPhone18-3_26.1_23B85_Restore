@@ -53,33 +53,32 @@
 
 - (id)impl
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3052000000;
-  v12 = __Block_byref_object_copy__13;
-  v13 = __Block_byref_object_dispose__13;
-  v14 = 0;
+  v14 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3052000000;
+  v11 = __Block_byref_object_copy__13;
+  v12 = __Block_byref_object_dispose__13;
+  v13 = 0;
   ivarAccessQueue = self->_inputDeviceDiscoverySession->ivarAccessQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __37__AVInputDeviceDiscoverySession_impl__block_invoke;
   block[3] = &unk_1E794ED00;
   block[4] = self;
-  block[5] = &v9;
+  block[5] = &v8;
   av_readwrite_dispatch_queue_read(ivarAccessQueue, block);
-  v3 = v10[5];
+  v3 = v9[5];
   if (!v3)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v3 = v10[5];
+    v3 = v9[5];
   }
 
   v5 = v3;
-  _Block_object_dispose(&v9, 8);
-  v6 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v8, 8);
   return v5;
 }
 
@@ -191,10 +190,10 @@ uint64_t __56__AVInputDeviceDiscoverySession_initWithDeviceFeatures___block_invo
 
 - (void)setFastDiscoveryEnabled:(BOOL)enabled
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6BA8)
   {
-    v11 = 0;
+    v10 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -210,7 +209,6 @@ uint64_t __56__AVInputDeviceDiscoverySession_initWithDeviceFeatures___block_invo
   enabledCopy = enabled;
   av_readwrite_dispatch_queue_write(ivarAccessQueue, block);
   [-[AVInputDeviceDiscoverySession impl](self "impl")];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (AVInputDevice)fallbackInputDevice

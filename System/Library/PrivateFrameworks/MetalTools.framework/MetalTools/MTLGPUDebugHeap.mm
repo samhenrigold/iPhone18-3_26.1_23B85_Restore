@@ -452,7 +452,6 @@
 - (void)enumerateBufferIndices:(id)indices
 {
   os_unfair_lock_lock(&self->_enableResourceUsageValidation);
-  v5 = (self->_bufferIndices.__end_ - self->_bufferIndices.__begin_) >> 2;
   (*(indices + 2))(indices);
 
   os_unfair_lock_unlock(&self->_enableResourceUsageValidation);
@@ -461,7 +460,6 @@
 - (void)enumerateTextureIndicesAndTypes:(id)types
 {
   os_unfair_lock_lock(&self->_textureLock);
-  v5 = (self->_textureIndicesAndTypes.__end_ - self->_textureIndicesAndTypes.__begin_) >> 4;
   (*(types + 2))(types);
 
   os_unfair_lock_unlock(&self->_textureLock);
@@ -470,7 +468,6 @@
 - (void)enumerateAccelerationStructureIndices:(id)indices
 {
   os_unfair_lock_lock(&self->_accelerationStructureLock);
-  v5 = (self->_accelerationStructureIndices.__end_ - self->_accelerationStructureIndices.__begin_) >> 2;
   (*(indices + 2))(indices);
 
   os_unfair_lock_unlock(&self->_accelerationStructureLock);

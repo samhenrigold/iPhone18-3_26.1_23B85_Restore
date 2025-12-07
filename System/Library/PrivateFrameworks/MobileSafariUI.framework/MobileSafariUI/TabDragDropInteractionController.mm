@@ -520,11 +520,11 @@ void __82__TabDragDropInteractionController__cleanUpDropPlaceholderForSession_in
   }
 }
 
-uint64_t __64__TabDragDropInteractionController_dropInteraction_performDrop___block_invoke(uint64_t result, uint64_t a2)
+id *__64__TabDragDropInteractionController_dropInteraction_performDrop___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) performDropWithNavigationIntent:a2];
+    return [result[4] performDropWithNavigationIntent:a2];
   }
 
   return result;

@@ -66,9 +66,17 @@
   equalCopy = equal;
   v7.receiver = self;
   v7.super_class = _UIImageSymbolBounceEffect;
-  v5 = [(_UIImageSymbolEffect *)&v7 isEqual:equalCopy]&& self->_bounceDirection == equalCopy[3] && self->_byLayer == *(equalCopy + 16) && [(_UIImageSymbolEffectRepeatBehavior *)self->_repeatBehavior isEqual:equalCopy[4]];
+  if ([(_UIImageSymbolEffect *)&v7 isEqual:equalCopy]&& self->_bounceDirection == equalCopy[3] && self->_byLayer == *(equalCopy + 16))
+  {
+    isEqual = objc_msgSend_isEqual_(self->_repeatBehavior);
+  }
 
-  return v5;
+  else
+  {
+    isEqual = 0;
+  }
+
+  return isEqual;
 }
 
 - (unint64_t)hash

@@ -118,7 +118,7 @@ void __69__PXTrimToolPlayerWrapperLivePhotoView_observable_didChange_context___b
   if (wrappedAVPlayer)
   {
     v6 = wrappedAVPlayer;
-    [wrappedAVPlayer currentTime];
+    objc_msgSend_currentTime(wrappedAVPlayer);
     wrappedAVPlayer = v6;
   }
 
@@ -156,7 +156,7 @@ void __69__PXTrimToolPlayerWrapperLivePhotoView_observable_didChange_context___b
   v5 = wrappedAVPlayer;
   if (wrappedAVPlayer)
   {
-    [wrappedAVPlayer itemForwardPlaybackEndTime];
+    objc_msgSend_itemForwardPlaybackEndTime(wrappedAVPlayer);
   }
 
   else
@@ -281,7 +281,7 @@ void __69__PXTrimToolPlayerWrapperLivePhotoView_observable_didChange_context___b
 {
   objc_initWeak(&location, self);
   wrappedAVPlayer = [(PXTrimToolPlayerWrapperLivePhotoView *)self wrappedAVPlayer];
-  [(PXTrimToolPlayerWrapperLivePhotoView *)self periodicTimeObservationInterval];
+  objc_msgSend_periodicTimeObservationInterval(self);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __64__PXTrimToolPlayerWrapperLivePhotoView__addPeriodicTimeObserver__block_invoke;
@@ -334,7 +334,7 @@ void __64__PXTrimToolPlayerWrapperLivePhotoView__addPeriodicTimeObserver__block_
   {
     v9 = 0uLL;
     v10 = 0;
-    [(PXTrimToolPlayerWrapperLivePhotoView *)self periodicTimeObservationInterval];
+    objc_msgSend_periodicTimeObservationInterval(self);
     [(PXTrimToolPlayerWrapperLivePhotoView *)self stopPeriodicTimeObserver];
     [(ISWrappedAVPlayer *)self->_wrappedAVPlayer unregisterChangeObserver:self context:avPlayerObservationContext_228331];
     objc_storeStrong(&self->_wrappedAVPlayer, player);

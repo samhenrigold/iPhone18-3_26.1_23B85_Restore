@@ -14,7 +14,7 @@
 
 - (id)establishHangTracerConnection
 {
-  v3 = syncConnectionToHangTracer();
+  v3 = syncConnectionToHangTracer(self);
   connection = self->_connection;
   self->_connection = v3;
 
@@ -22,55 +22,55 @@
 
   if (connection)
   {
-    v6 = HTConnectionQueue();
+    v7 = HTConnectionQueue(v6);
     connectionQueue = self->_connectionQueue;
-    self->_connectionQueue = v6;
+    self->_connectionQueue = v7;
 
     connectionQueue = [(HTHangClient *)self connectionQueue];
 
     if (connectionQueue)
     {
-      v9 = dispatch_queue_create("com.apple.hangtracer.client-reply", 0);
+      v10 = dispatch_queue_create("com.apple.hangtracer.client-reply", 0);
       replyQueue = self->_replyQueue;
-      self->_replyQueue = v9;
+      self->_replyQueue = v10;
 
       replyQueue = [(HTHangClient *)self replyQueue];
 
-      v12 = 0;
+      v13 = 0;
       if (replyQueue)
       {
         goto LABEL_8;
       }
 
-      v17 = NSLocalizedDescriptionKey;
-      v18 = @"Failed to create reply queue for client.";
-      v13 = &v18;
-      v14 = &v17;
+      v18 = NSLocalizedDescriptionKey;
+      v19 = @"Failed to create reply queue for client.";
+      v14 = &v19;
+      v15 = &v18;
     }
 
     else
     {
-      v19 = NSLocalizedDescriptionKey;
-      v20 = @"Failed to access connection queue with HangTracer.";
-      v13 = &v20;
-      v14 = &v19;
+      v20 = NSLocalizedDescriptionKey;
+      v21 = @"Failed to access connection queue with HangTracer.";
+      v14 = &v21;
+      v15 = &v20;
     }
   }
 
   else
   {
-    v21 = NSLocalizedDescriptionKey;
-    v22 = @"Failed to establish connection with HangTracer.";
-    v13 = &v22;
-    v14 = &v21;
+    v22 = NSLocalizedDescriptionKey;
+    v23 = @"Failed to establish connection with HangTracer.";
+    v14 = &v23;
+    v15 = &v22;
   }
 
-  v15 = [NSDictionary dictionaryWithObjects:v13 forKeys:v14 count:1];
-  v12 = [NSError errorWithDomain:@"HTHangClientError" code:0 userInfo:v15];
+  v16 = [NSDictionary dictionaryWithObjects:v14 forKeys:v15 count:1];
+  v13 = [NSError errorWithDomain:@"HTHangClientError" code:0 userInfo:v16];
 
 LABEL_8:
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)pingConnectionAsyncAPI:(id *)i

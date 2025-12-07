@@ -22,6 +22,9 @@
 - (void)setCaptureDate:(unint64_t)date;
 - (void)setModificationDate:(unint64_t)date;
 - (void)setName:(id)name;
+- (void)setObjHandle:(unsigned int)handle;
+- (void)setParentObject:(unsigned int)object;
+- (void)setProtectionStatus:(BOOL)status;
 - (void)setSize:(unint64_t)size;
 @end
 
@@ -72,12 +75,33 @@
   return objectHandle;
 }
 
+- (void)setObjHandle:(unsigned int)handle
+{
+  v3 = *&handle;
+  cameraItemProxy = [(MSCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setObjectHandle:v3];
+}
+
 - (unsigned)parentObject
 {
   cameraItemProxy = [(MSCameraItem *)self cameraItemProxy];
   parentObjectHandle = [cameraItemProxy parentObjectHandle];
 
   return parentObjectHandle;
+}
+
+- (void)setParentObject:(unsigned int)object
+{
+  v3 = *&object;
+  cameraItemProxy = [(MSCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setParentObjectHandle:v3];
+}
+
+- (void)setProtectionStatus:(BOOL)status
+{
+  statusCopy = status;
+  cameraItemProxy = [(MSCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setReadOnly:statusCopy];
 }
 
 - (BOOL)protectionStatus
@@ -479,7 +503,7 @@ void __28__MSCameraItem_refreshInfo___block_invoke(uint64_t a1)
   v5 = *(a1 + 32);
   if (v5)
   {
-    [v5 duration];
+    objc_msgSend_duration(v5);
   }
 
   v26 = buf;

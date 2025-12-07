@@ -359,7 +359,7 @@
 
 - (id)_signingSession
 {
-  v50 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   if (!self->_signingSession)
   {
     goto LABEL_7;
@@ -394,9 +394,9 @@ LABEL_7:
     v26 = objc_msgSend_signingSessionCertURL(v21, v22, v23, v24, v25);
     v31 = objc_msgSend_urlConfiguration(AASetupAssistantService, v27, v28, v29, v30);
     v36 = objc_msgSend_signingSessionURL(v31, v32, v33, v34, v35);
-    v47 = 0;
-    v38 = objc_msgSend_establishedSessionWithCertURL_sessionURL_error_(v16, v37, v26, v36, &v47);
-    v39 = v47;
+    v46 = 0;
+    v38 = objc_msgSend_establishedSessionWithCertURL_sessionURL_error_(v16, v37, v26, v36, &v46);
+    v39 = v46;
     v40 = self->_signingSession;
     self->_signingSession = v38;
 
@@ -406,7 +406,7 @@ LABEL_7:
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v49 = v39;
+        v48 = v39;
         _os_log_impl(&dword_29C844000, v41, OS_LOG_TYPE_DEFAULT, "Failed to create a shared signing session: %@", buf, 0xCu);
       }
     }
@@ -417,12 +417,11 @@ LABEL_7:
   {
     v43 = self->_signingSession;
     *buf = 138412290;
-    v49 = v43;
+    v48 = v43;
     _os_log_impl(&dword_29C844000, v42, OS_LOG_TYPE_DEFAULT, "using shared signing session %@", buf, 0xCu);
   }
 
   v44 = self->_signingSession;
-  v45 = *MEMORY[0x29EDCA608];
 
   return v44;
 }
@@ -531,7 +530,7 @@ LABEL_8:
 
 - (void)_doHSADeviceReprovisioningWithDSID:(id)d
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   dCopy = d;
   if (!dCopy)
   {
@@ -547,13 +546,11 @@ LABEL_8:
     v15 = _AALogSystem();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17[0] = 67109120;
-      v17[1] = v14;
-      _os_log_impl(&dword_29C844000, v15, OS_LOG_TYPE_DEFAULT, "Something went wrong when trying to erase the device provisioning: %d", v17, 8u);
+      v16[0] = 67109120;
+      v16[1] = v14;
+      _os_log_impl(&dword_29C844000, v15, OS_LOG_TYPE_DEFAULT, "Something went wrong when trying to erase the device provisioning: %d", v16, 8u);
     }
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 @end

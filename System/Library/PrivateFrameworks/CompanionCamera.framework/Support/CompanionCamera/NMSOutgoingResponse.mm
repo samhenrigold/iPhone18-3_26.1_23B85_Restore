@@ -39,16 +39,17 @@
   [v7 responseClass];
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    if (os_variant_has_internal_diagnostics())
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
     {
-      v8 = NSStringFromClass([v7 responseClass]);
-      [NSException raise:@"NMSMisuseException" format:@"pbResponse needs to be of type %@", v8];
+      v9 = NSStringFromClass([v7 responseClass]);
+      [NSException raise:@"NMSMisuseException" format:@"pbResponse needs to be of type %@", v9];
     }
 
     else
     {
-      v9 = sub_1000145AC();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = sub_1000145AC(has_internal_diagnostics);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         sub_100024F2C(v7);
       }
@@ -57,7 +58,7 @@
 
   pbResponse = self->_pbResponse;
   self->_pbResponse = responseCopy;
-  v11 = responseCopy;
+  v12 = responseCopy;
 
   data = [self->_pbResponse data];
   data = self->_data;

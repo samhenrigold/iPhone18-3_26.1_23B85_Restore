@@ -36,7 +36,6 @@
 
 - (OSLogEnumerator)entriesEnumeratorWithOptions:(OSLogEnumeratorOptions)options position:(OSLogPosition *)position predicate:(NSPredicate *)predicate error:(NSError *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
   v10 = position;
   v11 = predicate;
   if (self->_constraint)
@@ -55,8 +54,6 @@
 
     v12 = [[OSLogSystemEnumerator alloc] initWithEventStream:v14 options:options position:v10];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -92,7 +89,7 @@
 
 + (OSLogStore)storeWithURL:(NSURL *)url error:(NSError *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v5 = url;
   initForFactory = [[OSLogStore alloc] initForFactory];
   if (initForFactory)
@@ -100,14 +97,14 @@
     v7 = [MEMORY[0x277D24438] storeWithArchiveURL:v5];
     if (v7)
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __33__OSLogStore_storeWithURL_error___block_invoke;
-      v13[3] = &unk_278B462D0;
-      v15 = error;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __33__OSLogStore_storeWithURL_error___block_invoke;
+      v12[3] = &unk_278B462D0;
+      v14 = error;
       v8 = initForFactory;
-      v14 = v8;
-      [v7 prepareWithCompletionHandler:v13];
+      v13 = v8;
+      [v7 prepareWithCompletionHandler:v12];
       if (v8[1])
       {
         v9 = v8;
@@ -118,7 +115,7 @@
         v9 = 0;
       }
 
-      v10 = v14;
+      v10 = v13;
     }
 
     else
@@ -130,9 +127,9 @@
         goto LABEL_12;
       }
 
-      v16 = *MEMORY[0x277CCA450];
-      v17 = @"Cannot open logarchive";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x277CCA450];
+      v16 = @"Cannot open logarchive";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
       [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D24460] code:-1 userInfo:v10];
       *error = v9 = 0;
     }
@@ -143,9 +140,9 @@ LABEL_12:
 
   if (error)
   {
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"Unable to alloc/init";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Unable to alloc/init";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D24460] code:-1 userInfo:v7];
     *error = v9 = 0;
     goto LABEL_12;
@@ -153,8 +150,6 @@ LABEL_12:
 
   v9 = 0;
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

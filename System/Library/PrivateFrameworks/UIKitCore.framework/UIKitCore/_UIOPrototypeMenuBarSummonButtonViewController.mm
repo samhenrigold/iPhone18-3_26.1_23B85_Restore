@@ -240,7 +240,7 @@ LABEL_12:
   shadowProperties = [background4 shadowProperties];
   [shadowProperties setRadius:5.0];
 
-  v15 = +[UIColor blackColor];
+  v15 = objc_msgSend_blackColor(UIColor);
   background5 = [v3 background];
   shadowProperties2 = [background5 shadowProperties];
   [shadowProperties2 setColor:v15];

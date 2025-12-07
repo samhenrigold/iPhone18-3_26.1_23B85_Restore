@@ -24,7 +24,7 @@
 
   else
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x26, @"MPSCNNConvolutionTransposeGradienState was not created with MPSCNNConvolutionGradientState (auto-encoder). convolution property is not available", v4, v5, v6, v7);
     convolutionGradientState = v10->_convolutionGradientState;
   }
 
@@ -63,7 +63,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x4B, @"Please use correct initializer.\n", v5, v6, v7, v8);
   }
 
   return 0;
@@ -73,7 +73,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x54, @"Please use correct initializer.\n", v6, v7, v8, v9);
   }
 
   return 0;

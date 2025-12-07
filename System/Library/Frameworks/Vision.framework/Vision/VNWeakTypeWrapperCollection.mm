@@ -130,7 +130,7 @@ void __89__VNWeakTypeWrapperCollection_findObjectMeetingSearchCriteria_droppingW
   [(NSRecursiveLock *)self->_weakObjectWrappersLock unlock];
 }
 
-uint64_t __67__VNWeakTypeWrapperCollection_addObject_droppingWeakZeroedObjects___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__67__VNWeakTypeWrapperCollection_addObject_droppingWeakZeroedObjects___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) isEqual:a2];
   if (result)

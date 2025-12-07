@@ -43,7 +43,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v3, __CFTSANTagMutableSet);
@@ -51,60 +51,39 @@
 
   if (_CFExecutableLinkedOnOrAfter(6uLL))
   {
-    v8.receiver = self;
-    v8.super_class = __NSCFSet;
-    result = [(NSSet *)&v8 isEqual:equal];
-  }
-
-  else if (equal)
-  {
-    result = _CFNonObjCEqual(self, equal) != 0;
+    v7.receiver = self;
+    v7.super_class = __NSCFSet;
+    return [(NSSet *)&v7 isEqual:equal];
   }
 
   else
   {
-    result = 0;
+    return equal && _CFNonObjCEqual(self, equal) != 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)description
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v2, __CFTSANTagMutableSet);
   }
 
-  Callbacks = __CFSetGetCallbacks(self, v9);
-  if (v10 == CFCopyDescription || v10 == 0)
+  Callbacks = __CFSetGetCallbacks(self, v8);
+  if (v9 != CFCopyDescription && v9 != 0)
   {
-    v8.receiver = self;
-    v8.super_class = __NSCFSet;
-    result = [(NSSet *)&v8 description];
+    return CFCopyDescription(self);
   }
 
-  else
-  {
-    result = CFCopyDescription(self);
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v7.receiver = self;
+  v7.super_class = __NSCFSet;
+  return [(NSSet *)&v7 description];
 }
 
 - (Class)classForCoder
 {
-  IsMutable = _CFSetIsMutable(self);
-  v3 = off_1E6A55888;
-  if (!IsMutable)
-  {
-    v3 = off_1E6A558B8;
-  }
-
-  v4 = *v3;
+  _CFSetIsMutable(self);
 
   return objc_opt_self();
 }
@@ -143,33 +122,27 @@
 
 - (id)member:(id)member
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  if (member)
+  v7[1] = *MEMORY[0x1E69E9840];
+  if (!member)
   {
-    if (__cf_tsanReadFunction)
-    {
-      __cf_tsanReadFunction(self, v3, __CFTSANTagMutableSet);
-    }
+    return 0;
+  }
 
-    v8[0] = 0;
-    if (CFSetGetValueIfPresent(self, member, v8))
-    {
-      result = v8[0];
-    }
+  if (__cf_tsanReadFunction)
+  {
+    __cf_tsanReadFunction(self, v3, __CFTSANTagMutableSet);
+  }
 
-    else
-    {
-      result = 0;
-    }
+  v7[0] = 0;
+  if (CFSetGetValueIfPresent(self, member, v7))
+  {
+    return v7[0];
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count

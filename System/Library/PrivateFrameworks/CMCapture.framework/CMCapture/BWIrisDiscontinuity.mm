@@ -233,7 +233,7 @@ LABEL_6:
         v12 = *(*(&v20 + 1) + 8 * v11);
         if (v12)
         {
-          [v12 original];
+          objc_msgSend_original(v12);
         }
 
         else
@@ -249,7 +249,7 @@ LABEL_6:
 
         if (v12)
         {
-          [v12 original];
+          objc_msgSend_original(v12);
         }
 
         else
@@ -287,7 +287,7 @@ LABEL_6:
 - (BOOL)shouldKeepBufferWithTime:(id *)time forceKeepingBuffer:(BOOL)buffer nextAdjustedTimeInOut:(id *)out discontinuityFrameAttributesOut:(id *)attributesOut
 {
   bufferCopy = buffer;
-  v97 = *time;
+  v101 = *time;
   v11 = [(BWIrisDiscontinuity *)self _offsetIndexFromDiscontinuityForTime:?];
   if (v11 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -299,17 +299,17 @@ LABEL_6:
     if (out->var2)
     {
       OUTLINED_FUNCTION_11_48();
-      OUTLINED_FUNCTION_0_109(v37, v58, v67, v72, v77, v82, v87, v92, v97.value);
+      OUTLINED_FUNCTION_0_109(v39, v62, v71, v76, v81, v86, v91, v96, v101.value);
     }
 
     else
     {
-      OUTLINED_FUNCTION_0_109(time->var3, v58, v67, v72, time->var0, *&time->var1, v87, v92, v97.value);
+      OUTLINED_FUNCTION_0_109(time->var3, v62, v71, v76, time->var0, *&time->var1, v91, v96, v101.value);
     }
 
     OUTLINED_FUNCTION_3_96();
-    OUTLINED_FUNCTION_14_39(v38, v39, v40, v41, v42, v43, v44, v45, v61, v65, v70, v75, v80, v85, v90, v95, v46);
-    out->var3 = v97.epoch;
+    OUTLINED_FUNCTION_14_39(v40, v41, v42, v43, v44, v45, v46, v47, v48, v65, v69, v74, v79, v84, v89, v94, v99, v49);
+    out->var3 = v101.epoch;
     goto LABEL_16;
   }
 
@@ -324,9 +324,9 @@ LABEL_6:
   if (!v15)
   {
     OUTLINED_FUNCTION_11_48();
-    v19 = OUTLINED_FUNCTION_0_109(v18, v58, v67, v72, v77, v82, v87, v92, v97.value);
-    OUTLINED_FUNCTION_14_39(v19, v20, v21, v22, v23, v24, v25, v26, v59, v63, v68, v73, v78, v83, v88, v93, v27);
-    out->var3 = v97.epoch;
+    v19 = OUTLINED_FUNCTION_0_109(v18, v62, v71, v76, v81, v86, v91, v96, v101.value);
+    OUTLINED_FUNCTION_14_39(v19, v20, v21, v22, v23, v24, v25, v26, v27, v63, v67, v72, v77, v82, v87, v92, v97, v28);
+    out->var3 = v101.epoch;
   }
 
   if (out->var2)
@@ -334,9 +334,9 @@ LABEL_6:
     if ((v17 & -[NSArray containsObject:](self->_recipe, "containsObject:", [MEMORY[0x1E696AD98] numberWithInteger:v15 - 1]) & 1) == 0)
     {
       OUTLINED_FUNCTION_11_48();
-      v48 = OUTLINED_FUNCTION_0_109(v47, v58, v67, v72, v77, v82, v87, v92, v97.value);
-      OUTLINED_FUNCTION_14_39(v48, v49, v50, v51, v52, v53, v54, v55, v62, v66, v71, v76, v81, v86, v91, v96, v56);
-      out->var3 = v97.epoch;
+      v51 = OUTLINED_FUNCTION_0_109(v50, v62, v71, v76, v81, v86, v91, v96, v101.value);
+      OUTLINED_FUNCTION_14_39(v51, v52, v53, v54, v55, v56, v57, v58, v59, v66, v70, v75, v80, v85, v90, v95, v100, v60);
+      out->var3 = v101.epoch;
     }
 
     if (v17)
@@ -349,10 +349,10 @@ LABEL_6:
 
   else if (v17)
   {
-    OUTLINED_FUNCTION_0_109(time->var3, v58, v67, v72, time->var0, *&time->var1, v87, v92, v97.value);
+    OUTLINED_FUNCTION_0_109(time->var3, v62, v71, v76, time->var0, *&time->var1, v91, v96, v101.value);
     OUTLINED_FUNCTION_3_96();
-    OUTLINED_FUNCTION_14_39(0, v28, v29, v30, v31, v32, v33, v34, v60, v64, v69, v74, v79, v84, v89, v94, v35);
-    out->var3 = v97.epoch;
+    OUTLINED_FUNCTION_14_39(0, v29, v30, v31, v32, v33, v34, v35, v36, v64, v68, v73, v78, v83, v88, v93, v98, v37);
+    out->var3 = v101.epoch;
 LABEL_17:
     v15 = 0x7FFFFFFFFFFFFFFFLL;
     goto LABEL_18;

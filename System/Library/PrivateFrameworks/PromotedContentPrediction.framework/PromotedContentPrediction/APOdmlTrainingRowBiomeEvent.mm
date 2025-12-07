@@ -1,5 +1,7 @@
 @interface APOdmlTrainingRowBiomeEvent
 + (id)featureForKey:(id)key;
++ (id)makeEventWithRecordID:(id)d adamID:(id)iD odmlResponse:(id)response appInstalled:(BOOL)installed isDupe:(BOOL)dupe rerankingError:(id)error impressed:(BOOL)impressed tapped:(BOOL)self0;
++ (void)eventWithRecordID:(id)d adamID:(id)iD odmlResponse:(id)response appInstalled:(BOOL)installed isDupe:(BOOL)dupe rerankingError:(id)error;
 + (void)removeAll;
 + (void)sendEvent:(id)event;
 + (void)updateWithRecordID:(id)d adamID:(id)iD event:(int64_t)event;
@@ -7,47 +9,92 @@
 
 @implementation APOdmlTrainingRowBiomeEvent
 
++ (void)eventWithRecordID:(id)d adamID:(id)iD odmlResponse:(id)response appInstalled:(BOOL)installed isDupe:(BOOL)dupe rerankingError:(id)error
+{
+  LOWORD(v8) = 0;
+  v9 = [APOdmlTrainingRowBiomeEvent makeEventWithRecordID:d adamID:iD odmlResponse:response appInstalled:installed isDupe:dupe rerankingError:error impressed:v8 tapped:?];
+  [APOdmlTrainingRowBiomeEvent sendEvent:v9];
+}
+
 + (void)updateWithRecordID:(id)d adamID:(id)iD event:(int64_t)event
 {
-  HIBYTE(v6) = event == 2;
-  LOBYTE(v6) = event == 1;
-  v7 = objc_msgSend_makeEventWithRecordID_adamID_odmlResponse_appInstalled_isDupe_rerankingError_impressed_tapped_(APOdmlTrainingRowBiomeEvent, a2, d, iD, 0, 0, 0, 0, v6);
-  objc_msgSend_sendEvent_(APOdmlTrainingRowBiomeEvent, v5, v7);
+  BYTE1(v5) = event == 2;
+  LOBYTE(v5) = event == 1;
+  v6 = [APOdmlTrainingRowBiomeEvent makeEventWithRecordID:d adamID:iD odmlResponse:0 appInstalled:0 isDupe:0 rerankingError:0 impressed:v5 tapped:?];
+  [APOdmlTrainingRowBiomeEvent sendEvent:v6];
 }
 
 + (void)sendEvent:(id)event
 {
   eventCopy = event;
   v4 = BiomeLibrary();
-  v7 = objc_msgSend_AdPlatforms(v4, v5, v6);
-  v10 = objc_msgSend_ODML(v7, v8, v9);
-  v17 = objc_msgSend_TrainingRows(v10, v11, v12);
+  adPlatforms = [v4 AdPlatforms];
+  oDML = [adPlatforms ODML];
+  trainingRows = [oDML TrainingRows];
 
-  v15 = objc_msgSend_source(v17, v13, v14);
-  objc_msgSend_sendEvent_(v15, v16, eventCopy);
+  source = [trainingRows source];
+  [source sendEvent:eventCopy];
 }
 
 + (void)removeAll
 {
   v2 = BiomeLibrary();
-  v5 = objc_msgSend_AdPlatforms(v2, v3, v4);
-  v8 = objc_msgSend_ODML(v5, v6, v7);
-  v15 = objc_msgSend_TrainingRows(v8, v9, v10);
+  adPlatforms = [v2 AdPlatforms];
+  oDML = [adPlatforms ODML];
+  trainingRows = [oDML TrainingRows];
 
-  v13 = objc_msgSend_pruner(v15, v11, v12);
-  objc_msgSend_deleteWithPolicy_eventsPassingTest_(v13, v14, @"personalized-ads-on", &unk_287367680);
+  pruner = [trainingRows pruner];
+  [pruner deleteWithPolicy:@"personalized-ads-on" eventsPassingTest:&unk_287367680];
+}
+
++ (id)makeEventWithRecordID:(id)d adamID:(id)iD odmlResponse:(id)response appInstalled:(BOOL)installed isDupe:(BOOL)dupe rerankingError:(id)error impressed:(BOOL)impressed tapped:(BOOL)self0
+{
+  dupeCopy = dupe;
+  installedCopy = installed;
+  dCopy = d;
+  iDCopy = iD;
+  errorCopy = error;
+  responseCopy = response;
+  v17 = [[APOdmlSettings alloc] initWithPlacementType:0 assetManagerType:0];
+  v34 = [APOdmlTrainingRowBiomeEvent featureForKey:@"appUsageVector"];
+  v33 = [APOdmlTrainingRowBiomeEvent featureForKey:@"installedAppVector"];
+  v32 = [APOdmlTrainingRowBiomeEvent featureForKey:@"appDownloadVector"];
+  v31 = [APOdmlTrainingRowBiomeEvent featureForKey:@"userQueryVector"];
+  v30 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:responseCopy requiringSecureCoding:1 error:0];
+
+  v18 = objc_alloc(MEMORY[0x277CF0FB0]);
+  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", -[APOdmlSettings deploymentID](v17, "deploymentID")];
+  experimentID = [(APOdmlSettings *)v17 experimentID];
+  treatmentID = [(APOdmlSettings *)v17 treatmentID];
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:impressed];
+  v22 = [MEMORY[0x277CCABB0] numberWithBool:tapped];
+  v23 = [MEMORY[0x277CCABB0] numberWithBool:dupeCopy];
+  v24 = [MEMORY[0x277CCABB0] numberWithBool:installedCopy];
+  v25 = v24;
+  if (errorCopy)
+  {
+    v26 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(errorCopy, "code")}];
+    v27 = [v18 initWithDeploymentID:v29 experimentID:experimentID treatmentID:treatmentID adamID:iDCopy impressed:v21 tapped:v22 dupe:v23 installed:v25 errorCode:v26 appUsageVector:v34 appDownloadVector:v32 installedAppVector:v33 userQueryVector:v31 serverResponse:v30 recordID:dCopy];
+  }
+
+  else
+  {
+    v27 = [v18 initWithDeploymentID:v29 experimentID:experimentID treatmentID:treatmentID adamID:iDCopy impressed:v21 tapped:v22 dupe:v23 installed:v24 errorCode:0 appUsageVector:v34 appDownloadVector:v32 installedAppVector:v33 userQueryVector:v31 serverResponse:v30 recordID:dCopy];
+  }
+
+  return v27;
 }
 
 + (id)featureForKey:(id)key
 {
   keyCopy = key;
-  v6 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, v4, v5);
-  v8 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v6, v7, 0, 0);
-  v10 = objc_msgSend_featureForName_(v8, v9, keyCopy);
+  v4 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+  v5 = [v4 assetManagerForPlacementType:0 assetManagerType:0];
+  v6 = [v5 featureForName:keyCopy];
 
-  v13 = objc_msgSend_arrayOfNumbers(v10, v11, v12);
+  arrayOfNumbers = [v6 arrayOfNumbers];
 
-  return v13;
+  return arrayOfNumbers;
 }
 
 @end

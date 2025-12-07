@@ -26,12 +26,19 @@
 {
   if (description)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFNowPlayingObservable.nowPlayingService(_:didUpdateUserVisibleDescription:)();
+  CAFNowPlayingObservable.nowPlayingService(_:didUpdateUserVisibleDescription:)(selfCopy, v6, v8);
 }
 
 - (void)nowPlayingService:(id)service didUpdateArtwork:(id)artwork
@@ -48,16 +55,18 @@
 
 - (void)nowPlayingService:(id)service didUpdatePlaybackState:(unsigned __int8)state
 {
+  stateCopy = state;
   serviceCopy = service;
   selfCopy = self;
-  CAFNowPlayingObservable.nowPlayingService(_:didUpdatePlaybackState:)(selfCopy, state);
+  CAFNowPlayingObservable.nowPlayingService(_:didUpdatePlaybackState:)(selfCopy, stateCopy);
 }
 
 - (void)nowPlayingService:(id)service didUpdateAudioContentBadge:(unsigned __int8)badge
 {
+  badgeCopy = badge;
   serviceCopy = service;
   selfCopy = self;
-  CAFNowPlayingObservable.nowPlayingService(_:didUpdateAudioContentBadge:)(selfCopy, badge);
+  CAFNowPlayingObservable.nowPlayingService(_:didUpdateAudioContentBadge:)(selfCopy, badgeCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

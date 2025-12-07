@@ -52,7 +52,7 @@
 
     else
     {
-      v10 = sub_100004F84();
+      v10 = sub_100004F84(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1002545D8(requestCopy, v10);

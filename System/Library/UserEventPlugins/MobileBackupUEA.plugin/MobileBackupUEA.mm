@@ -8,12 +8,13 @@ void sub_10D0(uint64_t a1)
     v4 = MBGetDefaultLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
+      v5 = kMobileKeyBagLockStatusNotifyToken;
       *buf = 136446466;
-      v6 = kMobileKeyBagLockStatusNotifyToken;
-      v7 = 1024;
-      v8 = v3;
+      v7 = kMobileKeyBagLockStatusNotifyToken;
+      v8 = 1024;
+      v9 = v3;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Received %{public}s: %d", buf, 0x12u);
-      _MBLog();
+      _MBLog(@"Df", "Received %{public}s: %d", v5, v3);
     }
 
     if (v3)
@@ -43,17 +44,18 @@ void sub_121C(uint64_t a1, int token)
   v3 = MBGetDefaultLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
+    v4 = kSBSLockStateNotifyKey;
     *buf = 136446466;
-    v8 = kSBSLockStateNotifyKey;
-    v9 = 2048;
-    v10 = state64;
+    v9 = kSBSLockStateNotifyKey;
+    v10 = 2048;
+    v11 = state64;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "Received %{public}s: %llu", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Db", "Received %{public}s: %llu", v4, state64);
   }
 
-  v4 = state64 != 0;
+  v5 = state64 != 0;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained setIsLocked:v4];
+  [WeakRetained setIsLocked:v5];
 }
 
 void sub_2DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, id a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, id a59)
@@ -100,10 +102,9 @@ void sub_2FD8(uint64_t a1)
     {
       v5 = *(a1 + 32);
       *buf = 138412290;
-      v20 = v5;
+      v18 = v5;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Registering ACMonitoredAccountStore failed:%@", buf, 0xCu);
-      v13 = *(a1 + 32);
-      _MBLog();
+      _MBLog(@"E ", "Registering ACMonitoredAccountStore failed:%@", *(a1 + 32));
     }
   }
 
@@ -113,38 +114,37 @@ void sub_2FD8(uint64_t a1)
     {
       v6 = [*(a1 + 40) count];
       *buf = 134217984;
-      v20 = v6;
+      v18 = v6;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Loading %lu accounts", buf, 0xCu);
-      v12 = [*(a1 + 40) count];
-      _MBLog();
+      _MBLog(@"Df", "Loading %lu accounts", [*(a1 + 40) count]);
     }
 
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = *(a1 + 40);
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(a1 + 48) _updateEnabledStateForAccount:{*(*(&v14 + 1) + 8 * v11), v12}];
+          [*(a1 + 48) _updateEnabledStateForAccount:*(*(&v12 + 1) + 8 * v11)];
           v11 = v11 + 1;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -162,10 +162,9 @@ void sub_31C0(uint64_t a1)
   {
     v4 = *(a1 + 32);
     *buf = 138543362;
-    v7 = v4;
+    v6 = v4;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "Received %{public}@", buf, 0xCu);
-    v5 = *(a1 + 32);
-    _MBLog();
+    _MBLog(@"Db", "Received %{public}@", *(a1 + 32));
   }
 
   [WeakRetained notifyDaemonOfPasscodeChange];
@@ -177,16 +176,15 @@ uint64_t sub_32A4(uint64_t result)
   v2 = *(result + 32);
   if (*(v2 + 8) != -1)
   {
-    v3 = *(result + 40);
-    result = (*(v1[5] + 16))();
-    v2 = v1[4];
+    result = (*(*(result + 40) + 16))();
+    v2 = *(v1 + 32);
   }
 
   if (*(v2 + 24) != -1)
   {
-    v4 = *(v1[6] + 16);
+    v3 = *(*(v1 + 48) + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -203,7 +201,7 @@ void sub_331C(uint64_t a1)
     v7 = 1024;
     v8 = v2;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Received %{public}s: %d", buf, 0x12u);
-    _MBLog();
+    _MBLog(@"Df", "Received %{public}s: %d", "com.apple.system.powersources.source", v2);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -234,12 +232,11 @@ void sub_3498(uint64_t a1, void *a2)
     {
       v7 = *(a1 + 40);
       *buf = 67109378;
-      v14 = v7;
-      v15 = 2114;
-      *v16 = v3;
+      v13 = v7;
+      v14 = 2114;
+      *v15 = v3;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "status:%d, %{public}@", buf, 0x12u);
-      v12 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"Db", "status:%d, %{public}@", *(a1 + 40), v3);
     }
 
     if (v5 == 1)
@@ -269,13 +266,13 @@ void sub_3498(uint64_t a1, void *a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109632;
-      v14 = v8;
-      v15 = 1024;
-      *v16 = v10;
-      *&v16[4] = 1024;
-      *&v16[6] = is_expensive;
+      v13 = v8;
+      v14 = 1024;
+      *v15 = v10;
+      *&v15[4] = 1024;
+      *&v15[6] = is_expensive;
       _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "isOnWiFi:%d, isOnCellular:%d(%d)", buf, 0x14u);
-      _MBLog();
+      _MBLog(@"Db", "isOnWiFi:%d, isOnCellular:%d(%d)", v8, v10, is_expensive);
     }
 
     [WeakRetained setIsOnWiFi:v8];
@@ -286,69 +283,65 @@ void sub_3498(uint64_t a1, void *a2)
 void sub_3968(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (!v3)
+  if (v3)
   {
-    WeakRetained = MBGetDefaultLog();
-    if (!os_log_type_enabled(WeakRetained, OS_LOG_TYPE_INFO))
+    if (([MBError isError:v3 withCode:19]& 1) != 0)
     {
-      goto LABEL_11;
+      WeakRetained = objc_loadWeakRetained((a1 + 32));
+      v5 = MBGetDefaultLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = *(a1 + 40);
+        *buf = 134218498;
+        v14 = 2;
+        v15 = 2048;
+        v16 = v6;
+        v17 = 2112;
+        v18 = v3;
+        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Retrying background restore boost in %llu seconds after error (%llu): %@", buf, 0x20u);
+        _MBLog(@"Df", "Retrying background restore boost in %llu seconds after error (%llu): %@", 2, *(a1 + 40), v3);
+      }
+
+      v7 = dispatch_time(0, 2000000000);
+      isa = WeakRetained[6].isa;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_3BE4;
+      block[3] = &unk_145B0;
+      v9 = *(a1 + 40);
+      block[4] = WeakRetained;
+      block[5] = v9;
+      dispatch_after(v7, isa, block);
     }
 
-    v10 = *(a1 + 40);
-    *buf = 134217984;
-    v17 = v10;
-    _os_log_impl(&dword_0, WeakRetained, OS_LOG_TYPE_INFO, "Background restore boost finished successfully (%llu)", buf, 0xCu);
-    v12 = *(a1 + 40);
-LABEL_10:
-    _MBLog();
-    goto LABEL_11;
+    else
+    {
+      WeakRetained = MBGetDefaultLog();
+      if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
+      {
+        v11 = *(a1 + 40);
+        *buf = 134218242;
+        v14 = v11;
+        v15 = 2112;
+        v16 = v3;
+        _os_log_impl(&dword_0, WeakRetained, OS_LOG_TYPE_ERROR, "Failed to boost background restore (%llu): %@", buf, 0x16u);
+        _MBLog(@"E ", "Failed to boost background restore (%llu): %@", *(a1 + 40), v3);
+      }
+    }
   }
 
-  if (([MBError isError:v3 withCode:19]& 1) == 0)
+  else
   {
     WeakRetained = MBGetDefaultLog();
-    if (!os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_11;
+      v10 = *(a1 + 40);
+      *buf = 134217984;
+      v14 = v10;
+      _os_log_impl(&dword_0, WeakRetained, OS_LOG_TYPE_INFO, "Background restore boost finished successfully (%llu)", buf, 0xCu);
+      _MBLog(@"I ", "Background restore boost finished successfully (%llu)");
     }
-
-    v11 = *(a1 + 40);
-    *buf = 134218242;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_0, WeakRetained, OS_LOG_TYPE_ERROR, "Failed to boost background restore (%llu): %@", buf, 0x16u);
-    v13 = *(a1 + 40);
-    goto LABEL_10;
   }
-
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = MBGetDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = *(a1 + 40);
-    *buf = 134218498;
-    v17 = 2;
-    v18 = 2048;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Retrying background restore boost in %llu seconds after error (%llu): %@", buf, 0x20u);
-    v14 = *(a1 + 40);
-    _MBLog();
-  }
-
-  v7 = dispatch_time(0, 2000000000);
-  isa = WeakRetained[6].isa;
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_3BE4;
-  block[3] = &unk_145B0;
-  v9 = *(a1 + 40);
-  block[4] = WeakRetained;
-  block[5] = v9;
-  dispatch_after(v7, isa, block);
-LABEL_11:
 }
 
 void sub_3CD4(id a1, NSError *a2)
@@ -363,8 +356,7 @@ void sub_3CD4(id a1, NSError *a2)
       *buf = 138412290;
       v6 = v2;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Failed to boost manual backup: %@", buf, 0xCu);
-LABEL_6:
-      _MBLog();
+      _MBLog(@"E ", "Failed to boost manual backup: %@", v2);
     }
   }
 
@@ -372,7 +364,7 @@ LABEL_6:
   {
     *buf = 0;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Manual backup boost finished successfully", buf, 2u);
-    goto LABEL_6;
+    _MBLog(@"Df", "Manual backup boost finished successfully");
   }
 }
 
@@ -409,15 +401,16 @@ uint64_t sub_42D0()
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;
-    v8 = v4;
-    v9 = 1024;
-    v10 = v0 != 0;
-    v11 = 1024;
-    v12 = v2;
-    v13 = 1024;
-    v14 = v2 == 0;
+    v9 = v4;
+    v10 = 1024;
+    v6 = v0 != 0;
+    v11 = v6;
+    v12 = 1024;
+    v13 = v2;
+    v14 = 1024;
+    v15 = v2 == 0;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "deviceUnlockedSinceBoot %d, MKBDeviceUnlockedSinceBoot %d, deviceLockState %d, deviceIsUnlocked %d", buf, 0x1Au);
-    _MBLog();
+    _MBLog(@"Df", "deviceUnlockedSinceBoot %d, MKBDeviceUnlockedSinceBoot %d, deviceLockState %d, deviceIsUnlocked %d", v4, v6, v2, v2 == 0);
   }
 
   return v4;
@@ -456,7 +449,7 @@ LABEL_7:
         *buf = 138412290;
         v8 = v5;
         _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Notified daemon of account change:%@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Notified daemon of account change:%@", v5);
       }
     }
 
@@ -467,7 +460,7 @@ LABEL_7:
       {
         *buf = 0;
         _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Nil account identifier found", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "Nil account identifier found");
       }
     }
 
@@ -523,7 +516,7 @@ id sub_5C0C(uint64_t a1)
     {
       *v4 = 0;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Notifying daemon of passcode changed", v4, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Notifying daemon of passcode changed");
     }
 
     return [*(*(a1 + 32) + 80) passcodeChanged];
@@ -532,56 +525,56 @@ id sub_5C0C(uint64_t a1)
   return result;
 }
 
-void MBInstallAgent()
+void MBInstallAgent(uint64_t a1)
 {
   if (!qword_162F8)
   {
-    v0 = objc_autoreleasePoolPush();
-    v1 = [MBUEAPlugin alloc];
+    v1 = objc_autoreleasePoolPush();
+    v2 = [MBUEAPlugin alloc];
     xpc_event_module_get_queue();
   }
 }
 
-id MBTemporaryPath()
+id MBTemporaryPath(uint64_t a1)
 {
   if (qword_16300 != -1)
   {
     sub_AC64();
   }
 
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = sub_60D8;
-  v11 = sub_60E8;
-  v12 = 0;
-  v0 = sub_60F0();
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_60D8;
+  v12 = sub_60E8;
+  v13 = 0;
+  v1 = sub_60F0(a1);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_6134;
   block[3] = &unk_146F8;
-  block[4] = &v7;
-  dispatch_sync(v0, block);
+  block[4] = &v8;
+  dispatch_sync(v1, block);
 
-  v1 = v8[5];
-  if (!v1)
+  v2 = v9[5];
+  if (!v2)
   {
-    v4 = +[NSAssertionHandler currentHandler];
-    v5 = [NSString stringWithUTF8String:"NSString *MBTemporaryPath(void)"];
-    [v4 handleFailureInFunction:v5 file:@"MBTempPathUtils.m" lineNumber:76 description:@"Unable to obtain MBTemporaryPath()"];
+    v5 = +[NSAssertionHandler currentHandler];
+    v6 = [NSString stringWithUTF8String:"NSString *MBTemporaryPath(void)"];
+    [v5 handleFailureInFunction:v6 file:@"MBTempPathUtils.m" lineNumber:76 description:@"Unable to obtain MBTemporaryPath()"];
 
-    v1 = v8[5];
+    v2 = v9[5];
   }
 
-  v2 = v1;
-  _Block_object_dispose(&v7, 8);
+  v3 = v2;
+  _Block_object_dispose(&v8, 8);
 
-  return v2;
+  return v3;
 }
 
-void sub_6000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_6000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -615,16 +608,16 @@ uint64_t sub_60D8(uint64_t result, uint64_t a2)
   return result;
 }
 
-id sub_60F0()
+id sub_60F0(uint64_t a1)
 {
   if (qword_16318 != -1)
   {
     sub_AC78();
   }
 
-  v1 = qword_16310;
+  v2 = qword_16310;
 
-  return v1;
+  return v2;
 }
 
 void sub_6134(uint64_t a1)
@@ -652,16 +645,16 @@ void sub_6134(uint64_t a1)
       *buf = 67109120;
       v8 = v5;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "mktemp failed: %{errno}d", buf, 8u);
-      v6 = *__error();
-      _MBLog();
+      v6 = __error();
+      _MBLog(@"E ", "mktemp failed: %{errno}d", *v6);
     }
   }
 }
 
-void MBRemoveTemporaryDirectory()
+void MBRemoveTemporaryDirectory(uint64_t a1)
 {
-  v0 = sub_60F0();
-  dispatch_sync(v0, &stru_14718);
+  v1 = sub_60F0(a1);
+  dispatch_sync(v1, &stru_14718);
 }
 
 void sub_62C4(id a1)
@@ -675,7 +668,7 @@ void sub_62C4(id a1)
       *buf = 138543362;
       v6 = v1;
       _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Removing temporary directory at %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Removing temporary directory at %{public}@", v1);
     }
 
     v3 = +[NSFileManager defaultManager];

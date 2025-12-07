@@ -113,10 +113,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    BNRegisterBannerKitLogging();
+    BNRegisterBannerKitLogging(v3, v4);
   }
 }
 
@@ -1073,7 +1074,7 @@ void __78__BNContentViewController_viewWillTransitionToSize_withTransitionCoordi
             v25 = *(a1 + 32);
             if (v25)
             {
-              [v25 targetTransform];
+              objc_msgSend_targetTransform(v25);
             }
 
             else
@@ -1091,7 +1092,7 @@ void __78__BNContentViewController_viewWillTransitionToSize_withTransitionCoordi
             v26 = *(a1 + 32);
             if (v26)
             {
-              [v26 targetTransform];
+              objc_msgSend_targetTransform(v26);
             }
 
             else
@@ -2390,15 +2391,15 @@ void __96__BNContentViewController__morphFromPresentable_toPresentable_withOptio
   spaceCopy = space;
   view = [(BNContentViewController *)self view];
   [(BNContentViewController *)self _translationInContainerViewForGesture:self->_panGesture];
-  _RubberBandedTranslationInContainerView(view);
+  _RubberBandedTranslationInContainerView(view, v7, v8);
   [view convertPoint:spaceCopy toCoordinateSpace:?];
-  v8 = v7;
   v10 = v9;
+  v12 = v11;
 
-  v11 = v8;
-  v12 = v10;
-  result.y = v12;
-  result.x = v11;
+  v13 = v10;
+  v14 = v12;
+  result.y = v14;
+  result.x = v13;
   return result;
 }
 
@@ -3830,10 +3831,10 @@ LABEL_11:
       if ([(BNContentViewController *)self _isLocalDraggingEnabledForPresentable:self->_presentableForActiveGesture])
       {
         [(BNContentViewController *)self _translationInContainerViewForGesture:panCopy];
-        v29 = v28;
+        v31 = v30;
         if ([(BNContentViewController *)self _isDraggingDismissalEnabledForPresentable:self->_presentableForActiveGesture])
         {
-          if (CGRectGetHeight(self->_presentedFrameForPresentableForActiveGesture) * 0.5 < -v29 || (-[BNContentViewController view](self, "view"), v30 = objc_claimAutoreleasedReturnValue(), [panCopy velocityInView:v30], v32 = v31, v30, v32 < -100.0))
+          if (CGRectGetHeight(self->_presentedFrameForPresentableForActiveGesture) * 0.5 < -v31 || (-[BNContentViewController view](self, "view"), v32 = objc_claimAutoreleasedReturnValue(), [panCopy velocityInView:v32], v34 = v33, v32, v34 < -100.0))
           {
             if (objc_opt_respondsToSelector())
             {
@@ -3843,31 +3844,31 @@ LABEL_11:
             WeakRetained = objc_loadWeakRetained(&self->_poster);
             if (WeakRetained)
             {
-              v33 = objc_opt_respondsToSelector();
-              v34 = [BNPresentableIdentification uniqueIdentificationForPresentable:self->_presentableForActiveGesture];
-              if (v33)
+              v35 = objc_opt_respondsToSelector();
+              v36 = [BNPresentableIdentification uniqueIdentificationForPresentable:self->_presentableForActiveGesture];
+              if (v35)
               {
-                v52 = 0;
-                v35 = &v52;
-                v36 = [WeakRetained revokePresentablesWithIdentification:v34 reason:@"BNBannerRevocationReasonDragDismissal" options:0 animated:1 userInfo:0 error:&v52];
+                v54 = 0;
+                v37 = &v54;
+                v38 = [WeakRetained revokePresentablesWithIdentification:v36 reason:@"BNBannerRevocationReasonDragDismissal" options:0 animated:1 userInfo:0 error:&v54];
               }
 
               else
               {
-                v51 = 0;
-                v35 = &v51;
-                v36 = [WeakRetained revokePresentablesWithIdentification:v34 reason:@"BNBannerRevocationReasonDragDismissal" options:0 userInfo:0 error:&v51];
+                v53 = 0;
+                v37 = &v53;
+                v38 = [WeakRetained revokePresentablesWithIdentification:v36 reason:@"BNBannerRevocationReasonDragDismissal" options:0 userInfo:0 error:&v53];
               }
 
-              v40 = v36;
-              v41 = *v35;
+              v42 = v38;
+              v43 = *v37;
 
-              if (!v40)
+              if (!v42)
               {
-                v42 = BNLogPresenting;
+                v44 = BNLogPresenting;
                 if (os_log_type_enabled(BNLogPresenting, OS_LOG_TYPE_ERROR))
                 {
-                  [(BNContentViewController *)&self->_presentableForActiveGesture _handlePan:v42, v41];
+                  [(BNContentViewController *)&self->_presentableForActiveGesture _handlePan:v44, v43];
                 }
               }
             }
@@ -3895,26 +3896,26 @@ LABEL_11:
 
     if ([(BNContentViewController *)self _isLocalDraggingEnabledForPresentable:self->_presentableForActiveGesture])
     {
-      v37 = UIViewControllerFromPresentable(self->_presentableForActiveGesture);
-      view = [v37 view];
+      v39 = UIViewControllerFromPresentable(self->_presentableForActiveGesture);
+      view = [v39 view];
 
       size = self->_presentedFrameForPresentableForActiveGesture.size;
       origin = self->_presentedFrameForPresentableForActiveGesture.origin;
-      v50 = size;
+      v52 = size;
       objc_initWeak(&location, self);
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __38__BNContentViewController__handlePan___block_invoke_140;
-      v43[3] = &unk_1E81E4DD8;
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3221225472;
+      v45[2] = __38__BNContentViewController__handlePan___block_invoke_140;
+      v45[3] = &unk_1E81E4DD8;
       WeakRetained = view;
-      v44 = WeakRetained;
-      v46 = origin;
-      v47 = v50;
-      objc_copyWeak(&v45, &location);
-      [BNBannerTransitionAnimator animateInteractive:0 animations:v43 completion:0];
+      v46 = WeakRetained;
+      v48 = origin;
+      v49 = v52;
+      objc_copyWeak(&v47, &location);
+      [BNBannerTransitionAnimator animateInteractive:0 animations:v45 completion:0];
       [(BNPanGestureProxyPrivate *)self->_panGestureProxyForActivePresentable sendAction];
       [(BNContentViewController *)self _resetPresentableForActiveGesture:self->_presentableForActiveGesture];
-      objc_destroyWeak(&v45);
+      objc_destroyWeak(&v47);
 
       objc_destroyWeak(&location);
 LABEL_33:
@@ -3933,10 +3934,10 @@ LABEL_33:
     view2 = [(BNContentViewController *)self view];
     [view2 bounds];
     [(BNContentViewController *)self _presentedFrameForPresentable:presentableForActiveGesture withContainerBounds:?];
-    self->_presentedFrameForPresentableForActiveGesture.origin.x = v19;
-    self->_presentedFrameForPresentableForActiveGesture.origin.y = v20;
-    self->_presentedFrameForPresentableForActiveGesture.size.width = v21;
-    self->_presentedFrameForPresentableForActiveGesture.size.height = v22;
+    self->_presentedFrameForPresentableForActiveGesture.origin.x = v21;
+    self->_presentedFrameForPresentableForActiveGesture.origin.y = v22;
+    self->_presentedFrameForPresentableForActiveGesture.size.width = v23;
+    self->_presentedFrameForPresentableForActiveGesture.size.height = v24;
 
     if (objc_opt_respondsToSelector())
     {
@@ -3945,12 +3946,12 @@ LABEL_33:
 
     if ([(BNContentViewController *)self _isDraggingEnabledForPresentable:self->_presentableForActiveGesture]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v23 = [BNPanGestureLocalProxy alloc];
+      v25 = [BNPanGestureLocalProxy alloc];
       panGesture = self->_panGesture;
       view3 = [(BNContentViewController *)self view];
-      v26 = [(BNPanGestureLocalProxy *)v23 initWithPanGestureRecognizer:panGesture containerView:view3];
+      v28 = [(BNPanGestureLocalProxy *)v25 initWithPanGestureRecognizer:panGesture containerView:view3];
       panGestureProxyForActivePresentable = self->_panGestureProxyForActivePresentable;
-      self->_panGestureProxyForActivePresentable = v26;
+      self->_panGestureProxyForActivePresentable = v28;
 
       [(BNPanGestureProxyPrivate *)self->_panGestureProxyForActivePresentable setDelegate:self];
       [(BNPresentable *)self->_presentableForActiveGesture draggingDidBeginWithGestureProxy:self->_panGestureProxyForActivePresentable];
@@ -3966,24 +3967,25 @@ LABEL_33:
     WeakRetained = [(BNContentViewController *)self view];
     [(BNContentViewController *)self _translationInContainerViewForGesture:panCopy];
     v11 = v10;
-    if (v10 < 0.0 && [(BNContentViewController *)self _isDraggingDismissalEnabledForPresentable:self->_presentableForActiveGesture]|| v11 >= 0.0 && [(BNContentViewController *)self _isDraggingInteractionEnabledForPresentable:self->_presentableForActiveGesture])
+    v13 = v12;
+    if (v12 < 0.0 && [(BNContentViewController *)self _isDraggingDismissalEnabledForPresentable:self->_presentableForActiveGesture]|| v13 >= 0.0 && [(BNContentViewController *)self _isDraggingInteractionEnabledForPresentable:self->_presentableForActiveGesture])
     {
-      _RubberBandedTranslationInContainerView(WeakRetained);
-      v13 = y + v12;
-      v14 = UIViewControllerFromPresentable(self->_presentableForActiveGesture);
-      view4 = [v14 view];
+      _RubberBandedTranslationInContainerView(WeakRetained, v11, v13);
+      v15 = y + v14;
+      v16 = UIViewControllerFromPresentable(self->_presentableForActiveGesture);
+      view4 = [v16 view];
 
-      v53[0] = MEMORY[0x1E69E9820];
-      v53[1] = 3221225472;
-      v53[2] = __38__BNContentViewController__handlePan___block_invoke;
-      v53[3] = &unk_1E81E4DB0;
-      v56 = x;
-      v57 = v13;
-      v58 = origin;
-      v54 = view4;
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __38__BNContentViewController__handlePan___block_invoke;
+      v55[3] = &unk_1E81E4DB0;
+      v58 = x;
+      v59 = v15;
+      v60 = origin;
+      v56 = view4;
       selfCopy = self;
-      v16 = view4;
-      [BNBannerTransitionAnimator animateInteractive:1 animations:v53 completion:0];
+      v18 = view4;
+      [BNBannerTransitionAnimator animateInteractive:1 animations:v55 completion:0];
     }
 
     goto LABEL_33;
@@ -4034,7 +4036,7 @@ void __67__BNContentViewController_presentPresentable_withOptions_userInfo___blo
   v3 = OUTLINED_FUNCTION_2_1();
   v4 = BNEffectivePresentableDescription(v3);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_1C42DC000, v5, v6, "Presentable _would_ appear as banner, but appears to be dismissing: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_3(&dword_1C42DC000, v5, v6, "Presentable _would_ appear as banner, but appears to be dismissing: %{public}@", v7, v8, v9, v10);
 }
 
 void __96__BNContentViewController__morphFromPresentable_toPresentable_withOptions_userInfo_stateChange___block_invoke_70_cold_2(uint64_t a1, void *a2)
@@ -4043,7 +4045,7 @@ void __96__BNContentViewController__morphFromPresentable_toPresentable_withOptio
   v3 = OUTLINED_FUNCTION_2_1();
   v4 = BNEffectivePresentableDescription(v3);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_1C42DC000, v5, v6, "Presentable _would_ disappear as banner, but appears to be presenting: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_3(&dword_1C42DC000, v5, v6, "Presentable _would_ disappear as banner, but appears to be presenting: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_dismissPresentable:(os_log_t)log withReason:animated:userInfo:.cold.1(void *a1, uint8_t *buf, os_log_t log)

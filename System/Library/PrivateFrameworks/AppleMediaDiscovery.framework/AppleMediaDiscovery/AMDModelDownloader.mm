@@ -261,7 +261,6 @@ void __95__AMDModelDownloader_downloadModel_forVersion_usingUrl_withStorefrontId
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)printJson:(id)json
@@ -927,7 +926,6 @@ void __32__AMDModelDownloader_printJson___block_invoke(void *a1, void *a2, void 
   objc_storeStrong(&v167, 0);
   objc_storeStrong(&v168, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v11 = v171;
 
   return v11;
@@ -1074,7 +1072,6 @@ void __32__AMDModelDownloader_printJson___block_invoke(void *a1, void *a2, void 
   objc_storeStrong(&v45, 0);
   objc_storeStrong(&v46, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v50;
 
   return v7;
@@ -1246,7 +1243,6 @@ void __32__AMDModelDownloader_printJson___block_invoke(void *a1, void *a2, void 
   objc_storeStrong(&defaultManager, 0);
   objc_storeStrong(&v34, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)processColdstartBinaryDownload:(id)download error:(id *)error
@@ -1454,7 +1450,6 @@ void __32__AMDModelDownloader_printJson___block_invoke(void *a1, void *a2, void 
   objc_storeStrong(&v50, 0);
   objc_storeStrong(&v51, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v55;
 
   return v9;
@@ -1606,7 +1601,6 @@ void __32__AMDModelDownloader_printJson___block_invoke(void *a1, void *a2, void 
   v35 = 1;
   objc_storeStrong(&v45, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1716,7 +1710,6 @@ LABEL_18:
   objc_storeStrong(&v15, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(v27, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2217,7 +2210,6 @@ LABEL_91:
   objc_storeStrong(&v134, 0);
   objc_storeStrong(&v136, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v21 = v139;
 
   return v21;
@@ -2316,7 +2308,6 @@ LABEL_91:
   objc_storeStrong(&v41, 0);
   objc_storeStrong(&v42, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v10 = v45;
 
   return v10;
@@ -2357,7 +2348,6 @@ LABEL_91:
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)unzipModelFile:(id)file copyToDestination:(id)destination error:(id *)error
@@ -2418,7 +2408,6 @@ LABEL_91:
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)unzipModel:(id)model atLocation:(id)location withVersion:(id)version error:(id *)error
@@ -2539,7 +2528,6 @@ LABEL_91:
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v43;
 
   return v9;
@@ -2592,7 +2580,6 @@ LABEL_91:
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v21;
 
   return v6;
@@ -2657,7 +2644,6 @@ LABEL_91:
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v23;
 
   return v6;
@@ -2897,7 +2883,6 @@ LABEL_91:
   objc_storeStrong(&v78, 0);
   objc_storeStrong(&v79, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)deleteModelFromStorage:(id)storage isVersionChange:(BOOL)change error:(id *)error
@@ -2958,7 +2943,6 @@ LABEL_91:
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&defaultManager, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)deleteColdstartBinaryFromStorage:(id)storage forModel:(id)model isVersionChange:(BOOL)change error:(id *)error
@@ -3039,7 +3023,6 @@ LABEL_91:
   objc_storeStrong(&defaultManager, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)removeOldModels:(id)models
@@ -3214,7 +3197,6 @@ LABEL_91:
   objc_storeStrong(&v54, 0);
   objc_storeStrong(&v55, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -3336,7 +3318,6 @@ LABEL_91:
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }

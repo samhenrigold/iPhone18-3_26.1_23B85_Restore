@@ -19,6 +19,7 @@
 - (void)setOverrideDate:(id)date duration:(double)duration;
 - (void)setPalette:(id)palette;
 - (void)setStyle:(unint64_t)style;
+- (void)updateCrownDate:(id)date animated:(BOOL)animated;
 @end
 
 @implementation NTKSeltzerTimeView
@@ -121,15 +122,15 @@
 
 - (void)setStyle:(unint64_t)style
 {
-  v7.receiver = self;
-  v7.super_class = NTKSeltzerTimeView;
-  [(NTKSeltzerTimeView *)&v7 setStyle:?];
-  [(NTKSeltzerTimeView *)self _moonViewTransformForStyle:style];
+  v6.receiver = self;
+  v6.super_class = NTKSeltzerTimeView;
+  [(NTKSeltzerTimeView *)&v6 setStyle:?];
+  objc_msgSend__moonViewTransformForStyle_(self);
   astronomyVistaView = self->_astronomyVistaView;
-  v6[0] = v6[3];
-  v6[1] = v6[4];
-  v6[2] = v6[5];
-  [(NUNIAstronomyVistaView *)astronomyVistaView setTransform:v6];
+  v5[0] = v5[3];
+  v5[1] = v5[4];
+  v5[2] = v5[5];
+  [(NUNIAstronomyVistaView *)astronomyVistaView setTransform:v5];
 }
 
 - (id)_customDialBackgroundView
@@ -163,7 +164,8 @@
 
 - (void)applyInteractiveModeProgress:(double)progress
 {
-  [(NTKSeltzerTimeView *)self _moonViewTransformForStyle:[(NTKSeltzerTimeView *)self style]];
+  [(NTKSeltzerTimeView *)self style];
+  objc_msgSend__moonViewTransformForStyle_(self);
   v15 = *&CGAffineTransformIdentity.a;
   v16 = *&CGAffineTransformIdentity.c;
   v17 = *&CGAffineTransformIdentity.tx;
@@ -213,6 +215,14 @@
   }
 
   [(NUNIAstronomyVistaView *)self->_astronomyVistaView setFrameInterval:v14];
+}
+
+- (void)updateCrownDate:(id)date animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  objc_storeStrong(&self->_crownDate, date);
+  dateCopy = date;
+  [(NUNIAstronomyVistaView *)self->_astronomyVistaView updateSunLocationAnimated:animatedCopy];
 }
 
 - (void)_setupAnalogHandsView
@@ -351,79 +361,68 @@
 {
   if (style != toStyle)
   {
-    v47 = v14;
-    v48 = v13;
-    v49 = v12;
-    v50 = v11;
-    v51 = v10;
-    v52 = v9;
-    v53 = v8;
-    v54 = v7;
-    v55 = v5;
-    v56 = v6;
-    toStyleCopy = style;
+    v44 = v14;
+    v45 = v13;
+    v46 = v12;
+    v47 = v11;
+    v48 = v10;
+    v49 = v9;
+    v50 = v8;
+    v51 = v7;
+    v52 = v5;
+    v53 = v6;
     CLKMapFractionIntoRange();
-    v20 = v19;
+    v17 = v16;
     CLKMapFractionIntoRange();
-    v22 = v21;
+    v19 = v18;
     CLKMapFractionIntoRange();
-    v24 = v23;
+    v21 = v20;
     CLKMapFractionIntoRange();
-    v26 = v25;
-    memset(&v46, 0, sizeof(v46));
-    CGAffineTransformMakeScale(&v46, v24, v24);
-    memset(&v45, 0, sizeof(v45));
-    CGAffineTransformMakeScale(&v45, v26, v26);
+    v23 = v22;
+    memset(&v43, 0, sizeof(v43));
+    CGAffineTransformMakeScale(&v43, v21, v21);
+    memset(&v42, 0, sizeof(v42));
+    CGAffineTransformMakeScale(&v42, v23, v23);
     analogContainerView = [(NTKSeltzerTimeView *)self analogContainerView];
-    [analogContainerView setAlpha:v20];
+    [analogContainerView setAlpha:v17];
 
     analogHandsView = [(NTKSeltzerTimeView *)self analogHandsView];
-    [analogHandsView setAlpha:v20];
+    [analogHandsView setAlpha:v17];
 
     digitalContainerView = [(NTKSeltzerTimeView *)self digitalContainerView];
-    [digitalContainerView setAlpha:v22];
+    [digitalContainerView setAlpha:v19];
 
-    v44 = v46;
+    v41 = v43;
     analogContainerView2 = [(NTKSeltzerTimeView *)self analogContainerView];
-    v43 = v44;
-    [analogContainerView2 setTransform:&v43];
-
-    v42 = v46;
-    analogHandsView2 = [(NTKSeltzerTimeView *)self analogHandsView];
-    v43 = v42;
-    [analogHandsView2 setTransform:&v43];
-
-    v41 = v45;
-    digitalContainerView2 = [(NTKSeltzerTimeView *)self digitalContainerView];
-    v43 = v41;
-    [digitalContainerView2 setTransform:&v43];
-
-    CLKMapFractionIntoRange();
-    if (fraction >= 0.5)
-    {
-      v34 = v33;
-      toStyleCopy = toStyle;
-    }
-
-    else
-    {
-      v34 = v33;
-    }
-
-    CLKMapFractionIntoRange();
-    memset(&v43, 0, sizeof(v43));
-    CGAffineTransformMakeScale(&v43, v35, v35);
-    [(NTKSeltzerTimeView *)self _moonViewTransformForStyle:toStyleCopy];
-    astronomyVistaView = self->_astronomyVistaView;
-    v40[0] = v40[1];
-    [(NUNIAstronomyVistaView *)astronomyVistaView setTransform:v40];
-    dialBackgroundView = [(NTKSeltzerTimeView *)self dialBackgroundView];
-    [dialBackgroundView setAlpha:v34];
+    v40 = v41;
+    [analogContainerView2 setTransform:&v40];
 
     v39 = v43;
+    analogHandsView2 = [(NTKSeltzerTimeView *)self analogHandsView];
+    v40 = v39;
+    [analogHandsView2 setTransform:&v40];
+
+    v38 = v42;
+    digitalContainerView2 = [(NTKSeltzerTimeView *)self digitalContainerView];
+    v40 = v38;
+    [digitalContainerView2 setTransform:&v40];
+
+    CLKMapFractionIntoRange();
+    v31 = v30;
+    CLKMapFractionIntoRange();
+    memset(&v40, 0, sizeof(v40));
+    CGAffineTransformMakeScale(&v40, v32, v32);
+    objc_msgSend__moonViewTransformForStyle_(self);
+    astronomyVistaView = self->_astronomyVistaView;
+    v37[0] = v37[1];
+    [(NUNIAstronomyVistaView *)astronomyVistaView setTransform:v37];
+    dialBackgroundView = [(NTKSeltzerTimeView *)self dialBackgroundView];
+    [dialBackgroundView setAlpha:v31];
+
+    v36 = v40;
     dialBackgroundView2 = [(NTKSeltzerTimeView *)self dialBackgroundView];
-    v40[0] = v39;
-    [dialBackgroundView2 setTransform:v40];
+    v37[0] = v36;
+    [dialBackgroundView2 setTransform:v37];
   }
 }
 

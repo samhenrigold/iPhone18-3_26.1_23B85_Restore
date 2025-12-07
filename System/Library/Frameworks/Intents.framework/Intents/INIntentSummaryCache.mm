@@ -36,27 +36,27 @@
 
 - (void)applicationsDidInstall:(id)install
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   installCopy = install;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [installCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         appState = [v9 appState];
         isPlaceholder = [appState isPlaceholder];
 
@@ -67,27 +67,23 @@
         }
       }
 
-      v6 = [installCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateCacheForBundleId:(id)id
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   idCopy = id;
   [(INIntentSummaryCache *)self setBundleCache:0 forBundleId:idCopy];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v8 = @"bundleId";
-  v9[0] = idCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"bundleId";
+  v8[0] = idCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [defaultCenter postNotificationName:@"com.apple.IntentsCore.summarycache.invalidation" object:self userInfo:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateCache
@@ -231,7 +227,7 @@ void __59__INIntentSummaryCache_startObservingSystemLanguageChanges__block_invok
   return v10;
 }
 
-uint64_t __59__INIntentSummaryCache_getSubtitle_forIntent_languageCode___block_invoke(uint64_t a1)
+id __59__INIntentSummaryCache_getSubtitle_forIntent_languageCode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) containedProperties];
   if ((result & 2) != 0)
@@ -274,7 +270,7 @@ uint64_t __59__INIntentSummaryCache_getSubtitle_forIntent_languageCode___block_i
   return v10;
 }
 
-uint64_t __56__INIntentSummaryCache_getTitle_forIntent_languageCode___block_invoke(uint64_t a1)
+id __56__INIntentSummaryCache_getTitle_forIntent_languageCode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) containedProperties];
   if (result)
@@ -311,7 +307,7 @@ uint64_t __56__INIntentSummaryCache_getTitle_forIntent_languageCode___block_invo
   {
     v12 = codeCopy;
     identifier = [intentCopy identifier];
-    v14 = [identifier stringByAppendingString:v12];
+    v14 = objc_msgSend_stringByAppendingString_(identifier);
 
     v15 = [(INIntentSummaryCache *)self bundleCacheForBundleId:v11];
     v16 = [v15 objectForKey:v14];

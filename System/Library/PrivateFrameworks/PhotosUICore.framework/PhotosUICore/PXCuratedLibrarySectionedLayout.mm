@@ -176,7 +176,7 @@ LABEL_7:
 LABEL_18:
     if (v7)
     {
-      [v7 indexPathForAssetCollectionReference:assetCollectionReference2];
+      objc_msgSend_indexPathForAssetCollectionReference_(v7);
     }
 
     if (!*off_1E7721F68)
@@ -204,7 +204,7 @@ LABEL_22:
   v37 = 0u;
   if (v8)
   {
-    [v8 indexPathForAssetCollectionReference:referenceCopy];
+    objc_msgSend_indexPathForAssetCollectionReference_(v8);
   }
 
   if (level != 2)
@@ -1834,7 +1834,7 @@ LABEL_2:
     v21 = 0u;
     if (v12)
     {
-      [v12 indexPath];
+      objc_msgSend_indexPath(v12);
       v14 = *buf;
     }
 
@@ -2079,7 +2079,7 @@ uint64_t __52__PXCuratedLibrarySectionedLayout__updatePreheating__block_invoke(u
       presentedDataSource = self->_presentedDataSource;
       if (presentedDataSource)
       {
-        [(PXAssetsDataSource *)presentedDataSource indexPathForAssetCollectionReference:v8];
+        objc_msgSend_indexPathForAssetCollectionReference_(presentedDataSource);
         v10 = *(&v18 + 1);
       }
 
@@ -2126,7 +2126,7 @@ void __63__PXCuratedLibrarySectionedLayout__updateSublayoutsForSkimming__block_i
     v7 = *(a1 + 32);
     if (v7)
     {
-      [v7 currentChildCollectionIndexPath];
+      objc_msgSend_currentChildCollectionIndexPath(v7);
     }
 
     [v6 setIsSkimming:1];
@@ -2952,7 +2952,7 @@ LABEL_43:
       v63 = 0u;
       if (selectionSnapshot)
       {
-        [selectionSnapshot pendingIndexPath];
+        objc_msgSend_pendingIndexPath(selectionSnapshot);
         v34 = v62;
       }
 
@@ -2973,7 +2973,7 @@ LABEL_43:
       v61 = 0u;
       if (selectionSnapshot)
       {
-        [selectionSnapshot cursorIndexPath];
+        objc_msgSend_cursorIndexPath(selectionSnapshot);
         v38 = v60;
       }
 

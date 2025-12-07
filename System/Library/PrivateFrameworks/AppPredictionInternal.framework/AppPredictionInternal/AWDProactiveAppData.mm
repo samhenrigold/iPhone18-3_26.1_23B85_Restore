@@ -119,12 +119,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -143,34 +142,32 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  engagedApp = self->_engagedApp;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    score = self->_score;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_subscores)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sessionId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_bundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -293,7 +290,6 @@ LABEL_5:
     goto LABEL_25;
   }
 
-  v5 = *(equalCopy + 52);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_timestamp != *(equalCopy + 2))
@@ -315,7 +311,7 @@ LABEL_5:
     }
 
 LABEL_25:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_26;
   }
 
@@ -324,7 +320,6 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v6 = *(equalCopy + 48);
   if (self->_engagedApp)
   {
     if ((*(equalCopy + 48) & 1) == 0)
@@ -370,17 +365,17 @@ LABEL_9:
   bundleId = self->_bundleId;
   if (bundleId | *(equalCopy + 3))
   {
-    v10 = [(NSString *)bundleId isEqual:?];
+    v8 = [(NSString *)bundleId isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_26:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -497,7 +492,7 @@ LABEL_5:
       goto LABEL_14;
     }
 
-    [(AWDProactiveAppPredictionSubscores *)subscores mergeFrom:?];
+    subscores = [(AWDProactiveAppPredictionSubscores *)subscores mergeFrom:?];
   }
 
   else
@@ -507,23 +502,24 @@ LABEL_5:
       goto LABEL_14;
     }
 
-    [(AWDProactiveAppData *)self setSubscores:?];
+    subscores = [(AWDProactiveAppData *)self setSubscores:?];
   }
 
   v5 = v9;
 LABEL_14:
   if (v5[4])
   {
-    [(AWDProactiveAppData *)self setSessionId:?];
+    subscores = [(AWDProactiveAppData *)self setSessionId:?];
     v5 = v9;
   }
 
   if (v5[3])
   {
-    [(AWDProactiveAppData *)self setBundleId:?];
+    subscores = [(AWDProactiveAppData *)self setBundleId:?];
+    v5 = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](subscores, v5);
 }
 
 @end

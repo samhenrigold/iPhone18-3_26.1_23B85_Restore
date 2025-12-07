@@ -29,7 +29,7 @@
     thumbIndexes = self->_thumbIndexes;
   }
 
-  if ([(NSMutableIndexSet *)thumbIndexes count])
+  if (objc_msgSend_count(thumbIndexes, a2))
   {
     goto LABEL_7;
   }
@@ -47,7 +47,7 @@
     ;
   }
 
-  if ([(NSMutableIndexSet *)self->_thumbIndexes count])
+  if (objc_msgSend_count(self->_thumbIndexes))
   {
 LABEL_7:
     firstIndex = [(NSMutableIndexSet *)self->_thumbIndexes firstIndex];
@@ -574,10 +574,10 @@ LABEL_24:
     v27 = 0;
     if (v14)
     {
-      [v14 imageDisplayTime];
+      objc_msgSend_imageDisplayTime(v14);
       v24 = 0uLL;
       v25 = 0;
-      [v14 originalVideoDuration];
+      objc_msgSend_originalVideoDuration(v14);
       if (!v16)
       {
         goto LABEL_21;
@@ -972,10 +972,10 @@ LABEL_14:
     {
       if (v49)
       {
-        [v49 videoDuration];
+        objc_msgSend_videoDuration(v49);
         if ((v182 & 0x100000000) != 0)
         {
-          [v49 imageDisplayTime];
+          objc_msgSend_imageDisplayTime(v49);
           if ((v180 & 1) == 0)
           {
             v51 = PLMigrationGetLog();
@@ -1163,9 +1163,18 @@ LABEL_74:
   [v159 getUInt16:&v179 forKey:?];
   v131 = *MEMORY[0x1E69BFD58];
   v133 = [v159 stringForKey:?];
-  v64 = [(NSString *)self->_photoLibraryStoreUUID isEqualToString:?];
-  v134 = v64;
-  v65 = v179 > 2u && v64;
+  isEqualToString = objc_msgSend_isEqualToString_(self->_photoLibraryStoreUUID);
+  v134 = isEqualToString;
+  if (v179 > 2u)
+  {
+    v65 = isEqualToString;
+  }
+
+  else
+  {
+    v65 = 0;
+  }
+
   if (v65 == 1)
   {
     v66 = PLMigrationGetLog();
@@ -1387,7 +1396,7 @@ LABEL_145:
   v158 = v94;
 LABEL_148:
   v111 = v65 ^ 1 | v149;
-  if (!v134 && (v111 & 1) != 0)
+  if (v134 & 1) == 0 && (v111)
   {
     [MEMORY[0x1E69BF230] persistString:self->_photoLibraryStoreUUID forKey:v131 fileURL:v20];
     if (v179)
@@ -1609,7 +1618,7 @@ void __96__PLFileSystemAssetImporter_addAssetWithURLs_assetPayload_forceInsert_f
       _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEFAULT, "addAssetWithURLs: asset uuid: %{public}@ found in file attribute of master with URL: %{public}@", buf, 0x16u);
     }
 
-    if ([*(v1 + 56) isEqualToString:v10])
+    if (objc_msgSend_isEqualToString_(*(v1 + 56)))
     {
       goto LABEL_26;
     }
@@ -1777,7 +1786,7 @@ LABEL_27:
         v43 = [v40 lastPathComponent];
         v44 = [*(*(*(v1 + 120) + 8) + 40) pathForSpatialOverCaptureContentFile];
         v45 = [v44 lastPathComponent];
-        if ([v43 isEqualToString:v45])
+        if (objc_msgSend_isEqualToString_(v43))
         {
           v36 = 1;
           goto LABEL_43;
@@ -1787,9 +1796,9 @@ LABEL_27:
         [*(*(*(v1 + 120) + 8) + 40) pathForVideoComplementSpatialOverCaptureContentFile];
         v47 = v46 = v1;
         v48 = [v47 lastPathComponent];
-        v49 = [v43 isEqualToString:v48];
+        isEqualToString = objc_msgSend_isEqualToString_(v43);
 
-        if (v49)
+        if (isEqualToString)
         {
           v36 = 1;
           v1 = v46;
@@ -1800,7 +1809,7 @@ LABEL_27:
 
         v50 = [*(*(*(v46 + 120) + 8) + 40) pathForDeferredProcessingPreviewFile];
         v51 = [v50 lastPathComponent];
-        v52 = [v43 isEqualToString:v51];
+        v52 = objc_msgSend_isEqualToString_(v43);
 
         v1 = v46;
         v37 = v101;
@@ -1814,7 +1823,7 @@ LABEL_27:
         {
           v53 = [*(*(*(v46 + 120) + 8) + 40) pathForVideoComplementFile];
           v54 = [v53 lastPathComponent];
-          v55 = [v43 isEqualToString:v54];
+          v55 = objc_msgSend_isEqualToString_(v43);
 
           v34 = v100;
           if (v55)
@@ -1826,7 +1835,7 @@ LABEL_27:
           {
             v56 = [*(*(*(v1 + 120) + 8) + 40) pathForDeferredVideoComplementFile];
             v57 = [v56 lastPathComponent];
-            v58 = [v43 isEqualToString:v57];
+            v58 = objc_msgSend_isEqualToString_(v43);
 
             if ((v58 & 1) == 0)
             {
@@ -2067,7 +2076,7 @@ id __96__PLFileSystemAssetImporter_addAssetWithURLs_assetPayload_forceInsert_for
 {
   databaseCopy = database;
   lCopy = l;
-  if ([(NSMutableDictionary *)self->_existingUUIDsByUppercasePath count])
+  if (objc_msgSend_count(self->_existingUUIDsByUppercasePath))
   {
     v8 = [(NSString *)self->_libraryBundlePath length];
     path = [databaseCopy path];
@@ -2258,7 +2267,7 @@ LABEL_23:
 
 - (void)dealloc
 {
-  if ([(NSMutableIndexSet *)self->_thumbIndexes count])
+  if (objc_msgSend_count(self->_thumbIndexes, a2))
   {
     [PLThumbnailIndexes recycleThumbnailIndexes:self->_thumbIndexes inLibrary:self->_photoLibrary];
   }

@@ -919,7 +919,7 @@ LABEL_42:
   v21 = 0;
   if (v13 && firstObject)
   {
-    if ([firstObject isEqualToString:&stru_1EFB14550])
+    if (objc_msgSend_isEqualToString_(firstObject))
     {
       v16 = 0;
       v18 = 0;
@@ -1111,7 +1111,7 @@ LABEL_38:
   v20 = 0;
   if (v13)
   {
-    if ([languageCopy isEqualToString:&stru_1EFB14550])
+    if (objc_msgSend_isEqualToString_(languageCopy))
     {
       v15 = 0;
       v17 = 0;
@@ -1281,15 +1281,15 @@ LABEL_41:
     dispatch_once(&qword_1ED49AE10, &__block_literal_global_509);
   }
 
-  v4 = 0;
+  isEqualToString = 0;
   if (languageCopy && (byte_1ED49AD62 & 1) != 0)
   {
     v5 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:languageCopy];
     languageCode = [v5 languageCode];
-    v4 = [languageCode isEqualToString:@"en"];
+    isEqualToString = objc_msgSend_isEqualToString_(languageCode);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (id)postEditor
@@ -2090,13 +2090,13 @@ void __48__UITextChecker_noteWordTerminator_replacement___block_invoke()
     {
       if (v35)
       {
-        v48 = [replacementText isEqualToString:v35];
+        isEqualToString = objc_msgSend_isEqualToString_(replacementText);
         inputDelegateManager = [v8 inputDelegateManager];
         hasAsyncCapableInputDelegate = [inputDelegateManager hasAsyncCapableInputDelegate];
 
         if (hasAsyncCapableInputDelegate)
         {
-          if (v48)
+          if (isEqualToString)
           {
             v42 = 5;
           }
@@ -2113,9 +2113,9 @@ void __48__UITextChecker_noteWordTerminator_replacement___block_invoke()
       else
       {
         firstObject2 = [v40 firstObject];
-        v51 = [replacementText isEqual:firstObject2];
+        isEqual = objc_msgSend_isEqual_(replacementText);
 
-        if (v51)
+        if (isEqual)
         {
           v42 = 1;
 LABEL_45:
@@ -2465,7 +2465,7 @@ LABEL_7:
   }
 
   v11 = 0;
-  if (![(NSString *)v9 isEqualToString:&stru_1EFB14550])
+  if ((objc_msgSend_isEqualToString_(v9) & 1) == 0)
   {
     if (length)
     {
@@ -2475,7 +2475,7 @@ LABEL_7:
       {
         if (location + length <= v12)
         {
-          if (![(NSString *)v10 isEqualToString:&stru_1EFB14550])
+          if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
           {
             _checker = [(UITextChecker *)self _checker];
             if (_checker)
@@ -2524,7 +2524,7 @@ LABEL_7:
   }
 
   v11 = 0;
-  if (![(NSString *)v9 isEqualToString:&stru_1EFB14550])
+  if ((objc_msgSend_isEqualToString_(v9) & 1) == 0)
   {
     if (length)
     {
@@ -2534,7 +2534,7 @@ LABEL_7:
       {
         if (location + length <= v12)
         {
-          if (![(NSString *)v10 isEqualToString:&stru_1EFB14550])
+          if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
           {
             _checker = [(UITextChecker *)self _checker];
             if (_checker)
@@ -2573,7 +2573,7 @@ LABEL_8:
 {
   languageCopy = language;
   v5 = languageCopy;
-  if (languageCopy && ([languageCopy isEqualToString:&stru_1EFB14550] & 1) == 0)
+  if (languageCopy && (objc_msgSend_isEqualToString_(languageCopy) & 1) == 0)
   {
     _checker = [(UITextChecker *)self _checker];
     if (_checker)
@@ -2609,7 +2609,7 @@ LABEL_8:
   stringCopy = string;
   languageCopy = language;
   v10 = languageCopy;
-  if (languageCopy && ([languageCopy isEqualToString:&stru_1EFB14550] & 1) == 0 && (-[UITextChecker _checker](self, "_checker"), (v11 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (languageCopy && (objc_msgSend_isEqualToString_(languageCopy) & 1) == 0 && ([(UITextChecker *)self _checker], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v12 = v11;
     [qword_1ED49AD68 lock];
@@ -2634,7 +2634,7 @@ LABEL_8:
   stringCopy = string;
   languageCopy = language;
   v8 = languageCopy;
-  if (languageCopy && ([languageCopy isEqualToString:&stru_1EFB14550] & 1) == 0)
+  if (languageCopy && (objc_msgSend_isEqualToString_(languageCopy) & 1) == 0)
   {
     _checker = [(UITextChecker *)self _checker];
     if (_checker)
@@ -2689,76 +2689,76 @@ LABEL_8:
 
 + (id)bestLanguageForString:(id)string fromAlternatives:(id)alternatives currentLanguage:(id)language insertionPointIndex:(unint64_t)index scriptForBestLanguage:(id *)bestLanguage
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   alternativesCopy = alternatives;
   languageCopy = language;
-  v81 = stringCopy;
+  v82 = stringCopy;
   v11 = [stringCopy length];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
   dictionary3 = [MEMORY[0x1E695DF90] dictionary];
+  v107 = 0;
+  v108 = &v107;
+  v109 = 0x2020000000;
+  v110 = 0;
+  v101 = 0;
+  v102 = &v101;
+  v103 = 0x3032000000;
+  v104 = __Block_byref_object_copy__219;
+  v105 = __Block_byref_object_dispose__219;
   v106 = 0;
-  v107 = &v106;
-  v108 = 0x2020000000;
-  v109 = 0;
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x3032000000;
-  v103 = __Block_byref_object_copy__219;
-  v104 = __Block_byref_object_dispose__219;
-  v105 = 0;
   v15 = objc_alloc(MEMORY[0x1E696AD00]);
   v16 = *MEMORY[0x1E696A528];
   v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:{*MEMORY[0x1E696A528], *MEMORY[0x1E696A548], 0}];
   v18 = [v15 initWithTagSchemes:v17 options:0];
 
   [v18 setString:stringCopy];
-  v92[0] = MEMORY[0x1E69E9820];
-  v92[1] = 3221225472;
-  v92[2] = __114__UITextChecker_bestLanguageForString_fromAlternatives_currentLanguage_insertionPointIndex_scriptForBestLanguage___block_invoke;
-  v92[3] = &unk_1E71273C8;
-  v93 = v18;
-  v97 = &v106;
-  v80 = dictionary;
-  v94 = v80;
-  v98 = &v100;
+  v93[0] = MEMORY[0x1E69E9820];
+  v93[1] = 3221225472;
+  v93[2] = __114__UITextChecker_bestLanguageForString_fromAlternatives_currentLanguage_insertionPointIndex_scriptForBestLanguage___block_invoke;
+  v93[3] = &unk_1E71273C8;
+  v94 = v18;
+  v98 = &v107;
+  v81 = dictionary;
+  v95 = v81;
+  v99 = &v101;
   indexCopy = index;
-  v79 = dictionary2;
-  v95 = v79;
-  v76 = dictionary3;
-  v96 = v76;
-  v74 = v93;
-  [v93 enumerateTagsInRange:0 scheme:v11 options:v16 usingBlock:{14, v92}];
-  v19 = v101[5];
-  v101[5] = 0;
+  v80 = dictionary2;
+  v96 = v80;
+  v77 = dictionary3;
+  v97 = v77;
+  v75 = v94;
+  [v94 enumerateTagsInRange:0 scheme:v11 options:v16 usingBlock:{14, v93}];
+  v19 = v102[5];
+  v102[5] = 0;
 
-  if (v107[3])
+  if (v108[3])
   {
-    v90 = 0u;
     v91 = 0u;
-    v88 = 0u;
+    v92 = 0u;
     v89 = 0u;
-    v20 = v80;
-    v21 = [v20 countByEnumeratingWithState:&v88 objects:v111 count:16];
+    v90 = 0u;
+    v20 = v81;
+    v21 = [v20 countByEnumeratingWithState:&v89 objects:v112 count:16];
     if (v21)
     {
       v22 = 0;
       v23 = 0;
-      v82 = 0;
       v83 = 0;
-      v24 = *v89;
+      v84 = 0;
+      v24 = *v90;
       while (1)
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v89 != v24)
+          if (*v90 != v24)
           {
             objc_enumerationMutation(v20);
           }
 
-          v26 = *(*(&v88 + 1) + 8 * i);
-          if (([v26 isEqualToString:@"und"] & 1) == 0)
+          v26 = *(*(&v89 + 1) + 8 * i);
+          if ((objc_msgSend_isEqualToString_(v26) & 1) == 0)
           {
             v27 = [v20 objectForKey:v26];
             unsignedIntegerValue = [v27 unsignedIntegerValue];
@@ -2775,10 +2775,10 @@ LABEL_8:
 
             else
             {
-              v29 = v82;
+              v29 = v83;
 
-              v82 = v26;
-              v83 = v29;
+              v83 = v26;
+              v84 = v29;
               v30 = v23;
               v23 = unsignedIntegerValue;
             }
@@ -2786,11 +2786,11 @@ LABEL_8:
             v31 = v26;
 
             v22 = v30;
-            v83 = v29;
+            v84 = v29;
           }
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v88 objects:v111 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v89 objects:v112 count:16];
         if (!v21)
         {
           v32 = v22;
@@ -2800,242 +2800,245 @@ LABEL_8:
       }
     }
 
-    v82 = 0;
     v83 = 0;
+    v84 = 0;
     v32 = 0.0;
     v33 = 0.0;
 LABEL_17:
 
-    v86 = 0u;
     v87 = 0u;
-    v84 = 0u;
+    v88 = 0u;
     v85 = 0u;
-    v35 = v79;
-    v36 = [v35 countByEnumeratingWithState:&v84 objects:v110 count:16];
-    if (v36)
+    v86 = 0u;
+    v36 = v80;
+    v37 = [v36 countByEnumeratingWithState:&v85 objects:v111 count:16];
+    if (v37)
     {
-      v37 = 0;
+      v38 = 0;
       v34 = 0;
-      v38 = *v85;
+      v39 = *v86;
       do
       {
-        for (j = 0; j != v36; ++j)
+        for (j = 0; j != v37; ++j)
         {
-          if (*v85 != v38)
+          if (*v86 != v39)
           {
-            objc_enumerationMutation(v35);
+            objc_enumerationMutation(v36);
           }
 
-          v40 = *(*(&v84 + 1) + 8 * j);
-          v41 = [v35 objectForKey:v40];
-          unsignedIntegerValue2 = [v41 unsignedIntegerValue];
+          v41 = *(*(&v85 + 1) + 8 * j);
+          v42 = [v36 objectForKey:v41];
+          unsignedIntegerValue2 = [v42 unsignedIntegerValue];
 
-          if (unsignedIntegerValue2 > v37)
+          if (unsignedIntegerValue2 > v38)
           {
-            v43 = v40;
+            v44 = v41;
 
-            v37 = unsignedIntegerValue2;
-            v34 = v43;
+            v38 = unsignedIntegerValue2;
+            v34 = v44;
           }
         }
 
-        v36 = [v35 countByEnumeratingWithState:&v84 objects:v110 count:16];
+        v37 = [v36 countByEnumeratingWithState:&v85 objects:v111 count:16];
       }
 
-      while (v36);
+      while (v37);
     }
 
     else
     {
       v34 = 0;
     }
+
+    isEqualToString = objc_msgSend_isEqualToString_(v34);
   }
 
   else
   {
     v34 = 0;
-    v82 = 0;
     v83 = 0;
+    v84 = 0;
     v32 = 0.0;
     v33 = 0.0;
+    isEqualToString = objc_msgSend_isEqualToString_(0);
   }
 
-  if ([v34 isEqualToString:@"Cyrl"])
+  if (isEqualToString)
   {
     goto LABEL_30;
   }
 
-  v46 = languageCopy;
-  v47 = v82;
-  v48 = [v47 length];
-  if (!v46 || !v47 || (v49 = v48, ![v46 hasPrefix:v47]))
+  v47 = languageCopy;
+  v48 = v83;
+  v49 = [v48 length];
+  if (!v47 || !v48 || (v50 = v49, ![v47 hasPrefix:v48]))
   {
 
     goto LABEL_39;
   }
 
-  if ([v46 length] <= v49)
+  if ([v47 length] <= v50)
   {
 
 LABEL_60:
-    v45 = v46;
-    v65 = [v76 objectForKey:v47];
+    v46 = v47;
+    v66 = [v77 objectForKey:v48];
 LABEL_86:
-    v44 = v65;
+    v45 = v66;
     goto LABEL_87;
   }
 
-  v50 = [v46 characterAtIndex:v49];
+  v51 = [v47 characterAtIndex:v50];
 
-  if (v50 == 95 || v50 == 45)
+  if (v51 == 95 || v51 == 45)
   {
     goto LABEL_60;
   }
 
 LABEL_39:
-  v51 = v101[5];
-  v52 = v46;
-  v53 = v51;
-  v54 = [v53 length];
-  if (!v46 || !v53 || (v55 = v54, ![v52 hasPrefix:v53]))
+  v52 = v102[5];
+  v53 = v47;
+  v54 = v52;
+  v55 = [v54 length];
+  if (!v47 || !v54 || (v56 = v55, ![v53 hasPrefix:v54]))
   {
 
     goto LABEL_47;
   }
 
-  if ([v52 length] <= v55)
+  if ([v53 length] <= v56)
   {
 
 LABEL_62:
-    v45 = v52;
-    v65 = [v76 objectForKey:v101[5]];
+    v46 = v53;
+    v66 = [v77 objectForKey:v102[5]];
     goto LABEL_86;
   }
 
-  v56 = [v52 characterAtIndex:v55];
+  v57 = [v53 characterAtIndex:v56];
 
-  if (v56 == 95 || v56 == 45)
+  if (v57 == 95 || v57 == 45)
   {
     goto LABEL_62;
   }
 
 LABEL_47:
-  v57 = v52;
-  v58 = v83;
-  v59 = [v58 length];
-  if (!v46 || !v58 || (v60 = v59, ![v57 hasPrefix:v58]))
+  v58 = v53;
+  v59 = v84;
+  v60 = [v59 length];
+  if (!v47 || !v59 || (v61 = v60, ![v58 hasPrefix:v59]))
   {
 
     goto LABEL_55;
   }
 
-  if ([v57 length] <= v60)
+  if ([v58 length] <= v61)
   {
   }
 
   else
   {
-    v61 = [v57 characterAtIndex:v60];
+    v62 = [v58 characterAtIndex:v61];
 
-    if (v61 != 95 && v61 != 45)
+    if (v62 != 95 && v62 != 45)
     {
       goto LABEL_55;
     }
   }
 
-  v44 = 0;
-  if (v32 * 4.0 > v107[3])
+  v45 = 0;
+  if (v32 * 4.0 > v108[3])
   {
-    v45 = 0;
+    v46 = 0;
     goto LABEL_87;
   }
 
-  v45 = 0;
+  v46 = 0;
   if (v33 >= v32 + v32)
   {
 LABEL_55:
-    v62 = v101[5];
-    if (!v62 || ([v62 isEqualToString:v47] & 1) != 0)
+    v63 = v102[5];
+    if (!v63 || (objc_msgSend_isEqualToString_(v63) & 1) != 0)
     {
       goto LABEL_75;
     }
 
-    v63 = [alternativesCopy containsObject:v101[5]];
-    v64 = v101[5];
-    if (v63)
+    v64 = [alternativesCopy containsObject:v102[5]];
+    v65 = v102[5];
+    if (v64)
     {
-      v45 = v64;
+      v46 = v65;
       goto LABEL_73;
     }
 
-    v66 = alternativesMatchingLanguage(alternativesCopy, v64);
-    if ([v66 containsObject:v101[5]])
+    v67 = alternativesMatchingLanguage(alternativesCopy, v65);
+    if ([v67 containsObject:v102[5]])
     {
-      v67 = v101[5];
+      v68 = v102[5];
     }
 
     else
     {
-      if (![v66 count])
+      if (![v67 count])
       {
-        v45 = 0;
+        v46 = 0;
         goto LABEL_72;
       }
 
-      v67 = [v66 objectAtIndex:0];
+      v68 = [v67 objectAtIndex:0];
     }
 
-    v45 = v67;
+    v46 = v68;
 LABEL_72:
 
 LABEL_73:
-    if (v45)
+    if (v46)
     {
-      v65 = [v76 objectForKey:v101[5]];
+      v66 = [v77 objectForKey:v102[5]];
       goto LABEL_86;
     }
 
 LABEL_75:
-    if (v33 + v33 <= v107[3])
+    if (v33 + v33 <= v108[3])
     {
 LABEL_30:
-      v44 = 0;
+      v45 = 0;
+      v46 = 0;
+      goto LABEL_87;
+    }
+
+    if ([alternativesCopy containsObject:{v48, v33 + v33}])
+    {
+      v46 = v48;
+LABEL_84:
+      if (v46)
+      {
+        v66 = [v77 objectForKey:v48];
+        goto LABEL_86;
+      }
+
       v45 = 0;
       goto LABEL_87;
     }
 
-    if ([alternativesCopy containsObject:{v47, v33 + v33}])
+    v69 = alternativesMatchingLanguage(alternativesCopy, v48);
+    if ([v69 containsObject:v58])
     {
-      v45 = v47;
-LABEL_84:
-      if (v45)
-      {
-        v65 = [v76 objectForKey:v47];
-        goto LABEL_86;
-      }
-
-      v44 = 0;
-      goto LABEL_87;
-    }
-
-    v68 = alternativesMatchingLanguage(alternativesCopy, v47);
-    if ([v68 containsObject:v57])
-    {
-      v69 = v57;
+      v70 = v58;
     }
 
     else
     {
-      if (![v68 count])
+      if (![v69 count])
       {
-        v45 = 0;
+        v46 = 0;
         goto LABEL_83;
       }
 
-      v69 = [v68 objectAtIndex:0];
+      v70 = [v69 objectAtIndex:0];
     }
 
-    v45 = v69;
+    v46 = v70;
 LABEL_83:
 
     goto LABEL_84;
@@ -3044,17 +3047,17 @@ LABEL_83:
 LABEL_87:
   if (bestLanguage)
   {
-    v70 = v44;
-    *bestLanguage = v44;
+    v71 = v45;
+    *bestLanguage = v45;
   }
 
-  v71 = v96;
-  v72 = v45;
+  v72 = v97;
+  v73 = v46;
 
-  _Block_object_dispose(&v100, 8);
-  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v101, 8);
+  _Block_object_dispose(&v107, 8);
 
-  return v72;
+  return v73;
 }
 
 void __114__UITextChecker_bestLanguageForString_fromAlternatives_currentLanguage_insertionPointIndex_scriptForBestLanguage___block_invoke(uint64_t a1, void *a2, unint64_t a3, uint64_t a4)
@@ -3117,7 +3120,7 @@ void __114__UITextChecker_bestLanguageForString_fromAlternatives_currentLanguage
 {
   dictionaryCopy = dictionary;
   v5 = dictionaryCopy;
-  if (dictionaryCopy && ![dictionaryCopy isEqualToString:*MEMORY[0x1E696A400]])
+  if (dictionaryCopy && !objc_msgSend_isEqualToString_(dictionaryCopy))
   {
     v14 = 0;
     goto LABEL_34;

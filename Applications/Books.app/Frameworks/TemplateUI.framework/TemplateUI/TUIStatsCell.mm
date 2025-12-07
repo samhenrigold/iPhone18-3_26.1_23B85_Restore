@@ -21,12 +21,11 @@
   if (self->_header)
   {
     [v3 appendString:?];
-    v3 = v8;
   }
 
-  TUIStatsAppendTiming(v3, self->_timingProvider, @"\n");
+  TUIStatsAppendTiming();
   [v8 appendString:@"\n"];
-  TUIStatsAppendEvents(v8, self->_eventProvider, @"\n");
+  TUIStatsAppendEvents();
   v4 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
   v5 = [v8 stringByTrimmingCharactersInSet:v4];
   label = [(TUIStatsCell *)self label];

@@ -102,9 +102,9 @@ LABEL_17:
 + (id)targetFgColorWithManager:(id)manager
 {
   managerCopy = manager;
-  fillFgColor = [managerCopy fillFgColor];
+  v4 = objc_msgSend_fillFgColor(managerCopy);
   [managerCopy fillFgAlpha];
-  v5 = [OAVColor readColorFromAttribute:fillFgColor alpha:managerCopy manager:?];
+  v5 = [OAVColor readColorFromAttribute:v4 alpha:managerCopy manager:?];
 
   return v5;
 }
@@ -112,9 +112,9 @@ LABEL_17:
 + (id)targetBgColorWithManager:(id)manager
 {
   managerCopy = manager;
-  fillBgColor = [managerCopy fillBgColor];
+  v4 = objc_msgSend_fillBgColor(managerCopy);
   [managerCopy fillBgAlpha];
-  v5 = [OAVColor readColorFromAttribute:fillBgColor alpha:managerCopy manager:?];
+  v5 = [OAVColor readColorFromAttribute:v4 alpha:managerCopy manager:?];
 
   return v5;
 }
@@ -212,13 +212,13 @@ LABEL_17:
   }
 
   [managerCopy fillFocus];
-  fillFgColor = [managerCopy fillFgColor];
+  v6 = objc_msgSend_fillFgColor(managerCopy);
   LODWORD(v7) = 1.0;
-  [OAVColor readColorFromAttribute:fillFgColor alpha:managerCopy manager:v7];
+  [OAVColor readColorFromAttribute:v6 alpha:managerCopy manager:v7];
   objc_claimAutoreleasedReturnValue();
-  fillBgColor = [managerCopy fillBgColor];
+  v8 = objc_msgSend_fillBgColor(managerCopy);
   LODWORD(v9) = 1.0;
-  [OAVColor readColorFromAttribute:fillBgColor alpha:managerCopy manager:v9];
+  [OAVColor readColorFromAttribute:v8 alpha:managerCopy manager:v9];
   objc_claimAutoreleasedReturnValue();
   [managerCopy fillGradientColors];
   [objc_claimAutoreleasedReturnValue() componentsSeparatedByString:@";"];

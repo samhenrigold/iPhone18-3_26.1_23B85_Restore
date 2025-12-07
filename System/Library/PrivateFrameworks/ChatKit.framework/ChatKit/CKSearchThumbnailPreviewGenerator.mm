@@ -813,7 +813,7 @@ LABEL_10:
 
     if (v10)
     {
-      [v10 duration];
+      objc_msgSend_duration(v10);
     }
 
     else
@@ -857,14 +857,14 @@ LABEL_10:
   return result;
 }
 
-void __60__CKSearchThumbnailPreviewGenerator_durationForVideoResult___block_invoke(uint64_t a1)
+void __60__CKSearchThumbnailPreviewGenerator_durationForVideoResult___block_invoke(uint64_t a1, const char *a2)
 {
-  v8 = 0uLL;
-  v9 = 0;
-  v2 = *(a1 + 32);
-  if (v2)
+  v9 = 0uLL;
+  v10 = 0;
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 _calculateDurationForVideoResult:*(a1 + 40)];
+    objc_msgSend__calculateDurationForVideoResult_(v3, a2, *(a1 + 40));
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -872,10 +872,10 @@ void __60__CKSearchThumbnailPreviewGenerator_durationForVideoResult___block_invo
   block[2] = __60__CKSearchThumbnailPreviewGenerator_durationForVideoResult___block_invoke_2;
   block[3] = &unk_1E72F4088;
   block[4] = *(a1 + 32);
-  v4 = *(a1 + 48);
-  v6 = v8;
+  v5 = *(a1 + 48);
   v7 = v9;
-  v5 = *(a1 + 40);
+  v8 = v10;
+  v6 = *(a1 + 40);
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
@@ -952,7 +952,7 @@ LABEL_13:
   }
 
   v12 = v11;
-  [v11 duration];
+  objc_msgSend_duration(v11);
 
 LABEL_14:
 LABEL_15:
@@ -1998,21 +1998,21 @@ LABEL_35:
   }
 }
 
-void *__103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attributes_traitCollection_completion___block_invoke_3()
+uint64_t (*__103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attributes_traitCollection_completion___block_invoke_3())(void)
 {
   result = MEMORY[0x193AF5ED0]("CLLocationCoordinate2DIsValid", @"CoreLocation");
   sCKSearchThumbnailPreviewGenerator_sharedInstance_block_invoke__CLLocationCoordinate2DIsValid = result;
   return result;
 }
 
-void *__103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attributes_traitCollection_completion___block_invoke_4()
+double (*__103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attributes_traitCollection_completion___block_invoke_4())(double, double)
 {
   result = MEMORY[0x193AF5ED0]("CLLocationCoordinate2DMake", @"CoreLocation");
   sCKSearchThumbnailPreviewGenerator_sharedInstance_block_invoke__CLLocationCoordinate2DMake = result;
   return result;
 }
 
-void *__103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attributes_traitCollection_completion___block_invoke_262()
+uint64_t (*__103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attributes_traitCollection_completion___block_invoke_262())(double, double, double, double)
 {
   result = MEMORY[0x193AF5ED0]("MKCoordinateRegionMakeWithDistance", @"MapKit");
   sCKSearchThumbnailPreviewGenerator_sharedInstance_block_invoke__MKCoordinateRegionMakeWithDistance = result;
@@ -2050,7 +2050,7 @@ void __103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attrib
 
 - (id)mapPlaceholderImageForTraitCollection:(id)collection
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"hash-%ld", objc_msgSend(collectionCopy, "userInterfaceStyle")];
   mapHashesCache = [(CKSearchThumbnailPreviewGenerator *)self mapHashesCache];
@@ -2073,12 +2073,12 @@ void __103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attrib
 
     else
     {
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x3032000000;
-      v38 = __Block_byref_object_copy__40;
-      v39 = __Block_byref_object_dispose__40;
-      v40 = 0;
+      v41 = 0;
+      v42 = &v41;
+      v43 = 0x3032000000;
+      v44 = __Block_byref_object_copy__40;
+      v45 = __Block_byref_object_dispose__40;
+      v46 = 0;
       v14 = MEMORY[0x193AF5EC0](@"MKMapSnapshotOptions", @"MapKit");
       if (v14)
       {
@@ -2100,14 +2100,14 @@ void __103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attrib
           v24 = dispatch_group_create();
           dispatch_group_enter(v24);
           v25 = +[CKPreviewDispatchCache mapThumbnailQueue];
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = __75__CKSearchThumbnailPreviewGenerator_mapPlaceholderImageForTraitCollection___block_invoke;
-          v32[3] = &unk_1E72EBCB0;
-          v34 = &v35;
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __75__CKSearchThumbnailPreviewGenerator_mapPlaceholderImageForTraitCollection___block_invoke;
+          v38[3] = &unk_1E72EBCB0;
+          v40 = &v41;
           v26 = v24;
-          v33 = v26;
-          [v23 startWithQueue:v25 completionHandler:v32];
+          v39 = v26;
+          [v23 startWithQueue:v25 completionHandler:v38];
 
           v27 = dispatch_time(0, 5000000000);
           if (dispatch_group_wait(v26, v27))
@@ -2126,21 +2126,21 @@ void __103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attrib
 
             if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
             {
-              _CKLogExternal();
+              _CKLogExternal(2u, @"%@ thumbnail generation timed out.", v29, v30, v31, v32, v33, v34, self);
             }
           }
 
-          v29 = v36[5];
-          if (v29)
+          v35 = v42[5];
+          if (v35)
           {
             mapHashesCache4 = [(CKSearchThumbnailPreviewGenerator *)self mapHashesCache];
-            [mapHashesCache4 setObject:v36[5] forKey:v5];
+            [mapHashesCache4 setObject:v42[5] forKey:v5];
 
-            [(CKSearchThumbnailPreviewGenerator *)self _persistPreview:v36[5] atURL:v10];
-            v29 = v36[5];
+            [(CKSearchThumbnailPreviewGenerator *)self _persistPreview:v42[5] atURL:v10];
+            v35 = v42[5];
           }
 
-          v9 = v29;
+          v9 = v35;
         }
 
         else
@@ -2166,7 +2166,7 @@ void __103__CKSearchThumbnailPreviewGenerator__generateMapThumbnailForKey_attrib
         v9 = 0;
       }
 
-      _Block_object_dispose(&v35, 8);
+      _Block_object_dispose(&v41, 8);
     }
   }
 
@@ -2880,9 +2880,13 @@ void __96__CKSearchThumbnailPreviewGenerator__generatePreviewForQueryResult_post
 
 void __96__CKSearchThumbnailPreviewGenerator__generatePreviewForQueryResult_postNotification_completion___block_invoke_201_cold_1(uint64_t a1)
 {
-  v1 = [*(a1 + 64) localizedDescription];
+  v1 = *(a1 + 48);
+  v2 = [*(a1 + 64) localizedDescription];
+  LODWORD(v10) = 138412546;
+  *(&v10 + 4) = v1;
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_8_1(&dword_19020E000, v2, v3, "Failed to generate preview for attachment at URL, generating icon. URL: %@, error: %@", v4, v5, v6, v7, 2u);
+  *v11 = v3;
+  OUTLINED_FUNCTION_8_1(&dword_19020E000, v4, v5, "Failed to generate preview for attachment at URL, generating icon. URL: %@, error: %@", v6, v7, v8, v9, v10, DWORD2(v10), *&v11[2]);
 }
 
 void __96__CKSearchThumbnailPreviewGenerator__generatePreviewForQueryResult_postNotification_completion___block_invoke_201_cold_2()
@@ -3039,11 +3043,15 @@ void __75__CKSearchThumbnailPreviewGenerator_mapPlaceholderImageForTraitCollecti
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __59__CKSearchThumbnailPreviewGenerator__persistPreview_atURL___block_invoke_cold_1(uint64_t a1, void *a2)
+void __59__CKSearchThumbnailPreviewGenerator__persistPreview_atURL___block_invoke_cold_1(uint64_t *a1, void *a2)
 {
-  v2 = [a2 localizedDescription];
+  v2 = *a1;
+  v3 = [a2 localizedDescription];
+  LODWORD(v11) = 138412546;
+  *(&v11 + 4) = v2;
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_8_1(&dword_19020E000, v3, v4, "Failed to persist preview data to disk for URL: %@, with error: %@", v5, v6, v7, v8, 2u);
+  *v12 = v4;
+  OUTLINED_FUNCTION_8_1(&dword_19020E000, v5, v6, "Failed to persist preview data to disk for URL: %@, with error: %@", v7, v8, v9, v10, v11, DWORD2(v11), *&v12[2]);
 }
 
 void __59__CKSearchThumbnailPreviewGenerator__persistPreview_atURL___block_invoke_cold_2()

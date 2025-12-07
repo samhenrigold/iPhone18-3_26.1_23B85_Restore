@@ -150,7 +150,7 @@
 - (void)nowPlayingController:(id)controller metadataController:(id)metadataController didChangeArtwork:(id)artwork
 {
   v12 = *MEMORY[0x1E69E9840];
-  v6 = MCLogCategoryDefault();
+  v6 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = MRUFlippingArtworkTransitionDirectionDescription([(MRUAmbientNowPlayingViewController *)self artworkTransitionDirection]);

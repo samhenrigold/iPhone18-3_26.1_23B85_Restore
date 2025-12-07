@@ -10,12 +10,12 @@
 
 - (id)initOrExitWithPath:(id)path isSharedCache:(BOOL)cache
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v8 = objc_msgSend_initWithCacheDir_(self, v7, pathCopy);
-  v40 = 0;
-  LOBYTE(self) = objc_msgSend_openWithError_(v8, v9, &v40);
-  v10 = v40;
+  v38 = 0;
+  LOBYTE(self) = objc_msgSend_openWithError_(v8, v9, &v38);
+  v10 = v38;
   v12 = v10;
   if (self)
   {
@@ -38,11 +38,11 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v42 = v15;
+      v40 = v15;
+      v41 = 2112;
+      v42 = v18;
       v43 = 2112;
-      v44 = v18;
-      v45 = 2112;
-      v46 = v12;
+      v44 = v12;
       _os_log_error_impl(&dword_22506F000, v21, OS_LOG_TYPE_ERROR, "%@ failed to open at path %@: %@", buf, 0x20u);
     }
 
@@ -50,33 +50,32 @@
     v24 = objc_alloc(objc_opt_class());
     v26 = objc_msgSend_initWithCacheDir_(v24, v25, pathCopy);
 
-    v39 = v12;
-    v28 = objc_msgSend_openWithError_(v26, v27, &v39);
-    v13 = v39;
+    v37 = v12;
+    v28 = objc_msgSend_openWithError_(v26, v27, &v37);
+    v13 = v37;
 
     if ((v28 & 1) == 0)
     {
       pthread_mutex_unlock(&stru_280D54E50);
-      v32 = objc_msgSend_CKIsDiskFullError_(MEMORY[0x277CCA9B8], v31, v13);
-      v33 = *MEMORY[0x277CBC878];
-      v34 = *v19;
-      if (v32)
+      v31 = objc_msgSend_CKIsDiskFullError_(MEMORY[0x277CCA9B8], v30, v13);
+      v32 = *MEMORY[0x277CBC878];
+      if (v31)
       {
         if (*v19 != -1)
         {
-          dispatch_once(MEMORY[0x277CBC880], v33);
+          dispatch_once(MEMORY[0x277CBC880], v32);
         }
 
-        v35 = *v20;
+        v33 = *v20;
         if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
-          v42 = v15;
+          v40 = v15;
+          v41 = 2114;
+          v42 = v18;
           v43 = 2114;
-          v44 = v18;
-          v45 = 2114;
-          v46 = v13;
-          _os_log_error_impl(&dword_22506F000, v35, OS_LOG_TYPE_ERROR, "Exiting due to disk full error creating shared database for %{public}@ at path %{public}@: %{public}@", buf, 0x20u);
+          v44 = v13;
+          _os_log_error_impl(&dword_22506F000, v33, OS_LOG_TYPE_ERROR, "Exiting due to disk full error creating shared database for %{public}@ at path %{public}@: %{public}@", buf, 0x20u);
         }
       }
 
@@ -84,19 +83,19 @@
       {
         if (*v19 != -1)
         {
-          dispatch_once(MEMORY[0x277CBC880], v33);
+          dispatch_once(MEMORY[0x277CBC880], v32);
         }
 
-        v36 = *v20;
+        v34 = *v20;
         if (os_log_type_enabled(*v20, OS_LOG_TYPE_FAULT))
         {
           *buf = 138543874;
-          v42 = v15;
+          v40 = v15;
+          v41 = 2114;
+          v42 = v18;
           v43 = 2114;
-          v44 = v18;
-          v45 = 2114;
-          v46 = v13;
-          _os_log_fault_impl(&dword_22506F000, v36, OS_LOG_TYPE_FAULT, "Exiting due to error creating shared database for %{public}@ at path %{public}@: %{public}@", buf, 0x20u);
+          v44 = v13;
+          _os_log_fault_impl(&dword_22506F000, v34, OS_LOG_TYPE_FAULT, "Exiting due to error creating shared database for %{public}@ at path %{public}@: %{public}@", buf, 0x20u);
         }
       }
 
@@ -106,14 +105,13 @@
     v8 = v26;
   }
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = sub_225162EA4;
-  v37[3] = &unk_278546E18;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = sub_225162EA4;
+  v35[3] = &unk_278546E18;
   cacheCopy = cache;
-  objc_msgSend_setInvalidationHandler_(v8, v11, v37);
+  objc_msgSend_setInvalidationHandler_(v8, v11, v35);
 
-  v29 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

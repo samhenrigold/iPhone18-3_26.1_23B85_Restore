@@ -31,7 +31,7 @@ uint64_t __90__HKUserDomainConceptQuery_initWithPredicate_anchor_limit_sortDescr
   v5 = *(a1 + 32);
   if (a3)
   {
-    return [a2 _enumerateResultsWithHandler:a3 handler:v5];
+    return [a2 _enumerateResultsWithHandler:a3 handler:{v5, a5}];
   }
 
   else

@@ -43,7 +43,7 @@
 
 - (void)enumerateIntegersForKey:(int64_t)key block:(id)block
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
@@ -51,39 +51,37 @@
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:key];
     v9 = [(NSMutableDictionary *)storage objectForKeyedSubscript:v8];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         v14 = 0;
         do
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          blockCopy[2](blockCopy, [*(*(&v16 + 1) + 8 * v14) first], objc_msgSend(*(*(&v16 + 1) + 8 * v14), "second"));
+          blockCopy[2](blockCopy, [*(*(&v15 + 1) + 8 * v14) first], objc_msgSend(*(*(&v15 + 1) + 8 * v14), "second"));
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v12);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

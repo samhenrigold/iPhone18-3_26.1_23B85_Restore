@@ -13,6 +13,8 @@
 - (void)presentViewDelegate;
 - (void)renderWebView;
 - (void)requestViewWithTransparencyDetails:(id)details;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler;
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error;
@@ -47,6 +49,26 @@
   [(ADTransparencyViewController *)self renderWebView];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = ADTransparencyViewController;
+  [(ADTransparencyViewController *)&v13 viewDidAppear:appear];
+  v4 = *MEMORY[0x277D76768];
+  objc_initWeak(&location, self);
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __46__ADTransparencyViewController_viewDidAppear___block_invoke;
+  v10 = &unk_279DD9710;
+  objc_copyWeak(&v11, &location);
+  v6 = [defaultCenter addObserverForName:v4 object:0 queue:0 usingBlock:&v7];
+  [(ADTransparencyViewController *)self setNotificationObserver:v6, v7, v8, v9, v10];
+
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&location);
+}
+
 void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -56,6 +78,19 @@ void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1
     v3 = objc_loadWeakRetained((a1 + 32));
     [v3 _closeViewController:0];
   }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  notificationObserver = [(ADTransparencyViewController *)self notificationObserver];
+  [defaultCenter removeObserver:notificationObserver];
+
+  [(ADTransparencyViewController *)self _postDismissedNotification];
+  v7.receiver = self;
+  v7.super_class = ADTransparencyViewController;
+  [(ADTransparencyViewController *)&v7 viewDidDisappear:disappearCopy];
 }
 
 - (void)requestViewWithTransparencyDetails:(id)details
@@ -101,13 +136,13 @@ void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1
 
 - (void)_commonInit
 {
-  v55[3] = *MEMORY[0x277D85DE8];
+  v54[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Connection to ADTransparencyViewController established with TransparencyDetailsView framework."];
   _ADLog();
 
   mEMORY[0x277CE9638] = [MEMORY[0x277CE9638] sharedInstance];
-  v50 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"The Storefront Bundle Locale that will be used is: %@", v50];
+  v49 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"The Storefront Bundle Locale that will be used is: %@", v49];
   _ADLog();
 
   [(ADTransparencyViewController *)self setIsiPad:MGGetBoolAnswer()];
@@ -147,27 +182,27 @@ void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1
   transparencyNavBar5 = [(ADTransparencyViewController *)self transparencyNavBar];
   [view2 addSubview:transparencyNavBar5];
 
-  v43 = MEMORY[0x277CCAAD0];
+  v42 = MEMORY[0x277CCAAD0];
   transparencyNavBar6 = [(ADTransparencyViewController *)self transparencyNavBar];
   topAnchor = [transparencyNavBar6 topAnchor];
   view3 = [(ADTransparencyViewController *)self view];
   topAnchor2 = [view3 topAnchor];
-  v45 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
-  v55[0] = v45;
+  v44 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
+  v54[0] = v44;
   transparencyNavBar7 = [(ADTransparencyViewController *)self transparencyNavBar];
   rightAnchor = [transparencyNavBar7 rightAnchor];
   view4 = [(ADTransparencyViewController *)self view];
   rightAnchor2 = [view4 rightAnchor];
   v17 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v55[1] = v17;
+  v54[1] = v17;
   transparencyNavBar8 = [(ADTransparencyViewController *)self transparencyNavBar];
   leftAnchor = [transparencyNavBar8 leftAnchor];
   view5 = [(ADTransparencyViewController *)self view];
   leftAnchor2 = [view5 leftAnchor];
   v22 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v55[2] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:3];
-  [v43 activateConstraints:v23];
+  v54[2] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
+  [v42 activateConstraints:v23];
 
   v24 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel__closeViewController_];
   [v24 setAccessibilityLabel:@"Close"];
@@ -175,7 +210,7 @@ void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1
   v26 = [mainBundle localizedStringForKey:@"About This Ad" value:&stru_287F8CB38 table:0];
 
   storefrontLocalizationLanguage = [mEMORY[0x277CE9638] storefrontLocalizationLanguage];
-  v28 = [v50 localizedStringForKey:@"About This Ad" value:0 table:0 localization:storefrontLocalizationLanguage];
+  v28 = [v49 localizedStringForKey:@"About This Ad" value:0 table:0 localization:storefrontLocalizationLanguage];
 
   v29 = [objc_alloc(MEMORY[0x277D757A8]) initWithTitle:v28];
   [v29 setLeftBarButtonItem:v24];
@@ -189,10 +224,10 @@ void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1
     systemBackgroundColor2 = [MEMORY[0x277D75348] systemBackgroundColor];
     [v32 setBackgroundColor:systemBackgroundColor2];
 
-    v53 = *MEMORY[0x277D740C0];
+    v52 = *MEMORY[0x277D740C0];
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    v54 = whiteColor;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+    v53 = whiteColor;
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
     [v32 setTitleTextAttributes:v35];
 
     transparencyNavBar9 = [(ADTransparencyViewController *)self transparencyNavBar];
@@ -205,13 +240,12 @@ void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1
     [transparencyNavBar11 setTranslucent:0];
   }
 
-  v52 = v29;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+  v51 = v29;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
   transparencyNavBar12 = [(ADTransparencyViewController *)self transparencyNavBar];
   [transparencyNavBar12 setItems:v39];
 
   [(ADTransparencyViewController *)self prepareRenderingPayload];
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareRenderingPayload
@@ -253,25 +287,25 @@ void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1
 
 - (void)configureWebView
 {
-  v59[4] = *MEMORY[0x277D85DE8];
+  v58[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CE3830]);
   v4 = MEMORY[0x277CCACA8];
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[ADTransparencyViewController renderingStatusForLocationPermission](self, "renderingStatusForLocationPermission")}];
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[ADTransparencyViewController renderingStatusForPAPermission](self, "renderingStatusForPAPermission")}];
-  v58 = [v4 stringWithFormat:@"        window.transparency = {            isLocationPermissionGranted: () => { return %@ }, isPAEnabled: () => { return %@ }         }    ", v5, v6];
+  v57 = [v4 stringWithFormat:@"        window.transparency = {            isLocationPermissionGranted: () => { return %@ }, isPAEnabled: () => { return %@ }         }    ", v5, v6];
 
-  v56 = v3;
-  v57 = [objc_alloc(MEMORY[0x277CE3838]) initWithSource:v58 injectionTime:0 forMainFrameOnly:1];
-  [v3 addUserScript:v57];
-  v55 = objc_alloc_init(MEMORY[0x277CE3858]);
-  [v55 setUserContentController:v3];
+  v55 = v3;
+  v56 = [objc_alloc(MEMORY[0x277CE3838]) initWithSource:v57 injectionTime:0 forMainFrameOnly:1];
+  [v3 addUserScript:v56];
+  v54 = objc_alloc_init(MEMORY[0x277CE3858]);
+  [v54 setUserContentController:v3];
   v7 = objc_alloc(MEMORY[0x277CE3850]);
   view = [(ADTransparencyViewController *)self view];
   [view frame];
   v10 = v9;
   view2 = [(ADTransparencyViewController *)self view];
   [view2 frame];
-  v13 = [v7 initWithFrame:v55 configuration:{0.0, 44.0, v10, v12 + -44.0}];
+  v13 = [v7 initWithFrame:v54 configuration:{0.0, 44.0, v10, v12 + -44.0}];
   [(ADTransparencyViewController *)self setMyWebView:v13];
 
   myWebView = [(ADTransparencyViewController *)self myWebView];
@@ -316,35 +350,33 @@ void __46__ADTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1
   myWebView11 = [(ADTransparencyViewController *)self myWebView];
   [view3 addSubview:myWebView11];
 
-  v45 = MEMORY[0x277CCAAD0];
+  v44 = MEMORY[0x277CCAAD0];
   myWebView12 = [(ADTransparencyViewController *)self myWebView];
   topAnchor = [myWebView12 topAnchor];
   transparencyNavBar = [(ADTransparencyViewController *)self transparencyNavBar];
   bottomAnchor = [transparencyNavBar bottomAnchor];
-  v50 = [topAnchor constraintEqualToAnchor:bottomAnchor];
-  v59[0] = v50;
+  v49 = [topAnchor constraintEqualToAnchor:bottomAnchor];
+  v58[0] = v49;
   myWebView13 = [(ADTransparencyViewController *)self myWebView];
   bottomAnchor2 = [myWebView13 bottomAnchor];
   view4 = [(ADTransparencyViewController *)self view];
   bottomAnchor3 = [view4 bottomAnchor];
-  v44 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v59[1] = v44;
+  v43 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
+  v58[1] = v43;
   myWebView14 = [(ADTransparencyViewController *)self myWebView];
   rightAnchor = [myWebView14 rightAnchor];
   view5 = [(ADTransparencyViewController *)self view];
   rightAnchor2 = [view5 rightAnchor];
   v35 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v59[2] = v35;
+  v58[2] = v35;
   myWebView15 = [(ADTransparencyViewController *)self myWebView];
   leftAnchor = [myWebView15 leftAnchor];
   view6 = [(ADTransparencyViewController *)self view];
   leftAnchor2 = [view6 leftAnchor];
   v40 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v59[3] = v40;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:4];
-  [v45 activateConstraints:v41];
-
-  v42 = *MEMORY[0x277D85DE8];
+  v58[3] = v40;
+  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:4];
+  [v44 activateConstraints:v41];
 }
 
 - (void)renderWebView
@@ -534,7 +566,7 @@ void __53__ADTransparencyViewController__closeViewController___block_invoke(uint
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   handlerCopy = handler;
   request = [actionCopy request];
@@ -548,30 +580,30 @@ void __53__ADTransparencyViewController__closeViewController___block_invoke(uint
   _ADLog();
 
   v15 = [MEMORY[0x277CCACE0] componentsWithURL:v10 resolvingAgainstBaseURL:0];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   queryItems = [v15 queryItems];
-  v17 = [queryItems countByEnumeratingWithState:&v73 objects:v77 count:16];
+  v17 = [queryItems countByEnumeratingWithState:&v72 objects:v76 count:16];
   if (v17)
   {
     v18 = v17;
-    v66 = v15;
-    v67 = v10;
+    v65 = v15;
+    v66 = v10;
     v19 = handlerCopy;
     v20 = actionCopy;
-    v21 = *v74;
+    v21 = *v73;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v74 != v21)
+        if (*v73 != v21)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        v23 = *(*(&v73 + 1) + 8 * i);
+        v23 = *(*(&v72 + 1) + 8 * i);
         name = [v23 name];
         v25 = [name isEqualToString:@"path"];
 
@@ -582,7 +614,7 @@ void __53__ADTransparencyViewController__closeViewController___block_invoke(uint
         }
       }
 
-      v18 = [queryItems countByEnumeratingWithState:&v73 objects:v77 count:16];
+      v18 = [queryItems countByEnumeratingWithState:&v72 objects:v76 count:16];
       if (v18)
       {
         continue;
@@ -595,8 +627,8 @@ void __53__ADTransparencyViewController__closeViewController___block_invoke(uint
 LABEL_11:
     actionCopy = v20;
     handlerCopy = v19;
-    v15 = v66;
-    v10 = v67;
+    v15 = v65;
+    v10 = v66;
   }
 
   else
@@ -611,7 +643,7 @@ LABEL_11:
     goto LABEL_24;
   }
 
-  v68 = handlerCopy;
+  v67 = handlerCopy;
   v29 = actionCopy;
   v30 = v26;
   v31 = v15;
@@ -622,7 +654,7 @@ LABEL_11:
 
     v26 = v30;
     actionCopy = v29;
-    handlerCopy = v68;
+    handlerCopy = v67;
     v15 = v31;
 LABEL_24:
 
@@ -634,7 +666,7 @@ LABEL_24:
 
   v26 = v30;
   actionCopy = v29;
-  handlerCopy = v68;
+  handlerCopy = v67;
   v15 = v31;
   if (v35)
   {
@@ -646,12 +678,12 @@ LABEL_25:
     v55 = selfCopy;
     presentingViewController = [(ADTransparencyViewController *)selfCopy presentingViewController];
     v57 = presentingViewController;
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = __88__ADTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
-    v72[3] = &unk_279DD95D0;
-    v72[4] = selfCopy;
-    v58 = v72;
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __88__ADTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
+    v71[3] = &unk_279DD95D0;
+    v71[4] = selfCopy;
+    v58 = v71;
 LABEL_26:
     [presentingViewController dismissViewControllerAnimated:1 completion:v58];
 
@@ -667,22 +699,22 @@ LABEL_26:
 
   if (v38 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"This is the Settings->App Settings->Location link. Launch this in the settings app."];
+    v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"This is the Settings->App Settings->Location link. Launch this in the settings app."];
     _ADLog();
 
     defaultWorkspace2 = [MEMORY[0x277CC1E80] defaultWorkspace];
-    v62 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=STORE"];
-    [defaultWorkspace2 openSensitiveURL:v62 withOptions:MEMORY[0x277CBEC10]];
+    v61 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=STORE"];
+    [defaultWorkspace2 openSensitiveURL:v61 withOptions:MEMORY[0x277CBEC10]];
 
     v55 = selfCopy;
     presentingViewController = [(ADTransparencyViewController *)selfCopy presentingViewController];
     v57 = presentingViewController;
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __88__ADTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke_2;
-    v71[3] = &unk_279DD95D0;
-    v71[4] = selfCopy;
-    v58 = v71;
+    v70[0] = MEMORY[0x277D85DD0];
+    v70[1] = 3221225472;
+    v70[2] = __88__ADTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke_2;
+    v70[3] = &unk_279DD95D0;
+    v70[4] = selfCopy;
+    v58 = v70;
     goto LABEL_26;
   }
 
@@ -694,24 +726,24 @@ LABEL_26:
   {
     if ([actionCopy navigationType])
     {
-      v68[2](v68, 1);
+      v67[2](v67, 1);
       goto LABEL_27;
     }
 
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     request2 = [actionCopy request];
-    v65 = [request2 URL];
-    [mEMORY[0x277D75128] openURL:v65 options:MEMORY[0x277CBEC10] completionHandler:&__block_literal_global_1];
+    v64 = [request2 URL];
+    [mEMORY[0x277D75128] openURL:v64 options:MEMORY[0x277CBEC10] completionHandler:&__block_literal_global_1];
 
     v55 = selfCopy;
     presentingViewController = [(ADTransparencyViewController *)selfCopy presentingViewController];
     v57 = presentingViewController;
-    v70[0] = MEMORY[0x277D85DD0];
-    v70[1] = 3221225472;
-    v70[2] = __88__ADTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke_4;
-    v70[3] = &unk_279DD95D0;
-    v70[4] = selfCopy;
-    v58 = v70;
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __88__ADTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke_4;
+    v69[3] = &unk_279DD95D0;
+    v69[4] = selfCopy;
+    v58 = v69;
     goto LABEL_26;
   }
 
@@ -743,10 +775,9 @@ LABEL_26:
   _ADLog();
 
   v10 = v50;
-  v68[2](v68, 0);
+  v67[2](v67, 0);
 
 LABEL_27:
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void __88__ADTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke(uint64_t a1)

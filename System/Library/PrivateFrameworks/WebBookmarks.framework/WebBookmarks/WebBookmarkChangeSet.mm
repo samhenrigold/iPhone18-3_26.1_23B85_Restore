@@ -32,12 +32,11 @@
 
 - (void)_readPersistedChanges
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   wb_privacyPreservingDescription = [a2 wb_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v5, v6, "Error converting plist data to dictionary: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = wb_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v5, v6, "Error converting plist data to dictionary: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (NSArray)changes
@@ -135,11 +134,11 @@ void __31__WebBookmarkChangeSet_changes__block_invoke(uint64_t a1)
   return v9;
 }
 
-uint64_t __61__WebBookmarkChangeSet_initWithFileURL_readPersistedChanges___block_invoke(uint64_t result)
+id *__61__WebBookmarkChangeSet_initWithFileURL_readPersistedChanges___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _readPersistedChanges];
+    return [result[4] _readPersistedChanges];
   }
 
   return result;
@@ -173,12 +172,12 @@ uint64_t __40__WebBookmarkChangeSet_encodeWithCoder___block_invoke(uint64_t a1)
 
 - (WebBookmarkChangeSet)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"Changes"];
 
@@ -192,7 +191,6 @@ uint64_t __40__WebBookmarkChangeSet_encodeWithCoder___block_invoke(uint64_t a1)
     v12 = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -215,7 +213,7 @@ uint64_t __40__WebBookmarkChangeSet_encodeWithCoder___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__WebBookmarkChangeSet_shouldSync__block_invoke(uint64_t a1)
+void *__34__WebBookmarkChangeSet_shouldSync__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) safari_containsObjectPassingTest:&__block_literal_global_8];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -257,38 +255,36 @@ uint64_t __34__WebBookmarkChangeSet_shouldSync__block_invoke(uint64_t a1)
 
 void __35__WebBookmarkChangeSet_addChanges___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _addChange:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _addChange:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addChange:(id)change
@@ -307,17 +303,17 @@ void __35__WebBookmarkChangeSet_addChanges___block_invoke(uint64_t a1)
 
 - (void)_addChange:(id)change
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   [(WebBookmarkChangeSet *)self _coalesceChangesForChangeIfNeeded:changeCopy];
   [(NSMutableOrderedSet *)self->_changes addObject:changeCopy];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __35__WebBookmarkChangeSet__addChange___block_invoke;
-  v25[3] = &unk_279E75AF8;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __35__WebBookmarkChangeSet__addChange___block_invoke;
+  v24[3] = &unk_279E75AF8;
   v5 = changeCopy;
-  v26 = v5;
-  v6 = MEMORY[0x2743D6830](v25);
+  v25 = v5;
+  v6 = MEMORY[0x2743D6830](v24);
   bookmarkID = [v5 bookmarkID];
   v8 = bookmarkID;
   if (bookmarkID < self->_lastBookmarkIDForAddingInMemoryBookmark)
@@ -362,29 +358,29 @@ void __35__WebBookmarkChangeSet_addChanges___block_invoke(uint64_t a1)
       {
         if (changeType == 6)
         {
-          v23 = 0u;
-          v24 = 0u;
-          v21 = 0u;
           v22 = 0u;
+          v23 = 0u;
+          v20 = 0u;
+          v21 = 0u;
           bookmarks = [v5 bookmarks];
-          v16 = [bookmarks countByEnumeratingWithState:&v21 objects:v27 count:16];
+          v16 = [bookmarks countByEnumeratingWithState:&v20 objects:v26 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v22;
+            v18 = *v21;
             do
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v22 != v18)
+                if (*v21 != v18)
                 {
                   objc_enumerationMutation(bookmarks);
                 }
 
-                (v6)[2](v6, self->_bookmarkIDToChanges, [*(*(&v21 + 1) + 8 * i) identifier]);
+                (v6)[2](v6, self->_bookmarkIDToChanges, [*(*(&v20 + 1) + 8 * i) identifier]);
               }
 
-              v17 = [bookmarks countByEnumeratingWithState:&v21 objects:v27 count:16];
+              v17 = [bookmarks countByEnumeratingWithState:&v20 objects:v26 count:16];
             }
 
             while (v17);
@@ -421,8 +417,6 @@ LABEL_30:
   }
 
 LABEL_33:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __35__WebBookmarkChangeSet__addChange___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -441,30 +435,30 @@ void __35__WebBookmarkChangeSet__addChange___block_invoke(uint64_t a1, void *a2,
 
 - (void)_coalesceChangesForChangeIfNeeded:(id)needed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   if ([neededCopy changeType] == 3)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = [(NSMutableOrderedSet *)self->_changes copy];
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           if ([v10 changeType] == 3)
           {
             bookmarkID = [v10 bookmarkID];
@@ -475,14 +469,12 @@ void __35__WebBookmarkChangeSet__addChange___block_invoke(uint64_t a1, void *a2,
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeChange:(id)change
@@ -501,16 +493,16 @@ void __35__WebBookmarkChangeSet__addChange___block_invoke(uint64_t a1, void *a2,
 
 - (void)_removeChange:(id)change
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   [(NSMutableOrderedSet *)self->_changes removeObject:changeCopy];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __38__WebBookmarkChangeSet__removeChange___block_invoke;
-  v24[3] = &unk_279E75AF8;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __38__WebBookmarkChangeSet__removeChange___block_invoke;
+  v23[3] = &unk_279E75AF8;
   v5 = changeCopy;
-  v25 = v5;
-  v6 = MEMORY[0x2743D6830](v24);
+  v24 = v5;
+  v6 = MEMORY[0x2743D6830](v23);
   parentID = [v5 parentID];
   associatedBookmarkID = [v5 associatedBookmarkID];
   (v6)[2](v6, self->_bookmarkIDToChanges, [v5 bookmarkID]);
@@ -518,29 +510,29 @@ void __35__WebBookmarkChangeSet__addChange___block_invoke(uint64_t a1, void *a2,
   bookmark = [v5 bookmark];
   (v6)[2](v6, bookmarkIDToChanges, [bookmark lastSelectedChildID]);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   bookmarks = [v5 bookmarks];
-  v11 = [bookmarks countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v11 = [bookmarks countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(bookmarks);
         }
 
-        (v6)[2](v6, self->_bookmarkIDToChanges, [*(*(&v20 + 1) + 8 * i) identifier]);
+        (v6)[2](v6, self->_bookmarkIDToChanges, [*(*(&v19 + 1) + 8 * i) identifier]);
       }
 
-      v12 = [bookmarks countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v12 = [bookmarks countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v12);
@@ -566,8 +558,6 @@ void __35__WebBookmarkChangeSet__addChange___block_invoke(uint64_t a1, void *a2,
   (v6)[2](v6, self->_folderIDToAddedChildrenChanges, associatedBookmarkID);
   (v6)[2](v6, self->_folderIDToModifiedChildrenChanges, parentID);
   (v6)[2](v6, self->_folderIDToReorderedChildrenChanges, parentID);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __38__WebBookmarkChangeSet__removeChange___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -632,31 +622,31 @@ void __38__WebBookmarkChangeSet__removeChange___block_invoke(uint64_t a1, void *
 
 void __48__WebBookmarkChangeSet_replayChangesOnBookmark___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   v3 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(a1 + 40), "identifier")}];
   v4 = [v2 objectForKeyedSubscript:v3];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [v10 changeType];
         if (v11 <= 3)
         {
@@ -690,13 +680,11 @@ LABEL_14:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bookmarksAfterReplayingChangesToBookmarks:(id)bookmarks inFolderWithID:(int)d
@@ -720,31 +708,31 @@ LABEL_14:
 
 void __81__WebBookmarkChangeSet_bookmarksAfterReplayingChangesToBookmarks_inFolderWithID___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 48);
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
   v4 = [v2 objectForKeyedSubscript:v3];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         v11 = [v10 bookmark];
         v12 = [v10 changeType];
         if (v12 > 3)
@@ -760,12 +748,12 @@ LABEL_16:
           {
             [*(a1 + 40) removeObject:v11];
             v17 = *(a1 + 40);
-            v19[0] = MEMORY[0x277D85DD0];
-            v19[1] = 3221225472;
-            v19[2] = __81__WebBookmarkChangeSet_bookmarksAfterReplayingChangesToBookmarks_inFolderWithID___block_invoke_2;
-            v19[3] = &unk_279E75B48;
-            v19[4] = v10;
-            v14 = [v17 safari_firstObjectPassingTest:v19];
+            v18[0] = MEMORY[0x277D85DD0];
+            v18[1] = 3221225472;
+            v18[2] = __81__WebBookmarkChangeSet_bookmarksAfterReplayingChangesToBookmarks_inFolderWithID___block_invoke_2;
+            v18[3] = &unk_279E75B48;
+            v18[4] = v10;
+            v14 = [v17 safari_firstObjectPassingTest:v18];
             [*(a1 + 40) safari_insertObject:v11 afterObject:v14];
             goto LABEL_20;
           }
@@ -809,13 +797,11 @@ LABEL_20:
 LABEL_22:
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isBookmarkDeleted:(int)deleted
@@ -840,31 +826,31 @@ LABEL_22:
 
 void __42__WebBookmarkChangeSet_isBookmarkDeleted___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
   v4 = [v2 objectForKeyedSubscript:v3];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) changeType];
+        v10 = [*(*(&v12 + 1) + 8 * i) changeType];
         if (v10 > 5 || ((1 << v10) & 0x2C) == 0)
         {
           *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -872,7 +858,7 @@ void __42__WebBookmarkChangeSet_isBookmarkDeleted___block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -883,8 +869,6 @@ void __42__WebBookmarkChangeSet_isBookmarkDeleted___block_invoke(uint64_t a1)
   }
 
 LABEL_14:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)deletedBookmarkIDsInBookmarkFolder:(int)folder
@@ -908,71 +892,8 @@ LABEL_14:
 
 void __59__WebBookmarkChangeSet_deletedBookmarkIDsInBookmarkFolder___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 56);
-  v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v4 = [v2 objectForKeyedSubscript:v3];
-
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v14;
-    do
-    {
-      v9 = 0;
-      do
-      {
-        if (*v14 != v8)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v10 = *(a1 + 40);
-        v11 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(*(&v13 + 1) + 8 * v9), "bookmarkID", v13)}];
-        [v10 addObject:v11];
-
-        ++v9;
-      }
-
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v7);
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-- (id)addedBookmarksInBookmarkFolder:(int)folder
-{
-  array = [MEMORY[0x277CBEB18] array];
-  queue = self->_queue;
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = __55__WebBookmarkChangeSet_addedBookmarksInBookmarkFolder___block_invoke;
-  block[3] = &unk_279E75B70;
-  block[4] = self;
-  folderCopy = folder;
-  v7 = array;
-  v12 = v7;
-  dispatch_sync(queue, block);
-  v8 = v12;
-  v9 = v7;
-
-  return v7;
-}
-
-void __55__WebBookmarkChangeSet_addedBookmarksInBookmarkFolder___block_invoke(uint64_t a1)
-{
   v17 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 64);
+  v2 = *(*(a1 + 32) + 56);
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
   v4 = [v2 objectForKeyedSubscript:v3];
 
@@ -996,11 +917,9 @@ void __55__WebBookmarkChangeSet_addedBookmarksInBookmarkFolder___block_invoke(ui
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v12 + 1) + 8 * v9) bookmark];
-        if (v10)
-        {
-          [*(a1 + 40) addObject:v10];
-        }
+        v10 = *(a1 + 40);
+        v11 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(*(&v12 + 1) + 8 * v9), "bookmarkID", v12)}];
+        [v10 addObject:v11];
 
         ++v9;
       }
@@ -1011,8 +930,69 @@ void __55__WebBookmarkChangeSet_addedBookmarksInBookmarkFolder___block_invoke(ui
 
     while (v7);
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (id)addedBookmarksInBookmarkFolder:(int)folder
+{
+  array = [MEMORY[0x277CBEB18] array];
+  queue = self->_queue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __55__WebBookmarkChangeSet_addedBookmarksInBookmarkFolder___block_invoke;
+  block[3] = &unk_279E75B70;
+  block[4] = self;
+  folderCopy = folder;
+  v7 = array;
+  v12 = v7;
+  dispatch_sync(queue, block);
+  v8 = v12;
+  v9 = v7;
+
+  return v7;
+}
+
+void __55__WebBookmarkChangeSet_addedBookmarksInBookmarkFolder___block_invoke(uint64_t a1)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = *(*(a1 + 32) + 64);
+  v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
+  v4 = [v2 objectForKeyedSubscript:v3];
+
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = v4;
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v12;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v12 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v10 = [*(*(&v11 + 1) + 8 * v9) bookmark];
+        if (v10)
+        {
+          [*(a1 + 40) addObject:v10];
+        }
+
+        ++v9;
+      }
+
+      while (v7 != v9);
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
 }
 
 - (id)modifiedBookmarksInBookmarkFolder:(int)folder
@@ -1036,33 +1016,33 @@ void __55__WebBookmarkChangeSet_addedBookmarksInBookmarkFolder___block_invoke(ui
 
 void __58__WebBookmarkChangeSet_modifiedBookmarksInBookmarkFolder___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   v3 = *(*(a1 + 32) + 72);
   v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
   v5 = [v3 objectForKeyedSubscript:v4];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) bookmark];
+        v11 = [*(*(&v13 + 1) + 8 * v10) bookmark];
         v12 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v11, "identifier")}];
         if (v11 && ([v2 containsObject:v12] & 1) == 0)
         {
@@ -1074,13 +1054,11 @@ void __58__WebBookmarkChangeSet_modifiedBookmarksInBookmarkFolder___block_invoke
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)numberOfAddedBookmarksInBookmarkFolder:(int)folder
@@ -1169,7 +1147,7 @@ void __47__WebBookmarkChangeSet_folderHasReplaceChange___block_invoke(uint64_t a
 
 - (void)updateAddChangesWithInMemoryBookmarkID:(int)d toDatabaseGeneratedID:(int)iD
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (d != iD)
   {
     v7 = WBS_LOG_CHANNEL_PREFIXBookmarks();
@@ -1177,50 +1155,48 @@ void __47__WebBookmarkChangeSet_folderHasReplaceChange___block_invoke(uint64_t a
     {
       *buf = 134218240;
       dCopy = d;
-      v15 = 2048;
+      v14 = 2048;
       iDCopy = iD;
       _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_INFO, "Updating changes from in memory identifier %ld to database identifier %ld", buf, 0x16u);
     }
 
     queue = self->_queue;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabaseGeneratedID___block_invoke;
-    v10[3] = &unk_279E75C10;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabaseGeneratedID___block_invoke;
+    v9[3] = &unk_279E75C10;
     dCopy2 = d;
     iDCopy2 = iD;
-    v10[4] = self;
-    dispatch_barrier_sync(queue, v10);
+    v9[4] = self;
+    dispatch_barrier_sync(queue, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabaseGeneratedID___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 44)];
   v4 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:v2];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [v9 bookmark];
         if ([v10 identifier] == *(a1 + 40))
         {
@@ -1235,7 +1211,7 @@ void __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabas
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -1247,54 +1223,52 @@ void __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabas
     [*(*(a1 + 32) + 32) removeObjectForKey:v2];
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabaseGeneratedID___block_invoke_2;
-  v15[3] = &unk_279E75BE8;
-  v18 = *(a1 + 40);
-  v16 = v2;
-  v17 = v3;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabaseGeneratedID___block_invoke_2;
+  v14[3] = &unk_279E75BE8;
+  v17 = *(a1 + 40);
+  v15 = v2;
+  v16 = v3;
   v11 = v3;
   v12 = v2;
-  v13 = MEMORY[0x2743D6830](v15);
+  v13 = MEMORY[0x2743D6830](v14);
   v13[2](v13, *(*(a1 + 32) + 40));
   v13[2](v13, *(*(a1 + 32) + 56));
   v13[2](v13, *(*(a1 + 32) + 64));
   v13[2](v13, *(*(a1 + 32) + 72));
   v13[2](v13, *(*(a1 + 32) + 80));
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabaseGeneratedID___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*(a1 + 32)];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) updateChangeAfterUpdatingInMemoryID:*(a1 + 48) withDatabaseID:*(a1 + 52)];
+        [*(*(&v9 + 1) + 8 * v8++) updateChangeAfterUpdatingInMemoryID:*(a1 + 48) withDatabaseID:*(a1 + 52)];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -1305,8 +1279,6 @@ void __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabas
     [v3 setObject:v4 forKeyedSubscript:*(a1 + 40)];
     [v3 removeObjectForKey:*(a1 + 32)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyModificationsToBookmarks:(id)bookmarks
@@ -1325,70 +1297,68 @@ void __85__WebBookmarkChangeSet_updateAddChangesWithInMemoryBookmarkID_toDatabas
 
 void __54__WebBookmarkChangeSet_applyModificationsToBookmarks___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v2 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v22;
+    v4 = *v21;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v22 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v21 + 1) + 8 * i);
-        v19 = 0u;
-        v20 = 0u;
-        v17 = 0u;
+        v6 = *(*(&v20 + 1) + 8 * i);
         v18 = 0u;
+        v19 = 0u;
+        v16 = 0u;
+        v17 = 0u;
         v7 = *(*(a1 + 40) + 32);
         v8 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v6, "identifier")}];
         v9 = [v7 objectForKeyedSubscript:v8];
 
-        v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v18;
+          v12 = *v17;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v18 != v12)
+              if (*v17 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v17 + 1) + 8 * j);
+              v14 = *(*(&v16 + 1) + 8 * j);
               if ([v14 changeType] == 3)
               {
                 [v14 applyModificationsToBookmark:v6];
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v11);
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v3);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistChangesWithCompletion:(id)completion
@@ -1425,25 +1395,25 @@ uint64_t __53__WebBookmarkChangeSet_persistChangesWithCompletion___block_invoke(
 
 void __53__WebBookmarkChangeSet_persistChangesWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 24) count])
   {
     v2 = [*(*(a1 + 32) + 24) array];
     v3 = [v2 safari_mapObjectsUsingBlock:&__block_literal_global_26];
 
-    v18 = @"Changes";
-    v19[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-    v17 = 0;
-    v5 = [MEMORY[0x277CCAC58] dataWithPropertyList:v4 format:200 options:0 error:&v17];
-    v6 = v17;
+    v16 = @"Changes";
+    v17[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = 0;
+    v5 = [MEMORY[0x277CCAC58] dataWithPropertyList:v4 format:200 options:0 error:&v15];
+    v6 = v15;
     v7 = v6;
     if (v5)
     {
       v8 = *(*(a1 + 32) + 88);
-      v16 = v6;
-      v9 = [v5 writeToURL:v8 options:0 error:&v16];
-      v10 = v16;
+      v14 = v6;
+      v9 = [v5 writeToURL:v8 options:0 error:&v14];
+      v10 = v14;
 
       if ((v9 & 1) == 0)
       {
@@ -1459,22 +1429,19 @@ void __53__WebBookmarkChangeSet_persistChangesWithCompletion___block_invoke_2(ui
 
     else
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXBookmarks();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXBookmarks();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __53__WebBookmarkChangeSet_persistChangesWithCompletion___block_invoke_2_cold_2(v14, v7);
+        __53__WebBookmarkChangeSet_persistChangesWithCompletion___block_invoke_2_cold_2(v13, v7);
       }
     }
 
     (*(*(a1 + 40) + 16))();
-
-    v15 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     v12 = *(*(a1 + 40) + 16);
-    v13 = *MEMORY[0x277D85DE8];
 
     v12();
   }
@@ -1482,22 +1449,20 @@ void __53__WebBookmarkChangeSet_persistChangesWithCompletion___block_invoke_2(ui
 
 void __53__WebBookmarkChangeSet_persistChangesWithCompletion___block_invoke_2_cold_1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 wb_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v5, v6, "Failed to persist in-memory bookmarks changes plist: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v5, v6, "Failed to persist in-memory bookmarks changes plist: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __53__WebBookmarkChangeSet_persistChangesWithCompletion___block_invoke_2_cold_2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 wb_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v5, v6, "Error converting in-memory changes into plist data: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v5, v6, "Error converting in-memory changes into plist data: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

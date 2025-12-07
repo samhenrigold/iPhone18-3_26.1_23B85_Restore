@@ -8,9 +8,12 @@
 - (id)contentModuleContext;
 - (void)_launchAccessibilityReader;
 - (void)_toggleOption:(int64_t)option;
+- (void)_updateShortcutActions:(BOOL)actions;
 - (void)buttonTapped:(id)tapped forEvent:(id)event;
 - (void)dealloc;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 - (void)willTransitionToExpandedContentMode:(BOOL)mode;
 @end
@@ -19,10 +22,10 @@
 
 - (void)viewDidLoad
 {
-  v68 = *MEMORY[0x29EDCA608];
-  v57.receiver = self;
-  v57.super_class = AXCCShortcutModuleViewController;
-  [(CCUIMenuModuleViewController *)&v57 viewDidLoad];
+  v67 = *MEMORY[0x29EDCA608];
+  v56.receiver = self;
+  v56.super_class = AXCCShortcutModuleViewController;
+  [(CCUIMenuModuleViewController *)&v56 viewDidLoad];
   self->_suppressGuidedAccess = 1;
   v3 = MEMORY[0x29EDB9F48];
   v4 = objc_opt_class();
@@ -55,53 +58,53 @@
 
   objc_msgSend__updateShortcutActions(self, v19, v20);
   v21 = *MEMORY[0x29EDC83E8];
-  v63[0] = *MEMORY[0x29EDC83E0];
-  v63[1] = v21;
+  v62[0] = *MEMORY[0x29EDC83E0];
+  v62[1] = v21;
   v22 = *MEMORY[0x29EDC8538];
-  v63[2] = *MEMORY[0x29EDC8478];
-  v63[3] = v22;
+  v62[2] = *MEMORY[0x29EDC8478];
+  v62[3] = v22;
   v23 = *MEMORY[0x29EDC84E8];
-  v63[4] = *MEMORY[0x29EDC8558];
-  v63[5] = v23;
+  v62[4] = *MEMORY[0x29EDC8558];
+  v62[5] = v23;
   v24 = *MEMORY[0x29EDC8510];
-  v63[6] = *MEMORY[0x29EDC8410];
-  v63[7] = v24;
+  v62[6] = *MEMORY[0x29EDC8410];
+  v62[7] = v24;
   v25 = *MEMORY[0x29EDC8418];
-  v63[8] = *MEMORY[0x29EDC8400];
-  v63[9] = v25;
+  v62[8] = *MEMORY[0x29EDC8400];
+  v62[9] = v25;
   v26 = *MEMORY[0x29EDC8408];
-  v63[10] = *MEMORY[0x29EDC84E0];
-  v63[11] = v26;
+  v62[10] = *MEMORY[0x29EDC84E0];
+  v62[11] = v26;
   v27 = *MEMORY[0x29EDC8490];
-  v63[12] = *MEMORY[0x29EDC84B0];
-  v63[13] = v27;
-  objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v28, v63, 14);
+  v62[12] = *MEMORY[0x29EDC84B0];
+  v62[13] = v27;
+  objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v28, v62, 14);
+  v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v29 = v54 = 0u;
-  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v53, v62, 16);
+  v52 = 0u;
+  v29 = v53 = 0u;
+  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v52, v61, 16);
   if (v31)
   {
-    v32 = *v54;
+    v32 = *v53;
     do
     {
       v33 = 0;
       do
       {
-        if (*v54 != v32)
+        if (*v53 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v53 + 1) + 8 * v33);
+        v34 = *(*(&v52 + 1) + 8 * v33);
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterAddObserver(DarwinNotifyCenter, self, sub_29C92D734, v34, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
         ++v33;
       }
 
       while (v31 != v33);
-      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v36, &v53, v62, 16);
+      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v36, &v52, v61, 16);
     }
 
     while (v31);
@@ -109,44 +112,42 @@
 
   objc_initWeak(&location, self);
   v39 = objc_msgSend_sharedInstance(MEMORY[0x29EDBDFA0], v37, v38);
-  v50[0] = MEMORY[0x29EDCA5F8];
-  v50[1] = 3221225472;
-  v50[2] = sub_29C92D73C;
-  v50[3] = &unk_29F334638;
-  objc_copyWeak(&v51, &location);
-  objc_msgSend_registerUpdateBlock_forRetrieveSelector_withListener_(v39, v40, v50, sel_touchAccommodationsEnabled, self);
+  v49[0] = MEMORY[0x29EDCA5F8];
+  v49[1] = 3221225472;
+  v49[2] = sub_29C92D73C;
+  v49[3] = &unk_29F334638;
+  objc_copyWeak(&v50, &location);
+  objc_msgSend_registerUpdateBlock_forRetrieveSelector_withListener_(v39, v40, v49, sel_touchAccommodationsEnabled, self);
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2050000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2050000000;
   v41 = qword_2A1798628;
-  v61 = qword_2A1798628;
+  v60 = qword_2A1798628;
   if (!qword_2A1798628)
   {
     *&buf = MEMORY[0x29EDCA5F8];
     *(&buf + 1) = 3221225472;
-    v65 = sub_29C92E610;
-    v66 = &unk_29F334748;
-    v67 = &v58;
+    v64 = sub_29C92E610;
+    v65 = &unk_29F334748;
+    v66 = &v57;
     sub_29C92E610(&buf);
-    v41 = v59[3];
+    v41 = v58[3];
   }
 
   v42 = v41;
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   v45 = objc_msgSend_sharedInstance(v41, v43, v44);
-  v48[0] = MEMORY[0x29EDCA5F8];
-  v48[1] = 3221225472;
-  v48[2] = sub_29C92D77C;
-  v48[3] = &unk_29F334638;
-  objc_copyWeak(&v49, &location);
-  objc_msgSend_registerUpdateBlock_forRetrieveSelector_withListener_(v45, v46, v48, sel_comfortSoundsEnabled, self);
+  v47[0] = MEMORY[0x29EDCA5F8];
+  v47[1] = 3221225472;
+  v47[2] = sub_29C92D77C;
+  v47[3] = &unk_29F334638;
+  objc_copyWeak(&v48, &location);
+  objc_msgSend_registerUpdateBlock_forRetrieveSelector_withListener_(v45, v46, v47, sel_comfortSoundsEnabled, self);
 
-  objc_destroyWeak(&v49);
-  objc_destroyWeak(&v51);
+  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v50);
   objc_destroyWeak(&location);
-
-  v47 = *MEMORY[0x29EDCA608];
 }
 
 - (void)dealloc
@@ -172,6 +173,59 @@
   v9.receiver = self;
   v9.super_class = AXCCShortcutModuleViewController;
   [(CCUIMenuModuleViewController *)&v9 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
+}
+
+- (void)_updateShortcutActions:(BOOL)actions
+{
+  v32 = *MEMORY[0x29EDCA608];
+  if (self->_moduleNeedsLiveUpdates || actions)
+  {
+    v4 = objc_msgSend_visibleShortcuts(self, a2, actions);
+    v5 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+    if (objc_msgSend_count(v4, v6, v7))
+    {
+      objc_msgSend_setIndentation_(self, v8, 2);
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v9 = v4;
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v27, v31, 16);
+      if (v11)
+      {
+        v13 = v11;
+        v14 = *v28;
+        do
+        {
+          for (i = 0; i != v13; ++i)
+          {
+            if (*v28 != v14)
+            {
+              objc_enumerationMutation(v9);
+            }
+
+            v16 = objc_msgSend__menuItemForOption_(self, v12, *(*(&v27 + 1) + 8 * i), v27);
+            objc_msgSend_addObject_(v5, v17, v16);
+          }
+
+          v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v27, v31, 16);
+        }
+
+        while (v13);
+      }
+    }
+
+    else
+    {
+      objc_msgSend_setIndentation_(self, v8, 0);
+      v9 = objc_msgSend__menuItemOpenAccessibilityShortcutSettings(self, v18, v19);
+      objc_msgSend_addObject_(v5, v20, v9);
+    }
+
+    objc_msgSend_setMenuItems_(self, v21, v5);
+    v24 = objc_msgSend_shortcutDelegate(self, v22, v23);
+    objc_msgSend_optionToggled(v24, v25, v26);
+  }
 }
 
 - (id)_menuItemOpenAccessibilityShortcutSettings
@@ -221,42 +275,63 @@
 
 - (id)_titlesForVisibleShortcuts
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v4 = objc_msgSend_array(MEMORY[0x29EDB8DE8], a2, v2);
   v7 = objc_msgSend_visibleShortcuts(self, v5, v6);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v22, v26, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v21, v25, 16);
   if (v9)
   {
     v12 = v9;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v7);
         }
 
         v15 = MEMORY[0x29EDBDFB8];
-        v16 = objc_msgSend_intValue(*(*(&v22 + 1) + 8 * i), v10, v11);
+        v16 = objc_msgSend_intValue(*(*(&v21 + 1) + 8 * i), v10, v11);
         v18 = objc_msgSend_titleForTripleClickOption_(v15, v17, v16);
         objc_msgSend_addObject_(v4, v19, v18);
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v22, v26, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v21, v25, 16);
     }
 
     while (v12);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
-
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = AXCCShortcutModuleViewController;
+  [(CCUIMenuModuleViewController *)&v6 viewWillAppear:appear];
+  self->_moduleNeedsLiveUpdates = 1;
+  v4 = dispatch_get_global_queue(0, 0);
+  block[0] = MEMORY[0x29EDCA5F8];
+  block[1] = 3221225472;
+  block[2] = sub_29C92E09C;
+  block[3] = &unk_29F3346D8;
+  block[4] = self;
+  dispatch_async(v4, block);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = AXCCShortcutModuleViewController;
+  [(CCUIMenuModuleViewController *)&v4 viewDidDisappear:disappear];
+  self->_moduleNeedsLiveUpdates = 0;
 }
 
 - (void)_toggleOption:(int64_t)option

@@ -146,7 +146,7 @@
   if (result)
   {
 
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result movieFragmentInterval];
+    return objc_msgSend_movieFragmentInterval(result);
   }
 
   else
@@ -175,7 +175,7 @@
   if (result)
   {
 
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result initialMovieFragmentInterval];
+    return objc_msgSend_initialMovieFragmentInterval(result);
   }
 
   else
@@ -204,7 +204,7 @@
   if (result)
   {
 
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result overallDurationHint];
+    return objc_msgSend_overallDurationHint(result);
   }
 
   else
@@ -301,7 +301,7 @@
   if (result)
   {
 
-    return [(CGAffineTransform *)result preferredTransform];
+    return objc_msgSend_preferredTransform(result);
   }
 
   else
@@ -366,7 +366,7 @@
   if (result)
   {
 
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result preferredOutputSegmentInterval];
+    return objc_msgSend_preferredOutputSegmentInterval(result);
   }
 
   else
@@ -395,7 +395,7 @@
   if (result)
   {
 
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result initialSegmentStartTime];
+    return objc_msgSend_initialSegmentStartTime(result);
   }
 
   else
@@ -791,7 +791,7 @@ LABEL_10:
   return v8;
 }
 
-uint64_t __66__AVAssetWriterHelper__transitionToClientInitiatedTerminalStatus___block_invoke(uint64_t a1)
+void *__66__AVAssetWriterHelper__transitionToClientInitiatedTerminalStatus___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -814,7 +814,8 @@ uint64_t __66__AVAssetWriterHelper__transitionToClientInitiatedTerminalStatus___
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v7 + 1) + 8 * v6++) _transitionToTerminalStatus:*(a1 + 40)];
+        [*(*(&v7 + 1) + 8 * v6) _transitionToTerminalStatus:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -844,7 +845,7 @@ uint64_t __66__AVAssetWriterHelper__transitionToClientInitiatedTerminalStatus___
   }
 }
 
-uint64_t __57__AVAssetWriterHelper_transitionToFailedStatusWithError___block_invoke(uint64_t a1)
+void *__57__AVAssetWriterHelper_transitionToFailedStatusWithError___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v6 = 0u;
@@ -867,7 +868,8 @@ uint64_t __57__AVAssetWriterHelper_transitionToFailedStatusWithError___block_inv
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v6 + 1) + 8 * v5++) _transitionToTerminalStatus:3];
+        [*(*(&v6 + 1) + 8 * v5) _transitionToTerminalStatus:3];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);

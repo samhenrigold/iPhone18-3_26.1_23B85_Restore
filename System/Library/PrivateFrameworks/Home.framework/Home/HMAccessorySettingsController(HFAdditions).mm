@@ -6,7 +6,7 @@
 
 - (id)hf_updateAccessorySettingWithHomeIdentifier:()HFAdditions accessoryIdentifier:keyPath:settingValue:
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -22,31 +22,30 @@
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v34 = v12;
-    v35 = 2112;
-    v36 = v11;
-    v37 = 2112;
-    v38 = v13;
+    v33 = v12;
+    v34 = 2112;
+    v35 = v11;
+    v36 = 2112;
+    v37 = v13;
     _os_log_debug_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEBUG, "Kicking off update for setting [%@] for accessoryID: [%@] with value [%@]", buf, 0x20u);
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __131__HMAccessorySettingsController_HFAdditions__hf_updateAccessorySettingWithHomeIdentifier_accessoryIdentifier_keyPath_settingValue___block_invoke;
-  v28[3] = &unk_277DF81C8;
-  v29 = v12;
-  v30 = v11;
-  v31 = v13;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __131__HMAccessorySettingsController_HFAdditions__hf_updateAccessorySettingWithHomeIdentifier_accessoryIdentifier_keyPath_settingValue___block_invoke;
+  v27[3] = &unk_277DF81C8;
+  v28 = v12;
+  v29 = v11;
+  v30 = v13;
   v20 = v14;
-  v32 = v20;
+  v31 = v20;
   v21 = v13;
   v22 = v11;
   v23 = v12;
-  [self updateAccessorySettingWithHomeIdentifier:v10 accessoryIdentifier:v22 keyPath:v23 settingValue:v21 completionHandler:v28];
-  v24 = v32;
+  [self updateAccessorySettingWithHomeIdentifier:v10 accessoryIdentifier:v22 keyPath:v23 settingValue:v21 completionHandler:v27];
+  v24 = v31;
   v25 = v20;
 
-  v26 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

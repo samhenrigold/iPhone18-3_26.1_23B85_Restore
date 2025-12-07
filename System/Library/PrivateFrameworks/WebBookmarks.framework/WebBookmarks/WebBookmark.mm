@@ -55,6 +55,9 @@
 - (WebBookmark)initWithCoder:(id)coder;
 - (WebBookmark)initWithDictionaryRepresentationForInMemoryChangeTracking:(id)tracking;
 - (WebBookmark)initWithSQLiteStatement:(sqlite3_stmt *)statement deviceIdentifier:(id)identifier hasIcon:(BOOL)icon collectionType:(int64_t)type skipDecodingSyncData:(BOOL)data;
+- (WebBookmark)initWithTitle:(id)title address:(id)address parentID:(int)d folder:(BOOL)folder deviceIdentifier:(id)identifier collectionType:(int64_t)type;
+- (WebBookmark)initWithTitle:(id)title address:(id)address parentID:(int)d subtype:(int64_t)subtype deviceIdentifier:(id)identifier collectionType:(int64_t)type;
+- (WebBookmark)initWithTitle:(id)title address:(id)address parentID:(int)d subtype:(int64_t)subtype deviceIdentifier:(id)identifier collectionType:(int64_t)type score:(id)score;
 - (id)_fieldWithValue:(id)value generationKey:(id)key modifiedAttributes:(unint64_t)attributes syncData:(id)data;
 - (id)_fieldWithValueProvider:(id)provider valueUpdater:(id)updater generationKey:(id)key modifiedAttributes:(unint64_t)attributes syncData:(id)data;
 - (id)_fieldsForAttributes:(unint64_t)attributes;
@@ -68,6 +71,7 @@
 - (id)initBuiltinBookmarkWithTitle:(id)title address:(id)address;
 - (id)initBuiltinDeviceBookmarkWithTitle:(id)title address:(id)address;
 - (id)initCarrierBookmarkWithTitle:(id)title address:(id)address;
+- (id)initFolderWithParentID:(int)d subtype:(int64_t)subtype deviceIdentifier:(id)identifier collectionType:(int64_t)type;
 - (id)initManagedBookmarkFolderWithTitle:(id)title uuid:(id)uuid;
 - (id)initManagedBookmarkWithTitle:(id)title address:(id)address uuid:(id)uuid;
 - (id)initReadingListBookmarkWithTitle:(id)title address:(id)address previewText:(id)text;
@@ -219,11 +223,10 @@ LABEL_5:
 {
   os_unfair_recursive_lock_lock_with_options();
   backgroundImageModifiedField = self->_backgroundImageModifiedField;
-  v19 = MEMORY[0x277CBEA60];
-  v17 = *&self->_dateAddedField;
-  v3 = *&self->_labelField;
-  v15 = v3;
-  v16 = *&self->_iconURLField;
+  v18 = MEMORY[0x277CBEA60];
+  v16 = *&self->_dateAddedField;
+  v14 = *&self->_labelField;
+  v15 = *&self->_iconURLField;
   locationField = self->_locationField;
   previewTextField = self->_previewTextField;
   syncStateField = self->_syncStateField;
@@ -233,11 +236,11 @@ LABEL_5:
   showIconOnlyField = self->_showIconOnlyField;
   tabDateLastViewedField = self->_tabDateLastViewedField;
   null = [MEMORY[0x277CBEB68] null];
-  v13 = [v19 safari_arrayWithObjectsUnlessNil:{backgroundImageModifiedField, v17, v16, v15, locationField, previewTextField, syncStateField, symbolImageNameField, customFavoritesFolderServerIDField, startPageSectionsDataField, showIconOnlyField, tabDateLastViewedField, null}];
+  v12 = [v18 safari_arrayWithObjectsUnlessNil:{backgroundImageModifiedField, v16, v15, v14, locationField, previewTextField, syncStateField, symbolImageNameField, customFavoritesFolderServerIDField, startPageSectionsDataField, showIconOnlyField, tabDateLastViewedField, null}];
 
   os_unfair_recursive_lock_unlock();
 
-  return v13;
+  return v12;
 }
 
 - (void)dealloc
@@ -464,11 +467,11 @@ void __52__WebBookmark_ReadingListInternal__dateAddedUpdater__block_invoke(uint6
   return value;
 }
 
-id __62__WebBookmark_Internal__customFavoritesFolderServerIDProvider__block_invoke(uint64_t a1, void *a2)
+id __62__WebBookmark_Internal__customFavoritesFolderServerIDProvider__block_invoke(uint64_t a1, char *a2)
 {
   v2 = a2;
   os_unfair_recursive_lock_lock_with_options();
-  v3 = [v2[13] objectForKeyedSubscript:@"CustomFavoritesFolderServerID"];
+  v3 = [*(v2 + 13) objectForKeyedSubscript:@"CustomFavoritesFolderServerID"];
   os_unfair_recursive_lock_unlock();
 
   return v3;
@@ -491,32 +494,122 @@ id __62__WebBookmark_Internal__customFavoritesFolderServerIDProvider__block_invo
   return value;
 }
 
-id __48__WebBookmark_Internal__symbolImageNameProvider__block_invoke(uint64_t a1, void *a2)
+id __48__WebBookmark_Internal__symbolImageNameProvider__block_invoke(uint64_t a1, char *a2)
 {
   v2 = a2;
   os_unfair_recursive_lock_lock_with_options();
-  v3 = [v2[13] objectForKeyedSubscript:@"SymbolImageName"];
+  v3 = [*(v2 + 13) objectForKeyedSubscript:@"SymbolImageName"];
   os_unfair_recursive_lock_unlock();
 
   return v3;
 }
 
+- (WebBookmark)initWithTitle:(id)title address:(id)address parentID:(int)d subtype:(int64_t)subtype deviceIdentifier:(id)identifier collectionType:(int64_t)type
+{
+  v9 = [(WebBookmark *)self initWithTitle:title address:address parentID:*&d deviceIdentifier:identifier collectionType:type];
+  v10 = v9;
+  if (v9)
+  {
+    v9->_subtype = subtype;
+    v11 = v9;
+  }
+
+  return v10;
+}
+
+- (WebBookmark)initWithTitle:(id)title address:(id)address parentID:(int)d subtype:(int64_t)subtype deviceIdentifier:(id)identifier collectionType:(int64_t)type score:(id)score
+{
+  v12 = *&d;
+  scoreCopy = score;
+  v17 = [(WebBookmark *)self initWithTitle:title address:address parentID:v12 subtype:subtype deviceIdentifier:identifier collectionType:type];
+  v18 = v17;
+  if (v17)
+  {
+    [(WebBookmark *)v17 setLocalAttributesValue:scoreCopy forKey:@"com.apple.bookmarks.FrequentlyVisitedSiteScore"];
+    v19 = v18;
+  }
+
+  return v18;
+}
+
+- (WebBookmark)initWithTitle:(id)title address:(id)address parentID:(int)d folder:(BOOL)folder deviceIdentifier:(id)identifier collectionType:(int64_t)type
+{
+  v11 = *&d;
+  titleCopy = title;
+  addressCopy = address;
+  identifierCopy = identifier;
+  v30.receiver = self;
+  v30.super_class = WebBookmark;
+  v17 = [(WebBookmark *)&v30 init];
+  v18 = v17;
+  if (v17)
+  {
+    v17->_fieldsWriteLock = 0;
+    v17->_folder = folder;
+    v17->_id = 0x7FFFFFFF;
+    v19 = +[WebBookmarkCollection _uniqueExternalUUID];
+    [(WebBookmark *)v18 _setUUID:v19];
+
+    v18->_specialID = 0;
+    if (type == 1)
+    {
+      uUID = [MEMORY[0x277CCAD78] UUID];
+      uUIDString = [uUID UUIDString];
+      serverID = v18->_serverID;
+      v18->_serverID = uUIDString;
+    }
+
+    v23 = [identifierCopy copy];
+    deviceIdentifier = v18->_deviceIdentifier;
+    v18->_deviceIdentifier = v23;
+
+    *&v18->_editable = 16777473;
+    v25 = objc_alloc_init(WBBookmarkLabel);
+    v26 = objc_alloc_init(WBBookmarkLocation);
+    [(WebBookmark *)v18 _setUpFieldsWithLabel:v25 lastSelectedChild:0x7FFFFFFFLL location:v26 syncData:0];
+    [(WebBookmark *)v18 setTitle:titleCopy];
+    [(WebBookmark *)v18 setAddress:addressCopy];
+    [(WebBookmark *)v18 _setParentID:v11];
+    [(WebBookmark *)v18 _setOrderIndex:0];
+    v18->_collectionType = type;
+    *&v18->_inserted = 0;
+    v27 = [MEMORY[0x277CBEAA8] now];
+    [(WebBookmark *)v18 setDateAdded:v27];
+
+    v28 = v18;
+  }
+
+  return v18;
+}
+
+- (id)initFolderWithParentID:(int)d subtype:(int64_t)subtype deviceIdentifier:(id)identifier collectionType:(int64_t)type
+{
+  v7 = [(WebBookmark *)self initFolderWithParentID:*&d deviceIdentifier:identifier collectionType:type];
+  v8 = v7;
+  if (v7)
+  {
+    v7[17] = subtype;
+    v9 = v7;
+  }
+
+  return v8;
+}
+
 - (id)initBuiltinBookmarkWithTitle:(id)title address:(id)address
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [(WebBookmark *)self initWithTitle:title address:address collectionType:0];
   if (v4)
   {
-    v10 = @"com.apple.bookmarks.IsBuiltinBookmark";
-    v11[0] = MEMORY[0x277CBEC38];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"com.apple.bookmarks.IsBuiltinBookmark";
+    v10[0] = MEMORY[0x277CBEC38];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     localAttributes = v4->_localAttributes;
     v4->_localAttributes = v5;
 
     v7 = v4;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -997,7 +1090,7 @@ uint64_t __34__WebBookmark_setExtraAttributes___block_invoke(uint64_t a1)
     v5 = *(v4 + 104);
     *(v4 + 104) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1018,23 +1111,21 @@ uint64_t __34__WebBookmark_setExtraAttributes___block_invoke(uint64_t a1)
 
 uint64_t __27__WebBookmark_setServerID___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 32);
   result = WBSIsEqual();
   if ((result & 1) == 0)
   {
-    v5 = [*(a1 + 40) copy];
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 32);
-    *(v6 + 32) = v5;
+    v3 = [*(a1 + 40) copy];
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 32);
+    *(v4 + 32) = v3;
 
-    v8 = *MEMORY[0x277D49BD8];
+    v6 = *MEMORY[0x277D49BD8];
     result = [*(a1 + 40) isEqualToString:*MEMORY[0x277D49BD8]];
     if (result)
     {
-      v9 = *(a1 + 32);
+      v7 = *(a1 + 32);
 
-      return [v9 _setUUID:v8];
+      return [v7 _setUUID:v6];
     }
   }
 
@@ -1179,11 +1270,10 @@ LABEL_11:
 
 void __42__WebBookmark_setSelectedFavoritesFolder___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) isSelectedFavoritesFolder];
-  LOBYTE(v2) = WBSIsEqual();
+  v2 = [*(a1 + 40) isSelectedFavoritesFolder];
+  v3 = WBSIsEqual();
 
-  if ((v2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     [*(*(a1 + 40) + 208) setValue:*(a1 + 32)];
     [*(*(a1 + 40) + 208) incrementGenerationIfNeeded];
@@ -1414,10 +1504,9 @@ void __47__WebBookmark_setBackgroundImageModifiedState___block_invoke(uint64_t a
 void __36__WebBookmark_setTabDateLastViewed___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 296) value];
-  v3 = *(a1 + 40);
-  v4 = WBSIsEqual();
+  v3 = WBSIsEqual();
 
-  if ((v4 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     [*(*(a1 + 32) + 296) setValue:*(a1 + 40) incrementGenerationIfNeeded:1];
     [*(a1 + 32) markAttributesAsModified:8];
@@ -1516,11 +1605,10 @@ void __46__WebBookmark_setExtraAttributesValue_forKey___block_invoke(void *a1)
 
 void __34__WebBookmark_setSymbolImageName___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) symbolImageName];
-  LOBYTE(v2) = WBSIsEqual();
+  v2 = [*(a1 + 40) symbolImageName];
+  v3 = WBSIsEqual();
 
-  if ((v2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     v4 = [*(a1 + 32) copy];
     [*(*(a1 + 40) + 264) setValue:v4];
@@ -1548,11 +1636,10 @@ void __34__WebBookmark_setSymbolImageName___block_invoke(uint64_t a1)
 
 void __48__WebBookmark_setCustomFavoritesFolderServerID___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) customFavoritesFolderServerID];
-  LOBYTE(v2) = WBSIsEqual();
+  v2 = [*(a1 + 40) customFavoritesFolderServerID];
+  v3 = WBSIsEqual();
 
-  if ((v2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     v4 = [*(a1 + 32) copy];
     [*(*(a1 + 40) + 272) setValue:v4];
@@ -1589,11 +1676,10 @@ void __48__WebBookmark_setCustomFavoritesFolderServerID___block_invoke(uint64_t 
 
 void __54__WebBookmark_setStartPageSectionsDataRepresentation___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) startPageSectionsDataRepresentation];
-  LOBYTE(v2) = WBSIsEqual();
+  v2 = [*(a1 + 40) startPageSectionsDataRepresentation];
+  v3 = WBSIsEqual();
 
-  if ((v2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     v4 = [*(a1 + 32) copy];
     [*(*(a1 + 40) + 280) setValue:v4];
@@ -1627,7 +1713,7 @@ void __54__WebBookmark_setStartPageSectionsDataRepresentation___block_invoke(uin
   [(WebBookmark *)self performWithFieldsWriteLock:v3];
 }
 
-uint64_t __31__WebBookmark_setShowIconOnly___block_invoke(uint64_t a1)
+void *__31__WebBookmark_setShowIconOnly___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   result = [*(a1 + 32) showIconOnly];
@@ -1673,11 +1759,10 @@ uint64_t __31__WebBookmark_setShowIconOnly___block_invoke(uint64_t a1)
 
 void __51__WebBookmark_setSyncPosition_incrementGeneration___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) syncPosition];
-  LOBYTE(v2) = WBSIsEqual();
+  v2 = [*(a1 + 40) syncPosition];
+  v3 = WBSIsEqual();
 
-  if ((v2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     v4 = [*(*(a1 + 40) + 232) value];
     v5 = [v4 locationWithPosition:*(a1 + 32)];
@@ -1839,7 +1924,7 @@ uint64_t __37__WebBookmark_setLastReadGeneration___block_invoke(uint64_t a1, voi
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   _initForCopy = [objc_alloc(objc_opt_class()) _initForCopy];
   *(_initForCopy + 16) = self->_folder;
   v5 = [(NSString *)self->_UUID copy];
@@ -1957,30 +2042,30 @@ uint64_t __37__WebBookmark_setLastReadGeneration___block_invoke(uint64_t a1, voi
   *(_initForCopy + 296) = v52;
 
   fields = [_initForCopy fields];
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  v55 = [fields countByEnumeratingWithState:&v62 objects:v66 count:16];
+  v55 = [fields countByEnumeratingWithState:&v61 objects:v65 count:16];
   if (v55)
   {
     v56 = v55;
-    v57 = *v63;
+    v57 = *v62;
     do
     {
       v58 = 0;
       do
       {
-        if (*v63 != v57)
+        if (*v62 != v57)
         {
           objc_enumerationMutation(fields);
         }
 
-        [*(*(&v62 + 1) + 8 * v58++) setShouldIncrementGeneration:1];
+        [*(*(&v61 + 1) + 8 * v58++) setShouldIncrementGeneration:1];
       }
 
       while (v56 != v58);
-      v56 = [fields countByEnumeratingWithState:&v62 objects:v66 count:16];
+      v56 = [fields countByEnumeratingWithState:&v61 objects:v65 count:16];
     }
 
     while (v56);
@@ -1990,7 +2075,6 @@ uint64_t __37__WebBookmark_setLastReadGeneration___block_invoke(uint64_t a1, voi
   *(_initForCopy + 68) = shareRecord != 0;
 
   *(_initForCopy + 136) = self->_subtype;
-  v60 = *MEMORY[0x277D85DE8];
   return _initForCopy;
 }
 
@@ -2009,48 +2093,44 @@ uint64_t __37__WebBookmark_setLastReadGeneration___block_invoke(uint64_t a1, voi
 
 void __35__WebBookmark_setDeviceIdentifier___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 312);
+  v15 = *MEMORY[0x277D85DE8];
   if ((WBSIsEqual() & 1) == 0)
   {
-    v4 = [*(a1 + 32) copy];
-    v5 = *(a1 + 40);
-    v6 = *(v5 + 312);
-    *(v5 + 312) = v4;
+    v2 = [*(a1 + 32) copy];
+    v3 = *(a1 + 40);
+    v4 = *(v3 + 312);
+    *(v3 + 312) = v2;
 
-    v15 = 0u;
-    v16 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v7 = [*(a1 + 40) fields];
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v8)
+    v10 = 0u;
+    v11 = 0u;
+    v5 = [*(a1 + 40) fields];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v6)
     {
-      v9 = v8;
-      v10 = *v14;
+      v7 = v6;
+      v8 = *v11;
       do
       {
-        v11 = 0;
+        v9 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v11 != v8)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v5);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) setDeviceIdentifier:*(a1 + 32)];
+          [*(*(&v10 + 1) + 8 * v9++) setDeviceIdentifier:*(a1 + 32)];
         }
 
-        while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        while (v7 != v9);
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
-      while (v9);
+      while (v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fieldForAttribute:(unint64_t)attribute
@@ -2092,27 +2172,27 @@ void __35__WebBookmark_setDeviceIdentifier___block_invoke(uint64_t a1)
 
 void __57__WebBookmark_updateGenerationsInSyncData_forAttributes___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [*(a1 + 32) _fieldsForAttributes:{*(a1 + 48), 0}];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = *(a1 + 40);
         v9 = [v7 generation];
         v10 = [*(a1 + 32) generationKeyForField:v7];
@@ -2121,13 +2201,11 @@ void __57__WebBookmark_updateGenerationsInSyncData_forAttributes___block_invoke(
         [v7 setShouldIncrementGeneration:1];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_mergeFields:(id)fields withFields:(id)withFields forBookmark:(id)bookmark
@@ -2306,42 +2384,40 @@ uint64_t __38__WebBookmark_clearModifiedAttributes__block_invoke(uint64_t result
 
 void __55__WebBookmark_Internal__modifiedAttributesToFieldNames__block_invoke()
 {
-  v4[15] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_288269520;
-  v3[1] = &unk_288269538;
-  v4[0] = @"Title";
-  v4[1] = @"URL";
-  v3[2] = &unk_288269550;
-  v3[3] = &unk_288269568;
-  v4[2] = @"Position";
-  v4[3] = @"DateLastViewed";
-  v3[4] = &unk_288269580;
-  v3[5] = &unk_288269598;
-  v4[4] = @"DateAdded";
-  v4[5] = @"IsSelectedFavoritesFolder";
-  v3[6] = &unk_2882695B0;
-  v3[7] = &unk_2882695C8;
-  v4[6] = @"ParentFolder";
-  v4[7] = @"ImageURL";
-  v3[8] = &unk_2882695E0;
-  v3[9] = &unk_2882695F8;
-  v4[8] = @"PreviewText";
-  v4[9] = @"LastSelectedTab";
-  v3[10] = &unk_288269610;
-  v3[11] = &unk_288269628;
-  v4[10] = @"SymbolImageName";
-  v4[11] = @"CustomFavoritesFolderServerID";
-  v3[12] = &unk_288269640;
-  v3[13] = &unk_288269658;
-  v4[12] = @"BackgroundImage";
-  v4[13] = @"CustomStartPageSectionsData";
-  v3[14] = &unk_288269670;
-  v4[14] = @"ShowIconOnly";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:15];
+  v3[15] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_288269520;
+  v2[1] = &unk_288269538;
+  v3[0] = @"Title";
+  v3[1] = @"URL";
+  v2[2] = &unk_288269550;
+  v2[3] = &unk_288269568;
+  v3[2] = @"Position";
+  v3[3] = @"DateLastViewed";
+  v2[4] = &unk_288269580;
+  v2[5] = &unk_288269598;
+  v3[4] = @"DateAdded";
+  v3[5] = @"IsSelectedFavoritesFolder";
+  v2[6] = &unk_2882695B0;
+  v2[7] = &unk_2882695C8;
+  v3[6] = @"ParentFolder";
+  v3[7] = @"ImageURL";
+  v2[8] = &unk_2882695E0;
+  v2[9] = &unk_2882695F8;
+  v3[8] = @"PreviewText";
+  v3[9] = @"LastSelectedTab";
+  v2[10] = &unk_288269610;
+  v2[11] = &unk_288269628;
+  v3[10] = @"SymbolImageName";
+  v3[11] = @"CustomFavoritesFolderServerID";
+  v2[12] = &unk_288269640;
+  v2[13] = &unk_288269658;
+  v3[12] = @"BackgroundImage";
+  v3[13] = @"CustomStartPageSectionsData";
+  v2[14] = &unk_288269670;
+  v3[14] = @"ShowIconOnly";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:15];
   v1 = modifiedAttributesToFieldNames_modifiedAttributesToFieldNames;
   modifiedAttributesToFieldNames_modifiedAttributesToFieldNames = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_allowedSiteBookmarkWithTitle:(id)title address:(id)address
@@ -2522,151 +2598,28 @@ void __55__WebBookmark_Internal__modifiedAttributesToFieldNames__block_invoke()
       v9 = [trackingCopy wb_stringForKey:@"URL" isValid:&v40];
       v10 = [v9 copy];
 
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v11 = [trackingCopy wb_stringForKey:@"UUID" isValid:&v40];
-      v12 = [v11 copy];
-      UUID = v5->_UUID;
-      v5->_UUID = v12;
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v14 = [trackingCopy wb_numberForKey:@"IsEditable" isValid:&v40];
-      v5->_editable = [v14 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v15 = [trackingCopy wb_numberForKey:@"IsDeletable" isValid:&v40];
-      v5->_deletable = [v15 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v16 = [trackingCopy wb_numberForKey:@"IsHidden" isValid:&v40];
-      v5->_hidden = [v16 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v17 = [trackingCopy wb_numberForKey:@"IsSyncable" isValid:&v40];
-      v5->_syncable = [v17 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v18 = [trackingCopy wb_numberForKey:@"IsLocallyAdded" isValid:&v40];
-      v5->_addedLocally = [v18 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v19 = [trackingCopy wb_numberForKey:@"BookmarkID" isValid:&v40];
-      v5->_id = [v19 intValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v20 = [trackingCopy wb_numberForKey:@"ParentID" isValid:&v40];
-      intValue = [v20 intValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v22 = [trackingCopy wb_numberForKey:@"SpecialID" isValid:&v40];
-      v5->_specialID = [v22 intValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v23 = [trackingCopy wb_numberForKey:@"OrderIndex" isValid:&v40];
-      v5->_orderIndex = [v23 unsignedIntValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v24 = [trackingCopy wb_numberForKey:@"IsInserted" isValid:&v40];
-      v5->_inserted = [v24 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v25 = [trackingCopy wb_numberForKey:@"WasLoadedFromDatabase" isValid:&v40];
-      v5->_loadedFromDatabase = [v25 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v26 = [trackingCopy wb_numberForKey:@"NeedsSyncUpdate" isValid:&v40];
-      v5->_needsSyncUpdate = [v26 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v27 = [trackingCopy wb_numberForKey:@"UsedForInMemoryChangeTracking" isValid:&v40];
-      v5->_usedForInMemoryChangeTracking = [v27 BOOLValue];
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v28 = [trackingCopy wb_dictionaryForKey:@"LocalAttributes" isValid:&v40];
-      localAttributes = v5->_localAttributes;
-      v5->_localAttributes = v28;
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v30 = [trackingCopy wb_dictionaryForKey:@"ExtraAttributes" isValid:&v40];
-      extraAttributes = v5->_extraAttributes;
-      v5->_extraAttributes = v30;
-
-      if (v40 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      v32 = [trackingCopy wb_numberForKey:@"LastSelectedChildID" isValid:&v40];
-      intValue2 = [v32 intValue];
-
-      if (v40 == 1)
+      if (v40 == 1
+        && ([trackingCopy wb_stringForKey:@"UUID" isValid:&v40], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "copy"), UUID = v5->_UUID, v5->_UUID = v12, UUID, v11, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"IsEditable" isValid:&v40], v14 = objc_claimAutoreleasedReturnValue(), v5->_editable = objc_msgSend(v14, "BOOLValue"), v14, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"IsDeletable" isValid:&v40], v15 = objc_claimAutoreleasedReturnValue(), v5->_deletable = objc_msgSend(v15, "BOOLValue"), v15, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"IsHidden" isValid:&v40], v16 = objc_claimAutoreleasedReturnValue(), v5->_hidden = objc_msgSend(v16, "BOOLValue"), v16, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"IsSyncable" isValid:&v40], v17 = objc_claimAutoreleasedReturnValue(), v5->_syncable = objc_msgSend(v17, "BOOLValue"), v17, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"IsLocallyAdded" isValid:&v40], v18 = objc_claimAutoreleasedReturnValue(), v5->_addedLocally = objc_msgSend(v18, "BOOLValue"), v18, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"BookmarkID" isValid:&v40], v19 = objc_claimAutoreleasedReturnValue(), v5->_id = objc_msgSend(v19, "intValue"), v19, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"ParentID" isValid:&v40], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "intValue"), v20, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"SpecialID" isValid:&v40], v22 = objc_claimAutoreleasedReturnValue(), v5->_specialID = objc_msgSend(v22, "intValue"), v22, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"OrderIndex" isValid:&v40], v23 = objc_claimAutoreleasedReturnValue(), v5->_orderIndex = objc_msgSend(v23, "unsignedIntValue"), v23, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"IsInserted" isValid:&v40], v24 = objc_claimAutoreleasedReturnValue(), v5->_inserted = objc_msgSend(v24, "BOOLValue"), v24, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"WasLoadedFromDatabase" isValid:&v40], v25 = objc_claimAutoreleasedReturnValue(), v5->_loadedFromDatabase = objc_msgSend(v25, "BOOLValue"), v25, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"NeedsSyncUpdate" isValid:&v40], v26 = objc_claimAutoreleasedReturnValue(), v5->_needsSyncUpdate = objc_msgSend(v26, "BOOLValue"), v26, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"UsedForInMemoryChangeTracking" isValid:&v40], v27 = objc_claimAutoreleasedReturnValue(), v5->_usedForInMemoryChangeTracking = objc_msgSend(v27, "BOOLValue"), v27, v40 == 1)
+        && ([trackingCopy wb_dictionaryForKey:@"LocalAttributes" isValid:&v40], v28 = objc_claimAutoreleasedReturnValue(), localAttributes = v5->_localAttributes, v5->_localAttributes = v28, localAttributes, v40 == 1)
+        && ([trackingCopy wb_dictionaryForKey:@"ExtraAttributes" isValid:&v40], v30 = objc_claimAutoreleasedReturnValue(), extraAttributes = v5->_extraAttributes, v5->_extraAttributes = v30, extraAttributes, v40 == 1)
+        && ([trackingCopy wb_numberForKey:@"LastSelectedChildID" isValid:&v40], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "intValue"), v32, v40 == 1))
       {
         v34 = [[WBBookmarkLabel alloc] initWithTitle:v8 address:v10 pinned:[(WebBookmark *)v5 isPinned]];
-        v35 = [[WBBookmarkLocation alloc] initWithParentID:intValue position:0];
-        [(WebBookmark *)v5 _setUpFieldsWithLabel:v34 lastSelectedChild:intValue2 location:v35 syncData:0];
+        v35 = [[WBBookmarkLocation alloc] initWithParentID:v21 position:0];
+        [(WebBookmark *)v5 _setUpFieldsWithLabel:v34 lastSelectedChild:v33 location:v35 syncData:0];
         v36 = [trackingCopy wb_numberForKey:@"Subtype" isValid:&v40];
         v5->_subtype = [v36 intValue];
 
@@ -2683,7 +2636,6 @@ void __55__WebBookmark_Internal__modifiedAttributesToFieldNames__block_invoke()
 
       else
       {
-LABEL_27:
         v38 = 0;
       }
     }
@@ -2704,11 +2656,11 @@ LABEL_27:
 
 - (WebBookmark)initWithCoder:(id)coder
 {
-  v57[3] = *MEMORY[0x277D85DE8];
+  v56[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v54.receiver = self;
-  v54.super_class = WebBookmark;
-  v5 = [(WebBookmark *)&v54 init];
+  v53.receiver = self;
+  v53.super_class = WebBookmark;
+  v5 = [(WebBookmark *)&v53 init];
   if (v5)
   {
     v5->_folder = [coderCopy decodeBoolForKey:@"IsFolder"];
@@ -2737,24 +2689,24 @@ LABEL_27:
     v5->_archiveStatus = [coderCopy decodeIntegerForKey:@"ArchiveStatus"];
     v5->_webFilterStatus = [coderCopy decodeIntegerForKey:@"WebFilterStatus"];
     v14 = objc_alloc(MEMORY[0x277CBEB98]);
-    v57[0] = objc_opt_class();
-    v57[1] = objc_opt_class();
-    v57[2] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:3];
+    v56[0] = objc_opt_class();
+    v56[1] = objc_opt_class();
+    v56[2] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:3];
     v16 = [v14 initWithArray:v15];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"ExtraAttributes"];
     extraAttributes = v5->_extraAttributes;
     v5->_extraAttributes = v17;
 
     v19 = objc_alloc(MEMORY[0x277CBEB98]);
-    v56[0] = objc_opt_class();
-    v56[1] = objc_opt_class();
-    v56[2] = objc_opt_class();
-    v56[3] = objc_opt_class();
-    v56[4] = objc_opt_class();
-    v56[5] = objc_opt_class();
-    v56[6] = objc_opt_class();
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:7];
+    v55[0] = objc_opt_class();
+    v55[1] = objc_opt_class();
+    v55[2] = objc_opt_class();
+    v55[3] = objc_opt_class();
+    v55[4] = objc_opt_class();
+    v55[5] = objc_opt_class();
+    v55[6] = objc_opt_class();
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:7];
     v21 = [v19 initWithArray:v20];
     v22 = [coderCopy decodeObjectOfClasses:v21 forKey:@"LocalAttributes"];
     localAttributes = v5->_localAttributes;
@@ -2773,39 +2725,39 @@ LABEL_27:
     [(WebBookmark *)v5 setDeviceIdentifier:v24];
 
     v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Title"];
-    v48 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"URL"];
-    v49 = v25;
-    v26 = [[WBBookmarkLabel alloc] initWithTitle:v25 address:v48 pinned:[(WebBookmark *)v5 isPinned]];
+    v47 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"URL"];
+    v48 = v25;
+    v26 = [[WBBookmarkLabel alloc] initWithTitle:v25 address:v47 pinned:[(WebBookmark *)v5 isPinned]];
     v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"LastSelectedChildID"];
     v28 = [coderCopy decodeInt32ForKey:@"ParentID"];
-    v45 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SyncPosition"];
-    v29 = [[WBBookmarkLocation alloc] initWithParentID:v28 position:v45];
+    v44 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SyncPosition"];
+    v29 = [[WBBookmarkLocation alloc] initWithParentID:v28 position:v44];
     [(WebBookmark *)v5 wbSyncData];
-    v46 = v27;
-    v43 = v47 = v26;
-    v44 = v29;
-    -[WebBookmark _setUpFieldsWithLabel:lastSelectedChild:location:syncData:](v5, "_setUpFieldsWithLabel:lastSelectedChild:location:syncData:", v26, [v27 intValue], v29, v43);
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
+    v45 = v27;
+    v42 = v46 = v26;
+    v43 = v29;
+    -[WebBookmark _setUpFieldsWithLabel:lastSelectedChild:location:syncData:](v5, "_setUpFieldsWithLabel:lastSelectedChild:location:syncData:", v26, [v27 intValue], v29, v42);
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     fields = [(WebBookmark *)v5 fields];
-    v31 = [fields countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v31 = [fields countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v51;
+      v33 = *v50;
       do
       {
         v34 = 0;
         do
         {
-          if (*v51 != v33)
+          if (*v50 != v33)
           {
             objc_enumerationMutation(fields);
           }
 
-          v35 = *(*(&v50 + 1) + 8 * v34);
+          v35 = *(*(&v49 + 1) + 8 * v34);
           v36 = objc_opt_class();
           v37 = [(WebBookmark *)v5 generationKeyForField:v35];
           v38 = [coderCopy decodeObjectOfClass:v36 forKey:v37];
@@ -2815,26 +2767,25 @@ LABEL_27:
         }
 
         while (v32 != v34);
-        v32 = [fields countByEnumeratingWithState:&v50 objects:v55 count:16];
+        v32 = [fields countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
       while (v32);
     }
 
-    shareRecord = [v43 shareRecord];
+    shareRecord = [v42 shareRecord];
     v5->_hasShareRecord = shareRecord != 0;
 
     v5->_subtype = [coderCopy decodeIntegerForKey:@"Subtype"];
     v40 = v5;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   [coderCopy encodeBool:self->_folder forKey:@"IsFolder"];
   [coderCopy encodeObject:self->_UUID forKey:@"UUID"];
@@ -2877,38 +2828,36 @@ LABEL_27:
   syncPosition = [(WebBookmark *)self syncPosition];
   [coderCopy encodeObject:syncPosition forKey:@"SyncPosition"];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   fields = [(WebBookmark *)self fields];
-  v11 = [fields countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [fields countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(fields);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
+        v15 = *(*(&v18 + 1) + 8 * i);
         generation = [v15 generation];
         v17 = [(WebBookmark *)self generationKeyForField:v15];
         [coderCopy encodeObject:generation forKey:v17];
       }
 
-      v12 = [fields countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [fields countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)dictionaryRepresentationForInMemoryChangeTracking
@@ -2992,15 +2941,15 @@ LABEL_27:
   [(WebBookmark *)self performWithFieldsWriteLock:v3];
 }
 
-uint64_t __40__WebBookmark_Internal___setOrderIndex___block_invoke(uint64_t result)
+void *__40__WebBookmark_Internal___setOrderIndex___block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = *(result + 10);
+  v2 = *(result + 4);
   if (v1 != *(v2 + 128))
   {
     *(v2 + 128) = v1;
-    *(*(result + 32) + 154) = 1;
-    return [*(result + 32) markAttributesAsModified:4];
+    *(*(result + 4) + 154) = 1;
+    return [*(result + 4) markAttributesAsModified:4];
   }
 
   return result;
@@ -3172,7 +3121,7 @@ uint64_t __36__WebBookmark_Internal__setSyncKey___block_invoke(uint64_t a1)
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -3202,18 +3151,16 @@ uint64_t __36__WebBookmark_Internal__setSyncKey___block_invoke(uint64_t a1)
 
 void __37__WebBookmark_Internal__setSyncData___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 48);
   if ((WBSIsEqual() & 1) == 0)
   {
-    v4 = [*(a1 + 32) copy];
-    v5 = *(a1 + 40);
-    v6 = *(v5 + 48);
-    *(v5 + 48) = v4;
+    v2 = [*(a1 + 32) copy];
+    v3 = *(a1 + 40);
+    v4 = *(v3 + 48);
+    *(v3 + 48) = v2;
 
-    v7 = *(a1 + 40);
-    v8 = *(v7 + 56);
-    *(v7 + 56) = 0;
+    v5 = *(a1 + 40);
+    v6 = *(v5 + 56);
+    *(v5 + 56) = 0;
   }
 }
 
@@ -3285,51 +3232,51 @@ void __63__WebBookmark_Internal___updateExtraAttributeValuesUsingBlock___block_i
   }
 }
 
-id __58__WebBookmark_Internal__isSelectedFavoritesFolderProvider__block_invoke(uint64_t a1, void *a2)
+id __58__WebBookmark_Internal__isSelectedFavoritesFolderProvider__block_invoke(uint64_t a1, char *a2)
 {
   v2 = a2;
   os_unfair_recursive_lock_lock_with_options();
-  v3 = [v2[13] objectForKeyedSubscript:@"com.apple.bookmarks.SelectedFavoritesFolder"];
+  v3 = [*(v2 + 13) objectForKeyedSubscript:@"com.apple.bookmarks.SelectedFavoritesFolder"];
   os_unfair_recursive_lock_unlock();
 
   return v3;
 }
 
-id __45__WebBookmark_Internal__showIconOnlyProvider__block_invoke(uint64_t a1, void *a2)
+id __45__WebBookmark_Internal__showIconOnlyProvider__block_invoke(uint64_t a1, char *a2)
 {
   v2 = a2;
   os_unfair_recursive_lock_lock_with_options();
-  v3 = [v2[13] objectForKeyedSubscript:@"ShowIconOnly"];
+  v3 = [*(v2 + 13) objectForKeyedSubscript:@"ShowIconOnly"];
   os_unfair_recursive_lock_unlock();
 
   return v3;
 }
 
-id __50__WebBookmark_Internal__tabDateLastViewedProvider__block_invoke(uint64_t a1, void *a2)
+id __50__WebBookmark_Internal__tabDateLastViewedProvider__block_invoke(uint64_t a1, char *a2)
 {
   v2 = a2;
   os_unfair_recursive_lock_lock_with_options();
-  v3 = [v2[13] objectForKeyedSubscript:@"DateLastViewed"];
+  v3 = [*(v2 + 13) objectForKeyedSubscript:@"DateLastViewed"];
   os_unfair_recursive_lock_unlock();
 
   return v3;
 }
 
-id __61__WebBookmark_Internal__backgroundImageModifiedStateProvider__block_invoke(uint64_t a1, void *a2)
+id __61__WebBookmark_Internal__backgroundImageModifiedStateProvider__block_invoke(uint64_t a1, char *a2)
 {
   v2 = a2;
   os_unfair_recursive_lock_lock_with_options();
-  v3 = [v2[13] objectForKeyedSubscript:@"BackgroundImageModifiedState"];
+  v3 = [*(v2 + 13) objectForKeyedSubscript:@"BackgroundImageModifiedState"];
   os_unfair_recursive_lock_unlock();
 
   return v3;
 }
 
-id __60__WebBookmark_Internal__customStartPageSectionsDataProvider__block_invoke(uint64_t a1, void *a2)
+id __60__WebBookmark_Internal__customStartPageSectionsDataProvider__block_invoke(uint64_t a1, char *a2)
 {
   v2 = a2;
   os_unfair_recursive_lock_lock_with_options();
-  v3 = [v2[13] objectForKeyedSubscript:@"StartPageSectionsData"];
+  v3 = [*(v2 + 13) objectForKeyedSubscript:@"StartPageSectionsData"];
   os_unfair_recursive_lock_unlock();
 
   return v3;
@@ -3685,21 +3632,20 @@ uint64_t __43__WebBookmark_ReadingList__setPreviewText___block_invoke(uint64_t a
 
 - (void)setArchiveStatus:(int64_t)status
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = WBS_LOG_CHANNEL_PREFIXReadingList();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = WBS_LOG_CHANNEL_PREFIXReadingList(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [(WebBookmark *)self _stringForReadingListArchiveStatus:status];
     uUID = [(WebBookmark *)self UUID];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = uUID;
-    _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "Setting ReadingList item bookmark archive status to %{public}@ for bookmark with UUID %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = uUID;
+    _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "Setting ReadingList item bookmark archive status to %{public}@ for bookmark with UUID %{public}@", &v8, 0x16u);
   }
 
   self->_archiveStatus = status;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWebFilterStatus:(int64_t)status
@@ -4009,7 +3955,7 @@ void __50__WebBookmark_ReadingList__setHasFetchedMetadata___block_invoke(uint64_
 
 - (unint64_t)_sizeForFileOrDirectory:(id)directory withAttributes:(id)attributes
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   attributesCopy = attributes;
   fileSize = [attributesCopy fileSize];
@@ -4019,10 +3965,10 @@ void __50__WebBookmark_ReadingList__setHasFetchedMetadata___block_invoke(uint64_
   if (v8)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v27 = 0;
-    v21 = [defaultManager subpathsOfDirectoryAtPath:directoryCopy error:&v27];
-    v20 = v27;
-    if (v20)
+    v26 = 0;
+    v20 = [defaultManager subpathsOfDirectoryAtPath:directoryCopy error:&v26];
+    v19 = v26;
+    if (v19)
     {
       v10 = WBS_LOG_CHANNEL_PREFIXBookmarks();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -4033,32 +3979,32 @@ void __50__WebBookmark_ReadingList__setHasFetchedMetadata___block_invoke(uint64_
 
     else
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
-      v11 = v21;
-      v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v11 = v20;
+      v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v12)
       {
-        v13 = *v24;
+        v13 = *v23;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v24 != v13)
+            if (*v23 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            v15 = [directoryCopy stringByAppendingPathComponent:*(*(&v23 + 1) + 8 * i)];
+            v15 = [directoryCopy stringByAppendingPathComponent:*(*(&v22 + 1) + 8 * i)];
             v16 = [defaultManager attributesOfItemAtPath:v15 error:0];
             fileSize2 = [v16 fileSize];
 
             fileSize += fileSize2;
           }
 
-          v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v12);
@@ -4066,7 +4012,6 @@ void __50__WebBookmark_ReadingList__setHasFetchedMetadata___block_invoke(uint64_
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return fileSize;
 }
 
@@ -4103,22 +4048,22 @@ void __50__WebBookmark_ReadingList__setHasFetchedMetadata___block_invoke(uint64_
 
 - (void)_removeDirectoryAtPath:(id)path
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v12 = 0;
-  if ([defaultManager fileExistsAtPath:pathCopy isDirectory:&v12] && (v12 & 1) != 0)
+  v11 = 0;
+  if ([defaultManager fileExistsAtPath:pathCopy isDirectory:&v11] && (v11 & 1) != 0)
   {
-    v11 = 0;
-    v5 = [defaultManager removeItemAtPath:pathCopy error:&v11];
-    v6 = v11;
+    v10 = 0;
+    v5 = [defaultManager removeItemAtPath:pathCopy error:&v10];
+    v6 = v10;
     if (v5)
     {
       v7 = WBS_LOG_CHANNEL_PREFIXBookmarks();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v14 = pathCopy;
+        v13 = pathCopy;
         _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_INFO, "Deleted %{public}@ as a result of deleting the bookmark", buf, 0xCu);
       }
     }
@@ -4133,8 +4078,6 @@ void __50__WebBookmark_ReadingList__setHasFetchedMetadata___block_invoke(uint64_
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearArchive
@@ -4166,18 +4109,23 @@ void __48__WebBookmark_ReadingListArchives__clearArchive__block_invoke(uint64_t 
 - (void)clearArchiveSynchronously
 {
   uUID = [(WebBookmark *)self UUID];
+  v4 = uUID;
   if (uUID)
   {
-    v6 = uUID;
-    if ([uUID length])
+    v7 = uUID;
+    uUID = [uUID length];
+    v4 = v7;
+    if (uUID)
     {
-      v4 = +[WebBookmarkCollection readingListArchivesDirectoryPath];
-      v5 = [v4 stringByAppendingPathComponent:v6];
-      [(WebBookmark *)self _removeDirectoryAtPath:v5];
+      v5 = +[WebBookmarkCollection readingListArchivesDirectoryPath];
+      v6 = [v5 stringByAppendingPathComponent:v7];
+      [(WebBookmark *)self _removeDirectoryAtPath:v6];
+
+      v4 = v7;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](uUID, v4);
 }
 
 - (BOOL)shouldReattemptArchiveWithAutomaticArchivingEnabled:(BOOL)enabled
@@ -4199,17 +4147,17 @@ void __48__WebBookmark_ReadingListArchives__clearArchive__block_invoke(uint64_t 
 - (void)setShouldArchive:(BOOL)archive
 {
   archiveCopy = archive;
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = WBS_LOG_CHANNEL_PREFIXReadingList();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = WBS_LOG_CHANNEL_PREFIXReadingList(self, a2);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
   if (archiveCopy)
   {
     if (v6)
     {
       uUID = [(WebBookmark *)self UUID];
-      v11 = 138543362;
-      v12 = uUID;
-      _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "setShouldArchive: setting ReadingList item bookmark archive status to ReadingListArchiveStatusShouldArchive for bookmark with UUID %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = uUID;
+      _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "setShouldArchive: setting ReadingList item bookmark archive status to ReadingListArchiveStatusShouldArchive for bookmark with UUID %{public}@", &v10, 0xCu);
     }
 
     v8 = 6;
@@ -4220,16 +4168,15 @@ void __48__WebBookmark_ReadingListArchives__clearArchive__block_invoke(uint64_t 
     if (v6)
     {
       uUID2 = [(WebBookmark *)self UUID];
-      v11 = 138543362;
-      v12 = uUID2;
-      _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "setShouldArchive: setting ReadingList item bookmark archive status to ReadingListArchiveStatusPending for bookmark with UUID %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = uUID2;
+      _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "setShouldArchive: setting ReadingList item bookmark archive status to ReadingListArchiveStatusPending for bookmark with UUID %{public}@", &v10, 0xCu);
     }
 
     v8 = 0;
   }
 
   self->_archiveStatus = v8;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_readingListPropertyNamed:(id)named
@@ -4429,12 +4376,11 @@ void __54__WebBookmark_ReadingListInternal__previewTextUpdater__block_invoke(uin
 
 void __58__WebBookmark_Internal___setParentID_incrementGeneration___block_invoke_cold_1(int *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "Setting bookmark with identifier %d as its own parent", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "Setting bookmark with identifier %d as its own parent", v3, 8u);
 }
 
 @end

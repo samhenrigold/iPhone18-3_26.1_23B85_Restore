@@ -854,78 +854,77 @@
   location[0] = 0;
   objc_storeStrong(location, error);
   password = selfCopy->_password;
-  v24 = 0;
-  v11 = 0;
+  v23 = 0;
+  v10 = 0;
   if (!password)
   {
-    v25 = [(AKSRPContextHelper *)selfCopy continuationToken:0];
-    v24 = 1;
-    v11 = v25 != 0;
+    v24 = [(AKSRPContextHelper *)selfCopy continuationToken:0];
+    v23 = 1;
+    v10 = v24 != 0;
   }
 
-  if (v24)
+  if (v23)
   {
-    _objc_release(v25);
+    _objc_release(v24);
   }
 
-  if (v11)
+  if (v10)
   {
-    v23 = [(AKSRPContextHelper *)selfCopy authKitAccount:0];
-    v22 = 0;
-    v21 = _AKLogSystem();
-    v20 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = [(AKSRPContextHelper *)selfCopy authKitAccount:0];
+    v21 = 0;
+    v20 = _AKLogSystem();
+    v19 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      sub_10001B098(v28, selfCopy, v23);
-      _os_log_impl(&_mh_execute_header, v21, v20, "%@: Attempting to clear continuation token for account (%@)", v28, 0x16u);
+      sub_10001B098(v27, selfCopy, v22);
+      _os_log_impl(&_mh_execute_header, v20, v19, "%@: Attempting to clear continuation token for account (%@)", v27, 0x16u);
     }
 
-    objc_storeStrong(&v21, 0);
-    authContext = selfCopy->_authContext;
+    objc_storeStrong(&v20, 0);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       telemetryFlowID = [(AKAuthenticationContext *)selfCopy->_authContext telemetryFlowID];
-      v5 = v22;
-      v22 = telemetryFlowID;
+      v5 = v21;
+      v21 = telemetryFlowID;
       _objc_release(v5);
     }
 
     v7 = +[AKAccountManager sharedInstance];
-    [(AKAccountManager *)v7 removeContinuationTokenForAccount:v23 telemetryFlowID:v22 error:location[0]];
+    [(AKAccountManager *)v7 removeContinuationTokenForAccount:v22 telemetryFlowID:v21 error:location[0]];
     _objc_release(v7);
     altDSID = [(AKAuthenticationContext *)selfCopy->_authContext altDSID];
-    v18 = 0;
+    v17 = 0;
     isDeviceListCacheEnableDryMode = 0;
     if (altDSID)
     {
-      v19 = +[AKFeatureManager sharedManager];
-      v18 = 1;
-      isDeviceListCacheEnableDryMode = [v19 isDeviceListCacheEnableDryMode];
+      v18 = +[AKFeatureManager sharedManager];
+      v17 = 1;
+      isDeviceListCacheEnableDryMode = [v18 isDeviceListCacheEnableDryMode];
     }
 
-    if (v18)
+    if (v17)
     {
-      _objc_release(v19);
+      _objc_release(v18);
     }
 
     _objc_release(altDSID);
     if (isDeviceListCacheEnableDryMode)
     {
       queue = dispatch_get_global_queue(9, 0);
-      v12 = _NSConcreteStackBlock;
-      v13 = -1073741824;
-      v14 = 0;
-      v15 = sub_10019A360;
-      v16 = &unk_10031F8B0;
-      v17 = _objc_retain(selfCopy);
-      dispatch_async(queue, &v12);
+      v11 = _NSConcreteStackBlock;
+      v12 = -1073741824;
+      v13 = 0;
+      v14 = sub_10019A360;
+      v15 = &unk_10031F8B0;
+      v16 = _objc_retain(selfCopy);
+      dispatch_async(queue, &v11);
       _objc_release(queue);
-      objc_storeStrong(&v17, 0);
+      objc_storeStrong(&v16, 0);
     }
 
+    objc_storeStrong(&v21, 0);
     objc_storeStrong(&v22, 0);
-    objc_storeStrong(&v23, 0);
   }
 
   objc_storeStrong(location, 0);
@@ -933,32 +932,31 @@
 
 - (void)_clearDeviceListCacheForAltDSID:(id)d
 {
-  selfCopy = self;
+  location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, d);
-  v4 = [AKDeviceListRequester alloc];
-  v7 = +[AKDeviceListStoreManager sharedManager];
-  v6 = objc_opt_new();
-  v5 = +[AKAccountManager sharedInstance];
-  client = selfCopy->_client;
-  v16 = [AKDeviceListRequester initWithStoreManager:v4 cdpFactory:"initWithStoreManager:cdpFactory:accountManager:client:" accountManager:v7 client:v6];
+  v3 = [AKDeviceListRequester alloc];
+  v6 = +[AKDeviceListStoreManager sharedManager];
+  v5 = objc_opt_new();
+  v4 = +[AKAccountManager sharedInstance];
+  v15 = [AKDeviceListRequester initWithStoreManager:v3 cdpFactory:"initWithStoreManager:cdpFactory:accountManager:client:" accountManager:v6 client:v5];
+  _objc_release(v4);
   _objc_release(v5);
   _objc_release(v6);
-  _objc_release(v7);
-  v15 = objc_alloc_init(AKDeviceListRequestContext);
-  [v15 setAltDSID:location[0]];
-  v9 = v16;
+  v14 = objc_alloc_init(AKDeviceListRequestContext);
+  [v14 setAltDSID:location[0]];
   v8 = v15;
-  v10 = _NSConcreteStackBlock;
-  v11 = 3221225472;
-  v12 = sub_10019A5B8;
-  v13 = &unk_100320EA0;
-  v14 = _objc_retain(v15);
-  [(AKDeviceListRequester *)v9 clearDeviceListCacheWithContext:v8 completionHandler:?];
+  v7 = v14;
+  v9 = _NSConcreteStackBlock;
+  v10 = 3221225472;
+  v11 = sub_10019A5B8;
+  v12 = &unk_100320EA0;
+  v13 = _objc_retain(v14);
+  [(AKDeviceListRequester *)v8 clearDeviceListCacheWithContext:v7 completionHandler:?];
+  objc_storeStrong(&v13, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
-  objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1231,42 +1229,9 @@ LABEL_20:
       _objc_release(companionKeyEnvelope3);
     }
 
-    else
+    else if (selfCopy->_passwordResetToken || ((v15 = 0, v13 = 0, v7 = [(AKSRPContextHelper *)selfCopy authKitAccount:&v13], objc_storeStrong(&v15, v13), v14 = v7, !v15) ? (v6 = +[AKAccountManager sharedInstance], v2 = [(AKAccountManager *)v6 passwordResetTokenForAccount:v14 error:0], passwordResetToken = selfCopy->_passwordResetToken, selfCopy->_passwordResetToken = v2, _objc_release(passwordResetToken), _objc_release(v6), v12 = 0) : (passwordResetKey = 0, v12 = 1), objc_storeStrong(&v14, 0), objc_storeStrong(&v15, 0), !v12))
     {
-      if (selfCopy->_passwordResetToken)
-      {
-        goto LABEL_16;
-      }
-
-      v15 = 0;
-      v13 = 0;
-      v7 = [(AKSRPContextHelper *)selfCopy authKitAccount:&v13];
-      objc_storeStrong(&v15, v13);
-      v14 = v7;
-      if (v15)
-      {
-        passwordResetKey = 0;
-        v12 = 1;
-      }
-
-      else
-      {
-        v6 = +[AKAccountManager sharedInstance];
-        v2 = [(AKAccountManager *)v6 passwordResetTokenForAccount:v14 error:0];
-        passwordResetToken = selfCopy->_passwordResetToken;
-        selfCopy->_passwordResetToken = v2;
-        _objc_release(passwordResetToken);
-        _objc_release(v6);
-        v12 = 0;
-      }
-
-      objc_storeStrong(&v14, 0);
-      objc_storeStrong(&v15, 0);
-      if (!v12)
-      {
-LABEL_16:
-        passwordResetKey = _objc_retain(selfCopy->_passwordResetToken);
-      }
+      passwordResetKey = _objc_retain(selfCopy->_passwordResetToken);
     }
   }
 

@@ -23,7 +23,7 @@
 
 - (NSString)deviceId
 {
-  v2 = sub_254FCFED0();
+  v2 = sub_254FCFED0(self);
 
   return v2;
 }
@@ -32,12 +32,12 @@
 {
   idCopy = id;
   selfCopy = self;
-  sub_254FCFF68();
+  sub_254FCFF68(id);
 }
 
 - (NSString)deviceName
 {
-  v2 = sub_254FD0058();
+  v2 = sub_254FD0058(self);
 
   return v2;
 }
@@ -46,12 +46,12 @@
 {
   nameCopy = name;
   selfCopy = self;
-  sub_254FD00F0();
+  sub_254FD00F0(name);
 }
 
 - (NSString)altDSID
 {
-  v2 = sub_254FD01E4();
+  v2 = sub_254FD01E4(self);
 
   return v2;
 }
@@ -60,12 +60,12 @@
 {
   dCopy = d;
   selfCopy = self;
-  sub_254FD027C();
+  sub_254FD027C(d);
 }
 
 - (NSString)icloudEmail
 {
-  v2 = sub_254FD036C();
+  v2 = sub_254FD036C(self);
 
   return v2;
 }
@@ -74,12 +74,12 @@
 {
   emailCopy = email;
   selfCopy = self;
-  sub_254FD0404();
+  sub_254FD0404(email);
 }
 
 - (NSDate)startTime
 {
-  v2 = sub_254FD04F4();
+  v2 = sub_254FD04F4(self);
 
   return v2;
 }
@@ -88,12 +88,12 @@
 {
   timeCopy = time;
   selfCopy = self;
-  sub_254FD058C();
+  sub_254FD058C(time);
 }
 
 - (NSDate)endTime
 {
-  v2 = sub_254FD067C();
+  v2 = sub_254FD067C(self);
 
   return v2;
 }
@@ -102,12 +102,12 @@
 {
   timeCopy = time;
   selfCopy = self;
-  sub_254FD0714();
+  sub_254FD0714(time);
 }
 
 - (NSNumber)duration
 {
-  v2 = sub_254FD0804();
+  v2 = sub_254FD0804(self);
 
   return v2;
 }
@@ -116,12 +116,12 @@
 {
   durationCopy = duration;
   selfCopy = self;
-  sub_254FD089C();
+  sub_254FD089C(duration);
 }
 
 - (NSString)bundleIdentifier
 {
-  v2 = sub_254FD098C();
+  v2 = sub_254FD098C(self);
 
   return v2;
 }
@@ -130,12 +130,12 @@
 {
   identifierCopy = identifier;
   selfCopy = self;
-  sub_254FD0A24();
+  sub_254FD0A24(identifier);
 }
 
 - (NSNumber)isApplication
 {
-  v2 = sub_254FD0B14();
+  v2 = sub_254FD0B14(self);
 
   return v2;
 }
@@ -144,7 +144,7 @@
 {
   applicationCopy = application;
   selfCopy = self;
-  sub_254FD0BAC();
+  sub_254FD0BAC(application);
 }
 
 @end

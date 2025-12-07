@@ -9,10 +9,43 @@
 - (void)processWRMNrPhyMetrics:(id)metrics;
 - (void)processWRMWiFiBWEstMetrics:(id)metrics;
 - (void)reConnect;
+- (void)registerClient:(int)client queue:(id)queue;
 - (void)unregisterClient;
 @end
 
 @implementation WRMBasebandMetricsInterface
+
+- (void)registerClient:(int)client queue:(id)queue
+{
+  v4 = *&client;
+  queueCopy = queue;
+  v7 = queueCopy;
+  if (!queueCopy)
+  {
+    v7 = MEMORY[0x277D85CD0];
+    v8 = MEMORY[0x277D85CD0];
+  }
+
+  objc_storeStrong(&self->super.mQueue, v7);
+  if (!queueCopy)
+  {
+  }
+
+  self->super.mProcessId = v4;
+  objc_initWeak(&location, self);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __52__WRMBasebandMetricsInterface_registerClient_queue___block_invoke;
+  v12[3] = &unk_279ED5CE0;
+  objc_copyWeak(&v13, &location);
+  v9 = MEMORY[0x2743E9050](v12);
+  mQueue = self->super.mQueue;
+  v11.receiver = self;
+  v11.super_class = WRMBasebandMetricsInterface;
+  [(WRMClientInterface *)&v11 registerClient:v4 queue:mQueue notificationHandler:v9];
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
+}
 
 void __52__WRMBasebandMetricsInterface_registerClient_queue___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
@@ -34,7 +67,7 @@ void __52__WRMBasebandMetricsInterface_registerClient_queue___block_invoke(uint6
 
 - (void)getWiFiBWEstimationMetrics:(id)metrics
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   wifiMetricsHandler = self->wifiMetricsHandler;
   if (wifiMetricsHandler)
@@ -49,22 +82,20 @@ void __52__WRMBasebandMetricsInterface_registerClient_queue___block_invoke(uint6
   v8 = xpc_dictionary_create(0, 0, 0);
   *keys = xmmword_279ED5D00;
   v9 = xpc_uint64_create(0x834uLL);
-  v14[0] = v9;
+  v13[0] = v9;
   v10 = v8;
-  v14[1] = v10;
-  v11 = xpc_dictionary_create(keys, v14, 2uLL);
+  v13[1] = v10;
+  v11 = xpc_dictionary_create(keys, v13, 2uLL);
   xpc_connection_send_message(self->super.mConnection, v11);
 
   for (i = 1; i != -1; --i)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNRPhyMetrics:(id)metrics
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   metricsHandler = self->metricsHandler;
   if (metricsHandler)
@@ -79,22 +110,20 @@ void __52__WRMBasebandMetricsInterface_registerClient_queue___block_invoke(uint6
   v8 = xpc_dictionary_create(0, 0, 0);
   *keys = xmmword_279ED5D00;
   v9 = xpc_uint64_create(0x7D0uLL);
-  v14[0] = v9;
+  v13[0] = v9;
   v10 = v8;
-  v14[1] = v10;
-  v11 = xpc_dictionary_create(keys, v14, 2uLL);
+  v13[1] = v10;
+  v11 = xpc_dictionary_create(keys, v13, 2uLL);
   xpc_connection_send_message(self->super.mConnection, v11);
 
   for (i = 1; i != -1; --i)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCellularDataMetrics:(id)metrics
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   dataMetricsHandler = self->dataMetricsHandler;
   if (dataMetricsHandler)
@@ -109,22 +138,20 @@ void __52__WRMBasebandMetricsInterface_registerClient_queue___block_invoke(uint6
   v8 = xpc_dictionary_create(0, 0, 0);
   *keys = xmmword_279ED5D00;
   v9 = xpc_uint64_create(0x7D1uLL);
-  v14[0] = v9;
+  v13[0] = v9;
   v10 = v8;
-  v14[1] = v10;
-  v11 = xpc_dictionary_create(keys, v14, 2uLL);
+  v13[1] = v10;
+  v11 = xpc_dictionary_create(keys, v13, 2uLL);
   xpc_connection_send_message(self->super.mConnection, v11);
 
   for (i = 1; i != -1; --i)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getQSHMetrics:(id)metrics
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   v5 = metricsCopy;
   if (metricsCopy)
@@ -149,7 +176,7 @@ void __52__WRMBasebandMetricsInterface_registerClient_queue___block_invoke(uint6
         handler[1] = 3221225472;
         handler[2] = __45__WRMBasebandMetricsInterface_getQSHMetrics___block_invoke;
         handler[3] = &unk_279ED5D18;
-        v18 = v7;
+        v17 = v7;
         xpc_connection_send_message_with_reply(mConnection, v13, 0, handler);
 
         for (i = 1; i != -1; --i)
@@ -158,13 +185,11 @@ void __52__WRMBasebandMetricsInterface_registerClient_queue___block_invoke(uint6
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __45__WRMBasebandMetricsInterface_getQSHMetrics___block_invoke(uint64_t a1, void *a2)
 {
-  v21[7] = *MEMORY[0x277D85DE8];
+  v20[7] = *MEMORY[0x277D85DE8];
   v3 = a2;
   uint64 = xpc_dictionary_get_uint64(v3, "totalCellularBW");
   v5 = xpc_dictionary_get_uint64(v3, "nrConfiguredBW");
@@ -174,31 +199,30 @@ void __45__WRMBasebandMetricsInterface_getQSHMetrics___block_invoke(uint64_t a1,
   v9 = xpc_dictionary_get_uint64(v3, "nrModulation");
   v10 = xpc_dictionary_get_uint64(v3, "totalCCs");
 
-  v20[0] = @"totalCellularBW";
+  v19[0] = @"totalCellularBW";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:uint64];
-  v21[0] = v11;
-  v20[1] = @"nrConfiguredBW";
+  v20[0] = v11;
+  v19[1] = @"nrConfiguredBW";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
-  v21[1] = v12;
-  v20[2] = @"totalLayers";
+  v20[1] = v12;
+  v19[2] = @"totalLayers";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
-  v21[2] = v13;
-  v20[3] = @"nrLayers";
+  v20[2] = v13;
+  v19[3] = @"nrLayers";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v7];
-  v21[3] = v14;
-  v20[4] = @"lteMaxScheduledLayers";
+  v20[3] = v14;
+  v19[4] = @"lteMaxScheduledLayers";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v8];
-  v21[4] = v15;
-  v20[5] = @"nrModulation";
+  v20[4] = v15;
+  v19[5] = @"nrModulation";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
-  v21[5] = v16;
-  v20[6] = @"totalCCs";
+  v20[5] = v16;
+  v19[6] = @"totalCCs";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v10];
-  v21[6] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:7];
+  v20[6] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:7];
 
   (*(*(a1 + 32) + 16))();
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (WRMBasebandMetricsInterface)init
@@ -270,7 +294,7 @@ void __45__WRMBasebandMetricsInterface_getQSHMetrics___block_invoke(uint64_t a1,
 
 void __54__WRMBasebandMetricsInterface_processWRMNrPhyMetrics___block_invoke(uint64_t a1)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_get_value(*(a1 + 32), "nrRSRP");
 
   v3 = 0.0;
@@ -299,24 +323,22 @@ void __54__WRMBasebandMetricsInterface_processWRMNrPhyMetrics___block_invoke(uin
     v7 = 0.0;
   }
 
-  v14[0] = @"nrRSRP";
+  v13[0] = @"nrRSRP";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v15[0] = v8;
-  v14[1] = @"nrRSRQ";
+  v14[0] = v8;
+  v13[1] = @"nrRSRQ";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:v3];
-  v15[1] = v9;
-  v14[2] = @"nrSNR";
+  v14[1] = v9;
+  v13[2] = @"nrSNR";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-  v15[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   v12 = *(*(a1 + 40) + 40);
   if (v12)
   {
     (*(v12 + 16))(v12, v11);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processWRMCellDataMetrics:(id)metrics
@@ -335,7 +357,7 @@ void __54__WRMBasebandMetricsInterface_processWRMNrPhyMetrics___block_invoke(uin
 
 void __57__WRMBasebandMetricsInterface_processWRMCellDataMetrics___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_get_value(*(a1 + 32), "cellularDataLQM");
 
   if (v2)
@@ -348,18 +370,16 @@ void __57__WRMBasebandMetricsInterface_processWRMCellDataMetrics___block_invoke(
     uint64 = 0;
   }
 
-  v8 = @"cellularDataLQM";
+  v7 = @"cellularDataLQM";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:uint64];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   v6 = *(*(a1 + 40) + 48);
   if (v6)
   {
     (*(v6 + 16))(v6, v5);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processWRMWiFiBWEstMetrics:(id)metrics
@@ -378,7 +398,7 @@ void __57__WRMBasebandMetricsInterface_processWRMCellDataMetrics___block_invoke(
 
 void __58__WRMBasebandMetricsInterface_processWRMWiFiBWEstMetrics___block_invoke(uint64_t a1)
 {
-  v26[7] = *MEMORY[0x277D85DE8];
+  v25[7] = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_get_value(*(a1 + 32), "wghtRSSI");
 
   v3 = 0.0;
@@ -442,36 +462,34 @@ void __58__WRMBasebandMetricsInterface_processWRMWiFiBWEstMetrics___block_invoke
     v14 = 0.0;
   }
 
-  v25[0] = @"wghtRSSI";
+  v24[0] = @"wghtRSSI";
   v15 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v26[0] = v15;
-  v25[1] = @"wghtSNR";
+  v25[0] = v15;
+  v24[1] = @"wghtSNR";
   v16 = [MEMORY[0x277CCABB0] numberWithDouble:v3];
-  v26[1] = v16;
-  v25[2] = @"wghtPhyRate";
+  v25[1] = v16;
+  v24[2] = @"wghtPhyRate";
   v17 = [MEMORY[0x277CCABB0] numberWithDouble:v8];
-  v26[2] = v17;
-  v25[3] = @"tcpRTT";
+  v25[2] = v17;
+  v24[3] = @"tcpRTT";
   v18 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-  v26[3] = v18;
-  v25[4] = @"chType";
+  v25[3] = v18;
+  v24[4] = @"chType";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:uint64];
-  v26[4] = v19;
-  v25[5] = @"isCaptive";
+  v25[4] = v19;
+  v24[5] = @"isCaptive";
   v20 = [MEMORY[0x277CCABB0] numberWithBool:v12];
-  v26[5] = v20;
-  v25[6] = @"CCA";
+  v25[5] = v20;
+  v24[6] = @"CCA";
   v21 = [MEMORY[0x277CCABB0] numberWithDouble:v14];
-  v26[6] = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:7];
+  v25[6] = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
 
   v23 = *(*(a1 + 40) + 56);
   if (v23)
   {
     (*(v23 + 16))(v23, v22);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reConnect

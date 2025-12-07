@@ -196,7 +196,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    icdp = self->_icdp;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -216,7 +215,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  icdpArmed = self->_icdpArmed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -231,12 +229,10 @@ LABEL_4:
   }
 
 LABEL_21:
-  icdpWalrus = self->_icdpWalrus;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    icdpDrop = self->_icdpDrop;
     PBDataWriterWriteBOOLField();
   }
 
@@ -248,7 +244,6 @@ LABEL_6:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    icdpGF = self->_icdpGF;
     PBDataWriterWriteBOOLField();
   }
 
@@ -264,7 +259,6 @@ LABEL_6:
 
   if ((*&self->_has & 4) != 0)
   {
-    icdpDBRv2 = self->_icdpDBRv2;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -446,7 +440,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 40);
   if (has)
   {
     if ((equalCopy[5] & 1) == 0)
@@ -454,7 +447,6 @@ LABEL_6:
       goto LABEL_53;
     }
 
-    v18 = *(equalCopy + 32);
     if (self->_icdp)
     {
       if ((equalCopy[4] & 1) == 0)
@@ -481,7 +473,6 @@ LABEL_6:
       goto LABEL_53;
     }
 
-    v19 = *(equalCopy + 33);
     if (self->_icdpArmed)
     {
       if ((*(equalCopy + 33) & 1) == 0)
@@ -508,7 +499,6 @@ LABEL_6:
       goto LABEL_53;
     }
 
-    v20 = *(equalCopy + 37);
     if (self->_icdpWalrus)
     {
       if ((*(equalCopy + 37) & 1) == 0)
@@ -535,7 +525,6 @@ LABEL_6:
       goto LABEL_53;
     }
 
-    v21 = *(equalCopy + 35);
     if (self->_icdpDrop)
     {
       if ((*(equalCopy + 35) & 1) == 0)
@@ -556,10 +545,10 @@ LABEL_6:
   }
 
   escrowedKeys = self->_escrowedKeys;
-  v11 = equalCopy[2];
-  if (escrowedKeys | v11)
+  v10 = equalCopy[2];
+  if (escrowedKeys | v10)
   {
-    if (!objc_msgSend_isEqual_(escrowedKeys, v7, v11))
+    if (!objc_msgSend_isEqual_(escrowedKeys, v7, v10))
     {
       goto LABEL_53;
     }
@@ -567,7 +556,6 @@ LABEL_6:
     has = self->_has;
   }
 
-  v12 = *(equalCopy + 40);
   if ((has & 0x10) == 0)
   {
     if ((equalCopy[5] & 0x10) == 0)
@@ -576,7 +564,7 @@ LABEL_6:
     }
 
 LABEL_53:
-    v17 = 0;
+    v15 = 0;
     goto LABEL_54;
   }
 
@@ -585,7 +573,6 @@ LABEL_53:
     goto LABEL_53;
   }
 
-  v22 = *(equalCopy + 36);
   if (self->_icdpGF)
   {
     if ((*(equalCopy + 36) & 1) == 0)
@@ -601,23 +588,23 @@ LABEL_53:
 
 LABEL_15:
   wrappedKeys = self->_wrappedKeys;
-  v14 = equalCopy[3];
-  if (wrappedKeys | v14 && !objc_msgSend_isEqual_(wrappedKeys, v7, v14))
+  v12 = equalCopy[3];
+  if (wrappedKeys | v12 && !objc_msgSend_isEqual_(wrappedKeys, v7, v12))
   {
     goto LABEL_53;
   }
 
   derivedTokenID = self->_derivedTokenID;
-  v16 = equalCopy[1];
-  if (derivedTokenID | v16)
+  v14 = equalCopy[1];
+  if (derivedTokenID | v14)
   {
-    if (!objc_msgSend_isEqual_(derivedTokenID, v7, v16))
+    if (!objc_msgSend_isEqual_(derivedTokenID, v7, v14))
     {
       goto LABEL_53;
     }
   }
 
-  v17 = (equalCopy[5] & 4) == 0;
+  v15 = (equalCopy[5] & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((equalCopy[5] & 4) != 0)
@@ -633,7 +620,7 @@ LABEL_15:
       else if (!*(equalCopy + 34))
       {
 LABEL_56:
-        v17 = 1;
+        v15 = 1;
         goto LABEL_54;
       }
     }
@@ -643,7 +630,7 @@ LABEL_56:
 
 LABEL_54:
 
-  return v17;
+  return v15;
 }
 
 - (unint64_t)hash

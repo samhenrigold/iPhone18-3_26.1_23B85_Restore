@@ -10,7 +10,6 @@
 - (id)_tokenizeString:(id)string inLocale:(id)locale;
 - (id)_webTaskService;
 - (void)_createOrUpdateBatchTranslationRequestWithParagraph:(id)paragraph index:(int64_t)index context:(id)context completion:(id)completion;
-- (void)_hasOngoingSpeechSession;
 - (void)_speechSessionCompletedWithError:(id)error;
 - (void)cancelServerTimeout;
 - (void)cancelSpeechTranslation:(BOOL)translation;
@@ -62,7 +61,7 @@
 
 + (id)blazarServiceWithBundleID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
   [defaultSessionConfiguration set_sourceApplicationBundleIdentifier:dCopy];
@@ -70,24 +69,22 @@
   [defaultSessionConfiguration setTLSMinimumSupportedProtocolVersion:771];
   [defaultSessionConfiguration setURLCache:0];
   mEMORY[0x277CCACD8] = [MEMORY[0x277CCACD8] sharedURLCache];
-  [mEMORY[0x277CCACD8] removeAllCachedResponses];
-  v6 = _LTPreferencesOspreyEndpointURL();
-  v7 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  removeAllCachedResponses = [mEMORY[0x277CCACD8] removeAllCachedResponses];
+  v8 = _LTPreferencesOspreyEndpointURL(removeAllCachedResponses, v7);
+  v10 = _LTOSLogTranslationEngine(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543618;
-    v12 = v6;
-    v13 = 2114;
-    v14 = dCopy;
-    _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "Creating service with URL: %{public}@, bundleID: %{public}@", &v11, 0x16u);
+    v13 = 138543618;
+    v14 = v8;
+    v15 = 2114;
+    v16 = dCopy;
+    _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_INFO, "Creating service with URL: %{public}@, bundleID: %{public}@", &v13, 0x16u);
   }
 
-  v8 = [(OspreyChannel *)[FTBlazarService alloc] initWithURL:v6 configuration:defaultSessionConfiguration];
-  [(OspreyChannel *)v8 setUseCompression:1];
+  v11 = [(OspreyChannel *)[FTBlazarService alloc] initWithURL:v8 configuration:defaultSessionConfiguration];
+  [(OspreyChannel *)v11 setUseCompression:1];
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v11;
 }
 
 - (id)_blazarService
@@ -215,7 +212,7 @@ LABEL_10:
 
 - (void)cancelServerTimeout
 {
-  v3 = _LTOSLogTranslationEngine();
+  v3 = _LTOSLogTranslationEngine(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -236,12 +233,12 @@ LABEL_10:
 
 - (void)serverTimeoutFired
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _LTOSLogTranslationEngine();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = _LTOSLogTranslationEngine(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "batch timeout triggered", &v9, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "batch timeout triggered", &v10, 2u);
   }
 
   if (self->batchTranslationResponseHandler)
@@ -250,18 +247,16 @@ LABEL_10:
     [date timeIntervalSinceDate:self->_startTime];
     v6 = v5;
 
-    v7 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = _LTOSLogTranslationEngine(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = 134217984;
-      v10 = v6;
-      _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "serverTimeoutFired Sending batch request after %.2fs", &v9, 0xCu);
+      v10 = 134217984;
+      v11 = v6;
+      _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_INFO, "serverTimeoutFired Sending batch request after %.2fs", &v10, 0xCu);
     }
 
     [(_LTOnlineTranslationEngine *)self sendBatchTranslationRequestWithDelegate:self->batchTranslationResponseHandler];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_tokenizeString:(id)string inLocale:(id)locale
@@ -276,7 +271,7 @@ LABEL_10:
 
 - (void)speak:(id)speak withContext:(id)context completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   speakCopy = speak;
   contextCopy = context;
   completionCopy = completion;
@@ -288,60 +283,59 @@ LABEL_10:
   speakCopy = [v12 stringWithFormat:@"%@-%@", localeIdentifier, speakCopy];
 
   v17 = [ttsCache audioDataForKey:speakCopy];
+  v19 = v17;
   if (v17)
   {
-    v18 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v20 = _LTOSLogTranslationEngine(v17, v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_232E53000, v18, OS_LOG_TYPE_INFO, "Found cached TTS data", buf, 2u);
+      _os_log_impl(&dword_232E53000, v20, OS_LOG_TYPE_INFO, "Found cached TTS data", buf, 2u);
     }
 
-    completionCopy[2](completionCopy, v17, 0);
+    completionCopy[2](completionCopy, v19, 0);
   }
 
   else
   {
-    v19 = [contextCopy _ospreyTTSRequestWithText:speakCopy];
-    v20 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v21 = [contextCopy _ospreyTTSRequestWithText:speakCopy];
+    v23 = _LTOSLogTranslationEngine(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v26 = v19;
-      language = [v19 language];
-      gender = [v19 gender];
+      v28 = v21;
+      language = [v21 language];
+      gender = [v21 gender];
       *buf = 138543618;
-      v35 = language;
-      v36 = 2114;
-      v37 = gender;
-      _os_log_impl(&dword_232E53000, v20, OS_LOG_TYPE_INFO, "Start TTS request: %{public}@ / %{public}@", buf, 0x16u);
+      v37 = language;
+      v38 = 2114;
+      v39 = gender;
+      _os_log_impl(&dword_232E53000, v23, OS_LOG_TYPE_INFO, "Start TTS request: %{public}@ / %{public}@", buf, 0x16u);
 
-      v19 = v26;
+      v21 = v28;
     }
 
-    v23 = -[_LTOnlineTranslationEngine _serviceForTask:](self, "_serviceForTask:", [contextCopy taskHint]);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invoke;
-    v32[3] = &unk_2789B7658;
-    v24 = v19;
-    v33 = v24;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invoke_2;
-    v27[3] = &unk_2789B7680;
-    v31 = completionCopy;
-    v28 = speakCopy;
-    v29 = ttsCache;
+    v26 = -[_LTOnlineTranslationEngine _serviceForTask:](self, "_serviceForTask:", [contextCopy taskHint]);
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invoke;
+    v34[3] = &unk_2789B7658;
+    v27 = v21;
+    v35 = v27;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __59___LTOnlineTranslationEngine_speak_withContext_completion___block_invoke_2;
+    v29[3] = &unk_2789B7680;
+    v33 = completionCopy;
     v30 = speakCopy;
-    [v23 performTextToSpeechRouter:v24 requestBuilder:v32 completion:v27];
+    v31 = ttsCache;
+    v32 = speakCopy;
+    [v26 performTextToSpeechRouter:v27 requestBuilder:v34 completion:v29];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createOrUpdateBatchTranslationRequestWithParagraph:(id)paragraph index:(int64_t)index context:(id)context completion:(id)completion
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   paragraphCopy = paragraph;
   contextCopy = context;
   completionCopy = completion;
@@ -377,10 +371,10 @@ LABEL_10:
   }
 
   bufferSize = [(_LTBatchTranslationResponseHandler *)batchTranslationResponseHandler bufferSize];
-  v67 = _LTPreferencesBatchingMaxParagraphBufferSize();
+  v72 = _LTPreferencesBatchingMaxParagraphBufferSize();
   batchedParagraphs = [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler batchedParagraphs];
-  v66 = [batchedParagraphs count];
-  v65 = _LTPreferencesBatchingMaxParagraphs();
+  v71 = [batchedParagraphs count];
+  v70 = _LTPreferencesBatchingMaxParagraphs();
 
   sourceLocale2 = [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler sourceLocale];
   if (![sourceLocale2 isEqual:sourceLocale])
@@ -389,7 +383,7 @@ LABEL_10:
   }
 
   targetLocale3 = [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler targetLocale];
-  v64 = completionCopy;
+  v69 = completionCopy;
   if (([targetLocale3 isEqual:targetLocale2] & 1) == 0)
   {
 
@@ -405,15 +399,15 @@ LABEL_11:
   v24 = v15;
   v25 = taskHint != taskHint2;
 
-  if (bufferSize >= v67 || v66 >= v65)
+  if (bufferSize >= v72 || v71 >= v70)
   {
-    completionCopy = v64;
+    completionCopy = v69;
   }
 
   else
   {
     v26 = taskHint == taskHint2;
-    completionCopy = v64;
+    completionCopy = v69;
     if (v26)
     {
       goto LABEL_15;
@@ -425,18 +419,18 @@ LABEL_12:
   [date timeIntervalSinceDate:self->_startTime];
   v34 = v33;
 
-  v35 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+  v37 = _LTOSLogTranslationEngine(v35, v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109888;
-    v74 = bufferSize >= v67;
-    v75 = 1024;
-    v76 = v66 >= v65;
-    v77 = 1024;
-    v78 = v25;
-    v79 = 2048;
-    v80 = v34;
-    _os_log_debug_impl(&dword_232E53000, v35, OS_LOG_TYPE_DEBUG, "Sending batch request: bufferSizeExceeded: %{BOOL}i; maxParagraphsExceeded: %{BOOL}i; taskChanged: %{BOOL}i; after %.2fs", buf, 0x1Eu);
+    v79 = bufferSize >= v72;
+    v80 = 1024;
+    v81 = v71 >= v70;
+    v82 = 1024;
+    v83 = v25;
+    v84 = 2048;
+    v85 = v34;
+    _os_log_debug_impl(&dword_232E53000, v37, OS_LOG_TYPE_DEBUG, "Sending batch request: bufferSizeExceeded: %{BOOL}i; maxParagraphsExceeded: %{BOOL}i; taskChanged: %{BOOL}i; after %.2fs", buf, 0x1Eu);
   }
 
   [(_LTOnlineTranslationEngine *)self sendBatchTranslationRequestWithDelegate:self->batchTranslationResponseHandler];
@@ -445,23 +439,23 @@ LABEL_15:
   if (!self->batchTranslationResponseHandler)
   {
 LABEL_16:
-    v36 = objc_alloc_init(_LTBatchTranslationResponseHandler);
-    v37 = self->batchTranslationResponseHandler;
-    self->batchTranslationResponseHandler = v36;
+    v38 = objc_alloc_init(_LTBatchTranslationResponseHandler);
+    v39 = self->batchTranslationResponseHandler;
+    self->batchTranslationResponseHandler = v38;
 
-    v38 = MEMORY[0x277CCACA8];
+    v40 = MEMORY[0x277CCACA8];
     sessionID = [contextCopy sessionID];
-    index = [v38 stringWithFormat:@"%@/%08zd", sessionID, index];
+    index = [v40 stringWithFormat:@"%@/%08zd", sessionID, index];
 
-    v41 = objc_alloc_init(_LTBatchedParagraphsHolder);
-    [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler setBatchedParagraphs:v41];
+    v43 = objc_alloc_init(_LTBatchedParagraphsHolder);
+    [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler setBatchedParagraphs:v43];
 
-    v42 = _LTPreferencesRequestIDOverride(index);
-    [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler setRequestID:v42];
+    v44 = _LTPreferencesRequestIDOverride(index);
+    [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler setRequestID:v44];
 
     sessionID2 = [contextCopy sessionID];
-    v44 = _LTPreferencesSessionIDOverride(sessionID2);
-    [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler setSessionID:v44];
+    v46 = _LTPreferencesSessionIDOverride(sessionID2);
+    [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler setSessionID:v46];
 
     [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler setSourceLocale:sourceLocale];
     [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler setTargetLocale:targetLocale2];
@@ -483,81 +477,80 @@ LABEL_16:
     [(_LTOnlineTranslationEngine *)self startServerTimeoutTimer];
   }
 
-  v49 = objc_alloc_init(FTMutableBatchTranslationRequest_Paragraph);
+  v51 = objc_alloc_init(FTMutableBatchTranslationRequest_Paragraph);
   identifier2 = [paragraphCopy identifier];
-  [(FTMutableBatchTranslationRequest_Paragraph *)v49 setParagraph_id:identifier2];
+  [(FTMutableBatchTranslationRequest_Paragraph *)v51 setParagraph_id:identifier2];
 
   text2 = [paragraphCopy text];
-  [(FTMutableBatchTranslationRequest_Paragraph *)v49 setText:text2];
+  [(FTMutableBatchTranslationRequest_Paragraph *)v51 setText:text2];
 
-  v52 = objc_alloc_init(_FTParagraphBatchInfo);
-  [(_FTParagraphBatchInfo *)v52 setParagraph:paragraphCopy];
-  [(_FTParagraphBatchInfo *)v52 setRequestParagraph:v49];
-  [(_FTParagraphBatchInfo *)v52 setCompletion:completionCopy];
+  v54 = objc_alloc_init(_FTParagraphBatchInfo);
+  [(_FTParagraphBatchInfo *)v54 setParagraph:paragraphCopy];
+  [(_FTParagraphBatchInfo *)v54 setRequestParagraph:v51];
+  [(_FTParagraphBatchInfo *)v54 setCompletion:completionCopy];
   spans = [paragraphCopy spans];
-  v54 = [spans count] == 0;
+  v56 = [spans count] == 0;
 
-  if (!v54)
+  if (!v56)
   {
     spans2 = [paragraphCopy spans];
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __107___LTOnlineTranslationEngine__createOrUpdateBatchTranslationRequestWithParagraph_index_context_completion___block_invoke;
-    v71[3] = &unk_2789B76A8;
-    v72 = paragraphCopy;
-    v56 = [spans2 _ltCompactMap:v71];
-    [(FTMutableBatchTranslationRequest_Paragraph *)v49 setSpan:v56];
+    v76[0] = MEMORY[0x277D85DD0];
+    v76[1] = 3221225472;
+    v76[2] = __107___LTOnlineTranslationEngine__createOrUpdateBatchTranslationRequestWithParagraph_index_context_completion___block_invoke;
+    v76[3] = &unk_2789B76A8;
+    v77 = paragraphCopy;
+    v60 = [spans2 _ltCompactMap:v76];
+    [(FTMutableBatchTranslationRequest_Paragraph *)v51 setSpan:v60];
   }
 
-  v57 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+  v61 = _LTOSLogTranslationEngine(v57, v58);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
   {
-    [(FTMutableBatchTranslationRequest_Paragraph *)v49 text];
+    [(FTMutableBatchTranslationRequest_Paragraph *)v51 text];
     objc_claimAutoreleasedReturnValue();
     [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler requestID];
     objc_claimAutoreleasedReturnValue();
     [_LTOnlineTranslationEngine _createOrUpdateBatchTranslationRequestWithParagraph:index:context:completion:];
   }
 
-  v58 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+  v64 = _LTOSLogTranslationEngine(v62, v63);
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
   {
-    [(FTMutableBatchTranslationRequest_Paragraph *)v49 span];
+    [(FTMutableBatchTranslationRequest_Paragraph *)v51 span];
     objc_claimAutoreleasedReturnValue();
     [_LTOnlineTranslationEngine _createOrUpdateBatchTranslationRequestWithParagraph:index:context:completion:];
   }
 
-  v59 = self->batchTranslationResponseHandler;
-  text3 = [(FTMutableBatchTranslationRequest_Paragraph *)v49 text];
-  -[_LTBatchTranslationResponseHandler setBufferSize:](v59, "setBufferSize:", -[_LTBatchTranslationResponseHandler bufferSize](v59, "bufferSize") + [text3 length]);
+  v65 = self->batchTranslationResponseHandler;
+  text3 = [(FTMutableBatchTranslationRequest_Paragraph *)v51 text];
+  -[_LTBatchTranslationResponseHandler setBufferSize:](v65, "setBufferSize:", -[_LTBatchTranslationResponseHandler bufferSize](v65, "bufferSize") + [text3 length]);
 
   batchedParagraphs2 = [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler batchedParagraphs];
-  paragraph_id = [(FTMutableBatchTranslationRequest_Paragraph *)v49 paragraph_id];
-  [batchedParagraphs2 insertParagraph:v52 withId:paragraph_id];
+  paragraph_id = [(FTMutableBatchTranslationRequest_Paragraph *)v51 paragraph_id];
+  [batchedParagraphs2 insertParagraph:v54 withId:paragraph_id];
 
 LABEL_24:
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendBatchTranslationRequestWithDelegate:(id)delegate
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v63 = delegateCopy;
+  v72 = delegateCopy;
   [(_LTOnlineTranslationEngine *)self cancelServerTimeout];
-  v64 = objc_alloc_init(FTMutableBatchTranslationRequest);
+  v73 = objc_alloc_init(FTMutableBatchTranslationRequest);
   requestID = [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler requestID];
-  [(FTMutableBatchTranslationRequest *)v64 setRequest_id:requestID];
+  [(FTMutableBatchTranslationRequest *)v73 setRequest_id:requestID];
 
   [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler taskHint];
   v6 = _LTTranslationModelTaskString();
-  [(FTMutableBatchTranslationRequest *)v64 setTask:v6];
+  [(FTMutableBatchTranslationRequest *)v73 setTask:v6];
 
   clientIdentifier = [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler clientIdentifier];
-  [(FTMutableBatchTranslationRequest *)v64 setApp_id:clientIdentifier];
+  [(FTMutableBatchTranslationRequest *)v73 setApp_id:clientIdentifier];
 
   sessionID = [(_LTBatchTranslationResponseHandler *)self->batchTranslationResponseHandler sessionID];
-  [(FTMutableBatchTranslationRequest *)v64 setSession_id:sessionID];
+  [(FTMutableBatchTranslationRequest *)v73 setSession_id:sessionID];
 
   sourceURL = [delegateCopy sourceURL];
 
@@ -565,23 +558,23 @@ LABEL_24:
   {
     sourceURL2 = [delegateCopy sourceURL];
     absoluteString = [sourceURL2 absoluteString];
-    [(FTMutableBatchTranslationRequest *)v64 setUrl:absoluteString];
+    [(FTMutableBatchTranslationRequest *)v73 setUrl:absoluteString];
   }
 
   batchedParagraphs = [delegateCopy batchedParagraphs];
   paragraphs = [batchedParagraphs paragraphs];
-  [(FTMutableBatchTranslationRequest *)v64 setParagraphs:paragraphs];
+  [(FTMutableBatchTranslationRequest *)v73 setParagraphs:paragraphs];
 
   paragraph = [delegateCopy paragraph];
-  -[FTMutableBatchTranslationRequest setIs_partial:](v64, "setIs_partial:", [paragraph isFinal] ^ 1);
+  -[FTMutableBatchTranslationRequest setIs_partial:](v73, "setIs_partial:", [paragraph isFinal] ^ 1);
 
   sourceLocale = [delegateCopy sourceLocale];
   _ltLocaleIdentifier = [sourceLocale _ltLocaleIdentifier];
-  [(FTMutableBatchTranslationRequest *)v64 setSource_language:_ltLocaleIdentifier];
+  [(FTMutableBatchTranslationRequest *)v73 setSource_language:_ltLocaleIdentifier];
 
   targetLocale = [delegateCopy targetLocale];
   _ltLocaleIdentifier2 = [targetLocale _ltLocaleIdentifier];
-  [(FTMutableBatchTranslationRequest *)v64 setTarget_language:_ltLocaleIdentifier2];
+  [(FTMutableBatchTranslationRequest *)v73 setTarget_language:_ltLocaleIdentifier2];
 
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
   siriDataSharingOptInStatus = [mEMORY[0x277CEF368] siriDataSharingOptInStatus];
@@ -595,140 +588,138 @@ LABEL_24:
     v21 = qword_233005D28[siriDataSharingOptInStatus - 1];
   }
 
-  [(FTMutableBatchTranslationRequest *)v64 setOpt_in_status:LTDOspreyDataSharingStatus(v21)];
-  v59 = objc_alloc_init(FTMutableTranslationOptions);
-  -[FTMutableTranslationOptions setEnable_disambiguation_alternatives:](v59, "setEnable_disambiguation_alternatives:", [delegateCopy supportsGenderDisambiguation]);
-  [(FTMutableTranslationOptions *)v59 setDisable_payload_logging:LTDDisablePayloadLogging(v21)];
-  [(FTMutableBatchTranslationRequest *)v64 setOptions:v59];
-  v22 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  [(FTMutableBatchTranslationRequest *)v73 setOpt_in_status:LTDOspreyDataSharingStatus(v21)];
+  v68 = objc_alloc_init(FTMutableTranslationOptions);
+  -[FTMutableTranslationOptions setEnable_disambiguation_alternatives:](v68, "setEnable_disambiguation_alternatives:", [delegateCopy supportsGenderDisambiguation]);
+  [(FTMutableTranslationOptions *)v68 setDisable_payload_logging:LTDDisablePayloadLogging(v21, v22)];
+  v23 = [(FTMutableBatchTranslationRequest *)v73 setOptions:v68];
+  v25 = _LTOSLogTranslationEngine(v23, v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    [(_LTOnlineTranslationEngine *)[(FTMutableTranslationOptions *)v59 enable_disambiguation_alternatives] sendBatchTranslationRequestWithDelegate:v88, v22];
+    [(_LTOnlineTranslationEngine *)[(FTMutableTranslationOptions *)v68 enable_disambiguation_alternatives] sendBatchTranslationRequestWithDelegate:v97, v25];
   }
 
-  v23 = _LTOSLogTranslationEngine();
-  v24 = os_signpost_id_generate(v23);
-  v25 = v23;
-  v26 = v25;
-  spid = v24;
-  log = v25;
-  if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  v28 = _LTOSLogTranslationEngine(v26, v27);
+  v29 = os_signpost_id_generate(v28);
+  v30 = v28;
+  v31 = v30;
+  spid = v29;
+  log = v30;
+  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
   {
-    requestID2 = [v63 requestID];
+    requestID2 = [v72 requestID];
     *buf = 138543362;
-    v81 = requestID2;
-    _os_signpost_emit_with_name_impl(&dword_232E53000, log, OS_SIGNPOST_INTERVAL_BEGIN, v24, "TranslateParagraph", "Online: Translating paragraph: %{public}@", buf, 0xCu);
+    v90 = requestID2;
+    _os_signpost_emit_with_name_impl(&dword_232E53000, log, OS_SIGNPOST_INTERVAL_BEGIN, v29, "TranslateParagraph", "Online: Translating paragraph: %{public}@", buf, 0xCu);
 
-    v26 = log;
+    v31 = log;
   }
 
-  v61 = _LTPreferencesOspreyEndpointURL();
-  v28 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+  v70 = _LTPreferencesOspreyEndpointURL(v33, v34);
+  v36 = _LTOSLogTranslationEngine(v70, v35);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
   {
-    requestID3 = [v63 requestID];
-    task = [(FTMutableBatchTranslationRequest *)v64 task];
-    sessionID2 = [v63 sessionID];
+    requestID3 = [v72 requestID];
+    task = [(FTMutableBatchTranslationRequest *)v73 task];
+    sessionID2 = [v72 sessionID];
     *buf = 138544130;
-    v81 = requestID3;
-    v82 = 2114;
-    v83 = task;
-    v84 = 2114;
-    v85 = sessionID2;
-    v86 = 2114;
-    v87 = v61;
-    _os_log_impl(&dword_232E53000, v28, OS_LOG_TYPE_INFO, "Sending batch for requestID: %{public}@, task: %{public}@, sessionID: %{public}@, URL: %{public}@", buf, 0x2Au);
+    v90 = requestID3;
+    v91 = 2114;
+    v92 = task;
+    v93 = 2114;
+    v94 = sessionID2;
+    v95 = 2114;
+    v96 = v70;
+    _os_log_impl(&dword_232E53000, v36, OS_LOG_TYPE_INFO, "Sending batch for requestID: %{public}@, task: %{public}@, sessionID: %{public}@, URL: %{public}@", buf, 0x2Au);
   }
 
-  v62 = objc_alloc_init(FTMutableBatchTranslationStreamingRequest);
-  [(FTMutableBatchTranslationStreamingRequest *)v62 setContentAsFTBatchTranslationRequest:v64];
-  [(FTMutableBatchTranslationStreamingRequest *)v62 setContent_type:1];
-  [v63 setRequest:v64];
-  v32 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v71 = objc_alloc_init(FTMutableBatchTranslationStreamingRequest);
+  [(FTMutableBatchTranslationStreamingRequest *)v71 setContentAsFTBatchTranslationRequest:v73];
+  [(FTMutableBatchTranslationStreamingRequest *)v71 setContent_type:1];
+  v40 = [v72 setRequest:v73];
+  v42 = _LTOSLogTranslationEngine(v40, v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
-    batchedParagraphs2 = [v63 batchedParagraphs];
-    v56 = [batchedParagraphs2 count];
+    batchedParagraphs2 = [v72 batchedParagraphs];
+    v65 = [batchedParagraphs2 count];
     *buf = 134217984;
-    v81 = v56;
-    _os_log_debug_impl(&dword_232E53000, v32, OS_LOG_TYPE_DEBUG, "Translating with online engine: %zu batched paragraph(s)", buf, 0xCu);
+    v90 = v65;
+    _os_log_debug_impl(&dword_232E53000, v42, OS_LOG_TYPE_DEBUG, "Translating with online engine: %zu batched paragraph(s)", buf, 0xCu);
   }
 
   selfLoggingManager = self->_selfLoggingManager;
-  logIdentifier = [v63 logIdentifier];
-  requestID4 = [v63 requestID];
-  v57 = -[_LTDSELFLoggingManager sendFrameworkRequestWithInvocationId:qssSessionId:requestType:requestRoute:requestSize:](selfLoggingManager, "sendFrameworkRequestWithInvocationId:qssSessionId:requestType:requestRoute:requestSize:", logIdentifier, requestID4, 1, 1, [v63 bufferSize]);
+  logIdentifier = [v72 logIdentifier];
+  requestID4 = [v72 requestID];
+  v66 = -[_LTDSELFLoggingManager sendFrameworkRequestWithInvocationId:qssSessionId:requestType:requestRoute:requestSize:](selfLoggingManager, "sendFrameworkRequestWithInvocationId:qssSessionId:requestType:requestRoute:requestSize:", logIdentifier, requestID4, 1, 1, [v72 bufferSize]);
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  paragraphs2 = [(FTMutableBatchTranslationRequest *)v64 paragraphs];
-  v37 = 0;
-  v38 = [paragraphs2 countByEnumeratingWithState:&v75 objects:v79 count:16];
-  if (v38)
+  v86 = 0u;
+  v87 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  paragraphs2 = [(FTMutableBatchTranslationRequest *)v73 paragraphs];
+  v47 = 0;
+  v48 = [paragraphs2 countByEnumeratingWithState:&v84 objects:v88 count:16];
+  if (v48)
   {
-    v39 = *v76;
+    v49 = *v85;
     do
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v48; ++i)
       {
-        if (*v76 != v39)
+        if (*v85 != v49)
         {
           objc_enumerationMutation(paragraphs2);
         }
 
-        v41 = *(*(&v75 + 1) + 8 * i);
-        v42 = objc_alloc(MEMORY[0x277CCA898]);
-        text = [v41 text];
-        v44 = [v42 initWithString:text];
+        v51 = *(*(&v84 + 1) + 8 * i);
+        v52 = objc_alloc(MEMORY[0x277CCA898]);
+        text = [v51 text];
+        v54 = [v52 initWithString:text];
 
-        lt_sentences = [v44 lt_sentences];
-        v46 = [lt_sentences count];
+        lt_sentences = [v54 lt_sentences];
+        v56 = [lt_sentences count];
 
-        v37 += v46;
+        v47 += v56;
       }
 
-      v38 = [paragraphs2 countByEnumeratingWithState:&v75 objects:v79 count:16];
+      v48 = [paragraphs2 countByEnumeratingWithState:&v84 objects:v88 count:16];
     }
 
-    while (v38);
+    while (v48);
   }
 
-  v47 = -[_LTOnlineTranslationEngine _serviceForTask:](self, "_serviceForTask:", [v63 taskHint]);
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegate___block_invoke;
-  v72[3] = &unk_2789B76D0;
-  v73 = v64;
-  v74 = v63;
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegate___block_invoke_2;
-  v65[3] = &unk_2789B7720;
-  v65[4] = self;
-  v48 = log;
-  v66 = v48;
-  v70 = spid;
-  v49 = v73;
-  v67 = v49;
-  v50 = v57;
-  v68 = v50;
-  v71 = v37;
-  v51 = v74;
-  v69 = v51;
-  v52 = [v47 performBatchTranslationWithDelegate:v51 requestBuilder:v72 completion:v65];
+  v57 = -[_LTOnlineTranslationEngine _serviceForTask:](self, "_serviceForTask:", [v72 taskHint]);
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegate___block_invoke;
+  v81[3] = &unk_2789B76D0;
+  v82 = v73;
+  v83 = v72;
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = __70___LTOnlineTranslationEngine_sendBatchTranslationRequestWithDelegate___block_invoke_2;
+  v74[3] = &unk_2789B7720;
+  v74[4] = self;
+  v58 = log;
+  v75 = v58;
+  v79 = spid;
+  v59 = v82;
+  v76 = v59;
+  v60 = v66;
+  v77 = v60;
+  v80 = v47;
+  v61 = v83;
+  v78 = v61;
+  v62 = [v57 performBatchTranslationWithDelegate:v61 requestBuilder:v81 completion:v74];
 
-  if (v52)
+  if (v62)
   {
-    [v52 sendBatchTranslationStreamingRequest:v62];
-    [v52 closeStream];
+    [v62 sendBatchTranslationStreamingRequest:v71];
+    [v62 closeStream];
   }
 
   batchTranslationResponseHandler = self->batchTranslationResponseHandler;
   self->batchTranslationResponseHandler = 0;
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translateSentence:(id)sentence withContext:(id)context completion:(id)completion
@@ -736,35 +727,35 @@ LABEL_24:
   sentenceCopy = sentence;
   contextCopy = context;
   completionCopy = completion;
-  v11 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = _LTOSLogTranslationEngine(completionCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_232E53000, v11, OS_LOG_TYPE_INFO, "Start translating sentence with online engine", buf, 2u);
+    _os_log_impl(&dword_232E53000, v12, OS_LOG_TYPE_INFO, "Start translating sentence with online engine", buf, 2u);
   }
 
-  v12 = [_LTAnalyticsEvent timedEventWithName:@"OnlineTextTranslation"];
+  v13 = [_LTAnalyticsEvent timedEventWithName:@"OnlineTextTranslation"];
   localePair = [contextCopy localePair];
   sourceLocale = [localePair sourceLocale];
-  [v12 setSourceLocale:sourceLocale];
+  [v13 setSourceLocale:sourceLocale];
 
   localePair2 = [contextCopy localePair];
   targetLocale = [localePair2 targetLocale];
-  [v12 setTargetLocale:targetLocale];
+  [v13 setTargetLocale:targetLocale];
 
-  [v12 addFieldsFromDictionary:&unk_2848681F8];
+  [v13 addFieldsFromDictionary:&unk_2848681F8];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
 
-  v19 = [objc_alloc(MEMORY[0x277CE1C10]) initWithIdentifier:uUIDString text:sentenceCopy spans:0 isFinal:1];
-  v20 = _LTOSLogTranslationEngine();
-  v21 = os_signpost_id_generate(v20);
-  v22 = v20;
-  v23 = v22;
-  if ((v21 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  v20 = [objc_alloc(MEMORY[0x277CE1C10]) initWithIdentifier:uUIDString text:sentenceCopy spans:0 isFinal:1];
+  v22 = _LTOSLogTranslationEngine(v20, v21);
+  v23 = os_signpost_id_generate(v22);
+  v24 = v22;
+  v25 = v24;
+  if ((v23 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     LOWORD(buf[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_232E53000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "TranslateSentence", "Online: Translating sentence", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_232E53000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "TranslateSentence", "Online: Translating sentence", buf, 2u);
   }
 
   objc_initWeak(buf, self);
@@ -773,49 +764,50 @@ LABEL_24:
   block[1] = 3221225472;
   block[2] = __71___LTOnlineTranslationEngine_translateSentence_withContext_completion___block_invoke;
   block[3] = &unk_2789B7770;
-  objc_copyWeak(v36, buf);
-  v31 = v19;
-  v32 = contextCopy;
-  v33 = v23;
-  v34 = v12;
-  v36[1] = v21;
-  v35 = completionCopy;
-  v25 = completionCopy;
-  v26 = v12;
-  v27 = v23;
-  v28 = contextCopy;
-  v29 = v19;
+  objc_copyWeak(v38, buf);
+  v33 = v20;
+  v34 = contextCopy;
+  v35 = v25;
+  v36 = v13;
+  v38[1] = v23;
+  v37 = completionCopy;
+  v27 = completionCopy;
+  v28 = v13;
+  v29 = v25;
+  v30 = contextCopy;
+  v31 = v20;
   dispatch_async(translationQueue, block);
 
-  objc_destroyWeak(v36);
+  objc_destroyWeak(v38);
   objc_destroyWeak(buf);
 }
 
 - (void)translate:(id)translate withContext:(id)context paragraphResult:(id)result completion:(id)completion
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   translateCopy = translate;
   contextCopy = context;
   resultCopy = result;
   completionCopy = completion;
-  if ([translateCopy count])
+  v14 = [translateCopy count];
+  if (v14)
   {
-    v14 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = _LTOSLogTranslationEngine(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v35 = [translateCopy count];
-      _os_log_impl(&dword_232E53000, v14, OS_LOG_TYPE_INFO, "Start translating %zu paragraphs with online engine", buf, 0xCu);
+      v36 = [translateCopy count];
+      _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_INFO, "Start translating %zu paragraphs with online engine", buf, 0xCu);
     }
 
-    v15 = [_LTAnalyticsEvent timedEventWithName:@"OnlineTextTranslation"];
+    v17 = [_LTAnalyticsEvent timedEventWithName:@"OnlineTextTranslation"];
     localePair = [contextCopy localePair];
     sourceLocale = [localePair sourceLocale];
-    [v15 setSourceLocale:sourceLocale];
+    [v17 setSourceLocale:sourceLocale];
 
     localePair2 = [contextCopy localePair];
     targetLocale = [localePair2 targetLocale];
-    [v15 setTargetLocale:targetLocale];
+    [v17 setTargetLocale:targetLocale];
 
     objc_initWeak(buf, self);
     translationQueue = self->_translationQueue;
@@ -823,45 +815,43 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = __79___LTOnlineTranslationEngine_translate_withContext_paragraphResult_completion___block_invoke;
     block[3] = &unk_2789B7810;
-    objc_copyWeak(&v33, buf);
-    v29 = translateCopy;
-    v30 = contextCopy;
-    v31 = resultCopy;
-    v32 = completionCopy;
+    objc_copyWeak(&v34, buf);
+    v30 = translateCopy;
+    v31 = contextCopy;
+    v32 = resultCopy;
+    v33 = completionCopy;
     dispatch_async(translationQueue, block);
 
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v34);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v21 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = _LTOSLogTranslationEngine(0, v15);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [_LTOnlineTranslationEngine translate:withContext:paragraphResult:completion:];
     }
 
-    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v22 = MEMORY[0x277CCA9B8];
-    v36[0] = *MEMORY[0x277CCA450];
-    v23 = [v15 localizedStringForKey:@"GENERIC_FAILURE_ERROR_DESCRIPTION" value:&stru_284834138 table:0];
-    v37[0] = v23;
-    v36[1] = *MEMORY[0x277CCA470];
-    v24 = [v15 localizedStringForKey:@"INPUT_EMPTY_ERROR_DESCRIPTION" value:&stru_284834138 table:0];
-    v37[1] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
-    v26 = [v22 errorWithDomain:*MEMORY[0x277CE1C58] code:3 userInfo:v25];
+    v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v24 = MEMORY[0x277CCA9B8];
+    v37[0] = *MEMORY[0x277CCA450];
+    v25 = [v17 localizedStringForKey:@"GENERIC_FAILURE_ERROR_DESCRIPTION" value:&stru_284834138 table:0];
+    v38[0] = v25;
+    v37[1] = *MEMORY[0x277CCA470];
+    v26 = [v17 localizedStringForKey:@"INPUT_EMPTY_ERROR_DESCRIPTION" value:&stru_284834138 table:0];
+    v38[1] = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+    v28 = [v24 errorWithDomain:*MEMORY[0x277CE1C58] code:3 userInfo:v27];
 
-    (*(completionCopy + 2))(completionCopy, v26);
+    (*(completionCopy + 2))(completionCopy, v28);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTextToSpeechTranslationWithContext:(id)context text:(id)text delegate:(id)delegate
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   textCopy = text;
   delegateCopy = delegate;
@@ -869,65 +859,66 @@ LABEL_24:
   {
 LABEL_6:
     mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
-    v14 = [mEMORY[0x277CEF368] siriDataSharingOptInStatus] - 1;
-    if (v14 > 2)
+    v16 = [mEMORY[0x277CEF368] siriDataSharingOptInStatus] - 1;
+    if (v16 > 2)
     {
-      v15 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v15 = qword_233005D28[v14];
+      v17 = qword_233005D28[v16];
     }
 
-    [contextCopy setDataSharingOptInStatus:v15];
+    [contextCopy setDataSharingOptInStatus:v17];
 
-    v16 = [_LTOspreySpeechTranslationSession alloc];
-    v17 = -[_LTOnlineTranslationEngine _serviceForTask:](self, "_serviceForTask:", [contextCopy taskHint]);
-    v18 = [(_LTOspreySpeechTranslationSession *)v16 initWithService:v17 context:contextCopy text:textCopy delegate:delegateCopy selfLoggingManager:self->_selfLoggingManager];
+    v18 = [_LTOspreySpeechTranslationSession alloc];
+    v19 = -[_LTOnlineTranslationEngine _serviceForTask:](self, "_serviceForTask:", [contextCopy taskHint]);
+    v20 = [(_LTOspreySpeechTranslationSession *)v18 initWithService:v19 context:contextCopy text:textCopy delegate:delegateCopy selfLoggingManager:self->_selfLoggingManager];
 
     selfLoggingManager = self->_selfLoggingManager;
     logIdentifier = [contextCopy logIdentifier];
     uniqueID = [contextCopy uniqueID];
-    v22 = -[_LTDSELFLoggingManager sendFrameworkRequestWithInvocationId:qssSessionId:requestType:requestRoute:requestSize:](selfLoggingManager, "sendFrameworkRequestWithInvocationId:qssSessionId:requestType:requestRoute:requestSize:", logIdentifier, uniqueID, 2, 1, [textCopy length]);
+    v24 = -[_LTDSELFLoggingManager sendFrameworkRequestWithInvocationId:qssSessionId:requestType:requestRoute:requestSize:](selfLoggingManager, "sendFrameworkRequestWithInvocationId:qssSessionId:requestType:requestRoute:requestSize:", logIdentifier, uniqueID, 2, 1, [textCopy length]);
 
     objc_initWeak(buf, self);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __84___LTOnlineTranslationEngine_startTextToSpeechTranslationWithContext_text_delegate___block_invoke;
-    v29[3] = &unk_2789B7860;
-    objc_copyWeak(&v31, buf);
-    v30 = v22;
-    v23 = v22;
-    [(_LTOspreySpeechTranslationSession *)v18 setCompletionBlock:v29];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __84___LTOnlineTranslationEngine_startTextToSpeechTranslationWithContext_text_delegate___block_invoke;
+    v30[3] = &unk_2789B7860;
+    objc_copyWeak(&v32, buf);
+    v31 = v24;
+    v25 = v24;
+    [(_LTOspreySpeechTranslationSession *)v20 setCompletionBlock:v30];
     speechSession = self->_speechSession;
-    self->_speechSession = v18;
-    v25 = v18;
+    self->_speechSession = v20;
+    v27 = v20;
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(buf);
     goto LABEL_10;
   }
 
-  if ([contextCopy overrideOngoingSessionIfNeeded])
+  overrideOngoingSessionIfNeeded = [contextCopy overrideOngoingSessionIfNeeded];
+  if (overrideOngoingSessionIfNeeded)
   {
-    v11 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = _LTOSLogTranslationEngine(overrideOngoingSessionIfNeeded, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v12 = self->_speechSession;
+      v14 = self->_speechSession;
       *buf = 134217984;
-      v33 = v12;
-      _os_log_impl(&dword_232E53000, v11, OS_LOG_TYPE_INFO, "Context allows overriding ongoing speech session %p; cancelling existing session and creating a new one for TTS", buf, 0xCu);
+      v34 = v14;
+      _os_log_impl(&dword_232E53000, v13, OS_LOG_TYPE_INFO, "Context allows overriding ongoing speech session %p; cancelling existing session and creating a new one for TTS", buf, 0xCu);
     }
 
     [(_LTOspreySpeechTranslationSession *)self->_speechSession cancel];
     goto LABEL_6;
   }
 
-  v27 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v28 = _LTOSLogTranslationEngine(overrideOngoingSessionIfNeeded, v12);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    [_LTOnlineTranslationEngine startTextToSpeechTranslationWithContext:? text:? delegate:?];
+    [_LTOnlineTranslationEngine startTextToSpeechTranslationWithContext:text:delegate:];
   }
 
   if (objc_opt_respondsToSelector())
@@ -937,27 +928,25 @@ LABEL_6:
   }
 
 LABEL_10:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_hasOngoingSpeechSession
 {
-  p_speechSession = &self->_speechSession;
   speechSession = self->_speechSession;
   if (speechSession)
   {
     isCancelled = [(_LTOspreySpeechTranslationSession *)speechSession isCancelled];
+    v5 = isCancelled;
     if (isCancelled)
     {
-      v5 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = _LTOSLogTranslationEngine(isCancelled, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(_LTOnlineTranslationEngine *)p_speechSession _hasOngoingSpeechSession];
+        [_LTOnlineTranslationEngine _hasOngoingSpeechSession];
       }
     }
 
-    LOBYTE(speechSession) = !isCancelled;
+    LOBYTE(speechSession) = v5 ^ 1;
   }
 
   return speechSession;
@@ -965,65 +954,66 @@ LABEL_10:
 
 - (void)startSpeechTranslationWithContext:(id)context delegate:(id)delegate
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   delegateCopy = delegate;
   if (![(_LTOnlineTranslationEngine *)self _hasOngoingSpeechSession])
   {
 LABEL_6:
     mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
-    v11 = [mEMORY[0x277CEF368] siriDataSharingOptInStatus] - 1;
-    if (v11 > 2)
+    v13 = [mEMORY[0x277CEF368] siriDataSharingOptInStatus] - 1;
+    if (v13 > 2)
     {
-      v12 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v12 = qword_233005D28[v11];
+      v14 = qword_233005D28[v13];
     }
 
-    [contextCopy setDataSharingOptInStatus:v12];
+    [contextCopy setDataSharingOptInStatus:v14];
 
     lt_speechTranslationOngoing = -[_LTOnlineTranslationEngine _serviceForTask:](self, "_serviceForTask:", [contextCopy taskHint]);
-    v14 = [[_LTOspreySpeechTranslationSession alloc] initWithService:lt_speechTranslationOngoing context:contextCopy delegate:delegateCopy selfLoggingManager:self->_selfLoggingManager];
+    v16 = [[_LTOspreySpeechTranslationSession alloc] initWithService:lt_speechTranslationOngoing context:contextCopy delegate:delegateCopy selfLoggingManager:self->_selfLoggingManager];
     ttsCache = [(_LTOnlineTranslationEngine *)self ttsCache];
-    [(_LTOspreySpeechTranslationSession *)v14 setTtsCache:ttsCache];
+    [(_LTOspreySpeechTranslationSession *)v16 setTtsCache:ttsCache];
 
     objc_initWeak(buf, self);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __73___LTOnlineTranslationEngine_startSpeechTranslationWithContext_delegate___block_invoke;
-    v19[3] = &unk_2789B7888;
-    objc_copyWeak(&v20, buf);
-    [(_LTOspreySpeechTranslationSession *)v14 setCompletionBlock:v19];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __73___LTOnlineTranslationEngine_startSpeechTranslationWithContext_delegate___block_invoke;
+    v20[3] = &unk_2789B7888;
+    objc_copyWeak(&v21, buf);
+    [(_LTOspreySpeechTranslationSession *)v16 setCompletionBlock:v20];
     speechSession = self->_speechSession;
-    self->_speechSession = v14;
+    self->_speechSession = v16;
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
     goto LABEL_10;
   }
 
-  if ([contextCopy overrideOngoingSessionIfNeeded])
+  overrideOngoingSessionIfNeeded = [contextCopy overrideOngoingSessionIfNeeded];
+  if (overrideOngoingSessionIfNeeded)
   {
-    v8 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = _LTOSLogTranslationEngine(overrideOngoingSessionIfNeeded, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = self->_speechSession;
+      v11 = self->_speechSession;
       *buf = 134217984;
-      v22 = v9;
-      _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "Context allows overriding ongoing speech session %p; cancelling existing session and creating a new one", buf, 0xCu);
+      v23 = v11;
+      _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_INFO, "Context allows overriding ongoing speech session %p; cancelling existing session and creating a new one", buf, 0xCu);
     }
 
     [(_LTOspreySpeechTranslationSession *)self->_speechSession cancel];
     goto LABEL_6;
   }
 
-  v18 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v19 = _LTOSLogTranslationEngine(overrideOngoingSessionIfNeeded, v9);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    [_LTOnlineTranslationEngine startSpeechTranslationWithContext:? delegate:?];
+    [_LTOnlineTranslationEngine startSpeechTranslationWithContext:delegate:];
   }
 
   if (objc_opt_respondsToSelector())
@@ -1032,8 +1022,6 @@ LABEL_6:
     [delegateCopy translationDidFinishWithError:lt_speechTranslationOngoing];
 LABEL_10:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_speechSessionCompletedWithError:(id)error
@@ -1042,8 +1030,8 @@ LABEL_10:
   dispatch_assert_queue_V2(self->_serverQueue);
   if (errorCopy)
   {
-    v5 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = _LTOSLogTranslationEngine(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_LTOnlineTranslationEngine _speechSessionCompletedWithError:];
     }
@@ -1051,11 +1039,11 @@ LABEL_10:
 
   else
   {
-    v6 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = _LTOSLogTranslationEngine(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "Completed current speech session successfully", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "Completed current speech session successfully", v10, 2u);
     }
   }
 
@@ -1108,41 +1096,6 @@ LABEL_10:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)startTextToSpeechTranslationWithContext:(uint64_t)a1 text:delegate:.cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_hasOngoingSpeechSession
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)startSpeechTranslationWithContext:(uint64_t)a1 delegate:.cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_speechSessionCompletedWithError:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

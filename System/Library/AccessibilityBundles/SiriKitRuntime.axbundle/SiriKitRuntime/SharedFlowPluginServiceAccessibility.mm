@@ -19,7 +19,7 @@
     mEMORY[0x29EDC0B48] = [MEMORY[0x29EDC0B48] sharedInstance];
     applicationBundleIdentifiers = [mEMORY[0x29EDC0B48] applicationBundleIdentifiers];
 
-    if (!AXIsPluginAllowedInClarity())
+    if (!AXIsPluginAllowedInClarity(idCopy, applicationBundleIdentifiers))
     {
       replyCopy[2](replyCopy, 0);
 

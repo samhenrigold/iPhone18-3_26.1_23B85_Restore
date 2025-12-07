@@ -8,12 +8,12 @@
 
 + (id)getFreeDiskSpace
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v3 = NSHomeDirectory();
-  v12 = 0;
-  v4 = [defaultManager attributesOfFileSystemForPath:v3 error:&v12];
-  v5 = v12;
+  v11 = 0;
+  v4 = [defaultManager attributesOfFileSystemForPath:v3 error:&v11];
+  v5 = v11;
 
   if (v4)
   {
@@ -41,7 +41,7 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Error reading attributes: %{public}@", buf, 0xCu);
     }
   }
@@ -49,14 +49,12 @@
   v8 = 0;
 LABEL_10:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)getPurgeableDiskSpace
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = CacheDeleteCopyPurgeableSpaceWithInfo();
   if (v2)
   {
@@ -74,9 +72,9 @@ LABEL_10:
       v8 = TRILogCategory_Server();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412290;
-        v12 = v3;
-        _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Failed to locate purgeable bytes in Cache Delete Info: %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v3;
+        _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Failed to locate purgeable bytes in Cache Delete Info: %@", &v10, 0xCu);
       }
     }
   }
@@ -86,21 +84,19 @@ LABEL_10:
     v3 = TRILogCategory_Server();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v11) = 0;
-      _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "Failed to retrieve Cache Delete Info.", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "Failed to retrieve Cache Delete Info.", &v10, 2u);
     }
 
     v6 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (BOOL)hasSufficientDiskSpaceForDownload:(unint64_t)download
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = +[TRICacheDeleteUtils getFreeDiskSpace];
   unsignedLongLongValue = [v4 unsignedLongLongValue];
 
@@ -123,39 +119,39 @@ LABEL_10:
         *&buf[12] = 2048;
         *&buf[14] = v6;
         *&buf[22] = 2048;
-        v34 = unsignedLongLongValue2;
+        v33 = unsignedLongLongValue2;
         _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEFAULT, "Sufficient disk space, if we purge the cache. Free space: %llu, required space: %llu, purgeable space: %llu", buf, 0x20u);
       }
 
-      v31[0] = @"CACHE_DELETE_VOLUME";
-      v31[1] = @"CACHE_DELETE_AMOUNT";
-      v32[0] = @"/private/var";
+      v30[0] = @"CACHE_DELETE_VOLUME";
+      v30[1] = @"CACHE_DELETE_AMOUNT";
+      v31[0] = @"/private/var";
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v8];
-      v32[1] = v16;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+      v31[1] = v16;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      LOBYTE(v34) = 1;
+      LOBYTE(v33) = 1;
       v17 = dispatch_semaphore_create(0);
-      v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __57__TRICacheDeleteUtils_hasSufficientDiskSpaceForDownload___block_invoke;
-      v26 = &unk_279DDFE78;
+      v22 = MEMORY[0x277D85DD0];
+      v23 = 3221225472;
+      v24 = __57__TRICacheDeleteUtils_hasSufficientDiskSpaceForDownload___block_invoke;
+      v25 = &unk_279DDFE78;
       v18 = v17;
-      v27 = v18;
-      v28 = buf;
-      v29 = unsignedLongLongValue;
-      v30 = v6;
+      v26 = v18;
+      v27 = buf;
+      v28 = unsignedLongLongValue;
+      v29 = v6;
       CacheDeletePurgeSpaceWithInfo();
       if ([MEMORY[0x277D425A0] waitForSemaphore:v18 timeoutSeconds:120.0])
       {
         v19 = TRILogCategory_Server();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v22[0] = 0;
-          _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "Timeout while attempting to have CacheDelete purge data before starting download.", v22, 2u);
+          v21[0] = 0;
+          _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "Timeout while attempting to have CacheDelete purge data before starting download.", v21, 2u);
         }
 
         v13 = 0;
@@ -178,7 +174,7 @@ LABEL_10:
         *&buf[12] = 2048;
         *&buf[14] = v6;
         *&buf[22] = 2048;
-        v34 = unsignedLongLongValue2;
+        v33 = unsignedLongLongValue2;
         _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEFAULT, "Insufficient disk space. Free space: %llu, required space: %llu, purgeable space: %llu", buf, 0x20u);
       }
 
@@ -201,13 +197,12 @@ LABEL_10:
     v13 = 1;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13 & 1;
 }
 
 void __57__TRICacheDeleteUtils_hasSufficientDiskSpaceForDownload___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = [a2 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
   v5 = v4;
   if (v4)
@@ -230,15 +225,15 @@ void __57__TRICacheDeleteUtils_hasSufficientDiskSpaceForDownload___block_invoke(
         v11 = @"NO";
       }
 
-      v13 = 134218754;
-      v14 = v8;
-      v15 = 2048;
-      v16 = v10;
-      v17 = 2048;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Managed to purge %llu bytes. Free space: %llu, required space: %llu. Sufficient: %@", &v13, 0x2Au);
+      v12 = 134218754;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v10;
+      v16 = 2048;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Managed to purge %llu bytes. Free space: %llu, required space: %llu. Sufficient: %@", &v12, 0x2Au);
     }
   }
 
@@ -247,14 +242,13 @@ void __57__TRICacheDeleteUtils_hasSufficientDiskSpaceForDownload___block_invoke(
     v7 = TRILogCategory_Server();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = a2;
-      _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Failed to locate purged bytes in Cache Delete result: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = a2;
+      _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Failed to locate purged bytes in Cache Delete result: %@", &v12, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

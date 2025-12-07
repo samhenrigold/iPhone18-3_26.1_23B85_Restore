@@ -132,7 +132,7 @@ uint64_t Pregnancy.attribute(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint
             v29 = swift_allocObject();
             *(v29 + 16) = v27;
             *(v29 + 24) = v28;
-            v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiycMd);
+            v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiycMd, "J/");
             result = v29;
             a5[3] = v12;
             *a5 = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int);
@@ -248,7 +248,7 @@ uint64_t (*implicit closure #1 in Pregnancy.attribute(for:)(uint64_t a1, uint64_
   v12 = v15;
   v13 = *(v15 + 64);
   v11 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a3);
+  MEMORY[0x28223BE20](a3, a1);
   v18 = &v10 - v11;
   v22 = v3;
   (*(v15 + 16))(&v10 - v11);
@@ -301,1102 +301,1102 @@ Swift::Bool __swiftcall Pregnancy.has(attribute:)(Swift::String attribute)
 
 void HyperParams.attribute(for:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v316 = a3;
-  v326 = a1;
-  v327 = a2;
-  v489 = 0;
+  v317 = a3;
+  v327 = a1;
+  v328 = a2;
   v490 = 0;
-  v488 = 0;
-  v318 = type metadata accessor for ShuffleMethod();
-  v319 = *(v318 - 8);
-  v320 = v318 - 8;
-  v322 = *(v319 + 64);
-  v321 = (v322 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v327);
-  v323 = &v202 - v321;
-  v324 = v321;
-  v5 = MEMORY[0x28223BE20](v4);
-  v325 = &v202 - v324;
-  v489 = v6;
-  v490 = v5;
-  v488 = v3;
+  v491 = 0;
+  v489 = 0;
+  v319 = type metadata accessor for ShuffleMethod();
+  v320 = *(v319 - 8);
+  v321 = v319 - 8;
+  v323 = *(v320 + 64);
+  v322 = (v323 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v328, v4);
+  v324 = &v203 - v322;
+  v325 = v322;
+  v6 = MEMORY[0x28223BE20](v5, &v203 - v322);
+  v326 = &v203 - v325;
+  v490 = v7;
+  v491 = v6;
+  v489 = v3;
 
-  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputPostProcThresholds", 0x18uLL, 1);
-  v328 = &v487;
-  v487 = v7;
-  v485 = v326;
+  v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputPostProcThresholds", 0x18uLL, 1);
+  v329 = &v488;
+  v488 = v8;
   v486 = v327;
-  v329 = MEMORY[0x25F889340](v7._countAndFlagsBits, v7._object, v326, v327);
+  v487 = v328;
+  v330 = MEMORY[0x25F889340](v8._countAndFlagsBits, v8._object, v327, v328);
   outlined destroy of DefaultStringInterpolation();
-  if (v329)
+  if (v330)
   {
 
-    v315 = HyperParams.outputPostProcThresholds.getter();
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-    v9 = v316;
-    v10 = v8;
-    v11 = v315;
-    v316[3] = v10;
-    *v9 = v11;
+    v316 = HyperParams.outputPostProcThresholds.getter();
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+    v10 = v317;
+    v11 = v9;
+    v12 = v316;
+    v317[3] = v11;
+    *v10 = v12;
   }
 
   else
   {
 
-    v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("latencyBuckets", 0xEuLL, 1);
-    v313 = &v484;
-    v484 = v12;
-    v482 = v326;
+    v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("latencyBuckets", 0xEuLL, 1);
+    v314 = &v485;
+    v485 = v13;
     v483 = v327;
-    v314 = MEMORY[0x25F889340](v12._countAndFlagsBits, v12._object, v326, v327);
+    v484 = v328;
+    v315 = MEMORY[0x25F889340](v13._countAndFlagsBits, v13._object, v327, v328);
     outlined destroy of DefaultStringInterpolation();
-    if (v314)
+    if (v315)
     {
 
-      v312 = HyperParams.latencyBuckets.getter();
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-      v14 = v316;
-      v15 = v13;
-      v16 = v312;
-      v316[3] = v15;
-      *v14 = v16;
+      v313 = HyperParams.latencyBuckets.getter();
+      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+      v15 = v317;
+      v16 = v14;
+      v17 = v313;
+      v317[3] = v16;
+      *v15 = v17;
     }
 
     else
     {
 
-      v17 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("maxFPRs", 7uLL, 1);
-      v310 = &v481;
-      v481 = v17;
-      v479 = v326;
+      v18 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("maxFPRs", 7uLL, 1);
+      v311 = &v482;
+      v482 = v18;
       v480 = v327;
-      v311 = MEMORY[0x25F889340](v17._countAndFlagsBits, v17._object, v326, v327);
+      v481 = v328;
+      v312 = MEMORY[0x25F889340](v18._countAndFlagsBits, v18._object, v327, v328);
       outlined destroy of DefaultStringInterpolation();
-      if (v311)
+      if (v312)
       {
 
-        v309 = HyperParams.maxFPRs.getter();
-        v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-        v19 = v316;
-        v20 = v18;
-        v21 = v309;
-        v316[3] = v20;
-        *v19 = v21;
+        v310 = HyperParams.maxFPRs.getter();
+        v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+        v20 = v317;
+        v21 = v19;
+        v22 = v310;
+        v317[3] = v21;
+        *v20 = v22;
       }
 
       else
       {
 
-        v22 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("confusionMatrixNumThresholds", 0x1CuLL, 1);
-        v307 = &v478;
-        v478 = v22;
-        v476 = v326;
+        v23 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("confusionMatrixNumThresholds", 0x1CuLL, 1);
+        v308 = &v479;
+        v479 = v23;
         v477 = v327;
-        v308 = MEMORY[0x25F889340](v22._countAndFlagsBits, v22._object, v326, v327);
+        v478 = v328;
+        v309 = MEMORY[0x25F889340](v23._countAndFlagsBits, v23._object, v327, v328);
         outlined destroy of DefaultStringInterpolation();
-        if (v308)
+        if (v309)
         {
 
-          v23 = HyperParams.confusionMatrixNumThresholds.getter();
-          v24 = v316;
-          v316[3] = MEMORY[0x277D83B88];
-          *v24 = v23;
+          v24 = HyperParams.confusionMatrixNumThresholds.getter();
+          v25 = v317;
+          v317[3] = MEMORY[0x277D83B88];
+          *v25 = v24;
         }
 
         else
         {
 
-          v25 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("targetFPRs", 0xAuLL, 1);
-          v305 = &v475;
-          v475 = v25;
-          v473 = v326;
+          v26 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("targetFPRs", 0xAuLL, 1);
+          v306 = &v476;
+          v476 = v26;
           v474 = v327;
-          v306 = MEMORY[0x25F889340](v25._countAndFlagsBits, v25._object, v326, v327);
+          v475 = v328;
+          v307 = MEMORY[0x25F889340](v26._countAndFlagsBits, v26._object, v327, v328);
           outlined destroy of DefaultStringInterpolation();
-          if (v306)
+          if (v307)
           {
 
-            v304 = HyperParams.targetFPRs.getter();
-            v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-            v27 = v316;
-            v28 = v26;
-            v29 = v304;
-            v316[3] = v28;
-            *v27 = v29;
+            v305 = HyperParams.targetFPRs.getter();
+            v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+            v28 = v317;
+            v29 = v27;
+            v30 = v305;
+            v317[3] = v29;
+            *v28 = v30;
           }
 
           else
           {
 
-            v30 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("modelOutputNumberOfBuckets", 0x1AuLL, 1);
-            v302 = &v472;
-            v472 = v30;
-            v470 = v326;
+            v31 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("modelOutputNumberOfBuckets", 0x1AuLL, 1);
+            v303 = &v473;
+            v473 = v31;
             v471 = v327;
-            v303 = MEMORY[0x25F889340](v30._countAndFlagsBits, v30._object, v326, v327);
+            v472 = v328;
+            v304 = MEMORY[0x25F889340](v31._countAndFlagsBits, v31._object, v327, v328);
             outlined destroy of DefaultStringInterpolation();
-            if (v303)
+            if (v304)
             {
 
-              v31 = HyperParams.modelOutputNumberOfBuckets.getter();
-              v32 = v316;
-              v316[3] = MEMORY[0x277D83B88];
-              *v32 = v31;
+              v32 = HyperParams.modelOutputNumberOfBuckets.getter();
+              v33 = v317;
+              v317[3] = MEMORY[0x277D83B88];
+              *v33 = v32;
             }
 
             else
             {
 
-              v33 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("sliceSize", 9uLL, 1);
-              v300 = &v469;
-              v469 = v33;
-              v467 = v326;
+              v34 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("sliceSize", 9uLL, 1);
+              v301 = &v470;
+              v470 = v34;
               v468 = v327;
-              v301 = MEMORY[0x25F889340](v33._countAndFlagsBits, v33._object, v326, v327);
+              v469 = v328;
+              v302 = MEMORY[0x25F889340](v34._countAndFlagsBits, v34._object, v327, v328);
               outlined destroy of DefaultStringInterpolation();
-              if (v301)
+              if (v302)
               {
 
-                v34 = HyperParams.sliceSize.getter();
-                v35 = v316;
-                v316[3] = MEMORY[0x277D83B88];
-                *v35 = v34;
+                v35 = HyperParams.sliceSize.getter();
+                v36 = v317;
+                v317[3] = MEMORY[0x277D83B88];
+                *v36 = v35;
               }
 
               else
               {
 
-                v36 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("excludeContraceptionSlices", 0x1AuLL, 1);
-                v298 = &v466;
-                v466 = v36;
-                v464 = v326;
+                v37 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("excludeContraceptionSlices", 0x1AuLL, 1);
+                v299 = &v467;
+                v467 = v37;
                 v465 = v327;
-                v299 = MEMORY[0x25F889340](v36._countAndFlagsBits, v36._object, v326, v327);
+                v466 = v328;
+                v300 = MEMORY[0x25F889340](v37._countAndFlagsBits, v37._object, v327, v328);
                 outlined destroy of DefaultStringInterpolation();
-                if (v299)
+                if (v300)
                 {
 
-                  v37 = HyperParams.excludeContraceptionSlices.getter();
-                  v38 = v316;
-                  v316[3] = MEMORY[0x277D839B0];
-                  *v38 = v37 & 1;
+                  v38 = HyperParams.excludeContraceptionSlices.getter();
+                  v39 = v317;
+                  v317[3] = MEMORY[0x277D839B0];
+                  *v39 = v38 & 1;
                 }
 
                 else
                 {
 
-                  v39 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("excludeOtherPregnancySlices", 0x1BuLL, 1);
-                  v296 = &v463;
-                  v463 = v39;
-                  v461 = v326;
+                  v40 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("excludeOtherPregnancySlices", 0x1BuLL, 1);
+                  v297 = &v464;
+                  v464 = v40;
                   v462 = v327;
-                  v297 = MEMORY[0x25F889340](v39._countAndFlagsBits, v39._object, v326, v327);
+                  v463 = v328;
+                  v298 = MEMORY[0x25F889340](v40._countAndFlagsBits, v40._object, v327, v328);
                   outlined destroy of DefaultStringInterpolation();
-                  if (v297)
+                  if (v298)
                   {
 
-                    v40 = HyperParams.excludeOtherPregnancySlices.getter();
-                    v41 = v316;
-                    v316[3] = MEMORY[0x277D839B0];
-                    *v41 = v40 & 1;
+                    v41 = HyperParams.excludeOtherPregnancySlices.getter();
+                    v42 = v317;
+                    v317[3] = MEMORY[0x277D839B0];
+                    *v42 = v41 & 1;
                   }
 
                   else
                   {
 
-                    v42 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minSliceAnchorDelta", 0x13uLL, 1);
-                    v294 = &v460;
-                    v460 = v42;
-                    v458 = v326;
+                    v43 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minSliceAnchorDelta", 0x13uLL, 1);
+                    v295 = &v461;
+                    v461 = v43;
                     v459 = v327;
-                    v295 = MEMORY[0x25F889340](v42._countAndFlagsBits, v42._object, v326, v327);
+                    v460 = v328;
+                    v296 = MEMORY[0x25F889340](v43._countAndFlagsBits, v43._object, v327, v328);
                     outlined destroy of DefaultStringInterpolation();
-                    if (v295)
+                    if (v296)
                     {
 
-                      v43 = HyperParams.minSliceAnchorDelta.getter();
-                      v44 = v316;
-                      v316[3] = MEMORY[0x277D83B88];
-                      *v44 = v43;
+                      v44 = HyperParams.minSliceAnchorDelta.getter();
+                      v45 = v317;
+                      v317[3] = MEMORY[0x277D83B88];
+                      *v45 = v44;
                     }
 
                     else
                     {
 
-                      v45 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("maxSliceAnchorDelta", 0x13uLL, 1);
-                      v292 = &v457;
-                      v457 = v45;
-                      v455 = v326;
+                      v46 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("maxSliceAnchorDelta", 0x13uLL, 1);
+                      v293 = &v458;
+                      v458 = v46;
                       v456 = v327;
-                      v293 = MEMORY[0x25F889340](v45._countAndFlagsBits, v45._object, v326, v327);
+                      v457 = v328;
+                      v294 = MEMORY[0x25F889340](v46._countAndFlagsBits, v46._object, v327, v328);
                       outlined destroy of DefaultStringInterpolation();
-                      if (v293)
+                      if (v294)
                       {
 
-                        v46 = HyperParams.maxSliceAnchorDelta.getter();
-                        v47 = v316;
-                        v316[3] = MEMORY[0x277D83B88];
-                        *v47 = v46;
+                        v47 = HyperParams.maxSliceAnchorDelta.getter();
+                        v48 = v317;
+                        v317[3] = MEMORY[0x277D83B88];
+                        *v48 = v47;
                       }
 
                       else
                       {
 
-                        v48 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lmpMinSliceAnchorDelta", 0x16uLL, 1);
-                        v290 = &v454;
-                        v454 = v48;
-                        v452 = v326;
+                        v49 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lmpMinSliceAnchorDelta", 0x16uLL, 1);
+                        v291 = &v455;
+                        v455 = v49;
                         v453 = v327;
-                        v291 = MEMORY[0x25F889340](v48._countAndFlagsBits, v48._object, v326, v327);
+                        v454 = v328;
+                        v292 = MEMORY[0x25F889340](v49._countAndFlagsBits, v49._object, v327, v328);
                         outlined destroy of DefaultStringInterpolation();
-                        if (v291)
+                        if (v292)
                         {
 
-                          v49 = HyperParams.lmpMinSliceAnchorDelta.getter();
-                          v50 = v316;
-                          v316[3] = MEMORY[0x277D83B88];
-                          *v50 = v49;
+                          v50 = HyperParams.lmpMinSliceAnchorDelta.getter();
+                          v51 = v317;
+                          v317[3] = MEMORY[0x277D83B88];
+                          *v51 = v50;
                         }
 
                         else
                         {
 
-                          v51 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lmpMaxSliceAnchorDelta", 0x16uLL, 1);
-                          v288 = &v451;
-                          v451 = v51;
-                          v449 = v326;
+                          v52 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lmpMaxSliceAnchorDelta", 0x16uLL, 1);
+                          v289 = &v452;
+                          v452 = v52;
                           v450 = v327;
-                          v289 = MEMORY[0x25F889340](v51._countAndFlagsBits, v51._object, v326, v327);
+                          v451 = v328;
+                          v290 = MEMORY[0x25F889340](v52._countAndFlagsBits, v52._object, v327, v328);
                           outlined destroy of DefaultStringInterpolation();
-                          if (v289)
+                          if (v290)
                           {
 
-                            v52 = HyperParams.lmpMaxSliceAnchorDelta.getter();
-                            v53 = v316;
-                            v316[3] = MEMORY[0x277D83B88];
-                            *v53 = v52;
+                            v53 = HyperParams.lmpMaxSliceAnchorDelta.getter();
+                            v54 = v317;
+                            v317[3] = MEMORY[0x277D83B88];
+                            *v54 = v53;
                           }
 
                           else
                           {
 
-                            v54 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isCalendarPeriodPredictionRequired", 0x22uLL, 1);
-                            v286 = &v448;
-                            v448 = v54;
-                            v446 = v326;
+                            v55 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isCalendarPeriodPredictionRequired", 0x22uLL, 1);
+                            v287 = &v449;
+                            v449 = v55;
                             v447 = v327;
-                            v287 = MEMORY[0x25F889340](v54._countAndFlagsBits, v54._object, v326, v327);
+                            v448 = v328;
+                            v288 = MEMORY[0x25F889340](v55._countAndFlagsBits, v55._object, v327, v328);
                             outlined destroy of DefaultStringInterpolation();
-                            if (v287)
+                            if (v288)
                             {
 
-                              v55 = HyperParams.isCalendarPeriodPredictionRequired()();
-                              v56 = v316;
-                              v316[3] = MEMORY[0x277D839B0];
-                              *v56 = v55;
+                              v56 = HyperParams.isCalendarPeriodPredictionRequired()();
+                              v57 = v317;
+                              v317[3] = MEMORY[0x277D839B0];
+                              *v57 = v56;
                             }
 
                             else
                             {
 
-                              v57 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isDaysSinceLastPeriodStartRequired", 0x22uLL, 1);
-                              v284 = &v445;
-                              v445 = v57;
-                              v443 = v326;
+                              v58 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isDaysSinceLastPeriodStartRequired", 0x22uLL, 1);
+                              v285 = &v446;
+                              v446 = v58;
                               v444 = v327;
-                              v285 = MEMORY[0x25F889340](v57._countAndFlagsBits, v57._object, v326, v327);
+                              v445 = v328;
+                              v286 = MEMORY[0x25F889340](v58._countAndFlagsBits, v58._object, v327, v328);
                               outlined destroy of DefaultStringInterpolation();
-                              if (v285)
+                              if (v286)
                               {
 
                                 PeriodStart = HyperParams.isDaysSinceLastPeriodStartRequired()();
-                                v59 = v316;
-                                v316[3] = MEMORY[0x277D839B0];
-                                *v59 = PeriodStart;
+                                v60 = v317;
+                                v317[3] = MEMORY[0x277D839B0];
+                                *v60 = PeriodStart;
                               }
 
                               else
                               {
 
-                                v60 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isDaySHRRequired", 0x10uLL, 1);
-                                v282 = &v442;
-                                v442 = v60;
-                                v440 = v326;
+                                v61 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isDaySHRRequired", 0x10uLL, 1);
+                                v283 = &v443;
+                                v443 = v61;
                                 v441 = v327;
-                                v283 = MEMORY[0x25F889340](v60._countAndFlagsBits, v60._object, v326, v327);
+                                v442 = v328;
+                                v284 = MEMORY[0x25F889340](v61._countAndFlagsBits, v61._object, v327, v328);
                                 outlined destroy of DefaultStringInterpolation();
-                                if (v283)
+                                if (v284)
                                 {
 
-                                  v61 = HyperParams.isDaySHRRequired()();
-                                  v62 = v316;
-                                  v316[3] = MEMORY[0x277D839B0];
-                                  *v62 = v61;
+                                  v62 = HyperParams.isDaySHRRequired()();
+                                  v63 = v317;
+                                  v317[3] = MEMORY[0x277D839B0];
+                                  *v63 = v62;
                                 }
 
                                 else
                                 {
 
-                                  v63 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isNightSHRRequired", 0x12uLL, 1);
-                                  v280 = &v439;
-                                  v439 = v63;
-                                  v437 = v326;
+                                  v64 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isNightSHRRequired", 0x12uLL, 1);
+                                  v281 = &v440;
+                                  v440 = v64;
                                   v438 = v327;
-                                  v281 = MEMORY[0x25F889340](v63._countAndFlagsBits, v63._object, v326, v327);
+                                  v439 = v328;
+                                  v282 = MEMORY[0x25F889340](v64._countAndFlagsBits, v64._object, v327, v328);
                                   outlined destroy of DefaultStringInterpolation();
-                                  if (v281)
+                                  if (v282)
                                   {
 
-                                    v64 = HyperParams.isNightSHRRequired()();
-                                    v65 = v316;
-                                    v316[3] = MEMORY[0x277D839B0];
-                                    *v65 = v64;
+                                    v65 = HyperParams.isNightSHRRequired()();
+                                    v66 = v317;
+                                    v317[3] = MEMORY[0x277D839B0];
+                                    *v66 = v65;
                                   }
 
                                   else
                                   {
 
-                                    v66 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isSWTRequired", 0xDuLL, 1);
-                                    v278 = &v436;
-                                    v436 = v66;
-                                    v434 = v326;
+                                    v67 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isSWTRequired", 0xDuLL, 1);
+                                    v279 = &v437;
+                                    v437 = v67;
                                     v435 = v327;
-                                    v279 = MEMORY[0x25F889340](v66._countAndFlagsBits, v66._object, v326, v327);
+                                    v436 = v328;
+                                    v280 = MEMORY[0x25F889340](v67._countAndFlagsBits, v67._object, v327, v328);
                                     outlined destroy of DefaultStringInterpolation();
-                                    if (v279)
+                                    if (v280)
                                     {
 
-                                      v67 = HyperParams.isSWTRequired()();
-                                      v68 = v316;
-                                      v316[3] = MEMORY[0x277D839B0];
-                                      *v68 = v67;
+                                      v68 = HyperParams.isSWTRequired()();
+                                      v69 = v317;
+                                      v317[3] = MEMORY[0x277D839B0];
+                                      *v69 = v68;
                                     }
 
                                     else
                                     {
 
-                                      v69 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isHRVRequired", 0xDuLL, 1);
-                                      v276 = &v433;
-                                      v433 = v69;
-                                      v431 = v326;
+                                      v70 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isHRVRequired", 0xDuLL, 1);
+                                      v277 = &v434;
+                                      v434 = v70;
                                       v432 = v327;
-                                      v277 = MEMORY[0x25F889340](v69._countAndFlagsBits, v69._object, v326, v327);
+                                      v433 = v328;
+                                      v278 = MEMORY[0x25F889340](v70._countAndFlagsBits, v70._object, v327, v328);
                                       outlined destroy of DefaultStringInterpolation();
-                                      if (v277)
+                                      if (v278)
                                       {
 
-                                        v70 = HyperParams.isHRVRequired()();
-                                        v71 = v316;
-                                        v316[3] = MEMORY[0x277D839B0];
-                                        *v71 = v70;
+                                        v71 = HyperParams.isHRVRequired()();
+                                        v72 = v317;
+                                        v317[3] = MEMORY[0x277D839B0];
+                                        *v72 = v71;
                                       }
 
                                       else
                                       {
 
-                                        v72 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isRespiratoryRateRequired", 0x19uLL, 1);
-                                        v274 = &v430;
-                                        v430 = v72;
-                                        v428 = v326;
+                                        v73 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isRespiratoryRateRequired", 0x19uLL, 1);
+                                        v275 = &v431;
+                                        v431 = v73;
                                         v429 = v327;
-                                        v275 = MEMORY[0x25F889340](v72._countAndFlagsBits, v72._object, v326, v327);
+                                        v430 = v328;
+                                        v276 = MEMORY[0x25F889340](v73._countAndFlagsBits, v73._object, v327, v328);
                                         outlined destroy of DefaultStringInterpolation();
-                                        if (v275)
+                                        if (v276)
                                         {
 
-                                          v73 = HyperParams.isRespiratoryRateRequired()();
-                                          v74 = v316;
-                                          v316[3] = MEMORY[0x277D839B0];
-                                          *v74 = v73;
+                                          v74 = HyperParams.isRespiratoryRateRequired()();
+                                          v75 = v317;
+                                          v317[3] = MEMORY[0x277D839B0];
+                                          *v75 = v74;
                                         }
 
                                         else
                                         {
 
-                                          v75 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isSpO2Required", 0xEuLL, 1);
-                                          v272 = &v427;
-                                          v427 = v75;
-                                          v425 = v326;
+                                          v76 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isSpO2Required", 0xEuLL, 1);
+                                          v273 = &v428;
+                                          v428 = v76;
                                           v426 = v327;
-                                          v273 = MEMORY[0x25F889340](v75._countAndFlagsBits, v75._object, v326, v327);
+                                          v427 = v328;
+                                          v274 = MEMORY[0x25F889340](v76._countAndFlagsBits, v76._object, v327, v328);
                                           outlined destroy of DefaultStringInterpolation();
-                                          if (v273)
+                                          if (v274)
                                           {
 
-                                            v76 = HyperParams.isSpO2Required()();
-                                            v77 = v316;
-                                            v316[3] = MEMORY[0x277D839B0];
-                                            *v77 = v76;
+                                            v77 = HyperParams.isSpO2Required()();
+                                            v78 = v317;
+                                            v317[3] = MEMORY[0x277D839B0];
+                                            *v78 = v77;
                                           }
 
                                           else
                                           {
 
-                                            v78 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isPSMRequired", 0xDuLL, 1);
-                                            v270 = &v424;
-                                            v424 = v78;
-                                            v422 = v326;
+                                            v79 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isPSMRequired", 0xDuLL, 1);
+                                            v271 = &v425;
+                                            v425 = v79;
                                             v423 = v327;
-                                            v271 = MEMORY[0x25F889340](v78._countAndFlagsBits, v78._object, v326, v327);
+                                            v424 = v328;
+                                            v272 = MEMORY[0x25F889340](v79._countAndFlagsBits, v79._object, v327, v328);
                                             outlined destroy of DefaultStringInterpolation();
-                                            if (v271)
+                                            if (v272)
                                             {
 
-                                              v79 = HyperParams.isPSMRequired()();
-                                              v80 = v316;
-                                              v316[3] = MEMORY[0x277D839B0];
-                                              *v80 = v79;
+                                              v80 = HyperParams.isPSMRequired()();
+                                              v81 = v317;
+                                              v317[3] = MEMORY[0x277D839B0];
+                                              *v81 = v80;
                                             }
 
                                             else
                                             {
 
-                                              v81 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isPSSRequired", 0xDuLL, 1);
-                                              v268 = &v421;
-                                              v421 = v81;
-                                              v419 = v326;
+                                              v82 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("isPSSRequired", 0xDuLL, 1);
+                                              v269 = &v422;
+                                              v422 = v82;
                                               v420 = v327;
-                                              v269 = MEMORY[0x25F889340](v81._countAndFlagsBits, v81._object, v326, v327);
+                                              v421 = v328;
+                                              v270 = MEMORY[0x25F889340](v82._countAndFlagsBits, v82._object, v327, v328);
                                               outlined destroy of DefaultStringInterpolation();
-                                              if (v269)
+                                              if (v270)
                                               {
 
-                                                v82 = HyperParams.isPSSRequired()();
-                                                v83 = v316;
-                                                v316[3] = MEMORY[0x277D839B0];
-                                                *v83 = v82;
+                                                v83 = HyperParams.isPSSRequired()();
+                                                v84 = v317;
+                                                v317[3] = MEMORY[0x277D839B0];
+                                                *v84 = v83;
                                               }
 
                                               else
                                               {
 
-                                                v84 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("dropNegativeSlicesForInferredFactorLMP", 0x26uLL, 1);
-                                                v266 = &v418;
-                                                v418 = v84;
-                                                v416 = v326;
+                                                v85 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("dropNegativeSlicesForInferredFactorLMP", 0x26uLL, 1);
+                                                v267 = &v419;
+                                                v419 = v85;
                                                 v417 = v327;
-                                                v267 = MEMORY[0x25F889340](v84._countAndFlagsBits, v84._object, v326, v327);
+                                                v418 = v328;
+                                                v268 = MEMORY[0x25F889340](v85._countAndFlagsBits, v85._object, v327, v328);
                                                 outlined destroy of DefaultStringInterpolation();
-                                                if (v267)
+                                                if (v268)
                                                 {
 
-                                                  v85 = HyperParams.dropNegativeSlicesForInferredFactorLMP.getter();
-                                                  v86 = v316;
-                                                  v316[3] = MEMORY[0x277D83B88];
-                                                  *v86 = v85;
+                                                  v86 = HyperParams.dropNegativeSlicesForInferredFactorLMP.getter();
+                                                  v87 = v317;
+                                                  v317[3] = MEMORY[0x277D83B88];
+                                                  *v87 = v86;
                                                 }
 
                                                 else
                                                 {
 
-                                                  v87 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("dropNegativeSlicesForInferredTestLMP", 0x24uLL, 1);
-                                                  v264 = &v415;
-                                                  v415 = v87;
-                                                  v413 = v326;
+                                                  v88 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("dropNegativeSlicesForInferredTestLMP", 0x24uLL, 1);
+                                                  v265 = &v416;
+                                                  v416 = v88;
                                                   v414 = v327;
-                                                  v265 = MEMORY[0x25F889340](v87._countAndFlagsBits, v87._object, v326, v327);
+                                                  v415 = v328;
+                                                  v266 = MEMORY[0x25F889340](v88._countAndFlagsBits, v88._object, v327, v328);
                                                   outlined destroy of DefaultStringInterpolation();
-                                                  if (v265)
+                                                  if (v266)
                                                   {
 
-                                                    v88 = HyperParams.dropNegativeSlicesForInferredTestLMP.getter();
-                                                    v89 = v316;
-                                                    v316[3] = MEMORY[0x277D83B88];
-                                                    *v89 = v88;
+                                                    v89 = HyperParams.dropNegativeSlicesForInferredTestLMP.getter();
+                                                    v90 = v317;
+                                                    v317[3] = MEMORY[0x277D83B88];
+                                                    *v90 = v89;
                                                   }
 
                                                   else
                                                   {
 
-                                                    v90 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minDaySHRAvailability", 0x15uLL, 1);
-                                                    v262 = &v412;
-                                                    v412 = v90;
-                                                    v410 = v326;
+                                                    v91 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minDaySHRAvailability", 0x15uLL, 1);
+                                                    v263 = &v413;
+                                                    v413 = v91;
                                                     v411 = v327;
-                                                    v263 = MEMORY[0x25F889340](v90._countAndFlagsBits, v90._object, v326, v327);
+                                                    v412 = v328;
+                                                    v264 = MEMORY[0x25F889340](v91._countAndFlagsBits, v91._object, v327, v328);
                                                     outlined destroy of DefaultStringInterpolation();
-                                                    if (v263)
+                                                    if (v264)
                                                     {
 
-                                                      v91 = HyperParams.minDaySHRAvailability.getter();
-                                                      v92 = v316;
-                                                      v316[3] = MEMORY[0x277D839F8];
-                                                      *v92 = v91;
+                                                      v92 = HyperParams.minDaySHRAvailability.getter();
+                                                      v93 = v317;
+                                                      v317[3] = MEMORY[0x277D839F8];
+                                                      *v93 = v92;
                                                     }
 
                                                     else
                                                     {
 
-                                                      v93 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minNightSHRAvailability", 0x17uLL, 1);
-                                                      v260 = &v409;
-                                                      v409 = v93;
-                                                      v407 = v326;
+                                                      v94 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minNightSHRAvailability", 0x17uLL, 1);
+                                                      v261 = &v410;
+                                                      v410 = v94;
                                                       v408 = v327;
-                                                      v261 = MEMORY[0x25F889340](v93._countAndFlagsBits, v93._object, v326, v327);
+                                                      v409 = v328;
+                                                      v262 = MEMORY[0x25F889340](v94._countAndFlagsBits, v94._object, v327, v328);
                                                       outlined destroy of DefaultStringInterpolation();
-                                                      if (v261)
+                                                      if (v262)
                                                       {
 
-                                                        v94 = HyperParams.minNightSHRAvailability.getter();
-                                                        v95 = v316;
-                                                        v316[3] = MEMORY[0x277D839F8];
-                                                        *v95 = v94;
+                                                        v95 = HyperParams.minNightSHRAvailability.getter();
+                                                        v96 = v317;
+                                                        v317[3] = MEMORY[0x277D839F8];
+                                                        *v96 = v95;
                                                       }
 
                                                       else
                                                       {
 
-                                                        v96 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minWristTempAvailability", 0x18uLL, 1);
-                                                        v258 = &v406;
-                                                        v406 = v96;
-                                                        v404 = v326;
+                                                        v97 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minWristTempAvailability", 0x18uLL, 1);
+                                                        v259 = &v407;
+                                                        v407 = v97;
                                                         v405 = v327;
-                                                        v259 = MEMORY[0x25F889340](v96._countAndFlagsBits, v96._object, v326, v327);
+                                                        v406 = v328;
+                                                        v260 = MEMORY[0x25F889340](v97._countAndFlagsBits, v97._object, v327, v328);
                                                         outlined destroy of DefaultStringInterpolation();
-                                                        if (v259)
+                                                        if (v260)
                                                         {
 
-                                                          v97 = HyperParams.minWristTempAvailability.getter();
-                                                          v98 = v316;
-                                                          v316[3] = MEMORY[0x277D839F8];
-                                                          *v98 = v97;
+                                                          v98 = HyperParams.minWristTempAvailability.getter();
+                                                          v99 = v317;
+                                                          v317[3] = MEMORY[0x277D839F8];
+                                                          *v99 = v98;
                                                         }
 
                                                         else
                                                         {
 
-                                                          v99 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minHRVAvailability", 0x12uLL, 1);
-                                                          v256 = &v403;
-                                                          v403 = v99;
-                                                          v401 = v326;
+                                                          v100 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minHRVAvailability", 0x12uLL, 1);
+                                                          v257 = &v404;
+                                                          v404 = v100;
                                                           v402 = v327;
-                                                          v257 = MEMORY[0x25F889340](v99._countAndFlagsBits, v99._object, v326, v327);
+                                                          v403 = v328;
+                                                          v258 = MEMORY[0x25F889340](v100._countAndFlagsBits, v100._object, v327, v328);
                                                           outlined destroy of DefaultStringInterpolation();
-                                                          if (v257)
+                                                          if (v258)
                                                           {
 
-                                                            v100 = HyperParams.minHRVAvailability.getter();
-                                                            v101 = v316;
-                                                            v316[3] = MEMORY[0x277D839F8];
-                                                            *v101 = v100;
+                                                            v101 = HyperParams.minHRVAvailability.getter();
+                                                            v102 = v317;
+                                                            v317[3] = MEMORY[0x277D839F8];
+                                                            *v102 = v101;
                                                           }
 
                                                           else
                                                           {
 
-                                                            v102 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minSpO2Availability", 0x13uLL, 1);
-                                                            v254 = &v400;
-                                                            v400 = v102;
-                                                            v398 = v326;
+                                                            v103 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minSpO2Availability", 0x13uLL, 1);
+                                                            v255 = &v401;
+                                                            v401 = v103;
                                                             v399 = v327;
-                                                            v255 = MEMORY[0x25F889340](v102._countAndFlagsBits, v102._object, v326, v327);
+                                                            v400 = v328;
+                                                            v256 = MEMORY[0x25F889340](v103._countAndFlagsBits, v103._object, v327, v328);
                                                             outlined destroy of DefaultStringInterpolation();
-                                                            if (v255)
+                                                            if (v256)
                                                             {
 
-                                                              v103 = HyperParams.minSpO2Availability.getter();
-                                                              v104 = v316;
-                                                              v316[3] = MEMORY[0x277D839F8];
-                                                              *v104 = v103;
+                                                              v104 = HyperParams.minSpO2Availability.getter();
+                                                              v105 = v317;
+                                                              v317[3] = MEMORY[0x277D839F8];
+                                                              *v105 = v104;
                                                             }
 
                                                             else
                                                             {
 
-                                                              v105 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minRespiratoryRateAvailability", 0x1EuLL, 1);
-                                                              v252 = &v397;
-                                                              v397 = v105;
-                                                              v395 = v326;
+                                                              v106 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minRespiratoryRateAvailability", 0x1EuLL, 1);
+                                                              v253 = &v398;
+                                                              v398 = v106;
                                                               v396 = v327;
-                                                              v253 = MEMORY[0x25F889340](v105._countAndFlagsBits, v105._object, v326, v327);
+                                                              v397 = v328;
+                                                              v254 = MEMORY[0x25F889340](v106._countAndFlagsBits, v106._object, v327, v328);
                                                               outlined destroy of DefaultStringInterpolation();
-                                                              if (v253)
+                                                              if (v254)
                                                               {
 
-                                                                v106 = HyperParams.minRespiratoryRateAvailability.getter();
-                                                                v107 = v316;
-                                                                v316[3] = MEMORY[0x277D839F8];
-                                                                *v107 = v106;
+                                                                v107 = HyperParams.minRespiratoryRateAvailability.getter();
+                                                                v108 = v317;
+                                                                v317[3] = MEMORY[0x277D839F8];
+                                                                *v108 = v107;
                                                               }
 
                                                               else
                                                               {
 
-                                                                v108 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("pregLabelStartAnchorDelta", 0x19uLL, 1);
-                                                                v250 = &v394;
-                                                                v394 = v108;
-                                                                v392 = v326;
+                                                                v109 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("pregLabelStartAnchorDelta", 0x19uLL, 1);
+                                                                v251 = &v395;
+                                                                v395 = v109;
                                                                 v393 = v327;
-                                                                v251 = MEMORY[0x25F889340](v108._countAndFlagsBits, v108._object, v326, v327);
+                                                                v394 = v328;
+                                                                v252 = MEMORY[0x25F889340](v109._countAndFlagsBits, v109._object, v327, v328);
                                                                 outlined destroy of DefaultStringInterpolation();
-                                                                if (v251)
+                                                                if (v252)
                                                                 {
 
                                                                   started = HyperParams.pregLabelStartAnchorDelta.getter();
-                                                                  v110 = v316;
-                                                                  v316[3] = MEMORY[0x277D83B88];
-                                                                  *v110 = started;
+                                                                  v111 = v317;
+                                                                  v317[3] = MEMORY[0x277D83B88];
+                                                                  *v111 = started;
                                                                 }
 
                                                                 else
                                                                 {
 
-                                                                  v111 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lmpPregLabelStartAnchorDelta", 0x1CuLL, 1);
-                                                                  v248 = &v391;
-                                                                  v391 = v111;
-                                                                  v389 = v326;
+                                                                  v112 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lmpPregLabelStartAnchorDelta", 0x1CuLL, 1);
+                                                                  v249 = &v392;
+                                                                  v392 = v112;
                                                                   v390 = v327;
-                                                                  v249 = MEMORY[0x25F889340](v111._countAndFlagsBits, v111._object, v326, v327);
+                                                                  v391 = v328;
+                                                                  v250 = MEMORY[0x25F889340](v112._countAndFlagsBits, v112._object, v327, v328);
                                                                   outlined destroy of DefaultStringInterpolation();
-                                                                  if (v249)
+                                                                  if (v250)
                                                                   {
 
-                                                                    v112 = HyperParams.lmpPregLabelStartAnchorDelta.getter();
-                                                                    v113 = v316;
-                                                                    v316[3] = MEMORY[0x277D83B88];
-                                                                    *v113 = v112;
+                                                                    v113 = HyperParams.lmpPregLabelStartAnchorDelta.getter();
+                                                                    v114 = v317;
+                                                                    v317[3] = MEMORY[0x277D83B88];
+                                                                    *v114 = v113;
                                                                   }
 
                                                                   else
                                                                   {
 
-                                                                    v114 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("daySHRStatsOption", 0x11uLL, 1);
-                                                                    v246 = &v388;
-                                                                    v388 = v114;
-                                                                    v386 = v326;
+                                                                    v115 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("daySHRStatsOption", 0x11uLL, 1);
+                                                                    v247 = &v389;
+                                                                    v389 = v115;
                                                                     v387 = v327;
-                                                                    v247 = MEMORY[0x25F889340](v114._countAndFlagsBits, v114._object, v326, v327);
+                                                                    v388 = v328;
+                                                                    v248 = MEMORY[0x25F889340](v115._countAndFlagsBits, v115._object, v327, v328);
                                                                     outlined destroy of DefaultStringInterpolation();
-                                                                    if (v247)
+                                                                    if (v248)
                                                                     {
 
-                                                                      v115 = HyperParams.daySHRStatsOption.getter();
-                                                                      v116 = FeatureStatsOption.rawValue.getter(v115);
-                                                                      v117 = v316;
-                                                                      v316[3] = MEMORY[0x277D837D0];
-                                                                      *v117 = v116;
-                                                                      v117[1] = v118;
+                                                                      v116 = HyperParams.daySHRStatsOption.getter();
+                                                                      v117 = FeatureStatsOption.rawValue.getter(v116);
+                                                                      v118 = v317;
+                                                                      v317[3] = MEMORY[0x277D837D0];
+                                                                      *v118 = v117;
+                                                                      v118[1] = v119;
                                                                     }
 
                                                                     else
                                                                     {
 
-                                                                      v119 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("nightSHRStatsOption", 0x13uLL, 1);
-                                                                      v244 = &v385;
-                                                                      v385 = v119;
-                                                                      v383 = v326;
+                                                                      v120 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("nightSHRStatsOption", 0x13uLL, 1);
+                                                                      v245 = &v386;
+                                                                      v386 = v120;
                                                                       v384 = v327;
-                                                                      v245 = MEMORY[0x25F889340](v119._countAndFlagsBits, v119._object, v326, v327);
+                                                                      v385 = v328;
+                                                                      v246 = MEMORY[0x25F889340](v120._countAndFlagsBits, v120._object, v327, v328);
                                                                       outlined destroy of DefaultStringInterpolation();
-                                                                      if (v245)
+                                                                      if (v246)
                                                                       {
 
-                                                                        v120 = HyperParams.nightSHRStatsOption.getter();
-                                                                        v121 = FeatureStatsOption.rawValue.getter(v120);
-                                                                        v122 = v316;
-                                                                        v316[3] = MEMORY[0x277D837D0];
-                                                                        *v122 = v121;
-                                                                        v122[1] = v123;
+                                                                        v121 = HyperParams.nightSHRStatsOption.getter();
+                                                                        v122 = FeatureStatsOption.rawValue.getter(v121);
+                                                                        v123 = v317;
+                                                                        v317[3] = MEMORY[0x277D837D0];
+                                                                        *v123 = v122;
+                                                                        v123[1] = v124;
                                                                       }
 
                                                                       else
                                                                       {
 
-                                                                        v124 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("pSMStatsOption", 0xEuLL, 1);
-                                                                        v242 = &v382;
-                                                                        v382 = v124;
-                                                                        v380 = v326;
+                                                                        v125 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("pSMStatsOption", 0xEuLL, 1);
+                                                                        v243 = &v383;
+                                                                        v383 = v125;
                                                                         v381 = v327;
-                                                                        v243 = MEMORY[0x25F889340](v124._countAndFlagsBits, v124._object, v326, v327);
+                                                                        v382 = v328;
+                                                                        v244 = MEMORY[0x25F889340](v125._countAndFlagsBits, v125._object, v327, v328);
                                                                         outlined destroy of DefaultStringInterpolation();
-                                                                        if (v243)
+                                                                        if (v244)
                                                                         {
 
-                                                                          v125 = HyperParams.pSMStatsOption.getter();
-                                                                          v126 = FeatureStatsOption.rawValue.getter(v125);
-                                                                          v127 = v316;
-                                                                          v316[3] = MEMORY[0x277D837D0];
-                                                                          *v127 = v126;
-                                                                          v127[1] = v128;
+                                                                          v126 = HyperParams.pSMStatsOption.getter();
+                                                                          v127 = FeatureStatsOption.rawValue.getter(v126);
+                                                                          v128 = v317;
+                                                                          v317[3] = MEMORY[0x277D837D0];
+                                                                          *v128 = v127;
+                                                                          v128[1] = v129;
                                                                         }
 
                                                                         else
                                                                         {
 
-                                                                          v129 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("pSSStatsOption", 0xEuLL, 1);
-                                                                          v240 = &v379;
-                                                                          v379 = v129;
-                                                                          v377 = v326;
+                                                                          v130 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("pSSStatsOption", 0xEuLL, 1);
+                                                                          v241 = &v380;
+                                                                          v380 = v130;
                                                                           v378 = v327;
-                                                                          v241 = MEMORY[0x25F889340](v129._countAndFlagsBits, v129._object, v326, v327);
+                                                                          v379 = v328;
+                                                                          v242 = MEMORY[0x25F889340](v130._countAndFlagsBits, v130._object, v327, v328);
                                                                           outlined destroy of DefaultStringInterpolation();
-                                                                          if (v241)
+                                                                          if (v242)
                                                                           {
 
-                                                                            v130 = HyperParams.pSSStatsOption.getter();
-                                                                            v131 = FeatureStatsOption.rawValue.getter(v130);
-                                                                            v132 = v316;
-                                                                            v316[3] = MEMORY[0x277D837D0];
-                                                                            *v132 = v131;
-                                                                            v132[1] = v133;
+                                                                            v131 = HyperParams.pSSStatsOption.getter();
+                                                                            v132 = FeatureStatsOption.rawValue.getter(v131);
+                                                                            v133 = v317;
+                                                                            v317[3] = MEMORY[0x277D837D0];
+                                                                            *v133 = v132;
+                                                                            v133[1] = v134;
                                                                           }
 
                                                                           else
                                                                           {
 
-                                                                            v134 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("daysSinceLastPeriodStartStatsOption", 0x23uLL, 1);
-                                                                            v238 = &v376;
-                                                                            v376 = v134;
-                                                                            v374 = v326;
+                                                                            v135 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("daysSinceLastPeriodStartStatsOption", 0x23uLL, 1);
+                                                                            v239 = &v377;
+                                                                            v377 = v135;
                                                                             v375 = v327;
-                                                                            v239 = MEMORY[0x25F889340](v134._countAndFlagsBits, v134._object, v326, v327);
+                                                                            v376 = v328;
+                                                                            v240 = MEMORY[0x25F889340](v135._countAndFlagsBits, v135._object, v327, v328);
                                                                             outlined destroy of DefaultStringInterpolation();
-                                                                            if (v239)
+                                                                            if (v240)
                                                                             {
 
                                                                               PeriodStartStats = HyperParams.daysSinceLastPeriodStartStatsOption.getter();
-                                                                              v136 = FeatureStatsOption.rawValue.getter(PeriodStartStats);
-                                                                              v137 = v316;
-                                                                              v316[3] = MEMORY[0x277D837D0];
-                                                                              *v137 = v136;
-                                                                              v137[1] = v138;
+                                                                              v137 = FeatureStatsOption.rawValue.getter(PeriodStartStats);
+                                                                              v138 = v317;
+                                                                              v317[3] = MEMORY[0x277D837D0];
+                                                                              *v138 = v137;
+                                                                              v138[1] = v139;
                                                                             }
 
                                                                             else
                                                                             {
 
-                                                                              v139 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("sWTStatsOption", 0xEuLL, 1);
-                                                                              v236 = &v373;
-                                                                              v373 = v139;
-                                                                              v371 = v326;
+                                                                              v140 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("sWTStatsOption", 0xEuLL, 1);
+                                                                              v237 = &v374;
+                                                                              v374 = v140;
                                                                               v372 = v327;
-                                                                              v237 = MEMORY[0x25F889340](v139._countAndFlagsBits, v139._object, v326, v327);
+                                                                              v373 = v328;
+                                                                              v238 = MEMORY[0x25F889340](v140._countAndFlagsBits, v140._object, v327, v328);
                                                                               outlined destroy of DefaultStringInterpolation();
-                                                                              if (v237)
+                                                                              if (v238)
                                                                               {
 
-                                                                                v140 = HyperParams.sWTStatsOption.getter();
-                                                                                v141 = FeatureStatsOption.rawValue.getter(v140);
-                                                                                v142 = v316;
-                                                                                v316[3] = MEMORY[0x277D837D0];
-                                                                                *v142 = v141;
-                                                                                v142[1] = v143;
+                                                                                v141 = HyperParams.sWTStatsOption.getter();
+                                                                                v142 = FeatureStatsOption.rawValue.getter(v141);
+                                                                                v143 = v317;
+                                                                                v317[3] = MEMORY[0x277D837D0];
+                                                                                *v143 = v142;
+                                                                                v143[1] = v144;
                                                                               }
 
                                                                               else
                                                                               {
 
-                                                                                v144 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("hrvStatsOption", 0xEuLL, 1);
-                                                                                v234 = &v370;
-                                                                                v370 = v144;
-                                                                                v368 = v326;
+                                                                                v145 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("hrvStatsOption", 0xEuLL, 1);
+                                                                                v235 = &v371;
+                                                                                v371 = v145;
                                                                                 v369 = v327;
-                                                                                v235 = MEMORY[0x25F889340](v144._countAndFlagsBits, v144._object, v326, v327);
+                                                                                v370 = v328;
+                                                                                v236 = MEMORY[0x25F889340](v145._countAndFlagsBits, v145._object, v327, v328);
                                                                                 outlined destroy of DefaultStringInterpolation();
-                                                                                if (v235)
+                                                                                if (v236)
                                                                                 {
 
-                                                                                  v145 = HyperParams.hrvStatsOption.getter();
-                                                                                  v146 = FeatureStatsOption.rawValue.getter(v145);
-                                                                                  v147 = v316;
-                                                                                  v316[3] = MEMORY[0x277D837D0];
-                                                                                  *v147 = v146;
-                                                                                  v147[1] = v148;
+                                                                                  v146 = HyperParams.hrvStatsOption.getter();
+                                                                                  v147 = FeatureStatsOption.rawValue.getter(v146);
+                                                                                  v148 = v317;
+                                                                                  v317[3] = MEMORY[0x277D837D0];
+                                                                                  *v148 = v147;
+                                                                                  v148[1] = v149;
                                                                                 }
 
                                                                                 else
                                                                                 {
 
-                                                                                  v149 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("respiratoryRateStatsOption", 0x1AuLL, 1);
-                                                                                  v232 = &v367;
-                                                                                  v367 = v149;
-                                                                                  v365 = v326;
+                                                                                  v150 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("respiratoryRateStatsOption", 0x1AuLL, 1);
+                                                                                  v233 = &v368;
+                                                                                  v368 = v150;
                                                                                   v366 = v327;
-                                                                                  v233 = MEMORY[0x25F889340](v149._countAndFlagsBits, v149._object, v326, v327);
+                                                                                  v367 = v328;
+                                                                                  v234 = MEMORY[0x25F889340](v150._countAndFlagsBits, v150._object, v327, v328);
                                                                                   outlined destroy of DefaultStringInterpolation();
-                                                                                  if (v233)
+                                                                                  if (v234)
                                                                                   {
 
-                                                                                    v150 = HyperParams.respiratoryRateStatsOption.getter();
-                                                                                    v151 = FeatureStatsOption.rawValue.getter(v150);
-                                                                                    v152 = v316;
-                                                                                    v316[3] = MEMORY[0x277D837D0];
-                                                                                    *v152 = v151;
-                                                                                    v152[1] = v153;
+                                                                                    v151 = HyperParams.respiratoryRateStatsOption.getter();
+                                                                                    v152 = FeatureStatsOption.rawValue.getter(v151);
+                                                                                    v153 = v317;
+                                                                                    v317[3] = MEMORY[0x277D837D0];
+                                                                                    *v153 = v152;
+                                                                                    v153[1] = v154;
                                                                                   }
 
                                                                                   else
                                                                                   {
 
-                                                                                    v154 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("spO2StatsOption", 0xFuLL, 1);
-                                                                                    v230 = &v364;
-                                                                                    v364 = v154;
-                                                                                    v362 = v326;
+                                                                                    v155 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("spO2StatsOption", 0xFuLL, 1);
+                                                                                    v231 = &v365;
+                                                                                    v365 = v155;
                                                                                     v363 = v327;
-                                                                                    v231 = MEMORY[0x25F889340](v154._countAndFlagsBits, v154._object, v326, v327);
+                                                                                    v364 = v328;
+                                                                                    v232 = MEMORY[0x25F889340](v155._countAndFlagsBits, v155._object, v327, v328);
                                                                                     outlined destroy of DefaultStringInterpolation();
-                                                                                    if (v231)
+                                                                                    if (v232)
                                                                                     {
 
-                                                                                      v155 = HyperParams.spO2StatsOption.getter();
-                                                                                      v156 = FeatureStatsOption.rawValue.getter(v155);
-                                                                                      v157 = v316;
-                                                                                      v316[3] = MEMORY[0x277D837D0];
-                                                                                      *v157 = v156;
-                                                                                      v157[1] = v158;
+                                                                                      v156 = HyperParams.spO2StatsOption.getter();
+                                                                                      v157 = FeatureStatsOption.rawValue.getter(v156);
+                                                                                      v158 = v317;
+                                                                                      v317[3] = MEMORY[0x277D837D0];
+                                                                                      *v158 = v157;
+                                                                                      v158[1] = v159;
                                                                                     }
 
                                                                                     else
                                                                                     {
 
-                                                                                      v159 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("evalBeforeTrain", 0xFuLL, 1);
-                                                                                      v228 = &v361;
-                                                                                      v361 = v159;
-                                                                                      v359 = v326;
+                                                                                      v160 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("evalBeforeTrain", 0xFuLL, 1);
+                                                                                      v229 = &v362;
+                                                                                      v362 = v160;
                                                                                       v360 = v327;
-                                                                                      v229 = MEMORY[0x25F889340](v159._countAndFlagsBits, v159._object, v326, v327);
+                                                                                      v361 = v328;
+                                                                                      v230 = MEMORY[0x25F889340](v160._countAndFlagsBits, v160._object, v327, v328);
                                                                                       outlined destroy of DefaultStringInterpolation();
-                                                                                      if (v229)
+                                                                                      if (v230)
                                                                                       {
 
-                                                                                        v160 = HyperParams.evalBeforeTrain.getter();
-                                                                                        v161 = v316;
-                                                                                        v316[3] = MEMORY[0x277D839B0];
-                                                                                        *v161 = v160 & 1;
+                                                                                        v161 = HyperParams.evalBeforeTrain.getter();
+                                                                                        v162 = v317;
+                                                                                        v317[3] = MEMORY[0x277D839B0];
+                                                                                        *v162 = v161 & 1;
                                                                                       }
 
                                                                                       else
                                                                                       {
 
-                                                                                        v162 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("labelName", 9uLL, 1);
-                                                                                        v226 = &v358;
-                                                                                        v358 = v162;
-                                                                                        v356 = v326;
+                                                                                        v163 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("labelName", 9uLL, 1);
+                                                                                        v227 = &v359;
+                                                                                        v359 = v163;
                                                                                         v357 = v327;
-                                                                                        v227 = MEMORY[0x25F889340](v162._countAndFlagsBits, v162._object, v326, v327);
+                                                                                        v358 = v328;
+                                                                                        v228 = MEMORY[0x25F889340](v163._countAndFlagsBits, v163._object, v327, v328);
                                                                                         outlined destroy of DefaultStringInterpolation();
-                                                                                        if (v227)
+                                                                                        if (v228)
                                                                                         {
 
-                                                                                          v163 = HyperParams.labelName.getter();
-                                                                                          v164 = v316;
-                                                                                          v316[3] = MEMORY[0x277D837D0];
-                                                                                          *v164 = v163;
-                                                                                          v164[1] = v165;
+                                                                                          v164 = HyperParams.labelName.getter();
+                                                                                          v165 = v317;
+                                                                                          v317[3] = MEMORY[0x277D837D0];
+                                                                                          *v165 = v164;
+                                                                                          v165[1] = v166;
                                                                                         }
 
                                                                                         else
                                                                                         {
 
-                                                                                          v166 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lossName", 8uLL, 1);
-                                                                                          v224 = &v355;
-                                                                                          v355 = v166;
-                                                                                          v353 = v326;
+                                                                                          v167 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lossName", 8uLL, 1);
+                                                                                          v225 = &v356;
+                                                                                          v356 = v167;
                                                                                           v354 = v327;
-                                                                                          v225 = MEMORY[0x25F889340](v166._countAndFlagsBits, v166._object, v326, v327);
+                                                                                          v355 = v328;
+                                                                                          v226 = MEMORY[0x25F889340](v167._countAndFlagsBits, v167._object, v327, v328);
                                                                                           outlined destroy of DefaultStringInterpolation();
-                                                                                          if (v225)
+                                                                                          if (v226)
                                                                                           {
 
-                                                                                            v167 = HyperParams.lossName.getter();
-                                                                                            v168 = v316;
-                                                                                            v316[3] = MEMORY[0x277D837D0];
-                                                                                            *v168 = v167;
-                                                                                            v168[1] = v169;
+                                                                                            v168 = HyperParams.lossName.getter();
+                                                                                            v169 = v317;
+                                                                                            v317[3] = MEMORY[0x277D837D0];
+                                                                                            *v169 = v168;
+                                                                                            v169[1] = v170;
                                                                                           }
 
                                                                                           else
                                                                                           {
 
-                                                                                            v170 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputName", 0xAuLL, 1);
-                                                                                            v222 = &v352;
-                                                                                            v352 = v170;
-                                                                                            v350 = v326;
+                                                                                            v171 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputName", 0xAuLL, 1);
+                                                                                            v223 = &v353;
+                                                                                            v353 = v171;
                                                                                             v351 = v327;
-                                                                                            v223 = MEMORY[0x25F889340](v170._countAndFlagsBits, v170._object, v326, v327);
+                                                                                            v352 = v328;
+                                                                                            v224 = MEMORY[0x25F889340](v171._countAndFlagsBits, v171._object, v327, v328);
                                                                                             outlined destroy of DefaultStringInterpolation();
-                                                                                            if (v223)
+                                                                                            if (v224)
                                                                                             {
 
-                                                                                              v171 = HyperParams.outputName.getter();
-                                                                                              v172 = v316;
-                                                                                              v316[3] = MEMORY[0x277D837D0];
-                                                                                              *v172 = v171;
-                                                                                              v172[1] = v173;
+                                                                                              v172 = HyperParams.outputName.getter();
+                                                                                              v173 = v317;
+                                                                                              v317[3] = MEMORY[0x277D837D0];
+                                                                                              *v173 = v172;
+                                                                                              v173[1] = v174;
                                                                                             }
 
                                                                                             else
                                                                                             {
 
-                                                                                              v174 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("nightingaleDInputFeatureList", 0x1CuLL, 1);
-                                                                                              v220 = &v349;
-                                                                                              v349 = v174;
-                                                                                              v347 = v326;
+                                                                                              v175 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("nightingaleDInputFeatureList", 0x1CuLL, 1);
+                                                                                              v221 = &v350;
+                                                                                              v350 = v175;
                                                                                               v348 = v327;
-                                                                                              v221 = MEMORY[0x25F889340](v174._countAndFlagsBits, v174._object, v326, v327);
+                                                                                              v349 = v328;
+                                                                                              v222 = MEMORY[0x25F889340](v175._countAndFlagsBits, v175._object, v327, v328);
                                                                                               outlined destroy of DefaultStringInterpolation();
-                                                                                              if (v221)
+                                                                                              if (v222)
                                                                                               {
 
-                                                                                                v218 = v330;
+                                                                                                v219 = v331;
                                                                                                 swift_beginAccess();
-                                                                                                v219 = *(v317 + 24);
+                                                                                                v220 = *(v318 + 24);
 
                                                                                                 swift_endAccess();
-                                                                                                v175 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
-                                                                                                v176 = v316;
-                                                                                                v177 = v219;
-                                                                                                v316[3] = v175;
-                                                                                                *v176 = v177;
+                                                                                                v176 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+                                                                                                v177 = v317;
+                                                                                                v178 = v220;
+                                                                                                v317[3] = v176;
+                                                                                                *v177 = v178;
                                                                                               }
 
                                                                                               else
                                                                                               {
 
-                                                                                                v178 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("batchSize", 9uLL, 1);
-                                                                                                v216 = &v346;
-                                                                                                v346 = v178;
-                                                                                                v344 = v326;
+                                                                                                v179 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("batchSize", 9uLL, 1);
+                                                                                                v217 = &v347;
+                                                                                                v347 = v179;
                                                                                                 v345 = v327;
-                                                                                                v217 = MEMORY[0x25F889340](v178._countAndFlagsBits, v178._object, v326, v327);
+                                                                                                v346 = v328;
+                                                                                                v218 = MEMORY[0x25F889340](v179._countAndFlagsBits, v179._object, v327, v328);
                                                                                                 outlined destroy of DefaultStringInterpolation();
-                                                                                                if (v217)
+                                                                                                if (v218)
                                                                                                 {
 
-                                                                                                  v179 = HyperParams.batchSize.getter();
-                                                                                                  v180 = v316;
-                                                                                                  v316[3] = MEMORY[0x277D83B88];
-                                                                                                  *v180 = v179;
+                                                                                                  v180 = HyperParams.batchSize.getter();
+                                                                                                  v181 = v317;
+                                                                                                  v317[3] = MEMORY[0x277D83B88];
+                                                                                                  *v181 = v180;
                                                                                                 }
 
                                                                                                 else
                                                                                                 {
 
-                                                                                                  v181 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("weightNames", 0xBuLL, 1);
-                                                                                                  v214 = &v343;
-                                                                                                  v343 = v181;
-                                                                                                  v341 = v326;
+                                                                                                  v182 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("weightNames", 0xBuLL, 1);
+                                                                                                  v215 = &v344;
+                                                                                                  v344 = v182;
                                                                                                   v342 = v327;
-                                                                                                  v215 = MEMORY[0x25F889340](v181._countAndFlagsBits, v181._object, v326, v327);
+                                                                                                  v343 = v328;
+                                                                                                  v216 = MEMORY[0x25F889340](v182._countAndFlagsBits, v182._object, v327, v328);
                                                                                                   outlined destroy of DefaultStringInterpolation();
-                                                                                                  if (v215)
+                                                                                                  if (v216)
                                                                                                   {
 
-                                                                                                    v213 = HyperParams.weightNames.getter();
-                                                                                                    v182 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
-                                                                                                    v183 = v316;
-                                                                                                    v184 = v182;
-                                                                                                    v185 = v213;
-                                                                                                    v316[3] = v184;
-                                                                                                    *v183 = v185;
+                                                                                                    v214 = HyperParams.weightNames.getter();
+                                                                                                    v183 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+                                                                                                    v184 = v317;
+                                                                                                    v185 = v183;
+                                                                                                    v186 = v214;
+                                                                                                    v317[3] = v185;
+                                                                                                    *v184 = v186;
                                                                                                   }
 
                                                                                                   else
                                                                                                   {
 
-                                                                                                    v186 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("epochs", 6uLL, 1);
-                                                                                                    v211 = &v340;
-                                                                                                    v340 = v186;
-                                                                                                    v338 = v326;
+                                                                                                    v187 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("epochs", 6uLL, 1);
+                                                                                                    v212 = &v341;
+                                                                                                    v341 = v187;
                                                                                                     v339 = v327;
-                                                                                                    v212 = MEMORY[0x25F889340](v186._countAndFlagsBits, v186._object, v326, v327);
+                                                                                                    v340 = v328;
+                                                                                                    v213 = MEMORY[0x25F889340](v187._countAndFlagsBits, v187._object, v327, v328);
                                                                                                     outlined destroy of DefaultStringInterpolation();
-                                                                                                    if (v212)
+                                                                                                    if (v213)
                                                                                                     {
 
-                                                                                                      v187 = HyperParams.epochs.getter();
-                                                                                                      v188 = v316;
-                                                                                                      v316[3] = MEMORY[0x277D83B88];
-                                                                                                      *v188 = v187;
+                                                                                                      v188 = HyperParams.epochs.getter();
+                                                                                                      v189 = v317;
+                                                                                                      v317[3] = MEMORY[0x277D83B88];
+                                                                                                      *v189 = v188;
                                                                                                     }
 
                                                                                                     else
                                                                                                     {
 
-                                                                                                      v189 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("fullBatchTraining", 0x11uLL, 1);
-                                                                                                      v209 = &v337;
-                                                                                                      v337 = v189;
-                                                                                                      v335 = v326;
+                                                                                                      v190 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("fullBatchTraining", 0x11uLL, 1);
+                                                                                                      v210 = &v338;
+                                                                                                      v338 = v190;
                                                                                                       v336 = v327;
-                                                                                                      v210 = MEMORY[0x25F889340](v189._countAndFlagsBits, v189._object, v326, v327);
+                                                                                                      v337 = v328;
+                                                                                                      v211 = MEMORY[0x25F889340](v190._countAndFlagsBits, v190._object, v327, v328);
                                                                                                       outlined destroy of DefaultStringInterpolation();
-                                                                                                      if (v210)
+                                                                                                      if (v211)
                                                                                                       {
 
-                                                                                                        v190 = HyperParams.fullBatchTraining.getter();
-                                                                                                        v191 = v316;
-                                                                                                        v316[3] = MEMORY[0x277D839B0];
-                                                                                                        *v191 = v190 & 1;
+                                                                                                        v191 = HyperParams.fullBatchTraining.getter();
+                                                                                                        v192 = v317;
+                                                                                                        v317[3] = MEMORY[0x277D839B0];
+                                                                                                        *v192 = v191 & 1;
                                                                                                       }
 
                                                                                                       else
                                                                                                       {
 
-                                                                                                        v192 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("inputShuffleMethod", 0x12uLL, 1);
-                                                                                                        v207 = &v334;
-                                                                                                        v334 = v192;
-                                                                                                        v332 = v326;
+                                                                                                        v193 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("inputShuffleMethod", 0x12uLL, 1);
+                                                                                                        v208 = &v335;
+                                                                                                        v335 = v193;
                                                                                                         v333 = v327;
-                                                                                                        v208 = MEMORY[0x25F889340](v192._countAndFlagsBits, v192._object, v326, v327);
+                                                                                                        v334 = v328;
+                                                                                                        v209 = MEMORY[0x25F889340](v193._countAndFlagsBits, v193._object, v327, v328);
                                                                                                         outlined destroy of DefaultStringInterpolation();
-                                                                                                        if (v208)
+                                                                                                        if (v209)
                                                                                                         {
 
-                                                                                                          HyperParams.inputShuffleMethod.getter(v325);
-                                                                                                          (*(v319 + 104))(v323, *MEMORY[0x277D41360], v318);
+                                                                                                          HyperParams.inputShuffleMethod.getter(v326);
+                                                                                                          (*(v320 + 104))(v324, *MEMORY[0x277D41360], v319);
                                                                                                           lazy protocol witness table accessor for type ShuffleMethod and conformance ShuffleMethod();
-                                                                                                          v206 = == infix<A>(_:_:)();
-                                                                                                          v205 = *(v319 + 8);
-                                                                                                          v204 = v319 + 8;
-                                                                                                          v205(v323, v318);
-                                                                                                          v205(v325, v318);
-                                                                                                          if (v206)
+                                                                                                          v207 = == infix<A>(_:_:)();
+                                                                                                          v206 = *(v320 + 8);
+                                                                                                          v205 = v320 + 8;
+                                                                                                          v206(v324, v319);
+                                                                                                          v206(v326, v319);
+                                                                                                          if (v207)
                                                                                                           {
-                                                                                                            v195 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("identity", 8uLL, 1);
-                                                                                                            object = v195._object;
-                                                                                                            countAndFlagsBits = v195._countAndFlagsBits;
+                                                                                                            v196 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("identity", 8uLL, 1);
+                                                                                                            object = v196._object;
+                                                                                                            countAndFlagsBits = v196._countAndFlagsBits;
                                                                                                           }
 
                                                                                                           else
                                                                                                           {
-                                                                                                            v197 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("random", 6uLL, 1);
-                                                                                                            object = v197._object;
-                                                                                                            countAndFlagsBits = v197._countAndFlagsBits;
+                                                                                                            v198 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("random", 6uLL, 1);
+                                                                                                            object = v198._object;
+                                                                                                            countAndFlagsBits = v198._countAndFlagsBits;
                                                                                                           }
 
-                                                                                                          v196 = v316;
-                                                                                                          v316[3] = MEMORY[0x277D837D0];
-                                                                                                          *v196 = countAndFlagsBits;
-                                                                                                          v196[1] = object;
+                                                                                                          v197 = v317;
+                                                                                                          v317[3] = MEMORY[0x277D837D0];
+                                                                                                          *v197 = countAndFlagsBits;
+                                                                                                          v197[1] = object;
                                                                                                         }
 
                                                                                                         else
                                                                                                         {
 
-                                                                                                          v198 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("learningRate", 0xCuLL, 1);
-                                                                                                          v202 = &v331;
-                                                                                                          v331 = v198;
-                                                                                                          v330[3] = v326;
-                                                                                                          v330[4] = v327;
-                                                                                                          v203 = MEMORY[0x25F889340](v198._countAndFlagsBits, v198._object, v326, v327);
+                                                                                                          v199 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("learningRate", 0xCuLL, 1);
+                                                                                                          v203 = &v332;
+                                                                                                          v332 = v199;
+                                                                                                          v331[3] = v327;
+                                                                                                          v331[4] = v328;
+                                                                                                          v204 = MEMORY[0x25F889340](v199._countAndFlagsBits, v199._object, v327, v328);
                                                                                                           outlined destroy of DefaultStringInterpolation();
-                                                                                                          if (v203)
+                                                                                                          if (v204)
                                                                                                           {
 
-                                                                                                            v199 = HyperParams.learningRate.getter();
-                                                                                                            v200 = v316;
-                                                                                                            v316[3] = MEMORY[0x277D83A90];
-                                                                                                            *v200 = v199;
+                                                                                                            v200 = HyperParams.learningRate.getter();
+                                                                                                            v201 = v317;
+                                                                                                            v317[3] = MEMORY[0x277D83A90];
+                                                                                                            *v201 = v200;
                                                                                                           }
 
                                                                                                           else
                                                                                                           {
 
-                                                                                                            v201 = v316;
-                                                                                                            *v316 = 0;
-                                                                                                            v201[1] = 0;
-                                                                                                            v201[2] = 0;
-                                                                                                            v201[3] = 0;
+                                                                                                            v202 = v317;
+                                                                                                            *v317 = 0;
+                                                                                                            v202[1] = 0;
+                                                                                                            v202[2] = 0;
+                                                                                                            v202[3] = 0;
                                                                                                           }
                                                                                                         }
                                                                                                       }
@@ -1523,104 +1523,104 @@ Swift::Bool __swiftcall HyperParams.has(attribute:)(Swift::String attribute)
 
 uint64_t Interval.attribute(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v25 = a4;
-  v33 = a1;
-  v34 = a2;
-  v28 = a3;
-  v48 = 0;
+  v26 = a4;
+  v34 = a1;
+  v35 = a2;
+  v29 = a3;
   v49 = 0;
-  v47 = 0;
-  v27 = *(a3 + 24);
-  v50 = v27;
-  v29 = type metadata accessor for Optional();
-  v30 = (*(*(v29 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v34);
-  v31 = v20 - v30;
-  v48 = v6;
-  v49 = v5;
-  v47 = v4;
-  v32 = *(v7 + 16);
-  v46 = v32;
+  v50 = 0;
+  v48 = 0;
+  v28 = *(a3 + 24);
+  v51 = v28;
+  v30 = type metadata accessor for Optional();
+  v31 = (*(*(v30 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = MEMORY[0x28223BE20](v35, v5);
+  v32 = v21 - v31;
+  v49 = v7;
+  v50 = v6;
+  v48 = v4;
+  v33 = *(v8 + 16);
+  v47 = v33;
 
-  v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, 1);
-  v35 = &v45;
-  v45 = v8;
-  v43 = v33;
+  v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, 1);
+  v36 = &v46;
+  v46 = v9;
   v44 = v34;
-  v36 = MEMORY[0x25F889340](v8._countAndFlagsBits, v8._object, v33, v34);
+  v45 = v35;
+  v37 = MEMORY[0x25F889340](v9._countAndFlagsBits, v9._object, v34, v35);
   outlined destroy of DefaultStringInterpolation();
-  if (v36)
+  if (v37)
   {
 
-    v9 = v25;
-    v25[3] = v32;
-    boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v9);
-    return (*(*(v32 - 8) + 16))(boxed_opaque_existential_0, v26);
+    v10 = v26;
+    v26[3] = v33;
+    boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v10);
+    return (*(*(v33 - 8) + 16))(boxed_opaque_existential_0, v27);
   }
 
   else
   {
 
-    v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, 1);
-    v23 = &v42;
-    v42 = v12;
-    v40 = v33;
+    v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, 1);
+    v24 = &v43;
+    v43 = v13;
     v41 = v34;
-    v24 = MEMORY[0x25F889340](v12._countAndFlagsBits, v12._object, v33, v34);
+    v42 = v35;
+    v25 = MEMORY[0x25F889340](v13._countAndFlagsBits, v13._object, v34, v35);
     outlined destroy of DefaultStringInterpolation();
-    if (v24)
+    if (v25)
     {
 
-      v13 = v25;
-      v22 = v26 + *(v28 + 44);
-      v25[3] = v32;
-      v14 = __swift_allocate_boxed_opaque_existential_0(v13);
-      return (*(*(v32 - 8) + 16))(v14, v22);
+      v14 = v26;
+      v23 = v27 + *(v29 + 44);
+      v26[3] = v33;
+      v15 = __swift_allocate_boxed_opaque_existential_0(v14);
+      return (*(*(v33 - 8) + 16))(v15, v23);
     }
 
     else
     {
 
-      v15 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("context", 7uLL, 1);
-      v20[2] = &v39;
-      v39 = v15;
-      v37 = v33;
+      v16 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("context", 7uLL, 1);
+      v21[2] = &v40;
+      v40 = v16;
       v38 = v34;
-      v21 = MEMORY[0x25F889340](v15._countAndFlagsBits, v15._object, v33, v34);
+      v39 = v35;
+      v22 = MEMORY[0x25F889340](v16._countAndFlagsBits, v16._object, v34, v35);
       outlined destroy of DefaultStringInterpolation();
-      if (v21)
+      if (v22)
       {
 
-        outlined init with copy of B?((v26 + *(v28 + 48)), v31, v27, v29);
-        v20[0] = *(v27 - 8);
-        v20[1] = v27 - 8;
-        if ((*(v20[0] + 48))(v31, 1) == 1)
+        outlined init with copy of B?((v27 + *(v29 + 48)), v32, v28, v30);
+        v21[0] = *(v28 - 8);
+        v21[1] = v28 - 8;
+        if ((*(v21[0] + 48))(v32, 1) == 1)
         {
-          result = outlined destroy of B?(v31, v27);
-          v18 = v25;
-          *v25 = 0;
-          v18[1] = 0;
-          v18[2] = 0;
-          v18[3] = 0;
+          result = outlined destroy of B?(v32, v28);
+          v19 = v26;
+          *v26 = 0;
+          v19[1] = 0;
+          v19[2] = 0;
+          v19[3] = 0;
         }
 
         else
         {
-          v16 = v25;
-          v25[3] = v27;
-          v17 = __swift_allocate_boxed_opaque_existential_0(v16);
-          return (*(v20[0] + 32))(v17, v31, v27);
+          v17 = v26;
+          v26[3] = v28;
+          v18 = __swift_allocate_boxed_opaque_existential_0(v17);
+          return (*(v21[0] + 32))(v18, v32, v28);
         }
       }
 
       else
       {
 
-        v19 = v25;
-        *v25 = 0;
-        v19[1] = 0;
-        v19[2] = 0;
-        v19[3] = 0;
+        v20 = v26;
+        *v26 = 0;
+        v20[1] = 0;
+        v20[2] = 0;
+        v20[3] = 0;
       }
     }
   }
@@ -1652,127 +1652,125 @@ Swift::Bool __swiftcall Interval.has(attribute:)(Swift::String attribute)
 
 uint64_t AugmentedIntervalTree<>.attribute(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v59 = a3;
-  v66 = a1;
-  v67 = a2;
-  v60 = partial apply for closure #2 in AugmentedIntervalTree<>.attribute(for:);
-  v61 = partial apply for closure #1 in AugmentedIntervalTree<>.attribute(for:);
-  v78 = 0;
+  v60 = a3;
+  v67 = a1;
+  v68 = a2;
+  v61 = partial apply for closure #2 in AugmentedIntervalTree<>.attribute(for:);
+  v62 = partial apply for closure #1 in AugmentedIntervalTree<>.attribute(for:);
   v79 = 0;
-  v77 = 0;
-  v64 = *v3;
-  v63 = (*(*(type metadata accessor for Arguments() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v65 = &v28 - v63;
-  v78 = v66;
-  v79 = MEMORY[0x28223BE20](v67);
-  v77 = v4;
-  v76 = *(v64 + 88);
+  v80 = 0;
+  v78 = 0;
+  v65 = *v3;
+  v64 = (*(*(type metadata accessor for Arguments() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v66 = &v29 - v64;
+  v79 = v67;
+  v80 = MEMORY[0x28223BE20](v68, v4);
+  v78 = v5;
+  v77 = *(v65 + 88);
 
-  v5 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("insert", 6uLL, 1);
-  v68 = &v75;
-  v75 = v5;
-  v73 = v66;
+  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("insert", 6uLL, 1);
+  v69 = &v76;
+  v76 = v6;
   v74 = v67;
-  v69 = MEMORY[0x25F889340](v5._countAndFlagsBits, v5._object, v66, v67);
+  v75 = v68;
+  v70 = MEMORY[0x25F889340](v6._countAndFlagsBits, v6._object, v67, v68);
   outlined destroy of DefaultStringInterpolation();
-  if (v69)
+  if (v70)
   {
 
-    v53 = 0;
-    v58 = type metadata accessor for Function();
-    v45 = 1;
-    v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("AugmentedIntervalTree.insert", 0x1CuLL, 1);
-    countAndFlagsBits = v6._countAndFlagsBits;
-    object = v6._object;
-    v44 = 3;
-    v48 = MEMORY[0x277D837D0];
-    v47 = _allocateUninitializedArray<A>(_:)();
-    v46 = v7;
-    v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, v45 & 1);
-    v9 = v45;
-    v10 = v44;
-    *v46 = v8;
-    v11 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", v10, v9 & 1);
-    v12 = v45;
-    v46[1] = v11;
-    v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("context", 7uLL, v12 & 1);
-    v14 = v47;
-    v46[2] = v13;
+    v54 = 0;
+    v59 = type metadata accessor for Function();
+    v46 = 1;
+    v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("AugmentedIntervalTree.insert", 0x1CuLL, 1);
+    countAndFlagsBits = v7._countAndFlagsBits;
+    object = v7._object;
+    v45 = 3;
+    v49 = MEMORY[0x277D837D0];
+    v48 = _allocateUninitializedArray<A>(_:)();
+    v47 = v8;
+    v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, v46 & 1);
+    v10 = v46;
+    v11 = v45;
+    *v47 = v9;
+    v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", v11, v10 & 1);
+    v13 = v46;
+    v47[1] = v12;
+    v14 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("context", 7uLL, v13 & 1);
+    v47[2] = v14;
     _finalizeUninitializedArray<A>(_:)();
-    v54 = v14;
-    v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
-    v15 = _allocateUninitializedArray<A>(_:)();
+    v55 = v15;
+    v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
+    _allocateUninitializedArray<A>(_:)();
     *v16 = 0;
     v16[1] = 0;
     v16[2] = 0;
     v16[3] = 0;
     _finalizeUninitializedArray<A>(_:)();
-    v52 = v15;
-    v50 = default argument 1 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
+    v53 = v17;
     v51 = default argument 1 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
+    v52 = default argument 1 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
     default argument 3 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
     Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
 
-    v56 = v62;
+    v57 = v63;
     default argument 2 of Function.init(name:arguments:attrs:body:)();
     result = Function.__allocating_init(name:arguments:attrs:body:)();
-    v18 = v59;
-    v59[3] = v58;
-    *v18 = result;
+    v19 = v60;
+    v60[3] = v59;
+    *v19 = result;
   }
 
   else
   {
 
-    v19 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("search", 6uLL, 1);
-    v42 = &v72;
-    v72 = v19;
-    v70 = v66;
+    v20 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("search", 6uLL, 1);
+    v43 = &v73;
+    v73 = v20;
     v71 = v67;
-    v43 = MEMORY[0x25F889340](v19._countAndFlagsBits, v19._object, v66, v67);
+    v72 = v68;
+    v44 = MEMORY[0x25F889340](v20._countAndFlagsBits, v20._object, v67, v68);
     outlined destroy of DefaultStringInterpolation();
-    if (v43)
+    if (v44)
     {
 
-      v36 = 0;
-      v41 = type metadata accessor for Function();
-      v29 = 1;
-      v20 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("AugmentedIntervalTree.search", 0x1CuLL, 1);
-      v40 = v20._countAndFlagsBits;
-      v38 = v20._object;
-      v32 = MEMORY[0x277D837D0];
-      v31 = _allocateUninitializedArray<A>(_:)();
-      v30 = v21;
-      v22 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, v29 & 1);
-      v23 = v29;
-      *v30 = v22;
-      v24 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, v23 & 1);
-      v25 = v31;
-      v30[1] = v24;
+      v37 = 0;
+      v42 = type metadata accessor for Function();
+      v30 = 1;
+      v21 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("AugmentedIntervalTree.search", 0x1CuLL, 1);
+      v41 = v21._countAndFlagsBits;
+      v39 = v21._object;
+      v33 = MEMORY[0x277D837D0];
+      v32 = _allocateUninitializedArray<A>(_:)();
+      v31 = v22;
+      v23 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, v30 & 1);
+      v24 = v30;
+      *v31 = v23;
+      v25 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, v24 & 1);
+      v31[1] = v25;
       _finalizeUninitializedArray<A>(_:)();
-      v37 = v25;
-      v33 = default argument 1 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
+      v38 = v26;
       v34 = default argument 1 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
-      v35 = default argument 3 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
+      v35 = default argument 1 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
+      v36 = default argument 3 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
       default argument 3 of Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
       Arguments.init(args:posonlyargs:kwonlyargs:kwDefaults:defaults:vaargs:kwargs:)();
 
-      v39 = v62;
+      v40 = v63;
       default argument 2 of Function.init(name:arguments:attrs:body:)();
       result = Function.__allocating_init(name:arguments:attrs:body:)();
-      v26 = v59;
-      v59[3] = v41;
-      *v26 = result;
+      v27 = v60;
+      v60[3] = v42;
+      *v27 = result;
     }
 
     else
     {
 
-      v27 = v59;
-      *v59 = 0;
-      v27[1] = 0;
-      v27[2] = 0;
-      v27[3] = 0;
+      v28 = v60;
+      *v60 = 0;
+      v28[1] = 0;
+      v28[2] = 0;
+      v28[3] = 0;
     }
   }
 
@@ -1781,25 +1779,67 @@ uint64_t AugmentedIntervalTree<>.attribute(for:)@<X0>(uint64_t a1@<X0>, uint64_t
 
 uint64_t closure #1 in AugmentedIntervalTree<>.attribute(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v141 = a2;
-  v145 = a1;
-  v139 = a3;
-  v176 = 0;
-  v175 = 0;
-  v140 = *(*a2 + 88);
-  v177 = v140;
-  v142 = type metadata accessor for Optional();
-  v143 = (*(*(v142 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v144 = v33 - v143;
-  v176 = MEMORY[0x28223BE20](v145);
-  v175 = v3;
-  v165 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, 1);
-  v146 = &v165;
+  v151 = a2;
+  v155 = a1;
+  v149 = a3;
+  v186 = 0;
+  v185 = 0;
+  v150 = *(*a2 + 88);
+  v187 = v150;
+  v152 = type metadata accessor for Optional();
+  v153 = (*(*(v152 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v154 = v43 - v153;
+  v186 = MEMORY[0x28223BE20](v155, v151);
+  v185 = v3;
+  v175 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, 1);
+  v156 = &v175;
+  MEMORY[0x25F8891D0](v176);
+  outlined destroy of DefaultStringInterpolation();
+  if (v176[3])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd, _sSz_pMR);
+    if (!swift_dynamicCast())
+    {
+      v177 = 0;
+      v178 = 0;
+      v179 = 0;
+      v180 = 0;
+      v181 = 0;
+    }
+  }
+
+  else
+  {
+    outlined destroy of Pregnancy?(v176);
+    v177 = 0;
+    v178 = 0;
+    v179 = 0;
+    v180 = 0;
+    v181 = 0;
+  }
+
+  if (!v180)
+  {
+    outlined destroy of Pregnancy?(&v177);
+LABEL_87:
+    lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
+    v43[1] = 0;
+    v44 = swift_allocError();
+    *v42 = 34;
+    swift_willThrow();
+    result = v44;
+    v45 = v44;
+    return result;
+  }
+
+  outlined init with take of HealthDataQuery(&v177, __dst);
+  v165 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, 1);
+  v147 = &v165;
   MEMORY[0x25F8891D0](v166);
   outlined destroy of DefaultStringInterpolation();
   if (v166[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd, _sSz_pMR);
     if (!swift_dynamicCast())
     {
       v167 = 0;
@@ -1823,149 +1863,107 @@ uint64_t closure #1 in AugmentedIntervalTree<>.attribute(for:)@<X0>(uint64_t a1@
   if (!v170)
   {
     outlined destroy of Pregnancy?(&v167);
-LABEL_87:
-    lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-    v33[1] = 0;
-    v34 = swift_allocError();
-    *v32 = 34;
-    swift_willThrow();
-    result = v34;
-    v35 = v34;
-    return result;
-  }
-
-  outlined init with take of HealthDataQuery(&v167, __dst);
-  v155 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, 1);
-  v137 = &v155;
-  MEMORY[0x25F8891D0](v156);
-  outlined destroy of DefaultStringInterpolation();
-  if (v156[3])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd);
-    if (!swift_dynamicCast())
-    {
-      v157 = 0;
-      v158 = 0;
-      v159 = 0;
-      v160 = 0;
-      v161 = 0;
-    }
-  }
-
-  else
-  {
-    outlined destroy of Pregnancy?(v156);
-    v157 = 0;
-    v158 = 0;
-    v159 = 0;
-    v160 = 0;
-    v161 = 0;
-  }
-
-  if (!v160)
-  {
-    outlined destroy of Pregnancy?(&v157);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_87;
   }
 
-  outlined init with take of HealthDataQuery(&v157, v162);
-  v136 = v173;
-  v125 = v173;
-  v135 = v174;
-  v126 = v174;
-  __swift_project_boxed_opaque_existential_1(__dst, v173);
-  v127 = *(v136 - 8);
-  v131 = v127;
-  v128 = v127;
-  v129 = *(v127 + 64);
-  v130 = v33;
-  MEMORY[0x28223BE20](v33);
-  v132 = v33 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v133 = *(v131 + 16);
-  v134 = (v131 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v133();
+  outlined init with take of HealthDataQuery(&v167, v172);
+  v146 = v183;
+  v135 = v183;
+  v145 = v184;
+  v136 = v184;
+  v4 = __swift_project_boxed_opaque_existential_1(__dst, v183);
+  v137 = *(v146 - 8);
+  v141 = v137;
+  v138 = v137;
+  v139 = *(v137 + 64);
+  v140 = v43;
+  MEMORY[0x28223BE20](v43, v4);
+  v142 = v43 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v143 = *(v141 + 16);
+  v144 = (v141 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v143();
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
   {
-    v147 = 0x8000000000000000;
+    v157 = 0x8000000000000000;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
       {
-        v123 = v33;
-        MEMORY[0x28223BE20](v33);
-        v122 = v33 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v6(v122);
+        v133 = v43;
+        MEMORY[0x28223BE20](v43, v142);
+        v132 = v43 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v8(v132);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v128 + 8))(v122, v125);
-        v124 = 0;
+        (*(v138 + 8))(v132, v135);
+        v134 = 0;
       }
 
       else
       {
-        v120 = v33;
-        MEMORY[0x28223BE20](v33);
-        v119 = v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v130 = v43;
+        MEMORY[0x28223BE20](v43, v6);
+        v129 = v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v121 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v128 + 8))(v119, v125);
-        v124 = v121;
+        v131 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v138 + 8))(v129, v135);
+        v134 = v131;
       }
     }
 
     else
     {
-      v5 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      if (v5)
+      v7 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      if (v7)
       {
         if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
         {
-          v93 = v33;
-          MEMORY[0x28223BE20](v33);
-          v92 = v33 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v103 = v43;
+          MEMORY[0x28223BE20](v43, v18);
+          v102 = v43 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v94 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v128 + 8))(v92, v125);
-          v124 = v94;
+          v104 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v138 + 8))(v102, v135);
+          v134 = v104;
         }
 
         else
         {
-          v85 = *(*(v126 + 24) + 16);
-          v81 = MEMORY[0x277D846F0];
+          v95 = *(*(v136 + 24) + 16);
+          v91 = MEMORY[0x277D846F0];
           AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-          v14 = *(*(AssociatedTypeWitness - 8) + 64);
-          v90 = v33;
-          v82 = (v14 + 15) & 0xFFFFFFFFFFFFFFF0;
-          MEMORY[0x28223BE20](v85);
-          v84 = v33 - v82;
+          v20 = *(*(AssociatedTypeWitness - 8) + 64);
+          v100 = v43;
+          v92 = (v20 + 15) & 0xFFFFFFFFFFFFFFF0;
+          MEMORY[0x28223BE20](v95, v135);
+          v94 = v43 - v92;
           swift_getAssociatedConformanceWitness();
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-          v89 = v33;
-          MEMORY[0x28223BE20](v84);
-          v86 = v33 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v99 = v43;
+          MEMORY[0x28223BE20](v94, v135);
+          v96 = v43 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
           dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-          v91 = dispatch thunk of static Comparable.< infix(_:_:)();
-          v87 = *(v128 + 8);
-          v88 = (v128 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-          v87(v86, v125);
-          if (v91)
+          v101 = dispatch thunk of static Comparable.< infix(_:_:)();
+          v97 = *(v138 + 8);
+          v98 = (v138 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+          v97(v96, v135);
+          if (v101)
           {
 LABEL_25:
-            _assertionFailure(_:_:file:line:flags:)();
+            _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
             __break(1u);
             goto LABEL_26;
           }
 
-          v80 = v33;
-          MEMORY[0x28223BE20](v33);
-          v79 = v33 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v16(v79);
+          v90 = v43;
+          MEMORY[0x28223BE20](v43, v142);
+          v89 = v43 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v22(v89);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          v87(v79, v125);
-          v124 = 0;
+          v97(v89, v135);
+          v134 = 0;
         }
       }
 
@@ -1976,17 +1974,17 @@ LABEL_25:
           goto LABEL_26;
         }
 
-        v78 = v33;
-        MEMORY[0x28223BE20](v33);
-        v77 = v33 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v17(v77);
+        v88 = v43;
+        MEMORY[0x28223BE20](v43, v142);
+        v87 = v43 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v23(v87);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v128 + 8))(v77, v125);
-        v124 = 0;
+        (*(v138 + 8))(v87, v135);
+        v134 = 0;
       }
     }
 
-    if ((v124 & 1) == 0)
+    if ((v134 & 1) == 0)
     {
       goto LABEL_26;
     }
@@ -1997,162 +1995,162 @@ LABEL_25:
 LABEL_26:
   if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
   {
-    v148 = 0x7FFFFFFFFFFFFFFFLL;
+    v158 = 0x7FFFFFFFFFFFFFFFLL;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
       {
-        v114 = v33;
-        MEMORY[0x28223BE20](v33);
-        v113 = v33 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v9(v113);
+        v124 = v43;
+        MEMORY[0x28223BE20](v43, v142);
+        v123 = v43 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v12(v123);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v128 + 8))(v113, v125);
-        v118 = 0;
+        (*(v138 + 8))(v123, v135);
+        v128 = 0;
       }
 
       else
       {
-        v116 = v33;
-        MEMORY[0x28223BE20](v33);
-        v115 = v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v126 = v43;
+        MEMORY[0x28223BE20](v43, v10);
+        v125 = v43 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v117 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v128 + 8))(v115, v125);
-        v118 = v117;
+        v127 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v138 + 8))(v125, v135);
+        v128 = v127;
       }
     }
 
     else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
     {
-      v96 = v33;
-      MEMORY[0x28223BE20](v33);
-      v95 = v33 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v106 = v43;
+      MEMORY[0x28223BE20](v43, v15);
+      v105 = v43 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v97 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v128 + 8))(v95, v125);
-      v118 = v97;
+      v107 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v138 + 8))(v105, v135);
+      v128 = v107;
     }
 
     else
     {
-      v99 = v33;
-      MEMORY[0x28223BE20](v33);
-      v98 = v33 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v11(v98);
+      v109 = v43;
+      MEMORY[0x28223BE20](v43, v142);
+      v108 = v43 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16(v108);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v128 + 8))(v98, v125);
-      v118 = 0;
+      (*(v138 + 8))(v108, v135);
+      v128 = 0;
     }
 
-    if (v118)
+    if (v128)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
       __break(1u);
     }
   }
 
-  v100 = dispatch thunk of BinaryInteger._lowWord.getter();
-  (*(v128 + 8))(v132, v125);
-  v154 = v100;
-  v112 = v163;
-  v101 = v163;
-  v111 = v164;
-  v102 = v164;
-  __swift_project_boxed_opaque_existential_1(v162, v163);
-  v103 = *(v112 - 8);
-  v107 = v103;
-  v104 = v103;
-  v105 = *(v103 + 64);
-  v106 = v33;
-  MEMORY[0x28223BE20](v33);
-  v108 = v33 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v109 = *(v107 + 16);
-  v110 = (v107 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v109();
+  v110 = dispatch thunk of BinaryInteger._lowWord.getter();
+  (*(v138 + 8))(v142, v135);
+  v164 = v110;
+  v122 = v173;
+  v111 = v173;
+  v121 = v174;
+  v112 = v174;
+  v13 = __swift_project_boxed_opaque_existential_1(v172, v173);
+  v113 = *(v122 - 8);
+  v117 = v113;
+  v114 = v113;
+  v115 = *(v113 + 64);
+  v116 = v43;
+  MEMORY[0x28223BE20](v43, v13);
+  v118 = v43 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v119 = *(v117 + 16);
+  v120 = (v117 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v119();
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() <= 64)
   {
     goto LABEL_60;
   }
 
-  v149 = 0x8000000000000000;
+  v159 = 0x8000000000000000;
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
     {
-      v75 = v33;
-      MEMORY[0x28223BE20](v33);
-      v74 = v33 - ((v105 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v19(v74);
+      v85 = v43;
+      MEMORY[0x28223BE20](v43, v118);
+      v84 = v43 - ((v115 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26(v84);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v104 + 8))(v74, v101);
-      v76 = 0;
+      (*(v114 + 8))(v84, v111);
+      v86 = 0;
     }
 
     else
     {
-      v72 = v33;
-      MEMORY[0x28223BE20](v33);
-      v71 = v33 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v82 = v43;
+      MEMORY[0x28223BE20](v43, v24);
+      v81 = v43 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v73 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v104 + 8))(v71, v101);
-      v76 = v73;
+      v83 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v114 + 8))(v81, v111);
+      v86 = v83;
     }
   }
 
   else
   {
-    v18 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    if (v18)
+    v25 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    if (v25)
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
       {
-        v55 = v33;
-        MEMORY[0x28223BE20](v33);
-        v54 = v33 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v65 = v43;
+        MEMORY[0x28223BE20](v43, v34);
+        v64 = v43 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v56 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v104 + 8))(v54, v101);
-        v76 = v56;
+        v66 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v114 + 8))(v64, v111);
+        v86 = v66;
       }
 
       else
       {
-        v47 = *(*(v102 + 24) + 16);
-        v43 = MEMORY[0x277D846F0];
-        v45 = swift_getAssociatedTypeWitness();
-        v26 = *(*(v45 - 8) + 64);
-        v52 = v33;
-        v44 = (v26 + 15) & 0xFFFFFFFFFFFFFFF0;
-        MEMORY[0x28223BE20](v47);
-        v46 = v33 - v44;
+        v57 = *(*(v112 + 24) + 16);
+        v53 = MEMORY[0x277D846F0];
+        v55 = swift_getAssociatedTypeWitness();
+        v36 = *(*(v55 - 8) + 64);
+        v62 = v43;
+        v54 = (v36 + 15) & 0xFFFFFFFFFFFFFFF0;
+        MEMORY[0x28223BE20](v57, v111);
+        v56 = v43 - v54;
         swift_getAssociatedConformanceWitness();
         dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-        v51 = v33;
-        MEMORY[0x28223BE20](v46);
-        v48 = v33 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v61 = v43;
+        MEMORY[0x28223BE20](v56, v111);
+        v58 = v43 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
         dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-        v53 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v49 = *(v104 + 8);
-        v50 = (v104 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-        v49(v48, v101);
-        if (v53)
+        v63 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v59 = *(v114 + 8);
+        v60 = (v114 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+        v59(v58, v111);
+        if (v63)
         {
           goto LABEL_59;
         }
 
-        v42 = v33;
-        MEMORY[0x28223BE20](v33);
-        v41 = v33 - ((v105 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v28(v41);
+        v52 = v43;
+        MEMORY[0x28223BE20](v43, v118);
+        v51 = v43 - ((v115 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v38(v51);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        v49(v41, v101);
-        v76 = 0;
+        v59(v51, v111);
+        v86 = 0;
       }
     }
 
@@ -2163,145 +2161,187 @@ LABEL_26:
         goto LABEL_60;
       }
 
-      v40 = v33;
-      MEMORY[0x28223BE20](v33);
-      v39 = v33 - ((v105 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v29(v39);
+      v50 = v43;
+      MEMORY[0x28223BE20](v43, v118);
+      v49 = v43 - ((v115 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v39(v49);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v104 + 8))(v39, v101);
-      v76 = 0;
+      (*(v114 + 8))(v49, v111);
+      v86 = 0;
     }
   }
 
-  if (v76)
+  if (v86)
   {
 LABEL_59:
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
     __break(1u);
   }
 
 LABEL_60:
   if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
   {
-    v150 = 0x7FFFFFFFFFFFFFFFLL;
+    v160 = 0x7FFFFFFFFFFFFFFFLL;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
       {
-        v66 = v33;
-        MEMORY[0x28223BE20](v33);
-        v65 = v33 - ((v105 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v22(v65);
+        v76 = v43;
+        MEMORY[0x28223BE20](v43, v118);
+        v75 = v43 - ((v115 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v30(v75);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v104 + 8))(v65, v101);
-        v70 = 0;
+        (*(v114 + 8))(v75, v111);
+        v80 = 0;
       }
 
       else
       {
-        v68 = v33;
-        MEMORY[0x28223BE20](v33);
-        v67 = v33 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v78 = v43;
+        MEMORY[0x28223BE20](v43, v28);
+        v77 = v43 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v69 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v104 + 8))(v67, v101);
-        v70 = v69;
+        v79 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v114 + 8))(v77, v111);
+        v80 = v79;
       }
     }
 
     else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
     {
-      v58 = v33;
-      MEMORY[0x28223BE20](v33);
-      v57 = v33 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v68 = v43;
+      MEMORY[0x28223BE20](v43, v31);
+      v67 = v43 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v59 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v104 + 8))(v57, v101);
-      v70 = v59;
+      v69 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v114 + 8))(v67, v111);
+      v80 = v69;
     }
 
     else
     {
-      v61 = v33;
-      MEMORY[0x28223BE20](v33);
-      v60 = v33 - ((v105 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v23(v60);
+      v71 = v43;
+      MEMORY[0x28223BE20](v43, v118);
+      v70 = v43 - ((v115 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32(v70);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v104 + 8))(v60, v101);
-      v70 = 0;
+      (*(v114 + 8))(v70, v111);
+      v80 = 0;
     }
 
-    if (v70)
+    if (v80)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
       __break(1u);
     }
   }
 
-  v62 = dispatch thunk of BinaryInteger._lowWord.getter();
-  (*(v104 + 8))(v108, v101);
-  v153 = v62;
-  v151 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("context", 7uLL, 1);
-  v64 = &v152;
-  v63 = &v151;
+  v72 = dispatch thunk of BinaryInteger._lowWord.getter();
+  (*(v114 + 8))(v118, v111);
+  v163 = v72;
+  v161 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("context", 7uLL, 1);
+  v74 = &v162;
+  v73 = &v161;
   MEMORY[0x25F8891D0]();
   outlined destroy of DefaultStringInterpolation();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   if (swift_dynamicCast())
   {
-    (*(*(v140 - 8) + 56))(v144, 0, 1);
+    (*(*(v150 - 8) + 56))(v154, 0, 1);
   }
 
   else
   {
-    (*(*(v140 - 8) + 56))(v144, 1);
+    (*(*(v150 - 8) + 56))(v154, 1);
   }
 
-  v30 = v138;
-  AugmentedIntervalTree.insert(start:end:context:)(&v154, &v153, v144);
-  v37 = v30;
-  v38 = v30;
-  if (v30)
+  v40 = v148;
+  AugmentedIntervalTree.insert(start:end:context:)(&v164, &v163, v154);
+  v47 = v40;
+  v48 = v40;
+  if (v40)
   {
-    v33[0] = v38;
-    outlined destroy of B?(v144, v140);
-    __swift_destroy_boxed_opaque_existential_1(v162);
+    v43[0] = v48;
+    outlined destroy of B?(v154, v150);
+    __swift_destroy_boxed_opaque_existential_1(v172);
     __swift_destroy_boxed_opaque_existential_1(__dst);
-    return v33[0];
+    return v43[0];
   }
 
   else
   {
-    v36 = 0;
-    outlined destroy of B?(v144, v140);
-    *(v139 + 24) = MEMORY[0x277D84F78] + 8;
-    __swift_destroy_boxed_opaque_existential_1(v162);
+    v46 = 0;
+    outlined destroy of B?(v154, v150);
+    *(v149 + 24) = MEMORY[0x277D84F78] + 8;
+    __swift_destroy_boxed_opaque_existential_1(v172);
     return __swift_destroy_boxed_opaque_existential_1(__dst);
   }
 }
 
 uint64_t closure #2 in AugmentedIntervalTree<>.attribute(for:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v146 = a2;
-  v149 = a1;
-  v147 = a3;
-  v180 = 0;
-  v179 = 0;
-  v155 = 0;
+  v156 = a2;
+  v159 = a1;
+  v157 = a3;
+  v190 = 0;
+  v189 = 0;
+  v165 = 0;
   v3 = *a2;
-  v180 = a1;
-  v179 = a2;
-  v148 = *(v3 + 88);
-  v178 = v148;
-  v168 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, 1);
-  v150 = &v168;
+  v190 = a1;
+  v189 = a2;
+  v158 = *(v3 + 88);
+  v188 = v158;
+  v178 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, 1);
+  v160 = &v178;
+  MEMORY[0x25F8891D0](v179);
+  outlined destroy of DefaultStringInterpolation();
+  if (v179[3])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd, _sSz_pMR);
+    if (!swift_dynamicCast())
+    {
+      v180 = 0;
+      v181 = 0;
+      v182 = 0;
+      v183 = 0;
+      v184 = 0;
+    }
+  }
+
+  else
+  {
+    outlined destroy of Pregnancy?(v179);
+    v180 = 0;
+    v181 = 0;
+    v182 = 0;
+    v183 = 0;
+    v184 = 0;
+  }
+
+  if (!v183)
+  {
+    outlined destroy of Pregnancy?(&v180);
+LABEL_84:
+    lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
+    v48[1] = 0;
+    v49 = swift_allocError();
+    *v47 = 35;
+    swift_willThrow();
+    result = v49;
+    v50 = v49;
+    return result;
+  }
+
+  outlined init with take of HealthDataQuery(&v180, __dst);
+  v168 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, 1);
+  v154 = &v168;
   MEMORY[0x25F8891D0](v169);
   outlined destroy of DefaultStringInterpolation();
   if (v169[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd, _sSz_pMR);
     if (!swift_dynamicCast())
     {
       v170 = 0;
@@ -2325,149 +2365,107 @@ uint64_t closure #2 in AugmentedIntervalTree<>.attribute(for:)@<X0>(uint64_t a1@
   if (!v173)
   {
     outlined destroy of Pregnancy?(&v170);
-LABEL_84:
-    lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-    v38[1] = 0;
-    v39 = swift_allocError();
-    *v37 = 35;
-    swift_willThrow();
-    result = v39;
-    v40 = v39;
-    return result;
-  }
-
-  outlined init with take of HealthDataQuery(&v170, __dst);
-  v158 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, 1);
-  v144 = &v158;
-  MEMORY[0x25F8891D0](v159);
-  outlined destroy of DefaultStringInterpolation();
-  if (v159[3])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd);
-    if (!swift_dynamicCast())
-    {
-      v160 = 0;
-      v161 = 0;
-      v162 = 0;
-      v163 = 0;
-      v164 = 0;
-    }
-  }
-
-  else
-  {
-    outlined destroy of Pregnancy?(v159);
-    v160 = 0;
-    v161 = 0;
-    v162 = 0;
-    v163 = 0;
-    v164 = 0;
-  }
-
-  if (!v163)
-  {
-    outlined destroy of Pregnancy?(&v160);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_84;
   }
 
-  outlined init with take of HealthDataQuery(&v160, v165);
-  v143 = v176;
-  v132 = v176;
-  v142 = v177;
-  v133 = v177;
-  __swift_project_boxed_opaque_existential_1(__dst, v176);
-  v134 = *(v143 - 8);
-  v138 = v134;
-  v135 = v134;
-  v136 = *(v134 + 64);
-  v137 = v38;
-  MEMORY[0x28223BE20](v38);
-  v139 = v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v140 = *(v138 + 16);
-  v141 = (v138 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v140();
+  outlined init with take of HealthDataQuery(&v170, v175);
+  v153 = v186;
+  v142 = v186;
+  v152 = v187;
+  v143 = v187;
+  v4 = __swift_project_boxed_opaque_existential_1(__dst, v186);
+  v144 = *(v153 - 8);
+  v148 = v144;
+  v145 = v144;
+  v146 = *(v144 + 64);
+  v147 = v48;
+  MEMORY[0x28223BE20](v48, v4);
+  v149 = v48 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v150 = *(v148 + 16);
+  v151 = (v148 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v150();
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
   {
-    v151 = 0x8000000000000000;
+    v161 = 0x8000000000000000;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
       {
-        v130 = v38;
-        MEMORY[0x28223BE20](v38);
-        v129 = v38 - ((v136 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v6(v129);
+        v140 = v48;
+        MEMORY[0x28223BE20](v48, v149);
+        v139 = v48 - ((v146 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v8(v139);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v135 + 8))(v129, v132);
-        v131 = 0;
+        (*(v145 + 8))(v139, v142);
+        v141 = 0;
       }
 
       else
       {
-        v127 = v38;
-        MEMORY[0x28223BE20](v38);
-        v126 = v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v137 = v48;
+        MEMORY[0x28223BE20](v48, v6);
+        v136 = v48 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v128 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v135 + 8))(v126, v132);
-        v131 = v128;
+        v138 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v145 + 8))(v136, v142);
+        v141 = v138;
       }
     }
 
     else
     {
-      v5 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      if (v5)
+      v7 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      if (v7)
       {
         if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
         {
-          v100 = v38;
-          MEMORY[0x28223BE20](v38);
-          v99 = v38 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v110 = v48;
+          MEMORY[0x28223BE20](v48, v18);
+          v109 = v48 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v101 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v135 + 8))(v99, v132);
-          v131 = v101;
+          v111 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v145 + 8))(v109, v142);
+          v141 = v111;
         }
 
         else
         {
-          v92 = *(*(v133 + 24) + 16);
-          v88 = MEMORY[0x277D846F0];
+          v102 = *(*(v143 + 24) + 16);
+          v98 = MEMORY[0x277D846F0];
           AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-          v14 = *(*(AssociatedTypeWitness - 8) + 64);
-          v97 = v38;
-          v89 = (v14 + 15) & 0xFFFFFFFFFFFFFFF0;
-          MEMORY[0x28223BE20](v92);
-          v91 = v38 - v89;
+          v20 = *(*(AssociatedTypeWitness - 8) + 64);
+          v107 = v48;
+          v99 = (v20 + 15) & 0xFFFFFFFFFFFFFFF0;
+          MEMORY[0x28223BE20](v102, v142);
+          v101 = v48 - v99;
           swift_getAssociatedConformanceWitness();
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-          v96 = v38;
-          MEMORY[0x28223BE20](v91);
-          v93 = v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v106 = v48;
+          MEMORY[0x28223BE20](v101, v142);
+          v103 = v48 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
           dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-          v98 = dispatch thunk of static Comparable.< infix(_:_:)();
-          v94 = *(v135 + 8);
-          v95 = (v135 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-          v94(v93, v132);
-          if (v98)
+          v108 = dispatch thunk of static Comparable.< infix(_:_:)();
+          v104 = *(v145 + 8);
+          v105 = (v145 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+          v104(v103, v142);
+          if (v108)
           {
 LABEL_25:
-            _assertionFailure(_:_:file:line:flags:)();
+            _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
             __break(1u);
             goto LABEL_26;
           }
 
-          v87 = v38;
-          MEMORY[0x28223BE20](v38);
-          v86 = v38 - ((v136 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v16(v86);
+          v97 = v48;
+          MEMORY[0x28223BE20](v48, v149);
+          v96 = v48 - ((v146 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v22(v96);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          v94(v86, v132);
-          v131 = 0;
+          v104(v96, v142);
+          v141 = 0;
         }
       }
 
@@ -2478,17 +2476,17 @@ LABEL_25:
           goto LABEL_26;
         }
 
-        v85 = v38;
-        MEMORY[0x28223BE20](v38);
-        v84 = v38 - ((v136 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v17(v84);
+        v95 = v48;
+        MEMORY[0x28223BE20](v48, v149);
+        v94 = v48 - ((v146 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v23(v94);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v135 + 8))(v84, v132);
-        v131 = 0;
+        (*(v145 + 8))(v94, v142);
+        v141 = 0;
       }
     }
 
-    if ((v131 & 1) == 0)
+    if ((v141 & 1) == 0)
     {
       goto LABEL_26;
     }
@@ -2499,169 +2497,169 @@ LABEL_25:
 LABEL_26:
   if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
   {
-    v152 = 0x7FFFFFFFFFFFFFFFLL;
+    v162 = 0x7FFFFFFFFFFFFFFFLL;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
       {
-        v121 = v38;
-        MEMORY[0x28223BE20](v38);
-        v120 = v38 - ((v136 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v9(v120);
+        v131 = v48;
+        MEMORY[0x28223BE20](v48, v149);
+        v130 = v48 - ((v146 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v12(v130);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v135 + 8))(v120, v132);
-        v125 = 0;
+        (*(v145 + 8))(v130, v142);
+        v135 = 0;
       }
 
       else
       {
-        v123 = v38;
-        MEMORY[0x28223BE20](v38);
-        v122 = v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v133 = v48;
+        MEMORY[0x28223BE20](v48, v10);
+        v132 = v48 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v124 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v135 + 8))(v122, v132);
-        v125 = v124;
+        v134 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v145 + 8))(v132, v142);
+        v135 = v134;
       }
     }
 
     else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
     {
-      v103 = v38;
-      MEMORY[0x28223BE20](v38);
-      v102 = v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v113 = v48;
+      MEMORY[0x28223BE20](v48, v15);
+      v112 = v48 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v104 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v135 + 8))(v102, v132);
-      v125 = v104;
+      v114 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v145 + 8))(v112, v142);
+      v135 = v114;
     }
 
     else
     {
-      v106 = v38;
-      MEMORY[0x28223BE20](v38);
-      v105 = v38 - ((v136 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v11(v105);
+      v116 = v48;
+      MEMORY[0x28223BE20](v48, v149);
+      v115 = v48 - ((v146 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16(v115);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v135 + 8))(v105, v132);
-      v125 = 0;
+      (*(v145 + 8))(v115, v142);
+      v135 = 0;
     }
 
-    if (v125)
+    if (v135)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
       __break(1u);
     }
   }
 
-  v107 = dispatch thunk of BinaryInteger._lowWord.getter();
-  (*(v135 + 8))(v139, v132);
-  v157 = v107;
-  v119 = v166;
-  v108 = v166;
-  v118 = v167;
-  v109 = v167;
-  __swift_project_boxed_opaque_existential_1(v165, v166);
-  v110 = *(v119 - 8);
-  v114 = v110;
-  v111 = v110;
-  v112 = *(v110 + 64);
-  v113 = v38;
-  MEMORY[0x28223BE20](v38);
-  v115 = v38 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v116 = *(v114 + 16);
-  v117 = (v114 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v116();
+  v117 = dispatch thunk of BinaryInteger._lowWord.getter();
+  (*(v145 + 8))(v149, v142);
+  v167 = v117;
+  v129 = v176;
+  v118 = v176;
+  v128 = v177;
+  v119 = v177;
+  v13 = __swift_project_boxed_opaque_existential_1(v175, v176);
+  v120 = *(v129 - 8);
+  v124 = v120;
+  v121 = v120;
+  v122 = *(v120 + 64);
+  v123 = v48;
+  MEMORY[0x28223BE20](v48, v13);
+  v125 = v48 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v126 = *(v124 + 16);
+  v127 = (v124 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v126();
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() <= 64)
   {
     goto LABEL_60;
   }
 
-  v153 = 0x8000000000000000;
+  v163 = 0x8000000000000000;
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
     {
-      v82 = v38;
-      MEMORY[0x28223BE20](v38);
-      v81 = v38 - ((v112 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v19(v81);
+      v92 = v48;
+      MEMORY[0x28223BE20](v48, v125);
+      v91 = v48 - ((v122 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26(v91);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v111 + 8))(v81, v108);
-      v83 = 0;
+      (*(v121 + 8))(v91, v118);
+      v93 = 0;
     }
 
     else
     {
-      v79 = v38;
-      MEMORY[0x28223BE20](v38);
-      v78 = v38 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v89 = v48;
+      MEMORY[0x28223BE20](v48, v24);
+      v88 = v48 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v80 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v111 + 8))(v78, v108);
-      v83 = v80;
+      v90 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v121 + 8))(v88, v118);
+      v93 = v90;
     }
 
     goto LABEL_58;
   }
 
-  v18 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  if (v18)
+  v25 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  if (v25)
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
     {
-      v60 = v38;
-      MEMORY[0x28223BE20](v38);
-      v59 = v38 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v70 = v48;
+      MEMORY[0x28223BE20](v48, v36);
+      v69 = v48 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v61 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v111 + 8))(v59, v108);
-      v83 = v61;
+      v71 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v121 + 8))(v69, v118);
+      v93 = v71;
     }
 
     else
     {
-      v52 = *(*(v109 + 24) + 16);
-      v48 = MEMORY[0x277D846F0];
-      v50 = swift_getAssociatedTypeWitness();
-      v28 = *(*(v50 - 8) + 64);
-      v57 = v38;
-      v49 = (v28 + 15) & 0xFFFFFFFFFFFFFFF0;
-      MEMORY[0x28223BE20](v52);
-      v51 = v38 - v49;
+      v62 = *(*(v119 + 24) + 16);
+      v58 = MEMORY[0x277D846F0];
+      v60 = swift_getAssociatedTypeWitness();
+      v38 = *(*(v60 - 8) + 64);
+      v67 = v48;
+      v59 = (v38 + 15) & 0xFFFFFFFFFFFFFFF0;
+      MEMORY[0x28223BE20](v62, v118);
+      v61 = v48 - v59;
       swift_getAssociatedConformanceWitness();
       dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-      v56 = v38;
-      MEMORY[0x28223BE20](v51);
-      v53 = v38 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v66 = v48;
+      MEMORY[0x28223BE20](v61, v118);
+      v63 = v48 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
       dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-      v58 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v54 = *(v111 + 8);
-      v55 = (v111 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-      v54(v53, v108);
-      if (v58)
+      v68 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v64 = *(v121 + 8);
+      v65 = (v121 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      v64(v63, v118);
+      if (v68)
       {
 LABEL_59:
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
         __break(1u);
         goto LABEL_60;
       }
 
-      v47 = v38;
-      MEMORY[0x28223BE20](v38);
-      v46 = v38 - ((v112 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v30(v46);
+      v57 = v48;
+      MEMORY[0x28223BE20](v48, v125);
+      v56 = v48 - ((v122 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v40(v56);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      v54(v46, v108);
-      v83 = 0;
+      v64(v56, v118);
+      v93 = 0;
     }
 
 LABEL_58:
-    if ((v83 & 1) == 0)
+    if ((v93 & 1) == 0)
     {
       goto LABEL_60;
     }
@@ -2671,108 +2669,108 @@ LABEL_58:
 
   if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
   {
-    v45 = v38;
-    MEMORY[0x28223BE20](v38);
-    v44 = v38 - ((v112 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v31(v44);
+    v55 = v48;
+    MEMORY[0x28223BE20](v48, v125);
+    v54 = v48 - ((v122 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v41(v54);
     dispatch thunk of BinaryInteger._lowWord.getter();
-    (*(v111 + 8))(v44, v108);
-    v83 = 0;
+    (*(v121 + 8))(v54, v118);
+    v93 = 0;
     goto LABEL_58;
   }
 
 LABEL_60:
   if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
   {
-    v154 = 0x7FFFFFFFFFFFFFFFLL;
+    v164 = 0x7FFFFFFFFFFFFFFFLL;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
       {
-        v73 = v38;
-        MEMORY[0x28223BE20](v38);
-        v72 = v38 - ((v112 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v22(v72);
+        v83 = v48;
+        MEMORY[0x28223BE20](v48, v125);
+        v82 = v48 - ((v122 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v30(v82);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v111 + 8))(v72, v108);
-        v77 = 0;
+        (*(v121 + 8))(v82, v118);
+        v87 = 0;
       }
 
       else
       {
-        v75 = v38;
-        MEMORY[0x28223BE20](v38);
-        v74 = v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v85 = v48;
+        MEMORY[0x28223BE20](v48, v28);
+        v84 = v48 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v76 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v111 + 8))(v74, v108);
-        v77 = v76;
+        v86 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v121 + 8))(v84, v118);
+        v87 = v86;
       }
     }
 
     else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
     {
-      v63 = v38;
-      MEMORY[0x28223BE20](v38);
-      v62 = v38 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v73 = v48;
+      MEMORY[0x28223BE20](v48, v33);
+      v72 = v48 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v64 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v111 + 8))(v62, v108);
-      v77 = v64;
+      v74 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v121 + 8))(v72, v118);
+      v87 = v74;
     }
 
     else
     {
-      v66 = v38;
-      MEMORY[0x28223BE20](v38);
-      v65 = v38 - ((v112 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v25(v65);
+      v76 = v48;
+      MEMORY[0x28223BE20](v48, v125);
+      v75 = v48 - ((v122 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v34(v75);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v111 + 8))(v65, v108);
-      v77 = 0;
+      (*(v121 + 8))(v75, v118);
+      v87 = 0;
     }
 
-    if (v77)
+    if (v87)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
       __break(1u);
     }
   }
 
-  v68 = v145;
-  v67 = dispatch thunk of BinaryInteger._lowWord.getter();
-  (*(v111 + 8))(v115, v108);
-  v23 = v68;
-  v156 = v67;
-  v24 = AugmentedIntervalTree.search(start:end:)(&v157, &v156);
-  v69 = v23;
-  v70 = v24;
-  v71 = v23;
-  if (v23)
+  v78 = v155;
+  v77 = dispatch thunk of BinaryInteger._lowWord.getter();
+  (*(v121 + 8))(v125, v118);
+  v31 = v78;
+  v166 = v77;
+  v32 = AugmentedIntervalTree.search(start:end:)(&v167, &v166);
+  v79 = v31;
+  v80 = v32;
+  v81 = v31;
+  if (v31)
   {
-    v38[0] = v71;
-    __swift_destroy_boxed_opaque_existential_1(v165);
+    v48[0] = v81;
+    __swift_destroy_boxed_opaque_existential_1(v175);
     __swift_destroy_boxed_opaque_existential_1(__dst);
-    return v38[0];
+    return v48[0];
   }
 
   else
   {
-    v42 = v70;
-    v43 = 0;
-    v155 = v70;
+    v52 = v80;
+    v53 = 0;
+    v165 = v80;
 
-    v41 = type metadata accessor for Interval();
-    v32 = type metadata accessor for Array();
-    v33 = v147;
-    v34 = v32;
-    v35 = v42;
-    v147[3] = v34;
-    *v33 = v35;
+    v51 = type metadata accessor for Interval(255, MEMORY[0x277D83B88], v158, MEMORY[0x277D83BA0]);
+    v42 = type metadata accessor for Array();
+    v43 = v157;
+    v44 = v42;
+    v45 = v52;
+    v157[3] = v44;
+    *v43 = v45;
 
-    __swift_destroy_boxed_opaque_existential_1(v165);
+    __swift_destroy_boxed_opaque_existential_1(v175);
     return __swift_destroy_boxed_opaque_existential_1(__dst);
   }
 }
@@ -2805,7 +2803,7 @@ uint64_t AugmentedIntervalTree<>.has(attribute:)(uint64_t a1, uint64_t a2)
 
 uint64_t closure #1 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21AugmentedIntervalTreeCySiypGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21AugmentedIntervalTreeCySiypGMd, &_s19NightingaleTraining21AugmentedIntervalTreeCySiypGMR);
   result = AugmentedIntervalTree.__allocating_init()();
   a1[3] = v2;
   *a1 = result;
@@ -2814,7 +2812,7 @@ uint64_t closure #1 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64
 
 uint64_t closure #2 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21AugmentedIntervalTreeCySiAA9Pregnancy_pGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining21AugmentedIntervalTreeCySiAA9Pregnancy_pGMd, &_s19NightingaleTraining21AugmentedIntervalTreeCySiAA9Pregnancy_pGMR);
   result = AugmentedIntervalTree.__allocating_init()();
   a1[3] = v2;
   *a1 = result;
@@ -2823,16 +2821,56 @@ uint64_t closure #2 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64
 
 uint64_t closure #3 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, NightingaleTraining::Cycle *a2@<X8>)
 {
-  v134 = a1;
-  v133 = a2;
-  v160 = a1;
-  v150 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, 1);
-  v135 = &v150;
+  v144 = a1;
+  v143 = a2;
+  v170 = a1;
+  v160 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("start", 5uLL, 1);
+  v145 = &v160;
+  MEMORY[0x25F8891D0](v161);
+  outlined destroy of DefaultStringInterpolation();
+  if (v161[3])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd, _sSz_pMR);
+    if (!swift_dynamicCast())
+    {
+      v162 = 0;
+      v163 = 0;
+      v164 = 0;
+      v165 = 0;
+      v166 = 0;
+    }
+  }
+
+  else
+  {
+    outlined destroy of Pregnancy?(v161);
+    v162 = 0;
+    v163 = 0;
+    v164 = 0;
+    v165 = 0;
+    v166 = 0;
+  }
+
+  if (!v165)
+  {
+    outlined destroy of Pregnancy?(&v162);
+LABEL_83:
+    lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
+    v43 = 0;
+    swift_allocError();
+    *v41 = 37;
+    swift_willThrow();
+    return v43;
+  }
+
+  outlined init with take of HealthDataQuery(&v162, __dst);
+  v150 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, 1);
+  v141 = &v150;
   MEMORY[0x25F8891D0](v151);
   outlined destroy of DefaultStringInterpolation();
   if (v151[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd, _sSz_pMR);
     if (!swift_dynamicCast())
     {
       v152 = 0;
@@ -2856,147 +2894,107 @@ uint64_t closure #3 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64
   if (!v155)
   {
     outlined destroy of Pregnancy?(&v152);
-LABEL_83:
-    lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-    v33 = 0;
-    swift_allocError();
-    *v31 = 37;
-    swift_willThrow();
-    return v33;
-  }
-
-  outlined init with take of HealthDataQuery(&v152, __dst);
-  v140 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("end", 3uLL, 1);
-  v131 = &v140;
-  MEMORY[0x25F8891D0](v141);
-  outlined destroy of DefaultStringInterpolation();
-  if (v141[3])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd);
-    if (!swift_dynamicCast())
-    {
-      v142 = 0;
-      v143 = 0;
-      v144 = 0;
-      v145 = 0;
-      v146 = 0;
-    }
-  }
-
-  else
-  {
-    outlined destroy of Pregnancy?(v141);
-    v142 = 0;
-    v143 = 0;
-    v144 = 0;
-    v145 = 0;
-    v146 = 0;
-  }
-
-  if (!v145)
-  {
-    outlined destroy of Pregnancy?(&v142);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_83;
   }
 
-  outlined init with take of HealthDataQuery(&v142, v147);
-  v130 = v158;
-  v119 = v158;
-  v129 = v159;
-  v120 = v159;
-  __swift_project_boxed_opaque_existential_1(__dst, v158);
-  v121 = *(v130 - 8);
-  v125 = v121;
-  v122 = v121;
-  v123 = *(v121 + 64);
-  v124 = &v32;
-  MEMORY[0x28223BE20](&v32);
-  v126 = &v32 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v127 = *(v125 + 16);
-  v128 = (v125 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v127();
+  outlined init with take of HealthDataQuery(&v152, v157);
+  v140 = v168;
+  v129 = v168;
+  v139 = v169;
+  v130 = v169;
+  v2 = __swift_project_boxed_opaque_existential_1(__dst, v168);
+  v131 = *(v140 - 8);
+  v135 = v131;
+  v132 = v131;
+  v133 = *(v131 + 64);
+  v134 = &v42;
+  MEMORY[0x28223BE20](&v42, v2);
+  v136 = &v42 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v137 = *(v135 + 16);
+  v138 = (v135 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v137();
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
   {
-    v136 = 0x8000000000000000;
+    v146 = 0x8000000000000000;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
       {
-        v117 = &v32;
-        MEMORY[0x28223BE20](&v32);
-        v116 = &v32 - ((v123 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v4(v116);
+        v127 = &v42;
+        MEMORY[0x28223BE20](&v42, v136);
+        v126 = &v42 - ((v133 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v6(v126);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v122 + 8))(v116, v119);
-        v118 = 0;
+        (*(v132 + 8))(v126, v129);
+        v128 = 0;
       }
 
       else
       {
-        v114 = &v32;
-        MEMORY[0x28223BE20](&v32);
-        v113 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v124 = &v42;
+        MEMORY[0x28223BE20](&v42, v4);
+        v123 = &v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v115 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v122 + 8))(v113, v119);
-        v118 = v115;
+        v125 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v132 + 8))(v123, v129);
+        v128 = v125;
       }
     }
 
     else
     {
-      v3 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      if (v3)
+      v5 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      if (v5)
       {
         if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
         {
-          v87 = &v32;
-          MEMORY[0x28223BE20](&v32);
-          v86 = &v32 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v97 = &v42;
+          MEMORY[0x28223BE20](&v42, v16);
+          v96 = &v42 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v88 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v122 + 8))(v86, v119);
-          v118 = v88;
+          v98 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v132 + 8))(v96, v129);
+          v128 = v98;
         }
 
         else
         {
-          v79 = *(*(v120 + 24) + 16);
-          v75 = MEMORY[0x277D846F0];
+          v89 = *(*(v130 + 24) + 16);
+          v85 = MEMORY[0x277D846F0];
           AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-          v12 = *(*(AssociatedTypeWitness - 8) + 64);
-          v84 = &v32;
-          v76 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
-          MEMORY[0x28223BE20](v79);
-          v78 = &v32 - v76;
+          v18 = *(*(AssociatedTypeWitness - 8) + 64);
+          v94 = &v42;
+          v86 = (v18 + 15) & 0xFFFFFFFFFFFFFFF0;
+          MEMORY[0x28223BE20](v89, v129);
+          v88 = &v42 - v86;
           swift_getAssociatedConformanceWitness();
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-          v83 = &v32;
-          MEMORY[0x28223BE20](v78);
-          v80 = &v32 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v93 = &v42;
+          MEMORY[0x28223BE20](v88, v129);
+          v90 = &v42 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
           dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-          v85 = dispatch thunk of static Comparable.< infix(_:_:)();
-          v81 = *(v122 + 8);
-          v82 = (v122 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-          v81(v80, v119);
-          if (v85)
+          v95 = dispatch thunk of static Comparable.< infix(_:_:)();
+          v91 = *(v132 + 8);
+          v92 = (v132 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+          v91(v90, v129);
+          if (v95)
           {
 LABEL_25:
-            _assertionFailure(_:_:file:line:flags:)();
+            _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
             __break(1u);
             goto LABEL_26;
           }
 
-          v74 = &v32;
-          MEMORY[0x28223BE20](&v32);
-          v73 = &v32 - ((v123 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v14(v73);
+          v84 = &v42;
+          MEMORY[0x28223BE20](&v42, v136);
+          v83 = &v42 - ((v133 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v20(v83);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          v81(v73, v119);
-          v118 = 0;
+          v91(v83, v129);
+          v128 = 0;
         }
       }
 
@@ -3007,17 +3005,17 @@ LABEL_25:
           goto LABEL_26;
         }
 
-        v72 = &v32;
-        MEMORY[0x28223BE20](&v32);
-        v71 = &v32 - ((v123 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v15(v71);
+        v82 = &v42;
+        MEMORY[0x28223BE20](&v42, v136);
+        v81 = &v42 - ((v133 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v21(v81);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v122 + 8))(v71, v119);
-        v118 = 0;
+        (*(v132 + 8))(v81, v129);
+        v128 = 0;
       }
     }
 
-    if ((v118 & 1) == 0)
+    if ((v128 & 1) == 0)
     {
       goto LABEL_26;
     }
@@ -3028,168 +3026,168 @@ LABEL_25:
 LABEL_26:
   if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
   {
-    v137 = 0x7FFFFFFFFFFFFFFFLL;
+    v147 = 0x7FFFFFFFFFFFFFFFLL;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
       {
-        v108 = &v32;
-        MEMORY[0x28223BE20](&v32);
-        v107 = &v32 - ((v123 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v7(v107);
+        v118 = &v42;
+        MEMORY[0x28223BE20](&v42, v136);
+        v117 = &v42 - ((v133 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v10(v117);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v122 + 8))(v107, v119);
-        v112 = 0;
+        (*(v132 + 8))(v117, v129);
+        v122 = 0;
       }
 
       else
       {
-        v110 = &v32;
-        MEMORY[0x28223BE20](&v32);
-        v109 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v120 = &v42;
+        MEMORY[0x28223BE20](&v42, v8);
+        v119 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v111 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v122 + 8))(v109, v119);
-        v112 = v111;
+        v121 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v132 + 8))(v119, v129);
+        v122 = v121;
       }
     }
 
     else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
     {
-      v90 = &v32;
-      MEMORY[0x28223BE20](&v32);
-      v89 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v100 = &v42;
+      MEMORY[0x28223BE20](&v42, v13);
+      v99 = &v42 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v91 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v122 + 8))(v89, v119);
-      v112 = v91;
+      v101 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v132 + 8))(v99, v129);
+      v122 = v101;
     }
 
     else
     {
-      v93 = &v32;
-      MEMORY[0x28223BE20](&v32);
-      v92 = &v32 - ((v123 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v9(v92);
+      v103 = &v42;
+      MEMORY[0x28223BE20](&v42, v136);
+      v102 = &v42 - ((v133 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v14(v102);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v122 + 8))(v92, v119);
-      v112 = 0;
+      (*(v132 + 8))(v102, v129);
+      v122 = 0;
     }
 
-    if (v112)
+    if (v122)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
       __break(1u);
     }
   }
 
-  v94 = dispatch thunk of BinaryInteger._lowWord.getter();
-  (*(v122 + 8))(v126, v119);
-  v106 = v148;
-  v95 = v148;
-  v105 = v149;
-  v96 = v149;
-  __swift_project_boxed_opaque_existential_1(v147, v148);
-  v97 = *(v106 - 8);
-  v101 = v97;
-  v98 = v97;
-  v99 = *(v97 + 64);
-  v100 = &v32;
-  MEMORY[0x28223BE20](&v32);
-  v102 = &v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v103 = *(v101 + 16);
-  v104 = (v101 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v103();
+  v104 = dispatch thunk of BinaryInteger._lowWord.getter();
+  (*(v132 + 8))(v136, v129);
+  v116 = v158;
+  v105 = v158;
+  v115 = v159;
+  v106 = v159;
+  v11 = __swift_project_boxed_opaque_existential_1(v157, v158);
+  v107 = *(v116 - 8);
+  v111 = v107;
+  v108 = v107;
+  v109 = *(v107 + 64);
+  v110 = &v42;
+  MEMORY[0x28223BE20](&v42, v11);
+  v112 = &v42 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = *(v111 + 16);
+  v114 = (v111 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v113();
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() <= 64)
   {
     goto LABEL_60;
   }
 
-  v138 = 0x8000000000000000;
+  v148 = 0x8000000000000000;
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
     {
-      v69 = &v32;
-      MEMORY[0x28223BE20](&v32);
-      v68 = &v32 - ((v99 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v17(v68);
+      v79 = &v42;
+      MEMORY[0x28223BE20](&v42, v112);
+      v78 = &v42 - ((v109 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v24(v78);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v98 + 8))(v68, v95);
-      v70 = 0;
+      (*(v108 + 8))(v78, v105);
+      v80 = 0;
     }
 
     else
     {
-      v66 = &v32;
-      MEMORY[0x28223BE20](&v32);
-      v65 = &v32 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v76 = &v42;
+      MEMORY[0x28223BE20](&v42, v22);
+      v75 = &v42 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v67 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v98 + 8))(v65, v95);
-      v70 = v67;
+      v77 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v108 + 8))(v75, v105);
+      v80 = v77;
     }
 
     goto LABEL_58;
   }
 
-  v16 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  if (v16)
+  v23 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  if (v23)
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
     {
-      v50 = &v32;
-      MEMORY[0x28223BE20](&v32);
-      v49 = &v32 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v60 = &v42;
+      MEMORY[0x28223BE20](&v42, v35);
+      v59 = &v42 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v51 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v98 + 8))(v49, v95);
-      v70 = v51;
+      v61 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v108 + 8))(v59, v105);
+      v80 = v61;
     }
 
     else
     {
-      v42 = *(*(v96 + 24) + 16);
-      v38 = MEMORY[0x277D846F0];
-      v40 = swift_getAssociatedTypeWitness();
-      v27 = *(*(v40 - 8) + 64);
-      v47 = &v32;
-      v39 = (v27 + 15) & 0xFFFFFFFFFFFFFFF0;
-      MEMORY[0x28223BE20](v42);
-      v41 = &v32 - v39;
+      v52 = *(*(v106 + 24) + 16);
+      v48 = MEMORY[0x277D846F0];
+      v50 = swift_getAssociatedTypeWitness();
+      v37 = *(*(v50 - 8) + 64);
+      v57 = &v42;
+      v49 = (v37 + 15) & 0xFFFFFFFFFFFFFFF0;
+      MEMORY[0x28223BE20](v52, v105);
+      v51 = &v42 - v49;
       swift_getAssociatedConformanceWitness();
       dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-      v46 = &v32;
-      MEMORY[0x28223BE20](v41);
-      v43 = &v32 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v56 = &v42;
+      MEMORY[0x28223BE20](v51, v105);
+      v53 = &v42 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
       dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-      v48 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v44 = *(v98 + 8);
-      v45 = (v98 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-      v44(v43, v95);
-      if (v48)
+      v58 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v54 = *(v108 + 8);
+      v55 = (v108 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      v54(v53, v105);
+      if (v58)
       {
 LABEL_59:
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
         __break(1u);
         goto LABEL_60;
       }
 
-      v37 = &v32;
-      MEMORY[0x28223BE20](&v32);
-      v36 = &v32 - ((v99 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v29(v36);
+      v47 = &v42;
+      MEMORY[0x28223BE20](&v42, v112);
+      v46 = &v42 - ((v109 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v39(v46);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      v44(v36, v95);
-      v70 = 0;
+      v54(v46, v105);
+      v80 = 0;
     }
 
 LABEL_58:
-    if ((v70 & 1) == 0)
+    if ((v80 & 1) == 0)
     {
       goto LABEL_60;
     }
@@ -3199,361 +3197,361 @@ LABEL_58:
 
   if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
   {
-    v35 = &v32;
-    MEMORY[0x28223BE20](&v32);
-    v34 = &v32 - ((v99 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v30(v34);
+    v45 = &v42;
+    MEMORY[0x28223BE20](&v42, v112);
+    v44 = &v42 - ((v109 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v40(v44);
     dispatch thunk of BinaryInteger._lowWord.getter();
-    (*(v98 + 8))(v34, v95);
-    v70 = 0;
+    (*(v108 + 8))(v44, v105);
+    v80 = 0;
     goto LABEL_58;
   }
 
 LABEL_60:
   if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
   {
-    v139 = 0x7FFFFFFFFFFFFFFFLL;
+    v149 = 0x7FFFFFFFFFFFFFFFLL;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
       {
-        v60 = &v32;
-        MEMORY[0x28223BE20](&v32);
-        v59 = &v32 - ((v99 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v20(v59);
+        v70 = &v42;
+        MEMORY[0x28223BE20](&v42, v112);
+        v69 = &v42 - ((v109 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v28(v69);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v98 + 8))(v59, v95);
-        v64 = 0;
+        (*(v108 + 8))(v69, v105);
+        v74 = 0;
       }
 
       else
       {
-        v62 = &v32;
-        MEMORY[0x28223BE20](&v32);
-        v61 = &v32 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v72 = &v42;
+        MEMORY[0x28223BE20](&v42, v26);
+        v71 = &v42 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v63 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v98 + 8))(v61, v95);
-        v64 = v63;
+        v73 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v108 + 8))(v71, v105);
+        v74 = v73;
       }
     }
 
     else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
     {
-      v53 = &v32;
-      MEMORY[0x28223BE20](&v32);
-      v52 = &v32 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v63 = &v42;
+      MEMORY[0x28223BE20](&v42, v32);
+      v62 = &v42 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v54 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v98 + 8))(v52, v95);
-      v64 = v54;
+      v64 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v108 + 8))(v62, v105);
+      v74 = v64;
     }
 
     else
     {
-      v56 = &v32;
-      MEMORY[0x28223BE20](&v32);
-      v55 = &v32 - ((v99 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v24(v55);
+      v66 = &v42;
+      MEMORY[0x28223BE20](&v42, v112);
+      v65 = &v42 - ((v109 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v33(v65);
       dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v98 + 8))(v55, v95);
-      v64 = 0;
+      (*(v108 + 8))(v65, v105);
+      v74 = 0;
     }
 
-    if (v64)
+    if (v74)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
       __break(1u);
     }
   }
 
-  v58 = v132;
-  v57 = dispatch thunk of BinaryInteger._lowWord.getter();
-  (*(v98 + 8))(v102, v95);
-  v21 = Cycle.init(start:end:)(v94, v57);
-  v22 = v133;
-  v133[1].end = &type metadata for Cycle;
-  *v22 = v21;
-  __swift_destroy_boxed_opaque_existential_1(v147);
+  v68 = v142;
+  v67 = dispatch thunk of BinaryInteger._lowWord.getter();
+  (*(v108 + 8))(v112, v105);
+  v29 = Cycle.init(start:end:)(v104, v67);
+  v30 = v143;
+  v143[1].end = &type metadata for Cycle;
+  *v30 = v29;
+  __swift_destroy_boxed_opaque_existential_1(v157);
   return __swift_destroy_boxed_opaque_existential_1(__dst);
 }
 
 uint64_t closure #4 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v286 = a1;
-  v284 = a2;
-  v285 = 0;
-  v334 = 0;
-  v321 = 0;
-  v320 = 0;
-  v307 = 0;
-  v306 = 0;
+  v301 = a1;
+  v299 = a2;
   v300 = 0;
-  v299 = 0;
-  v293 = 0;
-  v292 = 0;
-  v345 = a1;
-  v335 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("values", 6uLL, 1);
-  v287 = &v335;
-  MEMORY[0x25F8891D0](v336);
+  v349 = 0;
+  v336 = 0;
+  v335 = 0;
+  v322 = 0;
+  v321 = 0;
+  v315 = 0;
+  v314 = 0;
+  v308 = 0;
+  v307 = 0;
+  v360 = a1;
+  v350 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("values", 6uLL, 1);
+  v302 = &v350;
+  MEMORY[0x25F8891D0](v351);
   outlined destroy of DefaultStringInterpolation();
-  if (v336[3])
+  if (v351[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if (!swift_dynamicCast())
     {
-      v337 = 0;
-      v338 = 0;
-      v339 = 0;
-      v340 = 0;
-      v341 = 0;
+      v352 = 0;
+      v353 = 0;
+      v354 = 0;
+      v355 = 0;
+      v356 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v336);
-    v337 = 0;
-    v338 = 0;
-    v339 = 0;
-    v340 = 0;
-    v341 = 0;
+    outlined destroy of Pregnancy?(v351);
+    v352 = 0;
+    v353 = 0;
+    v354 = 0;
+    v355 = 0;
+    v356 = 0;
   }
 
-  if (!v340)
+  if (!v355)
   {
-    outlined destroy of Pregnancy?(&v337);
+    outlined destroy of Pregnancy?(&v352);
 LABEL_147:
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-    v69[1] = 0;
-    v70 = swift_allocError();
-    *v68 = 38;
+    v84[1] = 0;
+    v85 = swift_allocError();
+    *v83 = 38;
     swift_willThrow();
-    result = v70;
-    v74 = v70;
+    result = v85;
+    v89 = v85;
     return result;
   }
 
-  v277 = __dst;
-  outlined init with take of HealthDataQuery(&v337, __dst);
-  v279 = v343;
-  v278 = v344;
-  __swift_project_boxed_opaque_existential_1(__dst, v343);
-  v281 = dispatch thunk of AnyArrayContainer.anyArray.getter();
-  v280 = v281;
+  v292 = __dst;
+  outlined init with take of HealthDataQuery(&v352, __dst);
+  v294 = v358;
+  v293 = v359;
+  __swift_project_boxed_opaque_existential_1(__dst, v358);
+  v296 = dispatch thunk of AnyArrayContainer.anyArray.getter();
+  v295 = v296;
   type metadata accessor for NSNumber();
-  v282 = _arrayConditionalCast<A, B>(_:)();
-  if (!v282)
+  v297 = _arrayConditionalCast<A, B>(_:)();
+  if (!v297)
   {
 
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_147;
   }
 
-  v276 = v282;
-  v274 = v282;
-  v334 = v282;
+  v291 = v297;
+  v289 = v297;
+  v349 = v297;
 
-  v324 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("target", 6uLL, 1);
-  v275 = &v324;
-  MEMORY[0x25F8891D0](v325);
+  v339 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("target", 6uLL, 1);
+  v290 = &v339;
+  MEMORY[0x25F8891D0](v340);
   outlined destroy of DefaultStringInterpolation();
-  if (v325[3])
+  if (v340[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSz_pMd, _sSz_pMR);
     if (!swift_dynamicCast())
     {
-      v326 = 0;
-      v327 = 0;
-      v328 = 0;
-      v329 = 0;
-      v330 = 0;
+      v341 = 0;
+      v342 = 0;
+      v343 = 0;
+      v344 = 0;
+      v345 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v325);
-    v326 = 0;
-    v327 = 0;
-    v328 = 0;
-    v329 = 0;
-    v330 = 0;
+    outlined destroy of Pregnancy?(v340);
+    v341 = 0;
+    v342 = 0;
+    v343 = 0;
+    v344 = 0;
+    v345 = 0;
   }
 
-  if (!v329)
+  if (!v344)
   {
-    outlined destroy of Pregnancy?(&v326);
+    outlined destroy of Pregnancy?(&v341);
 
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_147;
   }
 
-  outlined init with take of HealthDataQuery(&v326, v331);
-  v322 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("mode", 4uLL, 1);
-  v273 = &v322;
-  MEMORY[0x25F8891D0](v323);
+  outlined init with take of HealthDataQuery(&v341, v346);
+  v337 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("mode", 4uLL, 1);
+  v288 = &v337;
+  MEMORY[0x25F8891D0](v338);
   outlined destroy of DefaultStringInterpolation();
-  if (v323[3])
+  if (v338[3])
   {
     if (swift_dynamicCast())
     {
-      v269 = v288;
-      v270 = v289;
+      v284 = v303;
+      v285 = v304;
     }
 
     else
     {
-      v269 = 0;
-      v270 = 0;
+      v284 = 0;
+      v285 = 0;
     }
 
-    v271 = v269;
-    v272 = v270;
+    v286 = v284;
+    v287 = v285;
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v323);
-    v271 = 0;
-    v272 = 0;
+    outlined destroy of Pregnancy?(v338);
+    v286 = 0;
+    v287 = 0;
   }
 
-  v267 = v272;
-  v268 = v271;
-  if (!v272)
+  v282 = v287;
+  v283 = v286;
+  if (!v287)
   {
-    __swift_destroy_boxed_opaque_existential_1(v331);
+    __swift_destroy_boxed_opaque_existential_1(v346);
 
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_147;
   }
 
-  v265 = v268;
-  v266 = v267;
-  v263 = v267;
-  v262 = v268;
-  v320 = v268;
-  v321 = v267;
+  v280 = v283;
+  v281 = v282;
+  v278 = v282;
+  v277 = v283;
+  v335 = v283;
+  v336 = v282;
 
-  v319 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ge", 2uLL, 1);
-  v317 = v268;
-  v318 = v267;
-  v264 = MEMORY[0x25F889340](v319._countAndFlagsBits, v319._object, v268, v267);
+  v334 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ge", 2uLL, 1);
+  v332 = v283;
+  v333 = v282;
+  v279 = MEMORY[0x25F889340](v334._countAndFlagsBits, v334._object, v283, v282);
   outlined destroy of DefaultStringInterpolation();
-  if (v264)
+  if (v279)
   {
-    v259 = v283;
+    v274 = v298;
 
-    v294[1] = v274;
-    v258 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+    v309[1] = v289;
+    v273 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
     v2 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
-    v260 = v283;
-    v261 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #4 in static HIDMorpheusExtensions.extendMorpheus(), 0, v258, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v2, MEMORY[0x277D84AC0], v3);
-    if (!v283)
+    v275 = v298;
+    v276 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #4 in static HIDMorpheusExtensions.extendMorpheus(), 0, v273, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v2, MEMORY[0x277D84AC0], v3);
+    if (!v298)
     {
-      v245 = v261;
-      v257 = v332;
-      v246 = v332;
-      v256 = v333;
-      v247 = v333;
-      __swift_project_boxed_opaque_existential_1(v331, v332);
-      v248 = *(v257 - 8);
-      v252 = v248;
-      v249 = v248;
-      v250 = *(v248 + 64);
-      v251 = v69;
-      MEMORY[0x28223BE20](v69);
-      v253 = v69 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v254 = *(v252 + 16);
-      v255 = (v252 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-      v254();
+      v260 = v276;
+      v272 = v347;
+      v261 = v347;
+      v271 = v348;
+      v262 = v348;
+      v4 = __swift_project_boxed_opaque_existential_1(v346, v347);
+      v263 = *(v272 - 8);
+      v267 = v263;
+      v264 = v263;
+      v265 = *(v263 + 64);
+      v266 = v84;
+      MEMORY[0x28223BE20](v84, v4);
+      v268 = v84 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v269 = *(v267 + 16);
+      v270 = (v267 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+      v269();
       if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() <= 64)
       {
         goto LABEL_40;
       }
 
-      v290 = 0x8000000000000000;
+      v305 = 0x8000000000000000;
       if (dispatch thunk of static BinaryInteger.isSigned.getter())
       {
         if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
         {
-          v243 = v69;
-          MEMORY[0x28223BE20](v69);
-          v242 = v69 - ((v250 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v6(v242);
+          v258 = v84;
+          MEMORY[0x28223BE20](v84, v268);
+          v257 = v84 - ((v265 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v8(v257);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          (*(v249 + 8))(v242, v246);
-          v244 = 0;
+          (*(v264 + 8))(v257, v261);
+          v259 = 0;
         }
 
         else
         {
-          v240 = v69;
-          MEMORY[0x28223BE20](v69);
-          v239 = v69 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v255 = v84;
+          MEMORY[0x28223BE20](v84, v6);
+          v254 = v84 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v241 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v249 + 8))(v239, v246);
-          v244 = v241;
+          v256 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v264 + 8))(v254, v261);
+          v259 = v256;
         }
       }
 
       else
       {
-        v5 = dispatch thunk of static BinaryInteger.isSigned.getter();
-        if (v5)
+        v7 = dispatch thunk of static BinaryInteger.isSigned.getter();
+        if (v7)
         {
           if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
           {
-            v221 = v69;
-            MEMORY[0x28223BE20](v69);
-            v220 = v69 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v236 = v84;
+            MEMORY[0x28223BE20](v84, v16);
+            v235 = v84 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
             lazy protocol witness table accessor for type Int and conformance Int();
             dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-            v222 = dispatch thunk of static Comparable.< infix(_:_:)();
-            (*(v249 + 8))(v220, v246);
-            v244 = v222;
+            v237 = dispatch thunk of static Comparable.< infix(_:_:)();
+            (*(v264 + 8))(v235, v261);
+            v259 = v237;
           }
 
           else
           {
-            v213 = *(*(v247 + 24) + 16);
-            v209 = MEMORY[0x277D846F0];
+            v228 = *(*(v262 + 24) + 16);
+            v224 = MEMORY[0x277D846F0];
             AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-            v13 = *(*(AssociatedTypeWitness - 8) + 64);
-            v218 = v69;
-            v210 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
-            MEMORY[0x28223BE20](v213);
-            v212 = v69 - v210;
+            v18 = *(*(AssociatedTypeWitness - 8) + 64);
+            v233 = v84;
+            v225 = (v18 + 15) & 0xFFFFFFFFFFFFFFF0;
+            MEMORY[0x28223BE20](v228, v261);
+            v227 = v84 - v225;
             swift_getAssociatedConformanceWitness();
             dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-            v217 = v69;
-            MEMORY[0x28223BE20](v212);
-            v214 = v69 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v232 = v84;
+            MEMORY[0x28223BE20](v227, v261);
+            v229 = v84 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
             dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-            v219 = dispatch thunk of static Comparable.< infix(_:_:)();
-            v215 = *(v249 + 8);
-            v216 = (v249 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-            v215(v214, v246);
-            if (v219)
+            v234 = dispatch thunk of static Comparable.< infix(_:_:)();
+            v230 = *(v264 + 8);
+            v231 = (v264 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+            v230(v229, v261);
+            if (v234)
             {
 LABEL_39:
-              _assertionFailure(_:_:file:line:flags:)();
+              _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
               __break(1u);
               goto LABEL_40;
             }
 
-            v208 = v69;
-            MEMORY[0x28223BE20](v69);
-            v207 = v69 - ((v250 + 15) & 0xFFFFFFFFFFFFFFF0);
-            v15(v207);
+            v223 = v84;
+            MEMORY[0x28223BE20](v84, v268);
+            v222 = v84 - ((v265 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v20(v222);
             dispatch thunk of BinaryInteger._lowWord.getter();
-            v215(v207, v246);
-            v244 = 0;
+            v230(v222, v261);
+            v259 = 0;
           }
         }
 
@@ -3564,126 +3562,126 @@ LABEL_39:
 LABEL_40:
             if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
             {
-              v291 = 0x7FFFFFFFFFFFFFFFLL;
+              v306 = 0x7FFFFFFFFFFFFFFFLL;
               if (dispatch thunk of static BinaryInteger.isSigned.getter())
               {
                 if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
                 {
-                  v234 = v69;
-                  MEMORY[0x28223BE20](v69);
-                  v233 = v69 - ((v250 + 15) & 0xFFFFFFFFFFFFFFF0);
-                  v9(v233);
+                  v249 = v84;
+                  MEMORY[0x28223BE20](v84, v268);
+                  v248 = v84 - ((v265 + 15) & 0xFFFFFFFFFFFFFFF0);
+                  v12(v248);
                   dispatch thunk of BinaryInteger._lowWord.getter();
-                  (*(v249 + 8))(v233, v246);
-                  v238 = 0;
+                  (*(v264 + 8))(v248, v261);
+                  v253 = 0;
                 }
 
                 else
                 {
-                  v236 = v69;
-                  MEMORY[0x28223BE20](v69);
-                  v235 = v69 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+                  v251 = v84;
+                  MEMORY[0x28223BE20](v84, v10);
+                  v250 = v84 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
                   lazy protocol witness table accessor for type Int and conformance Int();
                   dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-                  v237 = dispatch thunk of static Comparable.< infix(_:_:)();
-                  (*(v249 + 8))(v235, v246);
-                  v238 = v237;
+                  v252 = dispatch thunk of static Comparable.< infix(_:_:)();
+                  (*(v264 + 8))(v250, v261);
+                  v253 = v252;
                 }
               }
 
               else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
               {
-                v224 = v69;
-                MEMORY[0x28223BE20](v69);
-                v223 = v69 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+                v239 = v84;
+                MEMORY[0x28223BE20](v84, v13);
+                v238 = v84 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
                 lazy protocol witness table accessor for type Int and conformance Int();
                 dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-                v225 = dispatch thunk of static Comparable.< infix(_:_:)();
-                (*(v249 + 8))(v223, v246);
-                v238 = v225;
+                v240 = dispatch thunk of static Comparable.< infix(_:_:)();
+                (*(v264 + 8))(v238, v261);
+                v253 = v240;
               }
 
               else
               {
-                v227 = v69;
-                MEMORY[0x28223BE20](v69);
-                v226 = v69 - ((v250 + 15) & 0xFFFFFFFFFFFFFFF0);
-                v10(v226);
+                v242 = v84;
+                MEMORY[0x28223BE20](v84, v268);
+                v241 = v84 - ((v265 + 15) & 0xFFFFFFFFFFFFFFF0);
+                v14(v241);
                 dispatch thunk of BinaryInteger._lowWord.getter();
-                (*(v249 + 8))(v226, v246);
-                v238 = 0;
+                (*(v264 + 8))(v241, v261);
+                v253 = 0;
               }
 
-              if (v238)
+              if (v253)
               {
-                _assertionFailure(_:_:file:line:flags:)();
+                _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
                 __break(1u);
               }
             }
 
-            v230 = dispatch thunk of BinaryInteger._lowWord.getter();
-            (*(v249 + 8))(v253, v246);
-            v294[0] = v230;
-            static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)(v245, v294, MEMORY[0x277D83B88], MEMORY[0x277D83BA0], v295);
+            v245 = dispatch thunk of BinaryInteger._lowWord.getter();
+            (*(v264 + 8))(v268, v261);
+            v309[0] = v245;
+            static HIDPFLUtils.findClosest<A>(_:greaterOrEqualThan:)(v260, v309, MEMORY[0x277D83B88], MEMORY[0x277D83BA0], v310);
 
-            v231 = v295[0];
-            v232 = v295[1];
-            if ((v296 & 1) == 0)
+            v246 = v310[0];
+            v247 = v310[1];
+            if ((v311 & 1) == 0)
             {
-              v228 = v231;
-              v229 = v232;
-              v200 = v232;
-              v199 = v231;
-              v292 = v231;
-              v293 = v232;
-              v201 = MEMORY[0x277D83B88];
-              v17 = _allocateUninitializedArray<A>(_:)();
-              v18 = v200;
-              *v19 = v199;
-              v19[1] = v18;
+              v243 = v246;
+              v244 = v247;
+              v215 = v247;
+              v214 = v246;
+              v307 = v246;
+              v308 = v247;
+              v216 = MEMORY[0x277D83B88];
+              _allocateUninitializedArray<A>(_:)();
+              v22 = v215;
+              *v23 = v214;
+              v23[1] = v22;
               _finalizeUninitializedArray<A>(_:)();
-              v202 = v17;
-              v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-              v21 = v284;
-              v22 = v202;
-              v284[3] = v20;
-              *v21 = v22;
+              v217 = v24;
+              v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+              v26 = v299;
+              v27 = v217;
+              v299[3] = v25;
+              *v26 = v27;
 
-              __swift_destroy_boxed_opaque_existential_1(v331);
+              __swift_destroy_boxed_opaque_existential_1(v346);
 
               result = __swift_destroy_boxed_opaque_existential_1(__dst);
-              v203 = v260;
+              v218 = v275;
               return result;
             }
 
-            v204 = v260;
+            v219 = v275;
 LABEL_146:
-            v67 = v284;
-            v71 = v204;
-            *v284 = 0;
-            v67[1] = 0;
-            v67[2] = 0;
-            v67[3] = 0;
+            v82 = v299;
+            v86 = v219;
+            *v299 = 0;
+            v82[1] = 0;
+            v82[2] = 0;
+            v82[3] = 0;
 
-            __swift_destroy_boxed_opaque_existential_1(v331);
+            __swift_destroy_boxed_opaque_existential_1(v346);
 
             __swift_destroy_boxed_opaque_existential_1(__dst);
-            result = v71;
-            v203 = v71;
+            result = v86;
+            v218 = v86;
             return result;
           }
 
-          v206 = v69;
-          MEMORY[0x28223BE20](v69);
-          v205 = v69 - ((v250 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v16(v205);
+          v221 = v84;
+          MEMORY[0x28223BE20](v84, v268);
+          v220 = v84 - ((v265 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v21(v220);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          (*(v249 + 8))(v205, v246);
-          v244 = 0;
+          (*(v264 + 8))(v220, v261);
+          v259 = 0;
         }
       }
 
-      if ((v244 & 1) == 0)
+      if ((v259 & 1) == 0)
       {
         goto LABEL_40;
       }
@@ -3695,242 +3693,242 @@ LABEL_146:
     goto LABEL_149;
   }
 
-  v316 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("le", 2uLL, 1);
-  v314 = v262;
-  v315 = v263;
-  v198 = MEMORY[0x25F889340](v316._countAndFlagsBits, v316._object, v262, v263);
+  v331 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("le", 2uLL, 1);
+  v329 = v277;
+  v330 = v278;
+  v213 = MEMORY[0x25F889340](v331._countAndFlagsBits, v331._object, v277, v278);
   outlined destroy of DefaultStringInterpolation();
-  if ((v198 & 1) == 0)
+  if ((v213 & 1) == 0)
   {
 
-    v313 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("le-ge", 5uLL, 1);
-    v311 = v262;
-    v312 = v263;
-    v136 = MEMORY[0x25F889340](v313._countAndFlagsBits, v313._object, v262, v263);
+    v328 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("le-ge", 5uLL, 1);
+    v326 = v277;
+    v327 = v278;
+    v151 = MEMORY[0x25F889340](v328._countAndFlagsBits, v328._object, v277, v278);
     outlined destroy of DefaultStringInterpolation();
-    if ((v136 & 1) == 0)
+    if ((v151 & 1) == 0)
     {
 
       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-      v72 = 0;
-      v73 = swift_allocError();
-      *v66 = 38;
+      v87 = 0;
+      v88 = swift_allocError();
+      *v81 = 38;
       swift_willThrow();
 
-      __swift_destroy_boxed_opaque_existential_1(v331);
+      __swift_destroy_boxed_opaque_existential_1(v346);
 
       __swift_destroy_boxed_opaque_existential_1(__dst);
-      result = v73;
-      v74 = v73;
+      result = v88;
+      v89 = v88;
       return result;
     }
 
-    v133 = v283;
+    v148 = v298;
 
-    v308[1] = v274;
-    v132 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
-    v45 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
-    v134 = v283;
-    v135 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #4 in static HIDMorpheusExtensions.extendMorpheus(), 0, v132, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v45, MEMORY[0x277D84AC0], v46);
-    if (v283)
+    v323[1] = v289;
+    v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
+    v55 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
+    v149 = v298;
+    v150 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #4 in static HIDMorpheusExtensions.extendMorpheus(), 0, v147, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v55, MEMORY[0x277D84AC0], v56);
+    if (v298)
     {
       goto LABEL_150;
     }
 
-    v119 = v135;
-    v131 = v332;
-    v120 = v332;
-    v130 = v333;
-    v121 = v333;
-    __swift_project_boxed_opaque_existential_1(v331, v332);
-    v122 = *(v131 - 8);
-    v126 = v122;
-    v123 = v122;
-    v124 = *(v122 + 64);
-    v125 = v69;
-    MEMORY[0x28223BE20](v69);
-    v127 = v69 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v128 = *(v126 + 16);
-    v129 = (v126 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v128();
+    v134 = v150;
+    v146 = v347;
+    v135 = v347;
+    v145 = v348;
+    v136 = v348;
+    v57 = __swift_project_boxed_opaque_existential_1(v346, v347);
+    v137 = *(v146 - 8);
+    v141 = v137;
+    v138 = v137;
+    v139 = *(v137 + 64);
+    v140 = v84;
+    MEMORY[0x28223BE20](v84, v57);
+    v142 = v84 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v143 = *(v141 + 16);
+    v144 = (v141 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v143();
     if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() <= 64)
     {
 LABEL_120:
       if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
       {
-        v305 = 0x7FFFFFFFFFFFFFFFLL;
+        v320 = 0x7FFFFFFFFFFFFFFFLL;
         if (dispatch thunk of static BinaryInteger.isSigned.getter())
         {
           if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
           {
-            v108 = v69;
-            MEMORY[0x28223BE20](v69);
-            v107 = v69 - ((v124 + 15) & 0xFFFFFFFFFFFFFFF0);
-            v52(v107);
+            v123 = v84;
+            MEMORY[0x28223BE20](v84, v142);
+            v122 = v84 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v65(v122);
             dispatch thunk of BinaryInteger._lowWord.getter();
-            (*(v123 + 8))(v107, v120);
-            v112 = 0;
+            (*(v138 + 8))(v122, v135);
+            v127 = 0;
           }
 
           else
           {
-            v110 = v69;
-            MEMORY[0x28223BE20](v69);
-            v109 = v69 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v125 = v84;
+            MEMORY[0x28223BE20](v84, v63);
+            v124 = v84 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
             lazy protocol witness table accessor for type Int and conformance Int();
             dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-            v111 = dispatch thunk of static Comparable.< infix(_:_:)();
-            (*(v123 + 8))(v109, v120);
-            v112 = v111;
+            v126 = dispatch thunk of static Comparable.< infix(_:_:)();
+            (*(v138 + 8))(v124, v135);
+            v127 = v126;
           }
         }
 
         else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
         {
-          v98 = v69;
-          MEMORY[0x28223BE20](v69);
-          v97 = v69 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v113 = v84;
+          MEMORY[0x28223BE20](v84, v66);
+          v112 = v84 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v99 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v123 + 8))(v97, v120);
-          v112 = v99;
+          v114 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v138 + 8))(v112, v135);
+          v127 = v114;
         }
 
         else
         {
-          v101 = v69;
-          MEMORY[0x28223BE20](v69);
-          v100 = v69 - ((v124 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v53(v100);
+          v116 = v84;
+          MEMORY[0x28223BE20](v84, v142);
+          v115 = v84 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v67(v115);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          (*(v123 + 8))(v100, v120);
-          v112 = 0;
+          (*(v138 + 8))(v115, v135);
+          v127 = 0;
         }
 
-        if (v112)
+        if (v127)
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
           __break(1u);
         }
       }
 
-      v104 = dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v123 + 8))(v127, v120);
-      v308[0] = v104;
-      static HIDPFLUtils.findClosest<A>(_:target:)(v119, v308, MEMORY[0x277D83B88], MEMORY[0x277D83BA0], MEMORY[0x277D83BC0], v309);
+      v119 = dispatch thunk of BinaryInteger._lowWord.getter();
+      (*(v138 + 8))(v142, v135);
+      v323[0] = v119;
+      static HIDPFLUtils.findClosest<A>(_:target:)(v134, v323, MEMORY[0x277D83B88], MEMORY[0x277D83BA0], MEMORY[0x277D83BC0], v324);
 
-      v105 = v309[0];
-      v106 = v309[1];
-      if ((v310 & 1) == 0)
+      v120 = v324[0];
+      v121 = v324[1];
+      if ((v325 & 1) == 0)
       {
-        v102 = v105;
-        v103 = v106;
-        v76 = v106;
-        v75 = v105;
-        v306 = v105;
-        v307 = v106;
-        v77 = MEMORY[0x277D83B88];
-        v60 = _allocateUninitializedArray<A>(_:)();
-        v61 = v76;
-        *v62 = v75;
-        v62[1] = v61;
+        v117 = v120;
+        v118 = v121;
+        v91 = v121;
+        v90 = v120;
+        v321 = v120;
+        v322 = v121;
+        v92 = MEMORY[0x277D83B88];
+        _allocateUninitializedArray<A>(_:)();
+        v75 = v91;
+        *v76 = v90;
+        v76[1] = v75;
         _finalizeUninitializedArray<A>(_:)();
-        v78 = v60;
-        v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-        v64 = v284;
-        v65 = v78;
-        v284[3] = v63;
-        *v64 = v65;
+        v93 = v77;
+        v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+        v79 = v299;
+        v80 = v93;
+        v299[3] = v78;
+        *v79 = v80;
 
-        __swift_destroy_boxed_opaque_existential_1(v331);
+        __swift_destroy_boxed_opaque_existential_1(v346);
 
         __swift_destroy_boxed_opaque_existential_1(__dst);
-        result = v134;
-        v203 = v134;
+        result = v149;
+        v218 = v149;
         return result;
       }
 
-      v204 = v134;
+      v219 = v149;
       goto LABEL_146;
     }
 
-    v304 = 0x8000000000000000;
+    v319 = 0x8000000000000000;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
       {
-        v117 = v69;
-        MEMORY[0x28223BE20](v69);
-        v116 = v69 - ((v124 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v49(v116);
+        v132 = v84;
+        MEMORY[0x28223BE20](v84, v142);
+        v131 = v84 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v61(v131);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v123 + 8))(v116, v120);
-        v118 = 0;
+        (*(v138 + 8))(v131, v135);
+        v133 = 0;
       }
 
       else
       {
-        v114 = v69;
-        MEMORY[0x28223BE20](v69);
-        v113 = v69 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v129 = v84;
+        MEMORY[0x28223BE20](v84, v59);
+        v128 = v84 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v115 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v123 + 8))(v113, v120);
-        v118 = v115;
+        v130 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v138 + 8))(v128, v135);
+        v133 = v130;
       }
     }
 
     else
     {
-      v48 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      if (v48)
+      v60 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      if (v60)
       {
         if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
         {
-          v95 = v69;
-          MEMORY[0x28223BE20](v69);
-          v94 = v69 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v110 = v84;
+          MEMORY[0x28223BE20](v84, v69);
+          v109 = v84 - ((v70 + 15) & 0xFFFFFFFFFFFFFFF0);
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v96 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v123 + 8))(v94, v120);
-          v118 = v96;
+          v111 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v138 + 8))(v109, v135);
+          v133 = v111;
         }
 
         else
         {
-          v87 = *(*(v121 + 24) + 16);
-          v83 = MEMORY[0x277D846F0];
-          v85 = swift_getAssociatedTypeWitness();
-          v56 = *(*(v85 - 8) + 64);
-          v92 = v69;
-          v84 = (v56 + 15) & 0xFFFFFFFFFFFFFFF0;
-          MEMORY[0x28223BE20](v87);
-          v86 = v69 - v84;
+          v102 = *(*(v136 + 24) + 16);
+          v98 = MEMORY[0x277D846F0];
+          v100 = swift_getAssociatedTypeWitness();
+          v71 = *(*(v100 - 8) + 64);
+          v107 = v84;
+          v99 = (v71 + 15) & 0xFFFFFFFFFFFFFFF0;
+          MEMORY[0x28223BE20](v102, v135);
+          v101 = v84 - v99;
           swift_getAssociatedConformanceWitness();
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-          v91 = v69;
-          MEMORY[0x28223BE20](v86);
-          v88 = v69 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v106 = v84;
+          MEMORY[0x28223BE20](v101, v135);
+          v103 = v84 - ((v72 + 15) & 0xFFFFFFFFFFFFFFF0);
           dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-          v93 = dispatch thunk of static Comparable.< infix(_:_:)();
-          v89 = *(v123 + 8);
-          v90 = (v123 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-          v89(v88, v120);
-          if (v93)
+          v108 = dispatch thunk of static Comparable.< infix(_:_:)();
+          v104 = *(v138 + 8);
+          v105 = (v138 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+          v104(v103, v135);
+          if (v108)
           {
             goto LABEL_119;
           }
 
-          v82 = v69;
-          MEMORY[0x28223BE20](v69);
-          v81 = v69 - ((v124 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v58(v81);
+          v97 = v84;
+          MEMORY[0x28223BE20](v84, v142);
+          v96 = v84 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v73(v96);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          v89(v81, v120);
-          v118 = 0;
+          v104(v96, v135);
+          v133 = 0;
         }
       }
 
@@ -3941,229 +3939,229 @@ LABEL_120:
           goto LABEL_120;
         }
 
-        v80 = v69;
-        MEMORY[0x28223BE20](v69);
-        v79 = v69 - ((v124 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v59(v79);
+        v95 = v84;
+        MEMORY[0x28223BE20](v84, v142);
+        v94 = v84 - ((v139 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v74(v94);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v123 + 8))(v79, v120);
-        v118 = 0;
+        (*(v138 + 8))(v94, v135);
+        v133 = 0;
       }
     }
 
-    if ((v118 & 1) == 0)
+    if ((v133 & 1) == 0)
     {
       goto LABEL_120;
     }
 
 LABEL_119:
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
     __break(1u);
     goto LABEL_120;
   }
 
-  v195 = v283;
+  v210 = v298;
 
-  v301[1] = v274;
-  v194 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
-  v24 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
-  v196 = v283;
-  v197 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #4 in static HIDMorpheusExtensions.extendMorpheus(), 0, v194, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v24, MEMORY[0x277D84AC0], v25);
-  if (!v283)
+  v316[1] = v289;
+  v209 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
+  v29 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
+  v211 = v298;
+  v212 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #4 in static HIDMorpheusExtensions.extendMorpheus(), 0, v209, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v29, MEMORY[0x277D84AC0], v30);
+  if (!v298)
   {
-    v181 = v197;
-    v193 = v332;
-    v182 = v332;
-    v192 = v333;
-    v183 = v333;
-    __swift_project_boxed_opaque_existential_1(v331, v332);
-    v184 = *(v193 - 8);
-    v188 = v184;
-    v185 = v184;
-    v186 = *(v184 + 64);
-    v187 = v69;
-    MEMORY[0x28223BE20](v69);
-    v189 = v69 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v190 = *(v188 + 16);
-    v191 = (v188 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v190();
+    v196 = v212;
+    v208 = v347;
+    v197 = v347;
+    v207 = v348;
+    v198 = v348;
+    v31 = __swift_project_boxed_opaque_existential_1(v346, v347);
+    v199 = *(v208 - 8);
+    v203 = v199;
+    v200 = v199;
+    v201 = *(v199 + 64);
+    v202 = v84;
+    MEMORY[0x28223BE20](v84, v31);
+    v204 = v84 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v205 = *(v203 + 16);
+    v206 = (v203 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v205();
     if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() <= 64)
     {
 LABEL_80:
       if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 65 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
       {
-        v298 = 0x7FFFFFFFFFFFFFFFLL;
+        v313 = 0x7FFFFFFFFFFFFFFFLL;
         if (dispatch thunk of static BinaryInteger.isSigned.getter())
         {
           if (dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
           {
-            v170 = v69;
-            MEMORY[0x28223BE20](v69);
-            v169 = v69 - ((v186 + 15) & 0xFFFFFFFFFFFFFFF0);
-            v31(v169);
+            v185 = v84;
+            MEMORY[0x28223BE20](v84, v204);
+            v184 = v84 - ((v201 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v39(v184);
             dispatch thunk of BinaryInteger._lowWord.getter();
-            (*(v185 + 8))(v169, v182);
-            v174 = 0;
+            (*(v200 + 8))(v184, v197);
+            v189 = 0;
           }
 
           else
           {
-            v172 = v69;
-            MEMORY[0x28223BE20](v69);
-            v171 = v69 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v187 = v84;
+            MEMORY[0x28223BE20](v84, v37);
+            v186 = v84 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
             lazy protocol witness table accessor for type Int and conformance Int();
             dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-            v173 = dispatch thunk of static Comparable.< infix(_:_:)();
-            (*(v185 + 8))(v171, v182);
-            v174 = v173;
+            v188 = dispatch thunk of static Comparable.< infix(_:_:)();
+            (*(v200 + 8))(v186, v197);
+            v189 = v188;
           }
         }
 
         else if (dispatch thunk of BinaryInteger.bitWidth.getter() > 63)
         {
-          v160 = v69;
-          MEMORY[0x28223BE20](v69);
-          v159 = v69 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v175 = v84;
+          MEMORY[0x28223BE20](v84, v40);
+          v174 = v84 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v161 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v185 + 8))(v159, v182);
-          v174 = v161;
+          v176 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v200 + 8))(v174, v197);
+          v189 = v176;
         }
 
         else
         {
-          v163 = v69;
-          MEMORY[0x28223BE20](v69);
-          v162 = v69 - ((v186 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v32(v162);
+          v178 = v84;
+          MEMORY[0x28223BE20](v84, v204);
+          v177 = v84 - ((v201 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v41(v177);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          (*(v185 + 8))(v162, v182);
-          v174 = 0;
+          (*(v200 + 8))(v177, v197);
+          v189 = 0;
         }
 
-        if (v174)
+        if (v189)
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
           __break(1u);
         }
       }
 
-      v166 = dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v185 + 8))(v189, v182);
-      v301[0] = v166;
-      static HIDPFLUtils.findClosest<A>(_:lessOrEqualThan:)(v181, v301, MEMORY[0x277D83B88], MEMORY[0x277D83BA0], v302);
+      v181 = dispatch thunk of BinaryInteger._lowWord.getter();
+      (*(v200 + 8))(v204, v197);
+      v316[0] = v181;
+      static HIDPFLUtils.findClosest<A>(_:lessOrEqualThan:)(v196, v316, MEMORY[0x277D83B88], MEMORY[0x277D83BA0], v317);
 
-      v167 = v302[0];
-      v168 = v302[1];
-      if ((v303 & 1) == 0)
+      v182 = v317[0];
+      v183 = v317[1];
+      if ((v318 & 1) == 0)
       {
-        v164 = v167;
-        v165 = v168;
-        v138 = v168;
-        v137 = v167;
-        v299 = v167;
-        v300 = v168;
-        v139 = MEMORY[0x277D83B88];
-        v39 = _allocateUninitializedArray<A>(_:)();
-        v40 = v138;
-        *v41 = v137;
-        v41[1] = v40;
+        v179 = v182;
+        v180 = v183;
+        v153 = v183;
+        v152 = v182;
+        v314 = v182;
+        v315 = v183;
+        v154 = MEMORY[0x277D83B88];
+        _allocateUninitializedArray<A>(_:)();
+        v49 = v153;
+        *v50 = v152;
+        v50[1] = v49;
         _finalizeUninitializedArray<A>(_:)();
-        v140 = v39;
-        v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-        v43 = v284;
-        v44 = v140;
-        v284[3] = v42;
-        *v43 = v44;
+        v155 = v51;
+        v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+        v53 = v299;
+        v54 = v155;
+        v299[3] = v52;
+        *v53 = v54;
 
-        __swift_destroy_boxed_opaque_existential_1(v331);
+        __swift_destroy_boxed_opaque_existential_1(v346);
 
         result = __swift_destroy_boxed_opaque_existential_1(__dst);
-        v203 = v196;
+        v218 = v211;
         return result;
       }
 
-      v204 = v196;
+      v219 = v211;
       goto LABEL_146;
     }
 
-    v297 = 0x8000000000000000;
+    v312 = 0x8000000000000000;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
       {
-        v179 = v69;
-        MEMORY[0x28223BE20](v69);
-        v178 = v69 - ((v186 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v28(v178);
+        v194 = v84;
+        MEMORY[0x28223BE20](v84, v204);
+        v193 = v84 - ((v201 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v35(v193);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v185 + 8))(v178, v182);
-        v180 = 0;
+        (*(v200 + 8))(v193, v197);
+        v195 = 0;
       }
 
       else
       {
-        v176 = v69;
-        MEMORY[0x28223BE20](v69);
-        v175 = v69 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v191 = v84;
+        MEMORY[0x28223BE20](v84, v33);
+        v190 = v84 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v177 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v185 + 8))(v175, v182);
-        v180 = v177;
+        v192 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v200 + 8))(v190, v197);
+        v195 = v192;
       }
     }
 
     else
     {
-      v27 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      if (v27)
+      v34 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      if (v34)
       {
         if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64)
         {
-          v157 = v69;
-          MEMORY[0x28223BE20](v69);
-          v156 = v69 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v172 = v84;
+          MEMORY[0x28223BE20](v84, v43);
+          v171 = v84 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v158 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v185 + 8))(v156, v182);
-          v180 = v158;
+          v173 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v200 + 8))(v171, v197);
+          v195 = v173;
         }
 
         else
         {
-          v149 = *(*(v183 + 24) + 16);
-          v145 = MEMORY[0x277D846F0];
-          v147 = swift_getAssociatedTypeWitness();
-          v35 = *(*(v147 - 8) + 64);
-          v154 = v69;
-          v146 = (v35 + 15) & 0xFFFFFFFFFFFFFFF0;
-          MEMORY[0x28223BE20](v149);
-          v148 = v69 - v146;
+          v164 = *(*(v198 + 24) + 16);
+          v160 = MEMORY[0x277D846F0];
+          v162 = swift_getAssociatedTypeWitness();
+          v45 = *(*(v162 - 8) + 64);
+          v169 = v84;
+          v161 = (v45 + 15) & 0xFFFFFFFFFFFFFFF0;
+          MEMORY[0x28223BE20](v164, v197);
+          v163 = v84 - v161;
           swift_getAssociatedConformanceWitness();
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-          v153 = v69;
-          MEMORY[0x28223BE20](v148);
-          v150 = v69 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v168 = v84;
+          MEMORY[0x28223BE20](v163, v197);
+          v165 = v84 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
           dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-          v155 = dispatch thunk of static Comparable.< infix(_:_:)();
-          v151 = *(v185 + 8);
-          v152 = (v185 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-          v151(v150, v182);
-          if (v155)
+          v170 = dispatch thunk of static Comparable.< infix(_:_:)();
+          v166 = *(v200 + 8);
+          v167 = (v200 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+          v166(v165, v197);
+          if (v170)
           {
             goto LABEL_79;
           }
 
-          v144 = v69;
-          MEMORY[0x28223BE20](v69);
-          v143 = v69 - ((v186 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v37(v143);
+          v159 = v84;
+          MEMORY[0x28223BE20](v84, v204);
+          v158 = v84 - ((v201 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v47(v158);
           dispatch thunk of BinaryInteger._lowWord.getter();
-          v151(v143, v182);
-          v180 = 0;
+          v166(v158, v197);
+          v195 = 0;
         }
       }
 
@@ -4174,23 +4172,23 @@ LABEL_80:
           goto LABEL_80;
         }
 
-        v142 = v69;
-        MEMORY[0x28223BE20](v69);
-        v141 = v69 - ((v186 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v38(v141);
+        v157 = v84;
+        MEMORY[0x28223BE20](v84, v204);
+        v156 = v84 - ((v201 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v48(v156);
         dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v185 + 8))(v141, v182);
-        v180 = 0;
+        (*(v200 + 8))(v156, v197);
+        v195 = 0;
       }
     }
 
-    if ((v180 & 1) == 0)
+    if ((v195 & 1) == 0)
     {
       goto LABEL_80;
     }
 
 LABEL_79:
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
     __break(1u);
     goto LABEL_80;
   }
@@ -4250,7 +4248,7 @@ uint64_t closure #5 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64
   outlined destroy of DefaultStringInterpolation();
   if (v15[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v16 = 0;
@@ -4296,7 +4294,7 @@ LABEL_21:
 
   [v11 floatValue];
   v7 = v2;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   v3 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
   result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v8, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v3, MEMORY[0x277D84AC0], v9);
   if (v13)
@@ -4308,7 +4306,7 @@ LABEL_21:
   {
     v6 = static MetricsUtils.bucketize(value:buckets:)(result, v7);
 
-    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
     *a2 = v6;
 
     __swift_destroy_boxed_opaque_existential_1(__dst);
@@ -4334,7 +4332,7 @@ uint64_t closure #6 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64
   outlined destroy of DefaultStringInterpolation();
   if (v22[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v23 = 0;
@@ -4384,7 +4382,7 @@ LABEL_21:
   outlined destroy of DefaultStringInterpolation();
   if (v13[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v14 = 0;
@@ -4425,7 +4423,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   v8 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
   result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v6, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v8, MEMORY[0x277D84AC0], v7);
   v9 = result;
@@ -4440,7 +4438,7 @@ LABEL_21:
     v5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v6, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v8, MEMORY[0x277D84AC0], v7);
     v4 = static MetricsUtils.bucketize(values:buckets:)(v9, v5);
 
-    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
     *a2 = v4;
 
     __swift_destroy_boxed_opaque_existential_1(v19);
@@ -4454,103 +4452,103 @@ LABEL_21:
 uint64_t closure #7 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   __dst[5] = a1;
-  v27 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputs", 7uLL, 1);
-  MEMORY[0x25F8891D0](v28);
+  v28 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputs", 7uLL, 1);
+  MEMORY[0x25F8891D0](v29);
   outlined destroy of DefaultStringInterpolation();
-  if (v28[3])
+  if (v29[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v29 = 0;
       v30 = 0;
       v31 = 0;
       v32 = 0;
       v33 = 0;
+      v34 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v28);
-    v29 = 0;
+    outlined destroy of Pregnancy?(v29);
     v30 = 0;
     v31 = 0;
     v32 = 0;
     v33 = 0;
+    v34 = 0;
   }
 
-  if (!v32)
+  if (!v33)
   {
-    outlined destroy of Pregnancy?(&v29);
+    outlined destroy of Pregnancy?(&v30);
 LABEL_21:
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
     swift_allocError();
-    *v6 = 40;
+    *v7 = 40;
     return swift_willThrow();
   }
 
-  outlined init with take of HealthDataQuery(&v29, __dst);
+  outlined init with take of HealthDataQuery(&v30, __dst);
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("labels", 6uLL, 1);
-  MEMORY[0x25F8891D0](v20);
+  MEMORY[0x25F8891D0](v21);
   outlined destroy of DefaultStringInterpolation();
-  if (v20[3])
+  if (v21[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v21 = 0;
       v22 = 0;
       v23 = 0;
       v24 = 0;
       v25 = 0;
+      v26 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v20);
-    v21 = 0;
+    outlined destroy of Pregnancy?(v21);
     v22 = 0;
     v23 = 0;
     v24 = 0;
     v25 = 0;
+    v26 = 0;
   }
 
-  if (!v24)
+  if (!v25)
   {
-    outlined destroy of Pregnancy?(&v21);
+    outlined destroy of Pregnancy?(&v22);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_21;
   }
 
-  outlined init with take of HealthDataQuery(&v21, v26);
+  outlined init with take of HealthDataQuery(&v22, v27);
   __swift_project_boxed_opaque_existential_1(__dst, __dst[3]);
   dispatch thunk of AnyArrayContainer.anyArray.getter();
   type metadata accessor for NSNumber();
   if (!_arrayConditionalCast<A, B>(_:)())
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v26);
+    __swift_destroy_boxed_opaque_existential_1(v27);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_21;
   }
 
-  __swift_project_boxed_opaque_existential_1(v26, v26[3]);
+  __swift_project_boxed_opaque_existential_1(v27, v27[3]);
   dispatch thunk of AnyArrayContainer.anyArray.getter();
   if (!_arrayConditionalCast<A, B>(_:)())
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v26);
+    __swift_destroy_boxed_opaque_existential_1(v27);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_21;
   }
 
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
-  v16 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
-  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v14, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v16, MEMORY[0x277D84AC0], v15);
-  v17 = result;
-  if (v19)
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
+  v17 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
+  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v15, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v17, MEMORY[0x277D84AC0], v16);
+  v18 = result;
+  if (v20)
   {
     __break(1u);
     __break(1u);
@@ -4558,28 +4556,29 @@ LABEL_21:
 
   else
   {
-    v13 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v14, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v16, MEMORY[0x277D84AC0], v15);
-    v10 = static AUC.rocCurve(outputs:labels:)(v17, v13);
-    v11 = v3;
-    v12 = v4;
-    v9 = _allocateUninitializedArray<A>(_:)();
-    v8 = v5;
+    v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v15, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v17, MEMORY[0x277D84AC0], v16);
+    v11 = static AUC.rocCurve(outputs:labels:)(v18, v14);
+    v12 = v3;
+    v13 = v4;
+    _allocateUninitializedArray<A>(_:)();
+    v9 = v5;
 
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-    v8[3] = v7;
-    *v8 = v10;
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+    v9[3] = v8;
+    *v9 = v11;
 
-    v8[7] = v7;
-    v8[4] = v11;
+    v9[7] = v8;
+    v9[4] = v12;
 
-    v8[11] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    v8[8] = v12;
+    v9[11] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    v9[8] = v13;
     _finalizeUninitializedArray<A>(_:)();
+    v10 = v6;
 
-    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayypGMd);
-    *a2 = v9;
+    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayypGMd, &_sSayypGMR);
+    *a2 = v10;
 
-    __swift_destroy_boxed_opaque_existential_1(v26);
+    __swift_destroy_boxed_opaque_existential_1(v27);
     return __swift_destroy_boxed_opaque_existential_1(__dst);
   }
 
@@ -4596,7 +4595,7 @@ uint64_t closure #8 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64
   outlined destroy of DefaultStringInterpolation();
   if (v31[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v32 = 0;
@@ -4634,7 +4633,7 @@ LABEL_31:
   outlined destroy of DefaultStringInterpolation();
   if (v23[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v24 = 0;
@@ -4722,7 +4721,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   v11 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
   v12 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v9, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v11, MEMORY[0x277D84AC0], v10);
   if (v17)
@@ -4749,103 +4748,103 @@ LABEL_31:
 uint64_t closure #9 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   __dst[5] = a1;
-  v29 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputs", 7uLL, 1);
-  MEMORY[0x25F8891D0](v30);
+  v30 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputs", 7uLL, 1);
+  MEMORY[0x25F8891D0](v31);
   outlined destroy of DefaultStringInterpolation();
-  if (v30[3])
+  if (v31[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v31 = 0;
       v32 = 0;
       v33 = 0;
       v34 = 0;
       v35 = 0;
+      v36 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v30);
-    v31 = 0;
+    outlined destroy of Pregnancy?(v31);
     v32 = 0;
     v33 = 0;
     v34 = 0;
     v35 = 0;
+    v36 = 0;
   }
 
-  if (!v34)
+  if (!v35)
   {
-    outlined destroy of Pregnancy?(&v31);
+    outlined destroy of Pregnancy?(&v32);
 LABEL_21:
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
     swift_allocError();
-    *v7 = 42;
+    *v8 = 42;
     return swift_willThrow();
   }
 
-  outlined init with take of HealthDataQuery(&v31, __dst);
+  outlined init with take of HealthDataQuery(&v32, __dst);
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("labels", 6uLL, 1);
-  MEMORY[0x25F8891D0](v22);
+  MEMORY[0x25F8891D0](v23);
   outlined destroy of DefaultStringInterpolation();
-  if (v22[3])
+  if (v23[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v23 = 0;
       v24 = 0;
       v25 = 0;
       v26 = 0;
       v27 = 0;
+      v28 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v22);
-    v23 = 0;
+    outlined destroy of Pregnancy?(v23);
     v24 = 0;
     v25 = 0;
     v26 = 0;
     v27 = 0;
+    v28 = 0;
   }
 
-  if (!v26)
+  if (!v27)
   {
-    outlined destroy of Pregnancy?(&v23);
+    outlined destroy of Pregnancy?(&v24);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_21;
   }
 
-  outlined init with take of HealthDataQuery(&v23, v28);
+  outlined init with take of HealthDataQuery(&v24, v29);
   __swift_project_boxed_opaque_existential_1(__dst, __dst[3]);
   dispatch thunk of AnyArrayContainer.anyArray.getter();
   type metadata accessor for NSNumber();
   if (!_arrayConditionalCast<A, B>(_:)())
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v28);
+    __swift_destroy_boxed_opaque_existential_1(v29);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_21;
   }
 
-  __swift_project_boxed_opaque_existential_1(v28, v28[3]);
+  __swift_project_boxed_opaque_existential_1(v29, v29[3]);
   dispatch thunk of AnyArrayContainer.anyArray.getter();
   if (!_arrayConditionalCast<A, B>(_:)())
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v28);
+    __swift_destroy_boxed_opaque_existential_1(v29);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_21;
   }
 
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
-  v18 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
-  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v16, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v18, MEMORY[0x277D84AC0], v17);
-  v19 = result;
-  if (v21)
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
+  v19 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
+  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v17, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v18);
+  v20 = result;
+  if (v22)
   {
     __break(1u);
     __break(1u);
@@ -4853,32 +4852,33 @@ LABEL_21:
 
   else
   {
-    v15 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v16, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v18, MEMORY[0x277D84AC0], v17);
-    v11 = static AUC.precisionRecallCurve(outputs:labels:)(v19, v15);
-    v12 = v3;
-    v13 = v4;
-    v14 = v5;
-    v10 = _allocateUninitializedArray<A>(_:)();
-    v9 = v6;
+    v16 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v17, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v18);
+    v12 = static AUC.precisionRecallCurve(outputs:labels:)(v20, v16);
+    v13 = v3;
+    v14 = v4;
+    v15 = v5;
+    _allocateUninitializedArray<A>(_:)();
+    v10 = v6;
 
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-    v9[3] = v8;
-    *v9 = v11;
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+    v10[3] = v9;
+    *v10 = v12;
 
-    v9[7] = v8;
-    v9[4] = v12;
+    v10[7] = v9;
+    v10[4] = v13;
 
-    v9[11] = v8;
-    v9[8] = v13;
+    v10[11] = v9;
+    v10[8] = v14;
 
-    v9[15] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    v9[12] = v14;
+    v10[15] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    v10[12] = v15;
     _finalizeUninitializedArray<A>(_:)();
+    v11 = v7;
 
-    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayypGMd);
-    *a2 = v10;
+    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayypGMd, &_sSayypGMR);
+    *a2 = v11;
 
-    __swift_destroy_boxed_opaque_existential_1(v28);
+    __swift_destroy_boxed_opaque_existential_1(v29);
     return __swift_destroy_boxed_opaque_existential_1(__dst);
   }
 
@@ -4893,7 +4893,7 @@ uint64_t closure #10 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint6
   outlined destroy of DefaultStringInterpolation();
   if (v20[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v21 = 0;
@@ -4930,7 +4930,7 @@ LABEL_21:
   outlined destroy of DefaultStringInterpolation();
   if (v12[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v13 = 0;
@@ -4980,7 +4980,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   v8 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
   result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v6, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v8, MEMORY[0x277D84AC0], v7);
   v9 = result;
@@ -5006,144 +5006,144 @@ LABEL_21:
 
 uint64_t closure #11 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
+  v29 = 0;
   v28 = 0;
-  v27 = 0;
   __dst[5] = a1;
-  v37 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputs", 7uLL, 1);
-  MEMORY[0x25F8891D0](v38);
+  v38 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("outputs", 7uLL, 1);
+  MEMORY[0x25F8891D0](v39);
   outlined destroy of DefaultStringInterpolation();
-  if (v38[3])
+  if (v39[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v39 = 0;
       v40 = 0;
       v41 = 0;
       v42 = 0;
       v43 = 0;
+      v44 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v38);
-    v39 = 0;
+    outlined destroy of Pregnancy?(v39);
     v40 = 0;
     v41 = 0;
     v42 = 0;
     v43 = 0;
+    v44 = 0;
   }
 
-  if (!v42)
+  if (!v43)
   {
-    outlined destroy of Pregnancy?(&v39);
+    outlined destroy of Pregnancy?(&v40);
 LABEL_30:
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
     swift_allocError();
-    *v8 = 44;
+    *v9 = 44;
     return swift_willThrow();
   }
 
-  outlined init with take of HealthDataQuery(&v39, __dst);
-  v29 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("labels", 6uLL, 1);
-  MEMORY[0x25F8891D0](v30);
+  outlined init with take of HealthDataQuery(&v40, __dst);
+  v30 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("labels", 6uLL, 1);
+  MEMORY[0x25F8891D0](v31);
   outlined destroy of DefaultStringInterpolation();
-  if (v30[3])
+  if (v31[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v31 = 0;
       v32 = 0;
       v33 = 0;
       v34 = 0;
       v35 = 0;
+      v36 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v30);
-    v31 = 0;
+    outlined destroy of Pregnancy?(v31);
     v32 = 0;
     v33 = 0;
     v34 = 0;
     v35 = 0;
+    v36 = 0;
   }
 
-  if (!v34)
+  if (!v35)
   {
-    outlined destroy of Pregnancy?(&v31);
+    outlined destroy of Pregnancy?(&v32);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_30;
   }
 
-  outlined init with take of HealthDataQuery(&v31, v36);
+  outlined init with take of HealthDataQuery(&v32, v37);
   __swift_project_boxed_opaque_existential_1(__dst, __dst[3]);
   dispatch thunk of AnyArrayContainer.anyArray.getter();
   type metadata accessor for NSNumber();
-  v22 = _arrayConditionalCast<A, B>(_:)();
-  if (!v22)
+  v23 = _arrayConditionalCast<A, B>(_:)();
+  if (!v23)
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v36);
+    __swift_destroy_boxed_opaque_existential_1(v37);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_30;
   }
 
-  v28 = v22;
+  v29 = v23;
 
-  __swift_project_boxed_opaque_existential_1(v36, v36[3]);
+  __swift_project_boxed_opaque_existential_1(v37, v37[3]);
   dispatch thunk of AnyArrayContainer.anyArray.getter();
   v2 = _arrayConditionalCast<A, B>(_:)();
   if (!v2)
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v36);
+    __swift_destroy_boxed_opaque_existential_1(v37);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_30;
   }
 
-  v27 = v2;
+  v28 = v2;
 
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("numThresholds", 0xDuLL, 1);
-  MEMORY[0x25F8891D0](v26);
+  MEMORY[0x25F8891D0](v27);
   outlined destroy of DefaultStringInterpolation();
-  if (v26[3])
+  if (v27[3])
   {
     if (swift_dynamicCast())
     {
-      v20 = v25;
+      v21 = v26;
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
-    v21 = v20;
+    v22 = v21;
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v26);
-    v21 = 0;
+    outlined destroy of Pregnancy?(v27);
+    v22 = 0;
   }
 
-  if (!v21)
+  if (!v22)
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v36);
+    __swift_destroy_boxed_opaque_existential_1(v37);
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_30;
   }
 
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
-  v18 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
-  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v16, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v18, MEMORY[0x277D84AC0], v17);
-  v19 = result;
-  if (v24)
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
+  v19 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
+  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v17, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v18);
+  v20 = result;
+  if (v25)
   {
     __break(1u);
     __break(1u);
@@ -5151,30 +5151,31 @@ LABEL_30:
 
   else
   {
-    v15 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v16, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v18, MEMORY[0x277D84AC0], v17);
-    v11 = static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:)(v19, v15, [v21 integerValue]);
-    v12 = v4;
-    v13 = v5;
-    v14 = v6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-    v9 = _allocateUninitializedArray<A>(_:)();
+    v16 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v17, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v18);
+    v12 = static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:)(v20, v16, [v22 integerValue]);
+    v13 = v4;
+    v14 = v5;
+    v15 = v6;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+    _allocateUninitializedArray<A>(_:)();
     v10 = v7;
 
-    *v10 = v11;
+    *v10 = v12;
 
-    v10[1] = v12;
+    v10[1] = v13;
 
-    v10[2] = v13;
+    v10[2] = v14;
 
-    v10[3] = v14;
+    v10[3] = v15;
     _finalizeUninitializedArray<A>(_:)();
+    v11 = v8;
 
-    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySaySfGGMd);
-    *a2 = v9;
+    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySaySfGGMd, &_sSaySaySfGGMR);
+    *a2 = v11;
 
-    MEMORY[0x277D82BD8](v21);
+    MEMORY[0x277D82BD8](v22);
 
-    __swift_destroy_boxed_opaque_existential_1(v36);
+    __swift_destroy_boxed_opaque_existential_1(v37);
     return __swift_destroy_boxed_opaque_existential_1(__dst);
   }
 
@@ -5191,7 +5192,7 @@ uint64_t closure #12 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint6
   outlined destroy of DefaultStringInterpolation();
   if (v31[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v32 = 0;
@@ -5229,7 +5230,7 @@ LABEL_31:
   outlined destroy of DefaultStringInterpolation();
   if (v23[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v24 = 0;
@@ -5317,7 +5318,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   v11 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
   v12 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v9, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v11, MEMORY[0x277D84AC0], v10);
   if (v17)
@@ -5351,7 +5352,7 @@ uint64_t closure #13 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint6
   outlined destroy of DefaultStringInterpolation();
   if (v31[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v32 = 0;
@@ -5389,7 +5390,7 @@ LABEL_31:
   outlined destroy of DefaultStringInterpolation();
   if (v23[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v24 = 0;
@@ -5477,7 +5478,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   v11 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
   v12 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus(), 0, v9, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v11, MEMORY[0x277D84AC0], v10);
   if (v17)
@@ -5503,137 +5504,137 @@ LABEL_31:
 
 uint64_t closure #14 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v50 = a2;
-  v58 = a1;
-  v52 = closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus();
-  v83 = 0;
-  v72 = 0;
-  v68 = 0;
+  v51 = a2;
+  v59 = a1;
+  v53 = closure #1 in closure #5 in static HIDMorpheusExtensions.extendMorpheus();
+  v84 = 0;
+  v73 = 0;
   v69 = 0;
-  v66 = 0;
-  v62 = 0;
+  v70 = 0;
+  v67 = 0;
   v63 = 0;
-  v53 = type metadata accessor for PFLStats.StdMethod();
-  v54 = *(v53 - 8);
-  v55 = v53 - 8;
-  v56 = (*(v54 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v57 = &v18 - v56;
-  v83 = MEMORY[0x28223BE20](v58);
-  v2 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("array", 5uLL, 1);
-  v59 = &v73;
-  v73 = v2;
-  MEMORY[0x25F8891D0](v74);
+  v64 = 0;
+  v54 = type metadata accessor for PFLStats.StdMethod();
+  v55 = *(v54 - 8);
+  v56 = v54 - 8;
+  v57 = (*(v55 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v58 = &v19 - v57;
+  v84 = MEMORY[0x28223BE20](v59, v2);
+  v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("array", 5uLL, 1);
+  v60 = &v74;
+  v74 = v3;
+  MEMORY[0x25F8891D0](v75);
   outlined destroy of DefaultStringInterpolation();
-  if (v74[3])
+  if (v75[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v75 = 0;
       v76 = 0;
       v77 = 0;
       v78 = 0;
       v79 = 0;
+      v80 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v74);
-    v75 = 0;
+    outlined destroy of Pregnancy?(v75);
     v76 = 0;
     v77 = 0;
     v78 = 0;
     v79 = 0;
+    v80 = 0;
   }
 
-  if (!v78)
+  if (!v79)
   {
-    outlined destroy of Pregnancy?(&v75);
+    outlined destroy of Pregnancy?(&v76);
 LABEL_24:
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-    v18 = swift_allocError();
-    *v17 = 46;
+    v19 = swift_allocError();
+    *v18 = 46;
     return swift_willThrow();
   }
 
-  v45 = __dst;
-  outlined init with take of HealthDataQuery(&v75, __dst);
-  v47 = v81;
-  v46 = v82;
-  __swift_project_boxed_opaque_existential_1(v45, v81);
-  v48 = dispatch thunk of AnyArrayContainer.anyArray.getter();
+  v46 = __dst;
+  outlined init with take of HealthDataQuery(&v76, __dst);
+  v48 = v82;
+  v47 = v83;
+  __swift_project_boxed_opaque_existential_1(v46, v82);
+  v49 = dispatch thunk of AnyArrayContainer.anyArray.getter();
   type metadata accessor for NSNumber();
-  v49 = _arrayConditionalCast<A, B>(_:)();
-  if (!v49 || ((v44 = v49, v42 = v49, v72 = v49, , v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("method", 6uLL, 1), v43 = &v70, v70 = v3, MEMORY[0x25F8891D0](v71), outlined destroy of DefaultStringInterpolation(), v71[3]) ? ((swift_dynamicCast() & 1) == 0 ? (v38 = 0, v39 = 0) : (v38 = v60, v39 = v61), v40 = v38, v41 = v39) : (outlined destroy of Pregnancy?(v71), v40 = 0, v41 = 0), v36 = v41, v37 = v40, !v41))
+  v50 = _arrayConditionalCast<A, B>(_:)();
+  if (!v50 || ((v45 = v50, v43 = v50, v73 = v50, , v4 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("method", 6uLL, 1), v44 = &v71, v71 = v4, MEMORY[0x25F8891D0](v72), outlined destroy of DefaultStringInterpolation(), v72[3]) ? ((swift_dynamicCast() & 1) == 0 ? (v39 = 0, v40 = 0) : (v39 = v61, v40 = v62), v41 = v39, v42 = v40) : (outlined destroy of Pregnancy?(v72), v41 = 0, v42 = 0), v37 = v42, v38 = v41, !v42))
   {
 
     __swift_destroy_boxed_opaque_existential_1(__dst);
     goto LABEL_24;
   }
 
-  v34 = v37;
-  v35 = v36;
-  v28 = v36;
+  v35 = v38;
+  v36 = v37;
   v29 = v37;
-  v68 = v37;
-  v69 = v36;
-  v67 = v42;
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
-  v4 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
-  v5 = v51;
-  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v52, 0, v30, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v4, MEMORY[0x277D84AC0], v31);
-  v32 = v5;
-  v33 = result;
-  if (v5)
+  v30 = v38;
+  v69 = v38;
+  v70 = v37;
+  v68 = v43;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
+  v5 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
+  v6 = v52;
+  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v53, 0, v31, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v5, MEMORY[0x277D84AC0], v32);
+  v33 = v6;
+  v34 = result;
+  if (v6)
   {
     __break(1u);
   }
 
   else
   {
-    v25 = v33;
-    v66 = v33;
-    v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("population", 0xAuLL, 1);
-    object = v7._object;
-    v27 = MEMORY[0x25F889340](v29, v28, v7._countAndFlagsBits);
+    v26 = v34;
+    v67 = v34;
+    v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("population", 0xAuLL, 1);
+    object = v8._object;
+    v28 = MEMORY[0x25F889340](v30, v29, v8._countAndFlagsBits);
 
-    if (v27)
+    if (v28)
     {
-      (*(v54 + 104))(v57, *MEMORY[0x277D41408], v53);
+      (*(v55 + 104))(v58, *MEMORY[0x277D41408], v54);
     }
 
     else
     {
-      (*(v54 + 104))(v57, *MEMORY[0x277D41410], v53);
+      (*(v55 + 104))(v58, *MEMORY[0x277D41410], v54);
     }
 
-    v64 = static PFLStats.meanAndStd(_:_:)();
-    v65 = v8;
-    v19 = v64;
-    v20 = BYTE4(v64);
-    v21 = v8;
-    (*(v54 + 8))(v57, v53);
-    LODWORD(v62) = v19;
-    v22 = 1;
-    BYTE4(v62) = v20 & 1;
-    v63 = v21;
-    v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSfSgMd);
-    v9 = _allocateUninitializedArray<A>(_:)();
-    v10 = v20;
-    v11 = v21;
-    v12 = v22;
-    *v13 = v19;
+    v65 = static PFLStats.meanAndStd(_:_:)();
+    v66 = v9;
+    v20 = v65;
+    v21 = BYTE4(v65);
+    v22 = v9;
+    (*(v55 + 8))(v58, v54);
+    LODWORD(v63) = v20;
+    v23 = 1;
+    BYTE4(v63) = v21 & 1;
+    v64 = v22;
+    v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSfSgMd, &_sSfSgMR);
+    _allocateUninitializedArray<A>(_:)();
+    v10 = v21;
+    v11 = v22;
+    v12 = v23;
+    *v13 = v20;
     *(v13 + 4) = v10 & 1 & v12;
     *(v13 + 8) = v11;
     *(v13 + 12) = 0;
     _finalizeUninitializedArray<A>(_:)();
-    v24 = v9;
-    v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfSgGMd);
-    v15 = v24;
-    v16 = v50;
-    v50[3] = v14;
-    *v16 = v15;
+    v25 = v14;
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfSgGMd, &_sSaySfSgGMR);
+    v16 = v25;
+    v17 = v51;
+    v51[3] = v15;
+    *v17 = v16;
 
     return __swift_destroy_boxed_opaque_existential_1(__dst);
   }
@@ -5641,7 +5642,7 @@ LABEL_24:
   return result;
 }
 
-uint64_t closure #15 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t closure #15 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v100 = 0;
   v97 = 0;
@@ -5725,7 +5726,7 @@ LABEL_113:
   outlined destroy of DefaultStringInterpolation();
   if (v91[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v92 = 0;
@@ -5777,7 +5778,7 @@ LABEL_113:
   {
     KeyPath = swift_getKeyPath();
 
-    v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+    v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
     v2 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
     v43 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:), KeyPath, v41, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v2, MEMORY[0x277D84AC0], v42);
     if (v55)
@@ -5810,7 +5811,7 @@ LABEL_113:
   outlined destroy of DefaultStringInterpolation();
   if (v83[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v84 = 0;
@@ -5867,7 +5868,7 @@ LABEL_113:
 
   v31 = swift_getKeyPath();
 
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   v3 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
   v33 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:), v31, v32, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v3, MEMORY[0x277D84AC0], v42);
   if (v45)
@@ -5894,7 +5895,7 @@ LABEL_52:
   outlined destroy of DefaultStringInterpolation();
   if (v80[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32V5start_AB3endtGMd, &_sSays6UInt32V5start_AB3endtGMR);
     if (swift_dynamicCast())
     {
       v29 = v58;
@@ -5926,7 +5927,7 @@ LABEL_52:
   outlined destroy of DefaultStringInterpolation();
   if (v72[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
       v73 = 0;
@@ -5983,7 +5984,7 @@ LABEL_52:
 
   v20 = swift_getKeyPath();
 
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   v4 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
   v22 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:), v20, v21, MEMORY[0x277D84CC0], MEMORY[0x277D84A98], v4, MEMORY[0x277D84AC0], v42);
   if (v35)
@@ -6010,7 +6011,7 @@ LABEL_79:
   outlined destroy of DefaultStringInterpolation();
   if (v69[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining9Pregnancy_pGMd, &_sSay19NightingaleTraining9Pregnancy_pGMR);
     if (swift_dynamicCast())
     {
       v18 = v59;
@@ -6120,7 +6121,7 @@ LABEL_79:
   v8 = static NightingaleDMetricsProcessor.generateMetrics(task:hyperParams:outputs:labels:historicalPeriods:sliceEndDays:pregnancies:today:metricPrefix:)(v53, v51, v44, v34, v30, v23, v19, v14, v11, v12);
   if (!v24)
   {
-    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
+    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, _sSDySSypGMR);
     *a2 = v8;
   }
 
@@ -6129,123 +6130,124 @@ LABEL_117:
 
 uint64_t closure #16 in static HIDMorpheusExtensions.extendMorpheus()@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v30 = 0;
-  v22 = 0;
-  v21 = 0;
-  v38 = a1;
-  v31 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minuend", 7uLL, 1);
-  MEMORY[0x25F8891D0](v32);
+  v32 = 0;
+  v24 = 0;
+  v23 = 0;
+  v22[0] = 0;
+  v40 = a1;
+  v33 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("minuend", 7uLL, 1);
+  MEMORY[0x25F8891D0](v34);
   outlined destroy of DefaultStringInterpolation();
-  if (v32[3])
+  if (v34[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v33 = 0;
-      v34 = 0;
       v35 = 0;
       v36 = 0;
       v37 = 0;
+      v38 = 0;
+      v39 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v32);
-    v33 = 0;
-    v34 = 0;
+    outlined destroy of Pregnancy?(v34);
     v35 = 0;
     v36 = 0;
     v37 = 0;
+    v38 = 0;
+    v39 = 0;
   }
 
-  if (v36)
+  if (v38)
   {
-    __swift_project_boxed_opaque_existential_1(&v33, v36);
-    v17 = dispatch thunk of AnyArrayContainer.anyArray.getter();
-    __swift_destroy_boxed_opaque_existential_1(&v33);
-    v18 = v17;
+    __swift_project_boxed_opaque_existential_1(&v35, v38);
+    v18 = dispatch thunk of AnyArrayContainer.anyArray.getter();
+    __swift_destroy_boxed_opaque_existential_1(&v35);
+    v19 = v18;
   }
 
   else
   {
-    outlined destroy of Pregnancy?(&v33);
-    v18 = 0;
+    outlined destroy of Pregnancy?(&v35);
+    v19 = 0;
   }
 
-  if (v18)
+  if (v19)
   {
     type metadata accessor for NSNumber();
-    v15 = _arrayConditionalCast<A, B>(_:)();
+    v16 = _arrayConditionalCast<A, B>(_:)();
 
-    v16 = v15;
+    v17 = v16;
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_29;
   }
 
-  v30 = v16;
-  v23 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("subtrahend", 0xAuLL, 1);
-  MEMORY[0x25F8891D0](v24);
+  v32 = v17;
+  v25 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("subtrahend", 0xAuLL, 1);
+  MEMORY[0x25F8891D0](v26);
   outlined destroy of DefaultStringInterpolation();
-  if (v24[3])
+  if (v26[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Morpheus17AnyArrayContainer_pMd, &_s8Morpheus17AnyArrayContainer_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
-      v25 = 0;
-      v26 = 0;
       v27 = 0;
       v28 = 0;
       v29 = 0;
+      v30 = 0;
+      v31 = 0;
     }
   }
 
   else
   {
-    outlined destroy of Pregnancy?(v24);
-    v25 = 0;
-    v26 = 0;
+    outlined destroy of Pregnancy?(v26);
     v27 = 0;
     v28 = 0;
     v29 = 0;
+    v30 = 0;
+    v31 = 0;
   }
 
-  if (v28)
+  if (v30)
   {
-    __swift_project_boxed_opaque_existential_1(&v25, v28);
-    v13 = dispatch thunk of AnyArrayContainer.anyArray.getter();
-    __swift_destroy_boxed_opaque_existential_1(&v25);
-    v14 = v13;
+    __swift_project_boxed_opaque_existential_1(&v27, v30);
+    v14 = dispatch thunk of AnyArrayContainer.anyArray.getter();
+    __swift_destroy_boxed_opaque_existential_1(&v27);
+    v15 = v14;
   }
 
   else
   {
-    outlined destroy of Pregnancy?(&v25);
-    v14 = 0;
+    outlined destroy of Pregnancy?(&v27);
+    v15 = 0;
   }
 
-  if (v14)
+  if (v15)
   {
     type metadata accessor for NSNumber();
-    v11 = _arrayConditionalCast<A, B>(_:)();
+    v12 = _arrayConditionalCast<A, B>(_:)();
 
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  if (!v12)
+  if (!v13)
   {
 
 LABEL_29:
@@ -6255,14 +6257,15 @@ LABEL_29:
     return swift_willThrow();
   }
 
-  v22 = v12;
+  v24 = v13;
+  v22[1] = v17;
   KeyPath = swift_getKeyPath();
 
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
-  v9 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
-  v10 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:), KeyPath, v7, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v9, MEMORY[0x277D84AC0], v8);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
+  v10 = lazy protocol witness table accessor for type [NSNumber] and conformance [A]();
+  v11 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:), KeyPath, v8, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v10, MEMORY[0x277D84AC0], v9);
 
-  if (v20)
+  if (v21)
   {
     __break(1u);
 
@@ -6272,15 +6275,16 @@ LABEL_29:
   else
   {
 
-    v21 = v10;
+    v23 = v11;
     v5 = swift_getKeyPath();
 
-    _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:), v5, v7, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v9, MEMORY[0x277D84AC0], v8);
+    v6 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in NightingaleDPFLRunner.runTraining(task:modelPath:hyperParams:historicalPeriods:pregnancies:today:features:existingMetrics:), v5, v8, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v10, MEMORY[0x277D84AC0], v9);
 
-    static HIDPFLUtils.inplaceSub(_:_:)(&v21);
-    v4 = v21;
+    v22[0] = v6;
+    static HIDPFLUtils.inplaceSub(_:_:)(&v23, v22);
+    v4 = v23;
 
-    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+    a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
     *a2 = v4;
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -6443,7 +6447,7 @@ uint64_t _sSa22_allocateUninitializedySayxG_SpyxGtSiFZypSg_Tt0gq5(uint64_t resul
       return MEMORY[0x277D84F90];
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
     v1 = static Array._allocateBufferUninitialized(minimumCapacity:)();
 
     *(v1 + 16) = v3;
@@ -6470,7 +6474,7 @@ uint64_t _sSa22_allocateUninitializedySayxG_SpyxGtSiFZSS_ypt_Tt0gq5(uint64_t res
       return MEMORY[0x277D84F90];
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
     v1 = static Array._allocateBufferUninitialized(minimumCapacity:)();
 
     *(v1 + 16) = v3;
@@ -6481,25 +6485,25 @@ uint64_t _sSa22_allocateUninitializedySayxG_SpyxGtSiFZSS_ypt_Tt0gq5(uint64_t res
   return result;
 }
 
-void _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0gq5(uint64_t a1)
+void _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0gq5(uint64_t a1, __n128 a2)
 {
-  if (specialized Array.count.getter(a1))
+  if (specialized Array.count.getter(a1, a2))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
-    v12 = static _DictionaryStorage.allocate(capacity:)();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
+    v13 = static _DictionaryStorage.allocate(capacity:)();
   }
 
   else
   {
-    v11 = MEMORY[0x277D84F98];
+    v12 = MEMORY[0x277D84F98];
 
-    v12 = v11;
+    v13 = v12;
   }
 
-  v10 = specialized Array._getCount()(a1);
-  if (v10)
+  v11 = specialized Array._getCount()(a1);
+  if (v11)
   {
-    if (v10 <= 0)
+    if (v11 <= 0)
     {
       __break(1u);
     }
@@ -6509,28 +6513,28 @@ void _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0gq5(uint64_t a1)
       for (i = 0; ; ++i)
       {
         IsNativeType = specialized Array._hoistableIsNativeTypeChecked()();
-        specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(i, IsNativeType & 1, a1, &v14);
-        v8 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
-        if (v2)
+        specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(i, IsNativeType & 1, a1, &v15);
+        v9 = specialized __RawDictionaryStorage.find<A>(_:)(v15, v16);
+        if (v3)
         {
           break;
         }
 
-        v12[v8 / 0x40 + 8] |= 1 << ((v8 % 0x40) & 0x3F);
-        v3 = (v12[6] + 16 * v8);
-        v4 = v15;
-        *v3 = v14;
-        v3[1] = v4;
-        outlined init with take of Any(&v16, v12[7] + 32 * v8);
-        v5 = v12[2];
-        v7 = v5 + 1;
-        if (__OFADD__(v5, 1))
+        v13[v9 / 0x40 + 8] |= 1 << ((v9 % 0x40) & 0x3F);
+        v4 = (v13[6] + 16 * v9);
+        v5 = v16;
+        *v4 = v15;
+        v4[1] = v5;
+        outlined init with take of Any(&v17, v13[7] + 32 * v9);
+        v6 = v13[2];
+        v8 = v6 + 1;
+        if (__OFADD__(v6, 1))
         {
           goto LABEL_18;
         }
 
-        v12[2] = v7;
-        if (i + 1 == v10)
+        v13[2] = v8;
+        if (i + 1 == v11)
         {
 
           return;
@@ -6596,7 +6600,7 @@ LABEL_7:
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   v11 = v7;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
     v8 = static String._createEmpty(withInitialCapacity:)(82);
@@ -6651,14 +6655,14 @@ void *outlined init with copy of (String, Any)(void *a1, void *a2)
   a2[1] = v4;
   v2 = a1[5];
   a2[5] = v2;
-  (**(v2 - 8))((a2 + 2), (a1 + 2));
+  (**(v2 - 8))(a2 + 2, a1 + 2);
   return a2;
 }
 
 uint64_t outlined destroy of (String, Any)(uint64_t a1)
 {
 
-  __swift_destroy_boxed_opaque_existential_1(a1 + 16);
+  __swift_destroy_boxed_opaque_existential_1((a1 + 16));
   return a1;
 }
 
@@ -6693,7 +6697,7 @@ uint64_t static MetricsUtils.bucketize(value:buckets:)(uint64_t a1, float a2)
 
     if ((v9 & 1) != 0 || (!__OFADD__(v8, 1) ? (v4 = 0) : (v4 = 1), (v4 & 1) == 0))
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
       v5 = Array.subscript.modify();
       *v6 = 1;
       v5();
@@ -6734,12 +6738,12 @@ LABEL_29:
     v24 = Array.init(repeating:count:)();
 
     v20 = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
     lazy protocol witness table accessor for type [Float] and conformance [A]();
     Collection<>.makeIterator()();
     while (1)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySfGGMd, &_ss16IndexingIteratorVySaySfGGMR);
       IndexingIterator.next()();
       if (v19)
       {
@@ -6763,7 +6767,7 @@ LABEL_29:
 
       if (v10)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
         result = Array.subscript.modify();
         if (__OFADD__(*v5, 1))
         {
@@ -6778,7 +6782,7 @@ LABEL_29:
           goto LABEL_28;
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
         result = Array.subscript.modify();
         if (__OFADD__(*v5, 1))
         {
@@ -6802,185 +6806,182 @@ LABEL_29:
 
 uint64_t static AUC.rocCurve(outputs:labels:)(uint64_t a1, uint64_t a2)
 {
-  v126 = 0;
-  v158 = 0;
-  v157 = 0;
-  v127 = 0;
-  v149[0] = 0;
-  v146 = 0;
-  v135 = 0;
-  v164[2] = a1;
-  v164[1] = a2;
-  v130 = static AUC.binaryClassificationCurve(outputs:labels:)(a1, a2);
-  v128 = v2;
-  v129 = v3;
+  v131 = 0;
+  v163 = 0;
+  v162 = 0;
+  v132 = 0;
+  v154[0] = 0;
+  v151 = 0;
+  v140 = 0;
+  v169[2] = a1;
+  v169[1] = a2;
+  v135 = static AUC.binaryClassificationCurve(outputs:labels:)(a1, a2);
+  v133 = v2;
+  v134 = v3;
 
-  v164[0] = v130;
-  v163 = v128;
-  v162 = v129;
-  v131 = MEMORY[0x25F8895B0]();
+  v169[0] = v135;
+  v168 = v133;
+  v167 = v134;
+  v136 = MEMORY[0x25F8895B0]();
 
-  if (v131 < 3)
+  if (v136 < 3)
   {
-    v84 = v127;
+    v89 = v132;
   }
 
   else
   {
-    v4 = v127;
-    v102 = v164[0];
+    v4 = v132;
+    v107 = v169[0];
 
-    v148 = v164[0];
-    v118 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-    v110 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v111 = MEMORY[0x277D83AD0];
-    v103 = &v148;
-    v104 = Collection<>.diff()(v118, v110, MEMORY[0x277D83AD0]);
+    v153 = v169[0];
+    v123 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+    v115 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+    v116 = MEMORY[0x277D83AD0];
+    v108 = &v153;
+    v109 = Collection<>.diff()(v123, v115, MEMORY[0x277D83AD0]);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v147 = v104;
-    v105 = &v147;
-    v106 = Collection<>.diff()(v118, v110, v111);
+    v152 = v109;
+    v110 = &v152;
+    v111 = Collection<>.diff()(v123, v115, v116);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v149[0] = v106;
-    v107 = v163;
+    v154[0] = v111;
+    v112 = v168;
 
-    v145 = v107;
-    v108 = &v145;
-    v109 = Collection<>.diff()(v118, v110, v111);
+    v150 = v112;
+    v113 = &v150;
+    v114 = Collection<>.diff()(v123, v115, v116);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v144 = v109;
-    v112 = &v144;
-    v113 = Collection<>.diff()(v118, v110, v111);
+    v149 = v114;
+    v117 = &v149;
+    v118 = Collection<>.diff()(v123, v115, v116);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v146 = v113;
-    v115 = 1065353216;
-    v143 = 1065353216;
-    v114 = v149;
+    v151 = v118;
+    v120 = 1065353216;
+    v148 = 1065353216;
+    v119 = v154;
     Array.append(_:)();
-    v142 = 1065353216;
-    v116 = 0;
+    v147 = 1065353216;
+    v121 = 0;
     Array.insert(_:at:)();
-    v141 = 1065353216;
-    v120 = &v146;
+    v146 = 1065353216;
+    v125 = &v151;
     Array.append(_:)();
-    v140 = 1065353216;
+    v145 = 1065353216;
     Array.insert(_:at:)();
-    v117 = v149[0];
+    v122 = v154[0];
 
-    v138 = v117;
+    v143 = v122;
     v5 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v119 = &v138;
-    MEMORY[0x25F889420](&v139, v118, v5);
+    v124 = &v143;
+    MEMORY[0x25F889420](&v144, v123, v5);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v137 = v139;
-    v121 = v42;
-    MEMORY[0x28223BE20](v42);
-    v122 = v41;
-    v41[2] = v6;
-    v123 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd);
+    v142 = v144;
+    v126 = v47;
+    MEMORY[0x28223BE20](v47, v6);
+    v127 = v46;
+    v46[2] = v7;
+    v128 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd, &_ss18EnumeratedSequenceVySaySfGGMR);
     lazy protocol witness table accessor for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>();
-    v7 = Sequence.filter(_:)();
-    v124 = v4;
-    v125 = v7;
-    v136 = v7;
-    v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd);
-    v8 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
-    v10 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v99, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v8, MEMORY[0x277D84AC0], v9);
-    v100 = 0;
-    v101 = v10;
-    v91 = v10;
+    v8 = Sequence.filter(_:)();
+    v129 = v4;
+    v130 = v8;
+    v141 = v8;
+    v104 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd, &_sSaySi6offset_Sf7elementtGMR);
+    v9 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
+    v11 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v104, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v9, MEMORY[0x277D84AC0], v10);
+    v105 = 0;
+    v106 = v11;
+    v96 = v11;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v135 = v91;
-    v134 = v91;
-    v92 = v41;
-    MEMORY[0x28223BE20](v41);
-    v94 = v38;
-    v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    v93 = v95;
-    v96 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-    v12 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.rocCurve(outputs:labels:), v94, v95, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v96, MEMORY[0x277D84AC0], v11);
-    v97 = 0;
-    v98 = v12;
-    v164[0] = v12;
+    v140 = v96;
+    v139 = v96;
+    v97 = v46;
+    MEMORY[0x28223BE20](v46, v12);
+    v99 = &v44;
+    v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    v98 = v100;
+    v101 = lazy protocol witness table accessor for type [Int] and conformance [A]();
+    v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.rocCurve(outputs:labels:), v99, v100, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v101, MEMORY[0x277D84AC0], v13);
+    v102 = 0;
+    v103 = v14;
+    v169[0] = v14;
 
-    v133 = v91;
-    v88 = v41;
-    MEMORY[0x28223BE20](v41);
-    v16 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.rocCurve(outputs:labels:), v38, v13, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v14, MEMORY[0x277D84AC0], v15);
-    v89 = 0;
-    v90 = v16;
-    v163 = v16;
+    v138 = v96;
+    v93 = v46;
+    MEMORY[0x28223BE20](v46, v15);
+    v19 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.rocCurve(outputs:labels:), &v44, v16, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v17, MEMORY[0x277D84AC0], v18);
+    v94 = 0;
+    v95 = v19;
+    v168 = v19;
 
-    v132 = v91;
-    v85 = v41;
-    MEMORY[0x28223BE20](v41);
-    v40 = &v162;
-    v20 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #5 in static AUC.rocCurve(outputs:labels:), v38, v17, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v18, MEMORY[0x277D84AC0], v19);
-    v86 = 0;
-    v87 = v20;
-    v162 = v20;
+    v137 = v96;
+    v90 = v46;
+    MEMORY[0x28223BE20](v46, v20);
+    v45 = &v167;
+    v24 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #5 in static AUC.rocCurve(outputs:labels:), &v44, v21, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v22, MEMORY[0x277D84AC0], v23);
+    v91 = 0;
+    v92 = v24;
+    v167 = v24;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v84 = v86;
+    v89 = v91;
   }
 
-  v74 = v84;
-  v76 = 0;
-  v161 = 0;
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v75 = v79;
-  v77 = 0;
+  v79 = v89;
+  v81 = 0;
+  v166 = 0;
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v80 = v84;
+  v82 = 0;
   Array.insert(_:at:)();
-  v160 = v76;
+  v165 = v81;
   Array.insert(_:at:)();
-  v159 = 0x7FFFFFFFFFFFFFFFLL;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+  v164 = 0x7FFFFFFFFFFFFFFFLL;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
   Array.insert(_:at:)();
-  v78 = MEMORY[0x277D83A90];
-  v158 = Array.init()();
-  v157 = Array.init()();
-  v81 = v164[0];
+  v83 = MEMORY[0x277D83A90];
+  v163 = Array.init()();
+  v162 = Array.init()();
+  v86 = v169[0];
 
-  v156 = v81;
-  v80 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v161 = v86;
+  v85 = lazy protocol witness table accessor for type [Float] and conformance [A]();
   BidirectionalCollection.last.getter();
-  v82 = v154;
-  v83 = v155;
+  v87 = v159;
+  v88 = v160;
 
-  if (v83)
+  if (v88)
   {
-    LODWORD(v40) = 0;
-    v39 = 143;
-    v38[0] = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 143, 0);
     __break(1u);
   }
 
   else
   {
-    v73 = v82;
+    v78 = v87;
   }
 
-  if (v73 <= 0.0)
+  if (v78 <= 0.0)
   {
-    v21 = v74;
-    v70 = v164[0];
+    v25 = v79;
+    v75 = v169[0];
 
-    v149[1] = v70;
-    v22 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v24 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #6 in static AUC.rocCurve(outputs:labels:), 0, v75, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v22, MEMORY[0x277D84AC0], v23);
-    v71 = v21;
-    v72 = v24;
-    if (!v21)
+    v154[1] = v75;
+    v26 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+    v28 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #6 in static AUC.rocCurve(outputs:labels:), 0, v80, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v26, MEMORY[0x277D84AC0], v27);
+    v76 = v25;
+    v77 = v28;
+    if (!v25)
     {
-      v67 = v72;
+      v72 = v77;
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      v158 = v67;
+      v163 = v72;
 
-      v68 = v67;
-      v69 = 0;
+      v73 = v72;
+      v74 = 0;
       goto LABEL_12;
     }
 
@@ -6992,109 +6993,106 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v25 = v74;
-  v62 = v164[0];
+  v29 = v79;
+  v67 = v169[0];
 
-  v153 = v62;
-  v63 = v41;
-  MEMORY[0x28223BE20](v41);
-  v64 = v38;
-  v40 = v164;
-  v26 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  v28 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #7 in static AUC.rocCurve(outputs:labels:), v64, v75, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v26, MEMORY[0x277D84AC0], v27);
-  v65 = v25;
-  v66 = v28;
-  if (v25)
+  v158 = v67;
+  v68 = v46;
+  MEMORY[0x28223BE20](v46, v30);
+  v69 = &v44;
+  v45 = v169;
+  v31 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v33 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #7 in static AUC.rocCurve(outputs:labels:), v69, v80, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v31, MEMORY[0x277D84AC0], v32);
+  v70 = v29;
+  v71 = v33;
+  if (v29)
   {
     goto LABEL_22;
   }
 
-  v61 = v66;
+  v66 = v71;
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
-  v158 = v61;
+  v163 = v66;
 
-  v68 = v61;
-  v69 = v65;
+  v73 = v66;
+  v74 = v70;
 LABEL_12:
-  v56 = v69;
-  v57 = v68;
-  v58 = v163;
+  v61 = v74;
+  v62 = v73;
+  v63 = v168;
 
-  v152 = v58;
+  v157 = v63;
   BidirectionalCollection.last.getter();
-  v59 = v150;
-  v60 = v151;
+  v64 = v155;
+  v65 = v156;
 
-  if (v60)
+  if (v65)
   {
-    LODWORD(v40) = 0;
-    v39 = 148;
-    v38[0] = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 148, 0);
     __break(1u);
   }
 
   else
   {
-    v55 = v59;
+    v60 = v64;
   }
 
-  if (v55 <= 0.0)
+  if (v60 <= 0.0)
   {
-    v29 = v56;
-    v52 = v163;
+    v34 = v61;
+    v57 = v168;
 
-    v149[2] = v52;
-    v30 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v32 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #6 in static AUC.rocCurve(outputs:labels:), 0, v75, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v30, MEMORY[0x277D84AC0], v31);
-    v53 = v29;
-    v54 = v32;
-    if (!v29)
+    v154[2] = v57;
+    v35 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+    v37 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #6 in static AUC.rocCurve(outputs:labels:), 0, v80, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v35, MEMORY[0x277D84AC0], v36);
+    v58 = v34;
+    v59 = v37;
+    if (!v34)
     {
-      v49 = v54;
+      v54 = v59;
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      v157 = v49;
+      v162 = v54;
 
-      v50 = v49;
-      v51 = 0;
+      v55 = v54;
+      v56 = 0;
 LABEL_20:
-      v42[1] = v50;
-      v42[2] = v162;
+      v47[1] = v55;
+      v47[2] = v167;
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
-      return v57;
+      return v62;
     }
 
     goto LABEL_23;
   }
 
-  v33 = v56;
-  v44 = v163;
+  v38 = v61;
+  v49 = v168;
 
-  v149[3] = v44;
-  v45 = v41;
-  MEMORY[0x28223BE20](v41);
-  v46 = v38;
-  v40 = &v163;
-  v34 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  v36 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #9 in static AUC.rocCurve(outputs:labels:), v46, v75, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v34, MEMORY[0x277D84AC0], v35);
-  v47 = v33;
-  v48 = v36;
-  if (!v33)
+  v154[3] = v49;
+  v50 = v46;
+  MEMORY[0x28223BE20](v46, v39);
+  v51 = &v44;
+  v45 = &v168;
+  v40 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v42 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #9 in static AUC.rocCurve(outputs:labels:), v51, v80, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v40, MEMORY[0x277D84AC0], v41);
+  v52 = v38;
+  v53 = v42;
+  if (!v38)
   {
-    v43 = v48;
+    v48 = v53;
     outlined destroy of [(start: UInt32, end: UInt32)]();
 
-    v157 = v43;
+    v162 = v48;
 
-    v50 = v43;
-    v51 = v47;
+    v55 = v48;
+    v56 = v52;
     goto LABEL_20;
   }
 
@@ -7106,83 +7104,83 @@ LABEL_24:
 
 uint64_t static AUC.rocAUCScore(tpr:fpr:maxFPR:)(uint64_t a1, uint64_t a2, float a3)
 {
-  v60 = a3;
-  v61 = a2;
-  v62 = a1;
-  v99 = 0;
-  v92 = 0.0;
-  v91 = 0;
-  v79 = 0;
+  v61 = a3;
+  v62 = a2;
+  v63 = a1;
+  v100 = 0;
+  v93 = 0.0;
+  v92 = 0;
+  v80 = 0;
+  v68 = 0.0;
   v67 = 0.0;
   v66 = 0.0;
-  v65 = 0.0;
-  v106 = a1;
-  v105 = a2;
-  *&v104[2] = a3;
-  *&v104[1] = a3;
-  v104[0] = 1065353216;
-  v64 = lazy protocol witness table accessor for type Float and conformance Float();
-  v63 = MEMORY[0x277D83A90];
+  v107 = a1;
+  v106 = a2;
+  *&v105[2] = a3;
+  *&v105[1] = a3;
+  v105[0] = 1065353216;
+  v65 = lazy protocol witness table accessor for type Float and conformance Float();
+  v64 = MEMORY[0x277D83A90];
   default argument 1 of FloatingPoint.isNearlyEqual(to:absoluteTolerance:)();
-  v103[0] = v103[1];
-  if ((FloatingPoint.isNearlyEqual(to:absoluteTolerance:)(v104, v103, v63, v64) & 1) == 0)
+  v104[0] = v104[1];
+  if ((FloatingPoint.isNearlyEqual(to:absoluteTolerance:)(v105, v104, v64, v65) & 1) == 0)
   {
-    if (v60 >= 1.0 || v60 <= 0.0)
+    if (v61 >= 1.0 || v61 <= 0.0)
     {
       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-      v16[1] = 0;
-      v17 = swift_allocError();
-      *v14 = 65;
+      v17[1] = 0;
+      v18 = swift_allocError();
+      *v15 = 65;
       swift_willThrow();
-      result = v17;
-      v18 = v17;
+      result = v18;
+      v19 = v18;
       return result;
     }
 
-    v51 = v59;
-    v100 = v61;
-    v47 = v16;
-    MEMORY[0x28223BE20](v16);
-    v49 = v15;
-    v15[4] = v5;
-    v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-    v48 = v50;
-    v6 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v7 = v51;
-    v52 = v6;
-    Collection.firstIndex(where:)();
+    v52 = v60;
+    v101 = v62;
+    v48 = v17;
+    MEMORY[0x28223BE20](v17, v3);
+    v50 = v16;
+    v16[4] = v6;
+    v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+    v49 = v51;
+    v7 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+    v8 = v52;
     v53 = v7;
-    if (v7)
+    Collection.firstIndex(where:)();
+    v54 = v8;
+    if (v8)
     {
       __break(1u);
 LABEL_31:
-      v16[0] = v32;
+      v17[0] = v33;
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
       outlined destroy of [(start: UInt32, end: UInt32)]();
-      result = v16[0];
-      v18 = v16[0];
+      result = v17[0];
+      v19 = v17[0];
       return result;
     }
 
-    v46 = v101;
-    if (v102)
+    v47 = v102;
+    if (v103)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 360, 0);
       __break(1u);
     }
 
     else
     {
-      v45 = v46;
+      v46 = v47;
     }
 
-    v43 = v45;
-    v99 = v45;
-    result = v45 - 1;
-    v8 = __OFSUB__(v45, 1);
-    v44 = v45 - 1;
-    if (v8)
+    v44 = v46;
+    v100 = v46;
+    result = v46 - 1;
+    v9 = __OFSUB__(v46, 1);
+    v45 = v46 - 1;
+    if (v9)
     {
       __break(1u);
     }
@@ -7190,85 +7188,85 @@ LABEL_31:
     else
     {
       Array.subscript.getter();
-      v41 = v98;
-      result = v43 - 1;
-      v9 = __OFSUB__(v43, 1);
-      v42 = v43 - 1;
-      if (!v9)
+      v42 = v99;
+      result = v44 - 1;
+      v10 = __OFSUB__(v44, 1);
+      v43 = v44 - 1;
+      if (!v10)
       {
-        v37 = MEMORY[0x277D83A90];
+        v38 = MEMORY[0x277D83A90];
         Array.subscript.getter();
-        v38 = v60 - v97;
+        v39 = v61 - v98;
         Array.subscript.getter();
-        v39 = v96;
-        result = v43 - 1;
-        v10 = __OFSUB__(v43, 1);
-        v40 = v43 - 1;
-        if (!v10)
+        v40 = v97;
+        result = v44 - 1;
+        v11 = __OFSUB__(v44, 1);
+        v41 = v44 - 1;
+        if (!v11)
         {
-          v33 = MEMORY[0x277D83A90];
+          v34 = MEMORY[0x277D83A90];
           Array.subscript.getter();
-          v34 = v38 / (v39 - v95);
+          v35 = v39 / (v40 - v96);
           Array.subscript.getter();
-          v35 = v94;
-          result = v43 - 1;
-          v11 = __OFSUB__(v43, 1);
-          v36 = v43 - 1;
-          if (!v11)
+          v36 = v95;
+          result = v44 - 1;
+          v12 = __OFSUB__(v44, 1);
+          v37 = v44 - 1;
+          if (!v12)
           {
-            v25 = v53;
-            v22 = MEMORY[0x277D83A90];
+            v26 = v54;
+            v23 = MEMORY[0x277D83A90];
             Array.subscript.getter();
-            v21 = v41 + (v34 * (v35 - v93));
-            v92 = v21;
+            v22 = v42 + (v35 * (v36 - v94));
+            v93 = v22;
 
-            v86 = v62;
-            v85 = v43;
+            v87 = v63;
+            v86 = v44;
             Collection.prefix(upTo:)();
-            v81 = v87;
             v82 = v88;
             v83 = v89;
             v84 = v90;
-            v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySfGMd);
-            v24 = lazy protocol witness table accessor for type ArraySlice<Float> and conformance ArraySlice<A>();
-            v91 = Array.init<A>(_:)();
-            v80 = v21;
+            v85 = v91;
+            v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySfGMd, &_ss10ArraySliceVySfGMR);
+            v25 = lazy protocol witness table accessor for type ArraySlice<Float> and conformance ArraySlice<A>();
+            v92 = Array.init<A>(_:)();
+            v81 = v22;
             Array.append(_:)();
 
-            v74 = v61;
-            v73 = v43;
+            v75 = v62;
+            v74 = v44;
             Collection.prefix(upTo:)();
-            v69 = v75;
             v70 = v76;
             v71 = v77;
             v72 = v78;
-            v79 = Array.init<A>(_:)();
-            v68 = v60;
+            v73 = v79;
+            v80 = Array.init<A>(_:)();
+            v69 = v61;
             Array.append(_:)();
-            v12 = v25;
-            v28 = v79;
-            v26 = v79;
+            v13 = v26;
+            v29 = v80;
+            v27 = v80;
 
-            v29 = v91;
-            v27 = v91;
+            v30 = v92;
+            v28 = v92;
 
-            static AUC.auc(x:y:)(v28, v29);
-            v30 = v12;
+            static AUC.auc(x:y:)(v29, v30);
             v31 = v13;
-            v32 = v12;
-            if (!v12)
+            v32 = v14;
+            v33 = v13;
+            if (!v13)
             {
-              v19 = v31;
+              v20 = v32;
 
-              v67 = v19;
-              v66 = powf(v60, 2.0) * 0.5;
-              v65 = v60;
-              v20 = (((v19 - v66) / (v60 - v66)) + 1.0) * 0.5;
+              v68 = v20;
+              v67 = powf(v61, 2.0) * 0.5;
+              v66 = v61;
+              v21 = (((v20 - v67) / (v61 - v67)) + 1.0) * 0.5;
               outlined destroy of [(start: UInt32, end: UInt32)]();
               outlined destroy of [(start: UInt32, end: UInt32)]();
-              result = v30;
-              v54 = v20;
-              v55 = v30;
+              result = v31;
+              v55 = v21;
+              v56 = v31;
               return result;
             }
 
@@ -7290,21 +7288,21 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  static AUC.auc(x:y:)(v61, v62);
-  v56 = v59;
-  result = v59;
-  v57 = v4;
-  v58 = v59;
-  if (v59)
+  static AUC.auc(x:y:)(v62, v63);
+  v57 = v60;
+  result = v60;
+  v58 = v5;
+  v59 = v60;
+  if (v60)
   {
-    result = v58;
-    v18 = v58;
+    result = v59;
+    v19 = v59;
   }
 
   else
   {
-    v54 = v57;
-    v55 = 0;
+    v55 = v58;
+    v56 = 0;
   }
 
   return result;
@@ -7312,185 +7310,182 @@ LABEL_34:
 
 uint64_t static AUC.precisionRecallCurve(outputs:labels:)(uint64_t a1, uint64_t a2)
 {
-  v149 = 0;
-  v195 = 0;
-  v150 = 0;
+  v156 = 0;
+  v202 = 0;
+  v157 = 0;
+  v194 = 0;
+  v189 = 0;
   v187 = 0;
-  v182 = 0;
-  v180 = 0;
-  v170[0] = 0;
-  v168 = 0;
-  v158 = 0;
-  v198[2] = a1;
-  v198[1] = a2;
-  v153 = static AUC.binaryClassificationCurve(outputs:labels:)(a1, a2);
-  v151 = v2;
-  v152 = v3;
+  v177[0] = 0;
+  v175 = 0;
+  v165 = 0;
+  v205[2] = a1;
+  v205[1] = a2;
+  v160 = static AUC.binaryClassificationCurve(outputs:labels:)(a1, a2);
+  v158 = v2;
+  v159 = v3;
 
-  v198[0] = v153;
-  v197 = v151;
-  v196 = v152;
-  v154 = MEMORY[0x25F8895B0]();
+  v205[0] = v160;
+  v204 = v158;
+  v203 = v159;
+  v161 = MEMORY[0x25F8895B0]();
 
-  if (v154 < 3)
+  if (v161 < 3)
   {
-    v108 = v150;
+    v115 = v157;
   }
 
   else
   {
-    v4 = v150;
-    v126 = v198[0];
+    v4 = v157;
+    v133 = v205[0];
 
-    v169[5] = v198[0];
-    v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-    v133 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+    v176[5] = v205[0];
+    v148 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+    v140 = lazy protocol witness table accessor for type [Float] and conformance [A]();
     default argument 0 of Collection.dropFirst(_:)();
     Collection.dropLast(_:)();
-    v169[1] = v169[6];
-    v169[2] = v169[7];
-    v169[3] = v169[8];
-    v169[4] = v169[9];
-    v131 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySfGMd);
-    v132 = lazy protocol witness table accessor for type ArraySlice<Float> and conformance ArraySlice<A>();
-    v130 = MEMORY[0x277D83A90];
-    v169[0] = Array.init<A>(_:)();
-    v134 = MEMORY[0x277D83AD0];
-    v127 = v169;
-    v128 = Collection<>.diff()(v141, v133, MEMORY[0x277D83AD0]);
+    v176[1] = v176[6];
+    v176[2] = v176[7];
+    v176[3] = v176[8];
+    v176[4] = v176[9];
+    v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySfGMd, &_ss10ArraySliceVySfGMR);
+    v139 = lazy protocol witness table accessor for type ArraySlice<Float> and conformance ArraySlice<A>();
+    v137 = MEMORY[0x277D83A90];
+    v176[0] = Array.init<A>(_:)();
+    v141 = MEMORY[0x277D83AD0];
+    v134 = v176;
+    v135 = Collection<>.diff()(v148, v140, MEMORY[0x277D83AD0]);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v170[0] = v128;
-    v129 = v197;
+    v177[0] = v135;
+    v136 = v204;
 
-    v167[5] = v129;
+    v174[5] = v136;
     default argument 0 of Collection.dropFirst(_:)();
     Collection.dropFirst(_:)();
-    v167[1] = v167[6];
-    v167[2] = v167[7];
-    v167[3] = v167[8];
-    v167[4] = v167[9];
-    v167[0] = Array.init<A>(_:)();
-    v135 = v167;
-    v136 = Collection<>.diff()(v141, v133, v134);
+    v174[1] = v174[6];
+    v174[2] = v174[7];
+    v174[3] = v174[8];
+    v174[4] = v174[9];
+    v174[0] = Array.init<A>(_:)();
+    v142 = v174;
+    v143 = Collection<>.diff()(v148, v140, v141);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v168 = v136;
-    v138 = 1065353216;
-    v166 = 1065353216;
-    v137 = v170;
+    v175 = v143;
+    v145 = 1065353216;
+    v173 = 1065353216;
+    v144 = v177;
     Array.append(_:)();
-    v165 = 1065353216;
-    v139 = 0;
+    v172 = 1065353216;
+    v146 = 0;
     Array.insert(_:at:)();
-    v164 = 1065353216;
-    v143 = &v168;
+    v171 = 1065353216;
+    v150 = &v175;
     Array.append(_:)();
-    v163 = 1065353216;
+    v170 = 1065353216;
     Array.insert(_:at:)();
-    v140 = v170[0];
+    v147 = v177[0];
 
-    v161 = v140;
+    v168 = v147;
     v5 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v142 = &v161;
-    MEMORY[0x25F889420](&v162, v141, v5);
+    v149 = &v168;
+    MEMORY[0x25F889420](&v169, v148, v5);
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v160 = v162;
-    v144 = v50;
-    MEMORY[0x28223BE20](v50);
-    v145 = v49;
-    v49[2] = v6;
-    v146 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd);
+    v167 = v169;
+    v151 = v57;
+    MEMORY[0x28223BE20](v57, v6);
+    v152 = v56;
+    v56[2] = v7;
+    v153 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd, &_ss18EnumeratedSequenceVySaySfGGMR);
     lazy protocol witness table accessor for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>();
-    v7 = Sequence.filter(_:)();
-    v147 = v4;
-    v148 = v7;
-    v159 = v7;
-    v123 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd);
-    v8 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
-    v10 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v123, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v8, MEMORY[0x277D84AC0], v9);
-    v124 = 0;
-    v125 = v10;
-    v115 = v10;
+    v8 = Sequence.filter(_:)();
+    v154 = v4;
+    v155 = v8;
+    v166 = v8;
+    v130 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd, &_sSaySi6offset_Sf7elementtGMR);
+    v9 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
+    v11 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v130, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v9, MEMORY[0x277D84AC0], v10);
+    v131 = 0;
+    v132 = v11;
+    v122 = v11;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v158 = v115;
-    v157 = v115;
-    v116 = v49;
-    MEMORY[0x28223BE20](v49);
-    v118 = v45;
-    v119 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    v117 = v119;
-    v120 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-    v12 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.rocCurve(outputs:labels:), v118, v119, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v120, MEMORY[0x277D84AC0], v11);
-    v121 = 0;
-    v122 = v12;
-    v198[0] = v12;
+    v165 = v122;
+    v164 = v122;
+    v123 = v56;
+    MEMORY[0x28223BE20](v56, v12);
+    v125 = &v53;
+    v126 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    v124 = v126;
+    v127 = lazy protocol witness table accessor for type [Int] and conformance [A]();
+    v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.rocCurve(outputs:labels:), v125, v126, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v127, MEMORY[0x277D84AC0], v13);
+    v128 = 0;
+    v129 = v14;
+    v205[0] = v14;
 
-    v156 = v115;
-    v112 = v49;
-    MEMORY[0x28223BE20](v49);
-    v16 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.rocCurve(outputs:labels:), v45, v13, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v14, MEMORY[0x277D84AC0], v15);
-    v113 = 0;
-    v114 = v16;
-    v197 = v16;
+    v163 = v122;
+    v119 = v56;
+    MEMORY[0x28223BE20](v56, v15);
+    v19 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.rocCurve(outputs:labels:), &v53, v16, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v17, MEMORY[0x277D84AC0], v18);
+    v120 = 0;
+    v121 = v19;
+    v204 = v19;
 
-    v155 = v115;
-    v109 = v49;
-    MEMORY[0x28223BE20](v49);
-    v47 = &v196;
-    v20 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #5 in static AUC.rocCurve(outputs:labels:), v45, v17, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v18, MEMORY[0x277D84AC0], v19);
-    v110 = 0;
-    v111 = v20;
-    v196 = v20;
+    v162 = v122;
+    v116 = v56;
+    MEMORY[0x28223BE20](v56, v20);
+    v54 = &v203;
+    v24 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #5 in static AUC.rocCurve(outputs:labels:), &v53, v21, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v22, MEMORY[0x277D84AC0], v23);
+    v117 = 0;
+    v118 = v24;
+    v203 = v24;
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v108 = v110;
+    v115 = v117;
   }
 
-  v101 = v108;
-  v195 = Array.init()();
-  v105 = v197;
+  v108 = v115;
+  v202 = Array.init()();
+  v112 = v204;
 
-  v194 = v105;
-  v103 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v102 = v103;
-  v104 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v201 = v112;
+  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v109 = v110;
+  v111 = lazy protocol witness table accessor for type [Float] and conformance [A]();
   BidirectionalCollection.last.getter();
-  v106 = v192;
-  v107 = v193;
+  v113 = v199;
+  v114 = v200;
 
-  if (v107)
+  if (v114)
   {
-    LODWORD(v47) = 0;
-    v46 = 194;
-    v45[0] = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 194, 0);
     __break(1u);
   }
 
   else
   {
-    v100 = v106;
+    v107 = v113;
   }
 
-  if (v100 <= 0.0)
+  if (v107 <= 0.0)
   {
-    v21 = v101;
-    v97 = v197;
+    v25 = v108;
+    v104 = v204;
 
-    v170[1] = v97;
-    v22 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v24 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #6 in static AUC.rocCurve(outputs:labels:), 0, v102, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v22, MEMORY[0x277D84AC0], v23);
-    v98 = v21;
-    v99 = v24;
-    if (!v21)
+    v177[1] = v104;
+    v26 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+    v28 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #6 in static AUC.rocCurve(outputs:labels:), 0, v109, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v26, MEMORY[0x277D84AC0], v27);
+    v105 = v25;
+    v106 = v28;
+    if (!v25)
     {
-      v94 = v99;
+      v101 = v106;
       outlined destroy of [(start: UInt32, end: UInt32)]();
 
-      v195 = v94;
+      v202 = v101;
 
-      v95 = v94;
-      v96 = 0;
+      v102 = v101;
+      v103 = 0;
       goto LABEL_12;
     }
 
@@ -7500,150 +7495,150 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v25 = v101;
-  v89 = v197;
+  v29 = v108;
+  v96 = v204;
 
-  v191[4] = v89;
-  v90 = v49;
-  MEMORY[0x28223BE20](v49);
-  v91 = v45;
-  v47 = &v197;
-  v26 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  v28 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #7 in static AUC.precisionRecallCurve(outputs:labels:), v91, v102, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v26, MEMORY[0x277D84AC0], v27);
-  v92 = v25;
-  v93 = v28;
-  if (v25)
+  v198[4] = v96;
+  v97 = v56;
+  MEMORY[0x28223BE20](v56, v30);
+  v98 = &v53;
+  v54 = &v204;
+  v31 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v33 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #7 in static AUC.precisionRecallCurve(outputs:labels:), v98, v109, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v31, MEMORY[0x277D84AC0], v32);
+  v99 = v29;
+  v100 = v33;
+  if (v29)
   {
     goto LABEL_15;
   }
 
-  v88 = v93;
+  v95 = v100;
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
-  v195 = v88;
+  v202 = v95;
 
-  v95 = v88;
-  v96 = v92;
+  v102 = v95;
+  v103 = v99;
 LABEL_12:
-  v29 = v96;
-  v74 = v95;
-  v76 = v198[0];
-  v75 = v198[0];
+  v34 = v103;
+  v81 = v102;
+  v83 = v205[0];
+  v82 = v205[0];
 
-  v191[0] = v76;
-  v77 = v197;
+  v198[0] = v83;
+  v84 = v204;
 
-  v190 = v77;
-  v78 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  v80 = v191;
-  v79 = &v190;
+  v197 = v84;
+  v85 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v87 = v198;
+  v86 = &v197;
   zip<A, B>(_:_:)();
   outlined destroy of [(start: UInt32, end: UInt32)]();
   outlined destroy of [(start: UInt32, end: UInt32)]();
-  v188 = v191[1];
-  v189 = v191[2];
-  v81 = v49;
-  MEMORY[0x28223BE20](v49);
-  v83 = v45;
-  v47 = implicit closure #1 in static AUC.precisionRecallCurve(outputs:labels:);
-  v48 = 0;
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12Zip2SequenceVySaySfGACGMd);
-  v82 = v84;
-  v85 = lazy protocol witness table accessor for type Zip2Sequence<[Float], [Float]> and conformance Zip2Sequence<A, B>();
-  v31 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v83, v84, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v85, MEMORY[0x277D84AC0], v30);
-  v86 = v29;
-  v87 = v31;
-  if (!v29)
+  v195 = v198[1];
+  v196 = v198[2];
+  v88 = v56;
+  MEMORY[0x28223BE20](v56, v35);
+  v90 = &v53;
+  v54 = implicit closure #1 in static AUC.precisionRecallCurve(outputs:labels:);
+  v55 = 0;
+  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12Zip2SequenceVySaySfGACGMd, &_ss12Zip2SequenceVySaySfGACGMR);
+  v89 = v91;
+  v92 = lazy protocol witness table accessor for type Zip2Sequence<[Float], [Float]> and conformance Zip2Sequence<A, B>();
+  v37 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v90, v91, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v92, MEMORY[0x277D84AC0], v36);
+  v93 = v34;
+  v94 = v37;
+  if (!v34)
   {
-    v69 = v87;
+    v76 = v94;
     outlined destroy of Zip2Sequence<[Float], [Float]>();
-    v187 = v69;
+    v194 = v76;
 
-    v186[0] = v75;
-    v185 = v69;
-    v70 = v186;
+    v193[0] = v82;
+    v192 = v76;
+    v77 = v193;
     zip<A, B>(_:_:)();
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v183 = v186[1];
-    v184 = v186[2];
-    v71 = v49;
-    MEMORY[0x28223BE20](v49);
-    v48 = 0;
-    v35 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v45, v32, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v33, MEMORY[0x277D84AC0], v34);
-    v72 = 0;
-    v73 = v35;
-    v65 = v35;
+    v190 = v193[1];
+    v191 = v193[2];
+    v78 = v56;
+    MEMORY[0x28223BE20](v56, v38);
+    v55 = 0;
+    v42 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), &v53, v39, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v40, MEMORY[0x277D84AC0], v41);
+    v79 = 0;
+    v80 = v42;
+    v72 = v42;
     outlined destroy of Zip2Sequence<[Float], [Float]>();
-    v182 = v65;
-    v181 = v75;
-    v66 = v49;
-    MEMORY[0x28223BE20](v49);
-    v67 = v45;
-    v47 = v198;
-    v36 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v68 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #9 in static AUC.precisionRecallCurve(outputs:labels:), v67, v102, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v36, MEMORY[0x277D84AC0], v37);
-    v60 = v68;
+    v189 = v72;
+    v188 = v82;
+    v73 = v56;
+    MEMORY[0x28223BE20](v56, v43);
+    v74 = &v53;
+    v54 = v205;
+    v44 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+    v75 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #9 in static AUC.precisionRecallCurve(outputs:labels:), v74, v109, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v44, MEMORY[0x277D84AC0], v45);
+    v67 = v75;
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v180 = v60;
+    v187 = v67;
 
-    v178[1] = v65;
-    MEMORY[0x25F889240](v179, v102, v104);
-    v178[0] = v179[0];
-    v52 = MEMORY[0x277D83A90];
-    v50[5] = 1;
-    v38 = _allocateUninitializedArray<A>(_:)();
-    *v39 = 1065353216;
+    v185[1] = v72;
+    MEMORY[0x25F889240](v186, v109, v111);
+    v185[0] = v186[0];
+    v59 = MEMORY[0x277D83A90];
+    v57[5] = 1;
+    _allocateUninitializedArray<A>(_:)();
+    *v46 = 1065353216;
     _finalizeUninitializedArray<A>(_:)();
-    v177 = v38;
-    v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySaySfGGMd);
-    v54 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-    v55 = lazy protocol witness table accessor for type ReversedCollection<[Float]> and conformance ReversedCollection<A>();
-    v50[2] = v178;
-    v50[1] = &v177;
+    v184 = v47;
+    v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySaySfGGMd, &_ss18ReversedCollectionVySaySfGGMR);
+    v61 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+    v62 = lazy protocol witness table accessor for type ReversedCollection<[Float]> and conformance ReversedCollection<A>();
+    v57[2] = v185;
+    v57[1] = &v184;
     static RangeReplaceableCollection.+ infix<A>(_:_:)();
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v64 = v179[1];
+    v71 = v186[1];
 
-    v175[1] = v60;
-    MEMORY[0x25F889240](v176, v102, v104);
-    v175[0] = v176[0];
-    v40 = _allocateUninitializedArray<A>(_:)();
-    v51 = 0;
-    *v41 = 0;
+    v182[1] = v67;
+    MEMORY[0x25F889240](v183, v109, v111);
+    v182[0] = v183[0];
+    _allocateUninitializedArray<A>(_:)();
+    v58 = 0;
+    *v48 = 0;
     _finalizeUninitializedArray<A>(_:)();
-    v174 = v40;
-    v50[4] = v175;
-    v50[3] = &v174;
+    v181 = v49;
+    v57[4] = v182;
+    v57[3] = &v181;
     static RangeReplaceableCollection.+ infix<A>(_:_:)();
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v61 = v176[1];
-    v172[1] = v74;
-    MEMORY[0x25F889240](v173, v102, v104);
-    v172[0] = v173[0];
-    v42 = _allocateUninitializedArray<A>(_:)();
-    *v43 = v51;
+    v68 = v183[1];
+    v179[1] = v81;
+    MEMORY[0x25F889240](v180, v109, v111);
+    v179[0] = v180[0];
+    _allocateUninitializedArray<A>(_:)();
+    *v50 = v58;
     _finalizeUninitializedArray<A>(_:)();
-    v171 = v42;
-    v57 = v172;
-    v56 = &v171;
+    v178 = v51;
+    v64 = v179;
+    v63 = &v178;
     static RangeReplaceableCollection.+ infix<A>(_:_:)();
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    v62 = v173[1];
-    v58 = v196;
+    v69 = v180[1];
+    v65 = v203;
 
-    v170[2] = v58;
-    v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+    v177[2] = v65;
+    v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
     lazy protocol witness table accessor for type [Int] and conformance [A]();
-    v63 = Sequence.reversed()();
+    v70 = Sequence.reversed()();
 
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
     outlined destroy of [(start: UInt32, end: UInt32)]();
-    return v64;
+    return v71;
   }
 
 LABEL_16:
@@ -7654,21 +7649,21 @@ LABEL_16:
   return result;
 }
 
-void *static AUC.prAUCScore(precison:recall:)(uint64_t a1, uint64_t a2)
+void static AUC.prAUCScore(precison:recall:)(uint64_t a1, uint64_t a2)
 {
-  v33 = v43;
+  v33 = v44;
   v37 = a1;
   v34 = 0;
-  v43[7] = a1;
-  v43[6] = a2;
-  v42[1] = a2;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+  v44[7] = a1;
+  v44[6] = a2;
+  v43[1] = a2;
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
   v35 = v36;
   v2 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  v42[0] = Collection<>.diff()(v36, v2, MEMORY[0x277D83AD0]);
-  result = MEMORY[0x25F8895B0](v37, MEMORY[0x277D83A90]);
-  v4 = __OFSUB__(result, 1);
-  v38 = result - 1;
+  v43[0] = Collection<>.diff()(v36, v2, MEMORY[0x277D83AD0]);
+  v3 = MEMORY[0x25F8895B0](v37, MEMORY[0x277D83A90]);
+  v4 = __OFSUB__(v3, 1);
+  v38 = v3 - 1;
   if (v4)
   {
     __break(1u);
@@ -7676,168 +7671,162 @@ void *static AUC.prAUCScore(precison:recall:)(uint64_t a1, uint64_t a2)
 
   else
   {
-    if ((v38 & 0x8000000000000000) != 0)
+    if (v38 < 0)
     {
-      LODWORD(v17) = 0;
-      v16 = 760;
-      v15 = 2;
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
       __break(1u);
     }
 
     v5 = v34;
     v30 = MEMORY[0x277D83A90];
     v26 = 0;
-    v41[0] = Array.subscript.getter();
-    v41[1] = v6;
-    v41[2] = v7;
-    v41[3] = v8;
-    v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySfGMd);
+    v42[0] = Array.subscript.getter();
+    v42[1] = v6;
+    v42[2] = v7;
+    v42[3] = v8;
+    v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySfGMd, &_ss10ArraySliceVySfGMR);
     v23 = lazy protocol witness table accessor for type [Float] and conformance [A]();
     v21 = v23;
     lazy protocol witness table accessor for type ArraySlice<Float> and conformance ArraySlice<A>();
-    v25 = v42;
-    v24 = v41;
+    v25 = v43;
+    v24 = v42;
     zip<A, B>(_:_:)();
-    outlined destroy of IndexingIterator<ArraySlice<(start: UInt32, end: UInt32)>>();
+    outlined destroy of IndexingIterator<ArraySlice<(start: UInt32, end: UInt32)>>(v42);
     outlined destroy of [(start: UInt32, end: UInt32)]();
     v9 = v33[3];
     v10 = v33[4];
-    v40[2] = v43[0];
-    v40[3] = v43[1];
-    v40[4] = v43[2];
-    v40[5] = v9;
-    v40[6] = v10;
+    v41[0] = v44[0];
+    v41[1] = v44[1];
+    v41[2] = v44[2];
+    v41[3] = v9;
+    v41[4] = v10;
     v27 = &v19;
-    MEMORY[0x28223BE20](&v19);
-    v28 = &v15;
+    MEMORY[0x28223BE20](&v19, v11);
+    v28 = &v16;
     v17 = implicit closure #1 in static AUC.prAUCScore(precison:recall:);
-    v18 = v11;
-    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12Zip2SequenceVySaySfGs10ArraySliceVySfGGMd);
-    v12 = lazy protocol witness table accessor for type Zip2Sequence<[Float], ArraySlice<Float>> and conformance Zip2Sequence<A, B>();
-    v14 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v28, v29, v30, MEMORY[0x277D84A98], v12, MEMORY[0x277D84AC0], v13);
+    v18 = v12;
+    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12Zip2SequenceVySaySfGs10ArraySliceVySfGGMd, &_ss12Zip2SequenceVySaySfGs10ArraySliceVySfGGMR);
+    v13 = lazy protocol witness table accessor for type Zip2Sequence<[Float], ArraySlice<Float>> and conformance Zip2Sequence<A, B>();
+    v15 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v28, v29, v30, MEMORY[0x277D84A98], v13, MEMORY[0x277D84AC0], v14);
     v31 = v5;
-    v32 = v14;
-    v20 = v14;
-    outlined destroy of Zip2Sequence<[Float], ArraySlice<Float>>();
-    v40[0] = v20;
+    v32 = v15;
+    v20 = v15;
+    outlined destroy of Zip2Sequence<[Float], ArraySlice<Float>>(v41);
+    v40 = v20;
     v39 = 0;
     Sequence.reduce<A>(_:_:)();
-    result = v40;
     outlined destroy of [(start: UInt32, end: UInt32)]();
   }
-
-  return result;
 }
 
 uint64_t static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v50 = a3;
-  v52 = a2;
-  v51 = a1;
-  v54 = 0;
-  v85 = 0;
-  v84 = 0;
-  v83 = 0;
-  v77 = 0;
-  v71 = 0;
-  v67 = 0;
-  v63 = 0;
-  v61 = 0;
-  v59 = 0;
-  v92 = a1;
-  v91 = a2;
-  v90 = a3;
-
-  v89 = v52;
-  v88 = v52;
-  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v53 = v55;
-  v56 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v53 = a3;
+  v55 = a2;
+  v54 = a1;
   v57 = 0;
-  v58 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:), 0, v55, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v56, MEMORY[0x277D84AC0], v3);
-  v46 = v58;
-  v87 = v58;
-  v86 = v51;
-  v47 = v20;
-  MEMORY[0x28223BE20](v20);
-  v19[2] = v4;
-  v8 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #2 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:), v19, v5, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v6, MEMORY[0x277D84AC0], v7);
-  v48 = 0;
-  v49 = v8;
-  v27 = v8;
-  v85 = v8;
-  v30 = static AUC.gatherBucket(labels:bucketIndex:numThresholds:)(v52, v8, v50);
-  v28 = v30;
-  v84 = v30;
-  v34 = static AUC.gatherBucket(labels:bucketIndex:numThresholds:)(v46, v27, v50);
-  v29 = v34;
-  v83 = v34;
-
-  v80[1] = v30;
-  v39 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  MEMORY[0x25F889240](&v81, v53);
-  v80[0] = v81;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySaySfGGMd);
-  v35 = lazy protocol witness table accessor for type ReversedCollection<[Float]> and conformance ReversedCollection<A>();
-  v36 = MEMORY[0x277D83AD0];
-  v31 = v80;
-  v32 = Collection<>.cumSum()(v40, v35, MEMORY[0x277D83AD0]);
-  outlined destroy of [(start: UInt32, end: UInt32)]();
-  v79 = v32;
-  MEMORY[0x25F889240](&v82, v53, v39);
-  v78 = v82;
-  v41 = lazy protocol witness table accessor for type ReversedCollection<[Float]> and conformance ReversedCollection<A>();
-  v43 = MEMORY[0x277D83A90];
-  v33 = Array.init<A>(_:)();
-  v77 = v33;
-
-  v74[1] = v34;
-  MEMORY[0x25F889240](&v75, v53, v39);
-  v74[0] = v75;
-  v37 = v74;
-  v38 = Collection<>.cumSum()(v40, v35, v36);
-  outlined destroy of [(start: UInt32, end: UInt32)]();
-  v73 = v38;
-  MEMORY[0x25F889240](&v76, v53, v39);
-  v72 = v76;
-  v42 = Array.init<A>(_:)();
-  v71 = v42;
-  v69 = v52;
-  v68 = 0;
-  v44 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  Sequence.reduce<A>(_:_:)();
-  v45 = 0;
-  v25 = v70;
-  v67 = v70;
-  v65 = v46;
+  v88 = 0;
+  v87 = 0;
+  v86 = 0;
+  v80 = 0;
+  v74 = 0;
+  v70 = 0;
+  v66 = 0;
   v64 = 0;
-  Sequence.reduce<A>(_:_:)();
-  v26 = 0;
-  v63 = v66;
-  v62 = v42;
-  v22 = v19;
-  MEMORY[0x28223BE20](v19);
-  LODWORD(v19[-2]) = v9;
-  v13 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:), &v19[-4], v10, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v11, MEMORY[0x277D84AC0], v12);
-  v23 = 0;
-  v24 = v13;
-  v20[1] = v13;
-  v61 = v13;
-  v60 = v33;
-  v20[2] = v19;
-  MEMORY[0x28223BE20](v19);
-  LODWORD(v19[-2]) = v14;
-  v21 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:), &v19[-4], v15, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v16, MEMORY[0x277D84AC0], v17);
-  v20[0] = v21;
-  v59 = v21;
+  v62 = 0;
+  v95 = a1;
+  v94 = a2;
+  v93 = a3;
 
-  return v33;
+  v92 = v55;
+  v91 = v55;
+  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v56 = v58;
+  v59 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v60 = 0;
+  v61 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:), 0, v58, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v59, MEMORY[0x277D84AC0], v3);
+  v49 = v61;
+  v90 = v61;
+  v89 = v54;
+  v50 = v23;
+  MEMORY[0x28223BE20](v23, v4);
+  v22[2] = v5;
+  v9 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #2 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:), v22, v6, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v7, MEMORY[0x277D84AC0], v8);
+  v51 = 0;
+  v52 = v9;
+  v30 = v9;
+  v88 = v9;
+  v33 = static AUC.gatherBucket(labels:bucketIndex:numThresholds:)(v55, v9, v53);
+  v31 = v33;
+  v87 = v33;
+  v37 = static AUC.gatherBucket(labels:bucketIndex:numThresholds:)(v49, v30, v53);
+  v32 = v37;
+  v86 = v37;
+
+  v83[1] = v33;
+  v42 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  MEMORY[0x25F889240](&v84, v56);
+  v83[0] = v84;
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySaySfGGMd, &_ss18ReversedCollectionVySaySfGGMR);
+  v38 = lazy protocol witness table accessor for type ReversedCollection<[Float]> and conformance ReversedCollection<A>();
+  v39 = MEMORY[0x277D83AD0];
+  v34 = v83;
+  v35 = Collection<>.cumSum()(v43, v38, MEMORY[0x277D83AD0]);
+  outlined destroy of [(start: UInt32, end: UInt32)]();
+  v82 = v35;
+  MEMORY[0x25F889240](&v85, v56, v42);
+  v81 = v85;
+  v44 = lazy protocol witness table accessor for type ReversedCollection<[Float]> and conformance ReversedCollection<A>();
+  v46 = MEMORY[0x277D83A90];
+  v36 = Array.init<A>(_:)();
+  v80 = v36;
+
+  v77[1] = v37;
+  MEMORY[0x25F889240](&v78, v56, v42);
+  v77[0] = v78;
+  v40 = v77;
+  v41 = Collection<>.cumSum()(v43, v38, v39);
+  outlined destroy of [(start: UInt32, end: UInt32)]();
+  v76 = v41;
+  MEMORY[0x25F889240](&v79, v56, v42);
+  v75 = v79;
+  v45 = Array.init<A>(_:)();
+  v74 = v45;
+  v72 = v55;
+  v71 = 0;
+  v47 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  Sequence.reduce<A>(_:_:)();
+  v48 = 0;
+  v28 = v73;
+  v70 = v73;
+  v68 = v49;
+  v67 = 0;
+  Sequence.reduce<A>(_:_:)();
+  v29 = 0;
+  v66 = v69;
+  v65 = v45;
+  v25 = v22;
+  MEMORY[0x28223BE20](v22, v10);
+  LODWORD(v22[-2]) = v11;
+  v15 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:), &v22[-4], v12, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v13, MEMORY[0x277D84AC0], v14);
+  v26 = 0;
+  v27 = v15;
+  v23[1] = v15;
+  v64 = v15;
+  v63 = v36;
+  v23[2] = v22;
+  MEMORY[0x28223BE20](v22, v16);
+  LODWORD(v22[-2]) = v17;
+  v24 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #3 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:), &v22[-4], v18, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v20);
+  v23[0] = v24;
+  v62 = v24;
+
+  return v36;
 }
 
 float static AUC.tpr(at:tpr:fpr:)(uint64_t a1, uint64_t a2, float a3)
 {
-  static AUC.metric(at:metrics:fpr:)(a3, a1, a2);
+  static AUC.metric(at:metrics:fpr:)(a1, a2, a3);
   if (v3)
   {
     return v5;
@@ -7848,66 +7837,66 @@ float static AUC.tpr(at:tpr:fpr:)(uint64_t a1, uint64_t a2, float a3)
 
 uint64_t Collection<>.diff()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v28 = a1;
-  v29 = a2;
-  v30 = a3;
-  v31 = partial apply for implicit closure #1 in Collection<>.diff();
-  v32 = MEMORY[0x277D84120];
-  v38 = partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed A.Sequence.Element, @in_guaranteed A.Sequence.Element) -> (@out A.Sequence.Element);
-  v46 = 0;
-  v51 = a1;
+  v29 = a1;
+  v30 = a2;
+  v31 = a3;
+  v32 = partial apply for implicit closure #1 in Collection<>.diff();
+  v33 = MEMORY[0x277D84120];
+  v39 = partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed A.Sequence.Element, @in_guaranteed A.Sequence.Element) -> (@out A.Sequence.Element);
+  v47 = 0;
+  v52 = a1;
   v19 = *(a1 - 8);
   v17 = a1 - 8;
   v14 = (*(v19 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](a1);
+  MEMORY[0x28223BE20](a1, a2);
   v3 = &v13 - v14;
-  v26 = 0;
+  v27 = 0;
   v15 = MEMORY[0x277D83CB0];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v22 = *(AssociatedTypeWitness - 8);
-  v23 = AssociatedTypeWitness - 8;
-  v16 = (*(v22 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v29);
-  v24 = &v13 - v16;
-  v21 = *(swift_getAssociatedConformanceWitness() + 8);
-  v27 = *(v29 + 8);
-  v47 = AssociatedTypeWitness;
-  v48 = v28;
-  v49 = v21;
-  v50 = v27;
-  v35 = type metadata accessor for Zip2Sequence();
-  v18 = (*(*(v35 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v35);
+  v23 = *(AssociatedTypeWitness - 8);
+  v24 = AssociatedTypeWitness - 8;
+  v16 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v30, v29);
+  v25 = &v13 - v16;
+  v22 = *(swift_getAssociatedConformanceWitness() + 8);
+  v28 = *(v30 + 8);
+  v48 = AssociatedTypeWitness;
+  v49 = v29;
+  v50 = v22;
+  v51 = v28;
+  v36 = type metadata accessor for Zip2Sequence();
+  v18 = (*(*(v36 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v36, v21);
   v20 = &v13 - v18;
-  v46 = v4;
+  v47 = v4;
   (*(v19 + 16))(v3);
   default argument 0 of Collection.dropFirst(_:)();
   Collection.dropFirst(_:)();
   zip<A, B>(_:_:)();
-  (*(v22 + 8))(v24, AssociatedTypeWitness);
-  v36 = swift_getAssociatedTypeWitness();
+  (*(v23 + 8))(v25, AssociatedTypeWitness);
+  v37 = swift_getAssociatedTypeWitness();
   v5 = swift_allocObject();
-  v6 = v28;
-  v7 = v29;
-  v8 = v30;
-  v9 = v31;
-  v10 = v36;
-  v33 = v5;
-  v5[2] = v28;
+  v6 = v29;
+  v7 = v30;
+  v8 = v31;
+  v9 = v32;
+  v10 = v37;
+  v34 = v5;
+  v5[2] = v29;
   v5[3] = v7;
   v5[4] = v8;
   v5[5] = v10;
-  v34 = &v40;
-  v41 = v6;
-  v42 = v7;
-  v43 = v8;
-  v44 = v9;
-  v45 = v5;
+  v35 = &v41;
+  v42 = v6;
+  v43 = v7;
+  v44 = v8;
+  v45 = v9;
+  v46 = v5;
   WitnessTable = swift_getWitnessTable();
-  v39 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v38, v34, v35, v36, MEMORY[0x277D84A98], WitnessTable, MEMORY[0x277D84AC0], v37);
-  v13 = v39;
+  v40 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v39, v35, v36, v37, MEMORY[0x277D84A98], WitnessTable, MEMORY[0x277D84AC0], v38);
+  v13 = v40;
 
-  outlined destroy of Zip2Sequence<A.SubSequence, A>(v20, AssociatedTypeWitness, v28, v35);
+  outlined destroy of Zip2Sequence<A.SubSequence, A>(v20, AssociatedTypeWitness, v29, v36);
   return v13;
 }
 
@@ -7920,72 +7909,72 @@ uint64_t thunk for @escaping @callee_guaranteed (@in_guaranteed A.Sequence.Eleme
 
 uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(void (*a1)(char *, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v35 = a1;
-  v36 = a2;
-  v81 = a3;
-  v72 = a4;
-  v45 = a5;
-  v80 = a6;
-  v38 = a8;
-  v39 = "Fatal error";
-  v40 = "Unexpectedly found nil while unwrapping an Optional value";
-  v41 = "Swift/Sequence.swift";
-  v42 = "Range requires lowerBound <= upperBound";
-  v43 = "Swift/Range.swift";
-  v44 = "Index out of range";
-  v86 = a3;
-  v85 = a4;
-  v84 = a5;
-  v73 = 0;
-  v57 = MEMORY[0x277D83880];
+  v41 = a1;
+  v42 = a2;
+  v87 = a3;
+  v78 = a4;
+  v51 = a5;
+  v86 = a6;
+  v44 = a8;
+  v45 = "Fatal error";
+  v46 = "Unexpectedly found nil while unwrapping an Optional value";
+  v47 = "Swift/Sequence.swift";
+  v48 = "Range requires lowerBound <= upperBound";
+  v49 = "Swift/Range.swift";
+  v50 = "Index out of range";
+  v92 = a3;
+  v91 = a4;
+  v90 = a5;
+  v79 = 0;
+  v63 = MEMORY[0x277D83880];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v47 = *(AssociatedTypeWitness - 8);
-  v48 = AssociatedTypeWitness - 8;
-  v49 = (*(v47 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = MEMORY[0x28223BE20](0);
-  v50 = &v23 - v49;
-  v51 = *(v9 - 8);
-  v52 = v9 - 8;
-  v53 = (*(v51 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v10 = MEMORY[0x28223BE20](v8);
-  v54 = &v23 - v53;
-  v55 = (v11 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v10);
-  v56 = &v23 - v55;
-  v58 = type metadata accessor for Optional();
-  v59 = (*(*(v58 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v12 = MEMORY[0x28223BE20](v73);
-  v60 = &v23 - v59;
-  v61 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v14 = MEMORY[0x28223BE20](v12);
-  v62 = &v23 - v61;
-  v63 = (*(*(v72 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v15 = MEMORY[0x28223BE20](v14);
-  v64 = &v23 - v63;
-  v65 = (v16 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v17 = MEMORY[0x28223BE20](v15);
-  v66 = &v23 - v65;
-  v76 = *(v18 - 8);
-  v77 = v18 - 8;
-  v67 = (*(v76 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v17);
-  v75 = &v23 - v67;
-  v68 = swift_getAssociatedTypeWitness();
-  v69 = *(v68 - 8);
-  v70 = v68 - 8;
-  v71 = (*(v69 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v81);
-  v79 = &v23 - v71;
-  v82 = dispatch thunk of Sequence.underestimatedCount.getter();
-  v83 = ContiguousArray.init()();
-  v74 = type metadata accessor for ContiguousArray();
-  ContiguousArray.reserveCapacity(_:)(v82);
-  (*(v76 + 16))(v75, v78, v81);
+  v53 = *(AssociatedTypeWitness - 8);
+  v54 = AssociatedTypeWitness - 8;
+  v55 = (*(v53 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v8 = MEMORY[0x28223BE20](0, AssociatedTypeWitness);
+  v56 = &v29 - v55;
+  v57 = *(v9 - 8);
+  v58 = v9 - 8;
+  v59 = (*(v57 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v11 = MEMORY[0x28223BE20](v8, v10);
+  v60 = &v29 - v59;
+  v61 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v11, v13);
+  v62 = &v29 - v61;
+  v64 = type metadata accessor for Optional();
+  v65 = (*(*(v64 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v14 = MEMORY[0x28223BE20](v79, v86);
+  v66 = &v29 - v65;
+  v67 = (v15 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v17 = MEMORY[0x28223BE20](v14, v16);
+  v68 = &v29 - v67;
+  v69 = (*(*(v78 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v19 = MEMORY[0x28223BE20](v17, v18);
+  v70 = &v29 - v69;
+  v71 = (v20 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v22 = MEMORY[0x28223BE20](v19, v21);
+  v72 = &v29 - v71;
+  v82 = *(v23 - 8);
+  v83 = v23 - 8;
+  v73 = (*(v82 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v22, v24);
+  v81 = &v29 - v73;
+  v74 = swift_getAssociatedTypeWitness();
+  v75 = *(v74 - 8);
+  v76 = v74 - 8;
+  v77 = (*(v75 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v87, v86);
+  v85 = &v29 - v77;
+  v88 = dispatch thunk of Sequence.underestimatedCount.getter();
+  v89 = ContiguousArray.init()();
+  v80 = type metadata accessor for ContiguousArray();
+  ContiguousArray.reserveCapacity(_:)(v88);
+  (*(v82 + 16))(v81, v84, v87);
   dispatch thunk of Sequence.makeIterator()();
-  result = v82;
-  if (v82 < 0)
+  result = v88;
+  if (v88 < 0)
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)(v45, 11, 2, v48, 39, 2, v49, 17, 2, 760, 0);
     __break(1u);
 LABEL_29:
     __break(1u);
@@ -7993,101 +7982,101 @@ LABEL_29:
 
   else
   {
-    if (v82)
+    if (v88)
     {
-      v33 = 0;
-      for (i = v37; ; i = v29)
+      v39 = 0;
+      for (i = v43; ; i = v35)
       {
-        v31 = i;
-        v32 = v33;
-        if (v33 < 0 || v32 >= v82)
+        v37 = i;
+        v38 = v39;
+        if (v39 < 0 || v38 >= v88)
         {
           break;
         }
 
-        if (v82 < 0)
+        if (v88 < 0)
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)(v45, 11, 2, v48, 39, 2, v49, 17, 2, 760, 0);
           __break(1u);
           break;
         }
 
-        v30 = v32 + 1;
-        if (__OFADD__(v32, 1))
+        v36 = v38 + 1;
+        if (__OFADD__(v38, 1))
         {
           goto LABEL_29;
         }
 
         swift_getAssociatedConformanceWitness();
         dispatch thunk of IteratorProtocol.next()();
-        if ((*(v47 + 48))(v62, 1, AssociatedTypeWitness) == 1)
+        if ((*(v53 + 48))(v68, 1, AssociatedTypeWitness) == 1)
         {
-          _assertionFailure(_:_:file:line:flags:)();
+          _assertionFailure(_:_:file:line:flags:)(v45, 11, 2, v46, 57, 2, v47, 20, 2, 699, 0);
           __break(1u);
         }
 
-        v21 = v31;
-        v35(v62, v56);
-        v29 = v21;
-        if (v21)
+        v27 = v37;
+        v41(v68, v62);
+        v35 = v27;
+        if (v27)
         {
-          (*(v69 + 8))(v79, v68);
+          (*(v75 + 8))(v85, v74);
           outlined destroy of ContiguousArray<A1>();
-          (*(v51 + 32))(v38, v56, v45);
-          (*(v47 + 8))(v62, AssociatedTypeWitness);
-          return v23;
+          (*(v57 + 32))(v44, v62, v51);
+          (*(v53 + 8))(v68, AssociatedTypeWitness);
+          return v29;
         }
 
-        (*(v47 + 8))(v62, AssociatedTypeWitness);
+        (*(v53 + 8))(v68, AssociatedTypeWitness);
         ContiguousArray.append(_:)();
-        if (v30 == v82)
+        if (v36 == v88)
         {
-          v28 = v29;
+          v34 = v35;
           goto LABEL_21;
         }
 
-        result = v29;
-        v33 = v30;
+        result = v35;
+        v39 = v36;
       }
 
       _fatalErrorMessage(_:_:file:line:flags:)();
       __break(1u);
     }
 
-    v28 = v37;
+    v34 = v43;
 LABEL_21:
-    for (j = v28; ; j = v24)
+    for (j = v34; ; j = v30)
     {
-      v26 = j;
+      v32 = j;
       swift_getAssociatedConformanceWitness();
       dispatch thunk of IteratorProtocol.next()();
-      if ((*(v47 + 48))(v60, 1, AssociatedTypeWitness) == 1)
+      if ((*(v53 + 48))(v66, 1, AssociatedTypeWitness) == 1)
       {
-        (*(v69 + 8))(v79, v68);
-        outlined destroy of A.Element?(v60, AssociatedTypeWitness);
-        v25 = v83;
+        (*(v75 + 8))(v85, v74);
+        outlined destroy of A.Element?(v66, AssociatedTypeWitness);
+        v31 = v89;
 
-        return v25;
+        return v31;
       }
 
-      (*(v47 + 32))(v50, v60, AssociatedTypeWitness);
-      v22 = v26;
-      v35(v50, v54);
-      v24 = v22;
-      if (v22)
+      (*(v53 + 32))(v56, v66, AssociatedTypeWitness);
+      v28 = v32;
+      v41(v56, v60);
+      v30 = v28;
+      if (v28)
       {
         break;
       }
 
-      (*(v47 + 8))(v50, AssociatedTypeWitness);
+      (*(v53 + 8))(v56, AssociatedTypeWitness);
       ContiguousArray.append(_:)();
     }
 
-    (*(v47 + 8))(v50, AssociatedTypeWitness);
-    (*(v69 + 8))(v79, v68);
+    (*(v53 + 8))(v56, AssociatedTypeWitness);
+    (*(v75 + 8))(v85, v74);
     outlined destroy of ContiguousArray<A1>();
-    (*(v51 + 32))(v38, v54, v45);
-    return v23;
+    (*(v57 + 32))(v44, v60, v51);
+    return v29;
   }
 
   return result;
@@ -8095,210 +8084,210 @@ LABEL_21:
 
 uint64_t Collection<>.cumSum()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = a1;
-  v15 = a2;
-  v10 = a3;
-  v12 = partial apply for closure #1 in Collection<>.cumSum();
+  v14 = a1;
+  v16 = a2;
+  v11 = a3;
+  v13 = partial apply for closure #1 in Collection<>.cumSum();
+  v25 = 0;
   v24 = 0;
-  v23 = 0;
-  v25 = a1;
+  v26 = a1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(AssociatedTypeWitness - 8);
-  v8 = AssociatedTypeWitness - 8;
-  v9 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v11 = &v5 - v9;
-  v24 = &v5 - v9;
-  v23 = v3;
+  v8 = *(AssociatedTypeWitness - 8);
+  v9 = AssociatedTypeWitness - 8;
+  v10 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](AssociatedTypeWitness, v4);
+  v12 = &v6 - v10;
+  v25 = &v6 - v10;
+  v24 = v3;
   dispatch thunk of static AdditiveArithmetic.zero.getter();
-  v19 = v13;
-  v20 = v15;
-  v21 = v10;
+  v20 = v14;
+  v21 = v16;
   v22 = v11;
-  v17 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v12, v18, v13, AssociatedTypeWitness, MEMORY[0x277D84A98], v15, MEMORY[0x277D84AC0], v16);
-  v6 = v17;
-  (*(v7 + 8))(v11, AssociatedTypeWitness);
-  return v6;
+  v23 = v12;
+  v18 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v13, v19, v14, AssociatedTypeWitness, MEMORY[0x277D84A98], v16, MEMORY[0x277D84AC0], v17);
+  v7 = v18;
+  (*(v8 + 8))(v12, AssociatedTypeWitness);
+  return v7;
 }
 
 uint64_t closure #1 in Collection<>.cumSum()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X8>)
 {
-  v15 = a5;
-  v8[2] = a1;
-  v10 = a2;
+  v16 = a5;
+  v9 = a1;
+  v11 = a2;
   v8[1] = a4;
+  v18 = 0;
   v17 = 0;
-  v16 = 0;
-  v18 = a3;
+  v19 = a3;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v11 = *(AssociatedTypeWitness - 8);
-  v12 = AssociatedTypeWitness - 8;
-  v9 = (*(v11 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v10);
-  v13 = v8 - v9;
-  v17 = v6;
-  v16 = v5;
+  v12 = *(AssociatedTypeWitness - 8);
+  v13 = AssociatedTypeWitness - 8;
+  v10 = (*(v12 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v11, v9);
+  v14 = v8 - v10;
+  v18 = v6;
+  v17 = v5;
   dispatch thunk of static AdditiveArithmetic.+= infix(_:_:)();
-  (*(v11 + 16))(v13, v10, AssociatedTypeWitness);
-  return (*(v11 + 32))(v15, v13, AssociatedTypeWitness);
+  (*(v12 + 16))(v14, v11, AssociatedTypeWitness);
+  return (*(v12 + 32))(v16, v14, AssociatedTypeWitness);
 }
 
 uint64_t FloatingPoint.isNearlyEqual(to:absoluteTolerance:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = a1;
-  v19 = a2;
-  v21 = a3;
-  v14 = a4;
+  v11 = a1;
+  v20 = a2;
+  v22 = a3;
+  v15 = a4;
+  v29 = 0;
   v28 = 0;
   v27 = 0;
-  v26 = 0;
-  v29 = a3;
-  v16 = *(a3 - 8);
-  v17 = a3 - 8;
-  v12 = *(v16 + 64);
-  v11 = (v12 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x28223BE20](v4);
-  v18 = &v10 - v11;
-  v13 = v11;
-  v6 = MEMORY[0x28223BE20](v5);
-  v24 = &v10 - v13;
-  v28 = v7;
-  v27 = v19;
-  v26 = v6;
-  v15 = *(v8 + 16);
+  v30 = a3;
+  v17 = *(a3 - 8);
+  v18 = a3 - 8;
+  v13 = *(v17 + 64);
+  v12 = (v13 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v4, a1);
+  v19 = &v11 - v12;
+  v14 = v12;
+  v7 = MEMORY[0x28223BE20](v5, v6);
+  v25 = &v11 - v14;
+  v29 = v8;
+  v28 = v20;
+  v27 = v7;
+  v16 = *(v9 + 16);
   dispatch thunk of static AdditiveArithmetic.- infix(_:_:)();
-  v20 = *(*(v14 + 24) + 8);
+  v21 = *(*(v15 + 24) + 8);
   abs<A>(_:)();
-  v23 = *(v16 + 8);
-  v22 = v16 + 8;
-  v23(v18, v21);
-  v25 = dispatch thunk of static Comparable.<= infix(_:_:)();
-  v23(v24, v21);
-  return v25 & 1;
+  v24 = *(v17 + 8);
+  v23 = v17 + 8;
+  v24(v19, v22);
+  v26 = dispatch thunk of static Comparable.<= infix(_:_:)();
+  v24(v25, v22);
+  return v26 & 1;
 }
 
 uint64_t static AUC.binaryClassificationCurve(outputs:labels:)(uint64_t a1, uint64_t a2)
 {
-  v63 = a2;
-  v68 = 0;
+  v65 = a2;
+  v70 = 0;
+  v91 = 0;
   v89 = 0;
-  v87 = 0;
-  v86 = 0;
+  v88 = 0;
+  v81 = 0;
   v79 = 0;
-  v77 = 0;
+  v75 = 0;
+  v100[2] = a1;
+  v100[1] = a2;
+  v99 = a1;
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v66 = v67;
+  v68 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  MEMORY[0x25F889420](v100, v67);
+  v98 = v100[0];
+  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd, &_ss18EnumeratedSequenceVySaySfGGMR);
+  v69 = v71;
+  v72 = lazy protocol witness table accessor for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>();
   v73 = 0;
-  v98[2] = a1;
-  v98[1] = a2;
-  v97 = a1;
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v64 = v65;
-  v66 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  MEMORY[0x25F889420](v98, v65);
-  v96 = v98[0];
-  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySfGGMd);
-  v67 = v69;
-  v70 = lazy protocol witness table accessor for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>();
-  v71 = 0;
-  v72 = Sequence.sorted(by:)();
-  v57 = v72;
+  v74 = Sequence.sorted(by:)();
+  v59 = v74;
   outlined destroy of [(start: UInt32, end: UInt32)]();
-  v95 = v72;
-  v94 = v72;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd);
-  v58 = v59;
-  v60 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
-  v61 = 0;
-  v62 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #2 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v59, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v60, MEMORY[0x277D84AC0], v2);
-  v54 = v62;
-  v93 = v62;
-  v92 = v72;
-  v55 = 0;
-  v56 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v59, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v60, MEMORY[0x277D84AC0], v3);
-  v46 = v56;
-  v91 = v56;
+  v97 = v74;
+  v96 = v74;
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySi6offset_Sf7elementtGMd, &_sSaySi6offset_Sf7elementtGMR);
+  v60 = v61;
+  v62 = lazy protocol witness table accessor for type [(offset: Int, element: Float)] and conformance [A]();
+  v63 = 0;
+  v64 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #2 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v61, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v62, MEMORY[0x277D84AC0], v2);
+  v56 = v64;
+  v95 = v64;
+  v94 = v74;
+  v57 = 0;
+  v58 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v61, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v62, MEMORY[0x277D84AC0], v3);
+  v48 = v58;
+  v93 = v58;
+  v92 = v58;
+
+  v49 = &v24;
+  MEMORY[0x28223BE20](&v24, v4);
+  v51 = v23;
+  v23[2] = v5;
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+  v50 = v52;
+  v53 = lazy protocol witness table accessor for type [Int] and conformance [A]();
+  v7 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #4 in static AUC.binaryClassificationCurve(outputs:labels:), v51, v52, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v53, MEMORY[0x277D84AC0], v6);
+  v54 = 0;
+  v55 = v7;
+  v43 = v7;
+
+  v91 = v43;
   v90 = v56;
-
-  v47 = &v22;
-  MEMORY[0x28223BE20](&v22);
-  v49 = v21;
-  v21[2] = v4;
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-  v48 = v50;
-  v51 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-  v6 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #4 in static AUC.binaryClassificationCurve(outputs:labels:), v49, v50, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v51, MEMORY[0x277D84AC0], v5);
-  v52 = 0;
-  v53 = v6;
-  v41 = v6;
-
-  v89 = v41;
-  v88 = v54;
-  v42 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  v43 = Collection<>.diff()(v64, v42, MEMORY[0x277D83AD0]);
-  v87 = v43;
-  v84 = v43;
-  MEMORY[0x25F889420](&v85, v64, v66);
-  v83 = v85;
-  v7 = Sequence.filter(_:)();
-  v44 = 0;
-  v45 = v7;
-  v82 = v7;
-  v9 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v58, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v60, MEMORY[0x277D84AC0], v8);
-  v39 = 0;
-  v40 = v9;
-  v37 = v9;
+  v44 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v45 = Collection<>.diff()(v66, v44, MEMORY[0x277D83AD0]);
+  v89 = v45;
+  v86 = v45;
+  MEMORY[0x25F889420](&v87, v66, v68);
+  v85 = v87;
+  v8 = Sequence.filter(_:)();
+  v46 = 0;
+  v47 = v8;
+  v84 = v8;
+  v10 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in static AUC.binaryClassificationCurve(outputs:labels:), 0, v60, MEMORY[0x277D83B88], MEMORY[0x277D84A98], v62, MEMORY[0x277D84AC0], v9);
+  v41 = 0;
+  v42 = v10;
+  v39 = v10;
   outlined destroy of [(start: UInt32, end: UInt32)]();
-  v86 = v37;
-  result = MEMORY[0x25F8895B0](v41, MEMORY[0x277D83A90]);
-  v11 = __OFSUB__(result, 1);
-  v38 = result - 1;
-  if (!v11)
+  v88 = v39;
+  result = MEMORY[0x25F8895B0](v43, MEMORY[0x277D83A90]);
+  v12 = __OFSUB__(result, 1);
+  v40 = result - 1;
+  if (!v12)
   {
-    v12 = v39;
-    v81 = v38;
+    v13 = v41;
+    v83 = v40;
     Array.append(_:)();
-    v80 = v41;
-    v33 = Collection<>.cumSum()(v64, v42, MEMORY[0x277D83AD0]);
-    v30 = v33;
-    v79 = v33;
-    v32 = v86;
-    v31 = v86;
+    v82 = v43;
+    v35 = Collection<>.cumSum()(v66, v44, MEMORY[0x277D83AD0]);
+    v32 = v35;
+    v81 = v35;
+    v34 = v88;
+    v33 = v88;
 
-    v78 = v32;
+    v80 = v34;
 
-    v34 = v21;
-    v21[-2] = MEMORY[0x28223BE20](v33);
-    v16 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #4 in static AUC.binaryClassificationCurve(outputs:labels:), &v21[-4], v13, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v14, MEMORY[0x277D84AC0], v15);
-    v35 = v12;
-    v36 = v16;
-    if (!v12)
+    v36 = v23;
+    v23[-2] = MEMORY[0x28223BE20](v35, v23);
+    v17 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #4 in static AUC.binaryClassificationCurve(outputs:labels:), &v23[-4], v14, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v15, MEMORY[0x277D84AC0], v16);
+    v37 = v13;
+    v38 = v17;
+    if (!v13)
     {
-      v25 = v36;
+      v27 = v38;
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
-      v77 = v25;
+      v79 = v27;
 
-      v75 = v31;
-      v17 = lazy protocol witness table accessor for type [Int] and conformance [A]();
-      v24 = &v75;
-      MEMORY[0x25F889420](&v76, v48, v17);
+      v77 = v33;
+      v18 = lazy protocol witness table accessor for type [Int] and conformance [A]();
+      v26 = &v77;
+      MEMORY[0x25F889420](&v78, v50, v18);
       outlined destroy of [(start: UInt32, end: UInt32)]();
-      v74 = v76;
+      v76 = v78;
 
-      v26 = v21;
-      MEMORY[0x28223BE20](v21);
-      v27 = &v21[-4];
-      v21[-2] = v18;
-      v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySiGGMd);
-      v19 = lazy protocol witness table accessor for type EnumeratedSequence<[Int]> and conformance <> EnumeratedSequence<A>();
-      v29 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #8 in static AUC.binaryClassificationCurve(outputs:labels:), v27, v28, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v20);
-      v23 = v29;
-
-      outlined destroy of [(start: UInt32, end: UInt32)]();
-      v73 = v23;
+      v28 = v23;
+      MEMORY[0x28223BE20](v23, v19);
+      v29 = &v23[-4];
+      v23[-2] = v20;
+      v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySiGGMd, &_ss18EnumeratedSequenceVySaySiGGMR);
+      v21 = lazy protocol witness table accessor for type EnumeratedSequence<[Int]> and conformance <> EnumeratedSequence<A>();
+      v31 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #8 in static AUC.binaryClassificationCurve(outputs:labels:), v29, v30, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v21, MEMORY[0x277D84AC0], v22);
+      v25 = v31;
 
       outlined destroy of [(start: UInt32, end: UInt32)]();
+      v75 = v25;
 
-      return v25;
+      outlined destroy of [(start: UInt32, end: UInt32)]();
+
+      return v27;
     }
 
     __break(1u);
@@ -8324,23 +8313,23 @@ float closure #3 in static AUC.binaryClassificationCurve(outputs:labels:)@<S0>(u
   return result;
 }
 
-BOOL closure #5 in static AUC.binaryClassificationCurve(outputs:labels:)()
+BOOL closure #5 in static AUC.binaryClassificationCurve(outputs:labels:)(float *a1)
 {
   abs<A>(_:)();
   static Float.ulpOfOne.getter();
-  return v0 < v2;
+  return v1 < v3;
 }
 
-float closure #8 in static AUC.binaryClassificationCurve(outputs:labels:)@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
+float closure #8 in static AUC.binaryClassificationCurve(outputs:labels:)@<S0>(void *a1@<X0>, float *a3@<X8>)
 {
-  v3 = *(a1 + 8) + 1.0;
+  v4 = a1[1] + 1.0;
   Array.subscript.getter();
-  result = v3 - v5;
-  *a2 = v3 - v5;
+  result = v4 - v6;
+  *a3 = v4 - v6;
   return result;
 }
 
-uint64_t closure #1 in static AUC.rocCurve(outputs:labels:)(uint64_t *a1, uint64_t a2)
+uint64_t closure #1 in static AUC.rocCurve(outputs:labels:)(uint64_t *a1, void *a2)
 {
   v13 = 0;
   v14 = 0;
@@ -8374,58 +8363,51 @@ uint64_t closure #1 in static AUC.rocCurve(outputs:labels:)(uint64_t *a1, uint64
   return v5 & 1;
 }
 
-uint64_t closure #6 in static AUC.rocCurve(outputs:labels:)@<X0>(_DWORD *a1@<X8>)
+float closure #7 in static AUC.rocCurve(outputs:labels:)@<S0>(float *a1@<X0>, float *a3@<X8>)
 {
-  result = static Float.nan.getter();
-  *a1 = v2;
-  return result;
-}
+  v6 = *a1;
 
-float closure #7 in static AUC.rocCurve(outputs:labels:)@<S0>(float *a1@<X0>, float *a2@<X8>)
-{
-  v5 = *a1;
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
   lazy protocol witness table accessor for type [Float] and conformance [A]();
   BidirectionalCollection.last.getter();
 
-  if (v7)
+  if (v8)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 146, 0);
     __break(1u);
   }
 
   else
   {
-    v3 = v6;
+    v4 = v7;
   }
 
-  result = v5 / v3;
-  *a2 = v5 / v3;
+  result = v6 / v4;
+  *a3 = v6 / v4;
   return result;
 }
 
-float closure #9 in static AUC.rocCurve(outputs:labels:)@<S0>(float *a1@<X0>, float *a2@<X8>)
+float closure #9 in static AUC.rocCurve(outputs:labels:)@<S0>(float *a1@<X0>, float *a3@<X8>)
 {
-  v5 = *a1;
+  v6 = *a1;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
   lazy protocol witness table accessor for type [Float] and conformance [A]();
   BidirectionalCollection.last.getter();
 
-  if (v7)
+  if (v8)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 151, 0);
     __break(1u);
   }
 
   else
   {
-    v3 = v6;
+    v4 = v7;
   }
 
-  result = v5 / v3;
-  *a2 = v5 / v3;
+  result = v6 / v4;
+  *a3 = v6 / v4;
   return result;
 }
 
@@ -8434,7 +8416,7 @@ unint64_t lazy protocol witness table accessor for type EnumeratedSequence<[Floa
   v2 = lazy protocol witness table cache variable for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>;
   if (!lazy protocol witness table cache variable for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18EnumeratedSequenceVySaySfGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18EnumeratedSequenceVySaySfGGMd, &_ss18EnumeratedSequenceVySaySfGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type EnumeratedSequence<[Float]> and conformance EnumeratedSequence<A>);
     return WitnessTable;
@@ -8448,7 +8430,7 @@ unint64_t lazy protocol witness table accessor for type [Int] and conformance [A
   v2 = lazy protocol witness table cache variable for type [Int] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Int] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd, &_sSaySiGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Int] and conformance [A]);
     return WitnessTable;
@@ -8461,7 +8443,7 @@ unint64_t lazy protocol witness table accessor for type [Int] and conformance [A
   v2 = lazy protocol witness table cache variable for type [Int] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Int] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd, &_sSaySiGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Int] and conformance [A]);
     return WitnessTable;
@@ -8495,27 +8477,27 @@ unint64_t lazy protocol witness table accessor for type Float and conformance Fl
   return v2;
 }
 
-float closure #7 in static AUC.precisionRecallCurve(outputs:labels:)@<S0>(float *a1@<X0>, float *a2@<X8>)
+float closure #7 in static AUC.precisionRecallCurve(outputs:labels:)@<S0>(float *a1@<X0>, float *a3@<X8>)
 {
-  v5 = *a1;
+  v6 = *a1;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
   lazy protocol witness table accessor for type [Float] and conformance [A]();
   BidirectionalCollection.last.getter();
 
-  if (v7)
+  if (v8)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 197, 0);
     __break(1u);
   }
 
   else
   {
-    v3 = v6;
+    v4 = v7;
   }
 
-  result = v5 / v3;
-  *a2 = v5 / v3;
+  result = v6 / v4;
+  *a3 = v6 / v4;
   return result;
 }
 
@@ -8542,7 +8524,7 @@ float closure #8 in static AUC.precisionRecallCurve(outputs:labels:)(float a1, f
 
 float closure #9 in static AUC.precisionRecallCurve(outputs:labels:)@<S0>(float *a1@<X0>, void *a2@<X1>, float *a3@<X8>)
 {
-  v18 = 0.0;
+  v18 = 0;
   v17 = 0;
   v9 = *a1;
   v18 = *a1;
@@ -8550,13 +8532,13 @@ float closure #9 in static AUC.precisionRecallCurve(outputs:labels:)@<S0>(float 
   v10 = *a2;
 
   v16 = v10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
   lazy protocol witness table accessor for type [Float] and conformance [A]();
   BidirectionalCollection.last.getter();
 
   if (v15)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 212, 0);
     __break(1u);
   }
 
@@ -8584,7 +8566,7 @@ float closure #9 in static AUC.precisionRecallCurve(outputs:labels:)@<S0>(float 
 
     if (v12)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 215, 0);
       __break(1u);
     }
 
@@ -8600,11 +8582,11 @@ float closure #9 in static AUC.precisionRecallCurve(outputs:labels:)@<S0>(float 
   return result;
 }
 
-uint64_t static AUC.metric(at:metrics:fpr:)(float a1, uint64_t a2, uint64_t a3)
+uint64_t static AUC.metric(at:metrics:fpr:)(uint64_t a1, uint64_t a2, float a3)
 {
   v25 = MEMORY[0x277D83A90];
   v27 = MEMORY[0x25F8895B0]();
-  if (v27 != MEMORY[0x25F8895B0](a3, v25) || (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd), lazy protocol witness table accessor for type [Float] and conformance [A](), (Collection.isEmpty.getter() & 1) != 0))
+  if (v27 != MEMORY[0x25F8895B0](a2, v25) || (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR), lazy protocol witness table accessor for type [Float] and conformance [A](), (Collection.isEmpty.getter() & 1) != 0))
   {
     lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
     v15 = swift_allocError();
@@ -8649,18 +8631,18 @@ uint64_t static AUC.metric(at:metrics:fpr:)(float a1, uint64_t a2, uint64_t a3)
     return v20;
   }
 
-  if (MEMORY[0x25F8895B0](a3, MEMORY[0x277D83A90]) < 1)
+  if (MEMORY[0x25F8895B0](a2, MEMORY[0x277D83A90]) < 1)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
     __break(1u);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
   lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
   Collection<>.makeIterator()();
   while (1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySnySiGGMd, &_ss16IndexingIteratorVySnySiGGMR);
     IndexingIterator.next()();
     if (v41)
     {
@@ -8687,7 +8669,7 @@ uint64_t static AUC.metric(at:metrics:fpr:)(float a1, uint64_t a2, uint64_t a3)
   Collection.first.getter();
   if (v39)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 278, 0);
     __break(1u);
   }
 
@@ -8696,12 +8678,12 @@ uint64_t static AUC.metric(at:metrics:fpr:)(float a1, uint64_t a2, uint64_t a3)
     v18 = v38;
   }
 
-  if (a1 <= v18)
+  if (a3 <= v18)
   {
     Collection.first.getter();
     if (v30)
     {
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 279, 0);
       __break(1u);
     }
 
@@ -8712,7 +8694,7 @@ uint64_t static AUC.metric(at:metrics:fpr:)(float a1, uint64_t a2, uint64_t a3)
   BidirectionalCollection.last.getter();
   if (v37)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 283, 0);
     __break(1u);
   }
 
@@ -8721,9 +8703,9 @@ uint64_t static AUC.metric(at:metrics:fpr:)(float a1, uint64_t a2, uint64_t a3)
     v17 = v36;
   }
 
-  if (v17 > a1)
+  if (v17 > a3)
   {
-    result = MEMORY[0x25F8895B0](a3, MEMORY[0x277D83A90], v17);
+    result = MEMORY[0x25F8895B0](a2, MEMORY[0x277D83A90], v17);
     if (__OFSUB__(result, 1))
     {
       __break(1u);
@@ -8735,7 +8717,7 @@ LABEL_63:
     {
       if (result - 1 < 0)
       {
-        _assertionFailure(_:_:file:line:flags:)();
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
         __break(1u);
       }
 
@@ -8753,7 +8735,7 @@ LABEL_63:
         }
 
         result = Array.subscript.getter();
-        if (v33 <= a1)
+        if (v33 <= a3)
         {
           if (__OFADD__(v34, 1))
           {
@@ -8761,7 +8743,7 @@ LABEL_63:
           }
 
           result = Array.subscript.getter();
-          if (a1 <= v32)
+          if (a3 <= v32)
           {
             break;
           }
@@ -8796,7 +8778,7 @@ LABEL_66:
   BidirectionalCollection.last.getter();
   if (v31)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/MetricsUtils.swift", 38, 2, 284, 0);
     __break(1u);
   }
 
@@ -8805,25 +8787,25 @@ LABEL_66:
 
 uint64_t static AUC.auc(x:y:)(uint64_t a1, uint64_t a2)
 {
-  v69 = v89;
-  v70 = a2;
-  v73 = 0;
-  v99 = 0;
-  v88 = 0;
-  v103 = a1;
-  v102 = a2;
-  v101 = 1065353216;
-  v100 = a1;
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v71 = v74;
+  v70 = v90;
+  v71 = a2;
+  v74 = 0;
+  v100 = 0;
+  v89 = 0;
+  v104 = a1;
+  v103 = a2;
+  v102 = 1065353216;
+  v101 = a1;
+  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v72 = v75;
   v2 = lazy protocol witness table accessor for type [Float] and conformance [A]();
-  v72 = Collection<>.diff()(v74, v2, MEMORY[0x277D83AD0]);
-  v99 = v72;
-  v96 = v72;
-  v76 = lazy protocol witness table accessor for type [Float] and conformance [A]();
+  v73 = Collection<>.diff()(v75, v2, MEMORY[0x277D83AD0]);
+  v100 = v73;
+  v97 = v73;
+  v77 = lazy protocol witness table accessor for type [Float] and conformance [A]();
   Sequence.first(where:)();
-  v77 = v75;
-  if (v75)
+  v78 = v76;
+  if (v76)
   {
     __break(1u);
     __break(1u);
@@ -8832,86 +8814,80 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v68 = v97;
-  if (v98)
+  v69 = v98;
+  if (v99)
   {
-    v66 = 1.0;
-    v67 = v77;
+    v67 = 1.0;
+    v68 = v78;
   }
 
   else
   {
-    v78 = v72;
+    v79 = v73;
     v3 = Sequence.allSatisfy(_:)();
-    v64 = v77;
-    v65 = v3;
-    if ((v65 & 1) == 0)
+    v65 = v78;
+    v66 = v3;
+    if ((v66 & 1) == 0)
     {
       lazy protocol witness table accessor for type HIDPFLError and conformance HIDPFLError();
-      v62 = 0;
-      v63 = swift_allocError();
+      v63 = 0;
+      v64 = swift_allocError();
       *v4 = 64;
       swift_willThrow();
     }
 
-    v101 = -1082130432;
-    v66 = -1.0;
-    v67 = v64;
+    v102 = -1082130432;
+    v67 = -1.0;
+    v68 = v65;
   }
 
-  v59 = v67;
-  v60 = v66;
-  v61 = MEMORY[0x25F8895B0](v70, MEMORY[0x277D83A90]);
-  if (v61 <= 0)
+  v60 = v68;
+  v61 = v67;
+  v62 = MEMORY[0x25F8895B0](v71, MEMORY[0x277D83A90]);
+  if (v62 <= 0)
   {
-    LODWORD(v32) = 0;
-    v31 = 760;
-    v30 = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
     __break(1u);
   }
 
-  v57 = MEMORY[0x277D83A90];
-  v91[0] = Array.subscript.getter();
-  v91[1] = v6;
-  v91[2] = v7;
-  v91[3] = v8;
-  result = MEMORY[0x25F8895B0](v70, v57);
+  v58 = MEMORY[0x277D83A90];
+  v92[0] = Array.subscript.getter();
+  v92[1] = v6;
+  v92[2] = v7;
+  v92[3] = v8;
+  result = MEMORY[0x25F8895B0](v71, v58);
   v9 = __OFSUB__(result, 1);
-  v58 = result - 1;
+  v59 = result - 1;
   if (v9)
   {
     goto LABEL_26;
   }
 
-  if (v58 < 0)
+  if (v59 < 0)
   {
-    LODWORD(v32) = 0;
-    v31 = 760;
-    v30 = 2;
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Range requires lowerBound <= upperBound", 39, 2, "Swift/Range.swift", 17, 2, 760, 0);
     __break(1u);
   }
 
-  v54 = v59;
-  v53 = MEMORY[0x277D83A90];
-  v49 = 0;
-  v90[0] = Array.subscript.getter();
-  v90[1] = v10;
-  v90[2] = v11;
-  v90[3] = v12;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySfGMd);
+  v55 = v60;
+  v54 = MEMORY[0x277D83A90];
+  v50 = 0;
+  v91[0] = Array.subscript.getter();
+  v91[1] = v10;
+  v91[2] = v11;
+  v91[3] = v12;
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySfGMd, &_ss10ArraySliceVySfGMR);
   lazy protocol witness table accessor for type ArraySlice<Float> and conformance ArraySlice<A>();
+  v49 = v92;
   v48 = v91;
-  v47 = v90;
   zip<A, B>(_:_:)();
-  outlined destroy of IndexingIterator<ArraySlice<(start: UInt32, end: UInt32)>>();
-  outlined destroy of IndexingIterator<ArraySlice<(start: UInt32, end: UInt32)>>();
-  v13 = v69;
-  v14 = v92;
-  v15 = v93;
-  v16 = v94;
-  v69[9] = v95;
+  outlined destroy of IndexingIterator<ArraySlice<(start: UInt32, end: UInt32)>>(v91);
+  outlined destroy of IndexingIterator<ArraySlice<(start: UInt32, end: UInt32)>>(v92);
+  v13 = v70;
+  v14 = v93;
+  v15 = v94;
+  v16 = v95;
+  v70[9] = v96;
   v13[8] = v16;
   v13[7] = v15;
   v13[6] = v14;
@@ -8919,60 +8895,60 @@ LABEL_23:
   v18 = v13[7];
   v19 = v13[8];
   v13[3] = v13[9];
-  v89[2] = v19;
-  v89[1] = v18;
-  v89[0] = v17;
-  v50 = v34;
-  MEMORY[0x28223BE20](v34);
-  v51 = &v30;
-  v32 = closure #3 in static AUC.auc(x:y:);
-  v33 = v20;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12Zip2SequenceVys10ArraySliceVySfGAEGMd);
-  v21 = lazy protocol witness table accessor for type Zip2Sequence<ArraySlice<Float>, ArraySlice<Float>> and conformance Zip2Sequence<A, B>();
-  v22 = v54;
-  v24 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v51, v52, v53, MEMORY[0x277D84A98], v21, MEMORY[0x277D84AC0], v23);
-  v55 = v22;
-  v56 = v24;
-  if (v22)
+  v90[2] = v19;
+  v90[1] = v18;
+  v90[0] = v17;
+  v51 = v35;
+  MEMORY[0x28223BE20](v35, v20);
+  v52 = &v32;
+  v33 = closure #3 in static AUC.auc(x:y:);
+  v34 = v21;
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12Zip2SequenceVys10ArraySliceVySfGAEGMd, &_ss12Zip2SequenceVys10ArraySliceVySfGAEGMR);
+  v22 = lazy protocol witness table accessor for type Zip2Sequence<ArraySlice<Float>, ArraySlice<Float>> and conformance Zip2Sequence<A, B>();
+  v23 = v55;
+  v25 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v52, v53, v54, MEMORY[0x277D84A98], v22, MEMORY[0x277D84AC0], v24);
+  v56 = v23;
+  v57 = v25;
+  if (v23)
   {
     goto LABEL_23;
   }
 
-  v39 = v56;
-  v43 = 0;
-  outlined destroy of Zip2Sequence<ArraySlice<Float>, ArraySlice<Float>>();
-  v88 = v39;
-  v84 = v39;
-  v83 = v72;
+  v40 = v57;
+  v44 = 0;
+  outlined destroy of Zip2Sequence<ArraySlice<Float>, ArraySlice<Float>>(v90);
+  v89 = v40;
+  v85 = v40;
+  v84 = v73;
   zip<A, B>(_:_:)();
-  v81 = v85;
   v82 = v86;
-  v40 = &v30;
-  MEMORY[0x28223BE20](&v30);
-  v41 = &v30 - 32;
-  *(&v30 - 2) = implicit closure #1 in static AUC.prAUCScore(precison:recall:);
-  *(&v30 - 1) = 0;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12Zip2SequenceVySaySfGACGMd);
-  v25 = lazy protocol witness table accessor for type Zip2Sequence<[Float], [Float]> and conformance Zip2Sequence<A, B>();
-  v26 = v43;
-  v28 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v41, v42, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v25, MEMORY[0x277D84AC0], v27);
-  v44 = v26;
+  v83 = v87;
+  v41 = &v32;
+  MEMORY[0x28223BE20](&v32, v26);
+  v42 = &v32 - 32;
+  *(&v32 - 2) = implicit closure #1 in static AUC.prAUCScore(precison:recall:);
+  *(&v32 - 1) = 0;
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12Zip2SequenceVySaySfGACGMd, &_ss12Zip2SequenceVySaySfGACGMR);
+  v27 = lazy protocol witness table accessor for type Zip2Sequence<[Float], [Float]> and conformance Zip2Sequence<A, B>();
+  v28 = v44;
+  v30 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for thunk for @escaping @callee_guaranteed (@unowned Float, @unowned Float) -> (@unowned Float), v42, v43, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v27, MEMORY[0x277D84AC0], v29);
   v45 = v28;
-  if (!v26)
+  v46 = v30;
+  if (!v28)
   {
-    v36 = v45;
-    v37 = 0;
+    v37 = v46;
+    v38 = 0;
     outlined destroy of Zip2Sequence<[Float], [Float]>();
-    v29 = v37;
-    v80 = v36;
-    v79 = 0;
+    v31 = v38;
+    v81 = v37;
+    v80 = 0;
     Sequence.reduce<A>(_:_:)();
-    v38 = v29;
-    if (!v29)
+    v39 = v31;
+    if (!v31)
     {
-      v35 = 0;
+      v36 = 0;
       outlined destroy of [(start: UInt32, end: UInt32)]();
-      v34[1] = v60 * v87;
+      v35[1] = v61 * v88;
     }
 
     goto LABEL_25;
@@ -8993,7 +8969,7 @@ unint64_t lazy protocol witness table accessor for type ArraySlice<Float> and co
   v2 = lazy protocol witness table cache variable for type ArraySlice<Float> and conformance ArraySlice<A>;
   if (!lazy protocol witness table cache variable for type ArraySlice<Float> and conformance ArraySlice<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss10ArraySliceVySfGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss10ArraySliceVySfGMd, &_ss10ArraySliceVySfGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ArraySlice<Float> and conformance ArraySlice<A>);
     return WitnessTable;
@@ -9006,7 +8982,7 @@ unint64_t lazy protocol witness table accessor for type ArraySlice<Float> and co
   v2 = lazy protocol witness table cache variable for type ArraySlice<Float> and conformance ArraySlice<A>;
   if (!lazy protocol witness table cache variable for type ArraySlice<Float> and conformance ArraySlice<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss10ArraySliceVySfGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss10ArraySliceVySfGMd, &_ss10ArraySliceVySfGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ArraySlice<Float> and conformance ArraySlice<A>);
     return WitnessTable;
@@ -9020,7 +8996,7 @@ unint64_t lazy protocol witness table accessor for type Zip2Sequence<[Float], [F
   v2 = lazy protocol witness table cache variable for type Zip2Sequence<[Float], [Float]> and conformance Zip2Sequence<A, B>;
   if (!lazy protocol witness table cache variable for type Zip2Sequence<[Float], [Float]> and conformance Zip2Sequence<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss12Zip2SequenceVySaySfGACGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss12Zip2SequenceVySaySfGACGMd, &_ss12Zip2SequenceVySaySfGACGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Zip2Sequence<[Float], [Float]> and conformance Zip2Sequence<A, B>);
     return WitnessTable;
@@ -9034,7 +9010,7 @@ unint64_t lazy protocol witness table accessor for type ReversedCollection<[Floa
   v2 = lazy protocol witness table cache variable for type ReversedCollection<[Float]> and conformance ReversedCollection<A>;
   if (!lazy protocol witness table cache variable for type ReversedCollection<[Float]> and conformance ReversedCollection<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18ReversedCollectionVySaySfGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18ReversedCollectionVySaySfGGMd, &_ss18ReversedCollectionVySaySfGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReversedCollection<[Float]> and conformance ReversedCollection<A>);
     return WitnessTable;
@@ -9047,7 +9023,7 @@ unint64_t lazy protocol witness table accessor for type ReversedCollection<[Floa
   v2 = lazy protocol witness table cache variable for type ReversedCollection<[Float]> and conformance ReversedCollection<A>;
   if (!lazy protocol witness table cache variable for type ReversedCollection<[Float]> and conformance ReversedCollection<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18ReversedCollectionVySaySfGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18ReversedCollectionVySaySfGGMd, &_ss18ReversedCollectionVySaySfGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReversedCollection<[Float]> and conformance ReversedCollection<A>);
     return WitnessTable;
@@ -9061,7 +9037,7 @@ unint64_t lazy protocol witness table accessor for type Zip2Sequence<[Float], Ar
   v2 = lazy protocol witness table cache variable for type Zip2Sequence<[Float], ArraySlice<Float>> and conformance Zip2Sequence<A, B>;
   if (!lazy protocol witness table cache variable for type Zip2Sequence<[Float], ArraySlice<Float>> and conformance Zip2Sequence<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss12Zip2SequenceVySaySfGs10ArraySliceVySfGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss12Zip2SequenceVySaySfGs10ArraySliceVySfGGMd, &_ss12Zip2SequenceVySaySfGs10ArraySliceVySfGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Zip2Sequence<[Float], ArraySlice<Float>> and conformance Zip2Sequence<A, B>);
     return WitnessTable;
@@ -9079,113 +9055,113 @@ float closure #1 in static AUC.bucketConfusionMatrix(outputs:labels:numThreshold
 
 float *closure #2 in static AUC.bucketConfusionMatrix(outputs:labels:numThresholds:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v13 = a3;
-  v20 = a1;
-  v19 = a2;
-  v14 = "Fatal error";
-  v15 = "Float value cannot be converted to Int because it is either infinite or NaN";
-  v16 = "Swift/IntegerTypes.swift";
-  v17 = "Float value cannot be converted to Int because the result would be less than Int.min";
-  v18 = "Float value cannot be converted to Int because the result would be greater than Int.max";
-  v34 = 0.0;
-  v33 = 0;
-  v21 = type metadata accessor for FloatingPointRoundingRule();
-  v22 = *(v21 - 8);
-  v23 = v21 - 8;
-  v24 = (*(v22 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x28223BE20](v20);
-  v25 = &v9 - v24;
-  v26 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
-  result = MEMORY[0x28223BE20](v3);
-  v27 = &v9 - v26;
-  v28 = *result;
-  v34 = v28;
-  v33 = v6;
-  v29 = v6 - 1;
-  if (__OFSUB__(v6, 1))
+  v14 = a3;
+  v21 = a1;
+  v20 = a2;
+  v15 = "Fatal error";
+  v16 = "Float value cannot be converted to Int because it is either infinite or NaN";
+  v17 = "Swift/IntegerTypes.swift";
+  v18 = "Float value cannot be converted to Int because the result would be less than Int.min";
+  v19 = "Float value cannot be converted to Int because the result would be greater than Int.max";
+  v35 = 0.0;
+  v34 = 0;
+  v22 = type metadata accessor for FloatingPointRoundingRule();
+  v23 = *(v22 - 8);
+  v24 = v22 - 8;
+  v25 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v3 = MEMORY[0x28223BE20](v21, v20);
+  v26 = &v10 - v25;
+  v27 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
+  result = MEMORY[0x28223BE20](v3, v5);
+  v28 = &v10 - v27;
+  v29 = *result;
+  v35 = v29;
+  v34 = v7;
+  v30 = v7 - 1;
+  if (__OFSUB__(v7, 1))
   {
     __break(1u);
     goto LABEL_32;
   }
 
-  v11 = v28 * v29;
-  (*(v22 + 104))(v27, *MEMORY[0x277D84680], v21);
-  v32 = v11;
-  (*(v22 + 16))(v25, v27, v21);
-  v12 = (*(v22 + 88))(v25, v21);
-  if (v12 == *MEMORY[0x277D84678])
+  v12 = v29 * v30;
+  (*(v23 + 104))(v28, *MEMORY[0x277D84680], v22);
+  v33 = v12;
+  (*(v23 + 16))(v26, v28, v22);
+  v13 = (*(v23 + 88))(v26, v22);
+  if (v13 == *MEMORY[0x277D84678])
   {
-    v32 = roundf(v11);
+    v33 = roundf(v12);
     goto LABEL_19;
   }
 
-  if (v12 == *MEMORY[0x277D84670])
+  if (v13 == *MEMORY[0x277D84670])
   {
-    v32 = rintf(v11);
+    v33 = rintf(v12);
     goto LABEL_19;
   }
 
-  if (v12 == *MEMORY[0x277D84680])
+  if (v13 == *MEMORY[0x277D84680])
   {
     goto LABEL_16;
   }
 
-  if (v12 == *MEMORY[0x277D84688])
+  if (v13 == *MEMORY[0x277D84688])
   {
     goto LABEL_18;
   }
 
-  if (v12 == *MEMORY[0x277D84660])
+  if (v13 == *MEMORY[0x277D84660])
   {
-    v32 = truncf(v11);
+    v33 = truncf(v12);
     goto LABEL_19;
   }
 
-  if (v12 != *MEMORY[0x277D84668])
+  if (v13 != *MEMORY[0x277D84668])
   {
     Float._roundSlowPath(_:)();
-    (*(v22 + 8))(v25, v21);
+    (*(v23 + 8))(v26, v22);
     goto LABEL_19;
   }
 
   if ((Float.sign.getter() & 1) == 1)
   {
 LABEL_18:
-    v32 = floorf(v11);
+    v33 = floorf(v12);
   }
 
   else
   {
 LABEL_16:
-    v32 = ceilf(v11);
+    v33 = ceilf(v12);
   }
 
 LABEL_19:
-  v10 = v32;
-  result = (*(v22 + 8))(v27, v21);
-  if ((LODWORD(v10) >> 23) == 255)
+  v11 = v33;
+  result = (*(v23 + 8))(v28, v22);
+  if ((LODWORD(v11) >> 23) == 255)
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)(v15, 11, 2, v16, 75, 2, v17, 24, 2, 8763, 0);
     __break(1u);
   }
 
-  if (v10 <= -9.2234e18)
+  if (v11 <= -9.2234e18)
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)(v15, 11, 2, v18, 84, 2, v17, 24, 2, 8766, 0);
     __break(1u);
   }
 
-  if (v10 >= 9.2234e18)
+  if (v11 >= 9.2234e18)
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)(v15, 11, 2, v19, 87, 2, v17, 24, 2, 8769, 0);
     __break(1u);
   }
 
-  v9 = v10 - 1;
-  if (!__OFSUB__(v10, 1))
+  v10 = v11 - 1;
+  if (!__OFSUB__(v11, 1))
   {
-    v31 = v9;
-    v30 = 0;
+    v32 = v10;
+    v31 = 0;
     return max<A>(_:_:)();
   }
 
@@ -9202,11 +9178,11 @@ uint64_t static AUC.gatherBucket(labels:bucketIndex:numThresholds:)(uint64_t a1,
   v10 = a3;
   v8 = 0;
   v9 = Array.init(repeating:count:)();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
   v3 = lazy protocol witness table accessor for type [Int] and conformance [A]();
   MEMORY[0x25F889420](&v7, v6, v3);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySiGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18EnumeratedSequenceVySaySiGGMd, &_ss18EnumeratedSequenceVySaySiGGMR);
   lazy protocol witness table accessor for type EnumeratedSequence<[Int]> and conformance EnumeratedSequence<A>();
   Sequence.forEach(_:)();
 
@@ -9236,7 +9212,7 @@ unint64_t lazy protocol witness table accessor for type EnumeratedSequence<[Int]
   v2 = lazy protocol witness table cache variable for type EnumeratedSequence<[Int]> and conformance <> EnumeratedSequence<A>;
   if (!lazy protocol witness table cache variable for type EnumeratedSequence<[Int]> and conformance <> EnumeratedSequence<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18EnumeratedSequenceVySaySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18EnumeratedSequenceVySaySiGGMd, &_ss18EnumeratedSequenceVySaySiGGMR);
     lazy protocol witness table accessor for type [Int] and conformance [A]();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type EnumeratedSequence<[Int]> and conformance <> EnumeratedSequence<A>);
@@ -9251,7 +9227,7 @@ unint64_t lazy protocol witness table accessor for type Zip2Sequence<ArraySlice<
   v2 = lazy protocol witness table cache variable for type Zip2Sequence<ArraySlice<Float>, ArraySlice<Float>> and conformance Zip2Sequence<A, B>;
   if (!lazy protocol witness table cache variable for type Zip2Sequence<ArraySlice<Float>, ArraySlice<Float>> and conformance Zip2Sequence<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss12Zip2SequenceVys10ArraySliceVySfGAEGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss12Zip2SequenceVys10ArraySliceVySfGAEGMd, &_ss12Zip2SequenceVys10ArraySliceVySfGAEGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Zip2Sequence<ArraySlice<Float>, ArraySlice<Float>> and conformance Zip2Sequence<A, B>);
     return WitnessTable;
@@ -9260,14 +9236,14 @@ unint64_t lazy protocol witness table accessor for type Zip2Sequence<ArraySlice<
   return v2;
 }
 
-uint64_t closure #1 in static AUC.gatherBucket(labels:bucketIndex:numThresholds:)()
+uint64_t closure #1 in static AUC.gatherBucket(labels:bucketIndex:numThresholds:)(uint64_t *a1, void *a2, uint64_t a3)
 {
   Array.subscript.getter();
   Array.subscript.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
-  v0 = Array.subscript.modify();
-  *v1 = v4 + v3;
-  return v0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  v3 = Array.subscript.modify();
+  *v4 = v7 + v6;
+  return v3();
 }
 
 unint64_t lazy protocol witness table accessor for type EnumeratedSequence<[Int]> and conformance EnumeratedSequence<A>()
@@ -9275,7 +9251,7 @@ unint64_t lazy protocol witness table accessor for type EnumeratedSequence<[Int]
   v2 = lazy protocol witness table cache variable for type EnumeratedSequence<[Int]> and conformance EnumeratedSequence<A>;
   if (!lazy protocol witness table cache variable for type EnumeratedSequence<[Int]> and conformance EnumeratedSequence<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18EnumeratedSequenceVySaySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss18EnumeratedSequenceVySaySiGGMd, &_ss18EnumeratedSequenceVySaySiGGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type EnumeratedSequence<[Int]> and conformance EnumeratedSequence<A>);
     return WitnessTable;
@@ -9343,7 +9319,7 @@ uint64_t static Imputation.imputeFlow(flow:day:days:flowImputed:imputeValue:)(un
   }
 }
 
-uint64_t static Imputation.impute(required:available:target:strategy:imputedDay:)(uint64_t result, uint64_t a2, int a3, char a4, uint64_t a5)
+void static Imputation.impute(required:available:target:strategy:imputedDay:)(uint64_t result, uint64_t a2, int a3, char a4, uint64_t a5)
 {
   v20 = result & 1;
   v19 = a2;
@@ -9355,7 +9331,7 @@ uint64_t static Imputation.impute(required:available:target:strategy:imputedDay:
     if (a4)
     {
       v13 = a3;
-      result = static HIDPFLUtils.findClosest<A>(_:target:)(a2, &v13, MEMORY[0x277D84CC0], MEMORY[0x277D84CD8], MEMORY[0x277D84CF8], &v14);
+      static HIDPFLUtils.findClosest<A>(_:target:)(a2, &v13, MEMORY[0x277D84CC0], MEMORY[0x277D84CD8], MEMORY[0x277D84CF8], &v14);
       if (v15)
       {
         v5 = 0;
@@ -9375,7 +9351,7 @@ uint64_t static Imputation.impute(required:available:target:strategy:imputedDay:
     else
     {
       v10 = a3;
-      result = static HIDPFLUtils.findClosest<A>(_:lessOrEqualThan:)(a2, &v10, MEMORY[0x277D84CC0], MEMORY[0x277D84CD8], &v11);
+      static HIDPFLUtils.findClosest<A>(_:lessOrEqualThan:)(a2, &v10, MEMORY[0x277D84CC0], MEMORY[0x277D84CD8], &v11);
       if (v12)
       {
         v7 = 0;
@@ -9392,27 +9368,26 @@ uint64_t static Imputation.impute(required:available:target:strategy:imputedDay:
       *(a5 + 4) = v8 & 1;
     }
   }
-
-  return result;
 }
 
-uint64_t static Imputation.ensureImputation(required:available:target:strategy:missingCounter:imputedDay:)(char a1, uint64_t a2, int a3, char a4, void *a5, uint64_t a6)
+void static Imputation.ensureImputation(required:available:target:strategy:missingCounter:imputedDay:)(char a1, uint64_t a2, int a3, char a4, void *a5, uint64_t a6)
 {
-  if ((a1 & 1) == 0 || (result = static Imputation.impute(required:available:target:strategy:imputedDay:)(1, a2, a3, a4 & 1, a6), (*(a6 + 4) & 1) == 0))
+  if (a1)
   {
-    v8 = 1;
-    return v8 & 1;
-  }
+    static Imputation.impute(required:available:target:strategy:imputedDay:)(1, a2, a3, a4 & 1, a6);
+    if (*(a6 + 4))
+    {
+      if (__OFADD__(*a5, 1))
+      {
+        __break(1u);
+      }
 
-  if (!__OFADD__(*a5, 1))
-  {
-    ++*a5;
-    v8 = 0;
-    return v8 & 1;
+      else
+      {
+        ++*a5;
+      }
+    }
   }
-
-  __break(1u);
-  return result;
 }
 
 float static Imputation.imputeCalendarPrediction(calendarPeriodPredictions:target:lastPredictionDay:)(uint64_t a1, int a2, _DWORD *a3)
@@ -9423,11 +9398,11 @@ float static Imputation.imputeCalendarPrediction(calendarPeriodPredictions:targe
   v23 = a2;
   v22 = a3;
   v17 = *a3;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSf15periodStartMean_Sf0aB3StdtMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSf15periodStartMean_Sf0aB3StdtMd, &_sSf15periodStartMean_Sf0aB3StdtMR);
   MEMORY[0x25F8891D0](&v18, &v17, a1, MEMORY[0x277D84CC0]);
   if (v19)
   {
-    _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "NightingaleTraining/Imputation.swift", 36, 2, 77, 0);
     __break(1u);
   }
 
@@ -9604,67 +9579,67 @@ void __swiftcall AggMetrics.init(from:)(NightingaleTraining::AggMetrics *__retur
 {
   memset(__b, 0, sizeof(__b));
   rawValue = from._rawValue;
-  v15 = MEMORY[0x25F8895B0]();
-  v32 = v15;
+  v21 = MEMORY[0x25F8895B0]();
+  v38 = v21;
   __b[17] = MEMORY[0x25F8895B0](from._rawValue, &type metadata for PerSliceMetrics);
-  v31 = from._rawValue;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining15PerSliceMetricsVGMd);
-  v19 = lazy protocol witness table accessor for type [PerSliceMetrics] and conformance [A]();
-  v30 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in AggMetrics.init(from:), 0, v17, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v18);
-  v29 = from._rawValue;
-  v28 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #2 in AggMetrics.init(from:), 0, v17, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v18);
-  v27 = from._rawValue;
-  v26 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in AggMetrics.init(from:), 0, v17, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v19, MEMORY[0x277D84AC0], v18);
-  v25 = 3.0;
-  static PFLStats.lessEqual<A>(vector:value:)();
-  v12 = Array<A>.sum.getter();
+  v37 = from._rawValue;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining15PerSliceMetricsVGMd, &_sSay19NightingaleTraining15PerSliceMetricsVGMR);
+  v25 = lazy protocol witness table accessor for type [PerSliceMetrics] and conformance [A]();
+  v36 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in AggMetrics.init(from:), 0, v23, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v25, MEMORY[0x277D84AC0], v24);
+  v35 = from._rawValue;
+  v34 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #2 in AggMetrics.init(from:), 0, v23, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v25, MEMORY[0x277D84AC0], v24);
+  v33 = from._rawValue;
+  v32 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #3 in AggMetrics.init(from:), 0, v23, MEMORY[0x277D83A90], MEMORY[0x277D84A98], v25, MEMORY[0x277D84AC0], v24);
+  v31 = 3.0;
+  v16 = static PFLStats.lessEqual<A>(vector:value:)();
+  v17 = Array<A>.sum.getter(v16);
 
-  __b[1] = v12;
-  *__b = v12 / v15;
-  v24 = 6.0;
-  static PFLStats.greater<A>(vector:value:)();
-  v13 = Array<A>.sum.getter();
+  __b[1] = v17;
+  *__b = v17 / v21;
+  v30 = 6.0;
+  v18 = static PFLStats.greater<A>(vector:value:)();
+  v19 = Array<A>.sum.getter(v18);
 
-  __b[3] = v13;
-  *&__b[2] = v13 / v15;
+  __b[3] = v19;
+  *&__b[2] = v19 / v21;
   static PFLStats.mean(_:)();
   LODWORD(__b[4]) = v2;
   static PFLStats.sum(_:)();
   HIDWORD(__b[4]) = v3;
-  v22 = from._rawValue;
-  v21 = 0;
+  v28 = from._rawValue;
+  v27 = 0;
   lazy protocol witness table accessor for type [PerSliceMetrics] and conformance [A]();
   Sequence.reduce<A>(_:_:)();
-  __b[6] = v23;
-  *&__b[5] = v23 / v15;
+  __b[6] = v29;
+  *&__b[5] = v29 / v21;
   static PFLStats.sum(_:)();
   HIDWORD(__b[7]) = v4;
   static PFLStats.mean(_:)();
   LODWORD(__b[7]) = v5;
-  static PFLStats.greater<A>(vector:value:)();
-  v8 = Array<A>.sum.getter();
+  v8 = static PFLStats.greater<A>(vector:value:)();
+  v9 = Array<A>.sum.getter(v8);
 
-  __b[9] = v8;
-  *&__b[8] = v8 / v15;
+  __b[9] = v9;
+  *&__b[8] = v9 / v21;
   static PFLStats.sum(_:)();
   HIDWORD(__b[10]) = v6;
   static PFLStats.mean(_:)();
   LODWORD(__b[10]) = v7;
-  static PFLStats.greaterEqual<A>(vector:value:)();
-  v9 = Array<A>.sum.getter();
+  v10 = static PFLStats.greaterEqual<A>(vector:value:)();
+  v11 = Array<A>.sum.getter(v10);
 
-  __b[12] = v9;
-  *&__b[11] = v9 / v15;
-  static PFLStats.greaterEqual<A>(vector:value:)();
-  v10 = Array<A>.sum.getter();
+  __b[12] = v11;
+  *&__b[11] = v11 / v21;
+  v12 = static PFLStats.greaterEqual<A>(vector:value:)();
+  v13 = Array<A>.sum.getter(v12);
 
-  __b[14] = v10;
-  *&__b[13] = v10 / v15;
-  static PFLStats.greaterEqual<A>(vector:value:)();
-  v11 = Array<A>.sum.getter();
+  __b[14] = v13;
+  *&__b[13] = v13 / v21;
+  v14 = static PFLStats.greaterEqual<A>(vector:value:)();
+  v15 = Array<A>.sum.getter(v14);
 
-  __b[16] = v11;
-  *&__b[15] = v11 / v15;
+  __b[16] = v15;
+  *&__b[15] = v15 / v21;
 
   memcpy(__dst, __b, sizeof(__dst));
 
@@ -9683,7 +9658,7 @@ unint64_t lazy protocol witness table accessor for type [PerSliceMetrics] and co
   v2 = lazy protocol witness table cache variable for type [PerSliceMetrics] and conformance [A];
   if (!lazy protocol witness table cache variable for type [PerSliceMetrics] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining15PerSliceMetricsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining15PerSliceMetricsVGMd, &_sSay19NightingaleTraining15PerSliceMetricsVGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [PerSliceMetrics] and conformance [A]);
     return WitnessTable;
@@ -9696,7 +9671,7 @@ unint64_t lazy protocol witness table accessor for type [PerSliceMetrics] and co
   v2 = lazy protocol witness table cache variable for type [PerSliceMetrics] and conformance [A];
   if (!lazy protocol witness table cache variable for type [PerSliceMetrics] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining15PerSliceMetricsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining15PerSliceMetricsVGMd, &_sSay19NightingaleTraining15PerSliceMetricsVGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [PerSliceMetrics] and conformance [A]);
     return WitnessTable;
@@ -9736,328 +9711,328 @@ BOOL closure #4 in AggMetrics.init(from:)@<W0>(uint64_t *a1@<X0>, uint64_t a2@<X
   return result;
 }
 
-uint64_t AggMetrics.toDictionary(prefix:)()
+uint64_t AggMetrics.toDictionary(prefix:)(uint64_t a1, uint64_t a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
   _allocateUninitializedArray<A>(_:)();
-  v89 = v0;
-  v130 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v131 = v1;
+  v91 = v2;
+  v132 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+  v133 = v3;
   countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
   MEMORY[0x25F889DE0](countAndFlagsBits);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_ep3", 4uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v3);
+  v5 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_ep3", 4uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v5);
 
   outlined destroy of DefaultStringInterpolation();
-  *v89 = MEMORY[0x25F889320](v130, v131);
-  *(v89 + 8) = v4;
-  v152 = *v87;
-  v86 = MEMORY[0x277D83A90];
-  *(v89 + 40) = MEMORY[0x277D83A90];
-  *(v89 + 16) = v152;
+  *v91 = MEMORY[0x25F889320](v132, v133);
+  *(v91 + 8) = v6;
+  v154 = *v89;
+  v88 = MEMORY[0x277D83A90];
+  *(v91 + 40) = MEMORY[0x277D83A90];
+  *(v91 + 16) = v154;
+  v130 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+  v131 = v7;
+  v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v8);
+
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_ep3Num", 7uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v9);
+
+  outlined destroy of DefaultStringInterpolation();
+  *(v91 + 48) = MEMORY[0x25F889320](v130, v131);
+  *(v91 + 56) = v10;
+  v153 = *(v89 + 1);
+  v90 = MEMORY[0x277D83B88];
+  *(v91 + 88) = MEMORY[0x277D83B88];
+  *(v91 + 64) = v153;
   v128 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v129 = v5;
-  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v6);
+  v129 = v11;
+  v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v12);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_ep3Num", 7uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v7);
+  v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_nep6", 5uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v13);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 48) = MEMORY[0x25F889320](v128, v129);
-  *(v89 + 56) = v8;
-  v151 = *(v87 + 1);
-  v88 = MEMORY[0x277D83B88];
-  *(v89 + 88) = MEMORY[0x277D83B88];
-  *(v89 + 64) = v151;
+  *(v91 + 96) = MEMORY[0x25F889320](v128, v129);
+  *(v91 + 104) = v14;
+  v152 = v89[4];
+  *(v91 + 136) = v88;
+  *(v91 + 112) = v152;
   v126 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v127 = v9;
-  v10 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v10);
+  v127 = v15;
+  v16 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v16);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v11 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_nep6", 5uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v11);
+  v17 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_nep6Num", 8uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v17);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 96) = MEMORY[0x25F889320](v126, v127);
-  *(v89 + 104) = v12;
-  v150 = v87[4];
-  *(v89 + 136) = v86;
-  *(v89 + 112) = v150;
+  *(v91 + 144) = MEMORY[0x25F889320](v126, v127);
+  *(v91 + 152) = v18;
+  v151 = *(v89 + 3);
+  *(v91 + 184) = v90;
+  *(v91 + 160) = v151;
   v124 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v125 = v13;
-  v14 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v14);
+  v125 = v19;
+  v20 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v20);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v15 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_nep6Num", 8uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v15);
+  v21 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_mae", 4uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v21);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 144) = MEMORY[0x25F889320](v124, v125);
-  *(v89 + 152) = v16;
-  v149 = *(v87 + 3);
-  *(v89 + 184) = v88;
-  *(v89 + 160) = v149;
+  *(v91 + 192) = MEMORY[0x25F889320](v124, v125);
+  *(v91 + 200) = v22;
+  v150 = v89[8];
+  *(v91 + 232) = v88;
+  *(v91 + 208) = v150;
   v122 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v123 = v17;
-  v18 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v18);
+  v123 = v23;
+  v24 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v24);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v19 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_mae", 4uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v19);
+  v25 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_sae", 4uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v25);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 192) = MEMORY[0x25F889320](v122, v123);
-  *(v89 + 200) = v20;
-  v148 = v87[8];
-  *(v89 + 232) = v86;
-  *(v89 + 208) = v148;
+  *(v91 + 240) = MEMORY[0x25F889320](v122, v123);
+  *(v91 + 248) = v26;
+  v149 = v89[9];
+  *(v91 + 280) = v88;
+  *(v91 + 256) = v149;
   v120 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v121 = v21;
-  v22 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v22);
+  v121 = v27;
+  v28 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v28);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v23 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_sae", 4uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v23);
+  v29 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_coverage", 9uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v29);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 240) = MEMORY[0x25F889320](v120, v121);
-  *(v89 + 248) = v24;
-  v147 = v87[9];
-  *(v89 + 280) = v86;
-  *(v89 + 256) = v147;
+  *(v91 + 288) = MEMORY[0x25F889320](v120, v121);
+  *(v91 + 296) = v30;
+  v148 = v89[10];
+  *(v91 + 328) = v88;
+  *(v91 + 304) = v148;
   v118 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v119 = v25;
-  v26 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v26);
+  v119 = v31;
+  v32 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v32);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v27 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_coverage", 9uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v27);
+  v33 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_coverageNum", 0xCuLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v33);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 288) = MEMORY[0x25F889320](v118, v119);
-  *(v89 + 296) = v28;
-  v146 = v87[10];
-  *(v89 + 328) = v86;
-  *(v89 + 304) = v146;
+  *(v91 + 336) = MEMORY[0x25F889320](v118, v119);
+  *(v91 + 344) = v34;
+  v147 = *(v89 + 6);
+  *(v91 + 376) = v90;
+  *(v91 + 352) = v147;
   v116 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v117 = v29;
-  v30 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v30);
+  v117 = v35;
+  v36 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v36);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v31 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_coverageNum", 0xCuLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v31);
+  v37 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_meanWidth", 0xAuLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v37);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 336) = MEMORY[0x25F889320](v116, v117);
-  *(v89 + 344) = v32;
-  v145 = *(v87 + 6);
-  *(v89 + 376) = v88;
-  *(v89 + 352) = v145;
+  *(v91 + 384) = MEMORY[0x25F889320](v116, v117);
+  *(v91 + 392) = v38;
+  v146 = v89[14];
+  *(v91 + 424) = v88;
+  *(v91 + 400) = v146;
   v114 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v115 = v33;
-  v34 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v34);
+  v115 = v39;
+  v40 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v40);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v35 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_meanWidth", 0xAuLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v35);
+  v41 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_sumWidth", 9uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v41);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 384) = MEMORY[0x25F889320](v114, v115);
-  *(v89 + 392) = v36;
-  v144 = v87[14];
-  *(v89 + 424) = v86;
-  *(v89 + 400) = v144;
+  *(v91 + 432) = MEMORY[0x25F889320](v114, v115);
+  *(v91 + 440) = v42;
+  v145 = v89[15];
+  *(v91 + 472) = v88;
+  *(v91 + 448) = v145;
   v112 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v113 = v37;
-  v38 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v38);
+  v113 = v43;
+  v44 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v44);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v39 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_sumWidth", 9uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v39);
+  v45 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxWidthTolerable", 0x11uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v45);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 432) = MEMORY[0x25F889320](v112, v113);
-  *(v89 + 440) = v40;
-  v143 = v87[15];
-  *(v89 + 472) = v86;
-  *(v89 + 448) = v143;
+  *(v91 + 480) = MEMORY[0x25F889320](v112, v113);
+  *(v91 + 488) = v46;
+  v144 = v89[16];
+  *(v91 + 520) = v88;
+  *(v91 + 496) = v144;
   v110 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v111 = v41;
-  v42 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v42);
+  v111 = v47;
+  v48 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v48);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v43 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxWidthTolerable", 0x11uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v43);
+  v49 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxWidthTolerableNum", 0x14uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v49);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 480) = MEMORY[0x25F889320](v110, v111);
-  *(v89 + 488) = v44;
-  v142 = v87[16];
-  *(v89 + 520) = v86;
-  *(v89 + 496) = v142;
+  *(v91 + 528) = MEMORY[0x25F889320](v110, v111);
+  *(v91 + 536) = v50;
+  v143 = *(v89 + 9);
+  *(v91 + 568) = v90;
+  *(v91 + 544) = v143;
   v108 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v109 = v45;
-  v46 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v46);
+  v109 = v51;
+  v52 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v52);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v47 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxWidthTolerableNum", 0x14uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v47);
+  v53 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallMean", 0xEuLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v53);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 528) = MEMORY[0x25F889320](v108, v109);
-  *(v89 + 536) = v48;
-  v141 = *(v87 + 9);
-  *(v89 + 568) = v88;
-  *(v89 + 544) = v141;
+  *(v91 + 576) = MEMORY[0x25F889320](v108, v109);
+  *(v91 + 584) = v54;
+  v142 = v89[20];
+  *(v91 + 616) = v88;
+  *(v91 + 592) = v142;
   v106 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v107 = v49;
-  v50 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v50);
+  v107 = v55;
+  v56 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v56);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v51 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallMean", 0xEuLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v51);
+  v57 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallSum", 0xDuLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v57);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 576) = MEMORY[0x25F889320](v106, v107);
-  *(v89 + 584) = v52;
-  v140 = v87[20];
-  *(v89 + 616) = v86;
-  *(v89 + 592) = v140;
+  *(v91 + 624) = MEMORY[0x25F889320](v106, v107);
+  *(v91 + 632) = v58;
+  v141 = v89[21];
+  *(v91 + 664) = v88;
+  *(v91 + 640) = v141;
   v104 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v105 = v53;
-  v54 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v54);
+  v105 = v59;
+  v60 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v60);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v55 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallSum", 0xDuLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v55);
+  v61 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallGood", 0xEuLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v61);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 624) = MEMORY[0x25F889320](v104, v105);
-  *(v89 + 632) = v56;
-  v139 = v87[21];
-  *(v89 + 664) = v86;
-  *(v89 + 640) = v139;
+  *(v91 + 672) = MEMORY[0x25F889320](v104, v105);
+  *(v91 + 680) = v62;
+  v140 = v89[22];
+  *(v91 + 712) = v88;
+  *(v91 + 688) = v140;
   v102 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v103 = v57;
-  v58 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v58);
+  v103 = v63;
+  v64 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v64);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v59 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallGood", 0xEuLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v59);
+  v65 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallGoodNum", 0x11uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v65);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 672) = MEMORY[0x25F889320](v102, v103);
-  *(v89 + 680) = v60;
-  v138 = v87[22];
-  *(v89 + 712) = v86;
-  *(v89 + 688) = v138;
+  *(v91 + 720) = MEMORY[0x25F889320](v102, v103);
+  *(v91 + 728) = v66;
+  v139 = *(v89 + 12);
+  *(v91 + 760) = v90;
+  *(v91 + 736) = v139;
   v100 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v101 = v61;
-  v62 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v62);
+  v101 = v67;
+  v68 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v68);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v63 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallGoodNum", 0x11uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v63);
+  v69 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallOk", 0xCuLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v69);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 720) = MEMORY[0x25F889320](v100, v101);
-  *(v89 + 728) = v64;
-  v137 = *(v87 + 12);
-  *(v89 + 760) = v88;
-  *(v89 + 736) = v137;
+  *(v91 + 768) = MEMORY[0x25F889320](v100, v101);
+  *(v91 + 776) = v70;
+  v138 = v89[26];
+  *(v91 + 808) = v88;
+  *(v91 + 784) = v138;
   v98 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v99 = v65;
-  v66 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v66);
+  v99 = v71;
+  v72 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v72);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v67 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallOk", 0xCuLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v67);
+  v73 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallOkNum", 0xFuLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v73);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 768) = MEMORY[0x25F889320](v98, v99);
-  *(v89 + 776) = v68;
-  v136 = v87[26];
-  *(v89 + 808) = v86;
-  *(v89 + 784) = v136;
+  *(v91 + 816) = MEMORY[0x25F889320](v98, v99);
+  *(v91 + 824) = v74;
+  v137 = *(v89 + 14);
+  *(v91 + 856) = v90;
+  *(v91 + 832) = v137;
   v96 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v97 = v69;
-  v70 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v70);
+  v97 = v75;
+  v76 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v76);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v71 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallOkNum", 0xFuLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v71);
+  v77 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallTolerable", 0x13uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v77);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 816) = MEMORY[0x25F889320](v96, v97);
-  *(v89 + 824) = v72;
-  v135 = *(v87 + 14);
-  *(v89 + 856) = v88;
-  *(v89 + 832) = v135;
+  *(v91 + 864) = MEMORY[0x25F889320](v96, v97);
+  *(v91 + 872) = v78;
+  v136 = v89[30];
+  *(v91 + 904) = v88;
+  *(v91 + 880) = v136;
   v94 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v95 = v73;
-  v74 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v74);
+  v95 = v79;
+  v80 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v80);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v75 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallTolerable", 0x13uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v75);
+  v81 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallTolerableNum", 0x16uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v81);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 864) = MEMORY[0x25F889320](v94, v95);
-  *(v89 + 872) = v76;
-  v134 = v87[30];
-  *(v89 + 904) = v86;
-  *(v89 + 880) = v134;
+  *(v91 + 912) = MEMORY[0x25F889320](v94, v95);
+  *(v91 + 920) = v82;
+  v135 = *(v89 + 16);
+  *(v91 + 952) = v90;
+  *(v91 + 928) = v135;
   v92 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v93 = v77;
-  v78 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v78);
+  v93 = v83;
+  v84 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v84);
 
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v79 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_uxOverallTolerableNum", 0x16uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v79);
+  v85 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_nSlices", 8uLL, 1)._countAndFlagsBits;
+  MEMORY[0x25F889DE0](v85);
 
   outlined destroy of DefaultStringInterpolation();
-  *(v89 + 912) = MEMORY[0x25F889320](v92, v93);
-  *(v89 + 920) = v80;
-  v133 = *(v87 + 16);
-  *(v89 + 952) = v88;
-  *(v89 + 928) = v133;
-  v90 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-  v91 = v81;
-  v82 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v82);
-
-  DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  v83 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_nSlices", 8uLL, 1)._countAndFlagsBits;
-  MEMORY[0x25F889DE0](v83);
-
-  outlined destroy of DefaultStringInterpolation();
-  *(v89 + 960) = MEMORY[0x25F889320](v90, v91);
-  *(v89 + 968) = v84;
-  v132 = *(v87 + 17);
-  *(v89 + 1000) = v88;
-  *(v89 + 976) = v132;
+  *(v91 + 960) = MEMORY[0x25F889320](v92, v93);
+  *(v91 + 968) = v86;
+  v134 = *(v89 + 17);
+  *(v91 + 1000) = v90;
+  *(v91 + 976) = v134;
   _finalizeUninitializedArray<A>(_:)();
   return Dictionary.init(dictionaryLiteral:)();
 }

@@ -27,8 +27,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSBeginTextToSpeechStreamingResponse *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSBeginTextToSpeechStreamingResponse *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -97,13 +97,13 @@ flatbuffers::DetachedBuffer *__55__OPTTSBeginTextToSpeechStreamingResponse_flatb
 
   audio_type = [(OPTTSBeginTextToSpeechStreamingResponse *)self audio_type];
   decoder_description = [(OPTTSBeginTextToSpeechStreamingResponse *)self decoder_description];
-  v29 = [decoder_description addObjectToBuffer:buffer];
+  v29 = [decoder_description addObjectToBuffer:?];
 
   playback_description = [(OPTTSBeginTextToSpeechStreamingResponse *)self playback_description];
-  LODWORD(uTF8String4) = [playback_description addObjectToBuffer:buffer];
+  LODWORD(uTF8String4) = [playback_description addObjectToBuffer:?];
 
   meta_info = [(OPTTSBeginTextToSpeechStreamingResponse *)self meta_info];
-  v32 = [meta_info addObjectToBuffer:buffer];
+  v32 = [meta_info addObjectToBuffer:?];
 
   [(OPTTSBeginTextToSpeechStreamingResponse *)self streaming_playback_buffer_size_in_seconds];
   v34 = v33;
@@ -144,24 +144,11 @@ flatbuffers::DetachedBuffer *__55__OPTTSBeginTextToSpeechStreamingResponse_flatb
 
 - (OPTTSTextToSpeechMeta)meta_info
 {
-  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"meta_info"];
+  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
   if (!v3)
   {
-    v4 = [OPTTSTextToSpeechMeta alloc];
-    root = self->_root;
-    v6 = &root[-*root->var0];
-    if (*v6->var0 >= 0x15u && (v7 = *v6[20].var0) != 0)
-    {
-      v8 = &root[v7 + *root[v7].var0];
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    v3 = [(OPTTSTextToSpeechMeta *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-    [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"meta_info"];
+    v3 = [OPTTSTextToSpeechMeta initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
   }
 
   return v3;
@@ -169,24 +156,11 @@ flatbuffers::DetachedBuffer *__55__OPTTSBeginTextToSpeechStreamingResponse_flatb
 
 - (OPTTSAudioDescription)playback_description
 {
-  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"playback_description"];
+  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
   if (!v3)
   {
-    v4 = [OPTTSAudioDescription alloc];
-    root = self->_root;
-    v6 = &root[-*root->var0];
-    if (*v6->var0 >= 0x13u && (v7 = *v6[18].var0) != 0)
-    {
-      v8 = &root[v7 + *root[v7].var0];
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    v3 = [(OPTTSAudioDescription *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-    [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"playback_description"];
+    v3 = [OPTTSAudioDescription initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
   }
 
   return v3;
@@ -194,24 +168,11 @@ flatbuffers::DetachedBuffer *__55__OPTTSBeginTextToSpeechStreamingResponse_flatb
 
 - (OPTTSAudioDescription)decoder_description
 {
-  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"decoder_description"];
+  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
   if (!v3)
   {
-    v4 = [OPTTSAudioDescription alloc];
-    root = self->_root;
-    v6 = &root[-*root->var0];
-    if (*v6->var0 >= 0x11u && (v7 = *v6[16].var0) != 0)
-    {
-      v8 = &root[v7 + *root[v7].var0];
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    v3 = [(OPTTSAudioDescription *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-    [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"decoder_description"];
+    v3 = [OPTTSAudioDescription initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
   }
 
   return v3;
@@ -234,48 +195,16 @@ flatbuffers::DetachedBuffer *__55__OPTTSBeginTextToSpeechStreamingResponse_flatb
 
 - (NSString)stream_id
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 12].var0;
-  if (*root[-v3 + 12].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)error_str
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 10].var0;
-  if (*root[-v3 + 10].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (int)error_code
@@ -295,48 +224,16 @@ flatbuffers::DetachedBuffer *__55__OPTTSBeginTextToSpeechStreamingResponse_flatb
 
 - (NSString)session_id
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 6].var0;
-  if (*root[-v3 + 6].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSString)speech_id
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 4].var0;
-  if (*root[-v3 + 4].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (OPTTSBeginTextToSpeechStreamingResponse)initWithFlatbuffData:(id)data root:(const BeginTextToSpeechStreamingResponse *)root verify:(BOOL)verify
@@ -367,7 +264,7 @@ flatbuffers::DetachedBuffer *__55__OPTTSBeginTextToSpeechStreamingResponse_flatb
       bytes2 = [(NSData *)v10->_data bytes];
       v14 = [(NSData *)v10->_data length];
       root = v10->_root;
-      if (root < bytes2 || root > bytes2 + v14)
+      if (root < bytes2 || root > v14 + bytes2)
       {
         goto LABEL_16;
       }

@@ -134,9 +134,9 @@ LABEL_6:
   return v6;
 }
 
-void sub_1C65E6900(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65E6900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -172,9 +172,9 @@ void QP::ParserGrammar::translations(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_1C65E69D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65E69D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -205,9 +205,9 @@ LABEL_6:
   return v6;
 }
 
-void sub_1C65E6A84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65E6A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -243,9 +243,9 @@ void QP::ParserGrammar::rankingTranslations(uint64_t a1, uint64_t a2, uint64_t a
   }
 }
 
-void sub_1C65E6B5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65E6B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -911,7 +911,7 @@ void QP::ParserGrammar::setModifier(uint64_t a1, unsigned __int8 *a2)
   if (v18)
   {
     v27[0] = &v29;
-    *(std::__tree<std::__value_type<unsigned short,QPModifier>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,QPModifier>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,QPModifier>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 192, &v29) + 14) = v18;
+    *(std::__tree<std::__value_type<unsigned short,QPModifier>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,QPModifier>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,QPModifier>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 192, &v29, &std::piecewise_construct, v27) + 14) = v18;
   }
 }
 
@@ -956,7 +956,7 @@ uint64_t std::pair<std::string,std::map<unsigned short,std::map<unsigned short,s
   return a1;
 }
 
-void QP::ParserGrammar::impactGroups(uint64_t a1, void **a2, unsigned int a3, unsigned int a4, uint64_t a5)
+void QP::ParserGrammar::impactGroups(uint64_t a1, char *a2, unsigned int a3, unsigned int a4, uint64_t a5)
 {
   if (a1 + 392 != std::__tree<std::string>::find<std::string>(a1 + 384, a2))
   {
@@ -1120,14 +1120,14 @@ void QP::ParserGrammar::impactGroups(uint64_t a1, void **a2, unsigned int a3, un
   }
 }
 
-void sub_1C65E77D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18, void *a19, uint64_t a20, char a21, void *a22)
+void sub_1C65E77D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22)
 {
   std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(&a18, a19);
   std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::destroy(&a21, a22);
   _Unwind_Resume(a1);
 }
 
-void QP::ParserGrammar::actions(uint64_t a1, void **a2, unsigned int a3, unsigned int a4, uint64_t a5)
+void QP::ParserGrammar::actions(uint64_t a1, char *a2, unsigned int a3, unsigned int a4, uint64_t a5)
 {
   if (a1 + 368 != std::__tree<std::string>::find<std::string>(a1 + 360, a2))
   {
@@ -1291,7 +1291,7 @@ void QP::ParserGrammar::actions(uint64_t a1, void **a2, unsigned int a3, unsigne
   }
 }
 
-void sub_1C65E7A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18, void *a19, uint64_t a20, char a21, void *a22)
+void sub_1C65E7A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22)
 {
   std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(&a18, a19);
   std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::destroy(&a21, a22);
@@ -1380,7 +1380,7 @@ uint64_t QP::ParserGrammar::hasAttribute(QP::ParserGrammar *this, unsigned int a
   return 0;
 }
 
-void QP::ParserGrammar::attribute(QP::ParserGrammar *this@<X0>, unsigned int a2@<W1>, unsigned int a3@<W2>, std::string *a4@<X8>)
+void QP::ParserGrammar::attribute(std::string *__return_ptr a1@<X8>, QP::ParserGrammar *this@<X0>, unsigned int a3@<W1>, unsigned int a4@<W2>)
 {
   v6 = *(this + 43);
   if (!v6)
@@ -1394,8 +1394,8 @@ void QP::ParserGrammar::attribute(QP::ParserGrammar *this@<X0>, unsigned int a2@
   do
   {
     v11 = *(v10 + 16);
-    v12 = v11 >= a2;
-    v13 = v11 < a2;
+    v12 = v11 >= a3;
+    v13 = v11 < a3;
     if (v12)
     {
       v9 = v10;
@@ -1405,7 +1405,7 @@ void QP::ParserGrammar::attribute(QP::ParserGrammar *this@<X0>, unsigned int a2@
   }
 
   while (v10);
-  if (v9 == v8 || *(v9 + 16) > a2)
+  if (v9 == v8 || *(v9 + 16) > a3)
   {
     goto LABEL_26;
   }
@@ -1417,8 +1417,8 @@ void QP::ParserGrammar::attribute(QP::ParserGrammar *this@<X0>, unsigned int a2@
   do
   {
     v15 = *(v6 + 16);
-    v12 = v15 >= a2;
-    v16 = v15 < a2;
+    v12 = v15 >= a3;
+    v16 = v15 < a3;
     if (v12)
     {
       v14 = v6;
@@ -1428,7 +1428,7 @@ void QP::ParserGrammar::attribute(QP::ParserGrammar *this@<X0>, unsigned int a2@
   }
 
   while (v6);
-  if (v14 == v8 || *(v14 + 16) > a2)
+  if (v14 == v8 || *(v14 + 16) > a3)
   {
     v14 = this + 344;
   }
@@ -1445,8 +1445,8 @@ void QP::ParserGrammar::attribute(QP::ParserGrammar *this@<X0>, unsigned int a2@
   do
   {
     v20 = *(v19 + 16);
-    v12 = v20 >= a3;
-    v21 = v20 < a3;
+    v12 = v20 >= a4;
+    v21 = v20 < a4;
     if (v12)
     {
       v18 = v19;
@@ -1456,20 +1456,20 @@ void QP::ParserGrammar::attribute(QP::ParserGrammar *this@<X0>, unsigned int a2@
   }
 
   while (v19);
-  if (v18 == v28 || *(v18 + 16) > a3)
+  if (v18 == v28 || *(v18 + 16) > a4)
   {
 LABEL_25:
     std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::destroy(&v27, v28[0]);
 LABEL_26:
     if (*(this + 119) < 0)
     {
-      std::string::__init_copy_ctor_external(a4, *(this + 12), *(this + 13));
+      std::string::__init_copy_ctor_external(a1, *(this + 12), *(this + 13));
     }
 
     else
     {
-      *&a4->__r_.__value_.__l.__data_ = *(this + 6);
-      a4->__r_.__value_.__r.__words[2] = *(this + 14);
+      *&a1->__r_.__value_.__l.__data_ = *(this + 6);
+      a1->__r_.__value_.__r.__words[2] = *(this + 14);
     }
 
     return;
@@ -1480,8 +1480,8 @@ LABEL_26:
   do
   {
     v24 = *(v23 + 16);
-    v12 = v24 >= a3;
-    v25 = v24 < a3;
+    v12 = v24 >= a4;
+    v25 = v24 < a4;
     if (v12)
     {
       v22 = v23;
@@ -1491,28 +1491,28 @@ LABEL_26:
   }
 
   while (v23);
-  if (v22 == v28 || *(v22 + 16) > a3)
+  if (v22 == v28 || *(v22 + 16) > a4)
   {
     v22 = v28;
   }
 
   if (*(v22 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(a4, v22[5], v22[6]);
+    std::string::__init_copy_ctor_external(a1, v22[5], v22[6]);
     v17 = v28[0];
   }
 
   else
   {
     v26 = *(v22 + 5);
-    a4->__r_.__value_.__r.__words[2] = v22[7];
-    *&a4->__r_.__value_.__l.__data_ = v26;
+    a1->__r_.__value_.__r.__words[2] = v22[7];
+    *&a1->__r_.__value_.__l.__data_ = v26;
   }
 
   std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::destroy(&v27, v17);
 }
 
-uint64_t QP::ParserGrammar::isValidSuggestionKey(QP::ParserGrammar *this, CFStringRef theString, unsigned int a3, unsigned int a4)
+uint64_t QP::ParserGrammar::isValidSuggestionKey(QP::ParserGrammar *this, __CFString *theString, unsigned int a3, unsigned int a4)
 {
   if (!theString || CFStringHasPrefix(theString, @"kQPLocation"))
   {
@@ -1542,7 +1542,7 @@ uint64_t QP::ParserGrammar::isValidSuggestionKey(QP::ParserGrammar *this, CFStri
   return QP::ParserGrammar::hasSuggestion(this, theString, a3, a4);
 }
 
-uint64_t QP::ParserGrammar::hasSuggestion(QP::ParserGrammar *this, const __CFString *a2, unsigned int a3, unsigned int a4)
+uint64_t QP::ParserGrammar::hasSuggestion(QP::ParserGrammar *this, __CFString *a2, unsigned int a3, unsigned int a4)
 {
   if (!a2)
   {
@@ -1552,7 +1552,7 @@ uint64_t QP::ParserGrammar::hasSuggestion(QP::ParserGrammar *this, const __CFStr
   __p[0] = 0;
   __p[1] = 0;
   v28 = 0;
-  QP::getUTF8StringFromCFString(a2, __p);
+  QP::getUTF8StringFromCFString(__p, a2);
   if ((this + 536) == std::__tree<std::string>::find<std::string>(this + 528, __p))
   {
     goto LABEL_29;
@@ -1658,7 +1658,7 @@ LABEL_30:
   return v21;
 }
 
-void sub_1C65E8178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, void *a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_1C65E8178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::destroy(&a13, a14);
   if (a21 < 0)
@@ -1669,14 +1669,14 @@ void sub_1C65E8178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void QP::ParserGrammar::suggestion(QP::ParserGrammar *this@<X0>, const __CFString *a2@<X1>, unsigned int a3@<W2>, unsigned int a4@<W3>, std::string *a5@<X8>)
+void QP::ParserGrammar::suggestion(QP::ParserGrammar *this@<X0>, __CFString *a2@<X1>, unsigned int a3@<W2>, unsigned int a4@<W3>, std::string *a5@<X8>)
 {
   if (a2)
   {
     __p[0] = 0;
     __p[1] = 0;
     v36 = 0;
-    QP::getUTF8StringFromCFString(a2, __p);
+    QP::getUTF8StringFromCFString(__p, a2);
     if ((this + 536) != std::__tree<std::string>::find<std::string>(this + 528, __p))
     {
       v33 = 0;
@@ -1828,12 +1828,11 @@ LABEL_34:
 
   else
   {
-    *&a5->__r_.__value_.__l.__data_ = *(this + 6);
-    a5->__r_.__value_.__r.__words[2] = *(this + 14);
+    *a5 = *(this + 4);
   }
 }
 
-void sub_1C65E8428(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, char *a11, uint64_t a12, char a13, void *a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_1C65E8428(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::destroy(&a10, a11);
   std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::destroy(&a13, a14);
@@ -1933,7 +1932,7 @@ BOOL QP::ParserGrammar::isIgnoredTerm(QP::ParserGrammar *this, CFStringRef theSt
   __p[0] = 0;
   __p[1] = 0;
   v9 = 0;
-  QP::getUTF8StringFromCFString(MutableCopy, __p);
+  QP::getUTF8StringFromCFString(__p, MutableCopy);
   v5 = *(this + 15);
   v11 = 0;
   v6 = (this + 128) != std::__find[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>,std::string,std::__identity>(v5, this + 16, __p);
@@ -2311,7 +2310,7 @@ void *std::map<unsigned short,std::map<unsigned short,float>>::map[abi:ne200100]
   return a1;
 }
 
-uint64_t std::map<unsigned short,std::map<unsigned short,float>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__tree_node<std::__value_type<unsigned short,std::map<unsigned short,float>>,void *> *,long>>>(uint64_t result, unsigned __int16 *a2, unsigned __int16 *a3)
+void *std::map<unsigned short,std::map<unsigned short,float>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__tree_node<std::__value_type<unsigned short,std::map<unsigned short,float>>,void *> *,long>>>(void *result, unsigned __int16 *a2, unsigned __int16 *a3)
 {
   if (a2 != a3)
   {
@@ -2319,7 +2318,7 @@ uint64_t std::map<unsigned short,std::map<unsigned short,float>>::insert[abi:ne2
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,float>> const&>(v5, v5 + 1, v4 + 16);
+      result = std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,float>> const&>(v5, (v5 + 8), v4 + 16, (v4 + 16));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -2353,11 +2352,11 @@ uint64_t std::map<unsigned short,std::map<unsigned short,float>>::insert[abi:ne2
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,float>> const&>(void *a1, uint64_t *a2, unsigned __int16 *a3)
+void *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,float>> const&>(uint64_t **a1, uint64_t *a2, unsigned __int16 *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__construct_node<std::pair<unsigned short const,std::map<unsigned short,float>> const&>();
@@ -2366,9 +2365,9 @@ uint64_t std::__tree<std::__value_type<unsigned short,std::map<unsigned short,fl
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int16 *a5)
+uint64_t *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int16 *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 16), v6 < v7))
   {
     v8 = *a2;
@@ -2395,7 +2394,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -2456,7 +2455,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -2535,7 +2534,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -2588,7 +2587,7 @@ void *std::map<unsigned short,float>::map[abi:ne200100](void *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t std::map<unsigned short,float>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,float>,std::__tree_node<std::__value_type<unsigned short,float>,void *> *,long>>>(uint64_t result, unsigned __int16 *a2, unsigned __int16 *a3)
+void *std::map<unsigned short,float>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,float>,std::__tree_node<std::__value_type<unsigned short,float>,void *> *,long>>>(void *result, unsigned __int16 *a2, unsigned __int16 *a3)
 {
   if (a2 != a3)
   {
@@ -2596,7 +2595,7 @@ uint64_t std::map<unsigned short,float>::insert[abi:ne200100]<std::__map_const_i
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,float> const&>(v5, v5 + 1, v4 + 14);
+      result = std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,float> const&>(v5, (v5 + 8), v4 + 14, v4 + 14);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -2630,22 +2629,22 @@ uint64_t std::map<unsigned short,float>::insert[abi:ne200100]<std::__map_const_i
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,float> const&>(void *a1, uint64_t *a2, unsigned __int16 *a3)
+void *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,float> const&>(uint64_t **a1, uint64_t *a2, unsigned __int16 *a3, void *a4)
 {
-  v5 = 0;
   v6 = 0;
-  v3 = *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__find_equal<unsigned short>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v7 = 0;
+  v4 = *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__find_equal<unsigned short>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__find_equal<unsigned short>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int16 *a5)
+uint64_t *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__find_equal<unsigned short>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int16 *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 14), v6 < v7))
   {
     v8 = *a2;
@@ -2672,7 +2671,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -2733,7 +2732,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -2812,7 +2811,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -2881,60 +2880,60 @@ void nlp::CFScopedPtr<__CFSet *>::reset(const void **a1, const void *a2)
   *a1 = a2;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,float>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,float>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+char *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned short,std::set<std::string>>,void *>>>::operator()[abi:ne200100](uint64_t a1, char **a2)
@@ -2952,70 +2951,70 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(a2);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,std::set<std::string>>>>(uint64_t a1, void **a2)
+char *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,std::set<std::string>>>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v8 = 0;
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v8, a2);
+  if (!v3)
   {
-    v4 = 0;
     v5 = 0;
     v6 = 0;
+    v7 = 0;
     std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__construct_node<std::pair<std::string,std::map<std::string,std::set<std::string>>>>();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+char *std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::set<std::string>>>(uint64_t a1, void **a2)
+char *std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::set<std::string>>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v8 = 0;
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v8, a2);
+  if (!v3)
   {
-    v4 = 0;
     v5 = 0;
     v6 = 0;
+    v7 = 0;
     std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__construct_node<std::pair<std::string,std::map<std::string,std::set<std::string>>>>();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+char *std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::pair<float,float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<float,float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<float,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,std::pair<float,float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<float,float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<float,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = 0;
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v3, a2);
+  v6 = 0;
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,std::pair<float,float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<float,float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<float,float>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3031,10 +3030,10 @@ void sub_1C65EA054(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = 0;
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v3, a2);
+  v6 = 0;
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3050,60 +3049,60 @@ void sub_1C65EA1B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::set<unsigned short>>>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::set<unsigned short>>>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v8 = 0;
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v8, a2);
+  if (!v3)
   {
-    v4 = 0;
     v5 = 0;
     v6 = 0;
+    v7 = 0;
     std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__construct_node<std::pair<std::string,std::map<std::string,std::set<std::string>>>>();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -3123,34 +3122,34 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::set<unsigned short>>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::set<unsigned short>>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v8 = 0;
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v8, a2);
+  if (!v3)
   {
-    v4 = 0;
     v5 = 0;
     v6 = 0;
+    v7 = 0;
     std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__construct_node<std::pair<std::string,std::map<std::string,std::set<std::string>>>>();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::set<unsigned short>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::set<unsigned short>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -3170,19 +3169,19 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::set
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 void std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::destroy(uint64_t a1, void *a2)
@@ -3197,19 +3196,19 @@ void std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::s
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v8 = 0;
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v8, a2);
+  if (!v3)
   {
-    v4 = 0;
     v5 = 0;
     v6 = 0;
+    v7 = 0;
     std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__construct_node<std::pair<std::string,std::map<std::string,std::set<std::string>>>>();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -3229,19 +3228,19 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **a2)
@@ -3268,7 +3267,7 @@ void *std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>::m
   return a1;
 }
 
-uint64_t std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__tree_node<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,void *> *,long>>>(uint64_t result, unsigned __int16 *a2, unsigned __int16 *a3)
+void *std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__tree_node<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,void *> *,long>>>(void *result, unsigned __int16 *a2, unsigned __int16 *a3)
 {
   if (a2 != a3)
   {
@@ -3276,7 +3275,7 @@ uint64_t std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,std::set<std::string>>> const&>(v5, v5 + 1, v4 + 16);
+      result = std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,std::set<std::string>>> const&>(v5, (v5 + 8), v4 + 16, (v4 + 16));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -3310,11 +3309,11 @@ uint64_t std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,std::set<std::string>>> const&>(void *a1, uint64_t *a2, unsigned __int16 *a3)
+void *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,std::set<std::string>>> const&>(uint64_t **a1, uint64_t *a2, unsigned __int16 *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::__construct_node<std::pair<unsigned short const,std::map<unsigned short,std::set<std::string>>> const&>();
@@ -3339,7 +3338,7 @@ void *std::map<unsigned short,std::set<std::string>>::map[abi:ne200100](void *a1
   return a1;
 }
 
-uint64_t std::map<unsigned short,std::set<std::string>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::set<std::string>>,std::__tree_node<std::__value_type<unsigned short,std::set<std::string>>,void *> *,long>>>(uint64_t result, unsigned __int16 *a2, unsigned __int16 *a3)
+void *std::map<unsigned short,std::set<std::string>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::set<std::string>>,std::__tree_node<std::__value_type<unsigned short,std::set<std::string>>,void *> *,long>>>(void *result, unsigned __int16 *a2, unsigned __int16 *a3)
 {
   if (a2 != a3)
   {
@@ -3347,7 +3346,7 @@ uint64_t std::map<unsigned short,std::set<std::string>>::insert[abi:ne200100]<st
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::set<std::string>> const&>(v5, v5 + 1, v4 + 16);
+      result = std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::set<std::string>> const&>(v5, (v5 + 8), v4 + 16, (v4 + 16));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -3381,11 +3380,11 @@ uint64_t std::map<unsigned short,std::set<std::string>>::insert[abi:ne200100]<st
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::set<std::string>> const&>(void *a1, uint64_t *a2, unsigned __int16 *a3)
+void *std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::set<std::string>> const&>(uint64_t **a1, uint64_t *a2, unsigned __int16 *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::__construct_node<std::pair<unsigned short const,std::set<std::string>> const&>();
@@ -3416,41 +3415,41 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(a2);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -3484,7 +3483,7 @@ void *std::map<unsigned short,std::string>::map[abi:ne200100](void *a1, uint64_t
   return a1;
 }
 
-uint64_t std::map<unsigned short,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::string>,std::__tree_node<std::__value_type<unsigned short,std::string>,void *> *,long>>>(uint64_t result, unsigned __int16 *a2, unsigned __int16 *a3)
+void *std::map<unsigned short,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::string>,std::__tree_node<std::__value_type<unsigned short,std::string>,void *> *,long>>>(void *result, unsigned __int16 *a2, unsigned __int16 *a3)
 {
   if (a2 != a3)
   {
@@ -3492,7 +3491,7 @@ uint64_t std::map<unsigned short,std::string>::insert[abi:ne200100]<std::__map_c
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::string> const&>(v5, v5 + 1, v4 + 16);
+      result = std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::string> const&>(v5, (v5 + 8), v4 + 16, (v4 + 16));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -3526,11 +3525,11 @@ uint64_t std::map<unsigned short,std::string>::insert[abi:ne200100]<std::__map_c
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::string> const&>(void *a1, uint64_t *a2, unsigned __int16 *a3)
+void *std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::string> const&>(uint64_t **a1, uint64_t *a2, unsigned __int16 *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__construct_node<std::pair<unsigned short const,std::string> const&>();
@@ -3546,19 +3545,19 @@ void sub_1C65EB1E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v8 = 0;
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v8, a2);
+  if (!v3)
   {
-    v4 = 0;
     v5 = 0;
     v6 = 0;
+    v7 = 0;
     std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__construct_node<std::pair<std::string,std::map<std::string,std::set<std::string>>>>();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -3578,56 +3577,56 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::string>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::string>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -3643,7 +3642,7 @@ void *std::map<unsigned short,std::map<unsigned short,std::string>>::map[abi:ne2
   return a1;
 }
 
-uint64_t std::map<unsigned short,std::map<unsigned short,std::string>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__tree_node<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,void *> *,long>>>(uint64_t result, unsigned __int16 *a2, unsigned __int16 *a3)
+void *std::map<unsigned short,std::map<unsigned short,std::string>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__tree_node<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,void *> *,long>>>(void *result, unsigned __int16 *a2, unsigned __int16 *a3)
 {
   if (a2 != a3)
   {
@@ -3651,7 +3650,7 @@ uint64_t std::map<unsigned short,std::map<unsigned short,std::string>>::insert[a
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,std::string>> const&>(v5, v5 + 1, v4 + 16);
+      result = std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,std::string>> const&>(v5, (v5 + 8), v4 + 16, (v4 + 16));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -3685,11 +3684,11 @@ uint64_t std::map<unsigned short,std::map<unsigned short,std::string>>::insert[a
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,std::string>> const&>(void *a1, uint64_t *a2, unsigned __int16 *a3)
+void *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,std::map<unsigned short,std::string>> const&>(uint64_t **a1, uint64_t *a2, unsigned __int16 *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,float>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,float>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,float>>>>::__find_equal<unsigned short>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::__construct_node<std::pair<unsigned short const,std::map<unsigned short,std::string>> const&>();
@@ -3705,94 +3704,94 @@ void sub_1C65EB710(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,QPModifier>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,QPModifier>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,QPModifier>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,QPModifier>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,QPModifier>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,QPModifier>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, unsigned __int16 **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 26);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 26);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string,unsigned short>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string,unsigned short>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v4 = 0;
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = 0;
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,unsigned short>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,unsigned short>>(uint64_t a1, unsigned __int16 *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 26);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 26);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -3996,8 +3995,7 @@ BOOL QP::bplistMissingAnything(QP *this, const __CFDictionary *a2)
     v3 = CFGetTypeID(values);
     if (v3 != CFDictionaryGetTypeID())
     {
-      result = 1;
-      goto LABEL_23;
+      return 1;
     }
 
     v2 = values;
@@ -4019,19 +4017,16 @@ BOOL QP::bplistMissingAnything(QP *this, const __CFDictionary *a2)
     v10 = 1;
   }
 
-  result = v10 || v6 == 0 || v8 == 0 || v7 == 0 || v9 == 0;
-LABEL_23:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return v10 || v6 == 0 || v8 == 0 || v7 == 0 || v9 == 0;
 }
 
-void QP::loadCompletionsFromPlist(const __CFDictionary *a1, const __CFDictionary *a2, const void **a3, const void **a4, const void **a5)
+void QP::loadCompletionsFromPlist(const __CFDictionary *result, const __CFDictionary *a2, const void **a3, const void **a4, const void **a5)
 {
-  if (a1 && !QP::bplistMissingAnything(a1, a2))
+  if (result && !QP::bplistMissingAnything(result, a2))
   {
-    Value = CFDictionaryGetValue(a1, @"completion_keys");
-    v11 = CFDictionaryGetValue(a1, @"completion_suggestion_keys");
-    v12 = CFDictionaryGetValue(a1, @"completion_token_keys");
+    Value = CFDictionaryGetValue(result, @"completion_keys");
+    v11 = CFDictionaryGetValue(result, @"completion_suggestion_keys");
+    v12 = CFDictionaryGetValue(result, @"completion_token_keys");
     v13 = *MEMORY[0x1E695E480];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, 0, 0);
     CFDictionaryApplyFunction(Value, QP::dictStrKeytoIntKey, Mutable);
@@ -4040,7 +4035,7 @@ void QP::loadCompletionsFromPlist(const __CFDictionary *a1, const __CFDictionary
     nlp::CFScopedPtr<__CFDictionary const*>::reset(a4, v15);
     v16 = v12 ? CFDictionaryCreateCopy(v13, v12) : 0;
     nlp::CFScopedPtr<__CFDictionary const*>::reset(a5, v16);
-    v17 = CFDictionaryGetValue(a1, @"completions");
+    v17 = CFDictionaryGetValue(result, @"completions");
     if (v17)
     {
       BytePtr = CFDataGetBytePtr(v17);
@@ -4132,7 +4127,7 @@ void QP::generateCompletions(unint64_t a1, QP *this, const __CFString *a3, const
             __p = 0;
             v52 = 0;
             v53 = 0;
-            QP::getUTF8StringFromCFString(MutableCopy, &__p);
+            QP::getUTF8StringFromCFString(&__p, MutableCopy);
             v28 = v53 >= 0 ? &__p : __p;
             v29 = v53 >= 0 ? HIBYTE(v53) : v52;
             nlp::BurstTrieAdd(a5, v28, v29, valuePtr);
@@ -4364,7 +4359,7 @@ void ___ZN2QP15PhotosFormatter8setParseENSt3__110shared_ptrINS_5ParseEEE_block_i
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    (*(*v4 + 64))(v4, v5, &v12);
+    (*(*v4 + 8))(v4, v5, &v12);
     v7 = v13;
     if (v13)
     {
@@ -4406,7 +4401,7 @@ void sub_1C65ECD88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::PhotosFormatter::updateEntityParseWithAttribute(QP::Formatter *a1, const __CFString *a2, uint64_t *a3)
+void QP::PhotosFormatter::updateEntityParseWithAttribute(QP::SpellCheckWrapper **a1, const __CFString *a2, uint64_t *a3)
 {
   v6 = *MEMORY[0x1E695E480];
   v7 = *a3;
@@ -4475,10 +4470,10 @@ void QP::PhotosFormatter::updateEntityParseWithAttribute(QP::Formatter *a1, cons
     }
   }
 
-  v29 = *(a1 + 26);
+  v29 = a1[26];
   if (v29)
   {
-    if (*(*(a1 + 1) + 72) == 1)
+    if (*(a1[1] + 72) == 1)
     {
       v30 = QP::SpellCheckWrapper::spellCheck(v29, v9, 10);
       if (v30)
@@ -4503,12 +4498,12 @@ void QP::PhotosFormatter::updateEntityParseWithAttribute(QP::Formatter *a1, cons
   }
 }
 
-void sub_1C65ECFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C65ECFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, const void *);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v7 = va_arg(va1, const void *);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   _Unwind_Resume(a1);
@@ -4558,24 +4553,24 @@ void QP::PhotosFormatter::update(QP::PhotosFormatter *this)
 
 void QP::PhotosFormatter::updateParseWithDateAttribute(QP::Formatter *a1, const __CFString *a2, CFRange **a3)
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v128 = *MEMORY[0x1E69E9840];
   v6 = a3[1];
-  v123 = *a3;
-  v124 = v6;
+  v122 = *a3;
+  v123 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  *&v125 = &unk_1F45E8F08;
-  *(&v125 + 1) = a3;
-  *&v126 = a1;
-  *(&v126 + 1) = &v125;
-  QP::Formatter::updateParseWithDateAttribute(a1, a2, &v123, &v125);
-  std::__function::__value_func<void ()(__CFDictionary const*)>::~__value_func[abi:ne200100](&v125);
-  if (v124)
+  *&v124 = &unk_1F45E8F08;
+  *(&v124 + 1) = a3;
+  *&v125 = a1;
+  *(&v125 + 1) = &v124;
+  QP::Formatter::updateParseWithDateAttribute(a1, a2, &v122, &v124);
+  std::__function::__value_func<void ()(__CFDictionary const*)>::~__value_func[abi:ne200100](&v124);
+  if (v123)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v124);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v123);
   }
 
   v7 = *a3;
@@ -4591,35 +4586,35 @@ void QP::PhotosFormatter::updateParseWithDateAttribute(QP::Formatter *a1, const 
       {
 LABEL_109:
         std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-        goto LABEL_110;
+        return;
       }
 
+      v120 = 0;
       v121 = 0;
-      v122 = 0;
-      v116 = 0;
-      v117 = &v116;
-      v118 = 0x3002000000;
-      v119 = __Block_byref_object_copy__10;
-      v120 = __Block_byref_object_dispose__10;
+      v115 = 0;
+      v116 = &v115;
+      v117 = 0x3002000000;
+      v118 = __Block_byref_object_copy__10;
+      v119 = __Block_byref_object_dispose__10;
       v12 = *MEMORY[0x1E695E480];
       Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-      v115 = Mutable;
+      v114 = Mutable;
       v14 = CFArrayCreateMutable(v12, 0, MEMORY[0x1E695E9C0]);
-      v114 = v14;
+      v113 = v14;
       v15 = CFDictionaryCreateMutable(v12, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      v113 = v15;
-      v107 = 0;
-      v108 = &v107;
-      v109 = 0x3002000000;
-      v110 = __Block_byref_object_copy__1_0;
-      v111 = __Block_byref_object_dispose__2_0;
-      v112 = 0;
-      v112 = CFArrayCreateMutable(v12, 0, MEMORY[0x1E695E9C0]);
-      v52 = v14;
+      v112 = v15;
+      v106 = 0;
+      v107 = &v106;
+      v108 = 0x3002000000;
+      v109 = __Block_byref_object_copy__1_0;
+      v110 = __Block_byref_object_dispose__2_0;
+      v111 = 0;
+      v111 = CFArrayCreateMutable(v12, 0, MEMORY[0x1E695E9C0]);
+      v51 = v14;
       if (QP::ParserGrammar::hasTranslations(*(a1 + 3), &(*a3)[3]))
       {
-        v51 = CFDictionaryCreateMutable(v12, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v106 = v51;
+        v50 = CFDictionaryCreateMutable(v12, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        v105 = v50;
         v16 = *(location + 120);
         v17 = *(location + 128);
         if (v17)
@@ -4630,25 +4625,25 @@ LABEL_109:
         if (v16 && ((*a3)[4].length & 0x10000) == 0)
         {
           v18 = *(v16 + 152);
-          v125 = *(v16 + 136);
-          v126 = v18;
-          v127 = *(v16 + 168);
-          v128 = *(v16 + 184);
-          v105 = 0;
+          v124 = *(v16 + 136);
+          v125 = v18;
+          v126 = *(v16 + 168);
+          v127 = *(v16 + 184);
+          v104 = 0;
+          v102 = 0u;
           v103 = 0u;
-          v104 = 0u;
           v19 = *(v16 + 24);
           v20 = *(v16 + 56);
-          v103 = *(v16 + 40);
-          v104 = v20;
-          v105 = *(v16 + 72);
-          v102 = v19;
+          v102 = *(v16 + 40);
+          v103 = v20;
+          v104 = *(v16 + 72);
+          v101 = v19;
           v21 = *(v16 + 96);
-          v98 = *(v16 + 80);
-          v99 = v21;
-          v100 = *(v16 + 112);
-          v101 = *(v16 + 128);
-          isEmpty = QP::DateComponents::isEmpty(&v125);
+          v97 = *(v16 + 80);
+          v98 = v21;
+          v99 = *(v16 + 112);
+          v100 = *(v16 + 128);
+          isEmpty = QP::DateComponents::isEmpty(&v124);
           v23 = *(v16 + 12);
           if (v23 > 5)
           {
@@ -4662,142 +4657,142 @@ LABEL_109:
 
           if (v24 == 1)
           {
-            v50 = v23 < 0x5B;
+            v49 = v23 < 0x5B;
           }
 
           else if (v23 == 4)
           {
-            v50 = QP::DateComponents::componentsCount(&v102) > 1 || QP::DateComponents::componentsCount(&v98) >= 2;
+            v49 = QP::DateComponents::componentsCount(&v101) > 1 || QP::DateComponents::componentsCount(&v97) >= 2;
             v23 = *(v16 + 12);
           }
 
           else
           {
-            v50 = 0;
+            v49 = 0;
           }
 
           if ((v23 - 1) <= 0x3F && ((1 << (v23 - 1)) & 0x8000000008008001) != 0 || v23 == 102)
           {
-            v50 = 1;
+            v49 = 1;
           }
 
           v29 = *(a1 + 2);
-          v96 = *(a1 + 1);
-          v97 = v29;
+          v95 = *(a1 + 1);
+          v96 = v29;
           if (v29)
           {
             atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
             v23 = *(v16 + 12);
           }
 
-          QP::DateConverter::resolveDateComponentsAsRange(&v96, *(v16 + 16), v23, &v102, &v98, &v125, v50);
-          if (v97)
+          QP::DateConverter::resolveDateComponentsAsRange(&v95, *(v16 + 16), v23, &v101, &v97, &v124, v49);
+          if (v96)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v97);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v96);
           }
 
-          v90 = 0;
-          v91 = &v90;
-          v92 = 0x3002000000;
-          v93 = __Block_byref_object_copy__1_0;
-          v94 = __Block_byref_object_dispose__2_0;
-          v95 = 0;
-          v95 = CFArrayCreateMutable(v12, 0, MEMORY[0x1E695E9C0]);
-          v88[0] = 0;
-          v88[1] = v88;
-          v88[2] = 0x3002000000;
-          v88[3] = __Block_byref_object_copy__1_0;
-          v88[4] = __Block_byref_object_dispose__2_0;
           v89 = 0;
-          v89 = CFArrayCreateMutable(v12, 0, MEMORY[0x1E695E9C0]);
-          v86[0] = 0;
-          v86[1] = v86;
-          v86[2] = 0x3002000000;
-          v86[3] = __Block_byref_object_copy__10;
-          v86[4] = __Block_byref_object_dispose__10;
+          v90 = &v89;
+          v91 = 0x3002000000;
+          v92 = __Block_byref_object_copy__1_0;
+          v93 = __Block_byref_object_dispose__2_0;
+          v94 = 0;
+          v94 = CFArrayCreateMutable(v12, 0, MEMORY[0x1E695E9C0]);
+          v87[0] = 0;
+          v87[1] = v87;
+          v87[2] = 0x3002000000;
+          v87[3] = __Block_byref_object_copy__1_0;
+          v87[4] = __Block_byref_object_dispose__2_0;
+          v88 = 0;
+          v88 = CFArrayCreateMutable(v12, 0, MEMORY[0x1E695E9C0]);
+          v85[0] = 0;
+          v85[1] = v85;
+          v85[2] = 0x3002000000;
+          v85[3] = __Block_byref_object_copy__10;
+          v85[4] = __Block_byref_object_dispose__10;
           started = 0;
           v30 = *(a1 + 5);
-          v84 = v16;
-          v85 = v17;
+          v83 = v16;
+          v84 = v17;
           if (v17)
           {
             atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          started = QP::DateFormatter::copyISODisplayForStartDate(v30, &v84, *(v16 + 16), 0, 0, 0);
-          if (v85)
+          started = QP::DateFormatter::copyISODisplayForStartDate(v30, &v83, *(v16 + 16), 0, 0, 0);
+          if (v84)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v85);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v84);
           }
 
-          v81 = v17;
-          v82[0] = 0;
-          v82[1] = v82;
-          v82[2] = 0x3002000000;
-          v82[3] = __Block_byref_object_copy__10;
-          v82[4] = __Block_byref_object_dispose__10;
-          v83 = 0;
+          v80 = v17;
+          v81[0] = 0;
+          v81[1] = v81;
+          v81[2] = 0x3002000000;
+          v81[3] = __Block_byref_object_copy__10;
+          v81[4] = __Block_byref_object_dispose__10;
+          v82 = 0;
           v31 = *(a1 + 5);
-          v80 = v16;
+          v79 = v16;
           if (v17)
           {
             atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v83 = QP::DateFormatter::copyISODisplayForEndDate(v31, &v80, *(v16 + 16), 0, 0, 0, 1);
-          if (v81)
+          v82 = QP::DateFormatter::copyISODisplayForEndDate(v31, &v79, *(v16 + 16), 0, 0, 0, 1);
+          if (v80)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v81);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v80);
           }
 
           v32 = *(a1 + 3);
           v33 = *a3;
-          v67[0] = MEMORY[0x1E69E9820];
-          v67[1] = 1174405120;
-          v67[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke;
-          v67[3] = &unk_1F45E8E18;
-          v67[8] = a1;
-          v67[9] = v33;
+          v66[0] = MEMORY[0x1E69E9820];
+          v66[1] = 1174405120;
+          v66[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke;
+          v66[3] = &unk_1F45E8E18;
+          v66[8] = a1;
+          v66[9] = v33;
           v34 = a3[1];
-          v68 = v34;
+          v67 = v34;
           if (v34)
           {
             atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v79 = v50;
-          v67[4] = v86;
-          v67[5] = v82;
-          v67[6] = &v90;
-          v69 = v16;
-          v70 = v17;
+          v78 = v49;
+          v66[4] = v85;
+          v66[5] = v81;
+          v66[6] = &v89;
+          v68 = v16;
+          v69 = v17;
           if (v17)
           {
             atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
+          v70 = v101;
           v71 = v102;
           v72 = v103;
-          v73 = v104;
+          v74 = v97;
           v75 = v98;
           v76 = v99;
           v77 = v100;
-          v78 = v101;
-          v74 = v105;
-          v67[7] = v88;
-          QP::ParserGrammar::translations(v32, &v33[3], v67);
-          v49 = Mutable;
-          v66 = CFStringCreateWithSubstring(v12, a2, *(location + 72));
-          v48 = v66;
-          QP::Formatter::setParseAttribute(a1, kQPParseAttributeDateKey, v66, (*a3)[1]);
-          Count = CFArrayGetCount(v91[5]);
+          v73 = v104;
+          v66[7] = v87;
+          QP::ParserGrammar::translations(v32, &v33[3], v66);
+          v48 = Mutable;
+          v65 = CFStringCreateWithSubstring(v12, a2, *(location + 72));
+          v47 = v65;
+          QP::Formatter::setParseAttribute(a1, kQPParseAttributeDateKey, v65, (*a3)[1]);
+          Count = CFArrayGetCount(v90[5]);
           if (Count)
           {
-            v36 = CFStringCreateByCombiningStrings(v12, v91[5], @" || ");
-            v57 = v36;
+            v36 = CFStringCreateByCombiningStrings(v12, v90[5], @" || ");
+            v56 = v36;
             if (CFStringGetLength(v36))
             {
-              v47 = v117;
+              v46 = v116;
               if (Count <= 1)
               {
                 v37 = CFStringCreateWithFormat(v12, 0, @"%@", v36);
@@ -4808,10 +4803,10 @@ LABEL_109:
                 v37 = CFStringCreateWithFormat(v12, 0, @"(%@)", v36);
               }
 
-              nlp::CFScopedPtr<__CFString const*>::reset(v47 + 5, v37);
-              if (CFStringGetLength(v117[5]))
+              nlp::CFScopedPtr<__CFString const*>::reset(v46 + 5, v37);
+              if (CFStringGetLength(v116[5]))
               {
-                QP::Formatter::setParseAttribute(a1, kQPParseAttributeDescriptionKey, v117[5], (*a3)[1]);
+                QP::Formatter::setParseAttribute(a1, kQPParseAttributeDescriptionKey, v116[5], (*a3)[1]);
               }
 
               ++*(a1 + 10);
@@ -4824,126 +4819,126 @@ LABEL_109:
           }
 
           v38 = *(a1 + 5);
-          v63 = v16;
-          v64 = v17;
+          v62 = v16;
+          v63 = v17;
           if (v17)
           {
             atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          Mutable = v49;
-          v39 = QP::DateFormatter::copyDisplayForDate(v38, &v63, v50, 0);
-          v65 = v39;
-          if (v64)
+          Mutable = v48;
+          v39 = QP::DateFormatter::copyDisplayForDate(v38, &v62, v49, 0);
+          v64 = v39;
+          if (v63)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v63);
           }
 
           if (v39)
           {
-            v57 = 0;
-            v58 = &v57;
-            v59 = 0x3002000000;
-            v60 = __Block_byref_object_copy__10;
-            v61 = __Block_byref_object_dispose__10;
+            v56 = 0;
+            v57 = &v56;
+            v58 = 0x3002000000;
+            v59 = __Block_byref_object_copy__10;
+            v60 = __Block_byref_object_dispose__10;
             cf = 0;
             v40 = *a3;
-            v56[0] = MEMORY[0x1E69E9820];
-            v56[1] = 0x40000000;
-            v56[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke_24;
-            v56[3] = &unk_1E8267230;
-            v56[4] = &v57;
-            v56[5] = a1;
-            QP::ParseAttribute::actionsForRoot(v40, v56);
-            v41 = v58[5];
+            v55[0] = MEMORY[0x1E69E9820];
+            v55[1] = 0x40000000;
+            v55[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke_24;
+            v55[3] = &unk_1E8267230;
+            v55[4] = &v56;
+            v55[5] = a1;
+            QP::ParseAttribute::actionsForRoot(v40, v55);
+            v41 = v57[5];
             if (v41)
             {
               v42 = CFStringCreateWithFormat(v12, 0, v41, v39);
-              nlp::CFScopedPtr<__CFString const*>::reset(&v122, v42);
-              QP::SpotlightFormatter::addDisplay(a1, v122, (*a3)[1]);
-              CFDictionarySetValue(v15, @"kQPDisplay", v122);
+              nlp::CFScopedPtr<__CFString const*>::reset(&v121, v42);
+              QP::SpotlightFormatter::addDisplay(a1, v121, (*a3)[1]);
+              CFDictionarySetValue(v15, @"kQPDisplay", v121);
             }
 
             else
             {
               Copy = CFStringCreateCopy(v12, v39);
-              nlp::CFScopedPtr<__CFString const*>::reset(&v122, Copy);
+              nlp::CFScopedPtr<__CFString const*>::reset(&v121, Copy);
               QP::SpotlightFormatter::addDisplay(a1, v39, (*a3)[1]);
               CFDictionarySetValue(v15, @"kQPDisplay", v39);
-              v55 = 0;
+              v54 = 0;
               v44 = CFStringCreateWithFormat(v12, 0, @"%d", *(v16 + 16));
-              v54 = v17;
-              v55 = v44;
+              v53 = v17;
+              v54 = v44;
               v45 = *(a1 + 3);
-              v53[0] = MEMORY[0x1E69E9820];
-              v53[1] = 1174405120;
-              v53[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke_2_35;
-              v53[3] = &unk_1F45E8E50;
-              v53[6] = a1;
-              v53[7] = v16;
+              v52[0] = MEMORY[0x1E69E9820];
+              v52[1] = 1174405120;
+              v52[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke_2_35;
+              v52[3] = &unk_1F45E8E50;
+              v52[6] = a1;
+              v52[7] = v16;
               if (v17)
               {
                 atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              v53[4] = &v116;
-              v53[5] = &v107;
-              QP::ParserGrammar::tokens(v45, @"kQPDate", v44, v39, v53);
-              if (v54)
+              v52[4] = &v115;
+              v52[5] = &v106;
+              QP::ParserGrammar::tokens(v45, @"kQPDate", v44, v39, v52);
+              if (v53)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v53);
               }
 
-              nlp::CFScopedPtr<__CFString const*>::reset(&v55, 0);
+              nlp::CFScopedPtr<__CFString const*>::reset(&v54, 0);
             }
 
-            _Block_object_dispose(&v57, 8);
+            _Block_object_dispose(&v56, 8);
             if (cf)
             {
               CFRelease(cf);
             }
 
             CFRelease(v39);
-            Mutable = v49;
+            Mutable = v48;
           }
 
-          if (v48)
+          if (v47)
           {
-            CFRelease(v48);
+            CFRelease(v47);
           }
 
-          if (v70)
+          if (v69)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v69);
           }
 
-          if (v68)
+          if (v67)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v68);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v67);
           }
 
-          _Block_object_dispose(v82, 8);
-          if (v83)
+          _Block_object_dispose(v81, 8);
+          if (v82)
           {
-            CFRelease(v83);
+            CFRelease(v82);
           }
 
-          _Block_object_dispose(v86, 8);
+          _Block_object_dispose(v85, 8);
           if (started)
           {
             CFRelease(started);
           }
 
-          _Block_object_dispose(v88, 8);
-          if (v89)
+          _Block_object_dispose(v87, 8);
+          if (v88)
           {
-            CFRelease(v89);
+            CFRelease(v88);
           }
 
-          _Block_object_dispose(&v90, 8);
-          if (v95)
+          _Block_object_dispose(&v89, 8);
+          if (v94)
           {
-            CFRelease(v95);
+            CFRelease(v94);
           }
         }
 
@@ -4952,21 +4947,21 @@ LABEL_109:
           std::__shared_weak_count::__release_shared[abi:ne200100](v17);
         }
 
-        if (v51)
+        if (v50)
         {
-          CFRelease(v51);
+          CFRelease(v50);
         }
 
         goto LABEL_94;
       }
 
       v25 = *a3;
-      QP::getUTF8StringFromCFString(kQPParseAttributeDateExtensionKey, &v125);
-      v26 = QP::equals(&v25[3].location, &v125);
+      QP::getUTF8StringFromCFString(&v124, kQPParseAttributeDateExtensionKey);
+      v26 = QP::equals(&v25[3].location, &v124);
       v27 = v26;
-      if (SBYTE7(v126) < 0)
+      if (SBYTE7(v125) < 0)
       {
-        operator delete(v125);
+        operator delete(v124);
         if (!v27)
         {
           goto LABEL_94;
@@ -4978,18 +4973,18 @@ LABEL_109:
 LABEL_94:
         if (*(*(a1 + 1) + 39) != 1 || (QP::DatePeriod::isSingleYearPeriod(*(location + 120)) & 1) == 0)
         {
-          QP::SpotlightFormatter::addTokens(a1, @"kQPTokenDate", v108[5]);
-          QP::SpotlightFormatter::addSuggestion(a1, v122);
+          QP::SpotlightFormatter::addTokens(a1, @"kQPTokenDate", v107[5]);
+          QP::SpotlightFormatter::addSuggestion(a1, v121);
         }
 
-        QP::SpotlightFormatter::addDescription(a1, v117[5]);
+        QP::SpotlightFormatter::addDescription(a1, v116[5]);
         QP::SpotlightFormatter::addAttributes(a1, v15);
         QP::SpotlightFormatter::addPrimaryCategories(a1, Mutable);
-        QP::SpotlightFormatter::addSecondaryCategory(a1, v52);
-        _Block_object_dispose(&v107, 8);
-        if (v112)
+        QP::SpotlightFormatter::addSecondaryCategory(a1, v51);
+        _Block_object_dispose(&v106, 8);
+        if (v111)
         {
-          CFRelease(v112);
+          CFRelease(v111);
         }
 
         if (v15)
@@ -4997,9 +4992,9 @@ LABEL_94:
           CFRelease(v15);
         }
 
-        if (v52)
+        if (v51)
         {
-          CFRelease(v52);
+          CFRelease(v51);
         }
 
         if (Mutable)
@@ -5007,22 +5002,22 @@ LABEL_94:
           CFRelease(Mutable);
         }
 
-        _Block_object_dispose(&v116, 8);
+        _Block_object_dispose(&v115, 8);
+        if (v120)
+        {
+          CFRelease(v120);
+        }
+
         if (v121)
         {
           CFRelease(v121);
-        }
-
-        if (v122)
-        {
-          CFRelease(v122);
         }
 
         goto LABEL_109;
       }
 
       v28 = CFStringCreateWithSubstring(v12, a2, *(location + 72));
-      *&v125 = v28;
+      *&v124 = v28;
       QP::Formatter::setParseAttribute(a1, kQPParseAttributeDateExtensionKey, v28, (*a3)[1]);
       ++*(a1 + 10);
       if (v28)
@@ -5033,12 +5028,9 @@ LABEL_94:
       goto LABEL_94;
     }
   }
-
-LABEL_110:
-  v46 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1C65EDCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25, const void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, const void *a41, const void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, std::__shared_weak_count *a53, uint64_t a54, std::__shared_weak_count *a55)
+void sub_1C65EDCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25, const void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, const void *a41, const void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, std::__shared_weak_count *a53, uint64_t a54, std::__shared_weak_count *a55)
 {
   if (a25)
   {
@@ -5389,73 +5381,72 @@ void ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3_
 {
   v3 = *(a1 + 72);
   CFStringFromString = QP::createCFStringFromString(a2);
-  v19 = CFStringFromString;
+  v18 = CFStringFromString;
   if (*(a1 + 216))
   {
-    v5 = *(*(*(a1 + 32) + 8) + 40);
-    v6 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, *(a1 + 80), CFStringFromString, v5, *(*(*(a1 + 40) + 8) + 40));
-    v18 = v6;
-    v7 = *(*(*(a1 + 48) + 8) + 40);
-    v20.length = CFArrayGetCount(v7);
-    v20.location = 0;
-    if (!CFArrayContainsValue(v7, v20, v6))
+    v5 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, *(a1 + 80), CFStringFromString, *(*(*(a1 + 32) + 8) + 40), *(*(*(a1 + 40) + 8) + 40));
+    v17 = v5;
+    v6 = *(*(*(a1 + 48) + 8) + 40);
+    v19.length = CFArrayGetCount(v6);
+    v19.location = 0;
+    if (!CFArrayContainsValue(v6, v19, v5))
     {
-      CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v6);
+      CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v5);
     }
 
-    if (v6)
+    if (v5)
     {
-      CFRelease(v6);
+      CFRelease(v5);
     }
   }
 
   else
   {
-    v8 = *(v3 + 8);
-    v10 = *(v8 + 80);
-    v9 = *(v8 + 88);
-    v11 = *(*(a1 + 88) + 16);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 0x40000000;
-    v17[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke_4;
-    v17[3] = &unk_1E82671E0;
-    v17[4] = *(a1 + 56);
-    QP::enumerateQueryWithAction(v9, v10, CFStringFromString, 0, v11, (a1 + 104), (a1 + 160), v17);
-    v12 = *MEMORY[0x1E695E480];
-    v13 = CFStringCreateByCombiningStrings(*MEMORY[0x1E695E480], *(*(*(a1 + 56) + 8) + 40), @" && ");
-    v18 = v13;
+    v7 = *(v3 + 8);
+    v9 = *(v7 + 80);
+    v8 = *(v7 + 88);
+    v10 = *(*(a1 + 88) + 16);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 0x40000000;
+    v16[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke_4;
+    v16[3] = &unk_1E82671E0;
+    v16[4] = *(a1 + 56);
+    QP::enumerateQueryWithAction(v8, v9, CFStringFromString, 0, v10, (a1 + 104), (a1 + 160), v16);
+    v11 = *MEMORY[0x1E695E480];
+    v12 = CFStringCreateByCombiningStrings(*MEMORY[0x1E695E480], *(*(*(a1 + 56) + 8) + 40), @" && ");
+    v17 = v12;
     if (CFArrayGetCount(*(*(*(a1 + 56) + 8) + 40)) < 2)
     {
-      v16 = *(*(*(a1 + 48) + 8) + 40);
-      v22.length = CFArrayGetCount(v16);
-      v22.location = 0;
-      if (!CFArrayContainsValue(v16, v22, v13))
+      v15 = *(*(*(a1 + 48) + 8) + 40);
+      v21.length = CFArrayGetCount(v15);
+      v21.location = 0;
+      if (!CFArrayContainsValue(v15, v21, v12))
       {
-        CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v13);
+        CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v12);
       }
     }
 
     else
     {
-      v14 = CFStringCreateWithFormat(v12, 0, @"(%@)", v13);
-      v15 = *(*(*(a1 + 48) + 8) + 40);
-      v21.length = CFArrayGetCount(v15);
-      v21.location = 0;
-      if (!CFArrayContainsValue(v15, v21, v14))
+      v13 = CFStringCreateWithFormat(v11, 0, @"(%@)", v12);
+      v14 = *(*(*(a1 + 48) + 8) + 40);
+      v20.length = CFArrayGetCount(v14);
+      v20.location = 0;
+      if (!CFArrayContainsValue(v14, v20, v13))
       {
-        CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v14);
+        CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v13);
       }
 
-      if (v14)
+      if (v13)
       {
-        CFRelease(v14);
+        CFRelease(v13);
       }
     }
 
     CFArrayRemoveAllValues(*(*(*(a1 + 56) + 8) + 40));
-    if (v13)
+    if (v12)
     {
-      CFRelease(v13);
+      CFRelease(v12);
     }
   }
 
@@ -5549,73 +5540,72 @@ void ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3_
 {
   v3 = *(a1 + 64);
   CFStringFromString = QP::createCFStringFromString(a2);
-  v19 = CFStringFromString;
+  v18 = CFStringFromString;
   if (*(a1 + 208))
   {
-    v5 = *(*(*(a1 + 32) + 8) + 40);
-    v6 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, *(a1 + 72), CFStringFromString, v5, *(*(*(a1 + 40) + 8) + 40));
-    v18 = v6;
-    v7 = *(*(*(a1 + 48) + 8) + 40);
-    v20.length = CFArrayGetCount(v7);
-    v20.location = 0;
-    if (!CFArrayContainsValue(v7, v20, v6))
+    v5 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, *(a1 + 72), CFStringFromString, *(*(*(a1 + 32) + 8) + 40), *(*(*(a1 + 40) + 8) + 40));
+    v17 = v5;
+    v6 = *(*(*(a1 + 48) + 8) + 40);
+    v19.length = CFArrayGetCount(v6);
+    v19.location = 0;
+    if (!CFArrayContainsValue(v6, v19, v5))
     {
-      CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v6);
+      CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v5);
     }
 
-    if (v6)
+    if (v5)
     {
-      CFRelease(v6);
+      CFRelease(v5);
     }
   }
 
   else
   {
-    v8 = *(v3 + 8);
-    v10 = *(v8 + 80);
-    v9 = *(v8 + 88);
-    v11 = *(*(a1 + 80) + 16);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 0x40000000;
-    v17[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke_2_14;
-    v17[3] = &unk_1E8267208;
-    v17[4] = *(a1 + 56);
-    QP::enumerateQueryWithAction(v9, v10, CFStringFromString, 0, v11, (a1 + 96), (a1 + 152), v17);
-    v12 = *MEMORY[0x1E695E480];
-    v13 = CFStringCreateByCombiningStrings(*MEMORY[0x1E695E480], *(*(*(a1 + 56) + 8) + 40), @" && ");
-    v18 = v13;
+    v7 = *(v3 + 8);
+    v9 = *(v7 + 80);
+    v8 = *(v7 + 88);
+    v10 = *(*(a1 + 80) + 16);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 0x40000000;
+    v16[2] = ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke_2_14;
+    v16[3] = &unk_1E8267208;
+    v16[4] = *(a1 + 56);
+    QP::enumerateQueryWithAction(v8, v9, CFStringFromString, 0, v10, (a1 + 96), (a1 + 152), v16);
+    v11 = *MEMORY[0x1E695E480];
+    v12 = CFStringCreateByCombiningStrings(*MEMORY[0x1E695E480], *(*(*(a1 + 56) + 8) + 40), @" && ");
+    v17 = v12;
     if (CFArrayGetCount(*(*(*(a1 + 56) + 8) + 40)) < 2)
     {
-      v16 = *(*(*(a1 + 48) + 8) + 40);
-      v22.length = CFArrayGetCount(v16);
-      v22.location = 0;
-      if (!CFArrayContainsValue(v16, v22, v13))
+      v15 = *(*(*(a1 + 48) + 8) + 40);
+      v21.length = CFArrayGetCount(v15);
+      v21.location = 0;
+      if (!CFArrayContainsValue(v15, v21, v12))
       {
-        CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v13);
+        CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v12);
       }
     }
 
     else
     {
-      v14 = CFStringCreateWithFormat(v12, 0, @"(%@)", v13);
-      v15 = *(*(*(a1 + 48) + 8) + 40);
-      v21.length = CFArrayGetCount(v15);
-      v21.location = 0;
-      if (!CFArrayContainsValue(v15, v21, v14))
+      v13 = CFStringCreateWithFormat(v11, 0, @"(%@)", v12);
+      v14 = *(*(*(a1 + 48) + 8) + 40);
+      v20.length = CFArrayGetCount(v14);
+      v20.location = 0;
+      if (!CFArrayContainsValue(v14, v20, v13))
       {
-        CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v14);
+        CFArrayAppendValue(*(*(*(a1 + 48) + 8) + 40), v13);
       }
 
-      if (v14)
+      if (v13)
       {
-        CFRelease(v14);
+        CFRelease(v13);
       }
     }
 
     CFArrayRemoveAllValues(*(*(*(a1 + 56) + 8) + 40));
-    if (v13)
+    if (v12)
     {
-      CFRelease(v13);
+      CFRelease(v12);
     }
   }
 
@@ -5837,21 +5827,21 @@ void ___ZN2QP15PhotosFormatter28updateParseWithDateAttributeEPK10__CFStringNSt3_
   }
 }
 
-void sub_1C65EF100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C65EF100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, const void *);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, const void *);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, const void *);
+  v14 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v12 = va_arg(va3, const void *);
-  v14 = va_arg(va3, void);
-  v15 = va_arg(va3, void);
+  v16 = va_arg(va3, const void *);
+  v18 = va_arg(va3, void);
+  v19 = va_arg(va3, void);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFDictionary *>::reset(va2, 0);
@@ -5917,7 +5907,7 @@ uint64_t std::set<unsigned short>::insert[abi:ne200100]<std::__tree_const_iterat
     v5 = result;
     do
     {
-      result = std::__tree<unsigned short>::__emplace_hint_unique_key_args<unsigned short,unsigned short const&>(v5, v5 + 1, v4 + 13);
+      result = std::__tree<unsigned short>::__emplace_hint_unique_key_args<unsigned short,unsigned short const&>(v5, (v5 + 8), v4 + 13, v4 + 13);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -5951,22 +5941,22 @@ uint64_t std::set<unsigned short>::insert[abi:ne200100]<std::__tree_const_iterat
   return result;
 }
 
-uint64_t std::__tree<unsigned short>::__emplace_hint_unique_key_args<unsigned short,unsigned short const&>(void *a1, uint64_t *a2, unsigned __int16 *a3)
+uint64_t std::__tree<unsigned short>::__emplace_hint_unique_key_args<unsigned short,unsigned short const&>(uint64_t **a1, uint64_t *a2, unsigned __int16 *a3, _WORD *a4)
 {
-  v5 = 0;
   v6 = 0;
-  v3 = *std::__tree<unsigned short>::__find_equal<unsigned short>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v7 = 0;
+  v4 = *std::__tree<unsigned short>::__find_equal<unsigned short>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<unsigned short>::__find_equal<unsigned short>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int16 *a5)
+uint64_t *std::__tree<unsigned short>::__find_equal<unsigned short>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int16 *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 13), v6 < v7))
   {
     v8 = *a2;
@@ -5993,7 +5983,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -6054,7 +6044,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -6133,7 +6123,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -6262,7 +6252,7 @@ uint64_t std::__function::__func<QP::PhotosFormatter::updateParseWithDateAttribu
   }
 }
 
-uint64_t QP::PhotosParserFormatter::setParse(uint64_t a1, uint64_t *a2)
+uint64_t QP::PhotosParserFormatter::setParse(const void **a1, uint64_t *a2)
 {
   v2 = a2[1];
   v5 = *a2;
@@ -6291,9 +6281,9 @@ void sub_1C65EF9B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QP::PhotosParserFormatter::updateParseWithDateAttribute(QP::Formatter *a1, uint64_t a2, uint64_t a3)
+void QP::PhotosParserFormatter::updateParseWithDateAttribute(CFDateFormatterRef **a1, uint64_t a2, CFRange **a3)
 {
-  v3 = *(a3 + 8);
+  v3 = a3[1];
   v4 = *a3;
   v5 = v3;
   if (v3)
@@ -6647,12 +6637,12 @@ __CFDictionary *QPQueryParserCopyDefaultOptionsForContext(const __CFString *Iden
   return Mutable;
 }
 
-void sub_1C65F09E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65F09E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
+  v6 = va_arg(va1, void);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString *>::reset(va1, 0);
   _Unwind_Resume(a1);
@@ -6676,11 +6666,11 @@ BOOL QPQueryParserAvailableForLocale(_BOOL8 result)
   return result;
 }
 
-void QPQueryParserPreheat(uint64_t a1)
+void QPQueryParserPreheat(QP::QueryParserEngine *result)
 {
-  if (a1)
+  if (result)
   {
-    v1 = *(a1 + 24);
+    v1 = *(result + 3);
     if (v1)
     {
       QP::QueryParserEngine::preheat(v1);
@@ -6688,11 +6678,11 @@ void QPQueryParserPreheat(uint64_t a1)
   }
 }
 
-void QPQueryParserCooldown(uint64_t a1)
+void QPQueryParserCooldown(QP::QueryParserEngine *result)
 {
-  if (a1)
+  if (result)
   {
-    v1 = *(a1 + 24);
+    v1 = *(result + 3);
     if (v1)
     {
       QP::QueryParserEngine::cooldown(v1);
@@ -7003,11 +6993,11 @@ QP::QueryParserEngine *QPQueryParserSetUseSystemLocale(QP::QueryParserEngine *re
   return result;
 }
 
-uint64_t QPQueryParserSetLocale(uint64_t result, const __CFLocale *a2, const __CFArray *a3)
+QP::QueryParserEngine *QPQueryParserSetLocale(QP::QueryParserEngine *result, const __CFLocale *a2, const __CFArray *a3)
 {
   if (result)
   {
-    result = *(result + 24);
+    result = *(result + 3);
     if (result)
     {
       return QP::QueryParserEngine::setLocale(result, a2, a3, 1);
@@ -7043,7 +7033,7 @@ uint64_t QPQueryParserGetPreferredLanguages(uint64_t a1)
   }
 }
 
-QP::ParserConfiguration *QPQueryParserSetCustomResourceDirectory(QP::ParserConfiguration *result, const __CFURL *a2)
+QP::QueryParserEngine *QPQueryParserSetCustomResourceDirectory(QP::QueryParserEngine *result, const __CFURL *a2)
 {
   if (result)
   {
@@ -7084,7 +7074,7 @@ QP::QueryParserEngine *QPQueryParserSetIgnoreAttributedParses(QP::QueryParserEng
   return result;
 }
 
-_DWORD *QPQueryParserSetFormat(_DWORD *result, int a2)
+_DWORD *QPQueryParserSetFormat(_DWORD *result, uint64_t a2)
 {
   if (result)
   {
@@ -7098,7 +7088,7 @@ _DWORD *QPQueryParserSetFormat(_DWORD *result, int a2)
   return result;
 }
 
-QP::ParserConfiguration *QPQueryParserSetContext(QP::ParserConfiguration *result, const __CFString *a2)
+QP::QueryParserEngine *QPQueryParserSetContext(QP::QueryParserEngine *result, const __CFString *a2)
 {
   if (result)
   {
@@ -7112,11 +7102,11 @@ QP::ParserConfiguration *QPQueryParserSetContext(QP::ParserConfiguration *result
   return result;
 }
 
-void QPQueryParserSetReferenceDate(uint64_t a1, const __CFDate *a2)
+void QPQueryParserSetReferenceDate(QP::QueryParserEngine *result, const __CFDate *a2)
 {
-  if (a1)
+  if (result)
   {
-    v2 = *(a1 + 24);
+    v2 = *(result + 3);
     if (v2)
     {
       QP::QueryParserEngine::setDate(v2, a2);
@@ -7241,11 +7231,11 @@ __CFDictionary *QPQueryParserParse(uint64_t a1, const __CFDictionary *a2, const 
   return 0;
 }
 
-void sub_1C65F15AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65F15AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  nlp::CFScopedPtr<__CFSet *>::reset((v7 + 40), 0);
+  nlp::CFScopedPtr<__CFSet *>::reset((v13 + 40), 0);
   _Unwind_Resume(a1);
 }
 
@@ -7440,11 +7430,11 @@ __CFDictionary *QPQueryParserCopyInputAttributes(uint64_t a1, const __CFString *
   return Mutable;
 }
 
-void QPQueryParserCancel(uint64_t a1, const __CFDictionary *a2)
+void QPQueryParserCancel(QP::QueryParserEngine *result, const __CFDictionary *a2)
 {
-  if (a1)
+  if (result)
   {
-    v2 = *(a1 + 24);
+    v2 = *(result + 3);
     if (v2)
     {
       QP::QueryParserEngine::cancelWithQueryReference(v2, a2);
@@ -7490,11 +7480,11 @@ void QPQueryParserEnumerateParses(uint64_t a1, const __CFDictionary *a2, const _
   }
 }
 
-void sub_1C65F1D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65F1D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  nlp::CFScopedPtr<__CFSet *>::reset((v7 + 40), 0);
+  nlp::CFScopedPtr<__CFSet *>::reset((v13 + 40), 0);
   _Unwind_Resume(a1);
 }
 
@@ -7635,18 +7625,18 @@ uint64_t QPQueryParserCopyParses(uint64_t a1, const __CFString *a2)
   return v4;
 }
 
-void sub_1C65F21F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65F21F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void QPQueryParserEnumerateParsesForStartAndEndDates(uint64_t a1, const __CFDictionary *a2, __CFString *a3, __CFDictionary *a4, __CFString *a5, __CFDictionary *a6, uint64_t a7)
+void QPQueryParserEnumerateParsesForStartAndEndDates(uint64_t result, const __CFDictionary *a2, __CFString *a3, __CFDictionary *a4, __CFString *a5, __CFDictionary *a6, uint64_t a7)
 {
-  if (a1 && a7)
+  if (result && a7)
   {
-    v7 = *(a1 + 24);
+    v7 = *(result + 24);
     if (v7)
     {
       v8[0] = MEMORY[0x1E69E9820];
@@ -7829,36 +7819,36 @@ void QP::QueryParserEngine::QueryParserEngine(QP::QueryParserEngine *this, const
   QP::QueryParserEngine::init(this, a2);
 }
 
-void sub_1C65F27AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65F27AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::unique_ptr<QP::Embedder>::reset[abi:ne200100]((v2 + 104), 0);
-  v5 = *(v2 + 96);
-  *(v2 + 96) = 0;
-  if (v5)
-  {
-    QP::QueryParserEngine::QueryParserEngine(v5);
-  }
-
-  std::unique_ptr<QP::LLMParser>::reset[abi:ne200100](v3, 0);
-  std::unique_ptr<QP::Parser>::reset[abi:ne200100]((v2 + 80), 0);
-  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
-  v6 = *(v2 + 48);
+  va_start(va, a3);
+  std::unique_ptr<QP::Embedder>::reset[abi:ne200100]((v3 + 104), 0);
+  v6 = *(v3 + 96);
+  *(v3 + 96) = 0;
   if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    QP::QueryParserEngine::QueryParserEngine(v6);
   }
 
-  v7 = *(v2 + 32);
+  std::unique_ptr<QP::LLMParser>::reset[abi:ne200100](v4, 0);
+  std::unique_ptr<QP::Parser>::reset[abi:ne200100]((v3 + 80), 0);
+  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
+  v7 = *(v3 + 48);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  v8 = *(v2 + 16);
+  v8 = *(v3 + 32);
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  v9 = *(v3 + 16);
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   _Unwind_Resume(a1);
@@ -8041,7 +8031,7 @@ void sub_1C65F3350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void QP::QueryParserEngine::updateResources(QP::QueryParserEngine *this)
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v2 = *(*(this + 1) + 112);
   LanguageCode = getLanguageCode(v2);
   ScriptCode = getScriptCode(v2);
@@ -8086,82 +8076,82 @@ void QP::QueryParserEngine::updateResources(QP::QueryParserEngine *this)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v82 = 0x3002000000;
-    v83 = __Block_byref_object_copy__12;
-    v84 = __Block_byref_object_dispose__12;
-    v85 = 0;
-    v73 = 0;
-    v74 = &v73;
-    v75 = 0x3002000000;
-    v76 = __Block_byref_object_copy__12;
-    v77 = __Block_byref_object_dispose__12;
-    v78 = 0;
-    v67 = 0;
-    v68 = &v67;
-    v69 = 0x3002000000;
-    v70 = __Block_byref_object_copy__12;
-    v71 = __Block_byref_object_dispose__12;
+    v81 = 0x3002000000;
+    v82 = __Block_byref_object_copy__12;
+    v83 = __Block_byref_object_dispose__12;
+    v84 = 0;
     v72 = 0;
-    v61 = 0;
-    v62 = &v61;
-    v63 = 0x3002000000;
-    v64 = __Block_byref_object_copy__12;
-    v65 = __Block_byref_object_dispose__12;
+    v73 = &v72;
+    v74 = 0x3002000000;
+    v75 = __Block_byref_object_copy__12;
+    v76 = __Block_byref_object_dispose__12;
+    v77 = 0;
     v66 = 0;
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x3002000000;
-    v58 = __Block_byref_object_copy__12;
-    v59 = __Block_byref_object_dispose__12;
+    v67 = &v66;
+    v68 = 0x3002000000;
+    v69 = __Block_byref_object_copy__12;
+    v70 = __Block_byref_object_dispose__12;
+    v71 = 0;
     v60 = 0;
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x3002000000;
-    v52 = __Block_byref_object_copy__12;
-    v53 = __Block_byref_object_dispose__12;
+    v61 = &v60;
+    v62 = 0x3002000000;
+    v63 = __Block_byref_object_copy__12;
+    v64 = __Block_byref_object_dispose__12;
+    v65 = 0;
     v54 = 0;
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x3002000000;
-    v46 = __Block_byref_object_copy__12;
-    v47 = __Block_byref_object_dispose__12;
+    v55 = &v54;
+    v56 = 0x3002000000;
+    v57 = __Block_byref_object_copy__12;
+    v58 = __Block_byref_object_dispose__12;
+    v59 = 0;
     v48 = 0;
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x3002000000;
-    v40 = __Block_byref_object_copy__12;
-    v41 = __Block_byref_object_dispose__12;
-    cf = 0;
-    v35[0] = 0;
-    v35[1] = v35;
-    v35[2] = 0x2000000000;
+    v49 = &v48;
+    v50 = 0x3002000000;
+    v51 = __Block_byref_object_copy__12;
+    v52 = __Block_byref_object_dispose__12;
+    v53 = 0;
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x3002000000;
+    v45 = __Block_byref_object_copy__12;
+    v46 = __Block_byref_object_dispose__12;
+    v47 = 0;
     v36 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2000000000;
-    v34 = QP::QueryParserEngine::bplistFilename(this);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 0x40000000;
-    v30[2] = ___ZN2QP17QueryParserEngine15updateResourcesEv_block_invoke;
-    v30[3] = &unk_1E82673D0;
-    v30[4] = &buf;
-    v30[5] = &v31;
-    v30[6] = &v73;
-    v30[7] = v35;
-    v30[8] = &v49;
-    v30[9] = &v67;
-    v30[10] = &v61;
-    v30[11] = &v55;
-    v30[12] = &v37;
-    systemListenerEnumerateResourcesWithContentType(@"QueryParser", v30);
-    v7 = v6 - 1;
-    CFRelease(v32[3]);
+    v37 = &v36;
+    v38 = 0x3002000000;
+    v39 = __Block_byref_object_copy__12;
+    v40 = __Block_byref_object_dispose__12;
+    cf = 0;
+    v34[0] = 0;
+    v34[1] = v34;
+    v34[2] = 0x2000000000;
+    v35 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2000000000;
+    v33 = QP::QueryParserEngine::bplistFilename(this);
     v29[0] = MEMORY[0x1E69E9820];
     v29[1] = 0x40000000;
-    v29[2] = ___ZN2QP17QueryParserEngine15updateResourcesEv_block_invoke_2;
-    v29[3] = &unk_1E82673F8;
-    v29[4] = &v43;
-    systemListenerEnumerateResourcesWithContentType(@"Geo", v29);
+    v29[2] = ___ZN2QP17QueryParserEngine15updateResourcesEv_block_invoke;
+    v29[3] = &unk_1E82673D0;
+    v29[4] = &buf;
+    v29[5] = &v30;
+    v29[6] = &v72;
+    v29[7] = v34;
+    v29[8] = &v48;
+    v29[9] = &v66;
+    v29[10] = &v60;
+    v29[11] = &v54;
+    v29[12] = &v36;
+    systemListenerEnumerateResourcesWithContentType(@"QueryParser", v29);
+    v7 = v6 - 1;
+    CFRelease(v31[3]);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 0x40000000;
+    v28[2] = ___ZN2QP17QueryParserEngine15updateResourcesEv_block_invoke_2;
+    v28[3] = &unk_1E82673F8;
+    v28[4] = &v42;
+    systemListenerEnumerateResourcesWithContentType(@"Geo", v28);
     v13 = *(*(&buf + 1) + 40);
     if (v13)
     {
@@ -8178,68 +8168,68 @@ void QP::QueryParserEngine::updateResources(QP::QueryParserEngine *this)
         if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
         {
           v16 = *(*(&buf + 1) + 40);
-          *v79 = 138412290;
-          v80 = v16;
-          _os_log_impl(&dword_1C6584000, v15, OS_LOG_TYPE_DEFAULT, "[QueryParserEngine] loading assets with url %@", v79, 0xCu);
+          *v78 = 138412290;
+          v79 = v16;
+          _os_log_impl(&dword_1C6584000, v15, OS_LOG_TYPE_DEFAULT, "[QueryParserEngine] loading assets with url %@", v78, 0xCu);
         }
 
-        QP::ParserGrammar::loadParserGrammarResource(*(this + 3), v74[5], 0);
-        QP::Lexer::loadLexerResource(*(this + 5), v68[5]);
-        QP::Lexer::loadLexerResource(*(this + 5), v62[5]);
-        QP::Lexer::loadLexerResource(*(this + 5), v56[5]);
-        QP::Lexer::loadLexerResource(*(this + 5), v38[5]);
-        QP::Lexer::loadLexerResource(*(this + 5), v44[5]);
-        QP::Formatter::loadFormatterResource(*(this + 12), v50[5]);
+        QP::ParserGrammar::loadParserGrammarResource(*(this + 3), v73[5], 0);
+        QP::Lexer::loadLexerResource(*(this + 5), v67[5]);
+        QP::Lexer::loadLexerResource(*(this + 5), v61[5]);
+        QP::Lexer::loadLexerResource(*(this + 5), v55[5]);
+        QP::Lexer::loadLexerResource(*(this + 5), v37[5]);
+        QP::Lexer::loadLexerResource(*(this + 5), v43[5]);
+        QP::Formatter::loadFormatterResource(*(this + 12), v49[5]);
         v17 = 1;
 LABEL_34:
-        _Block_object_dispose(&v31, 8);
-        _Block_object_dispose(v35, 8);
-        _Block_object_dispose(&v37, 8);
+        _Block_object_dispose(&v30, 8);
+        _Block_object_dispose(v34, 8);
+        _Block_object_dispose(&v36, 8);
         if (cf)
         {
           CFRelease(cf);
         }
 
-        _Block_object_dispose(&v43, 8);
-        if (v48)
+        _Block_object_dispose(&v42, 8);
+        if (v47)
         {
-          CFRelease(v48);
+          CFRelease(v47);
         }
 
-        _Block_object_dispose(&v49, 8);
-        if (v54)
+        _Block_object_dispose(&v48, 8);
+        if (v53)
         {
-          CFRelease(v54);
+          CFRelease(v53);
         }
 
-        _Block_object_dispose(&v55, 8);
-        if (v60)
+        _Block_object_dispose(&v54, 8);
+        if (v59)
         {
-          CFRelease(v60);
+          CFRelease(v59);
         }
 
-        _Block_object_dispose(&v61, 8);
-        if (v66)
+        _Block_object_dispose(&v60, 8);
+        if (v65)
         {
-          CFRelease(v66);
+          CFRelease(v65);
         }
 
-        _Block_object_dispose(&v67, 8);
-        if (v72)
+        _Block_object_dispose(&v66, 8);
+        if (v71)
         {
-          CFRelease(v72);
+          CFRelease(v71);
         }
 
-        _Block_object_dispose(&v73, 8);
-        if (v78)
+        _Block_object_dispose(&v72, 8);
+        if (v77)
         {
-          CFRelease(v78);
+          CFRelease(v77);
         }
 
         _Block_object_dispose(&buf, 8);
-        if (v85)
+        if (v84)
         {
-          CFRelease(v85);
+          CFRelease(v84);
         }
 
         if (v17)
@@ -8251,7 +8241,7 @@ LABEL_34:
       }
     }
 
-    else if (v74[5])
+    else if (v73[5])
     {
       if (parserLogger(void)::token != -1)
       {
@@ -8261,13 +8251,13 @@ LABEL_34:
       v24 = parserLogger(void)::log;
       if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = v74[5];
-        *v79 = 138412290;
-        v80 = v25;
-        _os_log_impl(&dword_1C6584000, v24, OS_LOG_TYPE_DEFAULT, "[QueryParserEngine] loading fallback with url %@", v79, 0xCu);
+        v25 = v73[5];
+        *v78 = 138412290;
+        v79 = v25;
+        _os_log_impl(&dword_1C6584000, v24, OS_LOG_TYPE_DEFAULT, "[QueryParserEngine] loading fallback with url %@", v78, 0xCu);
       }
 
-      QP::ParserGrammar::loadParserGrammarResource(*(this + 3), v74[5], 1);
+      QP::ParserGrammar::loadParserGrammarResource(*(this + 3), v73[5], 1);
     }
 
     v17 = 0;
@@ -8275,8 +8265,8 @@ LABEL_34:
   }
 
   *&buf = 0;
-  v73 = 0;
-  v67 = 0;
+  v72 = 0;
+  v66 = 0;
   v9 = MEMORY[0x1E695E480];
   if (ScriptCode)
   {
@@ -8289,7 +8279,7 @@ LABEL_34:
   }
 
   v18 = v10;
-  v67 = v10;
+  v66 = v10;
   v19 = CFURLCreateCopyAppendingPathComponent(*v9, *(*(this + 1) + 176), v10, 1u);
   *&buf = v19;
   AssetsWithURL = QP::QueryParserEngine::loadAssetsWithURL(this, v20, v19);
@@ -8299,7 +8289,7 @@ LABEL_34:
     v22 = *(*(this + 1) + 200);
     v23 = v22 ? CFBundleGetBundleWithIdentifier(v22) : 0;
     v26 = systemListenerCopyResourceFromBundleWithName(@"cfg", @"plist", @"root", v23);
-    v61 = v26;
+    v60 = v26;
     QP::ParserGrammar::loadParserGrammarResource(*(this + 3), v26, 1);
     if (v26)
     {
@@ -8338,8 +8328,6 @@ LABEL_61:
       _os_signpost_emit_with_name_impl(&dword_1C6584000, v27, OS_SIGNPOST_INTERVAL_END, v6, "QueryParserEngine::updateResources", &unk_1C664887A, &buf, 2u);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65F3C58(_Unwind_Exception *a1, int a2)
@@ -8582,7 +8570,7 @@ uint64_t QP::QueryParserEngine::setUseLLMParse(QP::QueryParserEngine *this, cons
   return result;
 }
 
-void QP::QueryParserEngine::preheat(QP::Parser **this)
+void QP::QueryParserEngine::preheat(QP::U2Parser **this)
 {
   if (parserLogger(void)::token != -1)
   {
@@ -8642,7 +8630,7 @@ void QP::QueryParserEngine::preheat(QP::Parser **this)
   }
 }
 
-void QP::QueryParserEngine::cooldown(QP::Parser **this)
+void QP::QueryParserEngine::cooldown(QP::U2Parser **this)
 {
   if (parserLogger(void)::token != -1)
   {
@@ -8730,7 +8718,7 @@ CFStringRef QP::QueryParserEngine::bplistFilename(QP::QueryParserEngine *this)
 
 uint64_t QP::QueryParserEngine::loadAssetsWithURL(QP::QueryParserEngine *this, const __CFLocale *a2, CFURLRef url)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E695E480];
   v6 = CFURLCreateCopyAppendingPathComponent(*MEMORY[0x1E695E480], url, @"config.plist", 0);
   QP::ParserConfiguration::loadConfigurationResource(*(this + 1), v6, v7, v8);
@@ -8767,7 +8755,7 @@ uint64_t QP::QueryParserEngine::loadAssetsWithURL(QP::QueryParserEngine *this, c
     if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v26 = url;
+      v25 = url;
       _os_log_impl(&dword_1C6584000, v12, OS_LOG_TYPE_INFO, "[QueryParserEngine] loading assets with url %@", buf, 0xCu);
     }
 
@@ -8808,38 +8796,38 @@ uint64_t QP::QueryParserEngine::loadAssetsWithURL(QP::QueryParserEngine *this, c
     }
 
     QP::ParserGrammar::loadParserGrammarResource(*(this + 3), v14, 0);
-    v20 = CFURLCreateCopyAppendingPathComponent(v5, url, @"root.cache", 0);
+    v19 = CFURLCreateCopyAppendingPathComponent(v5, url, @"root.cache", 0);
     if (cf)
     {
       CFRelease(cf);
     }
 
+    QP::Lexer::loadLexerResource(*(this + 5), v19);
+    v20 = CFURLCreateCopyAppendingPathComponent(v5, url, @"dates.cache", 0);
+    if (v19)
+    {
+      CFRelease(v19);
+    }
+
     QP::Lexer::loadLexerResource(*(this + 5), v20);
-    v21 = CFURLCreateCopyAppendingPathComponent(v5, url, @"dates.cache", 0);
+    v21 = CFURLCreateCopyAppendingPathComponent(v5, url, @"lexicon.cache", 0);
     if (v20)
     {
       CFRelease(v20);
     }
 
     QP::Lexer::loadLexerResource(*(this + 5), v21);
-    v22 = CFURLCreateCopyAppendingPathComponent(v5, url, @"lexicon.cache", 0);
+    v22 = CFURLCreateCopyAppendingPathComponent(v5, url, @"dates.plist", 0);
     if (v21)
     {
       CFRelease(v21);
     }
 
-    QP::Lexer::loadLexerResource(*(this + 5), v22);
-    v23 = CFURLCreateCopyAppendingPathComponent(v5, url, @"dates.plist", 0);
+    QP::Formatter::loadFormatterResource(*(this + 12), v22);
+    v6 = CFURLCreateCopyAppendingPathComponent(v5, url, @"reference.mdplist", 0);
     if (v22)
     {
       CFRelease(v22);
-    }
-
-    QP::Formatter::loadFormatterResource(*(this + 12), v23);
-    v6 = CFURLCreateCopyAppendingPathComponent(v5, url, @"reference.mdplist", 0);
-    if (v23)
-    {
-      CFRelease(v23);
     }
 
     QP::Lexer::loadLexerResource(*(this + 5), v6);
@@ -8871,7 +8859,6 @@ uint64_t QP::QueryParserEngine::loadAssetsWithURL(QP::QueryParserEngine *this, c
     CFRelease(v6);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -8964,9 +8951,9 @@ LABEL_4:
   }
 }
 
-void sub_1C65F4BA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65F4BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -8987,9 +8974,9 @@ void ___ZN2QP17QueryParserEngine15updateResourcesEv_block_invoke_2(uint64_t a1, 
   }
 }
 
-void sub_1C65F4C38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65F4C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -9088,7 +9075,7 @@ LABEL_27:
 
   if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_DEBUG))
   {
-    QP::QueryParserEngine::setString((this + 1));
+    QP::QueryParserEngine::setString();
   }
 
   QP::QueryParserEngine::parseString(this, a2, a3, a4, a5, a6, a7, a8, v24, v13);
@@ -9113,9 +9100,9 @@ LABEL_27:
   }
 }
 
-void QP::QueryParserEngine::parseString(QP::QueryParserEngine *this, const __CFString *a2, const __CFDictionary *a3, int a4, _BOOL4 a5, int a6, int a7, int a8, char a9, os_signpost_id_t a10)
+void QP::QueryParserEngine::parseString(QP::QueryParserEngine *this, const __CFString *a2, const __CFDictionary *a3, int a4, _BOOL4 a5, int a6, int a7, int a8, unsigned __int8 a9, os_signpost_id_t a10)
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::clear[abi:ne200100](this + 7);
   if (a5 && *(this + 11))
   {
@@ -9135,13 +9122,13 @@ void QP::QueryParserEngine::parseString(QP::QueryParserEngine *this, const __CFS
     }
 
     v18 = *(this + 11);
-    v67[0] = MEMORY[0x1E69E9820];
-    v67[1] = 0x40000000;
-    v67[2] = ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybbbbbby_block_invoke;
-    v67[3] = &__block_descriptor_tmp_55_0;
-    v67[4] = this;
-    v67[5] = a10;
-    QP::LLMParser::parse(v18, a3, a9, v67);
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 0x40000000;
+    v70[2] = ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybbbbbby_block_invoke;
+    v70[3] = &__block_descriptor_tmp_55_0;
+    v70[4] = this;
+    v70[5] = a10;
+    QP::LLMParser::parse(v18, a3, a9, v70);
     if (parserLogger(void)::token != -1)
     {
       QP::QueryParserEngine::init();
@@ -9158,19 +9145,19 @@ void QP::QueryParserEngine::parseString(QP::QueryParserEngine *this, const __CFS
     }
 
     v20 = *(this + 11);
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 0x40000000;
-    v66[2] = ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybbbbbby_block_invoke_56;
-    v66[3] = &__block_descriptor_tmp_58;
-    v66[4] = this;
-    QP::LLMParser::enumerateParses(v20, v66);
-    goto LABEL_77;
+    v69[0] = MEMORY[0x1E69E9820];
+    v69[1] = 0x40000000;
+    v69[2] = ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybbbbbby_block_invoke_56;
+    v69[3] = &__block_descriptor_tmp_58;
+    v69[4] = this;
+    QP::LLMParser::enumerateParses(v20, v69);
+    return;
   }
 
   value = a8;
   if (*(this + 5))
   {
-    v60 = mach_absolute_time();
+    v63 = mach_absolute_time();
     if (parserLogger(void)::token != -1)
     {
       QP::QueryParserEngine::init();
@@ -9237,12 +9224,12 @@ void QP::QueryParserEngine::parseString(QP::QueryParserEngine *this, const __CFS
         *&buf[14] = a9;
         *&buf[18] = 1024;
         *&buf[20] = a4;
-        LOWORD(v71) = 1024;
-        *(&v71 + 2) = a5;
-        HIWORD(v71) = 1024;
-        *v72 = a6;
-        *&v72[4] = 2048;
-        *&v72[6] = Length;
+        LOWORD(v74) = 1024;
+        *(&v74 + 2) = a5;
+        HIWORD(v74) = 1024;
+        *v75 = a6;
+        *&v75[4] = 2048;
+        *&v75[6] = Length;
         _os_log_impl(&dword_1C6584000, v26, OS_LOG_TYPE_DEFAULT, "[QPNLU][qid=%ld] starting m_parser parse with new:%d u2:%d llm:%d embeddings:%d queryLen:%ld", buf, 0x2Eu);
       }
 
@@ -9296,35 +9283,35 @@ LABEL_55:
           v38 = *(this + 5);
           v40 = *(v38 + 456);
           v39 = *(v38 + 464);
-          v55 = *(v32 + 2);
-          v56 = *(v32 + 1);
-          v54 = *(v32 + 3);
+          v58 = *(v32 + 2);
+          v59 = *(v32 + 1);
+          v57 = *(v32 + 3);
           v41 = *(v32 + 5);
-          v52 = v36;
-          v53 = *(v32 + 4);
-          v57 = v32[13];
-          v58 = v32[12];
+          v55 = v36;
+          v56 = *(v32 + 4);
+          v60 = v32[13];
+          v61 = v32[12];
           empty = xpc_dictionary_create_empty();
           __p[0] = 0;
           __p[1] = 0;
-          v69 = 0;
+          v72 = 0;
           if (v37)
           {
             v43 = MEMORY[0x1C695ACD0](v37);
             if (v43)
             {
-              QP::getUTF8StringFromCFString(v43, buf);
-              if (SHIBYTE(v69) < 0)
+              QP::getUTF8StringFromCFString(buf, v43);
+              if (SHIBYTE(v72) < 0)
               {
                 operator delete(__p[0]);
               }
 
               *__p = *buf;
-              v69 = *&buf[16];
+              v72 = *&buf[16];
             }
           }
 
-          if (v69 >= 0)
+          if (v72 >= 0)
           {
             v44 = __p;
           }
@@ -9338,94 +9325,95 @@ LABEL_55:
           xpc_dictionary_set_uint64(empty, "status", valuea);
           xpc_dictionary_set_uint64(empty, "queryLength", Length);
           xpc_dictionary_set_uint64(empty, "tokenCount", -1431655765 * ((v39 - v40) >> 3));
-          v45 = ((v29 - v60) * v35 / v34) / 1000000000.0;
+          v45 = ((v29 - v63) * v35 / v34) / 1000000000.0;
           xpc_dictionary_set_double(empty, "totalLatency", v45);
-          xpc_dictionary_set_double(empty, "quLatency", v56 / 1000000000.0);
-          xpc_dictionary_set_double(empty, "loadLatency", v55 / 1000000000.0);
+          xpc_dictionary_set_double(empty, "quLatency", v59 / 1000000000.0);
+          xpc_dictionary_set_double(empty, "loadLatency", v58 / 1000000000.0);
           xpc_dictionary_set_double(empty, "cdmLatency", v41 / 1000000000.0);
-          xpc_dictionary_set_double(empty, "u2Latency", (v54 - v41) / 1000000000.0);
-          xpc_dictionary_set_double(empty, "ecrLatency", v53 / 1000000000.0);
-          xpc_dictionary_set_uint64(empty, "ecrCount", v58);
-          xpc_dictionary_set_uint64(empty, "ecrErrorCount", v57);
+          xpc_dictionary_set_double(empty, "u2Latency", (v57 - v41) / 1000000000.0);
+          xpc_dictionary_set_double(empty, "ecrLatency", v56 / 1000000000.0);
+          xpc_dictionary_set_uint64(empty, "ecrCount", v61);
+          xpc_dictionary_set_uint64(empty, "ecrErrorCount", v60);
           if (stringa)
           {
             xpc_dictionary_set_string(empty, "errorMessage", stringa);
           }
 
-          v46 = QPProcessName();
-          xpc_dictionary_set_string(empty, "process", v46);
+          v48 = QPProcessName(v46, v47);
+          xpc_dictionary_set_string(empty, "process", v48);
           if (parserLogger(void)::token != -1)
           {
             QP::QueryParserEngine::init();
           }
 
-          v47 = parserLogger(void)::log;
-          if (os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_INFO))
+          v49 = parserLogger(void)::log;
+          v50 = os_log_type_enabled(parserLogger(void)::log, OS_LOG_TYPE_INFO);
+          if (v50)
           {
-            v48 = QPProcessName();
-            v49 = __p;
-            if (v69 < 0)
+            v52 = QPProcessName(v50, v51);
+            v53 = __p;
+            if (v72 < 0)
             {
-              v49 = __p[0];
+              v53 = __p[0];
             }
 
             *buf = 134221826;
-            v50 = "";
-            *&buf[4] = v52;
+            v54 = "";
+            *&buf[4] = v55;
             if (stringa)
             {
-              v50 = stringa;
+              v54 = stringa;
             }
 
             *&buf[12] = 2080;
             *&buf[14] = "com.apple.queryUnderstandingPerfAndReliability";
             *&buf[22] = 2080;
-            v71 = v48;
-            *v72 = 2080;
-            *&v72[2] = v49;
-            *&v72[10] = 2048;
-            *&v72[12] = valuea;
-            v73 = 1024;
-            v74 = Length;
-            v75 = 1024;
-            v76 = -1431655765 * ((v39 - v40) >> 3);
-            v77 = 2048;
-            v78 = v45;
-            v79 = 2048;
-            v80 = v56 / 1000000000.0;
-            v81 = 2048;
-            v82 = v55 / 1000000000.0;
-            v83 = 2048;
-            v84 = v41 / 1000000000.0;
-            v85 = 2048;
-            v86 = (v54 - v41) / 1000000000.0;
-            v87 = 2048;
-            v88 = v53 / 1000000000.0;
-            v89 = 1024;
-            v90 = v58;
-            v91 = 1024;
-            v92 = v57;
-            v93 = 2080;
-            v94 = v50;
-            _os_log_impl(&dword_1C6584000, v47, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] log_query_parse_analytic_event: %s {\n\tprocess: %s\n\\tlocale: %s\ntstatus: %llu\n\tqueryLength: %u\n\ttokenCount: %u\n\ttotalLatency: %.4f\n\tquLatency: %.4f\n\tloadLatency: %.4f\n\tcdmLatency: %.4f\n\tu2Latency: %.4f\n\tecrLatency: %.4f\n\tecrCount: %u\n\tecrErrorCount: %u\n\terrorMessage: %s\n}", buf, 0x92u);
+            v74 = v52;
+            *v75 = 2080;
+            *&v75[2] = v53;
+            *&v75[10] = 2048;
+            *&v75[12] = valuea;
+            v76 = 1024;
+            v77 = Length;
+            v78 = 1024;
+            v79 = -1431655765 * ((v39 - v40) >> 3);
+            v80 = 2048;
+            v81 = v45;
+            v82 = 2048;
+            v83 = v59 / 1000000000.0;
+            v84 = 2048;
+            v85 = v58 / 1000000000.0;
+            v86 = 2048;
+            v87 = v41 / 1000000000.0;
+            v88 = 2048;
+            v89 = (v57 - v41) / 1000000000.0;
+            v90 = 2048;
+            v91 = v56 / 1000000000.0;
+            v92 = 1024;
+            v93 = v61;
+            v94 = 1024;
+            v95 = v60;
+            v96 = 2080;
+            v97 = v54;
+            _os_log_impl(&dword_1C6584000, v49, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] log_query_parse_analytic_event: %s {\n\tprocess: %s\n\\tlocale: %s\ntstatus: %llu\n\tqueryLength: %u\n\ttokenCount: %u\n\ttotalLatency: %.4f\n\tquLatency: %.4f\n\tloadLatency: %.4f\n\tcdmLatency: %.4f\n\tu2Latency: %.4f\n\tecrLatency: %.4f\n\tecrCount: %u\n\tecrErrorCount: %u\n\terrorMessage: %s\n}", buf, 0x92u);
           }
 
           analytics_send_event();
           xpc_release(empty);
-          if (SHIBYTE(v69) < 0)
+          if (SHIBYTE(v72) < 0)
           {
             operator delete(__p[0]);
           }
 
           v30 = *(this + 10);
 LABEL_76:
-          v65[0] = MEMORY[0x1E69E9820];
-          v65[1] = 0x40000000;
-          v65[2] = ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybbbbbby_block_invoke_59;
-          v65[3] = &__block_descriptor_tmp_60;
-          v65[4] = this;
-          QP::Parser::enumerateParses(v30, v65);
-          goto LABEL_77;
+          v68[0] = MEMORY[0x1E69E9820];
+          v68[1] = 0x40000000;
+          v68[2] = ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybbbbbby_block_invoke_59;
+          v68[3] = &__block_descriptor_tmp_60;
+          v68[4] = this;
+          QP::Parser::enumerateParses(v30, v68);
+          return;
         }
 
         v33 = *v33;
@@ -9440,9 +9428,6 @@ LABEL_76:
       goto LABEL_55;
     }
   }
-
-LABEL_77:
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65F58B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -9455,10 +9440,10 @@ void sub_1C65F58B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybbbbbby_block_invoke(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, std::string::size_type a6, std::string::size_type a7, uint64_t **a8, _BYTE *a9)
+void ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybbbbbby_block_invoke(uint64_t a1, const void *a2, uint64_t *a3, uint64_t a4, uint64_t a5, std::string::size_type a6, std::string::size_type a7, uint64_t **a8, _BYTE *a9)
 {
-  v70 = *(a1 + 32);
-  if (*(v70 + 40))
+  v68 = *(a1 + 32);
+  if (*(v68 + 40))
   {
     if (parserLogger(void)::token != -1)
     {
@@ -9476,7 +9461,7 @@ void ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybb
       }
     }
 
-    QP::Lexer::setStringWithLexemes(*(v70 + 40), a2, 0, a8);
+    QP::Lexer::setStringWithLexemes(*(v68 + 40), a2, 0, a8);
     if (parserLogger(void)::token != -1)
     {
       QP::QueryParserEngine::init();
@@ -9493,7 +9478,7 @@ void ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybb
       }
     }
 
-    if (*(v70 + 80))
+    if (*(v68 + 80))
     {
       if (parserLogger(void)::token != -1)
       {
@@ -9512,61 +9497,60 @@ void ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybb
       }
 
       *buf = 0;
-      v78 = 0;
-      v79 = 0;
-      v21 = v70;
-      QP::Parser::parseLLMLexer(*(v70 + 80), a8, buf);
+      v76 = 0;
+      v77 = 0;
+      QP::Parser::parseLLMLexer(*(v68 + 80), a8, buf);
       if (parserLogger(void)::token != -1)
       {
         QP::QueryParserEngine::init();
       }
 
-      v22 = a5;
-      v23 = *(a1 + 40);
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      v21 = a5;
+      v22 = *(a1 + 40);
+      if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v24 = parserLogger(void)::log;
+        v23 = parserLogger(void)::log;
         if (os_signpost_enabled(parserLogger(void)::log))
         {
-          *v75 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C6584000, v24, OS_SIGNPOST_INTERVAL_END, v23, "QPParser::parseLLMLexer", &unk_1C664887A, v75, 2u);
+          *v73 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C6584000, v23, OS_SIGNPOST_INTERVAL_END, v22, "QPParser::parseLLMLexer", &unk_1C664887A, v73, 2u);
         }
       }
 
-      v26 = *buf;
-      v25 = v78;
-      if (*buf != v78)
+      v25 = *buf;
+      v24 = v76;
+      if (*buf != v76)
       {
         while (1)
         {
-          v27 = *v26;
-          if (((*v26)[3].__r_.__value_.__s.__data_[1] & 1) == 0)
+          v26 = *v25;
+          if (((*v25)[3].__r_.__value_.__s.__data_[1] & 1) == 0)
           {
-            if (*(v22 + 23) < 0)
+            if (*(v21 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&__str, *v22, *(v22 + 8));
+              std::string::__init_copy_ctor_external(&__str, *v21, *(v21 + 8));
             }
 
             else
             {
-              __str = *v22;
+              __str = *v21;
             }
 
-            std::string::operator=(v27 + 2, &__str);
+            std::string::operator=(v26 + 2, &__str);
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__str.__r_.__value_.__l.__data_);
             }
           }
 
-          v28 = *v26;
-          v28->__r_.__value_.__r.__words[2] = a6;
-          v28[1].__r_.__value_.__r.__words[0] = a7;
-          v29 = v28[7].__r_.__value_.__r.__words[2];
-          if (v29)
+          v27 = *v25;
+          v27->__r_.__value_.__r.__words[2] = a6;
+          v27[1].__r_.__value_.__r.__words[0] = a7;
+          v28 = v27[7].__r_.__value_.__r.__words[2];
+          if (v28)
           {
-            v30 = std::__shared_weak_count::lock(v29);
-            if (v30)
+            v29 = std::__shared_weak_count::lock(v28);
+            if (v29)
             {
               break;
             }
@@ -9580,35 +9564,39 @@ void ___ZN2QP17QueryParserEngine11parseStringEPK10__CFStringPK14__CFDictionarybb
           }
 
 LABEL_89:
-          v64 = *(v21 + 88);
-          v65 = *(a3 + 8);
-          v73 = *a3;
-          v74 = v65;
-          if (v65)
+          v63 = a3[1];
+          v71 = *a3;
+          v72 = v63;
+          if (v63)
           {
-            atomic_fetch_add_explicit(&v65->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v66 = v26[1];
-          v71 = *v26;
-          v72 = v66;
+          v64 = v25[1];
+          v69 = *v25;
+          v70 = v64;
+          if (v64)
+          {
+            atomic_fetch_add_explicit(&v64->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
+
+          QP::LLMParser::safeMakeGroupAttribute(&v71, &v69, v73);
+          v65 = *v73;
+          memset(v73, 0, sizeof(v73));
+          v66 = a3[1];
+          *a3 = v65;
           if (v66)
           {
-            atomic_fetch_add_explicit(&v66->__shared_owners_, 1uLL, memory_order_relaxed);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v66);
+            if (*&v73[8])
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](*&v73[8]);
+            }
           }
 
-          QP::LLMParser::safeMakeGroupAttribute(&v73, &v71, v75);
-          v67 = *v75;
-          memset(v75, 0, sizeof(v75));
-          v68 = *(a3 + 8);
-          *a3 = v67;
-          if (v68)
+          if (v70)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v68);
-            if (*&v75[8])
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](*&v75[8]);
-            }
+            std::__shared_weak_count::__release_shared[abi:ne200100](v70);
           }
 
           if (v72)
@@ -9616,36 +9604,31 @@ LABEL_89:
             std::__shared_weak_count::__release_shared[abi:ne200100](v72);
           }
 
-          if (v74)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v74);
-          }
-
-          v26 += 2;
-          if (v26 == v25)
+          v25 += 2;
+          if (v25 == v24)
           {
             goto LABEL_103;
           }
         }
 
-        size = v28[7].__r_.__value_.__l.__size_;
+        size = v27[7].__r_.__value_.__l.__size_;
         *(size + 72) = a6;
         *(size + 80) = a7;
-        std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v29);
         if (!a9)
         {
           goto LABEL_89;
         }
 
 LABEL_35:
-        v32 = *v26;
-        v33 = (*v26)[7].__r_.__value_.__r.__words[2];
-        if (v33)
+        v31 = *v25;
+        v32 = (*v25)[7].__r_.__value_.__r.__words[2];
+        if (v32)
         {
-          v34 = std::__shared_weak_count::lock(v33);
-          if (v34)
+          v33 = std::__shared_weak_count::lock(v32);
+          if (v33)
           {
-            if (std::string::starts_with[abi:ne200100](v32[7].__r_.__value_.__l.__size_, "Relative"))
+            if (std::string::starts_with[abi:ne200100](v31[7].__r_.__value_.__l.__size_, "Relative"))
             {
               goto LABEL_87;
             }
@@ -9659,75 +9642,74 @@ LABEL_35:
 
         else
         {
-          v34 = 0;
+          v33 = 0;
           if (std::string::starts_with[abi:ne200100](0, "Relative"))
           {
             goto LABEL_88;
           }
         }
 
-        v35 = *v26;
-        v36 = std::__shared_weak_count::lock((*v26)[7].__r_.__value_.__r.__words[2]);
-        v37 = v36;
-        v38 = v35[7].__r_.__value_.__l.__size_;
-        v39 = *(v38 + 23);
-        if (v39 < 0)
+        v34 = *v25;
+        v35 = std::__shared_weak_count::lock((*v25)[7].__r_.__value_.__r.__words[2]);
+        v36 = v35;
+        v37 = v34[7].__r_.__value_.__l.__size_;
+        v38 = *(v37 + 23);
+        if (v38 < 0)
         {
-          if (*(v38 + 8) != 19)
+          if (*(v37 + 8) != 19)
           {
             goto LABEL_54;
           }
 
-          v38 = *v38;
+          v37 = *v37;
         }
 
-        else if (v39 != 19)
+        else if (v38 != 19)
         {
           goto LABEL_54;
         }
 
-        v40 = *v38;
-        v41 = *(v38 + 8);
-        v42 = *(v38 + 11);
-        if (v40 != 0x6D726F4673696854 || v41 != 0x7265506465747461 || v42 != 0x646F697265506465)
+        v39 = *v37;
+        v40 = *(v37 + 8);
+        v41 = *(v37 + 11);
+        if (v39 != 0x6D726F4673696854 || v40 != 0x7265506465747461 || v41 != 0x646F697265506465)
         {
 LABEL_54:
-          v45 = *v26;
-          v46 = std::__shared_weak_count::lock((*v26)[7].__r_.__value_.__r.__words[2]);
-          v47 = v45[7].__r_.__value_.__l.__size_;
-          v48 = *(v47 + 23);
-          if (v48 < 0)
+          v44 = *v25;
+          v45 = std::__shared_weak_count::lock((*v25)[7].__r_.__value_.__r.__words[2]);
+          v46 = v44[7].__r_.__value_.__l.__size_;
+          v47 = *(v46 + 23);
+          if (v47 < 0)
           {
-            if (*(v47 + 8) != 19)
+            if (*(v46 + 8) != 19)
             {
               goto LABEL_66;
             }
 
-            v47 = *v47;
+            v46 = *v46;
           }
 
-          else if (v48 != 19)
+          else if (v47 != 19)
           {
             goto LABEL_66;
           }
 
-          v49 = *v47;
-          v50 = *(v47 + 8);
-          v51 = *(v47 + 11);
-          if (v49 == 0x6D726F467478654ELL && v50 == 0x7265506465747461 && v51 == 0x646F697265506465)
+          v48 = *v46;
+          v49 = *(v46 + 8);
+          v50 = *(v46 + 11);
+          if (v48 == 0x6D726F467478654ELL && v49 == 0x7265506465747461 && v50 == 0x646F697265506465)
           {
-            v63 = 1;
+            v62 = 1;
 LABEL_82:
-            std::__shared_weak_count::__release_shared[abi:ne200100](v46);
-            std::__shared_weak_count::__release_shared[abi:ne200100](v37);
-            if (v34)
+            std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+            if (v33)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v33);
             }
 
-            v22 = a5;
-            v21 = v70;
-            if (!v63)
+            v21 = a5;
+            if (!v62)
             {
               goto LABEL_89;
             }
@@ -9736,42 +9718,41 @@ LABEL_82:
           }
 
 LABEL_66:
-          v54 = *v26;
-          v55 = std::__shared_weak_count::lock((*v26)[7].__r_.__value_.__r.__words[2]);
-          v56 = v54[7].__r_.__value_.__l.__size_;
-          v57 = *(v56 + 23);
-          if (v57 < 0)
+          v53 = *v25;
+          v54 = std::__shared_weak_count::lock((*v25)[7].__r_.__value_.__r.__words[2]);
+          v55 = v53[7].__r_.__value_.__l.__size_;
+          v56 = *(v55 + 23);
+          if (v56 < 0)
           {
-            if (*(v56 + 8) != 19)
+            if (*(v55 + 8) != 19)
             {
 LABEL_80:
-              v63 = 0;
+              v62 = 0;
 LABEL_81:
-              std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v54);
               goto LABEL_82;
             }
 
-            v56 = *v56;
+            v55 = *v55;
           }
 
-          else if (v57 != 19)
+          else if (v56 != 19)
           {
             goto LABEL_80;
           }
 
-          v58 = *v56;
-          v59 = *(v56 + 8);
-          v60 = *(v56 + 11);
-          v63 = v58 == 0x6D726F467473614CLL && v59 == 0x7265506465747461 && v60 == 0x646F697265506465;
+          v57 = *v55;
+          v58 = *(v55 + 8);
+          v59 = *(v55 + 11);
+          v62 = v57 == 0x6D726F467473614CLL && v58 == 0x7265506465747461 && v59 == 0x646F697265506465;
           goto LABEL_81;
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
-        v21 = v70;
-        if (v34)
+        std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+        if (v33)
         {
 LABEL_87:
-          std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v33);
         }
 
 LABEL_88:
@@ -9780,8 +9761,8 @@ LABEL_88:
       }
 
 LABEL_103:
-      *v75 = buf;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v75);
+      *v73 = buf;
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v73);
     }
   }
 }

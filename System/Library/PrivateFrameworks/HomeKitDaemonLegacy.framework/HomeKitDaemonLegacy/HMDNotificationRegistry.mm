@@ -76,147 +76,146 @@
     {
       v14 = objc_getProperty(selfCopy, v13, 64, 1);
       dispatch_assert_queue_V2(v14);
-      v16 = [objc_getProperty(selfCopy v15];
-      [objc_getProperty(selfCopy v17];
-      v18 = [v16 count];
-      v19 = objc_autoreleasePoolPush();
-      v20 = selfCopy;
-      v21 = HMFGetOSLogHandle();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
-      if (v18)
+      v16 = objc_getProperty(selfCopy, v15, 48, 1);
+      v17 = objc_msgSend_copy(v16);
+      [objc_getProperty(selfCopy v18];
+      v19 = [v17 count];
+      v20 = objc_autoreleasePoolPush();
+      v21 = selfCopy;
+      v22 = HMFGetOSLogHandle();
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+      if (v19)
       {
         v45 = fireCopy;
-        if (v22)
+        if (v23)
         {
-          v23 = HMFGetLogIdentifier();
-          v24 = [v16 count];
+          v24 = HMFGetLogIdentifier();
+          v25 = [v17 count];
           *buf = 138543618;
-          v59 = v23;
+          v59 = v24;
           v60 = 2048;
-          v61 = v24;
-          _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Processing %lu pending request(s)", buf, 0x16u);
+          v61 = v25;
+          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Processing %lu pending request(s)", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v19);
+        objc_autoreleasePoolPop(v20);
         v47 = [MEMORY[0x277CBEB58] set];
         v46 = [MEMORY[0x277CBEB58] set];
         v48 = 0u;
         v49 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v44 = v16;
-        v25 = v16;
-        v26 = [v25 countByEnumeratingWithState:&v48 objects:buf count:16];
-        if (v26)
+        v44 = v17;
+        v26 = v17;
+        v27 = [v26 countByEnumeratingWithState:&v48 objects:buf count:16];
+        if (v27)
         {
-          v27 = v26;
-          v28 = *v49;
+          v28 = v27;
+          v29 = *v49;
           do
           {
-            for (i = 0; i != v27; ++i)
+            for (i = 0; i != v28; ++i)
             {
-              if (*v49 != v28)
+              if (*v49 != v29)
               {
-                objc_enumerationMutation(v25);
+                objc_enumerationMutation(v26);
               }
 
-              v30 = *(*(&v48 + 1) + 8 * i);
-              if ([v30 retryCount] < 5)
+              v31 = *(*(&v48 + 1) + 8 * i);
+              if ([v31 retryCount] < 5)
               {
-                [v30 setRetryCount:{objc_msgSend(v30, "retryCount") + 1}];
-                v36 = v30;
+                [v31 setRetryCount:{objc_msgSend(v31, "retryCount") + 1}];
+                v37 = v31;
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v37 = v36;
+                  v38 = v37;
                 }
 
                 else
                 {
-                  v37 = 0;
+                  v38 = 0;
                 }
 
-                v38 = v37;
+                v39 = v38;
 
-                if (v38)
+                if (v39)
                 {
-                  [v47 addObject:v38];
+                  [v47 addObject:v39];
                 }
 
                 else
                 {
-                  v39 = v36;
+                  v40 = v37;
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v40 = v39;
+                    v41 = v40;
                   }
 
                   else
                   {
-                    v40 = 0;
+                    v41 = 0;
                   }
 
-                  v41 = v40;
+                  v42 = v41;
 
-                  if (v41)
+                  if (v42)
                   {
-                    [v46 addObject:v41];
+                    [v46 addObject:v42];
                   }
                 }
               }
 
               else
               {
-                v31 = objc_autoreleasePoolPush();
-                v32 = v20;
-                v33 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                v32 = objc_autoreleasePoolPush();
+                v33 = v21;
+                v34 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                 {
-                  v34 = HMFGetLogIdentifier();
-                  retryCount = [v30 retryCount];
+                  v35 = HMFGetLogIdentifier();
+                  retryCount = [v31 retryCount];
                   *v52 = 138543874;
-                  v53 = v34;
+                  v53 = v35;
                   v54 = 2048;
                   v55 = retryCount;
                   v56 = 2112;
-                  v57 = v30;
-                  _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Dropping pending request that is still around after %ld retries: %@", v52, 0x20u);
+                  v57 = v31;
+                  _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Dropping pending request that is still around after %ld retries: %@", v52, 0x20u);
                 }
 
-                objc_autoreleasePoolPop(v31);
+                objc_autoreleasePoolPop(v32);
               }
             }
 
-            v27 = [v25 countByEnumeratingWithState:&v48 objects:buf count:16];
+            v28 = [v26 countByEnumeratingWithState:&v48 objects:buf count:16];
           }
 
-          while (v27);
+          while (v28);
         }
 
-        [(HMDNotificationRegistry *)v20 _processCharacteristicsRequests:v47];
-        [(HMDNotificationRegistry *)v20 _processMediaPropertiesRequests:v46];
+        [(HMDNotificationRegistry *)v21 _processCharacteristicsRequests:v47];
+        [(HMDNotificationRegistry *)v21 _processMediaPropertiesRequests:v46];
 
-        v16 = v44;
+        v17 = v44;
         fireCopy = v45;
       }
 
       else
       {
-        if (v22)
+        if (v23)
         {
-          v42 = HMFGetLogIdentifier();
+          v43 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v59 = v42;
-          _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@No pending requests to process", buf, 0xCu);
+          v59 = v43;
+          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@No pending requests to process", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v19);
+        objc_autoreleasePoolPop(v20);
       }
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_processCharacteristicsRequests:(void *)requests
@@ -274,87 +273,88 @@
           v106 = 0u;
           v103 = 0u;
           v104 = 0u;
-          v16 = [objc_getProperty(self v15];
-          v17 = [v16 countByEnumeratingWithState:&v103 objects:buf count:16];
-          if (v17)
+          v16 = objc_getProperty(self, v15, 48, 1);
+          v17 = objc_msgSend_copy(v16);
+          v18 = [v17 countByEnumeratingWithState:&v103 objects:buf count:16];
+          if (v18)
           {
-            v18 = *v104;
+            v19 = *v104;
             do
             {
-              v19 = 0;
+              v20 = 0;
               do
               {
-                if (*v104 != v18)
+                if (*v104 != v19)
                 {
-                  objc_enumerationMutation(v16);
+                  objc_enumerationMutation(v17);
                 }
 
-                v20 = *(*(&v103 + 1) + 8 * v19);
+                v21 = *(*(&v103 + 1) + 8 * v20);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v21 = v20;
+                  v22 = v21;
                 }
 
                 else
                 {
-                  v21 = 0;
+                  v22 = 0;
                 }
 
-                v22 = v21;
+                v23 = v22;
 
-                if (v22)
+                if (v23)
                 {
-                  userID = [v22 userID];
+                  userID = [v23 userID];
                   userID2 = [v94 userID];
                   if ([userID isEqualToString:userID2])
                   {
-                    accessoryUUID = [v22 accessoryUUID];
+                    accessoryUUID = [v23 accessoryUUID];
                     accessoryUUID2 = [v94 accessoryUUID];
-                    v27 = [accessoryUUID isEqual:accessoryUUID2];
+                    v28 = [accessoryUUID isEqual:accessoryUUID2];
 
-                    if (v27)
+                    if (v28)
                     {
-                      characteristicInstanceIDs = [v22 characteristicInstanceIDs];
+                      characteristicInstanceIDs = [v23 characteristicInstanceIDs];
                       characteristicInstanceIDs2 = [v94 characteristicInstanceIDs];
                       [characteristicInstanceIDs minusSet:characteristicInstanceIDs2];
 
-                      characteristicInstanceIDs3 = [v22 characteristicInstanceIDs];
-                      v31 = [characteristicInstanceIDs3 count] == 0;
+                      characteristicInstanceIDs3 = [v23 characteristicInstanceIDs];
+                      v32 = [characteristicInstanceIDs3 count] == 0;
 
-                      v32 = objc_autoreleasePoolPush();
-                      v33 = self;
-                      v34 = HMFGetOSLogHandle();
-                      v35 = os_log_type_enabled(v34, OS_LOG_TYPE_INFO);
-                      if (v31)
+                      v33 = objc_autoreleasePoolPush();
+                      v34 = self;
+                      v35 = HMFGetOSLogHandle();
+                      v36 = os_log_type_enabled(v35, OS_LOG_TYPE_INFO);
+                      if (v32)
                       {
-                        if (v35)
+                        if (v36)
+                        {
+                          v38 = HMFGetLogIdentifier();
+                          *v108 = 138543618;
+                          v109 = v38;
+                          v110 = 2112;
+                          v111 = v23;
+                          _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Removing pending characteristics request that matches a new characteristics request: %@", v108, 0x16u);
+                        }
+
+                        objc_autoreleasePoolPop(v33);
+                        [objc_getProperty(v34 v39];
+                      }
+
+                      else
+                      {
+                        if (v36)
                         {
                           v37 = HMFGetLogIdentifier();
                           *v108 = 138543618;
                           v109 = v37;
                           v110 = 2112;
-                          v111 = v22;
-                          _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Removing pending characteristics request that matches a new characteristics request: %@", v108, 0x16u);
+                          v111 = v23;
+                          _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Updated pending characteristics request: %@", v108, 0x16u);
                         }
 
-                        objc_autoreleasePoolPop(v32);
-                        [objc_getProperty(v33 v38];
-                      }
-
-                      else
-                      {
-                        if (v35)
-                        {
-                          v36 = HMFGetLogIdentifier();
-                          *v108 = 138543618;
-                          v109 = v36;
-                          v110 = 2112;
-                          v111 = v22;
-                          _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Updated pending characteristics request: %@", v108, 0x16u);
-                        }
-
-                        objc_autoreleasePoolPop(v32);
+                        objc_autoreleasePoolPop(v33);
                       }
                     }
                   }
@@ -364,35 +364,35 @@
                   }
                 }
 
-                ++v19;
+                ++v20;
               }
 
-              while (v17 != v19);
-              v39 = [v16 countByEnumeratingWithState:&v103 objects:buf count:16];
-              v17 = v39;
+              while (v18 != v20);
+              v40 = [v17 countByEnumeratingWithState:&v103 objects:buf count:16];
+              v18 = v40;
             }
 
-            while (v39);
+            while (v40);
           }
 
           home = [(HMDNotificationRegistry *)self home];
           accessoryUUID3 = [v94 accessoryUUID];
-          v42 = [home accessoryWithUUID:accessoryUUID3];
+          v43 = [home accessoryWithUUID:accessoryUUID3];
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v43 = v42;
+            v44 = v43;
           }
 
           else
           {
-            v43 = 0;
+            v44 = 0;
           }
 
-          v44 = v43;
+          v45 = v44;
 
-          if (v44)
+          if (v45)
           {
             v97[0] = MEMORY[0x277D85DD0];
             v97[1] = 3221225472;
@@ -400,21 +400,21 @@
             v97[3] = &unk_279723BA0;
             v97[4] = v94;
             v98 = v87;
-            v45 = [v44 characteristicsPassingTest:v97];
-            v46 = [v45 count];
+            v46 = [v45 characteristicsPassingTest:v97];
+            v47 = [v46 count];
             characteristicInstanceIDs4 = [v94 characteristicInstanceIDs];
-            LOBYTE(v46) = v46 == [characteristicInstanceIDs4 count];
+            LOBYTE(v47) = v47 == [characteristicInstanceIDs4 count];
 
-            if (v46)
+            if (v47)
             {
               enable = [v94 enable];
               userID3 = [v94 userID];
               if (enable)
               {
-                v50 = v45;
-                v51 = userID3;
-                v52 = [(HMDNotificationRegistry *)self _createCharacteristicsMapForCharacteristics:v50];
-                if ([v52 count])
+                v51 = v46;
+                v52 = userID3;
+                v53 = [(HMDNotificationRegistry *)self _createCharacteristicsMapForCharacteristics:v51];
+                if ([v53 count])
                 {
                   *&v103 = 0;
                   *(&v103 + 1) = &v103;
@@ -426,31 +426,31 @@
                   *&buf[16] = __72__HMDNotificationRegistry_enableNotificationForCharacteristics_forUser___block_invoke;
                   v113 = &unk_279723AD8;
                   *&v114 = self;
-                  *(&v114 + 1) = v51;
+                  *(&v114 + 1) = v52;
                   v115 = &v103;
-                  [v52 enumerateKeysAndObjectsUsingBlock:buf];
+                  [v53 enumerateKeysAndObjectsUsingBlock:buf];
 
                   os_unfair_lock_unlock(self + 2);
-                  v53 = *(*(&v103 + 1) + 24);
+                  v54 = *(*(&v103 + 1) + 24);
                   _Block_object_dispose(&v103, 8);
                 }
 
                 else
                 {
-                  v53 = 0;
+                  v54 = 0;
                 }
 
                 userID4 = [v94 userID];
-                if (v53)
+                if (v54)
                 {
-                  v69 = objc_autoreleasePoolPush();
-                  v70 = self;
-                  v71 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+                  v70 = objc_autoreleasePoolPush();
+                  v71 = self;
+                  v72 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
                   {
                     v95 = HMFGetLogIdentifier();
-                    name = [v44 name];
-                    uuid = [v44 uuid];
+                    name = [v45 name];
+                    uuid = [v45 uuid];
                     uUIDString = [uuid UUIDString];
                     *buf = 138544130;
                     *&buf[4] = v95;
@@ -459,13 +459,13 @@
                     *&buf[22] = 2112;
                     v113 = uUIDString;
                     LOWORD(v114) = 2112;
-                    *(&v114 + 2) = v50;
-                    _os_log_impl(&dword_2531F8000, v71, OS_LOG_TYPE_INFO, "%{public}@Enabling notification for accessory %@/%@ characteristics %@", buf, 0x2Au);
+                    *(&v114 + 2) = v51;
+                    _os_log_impl(&dword_2531F8000, v72, OS_LOG_TYPE_INFO, "%{public}@Enabling notification for accessory %@/%@ characteristics %@", buf, 0x2Au);
                   }
 
-                  objc_autoreleasePoolPop(v69);
-                  [v44 setNotificationsEnabled:1 forCharacteristics:v50 clientIdentifier:userID4];
-                  [v44 updateNotificationEnabled:1 forCharacteristics:v50 onBehalfOf:userID4];
+                  objc_autoreleasePoolPop(v70);
+                  [v45 setNotificationsEnabled:1 forCharacteristics:v51 clientIdentifier:userID4];
+                  [v45 updateNotificationEnabled:1 forCharacteristics:v51 onBehalfOf:userID4];
                   v85 = 1;
                 }
 
@@ -477,10 +477,10 @@
 
               else
               {
-                v62 = v45;
-                v63 = userID3;
-                v64 = [(HMDNotificationRegistry *)self _createCharacteristicsMapForCharacteristics:v62];
-                if ([v64 count])
+                v63 = v46;
+                v64 = userID3;
+                v65 = [(HMDNotificationRegistry *)self _createCharacteristicsMapForCharacteristics:v63];
+                if ([v65 count])
                 {
                   array = [MEMORY[0x277CBEB18] array];
                   *&v103 = 0;
@@ -493,14 +493,14 @@
                   *&buf[16] = __104__HMDNotificationRegistry_disableNotificationForCharacteristics_forUser_characteristicsToDisableEvents___block_invoke;
                   v113 = &unk_279723B00;
                   *&v114 = self;
-                  *(&v114 + 1) = v63;
-                  v66 = array;
-                  v115 = v66;
+                  *(&v114 + 1) = v64;
+                  v67 = array;
+                  v115 = v67;
                   v116 = &v103;
-                  [v64 enumerateKeysAndObjectsUsingBlock:buf];
+                  [v65 enumerateKeysAndObjectsUsingBlock:buf];
 
                   os_unfair_lock_unlock(self + 2);
-                  v67 = v66;
+                  v68 = v67;
                   v85 = *(*(&v103 + 1) + 24);
                   _Block_object_dispose(&v103, 8);
                 }
@@ -508,21 +508,21 @@
                 else
                 {
                   v85 = 0;
-                  v66 = MEMORY[0x277CBEBF8];
+                  v67 = MEMORY[0x277CBEBF8];
                 }
 
-                userID4 = v66;
+                userID4 = v67;
                 userID5 = [v94 userID];
                 if (v85)
                 {
-                  v76 = objc_autoreleasePoolPush();
-                  v77 = self;
-                  v78 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
+                  v77 = objc_autoreleasePoolPush();
+                  v78 = self;
+                  v79 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
                   {
                     v96 = HMFGetLogIdentifier();
-                    name2 = [v44 name];
-                    uuid2 = [v44 uuid];
+                    name2 = [v45 name];
+                    uuid2 = [v45 uuid];
                     uUIDString2 = [uuid2 UUIDString];
                     *buf = 138544130;
                     *&buf[4] = v96;
@@ -532,14 +532,14 @@
                     v113 = uUIDString2;
                     LOWORD(v114) = 2112;
                     *(&v114 + 2) = userID4;
-                    _os_log_impl(&dword_2531F8000, v78, OS_LOG_TYPE_INFO, "%{public}@Disabling notification for accessory %@/%@ characteristics %@", buf, 0x2Au);
+                    _os_log_impl(&dword_2531F8000, v79, OS_LOG_TYPE_INFO, "%{public}@Disabling notification for accessory %@/%@ characteristics %@", buf, 0x2Au);
                   }
 
-                  objc_autoreleasePoolPop(v76);
-                  [v44 setNotificationsEnabled:0 forCharacteristics:userID4 clientIdentifier:userID5];
+                  objc_autoreleasePoolPop(v77);
+                  [v45 setNotificationsEnabled:0 forCharacteristics:userID4 clientIdentifier:userID5];
                   if ([userID4 count])
                   {
-                    [v44 updateNotificationEnabled:0 forCharacteristics:userID4 onBehalfOf:userID5];
+                    [v45 updateNotificationEnabled:0 forCharacteristics:userID4 onBehalfOf:userID5];
                   }
                 }
               }
@@ -547,40 +547,40 @@
 
             else
             {
-              v58 = objc_autoreleasePoolPush();
-              v59 = self;
-              v60 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+              v59 = objc_autoreleasePoolPush();
+              v60 = self;
+              v61 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
               {
-                v61 = HMFGetLogIdentifier();
+                v62 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                *&buf[4] = v61;
+                *&buf[4] = v62;
                 *&buf[12] = 2112;
                 *&buf[14] = v94;
-                _os_log_impl(&dword_2531F8000, v60, OS_LOG_TYPE_INFO, "%{public}@Cannot find all characteristics for request so adding to pending requests: %@", buf, 0x16u);
+                _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_INFO, "%{public}@Cannot find all characteristics for request so adding to pending requests: %@", buf, 0x16u);
               }
 
-              objc_autoreleasePoolPop(v58);
+              objc_autoreleasePoolPop(v59);
               [v88 addObject:v94];
             }
           }
 
           else
           {
-            v54 = objc_autoreleasePoolPush();
-            v55 = self;
-            v56 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+            v55 = objc_autoreleasePoolPush();
+            v56 = self;
+            v57 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
             {
-              v57 = HMFGetLogIdentifier();
+              v58 = HMFGetLogIdentifier();
               *buf = 138543618;
-              *&buf[4] = v57;
+              *&buf[4] = v58;
               *&buf[12] = 2112;
               *&buf[14] = v94;
-              _os_log_impl(&dword_2531F8000, v56, OS_LOG_TYPE_INFO, "%{public}@Cannot find accessory for characteristics request so adding to pending requests: %@", buf, 0x16u);
+              _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_INFO, "%{public}@Cannot find accessory for characteristics request so adding to pending requests: %@", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v54);
+            objc_autoreleasePoolPop(v55);
             [v88 addObject:v94];
           }
 
@@ -607,7 +607,6 @@
     v85 = 0;
   }
 
-  v82 = *MEMORY[0x277D85DE8];
   return v85 & 1;
 }
 
@@ -674,87 +673,88 @@
       v114 = 0u;
       v111 = 0u;
       v112 = 0u;
-      v104 = [objc_getProperty(self v16];
-      v17 = [v104 countByEnumeratingWithState:&v111 objects:buf count:16];
-      if (v17)
+      v17 = objc_getProperty(self, v16, 48, 1);
+      v104 = objc_msgSend_copy(v17);
+      v18 = [v104 countByEnumeratingWithState:&v111 objects:buf count:16];
+      if (v18)
       {
-        v18 = *v112;
+        v19 = *v112;
         do
         {
-          v19 = 0;
+          v20 = 0;
           do
           {
-            if (*v112 != v18)
+            if (*v112 != v19)
             {
               objc_enumerationMutation(v104);
             }
 
-            v20 = *(*(&v111 + 1) + 8 * v19);
+            v21 = *(*(&v111 + 1) + 8 * v20);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v21 = v20;
+              v22 = v21;
             }
 
             else
             {
-              v21 = 0;
+              v22 = 0;
             }
 
-            v22 = v21;
+            v23 = v22;
 
-            if (v22)
+            if (v23)
             {
-              userID = [v22 userID];
+              userID = [v23 userID];
               userID2 = [v13 userID];
               if ([userID isEqualToString:userID2])
               {
-                mediaProfileUUID = [v22 mediaProfileUUID];
+                mediaProfileUUID = [v23 mediaProfileUUID];
                 mediaProfileUUID2 = [v13 mediaProfileUUID];
-                v27 = [mediaProfileUUID isEqual:mediaProfileUUID2];
+                v28 = [mediaProfileUUID isEqual:mediaProfileUUID2];
 
-                if (v27)
+                if (v28)
                 {
-                  mediaProperties = [v22 mediaProperties];
+                  mediaProperties = [v23 mediaProperties];
                   mediaProperties2 = [v13 mediaProperties];
                   [mediaProperties minusSet:mediaProperties2];
 
-                  mediaProperties3 = [v22 mediaProperties];
-                  v31 = [mediaProperties3 count] == 0;
+                  mediaProperties3 = [v23 mediaProperties];
+                  v32 = [mediaProperties3 count] == 0;
 
-                  v32 = objc_autoreleasePoolPush();
-                  v33 = self;
-                  v34 = HMFGetOSLogHandle();
-                  v35 = os_log_type_enabled(v34, OS_LOG_TYPE_INFO);
-                  if (v31)
+                  v33 = objc_autoreleasePoolPush();
+                  v34 = self;
+                  v35 = HMFGetOSLogHandle();
+                  v36 = os_log_type_enabled(v35, OS_LOG_TYPE_INFO);
+                  if (v32)
                   {
-                    if (v35)
+                    if (v36)
+                    {
+                      v38 = HMFGetLogIdentifier();
+                      *v116 = 138543618;
+                      v117 = v38;
+                      v118 = 2112;
+                      v119 = v23;
+                      _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Removing pending media properties request that matches a new media properties request: %@", v116, 0x16u);
+                    }
+
+                    objc_autoreleasePoolPop(v33);
+                    [objc_getProperty(v34 v39];
+                  }
+
+                  else
+                  {
+                    if (v36)
                     {
                       v37 = HMFGetLogIdentifier();
                       *v116 = 138543618;
                       v117 = v37;
                       v118 = 2112;
-                      v119 = v22;
-                      _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Removing pending media properties request that matches a new media properties request: %@", v116, 0x16u);
+                      v119 = v23;
+                      _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Updated pending media properties request: %@", v116, 0x16u);
                     }
 
-                    objc_autoreleasePoolPop(v32);
-                    [objc_getProperty(v33 v38];
-                  }
-
-                  else
-                  {
-                    if (v35)
-                    {
-                      v36 = HMFGetLogIdentifier();
-                      *v116 = 138543618;
-                      v117 = v36;
-                      v118 = 2112;
-                      v119 = v22;
-                      _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Updated pending media properties request: %@", v116, 0x16u);
-                    }
-
-                    objc_autoreleasePoolPop(v32);
+                    objc_autoreleasePoolPop(v33);
                   }
                 }
               }
@@ -764,15 +764,15 @@
               }
             }
 
-            ++v19;
+            ++v20;
           }
 
-          while (v17 != v19);
-          v39 = [v104 countByEnumeratingWithState:&v111 objects:buf count:16];
-          v17 = v39;
+          while (v18 != v20);
+          v40 = [v104 countByEnumeratingWithState:&v111 objects:buf count:16];
+          v18 = v40;
         }
 
-        while (v39);
+        while (v40);
       }
 
       home = [(HMDNotificationRegistry *)self home];
@@ -781,121 +781,121 @@
 
       if (!v100)
       {
-        v65 = objc_autoreleasePoolPush();
-        v66 = self;
-        v67 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+        v66 = objc_autoreleasePoolPush();
+        v67 = self;
+        v68 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
         {
-          v68 = HMFGetLogIdentifier();
+          v69 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v121 = v68;
+          v121 = v69;
           v122 = 2112;
           v123 = v13;
-          _os_log_impl(&dword_2531F8000, v67, OS_LOG_TYPE_INFO, "%{public}@Cannot find media profile for media properties request so adding to pending requests: %@", buf, 0x16u);
+          _os_log_impl(&dword_2531F8000, v68, OS_LOG_TYPE_INFO, "%{public}@Cannot find media profile for media properties request so adding to pending requests: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v65);
+        objc_autoreleasePoolPop(v66);
         [v93 addObject:v13];
         goto LABEL_81;
       }
 
       mediaProperties4 = [v13 mediaProperties];
-      v43 = [mediaProperties4 count] == 0;
+      v44 = [mediaProperties4 count] == 0;
 
-      if (v43)
+      if (v44)
       {
-        v69 = objc_autoreleasePoolPush();
-        v70 = self;
-        v71 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+        v70 = objc_autoreleasePoolPush();
+        v71 = self;
+        v72 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
         {
-          v72 = HMFGetLogIdentifier();
+          v73 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v121 = v72;
+          v121 = v73;
           v122 = 2112;
           v123 = v13;
-          _os_log_impl(&dword_2531F8000, v71, OS_LOG_TYPE_INFO, "%{public}@No media properties exist for request: %@", buf, 0x16u);
+          _os_log_impl(&dword_2531F8000, v72, OS_LOG_TYPE_INFO, "%{public}@No media properties exist for request: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v69);
+        objc_autoreleasePoolPop(v70);
         goto LABEL_81;
       }
 
       enable = [v13 enable];
-      v45 = objc_autoreleasePoolPush();
-      v46 = self;
-      v47 = HMFGetOSLogHandle();
-      v48 = os_log_type_enabled(v47, OS_LOG_TYPE_INFO);
+      v46 = objc_autoreleasePoolPush();
+      v47 = self;
+      v48 = HMFGetOSLogHandle();
+      v49 = os_log_type_enabled(v48, OS_LOG_TYPE_INFO);
       if (enable)
       {
-        if (v48)
+        if (v49)
         {
-          v49 = HMFGetLogIdentifier();
+          v50 = HMFGetLogIdentifier();
           mediaProperties5 = [v13 mediaProperties];
           *buf = 138543874;
-          v121 = v49;
+          v121 = v50;
           v122 = 2112;
           v123 = v100;
           v124 = 2112;
           v125 = mediaProperties5;
-          _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_INFO, "%{public}@Enabling notification for media profile: %@ media properties: %@", buf, 0x20u);
+          _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@Enabling notification for media profile: %@ media properties: %@", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v45);
+        objc_autoreleasePoolPop(v46);
         mediaProperties6 = [v13 mediaProperties];
         userID3 = [v13 userID];
-        v53 = v100;
-        v54 = mediaProperties6;
-        v55 = userID3;
-        v105 = v54;
-        if ([v54 count])
+        v54 = v100;
+        v55 = mediaProperties6;
+        v56 = userID3;
+        v105 = v55;
+        if ([v55 count])
         {
-          selfa = v46 + 2;
+          selfa = v47 + 2;
           os_unfair_lock_lock_with_options();
           v113 = 0u;
           v114 = 0u;
           v111 = 0u;
           v112 = 0u;
-          v105 = v54;
-          v56 = [v105 countByEnumeratingWithState:&v111 objects:buf count:16];
-          if (v56)
+          v105 = v55;
+          v57 = [v105 countByEnumeratingWithState:&v111 objects:buf count:16];
+          if (v57)
           {
-            v57 = 0;
-            v58 = *v112;
+            v58 = 0;
+            v59 = *v112;
             do
             {
-              for (i = 0; i != v56; ++i)
+              for (i = 0; i != v57; ++i)
               {
-                if (*v112 != v58)
+                if (*v112 != v59)
                 {
                   objc_enumerationMutation(v105);
                 }
 
-                v60 = [(HMDNotificationRegistry *)v46 keyForProperty:v53 mediaProfile:?];
-                notificationRegistry = [(HMDNotificationRegistry *)v46 notificationRegistry];
-                v62 = [notificationRegistry objectForKeyedSubscript:v60];
+                v61 = [(HMDNotificationRegistry *)v47 keyForProperty:v54 mediaProfile:?];
+                notificationRegistry = [(HMDNotificationRegistry *)v47 notificationRegistry];
+                v63 = [notificationRegistry objectForKeyedSubscript:v61];
 
-                if (!v62)
+                if (!v63)
                 {
-                  v62 = [MEMORY[0x277CBEB58] set];
-                  notificationRegistry2 = [(HMDNotificationRegistry *)v46 notificationRegistry];
-                  [notificationRegistry2 setObject:v62 forKeyedSubscript:v60];
+                  v63 = [MEMORY[0x277CBEB58] set];
+                  notificationRegistry2 = [(HMDNotificationRegistry *)v47 notificationRegistry];
+                  [notificationRegistry2 setObject:v63 forKeyedSubscript:v61];
                 }
 
-                if (([v62 containsObject:{v55, v91}] & 1) == 0)
+                if (([v63 containsObject:{v56, v91}] & 1) == 0)
                 {
-                  [v62 addObject:v55];
-                  v57 = 1;
+                  [v63 addObject:v56];
+                  v58 = 1;
                 }
               }
 
-              v56 = [v105 countByEnumeratingWithState:&v111 objects:buf count:16];
+              v57 = [v105 countByEnumeratingWithState:&v111 objects:buf count:16];
             }
 
-            while (v56);
+            while (v57);
 
             os_unfair_lock_unlock(selfa);
-            if ((v57 & 1) == 0)
+            if ((v58 & 1) == 0)
             {
               goto LABEL_50;
             }
@@ -903,7 +903,7 @@
 LABEL_74:
             uniqueIdentifier = [v100 uniqueIdentifier];
             [v92 addObject:uniqueIdentifier];
-            v64 = 1;
+            v65 = 1;
 
             goto LABEL_80;
           }
@@ -916,108 +916,108 @@ LABEL_74:
         }
 
 LABEL_79:
-        v64 = 0;
+        v65 = 0;
 
         goto LABEL_80;
       }
 
-      if (v48)
+      if (v49)
       {
-        v73 = HMFGetLogIdentifier();
+        v74 = HMFGetLogIdentifier();
         mediaProperties7 = [v13 mediaProperties];
         *buf = 138543874;
-        v121 = v73;
+        v121 = v74;
         v122 = 2112;
         v123 = v100;
         v124 = 2112;
         v125 = mediaProperties7;
-        _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_INFO, "%{public}@Disabling notification for media profile: %@ media properties: %@", buf, 0x20u);
+        _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@Disabling notification for media profile: %@ media properties: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v45);
+      objc_autoreleasePoolPop(v46);
       mediaProperties8 = [v13 mediaProperties];
       userID4 = [v13 userID];
-      v77 = v100;
-      v78 = mediaProperties8;
-      v79 = userID4;
-      v105 = v78;
-      if (![v78 count])
+      v78 = v100;
+      v79 = mediaProperties8;
+      v80 = userID4;
+      v105 = v79;
+      if (![v79 count])
       {
 
         goto LABEL_79;
       }
 
-      selfb = v46 + 2;
+      selfb = v47 + 2;
       os_unfair_lock_lock_with_options();
       v113 = 0u;
       v114 = 0u;
       v111 = 0u;
       v112 = 0u;
-      v105 = v78;
-      v80 = [v105 countByEnumeratingWithState:&v111 objects:buf count:16];
-      if (!v80)
+      v105 = v79;
+      v81 = [v105 countByEnumeratingWithState:&v111 objects:buf count:16];
+      if (!v81)
       {
 
         os_unfair_lock_unlock(selfb);
         goto LABEL_79;
       }
 
-      v81 = 0;
-      v82 = *v112;
+      v82 = 0;
+      v83 = *v112;
       do
       {
-        for (j = 0; j != v80; ++j)
+        for (j = 0; j != v81; ++j)
         {
-          if (*v112 != v82)
+          if (*v112 != v83)
           {
             objc_enumerationMutation(v105);
           }
 
-          v84 = [(HMDNotificationRegistry *)v46 keyForProperty:v77 mediaProfile:?];
-          notificationRegistry3 = [(HMDNotificationRegistry *)v46 notificationRegistry];
-          v86 = [notificationRegistry3 objectForKeyedSubscript:v84];
+          v85 = [(HMDNotificationRegistry *)v47 keyForProperty:v78 mediaProfile:?];
+          notificationRegistry3 = [(HMDNotificationRegistry *)v47 notificationRegistry];
+          v87 = [notificationRegistry3 objectForKeyedSubscript:v85];
 
-          if (v86)
+          if (v87)
           {
-            if (!v79)
+            if (!v80)
             {
               goto LABEL_69;
             }
 
-            if (![v86 containsObject:v79])
+            if (![v87 containsObject:v80])
             {
               goto LABEL_71;
             }
 
-            [v86 removeObject:v79];
-            if (![v86 count])
+            [v87 removeObject:v80];
+            if (![v87 count])
             {
 LABEL_69:
-              notificationRegistry4 = [(HMDNotificationRegistry *)v46 notificationRegistry];
-              [notificationRegistry4 removeObjectForKey:v84];
+              notificationRegistry4 = [(HMDNotificationRegistry *)v47 notificationRegistry];
+              [notificationRegistry4 removeObjectForKey:v85];
             }
 
-            v81 = 1;
+            v82 = 1;
           }
 
 LABEL_71:
         }
 
-        v80 = [v105 countByEnumeratingWithState:&v111 objects:buf count:16];
+        v81 = [v105 countByEnumeratingWithState:&v111 objects:buf count:16];
       }
 
-      while (v80);
+      while (v81);
 
       os_unfair_lock_unlock(selfb);
-      if (v81)
+      if (v82)
       {
         goto LABEL_74;
       }
 
 LABEL_50:
-      v64 = 0;
+      v65 = 0;
 LABEL_80:
-      v95 |= v64;
+      v95 |= v65;
 LABEL_81:
 
       v7 = v99 + 1;
@@ -1038,7 +1038,6 @@ LABEL_86:
   }
 
 LABEL_89:
-  v89 = *MEMORY[0x277D85DE8];
   return v95 & 1;
 }
 
@@ -1055,7 +1054,7 @@ LABEL_89:
 
 - (void)_addPendingRequests:(void *)requests
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   Property = objc_getProperty(requests, v4, 64, 1);
   dispatch_assert_queue_V2(Property);
@@ -1068,16 +1067,14 @@ LABEL_89:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Resuming pending requests timer", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Resuming pending requests timer", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [objc_getProperty(requestsCopy v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDelegatesOfMediaRegistryUpdatesForMediaProfiles:(uint64_t)profiles
@@ -1086,7 +1083,7 @@ LABEL_89:
   if (profiles)
   {
     os_unfair_lock_lock_with_options();
-    v4 = [*(profiles + 24) copy];
+    v4 = objc_msgSend_copy(*(profiles + 24));
     os_unfair_lock_unlock((profiles + 8));
     allObjects = [v4 allObjects];
 
@@ -1132,7 +1129,7 @@ void __81__HMDNotificationRegistry_notifyDelegatesOfMediaRegistryUpdatesForMedia
 
 void __81__HMDNotificationRegistry_notifyDelegatesOfMediaRegistryUpdatesForMediaProfiles___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -1141,17 +1138,15 @@ void __81__HMDNotificationRegistry_notifyDelegatesOfMediaRegistryUpdatesForMedia
   {
     v6 = HMFGetLogIdentifier();
     v7 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@About to notify delegate of mediaPropertyRegistrationsDidChange %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@About to notify delegate of mediaPropertyRegistrationsDidChange %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   [*(a1 + 32) mediaPropertyRegistrationsDidChangeForMediaProfiles:*(a1 + 40)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)keyForProperty:(void *)property mediaProfile:
@@ -1211,33 +1206,33 @@ uint64_t __59__HMDNotificationRegistry__processCharacteristicsRequests___block_i
 
 - (id)_createCharacteristicsMapForCharacteristics:(uint64_t)characteristics
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 count])
   {
-    v19 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
+    v18 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
     v3 = +[HMDHAPMetadata getSharedInstance];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v18 = v2;
+    v17 = v2;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v22;
+      v7 = *v21;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v22 != v7)
+          if (*v21 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v21 + 1) + 8 * i);
+          v9 = *(*(&v20 + 1) + 8 * i);
           type = [v9 type];
           service = [v9 service];
           type2 = [service type];
@@ -1248,27 +1243,25 @@ uint64_t __59__HMDNotificationRegistry__processCharacteristicsRequests___block_i
             v14 = [(HMDNotificationRegistry *)characteristics keyForCharacteristic:v9];
             if (v14)
             {
-              [v19 setObject:v9 forKeyedSubscript:v14];
+              [v18 setObject:v9 forKeyedSubscript:v14];
             }
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v6);
     }
 
-    v15 = [v19 copy];
-    v2 = v18;
+    v15 = objc_msgSend_copy(v18);
+    v2 = v17;
   }
 
   else
   {
     v15 = MEMORY[0x277CBEC10];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1357,7 +1350,7 @@ void __72__HMDNotificationRegistry_enableNotificationForCharacteristics_forUser_
 
 - (void)addDelegate:(id)delegate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1365,19 +1358,17 @@ void __72__HMDNotificationRegistry_enableNotificationForCharacteristics_forUser_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = delegateCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@adding delegate %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = delegateCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@adding delegate %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   os_unfair_lock_lock_with_options();
   [(NSHashTable *)selfCopy->_delegates addObject:delegateCopy];
   os_unfair_lock_unlock(&selfCopy->_lock);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1404,22 +1395,22 @@ void __72__HMDNotificationRegistry_enableNotificationForCharacteristics_forUser_
 void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = [a3 copy];
+  v6 = objc_msgSend_copy(a3);
   [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
 }
 
 - (HMDNotificationRegistry)initWithCoder:(id)coder
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22 = [(HMDNotificationRegistry *)self init];
-  if (v22)
+  v21 = [(HMDNotificationRegistry *)self init];
+  if (v21)
   {
     v5 = MEMORY[0x277CBEB98];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v28[2] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
+    v27[0] = objc_opt_class();
+    v27[1] = objc_opt_class();
+    v27[2] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
     v7 = [v5 setWithArray:v6];
 
     v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"notificationAndUsersRegistry"];
@@ -1428,48 +1419,47 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
       v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"characteristicNotificationAndUsersRegistry"];
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     obj = [v8 allKeys];
-    v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           v14 = [v8 objectForKeyedSubscript:v13];
           v15 = MEMORY[0x277CBEB58];
           allObjects = [v14 allObjects];
           v17 = [v15 setWithArray:allObjects];
-          [(NSMutableDictionary *)v22->_notificationRegistry setObject:v17 forKeyedSubscript:v13];
+          [(NSMutableDictionary *)v21->_notificationRegistry setObject:v17 forKeyedSubscript:v13];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v10);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v21;
 }
 
 - (BOOL)setNotificationsEnabled:(BOOL)enabled forUserID:(id)d characteristicsPayload:(id)payload mediaPropertiesPayload:(id)propertiesPayload
 {
   enabledCopy = enabled;
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   dCopy = d;
   payloadCopy = payload;
   propertiesPayloadCopy = propertiesPayload;
@@ -1487,47 +1477,47 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
   v12 = objc_autoreleasePoolPush();
   selfCopy = self;
   v14 = HMFGetOSLogHandle();
-  v95 = selfCopy;
+  v94 = selfCopy;
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = HMFGetLogIdentifier();
     v16 = HMFBooleanToString();
     *buf = 138543874;
-    v109 = v15;
-    v110 = 2112;
-    v111 = v16;
-    v112 = 2112;
-    v113 = dCopy;
+    v108 = v15;
+    v109 = 2112;
+    v110 = v16;
+    v111 = 2112;
+    v112 = dCopy;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Setting notifications enabled to %@ for userID: %@", buf, 0x20u);
 
-    selfCopy = v95;
+    selfCopy = v94;
   }
 
   objc_autoreleasePoolPop(v12);
-  v90 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(payloadCopy, "count")}];
+  v89 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(payloadCopy, "count")}];
+  v101 = 0u;
   v102 = 0u;
   v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
   v17 = payloadCopy;
-  v18 = [v17 countByEnumeratingWithState:&v102 objects:v107 count:16];
-  v88 = v17;
+  v18 = [v17 countByEnumeratingWithState:&v101 objects:v106 count:16];
+  v87 = v17;
   if (v18)
   {
     v19 = v18;
-    v96 = *v103;
+    v95 = *v102;
     do
     {
       v20 = 0;
-      v91 = v19;
+      v90 = v19;
       do
       {
-        if (*v103 != v96)
+        if (*v102 != v95)
         {
           objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v102 + 1) + 8 * v20);
+        v21 = *(*(&v101 + 1) + 8 * v20);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1570,7 +1560,7 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
               characteristicInstanceIDs = [(HMDNotificationRegistryCharacteristicsRequest *)v31 characteristicInstanceIDs];
               [characteristicInstanceIDs addObjectsFromArray:v30];
 
-              [v90 addObject:v31];
+              [v89 addObject:v31];
             }
 
             else
@@ -1583,20 +1573,20 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
                 v46 = HMFGetLogIdentifier();
                 v47 = objc_opt_class();
                 *buf = 138543874;
-                v109 = v46;
-                v110 = 2112;
-                v111 = v28;
-                v112 = 2112;
-                v113 = v47;
+                v108 = v46;
+                v109 = 2112;
+                v110 = v28;
+                v111 = 2112;
+                v112 = v47;
                 v48 = v47;
                 _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_INFO, "%{public}@Ignoring notification registration characteristics payload value that is not an array: %@)%@)", buf, 0x20u);
 
-                selfCopy = v95;
+                selfCopy = v94;
               }
 
               objc_autoreleasePoolPop(v43);
-              v17 = v88;
-              v19 = v91;
+              v17 = v87;
+              v19 = v90;
             }
           }
 
@@ -1609,12 +1599,12 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
             {
               v42 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v109 = v42;
-              v110 = 2112;
-              v111 = v23;
+              v108 = v42;
+              v109 = 2112;
+              v110 = v23;
               _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_INFO, "%{public}@Ignoring accessory UUID string that cannot be converted in a UUID: %@", buf, 0x16u);
 
-              selfCopy = v95;
+              selfCopy = v94;
             }
 
             objc_autoreleasePoolPop(v39);
@@ -1631,15 +1621,15 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
             v36 = HMFGetLogIdentifier();
             v37 = objc_opt_class();
             *buf = 138543874;
-            v109 = v36;
-            v110 = 2112;
-            v111 = v21;
-            v112 = 2112;
-            v113 = v37;
+            v108 = v36;
+            v109 = 2112;
+            v110 = v21;
+            v111 = 2112;
+            v112 = v37;
             v38 = v37;
             _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Ignoring notification registration characteristics payload key that is not a string: %@ (%@)", buf, 0x20u);
 
-            selfCopy = v95;
+            selfCopy = v94;
           }
 
           objc_autoreleasePoolPop(v33);
@@ -1649,33 +1639,33 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
       }
 
       while (v19 != v20);
-      v19 = [v17 countByEnumeratingWithState:&v102 objects:v107 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v101 objects:v106 count:16];
     }
 
     while (v19);
   }
 
-  v89 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(propertiesPayloadCopy, "count")}];
+  v88 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(propertiesPayloadCopy, "count")}];
+  v97 = 0u;
   v98 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v101 = 0u;
   v49 = propertiesPayloadCopy;
-  v97 = [v49 countByEnumeratingWithState:&v98 objects:v106 count:16];
-  if (v97)
+  v96 = [v49 countByEnumeratingWithState:&v97 objects:v105 count:16];
+  if (v96)
   {
-    v50 = *v99;
-    v92 = *v99;
+    v50 = *v98;
+    v91 = *v98;
     do
     {
-      for (i = 0; i != v97; ++i)
+      for (i = 0; i != v96; ++i)
       {
-        if (*v99 != v50)
+        if (*v98 != v50)
         {
           objc_enumerationMutation(v49);
         }
 
-        v52 = *(*(&v98 + 1) + 8 * i);
+        v52 = *(*(&v97 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1719,7 +1709,7 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
               mediaProperties = [(HMDNotificationRegistryMediaPropertiesRequest *)v63 mediaProperties];
               [mediaProperties addObjectsFromArray:v62];
 
-              [v89 addObject:v63];
+              [v88 addObject:v63];
             }
 
             else
@@ -1732,24 +1722,24 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
                 v78 = HMFGetLogIdentifier();
                 v79 = objc_opt_class();
                 *buf = 138543874;
-                v109 = v78;
-                v110 = 2112;
-                v111 = v60;
-                v112 = 2112;
-                v113 = v79;
-                v87 = v75;
+                v108 = v78;
+                v109 = 2112;
+                v110 = v60;
+                v111 = 2112;
+                v112 = v79;
+                v86 = v75;
                 v80 = v79;
                 _os_log_impl(&dword_2531F8000, v77, OS_LOG_TYPE_INFO, "%{public}@Ignoring notification registration media properties payload value that is not an array: %@ (%@)", buf, 0x20u);
 
-                v75 = v87;
+                v75 = v86;
               }
 
               objc_autoreleasePoolPop(v75);
-              selfCopy = v95;
+              selfCopy = v94;
             }
 
             v49 = v58;
-            v50 = v92;
+            v50 = v91;
           }
 
           else
@@ -1761,14 +1751,14 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
             {
               v74 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v109 = v74;
-              v110 = 2112;
-              v111 = v54;
+              v108 = v74;
+              v109 = 2112;
+              v110 = v54;
               _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_INFO, "%{public}@Ignoring media profile UUID string that cannot be converted in a UUID: %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v71);
-            selfCopy = v95;
+            selfCopy = v94;
           }
         }
 
@@ -1782,11 +1772,11 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
             v68 = HMFGetLogIdentifier();
             v69 = objc_opt_class();
             *buf = 138543874;
-            v109 = v68;
-            v110 = 2112;
-            v111 = v52;
-            v112 = 2112;
-            v113 = v69;
+            v108 = v68;
+            v109 = 2112;
+            v110 = v52;
+            v111 = 2112;
+            v112 = v69;
             v70 = v69;
             _os_log_impl(&dword_2531F8000, v67, OS_LOG_TYPE_INFO, "%{public}@Ignoring notification registration media properties payload key that is not a string: %@ (%@)", buf, 0x20u);
           }
@@ -1795,49 +1785,48 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
         }
       }
 
-      v97 = [v49 countByEnumeratingWithState:&v98 objects:v106 count:16];
+      v96 = [v49 countByEnumeratingWithState:&v97 objects:v105 count:16];
     }
 
-    while (v97);
+    while (v96);
   }
 
   home = [(HMDNotificationRegistry *)&selfCopy->super.super.isa home];
-  v82 = [(HMDNotificationRegistry *)selfCopy _processCharacteristicsRequests:v90];
-  v83 = v82 | [(HMDNotificationRegistry *)selfCopy _processMediaPropertiesRequests:v89];
+  v82 = [(HMDNotificationRegistry *)selfCopy _processCharacteristicsRequests:v89];
+  v83 = v82 | [(HMDNotificationRegistry *)selfCopy _processMediaPropertiesRequests:v88];
   if (v83)
   {
     [home saveToCurrentAccountWithReason:@"kModifyCharacterisiticNotificationsRequestKey"];
   }
 
-  v84 = *MEMORY[0x277D85DE8];
   return v83 & 1;
 }
 
 - (void)removeAllReachabilityEventNotificationRegistrations
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   notificationRegistry = [(HMDNotificationRegistry *)self notificationRegistry];
   allKeys = [notificationRegistry allKeys];
 
-  v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([v8 containsString:@":ReachabilityEventNotification"])
         {
           notificationRegistry2 = [(HMDNotificationRegistry *)self notificationRegistry];
@@ -1845,43 +1834,42 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
         }
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)userIDsRegisteredForReachabilityEventNotificationsForAccessoryUUIDs:(id)ds
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = [MEMORY[0x277CBEB58] set];
   os_unfair_lock_lock_with_options();
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
         v10 = [(HMDNotificationRegistry *)self _reachabilityEventNotificationRegistryKeyForAccessoryUUID:?];
         notificationRegistry = [(HMDNotificationRegistry *)self notificationRegistry];
-        v12 = [notificationRegistry objectForKeyedSubscript:{v10, v16}];
+        v12 = [notificationRegistry objectForKeyedSubscript:{v10, v15}];
 
         if (v12)
         {
@@ -1889,16 +1877,14 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = [v5 copy];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = objc_msgSend_copy(v5);
 
   return v13;
 }
@@ -1949,44 +1935,42 @@ void __43__HMDNotificationRegistry_encodeWithCoder___block_invoke(uint64_t a1, v
 
 - (id)_reachabilityEventNotificationRegistryKeysForAccessoryUUIDs:(void *)ds
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (ds)
   {
     v4 = [MEMORY[0x277CBEB58] set];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
           v10 = [(HMDNotificationRegistry *)ds _reachabilityEventNotificationRegistryKeyForAccessoryUUID:?];
-          [v4 addObject:{v10, v13}];
+          [v4 addObject:{v10, v12}];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
 
-    ds = [v4 copy];
+    ds = objc_msgSend_copy(v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return ds;
 }
@@ -2090,26 +2074,26 @@ void __90__HMDNotificationRegistry_enableReachabilityEventNotificationForAccesso
 
 - (void)auditUsersForNotifications:(id)notifications forHome:(id)home
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   homeCopy = home;
-  v47 = isiOSDevice();
+  v46 = isiOSDevice();
   v5 = +[HMDDeviceCapabilities deviceCapabilities];
   isResidentCapable = [v5 isResidentCapable];
 
   v6 = [MEMORY[0x277CBEB58] set];
   os_unfair_lock_lock_with_options();
   notificationRegistry = [(HMDNotificationRegistry *)self notificationRegistry];
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __62__HMDNotificationRegistry_auditUsersForNotifications_forHome___block_invoke;
-  v54[3] = &unk_279723B50;
-  v37 = v6;
-  v55 = v37;
-  [notificationRegistry enumerateKeysAndObjectsUsingBlock:v54];
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __62__HMDNotificationRegistry_auditUsersForNotifications_forHome___block_invoke;
+  v53[3] = &unk_279723B50;
+  v36 = v6;
+  v54 = v36;
+  [notificationRegistry enumerateKeysAndObjectsUsingBlock:v53];
 
-  [v37 minusSet:notificationsCopy];
-  if ([v37 count])
+  [v36 minusSet:notificationsCopy];
+  if ([v36 count])
   {
     v8 = objc_autoreleasePoolPush();
     v9 = HMFGetOSLogHandle();
@@ -2117,64 +2101,64 @@ void __90__HMDNotificationRegistry_enableReachabilityEventNotificationForAccesso
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v75 = v10;
-      v76 = 2112;
-      v77 = v37;
+      v74 = v10;
+      v75 = 2112;
+      v76 = v36;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Users %@ are not associated with this phone anymore. Deregistering them from notification registry", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
-    v11 = v37;
-    v44 = homeCopy;
+    v11 = v36;
+    v43 = homeCopy;
     if (self)
     {
       os_unfair_lock_assert_owner(&self->_lock);
       array = [MEMORY[0x277CBEB18] array];
       array2 = [MEMORY[0x277CBEB18] array];
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
       notificationRegistry2 = [(HMDNotificationRegistry *)self notificationRegistry];
       obj = [notificationRegistry2 allKeys];
 
-      v42 = [obj countByEnumeratingWithState:&v64 objects:buf count:16];
-      if (v42)
+      v41 = [obj countByEnumeratingWithState:&v63 objects:buf count:16];
+      if (v41)
       {
-        v41 = *v65;
+        v40 = *v64;
         do
         {
-          for (i = 0; i != v42; ++i)
+          for (i = 0; i != v41; ++i)
           {
-            if (*v65 != v41)
+            if (*v64 != v40)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v64 + 1) + 8 * i);
+            v13 = *(*(&v63 + 1) + 8 * i);
             notificationRegistry3 = [(HMDNotificationRegistry *)self notificationRegistry];
-            v48 = v13;
-            v49 = [notificationRegistry3 objectForKeyedSubscript:v13];
+            v47 = v13;
+            v48 = [notificationRegistry3 objectForKeyedSubscript:v13];
 
-            v62 = 0u;
-            v63 = 0u;
-            v60 = 0u;
             v61 = 0u;
-            v15 = [v49 copy];
-            v16 = [v15 countByEnumeratingWithState:&v60 objects:v73 count:16];
+            v62 = 0u;
+            v59 = 0u;
+            v60 = 0u;
+            v15 = objc_msgSend_copy(v48);
+            v16 = [v15 countByEnumeratingWithState:&v59 objects:v72 count:16];
             if (v16)
             {
-              v17 = *v61;
+              v17 = *v60;
               do
               {
                 for (j = 0; j != v16; ++j)
                 {
-                  if (*v61 != v17)
+                  if (*v60 != v17)
                   {
                     objc_enumerationMutation(v15);
                   }
 
-                  v19 = *(*(&v60 + 1) + 8 * j);
+                  v19 = *(*(&v59 + 1) + 8 * j);
                   v20 = IDSCopyRawAddressForDestination();
                   if (([v11 containsObject:v20] & 1) != 0 || objc_msgSend(v11, "containsObject:", v19))
                   {
@@ -2183,77 +2167,77 @@ void __90__HMDNotificationRegistry_enableReachabilityEventNotificationForAccesso
                     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
                     {
                       v23 = HMFGetLogIdentifier();
-                      *v69 = 138543874;
-                      *&v69[4] = v23;
-                      *&v69[12] = 2112;
-                      *&v69[14] = v19;
-                      *&v69[22] = 2112;
-                      v70 = v48;
-                      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Removing user %@ from notification registry for acc-uuid:iid %@", v69, 0x20u);
+                      *v68 = 138543874;
+                      *&v68[4] = v23;
+                      *&v68[12] = 2112;
+                      *&v68[14] = v19;
+                      *&v68[22] = 2112;
+                      v69 = v47;
+                      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Removing user %@ from notification registry for acc-uuid:iid %@", v68, 0x20u);
                     }
 
                     objc_autoreleasePoolPop(v21);
-                    [v49 removeObject:v19];
-                    if (v47)
+                    [v48 removeObject:v19];
+                    if (v46)
                     {
                       aBlock[0] = MEMORY[0x277D85DD0];
                       aBlock[1] = 3221225472;
                       aBlock[2] = __99__HMDNotificationRegistry__delayedBlocksCollectedWhileDeregisteringUsers_forHome_isiOS_isResident___block_invoke;
                       aBlock[3] = &unk_279734870;
                       aBlock[4] = self;
-                      aBlock[5] = v48;
+                      aBlock[5] = v47;
                       aBlock[6] = v19;
-                      v59 = v44;
+                      v58 = v43;
                       v24 = _Block_copy(aBlock);
                       [array addObject:v24];
                     }
                   }
                 }
 
-                v16 = [v15 countByEnumeratingWithState:&v60 objects:v73 count:16];
+                v16 = [v15 countByEnumeratingWithState:&v59 objects:v72 count:16];
               }
 
               while (v16);
             }
 
-            if (![v49 count])
+            if (![v48 count])
             {
               if (isResidentCapable)
               {
-                v56[0] = MEMORY[0x277D85DD0];
-                v56[1] = 3221225472;
-                v56[2] = __99__HMDNotificationRegistry__delayedBlocksCollectedWhileDeregisteringUsers_forHome_isiOS_isResident___block_invoke_2;
-                v56[3] = &unk_279734960;
-                v56[4] = self;
-                v56[5] = v48;
-                v57 = v44;
-                v25 = _Block_copy(v56);
+                v55[0] = MEMORY[0x277D85DD0];
+                v55[1] = 3221225472;
+                v55[2] = __99__HMDNotificationRegistry__delayedBlocksCollectedWhileDeregisteringUsers_forHome_isiOS_isResident___block_invoke_2;
+                v55[3] = &unk_279734960;
+                v55[4] = self;
+                v55[5] = v47;
+                v56 = v43;
+                v25 = _Block_copy(v55);
                 [array addObject:v25];
               }
 
-              [array2 addObject:{v48, homeCopy}];
+              [array2 addObject:{v47, homeCopy}];
               notificationRegistry4 = [(HMDNotificationRegistry *)self notificationRegistry];
-              [notificationRegistry4 removeObjectForKey:v48];
+              [notificationRegistry4 removeObjectForKey:v47];
             }
           }
 
-          v42 = [obj countByEnumeratingWithState:&v64 objects:buf count:16];
+          v41 = [obj countByEnumeratingWithState:&v63 objects:buf count:16];
         }
 
-        while (v42);
+        while (v41);
       }
 
-      *v69 = MEMORY[0x277D85DD0];
-      *&v69[8] = 3221225472;
-      *&v69[16] = __99__HMDNotificationRegistry__delayedBlocksCollectedWhileDeregisteringUsers_forHome_isiOS_isResident___block_invoke_3;
-      v70 = &unk_2797359B0;
+      *v68 = MEMORY[0x277D85DD0];
+      *&v68[8] = 3221225472;
+      *&v68[16] = __99__HMDNotificationRegistry__delayedBlocksCollectedWhileDeregisteringUsers_forHome_isiOS_isResident___block_invoke_3;
+      v69 = &unk_2797359B0;
       selfCopy = self;
-      v72 = array2;
+      v71 = array2;
       v27 = array2;
-      v28 = _Block_copy(v69);
+      v28 = _Block_copy(v68);
       [array addObject:v28];
 
-      v29 = [array copy];
+      v29 = objc_msgSend_copy(array);
     }
 
     else
@@ -2268,41 +2252,39 @@ void __90__HMDNotificationRegistry_enableReachabilityEventNotificationForAccesso
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v30 = v29;
-  v31 = [v30 countByEnumeratingWithState:&v50 objects:v68 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v49 objects:v67 count:16];
   if (v31)
   {
-    v32 = *v51;
+    v32 = *v50;
     do
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v51 != v32)
+        if (*v50 != v32)
         {
           objc_enumerationMutation(v30);
         }
 
-        (*(*(*(&v50 + 1) + 8 * k) + 16))();
+        (*(*(*(&v49 + 1) + 8 * k) + 16))();
       }
 
-      v31 = [v30 countByEnumeratingWithState:&v50 objects:v68 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v49 objects:v67 count:16];
     }
 
     while (v31);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-void __99__HMDNotificationRegistry__delayedBlocksCollectedWhileDeregisteringUsers_forHome_isiOS_isResident___block_invoke_3(uint64_t a1)
+void __99__HMDNotificationRegistry__delayedBlocksCollectedWhileDeregisteringUsers_forHome_isiOS_isResident___block_invoke_3(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  v2 = [*(a1 + 40) copy];
-  [(HMDNotificationRegistry *)v1 notifyDelegatesIfKeysAreMediaRelated:v2];
+  v3 = *(a1 + 32);
+  v4 = objc_msgSend_copy(*(a1 + 40), a2);
+  [(HMDNotificationRegistry *)v3 notifyDelegatesIfKeysAreMediaRelated:v4];
 }
 
 - (void)notifyDelegatesIfKeysAreMediaRelated:(uint64_t)related
@@ -2341,7 +2323,7 @@ id __64__HMDNotificationRegistry_notifyDelegatesIfKeysAreMediaRelated___block_in
 
 - (void)disableNotification:(void *)notification user:(void *)user home:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = a2;
   notificationCopy = notification;
   userCopy = user;
@@ -2374,28 +2356,28 @@ id __64__HMDNotificationRegistry_notifyDelegatesIfKeysAreMediaRelated___block_in
         v18 = [v10 objectAtIndexedSubscript:1];
         v19 = [v17 numberWithInteger:{objc_msgSend(v18, "integerValue")}];
 
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __57__HMDNotificationRegistry_disableNotification_user_home___block_invoke;
-        v27[3] = &unk_279733D48;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __57__HMDNotificationRegistry_disableNotification_user_home___block_invoke;
+        v26[3] = &unk_279733D48;
         v20 = v19;
-        v28 = v20;
-        v21 = [v16 characteristicsPassingTest:v27];
+        v27 = v20;
+        v21 = [v16 characteristicsPassingTest:v26];
         v22 = objc_autoreleasePoolPush();
         v23 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           HMFGetLogIdentifier();
-          v24 = v26 = v13;
+          v24 = v25 = v13;
           *buf = 138543874;
-          v30 = v24;
-          v31 = 2112;
-          v32 = notificationCopy;
-          v33 = 2112;
-          v34 = v21;
+          v29 = v24;
+          v30 = 2112;
+          v31 = notificationCopy;
+          v32 = 2112;
+          v33 = v21;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Deregistering client %@ for notification for characteristics %@", buf, 0x20u);
 
-          v13 = v26;
+          v13 = v25;
         }
 
         objc_autoreleasePoolPop(v22);
@@ -2403,8 +2385,6 @@ id __64__HMDNotificationRegistry_notifyDelegatesIfKeysAreMediaRelated___block_in
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__HMDNotificationRegistry_disableNotification_user_home___block_invoke(uint64_t a1, void *a2)
@@ -2418,32 +2398,32 @@ uint64_t __57__HMDNotificationRegistry_disableNotification_user_home___block_inv
 
 - (id)usersRegisteredForNotificationsForProperties:(id)properties
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
-  v19 = [MEMORY[0x277CBEB58] set];
+  v18 = [MEMORY[0x277CBEB58] set];
   if ([propertiesCopy count])
   {
-    v17 = 8;
+    v16 = 8;
     os_unfair_lock_lock_with_options();
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = propertiesCopy;
-    v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v4)
     {
-      v5 = *v22;
+      v5 = *v21;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v22 != v5)
+          if (*v21 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          request = [*(*(&v21 + 1) + 8 * i) request];
+          request = [*(*(&v20 + 1) + 8 * i) request];
           property = [request property];
           mediaProfile = [request mediaProfile];
           if (mediaProfile)
@@ -2455,49 +2435,47 @@ uint64_t __57__HMDNotificationRegistry_disableNotification_user_home___block_inv
             if (v12)
             {
               allObjects = [v12 allObjects];
-              [v19 addObjectsFromArray:allObjects];
+              [v18 addObjectsFromArray:allObjects];
             }
           }
         }
 
-        v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v4);
     }
 
-    os_unfair_lock_unlock((self + v17));
+    os_unfair_lock_unlock((self + v16));
   }
 
-  v14 = [v19 copy];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = objc_msgSend_copy(v18, v16);
 
   return v14;
 }
 
 - (id)usersRegisteredForNotificationsForCharacteristics:(id)characteristics
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   v5 = [MEMORY[0x277CBEB58] set];
   if ([characteristicsCopy count])
   {
     os_unfair_lock_lock_with_options();
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = characteristicsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v6);
           }
@@ -2513,7 +2491,7 @@ uint64_t __57__HMDNotificationRegistry_disableNotification_user_home___block_inv
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -2522,9 +2500,7 @@ uint64_t __57__HMDNotificationRegistry_disableNotification_user_home___block_inv
     os_unfair_lock_unlock(&self->_lock);
   }
 
-  v14 = [v5 copy];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = objc_msgSend_copy(v5);
 
   return v14;
 }
@@ -2574,34 +2550,34 @@ id __79__HMDNotificationRegistry_propertiesRegisteredForMediaProfileUniqueIdenti
 
 - (id)filterProperties:(id)properties forUser:(id)user
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   userCopy = user;
-  v20 = propertiesCopy;
+  v19 = propertiesCopy;
   if ([propertiesCopy count])
   {
-    v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(propertiesCopy, "count")}];
-    v19 = 8;
+    v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(propertiesCopy, "count")}];
+    v18 = 8;
     os_unfair_lock_lock_with_options();
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = propertiesCopy;
-    v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v6)
     {
-      v7 = *v26;
+      v7 = *v25;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v26 != v7)
+          if (*v25 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v25 + 1) + 8 * i);
+          v9 = *(*(&v24 + 1) + 8 * i);
           request = [v9 request];
           property = [request property];
           mediaProfile = [request mediaProfile];
@@ -2613,19 +2589,19 @@ id __79__HMDNotificationRegistry_propertiesRegisteredForMediaProfileUniqueIdenti
 
             if ([v15 containsObject:userCopy])
             {
-              [v21 addObject:v9];
+              [v20 addObject:v9];
             }
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v6);
     }
 
-    os_unfair_lock_unlock((self + v19));
-    v16 = [v21 copy];
+    os_unfair_lock_unlock((self + v18));
+    v16 = objc_msgSend_copy(v20);
   }
 
   else
@@ -2633,40 +2609,38 @@ id __79__HMDNotificationRegistry_propertiesRegisteredForMediaProfileUniqueIdenti
     v16 = MEMORY[0x277CBEBF8];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)filterCharacteristics:(id)characteristics forUser:(id)user
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   userCopy = user;
-  v19 = characteristicsCopy;
+  v18 = characteristicsCopy;
   if ([characteristicsCopy count])
   {
     array = [MEMORY[0x277CBEB18] array];
     os_unfair_lock_lock_with_options();
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v8 = characteristicsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           v13 = [(HMDNotificationRegistry *)self keyForCharacteristic:v12];
           if (v13)
           {
@@ -2680,14 +2654,14 @@ id __79__HMDNotificationRegistry_propertiesRegisteredForMediaProfileUniqueIdenti
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
     }
 
     os_unfair_lock_unlock(&self->_lock);
-    v16 = [array copy];
+    v16 = objc_msgSend_copy(array);
   }
 
   else
@@ -2695,24 +2669,22 @@ id __79__HMDNotificationRegistry_propertiesRegisteredForMediaProfileUniqueIdenti
     v16 = MEMORY[0x277CBEBF8];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (BOOL)removeRegistrationsForMediaProfile:(id)profile
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   os_unfair_lock_lock_with_options();
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   notificationRegistry = [(HMDNotificationRegistry *)self notificationRegistry];
   allKeys = [notificationRegistry allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (!v7)
   {
 
@@ -2721,17 +2693,17 @@ id __79__HMDNotificationRegistry_propertiesRegisteredForMediaProfileUniqueIdenti
   }
 
   v8 = 0;
-  v9 = *v22;
+  v9 = *v21;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v22 != v9)
+      if (*v21 != v9)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v11 = *(*(&v21 + 1) + 8 * i);
+      v11 = *(*(&v20 + 1) + 8 * i);
       if (self)
       {
         uniqueIdentifier = [profileCopy uniqueIdentifier];
@@ -2754,7 +2726,7 @@ id __79__HMDNotificationRegistry_propertiesRegisteredForMediaProfileUniqueIdenti
       }
     }
 
-    v7 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
   }
 
   while (v7);
@@ -2768,37 +2740,36 @@ LABEL_16:
   }
 
   uniqueIdentifier2 = [profileCopy uniqueIdentifier];
-  v25 = uniqueIdentifier2;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+  v24 = uniqueIdentifier2;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
   [(HMDNotificationRegistry *)self notifyDelegatesOfMediaRegistryUpdatesForMediaProfiles:v17];
 
   v18 = 1;
 LABEL_17:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)removeRegistrationsForCharacteristics:(id)characteristics
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   os_unfair_lock_lock_with_options();
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = characteristicsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
@@ -2807,21 +2778,20 @@ LABEL_17:
         if (v9)
         {
           notificationRegistry = [(HMDNotificationRegistry *)self notificationRegistry];
-          [notificationRegistry setObject:0 forKeyedSubscript:{v9, v12}];
+          [notificationRegistry setObject:0 forKeyedSubscript:{v9, v11}];
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)shortDescription
@@ -2942,12 +2912,11 @@ LABEL_17:
 
 uint64_t __38__HMDNotificationRegistry_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v69;
-  logCategory__hmf_once_v69 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v69;
+  logCategory__hmf_once_v69 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

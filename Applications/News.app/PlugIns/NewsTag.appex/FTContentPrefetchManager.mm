@@ -41,7 +41,7 @@
 {
   bannerCopy = banner;
   handlerCopy = handler;
-  v9 = PrefetchLog();
+  v9 = PrefetchLog(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -90,7 +90,7 @@
   serviceCopy = service;
   headlinesCopy = headlines;
   handlerCopy = handler;
-  v7 = PrefetchLog();
+  v7 = PrefetchLog(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;

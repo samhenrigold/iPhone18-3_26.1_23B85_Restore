@@ -113,9 +113,9 @@
             goto LABEL_15;
           }
 
-          v11 = [(NSString *)v8 isEqualToString:v9];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-          if (!v11)
+          if (!isEqualToString)
           {
             goto LABEL_15;
           }

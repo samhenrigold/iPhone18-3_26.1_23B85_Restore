@@ -68,39 +68,36 @@
 
 - (id)generateHashSHA256
 {
-  v8 = *MEMORY[0x29EDCA608];
-  memset(&v6, 0, sizeof(v6));
-  CC_SHA256_Init(&v6);
-  CC_SHA256_Update(&v6, self->_dataPointer, self->_dataLength);
-  CC_SHA256_Final(md, &v6);
+  v7 = *MEMORY[0x29EDCA608];
+  memset(&v5, 0, sizeof(v5));
+  CC_SHA256_Init(&v5);
+  CC_SHA256_Update(&v5, self->_dataPointer, self->_dataLength);
+  CC_SHA256_Final(md, &v5);
   v3 = [MEMORY[0x29EDB8DA0] dataWithBytes:md length:32];
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
 
 - (id)generateHashSHA384
 {
-  v8 = *MEMORY[0x29EDCA608];
-  memset(&v6, 0, sizeof(v6));
-  CC_SHA384_Init(&v6);
-  CC_SHA384_Update(&v6, self->_dataPointer, self->_dataLength);
-  CC_SHA384_Final(md, &v6);
+  v7 = *MEMORY[0x29EDCA608];
+  memset(&v5, 0, sizeof(v5));
+  CC_SHA384_Init(&v5);
+  CC_SHA384_Update(&v5, self->_dataPointer, self->_dataLength);
+  CC_SHA384_Final(md, &v5);
   v3 = [MEMORY[0x29EDB8DA0] dataWithBytes:md length:48];
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
 
 - (id)generateHashSHA512
 {
-  v8 = *MEMORY[0x29EDCA608];
-  memset(&v6, 0, sizeof(v6));
-  CC_SHA512_Init(&v6);
-  CC_SHA512_Update(&v6, self->_dataPointer, self->_dataLength);
-  CC_SHA512_Final(md, &v6);
+  v7 = *MEMORY[0x29EDCA608];
+  memset(&v5, 0, sizeof(v5));
+  CC_SHA512_Init(&v5);
+  CC_SHA512_Update(&v5, self->_dataPointer, self->_dataLength);
+  CC_SHA512_Final(md, &v5);
   v3 = [MEMORY[0x29EDB8DA0] dataWithBytes:md length:64];
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

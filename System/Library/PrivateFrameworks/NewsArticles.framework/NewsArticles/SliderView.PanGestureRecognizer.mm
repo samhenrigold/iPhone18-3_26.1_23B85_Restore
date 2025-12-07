@@ -8,7 +8,7 @@
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
   ObjectType = swift_getObjectType();
-  sub_1D7992EFC(0, &qword_1EC9E9358);
+  sub_1D7992EFC(0, &qword_1EC9E9358, 0x1E69DD190);
   sub_1D7D26568();
   sub_1D7D309AC();
   eventCopy = event;

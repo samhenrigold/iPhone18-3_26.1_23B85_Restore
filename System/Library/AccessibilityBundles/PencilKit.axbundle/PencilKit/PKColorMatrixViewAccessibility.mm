@@ -72,36 +72,36 @@
 
 - (void)didTapColorButton:(id)button
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   buttonCopy = button;
-  v22.receiver = self;
-  v22.super_class = PKColorMatrixViewAccessibility;
-  [(PKColorMatrixViewAccessibility *)&v22 didTapColorButton:buttonCopy];
-  v21 = 0;
+  v21.receiver = self;
+  v21.super_class = PKColorMatrixViewAccessibility;
+  [(PKColorMatrixViewAccessibility *)&v21 didTapColorButton:buttonCopy];
+  v20 = 0;
   objc_opt_class();
   v5 = __UIAccessibilityCastAsClass();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   subviews = [v5 subviews];
-  v7 = [subviews countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v7 = [subviews countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     v10 = *MEMORY[0x29EDC7FC0];
     v11 = ~*MEMORY[0x29EDC7FC0];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -120,13 +120,11 @@
         }
       }
 
-      v8 = [subviews countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v8 = [subviews countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 @end

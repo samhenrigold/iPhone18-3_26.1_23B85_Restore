@@ -24,51 +24,55 @@
 
 - (BOOL)shouldPerformBehavior:(int64_t)behavior
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [(VSLinkedOnOrAfterChecker *)self _minimumVersionsForBehavior:?];
-  if ([v4 count])
+  v5 = [v4 count];
+  if (v5)
   {
-    v5 = 0;
+    v6 = 0;
     while (1)
     {
-      [v4 pointerAtIndex:v5];
-      if (dyld_program_sdk_at_least())
+      [v4 pointerAtIndex:v6];
+      v7 = dyld_program_sdk_at_least();
+      if (v7)
       {
         break;
       }
 
-      if (++v5 >= [v4 count])
+      ++v6;
+      v5 = [v4 count];
+      if (v6 >= v5)
       {
         goto LABEL_5;
       }
     }
 
-    v6 = VSDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v11 = 134217984;
       behaviorCopy2 = behavior;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Linked against SDK version that performs behavior %lu.", &v9, 0xCu);
+      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Linked against SDK version that performs behavior %lu.", &v11, 0xCu);
     }
 
-    v7 = 1;
+    v9 = 1;
   }
 
   else
   {
 LABEL_5:
-    v6 = VSDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v11 = 134217984;
       behaviorCopy2 = behavior;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Linked against SDK that pre-dates behavior %lu.", &v9, 0xCu);
+      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Linked against SDK that pre-dates behavior %lu.", &v11, 0xCu);
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 @end

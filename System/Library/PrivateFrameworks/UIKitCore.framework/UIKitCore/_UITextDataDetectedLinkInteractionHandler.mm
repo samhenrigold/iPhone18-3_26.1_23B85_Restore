@@ -140,14 +140,14 @@ LABEL_8:
 LABEL_10:
   _menuForInteractableItem = [(_UITextItemInteractionHandler *)self _menuForInteractableItem];
   v17 = _menuForInteractableItem;
-  v18 = 1;
+  isEqualToString = 1;
   if (v8 && _menuForInteractableItem)
   {
     identifier = [_menuForInteractableItem identifier];
-    v18 = [identifier isEqualToString:@"UITextItemDefaultMenuIdentifier"];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
   }
 
-  return v18;
+  return isEqualToString;
 }
 
 - (id)_defaultContextMenuConfiguration

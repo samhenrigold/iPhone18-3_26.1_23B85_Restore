@@ -121,13 +121,13 @@
     [v4 setObject:serviceType forKeyedSubscript:@"client_id"];
   }
 
-  v17 = 0;
-  v8 = [MEMORY[0x1E696AE40] dataWithPropertyList:v4 format:200 options:0 error:&v17];
-  v9 = v17;
+  v18 = 0;
+  v8 = [MEMORY[0x1E696AE40] dataWithPropertyList:v4 format:200 options:0 error:&v18];
+  v9 = v18;
   if (v9)
   {
     v10 = v9;
-    dictionary2 = streams_log();
+    dictionary2 = streams_log(v9);
     if (os_log_type_enabled(dictionary2, OS_LOG_TYPE_ERROR))
     {
       [(SFCompanionService *)v10 messageData];
@@ -151,13 +151,14 @@
       [dictionary2 setObject:v8 forKeyedSubscript:@"author_data"];
     }
 
-    v16 = 0;
-    v12 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary2 format:200 options:0 error:&v16];
-    v10 = v16;
-    if (v10)
+    v17 = 0;
+    v12 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary2 format:200 options:0 error:&v17];
+    v14 = v17;
+    v10 = v14;
+    if (v14)
     {
-      v14 = streams_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = streams_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [(SFCompanionService *)v10 messageData];
       }
@@ -431,11 +432,10 @@ LABEL_31:
 
 - (void)messageData
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Message serialize error = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Message serialize error = %@", &v2, 0xCu);
 }
 
 @end

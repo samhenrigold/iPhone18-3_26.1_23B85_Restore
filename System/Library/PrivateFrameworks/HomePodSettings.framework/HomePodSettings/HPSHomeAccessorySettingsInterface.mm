@@ -79,7 +79,7 @@
 
 void __54__HPSHomeAccessorySettingsInterface_initWithDelegate___block_invoke(uint64_t a1)
 {
-  v2 = _HPSLoggingFacility();
+  v2 = _HPSLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __54__HPSHomeAccessorySettingsInterface_initWithDelegate___block_invoke_cold_1();
@@ -91,7 +91,7 @@ void __54__HPSHomeAccessorySettingsInterface_initWithDelegate___block_invoke(uin
 
 void __54__HPSHomeAccessorySettingsInterface_initWithDelegate___block_invoke_348(uint64_t a1)
 {
-  v2 = _HPSLoggingFacility();
+  v2 = _HPSLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __54__HPSHomeAccessorySettingsInterface_initWithDelegate___block_invoke_348_cold_1();
@@ -114,32 +114,30 @@ void __54__HPSHomeAccessorySettingsInterface_initWithDelegate___block_invoke_348
 
 - (void)fetchSettingForEndpointIdentifier:(id)identifier keyPath:(id)path completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   pathCopy = path;
   handlerCopy = handler;
-  v11 = _HPSLoggingFacility();
+  v11 = _HPSLoggingFacility(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315650;
-    v15 = "[HPSHomeAccessorySettingsInterface fetchSettingForEndpointIdentifier:keyPath:completionHandler:]";
-    v16 = 2112;
-    v17 = identifierCopy;
-    v18 = 2112;
-    v19 = pathCopy;
-    _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_INFO, "%s endpointID %@ keyPath %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[HPSHomeAccessorySettingsInterface fetchSettingForEndpointIdentifier:keyPath:completionHandler:]";
+    v15 = 2112;
+    v16 = identifierCopy;
+    v17 = 2112;
+    v18 = pathCopy;
+    _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_INFO, "%s endpointID %@ keyPath %@", &v13, 0x20u);
   }
 
   v12 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_2];
   [v12 sendFetchSettingForEndpointIdentifier:identifierCopy keyPath:pathCopy completionHandler:handlerCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HPSHomeAccessorySettingsInterface_fetchSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _HPSLoggingFacility();
+  v3 = _HPSLoggingFacility(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __97__HPSHomeAccessorySettingsInterface_fetchSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke_cold_1(v2);
@@ -148,32 +146,30 @@ void __97__HPSHomeAccessorySettingsInterface_fetchSettingForEndpointIdentifier_k
 
 - (void)subscribeToSettingForEndpointIdentifier:(id)identifier keyPath:(id)path completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   pathCopy = path;
   handlerCopy = handler;
-  v11 = _HPSLoggingFacility();
+  v11 = _HPSLoggingFacility(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315650;
-    v15 = "[HPSHomeAccessorySettingsInterface subscribeToSettingForEndpointIdentifier:keyPath:completionHandler:]";
-    v16 = 2112;
-    v17 = identifierCopy;
-    v18 = 2112;
-    v19 = pathCopy;
-    _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_INFO, "%s endpointID %@ keyPath %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[HPSHomeAccessorySettingsInterface subscribeToSettingForEndpointIdentifier:keyPath:completionHandler:]";
+    v15 = 2112;
+    v16 = identifierCopy;
+    v17 = 2112;
+    v18 = pathCopy;
+    _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_INFO, "%s endpointID %@ keyPath %@", &v13, 0x20u);
   }
 
   v12 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_354];
   [v12 sendSubscribeRequestToSettingForEndpointIdentifier:identifierCopy keypath:pathCopy completionHandler:handlerCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __103__HPSHomeAccessorySettingsInterface_subscribeToSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _HPSLoggingFacility();
+  v3 = _HPSLoggingFacility(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __103__HPSHomeAccessorySettingsInterface_subscribeToSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke_cold_1(v2);
@@ -182,32 +178,30 @@ void __103__HPSHomeAccessorySettingsInterface_subscribeToSettingForEndpointIdent
 
 - (void)unsubscribeToSettingForEndpointIdentifier:(id)identifier keyPath:(id)path completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   pathCopy = path;
   handlerCopy = handler;
-  v11 = _HPSLoggingFacility();
+  v11 = _HPSLoggingFacility(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315650;
-    v15 = "[HPSHomeAccessorySettingsInterface unsubscribeToSettingForEndpointIdentifier:keyPath:completionHandler:]";
-    v16 = 2112;
-    v17 = identifierCopy;
-    v18 = 2112;
-    v19 = pathCopy;
-    _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_INFO, "%s endpointID %@ keyPath %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[HPSHomeAccessorySettingsInterface unsubscribeToSettingForEndpointIdentifier:keyPath:completionHandler:]";
+    v15 = 2112;
+    v16 = identifierCopy;
+    v17 = 2112;
+    v18 = pathCopy;
+    _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_INFO, "%s endpointID %@ keyPath %@", &v13, 0x20u);
   }
 
   v12 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_356];
   [v12 sendUnsubscribeRequestToSettingForEndpointIdentifier:identifierCopy keypath:pathCopy completionHandler:handlerCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _HPSLoggingFacility();
+  v3 = _HPSLoggingFacility(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke_cold_1(v2);
@@ -217,7 +211,8 @@ void __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIde
 - (void)handleConnectionInvalidated
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
     self->_isValidConnection = 0;
     [WeakRetained settingsConnectionInvalidated];
@@ -225,8 +220,8 @@ void __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIde
 
   else
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [HPSHomeAccessorySettingsInterface handleConnectionInvalidated];
     }
@@ -236,15 +231,16 @@ void __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIde
 - (void)handleConnectionInterrupted
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  if (objc_opt_respondsToSelector())
+  v3 = objc_opt_respondsToSelector();
+  if (v3)
   {
     [WeakRetained settingsConnectionInterrupted];
   }
 
   else
   {
-    v3 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _HPSLoggingFacility(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [HPSHomeAccessorySettingsInterface handleConnectionInvalidated];
     }
@@ -253,22 +249,22 @@ void __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIde
 
 - (void)accessoryDidUpdateValueForEndpointIdentifier:(id)identifier keyPath:(id)path value:(id)value
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   pathCopy = path;
   valueCopy = value;
-  v11 = _HPSLoggingFacility();
+  v11 = _HPSLoggingFacility(valueCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315906;
-    v15 = "[HPSHomeAccessorySettingsInterface accessoryDidUpdateValueForEndpointIdentifier:keyPath:value:]";
-    v16 = 2112;
-    v17 = identifierCopy;
-    v18 = 2112;
-    v19 = pathCopy;
-    v20 = 2112;
-    v21 = valueCopy;
-    _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_DEFAULT, "%s Notify Client endpointID %@ keyPath %@ settingValue %@", &v14, 0x2Au);
+    v13 = 136315906;
+    v14 = "[HPSHomeAccessorySettingsInterface accessoryDidUpdateValueForEndpointIdentifier:keyPath:value:]";
+    v15 = 2112;
+    v16 = identifierCopy;
+    v17 = 2112;
+    v18 = pathCopy;
+    v19 = 2112;
+    v20 = valueCopy;
+    _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_DEFAULT, "%s Notify Client endpointID %@ keyPath %@ settingValue %@", &v13, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -276,8 +272,6 @@ void __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIde
   {
     [WeakRetained didUpdateSettingForEndpointIdentifier:identifierCopy keyPath:pathCopy value:valueCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HPSHomeAccessorySettingsConnectionInterfaceDelegate)delegate
@@ -287,50 +281,28 @@ void __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIde
   return WeakRetained;
 }
 
-void __54__HPSHomeAccessorySettingsInterface_initWithDelegate___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __54__HPSHomeAccessorySettingsInterface_initWithDelegate___block_invoke_348_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __97__HPSHomeAccessorySettingsInterface_fetchSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 void __103__HPSHomeAccessorySettingsInterface_subscribeToSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 void __105__HPSHomeAccessorySettingsInterface_unsubscribeToSettingForEndpointIdentifier_keyPath_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 @end

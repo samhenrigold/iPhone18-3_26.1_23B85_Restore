@@ -24,7 +24,7 @@
   channelCopy = channel;
   errorCopy = error;
 
-  sub_10004133C(channelCopy, v7, v9);
+  sub_10004133C(channelCopy, v7, v9, errorCopy);
 }
 
 - (void)producer:(id)producer didFailToStartSessionWithMember:(id)member error:(id)error
@@ -33,87 +33,84 @@
   memberCopy = member;
   errorCopy = error;
 
-  sub_100041568(producerCopy, memberCopy);
+  sub_100041568(producerCopy, memberCopy, errorCopy);
 }
 
 - (void)producer:(id)producer didStartSession:(id)session member:(id)member response:(id)response
 {
   v11 = sub_100001EEC(&qword_1000AEDC0, &qword_100088E40);
-  v12 = *(*(v11 - 8) + 64);
   __chkstk_darwin(v11 - 8);
-  v14 = &v21 - v13;
-  v15 = sub_10008742C();
-  (*(*(v15 - 8) + 56))(v14, 1, 1, v15);
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = self;
-  v16[5] = producer;
-  v16[6] = session;
-  v16[7] = member;
-  v16[8] = response;
+  v13 = &v20 - v12;
+  v14 = sub_10008742C();
+  (*(*(v14 - 8) + 56))(v13, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = self;
+  v15[5] = producer;
+  v15[6] = session;
+  v15[7] = member;
+  v15[8] = response;
   producerCopy = producer;
   sessionCopy = session;
   memberCopy = member;
   responseCopy = response;
 
-  sub_100016C64(0, 0, v14, &unk_10008B168, v16);
+  sub_100016C64(0, 0, v13, &unk_10008B168, v15);
 }
 
 - (void)producer:(id)producer didStopSession:(id)session initiator:(id)initiator notice:(id)notice error:(id)error
 {
   v13 = sub_100001EEC(&qword_1000AEDC0, &qword_100088E40);
-  v14 = *(*(v13 - 8) + 64);
   __chkstk_darwin(v13 - 8);
-  v16 = &v24 - v15;
-  v17 = sub_10008742C();
-  (*(*(v17 - 8) + 56))(v16, 1, 1, v17);
-  v18 = swift_allocObject();
-  v18[2] = 0;
-  v18[3] = 0;
-  v18[4] = self;
-  v18[5] = producer;
-  v18[6] = session;
-  v18[7] = initiator;
-  v18[8] = notice;
-  v18[9] = error;
+  v15 = &v23 - v14;
+  v16 = sub_10008742C();
+  (*(*(v16 - 8) + 56))(v15, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = self;
+  v17[5] = producer;
+  v17[6] = session;
+  v17[7] = initiator;
+  v17[8] = notice;
+  v17[9] = error;
   producerCopy = producer;
   sessionCopy = session;
   initiatorCopy = initiator;
   noticeCopy = notice;
 
   errorCopy = error;
-  sub_100016C64(0, 0, v16, &unk_10008B158, v18);
+  sub_100016C64(0, 0, v15, &unk_10008B158, v17);
 }
 
 - (void)producer:(COMessageSessionProducer *)producer shouldStartSessionWithMember:(COClusterMemberRoleSnapshot *)member completionHandler:(id)handler
 {
   v9 = sub_100001EEC(&qword_1000AEDC0, &qword_100088E40);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v20 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = producer;
-  v14[3] = member;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_10008742C();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v19 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = producer;
+  v13[3] = member;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_10008742C();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_10008B118;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_10008B118;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_100089CC8;
-  v17[5] = v16;
+  v16[4] = &unk_100089CC8;
+  v16[5] = v15;
   producerCopy = producer;
   memberCopy = member;
 
-  sub_100040A24(0, 0, v12, &unk_100089CD0, v17);
+  sub_100040A24(0, 0, v11, &unk_100089CD0, v16);
 }
 
 @end

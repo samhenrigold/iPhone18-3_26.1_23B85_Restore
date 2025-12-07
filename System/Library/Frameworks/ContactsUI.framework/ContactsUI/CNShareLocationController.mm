@@ -814,11 +814,11 @@ LABEL_3:
   }
 }
 
-uint64_t __40__CNShareLocationController_setContact___block_invoke(uint64_t result, int a2)
+id *__40__CNShareLocationController_setContact___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) initiateIDSRequest];
+    return [result[4] initiateIDSRequest];
   }
 
   return result;
@@ -880,7 +880,7 @@ uint64_t __40__CNShareLocationController_setContact___block_invoke(uint64_t resu
 
   if ((v5 & 1) == 0)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNShareLocationController.m", 418, 4, @"Missing entitlement for FindMyLocate. Please add com.apple.findmy.findmylocate.friendshipservice to the entitlements and mach services in the app.", v6, v7, v8, v9, v11);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNShareLocationController.m", 418, 4u, @"Missing entitlement for FindMyLocate. Please add com.apple.findmy.findmylocate.friendshipservice to the entitlements and mach services in the app.", v6, v7, v8, v9, v11);
   }
 
   return v5;

@@ -7,204 +7,204 @@
 
 - (_NTKParmesanImageListReader)initWithResourceDirectory:(id)directory
 {
-  v152 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
-  v146.receiver = self;
-  v146.super_class = _NTKParmesanImageListReader;
-  v8 = [(NTKParmesanAssetReader *)&v146 initWithResourceDirectory:directoryCopy];
-  if (v8)
+  v110.receiver = self;
+  v110.super_class = _NTKParmesanImageListReader;
+  v7 = [(NTKParmesanAssetReader *)&v110 initWithResourceDirectory:directoryCopy];
+  if (v7)
   {
-    v9 = objc_msgSend_logObject(NTKParmesanFaceBundle, v5, v6, v7);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = objc_msgSend_logObject(NTKParmesanFaceBundle, v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = objc_opt_class();
+      v9 = objc_opt_class();
       *buf = 138412546;
-      v149 = v10;
-      v150 = 2112;
-      v151 = directoryCopy;
-      v11 = v10;
-      _os_log_impl(&dword_23BF0C000, v9, OS_LOG_TYPE_DEFAULT, "%@: initWithResourceDirectory %@", buf, 0x16u);
+      v113 = v9;
+      v114 = 2112;
+      v115 = directoryCopy;
+      v10 = v9;
+      _os_log_impl(&dword_23BF0C000, v8, OS_LOG_TYPE_DEFAULT, "%@: initWithResourceDirectory %@", buf, 0x16u);
     }
 
-    v12 = objc_opt_new();
-    assets = v8->_assets;
-    v8->_assets = v12;
+    v11 = objc_opt_new();
+    assets = v7->_assets;
+    v7->_assets = v11;
 
     if (directoryCopy)
     {
-      v16 = objc_msgSend_stringByAppendingPathComponent_(directoryCopy, v14, kParmesanReaderImagelistFileName, v15);
-      v19 = objc_msgSend_dictionaryWithContentsOfFile_(MEMORY[0x277CBEAC0], v17, v16, v18);
-      v23 = v19;
-      if (v19)
+      v14 = objc_msgSend_stringByAppendingPathComponent_(directoryCopy, v13, kParmesanReaderImagelistFileName);
+      v16 = objc_msgSend_dictionaryWithContentsOfFile_(MEMORY[0x277CBEAC0], v15, v14);
+      v19 = v16;
+      if (v16)
       {
-        v141 = v16;
-        v24 = objc_msgSend_objectForKeyedSubscript_(v19, v20, kParmesanReaderAssetCollectionIdentifierKey, v22);
-        objc_msgSend_setAssetCollectionIdentifier_(v8, v25, v24, v26);
+        v105 = v14;
+        v20 = objc_msgSend_objectForKeyedSubscript_(v16, v17, kParmesanReaderAssetCollectionIdentifierKey);
+        objc_msgSend_setAssetCollectionIdentifier_(v7, v21, v20);
 
-        v29 = objc_msgSend_objectForKeyedSubscript_(v23, v27, kParmesanReaderPeopleIdentifiersKey, v28);
-        objc_msgSend_setPeopleIdentifiers_(v8, v30, v29, v31);
+        v23 = objc_msgSend_objectForKeyedSubscript_(v19, v22, kParmesanReaderPeopleIdentifiersKey);
+        objc_msgSend_setPeopleIdentifiers_(v7, v24, v23);
 
-        v34 = objc_msgSend_objectForKeyedSubscript_(v23, v32, kParmesanReaderHasPeopleKey, v33);
-        v38 = objc_msgSend_BOOLValue(v34, v35, v36, v37);
-        objc_msgSend_setHasPeople_(v8, v39, v38, v40);
+        v26 = objc_msgSend_objectForKeyedSubscript_(v19, v25, kParmesanReaderHasPeopleKey);
+        v29 = objc_msgSend_BOOLValue(v26, v27, v28);
+        objc_msgSend_setHasPeople_(v7, v30, v29);
 
-        v43 = objc_msgSend_objectForKeyedSubscript_(v23, v41, kParmesanReaderHasPetsKey, v42);
-        v47 = objc_msgSend_BOOLValue(v43, v44, v45, v46);
-        objc_msgSend_setHasPets_(v8, v48, v47, v49);
+        v32 = objc_msgSend_objectForKeyedSubscript_(v19, v31, kParmesanReaderHasPetsKey);
+        v35 = objc_msgSend_BOOLValue(v32, v33, v34);
+        objc_msgSend_setHasPets_(v7, v36, v35);
 
-        v52 = objc_msgSend_objectForKeyedSubscript_(v23, v50, kParmesanReaderHasNatureKey, v51);
-        v56 = objc_msgSend_BOOLValue(v52, v53, v54, v55);
-        objc_msgSend_setHasNature_(v8, v57, v56, v58);
+        v38 = objc_msgSend_objectForKeyedSubscript_(v19, v37, kParmesanReaderHasNatureKey);
+        v41 = objc_msgSend_BOOLValue(v38, v39, v40);
+        objc_msgSend_setHasNature_(v7, v42, v41);
 
-        v61 = objc_msgSend_objectForKeyedSubscript_(v23, v59, kParmesanReaderHasCityscapesKey, v60);
-        v65 = objc_msgSend_BOOLValue(v61, v62, v63, v64);
-        objc_msgSend_setHasCityscapes_(v8, v66, v65, v67);
+        v44 = objc_msgSend_objectForKeyedSubscript_(v19, v43, kParmesanReaderHasCityscapesKey);
+        v47 = objc_msgSend_BOOLValue(v44, v45, v46);
+        objc_msgSend_setHasCityscapes_(v7, v48, v47);
 
-        v70 = objc_msgSend_objectForKeyedSubscript_(v23, v68, kParmesanReaderHasDailyPhotosKey, v69);
-        v74 = objc_msgSend_BOOLValue(v70, v71, v72, v73);
-        objc_msgSend_setHasDailyPhotos_(v8, v75, v74, v76);
+        v50 = objc_msgSend_objectForKeyedSubscript_(v19, v49, kParmesanReaderHasDailyPhotosKey);
+        v53 = objc_msgSend_BOOLValue(v50, v51, v52);
+        objc_msgSend_setHasDailyPhotos_(v7, v54, v53);
 
-        v79 = objc_msgSend_objectForKeyedSubscript_(v23, v77, kParmesanReaderUUIDStringKey, v78);
-        objc_msgSend_setUuidString_(v8, v80, v79, v81);
+        v56 = objc_msgSend_objectForKeyedSubscript_(v19, v55, kParmesanReaderUUIDStringKey);
+        objc_msgSend_setUuidString_(v7, v57, v56);
 
-        v84 = objc_msgSend_objectForKeyedSubscript_(v23, v82, kParmesanReaderImageListKey, v83);
-        v88 = objc_msgSend_assetCollectionIdentifier(v8, v85, v86, v87);
-        v89 = v88 != 0;
+        v59 = objc_msgSend_objectForKeyedSubscript_(v19, v58, kParmesanReaderImageListKey);
+        v62 = objc_msgSend_assetCollectionIdentifier(v7, v60, v61);
+        v63 = v62 != 0;
 
-        if (objc_msgSend_hasPeople(v8, v90, v91, v92) & 1) != 0 || (objc_msgSend_hasPets(v8, v93, v94, v95) & 1) != 0 || (objc_msgSend_hasNature(v8, v93, v94, v95))
+        if (objc_msgSend_hasPeople(v7, v64, v65) & 1) != 0 || (objc_msgSend_hasPets(v7, v66, v67) & 1) != 0 || (objc_msgSend_hasNature(v7, v66, v67))
         {
           hasCityscapes = 1;
         }
 
         else
         {
-          hasCityscapes = objc_msgSend_hasCityscapes(v8, v93, v94, v95);
+          hasCityscapes = objc_msgSend_hasCityscapes(v7, v66, v67);
         }
 
-        if (hasCityscapes + objc_msgSend_hasDailyPhotos(v8, v93, v94, v95) + v89 >= 2)
+        if (hasCityscapes + objc_msgSend_hasDailyPhotos(v7, v66, v67) + v63 >= 2)
         {
-          v100 = objc_msgSend_logObject(NTKParmesanFaceBundle, v97, v98, v99);
-          if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+          v71 = objc_msgSend_logObject(NTKParmesanFaceBundle, v69, v70);
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
           {
             sub_23BFF7D6C();
           }
         }
 
-        hasPeople = objc_msgSend_hasPeople(v8, v97, v98, v99);
-        v102 = v8;
-        v106 = objc_msgSend_peopleIdentifiers(v8, v103, v104, v105);
-        v110 = hasPeople ^ (objc_msgSend_count(v106, v107, v108, v109) == 0);
+        hasPeople = objc_msgSend_hasPeople(v7, v69, v70);
+        v73 = v7;
+        v76 = objc_msgSend_peopleIdentifiers(v7, v74, v75);
+        v79 = hasPeople ^ (objc_msgSend_count(v76, v77, v78) == 0);
 
-        if ((v110 & 1) == 0)
+        if ((v79 & 1) == 0)
         {
-          v114 = objc_msgSend_logObject(NTKParmesanFaceBundle, v111, v112, v113);
-          if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+          v82 = objc_msgSend_logObject(NTKParmesanFaceBundle, v80, v81);
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
           {
             sub_23BFF7DE0();
           }
         }
 
-        v115 = objc_msgSend_objectForKeyedSubscript_(v23, v111, kParmesanReaderVersionKey, v113);
-        v139 = v115;
-        v140 = v23;
-        if (v115)
+        v83 = objc_msgSend_objectForKeyedSubscript_(v19, v80, kParmesanReaderVersionKey);
+        v103 = v83;
+        v104 = v19;
+        if (v83)
         {
-          v119 = objc_msgSend_integerValue(v115, v116, v117, v118);
-          v8 = v102;
-          objc_msgSend_setVersion_(v102, v120, v119, v121);
+          v86 = objc_msgSend_integerValue(v83, v84, v85);
+          v7 = v73;
+          objc_msgSend_setVersion_(v73, v87, v86);
         }
 
         else
         {
-          v123 = objc_msgSend_logObject(NTKParmesanFaceBundle, v116, v117, v118);
-          v8 = v102;
-          if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v89 = objc_msgSend_logObject(NTKParmesanFaceBundle, v84, v85);
+          v7 = v73;
+          if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
           {
-            sub_23BFF7E54(v102, v123);
+            sub_23BFF7E54(v73, v89);
           }
 
-          objc_msgSend_setVersion_(v102, v124, 0, v125);
+          objc_msgSend_setVersion_(v73, v90, 0);
         }
 
-        v144 = 0u;
-        v145 = 0u;
-        v142 = 0u;
-        v143 = 0u;
-        v122 = v84;
-        v127 = objc_msgSend_countByEnumeratingWithState_objects_count_(v122, v126, &v142, v147, 16);
-        if (v127)
+        v108 = 0u;
+        v109 = 0u;
+        v106 = 0u;
+        v107 = 0u;
+        v88 = v59;
+        v92 = objc_msgSend_countByEnumeratingWithState_objects_count_(v88, v91, &v106, v111, 16);
+        if (v92)
         {
-          v129 = v127;
-          v130 = *v143;
+          v94 = v92;
+          v95 = *v107;
           do
           {
-            for (i = 0; i != v129; ++i)
+            for (i = 0; i != v94; ++i)
             {
-              if (*v143 != v130)
+              if (*v107 != v95)
               {
-                objc_enumerationMutation(v122);
+                objc_enumerationMutation(v88);
               }
 
-              v132 = *(*(&v142 + 1) + 8 * i);
-              v136 = objc_msgSend_decodeFromDictionary_inResourceDirectory_(NTKParmesanAsset, v128, v132, directoryCopy);
-              if (v136)
+              v97 = *(*(&v106 + 1) + 8 * i);
+              v100 = objc_msgSend_decodeFromDictionary_inResourceDirectory_(NTKParmesanAsset, v93, v97, directoryCopy);
+              if (v100)
               {
-                objc_msgSend_addObject_(v8->_assets, v133, v136, v135);
+                objc_msgSend_addObject_(v7->_assets, v98, v100);
               }
 
               else
               {
-                v137 = objc_msgSend_logObject(NTKParmesanFaceBundle, v133, v134, v135);
-                if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
+                v101 = objc_msgSend_logObject(NTKParmesanFaceBundle, v98, v99);
+                if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v149 = v102;
-                  v150 = 2112;
-                  v151 = v132;
-                  _os_log_error_impl(&dword_23BF0C000, v137, OS_LOG_TYPE_ERROR, "%@: Failed to decode imageListItem to NTKParmesanAsset. [item: %@]", buf, 0x16u);
+                  v113 = v73;
+                  v114 = 2112;
+                  v115 = v97;
+                  _os_log_error_impl(&dword_23BF0C000, v101, OS_LOG_TYPE_ERROR, "%@: Failed to decode imageListItem to NTKParmesanAsset. [item: %@]", buf, 0x16u);
                 }
 
-                v8 = v102;
+                v7 = v73;
               }
             }
 
-            v129 = objc_msgSend_countByEnumeratingWithState_objects_count_(v122, v128, &v142, v147, 16);
+            v94 = objc_msgSend_countByEnumeratingWithState_objects_count_(v88, v93, &v106, v111, 16);
           }
 
-          while (v129);
+          while (v94);
         }
 
-        v23 = v140;
-        v16 = v141;
+        v19 = v104;
+        v14 = v105;
       }
 
       else
       {
-        v122 = objc_msgSend_logObject(NTKParmesanFaceBundle, v20, v21, v22);
-        if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+        v88 = objc_msgSend_logObject(NTKParmesanFaceBundle, v17, v18);
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
         {
-          sub_23BFF7EE8(v8, v16, v122);
+          sub_23BFF7EE8(v7, v14, v88);
         }
       }
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)objectAtIndex:(unint64_t)index
 {
-  if (objc_msgSend_count(self->_assets, a2, index, v3) <= index)
+  if (objc_msgSend_count(self->_assets, a2, index) <= index)
   {
-    v8 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v8 = objc_msgSend_objectAtIndexedSubscript_(self->_assets, v6, index, v7);
+    v6 = objc_msgSend_objectAtIndexedSubscript_(self->_assets, v5, index);
   }
 
-  return v8;
+  return v6;
 }
 
 @end

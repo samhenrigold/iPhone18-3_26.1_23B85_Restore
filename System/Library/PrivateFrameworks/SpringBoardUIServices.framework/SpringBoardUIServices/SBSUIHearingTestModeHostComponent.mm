@@ -150,7 +150,7 @@ void __59__SBSUIHearingTestModeHostComponent__updateHearingTestMode__block_invok
   settingsCopy = settings;
   settingsDiff = [settingsCopy settingsDiff];
   previousSettings = [settingsCopy previousSettings];
-  transitionContext = [settingsCopy transitionContext];
+  v8 = objc_msgSend_transitionContext(settingsCopy);
 
   if ([settingsDiff containsProperty:sel_hearingTestMode])
   {
@@ -162,7 +162,7 @@ void __59__SBSUIHearingTestModeHostComponent__updateHearingTestMode__block_invok
       v12 = 2112;
       v13 = previousSettings;
       v14 = 2112;
-      v15 = transitionContext;
+      v15 = v8;
       _os_log_impl(&dword_1A9A79000, v9, OS_LOG_TYPE_DEFAULT, "Host Component did receive client scene settings updates with clientSettingsDiff: %@, oldSettings: %@, transitionContext: %@", &v10, 0x20u);
     }
 

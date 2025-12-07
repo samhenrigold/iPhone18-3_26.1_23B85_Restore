@@ -35,16 +35,16 @@
 
 + (BOOL)storeData:(id)data inLocalFileAtURL:(id)l error:(id *)error
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   lCopy = l;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   uRLByDeletingPathExtension = [lCopy URLByDeletingPathExtension];
   uRLByDeletingLastPathComponent = [uRLByDeletingPathExtension URLByDeletingLastPathComponent];
 
-  v27 = 0;
-  v13 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v27];
-  v14 = v27;
+  v26 = 0;
+  v13 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v26];
+  v14 = v26;
   if ((v13 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -74,11 +74,11 @@
 
   v15 = *MEMORY[0x277CCA198];
   v16 = *MEMORY[0x277CCA180];
-  v28[0] = *MEMORY[0x277CCA1B0];
-  v28[1] = v16;
-  v29[0] = v15;
-  v29[1] = &unk_2863F0878;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[0] = *MEMORY[0x277CCA1B0];
+  v27[1] = v16;
+  v28[0] = v15;
+  v28[1] = &unk_2863F0878;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   path = [lCopy path];
   v19 = [defaultManager createFileAtPath:path contents:dataCopy attributes:v17];
 
@@ -98,7 +98,6 @@
 
 LABEL_13:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -135,25 +134,19 @@ LABEL_13:
 
 + (void)storeData:(uint64_t)a1 inLocalFileAtURL:(void *)a2 error:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_2519FE000, v6, v7, "%{public}@: Failed to create directory %{public}@.", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_2519FE000, v6, v7, "%{public}@: Failed to create directory %{public}@.", v8, v9, v10, v11);
 }
 
 + (void)storeData:(uint64_t)a1 inLocalFileAtURL:(void *)a2 error:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 path];
   v6 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_2519FE000, v7, v8, "%{public}@: Failed to create file %{public}@.", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_2519FE000, v7, v8, "%{public}@: Failed to create file %{public}@.", v9, v10, v11, v12);
 }
 
 @end

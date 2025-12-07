@@ -1,1021 +1,3 @@
-char **_cryptex_spec_iterate_select_app(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = a1;
-  v9 = configuration(a1, a2, a3, a4, a5, a6, a7, a8);
-  v17 = arguments(v9, v10, v11, v12, v13, v14, v15, v16);
-  boot_get();
-  if ((*(*(v9 + 6792) + 67) & 0x40) == 0)
-  {
-    v18 = getpid();
-    dlog(-1, "libignition: %d: livefs boot; skipping app cryptex\n", v19, v20, v21, v22, v23, v24, v18);
-    v32 = *(v17 + 16);
-    if ((v32 - 1) >= 2)
-    {
-      if (v32)
-      {
-        dyld_halt("unreachable", v25, v26, v27, v28, v29, v30, v31, v34);
-      }
-
-      return &_cryptex_spec_app_livefs;
-    }
-  }
-
-  return v8;
-}
-
-void *cryptex_init(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4 = 0;
-  result[1] = a3;
-  result[2] = a4;
-  *result = a2;
-  do
-  {
-    v5 = &result[v4];
-    v5[4] = 0;
-    *(v5 + 10) = -1;
-    v4 += 2;
-  }
-
-  while (v4 != 8);
-  return result;
-}
-
-uint64_t cryptex_open(uint64_t **a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v246 = *a1;
-  v247 = -1;
-  v10 = configuration(a1, a2, a3, a4, a5, a6, a7, a8);
-  v11 = *a1;
-  bzero(value, 0x400uLL);
-  memset(v250, 0, sizeof(v250));
-  v12 = *(v11 + 7);
-  v249 = -1;
-  v13 = openat(*(a1[1] + 4), *(v11 + 9), 0x200000);
-  v251 = v13;
-  if (v13 < 0)
-  {
-    bzero(v248, 0x400uLL);
-    realpathfd(*(a1[1] + 4), v248, "rootmnt");
-    v180 = boot_get();
-    v181 = (*v180)[1];
-    v182 = (*v180)[2];
-    v183 = *__error();
-    v221 = *(v11 + 9);
-    v236 = *__error();
-    ignition_halt(v181, v183, v182, "failed to open canonical cryptex location: root = %s, subpath = %s: %d", v184, v185, v186, v187, v248);
-  }
-
-  v14 = fgetxattr(v13, "com.apple.root.cryptex", value, 0x400uLL, 0, 0);
-  v15 = __error();
-  if (v14 < 0)
-  {
-    if (!*v15)
-    {
-      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v16, v17, v18, v19, v20, v21, v22, "xattr_len");
-    }
-  }
-
-  else
-  {
-    *v15 = 0;
-  }
-
-  v23 = *__error();
-  if (v23 == 93)
-  {
-    goto LABEL_10;
-  }
-
-  if (v23)
-  {
-    v193 = boot_get();
-    v194 = (*v193)[1];
-    v195 = (*v193)[2];
-    v196 = *__error();
-    v197 = *(v11 + 9);
-    v237 = *__error();
-    ignition_halt(v194, v196, v195, "failed to read xattr: path = %s, attr = %s: %d", v198, v199, v200, v201, v197);
-  }
-
-  value[v14] = 0;
-  if (!_platform_strlen(value))
-  {
-    v32 = getpid();
-    v208 = *a1[2];
-    v223 = **a1;
-    dlog(-1, "libignition: %d: %12s: %s: root xattr empty\n", v33, v34, v35, v36, v37, v38, v32);
-LABEL_10:
-    v39 = getpid();
-    v209 = *a1[2];
-    v224 = **a1;
-    dlog(-1, "libignition: %d: %12s: %s: no root xattr present\n", v40, v41, v42, v43, v44, v45, v39);
-    v31 = 0;
-    goto LABEL_11;
-  }
-
-  v250[0] = value;
-  ++v12;
-  v24 = getpid();
-  v222 = **a1;
-  v207 = *a1[2];
-  dlog(-1, "libignition: %d: %12s: %s: found root xattr: %s\n", v25, v26, v27, v28, v29, v30, v24);
-  v31 = 1;
-LABEL_11:
-  closefd(&v251, "canonical cryptex");
-  if (v12 > 3)
-  {
-    v188 = boot_get();
-    ignition_halt((*v188)[1], 0, (*v188)[2], "path count overflow: actual = %lu, expected <= %lu", v189, v190, v191, v192, v12);
-  }
-
-  v245 = v10;
-  v46 = &v12[-v31];
-  if (v12 > v31)
-  {
-    v47 = (v11 + 32);
-    v48 = &v250[v31];
-    do
-    {
-      v49 = *v47++;
-      *v48++ = v49;
-      --v46;
-    }
-
-    while (v46);
-  }
-
-  v50 = 0;
-  while (1)
-  {
-    v51 = v250[v50];
-    v52 = getpid();
-    v225 = **a1;
-    v210 = *a1[2];
-    dlog(-1, "libignition: %d: %12s: %s: opening preboot subdirectory: %s\n", v53, v54, v55, v56, v57, v58, v52);
-    v59 = openat(*(a1[1] + 6), v51, 537919488);
-    v249 = v59;
-    v60 = __error();
-    if (v59 < 0)
-    {
-      if (!*v60)
-      {
-        dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v61, v62, v63, v64, v65, v66, v67, "pbobjdir");
-      }
-    }
-
-    else
-    {
-      *v60 = 0;
-    }
-
-    v68 = *__error();
-    if (v68 == 2)
-    {
-      v84 = __error();
-      if (v51 == value)
-      {
-        dyld_halt("root object directory does not exist: %s", v77, v78, v79, v80, v81, v82, v83, v51);
-      }
-
-      v69 = *v84;
-      goto LABEL_24;
-    }
-
-    if (!v68)
-    {
-      break;
-    }
-
-    v69 = *__error();
-    v70 = getpid();
-    v211 = *a1[2];
-    v226 = **a1;
-    dlog(-1, "libignition: %d: %12s: %s: failed to open preboot subdirectory: %s: %d\n", v71, v72, v73, v74, v75, v76, v70);
-LABEL_24:
-    if (v69 == 2 && ++v50 < v12)
-    {
-      continue;
-    }
-
-    if (v59 < 0)
-    {
-      goto LABEL_28;
-    }
-
-    goto LABEL_27;
-  }
-
-  if (v51 == value)
-  {
-    strlcpy(a1 + 128, value, 0x400uLL);
-    a1[144] = (a1 + 16);
-  }
-
-  v140 = getpid();
-  v231 = **a1;
-  v216 = *a1[2];
-  dlog(-1, "libignition: %d: %12s: %s: opened preboot subdirectory: %s\n", v141, v142, v143, v144, v145, v146, v140);
-  v69 = 0;
-  if ((v59 & 0x80000000) == 0)
-  {
-LABEL_27:
-    *(a1 + 6) = xferfd(&v249);
-  }
-
-LABEL_28:
-  if (v69 >= 0x6B)
-  {
-    goto LABEL_34;
-  }
-
-  if (v69)
-  {
-    v85 = getpid();
-    v227 = **a1;
-    v212 = *a1[2];
-    dlog(-1, "libignition: %d: %12s: %s: failed to open object directory: %d\n", v86, v87, v88, v89, v90, v91, v85);
-    goto LABEL_31;
-  }
-
-  v94 = openat(*(a1[1] + 4), *(v246 + 9), 0x100000);
-  v247 = v94;
-  if ((v94 & 0x80000000) != 0)
-  {
-    v69 = *__error();
-    v151 = getpid();
-    v232 = **a1;
-    v217 = *a1[2];
-    dlog(-1, "libignition: %d: %12s: %s: failed to open canonical root: %d\n", v152, v153, v154, v155, v156, v157, v151);
-    goto LABEL_65;
-  }
-
-  v102 = 0;
-  while (2)
-  {
-    v103 = *(v246 + v102 + 12);
-    if (!v103)
-    {
-      v108 = getpid();
-      v228 = **a1;
-      v213 = *a1[2];
-      v94 = dlog(-1, "libignition: %d: %12s: %s: object spec not present: %lu\n", v109, v110, v111, v112, v113, v114, v108);
-      goto LABEL_47;
-    }
-
-    v104 = configuration(v94, v95, v96, v97, v98, v99, v100, v101);
-    v105 = *(v103 + 16);
-    v106 = *(v103 + 12);
-    LODWORD(v250[0]) = -1;
-    bzero(value, 0x400uLL);
-    v107 = a1[144];
-    if (!v105)
-    {
-      v105 = (*(v103 + 24))(v103, v104, value);
-    }
-
-    *v248 = openat(*(a1 + 6), v105, v106);
-    if ((*v248 & 0x80000000) == 0)
-    {
-      LODWORD(v250[0]) = xferfd(v248);
-      goto LABEL_46;
-    }
-
-    v69 = *__error();
-    if (v69 >= 0x6B)
-    {
-      goto LABEL_34;
-    }
-
-    if (v69 != 2)
-    {
-      if (v69)
-      {
-        v165 = getpid();
-        v243 = *v103;
-        v234 = **a1;
-        v219 = *a1[2];
-        dlog(-1, "libignition: %d: %12s: %s: failed to open object: name = %s, type = %s: %d\n", v166, v167, v168, v169, v170, v171, v165);
-        goto LABEL_64;
-      }
-
-LABEL_46:
-      object_setfd(v103, (a1 + 4), v250);
-      v115 = getpid();
-      v116 = *v103;
-      v240 = *v103;
-      v244 = *(v103 + 40);
-      v229 = **a1;
-      v214 = *a1[2];
-      v94 = dlog(-1, "libignition: %d: %12s: %s: opened object: name = %s, type = %s, slot = %llu\n", v117, v118, v119, v120, v121, v122, v115);
-LABEL_47:
-      if (++v102 != 4)
-      {
-        continue;
-      }
-
-      v147 = *(v245 + 6952);
-      if (v147)
-      {
-        v148 = *(v147 + 46);
-        if ((v148 - 1) < 3)
-        {
-          v149 = v246;
-          CatalystMacTwinPatches = dyld4::JustInTimeLoader::getCatalystMacTwinPatches(v246);
-LABEL_61:
-          a1[12] = CatalystMacTwinPatches;
-          v158 = getpid();
-          v233 = **a1;
-          v238 = *a1[12];
-          v218 = *a1[2];
-          dlog(-1, "libignition: %d: %12s: %s: selected im4m spec: %s\n", v159, v160, v161, v162, v163, v164, v158);
-          a1[13] = *(v149 + 13);
-          a1[14] = *(v149 + 14);
-          a1[15] = *(v149 + 15);
-          *a2 = xferfd(&v247);
-          goto LABEL_66;
-        }
-
-        if (v148)
-        {
-          v202 = boot_get();
-          ignition_halt((*v202)[1], 0, (*v202)[2], "bogus secure boot level: 0x%x", v203, v204, v205, v206, v148);
-        }
-      }
-
-      v149 = v246;
-      CatalystMacTwinPatches = *(v246 + 12);
-      goto LABEL_61;
-    }
-
-    break;
-  }
-
-  v123 = getpid();
-  v241 = *v103;
-  v215 = *a1[2];
-  v230 = **a1;
-  dlog(-1, "libignition: %d: %12s: %s: object not present: name = %s, type = %s\n", v124, v125, v126, v127, v128, v129, v123);
-  v130 = (*(v103 + 32))(v103, v107, 2);
-  if (!v130)
-  {
-    v131 = getpid();
-    v132 = *a1[2];
-    v133 = **a1;
-    v242 = *v103;
-    v94 = dlog(-1, "libignition: %d: %12s: %s: object absence permitted: name = %s, type = %s, xattr path = %s\n", v134, v135, v136, v137, v138, v139, v131);
-    goto LABEL_47;
-  }
-
-  v69 = v130;
-  if (v130 >= 0x6B)
-  {
-    goto LABEL_34;
-  }
-
-LABEL_64:
-  v172 = getpid();
-  v239 = *v103;
-  v220 = *a1[2];
-  v235 = **a1;
-  dlog(-1, "libignition: %d: %12s: %s: failed to open object: %s: %d\n", v173, v174, v175, v176, v177, v178, v172);
-LABEL_65:
-  if (!v69)
-  {
-LABEL_66:
-    closefd_optional(&v247, "canonical root");
-    return 0;
-  }
-
-LABEL_31:
-  v92 = (a1 + 4);
-  v93 = 4;
-  do
-  {
-    object_fd_close(v92);
-    v92 += 16;
-    --v93;
-  }
-
-  while (v93);
-  closefd_optional(&v247, "canonical root");
-  if (v69 >= 0x6B)
-  {
-LABEL_34:
-    dyld_halt("error not set to valid posix code: %d", v77, v78, v79, v80, v81, v82, v83, v69);
-  }
-
-  return v69;
-}
-
-const char *cryptex_graft(uint64_t **a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  arguments(a1, a2, a3, a4, a5, a6, a7, a8);
-  v141[0] = -1;
-  bzero(v140, 0x400uLL);
-  bzero(v139, 0x400uLL);
-  bzero(v138, 0x400uLL);
-  bzero(v137, 0x400uLL);
-  v135 = 0u;
-  memset(v136, 0, sizeof(v136));
-  v133 = 0u;
-  v134 = 0u;
-  v131 = 0u;
-  v132 = 0u;
-  v129 = 0u;
-  v130 = 0u;
-  v127 = 0u;
-  v128 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
-  v124 = 0u;
-  v122 = 0u;
-  v121 = 0u;
-  v120 = 0u;
-  v119 = 0u;
-  v118 = 0u;
-  v117 = 0u;
-  v116 = 0u;
-  v115 = 0u;
-  v114 = 0u;
-  v113 = 0u;
-  v112 = 0u;
-  v111 = 0u;
-  v110 = 0u;
-  v109 = 0u;
-  v108 = 0u;
-  v107 = 0u;
-  v10 = *a1;
-  v11 = *(*a1 + 5);
-  v104[0] = 1;
-  v104[1] = v11;
-  v105 = -1;
-  v106 = -1;
-  v12 = v10[8];
-  v103 = -1;
-  v13 = a1[13];
-  if (v13)
-  {
-    v14 = object_getfd(v13, (a1 + 4));
-    v15 = object_getfd(a1[14], (a1 + 4));
-    v16 = object_getfd(a1[12], (a1 + 4));
-    realpathfd(v14, v140, "dmg");
-    realpathfd(v15, v139, "seal im4p");
-    realpathfd(v16, v137, "chosen im4m");
-    v17 = openat(*(a1[1] + 5), v12, 537919488);
-    v141[0] = v17;
-    if (v17 < 0)
-    {
-      v29 = *__error();
-      v44 = getpid();
-      v90 = *a1[2];
-      v98 = **a1;
-      dlog(-1, "libignition: %d: %12s: %s: failed to open graft point: %s: %d\n", v45, v46, v47, v48, v49, v50, v44);
-    }
-
-    else
-    {
-      realpathfd(v17, v138, "uncovered graft point");
-      v106 = v15;
-      LODWORD(v105) = v16;
-      *&v107 = *(*a1 + 3);
-      v18 = getpid();
-      v87 = *a1[2];
-      v95 = **a1;
-      dlog(-1, "libignition: %d: %12s: %s: grafting: method = syscall, dmg = %s, seal = %s, graft point = %s, im4m = %s\n", v19, v20, v21, v22, v23, v24, v18);
-      if (graftdmg(v14, v138, *(*a1 + 2), v104, v25, v26, v27, v28))
-      {
-        v29 = *__error();
-        v30 = getpid();
-        v96 = **a1;
-        v88 = *a1[2];
-        dlog(-1, "libignition: %d: %12s: %s: graftdmg: %d\n", v31, v32, v33, v34, v35, v36, v30);
-      }
-
-      else
-      {
-        v29 = 0;
-      }
-    }
-  }
-
-  else
-  {
-    v37 = getpid();
-    v89 = *a1[2];
-    v97 = **a1;
-    dlog(-1, "libignition: %d: %12s: %s: cryptex has no associated disk image\n", v38, v39, v40, v41, v42, v43, v37);
-    v29 = 21;
-  }
-
-  v51 = ((*a1)[17])(a1, v29);
-  v52 = getpid();
-  v59 = *a1[2];
-  v60 = **a1;
-  if (v51)
-  {
-    v99 = **a1;
-    v91 = *a1[2];
-    dlog(-1, "libignition: %d: %12s: %s: graft failed: %d\n", v53, v54, v55, v56, v57, v58, v52);
-  }
-
-  else
-  {
-    if (v29 == 37)
-    {
-      v101 = **a1;
-      v93 = *a1[2];
-      dlog(-1, "libignition: %d: %12s: %s: cryptex content already available: dmg = %s, graft point = %s, ignored error = %d\n", v53, v54, v55, v56, v57, v58, v52);
-      v103 = openat(*(a1[1] + 5), v12, 537919488);
-      if (v103 < 0)
-      {
-        v61 = boot_get();
-        v62 = (*v61)[1];
-        v63 = (*v61)[2];
-        v64 = *__error();
-        v85 = *__error();
-        ignition_halt(v62, v64, v63, "failed to open covered graft point: %d", v65, v66, v67, v68, v85);
-      }
-    }
-
-    else if (v29)
-    {
-      v94 = *a1[2];
-      v102 = **a1;
-      dlog(-1, "libignition: %d: %12s: %s: cryptex not grafted; ignoring failure: dmg = %s, ignored error = %d\n", v53, v54, v55, v56, v57, v58, v52);
-      v103 = open("/dev/null", 0);
-      if (v103 < 0)
-      {
-        v77 = boot_get();
-        v78 = (*v77)[1];
-        v79 = (*v77)[2];
-        v80 = *__error();
-        v86 = *__error();
-        ignition_halt(v78, v80, v79, "failed to open /dev/null for fallback: %d", v81, v82, v83, v84, v86);
-      }
-    }
-
-    else
-    {
-      v100 = **a1;
-      v92 = *a1[2];
-      dlog(-1, "libignition: %d: %12s: %s: grafted cryptex: dmg = %s, graft point = %s, ignored error = %d\n", v53, v54, v55, v56, v57, v58, v52);
-      v103 = xferfd(v141);
-    }
-
-    *a2 = xferfd(&v103);
-  }
-
-  closefd_optional(v141, "uncovered graft point");
-  closefd_optional(&v103, "covered graft point");
-  if (v51 >= 0x6B)
-  {
-    dyld_halt("error not set to valid posix code: %d", v69, v70, v71, v72, v73, v74, v75, v51);
-  }
-
-  return v51;
-}
-
-uint64_t cryptex_load_trust_cache(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = arguments(a1, a2, a3, a4, a5, a6, a7, a8);
-  v10 = a1[2][5] + 2;
-  bzero(v121, 0x400uLL);
-  v119 = 0;
-  v120 = 0;
-  memset(v118, 0, sizeof(v118));
-  v116 = 0;
-  v117 = 0;
-  memset(v115, 0, sizeof(v115));
-  if (*v9 < v10)
-  {
-    v11 = getpid();
-    v114 = *v9;
-    v101 = *a1[2];
-    v106 = **a1;
-    dlog(-1, "libignition: %d: %12s: %s: ignition level insufficient: operation = load trust cache, actual = %llu, required >= %llu\n", v12, v13, v14, v15, v16, v17, v11);
-    return 0;
-  }
-
-  if (!a1[15])
-  {
-    v29 = getpid();
-    v30 = *a1[2];
-    v108 = **a1;
-    dlog(-1, "libignition: %d: %12s: %s: cryptex already available; skipping trust cache load\n", v31, v32, v33, v34, v35, v36, v29);
-    return 0;
-  }
-
-  v18 = object_getfd(a1[12], (a1 + 4));
-  v19 = object_getfd(a1[15], (a1 + 4));
-  v20 = v19;
-  if (a1[144] && v19 < 0)
-  {
-    v21 = getpid();
-    v22 = *a1[2];
-    v107 = **a1;
-    dlog(-1, "libignition: %d: %12s: %s: trust cache not present in rooted cryptex\n", v23, v24, v25, v26, v27, v28, v21);
-    return 0;
-  }
-
-  realpathfd(v19, v121, "trust cache");
-  v39 = getpid();
-  v109 = **a1;
-  v102 = *a1[2];
-  dlog(-1, "libignition: %d: %12s: %s: trust cache path = %s\n", v40, v41, v42, v43, v44, v45, v39);
-  v46 = buff_map_fd_anon(v118, &v120, v20);
-  if (v46)
-  {
-    v37 = v46;
-    v47 = getpid();
-    v110 = **a1;
-    v103 = *a1[2];
-    dlog(-1, "libignition: %d: %12s: %s: failed to read trust cache im4p: %d\n", v48, v49, v50, v51, v52, v53, v47);
-  }
-
-  else
-  {
-    v61 = buff_map_fd_anon(v115, &v117, v18);
-    if (v61)
-    {
-      v37 = v61;
-      v69 = getpid();
-      v111 = **a1;
-      v104 = *a1[2];
-      dlog(-1, "libignition: %d: %12s: %s: failed to read manifest: %d\n", v70, v71, v72, v73, v74, v75, v69);
-    }
-
-    else
-    {
-      length_uint32 = buff_get_length_uint32(v120, v62, v63, v64, v65, v66, v67, v68);
-      v84 = buff_get_length_uint32(v117, v77, v78, v79, v80, v81, v82, v83);
-      if (!amfi_load_trust_cache)
-      {
-        return 78;
-      }
-
-      if (!amfi_load_trust_cache(*(*a1 + 16), *v120, length_uint32, *v117, v84, 0, 0, v85))
-      {
-        v93 = getpid();
-        v94 = *a1[2];
-        v113 = **a1;
-        dlog(-1, "libignition: %d: %12s: %s: loaded cryptex trust cache\n", v95, v96, v97, v98, v99, v100, v93);
-        return 0;
-      }
-
-      v37 = *__error();
-      v86 = getpid();
-      v112 = **a1;
-      v105 = *a1[2];
-      dlog(-1, "libignition: %d: %12s: %s: failed to load trust cache: %d\n", v87, v88, v89, v90, v91, v92, v86);
-    }
-  }
-
-  if (v37 >= 0x6B)
-  {
-    dyld_halt("error not set to valid posix code: %d", v54, v55, v56, v57, v58, v59, v60, v37);
-  }
-
-  return v37;
-}
-
-void *cryptex_destroy(void *result)
-{
-  v1 = *result;
-  if (*result)
-  {
-    v2 = result;
-    closefd_optional((v1 + 24), "object directory");
-    v3 = v1 + 32;
-    v4 = 4;
-    do
-    {
-      result = object_fd_close(v3);
-      v3 += 16;
-      --v4;
-    }
-
-    while (v4);
-    *v2 = 0;
-  }
-
-  return result;
-}
-
-uint64_t _preboot_fire(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  configuration(a1, a2, a3, a4, a5, a6, a7, a8);
-  memset(v134, 0, 255);
-  bzero(v133, 0x400uLL);
-  v132 = 0;
-  v130 = 0;
-  v128 = 0u;
-  v129 = 0u;
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
-  v125 = 0u;
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
-  v121 = 0u;
-  v118 = 0u;
-  v119 = 0u;
-  v116 = 0u;
-  v117 = 0u;
-  v114 = 0u;
-  v115 = 0u;
-  v112 = 0u;
-  v113 = 0u;
-  v110 = 0u;
-  v111 = 0u;
-  LOWORD(v111) = 1;
-  v131 = 0x6300000063;
-  memset(&v109, 0, sizeof(v109));
-  v107 = -1;
-  v108 = -1;
-  v106 = -1;
-  devnode_by_role = ignition_get_devnode_by_role(&dword_10, v134, v10, v11, v12, v13, v14, v15);
-  v17 = getpid();
-  v24 = *a1;
-  if (!devnode_by_role)
-  {
-    v97 = *a1;
-    dlog(-1, "libignition: %d: %12s: preboot device: %s\n", v18, v19, v20, v21, v22, v23, v17);
-    devnode_by_role = ignition_get_mount_point_by_role(16, v133, &v132);
-    v25 = getpid();
-    v32 = *a1;
-    if (devnode_by_role)
-    {
-      v98 = *a1;
-      dlog(-1, "libignition: %d: %12s: failed to get preboot mount point: %d\n", v26, v27, v28, v29, v30, v31, v25);
-      goto LABEL_6;
-    }
-
-    v99 = *a1;
-    dlog(-1, "libignition: %d: %12s: preboot mount point: %s\n", v26, v27, v28, v29, v30, v31, v25);
-    v41 = open(v132, 537919488);
-    v108 = v41;
-    if (v41 < 0)
-    {
-      v49 = getpid();
-      v101 = *a1;
-      dlog(-1, "libignition: %d: %12s: failed to open preboot mount point: %d\n", v50, v51, v52, v53, v54, v55, v49);
-    }
-
-    else
-    {
-      if (fstat64(v41, &v109))
-      {
-        devnode_by_role = *__error();
-        v42 = getpid();
-        v100 = *a1;
-        dlog(-1, "libignition: %d: %12s: failed to stat preboot mount point: %d\n", v43, v44, v45, v46, v47, v48, v42);
-        goto LABEL_6;
-      }
-
-      *&v110 = v134;
-      v131 = *&v109.st_uid;
-      v56 = getpid();
-      v102 = *a1;
-      dlog(-1, "libignition: %d: %12s: mounting preboot: dev = %s, uid = %u, gid = %u\n", v57, v58, v59, v60, v61, v62, v56);
-      v63 = fmount_90140467("apfs", v108, 0x100000, v134);
-      if (v63 == 16)
-      {
-        v72 = getpid();
-        v104 = *a1;
-        dlog(-1, "libignition: %d: %12s: preboot already mounted: device = %s, mount point = %s\n", v73, v74, v75, v76, v77, v78, v72);
-        v64 = xferfd(&v108);
-        v107 = v64;
-      }
-
-      else
-      {
-        devnode_by_role = v63;
-        if (v63)
-        {
-          v89 = getpid();
-          v105 = *a1;
-          dlog(-1, "libignition: %d: %12s: failed to mount preboot: %d\n", v90, v91, v92, v93, v94, v95, v89);
-          goto LABEL_6;
-        }
-
-        v64 = open(v132, 537919488);
-        v107 = v64;
-        if (v64 < 0)
-        {
-          devnode_by_role = *__error();
-          v65 = getpid();
-          v103 = *a1;
-          dlog(-1, "libignition: %d: %12s: failed to open preboot mount: %d\n", v66, v67, v68, v69, v70, v71, v65);
-          goto LABEL_6;
-        }
-      }
-
-      v106 = dupfd(v64, "preboot mount");
-      boot_set_root(a3, &_boot_root_preboot, &v107, v79, v80, v81, v82, v83);
-      boot_set_root(a3, &_boot_root_preboot_groupdir, &v106, v84, v85, v86, v87, v88);
-    }
-
-    devnode_by_role = 0;
-    goto LABEL_6;
-  }
-
-  v96 = *a1;
-  dlog(-1, "libignition: %d: %12s: failed to get preboot device: %d\n", v18, v19, v20, v21, v22, v23, v17);
-LABEL_6:
-  closefd_optional(&v108, "mounted-over preboot");
-  closefd_optional(&v107, "preboot");
-  if (devnode_by_role >= 0x6B)
-  {
-    dyld_halt("error not set to valid posix code: %d", v33, v34, v35, v36, v37, v38, v39, devnode_by_role);
-  }
-
-  return devnode_by_role;
-}
-
-uint64_t _cryptex1_sniff_fire(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  memset(&v22, 0, sizeof(v22));
-  v3 = fstatat64(*(a3 + 24), "cryptex1", &v22, 0);
-  v4 = __error();
-  if (v3 < 0)
-  {
-    if (!*v4)
-    {
-      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v5, v6, v7, v8, v9, v10, v11, "ret");
-    }
-  }
-
-  else
-  {
-    *v4 = 0;
-  }
-
-  result = *__error();
-  if (result)
-  {
-    if (result != 2)
-    {
-      v13 = boot_get();
-      v14 = (*v13)[1];
-      v15 = (*v13)[2];
-      v16 = *__error();
-      v17 = __error();
-      ignition_halt(v14, v16, v15, "failed to stat cryptex1 canary: %d", v18, v19, v20, v21, *v17);
-    }
-
-    return 8;
-  }
-
-  return result;
-}
-
-char *_derive_ticket_name(uint64_t a1, uint64_t *a2, char *a3, int a4)
-{
-  v7 = _simple_salloc();
-  v8 = v7;
-  if (a4)
-  {
-    if (a2)
-    {
-      v9 = *a2;
-      _simple_sprintf(v7, "supplemental.%s.%llX.im4m");
-    }
-
-    else
-    {
-      _simple_sprintf(v7, "supplemental.%s.im4m");
-    }
-  }
-
-  else if (a2)
-  {
-    v10 = *a2;
-    _simple_sprintf(v7, "apticket.%s.%llX.im4m");
-  }
-
-  else
-  {
-    _simple_sprintf(v7, "apticket.%s.im4m");
-  }
-
-  v11 = _simple_string(v8);
-  strlcpy(a3, v11, 0xFFuLL);
-  _simple_sfree(v8);
-  return a3;
-}
-
-uint64_t object_absence_policy_optional(uint64_t a1, uint64_t a2, unsigned int a3)
-{
-  if (a3 == 2)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return a3;
-  }
-}
-
-uint64_t object_absence_policy_root_optional(uint64_t a1, uint64_t a2, unsigned int a3)
-{
-  if (a3 == 2)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = a3;
-  }
-
-  if (a2)
-  {
-    return v3;
-  }
-
-  else
-  {
-    return a3;
-  }
-}
-
-uint64_t object_setfd(uint64_t a1, uint64_t a2, _DWORD *a3)
-{
-  v5 = a2 + 16 * *(a1 + 40);
-  if (*v5)
-  {
-    closefd((v5 + 8), "object");
-  }
-
-  *v5 = a1;
-  result = xferfd(a3);
-  *(v5 + 8) = result;
-  return result;
-}
-
-uint64_t object_fd_close(uint64_t result)
-{
-  if (*result)
-  {
-    v1 = result;
-    result = closefd((result + 8), "object");
-    *v1 = 0;
-  }
-
-  return result;
-}
-
-void ignition_halt(void *a1, int a2, unint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const char *a9)
-{
-  v13 = boot_get();
-  v14 = configuration_unsafe();
-  v15 = _simple_salloc();
-  if (v15)
-  {
-    v17 = v15;
-    _simple_vsprintf(v15, a4, &a9);
-    v16 = _simple_string(v17);
-  }
-
-  else
-  {
-    v16 = "panic: [failed to allocate panic message]";
-  }
-
-  if (*(v14 + 7032) == 1)
-  {
-    v18 = open("/dev/console", 1);
-    if ((v18 & 0x80000000) == 0)
-    {
-      fsync(v18);
-    }
-
-    ignition_write_BRA_blob(v13, v19, v16, a2);
-  }
-
-  abort_with_reason(&stru_20.cmd + 3, a1, v16, a3);
-}
-
-uint64_t dupfd2(int a1, int a2, const char *a3)
-{
-  result = dup2(a1, a2);
-  if (a1 < 0)
-  {
-    v6 = boot_get();
-    v7 = (*v6)[1];
-    v8 = (*v6)[2];
-    v9 = *__error();
-    v14 = *__error();
-    ignition_halt(v7, v9, v8, "failed to dup %s: src fd = %d, dst fd = %d: %d", v10, v11, v12, v13, a3);
-  }
-
-  return result;
-}
-
 uint64_t sleep_ns(unint64_t a1)
 {
   v2 = mach_absolute_time();
@@ -1032,7 +14,7 @@ uint64_t sleep_ns(unint64_t a1)
     {
       v7 = v5;
       v8 = boot_get();
-      ignition_halt((*v8)[1], v7, (*v8)[2], "mach_timebase_info: 0x%x", v9, v10, v11, v12, v7);
+      ignition_halt((*v8)[1], v7, (*v8)[2], "mach_timebase_info: 0x%x", v7);
     }
 
     v3 = dword_A9200;
@@ -1059,109 +41,109 @@ int fmount_90140467(const char *a1, int a2, int a3, void *a4)
     goto LABEL_4;
   }
 
-  bzero(&v19, 0x878uLL);
-  if (fstatfs64(a2, &v19))
+  bzero(&v11, 0x878uLL);
+  if (fstatfs64(a2, &v11))
   {
 LABEL_5:
-    v17 = *__error();
+    result = *__error();
     goto LABEL_6;
   }
 
-  if (_platform_strcmp(a4, v19.f_mntfromname))
+  if (_platform_strcmp(a4, v11.f_mntfromname))
   {
 LABEL_4:
-    LODWORD(v17) = fmount(a1, a2, a3, v5);
-    if (!v17)
+    result = fmount(a1, a2, a3, v5);
+    if (!result)
     {
-      return v17;
+      return result;
     }
 
     goto LABEL_5;
   }
 
-  v17 = 16;
+  result = 16;
 LABEL_6:
-  if (v17 >= 0x6B)
+  if (result >= 0x6B)
   {
-    dyld_halt("error not set to valid posix code: %d", v10, v11, v12, v13, v14, v15, v16, v17);
-  }
-
-  return v17;
-}
-
-ssize_t ignition_write_BRA_blob(const char ***a1, uint64_t a2, const char *a3, uint64_t a4)
-{
-  v16 = 0u;
-  memset(v15, 0, sizeof(v15));
-  HIBYTE(v16) = -86;
-  strlcpy(v15 + 2, **a1, 0x18uLL);
-  strlcpy(&v15[1] + 10, *a1[1], 0x18uLL);
-  *(&v15[3] + 2) = a4;
-  strlcpy(&v15[3] + 10, "AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE", 0x25uLL);
-  strlcpy(&v15[5] + 15, a3, 0x40uLL);
-  result = sysctlbyname("security.mac.img4.ignition_failure_blob", 0, 0, v15, 0xA0uLL);
-  if (result)
-  {
-    v8 = __error();
-    return _simple_dprintf(2, "failed to write BRA failure blob: %d\n", v9, v10, v11, v12, v13, v14, *v8);
+    dyld_halt("error not set to valid posix code: %d", result);
   }
 
   return result;
 }
 
-const char *ignition_get_devnode_by_role(const char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+ssize_t ignition_write_BRA_blob(const char ***a1, uint64_t a2, const char *a3, uint64_t a4)
 {
-  v28 = -86;
-  v26[0] = -22014;
-  v26[1] = a1;
-  memset(v27, 0, sizeof(v27));
+  v10 = 0u;
+  memset(v9, 0, sizeof(v9));
+  HIBYTE(v10) = -86;
+  strlcpy(v9 + 2, **a1, 0x18uLL);
+  strlcpy(&v9[1] + 10, *a1[1], 0x18uLL);
+  *(&v9[3] + 2) = a4;
+  strlcpy(&v9[3] + 10, "AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE", 0x25uLL);
+  strlcpy(&v9[5] + 15, a3, 0x40uLL);
+  result = sysctlbyname("security.mac.img4.ignition_failure_blob", 0, 0, v9, 0xA0uLL);
+  if (result)
+  {
+    v8 = __error();
+    return _simple_dprintf(2, "failed to write BRA failure blob: %d\n", *v8);
+  }
+
+  return result;
+}
+
+uint64_t ignition_get_devnode_by_role(int a1, char *a2)
+{
+  v7[259] = -86;
+  *v7 = -22014;
+  *&v7[2] = a1;
+  memset(&v7[4], 0, 255);
   if (a1 != 256)
   {
     if (a1 != 16)
     {
-      dyld_halt("unsupported role: 0x%x", a2, a3, a4, a5, a6, a7, a8, a1);
+      dyld_halt("unsupported role: 0x%x", a1);
     }
 
-    if (fsctl("/", 0xC1044A50uLL, v26, 0))
+    if (fsctl("/", 0xC1044A50uLL, v7, 0))
     {
-      v9 = "libignition: %d: failed to lookup preboot: %d\n";
+      v3 = "libignition: %d: failed to lookup preboot: %d\n";
       goto LABEL_7;
     }
 
 LABEL_9:
-    strlcpy(a2, v27, 0xFFuLL);
+    strlcpy(a2, &v7[4], 0xFFuLL);
     return 0;
   }
 
-  if (!fsctl("/", 0xC1044A50uLL, v26, 0))
+  if (!fsctl("/", 0xC1044A50uLL, v7, 0))
   {
     goto LABEL_9;
   }
 
-  v9 = "libignition: %d: failed to lookup xART device: %d\n";
+  v3 = "libignition: %d: failed to lookup xART device: %d\n";
 LABEL_7:
-  v10 = *__error();
-  v11 = getpid();
-  dlog(-1, v9, v12, v13, v14, v15, v16, v17, v11);
-  if (v10 >= 0x6B)
+  v4 = *__error();
+  v5 = getpid();
+  dlog(0xFFFFFFFFLL, v3, v5, v4, *v7, *&v7[16], *&v7[32], *&v7[48], *&v7[64], *&v7[80], *&v7[96], *&v7[112], *&v7[128], *&v7[144], *&v7[160], *&v7[176], *&v7[192], *&v7[208], *&v7[224], *&v7[240], *&v7[256]);
+  if (v4 >= 0x6B)
   {
-    dyld_halt("error not set to valid posix code: %d", v18, v19, v20, v21, v22, v23, v24, v10);
+    dyld_halt("error not set to valid posix code: %d", v4);
   }
 
-  return v10;
+  return v4;
 }
 
 uint64_t ignition_get_mount_point_by_role(int a1, char *a2, char **a3)
 {
-  bzero(v37, 0x938uLL);
-  v36 = 2360;
-  v6 = sysctlbyname("vfs.generic.apfs.edt_fstab", v37, &v36, 0, 0);
+  bzero(v15, 0x938uLL);
+  v14 = 2360;
+  v6 = sysctlbyname("vfs.generic.apfs.edt_fstab", v15, &v14, 0, 0);
   v7 = __error();
   if (v6 < 0)
   {
     if (!*v7)
     {
-      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v8, v9, v10, v11, v12, v13, v14, "ret");
+      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", "ret", v6);
     }
   }
 
@@ -1170,43 +152,43 @@ uint64_t ignition_get_mount_point_by_role(int a1, char *a2, char **a3)
     *v7 = 0;
   }
 
-  v15 = *__error();
-  if (v15)
+  v8 = *__error();
+  if (v8)
   {
-    if (v15 == 12)
+    if (v8 == 12)
     {
-      v36 = 0;
-      sysctlbyname("vfs.generic.apfs.edt_fstab", 0, &v36, 0, 0);
-      v26 = boot_get();
-      ignition_halt((*v26)[1], 0, (*v26)[2], "device tree fstab buffer not large enough: actual = %lu, expected >= %lu, required DEVICE_TREE_FSTAB_COUNT >= %lu", v27, v28, v29, v30, &stru_930.dataoff);
+      v14 = 0;
+      sysctlbyname("vfs.generic.apfs.edt_fstab", 0, &v14, 0, 0);
+      v12 = boot_get();
+      ignition_halt((*v12)[1], 0, (*v12)[2], "device tree fstab buffer not large enough: actual = %lu, expected >= %lu, required DEVICE_TREE_FSTAB_COUNT >= %lu");
     }
 
     result = *__error();
     if (result >= 0x6B)
     {
-      dyld_halt("error not set to valid posix code: %d", v17, v18, v19, v20, v21, v22, v23, result);
+      dyld_halt("error not set to valid posix code: %d", result);
     }
   }
 
   else
   {
-    v24 = v36 / 0xEC;
-    if (v36 % 0xEC)
+    v10 = v14 / 0xEC;
+    if (v14 % 0xEC)
     {
-      v31 = boot_get();
-      ignition_halt((*v31)[1], 0, (*v31)[2], "non-integral fstab buffer returned; possible mismatch between kernel and userspace structs: total = %lu, expected element size = %lu", v32, v33, v34, v35, v36);
+      v13 = boot_get();
+      ignition_halt((*v13)[1], 0, (*v13)[2], "non-integral fstab buffer returned; possible mismatch between kernel and userspace structs: total = %lu, expected element size = %lu");
     }
 
-    if (v36 < 0xEC)
+    if (v14 < 0xEC)
     {
       return 2;
     }
 
     else
     {
-      for (i = &v38; *i != a1; i += 236)
+      for (i = &v16; *i != a1; i += 236)
       {
-        if (!--v24)
+        if (!--v10)
         {
           return 2;
         }
@@ -1221,7 +203,7 @@ uint64_t ignition_get_mount_point_by_role(int a1, char *a2, char **a3)
   return result;
 }
 
-const char *_open_as(int a1, int *a2)
+uint64_t _open_as(int a1, int *a2)
 {
   v4 = 0;
   v5 = *a2;
@@ -1234,7 +216,7 @@ const char *_open_as(int a1, int *a2)
     {
       if (!*v7)
       {
-        dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v8, v9, v10, v11, v12, v13, v14, "srcfd");
+        dyld_halt("errno unset, wrong return value being checked?: %s = %lld", "srcfd", v6);
       }
     }
 
@@ -1243,13 +225,13 @@ const char *_open_as(int a1, int *a2)
       *v7 = 0;
     }
 
-    v15 = *__error();
-    if (v15)
+    v8 = *__error();
+    if (v8)
     {
-      if (v15 != 5)
+      if (v8 != 5)
       {
-        v34 = v6;
-        v15 = *__error();
+        v16 = v6;
+        v8 = *__error();
         if (v6 < 0)
         {
           goto LABEL_18;
@@ -1258,31 +240,31 @@ const char *_open_as(int a1, int *a2)
         goto LABEL_16;
       }
 
-      v15 = *__error();
+      v8 = *__error();
       sleep_ns(0x2FAF080uLL);
       ++v4;
     }
   }
 
   while (v6 < 0 && v4 < 0xA);
-  v34 = v6;
+  v16 = v6;
   if (v4 == 10)
   {
-    *v33 = -1;
-    if (pipe(v33))
+    *v15 = -1;
+    if (pipe(v15))
     {
-      v24 = boot_get();
-      v25 = (*v24)[1];
-      v26 = (*v24)[2];
-      v27 = *__error();
-      v28 = __error();
-      ignition_halt(v25, v27, v26, "failed to create pipe for 88828241 workaround: %d", v29, v30, v31, v32, *v28);
+      v10 = boot_get();
+      v11 = (*v10)[1];
+      v12 = (*v10)[2];
+      v13 = *__error();
+      v14 = __error();
+      ignition_halt(v11, v13, v12, "failed to create pipe for 88828241 workaround: %d", *v14);
     }
 
-    v6 = v33[0];
-    v34 = v33[0];
-    closefd(&v33[1], "pipe write end");
-    v15 = 0;
+    v6 = v15[0];
+    v16 = v15[0];
+    closefd(&v15[1], "pipe write end");
+    v8 = 0;
   }
 
   if ((v6 & 0x80000000) == 0)
@@ -1291,35 +273,34 @@ LABEL_16:
     *a2 = dupfd2(v6, v5, "reserved src fd");
     if (v6 == v5)
     {
-      v34 = -1;
+      v16 = -1;
     }
   }
 
 LABEL_18:
-  closefd_optional(&v34, "reserved fd src");
-  if (v15 >= 0x6B)
+  closefd_optional(&v16, "reserved fd src");
+  if (v8 >= 0x6B)
   {
-    dyld_halt("error not set to valid posix code: %d", v16, v17, v18, v19, v20, v21, v22, v15);
+    dyld_halt("error not set to valid posix code: %d", v8);
   }
 
-  return v15;
+  return v8;
 }
 
-uint64_t _cryptex_graft_failure_app_livefs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _cryptex_graft_failure_app_livefs(uint64_t a1, uint64_t a2)
 {
-  v8 = a2;
-  v16 = *(arguments(a1, a2, a3, a4, a5, a6, a7, a8) + 16);
-  if (v16 < 2)
+  v3 = *(arguments() + 16);
+  if (v3 < 2)
   {
     return 0;
   }
 
-  if (v16 != 2)
+  if (v3 != 2)
   {
-    dyld_halt("unreachable", v9, v10, v11, v12, v13, v14, v15, v18);
+    dyld_halt("unreachable");
   }
 
-  return v8;
+  return a2;
 }
 
 size_t dyld_tolower_cstr(const char *a1, uint64_t a2, unint64_t a3)
@@ -1367,12 +348,12 @@ size_t dyld_tolower_cstr(const char *a1, uint64_t a2, unint64_t a3)
   return result;
 }
 
-const char *buff_get_length_uint32(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t buff_get_length_uint32(uint64_t a1)
 {
   result = *(a1 + 8);
-  if (result >> 32)
+  if (HIDWORD(result))
   {
-    dyld_halt("buffer length not expressible as unsigned 32-bit integer: %lu", a2, a3, a4, a5, a6, a7, a8, result);
+    dyld_halt("buffer length not expressible as unsigned 32-bit integer: %lu", result);
   }
 
   return result;
@@ -1382,37 +363,37 @@ uint64_t buff_map_fd_anon(void *a1, void *a2, int a3)
 {
   v6.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v6.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v19.st_blksize = v6;
-  *v19.st_qspare = v6;
-  v19.st_birthtimespec = v6;
-  *&v19.st_size = v6;
-  v19.st_mtimespec = v6;
-  v19.st_ctimespec = v6;
-  *&v19.st_uid = v6;
-  v19.st_atimespec = v6;
-  *&v19.st_dev = v6;
-  if (fstat64(a3, &v19))
+  *&v12.st_blksize = v6;
+  *v12.st_qspare = v6;
+  v12.st_birthtimespec = v6;
+  *&v12.st_size = v6;
+  v12.st_mtimespec = v6;
+  v12.st_ctimespec = v6;
+  *&v12.st_uid = v6;
+  v12.st_atimespec = v6;
+  *&v12.st_dev = v6;
+  if (fstat64(a3, &v12))
   {
     return *__error();
   }
 
-  st_size = v19.st_size;
-  if (v19.st_size < 0)
+  st_size = v12.st_size;
+  if (v12.st_size < 0)
   {
-    dyld_halt("value not representable as size_t", v7, v8, v9, v10, v11, v12, v13, *&v19.st_dev);
+    dyld_halt("value not representable as size_t");
   }
 
-  v16 = mmap(0, v19.st_size, 3, 4098, -1, 0);
-  if (v16 == -1)
+  v9 = mmap(0, v12.st_size, 3, 4098, -1, 0);
+  if (v9 == -1)
   {
     return *__error();
   }
 
-  v17 = v16;
+  v10 = v9;
   while (1)
   {
-    v18 = pread(a3, v17, st_size, 0);
-    if ((v18 & 0x8000000000000000) == 0)
+    v11 = pread(a3, v10, st_size, 0);
+    if ((v11 & 0x8000000000000000) == 0)
     {
       break;
     }
@@ -1424,7 +405,7 @@ uint64_t buff_map_fd_anon(void *a1, void *a2, int a3)
     }
   }
 
-  if (v18 == st_size)
+  if (v11 == st_size)
   {
     result = 0;
   }
@@ -1435,7 +416,7 @@ uint64_t buff_map_fd_anon(void *a1, void *a2, int a3)
   }
 
 LABEL_13:
-  *a1 = v17;
+  *a1 = v10;
   a1[1] = st_size;
   a1[2] = 0;
   if (a2)
@@ -1504,7 +485,7 @@ uint64_t __os_log_simple_offset(uint64_t a1, char *a2, const void *a3, uint64_t 
   return _os_log_simple_send(v24, v16, v17, v18, v19, v20, v21, v22);
 }
 
-uint64_t _os_log_simple_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7, void *a8)
+uint64_t _os_log_simple_send(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7, void *a8)
 {
   fd = _simple_asl_get_fd(a1, a2, a3, a4, a5, a6, a7, a8);
   if (fd < 0)
@@ -1518,8 +499,8 @@ uint64_t _os_log_simple_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   v10 = fd;
-  v11 = _platform_strlen(*(a1 + 16)) + 1;
-  v12 = *(a1 + 8);
+  v11 = _platform_strlen(*(a1 + 2)) + 1;
+  v12 = *(a1 + 1);
   if (v12)
   {
     v13 = _platform_strlen(v12) + 1;
@@ -1543,13 +524,13 @@ uint64_t _os_log_simple_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
       v20 = *(a1 + 24);
       v21 = *(a1 + 40);
       v22 = *(a1 + 56);
-      memmove(&v23, (a1 + 72), 0x10uLL);
-      memmove(&v24, (a1 + 88), 0x10uLL);
-      memmove(&v25, (a1 + 104), 0x10uLL);
-      _platform_strlcpy(v26, *(a1 + 16), v11);
+      memmove(&v23, a1 + 72, 0x10uLL);
+      memmove(&v24, a1 + 88, 0x10uLL);
+      memmove(&v25, a1 + 104, 0x10uLL);
+      _platform_strlcpy(v26, *(a1 + 2), v11);
       if (v13)
       {
-        _platform_strlcpy(&v26[v11], *(a1 + 8), v13);
+        _platform_strlcpy(&v26[v11], *(a1 + 1), v13);
       }
 
       v17 = sendto(v10, v18, v15, 0, 0, 0);
@@ -2306,7 +1287,7 @@ LABEL_41:
   }
 }
 
-_BYTE *udec(uint64_t a1, uint64_t (*a2)(uint64_t), unint64_t a3, int a4, int a5)
+char *udec(uint64_t a1, uint64_t (*a2)(uint64_t), unint64_t a3, int a4, int a5)
 {
   v27 = 0;
   if (a3)
@@ -2475,7 +1456,7 @@ LABEL_41:
   }
 }
 
-_BYTE *ydec(uint64_t a1, uint64_t (*a2)(uint64_t), unint64_t a3, int a4, int a5)
+char *ydec(uint64_t a1, uint64_t (*a2)(uint64_t), unint64_t a3, int a4, int a5)
 {
   if (a3 >= 0xA00000)
   {
@@ -2818,11 +1799,12 @@ uint64_t _os_once_callout(atomic_ullong *a1, uint64_t a2, uint64_t (*a3)(uint64_
   return result;
 }
 
-uint64_t _os_once_gate_wait(uint64_t result, uint64_t a2, uint64_t (*a3)(uint64_t), unsigned int a4, void *a5, void *a6, void *a7, void *a8)
+uint64_t _os_once_gate_wait(uint64_t result, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4, void *a5, void *a6, void *a7, void *a8)
 {
   v8 = *result;
   if (*result != -1)
   {
+    v9 = a4;
     v12 = result;
     v13 = a4;
     while ((v8 & 3) != 1)
@@ -2832,9 +1814,9 @@ uint64_t _os_once_gate_wait(uint64_t result, uint64_t a2, uint64_t (*a3)(uint64_
         v14 = v8;
         if ((v8 & 0xFFFFFFFFFFFFFFFELL) == v8 || (v15 = v8, atomic_compare_exchange_strong_explicit(v12, &v15, v8 & 0xFFFFFFFFFFFFFFFELL, memory_order_relaxed, memory_order_relaxed), v14 = v8 & 0xFFFFFFFE, v15 == v8))
         {
-          if ((v8 | 1) == a4)
+          if ((v8 | 1) == v9)
           {
-            _os_once_gate_recursive_abort(a4);
+            _os_once_gate_recursive_abort(v9);
           }
 
           result = __ulock_wait(0x1000002, v12, v14, 0, a5, a6, a7, a8);
@@ -2868,7 +1850,7 @@ uint64_t _os_once_gate_wait(uint64_t result, uint64_t a2, uint64_t (*a3)(uint64_
         {
           __dmb(9u);
 
-          return _os_once_callout(v12, a2, a3, a4);
+          return _os_once_callout(v12, a2, a3, v9);
         }
 
         v8 = v16;
@@ -2946,7 +1928,7 @@ uint64_t _os_alloc_slow(atomic_ullong *a1, unint64_t a2)
     atomic_compare_exchange_strong_explicit(_os_alloc_heap, &v7, address, memory_order_relaxed, memory_order_relaxed);
     if (v7 == a1)
     {
-      *(v6 + 8) = a1;
+      v6[1] = a1;
       a1 = v6;
 LABEL_6:
       add_explicit = atomic_fetch_add_explicit(a1, a2, memory_order_relaxed);
@@ -3004,7 +1986,7 @@ void _pthread_exit(unint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a
     i = *(i + 16);
   }
 
-  ignition_test_BRA(a1);
+  ignition_test_BRA();
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   v18 = *(StatusReg + 72);
   *(StatusReg + 72) = 0;
@@ -3317,15 +2299,16 @@ BOOL mutex_seq_atomic_cmpxchgv_release(atomic_ullong *a1, uint64_t *a2, unint64_
   return result;
 }
 
-vm_address_t *sandbox_warn(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const char *a9)
+vm_address_t *sandbox_warn(char *a1, ...)
 {
-  v10 = _simple_salloc();
-  _simple_vsprintf(v10, a1, &a9);
-  v11 = _simple_string(v10);
-  _simple_asl_log(2, "com.apple.libsystem.sandbox", v11, v12, v13, v14, v15, v16);
-  v17 = _simple_string(v10);
-  _simple_dprintf(2, "%s\n", v18, v19, v20, v21, v22, v23, v17);
-  return _simple_sfree(v10);
+  va_start(va, a1);
+  v2 = _simple_salloc();
+  _simple_vsprintf(v2, a1, va);
+  v3 = _simple_string(v2);
+  _simple_asl_log(2, "com.apple.libsystem.sandbox", v3, v4, v5, v6, v7, v8);
+  v9 = _simple_string(v2);
+  _simple_dprintf(2, "%s\n", v9);
+  return _simple_sfree(v2);
 }
 
 uint64_t *AccelerateCrypto_SHA512_compress(uint64_t *result, uint64_t a2, int8x16_t *a3)
@@ -4115,14 +3098,14 @@ int32x4_t *AccelerateCrypto_SHA1_compress(int32x4_t *result, uint64_t a2, int8x1
   return result;
 }
 
-uint64_t ccsha512_final(uint64_t a1, const void *a2, uint64_t a3)
+uint64_t ccsha512_final(uint64_t a1, char *a2, uint64_t a3)
 {
   v7 = *(a1 + 8);
   v6 = *(a1 + 16);
-  v8 = a2 + v7 + 8;
-  if (v6 <= *(v8 + v6))
+  v8 = &a2[v7 + 8];
+  if (v6 <= *&v8[v6])
   {
-    *(v8 + v6) = 0;
+    *&v8[v6] = 0;
   }
 
   v9 = v7 + 8 + v6;
@@ -4371,41 +3354,41 @@ void *__Block_byref_object_dispose__64(void *result)
   return result;
 }
 
-uint64_t mach_o::Header::validSegment<segment_command,section>@<X0>(mach_o::Policy *this@<X1>, uint64_t result@<X0>, unint64_t a3@<X2>, uint64_t a4@<X3>, mach_o::Error *a5@<X8>)
+uint64_t mach_o::Header::validSegment<segment_command,section>@<X0>(mach_o::Error *__return_ptr a1@<X8>, mach_o::Policy *this@<X1>, uint64_t result@<X0>, unint64_t a4@<X2>, uint64_t a5@<X3>)
 {
-  v7 = *(a4 + 32);
-  v8 = *(a4 + 36);
+  v7 = *(a5 + 32);
+  v8 = *(a5 + 36);
   v9 = __CFADD__(v7, v8);
   v10 = v7 + v8;
-  if (v9 || v10 > a3)
+  if (v9 || v10 > a4)
   {
-    return mach_o::Error::Error(a5, "segment '%s' load command content extends beyond end of file");
+    return mach_o::Error::Error(a1, "segment '%s' load command content extends beyond end of file");
   }
 
   v12 = result;
   v13 = *(result + 12);
   if (v13 != 1)
   {
-    v14 = *(a4 + 28);
+    v14 = *(a5 + 28);
     if (v8 > v14)
     {
-      if (v14 || *(a4 + 44))
+      if (v14 || *(a5 + 44))
       {
-        return mach_o::Error::Error(a5, "segment '%s' filesize exceeds vmsize");
+        return mach_o::Error::Error(a1, "segment '%s' filesize exceeds vmsize");
       }
 
 LABEL_36:
-      *a5 = 0;
+      *a1 = 0;
       return result;
     }
   }
 
-  if (*(a4 + 44) >= 8u)
+  if (*(a5 + 44) >= 8u)
   {
-    return mach_o::Error::Error(a5, "%s segment permissions has invalid bits set (0x%08X)");
+    return mach_o::Error::Error(a1, "%s segment permissions has invalid bits set (0x%08X)");
   }
 
-  if ((v13 == 8 || v13 == 6 || v13 == 2 && (*(result + 24) & 4) != 0) && mach_o::Policy::enforceTextSegmentPermissions(this) && !_platform_strcmp((a4 + 8), "__TEXT") && *(a4 + 44) != 5)
+  if ((v13 == 8 || v13 == 6 || v13 == 2 && (*(result + 24) & 4) != 0) && mach_o::Policy::enforceTextSegmentPermissions(this) && !_platform_strcmp((a5 + 8), "__TEXT") && *(a5 + 44) != 5)
   {
     v18 = "__TEXT segment permissions is not 'r-x'";
     goto LABEL_53;
@@ -4414,8 +3397,8 @@ LABEL_36:
   result = mach_o::Policy::enforceReadOnlyLinkedit(this);
   if (result)
   {
-    result = _platform_strcmp((a4 + 8), "__LINKEDIT");
-    if (!result && *(a4 + 44) != 1)
+    result = _platform_strcmp((a5 + 8), "__LINKEDIT");
+    if (!result && *(a5 + 44) != 1)
     {
       v18 = "__LINKEDIT segment permissions is not 'r--'";
       goto LABEL_53;
@@ -4433,20 +3416,20 @@ LABEL_36:
     goto LABEL_25;
   }
 
-  if (!_platform_strcmp((a4 + 8), "__DATA") && *(a4 + 44) != 3)
+  if (!_platform_strcmp((a5 + 8), "__DATA") && *(a5 + 44) != 3)
   {
     v18 = "__DATA segment permissions is not 'rw-'";
     goto LABEL_53;
   }
 
-  result = _platform_strcmp((a4 + 8), "__DATA_CONST");
+  result = _platform_strcmp((a5 + 8), "__DATA_CONST");
   if (!result)
   {
-    if (*(a4 + 44) == 3)
+    if (*(a5 + 44) == 3)
     {
-      if ((*(a4 + 52) & 0x10) == 0)
+      if ((*(a5 + 52) & 0x10) == 0)
       {
-        if ((v22 = 0, v19 = *(v12 + 3), v19 != 9) && v19 != 6 || (result = mach_o::Header::hasSplitSegInfo(v12, &v22), !result) || v22)
+        if ((v20 = 0, v19 = *(v12 + 3), v19 != 9) && v19 != 6 || (result = mach_o::Header::hasSplitSegInfo(v12, &v20), !result) || v20)
         {
           if ((*(v12 + 6) & 0x80000000) == 0)
           {
@@ -4455,7 +3438,7 @@ LABEL_36:
               result = mach_o::Policy::enforceDataConstSegmentPermissions(this);
               if (result)
               {
-                return mach_o::Error::Error(a5, "__DATA_CONST segment missing SG_READ_ONLY flag");
+                return mach_o::Error::Error(a1, "__DATA_CONST segment missing SG_READ_ONLY flag");
               }
             }
           }
@@ -4468,13 +3451,13 @@ LABEL_36:
     v18 = "__DATA_CONST segment permissions is not 'rw-'";
 LABEL_53:
 
-    return mach_o::Error::Error(a5, v18);
+    return mach_o::Error::Error(a1, v18);
   }
 
 LABEL_25:
-  if (__CFADD__(*(a4 + 24), *(a4 + 28)))
+  if (__CFADD__(*(a5 + 24), *(a5 + 28)))
   {
-    return mach_o::Error::Error(a5, "'%s' segment vm range wraps");
+    return mach_o::Error::Error(a1, "'%s' segment vm range wraps");
   }
 
   if (*(v12 + 3) == 9)
@@ -4482,28 +3465,27 @@ LABEL_25:
     goto LABEL_36;
   }
 
-  v15 = *(a4 + 48);
+  v15 = *(a5 + 48);
   if (!v15)
   {
     goto LABEL_36;
   }
 
-  v16 = a4 + 68 * v15 + 56;
-  v17 = a4 + 56;
+  v16 = a5 + 68 * v15 + 56;
+  v17 = a5 + 56;
   while (1)
   {
-    if (*(v17 + 32) < *(a4 + 24))
+    if (*(v17 + 32) < *(a5 + 24))
     {
-      v20 = *(v17 + 32);
-      return mach_o::Error::Error(a5, "section '%s' start address 0x%lX is before containing segment's address 0x%0lX");
+      return mach_o::Error::Error(a1, "section '%s' start address 0x%lX is before containing segment's address 0x%0lX");
     }
 
     result = mach_o::Policy::enforceSectionsInSegment(this);
     if (result)
     {
-      if (*(v17 + 36) + *(v17 + 32) > (*(a4 + 28) + *(a4 + 24)))
+      if (*(v17 + 36) + *(v17 + 32) > (*(a5 + 28) + *(a5 + 24)))
       {
-        break;
+        return mach_o::Error::Error(a1, "section '%s' end address 0x%lX is beyond containing segment's end address 0x%0lX");
       }
     }
 
@@ -4513,9 +3495,6 @@ LABEL_25:
       goto LABEL_36;
     }
   }
-
-  v21 = (*(v17 + 36) + *(v17 + 32));
-  return mach_o::Error::Error(a5, "section '%s' end address 0x%lX is beyond containing segment's end address 0x%0lX");
 }
 
 uint64_t mach_o::Header::entryAddrFromThreadCmd(mach_o::Header *this, const thread_command *a2, unint64_t *a3)
@@ -4796,7 +3775,6 @@ uint64_t ___ZNK6mach_o6Header21forEachSingletonPatchEU13block_pointerFvyE_block_
       v10 = 0;
       do
       {
-        v11 = *(a2 + 56) + v10 - *(v5 + 40);
         result = (*(*(v5 + 32) + 16))();
         v10 += *(v5 + 48);
       }
@@ -5016,24 +3994,17 @@ uint64_t mach_o::warning(uint64_t this, const void *a2, const char *a3, ...)
 
 const char *mach_o::Platform::name(mach_o::Platform *this)
 {
-  v1 = *this;
   if (*this)
   {
-    result = *(v1 + 16);
-    v3 = *(v1 + 24);
+    return *(*this + 16);
   }
 
-  else if (*(this + 2))
+  if (*(this + 2))
   {
     return "future";
   }
 
-  else
-  {
-    return "unknown";
-  }
-
-  return result;
+  return "unknown";
 }
 
 uint64_t mach_o::Platform::isSimulator(mach_o::Platform *this)
@@ -5214,7 +4185,7 @@ uint64_t (***mach_o::ChainedFixups::forEachFixupChainStartLocation(uint64_t (***
     v6 = 0;
     do
     {
-      v7 = (*v19 + *(*v19 + 1));
+      v7 = (*v19 + *(*v19 + 4));
       if (*v7 > v6)
       {
         v8 = v7[v5 + 1];
@@ -5376,10 +4347,6 @@ LABEL_12:
 
         else
         {
-          v18 = *(a1 + 8);
-          v22 = v18[4];
-          v24 = *a1 - v18[3];
-          v20 = v18[5];
           mach_o::Error::Error(a3, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
         }
 
@@ -5387,15 +4354,11 @@ LABEL_12:
       }
     }
 
-    v17 = *(a1 + 8);
-    v21 = v17[4];
-    v23 = *a1 - v17[3];
-    v19 = v17[5];
     mach_o::Error::Error(a3, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
     return;
   }
 
-  mach_o::Error::Error(a3, "shared cache fixup formate does not support binds");
+  mach_o::Error::Error(a3, "shared cache fixup formate does not support binds", a2);
 }
 
 uint64_t mach_o::PointerFormat_DYLD_CHAINED_PTR_ARM64E_SEGMENTED::nextLocation(mach_o::PointerFormat_DYLD_CHAINED_PTR_ARM64E_SEGMENTED *this, void *a2)
@@ -5515,32 +4478,17 @@ LABEL_11:
   *v7 = v24;
   v25 = v20 & 0xFFF;
   result = (*(*a1 + 136))(a1);
-  if (v8 == result * v25)
+  if (v8 != result * v25)
   {
-    if (v12 == *v7 >> 28 && (*v7 & 0xFFFFFFF) == v17)
-    {
-      *a6 = 0;
-    }
-
-    else
-    {
-      v27 = *(a2 + 8);
-      v32 = v27[4];
-      v33 = *a2 - v27[3];
-      v30 = v27[5];
-      return mach_o::Error::Error(a6, "segIndex (%d) and segOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
-    }
-  }
-
-  else
-  {
-    v26 = *(a2 + 8);
-    v29 = v26[4];
-    v31 = *a2 - v26[3];
-    v28 = v26[5];
     return mach_o::Error::Error(a6, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
+  if (v12 != *v7 >> 28 || (*v7 & 0xFFFFFFF) != v17)
+  {
+    return mach_o::Error::Error(a6, "segIndex (%d) and segOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
+  }
+
+  *a6 = 0;
   return result;
 }
 
@@ -5719,7 +4667,7 @@ LABEL_12:
   return result;
 }
 
-mach_o::Error *mach_o::PointerFormat_Generic_arm64e::writeChainEntry@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, mach_o::Error *a5@<X8>)
+mach_o::Error *mach_o::PointerFormat_Generic_arm64e::writeChainEntry@<X0>(uint64_t a1@<X0>, unint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, mach_o::Error *a5@<X8>)
 {
   v8 = *a2;
   if (a3)
@@ -5737,24 +4685,24 @@ mach_o::Error *mach_o::PointerFormat_Generic_arm64e::writeChainEntry@<X0>(uint64
     if (*(a2 + 16) == 1)
     {
       *v8 = *v8 & 0x3FFFFFFFFFFFFFFFLL | 0x8000000000000000;
-      v22 = (*(*a1 + 136))(a1);
-      v23 = *v8 & 0xC007FFFFFFFFFFFFLL | (((v9 / v22) & 0x7FF) << 51);
+      v21 = (*(*a1 + 136))(a1);
+      v22 = *v8 & 0xC007FFFFFFFFFFFFLL | (((v9 / v21) & 0x7FF) << 51);
+      *v8 = v22;
+      v23 = v22 & 0xFFF9FFFFFFFFFFFFLL | ((*(a2 + 18) & 3) << 49);
       *v8 = v23;
-      v24 = v23 & 0xFFF9FFFFFFFFFFFFLL | ((*(a2 + 18) & 3) << 49);
+      v24 = v23 & 0xFFFEFFFFFFFFFFFFLL | (((*(a2 + 18) & 4) != 0) << 48);
       *v8 = v24;
-      v25 = v24 & 0xFFFEFFFFFFFFFFFFLL | (((*(a2 + 18) & 4) != 0) << 48);
+      v25 = v24 & 0xFFFF0000FFFFFFFFLL | (*(a2 + 10) << 32);
       *v8 = v25;
-      v26 = v25 & 0xFFFF0000FFFFFFFFLL | (*(a2 + 20) << 32);
-      *v8 = v26;
-      *v8 = v26 & 0xFFFFFFFF00000000 | *(a2 + 24);
-      v27 = (v9 / v22) & 0x7FF;
+      *v8 = v25 & 0xFFFFFFFF00000000 | *(a2 + 6);
+      v26 = (v9 / v21) & 0x7FF;
       result = (*(*a1 + 136))(a1);
-      if (v9 != result * v27)
+      if (v9 != result * v26)
       {
-        goto LABEL_40;
+        return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
       }
 
-      if (*v8 == *(a2 + 24))
+      if (*v8 == a2[3])
       {
         goto LABEL_39;
       }
@@ -5762,160 +4710,140 @@ mach_o::Error *mach_o::PointerFormat_Generic_arm64e::writeChainEntry@<X0>(uint64
 
     else
     {
-      v36 = *(a2 + 24);
+      v34 = a2[3];
       *v8 &= 0x3FFFFFFFFFFFFFFFuLL;
-      *(&v37 + 1) = v9 / (*(*a1 + 136))(a1);
-      *&v37 = v36;
-      *v8 = *v8 & 0xC00007FFFFFFFFFFLL | ((((v37 >> 13) >> 43) & 0x7FFFF) << 43);
+      *(&v35 + 1) = v9 / (*(*a1 + 136))(a1);
+      *&v35 = v34;
+      *v8 = *v8 & 0xC00007FFFFFFFFFFLL | ((((v35 >> 13) >> 43) & 0x7FFFF) << 43);
       if ((*(*a1 + 144))(a1))
       {
-        v38 = a4;
+        v36 = a4;
       }
 
       else
       {
-        v38 = 0;
+        v36 = 0;
       }
 
-      v39 = (*v8 >> 51) & 0x7FF;
-      *v8 = *v8 & 0xFFFFF80000000000 | (v38 + v36) & 0x7FFFFFFFFFFLL;
-      if (v9 != (*(*a1 + 136))(a1) * v39)
+      v37 = (*v8 >> 51) & 0x7FF;
+      *v8 = *v8 & 0xFFFFF80000000000 | (v34 + v36) & 0x7FFFFFFFFFFLL;
+      if (v9 != (*(*a1 + 136))(a1) * v37)
       {
-        goto LABEL_40;
+        return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
       }
 
-      v40 = *v8 & 0x7FFFFFFFFFFLL;
+      v38 = *v8 & 0x7FFFFFFFFFFLL;
       result = (*(*a1 + 144))(a1);
       if (result)
       {
-        v41 = a4;
+        v39 = a4;
       }
 
       else
       {
-        v41 = 0;
+        v39 = 0;
       }
 
-      if (v40 == v41 + (v36 & 0xFFFFFFFFFFFFFFLL))
+      if (v38 == v39 + (v34 & 0xFFFFFFFFFFFFFFLL))
       {
         goto LABEL_39;
       }
 
-      v42 = (*(*a1 + 144))(a1);
-      v43 = *(a2 + 24);
-      if (v42)
+      if ((*(*a1 + 144))(a1))
       {
-        v44 = *(a2 + 8);
-        v69 = v44[4];
-        v75 = *a2 - v44[3];
-        v63 = v44[5];
         return mach_o::Error::Error(a5, "vmAddress (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
       }
     }
 
-    v59 = *(a2 + 8);
-    v72 = v59[4];
-    v78 = *a2 - v59[3];
-    v66 = v59[5];
     return mach_o::Error::Error(a5, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
   }
 
   v10 = (*(*a1 + 128))(a1);
-  v11 = *(a2 + 16);
-  v12 = *a2;
-  v13 = **a2;
+  v11 = *a2;
+  v12 = **a2;
   if (v10 != 24)
   {
     if (*(a2 + 16))
     {
-      *v12 = v13 | 0xC000000000000000;
-      v28 = (*(*a1 + 136))(a1);
-      v29 = *v12 & 0xC007FFFFFFFFFFFFLL | (((v9 / v28) & 0x7FF) << 51);
-      *v12 = v29;
-      v30 = v29 & 0xFFF9FFFFFFFFFFFFLL | ((*(a2 + 18) & 3) << 49);
-      *v12 = v30;
-      v31 = v30 & 0xFFFEFFFFFFFFFFFFLL | (((*(a2 + 18) & 4) != 0) << 48);
-      *v12 = v31;
-      v32 = v31 & 0xFFFF00000000FFFFLL | (*(a2 + 20) << 32);
-      *v12 = v32;
-      *v12 = v32 & 0xFFFFFFFF00000000 | *(a2 + 24);
-      v33 = (v9 / v28) & 0x7FF;
+      *v11 = v12 | 0xC000000000000000;
+      v27 = (*(*a1 + 136))(a1);
+      v28 = *v11 & 0xC007FFFFFFFFFFFFLL | (((v9 / v27) & 0x7FF) << 51);
+      *v11 = v28;
+      v29 = v28 & 0xFFF9FFFFFFFFFFFFLL | ((*(a2 + 18) & 3) << 49);
+      *v11 = v29;
+      v30 = v29 & 0xFFFEFFFFFFFFFFFFLL | (((*(a2 + 18) & 4) != 0) << 48);
+      *v11 = v30;
+      v31 = v30 & 0xFFFF00000000FFFFLL | (*(a2 + 10) << 32);
+      *v11 = v31;
+      *v11 = v31 & 0xFFFFFFFF00000000 | *(a2 + 12);
+      v32 = (v9 / v27) & 0x7FF;
       result = (*(*a1 + 136))(a1);
-      if (v9 == result * v33)
+      if (v9 == result * v32)
       {
-        v21 = *v12;
+        v20 = *v11;
         goto LABEL_16;
       }
-
-LABEL_40:
-      v57 = *(a2 + 8);
-      v70 = v57[4];
-      v76 = *a2 - v57[3];
-      v64 = v57[5];
-      return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
-    }
-
-    *v12 = v13 & 0x3FFFFFFFFFFFFFFFLL | 0x4000000000000000;
-    v52 = v9 / (*(*a1 + 136))(a1);
-    v53 = *v12 & 0xC007FFFFFFFFFFFFLL | ((v52 & 0x7FF) << 51);
-    *v12 = v53;
-    v54 = *(a2 + 28) & 0x7FFFF;
-    v55 = v53 & 0xFFF800000000FFFFLL | (v54 << 32);
-    *v12 = v55;
-    *v12 = v55 & 0xFFFFFFFF00000000 | *(a2 + 24);
-    if (v54 == *(a2 + 28))
-    {
-      v56 = v52 & 0x7FF;
-      result = (*(*a1 + 136))(a1);
-      if (v9 != result * v56)
-      {
-        goto LABEL_40;
-      }
-
-      v51 = *v12;
-      goto LABEL_38;
-    }
-
-LABEL_41:
-    v58 = *(a2 + 8);
-    v71 = v58[4];
-    v77 = *a2 - v58[3];
-    v65 = v58[5];
-    return mach_o::Error::Error(a5, "addend (%lld) cannot fit in fixup at %.*s+0x%0lX");
-  }
-
-  if (!*(a2 + 16))
-  {
-    *v12 = v13 & 0x3FFFFFFFFFFFFFFFLL | 0x4000000000000000;
-    v45 = v9 / (*(*a1 + 136))(a1);
-    v46 = *v12 & 0xC007FFFFFFFFFFFFLL | ((v45 & 0x7FF) << 51);
-    *v12 = v46;
-    v47 = *(a2 + 28);
-    v48 = v46 & 0xFFF8000000FFFFFFLL | ((*&v47 & 0x7FFFFLL) << 32);
-    *v12 = v48;
-    *v12 = v48 & 0xFFFFFFFF00000000 | *(a2 + 24) & 0xFFFFFFLL;
-    if ((v47 & 0x7FFFFu) >= 0x40000)
-    {
-      v49 = -262144;
     }
 
     else
     {
-      v49 = 0;
-    }
-
-    if ((v49 & 0xFFFFFFFFFFFC0000 | *&v47 & 0x3FFFFLL) == *(a2 + 28))
-    {
-      v50 = v45 & 0x7FF;
-      result = (*(*a1 + 136))(a1);
-      if (v9 != result * v50)
+      *v11 = v12 & 0x3FFFFFFFFFFFFFFFLL | 0x4000000000000000;
+      v47 = v9 / (*(*a1 + 136))(a1);
+      v48 = *v11 & 0xC007FFFFFFFFFFFFLL | ((v47 & 0x7FF) << 51);
+      *v11 = v48;
+      v49 = *(a2 + 7) & 0x7FFFF;
+      v50 = v48 & 0xFFF800000000FFFFLL | (v49 << 32);
+      *v11 = v50;
+      *v11 = v50 & 0xFFFFFFFF00000000 | *(a2 + 12);
+      if (v49 != *(a2 + 7))
       {
-        goto LABEL_40;
+        return mach_o::Error::Error(a5, "addend (%lld) cannot fit in fixup at %.*s+0x%0lX");
       }
 
-      v51 = *v12 & 0xFFFFFF;
+      v51 = v47 & 0x7FF;
+      result = (*(*a1 + 136))(a1);
+      if (v9 == result * v51)
+      {
+        v46 = *v11;
+        goto LABEL_38;
+      }
+    }
+
+    return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
+  }
+
+  if (!*(a2 + 16))
+  {
+    *v11 = v12 & 0x3FFFFFFFFFFFFFFFLL | 0x4000000000000000;
+    v40 = v9 / (*(*a1 + 136))(a1);
+    v41 = *v11 & 0xC007FFFFFFFFFFFFLL | ((v40 & 0x7FF) << 51);
+    *v11 = v41;
+    v42 = *(a2 + 7);
+    v43 = v41 & 0xFFF8000000FFFFFFLL | ((*&v42 & 0x7FFFFLL) << 32);
+    *v11 = v43;
+    *v11 = v43 & 0xFFFFFFFF00000000 | a2[3] & 0xFFFFFFLL;
+    if ((v42 & 0x7FFFFu) >= 0x40000)
+    {
+      v44 = -262144;
+    }
+
+    else
+    {
+      v44 = 0;
+    }
+
+    if ((v44 & 0xFFFFFFFFFFFC0000 | *&v42 & 0x3FFFFLL) != *(a2 + 7))
+    {
+      return mach_o::Error::Error(a5, "addend (%lld) cannot fit in fixup at %.*s+0x%0lX");
+    }
+
+    v45 = v40 & 0x7FF;
+    result = (*(*a1 + 136))(a1);
+    if (v9 == result * v45)
+    {
+      v46 = *v11 & 0xFFFFFF;
 LABEL_38:
-      if (v51 == *(a2 + 24))
+      if (v46 == *(a2 + 6))
       {
         goto LABEL_39;
       }
@@ -5923,38 +4851,33 @@ LABEL_38:
       return mach_o::ChainedFixups::PointerFormat::badBindOrdinal(a2, a5);
     }
 
-    goto LABEL_41;
+    return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
-  *v12 = v13 | 0xC000000000000000;
-  v14 = (*(*a1 + 136))(a1);
-  v15 = *v12 & 0xC007FFFFFFFFFFFFLL | (((v9 / v14) & 0x7FF) << 51);
-  *v12 = v15;
-  v16 = v15 & 0xFFF9FFFFFFFFFFFFLL | ((*(a2 + 18) & 3) << 49);
-  *v12 = v16;
-  v17 = v16 & 0xFFFEFFFFFFFFFFFFLL | (((*(a2 + 18) & 4) != 0) << 48);
-  *v12 = v17;
-  v18 = v17 & 0xFFFF000000FFFFFFLL | (*(a2 + 20) << 32);
-  *v12 = v18;
-  *v12 = v18 & 0xFFFFFFFF00000000 | *(a2 + 24) & 0xFFFFFFLL;
-  v19 = (v9 / v14) & 0x7FF;
+  *v11 = v12 | 0xC000000000000000;
+  v13 = (*(*a1 + 136))(a1);
+  v14 = *v11 & 0xC007FFFFFFFFFFFFLL | (((v9 / v13) & 0x7FF) << 51);
+  *v11 = v14;
+  v15 = v14 & 0xFFF9FFFFFFFFFFFFLL | ((*(a2 + 18) & 3) << 49);
+  *v11 = v15;
+  v16 = v15 & 0xFFFEFFFFFFFFFFFFLL | (((*(a2 + 18) & 4) != 0) << 48);
+  *v11 = v16;
+  v17 = v16 & 0xFFFF000000FFFFFFLL | (*(a2 + 10) << 32);
+  *v11 = v17;
+  *v11 = v17 & 0xFFFFFFFF00000000 | a2[3] & 0xFFFFFFLL;
+  v18 = (v9 / v13) & 0x7FF;
   result = (*(*a1 + 136))(a1);
-  if (v9 != result * v19)
+  if (v9 != result * v18)
   {
-    goto LABEL_40;
+    return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
-  v21 = *v12 & 0xFFFFFF;
+  v20 = *v11 & 0xFFFFFF;
 LABEL_16:
-  if (v21 == *(a2 + 24))
+  if (v20 == *(a2 + 6))
   {
-    if (*(a2 + 28))
+    if (*(a2 + 7))
     {
-      v34 = *(a2 + 8);
-      v68 = v34[4];
-      v74 = *a2 - v34[3];
-      v61 = *(a2 + 28);
-      v62 = v34[5];
       return mach_o::Error::Error(a5, "addend (%lld) cannot fit in fixup at %.*s+0x%0lX");
     }
 
@@ -5963,10 +4886,6 @@ LABEL_39:
     return result;
   }
 
-  v60 = *(a2 + 8);
-  v73 = v60[4];
-  v79 = *a2 - v60[3];
-  v67 = v60[5];
   return mach_o::Error::Error(a5, "bind ordinal (%u) too large in fixup at %.*s+0x%0lX");
 }
 
@@ -6042,10 +4961,6 @@ mach_o::Error *mach_o::PointerFormat_DYLD_CHAINED_PTR_64::writeChainEntry@<X0>(m
     *v7 = v11 & 0xFFFFFFFFFF000000 | v12;
     if (*(a2 + 28) != v10)
     {
-      v21 = *(a2 + 8);
-      v32 = v21[4];
-      v37 = *a2 - v21[3];
-      v27 = v21[5];
       return mach_o::Error::Error(a5, "addend (%lld) cannot fit in fixup at %.*s+0x%0lX");
     }
 
@@ -6053,78 +4968,60 @@ mach_o::Error *mach_o::PointerFormat_DYLD_CHAINED_PTR_64::writeChainEntry@<X0>(m
     {
       if (v12 != *(a2 + 24))
       {
-        v13 = *(a2 + 8);
-        v30 = v13[4];
-        v35 = *a2 - v13[3];
-        v25 = v13[5];
         return mach_o::Error::Error(a5, "bind ordinal (%u) too large in fixup at %.*s+0x%0lX");
       }
 
       goto LABEL_20;
     }
 
-    goto LABEL_21;
+    return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
   result = (*(*result + 128))(result);
-  v15 = *a2;
-  v16 = *(a2 + 24);
+  v14 = *a2;
+  v15 = *(a2 + 24);
   if (result)
   {
-    v17 = v16 & 0xFFFFFFFFFFFFFFLL;
-    v18 = v8 + 3;
+    v16 = v15 & 0xFFFFFFFFFFFFFFLL;
+    v17 = v8 + 3;
     if (v8 >= 0)
     {
-      v18 = v8;
+      v17 = v8;
     }
 
-    *v15 = (v18 << 49) & 0x7FF8000000000000 | (v16 >> 20) & 0x7FF80FF000000000 | (v17 + a4) & 0xFFFFFFFFFLL;
-    if ((v18 & 0x3FFC) == v8)
+    *v14 = (v17 << 49) & 0x7FF8000000000000 | (v15 >> 20) & 0x7FF80FF000000000 | (v16 + a4) & 0xFFFFFFFFFLL;
+    if ((v17 & 0x3FFC) == v8)
     {
-      if ((v17 + a4) >> 36)
+      if ((v16 + a4) >> 36)
       {
-        v19 = *(a2 + 24) + a4;
-        v20 = *(a2 + 8);
-        v31 = v20[4];
-        v36 = *a2 - v20[3];
-        v26 = v20[5];
         return mach_o::Error::Error(a5, "vmAddress (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
       }
 
       goto LABEL_20;
     }
 
-    goto LABEL_21;
-  }
-
-  v22 = v8 + 3;
-  if (v8 >= 0)
-  {
-    v22 = v8;
-  }
-
-  *v15 = (v22 << 49) & 0x7FF8000000000000 | (v16 >> 20) & 0x7FF80FF000000000 | v16 & 0xFFFFFFFFFLL;
-  if ((v22 & 0x3FFC) != v8)
-  {
-LABEL_21:
-    v23 = *(a2 + 8);
-    v33 = v23[4];
-    v38 = *a2 - v23[3];
-    v28 = v23[5];
     return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
-  if (v16 == *(a2 + 24))
+  v18 = v8 + 3;
+  if (v8 >= 0)
+  {
+    v18 = v8;
+  }
+
+  *v14 = (v18 << 49) & 0x7FF8000000000000 | (v15 >> 20) & 0x7FF80FF000000000 | v15 & 0xFFFFFFFFFLL;
+  if ((v18 & 0x3FFC) != v8)
+  {
+    return mach_o::Error::Error(a5, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
+  }
+
+  if (v15 == *(a2 + 24))
   {
 LABEL_20:
     *a5 = 0;
     return result;
   }
 
-  v24 = *(a2 + 8);
-  v34 = v24[4];
-  v39 = *a2 - v24[3];
-  v29 = v24[5];
   return mach_o::Error::Error(a5, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
 }
 
@@ -6197,52 +5094,34 @@ mach_o::Error *mach_o::PointerFormat_DYLD_CHAINED_PTR_32::writeChainEntry@<X0>(u
       {
         if ((v11 & 0xFFFFF) != *(a1 + 24))
         {
-          v12 = *(a1 + 8);
-          v24 = v12[4];
-          v28 = *a1 - v12[3];
-          v20 = v12[5];
           return mach_o::Error::Error(a4, "bind ordinal (%u) too large in fixup at %.*s+0x%0lX");
         }
 
         goto LABEL_10;
       }
 
-      v17 = *(a1 + 8);
-      v26 = v17[4];
-      v30 = *a1 - v17[3];
-      v22 = v17[5];
       return mach_o::Error::Error(a4, "addend (%lld) cannot fit in fixup at %.*s+0x%0lX");
     }
 
-LABEL_11:
-    v16 = *(a1 + 8);
-    v25 = v16[4];
-    v29 = *a1 - v16[3];
-    v21 = v16[5];
     return mach_o::Error::Error(a4, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
-  v14 = v7 & 0x7C000000;
-  *v4 = v14 & 0xFC000000 | v6 & 0x3FFFFFF;
-  v15 = *(a1 + 24) + a3;
-  *v4 = v14 & 0xFC000000 | v15 & 0x3FFFFFF;
+  v13 = v7 & 0x7C000000;
+  *v4 = v13 & 0xFC000000 | v6 & 0x3FFFFFF;
+  v14 = *(a1 + 24) + a3;
+  *v4 = v13 & 0xFC000000 | v14 & 0x3FFFFFF;
   if (4 * ((v5 / 4) & 0x1F) != v5)
   {
-    goto LABEL_11;
+    return mach_o::Error::Error(a4, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
-  if (!(v15 >> 26))
+  if (!(v14 >> 26))
   {
 LABEL_10:
     *a4 = 0;
     return result;
   }
 
-  v18 = *(a1 + 8);
-  v27 = v18[4];
-  v31 = *a1 - v18[3];
-  v19 = *(a1 + 24);
-  v23 = v18[5];
   return mach_o::Error::Error(a4, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
 }
 
@@ -6293,32 +5172,17 @@ mach_o::Error *mach_o::PointerFormat_DYLD_CHAINED_PTR_32_CACHE::writeChainEntry@
   *v3 = *v3 & 0x3FFFFFFF | ((v5 >> 2) << 30);
   v6 = *(a1 + 24);
   *v3 = v6 & 0x3FFFFFFF | ((v5 >> 2) << 30);
-  if ((v5 & 0xC) == v4)
+  if ((v5 & 0xC) != v4)
   {
-    if ((v6 & 0x3FFFFFFF) == *(a1 + 24))
-    {
-      *a3 = 0;
-    }
-
-    else
-    {
-      v9 = *(a1 + 8);
-      v13 = v9[4];
-      v15 = *a1 - v9[3];
-      v11 = v9[5];
-      return mach_o::Error::Error(a3, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
-    }
-  }
-
-  else
-  {
-    v7 = *(a1 + 8);
-    v12 = v7[4];
-    v14 = *a1 - v7[3];
-    v10 = v7[5];
     return mach_o::Error::Error(a3, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
+  if ((v6 & 0x3FFFFFFF) != *(a1 + 24))
+  {
+    return mach_o::Error::Error(a3, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
+  }
+
+  *a3 = 0;
   return result;
 }
 
@@ -6369,32 +5233,17 @@ mach_o::Error *mach_o::PointerFormat_DYLD_CHAINED_PTR_32_FIRMWARE::writeChainEnt
   *v3 = *v3 & 0x3FFFFFF | ((v5 >> 2) << 26);
   v6 = *(a1 + 24);
   *v3 = v6 & 0x3FFFFFF | ((v5 >> 2) << 26);
-  if ((v5 & 0xFC) == v4)
+  if ((v5 & 0xFC) != v4)
   {
-    if ((v6 & 0x3FFFFFF) == *(a1 + 24))
-    {
-      *a3 = 0;
-    }
-
-    else
-    {
-      v9 = *(a1 + 8);
-      v13 = v9[4];
-      v15 = *a1 - v9[3];
-      v11 = v9[5];
-      return mach_o::Error::Error(a3, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
-    }
-  }
-
-  else
-  {
-    v7 = *(a1 + 8);
-    v12 = v7[4];
-    v14 = *a1 - v7[3];
-    v10 = v7[5];
     return mach_o::Error::Error(a3, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
+  if ((v6 & 0x3FFFFFF) != *(a1 + 24))
+  {
+    return mach_o::Error::Error(a3, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
+  }
+
+  *a3 = 0;
   return result;
 }
 
@@ -6458,32 +5307,17 @@ mach_o::Error *mach_o::PointerFormat_DYLD_CHAINED_PTR_64_KERNEL_CACHE::writeChai
   *v4 = v9;
   v10 = *(a1 + 24);
   *v4 = v9 & 0xFFFFFFFF00000000 | v10 & 0x3FFFFFFF;
-  if ((v3 & 0x3FFC) == v5)
+  if ((v3 & 0x3FFC) != v5)
   {
-    if ((v10 & 0x3FFFFFFF) == *(a1 + 24))
-    {
-      *a3 = 0;
-    }
-
-    else
-    {
-      v13 = *(a1 + 8);
-      v17 = v13[4];
-      v19 = *a1 - v13[3];
-      v15 = v13[5];
-      return mach_o::Error::Error(a3, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
-    }
-  }
-
-  else
-  {
-    v11 = *(a1 + 8);
-    v16 = v11[4];
-    v18 = *a1 - v11[3];
-    v14 = v11[5];
     return mach_o::Error::Error(a3, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
+  if ((v10 & 0x3FFFFFFF) != *(a1 + 24))
+  {
+    return mach_o::Error::Error(a3, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
+  }
+
+  *a3 = 0;
   return result;
 }
 
@@ -6542,27 +5376,15 @@ mach_o::Error *mach_o::PointerFormat_DYLD_CHAINED_PTR_X86_64_KERNEL_CACHE::write
   *v3 = v5 | ((v4 & 0xFFF) << 51);
   if (v4 >= 0x1000)
   {
-    v6 = *(a1 + 8);
-    v11 = v6[4];
-    v13 = *a1 - v6[3];
-    v9 = v6[5];
     return mach_o::Error::Error(a3, "distance between fixups (%ld) is not encodable in chain for fixup at %.*s+0x%0lX");
   }
 
-  else if (v5 == *(a1 + 24))
+  if (v5 != *(a1 + 24))
   {
-    *a3 = 0;
-  }
-
-  else
-  {
-    v8 = *(a1 + 8);
-    v12 = v8[4];
-    v14 = *a1 - v8[3];
-    v10 = v8[5];
     return mach_o::Error::Error(a3, "vmOffset (0x%0llX) cannot fit in fixup at %.*s+0x%0lX");
   }
 
+  *a3 = 0;
   return result;
 }
 
@@ -6662,7 +5484,7 @@ uint64_t mach_o::DebugNoteFileInfo::dump(const char **this)
   return fprintf(__stdoutp, "origlibPath: %s\n", v3);
 }
 
-void mach_o::Universal::valid(mach_o::Universal *this@<X0>, unint64_t a2@<X1>, mach_o::Error *a3@<X8>)
+void mach_o::Universal::valid(mach_o::Error *__return_ptr a1@<X8>, mach_o::Universal *this@<X0>, unint64_t a3@<X1>)
 {
   v4 = *this;
   if ((*this | 0x1000000) != 0xBFBAFECA)
@@ -6677,19 +5499,19 @@ void mach_o::Universal::valid(mach_o::Universal *this@<X0>, unint64_t a2@<X1>, m
     v5 = 40;
   }
 
-  if (v5 > a2)
+  if (v5 > a3)
   {
     v6 = "fat file too short";
 LABEL_7:
 
-    mach_o::Error::Error(a3, v6);
+    mach_o::Error::Error(a1, v6);
     return;
   }
 
   v7 = bswap32(*(this + 1));
   if (v7 >= 0x11)
   {
-    mach_o::Error::Error(a3, "fat file has too many slices (%d)", v7);
+    mach_o::Error::Error(a1, "fat file has too many slices (%d)", v7);
     return;
   }
 
@@ -6705,7 +5527,7 @@ LABEL_7:
     v10 = v9;
   }
 
-  if ((v10 + 8) > a2)
+  if ((v10 + 8) > a3)
   {
     v6 = "slice headers extend beyond end of file";
     goto LABEL_7;
@@ -6742,14 +5564,14 @@ LABEL_7:
   v19[5] = &v30;
   v19[6] = v29;
   v19[7] = &v20;
-  v19[10] = a2;
+  v19[10] = a3;
   v19[11] = v36;
   v19[8] = v28;
   v19[9] = this;
   mach_o::Universal::forEachSlice(this, v19);
   if (v31[5])
   {
-    mach_o::Error::Error(a3, v31 + 5);
+    mach_o::Error::Error(a1, v31 + 5);
   }
 
   else
@@ -6771,13 +5593,13 @@ LABEL_7:
         {
           v15 = v14;
           v16 = v13;
-          v17 = &v38;
-          v18 = &v37[16 * v13];
+          v17 = v37 + 1;
+          v18 = &v37[v13];
           do
           {
             if (v16 && *(v17 - 1) < v18[1] && *v17 > *v18)
             {
-              mach_o::Error::Error(a3, "overlapping slices");
+              mach_o::Error::Error(a1, "overlapping slices");
               goto LABEL_31;
             }
 
@@ -6797,7 +5619,7 @@ LABEL_7:
       }
     }
 
-    *a3 = 0;
+    *a1 = 0;
   }
 
 LABEL_31:
@@ -6861,8 +5683,8 @@ uint64_t mach_o::Universal::forEachSlice(uint64_t result, uint64_t a2)
 
         else
         {
-          v10 = v20;
-          v11 = HIDWORD(v20);
+          v10 = v20.i32[0];
+          v11 = v20.i32[1];
         }
 
         v19 = __PAIR64__(v11, v10);
@@ -6978,7 +5800,7 @@ mach_o::Header *mach_o::Universal::validSlice@<X0>(uint64_t a1@<X0>, mach_o::Arc
 
   if ((v11 & a3) == 0)
   {
-    mach_o::Header::arch(v9, &v14);
+    mach_o::Header::arch(&v14, v9);
     result = mach_o::Architecture::operator==(&v14, a2);
     if ((result & 1) == 0)
     {
@@ -7560,7 +6382,7 @@ void ___ZN6mach_o5Image17makeCompactUnwindEv_block_invoke(uint64_t a1, uint64_t 
       {
         v9 = *v8;
         v10 = *(a2 + 72);
-        mach_o::Header::arch(*v8, v11);
+        mach_o::Header::arch(v11, *v8);
         mach_o::CompactUnwind::CompactUnwind((v8 + 360), v11, v9 + v10, *(a2 + 64));
         *(v8 + 96) = v8 + 360;
         *a3 = 1;
@@ -7729,40 +6551,39 @@ LABEL_18:
 uint64_t mach_o::Image::withSegments(mach_o::Error **a1, uint64_t a2)
 {
   v4 = mach_o::Image::segmentCount(a1);
-  v5 = v4;
-  v6 = __chkstk_darwin(v4);
-  v8 = v15 - v7;
-  if (v6)
+  v5 = __chkstk_darwin();
+  v7 = v14 - v6;
+  if (v5)
   {
-    v9 = v8 + 32;
-    v10 = 56 * v5;
+    v8 = v7 + 32;
+    v9 = 56 * v4;
     do
     {
-      *v9 = 0;
-      v9[1] = 0;
-      v9 += 7;
-      v10 -= 56;
+      *v8 = 0;
+      v8[1] = 0;
+      v8 += 7;
+      v9 -= 56;
     }
 
-    while (v10);
-    v11 = 0;
-    v12 = v8;
+    while (v9);
+    v10 = 0;
+    v11 = v7;
     do
     {
-      mach_o::Image::segment(a1, v11, v15);
-      v13 = v15[1];
-      *v12 = v15[0];
-      *(v12 + 1) = v13;
-      *(v12 + 2) = *v16;
-      *(v12 + 47) = *&v16[15];
-      ++v11;
-      v12 += 56;
+      mach_o::Image::segment(a1, v10, v14);
+      v12 = v14[1];
+      *v11 = v14[0];
+      *(v11 + 1) = v12;
+      *(v11 + 2) = *v15;
+      *(v11 + 47) = *&v15[15];
+      ++v10;
+      v11 += 56;
     }
 
-    while (v5 != v11);
+    while (v4 != v10);
   }
 
-  return (*(a2 + 16))(a2, v8, v5);
+  return (*(a2 + 16))(a2, v7, v4);
 }
 
 uint64_t mach_o::FunctionVariants::count(mach_o::FunctionVariants *this)
@@ -7805,24 +6626,24 @@ uint64_t mach_o::FunctionVariantFixups::forEachFixup(uint64_t result, uint64_t a
   return result;
 }
 
-char *mach_o::Version32::toString(mach_o::Version32 *this, char *a2)
+char *mach_o::Version32::toString(mach_o::Version32 *this, char *a2, unsigned int a3)
 {
-  v8 = a2;
-  mach_o::appendNumber(&v8, *(this + 1));
-  v4 = v8;
-  *v8 = 46;
-  v8 = v4 + 1;
-  mach_o::appendNumber(&v8, *(this + 1));
-  v5 = *this;
+  v9 = a2;
+  mach_o::appendNumber(&v9, *(this + 1));
+  v5 = v9;
+  *v9 = 46;
+  v9 = v5 + 1;
+  mach_o::appendNumber(&v9, *(this + 1));
+  v6 = *this;
   if (*this)
   {
-    v6 = v8;
-    *v8 = 46;
-    v8 = v6 + 1;
-    mach_o::appendNumber(&v8, v5);
+    v7 = v9;
+    *v9 = 46;
+    v9 = v7 + 1;
+    mach_o::appendNumber(&v9, v6);
   }
 
-  *v8 = 0;
+  *v9 = 0;
   return a2;
 }
 
@@ -7971,6 +6792,92 @@ uint64_t mach_continuous_time(void)
   return v1 + StatusReg;
 }
 
+mach_msg_return_t mach_msg_overwrite(mach_msg_header_t *msg, mach_msg_option_t option, mach_msg_size_t send_size, mach_msg_size_t rcv_size, mach_port_name_t rcv_name, mach_msg_timeout_t timeout, mach_port_name_t notify, mach_msg_header_t *rcv_msg, mach_msg_size_t rcv_limit)
+{
+  if (rcv_msg != 0 && (option & 2) != 0)
+  {
+    v9 = option | 0x100000000;
+  }
+
+  else
+  {
+    v9 = option;
+  }
+
+  if ((v9 & 0x100000000) != 0)
+  {
+    v27[0] = msg;
+    v27[1] = rcv_msg;
+    v28 = send_size;
+    v29 = rcv_size;
+    v30 = &v26;
+    v31 = 0;
+    v32 = 0x8000000000;
+  }
+
+  if (v9)
+  {
+    v10 = notify;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  if ((v9 & 0x4003) == 0x4002)
+  {
+    msg->msgh_remote_port = notify;
+  }
+
+  v11 = timeout;
+  msgh_bits = msg->msgh_bits;
+  v13 = *&msg->msgh_remote_port;
+  msgh_voucher_port = msg->msgh_voucher_port;
+  msgh_id = msg->msgh_id;
+  v17 = (v9 & 1) == 0 || msgh_bits >= 0;
+  if ((v9 & 0x100000000) != 0)
+  {
+    if (v17)
+    {
+      v19 = 0;
+    }
+
+    else
+    {
+      v19 = msg[1].msgh_bits;
+    }
+
+    v21 = (msgh_voucher_port | (msgh_id << 32));
+    v22 = (v19 | (*&rcv_name << 32));
+    v23 = ((v10 << 32) | 2);
+    msg = v27;
+    v24 = v9 | 0x400000000;
+    v20 = (msgh_bits | 0x200000000);
+  }
+
+  else
+  {
+    if (v17)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v18 = msg[1].msgh_bits;
+    }
+
+    v20 = (msgh_bits | (*&send_size << 32));
+    v21 = (msgh_voucher_port | (msgh_id << 32));
+    v22 = (v18 | (*&rcv_name << 32));
+    v23 = (rcv_size | (v10 << 32));
+    v24 = v9 | 0x400000000;
+  }
+
+  return mach_msg2_internal(msg, v24, v20, v13, v21, v22, v23, v11);
+}
+
 void mig_dealloc_reply_port(mach_port_t reply_port)
 {
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
@@ -7986,6 +6893,17 @@ void mig_dealloc_reply_port(mach_port_t reply_port)
 
     *(StatusReg + 16) = 0;
   }
+}
+
+int proc_pidinfo(int pid, int flavor, uint64_t arg, void *buffer, int buffersize)
+{
+  result = __proc_info(&dword_0 + 2, *&pid, *&flavor, arg, buffer, *&buffersize, v5, v6);
+  if (result == -1)
+  {
+    return 0;
+  }
+
+  return result;
 }
 
 int chmod(const char *a1, mode_t a2)
@@ -8379,7 +7297,7 @@ void __stackAllocatorInternal()
 
 void dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::growTo(int8x16_t *a1, uint64_t *a2)
 {
-  v3 = OUTLINED_FUNCTION_0(a1, a2, "OverflowSafeArray failed to allocate 0x");
+  v3 = OUTLINED_FUNCTION_0(a1, "OverflowSafeArray failed to allocate 0x", a2);
   OUTLINED_FUNCTION_2(v3, " bytes, vm_allocate returned: 0x");
   v5 = OUTLINED_FUNCTION_1(v4);
   OUTLINED_FUNCTION_2(v5, "\n");
@@ -8506,13 +7424,13 @@ void lsl::MemoryManager::vm_allocate_bytes(char *a1, uint64_t a2, uint64_t *a3, 
   strcpy(a1, "Could not vm_allocate 0x");
   appended = appendHexToString<unsigned long long>(a1, a2, 0x400uLL, *" vm_allocate 0x", a6);
   v10 = OUTLINED_FUNCTION_0_0(appended, "\n\tRequested size: 0x");
-  v13 = OUTLINED_FUNCTION_1_0(v11, v12, v10, a3[8]);
+  v13 = OUTLINED_FUNCTION_1_0(v10, a3[8], v11, v12);
   v14 = OUTLINED_FUNCTION_0_0(v13, "\n\tRequested allgnment: 0x");
-  v17 = OUTLINED_FUNCTION_1_0(v15, v16, v14, a3[7]);
+  v17 = OUTLINED_FUNCTION_1_0(v14, a3[7], v15, v16);
   v18 = OUTLINED_FUNCTION_0_0(v17, "\n\tRequested target size: 0x");
-  v21 = OUTLINED_FUNCTION_1_0(v19, v20, v18, a3[10]);
+  v21 = OUTLINED_FUNCTION_1_0(v18, a3[10], v19, v20);
   v22 = OUTLINED_FUNCTION_0_0(v21, "\n\tRequested target allgnment: 0x");
-  v25 = OUTLINED_FUNCTION_1_0(v23, v24, v22, a3[9]);
+  v25 = OUTLINED_FUNCTION_1_0(v22, a3[9], v23, v24);
   OUTLINED_FUNCTION_0_0(v25, "\n\tkern return: 0x");
   appendHexToString<int>(a1, a4, 0x400uLL, v26);
   qword_A8310 = a1;
@@ -8635,7 +7553,7 @@ void DyldSharedCache::forEachPatchableUseOfExportInImage()
 
 void ___ZNK15DyldSharedCache34forEachPatchableUseOfExportInImageEjjjU13block_pointerFvjN5dyld39MachOFile15PointerMetaDataEybE_block_invoke_2_cold_1(int8x16_t *a1, uint64_t *a2, __int32 a3)
 {
-  v5 = OUTLINED_FUNCTION_0(a1, a2, "OverflowSafeArray failed to allocate 0x");
+  v5 = OUTLINED_FUNCTION_0(a1, "OverflowSafeArray failed to allocate 0x", a2);
   OUTLINED_FUNCTION_2(v5, " bytes, vm_allocate returned: 0x");
   appended = appendHexToString<int>(a1->i8, a3, 0x100uLL, v6);
   OUTLINED_FUNCTION_2(appended, "\n");
@@ -8919,10 +7837,10 @@ void dyld3::OverflowSafeArray<mach_o::Header::validSemanticsSegments(mach_o::Pol
 
 void abort_with_payload_wrapper_internal(void *a1, void *a2, void *a3, void *a4, void *a5, unint64_t a6)
 {
-  v15 = 32;
-  sigprocmask(2, &v15, 0);
+  v16 = 32;
+  sigprocmask(2, &v16, 0);
   __abort_with_payload(a1, a2, a3, a4, a5, a6, v12, v13);
   v14 = getpid();
-  terminate_with_payload(v14, a1, a2, a3, a4, a5, a6 | 0x200);
+  terminate_with_payload(v14, a1, a2, a3, a4, a5, (a6 | 0x200), v15);
   __break(1u);
 }

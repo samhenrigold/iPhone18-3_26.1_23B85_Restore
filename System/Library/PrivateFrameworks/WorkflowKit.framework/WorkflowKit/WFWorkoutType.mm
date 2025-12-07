@@ -26,8 +26,8 @@
 
 + (id)allTypes
 {
-  _allWorkoutActivityTypes = [(objc_class *)getHKWorkoutClass() _allWorkoutActivityTypes];
-  v3 = [_allWorkoutActivityTypes if_map:&__block_literal_global_3605];
+  v2 = [getHKWorkoutClass(self a2)];
+  v3 = [v2 if_map:&__block_literal_global_3605];
   v4 = [v3 sortedArrayUsingComparator:&__block_literal_global_457];
 
   return v4;

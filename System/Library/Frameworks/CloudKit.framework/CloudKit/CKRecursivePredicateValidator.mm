@@ -19,7 +19,7 @@
 
 - (BOOL)validate:(id)validate error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   validateCopy = validate;
   v9 = objc_msgSend_validator(self, v7, v8);
   v11 = objc_msgSend_validate_error_(v9, v10, validateCopy, error);
@@ -29,33 +29,33 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v14 = objc_msgSend_subpredicates(validateCopy, v12, v13, 0);
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v24, v28, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v23, v27, 16);
       if (v16)
       {
         v18 = v16;
-        v19 = *v25;
+        v19 = *v24;
         while (2)
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v25 != v19)
+            if (*v24 != v19)
             {
               objc_enumerationMutation(v14);
             }
 
-            if (!objc_msgSend_validate_error_(self, v17, *(*(&v24 + 1) + 8 * i), error))
+            if (!objc_msgSend_validate_error_(self, v17, *(*(&v23 + 1) + 8 * i), error))
             {
               v21 = 0;
               goto LABEL_15;
             }
           }
 
-          v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v24, v28, 16);
+          v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v23, v27, 16);
           if (v18)
           {
             continue;
@@ -80,7 +80,6 @@ LABEL_15:
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

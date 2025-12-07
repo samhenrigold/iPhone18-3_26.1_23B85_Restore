@@ -88,7 +88,7 @@ void TSTTableRepDrawFrozenHeaderRegion(TSTTableRep *a1, TSTLayoutSpace *a2, CALa
       height = ClipBoundingBox.size.height;
       if (a1)
       {
-        [(TSTTableRep *)a1 transformFromCanvas];
+        objc_msgSend_transformFromCanvas(a1);
       }
 
       else
@@ -281,11 +281,11 @@ uint64_t TSTTableRepDrawRangeInContext(void *a1, unint64_t a2, uint64_t a3)
   return [v15 performActionOnEachLayoutSpace:v17];
 }
 
-uint64_t __TSTTableRepDrawRangeInContext_block_invoke(uint64_t a1, TSTLayoutSpace *a2)
+uint64_t __TSTTableRepDrawRangeInContext_block_invoke(void *a1, TSTLayoutSpace *a2)
 {
   if (![(TSTLayoutSpace *)a2 isFrozen])
   {
-    v4 = TSTLayoutSpaceIntersectionGridRange(a2, *(a1 + 48), *(a1 + 56));
+    v4 = TSTLayoutSpaceIntersectionGridRange(a2, a1[6], a1[7]);
     v6 = HIDWORD(v5);
     if (HIDWORD(v4) == 0xFFFFFFFF || v6 == 0xFFFFFFFF || HIDWORD(v4) > v6)
     {
@@ -308,7 +308,7 @@ uint64_t __TSTTableRepDrawRangeInContext_block_invoke(uint64_t a1, TSTLayoutSpac
       v12 = 16711680;
     }
 
-    TSTTableRepDrawSpaceRangeInContext(*(a1 + 32), a2, v12 & 0xFFFFFFFFFFFF0000 | WORD2(v4) | (((v9 >> 16) & 0xFFFF0000 | v9) << 32), *(a1 + 40));
+    TSTTableRepDrawSpaceRangeInContext(a1[4], a2, v12 & 0xFFFFFFFFFFFF0000 | WORD2(v4) | (((v9 >> 16) & 0xFFFF0000 | v9) << 32), a1[5]);
   }
 
   return 0;
@@ -327,7 +327,7 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
     v6 = BYTE2(a3);
   }
 
-  v252[16] = *MEMORY[0x277D85DE8];
+  v254[16] = *MEMORY[0x277D85DE8];
   v7 = a3;
   if (WORD2(a3))
   {
@@ -397,8 +397,8 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
             TSTTableRepPrepareToDrawLayoutSpace(a1, a2, a4);
             v18 = [(TSTTableRep *)a1 masterLayout];
             [(TSTTableRep *)a1 tableModel];
-            v211 = [MEMORY[0x277CBEB18] array];
-            v212 = [(TSTTableRep *)a1 currentAnimation];
+            v213 = [MEMORY[0x277CBEB18] array];
+            v214 = [(TSTTableRep *)a1 currentAnimation];
             Range = TSTMasterLayoutGetRange(v18);
             v20 = BYTE2(Range);
             if (BYTE2(Range) == 255)
@@ -429,8 +429,8 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
               v24 = 0xFFFFFFFF00000000;
             }
 
-            v251[0] = v23;
-            v251[1] = v24 | v21;
+            v253[0] = v23;
+            v253[1] = v24 | v21;
             EntireHeaderColumnsCellRange = TSTMasterLayoutGetEntireHeaderColumnsCellRange(v18);
             v26 = BYTE2(EntireHeaderColumnsCellRange);
             if (BYTE2(EntireHeaderColumnsCellRange) == 255)
@@ -461,8 +461,8 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
               v30 = 0xFFFFFFFF00000000;
             }
 
-            v251[2] = v29;
-            v251[3] = v30 | v27;
+            v253[2] = v29;
+            v253[3] = v30 | v27;
             EntireHeaderRowsCellRange = TSTMasterLayoutGetEntireHeaderRowsCellRange(v18);
             v32 = BYTE2(EntireHeaderRowsCellRange);
             if (BYTE2(EntireHeaderRowsCellRange) == 255)
@@ -493,8 +493,8 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
               v36 = 0xFFFFFFFF00000000;
             }
 
-            v251[4] = v35;
-            v251[5] = v36 | v33;
+            v253[4] = v35;
+            v253[5] = v36 | v33;
             EntireFooterRowsCellRange = TSTMasterLayoutGetEntireFooterRowsCellRange(v18);
             v38 = 0;
             v39 = BYTE2(EntireFooterRowsCellRange);
@@ -526,12 +526,12 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
               v43 = 0xFFFFFFFF00000000;
             }
 
-            v251[6] = v42;
-            v251[7] = v43 | v40;
+            v253[6] = v42;
+            v253[7] = v43 | v40;
             do
             {
-              v45 = v251[v38];
-              v44 = v251[v38 + 1];
+              v45 = v253[v38];
+              v44 = v253[v38 + 1];
               v47 = v45 == -1 || v44 == -1 || v45 > v44;
               if (v47 || ((v48 = HIDWORD(v45), v49 = HIDWORD(v44), HIDWORD(v45) != 0xFFFFFFFF) ? (v50 = v49 == 0xFFFFFFFF) : (v50 = 1), !v50 ? (v51 = v48 > v49) : (v51 = 1), v51 || (v5 <= v45 ? (v45 = v45) : (v45 = v5), v8 >= v44 ? (v44 = v44) : (v44 = v8), v45 > v44 || (v17 >= v49 ? (v52 = v49) : (v52 = v17), v9 <= v48 ? (v53 = v48) : (v53 = v9), v53 > v52))))
               {
@@ -545,8 +545,8 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
                 v54 = v45 | (v53 << 32);
               }
 
-              v251[v38] = v54;
-              v251[v38 + 1] = v55;
+              v253[v38] = v54;
+              v253[v38 + 1] = v55;
               v38 += 2;
             }
 
@@ -556,15 +556,15 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
             LODWORD(v58) = -1;
             LODWORD(v59) = -1;
             v60 = a4;
-            v61 = v212;
+            v61 = v214;
             do
             {
-              v63 = v251[v56];
-              v62 = v251[v56 + 1];
+              v63 = v253[v56];
+              v62 = v253[v56 + 1];
               if (v59 == -1 || v57 == -1 || v59 > v57 || v58 == -1 || (v64 = HIDWORD(v57), HIDWORD(v57) == 0xFFFFFFFF) || v64 < v58)
               {
-                v57 = v251[v56 + 1];
-                v59 = v251[v56];
+                v57 = v253[v56 + 1];
+                v59 = v253[v56];
               }
 
               else if (v63 == -1 || v62 == -1 || v63 > v62 || (v65 = HIDWORD(v63), HIDWORD(v63) == 0xFFFFFFFF) || (v66 = HIDWORD(v62), HIDWORD(v62) == 0xFFFFFFFF) || v65 > v66)
@@ -658,8 +658,8 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
               goto LABEL_468;
             }
 
-            v74 = [(TSTAnimation *)v212 enabled];
-            v210 = v59;
+            v74 = [(TSTAnimation *)v214 enabled];
+            v212 = v59;
             if (v74)
             {
               v75 = [(TSDBezierPath *)TSTLayoutSpaceGetAlignedStrokeFramePathForGridRange(a2 CGPath:v59];
@@ -672,12 +672,12 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
             }
 
             v76 = a1;
-            if ([(TSTAnimation *)v212 drawTableName])
+            if ([(TSTAnimation *)v214 drawTableName])
             {
-              TSTTableRepDrawTableName(a1, a4, v212);
+              TSTTableRepDrawTableName(a1, a4, v214);
             }
 
-            if ((![(TSTAnimation *)v212 enabled]|| [(TSTAnimation *)v212 drawTableBackground]) && TSTTableGetBackgroundFill())
+            if ((![(TSTAnimation *)v214 enabled]|| [(TSTAnimation *)v214 drawTableBackground]) && TSTTableGetBackgroundFill())
             {
               CGContextSaveGState(a4);
               if (v74)
@@ -687,15 +687,15 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
               }
 
               CGContextSetBlendMode(a4, kCGBlendModeClear);
-              v253.origin.x = TSTLayoutSpaceGetFrame(a2);
-              CGContextFillRect(a4, v253);
+              v255.origin.x = TSTLayoutSpaceGetFrame(a2);
+              CGContextFillRect(a4, v255);
               CGContextRestoreGState(a4);
             }
 
-            v206 = v74;
-            if (v210)
+            v208 = v74;
+            if (v212)
             {
-              v77 = v210 - 1;
+              v77 = v212 - 1;
             }
 
             else
@@ -758,10 +758,10 @@ void TSTTableRepDrawSpaceRangeInContext(TSTTableRep *a1, TSTLayoutSpace *a2, uni
               }
             }
 
-            v207 = v83;
-            v208 = v82;
-            v89 = v206;
-            if ([(TSTAnimation *)v212 enabled]&& ![(TSTAnimation *)v212 drawCellBackground])
+            v209 = v83;
+            v210 = v82;
+            v89 = v208;
+            if ([(TSTAnimation *)v214 enabled]&& ![(TSTAnimation *)v214 drawCellBackground])
             {
 LABEL_228:
               if (![(TSTAnimation *)v61 enabled]|| [(TSTAnimation *)v61 drawCellContent])
@@ -773,13 +773,13 @@ LABEL_228:
                   CGContextClip(v60);
                 }
 
-                TSTTableRepDrawCellContent(v76, a2, v210, v57, v60);
+                TSTTableRepDrawCellContent(v76, a2, v212, v57, v60);
                 CGContextRestoreGState(v60);
               }
 
               if ([(TSTAnimation *)v61 enabled]&& ![(TSTAnimation *)v61 drawStrokes])
               {
-                v99 = v211;
+                v99 = v213;
                 v100 = path;
                 if (![(TSTAnimation *)v61 enabled])
                 {
@@ -793,31 +793,31 @@ LABEL_449:
                       CGContextClip(v60);
                     }
 
-                    v247 = 0u;
-                    v248 = 0u;
                     v249 = 0u;
                     v250 = 0u;
-                    v195 = [v99 countByEnumeratingWithState:&v247 objects:v252 count:16];
-                    if (v195)
+                    v251 = 0u;
+                    v252 = 0u;
+                    v197 = [v99 countByEnumeratingWithState:&v249 objects:v254 count:16];
+                    if (v197)
                     {
-                      v196 = v195;
-                      v197 = *v248;
+                      v198 = v197;
+                      v199 = *v250;
                       do
                       {
-                        for (i = 0; i != v196; ++i)
+                        for (i = 0; i != v198; ++i)
                         {
-                          if (*v248 != v197)
+                          if (*v250 != v199)
                           {
                             objc_enumerationMutation(v99);
                           }
 
-                          [*(*(&v247 + 1) + 8 * i) drawInContext:v60];
+                          [*(*(&v249 + 1) + 8 * i) drawInContext:v60];
                         }
 
-                        v196 = [v99 countByEnumeratingWithState:&v247 objects:v252 count:16];
+                        v198 = [v99 countByEnumeratingWithState:&v249 objects:v254 count:16];
                       }
 
-                      while (v196);
+                      while (v198);
                     }
 
                     CGContextRestoreGState(v60);
@@ -825,9 +825,9 @@ LABEL_449:
 
                   if ((![(TSTAnimation *)v61 enabled]|| [(TSTAnimation *)v61 drawTableBackground]) && TSTTableGetBackgroundFill())
                   {
-                    v199 = [MEMORY[0x277D6C290] currentHandler];
-                    v200 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTTableRepDrawGridRange(TSTTableRep *, TSTLayoutSpace *, TSTGridRange, TSTAnimation *, CGContextRef)"}];
-                    [v199 handleFailureInFunction:v200 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableRep.mm"), 5999, @"background fill is not supported yet"}];
+                    v201 = [MEMORY[0x277D6C290] currentHandler];
+                    v202 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTTableRepDrawGridRange(TSTTableRep *, TSTLayoutSpace *, TSTGridRange, TSTAnimation *, CGContextRef)"}];
+                    [v201 handleFailureInFunction:v202 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableRep.mm"), 5999, @"background fill is not supported yet"}];
                   }
 
                   if (v100)
@@ -851,29 +851,29 @@ LABEL_468:
                   CGContextClip(v60);
                 }
 
-                v101 = v208;
-                if (v208 == -1)
+                v101 = v210;
+                if (v210 == -1)
                 {
-                  v102 = v207;
+                  v102 = v209;
                 }
 
                 else
                 {
-                  v102 = v207;
-                  if (v207 != -1 && v208 <= v207 && HIDWORD(v208) != 0xFFFFFFFF && HIDWORD(v207) != 0xFFFFFFFF && HIDWORD(v208) <= HIDWORD(v207))
+                  v102 = v209;
+                  if (v209 != -1 && v210 <= v209 && HIDWORD(v210) != 0xFFFFFFFF && HIDWORD(v209) != 0xFFFFFFFF && HIDWORD(v210) <= HIDWORD(v209))
                   {
-                    v102 = (v207 & 0xFFFFFFFF00000000 | (v207 + 1)) + 0x100000000;
+                    v102 = (v209 & 0xFFFFFFFF00000000 | (v209 + 1)) + 0x100000000;
                   }
                 }
 
-                v193 = a2;
-                v194 = 1;
+                v195 = a2;
+                v196 = 1;
               }
 
               else
               {
                 CGContextSaveGState(v60);
-                v99 = v211;
+                v99 = v213;
                 v100 = path;
                 if (v89)
                 {
@@ -881,103 +881,103 @@ LABEL_468:
                   CGContextClip(v60);
                 }
 
-                v101 = v208;
-                if (v208 == -1)
+                v101 = v210;
+                if (v210 == -1)
                 {
-                  v102 = v207;
+                  v102 = v209;
                 }
 
                 else
                 {
-                  v102 = v207;
-                  if (v207 != -1 && v208 <= v207 && HIDWORD(v208) != 0xFFFFFFFF && HIDWORD(v207) != 0xFFFFFFFF && HIDWORD(v208) <= HIDWORD(v207))
+                  v102 = v209;
+                  if (v209 != -1 && v210 <= v209 && HIDWORD(v210) != 0xFFFFFFFF && HIDWORD(v209) != 0xFFFFFFFF && HIDWORD(v210) <= HIDWORD(v209))
                   {
-                    v102 = (v207 & 0xFFFFFFFF00000000 | (v207 + 1)) + 0x100000000;
+                    v102 = (v209 & 0xFFFFFFFF00000000 | (v209 + 1)) + 0x100000000;
                   }
                 }
 
-                v193 = a2;
-                v194 = 0;
+                v195 = a2;
+                v196 = 0;
               }
 
-              TSTLayoutSpaceDrawStrokes(v193, v101, v102, v194, v60);
+              TSTLayoutSpaceDrawStrokes(v195, v101, v102, v196, v60);
               CGContextRestoreGState(v60);
               goto LABEL_449;
             }
 
             CGContextSaveGState(a4);
-            if (v206)
+            if (v208)
             {
               CGContextAddPath(a4, path);
               CGContextClip(a4);
             }
 
-            v91 = v207;
-            v90 = v208;
-            if (v212)
+            v91 = v209;
+            v90 = v210;
+            if (v214)
             {
-              if (![(TSTAnimation *)v212 enabled]|| (v92 = [(TSTAnimation *)v212 expandBackgroundFill], v91 = v207, v90 = v208, !v92))
+              if (![(TSTAnimation *)v214 enabled]|| (v92 = [(TSTAnimation *)v214 expandBackgroundFill], v91 = v209, v90 = v210, !v92))
               {
-                v90 = v210;
+                v90 = v212;
                 v91 = v57;
               }
             }
 
-            v214 = v90;
-            v225 = HIDWORD(v90);
-            v213 = HIDWORD(v91);
+            v216 = v90;
+            v227 = HIDWORD(v90);
+            v215 = HIDWORD(v91);
             v93 = [(TSTTableRep *)a1 tableLayout];
-            v246 = [(TSTTableRep *)a1 masterLayout];
-            v231 = v93;
-            v240 = [(TSTTableInfo *)[(TSTLayout *)v93 tableInfo] tableModel];
+            v248 = [(TSTTableRep *)a1 masterLayout];
+            v233 = v93;
+            v242 = [(TSTTableInfo *)[(TSTLayout *)v93 tableInfo] tableModel];
             v94 = 0;
-            if (v214 != -1 && v91 != -1 && v214 <= v91)
+            if (v216 != -1 && v91 != -1 && v216 <= v91)
             {
               v94 = 0;
-              if (v225 != 0xFFFFFFFF && v213 != 0xFFFFFFFF && v225 <= v213)
+              if (v227 != 0xFFFFFFFF && v215 != 0xFFFFFFFF && v227 <= v215)
               {
-                v94 = ((v91 - (v214 & 0xFFFFFFFF00000000)) & 0xFFFFFFFF00000000 | (v91 - v214 + 1)) + 0x100000000;
+                v94 = ((v91 - (v216 & 0xFFFFFFFF00000000)) & 0xFFFFFFFF00000000 | (v91 - v216 + 1)) + 0x100000000;
               }
             }
 
-            v205 = v57;
-            if (v214 == -1)
+            v207 = v57;
+            if (v216 == -1)
             {
               v95 = 16711680;
             }
 
             else
             {
-              v95 = v214 << 16;
+              v95 = v216 << 16;
             }
 
             v96 = (v94 >> 16) & 0xFFFF0000;
-            v221 = [(TSTMasterLayout *)v246 useBandedFill];
-            v233 = objc_alloc_init(TSTCell);
-            v244 = objc_alloc_init(TSTCell);
-            v235 = [MEMORY[0x277CBEB68] null];
-            if ([(TSTMasterLayout *)v246 isDynamicallySwappingColumns]|| [(TSTMasterLayout *)v246 isDynamicallySwappingRows])
+            v223 = [(TSTMasterLayout *)v248 useBandedFill];
+            v235 = objc_alloc_init(TSTCell);
+            v246 = objc_alloc_init(TSTCell);
+            v237 = [MEMORY[0x277CBEB68] null];
+            if ([(TSTMasterLayout *)v248 isDynamicallySwappingColumns]|| [(TSTMasterLayout *)v248 isDynamicallySwappingRows])
             {
-              v97 = v240;
-              v98 = [(TSTTableModel *)v240 range];
+              v97 = v242;
+              v98 = [(TSTTableModel *)v242 range];
               v76 = a1;
             }
 
             else
             {
-              v98 = WORD2(v214) | ((v96 | v94) << 32) | v95;
+              v98 = WORD2(v216) | ((v96 | v94) << 32) | v95;
               v76 = a1;
-              v97 = v240;
+              v97 = v242;
             }
 
-            v223 = TSTTableMergeRangesForCellRange(v97, v98);
-            v228 = [v223 count];
+            v225 = TSTTableMergeRangesForCellRange(v97, v98);
+            v230 = [v225 count];
             if (![(TSDCanvas *)[(TSDRep *)v76 canvas] isCanvasInteractive])
             {
               CGContextBeginTransparencyLayer(a4, 0);
             }
 
-            if (v225 > v213)
+            if (v227 > v215)
             {
 LABEL_223:
               v60 = a4;
@@ -987,9 +987,9 @@ LABEL_223:
                 CGContextFillRect(a4, v76->mSearchSelectionBounds);
               }
 
-              v61 = v212;
-              v89 = v206;
-              v57 = v205;
+              v61 = v214;
+              v89 = v208;
+              v57 = v207;
               if (![(TSDCanvas *)[(TSDRep *)v76 canvas] isCanvasInteractive])
               {
                 CGContextEndTransparencyLayer(a4);
@@ -1010,49 +1010,49 @@ LABEL_223:
             }
 
             v104 = v103;
-            v227 = v104;
-            v224 = v225 + WORD2(v94) - 1;
-            v222 = v95 >> 16;
-            v219 = v94 + WORD1(v95) + 255;
-            v106 = WORD2(v214) == 0xFFFFLL || v95 == 16711680;
-            v215 = v106;
-            LOWORD(VisibleRow) = v225;
-            v217 = v91;
+            v229 = v104;
+            v226 = v227 + WORD2(v94) - 1;
+            v224 = v95 >> 16;
+            v221 = v94 + WORD1(v95) + 255;
+            v106 = WORD2(v216) == 0xFFFFLL || v95 == 16711680;
+            v217 = v106;
+            LOWORD(VisibleRow) = v227;
+            v219 = v91;
             while (1)
             {
-              v108 = v240;
-              v230 = VisibleRow;
-              RowFill = TSTTableGetRowFill(v240, VisibleRow);
-              if (v214 <= v91)
+              v108 = v242;
+              v232 = VisibleRow;
+              RowFill = TSTTableGetRowFill(v242, VisibleRow);
+              if (v216 <= v91)
               {
                 break;
               }
 
 LABEL_258:
-              VisibleRow = TSTMasterLayoutNextVisibleRow(v246, (VisibleRow + 1));
-              if (VisibleRow > v213)
+              VisibleRow = TSTMasterLayoutNextVisibleRow(v248, (VisibleRow + 1));
+              if (VisibleRow > v215)
               {
                 goto LABEL_223;
               }
             }
 
-            v229 = RowFill;
-            v110 = v214 << 16;
-            v111 = v214;
-            v234 = VisibleRow;
+            v231 = RowFill;
+            v110 = v216 << 16;
+            v111 = v216;
+            v236 = VisibleRow;
             while (1)
             {
-              v242 = v110;
-              v112 = v110 & 0xFF0000 | v230;
-              v252[0] = 0;
-              if (!v228)
+              v244 = v110;
+              v112 = v110 & 0xFF0000 | v232;
+              v254[0] = 0;
+              if (!v230)
               {
                 break;
               }
 
-              v232 = v232 & 0xFFFFFFFF00000000 | v112;
-              [(TSTMasterLayout *)v246 modelCellIDForLayoutCellID:?];
-              v113 = [v223 mergedRangeForCellID:?];
+              v234 = v234 & 0xFFFFFFFF00000000 | v112;
+              [(TSTMasterLayout *)v248 modelCellIDForLayoutCellID:?];
+              v113 = [v225 mergedRangeForCellID:?];
               v114 = 0;
               if (v113 == 0xFFFF || (v113 & 0xFF0000) == 0xFF0000)
               {
@@ -1064,17 +1064,17 @@ LABEL_258:
                 break;
               }
 
-              v218 = v218 & 0xFFFFFFFF00000000 | v113;
-              v120 = [(TSTMasterLayout *)v246 layoutCellIDForModelCellID:?];
+              v220 = v220 & 0xFFFFFFFF00000000 | v113;
+              v120 = [(TSTMasterLayout *)v248 layoutCellIDForModelCellID:?];
               VisibleRow = HIWORD(*&v120);
               v114 = *&v120 & 0xFF000000;
 LABEL_271:
-              v243 = v243 & 0xFFFFFFFF00000000 | v112;
-              v116 = [(TSTMasterLayout *)v246 tableAreaForCellID:?];
-              [(TSTTableModel *)v108 defaultCell:v244 forTableArea:v116];
-              CellFill = TSTCellGetCellFill(v244);
+              v245 = v245 & 0xFFFFFFFF00000000 | v112;
+              v116 = [(TSTMasterLayout *)v248 tableAreaForCellID:?];
+              [(TSTTableModel *)v108 defaultCell:v246 forTableArea:v116];
+              CellFill = TSTCellGetCellFill(v246);
               ColumnFill = TSTTableGetColumnFill(v108, VisibleRow);
-              v118 = [(TSTLayout *)v231 editingSpillingTextRange];
+              v118 = [(TSTLayout *)v233 editingSpillingTextRange];
               v119 = 0;
               if (v118 != 0xFFFF && (v118 & 0xFF0000) != 0xFF0000)
               {
@@ -1100,11 +1100,11 @@ LABEL_271:
                 }
               }
 
-              v239 = v112;
+              v241 = v112;
               v121 = v91;
               v122 = v120.var0 | (VisibleRow << 16);
               v123 = v122 | v114;
-              if ([(TSTMasterLayout *)v246 isDynamicallyChangingContent])
+              if ([(TSTMasterLayout *)v248 isDynamicallyChangingContent])
               {
                 if (v119)
                 {
@@ -1112,9 +1112,9 @@ LABEL_271:
                   v125 = v124;
                   if (v124.var0 == 0xFFFF || (*&v124 & 0xFF0000) == 0xFF0000)
                   {
-                    v216 = [MEMORY[0x277D6C290] currentHandler];
+                    v218 = [MEMORY[0x277D6C290] currentHandler];
                     v126 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTTableRepDrawBackgroundFill(TSTTableRep *, TSTLayoutSpace *, TSTGridRange, CGContextRef)"}];
-                    [v216 handleFailureInFunction:v126 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableRep.mm"), 5129, @"Valid editing spilling text range but no editing cell ID"}];
+                    [v218 handleFailureInFunction:v126 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableRep.mm"), 5129, @"Valid editing spilling text range but no editing cell ID"}];
                   }
                 }
 
@@ -1123,12 +1123,12 @@ LABEL_271:
                   v125 = v122 | v114;
                 }
 
-                v226 = v125 | v226 & 0xFFFFFFFF00000000;
-                if ([(TSTLayoutDynamicContentProtocol *)[(TSTMasterLayout *)v246 dynamicContentDelegate] cell:v252 forCellID:v226])
+                v228 = v125 | v228 & 0xFFFFFFFF00000000;
+                if ([(TSTLayoutDynamicContentProtocol *)[(TSTMasterLayout *)v248 dynamicContentDelegate] cell:v254 forCellID:v228])
                 {
-                  v127 = v252[0];
+                  v127 = v254[0];
                   v76 = a1;
-                  v128 = v233;
+                  v128 = v235;
 LABEL_290:
                   TSTCellCopyJustStyleAndStrokes(v127, v128);
                   goto LABEL_291;
@@ -1137,57 +1137,57 @@ LABEL_290:
                 v76 = a1;
               }
 
-              v238 = v238 & 0xFFFFFFFF00000000 | v123;
-              v128 = v233;
-              v129 = TSTCellAtCellIDSuppressingFormula(v240, v123, v233, 1);
-              v127 = v244;
+              v240 = v240 & 0xFFFFFFFF00000000 | v123;
+              v128 = v235;
+              v129 = TSTCellAtCellIDSuppressingFormula(v242, v123, v235, 1);
+              v127 = v246;
               if (v129)
               {
                 goto LABEL_290;
               }
 
 LABEL_291:
-              LOWORD(VisibleRow) = v234;
+              LOWORD(VisibleRow) = v236;
               v130 = v76->mContainedTextEditingRep && ([(TSTEditingState *)[(TSTTableRep *)v76 editingState] editingCellID]& 0xFFFFFF) == v122 || ([(TSTMasterLayout *)[(TSTTableRep *)v76 masterLayout] dynamicSuppressingConditionalStylesCellID]& 0xFFFFFF) == v122;
-              LOBYTE(v247) = 0;
-              CellFillAndIsDefault = TSTCellGetCellFillAndIsDefault(v128, CellFill, v130, &v247);
-              v132 = (v116 == 0) & v247;
-              if (((v116 == 0) & v247) != 0)
+              LOBYTE(v249) = 0;
+              CellFillAndIsDefault = TSTCellGetCellFillAndIsDefault(v128, CellFill, v130, &v249);
+              v133 = (v116 == 0) & v249;
+              if (((v116 == 0) & v249) != 0)
               {
-                v133 = v229;
+                v134 = v231;
               }
 
               else
               {
-                v133 = CellFillAndIsDefault;
+                v134 = CellFillAndIsDefault;
               }
 
-              if (v132 && !v229)
+              if (v133 && !v231)
               {
-                v133 = ColumnFill ? ColumnFill : CellFillAndIsDefault;
-                if (ColumnFill == 0 && v221)
+                v134 = ColumnFill ? ColumnFill : CellFillAndIsDefault;
+                if (ColumnFill == 0 && v223)
                 {
-                  v134 = v239 == v122 ? v234 : v120.var0;
-                  v133 = CellFillAndIsDefault;
-                  if ([(TSTMasterLayout *)v246 shouldRowUseBandedFill:v134])
+                  v135 = v241 == v122 ? v236 : v120.var0;
+                  v134 = CellFillAndIsDefault;
+                  if ([(TSTMasterLayout *)v248 shouldRowUseBandedFill:v135])
                   {
-                    v133 = [(TSTMasterLayout *)v246 bandedFillObject];
+                    v134 = [(TSTMasterLayout *)v248 bandedFillObject];
                   }
                 }
               }
 
-              if (v133)
+              if (v134)
               {
-                v135 = v133 == v235;
+                v136 = v134 == v237;
               }
 
               else
               {
-                v135 = 1;
+                v136 = 1;
               }
 
-              v136 = v135;
-              if ((v136 | v227))
+              v137 = v136;
+              if ((v137 | v229))
               {
                 v91 = v121;
               }
@@ -1195,248 +1195,248 @@ LABEL_291:
               else
               {
                 v91 = v121;
-                if (v225 <= v234 && v224 >= v234 && v222 <= v239 >> 16 && (v239 >> 16) <= v219)
+                if (v227 <= v236 && v226 >= v236 && v224 <= v241 >> 16 && (v241 >> 16) <= v221)
                 {
-                  v137 = TSTMasterLayoutMergeRangeAtCellID([(TSTTableRep *)v76 masterLayout], v239);
-                  v220 = v220 & 0xFFFFFFFF00000000 | v239;
+                  v138 = TSTMasterLayoutMergeRangeAtCellID([(TSTTableRep *)v76 masterLayout], v241);
+                  v222 = v222 & 0xFFFFFFFF00000000 | v241;
                   if (v119)
                   {
-                    v138 = [(TSTLayout *)v231 editingSpillingTextRange];
-                    if (v138 == 0xFFFF)
+                    v139 = [(TSTLayout *)v233 editingSpillingTextRange];
+                    if (v139 == 0xFFFF)
                     {
                       goto LABEL_330;
                     }
 
-                    v139 = 0xFFFFLL;
-                    v140 = 16711680;
-                    if ((v138 & 0xFF0000) != 0xFF0000)
+                    v140 = 0xFFFFLL;
+                    v141 = 16711680;
+                    if ((v139 & 0xFF0000) != 0xFF0000)
                     {
-                      v142 = (v138 & 0xFFFF00000000) == 0 || HIWORD(v138) == 0;
-                      if (v142 || v215)
+                      v143 = (v139 & 0xFFFF00000000) == 0 || HIWORD(v139) == 0;
+                      if (v143 || v217)
                       {
 LABEL_330:
-                        v139 = 0xFFFFLL;
-                        v140 = 16711680;
+                        v140 = 0xFFFFLL;
+                        v141 = 16711680;
                       }
 
                       else
                       {
-                        v139 = 0;
-                        v176 = v219;
-                        v177 = BYTE2(v138);
-                        if (BYTE2(v138) <= v222)
-                        {
-                          v177 = v222;
-                        }
-
-                        if (v138 <= v225)
-                        {
-                          v178 = v225;
-                        }
-
-                        else
-                        {
-                          v178 = v138;
-                        }
-
-                        if ((BYTE4(v138) + BYTE2(v138) - 1) < v219)
-                        {
-                          v176 = (BYTE4(v138) + BYTE2(v138) - 1);
-                        }
-
-                        v179 = (v138 + HIWORD(v138) - 1);
-                        if (v179 >= v224)
+                        v140 = 0;
+                        v178 = v221;
+                        v179 = BYTE2(v139);
+                        if (BYTE2(v139) <= v224)
                         {
                           v179 = v224;
                         }
 
-                        if (v178 > v179)
+                        if (v139 <= v227)
                         {
-                          v140 = 0;
+                          v180 = v227;
                         }
 
                         else
                         {
-                          v140 = 0;
-                          if (v177 <= v176)
+                          v180 = v139;
+                        }
+
+                        if ((BYTE4(v139) + BYTE2(v139) - 1) < v221)
+                        {
+                          v178 = (BYTE4(v139) + BYTE2(v139) - 1);
+                        }
+
+                        v181 = (v139 + HIWORD(v139) - 1);
+                        if (v181 >= v226)
+                        {
+                          v181 = v226;
+                        }
+
+                        if (v180 > v181)
+                        {
+                          v141 = 0;
+                        }
+
+                        else
+                        {
+                          v141 = 0;
+                          if (v179 <= v178)
                           {
-                            v140 = v177 << 16;
-                            v139 = v178;
+                            v141 = v179 << 16;
+                            v140 = v180;
                           }
                         }
                       }
                     }
 
-                    v143 = v140 | v139;
-                    v144 = v143 == v239;
-                    if (v143 == v239)
+                    v144 = v141 | v140;
+                    v145 = v144 == v241;
+                    if (v144 == v241)
                     {
-                      v145 = v138;
+                      v146 = v139;
                     }
 
                     else
                     {
-                      v145 = v239 | 0x1000100000000;
+                      v146 = v241 | 0x1000100000000;
                     }
 
 LABEL_334:
-                    if (!v144)
+                    if (!v145)
                     {
-                      v133 = v235;
+                      v134 = v237;
                     }
                   }
 
                   else
                   {
-                    v145 = v137;
-                    if (v137 != 0xFFFF && (v137 & 0xFF0000) != 0xFF0000 && HIWORD(v137) && (v137 & 0xFFFF00000000) != 0)
+                    v146 = v138;
+                    if (v138 != 0xFFFF && (v138 & 0xFF0000) != 0xFF0000 && HIWORD(v138) && (v138 & 0xFFFF00000000) != 0)
                     {
-                      if (v215)
+                      if (v217)
                       {
-                        v146 = 0xFFFFLL;
-                        v147 = 16711680;
+                        v148 = 0xFFFFLL;
+                        v149 = 16711680;
                       }
 
                       else
                       {
-                        v146 = 0;
-                        v180 = v219;
-                        v181 = BYTE2(v137);
-                        if (BYTE2(v137) <= v222)
-                        {
-                          v181 = v222;
-                        }
-
-                        if (v137 <= v225)
-                        {
-                          v182 = v225;
-                        }
-
-                        else
-                        {
-                          v182 = v137;
-                        }
-
-                        if ((BYTE4(v137) + BYTE2(v137) - 1) < v219)
-                        {
-                          v180 = (BYTE4(v137) + BYTE2(v137) - 1);
-                        }
-
-                        v183 = (v137 + HIWORD(v137) - 1);
-                        if (v183 >= v224)
+                        v148 = 0;
+                        v182 = v221;
+                        v183 = BYTE2(v138);
+                        if (BYTE2(v138) <= v224)
                         {
                           v183 = v224;
                         }
 
-                        if (v182 > v183)
+                        if (v138 <= v227)
                         {
-                          v147 = 0;
+                          v184 = v227;
                         }
 
                         else
                         {
-                          v147 = 0;
-                          if (v181 <= v180)
+                          v184 = v138;
+                        }
+
+                        if ((BYTE4(v138) + BYTE2(v138) - 1) < v221)
+                        {
+                          v182 = (BYTE4(v138) + BYTE2(v138) - 1);
+                        }
+
+                        v185 = (v138 + HIWORD(v138) - 1);
+                        if (v185 >= v226)
+                        {
+                          v185 = v226;
+                        }
+
+                        if (v184 > v185)
+                        {
+                          v149 = 0;
+                        }
+
+                        else
+                        {
+                          v149 = 0;
+                          if (v183 <= v182)
                           {
-                            v147 = v181 << 16;
-                            v146 = v182;
+                            v149 = v183 << 16;
+                            v148 = v184;
                           }
                         }
                       }
 
-                      v144 = (v147 | v146) == v239;
+                      v145 = (v149 | v148) == v241;
                       goto LABEL_334;
                     }
 
-                    v145 = v239 | 0x1000100000000;
+                    v146 = v241 | 0x1000100000000;
                   }
 
-                  v148 = BYTE2(v145);
-                  if (BYTE2(v145) == 255)
-                  {
-                    v149 = -1;
-                  }
-
-                  else
-                  {
-                    v149 = BYTE2(v145);
-                  }
-
-                  v150 = v145;
-                  if (WORD2(v145))
-                  {
-                    v151 = WORD2(v145) + v149 - 1;
-                  }
-
-                  else
+                  v150 = BYTE2(v146);
+                  if (BYTE2(v146) == 255)
                   {
                     v151 = -1;
                   }
 
-                  if (v145 == 0xFFFF)
+                  else
                   {
-                    v152 = 0xFFFFFFFFLL;
+                    v151 = BYTE2(v146);
+                  }
+
+                  v152 = v146;
+                  if (WORD2(v146))
+                  {
+                    v153 = WORD2(v146) + v151 - 1;
                   }
 
                   else
                   {
-                    v152 = v145;
+                    v153 = -1;
                   }
 
-                  v153 = TSTLayoutSpaceGetGridRange(a2);
-                  if (HIWORD(v145))
+                  if (v146 == 0xFFFF)
                   {
-                    v155 = ((((HIDWORD(v145) << 16) - 0x100000000) >> 32) + v152);
+                    v154 = 0xFFFFFFFFLL;
                   }
 
                   else
                   {
-                    v155 = 0xFFFFFFFFLL;
+                    v154 = v146;
                   }
 
-                  v156 = -1;
-                  if (BYTE2(v145) == 255 || v151 == -1)
+                  v155 = TSTLayoutSpaceGetGridRange(a2);
+                  if (HIWORD(v146))
                   {
-                    v157 = -1;
+                    v157 = ((((HIDWORD(v146) << 16) - 0x100000000) >> 32) + v154);
+                  }
+
+                  else
+                  {
+                    v157 = 0xFFFFFFFFLL;
+                  }
+
+                  v158 = -1;
+                  if (BYTE2(v146) == 255 || v153 == -1)
+                  {
+                    v159 = -1;
                     v76 = a1;
                   }
 
                   else
                   {
-                    v157 = -1;
-                    v47 = v149 > v151;
+                    v159 = -1;
+                    v47 = v151 > v153;
                     v76 = a1;
-                    if (!v47 && v150 != 0xFFFF && v155 != 0xFFFFFFFF && v155 >= v152 && v153 != -1 && v154 != -1 && v153 <= v154)
+                    if (!v47 && v152 != 0xFFFF && v157 != 0xFFFFFFFF && v157 >= v154 && v155 != -1 && v156 != -1 && v155 <= v156)
                     {
-                      v158 = HIDWORD(v153);
-                      if (HIDWORD(v153) != 0xFFFFFFFF)
+                      v160 = HIDWORD(v155);
+                      if (HIDWORD(v155) != 0xFFFFFFFF)
                       {
-                        v159 = HIDWORD(v154);
-                        if (HIDWORD(v154) != 0xFFFFFFFF && v158 <= v159)
+                        v161 = HIDWORD(v156);
+                        if (HIDWORD(v156) != 0xFFFFFFFF && v160 <= v161)
                         {
-                          v160 = v148 <= v153 ? v153 : v148;
-                          v161 = v151 >= v154 ? v154 : v151;
-                          if (v160 <= v161)
+                          v162 = v150 <= v155 ? v155 : v150;
+                          v163 = v153 >= v156 ? v156 : v153;
+                          if (v162 <= v163)
                           {
-                            if (v155 < v159)
+                            if (v157 < v161)
                             {
-                              v159 = v155;
+                              v161 = v157;
                             }
 
-                            if (v152 <= v158)
+                            if (v154 <= v160)
                             {
-                              v162 = HIDWORD(v153);
+                              v164 = HIDWORD(v155);
                             }
 
                             else
                             {
-                              v162 = v152;
+                              v164 = v154;
                             }
 
-                            if (v162 <= v159)
+                            if (v164 <= v161)
                             {
-                              v157 = v161 | (v159 << 32);
-                              v156 = v160 | (v162 << 32);
+                              v159 = v163 | (v161 << 32);
+                              v158 = v162 | (v164 << 32);
                             }
                           }
                         }
@@ -1444,103 +1444,103 @@ LABEL_334:
                     }
                   }
 
-                  AlignedFrameForGridRange = TSTLayoutSpaceGetAlignedFrameForGridRange(a2, v156, v157);
-                  if (v133 == v235)
+                  AlignedFrameForGridRange = TSTLayoutSpaceGetAlignedFrameForGridRange(a2, v158, v159);
+                  if (v134 == v237)
                   {
-                    v108 = v240;
-                    v128 = v233;
-                    v91 = v217;
-                    LOWORD(VisibleRow) = v234;
+                    v108 = v242;
+                    v128 = v235;
+                    v91 = v219;
+                    LOWORD(VisibleRow) = v236;
                   }
 
                   else
                   {
-                    v167 = AlignedFrameForGridRange;
-                    v168 = v164;
-                    v169 = v165;
+                    v169 = AlignedFrameForGridRange;
                     v170 = v166;
+                    v171 = v167;
+                    v172 = v168;
                     objc_opt_class();
-                    v108 = v240;
-                    v128 = v233;
-                    v91 = v217;
-                    LOWORD(VisibleRow) = v234;
+                    v108 = v242;
+                    v128 = v235;
+                    v91 = v219;
+                    LOWORD(VisibleRow) = v236;
                     if (objc_opt_isKindOfClass())
                     {
-                      if (![(TSDFill *)v133 isClear])
+                      if (![(TSDFill *)v134 isClear])
                       {
-                        [(TSDFill *)v133 paintRect:a4 inContext:v167, v168, v169, v170];
+                        [(TSDFill *)v134 paintRect:a4 inContext:v169, v170, v171, v172];
                       }
                     }
 
                     else
                     {
-                      v171 = MEMORY[0x277CCACA8];
-                      v172 = HIDWORD(v156);
-                      if (v156 != -1 || (v173 = @"{invalid, invalid}", v172 != 0xFFFFFFFF))
+                      v173 = MEMORY[0x277CCACA8];
+                      v174 = HIDWORD(v158);
+                      if (v158 != -1 || (v175 = @"{invalid, invalid}", v174 != 0xFFFFFFFF))
                       {
-                        if (v156 == -1)
+                        if (v158 == -1)
                         {
-                          v202 = HIDWORD(v156);
-                          v184 = MEMORY[0x277CCACA8];
-                          v185 = [MEMORY[0x277CCACA8] stringWithFormat:@"{invalid, %u}", v202];
-                          v171 = v184;
-                          v173 = v185;
-                        }
-
-                        else
-                        {
-                          v201 = v156;
-                          if (v172 == 0xFFFFFFFF)
-                          {
-                            v174 = MEMORY[0x277CCACA8];
-                            v175 = @"{%u, invalid}";
-                          }
-
-                          else
-                          {
-                            v204 = HIDWORD(v156);
-                            v174 = MEMORY[0x277CCACA8];
-                            v175 = @"{%u, %u}";
-                          }
-
+                          v204 = HIDWORD(v158);
                           v186 = MEMORY[0x277CCACA8];
-                          v187 = [v174 stringWithFormat:v175, v201, v204];
-                          v171 = v186;
-                          v173 = v187;
-                        }
-                      }
-
-                      v188 = HIDWORD(v157);
-                      if (v157 != -1 || (v189 = @"{invalid, invalid}", v188 != 0xFFFFFFFF))
-                      {
-                        if (v157 == -1)
-                        {
-                          v203 = HIDWORD(v157);
-                          v191 = v171;
-                          v189 = [MEMORY[0x277CCACA8] stringWithFormat:@"{invalid, %u}", v203];
-                          v171 = v191;
+                          v187 = [MEMORY[0x277CCACA8] stringWithFormat:@"{invalid, %u}", v204];
+                          v173 = v186;
+                          v175 = v187;
                         }
 
                         else
                         {
-                          v190 = v171;
-                          if (v188 == 0xFFFFFFFF)
+                          v203 = v158;
+                          if (v174 == 0xFFFFFFFF)
                           {
-                            v189 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%u, invalid}", v157, v204];
+                            v176 = MEMORY[0x277CCACA8];
+                            v177 = @"{%u, invalid}";
                           }
 
                           else
                           {
-                            v189 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%u, %u}", v157, HIDWORD(v157)];
+                            v206 = HIDWORD(v158);
+                            v176 = MEMORY[0x277CCACA8];
+                            v177 = @"{%u, %u}";
                           }
 
-                          v171 = v190;
+                          v188 = MEMORY[0x277CCACA8];
+                          v189 = [v176 stringWithFormat:v177, v203, v206];
+                          v173 = v188;
+                          v175 = v189;
                         }
                       }
 
-                      v192 = [v171 stringWithFormat:@"{%@->%@}", v173, v189];
-                      v204 = v133;
-                      NSLog(@"WARNING: invalid cell fill %@ %@", v192);
+                      v190 = HIDWORD(v159);
+                      if (v159 != -1 || (v191 = @"{invalid, invalid}", v190 != 0xFFFFFFFF))
+                      {
+                        if (v159 == -1)
+                        {
+                          v205 = HIDWORD(v159);
+                          v193 = v173;
+                          v191 = [MEMORY[0x277CCACA8] stringWithFormat:@"{invalid, %u}", v205];
+                          v173 = v193;
+                        }
+
+                        else
+                        {
+                          v192 = v173;
+                          if (v190 == 0xFFFFFFFF)
+                          {
+                            v191 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%u, invalid}", v159, v206];
+                          }
+
+                          else
+                          {
+                            v191 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%u, %u}", v159, HIDWORD(v159)];
+                          }
+
+                          v173 = v192;
+                        }
+                      }
+
+                      v194 = [v173 stringWithFormat:@"{%@->%@}", v175, v191];
+                      v206 = v134;
+                      NSLog(@"WARNING: invalid cell fill %@ %@", v194);
                     }
                   }
 
@@ -1548,12 +1548,12 @@ LABEL_334:
                 }
               }
 
-              v108 = v240;
+              v108 = v242;
 LABEL_339:
-              TSTCellClear(v128);
-              TSTCellClear(v244);
+              TSTCellClear(v128, v132);
+              TSTCellClear(v246, v147);
               ++v111;
-              v110 = v242 + 0x10000;
+              v110 = v244 + 0x10000;
               if (v111 > v91)
               {
                 goto LABEL_258;
@@ -1684,7 +1684,7 @@ uint64_t TSTTableRepGetImageForRange(TSTTableRep *a1, unint64_t a2)
   v40 = [(TSDRep *)a1 layout];
   if (v40)
   {
-    [(TSDAbstractLayout *)v40 transformInRoot];
+    objc_msgSend_transformInRoot(v40);
   }
 
   else
@@ -1695,7 +1695,7 @@ uint64_t TSTTableRepGetImageForRange(TSTTableRep *a1, unint64_t a2)
   CGContextConcatCTM(v34, &v47);
   if (a1)
   {
-    [(TSTTableRep *)a1 transformFromCanvas];
+    objc_msgSend_transformFromCanvas(a1);
   }
 
   else
@@ -1723,7 +1723,7 @@ uint64_t TSTTableRepPrepareToDrawLayoutSpace(TSTTableRep *a1, TSTLayoutSpace *a2
   if (a2)
   {
     CGContextSaveGState(c);
-    [(TSTLayoutSpace *)a2 transformToCanvas];
+    objc_msgSend_transformToCanvas(a2);
   }
 
   else
@@ -1745,7 +1745,7 @@ uint64_t TSTTableRepPrepareToDrawLayoutSpace(TSTTableRep *a1, TSTLayoutSpace *a2
   memset(&transform, 0, sizeof(transform));
   if (a2)
   {
-    [(TSTLayoutSpace *)a2 transformToDevice];
+    objc_msgSend_transformToDevice(a2);
     v10 = 0uLL;
   }
 
@@ -1779,21 +1779,21 @@ LABEL_5:
   return result;
 }
 
-uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, unint64_t a4, CGContext *a5)
+void *TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, unint64_t a4, CGContext *a5)
 {
-  v361 = *MEMORY[0x277D85DE8];
-  v320 = [a1 tableLayout];
-  v10 = [v320 masterLayout];
+  v364 = *MEMORY[0x277D85DE8];
+  v323 = [a1 tableLayout];
+  v10 = [v323 masterLayout];
   if (![objc_msgSend(a1 "masterLayout")] || (result = TSTTableNumberOfPopulatedCells(objc_msgSend(a1, "tableModel")), result <= 0x19))
   {
     v12 = HIDWORD(a3);
     v13 = HIDWORD(a4);
     result = [a1 isDrawingInFlippedContext];
-    v297 = result;
+    v300 = result;
     v14 = a4 == -1 || a3 == -1;
     v15 = v14 || a3 > a4;
     v16 = v15;
-    v309 = v16;
+    v312 = v16;
     v17 = 0;
     if (v15)
     {
@@ -1809,40 +1809,40 @@ uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, 
       }
     }
 
-    v287 = v18;
+    v290 = v18;
     if (v18 <= v13)
     {
       v19 = a3 << 16;
-      v307 = v19;
+      v310 = v19;
       if (a3 == -1)
       {
         v19 = 16711680;
       }
 
-      v306 = (a4 - a3 + 1) | 0x100000000;
+      v309 = (a4 - a3 + 1) | 0x100000000;
       v20 = a3 << 16;
       v22 = (~a3 & 0xFFFF00000000) != 0 && v19 != 16711680;
-      v322 = v22;
+      v325 = v22;
       v23 = (v17 & 0xFFFF00000000) != 0;
       if (!v17)
       {
         v23 = 0;
       }
 
-      v304 = v23;
-      v286 = v19 >> 16;
-      v284 = v287 + WORD2(v17) - 1;
-      v285 = v17 + WORD1(v19) + 255;
-      LODWORD(result) = v287;
-      v272 = a5;
-      v333 = a1;
-      v326 = v10;
-      v308 = HIDWORD(a4);
-      v305 = a3 << 16;
+      v307 = v23;
+      v289 = v19 >> 16;
+      v287 = v290 + WORD2(v17) - 1;
+      v288 = v17 + WORD1(v19) + 255;
+      LODWORD(result) = v290;
+      v275 = a5;
+      v336 = a1;
+      v329 = v10;
+      v311 = HIDWORD(a4);
+      v308 = a3 << 16;
       do
       {
-        v325 = result;
-        v24 = v309;
+        v328 = result;
+        v24 = v312;
         if (result == -1)
         {
           v24 = 1;
@@ -1855,22 +1855,22 @@ uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, 
 
         else
         {
-          v25 = v306;
+          v25 = v309;
         }
 
-        v26 = v307 | (((v25 >> 16) & 0x10000 | v25) << 32) | result;
+        v26 = v310 | (((v25 >> 16) & 0x10000 | v25) << 32) | result;
         if (v20)
         {
           v27 = result | v20;
-          v354.a = 0.0;
-          v314 = v314 & 0xFFFFFFFF00000000 | v27;
-          v28 = [v10 cell:&v354 forCellID:?];
-          v354.a = 0.0;
+          v357.a = 0.0;
+          v317 = v317 & 0xFFFFFFFF00000000 | v27;
+          v28 = [v10 cell:&v357 forCellID:?];
+          v357.a = 0.0;
           if ((v28 & 1) == 0)
           {
-            v293 = v293 & 0xFFFFFFFF00000000 | v27;
-            v292 = v292 & 0xFFFFFFFF00000000 | TSTLayoutCellLeftOfCell(v320, v293, 0);
-            v26 = TSTCellRangeUnionCellID(v26, v292);
+            v296 = v296 & 0xFFFFFFFF00000000 | v27;
+            v295 = v295 & 0xFFFFFFFF00000000 | TSTLayoutCellLeftOfCell(v323, v296, 0);
+            v26 = TSTCellRangeUnionCellID(v26, v295);
           }
         }
 
@@ -1880,15 +1880,15 @@ uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, 
         if (v31 != TSTMasterLayoutGetTableNumberOfColumns(v10) - 1)
         {
           v32 = v26 | (v31 << 16);
-          v354.a = 0.0;
-          v303 = v303 & 0xFFFFFFFF00000000 | v32;
-          v33 = [v10 cell:&v354 forCellID:?];
-          v354.a = 0.0;
+          v357.a = 0.0;
+          v306 = v306 & 0xFFFFFFFF00000000 | v32;
+          v33 = [v10 cell:&v357 forCellID:?];
+          v357.a = 0.0;
           if ((v33 & 1) == 0)
           {
-            v283 = v283 & 0xFFFFFFFF00000000 | v32;
-            v282 = v282 & 0xFFFFFFFF00000000 | TSTLayoutCellRightOfCell(v320, v32, 0);
-            v26 = TSTCellRangeUnionCellID(v26, v282);
+            v286 = v286 & 0xFFFFFFFF00000000 | v32;
+            v285 = v285 & 0xFFFFFFFF00000000 | TSTLayoutCellRightOfCell(v323, v32, 0);
+            v26 = TSTCellRangeUnionCellID(v26, v285);
             v30 = HIDWORD(v26);
             v29 = BYTE2(v26);
           }
@@ -1943,16 +1943,16 @@ uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, 
         v45 = -1;
         if (v29 == 255)
         {
-          v323 = -1;
-          v47 = v333;
+          v326 = -1;
+          v47 = v336;
           v5 = v34;
         }
 
         else
         {
           v46 = v36 == -1 || v35 > v36;
-          v323 = -1;
-          v47 = v333;
+          v326 = -1;
+          v47 = v336;
           v5 = v34;
           if (!v46)
           {
@@ -1965,7 +1965,7 @@ uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, 
             }
 
             v48 = v43 != 0xFFFFFFFF && v43 >= v37;
-            v323 = -1;
+            v326 = -1;
             if (v48)
             {
               v41 = 0;
@@ -1976,7 +1976,7 @@ uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, 
                 goto LABEL_86;
               }
 
-              v323 = -1;
+              v326 = -1;
               if (GridRange > v40)
               {
                 goto LABEL_88;
@@ -1994,13 +1994,13 @@ uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, 
               v50 = HIDWORD(v40);
               if (HIDWORD(v40) == 0xFFFFFFFF)
               {
-                v323 = -1;
+                v326 = -1;
                 LOWORD(v42) = -1;
               }
 
               else
               {
-                v323 = -1;
+                v326 = -1;
                 LOWORD(v42) = -1;
                 if (v49 > v50)
                 {
@@ -2027,7 +2027,7 @@ uint64_t TSTTableRepDrawCellContent(void *a1, TSTLayoutSpace *a2, unint64_t a3, 
                   v45 = v36;
                 }
 
-                v323 = v51;
+                v326 = v51;
                 if (v51 > v45)
                 {
                   goto LABEL_85;
@@ -2047,11 +2047,11 @@ LABEL_85:
                   LOWORD(v42) = -1;
                   v45 = -1;
 LABEL_86:
-                  v323 = -1;
+                  v326 = -1;
                   goto LABEL_88;
                 }
 
-                v44 = v323;
+                v44 = v326;
                 if (v45 == -1)
                 {
                   v41 = 0;
@@ -2067,7 +2067,7 @@ LABEL_86:
 
                   if (v42 != 0xFFFFFFFF && !v52)
                   {
-                    v41 = ((v45 - v323 + 1) | ((v43 - v42) << 32)) + 0x100000000;
+                    v41 = ((v45 - v326 + 1) | ((v43 - v42) << 32)) + 0x100000000;
                   }
                 }
               }
@@ -2076,8 +2076,8 @@ LABEL_86:
         }
 
 LABEL_88:
-        v310 = v44;
-        v311 = v45;
+        v313 = v44;
+        v314 = v45;
         if (v44 == -1)
         {
           v53 = 16711680;
@@ -2090,13 +2090,13 @@ LABEL_88:
 
         v54 = (v41 >> 16) & 0xFFFF0000;
         v55 = v42;
-        v56 = [[TSTLayoutCellIterator alloc] initWithLayout:v320 range:v53 & 0xFFFFFFFFFFFF0000 | ((v54 | v41) << 32) | v42 flags:1];
-        v346 = [v326 isDynamicallyHidingRowsCols];
-        v349 = v56;
-        if (TSTLayoutCellIteratorGetNextCell(v56, v351))
+        v56 = [[TSTLayoutCellIterator alloc] initWithLayout:v323 range:v53 & 0xFFFFFFFFFFFF0000 | ((v54 | v41) << 32) | v42 flags:1];
+        v349 = [v329 isDynamicallyHidingRowsCols];
+        v352 = v56;
+        if (TSTLayoutCellIteratorGetNextCell(v56, v354))
         {
           v58 = v55 != 0xFFFFLL && v53 != 16711680;
-          v302 = v58;
+          v305 = v58;
           if (v41)
           {
             v59 = v54 == 0;
@@ -2108,181 +2108,181 @@ LABEL_88:
           }
 
           v60 = !v59;
-          v296 = v60;
-          v290 = v53 >> 16;
-          v291 = v55;
-          v288 = v55 + WORD2(v41) - 1;
-          v289 = v41 + WORD1(v53) + 255;
-          v342 = 0xFFFFFFLL;
-          v10 = v326;
+          v299 = v60;
+          v293 = v53 >> 16;
+          v294 = v55;
+          v291 = v55 + WORD2(v41) - 1;
+          v292 = v41 + WORD1(v53) + 255;
+          v345 = 0xFFFFFFLL;
+          v10 = v329;
           while (2)
           {
-            v61 = v352;
-            v350 = v351[1];
-            v62 = HIBYTE(v351[0]);
-            if (v352 == 0xFFFF)
+            v61 = v355;
+            v353 = v354[1];
+            v62 = HIBYTE(v354[0]);
+            if (v355 == 0xFFFF)
             {
               goto LABEL_117;
             }
 
-            v63 = (v352 & 0xFF0000) == 0xFF0000 || HIWORD(v352) == 0;
-            v64 = v63 || (v352 & 0xFFFF00000000) == 0;
-            if (v64 || (WORD2(v351[0]) | (BYTE6(v351[0]) << 16)) == (v352 & 0xFFFFFF))
+            v63 = (v355 & 0xFF0000) == 0xFF0000 || HIWORD(v355) == 0;
+            v64 = v63 || (v355 & 0xFFFF00000000) == 0;
+            if (v64 || (WORD2(v354[0]) | (BYTE6(v354[0]) << 16)) == (v355 & 0xFFFFFF))
             {
               goto LABEL_117;
             }
 
-            v66 = v352 >> 16;
-            if (v322 && v304)
+            v66 = v355 >> 16;
+            if (v325 && v307)
             {
-              v77 = 0;
-              if (BYTE2(v352) <= v286)
+              v78 = 0;
+              if (BYTE2(v355) <= v289)
               {
-                v78 = v286;
+                v79 = v289;
               }
 
               else
               {
-                v78 = BYTE2(v352);
+                v79 = BYTE2(v355);
               }
 
-              if (v352 <= v287)
+              if (v355 <= v290)
               {
-                v79 = v287;
+                v80 = v290;
               }
 
               else
               {
-                v79 = v352;
+                v80 = v355;
               }
 
-              if ((BYTE4(v352) + BYTE2(v352) - 1) >= v285)
+              if ((BYTE4(v355) + BYTE2(v355) - 1) >= v288)
               {
-                v80 = v285;
+                v81 = v288;
               }
 
               else
               {
-                v80 = (BYTE4(v352) + BYTE2(v352) - 1);
+                v81 = (BYTE4(v355) + BYTE2(v355) - 1);
               }
 
-              if ((v352 + HIWORD(v352) - 1) >= v284)
+              if ((v355 + HIWORD(v355) - 1) >= v287)
               {
-                v81 = v284;
+                v82 = v287;
               }
 
               else
               {
-                v81 = (v352 + HIWORD(v352) - 1);
+                v82 = (v355 + HIWORD(v355) - 1);
               }
 
-              v82 = 0;
               v83 = 0;
               v84 = 0;
-              if (v79 <= v81 && v78 <= v80)
+              v85 = 0;
+              if (v80 <= v82 && v79 <= v81)
               {
-                v84 = ((v81 - v79) << 48) + 0x1000000000000;
-                v83 = (((v80 - v78) << 32) + 0x100000000) & 0xFFFF00000000;
-                v82 = v78 << 16;
-                v77 = v79;
+                v85 = ((v82 - v80) << 48) + 0x1000000000000;
+                v84 = (((v81 - v79) << 32) + 0x100000000) & 0xFFFF00000000;
+                v83 = v79 << 16;
+                v78 = v80;
               }
             }
 
             else
             {
-              v83 = 0;
               v84 = 0;
-              v77 = 0xFFFFLL;
-              v82 = 16711680;
+              v85 = 0;
+              v78 = 0xFFFFLL;
+              v83 = 16711680;
             }
 
-            v85 = v82 | v77 | v83 | v84;
-            if (v85 == 0xFFFF || (v85 & 0xFF0000) == 0xFF0000 || !HIWORD(v85) || (v85 & 0xFFFF00000000) == 0 || v325 != v85)
+            v86 = v83 | v78 | v84 | v85;
+            if (v86 == 0xFFFF || (v86 & 0xFF0000) == 0xFF0000 || !HIWORD(v86) || (v86 & 0xFFFF00000000) == 0 || v328 != v86)
             {
               goto LABEL_117;
             }
 
-            if (v302 && v296)
+            if (v305 && v299)
             {
-              v86 = 0;
-              v87 = BYTE2(v352);
-              if (BYTE2(v352) <= v290)
+              v87 = 0;
+              v88 = BYTE2(v355);
+              if (BYTE2(v355) <= v293)
               {
-                v87 = v290;
+                v88 = v293;
               }
 
-              if (v352 <= v291)
+              if (v355 <= v294)
               {
-                v88 = v291;
-              }
-
-              else
-              {
-                v88 = v352;
-              }
-
-              if ((BYTE4(v352) + BYTE2(v352) - 1) >= v289)
-              {
-                v89 = v289;
+                v89 = v294;
               }
 
               else
               {
-                v89 = (BYTE4(v352) + BYTE2(v352) - 1);
+                v89 = v355;
               }
 
-              if ((v352 + HIWORD(v352) - 1) >= v288)
+              if ((BYTE4(v355) + BYTE2(v355) - 1) >= v292)
               {
-                v90 = v288;
+                v90 = v292;
               }
 
               else
               {
-                v90 = (v352 + HIWORD(v352) - 1);
+                v90 = (BYTE4(v355) + BYTE2(v355) - 1);
               }
 
-              v91 = 0;
+              if ((v355 + HIWORD(v355) - 1) >= v291)
+              {
+                v91 = v291;
+              }
+
+              else
+              {
+                v91 = (v355 + HIWORD(v355) - 1);
+              }
+
               v92 = 0;
               v93 = 0;
-              if (v88 <= v90 && v87 <= v89)
+              v94 = 0;
+              if (v89 <= v91 && v88 <= v90)
               {
-                v93 = ((v90 - v88) << 48) + 0x1000000000000;
-                v92 = (((v89 - v87) << 32) + 0x100000000) & 0xFFFF00000000;
-                v91 = v87 << 16;
-                v86 = v88;
+                v94 = ((v91 - v89) << 48) + 0x1000000000000;
+                v93 = (((v90 - v88) << 32) + 0x100000000) & 0xFFFF00000000;
+                v92 = v88 << 16;
+                v87 = v89;
               }
             }
 
             else
             {
-              v92 = 0;
               v93 = 0;
-              v86 = 0xFFFFLL;
-              v91 = 16711680;
+              v94 = 0;
+              v87 = 0xFFFFLL;
+              v92 = 16711680;
             }
 
-            v128 = v91 | v86 | v92 | v93;
-            if (v128 == 0xFFFF || (v128 & 0xFF0000) == 0xFF0000 || !HIWORD(v128) || (v128 & 0xFFFF00000000) == 0 || BYTE6(v351[0]) != BYTE2(v128))
+            v129 = v92 | v87 | v93 | v94;
+            if (v129 == 0xFFFF || (v129 & 0xFF0000) == 0xFF0000 || !HIWORD(v129) || (v129 & 0xFFFF00000000) == 0 || BYTE6(v354[0]) != BYTE2(v129))
             {
 LABEL_117:
-              LOBYTE(v66) = BYTE6(v351[0]);
-              LOWORD(v61) = WORD2(v351[0]);
+              LOBYTE(v66) = BYTE6(v354[0]);
+              LOWORD(v61) = WORD2(v354[0]);
             }
 
             else
             {
-              v62 = BYTE3(v352);
-              v275 = v275 & 0xFFFFFFFF00000000 | v352;
-              if (([v10 cell:&v350 forCellID:?] & 1) == 0)
+              v62 = BYTE3(v355);
+              v278 = v278 & 0xFFFFFFFF00000000 | v355;
+              if (([v10 cell:&v353 forCellID:?] & 1) == 0)
               {
-                v350 = objc_alloc_init(TSTCell);
-                v129 = [v47 tableModel];
-                v271 = v61 | v271 & 0xFFFFFFFF00000000;
-                TSTCellAtCellID(v129, v61, v350);
+                v353 = objc_alloc_init(TSTCell);
+                v130 = [v47 tableModel];
+                v274 = v61 | v274 & 0xFFFFFFFF00000000;
+                TSTCellAtCellID(v130, v61, v353);
               }
             }
 
-            if (!v350)
+            if (!v353)
             {
               goto LABEL_177;
             }
@@ -2293,23 +2293,23 @@ LABEL_117:
             v69 = [v10 cellIDToWPColumnCache];
             HIDWORD(v70) = v68;
             LODWORD(v70) = v68;
-            v71 = [v69 objectForKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", (v70 >> 16) & 0xFFFF00FF)}];
-            if (!v71)
+            v72 = [v69 objectForKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", (v70 >> 16) & 0xFFFF00FF)}];
+            if (!v72)
             {
-              if (v350 && *(&v350->mPrivate + 1) << 8 == 2304)
+              if (v353 && *(&v353->mPrivate + 1) << 8 == 2304)
               {
-                v72 = [(TSTRichTextPayload *)v350->mPrivate.mRichTextPayload storage];
+                v73 = [(TSTRichTextPayload *)v353->mPrivate.mRichTextPayload storage];
               }
 
               else
               {
-                v72 = NSStringFromNativeTSTCell(v350);
+                v73 = NSStringFromNativeTSTCell(v353, v71);
               }
 
-              v71 = v72;
+              v72 = v73;
             }
 
-            if (v346)
+            if (v349)
             {
               r1_24 = v67 | r1_24 & 0xFFFFFFFF00000000;
               if ([v10 isDynamicallyHidingRowsColsCellID:?])
@@ -2318,29 +2318,29 @@ LABEL_117:
               }
             }
 
-            v73 = v71;
-            r1 = v350;
-            v336 = HIDWORD(v351[0]);
-            v341 = [v47 tableLayout];
-            v74 = [v47 tableModel];
-            v337 = [objc_msgSend(v47 "masterLayout")];
-            v358 = 0;
-            v75 = [objc_msgSend(v47 "masterLayout")];
+            v74 = v72;
+            r1 = v353;
+            v339 = HIDWORD(v354[0]);
+            v344 = [v47 tableLayout];
+            v75 = [v47 tableModel];
+            v340 = [objc_msgSend(v47 "masterLayout")];
+            v361 = 0;
+            v76 = [objc_msgSend(v47 "masterLayout")];
             context = objc_autoreleasePoolPush();
             objc_opt_class();
-            v348 = v71;
-            if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) && [(TSWPStorage *)v71 length])
+            v351 = v72;
+            if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) && [(TSWPStorage *)v72 length])
             {
-              v76 = 1;
+              v77 = 1;
             }
 
             else
             {
               objc_opt_class();
-              v76 = (objc_opt_isKindOfClass() & 1) != 0 && [(TSWPStorage *)v71 length]!= 0;
+              v77 = (objc_opt_isKindOfClass() & 1) != 0 && [(TSWPStorage *)v72 length]!= 0;
             }
 
-            v94 = v67 | 0x1000100000000;
+            v95 = v67 | 0x1000100000000;
             if (([objc_msgSend(v47 "masterLayout")] & 1) == 0 && (objc_msgSend(objc_msgSend(v47, "masterLayout"), "isDynamicallyHidingRowsColsCellID:", v67) & 1) == 0)
             {
               if (![objc_msgSend(v47 "masterLayout")])
@@ -2356,283 +2356,283 @@ LABEL_117:
               if (TSTTableBadgeIsDrawingControlCell(r1))
               {
 LABEL_184:
-                v335 = v5;
-                v95 = TSTMasterLayoutMergeRangeAtCellID([v47 masterLayout], v67);
-                v96 = v95;
-                v97 = (~v95 & 0xFF0000) != 0 && v95 != 0xFFFF;
-                v328 = v97;
-                if (v97)
+                v338 = v5;
+                v96 = TSTMasterLayoutMergeRangeAtCellID([v47 masterLayout], v67);
+                v97 = v96;
+                v98 = (~v96 & 0xFF0000) != 0 && v96 != 0xFFFF;
+                v331 = v98;
+                if (v98)
                 {
-                  v98 = (v95 & 0xFFFF00000000) != 0;
-                  v99 = HIWORD(v95);
-                  v100 = HIWORD(v95) != 0;
-                  v101 = v76;
-                  v102 = v100 && v98;
-                  v103 = v47;
-                  if (v100 && v98)
+                  v99 = (v96 & 0xFFFF00000000) != 0;
+                  v100 = HIWORD(v96);
+                  v101 = HIWORD(v96) != 0;
+                  v102 = v77;
+                  v103 = v101 && v99;
+                  v104 = v47;
+                  if (v101 && v99)
                   {
-                    v104 = v96;
+                    v105 = v97;
                   }
 
                   else
                   {
-                    v104 = v67 | 0x1000100000000;
+                    v105 = v67 | 0x1000100000000;
                   }
 
-                  v105 = [v103 canvas];
-                  v324 = v101;
-                  if (!v101)
+                  v106 = [v104 canvas];
+                  v327 = v102;
+                  if (!v102)
                   {
-                    v94 = v104;
-                    v47 = v333;
-                    v10 = v326;
-                    v5 = v335;
-                    v76 = v101;
+                    v95 = v105;
+                    v47 = v336;
+                    v10 = v329;
+                    v5 = v338;
+                    v77 = v102;
                     goto LABEL_480;
                   }
 
-                  v319 = v105;
-                  if (v102)
+                  v322 = v106;
+                  if (v103)
                   {
-                    v94 = v96;
-                    if (BYTE2(v96) == 255)
+                    v95 = v97;
+                    if (BYTE2(v97) == 255)
                     {
-                      v106 = -1;
+                      v107 = -1;
                     }
 
                     else
                     {
-                      v106 = BYTE2(v96);
+                      v107 = BYTE2(v97);
                     }
 
-                    v107 = WORD2(v96) + v106 - 1;
-                    if (!WORD2(v96))
-                    {
-                      v107 = 0xFFFFFFFFLL;
-                    }
-
-                    if (v96 == 0xFFFF)
+                    v108 = WORD2(v97) + v107 - 1;
+                    if (!WORD2(v97))
                     {
                       v108 = 0xFFFFFFFFLL;
                     }
 
-                    else
+                    if (v97 == 0xFFFF)
                     {
-                      v108 = v96;
+                      v109 = 0xFFFFFFFFLL;
                     }
 
-                    v109 = v106 | (v108 << 32);
-                    v110 = (((v108 << 32) + (HIDWORD(v96) << 16)) & 0xFFFFFFFF00000000 | v107) - 0x100000000;
-                    tx = TSTLayoutSpaceGetAlignedContentFrameForGridRange(a2, v109, v110);
-                    ty = v111;
-                    ContentFrameForGridRange = TSTLayoutSpaceGetContentFrameForGridRange(a2, v109, v110);
-                    v113 = v112;
-                    if ([objc_msgSend(v333 "masterLayout")])
+                    else
                     {
-                      v114 = [objc_msgSend(v333 "tableModel")];
-                      if (HIWORD(v114))
+                      v109 = v97;
+                    }
+
+                    v110 = v107 | (v109 << 32);
+                    v111 = (((v109 << 32) + (HIDWORD(v97) << 16)) & 0xFFFFFFFF00000000 | v108) - 0x100000000;
+                    tx = TSTLayoutSpaceGetAlignedContentFrameForGridRange(a2, v110, v111);
+                    ty = v112;
+                    ContentFrameForGridRange = TSTLayoutSpaceGetContentFrameForGridRange(a2, v110, v111);
+                    v114 = v113;
+                    if ([objc_msgSend(v336 "masterLayout")])
+                    {
+                      v115 = [objc_msgSend(v336 "tableModel")];
+                      if (HIWORD(v115))
                       {
-                        if ((v114 & 0xFFFF00000000) != 0 && v114 <= v96 && (v114 + HIWORD(v114) - 1) >= v96 && BYTE2(v114) <= BYTE2(v96))
+                        if ((v115 & 0xFFFF00000000) != 0 && v115 <= v97 && (v115 + HIWORD(v115) - 1) >= v97 && BYTE2(v115) <= BYTE2(v97))
                         {
-                          v115 = (BYTE4(v114) + BYTE2(v114) - 1);
-                          if (v115 >= BYTE2(v96) && v115 >= (BYTE4(v96) + BYTE2(v96) - 1) && (v114 + HIWORD(v114) - 1) >= (v96 + v99 - 1))
+                          v116 = (BYTE4(v115) + BYTE2(v115) - 1);
+                          if (v116 >= BYTE2(v97) && v116 >= (BYTE4(v97) + BYTE2(v97) - 1) && (v115 + HIWORD(v115) - 1) >= (v97 + v100 - 1))
                           {
-                            rect = v96 + v99 - 1;
-                            v116 = [objc_msgSend(v333 "tableModel")];
-                            v117 = [objc_msgSend(v333 "masterLayout")];
-                            v118 = 0;
-                            if (v116 == 0xFFFF)
+                            rect = v97 + v100 - 1;
+                            v117 = [objc_msgSend(v336 "tableModel")];
+                            v118 = [objc_msgSend(v336 "masterLayout")];
+                            v119 = 0;
+                            if (v117 == 0xFFFF)
                             {
-                              v119 = 0xFFFFLL;
-                              v120 = 16711680;
-                              v121 = 0;
-                              a5 = v272;
+                              v120 = 0xFFFFLL;
+                              v121 = 16711680;
+                              v122 = 0;
+                              a5 = v275;
                             }
 
                             else
                             {
-                              v119 = 0xFFFFLL;
-                              v120 = 16711680;
-                              v121 = 0;
-                              a5 = v272;
-                              if ((v116 & 0xFF0000) != 0xFF0000)
+                              v120 = 0xFFFFLL;
+                              v121 = 16711680;
+                              v122 = 0;
+                              a5 = v275;
+                              if ((v117 & 0xFF0000) != 0xFF0000)
                               {
-                                v118 = 0;
-                                if ((v116 & 0xFFFF00000000) != 0)
+                                v119 = 0;
+                                if ((v117 & 0xFFFF00000000) != 0)
                                 {
-                                  v122 = v117 + HIWORD(v116);
-                                  v119 = 0xFFFFLL;
-                                  v120 = 16711680;
-                                  v121 = 0;
-                                  if (v117 + HIWORD(v116))
+                                  v123 = v118 + HIWORD(v117);
+                                  v120 = 0xFFFFLL;
+                                  v121 = 16711680;
+                                  v122 = 0;
+                                  if (v118 + HIWORD(v117))
                                   {
-                                    v119 = 0;
-                                    v123 = BYTE2(v96);
-                                    if (BYTE2(v96) <= BYTE2(v116))
-                                    {
-                                      v123 = BYTE2(v116);
-                                    }
-
-                                    if (v96 <= v116)
-                                    {
-                                      v124 = v116;
-                                    }
-
-                                    else
-                                    {
-                                      v124 = v96;
-                                    }
-
-                                    if ((BYTE4(v96) + BYTE2(v96) - 1) >= (BYTE4(v116) + BYTE2(v116) - 1))
-                                    {
-                                      v125 = (BYTE4(v116) + BYTE2(v116) - 1);
-                                    }
-
-                                    else
-                                    {
-                                      v125 = (BYTE4(v96) + BYTE2(v96) - 1);
-                                    }
-
-                                    if (rect >= (v116 + v122 - 1))
-                                    {
-                                      v126 = (v116 + v122 - 1);
-                                    }
-
-                                    else
-                                    {
-                                      v126 = rect;
-                                    }
-
                                     v120 = 0;
-                                    v118 = 0;
-                                    v121 = 0;
-                                    if (v124 <= v126 && v123 <= v125)
+                                    v124 = BYTE2(v97);
+                                    if (BYTE2(v97) <= BYTE2(v117))
                                     {
-                                      v121 = ((v126 - v124) << 48) + 0x1000000000000;
-                                      v118 = (((v125 - v123) << 32) + 0x100000000) & 0xFFFF00000000;
-                                      v120 = v123 << 16;
-                                      v119 = v124;
+                                      v124 = BYTE2(v117);
+                                    }
+
+                                    if (v97 <= v117)
+                                    {
+                                      v125 = v117;
+                                    }
+
+                                    else
+                                    {
+                                      v125 = v97;
+                                    }
+
+                                    if ((BYTE4(v97) + BYTE2(v97) - 1) >= (BYTE4(v117) + BYTE2(v117) - 1))
+                                    {
+                                      v126 = (BYTE4(v117) + BYTE2(v117) - 1);
+                                    }
+
+                                    else
+                                    {
+                                      v126 = (BYTE4(v97) + BYTE2(v97) - 1);
+                                    }
+
+                                    if (rect >= (v117 + v123 - 1))
+                                    {
+                                      v127 = (v117 + v123 - 1);
+                                    }
+
+                                    else
+                                    {
+                                      v127 = rect;
+                                    }
+
+                                    v121 = 0;
+                                    v119 = 0;
+                                    v122 = 0;
+                                    if (v125 <= v127 && v124 <= v126)
+                                    {
+                                      v122 = ((v127 - v125) << 48) + 0x1000000000000;
+                                      v119 = (((v126 - v124) << 32) + 0x100000000) & 0xFFFF00000000;
+                                      v121 = v124 << 16;
+                                      v120 = v125;
                                     }
                                   }
                                 }
 
                                 else
                                 {
-                                  v119 = 0xFFFFLL;
-                                  v120 = 16711680;
-                                  v121 = 0;
+                                  v120 = 0xFFFFLL;
+                                  v121 = 16711680;
+                                  v122 = 0;
                                 }
                               }
                             }
 
-                            v140 = v120 | v119 | v118 | v121;
-                            if (BYTE2(v140) == 255)
+                            v141 = v121 | v120 | v119 | v122;
+                            if (BYTE2(v141) == 255)
                             {
-                              v141 = -1;
+                              v142 = -1;
                             }
 
                             else
                             {
-                              v141 = BYTE2(v140);
+                              v142 = BYTE2(v141);
                             }
 
-                            v142 = WORD2(v140) + v141 - 1;
-                            v143 = HIDWORD(v140);
-                            if (!WORD2(v140))
+                            v143 = WORD2(v141) + v142 - 1;
+                            v144 = HIDWORD(v141);
+                            if (!WORD2(v141))
                             {
-                              v142 = 0xFFFFFFFFLL;
+                              v143 = 0xFFFFFFFFLL;
                             }
 
-                            if (v140 == 0xFFFF)
+                            if (v141 == 0xFFFF)
                             {
-                              v140 = 0xFFFFFFFFLL;
+                              v141 = 0xFFFFFFFFLL;
                             }
 
                             else
                             {
-                              v140 = v140;
+                              v141 = v141;
                             }
 
-                            v109 = v141 | (v140 << 32);
-                            v144 = (((v140 << 32) + (v143 << 16)) & 0xFFFFFFFF00000000) - 0x100000000;
-                            if (!HIWORD(v121))
+                            v110 = v142 | (v141 << 32);
+                            v145 = (((v141 << 32) + (v144 << 16)) & 0xFFFFFFFF00000000) - 0x100000000;
+                            if (!HIWORD(v122))
                             {
-                              v144 = 0xFFFFFFFF00000000;
+                              v145 = 0xFFFFFFFF00000000;
                             }
 
-                            v110 = v144 | v142;
+                            v111 = v145 | v143;
                           }
                         }
                       }
                     }
 
-                    v145 = TSTLayoutSpaceIntersectionGridRange(a2, v109, v110);
-                    AlignedContentFrameForGridRange = TSTLayoutSpaceGetAlignedContentFrameForGridRange(a2, v145, v146);
-                    v299 = v148;
-                    v300 = AlignedContentFrameForGridRange;
-                    width = v149;
-                    recta = v150;
-                    v47 = v333;
-                    v10 = v326;
+                    v146 = TSTLayoutSpaceIntersectionGridRange(a2, v110, v111);
+                    AlignedContentFrameForGridRange = TSTLayoutSpaceGetAlignedContentFrameForGridRange(a2, v146, v147);
+                    v302 = v149;
+                    v303 = AlignedContentFrameForGridRange;
+                    width = v150;
+                    recta = v151;
+                    v47 = v336;
+                    v10 = v329;
 LABEL_262:
-                    v357 = 0;
-                    v356 = 0;
-                    v355 = 1;
-                    v152 = 0.0;
-                    v151 = 0.0;
-                    v154 = 0.0;
+                    v360 = 0;
+                    v359 = 0;
+                    v358 = 1;
                     v153 = 0.0;
+                    v152 = 0.0;
+                    v155 = 0.0;
+                    v154 = 0.0;
                     CGContextSaveGState(a5);
-                    v155 = v75;
-                    TSTCellTextProperties(r1, v74, v75, &v357, &v356, &v355, &v358);
-                    v156 = [objc_msgSend(v47 "layout")];
+                    v156 = v76;
+                    TSTCellTextProperties(r1, v75, v76, &v360, &v359, &v358, &v361);
+                    v157 = [objc_msgSend(v47 "layout")];
                     if (objc_opt_respondsToSelector())
                     {
-                      v157 = [v156 pageNumber];
+                      v158 = [v157 pageNumber];
                     }
 
                     else
                     {
-                      v157 = 0x7FFFFFFFFFFFFFFFLL;
+                      v158 = 0x7FFFFFFFFFFFFFFFLL;
                     }
 
-                    v76 = v324;
-                    v158 = r1;
+                    v77 = v327;
+                    v159 = r1;
                     if (objc_opt_respondsToSelector())
                     {
-                      v159 = [v156 pageCount];
+                      v160 = [v157 pageCount];
                     }
 
                     else
                     {
-                      v159 = 0x7FFFFFFFFFFFFFFFLL;
+                      v160 = 0x7FFFFFFFFFFFFFFFLL;
                     }
 
-                    v321 = v155;
+                    v324 = v156;
                     if ([objc_msgSend(v47 "masterLayout")])
                     {
                       objc_opt_class();
-                      v160 = v348;
+                      v161 = v351;
                       if (TSUDynamicCast())
                       {
                         if (r1 && *(&r1->mPrivate + 1) << 8 == 2304)
                         {
-                          v161 = [(TSTRichTextPayload *)r1->mPrivate.mRichTextPayload storage];
+                          v163 = [(TSTRichTextPayload *)r1->mPrivate.mRichTextPayload storage];
                         }
 
                         else
                         {
-                          v161 = NSStringFromNativeTSTCell(r1);
+                          v163 = NSStringFromNativeTSTCell(r1, v162);
                         }
 
-                        v160 = v161;
+                        v161 = v163;
                       }
 
-                      v165 = [v47 masterLayout];
-                      LODWORD(v270) = 0;
-                      v164 = [v165 validateCellForDrawing:v321 cell:r1 contents:v160 wrap:v357 verticalAlignment:v355 padding:v358 layoutCacheFlags:v270 pageNumber:v157 pageCount:v159];
+                      v167 = [v47 masterLayout];
+                      LODWORD(v273) = 0;
+                      v166 = [v167 validateCellForDrawing:v324 cell:r1 contents:v161 wrap:v360 verticalAlignment:v358 padding:v361 layoutCacheFlags:v273 pageNumber:v158 pageCount:v160];
 LABEL_280:
-                      if (!v164)
+                      if (!v166)
                       {
                         goto LABEL_281;
                       }
@@ -2640,376 +2640,376 @@ LABEL_280:
 
                     else
                     {
-                      if (v337)
+                      if (v340)
                       {
-                        v162 = [v47 masterLayout];
-                        LODWORD(v270) = 15;
-                        v163 = v155;
-                        v160 = v348;
-                        v164 = [v162 validateCellForDrawing:v163 cell:r1 contents:v348 wrap:v357 verticalAlignment:v355 padding:v358 layoutCacheFlags:v270 pageNumber:v157 pageCount:v159];
+                        v164 = [v47 masterLayout];
+                        LODWORD(v273) = 15;
+                        v165 = v156;
+                        v161 = v351;
+                        v166 = [v164 validateCellForDrawing:v165 cell:r1 contents:v351 wrap:v360 verticalAlignment:v358 padding:v361 layoutCacheFlags:v273 pageNumber:v158 pageCount:v160];
                         goto LABEL_280;
                       }
 
                       objc_opt_class();
-                      v160 = v348;
-                      v164 = TSUDynamicCast();
-                      if (!v164)
+                      v161 = v351;
+                      v166 = TSUDynamicCast();
+                      if (!v166)
                       {
 LABEL_281:
-                        v166 = [v47 masterLayout];
-                        LODWORD(v270) = 15;
-                        v164 = [v166 validateCellForDrawing:v321 cell:r1 contents:v160 wrap:v357 verticalAlignment:v355 padding:v358 layoutCacheFlags:v270 pageNumber:v157 pageCount:v159];
-                        if (!v164)
+                        v168 = [v47 masterLayout];
+                        LODWORD(v273) = 15;
+                        v166 = [v168 validateCellForDrawing:v324 cell:r1 contents:v161 wrap:v360 verticalAlignment:v358 padding:v361 layoutCacheFlags:v273 pageNumber:v158 pageCount:v160];
+                        if (!v166)
                         {
-                          v167 = [MEMORY[0x277D6C290] currentHandler];
-                          v168 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"TSTCellRange TSTTableRepDrawIndividualCellContent(TSTTableRep *, TSTLayoutSpace *, TSTGridRange, TSTCell *, TSTCellID, id, TSTCellIteratorData, TSTCellRange, BOOL, NSMutableArray *, CGContextRef)"}];
-                          [v167 handleFailureInFunction:v168 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableRep.mm"), 5533, @"No TSWPColumn layout rock found."}];
-                          v164 = 0;
+                          v169 = [MEMORY[0x277D6C290] currentHandler];
+                          v170 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"TSTCellRange TSTTableRepDrawIndividualCellContent(TSTTableRep *, TSTLayoutSpace *, TSTGridRange, TSTCell *, TSTCellID, id, TSTCellIteratorData, TSTCellRange, BOOL, NSMutableArray *, CGContextRef)"}];
+                          [v169 handleFailureInFunction:v170 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableRep.mm"), 5533, @"No TSWPColumn layout rock found."}];
+                          v166 = 0;
                         }
                       }
                     }
 
-                    v317 = v164;
-                    [v164 typographicBoundsForCell];
-                    v173 = v171;
-                    v174 = v172;
-                    if (v358)
+                    v320 = v166;
+                    [v166 typographicBoundsForCell];
+                    v175 = v173;
+                    v176 = v174;
+                    if (v361)
                     {
-                      v312 = v172;
-                      v175 = v171;
-                      v176 = v169;
-                      v338 = width;
-                      v177 = v170;
-                      [v358 topInset];
-                      v179 = v178;
-                      [v358 leftInset];
-                      v180 = v113;
-                      v182 = v181;
-                      [v358 bottomInset];
-                      v154 = v183;
-                      [v358 rightInset];
-                      v185 = v184;
-                      v186 = v182;
-                      v113 = v180;
-                      v152 = v179;
-                      v151 = TSTMasterLayoutApplyMinimumHorizontalInset(v186);
-                      v153 = TSTMasterLayoutApplyMinimumHorizontalInset(v185);
-                      v298 = v176 - v151;
-                      v295 = v177 - v152;
-                      width = v338;
-                      v173 = v175 - (-v153 - v151);
-                      v174 = v312 - (-v154 - v152);
+                      v315 = v174;
+                      v177 = v173;
+                      v178 = v171;
+                      v341 = width;
+                      v179 = v172;
+                      [v361 topInset];
+                      v181 = v180;
+                      [v361 leftInset];
+                      v182 = v114;
+                      v184 = v183;
+                      [v361 bottomInset];
+                      v155 = v185;
+                      [v361 rightInset];
+                      v187 = v186;
+                      v188 = v184;
+                      v114 = v182;
+                      v153 = v181;
+                      v152 = TSTMasterLayoutApplyMinimumHorizontalInset(v188);
+                      v154 = TSTMasterLayoutApplyMinimumHorizontalInset(v187);
+                      v301 = v178 - v152;
+                      v298 = v179 - v153;
+                      width = v341;
+                      v175 = v177 - (-v154 - v152);
+                      v176 = v315 - (-v155 - v153);
                     }
 
                     else
                     {
-                      v295 = v170;
-                      v298 = v169;
+                      v298 = v172;
+                      v301 = v171;
                     }
 
-                    memset(&v354, 0, sizeof(v354));
-                    CGAffineTransformMakeTranslation(&v354, tx, ty);
-                    v318 = v153;
-                    if (v328 && HIWORD(v96) && (v96 & 0xFFFF00000000) != 0)
+                    memset(&v357, 0, sizeof(v357));
+                    CGAffineTransformMakeTranslation(&v357, tx, ty);
+                    v321 = v154;
+                    if (v331 && HIWORD(v97) && (v97 & 0xFFFF00000000) != 0)
                     {
-                      v359 = v354;
-                      CGAffineTransformInvert(&transform, &v359);
-                      *&v362.origin.y = v299;
-                      v362.origin.x = v300;
-                      v362.size.width = width;
-                      v362.size.height = recta;
-                      v363 = CGRectApplyAffineTransform(v362, &transform);
-                      y = v363.origin.y;
-                      width = v363.size.width;
-                      recta = v363.size.height;
+                      v362 = v357;
+                      CGAffineTransformInvert(&transform, &v362);
+                      *&v365.origin.y = v302;
+                      v365.origin.x = v303;
+                      v365.size.width = width;
+                      v365.size.height = recta;
+                      v366 = CGRectApplyAffineTransform(v365, &transform);
+                      y = v366.origin.y;
+                      width = v366.size.width;
+                      recta = v366.size.height;
 LABEL_312:
-                      v5 = v335;
+                      v5 = v338;
                       goto LABEL_457;
                     }
 
                     if (r1)
                     {
-                      v188 = *&r1->mPrivate >> 8;
+                      v190 = *&r1->mPrivate >> 8;
                     }
 
                     else
                     {
-                      LOBYTE(v188) = 0;
+                      LOBYTE(v190) = 0;
                     }
 
-                    v363.origin.x = *MEMORY[0x277CBF348];
+                    v366.origin.x = *MEMORY[0x277CBF348];
                     y = *(MEMORY[0x277CBF348] + 8);
-                    if (v328 && HIWORD(v96) && (v96 & 0xFFFF00000000) != 0 || v188 != 9 && v188 != 3)
+                    if (v331 && HIWORD(v97) && (v97 & 0xFFFF00000000) != 0 || v190 != 9 && v190 != 3)
                     {
                       goto LABEL_312;
                     }
 
-                    v5 = v335;
-                    if (!v357 && v173 > v113)
+                    v5 = v338;
+                    if (!v360 && v175 > v114)
                     {
-                      v189 = v356;
-                      v190 = [v47 tableLayout];
-                      v191 = v190;
-                      *&v192 = 0xFFFFFFLL;
-                      *(&v192 + 1) = 0xFFFFFFLL;
-                      *&v359.a = v192;
-                      if (BYTE2(v336) == 255)
+                      v191 = v359;
+                      v192 = [v47 tableLayout];
+                      v193 = v192;
+                      *&v194 = 0xFFFFFFLL;
+                      *(&v194 + 1) = 0xFFFFFFLL;
+                      *&v362.a = v194;
+                      if (BYTE2(v339) == 255)
                       {
-                        v193 = 0xFFFFFFFFLL;
+                        v195 = 0xFFFFFFFFLL;
                       }
 
                       else
                       {
-                        v193 = BYTE2(v336);
+                        v195 = BYTE2(v339);
                       }
 
-                      if (v336 == 0xFFFF)
+                      if (v339 == 0xFFFF)
                       {
-                        v194 = 0xFFFFFFFFLL;
+                        v196 = 0xFFFFFFFFLL;
                       }
 
                       else
                       {
-                        v194 = v336;
+                        v196 = v339;
                       }
 
-                      *&v195 = v193 | (v194 << 32);
-                      transform.a = v195;
-                      transform.b = v195;
-                      transform.c = v195;
-                      transform.d = v195;
-                      TableNumberOfHeaderColumns = TSTMasterLayoutGetTableNumberOfHeaderColumns([v190 masterLayout]);
-                      txa = v191;
-                      v197 = [v191 editingSpillingTextRange];
-                      v198 = 0;
-                      if (v197 != 0xFFFF && (v197 & 0xFF0000) != 0xFF0000)
+                      *&v197 = v195 | (v196 << 32);
+                      transform.a = v197;
+                      transform.b = v197;
+                      transform.c = v197;
+                      transform.d = v197;
+                      TableNumberOfHeaderColumns = TSTMasterLayoutGetTableNumberOfHeaderColumns([v192 masterLayout]);
+                      txa = v193;
+                      v199 = [v193 editingSpillingTextRange];
+                      v200 = 0;
+                      if (v199 != 0xFFFF && (v199 & 0xFF0000) != 0xFF0000)
                       {
-                        v198 = 0;
-                        if (HIWORD(v197))
+                        v200 = 0;
+                        if (HIWORD(v199))
                         {
-                          if ((v197 & 0xFFFF00000000) != 0)
+                          if ((v199 & 0xFFFF00000000) != 0)
                           {
-                            v198 = v336 >= v197 && (v197 + HIWORD(v197) - 1) >= v336;
+                            v200 = v339 >= v199 && (v199 + HIWORD(v199) - 1) >= v339;
                           }
                         }
                       }
 
-                      v280 = v197;
-                      v329 = v189;
+                      v283 = v199;
+                      v332 = v191;
                       if ([txa layoutDirectionIsLeftToRight])
                       {
-                        if (v189 <= 4 && ((1 << v189) & 0x15) != 0)
+                        if (v191 <= 4 && ((1 << v191) & 0x15) != 0)
                         {
                           goto LABEL_317;
                         }
 
 LABEL_326:
-                        v199 = v189;
+                        v201 = v191;
                         goto LABEL_327;
                       }
 
-                      if ((v189 & 0xFFFFFFFB) == 0)
+                      if ((v191 & 0xFFFFFFFB) == 0)
                       {
                         goto LABEL_328;
                       }
 
-                      if (v189 == 1)
+                      if (v191 == 1)
                       {
-                        v199 = 0;
+                        v201 = 0;
                       }
 
                       else
                       {
-                        if (v189 != 2 && v189 != 4)
+                        if (v191 != 2 && v191 != 4)
                         {
                           goto LABEL_326;
                         }
 
 LABEL_317:
-                        v199 = v189;
+                        v201 = v191;
                       }
 
-                      if (v311 != BYTE2(v336))
+                      if (v314 != BYTE2(v339))
                       {
-                        LOWORD(v359.a) = v336;
-                        BYTE2(v359.a) = BYTE2(v336) + 1;
-                        HIWORD(v359.a) = 1;
-                        v200 = v311 - BYTE2(v336);
-                        if (v311 <= BYTE2(v336))
+                        LOWORD(v362.a) = v339;
+                        BYTE2(v362.a) = BYTE2(v339) + 1;
+                        HIWORD(v362.a) = 1;
+                        v202 = v314 - BYTE2(v339);
+                        if (v314 <= BYTE2(v339))
                         {
-                          v200 = 0;
+                          v202 = 0;
                         }
 
-                        WORD2(v359.a) = v200;
+                        WORD2(v362.a) = v202;
                       }
 
 LABEL_327:
-                      if (v199 - 1 > 1)
+                      if (v201 - 1 > 1)
                       {
-                        v273 = 0;
-                        v205 = 0.0;
+                        v276 = 0;
+                        v207 = 0.0;
 LABEL_342:
-                        v274 = -1;
+                        v277 = -1;
                       }
 
                       else
                       {
 LABEL_328:
-                        LOWORD(v359.b) = v336;
-                        HIWORD(v359.b) = 1;
-                        if (TableNumberOfHeaderColumns <= BYTE2(v336))
+                        LOWORD(v362.b) = v339;
+                        HIWORD(v362.b) = 1;
+                        if (TableNumberOfHeaderColumns <= BYTE2(v339))
                         {
-                          v201 = v323 + TableNumberOfHeaderColumns;
+                          v203 = v326 + TableNumberOfHeaderColumns;
                         }
 
                         else
                         {
-                          v201 = v323;
+                          v203 = v326;
                         }
 
-                        if (TableNumberOfHeaderColumns <= BYTE2(v336))
+                        if (TableNumberOfHeaderColumns <= BYTE2(v339))
                         {
-                          v202 = v323 + TableNumberOfHeaderColumns;
-                        }
-
-                        else
-                        {
-                          v202 = v310;
-                        }
-
-                        v203 = BYTE2(v336) - v201;
-                        if (BYTE2(v336) <= v201)
-                        {
-                          v203 = 0;
-                        }
-
-                        v273 = v203;
-                        v274 = v202;
-                        BYTE2(v359.b) = v202;
-                        WORD2(v359.b) = v203;
-                        TSTLayoutSpaceGetFrameForGridRange(a2, *&v195, *&v195);
-                        if (v189 == 2)
-                        {
-                          v205 = v204 * 0.5;
+                          v204 = v326 + TableNumberOfHeaderColumns;
                         }
 
                         else
                         {
-                          v205 = 0.0;
+                          v204 = v313;
                         }
 
-                        if (BYTE2(v336) == v323)
+                        v205 = BYTE2(v339) - v203;
+                        if (BYTE2(v339) <= v203)
                         {
-                          LODWORD(v359.b) = 0xFFFFFF;
+                          v205 = 0;
+                        }
+
+                        v276 = v205;
+                        v277 = v204;
+                        BYTE2(v362.b) = v204;
+                        WORD2(v362.b) = v205;
+                        TSTLayoutSpaceGetFrameForGridRange(a2, *&v197, *&v197);
+                        if (v191 == 2)
+                        {
+                          v207 = v206 * 0.5;
+                        }
+
+                        else
+                        {
+                          v207 = 0.0;
+                        }
+
+                        if (BYTE2(v339) == v326)
+                        {
+                          LODWORD(v362.b) = 0xFFFFFF;
                           goto LABEL_342;
                         }
                       }
 
-                      v206 = 0;
+                      v208 = 0;
                       rectb = 0;
-                      v301 = v336 & 0xFF000000 | (BYTE2(v336) << 16) | v336;
-                      v207 = BYTE2(v336) < BYTE2(v280) && v198;
-                      v279 = v207;
-                      v208 = BYTE2(v336) > (BYTE4(v280) + BYTE2(v280) - 1) && v198;
-                      v278 = v208;
-                      v339 = &v359;
+                      v304 = v339 & 0xFF000000 | (BYTE2(v339) << 16) | v339;
+                      v209 = BYTE2(v339) < BYTE2(v283) && v200;
+                      v282 = v209;
+                      v210 = BYTE2(v339) > (BYTE4(v283) + BYTE2(v283) - 1) && v200;
+                      v281 = v210;
+                      v342 = &v362;
                       p_transform = &transform;
-                      v210 = 1;
-                      v5 = v335;
+                      v212 = 1;
+                      v5 = v338;
                       while (1)
                       {
-                        v211 = v210;
-                        a = v339->a;
-                        if (LOWORD(v339->a) != 0xFFFF)
+                        v213 = v212;
+                        a = v342->a;
+                        if (LOWORD(v342->a) != 0xFFFF)
                         {
                           v14 = (*&a & 0xFF0000) == 16711680;
-                          v213 = *&a & 0xFFFF00000000;
-                          v214 = HIWORD(*&a);
-                          v215 = v14 || v214 == 0;
-                          if (!v215 && v213 != 0)
+                          v215 = *&a & 0xFFFF00000000;
+                          v216 = HIWORD(*&a);
+                          v217 = v14 || v216 == 0;
+                          if (!v217 && v215 != 0)
                           {
-                            if (v206)
+                            if (v208)
                             {
-                              v281 = v281 & 0xFFFFFFFF00000000 | v301;
-                              v217 = TSTLayoutCellLeftOfCell(txa, v281, 1);
-                              v218 = v342;
-                              if (v278)
+                              v284 = v284 & 0xFFFFFFFF00000000 | v304;
+                              v219 = TSTLayoutCellLeftOfCell(txa, v284, 1);
+                              v220 = v345;
+                              if (v281)
                               {
-                                v218 = v342;
-                                if (BYTE2(v217) < (BYTE4(v280) + BYTE2(v280) - 1))
+                                v220 = v345;
+                                if (BYTE2(v219) < (BYTE4(v283) + BYTE2(v283) - 1))
                                 {
-                                  v218 = v280;
-                                  v217 = v280;
+                                  v220 = v283;
+                                  v219 = v283;
                                 }
                               }
 
-                              if (v217 != 0xFFFF && (*&v217 & 0xFF0000) != 0xFF0000 && v218 != 0xFFFF && (v218 & 0xFF0000) != 0xFF0000 && HIWORD(v218) && (v218 & 0xFFFF00000000) != 0)
+                              if (v219 != 0xFFFF && (*&v219 & 0xFF0000) != 0xFF0000 && v220 != 0xFFFF && (v220 & 0xFF0000) != 0xFF0000 && HIWORD(v220) && (v220 & 0xFFFF00000000) != 0)
                               {
-                                v219 = HIDWORD(v218) + WORD1(v218);
-                                BYTE2(v359.b) = v219;
-                                v273 += v274 + (-v219 | 0xFFFFFF00);
-                                v274 = v219;
-                                WORD2(v359.b) = v273;
+                                v221 = HIDWORD(v220) + WORD1(v220);
+                                BYTE2(v362.b) = v221;
+                                v276 += v277 + (-v221 | 0xFFFFFF00);
+                                v277 = v221;
+                                WORD2(v362.b) = v276;
                               }
                             }
 
                             else
                             {
-                              v217 = TSTLayoutCellRightOfCell(txa, v301, 1);
-                              v299 = v299 & 0xFFFFFFFF00000000 | v301;
-                              if (v279 && BYTE2(v280) < BYTE2(v217))
+                              v219 = TSTLayoutCellRightOfCell(txa, v304, 1);
+                              v302 = v302 & 0xFFFFFFFF00000000 | v304;
+                              if (v282 && BYTE2(v283) < BYTE2(v219))
                               {
-                                WORD2(v359.a) = ~BYTE2(v336) + BYTE2(v280);
+                                WORD2(v362.a) = ~BYTE2(v339) + BYTE2(v283);
                               }
                             }
 
-                            v220 = (~v217 & 0xFF0000) != 0 && v217 != 0xFFFF;
-                            v221 = BYTE2(v339->a);
-                            v222 = v221;
-                            if ((v211 & 1) == 0)
+                            v222 = (~v219 & 0xFF0000) != 0 && v219 != 0xFFFF;
+                            v223 = BYTE2(v342->a);
+                            v224 = v223;
+                            if ((v213 & 1) == 0)
                             {
-                              v222 = v221 + WORD2(v339->a) - 1;
+                              v224 = v223 + WORD2(v342->a) - 1;
                             }
 
-                            rectb |= v220;
-                            v223 = BYTE2(v217);
-                            if ((v211 & 1) == 0)
+                            rectb |= v222;
+                            v225 = BYTE2(v219);
+                            if ((v213 & 1) == 0)
                             {
 LABEL_381:
-                              if (v222 < v221)
+                              if (v224 < v223)
                               {
 LABEL_401:
-                                v231 = *&transform.a;
-                                v230 = *&transform.b;
+                                v233 = *&transform.a;
+                                v232 = *&transform.b;
                                 LODWORD(c_low) = LODWORD(transform.c);
                                 LODWORD(d_low) = LODWORD(transform.d);
-                                v234 = HIDWORD(*&transform.a);
-                                v235 = HIDWORD(*&transform.b);
-                                if (LODWORD(transform.a) == -1 || LODWORD(transform.b) == -1 || LODWORD(transform.a) > LODWORD(transform.b) || v234 == 0xFFFFFFFF || v235 == 0xFFFFFFFF || v234 > v235)
+                                v236 = HIDWORD(*&transform.a);
+                                v237 = HIDWORD(*&transform.b);
+                                if (LODWORD(transform.a) == -1 || LODWORD(transform.b) == -1 || LODWORD(transform.a) > LODWORD(transform.b) || v236 == 0xFFFFFFFF || v237 == 0xFFFFFFFF || v236 > v237)
                                 {
-                                  v230 = *&transform.d;
-                                  v231 = *&transform.c;
-                                  a5 = v272;
-                                  v47 = v333;
+                                  v232 = *&transform.d;
+                                  v233 = *&transform.c;
+                                  a5 = v275;
+                                  v47 = v336;
 LABEL_419:
-                                  v158 = r1;
-                                  v76 = v324;
+                                  v159 = r1;
+                                  v77 = v327;
                                   goto LABEL_420;
                                 }
 
-                                v47 = v333;
+                                v47 = v336;
                                 if (LODWORD(transform.c) == -1)
                                 {
                                   LODWORD(d_low) = LODWORD(transform.b);
                                   LODWORD(c_low) = LODWORD(transform.a);
-                                  a5 = v272;
+                                  a5 = v275;
                                   goto LABEL_419;
                                 }
 
-                                a5 = v272;
-                                v158 = r1;
-                                v76 = v324;
-                                if (LODWORD(transform.d) == -1 || LODWORD(transform.c) > LODWORD(transform.d) || (v268 = HIDWORD(*&transform.c), HIDWORD(*&transform.c) == 0xFFFFFFFFLL) || (v269 = HIDWORD(*&transform.d), HIDWORD(*&transform.d) == 0xFFFFFFFFLL) || v268 > v269)
+                                a5 = v275;
+                                v159 = r1;
+                                v77 = v327;
+                                if (LODWORD(transform.d) == -1 || LODWORD(transform.c) > LODWORD(transform.d) || (v271 = HIDWORD(*&transform.c), HIDWORD(*&transform.c) == 0xFFFFFFFFLL) || (v272 = HIDWORD(*&transform.d), HIDWORD(*&transform.d) == 0xFFFFFFFFLL) || v271 > v272)
                                 {
                                   LODWORD(d_low) = LODWORD(transform.b);
                                   LODWORD(c_low) = LODWORD(transform.a);
@@ -3027,9 +3027,9 @@ LABEL_419:
                                     c_low = LODWORD(transform.a);
                                   }
 
-                                  if (v234 >= v268)
+                                  if (v236 >= v271)
                                   {
-                                    v234 = HIDWORD(*&transform.c);
+                                    v236 = HIDWORD(*&transform.c);
                                   }
 
                                   if (LODWORD(transform.b) <= LODWORD(transform.d))
@@ -3042,100 +3042,100 @@ LABEL_419:
                                     d_low = LODWORD(transform.b);
                                   }
 
-                                  if (v235 <= v269)
+                                  if (v237 <= v272)
                                   {
-                                    v235 = HIDWORD(*&transform.d);
+                                    v237 = HIDWORD(*&transform.d);
                                   }
 
-                                  v230 = d_low | (v235 << 32);
-                                  v231 = c_low | (v234 << 32);
+                                  v232 = d_low | (v237 << 32);
+                                  v233 = c_low | (v236 << 32);
                                 }
 
 LABEL_420:
-                                if (c_low == -1 || d_low == -1 || c_low > d_low || (HIDWORD(v231) <= HIDWORD(v230) ? (v241 = HIDWORD(v231) == 0xFFFFFFFF) : (v241 = 1), !v241 ? (v242 = HIDWORD(v230) == 0xFFFFFFFF) : (v242 = 1), v242))
+                                if (c_low == -1 || d_low == -1 || c_low > d_low || (HIDWORD(v233) <= HIDWORD(v232) ? (v243 = HIDWORD(v233) == 0xFFFFFFFF) : (v243 = 1), !v243 ? (v244 = HIDWORD(v232) == 0xFFFFFFFF) : (v244 = 1), v244))
                                 {
-                                  v230 = -1;
-                                  v231 = -1;
+                                  v232 = -1;
+                                  v233 = -1;
                                 }
 
-                                v243 = 0;
-                                if (v231 != -1 && v230 != -1 && v231 <= v230)
+                                v245 = 0;
+                                if (v233 != -1 && v232 != -1 && v233 <= v232)
                                 {
-                                  v243 = 0;
-                                  if (HIDWORD(v231) != 0xFFFFFFFF && HIDWORD(v230) != 0xFFFFFFFF && HIDWORD(v231) <= HIDWORD(v230))
+                                  v245 = 0;
+                                  if (HIDWORD(v233) != 0xFFFFFFFF && HIDWORD(v232) != 0xFFFFFFFF && HIDWORD(v233) <= HIDWORD(v232))
                                   {
-                                    v243 = ((v230 - (v231 & 0xFFFFFFFF00000000)) & 0xFFFFFFFF00000000 | (v230 - v231 + 1)) + 0x100000000;
+                                    v245 = ((v232 - (v233 & 0xFFFFFFFF00000000)) & 0xFFFFFFFF00000000 | (v232 - v233 + 1)) + 0x100000000;
                                   }
                                 }
 
-                                v244 = v231 << 16;
-                                if (v231 == -1)
+                                v246 = v233 << 16;
+                                if (v233 == -1)
                                 {
-                                  v244 = 16711680;
+                                  v246 = 16711680;
                                 }
 
-                                v245 = 0x100000000;
-                                v246 = 0x1000000000000;
-                                if (WORD2(v231) != 0xFFFFLL && v244 != 16711680)
+                                v247 = 0x100000000;
+                                v248 = 0x1000000000000;
+                                if (WORD2(v233) != 0xFFFFLL && v246 != 16711680)
                                 {
-                                  v247 = v243;
-                                  if (v243)
+                                  v249 = v245;
+                                  if (v245)
                                   {
-                                    v248 = (v243 >> 16) & 0xFFFF0000;
-                                    if (v248)
+                                    v250 = (v245 >> 16) & 0xFFFF0000;
+                                    if (v250)
                                     {
-                                      v249 = v76;
-                                      v250 = (v248 | v247) << 32;
-                                      v246 = v250 & 0xFFFF000000000000;
-                                      LODWORD(v301) = v244 & 0xFFFF0000 | WORD2(v231);
-                                      TSTMasterLayoutSetStrokesValidForRange([v47 masterLayout], v244 & 0xFFFF000000FF0000 | WORD2(v231) | v250 & 0xFFFF000000FFFFFFLL | (v250 + 0x100000000) & 0x1FF00000000);
-                                      v245 = v250 & 0xFF00000000;
-                                      v76 = v249;
+                                      v251 = v77;
+                                      v252 = (v250 | v249) << 32;
+                                      v248 = v252 & 0xFFFF000000000000;
+                                      LODWORD(v304) = v246 & 0xFFFF0000 | WORD2(v233);
+                                      TSTMasterLayoutSetStrokesValidForRange([v47 masterLayout], v246 & 0xFFFF000000FF0000 | WORD2(v233) | v252 & 0xFFFF000000FFFFFFLL | (v252 + 0x100000000) & 0x1FF00000000);
+                                      v247 = v252 & 0xFF00000000;
+                                      v77 = v251;
                                     }
                                   }
                                 }
 
-                                v251 = TSTLayoutSpaceGetContentFrameForGridRange(a2, v231, v230);
-                                width = v252;
-                                recta = v253;
-                                if (v329 == 1)
+                                v253 = TSTLayoutSpaceGetContentFrameForGridRange(a2, v233, v232);
+                                width = v254;
+                                recta = v255;
+                                if (v332 == 1)
                                 {
                                   goto LABEL_452;
                                 }
 
-                                if (v329 != 2)
+                                if (v332 != 2)
                                 {
-                                  v255 = [txa layoutDirectionIsLeftToRight];
-                                  if (v329 != 4 || (v255 & 1) != 0)
+                                  v257 = [txa layoutDirectionIsLeftToRight];
+                                  if (v332 != 4 || (v257 & 1) != 0)
                                   {
                                     goto LABEL_455;
                                   }
 
 LABEL_452:
-                                  if (width <= v113)
+                                  if (width <= v114)
                                   {
                                     goto LABEL_455;
                                   }
 
-                                  v254 = v113 - width;
+                                  v256 = v114 - width;
 LABEL_454:
-                                  v256 = 0;
-                                  v363.origin.x = v254;
+                                  v258 = 0;
+                                  v366.origin.x = v256;
                                   goto LABEL_456;
                                 }
 
-                                if (v252 > v113)
+                                if (v254 > v114)
                                 {
-                                  v254 = v251 - ContentFrameForGridRange;
+                                  v256 = v253 - ContentFrameForGridRange;
                                   goto LABEL_454;
                                 }
 
 LABEL_455:
-                                v363.origin = *MEMORY[0x277CBF348];
+                                v366.origin = *MEMORY[0x277CBF348];
 LABEL_456:
-                                v94 = v245 | v246 | v301;
-                                y = v257;
-                                v10 = v326;
+                                v95 = v247 | v248 | v304;
+                                y = v259;
+                                v10 = v329;
                                 break;
                               }
 
@@ -3144,66 +3144,66 @@ LABEL_456:
 
                             while (1)
                             {
-                              if (v222 >= WORD2(v339->a) + v221)
+                              if (v224 >= WORD2(v342->a) + v223)
                               {
                                 goto LABEL_359;
                               }
 
 LABEL_384:
-                              if ((rectb & (v223 == v222)) != 0)
+                              if ((rectb & (v225 == v224)) != 0)
                               {
                                 break;
                               }
 
-                              v224 = [v333 masterLayout];
-                              v225 = +[TSDStroke emptyStroke];
-                              if (v211)
+                              v226 = [v336 masterLayout];
+                              v227 = +[TSDStroke emptyStroke];
+                              if (v213)
                               {
-                                v226 = v222;
+                                v228 = v224;
                               }
 
                               else
                               {
-                                v226 = v222 + 1;
+                                v228 = (v224 + 1);
                               }
 
-                              TSTMasterLayoutSetStrokeForGridColumn(v224, v225, v226, 0, v336, v336 + 1);
-                              TSTMasterLayoutSetStrokeForGridColumn([v333 masterLayout], +[TSDStroke emptyStroke](TSDStroke, "emptyStroke"), v226, 1, v336, v336 + 1);
+                              TSTMasterLayoutSetStrokeForGridColumn(v226, v227, v228, 0, v339, v339 + 1);
+                              TSTMasterLayoutSetStrokeForGridColumn([v336 masterLayout], +[TSDStroke emptyStroke](TSDStroke, "emptyStroke"), v228, 1, v339, v339 + 1);
                               p_b = &p_transform->b;
-                              if (LODWORD(p_transform->b) >= v222)
+                              if (LODWORD(p_transform->b) >= v224)
                               {
                                 p_b = p_transform;
                               }
 
-                              *p_b = v222;
+                              *p_b = v224;
                               TSTLayoutSpaceGetContentFrameForGridRange(a2, *&p_transform->a, *&p_transform->b);
-                              if (v189 == 2)
+                              if (v191 == 2)
                               {
-                                v229 = v173 * 0.5 > v228 - v205;
+                                v231 = v175 * 0.5 > v230 - v207;
                               }
 
                               else
                               {
-                                v229 = v173 > v228;
+                                v231 = v175 > v230;
                               }
 
-                              v5 = v335;
-                              if (!v229)
+                              v5 = v338;
+                              if (!v231)
                               {
                                 goto LABEL_359;
                               }
 
-                              if (v211)
+                              if (v213)
                               {
-                                ++v222;
+                                ++v224;
                               }
 
                               else
                               {
-                                --v222;
+                                --v224;
                               }
 
-                              if ((v211 & 1) == 0)
+                              if ((v213 & 1) == 0)
                               {
                                 goto LABEL_381;
                               }
@@ -3214,11 +3214,11 @@ LABEL_384:
                         }
 
 LABEL_359:
-                        v210 = 0;
-                        v206 = 1;
+                        v212 = 0;
+                        v208 = 1;
                         p_transform = &transform.c;
-                        v339 = &v359.b;
-                        if ((v211 & 1) == 0)
+                        v342 = &v362.b;
+                        if ((v213 & 1) == 0)
                         {
                           goto LABEL_401;
                         }
@@ -3226,21 +3226,21 @@ LABEL_359:
                     }
 
 LABEL_457:
-                    r1a = v363.origin.x;
-                    v258 = 0;
-                    if (v94 != 0xFFFF && (v94 & 0xFF0000) != 0xFF0000)
+                    r1a = v366.origin.x;
+                    v260 = 0;
+                    if (v95 != 0xFFFF && (v95 & 0xFF0000) != 0xFF0000)
                     {
-                      v258 = 0;
-                      if (HIWORD(v94))
+                      v260 = 0;
+                      if (HIWORD(v95))
                       {
-                        if ((v94 & 0xFFFF00000000) != 0)
+                        if ((v95 & 0xFFFF00000000) != 0)
                         {
-                          v258 = 0;
-                          if (v158)
+                          v260 = 0;
+                          if (v159)
                           {
-                            if ((v94 & 0xFFFFFFFF00000000) == 0x1000100000000)
+                            if ((v95 & 0xFFFFFFFF00000000) == 0x1000100000000)
                             {
-                              v258 = *(&v158->mPrivate + 1) << 8 == 2304 && [(TSWPStorage *)[(TSTRichTextPayload *)v158->mPrivate.mRichTextPayload storage] listStyleCount]!= 0;
+                              v260 = *(&v159->mPrivate + 1) << 8 == 2304 && [(TSWPStorage *)[(TSTRichTextPayload *)v159->mPrivate.mRichTextPayload storage] listStyleCount]!= 0;
                             }
                           }
                         }
@@ -3249,110 +3249,110 @@ LABEL_457:
 
                     if ([objc_msgSend(v47 "info")])
                     {
-                      [v341 parent];
+                      [v344 parent];
                       objc_opt_class();
                       if ((objc_opt_isKindOfClass() & 1) == 0)
                       {
-                        v340 = v152;
+                        v343 = v153;
                         memset(&transform, 0, sizeof(transform));
-                        v276 = v151;
-                        v277 = v154;
-                        v313 = v174;
-                        v259 = v113;
-                        if (v341)
+                        v279 = v152;
+                        v280 = v155;
+                        v316 = v176;
+                        v261 = v114;
+                        if (v344)
                         {
-                          [v341 transformInParent];
+                          objc_msgSend_transformInParent(v344);
                         }
 
                         else
                         {
-                          memset(&v359, 0, sizeof(v359));
+                          memset(&v362, 0, sizeof(v362));
                         }
 
-                        CGAffineTransformInvert(&transform, &v359);
-                        [objc_msgSend(v341 "parent")];
-                        v359 = transform;
-                        v365 = CGRectApplyAffineTransform(v364, &v359);
-                        x = v365.origin.x;
-                        v261 = v365.origin.y;
-                        v262 = v365.size.width;
-                        height = v365.size.height;
-                        v353 = v354;
-                        CGAffineTransformInvert(&v359, &v353);
-                        v366.origin.x = x;
-                        v366.origin.y = v261;
-                        v366.size.width = v262;
-                        v366.size.height = height;
-                        v367 = CGRectApplyAffineTransform(v366, &v359);
-                        v371.origin.y = v367.origin.y;
-                        v371.size.height = v367.size.height;
-                        v367.origin.x = r1a;
-                        v367.origin.y = y;
-                        v367.size.width = width;
-                        v367.size.height = recta;
-                        v371.origin.x = r1a;
-                        v371.size.width = width;
-                        v368 = CGRectIntersection(v367, v371);
-                        r1a = v368.origin.x;
-                        y = v368.origin.y;
-                        width = v368.size.width;
-                        recta = v368.size.height;
-                        v113 = v259;
-                        v152 = v340;
-                        v151 = v276;
-                        v154 = v277;
-                        v174 = v313;
+                        CGAffineTransformInvert(&transform, &v362);
+                        [objc_msgSend(v344 "parent")];
+                        v362 = transform;
+                        v368 = CGRectApplyAffineTransform(v367, &v362);
+                        x = v368.origin.x;
+                        v263 = v368.origin.y;
+                        v264 = v368.size.width;
+                        height = v368.size.height;
+                        v356 = v357;
+                        CGAffineTransformInvert(&v362, &v356);
+                        v369.origin.x = x;
+                        v369.origin.y = v263;
+                        v369.size.width = v264;
+                        v369.size.height = height;
+                        v370 = CGRectApplyAffineTransform(v369, &v362);
+                        v374.origin.y = v370.origin.y;
+                        v374.size.height = v370.size.height;
+                        v370.origin.x = r1a;
+                        v370.origin.y = y;
+                        v370.size.width = width;
+                        v370.size.height = recta;
+                        v374.origin.x = r1a;
+                        v374.size.width = width;
+                        v371 = CGRectIntersection(v370, v374);
+                        r1a = v371.origin.x;
+                        y = v371.origin.y;
+                        width = v371.size.width;
+                        recta = v371.size.height;
+                        v114 = v261;
+                        v153 = v343;
+                        v152 = v279;
+                        v155 = v280;
+                        v176 = v316;
                       }
                     }
 
-                    transform = v354;
+                    transform = v357;
                     CGContextConcatCTM(a5, &transform);
-                    v369.origin.x = r1a;
-                    v369.origin.y = y;
-                    v369.size.width = width;
-                    v369.size.height = recta;
-                    CGContextClipToRect(a5, v369);
-                    if (!v357 && ((TSTCellFormatUsesAccountingStyle(v158) | v258) & 1) == 0)
+                    v372.origin.x = r1a;
+                    v372.origin.y = y;
+                    v372.size.width = width;
+                    v372.size.height = recta;
+                    CGContextClipToRect(a5, v372);
+                    if (!v360 && ((TSTCellFormatUsesAccountingStyle(v159, v266) | v260) & 1) == 0)
                     {
-                      if (v356 == 2)
+                      if (v359 == 2)
                       {
-                        v264 = v113 * 0.5 - v173 * 0.5 - v298;
+                        v267 = v114 * 0.5 - v175 * 0.5 - v301;
 LABEL_478:
-                        CGContextTranslateCTM(a5, v264, 0.0);
+                        CGContextTranslateCTM(a5, v267, 0.0);
                       }
 
-                      else if (v356 == 1)
+                      else if (v359 == 1)
                       {
-                        v370.origin.x = v298;
-                        v370.origin.y = v295;
-                        v370.size.width = v173;
-                        v370.size.height = v174;
-                        v264 = v113 - CGRectGetMaxX(v370);
+                        v373.origin.x = v301;
+                        v373.origin.y = v298;
+                        v373.size.width = v175;
+                        v373.size.height = v176;
+                        v267 = v114 - CGRectGetMaxX(v373);
                         goto LABEL_478;
                       }
                     }
 
-                    v265 = [TSTTextEngineDelegate alloc];
-                    v266 = [(TSTTextEngineDelegate *)v265 initWithPadding:v355 verticalAlignment:v152, v151, v154, v318];
-                    v267 = [objc_msgSend(v47 "masterLayout")];
-                    [v267 setDelegate:v266];
-                    [v319 viewScale];
-                    [v267 drawColumn:v317 inContext:a5 isFlipped:v297 viewScale:?];
-                    [v267 setDelegate:0];
+                    v268 = [TSTTextEngineDelegate alloc];
+                    v269 = [(TSTTextEngineDelegate *)v268 initWithPadding:v358 verticalAlignment:v153, v152, v155, v321];
+                    v270 = [objc_msgSend(v47 "masterLayout")];
+                    [v270 setDelegate:v269];
+                    [v322 viewScale];
+                    [v270 drawColumn:v320 inContext:a5 isFlipped:v300 viewScale:?];
+                    [v270 setDelegate:0];
 
                     CGContextRestoreGState(a5);
 LABEL_480:
                     objc_autoreleasePoolPop(context);
-                    if (!v76)
+                    if (!v77)
                     {
-                      v94 = v342;
+                      v95 = v345;
                     }
 
 LABEL_176:
 
-                    v342 = v94;
+                    v345 = v95;
 LABEL_177:
-                    if (!TSTLayoutCellIteratorGetNextCell(v349, v351))
+                    if (!TSTLayoutCellIteratorGetNextCell(v352, v354))
                     {
                       goto LABEL_504;
                     }
@@ -3360,54 +3360,54 @@ LABEL_177:
                     continue;
                   }
 
-                  v47 = v333;
-                  v10 = v326;
+                  v47 = v336;
+                  v10 = v329;
                 }
 
                 else
                 {
-                  v127 = [v47 canvas];
-                  if (!v76)
+                  v128 = [v47 canvas];
+                  if (!v77)
                   {
-                    v5 = v335;
+                    v5 = v338;
                     goto LABEL_480;
                   }
 
-                  v319 = v127;
-                  v324 = v76;
+                  v322 = v128;
+                  v327 = v77;
                 }
 
                 if (BYTE2(v67) == 255)
-                {
-                  v130 = 0xFFFFFFFFLL;
-                }
-
-                else
-                {
-                  v130 = BYTE2(v67);
-                }
-
-                if (v67 == 0xFFFF)
                 {
                   v131 = 0xFFFFFFFFLL;
                 }
 
                 else
                 {
-                  v131 = v67;
+                  v131 = BYTE2(v67);
                 }
 
-                v132 = v130 | (v131 << 32);
-                v133 = TSTLayoutSpaceGetAlignedContentFrameForGridRange(a2, v132, v132);
-                v135 = v134;
-                width = v136;
-                recta = v138;
-                ContentFrameForGridRange = TSTLayoutSpaceGetContentFrameForGridRange(a2, v132, v132);
-                v113 = v139;
-                v299 = *&v135;
-                v300 = v133;
-                ty = v135;
-                tx = v133;
+                if (v67 == 0xFFFF)
+                {
+                  v132 = 0xFFFFFFFFLL;
+                }
+
+                else
+                {
+                  v132 = v67;
+                }
+
+                v133 = v131 | (v132 << 32);
+                v134 = TSTLayoutSpaceGetAlignedContentFrameForGridRange(a2, v133, v133);
+                v136 = v135;
+                width = v137;
+                recta = v139;
+                ContentFrameForGridRange = TSTLayoutSpaceGetContentFrameForGridRange(a2, v133, v133);
+                v114 = v140;
+                v302 = *&v136;
+                v303 = v134;
+                ty = v136;
+                tx = v134;
                 goto LABEL_262;
               }
             }
@@ -3419,14 +3419,14 @@ LABEL_177:
           goto LABEL_176;
         }
 
-        v10 = v326;
+        v10 = v329;
 LABEL_504:
 
-        result = TSTMasterLayoutNextVisibleRow(v10, (v325 + 1));
-        v20 = v305;
+        result = TSTMasterLayoutNextVisibleRow(v10, (v328 + 1));
+        v20 = v308;
       }
 
-      while (result <= v308);
+      while (result <= v311);
     }
   }
 
@@ -3569,48 +3569,48 @@ LABEL_24:
   return (v3 << 24) | ((v4 | v5) << 32) | (v2 << 16) | a1;
 }
 
-void sub_26C9B36D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26C9B36D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<TSTMergeRangeElem,TSTMergeRangeElemCompare,std::allocator<TSTMergeRangeElem>>::__emplace_unique_key_args<TSTMergeRangeElem,TSTMergeRangeElem const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::__tree<TSTMergeRangeElem,TSTMergeRangeElemCompare,std::allocator<TSTMergeRangeElem>>::__emplace_unique_key_args<TSTMergeRangeElem,TSTMergeRangeElem const&>(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *(a2 + 56);
+  v4 = *(a2 + 56);
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 88);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 88);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -3942,14 +3942,16 @@ void TSTTableRBTreeFree(void **a1)
 {
   if (a1)
   {
-    if (a1[1] != &TSTTableRBTreeNil)
+    v2 = a1[1];
+    if (v2 != &TSTTableRBTreeNil)
     {
-      TSTTableRBTreeFree();
+      TSTTableRBTreeFree(v2);
     }
 
-    if (a1[2] != &TSTTableRBTreeNil)
+    v3 = a1[2];
+    if (v3 != &TSTTableRBTreeNil)
     {
-      TSTTableRBTreeFree();
+      TSTTableRBTreeFree(v3);
     }
 
     free(a1);
@@ -4465,18 +4467,18 @@ TSTTableRBTreeNode_s *TSTTableRBTreeDelete(TSTTableRBTreeNode_s *a1, void *a2)
     do
     {
       v3 = v4;
-      v4 = *(v4 + 8);
+      v4 = v4[1];
     }
 
     while (v4 != &TSTTableRBTreeNil);
 LABEL_4:
-    v2 = *(v3 + 2);
+    v2 = v3[2];
     goto LABEL_6;
   }
 
   v3 = a2;
 LABEL_6:
-  v5 = *(v3 + 3);
+  v5 = v3[3];
   *(v2 + 24) = v5;
   v6 = v2;
   if (v5 != &TSTTableRBTreeNil)
@@ -4496,7 +4498,7 @@ LABEL_6:
     *a2 = *v3;
   }
 
-  if (!v3[32])
+  if (!*(v3 + 32))
   {
     v6 = TSTTableRBTreeDeleteFixup(v6, v2);
   }
@@ -4505,7 +4507,7 @@ LABEL_6:
   return v6;
 }
 
-uint64_t TSTTableRBTreeShiftCellIndices(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+unsigned __int16 *TSTTableRBTreeShiftCellIndices(unsigned __int16 *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = result;
   if (a3 >= 0)
@@ -4597,7 +4599,7 @@ unsigned __int16 *TSTTableRBTreeFind(unsigned __int16 *a1, unsigned int a2)
   return result;
 }
 
-uint64_t TSTTableRBTreeShiftNodesAfter(uint64_t result, uint64_t a2, uint64_t a3)
+unsigned __int16 *TSTTableRBTreeShiftNodesAfter(unsigned __int16 *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   if (a3 >= 0)
@@ -4640,7 +4642,7 @@ uint64_t TSTTableRBTreeShiftNodesAfter(uint64_t result, uint64_t a2, uint64_t a3
   return result;
 }
 
-uint64_t TSTTableRBTreeShiftNodesAtOrAfter(uint64_t result, uint64_t a2, uint64_t a3)
+unsigned __int16 *TSTTableRBTreeShiftNodesAtOrAfter(unsigned __int16 *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   if (a3 >= 0)
@@ -4735,19 +4737,19 @@ uint64_t p_validateNode(unsigned int a1, unsigned __int16 a2, void *a3)
   return [a3 addIndex:v4];
 }
 
-void TSTTableRBTreeValidate(uint64_t a1)
+void TSTTableRBTreeValidate(unsigned __int16 *a1)
 {
   v2 = objc_alloc_init(MEMORY[0x277CCAB58]);
   TSTTableRBTreeApply(a1, p_validateNode, v2);
 }
 
-uint64_t TSTTableRBTreeApply(uint64_t result, uint64_t (*a2)(uint64_t, uint64_t, uint64_t), uint64_t a3)
+unsigned __int16 *TSTTableRBTreeApply(unsigned __int16 *result, uint64_t (*a2)(uint64_t, uint64_t, uint64_t), uint64_t a3)
 {
   if (result)
   {
     v4 = a2;
     v5 = result;
-    v6 = *(result + 8);
+    v6 = *(result + 1);
     if (v6 != &TSTTableRBTreeNil)
     {
       TSTTableRBTreeApply(v6, a2, a3);
@@ -4774,21 +4776,23 @@ void TSTTableRBTreeDump(unsigned __int16 *a1)
 {
   if (a1)
   {
-    if (*(a1 + 1) != &TSTTableRBTreeNil)
+    v2 = *(a1 + 1);
+    if (v2 != &TSTTableRBTreeNil)
     {
-      TSTTableRBTreeDump();
+      TSTTableRBTreeDump(v2);
     }
 
-    if (*(a1 + 2) != &TSTTableRBTreeNil)
+    v3 = *(a1 + 2);
+    if (v3 != &TSTTableRBTreeNil)
     {
-      TSTTableRBTreeDump();
+      TSTTableRBTreeDump(v3);
     }
 
     NSLog(@"node %p: key:%d, value: %d", a1, *a1, a1[1]);
   }
 }
 
-uint64_t TSTTableSelectionSetCellRegion(uint64_t a1, void *a2)
+void *TSTTableSelectionSetCellRegion(uint64_t a1, void *a2)
 {
   *(a1 + 16) = 0;
   *(a1 + 16) = a2;
@@ -4798,7 +4802,7 @@ uint64_t TSTTableSelectionSetCellRegion(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t TSTTableSelectionSetCellRange(uint64_t a1, unint64_t a2)
+id TSTTableSelectionSetCellRange(uint64_t a1, unint64_t a2)
 {
   result = [*(a1 + 16) equalsCellRange:a2];
   if ((result & 1) == 0)
@@ -4835,14 +4839,14 @@ void sub_26C9B8184(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C9B8610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C9B8610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5255,79 +5259,79 @@ LABEL_106:
   return v16;
 }
 
-void sub_26C9B91B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C9B91B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9B9AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C9B9AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C9B9BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9B9DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26C9B9BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a8);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9B9F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26C9B9DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9BA570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C9B9F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a9);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9BA7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C9BA570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9BAF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C9BA7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9BB2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C9BAF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9BCBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C9BB2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 72), 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C9BCBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v13 - 72), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5356,7 +5360,7 @@ uint64_t TSTTableDataListAddObject(TSTTableDataList *a1, TSTTableDataObject *a2)
   return mNextID;
 }
 
-uint64_t TSTTableDataListAddReferenceForKey(id *a1, uint64_t a2)
+_DWORD *TSTTableDataListAddReferenceForKey(id *a1, uint64_t a2)
 {
   [a1 willModify];
   result = [a1[7] objectForKey:a2];
@@ -5368,7 +5372,7 @@ uint64_t TSTTableDataListAddReferenceForKey(id *a1, uint64_t a2)
     result = [v6 handleFailureInFunction:v7 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableDataList.mm"), 1089, @"No object with key %u!", a2}];
   }
 
-  ++*(v5 + 8);
+  ++v5[2];
   return result;
 }
 
@@ -5540,7 +5544,7 @@ uint64_t TSTTableDataListAddMultipleChoiceListFormat(TSTTableDataList *a1, uint6
   return v7;
 }
 
-uint64_t TSTTableDataListGetStringForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataListGetStringForKey(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 1)
   {
@@ -5552,7 +5556,7 @@ uint64_t TSTTableDataListGetStringForKey(uint64_t a1, uint64_t a2)
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 16);
+    return result[2];
   }
 
   return result;
@@ -5584,7 +5588,7 @@ __n128 TSTTableDataListGetCellFormatForKey@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X
   return result;
 }
 
-uint64_t TSTTableDataListGetStyleForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataListGetStyleForKey(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 4)
   {
@@ -5596,13 +5600,13 @@ uint64_t TSTTableDataListGetStyleForKey(uint64_t a1, uint64_t a2)
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 16);
+    return result[2];
   }
 
   return result;
 }
 
-uint64_t TSTTableDataListGetConditionalStyleSetForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataListGetConditionalStyleSetForKey(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 9)
   {
@@ -5614,13 +5618,13 @@ uint64_t TSTTableDataListGetConditionalStyleSetForKey(uint64_t a1, uint64_t a2)
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 16);
+    return result[2];
   }
 
   return result;
 }
 
-uint64_t TSTTableDataListGetFormulaErrorForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataListGetFormulaErrorForKey(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 5)
   {
@@ -5632,13 +5636,13 @@ uint64_t TSTTableDataListGetFormulaErrorForKey(uint64_t a1, uint64_t a2)
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 16);
+    return result[2];
   }
 
   return result;
 }
 
-uint64_t TSTTableDataListGetRichTextPayloadForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataListGetRichTextPayloadForKey(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 8)
   {
@@ -5650,13 +5654,13 @@ uint64_t TSTTableDataListGetRichTextPayloadForKey(uint64_t a1, uint64_t a2)
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 16);
+    return result[2];
   }
 
   return result;
 }
 
-uint64_t TSTTableDataListGetCommentStorageForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataListGetCommentStorageForKey(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 10)
   {
@@ -5668,13 +5672,13 @@ uint64_t TSTTableDataListGetCommentStorageForKey(uint64_t a1, uint64_t a2)
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 16);
+    return result[2];
   }
 
   return result;
 }
 
-uint64_t TSTTableDataListGetCustomFormatForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataListGetCustomFormatForKey(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 6)
   {
@@ -5686,13 +5690,13 @@ uint64_t TSTTableDataListGetCustomFormatForKey(uint64_t a1, uint64_t a2)
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 16);
+    return result[2];
   }
 
   return result;
 }
 
-uint64_t TSTTableDataListGetMultipleChoiceListFormatForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataListGetMultipleChoiceListFormatForKey(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) != 7)
   {
@@ -5704,18 +5708,18 @@ uint64_t TSTTableDataListGetMultipleChoiceListFormatForKey(uint64_t a1, uint64_t
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 16);
+    return result[2];
   }
 
   return result;
 }
 
-uint64_t TSTTableDataListRefCountForKey(uint64_t a1, uint64_t a2)
+unsigned int *TSTTableDataListRefCountForKey(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 56) objectForKey:a2];
   if (result)
   {
-    return *(result + 8);
+    return result[2];
   }
 
   return result;
@@ -5790,7 +5794,7 @@ uint64_t TSTTableDataListGetKeyForCustomFormat(TSTTableDataList *a1, TSUCustomFo
   return v10;
 }
 
-uint64_t TSTTableDumpTile(void *a1)
+void *TSTTableDumpTile(void *a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   NSLog(@"%@", [a1 description]);
@@ -5814,7 +5818,8 @@ uint64_t TSTTableDumpTile(void *a1)
           objc_enumerationMutation(v2);
         }
 
-        TSTTableDumpTileRowInfo(*(*(&v7 + 1) + 8 * v6++));
+        TSTTableDumpTileRowInfo(*(*(&v7 + 1) + 8 * v6));
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -5828,7 +5833,7 @@ uint64_t TSTTableDumpTile(void *a1)
   return result;
 }
 
-uint64_t TSTTableTileListRows(uint64_t a1)
+void *TSTTableTileListRows(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   v6 = 0u;
@@ -5851,7 +5856,8 @@ uint64_t TSTTableTileListRows(uint64_t a1)
           objc_enumerationMutation(v1);
         }
 
-        NSLog(@"%@", *(*(&v6 + 1) + 8 * v5++));
+        NSLog(@"%@", *(*(&v6 + 1) + 8 * v5));
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -5865,7 +5871,7 @@ uint64_t TSTTableTileListRows(uint64_t a1)
   return result;
 }
 
-uint64_t TSTTableTileValidate(uint64_t a1)
+void *TSTTableTileValidate(uint64_t a1)
 {
   v28 = *MEMORY[0x277D85DE8];
   v23 = 0u;
@@ -5921,9 +5927,9 @@ uint64_t TSTTableTileValidate(uint64_t a1)
           v5 = v11;
         }
 
-        TSTTableTileRowInfoValidate(v9);
+        TSTTableTileRowInfoValidate();
         v6 += *(v9 + 538);
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v2 != v8);
@@ -6042,20 +6048,21 @@ TSTTableTileRowInfo *p_AddRowInfoWithRowIndex(TSTTableTile *a1, uint64_t a2)
   return v4;
 }
 
-UInt8 *TSTTableTileGetCellStorageRef(TSTTableTile *a1, unsigned int a2, uint64_t a3)
+UInt8 *TSTTableTileGetCellStorageRef(TSTTableTile *a1, uint64_t a2, uint64_t a3)
 {
   if (!a1->mNumCells)
   {
     return 0;
   }
 
+  v3 = a2;
   v4 = TSTTableTileRowInfoForTileRowIndex(a1, a3, 0);
   if (!v4)
   {
     return 0;
   }
 
-  return TSTTableTileRowInfoCellStorageRefAtTileColumnIndex(v4, a2);
+  return TSTTableTileRowInfoCellStorageRefAtTileColumnIndex(v4, v3);
 }
 
 void TSTTableTileSetCell(TSTTableTile *a1, unsigned int a2, uint64_t a3, void *a4)
@@ -6439,8 +6446,11 @@ LABEL_11:
   }
 }
 
-uint64_t TSTTableTileInsertColumns(uint64_t a1, char a2, int a3, char a4)
+uint64_t TSTTableTileInsertColumns(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
   v23 = *MEMORY[0x277D85DE8];
   [a1 willModify];
   v20 = 0u;
@@ -6464,7 +6474,7 @@ uint64_t TSTTableTileInsertColumns(uint64_t a1, char a2, int a3, char a4)
         }
 
         v13 = *(*(&v18 + 1) + 8 * i);
-        TSTTableTileRowInfoInsertColumns(v13, a2, a3, a4);
+        TSTTableTileRowInfoInsertColumns(v13, v6, v5, v4);
         if ((v13[541] & 1) == 0)
         {
           TSTTableTileRowInfoRecalculateMaxTileColumnIndex(v13);
@@ -6498,8 +6508,10 @@ uint64_t TSTTableTileInsertColumns(uint64_t a1, char a2, int a3, char a4)
   return 0;
 }
 
-uint64_t TSTTableTileRemoveColumns(uint64_t a1, int a2, int a3)
+uint64_t TSTTableTileRemoveColumns(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   v23 = *MEMORY[0x277D85DE8];
   [a1 willModify];
   v20 = 0u;
@@ -6524,7 +6536,7 @@ uint64_t TSTTableTileRemoveColumns(uint64_t a1, int a2, int a3)
 
         v11 = *(*(&v18 + 1) + 8 * i);
         mCellCount = v11->mCellCount;
-        TSTTableTileRowInfoRemoveColumns(v11, a2, a3);
+        TSTTableTileRowInfoRemoveColumns(v11, v4, v3);
         v13 = v11->mCellCount - mCellCount;
         if (v13)
         {
@@ -6564,14 +6576,17 @@ uint64_t TSTTableTileRemoveColumns(uint64_t a1, int a2, int a3)
   return 0;
 }
 
-void TSTTableTileMoveColumns(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4)
+void TSTTableTileMoveColumns(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
   v27 = *MEMORY[0x277D85DE8];
   [a1 willModify];
   if (*(a1 + 64))
   {
     v8 = *(a1 + 48);
-    if (v8 >= a2 || v8 >= a3)
+    if (v8 >= v6 || v8 >= v5)
     {
       v10 = malloc_type_malloc(0x57FFA8uLL, 0x100004052888210uLL);
       v11 = malloc_type_malloc(0x1FFFEuLL, 0x1000040BDFB0063uLL);
@@ -6597,7 +6612,7 @@ void TSTTableTileMoveColumns(uint64_t a1, unsigned int a2, unsigned int a3, unsi
             }
 
             v17 = *(*(&v22 + 1) + 8 * i);
-            TSTTableTileRowInfoMoveColumns(v17, a2, a3, a4, v10, v11);
+            TSTTableTileRowInfoMoveColumns(v17, v6, v5, v4, v10, v11);
             if (!v17->mMaxTileColumnIndexValid)
             {
               TSTTableTileRowInfoRecalculateMaxTileColumnIndex(v17);
@@ -6634,7 +6649,7 @@ void TSTTableTileMoveColumns(uint64_t a1, unsigned int a2, unsigned int a3, unsi
   }
 }
 
-uint64_t TSTTableTileInsertRows(uint64_t a1, unsigned int a2, __int16 a3, int a4)
+void *TSTTableTileInsertRows(uint64_t a1, unsigned int a2, __int16 a3, int a4)
 {
   v33 = *MEMORY[0x277D85DE8];
   [a1 willModify];
@@ -6677,7 +6692,7 @@ uint64_t TSTTableTileInsertRows(uint64_t a1, unsigned int a2, __int16 a3, int a4
           *(v12 + 536) = v16;
         }
 
-        ++v11;
+        v11 = v11 + 1;
       }
 
       while (v9 != v11);
@@ -6717,7 +6732,7 @@ uint64_t TSTTableTileInsertRows(uint64_t a1, unsigned int a2, __int16 a3, int a4
             *(a1 + 50) = v21;
           }
 
-          ++v20;
+          v20 = v20 + 1;
         }
 
         while (v18 != v20);
@@ -7111,7 +7126,7 @@ unsigned __int8 *TSTTableTileYankRow(uint64_t a1, unsigned int a2)
   return v10;
 }
 
-uint64_t TSTTableTileSpliceRow(TSTTableTile *a1, unsigned int a2, TSTTableTileRowInfo *a3)
+void *TSTTableTileSpliceRow(TSTTableTile *a1, unsigned int a2, TSTTableTileRowInfo *a3)
 {
   if (!a3)
   {
@@ -7132,7 +7147,7 @@ uint64_t TSTTableTileSpliceRow(TSTTableTile *a1, unsigned int a2, TSTTableTileRo
   return p_InsertRowInfoWithRowIndex(a1, a3, a2);
 }
 
-uint64_t p_InsertRowInfoWithRowIndex(TSTTableTile *a1, TSTTableTileRowInfo *a2, unsigned int a3)
+void *p_InsertRowInfoWithRowIndex(TSTTableTile *a1, TSTTableTileRowInfo *a2, unsigned int a3)
 {
   v31 = *MEMORY[0x277D85DE8];
   v5 = 0x277D6C000uLL;
@@ -7491,7 +7506,7 @@ TSTTableTile *TSTTableTileSplitRows(uint64_t a1, unsigned int a2)
   return v31;
 }
 
-uint64_t TSTTableTileMergeRows(uint64_t a1, uint64_t a2, unsigned int a3)
+void *TSTTableTileMergeRows(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v32 = *MEMORY[0x277D85DE8];
   [a1 willModify];
@@ -7581,7 +7596,7 @@ uint64_t TSTTableTileMergeRows(uint64_t a1, uint64_t a2, unsigned int a3)
   return result;
 }
 
-uint64_t TSTTableSetDefaultRowHeight(double *a1, double a2)
+void *TSTTableSetDefaultRowHeight(double *a1, double a2)
 {
   result = [a1 willModify];
   a1[12] = a2;
@@ -7601,7 +7616,7 @@ double TSTTableDefaultRowHeight(uint64_t a1)
   }
 }
 
-uint64_t TSTTableSetDefaultColumnWidth(double *a1, double a2)
+void *TSTTableSetDefaultColumnWidth(double *a1, double a2)
 {
   result = [a1 willModify];
   a1[13] = a2;
@@ -7859,16 +7874,16 @@ LABEL_43:
   return result;
 }
 
-uint64_t TSTTableSetCellAtCellIDIgnoringFormula(uint64_t a1, void *a2, unsigned int a3)
+uint64_t TSTTableSetCellAtCellIDIgnoringFormula(uint64_t a1, void *a2, int a3, uint64_t a4, uint64_t a5)
 {
-  v5 = a3;
-  v6 = TSTTablePreflightSetCellAtCellID(a1, a2, a3);
-  if (!v6)
+  v7 = a3;
+  v8 = TSTTablePreflightSetCellAtCellID(a1, a2, a3);
+  if (!v8)
   {
-    TSTTableDataStoreSetCellAtCellID(*(a1 + 48), a2, v5);
+    TSTTableDataStoreSetCellAtCellID(*(a1 + 48), a2, v7);
   }
 
-  return v6;
+  return v8;
 }
 
 uint64_t TSTTablePreflightSetCellsWithCellMap(uint64_t a1, void *a2)
@@ -7904,15 +7919,15 @@ uint64_t TSTTablePreflightSetCellsWithCellMap(uint64_t a1, void *a2)
   return 1001;
 }
 
-uint64_t TSTTableSetCellsWithCellMapIgnoringFormulas(uint64_t a1, void *a2)
+uint64_t TSTTableSetCellsWithCellMapIgnoringFormulas(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = TSTTablePreflightSetCellsWithCellMap(a1, a2);
-  if (!v4)
+  v7 = TSTTablePreflightSetCellsWithCellMap(a1, a2);
+  if (!v7)
   {
     TSTTableDataStoreSetCellsWithCellMap(*(a1 + 48), a2);
   }
 
-  return v4;
+  return v7;
 }
 
 uint64_t TSTCellAtCellIDHoldingReadLock(uint64_t a1, int a2, uint64_t a3, void *a4)
@@ -7925,18 +7940,18 @@ uint64_t TSTCellAtCellIDHoldingReadLock(uint64_t a1, int a2, uint64_t a3, void *
   return v5;
 }
 
-void TSTTableGetFormatAtCellIDForFormulaReference(uint64_t a1@<X0>, int a2@<W1>, BOOL *a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>)
+void TSTTableGetFormatAtCellIDForFormulaReference(void *result@<X0>, int a2@<W1>, BOOL *a3@<X2>, void *a4@<X3>, int *a5@<X8>)
 {
-  if (a2 >= *(a1 + 72) || BYTE2(a2) >= *(a1 + 74))
+  if (a2 >= *(result + 36) || BYTE2(a2) >= *(result + 37))
   {
-    *(a5 + 32) = 0;
+    *(a5 + 4) = 0;
     *a5 = TSUInvalidFormat;
-    *(a5 + 16) = unk_26CA67A30;
+    *(a5 + 1) = unk_26CA67A30;
     return;
   }
 
   v9 = a2 & 0xFF000000 | (BYTE2(a2) << 16) | a2;
-  v10 = TSTCellDictionaryCellAtCellID(*(a1 + 280), v9);
+  v10 = TSTCellDictionaryCellAtCellID(result[35], v9);
   if (v10)
   {
     if (a3)
@@ -7947,27 +7962,27 @@ void TSTTableGetFormatAtCellIDForFormulaReference(uint64_t a1@<X0>, int a2@<W1>,
     v11 = *(v10 + 17);
     v12 = *(v10 + 120);
     *a5 = *(v10 + 104);
-    *(a5 + 16) = v12;
-    *(a5 + 32) = v11;
+    *(a5 + 1) = v12;
+    *(a5 + 4) = v11;
     v13 = *a5;
     if ((*a5 & 0xFFFFFFFE) != 0x108)
     {
       goto LABEL_13;
     }
 
-    TSTCellGetFormatOfType(v10, *(a5 + 32), a5);
+    TSTCellGetFormatOfType(v10, a5[8], a5);
     goto LABEL_12;
   }
 
-  *v14.i64 = TSTTableDataStoreGetFormatAtCellID(*(a1 + 48), v9, a3, 0, a5);
+  *v14.i64 = TSTTableDataStoreGetFormatAtCellID(result[6], v9, a3, 0, a5);
   v13 = *a5;
   if ((*a5 & 0xFFFFFFFE) == 0x108)
   {
-    TSTTableDataStoreGetFormatForFormatTypeAtCellID(*(a1 + 48), v9, *(a5 + 32), 0, v16, v14);
+    TSTTableDataStoreGetFormatForFormatTypeAtCellID(result[6], v9, a5[8], 0, v16, v14);
     v15 = v16[1];
     *a5 = v16[0];
-    *(a5 + 16) = v15;
-    *(a5 + 32) = v17;
+    *(a5 + 1) = v15;
+    *(a5 + 4) = v17;
 LABEL_12:
     v13 = *a5;
   }
@@ -7977,7 +7992,7 @@ LABEL_13:
   {
     if (v13 == 270)
     {
-      *a4 = [objc_msgSend(objc_msgSend(a1 "documentRoot")];
+      *a4 = [objc_msgSend(objc_msgSend(result "documentRoot")];
       v13 = *a5;
     }
 
@@ -7989,7 +8004,7 @@ LABEL_13:
 
   if ((v13 - 270) <= 2)
   {
-    TSTTableDataStorePopulateCustomFormat(*(a1 + 48), a5, 0.0);
+    TSTTableDataStorePopulateCustomFormat(result[6], a5, 0.0);
   }
 }
 
@@ -8037,7 +8052,7 @@ UInt8 *TSTTableGetCommentStorageAtCellID(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t TSTTableSetCommentStorageAtCellID(uint64_t a1, TSDCommentStorage *a2, unsigned int a3)
+uint64_t TSTTableSetCommentStorageAtCellID(uint64_t a1, TSDCommentStorage *a2, int a3)
 {
   v6 = objc_alloc_init(TSTCell);
   v7 = TSTTableDataStoreCellStorageRefAtCellID(*(a1 + 48), a3);
@@ -8052,12 +8067,12 @@ uint64_t TSTTableSetCommentStorageAtCellID(uint64_t a1, TSDCommentStorage *a2, u
   }
 
   TSTCellSetCommentStorageClearingID(v6, a2, 1);
-  v8 = TSTTableSetCellAtCellIDIgnoringFormula(a1, v6, a3);
+  v8 = TSTTableSetCellAtCellIDIgnoringFormula(a1, v6, a3, 1, 0);
 
   return v8;
 }
 
-uint64_t TSTTableRemoveCommentStorageAtCellID(uint64_t a1, unsigned int a2)
+uint64_t TSTTableRemoveCommentStorageAtCellID(uint64_t a1, int a2)
 {
   v4 = objc_alloc_init(TSTCell);
   v5 = TSTTableDataStoreCellStorageRefAtCellID(*(a1 + 48), a2);
@@ -8072,7 +8087,7 @@ uint64_t TSTTableRemoveCommentStorageAtCellID(uint64_t a1, unsigned int a2)
     }
 
     v4->mPrivate.mCommentStorageID = 0;
-    v7 = TSTTableSetCellAtCellIDIgnoringFormula(a1, v4, a2);
+    v7 = TSTTableSetCellAtCellIDIgnoringFormula(a1, v4, a2, 1, 0);
   }
 
   else
@@ -8151,7 +8166,7 @@ uint64_t TSTTableSetTextStyleAtRow(uint64_t a1, void *a2, uint64_t a3)
   return 0;
 }
 
-uint64_t TSTTableGetCellStyleAtRow(uint64_t *a1, uint64_t a2, _BYTE *a3)
+void *TSTTableGetCellStyleAtRow(void *a1, uint64_t a2, _BYTE *a3)
 {
   v4 = a2;
   v6 = TSTTableDataStoreHeaderInfoForRow(a1[6], a2, 0, 0);
@@ -8193,7 +8208,7 @@ uint64_t TSTTableGetCellStyleAtRow(uint64_t *a1, uint64_t a2, _BYTE *a3)
   return result;
 }
 
-uint64_t TSTTableGetTextStyleAtRow(uint64_t *a1, uint64_t a2, _BYTE *a3)
+void *TSTTableGetTextStyleAtRow(void *a1, uint64_t a2, _BYTE *a3)
 {
   v4 = a2;
   v6 = TSTTableDataStoreHeaderInfoForRow(a1[6], a2, 0, 0);
@@ -8271,7 +8286,7 @@ uint64_t TSTTableSetTextStyleAtColumn(uint64_t a1, void *a2, uint64_t a3)
   return 0;
 }
 
-uint64_t TSTTableGetCellStyleAtColumn(uint64_t *a1, uint64_t a2, _BYTE *a3)
+uint64_t TSTTableGetCellStyleAtColumn(void *a1, uint64_t a2, _BYTE *a3)
 {
   v4 = a2;
   v6 = TSTTableDataStoreHeaderInfoForColumn(a1[6], a2, 0, 0);
@@ -8302,7 +8317,7 @@ uint64_t TSTTableGetCellStyleAtColumn(uint64_t *a1, uint64_t a2, _BYTE *a3)
   }
 }
 
-uint64_t TSTTableGetTextStyleAtColumn(uint64_t *a1, uint64_t a2, _BYTE *a3)
+void *TSTTableGetTextStyleAtColumn(void *a1, uint64_t a2, _BYTE *a3)
 {
   v4 = a2;
   v6 = TSTTableDataStoreHeaderInfoForColumn(a1[6], a2, 0, 0);
@@ -8341,7 +8356,7 @@ uint64_t TSTTableDefaultCellStyleForCellID(void *a1, unsigned int a2)
   return [a1 defaultCellStyleForTableArea:v3];
 }
 
-uint64_t TSTTableCellStyleForCellWithEmptyStyleAtCellID(uint64_t *a1, unsigned int a2, char *a3)
+uint64_t TSTTableCellStyleForCellWithEmptyStyleAtCellID(void *a1, unsigned int a2, char *a3)
 {
   v10 = 0;
   CellStyleAtRow = TSTTableGetCellStyleAtRow(a1, a2, &v10 + 1);
@@ -8386,7 +8401,7 @@ uint64_t TSTTableDefaultTextStyleForCellID(void *a1, unsigned int a2)
   return [a1 defaultTextStyleForTableArea:v3];
 }
 
-uint64_t TSTTableTextStyleForCellWithEmptyStyleAtCellID(uint64_t *a1, unsigned int a2, char *a3)
+void *TSTTableTextStyleForCellWithEmptyStyleAtCellID(void *a1, unsigned int a2, char *a3)
 {
   v10 = 0;
   TextStyleAtRow = TSTTableGetTextStyleAtRow(a1, a2, &v10 + 1);
@@ -8484,7 +8499,7 @@ LABEL_3:
   return [a2 isEqual:v4];
 }
 
-uint64_t TSTTableSetCellStyleAtCellID(uint64_t a1, TSTCellStyle *a2, unsigned int a3)
+uint64_t TSTTableSetCellStyleAtCellID(uint64_t a1, TSTCellStyle *a2, int a3)
 {
   v6 = objc_alloc_init(TSTCell);
   v7 = TSTTableDataStoreCellStorageRefAtCellID(*(a1 + 48), a3);
@@ -8506,12 +8521,12 @@ uint64_t TSTTableSetCellStyleAtCellID(uint64_t a1, TSTCellStyle *a2, unsigned in
     v6->mPrivate.mCellStyleID = 0;
   }
 
-  v9 = TSTTableSetCellAtCellIDIgnoringFormula(a1, v6, a3);
+  v9 = TSTTableSetCellAtCellIDIgnoringFormula(a1, v6, a3, 1, 0);
 
   return v9;
 }
 
-uint64_t TSTTableSetTextStyleAtCellID(uint64_t a1, TSWPParagraphStyle *a2, unsigned int a3)
+uint64_t TSTTableSetTextStyleAtCellID(uint64_t a1, TSWPParagraphStyle *a2, int a3)
 {
   v6 = objc_alloc_init(TSTCell);
   v7 = TSTTableDataStoreCellStorageRefAtCellID(*(a1 + 48), a3);
@@ -8533,12 +8548,12 @@ uint64_t TSTTableSetTextStyleAtCellID(uint64_t a1, TSWPParagraphStyle *a2, unsig
     v6->mPrivate.mTextStyleID = 0;
   }
 
-  v9 = TSTTableSetCellAtCellIDIgnoringFormula(a1, v6, a3);
+  v9 = TSTTableSetCellAtCellIDIgnoringFormula(a1, v6, a3, 1, 0);
 
   return v9;
 }
 
-uint64_t TSTTableGetCellStyleAtCellID(uint64_t *a1, unsigned int a2, char *a3)
+void *TSTTableGetCellStyleAtCellID(void *a1, int a2, char *a3)
 {
   v10 = 0;
   v5 = a2;
@@ -8569,7 +8584,7 @@ uint64_t TSTTableGetCellStyleAtCellID(uint64_t *a1, unsigned int a2, char *a3)
   return result;
 }
 
-TSWPParagraphStyle *TSTTableGetTextStyleAtCellID(uint64_t *a1, unsigned int a2, char *a3)
+TSWPParagraphStyle *TSTTableGetTextStyleAtCellID(void *a1, int a2, char *a3)
 {
   v10 = 0;
   v5 = a2;
@@ -8678,7 +8693,7 @@ uint64_t TSTTableNumberOfPopulatedCellsInColumns(uint64_t a1, unsigned int a2, u
   return v3;
 }
 
-uint64_t TSTTableCellLeftOfCell(uint64_t *a1, unint64_t a2)
+uint64_t TSTTableCellLeftOfCell(void *a1, unint64_t a2)
 {
   v2 = a2;
   v4 = a2 >> 24;
@@ -8715,7 +8730,7 @@ uint64_t TSTTableCellLeftOfCell(uint64_t *a1, unint64_t a2)
   return (v8 << 16) | (v4 << 24) | v2;
 }
 
-uint64_t TSTTableCellRightOfCell(uint64_t *a1, unint64_t a2)
+uint64_t TSTTableCellRightOfCell(void *a1, unint64_t a2)
 {
   v2 = a2;
   v4 = a2 >> 16;
@@ -8743,7 +8758,7 @@ uint64_t TSTTableCellRightOfCell(uint64_t *a1, unint64_t a2)
   return (v4 << 16) | (v5 << 24) | v2;
 }
 
-uint64_t TSTTableCellAboveCell(uint64_t *a1, unint64_t a2)
+uint64_t TSTTableCellAboveCell(void *a1, unint64_t a2)
 {
   v2 = a2;
   v4 = a2 >> 16;
@@ -8767,7 +8782,7 @@ uint64_t TSTTableCellAboveCell(uint64_t *a1, unint64_t a2)
   return v2 | (v4 << 16);
 }
 
-uint64_t TSTTableCellBelowCell(uint64_t *a1, unint64_t a2)
+uint64_t TSTTableCellBelowCell(void *a1, unint64_t a2)
 {
   v2 = a2;
   v4 = a2 >> 16;
@@ -8916,7 +8931,7 @@ double TSTTableWidthOfColumn(uint64_t a1, uint64_t a2, _BYTE *a3)
   return *v9;
 }
 
-uint64_t TSTTableSetHeightOfRow(uint64_t a1, uint64_t a2, double a3)
+double *TSTTableSetHeightOfRow(uint64_t a1, uint64_t a2, double a3)
 {
   if (a2 == 0xFFFF)
   {
@@ -8939,8 +8954,8 @@ uint64_t TSTTableSetHeightOfRow(uint64_t a1, uint64_t a2, double a3)
     result = [v11 handleFailureInFunction:v12 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableModel.mm"), 2849, @"invalid nil value for '%s'", "hdr"}];
   }
 
-  *(v10 + 24) = a3;
-  if (*(v10 + 24) == 0.0 && !*(v10 + 34) && !*(v10 + 8) && !*(v10 + 16) && !*(v10 + 32))
+  v10[3] = a3;
+  if (v10[3] == 0.0 && !*(v10 + 17) && !*(v10 + 1) && !*(v10 + 2) && !*(v10 + 32))
   {
     v13 = *(a1 + 48);
 
@@ -8950,7 +8965,7 @@ uint64_t TSTTableSetHeightOfRow(uint64_t a1, uint64_t a2, double a3)
   return result;
 }
 
-uint64_t TSTTableSetWidthOfColumn(uint64_t a1, uint64_t a2, double a3)
+double *TSTTableSetWidthOfColumn(uint64_t a1, uint64_t a2, double a3)
 {
   if (a2 == 255)
   {
@@ -8973,8 +8988,8 @@ uint64_t TSTTableSetWidthOfColumn(uint64_t a1, uint64_t a2, double a3)
     result = [v11 handleFailureInFunction:v12 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableModel.mm"), 2868, @"invalid nil value for '%s'", "hdr"}];
   }
 
-  *(v10 + 24) = a3;
-  if (*(v10 + 24) == 0.0 && !*(v10 + 34) && !*(v10 + 8) && !*(v10 + 16) && !*(v10 + 32))
+  v10[3] = a3;
+  if (v10[3] == 0.0 && !*(v10 + 17) && !*(v10 + 1) && !*(v10 + 2) && !*(v10 + 32))
   {
     v13 = *(a1 + 48);
 
@@ -8984,38 +8999,36 @@ uint64_t TSTTableSetWidthOfColumn(uint64_t a1, uint64_t a2, double a3)
   return result;
 }
 
-uint64_t TSTTableComputeDefaultRowHeight(double *a1)
+void TSTTableComputeDefaultRowHeight(double *a1)
 {
-  result = TSTTableComputeDefaultFontHeight(a1, 0);
-  v4 = v3;
+  TSTTableComputeDefaultFontHeight(a1, 0);
+  v3 = v2;
   if (a1)
   {
-    v5 = a1[12];
+    v4 = a1[12];
   }
 
   else
   {
-    v5 = 10.0;
+    v4 = 10.0;
   }
 
-  if (v4 > v5)
+  if (v3 > v4)
   {
-    result = [a1 willModify];
-    a1[12] = v4;
+    [a1 willModify];
+    a1[12] = v3;
   }
-
-  return result;
 }
 
-uint64_t TSTTableComputeDefaultFontHeight(void *a1, uint64_t a2)
+void *TSTTableComputeDefaultFontHeight(void *a1, uint64_t a2)
 {
   result = [a1 defaultCellForTableArea:a2];
   if (result)
   {
-    v3 = *(result + 56);
-    v4 = [*(result + 40) valueForProperty:904];
-    TSWPFastCreateFontForStyle(0, v3, 0x64uLL);
-    TSWPFontGetLineHeight();
+    v3 = *(result + 7);
+    v4 = [*(result + 5) valueForProperty:904];
+    FontForStyle = TSWPFastCreateFontForStyle(0, v3, 0x64uLL);
+    TSWPFontGetLineHeight(FontForStyle);
     [v4 topInset];
     return [v4 bottomInset];
   }
@@ -9023,10 +9036,11 @@ uint64_t TSTTableComputeDefaultFontHeight(void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t TSTTableInsertRows(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t TSTTableInsertRows(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   [a1 willModify];
-  result = TSTTableDataStoreInsertRows(*(a1 + 48), a2, a3, a4);
+  result = TSTTableDataStoreInsertRows(*(a1 + 48), a2, a3, v4);
   if (!result)
   {
     *(a1 + 72) += a3;
@@ -9035,10 +9049,12 @@ uint64_t TSTTableInsertRows(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   return result;
 }
 
-uint64_t TSTTableInsertColumns(uint64_t a1, char a2, uint64_t a3, char a4)
+uint64_t TSTTableInsertColumns(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v6 = a2;
   [a1 willModify];
-  TSTTableDataStoreInsertColumns(*(a1 + 48), a2, a3, a4);
+  TSTTableDataStoreInsertColumns(*(a1 + 48), v6, a3, v4);
   *(a1 + 74) += a3;
   return 0;
 }
@@ -9313,7 +9329,7 @@ void sub_26C9CAF74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TSTTableMoveMergeRegionsWithColumnsOrRows(uint64_t *a1, unsigned int a2, unsigned int a3, int a4, int a5)
+uint64_t TSTTableMoveMergeRegionsWithColumnsOrRows(void *a1, unsigned int a2, unsigned int a3, int a4, int a5)
 {
   if (a3 >= a2)
   {
@@ -9499,6 +9515,23 @@ uint64_t TSTTableMoveMergeRegionsWithColumnsOrRows(uint64_t *a1, unsigned int a2
   }
 
   return result;
+}
+
+void TSTTableMoveRows(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
+  [a1 willModify];
+  TSTTableDataStoreMoveRows(a1[6], v6, v5, v4);
+}
+
+void TSTTableMoveColumns(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = a3;
+  v6 = a2;
+  [a1 willModify];
+  TSTTableDataStoreMoveColumns(a1[6], v6, v5, a4);
 }
 
 void TSTTableSwapRows(void *a1, uint64_t a2, uint64_t a3)
@@ -9767,34 +9800,4 @@ BOOL TSTTableHasRowHiddenForActionInRange(_WORD *a1, unint64_t a2, int a3)
 
   while ((v11 & a3) == 0);
   return v10;
-}
-
-uint64_t TSTTableHasRowShownInRange(_WORD *a1, unint64_t a2)
-{
-  if (!a1[42])
-  {
-    return 1;
-  }
-
-  v2 = a2;
-  v4 = HIWORD(a2);
-  if (!a1[44] && !a1[46])
-  {
-    v5 = [MEMORY[0x277D6C290] currentHandler];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL TSTTableHasRowShownInRange(TSTTableModel *, TSTCellRange)"}];
-    [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableModel.mm"), 3603, @"Either mNumberOfUserHiddenRows or mNumberOfFilteredRows should be larger than 0 when mNumberOfHiddenRows is larger than 0"}];
-  }
-
-  v7 = v4 + v2;
-  do
-  {
-    v8 = v7 > v2;
-    if (v7 <= v2)
-    {
-      break;
-    }
-  }
-
-  while (TSTHidingActionForRow(a1, v2++));
-  return v8;
 }

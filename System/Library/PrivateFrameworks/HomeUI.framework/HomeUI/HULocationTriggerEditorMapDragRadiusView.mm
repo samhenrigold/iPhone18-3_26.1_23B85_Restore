@@ -35,7 +35,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   swift_unknownObjectRetain();
-  return LocationTriggerEditorMapDragRadiusView.init(frame:radiusInMeters:delegate:)(x, y, width, height, meters);
+  return LocationTriggerEditorMapDragRadiusView.init(frame:radiusInMeters:delegate:)(delegate, x, y, width, height, meters);
 }
 
 - (HULocationTriggerEditorMapDragRadiusView)initWithFrame:(CGRect)frame

@@ -55,14 +55,14 @@
 
 + (id)_eventWithTitle:(id)title interaction:(id)interaction
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CFE1B0];
   interactionCopy = interaction;
   titleCopy = title;
   interaction = [v5 interaction];
-  v18 = interaction;
-  v19[0] = interactionCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v17 = interaction;
+  v18[0] = interactionCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
   v10 = MEMORY[0x277CFE1D8];
   calendarEventStream = [MEMORY[0x277CFE298] calendarEventStream];
@@ -71,8 +71,6 @@
   v14 = [MEMORY[0x277CFE2A0] withTitle:titleCopy];
 
   v15 = [v10 eventWithStream:calendarEventStream startDate:startDate endDate:endDate value:v14 metadata:v9];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

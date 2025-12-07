@@ -17,25 +17,25 @@
 - (W5PeerDiagnosticsRequestPayload)initWithRequest:(id)request
 {
   requestCopy = request;
-  v26.receiver = self;
-  v26.super_class = W5PeerDiagnosticsRequestPayload;
-  v5 = [(W5PeerDiagnosticsRequestPayload *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = W5PeerDiagnosticsRequestPayload;
+  v5 = [(W5PeerDiagnosticsRequestPayload *)&v27 init];
   if (v5 && (v6 = [requestCopy objectForKey:@"version"], (v5->_version = v6) != 0))
   {
     v7 = [requestCopy objectForKey:@"configuration"];
     v8 = [NSSet setWithObjects:objc_opt_class(), 0];
-    v25 = 0;
-    v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v8 fromData:v7 error:&v25];
-    v10 = v25;
+    v26 = 0;
+    v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v8 fromData:v7 error:&v26];
+    v10 = v26;
     configuration = v5->_configuration;
     v5->_configuration = v9;
 
     v12 = [requestCopy objectForKey:@"tests"];
     v13 = objc_opt_class();
     v14 = [NSSet setWithObjects:v13, objc_opt_class(), 0];
-    v24 = v10;
-    v15 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v14 fromData:v12 error:&v24];
-    v16 = v24;
+    v25 = v10;
+    v15 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v14 fromData:v12 error:&v25];
+    v16 = v25;
 
     tests = v5->_tests;
     v5->_tests = v15;
@@ -61,15 +61,16 @@
   p_super = sub_100098A04();
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 136315906;
-    v28 = "[W5PeerDiagnosticsRequestPayload initWithRequest:]";
-    v29 = 2080;
-    v30 = "W5PeerDiagnosticsRequestPayload.m";
-    v31 = 1024;
-    v32 = 54;
-    v33 = 2114;
-    v34 = v16;
-    _os_log_send_and_compose_impl();
+    v28 = 136315906;
+    v29 = "[W5PeerDiagnosticsRequestPayload initWithRequest:]";
+    v30 = 2080;
+    v31 = "W5PeerDiagnosticsRequestPayload.m";
+    v32 = 1024;
+    v33 = 54;
+    v34 = 2114;
+    v35 = v16;
+    LODWORD(v24) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, p_super, 0, "[wifivelocity] %s (%s:%u) init error (error='%{public}@'", &v28, v24);
   }
 
   v19 = 0;
@@ -95,63 +96,57 @@ LABEL_5:
     if (configuration)
     {
       configuration2 = [(W5PeerDiagnosticsRequestPayload *)self configuration];
-      v27 = 0;
-      version = [NSKeyedArchiver archivedDataWithRootObject:configuration2 requiringSecureCoding:1 error:&v27];
-      v8 = v27;
+      v25 = 0;
+      version = [NSKeyedArchiver archivedDataWithRootObject:configuration2 requiringSecureCoding:1 error:&v25];
+      v8 = v25;
 
       if (!version)
       {
         uuid2 = sub_100098A04();
         if (os_log_type_enabled(uuid2, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = 136315906;
-          v29 = "[W5PeerDiagnosticsRequestPayload encode]";
-          v30 = 2080;
-          v31 = "W5PeerDiagnosticsRequestPayload.m";
-          v32 = 1024;
-          v33 = 72;
-          v34 = 2114;
-          v35 = v8;
-          LODWORD(v23) = 38;
-          v22 = &v28;
-LABEL_23:
-          _os_log_send_and_compose_impl();
-          goto LABEL_24;
+          v26 = 136315906;
+          v27 = "[W5PeerDiagnosticsRequestPayload encode]";
+          v28 = 2080;
+          v29 = "W5PeerDiagnosticsRequestPayload.m";
+          v30 = 1024;
+          v31 = 72;
+          v32 = 2114;
+          v33 = v8;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, uuid2, 0, "[wifivelocity] %s (%s:%u) failed to encode configuration with error='%{public}@'", &v26, 38);
         }
 
-        goto LABEL_24;
+LABEL_23:
+        v13 = 0;
+        version = 0;
+        goto LABEL_15;
       }
     }
 
     else
     {
       v10 = +[NSNull null];
-      v26 = 0;
-      version = [NSKeyedArchiver archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v26];
-      v8 = v26;
+      v24 = 0;
+      version = [NSKeyedArchiver archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v24];
+      v8 = v24;
 
       if (!version)
       {
         uuid2 = sub_100098A04();
         if (os_log_type_enabled(uuid2, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = 136315906;
-          v29 = "[W5PeerDiagnosticsRequestPayload encode]";
-          v30 = 2080;
-          v31 = "W5PeerDiagnosticsRequestPayload.m";
-          v32 = 1024;
-          v33 = 77;
-          v34 = 2114;
-          v35 = v8;
-          LODWORD(v23) = 38;
-          v22 = &v28;
-          goto LABEL_23;
+          v26 = 136315906;
+          v27 = "[W5PeerDiagnosticsRequestPayload encode]";
+          v28 = 2080;
+          v29 = "W5PeerDiagnosticsRequestPayload.m";
+          v30 = 1024;
+          v31 = 77;
+          v32 = 2114;
+          v33 = v8;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, uuid2, 0, "[wifivelocity] %s (%s:%u) failed to encode NULL configuration with error='%{public}@'", &v26, 38);
         }
 
-LABEL_24:
-        v13 = 0;
-        version = 0;
-        goto LABEL_15;
+        goto LABEL_23;
       }
     }
 
@@ -161,60 +156,27 @@ LABEL_24:
     if (tests)
     {
       tests2 = [(W5PeerDiagnosticsRequestPayload *)self tests];
-      v25 = v8;
-      v13 = [NSKeyedArchiver archivedDataWithRootObject:tests2 requiringSecureCoding:1 error:&v25];
-      v14 = v25;
+      v23 = v8;
+      v13 = [NSKeyedArchiver archivedDataWithRootObject:tests2 requiringSecureCoding:1 error:&v23];
+      v14 = v23;
 
       if (!v13)
       {
         uuid2 = sub_100098A04();
         if (os_log_type_enabled(uuid2, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = 136315906;
-          v29 = "[W5PeerDiagnosticsRequestPayload encode]";
-          v30 = 2080;
-          v31 = "W5PeerDiagnosticsRequestPayload.m";
-          v32 = 1024;
-          v33 = 85;
-          v34 = 2114;
-          v35 = v14;
-          LODWORD(v23) = 38;
-          v22 = &v28;
-LABEL_27:
-          _os_log_send_and_compose_impl();
-          goto LABEL_28;
+          v26 = 136315906;
+          v27 = "[W5PeerDiagnosticsRequestPayload encode]";
+          v28 = 2080;
+          v29 = "W5PeerDiagnosticsRequestPayload.m";
+          v30 = 1024;
+          v31 = 85;
+          v32 = 2114;
+          v33 = v14;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, uuid2, 0, "[wifivelocity] %s (%s:%u) failed to encode tests with error='%{public}@'", &v26, 38);
         }
 
-        goto LABEL_28;
-      }
-    }
-
-    else
-    {
-      v15 = +[NSNull null];
-      v24 = v8;
-      v13 = [NSKeyedArchiver archivedDataWithRootObject:v15 requiringSecureCoding:1 error:&v24];
-      v14 = v24;
-
-      if (!v13)
-      {
-        uuid2 = sub_100098A04();
-        if (os_log_type_enabled(uuid2, OS_LOG_TYPE_DEFAULT))
-        {
-          v28 = 136315906;
-          v29 = "[W5PeerDiagnosticsRequestPayload encode]";
-          v30 = 2080;
-          v31 = "W5PeerDiagnosticsRequestPayload.m";
-          v32 = 1024;
-          v33 = 90;
-          v34 = 2114;
-          v35 = v14;
-          LODWORD(v23) = 38;
-          v22 = &v28;
-          goto LABEL_27;
-        }
-
-LABEL_28:
+LABEL_26:
         v13 = 0;
 LABEL_14:
         v8 = v14;
@@ -222,6 +184,33 @@ LABEL_15:
 
         v14 = v8;
         goto LABEL_16;
+      }
+    }
+
+    else
+    {
+      v15 = +[NSNull null];
+      v22 = v8;
+      v13 = [NSKeyedArchiver archivedDataWithRootObject:v15 requiringSecureCoding:1 error:&v22];
+      v14 = v22;
+
+      if (!v13)
+      {
+        uuid2 = sub_100098A04();
+        if (os_log_type_enabled(uuid2, OS_LOG_TYPE_DEFAULT))
+        {
+          v26 = 136315906;
+          v27 = "[W5PeerDiagnosticsRequestPayload encode]";
+          v28 = 2080;
+          v29 = "W5PeerDiagnosticsRequestPayload.m";
+          v30 = 1024;
+          v31 = 90;
+          v32 = 2114;
+          v33 = v14;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, uuid2, 0, "[wifivelocity] %s (%s:%u) failed to encode NULL tests with error='%{public}@'", &v26, 38);
+        }
+
+        goto LABEL_26;
       }
     }
 

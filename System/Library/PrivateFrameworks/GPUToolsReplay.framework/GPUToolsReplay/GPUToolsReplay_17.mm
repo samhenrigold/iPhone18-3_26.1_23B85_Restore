@@ -1,7 +1,7 @@
-void *std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long long>>(uint64_t a1, unint64_t a2)
+uint64_t *std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long long>>(uint64_t **a1, unint64_t a2, _OWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -11,27 +11,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -78,12 +78,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -97,22 +97,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -146,13 +146,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -640,9 +640,9 @@ LABEL_100:
   std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v75);
 }
 
-void sub_24D86A148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24D86A148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   AccelerationStructureViewer::IntersectionFunction::~IntersectionFunction(va);
   _Unwind_Resume(a1);
@@ -692,7 +692,7 @@ uint64_t AccelerationStructureViewer::IntersectionFunction::operator=(uint64_t a
           v11 = v10;
         }
 
-        std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vallocate[abi:nn200100](a1 + 8, v11);
+        std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__vallocate[abi:nn200100]((a1 + 8), v11);
       }
 
       std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
@@ -776,7 +776,7 @@ uint64_t AccelerationStructureViewer::IntersectionFunction::operator=(uint64_t a
           v30 = v29;
         }
 
-        std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::__vallocate[abi:nn200100](a1 + 80, v30);
+        std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::__vallocate[abi:nn200100]((a1 + 80), v30);
       }
 
       std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
@@ -841,7 +841,7 @@ uint64_t AccelerationStructureViewer::IntersectionFunction::operator=(uint64_t a
           v42 = v41;
         }
 
-        std::vector<AccelerationStructureViewer::Property>::__vallocate[abi:nn200100](a1 + 128, v42);
+        std::vector<AccelerationStructureViewer::Property>::__vallocate[abi:nn200100]((a1 + 128), v42);
       }
 
       std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
@@ -954,7 +954,7 @@ uint64_t std::__copy_impl::operator()[abi:nn200100]<AccelerationStructureViewer:
               v20 = v19;
             }
 
-            std::vector<NSString * {__strong}>::__vallocate[abi:nn200100](a3 + 96, v20);
+            std::vector<NSString * {__strong}>::__vallocate[abi:nn200100]((a3 + 96), v20);
           }
 
           std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
@@ -1014,7 +1014,7 @@ id *std::__copy_impl::operator()[abi:nn200100]<NSString * {__strong}*,NSString *
   return location;
 }
 
-_WORD *std::__copy_impl::operator()[abi:nn200100]<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}> *,std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}> *,std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}> *>(uint64_t a1, uint64_t a2, _WORD *a3)
+id *std::__copy_impl::operator()[abi:nn200100]<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}> *,std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}> *,std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}> *>(uint64_t a1, uint64_t a2, id *a3)
 {
   if (a1 != a2)
   {
@@ -1046,19 +1046,19 @@ uint64_t std::__function::__func<AccelerationStructureViewerServer::MTLAccelerat
 
 void std::__function::__func<AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(GTMTLReplayController *,GTMTLSMObject const*,long,apr_pool_t *,std::map<unsigned long long,unsigned long long> &)::$_0,std::allocator<AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(GTMTLReplayController *,GTMTLSMObject const*,long,apr_pool_t *,std::map<unsigned long long,unsigned long long> &)::$_0>,void ()(GTFunctionIndex,GTMTLSMFunctionHandle const*,unsigned long)>::operator()(uint64_t a1, unint64_t *a2, uint64_t *a3, unint64_t *a4)
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   v4 = *a3;
-  v73 = *a4;
+  v72 = *a4;
   Object = GTMTLSMContext_getObject(**(***(a1 + 8) + 40), *(*a3 + 48), *a2);
-  if (Object && *Object == 43 && v73 < *(*(**(a1 + 24) + 112) + 8))
+  if (Object && *Object == 43 && v72 < *(*(**(a1 + 24) + 112) + 8))
   {
-    v72 = Object;
-    AccelerationStructureViewer::IntersectionFunction::IntersectionFunction(&v79, (**(a1 + 32) + 152 * v73));
-    v85 = 0;
-    v82 = *(v4 + 48);
+    v71 = Object;
+    AccelerationStructureViewer::IntersectionFunction::IntersectionFunction(&v78, (**(a1 + 32) + 152 * v72));
+    v84 = 0;
+    v81 = *(v4 + 48);
     v6 = [**(a1 + 16) functionForKey:?];
     v7 = v6;
-    v70 = v6;
+    v69 = v6;
     if (v6)
     {
       v8 = [v6 label];
@@ -1077,60 +1077,60 @@ void std::__function::__func<AccelerationStructureViewerServer::MTLAccelerationS
 
         else
         {
-          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"MTLFunction 0x%llx", v7, v70];
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"MTLFunction 0x%llx", v7, v69];
         }
       }
 
-      v16 = v81;
-      v81 = v14;
+      v16 = v80;
+      v80 = v14;
 
-      v93 = 2;
-      v94 = v81;
-      std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::push_back[abi:nn200100](v80, &v93);
+      v92 = 2;
+      v93 = v80;
+      std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::push_back[abi:nn200100](v79, &v92);
     }
 
     else
     {
-      v15 = v81;
-      v81 = 0;
+      v15 = v80;
+      v80 = 0;
     }
 
-    v83 = v72[5];
-    v84 = *(v72[10] + 42);
-    v17 = v72[14];
+    v82 = v71[5];
+    v83 = *(v71[10] + 42);
+    v17 = v71[14];
     if (v17)
     {
-      v86 = *(v17 + 40) & 1;
+      v85 = *(v17 + 40) & 1;
     }
 
-    v71 = v7;
-    v18 = [v71 reflectionWithOptions:65539];
+    v70 = v7;
+    v18 = [v70 reflectionWithOptions:65539];
     v19 = v18;
     v20 = [v18 primitiveKind];
     if (v20 < 3)
     {
-      v87 = v20;
+      v86 = v20;
     }
 
     [v18 tags];
+    v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v21 = v76 = 0u;
-    v22 = [v21 countByEnumeratingWithState:&v75 objects:&v93 count:16];
+    v74 = 0u;
+    v21 = v75 = 0u;
+    v22 = [v21 countByEnumeratingWithState:&v74 objects:&v92 count:16];
     if (v22)
     {
-      v23 = *v76;
+      v23 = *v75;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v76 != v23)
+          if (*v75 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v25 = *(*(&v75 + 1) + 8 * i);
+          v25 = *(*(&v74 + 1) + 8 * i);
           v26 = [v25 tagType];
           if (v26 > 4)
           {
@@ -1138,20 +1138,20 @@ void std::__function::__func<AccelerationStructureViewerServer::MTLAccelerationS
             {
               if (v26 == 7)
               {
-                v27 = v89;
-                if (v89 >= v90)
+                v27 = v88;
+                if (v88 >= v89)
                 {
                   v30 = __src;
-                  v31 = v89 - __src;
-                  v44 = (v89 - __src) >> 2;
+                  v31 = v88 - __src;
+                  v44 = (v88 - __src) >> 2;
                   v45 = v44 + 1;
                   if ((v44 + 1) >> 62)
                   {
                     goto LABEL_133;
                   }
 
-                  v46 = v90 - __src;
-                  if ((v90 - __src) >> 1 > v45)
+                  v46 = v89 - __src;
+                  if ((v89 - __src) >> 1 > v45)
                   {
                     v45 = v46 >> 1;
                   }
@@ -1172,7 +1172,7 @@ void std::__function::__func<AccelerationStructureViewerServer::MTLAccelerationS
                   }
 
                   v64 = (4 * v44);
-                  v65 = &v64[-((v89 - __src) >> 2)];
+                  v65 = &v64[-((v88 - __src) >> 2)];
                   v66 = 7;
                   goto LABEL_121;
                 }
@@ -1187,12 +1187,12 @@ void std::__function::__func<AccelerationStructureViewerServer::MTLAccelerationS
                   goto LABEL_125;
                 }
 
-                v27 = v89;
-                if (v89 >= v90)
+                v27 = v88;
+                if (v88 >= v89)
                 {
                   v30 = __src;
-                  v31 = v89 - __src;
-                  v60 = (v89 - __src) >> 2;
+                  v31 = v88 - __src;
+                  v60 = (v88 - __src) >> 2;
                   v61 = v60 + 1;
                   if ((v60 + 1) >> 62)
                   {
@@ -1200,8 +1200,8 @@ LABEL_133:
                     std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
                   }
 
-                  v62 = v90 - __src;
-                  if ((v90 - __src) >> 1 > v61)
+                  v62 = v89 - __src;
+                  if ((v89 - __src) >> 1 > v61)
                   {
                     v61 = v62 >> 1;
                   }
@@ -1222,7 +1222,7 @@ LABEL_133:
                   }
 
                   v64 = (4 * v60);
-                  v65 = &v64[-((v89 - __src) >> 2)];
+                  v65 = &v64[-((v88 - __src) >> 2)];
                   v66 = 8;
                   goto LABEL_121;
                 }
@@ -1233,20 +1233,20 @@ LABEL_133:
 
             else if (v26 == 5)
             {
-              v27 = v89;
-              if (v89 >= v90)
+              v27 = v88;
+              if (v88 >= v89)
               {
                 v30 = __src;
-                v31 = v89 - __src;
-                v36 = (v89 - __src) >> 2;
+                v31 = v88 - __src;
+                v36 = (v88 - __src) >> 2;
                 v37 = v36 + 1;
                 if ((v36 + 1) >> 62)
                 {
                   goto LABEL_133;
                 }
 
-                v38 = v90 - __src;
-                if ((v90 - __src) >> 1 > v37)
+                v38 = v89 - __src;
+                if ((v89 - __src) >> 1 > v37)
                 {
                   v37 = v38 >> 1;
                 }
@@ -1267,7 +1267,7 @@ LABEL_133:
                 }
 
                 v64 = (4 * v36);
-                v65 = &v64[-((v89 - __src) >> 2)];
+                v65 = &v64[-((v88 - __src) >> 2)];
                 v66 = 4;
                 goto LABEL_121;
               }
@@ -1277,20 +1277,20 @@ LABEL_133:
 
             else
             {
-              v27 = v89;
-              if (v89 >= v90)
+              v27 = v88;
+              if (v88 >= v89)
               {
                 v30 = __src;
-                v31 = v89 - __src;
-                v52 = (v89 - __src) >> 2;
+                v31 = v88 - __src;
+                v52 = (v88 - __src) >> 2;
                 v53 = v52 + 1;
                 if ((v52 + 1) >> 62)
                 {
                   goto LABEL_133;
                 }
 
-                v54 = v90 - __src;
-                if ((v90 - __src) >> 1 > v53)
+                v54 = v89 - __src;
+                if ((v89 - __src) >> 1 > v53)
                 {
                   v53 = v54 >> 1;
                 }
@@ -1311,7 +1311,7 @@ LABEL_133:
                 }
 
                 v64 = (4 * v52);
-                v65 = &v64[-((v89 - __src) >> 2)];
+                v65 = &v64[-((v88 - __src) >> 2)];
                 v66 = 6;
                 goto LABEL_121;
               }
@@ -1324,20 +1324,20 @@ LABEL_133:
           {
             if (v26 == 3)
             {
-              v27 = v89;
-              if (v89 >= v90)
+              v27 = v88;
+              if (v88 >= v89)
               {
                 v30 = __src;
-                v31 = v89 - __src;
-                v40 = (v89 - __src) >> 2;
+                v31 = v88 - __src;
+                v40 = (v88 - __src) >> 2;
                 v41 = v40 + 1;
                 if ((v40 + 1) >> 62)
                 {
                   goto LABEL_133;
                 }
 
-                v42 = v90 - __src;
-                if ((v90 - __src) >> 1 > v41)
+                v42 = v89 - __src;
+                if ((v89 - __src) >> 1 > v41)
                 {
                   v41 = v42 >> 1;
                 }
@@ -1358,7 +1358,7 @@ LABEL_133:
                 }
 
                 v64 = (4 * v40);
-                v65 = &v64[-((v89 - __src) >> 2)];
+                v65 = &v64[-((v88 - __src) >> 2)];
                 v66 = 3;
                 goto LABEL_121;
               }
@@ -1368,20 +1368,20 @@ LABEL_133:
 
             else
             {
-              v27 = v89;
-              if (v89 >= v90)
+              v27 = v88;
+              if (v88 >= v89)
               {
                 v30 = __src;
-                v31 = v89 - __src;
-                v56 = (v89 - __src) >> 2;
+                v31 = v88 - __src;
+                v56 = (v88 - __src) >> 2;
                 v57 = v56 + 1;
                 if ((v56 + 1) >> 62)
                 {
                   goto LABEL_133;
                 }
 
-                v58 = v90 - __src;
-                if ((v90 - __src) >> 1 > v57)
+                v58 = v89 - __src;
+                if ((v89 - __src) >> 1 > v57)
                 {
                   v57 = v58 >> 1;
                 }
@@ -1402,7 +1402,7 @@ LABEL_133:
                 }
 
                 v64 = (4 * v56);
-                v65 = &v64[-((v89 - __src) >> 2)];
+                v65 = &v64[-((v88 - __src) >> 2)];
                 v66 = 5;
                 goto LABEL_121;
               }
@@ -1413,20 +1413,20 @@ LABEL_133:
 
           else if (v26 == 1)
           {
-            v27 = v89;
-            if (v89 >= v90)
+            v27 = v88;
+            if (v88 >= v89)
             {
               v30 = __src;
-              v31 = v89 - __src;
-              v32 = (v89 - __src) >> 2;
+              v31 = v88 - __src;
+              v32 = (v88 - __src) >> 2;
               v33 = v32 + 1;
               if ((v32 + 1) >> 62)
               {
                 goto LABEL_133;
               }
 
-              v34 = v90 - __src;
-              if ((v90 - __src) >> 1 > v33)
+              v34 = v89 - __src;
+              if ((v89 - __src) >> 1 > v33)
               {
                 v33 = v34 >> 1;
               }
@@ -1447,7 +1447,7 @@ LABEL_133:
               }
 
               v64 = (4 * v32);
-              v65 = &v64[-((v89 - __src) >> 2)];
+              v65 = &v64[-((v88 - __src) >> 2)];
               v66 = 1;
 LABEL_121:
               *v64 = v66;
@@ -1455,8 +1455,8 @@ LABEL_121:
               memcpy(v65, v30, v31);
               v67 = __src;
               __src = v65;
-              v89 = v29;
-              v90 = 0;
+              v88 = v29;
+              v89 = 0;
               if (v67)
               {
                 operator delete(v67);
@@ -1476,20 +1476,20 @@ LABEL_121:
               goto LABEL_125;
             }
 
-            v27 = v89;
-            if (v89 >= v90)
+            v27 = v88;
+            if (v88 >= v89)
             {
               v30 = __src;
-              v31 = v89 - __src;
-              v48 = (v89 - __src) >> 2;
+              v31 = v88 - __src;
+              v48 = (v88 - __src) >> 2;
               v49 = v48 + 1;
               if ((v48 + 1) >> 62)
               {
                 goto LABEL_133;
               }
 
-              v50 = v90 - __src;
-              if ((v90 - __src) >> 1 > v49)
+              v50 = v89 - __src;
+              if ((v89 - __src) >> 1 > v49)
               {
                 v49 = v50 >> 1;
               }
@@ -1510,7 +1510,7 @@ LABEL_121:
               }
 
               v64 = (4 * v48);
-              v65 = &v64[-((v89 - __src) >> 2)];
+              v65 = &v64[-((v88 - __src) >> 2)];
               v66 = 2;
               goto LABEL_121;
             }
@@ -1521,43 +1521,41 @@ LABEL_121:
           *v27 = v28;
           v29 = v27 + 1;
 LABEL_124:
-          v89 = v29;
+          v88 = v29;
 LABEL_125:
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v75 objects:&v93 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v74 objects:&v92 count:16];
       }
 
       while (v22);
     }
 
-    v68 = v72[15];
+    v68 = v71[15];
     if (v68)
     {
-      v86 = *(v68 + 40) & 1;
+      v85 = *(v68 + 40) & 1;
     }
 
-    AccelerationStructureViewer::IntersectionFunction::operator=(**(a1 + 32) + 152 * v73, &v79);
+    AccelerationStructureViewer::IntersectionFunction::operator=(**(a1 + 32) + 152 * v72, &v78);
 
-    v79 = &unk_2860BBC40;
-    v92 = &v91;
-    std::vector<AccelerationStructureViewer::Property>::__destroy_vector::operator()[abi:nn200100](&v92);
+    v78 = &unk_2860BBC40;
+    v91 = &v90;
+    std::vector<AccelerationStructureViewer::Property>::__destroy_vector::operator()[abi:nn200100](&v91);
     if (__src)
     {
-      v89 = __src;
+      v88 = __src;
       operator delete(__src);
     }
 
-    v92 = v80;
-    std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v92);
+    v91 = v79;
+    std::vector<std::pair<ASVDataSourceFilterTokenType,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v91);
   }
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
-void sub_24D86B148(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_24D86B148(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
 
   AccelerationStructureViewer::IntersectionFunction::~IntersectionFunction(va);
   _Unwind_Resume(a1);
@@ -1798,22 +1796,15 @@ double invertSRTMatrix(const simd::float4x3 *a1)
   v11 = vdivq_f32(v4, vdupq_lane_s32(*v7.i8, 1));
   __asm { FMOV            V3.4S, #1.0 }
 
-  v17 = vdivq_f32(_Q3, v8);
-  v18 = vzip1q_s32(vzip1q_s32(v10, v11), v9);
-  v19 = vtrn2q_s32(v10, v9);
-  v19.i32[2] = v11.i32[1];
-  v20 = vzip1q_s32(vzip2q_s32(v10, v11), vdupq_laneq_s32(v9, 2));
-  *&result = vmulq_f32(v17, v18).u64[0];
-  v22 = vmulq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18, COERCE_FLOAT(*&a1->columns[3])), v19, *a1->columns[3].f32, 1), v20, a1->columns[3], 2), vnegq_f32(v17));
+  *&result = vmulq_f32(vdivq_f32(_Q3, v8), vzip1q_s32(vzip1q_s32(v10, v11), v9)).u64[0];
   return result;
 }
 
-uint64_t AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::reserveAccelerationStructureDAG(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, unint64_t a5)
+uint64_t AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::reserveAccelerationStructureDAG(AccelerationStructureViewerServer::MTLAccelerationStructureDataSource *a1, uint64_t **a2, uint64_t **a3, void *a4, unint64_t a5, void *a6)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v12 = a4;
-  v7 = *(a2 + 8);
-  if (!v7)
+  v8 = a2[1];
+  if (!v8)
   {
 LABEL_7:
     operator new();
@@ -1823,51 +1814,50 @@ LABEL_7:
   {
     while (1)
     {
-      v8 = v7;
-      v9 = v7[4];
-      if (v9 <= a5)
+      v9 = v8;
+      v10 = v8[4];
+      if (v10 <= a5)
       {
         break;
       }
 
-      v7 = *v8;
-      if (!*v8)
+      v8 = *v9;
+      if (!*v9)
       {
         goto LABEL_7;
       }
     }
 
-    if (v9 >= a5)
+    if (v10 >= a5)
     {
       break;
     }
 
-    v7 = v8[1];
-    if (!v7)
+    v8 = v9[1];
+    if (!v8)
     {
       goto LABEL_7;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::allocateAccelerationStructureDAG(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, void *a8, unint64_t a9, void *a10, void *a11, void *a12)
+uint64_t *AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::allocateAccelerationStructureDAG(id *a1, uint64_t a2, uint64_t **a3, uint64_t **a4, void *a5, uint64_t a6, uint64_t a7, void *a8, unint64_t a9, void *a10, void *a11, void *a12)
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   v94 = a5;
   v85 = a8;
   v90 = a10;
   v92 = a11;
-  v16 = (a3 + 8);
-  v15 = *(a3 + 8);
+  v16 = a3 + 1;
+  v15 = a3[1];
   if (!v15)
   {
     goto LABEL_9;
   }
 
-  v17 = (a3 + 8);
+  v17 = a3 + 1;
   do
   {
     v18 = v15[4];
@@ -1975,40 +1965,40 @@ LABEL_29:
     v82 = [v94 count];
     v29 = a1[23];
     v30 = [v83 uniqueIdentifier];
-    v31 = v29 + 184 * v82;
-    *(v31 + 8) = 0;
-    v32 = *(v31 + 24);
-    *(v31 + 16) = v30;
-    *(v31 + 24) = 0;
+    v31 = &v29[184 * v82];
+    *(v31 + 2) = 0;
+    v32 = v31[3];
+    v31[2] = v30;
+    v31[3] = 0;
 
-    v33 = *(v31 + 40);
-    *(v31 + 32) = 0;
-    *(v31 + 40) = 0;
+    v33 = v31[5];
+    v31[4] = 0;
+    v31[5] = 0;
 
-    v34 = *(v31 + 56);
-    *(v31 + 48) = 0;
-    *(v31 + 56) = 0;
+    v34 = v31[7];
+    v31[6] = 0;
+    v31[7] = 0;
 
-    v35 = *(v31 + 72);
-    *(v31 + 64) = 0;
-    *(v31 + 72) = 0;
+    v35 = v31[9];
+    v31[8] = 0;
+    v31[9] = 0;
 
-    v36 = *(v31 + 88);
-    *(v31 + 80) = 0;
-    *(v31 + 88) = 0;
+    v36 = v31[11];
+    v31[10] = 0;
+    v31[11] = 0;
 
-    v37 = *(v31 + 104);
-    *(v31 + 96) = 0;
-    *(v31 + 104) = 0;
+    v37 = v31[13];
+    v31[12] = 0;
+    v31[13] = 0;
 
-    *(v31 + 112) = 0;
-    *(v31 + 120) = 0;
-    v38 = *(v31 + 152);
-    *(v31 + 152) = 0;
+    v31[14] = 0;
+    v31[15] = 0;
+    v38 = v31[19];
+    v31[19] = 0;
 
-    v39 = *(v31 + 168);
-    *(v31 + 160) = 0;
-    *(v31 + 168) = 0;
+    v39 = v31[21];
+    v31[20] = 0;
+    v31[21] = 0;
 
     v40 = *v16;
     if (!*v16)
@@ -2050,34 +2040,34 @@ LABEL_35:
     [v94 addObject:v83];
     [v89[38] addObject:v91];
     v84 = a3;
-    memset(v109, 0, sizeof(v109));
-    v110 = 1065353216;
+    memset(v108, 0, sizeof(v108));
+    v109 = 1065353216;
     newpool = 0;
     apr_pool_create_ex(&newpool, 0, 0, v43);
     v44 = newpool;
     v45 = AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::getAllAccelerationStructureChildren(v89, a9, newpool);
     apr_pool_destroy(v44);
-    v106 = 0u;
-    v107 = 0u;
-    v104 = 0u;
     v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    v104 = 0u;
     obj = v45;
     v46 = v85;
-    v47 = [obj countByEnumeratingWithState:&v104 objects:v111 count:16];
+    v47 = [obj countByEnumeratingWithState:&v103 objects:v110 count:16];
     if (v47)
     {
-      v95 = *v105;
-      v48 = (a4 + 8);
+      v95 = *v104;
+      v48 = a4 + 1;
 LABEL_38:
       v49 = 0;
       while (1)
       {
-        if (*v105 != v95)
+        if (*v104 != v95)
         {
           objc_enumerationMutation(obj);
         }
 
-        v50 = *(*(&v104 + 1) + 8 * v49);
+        v50 = *(*(&v103 + 1) + 8 * v49);
         v51 = [v50 objectAtIndexedSubscript:0];
         v52 = [v50 objectAtIndexedSubscript:1];
         v53 = [v52 uniqueIdentifier];
@@ -2087,7 +2077,7 @@ LABEL_38:
           goto LABEL_85;
         }
 
-        v55 = (a4 + 8);
+        v55 = (a4 + 1);
         do
         {
           v56 = v54[4];
@@ -2105,96 +2095,97 @@ LABEL_38:
         if (v55 == v48 || v53 < v55[4])
         {
 LABEL_85:
-          v102 = v53;
-          v103 = [v51 unsignedIntegerValue];
-          v55 = std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long long>>(a4, v53);
+          v58 = [v51 unsignedIntegerValue];
+          *&v102 = v53;
+          *(&v102 + 1) = v58;
+          v55 = std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long long>>(a4, v53, &v102);
           if (v48 == v55)
           {
             break;
           }
         }
 
-        v58 = v55[5];
-        v102 = v58;
-        v59 = [v46 accelerationStructureForKey:v58];
-        v60 = v59;
-        if (v59)
+        v59 = v55[5];
+        *&v102 = v59;
+        v60 = [v46 accelerationStructureForKey:v59];
+        v61 = v60;
+        if (v60)
         {
-          v61 = v59 == v52;
+          v62 = v60 == v52;
         }
 
         else
         {
-          v61 = 0;
+          v62 = 0;
         }
 
-        if (!v61)
+        if (!v62)
         {
           *a12 = ASVErrorWithCode(8u, @"Child acceleration structure mismatch. Did you forgot to useResource?");
 LABEL_75:
 
 LABEL_78:
           v31 = 0;
-          v77 = obj;
+          v78 = obj;
           goto LABEL_80;
         }
 
-        if (std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v109, v58))
+        if (std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v108, v59, &v102))
         {
-          AccelerationStructureDAG = AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::allocateAccelerationStructureDAG(v89, a2, v84, a4, v94, a6, a7, v46, v58, v90, v92, a12);
-          v63 = AccelerationStructureDAG;
+          AccelerationStructureDAG = AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::allocateAccelerationStructureDAG(v89, a2, v84, a4, v94, a6, a7, v46, v59, v90, v92, a12);
+          v64 = AccelerationStructureDAG;
           if (!AccelerationStructureDAG)
           {
             goto LABEL_75;
           }
 
-          v65 = *(v31 + 136);
-          v64 = *(v31 + 144);
-          if (v65 >= v64)
+          v66 = v31[17];
+          v65 = v31[18];
+          if (v66 >= v65)
           {
-            v67 = *(v31 + 128);
-            v68 = (v65 - v67) >> 3;
-            if ((v68 + 1) >> 61)
+            v68 = v31[16];
+            v69 = (v66 - v68) >> 3;
+            if ((v69 + 1) >> 61)
             {
               std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
             }
 
-            v69 = v64 - v67;
-            v70 = v69 >> 2;
-            if (v69 >> 2 <= (v68 + 1))
+            v70 = v65 - v68;
+            v71 = v70 >> 2;
+            if (v70 >> 2 <= (v69 + 1))
             {
-              v70 = v68 + 1;
+              v71 = v69 + 1;
             }
 
-            if (v69 >= 0x7FFFFFFFFFFFFFF8)
+            if (v70 >= 0x7FFFFFFFFFFFFFF8)
             {
-              v71 = 0x1FFFFFFFFFFFFFFFLL;
+              v72 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v71 = v70;
+              v72 = v71;
             }
 
-            if (v71)
+            if (v72)
             {
-              std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v71);
+              std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v72);
             }
 
-            v72 = (8 * v68);
-            *v72 = v63;
-            v66 = 8 * v68 + 8;
-            v73 = *(v31 + 128);
-            v74 = *(v31 + 136) - v73;
-            v75 = v72 - v74;
-            memcpy(v72 - v74, v73, v74);
-            v76 = *(v31 + 128);
-            *(v31 + 128) = v75;
-            *(v31 + 136) = v66;
-            *(v31 + 144) = 0;
-            if (v76)
+            v73 = (8 * v69);
+            *v73 = v64;
+            v67 = 8 * v69 + 8;
+            v74 = v31[16];
+            v75 = v31[17] - v74;
+            v76 = v73 - v75;
+            memcpy(v73 - v75, v74, v75);
+            v77 = v31[16];
+            v31[16] = v76;
+            v31[17] = v67;
+            v31[18] = 0;
+            if (v77)
             {
-              operator delete(v76);
+              operator delete(v77);
             }
 
             v46 = v85;
@@ -2202,16 +2193,16 @@ LABEL_78:
 
           else
           {
-            *v65 = AccelerationStructureDAG;
-            v66 = (v65 + 1);
+            *v66 = AccelerationStructureDAG;
+            v67 = (v66 + 1);
           }
 
-          *(v31 + 136) = v66;
+          v31[17] = v67;
         }
 
         if (++v49 == v47)
         {
-          v47 = [obj countByEnumeratingWithState:&v104 objects:v111 count:16];
+          v47 = [obj countByEnumeratingWithState:&v103 objects:v110 count:16];
           if (v47)
           {
             goto LABEL_38;
@@ -2227,8 +2218,8 @@ LABEL_78:
 
 LABEL_73:
 
-    v77 = [objc_alloc(MEMORY[0x277CD6E28]) initWithVersion:a2];
-    if ([v92 writeGenericBVHStructureSizesOfAccelerationStructure:v83 into:v77])
+    v78 = [objc_alloc(MEMORY[0x277CD6E28]) initWithVersion:a2];
+    if ([v92 writeGenericBVHStructureSizesOfAccelerationStructure:v83 into:v78])
     {
       v97[0] = MEMORY[0x277D85DD0];
       v97[1] = 3221225472;
@@ -2237,11 +2228,11 @@ LABEL_73:
       v100 = v89;
       v101 = v82;
       v98 = v81;
-      v78 = v77;
-      v99 = v78;
+      v79 = v78;
+      v99 = v79;
       [v90 addCompletedHandler:v97];
 
-      v77 = v78;
+      v78 = v79;
     }
 
     else
@@ -2252,46 +2243,46 @@ LABEL_73:
 
 LABEL_80:
 
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v109);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v108);
   }
 
-  v79 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
-void sub_24D86C32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, void *a25, void *a26, void *a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_24D86C32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, void *a25, void *a26, void *a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a51);
+  va_start(va, a50);
 
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t a2)
+uint64_t std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(float *a1, unint64_t a2, void *a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -2299,39 +2290,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
@@ -2601,15 +2592,15 @@ uint64_t AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::
   *(v9 + 304) = 0u;
   *(v9 + 320) = 0u;
   *(v9 + 344) = 1065353216;
-  v244 = v8;
-  v246 = (v9 + 352);
+  v242 = v8;
+  v244 = (v9 + 352);
   *(v9 + 352) = 0u;
   *(v9 + 368) = 0u;
   *(v9 + 208) = v8;
   *(v9 + 280) = 0;
   *(v9 + 288) = v6;
-  v240 = v4;
-  v242 = v6;
+  v238 = v4;
+  v240 = v6;
   *(v9 + 296) = v4;
   v13 = *(*(v8 + 8) + 8);
   v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -2627,14 +2618,14 @@ uint64_t AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::
       v17 = [v16 newFunctionWithName:@"ASVFillIndirectArgs"];
       if (!v17 || ([v13 defaultDevice], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "newComputePipelineStateWithFunction:error:", v17, v2), v26 = *(v9 + 232), *(v9 + 232) = v25, v26, v24, *(v9 + 232)))
       {
-        v239 = v11;
+        v237 = v11;
 
-        v250[0] = 0;
-        v250[1] = 0;
-        v249 = v250;
+        v248[0] = 0;
+        v248[1] = 0;
+        v247 = v248;
         newpool = 0;
         apr_pool_create_ex(&newpool, 0, 0, v27);
-        v28 = *(v244 + 8);
+        v28 = *(v242 + 8);
         v29 = *v28;
         v30 = *(v28 + 8);
         v31 = v30;
@@ -2647,7 +2638,7 @@ uint64_t AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::
 
         v33 = v32 + (v6 << 6);
         v34 = *v33;
-        InclusiveRange = GroupBuilder_findInclusiveRange(*(*(v29 + 15) + 12), *(*(v29 + 15) + 24), v242);
+        InclusiveRange = GroupBuilder_findInclusiveRange(*(*(v29 + 15) + 12), *(*(v29 + 15) + 24), v240);
         v36 = GroupRange_encoderWithIndirectResources(InclusiveRange);
         memcpy(__dst, (v28 + 192), 0x2BA0uLL);
         v37 = *(v28 + 11360) - 95;
@@ -2666,7 +2657,7 @@ uint64_t AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::
             v41 = 0;
             do
             {
-              AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, *&v40->elts[8 * v41++], -1, v39, &v249);
+              AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, *&v40->elts[8 * v41++], -1, v39, &v247);
             }
 
             while (v41 < v40->nelts);
@@ -2679,14 +2670,14 @@ uint64_t AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::
             v42 = 0;
             do
             {
-              AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, *&v40->elts[8 * v42++], -1, v39, &v249);
+              AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, *&v40->elts[8 * v42++], -1, v39, &v247);
             }
 
             while (v42 < v40->nelts);
           }
 
 LABEL_125:
-          v234 = v2;
+          v232 = v2;
 
           apr_pool_destroy(newpool);
           v111 = *(*(v9 + 208) + 8);
@@ -2750,7 +2741,6 @@ LABEL_131:
                     v127 = v126 << 6;
                     do
                     {
-                      v128 = *(*(v112 + 16) + 24);
                       GTResourceTrackerProcessFunction();
                       ++v126;
                       v127 += 64;
@@ -2773,19 +2763,19 @@ LABEL_131:
               goto LABEL_225;
             }
 
-            v130 = Object;
+            v129 = Object;
             v113 = v119;
             entry = find_entry(v120[5], (v9 + 296), 8uLL, 0);
-            if (*entry && (v132 = *(*entry + 32)) != 0)
+            if (*entry && (v131 = *(*entry + 32)) != 0)
             {
-              v133 = v132[3];
-              if (v133 <= 0)
+              v132 = v131[3];
+              if (v132 <= 0)
               {
-                v133 = v132[4];
-                if (v133 <= 0)
+                v132 = v131[4];
+                if (v132 <= 0)
                 {
-                  v133 = v132[2];
-                  if (!v133)
+                  v132 = v131[2];
+                  if (!v132)
                   {
                     goto LABEL_225;
                   }
@@ -2795,118 +2785,118 @@ LABEL_131:
 
             else
             {
-              v135 = v130[6];
-              v134 = v130 + 6;
-              if (!v135)
+              v134 = v129[6];
+              v133 = v129 + 6;
+              if (!v134)
               {
                 goto LABEL_225;
               }
 
-              v136 = find_entry(v120[4], v134, 8uLL, 0);
-              if (!*v136)
+              v135 = find_entry(v120[4], v133, 8uLL, 0);
+              if (!*v135)
               {
                 goto LABEL_225;
               }
 
-              v137 = *(*v136 + 32);
-              if (!v137)
+              v136 = *(*v135 + 32);
+              if (!v136)
               {
                 goto LABEL_225;
               }
 
-              v133 = *(v137 + 8);
+              v132 = *(v136 + 8);
             }
 
-            v138 = GroupBuilder_findInclusiveRange(*(*(v112 + 15) + 12), *(*(v112 + 15) + 24), v133 - *(v112 + 11));
-            v139 = GroupRange_encoderWithIndirectResources(v138);
-            if (!v139)
+            v137 = GroupBuilder_findInclusiveRange(*(*(v112 + 15) + 12), *(*(v112 + 15) + 24), v132 - *(v112 + 11));
+            v138 = GroupRange_encoderWithIndirectResources(v137);
+            if (!v138)
             {
               goto LABEL_225;
             }
 
-            v116 = v139;
+            v116 = v138;
             apr_pool_destroy(pb);
             ConstructorType = GTFenum_getConstructorType(v116[5]);
           }
 
           if (ConstructorType == 70 || ConstructorType == 28)
           {
-            v141 = *v116;
-            if (v141 < v116[1])
+            v140 = *v116;
+            if (v140 < v116[1])
             {
               do
               {
-                v142 = *(*(v112 + 16) + 24) + (v141 << 6);
-                v143 = *(v142 + 8);
-                if (v143 > -16042)
+                v141 = *(*(v112 + 16) + 24) + (v140 << 6);
+                v142 = *(v141 + 8);
+                if (v142 > -16042)
                 {
-                  if (v143 > -15821)
+                  if (v142 > -15821)
                   {
-                    if (v143 == -15820)
+                    if (v142 == -15820)
                     {
-                      v167 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                      v168 = GTTraceFunc_argumentBytesWithMap(v142, v167[24], v113);
-                      if (*(v167 + 1))
+                      v166 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                      v167 = GTTraceFunc_argumentBytesWithMap(v141, v166[24], v113);
+                      if (*(v166 + 1))
                       {
-                        v169 = v168;
-                        v170 = 0;
+                        v168 = v167;
+                        v169 = 0;
                         do
                         {
-                          v171 = [v114 heapForKey:*&v169[8 * v170]];
-                          __dst[0] = v171;
-                          if (v171)
+                          v170 = [v114 heapForKey:*&v168[8 * v169]];
+                          __dst[0] = v170;
+                          if (v170)
                           {
-                            std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v246, __dst);
+                            std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v244, __dst);
                           }
 
-                          ++v170;
+                          ++v169;
                         }
 
-                        while (*(v167 + 1) > v170);
+                        while (*(v166 + 1) > v169);
                       }
 
                       goto LABEL_224;
                     }
 
-                    if (v143 != -15819)
+                    if (v142 != -15819)
                     {
-                      if (v143 == -15818)
+                      if (v142 == -15818)
                       {
-                        v152 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                        v153 = GTTraceFunc_argumentBytesWithMap(v142, v152[32], v113);
-                        v154 = *(v152 + 1);
-                        v251 = *(v152 + 2);
-                        if (v154)
+                        v151 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                        v152 = GTTraceFunc_argumentBytesWithMap(v141, v151[32], v113);
+                        v153 = *(v151 + 1);
+                        v249 = *(v151 + 2);
+                        if (v153)
                         {
-                          v155 = v153;
-                          v156 = 0;
+                          v154 = v152;
+                          v155 = 0;
                           do
                           {
-                            v157 = [v114 resourceForKey:*&v155[8 * v156]];
-                            newpool = v157;
-                            if (v157)
+                            v156 = [v114 resourceForKey:*&v154[8 * v155]];
+                            newpool = v156;
+                            if (v156)
                             {
-                              __dst[0] = &v251;
-                              v158 = std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>((v9 + 312), v251);
-                              std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v158 + 3, &newpool);
+                              __dst[0] = &v249;
+                              v157 = std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>((v9 + 312), v249, __dst);
+                              std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v157 + 3, &newpool);
                             }
 
-                            ++v156;
+                            ++v155;
                           }
 
-                          while (*(v152 + 1) > v156);
+                          while (*(v151 + 1) > v155);
                         }
                       }
 
                       goto LABEL_224;
                     }
 
-                    v185 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                    v160 = [v114 resourceForKey:*(v185 + 1)];
-                    newpool = v160;
-                    v161 = v185[16];
-                    v251 = v161;
-                    if (v160)
+                    v184 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                    v159 = [v114 resourceForKey:*(v184 + 1)];
+                    newpool = v159;
+                    v160 = v184[16];
+                    v249 = v160;
+                    if (v159)
                     {
                       goto LABEL_223;
                     }
@@ -2914,44 +2904,44 @@ LABEL_131:
 
                   else
                   {
-                    switch(v143)
+                    switch(v142)
                     {
                       case -16041:
-                        v144 = [v114 heapForKey:{*(GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113) + 1)}];
-                        __dst[0] = v144;
-                        if (v144)
+                        v143 = [v114 heapForKey:{*(GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113) + 1)}];
+                        __dst[0] = v143;
+                        if (v143)
                         {
                           goto LABEL_195;
                         }
 
                         break;
                       case -16040:
-                        v179 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                        v180 = GTTraceFunc_argumentBytesWithMap(v142, v179[16], v113);
-                        if (*(v179 + 1))
+                        v178 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                        v179 = GTTraceFunc_argumentBytesWithMap(v141, v178[16], v113);
+                        if (*(v178 + 1))
                         {
-                          v181 = v180;
-                          v182 = 0;
+                          v180 = v179;
+                          v181 = 0;
                           do
                           {
-                            v183 = [v114 heapForKey:*&v181[8 * v182]];
-                            __dst[0] = v183;
-                            if (v183)
+                            v182 = [v114 heapForKey:*&v180[8 * v181]];
+                            __dst[0] = v182;
+                            if (v182)
                             {
-                              std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v246, __dst);
+                              std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v244, __dst);
                             }
 
-                            ++v182;
+                            ++v181;
                           }
 
-                          while (*(v179 + 1) > v182);
+                          while (*(v178 + 1) > v181);
                         }
 
                         break;
                       case -15821:
-                        v144 = [v114 heapForKey:{*(GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113) + 1)}];
-                        __dst[0] = v144;
-                        if (v144)
+                        v143 = [v114 heapForKey:{*(GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113) + 1)}];
+                        __dst[0] = v143;
+                        if (v143)
                         {
                           goto LABEL_195;
                         }
@@ -2961,128 +2951,128 @@ LABEL_131:
                   }
                 }
 
-                else if (v143 > -16045)
+                else if (v142 > -16045)
                 {
-                  if (v143 == -16044)
+                  if (v142 == -16044)
                   {
-                    v162 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                    v163 = GTTraceFunc_argumentBytesWithMap(v142, v162[16], v113);
-                    if (*(v162 + 1))
+                    v161 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                    v162 = GTTraceFunc_argumentBytesWithMap(v141, v161[16], v113);
+                    if (*(v161 + 1))
                     {
-                      v164 = v163;
-                      v165 = 0;
+                      v163 = v162;
+                      v164 = 0;
                       do
                       {
-                        v166 = [v114 heapForKey:*&v164[8 * v165]];
-                        __dst[0] = v166;
-                        if (v166)
+                        v165 = [v114 heapForKey:*&v163[8 * v164]];
+                        __dst[0] = v165;
+                        if (v165)
                         {
-                          std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v246, __dst);
+                          std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v244, __dst);
                         }
 
-                        ++v165;
+                        ++v164;
                       }
 
-                      while (*(v162 + 1) > v165);
+                      while (*(v161 + 1) > v164);
                     }
 
                     goto LABEL_224;
                   }
 
-                  if (v143 != -16043)
+                  if (v142 != -16043)
                   {
-                    v145 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                    v146 = GTTraceFunc_argumentBytesWithMap(v142, v145[24], v113);
-                    v147 = *(v145 + 1);
-                    v251 = *(v145 + 2);
-                    if (v147)
+                    v144 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                    v145 = GTTraceFunc_argumentBytesWithMap(v141, v144[24], v113);
+                    v146 = *(v144 + 1);
+                    v249 = *(v144 + 2);
+                    if (v146)
                     {
-                      v148 = v146;
-                      v149 = 0;
+                      v147 = v145;
+                      v148 = 0;
                       do
                       {
-                        v150 = [v114 resourceForKey:*&v148[8 * v149]];
-                        newpool = v150;
-                        if (v150)
+                        v149 = [v114 resourceForKey:*&v147[8 * v148]];
+                        newpool = v149;
+                        if (v149)
                         {
-                          __dst[0] = &v251;
-                          v151 = std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>((v9 + 312), v251);
-                          std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v151 + 3, &newpool);
+                          __dst[0] = &v249;
+                          v150 = std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>((v9 + 312), v249, __dst);
+                          std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v150 + 3, &newpool);
                         }
 
-                        ++v149;
+                        ++v148;
                       }
 
-                      while (*(v145 + 1) > v149);
+                      while (*(v144 + 1) > v148);
                     }
 
                     goto LABEL_224;
                   }
 
-                  v184 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                  v160 = [v114 resourceForKey:*(v184 + 1)];
-                  newpool = v160;
-                  v161 = v184[16];
-                  v251 = v161;
-                  if (v160)
+                  v183 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                  v159 = [v114 resourceForKey:*(v183 + 1)];
+                  newpool = v159;
+                  v160 = v183[16];
+                  v249 = v160;
+                  if (v159)
                   {
 LABEL_223:
-                    __dst[0] = &v251;
-                    v186 = std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>((v9 + 312), v161);
-                    std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v186 + 3, &newpool);
+                    __dst[0] = &v249;
+                    v185 = std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>((v9 + 312), v160, __dst);
+                    std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v185 + 3, &newpool);
                   }
                 }
 
                 else
                 {
-                  switch(v143)
+                  switch(v142)
                   {
                     case -16047:
-                      v159 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                      v160 = [v114 resourceForKey:*(v159 + 1)];
-                      newpool = v160;
-                      v161 = v159[16];
-                      v251 = v161;
-                      if (v160)
+                      v158 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                      v159 = [v114 resourceForKey:*(v158 + 1)];
+                      newpool = v159;
+                      v160 = v158[16];
+                      v249 = v160;
+                      if (v159)
                       {
                         goto LABEL_223;
                       }
 
                       break;
                     case -16046:
-                      v172 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113);
-                      v173 = GTTraceFunc_argumentBytesWithMap(v142, v172[24], v113);
-                      v174 = *(v172 + 1);
-                      v251 = *(v172 + 2);
-                      if (v174)
+                      v171 = GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113);
+                      v172 = GTTraceFunc_argumentBytesWithMap(v141, v171[24], v113);
+                      v173 = *(v171 + 1);
+                      v249 = *(v171 + 2);
+                      if (v173)
                       {
-                        v175 = v173;
-                        v176 = 0;
+                        v174 = v172;
+                        v175 = 0;
                         do
                         {
-                          v177 = [v114 resourceForKey:*&v175[8 * v176]];
-                          newpool = v177;
-                          if (v177)
+                          v176 = [v114 resourceForKey:*&v174[8 * v175]];
+                          newpool = v176;
+                          if (v176)
                           {
-                            __dst[0] = &v251;
-                            v178 = std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>((v9 + 312), v251);
-                            std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v178 + 3, &newpool);
+                            __dst[0] = &v249;
+                            v177 = std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>((v9 + 312), v249, __dst);
+                            std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v177 + 3, &newpool);
                           }
 
-                          ++v176;
+                          ++v175;
                         }
 
-                        while (*(v172 + 1) > v176);
+                        while (*(v171 + 1) > v175);
                       }
 
                       break;
                     case -16045:
-                      v144 = [v114 heapForKey:{*(GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v141 << 6)), *(v142 + 13), v113) + 1)}];
-                      __dst[0] = v144;
-                      if (v144)
+                      v143 = [v114 heapForKey:{*(GTTraceFunc_argumentBytesWithMap((*(*(v112 + 16) + 24) + (v140 << 6)), *(v141 + 13), v113) + 1)}];
+                      __dst[0] = v143;
+                      if (v143)
                       {
 LABEL_195:
-                        std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v246, __dst);
+                        std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](v244, __dst);
                       }
 
                       break;
@@ -3090,106 +3080,106 @@ LABEL_195:
                 }
 
 LABEL_224:
-                ++v141;
+                ++v140;
               }
 
-              while (v141 < v116[1]);
+              while (v140 < v116[1]);
             }
           }
 
 LABEL_225:
 
-          pc = *(*(v244 + 8) + 8);
-          v232 = [(apr_pool_t *)pc defaultCommandQueue];
-          v187 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v188 = *(v9 + 304);
-          *(v9 + 304) = v187;
+          pc = *(*(v242 + 8) + 8);
+          v230 = [(apr_pool_t *)pc defaultCommandQueue];
+          v186 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v187 = *(v9 + 304);
+          *(v9 + 304) = v186;
 
-          v189 = [(apr_pool_t *)pc defaultDevice];
-          v230 = [v189 latestSupportedGenericBVHVersion];
+          v188 = [(apr_pool_t *)pc defaultDevice];
+          v228 = [v188 latestSupportedGenericBVHVersion];
 
-          v248[0] = 0;
-          v248[1] = 0;
-          newpool = v248;
-          v190 = AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::reserveAccelerationStructureDAG(v9, &newpool, &v249, pc, v240);
-          if (v190 == -1)
+          v246[0] = 0;
+          v246[1] = 0;
+          newpool = v246;
+          v189 = AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::reserveAccelerationStructureDAG(v9, &newpool, &v247, pc, v238, v232);
+          if (v189 == -1)
           {
 LABEL_273:
-            std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(v248[0]);
+            std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(v246[0]);
 
             goto LABEL_274;
           }
 
-          v191 = *(v9 + 184);
-          v192 = *(v9 + 192);
-          v193 = 0xD37A6F4DE9BD37A7 * ((v192 - v191) >> 3);
-          v194 = v190 - v193;
-          if (v190 <= v193)
+          v190 = *(v9 + 184);
+          v191 = *(v9 + 192);
+          v192 = 0xD37A6F4DE9BD37A7 * ((v191 - v190) >> 3);
+          v193 = v189 - v192;
+          if (v189 <= v192)
           {
-            if (v190 < v193)
+            if (v189 < v192)
             {
-              v199 = (v191 + 184 * v190);
-              while (v192 != v199)
+              v198 = (v190 + 184 * v189);
+              while (v191 != v198)
               {
-                v192 -= 23;
-                AccelerationStructureViewerServer::AccelerationStructure::~AccelerationStructure(v192);
+                v191 -= 23;
+                AccelerationStructureViewerServer::AccelerationStructure::~AccelerationStructure(v191);
               }
 
-              *(v9 + 192) = v199;
+              *(v9 + 192) = v198;
             }
           }
 
           else
           {
-            v195 = *(v9 + 200);
-            if (0xD37A6F4DE9BD37A7 * ((v195 - v192) >> 3) < v194)
+            v194 = *(v9 + 200);
+            if (0xD37A6F4DE9BD37A7 * ((v194 - v191) >> 3) < v193)
             {
-              if (v190 <= 0x1642C8590B21642)
+              if (v189 <= 0x1642C8590B21642)
               {
-                v196 = 0xD37A6F4DE9BD37A7 * ((v195 - v191) >> 3);
-                v197 = 2 * v196;
-                if (2 * v196 <= v190)
+                v195 = 0xD37A6F4DE9BD37A7 * ((v194 - v190) >> 3);
+                v196 = 2 * v195;
+                if (2 * v195 <= v189)
                 {
-                  v197 = v190;
+                  v196 = v189;
                 }
 
-                if (v196 >= 0xB21642C8590B21)
+                if (v195 >= 0xB21642C8590B21)
                 {
-                  v198 = 0x1642C8590B21642;
+                  v197 = 0x1642C8590B21642;
                 }
 
                 else
                 {
-                  v198 = v197;
+                  v197 = v196;
                 }
 
-                std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure>>(v198);
+                std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure>>(v197);
               }
 
               std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
             }
 
-            v200 = 184 * ((184 * v194 - 184) / 0xB8) + 184;
-            bzero(*(v9 + 192), v200);
-            *(v9 + 192) = v192 + v200;
+            v199 = 184 * ((184 * v193 - 184) / 0xB8) + 184;
+            bzero(*(v9 + 192), v199);
+            *(v9 + 192) = v191 + v199;
           }
 
           NSLog(&cfstr_BeginAllocate.isa);
-          v228 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v201 = [v232 commandBufferWithDescriptor:v239];
-          [v201 setLabel:@"ASV allocateAccelerationStructureDAG"];
-          v202 = [v201 accelerationStructureCommandEncoder];
+          v226 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v200 = [v230 commandBufferWithDescriptor:v237];
+          [v200 setLabel:@"ASV allocateAccelerationStructureDAG"];
+          v201 = [v200 accelerationStructureCommandEncoder];
           if (objc_opt_respondsToSelector())
           {
-            v203 = [(apr_pool_t *)pc accelerationStructureForKey:v240];
+            v202 = [(apr_pool_t *)pc accelerationStructureForKey:v238];
             __dst[1] = 0;
             __dst[2] = 0;
             __dst[0] = &__dst[1];
-            AccelerationStructureDAG = AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::allocateAccelerationStructureDAG(v9, v230, __dst, &v249, v228, v244, v242, pc, v240, v201, v202, v234);
-            [v202 endEncoding];
-            [v201 commit];
-            [v201 waitUntilCompleted];
-            if (!AccelerationStructureDAG || *(v9 + 192) == *(v9 + 184))
+            v203 = AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::allocateAccelerationStructureDAG(v9, v228, __dst, &v247, v226, v242, v240, pc, v238, v200, v201, v232);
+            [v201 endEncoding];
+            [v200 commit];
+            [v200 waitUntilCompleted];
+            if (!v203 || *(v9 + 192) == *(v9 + 184))
             {
               std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(__dst[1]);
             }
@@ -3201,62 +3191,62 @@ LABEL_273:
 
               NSLog(&cfstr_FinishAllocate.isa);
               NSLog(&cfstr_BeginEncode.isa);
-              v205 = v228;
-              v241 = v232;
-              v243 = v239;
-              v227 = [v241 device];
+              v204 = v226;
+              v239 = v230;
+              v241 = v237;
+              v225 = [v239 device];
               if (*(v9 + 192) != *(v9 + 184))
               {
-                v206 = 0;
+                v205 = 0;
                 while (1)
                 {
-                  v245 = [v205 objectAtIndex:v206];
-                  v207 = *(v9 + 184);
-                  v208 = [objc_alloc(MEMORY[0x277CD6E38]) initWithVersion:v230];
-                  v209 = (v207 + 184 * v206);
-                  [v208 setHeaderBuffer:v209[3]];
-                  [v208 setHeaderBufferOffset:v209[4]];
-                  [v208 setInnerNodeBuffer:v209[5]];
-                  [v208 setInnerNodeBufferOffset:v209[6]];
-                  [v208 setLeafNodeBuffer:v209[7]];
-                  [v208 setLeafNodeBufferOffset:v209[8]];
-                  [v208 setPrimitiveBuffer:v209[9]];
-                  [v208 setPrimitiveBufferOffset:v209[10]];
-                  [v208 setGeometryBuffer:v209[11]];
-                  [v208 setGeometryBufferOffset:v209[12]];
-                  [v208 setPerPrimitiveDataBuffer:v209[13]];
-                  [v208 setPerPrimitiveDataBufferOffset:v209[14]];
-                  [v208 setInstanceTransformBuffer:v209[19]];
-                  [v208 setInstanceTransformBufferOffset:v209[20]];
-                  v210 = [v241 commandBufferWithDescriptor:v243];
-                  [v210 setLabel:@"ASV encodeAccelerationStructureDAG"];
-                  v211 = [v210 accelerationStructureCommandEncoder];
+                  v243 = [v204 objectAtIndex:v205];
+                  v206 = *(v9 + 184);
+                  v207 = [objc_alloc(MEMORY[0x277CD6E38]) initWithVersion:v228];
+                  v208 = (v206 + 184 * v205);
+                  [v207 setHeaderBuffer:v208[3]];
+                  [v207 setHeaderBufferOffset:v208[4]];
+                  [v207 setInnerNodeBuffer:v208[5]];
+                  [v207 setInnerNodeBufferOffset:v208[6]];
+                  [v207 setLeafNodeBuffer:v208[7]];
+                  [v207 setLeafNodeBufferOffset:v208[8]];
+                  [v207 setPrimitiveBuffer:v208[9]];
+                  [v207 setPrimitiveBufferOffset:v208[10]];
+                  [v207 setGeometryBuffer:v208[11]];
+                  [v207 setGeometryBufferOffset:v208[12]];
+                  [v207 setPerPrimitiveDataBuffer:v208[13]];
+                  [v207 setPerPrimitiveDataBufferOffset:v208[14]];
+                  [v207 setInstanceTransformBuffer:v208[19]];
+                  [v207 setInstanceTransformBufferOffset:v208[20]];
+                  v209 = [v239 commandBufferWithDescriptor:v241];
+                  [v209 setLabel:@"ASV encodeAccelerationStructureDAG"];
+                  v210 = [v209 accelerationStructureCommandEncoder];
                   if (*(v9 + 192) != *(v9 + 184))
                   {
-                    v212 = 0;
+                    v211 = 0;
                     do
                     {
-                      v213 = [v205 objectAtIndex:v212];
-                      [v211 useResource:v213 usage:1];
+                      v212 = [v204 objectAtIndex:v211];
+                      [v210 useResource:v212 usage:1];
 
-                      ++v212;
+                      ++v211;
                     }
 
-                    while (v212 < 0xD37A6F4DE9BD37A7 * ((*(v9 + 192) - *(v9 + 184)) >> 3));
+                    while (v211 < 0xD37A6F4DE9BD37A7 * ((*(v9 + 192) - *(v9 + 184)) >> 3));
                   }
 
-                  v214 = [v211 writeGenericBVHStructureOfAccelerationStructure:v245 into:v208];
-                  [v211 endEncoding];
-                  [v208 setHeaderBuffer:0];
-                  [v208 setInnerNodeBuffer:0];
-                  [v208 setLeafNodeBuffer:0];
-                  [v208 setPrimitiveBuffer:0];
-                  [v208 setGeometryBuffer:0];
-                  [v208 setPerPrimitiveDataBuffer:0];
-                  [v208 setInstanceTransformBuffer:0];
-                  if ((v214 & 1) == 0)
+                  v213 = [v210 writeGenericBVHStructureOfAccelerationStructure:v243 into:v207];
+                  [v210 endEncoding];
+                  [v207 setHeaderBuffer:0];
+                  [v207 setInnerNodeBuffer:0];
+                  [v207 setLeafNodeBuffer:0];
+                  [v207 setPrimitiveBuffer:0];
+                  [v207 setGeometryBuffer:0];
+                  [v207 setPerPrimitiveDataBuffer:0];
+                  [v207 setInstanceTransformBuffer:0];
+                  if ((v213 & 1) == 0)
                   {
-                    *v234 = ASVErrorWithCode(2u, @"Your version of Metal does not support this tool");
+                    *v232 = ASVErrorWithCode(2u, @"Your version of Metal does not support this tool");
                     goto LABEL_268;
                   }
 
@@ -3264,24 +3254,24 @@ LABEL_273:
                   __dst[1] = 3221225472;
                   __dst[2] = ___ZN33AccelerationStructureViewerServer34MTLAccelerationStructureDataSource30encodeAccelerationStructureDAGE29MTLGenericBVHHeaderVersionSPIP14NSMutableArrayIPU35objcproto24MTLAccelerationStructure11objc_objectEPU26objcproto15MTLCommandQueue11objc_objectP26MTLCommandBufferDescriptorPU15__autoreleasingP7NSError_block_invoke;
                   __dst[3] = &unk_279657260;
-                  __dst[5] = v206;
-                  __dst[6] = v209;
-                  __dst[4] = v227;
-                  [v210 addCompletedHandler:__dst];
-                  [v210 commit];
-                  [v210 waitUntilCompleted];
-                  if ([v210 status] == 5)
+                  __dst[5] = v205;
+                  __dst[6] = v208;
+                  __dst[4] = v225;
+                  [v209 addCompletedHandler:__dst];
+                  [v209 commit];
+                  [v209 waitUntilCompleted];
+                  if ([v209 status] == 5)
                   {
                     break;
                   }
 
-                  if (++v206 >= 0xD37A6F4DE9BD37A7 * ((*(v9 + 192) - *(v9 + 184)) >> 3))
+                  if (++v205 >= 0xD37A6F4DE9BD37A7 * ((*(v9 + 192) - *(v9 + 184)) >> 3))
                   {
                     goto LABEL_252;
                   }
                 }
 
-                *v234 = [v210 error];
+                *v232 = [v209 error];
 
 LABEL_268:
                 goto LABEL_272;
@@ -3290,58 +3280,58 @@ LABEL_268:
 LABEL_252:
 
               NSLog(&cfstr_FinishEncode.isa);
-              v215 = *(v9 + 176);
-              v216 = *(v9 + 184);
-              v217 = v216 + 184 * v215;
-              v218 = *(v217 + 8);
-              if ((v218 - 3) < 2)
+              v214 = *(v9 + 176);
+              v215 = *(v9 + 184);
+              v216 = v215 + 184 * v214;
+              v217 = *(v216 + 8);
+              if ((v217 - 3) < 2)
               {
                 goto LABEL_253;
               }
 
-              if (v218 == 2)
+              if (v217 == 2)
               {
-                v219 = *(v9 + 192) - v216;
-                if (v219)
+                v218 = *(v9 + 192) - v215;
+                if (v218)
                 {
-                  v220 = 0;
-                  v221 = 0xD37A6F4DE9BD37A7 * (v219 >> 3);
-                  if (v221 <= 1)
+                  v219 = 0;
+                  v220 = 0xD37A6F4DE9BD37A7 * (v218 >> 3);
+                  if (v220 <= 1)
                   {
-                    v221 = 1;
+                    v220 = 1;
                   }
 
                   while (1)
                   {
-                    if (v220 == v215)
+                    if (v219 == v214)
                     {
-                      if (v215 + 1 == v221)
+                      if (v214 + 1 == v220)
                       {
                         break;
                       }
 
-                      v222 = 0;
-                      v220 = v215 + 1;
+                      v221 = 0;
+                      v219 = v214 + 1;
                     }
 
                     else
                     {
-                      v223 = *(v216 + 184 * v220 + 8) - 3;
-                      v222 = v223 < 2;
-                      if (++v220 == v221)
+                      v222 = *(v215 + 184 * v219 + 8) - 3;
+                      v221 = v222 < 2;
+                      if (++v219 == v220)
                       {
-                        if (v223 > 1)
+                        if (v222 > 1)
                         {
                           break;
                         }
 
 LABEL_253:
-                        *(v217 + 176) = 1;
+                        *(v216 + 176) = 1;
                         break;
                       }
                     }
 
-                    if (v222)
+                    if (v221)
                     {
                       goto LABEL_253;
                     }
@@ -3349,17 +3339,17 @@ LABEL_253:
                 }
               }
 
-              v224 = v205;
-              v201 = *(v9 + 376);
-              *(v9 + 376) = v224;
+              v223 = v204;
+              v200 = *(v9 + 376);
+              *(v9 + 376) = v223;
             }
           }
 
           else
           {
-            *v234 = ASVErrorWithCode(2u, @"Your version of Metal does not support this tool");
-            [v202 endEncoding];
-            [v201 commit];
+            *v232 = ASVErrorWithCode(2u, @"Your version of Metal does not support this tool");
+            [v201 endEncoding];
+            [v200 commit];
           }
 
 LABEL_272:
@@ -3385,8 +3375,8 @@ LABEL_12:
 LABEL_15:
             apr_pool_destroy(newpool);
 LABEL_274:
-            std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(v250[0]);
-            v11 = v239;
+            std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(v248[0]);
+            v11 = v237;
             goto LABEL_275;
           }
 
@@ -3404,7 +3394,7 @@ LABEL_274:
                 if (((v55 >> v54) & 1) == 0)
                 {
                   v56 = GTMTLSMContext_getObject(**(v29 + 5), __dst[v54 + 10], v34);
-                  AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v56, v54, v53, &v249);
+                  AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v56, v54, v53, &v247);
                 }
 
                 ++v54;
@@ -3420,7 +3410,7 @@ LABEL_274:
               if (((v58 >> v57) & 1) == 0)
               {
                 v59 = GTMTLSMContext_getObject(**(v29 + 5), __dst[v57 + 248], v34);
-                AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v59, v57, v53, &v249);
+                AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v59, v57, v53, &v247);
               }
 
               ++v57;
@@ -3457,7 +3447,7 @@ LABEL_82:
             pa = *(*v28 + 16);
             v81 = *(v28 + 8);
             v82 = GroupBuilder_findInclusiveRange(*(*(v80 + 15) + 12), *(*(v80 + 15) + 24), *(v9 + 288));
-            v233 = v2;
+            v231 = v2;
             if (v82)
             {
               while (1)
@@ -3490,8 +3480,8 @@ LABEL_82:
                 v85 = *v82;
                 if (v85 < v82[1])
                 {
-                  v229 = v31;
-                  v231 = v81;
+                  v227 = v31;
+                  v229 = v81;
                   v86 = newpool;
                   while (1)
                   {
@@ -3515,7 +3505,7 @@ LABEL_82:
                           do
                           {
                             v98 = GTMTLSMContext_getObject(**(v80 + 5), *&v96[8 * v97], v34);
-                            AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v98, -1, v86, &v249);
+                            AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v98, -1, v86, &v247);
                             ++v97;
                           }
 
@@ -3528,7 +3518,7 @@ LABEL_82:
 LABEL_114:
                       v104 = GTTraceFunc_argumentBytesWithMap((*(*(v80 + 16) + 24) + (v85 << 6)), *(v87 + 13), pa);
                       v105 = GTMTLSMContext_getObject(**(v80 + 5), *(v104 + 1), v34);
-                      AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v105, -1, v86, &v249);
+                      AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v105, -1, v86, &v247);
                       goto LABEL_121;
                     }
 
@@ -3543,7 +3533,7 @@ LABEL_114:
                         do
                         {
                           v110 = GTMTLSMContext_getObject(**(v80 + 5), *&v108[8 * v109], v34);
-                          AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v110, -1, v86, &v249);
+                          AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v110, -1, v86, &v247);
                           ++v109;
                         }
 
@@ -3580,7 +3570,7 @@ LABEL_121:
                           do
                           {
                             v103 = GTMTLSMContext_getObject(**(v80 + 5), *&v101[8 * v102], v34);
-                            AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v103, -1, v86, &v249);
+                            AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v103, -1, v86, &v247);
                             ++v102;
                           }
 
@@ -3605,7 +3595,7 @@ LABEL_121:
                         do
                         {
                           v93 = GTMTLSMContext_getObject(**(v80 + 5), *&v91[8 * v92], v34);
-                          AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v93, -1, v86, &v249);
+                          AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v93, -1, v86, &v247);
                           ++v92;
                         }
 
@@ -3633,7 +3623,7 @@ LABEL_78:
             if (((v77 >> v76) & 1) == 0)
             {
               v79 = GTMTLSMContext_getObject(**(v29 + 5), __dst[v76 + 869], v34);
-              AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v79, v76, v78, &v249);
+              AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v79, v76, v78, &v247);
             }
 
             ++v76;
@@ -3661,7 +3651,7 @@ LABEL_78:
           if (((v44 >> v43) & 1) == 0)
           {
             v46 = GTMTLSMContext_getObject(**(v29 + 5), __dst[v43 + 11], v34);
-            AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v46, v43, v45, &v249);
+            AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v46, v43, v45, &v247);
           }
 
           ++v43;
@@ -3670,9 +3660,9 @@ LABEL_78:
         while (v43 != 31);
         v47 = *v28;
         p = *(*v28 + 16);
-        v231 = *(v28 + 8);
+        v229 = *(v28 + 8);
         v48 = GroupBuilder_findInclusiveRange(*(*(v47 + 15) + 12), *(*(v47 + 15) + 24), *(v9 + 288));
-        v233 = v2;
+        v231 = v2;
         if (!v48)
         {
           goto LABEL_123;
@@ -3706,14 +3696,14 @@ LABEL_78:
         if (v49 != 28 || (v61 = *v48, v61 >= v48[1]))
         {
 LABEL_123:
-          v81 = v231;
+          v81 = v229;
 LABEL_124:
 
-          v2 = v233;
+          v2 = v231;
           goto LABEL_125;
         }
 
-        v229 = v31;
+        v227 = v31;
         while (1)
         {
           v62 = *(*(v47 + 16) + 24) + (v61 << 6);
@@ -3733,7 +3723,7 @@ LABEL_124:
                   do
                   {
                     v73 = GTMTLSMContext_getObject(**(v47 + 5), *&v71[8 * v72], v34);
-                    AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v73, -1, v45, &v249);
+                    AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v73, -1, v45, &v247);
                     ++v72;
                   }
 
@@ -3758,7 +3748,7 @@ LABEL_124:
                 do
                 {
                   v68 = GTMTLSMContext_getObject(**(v47 + 5), *&v66[8 * v67], v34);
-                  AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v68, -1, v45, &v249);
+                  AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v68, -1, v45, &v247);
                   ++v67;
                 }
 
@@ -3771,12 +3761,12 @@ LABEL_124:
 
           v74 = GTTraceFunc_argumentBytesWithMap((*(*(v47 + 16) + 24) + (v61 << 6)), *(v62 + 13), p);
           v75 = GTMTLSMContext_getObject(**(v47 + 5), *(v74 + 1), v34);
-          AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v75, -1, v45, &v249);
+          AccelerationStructureViewerServer::MTLAccelerationStructureDataSource::visitResourceObject(v9, v28, v75, -1, v45, &v247);
 LABEL_73:
           if (++v61 >= v48[1])
           {
 LABEL_122:
-            v31 = v229;
+            v31 = v227;
             goto LABEL_123;
           }
         }
@@ -3785,7 +3775,6 @@ LABEL_122:
   }
 
 LABEL_275:
-  v225 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3837,32 +3826,32 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructure
   std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>(void *a1, unsigned __int8 a2)
+uint64_t **std::__hash_table<std::__hash_value_type<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>,std::__unordered_map_hasher<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::hash<GTMTLResourceUsage_uint8_t>,std::equal_to<GTMTLResourceUsage_uint8_t>,true>,std::__unordered_map_equal<GTMTLResourceUsage_uint8_t,std::vector<objc_object  {objcproto11MTLResource}* {__strong}>,std::equal_to,std::hash,true>,objc_object  {objcproto11MTLResource}* {__strong}<std::vector<objc_object  {objcproto11MTLResource}* {__strong}>>>::__emplace_unique_key_args<GTMTLResourceUsage_uint8_t,std::piecewise_construct_t const&,std::tuple<GTMTLResourceUsage_uint8_t const&>,std::piecewise_construct_t const&<>>(float *a1, unsigned __int8 a2, _BYTE **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % a1[1];
+      v5 = a2 % *(a1 + 1);
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -3870,44 +3859,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 16) != a2)
+  if (*(v7 + 16) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[abi:nn200100](void ***a1, id *a2)
@@ -3951,7 +3940,7 @@ void std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[a
 
     v10 = (8 * v6);
     *v10 = *a2;
-    v5 = 8 * v6 + 8;
+    v5 = (8 * v6 + 8);
     v11 = *a1;
     v12 = a1[1];
     v13 = (v10 + *a1 - v12);
@@ -3988,7 +3977,7 @@ void std::vector<objc_object  {objcproto11MTLResource}* {__strong}>::push_back[a
   else
   {
     *v4 = *a2;
-    v5 = (v4 + 1);
+    v5 = v4 + 1;
   }
 
   a1[1] = v5;
@@ -4336,21 +4325,19 @@ LABEL_22:
   return 0;
 }
 
-uint64_t AccelerationStructureViewer::DataSourceQueryBlobDecoder::decode(uint64_t a1, _WORD *a2)
+uint64_t AccelerationStructureViewer::DataSourceQueryBlobDecoder::decode(unint64_t *a1, _WORD *a2)
 {
   v2 = *a1 + 10;
-  if (v2 <= *(a1 + 16))
+  if (v2 <= a1[2])
   {
-    v3 = (*(a1 + 8) + *a1);
-    v4 = *v3;
-    v5 = *(v3 + 1);
+    v3 = *(a1[1] + *a1);
     *a1 = v2;
     if (a2)
     {
-      *a2 = v4;
+      *a2 = v3;
     }
 
-    switch(v4)
+    switch(v3)
     {
       case 0:
         operator new();
@@ -4481,7 +4468,7 @@ LABEL_43:
             {
               if (*(v10[4] + ((v13 - v10[1]) >> 2)) == 11)
               {
-                std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100](a1 + 104, *v14);
+                std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100]((a1 + 104), *v14);
                 v12 = v10[2];
               }
 
@@ -4600,10 +4587,10 @@ LABEL_51:
   return 1;
 }
 
-uint64_t std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
+void *std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100](unint64_t *a1, uint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (v5 >= v4)
   {
     v14 = 0xEEEEEEEEEEEEEEEFLL * ((v5 - *a1) >> 3);
@@ -4655,16 +4642,16 @@ uint64_t std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200
     *(v18 + 104) = 0;
     *(v18 + 112) = 0;
     *(v18 + 96) = 0;
-    std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>(v18 + 96, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
+    std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>((v18 + 96), *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
     *&v30 = v30 + 120;
-    v23 = *(a1 + 8);
+    v23 = a1[1];
     v24 = v29 + *a1 - v23;
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<AccelerationStructureViewer::Property>,AccelerationStructureViewer::Property*>(*a1, v23, v24);
     v25 = *a1;
     *a1 = v24;
-    v26 = *(a1 + 16);
+    v26 = a1[2];
     v27 = v30;
-    *(a1 + 8) = v30;
+    *(a1 + 1) = v30;
     *&v30 = v25;
     *(&v30 + 1) = v26;
     v28 = v25;
@@ -4693,18 +4680,18 @@ uint64_t std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200
     *(v5 + 40) = v7;
     *(v5 + 104) = 0;
     *(v5 + 112) = 0;
-    result = std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>(v5 + 96, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
+    result = std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>((v5 + 96), *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
     v13 = v5 + 120;
-    *(a1 + 8) = v5 + 120;
+    a1[1] = v5 + 120;
   }
 
-  *(a1 + 8) = v13;
+  a1[1] = v13;
   return result;
 }
 
-void sub_24D870ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24D870ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<AccelerationStructureViewer::Property>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4828,9 +4815,9 @@ void AccelerationStructureViewer::Primitive::encode(uint64_t a1, void *a2)
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v8);
 }
 
-void sub_24D870FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24D870FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(va);
   _Unwind_Resume(a1);
 }
@@ -5207,7 +5194,7 @@ void AccelerationStructureViewer::DataSourceQueryRequest_StrongRef::~DataSourceQ
   }
 }
 
-BOOL AccelerationStructureViewer::FilterToken::decode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL AccelerationStructureViewer::FilterToken::decode(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 2)
   {
@@ -5217,7 +5204,7 @@ BOOL AccelerationStructureViewer::FilterToken::decode(uint64_t a1, uint64_t a2, 
     }
 
     v4 = *a2;
-    if ((*a2 + 2) <= *(a2 + 16))
+    if (*a2 + 2 <= a2[2])
     {
       v5 = 10;
       goto LABEL_14;
@@ -5231,7 +5218,7 @@ LABEL_11:
 
   if (a3 != 27)
   {
-    return a3 != 22 || (AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 16), a4) & 1) != 0;
+    return a3 != 22 || AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 16), a4);
   }
 
   if (a4 != 2)
@@ -5240,19 +5227,19 @@ LABEL_11:
   }
 
   v4 = *a2;
-  if ((*a2 + 2) > *(a2 + 16))
+  if (*a2 + 2 > a2[2])
   {
     goto LABEL_11;
   }
 
   v5 = 8;
 LABEL_14:
-  *(a1 + v5) = *(*(a2 + 8) + v4);
+  *(a1 + v5) = *(a2[1] + v4);
   *a2 += 2;
   return 1;
 }
 
-uint64_t AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(uint64_t *a1, void **a2, uint64_t a3)
+BOOL AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(uint64_t *a1, void **a2, uint64_t a3)
 {
   v4 = *a1;
   v5 = a1[2];
@@ -5508,9 +5495,9 @@ void AccelerationStructureViewer::Filter::encode(uint64_t a1, uint64_t a2)
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v6);
 }
 
-void sub_24D872540(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D872540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(va);
   _Unwind_Resume(a1);
 }
@@ -5530,7 +5517,7 @@ void AccelerationStructureViewer::Filter::~Filter(AccelerationStructureViewer::F
   std::vector<AccelerationStructureViewer::FilterToken>::__destroy_vector::operator()[abi:nn200100](&v1);
 }
 
-uint64_t AccelerationStructureViewer::Property::decode(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+BOOL AccelerationStructureViewer::Property::decode(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (a3 >> 5 < 0xC35)
   {
@@ -5542,7 +5529,7 @@ uint64_t AccelerationStructureViewer::Property::decode(uint64_t a1, uint64_t a2,
         {
           if (!*(a1 + 10))
           {
-            return (AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 16), a4) & 1) != 0;
+            return AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 16), a4);
           }
 
           if (v11 == 1)
@@ -5891,25 +5878,23 @@ void AccelerationStructureViewer::Property::~Property(id *this)
 
 void AccelerationStructureViewer::DataSourceError_StrongRef::finish(AccelerationStructureViewer::DataSourceError_StrongRef *this)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v1 = *(this + 5);
   if (v1)
   {
     v3 = MEMORY[0x277CCA9B8];
     v4 = *(this + 4);
     v5 = *(this + 6);
-    v10 = *MEMORY[0x277CCA450];
-    v11[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x277CCA450];
+    v10[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v3 errorWithDomain:v1 code:v4 userInfo:v6];
     v8 = *(this + 1);
     *(this + 1) = v7;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t AccelerationStructureViewer::DataSourceError_StrongRef::decode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL AccelerationStructureViewer::DataSourceError_StrongRef::decode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 <= 16)
   {
@@ -5926,7 +5911,7 @@ uint64_t AccelerationStructureViewer::DataSourceError_StrongRef::decode(uint64_t
       *a2 += 8;
     }
 
-    else if (a3 == 16 && (AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 40), a4) & 1) == 0)
+    else if (a3 == 16 && !AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 40), a4))
     {
       return 0;
     }
@@ -5996,7 +5981,7 @@ uint64_t AccelerationStructureViewer::Geometry::decode(uint64_t a1, uint64_t a2,
     {
       if (a3 == 1)
       {
-        return (AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 48), a4) & 1) != 0;
+        return AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 48), a4);
       }
 
       if (a3 != 2)
@@ -6106,7 +6091,7 @@ LABEL_46:
           {
             if (*(v13[4] + ((v16 - v13[1]) >> 2)) == 11)
             {
-              std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100](a1 + 104, *v17);
+              std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100]((a1 + 104), *v17);
               v15 = v13[2];
             }
 
@@ -6192,9 +6177,9 @@ void AccelerationStructureViewer::Geometry::encode(uint64_t a1, uint64_t a2)
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v6);
 }
 
-void sub_24D873B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24D873B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(va);
   _Unwind_Resume(a1);
 }
@@ -6344,7 +6329,7 @@ uint64_t AccelerationStructureViewer::IntersectionFunction::decode(uint64_t a1, 
       {
         if (a3)
         {
-          if (a3 != 1 || (AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 32), a4) & 1) != 0)
+          if (a3 != 1 || AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 32), a4))
           {
             return 1;
           }
@@ -6679,9 +6664,9 @@ void AccelerationStructureViewer::IntersectionFunction::encode(uint64_t a1, uint
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v12);
 }
 
-void sub_24D8748F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24D8748F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(va);
   _Unwind_Resume(a1);
 }
@@ -6705,7 +6690,7 @@ LABEL_9:
 
   if (a3 != 3)
   {
-    return a3 != 1 || (AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 8), a4) & 1) != 0;
+    return a3 != 1 || AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 8), a4);
   }
 
   v5 = *a2;
@@ -6747,7 +6732,7 @@ BOOL AccelerationStructureViewer::Instance::decode(uint64_t a1, uint64_t a2, uin
   {
     if (a3 == 1)
     {
-      return (AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 48), a4) & 1) != 0;
+      return AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 48), a4);
     }
 
     if (a3 != 3)
@@ -6794,7 +6779,7 @@ LABEL_28:
           {
             if (*(v9[4] + ((v11 - v9[1]) >> 2)) == 11)
             {
-              std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100](a1 + 80, *v12);
+              std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100]((a1 + 80), *v12);
               v10 = v9[2];
             }
 
@@ -6866,9 +6851,9 @@ void AccelerationStructureViewer::Instance::encode(uint64_t a1, uint64_t a2)
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v6);
 }
 
-void sub_24D875020(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D875020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(va);
   _Unwind_Resume(a1);
 }
@@ -6969,7 +6954,7 @@ LABEL_40:
           {
             if (*(v9[4] + ((v11 - v9[1]) >> 2)) == 11)
             {
-              std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100](a1 + 96, *v12);
+              std::vector<AccelerationStructureViewer::Property>::push_back[abi:nn200100]((a1 + 96), *v12);
               v10 = v9[2];
             }
 
@@ -7023,7 +7008,7 @@ LABEL_37:
   switch(a3)
   {
     case 1:
-      return (AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 48), a4) & 1) != 0;
+      return AccelerationStructureViewer::DataSourceQueryBlobDecoder::consumeString(a2, (a1 + 48), a4);
     case 2:
       if ((*a2 + 2) <= *(a2 + 16))
       {
@@ -7083,9 +7068,9 @@ void AccelerationStructureViewer::AccelerationStructure::encode(uint64_t a1, uin
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v6);
 }
 
-void sub_24D875724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24D875724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AccelerationStructureViewer::DataSourceArray::~DataSourceArray(va);
   _Unwind_Resume(a1);
 }
@@ -7310,15 +7295,13 @@ void AccelerationStructureViewer::DataSourceError::~DataSourceError(id *this)
 
 id ASVErrorWithCode(unsigned int a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CCA9B8];
-  v9 = *MEMORY[0x277CCA450];
-  v10[0] = v3;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x277CCA450];
+  v9[0] = v3;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"ASV" code:a1 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -7530,8 +7513,8 @@ uint64_t GTUSCSamplingStreamingManagerHelper::CleanupGPURawCounters(uint64_t thi
 
 void GTUSCSamplingStreamingManagerHelper::SetupGPURawCounters(GTUSCSamplingStreamingManagerHelper *this)
 {
-  v63 = *MEMORY[0x277D85DE8];
-  GTUSCSamplingStreamingManagerHelper::CleanupGPURawCounters(&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
+  v62 = *MEMORY[0x277D85DE8];
+  GTUSCSamplingStreamingManagerHelper::CleanupGPURawCounters(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
   context = objc_autoreleasePoolPush();
   v1 = GRCCopyAllCounterSourceGroup();
   v2 = xmmword_27F09BCF8;
@@ -7539,9 +7522,9 @@ void GTUSCSamplingStreamingManagerHelper::SetupGPURawCounters(GTUSCSamplingStrea
 
   if (xmmword_27F09BCF8 && [xmmword_27F09BCF8 count])
   {
-    v46 = [xmmword_27F09BCF8 firstObject];
-    v52 = [v46 sourceList];
-    if (!v52 || ![v52 count])
+    v45 = [xmmword_27F09BCF8 firstObject];
+    v51 = [v45 sourceList];
+    if (!v51 || ![v51 count])
     {
 LABEL_69:
 
@@ -7551,27 +7534,27 @@ LABEL_69:
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
 LABEL_36:
-      v51 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
+      v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
       v58 = 0u;
-      obj = v52;
-      v24 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      obj = v51;
+      v24 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
       if (v24)
       {
-        v49 = *v58;
+        v48 = *v57;
 LABEL_38:
         v25 = 0;
-        v48 = v24;
+        v47 = v24;
         while (1)
         {
-          if (*v58 != v49)
+          if (*v57 != v48)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v57 + 1) + 8 * v25);
+          v26 = *(*(&v56 + 1) + 8 * v25);
           if (![v26 ringBufferNum])
           {
 
@@ -7601,9 +7584,9 @@ LABEL_38:
           }
 
 LABEL_63:
-          if (++v25 == v48)
+          if (++v25 == v47)
           {
-            v24 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+            v24 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
             if (v24)
             {
               goto LABEL_38;
@@ -7616,7 +7599,7 @@ LABEL_63:
 LABEL_45:
         v30 = 0;
 LABEL_46:
-        [v51 addObject:v26];
+        [v50 addObject:v26];
         HIDWORD(qword_27F09C580) += v28;
         if (((v28 & 1) != 0 || [obj count] == 1) && !qword_27F09C4D8)
         {
@@ -7625,25 +7608,25 @@ LABEL_46:
           qword_27F09C4D8 = v31;
 
           v33 = [v26 availableCounters];
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
           v54 = 0u;
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
           v34 = v33;
-          v35 = [v34 countByEnumeratingWithState:&v53 objects:v61 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v52 objects:v60 count:16];
           if (v35)
           {
-            v36 = *v54;
+            v36 = *v53;
             do
             {
               for (i = 0; i != v35; ++i)
               {
-                if (*v54 != v36)
+                if (*v53 != v36)
                 {
                   objc_enumerationMutation(v34);
                 }
 
-                v38 = *(*(&v53 + 1) + 8 * i);
+                v38 = *(*(&v52 + 1) + 8 * i);
                 v39 = [v38 name];
                 v40 = [v39 hasPrefix:@"GRC_SHADER_PROFILER_DATA_"];
 
@@ -7655,7 +7638,7 @@ LABEL_46:
                 }
               }
 
-              v35 = [v34 countByEnumeratingWithState:&v53 objects:v61 count:16];
+              v35 = [v34 countByEnumeratingWithState:&v52 objects:v60 count:16];
             }
 
             while (v35);
@@ -7664,7 +7647,7 @@ LABEL_46:
 
         else if (v30)
         {
-          LODWORD(qword_27F09C588) = [v51 count] - 1;
+          LODWORD(qword_27F09C588) = [v50 count] - 1;
         }
 
         goto LABEL_63;
@@ -7672,10 +7655,10 @@ LABEL_46:
 
 LABEL_65:
 
-      if ([v51 count])
+      if ([v50 count])
       {
-        objc_storeStrong(&xmmword_27F09BCF8 + 1, v51);
-        qword_27F09BD08 = [v46 sampleMarker];
+        objc_storeStrong(&xmmword_27F09BCF8 + 1, v50);
+        qword_27F09BD08 = [v45 sampleMarker];
       }
 
 LABEL_68:
@@ -7683,14 +7666,14 @@ LABEL_68:
       goto LABEL_69;
     }
 
-    v3 = [v46 features];
+    v3 = [v45 features];
     dword_27F09C578 = GPURawCounterSupportFlags(v3);
 
-    v4 = [v46 features];
+    v4 = [v45 features];
 
     if (v4)
     {
-      v5 = [v46 features];
+      v5 = [v45 features];
       v6 = [v5 objectForKeyedSubscript:@"ConstantAGX_CoreConfig"];
 
       if (v6)
@@ -7699,7 +7682,7 @@ LABEL_68:
       }
     }
 
-    v7 = [v52 count];
+    v7 = [v51 count];
     v8 = *(&xmmword_27F09C458 + 1);
     v9 = (*(&xmmword_27F09C458 + 1) - xmmword_27F09C458) >> 2;
     if (v7 <= v9)
@@ -7776,9 +7759,9 @@ LABEL_68:
 
     *(&xmmword_27F09C458 + 1) = v13;
 LABEL_31:
-    for (j = 0; j < [v52 count]; ++j)
+    for (j = 0; j < [v51 count]; ++j)
     {
-      v22 = [v52 objectAtIndexedSubscript:j];
+      v22 = [v51 objectAtIndexedSubscript:j];
       if (objc_opt_respondsToSelector())
       {
         v23 = [v22 features];
@@ -7791,36 +7774,35 @@ LABEL_31:
 
 LABEL_70:
   objc_autoreleasePoolPop(context);
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GPURawCounterSupportFlags(NSDictionary *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = [(NSDictionary *)v1 allKeys];
     v4 = 0;
-    v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = [&unk_2860D5F20 objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+          v8 = [&unk_2860D5F20 objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
           v9 = v8;
           if (v8)
           {
@@ -7828,7 +7810,7 @@ uint64_t GPURawCounterSupportFlags(NSDictionary *a1)
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -7840,11 +7822,10 @@ uint64_t GPURawCounterSupportFlags(NSDictionary *a1)
     v4 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-unint64_t GTUSCSamplingStreamingManagerHelper::ResetSourceForPostProcessing(id *this)
+void *GTUSCSamplingStreamingManagerHelper::ResetSourceForPostProcessing(id *this)
 {
   result = [this[3] count];
   if (result)
@@ -7868,8 +7849,8 @@ unint64_t GTUSCSamplingStreamingManagerHelper::ResetSourceForPostProcessing(id *
 
 uint64_t GTUSCSamplingStreamingManagerHelper::SetupSourceForDerivedCounters(id *this, NSDictionary *a2, unsigned int a3, int a4, int a5)
 {
-  v50[2] = *MEMORY[0x277D85DE8];
-  v43 = a2;
+  v49[2] = *MEMORY[0x277D85DE8];
+  v42 = a2;
   v9 = [this[2] firstObject];
   if (!v9)
   {
@@ -7888,31 +7869,31 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v35 = *(*this + 18);
-    if (v35)
+    v34 = *(*this + 18);
+    if (v34)
     {
-      GTAGXPerfStateControl::EnableConsistentGPUPerfState((this + 5), v35);
-      v36 = GTApplePMPPerfStateControl::EnableConsistentPerfState((this + 8), *(*this + 18) - 1);
-      v37 = this[262];
-      this[262] = v36;
+      GTAGXPerfStateControl::EnableConsistentGPUPerfState((this + 5), v34);
+      v35 = GTApplePMPPerfStateControl::EnableConsistentPerfState((this + 8), (*(*this + 18) - 1));
+      v36 = this[262];
+      this[262] = v35;
 
       v10 = [this[2] firstObject];
       [v10 setOptions:&unk_2860D5C78];
       goto LABEL_6;
     }
 
-    v38 = GTApplePMPPerfStateControl::EnableConsistentPerfState((this + 8), 1u);
-    v39 = this[262];
-    this[262] = v38;
+    v37 = GTApplePMPPerfStateControl::EnableConsistentPerfState((this + 8), 1);
+    v38 = this[262];
+    this[262] = v37;
 
-    v49[0] = @"DisableOverlap";
-    v49[1] = @"LockGPUPerfState";
-    v50[0] = MEMORY[0x277CBEC38];
-    v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*this + 17)];
-    v50[1] = v40;
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
-    v42 = [this[2] firstObject];
-    [v42 setOptions:v41];
+    v48[0] = @"DisableOverlap";
+    v48[1] = @"LockGPUPerfState";
+    v49[0] = MEMORY[0x277CBEC38];
+    v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*this + 17)];
+    v49[1] = v39;
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
+    v41 = [this[2] firstObject];
+    [v41 setOptions:v40];
   }
 
 LABEL_7:
@@ -7944,7 +7925,7 @@ LABEL_7:
   }
 
 LABEL_14:
-  v18 = [(NSDictionary *)v43 objectForKeyedSubscript:@"passList"];
+  v18 = [(NSDictionary *)v42 objectForKeyedSubscript:@"passList"];
   v19 = [v18 objectAtIndexedSubscript:a3];
 
   if (v19)
@@ -7970,21 +7951,21 @@ LABEL_14:
           v25 = this[238];
           if (v20 < ((this[239] - v25) >> 2) && (*&v25[4 * v20] & 0x20) != 0)
           {
-            v47[0] = @"SWResetOnRead";
-            v47[1] = @"RingBufferSizeInKB";
-            v48[0] = MEMORY[0x277CBEC38];
+            v46[0] = @"SWResetOnRead";
+            v46[1] = @"RingBufferSizeInKB";
+            v47[0] = MEMORY[0x277CBEC38];
             v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v21];
-            v48[1] = v26;
-            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+            v47[1] = v26;
+            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
             [v22 setOptions:v27];
           }
 
           else
           {
-            v45 = @"RingBufferSizeInKB";
+            v44 = @"RingBufferSizeInKB";
             v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v21];
-            v46 = v26;
-            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+            v45 = v26;
+            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
             [v22 setOptions:v27];
           }
 
@@ -8008,8 +7989,8 @@ LABEL_14:
           v31 = v32;
         }
 
-        v44 = 0;
-        if (([v22 requestCounters:v31 firstErrorIndex:&v44] & 1) == 0 || (objc_msgSend(v22, "setEnabled:", 1) & 1) == 0)
+        v43 = 0;
+        if (([v22 requestCounters:v31 firstErrorIndex:&v43] & 1) == 0 || (objc_msgSend(v22, "setEnabled:", 1) & 1) == 0)
         {
 
           break;
@@ -8024,7 +8005,6 @@ LABEL_14:
 LABEL_35:
 
 LABEL_36:
-  v33 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -8033,253 +8013,252 @@ void GTUSCSamplingStreamingManagerHelper::ReplaySingleFrameForUSCSampling()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v4 = v3;
-  v87 = v5;
-  v89 = v6;
+  v85 = v5;
+  v87 = v6;
   v7 = v0;
-  v106 = *MEMORY[0x277D85DE8];
-  v93 = v8;
-  v90 = v2;
-  v88 = [*(*v7 + 16) objectForKeyedSubscript:@"perEncoderDrawCallCount"];
+  v104 = *MEMORY[0x277D85DE8];
+  v91 = v8;
+  v88 = v2;
+  v86 = [*(*v7 + 16) objectForKeyedSubscript:@"perEncoderDrawCallCount"];
   v9 = **v7;
   v10 = v9[1];
-  v99 = *v9;
-  v100 = v9;
+  v97 = *v9;
+  v98 = v9;
   v11 = *(*v9 + 2);
-  v101 = v10;
+  v99 = v10;
   v12 = [v10 defaultDevice];
   v13 = [v12 newEvent];
 
   v14 = *(v7 + 2304);
-  v95 = v13;
+  v93 = v13;
   if (v14 > (v4[2] - *v4) >> 4)
   {
     if (!(v14 >> 60))
     {
-      v15 = v4[1];
       std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long long,unsigned long long>>>(v14);
     }
 
     std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
   }
 
-  v16 = [v10 defaultCommandQueue];
-  v17 = [v16 commandBuffer];
-  v98 = v11;
-  v94 = v4;
+  v15 = [v10 defaultCommandQueue];
+  v16 = [v15 commandBuffer];
+  v96 = v11;
+  v92 = v4;
 
-  v82 = v17;
-  [v17 encodeSignalEvent:v13 value:{GTUSCSamplingStreamingManagerHelper::ReplaySingleFrameForUSCSampling(std::unordered_map<unsigned int, GTEncoderSampleIndexInfo> &, std::unordered_map<unsigned int, std::vector<GTCoalescedEncoderIndexInfo>> &, std::vector<std::pair<unsigned long long, unsigned long long>> &, GTMTLFXTracingDelegate *, void({block_pointer})(void))::signalCounter}];
-  [v17 commit];
-  v18 = *(v100 + 22560);
-  if (v99[14] + v99[13] > v18)
+  v80 = v16;
+  [v16 encodeSignalEvent:v13 value:{GTUSCSamplingStreamingManagerHelper::ReplaySingleFrameForUSCSampling(std::unordered_map<unsigned int, GTEncoderSampleIndexInfo> &, std::unordered_map<unsigned int, std::vector<GTCoalescedEncoderIndexInfo>> &, std::vector<std::pair<unsigned long long, unsigned long long>> &, GTMTLFXTracingDelegate *, void({block_pointer})(void))::signalCounter}];
+  [v16 commit];
+  v17 = *(v98 + 22560);
+  if (v97[14] + v97[13] > v17)
   {
-    v83 = 0;
+    v81 = 0;
+    v82 = 0;
     v84 = 0;
-    v86 = 0;
-    v92 = 0;
+    v90 = 0;
     while (1)
     {
-      v19 = *(v100 + 22564);
-      v20 = objc_autoreleasePoolPush();
-      v21 = *(v100 + 22560);
-      v22 = *(v99[16] + 24) + (v21 << 6);
-      ConstructorType = GTFenum_getConstructorType(*(v22 + 8));
+      v18 = *(v98 + 22564);
+      v19 = objc_autoreleasePoolPush();
+      v20 = *(v98 + 22560);
+      v21 = *(v97[16] + 24) + (v20 << 6);
+      ConstructorType = GTFenum_getConstructorType(*(v21 + 8));
       if (ConstructorType == 25)
       {
-        if (std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>((v7 + 2280), v21))
+        if (std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>((v7 + 2280), v20))
         {
-          v23 = [v101 defaultCommandQueue];
-          v24 = [v23 commandBuffer];
+          v22 = [v99 defaultCommandQueue];
+          v23 = [v22 commandBuffer];
 
-          [v24 encodeWaitForEvent:v95 value:{GTUSCSamplingStreamingManagerHelper::ReplaySingleFrameForUSCSampling(std::unordered_map<unsigned int, GTEncoderSampleIndexInfo> &, std::unordered_map<unsigned int, std::vector<GTCoalescedEncoderIndexInfo>> &, std::vector<std::pair<unsigned long long, unsigned long long>> &, GTMTLFXTracingDelegate *, void({block_pointer})(void))::signalCounter++}];
-          [v24 encodeSignalEvent:v95 value:?];
-          v103[0] = MEMORY[0x277D85DD0];
-          v103[1] = 3221225472;
-          v103[2] = ___ZN35GTUSCSamplingStreamingManagerHelper31ReplaySingleFrameForUSCSamplingERNSt3__113unordered_mapIj24GTEncoderSampleIndexInfoNS0_4hashIjEENS0_8equal_toIjEENS0_9allocatorINS0_4pairIKjS2_EEEEEERNS1_IjNS0_6vectorI27GTCoalescedEncoderIndexInfoNS7_ISF_EEEES4_S6_NS7_INS8_IS9_SH_EEEEEERNSE_INS8_IyyEENS7_ISM_EEEEP22GTMTLFXTracingDelegateU13block_pointerFvvE_block_invoke;
-          v103[3] = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
-          v103[4] = v94;
-          [v24 addCompletedHandler:v103];
-          [v24 commit];
+          [v23 encodeWaitForEvent:v93 value:{GTUSCSamplingStreamingManagerHelper::ReplaySingleFrameForUSCSampling(std::unordered_map<unsigned int, GTEncoderSampleIndexInfo> &, std::unordered_map<unsigned int, std::vector<GTCoalescedEncoderIndexInfo>> &, std::vector<std::pair<unsigned long long, unsigned long long>> &, GTMTLFXTracingDelegate *, void({block_pointer})(void))::signalCounter++}];
+          [v23 encodeSignalEvent:v93 value:?];
+          v101[0] = MEMORY[0x277D85DD0];
+          v101[1] = 3221225472;
+          v101[2] = ___ZN35GTUSCSamplingStreamingManagerHelper31ReplaySingleFrameForUSCSamplingERNSt3__113unordered_mapIj24GTEncoderSampleIndexInfoNS0_4hashIjEENS0_8equal_toIjEENS0_9allocatorINS0_4pairIKjS2_EEEEEERNS1_IjNS0_6vectorI27GTCoalescedEncoderIndexInfoNS7_ISF_EEEES4_S6_NS7_INS8_IS9_SH_EEEEEERNSE_INS8_IyyEENS7_ISM_EEEEP22GTMTLFXTracingDelegateU13block_pointerFvvE_block_invoke;
+          v101[3] = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
+          v101[4] = v92;
+          [v23 addCompletedHandler:v101];
+          [v23 commit];
         }
 
-        v25 = v101;
-        v96 = GTMTLReplayController_restoreCommandBuffer(v100, v22);
+        v24 = v99;
+        v94 = GTMTLReplayController_restoreCommandBuffer(v98, v21);
       }
 
       else
       {
-        v96 = 0;
-        v25 = v101;
+        v94 = 0;
+        v24 = v99;
       }
 
-      GTMTLReplayController_updateCommandEncoder(v100, v22);
-      v26 = v18 | (v19 << 32);
+      GTMTLReplayController_updateCommandEncoder(v98, v21);
+      v25 = v17 | (v18 << 32);
       if (*(v7 + 2208) == -1)
       {
         goto LABEL_23;
       }
 
-      v27 = *(v22 + 8);
-      if (GTFenum_isDrawCall(v27) & 1) != 0 || (GTFenum_isComputeCall(v27))
+      v26 = *(v21 + 8);
+      if (GTFenum_isDrawCall(v26) & 1) != 0 || (GTFenum_isComputeCall(v26))
       {
         break;
       }
 
-      if (v27 > -15298)
+      if (v26 > -15298)
       {
-        v28 = v27 == -15297;
-        v29 = -15059;
+        v27 = v26 == -15297;
+        v28 = -15059;
       }
 
       else
       {
-        v28 = v27 == -16137;
-        v29 = -15486;
+        v27 = v26 == -16137;
+        v28 = -15486;
       }
 
-      if (v28 || v27 == v29)
+      if (v27 || v26 == v28)
       {
         break;
       }
 
-      if (GTFenum_isMeshCall(v27))
+      if (GTFenum_isMeshCall(v26))
       {
         break;
       }
 
-      if (GTFenum_isSampledBlitCall(v27) || GTFenum_isSampledBlitCallAGX(v27))
+      if (GTFenum_isSampledBlitCall(v26) || GTFenum_isSampledBlitCallAGX(v26))
       {
-        [*(v7 + 1944) addSampledCallFunctionIndex:v26 forIndex:v83++ forEncoder:v86 atEncoderIndex:(*(v7 + 1928) - 1) forType:{@"Blit", v81}];
+        [*(v7 + 1944) addSampledCallFunctionIndex:v25 forIndex:v81++ forEncoder:v84 atEncoderIndex:(*(v7 + 1928) - 1) forType:{@"Blit", v79}];
         goto LABEL_23;
       }
 
 LABEL_24:
-      if (v27 <= -16286)
+      if (v26 <= -16286)
       {
-        if (v27 > -16355)
+        if (v26 > -16355)
         {
-          if (v27 <= -16353)
+          if (v26 <= -16353)
           {
-            if (v27 == -16354)
+            if (v26 == -16354)
             {
 LABEL_73:
-              v57 = *(v7 + 1928);
-              *(v7 + 1928) = v57 + 1;
-              **(v7 + 1936) = **(v7 + 1936) | (v57 << 8);
+              v56 = *(v7 + 1928);
+              *(v7 + 1928) = v56 + 1;
+              **(v7 + 1936) = **(v7 + 1936) | (v56 << 8);
               *(v7 + 1936) += 24;
               *(v7 + 1976) += 24;
-              GTMTLReplayController_defaultDispatchFunction(v100, v22);
-              v58 = *(GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98) + 1);
-              v86 = [v25 globalTraceIdForEncoder:v58 ofType:0];
-              v37 = [v25 blitCommandEncoderForKey:v58];
-              GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v89, v22, v86, v37, *(v7 + 1928) - 1, v26, v87);
-              v83 = 0;
+              GTMTLReplayController_defaultDispatchFunction(v98, v21);
+              v57 = *(GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96) + 1);
+              v84 = [v24 globalTraceIdForEncoder:v57 ofType:0];
+              v36 = [v24 blitCommandEncoderForKey:v57];
+              GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v87, v21, v84, v36, *(v7 + 1928) - 1, v25, v85);
+              v81 = 0;
               goto LABEL_98;
             }
 
-            v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v100 + 22560)];
-            v37 = [v88 objectForKeyedSubscript:v48];
+            v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v98 + 22560)];
+            v36 = [v86 objectForKeyedSubscript:v47];
 
-            if (!v37)
+            if (!v36)
             {
               goto LABEL_97;
             }
 
-            v49 = [v37 unsignedIntegerValue];
-            v50 = *(v7 + 1928);
-            *(v7 + 1928) = v50 + 1;
-            **(v7 + 1936) = **(v7 + 1936) | (v50 << 8);
+            v48 = [v36 unsignedIntegerValue];
+            v49 = *(v7 + 1928);
+            *(v7 + 1928) = v49 + 1;
+            **(v7 + 1936) = **(v7 + 1936) | (v49 << 8);
             *(v7 + 1936) += 24;
-            v51 = GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98);
+            v50 = GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96);
             RenderPassDescriptor = GetRenderPassDescriptor();
-            v81 = v51;
-            v91 = [v101 commandBufferForKey:*v51];
-            v53 = [v101 renderPassDescriptorMap];
-            v45 = MakeMTLRenderPassDescriptor(RenderPassDescriptor, v53);
+            v79 = v50;
+            v89 = [v99 commandBufferForKey:*v50];
+            v52 = [v99 renderPassDescriptorMap];
+            v44 = MakeMTLRenderPassDescriptor(RenderPassDescriptor, v52);
 
-            v54 = v49;
-            v55 = 2 * v49 + 2;
-            v43 = [v91 sampledRenderCommandEncoderWithDescriptor:v45 programInfoBuffer:*(v7 + 1936) capacity:v55];
-            GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v89, v22, [v43 globalTraceObjectID], v43, *(v7 + 1928) - 1, v26, 0);
-            [v101 setRenderCommandEncoder:v43 forKey:*(v81 + 1)];
-            *(v7 + 1936) += 24 * v55;
-            v56 = *(v7 + 1976) + 48 * v54 + 72;
+            v53 = v48;
+            v54 = 2 * v48 + 2;
+            v42 = [v89 sampledRenderCommandEncoderWithDescriptor:v44 programInfoBuffer:*(v7 + 1936) capacity:v54];
+            GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v87, v21, [v42 globalTraceObjectID], v42, *(v7 + 1928) - 1, v25, 0);
+            [v99 setRenderCommandEncoder:v42 forKey:*(v79 + 1)];
+            *(v7 + 1936) += 24 * v54;
+            v55 = *(v7 + 1976) + 48 * v53 + 72;
 LABEL_83:
-            *(v7 + 1976) = v56;
+            *(v7 + 1976) = v55;
 LABEL_86:
 
             goto LABEL_98;
           }
 
-          switch(v27)
+          switch(v26)
           {
             case -16352:
-              v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v100 + 22560)];
-              v37 = [v88 objectForKeyedSubscript:v73];
+              v72 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v98 + 22560)];
+              v36 = [v86 objectForKeyedSubscript:v72];
 
-              if (!v37)
+              if (!v36)
               {
                 goto LABEL_97;
               }
 
-              v81 = [v37 unsignedIntegerValue];
-              v74 = *(v7 + 1928);
-              *(v7 + 1928) = v74 + 1;
-              **(v7 + 1936) = **(v7 + 1936) | (v74 << 8);
+              v79 = [v36 unsignedIntegerValue];
+              v73 = *(v7 + 1928);
+              *(v7 + 1928) = v73 + 1;
+              **(v7 + 1936) = **(v7 + 1936) | (v73 << 8);
               *(v7 + 1936) += 24;
-              v75 = GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98);
-              v91 = [v101 commandBufferForKey:*v75];
-              v43 = objc_alloc_init(MEMORY[0x277CD6D18]);
-              [v43 setAllowCommandEncoderCoalescing:1];
-              v45 = [v91 sampledComputeCommandEncoderWithDescriptor:v43 programInfoBuffer:*(v7 + 1936) capacity:v81];
-              GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v89, v22, [v45 globalTraceObjectID], v45, *(v7 + 1928) - 1, v26, v87);
-              [v101 setComputeCommandEncoder:v45 forKey:*(v75 + 1)];
-              *(v7 + 1936) += 24 * v81;
-              *(v7 + 1976) += 24 * v81 + 24;
+              v74 = GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96);
+              v89 = [v99 commandBufferForKey:*v74];
+              v42 = objc_alloc_init(MEMORY[0x277CD6D18]);
+              [v42 setAllowCommandEncoderCoalescing:1];
+              v44 = [v89 sampledComputeCommandEncoderWithDescriptor:v42 programInfoBuffer:*(v7 + 1936) capacity:v79];
+              GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v87, v21, [v44 globalTraceObjectID], v44, *(v7 + 1928) - 1, v25, v85);
+              [v99 setComputeCommandEncoder:v44 forKey:*(v74 + 1)];
+              *(v7 + 1936) += 24 * v79;
+              *(v7 + 1976) += 24 * v79 + 24;
 
               goto LABEL_86;
             case -16351:
-              v62 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v100 + 22560)];
-              v37 = [v88 objectForKeyedSubscript:v62];
+              v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v98 + 22560)];
+              v36 = [v86 objectForKeyedSubscript:v61];
 
-              if (!v37)
+              if (!v36)
               {
-                GTMTLReplayController_dispatchForUSCSampling(v100, v22, v101, v98, *(v7 + 1944), (*(v7 + 1928) - 1));
-                v37 = 0;
-                v84 = 1;
+                GTMTLReplayController_dispatchForUSCSampling(v98, v21, v99, v96, *(v7 + 1944), (*(v7 + 1928) - 1));
+                v36 = 0;
+                v82 = 1;
                 goto LABEL_98;
               }
 
-              v63 = [v37 unsignedIntegerValue];
-              v64 = *(v7 + 1928);
-              *(v7 + 1928) = v64 + 1;
-              **(v7 + 1936) = **(v7 + 1936) | (v64 << 8);
+              v62 = [v36 unsignedIntegerValue];
+              v63 = *(v7 + 1928);
+              *(v7 + 1928) = v63 + 1;
+              **(v7 + 1936) = **(v7 + 1936) | (v63 << 8);
               *(v7 + 1936) += 24;
-              v65 = GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98);
-              v66 = GetRenderPassDescriptor();
-              v85 = v65;
-              v91 = [v101 commandBufferForKey:*v65];
-              v67 = [v101 renderPassDescriptorMap];
-              v45 = MakeMTLRenderPassDescriptor(v66, v67);
+              v64 = GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96);
+              v65 = GetRenderPassDescriptor();
+              v83 = v64;
+              v89 = [v99 commandBufferForKey:*v64];
+              v66 = [v99 renderPassDescriptorMap];
+              v44 = MakeMTLRenderPassDescriptor(v65, v66);
 
-              v68 = v63;
-              v69 = 2 * v63 + 2;
-              v43 = [v91 sampledRenderCommandEncoderWithDescriptor:v45 programInfoBuffer:*(v7 + 1936) capacity:v69];
-              GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v89, v22, [v43 globalTraceObjectID], v43, *(v7 + 1928) - 1, v26, 0);
-              [v101 setParallelRenderCommandEncoder:v43 forKey:*(v85 + 1)];
-              *(v7 + 1936) += 24 * v69;
-              *(v7 + 1976) += 48 * v68 + 72;
-              v84 = 1;
+              v67 = v62;
+              v68 = 2 * v62 + 2;
+              v42 = [v89 sampledRenderCommandEncoderWithDescriptor:v44 programInfoBuffer:*(v7 + 1936) capacity:v68];
+              GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v87, v21, [v42 globalTraceObjectID], v42, *(v7 + 1928) - 1, v25, 0);
+              [v99 setParallelRenderCommandEncoder:v42 forKey:*(v83 + 1)];
+              *(v7 + 1936) += 24 * v68;
+              *(v7 + 1976) += 48 * v67 + 72;
+              v82 = 1;
               goto LABEL_86;
             case -16286:
-              v46 = GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98);
-              v37 = [v25 parallelRenderCommandEncoderForKey:*v46];
-              [v25 setRenderCommandEncoder:v37 forKey:*(v46 + 1)];
+              v45 = GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96);
+              v36 = [v24 parallelRenderCommandEncoderForKey:*v45];
+              [v24 setRenderCommandEncoder:v36 forKey:*(v45 + 1)];
               goto LABEL_98;
           }
 
 LABEL_64:
-          if (v27 >> 2 == 1073737833)
+          if (v26 >> 2 == 1073737833)
           {
             GTUSCSamplingStreamingManagerHelper::DispatchExpandedIndirectCommand();
             goto LABEL_99;
@@ -8288,14 +8267,14 @@ LABEL_64:
           goto LABEL_65;
         }
 
-        if ((v27 + 20474) > 0x36 || ((1 << (v27 - 6)) & 0x40000020020001) == 0)
+        if ((v26 + 20474) > 0x36 || ((1 << (v26 - 6)) & 0x40000020020001) == 0)
         {
-          if (v27 != -16361)
+          if (v26 != -16361)
           {
-            if (v27 == -16355)
+            if (v26 == -16355)
             {
-              v37 = [*(v100 + 8) defaultCommandQueue];
-              [v37 finish];
+              v36 = [*(v98 + 8) defaultCommandQueue];
+              [v36 finish];
               goto LABEL_98;
             }
 
@@ -8305,133 +8284,133 @@ LABEL_64:
           goto LABEL_61;
         }
 
-        if (v93)
+        if (v91)
         {
-          v32 = GTTraceFunc_targetContext(v22, v99[2]);
-          v33 = 0;
-          v34 = *(v22 + 8);
-          if (v34 > -20446)
+          v31 = GTTraceFunc_targetContext(v21, v97[2]);
+          v32 = 0;
+          v33 = *(v21 + 8);
+          if (v33 > -20446)
           {
-            if (v34 == -20445)
+            if (v33 == -20445)
             {
-              v35 = [v25 frameInterpolatorForKey:v32];
+              v34 = [v24 frameInterpolatorForKey:v31];
             }
 
             else
             {
-              if (v34 != -20420)
+              if (v33 != -20420)
               {
                 goto LABEL_94;
               }
 
-              v35 = [v25 temporalDenoisedScalerForKey:v32];
+              v34 = [v24 temporalDenoisedScalerForKey:v31];
             }
           }
 
           else
           {
-            if (v34 != -20474)
+            if (v33 != -20474)
             {
-              if (v34 == -20457)
+              if (v33 == -20457)
               {
-                v35 = [v25 temporalScalerForKey:v32];
+                v34 = [v24 temporalScalerForKey:v31];
                 goto LABEL_93;
               }
 
 LABEL_94:
-              [v33 setTracingDelegate:{v93, v81}];
-              [v93 setFunctionIndex:v26];
+              [v32 setTracingDelegate:{v91, v79}];
+              [v91 setFunctionIndex:v25];
 
-              v25 = v101;
+              v24 = v99;
               goto LABEL_65;
             }
 
-            v35 = [v25 spatialScalerForKey:v32];
+            v34 = [v24 spatialScalerForKey:v31];
           }
 
 LABEL_93:
-          v77 = v35;
-          v33 = DEVICEOBJECT(v35);
+          v76 = v34;
+          v32 = DEVICEOBJECT(v34);
 
           goto LABEL_94;
         }
 
 LABEL_65:
-        GTMTLReplayController_dispatchForUSCSampling(v100, v22, v25, v98, *(v7 + 1944), (*(v7 + 1928) - 1));
+        GTMTLReplayController_dispatchForUSCSampling(v98, v21, v24, v96, *(v7 + 1944), (*(v7 + 1928) - 1));
         goto LABEL_99;
       }
 
-      if (v27 > -15674)
+      if (v26 > -15674)
       {
-        if (v27 <= -15365)
+        if (v26 <= -15365)
         {
-          switch(v27)
+          switch(v26)
           {
             case -15673:
               goto LABEL_74;
             case -15587:
               goto LABEL_73;
             case -15586:
-              v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v100 + 22560)];
-              v37 = [v88 objectForKeyedSubscript:v36];
+              v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v98 + 22560)];
+              v36 = [v86 objectForKeyedSubscript:v35];
 
-              if (v37)
+              if (v36)
               {
-                v38 = [v37 unsignedIntegerValue];
-                v39 = *(v7 + 1928);
-                *(v7 + 1928) = v39 + 1;
-                **(v7 + 1936) = **(v7 + 1936) | (v39 << 8);
+                v37 = [v36 unsignedIntegerValue];
+                v38 = *(v7 + 1928);
+                *(v7 + 1928) = v38 + 1;
+                **(v7 + 1936) = **(v7 + 1936) | (v38 << 8);
                 *(v7 + 1936) += 24;
-                v81 = GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98);
-                v91 = [v101 commandBufferForKey:*v81];
-                bzero(v104, 0x2BA0uLL);
-                GTMTLSMCommandEncoder_processTraceFunc(v104, v22, v98);
-                v40 = v105;
-                v41 = [v101 computePassDescriptorMap];
-                v42 = MakeMTLComputePassDescriptor(v40, v41);
+                v79 = GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96);
+                v89 = [v99 commandBufferForKey:*v79];
+                bzero(v102, 0x2BA0uLL);
+                GTMTLSMCommandEncoder_processTraceFunc(v102, v21, v96);
+                v39 = v103;
+                v40 = [v99 computePassDescriptorMap];
+                v41 = MakeMTLComputePassDescriptor(v39, v40);
 
-                v43 = v42;
-                [v43 setAllowCommandEncoderCoalescing:1];
-                v44 = [v91 sampledComputeCommandEncoderWithDescriptor:v43 programInfoBuffer:*(v7 + 1936) capacity:v38];
-                GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v89, v22, [v44 globalTraceObjectID], v44, *(v7 + 1928) - 1, v26, v87);
-                [v101 setComputeCommandEncoder:v44 forKey:*(v81 + 1)];
-                *(v7 + 1936) += 24 * v38;
-                *(v7 + 1976) += 24 * v38 + 24;
+                v42 = v41;
+                [v42 setAllowCommandEncoderCoalescing:1];
+                v43 = [v89 sampledComputeCommandEncoderWithDescriptor:v42 programInfoBuffer:*(v7 + 1936) capacity:v37];
+                GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v87, v21, [v43 globalTraceObjectID], v43, *(v7 + 1928) - 1, v25, v85);
+                [v99 setComputeCommandEncoder:v43 forKey:*(v79 + 1)];
+                *(v7 + 1936) += 24 * v37;
+                *(v7 + 1976) += 24 * v37 + 24;
 
-                v45 = v43;
+                v44 = v42;
                 goto LABEL_86;
               }
 
 LABEL_97:
-              GTMTLReplayController_dispatchForUSCSampling(v100, v22, v101, v98, *(v7 + 1944), (*(v7 + 1928) - 1));
-              v37 = 0;
+              GTMTLReplayController_dispatchForUSCSampling(v98, v21, v99, v96, *(v7 + 1944), (*(v7 + 1928) - 1));
+              v36 = 0;
 LABEL_98:
 
-              v25 = v101;
+              v24 = v99;
               goto LABEL_99;
           }
 
           goto LABEL_64;
         }
 
-        if (v27 == -15364)
+        if (v26 == -15364)
         {
 LABEL_74:
-          v59 = *(v7 + 1928);
-          *(v7 + 1928) = v59 + 1;
-          **(v7 + 1936) = **(v7 + 1936) | (v59 << 8);
+          v58 = *(v7 + 1928);
+          *(v7 + 1928) = v58 + 1;
+          **(v7 + 1936) = **(v7 + 1936) | (v58 << 8);
           *(v7 + 1936) += 24;
           *(v7 + 1976) += 24;
-          GTMTLReplayController_defaultDispatchFunction(v100, v22);
-          v60 = *(GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98) + 1);
-          v61 = [v25 globalTraceIdForEncoder:v60 ofType:0];
-          v37 = [v25 accelerationStructureCommandEncoderForKey:v60];
-          GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v89, v22, v61, v37, *(v7 + 1928) - 1, v26, v87);
-          [*(v7 + 1944) addOtherEncoderFunctionIndex:v26 forEncoder:v61 atEncoderIndex:(*(v7 + 1928) - 1) forType:@"AccelerationStructure"];
+          GTMTLReplayController_defaultDispatchFunction(v98, v21);
+          v59 = *(GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96) + 1);
+          v60 = [v24 globalTraceIdForEncoder:v59 ofType:0];
+          v36 = [v24 accelerationStructureCommandEncoderForKey:v59];
+          GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v87, v21, v60, v36, *(v7 + 1928) - 1, v25, v85);
+          [*(v7 + 1944) addOtherEncoderFunctionIndex:v25 forEncoder:v60 atEncoderIndex:(*(v7 + 1928) - 1) forType:@"AccelerationStructure"];
           goto LABEL_98;
         }
 
-        if (v27 != -15318 && v27 != -15316)
+        if (v26 != -15318 && v26 != -15316)
         {
           goto LABEL_64;
         }
@@ -8439,114 +8418,112 @@ LABEL_74:
         goto LABEL_61;
       }
 
-      if (v27 > -16203)
+      if (v26 > -16203)
       {
-        if (v27 != -16202)
+        if (v26 != -16202)
         {
-          if (v27 == -16014)
+          if (v26 == -16014)
           {
-            v70 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v100 + 22560)];
-            v37 = [v88 objectForKeyedSubscript:v70];
+            v69 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v98 + 22560)];
+            v36 = [v86 objectForKeyedSubscript:v69];
 
-            if (!v37)
+            if (!v36)
             {
               goto LABEL_97;
             }
 
-            v81 = [v37 unsignedIntegerValue];
-            v71 = *(v7 + 1928);
-            *(v7 + 1928) = v71 + 1;
-            **(v7 + 1936) = **(v7 + 1936) | (v71 << 8);
+            v79 = [v36 unsignedIntegerValue];
+            v70 = *(v7 + 1928);
+            *(v7 + 1928) = v70 + 1;
+            **(v7 + 1936) = **(v7 + 1936) | (v70 << 8);
             *(v7 + 1936) += 24;
-            v72 = GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98);
-            v91 = [v101 commandBufferForKey:*v72];
-            v43 = objc_alloc_init(MEMORY[0x277CD6D18]);
-            [v43 setAllowCommandEncoderCoalescing:1];
-            [v43 setDispatchType:*(v72 + 2)];
-            v45 = [v91 sampledComputeCommandEncoderWithDescriptor:v43 programInfoBuffer:*(v7 + 1936) capacity:v81];
-            GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v89, v22, [v45 globalTraceObjectID], v45, *(v7 + 1928) - 1, v26, v87);
-            [v101 setComputeCommandEncoder:v45 forKey:*(v72 + 1)];
-            *(v7 + 1936) += 24 * v81;
-            v56 = *(v7 + 1976) + 24 * v81 + 24;
+            v71 = GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96);
+            v89 = [v99 commandBufferForKey:*v71];
+            v42 = objc_alloc_init(MEMORY[0x277CD6D18]);
+            [v42 setAllowCommandEncoderCoalescing:1];
+            [v42 setDispatchType:*(v71 + 2)];
+            v44 = [v89 sampledComputeCommandEncoderWithDescriptor:v42 programInfoBuffer:*(v7 + 1936) capacity:v79];
+            GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(v7, v87, v21, [v44 globalTraceObjectID], v44, *(v7 + 1928) - 1, v25, v85);
+            [v99 setComputeCommandEncoder:v44 forKey:*(v71 + 1)];
+            *(v7 + 1936) += 24 * v79;
+            v55 = *(v7 + 1976) + 24 * v79 + 24;
             goto LABEL_83;
           }
 
-          if (v27 != -15908)
+          if (v26 != -15908)
           {
             goto LABEL_64;
           }
         }
 
 LABEL_61:
-        if (!(v92 & 1 | (v90 == 0)))
+        if (!(v90 & 1 | (v88 == 0)))
         {
-          v90[2]();
-          v27 = *(v22 + 8);
+          v88[2]();
+          v26 = *(v21 + 8);
         }
 
-        v92 = 1;
+        v90 = 1;
         goto LABEL_64;
       }
 
-      if (v27 == -16285)
+      if (v26 == -16285)
       {
         goto LABEL_75;
       }
 
-      if (v27 != -16246)
+      if (v26 != -16246)
       {
         goto LABEL_64;
       }
 
-      if ((v84 & 1) == 0)
+      if ((v82 & 1) == 0)
       {
 LABEL_75:
-        GTMTLReplayController_dispatchForUSCSampling(v100, v22, v25, v98, *(v7 + 1944), (*(v7 + 1928) - 1));
-        v84 = 0;
+        GTMTLReplayController_dispatchForUSCSampling(v98, v21, v24, v96, *(v7 + 1944), (*(v7 + 1928) - 1));
+        v82 = 0;
         goto LABEL_99;
       }
 
-      [v25 removeRenderCommandEncoderForKey:{*GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98)}];
-      v84 = 1;
+      [v24 removeRenderCommandEncoderForKey:{*GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96)}];
+      v82 = 1;
 LABEL_99:
-      if (v96)
+      if (v94)
       {
-        v78 = [v25 commandBufferForKey:{*(GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98) + 1)}];
-        [v78 encodeWaitForEvent:v95 value:{GTUSCSamplingStreamingManagerHelper::ReplaySingleFrameForUSCSampling(std::unordered_map<unsigned int, GTEncoderSampleIndexInfo> &, std::unordered_map<unsigned int, std::vector<GTCoalescedEncoderIndexInfo>> &, std::vector<std::pair<unsigned long long, unsigned long long>> &, GTMTLFXTracingDelegate *, void({block_pointer})(void))::signalCounter++}];
-        [v78 encodeSignalEvent:v95 value:?];
+        v77 = [v24 commandBufferForKey:{*(GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96) + 1)}];
+        [v77 encodeWaitForEvent:v93 value:{GTUSCSamplingStreamingManagerHelper::ReplaySingleFrameForUSCSampling(std::unordered_map<unsigned int, GTEncoderSampleIndexInfo> &, std::unordered_map<unsigned int, std::vector<GTCoalescedEncoderIndexInfo>> &, std::vector<std::pair<unsigned long long, unsigned long long>> &, GTMTLFXTracingDelegate *, void({block_pointer})(void))::signalCounter++}];
+        [v77 encodeSignalEvent:v93 value:?];
 
-        v25 = v101;
+        v24 = v99;
       }
 
       if (ConstructorType == 25)
       {
-        v79 = [v25 commandBufferForKey:{*(GTTraceFunc_argumentBytesWithMap(v22, *(v22 + 13), v98) + 1)}];
-        v102[0] = MEMORY[0x277D85DD0];
-        v102[1] = 3221225472;
-        v102[2] = ___ZN35GTUSCSamplingStreamingManagerHelper31ReplaySingleFrameForUSCSamplingERNSt3__113unordered_mapIj24GTEncoderSampleIndexInfoNS0_4hashIjEENS0_8equal_toIjEENS0_9allocatorINS0_4pairIKjS2_EEEEEERNS1_IjNS0_6vectorI27GTCoalescedEncoderIndexInfoNS7_ISF_EEEES4_S6_NS7_INS8_IS9_SH_EEEEEERNSE_INS8_IyyEENS7_ISM_EEEEP22GTMTLFXTracingDelegateU13block_pointerFvvE_block_invoke_2;
-        v102[3] = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
-        v102[4] = v94;
-        [v79 addCompletedHandler:v102];
+        v78 = [v24 commandBufferForKey:{*(GTTraceFunc_argumentBytesWithMap(v21, *(v21 + 13), v96) + 1)}];
+        v100[0] = MEMORY[0x277D85DD0];
+        v100[1] = 3221225472;
+        v100[2] = ___ZN35GTUSCSamplingStreamingManagerHelper31ReplaySingleFrameForUSCSamplingERNSt3__113unordered_mapIj24GTEncoderSampleIndexInfoNS0_4hashIjEENS0_8equal_toIjEENS0_9allocatorINS0_4pairIKjS2_EEEEEERNS1_IjNS0_6vectorI27GTCoalescedEncoderIndexInfoNS7_ISF_EEEES4_S6_NS7_INS8_IS9_SH_EEEEEERNSE_INS8_IyyEENS7_ISM_EEEEP22GTMTLFXTracingDelegateU13block_pointerFvvE_block_invoke_2;
+        v100[3] = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
+        v100[4] = v92;
+        [v78 addCompletedHandler:v100];
       }
 
-      objc_autoreleasePoolPop(v20);
-      v18 = (*(v100 + 22560) + 1);
-      *(v100 + 22560) = v18;
-      if (v99[14] + v99[13] <= v18)
+      objc_autoreleasePoolPop(v19);
+      v17 = (*(v98 + 22560) + 1);
+      *(v98 + 22560) = v17;
+      if (v97[14] + v97[13] <= v17)
       {
         goto LABEL_106;
       }
     }
 
-    [*(v7 + 1944) addSampledCallFunctionIndex:{v26, v81}];
+    [*(v7 + 1944) addSampledCallFunctionIndex:{v25, v79}];
 LABEL_23:
-    v27 = *(v22 + 8);
+    v26 = *(v21 + 8);
     goto LABEL_24;
   }
 
 LABEL_106:
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 void ScopedReplayConfiguration::~ScopedReplayConfiguration(ScopedReplayConfiguration *this)
@@ -8563,7 +8540,7 @@ void ScopedReplayConfiguration::~ScopedReplayConfiguration(ScopedReplayConfigura
 id AddShaderBinary(NSMutableDictionary *a1, NSData *a2, objc_object *a3, void *a4, NSString *a5, void *a6, NSString *a7)
 {
   v8 = a5;
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v12 = a1;
   v13 = a2;
   v14 = a3;
@@ -8598,15 +8575,13 @@ id AddShaderBinary(NSMutableDictionary *a1, NSData *a2, objc_object *a3, void *a
   objc_autoreleasePoolPop(v21);
   if (v13)
   {
-    v27 = @"binary";
-    v28[0] = v13;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = @"binary";
+    v27[0] = v13;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     [v23 addEntriesFromDictionary:v24];
   }
 
   [(NSMutableDictionary *)v12 setObject:v23 forKeyedSubscript:v20];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -8704,45 +8679,37 @@ void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::eq
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a2)
     {
-      v7 = result[1];
-      if (v7 == a2)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= *&v2)
         {
-          return result;
+          v7 %= *&v2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= *&v2)
-          {
-            v7 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v7 &= *&v2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -8816,10 +8783,10 @@ void ___ZN35GTUSCSamplingStreamingManagerHelper31ReplaySingleFrameForUSCSampling
   *(v8 + 8) = v11;
 }
 
-void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(_DWORD *a1, void *a2, uint64_t a3, unsigned int a4, void *a5, unsigned int a6, uint64_t a7, void *a8)
+void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(_DWORD *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, float *a8)
 {
   v11 = a4;
-  v86 = a4;
+  v77 = a4;
   v15 = a5;
   v16 = DEVICEOBJECT(v15);
   v17 = a1[546] + a1[547];
@@ -8833,65 +8800,65 @@ void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(_DWORD *a1, voi
         v11 = a7;
       }
 
-      v81 = v11;
-      v82 = __PAIR64__(v17, a6);
-      v83 = 0x200000004;
-      v84 = a7;
-      v85 = 0;
-      std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::__emplace_unique_key_args<unsigned int,unsigned int &,GTEncoderSampleIndexInfo>(a2, v11);
+      v73 = v11;
+      *&v74 = __PAIR64__(v17, a6);
+      *(&v74 + 1) = 0x200000004;
+      v75 = a7;
+      v76 = 0;
+      std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::__emplace_unique_key_args<unsigned int,unsigned int &,GTEncoderSampleIndexInfo>(a2, v11, &v73, &v74);
       if (a8)
       {
-        v82 = &v81;
-        v31 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a8, v11);
+        *&v74 = &v73;
+        v31 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a8, v11, &v74);
         v32 = v31;
         v34 = v31[4];
         v33 = v31[5];
         if (v34 >= v33)
         {
-          v46 = v31[3];
-          v47 = v34 - v46;
-          v48 = (v34 - v46) >> 4;
-          v49 = v48 + 1;
-          if ((v48 + 1) >> 60)
+          v44 = v31[3];
+          v45 = v34 - v44;
+          v46 = (v34 - v44) >> 4;
+          v47 = v46 + 1;
+          if ((v46 + 1) >> 60)
           {
             goto LABEL_97;
           }
 
-          v50 = v33 - v46;
-          if (v50 >> 3 > v49)
+          v48 = v33 - v44;
+          if (v48 >> 3 > v47)
           {
-            v49 = v50 >> 3;
+            v47 = v48 >> 3;
           }
 
-          if (v50 >= 0x7FFFFFFFFFFFFFF0)
+          if (v48 >= 0x7FFFFFFFFFFFFFF0)
           {
-            v51 = 0xFFFFFFFFFFFFFFFLL;
+            v49 = 0xFFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v51 = v49;
+            v49 = v47;
           }
 
-          if (v51)
+          if (v49)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long long,unsigned long long>>>(v51);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long long,unsigned long long>>>(v49);
           }
 
-          v66 = v48;
-          v67 = 16 * v48;
-          *v67 = a6;
-          *(v67 + 8) = a7;
-          v35 = 16 * v48 + 16;
-          v68 = (v67 - 16 * v66);
-          memcpy(v68, v46, v47);
-          v69 = v32[3];
-          v32[3] = v68;
+          v62 = v46;
+          v63 = 16 * v46;
+          *v63 = a6;
+          *(v63 + 8) = a7;
+          v35 = 16 * v46 + 16;
+          v64 = (v63 - 16 * v62);
+          memcpy(v64, v44, v45);
+          v65 = v32[3];
+          v32[3] = v64;
           v32[4] = v35;
           v32[5] = 0;
-          if (v69)
+          if (v65)
           {
-            operator delete(v69);
+            operator delete(v65);
           }
         }
 
@@ -8910,20 +8877,20 @@ void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(_DWORD *a1, voi
         goto LABEL_96;
       }
 
-      v38 = GTSampleBufferManager::CurrentSampleBuffer((a1 + 534));
-      if (!v38 || ([v16 setMTLCounterSampleLocationWithBuffer:v38 startIndex:a1[546] endIndex:(a1[546] + 1)] & 1) == 0)
+      v36 = GTSampleBufferManager::CurrentSampleBuffer((a1 + 534));
+      if (!v36 || ([v16 setMTLCounterSampleLocationWithBuffer:v36 startIndex:a1[546] endIndex:(a1[546] + 1)] & 1) == 0)
       {
         if (g_runningInCI)
         {
-          v72 = "#CI_ERROR# ";
+          v66 = "#CI_ERROR# ";
         }
 
         else
         {
-          v72 = "";
+          v66 = "";
         }
 
-        GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/profile/GTUSCSamplingStreamingManager.mm", "AddEncoderSamplePoints", 5681, 1, "%s%s %u: Error, fail to set counter sample location for %lu\n", v70, v71, v72);
+        GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/profile/GTUSCSamplingStreamingManager.mm", "AddEncoderSamplePoints", 5681, 1, "%s%s %u: Error, fail to set counter sample location for %lu\n", v66, "void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(std::unordered_map<uint32_t, GTEncoderSampleIndexInfo> &, const GTTraceFunc *, uint32_t, __strong id<MTLCommandEncoder>, size_t, uint64_t, std::unordered_map<uint32_t, std::vector<GTCoalescedEncoderIndexInfo>> *)", 5681, a6);
         goto LABEL_93;
       }
     }
@@ -8935,64 +8902,64 @@ void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(_DWORD *a1, voi
         goto LABEL_96;
       }
 
-      v82 = __PAIR64__(v17, a6);
-      v83 = 0x200000002;
-      v84 = a7;
-      v85 = 0;
-      std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::__emplace_unique_key_args<unsigned int,unsigned int &,GTEncoderSampleIndexInfo>(a2, v11);
+      *&v74 = __PAIR64__(v17, a6);
+      *(&v74 + 1) = 0x200000002;
+      v75 = a7;
+      v76 = 0;
+      std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::__emplace_unique_key_args<unsigned int,unsigned int &,GTEncoderSampleIndexInfo>(a2, v11, &v77, &v74);
       if (a8)
       {
-        v82 = &v86;
-        v21 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a8, v86);
+        *&v74 = &v77;
+        v21 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a8, v77, &v74);
         v22 = v21;
         v24 = v21[4];
         v23 = v21[5];
         if (v24 >= v23)
         {
-          v52 = v21[3];
-          v53 = v24 - v52;
-          v54 = (v24 - v52) >> 4;
-          v55 = v54 + 1;
-          if ((v54 + 1) >> 60)
+          v50 = v21[3];
+          v51 = v24 - v50;
+          v52 = (v24 - v50) >> 4;
+          v53 = v52 + 1;
+          if ((v52 + 1) >> 60)
           {
             goto LABEL_97;
           }
 
-          v56 = v23 - v52;
-          if (v56 >> 3 > v55)
+          v54 = v23 - v50;
+          if (v54 >> 3 > v53)
           {
-            v55 = v56 >> 3;
+            v53 = v54 >> 3;
           }
 
-          if (v56 >= 0x7FFFFFFFFFFFFFF0)
+          if (v54 >= 0x7FFFFFFFFFFFFFF0)
           {
-            v57 = 0xFFFFFFFFFFFFFFFLL;
+            v55 = 0xFFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v57 = v55;
+            v55 = v53;
           }
 
-          if (v57)
+          if (v55)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long long,unsigned long long>>>(v57);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long long,unsigned long long>>>(v55);
           }
 
-          v73 = v54;
-          v74 = 16 * v54;
-          *v74 = a6;
-          *(v74 + 8) = a7;
-          v25 = 16 * v54 + 16;
-          v75 = (v74 - 16 * v73);
-          memcpy(v75, v52, v53);
-          v76 = v22[3];
-          v22[3] = v75;
+          v67 = v52;
+          v68 = 16 * v52;
+          *v68 = a6;
+          *(v68 + 8) = a7;
+          v25 = 16 * v52 + 16;
+          v69 = (v68 - 16 * v67);
+          memcpy(v69, v50, v51);
+          v70 = v22[3];
+          v22[3] = v69;
           v22[4] = v25;
           v22[5] = 0;
-          if (v76)
+          if (v70)
           {
-            operator delete(v76);
+            operator delete(v70);
           }
         }
 
@@ -9011,43 +8978,43 @@ void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(_DWORD *a1, voi
         goto LABEL_96;
       }
 
-      v38 = GTSampleBufferManager::CurrentSampleBuffer((a1 + 534));
-      if (!v38 || ([v16 setMTLCounterSampleLocationWithBuffer:v38 startIndex:a1[546] endIndex:(a1[546] + 1)] & 1) == 0)
+      v36 = GTSampleBufferManager::CurrentSampleBuffer((a1 + 534));
+      if (!v36 || ([v16 setMTLCounterSampleLocationWithBuffer:v36 startIndex:a1[546] endIndex:(a1[546] + 1)] & 1) == 0)
       {
         if (g_runningInCI)
         {
-          v79 = "#CI_ERROR# ";
+          v71 = "#CI_ERROR# ";
         }
 
         else
         {
-          v79 = "";
+          v71 = "";
         }
 
-        GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/profile/GTUSCSamplingStreamingManager.mm", "AddEncoderSamplePoints", 5649, 1, "%s%s %u: Error, fail to set counter sample location for %lu\n", v77, v78, v79);
+        GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/profile/GTUSCSamplingStreamingManager.mm", "AddEncoderSamplePoints", 5649, 1, "%s%s %u: Error, fail to set counter sample location for %lu\n", v71, "void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(std::unordered_map<uint32_t, GTEncoderSampleIndexInfo> &, const GTTraceFunc *, uint32_t, __strong id<MTLCommandEncoder>, size_t, uint64_t, std::unordered_map<uint32_t, std::vector<GTCoalescedEncoderIndexInfo>> *)", 5649, a6);
         goto LABEL_93;
       }
     }
 
 LABEL_87:
-    v39 = a1[546] + 2;
+    v37 = a1[546] + 2;
     goto LABEL_88;
   }
 
   if (ConstructorType == 28)
   {
-    v82 = __PAIR64__(v17, a6);
-    v83 = 0x200000004;
-    v84 = a7;
-    v85 = 0;
-    std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::__emplace_unique_key_args<unsigned int,unsigned int &,GTEncoderSampleIndexInfo>(a2, v11);
+    *&v74 = __PAIR64__(v17, a6);
+    *(&v74 + 1) = 0x200000004;
+    v75 = a7;
+    v76 = 0;
+    std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::__emplace_unique_key_args<unsigned int,unsigned int &,GTEncoderSampleIndexInfo>(a2, v11, &v77, &v74);
     if (!a8)
     {
       goto LABEL_58;
     }
 
-    v82 = &v86;
-    v26 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a8, v86);
+    *&v74 = &v77;
+    v26 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<GTCoalescedEncoderIndexInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a8, v77, &v74);
     v27 = v26;
     v29 = v26[4];
     v28 = v26[5];
@@ -9064,67 +9031,67 @@ LABEL_58:
         goto LABEL_96;
       }
 
-      v38 = GTSampleBufferManager::CurrentSampleBuffer((a1 + 534));
-      if (!v38 || ([v16 setMTLCounterSampleLocationWithBuffer:v38 startIndex:a1[546] endIndex:(a1[546] + 1)] & 1) == 0)
+      v36 = GTSampleBufferManager::CurrentSampleBuffer((a1 + 534));
+      if (!v36 || ([v16 setMTLCounterSampleLocationWithBuffer:v36 startIndex:a1[546] endIndex:(a1[546] + 1)] & 1) == 0)
       {
         if (g_runningInCI)
         {
-          v65 = "#CI_ERROR# ";
+          v61 = "#CI_ERROR# ";
         }
 
         else
         {
-          v65 = "";
+          v61 = "";
         }
 
-        GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/profile/GTUSCSamplingStreamingManager.mm", "AddEncoderSamplePoints", 5620, 1, "%s%s %u: Error, fail to set counter sample location for %lu\n", v63, v64, v65);
+        GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/profile/GTUSCSamplingStreamingManager.mm", "AddEncoderSamplePoints", 5620, 1, "%s%s %u: Error, fail to set counter sample location for %lu\n", v61, "void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(std::unordered_map<uint32_t, GTEncoderSampleIndexInfo> &, const GTTraceFunc *, uint32_t, __strong id<MTLCommandEncoder>, size_t, uint64_t, std::unordered_map<uint32_t, std::vector<GTCoalescedEncoderIndexInfo>> *)", 5620, a6);
         goto LABEL_93;
       }
 
       goto LABEL_87;
     }
 
-    v40 = v26[3];
-    v41 = v29 - v40;
-    v42 = (v29 - v40) >> 4;
-    v43 = v42 + 1;
-    if (!((v42 + 1) >> 60))
+    v38 = v26[3];
+    v39 = v29 - v38;
+    v40 = (v29 - v38) >> 4;
+    v41 = v40 + 1;
+    if (!((v40 + 1) >> 60))
     {
-      v44 = v28 - v40;
-      if (v44 >> 3 > v43)
+      v42 = v28 - v38;
+      if (v42 >> 3 > v41)
       {
-        v43 = v44 >> 3;
+        v41 = v42 >> 3;
       }
 
-      if (v44 >= 0x7FFFFFFFFFFFFFF0)
+      if (v42 >= 0x7FFFFFFFFFFFFFF0)
       {
-        v45 = 0xFFFFFFFFFFFFFFFLL;
+        v43 = 0xFFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v45 = v43;
+        v43 = v41;
       }
 
-      if (v45)
+      if (v43)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long long,unsigned long long>>>(v45);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long long,unsigned long long>>>(v43);
       }
 
-      v59 = v42;
-      v60 = 16 * v42;
-      *v60 = a6;
-      *(v60 + 8) = a7;
-      v30 = 16 * v42 + 16;
-      v61 = (v60 - 16 * v59);
-      memcpy(v61, v40, v41);
-      v62 = v27[3];
-      v27[3] = v61;
+      v57 = v40;
+      v58 = 16 * v40;
+      *v58 = a6;
+      *(v58 + 8) = a7;
+      v30 = 16 * v40 + 16;
+      v59 = (v58 - 16 * v57);
+      memcpy(v59, v38, v39);
+      v60 = v27[3];
+      v27[3] = v59;
       v27[4] = v30;
       v27[5] = 0;
-      if (v62)
+      if (v60)
       {
-        operator delete(v62);
+        operator delete(v60);
       }
 
       goto LABEL_57;
@@ -9148,21 +9115,21 @@ LABEL_97:
       v19 = 0;
     }
 
-    v82 = __PAIR64__(v17, a6);
-    v83 = 0x400000000;
-    v84 = a7;
-    v85 = __PAIR64__(v20, v19);
-    std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::__emplace_unique_key_args<unsigned int,unsigned int &,GTEncoderSampleIndexInfo>(a2, v86);
+    *&v74 = __PAIR64__(v17, a6);
+    *(&v74 + 1) = 0x400000000;
+    v75 = a7;
+    v76 = __PAIR64__(v20, v19);
+    std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::__emplace_unique_key_args<unsigned int,unsigned int &,GTEncoderSampleIndexInfo>(a2, v77, &v77, &v74);
     if (a1[537])
     {
       if (a1[536] && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        v38 = GTSampleBufferManager::CurrentSampleBuffer((a1 + 534));
-        if (v38 && ([v16 setMTLCounterSampleLocationWithBuffer:v38 vertexStartIndex:a1[546] vertexEndIndex:(a1[546] + 1) fragmentStartIndex:(a1[546] + 2) fragmentEndIndex:(a1[546] + 3)] & 1) != 0)
+        v36 = GTSampleBufferManager::CurrentSampleBuffer((a1 + 534));
+        if (v36 && ([v16 setMTLCounterSampleLocationWithBuffer:v36 vertexStartIndex:a1[546] vertexEndIndex:(a1[546] + 1) fragmentStartIndex:(a1[546] + 2) fragmentEndIndex:(a1[546] + 3)] & 1) != 0)
         {
-          v39 = a1[546] + 4;
+          v37 = a1[546] + 4;
 LABEL_88:
-          a1[546] = v39;
+          a1[546] = v37;
 LABEL_95:
 
           goto LABEL_96;
@@ -9170,20 +9137,20 @@ LABEL_95:
 
         if (g_runningInCI)
         {
-          v58 = "#CI_ERROR# ";
+          v56 = "#CI_ERROR# ";
         }
 
         else
         {
-          v58 = "";
+          v56 = "";
         }
 
-        GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/profile/GTUSCSamplingStreamingManager.mm", "AddEncoderSamplePoints", 5592, 1, "%s%s %u: Error, fail to set counter sample location for %lu\n", v36, v37, v58);
+        GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/profile/GTUSCSamplingStreamingManager.mm", "AddEncoderSamplePoints", 5592, 1, "%s%s %u: Error, fail to set counter sample location for %lu\n", v56, "void GTUSCSamplingStreamingManagerHelper::AddEncoderSamplePoints(std::unordered_map<uint32_t, GTEncoderSampleIndexInfo> &, const GTTraceFunc *, uint32_t, __strong id<MTLCommandEncoder>, size_t, uint64_t, std::unordered_map<uint32_t, std::vector<GTCoalescedEncoderIndexInfo>> *)", 5592, a6);
 LABEL_93:
-        v80 = std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::find<unsigned int>(a2, v86);
-        if (v80)
+        v72 = std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::find<unsigned int>(a2, v77);
+        if (v72)
         {
-          *(v80 + 9) = 0;
+          *(v72 + 9) = 0;
         }
 
         goto LABEL_95;
@@ -9198,71 +9165,71 @@ uint64_t GTUSCSamplingStreamingManagerHelper::DispatchExpandedIndirectCommand()
 {
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
-  v72 = v0;
-  v73 = v3;
+  v71 = v0;
+  v72 = v3;
   v5 = v4;
   v7 = v6;
-  v88[1396] = *MEMORY[0x277D85DE8];
+  v87[1396] = *MEMORY[0x277D85DE8];
   v8 = *v6;
   p = **(v6 + 184);
-  GTMTLSMContext_indirectCommandBufferResources(v84, *(v8 + 40), *v4, p);
-  GetExecuteCommandsInBufferArgs(&v78, v5, *(v8 + 16));
-  Object = GTMTLSMContext_getObject(**(v8 + 40), v78, *v5);
-  GTMTLCreateIndirectCommandEncoder(v82, Object[14]);
-  memset(v76, 0, sizeof(v76));
-  v77 = 1065353216;
-  v74 = *(v7 + 8);
+  GTMTLSMContext_indirectCommandBufferResources(v83, *(v8 + 40), *v4, p);
+  GetExecuteCommandsInBufferArgs(&v77, v5, *(v8 + 16));
+  Object = GTMTLSMContext_getObject(**(v8 + 40), v77, *v5);
+  GTMTLCreateIndirectCommandEncoder(v81, Object[14]);
+  memset(v75, 0, sizeof(v75));
+  v76 = 1065353216;
+  v73 = *(v7 + 8);
   v10 = *(v7 + 11360);
   if (v10 == 28)
   {
-    memcpy(v88, (v7 + 192), 0x2BA0uLL);
+    memcpy(v87, (v7 + 192), 0x2BA0uLL);
     if ((GT_SUPPORT_0 & 0x10) != 0)
     {
-      v70 = v7;
+      v69 = v7;
       v12 = [*(v7 + 8) computeCommandEncoderForKey:{*(v7 + 200), v5}];
-      v13 = v80;
-      if (v80)
+      v13 = v79;
+      if (v79)
       {
-        v14 = v79;
-        v67 = v83;
-        v69 = v81;
+        v14 = v78;
+        v66 = v82;
+        v68 = v80;
         do
         {
-          v15 = v69 + v67 * v14;
-          v85 = v15;
-          memcpy(__dst, &v88[7], 0x8D0uLL);
-          IndirectCommand = GTMTLSMComputeCommandEncoder_loadIndirectCommand(&v88[7], v82, v15, v84);
-          GTMTLReplayController_restoreComputeCommandEncoder(v12, __dst, &v88[7], v74);
-          v17 = v88[8];
-          if (!std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v76, v88[8]))
+          v15 = v68 + v66 * v14;
+          v84 = v15;
+          memcpy(__dst, &v87[7], 0x8D0uLL);
+          IndirectCommand = GTMTLSMComputeCommandEncoder_loadIndirectCommand(&v87[7], v81, v15, v83);
+          GTMTLReplayController_restoreComputeCommandEncoder(v12, __dst, &v87[7], v73);
+          v17 = v87[8];
+          if (!std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v75, v87[8]))
           {
-            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v76, v17);
-            v18 = [v74 computePipelineStateForKey:v88[8]];
+            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v75, v17, &v87[8]);
+            v18 = [v73 computePipelineStateForKey:v87[8]];
             v19 = v18;
             if (v18)
             {
-              v20 = *(v72 + 1944);
+              v20 = *(v71 + 1944);
               v21 = getRenderPipelineBinaries(v18);
               [v20 addBinaries:v21];
             }
           }
 
-          DYMTLDispatchComputeCommandEncoder(v12, v82, v15);
+          DYMTLDispatchComputeCommandEncoder(v12, v81, v15);
           if (IndirectCommand)
           {
-            [*(v72 + 1944) addSampledCallFunctionIndex:*(v70 + 22560) | (v14 << 32)];
-            if (v73)
+            [*(v71 + 1944) addSampledCallFunctionIndex:*(v69 + 22560) | (v14 << 32)];
+            if (v72)
             {
-              v75 = 0;
+              v74 = 0;
               v22 = DEVICEOBJECT(v12);
-              [v22 commandBatchIdRangeMin:&v75 + 4 max:&v75];
+              [v22 commandBatchIdRangeMin:&v74 + 4 max:&v74];
 
-              v23 = *(v73 + 8);
-              v24 = *(v73 + 16);
+              v23 = *(v72 + 8);
+              v24 = *(v72 + 16);
               if (v23 >= v24)
               {
-                v26 = *v73;
-                v27 = v23 - *v73;
+                v26 = *v72;
+                v27 = v23 - *v72;
                 v28 = v27 >> 3;
                 v29 = (v27 >> 3) + 1;
                 if (v29 >> 61)
@@ -9293,14 +9260,14 @@ LABEL_61:
                 }
 
                 v32 = (8 * v28);
-                *v32 = HIDWORD(v75);
-                v32[1] = v75;
+                *v32 = HIDWORD(v74);
+                v32[1] = v74;
                 v25 = 8 * v28 + 8;
                 memcpy(0, v26, v27);
-                v33 = *v73;
-                *v73 = 0;
-                *(v73 + 8) = v25;
-                *(v73 + 16) = 0;
+                v33 = *v72;
+                *v72 = 0;
+                *(v72 + 8) = v25;
+                *(v72 + 16) = 0;
                 if (v33)
                 {
                   operator delete(v33);
@@ -9309,12 +9276,12 @@ LABEL_61:
 
               else
               {
-                *v23 = HIDWORD(v75);
-                v23[1] = v75;
+                *v23 = HIDWORD(v74);
+                v23[1] = v74;
                 v25 = (v23 + 2);
               }
 
-              *(v73 + 8) = v25;
+              *(v72 + 8) = v25;
             }
           }
 
@@ -9325,15 +9292,15 @@ LABEL_61:
         while (v13);
       }
 
-      GTMTLReplayController_restoreComputeCommandEncoder(v12, &v88[7], v70 + 248, v74);
+      GTMTLReplayController_restoreComputeCommandEncoder(v12, &v87[7], v69 + 248, v73);
     }
   }
 
   else if (v10 == 70)
   {
-    memcpy(v88, (v7 + 192), 0x2BA0uLL);
-    v68 = [v74 executeIndirectCommandBufferMap];
-    v66 = v2;
+    memcpy(v87, (v7 + 192), 0x2BA0uLL);
+    v67 = [v73 executeIndirectCommandBufferMap];
+    v65 = v2;
     if (*(v7 + 11360))
     {
       v11 = *(v7 + 200);
@@ -9344,37 +9311,37 @@ LABEL_61:
       v11 = 0;
     }
 
-    v71 = v7;
+    v70 = v7;
     v34 = [*(v7 + 8) renderCommandEncoderForKey:{v11, v5}];
-    v35 = v80;
-    if (v80)
+    v35 = v79;
+    if (v79)
     {
-      v36 = v79;
-      v64 = v83;
-      v65 = v81;
+      v36 = v78;
+      v63 = v82;
+      v64 = v80;
       do
       {
-        v37 = v65 + v64 * v36;
-        v85 = v37;
-        memcpy(__dst, &v88[7], sizeof(__dst));
-        v38 = GTMTLSMRenderCommandEncoder_loadIndirectCommand(&v88[7], v82, v37, v84);
-        GTMTLReplayController_restoreRenderCommandEncoder(v34, __dst, &v88[7], v74);
-        v39 = [v74 renderPipelineStateForKey:v88[1075]];
-        v40 = v88[1075];
-        if (!std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v76, v88[1075]))
+        v37 = v64 + v63 * v36;
+        v84 = v37;
+        memcpy(__dst, &v87[7], sizeof(__dst));
+        v38 = GTMTLSMRenderCommandEncoder_loadIndirectCommand(&v87[7], v81, v37, v83);
+        GTMTLReplayController_restoreRenderCommandEncoder(v34, __dst, &v87[7], v73);
+        v39 = [v73 renderPipelineStateForKey:v87[1075]];
+        v40 = v87[1075];
+        if (!std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v75, v87[1075]))
         {
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v76, v40);
-          v41 = [v74 renderPipelineStateForKey:v88[1075]];
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v75, v40, &v87[1075]);
+          v41 = [v73 renderPipelineStateForKey:v87[1075]];
           v42 = v41;
           if (v41)
           {
-            v43 = *(v72 + 1944);
+            v43 = *(v71 + 1944);
             v44 = getRenderPipelineBinaries(v41);
             [v43 addBinaries:v44];
           }
         }
 
-        if (((v66 != 0) & v38) != 1 || (v45 = *v66, *v66 == -1) || (*v66 = v45 - 1, v45))
+        if (((v65 != 0) & v38) != 1 || (v45 = *v65, *v65 == -1) || (*v65 = v45 - 1, v45))
         {
           v46 = 0;
           v47 = 0;
@@ -9382,27 +9349,27 @@ LABEL_61:
 
         else
         {
-          v46 = GTUSCSamplingStreamingManagerHelper::RenderDummyDrawCall(v72, v71, v34, 0, v88[1075], v63);
+          v46 = GTUSCSamplingStreamingManagerHelper::RenderDummyDrawCall(v71, v70, v34, 0, v87[1075], v62);
           [v34 setRenderPipelineState:v39];
           v47 = 1;
         }
 
-        DYMTLDrawRenderCommandEncoder(v34, v82, v37, v84, v68);
+        DYMTLDrawRenderCommandEncoder(v34, v81, v37, v83, v67);
         if (v38)
         {
-          [*(v72 + 1944) addSampledCallFunctionIndex:*(v71 + 22560) | (v36 << 32)];
-          if (v73)
+          [*(v71 + 1944) addSampledCallFunctionIndex:*(v70 + 22560) | (v36 << 32)];
+          if (v72)
           {
-            v75 = 0;
+            v74 = 0;
             v48 = DEVICEOBJECT(v34);
-            [v48 commandBatchIdRangeMin:&v75 + 4 max:&v75];
+            [v48 commandBatchIdRangeMin:&v74 + 4 max:&v74];
 
-            v49 = *(v73 + 8);
-            v50 = *(v73 + 16);
+            v49 = *(v72 + 8);
+            v50 = *(v72 + 16);
             if (v49 >= v50)
             {
-              v53 = *v73;
-              v54 = v49 - *v73;
+              v53 = *v72;
+              v54 = v49 - *v72;
               v55 = v54 >> 3;
               v56 = (v54 >> 3) + 1;
               if (v56 >> 61)
@@ -9432,14 +9399,14 @@ LABEL_61:
               }
 
               v59 = (8 * v55);
-              *v59 = HIDWORD(v75);
-              v59[1] = v75;
+              *v59 = HIDWORD(v74);
+              v59[1] = v74;
               v51 = 8 * v55 + 8;
               memcpy(0, v53, v54);
-              v60 = *v73;
-              *v73 = 0;
-              *(v73 + 8) = v51;
-              *(v73 + 16) = 0;
+              v60 = *v72;
+              *v72 = 0;
+              *(v72 + 8) = v51;
+              *(v72 + 16) = 0;
               if (v60)
               {
                 operator delete(v60);
@@ -9448,17 +9415,17 @@ LABEL_61:
 
             else
             {
-              *v49 = HIDWORD(v75);
-              v49[1] = v75;
+              *v49 = HIDWORD(v74);
+              v49[1] = v74;
               v51 = (v49 + 2);
             }
 
-            *(v73 + 8) = v51;
+            *(v72 + 8) = v51;
           }
 
           else if (v47)
           {
-            v52 = GTUSCSamplingStreamingManagerHelper::RenderDummyDrawCall(v72, v71, v34, v46, v88[1075], v63);
+            v52 = GTUSCSamplingStreamingManagerHelper::RenderDummyDrawCall(v71, v70, v34, v46, v87[1075], v62);
             [v34 setRenderPipelineState:v39];
           }
         }
@@ -9470,19 +9437,17 @@ LABEL_61:
       while (v35);
     }
 
-    GTMTLReplayController_restoreRenderCommandEncoder(v34, &v88[7], v71 + 248, v74);
+    GTMTLReplayController_restoreRenderCommandEncoder(v34, &v87[7], v70 + 248, v73);
   }
 
   apr_pool_clear(p);
 
-  result = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v76);
-  v62 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v75);
 }
 
-void sub_24D87A104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, ...)
+void sub_24D87A104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
   _Unwind_Resume(a1);

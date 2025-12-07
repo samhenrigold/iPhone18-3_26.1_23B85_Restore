@@ -1031,16 +1031,16 @@ void ___ZNK8dispatch8callbackIU13block_pointerFvN3ctu2cf11CFSharedRefI9__CFError
   }
 }
 
-void sub_296D70FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
+void sub_296D70FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10)
 {
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(&a9);
   ctu::cf::CFSharedRef<__CFError>::~CFSharedRef(&a10);
   _Unwind_Resume(a1);
 }
 
-void sub_296D71014(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296D71014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFError>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -1247,10 +1247,10 @@ uint64_t data::CommandDriver::getName(data::CommandDriver *this)
 
 uint64_t radio::RFSCommandDriver::RFSCommandDriver(uint64_t a1, void *a2)
 {
-  v31[4] = *MEMORY[0x29EDCA608];
+  v30[4] = *MEMORY[0x29EDCA608];
   *a1 = &unk_2A1E056F8;
   v4 = (a1 + 8);
-  ctu::OsLogContext::OsLogContext(&v29, "com.apple.telephony.abm", "rfs.drv");
+  ctu::OsLogContext::OsLogContext(&v28, "com.apple.telephony.abm", "rfs.drv");
   v5 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
   v6 = dispatch_queue_create("rfs.drv", v5);
   *v4 = 0;
@@ -1270,18 +1270,18 @@ uint64_t radio::RFSCommandDriver::RFSCommandDriver(uint64_t a1, void *a2)
   }
 
   ctu::OsLogLogger::OsLogLogger();
-  MEMORY[0x29C263000](a1 + 40, &v28);
-  MEMORY[0x29C263010](&v28);
-  ctu::OsLogContext::~OsLogContext(&v29);
+  MEMORY[0x29C263000](a1 + 40, &v27);
+  MEMORY[0x29C263010](&v27);
+  ctu::OsLogContext::~OsLogContext(&v28);
   *a1 = &unk_2A1E056F8;
   *(a1 + 48) = &unk_2A1E057E8;
   v8 = operator new(0x28uLL);
   v9 = operator new(0x20uLL);
-  v29.__r_.__value_.__r.__words[0] = &v29;
-  *&v29.__r_.__value_.__r.__words[1] = &v29;
-  v31[0] = 0;
-  v31[1] = 0;
-  v30 = v31;
+  v28.__r_.__value_.__r.__words[0] = &v28;
+  *&v28.__r_.__value_.__r.__words[1] = &v28;
+  v30[0] = 0;
+  v30[1] = 0;
+  v29 = v30;
   v10 = operator new(0x40uLL);
   *v10 = v10;
   v10[1] = v10;
@@ -1307,16 +1307,16 @@ uint64_t radio::RFSCommandDriver::RFSCommandDriver(uint64_t a1, void *a2)
   *v13 = &unk_2A1E058B8;
   *(v13 + 2) = v9;
   v8[1] = v13;
-  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>>>::destroy(v31[0]);
-  if (v29.__r_.__value_.__r.__words[2])
+  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>>>::destroy(v30[0]);
+  if (v28.__r_.__value_.__r.__words[2])
   {
-    size = v29.__r_.__value_.__l.__size_;
-    v15 = *(v29.__r_.__value_.__r.__words[0] + 8);
-    v16 = *v29.__r_.__value_.__l.__size_;
+    size = v28.__r_.__value_.__l.__size_;
+    v15 = *(v28.__r_.__value_.__r.__words[0] + 8);
+    v16 = *v28.__r_.__value_.__l.__size_;
     *(v16 + 8) = v15;
     *v15 = v16;
-    v29.__r_.__value_.__r.__words[2] = 0;
-    if (size != &v29)
+    v28.__r_.__value_.__r.__words[2] = 0;
+    if (size != &v28)
     {
       do
       {
@@ -1338,7 +1338,7 @@ uint64_t radio::RFSCommandDriver::RFSCommandDriver(uint64_t a1, void *a2)
         size = v17;
       }
 
-      while (v17 != &v29);
+      while (v17 != &v28);
     }
   }
 
@@ -1363,23 +1363,22 @@ uint64_t radio::RFSCommandDriver::RFSCommandDriver(uint64_t a1, void *a2)
     atomic_fetch_add_explicit((v21 + 8), 1uLL, memory_order_relaxed);
   }
 
-  strcpy(&v29, "rfs.drv::");
-  *(&v29.__r_.__value_.__s + 23) = 9;
+  strcpy(&v28, "rfs.drv::");
+  *(&v28.__r_.__value_.__s + 23) = 9;
   v22 = getprogname();
   v23 = strlen(v22);
-  v24 = std::string::append(&v29, v22, v23);
+  v24 = std::string::append(&v28, v22, v23);
   v25 = *&v24->__r_.__value_.__l.__data_;
   *(a1 + 104) = *(&v24->__r_.__value_.__l + 2);
   *(a1 + 88) = v25;
   v24->__r_.__value_.__l.__size_ = 0;
   v24->__r_.__value_.__r.__words[2] = 0;
   v24->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v29.__r_.__value_.__l.__data_);
+    operator delete(v28.__r_.__value_.__l.__data_);
   }
 
-  v26 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -1946,11 +1945,11 @@ const char *diag::CommandDriver::asString(unsigned int a1)
 
 void diag::CommandDriver::notifyOfEvent_sync(void *a1, unsigned int a2, dispatch_object_t *a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v4 = a1[6];
   if (!v4 || !a1[7])
   {
-    goto LABEL_27;
+    return;
   }
 
   v6 = *a3;
@@ -1965,13 +1964,13 @@ void diag::CommandDriver::notifyOfEvent_sync(void *a1, unsigned int a2, dispatch
   }
 
   v8 = a1[7];
-  *&v12 = MEMORY[0x29EDCA5F8];
-  *(&v12 + 1) = 1174405120;
-  v13 = ___ZNK8dispatch8callbackIU13block_pointerFvN4diag13CommandDriver5EventENS_13group_sessionEEEclIJS3_S4_EEEvDpT__block_invoke;
-  v14 = &__block_descriptor_tmp_2;
+  *&v11 = MEMORY[0x29EDCA5F8];
+  *(&v11 + 1) = 1174405120;
+  v12 = ___ZNK8dispatch8callbackIU13block_pointerFvN4diag13CommandDriver5EventENS_13group_sessionEEEclIJS3_S4_EEEvDpT__block_invoke;
+  v13 = &__block_descriptor_tmp_2;
   if (!v7)
   {
-    v17 = a2;
+    v16 = a2;
     aBlock = 0;
     group = v6;
     if (!v6)
@@ -1989,7 +1988,7 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  v17 = a2;
+  v16 = a2;
   aBlock = _Block_copy(v7);
   group = v6;
   if (v6)
@@ -1998,7 +1997,7 @@ LABEL_11:
   }
 
 LABEL_13:
-  dispatch_async(v8, &v12);
+  dispatch_async(v8, &v11);
   if (group)
   {
     dispatch_group_leave(group);
@@ -2037,13 +2036,10 @@ LABEL_13:
       v10 = off_29EE5A9B0[a2];
     }
 
-    LODWORD(v12) = 136315138;
-    *(&v12 + 4) = v10;
-    _os_log_impl(&dword_296D5F000, v9, OS_LOG_TYPE_DEFAULT, "#I %s", &v12, 0xCu);
+    LODWORD(v11) = 136315138;
+    *(&v11 + 4) = v10;
+    _os_log_impl(&dword_296D5F000, v9, OS_LOG_TYPE_DEFAULT, "#I %s", &v11, 0xCu);
   }
-
-LABEL_27:
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296D72E50(_Unwind_Exception *a1, int a2)
@@ -2149,7 +2145,7 @@ void __destroy_helper_block_e8_32c89_ZTSN8dispatch5blockIU13block_pointerFvN4dia
   }
 }
 
-uint64_t logs::CommandDriver::CommandDriver(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t logs::CommandDriver::CommandDriver(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5, void *a6)
 {
   *a1 = &unk_2A1E05A68;
   v6 = (a1 + 8);
@@ -2161,7 +2157,7 @@ uint64_t logs::CommandDriver::CommandDriver(uint64_t a1, uint64_t a2, uint64_t a
 
   else
   {
-    v8 = *(a5 + 8);
+    v8 = a5[1];
   }
 
   v9 = v8 + 12;
@@ -2172,23 +2168,23 @@ uint64_t logs::CommandDriver::CommandDriver(uint64_t a1, uint64_t a2, uint64_t a
 
   if (v9 < 0x17)
   {
-    v44 = 0;
-    HIBYTE(v44) = v8 + 12;
-    BYTE5(v43[1]) = 0;
-    HIWORD(v43[1]) = 0;
-    strcpy(v43, "logs.driver.");
+    BYTE5(v41[1]) = 0;
+    HIWORD(v41[1]) = 0;
+    v42 = 0;
+    HIBYTE(v42) = v8 + 12;
+    strcpy(v41, "logs.driver.");
     if (!v8)
     {
-      v42 = 0xC00000000000000;
+      v40 = 0xC00000000000000;
       BYTE13(__p) = 0;
       HIWORD(__p) = 0;
-      v17 = v43;
+      v16 = v41;
       p_p = &__p;
       strcpy(&__p, "logs.driver.");
       goto LABEL_25;
     }
 
-    v14 = &v43[1] + 4;
+    v14 = &v41[1] + 4;
   }
 
   else
@@ -2204,42 +2200,41 @@ uint64_t logs::CommandDriver::CommandDriver(uint64_t a1, uint64_t a2, uint64_t a
     }
 
     v13 = operator new(v12);
-    v43[1] = (v8 + 12);
-    v44 = v12 | 0x8000000000000000;
-    v43[0] = v13;
+    v41[1] = (v8 + 12);
+    v42 = v12 | 0x8000000000000000;
+    v41[0] = v13;
     *(v13 + 2) = 779249014;
     *v13 = *"logs.driver.";
     v14 = v13 + 12;
   }
 
-  v15 = *a5;
   if (v7 >= 0)
   {
-    v16 = a5;
+    v15 = a5;
   }
 
   else
   {
-    v16 = *a5;
+    v15 = *a5;
   }
 
-  memmove(v14, v16, v8);
+  memmove(v14, v15, v8);
   v14[v8] = 0;
-  if (v44 >= 0)
+  if (v42 >= 0)
   {
-    v17 = v43;
+    v16 = v41;
   }
 
   else
   {
-    v17 = v43[0];
+    v16 = v41[0];
   }
 
   if (v9 <= 0x16)
   {
     *(&__p + 1) = 0;
-    v42 = 0;
-    HIBYTE(v42) = v8 + 12;
+    v40 = 0;
+    HIBYTE(v40) = v8 + 12;
     p_p = &__p;
   }
 
@@ -2247,46 +2242,46 @@ uint64_t logs::CommandDriver::CommandDriver(uint64_t a1, uint64_t a2, uint64_t a
   {
     if ((v9 | 7) == 0x17)
     {
-      v18 = 25;
+      v17 = 25;
     }
 
     else
     {
-      v18 = (v9 | 7) + 1;
+      v17 = (v9 | 7) + 1;
     }
 
-    p_p = operator new(v18);
+    p_p = operator new(v17);
     *(&__p + 1) = v8 + 12;
-    v42 = v18 | 0x8000000000000000;
+    v40 = v17 | 0x8000000000000000;
     *&__p = p_p;
   }
 
   *(p_p + 2) = 779249014;
   *p_p = *"logs.driver.";
-  memmove(p_p + 12, v16, v8);
+  memmove(p_p + 12, v15, v8);
 LABEL_25:
   *(p_p + v8 + 12) = 0;
-  if (v42 >= 0)
+  if (v40 >= 0)
   {
-    v20 = &__p;
+    v19 = &__p;
   }
 
   else
   {
-    v20 = __p;
+    v19 = __p;
   }
 
-  v21 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
-  v22 = dispatch_queue_create(v17, v21);
+  v20 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
+  v21 = dispatch_queue_create(v16, v20);
   *v6 = 0;
   v6[1] = 0;
-  *(a1 + 24) = v22;
-  if (v22)
+  *(a1 + 24) = v21;
+  if (v21)
   {
-    v23 = v22;
-    dispatch_retain(v22);
+    v22 = v21;
+    dispatch_retain(v21);
     *(a1 + 32) = 0;
-    dispatch_release(v23);
+    dispatch_release(v22);
   }
 
   else
@@ -2294,86 +2289,86 @@ LABEL_25:
     *(a1 + 32) = 0;
   }
 
-  ctu::OsLogLogger::OsLogLogger((a1 + 40), "com.apple.telephony", v20);
-  if (SHIBYTE(v42) < 0)
+  ctu::OsLogLogger::OsLogLogger((a1 + 40), "com.apple.telephony", v19);
+  if (SHIBYTE(v40) < 0)
   {
     operator delete(__p);
-    if ((SHIBYTE(v44) & 0x80000000) == 0)
+    if ((SHIBYTE(v42) & 0x80000000) == 0)
     {
       goto LABEL_33;
     }
   }
 
-  else if ((SHIBYTE(v44) & 0x80000000) == 0)
+  else if ((SHIBYTE(v42) & 0x80000000) == 0)
   {
     goto LABEL_33;
   }
 
-  operator delete(v43[0]);
+  operator delete(v41[0]);
 LABEL_33:
   *a1 = &unk_2A1E05A68;
-  v24 = a6[1];
+  v23 = a6[1];
   *(a1 + 48) = *a6;
-  *(a1 + 56) = v24;
-  if (v24)
+  *(a1 + 56) = v23;
+  if (v23)
   {
-    atomic_fetch_add_explicit((v24 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v25 = *a2;
+  v24 = *a2;
   if (*a2)
   {
-    v25 = _Block_copy(v25);
+    v24 = _Block_copy(v24);
   }
 
-  v26 = *(a2 + 8);
-  *(a1 + 64) = v25;
-  *(a1 + 72) = v26;
-  if (v26)
+  v25 = *(a2 + 8);
+  *(a1 + 64) = v24;
+  *(a1 + 72) = v25;
+  if (v25)
   {
-    dispatch_retain(v26);
+    dispatch_retain(v25);
   }
 
-  v27 = *a3;
+  v26 = *a3;
   if (*a3)
   {
-    v27 = _Block_copy(v27);
+    v26 = _Block_copy(v26);
   }
 
-  v28 = *(a3 + 8);
-  *(a1 + 80) = v27;
-  *(a1 + 88) = v28;
-  if (v28)
+  v27 = *(a3 + 8);
+  *(a1 + 80) = v26;
+  *(a1 + 88) = v27;
+  if (v27)
   {
-    dispatch_retain(v28);
+    dispatch_retain(v27);
   }
 
-  v29 = *(a5 + 23);
-  if (v29 >= 0)
+  v28 = *(a5 + 23);
+  if (v28 >= 0)
   {
-    v30 = *(a5 + 23);
+    v29 = *(a5 + 23);
   }
 
   else
   {
-    v30 = *(a5 + 8);
+    v29 = a5[1];
   }
 
-  v31 = v30 + 12;
-  if (v30 + 12 > 0x7FFFFFFFFFFFFFF7)
+  v30 = v29 + 12;
+  if (v29 + 12 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v31 < 0x17)
+  if (v30 < 0x17)
   {
     *(a1 + 104) = 0;
     *(a1 + 112) = 0;
-    *(a1 + 119) = v31;
+    *(a1 + 119) = v30;
     *(a1 + 104) = 779249014;
     *(a1 + 96) = *"logs.driver.";
-    v34 = (a1 + 108);
-    if (!v30)
+    v33 = (a1 + 108);
+    if (!v29)
     {
       goto LABEL_57;
     }
@@ -2381,39 +2376,38 @@ LABEL_33:
 
   else
   {
-    if ((v31 | 7) == 0x17)
+    if ((v30 | 7) == 0x17)
     {
-      v32 = 25;
+      v31 = 25;
     }
 
     else
     {
-      v32 = (v31 | 7) + 1;
+      v31 = (v30 | 7) + 1;
     }
 
-    v33 = operator new(v32);
-    *(a1 + 104) = v31;
-    *(a1 + 112) = v32 | 0x8000000000000000;
-    *(a1 + 96) = v33;
-    v33[2] = 779249014;
-    *v33 = *"logs.driver.";
-    v34 = v33 + 3;
+    v32 = operator new(v31);
+    *(a1 + 104) = v30;
+    *(a1 + 112) = v31 | 0x8000000000000000;
+    *(a1 + 96) = v32;
+    v32[2] = 779249014;
+    *v32 = *"logs.driver.";
+    v33 = v32 + 3;
   }
 
-  v35 = *a5;
-  if (v29 >= 0)
+  if (v28 >= 0)
   {
-    v36 = a5;
+    v34 = a5;
   }
 
   else
   {
-    v36 = *a5;
+    v34 = *a5;
   }
 
-  memmove(v34, v36, v30);
+  memmove(v33, v34, v29);
 LABEL_57:
-  *(v34 + v30) = 0;
+  *(v33 + v29) = 0;
   return a1;
 }
 
@@ -2859,8 +2853,7 @@ LABEL_12:
 void antenna::CommandDriver::registerHandler(uint64_t a1, __int128 *a2)
 {
   v2 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v3 = *(a1 + 96);
   *(a1 + 88) = v2;
   if (v3 && !atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))

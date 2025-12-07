@@ -2,10 +2,9 @@
 - (PKSqueezePaletteButtonFactory)init;
 - (PKSqueezePaletteObjectEraserButton)makeObjectEraserButton;
 - (PKSqueezePaletteRoundedButton)makeMoreButton;
-- (PKSqueezePaletteRoundedButton)makeRedoButtonIsLTR:(uint64_t)r;
-- (PKSqueezePaletteRoundedButton)makeUndoButtonIsLTR:(uint64_t)r;
+- (PKSqueezePaletteRoundedButton)makeRedoButtonIsLTR:(void *)r;
+- (PKSqueezePaletteRoundedButton)makeUndoButtonIsLTR:(void *)r;
 - (double)makeStrokeWeightButtonForTool:(double)tool withWeight:;
-- (id)_preferredButtonConfigurationWithSystemImageName:(uint64_t)name;
 - (id)_preferredButtonConfigurationWithSystemImageName:(void *)name baseBackgroundColor:;
 - (id)makeBackButton;
 - (id)makeColorSwatchButtonWithColor:(uint64_t)color;
@@ -16,8 +15,9 @@
 - (id)makeSignatureButton;
 - (id)makeStickersButton;
 - (id)makeTextBoxButton;
-- (id)sliderButtonConfigurationIsLTR:(uint64_t)r;
-- (id)undoButtonConfigurationIsLTR:(uint64_t)r;
+- (id)sliderButtonConfigurationIsLTR:(void *)r;
+- (id)undoButtonConfigurationIsLTR:(void *)r;
+- (void)_preferredButtonConfigurationWithSystemImageName:(void *)name;
 @end
 
 @implementation PKSqueezePaletteButtonFactory
@@ -62,7 +62,7 @@
   return v2;
 }
 
-- (id)sliderButtonConfigurationIsLTR:(uint64_t)r
+- (id)sliderButtonConfigurationIsLTR:(void *)r
 {
   if (r)
   {
@@ -79,7 +79,7 @@
   return v2;
 }
 
-- (id)undoButtonConfigurationIsLTR:(uint64_t)r
+- (id)undoButtonConfigurationIsLTR:(void *)r
 {
   if (a2)
   {
@@ -96,18 +96,18 @@
   return v3;
 }
 
-- (id)_preferredButtonConfigurationWithSystemImageName:(uint64_t)name
+- (void)_preferredButtonConfigurationWithSystemImageName:(void *)name
 {
   if (name)
   {
-    name = [(PKSqueezePaletteButtonFactory *)name _preferredButtonConfigurationWithSystemImageName:a2 baseBackgroundColor:*(name + 24)];
+    name = [(PKSqueezePaletteButtonFactory *)name _preferredButtonConfigurationWithSystemImageName:a2 baseBackgroundColor:name[3]];
     v2 = vars8;
   }
 
   return name;
 }
 
-- (PKSqueezePaletteRoundedButton)makeUndoButtonIsLTR:(uint64_t)r
+- (PKSqueezePaletteRoundedButton)makeUndoButtonIsLTR:(void *)r
 {
   if (r)
   {
@@ -126,7 +126,7 @@
   return v4;
 }
 
-- (PKSqueezePaletteRoundedButton)makeRedoButtonIsLTR:(uint64_t)r
+- (PKSqueezePaletteRoundedButton)makeRedoButtonIsLTR:(void *)r
 {
   if (r)
   {

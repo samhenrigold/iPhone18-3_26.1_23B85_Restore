@@ -19,7 +19,7 @@
   v4 = OBJC_IVAR____TtC5Music24NowPlayingBottomScrubber_trackingView;
   *(&self->super.super.super.super.isa + v4) = [objc_allocWithZone(UIView) init];
   v5 = OBJC_IVAR____TtC5Music24NowPlayingBottomScrubber_timeObserver;
-  type metadata accessor for PlaybackTimeObserver();
+  type metadata accessor for PlaybackTimeObserver(0);
   swift_allocObject();
   *(&self->super.super.super.super.isa + v5) = PlaybackTimeObserver.init(name:)(0xD000000000000016, 0x8000000100E572E0);
   result = _assertionFailure(_:_:file:line:flags:)();

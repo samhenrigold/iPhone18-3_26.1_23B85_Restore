@@ -77,28 +77,27 @@ void __56__MRProtobufSerialization_createDictionaryFromProtobuf___block_invoke(u
 - (id)createProtobufFromDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  protobufClass = self->_protobufClass;
-  v6 = objc_opt_new();
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __56__MRProtobufSerialization_createProtobufFromDictionary___block_invoke;
-  v13[3] = &unk_1E769CC00;
-  v13[4] = self;
-  v7 = dictionaryCopy;
+  v5 = objc_opt_new();
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __56__MRProtobufSerialization_createProtobufFromDictionary___block_invoke;
+  v12[3] = &unk_1E769CC00;
+  v12[4] = self;
+  v6 = dictionaryCopy;
+  v13 = v6;
+  v7 = v5;
   v14 = v7;
-  v8 = v6;
-  v15 = v8;
-  [v7 enumerateKeysAndObjectsUsingBlock:v13];
+  [v6 enumerateKeysAndObjectsUsingBlock:v12];
   dictionaryValueToProtobufPostTransformer = self->_dictionaryValueToProtobufPostTransformer;
   if (dictionaryValueToProtobufPostTransformer)
   {
-    dictionaryValueToProtobufPostTransformer[2](dictionaryValueToProtobufPostTransformer, v7, v8);
+    dictionaryValueToProtobufPostTransformer[2](dictionaryValueToProtobufPostTransformer, v6, v7);
   }
 
-  v10 = v15;
-  v11 = v8;
+  v9 = v14;
+  v10 = v7;
 
-  return v8;
+  return v7;
 }
 
 void __56__MRProtobufSerialization_createProtobufFromDictionary___block_invoke(uint64_t a1, void *a2, void *a3)

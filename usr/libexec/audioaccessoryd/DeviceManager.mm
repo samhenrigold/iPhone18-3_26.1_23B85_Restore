@@ -62,16 +62,18 @@
 - (void)dealloc
 {
   selfCopy = self;
-  static os_log_type_t.default.getter();
+  v3 = static os_log_type_t.default.getter();
   if (qword_1002F7AE0 != -1)
   {
+    v4 = v3;
     swift_once();
+    v3 = v4;
   }
 
-  os_log(_:dso:log:_:_:)();
-  v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for DeviceManager();
-  [(DeviceManager *)&v3 dealloc];
+  os_log(_:dso:log:_:_:)(v3, &_mh_execute_header, qword_100300E30, "DeviceManager deinit", 20, 2, _swiftEmptyArrayStorage);
+  v5.receiver = selfCopy;
+  v5.super_class = type metadata accessor for DeviceManager();
+  [(DeviceManager *)&v5 dealloc];
 }
 
 - (void)deactivate
@@ -155,34 +157,32 @@
 {
   v3 = type metadata accessor for URL();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_100110050(v7);
+  sub_100110050(v6);
 
-  URL._bridgeToObjectiveC()(v9);
-  v11 = v10;
-  (*(v4 + 8))(v7, v3);
+  URL._bridgeToObjectiveC()(v8);
+  v10 = v9;
+  (*(v4 + 8))(v6, v3);
 
-  return v11;
+  return v10;
 }
 
 - (void)addSoundProfileRecordWithURL:(id)l completion:(id)completion
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
   selfCopy = self;
-  sub_10011046C(v10, sub_1000F2C44, v12);
+  sub_10011046C(v9, sub_1000F2C44, v11);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (id)cloudAccountInfo
@@ -196,16 +196,16 @@
 - (id)printDebug
 {
   selfCopy = self;
-  sub_100103934();
-  sub_1001121F4();
+  v3 = sub_100103934();
+  sub_1001121F4(v3);
 
-  v3._countAndFlagsBits = 2570;
-  v3._object = 0xE200000000000000;
-  String.append(_:)(v3);
+  v4._countAndFlagsBits = 2570;
+  v4._object = 0xE200000000000000;
+  String.append(_:)(v4);
 
-  v4 = String._bridgeToObjectiveC()();
+  v5 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v5;
 }
 
 - (id)fetchAAProxCardsInfoSyncWithAddress:(id)address

@@ -924,31 +924,7 @@ uint64_t __68__TURoute_Predicate__predicateForInEarRouteInTipiWithCompanionWatch
 {
   recommendedCopy = recommended;
   isA2DPRoute = [(TURoute *)self isA2DPRoute];
-  if (isA2DPRoute != [recommendedCopy isA2DPRoute])
-  {
-    goto LABEL_12;
-  }
-
-  isAirTunes = [(TURoute *)self isAirTunes];
-  if (isAirTunes != [recommendedCopy isAirTunes])
-  {
-    goto LABEL_12;
-  }
-
-  isCarAudio = [(TURoute *)self isCarAudio];
-  if (isCarAudio != [recommendedCopy isCarAudio])
-  {
-    goto LABEL_12;
-  }
-
-  isCurrentlyPicked = [(TURoute *)self isCurrentlyPicked];
-  if (isCurrentlyPicked != [recommendedCopy isCurrentlyPicked])
-  {
-    goto LABEL_12;
-  }
-
-  isBluetooth = [(TURoute *)self isBluetooth];
-  if (isBluetooth == [recommendedCopy isBluetooth] && (v10 = -[TURoute bluetoothEndpointType](self, "bluetoothEndpointType"), v10 == objc_msgSend(recommendedCopy, "bluetoothEndpointType")) && (v11 = -[TURoute isBluetoothLE](self, "isBluetoothLE"), v11 == objc_msgSend(recommendedCopy, "isBluetoothLE")) && (v12 = -[TURoute isBluetoothManaged](self, "isBluetoothManaged"), v12 == objc_msgSend(recommendedCopy, "isBluetoothManaged")) && (v13 = -[TURoute isDefaultRoute](self, "isDefaultRoute"), v13 == objc_msgSend(recommendedCopy, "isDefaultRoute")) && (v14 = -[TURoute deviceType](self, "deviceType"), v14 == objc_msgSend(recommendedCopy, "deviceType")) && (v15 = -[TURoute isGuest](self, "isGuest"), v15 == objc_msgSend(recommendedCopy, "isGuest")))
+  if (isA2DPRoute == [recommendedCopy isA2DPRoute] && (v6 = -[TURoute isAirTunes](self, "isAirTunes"), v6 == objc_msgSend(recommendedCopy, "isAirTunes")) && (v7 = -[TURoute isCarAudio](self, "isCarAudio"), v7 == objc_msgSend(recommendedCopy, "isCarAudio")) && (v8 = -[TURoute isCurrentlyPicked](self, "isCurrentlyPicked"), v8 == objc_msgSend(recommendedCopy, "isCurrentlyPicked")) && (v9 = -[TURoute isBluetooth](self, "isBluetooth"), v9 == objc_msgSend(recommendedCopy, "isBluetooth")) && (v10 = -[TURoute bluetoothEndpointType](self, "bluetoothEndpointType"), v10 == objc_msgSend(recommendedCopy, "bluetoothEndpointType")) && (v11 = -[TURoute isBluetoothLE](self, "isBluetoothLE"), v11 == objc_msgSend(recommendedCopy, "isBluetoothLE")) && (v12 = -[TURoute isBluetoothManaged](self, "isBluetoothManaged"), v12 == objc_msgSend(recommendedCopy, "isBluetoothManaged")) && (v13 = -[TURoute isDefaultRoute](self, "isDefaultRoute"), v13 == objc_msgSend(recommendedCopy, "isDefaultRoute")) && (v14 = -[TURoute deviceType](self, "deviceType"), v14 == objc_msgSend(recommendedCopy, "deviceType")) && (v15 = -[TURoute isGuest](self, "isGuest"), v15 == objc_msgSend(recommendedCopy, "isGuest")))
   {
     identifiersOfOtherConnectedDevices = [(TURoute *)self identifiersOfOtherConnectedDevices];
     identifiersOfOtherConnectedDevices2 = [recommendedCopy identifiersOfOtherConnectedDevices];
@@ -986,7 +962,6 @@ uint64_t __68__TURoute_Predicate__predicateForInEarRouteInTipiWithCompanionWatch
 
   else
   {
-LABEL_12:
     LOBYTE(v16) = 0;
   }
 

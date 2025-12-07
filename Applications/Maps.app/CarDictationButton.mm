@@ -7,20 +7,20 @@
 
 - (void)setKeyboardDisabled:(BOOL)disabled
 {
-  configuration = [(UIButton *)self->_siriButton configuration];
+  v7 = objc_msgSend_configuration(self->_siriButton, a2);
   if (disabled)
   {
     v5 = +[NSBundle mainBundle];
     v6 = [v5 localizedStringForKey:@"CarPlay_UserInputCell" value:@"localized string not found" table:0];
-    [configuration setTitle:v6];
+    [v7 setTitle:v6];
   }
 
   else
   {
-    [configuration setTitle:0];
+    [v7 setTitle:0];
   }
 
-  [(UIButton *)self->_siriButton setConfiguration:configuration];
+  [(UIButton *)self->_siriButton setConfiguration:v7];
 }
 
 - (CarDictationButton)initWithFrame:(CGRect)frame

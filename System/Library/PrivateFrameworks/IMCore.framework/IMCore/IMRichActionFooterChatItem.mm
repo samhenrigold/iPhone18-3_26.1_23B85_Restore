@@ -8,29 +8,29 @@
 - (id)_initWithItem:(id)item
 {
   itemCopy = item;
-  v17.receiver = self;
-  v17.super_class = IMRichActionFooterChatItem;
-  v7 = [(IMChatItem *)&v17 _initWithItem:itemCopy];
-  if (v7)
+  v11.receiver = self;
+  v11.super_class = IMRichActionFooterChatItem;
+  v5 = [(IMChatItem *)&v11 _initWithItem:itemCopy];
+  if (v5)
   {
-    v8 = objc_msgSend_guid(itemCopy, v5, v6);
-    v10 = objc_msgSend_stringByAppendingString_(v8, v9, @"IMRichActionFooter");
-    objc_msgSend__setGUID_(v7, v11, v10);
+    guid = [itemCopy guid];
+    v7 = [guid stringByAppendingString:@"IMRichActionFooter"];
+    [v5 _setGUID:v7];
 
-    v14 = objc_msgSend__senderHandle(itemCopy, v12, v13);
-    v15 = v7[7];
-    v7[7] = v14;
+    _senderHandle = [itemCopy _senderHandle];
+    v9 = v5[7];
+    v5[7] = _senderHandle;
   }
 
-  return v7;
+  return v5;
 }
 
 - (BOOL)isFromMe
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_isFromMe(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  isFromMe = [_item isFromMe];
 
-  return v6;
+  return isFromMe;
 }
 
 @end

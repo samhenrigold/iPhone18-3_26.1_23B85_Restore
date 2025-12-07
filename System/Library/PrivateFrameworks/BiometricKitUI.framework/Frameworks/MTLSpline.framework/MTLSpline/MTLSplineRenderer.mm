@@ -163,7 +163,7 @@
 
 - (void)renderWithCommandBuffer:(id)buffer
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   WeakRetained = objc_loadWeakRetained(&self->_view);
   currentRenderPassDescriptor = [WeakRetained currentRenderPassDescriptor];
@@ -194,31 +194,31 @@
     [computeCommandEncoder setLabel:@"Compute Command Encoder"];
     [computeCommandEncoder pushDebugGroup:@"Compute Command Encoder"];
     [computeCommandEncoder setComputePipelineState:self->_computeTessellationFactorsPipeline];
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     dataCollection = [(MTLSplineRenderer *)self dataCollection];
-    v26 = [dataCollection countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v26 = [dataCollection countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v42;
+      v28 = *v41;
       do
       {
         v29 = 0;
         do
         {
-          if (*v42 != v28)
+          if (*v41 != v28)
           {
             objc_enumerationMutation(dataCollection);
           }
 
-          [(MTLSplineRenderer *)self computeTessellationFactors:computeCommandEncoder data:*(*(&v41 + 1) + 8 * v29++)];
+          [(MTLSplineRenderer *)self computeTessellationFactors:computeCommandEncoder data:*(*(&v40 + 1) + 8 * v29++)];
         }
 
         while (v27 != v29);
-        v27 = [dataCollection countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v27 = [dataCollection countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v27);
@@ -231,31 +231,31 @@
     [v30 pushDebugGroup:@"Render Command Encoder"];
     [v30 setTriangleFillMode:self->_triangleFillMode];
     [v30 setRenderPipelineState:self->_renderPostTessellationPipelineState];
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     dataCollection2 = [(MTLSplineRenderer *)self dataCollection];
-    v32 = [dataCollection2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v32 = [dataCollection2 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v38;
+      v34 = *v37;
       do
       {
         v35 = 0;
         do
         {
-          if (*v38 != v34)
+          if (*v37 != v34)
           {
             objc_enumerationMutation(dataCollection2);
           }
 
-          [(MTLSplineRenderer *)self renderPostTessellation:v30 data:*(*(&v37 + 1) + 8 * v35++)];
+          [(MTLSplineRenderer *)self renderPostTessellation:v30 data:*(*(&v36 + 1) + 8 * v35++)];
         }
 
         while (v33 != v35);
-        v33 = [dataCollection2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v33 = [dataCollection2 countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
       while (v33);
@@ -264,13 +264,11 @@
     [v30 popDebugGroup];
     [v30 endEncoding];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)renderToTextureWithCommandBuffer:(id)buffer texture:(id)texture
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   textureCopy = texture;
   WeakRetained = objc_loadWeakRetained(&self->_view);
@@ -306,31 +304,31 @@
     [computeCommandEncoder setLabel:@"Compute Command Encoder"];
     [computeCommandEncoder pushDebugGroup:@"Compute Command Encoder"];
     [computeCommandEncoder setComputePipelineState:self->_computeTessellationFactorsPipeline];
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     dataCollection = [(MTLSplineRenderer *)self dataCollection];
-    v31 = [dataCollection countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v31 = [dataCollection countByEnumeratingWithState:&v45 objects:v50 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v47;
+      v33 = *v46;
       do
       {
         v34 = 0;
         do
         {
-          if (*v47 != v33)
+          if (*v46 != v33)
           {
             objc_enumerationMutation(dataCollection);
           }
 
-          [(MTLSplineRenderer *)self computeTessellationFactors:computeCommandEncoder data:*(*(&v46 + 1) + 8 * v34++)];
+          [(MTLSplineRenderer *)self computeTessellationFactors:computeCommandEncoder data:*(*(&v45 + 1) + 8 * v34++)];
         }
 
         while (v32 != v34);
-        v32 = [dataCollection countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v32 = [dataCollection countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
       while (v32);
@@ -343,31 +341,31 @@
     [v35 pushDebugGroup:@"Render Command Encoder"];
     [v35 setTriangleFillMode:self->_triangleFillMode];
     [v35 setRenderPipelineState:self->_renderPostTessellationPipelineState];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     dataCollection2 = [(MTLSplineRenderer *)self dataCollection];
-    v37 = [dataCollection2 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v37 = [dataCollection2 countByEnumeratingWithState:&v41 objects:v49 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v43;
+      v39 = *v42;
       do
       {
         v40 = 0;
         do
         {
-          if (*v43 != v39)
+          if (*v42 != v39)
           {
             objc_enumerationMutation(dataCollection2);
           }
 
-          [(MTLSplineRenderer *)self renderPostTessellation:v35 data:*(*(&v42 + 1) + 8 * v40++)];
+          [(MTLSplineRenderer *)self renderPostTessellation:v35 data:*(*(&v41 + 1) + 8 * v40++)];
         }
 
         while (v38 != v40);
-        v38 = [dataCollection2 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v38 = [dataCollection2 countByEnumeratingWithState:&v41 objects:v49 count:16];
       }
 
       while (v38);
@@ -376,8 +374,6 @@
     [v35 popDebugGroup];
     [v35 endEncoding];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)computeTessellationFactors:(id)factors data:(id)data

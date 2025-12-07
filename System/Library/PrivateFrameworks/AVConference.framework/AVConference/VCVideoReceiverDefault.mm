@@ -537,7 +537,7 @@ LABEL_35:
 
 - (void)dealloc
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -547,11 +547,11 @@ LABEL_35:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v20 = v4;
-        v21 = 2080;
-        v22 = "[VCVideoReceiverDefault dealloc]";
-        v23 = 1024;
-        v24 = 359;
+        v21 = v4;
+        v22 = 2080;
+        v23 = "[VCVideoReceiverDefault dealloc]";
+        v24 = 1024;
+        v25 = 359;
         v6 = " [%s] %s:%d dealloc called";
         v7 = v5;
         v8 = 28;
@@ -580,14 +580,14 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        v20 = v9;
-        v21 = 2080;
-        v22 = "[VCVideoReceiverDefault dealloc]";
-        v23 = 1024;
-        v24 = 359;
-        v25 = 2112;
-        v26 = v3;
-        v27 = 2048;
+        v21 = v9;
+        v22 = 2080;
+        v23 = "[VCVideoReceiverDefault dealloc]";
+        v24 = 1024;
+        v25 = 359;
+        v26 = 2112;
+        v27 = v3;
+        v28 = 2048;
         selfCopy = self;
         v6 = " [%s] %s:%d %@(%p) dealloc called";
         v7 = v10;
@@ -598,9 +598,10 @@ LABEL_11:
   }
 
   [(VCVideoReceiverDefault *)self cleanUpDisplayLink];
-  if (self->_videoReceiverHandle != 0xFFFFFFFFLL)
+  videoReceiverHandle = self->_videoReceiverHandle;
+  if (videoReceiverHandle != 0xFFFFFFFFLL)
   {
-    VideoReceiver_CloseHandle();
+    VideoReceiver_CloseHandle(videoReceiverHandle);
     self->_videoReceiverHandle = 0xFFFFFFFFLL;
   }
 
@@ -627,14 +628,14 @@ LABEL_11:
 
   if (p_videoReceiverConfig->streamCount)
   {
-    v15 = 0;
+    v16 = 0;
     p_sframeCryptor = &self->_videoReceiverConfig.streamConfigs[0].sframeCryptor;
     do
     {
-      v17 = *(p_sframeCryptor - 2);
-      if (v17)
+      v18 = *(p_sframeCryptor - 2);
+      if (v18)
       {
-        CFRelease(v17);
+        CFRelease(v18);
       }
 
       if (*p_sframeCryptor)
@@ -642,17 +643,17 @@ LABEL_11:
         CFRelease(*p_sframeCryptor);
       }
 
-      ++v15;
+      ++v16;
       p_sframeCryptor += 16;
     }
 
-    while (v15 < p_videoReceiverConfig->streamCount);
+    while (v16 < p_videoReceiverConfig->streamCount);
   }
 
   [(VCVideoHardwareDumpCollector *)self->_validationContext invalidate];
-  v18.receiver = self;
-  v18.super_class = VCVideoReceiverDefault;
-  [(VCVideoReceiverBase *)&v18 dealloc];
+  v19.receiver = self;
+  v19.super_class = VCVideoReceiverDefault;
+  [(VCVideoReceiverBase *)&v19 dealloc];
 }
 
 - (BOOL)initializeDisplayLink
@@ -707,7 +708,7 @@ uint64_t __47__VCVideoReceiverDefault_initializeDisplayLink__block_invoke(uint64
   result = *(*(a1 + 32) + 112);
   if (result != 0xFFFFFFFFLL)
   {
-    return VideoReceiver_DisplayLinkTick(a2[1], *a2, a2[2]);
+    return VideoReceiver_DisplayLinkTick(result, a2[1], *a2, a2[2]);
   }
 
   return result;
@@ -841,9 +842,10 @@ uint64_t __47__VCVideoReceiverDefault_initializeDisplayLink__block_invoke(uint64
   [(VCVideoReceiverDefault *)self cleanUpDisplayLink];
   [(VCVideoStreamRateAdaptationFeedbackOnly *)self->_rateAdaptation setEnableRateAdaptation:0 maxBitrate:0 minBitrate:0 adaptationInterval:0.0];
   [(VCCannedVideoPacketSource *)self->_cannedPacketSource stopCannedInjection];
-  if (self->_videoReceiverHandle != 0xFFFFFFFFLL)
+  videoReceiverHandle = self->_videoReceiverHandle;
+  if (videoReceiverHandle != 0xFFFFFFFFLL)
   {
-    VideoReceiver_CloseHandle();
+    VideoReceiver_CloseHandle(videoReceiverHandle);
     self->_videoReceiverHandle = 0xFFFFFFFFLL;
   }
 }
@@ -883,14 +885,15 @@ uint64_t __47__VCVideoReceiverDefault_initializeDisplayLink__block_invoke(uint64
 
 - (unsigned)lastDisplayedFrameRTPTimestamp
 {
-  if (self->_videoReceiverHandle == 0xFFFFFFFFLL)
+  videoReceiverHandle = self->_videoReceiverHandle;
+  if (videoReceiverHandle == 0xFFFFFFFFLL)
   {
     return 0;
   }
 
   else
   {
-    return VideoReceiver_GetShowFrameRTPTimestamp();
+    return VideoReceiver_GetShowFrameRTPTimestamp(videoReceiverHandle);
   }
 }
 
@@ -899,7 +902,7 @@ uint64_t __47__VCVideoReceiverDefault_initializeDisplayLink__block_invoke(uint64
   v4 = *&type;
   dCopy = d;
   v40 = *MEMORY[0x1E69E9840];
-  v7 = micro();
+  v7 = micro(self, a2);
   if (!self->_videoReceiverConfig.mode || self->_lastKeyFrameRequestStreamID != dCopy || ((lastKeyFrameRequestTime = self->_lastKeyFrameRequestTime, lastKeyFrameRequestTime != 0.0) ? (v9 = v7 - lastKeyFrameRequestTime < 0.5) : (v9 = 0), !v9))
   {
     if (objc_opt_class() == self)
@@ -1077,7 +1080,7 @@ LABEL_30:
   metrics->var4.width = 0.0;
   metrics->var4.height = 0.0;
   metrics->var3 = 0.0;
-  VideoReceiver_GetMediaChannelMetrics(interval, self->_videoReceiverHandle, metrics);
+  VideoReceiver_GetMediaChannelMetrics(self->_videoReceiverHandle, metrics, interval);
 }
 
 - (void)updateSourcePlayoutTime:(const tagVCMediaTime *)time
@@ -1140,7 +1143,7 @@ LABEL_30:
 
   else
   {
-    VideoReceiver_GetFramerate(5.0, videoReceiverHandle, &self->_videoReceiverRxFrameRate);
+    VideoReceiver_GetFramerate(videoReceiverHandle, &self->_videoReceiverRxFrameRate, 5.0);
   }
 
   return self->_videoReceiverRxFrameRate;
@@ -1237,7 +1240,7 @@ LABEL_30:
   }
 
   [(VCVideoReceiverDefault *)v14 setUpOneToOneReceiveSettings];
-  Handle = VideoReceiver_CreateHandle(&v14->_videoReceiverHandle, config, agent, 0, collector);
+  Handle = VideoReceiver_CreateHandle(&v14->_videoReceiverHandle, config, agent, 0, collector, config->reportingParentID);
   if (objc_opt_class() == v14)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)

@@ -32,7 +32,7 @@
     {
       elementCount = [v21 elementCount];
       v24 = [VNTorsoprint alloc];
-      [(VNEspressoprintUpgradeDetector *)self highResolutionNewEspressoprint];
+      objc_msgSend_highResolutionNewEspressoprint(self);
       [v22 confidence];
       v26 = v25;
       requestRevision = [v22 requestRevision];
@@ -41,7 +41,7 @@
       if (v29)
       {
         v30 = MEMORY[0x1E696AD98];
-        [(VNEspressoprintUpgradeDetector *)self highResolutionNewEspressoprintSigma];
+        objc_msgSend_highResolutionNewEspressoprintSigma(self);
         LODWORD(v31) = *v35;
         v32 = [v30 numberWithFloat:v31];
         v37[0] = v29;

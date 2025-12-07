@@ -119,14 +119,12 @@
   has = self->_has;
   if ((has & 8) != 0)
   {
-    corporateSharingEnabled = self->_corporateSharingEnabled;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    lastWebActivityUTCMills = self->_lastWebActivityUTCMills;
     PBDataWriterWriteInt64Field();
   }
 
@@ -135,17 +133,15 @@
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 4) != 0)
+  v5 = self->_has;
+  if ((v5 & 4) != 0)
   {
-    photosWebAccessTimestamp = self->_photosWebAccessTimestamp;
     PBDataWriterWriteInt64Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if (v7)
+  if (v5)
   {
-    accountFlags = self->_accountFlags;
     PBDataWriterWriteUint64Field();
   }
 }
@@ -249,7 +245,6 @@
       goto LABEL_27;
     }
 
-    v10 = *(equalCopy + 40);
     if (self->_corporateSharingEnabled)
     {
       if ((equalCopy[5] & 1) == 0)
@@ -283,10 +278,10 @@
   }
 
   countryCode = self->_countryCode;
-  v12 = equalCopy[4];
-  if (countryCode | v12)
+  v11 = equalCopy[4];
+  if (countryCode | v11)
   {
-    if (objc_msgSend_isEqual_(countryCode, v7, v12))
+    if (objc_msgSend_isEqual_(countryCode, v7, v11))
     {
       has = self->_has;
       v9 = *(equalCopy + 44);
@@ -294,7 +289,7 @@
     }
 
 LABEL_27:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_28;
   }
 
@@ -312,7 +307,7 @@ LABEL_16:
     goto LABEL_27;
   }
 
-  v13 = (v9 & 1) == 0;
+  v12 = (v9 & 1) == 0;
   if (has)
   {
     if ((v9 & 1) == 0 || self->_accountFlags != equalCopy[1])
@@ -320,12 +315,12 @@ LABEL_16:
       goto LABEL_27;
     }
 
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_28:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

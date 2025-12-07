@@ -53,7 +53,7 @@
   return +[TSWPParagraphStyle properties]::s_properties;
 }
 
-id __32__TSWPParagraphStyle_properties__block_invoke()
+id __32__TSWPParagraphStyle_properties__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_opt_class() "paragraphProperties")];
   +[TSWPParagraphStyle properties]::s_properties = result;
@@ -131,7 +131,7 @@ id __52__TSWPParagraphStyle_nonEmphasisParagraphProperties__block_invoke(uint64_
   return +[TSWPParagraphStyle propertiesAllowingNSNull]::s_nullProperties;
 }
 
-id __46__TSWPParagraphStyle_propertiesAllowingNSNull__block_invoke()
+id __46__TSWPParagraphStyle_propertiesAllowingNSNull__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_opt_class() "paragraphPropertiesAllowingNSNull")];
   +[TSWPParagraphStyle propertiesAllowingNSNull]::s_nullProperties = result;

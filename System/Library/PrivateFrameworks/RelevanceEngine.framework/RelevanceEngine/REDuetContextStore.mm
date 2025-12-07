@@ -13,7 +13,7 @@
   v10.receiver = self;
   v10.super_class = REDuetContextStore;
   _init = [(RESingleton *)&v10 _init];
-  if (_init && CoreDuetContextLibraryCore())
+  if (_init && CoreDuetContextLibraryCore(0))
   {
     v12 = 0;
     v13 = &v12;
@@ -47,37 +47,35 @@
 
 - (id)isConnectedToCarQuery
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  if (CoreDuetContextLibraryCore())
+  v17[2] = *MEMORY[0x277D85DE8];
+  if (CoreDuetContextLibraryCore(0))
   {
     keyPathForCarConnectedStatus = [get_CDContextQueriesClass() keyPathForCarConnectedStatus];
     keyPathForCarplayConnectedStatus = [get_CDContextQueriesClass() keyPathForCarplayConnectedStatus];
     v4 = [get_CDContextualPredicateClass() predicateForChangeAtKeyPath:keyPathForCarConnectedStatus];
     v5 = [get_CDContextualPredicateClass() predicateForChangeAtKeyPath:keyPathForCarplayConnectedStatus];
-    v18[0] = v4;
-    v18[1] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = v4;
+    v17[1] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v7 = [get_CDContextualPredicateClass() orPredicateWithSubpredicates:v6];
 
     predicateForIsConnectedToCar = [get_CDMDCSContextualPredicateClass() predicateForIsConnectedToCar];
     v9 = [REDuetContextQuery alloc];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __43__REDuetContextStore_isConnectedToCarQuery__block_invoke;
-    v15[3] = &unk_2785FACE8;
-    v16 = keyPathForCarConnectedStatus;
-    v17 = keyPathForCarplayConnectedStatus;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __43__REDuetContextStore_isConnectedToCarQuery__block_invoke;
+    v14[3] = &unk_2785FACE8;
+    v15 = keyPathForCarConnectedStatus;
+    v16 = keyPathForCarplayConnectedStatus;
     v10 = keyPathForCarplayConnectedStatus;
     v11 = keyPathForCarConnectedStatus;
-    v12 = [(REDuetContextQuery *)v9 initWithPredicate:v7 remotePredicate:predicateForIsConnectedToCar name:@"connectedToCar" evaluationBlock:v15];
+    v12 = [(REDuetContextQuery *)v9 initWithPredicate:v7 remotePredicate:predicateForIsConnectedToCar name:@"connectedToCar" evaluationBlock:v14];
   }
 
   else
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -105,8 +103,8 @@ uint64_t __43__REDuetContextStore_isConnectedToCarQuery__block_invoke(uint64_t a
 
 - (id)isConnectedToAudioBluetoothDeviceQuery
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  if (CoreDuetContextLibraryCore())
+  v16[2] = *MEMORY[0x277D85DE8];
+  if (CoreDuetContextLibraryCore(0))
   {
     keyPathForBluetoothDataDictionary = [get_CDContextQueriesClass() keyPathForBluetoothDataDictionary];
     bluetoothDeviceTypeKey = [get_CDContextQueriesClass() bluetoothDeviceTypeKey];
@@ -114,14 +112,14 @@ uint64_t __43__REDuetContextStore_isConnectedToCarQuery__block_invoke(uint64_t a
     v5 = [get_CDContextualPredicateClass() predicateForKeyPath:keyPathForBluetoothDataDictionary withPredicate:v4];
     v6 = [get_CDContextQueriesClass() predicateForBluetoothConnectionStatus:1];
     v7 = [get_CDContextQueriesClass() predicateForBluetoothConnectionStatus:0];
-    v17[0] = v6;
-    v17[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = v6;
+    v16[1] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v9 = [get_CDContextualPredicateClass() orPredicateWithSubpredicates:v8];
 
-    v16[0] = v5;
-    v16[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[0] = v5;
+    v15[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v11 = [get_CDContextualPredicateClass() andPredicateWithSubpredicates:v10];
 
     predicateForIsConnectedToAudioBluetoothDevice = [get_CDMDCSContextualPredicateClass() predicateForIsConnectedToAudioBluetoothDevice];
@@ -132,8 +130,6 @@ uint64_t __43__REDuetContextStore_isConnectedToCarQuery__block_invoke(uint64_t a
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

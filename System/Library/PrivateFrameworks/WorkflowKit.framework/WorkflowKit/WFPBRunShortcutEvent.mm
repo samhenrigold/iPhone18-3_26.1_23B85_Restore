@@ -381,7 +381,6 @@ LABEL_15:
     }
   }
 
-  v8 = *(equalCopy + 84);
   if (*&self->_has)
   {
     if ((*(equalCopy + 84) & 1) == 0 || self->_actionCount != *(equalCopy + 2))
@@ -402,7 +401,6 @@ LABEL_15:
       goto LABEL_58;
     }
 
-    v12 = *(equalCopy + 80);
     if (self->_completed)
     {
       if ((*(equalCopy + 80) & 1) == 0)
@@ -429,7 +427,6 @@ LABEL_15:
       goto LABEL_58;
     }
 
-    v13 = *(equalCopy + 82);
     if (self->_didRunRemotely)
     {
       if ((*(equalCopy + 82) & 1) == 0)
@@ -464,7 +461,6 @@ LABEL_15:
     }
   }
 
-  v11 = *(equalCopy + 84);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 84) & 2) == 0 || self->_numberOfDialogsPresented != *(equalCopy + 12))
@@ -485,7 +481,6 @@ LABEL_15:
       goto LABEL_58;
     }
 
-    v17 = *(equalCopy + 81);
     if (self->_didPresentShareSheet)
     {
       if ((*(equalCopy + 81) & 1) == 0)
@@ -513,7 +508,7 @@ LABEL_15:
     }
 
 LABEL_58:
-    v16 = 0;
+    v12 = 0;
     goto LABEL_59;
   }
 
@@ -522,7 +517,6 @@ LABEL_58:
     goto LABEL_58;
   }
 
-  v18 = *(equalCopy + 83);
   if (!self->_isFromAutomationSuggestion)
   {
     if ((*(equalCopy + 83) & 1) == 0)
@@ -548,17 +542,17 @@ LABEL_42:
   scriptingRunBundleIdentifier = self->_scriptingRunBundleIdentifier;
   if (scriptingRunBundleIdentifier | *(equalCopy + 8))
   {
-    v16 = [(NSString *)scriptingRunBundleIdentifier isEqual:?];
+    v12 = [(NSString *)scriptingRunBundleIdentifier isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v12 = 1;
   }
 
 LABEL_59:
 
-  return v16;
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -780,31 +774,30 @@ LABEL_19:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v13 = toCopy;
+  v7 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_runSource)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_automationType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   has = self->_has;
   if (has)
   {
-    actionCount = self->_actionCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v13;
+    toCopy = v7;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -823,41 +816,38 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  completed = self->_completed;
   PBDataWriterWriteBOOLField();
-  toCopy = v13;
+  toCopy = v7;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_10:
-    didRunRemotely = self->_didRunRemotely;
     PBDataWriterWriteBOOLField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
 LABEL_11:
   if (self->_shortcutSource)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_galleryIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 2) != 0)
+  v6 = self->_has;
+  if ((v6 & 2) != 0)
   {
-    numberOfDialogsPresented = self->_numberOfDialogsPresented;
     PBDataWriterWriteUint32Field();
-    toCopy = v13;
-    v7 = self->_has;
-    if ((v7 & 8) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 8) == 0)
     {
 LABEL_17:
-      if ((v7 & 0x20) == 0)
+      if ((v6 & 0x20) == 0)
       {
         goto LABEL_19;
       }
@@ -871,28 +861,26 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  didPresentShareSheet = self->_didPresentShareSheet;
   PBDataWriterWriteBOOLField();
-  toCopy = v13;
+  toCopy = v7;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_18:
-    isFromAutomationSuggestion = self->_isFromAutomationSuggestion;
     PBDataWriterWriteBOOLField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
 LABEL_19:
   if (self->_automationSuggestionsTrialIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_scriptingRunBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v7;
   }
 }
 

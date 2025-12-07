@@ -11,12 +11,13 @@
   v7 = OBJC_IVAR___FAXPCEventObserver_handlers;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  *(&self->super.isa + v7) = sub_1000243D0(_swiftEmptyArrayStorage);
+  v8 = sub_1000243D0(_swiftEmptyArrayStorage);
+  *(&self->super.isa + v7) = v8;
   *(&self->super.isa + OBJC_IVAR___FAXPCEventObserver_delegate) = delegate;
   *(&self->super.isa + OBJC_IVAR___FAXPCEventObserver_stream) = stream;
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for XPCEventObserver();
-  return [(FAXPCEventObserver *)&v9 init];
+  v11.receiver = self;
+  v11.super_class = type metadata accessor for XPCEventObserver(v8, v9);
+  return [(FAXPCEventObserver *)&v11 init];
 }
 
 - (void)start

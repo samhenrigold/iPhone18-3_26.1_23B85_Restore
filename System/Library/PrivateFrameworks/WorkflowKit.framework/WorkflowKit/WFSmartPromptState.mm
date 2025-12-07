@@ -24,31 +24,29 @@
 - (id)siriActionToolDescription
 {
   v3 = MEMORY[0x1E696AEC0];
-  v11.receiver = self;
-  v11.super_class = WFSmartPromptState;
-  v4 = [(WFSmartPromptState *)&v11 description];
+  v10.receiver = self;
+  v10.super_class = WFSmartPromptState;
+  v4 = [(WFSmartPromptState *)&v10 description];
   mode = self->_mode;
   v6 = [(WFContentAttribution *)self->_sourceContentAttribution description];
   v7 = [(WFContentLocation *)self->_contentDestination description];
-  actionUUID = self->_actionUUID;
-  v9 = [v3 stringWithFormat:@"%@ {\n      - Mode: %@\n      - Source: %@\n      - Destination: %@\n      - Action UUID: %@\n      - Status: %@\n}\n\n", v4, mode, v6, v7, actionUUID, self->_status];
+  v8 = [v3 stringWithFormat:@"%@ {\n      - Mode: %@\n      - Source: %@\n      - Destination: %@\n      - Action UUID: %@\n      - Status: %@\n}\n\n", v4, mode, v6, v7, self->_actionUUID, self->_status];
 
-  return v9;
+  return v8;
 }
 
 - (NSString)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v11.receiver = self;
-  v11.super_class = WFSmartPromptState;
-  v4 = [(WFSmartPromptState *)&v11 description];
+  v10.receiver = self;
+  v10.super_class = WFSmartPromptState;
+  v4 = [(WFSmartPromptState *)&v10 description];
   mode = self->_mode;
   v6 = [(WFContentAttribution *)self->_sourceContentAttribution description];
   v7 = [(WFContentLocation *)self->_contentDestination description];
-  actionUUID = self->_actionUUID;
-  v9 = [v3 stringWithFormat:@"%@: mode: %@, source: %@, destination: %@, actionUUID: %@, status: %@", v4, mode, v6, v7, actionUUID, self->_status];
+  v8 = [v3 stringWithFormat:@"%@: mode: %@, source: %@, destination: %@, actionUUID: %@, status: %@", v4, mode, v6, v7, self->_actionUUID, self->_status];
 
-  return v9;
+  return v8;
 }
 
 - (WFSmartPromptState)initWithCoder:(id)coder
@@ -105,11 +103,11 @@
   matchesCopy = matches;
   actionUUID = [(WFSmartPromptState *)self actionUUID];
   actionUUID2 = [matchesCopy actionUUID];
-  if ([actionUUID isEqualToString:actionUUID2])
+  if (objc_msgSend_isEqualToString_(actionUUID))
   {
     mode = [(WFSmartPromptState *)self mode];
     mode2 = [matchesCopy mode];
-    if ([mode isEqualToString:mode2])
+    if (objc_msgSend_isEqualToString_(mode))
     {
       contentDestination = [(WFSmartPromptState *)self contentDestination];
       contentDestination2 = [matchesCopy contentDestination];
@@ -166,22 +164,22 @@ LABEL_12:
 
 - (id)wfSerializedRepresentation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   contentDestination = [(WFSmartPromptState *)self contentDestination];
   wfSerializedRepresentation = [contentDestination wfSerializedRepresentation];
 
   if (wfSerializedRepresentation)
   {
     v5 = MEMORY[0x1E695DF90];
-    v18[0] = wfSerializedRepresentation;
+    v17[0] = wfSerializedRepresentation;
     v6 = [(WFSmartPromptState *)self status:@"ContentDestination"];
-    v18[1] = v6;
-    v17[2] = @"Mode";
+    v17[1] = v6;
+    v16[2] = @"Mode";
     mode = [(WFSmartPromptState *)self mode];
-    v17[3] = @"DataType";
-    v18[2] = mode;
-    v18[3] = @"SmartPrompt";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+    v16[3] = @"DataType";
+    v17[2] = mode;
+    v17[3] = @"SmartPrompt";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
     v9 = [v5 dictionaryWithDictionary:v8];
 
     sourceContentAttribution = [(WFSmartPromptState *)self sourceContentAttribution];
@@ -208,23 +206,21 @@ LABEL_12:
     {
       v14 = [(WFSmartPromptState *)self description];
       *buf = 136315394;
-      v20 = "[WFSmartPromptState wfSerializedRepresentation]";
-      v21 = 2114;
-      v22 = v14;
+      v19 = "[WFSmartPromptState wfSerializedRepresentation]";
+      v20 = 2114;
+      v21 = v14;
       _os_log_impl(&dword_1CA256000, wfSerializedRepresentation2, OS_LOG_TYPE_FAULT, "%s Couldn't serialize WFSmartPromptState because contentDestination was nil, self: %{public}@", buf, 0x16u);
     }
 
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)localizedExfiltrationRestrictedError
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = WFLocalizedPluralString(@"This action is trying to share %lu %@ items, which is not allowed.");
   sourceContentAttribution = [(WFSmartPromptState *)self sourceContentAttribution];
@@ -236,16 +232,14 @@ LABEL_12:
 
   v11 = MEMORY[0x1E696ABC0];
   v12 = *MEMORY[0x1E696A588];
-  v20[0] = v10;
+  v19[0] = v10;
   v13 = *MEMORY[0x1E696A578];
-  v19[0] = v12;
-  v19[1] = v13;
+  v18[0] = v12;
+  v18[1] = v13;
   v14 = WFLocalizedString(@"You can allow this in Settings.");
-  v20[1] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[1] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v16 = [v11 errorWithDomain:@"WFSmartPromptErrorDomain" code:1 userInfo:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -316,11 +310,11 @@ LABEL_12:
 
 + (id)objectWithWFSerializedRepresentation:(id)representation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy objectForKey:@"DataType"];
   v6 = v5;
-  if (v5 && ![v5 isEqualToString:@"SmartPrompt"])
+  if (v5 && !objc_msgSend_isEqualToString_(v5))
   {
     v17 = 0;
     goto LABEL_23;
@@ -332,9 +326,9 @@ LABEL_12:
     v10 = getWFWorkflowExecutionLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315138;
-      v22 = "+[WFSmartPromptState objectWithWFSerializedRepresentation:]";
-      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Failed to deserialize smart prompt action UUID, returning nil", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "+[WFSmartPromptState objectWithWFSerializedRepresentation:]";
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Failed to deserialize smart prompt action UUID, returning nil", &v20, 0xCu);
     }
 
     v17 = 0;
@@ -378,9 +372,9 @@ LABEL_12:
           v12 = getWFWorkflowExecutionLogObject();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            v21 = 136315138;
-            v22 = "+[WFSmartPromptState objectWithWFSerializedRepresentation:]";
-            _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Failed to deserialize smart prompt mode, returning nil", &v21, 0xCu);
+            v20 = 136315138;
+            v21 = "+[WFSmartPromptState objectWithWFSerializedRepresentation:]";
+            _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Failed to deserialize smart prompt mode, returning nil", &v20, 0xCu);
           }
 
           v17 = 0;
@@ -393,11 +387,11 @@ LABEL_12:
     v11 = getWFWorkflowExecutionLogObject();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315138;
-      v22 = "+[WFSmartPromptState objectWithWFSerializedRepresentation:]";
+      v20 = 136315138;
+      v21 = "+[WFSmartPromptState objectWithWFSerializedRepresentation:]";
       v18 = "%s Failed to deserialize smart prompt status, returning nil";
 LABEL_19:
-      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, v18, &v21, 0xCu);
+      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, v18, &v20, 0xCu);
     }
   }
 
@@ -406,8 +400,8 @@ LABEL_19:
     v11 = getWFWorkflowExecutionLogObject();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315138;
-      v22 = "+[WFSmartPromptState objectWithWFSerializedRepresentation:]";
+      v20 = 136315138;
+      v21 = "+[WFSmartPromptState objectWithWFSerializedRepresentation:]";
       v18 = "%s Failed to deserialize smart prompt content destination, returning nil";
       goto LABEL_19;
     }
@@ -419,48 +413,42 @@ LABEL_21:
 LABEL_22:
 LABEL_23:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 + (id)localizedUnlockedDeviceRequiredError
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = WFLocalizedString(@"This shortcut requires privacy permissions that cannot be granted while your device is locked.");
   v3 = WFLocalizedString(@"Please unlock your device to run this shortcut.");
   v4 = MEMORY[0x1E696ABC0];
   v5 = *MEMORY[0x1E696A598];
-  v10[0] = *MEMORY[0x1E696A588];
-  v10[1] = v5;
-  v11[0] = v2;
-  v11[1] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = *MEMORY[0x1E696A588];
+  v9[1] = v5;
+  v10[0] = v2;
+  v10[1] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v4 errorWithDomain:@"WFSmartPromptErrorDomain" code:2 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)localizedUnsupportedEnvironmentError
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = WFLocalizedString(@"This shortcut requires privacy permissions that cannot be granted while running in this environment.");
   v3 = MEMORY[0x1E696ABC0];
-  v8 = *MEMORY[0x1E696A588];
-  v9[0] = v2;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696A588];
+  v8[0] = v2;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v3 errorWithDomain:@"WFSmartPromptErrorDomain" code:2 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)localizedDeniedPermissionsErrorWithContentDestination:(id)destination
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   localizedTitle = [destinationCopy localizedTitle];
 
@@ -481,22 +469,20 @@ LABEL_23:
   v9 = [v5 localizedStringWithFormat:v7, localizedTitle2];
 
   v10 = MEMORY[0x1E696ABC0];
-  v15 = *MEMORY[0x1E696A578];
-  v16[0] = v9;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = *MEMORY[0x1E696A578];
+  v15[0] = v9;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = [v10 errorWithDomain:@"WFSmartPromptErrorDomain" code:0 userInfo:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)stateFromDatabaseData:(id)data
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v4 = [MEMORY[0x1E696AE40] propertyListWithData:data options:0 format:0 error:&v13];
-  v5 = v13;
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v4 = [MEMORY[0x1E696AE40] propertyListWithData:data options:0 format:0 error:&v12];
+  v5 = v12;
   if (v5)
   {
     v6 = getWFWorkflowExecutionLogObject();
@@ -504,9 +490,9 @@ LABEL_23:
     {
       v7 = [v5 debugDescription];
       *buf = 136315394;
-      v15 = "+[WFSmartPromptState stateFromDatabaseData:]";
-      v16 = 2112;
-      v17 = v7;
+      v14 = "+[WFSmartPromptState stateFromDatabaseData:]";
+      v15 = 2112;
+      v16 = v7;
       _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Error deserializing smart prompt state property list: %@", buf, 0x16u);
     }
   }
@@ -525,7 +511,7 @@ LABEL_23:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "+[WFSmartPromptState stateFromDatabaseData:]";
+      v14 = "+[WFSmartPromptState stateFromDatabaseData:]";
       _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Failed to init smart prompt state from database data.", buf, 0xCu);
     }
 
@@ -534,8 +520,6 @@ LABEL_23:
 
   v9 = 0;
 LABEL_10:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

@@ -7,6 +7,7 @@
 - (CPLEngineStore)engineStore;
 - (CPLSyncStep)initWithSyncManager:(id)manager syncSession:(id)session;
 - (NSString)descriptionForTasks;
+- (void)cancelAllTasks:(BOOL)tasks;
 - (void)moveTasksToBackground;
 @end
 
@@ -63,6 +64,15 @@
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
   v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLSyncStep.m"];
   [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:59 description:@"This should be implemented by subclasses"];
+
+  abort();
+}
+
+- (void)cancelAllTasks:(BOOL)tasks
+{
+  currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+  v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLSyncStep.m"];
+  [currentHandler handleFailureInMethod:a2 object:self file:v6 lineNumber:55 description:@"This should be implemented by subclasses"];
 
   abort();
 }

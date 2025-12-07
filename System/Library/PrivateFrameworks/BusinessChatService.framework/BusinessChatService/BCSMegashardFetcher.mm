@@ -80,7 +80,7 @@
 
 void __39__BCSMegashardFetcher_addFetchTrigger___block_invoke(uint64_t a1, void *a2, unint64_t a3, void *a4)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -110,42 +110,19 @@ void __39__BCSMegashardFetcher_addFetchTrigger___block_invoke(uint64_t a1, void 
     *&buf[12] = 2114;
     *&buf[14] = v13;
     *&buf[22] = 2114;
-    v57 = v14;
+    v56 = v14;
     _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "%@ triggered a fetch of the megashard for type %{public}@ - %{public}@", buf, 0x20u);
   }
 
   v15 = *(a1 + 40);
-  if (!v15)
+  if (v15 && ((v16 = *(v15 + 16), v17 = *(v15 + 40), v18 = v17, v19 = v16 - 2, (v16 - 2) > 4) ? (v20 = 1) : (v20 = qword_2420E9108[v19]), (v21 = [v17 shouldSkipCacheForShardItemOfType:v20], v18, a3 != 6) || (v21 & 1) != 0 || !objc_msgSend(*(v15 + 32), "countOfShardsOfType:", v16) || objc_msgSend(*(v15 + 32), "countOfExpiredShardsOfType:", v16) > 0 || ((v42 = *(v15 + 24), v43 = v42, v19 > 4) ? (v44 = 1) : (v44 = qword_2420E9108[v19]), (objc_msgSend(v42, "configItemForType:", v44), v45 = objc_claimAutoreleasedReturnValue(), v43, !v45) || (v46 = objc_msgSend(v45, "isExpired"), v45, v46))))
   {
-    goto LABEL_31;
-  }
-
-  v16 = *(v15 + 16);
-  v17 = *(v15 + 40);
-  v18 = v17;
-  v19 = v16 - 2;
-  v20 = (v16 - 2) > 4 ? 1 : qword_2420E9108[v19];
-  v21 = [v17 shouldSkipCacheForShardItemOfType:v20];
-
-  if (a3 != 6 || (v21 & 1) != 0 || ![*(v15 + 32) countOfShardsOfType:v16] || objc_msgSend(*(v15 + 32), "countOfExpiredShardsOfType:", v16) > 0)
-  {
-    goto LABEL_15;
-  }
-
-  v43 = *(v15 + 24);
-  v44 = v43;
-  v45 = v19 > 4 ? 1 : qword_2420E9108[v19];
-  v46 = [v43 configItemForType:v45];
-
-  if (!v46 || (v47 = [v46 isExpired], v46, v47))
-  {
-LABEL_15:
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __39__BCSMegashardFetcher_addFetchTrigger___block_invoke_13;
-    v51[3] = &unk_278D38818;
-    v52 = v8;
-    v22 = v51;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __39__BCSMegashardFetcher_addFetchTrigger___block_invoke_13;
+    v50[3] = &unk_278D38818;
+    v51 = v8;
+    v22 = v50;
     if (WeakRetained)
     {
       v23 = *(WeakRetained + 1);
@@ -161,21 +138,21 @@ LABEL_15:
 
       else
       {
-        v41 = v28;
+        v40 = v28;
         [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-        v29 = ((v42 - v41) / 60.0 / 60.0);
+        v29 = ((v41 - v40) / 60.0 / 60.0);
       }
 
-      v50 = v8;
+      v49 = v8;
       [v26 setHoursSinceLastSuccessfulFetch:v29];
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke;
-      v57 = &unk_278D38868;
-      v58 = WeakRetained;
-      v59 = v26;
-      v61 = a3;
-      v60 = v22;
+      v56 = &unk_278D38868;
+      v57 = WeakRetained;
+      v58 = v26;
+      v60 = a3;
+      v59 = v22;
       v30 = v26;
       v31 = MEMORY[0x245D07100](buf);
       v32 = *(WeakRetained + 2) - 2;
@@ -194,37 +171,34 @@ LABEL_15:
       v36 = *(WeakRetained + 6);
       v37 = [v35 mainBundle];
       v38 = [v37 bundleIdentifier];
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke_2;
-      v53[3] = &unk_278D388E0;
-      v54 = v31;
-      v55 = v34;
-      v53[4] = WeakRetained;
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke_2;
+      v52[3] = &unk_278D388E0;
+      v53 = v31;
+      v54 = v34;
+      v52[4] = WeakRetained;
       v39 = v31;
-      [v36 fetchMegashardItemWithType:v34 clientBundleID:v38 systemTask:v25 completion:v53];
+      [v36 fetchMegashardItemWithType:v34 clientBundleID:v38 systemTask:v25 completion:v52];
 
       v7 = v33;
-      v8 = v50;
+      v8 = v49;
     }
   }
 
   else
   {
-LABEL_31:
-    v48 = ABSLogCommon();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+    v47 = ABSLogCommon();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      v49 = *(a1 + 32);
+      v48 = *(a1 + 32);
       *buf = 138412290;
-      *&buf[4] = v49;
-      _os_log_impl(&dword_242072000, v48, OS_LOG_TYPE_DEFAULT, "%@ Megashard fetch not required. Bailing.", buf, 0xCu);
+      *&buf[4] = v48;
+      _os_log_impl(&dword_242072000, v47, OS_LOG_TYPE_DEFAULT, "%@ Megashard fetch not required. Bailing.", buf, 0xCu);
     }
 
     (*(v8 + 2))(v8, 0, 0);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke(uint64_t a1, int a2, void *a3)
@@ -306,7 +280,7 @@ LABEL_21:
 
 void __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke_2(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -319,11 +293,11 @@ void __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_complet
     {
       v15 = a1[6];
       *buf = 136315650;
-      v38 = "[BCSMegashardFetcher _fetchMegashardForReason:withBGSystemTask:completion:]_block_invoke";
-      v39 = 2048;
-      v40 = v15;
-      v41 = 2112;
-      v42 = v12;
+      v37 = "[BCSMegashardFetcher _fetchMegashardForReason:withBGSystemTask:completion:]_block_invoke";
+      v38 = 2048;
+      v39 = v15;
+      v40 = 2112;
+      v41 = v12;
       _os_log_error_impl(&dword_242072000, v14, OS_LOG_TYPE_ERROR, "%s failed to prefetch bloom filter + config item for type:%ld error: %@", buf, 0x20u);
     }
   }
@@ -334,9 +308,9 @@ void __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_complet
     {
       v16 = NSStringFromBCSType(a1[6]);
       *buf = 136315394;
-      v38 = "[BCSMegashardFetcher _fetchMegashardForReason:withBGSystemTask:completion:]_block_invoke_2";
-      v39 = 2112;
-      v40 = v16;
+      v37 = "[BCSMegashardFetcher _fetchMegashardForReason:withBGSystemTask:completion:]_block_invoke_2";
+      v38 = 2112;
+      v39 = v16;
       _os_log_impl(&dword_242072000, v14, OS_LOG_TYPE_DEFAULT, "%s successfully prefetched bloom filter + config item for type: %@", buf, 0x16u);
     }
 
@@ -389,13 +363,13 @@ void __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_complet
       }
 
       [v24 beginBatch];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke_17;
-      v36[3] = &unk_278D38890;
-      v36[4] = a1[4];
-      v36[5] = v20;
-      [v9 enumerateObjectsUsingBlock:v36];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke_17;
+      v35[3] = &unk_278D38890;
+      v35[4] = a1[4];
+      v35[5] = v20;
+      [v9 enumerateObjectsUsingBlock:v35];
       v25 = a1[4];
       if (v25)
       {
@@ -436,12 +410,12 @@ void __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_complet
       }
 
       [v30 beginBatch];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke_2_19;
-      v35[3] = &unk_278D388B8;
-      v35[4] = a1[4];
-      [v10 enumerateObjectsUsingBlock:v35];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke_2_19;
+      v34[3] = &unk_278D388B8;
+      v34[4] = a1[4];
+      [v10 enumerateObjectsUsingBlock:v34];
       v31 = a1[4];
       if (v31)
       {
@@ -461,15 +435,14 @@ void __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_complet
     {
       v33 = NSStringFromBCSType(a1[6]);
       *buf = 136315394;
-      v38 = "[BCSMegashardFetcher _fetchMegashardForReason:withBGSystemTask:completion:]_block_invoke_3";
-      v39 = 2112;
-      v40 = v33;
+      v37 = "[BCSMegashardFetcher _fetchMegashardForReason:withBGSystemTask:completion:]_block_invoke_3";
+      v38 = 2112;
+      v39 = v33;
       _os_log_impl(&dword_242072000, v14, OS_LOG_TYPE_DEFAULT, "%s successfully cached bloom filter + config item for type: %@", buf, 0x16u);
     }
   }
 
   (*(a1[5] + 16))();
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __76__BCSMegashardFetcher__fetchMegashardForReason_withBGSystemTask_completion___block_invoke_17(uint64_t a1, void *a2)

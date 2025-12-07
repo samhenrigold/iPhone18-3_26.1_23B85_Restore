@@ -174,7 +174,7 @@ void __48__CDPPassphraseEntryPane__keyboardLayoutChanged__block_invoke(uint64_t 
 {
   v1 = [MEMORY[0x277CCABB0] numberWithDouble:*(self + 560)];
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v2, v3, "Starting layout with KB offset: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v2, v3, "Starting layout with KB offset: %@", v4, v5, v6, v7);
 }
 
 - (void)_layoutSubviews
@@ -268,7 +268,7 @@ void __48__CDPPassphraseEntryPane__keyboardLayoutChanged__block_invoke(uint64_t 
 {
   v4 = NSStringFromCGRect(*&self);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v5, v6, "Laid out pin view: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v5, v6, "Laid out pin view: %@", v7, v8, v9, v10);
 }
 
 - (void)didFinishResizingPinView
@@ -285,13 +285,13 @@ void __48__CDPPassphraseEntryPane__keyboardLayoutChanged__block_invoke(uint64_t 
 
 - (void)availableHeaderRect
 {
-  v10.size.height = a2;
-  v10.size.width = self;
-  v10.origin.x = 0.0;
-  v10.origin.y = 0.0;
-  v2 = NSStringFromCGRect(v10);
+  v9.size.height = a2;
+  v9.size.width = self;
+  v9.origin.x = 0.0;
+  v9.origin.y = 0.0;
+  v2 = NSStringFromCGRect(v9);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v3, v4, "Available header rect: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v3, v4, "Available header rect: %@", v5, v6, v7, v8);
 }
 
 @end

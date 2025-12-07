@@ -18,6 +18,7 @@
 + (id)predicateMatchingJobLabel:(id)label;
 + (id)predicateMatchingLSApplicationIdentity:(id)identity;
 + (id)predicateMatchingLaunchServicesProcesses;
++ (id)predicateMatchingPlatform:(int)platform;
 + (id)predicateMatchingPredicates:(id)predicates;
 + (id)predicateMatchingProcessTypeApplication;
 + (id)predicateMatchingServiceName:(id)name;
@@ -394,38 +395,38 @@ LABEL_23:
 
 + (id)predicateMatchingPredicates:(id)predicates
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   predicatesCopy = predicates;
   if ([predicatesCopy count] >= 2)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v11 = predicatesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v12)
+    v10 = predicatesCopy;
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v18;
+      v12 = v11;
+      v13 = *v17;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v14)
+          if (*v17 != v13)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          predicate = [*(*(&v17 + 1) + 8 * i) predicate];
+          predicate = [*(*(&v16 + 1) + 8 * i) predicate];
           [array addObject:predicate];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
 
     predicate2 = [[RBSCompoundAllPredicate alloc] initWithPredicates:array];
@@ -440,45 +441,44 @@ LABEL_23:
   v7 = predicate2;
 
   v8 = [[self alloc] initWithPredicate:v7];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)predicateMatchingAnyPredicate:(id)predicate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   if ([predicateCopy count] >= 2)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v11 = predicateCopy;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v12)
+    v10 = predicateCopy;
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v18;
+      v12 = v11;
+      v13 = *v17;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v14)
+          if (*v17 != v13)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          predicate = [*(*(&v17 + 1) + 8 * i) predicate];
+          predicate = [*(*(&v16 + 1) + 8 * i) predicate];
           [array addObject:predicate];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
 
     predicate2 = [[RBSCompoundAnyPredicate alloc] initWithPredicates:array];
@@ -493,7 +493,6 @@ LABEL_23:
   v7 = predicate2;
 
   v8 = [[self alloc] initWithPredicate:v7];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -646,6 +645,14 @@ LABEL_9:
 
   identifier = [v4 identifier];
   return identifier;
+}
+
++ (id)predicateMatchingPlatform:(int)platform
+{
+  v3 = [[RBSProcessPlatformPredicate alloc] initWithPlatform:*&platform];
+  v4 = [RBSProcessPredicate predicateMatching:v3];
+
+  return v4;
 }
 
 + (id)predicateMatchingBundleIdentifier:(id)identifier

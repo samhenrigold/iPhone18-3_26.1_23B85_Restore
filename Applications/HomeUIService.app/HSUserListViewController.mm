@@ -9,6 +9,7 @@
 - (void)managerDidDismissWithError:(id)error;
 - (void)managerDidRemoveUser:(id)user error:(id)error;
 - (void)managerDidSendInvitations:(id)invitations;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setHome:(id)home;
 - (void)updateHome:(id)home;
 - (void)viewDidLoad;
@@ -44,6 +45,45 @@
   v3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"_doneTapped"];
   navigationItem = [(HSUserListViewController *)self navigationItem];
   [navigationItem setLeftBarButtonItem:v3];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  editingCopy = editing;
+  v12.receiver = self;
+  v12.super_class = HSUserListViewController;
+  [(HSUserListViewController *)&v12 setEditing:editing animated:animated];
+  if (editingCopy)
+  {
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10004B5C0;
+    v11[3] = &unk_1000C5970;
+    v11[4] = self;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10004B63C;
+    v10[3] = &unk_1000C77E0;
+    v10[4] = self;
+    [UIView animateWithDuration:v11 animations:v10 completion:0.3];
+  }
+
+  else
+  {
+    navigationItem = [(HSUserListViewController *)self navigationItem];
+    leftBarButtonItem = [navigationItem leftBarButtonItem];
+    [leftBarButtonItem setEnabled:1];
+
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10004B69C;
+    v9[3] = &unk_1000C5970;
+    v9[4] = self;
+    [UIView animateWithDuration:v9 animations:0.3];
+  }
+
+  tableViewManager = [(HSUserListViewController *)self tableViewManager];
+  [tableViewManager setEditing:editingCopy];
 }
 
 - (HMHome)home

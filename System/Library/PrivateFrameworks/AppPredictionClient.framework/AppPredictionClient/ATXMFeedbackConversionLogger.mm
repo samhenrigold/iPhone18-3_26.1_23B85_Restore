@@ -9,7 +9,7 @@
 {
   subTypeCopy = subType;
   v6 = *&type;
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E698B028];
   trackerCopy = tracker;
   v10 = [v8 stringForConsumerSubtype:subTypeCopy];
@@ -18,35 +18,35 @@
   [v11 setConsumerSubType:v10];
   [trackerCopy trackScalarForMessage:v11];
 
-  v12 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = __atxlog_handle_metrics(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v13 = NSStringFromClass(self);
+    v14 = NSStringFromClass(self);
     if (v6)
     {
       if (v6 == 1)
       {
-        v14 = @"Rejection";
+        v15 = @"Rejection";
       }
 
       else
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
+        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
       }
     }
 
     else
     {
-      v14 = @"Engagement";
+      v15 = @"Engagement";
     }
 
     *buf = 138412802;
-    v16 = v13;
-    v17 = 2112;
-    v18 = v14;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_debug_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMFeedbackUIInteractionsTracker with engagementType: %@ and consumerSubType: %@", buf, 0x20u);
+    v17 = v14;
+    v18 = 2112;
+    v19 = v15;
+    v20 = 2112;
+    v21 = v10;
+    _os_log_debug_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMFeedbackUIInteractionsTracker with engagementType: %@ and consumerSubType: %@", buf, 0x20u);
   }
 }
 
@@ -54,7 +54,7 @@
 {
   subTypeCopy = subType;
   v6 = *&type;
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E698B028];
   trackerCopy = tracker;
   v10 = [v8 stringForConsumerSubtype:subTypeCopy];
@@ -63,35 +63,35 @@
   [v11 setConsumerSubType:v10];
   [trackerCopy trackScalarForMessage:v11];
 
-  v12 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = __atxlog_handle_metrics(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v13 = NSStringFromClass(self);
+    v14 = NSStringFromClass(self);
     if (v6)
     {
       if (v6 == 1)
       {
-        v14 = @"Rejection";
+        v15 = @"Rejection";
       }
 
       else
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
+        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
       }
     }
 
     else
     {
-      v14 = @"Engagement";
+      v15 = @"Engagement";
     }
 
     *buf = 138412802;
-    v16 = v13;
-    v17 = 2112;
-    v18 = v14;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_debug_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMFeedbackRecordedTracker with engagementType: %@ and consumerSubType: %@", buf, 0x20u);
+    v17 = v14;
+    v18 = 2112;
+    v19 = v15;
+    v20 = 2112;
+    v21 = v10;
+    _os_log_debug_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMFeedbackRecordedTracker with engagementType: %@ and consumerSubType: %@", buf, 0x20u);
   }
 }
 

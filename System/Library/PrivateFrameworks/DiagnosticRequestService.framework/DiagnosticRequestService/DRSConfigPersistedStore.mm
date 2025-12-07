@@ -4,6 +4,7 @@
 - (BOOL)clearStoreWithErrorOut:(id *)out;
 - (BOOL)completeConfigWithUUID:(id)d completedDate:(id)date completionType:(unint64_t)type completionDescription:(id)description errorOut:(id *)out;
 - (BOOL)updateCloudChannelConfig:(id)config errorOut:(id *)out;
+- (DRSConfigPersistedStore)initWithWorkingDirectory:(id)directory isReadOnly:(BOOL)only cloudKitHelper:(id)helper errorOut:(id *)out;
 - (id)_ON_MOC_cloudChannelConfigMOs;
 - (id)cloudChannelConfig;
 - (id)configMetadataForUUID:(id)d errorOut:(id *)out;
@@ -106,7 +107,8 @@ void __58__DRSConfigPersistedStore_configMetadataForUUID_errorOut___block_invoke
 
     if (out)
     {
-      *out = v27[5];
+      v12 = v27[5];
+      *out = v12;
     }
 
     if (!v27[5])
@@ -119,24 +121,24 @@ void __58__DRSConfigPersistedStore_configMetadataForUUID_errorOut___block_invoke
 
       if (out)
       {
-        v12 = MEMORY[0x277CCACA8];
+        v13 = MEMORY[0x277CCACA8];
         configUUID = [v11 configUUID];
-        v14 = [v12 stringWithFormat:@"Attempted to add already existing metadata with config UUID %@", configUUID];
+        v15 = [v13 stringWithFormat:@"Attempted to add already existing metadata with config UUID %@", configUUID];
 
-        v15 = MEMORY[0x277CCA9B8];
+        v16 = MEMORY[0x277CCA9B8];
         v38 = *MEMORY[0x277CCA450];
-        v39 = v14;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-        *out = [v15 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v16];
+        v39 = v15;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        *out = [v16 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v17];
       }
 
-      v17 = DPLogHandle_ConfigPersistedStoreError();
-      if (os_signpost_enabled(v17))
+      v18 = DPLogHandle_ConfigPersistedStoreError(v12);
+      if (os_signpost_enabled(v18))
       {
         configUUID2 = [v11 configUUID];
         *buf = 138412290;
         v37 = configUUID2;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataCollision", "Attempted to add already existing metadata with config UUID %@", buf, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataCollision", "Attempted to add already existing metadata with config UUID %@", buf, 0xCu);
       }
     }
 
@@ -157,7 +159,6 @@ LABEL_13:
   v9 = 0;
 LABEL_14:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -198,39 +199,37 @@ void __53__DRSConfigPersistedStore_addConfigMetdata_errorOut___block_invoke(uint
 
         if (v13)
         {
-          v14 = DPLogHandle_ConfigPersistedStore();
-          if (os_signpost_enabled(v14))
+          v15 = DPLogHandle_ConfigPersistedStore(v14);
+          if (os_signpost_enabled(v15))
           {
-            v15 = [*(a1 + 32) configUUID];
+            v16 = [*(a1 + 32) configUUID];
             [*(a1 + 32) state];
-            v16 = DRConfigStringForState();
+            v17 = DRConfigStringForState();
             *buf = 138543618;
-            v24 = v15;
+            v24 = v16;
             v25 = 2114;
-            v26 = v16;
-            _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataSaveSuccess", "Saved %{public}@ with state %{public}@", buf, 0x16u);
+            v26 = v17;
+            _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataSaveSuccess", "Saved %{public}@ with state %{public}@", buf, 0x16u);
           }
         }
 
         else
         {
-          v14 = DPLogHandle_ConfigPersistedStoreError();
-          if (os_signpost_enabled(v14))
+          v15 = DPLogHandle_ConfigPersistedStoreError(v14);
+          if (os_signpost_enabled(v15))
           {
-            v17 = [*(a1 + 32) configUUID];
-            v18 = *(*(*(a1 + 48) + 8) + 40);
+            v18 = [*(a1 + 32) configUUID];
+            v19 = *(*(*(a1 + 48) + 8) + 40);
             *buf = 138543618;
-            v24 = v17;
+            v24 = v18;
             v25 = 2114;
-            v26 = v18;
-            _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataSaveFailed", "Could not save %{public}@ due to error %{public}@", buf, 0x16u);
+            v26 = v19;
+            _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataSaveFailed", "Could not save %{public}@ due to error %{public}@", buf, 0x16u);
           }
         }
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)applyWaitingConfigWithUUID:(id)d appliedDate:(id)date errorOut:(id *)out
@@ -269,19 +268,19 @@ void __53__DRSConfigPersistedStore_addConfigMetdata_errorOut___block_invoke(uint
     v23 = dateCopy;
     [context performBlockAndWait:v20];
 
-    v15 = v26[5];
-    v12 = v15 == 0;
-    if (v15)
+    v16 = v26[5];
+    v12 = v16 == 0;
+    if (v16)
     {
-      v16 = DPLogHandle_ConfigPersistedStoreError();
-      if (os_signpost_enabled(v16))
+      v17 = DPLogHandle_ConfigPersistedStoreError(v15);
+      if (os_signpost_enabled(v17))
       {
-        v17 = v26[5];
+        v18 = v26[5];
         *buf = 138543618;
         v32 = v14;
         v33 = 2114;
-        v34 = v17;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ApplyWaitingConfigFailed", "Could not apply waiting config %{public}@ due to error %{public}@", buf, 0x16u);
+        v34 = v18;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ApplyWaitingConfigFailed", "Could not apply waiting config %{public}@ due to error %{public}@", buf, 0x16u);
       }
 
       *out = v26[5];
@@ -290,19 +289,18 @@ void __53__DRSConfigPersistedStore_addConfigMetdata_errorOut___block_invoke(uint
     _Block_object_dispose(&v25, 8);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __75__DRSConfigPersistedStore_applyWaitingConfigWithUUID_appliedDate_errorOut___block_invoke(uint64_t a1)
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) context];
-  v32 = 0;
-  v4 = [DRSConfigMetadata _ON_CONTEXT_QUEUE_existingBackingMOWithConfigUUID:v2 context:v3 errorOut:&v32];
-  v5 = v32;
-  v6 = v32;
+  v31 = 0;
+  v4 = [DRSConfigMetadata _ON_CONTEXT_QUEUE_existingBackingMOWithConfigUUID:v2 context:v3 errorOut:&v31];
+  v5 = v31;
+  v6 = v31;
 
   objc_storeStrong((*(*(a1 + 56) + 8) + 40), v5);
   if (!*(*(*(a1 + 56) + 8) + 40))
@@ -324,9 +322,9 @@ void __75__DRSConfigPersistedStore_applyWaitingConfigWithUUID_appliedDate_errorO
           [v4 setAppliedDate:*(a1 + 48)];
           v13 = [*(a1 + 40) context];
           v14 = *(*(a1 + 56) + 8);
-          v31 = *(v14 + 40);
-          [v13 save:&v31];
-          v15 = v31;
+          v30 = *(v14 + 40);
+          [v13 save:&v30];
+          v15 = v30;
           v16 = *(v14 + 40);
           *(v14 + 40) = v15;
 LABEL_10:
@@ -339,11 +337,11 @@ LABEL_10:
         v13 = [v25 stringWithFormat:@"Failed to apply config %@", v26];
 
         v19 = MEMORY[0x277CCA9B8];
-        v33 = *MEMORY[0x277CCA450];
-        v34 = v13;
+        v32 = *MEMORY[0x277CCA450];
+        v33 = v13;
         v20 = MEMORY[0x277CBEAC0];
-        v21 = &v34;
-        v22 = &v33;
+        v21 = &v33;
+        v22 = &v32;
       }
 
       else
@@ -353,11 +351,11 @@ LABEL_10:
         v13 = [v23 stringWithFormat:@"Attempted to apply non-waiting config %@", v24];
 
         v19 = MEMORY[0x277CCA9B8];
-        v35 = *MEMORY[0x277CCA450];
-        v36 = v13;
+        v34 = *MEMORY[0x277CCA450];
+        v35 = v13;
         v20 = MEMORY[0x277CBEAC0];
-        v21 = &v36;
-        v22 = &v35;
+        v21 = &v35;
+        v22 = &v34;
       }
     }
 
@@ -368,11 +366,11 @@ LABEL_10:
       v13 = [v17 stringWithFormat:@"Attempting to update missing config %@", v18];
 
       v19 = MEMORY[0x277CCA9B8];
-      v37 = *MEMORY[0x277CCA450];
-      v38[0] = v13;
+      v36 = *MEMORY[0x277CCA450];
+      v37[0] = v13;
       v20 = MEMORY[0x277CBEAC0];
-      v21 = v38;
-      v22 = &v37;
+      v21 = v37;
+      v22 = &v36;
     }
 
     v16 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:1];
@@ -385,8 +383,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)completeConfigWithUUID:(id)d completedDate:(id)date completionType:(unint64_t)type completionDescription:(id)description errorOut:(id *)out
@@ -432,19 +428,19 @@ LABEL_11:
     v32 = v20;
     [context performBlockAndWait:v28];
 
-    v21 = v36[5];
-    v17 = v21 == 0;
-    if (v21)
+    v22 = v36[5];
+    v17 = v22 == 0;
+    if (v22)
     {
-      v22 = DPLogHandle_ConfigPersistedStoreError();
-      if (os_signpost_enabled(v22))
+      v23 = DPLogHandle_ConfigPersistedStoreError(v21);
+      if (os_signpost_enabled(v23))
       {
-        v23 = v36[5];
+        v24 = v36[5];
         *buf = 138543618;
         v42 = v19;
         v43 = 2114;
-        v44 = v23;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CompleteConfigFailed", "Could not complete active config %{public}@ due to error %{public}@", buf, 0x16u);
+        v44 = v24;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CompleteConfigFailed", "Could not complete active config %{public}@ due to error %{public}@", buf, 0x16u);
       }
 
       if (out)
@@ -455,36 +451,35 @@ LABEL_11:
 
     else
     {
-      v24 = DPLogHandle_ConfigPersistedStore();
-      if (os_signpost_enabled(v24))
+      v25 = DPLogHandle_ConfigPersistedStore(v21);
+      if (os_signpost_enabled(v25))
       {
-        v25 = DRConfigCompletionTypeString(type);
+        v26 = DRConfigCompletionTypeString(type);
         *buf = 138543874;
         v42 = v19;
         v43 = 2114;
-        v44 = v25;
+        v44 = v26;
         v45 = 2114;
         v46 = v20;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CompleteConfigSuceeded", "Completed config with UUID %{public}@ with type %{public}@, description %{public}@", buf, 0x20u);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CompleteConfigSuceeded", "Completed config with UUID %{public}@ with type %{public}@, description %{public}@", buf, 0x20u);
       }
     }
 
     _Block_object_dispose(&v35, 8);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 void __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_completionType_completionDescription_errorOut___block_invoke(uint64_t a1)
 {
-  v69[1] = *MEMORY[0x277D85DE8];
+  v68[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) context];
-  v61 = 0;
-  v4 = [DRSConfigMetadata _ON_CONTEXT_QUEUE_existingBackingMOWithConfigUUID:v2 context:v3 errorOut:&v61];
-  v5 = v61;
-  v6 = v61;
+  v60 = 0;
+  v4 = [DRSConfigMetadata _ON_CONTEXT_QUEUE_existingBackingMOWithConfigUUID:v2 context:v3 errorOut:&v60];
+  v5 = v60;
+  v6 = v60;
 
   objc_storeStrong((*(*(a1 + 64) + 8) + 40), v5);
   if (!*(*(*(a1 + 64) + 8) + 40))
@@ -495,20 +490,20 @@ void __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_complet
       {
         if ([v4 state] == 2)
         {
-          v21 = [v4 appliedDate];
+          v20 = [v4 appliedDate];
         }
 
         else
         {
-          v21 = *(a1 + 48);
+          v20 = *(a1 + 48);
         }
 
-        v9 = v21;
-        v22 = *(a1 + 72);
-        v23 = [v4 receivedDate];
-        v24 = [DRSConfigMetadata _isValidState:3 completionType:v22 receivedDate:v23 appliedDate:v9 completedDate:*(a1 + 48) completionDescription:*(a1 + 56)];
+        v9 = v20;
+        v21 = *(a1 + 72);
+        v22 = [v4 receivedDate];
+        v23 = [DRSConfigMetadata _isValidState:3 completionType:v21 receivedDate:v22 appliedDate:v9 completedDate:*(a1 + 48) completionDescription:*(a1 + 56)];
 
-        if (v24)
+        if (v23)
         {
           [v4 setState:3];
           [v4 setAppliedDate:v9];
@@ -516,81 +511,81 @@ void __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_complet
           [v4 setCompletedDate:*(a1 + 48)];
           [v4 setCompletionDescription:*(a1 + 56)];
           [*(a1 + 48) timeIntervalSinceDate:v9];
-          v26 = v25;
+          v25 = v24;
           if ([v4 logTelemetry])
           {
-            v62[0] = kUUIDKey;
-            v55 = [v4 configUUID];
-            v53 = [v55 UUIDString];
-            v63[0] = v53;
-            v62[1] = kTeamIDKey;
-            v27 = [v4 teamID];
-            v63[1] = v27;
-            v62[2] = kConfigCompletedEventKey_CompletionType;
-            v28 = DRConfigCompletionTypeString(*(a1 + 72));
-            v63[2] = v28;
-            v62[3] = kConfigCompletedEventKey_ActiveDuration;
-            v29 = [MEMORY[0x277CCABB0] numberWithDouble:v26];
-            v63[3] = v29;
-            v62[4] = kConfigCompletedEventKey_ReceivedToCompletedDuration;
-            v30 = MEMORY[0x277CCABB0];
-            v31 = *(a1 + 48);
-            v32 = [v4 receivedDate];
-            [v31 timeIntervalSinceDate:v32];
-            v33 = [v30 numberWithDouble:?];
-            v63[4] = v33;
-            v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:5];
+            v61[0] = kUUIDKey;
+            v54 = [v4 configUUID];
+            v52 = [v54 UUIDString];
+            v62[0] = v52;
+            v61[1] = kTeamIDKey;
+            v26 = [v4 teamID];
+            v62[1] = v26;
+            v61[2] = kConfigCompletedEventKey_CompletionType;
+            v27 = DRConfigCompletionTypeString(*(a1 + 72));
+            v62[2] = v27;
+            v61[3] = kConfigCompletedEventKey_ActiveDuration;
+            v28 = [MEMORY[0x277CCABB0] numberWithDouble:v25];
+            v62[3] = v28;
+            v61[4] = kConfigCompletedEventKey_ReceivedToCompletedDuration;
+            v29 = MEMORY[0x277CCABB0];
+            v30 = *(a1 + 48);
+            v31 = [v4 receivedDate];
+            [v30 timeIntervalSinceDate:v31];
+            v32 = [v29 numberWithDouble:?];
+            v62[4] = v32;
+            v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:5];
 
-            DRSCoreAnalyticsSendEvent(kConfigCompletedEventName, v34);
+            DRSCoreAnalyticsSendEvent(kConfigCompletedEventName, v33);
             if ([v4 reportToDecisionServer])
             {
-              v35 = [v4 configUUID];
-              v36 = [*(a1 + 40) cloudKitHelper];
-              v51 = [v4 teamID];
-              v56 = [v4 configUUID];
-              v54 = [v56 UUIDString];
-              v37 = DRConfigCompletionTypeString(*(a1 + 72));
-              v38 = [v4 completionDescription];
-              v39 = os_transaction_create();
-              v58[0] = MEMORY[0x277D85DD0];
-              v58[1] = 3221225472;
-              v58[2] = __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_completionType_completionDescription_errorOut___block_invoke_2;
-              v58[3] = &unk_27899FB08;
-              v40 = *(a1 + 64);
-              v59 = v35;
-              v60 = v40;
-              v52 = v35;
-              [v36 reportTaskingConfigCompletion:v51 uuidString:v54 completionType:v37 completionDescription:v38 activeDuration:v39 transaction:v58 completionHandler:v26];
+              v34 = [v4 configUUID];
+              v35 = [*(a1 + 40) cloudKitHelper];
+              v50 = [v4 teamID];
+              v55 = [v4 configUUID];
+              v53 = [v55 UUIDString];
+              v36 = DRConfigCompletionTypeString(*(a1 + 72));
+              v37 = [v4 completionDescription];
+              v38 = os_transaction_create();
+              v57[0] = MEMORY[0x277D85DD0];
+              v57[1] = 3221225472;
+              v57[2] = __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_completionType_completionDescription_errorOut___block_invoke_2;
+              v57[3] = &unk_27899FB08;
+              v39 = *(a1 + 64);
+              v58 = v34;
+              v59 = v39;
+              v51 = v34;
+              [v35 reportTaskingConfigCompletion:v50 uuidString:v53 completionType:v36 completionDescription:v37 activeDuration:v38 transaction:v57 completionHandler:v25];
             }
           }
 
-          v41 = [*(a1 + 40) context];
-          v42 = [v4 configMO];
-          [v41 deleteObject:v42];
+          v40 = [*(a1 + 40) context];
+          v41 = [v4 configMO];
+          [v40 deleteObject:v41];
 
           v16 = [*(a1 + 40) context];
-          v43 = *(*(a1 + 64) + 8);
-          v57 = *(v43 + 40);
-          [v16 save:&v57];
-          v44 = v57;
-          v19 = *(v43 + 40);
-          *(v43 + 40) = v44;
+          v42 = *(*(a1 + 64) + 8);
+          v56 = *(v42 + 40);
+          [v16 save:&v56];
+          v43 = v56;
+          v19 = *(v42 + 40);
+          *(v42 + 40) = v43;
         }
 
         else
         {
-          v45 = MEMORY[0x277CCACA8];
-          v46 = [*(a1 + 32) UUIDString];
-          v16 = [v45 stringWithFormat:@"Failed to complete config %@", v46];
+          v44 = MEMORY[0x277CCACA8];
+          v45 = [*(a1 + 32) UUIDString];
+          v16 = [v44 stringWithFormat:@"Failed to complete config %@", v45];
 
-          v47 = MEMORY[0x277CCA9B8];
-          v64 = *MEMORY[0x277CCA450];
-          v65 = v16;
-          v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-          v48 = [v47 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v19];
-          v49 = *(*(a1 + 64) + 8);
-          v50 = *(v49 + 40);
-          *(v49 + 40) = v48;
+          v46 = MEMORY[0x277CCA9B8];
+          v63 = *MEMORY[0x277CCA450];
+          v64 = v16;
+          v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+          v47 = [v46 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v19];
+          v48 = *(*(a1 + 64) + 8);
+          v49 = *(v48 + 40);
+          *(v48 + 40) = v47;
         }
 
         goto LABEL_7;
@@ -601,11 +596,11 @@ void __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_complet
       v9 = [v7 stringWithFormat:@"Attempted to complete already-completed config %@", v8];
 
       v10 = MEMORY[0x277CCA9B8];
-      v66 = *MEMORY[0x277CCA450];
-      v67 = v9;
+      v65 = *MEMORY[0x277CCA450];
+      v66 = v9;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = &v67;
-      v13 = &v66;
+      v12 = &v66;
+      v13 = &v65;
     }
 
     else
@@ -615,11 +610,11 @@ void __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_complet
       v9 = [v14 stringWithFormat:@"Attempting to update missing config %@", v15];
 
       v10 = MEMORY[0x277CCA9B8];
-      v68 = *MEMORY[0x277CCA450];
-      v69[0] = v9;
+      v67 = *MEMORY[0x277CCA450];
+      v68[0] = v9;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = v69;
-      v13 = &v68;
+      v12 = v68;
+      v13 = &v67;
     }
 
     v16 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
@@ -629,26 +624,22 @@ void __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_complet
     *(v18 + 40) = v17;
 LABEL_7:
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_completionType_completionDescription_errorOut___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = DPLogHandle_ConfigPersistedStoreError();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = DPLogHandle_ConfigPersistedStoreError(a1);
   if (os_signpost_enabled(v2))
   {
     v3 = *(a1 + 32);
     v4 = *(*(*(a1 + 40) + 8) + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigPersistedStoreConfigCompletionTelemetryError", "Telemetry reporting for %{public}@ failed %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigPersistedStoreConfigCompletionTelemetryError", "Telemetry reporting for %{public}@ failed %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)configMetadatasForPredicate:(id)predicate sortDescriptors:(id)descriptors fetchLimit:(unint64_t)limit errorOut:(id *)out
@@ -693,14 +684,14 @@ void __110__DRSConfigPersistedStore_completeConfigWithUUID_completedDate_complet
 
 void __91__DRSConfigPersistedStore_configMetadatasForPredicate_sortDescriptors_fetchLimit_errorOut___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) context];
   v4 = *(a1 + 48);
   v5 = *(a1 + 72);
-  v32 = 0;
-  v6 = [DRSConfigMetadata _ON_CONTEXT_QUEUE_configMetadataForFilterPredicate:v2 context:v3 sortDescriptors:v4 fetchLimit:v5 errorOut:&v32];
-  v7 = v32;
+  v31 = 0;
+  v6 = [DRSConfigMetadata _ON_CONTEXT_QUEUE_configMetadataForFilterPredicate:v2 context:v3 sortDescriptors:v4 fetchLimit:v5 errorOut:&v31];
+  v7 = v31;
 
   if (v7)
   {
@@ -712,27 +703,27 @@ void __91__DRSConfigPersistedStore_configMetadatasForPredicate_sortDescriptors_f
 
   else
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v27 objects:v34 count:16];
     if (v11)
     {
       v12 = v11;
-      v27 = v6;
-      v13 = *v29;
+      v26 = v6;
+      v13 = *v28;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * i);
+          v15 = *(*(&v27 + 1) + 8 * i);
           v16 = [DRSConfigMetadata alloc];
           v17 = [(DRSConfigMetadata *)v16 _ON_CONTEXT_QUEUE_initWithConfigMetadataMO:v15];
 
@@ -743,9 +734,9 @@ void __91__DRSConfigPersistedStore_configMetadatasForPredicate_sortDescriptors_f
             v20 = [v18 stringWithFormat:@"Failed to create ConfigMetadata from backing MO for %@", v19];
 
             v21 = MEMORY[0x277CCA9B8];
-            v33 = *MEMORY[0x277CCA450];
-            v34 = v20;
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+            v32 = *MEMORY[0x277CCA450];
+            v33 = v20;
+            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
             v23 = [v21 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v22];
             v24 = *(*(a1 + 64) + 8);
             v25 = *(v24 + 40);
@@ -757,7 +748,7 @@ void __91__DRSConfigPersistedStore_configMetadatasForPredicate_sortDescriptors_f
           [*(a1 + 56) addObject:v17];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v27 objects:v34 count:16];
         if (v12)
         {
           continue;
@@ -767,11 +758,45 @@ void __91__DRSConfigPersistedStore_configMetadatasForPredicate_sortDescriptors_f
       }
 
 LABEL_13:
-      v6 = v27;
+      v6 = v26;
     }
   }
+}
 
-  v26 = *MEMORY[0x277D85DE8];
+- (DRSConfigPersistedStore)initWithWorkingDirectory:(id)directory isReadOnly:(BOOL)only cloudKitHelper:(id)helper errorOut:(id *)out
+{
+  onlyCopy = only;
+  directoryCopy = directory;
+  helperCopy = helper;
+  v13 = DRSTaskingPersistentContainer(directoryCopy, onlyCopy, out);
+  v14 = v13;
+  if (v13)
+  {
+    newBackgroundContext = [v13 newBackgroundContext];
+    v20.receiver = self;
+    v20.super_class = DRSConfigPersistedStore;
+    v16 = [(DRSConfigPersistedStore *)&v20 init];
+    v17 = v16;
+    if (v16)
+    {
+      objc_storeStrong(&v16->_workingDirectory, directory);
+      v17->_isReadOnly = onlyCopy;
+      objc_storeStrong(&v17->_container, v14);
+      objc_storeStrong(&v17->_context, newBackgroundContext);
+      objc_storeStrong(&v17->_cloudKitHelper, helper);
+    }
+
+    self = v17;
+
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (unint64_t)_countForFetchRequest:(id)request withPredicate:(id)predicate fetchLimit:(unint64_t)limit errorOut:(id *)out
@@ -889,177 +914,175 @@ void __83__DRSConfigPersistedStore__countForFetchRequest_withPredicate_fetchLimi
 
 void __50__DRSConfigPersistedStore_clearStoreWithErrorOut___block_invoke(uint64_t a1)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v2 = +[DRSConfigMetadataMO fetchRequest];
   v3 = [*(a1 + 32) context];
-  v51 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v51];
-  v5 = v51;
-  v6 = v51;
+  v54 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v54];
+  v5 = v54;
+  v6 = v54;
 
   if (v6)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), v5);
-    v7 = DPLogHandle_ConfigPersistedStoreError();
-    if (os_signpost_enabled(v7))
+    v8 = DPLogHandle_ConfigPersistedStoreError(v7);
+    if (os_signpost_enabled(v8))
     {
-      v8 = [v6 localizedDescription];
-      v9 = v8;
-      v10 = @"Unknown";
-      if (v8)
+      v9 = [v6 localizedDescription];
+      v10 = v9;
+      v11 = @"Unknown";
+      if (v9)
       {
-        v10 = v8;
+        v11 = v9;
       }
 
       *buf = 138543362;
-      v53 = v10;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ClearStoreError", "Failed to fetch config metadatas due to error: %{public}@", buf, 0xCu);
+      v56 = v11;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ClearStoreError", "Failed to fetch config metadatas due to error: %{public}@", buf, 0xCu);
     }
   }
 
   else
   {
-    v11 = [v4 count];
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
+    v12 = [v4 count];
     v50 = 0u;
-    v12 = v4;
-    v13 = [v12 countByEnumeratingWithState:&v47 objects:v57 count:16];
-    if (v13)
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v13 = v4;
+    v14 = [v13 countByEnumeratingWithState:&v50 objects:v60 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v48;
+      v15 = v14;
+      v16 = *v51;
       do
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v48 != v15)
+          if (*v51 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v47 + 1) + 8 * v16);
-          v18 = [*(a1 + 32) context];
-          [v18 deleteObject:v17];
+          v18 = *(*(&v50 + 1) + 8 * v17);
+          v19 = [*(a1 + 32) context];
+          [v19 deleteObject:v18];
 
-          ++v16;
+          ++v17;
         }
 
-        while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v47 objects:v57 count:16];
+        while (v15 != v17);
+        v15 = [v13 countByEnumeratingWithState:&v50 objects:v60 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     v2 = +[DRConfigMO fetchRequest];
-    v19 = [*(a1 + 32) context];
-    v46 = 0;
-    v20 = [v19 executeFetchRequest:v2 error:&v46];
-    v21 = v46;
-    v6 = v46;
+    v20 = [*(a1 + 32) context];
+    v49 = 0;
+    v21 = [v20 executeFetchRequest:v2 error:&v49];
+    v22 = v49;
+    v6 = v49;
 
     if (v6)
     {
-      objc_storeStrong((*(*(a1 + 40) + 8) + 40), v21);
-      v22 = DPLogHandle_ConfigPersistedStoreError();
-      if (os_signpost_enabled(v22))
+      objc_storeStrong((*(*(a1 + 40) + 8) + 40), v22);
+      v24 = DPLogHandle_ConfigPersistedStoreError(v23);
+      if (os_signpost_enabled(v24))
       {
-        v23 = [v6 localizedDescription];
-        v24 = v23;
-        v25 = @"Unknown";
-        if (v23)
+        v25 = [v6 localizedDescription];
+        v26 = v25;
+        v27 = @"Unknown";
+        if (v25)
         {
-          v25 = v23;
+          v27 = v25;
         }
 
         *buf = 138543362;
-        v53 = v25;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ClearStoreError", "Failed to fetch configs due to error: %{public}@", buf, 0xCu);
+        v56 = v27;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ClearStoreError", "Failed to fetch configs due to error: %{public}@", buf, 0xCu);
       }
     }
 
     else
     {
-      v40 = [v20 count];
-      v42 = 0u;
-      v43 = 0u;
-      v44 = 0u;
+      v43 = [v21 count];
       v45 = 0u;
-      v27 = v20;
-      v28 = [v27 countByEnumeratingWithState:&v42 objects:v56 count:16];
-      if (v28)
+      v46 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v28 = v21;
+      v29 = [v28 countByEnumeratingWithState:&v45 objects:v59 count:16];
+      if (v29)
       {
-        v29 = v28;
-        v30 = *v43;
+        v30 = v29;
+        v31 = *v46;
         do
         {
-          v31 = 0;
+          v32 = 0;
           do
           {
-            if (*v43 != v30)
+            if (*v46 != v31)
             {
-              objc_enumerationMutation(v27);
+              objc_enumerationMutation(v28);
             }
 
-            v32 = *(*(&v42 + 1) + 8 * v31);
-            v33 = [*(a1 + 32) context];
-            [v33 deleteObject:v32];
+            v33 = *(*(&v45 + 1) + 8 * v32);
+            v34 = [*(a1 + 32) context];
+            [v34 deleteObject:v33];
 
-            ++v31;
+            ++v32;
           }
 
-          while (v29 != v31);
-          v29 = [v27 countByEnumeratingWithState:&v42 objects:v56 count:16];
+          while (v30 != v32);
+          v30 = [v28 countByEnumeratingWithState:&v45 objects:v59 count:16];
         }
 
-        while (v29);
+        while (v30);
       }
 
-      v34 = [*(a1 + 32) context];
-      v41 = 0;
-      v35 = [v34 save:&v41];
-      v36 = v41;
-      v6 = v41;
+      v35 = [*(a1 + 32) context];
+      v44 = 0;
+      v36 = [v35 save:&v44];
+      v37 = v44;
+      v6 = v44;
 
-      if (v35)
+      if (v36)
       {
-        v2 = DPLogHandle_ConfigPersistedStore();
+        v2 = DPLogHandle_ConfigPersistedStore(v38);
         if (os_signpost_enabled(v2))
         {
           *buf = 134349312;
-          v53 = v11;
-          v54 = 2050;
-          v55 = v40;
+          v56 = v12;
+          v57 = 2050;
+          v58 = v43;
           _os_signpost_emit_with_name_impl(&dword_232906000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ClearStoreSuccess", "Deleted %{public}llu config metadatas and %{public}llu configs", buf, 0x16u);
         }
       }
 
       else
       {
-        objc_storeStrong((*(*(a1 + 40) + 8) + 40), v36);
-        v2 = DPLogHandle_ConfigPersistedStoreError();
+        objc_storeStrong((*(*(a1 + 40) + 8) + 40), v37);
+        v2 = DPLogHandle_ConfigPersistedStoreError(v39);
         if (os_signpost_enabled(v2))
         {
-          v37 = [v6 localizedDescription];
-          v38 = v37;
-          v39 = @"Unknown";
-          if (v37)
+          v40 = [v6 localizedDescription];
+          v41 = v40;
+          v42 = @"Unknown";
+          if (v40)
           {
-            v39 = v37;
+            v42 = v40;
           }
 
           *buf = 138543362;
-          v53 = v39;
+          v56 = v42;
           _os_signpost_emit_with_name_impl(&dword_232906000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ClearStoreError", "Failed to save deletion of records due to error: %{public}@", buf, 0xCu);
         }
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_ON_MOC_cloudChannelConfigMOs
@@ -1073,33 +1096,31 @@ void __50__DRSConfigPersistedStore_clearStoreWithErrorOut___block_invoke(uint64_
 
   if (v6)
   {
-    v7 = DPLogHandle_ConfigPersistedStoreError();
-    if (os_signpost_enabled(v7))
+    v8 = DPLogHandle_ConfigPersistedStoreError(v7);
+    if (os_signpost_enabled(v8))
     {
       localizedDescription = [v6 localizedDescription];
-      v9 = localizedDescription;
-      v10 = @"Unknown";
+      v10 = localizedDescription;
+      v11 = @"Unknown";
       if (localizedDescription)
       {
-        v10 = localizedDescription;
+        v11 = localizedDescription;
       }
 
       *buf = 138543362;
-      v16 = v10;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigError", "Failed to fetch cloud channel config due to error: %{public}@", buf, 0xCu);
+      v16 = v11;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigError", "Failed to fetch cloud channel config due to error: %{public}@", buf, 0xCu);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = v5;
+    v12 = v5;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 - (void)_ON_MOC_deleteCloudChannelConfigMOs:(id)os
@@ -1149,25 +1170,23 @@ void __50__DRSConfigPersistedStore_clearStoreWithErrorOut___block_invoke(uint64_
 
     if ((v13 & 1) == 0)
     {
-      v15 = DPLogHandle_ConfigPersistedStoreError();
-      if (os_signpost_enabled(v15))
+      v16 = DPLogHandle_ConfigPersistedStoreError(v15);
+      if (os_signpost_enabled(v16))
       {
         localizedDescription = [v14 localizedDescription];
-        v17 = localizedDescription;
-        v18 = @"Unknown";
+        v18 = localizedDescription;
+        v19 = @"Unknown";
         if (localizedDescription)
         {
-          v18 = localizedDescription;
+          v19 = localizedDescription;
         }
 
         *buf = 138543362;
-        v26 = v18;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigDeleteFailed", "Failed to save deletion of cloud channel configs due to error: %{public}@", buf, 0xCu);
+        v26 = v19;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigDeleteFailed", "Failed to save deletion of cloud channel configs due to error: %{public}@", buf, 0xCu);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cloudChannelConfig
@@ -1198,23 +1217,24 @@ void __45__DRSConfigPersistedStore_cloudChannelConfig__block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) _ON_MOC_cloudChannelConfigMOs];
   if ([v2 count])
   {
-    if ([v2 count] < 2)
+    v3 = [v2 count];
+    if (v3 < 2)
     {
-      v5 = [DRSCloudChannelConfig alloc];
-      v6 = [v2 firstObject];
-      v7 = [(DRSCloudChannelConfig *)v5 initWithMO:v6];
-      v8 = *(*(a1 + 40) + 8);
-      v9 = *(v8 + 40);
-      *(v8 + 40) = v7;
+      v6 = [DRSCloudChannelConfig alloc];
+      v7 = [v2 firstObject];
+      v8 = [(DRSCloudChannelConfig *)v6 initWithMO:v7];
+      v9 = *(*(a1 + 40) + 8);
+      v10 = *(v9 + 40);
+      *(v9 + 40) = v8;
     }
 
     else
     {
-      v3 = DPLogHandle_ConfigPersistedStoreError();
-      if (os_signpost_enabled(v3))
+      v4 = DPLogHandle_ConfigPersistedStoreError(v3);
+      if (os_signpost_enabled(v4))
       {
-        *v10 = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MultipleConfigs", "Multiple configs specified. Reverting to default", v10, 2u);
+        *v11 = 0;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MultipleConfigs", "Multiple configs specified. Reverting to default", v11, 2u);
       }
 
       [*(a1 + 32) _ON_MOC_deleteCloudChannelConfigMOs:v2];
@@ -1223,11 +1243,11 @@ void __45__DRSConfigPersistedStore_cloudChannelConfig__block_invoke(uint64_t a1)
 
   else
   {
-    v4 = DPLogHandle_ConfigPersistedStore();
-    if (os_signpost_enabled(v4))
+    v5 = DPLogHandle_ConfigPersistedStore(0);
+    if (os_signpost_enabled(v5))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DefaultConfig", "Not subscribing to any channel by default.", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DefaultConfig", "Not subscribing to any channel by default.", buf, 2u);
     }
   }
 }
@@ -1278,18 +1298,19 @@ void __45__DRSConfigPersistedStore_cloudChannelConfig__block_invoke(uint64_t a1)
 
 void __61__DRSConfigPersistedStore_updateCloudChannelConfig_errorOut___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _ON_MOC_cloudChannelConfigMOs];
   v3 = v2;
   if (*(a1 + 40))
   {
-    if ([v2 count] >= 2)
+    v4 = [v2 count];
+    if (v4 >= 2)
     {
-      v4 = DPLogHandle_ConfigPersistedStoreError();
-      if (os_signpost_enabled(v4))
+      v5 = DPLogHandle_ConfigPersistedStoreError(v4);
+      if (os_signpost_enabled(v5))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MultipleConfigsWhenUpdating", "Multiple configs specified. Deleting all", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MultipleConfigsWhenUpdating", "Multiple configs specified. Deleting all", buf, 2u);
       }
 
       [*(a1 + 32) _ON_MOC_deleteCloudChannelConfigMOs:v3];
@@ -1298,39 +1319,39 @@ void __61__DRSConfigPersistedStore_updateCloudChannelConfig_errorOut___block_inv
 
     if ([v3 count])
     {
-      v5 = [v3 firstObject];
+      v6 = [v3 firstObject];
     }
 
     else
     {
-      v6 = [DRSCloudChannelConfigMO alloc];
-      v7 = [*(a1 + 32) context];
-      v5 = [(DRSCloudChannelConfigMO *)v6 initWithContext:v7];
+      v7 = [DRSCloudChannelConfigMO alloc];
+      v8 = [*(a1 + 32) context];
+      v6 = [(DRSCloudChannelConfigMO *)v7 initWithContext:v8];
     }
 
-    -[DRSCloudChannelConfigMO setEnvironment:](v5, "setEnvironment:", [*(a1 + 40) environment]);
-    -[DRSCloudChannelConfigMO setChannelType:](v5, "setChannelType:", [*(a1 + 40) type]);
-    -[DRSCloudChannelConfigMO setPlatform:](v5, "setPlatform:", [*(a1 + 40) platform]);
-    v8 = [*(a1 + 40) populationSliceNumber];
-    [(DRSCloudChannelConfigMO *)v5 setPopulationSliceNumber:v8];
+    -[DRSCloudChannelConfigMO setEnvironment:](v6, "setEnvironment:", [*(a1 + 40) environment]);
+    -[DRSCloudChannelConfigMO setChannelType:](v6, "setChannelType:", [*(a1 + 40) type]);
+    -[DRSCloudChannelConfigMO setPlatform:](v6, "setPlatform:", [*(a1 + 40) platform]);
+    v9 = [*(a1 + 40) populationSliceNumber];
+    [(DRSCloudChannelConfigMO *)v6 setPopulationSliceNumber:v9];
 
-    -[DRSCloudChannelConfigMO setOverridesDeviceDefault:](v5, "setOverridesDeviceDefault:", [*(a1 + 40) overridesDeviceDefault]);
-    v9 = [*(a1 + 32) context];
-    v20 = 0;
-    v10 = [v9 save:&v20];
-    v11 = v20;
-    v12 = v20;
+    -[DRSCloudChannelConfigMO setOverridesDeviceDefault:](v6, "setOverridesDeviceDefault:", [*(a1 + 40) overridesDeviceDefault]);
+    v10 = [*(a1 + 32) context];
+    v21 = 0;
+    v11 = [v10 save:&v21];
+    v12 = v21;
+    v13 = v21;
 
-    v13 = DPLogHandle_ConfigPersistedStoreError();
-    v14 = os_signpost_enabled(v13);
-    if (v10)
+    v15 = DPLogHandle_ConfigPersistedStoreError(v14);
+    v16 = os_signpost_enabled(v15);
+    if (v11)
     {
-      if (v14)
+      if (v16)
       {
-        v15 = [*(a1 + 40) debugDescription];
+        v17 = [*(a1 + 40) debugDescription];
         *buf = 138543362;
-        v22 = v15;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistedCloudChannelConfigUpdated", "Updated persisted config to:\n%{public}@", buf, 0xCu);
+        v23 = v17;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistedCloudChannelConfigUpdated", "Updated persisted config to:\n%{public}@", buf, 0xCu);
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -1338,23 +1359,23 @@ void __61__DRSConfigPersistedStore_updateCloudChannelConfig_errorOut___block_inv
 
     else
     {
-      if (v14)
+      if (v16)
       {
-        v16 = [v12 localizedDescription];
-        v17 = v16;
-        v18 = @"Unknown";
-        if (v16)
+        v18 = [v13 localizedDescription];
+        v19 = v18;
+        v20 = @"Unknown";
+        if (v18)
         {
-          v18 = v16;
+          v20 = v18;
         }
 
         *buf = 138543362;
-        v22 = v18;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistedCloudChannelConfigUpdateFailed", "Failed to save cloud channel config due to error: %{public}@", buf, 0xCu);
+        v23 = v20;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistedCloudChannelConfigUpdateFailed", "Failed to save cloud channel config due to error: %{public}@", buf, 0xCu);
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 0;
-      objc_storeStrong((*(*(a1 + 56) + 8) + 40), v11);
+      objc_storeStrong((*(*(a1 + 56) + 8) + 40), v12);
     }
   }
 
@@ -1363,8 +1384,6 @@ void __61__DRSConfigPersistedStore_updateCloudChannelConfig_errorOut___block_inv
     [*(a1 + 32) _ON_MOC_deleteCloudChannelConfigMOs:v2];
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

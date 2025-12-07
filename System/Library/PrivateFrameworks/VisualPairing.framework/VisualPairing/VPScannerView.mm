@@ -106,11 +106,11 @@
   }
 }
 
-void __28__VPScannerView__initCommon__block_invoke()
+void __28__VPScannerView__initCommon__block_invoke(float a1)
 {
   if (gLogCategory_SV <= 30 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView _initCommon]_block_invoke", 30, "Current Scan Progress %0.f\n", a1);
   }
 }
 
@@ -142,7 +142,7 @@ void __28__VPScannerView__initCommon__block_invoke()
 {
   if (gLogCategory_SV <= 30 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView start]", 30, "Start\n");
   }
 
   date = [MEMORY[0x277CBEAA8] date];
@@ -167,7 +167,7 @@ void __28__VPScannerView__initCommon__block_invoke()
 {
   if (gLogCategory_SV <= 30 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView stop]", 30, "Stop\n");
   }
 
   [(VPScannerView *)self _postMetricAndResetAnalyticsState];
@@ -192,7 +192,7 @@ void __28__VPScannerView__initCommon__block_invoke()
 
 - (id)_setupCapture
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   if (self->_avCaptureSession)
   {
     v2 = 0;
@@ -221,15 +221,15 @@ void __28__VPScannerView__initCommon__block_invoke()
       v9 = [(VPScannerView *)self _setupDevice:?];
       if (v9)
       {
-        v35 = 0;
+        v32 = 0;
       }
 
       else
       {
         v10 = self->_avCaptureDevice;
-        v36 = 0;
-        v11 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:v10 error:&v36];
-        v12 = v36;
+        v33 = 0;
+        v11 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:v10 error:&v33];
+        v12 = v33;
         if (v11)
         {
           [(AVCaptureSession *)self->_avCaptureSession addInput:v11];
@@ -238,9 +238,9 @@ void __28__VPScannerView__initCommon__block_invoke()
           {
             v14 = v13;
             [v13 setAlwaysDiscardsLateVideoFrames:1];
-            v37 = *MEMORY[0x277CC4E30];
-            v38[0] = &unk_288157550;
-            v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+            v34 = *MEMORY[0x277CC4E30];
+            v35[0] = &unk_288157550;
+            v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
             [v14 setVideoSettings:v15];
 
             avCaptureQueue = self->_avCaptureQueue;
@@ -256,32 +256,30 @@ void __28__VPScannerView__initCommon__block_invoke()
             [v14 setSampleBufferDelegate:self queue:avCaptureQueue];
             [(AVCaptureSession *)self->_avCaptureSession addOutput:v14];
             v19 = *MEMORY[0x277CE5968];
-            v20 = [(AVCaptureSession *)self->_avCaptureSession canSetSessionPreset:*MEMORY[0x277CE5968]];
-            v21 = *MEMORY[0x277CE59A0];
-            if (v20)
+            if ([(AVCaptureSession *)self->_avCaptureSession canSetSessionPreset:*MEMORY[0x277CE5968]])
             {
-              v22 = v19;
+              v20 = v19;
             }
 
             else
             {
-              v22 = *MEMORY[0x277CE59A0];
+              v20 = *MEMORY[0x277CE59A0];
             }
 
-            [(AVCaptureSession *)self->_avCaptureSession setSessionPreset:v22];
+            [(AVCaptureSession *)self->_avCaptureSession setSessionPreset:v20];
             [(AVCaptureSession *)self->_avCaptureSession commitConfiguration];
-            v23 = [MEMORY[0x277CE5B68] layerWithSession:self->_avCaptureSession];
+            v21 = [MEMORY[0x277CE5B68] layerWithSession:self->_avCaptureSession];
             avPreviewLayer = self->_avPreviewLayer;
-            self->_avPreviewLayer = v23;
+            self->_avPreviewLayer = v21;
 
             fillLayerBoundsWithVideo = [(VPScannerView *)self fillLayerBoundsWithVideo];
-            v26 = MEMORY[0x277CE5DD8];
+            v24 = MEMORY[0x277CE5DD8];
             if (!fillLayerBoundsWithVideo)
             {
-              v26 = MEMORY[0x277CE5DD0];
+              v24 = MEMORY[0x277CE5DD0];
             }
 
-            [(AVCaptureVideoPreviewLayer *)self->_avPreviewLayer setVideoGravity:*v26];
+            [(AVCaptureVideoPreviewLayer *)self->_avPreviewLayer setVideoGravity:*v24];
             layer = [(VPScannerView *)self layer];
             [layer bounds];
             [(AVCaptureVideoPreviewLayer *)self->_avPreviewLayer setFrame:?];
@@ -295,32 +293,32 @@ void __28__VPScannerView__initCommon__block_invoke()
               activeInterfaceOrientation = [*MEMORY[0x277D76620] activeInterfaceOrientation];
               if ((activeInterfaceOrientation - 2) >= 3)
               {
-                v31 = 1;
+                v29 = 1;
               }
 
               else
               {
-                v31 = activeInterfaceOrientation;
+                v29 = activeInterfaceOrientation;
               }
 
-              v32 = connection;
-              [connection setVideoOrientation:v31];
+              v30 = connection;
+              [connection setVideoOrientation:v29];
             }
 
             else
             {
-              v32 = connection;
+              v30 = connection;
             }
 
             goto LABEL_21;
           }
 
-          v35 = v11;
+          v32 = v11;
         }
 
         else
         {
-          v35 = 0;
+          v32 = 0;
         }
 
         v9 = v12;
@@ -329,12 +327,12 @@ void __28__VPScannerView__initCommon__block_invoke()
 
     else
     {
-      v35 = 0;
-      v9 = NSErrorWithOSStatusF();
+      v32 = 0;
+      v9 = NSErrorWithOSStatusF(4294960569, "Camera not found");
     }
 
-    v11 = v35;
-    v32 = 0;
+    v11 = v32;
+    v30 = 0;
     v14 = 0;
     v12 = v9;
     [(AVCaptureSession *)self->_avCaptureSession commitConfiguration];
@@ -342,8 +340,8 @@ void __28__VPScannerView__initCommon__block_invoke()
 
   else
   {
-    v32 = 0;
-    v12 = NSErrorWithOSStatusF();
+    v30 = 0;
+    v12 = NSErrorWithOSStatusF(4294960569, "Create capture session failed");
     defaultCenter = 0;
     v11 = 0;
     v14 = 0;
@@ -352,13 +350,12 @@ void __28__VPScannerView__initCommon__block_invoke()
 LABEL_21:
   if (v12 && gLogCategory_SV <= 60 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView _setupCapture]", 60, "### Setup capture failed: %{error}\n", v12);
   }
 
   v2 = v12;
 
 LABEL_27:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -374,7 +371,7 @@ LABEL_27:
   {
     if (gLogCategory_SV <= 60 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_SV, "[VPScannerView _setupDevice:]", 60, "### Setup camera failed: %{error}\n", v6);
     }
   }
 
@@ -413,7 +410,7 @@ LABEL_27:
   startedCopy = started;
   if (gLogCategory_SV <= 30 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView _handleCaptureSessionStarted:]", 30, "Capture session started\n");
   }
 }
 
@@ -422,7 +419,7 @@ LABEL_27:
   stoppedCopy = stopped;
   if (gLogCategory_SV <= 30 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView _handleCaptureSessionStopped:]", 30, "Capture session stopped\n");
   }
 }
 
@@ -430,48 +427,47 @@ LABEL_27:
 {
   userInfo = [error userInfo];
   CFErrorGetTypeID();
-  v5 = *MEMORY[0x277CE5940];
-  v7 = CFDictionaryGetTypedValue();
+  v5 = CFDictionaryGetTypedValue();
 
   if (gLogCategory_SV <= 60 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    v6 = v7;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView _handleCaptureSessionRuntimeError:]", 60, "### Capture session runtime error: %{error}\n", v5);
   }
 
-  [(VPScannerView *)self setLatestError:v7, v6];
+  [(VPScannerView *)self setLatestError:v5];
 }
 
 - (void)_handleCaptureSessionInterrupted:(id)interrupted
 {
   userInfo = [interrupted userInfo];
-  v5 = *MEMORY[0x277CE5950];
-  v12 = userInfo;
   Int64Ranged = CFDictionaryGetInt64Ranged();
   if (gLogCategory_SV <= 60 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    if ((Int64Ranged - 1) <= 4)
+    if ((Int64Ranged - 1) > 4)
     {
-      v7 = off_279E32130[Int64Ranged - 1];
+      v5 = "?";
     }
 
-    LogPrintF();
+    else
+    {
+      v5 = off_279E32130[Int64Ranged - 1];
+    }
+
+    LogPrintF(&gLogCategory_SV, "[VPScannerView _handleCaptureSessionInterrupted:]", 60, "### Capture session interrupted: reason %ld (%s)\n", Int64Ranged, v5);
   }
 
   if ((Int64Ranged - 1) > 4)
   {
-    v8 = "?";
+    v6 = "?";
   }
 
   else
   {
-    v8 = off_279E32130[Int64Ranged - 1];
+    v6 = off_279E32130[Int64Ranged - 1];
   }
 
-  v10 = Int64Ranged;
-  v11 = v8;
-  v9 = NSErrorWithOSStatusF();
-  [(VPScannerView *)self setLatestError:v9, v10, v11];
+  v7 = NSErrorWithOSStatusF(4294896154, "Capture session interrupted: reason %ld (%s)", Int64Ranged, v6);
+  [(VPScannerView *)self setLatestError:v7];
 }
 
 - (void)_handleCaptureSessionInterruptionEnded:(id)ended
@@ -479,22 +475,22 @@ LABEL_27:
   endedCopy = ended;
   if (gLogCategory_SV <= 30 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView _handleCaptureSessionInterruptionEnded:]", 30, "Capture session interruption ended\n");
   }
 }
 
 - (void)_postMetricAndResetAnalyticsState
 {
-  v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
   processInfo = [MEMORY[0x277CCAC38] processInfo];
   processName = [processInfo processName];
-  [v28 setObject:processName forKeyedSubscript:@"processName"];
+  [v27 setObject:processName forKeyedSubscript:@"processName"];
 
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_focusMode];
-  [v28 setObject:v5 forKeyedSubscript:@"focusMode"];
+  [v27 setObject:v5 forKeyedSubscript:@"focusMode"];
 
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:self->_autoFocusRangeRestriction];
-  [v28 setObject:v6 forKeyedSubscript:@"autoFocusRangeRestriction"];
+  [v27 setObject:v6 forKeyedSubscript:@"autoFocusRangeRestriction"];
 
   startDate = [(VPScannerView *)self startDate];
   if (startDate)
@@ -503,7 +499,7 @@ LABEL_27:
     v9 = MEMORY[0x277CCABB0];
     [date timeIntervalSinceDate:startDate];
     v10 = [v9 numberWithDouble:?];
-    [v28 setObject:v10 forKeyedSubscript:@"sessionDurationSeconds"];
+    [v27 setObject:v10 forKeyedSubscript:@"sessionDurationSeconds"];
 
     firstCapturedFrameDate = [(VPWatermarkReader *)self->_watermarkReader firstCapturedFrameDate];
     v12 = firstCapturedFrameDate;
@@ -512,7 +508,7 @@ LABEL_27:
       v13 = MEMORY[0x277CCABB0];
       [firstCapturedFrameDate timeIntervalSinceDate:startDate];
       v14 = [v13 numberWithDouble:?];
-      [v28 setObject:v14 forKeyedSubscript:@"secondsToFirstFrame"];
+      [v27 setObject:v14 forKeyedSubscript:@"secondsToFirstFrame"];
     }
 
     firstScannedCodeDate = [(VPWatermarkReader *)self->_watermarkReader firstScannedCodeDate];
@@ -522,23 +518,23 @@ LABEL_27:
       v17 = MEMORY[0x277CCABB0];
       [firstScannedCodeDate timeIntervalSinceDate:startDate];
       v18 = [v17 numberWithDouble:?];
-      [v28 setObject:v18 forKeyedSubscript:@"secondsToFirstCode"];
+      [v27 setObject:v18 forKeyedSubscript:@"secondsToFirstCode"];
     }
 
     v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{-[VPWatermarkReader extractedCodeLength](self->_watermarkReader, "extractedCodeLength")}];
-    [v28 setObject:v19 forKeyedSubscript:@"extractedCodeLength"];
+    [v27 setObject:v19 forKeyedSubscript:@"extractedCodeLength"];
 
     v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[VPWatermarkReader readerResetCount](self->_watermarkReader, "readerResetCount")}];
-    [v28 setObject:v20 forKeyedSubscript:@"readerResetCount"];
+    [v27 setObject:v20 forKeyedSubscript:@"readerResetCount"];
 
     v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{-[VPWatermarkReader readerWidth](self->_watermarkReader, "readerWidth")}];
-    [v28 setObject:v21 forKeyedSubscript:@"readerWidth"];
+    [v27 setObject:v21 forKeyedSubscript:@"readerWidth"];
 
     v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{-[VPWatermarkReader readerHeight](self->_watermarkReader, "readerHeight")}];
-    [v28 setObject:v22 forKeyedSubscript:@"readerHeight"];
+    [v27 setObject:v22 forKeyedSubscript:@"readerHeight"];
 
     v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{-[VPWatermarkReader readerRowBytes](self->_watermarkReader, "readerRowBytes")}];
-    [v28 setObject:v23 forKeyedSubscript:@"readerRowBytes"];
+    [v27 setObject:v23 forKeyedSubscript:@"readerRowBytes"];
   }
 
   latestError = [(VPScannerView *)self latestError];
@@ -546,17 +542,16 @@ LABEL_27:
   if (latestError)
   {
     localizedDescription = [latestError localizedDescription];
-    [v28 setObject:localizedDescription forKeyedSubscript:@"latestError"];
+    [v27 setObject:localizedDescription forKeyedSubscript:@"latestError"];
   }
 
   AnalyticsSendEvent();
   if (gLogCategory_SV <= 30 && (gLogCategory_SV != -1 || _LogCategory_Initialize()))
   {
-    v27 = v28;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SV, "[VPScannerView _postMetricAndResetAnalyticsState]", 30, "AnalyticsSendEvent com.apple.VisualPairing.VPScannerView.session -- %@\n", v27);
   }
 
-  [(VPScannerView *)self setStartDate:0, v27];
+  [(VPScannerView *)self setStartDate:0];
   [(VPScannerView *)self setLatestError:0];
 }
 

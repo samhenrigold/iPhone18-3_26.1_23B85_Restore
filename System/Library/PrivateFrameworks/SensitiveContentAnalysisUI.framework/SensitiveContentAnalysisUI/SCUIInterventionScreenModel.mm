@@ -52,24 +52,21 @@
 - (id)nextModel
 {
   v3 = type metadata accessor for InterventionConfig(0);
-  v4 = v3 - 8;
-  v5 = *(*(v3 - 8) + 64);
-  v6 = MEMORY[0x1EEE9AC00](v3);
-  v8 = &v16[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v16[-v9];
-  sub_1BC66FDD8(self + OBJC_IVAR___SCUIInterventionScreenModel_config, &v16[-v9], type metadata accessor for InterventionConfig);
-  v17 = 5;
-  v11 = *(v4 + 40);
+  v4 = MEMORY[0x1EEE9AC00](v3);
+  v6 = &v13[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v4);
+  v8 = &v13[-v7];
+  sub_1BC66FDD8(self + OBJC_IVAR___SCUIInterventionScreenModel_config, &v13[-v7], type metadata accessor for InterventionConfig);
+  v14 = 5;
   selfCopy = self;
-  sub_1BC665984(&v17);
-  sub_1BC66FDD8(v10, v8, type metadata accessor for InterventionConfig);
-  v13 = objc_allocWithZone(type metadata accessor for InterventionScreenModel());
-  v14 = InterventionScreenModel.init(screen:config:participantContactCache:)(1, v8, 0);
+  sub_1BC665984(&v14);
+  sub_1BC66FDD8(v8, v6, type metadata accessor for InterventionConfig);
+  v10 = objc_allocWithZone(type metadata accessor for InterventionScreenModel(0));
+  v11 = InterventionScreenModel.init(screen:config:participantContactCache:)(1, v6, 0);
 
-  sub_1BC66FE40(v10, type metadata accessor for InterventionConfig);
+  sub_1BC66FE40(v8, type metadata accessor for InterventionConfig);
 
-  return v14;
+  return v11;
 }
 
 - (SCUIInterventionScreenModel)init
@@ -83,12 +80,12 @@
 {
   sub_1BC75BDE0();
   selfCopy = self;
-  v4 = sub_1BC75C210();
-  sub_1BC66C60C(&v7, v4);
+  sub_1BC75C210();
+  sub_1BC66C60C(&v6);
 
-  v5 = sub_1BC75BB30();
+  v4 = sub_1BC75BB30();
 
-  return v5;
+  return v4;
 }
 
 - (NSString)subtitle
@@ -184,24 +181,24 @@
 
 - (void)didAskForMoreHelpWithPresentingViewController:(id)controller
 {
-  v5 = self + *(type metadata accessor for InterventionConfig(0) + 20);
+  type metadata accessor for InterventionConfig(0);
   controllerCopy = controller;
   selfCopy = self;
-  v7 = sub_1BC6F39FC();
-  if (v8)
+  v6 = sub_1BC6F39FC();
+  if (v7)
   {
-    v9 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v9 = v7;
+    v8 = v6;
   }
 
   initWithType_ = [objc_allocWithZone(SCUIMoreHelpWebViewController) initWithType_];
   if (initWithType_)
   {
-    v11 = initWithType_;
+    v10 = initWithType_;
     [controllerCopy presentViewController:initWithType_ animated:1 completion:0];
   }
 }

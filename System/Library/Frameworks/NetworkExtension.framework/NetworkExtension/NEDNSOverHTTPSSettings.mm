@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (NEDNSOverHTTPSSettings)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -55,9 +56,9 @@ LABEL_7:
 
   serverURL2 = [(NEDNSOverHTTPSSettings *)self serverURL];
   scheme = [serverURL2 scheme];
-  v9 = [scheme isEqualToString:@"https"];
+  isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-  if ((v9 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v10 = @"Server URL does not have HTTPS scheme";
 LABEL_5:
@@ -66,6 +67,24 @@ LABEL_5:
   }
 
   return v5;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v13.receiver = self;
+  v13.super_class = NEDNSOverHTTPSSettings;
+  v8 = [(NEDNSSettings *)&v13 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  serverURL = [(NEDNSOverHTTPSSettings *)self serverURL];
+  [v9 appendPrettyObject:serverURL withName:@"serverURL" andIndent:v5 options:options];
+
+  identityReference = [(NEDNSOverHTTPSSettings *)self identityReference];
+  [v9 appendPrettyObject:identityReference withName:@"identityReference" andIndent:v5 options:options];
+
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -20,7 +20,7 @@
 - (void)didMoveToSuperview
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for TranscriptView();
+  v4.super_class = type metadata accessor for TranscriptView(0);
   v2 = v4.receiver;
   [(TranscriptView *)&v4 didMoveToSuperview];
   superview = [v2 superview];
@@ -37,7 +37,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for TranscriptView();
+  v3.super_class = type metadata accessor for TranscriptView(0);
   v2 = v3.receiver;
   [(TranscriptView *)&v3 layoutSubviews];
   sub_100170A40();
@@ -125,7 +125,7 @@
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
   selfCopy = self;
-  v9 = sub_100171C50(recognizerCopy);
+  v9 = sub_100171C50(recognizerCopy, gestureRecognizerCopy);
 
   return v9;
 }
@@ -148,7 +148,7 @@
 
   v8 = sub_100171EEC(action, v10);
 
-  sub_100003CBC(v10, &qword_1002D06A8);
+  sub_100003CBC(v10, &qword_1002D06A8, &unk_1002441A0);
   return v8 & 1;
 }
 
@@ -170,7 +170,7 @@
 
   sub_1001721D4(v6);
 
-  sub_100003CBC(v6, &qword_1002D06A8);
+  sub_100003CBC(v6, &qword_1002D06A8, &unk_1002441A0);
 }
 
 - (_TtC10VoiceMemos14TranscriptView)initWithFrame:(CGRect)frame

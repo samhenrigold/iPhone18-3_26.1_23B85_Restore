@@ -12,9 +12,10 @@
 - (id)pillControlKeyPillBackgroundColor
 {
   renderConfig = [(UIKBRenderFactory *)self renderConfig];
-  v3 = _labelColorSecondary([renderConfig lightKeyboard]);
+  lightKeyboard = [renderConfig lightKeyboard];
+  v5 = _labelColorSecondary(lightKeyboard, v4);
 
-  return v3;
+  return v5;
 }
 
 - (void)configureGeometry:(id)geometry forControlKey:(id)key
@@ -76,15 +77,15 @@
     v17 = v16;
     [(UIKBRenderFactory_MonolithLinear *)self pillSpaceKeyMaxWidth];
     v19 = fmax(v17, fmin(v15, v18));
-    geometry = [traitsCopy geometry];
-    [geometry paddedFrame];
+    v20 = objc_msgSend_geometry(traitsCopy);
+    [v20 paddedFrame];
     v22 = (v21 - v19) * 0.5;
 
-    geometry2 = [traitsCopy geometry];
-    [geometry2 applyInsets:{0.0, v22, 0.0, v22}];
+    v23 = objc_msgSend_geometry(traitsCopy);
+    [v23 applyInsets:{0.0, v22, 0.0, v22}];
 
-    geometry3 = [traitsCopy geometry];
-    [geometry3 paddedFrame];
+    v24 = objc_msgSend_geometry(traitsCopy);
+    [v24 paddedFrame];
     v26 = v25;
     v28 = v27;
     v30 = v29;
@@ -95,8 +96,8 @@
     v36 = v26 + v35;
     v37 = v30 - (v34 + v35);
 
-    geometry4 = [traitsCopy geometry];
-    [geometry4 setSymbolFrame:{v36, v28 + 0.0, v37, v32}];
+    v38 = objc_msgSend_geometry(traitsCopy);
+    [v38 setSymbolFrame:{v36, v28 + 0.0, v37, v32}];
   }
 }
 
@@ -121,8 +122,8 @@
 
       [(UIKBRenderFactory_Monolith *)self controlKeyRectCornerRadius];
       v10 = v9;
-      geometry = [v5 geometry];
-      [geometry setRoundRectRadius:v10];
+      v11 = objc_msgSend_geometry(v5);
+      [v11 setRoundRectRadius:v10];
 
       pillControlKeyPillBackgroundColor = [(UIKBRenderFactory_MonolithLinear *)self pillControlKeyPillBackgroundColor];
       v13 = [UIKBGradient gradientWithFlatColor:pillControlKeyPillBackgroundColor];
@@ -153,8 +154,8 @@
   interactionType = [keyCopy interactionType];
   if (interactionType == 4)
   {
-    geometry = [v5 geometry];
-    [geometry displayFrame];
+    v17 = objc_msgSend_geometry(v5);
+    [v17 displayFrame];
     [v5 setFloatingContentViewControlFocusedBaseSize:{v18, v19}];
 
     [(UIKBRenderFactory_Monolith *)self letterKeyFocusIncreaseSize];
@@ -171,8 +172,8 @@
     if (colorAdaptiveBackground)
     {
       [(UIKBRenderFactory_MonolithLinear *)self _updateGeometryForControlKey:keyCopy withTraits:v5];
-      geometry2 = [v5 geometry];
-      [geometry2 paddedFrame];
+      v9 = objc_msgSend_geometry(v5);
+      [v9 paddedFrame];
       v11 = v10;
       v13 = v12;
       [(UIKBRenderFactory_MonolithLinear *)self pillControlKeyFocusPlatterInset];
@@ -190,8 +191,8 @@
 
     [(UIKBRenderFactory_Monolith *)self controlKeyRectCornerRadius];
     v21 = v20;
-    geometry3 = [v5 geometry];
-    [geometry3 setRoundRectRadius:v21];
+    v22 = objc_msgSend_geometry(v5);
+    [v22 setRoundRectRadius:v21];
 
     highlightedTextColor = [(UIKBRenderFactory_Monolith *)self highlightedTextColor];
     v24 = [UIKBGradient gradientWithFlatColor:highlightedTextColor];

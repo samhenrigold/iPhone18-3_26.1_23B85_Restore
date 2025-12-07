@@ -49,26 +49,23 @@
 
 - (void)setSamplingInterval:(double)interval
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (interval >= 1.0 || interval == -1.0)
   {
     self->_samplingInterval = interval;
-    v5 = *MEMORY[0x1E69E9840];
 
     [(SFAnalyticsSampler *)self newTimer];
   }
 
   else
   {
-    v6 = secLogObjForScope("SecError");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v7 = 134217984;
       intervalCopy = interval;
-      _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "SFAnalyticsSampler: interval %f is not supported", &v9, 0xCu);
+      _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "SFAnalyticsSampler: interval %f is not supported", &v7, 0xCu);
     }
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -182,12 +179,12 @@ void __36__SFAnalyticsSampler_setupOnceTimer__block_invoke(uint64_t a1, int a2)
 
 - (SFAnalyticsSampler)initWithName:(id)name interval:(double)interval block:(id)block clientClass:(Class)class
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   blockCopy = block;
-  v21.receiver = self;
-  v21.super_class = SFAnalyticsSampler;
-  v13 = [(SFAnalyticsSampler *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = SFAnalyticsSampler;
+  v13 = [(SFAnalyticsSampler *)&v20 init];
   if (!v13)
   {
     goto LABEL_16;
@@ -247,7 +244,6 @@ LABEL_13:
   v16 = 0;
 LABEL_17:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

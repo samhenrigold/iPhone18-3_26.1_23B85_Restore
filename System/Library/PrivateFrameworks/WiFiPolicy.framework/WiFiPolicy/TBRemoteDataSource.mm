@@ -27,20 +27,18 @@
 
 - (void)_submitNetworkSearch:(id)search completion:(id)completion
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D0EBD8];
   completionCopy = completion;
   searchCopy = search;
   sharedService = [v6 sharedService];
-  v14[0] = searchCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = searchCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
 
   v11 = [sharedService ticketForWiFiQualityNetworkServiceRequest:v10];
 
   queue = [(TBRemoteDataSource *)self queue];
   [v11 submitNetworkSearchWithCompletionQueue:queue completion:completionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executeFetchRequest:(id)request
@@ -70,46 +68,44 @@
 
 - (void)_executeNetworkFetchRequest:(id)request
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   descriptor = [requestCopy descriptor];
   remoteRequest = [descriptor remoteRequest];
 
   if (remoteRequest)
   {
-    v16[0] = 0;
-    v16[1] = v16;
-    v16[2] = 0x3032000000;
-    v16[3] = __Block_byref_object_copy__0;
-    v16[4] = __Block_byref_object_dispose__0;
-    v17 = os_transaction_create();
+    v15[0] = 0;
+    v15[1] = v15;
+    v15[2] = 0x3032000000;
+    v15[3] = __Block_byref_object_copy__0;
+    v15[4] = __Block_byref_object_dispose__0;
+    v16 = os_transaction_create();
     v7 = mach_absolute_time();
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __50__TBRemoteDataSource__executeNetworkFetchRequest___block_invoke;
-    v12[3] = &unk_2789C6A38;
-    v15 = v7;
-    v12[4] = self;
-    v13 = requestCopy;
-    v14 = v16;
-    [(TBRemoteDataSource *)self _submitNetworkSearch:remoteRequest completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __50__TBRemoteDataSource__executeNetworkFetchRequest___block_invoke;
+    v11[3] = &unk_2789C6A38;
+    v14 = v7;
+    v11[4] = self;
+    v12 = requestCopy;
+    v13 = v15;
+    [(TBRemoteDataSource *)self _submitNetworkSearch:remoteRequest completion:v11];
 
-    _Block_object_dispose(v16, 8);
+    _Block_object_dispose(v15, 8);
   }
 
   else
   {
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"remoteRequest property is nil";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"remoteRequest property is nil";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v9 = [TBError fetchMissingParametersErrorWithUserInfo:v8];
 
     NSLog(&cfstr_SFailedToCreat_1.isa, "[TBRemoteDataSource _executeNetworkFetchRequest:]");
     v10 = [TBErrorFetchResponse responseWithError:v9];
     [requestCopy handleResponse:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __50__TBRemoteDataSource__executeNetworkFetchRequest___block_invoke(void *a1, void *a2, void *a3)
@@ -148,7 +144,7 @@ void __50__TBRemoteDataSource__executeNetworkFetchRequest___block_invoke(void *a
 
 - (void)_fetchTilesWithRequest:(id)request
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   descriptor = [requestCopy descriptor];
   tileItems = [descriptor tileItems];
@@ -172,28 +168,26 @@ void __50__TBRemoteDataSource__executeNetworkFetchRequest___block_invoke(void *a
     block[1] = 3221225472;
     block[2] = __45__TBRemoteDataSource__fetchTilesWithRequest___block_invoke;
     block[3] = &unk_2789C6A88;
-    v18 = tileItems;
+    v17 = tileItems;
     selfCopy = self;
-    v20 = requestCopy;
-    v21 = unsignedIntegerValue;
+    v19 = requestCopy;
+    v20 = unsignedIntegerValue;
     dispatch_async(queue, block);
 
-    v13 = v18;
+    v13 = v17;
   }
 
   else
   {
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = @"tileItem property is nil";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x277CCA450];
+    v22[0] = @"tileItem property is nil";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v13 = [TBError fetchMissingParametersErrorWithUserInfo:v14];
 
     NSLog(&cfstr_SFailedToCreat_2.isa, "[TBRemoteDataSource _fetchTilesWithRequest:]");
     v15 = [TBErrorFetchResponse responseWithError:v13];
     [requestCopy handleResponse:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __45__TBRemoteDataSource__fetchTilesWithRequest___block_invoke(uint64_t a1)
@@ -277,36 +271,36 @@ void __45__TBRemoteDataSource__fetchTilesWithRequest___block_invoke_2(uint64_t a
 
 - (void)_fetchTilesForTileItems:(id)items completionHandler:(id)handler trigger:(unint64_t)trigger
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   handlerCopy = handler;
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x3032000000;
-  v38[3] = __Block_byref_object_copy__0;
-  v38[4] = __Block_byref_object_dispose__0;
-  v39 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x3032000000;
+  v37[3] = __Block_byref_object_copy__0;
+  v37[4] = __Block_byref_object_dispose__0;
+  v38 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v8 = dispatch_group_create();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = itemsCopy;
-  v9 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v9 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v9)
   {
-    v24 = *v35;
+    v23 = *v34;
     do
     {
       v10 = 0;
       do
       {
-        if (*v35 != v24)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * v10);
+        v11 = *(*(&v33 + 1) + 8 * v10);
         dispatch_group_enter(v8);
         v12 = mach_absolute_time();
         mEMORY[0x277D0EBD8] = [MEMORY[0x277D0EBD8] sharedService];
@@ -316,22 +310,22 @@ void __45__TBRemoteDataSource__fetchTilesWithRequest___block_invoke_2(uint64_t a
         v17 = [mEMORY[0x277D0EBD8] ticketForWiFiQualityTileLoadForKey:stringValue eTag:etag];
 
         queue = [(TBRemoteDataSource *)self queue];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __72__TBRemoteDataSource__fetchTilesForTileItems_completionHandler_trigger___block_invoke;
-        v29[3] = &unk_2789C6AB0;
-        v32 = v12;
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __72__TBRemoteDataSource__fetchTilesForTileItems_completionHandler_trigger___block_invoke;
+        v28[3] = &unk_2789C6AB0;
+        v31 = v12;
         triggerCopy = trigger;
-        v29[4] = self;
-        v31 = v38;
-        v30 = v8;
-        [v17 submitTileLoadWithCompletionQueue:queue completion:v29];
+        v28[4] = self;
+        v30 = v37;
+        v29 = v8;
+        [v17 submitTileLoadWithCompletionQueue:queue completion:v28];
 
         ++v10;
       }
 
       while (v9 != v10);
-      v9 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v9 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v9);
@@ -342,14 +336,13 @@ void __45__TBRemoteDataSource__fetchTilesWithRequest___block_invoke_2(uint64_t a
   block[1] = 3221225472;
   block[2] = __72__TBRemoteDataSource__fetchTilesForTileItems_completionHandler_trigger___block_invoke_2;
   block[3] = &unk_2789C6AD8;
-  v28 = v38;
+  v27 = v37;
   block[4] = self;
-  v27 = handlerCopy;
+  v26 = handlerCopy;
   v20 = handlerCopy;
   dispatch_group_notify(v8, queue2, block);
 
-  _Block_object_dispose(v38, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v37, 8);
 }
 
 void __72__TBRemoteDataSource__fetchTilesForTileItems_completionHandler_trigger___block_invoke(uint64_t a1, void *a2, char a3, void *a4, void *a5, void *a6)

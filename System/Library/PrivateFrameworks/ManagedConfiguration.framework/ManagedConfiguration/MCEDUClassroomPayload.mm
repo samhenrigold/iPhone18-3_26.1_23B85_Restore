@@ -30,49 +30,48 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.education";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.education";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCEDUClassroomPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v41.receiver = self;
-  v41.super_class = MCEDUClassroomPayload;
-  v10 = [(MCPayload *)&v41 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v40.receiver = self;
+  v40.super_class = MCEDUClassroomPayload;
+  v10 = [(MCPayload *)&v40 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (v10)
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2050000000;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2050000000;
     v11 = getCRKEDUPayloadClass_softClass;
-    v45 = getCRKEDUPayloadClass_softClass;
+    v44 = getCRKEDUPayloadClass_softClass;
     if (!getCRKEDUPayloadClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getCRKEDUPayloadClass_block_invoke;
-      v47 = &unk_1E77D2418;
-      v48 = &v42;
+      v46 = &unk_1E77D2418;
+      v47 = &v41;
       __getCRKEDUPayloadClass_block_invoke(buf);
-      v11 = v43[3];
+      v11 = v42[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
     if (v11)
     {
       v20 = [v11 alloc];
       profile = [(MCPayload *)v10 profile];
-      v40 = 0;
-      v22 = [v20 initWithDictionary:dictionaryCopy isStub:objc_msgSend(profile error:{"isStub"), &v40}];
-      v23 = v40;
+      v39 = 0;
+      v22 = [v20 initWithDictionary:dictionaryCopy isStub:objc_msgSend(profile error:{"isStub"), &v39}];
+      v23 = v39;
 
       objc_storeStrong(&v10->_crk_payload, v22);
       if (v23)
@@ -91,7 +90,7 @@
         {
           v29 = v28;
           v30 = objc_opt_class();
-          v39 = v30;
+          v38 = v30;
           mCVerboseDescription = [v26 MCVerboseDescription];
           *buf = 138543618;
           *&buf[4] = v30;
@@ -147,7 +146,6 @@ LABEL_21:
   v32 = 0;
 LABEL_22:
 
-  v37 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
@@ -310,8 +308,8 @@ LABEL_22:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v103 = *MEMORY[0x1E69E9840];
-  v70 = objc_opt_new();
+  v102 = *MEMORY[0x1E69E9840];
+  v69 = objc_opt_new();
   selfCopy = self;
   crk_payload = [(MCEDUClassroomPayload *)self crk_payload];
   departments = [crk_payload departments];
@@ -320,47 +318,47 @@ LABEL_22:
   if (v5)
   {
     v6 = objc_opt_new();
+    v85 = 0u;
     v86 = 0u;
     v87 = 0u;
     v88 = 0u;
-    v89 = 0u;
     crk_payload2 = [(MCEDUClassroomPayload *)selfCopy crk_payload];
     departments2 = [crk_payload2 departments];
 
-    v9 = [departments2 countByEnumeratingWithState:&v86 objects:v102 count:16];
+    v9 = [departments2 countByEnumeratingWithState:&v85 objects:v101 count:16];
     if (v9)
     {
-      v10 = *v87;
+      v10 = *v86;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v87 != v10)
+          if (*v86 != v10)
           {
             objc_enumerationMutation(departments2);
           }
 
-          v12 = *(*(&v86 + 1) + 8 * i);
-          v95 = 0;
-          v96 = &v95;
-          v97 = 0x2020000000;
+          v12 = *(*(&v85 + 1) + 8 * i);
+          v94 = 0;
+          v95 = &v94;
+          v96 = 0x2020000000;
           v13 = getkCRKEDUDepartmentNameKeySymbolLoc_ptr;
-          v98 = getkCRKEDUDepartmentNameKeySymbolLoc_ptr;
+          v97 = getkCRKEDUDepartmentNameKeySymbolLoc_ptr;
           if (!getkCRKEDUDepartmentNameKeySymbolLoc_ptr)
           {
-            v90 = MEMORY[0x1E69E9820];
-            v91 = 3221225472;
-            v92 = __getkCRKEDUDepartmentNameKeySymbolLoc_block_invoke;
-            v93 = &unk_1E77D2418;
-            v94 = &v95;
+            v89 = MEMORY[0x1E69E9820];
+            v90 = 3221225472;
+            v91 = __getkCRKEDUDepartmentNameKeySymbolLoc_block_invoke;
+            v92 = &unk_1E77D2418;
+            v93 = &v94;
             v14 = ClassroomKitLibrary();
             v15 = dlsym(v14, "kCRKEDUDepartmentNameKey");
-            *(v94[1] + 24) = v15;
-            getkCRKEDUDepartmentNameKeySymbolLoc_ptr = *(v94[1] + 24);
-            v13 = v96[3];
+            *(v93[1] + 24) = v15;
+            getkCRKEDUDepartmentNameKeySymbolLoc_ptr = *(v93[1] + 24);
+            v13 = v95[3];
           }
 
-          _Block_object_dispose(&v95, 8);
+          _Block_object_dispose(&v94, 8);
           if (!v13)
           {
             [MCEDUClassroomPayload payloadDescriptionKeyValueSections];
@@ -370,7 +368,7 @@ LABEL_22:
           [v6 addObject:v16];
         }
 
-        v9 = [departments2 countByEnumeratingWithState:&v86 objects:v102 count:16];
+        v9 = [departments2 countByEnumeratingWithState:&v85 objects:v101 count:16];
       }
 
       while (v9);
@@ -378,7 +376,7 @@ LABEL_22:
 
     v17 = MCLocalizedString(@"EDU_DEPARTMENTS");
     v18 = [MCKeyValueSection sectionWithLocalizedArray:v6 title:v17 footer:0];
-    [v70 addObject:v18];
+    [v69 addObject:v18];
   }
 
   crk_payload3 = [(MCEDUClassroomPayload *)selfCopy crk_payload];
@@ -388,33 +386,33 @@ LABEL_22:
   if (v21)
   {
     v22 = objc_opt_new();
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
     v83 = 0u;
+    v84 = 0u;
+    v81 = 0u;
+    v82 = 0u;
     crk_payload4 = [(MCEDUClassroomPayload *)selfCopy crk_payload];
     groups2 = [crk_payload4 groups];
 
-    v25 = [groups2 countByEnumeratingWithState:&v82 objects:v101 count:16];
+    v25 = [groups2 countByEnumeratingWithState:&v81 objects:v100 count:16];
     if (v25)
     {
-      v26 = *v83;
+      v26 = *v82;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v83 != v26)
+          if (*v82 != v26)
           {
             objc_enumerationMutation(groups2);
           }
 
-          v28 = *(*(&v82 + 1) + 8 * j);
+          v28 = *(*(&v81 + 1) + 8 * j);
           v29 = getkCRKEDUDeviceGroupNameKey();
           v30 = [v28 objectForKeyedSubscript:v29];
           [v22 addObject:v30];
         }
 
-        v25 = [groups2 countByEnumeratingWithState:&v82 objects:v101 count:16];
+        v25 = [groups2 countByEnumeratingWithState:&v81 objects:v100 count:16];
       }
 
       while (v25);
@@ -422,7 +420,7 @@ LABEL_22:
 
     v31 = MCLocalizedString(@"EDU_GROUPS");
     v32 = [MCKeyValueSection sectionWithLocalizedArray:v22 title:v31 footer:0];
-    [v70 addObject:v32];
+    [v69 addObject:v32];
   }
 
   crk_payload5 = [(MCEDUClassroomPayload *)selfCopy crk_payload];
@@ -431,31 +429,31 @@ LABEL_22:
 
   if (v35)
   {
-    v72 = objc_opt_new();
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
+    v71 = objc_opt_new();
     v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
     crk_payload6 = [(MCEDUClassroomPayload *)selfCopy crk_payload];
     obj = [crk_payload6 users];
 
-    v37 = [obj countByEnumeratingWithState:&v78 objects:v100 count:16];
+    v37 = [obj countByEnumeratingWithState:&v77 objects:v99 count:16];
     if (!v37)
     {
       goto LABEL_38;
     }
 
-    v38 = *v79;
+    v38 = *v78;
     while (1)
     {
       for (k = 0; k != v37; ++k)
       {
-        if (*v79 != v38)
+        if (*v78 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v40 = *(*(&v78 + 1) + 8 * k);
+        v40 = *(*(&v77 + 1) + 8 * k);
         v41 = getkCRKEDUUserIdentifierKey();
         v42 = [v40 objectForKeyedSubscript:v41];
 
@@ -477,45 +475,45 @@ LABEL_22:
         {
         }
 
-        v95 = 0;
-        v96 = &v95;
-        v97 = 0x2020000000;
+        v94 = 0;
+        v95 = &v94;
+        v96 = 0x2020000000;
         v48 = getkCRKEDUUserNameKeySymbolLoc_ptr;
-        v98 = getkCRKEDUUserNameKeySymbolLoc_ptr;
+        v97 = getkCRKEDUUserNameKeySymbolLoc_ptr;
         if (!getkCRKEDUUserNameKeySymbolLoc_ptr)
         {
-          v90 = MEMORY[0x1E69E9820];
-          v91 = 3221225472;
-          v92 = __getkCRKEDUUserNameKeySymbolLoc_block_invoke;
-          v93 = &unk_1E77D2418;
-          v94 = &v95;
+          v89 = MEMORY[0x1E69E9820];
+          v90 = 3221225472;
+          v91 = __getkCRKEDUUserNameKeySymbolLoc_block_invoke;
+          v92 = &unk_1E77D2418;
+          v93 = &v94;
           v49 = ClassroomKitLibrary();
           v50 = dlsym(v49, "kCRKEDUUserNameKey");
-          *(v94[1] + 24) = v50;
-          getkCRKEDUUserNameKeySymbolLoc_ptr = *(v94[1] + 24);
-          v48 = v96[3];
+          *(v93[1] + 24) = v50;
+          getkCRKEDUUserNameKeySymbolLoc_ptr = *(v93[1] + 24);
+          v48 = v95[3];
         }
 
-        _Block_object_dispose(&v95, 8);
+        _Block_object_dispose(&v94, 8);
         if (!v48)
         {
           [MCEDUClassroomPayload payloadDescriptionKeyValueSections];
         }
 
         v51 = [v40 objectForKeyedSubscript:*v48];
-        [v72 addObject:v51];
+        [v71 addObject:v51];
 
 LABEL_36:
       }
 
-      v37 = [obj countByEnumeratingWithState:&v78 objects:v100 count:16];
+      v37 = [obj countByEnumeratingWithState:&v77 objects:v99 count:16];
       if (!v37)
       {
 LABEL_38:
 
         v52 = MCLocalizedString(@"EDU_USERS");
-        v53 = [MCKeyValueSection sectionWithLocalizedArray:v72 title:v52 footer:0];
-        [v70 addObject:v53];
+        v53 = [MCKeyValueSection sectionWithLocalizedArray:v71 title:v52 footer:0];
+        [v69 addObject:v53];
 
         break;
       }
@@ -529,33 +527,33 @@ LABEL_38:
   if (v56)
   {
     v57 = objc_opt_new();
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     crk_payload10 = [(MCEDUClassroomPayload *)selfCopy crk_payload];
     deviceGroups2 = [crk_payload10 deviceGroups];
 
-    v60 = [deviceGroups2 countByEnumeratingWithState:&v74 objects:v99 count:16];
+    v60 = [deviceGroups2 countByEnumeratingWithState:&v73 objects:v98 count:16];
     if (v60)
     {
-      v61 = *v75;
+      v61 = *v74;
       do
       {
         for (m = 0; m != v60; ++m)
         {
-          if (*v75 != v61)
+          if (*v74 != v61)
           {
             objc_enumerationMutation(deviceGroups2);
           }
 
-          v63 = *(*(&v74 + 1) + 8 * m);
+          v63 = *(*(&v73 + 1) + 8 * m);
           v64 = getkCRKEDUDeviceGroupNameKey();
           v65 = [v63 objectForKeyedSubscript:v64];
           [v57 addObject:v65];
         }
 
-        v60 = [deviceGroups2 countByEnumeratingWithState:&v74 objects:v99 count:16];
+        v60 = [deviceGroups2 countByEnumeratingWithState:&v73 objects:v98 count:16];
       }
 
       while (v60);
@@ -563,23 +561,21 @@ LABEL_38:
 
     v66 = MCLocalizedString(@"EDU_DEVICE_GROUPS");
     v67 = [MCKeyValueSection sectionWithLocalizedArray:v57 title:v66 footer:0];
-    [v70 addObject:v67];
+    [v69 addObject:v67];
   }
 
-  if (![v70 count])
+  if (![v69 count])
   {
 
-    v70 = 0;
+    v69 = 0;
   }
 
-  v68 = *MEMORY[0x1E69E9840];
-
-  return v70;
+  return v69;
 }
 
 - (id)translatedCRKError:(id)error
 {
-  v134 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v4 = errorCopy;
   if (!errorCopy)
@@ -831,52 +827,52 @@ LABEL_81:
 
       if (userInfo)
       {
-        v127 = 0;
-        v128 = &v127;
-        v129 = 0x2020000000;
+        v126 = 0;
+        v127 = &v126;
+        v128 = 0x2020000000;
         v28 = getCRKEDUProfileErrorProvidedKeysKeySymbolLoc_ptr;
-        v130 = getCRKEDUProfileErrorProvidedKeysKeySymbolLoc_ptr;
+        v129 = getCRKEDUProfileErrorProvidedKeysKeySymbolLoc_ptr;
         if (!getCRKEDUProfileErrorProvidedKeysKeySymbolLoc_ptr)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getCRKEDUProfileErrorProvidedKeysKeySymbolLoc_block_invoke;
-          v132 = &unk_1E77D2418;
-          v133 = &v127;
+          v131 = &unk_1E77D2418;
+          v132 = &v126;
           v29 = ClassroomKitLibrary();
           v30 = dlsym(v29, "CRKEDUProfileErrorProvidedKeysKey");
-          *(v133[1] + 24) = v30;
-          getCRKEDUProfileErrorProvidedKeysKeySymbolLoc_ptr = *(v133[1] + 24);
-          v28 = v128[3];
+          *(v132[1] + 24) = v30;
+          getCRKEDUProfileErrorProvidedKeysKeySymbolLoc_ptr = *(v132[1] + 24);
+          v28 = v127[3];
         }
 
-        _Block_object_dispose(&v127, 8);
+        _Block_object_dispose(&v126, 8);
         if (!v28)
         {
           [MCEDUClassroomPayload translatedCRKError:];
         }
 
         v31 = [userInfo objectForKeyedSubscript:*v28];
-        v127 = 0;
-        v128 = &v127;
-        v129 = 0x2020000000;
+        v126 = 0;
+        v127 = &v126;
+        v128 = 0x2020000000;
         v32 = getCRKEDUProfileErrorAllOrNoneKeysKeySymbolLoc_ptr;
-        v130 = getCRKEDUProfileErrorAllOrNoneKeysKeySymbolLoc_ptr;
+        v129 = getCRKEDUProfileErrorAllOrNoneKeysKeySymbolLoc_ptr;
         if (!getCRKEDUProfileErrorAllOrNoneKeysKeySymbolLoc_ptr)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getCRKEDUProfileErrorAllOrNoneKeysKeySymbolLoc_block_invoke;
-          v132 = &unk_1E77D2418;
-          v133 = &v127;
+          v131 = &unk_1E77D2418;
+          v132 = &v126;
           v33 = ClassroomKitLibrary();
           v34 = dlsym(v33, "CRKEDUProfileErrorAllOrNoneKeysKey");
-          *(v133[1] + 24) = v34;
-          getCRKEDUProfileErrorAllOrNoneKeysKeySymbolLoc_ptr = *(v133[1] + 24);
-          v32 = v128[3];
+          *(v132[1] + 24) = v34;
+          getCRKEDUProfileErrorAllOrNoneKeysKeySymbolLoc_ptr = *(v132[1] + 24);
+          v32 = v127[3];
         }
 
-        _Block_object_dispose(&v127, 8);
+        _Block_object_dispose(&v126, 8);
         if (!v32)
         {
           [MCEDUClassroomPayload translatedCRKError:];
@@ -889,7 +885,7 @@ LABEL_81:
         {
           v37 = MCLocalizedString(@"WEB_FILTER_SEPARATOR");
           v38 = [v31 componentsJoinedByString:v37];
-          v126 = [v36 componentsJoinedByString:v37];
+          v125 = [v36 componentsJoinedByString:v37];
           v11 = MCErrorArray(@"EDU_INVALID_COMBINATION_OF_KEYS_P_PROVIDED_KEYS_P_EXPECTED_KEYS", v39, v40, v41, v42, v43, v44, v45, v38);
         }
 
@@ -969,14 +965,12 @@ LABEL_70:
     *&buf[12] = 2114;
     *&buf[14] = domain2;
     *&buf[22] = 2114;
-    v132 = v27;
+    v131 = v27;
     _os_log_impl(&dword_1A795B000, v24, OS_LOG_TYPE_DEBUG, "%{public}@ was given error domain to translate: %{public}@, expected: %{public}@, not translating error.", buf, 0x20u);
   }
 
   v22 = v4;
 LABEL_88:
-
-  v124 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

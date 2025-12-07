@@ -121,48 +121,45 @@
       v5 = equalCopy;
       medicationIdentifier = v5->_medicationIdentifier;
       v7 = self->_medicationIdentifier;
-      if (medicationIdentifier != v7 && (!v7 || ![(HKMedicationIdentifier *)medicationIdentifier isEqual:?]))
+      v22 = 0;
+      if (medicationIdentifier == v7 || v7 && [(HKMedicationIdentifier *)medicationIdentifier isEqual:?])
       {
-        goto LABEL_32;
-      }
-
-      semanticIdentifier = v5->_semanticIdentifier;
-      v9 = self->_semanticIdentifier;
-      if (semanticIdentifier != v9 && (!v9 || ![(NSString *)semanticIdentifier isEqual:?]))
-      {
-        goto LABEL_32;
-      }
-
-      scheduledDoseQuantity = v5->_scheduledDoseQuantity;
-      v11 = self->_scheduledDoseQuantity;
-      if (scheduledDoseQuantity != v11 && (!v11 || ![(NSNumber *)scheduledDoseQuantity isEqual:?]))
-      {
-        goto LABEL_32;
-      }
-
-      doseQuantity = v5->_doseQuantity;
-      v13 = self->_doseQuantity;
-      if (doseQuantity != v13 && (!v13 || ![(NSNumber *)doseQuantity isEqual:?]))
-      {
-        goto LABEL_32;
-      }
-
-      scheduleItemIdentifier = v5->_scheduleItemIdentifier;
-      v15 = self->_scheduleItemIdentifier;
-      if (scheduleItemIdentifier != v15 && (!v15 || ![(NSString *)scheduleItemIdentifier isEqual:?]))
-      {
-        goto LABEL_32;
-      }
-
-      if (((scheduledDate = v5->_scheduledDate, v17 = self->_scheduledDate, scheduledDate == v17) || v17 && [(NSDate *)scheduledDate isEqual:?]) && ((startDate = v5->_startDate, v19 = self->_startDate, startDate == v19) || v19 && [(NSDate *)startDate isEqual:?]) && v5->_status == self->_status && v5->_logOrigin == self->_logOrigin && ((persistedUUID = v5->_persistedUUID, v21 = self->_persistedUUID, persistedUUID == v21) || v21 && [(NSUUID *)persistedUUID isEqual:?]))
-      {
-        v22 = 1;
-      }
-
-      else
-      {
-LABEL_32:
-        v22 = 0;
+        semanticIdentifier = v5->_semanticIdentifier;
+        v9 = self->_semanticIdentifier;
+        if (semanticIdentifier == v9 || v9 && [(NSString *)semanticIdentifier isEqual:?])
+        {
+          scheduledDoseQuantity = v5->_scheduledDoseQuantity;
+          v11 = self->_scheduledDoseQuantity;
+          if (scheduledDoseQuantity == v11 || v11 && [(NSNumber *)scheduledDoseQuantity isEqual:?])
+          {
+            doseQuantity = v5->_doseQuantity;
+            v13 = self->_doseQuantity;
+            if (doseQuantity == v13 || v13 && [(NSNumber *)doseQuantity isEqual:?])
+            {
+              scheduleItemIdentifier = v5->_scheduleItemIdentifier;
+              v15 = self->_scheduleItemIdentifier;
+              if (scheduleItemIdentifier == v15 || v15 && [(NSString *)scheduleItemIdentifier isEqual:?])
+              {
+                scheduledDate = v5->_scheduledDate;
+                v17 = self->_scheduledDate;
+                if (scheduledDate == v17 || v17 && [(NSDate *)scheduledDate isEqual:?])
+                {
+                  startDate = v5->_startDate;
+                  v19 = self->_startDate;
+                  if ((startDate == v19 || v19 && [(NSDate *)startDate isEqual:?]) && v5->_status == self->_status && v5->_logOrigin == self->_logOrigin)
+                  {
+                    persistedUUID = v5->_persistedUUID;
+                    v21 = self->_persistedUUID;
+                    if (persistedUUID == v21 || v21 && [(NSUUID *)persistedUUID isEqual:?])
+                    {
+                      v22 = 1;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 

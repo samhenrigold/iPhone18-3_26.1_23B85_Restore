@@ -67,13 +67,13 @@
   storeCopy = store;
   contactStoreCopy = contactStore;
   cacheCopy = cache;
-  v41.receiver = self;
-  v41.super_class = MPVoicemailController;
-  v17 = [(MPVoicemailController *)&v41 init];
+  v42.receiver = self;
+  v42.super_class = MPVoicemailController;
+  v17 = [(MPVoicemailController *)&v42 init];
   if (v17)
   {
-    v32 = accountManagerCopy;
-    v33 = managerCopy;
+    v33 = accountManagerCopy;
+    v34 = managerCopy;
     v18 = +[MPVoicemailQueueManager serialQueue];
     serialDispatchQueue = v17->_serialDispatchQueue;
     v17->_serialDispatchQueue = v18;
@@ -84,7 +84,7 @@
     if (specific)
     {
       v23 = specific;
-      v24 = PHDefaultLog();
+      v24 = PHDefaultLog(specific);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
         [MPVoicemailController initWithVoicemailManager:v23 accountManager:v17 callProviderManager:v24 contactStore:? suggestedContactStore:? metadataCache:?];
@@ -109,23 +109,23 @@
     contactCache = v17->_contactCache;
     v17->_contactCache = v27;
 
-    v29 = PHDefaultLog();
-    accountManagerCopy = v32;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = PHDefaultLog(v29);
+    accountManagerCopy = v33;
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "MPVoicemailController initWithVoicemailManager", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "MPVoicemailController initWithVoicemailManager", buf, 2u);
     }
 
-    v30 = v17->_serialDispatchQueue;
+    v31 = v17->_serialDispatchQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __134__MPVoicemailController_initWithVoicemailManager_accountManager_callProviderManager_contactStore_suggestedContactStore_metadataCache___block_invoke;
     block[3] = &unk_100284FD0;
-    v39 = v17;
-    dispatch_async(v30, block);
+    v40 = v17;
+    dispatch_async(v31, block);
 
-    managerCopy = v33;
+    managerCopy = v34;
   }
 
   return v17;
@@ -133,7 +133,7 @@
 
 void __134__MPVoicemailController_initWithVoicemailManager_accountManager_callProviderManager_contactStore_suggestedContactStore_metadataCache___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -166,7 +166,7 @@ void __134__MPVoicemailController_initWithVoicemailManager_accountManager_callPr
 void __134__MPVoicemailController_initWithVoicemailManager_accountManager_callProviderManager_contactStore_suggestedContactStore_metadataCache___block_invoke_109(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1230,27 +1230,27 @@ void __49__MPVoicemailController_senderContactForMessage___block_invoke(uint64_t
   dispatch_assert_queue_V2(serialDispatchQueue);
 
   v9 = objc_alloc_init(NSMutableSet);
-  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
   v10 = messagesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v46 objects:v55 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v46;
+    v13 = *v47;
     do
     {
       v14 = 0;
       do
       {
-        if (*v46 != v13)
+        if (*v47 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        senderDestinationID = [*(*(&v45 + 1) + 8 * v14) senderDestinationID];
+        senderDestinationID = [*(*(&v46 + 1) + 8 * v14) senderDestinationID];
         if (senderDestinationID)
         {
           contactCache = [(MPVoicemailController *)self contactCache];
@@ -1266,89 +1266,89 @@ void __49__MPVoicemailController_senderContactForMessage___block_invoke(uint64_t
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v46 objects:v55 count:16];
     }
 
     while (v12);
   }
 
-  v18 = PHDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = PHDefaultLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [v9 count];
-    v20 = [v10 count];
+    v20 = [v9 count];
+    v21 = [v10 count];
     *buf = 134218240;
-    v51 = v19;
-    v52 = 2048;
-    v53 = v20;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Found %lu contact handles in %lu messages", buf, 0x16u);
+    v52 = v20;
+    v53 = 2048;
+    v54 = v21;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Found %lu contact handles in %lu messages", buf, 0x16u);
   }
 
   if ([v9 count])
   {
     contactStore = [(MPVoicemailController *)self contactStore];
-    v22 = PHDefaultLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = PHDefaultLog(contactStore);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = [v9 count];
+      v24 = [v9 count];
       *buf = 134218242;
-      v51 = v23;
-      v52 = 2112;
-      v53 = contactStore;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Fetching contacts for %lu handles using contact store %@", buf, 0x16u);
+      v52 = v24;
+      v53 = 2112;
+      v54 = contactStore;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Fetching contacts for %lu handles using contact store %@", buf, 0x16u);
     }
 
     allObjects = [v9 allObjects];
-    v25 = [contactStore contactsForHandles:allObjects keyDescriptors:descriptorsCopy];
+    v26 = [contactStore contactsForHandles:allObjects keyDescriptors:descriptorsCopy];
 
-    if (v25)
+    if (v26)
     {
-      v36 = contactStore;
-      v37 = v10;
-      v38 = v9;
-      v39 = descriptorsCopy;
-      v43 = 0u;
+      v37 = contactStore;
+      v38 = v10;
+      v39 = v9;
+      v40 = descriptorsCopy;
       v44 = 0u;
-      v41 = 0u;
+      v45 = 0u;
       v42 = 0u;
+      v43 = 0u;
       obj = v9;
-      v26 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
-      if (v26)
+      v27 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+      if (v27)
       {
-        v27 = v26;
-        v28 = *v42;
+        v28 = v27;
+        v29 = *v43;
         do
         {
-          v29 = 0;
+          v30 = 0;
           do
           {
-            if (*v42 != v28)
+            if (*v43 != v29)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*(&v41 + 1) + 8 * v29);
-            v31 = [TUOptionalObject alloc];
-            v32 = [v25 objectForKeyedSubscript:v30];
-            firstObject = [v32 firstObject];
-            v34 = [v31 initWithValue:firstObject];
+            v31 = *(*(&v42 + 1) + 8 * v30);
+            v32 = [TUOptionalObject alloc];
+            v33 = [v26 objectForKeyedSubscript:v31];
+            firstObject = [v33 firstObject];
+            v35 = [v32 initWithValue:firstObject];
             contactCache2 = [(MPVoicemailController *)self contactCache];
-            [contactCache2 setObject:v34 forKeyedSubscript:v30];
+            [contactCache2 setObject:v35 forKeyedSubscript:v31];
 
-            v29 = v29 + 1;
+            v30 = v30 + 1;
           }
 
-          while (v27 != v29);
-          v27 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+          while (v28 != v30);
+          v28 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
         }
 
-        while (v27);
+        while (v28);
       }
 
-      v9 = v38;
-      descriptorsCopy = v39;
-      contactStore = v36;
-      v10 = v37;
+      v9 = v39;
+      descriptorsCopy = v40;
+      contactStore = v37;
+      v10 = v38;
     }
   }
 }
@@ -1410,7 +1410,7 @@ uint64_t __49__MPVoicemailController_fetchMessagesCompletion___block_invoke_2(ui
   if (metadataCache)
   {
     v7 = [TUMetadataDestinationID metadataDestinationIDsForVMVoicemails:messagesCopy];
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134218240;
@@ -1464,99 +1464,100 @@ void __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke(
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v6)
   {
-    v27 = 0;
+    v28 = 0;
     group = dispatch_group_create();
-    v29 = +[NSMutableArray array];
-    v45 = 0u;
+    v30 = +[NSMutableArray array];
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v28 = v5;
+    v49 = 0u;
+    v29 = v5;
     obj = [v5 subscriptions];
-    v8 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
-    if (!v8)
+    v9 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    if (!v9)
     {
       goto LABEL_17;
     }
 
-    v9 = v8;
-    v10 = *v46;
-    v11 = v44;
+    v10 = v9;
+    v11 = *v47;
+    v12 = v45;
     while (1)
     {
-      v12 = 0;
-      v31 = v9;
+      v13 = 0;
+      v32 = v10;
       do
       {
-        if (*v46 != v10)
+        if (*v47 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v45 + 1) + 8 * v12);
-        v34 = [v13 context];
-        v14 = [*(a1 + 32) accountManager];
-        v15 = [v14 accounts];
-        v43[0] = _NSConcreteStackBlock;
-        v43[1] = 3221225472;
-        v44[0] = __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke_189;
-        v44[1] = &unk_100285880;
-        v44[2] = v13;
-        v16 = [v15 tu_firstObjectPassingTest:v43];
+        v14 = *(*(&v46 + 1) + 8 * v13);
+        v35 = [v14 context];
+        v15 = [*(a1 + 32) accountManager];
+        v16 = [v15 accounts];
+        v44[0] = _NSConcreteStackBlock;
+        v44[1] = 3221225472;
+        v45[0] = __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke_189;
+        v45[1] = &unk_100285880;
+        v45[2] = v14;
+        v17 = [v16 tu_firstObjectPassingTest:v44];
 
-        if (v16)
+        if (v17)
         {
-          v17 = [*(a1 + 32) accountManager];
-          v18 = [v16 UUID];
-          if ([v17 isAccountSubscribed:v18])
+          v18 = [*(a1 + 32) accountManager];
+          v19 = [v17 UUID];
+          if ([v18 isAccountSubscribed:v19])
           {
           }
 
           else
           {
-            v19 = [*(a1 + 32) accountManager];
-            [v16 UUID];
-            v20 = v11;
-            v21 = a1;
-            v23 = v22 = v10;
-            v33 = [v19 isCallVoicemailSupportedForAccountUUID:v23];
+            v20 = [*(a1 + 32) accountManager];
+            [v17 UUID];
+            v21 = v12;
+            v22 = a1;
+            v24 = v23 = v11;
+            v34 = [v20 isCallVoicemailSupportedForAccountUUID:v24];
 
-            v10 = v22;
-            a1 = v21;
-            v11 = v20;
-            v9 = v31;
+            v11 = v23;
+            a1 = v22;
+            v12 = v21;
+            v10 = v32;
 
-            if (!v33)
+            if (!v34)
             {
               goto LABEL_15;
             }
 
             dispatch_group_enter(group);
-            v24 = *(a1 + 40);
-            v38[0] = _NSConcreteStackBlock;
-            v38[1] = 3221225472;
-            v38[2] = __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke_2;
-            v38[3] = &unk_1002858A8;
-            v39 = group;
-            v40 = v29;
-            v41 = v16;
-            v42 = v13;
-            [v24 getVoicemailInfo:v34 completion:v38];
+            v25 = *(a1 + 40);
+            v39[0] = _NSConcreteStackBlock;
+            v39[1] = 3221225472;
+            v39[2] = __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke_2;
+            v39[3] = &unk_1002858A8;
+            v40 = group;
+            v41 = v30;
+            v42 = v17;
+            v43 = v14;
+            [v25 getVoicemailInfo:v35 completion:v39];
 
-            v17 = v39;
+            v18 = v40;
           }
         }
 
 LABEL_15:
 
-        v12 = v12 + 1;
+        v13 = v13 + 1;
       }
 
-      while (v9 != v12);
-      v9 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
-      if (!v9)
+      while (v10 != v13);
+      v10 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      if (!v10)
       {
 LABEL_17:
 
@@ -1564,24 +1565,24 @@ LABEL_17:
         block[1] = 3221225472;
         block[2] = __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke_199;
         block[3] = &unk_100285730;
-        v25 = *(a1 + 48);
-        v36 = v29;
-        v37 = v25;
-        v26 = v29;
-        v7 = group;
+        v26 = *(a1 + 48);
+        v37 = v30;
+        v38 = v26;
+        v27 = v30;
+        v8 = group;
         dispatch_group_notify(group, &_dispatch_main_q, block);
 
-        v6 = v27;
-        v5 = v28;
+        v7 = v28;
+        v5 = v29;
         goto LABEL_18;
       }
     }
   }
 
-  v7 = PHDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = PHDefaultLog(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke_cold_1(v6, v7);
+    __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke_cold_1(v7, v8);
   }
 
 LABEL_18:
@@ -1601,7 +1602,7 @@ void __57__MPVoicemailController_fetchLegacyVoicemailsCompletion___block_invoke_
 {
   v8 = a3;
   v9 = a5;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   v11 = v10;
   if (v9)
   {
@@ -1678,7 +1679,7 @@ id __46__MPVoicemailController_handleUpdatedContacts__block_invoke(uint64_t a1)
 - (void)handleCNContactStoreDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1697,7 +1698,7 @@ id __46__MPVoicemailController_handleUpdatedContacts__block_invoke(uint64_t a1)
 - (void)handleRecentsChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1735,7 +1736,7 @@ id __58__MPVoicemailController_handleRecentsChangedNotification___block_invoke(u
 - (void)handleNSCurrentLocaleDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1777,7 +1778,7 @@ id __68__MPVoicemailController_handleNSCurrentLocaleDidChangeNotification___bloc
 - (void)handleTUMetadataCacheDidFinishUpdatingNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1818,7 +1819,7 @@ id __76__MPVoicemailController_handleTUMetadataCacheDidFinishUpdatingNotificatio
 - (void)handleUIApplicationSignificantTimeChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1837,7 +1838,7 @@ id __76__MPVoicemailController_handleTUMetadataCacheDidFinishUpdatingNotificatio
 - (void)handleUIApplicationWillEnterForegroundNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1857,7 +1858,7 @@ id __76__MPVoicemailController_handleTUMetadataCacheDidFinishUpdatingNotificatio
 - (void)handleVoicemailsChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1947,14 +1948,14 @@ void __89__MPVoicemailController_postMPVoicemailControllerUnreadMessageCountDidC
   serialDispatchQueue = [(MPVoicemailController *)self serialDispatchQueue];
   dispatch_assert_queue_V2(serialDispatchQueue);
 
-  v6 = PHDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PHDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
+    v10 = 138412546;
     selfCopy = self;
-    v11 = 2112;
-    v12 = managerCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling providersChangedForProviderManager %@", &v9, 0x16u);
+    v12 = 2112;
+    v13 = managerCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ is handling providersChangedForProviderManager %@", &v10, 0x16u);
   }
 
   localizedSubtitleCache = [(MPVoicemailController *)self localizedSubtitleCache];

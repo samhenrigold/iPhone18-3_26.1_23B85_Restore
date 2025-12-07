@@ -24,7 +24,7 @@
 
 - (void)showHMEWithPresenter:(id)presenter
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   presenterCopy = presenter;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   delegate = [(ICSHMEPresenter *)self delegate];
@@ -35,8 +35,7 @@
 
   v8 = objc_alloc_init(MEMORY[0x277CCAB70]);
   [v8 setURL:privateEmailManageURL];
-  [v8 setHTTPMethod:@"GET"];
-  v9 = LogSubsystem();
+  v9 = LogSubsystem([v8 setHTTPMethod:@"GET"]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(ICSPrivateEmailSpecifierProvider *)v8 _privateEmailSpecifierWasTapped:v9];
@@ -51,10 +50,10 @@
   aa_altDSID = [v13 aa_altDSID];
   v16 = [v14 initWithAltDSID:aa_altDSID upgradeContext:*MEMORY[0x277CF00A0]];
 
-  v21[0] = v10;
-  v21[1] = v11;
-  v21[2] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  v20[0] = v10;
+  v20[1] = v11;
+  v20[2] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
   v18 = [objc_alloc(MEMORY[0x277CECA58]) initWithAccountManager:self->_accountManager presenter:presenterCopy hooks:v17];
 
   privateEmailPresenter = self->_privateEmailPresenter;
@@ -62,14 +61,12 @@
 
   [(AAUIGrandSlamRemoteUIPresenter *)self->_privateEmailPresenter setDelegate:self];
   [(AAUIGrandSlamRemoteUIPresenter *)self->_privateEmailPresenter loadRequest:v8];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIRequestComplete:(id)complete error:(id)error
 {
   errorCopy = error;
-  v6 = LogSubsystem();
+  v6 = LogSubsystem(errorCopy);
   v7 = v6;
   if (errorCopy)
   {

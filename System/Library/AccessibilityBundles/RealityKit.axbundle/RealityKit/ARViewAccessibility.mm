@@ -53,32 +53,32 @@
 
 - (id)accessibilityElementsForEntityWrappers:(id)wrappers
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   wrappersCopy = wrappers;
   selfCopy = self;
   _axCachedElementsByEntityWrapper = [(ARViewAccessibility *)self _axCachedElementsByEntityWrapper];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   array = [MEMORY[0x29EDB8DE8] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = wrappersCopy;
-  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [v12 safeValueForKey:@"identifier"];
         v14 = [_axCachedElementsByEntityWrapper objectForKeyedSubscript:v13];
         if (!v14)
@@ -90,14 +90,13 @@
         [dictionary setObject:v14 forKeyedSubscript:v13];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
   [(ARViewAccessibility *)selfCopy _axSetCachedElementsByEntityWrapper:dictionary];
-  v15 = *MEMORY[0x29EDCA608];
 
   return array;
 }

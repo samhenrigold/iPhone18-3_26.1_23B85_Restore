@@ -65,53 +65,55 @@ id sub_100001B88(uint64_t a1)
   return [v2 deviceTransportAvailable:v3];
 }
 
-void sub_100002354(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002354(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-uint64_t sub_100002920(void *a1)
+uint64_t sub_100002920(void *a1, const char *a2)
 {
-  v1 = a1;
-  if (!v1)
+  v2 = a1;
+  if (!v2)
   {
-    v1 = &_os_log_default;
     v2 = &_os_log_default;
+    v3 = &_os_log_default;
   }
 
-  v3 = v1;
-  bzero(v7, 0x400uLL);
-  v4 = v3;
+  v4 = v2;
+  bzero(v8, 0x400uLL);
+  v5 = v4;
   if (_set_user_dir_suffix())
   {
-    if (confstr(65537, v7, 0x400uLL))
+    if (confstr(65537, v8, 0x400uLL))
     {
-      v5 = 0;
+      v6 = 0;
       goto LABEL_11;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100004C0C();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_100004B8C();
   }
 
-  v5 = 1;
+  v6 = 1;
 LABEL_11:
 
-  return v5;
+  return v6;
 }
 
-void sub_100002A44(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002A44(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 uint64_t start()
@@ -124,7 +126,7 @@ uint64_t start()
     _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "%s: Launched", buf, 0xCu);
   }
 
-  v1 = sub_100002A40(v0);
+  v1 = sub_100002A40(v0, 0);
   if (!v1)
   {
     oslog = v0;
@@ -193,13 +195,13 @@ void sub_100003688(uint64_t a1)
 
   if (os_log_type_enabled(*(*v2 + 8), OS_LOG_TYPE_DEBUG))
   {
-    sub_100004E40(v2);
+    sub_100004E40();
   }
 
   [*(*(a1 + 32) + 48) removeObject:*(a1 + 40)];
   if (os_log_type_enabled(*(*(a1 + 32) + 8), OS_LOG_TYPE_DEBUG))
   {
-    sub_100004EC8(v2);
+    sub_100004EC8();
   }
 }
 
@@ -212,10 +214,7 @@ uint64_t sub_100004138(uint64_t result, uint64_t a2)
 
 uint64_t sub_100004150(uint64_t a1)
 {
-  v2 = [NSArray arrayWithArray:*(*(a1 + 32) + 72)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [NSArray arrayWithArray:*(*(a1 + 32) + 72)];
 
   return _objc_release_x1();
 }
@@ -230,16 +229,18 @@ void sub_10000421C(uint64_t a1)
   [v4 removeItemAtURL:*(*(a1 + 32) + 64) error:0];
 }
 
-void sub_10000452C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000452C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100004554(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004554(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1000045B4(uint64_t a1, NSObject *a2)
@@ -273,8 +274,9 @@ void sub_100004738()
   [v4 UUIDString];
   objc_claimAutoreleasedReturnValue();
   v5 = [sub_100002374() UUIDString];
+  v12 = 136315650;
   sub_100002338();
-  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, 2u);
+  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, v12);
 }
 
 void sub_1000047FC()
@@ -285,8 +287,9 @@ void sub_1000047FC()
   [v4 UUIDString];
   objc_claimAutoreleasedReturnValue();
   v5 = [sub_100002374() UUIDString];
+  v12 = 136315650;
   sub_100002338();
-  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, 2u);
+  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, v12);
 }
 
 void sub_1000048C0()
@@ -297,8 +300,9 @@ void sub_1000048C0()
   [v4 UUIDString];
   objc_claimAutoreleasedReturnValue();
   v5 = [sub_100002374() UUIDString];
+  v12 = 136315650;
   sub_100002338();
-  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, 2u);
+  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, v12);
 }
 
 void sub_100004984()
@@ -309,8 +313,9 @@ void sub_100004984()
   [v4 UUIDString];
   objc_claimAutoreleasedReturnValue();
   v5 = [sub_100002374() UUIDString];
+  v12 = 136315650;
   sub_100002338();
-  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, 2u);
+  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, v12);
 }
 
 void sub_100004A48()
@@ -321,8 +326,9 @@ void sub_100004A48()
   [v4 UUIDString];
   objc_claimAutoreleasedReturnValue();
   v5 = [sub_100002374() UUIDString];
+  v12 = 136315650;
   sub_100002338();
-  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, 2u);
+  sub_100002354(&_mh_execute_header, v6, v7, "%s: deviceUUID <%@> is not equal to our UUID <%@>", v8, v9, v10, v11, v12);
 }
 
 void sub_100004B0C()
@@ -330,6 +336,20 @@ void sub_100004B0C()
   v1[0] = 136315394;
   sub_100002398();
   _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s: %@", v1, 0x16u);
+}
+
+void sub_100004B8C()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100002A44(&_mh_execute_header, v0, v1, "failed to set temporary directory suffix: %d", v2, v3, v4, v5, v6);
+}
+
+void sub_100004C0C()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100002A44(&_mh_execute_header, v0, v1, "failed to initialize temporary directory: %d", v2, v3, v4, v5, v6);
 }
 
 void sub_100004CD0()
@@ -346,20 +366,39 @@ void sub_100004D4C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100004E40(uint64_t a1)
+void sub_100004DC8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(*a1 + 48);
-  v3[0] = 136315394;
-  sub_1000045A0();
-  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s: Devices pre removal %@", v3, 0x16u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPHIDManager startService:]";
+  sub_10000452C(&_mh_execute_header, a1, a3, "%s: IORegistryEntryCreateCFProperties() returned NULL", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_100004EC8(uint64_t a1)
+void sub_100004E40()
 {
-  v1 = *(*a1 + 48);
-  v3[0] = 136315394;
+  v1[0] = 136315394;
   sub_1000045A0();
-  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s: Devices post removal %@", v3, 0x16u);
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s: Devices pre removal %@", v1, 0x16u);
+}
+
+void sub_100004EC8()
+{
+  v1[0] = 136315394;
+  sub_1000045A0();
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s: Devices post removal %@", v1, 0x16u);
+}
+
+void sub_100004F50(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPHIDManager startMonitoringForDevices:]";
+  sub_10000452C(&_mh_execute_header, a1, a3, "%s: notification port already initialized", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100004FC8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPHIDManager startMonitoringForDevices:]";
+  sub_10000452C(&_mh_execute_header, a1, a3, "%s: notify iterator already initialized", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100005040()
@@ -369,38 +408,41 @@ void sub_100005040()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
+void sub_1000050BC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPHIDManager startMonitoringForDevices:]";
+  sub_10000452C(&_mh_execute_header, a1, a3, "%s: IOServiceAddMatchingNotification() did not create an iterator", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100005134(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 64);
-  v4 = a2;
-  v5 = [sub_100004594() path];
+  v3 = a2;
+  v4 = [sub_100004594() path];
   sub_100004574();
-  sub_100004554(&_mh_execute_header, v6, v7, "Could not open HID UUID Database at %@", v8, v9, v10, v11, v12);
+  sub_100004554(&_mh_execute_header, v5, v6, "Could not open HID UUID Database at %@", v7, v8, v9, v10);
 }
 
-void sub_1000051C4(uint64_t *a1, void *a2)
+void sub_1000051C4(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_100004594() path];
+  v3 = a2;
+  v4 = [sub_100004594() path];
   sub_100004574();
-  sub_100004554(&_mh_execute_header, v6, v7, "Could not decode HID UUID Database at %@", v8, v9, v10, v11, v12);
+  sub_100004554(&_mh_execute_header, v5, v6, "Could not decode HID UUID Database at %@", v7, v8, v9, v10);
 }
 
-void sub_100005254(uint64_t *a1, void *a2)
+void sub_100005254(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_100004594() path];
+  v3 = a2;
+  v4 = [sub_100004594() path];
   sub_100004574();
-  sub_100004554(&_mh_execute_header, v6, v7, "Folder for UUID Database could not be created %@", v8, v9, v10, v11, v12);
+  sub_100004554(&_mh_execute_header, v5, v6, "Folder for UUID Database could not be created %@", v7, v8, v9, v10);
 }
 
-void sub_1000052E4(uint64_t *a1, void *a2)
+void sub_1000052E4(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_100004594() path];
+  v3 = a2;
+  v4 = [sub_100004594() path];
   sub_100004574();
-  sub_100004554(&_mh_execute_header, v6, v7, "File for UUID Database could not be created %@", v8, v9, v10, v11, v12);
+  sub_100004554(&_mh_execute_header, v5, v6, "File for UUID Database could not be created %@", v7, v8, v9, v10);
 }

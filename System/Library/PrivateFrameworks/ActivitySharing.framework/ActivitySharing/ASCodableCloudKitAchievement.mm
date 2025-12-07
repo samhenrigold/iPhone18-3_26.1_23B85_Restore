@@ -150,19 +150,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    completedDate = self->_completedDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -181,9 +180,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  doubleValue = self->_doubleValue;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -197,28 +195,26 @@ LABEL_6:
   }
 
 LABEL_17:
-  intValue = self->_intValue;
   PBDataWriterWriteInt64Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    workoutActivityType = self->_workoutActivityType;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
   if (self->_definitionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_templateUniqueName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -376,7 +372,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_completedDate != *(equalCopy + 1))
@@ -388,7 +383,7 @@ LABEL_6:
   else if (*(equalCopy + 64))
   {
 LABEL_28:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_29;
   }
 
@@ -440,17 +435,17 @@ LABEL_28:
   templateUniqueName = self->_templateUniqueName;
   if (templateUniqueName | *(equalCopy + 7))
   {
-    v9 = [(NSString *)templateUniqueName isEqual:?];
+    v8 = [(NSString *)templateUniqueName isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_29:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

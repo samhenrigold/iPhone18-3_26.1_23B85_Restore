@@ -13,10 +13,10 @@
 
 - (SRAcousticSettingsAccessibilityBackgroundSounds)initWithBackgroundSoundsEnabled:(BOOL)enabled soundName:(int64_t)name relativeVolume:(double)volume playWithMediaEnabled:(BOOL)mediaEnabled relativeVolumeWithMedia:(double)media stopOnLockEnabled:(BOOL)lockEnabled
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = SRAcousticSettingsAccessibilityBackgroundSounds;
-  v14 = [(SRAcousticSettingsAccessibilityBackgroundSounds *)&v20 init];
+  v24 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = SRAcousticSettingsAccessibilityBackgroundSounds;
+  v14 = [(SRAcousticSettingsAccessibilityBackgroundSounds *)&v19 init];
   v15 = v14;
   if (v14)
   {
@@ -26,8 +26,8 @@
       if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v22 = @"accessibilityBackgroundSoundsRelativeVolume";
-        v23 = 2048;
+        v21 = @"accessibilityBackgroundSoundsRelativeVolume";
+        v22 = 2048;
         mediaCopy = volume;
 LABEL_15:
         _os_log_fault_impl(&dword_1C914D000, v17, OS_LOG_TYPE_FAULT, "Failed to construct SRAcousticSettingsAccessibilityBackgroundSounds object. %@: %f and is out of range of expected input.", buf, 0x16u);
@@ -43,16 +43,15 @@ LABEL_15:
       if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v22 = @"accessibilityBackgroundSoundsRelativeVolumeWithMedia";
-        v23 = 2048;
+        v21 = @"accessibilityBackgroundSoundsRelativeVolumeWithMedia";
+        v22 = 2048;
         mediaCopy = media;
         goto LABEL_15;
       }
 
 LABEL_12:
 
-      v15 = 0;
-      goto LABEL_13;
+      return 0;
     }
 
     v14->_enabled = enabled;
@@ -63,59 +62,50 @@ LABEL_12:
     v14->_stopOnLockEnabled = lockEnabled;
   }
 
-LABEL_13:
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (SRAcousticSettingsAccessibilityBackgroundSounds)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (![representation length])
+  v15 = *MEMORY[0x1E69E9840];
+  if ([representation length])
   {
-    goto LABEL_7;
-  }
+    v12.receiver = self;
+    v12.super_class = SRAcousticSettingsAccessibilityBackgroundSounds;
+    result = [(SRAcousticSettingsAccessibilityBackgroundSounds *)&v12 init];
+    if (!result)
+    {
+      return result;
+    }
 
-  v13.receiver = self;
-  v13.super_class = SRAcousticSettingsAccessibilityBackgroundSounds;
-  result = [(SRAcousticSettingsAccessibilityBackgroundSounds *)&v13 init];
-  if (result)
-  {
     self = result;
-    v12 = 0;
-    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v12];
+    v11 = 0;
+    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v11];
     if (v8)
     {
       v9 = v8;
 
-      result = v9;
-      goto LABEL_8;
+      return v9;
     }
 
     v10 = SRLogAcousticSettings;
     if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v12;
+      v14 = v11;
       _os_log_error_impl(&dword_1C914D000, v10, OS_LOG_TYPE_ERROR, "Failed to unarchive data because %{public}@", buf, 0xCu);
     }
-
-LABEL_7:
-
-    result = 0;
   }
 
-LABEL_8:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (id)binarySampleRepresentation
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
-  v3 = v8;
+  v10 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
+  v3 = v7;
   if (v2)
   {
     v4 = 1;
@@ -123,7 +113,7 @@ LABEL_8:
 
   else
   {
-    v4 = v8 == 0;
+    v4 = v7 == 0;
   }
 
   if (!v4)
@@ -132,12 +122,11 @@ LABEL_8:
     if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v3;
+      v9 = v3;
       _os_log_error_impl(&dword_1C914D000, v5, OS_LOG_TYPE_ERROR, "Failed to archive data because %{public}@", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -254,7 +243,7 @@ LABEL_8:
 
 - (SRAcousticSettingsAccessibilityBackgroundSounds)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (([coder allowsKeyedCoding] & 1) == 0)
   {
     [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
@@ -270,12 +259,11 @@ LABEL_8:
   v13 = [coder decodeBoolForKey:@"accessibilityBackgroundSoundsStopOnLockEnabled"];
   if ((v7 - 17) > 0xFFFFFFFFFFFFFFEFLL)
   {
-    v17 = v13;
+    v16 = v13;
 
-    v18 = [SRAcousticSettingsAccessibilityBackgroundSounds alloc];
-    v19 = *MEMORY[0x1E69E9840];
+    v17 = [SRAcousticSettingsAccessibilityBackgroundSounds alloc];
 
-    return [(SRAcousticSettingsAccessibilityBackgroundSounds *)v18 initWithBackgroundSoundsEnabled:v6 soundName:v7 relativeVolume:v10 playWithMediaEnabled:v17 relativeVolumeWithMedia:v9 stopOnLockEnabled:v12];
+    return [(SRAcousticSettingsAccessibilityBackgroundSounds *)v17 initWithBackgroundSoundsEnabled:v6 soundName:v7 relativeVolume:v10 playWithMediaEnabled:v16 relativeVolumeWithMedia:v9 stopOnLockEnabled:v12];
   }
 
   else
@@ -284,13 +272,12 @@ LABEL_8:
     if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v21 = @"accessibilityBackgroundSoundsName";
-      v22 = 2048;
-      v23 = v7;
+      v19 = @"accessibilityBackgroundSoundsName";
+      v20 = 2048;
+      v21 = v7;
       _os_log_error_impl(&dword_1C914D000, v14, OS_LOG_TYPE_ERROR, "Failed to decode the object. %@: %ld", buf, 0x16u);
     }
 
-    v15 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }

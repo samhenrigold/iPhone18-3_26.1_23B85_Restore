@@ -6,9 +6,10 @@
 
 - (void)configureWithBugFormStub:(id)stub isSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   stubCopy = stub;
   selfCopy = self;
-  sub_100080244(stubCopy, selected);
+  sub_100080244(stubCopy, selectedCopy);
 }
 
 @end

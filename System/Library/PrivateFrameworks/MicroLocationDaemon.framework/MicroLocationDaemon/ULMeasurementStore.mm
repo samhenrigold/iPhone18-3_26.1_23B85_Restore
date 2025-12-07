@@ -39,20 +39,19 @@
 
 - (BOOL)insertDataObjects:(const void *)objects
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v7[0] = &unk_286A55C60;
-  v7[1] = &selfCopy;
-  v7[3] = v7;
-  inserted = ULDBUtils::insertDataObjects<ULMeasurementDO,ULMeasurementMO_deprecated>(self, objects, v7);
-  std::__function::__value_func<ULMeasurementMO_deprecated * ()(ULMeasurementDO const&)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_286A55C60;
+  v6[1] = &selfCopy;
+  v6[3] = v6;
+  inserted = ULDBUtils::insertDataObjects<ULMeasurementDO,ULMeasurementMO_deprecated>(self, objects, v6);
+  std::__function::__value_func<ULMeasurementMO_deprecated * ()(ULMeasurementDO const&)>::~__value_func[abi:ne200100](v6);
   return inserted;
 }
 
 - (BOOL)deleteRecordsOlderThan:(double)than orNewerThan:(double)newerThan
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULMeasurementStore deleteRecordsOlderThan:orNewerThan:];
@@ -107,7 +106,6 @@
   v29 = NSStringFromClass(v28);
   v30 = [(ULStore *)self batchDeleteObjectsWithEntityName:v29 byAndPredicates:array2 sortDescriptors:0 andLimit:v27];
 
-  v31 = *MEMORY[0x277D85DE8];
   return v17 && v30;
 }
 
@@ -150,105 +148,102 @@
 
 - (vector<ULMeasurementDO,)fetchMeasurementsForRecordingUUIDs:(ULMeasurementStore *)self
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
   v7 = objc_autoreleasePoolPush();
-  v8 = ULSettings::get<ULSettings::DatabaseSelectionLimit>();
-  v9 = ULDBUtils::NSStringArrayFromBoostUUIDs(a4);
+  ULSettings::get<ULSettings::DatabaseSelectionLimit>();
+  v8 = ULDBUtils::NSStringArrayFromBoostUUIDs(a4);
   array = [MEMORY[0x277CBEB18] array];
-  v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"recordingUUID", v9];
-  [array addObject:v11];
+  v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"recordingUUID", v8];
+  [array addObject:v10];
 
-  v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanCFTimestamp" ascending:0];
-  v18[0] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-  [(ULMeasurementStore *)self _fetchMeasurementEntriesByAndPredicates:array sortDescriptors:v13 andLimit:v8];
-  std::vector<ULMeasurementDO>::__vdeallocate(&retstr->var0);
-  *retstr = v16;
-  memset(&v16, 0, sizeof(v16));
-  v17 = &v16;
-  std::vector<ULMeasurementDO>::__destroy_vector::operator()[abi:ne200100](&v17);
+  v11 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanCFTimestamp" ascending:0];
+  v16[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  objc_msgSend__fetchMeasurementEntriesByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULMeasurementDO>::__vdeallocate(retstr);
+  *retstr = v14;
+  memset(&v14, 0, sizeof(v14));
+  v15 = &v14;
+  std::vector<ULMeasurementDO>::__destroy_vector::operator()[abi:ne200100](&v15);
 
   objc_autoreleasePoolPop(v7);
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (vector<ULMeasurementDO,)fetchLearningMeasurementsAtLoiGroupId:(ULMeasurementStore *)self fromTime:(SEL)time toTime:(const uuid *)toTime
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
   v11 = objc_autoreleasePoolPush();
-  v12 = ULSettings::get<ULSettings::DatabaseSelectionLimit>();
+  ULSettings::get<ULSettings::DatabaseSelectionLimit>();
   array = [MEMORY[0x277CBEB18] array];
   dbStore = [(ULStore *)self dbStore];
-  v15 = (*(dbStore->var0 + 12))(dbStore);
-  *&v24.var0 = *toTime;
-  LOBYTE(v24.var2) = 1;
-  v16 = [v15 getRecordingUUIDsForRecordingEventActionsAtLoiGroupId:&v24 fromTime:*&a5 toTime:1 withLimit:{*&a6, 1, 0}];
+  v14 = (*(dbStore->var0 + 12))(dbStore);
+  *&v22.var0 = *toTime;
+  LOBYTE(v22.var2) = 1;
+  v15 = [v14 getRecordingUUIDsForRecordingEventActionsAtLoiGroupId:&v22 fromTime:*&a5 toTime:1 withLimit:{*&a6, 1, 0}];
 
-  v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"recordingUUID", v16];
-  [array addObject:v17];
+  v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"recordingUUID", v15];
+  [array addObject:v16];
 
-  v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanCFTimestamp" ascending:0];
-  v23 = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-  [(ULMeasurementStore *)self _fetchMeasurementEntriesByAndPredicates:array sortDescriptors:v19 andLimit:v12];
-  std::vector<ULMeasurementDO>::__vdeallocate(&retstr->var0);
-  *retstr = v24;
-  memset(&v24, 0, sizeof(v24));
-  v22 = &v24;
-  std::vector<ULMeasurementDO>::__destroy_vector::operator()[abi:ne200100](&v22);
+  v17 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanCFTimestamp" ascending:0];
+  v21 = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  objc_msgSend__fetchMeasurementEntriesByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULMeasurementDO>::__vdeallocate(retstr);
+  *retstr = v22;
+  memset(&v22, 0, sizeof(v22));
+  v20 = &v22;
+  std::vector<ULMeasurementDO>::__destroy_vector::operator()[abi:ne200100](&v20);
 
   objc_autoreleasePoolPop(v11);
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (vector<ULMeasurementDO,)fetchAllLocalizingMeasurementsWithLimit:(ULMeasurementStore *)self
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
-  v7 = objc_autoreleasePoolPush();
+  v6 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   dbStore = [(ULStore *)self dbStore];
-  v10 = (*(dbStore->var0 + 12))(dbStore);
-  v11 = [v10 getRecordingUUIDsForLocalizationActionsFromTime:0 toTime:{0, 0, 0}];
+  v9 = (*(dbStore->var0 + 12))(dbStore);
+  v10 = [v9 getRecordingUUIDsForLocalizationActionsFromTime:0 toTime:{0, 0, 0}];
 
-  v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"recordingUUID", v11];
-  [array addObject:v12];
+  v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"recordingUUID", v10];
+  [array addObject:v11];
 
-  v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanCFTimestamp" ascending:0];
-  v19[0] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  [(ULMeasurementStore *)self _fetchMeasurementEntriesByAndPredicates:array sortDescriptors:v14 andLimit:a4];
-  std::vector<ULMeasurementDO>::__vdeallocate(&retstr->var0);
-  *retstr = v17;
-  memset(&v17, 0, sizeof(v17));
-  v18 = &v17;
-  std::vector<ULMeasurementDO>::__destroy_vector::operator()[abi:ne200100](&v18);
+  v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanCFTimestamp" ascending:0];
+  v17[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  objc_msgSend__fetchMeasurementEntriesByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULMeasurementDO>::__vdeallocate(retstr);
+  *retstr = v15;
+  memset(&v15, 0, sizeof(v15));
+  v16 = &v15;
+  std::vector<ULMeasurementDO>::__destroy_vector::operator()[abi:ne200100](&v16);
 
-  objc_autoreleasePoolPop(v7);
-  v16 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v6);
   return result;
 }
 
 - (unsigned)numRecordingScansFromTime:(double)time toTime:(double)toTime
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   dbStore = [(ULStore *)self dbStore];
   v10 = (*(dbStore->var0 + 12))(dbStore);
-  v21[0] = 0;
-  v21[16] = 0;
-  v11 = [v10 getRecordingUUIDsForRecordingEventActionsAtLoiGroupId:v21 fromTime:*&time toTime:1 withLimit:{*&toTime, 1, 0}];
+  v20[0] = 0;
+  v20[16] = 0;
+  v11 = [v10 getRecordingUUIDsForRecordingEventActionsAtLoiGroupId:v20 fromTime:*&time toTime:1 withLimit:{*&toTime, 1, 0}];
 
   v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"recordingUUID", v11];
   [array addObject:v12];
@@ -256,20 +251,19 @@
   v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanMCTimestamp" ascending:0];
   v14 = objc_opt_class();
   v15 = NSStringFromClass(v14);
-  v20 = v13;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v19 = v13;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   v17 = [(ULStore *)self fetchPropertyForEntityName:v15 propertyToFetch:@"scanMCTimestamp" distinctResults:1 byAndPredicates:array sortDescriptors:v16 andLimit:0];
 
   objc_autoreleasePoolPop(v7);
   LODWORD(array) = [v17 count];
 
-  v18 = *MEMORY[0x277D85DE8];
   return array;
 }
 
 - (unsigned)numLocalizationScansFromTime:(double)time toTime:(double)toTime
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   dbStore = [(ULStore *)self dbStore];
@@ -282,14 +276,13 @@
   v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scanMCTimestamp" ascending:0];
   v14 = objc_opt_class();
   v15 = NSStringFromClass(v14);
-  v20[0] = v13;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = v13;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v17 = [(ULStore *)self fetchPropertyForEntityName:v15 propertyToFetch:@"scanMCTimestamp" distinctResults:1 byAndPredicates:array sortDescriptors:v16 andLimit:0];
 
   objc_autoreleasePoolPop(v7);
   LODWORD(array) = [v17 count];
 
-  v18 = *MEMORY[0x277D85DE8];
   return array;
 }
 
@@ -341,16 +334,14 @@
 
 void __103__ULMeasurementStore_batchTransferRecordsUsingBatchSize_andLimit_usingDistinctRecords_intoTargetStore___block_invoke(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = a1[5];
-  v8[0] = a1[6];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = a1[6];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   *(*(a1[8] + 8) + 24) = [v2 batchTransferManagedObjectsWithEntityName:v4 byAndPredicates:v5 sortDescriptors:v6 batchSize:a1[9] limit:a1[10] intoTargetStore:a1[7]];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)insertDataObjects:

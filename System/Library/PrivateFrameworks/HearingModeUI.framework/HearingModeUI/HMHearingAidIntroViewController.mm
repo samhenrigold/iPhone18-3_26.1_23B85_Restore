@@ -48,20 +48,20 @@
 
 - (void)viewDidLoad
 {
-  v25[1] = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = HMHearingAidIntroViewController;
-  [(OBBaseWelcomeController *)&v24 viewDidLoad];
+  v24[1] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = HMHearingAidIntroViewController;
+  [(OBBaseWelcomeController *)&v23 viewDidLoad];
   [(HMHearingAidIntroViewController *)self updateImage];
   objc_initWeak(&location, self);
-  v25[0] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __46__HMHearingAidIntroViewController_viewDidLoad__block_invoke;
-  v21[3] = &unk_2796F3CA0;
-  objc_copyWeak(&v22, &location);
-  v4 = [(HMHearingAidIntroViewController *)self registerForTraitChanges:v3 withHandler:v21];
+  v24[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __46__HMHearingAidIntroViewController_viewDidLoad__block_invoke;
+  v20[3] = &unk_2796F3CA0;
+  objc_copyWeak(&v21, &location);
+  v4 = [(HMHearingAidIntroViewController *)self registerForTraitChanges:v3 withHandler:v20];
 
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"Your %@ can be used as a clinical-grade hearing aid. They use the results of your hearing test to make adjustments that help you hear the voices and sounds around you." value:&stru_286444CA0 table:0];
@@ -105,9 +105,8 @@
   [(HMHearingAidIntroViewController *)self addBulletedListItemWithTitle:v16 description:&stru_286444CA0 symbolName:@"ear.badge.waveform" tintColor:systemBlueColor2];
 
   [(HMHearingAidIntroViewController *)self updateButtonTray];
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMHearingAidIntroViewController_viewDidLoad__block_invoke(uint64_t a1)

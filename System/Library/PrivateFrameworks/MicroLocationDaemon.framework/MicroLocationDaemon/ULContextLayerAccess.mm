@@ -7,12 +7,12 @@
 
 - (ULContextLayerAccess)initWithWriter:(id)writer readers:(id)readers
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   writerCopy = writer;
   readersCopy = readers;
-  v43.receiver = self;
-  v43.super_class = ULContextLayerAccess;
-  v7 = [(ULContextLayerAccess *)&v43 init];
+  v47.receiver = self;
+  v47.super_class = ULContextLayerAccess;
+  v7 = [(ULContextLayerAccess *)&v47 init];
   v8 = v7;
   if (v7)
   {
@@ -27,48 +27,48 @@
 
       if (v11)
       {
-        v30 = _CLLogObjectForCategory_MicroLocation_Default();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+        v32 = _CLLogObjectForCategory_MicroLocation_Default(v12);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
         {
-          v31 = writerCopy;
+          v33 = writerCopy;
           uTF8String = [writerCopy UTF8String];
           buf = 68289795;
-          v46 = 2082;
-          v47 = "";
-          v48 = 2081;
-          v49 = uTF8String;
           v50 = 2082;
-          v51 = "assert";
+          v51 = "";
           v52 = 2081;
-          v53 = "self.writer";
-          _os_log_impl(&dword_258FE9000, v30, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:invalid writer UUID, writer:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x30u);
+          v53 = uTF8String;
+          v54 = 2082;
+          v55 = "assert";
+          v56 = 2081;
+          v57 = "self.writer";
+          _os_log_impl(&dword_258FE9000, v32, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:invalid writer UUID, writer:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x30u);
         }
 
-        v33 = _CLLogObjectForCategory_MicroLocation_Default();
-        if (os_signpost_enabled(v33))
-        {
-          v34 = writerCopy;
-          uTF8String2 = [writerCopy UTF8String];
-          buf = 68289795;
-          v46 = 2082;
-          v47 = "";
-          v48 = 2081;
-          v49 = uTF8String2;
-          v50 = 2082;
-          v51 = "assert";
-          v52 = 2081;
-          v53 = "self.writer";
-          _os_signpost_emit_with_name_impl(&dword_258FE9000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "invalid writer UUID", "{msg%{public}.0s:invalid writer UUID, writer:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x30u);
-        }
-
-        v36 = _CLLogObjectForCategory_MicroLocation_Default();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        v36 = _CLLogObjectForCategory_MicroLocation_Default(v35);
+        if (os_signpost_enabled(v36))
         {
           v37 = writerCopy;
+          uTF8String2 = [writerCopy UTF8String];
+          buf = 68289795;
+          v50 = 2082;
+          v51 = "";
+          v52 = 2081;
+          v53 = uTF8String2;
+          v54 = 2082;
+          v55 = "assert";
+          v56 = 2081;
+          v57 = "self.writer";
+          _os_signpost_emit_with_name_impl(&dword_258FE9000, v36, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "invalid writer UUID", "{msg%{public}.0s:invalid writer UUID, writer:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x30u);
+        }
+
+        v40 = _CLLogObjectForCategory_MicroLocation_Default(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        {
+          v41 = writerCopy;
           -[ULContextLayerAccess initWithWriter:readers:].cold.1([writerCopy UTF8String], &buf);
         }
 
-        abort_report_np();
+        abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/ServiceManager/ULContextLayerAccess.mm", 26, "[ULContextLayerAccess initWithWriter:readers:]");
 LABEL_29:
         __break(1u);
       }
@@ -77,87 +77,87 @@ LABEL_29:
     [(ULContextLayerAccess *)v8 setReaders:0];
     if (readersCopy)
     {
-      v12 = [MEMORY[0x277CBEB58] set];
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v13 = readersCopy;
-      v14 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
-      if (!v14)
+      v13 = [MEMORY[0x277CBEB58] set];
+      v45 = 0u;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
+      v14 = readersCopy;
+      v15 = [v14 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      if (!v15)
       {
         goto LABEL_13;
       }
 
-      v15 = *v40;
+      v16 = *v44;
       while (1)
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v40 != v15)
+          if (*v44 != v16)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v17 = *(*(&v39 + 1) + 8 * i);
-          v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v17];
-          if (!v18)
+          v18 = *(*(&v43 + 1) + 8 * i);
+          v19 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v18];
+          if (!v19)
           {
-            v22 = _CLLogObjectForCategory_MicroLocation_Default();
+            v22 = _CLLogObjectForCategory_MicroLocation_Default(0);
             if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
             {
-              v23 = v17;
-              uTF8String3 = [v17 UTF8String];
+              v23 = v18;
+              uTF8String3 = [v18 UTF8String];
               buf = 68289795;
-              v46 = 2082;
-              v47 = "";
-              v48 = 2081;
-              v49 = uTF8String3;
               v50 = 2082;
-              v51 = "assert";
+              v51 = "";
               v52 = 2081;
-              v53 = "uuid";
+              v53 = uTF8String3;
+              v54 = 2082;
+              v55 = "assert";
+              v56 = 2081;
+              v57 = "uuid";
               _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:invalid reader UUID, reader:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x30u);
             }
 
-            v25 = _CLLogObjectForCategory_MicroLocation_Default();
-            if (os_signpost_enabled(v25))
+            v26 = _CLLogObjectForCategory_MicroLocation_Default(v25);
+            if (os_signpost_enabled(v26))
             {
-              v26 = v17;
-              uTF8String4 = [v17 UTF8String];
+              v27 = v18;
+              uTF8String4 = [v18 UTF8String];
               buf = 68289795;
-              v46 = 2082;
-              v47 = "";
-              v48 = 2081;
-              v49 = uTF8String4;
               v50 = 2082;
-              v51 = "assert";
+              v51 = "";
               v52 = 2081;
-              v53 = "uuid";
-              _os_signpost_emit_with_name_impl(&dword_258FE9000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "invalid reader UUID", "{msg%{public}.0s:invalid reader UUID, reader:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x30u);
+              v53 = uTF8String4;
+              v54 = 2082;
+              v55 = "assert";
+              v56 = 2081;
+              v57 = "uuid";
+              _os_signpost_emit_with_name_impl(&dword_258FE9000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "invalid reader UUID", "{msg%{public}.0s:invalid reader UUID, reader:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x30u);
             }
 
-            v28 = _CLLogObjectForCategory_MicroLocation_Default();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+            v30 = _CLLogObjectForCategory_MicroLocation_Default(v29);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
-              v29 = v17;
-              -[ULContextLayerAccess initWithWriter:readers:].cold.2([v17 UTF8String], &buf);
+              v31 = v18;
+              -[ULContextLayerAccess initWithWriter:readers:].cold.2([v18 UTF8String], &buf);
             }
 
-            abort_report_np();
+            abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/ServiceManager/ULContextLayerAccess.mm", 34, "[ULContextLayerAccess initWithWriter:readers:]");
             goto LABEL_29;
           }
 
-          [v12 addObject:v18];
+          [v13 addObject:v19];
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
-        if (!v14)
+        v15 = [v14 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        if (!v15)
         {
 LABEL_13:
 
-          v19 = [v12 copy];
-          [(ULContextLayerAccess *)v8 setReaders:v19];
+          v20 = [v13 copy];
+          [(ULContextLayerAccess *)v8 setReaders:v20];
 
           break;
         }
@@ -165,7 +165,6 @@ LABEL_13:
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

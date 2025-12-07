@@ -2,9 +2,12 @@
 + (id)configureClass:(id)class;
 + (id)sharedInstance;
 - (BOOL)_convertNSData:(id)data toAuditToken:(id *)token;
+- (BOOL)_currentReconciliationSwitchStateForUser:(unsigned int)user since:(id *)since;
+- (BOOL)_currentSwitchStateForUser:(unsigned int)user since:(id *)since;
 - (BOOL)_hasSomeUserEnabled;
 - (BOOL)bundleNameImplies1stOr2ndParty:(id)party;
 - (BOOL)domainNameImpliesKnownAppleProperty:(id)property;
+- (BOOL)getReconciliationStateForUser:(unsigned int)user;
 - (BOOL)noteSymptom:(id)symptom;
 - (BOOL)triggerAutoBugCaptureCaseForType:(id)type subType:(id)subType privateSubtypeContext:(id)context detectedProcess:(id)process events:(id)events thresholdValuesString:(id)string;
 - (NSString)description;
@@ -17,6 +20,7 @@
 - (id)setNetworkDomainsOptions:(id)options service:(id)service connection:(id)connection;
 - (int)read:(id)read returnedValues:(id)values;
 - (void)_administrativeEnable;
+- (void)_callDelegateForResolutionBy:(unsigned int)by bundleIdentifier:(id)identifier forDomain:(id)domain endpoints:(id)endpoints;
 - (void)_callSwitchStateDelegateForName:(id)name;
 - (void)_completeInitialization;
 - (void)_lastEnabledUserDisabling;
@@ -35,6 +39,9 @@
 - (void)privacyReset;
 - (void)savePreferencesDictionary:(id)dictionary withKey:(__CFString *)key;
 - (void)setNetworkDomainDelegate:(id)delegate;
+- (void)setReconciliationSwitchState:(BOOL)state forUser:(unsigned int)user;
+- (void)setSwitchState:(BOOL)state forUser:(unsigned int)user;
+- (void)updateReconciliationSwitchStatesForUser:(unsigned int)user;
 - (void)willSwitchUser;
 @end
 
@@ -124,6 +131,17 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
   return v6;
 }
 
+- (BOOL)getReconciliationStateForUser:(unsigned int)user
+{
+  userIDsReconciliationSwitchStates = self->_userIDsReconciliationSwitchStates;
+  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%d", *&user];
+  v5 = [(NSMutableDictionary *)userIDsReconciliationSwitchStates objectForKeyedSubscript:v4];
+  v6 = [v5 objectForKeyedSubscript:@"domainTrackingXRefSwitchStateValue"];
+  bOOLValue = [v6 BOOLValue];
+
+  return bOOLValue;
+}
+
 - (void)dealloc
 {
   if (self->_observingSystemSettingsRelay)
@@ -148,10 +166,10 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)_completeInitialization
 {
-  v70 = *MEMORY[0x277D85DE8];
-  v52 = +[SystemSettingsRelay defaultRelay];
+  v69 = *MEMORY[0x277D85DE8];
+  v51 = +[SystemSettingsRelay defaultRelay];
   selfCopy2 = self;
-  [v52 addObserver:self forKeyPath:@"autoBugCaptureEnabled" options:5 context:0];
+  [v51 addObserver:self forKeyPath:@"autoBugCaptureEnabled" options:5 context:0];
   self->_observingSystemSettingsRelay = 1;
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, privacyReset, @"com.apple.Preferences.ResetPrivacyWarningsNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
@@ -159,18 +177,18 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
   if (shared_prefs_store)
   {
     v5 = shared_prefs_store;
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __44__NetDomainsHandler__completeInitialization__block_invoke;
-    v64[3] = &unk_27898A0A0;
-    v64[4] = self;
-    prefs_add_client(shared_prefs_store, "domaintracking_default_switch_state", v64);
     v63[0] = MEMORY[0x277D85DD0];
     v63[1] = 3221225472;
-    v63[2] = __44__NetDomainsHandler__completeInitialization__block_invoke_70;
+    v63[2] = __44__NetDomainsHandler__completeInitialization__block_invoke;
     v63[3] = &unk_27898A0A0;
     v63[4] = self;
-    prefs_add_client(v5, "domaintracking_default_reconciliation_switch_state", v63);
+    prefs_add_client(shared_prefs_store, "domaintracking_default_switch_state", v63);
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __44__NetDomainsHandler__completeInitialization__block_invoke_70;
+    v62[3] = &unk_27898A0A0;
+    v62[4] = self;
+    prefs_add_client(v5, "domaintracking_default_reconciliation_switch_state", v62);
     selfCopy2 = self;
   }
 
@@ -182,18 +200,18 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
     self->_ieService = v7;
 
     objc_initWeak(&location, self);
-    v61[0] = 0;
-    v61[1] = v61;
-    v61[2] = 0x2020000000;
-    v61[3] = 0;
+    v60[0] = 0;
+    v60[1] = v60;
+    v60[2] = 0x2020000000;
+    v60[3] = 0;
     queue = [(NetDomainsHandler *)self queue];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __44__NetDomainsHandler__completeInitialization__block_invoke_76;
-    v59[3] = &unk_27898A9B0;
-    objc_copyWeak(&v60, &location);
-    v59[4] = v61;
-    [(PeriodicMaintenanceActivity *)DailyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"NetDomainsHandler.Daily" queue:queue activity:v59];
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __44__NetDomainsHandler__completeInitialization__block_invoke_76;
+    v58[3] = &unk_27898A9B0;
+    objc_copyWeak(&v59, &location);
+    v58[4] = v60;
+    [(PeriodicMaintenanceActivity *)DailyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"NetDomainsHandler.Daily" queue:queue activity:v58];
 
     v10 = +[SystemProperties sharedInstance];
     LODWORD(queue) = [v10 internalBuild];
@@ -230,9 +248,9 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
       self->_userIDsSwitchStates = v18;
 
       v20 = self->_ieService;
-      v58 = 0;
-      v51 = [(ImpoExpoService *)v20 exportAndUnarchiveItemUnderName:@"USERIDSAPPTRACKINGSTATES" lastUpdated:&v58 verificationBlock:&__block_literal_global_5];
-      v50 = v58;
+      v57 = 0;
+      v50 = [(ImpoExpoService *)v20 exportAndUnarchiveItemUnderName:@"USERIDSAPPTRACKINGSTATES" lastUpdated:&v57 verificationBlock:&__block_literal_global_5];
+      v49 = v57;
       mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
       isSharedIPad = [mEMORY[0x277D77BF8] isSharedIPad];
 
@@ -242,27 +260,27 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
         self->_hasSomeUserEnabled = 0;
       }
 
-      else if (v51)
+      else if (v50)
       {
-        v56 = 0u;
-        v57 = 0u;
-        v54 = 0u;
         v55 = 0u;
-        v24 = v51;
-        v25 = [v24 countByEnumeratingWithState:&v54 objects:v69 count:16];
+        v56 = 0u;
+        v53 = 0u;
+        v54 = 0u;
+        v24 = v50;
+        v25 = [v24 countByEnumeratingWithState:&v53 objects:v68 count:16];
         if (v25)
         {
-          v26 = *v55;
+          v26 = *v54;
           do
           {
             for (i = 0; i != v25; ++i)
             {
-              if (*v55 != v26)
+              if (*v54 != v26)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v28 = *(*(&v54 + 1) + 8 * i);
+              v28 = *(*(&v53 + 1) + 8 * i);
               v29 = [v24 objectForKeyedSubscript:v28];
               v30 = self->_userIDsSwitchStates;
               v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%d", objc_msgSend(v28, "intValue")];
@@ -272,14 +290,14 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
               if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v66 = @"appTracking";
-                v67 = 2112;
-                v68 = v28;
+                v65 = @"appTracking";
+                v66 = 2112;
+                v67 = v28;
                 _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEFAULT, "Will migrate %@ switch state for user %@ from DB to preferences", buf, 0x16u);
               }
             }
 
-            v25 = [v24 countByEnumeratingWithState:&v54 objects:v69 count:16];
+            v25 = [v24 countByEnumeratingWithState:&v53 objects:v68 count:16];
           }
 
           while (v25);
@@ -305,9 +323,9 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
         if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v66 = @"appTracking";
-          v67 = 1024;
-          LODWORD(v68) = 501;
+          v65 = @"appTracking";
+          v66 = 1024;
+          LODWORD(v67) = 501;
           _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_DEFAULT, "Initializing %@ switch state for user %u", buf, 0x12u);
         }
       }
@@ -317,7 +335,7 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v66 = @"appTracking";
+        v65 = @"appTracking";
         _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "Removing %@ switch states from DB, if any", buf, 0xCu);
       }
 
@@ -372,17 +390,15 @@ uint64_t __25__NetDomainsHandler_init__block_invoke(uint64_t a1, void *a2)
       [(NetDomainsHandler *)self _submitAppTrackingEnabled];
     }
 
-    objc_destroyWeak(&v60);
-    _Block_object_dispose(v61, 8);
+    objc_destroyWeak(&v59);
+    _Block_object_dispose(v60, 8);
     objc_destroyWeak(&location);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NetDomainsHandler__completeInitialization__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86448])
@@ -401,8 +417,8 @@ void __44__NetDomainsHandler__completeInitialization__block_invoke(uint64_t a1, 
         v10 = "OFF";
       }
 
-      v12 = 136315138;
-      v13 = v10;
+      v11 = 136315138;
+      v12 = v10;
       v9 = "Setting default switch state to %s";
       goto LABEL_13;
     }
@@ -427,20 +443,18 @@ void __44__NetDomainsHandler__completeInitialization__block_invoke(uint64_t a1, 
         v8 = "OFF";
       }
 
-      v12 = 136315138;
-      v13 = v8;
+      v11 = 136315138;
+      v12 = v8;
       v9 = "Got a nil default switch state prefs. Setting default state to %s";
 LABEL_13:
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, v9, &v12, 0xCu);
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, v9, &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NetDomainsHandler__completeInitialization__block_invoke_70(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86448])
@@ -459,8 +473,8 @@ void __44__NetDomainsHandler__completeInitialization__block_invoke_70(uint64_t a
         v9 = "OFF";
       }
 
-      v11 = 136315138;
-      v12 = v9;
+      v10 = 136315138;
+      v11 = v9;
       v8 = "Setting default reconciliation switch state to %s";
       goto LABEL_13;
     }
@@ -482,15 +496,13 @@ void __44__NetDomainsHandler__completeInitialization__block_invoke_70(uint64_t a
         v7 = "OFF";
       }
 
-      v11 = 136315138;
-      v12 = v7;
+      v10 = 136315138;
+      v11 = v7;
       v8 = "Got a nil default reconciliation switch state prefs. Setting default reconciliation state to %s";
 LABEL_13:
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, v8, &v11, 0xCu);
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, v8, &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NetDomainsHandler__completeInitialization__block_invoke_76(uint64_t a1)
@@ -512,32 +524,32 @@ void __44__NetDomainsHandler__completeInitialization__block_invoke_76(uint64_t a
 
 uint64_t __44__NetDomainsHandler__completeInitialization__block_invoke_88(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v18;
-      v16 = @"domainTrackingUserDidFollowUp";
+      v6 = *v17;
+      v15 = @"domainTrackingUserDidFollowUp";
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v18 != v6)
+          if (*v17 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v17 + 1) + 8 * i);
-          v9 = [v3 objectForKeyedSubscript:{v8, v16}];
+          v8 = *(*(&v16 + 1) + 8 * i);
+          v9 = [v3 objectForKeyedSubscript:{v8, v15}];
           if (!v8)
           {
             goto LABEL_22;
@@ -579,7 +591,7 @@ LABEL_23:
             goto LABEL_24;
           }
 
-          v12 = [v9 objectForKeyedSubscript:v16];
+          v12 = [v9 objectForKeyedSubscript:v15];
 
           if (!v12)
           {
@@ -587,7 +599,7 @@ LABEL_23:
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
         v13 = 1;
         if (v5)
         {
@@ -611,13 +623,12 @@ LABEL_24:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)savePreferencesDictionary:(id)dictionary withKey:(__CFString *)key
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = dictionaryCopy;
   if (dictionaryCopy)
@@ -630,19 +641,19 @@ LABEL_24:
     {
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
+        v13 = 138412290;
         keyCopy2 = key;
         v10 = "Set %@ switch states in preferences";
         v11 = v9;
         v12 = OS_LOG_TYPE_DEFAULT;
 LABEL_7:
-        _os_log_impl(&dword_23255B000, v11, v12, v10, &v14, 0xCu);
+        _os_log_impl(&dword_23255B000, v11, v12, v10, &v13, 0xCu);
       }
     }
 
     else if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
+      v13 = 138412290;
       keyCopy2 = key;
       v10 = "Failed to set %@ switch states in preferences";
       v11 = v9;
@@ -652,13 +663,11 @@ LABEL_7:
 
     CFRelease(v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)retrievePreferencesDictionaryWithKey:(__CFString *)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = CFPreferencesCopyValue(key, @"com.apple.symptomsd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
   if (v4)
   {
@@ -670,9 +679,9 @@ LABEL_7:
       v8 = domainTrackingLogHandle;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
+        v13 = 138412290;
         keyCopy3 = key;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Retrieved %@ switch states from preferences", &v14, 0xCu);
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Retrieved %@ switch states from preferences", &v13, 0xCu);
       }
     }
 
@@ -682,11 +691,11 @@ LABEL_7:
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
       {
         v11 = v10;
-        v14 = 138412546;
+        v13 = 138412546;
         keyCopy3 = key;
-        v16 = 2048;
-        v17 = CFGetTypeID(v5);
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Stored preferences for %@ switch states is of type %lu", &v14, 0x16u);
+        v15 = 2048;
+        v16 = CFGetTypeID(v5);
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Stored preferences for %@ switch states is of type %lu", &v13, 0x16u);
       }
 
       DeepCopy = 0;
@@ -698,22 +707,20 @@ LABEL_7:
     v9 = domainTrackingLogHandle;
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
+      v13 = 138412290;
       keyCopy3 = key;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Preferences don't exist for %@ switch states yet", &v14, 0xCu);
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Preferences don't exist for %@ switch states yet", &v13, 0xCu);
     }
 
     DeepCopy = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return DeepCopy;
 }
 
 - (void)_callSwitchStateDelegateForName:(id)name
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = objc_alloc(MEMORY[0x277CCACA8]);
   v6 = 501;
@@ -736,11 +743,11 @@ LABEL_7:
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v27 = nameCopy;
+        v26 = nameCopy;
         _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "Calling %@ switch state delegate", buf, 0xCu);
       }
 
-      v24[0] = @"userAppTrackingUserID";
+      v23[0] = @"userAppTrackingUserID";
       if (effectiveUserId)
       {
         v13 = 501;
@@ -752,11 +759,11 @@ LABEL_7:
       }
 
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v13];
-      v24[1] = @"userAppTrackingState";
-      v25[0] = v14;
+      v23[1] = @"userAppTrackingState";
+      v24[0] = v14;
       v15 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
-      v25[1] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+      v24[1] = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
       [WeakRetained networkDomainUserAppTrackingChanged:v16];
 LABEL_19:
     }
@@ -780,11 +787,11 @@ LABEL_19:
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v27 = nameCopy;
+        v26 = nameCopy;
         _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "Calling %@ switch state delegate", buf, 0xCu);
       }
 
-      v22[0] = @"userEndpointTrackingUserID";
+      v21[0] = @"userEndpointTrackingUserID";
       if (effectiveUserId)
       {
         v20 = 501;
@@ -796,48 +803,163 @@ LABEL_19:
       }
 
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v20];
-      v22[1] = @"userEndpointTrackingState";
-      v23[0] = v14;
+      v21[1] = @"userEndpointTrackingState";
+      v22[0] = v14;
       v15 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue2];
-      v23[1] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+      v22[1] = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
       [WeakRetained networkDomainUserEndpointTrackingChanged:v16];
       goto LABEL_19;
     }
   }
 
 LABEL_21:
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (void)updateReconciliationSwitchStatesForUser:(unsigned int)user
+{
+  v3 = *&user;
+  v49 = *MEMORY[0x277D85DE8];
+  v5 = [(NetDomainsHandler *)self retrievePreferencesDictionaryWithKey:@"endpointTracking"];
+  userIDsReconciliationSwitchStates = self->_userIDsReconciliationSwitchStates;
+  self->_userIDsReconciliationSwitchStates = v5;
+
+  v7 = 0x277CCA000uLL;
+  if (!self->_userIDsReconciliationSwitchStates)
+  {
+    v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v9 = self->_userIDsReconciliationSwitchStates;
+    self->_userIDsReconciliationSwitchStates = v8;
+
+    ieService = self->_ieService;
+    v43 = 0;
+    v11 = [(ImpoExpoService *)ieService exportAndUnarchiveItemUnderName:@"USERIDSAPPTRACKINGRECONCILIATIONSTATES" lastUpdated:&v43 verificationBlock:&__block_literal_global_101];
+    v12 = v43;
+    if (v11)
+    {
+      v36 = v12;
+      v37 = v11;
+      v38 = v3;
+      v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v13 = v11;
+      v14 = [v13 countByEnumeratingWithState:&v39 objects:v48 count:16];
+      if (v14)
+      {
+        v15 = v14;
+        v16 = *v40;
+        do
+        {
+          for (i = 0; i != v15; ++i)
+          {
+            if (*v40 != v16)
+            {
+              objc_enumerationMutation(v13);
+            }
+
+            v18 = *(*(&v39 + 1) + 8 * i);
+            v19 = [v13 objectForKeyedSubscript:v18];
+            v20 = self->_userIDsReconciliationSwitchStates;
+            v21 = v7;
+            v22 = [objc_alloc(*(v7 + 3240)) initWithFormat:@"%d", objc_msgSend(v18, "intValue")];
+            [(NSMutableDictionary *)v20 setObject:v19 forKeyedSubscript:v22];
+
+            v23 = domainTrackingLogHandle;
+            if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412546;
+              v45 = @"endpointTracking";
+              v46 = 2112;
+              v47 = v18;
+              _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Will migrate %@ switch state for user %@ from DB to preferences", buf, 0x16u);
+            }
+
+            v7 = v21;
+          }
+
+          v15 = [v13 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        }
+
+        while (v15);
+      }
+
+      [(NetDomainsHandler *)self savePreferencesDictionary:self->_userIDsReconciliationSwitchStates withKey:@"endpointTracking"];
+      v24 = domainTrackingLogHandle;
+      if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v45 = @"endpointTracking";
+        _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Removing %@ switch states from DB, if any", buf, 0xCu);
+      }
+
+      v25 = self->_ieService;
+      v26 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"USERIDSAPPTRACKINGRECONCILIATIONSTATES", 0}];
+      [(ImpoExpoService *)v25 deleteItemsWithNames:v26];
+
+      v11 = v37;
+      v3 = v38;
+      v12 = v36;
+    }
+  }
+
+  v27 = [objc_alloc(*(v7 + 3240)) initWithFormat:@"%d", v3];
+  v28 = [(NSMutableDictionary *)self->_userIDsReconciliationSwitchStates objectForKeyedSubscript:v27];
+
+  if (!v28)
+  {
+    v29 = objc_alloc(MEMORY[0x277CBEB38]);
+    v30 = [MEMORY[0x277CCABB0] numberWithBool:self->_defaultReconciliationSwitchState];
+    date = [MEMORY[0x277CBEAA8] date];
+    v32 = [v29 initWithObjectsAndKeys:{v30, @"domainTrackingXRefSwitchStateValue", date, @"domainTrackingXRefSwitchStateSince", 0}];
+    [(NSMutableDictionary *)self->_userIDsReconciliationSwitchStates setObject:v32 forKeyedSubscript:v27];
+
+    [(NetDomainsHandler *)self savePreferencesDictionary:self->_userIDsReconciliationSwitchStates withKey:@"endpointTracking"];
+    v33 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v45 = @"endpointTracking";
+      v46 = 1024;
+      LODWORD(v47) = v3;
+      _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEFAULT, "Initializing %@ switch state for user %u in preferences", buf, 0x12u);
+    }
+  }
+
+  [(NetDomainsHandler *)self logSwitchStatesFromDictionary:self->_userIDsReconciliationSwitchStates];
+  v34 = [(NSMutableDictionary *)self->_userIDsReconciliationSwitchStates objectForKeyedSubscript:v27];
+  v35 = [v34 objectForKeyedSubscript:@"domainTrackingXRefSwitchStateValue"];
+  self->_hasCurrentUserReconciliationEnabled = [v35 BOOLValue];
 }
 
 uint64_t __61__NetDomainsHandler_updateReconciliationSwitchStatesForUser___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v16;
+      v6 = *v15;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v16 != v6)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v15 + 1) + 8 * i);
-          v9 = [v3 objectForKeyedSubscript:{v8, v15}];
+          v8 = *(*(&v14 + 1) + 8 * i);
+          v9 = [v3 objectForKeyedSubscript:{v8, v14}];
           if (!v8)
           {
             goto LABEL_20;
@@ -879,7 +1001,7 @@ LABEL_21:
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
         v12 = 1;
         if (v5)
         {
@@ -903,7 +1025,6 @@ LABEL_22:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -917,25 +1038,23 @@ LABEL_22:
 
 void __51__NetDomainsHandler_logSwitchStatesFromDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Switch state for user %@:", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Switch state for user %@:", &v7, 0xCu);
   }
 
   [v5 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_108];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __51__NetDomainsHandler_logSwitchStatesFromDictionary___block_invoke_105(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = domainTrackingLogHandle;
@@ -950,17 +1069,15 @@ void __51__NetDomainsHandler_logSwitchStatesFromDictionary___block_invoke_105(ui
       v8 = formattedDateStringForTimeInterval(v9);
     }
 
-    v11 = 138412546;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t%@: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t%@: %@", &v10, 0x16u);
     if (isKindOfClass)
     {
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -1013,7 +1130,7 @@ void __68__NetDomainsHandler_observeValueForKeyPath_ofObject_change_context___bl
 
 - (BOOL)bundleNameImplies1stOr2ndParty:(id)party
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   partyCopy = party;
   v4 = partyCopy;
   if (bundleNameImplies1stOr2ndParty__onceToken != -1)
@@ -1035,26 +1152,26 @@ LABEL_14:
   }
 
 LABEL_3:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = bundleNameImplies1stOr2ndParty__k1st2ndAppleOwnedBundlePrefixes;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([v4 hasPrefix:{*(*(&v13 + 1) + 8 * i), v13}])
+        if ([v4 hasPrefix:{*(*(&v12 + 1) + 8 * i), v12}])
         {
 
           v10 = 1;
@@ -1062,7 +1179,7 @@ LABEL_3:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -1075,7 +1192,6 @@ LABEL_3:
   v10 = [bundleNameImplies1stOr2ndParty__k1st2ndAppleOwnedBundleIDs containsObject:v4];
 LABEL_15:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1137,7 +1253,7 @@ void __57__NetDomainsHandler_domainNameImpliesKnownAppleProperty___block_invoke(
   domainNameImpliesKnownAppleProperty__kAppleOwnedTrackerDomains = &unk_2847EEAF0;
 }
 
-uint64_t __57__NetDomainsHandler_domainNameImpliesKnownAppleProperty___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__57__NetDomainsHandler_domainNameImpliesKnownAppleProperty___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) hasSuffix:a2];
   if (result)
@@ -1210,16 +1326,16 @@ uint64_t __57__NetDomainsHandler_domainNameImpliesKnownAppleProperty___block_inv
 
 void __54__NetDomainsHandler__registerForUserSwitchStakeholder__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = domainTrackingLogHandle;
   if (v3)
   {
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "UserManagement: Failed to register as a user switch stakeholder - %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "UserManagement: Failed to register as a user switch stakeholder - %@", &v5, 0xCu);
     }
   }
 
@@ -1227,14 +1343,12 @@ void __54__NetDomainsHandler__registerForUserSwitchStakeholder__block_invoke(uin
   {
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "UserManagement: Registered as a user switch stakeholder", &v6, 2u);
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "UserManagement: Registered as a user switch stakeholder", &v5, 2u);
     }
 
     *(*(a1 + 32) + 160) = 1;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__NetDomainsHandler__registerForUserSwitchStakeholder__block_invoke_154(uint64_t a1)
@@ -1306,6 +1420,99 @@ LABEL_6:
   }
 }
 
+- (BOOL)_currentSwitchStateForUser:(unsigned int)user since:(id *)since
+{
+  userIDsSwitchStates = self->_userIDsSwitchStates;
+  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%d", *&user];
+  v7 = [(NSMutableDictionary *)userIDsSwitchStates objectForKeyedSubscript:v6];
+
+  if (v7)
+  {
+    v8 = [v7 objectForKeyedSubscript:@"domainTrackingSwitchStateValue"];
+    bOOLValue = [v8 BOOLValue];
+
+    if (since)
+    {
+      *since = [v7 objectForKeyedSubscript:@"domainTrackingSwitchStateSince"];
+    }
+  }
+
+  else
+  {
+    bOOLValue = 0;
+  }
+
+  return bOOLValue;
+}
+
+- (void)setSwitchState:(BOOL)state forUser:(unsigned int)user
+{
+  v4 = *&user;
+  stateCopy = state;
+  v27[3] = *MEMORY[0x277D85DE8];
+  userIDsSwitchStates = self->_userIDsSwitchStates;
+  v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%d", *&user];
+  v9 = [(NSMutableDictionary *)userIDsSwitchStates objectForKeyedSubscript:v8];
+
+  if (!v9 || ([v9 objectForKeyedSubscript:@"domainTrackingSwitchStateValue"], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "BOOLValue"), v10, v11 != stateCopy))
+  {
+    v12 = [v9 objectForKeyedSubscript:@"domainTrackingUserDidFollowUp"];
+    bOOLValue = [v12 BOOLValue];
+
+    date = [MEMORY[0x277CBEAA8] date];
+    v15 = objc_alloc(MEMORY[0x277CBEB38]);
+    v26[0] = @"domainTrackingSwitchStateValue";
+    v16 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+    v27[0] = v16;
+    v27[1] = date;
+    v26[1] = @"domainTrackingSwitchStateSince";
+    v26[2] = @"domainTrackingUserDidFollowUp";
+    v17 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v27[2] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+    v19 = [v15 initWithDictionary:v18];
+    v20 = self->_userIDsSwitchStates;
+    v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%d", v4];
+    [(NSMutableDictionary *)v20 setObject:v19 forKeyedSubscript:v21];
+
+    if (stateCopy)
+    {
+      if (!self->_hasSomeUserEnabled)
+      {
+        v22 = domainTrackingLogHandle;
+        if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "At least one user has feature enabled", buf, 2u);
+        }
+
+        self->_hasSomeUserEnabled = 1;
+        [(NetDomainsHandler *)self _firstUserEnabling];
+      }
+    }
+
+    else
+    {
+      _hasSomeUserEnabled = [(NetDomainsHandler *)self _hasSomeUserEnabled];
+      self->_hasSomeUserEnabled = _hasSomeUserEnabled;
+      if (!_hasSomeUserEnabled)
+      {
+        v24 = domainTrackingLogHandle;
+        if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "No user has feature enabled", buf, 2u);
+        }
+
+        [(NetDomainsHandler *)self _lastEnabledUserDisabling];
+      }
+    }
+
+    [(NetDomainsHandler *)self savePreferencesDictionary:self->_userIDsSwitchStates withKey:@"appTracking"];
+    [(NetDomainsHandler *)self logSwitchStatesFromDictionary:self->_userIDsSwitchStates];
+  }
+}
+
 - (BOOL)_hasSomeUserEnabled
 {
   v6 = 0;
@@ -1326,7 +1533,7 @@ LABEL_6:
 
 void __40__NetDomainsHandler__hasSomeUserEnabled__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = [a3 objectForKeyedSubscript:@"domainTrackingSwitchStateValue"];
   v9 = [v8 BOOLValue];
@@ -1336,16 +1543,14 @@ void __40__NetDomainsHandler__hasSomeUserEnabled__block_invoke(uint64_t a1, void
     v10 = domainTrackingLogHandle;
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "User %@ has feature enabled", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "User %@ has feature enabled", &v11, 0xCu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 1;
     *a4 = 1;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lastEnabledUserDisabling
@@ -1377,6 +1582,60 @@ void __40__NetDomainsHandler__hasSomeUserEnabled__block_invoke(uint64_t a1, void
   internal_symptom_new(v3);
 
   internal_symptom_send();
+}
+
+- (BOOL)_currentReconciliationSwitchStateForUser:(unsigned int)user since:(id *)since
+{
+  userIDsReconciliationSwitchStates = self->_userIDsReconciliationSwitchStates;
+  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%d", *&user];
+  v7 = [(NSMutableDictionary *)userIDsReconciliationSwitchStates objectForKeyedSubscript:v6];
+
+  if (v7)
+  {
+    v8 = [v7 objectForKeyedSubscript:@"domainTrackingXRefSwitchStateValue"];
+    bOOLValue = [v8 BOOLValue];
+
+    if (since)
+    {
+      *since = [v7 objectForKeyedSubscript:@"domainTrackingXRefSwitchStateSince"];
+    }
+  }
+
+  else
+  {
+    bOOLValue = 0;
+  }
+
+  return bOOLValue;
+}
+
+- (void)setReconciliationSwitchState:(BOOL)state forUser:(unsigned int)user
+{
+  stateCopy = state;
+  v19[2] = *MEMORY[0x277D85DE8];
+  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%d", *&user];
+  v7 = [(NSMutableDictionary *)self->_userIDsReconciliationSwitchStates objectForKeyedSubscript:v6];
+  v8 = v7;
+  if (!v7 || ([v7 objectForKeyedSubscript:@"domainTrackingXRefSwitchStateValue"], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "BOOLValue"), v9, v10 != stateCopy))
+  {
+    date = [MEMORY[0x277CBEAA8] date];
+    v12 = objc_alloc(MEMORY[0x277CBEB38]);
+    v18[0] = @"domainTrackingXRefSwitchStateValue";
+    v13 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+    v18[1] = @"domainTrackingXRefSwitchStateSince";
+    v19[0] = v13;
+    v19[1] = date;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v15 = [v12 initWithDictionary:v14];
+    [(NSMutableDictionary *)self->_userIDsReconciliationSwitchStates setObject:v15 forKeyedSubscript:v6];
+
+    v16 = [(NSMutableDictionary *)self->_userIDsReconciliationSwitchStates objectForKeyedSubscript:v6];
+    v17 = [v16 objectForKeyedSubscript:@"domainTrackingXRefSwitchStateValue"];
+    self->_hasCurrentUserReconciliationEnabled = [v17 BOOLValue];
+
+    [(NetDomainsHandler *)self savePreferencesDictionary:self->_userIDsReconciliationSwitchStates withKey:@"endpointTracking"];
+    [(NetDomainsHandler *)self logSwitchStatesFromDictionary:self->_userIDsReconciliationSwitchStates];
+  }
 }
 
 - (id)_internalStateDictionary
@@ -1423,7 +1682,7 @@ void __40__NetDomainsHandler__hasSomeUserEnabled__block_invoke(uint64_t a1, void
 
 - (id)setNetworkDomainsOptions:(id)options service:(id)service connection:(id)connection
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   effectiveUserIdentifier = [connection effectiveUserIdentifier];
   v9 = [optionsCopy objectForKeyedSubscript:@"domainTrackingSwitch"];
@@ -1437,11 +1696,11 @@ void __40__NetDomainsHandler__hasSomeUserEnabled__block_invoke(uint64_t a1, void
       v11 = [(NetDomainsHandler *)self _currentSwitchStateForUser:effectiveUserIdentifier since:0];
       -[NetDomainsHandler setSwitchState:forUser:](self, "setSwitchState:forUser:", [v10 BOOLValue], effectiveUserIdentifier);
       [(NetDomainsHandler *)self _callSwitchStateDelegateForName:@"userAppTracking"];
-      v62 = @"domainTrackingSwitch";
+      v61 = @"domainTrackingSwitch";
       v12 = v11 && self->_adminState == 1;
       v23 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-      v63[0] = v23;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+      v62[0] = v23;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
 
       goto LABEL_46;
     }
@@ -1469,9 +1728,9 @@ void __40__NetDomainsHandler__hasSomeUserEnabled__block_invoke(uint64_t a1, void
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v49 = 0;
-          v15 = [(NetDomainsHandler *)self _currentSwitchStateForUser:effectiveUserIdentifier since:&v49];
-          date = v49;
+          v48 = 0;
+          v15 = [(NetDomainsHandler *)self _currentSwitchStateForUser:effectiveUserIdentifier since:&v48];
+          date = v48;
           if (!date)
           {
             date = [MEMORY[0x277CBEAA8] date];
@@ -1485,19 +1744,19 @@ void __40__NetDomainsHandler__hasSomeUserEnabled__block_invoke(uint64_t a1, void
 
           -[NetDomainsHandler setSwitchState:forUser:](self, "setSwitchState:forUser:", [v14 BOOLValue], effectiveUserIdentifier);
           [(NetDomainsHandler *)self _callSwitchStateDelegateForName:@"userAppTracking"];
-          v56 = @"domainTrackingSwitchState";
-          v54[0] = @"domainTrackingSwitchStateValue";
+          v55 = @"domainTrackingSwitchState";
+          v53[0] = @"domainTrackingSwitchStateValue";
           v17 = v15 && self->_adminState == 1;
           v38 = [MEMORY[0x277CCABB0] numberWithInt:v17];
-          v54[1] = @"domainTrackingSwitchStateSince";
-          v55[0] = v38;
+          v53[1] = @"domainTrackingSwitchStateSince";
+          v54[0] = v38;
           v39 = date;
-          v55[1] = date;
-          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
-          v57 = v40;
+          v54[1] = date;
+          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+          v56 = v40;
           v41 = MEMORY[0x277CBEAC0];
-          v42 = &v57;
-          v43 = &v56;
+          v42 = &v56;
+          v43 = &v55;
 LABEL_44:
           v24 = [v41 dictionaryWithObjects:v42 forKeys:v43 count:1];
 
@@ -1512,9 +1771,9 @@ LABEL_44:
         v31 = objc_opt_class();
         v32 = NSStringFromClass(v31);
         *buf = 138412546;
-        v59 = v32;
-        v60 = 1024;
-        v61 = effectiveUserIdentifier;
+        v58 = v32;
+        v59 = 1024;
+        v60 = effectiveUserIdentifier;
         v33 = "switchStateValue is %@ for euid %u";
 LABEL_38:
         _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, v33, buf, 0x12u);
@@ -1533,9 +1792,9 @@ LABEL_15:
       v20 = objc_opt_class();
       v21 = NSStringFromClass(v20);
       *buf = 138412546;
-      v59 = v21;
-      v60 = 1024;
-      v61 = effectiveUserIdentifier;
+      v58 = v21;
+      v59 = 1024;
+      v60 = effectiveUserIdentifier;
       v22 = "domainTrackingOption is %@ for euid %u";
 LABEL_34:
       _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, v22, buf, 0x12u);
@@ -1562,9 +1821,9 @@ LABEL_34:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v48 = 0;
-          v26 = [(NetDomainsHandler *)self _currentReconciliationSwitchStateForUser:effectiveUserIdentifier since:&v48];
-          date2 = v48;
+          v47 = 0;
+          v26 = [(NetDomainsHandler *)self _currentReconciliationSwitchStateForUser:effectiveUserIdentifier since:&v47];
+          date2 = v47;
           if (!date2)
           {
             date2 = [MEMORY[0x277CBEAA8] date];
@@ -1578,19 +1837,19 @@ LABEL_34:
 
           -[NetDomainsHandler setReconciliationSwitchState:forUser:](self, "setReconciliationSwitchState:forUser:", [v14 BOOLValue], effectiveUserIdentifier);
           [(NetDomainsHandler *)self _callSwitchStateDelegateForName:@"userEndpointTracking"];
-          v52 = @"domainTrackingXRefSwitchState";
-          v50[0] = @"domainTrackingXRefSwitchStateValue";
+          v51 = @"domainTrackingXRefSwitchState";
+          v49[0] = @"domainTrackingXRefSwitchStateValue";
           v28 = v26 && self->_adminState == 1;
           v38 = [MEMORY[0x277CCABB0] numberWithInt:v28];
-          v50[1] = @"domainTrackingXRefSwitchStateSince";
-          v51[0] = v38;
+          v49[1] = @"domainTrackingXRefSwitchStateSince";
+          v50[0] = v38;
           v39 = date2;
-          v51[1] = date2;
-          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
-          v53 = v40;
+          v50[1] = date2;
+          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+          v52 = v40;
           v41 = MEMORY[0x277CBEAC0];
-          v42 = &v53;
-          v43 = &v52;
+          v42 = &v52;
+          v43 = &v51;
           goto LABEL_44;
         }
       }
@@ -1602,9 +1861,9 @@ LABEL_34:
         v37 = objc_opt_class();
         v32 = NSStringFromClass(v37);
         *buf = 138412546;
-        v59 = v32;
-        v60 = 1024;
-        v61 = effectiveUserIdentifier;
+        v58 = v32;
+        v59 = 1024;
+        v60 = effectiveUserIdentifier;
         v33 = "reconciliationSwitchStateValue is %@ for euid %u";
         goto LABEL_38;
       }
@@ -1623,9 +1882,9 @@ LABEL_45:
       v35 = objc_opt_class();
       v21 = NSStringFromClass(v35);
       *buf = 138412546;
-      v59 = v21;
-      v60 = 1024;
-      v61 = effectiveUserIdentifier;
+      v58 = v21;
+      v59 = 1024;
+      v60 = effectiveUserIdentifier;
       v22 = "domainTrackingReconciliationOption is %@ for euid %u";
       goto LABEL_34;
     }
@@ -1636,14 +1895,13 @@ LABEL_35:
 LABEL_46:
 
 LABEL_47:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (id)getNetworkDomainsOptions:(id)options service:(id)service connection:(id)connection
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   serviceCopy = service;
   connectionCopy = connection;
@@ -1656,7 +1914,7 @@ LABEL_47:
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v46 = effectiveUserIdentifier;
+      v45 = effectiveUserIdentifier;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Performing manage action for: legacy switch state query for euid %u", buf, 8u);
     }
 
@@ -1683,7 +1941,7 @@ LABEL_47:
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v46 = effectiveUserIdentifier;
+      v45 = effectiveUserIdentifier;
       _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Performing manage action for: switch state query for euid %u", buf, 8u);
     }
 
@@ -1692,9 +1950,9 @@ LABEL_47:
       _internalStateDictionary = objc_alloc_init(MEMORY[0x277CBEB38]);
     }
 
-    v40 = 0;
-    v18 = [(NetDomainsHandler *)self _currentSwitchStateForUser:effectiveUserIdentifier since:&v40];
-    date = v40;
+    v39 = 0;
+    v18 = [(NetDomainsHandler *)self _currentSwitchStateForUser:effectiveUserIdentifier since:&v39];
+    date = v39;
     if (!date)
     {
       date = [MEMORY[0x277CBEAA8] date];
@@ -1706,13 +1964,13 @@ LABEL_47:
       }
     }
 
-    v43[0] = @"domainTrackingSwitchStateValue";
+    v42[0] = @"domainTrackingSwitchStateValue";
     v21 = v18 && self->_adminState == 1;
     v22 = [MEMORY[0x277CCABB0] numberWithInt:v21];
-    v43[1] = @"domainTrackingSwitchStateSince";
-    v44[0] = v22;
-    v44[1] = date;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+    v42[1] = @"domainTrackingSwitchStateSince";
+    v43[0] = v22;
+    v43[1] = date;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
     [_internalStateDictionary setObject:v23 forKeyedSubscript:@"domainTrackingSwitchState"];
   }
 
@@ -1724,7 +1982,7 @@ LABEL_47:
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v46 = effectiveUserIdentifier;
+      v45 = effectiveUserIdentifier;
       _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEFAULT, "Performing manage action for: reconciliation switch state query for euid %u", buf, 8u);
     }
 
@@ -1733,9 +1991,9 @@ LABEL_47:
       _internalStateDictionary = objc_alloc_init(MEMORY[0x277CBEB38]);
     }
 
-    v39 = 0;
-    v26 = [(NetDomainsHandler *)self _currentReconciliationSwitchStateForUser:effectiveUserIdentifier since:&v39];
-    date2 = v39;
+    v38 = 0;
+    v26 = [(NetDomainsHandler *)self _currentReconciliationSwitchStateForUser:effectiveUserIdentifier since:&v38];
+    date2 = v38;
     if (!date2)
     {
       date2 = [MEMORY[0x277CBEAA8] date];
@@ -1747,13 +2005,13 @@ LABEL_47:
       }
     }
 
-    v41[0] = @"domainTrackingXRefSwitchStateValue";
+    v40[0] = @"domainTrackingXRefSwitchStateValue";
     v29 = v26 && self->_adminState == 1;
     v30 = [MEMORY[0x277CCABB0] numberWithInt:v29];
-    v41[1] = @"domainTrackingXRefSwitchStateSince";
-    v42[0] = v30;
-    v42[1] = date2;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+    v40[1] = @"domainTrackingXRefSwitchStateSince";
+    v41[0] = v30;
+    v41[1] = date2;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
     [_internalStateDictionary setObject:v31 forKeyedSubscript:@"domainTrackingXRefSwitchState"];
   }
 
@@ -1769,7 +2027,7 @@ LABEL_47:
       if (v35)
       {
         *buf = 67109120;
-        v46 = effectiveUserIdentifier;
+        v45 = effectiveUserIdentifier;
         _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "Performing manage action for: status query for euid %u", buf, 8u);
       }
 
@@ -1788,7 +2046,7 @@ LABEL_47:
       if (v35)
       {
         *buf = 67109120;
-        v46 = effectiveUserIdentifier;
+        v45 = effectiveUserIdentifier;
         _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "Request to perform manage action (status query) without proper entitlement for euid %u", buf, 8u);
       }
 
@@ -1797,8 +2055,6 @@ LABEL_47:
 
     _internalStateDictionary = v36;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return _internalStateDictionary;
 }
@@ -1827,7 +2083,7 @@ LABEL_47:
 
 - (void)setNetworkDomainDelegate:(id)delegate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   WeakRetained = objc_loadWeakRetained(&self->_netDomainDelegate);
 
@@ -1844,7 +2100,7 @@ LABEL_47:
       goto LABEL_18;
     }
 
-    LOWORD(v16) = 0;
+    LOWORD(v15) = 0;
     v12 = "Delegate does not respond to required method networkDomainUserAppTrackingChanged:";
     goto LABEL_15;
   }
@@ -1857,14 +2113,14 @@ LABEL_47:
       goto LABEL_18;
     }
 
-    LOWORD(v16) = 0;
+    LOWORD(v15) = 0;
     v12 = "Delegate does not respond to required method networkDomainUserEndpointTrackingChanged:";
 LABEL_15:
     v13 = v11;
 LABEL_16:
     v14 = OS_LOG_TYPE_ERROR;
 LABEL_17:
-    _os_log_impl(&dword_23255B000, v13, v14, v12, &v16, 2u);
+    _os_log_impl(&dword_23255B000, v13, v14, v12, &v15, 2u);
     goto LABEL_18;
   }
 
@@ -1877,7 +2133,7 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    LOWORD(v16) = 0;
+    LOWORD(v15) = 0;
     v12 = "Delegate does not respond to required method networkDomainResolution:";
     v13 = v7;
     goto LABEL_16;
@@ -1885,9 +2141,9 @@ LABEL_17:
 
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = delegateCopy;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Setting network domain delegate to %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = delegateCopy;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Setting network domain delegate to %@", &v15, 0xCu);
   }
 
   objc_storeWeak(&self->_netDomainDelegate, delegateCopy);
@@ -1901,7 +2157,7 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    LOWORD(v16) = 0;
+    LOWORD(v15) = 0;
     v12 = "Waiting for network domain initialization before calling delegates";
     v13 = v9;
     v14 = OS_LOG_TYPE_DEFAULT;
@@ -1910,49 +2166,45 @@ LABEL_17:
 
   if (v10)
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Calling initial delegate update methods for userAppTracking and userEndpointTracking", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Calling initial delegate update methods for userAppTracking and userEndpointTracking", &v15, 2u);
   }
 
   [(NetDomainsHandler *)self _callSwitchStateDelegateForName:@"userAppTracking"];
   [(NetDomainsHandler *)self _callSwitchStateDelegateForName:@"userEndpointTracking"];
 LABEL_18:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitSymptomCombinationBreakdown
 {
-  v15[5] = *MEMORY[0x277D85DE8];
-  v14[0] = @"IncompleteSymptom";
+  v14[5] = *MEMORY[0x277D85DE8];
+  v13[0] = @"IncompleteSymptom";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_symptomCombinationTypeCounts[0]];
-  v15[0] = v3;
-  v14[1] = @"mDNSNoDelegate";
+  v14[0] = v3;
+  v13[1] = @"mDNSNoDelegate";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_symptomCombinationTypeCounts[2]];
-  v15[1] = v4;
-  v14[2] = @"mDNSDelegateAuditToken";
+  v14[1] = v4;
+  v13[2] = @"mDNSDelegateAuditToken";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_symptomCombinationTypeCounts[3]];
-  v15[2] = v5;
-  v14[3] = @"mDNSDelegateMachO";
+  v14[2] = v5;
+  v13[3] = @"mDNSDelegateMachO";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_symptomCombinationTypeCounts[4]];
-  v15[3] = v6;
-  v14[4] = @"mDNSDelegatePID";
+  v14[3] = v6;
+  v13[4] = @"mDNSDelegatePID";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_symptomCombinationTypeCounts[5]];
-  v15[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
+  v14[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
 
   v9 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = v8;
+    v12 = v8;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Posting com.apple.symptoms.NetDomainUsageSymptomCombination to CoreAnalytics: %@", buf, 0xCu);
   }
 
   v10 = v8;
   AnalyticsSendEventLazy();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetSymptomCombinationBreakdown
@@ -1964,25 +2216,23 @@ LABEL_18:
 
 - (void)_submitSymptomDomainStatistics
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"symptomsWithDomain";
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"symptomsWithDomain";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_dnsSymptomWithDomainCount];
-  v11[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v4 = domainTrackingLogHandle;
   if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_INFO, "Posting com.apple.symptoms.NetDomainUsageDomainStatistics to CoreAnalytics: %@", buf, 0xCu);
   }
 
-  v7 = v3;
+  v6 = v3;
   v5 = v3;
   AnalyticsSendEventLazy();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitAppTrackingEnabled
@@ -1995,6 +2245,39 @@ LABEL_18:
   }
 
   AnalyticsSendEventLazy();
+}
+
+- (void)_callDelegateForResolutionBy:(unsigned int)by bundleIdentifier:(id)identifier forDomain:(id)domain endpoints:(id)endpoints
+{
+  v8 = *&by;
+  v21[4] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  domainCopy = domain;
+  endpointsCopy = endpoints;
+  v20[0] = @"ResolvingEffectiveUserId";
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v8];
+  v21[0] = v13;
+  v21[1] = identifierCopy;
+  v20[1] = @"ResolvingBundleName";
+  v20[2] = @"ResolvingDomain";
+  v20[3] = @"ResolvingEndpoints";
+  v21[2] = domainCopy;
+  v21[3] = endpointsCopy;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+
+  WeakRetained = objc_loadWeakRetained(&self->_netDomainDelegate);
+  v16 = WeakRetained;
+  if (WeakRetained)
+  {
+    [WeakRetained networkDomainResolution:v14];
+    v17 = domainTrackingLogHandle;
+    if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      v18 = 138412290;
+      v19 = v14;
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "called domain resolution delegate: %@", &v18, 0xCu);
+    }
+  }
 }
 
 - (BOOL)_convertNSData:(id)data toAuditToken:(id *)token
@@ -2033,7 +2316,7 @@ LABEL_8:
 
 - (id)_bundleNameFromAuditTokenData:(id)data auditToken:(id *)token orMachOUUID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dCopy = d;
   v10 = dCopy;
@@ -2060,9 +2343,9 @@ LABEL_8:
     if (dataCopy)
     {
       v15 = *&token->var0[4];
-      v25[0] = *token->var0;
-      v25[1] = v15;
-      v11 = [FlowAnalyticsEngine appBundleIdentifierFromAuditToken:v25];
+      v24[0] = *token->var0;
+      v24[1] = v15;
+      v11 = [FlowAnalyticsEngine appBundleIdentifierFromAuditToken:v24];
     }
 
     else
@@ -2098,9 +2381,9 @@ LABEL_18:
         v17 = v16;
         v18 = objc_opt_class();
         v19 = NSStringFromClass(v18);
-        LODWORD(v25[0]) = 138412290;
-        *(v25 + 4) = v19;
-        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Unexpected object returned from cache: %@", v25, 0xCu);
+        LODWORD(v24[0]) = 138412290;
+        *(v24 + 4) = v19;
+        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Unexpected object returned from cache: %@", v24, 0xCu);
       }
     }
 
@@ -2111,14 +2394,13 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (BOOL)triggerAutoBugCaptureCaseForType:(id)type subType:(id)subType privateSubtypeContext:(id)context detectedProcess:(id)process events:(id)events thresholdValuesString:(id)string
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   subTypeCopy = subType;
   contextCopy = context;
@@ -2127,10 +2409,10 @@ LABEL_20:
   stringCopy = string;
   if (self->_okToTriggerAutoBugCapture)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
-    v33 = 0;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
+    v32 = 0;
     v20 = objc_alloc_init(MEMORY[0x277D6AFC8]);
     v21 = v20;
     if (v20)
@@ -2140,28 +2422,28 @@ LABEL_20:
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413059;
-        v35 = typeCopy;
-        v36 = 2112;
-        v37 = subTypeCopy;
-        v38 = 2113;
-        v39 = contextCopy;
-        v40 = 2113;
-        v41 = processCopy;
+        v34 = typeCopy;
+        v35 = 2112;
+        v36 = subTypeCopy;
+        v37 = 2113;
+        v38 = contextCopy;
+        v39 = 2113;
+        v40 = processCopy;
         _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Triggering a 'PrivacyTransparency/%@/%@/%{private}@' ABC case for process:%{private}@", buf, 0x2Au);
       }
 
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __129__NetDomainsHandler_triggerAutoBugCaptureCaseForType_subType_privateSubtypeContext_detectedProcess_events_thresholdValuesString___block_invoke;
-      v27[3] = &unk_27898AAB0;
-      v29 = &v30;
-      v28 = subTypeCopy;
-      [v21 snapshotWithSignature:v22 duration:eventsCopy events:0 payload:0 actions:v27 reply:0.0];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __129__NetDomainsHandler_triggerAutoBugCaptureCaseForType_subType_privateSubtypeContext_detectedProcess_events_thresholdValuesString___block_invoke;
+      v26[3] = &unk_27898AAB0;
+      v28 = &v29;
+      v27 = subTypeCopy;
+      [v21 snapshotWithSignature:v22 duration:eventsCopy events:0 payload:0 actions:v26 reply:0.0];
     }
 
-    v24 = *(v31 + 24);
+    v24 = *(v30 + 24);
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
   else
@@ -2169,13 +2451,12 @@ LABEL_20:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24 & 1;
 }
 
 void __129__NetDomainsHandler_triggerAutoBugCaptureCaseForType_subType_privateSubtypeContext_detectedProcess_events_thresholdValuesString___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B198]];
   *(*(*(a1 + 40) + 8) + 24) = [v4 BOOLValue];
@@ -2186,20 +2467,18 @@ void __129__NetDomainsHandler_triggerAutoBugCaptureCaseForType_subType_privateSu
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v8 = 138412546;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v3;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "%@ ABC case not accepted. response: %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v3;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "%@ ABC case not accepted. response: %@", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkForAutoBugCaptureWorthyCase:(id)case domainName:(id)name initiatedType:(unsigned int)type
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   nameCopy = name;
   if (self->_okToTriggerAutoBugCapture)
@@ -2224,7 +2503,7 @@ void __129__NetDomainsHandler_triggerAutoBugCaptureCaseForType_subType_privateSu
           if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v28 = nameCopy;
+            v27 = nameCopy;
             _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "AppleAppUsingTracker already triggered this case %@", buf, 0xCu);
           }
         }
@@ -2233,16 +2512,16 @@ void __129__NetDomainsHandler_triggerAutoBugCaptureCaseForType_subType_privateSu
         {
           v17 = type == 1;
           queue = [(NetDomainsHandler *)self queue];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __79__NetDomainsHandler_checkForAutoBugCaptureWorthyCase_domainName_initiatedType___block_invoke;
-          v22[3] = &unk_27898AAD8;
-          v26 = v17;
-          v22[4] = self;
-          v23 = nameCopy;
-          v24 = caseCopy;
-          v25 = nameCopy;
-          dispatch_async(queue, v22);
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __79__NetDomainsHandler_checkForAutoBugCaptureWorthyCase_domainName_initiatedType___block_invoke;
+          v21[3] = &unk_27898AAD8;
+          v25 = v17;
+          v21[4] = self;
+          v22 = nameCopy;
+          v23 = caseCopy;
+          v24 = nameCopy;
+          dispatch_async(queue, v21);
         }
       }
     }
@@ -2255,17 +2534,15 @@ void __129__NetDomainsHandler_triggerAutoBugCaptureCaseForType_subType_privateSu
       block[2] = __79__NetDomainsHandler_checkForAutoBugCaptureWorthyCase_domainName_initiatedType___block_invoke_247;
       block[3] = &unk_27898A7D0;
       block[4] = self;
-      v21 = caseCopy;
+      v20 = caseCopy;
       dispatch_async(queue2, block);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __79__NetDomainsHandler_checkForAutoBugCaptureWorthyCase_domainName_initiatedType___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 64))
   {
     v2 = @"AppInitiated";
@@ -2279,21 +2556,19 @@ void __79__NetDomainsHandler_checkForAutoBugCaptureWorthyCase_domainName_initiat
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
-  v10[0] = @"FQDN";
-  v10[1] = @"requestID";
-  v11[0] = v4;
-  v11[1] = &stru_2847966D8;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v9[0] = @"FQDN";
+  v9[1] = @"requestID";
+  v10[0] = v4;
+  v10[1] = &stru_2847966D8;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [v3 triggerAutoBugCaptureCaseForType:@"AppleAppUsingTracker" subType:v2 privateSubtypeContext:v4 detectedProcess:v5 events:v7 thresholdValuesString:0];
 
   if (v8)
   {
     [*(*(a1 + 32) + 56) addObject:*(a1 + 56)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willSwitchUser
@@ -2357,7 +2632,7 @@ void __35__NetDomainsHandler_sharedInstance__block_invoke(uint64_t a1)
 
 - (BOOL)noteSymptom:(id)symptom
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   eventData = [symptomCopy eventData];
   eventKey = [symptomCopy eventKey];
@@ -2394,16 +2669,16 @@ LABEL_7:
 
     if (!v16 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v38 = domainTrackingLogHandle;
+      v37 = domainTrackingLogHandle;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v39 = v38;
+        v38 = v37;
         buf.val[0] = 134218242;
         *&buf.val[1] = v16;
         LOWORD(buf.val[3]) = 2112;
         *(&buf.val[3] + 2) = objc_opt_class();
-        v40 = *(&buf.val[3] + 2);
-        _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_ERROR, "Incoming SYMPTOM_DNS_RESOLVING without resolved endpoint, %p or unexpected class %@", &buf, 0x16u);
+        v39 = *(&buf.val[3] + 2);
+        _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, "Incoming SYMPTOM_DNS_RESOLVING without resolved endpoint, %p or unexpected class %@", &buf, 0x16u);
       }
 
       ++self->_symptomCombinationTypeCounts[0];
@@ -2415,16 +2690,16 @@ LABEL_7:
 
     if (!v18 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v41 = domainTrackingLogHandle;
+      v40 = domainTrackingLogHandle;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v42 = v41;
+        v41 = v40;
         buf.val[0] = 134218242;
         *&buf.val[1] = v18;
         LOWORD(buf.val[3]) = 2112;
         *(&buf.val[3] + 2) = objc_opt_class();
-        v43 = *(&buf.val[3] + 2);
-        _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, "Incoming SYMPTOM_DNS_RESOLVING without cnames, %p or unexpected class %@", &buf, 0x16u);
+        v42 = *(&buf.val[3] + 2);
+        _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_ERROR, "Incoming SYMPTOM_DNS_RESOLVING without cnames, %p or unexpected class %@", &buf, 0x16u);
       }
 
       ++self->_symptomCombinationTypeCounts[0];
@@ -2433,18 +2708,18 @@ LABEL_7:
 
     format = kCFPropertyListBinaryFormat_v1_0;
     error = 0;
-    v98 = [MEMORY[0x277CBEB58] set];
+    v94 = [MEMORY[0x277CBEB58] set];
     v19 = *MEMORY[0x277CBECE8];
     v20 = CFPropertyListCreateWithData(*MEMORY[0x277CBECE8], v16, 0, &format, &error);
     v21 = v20;
     if (!v20 || ![v20 count])
     {
-      v44 = domainTrackingLogHandle;
+      v43 = domainTrackingLogHandle;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
       {
         buf.val[0] = 138412290;
         *&buf.val[1] = error;
-        _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "Could not create property list from endpoint data, error %@", &buf, 0xCu);
+        _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, "Could not create property list from endpoint data, error %@", &buf, 0xCu);
       }
 
       goto LABEL_112;
@@ -2452,36 +2727,36 @@ LABEL_7:
 
     selfCopy = self;
     allocator = v19;
-    v88 = eventData;
-    v95 = eventKey;
+    v84 = eventData;
+    v91 = eventKey;
     data = v18;
-    v93 = v21;
-    v94 = v16;
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
-    v102 = 0u;
+    v89 = v21;
+    v90 = v16;
+    v99 = 0u;
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
     v22 = v21;
-    v23 = [v22 countByEnumeratingWithState:&v101 objects:v111 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v97 objects:v107 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v102;
+      v25 = *v98;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v102 != v25)
+          if (*v98 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v101 + 1) + 8 * i);
+          v27 = *(*(&v97 + 1) + 8 * i);
           v28 = ipAddrToString(v27);
           v29 = v28;
           if (v28 && [v28 length])
           {
-            [v98 addObject:v29];
+            [v94 addObject:v29];
           }
 
           else
@@ -2496,7 +2771,7 @@ LABEL_7:
           }
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v101 objects:v111 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v97 objects:v107 count:16];
       }
 
       while (v24);
@@ -2507,14 +2782,14 @@ LABEL_7:
     v32 = v31;
     if (!v31 || ![v31 count])
     {
-      v45 = domainTrackingLogHandle;
-      v16 = v94;
-      eventKey = v95;
+      v44 = domainTrackingLogHandle;
+      v16 = v90;
+      eventKey = v91;
       if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
       {
         buf.val[0] = 138412290;
         *&buf.val[1] = error;
-        _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_ERROR, "Could not create property list from cname data, error %@", &buf, 0xCu);
+        _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "Could not create property list from cname data, error %@", &buf, 0xCu);
       }
 
       goto LABEL_111;
@@ -2523,106 +2798,103 @@ LABEL_7:
     firstObject = [v32 firstObject];
     v33 = selfCopy;
     ++selfCopy->_dnsSymptomWithDomainCount;
-    memset(&v100, 0, sizeof(v100));
+    memset(&v96, 0, sizeof(v96));
     eventQualifiers3 = [symptomCopy eventQualifiers];
     v35 = [eventQualifiers3 objectForKeyedSubscript:@"2"];
 
     if (v35)
     {
-      v36 = 0x277CBE000uLL;
       if ([symptomCopy verifiedDelegateSymptom])
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v37 = v35;
+          v36 = v35;
         }
 
         else
         {
-          v37 = 0;
+          v36 = 0;
         }
 
-        if ([(NetDomainsHandler *)selfCopy _convertNSData:v37 toAuditToken:&v100])
+        if ([(NetDomainsHandler *)selfCopy _convertNSData:v36 toAuditToken:&v96])
         {
           goto LABEL_51;
         }
 
-        v63 = domainTrackingLogHandle;
+        v60 = domainTrackingLogHandle;
         if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
         {
           LOWORD(buf.val[0]) = 0;
-          _os_log_impl(&dword_23255B000, v63, OS_LOG_TYPE_ERROR, "Received an explicit audit token from the sender but failed to convert into audit token", &buf, 2u);
+          _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_ERROR, "Received an explicit audit token from the sender but failed to convert into audit token", &buf, 2u);
         }
       }
 
       else
       {
-        v37 = 0;
+        v36 = 0;
       }
     }
 
     else
     {
-      v37 = 0;
-      v36 = 0x277CBE000;
+      v36 = 0;
     }
 
-    v46 = domainTrackingLogHandle;
+    v45 = domainTrackingLogHandle;
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.val[0]) = 0;
-      _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEFAULT, "Using audit token from the XPC connection from the sender", &buf, 2u);
+      _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEFAULT, "Using audit token from the XPC connection from the sender", &buf, 2u);
     }
 
     memset(&buf, 0, sizeof(buf));
     if (symptomCopy)
     {
-      [symptomCopy auditToken];
+      objc_msgSend_auditToken(symptomCopy);
     }
 
-    v100 = buf;
+    v96 = buf;
 LABEL_51:
-    buf = v100;
-    v47 = audit_token_to_euid(&buf);
-    buf = v100;
-    v87 = audit_token_to_pid(&buf);
-    memset(&v99, 0, sizeof(v99));
+    buf = v96;
+    v46 = audit_token_to_euid(&buf);
+    buf = v96;
+    v83 = audit_token_to_pid(&buf);
+    memset(&v95, 0, sizeof(v95));
     eventQualifiers4 = [symptomCopy eventQualifiers];
-    v49 = [eventQualifiers4 objectForKeyedSubscript:@"3"];
+    v48 = [eventQualifiers4 objectForKeyedSubscript:@"3"];
 
-    v50 = *(v36 + 2704);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v51 = v49;
+      v49 = v48;
     }
 
     else
     {
-      v51 = 0;
+      v49 = 0;
     }
 
-    v52 = [(NetDomainsHandler *)selfCopy _convertNSData:v51 toAuditToken:&v99];
-    v53 = -1;
-    if (v49 && v52)
+    v50 = [(NetDomainsHandler *)selfCopy _convertNSData:v49 toAuditToken:&v95];
+    v51 = -1;
+    if (v48 && v50)
     {
-      buf = v99;
-      v47 = audit_token_to_euid(&buf);
-      buf = v99;
-      v53 = audit_token_to_pid(&buf);
+      buf = v95;
+      v46 = audit_token_to_euid(&buf);
+      buf = v95;
+      v51 = audit_token_to_pid(&buf);
     }
 
-    allocatora = v53;
-    if (![(NetDomainsHandler *)selfCopy _currentSwitchStateForUser:v47 since:0])
+    allocatora = v51;
+    if (![(NetDomainsHandler *)selfCopy _currentSwitchStateForUser:v46 since:0])
     {
-      v55 = v49;
-      v58 = firstObject;
+      v53 = v48;
+      v55 = firstObject;
 LABEL_110:
 
-      v16 = v94;
-      eventKey = v95;
-      v21 = v93;
+      v16 = v90;
+      eventKey = v91;
+      v21 = v89;
 LABEL_111:
 
 LABEL_112:
@@ -2632,214 +2904,213 @@ LABEL_114:
       goto LABEL_115;
     }
 
-    HIDWORD(v82) = v47;
-    v86 = v51;
+    HIDWORD(v78) = v46;
+    v82 = v49;
     eventQualifiers5 = [symptomCopy eventQualifiers];
-    v55 = [eventQualifiers5 objectForKeyedSubscript:@"4"];
+    v53 = [eventQualifiers5 objectForKeyedSubscript:@"4"];
 
-    v56 = *(v36 + 2704);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v57 = v55;
+      v54 = v53;
     }
 
     else
     {
-      v57 = 0;
+      v54 = 0;
     }
 
-    v58 = firstObject;
-    if ([v57 length] == 16)
+    v55 = firstObject;
+    if ([v54 length] == 16)
     {
-      v59 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v57, "bytes")}];
+      v56 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v54, "bytes")}];
+    }
+
+    else
+    {
+      v56 = 0;
+    }
+
+    v79 = v36;
+    v80 = v54;
+    if (v84)
+    {
+      v57 = v84[1];
+      if ((v57 & 2) != 0)
+      {
+        v58 = v84[8];
+      }
+
+      else
+      {
+        v58 = -1;
+      }
+
+      if ((v57 & 8) != 0)
+      {
+        LODWORD(v78) = v58;
+        v61 = v56;
+        v62 = domainTrackingLogHandle;
+        if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
+        {
+          LOWORD(buf.val[0]) = 0;
+          _os_log_impl(&dword_23255B000, v62, OS_LOG_TYPE_DEBUG, "Self-Reporting API used", &buf, 2u);
+        }
+
+        v57 = v84[1];
+        v56 = v61;
+        v36 = v79;
+        v58 = v78;
+      }
+
+      if ((v57 & 0x10) != 0)
+      {
+        v59 = v84[14];
+      }
+
+      else
+      {
+        v59 = 0;
+      }
     }
 
     else
     {
       v59 = 0;
+      v58 = -1;
     }
 
-    v83 = v37;
-    v84 = v57;
-    if (v88)
-    {
-      v60 = v88[1];
-      if ((v60 & 2) != 0)
-      {
-        v61 = v88[8];
-      }
-
-      else
-      {
-        v61 = -1;
-      }
-
-      if ((v60 & 8) != 0)
-      {
-        LODWORD(v82) = v61;
-        v64 = v59;
-        v65 = domainTrackingLogHandle;
-        if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
-        {
-          LOWORD(buf.val[0]) = 0;
-          _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEBUG, "Self-Reporting API used", &buf, 2u);
-        }
-
-        v60 = v88[1];
-        v59 = v64;
-        v37 = v83;
-        v61 = v82;
-      }
-
-      if ((v60 & 0x10) != 0)
-      {
-        v62 = v88[14];
-      }
-
-      else
-      {
-        v62 = 0;
-      }
-    }
-
-    else
-    {
-      v62 = 0;
-      v61 = -1;
-    }
-
-    v85 = v59;
+    v81 = v56;
     if (firstObject)
     {
-      v66 = v52 ^ 1;
-      if (v59)
+      v63 = v50 ^ 1;
+      if (v56)
       {
-        v66 = 0;
+        v63 = 0;
       }
 
-      if (v66 == 1 && v61 <= 0)
+      if (v63 == 1 && v58 <= 0)
       {
-        buf = v100;
-        v67 = [(NetDomainsHandler *)selfCopy _bundleNameFromAuditTokenData:v37 auditToken:&buf orMachOUUID:0];
+        buf = v96;
+        v64 = [(NetDomainsHandler *)selfCopy _bundleNameFromAuditTokenData:v36 auditToken:&buf orMachOUUID:0];
         ++selfCopy->_symptomCombinationTypeCounts[2];
         goto LABEL_95;
       }
 
-      if (v52)
+      if (v50)
       {
-        buf = v99;
-        v67 = [(NetDomainsHandler *)selfCopy _bundleNameFromAuditTokenData:v86 auditToken:&buf orMachOUUID:0];
+        buf = v95;
+        v64 = [(NetDomainsHandler *)selfCopy _bundleNameFromAuditTokenData:v82 auditToken:&buf orMachOUUID:0];
         ++selfCopy->_symptomCombinationTypeCounts[3];
         goto LABEL_95;
       }
 
-      if (v59)
+      if (v56)
       {
-        buf = v100;
-        v67 = [(NetDomainsHandler *)selfCopy _bundleNameFromAuditTokenData:0 auditToken:&buf orMachOUUID:v59];
+        buf = v96;
+        v64 = [(NetDomainsHandler *)selfCopy _bundleNameFromAuditTokenData:0 auditToken:&buf orMachOUUID:v56];
         ++selfCopy->_symptomCombinationTypeCounts[4];
 LABEL_95:
-        v73 = allocatora;
-        if (v67)
+        v70 = allocatora;
+        if (v64)
         {
           goto LABEL_96;
         }
 
 LABEL_105:
-        v37 = v83;
+        v36 = v79;
 LABEL_106:
-        v79 = domainTrackingLogHandle;
-        v77 = v84;
+        v76 = domainTrackingLogHandle;
+        v74 = v80;
         if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEBUG))
         {
           buf.val[0] = 138478083;
-          *&buf.val[1] = v67;
+          *&buf.val[1] = v64;
           LOWORD(buf.val[3]) = 2113;
-          *(&buf.val[3] + 2) = v58;
-          _os_log_impl(&dword_23255B000, v79, OS_LOG_TYPE_DEBUG, "Failed to get bundleID (%{private}@) or domain name (%{private}@)", &buf, 0x16u);
+          *(&buf.val[3] + 2) = v55;
+          _os_log_impl(&dword_23255B000, v76, OS_LOG_TYPE_DEBUG, "Failed to get bundleID (%{private}@) or domain name (%{private}@)", &buf, 0x16u);
         }
 
-        v76 = v85;
+        v73 = v81;
         goto LABEL_109;
       }
 
-      allocatorb = v62;
-      v69 = v55;
-      v70 = v83;
-      v68 = v61;
-      if (v61 >= 1)
+      allocatorb = v59;
+      v66 = v53;
+      v67 = v79;
+      v65 = v58;
+      if (v58 >= 1)
       {
-        v78 = pid_to_uuid(v61);
-        if (v78)
+        v75 = pid_to_uuid(v58);
+        if (v75)
         {
-          buf = v100;
-          v67 = [(NetDomainsHandler *)selfCopy _bundleNameFromAuditTokenData:0 auditToken:&buf orMachOUUID:v78];
+          buf = v96;
+          v64 = [(NetDomainsHandler *)selfCopy _bundleNameFromAuditTokenData:0 auditToken:&buf orMachOUUID:v75];
         }
 
         else
         {
-          v67 = 0;
+          v64 = 0;
         }
 
         v33 = selfCopy;
         ++selfCopy->_symptomCombinationTypeCounts[5];
 
         v18 = data;
-        v55 = v69;
-        v58 = firstObject;
-        v62 = allocatorb;
-        v73 = v68;
-        if (v67)
+        v53 = v66;
+        v55 = firstObject;
+        v59 = allocatorb;
+        v70 = v65;
+        if (v64)
         {
 LABEL_96:
-          v74 = v62;
-          v75 = domainTrackingLogHandle;
+          v71 = v59;
+          v72 = domainTrackingLogHandle;
           if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             buf.val[0] = 67110403;
-            buf.val[1] = v74;
+            buf.val[1] = v71;
             LOWORD(buf.val[2]) = 1025;
-            *(&buf.val[2] + 2) = v87;
+            *(&buf.val[2] + 2) = v83;
             HIWORD(buf.val[3]) = 1025;
-            buf.val[4] = v73;
+            buf.val[4] = v70;
             LOWORD(buf.val[5]) = 2113;
-            *(&buf.val[5] + 2) = v67;
+            *(&buf.val[5] + 2) = v64;
             HIWORD(buf.val[7]) = 2113;
-            v108 = v58;
-            v109 = 2113;
-            v110 = v98;
-            _os_log_impl(&dword_23255B000, v75, OS_LOG_TYPE_DEFAULT, "Domain resolution for R%u, pid: %{private}d, delegate pid: %{private}d, bundle: %{private}@, domain: %{private}@, resolved endpoints: %{private}@", &buf, 0x32u);
+            v104 = v55;
+            v105 = 2113;
+            v106 = v94;
+            _os_log_impl(&dword_23255B000, v72, OS_LOG_TYPE_DEFAULT, "Domain resolution for R%u, pid: %{private}d, delegate pid: %{private}d, bundle: %{private}@, domain: %{private}@, resolved endpoints: %{private}@", &buf, 0x32u);
           }
 
-          [(NetDomainsHandler *)v33 _callDelegateForResolutionBy:HIDWORD(v82) bundleIdentifier:v67 forDomain:v58 endpoints:v98, v82];
-          v77 = v84;
-          v76 = v85;
-          v37 = v83;
+          [(NetDomainsHandler *)v33 _callDelegateForResolutionBy:HIDWORD(v78) bundleIdentifier:v64 forDomain:v55 endpoints:v94, v78];
+          v74 = v80;
+          v73 = v81;
+          v36 = v79;
 LABEL_109:
 
-          v51 = v86;
+          v49 = v82;
           goto LABEL_110;
         }
 
         goto LABEL_105;
       }
 
-      v71 = 0;
+      v68 = 0;
       v18 = data;
       v33 = selfCopy;
     }
 
     else
     {
-      v68 = v61;
-      allocatorb = v62;
-      v69 = v55;
-      v70 = v37;
-      v71 = v59 != 0;
+      v65 = v58;
+      allocatorb = v59;
+      v66 = v53;
+      v67 = v36;
+      v68 = v56 != 0;
     }
 
-    v72 = domainTrackingLogHandle;
+    v69 = domainTrackingLogHandle;
     if (os_log_type_enabled(domainTrackingLogHandle, OS_LOG_TYPE_ERROR))
     {
       buf.val[0] = 67110400;
@@ -2849,19 +3120,19 @@ LABEL_109:
       HIWORD(buf.val[3]) = 1024;
       buf.val[4] = 1;
       LOWORD(buf.val[5]) = 1024;
-      *(&buf.val[5] + 2) = v52;
+      *(&buf.val[5] + 2) = v50;
       HIWORD(buf.val[6]) = 1024;
-      buf.val[7] = v71;
-      LOWORD(v108) = 1024;
-      *(&v108 + 2) = v68 >= 0;
-      _os_log_impl(&dword_23255B000, v72, OS_LOG_TYPE_ERROR, "Incomplete set of qualifiers for R%u to process symptom. Has: domainName = %d, auditToken = %d, dAuditToken = %d, delegateMachOUuid = %d, delegatePid = %d", &buf, 0x26u);
+      buf.val[7] = v68;
+      LOWORD(v104) = 1024;
+      *(&v104 + 2) = v65 >= 0;
+      _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_ERROR, "Incomplete set of qualifiers for R%u to process symptom. Has: domainName = %d, auditToken = %d, dAuditToken = %d, delegateMachOUuid = %d, delegatePid = %d", &buf, 0x26u);
     }
 
-    v67 = 0;
+    v64 = 0;
     ++v33->_symptomCombinationTypeCounts[0];
-    v37 = v70;
-    v55 = v69;
-    v58 = firstObject;
+    v36 = v67;
+    v53 = v66;
+    v55 = firstObject;
     goto LABEL_106;
   }
 
@@ -2879,7 +3150,6 @@ LABEL_109:
 
 LABEL_115:
 
-  v80 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

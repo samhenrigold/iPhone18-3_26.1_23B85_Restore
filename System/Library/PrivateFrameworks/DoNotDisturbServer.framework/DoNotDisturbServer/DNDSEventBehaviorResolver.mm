@@ -142,64 +142,60 @@ void __85__DNDSEventBehaviorResolver_resolveBehaviorForEventDetails_clientDetail
 
 - (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v6 = [(NSMutableArray *)self->_resolutionRecord copy];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __61__DNDSEventBehaviorResolver_sysdiagnoseDataForDate_redacted___block_invoke;
-  v15 = &unk_278F8A1A0;
-  v16 = dateCopy;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __61__DNDSEventBehaviorResolver_sysdiagnoseDataForDate_redacted___block_invoke;
+  v14 = &unk_278F8A1A0;
+  v15 = dateCopy;
   v7 = dateCopy;
-  v8 = [v6 bs_mapNoNulls:&v12];
-  v17 = @"resolution-record";
-  v18[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:{1, v12, v13, v14, v15}];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = [v6 bs_mapNoNulls:&v11];
+  v16 = @"resolution-record";
+  v17[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:{1, v11, v12, v13, v14}];
 
   return v9;
 }
 
 id __61__DNDSEventBehaviorResolver_sysdiagnoseDataForDate_redacted___block_invoke(uint64_t a1, void *a2)
 {
-  v18[6] = *MEMORY[0x277D85DE8];
-  v17[0] = @"uuid";
+  v17[6] = *MEMORY[0x277D85DE8];
+  v16[0] = @"uuid";
   v3 = a2;
   v4 = [v3 UUID];
   v5 = [v4 UUIDString];
-  v18[0] = v5;
-  v17[1] = @"timestamp";
+  v17[0] = v5;
+  v16[1] = @"timestamp";
   v6 = MEMORY[0x277CCABB0];
   [*(a1 + 32) timeIntervalSinceReferenceDate];
   v7 = [v6 numberWithDouble:?];
-  v18[1] = v7;
-  v17[2] = @"local-date";
+  v17[1] = v7;
+  v16[2] = @"local-date";
   v8 = MEMORY[0x277CCA968];
   v9 = [v3 date];
   v10 = [v8 localizedStringFromDate:v9 dateStyle:1 timeStyle:1];
-  v18[2] = v10;
-  v17[3] = @"client-identifier";
+  v17[2] = v10;
+  v16[3] = @"client-identifier";
   v11 = [v3 clientIdentifier];
-  v18[3] = v11;
-  v17[4] = @"outcome";
+  v17[3] = v11;
+  v16[4] = @"outcome";
   v12 = DNDSResolutionOutcomeToString([v3 outcome]);
-  v18[4] = v12;
-  v17[5] = @"reason";
+  v17[4] = v12;
+  v16[5] = @"reason";
   [v3 reason];
 
   v13 = DNDResolutionReasonToString();
-  v18[5] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:6];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[5] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
 
   return v14;
 }
 
 - (id)_queue_resolveBehaviorForEventDetails:(id)details clientDetails:(id)clientDetails date:(id)date error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   clientDetailsCopy = clientDetails;
   dateCopy = date;
@@ -212,23 +208,23 @@ id __61__DNDSEventBehaviorResolver_sysdiagnoseDataForDate_redacted___block_invok
     v16 = DNDSLogResolver;
     if (v15)
     {
-      v38 = clientDetailsCopy;
+      v37 = clientDetailsCopy;
       if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
       {
         v17 = v16;
         mode = [v15 mode];
         identifier = [mode identifier];
         *buf = 138543362;
-        v42 = identifier;
+        v41 = identifier;
         _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Resolving breakthrough for active mode: %{public}@.", buf, 0xCu);
       }
 
       mode2 = [v15 mode];
       semanticType = [mode2 semanticType];
       configuration = [v15 configuration];
-      v23 = [(DNDSEventBehaviorResolver *)self _queue_resolutionForModeSemanticType:semanticType withConfiguration:configuration eventDetails:detailsCopy clientDetails:v38 state:v14 date:dateCopy error:error];
+      v23 = [(DNDSEventBehaviorResolver *)self _queue_resolutionForModeSemanticType:semanticType withConfiguration:configuration eventDetails:detailsCopy clientDetails:v37 state:v14 date:dateCopy error:error];
 
-      clientDetailsCopy = v38;
+      clientDetailsCopy = v37;
     }
 
     else
@@ -257,7 +253,7 @@ id __61__DNDSEventBehaviorResolver_sysdiagnoseDataForDate_redacted___block_invok
     if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = v26;
+      v41 = v26;
       _os_log_impl(&dword_24912E000, v27, OS_LOG_TYPE_DEFAULT, "Event was resolved: resolution=%@", buf, 0xCu);
     }
 
@@ -267,13 +263,13 @@ id __61__DNDSEventBehaviorResolver_sysdiagnoseDataForDate_redacted___block_invok
       v28 = [(NSMutableArray *)self->_resolutionRecord count];
       v29 = [dateCopy dateByAddingTimeInterval:-180.0];
       v30 = MEMORY[0x277CCAC30];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clientDetails_date_error___block_invoke;
-      v39[3] = &unk_278F8A1C8;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clientDetails_date_error___block_invoke;
+      v38[3] = &unk_278F8A1C8;
       v31 = v29;
-      v40 = v31;
-      v32 = [v30 predicateWithBlock:v39];
+      v39 = v31;
+      v32 = [v30 predicateWithBlock:v38];
       [(NSMutableArray *)self->_resolutionRecord filterUsingPredicate:v32];
       v33 = v28 - [(NSMutableArray *)self->_resolutionRecord count];
       if (v33)
@@ -282,7 +278,7 @@ id __61__DNDSEventBehaviorResolver_sysdiagnoseDataForDate_redacted___block_invok
         if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v42 = v33;
+          v41 = v33;
           _os_log_impl(&dword_24912E000, v34, OS_LOG_TYPE_DEFAULT, "Pruned %lu resolutions from record", buf, 0xCu);
         }
       }
@@ -290,8 +286,6 @@ id __61__DNDSEventBehaviorResolver_sysdiagnoseDataForDate_redacted___block_invok
   }
 
   eventBehavior = [v26 eventBehavior];
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return eventBehavior;
 }
@@ -307,7 +301,7 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
 
 - (id)_queue_adjustEventBehaviorResolutionForAuxiliaryState:(id)state
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = stateCopy;
   if (stateCopy)
@@ -363,13 +357,13 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
           v22 = DNDSLogResolver;
           if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
           {
-            v25[0] = 67109632;
-            v25[1] = isScreenMirrored;
-            v26 = 1024;
-            v27 = isScreenShared;
-            v28 = 1024;
-            v29 = v11;
-            _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Resolution modified to accomodate auxiliary state; isScreenMirrored=%d isScreenShared=%d isPresentationModeEnabled=%d", v25, 0x14u);
+            v24[0] = 67109632;
+            v24[1] = isScreenMirrored;
+            v25 = 1024;
+            v26 = isScreenShared;
+            v27 = 1024;
+            v28 = v11;
+            _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Resolution modified to accomodate auxiliary state; isScreenMirrored=%d isScreenShared=%d isPresentationModeEnabled=%d", v24, 0x14u);
           }
 
           v5 = v21;
@@ -378,23 +372,20 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (BOOL)_queue_shouldAdjustEventBehaviorForMirroring
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = DNDSLogResolver;
   if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = 0;
-    _os_log_impl(&dword_24912E000, v2, OS_LOG_TYPE_DEFAULT, "Determined whether sharing / mirroring preferences should adjust event behavior; shouldAdjust=%d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = 0;
+    _os_log_impl(&dword_24912E000, v2, OS_LOG_TYPE_DEFAULT, "Determined whether sharing / mirroring preferences should adjust event behavior; shouldAdjust=%d", v4, 8u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -437,7 +428,7 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
 
 - (id)_queue_resolutionForModeSemanticType:(int64_t)type withConfiguration:(id)configuration eventDetails:(id)details clientDetails:(id)clientDetails state:(id)state date:(id)date error:(id *)error
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   detailsCopy = details;
   clientDetailsCopy = clientDetails;
@@ -475,7 +466,7 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
 
   else
   {
-    v60 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleIdentifier platform:platform];
+    v59 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleIdentifier platform:platform];
     v26 = +[DNDSServerDomain rootSettings];
     forcedIntelligentBreakthrough = [v26 forcedIntelligentBreakthrough];
 
@@ -502,12 +493,12 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
       v28 = 0;
     }
 
-    v67 = 0;
+    v66 = 0;
     activeModeIdentifier = [stateCopy activeModeIdentifier];
-    LOBYTE(v57) = notifyAnyway;
-    v31 = [(DNDSEventBehaviorResolver *)self _queue_isBreakthroughAllowedForModeIdentifier:activeModeIdentifier withConfiguration:configurationCopy application:v60 sender:sender urgency:urgency eventType:type threadIdentifier:threadIdentifier filterCriteria:filterCriteria notifyAnyway:v57 intelligentBehavior:v28 reason:&v67];
+    LOBYTE(v56) = notifyAnyway;
+    v31 = [(DNDSEventBehaviorResolver *)self _queue_isBreakthroughAllowedForModeIdentifier:activeModeIdentifier withConfiguration:configurationCopy application:v59 sender:sender urgency:urgency eventType:type threadIdentifier:threadIdentifier filterCriteria:filterCriteria notifyAnyway:v56 intelligentBehavior:v28 reason:&v66];
 
-    if (v67 != 26 && (v28 & 0xFFFFFFFFFFFFFFFELL) == 2)
+    if (v66 != 26 && (v28 & 0xFFFFFFFFFFFFFFFELL) == 2)
     {
       v33 = 0;
     }
@@ -517,21 +508,21 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
       v33 = v28;
     }
 
-    v59 = v33;
+    v58 = v33;
     v34 = DNDSLogResolver;
     if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
     {
       v35 = v34;
       v36 = DNDIntelligentInterruptionBehaviorToString();
       *buf = 138412546;
-      v69 = v36;
-      v70 = 2112;
-      v71 = detailsCopy;
+      v68 = v36;
+      v69 = 2112;
+      v70 = detailsCopy;
       _os_log_impl(&dword_24912E000, v35, OS_LOG_TYPE_DEFAULT, "Intelligent Resolver behavior: %@ for clientEventDetails: %@", buf, 0x16u);
     }
 
     v37 = DNDSLogResolver;
-    v58 = stateCopy;
+    v57 = stateCopy;
     if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
     {
       v38 = configurationCopy;
@@ -548,19 +539,19 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
       v40 = v37;
       v41 = DNDResolutionReasonToString();
       *buf = 138544130;
-      v69 = v39;
+      v68 = v39;
       configurationCopy = v38;
-      v70 = 2112;
-      v71 = v41;
-      v72 = 2112;
-      v73 = v38;
-      v74 = 2112;
-      v75 = detailsCopy;
+      v69 = 2112;
+      v70 = v41;
+      v71 = 2112;
+      v72 = v38;
+      v73 = 2112;
+      v74 = detailsCopy;
       _os_log_impl(&dword_24912E000, v40, OS_LOG_TYPE_DEFAULT, "Breakthrough %{public}@ allowed with reason: %@ for configuration %@ with event details: %@.", buf, 0x2Au);
     }
 
-    v66 = 0;
-    v42 = [(DNDSEventBehaviorResolver *)self _queue_isBreakthroughAllowedForSender:sender eventType:type clientDetails:clientDetailsCopy date:dateCopy reason:&v66];
+    v65 = 0;
+    v42 = [(DNDSEventBehaviorResolver *)self _queue_isBreakthroughAllowedForSender:sender eventType:type clientDetails:clientDetailsCopy date:dateCopy reason:&v65];
     v43 = DNDSLogResolver;
     if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
     {
@@ -571,22 +562,22 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
       }
 
       *buf = 138543618;
-      v69 = v44;
-      v70 = 2112;
-      v71 = detailsCopy;
+      v68 = v44;
+      v69 = 2112;
+      v70 = detailsCopy;
       _os_log_impl(&dword_24912E000, v43, OS_LOG_TYPE_DEFAULT, "Breakthrough %{public}@ allowed for global settings with event details: %@.", buf, 0x16u);
     }
 
     v45 = v31 || v42;
-    v46 = v66;
+    v46 = v65;
     if (!v42)
     {
-      v46 = v67;
+      v46 = v66;
     }
 
     if (v31)
     {
-      v47 = v67;
+      v47 = v66;
     }
 
     else
@@ -621,15 +612,13 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
     }
 
     v51 = objc_alloc(MEMORY[0x277D058E0]);
-    activeModeUUID = [v58 activeModeUUID];
-    v53 = [v51 initWithEventDetails:detailsCopy interruptionSuppression:suppressionType intelligentBehavior:v59 resolutionReason:v47 activeModeUUID:activeModeUUID];
+    activeModeUUID = [v57 activeModeUUID];
+    v53 = [v51 initWithEventDetails:detailsCopy interruptionSuppression:suppressionType intelligentBehavior:v58 resolutionReason:v47 activeModeUUID:activeModeUUID];
 
     clientIdentifier2 = [clientDetailsCopy clientIdentifier];
-    stateCopy = v58;
+    stateCopy = v57;
     v25 = [DNDSEventBehaviorResolution resolutionForDate:dateCopy eventBehavior:v53 clientIdentifier:clientIdentifier2 outcome:v49 reason:v47];
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -637,37 +626,37 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
 - (BOOL)_isDisconnectedWatch:(unint64_t)watch inReduceInterruptions:(int64_t)interruptions
 {
   LOBYTE(v4) = 0;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (watch == 3 && interruptions == 9)
   {
     devices = [(IDSService *)self->_localService devices];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v6 = [devices countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [devices countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
       v4 = 0;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(devices);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           if ([v10 deviceType] == 2 && objc_msgSend(v10, "isLocallyPaired") && (objc_msgSend(v10, "isNearby") & 1) == 0)
           {
             v4 |= [v10 isConnected] ^ 1;
           }
         }
 
-        v7 = [devices countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [devices countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -679,13 +668,12 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4 & 1;
 }
 
 - (unint64_t)_queue_resolveOutcomeForEventSender:(id)sender clientDetails:(id)details date:(id)date reason:(unint64_t *)reason
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   detailsCopy = details;
   dateCopy = date;
@@ -697,7 +685,7 @@ BOOL __92__DNDSEventBehaviorResolver__queue_resolveBehaviorForEventDetails_clien
   if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = v15;
+    v29 = v15;
     _os_log_impl(&dword_24912E000, v16, OS_LOG_TYPE_DEFAULT, "Got bypass settings: settings=%{public}@", buf, 0xCu);
   }
 
@@ -819,25 +807,24 @@ LABEL_34:
 
 LABEL_35:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (BOOL)_queue_eventSourceIsFavorite:(id)favorite
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   favoriteCopy = favorite;
   dispatch_assert_queue_V2(self->_queue);
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   v5 = objc_alloc(MEMORY[0x277CBDA70]);
   v6 = *MEMORY[0x277CBD048];
-  v28[0] = *MEMORY[0x277CBD018];
-  v28[1] = v6;
-  v28[2] = *MEMORY[0x277CBD098];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
+  v27[0] = *MEMORY[0x277CBD018];
+  v27[1] = v6;
+  v27[2] = *MEMORY[0x277CBD098];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
   v8 = [v5 initWithKeysToFetch:v7];
 
   v9 = [MEMORY[0x277CBDA58] dnds_predicateForContactsMatchingEventSender:favoriteCopy];
@@ -845,25 +832,25 @@ LABEL_35:
 
   [v8 setUnifyResults:1];
   contactStore = self->_contactStore;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke;
-  v18[3] = &unk_278F8A218;
-  v18[5] = &v20;
-  v19 = 0;
-  v18[4] = self;
-  v11 = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v8 error:&v19 usingBlock:v18];
-  v12 = v19;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke;
+  v17[3] = &unk_278F8A218;
+  v17[5] = &v19;
+  v18 = 0;
+  v17[4] = self;
+  v11 = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v8 error:&v18 usingBlock:v17];
+  v12 = v18;
   v13 = DNDSLogResolver;
   if (v11)
   {
     if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(v21 + 24);
+      v14 = *(v20 + 24);
       *buf = 138478083;
-      v25 = favoriteCopy;
-      v26 = 1024;
-      v27 = v14;
+      v24 = favoriteCopy;
+      v25 = 1024;
+      v26 = v14;
       _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Checked if event source is a favorite: source=%{private}@, favorite=%{BOOL}d", buf, 0x12u);
     }
   }
@@ -873,16 +860,15 @@ LABEL_35:
     [DNDSEventBehaviorResolver _queue_eventSourceIsFavorite:];
   }
 
-  v15 = *(v21 + 24);
+  v15 = *(v20 + 24);
 
-  _Block_object_dispose(&v20, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
   return v15 & 1;
 }
 
 void __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([v5 isUnified])
   {
@@ -891,20 +877,18 @@ void __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke
 
   else
   {
-    v10[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   v7 = v6;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke_2;
-  v9[3] = &unk_278F8A1F0;
-  v9[4] = *(a1 + 32);
-  *(*(*(a1 + 40) + 8) + 24) = [v6 bs_containsObjectPassingTest:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke_2;
+  v8[3] = &unk_278F8A1F0;
+  v8[4] = *(a1 + 32);
+  *(*(*(a1 + 40) + 8) + 24) = [v6 bs_containsObjectPassingTest:v8];
   *a3 = *(*(*(a1 + 40) + 8) + 24);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -917,41 +901,41 @@ BOOL __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke
 
 - (BOOL)_queue_eventSourceIsContact:(id)contact
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_alloc(MEMORY[0x277CBDA70]);
-  v27[0] = *MEMORY[0x277CBD098];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = *MEMORY[0x277CBD098];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   v7 = [v5 initWithKeysToFetch:v6];
 
   v8 = [MEMORY[0x277CBDA58] dnds_predicateForContactsMatchingEventSender:contactCopy];
   [v7 setPredicate:v8];
 
   [v7 setUnifyResults:0];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
-  contactStore = self->_contactStore;
-  v17[4] = &v19;
   v18 = 0;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __57__DNDSEventBehaviorResolver__queue_eventSourceIsContact___block_invoke;
-  v17[3] = &unk_278F8A240;
-  v10 = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v7 error:&v18 usingBlock:v17];
-  v11 = v18;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  contactStore = self->_contactStore;
+  v16[4] = &v18;
+  v17 = 0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __57__DNDSEventBehaviorResolver__queue_eventSourceIsContact___block_invoke;
+  v16[3] = &unk_278F8A240;
+  v10 = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v7 error:&v17 usingBlock:v16];
+  v11 = v17;
   v12 = DNDSLogResolver;
   if (v10)
   {
     if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(v20 + 24);
+      v13 = *(v19 + 24);
       *buf = 138478083;
-      v24 = contactCopy;
-      v25 = 1024;
-      v26 = v13;
+      v23 = contactCopy;
+      v24 = 1024;
+      v25 = v13;
       _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Checked if event source is a contact: source=%{private}@, contact=%{BOOL}d", buf, 0x12u);
     }
   }
@@ -961,10 +945,9 @@ BOOL __58__DNDSEventBehaviorResolver__queue_eventSourceIsFavorite___block_invoke
     [DNDSEventBehaviorResolver _queue_eventSourceIsContact:];
   }
 
-  v14 = *(v20 + 24);
+  v14 = *(v19 + 24);
 
-  _Block_object_dispose(&v19, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
   return v14 & 1;
 }
 
@@ -977,7 +960,7 @@ uint64_t __57__DNDSEventBehaviorResolver__queue_eventSourceIsContact___block_inv
 
 - (BOOL)_queue_eventSourceIsContact:(id)contact inGroupWithIdentifier:(id)identifier
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
@@ -986,52 +969,52 @@ uint64_t __57__DNDSEventBehaviorResolver__queue_eventSourceIsContact___block_inv
     contactStore = self->_contactStore;
     v9 = [MEMORY[0x277CBDA58] predicateForContactsInGroupWithIdentifier:identifierCopy];
     v11 = *MEMORY[0x277CBD048];
-    v43[0] = *MEMORY[0x277CBD018];
-    v10 = v43[0];
-    v43[1] = v11;
-    v44 = *MEMORY[0x277CBD098];
-    v12 = v44;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+    v42[0] = *MEMORY[0x277CBD018];
+    v10 = v42[0];
+    v42[1] = v11;
+    v43 = *MEMORY[0x277CBD098];
+    v12 = v43;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
     v14 = [(CNContactStore *)contactStore unifiedContactsMatchingPredicate:v9 keysToFetch:v13 error:0];
 
     v15 = [v14 bs_mapNoNulls:&__block_literal_global_2];
     bs_flatten = [v15 bs_flatten];
 
     v17 = objc_alloc(MEMORY[0x277CBDA70]);
-    v42[0] = v10;
-    v42[1] = v12;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+    v41[0] = v10;
+    v41[1] = v12;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
     v19 = [v17 initWithKeysToFetch:v18];
 
     v20 = [MEMORY[0x277CBDA58] dnds_predicateForContactsMatchingEventSender:contactCopy];
     [v19 setPredicate:v20];
 
     [v19 setUnifyResults:0];
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2020000000;
-    v37 = 0;
-    v21 = self->_contactStore;
-    v32 = &v34;
     v33 = 0;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __79__DNDSEventBehaviorResolver__queue_eventSourceIsContact_inGroupWithIdentifier___block_invoke_2;
-    v30[3] = &unk_278F8A218;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v36 = 0;
+    v21 = self->_contactStore;
+    v31 = &v33;
+    v32 = 0;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __79__DNDSEventBehaviorResolver__queue_eventSourceIsContact_inGroupWithIdentifier___block_invoke_2;
+    v29[3] = &unk_278F8A218;
     v22 = bs_flatten;
-    v31 = v22;
-    v23 = [(CNContactStore *)v21 enumerateContactsWithFetchRequest:v19 error:&v33 usingBlock:v30];
-    v24 = v33;
+    v30 = v22;
+    v23 = [(CNContactStore *)v21 enumerateContactsWithFetchRequest:v19 error:&v32 usingBlock:v29];
+    v24 = v32;
     v25 = DNDSLogResolver;
     if (v23)
     {
       if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = *(v35 + 24);
+        v26 = *(v34 + 24);
         *buf = 138478083;
-        v39 = contactCopy;
-        v40 = 1024;
-        v41 = v26;
+        v38 = contactCopy;
+        v39 = 1024;
+        v40 = v26;
         _os_log_impl(&dword_24912E000, v25, OS_LOG_TYPE_DEFAULT, "Checked if event source is a group contact: source=%{private}@, contact=%{BOOL}d", buf, 0x12u);
       }
     }
@@ -1041,9 +1024,9 @@ uint64_t __57__DNDSEventBehaviorResolver__queue_eventSourceIsContact___block_inv
       [DNDSEventBehaviorResolver _queue_eventSourceIsContact:inGroupWithIdentifier:];
     }
 
-    v27 = *(v35 + 24);
+    v27 = *(v34 + 24);
 
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v33, 8);
   }
 
   else
@@ -1051,13 +1034,12 @@ uint64_t __57__DNDSEventBehaviorResolver__queue_eventSourceIsContact___block_inv
     v27 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27 & 1;
 }
 
 id __79__DNDSEventBehaviorResolver__queue_eventSourceIsContact_inGroupWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 isUnified])
   {
@@ -1066,13 +1048,11 @@ id __79__DNDSEventBehaviorResolver__queue_eventSourceIsContact_inGroupWithIdenti
 
   else
   {
-    v7[0] = v2;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = v2;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   v4 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1102,7 +1082,7 @@ uint64_t __79__DNDSEventBehaviorResolver__queue_eventSourceIsContact_inGroupWith
 
 - (BOOL)_queue_eventSourceIsRepeat:(id)repeat clientDetails:(id)details date:(id)date
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   repeatCopy = repeat;
   detailsCopy = details;
   dateCopy = date;
@@ -1111,23 +1091,23 @@ uint64_t __79__DNDSEventBehaviorResolver__queue_eventSourceIsContact_inGroupWith
   {
     v11 = [dateCopy dateByAddingTimeInterval:-180.0];
     resolutionRecord = self->_resolutionRecord;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __75__DNDSEventBehaviorResolver__queue_eventSourceIsRepeat_clientDetails_date___block_invoke;
-    v19[3] = &unk_278F8A288;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __75__DNDSEventBehaviorResolver__queue_eventSourceIsRepeat_clientDetails_date___block_invoke;
+    v18[3] = &unk_278F8A288;
     v13 = v11;
-    v20 = v13;
-    v21 = detailsCopy;
+    v19 = v13;
+    v20 = detailsCopy;
     v14 = repeatCopy;
-    v22 = v14;
-    v15 = [(NSMutableArray *)resolutionRecord bs_containsObjectPassingTest:v19];
+    v21 = v14;
+    v15 = [(NSMutableArray *)resolutionRecord bs_containsObjectPassingTest:v18];
     v16 = DNDSLogResolver;
     if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138478083;
-      v24 = v14;
-      v25 = 1024;
-      v26 = v15;
+      v23 = v14;
+      v24 = 1024;
+      v25 = v15;
       _os_log_impl(&dword_24912E000, v16, OS_LOG_TYPE_DEFAULT, "Checked if event source is a repeat: source=%{private}@, repeat=%{BOOL}d", buf, 0x12u);
     }
   }
@@ -1137,7 +1117,6 @@ uint64_t __79__DNDSEventBehaviorResolver__queue_eventSourceIsContact_inGroupWith
     LOBYTE(v15) = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1164,48 +1143,48 @@ uint64_t __75__DNDSEventBehaviorResolver__queue_eventSourceIsRepeat_clientDetail
 
 - (BOOL)_queue_eventSourceIsEmergencyContact:(id)contact
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   dispatch_assert_queue_V2(self->_queue);
   if ([contactCopy isPopulated])
   {
     v5 = objc_alloc(MEMORY[0x277CBDA70]);
     v6 = *MEMORY[0x277CBD048];
-    v29[0] = *MEMORY[0x277CBD018];
-    v29[1] = v6;
+    v28[0] = *MEMORY[0x277CBD018];
+    v28[1] = v6;
     v7 = *MEMORY[0x277CBD098];
-    v29[2] = *MEMORY[0x277CBCFA0];
-    v29[3] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+    v28[2] = *MEMORY[0x277CBCFA0];
+    v28[3] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
     v9 = [v5 initWithKeysToFetch:v8];
 
     v10 = [MEMORY[0x277CBDA58] dnds_predicateForContactsMatchingEventSender:contactCopy];
     [v9 setPredicate:v10];
 
     [v9 setUnifyResults:1];
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
-    v24 = 0;
-    contactStore = self->_contactStore;
-    v19[4] = &v21;
     v20 = 0;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __66__DNDSEventBehaviorResolver__queue_eventSourceIsEmergencyContact___block_invoke;
-    v19[3] = &unk_278F8A240;
-    v12 = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v9 error:&v20 usingBlock:v19];
-    v13 = v20;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
+    contactStore = self->_contactStore;
+    v18[4] = &v20;
+    v19 = 0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __66__DNDSEventBehaviorResolver__queue_eventSourceIsEmergencyContact___block_invoke;
+    v18[3] = &unk_278F8A240;
+    v12 = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v9 error:&v19 usingBlock:v18];
+    v13 = v19;
     v14 = DNDSLogResolver;
     if (v12)
     {
       if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(v22 + 24);
+        v15 = *(v21 + 24);
         *buf = 138478083;
-        v26 = contactCopy;
-        v27 = 1024;
-        v28 = v15;
+        v25 = contactCopy;
+        v26 = 1024;
+        v27 = v15;
         _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_DEFAULT, "Checked if event source is an emergency contact: source=%{private}@, emergencyContact=%{BOOL}d", buf, 0x12u);
       }
     }
@@ -1215,9 +1194,9 @@ uint64_t __75__DNDSEventBehaviorResolver__queue_eventSourceIsRepeat_clientDetail
       [DNDSEventBehaviorResolver _queue_eventSourceIsEmergencyContact:];
     }
 
-    v16 = *(v22 + 24);
+    v16 = *(v21 + 24);
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
@@ -1225,13 +1204,12 @@ uint64_t __75__DNDSEventBehaviorResolver__queue_eventSourceIsRepeat_clientDetail
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
 void __66__DNDSEventBehaviorResolver__queue_eventSourceIsEmergencyContact___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([v5 isUnified])
   {
@@ -1240,15 +1218,13 @@ void __66__DNDSEventBehaviorResolver__queue_eventSourceIsEmergencyContact___bloc
 
   else
   {
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   v7 = v6;
   *(*(*(a1 + 32) + 8) + 24) = [v6 bs_containsObjectPassingTest:&__block_literal_global_69];
   *a3 = *(*(*(a1 + 32) + 8) + 24);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__DNDSEventBehaviorResolver__queue_eventSourceIsEmergencyContact___block_invoke_2(uint64_t a1, void *a2)
@@ -1261,7 +1237,7 @@ uint64_t __66__DNDSEventBehaviorResolver__queue_eventSourceIsEmergencyContact___
 
 - (BOOL)_queue_isBreakthroughAllowedForModeIdentifier:(id)identifier withConfiguration:(id)configuration application:(id)application sender:(id)sender urgency:(unint64_t)urgency eventType:(unint64_t)type threadIdentifier:(id)threadIdentifier filterCriteria:(id)self0 notifyAnyway:(BOOL)self1 intelligentBehavior:(int64_t)self2 reason:(unint64_t *)self3
 {
-  v140 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   configurationCopy = configuration;
   applicationCopy = application;
@@ -1282,7 +1258,7 @@ uint64_t __66__DNDSEventBehaviorResolver__queue_eventSourceIsEmergencyContact___
 
   bundleID = [applicationCopy bundleID];
   dataSource = [(DNDSEventBehaviorResolver *)self dataSource];
-  v105 = [dataSource eventBehaviorResolver:self isAvailabilityActiveForBundleIdentifier:bundleID];
+  v104 = [dataSource eventBehaviorResolver:self isAvailabilityActiveForBundleIdentifier:bundleID];
   if (!senderCopy)
   {
     v24 = 0;
@@ -1305,9 +1281,9 @@ uint64_t __66__DNDSEventBehaviorResolver__queue_eventSourceIsEmergencyContact___
     }
 
     *buf = 138543618;
-    v129 = identifier;
-    v130 = 2112;
-    v131 = senderCopy;
+    v128 = identifier;
+    v129 = 2112;
+    v130 = senderCopy;
     v33 = "Filled out missing contact identifier: %{public}@ from sender: %@ to determine breakthrough.";
 LABEL_13:
     v34 = v31;
@@ -1328,9 +1304,9 @@ LABEL_13:
     }
 
     *buf = 138543618;
-    v129 = identifier;
-    v130 = 2112;
-    v131 = senderCopy;
+    v128 = identifier;
+    v129 = 2112;
+    v130 = senderCopy;
     v33 = "Updated contact identifier to %{public}@ from sender: %@ to determine breakthrough.";
     goto LABEL_13;
   }
@@ -1338,7 +1314,7 @@ LABEL_13:
   if (v32)
   {
     *buf = 138412290;
-    v129 = senderCopy;
+    v128 = senderCopy;
     v33 = "No change to contact identifier from sender: %@ to determine breakthrough.";
     v34 = v31;
     v35 = 12;
@@ -1357,17 +1333,17 @@ LABEL_16:
     v38 = DNDStringFromClientEventUrgency();
     v39 = DNDStringFromClientEventType();
     *buf = 138413570;
-    v129 = configurationCopy;
-    v130 = 2114;
-    v131 = bundleID;
-    v132 = 2112;
-    v133 = v24;
-    v134 = 2114;
-    v135 = v38;
-    v136 = 2114;
-    v137 = v39;
-    v138 = 2114;
-    v139 = threadIdentifierCopy;
+    v128 = configurationCopy;
+    v129 = 2114;
+    v130 = bundleID;
+    v131 = 2112;
+    v132 = v24;
+    v133 = 2114;
+    v134 = v38;
+    v135 = 2114;
+    v136 = v39;
+    v137 = 2114;
+    v138 = threadIdentifierCopy;
     _os_log_impl(&dword_24912E000, v37, OS_LOG_TYPE_DEFAULT, "Resolving breakthrough through for configuration: %@ with event details application: %{public}@, sender: %@, urgency: %{public}@, eventType: %{public}@, threadIdentifier: %{public}@", buf, 0x3Eu);
   }
 
@@ -1408,26 +1384,26 @@ LABEL_16:
     goto LABEL_31;
   }
 
-  v111 = [dataSource eventBehaviorResolver:self appPredicateForApplicationIdentifier:applicationCopy modeIdentifier:identifierCopy];
-  if (!v111)
+  v110 = [dataSource eventBehaviorResolver:self appPredicateForApplicationIdentifier:applicationCopy modeIdentifier:identifierCopy];
+  if (!v110)
   {
     if ([applicationCopy platform] == 3)
     {
       v46 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleID platform:1];
-      v111 = [dataSource eventBehaviorResolver:self appPredicateForApplicationIdentifier:v46 modeIdentifier:identifierCopy];
+      v110 = [dataSource eventBehaviorResolver:self appPredicateForApplicationIdentifier:v46 modeIdentifier:identifierCopy];
 
       goto LABEL_32;
     }
 
 LABEL_31:
-    v111 = 0;
+    v110 = 0;
   }
 
 LABEL_32:
   v47 = objc_autoreleasePoolPush();
-  v125 = 0;
-  v48 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:bundleID allowPlaceholder:1 error:&v125];
-  v49 = v125;
+  v124 = 0;
+  v48 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:bundleID allowPlaceholder:1 error:&v124];
+  v49 = v124;
   if (v49)
   {
     v50 = DNDSLogResolver;
@@ -1445,25 +1421,25 @@ LABEL_32:
 
     v54 = [v53 objectForKey:@"manifestId"];
     v55 = v54;
-    v106 = 0;
+    v105 = 0;
     if (localizedName && v54)
     {
-      v106 = [objc_alloc(MEMORY[0x277D05AC8]) initWithWebIdentifier:v54 givenName:localizedName];
+      v105 = [objc_alloc(MEMORY[0x277D05AC8]) initWithWebIdentifier:v54 givenName:localizedName];
     }
   }
 
   else
   {
-    v106 = 0;
+    v105 = 0;
   }
 
   objc_autoreleasePoolPop(v47);
   if (v41)
   {
-    v104 = [MEMORY[0x277CBEB98] setWithArray:MEMORY[0x277CBEBF8]];
+    v103 = [MEMORY[0x277CBEB98] setWithArray:MEMORY[0x277CBEBF8]];
     if (v40 >= 4)
     {
-      contactsWithExceptions = v104;
+      contactsWithExceptions = v103;
     }
 
     else
@@ -1479,19 +1455,19 @@ LABEL_32:
       {
         if (applicationConfigurationType != 1)
         {
-          v99 = 0;
-          v102 = 0;
-          v100 = 0;
+          v98 = 0;
           v101 = 0;
+          v99 = 0;
+          v100 = 0;
           goto LABEL_75;
         }
 
         if ([configurationCopy exceptionForApplicationIdentifier:applicationCopy] == 1)
         {
-          v102 = 0;
-          v99 = 1;
-          v100 = 0x100000000;
-          v101 = 13;
+          v101 = 0;
+          v98 = 1;
+          v99 = 0x100000000;
+          v100 = 13;
 LABEL_75:
           senderConfigurationType2 = [configurationCopy senderConfigurationType];
           if (senderConfigurationType2)
@@ -1507,26 +1483,26 @@ LABEL_75:
 
             else if (senderConfigurationType2 == 1)
             {
-              v123 = 0u;
-              v124 = 0u;
-              v121 = 0u;
               v122 = 0u;
+              v123 = 0u;
+              v120 = 0u;
+              v121 = 0u;
               v66 = contactsWithExceptions;
-              v67 = [v66 countByEnumeratingWithState:&v121 objects:v127 count:16];
+              v67 = [v66 countByEnumeratingWithState:&v120 objects:v126 count:16];
               if (v67)
               {
-                v68 = *v122;
+                v68 = *v121;
                 v69 = 18;
                 while (2)
                 {
                   for (i = 0; i != v67; ++i)
                   {
-                    if (*v122 != v68)
+                    if (*v121 != v68)
                     {
                       objc_enumerationMutation(v66);
                     }
 
-                    if ([*(*(&v121 + 1) + 8 * i) matchesContactHandle:v24])
+                    if ([*(*(&v120 + 1) + 8 * i) matchesContactHandle:v24])
                     {
                       v72 = 0;
                       v71 = 1;
@@ -1534,7 +1510,7 @@ LABEL_75:
                     }
                   }
 
-                  v67 = [v66 countByEnumeratingWithState:&v121 objects:v127 count:16];
+                  v67 = [v66 countByEnumeratingWithState:&v120 objects:v126 count:16];
                   if (v67)
                   {
                     continue;
@@ -1565,33 +1541,33 @@ LABEL_101:
 
           else
           {
-            v119 = 0u;
-            v120 = 0u;
-            v117 = 0u;
             v118 = 0u;
+            v119 = 0u;
+            v116 = 0u;
+            v117 = 0u;
             v75 = contactsWithExceptions;
-            v73 = [v75 countByEnumeratingWithState:&v117 objects:v126 count:16];
+            v73 = [v75 countByEnumeratingWithState:&v116 objects:v125 count:16];
             if (v73)
             {
-              v76 = *v118;
+              v76 = *v117;
               v69 = 18;
               while (2)
               {
                 for (j = 0; j != v73; ++j)
                 {
-                  if (*v118 != v76)
+                  if (*v117 != v76)
                   {
                     objc_enumerationMutation(v75);
                   }
 
-                  if ([*(*(&v117 + 1) + 8 * j) matchesContactHandle:v24])
+                  if ([*(*(&v116 + 1) + 8 * j) matchesContactHandle:v24])
                   {
                     LODWORD(v73) = 1;
                     goto LABEL_99;
                   }
                 }
 
-                v73 = [v75 countByEnumeratingWithState:&v117 objects:v126 count:16];
+                v73 = [v75 countByEnumeratingWithState:&v116 objects:v125 count:16];
                 if (v73)
                 {
                   continue;
@@ -1616,13 +1592,13 @@ LABEL_99:
 
           else
           {
-            v78 = v102;
+            v78 = v101;
           }
 
           v79 = 12;
           if (senderConfigurationType != 2 || applicationConfigurationType != 2)
           {
-            v79 = v101;
+            v79 = v100;
           }
 
           v80 = senderConfigurationType == 2;
@@ -1648,11 +1624,11 @@ LABEL_99:
 
           if (!v80)
           {
-            v81 = v99 | v73;
-            v82 = v73 | v99 ^ 1;
+            v81 = v98 | v73;
+            v82 = v73 | v98 ^ 1;
             v83 = v82 == 0;
-            v84 = v82 ? v69 : v101;
-            v85 = v83 ? v102 : v72;
+            v84 = v82 ? v69 : v100;
+            v85 = v83 ? v101 : v72;
             v86 = v81 == 1;
             v87 = v81 == 1 ? v84 : v69;
             v88 = v86 ? v85 : v72;
@@ -1663,34 +1639,34 @@ LABEL_99:
             }
           }
 
-          LOBYTE(v61) = v100 | v74;
-          v58 = BYTE4(v100) | v71;
+          LOBYTE(v61) = v99 | v74;
+          v58 = BYTE4(v99) | v71;
           goto LABEL_129;
         }
       }
 
+      v98 = 0;
       v99 = 0;
-      v100 = 0;
-      v102 = 1;
+      v101 = 1;
     }
 
     else
     {
       if (![configurationCopy exceptionForApplicationIdentifier:applicationCopy])
       {
+        v98 = 1;
+        v100 = 13;
+        v101 = 1;
         v99 = 1;
-        v101 = 13;
-        v102 = 1;
-        v100 = 1;
         goto LABEL_75;
       }
 
+      v98 = 0;
+      v101 = 0;
       v99 = 0;
-      v102 = 0;
-      v100 = 0;
     }
 
-    v101 = 12;
+    v100 = 12;
     goto LABEL_75;
   }
 
@@ -1720,7 +1696,7 @@ LABEL_99:
         v60 = 12;
       }
 
-      if (v106 && [configurationCopy exceptionForWebApplicationIdentifier:?] == 1)
+      if (v105 && [configurationCopy exceptionForWebApplicationIdentifier:?] == 1)
       {
         LOBYTE(v61) = 0;
         v59 = 0;
@@ -1757,7 +1733,7 @@ LABEL_99:
       v60 = 13;
     }
 
-    if (v106 && ![configurationCopy exceptionForWebApplicationIdentifier:?])
+    if (v105 && ![configurationCopy exceptionForWebApplicationIdentifier:?])
     {
       v58 = 0;
       LOBYTE(v61) = 1;
@@ -1783,17 +1759,17 @@ LABEL_129:
     }
   }
 
-  if (criteriaCopy && v59 && v111)
+  if (criteriaCopy && v59 && v110)
   {
     v90 = objc_alloc_init(MEMORY[0x277D05A78]);
+    v114 = 0;
     v115 = 0;
-    v116 = 0;
-    v91 = [v90 validatePredicate:v111 compileTimeIssues:&v116 runTimeIssues:&v115];
-    v92 = v116;
-    v93 = v115;
+    v91 = [v90 validatePredicate:v110 compileTimeIssues:&v115 runTimeIssues:&v114];
+    v92 = v115;
+    v93 = v114;
     if (v91)
     {
-      v59 = [v111 evaluateWithObject:criteriaCopy];
+      v59 = [v110 evaluateWithObject:criteriaCopy];
       if (!v59)
       {
         v60 = 25;
@@ -1807,20 +1783,20 @@ LABEL_129:
       {
         if (v92)
         {
-          v98 = v92;
+          v97 = v92;
         }
 
         else
         {
-          v98 = v93;
+          v97 = v93;
         }
 
         *buf = 138543874;
-        v129 = v98;
-        v130 = 2112;
-        v131 = bundleID;
-        v132 = 2112;
-        v133 = identifierCopy;
+        v128 = v97;
+        v129 = 2112;
+        v130 = bundleID;
+        v131 = 2112;
+        v132 = identifierCopy;
         _os_log_error_impl(&dword_24912E000, v94, OS_LOG_TYPE_ERROR, "Notification filter predicate from App Context did not validate, issues=%{public}@ bundleIdentifier=%@ modeIdentifier=%@", buf, 0x20u);
       }
 
@@ -1828,12 +1804,12 @@ LABEL_129:
     }
   }
 
-  if ((anyway & v105) != 0)
+  if ((anyway & v104) != 0)
   {
     v60 = 20;
   }
 
-  v44 = anyway & v105 | v59;
+  v44 = anyway & v104 | v59;
   if (urgency == 1)
   {
     minimumBreakthroughUrgency = [configurationCopy minimumBreakthroughUrgency];
@@ -1858,22 +1834,21 @@ LABEL_129:
   }
 
 LABEL_157:
-  v96 = *MEMORY[0x277D85DE8];
   return v44 & 1;
 }
 
 - (BOOL)_queue_isBreakthroughAllowedForSender:(id)sender eventType:(unint64_t)type clientDetails:(id)details date:(id)date reason:(unint64_t *)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   detailsCopy = details;
   dateCopy = date;
   v15 = DNDSLogResolver;
   if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
   {
-    *v19 = 138412290;
-    *&v19[4] = senderCopy;
-    _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Resolving global breakthrough for sender: %@", v19, 0xCu);
+    *v18 = 138412290;
+    *&v18[4] = senderCopy;
+    _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Resolving global breakthrough for sender: %@", v18, 0xCu);
   }
 
   v16 = 0;
@@ -1881,22 +1856,21 @@ LABEL_157:
   {
     if (type == 1)
     {
-      *v19 = 0;
-      v16 = [(DNDSEventBehaviorResolver *)self _queue_resolveOutcomeForEventSender:senderCopy clientDetails:detailsCopy date:dateCopy reason:v19]== 1;
+      *v18 = 0;
+      v16 = [(DNDSEventBehaviorResolver *)self _queue_resolveOutcomeForEventSender:senderCopy clientDetails:detailsCopy date:dateCopy reason:v18]== 1;
       if (reason)
       {
-        *reason = *v19;
+        *reason = *v18;
       }
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)_queue_firstContactForPredicate:(id)predicate
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   dispatch_assert_queue_V2(self->_queue);
   if (!predicateCopy)
@@ -1907,12 +1881,12 @@ LABEL_157:
 
   contactStore = self->_contactStore;
   v6 = *MEMORY[0x277CBD098];
-  v14[0] = *MEMORY[0x277CBD018];
-  v14[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-  v13 = 0;
-  v8 = [(CNContactStore *)contactStore unifiedContactsMatchingPredicate:predicateCopy keysToFetch:v7 error:&v13];
-  v9 = v13;
+  v13[0] = *MEMORY[0x277CBD018];
+  v13[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12 = 0;
+  v8 = [(CNContactStore *)contactStore unifiedContactsMatchingPredicate:predicateCopy keysToFetch:v7 error:&v12];
+  v9 = v12;
 
   if (v9)
   {
@@ -1932,7 +1906,6 @@ LABEL_157:
 LABEL_9:
 
 LABEL_10:
-  v11 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -2008,89 +1981,51 @@ void __103__DNDSEventBehaviorResolver_Testing__resolutionForConfiguration_eventD
 
 - (void)_queue_resolveBehaviorForEventDetails:(void *)a1 clientDetails:(void *)a2 date:error:.cold.1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 activeModeIdentifier];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_24912E000, v3, OS_LOG_TYPE_ERROR, "Couldn't find mode configuration for active mode: %{public}@.", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_eventSourceIsFavorite:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error looking up favorite contacts: error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_eventSourceIsContact:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error looking up contacts: error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_eventSourceIsContact:inGroupWithIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error looking up group contacts: error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_eventSourceIsEmergencyContact:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error looking up emergency contacts: error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24912E000, v3, OS_LOG_TYPE_ERROR, "Couldn't find mode configuration for active mode: %{public}@.", v5, 0xCu);
 }
 
 - (void)_queue_isBreakthroughAllowedForModeIdentifier:(void *)a3 withConfiguration:application:sender:urgency:eventType:threadIdentifier:filterCriteria:notifyAnyway:intelligentBehavior:reason:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 localizedDescription];
-  v8 = 138412546;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_24912E000, v5, OS_LOG_TYPE_ERROR, "Failed to retrieve an LSApplicationRecord for bundleIdentifier:%@; error=%@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_24912E000, v5, OS_LOG_TYPE_ERROR, "Failed to retrieve an LSApplicationRecord for bundleIdentifier:%@; error=%@", &v7, 0x16u);
 }
 
 - (void)_queue_isBreakthroughAllowedForModeIdentifier:(uint64_t)a3 withConfiguration:(uint64_t)a4 application:sender:urgency:eventType:threadIdentifier:filterCriteria:notifyAnyway:intelligentBehavior:reason:.cold.2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = objc_begin_catch(a1);
   v7 = DNDSLogResolver;
   if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543874;
-    v10 = v6;
-    v11 = 2112;
-    v12 = a3;
-    v13 = 2112;
-    v14 = a4;
-    _os_log_error_impl(&dword_24912E000, v7, OS_LOG_TYPE_ERROR, "Notification filter predicate from App Context threw during evaluation, exception=%{public}@ bundleIdentifier=%@ modeIdentifier=%@", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = v6;
+    v10 = 2112;
+    v11 = a3;
+    v12 = 2112;
+    v13 = a4;
+    _os_log_error_impl(&dword_24912E000, v7, OS_LOG_TYPE_ERROR, "Notification filter predicate from App Context threw during evaluation, exception=%{public}@ bundleIdentifier=%@ modeIdentifier=%@", &v8, 0x20u);
   }
 
   objc_end_catch();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_firstContactForPredicate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Failed to lookup contact in address book. predicate=%{public}@, error=%{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Failed to lookup contact in address book. predicate=%{public}@, error=%{public}@", v2, 0x16u);
 }
 
 @end

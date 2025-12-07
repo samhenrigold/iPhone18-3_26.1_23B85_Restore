@@ -48,8 +48,8 @@
   userIndex = [(MTRDoorLockClusterLockOperationEvent *)self userIndex];
   [(MTRDoorLockClusterLockOperationEvent *)v4 setUserIndex:userIndex];
 
-  fabricIndex = [(MTRDoorLockClusterLockOperationEvent *)self fabricIndex];
-  [(MTRDoorLockClusterLockOperationEvent *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRDoorLockClusterLockOperationEvent *)v4 setFabricIndex:v8];
 
   sourceNode = [(MTRDoorLockClusterLockOperationEvent *)self sourceNode];
   [(MTRDoorLockClusterLockOperationEvent *)v4 setSourceNode:sourceNode];

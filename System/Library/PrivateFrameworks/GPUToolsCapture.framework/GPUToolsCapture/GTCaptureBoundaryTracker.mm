@@ -6,24 +6,24 @@
 void __GTCaptureBoundaryTracker_handleTrigger_block_invoke(uint64_t a1)
 {
   v1 = atomic_load((*(a1 + 48) + 20));
-  v183 = v1;
+  v182 = v1;
   v2 = *(a1 + 48);
   v3 = *(a1 + 60);
-  v185 = *(a1 + 56);
-  v187 = *(a1 + 64);
+  v184 = *(a1 + 56);
+  v186 = *(a1 + 64);
   v4 = *(a1 + 104);
-  v197 = *(a1 + 96);
-  v198 = *(a1 + 80);
+  v196 = *(a1 + 96);
+  v197 = *(a1 + 80);
   v5 = *(a1 + 120);
-  v195 = *(a1 + 88);
-  v196 = *(a1 + 112);
-  v188 = *(a1 + 128);
-  *v205 = *(a1 + 129);
-  *&v205[3] = *(a1 + 132);
-  v193 = *(a1 + 72);
-  v194 = *(a1 + 136);
+  v194 = *(a1 + 88);
+  v195 = *(a1 + 112);
+  v187 = *(a1 + 128);
+  *v204 = *(a1 + 129);
+  *&v204[3] = *(a1 + 132);
+  v192 = *(a1 + 72);
+  v193 = *(a1 + 136);
   os_unfair_lock_lock((v2 + 16));
-  v186 = v3;
+  v185 = v3;
   if (v3 == 9)
   {
     v6 = (v2 + 20);
@@ -32,22 +32,22 @@ void __GTCaptureBoundaryTracker_handleTrigger_block_invoke(uint64_t a1)
 LABEL_17:
       v12 = (v2 + 20);
       v13 = atomic_load((v2 + 20));
-      v200 = v2 + 32;
+      v199 = v2 + 32;
       v14 = *(v2 + 32 + 8 * v13);
-      *buf = v185;
-      *&buf[4] = v186;
-      *&buf[8] = v187;
-      *&buf[16] = v193;
-      *&buf[24] = v198;
-      *&buf[32] = v195;
-      *&buf[40] = v197;
+      *buf = v184;
+      *&buf[4] = v185;
+      *&buf[8] = v186;
+      *&buf[16] = v192;
+      *&buf[24] = v197;
+      *&buf[32] = v194;
+      *&buf[40] = v196;
       *&buf[48] = v4;
-      *&buf[56] = v196;
-      *&v212 = v5;
-      BYTE8(v212) = v188;
-      *(&v212 + 9) = *v205;
-      HIDWORD(v212) = *&v205[3];
-      *&v213 = v194;
+      *&buf[56] = v195;
+      *&v211 = v5;
+      BYTE8(v211) = v187;
+      *(&v211 + 9) = *v204;
+      HIDWORD(v211) = *&v204[3];
+      *&v212 = v193;
       if (GTCapturePhase_checkTrigger(v14, buf))
       {
         v15 = atomic_load(v12);
@@ -100,7 +100,7 @@ LABEL_17:
             {
               for (i = 1; i != 5; ++i)
               {
-                v25 = *(*(v200 + 8 * i) + 8);
+                v25 = *(*(v199 + 8 * i) + 8);
                 v26 = *(v25 + 12);
                 if (v26 >= 1)
                 {
@@ -114,8 +114,8 @@ LABEL_17:
                     }
                   }
 
-                  *v27 = v185;
-                  if (v185 == 3)
+                  *v27 = v184;
+                  if (v184 == 3)
                   {
                     *(v27 + 8) = v4;
                   }
@@ -132,15 +132,15 @@ LABEL_41:
 LABEL_42:
       v28 = atomic_load(v12);
       v10 = v28 == 3;
-      v29 = v186;
+      v29 = v185;
       if (!v10)
       {
         goto LABEL_55;
       }
 
-      if (v186 == 5)
+      if (v185 == 5)
       {
-        v31 = g_targetRef == v196 || g_targetRef == v197;
+        v31 = g_targetRef == v195 || g_targetRef == v196;
         v30 = &g_commitOther;
         if (v31)
         {
@@ -150,14 +150,14 @@ LABEL_42:
 
       else
       {
-        if (v186 != 3)
+        if (v185 != 3)
         {
 LABEL_55:
-          v190 = (v29 - 1);
-          v189 = (v185 - 1);
+          v189 = (v29 - 1);
+          v188 = (v184 - 1);
           p_prots = &OBJC_PROTOCOL___CaptureMTLObject.prots;
-          v191 = v5;
-          v192 = v2;
+          v190 = v5;
+          v191 = v2;
           while (1)
           {
             v33 = *(v14 + 8);
@@ -195,7 +195,7 @@ LABEL_55:
             if (*(p_prots + 88) == 1)
             {
               v41 = gt_tagged_log(5);
-              v42 = v194;
+              v42 = v193;
               if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
               {
                 v43 = atomic_load((v2 + 20));
@@ -233,7 +233,7 @@ LABEL_55:
               v50 = atomic_load((v2 + 20));
               v51 = v50 + 1;
               v52 = "UNKNOWN";
-              v42 = v194;
+              v42 = v193;
               if (v51 <= 4)
               {
                 v52 = (&off_2F1F10)[v51];
@@ -263,9 +263,9 @@ LABEL_55:
               if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
               {
                 v55 = "Instant";
-                if (v190 <= 8)
+                if (v189 <= 8)
                 {
-                  v55 = (&off_2F1EC8)[v190];
+                  v55 = (&off_2F1EC8)[v189];
                 }
 
                 *buf = 136315138;
@@ -277,9 +277,9 @@ LABEL_55:
             else
             {
               v56 = "Instant";
-              if (v190 <= 8)
+              if (v189 <= 8)
               {
-                v56 = (&off_2F1EC8)[v190];
+                v56 = (&off_2F1EC8)[v189];
               }
 
               fprintf(__stdoutp, "    type: %s\n", v56);
@@ -291,9 +291,9 @@ LABEL_55:
               if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
               {
                 v58 = "None";
-                if (v189 <= 0xB)
+                if (v188 <= 0xB)
                 {
-                  v58 = (&off_2F1E68)[v189];
+                  v58 = (&off_2F1E68)[v188];
                 }
 
                 *buf = 136315138;
@@ -305,9 +305,9 @@ LABEL_55:
             else
             {
               v59 = "None";
-              if (v189 <= 0xB)
+              if (v188 <= 0xB)
               {
-                v59 = (&off_2F1E68)[v189];
+                v59 = (&off_2F1E68)[v188];
               }
 
               fprintf(__stdoutp, "    object: %s\n", v59);
@@ -319,19 +319,19 @@ LABEL_55:
               if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
               {
                 *buf = 134218240;
-                *&buf[4] = v187;
+                *&buf[4] = v186;
                 *&buf[12] = 2048;
-                *&buf[14] = v193;
+                *&buf[14] = v192;
                 _os_log_impl(&dword_0, v60, OS_LOG_TYPE_INFO, "    stream: %llu; function index: %llu", buf, 0x16u);
               }
             }
 
             else
             {
-              fprintf(__stdoutp, "    stream: %llu; function index: %llu\n", v187, v193);
+              fprintf(__stdoutp, "    stream: %llu; function index: %llu\n", v186, v192);
             }
 
-            if (v198)
+            if (v197)
             {
               if (*(p_prots + 88) == 1)
               {
@@ -339,18 +339,18 @@ LABEL_55:
                 if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
                 {
                   *buf = 134217984;
-                  *&buf[4] = v198;
+                  *&buf[4] = v197;
                   _os_log_impl(&dword_0, v61, OS_LOG_TYPE_INFO, "    parent function index: %llu", buf, 0xCu);
                 }
               }
 
               else
               {
-                fprintf(__stdoutp, "    parent function index: %llu\n", v198);
+                fprintf(__stdoutp, "    parent function index: %llu\n", v197);
               }
             }
 
-            if (v195)
+            if (v194)
             {
               if (*(p_prots + 88) == 1)
               {
@@ -358,33 +358,14 @@ LABEL_55:
                 if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
                 {
                   *buf = 134217984;
-                  *&buf[4] = v195;
+                  *&buf[4] = v194;
                   _os_log_impl(&dword_0, v62, OS_LOG_TYPE_INFO, "    MTLCaptureScope stream ref: %llu", buf, 0xCu);
                 }
               }
 
               else
               {
-                fprintf(__stdoutp, "    MTLCaptureScope stream ref: %llu\n", v195);
-              }
-            }
-
-            if (v197)
-            {
-              if (*(p_prots + 88) == 1)
-              {
-                v63 = gt_tagged_log(5);
-                if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
-                {
-                  *buf = 134217984;
-                  *&buf[4] = v197;
-                  _os_log_impl(&dword_0, v63, OS_LOG_TYPE_INFO, "    MTLDevice stream ref: %llu", buf, 0xCu);
-                }
-              }
-
-              else
-              {
-                fprintf(__stdoutp, "    MTLDevice stream ref: %llu\n", v197);
+                fprintf(__stdoutp, "    MTLCaptureScope stream ref: %llu\n", v194);
               }
             }
 
@@ -392,18 +373,37 @@ LABEL_55:
             {
               if (*(p_prots + 88) == 1)
               {
+                v63 = gt_tagged_log(5);
+                if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+                {
+                  *buf = 134217984;
+                  *&buf[4] = v196;
+                  _os_log_impl(&dword_0, v63, OS_LOG_TYPE_INFO, "    MTLDevice stream ref: %llu", buf, 0xCu);
+                }
+              }
+
+              else
+              {
+                fprintf(__stdoutp, "    MTLDevice stream ref: %llu\n", v196);
+              }
+            }
+
+            if (v195)
+            {
+              if (*(p_prots + 88) == 1)
+              {
                 v64 = gt_tagged_log(5);
                 if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
                 {
                   *buf = 134217984;
-                  *&buf[4] = v196;
+                  *&buf[4] = v195;
                   _os_log_impl(&dword_0, v64, OS_LOG_TYPE_INFO, "    MTLCommandQueue stream ref: %llu", buf, 0xCu);
                 }
               }
 
               else
               {
-                fprintf(__stdoutp, "    MTLCommandQueue stream ref: %llu\n", v196);
+                fprintf(__stdoutp, "    MTLCommandQueue stream ref: %llu\n", v195);
               }
             }
 
@@ -426,7 +426,7 @@ LABEL_55:
               }
             }
 
-            if (v188)
+            if (v187)
             {
               if (*(p_prots + 88) == 1)
               {
@@ -817,7 +817,7 @@ LABEL_55:
                   goto LABEL_389;
                 }
 
-                if (!v5 || v186 != 5 && v186 != 3)
+                if (!v5 || v185 != 5 && v185 != 3)
                 {
                   atomic_store(0, (*v2 + 128));
                   goto LABEL_389;
@@ -825,12 +825,12 @@ LABEL_55:
 
                 if (*(p_prots + 88) == 1)
                 {
-                  v101 = gt_tagged_log(5);
-                  if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+                  v100 = gt_tagged_log(5);
+                  if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
                   {
                     *buf = 134217984;
                     *&buf[4] = v5;
-                    _os_log_impl(&dword_0, v101, OS_LOG_TYPE_INFO, "🔄 Transition aborted: waiting until command buffer %llu is scheduled", buf, 0xCu);
+                    _os_log_impl(&dword_0, v100, OS_LOG_TYPE_INFO, "🔄 Transition aborted: waiting until command buffer %llu is scheduled", buf, 0xCu);
                   }
                 }
 
@@ -839,30 +839,30 @@ LABEL_55:
                   fprintf(__stdoutp, "🔄 Transition aborted: waiting until command buffer %llu is scheduled\n", v5);
                 }
 
-                v117 = *(*(v2 + 56) + 8);
-                v117->nelts = 0;
-                v118 = apr_array_push(v117);
-                *v118 = 0x600000008;
-                *(v118 + 8) = 0u;
-                *(v118 + 24) = 0u;
-                *(v118 + 5) = v5;
-                *(v118 + 6) = 0;
-                *(v118 + 7) = 1;
+                v116 = *(*(v2 + 56) + 8);
+                v116->nelts = 0;
+                v117 = apr_array_push(v116);
+                *v117 = 0x600000008;
+                *(v117 + 8) = 0u;
+                *(v117 + 24) = 0u;
+                *(v117 + 5) = v5;
+                *(v117 + 6) = 0;
+                *(v117 + 7) = 1;
                 goto LABEL_390;
               }
 
-              if (!v198 || v186 != 3 || v198 > *(v2 + 72))
+              if (!v197 || v185 != 3 || v197 > *(v2 + 72))
               {
                 goto LABEL_389;
               }
 
               if (*(p_prots + 88) == 1)
               {
-                v108 = gt_tagged_log(5);
-                if (os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
+                v107 = gt_tagged_log(5);
+                if (os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v108, OS_LOG_TYPE_INFO, "🔄 Transition aborted: waiting for a present issued during capture", buf, 2u);
+                  _os_log_impl(&dword_0, v107, OS_LOG_TYPE_INFO, "🔄 Transition aborted: waiting for a present issued during capture", buf, 2u);
                 }
               }
 
@@ -871,40 +871,40 @@ LABEL_55:
                 fwrite("🔄 Transition aborted: waiting for a present issued during capture\n", 0x45uLL, 1uLL, __stdoutp);
               }
 
-              v119 = 0;
-              v120 = *(v2 + 40);
-              v121 = *(v2 + 48);
+              v118 = 0;
+              v119 = *(v2 + 40);
+              v120 = *(v2 + 48);
               while (1)
               {
-                v122 = *(v120 + 8);
-                if (v119 >= *(v122 + 12))
+                v121 = *(v119 + 8);
+                if (v118 >= *(v121 + 12))
                 {
                   goto LABEL_390;
                 }
 
-                v123 = (*(v122 + 24) + (v119 << 6));
-                if (v123[1] == 3)
+                v122 = (*(v121 + 24) + (v118 << 6));
+                if (v122[1] == 3)
                 {
-                  v124 = *v123;
-                  v125 = *(v123 + 7);
-                  *buf = *v123;
+                  v123 = *v122;
+                  v124 = *(v122 + 7);
+                  *buf = *v122;
                   *&buf[4] = 3;
-                  *&buf[8] = *(v123 + 2);
-                  *&buf[24] = *(v123 + 6);
-                  *&buf[40] = *(v123 + 10);
-                  *&buf[56] = v125;
-                  v126 = *(v121 + 8);
-                  nelts = v126->nelts;
+                  *&buf[8] = *(v122 + 2);
+                  *&buf[24] = *(v122 + 6);
+                  *&buf[40] = *(v122 + 10);
+                  *&buf[56] = v124;
+                  v125 = *(v120 + 8);
+                  nelts = v125->nelts;
                   if (nelts < 1)
                   {
                     goto LABEL_280;
                   }
 
-                  elts = v126->elts;
-                  v129 = elts;
-                  while (!GTCaptureBoundaryCondition_equals(v129, buf))
+                  elts = v125->elts;
+                  v128 = elts;
+                  while (!GTCaptureBoundaryCondition_equals(v128, buf))
                   {
-                    v129 += 64;
+                    v128 += 64;
                     if (!--nelts)
                     {
                       goto LABEL_280;
@@ -913,30 +913,30 @@ LABEL_55:
 
                   if (elts)
                   {
-                    ++*(v129 + 56);
+                    ++*(v128 + 56);
                   }
 
                   else
                   {
 LABEL_280:
-                    *buf = *(v123 + 2);
-                    *&buf[16] = *(v123 + 6);
-                    *&buf[32] = *(v123 + 10);
-                    v130 = apr_array_push(v126);
-                    *v130 = v124;
-                    *(v130 + 1) = 3;
-                    *(v130 + 8) = *buf;
-                    *(v130 + 24) = *&buf[16];
-                    *(v130 + 40) = *&buf[32];
-                    *(v130 + 7) = 1;
+                    *buf = *(v122 + 2);
+                    *&buf[16] = *(v122 + 6);
+                    *&buf[32] = *(v122 + 10);
+                    v129 = apr_array_push(v125);
+                    *v129 = v123;
+                    *(v129 + 1) = 3;
+                    *(v129 + 8) = *buf;
+                    *(v129 + 24) = *&buf[16];
+                    *(v129 + 40) = *&buf[32];
+                    *(v129 + 7) = 1;
                   }
 
-                  v5 = v191;
-                  v2 = v192;
+                  v5 = v190;
+                  v2 = v191;
                   p_prots = (&OBJC_PROTOCOL___CaptureMTLObject + 16);
                 }
 
-                ++v119;
+                ++v118;
               }
             }
 
@@ -947,11 +947,10 @@ LABEL_280:
                 goto LABEL_389;
               }
 
-              v99 = *(*v2 + 72);
-              GTTraceStoreDebugDescription();
-              if (v197 && !*_sharedCaptureManager)
+              GTTraceStoreDebugDescription("capture start");
+              if (v196 && !*_sharedCaptureManager)
               {
-                *_sharedCaptureManager = v197;
+                *_sharedCaptureManager = v196;
                 if (v42)
                 {
                   goto LABEL_233;
@@ -961,23 +960,23 @@ LABEL_280:
               else if (v42)
               {
 LABEL_233:
-                v100 = *(v42 + 78);
+                v99 = *(v42 + 78);
                 goto LABEL_263;
               }
 
-              v100 = 1;
+              v99 = 1;
 LABEL_263:
-              v113 = *v2;
-              atomic_store(v100, (*v2 + 128));
-              GTMTLCaptureManager_startCapture(v113);
+              v112 = *v2;
+              atomic_store(v99, (*v2 + 128));
+              GTMTLCaptureManager_startCapture(v112);
               if (*(p_prots + 88) == 1)
               {
-                v114 = gt_tagged_log(5);
-                if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
+                v113 = gt_tagged_log(5);
+                if (os_log_type_enabled(v113, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
-                  v115 = v114;
-                  v116 = "🟢 Capture started";
+                  v114 = v113;
+                  v115 = "🟢 Capture started";
                   goto LABEL_386;
                 }
               }
@@ -990,153 +989,153 @@ LABEL_263:
               goto LABEL_388;
             }
 
-            *(v2 + 88) = v185;
-            v102 = *(v42 + 72);
-            if (v102 <= 2)
+            *(v2 + 88) = v184;
+            v101 = *(v42 + 72);
+            if (v101 <= 2)
             {
               break;
             }
 
             if (*(v42 + 72) <= 4u)
             {
-              if (v102 != 3)
+              if (v101 != 3)
               {
-                if (v102 != 4)
+                if (v101 != 4)
                 {
                   goto LABEL_289;
                 }
 
-                v103 = v194[2];
-                v104 = v194[5];
-                v105 = apr_array_push(*(*(v2 + 40) + 8));
-                *v105 = 0x100000002;
-                *(v105 + 1) = 0;
-                *(v105 + 2) = v103;
-                *(v105 + 24) = 0u;
-                *(v105 + 40) = 0u;
-                *(v105 + 7) = v104;
-                v106 = v194[6];
-                v107 = apr_array_push(*(*(v2 + 56) + 8));
-                *v107 = 0x200000002;
-                *(v107 + 1) = 0;
-                *(v107 + 2) = v103;
-                *(v107 + 24) = 0u;
-                *(v107 + 40) = 0u;
+                v102 = v193[2];
+                v103 = v193[5];
+                v104 = apr_array_push(*(*(v2 + 40) + 8));
+                *v104 = 0x100000002;
+                *(v104 + 1) = 0;
+                *(v104 + 2) = v102;
+                *(v104 + 24) = 0u;
+                *(v104 + 40) = 0u;
+                *(v104 + 7) = v103;
+                v105 = v193[6];
+                v106 = apr_array_push(*(*(v2 + 56) + 8));
+                *v106 = 0x200000002;
+                *(v106 + 1) = 0;
+                *(v106 + 2) = v102;
+                *(v106 + 24) = 0u;
+                *(v106 + 40) = 0u;
                 goto LABEL_287;
               }
 
-              v131 = v42;
-              v132 = v42[5];
-              v133 = apr_array_push(*(*(v2 + 40) + 8));
-              *v133 = 0x400000008;
-              *(v133 + 8) = 0u;
-              *(v133 + 24) = 0u;
-              *(v133 + 40) = 0u;
-              *(v133 + 7) = v132;
-              v134 = v131[1];
-              v106 = v131[6];
-              v107 = apr_array_push(*(*(v2 + 56) + 8));
-              *v107 = 0x500000008;
-              *(v107 + 1) = 0;
-              *(v107 + 2) = 0;
-              *(v107 + 3) = 0;
-              *(v107 + 4) = v134;
-              *(v107 + 5) = 0;
+              v130 = v42;
+              v131 = v42[5];
+              v132 = apr_array_push(*(*(v2 + 40) + 8));
+              *v132 = 0x400000008;
+              *(v132 + 8) = 0u;
+              *(v132 + 24) = 0u;
+              *(v132 + 40) = 0u;
+              *(v132 + 7) = v131;
+              v133 = v130[1];
+              v105 = v130[6];
+              v106 = apr_array_push(*(*(v2 + 56) + 8));
+              *v106 = 0x500000008;
+              *(v106 + 1) = 0;
+              *(v106 + 2) = 0;
+              *(v106 + 3) = 0;
+              *(v106 + 4) = v133;
+              *(v106 + 5) = 0;
               goto LABEL_286;
             }
 
-            if (v102 == 6)
+            if (v101 == 6)
             {
-              v135 = v42;
-              v136 = v42[3];
-              v137 = v135[5];
-              v138 = apr_array_push(*(*(v2 + 40) + 8));
-              *v138 = 0x300000003;
-              v138[1] = v136;
-              *(v138 + 1) = 0u;
-              *(v138 + 2) = 0u;
-              v138[6] = 0;
-              v138[7] = v137;
-              v106 = v135[6];
-              v107 = apr_array_push(*(*(v2 + 56) + 8));
-              *v107 = 0x300000003;
-              *(v107 + 1) = v136;
-              *(v107 + 1) = 0u;
-              *(v107 + 2) = 0u;
-              *(v107 + 6) = 0;
+              v134 = v42;
+              v135 = v42[3];
+              v136 = v134[5];
+              v137 = apr_array_push(*(*(v2 + 40) + 8));
+              *v137 = 0x300000003;
+              v137[1] = v135;
+              *(v137 + 1) = 0u;
+              *(v137 + 2) = 0u;
+              v137[6] = 0;
+              v137[7] = v136;
+              v105 = v134[6];
+              v106 = apr_array_push(*(*(v2 + 56) + 8));
+              *v106 = 0x300000003;
+              *(v106 + 1) = v135;
+              *(v106 + 1) = 0u;
+              *(v106 + 2) = 0u;
+              *(v106 + 6) = 0;
 LABEL_287:
-              *(v107 + 14) = v106;
+              *(v106 + 14) = v105;
               goto LABEL_288;
             }
 
-            if (v102 != 5)
+            if (v101 != 5)
             {
               goto LABEL_289;
             }
 
-            v110 = v194[5];
-            v111 = apr_array_push(*(*(v2 + 40) + 8));
-            *v111 = 0x300000001;
-            *(v111 + 8) = 0u;
-            *(v111 + 24) = 0u;
-            *(v111 + 40) = 0u;
-            *(v111 + 7) = v110;
-            v112 = v194[6];
-            v107 = apr_array_push(*(*(v2 + 56) + 8));
-            *v107 = 0x300000001;
-            *(v107 + 8) = 0u;
-            *(v107 + 24) = 0u;
-            *(v107 + 40) = 0u;
-            *(v107 + 14) = v112;
+            v109 = v193[5];
+            v110 = apr_array_push(*(*(v2 + 40) + 8));
+            *v110 = 0x300000001;
+            *(v110 + 8) = 0u;
+            *(v110 + 24) = 0u;
+            *(v110 + 40) = 0u;
+            *(v110 + 7) = v109;
+            v111 = v193[6];
+            v106 = apr_array_push(*(*(v2 + 56) + 8));
+            *v106 = 0x300000001;
+            *(v106 + 8) = 0u;
+            *(v106 + 24) = 0u;
+            *(v106 + 40) = 0u;
+            *(v106 + 14) = v111;
 LABEL_288:
-            *(v107 + 15) = 0;
+            *(v106 + 15) = 0;
 LABEL_289:
-            v142 = 0;
-            v222 = 0u;
-            v223 = 0u;
-            v220 = 0u;
+            v141 = 0;
             v221 = 0u;
-            v218 = 0u;
+            v222 = 0u;
             v219 = 0u;
-            v216 = 0u;
+            v220 = 0u;
             v217 = 0u;
-            v214 = 0u;
+            v218 = 0u;
             v215 = 0u;
-            v212 = 0u;
+            v216 = 0u;
             v213 = 0u;
-            v143 = &off_2F1F10;
-            v144 = 4;
+            v214 = 0u;
+            v211 = 0u;
+            v212 = 0u;
+            v142 = &off_2F1F10;
+            v143 = 4;
             memset(buf, 0, sizeof(buf));
             do
             {
-              v145 = *v143++;
-              v146 = v142 + snprintf(&buf[v142], 256 - v142, "%s--", v145);
-              v147 = &buf[v146];
-              v148 = 256 - v146;
-              if (*(*(*(v2 + 8 * v144) + 8) + 12))
+              v144 = *v142++;
+              v145 = v141 + snprintf(&buf[v141], 256 - v141, "%s--", v144);
+              v146 = &buf[v145];
+              v147 = 256 - v145;
+              if (*(*(*(v2 + 8 * v143) + 8) + 12))
               {
-                v149 = snprintf(v147, v148, "🛡️ --");
+                v148 = snprintf(v146, v147, "🛡️ --");
               }
 
               else
               {
-                v149 = snprintf(v147, v148, "➡️ --");
+                v148 = snprintf(v146, v147, "➡️ --");
               }
 
-              v142 = v146 + v149;
-              ++v144;
+              v141 = v145 + v148;
+              ++v143;
             }
 
-            while (v144 != 9);
-            snprintf(&buf[v142], 256 - v142, "Postcapture");
+            while (v143 != 9);
+            snprintf(&buf[v141], 256 - v141, "Postcapture");
             if (p_prots[11])
             {
-              v150 = gt_tagged_log(5);
-              if (os_log_type_enabled(v150, OS_LOG_TYPE_INFO))
+              v149 = gt_tagged_log(5);
+              if (os_log_type_enabled(v149, OS_LOG_TYPE_INFO))
               {
-                *v206 = 136315138;
-                *v207 = buf;
-                _os_log_impl(&dword_0, v150, OS_LOG_TYPE_INFO, "%s", v206, 0xCu);
+                *v205 = 136315138;
+                *v206 = buf;
+                _os_log_impl(&dword_0, v149, OS_LOG_TYPE_INFO, "%s", v205, 0xCu);
               }
             }
 
@@ -1147,16 +1146,16 @@ LABEL_289:
 
             for (j = 0; j != 5; ++j)
             {
-              v152 = *(*(*(v200 + 8 * j) + 8) + 12);
-              if (v152 >= 1)
+              v151 = *(*(*(v199 + 8 * j) + 8) + 12);
+              if (v151 >= 1)
               {
+                v152 = 0;
                 v153 = 0;
-                v154 = 0;
-                v199 = v152 << 6;
+                v198 = v151 << 6;
                 while (*(p_prots + 88) == 1)
                 {
-                  v155 = gt_tagged_log(5);
-                  if (os_log_type_enabled(v155, OS_LOG_TYPE_INFO))
+                  v154 = gt_tagged_log(5);
+                  if (os_log_type_enabled(v154, OS_LOG_TYPE_INFO))
                   {
                     if (j <= 1)
                     {
@@ -1167,121 +1166,140 @@ LABEL_289:
                           goto LABEL_328;
                         }
 
-                        v156 = "Active";
-                        v159 = "Precapture";
+                        v155 = "Active";
+                        v158 = "Precapture";
                       }
 
                       else
                       {
-                        v156 = "Inactive";
-                        v159 = "Active";
+                        v155 = "Inactive";
+                        v158 = "Active";
                       }
                     }
 
                     else if (j == 2)
                     {
-                      v156 = "Precapture";
-                      v159 = "Capture";
+                      v155 = "Precapture";
+                      v158 = "Capture";
                     }
 
                     else if (j == 3)
                     {
-                      v156 = "Capture";
-                      v159 = "Postcapture";
+                      v155 = "Capture";
+                      v158 = "Postcapture";
                     }
 
                     else
                     {
-                      v156 = "Postcapture";
+                      v155 = "Postcapture";
                       if (j != 4)
                       {
 LABEL_328:
-                        v156 = "UNKNOWN";
+                        v155 = "UNKNOWN";
                       }
 
-                      v159 = "UNKNOWN";
+                      v158 = "UNKNOWN";
                     }
 
-                    *v206 = 136315650;
-                    *v207 = v156;
-                    *&v207[8] = 2080;
-                    v208 = v159;
-                    v209 = 1024;
-                    v210 = v153;
-                    _os_log_impl(&dword_0, v155, OS_LOG_TYPE_INFO, "%s--🛡️ --%s Condition #%d", v206, 0x1Cu);
+                    *v205 = 136315650;
+                    *v206 = v155;
+                    *&v206[8] = 2080;
+                    v207 = v158;
+                    v208 = 1024;
+                    v209 = v152;
+                    _os_log_impl(&dword_0, v154, OS_LOG_TYPE_INFO, "%s--🛡️ --%s Condition #%d", v205, 0x1Cu);
                   }
 
 LABEL_331:
-                  v160 = j;
-                  v161 = (*(*(*(v200 + 8 * j) + 8) + 24) + v154);
-                  v162 = *v161;
-                  v163 = v161[1];
-                  v164 = *(v161 + 1);
-                  v165 = *(v161 + 2);
-                  v166 = *(v161 + 4);
-                  v167 = *(v161 + 5);
-                  v204 = *(v161 + 48);
-                  v202 = v161[14];
-                  v203 = *(v161 + 3);
-                  v201 = v161[15];
+                  v159 = j;
+                  v160 = (*(*(*(v199 + 8 * j) + 8) + 24) + v153);
+                  v161 = *v160;
+                  v162 = v160[1];
+                  v163 = *(v160 + 1);
+                  v164 = *(v160 + 2);
+                  v165 = *(v160 + 4);
+                  v166 = *(v160 + 5);
+                  v203 = *(v160 + 48);
+                  v201 = v160[14];
+                  v202 = *(v160 + 3);
+                  v200 = v160[15];
                   if (s_logUsingOsLog == 1)
                   {
-                    v168 = gt_tagged_log(5);
-                    if (os_log_type_enabled(v168, OS_LOG_TYPE_INFO))
+                    v167 = gt_tagged_log(5);
+                    if (os_log_type_enabled(v167, OS_LOG_TYPE_INFO))
                     {
-                      v169 = "Instant";
-                      if ((v163 - 1) <= 8)
+                      v168 = "Instant";
+                      if ((v162 - 1) <= 8)
                       {
-                        v169 = (&off_2F1EC8)[v163 - 1];
+                        v168 = (&off_2F1EC8)[v162 - 1];
                       }
 
-                      *v206 = 136315138;
-                      *v207 = v169;
-                      _os_log_impl(&dword_0, v168, OS_LOG_TYPE_INFO, "    type: %s", v206, 0xCu);
+                      *v205 = 136315138;
+                      *v206 = v168;
+                      _os_log_impl(&dword_0, v167, OS_LOG_TYPE_INFO, "    type: %s", v205, 0xCu);
                     }
                   }
 
                   else
                   {
-                    v170 = "Instant";
-                    if ((v163 - 1) <= 8)
+                    v169 = "Instant";
+                    if ((v162 - 1) <= 8)
                     {
-                      v170 = (&off_2F1EC8)[v163 - 1];
+                      v169 = (&off_2F1EC8)[v162 - 1];
                     }
 
-                    fprintf(__stdoutp, "    type: %s\n", v170);
+                    fprintf(__stdoutp, "    type: %s\n", v169);
                   }
 
                   p_prots = &OBJC_PROTOCOL___CaptureMTLObject.prots;
                   if (s_logUsingOsLog == 1)
                   {
-                    v171 = gt_tagged_log(5);
-                    if (os_log_type_enabled(v171, OS_LOG_TYPE_INFO))
+                    v170 = gt_tagged_log(5);
+                    if (os_log_type_enabled(v170, OS_LOG_TYPE_INFO))
                     {
-                      v172 = "None";
-                      if ((v162 - 1) <= 0xB)
+                      v171 = "None";
+                      if ((v161 - 1) <= 0xB)
                       {
-                        v172 = (&off_2F1E68)[v162 - 1];
+                        v171 = (&off_2F1E68)[v161 - 1];
                       }
 
-                      *v206 = 136315138;
-                      *v207 = v172;
-                      _os_log_impl(&dword_0, v171, OS_LOG_TYPE_INFO, "    object: %s", v206, 0xCu);
+                      *v205 = 136315138;
+                      *v206 = v171;
+                      _os_log_impl(&dword_0, v170, OS_LOG_TYPE_INFO, "    object: %s", v205, 0xCu);
                     }
                   }
 
                   else
                   {
-                    v173 = "None";
-                    if ((v162 - 1) <= 0xB)
+                    v172 = "None";
+                    if ((v161 - 1) <= 0xB)
                     {
-                      v173 = (&off_2F1E68)[v162 - 1];
+                      v172 = (&off_2F1E68)[v161 - 1];
                     }
 
-                    fprintf(__stdoutp, "    object: %s\n", v173);
+                    fprintf(__stdoutp, "    object: %s\n", v172);
                   }
 
-                  j = v160;
+                  j = v159;
+                  if (v163)
+                  {
+                    if (s_logUsingOsLog == 1)
+                    {
+                      v173 = gt_tagged_log(5);
+                      if (os_log_type_enabled(v173, OS_LOG_TYPE_INFO))
+                      {
+                        *v205 = 134217984;
+                        *v206 = v163;
+                        _os_log_impl(&dword_0, v173, OS_LOG_TYPE_INFO, "    CAMetalLayer stream ref: %llu", v205, 0xCu);
+                      }
+                    }
+
+                    else
+                    {
+                      fprintf(__stdoutp, "    CAMetalLayer stream ref: %llu\n", v163);
+                    }
+                  }
+
                   if (v164)
                   {
                     if (s_logUsingOsLog == 1)
@@ -1289,15 +1307,34 @@ LABEL_331:
                       v174 = gt_tagged_log(5);
                       if (os_log_type_enabled(v174, OS_LOG_TYPE_INFO))
                       {
-                        *v206 = 134217984;
-                        *v207 = v164;
-                        _os_log_impl(&dword_0, v174, OS_LOG_TYPE_INFO, "    CAMetalLayer stream ref: %llu", v206, 0xCu);
+                        *v205 = 134217984;
+                        *v206 = v164;
+                        _os_log_impl(&dword_0, v174, OS_LOG_TYPE_INFO, "    MTLCaptureScope stream ref: %llu", v205, 0xCu);
                       }
                     }
 
                     else
                     {
-                      fprintf(__stdoutp, "    CAMetalLayer stream ref: %llu\n", v164);
+                      fprintf(__stdoutp, "    MTLCaptureScope stream ref: %llu\n", v164);
+                    }
+                  }
+
+                  if (v202)
+                  {
+                    if (s_logUsingOsLog == 1)
+                    {
+                      v175 = gt_tagged_log(5);
+                      if (os_log_type_enabled(v175, OS_LOG_TYPE_INFO))
+                      {
+                        *v205 = 134217984;
+                        *v206 = v202;
+                        _os_log_impl(&dword_0, v175, OS_LOG_TYPE_INFO, "    MTLDevice stream ref: %llu", v205, 0xCu);
+                      }
+                    }
+
+                    else
+                    {
+                      fprintf(__stdoutp, "    MTLDevice stream ref: %llu\n", v202);
                     }
                   }
 
@@ -1305,37 +1342,18 @@ LABEL_331:
                   {
                     if (s_logUsingOsLog == 1)
                     {
-                      v175 = gt_tagged_log(5);
-                      if (os_log_type_enabled(v175, OS_LOG_TYPE_INFO))
-                      {
-                        *v206 = 134217984;
-                        *v207 = v165;
-                        _os_log_impl(&dword_0, v175, OS_LOG_TYPE_INFO, "    MTLCaptureScope stream ref: %llu", v206, 0xCu);
-                      }
-                    }
-
-                    else
-                    {
-                      fprintf(__stdoutp, "    MTLCaptureScope stream ref: %llu\n", v165);
-                    }
-                  }
-
-                  if (v203)
-                  {
-                    if (s_logUsingOsLog == 1)
-                    {
                       v176 = gt_tagged_log(5);
                       if (os_log_type_enabled(v176, OS_LOG_TYPE_INFO))
                       {
-                        *v206 = 134217984;
-                        *v207 = v203;
-                        _os_log_impl(&dword_0, v176, OS_LOG_TYPE_INFO, "    MTLDevice stream ref: %llu", v206, 0xCu);
+                        *v205 = 134217984;
+                        *v206 = v165;
+                        _os_log_impl(&dword_0, v176, OS_LOG_TYPE_INFO, "    MTLCommandQueue stream ref: %llu", v205, 0xCu);
                       }
                     }
 
                     else
                     {
-                      fprintf(__stdoutp, "    MTLDevice stream ref: %llu\n", v203);
+                      fprintf(__stdoutp, "    MTLCommandQueue stream ref: %llu\n", v165);
                     }
                   }
 
@@ -1346,46 +1364,27 @@ LABEL_331:
                       v177 = gt_tagged_log(5);
                       if (os_log_type_enabled(v177, OS_LOG_TYPE_INFO))
                       {
-                        *v206 = 134217984;
-                        *v207 = v166;
-                        _os_log_impl(&dword_0, v177, OS_LOG_TYPE_INFO, "    MTLCommandQueue stream ref: %llu", v206, 0xCu);
+                        *v205 = 134217984;
+                        *v206 = v166;
+                        _os_log_impl(&dword_0, v177, OS_LOG_TYPE_INFO, "    MTLCommandBuffer stream ref: %llu", v205, 0xCu);
                       }
                     }
 
                     else
                     {
-                      fprintf(__stdoutp, "    MTLCommandQueue stream ref: %llu\n", v166);
+                      fprintf(__stdoutp, "    MTLCommandBuffer stream ref: %llu\n", v166);
                     }
                   }
 
-                  if (v167)
+                  if (v203)
                   {
                     if (s_logUsingOsLog == 1)
                     {
                       v178 = gt_tagged_log(5);
                       if (os_log_type_enabled(v178, OS_LOG_TYPE_INFO))
                       {
-                        *v206 = 134217984;
-                        *v207 = v167;
-                        _os_log_impl(&dword_0, v178, OS_LOG_TYPE_INFO, "    MTLCommandBuffer stream ref: %llu", v206, 0xCu);
-                      }
-                    }
-
-                    else
-                    {
-                      fprintf(__stdoutp, "    MTLCommandBuffer stream ref: %llu\n", v167);
-                    }
-                  }
-
-                  if (v204)
-                  {
-                    if (s_logUsingOsLog == 1)
-                    {
-                      v179 = gt_tagged_log(5);
-                      if (os_log_type_enabled(v179, OS_LOG_TYPE_INFO))
-                      {
-                        *v206 = 0;
-                        _os_log_impl(&dword_0, v179, OS_LOG_TYPE_INFO, "    MTLCommandBuffer is capturing", v206, 2u);
+                        *v205 = 0;
+                        _os_log_impl(&dword_0, v178, OS_LOG_TYPE_INFO, "    MTLCommandBuffer is capturing", v205, 2u);
                       }
                     }
 
@@ -1397,25 +1396,25 @@ LABEL_331:
 
                   if (s_logUsingOsLog == 1)
                   {
-                    v180 = gt_tagged_log(5);
-                    if (os_log_type_enabled(v180, OS_LOG_TYPE_INFO))
+                    v179 = gt_tagged_log(5);
+                    if (os_log_type_enabled(v179, OS_LOG_TYPE_INFO))
                     {
-                      *v206 = 67109376;
-                      *v207 = v201;
-                      *&v207[4] = 1024;
-                      *&v207[6] = v202;
-                      _os_log_impl(&dword_0, v180, OS_LOG_TYPE_INFO, "    Hit count: %u/%u", v206, 0xEu);
+                      *v205 = 67109376;
+                      *v206 = v200;
+                      *&v206[4] = 1024;
+                      *&v206[6] = v201;
+                      _os_log_impl(&dword_0, v179, OS_LOG_TYPE_INFO, "    Hit count: %u/%u", v205, 0xEu);
                     }
                   }
 
                   else
                   {
-                    fprintf(__stdoutp, "    Hit count: %u/%u\n", v201, v202);
+                    fprintf(__stdoutp, "    Hit count: %u/%u\n", v200, v201);
                   }
 
-                  v154 += 64;
-                  ++v153;
-                  if (v199 == v154)
+                  v153 += 64;
+                  ++v152;
+                  if (v198 == v153)
                   {
                     goto LABEL_382;
                   }
@@ -1430,42 +1429,42 @@ LABEL_331:
                       goto LABEL_322;
                     }
 
-                    v157 = "Active";
-                    v158 = "Precapture";
+                    v156 = "Active";
+                    v157 = "Precapture";
                   }
 
                   else
                   {
-                    v157 = "Inactive";
-                    v158 = "Active";
+                    v156 = "Inactive";
+                    v157 = "Active";
                   }
                 }
 
                 else if (j == 2)
                 {
-                  v157 = "Precapture";
-                  v158 = "Capture";
+                  v156 = "Precapture";
+                  v157 = "Capture";
                 }
 
                 else if (j == 3)
                 {
-                  v157 = "Capture";
-                  v158 = "Postcapture";
+                  v156 = "Capture";
+                  v157 = "Postcapture";
                 }
 
                 else
                 {
-                  v157 = "Postcapture";
+                  v156 = "Postcapture";
                   if (j != 4)
                   {
 LABEL_322:
-                    v157 = "UNKNOWN";
+                    v156 = "UNKNOWN";
                   }
 
-                  v158 = "UNKNOWN";
+                  v157 = "UNKNOWN";
                 }
 
-                fprintf(__stdoutp, "%s--🛡️ --%s Condition #%d\n", v157, v158, v153);
+                fprintf(__stdoutp, "%s--🛡️ --%s Condition #%d\n", v156, v157, v152);
                 goto LABEL_331;
               }
 
@@ -1473,36 +1472,36 @@ LABEL_382:
               ;
             }
 
-            v2 = v192;
-            atomic_store(1u, (*v192 + 112));
-            GTMTLCaptureManager_activateCaptureWithDescriptor(v194);
+            v2 = v191;
+            atomic_store(1u, (*v191 + 112));
+            GTMTLCaptureManager_activateCaptureWithDescriptor(v193);
             if (*(p_prots + 88) == 1)
             {
-              v181 = gt_tagged_log(5);
-              v5 = v191;
-              if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
+              v180 = gt_tagged_log(5);
+              v5 = v190;
+              if (os_log_type_enabled(v180, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                v115 = v181;
-                v116 = "🚀 Capture activated";
+                v114 = v180;
+                v115 = "🚀 Capture activated";
 LABEL_386:
-                _os_log_impl(&dword_0, v115, OS_LOG_TYPE_INFO, v116, buf, 2u);
+                _os_log_impl(&dword_0, v114, OS_LOG_TYPE_INFO, v115, buf, 2u);
               }
             }
 
             else
             {
               fwrite("🚀 Capture activated\n", 0x17uLL, 1uLL, __stdoutp);
-              v5 = v191;
+              v5 = v190;
             }
 
 LABEL_388:
-            *(v2 + 72) = v193;
+            *(v2 + 72) = v192;
 LABEL_389:
             atomic_fetch_add((v2 + 20), 1u);
 LABEL_390:
-            v182 = atomic_load((v2 + 20));
-            v14 = *(v200 + 8 * v182);
+            v181 = atomic_load((v2 + 20));
+            v14 = *(v199 + 8 * v181);
           }
 
           if (!*(v42 + 72))
@@ -1510,47 +1509,47 @@ LABEL_390:
             goto LABEL_257;
           }
 
-          if (v102 != 1)
+          if (v101 != 1)
           {
-            if (v102 != 2)
+            if (v101 != 2)
             {
               goto LABEL_289;
             }
 
 LABEL_257:
-            v109 = apr_array_push(*(*(v2 + 56) + 8));
-            *v109 = v185;
-            *(v109 + 1) = 8;
-            *(v109 + 8) = 0u;
-            *(v109 + 24) = 0u;
-            *(v109 + 40) = 0u;
-            *(v109 + 7) = 1;
+            v108 = apr_array_push(*(*(v2 + 56) + 8));
+            *v108 = v184;
+            *(v108 + 1) = 8;
+            *(v108 + 8) = 0u;
+            *(v108 + 24) = 0u;
+            *(v108 + 40) = 0u;
+            *(v108 + 7) = 1;
             goto LABEL_289;
           }
 
-          v139 = *v194;
-          v140 = v194[5];
-          v141 = apr_array_push(*(*(v2 + 40) + 8));
-          *v141 = 0x400000008;
-          v141[1] = 0;
-          v141[2] = 0;
-          v141[3] = v139;
-          v141[4] = 0;
-          v141[5] = 0;
-          v141[6] = 0;
-          v141[7] = v140;
-          v106 = v194[6];
-          v107 = apr_array_push(*(*(v2 + 56) + 8));
-          *v107 = 0x500000008;
-          *(v107 + 1) = 0;
-          *(v107 + 2) = 0;
-          *(v107 + 4) = 0;
-          *(v107 + 5) = 0;
-          *(v107 + 3) = v139;
+          v138 = *v193;
+          v139 = v193[5];
+          v140 = apr_array_push(*(*(v2 + 40) + 8));
+          *v140 = 0x400000008;
+          v140[1] = 0;
+          v140[2] = 0;
+          v140[3] = v138;
+          v140[4] = 0;
+          v140[5] = 0;
+          v140[6] = 0;
+          v140[7] = v139;
+          v105 = v193[6];
+          v106 = apr_array_push(*(*(v2 + 56) + 8));
+          *v106 = 0x500000008;
+          *(v106 + 1) = 0;
+          *(v106 + 2) = 0;
+          *(v106 + 4) = 0;
+          *(v106 + 5) = 0;
+          *(v106 + 3) = v138;
 LABEL_286:
-          v107[48] = 1;
-          *(v107 + 49) = 0;
-          *(v107 + 13) = 0;
+          v106[48] = 1;
+          *(v106 + 49) = 0;
+          *(v106 + 13) = 0;
           goto LABEL_287;
         }
 
@@ -1566,7 +1565,7 @@ LABEL_286:
       }
 
       atomic_fetch_add(v30, 1uLL);
-      v29 = v186;
+      v29 = v185;
       goto LABEL_55;
     }
 
@@ -1581,7 +1580,7 @@ LABEL_286:
       goto LABEL_17;
     }
 
-    if (v185 != *(v2 + 88))
+    if (v184 != *(v2 + 88))
     {
       goto LABEL_17;
     }
@@ -1602,21 +1601,21 @@ LABEL_286:
 LABEL_10:
   os_unfair_lock_unlock((v2 + 16));
   v9 = atomic_load((*(a1 + 48) + 20));
-  v10 = v183 != 4 && v9 == 4;
+  v10 = v182 != 4 && v9 == 4;
   v11 = v10;
   *(*(*(a1 + 32) + 8) + 24) = v11;
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 48) + 96);
 }
 
-void __GTCaptureBoundaryTracker_handleTrigger_block_invoke_2(uint64_t a1)
+void __GTCaptureBoundaryTracker_handleTrigger_block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (s_logUsingOsLog == 1)
   {
-    v2 = gt_tagged_log(5);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = gt_tagged_log(5);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "🛑 Stopping capture", buf, 2u);
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "🛑 Stopping capture", buf, 2u);
     }
   }
 
@@ -1628,11 +1627,11 @@ void __GTCaptureBoundaryTracker_handleTrigger_block_invoke_2(uint64_t a1)
   GTMTLCaptureManager_stopActiveCapture(*(*(a1 + 32) + 72), *(*(a1 + 32) + 80));
   if (s_logUsingOsLog == 1)
   {
-    v3 = gt_tagged_log(5);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = gt_tagged_log(5);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "🏁 Capture finished", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "🏁 Capture finished", v5, 2u);
     }
   }
 

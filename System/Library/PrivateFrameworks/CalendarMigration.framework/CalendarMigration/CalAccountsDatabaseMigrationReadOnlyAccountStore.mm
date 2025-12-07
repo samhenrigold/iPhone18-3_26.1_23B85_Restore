@@ -423,26 +423,24 @@ LABEL_10:
 
 + (id)_unarchiveData:(id)data
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
   dataCopy = data;
   v5 = [v3 alloc];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v13[3] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v12[2] = objc_opt_class();
+  v12[3] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
   v7 = [v5 initWithArray:v6];
 
-  v12 = 0;
-  v8 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v7 fromData:dataCopy error:&v12];
+  v11 = 0;
+  v8 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v7 fromData:dataCopy error:&v11];
 
   if (v8)
   {
     v9 = v8;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -507,73 +505,58 @@ LABEL_10:
 
 - (void)initWithDatabaseURL:(sqlite3 *)a1 .cold.1(sqlite3 **a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v2, v3, "Failed to open database: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v1, v2, "Failed to open database: %s", v3, v4, v5, v6);
 }
 
 - (void)accountWithIdentifier:(sqlite3 *)a1 .cold.1(sqlite3 **a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v2, v3, "Failed to prepare statement: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v1, v2, "Failed to prepare statement: %s", v3, v4, v5, v6);
 }
 
 - (void)accountWithIdentifier:(sqlite3 *)a1 .cold.2(sqlite3 **a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v2, v3, "Failed to bind calendar dataclass ID: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v1, v2, "Failed to bind calendar dataclass ID: %s", v3, v4, v5, v6);
 }
 
 - (void)accountWithIdentifier:(sqlite3 *)a1 .cold.4(sqlite3 **a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v2, v3, "Failed to bind account identifier: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v1, v2, "Failed to bind account identifier: %s", v3, v4, v5, v6);
 }
 
 - (void)accountWithIdentifier:(sqlite3 *)a1 .cold.6(sqlite3 **a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v2, v3, "Failed to bind account rowid: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v1, v2, "Failed to bind account rowid: %s", v3, v4, v5, v6);
 }
 
 - (void)accountWithIdentifier:.cold.7()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_2428EA000, v0, OS_LOG_TYPE_ERROR, "Account not found for identifier: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2428EA000, v0, OS_LOG_TYPE_ERROR, "Account not found for identifier: %@", v1, 0xCu);
 }
 
 - (void)accountWithIdentifier:(sqlite3 *)a1 .cold.8(sqlite3 **a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v2, v3, "Failed to execute query: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v1, v2, "Failed to execute query: %s", v3, v4, v5, v6);
 }
 
 - (void)childAccountsForAccount:(sqlite3 *)a1 withTypeIdentifier:.cold.2(sqlite3 **a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v2, v3, "Failed to bind parent account identifier: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2428EA000, v1, v2, "Failed to bind parent account identifier: %s", v3, v4, v5, v6);
 }
 
 @end

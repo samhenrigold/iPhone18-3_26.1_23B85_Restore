@@ -154,7 +154,7 @@ LABEL_24:
   {
     [(ARTechnique *)v8 setDelegate:delegateCopy];
     [(ARParentTechnique *)v9 setTechniques:techniquesCopy];
-    v10 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.technique");
+    v10 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.technique", 0);
     queue = v9->_queue;
     v9->_queue = v10;
 
@@ -223,7 +223,7 @@ uint64_t __37__ARParentTechnique_reuseTechniques___block_invoke(uint64_t a1, voi
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v8 timestamp];
+    objc_msgSend_timestamp(v8);
     v10 = v9;
     v27[0] = v8;
     v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
@@ -1530,13 +1530,13 @@ LABEL_66:
       v35 = [splitTechniques indexForTechnique:techniqueCopy];
       if (v35 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v36 = _ARLogTechnique_8();
+        v36 = _ARLogTechnique_8(0x7FFFFFFFFFFFFFFFLL);
         if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
           v37 = objc_opt_class();
           v38 = NSStringFromClass(v37);
           imageData = [splitTechniques imageData];
-          [imageData timestamp];
+          objc_msgSend_timestamp(imageData);
           *buf = 138412546;
           v89 = v38;
           v90 = 2048;
@@ -1782,7 +1782,7 @@ LABEL_13:
 
 + (id)techniquesByReplacingOriginalTechniques:(id)techniques withReplacementTechniques:(id)replacementTechniques passingTest:(id)test
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   replacementTechniquesCopy = replacementTechniques;
   testCopy = test;
   v7 = [techniques mutableCopy];
@@ -1800,36 +1800,37 @@ LABEL_13:
   {
     v13 = [v7 objectAtIndexedSubscript:v11];
     v14 = *(v12 + 2576);
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __99__ARParentTechnique_techniquesByReplacingOriginalTechniques_withReplacementTechniques_passingTest___block_invoke;
-    v42[3] = &unk_1E817C640;
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __99__ARParentTechnique_techniquesByReplacingOriginalTechniques_withReplacementTechniques_passingTest___block_invoke;
+    v43[3] = &unk_1E817C640;
     v15 = testCopy;
-    v44 = v15;
+    v45 = v15;
     v16 = v13;
-    v43 = v16;
-    v17 = [v14 techniqueInArray:replacementTechniquesCopy passingTest:v42];
+    v44 = v16;
+    v17 = [v14 techniqueInArray:replacementTechniquesCopy passingTest:v43];
+    v18 = v17;
     if (v17)
     {
-      v18 = _ARLogTechnique_8();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = _ARLogTechnique_8(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
         *buf = 138413058;
-        v47 = v20;
-        v48 = 2048;
-        v49 = v16;
-        v50 = 2112;
-        v51 = v22;
-        v52 = 2048;
-        v53 = v17;
-        _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "Replacing %@(%p) with %@(%p)", buf, 0x2Au);
+        v48 = v21;
+        v49 = 2048;
+        v50 = v16;
+        v51 = 2112;
+        v52 = v23;
+        v53 = 2048;
+        v54 = v18;
+        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Replacing %@(%p) with %@(%p)", buf, 0x2Au);
       }
 
-      [v7 setObject:v17 atIndexedSubscript:v11];
+      [v7 setObject:v18 atIndexedSubscript:v11];
       v10 = 1;
     }
 
@@ -1838,13 +1839,13 @@ LABEL_13:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v23 = v16;
-        techniques = [v23 techniques];
-        v25 = [self techniquesByReplacingOriginalTechniques:techniques withReplacementTechniques:replacementTechniquesCopy passingTest:v15];
+        v24 = v16;
+        techniques = [v24 techniques];
+        v26 = [self techniquesByReplacingOriginalTechniques:techniques withReplacementTechniques:replacementTechniquesCopy passingTest:v15];
 
-        if (v25)
+        if (v26)
         {
-          [v23 setTechniques:v25];
+          [v24 setTechniques:v26];
           v10 = 1;
         }
       }
@@ -1857,47 +1858,47 @@ LABEL_13:
   while (v9 != v11);
   if (v10)
   {
-    v40 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v26 = v7;
-    v27 = [v26 countByEnumeratingWithState:&v38 objects:v45 count:16];
-    if (v27)
+    v40 = 0u;
+    v27 = v7;
+    v28 = [v27 countByEnumeratingWithState:&v39 objects:v46 count:16];
+    if (v28)
     {
-      v28 = v27;
-      v29 = *v39;
+      v29 = v28;
+      v30 = *v40;
       do
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v39 != v29)
+          if (*v40 != v30)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v27);
           }
 
-          v31 = *(*(&v38 + 1) + 8 * i);
-          v32 = [v26 mutableCopy];
-          [v32 removeObject:v31];
-          [v31 siblingTechniquesDidChange:v32];
+          v32 = *(*(&v39 + 1) + 8 * i);
+          v33 = [v27 mutableCopy];
+          [v33 removeObject:v32];
+          [v32 siblingTechniquesDidChange:v33];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v38 objects:v45 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v39 objects:v46 count:16];
       }
 
-      while (v28);
+      while (v29);
     }
 
-    v33 = v26;
+    v34 = v27;
   }
 
   else
   {
 LABEL_21:
-    v33 = 0;
+    v34 = 0;
   }
 
-  return v33;
+  return v34;
 }
 
 + (id)techniquesByForceReplacingTechniques:(id)techniques withMatchingClassTechniques:(id)classTechniques

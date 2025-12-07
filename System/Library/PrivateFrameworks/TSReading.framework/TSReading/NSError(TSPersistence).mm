@@ -10,23 +10,24 @@
 + (id)tsp_errorWithCode:()TSPersistence underlyingError:
 {
   v6 = a4;
+  v7 = v6;
   if (a3 > 5)
   {
     if (a3 <= 8)
     {
       if (a3 != 6)
       {
-        v7 = UnsafePointer();
+        v8 = UnsafePointer(v6);
         if (a3 == 7)
         {
-          [v7 localizedStringForKey:@"To open this document value:download the latest version of the app from the App Store." table:{&stru_287D36338, @"TSPersistence"}];
+          [v8 localizedStringForKey:@"To open this document value:download the latest version of the app from the App Store." table:{&stru_287D36338, @"TSPersistence"}];
         }
 
         else
         {
-          [v7 localizedStringForKey:@"The document was created with an unsupported old application version" value:&stru_287D36338 table:@"TSPersistence"];
+          [v8 localizedStringForKey:@"The document was created with an unsupported old application version" value:&stru_287D36338 table:@"TSPersistence"];
         }
-        v8 = ;
+        v9 = ;
         goto LABEL_27;
       }
 
@@ -35,8 +36,8 @@
 
     if (a3 == 9)
     {
-      v9 = 0;
-      v10 = @"The document was created with an unsupported application version";
+      v10 = 0;
+      v11 = @"The document was created with an unsupported application version";
       goto LABEL_28;
     }
 
@@ -44,16 +45,16 @@
     {
       if (a3 == 11)
       {
-        v9 = 0;
-        v10 = @"View state version UUID does not match document's.";
+        v10 = 0;
+        v11 = @"View state version UUID does not match document's.";
         goto LABEL_28;
       }
 
       goto LABEL_31;
     }
 
-    v7 = UnsafePointer();
-    v8 = [v7 localizedStringForKey:@"Can\\U2019t open document without password." value:&stru_287D36338 table:@"TSPersistence"];
+    v8 = UnsafePointer(v6);
+    v9 = [v8 localizedStringForKey:@"Can\\U2019t open document without password." value:&stru_287D36338 table:@"TSPersistence"];
     goto LABEL_27;
   }
 
@@ -66,39 +67,39 @@
         goto LABEL_31;
       }
 
-      v7 = UnsafePointer();
-      v8 = [v7 localizedStringForKey:@"An error occurred while reading the document." value:&stru_287D36338 table:@"TSPersistence"];
+      v8 = UnsafePointer(v6);
+      v9 = [v8 localizedStringForKey:@"An error occurred while reading the document." value:&stru_287D36338 table:@"TSPersistence"];
     }
 
     else
     {
-      v7 = UnsafePointer();
-      v8 = [v7 localizedStringForKey:@"This document is corrupt." value:&stru_287D36338 table:@"TSPersistence"];
+      v8 = UnsafePointer(v6);
+      v9 = [v8 localizedStringForKey:@"This document is corrupt." value:&stru_287D36338 table:@"TSPersistence"];
     }
 
 LABEL_27:
-    v10 = v8;
+    v11 = v9;
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_28;
   }
 
   if ((a3 - 2) < 2)
   {
-    v11 = UnsafePointer();
-    v10 = [v11 localizedStringForKey:@"Couldn\\U2019t auto-save document." value:&stru_287D36338 table:@"TSPersistence"];
+    v12 = UnsafePointer(v6);
+    v11 = [v12 localizedStringForKey:@"Couldn\\U2019t auto-save document." value:&stru_287D36338 table:@"TSPersistence"];
 
-    v12 = UnsafePointer();
+    v14 = UnsafePointer(v13);
     if (a3 == 2)
     {
-      [v12 localizedStringForKey:@"Your most recent changes might be lost." value:&stru_287D36338 table:@"TSPersistence"];
+      [v14 localizedStringForKey:@"Your most recent changes might be lost." value:&stru_287D36338 table:@"TSPersistence"];
     }
 
     else
     {
-      [v12 localizedStringForKey:@"The disk is full. Free up some space value:then return to your presentation. Your most recent changes might be lost." table:{&stru_287D36338, @"TSPersistence"}];
+      [v14 localizedStringForKey:@"The disk is full. Free up some space value:then return to your presentation. Your most recent changes might be lost." table:{&stru_287D36338, @"TSPersistence"}];
     }
-    v9 = ;
+    v10 = ;
 
     goto LABEL_28;
   }
@@ -106,23 +107,23 @@ LABEL_27:
   if (a3 == 4 || a3 == 5)
   {
 LABEL_26:
-    v7 = UnsafePointer();
-    v8 = [v7 localizedStringForKey:@"Encountered a critical error." value:&stru_287D36338 table:@"TSPersistence"];
+    v8 = UnsafePointer(v6);
+    v9 = [v8 localizedStringForKey:@"Encountered a critical error." value:&stru_287D36338 table:@"TSPersistence"];
     goto LABEL_27;
   }
 
 LABEL_31:
   currentHandler = [MEMORY[0x277D6C290] currentHandler];
-  v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[NSError(TSPersistence) tsp_errorWithCode:underlyingError:]"];
-  v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/persistence/src/NSError_TSPersistence.mm"];
-  [currentHandler handleFailureInFunction:v16 file:v17 lineNumber:83 description:@"Bad error code"];
+  v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[NSError(TSPersistence) tsp_errorWithCode:underlyingError:]"];
+  v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/persistence/src/NSError_TSPersistence.mm"];
+  [currentHandler handleFailureInFunction:v18 file:v19 lineNumber:83 description:@"Bad error code"];
 
-  v9 = 0;
   v10 = 0;
+  v11 = 0;
 LABEL_28:
-  v13 = [self tsu_errorWithDomain:@"com.apple.iWork.TSPersistence" code:a3 alertTitle:v10 alertMessage:v9 underlyingError:v6];
+  v15 = [self tsu_errorWithDomain:@"com.apple.iWork.TSPersistence" code:a3 alertTitle:v11 alertMessage:v10 underlyingError:v7];
 
-  return v13;
+  return v15;
 }
 
 + (id)tsp_recoverableErrorWithCode:()TSPersistence

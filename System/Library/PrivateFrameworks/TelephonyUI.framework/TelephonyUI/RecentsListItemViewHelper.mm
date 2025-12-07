@@ -19,10 +19,11 @@
   v4 = v3();
   if (v4)
   {
-    v5 = v4;
+    v6 = v5;
+    v7 = v4;
     v4();
 
-    sub_1B48DBC94(v5);
+    sub_1B48DBC94(v7, v6);
   }
 
   else
@@ -37,10 +38,11 @@
   v4 = v3();
   if (v4)
   {
-    v5 = v4;
+    v6 = v5;
+    v7 = v4;
     v4();
 
-    sub_1B48DBC94(v5);
+    sub_1B48DBC94(v7, v6);
   }
 
   else

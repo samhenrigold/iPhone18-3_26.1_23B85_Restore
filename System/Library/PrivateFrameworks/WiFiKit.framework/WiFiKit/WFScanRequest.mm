@@ -85,40 +85,40 @@ LABEL_4:
 
 - (id)scanParameters
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   _defaultScanDictionary = [(WFScanRequest *)self _defaultScanDictionary];
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = [(WFScanRequest *)self channels];
-  v3 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v3 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v21;
+    v5 = *v20;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v21 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * i);
-        v24[0] = @"CHANNEL";
+        v7 = *(*(&v19 + 1) + 8 * i);
+        v23[0] = @"CHANNEL";
         v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "channel")}];
-        v24[1] = @"CHANNEL_FLAGS";
-        v25[0] = v8;
+        v23[1] = @"CHANNEL_FLAGS";
+        v24[0] = v8;
         v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "flags")}];
-        v25[1] = v9;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+        v24[1] = v9;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
         [array addObject:v10];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v4 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v4);
@@ -155,8 +155,6 @@ LABEL_4:
   {
     [_defaultScanDictionary setObject:MEMORY[0x277CBEC38] forKey:@"SCAN_LOW_PRIORITY"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return _defaultScanDictionary;
 }
@@ -227,32 +225,32 @@ LABEL_4:
 
 - (id)_channelListFromArrayOfChannels:(id)channels
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   string = [MEMORY[0x277CCAB68] string];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = channelsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       v11 = v8 + 1;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        [string appendFormat:@"%d", objc_msgSend(*(*(&v14 + 1) + 8 * v10), "channel")];
+        [string appendFormat:@"%d", objc_msgSend(*(*(&v13 + 1) + 8 * v10), "channel")];
         if (v11 < [v5 count])
         {
           [string appendString:{@", "}];
@@ -264,13 +262,11 @@ LABEL_4:
 
       while (v7 != v10);
       v8 += v7;
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return string;
 }
@@ -363,7 +359,7 @@ void __32__WFScanRequest_cScanParameters__block_invoke(uint64_t a1, void *a2)
   return v5 & 1;
 }
 
-unint64_t __45__WFScanRequest__channelListIncludesTwoFour___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__45__WFScanRequest__channelListIncludesTwoFour___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 channel];
   if (result <= 0xC)
@@ -379,9 +375,11 @@ unint64_t __45__WFScanRequest__channelListIncludesTwoFour___block_invoke(uint64_
 {
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    OUTLINED_FUNCTION_4_0(&dword_273ECD000, v2, v3, "Missing SSID for directed scan", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_4_0(&dword_273ECD000, v4, v5, "Missing SSID for directed scan", v6, v7, v8, v9, v10);
   }
 }
 
@@ -389,9 +387,11 @@ unint64_t __45__WFScanRequest__channelListIncludesTwoFour___block_invoke(uint64_
 {
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    OUTLINED_FUNCTION_4_0(&dword_273ECD000, v2, v3, "Missing channel array for scan request", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_4_0(&dword_273ECD000, v4, v5, "Missing channel array for scan request", v6, v7, v8, v9, v10);
   }
 }
 

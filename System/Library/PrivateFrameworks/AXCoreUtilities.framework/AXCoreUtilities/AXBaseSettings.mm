@@ -35,34 +35,33 @@
 
   else
   {
-    memset(v20, 0, sizeof(v20));
+    memset(v19, 0, sizeof(v19));
     selfCopy2 = self;
   }
 
   swift_getObjCClassMetadata();
-  AXBaseSettings.objectValue(forPreferenceKey:of:defaultValue:)(v7, v9, v20, v21);
+  AXBaseSettings.objectValue(forPreferenceKey:of:defaultValue:)(v7, v9, v19, v20);
 
-  sub_19159E780(v20, &unk_1EADB0270, &unk_191672C20);
-  v12 = v22;
-  if (v22)
+  sub_19159E780(v19, &unk_1EADB0270, &unk_191672C20);
+  v12 = v21;
+  if (v21)
   {
-    v13 = __swift_project_boxed_opaque_existential_1(v21, v22);
+    v13 = __swift_project_boxed_opaque_existential_1(v20, v21);
     v14 = *(v12 - 8);
-    v15 = *(v14 + 64);
     MEMORY[0x1EEE9AC00](v13, v13);
-    v17 = v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v14 + 16))(v17);
-    v18 = sub_19166C5D8();
-    (*(v14 + 8))(v17, v12);
-    __swift_destroy_boxed_opaque_existential_1(v21);
+    v16 = v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v14 + 16))(v16);
+    v17 = sub_19166C5D8();
+    (*(v14 + 8))(v16, v12);
+    __swift_destroy_boxed_opaque_existential_1(v20);
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  return v18;
+  return v17;
 }
 
 - (BOOL)forceNewSettingsUsage
@@ -77,55 +76,53 @@
   v4 = sub_19166B748();
   v6 = v5;
   selfCopy = self;
-  AXBaseSettings.value(forPreferenceKey:)(v4, v6, v16);
+  AXBaseSettings.value(forPreferenceKey:)(v4, v6, v15);
 
-  v8 = v17;
-  if (v17)
+  v8 = v16;
+  if (v16)
   {
-    v9 = __swift_project_boxed_opaque_existential_1(v16, v17);
+    v9 = __swift_project_boxed_opaque_existential_1(v15, v16);
     v10 = *(v8 - 8);
-    v11 = *(v10 + 64);
     MEMORY[0x1EEE9AC00](v9, v9);
-    v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v10 + 16))(v13);
-    v14 = sub_19166C5D8();
-    (*(v10 + 8))(v13, v8);
-    __swift_destroy_boxed_opaque_existential_1(v16);
+    v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v10 + 16))(v12);
+    v13 = sub_19166C5D8();
+    (*(v10 + 8))(v12, v8);
+    __swift_destroy_boxed_opaque_existential_1(v15);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
   selfCopy = self;
-  AXBaseSettings.forwardingTarget(for:)(selector, v13);
+  AXBaseSettings.forwardingTarget(for:)(selector, v12);
 
-  v5 = v14;
-  if (v14)
+  v5 = v13;
+  if (v13)
   {
-    v6 = __swift_project_boxed_opaque_existential_1(v13, v14);
+    v6 = __swift_project_boxed_opaque_existential_1(v12, v13);
     v7 = *(v5 - 8);
-    v8 = *(v7 + 64);
     MEMORY[0x1EEE9AC00](v6, v6);
-    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v10);
-    v11 = sub_19166C5D8();
-    (*(v7 + 8))(v10, v5);
-    __swift_destroy_boxed_opaque_existential_1(v13);
+    v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v9);
+    v10 = sub_19166C5D8();
+    (*(v7 + 8))(v9, v5);
+    __swift_destroy_boxed_opaque_existential_1(v12);
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)BOOLValueForPreferenceKey:(id)key defaultValue:(BOOL)value
@@ -157,10 +154,7 @@ uint64_t __76__AXBaseSettings_Legacy__registerUpdateBlock_forPreferenceKey_withL
 
 uint64_t __47__AXBaseSettings_Legacy_valueForPreferenceKey___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) valueForPreferenceKey:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) valueForPreferenceKey:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -194,7 +188,7 @@ uint64_t __50__AXBaseSettings_Legacy__registerForNotification___block_invoke()
 
 void __50__AXBaseSettings_Legacy__registerForNotification___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) registeredPreferenceKeys];
   if (([v2 containsObject:*(a1 + 40)] & 1) == 0)
   {
@@ -204,41 +198,39 @@ void __50__AXBaseSettings_Legacy__registerForNotification___block_invoke_2(uint6
     CFNotificationCenterAddObserver(DarwinNotifyCenter, *(a1 + 32), _axSettingsHandlePreferenceChanged, v3, 0, 1028);
     LocalCenter = CFNotificationCenterGetLocalCenter();
     CFNotificationCenterAddObserver(LocalCenter, *(a1 + 32), _axSettingsHandlePreferenceChanged, v3, 0, 1028);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = [*(a1 + 32) allDomainNamesForPreferenceKey:{*(a1 + 40), 0}];
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [*(a1 + 32) _userDefaultsStoreForDomainName:*(*(&v13 + 1) + 8 * v10)];
+          v11 = [*(a1 + 32) _userDefaultsStoreForDomainName:*(*(&v12 + 1) + 8 * v10)];
           [v11 addObserver:*(a1 + 32) forKeyPath:*(a1 + 40) options:3 context:0];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setForceNewSettingsUsage:(BOOL)usage
@@ -406,32 +398,31 @@ void __50__AXBaseSettings_Legacy__registerForNotification___block_invoke_2(uint6
   else
   {
 
+    v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
   }
 
+  v21 = v19;
   v22 = v20;
-  v23 = v21;
-  v12 = *(&v21 + 1);
-  if (*(&v21 + 1))
+  v12 = *(&v20 + 1);
+  if (*(&v20 + 1))
   {
-    v13 = __swift_project_boxed_opaque_existential_1(&v22, *(&v23 + 1));
-    v14 = *(*(&v21 + 1) - 8);
-    v15 = *(v14 + 64);
+    v13 = __swift_project_boxed_opaque_existential_1(&v21, *(&v22 + 1));
+    v14 = *(*(&v20 + 1) - 8);
     MEMORY[0x1EEE9AC00](v13, v13);
-    v17 = &v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v14 + 16))(v17);
-    v18 = sub_19166C5D8();
-    (*(v14 + 8))(v17, v12);
-    __swift_destroy_boxed_opaque_existential_1(&v22);
+    v16 = &v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v14 + 16))(v16);
+    v17 = sub_19166C5D8();
+    (*(v14 + 8))(v16, v12);
+    __swift_destroy_boxed_opaque_existential_1(&v21);
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  return v18;
+  return v17;
 }
 
 @end

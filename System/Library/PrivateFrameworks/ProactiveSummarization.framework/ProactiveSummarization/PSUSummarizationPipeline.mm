@@ -7,11 +7,9 @@
 
 - (void)processItem:(id)item receivedDate:(id)date positionInReceivedItems:(int64_t)items
 {
-  v8 = sub_231E0F950();
-  v9 = OUTLINED_FUNCTION_24(v8);
-  v11 = v10;
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v9);
+  sub_231E0F950();
+  OUTLINED_FUNCTION_24();
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_162_0();
   sub_231E0F910();
@@ -20,9 +18,8 @@
   OUTLINED_FUNCTION_112_3();
   sub_231DAB414();
 
-  v16 = *(v11 + 8);
-  v17 = OUTLINED_FUNCTION_83();
-  v18(v17);
+  v11 = OUTLINED_FUNCTION_83();
+  v12(v11);
 }
 
 - (void)deleteItemsWithIdentifiers:(id)identifiers bundleId:(id)id

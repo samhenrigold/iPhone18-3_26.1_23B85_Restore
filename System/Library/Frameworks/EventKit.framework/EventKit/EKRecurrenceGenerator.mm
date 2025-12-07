@@ -49,7 +49,7 @@
 
 - (id)copyOccurrenceDatesWithEKEvent:(id)event startDate:(id)date endDate:(id)endDate timeZone:(id)zone exceptionDates:(id)dates limit:(int64_t)limit adjustDatesForAllDayEvents:(BOOL)events
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dateCopy = date;
   endDateCopy = endDate;
@@ -57,27 +57,27 @@
   datesCopy = dates;
   [(EKRecurrenceGenerator *)self _setupForEKEvent:eventCopy adjustDatesForAllDayEvents:events];
   v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:0];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v17 = eventCopy;
   recurrenceRules = [eventCopy recurrenceRules];
-  v19 = [recurrenceRules countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v19 = [recurrenceRules countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v42;
+    v21 = *v41;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v42 != v21)
+        if (*v41 != v21)
         {
           objc_enumerationMutation(recurrenceRules);
         }
 
-        [(EKRecurrenceGenerator *)self _prepareForEKRecurrence:*(*(&v41 + 1) + 8 * i) forCalendarItem:v17];
+        [(EKRecurrenceGenerator *)self _prepareForEKRecurrence:*(*(&v40 + 1) + 8 * i) forCalendarItem:v17];
         v23 = objc_autoreleasePoolPush();
         v24 = [(CalRecurrenceGenerator *)self copyOccurrenceDatesBetweenStartDate:dateCopy endDate:endDateCopy timeZone:zoneCopy limit:limit];
         [v16 addObjectsFromArray:v24];
@@ -85,35 +85,35 @@
         objc_autoreleasePoolPop(v23);
       }
 
-      v20 = [recurrenceRules countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v20 = [recurrenceRules countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v20);
   }
 
   v25 = [(EKRecurrenceGenerator *)self adjustedExceptionDatesFromDates:datesCopy fromGMTToTimeZone:zoneCopy];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v26 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v38;
+    v28 = *v37;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v38 != v28)
+        if (*v37 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        [v16 removeObject:*(*(&v37 + 1) + 8 * j)];
+        [v16 removeObject:*(*(&v36 + 1) + 8 * j)];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v27);
@@ -121,13 +121,12 @@
 
   v30 = [v16 copy];
 
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 - (id)_copyOccurrenceDatesWithEKEvent:(id)event recurrenceRule:(id)rule startDate:(id)date endDate:(id)endDate timeZone:(id)zone exceptionDates:(id)dates limit:(int64_t)limit adjustDatesForAllDayEvents:(BOOL)self0
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   ruleCopy = rule;
   dateCopy = date;
@@ -136,95 +135,94 @@
   datesCopy = dates;
   [(EKRecurrenceGenerator *)self _setupForEKEvent:eventCopy adjustDatesForAllDayEvents:events];
   v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:0];
-  v37 = ruleCopy;
+  v36 = ruleCopy;
   v23 = ruleCopy;
   v24 = dateCopy;
   [(EKRecurrenceGenerator *)self _prepareForEKRecurrence:v23 forCalendarItem:eventCopy];
   context = objc_autoreleasePoolPush();
-  v36 = endDateCopy;
+  v35 = endDateCopy;
   v25 = endDateCopy;
   v26 = datesCopy;
   v27 = [(CalRecurrenceGenerator *)self copyOccurrenceDatesBetweenStartDate:dateCopy endDate:v25 timeZone:zoneCopy limit:limit];
   [v22 addObjectsFromArray:v27];
   v28 = [(EKRecurrenceGenerator *)self adjustedExceptionDatesFromDates:datesCopy fromGMTToTimeZone:zoneCopy];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v29 = [v28 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v39;
+    v31 = *v38;
     do
     {
       v32 = 0;
       do
       {
-        if (*v39 != v31)
+        if (*v38 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        [v22 removeObject:*(*(&v38 + 1) + 8 * v32++)];
+        [v22 removeObject:*(*(&v37 + 1) + 8 * v32++)];
       }
 
       while (v30 != v32);
-      v30 = [v28 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v30);
   }
 
   objc_autoreleasePoolPop(context);
-  v33 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (id)adjustedExceptionDatesFromDates:(id)dates fromGMTToTimeZone:(id)zone
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   datesCopy = dates;
   zoneCopy = zone;
   requiresEndDateConversionFromGMTToEventTimeZone = [(CalRecurrenceGenerator *)self requiresEndDateConversionFromGMTToEventTimeZone];
   if (zoneCopy && requiresEndDateConversionFromGMTToEventTimeZone)
   {
     v9 = [MEMORY[0x1E695DFA8] set];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v19 = datesCopy;
+    v18 = datesCopy;
     obj = datesCopy;
-    v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
-          v15 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:{0, v19}];
+          v14 = *(*(&v20 + 1) + 8 * i);
+          v15 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:{0, v18}];
           [v14 timeIntervalSinceReferenceDate];
           [(CalRecurrenceGenerator *)self convertAbsoluteTime:v15 fromTimeZone:zoneCopy toTimeZone:?];
           v16 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:?];
           [v9 addObject:v16];
         }
 
-        v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
     }
 
-    datesCopy = v19;
+    datesCopy = v18;
   }
 
   else
@@ -232,43 +230,41 @@
     v9 = datesCopy;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (BOOL)isOccurrenceDate:(id)date validForEvent:(id)event
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   eventCopy = event;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   recurrenceRules = [eventCopy recurrenceRules];
-  v9 = [recurrenceRules countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [recurrenceRules countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(recurrenceRules);
         }
 
-        if ([(EKRecurrenceGenerator *)self occurrenceDate:dateCopy matchesRecurrenceRule:*(*(&v16 + 1) + 8 * i) forEvent:eventCopy includeDetachedEventsInSeries:0])
+        if ([(EKRecurrenceGenerator *)self occurrenceDate:dateCopy matchesRecurrenceRule:*(*(&v15 + 1) + 8 * i) forEvent:eventCopy includeDetachedEventsInSeries:0])
         {
           v13 = 1;
           goto LABEL_11;
         }
       }
 
-      v10 = [recurrenceRules countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [recurrenceRules countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -281,7 +277,6 @@
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -358,7 +353,7 @@ LABEL_11:
 
 - (id)nextOccurrenceDateWithEKRecurrences:(id)recurrences forCalendarItem:(id)item exceptionDates:(id)dates initialDate:(id)date afterDate:(id)afterDate inclusive:(BOOL)inclusive
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   recurrencesCopy = recurrences;
   itemCopy = item;
   datesCopy = dates;
@@ -376,29 +371,29 @@ LABEL_11:
   [(CalRecurrenceGenerator *)self setAllDay:0];
   v20 = MEMORY[0x1E69930C8];
   v21 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:1577840000.0];
-  v47 = dateCopy;
+  v46 = dateCopy;
   timeZone2 = [dateCopy timeZone];
-  v48 = [v20 calendarDateWithDate:v21 timeZone:timeZone2];
+  v47 = [v20 calendarDateWithDate:v21 timeZone:timeZone2];
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = recurrencesCopy;
-  v51 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
-  if (v51)
+  v50 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+  if (v50)
   {
-    v50 = *v61;
+    v49 = *v60;
 LABEL_3:
     v23 = 0;
     while (1)
     {
-      if (*v61 != v50)
+      if (*v60 != v49)
       {
         objc_enumerationMutation(obj);
       }
 
-      [(EKRecurrenceGenerator *)self _prepareForEKRecurrence:*(*(&v60 + 1) + 8 * v23) forCalendarItem:itemCopy];
+      [(EKRecurrenceGenerator *)self _prepareForEKRecurrence:*(*(&v59 + 1) + 8 * v23) forCalendarItem:itemCopy];
       v24 = objc_autoreleasePoolPush();
       if (inclusive)
       {
@@ -426,7 +421,7 @@ LABEL_3:
 
       else
       {
-        date4 = [v48 date];
+        date4 = [v47 date];
       }
 
       v34 = [datesCopy count];
@@ -434,29 +429,29 @@ LABEL_3:
       timeZone4 = [afterDateCopy timeZone];
       v37 = [(CalRecurrenceGenerator *)self copyOccurrenceDatesBetweenStartDate:date5 endDate:date4 timeZone:timeZone4 limit:v34 + 1];
 
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       v38 = v37;
-      v39 = [v38 countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v39 = [v38 countByEnumeratingWithState:&v55 objects:v63 count:16];
       if (v39)
       {
-        v54 = v26;
-        v55 = v24;
+        v53 = v26;
+        v54 = v24;
         selfCopy = self;
         v41 = afterDateCopy;
-        v42 = *v57;
+        v42 = *v56;
         while (2)
         {
           for (i = 0; i != v39; i = i + 1)
           {
-            if (*v57 != v42)
+            if (*v56 != v42)
             {
               objc_enumerationMutation(v38);
             }
 
-            v44 = *(*(&v56 + 1) + 8 * i);
+            v44 = *(*(&v55 + 1) + 8 * i);
             if (([datesCopy containsObject:v44] & 1) == 0)
             {
               v39 = v44;
@@ -464,7 +459,7 @@ LABEL_3:
             }
           }
 
-          v39 = [v38 countByEnumeratingWithState:&v56 objects:v64 count:16];
+          v39 = [v38 countByEnumeratingWithState:&v55 objects:v63 count:16];
           if (v39)
           {
             continue;
@@ -476,8 +471,8 @@ LABEL_3:
 LABEL_22:
         afterDateCopy = v41;
         self = selfCopy;
-        v26 = v54;
-        v24 = v55;
+        v26 = v53;
+        v24 = v54;
       }
 
       objc_autoreleasePoolPop(v24);
@@ -486,10 +481,10 @@ LABEL_22:
         break;
       }
 
-      if (++v23 == v51)
+      if (++v23 == v50)
       {
-        v51 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
-        if (v51)
+        v50 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+        if (v50)
         {
           goto LABEL_3;
         }
@@ -504,8 +499,6 @@ LABEL_22:
 LABEL_26:
     v39 = 0;
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return v39;
 }
@@ -746,7 +739,7 @@ LABEL_21:
 
 + (id)_daysOfWeekFromICSRule:(id)rule
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   ruleCopy = rule;
   byday = [ruleCopy byday];
 
@@ -756,26 +749,26 @@ LABEL_21:
     byday2 = [ruleCopy byday];
     v7 = [v5 arrayWithCapacity:{objc_msgSend(byday2, "count")}];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     byday3 = [ruleCopy byday];
-    v9 = [byday3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [byday3 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(byday3);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v20 + 1) + 8 * i);
           v14 = objc_alloc(MEMORY[0x1E6993030]);
           weekday = [v13 weekday];
           number = [v13 number];
@@ -784,7 +777,7 @@ LABEL_21:
           [v7 addObject:v17];
         }
 
-        v10 = [byday3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [byday3 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -797,8 +790,6 @@ LABEL_21:
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

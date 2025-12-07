@@ -42,8 +42,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  uncompressedLength = self->_uncompressedLength;
-  v6 = toCopy;
   PBDataWriterWriteUint64Field();
   if (!self->_compressedData)
   {

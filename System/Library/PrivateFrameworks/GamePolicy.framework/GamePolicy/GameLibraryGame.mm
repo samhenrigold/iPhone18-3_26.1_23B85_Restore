@@ -12,18 +12,16 @@
 {
   if (*(self + OBJC_IVAR____TtC10GamePolicy15GameLibraryGame_bundleID + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC10GamePolicy15GameLibraryGame_bundleID);
-    v3 = *(self + OBJC_IVAR____TtC10GamePolicy15GameLibraryGame_bundleID + 8);
 
-    v4 = sub_24E5D2CB0();
+    v2 = sub_24E5D2CB0();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)encodeWithCoder:(id)coder

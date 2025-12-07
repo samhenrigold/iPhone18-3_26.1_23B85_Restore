@@ -66,7 +66,7 @@
 
 - (id)removeAllAssociatedSyncedData
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   home = [(HMDPersonCoreDataManager *)self home];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -78,7 +78,7 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v8;
+      v25 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing all associated synced data", buf, 0xCu);
     }
 
@@ -90,16 +90,16 @@
     v13 = [v9 reschedule:v12];
 
     context = [(HMDPersonCoreDataManager *)selfCopy context];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke;
-    v23[3] = &unk_27868A750;
-    v23[4] = selfCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke;
+    v22[3] = &unk_27868A750;
+    v22[4] = selfCopy;
     v15 = v13;
-    v24 = v15;
-    [context performBlock:v23];
+    v23 = v15;
+    [context performBlock:v22];
 
-    v16 = v24;
+    v16 = v23;
     v17 = v15;
 
     v18 = v17;
@@ -111,7 +111,7 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v19;
+      v25 = v19;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while removing all associated synced data", buf, 0xCu);
     }
 
@@ -121,35 +121,33 @@
     v18 = [v20 futureWithError:v17];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v2 = [*(a1 + 32) mkfPersons];
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v19;
     do
     {
       v6 = 0;
       do
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * v6);
+        v7 = *(*(&v18 + 1) + 8 * v6);
         v8 = [*(a1 + 32) context];
         v9 = [v8 managedObjectContext];
         [v9 deleteObject:v7];
@@ -158,16 +156,16 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v4);
   }
 
   v10 = [*(a1 + 32) context];
-  v18 = 0;
-  v11 = [v10 save:&v18];
-  v12 = v18;
+  v17 = 0;
+  v11 = [v10 save:&v17];
+  v12 = v17;
 
   if (v11)
   {
@@ -183,22 +181,20 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v16;
-      v25 = 2112;
-      v26 = v12;
+      v23 = v16;
+      v24 = 2112;
+      v25 = v12;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove all associated data: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     [*(a1 + 40) finishWithError:v12];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleManagedObjectContextDidSaveNotification:(id)notification
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -216,33 +212,33 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
 
   if (v7 && [(HMDPersonCoreDataManager *)self isRelevantManagedObjectContext:v7])
   {
-    v75 = v7;
-    v80 = [MEMORY[0x277CBEB58] set];
-    v78 = [MEMORY[0x277CBEB58] set];
-    v76 = notificationCopy;
+    v74 = v7;
+    v79 = [MEMORY[0x277CBEB58] set];
+    v77 = [MEMORY[0x277CBEB58] set];
+    v75 = notificationCopy;
     userInfo = [notificationCopy userInfo];
     v9 = [userInfo hmf_setForKey:*MEMORY[0x277CBE188]];
 
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
     v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
     obj = v9;
-    v10 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
+    v10 = [obj countByEnumeratingWithState:&v89 objects:v98 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v91;
+      v12 = *v90;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v91 != v12)
+          if (*v90 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v90 + 1) + 8 * i);
+          v14 = *(*(&v89 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -265,15 +261,15 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
             {
               v20 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v96 = v20;
-              v97 = 2112;
-              v98 = v16;
+              v95 = v20;
+              v96 = 2112;
+              v97 = v16;
               _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Received notification about inserted person: %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v17);
             createHMPerson = [v16 createHMPerson];
-            [v80 addObject:createHMPerson];
+            [v79 addObject:createHMPerson];
           }
 
           else
@@ -301,49 +297,49 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
               {
                 v27 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v96 = v27;
-                v97 = 2112;
-                v98 = createHMPerson;
+                v95 = v27;
+                v96 = 2112;
+                v97 = createHMPerson;
                 _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Received notification about inserted faceprint: %@", buf, 0x16u);
               }
 
               objc_autoreleasePoolPop(v24);
               createHMFaceprint = [createHMPerson createHMFaceprint];
-              [v78 addObject:createHMFaceprint];
+              [v77 addObject:createHMFaceprint];
             }
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
+        v11 = [obj countByEnumeratingWithState:&v89 objects:v98 count:16];
       }
 
       while (v11);
     }
 
-    userInfo2 = [v76 userInfo];
+    userInfo2 = [v75 userInfo];
     v30 = [userInfo2 hmf_setForKey:*MEMORY[0x277CBE310]];
 
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
     v87 = 0u;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
     v31 = v30;
-    v32 = [v31 countByEnumeratingWithState:&v86 objects:v94 count:16];
-    v77 = v31;
+    v32 = [v31 countByEnumeratingWithState:&v85 objects:v93 count:16];
+    v76 = v31;
     if (v32)
     {
       v33 = v32;
-      v34 = *v87;
+      v34 = *v86;
       do
       {
         for (j = 0; j != v33; ++j)
         {
-          if (*v87 != v34)
+          if (*v86 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v36 = *(*(&v86 + 1) + 8 * j);
+          v36 = *(*(&v85 + 1) + 8 * j);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -366,15 +362,15 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
             {
               v42 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v96 = v42;
-              v97 = 2112;
-              v98 = v38;
+              v95 = v42;
+              v96 = 2112;
+              v97 = v38;
               _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Received notification about updated person: %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v39);
             createHMPerson2 = [v38 createHMPerson];
-            [v80 addObject:createHMPerson2];
+            [v79 addObject:createHMPerson2];
           }
 
           else
@@ -402,33 +398,33 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
               {
                 v49 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v96 = v49;
-                v97 = 2112;
-                v98 = createHMPerson2;
+                v95 = v49;
+                v96 = 2112;
+                v97 = createHMPerson2;
                 _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_INFO, "%{public}@Received notification about updated faceprint: %@", buf, 0x16u);
 
-                v31 = v77;
+                v31 = v76;
               }
 
               objc_autoreleasePoolPop(v46);
               createHMFaceprint2 = [createHMPerson2 createHMFaceprint];
-              [v78 addObject:createHMFaceprint2];
+              [v77 addObject:createHMFaceprint2];
             }
           }
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v86 objects:v94 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v85 objects:v93 count:16];
       }
 
       while (v33);
     }
 
-    v7 = v75;
-    userInfo3 = [v75 userInfo];
+    v7 = v74;
+    userInfo3 = [v74 userInfo];
     deletedPersonUUIDsUserInfoKey = [(HMDPersonCoreDataManager *)self deletedPersonUUIDsUserInfoKey];
     v53 = [userInfo3 objectForKeyedSubscript:deletedPersonUUIDsUserInfoKey];
 
-    userInfo4 = [v75 userInfo];
+    userInfo4 = [v74 userInfo];
     deletedPersonUUIDsUserInfoKey2 = [(HMDPersonCoreDataManager *)self deletedPersonUUIDsUserInfoKey];
     [userInfo4 setObject:0 forKeyedSubscript:deletedPersonUUIDsUserInfoKey2];
 
@@ -441,20 +437,20 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
       {
         v59 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v96 = v59;
-        v97 = 2112;
-        v98 = v53;
+        v95 = v59;
+        v96 = 2112;
+        v97 = v53;
         _os_log_impl(&dword_229538000, v58, OS_LOG_TYPE_INFO, "%{public}@Received notification about deleted person UUIDs: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v56);
     }
 
-    userInfo5 = [v75 userInfo];
+    userInfo5 = [v74 userInfo];
     deletedFaceprintUUIDsUserInfoKey = [(HMDPersonCoreDataManager *)self deletedFaceprintUUIDsUserInfoKey];
     v62 = [userInfo5 objectForKeyedSubscript:deletedFaceprintUUIDsUserInfoKey];
 
-    userInfo6 = [v75 userInfo];
+    userInfo6 = [v74 userInfo];
     deletedFaceprintUUIDsUserInfoKey2 = [(HMDPersonCoreDataManager *)self deletedFaceprintUUIDsUserInfoKey];
     [userInfo6 setObject:0 forKeyedSubscript:deletedFaceprintUUIDsUserInfoKey2];
 
@@ -467,9 +463,9 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
       {
         v68 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v96 = v68;
-        v97 = 2112;
-        v98 = v62;
+        v95 = v68;
+        v96 = 2112;
+        v97 = v62;
         _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_INFO, "%{public}@Received notification about deleted faceprint UUIDs: %@", buf, 0x16u);
       }
 
@@ -482,20 +478,18 @@ void __57__HMDPersonCoreDataManager_removeAllAssociatedSyncedData__block_invoke(
     block[2] = __74__HMDPersonCoreDataManager_handleManagedObjectContextDidSaveNotification___block_invoke;
     block[3] = &unk_278689550;
     block[4] = self;
-    v82 = v80;
-    v83 = v53;
-    v84 = v78;
-    v85 = v62;
+    v81 = v79;
+    v82 = v53;
+    v83 = v77;
+    v84 = v62;
     v70 = v62;
-    v71 = v78;
+    v71 = v77;
     v72 = v53;
-    v73 = v80;
+    v73 = v79;
     dispatch_async(workQueue, block);
 
-    notificationCopy = v76;
+    notificationCopy = v75;
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDPersonCoreDataManager_handleManagedObjectContextDidSaveNotification___block_invoke(id *a1)
@@ -527,7 +521,7 @@ void __74__HMDPersonCoreDataManager_handleManagedObjectContextDidSaveNotificatio
 
 - (void)handleManagedObjectContextWillSaveNotification:(id)notification
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -546,20 +540,20 @@ void __74__HMDPersonCoreDataManager_handleManagedObjectContextDidSaveNotificatio
   if (v7 && [(HMDPersonCoreDataManager *)self isRelevantManagedObjectContext:v7])
   {
     deletedObjects = [v7 deletedObjects];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification___block_invoke;
-    v28[3] = &unk_2786878A8;
-    v28[4] = self;
-    v9 = [deletedObjects na_map:v28];
-
-    deletedObjects2 = [v7 deletedObjects];
     v27[0] = MEMORY[0x277D85DD0];
     v27[1] = 3221225472;
-    v27[2] = __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification___block_invoke_2;
+    v27[2] = __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification___block_invoke;
     v27[3] = &unk_2786878A8;
     v27[4] = self;
-    v11 = [deletedObjects2 na_map:v27];
+    v9 = [deletedObjects na_map:v27];
+
+    deletedObjects2 = [v7 deletedObjects];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification___block_invoke_2;
+    v26[3] = &unk_2786878A8;
+    v26[4] = self;
+    v11 = [deletedObjects2 na_map:v26];
 
     if ([v9 count])
     {
@@ -570,9 +564,9 @@ void __74__HMDPersonCoreDataManager_handleManagedObjectContextDidSaveNotificatio
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v15;
-        v31 = 2112;
-        v32 = v9;
+        v29 = v15;
+        v30 = 2112;
+        v31 = v9;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Received notification of impending delete for person UUIDs: %@", buf, 0x16u);
       }
 
@@ -598,9 +592,9 @@ void __74__HMDPersonCoreDataManager_handleManagedObjectContextDidSaveNotificatio
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v22;
-        v31 = 2112;
-        v32 = v11;
+        v29 = v22;
+        v30 = 2112;
+        v31 = v11;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Received notification of impending delete for faceprint UUIDs: %@", buf, 0x16u);
       }
 
@@ -617,8 +611,6 @@ void __74__HMDPersonCoreDataManager_handleManagedObjectContextDidSaveNotificatio
     deletedFaceprintUUIDsUserInfoKey = [(HMDPersonCoreDataManager *)self deletedFaceprintUUIDsUserInfoKey];
     [userInfo2 setObject:v23 forKeyedSubscript:deletedFaceprintUUIDsUserInfoKey];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 id __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification___block_invoke(uint64_t a1, void *a2)
@@ -679,7 +671,7 @@ id __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification
 
 - (id)removeAllAssociatedLocalData
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   home = [(HMDPersonCoreDataManager *)self home];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -691,7 +683,7 @@ id __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v8;
+      v25 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing all associated local data", buf, 0xCu);
     }
 
@@ -703,16 +695,16 @@ id __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification
     v13 = [v9 reschedule:v12];
 
     context = [(HMDPersonCoreDataManager *)selfCopy context];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke;
-    v23[3] = &unk_27868A750;
-    v23[4] = selfCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke;
+    v22[3] = &unk_27868A750;
+    v22[4] = selfCopy;
     v15 = v13;
-    v24 = v15;
-    [context performBlock:v23];
+    v23 = v15;
+    [context performBlock:v22];
 
-    v16 = v24;
+    v16 = v23;
     v17 = v15;
 
     v18 = v17;
@@ -724,7 +716,7 @@ id __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v19;
+      v25 = v19;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while removing all associated local data", buf, 0xCu);
     }
 
@@ -734,25 +726,23 @@ id __75__HMDPersonCoreDataManager_handleManagedObjectContextWillSaveNotification
     v18 = [v20 futureWithError:v17];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 void __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke_2;
-  v12[3] = &unk_278687880;
-  v12[4] = v2;
-  [v2 enumerateMKFFaceprintsForFaceCropsWithUUIDs:0 usingBlock:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke_2;
+  v11[3] = &unk_278687880;
+  v11[4] = v2;
+  [v2 enumerateMKFFaceprintsForFaceCropsWithUUIDs:0 usingBlock:v11];
   v3 = [*(a1 + 32) context];
-  v11 = 0;
-  v4 = [v3 save:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [v3 save:&v10];
+  v5 = v10;
 
   if (v4)
   {
@@ -768,17 +758,15 @@ void __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke(u
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v5;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v5;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove all associated local data: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     [*(a1 + 40) finishWithError:v5];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke_2(uint64_t a1, void *a2)
@@ -791,7 +779,7 @@ void __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke_2
 
 - (BOOL)isRelevantFaceprint:(id)faceprint
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   faceprintCopy = faceprint;
   home = [(HMDPersonCoreDataManager *)self home];
   if (home)
@@ -841,22 +829,21 @@ void __56__HMDPersonCoreDataManager_removeAllAssociatedLocalData__block_invoke_2
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while checking if faceprint was relevant", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while checking if faceprint was relevant", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)isRelevantPerson:(id)person
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   personCopy = person;
   home = [(HMDPersonCoreDataManager *)self home];
   if (home)
@@ -902,13 +889,13 @@ LABEL_26:
         {
           v26 = HMFGetLogIdentifier();
           v27 = [v9 debugDescription];
-          v31 = 138543618;
-          v32 = v26;
-          v33 = 2112;
-          v34 = v27;
+          v30 = 138543618;
+          v31 = v26;
+          v32 = 2112;
+          v33 = v27;
           v28 = "%{public}@User relationship is nil for photos person checked for relevance: %@";
 LABEL_24:
-          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, v28, &v31, 0x16u);
+          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, v28, &v30, 0x16u);
 
           goto LABEL_25;
         }
@@ -951,10 +938,10 @@ LABEL_24:
         {
           v26 = HMFGetLogIdentifier();
           v27 = [v9 debugDescription];
-          v31 = 138543618;
-          v32 = v26;
-          v33 = 2112;
-          v34 = v27;
+          v30 = 138543618;
+          v31 = v26;
+          v32 = 2112;
+          v33 = v27;
           v28 = "%{public}@Home relationship is nil for home person checked for relevance: %@";
           goto LABEL_24;
         }
@@ -979,22 +966,21 @@ LABEL_27:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     v17 = HMFGetLogIdentifier();
-    v31 = 138543362;
-    v32 = v17;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while checking if person was relevant", &v31, 0xCu);
+    v30 = 138543362;
+    v31 = v17;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while checking if person was relevant", &v30, 0xCu);
   }
 
   objc_autoreleasePoolPop(v14);
   v18 = 0;
 LABEL_28:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)isRelevantManagedObjectContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   home = [(HMDPersonCoreDataManager *)self home];
   v6 = home;
@@ -1006,9 +992,9 @@ LABEL_28:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while checking if managed object context was relevant", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while checking if managed object context was relevant", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -1032,13 +1018,12 @@ LABEL_7:
   v13 = [name isEqualToString:v12];
 
 LABEL_8:
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)shouldDispatchToPrimaryResident
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   home = [(HMDPersonCoreDataManager *)self home];
   v4 = home;
   if (!home)
@@ -1049,9 +1034,9 @@ LABEL_8:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while checking we should dispatch to primary resident", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while checking we should dispatch to primary resident", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1077,13 +1062,12 @@ LABEL_8:
   }
 
 LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
   return isOwnerUser;
 }
 
 - (void)enumerateMKFFaceprintsForFaceCropsWithUUIDs:(id)ds usingBlock:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   blockCopy = block;
   context = [(HMDPersonCoreDataManager *)self context];
@@ -1102,27 +1086,27 @@ LABEL_11:
       userUUID2 = [(HMDPersonCoreDataManager *)self userUUID];
       if (dsCopy)
       {
-        v32 = dsCopy;
+        v31 = dsCopy;
         v14 = @"user.modelID";
 LABEL_10:
-        [v12 predicateWithFormat:@"(%K == %@) && (%K IN %@)", v14, userUUID2, @"faceCropUUID", v32];
+        [v12 predicateWithFormat:@"(%K == %@) && (%K IN %@)", v14, userUUID2, @"faceCropUUID", v31];
         v20 = LABEL_14:;
         [v10 setPredicate:v20];
 
         context2 = [(HMDPersonCoreDataManager *)self context];
         managedObjectContext = [context2 managedObjectContext];
-        v35 = 0;
-        v23 = [managedObjectContext executeFetchRequest:v10 error:&v35];
-        v24 = v35;
+        v34 = 0;
+        v23 = [managedObjectContext executeFetchRequest:v10 error:&v34];
+        v24 = v34;
 
         if (v23)
         {
-          v33[0] = MEMORY[0x277D85DD0];
-          v33[1] = 3221225472;
-          v33[2] = __83__HMDPersonCoreDataManager_enumerateMKFFaceprintsForFaceCropsWithUUIDs_usingBlock___block_invoke;
-          v33[3] = &unk_278687858;
-          v34 = blockCopy;
-          [v23 hmf_enumerateWithAutoreleasePoolUsingBlock:v33];
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v32[2] = __83__HMDPersonCoreDataManager_enumerateMKFFaceprintsForFaceCropsWithUUIDs_usingBlock___block_invoke;
+          v32[3] = &unk_278687858;
+          v33 = blockCopy;
+          [v23 hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
         }
 
         else
@@ -1134,9 +1118,9 @@ LABEL_10:
           {
             v28 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v37 = v28;
-            v38 = 2112;
-            v39 = v24;
+            v36 = v28;
+            v37 = 2112;
+            v38 = v24;
             _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to execute fetch request for enumerating faceprints: %@", buf, 0x16u);
           }
 
@@ -1154,7 +1138,7 @@ LABEL_10:
       userUUID2 = [home uuid];
       if (dsCopy)
       {
-        v32 = dsCopy;
+        v31 = dsCopy;
         v14 = @"home.modelID";
         goto LABEL_10;
       }
@@ -1162,7 +1146,7 @@ LABEL_10:
       v19 = @"home.modelID";
     }
 
-    [v12 predicateWithFormat:@"(%K == %@)", v19, userUUID2, v30, v31];
+    [v12 predicateWithFormat:@"(%K == %@)", v19, userUUID2, v29, v30];
     goto LABEL_14;
   }
 
@@ -1173,19 +1157,17 @@ LABEL_10:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v18;
+    v36 = v18;
     _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while enumerating faceprints", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
 LABEL_20:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertOrUpdateFaceprintUsingFaceprint:(id)faceprint
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   faceprintCopy = faceprint;
   context = [(HMDPersonCoreDataManager *)self context];
   [context assertIsExecuting];
@@ -1240,15 +1222,13 @@ LABEL_20:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v23;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while inserting / updating faceprint", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v23;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while inserting / updating faceprint", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)personModelWithModelID:(id)d
@@ -1306,7 +1286,7 @@ LABEL_10:
 
 - (id)personWithModelID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   context = [(HMDPersonCoreDataManager *)self context];
   [context assertIsExecuting];
@@ -1351,23 +1331,21 @@ LABEL_11:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     v12 = HMFGetLogIdentifier();
-    v20 = 138543362;
-    v21 = v12;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while fetching person with model ID", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = v12;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while fetching person with model ID", &v19, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
   createHMPerson = 0;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return createHMPerson;
 }
 
 - (void)insertOrUpdatePersonUsingPerson:(id)person
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   personCopy = person;
   context = [(HMDPersonCoreDataManager *)self context];
   [context assertIsExecuting];
@@ -1471,20 +1449,18 @@ LABEL_14:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     v23 = HMFGetLogIdentifier();
-    v44 = 138543362;
-    v45 = v23;
-    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while inserting / updating person", &v44, 0xCu);
+    v43 = 138543362;
+    v44 = v23;
+    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while inserting / updating person", &v43, 0xCu);
   }
 
   objc_autoreleasePoolPop(v20);
 LABEL_15:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mkfPersons
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   context = [(HMDPersonCoreDataManager *)self context];
   [context assertIsExecuting];
 
@@ -1536,16 +1512,14 @@ LABEL_15:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while fetching all persons", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while fetching all persons", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     v15 = [MEMORY[0x277CBEB98] set];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1596,7 +1570,7 @@ LABEL_15:
 
 - (id)addOrUpdateFaceprints:(id)faceprints andRemoveFaceprintsWithUUIDs:(id)ds
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   faceprintsCopy = faceprints;
   dsCopy = ds;
   home = [(HMDPersonCoreDataManager *)self home];
@@ -1609,18 +1583,18 @@ LABEL_15:
     v13 = [v9 reschedule:v12];
 
     context = [(HMDPersonCoreDataManager *)self context];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __79__HMDPersonCoreDataManager_addOrUpdateFaceprints_andRemoveFaceprintsWithUUIDs___block_invoke;
-    v26[3] = &unk_2786891E0;
-    v27 = faceprintsCopy;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __79__HMDPersonCoreDataManager_addOrUpdateFaceprints_andRemoveFaceprintsWithUUIDs___block_invoke;
+    v25[3] = &unk_2786891E0;
+    v26 = faceprintsCopy;
     selfCopy = self;
-    v29 = dsCopy;
+    v28 = dsCopy;
     v15 = v13;
-    v30 = v15;
-    [context performBlock:v26];
+    v29 = v15;
+    [context performBlock:v25];
 
-    v16 = v30;
+    v16 = v29;
     v17 = v15;
 
     v18 = v17;
@@ -1635,7 +1609,7 @@ LABEL_15:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v22;
+      v31 = v22;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while adding or updating faceprints", buf, 0xCu);
     }
 
@@ -1645,70 +1619,68 @@ LABEL_15:
     v18 = [v23 futureWithError:v17];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 void __79__HMDPersonCoreDataManager_addOrUpdateFaceprints_andRemoveFaceprintsWithUUIDs___block_invoke(id *a1)
 {
   v1 = a1;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v2 = a1[4];
-  v3 = [v2 countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v41;
+    v5 = *v40;
     do
     {
       v6 = 0;
       do
       {
-        if (*v41 != v5)
+        if (*v40 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [v1[5] insertOrUpdateFaceprintUsingFaceprint:*(*(&v40 + 1) + 8 * v6++)];
+        [v1[5] insertOrUpdateFaceprintUsingFaceprint:*(*(&v39 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v4);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = v1[6];
-  v7 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+  v7 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v37;
+    v10 = *v36;
     p_cache = &OBJC_METACLASS___HMDAccessCodeManagerUtilities.cache;
     *&v8 = 138543618;
-    v32 = v8;
-    v33 = v1;
+    v31 = v8;
+    v32 = v1;
     do
     {
       v12 = 0;
       do
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * v12);
+        v13 = *(*(&v35 + 1) + 8 * v12);
         v14 = [v1[5] context];
         v15 = [v14 managedObjectContext];
         v16 = [p_cache + 383 modelWithModelID:v13 context:v15];
@@ -1729,14 +1701,14 @@ void __79__HMDPersonCoreDataManager_addOrUpdateFaceprints_andRemoveFaceprintsWit
           {
             HMFGetLogIdentifier();
             v23 = v22 = p_cache;
-            *buf = v32;
-            v45 = v23;
-            v46 = 2112;
-            v47 = v13;
+            *buf = v31;
+            v44 = v23;
+            v45 = 2112;
+            v46 = v13;
             _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Not removing faceprint that cannot be found for UUID: %@", buf, 0x16u);
 
             p_cache = v22;
-            v1 = v33;
+            v1 = v32;
           }
 
           objc_autoreleasePoolPop(v19);
@@ -1746,16 +1718,16 @@ void __79__HMDPersonCoreDataManager_addOrUpdateFaceprints_andRemoveFaceprintsWit
       }
 
       while (v9 != v12);
-      v9 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v9 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
     }
 
     while (v9);
   }
 
   v24 = [v1[5] context];
-  v35 = 0;
-  v25 = [v24 save:&v35];
-  v26 = v35;
+  v34 = 0;
+  v25 = [v24 save:&v34];
+  v26 = v34;
 
   if (v25)
   {
@@ -1771,17 +1743,15 @@ void __79__HMDPersonCoreDataManager_addOrUpdateFaceprints_andRemoveFaceprintsWit
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v30;
-      v46 = 2112;
-      v47 = v26;
+      v44 = v30;
+      v45 = 2112;
+      v46 = v26;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to add or update faceprints: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v27);
     [v1[7] finishWithError:v26];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateFaceprintsForFaceCropsWithUUIDs:(id)ds usingBlock:(id)block
@@ -1862,7 +1832,7 @@ void __58__HMDPersonCoreDataManager_enumerateFaceprintsUsingBlock___block_invoke
 
 - (id)addOrUpdatePersons:(id)persons andRemovePersonsWithUUIDs:(id)ds
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   personsCopy = persons;
   dsCopy = ds;
   home = [(HMDPersonCoreDataManager *)self home];
@@ -1875,7 +1845,7 @@ void __58__HMDPersonCoreDataManager_enumerateFaceprintsUsingBlock___block_invoke
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v14;
+      v32 = v14;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil while adding or updating persons", buf, 0xCu);
     }
 
@@ -1903,22 +1873,21 @@ LABEL_7:
   v21 = [v17 reschedule:v20];
 
   context = [(HMDPersonCoreDataManager *)self context];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __73__HMDPersonCoreDataManager_addOrUpdatePersons_andRemovePersonsWithUUIDs___block_invoke;
-  v27[3] = &unk_2786891E0;
-  v28 = personsCopy;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __73__HMDPersonCoreDataManager_addOrUpdatePersons_andRemovePersonsWithUUIDs___block_invoke;
+  v26[3] = &unk_2786891E0;
+  v27 = personsCopy;
   selfCopy2 = self;
-  v30 = dsCopy;
+  v29 = dsCopy;
   v23 = v21;
-  v31 = v23;
-  [context performBlock:v27];
+  v30 = v23;
+  [context performBlock:v26];
 
-  v24 = v31;
+  v24 = v30;
   v16 = v23;
 
 LABEL_9:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1926,56 +1895,56 @@ LABEL_9:
 void __73__HMDPersonCoreDataManager_addOrUpdatePersons_andRemovePersonsWithUUIDs___block_invoke(id *a1)
 {
   v1 = a1;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v2 = a1[4];
-  v3 = [v2 countByEnumeratingWithState:&v37 objects:v46 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v36 objects:v45 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v38;
+    v5 = *v37;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v38 != v5)
+        if (*v37 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [v1[5] insertOrUpdatePersonUsingPerson:*(*(&v37 + 1) + 8 * i)];
+        [v1[5] insertOrUpdatePersonUsingPerson:*(*(&v36 + 1) + 8 * i)];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v36 objects:v45 count:16];
     }
 
     while (v4);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v7 = v1[6];
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v45 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v44 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v34;
-    v31 = v1;
+    v10 = *v33;
+    v30 = v1;
     do
     {
       for (j = 0; j != v9; ++j)
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * j);
+        v12 = *(*(&v32 + 1) + 8 * j);
         v13 = [v1[5] personModelWithModelID:v12];
         if (v13)
         {
@@ -1996,31 +1965,31 @@ void __73__HMDPersonCoreDataManager_addOrUpdatePersons_andRemovePersonsWithUUIDs
             v20 = v10;
             v22 = v21 = v7;
             *buf = 138543618;
-            v42 = v22;
-            v43 = 2112;
-            v44 = v12;
+            v41 = v22;
+            v42 = 2112;
+            v43 = v12;
             _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Not removing person that cannot be found for UUID: %@", buf, 0x16u);
 
             v7 = v21;
             v10 = v20;
             v9 = v19;
-            v1 = v31;
+            v1 = v30;
           }
 
           objc_autoreleasePoolPop(v16);
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v32 objects:v44 count:16];
     }
 
     while (v9);
   }
 
   v23 = [v1[5] context];
-  v32 = 0;
-  v24 = [v23 save:&v32];
-  v25 = v32;
+  v31 = 0;
+  v24 = [v23 save:&v31];
+  v25 = v31;
 
   if (v24)
   {
@@ -2036,17 +2005,15 @@ void __73__HMDPersonCoreDataManager_addOrUpdatePersons_andRemovePersonsWithUUIDs
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v29;
-      v43 = 2112;
-      v44 = v25;
+      v41 = v29;
+      v42 = 2112;
+      v43 = v25;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to add or update persons: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v26);
     [v1[7] finishWithError:v25];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumeratePersonsUsingBlock:(id)block
@@ -2155,12 +2122,12 @@ void __43__HMDPersonCoreDataManager_personWithUUID___block_invoke(uint64_t a1)
   if (v20)
   {
     objc_storeStrong(&v20->_workQueue, queue);
-    v22 = [dCopy copy];
+    v22 = objc_msgSend_copy(dCopy, contextCopy, queueCopy);
     UUID = v21->_UUID;
     v21->_UUID = v22;
 
     objc_storeWeak(&v21->_home, homeCopy);
-    v24 = [iDCopy copy];
+    v24 = objc_msgSend_copy(iDCopy);
     userUUID = v21->_userUUID;
     v21->_userUUID = v24;
 
@@ -2206,10 +2173,9 @@ void __43__HMDPersonCoreDataManager_personWithUUID___block_invoke(uint64_t a1)
 
 void __39__HMDPersonCoreDataManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v43_264246;
-  logCategory__hmf_once_v43_264246 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v43_264246;
+  logCategory__hmf_once_v43_264246 = v0;
 }
 
 @end

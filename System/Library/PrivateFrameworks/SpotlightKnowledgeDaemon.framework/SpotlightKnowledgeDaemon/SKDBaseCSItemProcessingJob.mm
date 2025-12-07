@@ -9,31 +9,31 @@
 
 - (id)itemRecordForUniqueID:(id)d bundleID:(id)iD attributeProviderBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   blockCopy = block;
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   fetchAttributes = [(SKDBaseItemProcessingJob *)self fetchAttributes];
-  v11 = [fetchAttributes countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [fetchAttributes countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(fetchAttributes);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
+        v15 = *(*(&v28 + 1) + 8 * i);
         if (([&unk_2846E8100 containsObject:{v15, iDCopy}] & 1) == 0)
         {
           v16 = blockCopy[2](blockCopy, v15);
@@ -44,7 +44,7 @@
         }
       }
 
-      v12 = [fetchAttributes countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v12 = [fetchAttributes countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v12);
@@ -68,8 +68,6 @@
   }
 
   v24 = [[SKDCSItemRecord alloc] initWithUniqueID:dCopy bundleID:iDCopy attributes:v9];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -137,58 +135,58 @@
 
 - (id)attributeSetForItemUpdate:(id)update
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   attributes = [update attributes];
   if ([attributes count])
   {
     v5 = objc_alloc_init(MEMORY[0x277CC34B8]);
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     obj = [(SKDBaseJob *)self pipelines];
-    v21 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-    if (v21)
+    v20 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v20)
     {
-      v20 = *v32;
-      v26 = *MEMORY[0x277CC2FC8];
-      v25 = *MEMORY[0x277CC30E0];
-      v24 = *MEMORY[0x277CC2A90];
-      v23 = *MEMORY[0x277CC2AD8];
+      v19 = *v31;
+      v25 = *MEMORY[0x277CC2FC8];
+      v24 = *MEMORY[0x277CC30E0];
+      v23 = *MEMORY[0x277CC2A90];
+      v22 = *MEMORY[0x277CC2AD8];
       do
       {
         v7 = 0;
         do
         {
-          if (*v32 != v20)
+          if (*v31 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = v7;
-          v8 = *(*(&v31 + 1) + 8 * v7);
+          v21 = v7;
+          v8 = *(*(&v30 + 1) + 8 * v7);
           errorAttribute = [v8 errorAttribute];
+          v26 = 0u;
           v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
           processedAttributes = [v8 processedAttributes];
-          v11 = [processedAttributes countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v11 = [processedAttributes countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v28;
+            v13 = *v27;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v28 != v13)
+                if (*v27 != v13)
                 {
                   objc_enumerationMutation(processedAttributes);
                 }
 
-                v15 = *(*(&v27 + 1) + 8 * i);
+                v15 = *(*(&v26 + 1) + 8 * i);
                 v16 = [attributes objectForKeyedSubscript:v15];
                 if (v16 && ([v6 containsObject:v15] & 1) == 0)
                 {
@@ -197,22 +195,22 @@
                     [v5 incrementAttributeValue:&unk_2846E79B0 forKey:errorAttribute];
                   }
 
-                  else if ([v15 isEqualToString:v26])
+                  else if ([v15 isEqualToString:v25])
                   {
                     [v5 setPrimaryTextEmbedding:v16];
                   }
 
-                  else if ([v15 isEqualToString:v25])
+                  else if ([v15 isEqualToString:v24])
                   {
                     [v5 setSecondaryTextEmbedding:v16];
                   }
 
-                  else if ([v15 isEqualToString:v24])
+                  else if ([v15 isEqualToString:v23])
                   {
                     [v5 setExtractedAddresses:v16];
                   }
 
-                  else if ([v15 isEqualToString:v23])
+                  else if ([v15 isEqualToString:v22])
                   {
                     [v5 setExtractedLinks:v16];
                   }
@@ -226,20 +224,20 @@
                 }
               }
 
-              v12 = [processedAttributes countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v12 = [processedAttributes countByEnumeratingWithState:&v26 objects:v34 count:16];
             }
 
             while (v12);
           }
 
-          v7 = v22 + 1;
+          v7 = v21 + 1;
         }
 
-        while (v22 + 1 != v21);
-        v21 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        while (v21 + 1 != v20);
+        v20 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
-      while (v21);
+      while (v20);
     }
   }
 
@@ -247,8 +245,6 @@
   {
     v5 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

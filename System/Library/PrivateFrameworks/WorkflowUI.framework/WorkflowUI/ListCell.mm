@@ -9,13 +9,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_27487CE80();
+  sub_27487CE80(selfCopy);
 }
 
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_27487CF8C();
+  sub_27487CF8C(selfCopy);
 }
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state

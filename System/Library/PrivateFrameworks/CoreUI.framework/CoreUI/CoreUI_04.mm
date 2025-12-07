@@ -1,6 +1,6 @@
-void sub_18DFB1340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18DFB1340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Unwind_Resume(a1);
 }
 
@@ -92,91 +92,91 @@ BOOL RB::Path::ClipStroke::Transform::make_keyframes(float32x2_t *a1, uint64_t a
   return result;
 }
 
-void RB::Path::ClipStroke::Transform::Clipper::run(RB::Path::ClipStroke::Transform::Clipper *this, double a2, double a3, double a4, double a5, double a6, float64x2_t a7, float64x2_t a8)
+void RB::Path::ClipStroke::Transform::Clipper::run(uint64_t this, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7, double a8, double a9, float64x2_t a10, float64x2_t a11)
 {
-  v9 = *(this + 14);
-  v10 = *(this + 11);
-  v11 = *(this + 2);
-  v12 = *v11;
-  *&v38[0].v = *v11;
-  v13 = *(v11 + 24);
-  while (v13 < *(v11 + 32))
+  v12 = *(this + 112);
+  v13 = *(this + 88);
+  v14 = *(this + 16);
+  v15 = *v14;
+  *&v44[0].v = *v14;
+  v16 = *(v14 + 24);
+  while (v16 < *(v14 + 32))
   {
-    v14 = *v13;
-    switch(v14)
+    v17 = *v16;
+    switch(v17)
     {
       case 4:
-        v19 = *(v13 + 16);
-        *&v36[0].v = *(v13 + 32);
-        *&v37[0].v = v19;
-        *&v35[0].v = *(v13 + 48);
-        CG::Cubic::Cubic(&v28, v38, v37, v36, v35);
-        if (v9 <= v10)
+        v22 = *(v16 + 16);
+        *&v42[0].v = *(v16 + 32);
+        *&v43[0].v = v22;
+        *&v41[0].v = *(v16 + 48);
+        CG::Cubic::Cubic(&v34, v44, v43, v42, v41);
+        if (v12 <= v13)
         {
-          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(this, &v28);
+          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(this, &v34);
         }
 
         else
         {
-          v20 = *(v13 + 8);
-          v43 = v32;
-          v44 = v33;
+          v26 = *(v16 + 8);
+          v49 = v38;
+          v50 = v39;
+          v51 = v40;
           v45 = v34;
-          v39 = v28;
-          v40 = v29;
-          v41 = v30;
-          v42 = v31;
-          RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Cubic>(this, &v39, v20);
+          v46 = v35;
+          v47 = v36;
+          v48 = v37;
+          RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Cubic>(this, &v45, v26, *&v37, *&v36, v23, v24, v25);
         }
 
-        v12.f64[1] = *&v35[2].v;
-        *&v38[0].v = *&v35[0].v;
-        v13 += 64;
+        v15.f64[1] = *&v41[2].v;
+        *&v44[0].v = *&v41[0].v;
+        v16 += 64;
         break;
       case 3:
-        v17 = *(v13 + 16);
-        *&v36[0].v = *(v13 + 32);
-        *&v37[0].v = v17;
-        CG::Quadratic::Quadratic(&v28, v38, v37, v36);
-        if (v9 <= v10)
+        v20 = *(v16 + 16);
+        *&v42[0].v = *(v16 + 32);
+        *&v43[0].v = v20;
+        CG::Quadratic::Quadratic(&v34, v44, v43, v42);
+        if (v12 <= v13)
         {
-          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(this, &v28);
+          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(this, &v34);
         }
 
         else
         {
-          v18 = *(v13 + 8);
-          v41 = v30;
-          v42 = v31;
-          v43 = v32;
-          v39 = v28;
-          v40 = v29;
-          RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Quadratic>(this, &v39, v18);
+          v21 = *(v16 + 8);
+          v47 = v36;
+          v48 = v37;
+          v49 = v38;
+          v45 = v34;
+          v46 = v35;
+          RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Quadratic>(this, &v45, v21);
         }
 
-        v12.f64[1] = *&v36[2].v;
-        *&v38[0].v = *&v36[0].v;
-        v13 += 48;
+        v15.f64[1] = *&v42[2].v;
+        *&v44[0].v = *&v42[0].v;
+        v16 += 48;
         break;
       case 2:
-        v15 = *(v13 + 16);
-        v16 = *(v13 + 8);
-        v39 = *&v38[0].v;
-        v40 = v15;
-        v27 = v15;
-        if (v9 <= v10)
+        v18 = *(v16 + 16);
+        v19 = *(v16 + 8);
+        v45 = *&v44[0].v;
+        v46 = v18;
+        v33 = v18;
+        if (v12 <= v13)
         {
-          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::LineSegment>(this, &v39, *&v38[0].v, a3, *&v15, a5, v16, a7, a8);
+          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::LineSegment>(this, &v45, *&v44[0].v, a6, *&v18, a8, v19, a10, a11);
         }
 
         else
         {
-          RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::LineSegment>(this, *&v38[0].v, *&v38[2].v, *&v15, *(&v15 + 1), v16, a7, a8);
+          RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::LineSegment>(this, *&v44[0].v, *&v44[2].v, *&v18, *(&v18 + 1), v19, a10, a11);
         }
 
-        v12.f64[1] = *(&v27 + 1);
-        *&v38[0].v = v27;
-        v13 += 32;
+        v15.f64[1] = *(&v33 + 1);
+        *&v44[0].v = v33;
+        v16 += 32;
         break;
       default:
         RB::Path::Subpath::append_range();
@@ -185,219 +185,219 @@ void RB::Path::ClipStroke::Transform::Clipper::run(RB::Path::ClipStroke::Transfo
 
   if (*(this + 140) == 1)
   {
-    v12.f64[0] = *(this + 26);
-    if ((*&v12.f64[0] & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+    v15.f64[0] = *(this + 208);
+    if ((*&v15.f64[0] & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
     {
-      v21 = *(this + 27);
-      if ((*&v21 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+      v27 = *(this + 216);
+      if ((*&v27 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
       {
-        v22 = *(this + 21);
-        if (v12.f64[0] != v22 || (v12.f64[0] = *(this + 22), v21 != v12.f64[0]))
+        v28 = *(this + 168);
+        if (v15.f64[0] != v28 || (v15.f64[0] = *(this + 176), v27 != v15.f64[0]))
         {
           if (*(this + 141))
           {
             *(this + 141) = 1;
-            LODWORD(v12.f64[0]) = *(this + 62);
+            LODWORD(v15.f64[0]) = *(this + 248);
           }
 
           else
           {
-            LODWORD(v12.f64[0]) = *(this + 62);
-            v21 = *(this + 1);
-            v22 = 0.0;
-            if (*&v21 >= 0.0)
+            LODWORD(v15.f64[0]) = *(this + 248);
+            v27 = *(this + 8);
+            v28 = 0.0;
+            if (*&v27 >= 0.0)
             {
-              LODWORD(v22) = *(this + 1);
+              LODWORD(v28) = *(this + 8);
             }
 
-            LODWORD(v21) = HIDWORD(*(this + 1));
-            LODWORD(a5) = 1.0;
-            if (*(&v21 + 1) > 1.0)
+            LODWORD(v27) = HIDWORD(*(this + 8));
+            LODWORD(a8) = 1.0;
+            if (*(&v27 + 1) > 1.0)
             {
-              *&v21 = 1.0;
+              *&v27 = 1.0;
             }
 
-            v23 = *&v22 >= *v12.f64;
-            if (*&v21 <= *v12.f64)
+            v29 = *&v28 >= *v15.f64;
+            if (*&v27 <= *v15.f64)
             {
-              v23 = 1;
+              v29 = 1;
             }
 
-            *(this + 141) = v23;
-            if (!v23)
+            *(this + 141) = v29;
+            if (!v29)
             {
               goto LABEL_36;
             }
           }
 
-          *(this + 34) = LODWORD(v12.f64[0]);
-          v24 = *(this + 32);
-          v25 = *(this + 33);
-          while (v24 != v25)
+          *(this + 136) = LODWORD(v15.f64[0]);
+          v30 = *(this + 256);
+          v31 = *(this + 264);
+          while (v30 != v31)
           {
-            v26 = *v24++;
-            LODWORD(v39.f64[0]) = v26;
-            std::vector<unsigned int>::push_back[abi:ne200100](this + 18, &v39);
+            v32 = *v30++;
+            LODWORD(v45.f64[0]) = v32;
+            std::vector<unsigned int>::push_back[abi:ne200100]((this + 144), &v45);
           }
 
-          v12 = RB::Path::ClipStroke::Transform::Clipper::emit_cap(this, this + 13, this + 14, *(this + 252), *(this + 30), v21, v22, a5, a6, a7, a8);
+          v15 = RB::Path::ClipStroke::Transform::Clipper::emit_cap(this, (this + 208), (this + 224), *(this + 252), *(this + 240), v27, v28, a8, a9, a10, a11);
         }
       }
     }
 
 LABEL_36:
-    (*(**(*this + 96) + 8))(*(*this + 96), v12);
+    (*(**(*this + 96) + 8))(*(*this + 96), a2, a3, a4, v15);
   }
 }
 
-uint64_t RB::Path::ClipStroke::anonymous namespace::BisectState::cut_range(const void **a1, double *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, float a7, float a8)
+uint64_t RB::Path::ClipStroke::anonymous namespace::BisectState::cut_range(const void **a1, const RB::Path::Subpath *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, float a7, float a8)
 {
   RB::Path::Subpath::reset(a1, a2, 0.0, 0.0);
   a1[8] = a1[7];
-  v16 = a2[2];
-  v17 = (a7 - floor(a7)) * v16;
-  v18 = a8 - floor(a8);
-  if (v18 != 0.0)
+  v17 = *(a2 + 2);
+  v18 = (a7 - floor(a7)) * v17;
+  v19 = a8 - floor(a8);
+  if (v19 != 0.0)
   {
-    v16 = v18 * v16;
+    v17 = v19 * v17;
   }
 
-  RB::Path::Subpath::append_range(a1, a2, v17, v16, (a1 + 7));
-  RB::Path::Subpath::close(a1);
-  v19.n128_u64[0] = a1[2];
-  v52 = a1 + 11;
+  RB::Path::Subpath::append_range(a1, a2, v18, v17, (a1 + 7), v16);
+  RB::Path::Subpath::close(a1, v20);
+  v21.n128_u64[0] = a1[2];
+  v54 = a1 + 11;
   a1[12] = a1[11];
-  v20 = 0;
+  v22 = 0;
   if (a4)
   {
-    v21 = ~a6;
-    v22 = (a3 + 8);
-    v23 = 1.0 / v19.n128_f64[0];
-    v54 = ~a6;
+    v23 = ~a6;
+    v24 = (a3 + 8);
+    v25 = 1.0 / v21.n128_f64[0];
+    v56 = ~a6;
     do
     {
-      v24 = *(v22 - 2);
-      v25 = *(v22 - 1);
+      v26 = *(v24 - 2);
+      v27 = *(v24 - 1);
       if (a5)
       {
-        v26 = -1;
+        v28 = -1;
       }
 
       else
       {
-        v26 = v21;
+        v28 = v23;
       }
 
-      v27 = a2[2];
-      v28 = v27 * (*v22 - floor(*v22));
-      v29 = v27 * (v22[1] - floor(v22[1]));
-      v19.n128_f64[0] = v28;
-      RB::Path::Subpath::DistanceMap::operator()((a1 + 7), v19);
-      v31 = v30;
-      v32.n128_f64[0] = v29;
-      RB::Path::Subpath::DistanceMap::operator()((a1 + 7), v32);
-      v33 = v19.n128_f64[0];
-      if (v31 >= INFINITY && v31 <= INFINITY && v28 == 0.0)
+      v29 = *(a2 + 2);
+      v30 = v29 * (*v24 - floor(*v24));
+      v31 = v29 * (v24[1] - floor(v24[1]));
+      v21.n128_f64[0] = v30;
+      RB::Path::Subpath::DistanceMap::operator()(a1 + 7, v21);
+      v33 = v32;
+      v34.n128_f64[0] = v31;
+      RB::Path::Subpath::DistanceMap::operator()(a1 + 7, v34);
+      v35 = v21.n128_f64[0];
+      if (v33 >= INFINITY && v33 <= INFINITY && v30 == 0.0)
       {
-        v19.n128_f64[0] = a2[2];
-        RB::Path::Subpath::DistanceMap::operator()((a1 + 7), v19);
-        v31 = v19.n128_f64[0];
+        v21.n128_u64[0] = *(a2 + 2);
+        RB::Path::Subpath::DistanceMap::operator()(a1 + 7, v21);
+        v33 = v21.n128_f64[0];
       }
 
-      if (v33 >= INFINITY && v33 <= INFINITY && v29 == 0.0)
+      if (v35 >= INFINITY && v35 <= INFINITY && v31 == 0.0)
       {
-        v19.n128_f64[0] = a2[2];
-        RB::Path::Subpath::DistanceMap::operator()((a1 + 7), v19);
-        v33 = v19.n128_f64[0];
+        v21.n128_u64[0] = *(a2 + 2);
+        RB::Path::Subpath::DistanceMap::operator()(a1 + 7, v21);
+        v35 = v21.n128_f64[0];
       }
 
-      if (v31 != INFINITY && v33 != INFINITY)
+      if (v33 != INFINITY && v35 != INFINITY)
       {
-        v34 = v26 & v24;
-        v35 = v23 * v31;
-        v36 = v23 * v33;
-        v37 = a1[12];
-        v38 = a1[13];
-        if (v37 >= v38)
+        v36 = v28 & v26;
+        v37 = v25 * v33;
+        v38 = v25 * v35;
+        v39 = a1[12];
+        v40 = a1[13];
+        if (v39 >= v40)
         {
-          v40 = *v52;
-          v41 = v37 - *v52;
-          v42 = v41 >> 4;
-          v43 = (v41 >> 4) + 1;
-          if (v43 >> 60)
+          v42 = *v54;
+          v43 = v39 - *v54;
+          v44 = v43 >> 4;
+          v45 = (v43 >> 4) + 1;
+          if (v45 >> 60)
           {
             std::vector<RB::Path::Subpath::DistanceMap::Element>::__throw_length_error[abi:ne200100]();
           }
 
-          v44 = v38 - v40;
-          if (v44 >> 3 > v43)
+          v46 = v40 - v42;
+          if (v46 >> 3 > v45)
           {
-            v43 = v44 >> 3;
+            v45 = v46 >> 3;
           }
 
-          if (v44 >= 0x7FFFFFFFFFFFFFF0)
+          if (v46 >= 0x7FFFFFFFFFFFFFF0)
           {
-            v43 = 0xFFFFFFFFFFFFFFFLL;
+            v45 = 0xFFFFFFFFFFFFFFFLL;
           }
 
-          v53 = v20;
-          if (v43)
+          v55 = v22;
+          if (v45)
           {
-            v45 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(v52, v43);
-            v43 = v46;
-            v40 = a1[11];
-            v41 = a1[12] - v40;
+            v47 = std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(v54, v45);
+            v45 = v48;
+            v42 = a1[11];
+            v43 = a1[12] - v42;
           }
 
           else
           {
-            v45 = 0;
+            v47 = 0;
           }
 
-          v47 = v45 + 16 * v42;
-          v48 = v45 + 16 * v43;
-          *v47 = v34;
-          *(v47 + 4) = v25;
-          *(v47 + 8) = v35;
-          *(v47 + 12) = v36;
-          v39 = v47 + 16;
-          v49 = (v47 - 16 * (v41 >> 4));
-          memcpy(v49, v40, v41);
-          v50 = a1[11];
-          a1[11] = v49;
-          a1[12] = v39;
-          a1[13] = v48;
-          if (v50)
+          v49 = v47 + 16 * v44;
+          v50 = v47 + 16 * v45;
+          *v49 = v36;
+          *(v49 + 4) = v27;
+          *(v49 + 8) = v37;
+          *(v49 + 12) = v38;
+          v41 = v49 + 16;
+          v51 = (v49 - 16 * (v43 >> 4));
+          memcpy(v51, v42, v43);
+          v52 = a1[11];
+          a1[11] = v51;
+          a1[12] = v41;
+          a1[13] = v50;
+          if (v52)
           {
-            operator delete(v50);
+            operator delete(v52);
           }
 
-          LODWORD(v20) = v53;
+          LODWORD(v22) = v55;
         }
 
         else
         {
-          *v37 = v34;
-          *(v37 + 1) = v25;
-          *(v37 + 2) = v35;
-          v39 = (v37 + 16);
-          *(v37 + 3) = v36;
+          *v39 = v36;
+          *(v39 + 1) = v27;
+          *(v39 + 2) = v37;
+          v41 = (v39 + 16);
+          *(v39 + 3) = v38;
         }
 
-        a1[12] = v39;
-        v20 = v34 | v20;
-        v21 = v54;
+        a1[12] = v41;
+        v22 = v36 | v22;
+        v23 = v56;
       }
 
       --a5;
-      v22 += 4;
+      v24 += 4;
       --a4;
     }
 
     while (a4);
   }
 
-  return v20;
+  return v22;
 }
 
 __n128 RB::Path::ClipStroke::anonymous namespace::BisectState::replace(__int128 *a1, __int128 *a2, void *a3)
@@ -417,8 +417,7 @@ __n128 RB::Path::ClipStroke::anonymous namespace::BisectState::replace(__int128 
   *(a2 + 3) = 0;
   v9 = *(a2 + 5);
   v10 = *(a2 + 6);
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   *a2 = *a1;
   *(a2 + 2) = *(a1 + 2);
   std::vector<double>::__move_assign(a2 + 24, (a1 + 24));
@@ -470,7 +469,7 @@ void RB::Path::ClipStroke::anonymous namespace::BisectState::~BisectState(RB::Pa
   }
 }
 
-BOOL RB::Path::ClipStroke::anonymous namespace::make_single_keyframes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+BOOL RB::Path::ClipStroke::anonymous namespace::make_single_keyframes(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
   v5 = 2 * a2;
   if (2 * a2)
@@ -648,22 +647,22 @@ void RB::Path::ClipStroke::Transform::record_cap(uint64_t a1, int **a2, __n128 a
   }
 }
 
-void RB::Path::ClipStroke::Transform::Clipper::advance_keyframes(RB::Path::ClipStroke::Transform::Clipper *this, double a2)
+void RB::Path::ClipStroke::Transform::Clipper::advance_keyframes(uint64_t this, double a2)
 {
   v4 = this + 112;
-  v5 = *(this + 14);
+  v5 = *(this + 112);
   if (v5 <= a2)
   {
     while (1)
     {
-      v11 = *(this + 9);
-      v12 = *(this + 6);
+      v11 = *(this + 72);
+      v12 = *(this + 48);
       if (v11 >= v12)
       {
         break;
       }
 
-      v13 = *(this + 5) + 24 * v11;
+      v13 = *(this + 40) + 24 * v11;
       v6 = *v13;
       v14 = *(v13 + 8);
       v18 = *(v13 + 12);
@@ -674,25 +673,25 @@ void RB::Path::ClipStroke::Transform::Clipper::advance_keyframes(RB::Path::ClipS
       }
 
       v15 = v11 + 1;
-      *(this + 9) = v15;
+      *(this + 72) = v15;
       if ((v14 & 0x7FFFFFFFu) < 0x7F800000)
       {
         if (*(this + 141) == 1)
         {
-          v16 = *(this + 32);
+          v16 = *(this + 128);
           if ((v16 & 0x80) != 0)
           {
             v17 = v16 >> 8;
-            std::vector<unsigned int>::push_back[abi:ne200100](this + 18, &v17);
+            std::vector<unsigned int>::push_back[abi:ne200100]((this + 144), &v17);
           }
         }
 
         *(this + 88) = *v4;
-        *(this + 13) = *(v4 + 2);
-        *(this + 14) = v6;
-        *(this + 30) = v14;
+        *(this + 104) = *(v4 + 16);
+        *(this + 112) = v6;
+        *(this + 120) = v14;
         *(this + 124) = v18;
-        *(this + 33) = v19;
+        *(this + 132) = v19;
         v5 = v6;
       }
 
@@ -716,30 +715,30 @@ void RB::Path::ClipStroke::Transform::Clipper::advance_keyframes(RB::Path::ClipS
 LABEL_3:
   if (v6 <= a2)
   {
-    v7 = *(this + 9);
-    if (v7 == *(this + 6))
+    v7 = *(this + 72);
+    if (v7 == *(this + 48))
     {
       if (*(this + 141) == 1)
       {
-        v8 = *(this + 32);
+        v8 = *(this + 128);
         if ((v8 & 0x80) != 0)
         {
           LODWORD(v18) = v8 >> 8;
-          std::vector<unsigned int>::push_back[abi:ne200100](this + 18, &v18);
-          v7 = *(this + 6);
+          std::vector<unsigned int>::push_back[abi:ne200100]((this + 144), &v18);
+          v7 = *(this + 48);
         }
       }
 
       *(this + 88) = *v4;
-      *(this + 13) = *(v4 + 2);
+      *(this + 104) = *(v4 + 16);
       if (v7)
       {
-        v9 = *(this + 5);
+        v9 = *(this + 40);
         v10 = *v9;
-        *(v4 + 2) = *(v9 + 2);
+        *(v4 + 16) = *(v9 + 2);
         *v4 = v10;
-        *(this + 14) = *(*(this + 2) + 16) + *(this + 14);
-        ++*(this + 9);
+        *(this + 112) = *(*(this + 16) + 16) + *(this + 112);
+        ++*(this + 72);
       }
     }
   }
@@ -971,7 +970,7 @@ uint64_t RB::Path::ClipStroke::Transform::Clipper::Clipper(uint64_t result, uint
 
   v11 = a6 + 24 * a7;
   v12 = *(v11 - 24);
-  *(result + 104) = *(v11 - 8);
+  *(result + 104) = *(v11 - 1);
   *(result + 88) = v12;
   v13 = *(result + 88) - *(a3 + 16);
   *(result + 88) = v13;
@@ -1291,12 +1290,12 @@ uint64_t std::__allocate_at_least[abi:ne200100]<std::allocator<RB::Path::ClipStr
   return operator new();
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,RB::Path::ClipStroke::anonymous namespace::make_single_keyframes(std::span<CGPathClipStrokeKeyframe const,18446744073709551615ul>,RB::Path::Subpath const&,std::vector<RB::Path::ClipStroke::SingleKeyframe> &,RB::Path::ClipStroke::anonymous namespace::KeyframesMetadata &)::$_0 &,RB::Path::ClipStroke::SingleKeyframe*,false>(uint64_t a1, unint64_t a2, uint64_t a3, char a4, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,RB::Path::ClipStroke::anonymous namespace::make_single_keyframes(std::span<CGPathClipStrokeKeyframe const,18446744073709551615ul>,RB::Path::Subpath const&,std::vector<RB::Path::ClipStroke::SingleKeyframe> &,RB::Path::ClipStroke::anonymous namespace::KeyframesMetadata &)::$_0 &,RB::Path::ClipStroke::SingleKeyframe*,false>(__n128 *a1, __n128 *a2, uint64_t a3, char a4, __n128 result)
 {
 LABEL_1:
-  v9 = (a2 - 24);
-  v10 = (a2 - 48);
-  v11 = (a2 - 72);
+  v9 = &a2[-2].n128_u64[1];
+  v10 = a2 - 3;
+  v11 = &a2[-5].n128_f64[1];
   v12 = a1;
   while (1)
   {
@@ -1312,22 +1311,22 @@ LABEL_1:
 
       if (v14 == 2)
       {
-        v90 = *(a2 - 24);
-        v89 = (a2 - 24);
+        v90 = a2[-2].n128_f64[1];
+        v89 = &a2[-2].n128_i8[8];
         result.n128_f64[0] = v90;
-        if (v90 >= *v12)
+        if (v90 >= v12->n128_f64[0])
         {
           return result;
         }
 
 LABEL_106:
-        v198 = *(v12 + 16);
+        v198 = v12[1].n128_u64[0];
         v169 = *v12;
         v94 = *v89;
-        *(v12 + 16) = v89[1].n128_u64[0];
+        v12[1].n128_u64[0] = *(v89 + 2);
         *v12 = v94;
         result = v169;
-        v89[1].n128_u64[0] = v198;
+        *(v89 + 2) = v198;
 LABEL_107:
         *v89 = result;
         return result;
@@ -1344,28 +1343,28 @@ LABEL_107:
     if (v14 == 4)
     {
       v91 = (v12 + 24);
-      v95 = *(v12 + 24);
-      v96 = (v12 + 48);
-      v97 = *(v12 + 48);
-      if (v95 >= *v12)
+      v95 = v12[1].n128_f64[1];
+      v96 = v12 + 3;
+      v97 = v12[3].n128_f64[0];
+      if (v95 >= v12->n128_f64[0])
       {
         if (v97 < v95)
         {
-          v138 = *(v12 + 40);
+          v138 = v12[2].n128_u64[1];
           result = *v91;
           *v91 = *v96;
-          *(v12 + 40) = *(v12 + 64);
+          v12[2].n128_u64[1] = v12[4].n128_u64[0];
           *v96 = result;
-          *(v12 + 64) = v138;
-          if (*(v12 + 24) < *v12)
+          v12[4].n128_u64[0] = v138;
+          if (v12[1].n128_f64[1] < v12->n128_f64[0])
           {
-            v201 = *(v12 + 16);
+            v201 = v12[1].n128_u64[0];
             v174 = *v12;
             *v12 = *v91;
-            *(v12 + 16) = *(v12 + 40);
+            v12[1].n128_u64[0] = v12[2].n128_u64[1];
             result.n128_u64[1] = v174.n128_u64[1];
             *v91 = v174;
-            *(v12 + 40) = v201;
+            v12[2].n128_u64[1] = v201;
           }
         }
       }
@@ -1374,31 +1373,31 @@ LABEL_107:
       {
         if (v97 < v95)
         {
-          v199 = *(v12 + 16);
+          v199 = v12[1].n128_u64[0];
           v170 = *v12;
           *v12 = *v96;
-          *(v12 + 16) = *(v12 + 64);
+          v12[1].n128_u64[0] = v12[4].n128_u64[0];
           result.n128_u64[1] = v170.n128_u64[1];
           *v96 = v170;
           v98 = v199;
           goto LABEL_177;
         }
 
-        v203 = *(v12 + 16);
+        v203 = v12[1].n128_u64[0];
         v177 = *v12;
         *v12 = *v91;
-        *(v12 + 16) = *(v12 + 40);
+        v12[1].n128_u64[0] = v12[2].n128_u64[1];
         *v91 = v177;
-        *(v12 + 40) = v203;
-        if (v97 < *(v12 + 24))
+        v12[2].n128_u64[1] = v203;
+        if (v97 < v12[1].n128_f64[1])
         {
-          v98 = *(v12 + 40);
+          v98 = v12[2].n128_u64[1];
           result = *v91;
           *v91 = *v96;
-          *(v12 + 40) = *(v12 + 64);
+          v12[2].n128_u64[1] = v12[4].n128_u64[0];
           *v96 = result;
 LABEL_177:
-          *(v12 + 64) = v98;
+          v12[4].n128_u64[0] = v98;
         }
       }
 
@@ -1409,11 +1408,11 @@ LABEL_177:
       }
 
       result = *v96;
-      v144 = *(v12 + 64);
-      v145 = *(a2 - 8);
+      v144 = v12[4].n128_u64[0];
+      v145 = a2[-1].n128_u64[1];
       *v96 = *v9;
-      *(v12 + 64) = v145;
-      *(a2 - 8) = v144;
+      v12[4].n128_u64[0] = v145;
+      a2[-1].n128_u64[1] = v144;
       *v9 = result;
       result.n128_u64[0] = v96->n128_u64[0];
       if (v96->n128_f64[0] >= v91->n128_f64[0])
@@ -1421,20 +1420,20 @@ LABEL_177:
         return result;
       }
 
-      v146 = *(v12 + 40);
+      v146 = v12[2].n128_u64[1];
       result = *v91;
       *v91 = *v96;
-      *(v12 + 40) = *(v12 + 64);
+      v12[2].n128_u64[1] = v12[4].n128_u64[0];
       *v96 = result;
-      *(v12 + 64) = v146;
+      v12[4].n128_u64[0] = v146;
 LABEL_181:
-      result.n128_u64[0] = *(v12 + 24);
-      if (result.n128_f64[0] < *v12)
+      result.n128_u64[0] = v12[1].n128_u64[1];
+      if (result.n128_f64[0] < v12->n128_f64[0])
       {
-        v204 = *(v12 + 16);
+        v204 = v12[1].n128_u64[0];
         v178 = *v12;
         *v12 = *v91;
-        *(v12 + 16) = v91[1].n128_u64[0];
+        v12[1].n128_u64[0] = v91[1].n128_u64[0];
         result = v178;
         *v91 = v178;
         v91[1].n128_u64[0] = v204;
@@ -1446,14 +1445,14 @@ LABEL_181:
     if (v14 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,RB::Path::Subpath::DistanceMap::ensure_sorted(void)::$_0 &,RB::Path::Subpath::DistanceMap::Element *,0>(v12, (v12 + 24), (v12 + 48), (v12 + 72), (a2 - 24), result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,RB::Path::Subpath::DistanceMap::ensure_sorted(void)::$_0 &,RB::Path::Subpath::DistanceMap::Element *,0>(v12, (v12 + 24), v12 + 3, (v12 + 72), &a2[-2].n128_u64[1], result).n128_u64[0];
       return result;
     }
 
 LABEL_9:
     if (v13 <= 575)
     {
-      v99 = v12 + 24;
+      v99 = (v12 + 24);
       v101 = v12 == a2 || v99 == a2;
       if (a4)
       {
@@ -1473,16 +1472,16 @@ LABEL_9:
               {
                 v106 = v12 + v105;
                 *(v106 + 24) = *(v12 + v105);
-                *(v106 + 40) = *(v12 + v105 + 16);
+                *(v106 + 5) = *(v12[1].n128_u64 + v105);
                 if (!v105)
                 {
                   break;
                 }
 
                 v105 -= 24;
-                if (result.n128_f64[0] >= *(v106 - 24))
+                if (result.n128_f64[0] >= *(v106 - 3))
                 {
-                  v107 = v12 + v105 + 24;
+                  v107 = &v12[1].n128_i64[1] + v105;
                   goto LABEL_126;
                 }
               }
@@ -1494,7 +1493,7 @@ LABEL_126:
               *(v107 + 8) = v171;
             }
 
-            v99 = &v104[1].n128_u64[1];
+            v99 = (v104 + 24);
             v102 += 24;
             v103 = v104;
           }
@@ -1508,30 +1507,30 @@ LABEL_126:
         do
         {
           v139 = v99;
-          result.n128_u64[0] = *(a1 + 24);
-          if (result.n128_f64[0] < *a1)
+          result.n128_u64[0] = a1[1].n128_u64[1];
+          if (result.n128_f64[0] < a1->n128_f64[0])
           {
-            v175 = *(a1 + 32);
+            v175 = a1[2];
             v140 = v99;
             do
             {
               *v140 = *(v140 - 24);
-              *(v140 + 16) = *(v140 - 8);
-              v141 = *(v140 - 48);
-              v140 -= 24;
+              v140[1].n128_u64[0] = v140[-1].n128_u64[1];
+              v141 = v140[-3].n128_f64[0];
+              v140 = (v140 - 24);
             }
 
             while (result.n128_f64[0] < v141);
-            *v140 = result.n128_u64[0];
+            v140->n128_u64[0] = result.n128_u64[0];
             result = v175;
             *(v140 + 8) = v175;
           }
 
-          v99 += 24;
+          v99 = (v99 + 24);
           a1 = v139;
         }
 
-        while (v139 + 24 != a2);
+        while (&v139[1].n128_i8[8] != a2);
       }
 
       return result;
@@ -1549,24 +1548,24 @@ LABEL_126:
           if (v108 >= v109)
           {
             v111 = (2 * v109) | 1;
-            v112 = v12 + 24 * v111;
-            if (2 * v110 + 2 < v14 && *v112 < *(v112 + 24))
+            v112 = &v12->n128_f64[3 * v111];
+            if (2 * v110 + 2 < v14 && *v112 < v112[3])
             {
-              v112 += 24;
+              v112 += 3;
               v111 = 2 * v110 + 2;
             }
 
-            v113 = v12 + 24 * v110;
+            v113 = &v12->n128_f64[3 * v110];
             v114 = *v113;
             if (*v112 >= *v113)
             {
-              v172 = *(v113 + 8);
+              v172 = *(v113 + 1);
               do
               {
                 v115 = v113;
                 v113 = v112;
                 v116 = *v112;
-                *(v115 + 16) = *(v112 + 16);
+                v115[2] = v112[2];
                 *v115 = v116;
                 if (v108 < v111)
                 {
@@ -1575,18 +1574,18 @@ LABEL_126:
 
                 v117 = 2 * v111;
                 v111 = (2 * v111) | 1;
-                v112 = v12 + 24 * v111;
+                v112 = &v12->n128_f64[3 * v111];
                 v118 = v117 + 2;
-                if (v118 < v14 && *v112 < *(v112 + 24))
+                if (v118 < v14 && *v112 < v112[3])
                 {
-                  v112 += 24;
+                  v112 += 3;
                   v111 = v118;
                 }
               }
 
               while (*v112 >= v114);
               *v113 = v114;
-              *(v113 + 8) = v172;
+              *(v113 + 1) = v172;
             }
           }
 
@@ -1598,22 +1597,22 @@ LABEL_126:
         do
         {
           v120 = 0;
-          v200 = *(v12 + 16);
+          v200 = v12[1].n128_u64[0];
           v173 = *v12;
           v121 = v12;
           do
           {
             v122 = v121;
             v123 = v121 + 24 * v120;
-            v121 = v123 + 24;
+            v121 = (v123 + 24);
             v124 = 2 * v120;
             v120 = (2 * v120) | 1;
             v125 = v124 + 2;
             if (v125 < v119)
             {
-              v127 = *(v123 + 48);
-              v126 = v123 + 48;
-              if (*(v126 - 24) < v127)
+              v127 = *(v123 + 6);
+              v126 = (v123 + 48);
+              if (v126[-2].n128_f64[1] < v127)
               {
                 v121 = v126;
                 v120 = v125;
@@ -1621,34 +1620,34 @@ LABEL_126:
             }
 
             v128 = *v121;
-            v122[1].n128_u64[0] = *(v121 + 16);
+            v122[1].n128_u64[0] = v121[1].n128_u64[0];
             *v122 = v128;
           }
 
           while (v120 <= ((v119 - 2) >> 1));
-          a2 -= 24;
+          a2 = (a2 - 24);
           if (v121 == a2)
           {
             result = v173;
-            *(v121 + 16) = v200;
+            v121[1].n128_u64[0] = v200;
             *v121 = v173;
           }
 
           else
           {
             v129 = *a2;
-            *(v121 + 16) = *(a2 + 16);
+            v121[1].n128_u64[0] = a2[1].n128_u64[0];
             *v121 = v129;
             result = v173;
-            *(a2 + 16) = v200;
+            a2[1].n128_u64[0] = v200;
             *a2 = v173;
             v130 = v121 - v12 + 24;
             if (v130 >= 25)
             {
               v131 = (-2 - 0x5555555555555555 * (v130 >> 3)) >> 1;
-              v132 = v12 + 24 * v131;
-              result.n128_u64[0] = *v121;
-              if (*v132 < *v121)
+              v132 = (v12 + 24 * v131);
+              result.n128_u64[0] = v121->n128_u64[0];
+              if (v132->n128_f64[0] < v121->n128_f64[0])
               {
                 v149 = *(v121 + 8);
                 do
@@ -1656,7 +1655,7 @@ LABEL_126:
                   v133 = v121;
                   v121 = v132;
                   v134 = *v132;
-                  *(v133 + 16) = *(v132 + 16);
+                  v133[1].n128_u64[0] = v132[1].n128_u64[0];
                   *v133 = v134;
                   if (!v131)
                   {
@@ -1664,11 +1663,11 @@ LABEL_126:
                   }
 
                   v131 = (v131 - 1) >> 1;
-                  v132 = v12 + 24 * v131;
+                  v132 = (v12 + 24 * v131);
                 }
 
-                while (*v132 < result.n128_f64[0]);
-                *v121 = result.n128_u64[0];
+                while (v132->n128_f64[0] < result.n128_f64[0]);
+                v121->n128_u64[0] = result.n128_u64[0];
                 result = v149;
                 *(v121 + 8) = v149;
               }
@@ -1688,23 +1687,23 @@ LABEL_126:
     if (v13 >= 0xC01)
     {
       v18 = v16->n128_f64[0];
-      if (v16->n128_f64[0] >= *v12)
+      if (v16->n128_f64[0] >= v12->n128_f64[0])
       {
         if (v17 < v18)
         {
           v181 = v16[1].n128_u64[0];
           v152 = *v16;
           v22 = *v9;
-          v16[1].n128_u64[0] = *(a2 - 8);
+          v16[1].n128_u64[0] = a2[-1].n128_u64[1];
           *v16 = v22;
-          *(a2 - 8) = v181;
+          a2[-1].n128_u64[1] = v181;
           *v9 = v152;
-          if (v16->n128_f64[0] < *v12)
+          if (v16->n128_f64[0] < v12->n128_f64[0])
           {
-            v182 = *(v12 + 16);
+            v182 = v12[1].n128_u64[0];
             v153 = *v12;
             v23 = *v16;
-            *(v12 + 16) = v16[1].n128_u64[0];
+            v12[1].n128_u64[0] = v16[1].n128_u64[0];
             *v12 = v23;
             v16[1].n128_u64[0] = v182;
             *v16 = v153;
@@ -1716,18 +1715,18 @@ LABEL_126:
       {
         if (v17 < v18)
         {
-          v179 = *(v12 + 16);
+          v179 = v12[1].n128_u64[0];
           v150 = *v12;
           v19 = *v9;
-          *(v12 + 16) = *(a2 - 8);
+          v12[1].n128_u64[0] = a2[-1].n128_u64[1];
           *v12 = v19;
           goto LABEL_26;
         }
 
-        v185 = *(v12 + 16);
+        v185 = v12[1].n128_u64[0];
         v156 = *v12;
         v26 = *v16;
-        *(v12 + 16) = v16[1].n128_u64[0];
+        v12[1].n128_u64[0] = v16[1].n128_u64[0];
         *v12 = v26;
         v16[1].n128_u64[0] = v185;
         *v16 = v156;
@@ -1736,38 +1735,38 @@ LABEL_126:
           v179 = v16[1].n128_u64[0];
           v150 = *v16;
           v27 = *v9;
-          v16[1].n128_u64[0] = *(a2 - 8);
+          v16[1].n128_u64[0] = a2[-1].n128_u64[1];
           *v16 = v27;
 LABEL_26:
-          *(a2 - 8) = v179;
+          a2[-1].n128_u64[1] = v179;
           *v9 = v150;
         }
       }
 
       v28 = (v12 + 24);
-      v29 = v12 + 24 * v15;
-      v31 = *(v29 - 24);
-      v30 = (v29 - 24);
+      v29 = &v12->n128_f64[3 * v15];
+      v31 = *(v29 - 3);
+      v30 = (v29 - 3);
       v32 = v31;
-      v33 = *v10;
-      if (v31 >= *(v12 + 24))
+      v33 = v10->n128_f64[0];
+      if (v31 >= v12[1].n128_f64[1])
       {
         if (v33 < v32)
         {
-          v186 = v30[1].n128_i64[0];
+          v186 = v30[1].n128_u64[0];
           v157 = *v30;
           v37 = *v10;
-          v30[1].n128_u64[0] = *(a2 - 32);
+          v30[1].n128_u64[0] = a2[-2].n128_u64[0];
           *v30 = v37;
-          *(a2 - 32) = v186;
+          a2[-2].n128_u64[0] = v186;
           *v10 = v157;
           if (v30->n128_f64[0] < v28->n128_f64[0])
           {
             v38 = *v28;
-            v39 = *(v12 + 40);
-            v40 = v30[1].n128_i64[0];
+            v39 = v12[2].n128_u64[1];
+            v40 = v30[1].n128_u64[0];
             *v28 = *v30;
-            *(v12 + 40) = v40;
+            v12[2].n128_u64[1] = v40;
             v30[1].n128_u64[0] = v39;
             *v30 = v38;
           }
@@ -1779,59 +1778,59 @@ LABEL_26:
         if (v33 < v32)
         {
           v34 = *v28;
-          v35 = *(v12 + 40);
-          v36 = *(a2 - 32);
+          v35 = v12[2].n128_u64[1];
+          v36 = a2[-2].n128_u64[0];
           *v28 = *v10;
-          *(v12 + 40) = v36;
-          *(a2 - 32) = v35;
+          v12[2].n128_u64[1] = v36;
+          a2[-2].n128_u64[0] = v35;
           goto LABEL_38;
         }
 
         v43 = *v28;
-        v44 = *(v12 + 40);
-        v45 = v30[1].n128_i64[0];
+        v44 = v12[2].n128_u64[1];
+        v45 = v30[1].n128_u64[0];
         *v28 = *v30;
-        *(v12 + 40) = v45;
+        v12[2].n128_u64[1] = v45;
         v30[1].n128_u64[0] = v44;
         *v30 = v43;
-        if (*v10 < v30->n128_f64[0])
+        if (v10->n128_f64[0] < v30->n128_f64[0])
         {
-          v188 = v30[1].n128_i64[0];
+          v188 = v30[1].n128_u64[0];
           v159 = *v30;
           v46 = *v10;
-          v30[1].n128_u64[0] = *(a2 - 32);
+          v30[1].n128_u64[0] = a2[-2].n128_u64[0];
           *v30 = v46;
           v34 = v159;
-          *(a2 - 32) = v188;
+          a2[-2].n128_u64[0] = v188;
 LABEL_38:
           *v10 = v34;
         }
       }
 
-      v47 = (v12 + 48);
-      v48 = v12 + 24 * v15;
-      v50 = *(v48 + 24);
-      v49 = (v48 + 24);
+      v47 = v12 + 3;
+      v48 = &v12->n128_f64[3 * v15];
+      v50 = v48[3];
+      v49 = (v48 + 3);
       v51 = v50;
       v52 = *v11;
-      if (v50 >= *(v12 + 48))
+      if (v50 >= v12[3].n128_f64[0])
       {
         if (v52 < v51)
         {
-          v189 = v49[1].n128_i64[0];
+          v189 = v49[1].n128_u64[0];
           v160 = *v49;
           v56 = *v11;
-          v49[1].n128_u64[0] = *(a2 - 56);
+          v49[1].n128_u64[0] = a2[-4].n128_u64[1];
           *v49 = v56;
-          *(a2 - 56) = v189;
+          a2[-4].n128_u64[1] = v189;
           *v11 = v160;
           if (v49->n128_f64[0] < v47->n128_f64[0])
           {
             v57 = *v47;
-            v58 = *(v12 + 64);
-            v59 = v49[1].n128_i64[0];
+            v58 = v12[4].n128_u64[0];
+            v59 = v49[1].n128_u64[0];
             *v47 = *v49;
-            *(v12 + 64) = v59;
+            v12[4].n128_u64[0] = v59;
             v49[1].n128_u64[0] = v58;
             *v49 = v57;
           }
@@ -1843,30 +1842,30 @@ LABEL_38:
         if (v52 < v51)
         {
           v53 = *v47;
-          v54 = *(v12 + 64);
-          v55 = *(a2 - 56);
+          v54 = v12[4].n128_u64[0];
+          v55 = a2[-4].n128_u64[1];
           *v47 = *v11;
-          *(v12 + 64) = v55;
-          *(a2 - 56) = v54;
+          v12[4].n128_u64[0] = v55;
+          a2[-4].n128_u64[1] = v54;
           goto LABEL_47;
         }
 
         v60 = *v47;
-        v61 = *(v12 + 64);
-        v62 = v49[1].n128_i64[0];
+        v61 = v12[4].n128_u64[0];
+        v62 = v49[1].n128_u64[0];
         *v47 = *v49;
-        *(v12 + 64) = v62;
+        v12[4].n128_u64[0] = v62;
         v49[1].n128_u64[0] = v61;
         *v49 = v60;
         if (*v11 < v49->n128_f64[0])
         {
-          v190 = v49[1].n128_i64[0];
+          v190 = v49[1].n128_u64[0];
           v161 = *v49;
           v63 = *v11;
-          v49[1].n128_u64[0] = *(a2 - 56);
+          v49[1].n128_u64[0] = a2[-4].n128_u64[1];
           *v49 = v63;
           v53 = v161;
-          *(a2 - 56) = v190;
+          a2[-4].n128_u64[1] = v190;
 LABEL_47:
           *v11 = v53;
         }
@@ -1925,36 +1924,36 @@ LABEL_56:
         }
       }
 
-      v195 = *(v12 + 16);
+      v195 = v12[1].n128_u64[0];
       v166 = *v12;
       v66 = *v16;
-      *(v12 + 16) = v16[1].n128_u64[0];
+      v12[1].n128_u64[0] = v16[1].n128_u64[0];
       *v12 = v66;
       v16[1].n128_u64[0] = v195;
       *v16 = v166;
       goto LABEL_58;
     }
 
-    v20 = *v12;
-    if (*v12 >= v16->n128_f64[0])
+    v20 = v12->n128_f64[0];
+    if (v12->n128_f64[0] >= v16->n128_f64[0])
     {
       if (v17 < v20)
       {
-        v183 = *(v12 + 16);
+        v183 = v12[1].n128_u64[0];
         v154 = *v12;
         v24 = *v9;
-        *(v12 + 16) = *(a2 - 8);
+        v12[1].n128_u64[0] = a2[-1].n128_u64[1];
         *v12 = v24;
-        *(a2 - 8) = v183;
+        a2[-1].n128_u64[1] = v183;
         *v9 = v154;
-        if (*v12 < v16->n128_f64[0])
+        if (v12->n128_f64[0] < v16->n128_f64[0])
         {
           v184 = v16[1].n128_u64[0];
           v155 = *v16;
           v25 = *v12;
-          v16[1].n128_u64[0] = *(v12 + 16);
+          v16[1].n128_u64[0] = v12[1].n128_u64[0];
           *v16 = v25;
-          *(v12 + 16) = v184;
+          v12[1].n128_u64[0] = v184;
           *v12 = v155;
         }
       }
@@ -1967,19 +1966,19 @@ LABEL_56:
       v187 = v16[1].n128_u64[0];
       v158 = *v16;
       v41 = *v12;
-      v16[1].n128_u64[0] = *(v12 + 16);
+      v16[1].n128_u64[0] = v12[1].n128_u64[0];
       *v16 = v41;
-      *(v12 + 16) = v187;
+      v12[1].n128_u64[0] = v187;
       *v12 = v158;
-      if (*v9 >= *v12)
+      if (*v9 >= v12->n128_f64[0])
       {
         goto LABEL_58;
       }
 
-      v180 = *(v12 + 16);
+      v180 = v12[1].n128_u64[0];
       v151 = *v12;
       v42 = *v9;
-      *(v12 + 16) = *(a2 - 8);
+      v12[1].n128_u64[0] = a2[-1].n128_u64[1];
       *v12 = v42;
     }
 
@@ -1988,29 +1987,29 @@ LABEL_56:
       v180 = v16[1].n128_u64[0];
       v151 = *v16;
       v21 = *v9;
-      v16[1].n128_u64[0] = *(a2 - 8);
+      v16[1].n128_u64[0] = a2[-1].n128_u64[1];
       *v16 = v21;
     }
 
-    *(a2 - 8) = v180;
+    a2[-1].n128_u64[1] = v180;
     *v9 = v151;
 LABEL_58:
     --a3;
-    v67 = *v12;
-    if ((a4 & 1) != 0 || *(v12 - 24) < v67)
+    v67 = v12->n128_f64[0];
+    if ((a4 & 1) != 0 || v12[-2].n128_f64[1] < v67)
     {
       v68 = 0;
       v147 = *(v12 + 8);
       do
       {
-        v69 = *(v12 + v68 + 24);
-        v68 += 24;
+        v69 = v12[1].n128_f64[v68 + 1];
+        v68 += 3;
       }
 
       while (v69 < v67);
-      v70 = v12 + v68;
+      v70 = v12 + v68 * 8;
       v71 = a2;
-      if (v68 == 24)
+      if (v68 == 3)
       {
         v71 = a2;
         do
@@ -2020,8 +2019,8 @@ LABEL_58:
             break;
           }
 
-          v73 = *(v71 - 24);
-          v71 -= 24;
+          v73 = v71[-2].n128_f64[1];
+          v71 = (v71 - 24);
         }
 
         while (v73 >= v67);
@@ -2031,37 +2030,37 @@ LABEL_58:
       {
         do
         {
-          v72 = *(v71 - 24);
-          v71 -= 24;
+          v72 = v71[-2].n128_f64[1];
+          v71 = (v71 - 24);
         }
 
         while (v72 >= v67);
       }
 
-      v12 += v68;
+      v12 = (v12 + v68 * 8);
       if (v70 < v71)
       {
         v74 = v71;
         do
         {
-          v196 = *(v12 + 16);
+          v196 = v12[1].n128_u64[0];
           v167 = *v12;
           v75 = *v74;
-          *(v12 + 16) = *(v74 + 16);
+          v12[1].n128_u64[0] = v74[1].n128_u64[0];
           *v12 = v75;
-          *(v74 + 16) = v196;
+          v74[1].n128_u64[0] = v196;
           *v74 = v167;
           do
           {
-            v76 = *(v12 + 24);
-            v12 += 24;
+            v76 = v12[1].n128_f64[1];
+            v12 = (v12 + 24);
           }
 
           while (v76 < v67);
           do
           {
-            v77 = *(v74 - 24);
-            v74 -= 24;
+            v77 = v74[-2].n128_f64[1];
+            v74 = (v74 - 24);
           }
 
           while (v77 >= v67);
@@ -2070,22 +2069,23 @@ LABEL_58:
         while (v12 < v74);
       }
 
-      if (v12 - 24 != a1)
+      if (&v12[-2].n128_i8[8] != a1)
       {
         v78 = *(v12 - 24);
-        *(a1 + 16) = *(v12 - 8);
+        a1[1].n128_u64[0] = v12[-1].n128_u64[1];
         *a1 = v78;
       }
 
-      *(v12 - 24) = v67;
-      *(v12 - 16) = v147;
+      v12[-2].n128_f64[1] = v67;
+      result = v147;
+      v12[-1] = v147;
       if (v70 < v71)
       {
         goto LABEL_79;
       }
 
       {
-        a2 = v12 - 24;
+        a2 = (v12 - 24);
         if (!v79)
         {
           goto LABEL_1;
@@ -2106,7 +2106,7 @@ LABEL_79:
       v148 = *(v12 + 8);
       if (v67 >= *v9)
       {
-        v82 = v12 + 24;
+        v82 = &v12[1].n128_u64[1];
         do
         {
           v12 = v82;
@@ -2118,15 +2118,15 @@ LABEL_79:
           v82 += 24;
         }
 
-        while (v67 >= *v12);
+        while (v67 >= v12->n128_f64[0]);
       }
 
       else
       {
         do
         {
-          v81 = *(v12 + 24);
-          v12 += 24;
+          v81 = v12[1].n128_f64[1];
+          v12 = (v12 + 24);
         }
 
         while (v67 >= v81);
@@ -2138,8 +2138,8 @@ LABEL_79:
         v83 = a2;
         do
         {
-          v84 = *(v83 - 24);
-          v83 -= 24;
+          v84 = v83[-2].n128_f64[1];
+          v83 = (v83 - 24);
         }
 
         while (v67 < v84);
@@ -2147,49 +2147,49 @@ LABEL_79:
 
       while (v12 < v83)
       {
-        v197 = *(v12 + 16);
+        v197 = v12[1].n128_u64[0];
         v168 = *v12;
         v85 = *v83;
-        *(v12 + 16) = *(v83 + 16);
+        v12[1].n128_u64[0] = v83[1].n128_u64[0];
         *v12 = v85;
-        *(v83 + 16) = v197;
+        v83[1].n128_u64[0] = v197;
         *v83 = v168;
         do
         {
-          v86 = *(v12 + 24);
-          v12 += 24;
+          v86 = v12[1].n128_f64[1];
+          v12 = (v12 + 24);
         }
 
         while (v67 >= v86);
         do
         {
-          v87 = *(v83 - 24);
-          v83 -= 24;
+          v87 = v83[-2].n128_f64[1];
+          v83 = (v83 - 24);
         }
 
         while (v67 < v87);
       }
 
-      if (v12 - 24 != a1)
+      if (&v12[-2].n128_i8[8] != a1)
       {
         v88 = *(v12 - 24);
-        *(a1 + 16) = *(v12 - 8);
+        a1[1].n128_u64[0] = v12[-1].n128_u64[1];
         *a1 = v88;
       }
 
       a4 = 0;
-      *(v12 - 24) = v67;
+      v12[-2].n128_f64[1] = v67;
       result = v148;
-      *(v12 - 16) = v148;
+      v12[-1] = v148;
     }
   }
 
   v91 = (v12 + 24);
-  result.n128_u64[0] = *(v12 + 24);
-  v92 = *(a2 - 24);
-  v89 = (a2 - 24);
-  v93 = v92;
-  if (result.n128_f64[0] >= *v12)
+  result.n128_u64[0] = v12[1].n128_u64[1];
+  v92 = a2[-2].n128_u64[1];
+  v89 = &a2[-2].n128_i8[8];
+  v93 = *&v92;
+  if (result.n128_f64[0] >= v12->n128_f64[0])
   {
     if (v93 >= result.n128_f64[0])
     {
@@ -2197,11 +2197,11 @@ LABEL_79:
     }
 
     result = *v91;
-    v136 = *(v12 + 40);
-    v137 = v89[1].n128_u64[0];
+    v136 = v12[2].n128_u64[1];
+    v137 = *(v89 + 2);
     *v91 = *v89;
-    *(v12 + 40) = v137;
-    v89[1].n128_u64[0] = v136;
+    v12[2].n128_u64[1] = v137;
+    *(v89 + 2) = v136;
     *v89 = result;
     goto LABEL_181;
   }
@@ -2211,22 +2211,22 @@ LABEL_79:
     goto LABEL_106;
   }
 
-  v202 = *(v12 + 16);
+  v202 = v12[1].n128_u64[0];
   v176 = *v12;
   *v12 = *v91;
-  *(v12 + 16) = *(v12 + 40);
+  v12[1].n128_u64[0] = v12[2].n128_u64[1];
   result.n128_u64[1] = v176.n128_u64[1];
   *v91 = v176;
-  *(v12 + 40) = v202;
-  result.n128_u64[0] = v89->n128_u64[0];
-  if (v89->n128_f64[0] < *(v12 + 24))
+  v12[2].n128_u64[1] = v202;
+  result.n128_u64[0] = *v89;
+  if (*v89 < v12[1].n128_f64[1])
   {
     result = *v91;
-    v142 = *(v12 + 40);
-    v143 = v89[1].n128_u64[0];
+    v142 = v12[2].n128_u64[1];
+    v143 = *(v89 + 2);
     *v91 = *v89;
-    *(v12 + 40) = v143;
-    v89[1].n128_u64[0] = v142;
+    v12[2].n128_u64[1] = v143;
+    *(v89 + 2) = v142;
     goto LABEL_107;
   }
 
@@ -2572,7 +2572,7 @@ void RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::LineSegment>(ui
 
       else
       {
-        CG::LineSegment::split(&v24, v13, &v19);
+        CG::LineSegment::split(&v19, &v24, v13);
         v14.f64[0] = (v21 - v19.f64[1]) * (v21 - v19.f64[1]);
         v15 = sqrt(v14.f64[0] + (v20 - v19.f64[0]) * (v20 - v19.f64[0]));
         LODWORD(v14.f64[0]) = *(a1 + 120);
@@ -2672,7 +2672,7 @@ uint64_t RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::LineSegment>
   return result;
 }
 
-void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::LineSegment>(uint64_t a1, float64_t a2, double a3, double a4, double a5, double a6, float64x2_t a7, float64x2_t a8)
+void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::LineSegment>(float *result, float64_t a2, double a3, double a4, double a5, double a6, float64x2_t a7, float64x2_t a8)
 {
   v8 = *a7.f64;
   v9 = a6;
@@ -2681,7 +2681,7 @@ void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::LineSegment>(uin
   v24.f64[1] = a3;
   *&v25 = a4;
   *(&v25 + 1) = a5;
-  v12 = *(a1 + 136);
+  v12 = result[34];
   v13 = v12 >= *a7.f64;
   *&a2 = v12;
   v14 = 1;
@@ -2695,28 +2695,28 @@ void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::LineSegment>(uin
     v15 = v14;
     if (v11 == v13)
     {
-      a3 = *(a1 + 8);
+      a3 = *(result + 1);
     }
 
     else
     {
-      LODWORD(a3) = *(a1 + 12);
+      *&a3 = result[3];
     }
 
-    a4 = *(a1 + 56);
+    a4 = *(result + 7);
     if (*&a3 >= *&a4)
     {
       *&a4 = *&a3;
     }
 
-    if (*&a4 <= COERCE_FLOAT(HIDWORD(*(a1 + 56))))
+    if (*&a4 <= COERCE_FLOAT(HIDWORD(*(result + 7))))
     {
       v16 = *&a4;
     }
 
     else
     {
-      LODWORD(v16) = HIDWORD(*(a1 + 56));
+      LODWORD(v16) = HIDWORD(*(result + 7));
     }
 
     *&a4 = v12 >= v8 ? v8 : *&a2;
@@ -2731,7 +2731,7 @@ void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::LineSegment>(uin
       RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::LineSegment>();
     }
 
-    if (*(a1 + 141) == ((v12 < v8) ^ (v11 == v13)))
+    if (*(result + 141) == ((v12 < v8) ^ (v11 == v13)))
     {
 LABEL_23:
       v16 = *&a2;
@@ -2743,10 +2743,10 @@ LABEL_23:
       a2 = CG::LineSegment::index(&v24, v9 * v18);
       if (a2 > 0.0001)
       {
-        *&v19 = *&CG::LineSegment::split(&v24, a2, v22);
-        if ((*(a1 + 141) & 1) == 0)
+        *&v19 = *&CG::LineSegment::split(v22, &v24, a2);
+        if ((*(result + 141) & 1) == 0)
         {
-          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::LineSegment>(a1, v22, v19, v20, a4, a5, a6, a7, a8);
+          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::LineSegment>(result, v22, v19, v20, a4, a5, a6, a7, a8);
         }
 
         a3 = *&v23;
@@ -2756,20 +2756,20 @@ LABEL_23:
         v9 = v9 * a2;
       }
 
-      *(a1 + 136) = v16;
-      if (*(a1 + 141) == 1)
+      result[34] = v16;
+      if (*(result + 141) == 1)
       {
-        *(a1 + 141) = 0;
+        *(result + 141) = 0;
         v21 = v11 == v13 ? 257 : 256;
-        *(a1 + 142) = v21;
+        *(result + 71) = v21;
       }
 
       else
       {
-        *(a1 + 141) = 1;
-        if (*(a1 + 143) == 1)
+        *(result + 141) = 1;
+        if (*(result + 143) == 1)
         {
-          *(a1 + 143) = 0;
+          *(result + 143) = 0;
         }
       }
     }
@@ -2780,12 +2780,12 @@ LABEL_23:
   }
 
   while ((v15 & 1) != 0);
-  if ((*(a1 + 141) & 1) == 0)
+  if ((*(result + 141) & 1) == 0)
   {
-    RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::LineSegment>(a1, &v24, a2, a3, a4, a5, a6, a7, a8);
+    RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::LineSegment>(result, &v24, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  *(a1 + 136) = v8;
+  result[34] = v8;
 }
 
 void RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Quadratic>(__n128 *a1, float64x2_t *this, double a3)
@@ -2798,7 +2798,7 @@ void RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Quadratic>(__n1
     CG::Quadratic::index(this, i - v6);
     if (v9 > 0.0001)
     {
-      CG::Quadratic::split(this, v9, &v18);
+      CG::Quadratic::split(&v18, this, v9);
       v10 = CG::Quadratic::length(&v18, 0);
       v17[2] = v20;
       v17[3] = v21;
@@ -2833,27 +2833,27 @@ void RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Quadratic>(__n1
   a1[5].n128_f64[0] = v7;
 }
 
-void RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(__n128 *a1, float64x2_t *this)
+void RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(__n128 *result, float64x2_t *this)
 {
   v4 = this[1].f64[0];
   v5 = this[1].f64[1];
   if ((v5 - this->f64[1]) * (v5 - this->f64[1]) + (v4 - this->f64[0]) * (v4 - this->f64[0]) > 0.00000001 || (this[2].f64[1] - v5) * (this[2].f64[1] - v5) + (this[2].f64[0] - v4) * (this[2].f64[0] - v4) > 0.00000001)
   {
-    if (a1[8].n128_u8[15] == 1)
+    if (result[8].n128_u8[15] == 1)
     {
       v6 = CG::Quadratic::derivative(this, 0.0);
       v13 = -v12;
       v21.f64[0] = -v6;
       v21.f64[1] = v13;
-      if (a1[8].n128_u8[0])
+      if (result[8].n128_u8[0])
       {
         v14 = INFINITY;
       }
 
       else
       {
-        v7 = *(a1[1].n128_u64[0] + 16);
-        v14 = vabdd_f64(a1[7].n128_f64[0], a1[5].n128_f64[1]);
+        v7 = *(result[1].n128_u64[0] + 16);
+        v14 = vabdd_f64(result[7].n128_f64[0], result[5].n128_f64[1]);
         v13 = v7 - v14;
         if (v7 - v14 < v14)
         {
@@ -2861,51 +2861,51 @@ void RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(__n12
         }
       }
 
-      RB::Path::ClipStroke::Transform::Clipper::emit_cap(a1, this, &v21, a1[8].n128_u8[14], v14, v13, v7, v8, v9, v10, v11);
-      if (a1[8].n128_u8[15] == 1)
+      RB::Path::ClipStroke::Transform::Clipper::emit_cap(result, this, &v21, result[8].n128_u8[14], v14, v13, v7, v8, v9, v10, v11);
+      if (result[8].n128_u8[15] == 1)
       {
-        a1[8].n128_u8[15] = 0;
+        result[8].n128_u8[15] = 0;
       }
     }
 
-    if ((a1[8].n128_u8[12] & 1) == 0)
+    if ((result[8].n128_u8[12] & 1) == 0)
     {
-      a1[13].n128_f64[0] = CG::Quadratic::start_point(this);
-      a1[13].n128_u64[1] = v15;
-      a1[14].n128_f64[0] = -CG::Quadratic::derivative(this, 0.0);
-      a1[14].n128_f64[1] = -v16;
-      (*(**(a1->n128_u64[0] + 96) + 16))(*(a1->n128_u64[0] + 96), a1[13]);
-      a1[8].n128_u8[12] = 1;
+      result[13].n128_f64[0] = CG::Quadratic::start_point(this);
+      result[13].n128_u64[1] = v15;
+      result[14].n128_f64[0] = -CG::Quadratic::derivative(this, 0.0);
+      result[14].n128_f64[1] = -v16;
+      (*(**(result->n128_u64[0] + 96) + 16))(*(result->n128_u64[0] + 96), result[13]);
+      result[8].n128_u8[12] = 1;
     }
 
-    (*(**(a1->n128_u64[0] + 96) + 32))(*(a1->n128_u64[0] + 96), this[1], this[2]);
-    a1[10].n128_f64[1] = CG::Quadratic::end_point(this);
-    a1[11].n128_u64[0] = v17;
-    a1[11].n128_f64[1] = CG::Quadratic::derivative(this, 1.0);
-    a1[12].n128_u64[0] = v18;
-    if (a1[8].n128_u8[0])
+    (*(**(result->n128_u64[0] + 96) + 32))(*(result->n128_u64[0] + 96), this[1], this[2]);
+    result[10].n128_f64[1] = CG::Quadratic::end_point(this);
+    result[11].n128_u64[0] = v17;
+    result[11].n128_f64[1] = CG::Quadratic::derivative(this, 1.0);
+    result[12].n128_u64[0] = v18;
+    if (result[8].n128_u8[0])
     {
       v20 = INFINITY;
     }
 
     else
     {
-      v19 = *(a1[1].n128_u64[0] + 16);
-      v20 = vabdd_f64(a1[7].n128_f64[0], a1[5].n128_f64[1]);
+      v19 = *(result[1].n128_u64[0] + 16);
+      v20 = vabdd_f64(result[7].n128_f64[0], result[5].n128_f64[1]);
       if (v19 - v20 < v20)
       {
         v20 = v19 - v20;
       }
     }
 
-    a1[12].n128_f64[1] = v20;
+    result[12].n128_f64[1] = v20;
   }
 }
 
-void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Quadratic>(__n128 *a1, float64x2_t *this, double a3, float a4)
+void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Quadratic>(__n128 *result, float64x2_t *this, double a3, float a4)
 {
   v8 = 0;
-  v9 = a1[8].n128_f32[2];
+  v9 = result[8].n128_f32[2];
   v10 = v9 >= a4;
   v11 = v9;
   v12 = 1;
@@ -2919,28 +2919,28 @@ void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Quadratic>(__n12
     v13 = v12;
     if (v8 == v10)
     {
-      v14 = a1->n128_u64[1];
+      v14 = result->n128_u64[1];
     }
 
     else
     {
-      LODWORD(v14) = a1->n128_u32[3];
+      LODWORD(v14) = result->n128_u32[3];
     }
 
-    v15 = a1[3].n128_u64[1];
+    v15 = result[3].n128_u64[1];
     if (*&v14 >= *&v15)
     {
       *&v15 = *&v14;
     }
 
-    if (*&v15 <= COERCE_FLOAT(HIDWORD(a1[3].n128_u64[1])))
+    if (*&v15 <= COERCE_FLOAT(HIDWORD(result[3].n128_u64[1])))
     {
       v16 = *&v15;
     }
 
     else
     {
-      LODWORD(v16) = HIDWORD(a1[3].n128_u64[1]);
+      LODWORD(v16) = HIDWORD(result[3].n128_u64[1]);
     }
 
     v17 = v9 >= a4 ? a4 : v11;
@@ -2955,7 +2955,7 @@ void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Quadratic>(__n12
       RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::LineSegment>();
     }
 
-    if (a1[8].n128_u8[13] == ((v9 < a4) ^ (v8 == v10)))
+    if (result[8].n128_u8[13] == ((v9 < a4) ^ (v8 == v10)))
     {
 LABEL_23:
       v16 = v11;
@@ -2967,10 +2967,10 @@ LABEL_23:
       CG::Quadratic::index(this, a3 * v20);
       if (v21 > 0.0001)
       {
-        CG::Quadratic::split(this, v21, v25);
-        if ((a1[8].n128_u8[13] & 1) == 0)
+        CG::Quadratic::split(v25, this, v21);
+        if ((result[8].n128_u8[13] & 1) == 0)
         {
-          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(a1, v25);
+          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(result, v25);
         }
 
         v22 = v25[8];
@@ -2983,20 +2983,20 @@ LABEL_23:
         a3 = a3 * (1.0 - v20);
       }
 
-      a1[8].n128_f32[2] = v16;
-      if (a1[8].n128_u8[13] == 1)
+      result[8].n128_f32[2] = v16;
+      if (result[8].n128_u8[13] == 1)
       {
-        a1[8].n128_u8[13] = 0;
+        result[8].n128_u8[13] = 0;
         v24 = v8 == v10 ? 257 : 256;
-        a1[8].n128_u16[7] = v24;
+        result[8].n128_u16[7] = v24;
       }
 
       else
       {
-        a1[8].n128_u8[13] = 1;
-        if (a1[8].n128_u8[15] == 1)
+        result[8].n128_u8[13] = 1;
+        if (result[8].n128_u8[15] == 1)
         {
-          a1[8].n128_u8[15] = 0;
+          result[8].n128_u8[15] = 0;
         }
       }
     }
@@ -3007,90 +3007,90 @@ LABEL_23:
   }
 
   while ((v13 & 1) != 0);
-  if ((a1[8].n128_u8[13] & 1) == 0)
+  if ((result[8].n128_u8[13] & 1) == 0)
   {
-    RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(a1, this);
+    RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Quadratic>(result, this);
   }
 
-  a1[8].n128_f32[2] = a4;
+  result[8].n128_f32[2] = a4;
 }
 
-void RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Cubic>(uint64_t a1, float64x2_t *this, double a3)
+void RB::Path::ClipStroke::Transform::Clipper::split_segment<CG::Cubic>(__n128 *a1, float64x2_t *this, double a3, double a4, double a5, double a6, __n128 a7, __n128 a8)
 {
-  v3 = a3;
-  v6 = *(a1 + 80);
-  v7 = v6 + a3;
-  for (i = *(a1 + 112); i < v7; i = *(a1 + 112))
+  v8 = a3;
+  v11 = a1[5].n128_f64[0];
+  v12 = v11 + a3;
+  for (i = a1[7].n128_f64[0]; i < v12; i = a1[7].n128_f64[0])
   {
-    CG::Cubic::index(this, i - v6, 0.5);
-    if (v9 > 0.0001)
+    CG::Cubic::index(this, i - v11, 0.5, a5, a6, a7, a8);
+    if (v14 > 0.0001)
     {
-      CG::Cubic::split(this, v9, &v21);
-      v10 = CG::Cubic::length(&v21, 0.5);
-      v20[4] = v25;
-      v20[5] = v26;
-      v20[6] = v27;
-      v20[0] = v21;
-      v20[1] = v22;
-      v20[2] = v23;
-      v20[3] = v24;
-      RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Cubic>(a1, v20, v10, *(a1 + 120));
-      v6 = *(a1 + 112);
-      v11 = v33;
-      this[4] = v32;
-      this[5] = v11;
-      this[6] = v34;
-      v12 = v29;
-      *this = v28;
-      this[1] = v12;
-      v3 = v3 - v10;
-      v13 = v31;
-      this[2] = v30;
-      this[3] = v13;
+      CG::Cubic::split(&v30, this, v14);
+      v15 = CG::Cubic::length(&v30, 0.5);
+      v29[4] = v34;
+      v29[5] = v35;
+      v29[6] = v36;
+      v29[0] = v30;
+      v29[1] = v31;
+      v29[2] = v32;
+      v29[3] = v33;
+      RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Cubic>(a1, v29, v15, a1[7].n128_f32[2], v16, v17, v18, v19);
+      v11 = a1[7].n128_f64[0];
+      v20 = v42;
+      this[4] = v41;
+      this[5] = v20;
+      this[6] = v43;
+      v21 = v38;
+      *this = v37;
+      this[1] = v21;
+      v8 = v8 - v15;
+      v22 = v40;
+      this[2] = v39;
+      this[3] = v22;
     }
 
-    RB::Path::ClipStroke::Transform::Clipper::advance_keyframes(a1, *(a1 + 112));
+    RB::Path::ClipStroke::Transform::Clipper::advance_keyframes(a1, a1[7].n128_f64[0]);
   }
 
-  v14 = (v7 - *(a1 + 88)) / (i - *(a1 + 88));
-  v15 = *(a1 + 96);
-  v16 = this[5];
-  v25 = this[4];
-  v26 = v16;
-  *&v14 = v14;
-  v17 = -(-(v15 - (*&v14 * v15)) - (*&v14 * *(a1 + 120)));
-  v27 = this[6];
-  v18 = this[1];
-  v21 = *this;
-  v22 = v18;
-  v19 = this[3];
-  v23 = this[2];
-  v24 = v19;
-  RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Cubic>(a1, &v21, v3, v17);
-  *(a1 + 80) = v7;
+  v23 = (v12 - a1[5].n128_f64[1]) / (i - a1[5].n128_f64[1]);
+  v24 = a1[6].n128_f32[0];
+  v25 = this[5];
+  v34 = this[4];
+  v35 = v25;
+  *&v23 = v23;
+  v26 = -(-(v24 - (*&v23 * v24)) - (*&v23 * a1[7].n128_f32[2]));
+  v36 = this[6];
+  v27 = this[1];
+  v30 = *this;
+  v31 = v27;
+  v28 = this[3];
+  v32 = this[2];
+  v33 = v28;
+  RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Cubic>(a1, &v30, v8, v26, v32.f64[0], v25.f64[0], a7, a8);
+  a1[5].n128_f64[0] = v12;
 }
 
-void RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(uint64_t a1, float64x2_t *this)
+void RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(__n128 *result, float64x2_t *this)
 {
   v4 = this[1].f64[0];
   v5 = this[1].f64[1];
   if ((v5 - this->f64[1]) * (v5 - this->f64[1]) + (v4 - this->f64[0]) * (v4 - this->f64[0]) > 0.00000001 || (v6 = this[2].f64[0], v7 = this[2].f64[1], (v7 - v5) * (v7 - v5) + (v6 - v4) * (v6 - v4) > 0.00000001) || (this[3].f64[1] - v7) * (this[3].f64[1] - v7) + (this[3].f64[0] - v6) * (this[3].f64[0] - v6) > 0.00000001)
   {
-    if (*(a1 + 143) == 1)
+    if (result[8].n128_u8[15] == 1)
     {
       v8 = CG::Cubic::derivative(this, 0.0);
       v15 = -v14;
       v21.f64[0] = -v8;
       v21.f64[1] = v15;
-      if (*(a1 + 128))
+      if (result[8].n128_u8[0])
       {
         v16 = INFINITY;
       }
 
       else
       {
-        v9 = *(*(a1 + 16) + 16);
-        v16 = vabdd_f64(*(a1 + 112), *(a1 + 88));
+        v9 = *(result[1].n128_u64[0] + 16);
+        v16 = vabdd_f64(result[7].n128_f64[0], result[5].n128_f64[1]);
         v15 = v9 - v16;
         if (v9 - v16 < v16)
         {
@@ -3098,159 +3098,159 @@ void RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(uint64_t 
         }
       }
 
-      RB::Path::ClipStroke::Transform::Clipper::emit_cap(a1, this, &v21, *(a1 + 142), v16, v15, v9, v10, v11, v12, v13);
-      if (*(a1 + 143) == 1)
+      RB::Path::ClipStroke::Transform::Clipper::emit_cap(result, this, &v21, result[8].n128_u8[14], v16, v15, v9, v10, v11, v12, v13);
+      if (result[8].n128_u8[15] == 1)
       {
-        *(a1 + 143) = 0;
+        result[8].n128_u8[15] = 0;
       }
     }
 
-    if ((*(a1 + 140) & 1) == 0)
+    if ((result[8].n128_u8[12] & 1) == 0)
     {
-      *(a1 + 208) = *this;
-      *(a1 + 224) = -CG::Cubic::derivative(this, 0.0);
-      *(a1 + 232) = -v17;
-      (*(**(*a1 + 96) + 16))(*(*a1 + 96), *(a1 + 208));
-      *(a1 + 140) = 1;
+      result[13] = *this;
+      result[14].n128_f64[0] = -CG::Cubic::derivative(this, 0.0);
+      result[14].n128_f64[1] = -v17;
+      (*(**(result->n128_u64[0] + 96) + 16))(*(result->n128_u64[0] + 96), result[13]);
+      result[8].n128_u8[12] = 1;
     }
 
-    (*(**(*a1 + 96) + 40))(*(*a1 + 96), this[1], this[2], this[3]);
-    *(a1 + 168) = this[3];
-    *(a1 + 184) = CG::Cubic::derivative(this, 1.0);
-    *(a1 + 192) = v18;
-    if (*(a1 + 128))
+    (*(**(result->n128_u64[0] + 96) + 40))(*(result->n128_u64[0] + 96), this[1], this[2], this[3]);
+    *(result + 168) = this[3];
+    result[11].n128_f64[1] = CG::Cubic::derivative(this, 1.0);
+    result[12].n128_u64[0] = v18;
+    if (result[8].n128_u8[0])
     {
       v20 = INFINITY;
     }
 
     else
     {
-      v19 = *(*(a1 + 16) + 16);
-      v20 = vabdd_f64(*(a1 + 112), *(a1 + 88));
+      v19 = *(result[1].n128_u64[0] + 16);
+      v20 = vabdd_f64(result[7].n128_f64[0], result[5].n128_f64[1]);
       if (v19 - v20 < v20)
       {
         v20 = v19 - v20;
       }
     }
 
-    *(a1 + 200) = v20;
+    result[12].n128_f64[1] = v20;
   }
 }
 
-void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Cubic>(uint64_t a1, float64x2_t *this, double a3, float a4)
+void RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::Cubic>(__n128 *result, float64x2_t *this, double a3, float a4, double a5, double a6, __n128 a7, __n128 a8)
 {
-  v8 = 0;
-  v9 = *(a1 + 136);
-  v10 = v9 >= a4;
-  v11 = v9;
-  v12 = 1;
+  v12 = 0;
+  v13 = result[8].n128_f32[2];
+  v14 = v13 >= a4;
+  v15 = v13;
+  v16 = 1;
   do
   {
-    if (v11 == a4)
+    if (v15 == a4)
     {
       break;
     }
 
-    v13 = v12;
-    if (v8 == v10)
+    v17 = v16;
+    if (v12 == v14)
     {
-      v14 = *(a1 + 8);
+      v18 = result->n128_i64[1];
     }
 
     else
     {
-      LODWORD(v14) = *(a1 + 12);
+      LODWORD(v18) = result->n128_u32[3];
     }
 
-    v15 = *(a1 + 56);
-    if (*&v14 >= *&v15)
+    v19 = result[3].n128_f64[1];
+    if (*&v18 >= *&v19)
     {
-      *&v15 = *&v14;
+      *&v19 = *&v18;
     }
 
-    if (*&v15 <= COERCE_FLOAT(HIDWORD(*(a1 + 56))))
+    if (*&v19 <= COERCE_FLOAT(HIDWORD(result[3].n128_u64[1])))
     {
-      v16 = *&v15;
+      v20 = *&v19;
     }
 
     else
     {
-      LODWORD(v16) = HIDWORD(*(a1 + 56));
+      LODWORD(v20) = HIDWORD(result[3].n128_u64[1]);
     }
 
-    v17 = v9 >= a4 ? a4 : v11;
-    v18 = v9 >= a4 ? v11 : a4;
-    if (v16 < v17 || v16 > v18)
+    *&v19 = v13 >= a4 ? a4 : v15;
+    *&a6 = v13 >= a4 ? v15 : a4;
+    if (v20 < *&v19 || v20 > *&a6)
     {
       goto LABEL_23;
     }
 
-    if ((v14 & 0x7FFFFFFF) >= 0x7F800000)
+    if ((v18 & 0x7FFFFFFF) >= 0x7F800000)
     {
       RB::Path::ClipStroke::Transform::Clipper::clip_segment<CG::LineSegment>();
     }
 
-    if (*(a1 + 141) == ((v9 < a4) ^ (v8 == v10)))
+    if (result[8].n128_u8[13] == ((v13 < a4) ^ (v12 == v14)))
     {
 LABEL_23:
-      v16 = v11;
+      v20 = v15;
     }
 
     else
     {
-      v20 = (v16 - v11) / (a4 - v11);
-      CG::Cubic::index(this, a3 * v20, 0.5);
-      if (v21 > 0.0001)
+      v22 = (v20 - v15) / (a4 - v15);
+      CG::Cubic::index(this, a3 * v22, 0.5, v19, a6, a7, a8);
+      if (v23 > 0.0001)
       {
-        CG::Cubic::split(this, v21, v26);
-        if ((*(a1 + 141) & 1) == 0)
+        CG::Cubic::split(v28, this, v23);
+        if ((result[8].n128_u8[13] & 1) == 0)
         {
-          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(a1, v26);
+          RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(result, v28);
         }
 
-        v22 = v26[12];
-        this[4] = v26[11];
-        this[5] = v22;
-        this[6] = v26[13];
-        v23 = v26[8];
-        *this = v26[7];
-        this[1] = v23;
-        v24 = v26[10];
-        this[2] = v26[9];
-        this[3] = v24;
-        a3 = a3 * (1.0 - v20);
+        v24 = v28[12];
+        this[4] = v28[11];
+        this[5] = v24;
+        this[6] = v28[13];
+        v25 = v28[8];
+        *this = v28[7];
+        this[1] = v25;
+        v26 = v28[10];
+        this[2] = v28[9];
+        this[3] = v26;
+        a3 = a3 * (1.0 - v22);
       }
 
-      *(a1 + 136) = v16;
-      if (*(a1 + 141) == 1)
+      result[8].n128_f32[2] = v20;
+      if (result[8].n128_u8[13] == 1)
       {
-        *(a1 + 141) = 0;
-        v25 = v8 == v10 ? 257 : 256;
-        *(a1 + 142) = v25;
+        result[8].n128_u8[13] = 0;
+        v27 = v12 == v14 ? 257 : 256;
+        result[8].n128_u16[7] = v27;
       }
 
       else
       {
-        *(a1 + 141) = 1;
-        if (*(a1 + 143) == 1)
+        result[8].n128_u8[13] = 1;
+        if (result[8].n128_u8[15] == 1)
         {
-          *(a1 + 143) = 0;
+          result[8].n128_u8[15] = 0;
         }
       }
     }
 
-    v12 = 0;
-    v8 = 1;
-    v11 = v16;
+    v16 = 0;
+    v12 = 1;
+    v15 = v20;
   }
 
-  while ((v13 & 1) != 0);
-  if ((*(a1 + 141) & 1) == 0)
+  while ((v17 & 1) != 0);
+  if ((result[8].n128_u8[13] & 1) == 0)
   {
-    RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(a1, this);
+    RB::Path::ClipStroke::Transform::Clipper::emit_segment<CG::Cubic>(result, this);
   }
 
-  *(a1 + 136) = a4;
+  result[8].n128_f32[2] = a4;
 }
 
 void DrawThemeImageWithOperation(void *a1, CGContextRef c, CGBlendMode a3, int a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9)
@@ -3290,8 +3290,9 @@ void DrawThemeImageWithOperation(void *a1, CGContextRef c, CGBlendMode a3, int a
   CGContextRestoreGState(c);
 }
 
-void DrawOnePartElementFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5, double a6, uint64_t a7, void *a8, CGContext *a9, int a10, uint64_t a11, CGBlendMode a12, int a13, void *a14)
+void DrawOnePartElementFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5, double a6, uint64_t a7, void *a8, CGContext *a9, uint64_t a10, uint64_t a11, CGBlendMode a12, int a13, void *a14)
 {
+  v18 = a10;
   if ([a8 isTiled])
   {
     v26 = [a8 imageForSliceIndex:a13];
@@ -3309,16 +3310,16 @@ void DrawOnePartElementFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloa
     if (!NSIsEmptyRect(v44))
     {
       CGContextSaveGState(a9);
-      if (a10)
+      if (v18)
       {
         [NSException raise:NSGenericException format:@"Focus Ring drawing not supported"];
-        _CUITileImageWithOperation(v26, a9, a12, a1, a2, a3, a4, v28, a5);
+        _CUITileImageWithOperation(v26, a9, a12, a1, a2, a3, a4, v28, a5, a6);
         [NSException raise:NSGenericException format:@"Focus Ring drawing not supported"];
       }
 
       else
       {
-        _CUITileImageWithOperation(v26, a9, a12, a1, a2, a3, a4, v28, a5);
+        _CUITileImageWithOperation(v26, a9, a12, a1, a2, a3, a4, v28, a5, a6);
       }
 
       CGContextRestoreGState(a9);
@@ -3379,7 +3380,7 @@ void DrawOnePartElementFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloa
       v32 = a12;
     }
 
-    DrawOnePartImageWithOperation(v30, v37, v32, a10, a14, v33, v34, v35, v36, v38);
+    DrawOnePartImageWithOperation(v30, v37, v32, v18, a14, v33, v34, v35, v36, v38);
   }
 }
 
@@ -3450,9 +3451,10 @@ void DrawOnePartImageWithOperation(void *a1, CGContext *a2, CGBlendMode a3, int 
   }
 }
 
-void DrawOnePartMaskFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5, uint64_t a6, void *a7, CGContext *a8, int a9, uint64_t a10, CGBlendMode a11, int a12)
+void DrawOnePartMaskFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5, uint64_t a6, void *a7, CGContext *a8, uint64_t a9, uint64_t a10, CGBlendMode a11, int a12)
 {
-  v20 = [a7 maskForSliceIndex:a12];
+  v13 = a9;
+  v20 = [a7 maskForSliceIndex:{a12, a9, a10}];
   if (a5 >= 0.0)
   {
     v21 = a11;
@@ -3463,10 +3465,10 @@ void DrawOnePartMaskFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloat a
     v21 = kCGBlendModeSourceAtop;
   }
 
-  DrawOnePartImageWithOperation(v20, a8, v21, a9, 0, a1, a2, a3, a4, a5);
+  DrawOnePartImageWithOperation(v20, a8, v21, v13, 0, a1, a2, a3, a4, a5);
 }
 
-void DrawAbsoluteAnimationFrameWithOperation(void *a1, CGContext *a2, CGBlendMode a3, int a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, uint64_t a11, uint64_t a12)
+void DrawAbsoluteAnimationFrameWithOperation(void *a1, CGContext *a2, uint64_t a3, uint64_t a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, uint64_t a11, uint64_t a12)
 {
   v12[0] = _NSConcreteStackBlock;
   v12[1] = 3221225472;
@@ -3480,7 +3482,7 @@ void DrawQualifiedAnimationFrameWithOperation(uint64_t a1, void *a2, CGContext *
 {
   if (!NSIsEmptyRect(*&a6))
   {
-    v53 = a10;
+    v42 = a10;
     v23 = +[CUIImage imageWithCGImage:](CUIImage, "imageWithCGImage:", [a2 unslicedImage]);
     [(CUIImage *)v23 size];
     v25 = v24;
@@ -3488,7 +3490,7 @@ void DrawQualifiedAnimationFrameWithOperation(uint64_t a1, void *a2, CGContext *
     [objc_msgSend(a2 imageForSliceIndex:{0), "size"}];
     v30 = v28;
     v31 = v29;
-    v54 = a9;
+    v43 = a9;
     if (v28 >= v25)
     {
       v34 = 0.0;
@@ -3525,30 +3527,30 @@ void DrawQualifiedAnimationFrameWithOperation(uint64_t a1, void *a2, CGContext *
     v36 = [(CUIImage *)v23 image];
     if (v36)
     {
-      v43 = v36;
+      v37 = v36;
       if (a12)
       {
         [a2 scale];
-        v44 = [a12 newFlattenedImageFromShapeCGImage:v43 withScale:1 cache:?];
-        if (v44)
+        v38 = [a12 newFlattenedImageFromShapeCGImage:v37 withScale:1 cache:?];
+        if (v38)
         {
-          v43 = v44;
+          v37 = v38;
         }
       }
 
-      v56.origin.x = v34 * v35;
-      v56.origin.y = v32 * v35;
-      v56.size.width = v30;
-      v56.size.height = v31;
-      v45 = CGImageCreateWithImageInRect(v43, v56);
-      if (!v45)
+      v45.origin.x = v34 * v35;
+      v45.origin.y = v32 * v35;
+      v45.size.width = v30;
+      v45.size.height = v31;
+      v39 = CGImageCreateWithImageInRect(v37, v45);
+      if (!v39)
       {
-        v57.origin.x = a6;
-        v57.origin.y = a7;
-        v57.size.width = a8;
-        v57.size.height = v54;
-        NSStringFromRect(v57);
-        _CUILog(4, "CoreUI: error %s got a invalid subimage '%@' for rendition %@", v46, v47, v48, v49, v50, v51, "void DrawQualifiedAnimationFrameWithOperation(CFIndex (^)(NSInteger), NSRect, CUIThemeRendition *, CGContextRef, CGBlendMode, CGFloat, CUIFocusRingType, CGColorRef, CUIShapeEffectStack *)");
+        v46.origin.x = a6;
+        v46.origin.y = a7;
+        v46.size.width = a8;
+        v46.size.height = v43;
+        v40 = NSStringFromRect(v46);
+        _CUILog(4, "CoreUI: error %s got a invalid subimage '%@' for rendition %@", "void DrawQualifiedAnimationFrameWithOperation(CFIndex (^)(NSInteger), NSRect, CUIThemeRendition *, CGContextRef, CGBlendMode, CGFloat, CUIFocusRingType, CGColorRef, CUIShapeEffectStack *)", v40, a2);
       }
 
       CGContextSaveGState(a3);
@@ -3562,17 +3564,17 @@ void DrawQualifiedAnimationFrameWithOperation(uint64_t a1, void *a2, CGContext *
         CGContextSetBlendMode(a3, a4);
       }
 
-      v52 = fabs(v53);
-      if (v52 != 1.0)
+      v41 = fabs(v42);
+      if (v41 != 1.0)
       {
-        CGContextSetAlpha(a3, v52);
+        CGContextSetAlpha(a3, v41);
       }
 
-      v58.origin.x = a6;
-      v58.origin.y = a7;
-      v58.size.width = a8;
-      v58.size.height = v54;
-      CGContextDrawImage(a3, v58, v45);
+      v47.origin.x = a6;
+      v47.origin.y = a7;
+      v47.size.width = a8;
+      v47.size.height = v43;
+      CGContextDrawImage(a3, v47, v39);
       if (a5)
       {
         [NSException raise:NSGenericException format:@"Focus Ring drawing not supported"];
@@ -3580,12 +3582,12 @@ void DrawQualifiedAnimationFrameWithOperation(uint64_t a1, void *a2, CGContext *
 
       CGContextRestoreGState(a3);
 
-      CGImageRelease(v45);
+      CGImageRelease(v39);
     }
 
     else
     {
-      _CUILog(4, "CoreUI: error %s got a couldn't find an image for %@", v37, v38, v39, v40, v41, v42, "void DrawQualifiedAnimationFrameWithOperation(CFIndex (^)(NSInteger), NSRect, CUIThemeRendition *, CGContextRef, CGBlendMode, CGFloat, CUIFocusRingType, CGColorRef, CUIShapeEffectStack *)");
+      _CUILog(4, "CoreUI: error %s got a couldn't find an image for %@", "void DrawQualifiedAnimationFrameWithOperation(CFIndex (^)(NSInteger), NSRect, CUIThemeRendition *, CGContextRef, CGBlendMode, CGFloat, CUIFocusRingType, CGColorRef, CUIShapeEffectStack *)", a2);
     }
   }
 }
@@ -3610,18 +3612,20 @@ void DrawAnimationFrameMappedFrom0_1RangedValue(void *a1, CGContext *a2, CGBlend
   DrawQualifiedAnimationFrameWithOperation(v12, a1, a2, a3, a4, a6, a7, a8, a9, a10, a12, a12);
 }
 
-void DrawThreePartElementFromRenditionWithOperation(double a1, double a2, double a3, double a4, double a5, double a6, uint64_t a7, void *a8, CGContext *a9, int a10, uint64_t a11, CGBlendMode a12, int a13, int a14, int a15, void *a16)
+void DrawThreePartElementFromRenditionWithOperation(CGFloat a1, double a2, double a3, double a4, double a5, CGFloat a6, uint64_t a7, void *a8, CGContext *a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, int a14, int a15, void *a16)
 {
-  v27 = [a8 imageForSliceIndex:a13];
+  v17 = a12;
+  v18 = a10;
+  v27 = [a8 imageForSliceIndex:{a13, a10, a11}];
   v28 = [a8 imageForSliceIndex:a14];
   v29 = [a8 imageForSliceIndex:a15];
   v30 = [a8 type] == 2;
   [a8 scale];
 
-  DrawThreePartImageWithOperation(v27, v29, v28, v30, a9, a12, a10, a16, a1, a2, a3, a4, v31, a5, a6);
+  DrawThreePartImageWithOperation(v27, v29, v28, v30, a9, v17, v18, a16, a1, a2, a3, a4, v31, a5, a6);
 }
 
-void DrawThreePartImageWithOperation(void *a1, void *a2, void *a3, int a4, CGContext *a5, CGBlendMode a6, int a7, void *a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15)
+void DrawThreePartImageWithOperation(void *a1, void *a2, void *a3, int a4, CGContext *a5, CGBlendMode a6, int a7, void *a8, CGFloat a9, double a10, double a11, double a12, double a13, double a14, CGFloat a15)
 {
   if (a12 == 0.0 || a11 == 0.0)
   {
@@ -3903,100 +3907,102 @@ LABEL_62:
   CGContextRestoreGState(a5);
 }
 
-void DrawThreePartMaskFromRenditionWithOperation(double a1, double a2, double a3, double a4, double a5, double a6, uint64_t a7, void *a8, CGContext *a9, int a10, uint64_t a11, CGBlendMode a12)
+void DrawThreePartMaskFromRenditionWithOperation(CGFloat a1, double a2, double a3, double a4, double a5, CGFloat a6, uint64_t a7, void *a8, CGContext *a9, uint64_t a10, uint64_t a11, CGBlendMode a12)
 {
-  v22 = [a8 maskForSliceIndex:0];
+  v14 = a10;
+  v22 = [a8 maskForSliceIndex:{0, a10, a11}];
   v23 = [a8 maskForSliceIndex:2];
   v24 = [a8 maskForSliceIndex:1];
   v25 = [a8 type] == 2;
   [a8 scale];
 
-  DrawThreePartImageWithOperation(v22, v23, v24, v25, a9, a12, a10, 0, a1, a2, a3, a4, v26, a5, a6);
+  DrawThreePartImageWithOperation(v22, v23, v24, v25, a9, a12, v14, 0, a1, a2, a3, a4, v26, a5, a6);
 }
 
-void DrawPulsedElementFromRenditionKey(uint64_t a1, void *a2, CGContext *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void DrawPulsedElementFromRenditionKey(CGFloat a1, double a2, double a3, double a4, double a5, CGFloat a6, uint64_t a7, void *a8, CGContext *a9, int a10)
 {
-  v24 = _LookupStructuredThemeProvider(a1, a2);
-  if (a10 > 1.0 && ([v24 canGetRenditionWithKey:{objc_msgSend(a2, "keyList")}] & 1) == 0)
+  v19 = _LookupStructuredThemeProvider();
+  if (a6 > 1.0 && ([v19 canGetRenditionWithKey:{objc_msgSend(a8, "keyList")}] & 1) == 0)
   {
-    [a2 setThemeScale:1];
+    [a8 setThemeScale:1];
   }
 
-  v25 = [v24 renditionWithKey:{objc_msgSend(a2, "keyList")}];
-  v26 = [v25 type];
-  if (v26 >= 3)
+  v20 = [v19 renditionWithKey:{objc_msgSend(a8, "keyList")}];
+  v21 = [v20 type];
+  if (v21 >= 3)
   {
 
-    _CUILog(4, "Can only pulse one- and three-part renditions", v27, v28, v29, v30, v31, v32, a15);
+    _CUILog(4, "Can only pulse one- and three-part renditions");
   }
 
   else
   {
-    v33 = v26;
-    v34 = OBJC_CLASS___CUIPSDLayer_ptr;
-    if (a4)
+    v22 = v21;
+    v23 = OBJC_CLASS___CUIPSDLayer_ptr;
+    if (a10)
     {
       [NSException raise:NSGenericException format:@"Focus Ring drawing not supported"];
     }
 
-    CGContextBeginTransparencyLayer(a3, 0);
-    v35 = objc_opt_respondsToSelector();
-    v36 = 0;
-    if (v35)
+    CGContextBeginTransparencyLayer(a9, 0);
+    v24 = objc_opt_respondsToSelector();
+    v25 = 0;
+    if (v24)
     {
-      LOWORD(v36) = [a2 themeLayer];
-      [a2 setThemeLayer:3];
-      v36 = v36;
+      LOWORD(v25) = [a8 themeLayer];
+      [a8 setThemeLayer:3];
+      v25 = v25;
     }
 
-    v37 = [v25 imageForSliceIndex:0];
-    v38 = v37;
-    if (v33)
+    v26 = [v20 imageForSliceIndex:0];
+    v27 = v26;
+    if (v22)
     {
-      v39 = v33 == 2;
-      v40 = [v25 imageForSliceIndex:2];
-      v52 = v35;
-      v41 = a4;
-      v42 = v36;
-      v43 = [v25 imageForSliceIndex:1];
-      [v25 scale];
-      v44 = v40;
-      v34 = OBJC_CLASS___CUIPSDLayer_ptr;
-      DrawThreePartImageWithOperation(v38, v44, v43, v39, a3, kCGBlendModeCopy, 0, 0, a5, a6, a7, a8, v45, 1.0 - a9, a10);
-      v46 = [v24 renditionWithKey:{objc_msgSend(a2, "keyList")}];
-      v47 = [v46 imageForSliceIndex:0];
-      v48 = [v46 imageForSliceIndex:2];
-      v49 = [v46 imageForSliceIndex:1];
-      v50 = v46;
-      v36 = v42;
-      a4 = v41;
-      v35 = v52;
-      [v50 scale];
-      DrawThreePartImageWithOperation(v47, v48, v49, v39, a3, kCGBlendModePlusLighter, 0, 0, a5, a6, a7, a8, v51, a9, a10);
+      v28 = v22 == 2;
+      v29 = [v20 imageForSliceIndex:2];
+      v41 = v24;
+      v30 = a10;
+      v31 = v25;
+      v32 = [v20 imageForSliceIndex:1];
+      [v20 scale];
+      v33 = v29;
+      v23 = OBJC_CLASS___CUIPSDLayer_ptr;
+      DrawThreePartImageWithOperation(v27, v33, v32, v28, a9, kCGBlendModeCopy, 0, 0, a1, a2, a3, a4, v34, 1.0 - a5, a6);
+      v35 = [v19 renditionWithKey:{objc_msgSend(a8, "keyList")}];
+      v36 = [v35 imageForSliceIndex:0];
+      v37 = [v35 imageForSliceIndex:2];
+      v38 = [v35 imageForSliceIndex:1];
+      v39 = v35;
+      v25 = v31;
+      a10 = v30;
+      v24 = v41;
+      [v39 scale];
+      DrawThreePartImageWithOperation(v36, v37, v38, v28, a9, kCGBlendModePlusLighter, 0, 0, a1, a2, a3, a4, v40, a5, a6);
     }
 
     else
     {
-      DrawThemeImageWithOperation(v37, a3, kCGBlendModeCopy, 0, a5, a6, a7, a8, 1.0 - a9);
-      DrawThemeImageWithOperation([objc_msgSend(v24 renditionWithKey:{objc_msgSend(a2, "keyList")), "imageForSliceIndex:", 0}], a3, kCGBlendModeNormal, 0, a5, a6, a7, a8, a9);
+      DrawThemeImageWithOperation(v26, a9, kCGBlendModeCopy, 0, a1, a2, a3, a4, 1.0 - a5);
+      DrawThemeImageWithOperation([objc_msgSend(v19 renditionWithKey:{objc_msgSend(a8, "keyList")), "imageForSliceIndex:", 0}], a9, kCGBlendModeNormal, 0, a1, a2, a3, a4, a5);
     }
 
-    CGContextEndTransparencyLayer(a3);
-    if (a4)
+    CGContextEndTransparencyLayer(a9);
+    if (a10)
     {
-      [(__objc2_class *)v34[97] raise:NSGenericException format:@"Focus Ring drawing not supported"];
+      [(__objc2_class *)v23[97] raise:NSGenericException format:@"Focus Ring drawing not supported"];
     }
 
-    if (v35)
+    if (v24)
     {
 
-      [a2 setThemeLayer:v36];
+      [a8 setThemeLayer:v25];
     }
   }
 }
 
-void DrawNinePartElementFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5, double a6, uint64_t a7, void *a8, CGContext *a9, int a10, uint64_t a11, CGBlendMode a12, void *a13)
+void DrawNinePartElementFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5, double a6, uint64_t a7, void *a8, CGContext *a9, uint64_t a10, uint64_t a11, CGBlendMode a12, void *a13)
 {
+  v34 = a10;
   v20 = [a8 edgesOnly];
   v36 = [_CUINineImagePieces alloc];
   if (v20)
@@ -4020,7 +4026,7 @@ void DrawNinePartElementFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFlo
   LOBYTE(v31) = [a8 isTiled];
   v37 = [(_CUINineImagePieces *)v36 initWithCenter:v21 topLeft:v22 top:v23 topRight:v24 right:v25 bottomRight:v26 bottom:v27 bottomLeft:v28 left:v29 tileCenterAndEdges:v31];
   [a8 scale];
-  DrawNinePartImageWithOperation(v37, a9, a12, a10, a13, a1, a2, a3, a4, v30, a5, a6);
+  DrawNinePartImageWithOperation(v37, a9, a12, v34, a13, a1, a2, a3, a4, v30, a5, a6);
 }
 
 void DrawNinePartImageWithOperation(void *a1, CGContext *a2, CGBlendMode a3, int a4, void *a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, double a11, double a12)
@@ -4827,7 +4833,7 @@ void DrawNinePartMaskFromRenditionWithOperation(CGFloat a1, CGFloat a2, CGFloat 
   DrawNinePartImageWithOperation(v34, a9, a12, a10, 0, a1, a2, a3, a4, v28, a5, a6);
 }
 
-void _CUITileImageWithOperation(void *a1, CGContext *a2, CGBlendMode a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, double a8, double a9)
+void _CUITileImageWithOperation(void *a1, CGContext *a2, CGBlendMode a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, double a8, double a9, double a10)
 {
   if (a1 && !NSIsEmptyRect(*&a4))
   {
@@ -4839,11 +4845,11 @@ void _CUITileImageWithOperation(void *a1, CGContext *a2, CGBlendMode a3, CGFloat
 
     CGContextSetAlpha(a2, fabs(a9));
     [a1 size];
-    v17.origin.x = a4;
-    v17.origin.y = a5;
-    v17.size.width = a6;
-    v17.size.height = a7;
-    CGRectGetMaxY(v17);
+    v18.origin.x = a4;
+    v18.origin.y = a5;
+    v18.size.width = a6;
+    v18.size.height = a7;
+    CGRectGetMaxY(v18);
     [a1 image];
     CGContextDrawImages();
     CGContextRestoreGState(a2);
@@ -4894,7 +4900,7 @@ void sub_18DFB97BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-CGPathRef CGPathCreateJoinedStrokePath(const CGPath *a1, void *a2, unint64_t *a3, uint64_t a4, uint64_t a5)
+CGPathRef CGPathCreateJoinedStrokePath(const CGPath *a1, void *a2, unint64_t *a3, int a4, int a5)
 {
   if (!a1)
   {
@@ -4955,9 +4961,9 @@ CGPathRef CGPathCreateJoinedStrokePath(const CGPath *a1, void *a2, unint64_t *a3
   return v9;
 }
 
-void sub_18DFB9980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_18DFB9980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   RB::Path::JoinStroke::~JoinStroke(va);
   _Unwind_Resume(a1);
 }
@@ -4998,33 +5004,33 @@ uint64_t anonymous namespace::apply_path(CGPath const*,RB::Path::Consumer &)::$_
   return result;
 }
 
-void sub_18DFBA194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18DFBA194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18DFBA3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18DFBA5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18DFBA840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18DFBA3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18DFBA5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18DFBA840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5172,7 +5178,7 @@ Class initMDLVertexAttribute()
     initMDLVertexAttribute_cold_1();
   }
 
-  getMDLVertexAttributeClass[0] = MDLVertexAttributeFunction;
+  getMDLVertexAttributeClass = MDLVertexAttributeFunction;
   return result;
 }
 
@@ -5215,7 +5221,7 @@ Class initMDLVertexBufferLayout()
     initMDLVertexBufferLayout_cold_1();
   }
 
-  getMDLVertexBufferLayoutClass[0] = MDLVertexBufferLayoutFunction;
+  getMDLVertexBufferLayoutClass = MDLVertexBufferLayoutFunction;
   return result;
 }
 
@@ -5229,7 +5235,7 @@ Class initMDLVertexDescriptor()
     initMDLVertexDescriptor_cold_1();
   }
 
-  getMDLVertexDescriptorClass[0] = MDLVertexDescriptorFunction;
+  getMDLVertexDescriptorClass = MDLVertexDescriptorFunction;
   return result;
 }
 
@@ -5243,13 +5249,13 @@ Class initMDLMesh()
     initMDLMesh_cold_1();
   }
 
-  getMDLMeshClass[0] = MDLMeshFunction;
+  getMDLMeshClass = MDLMeshFunction;
   return result;
 }
 
 BOOL __copyBlock(uint64_t a1, uint64_t a2, const char *a3)
 {
-  NamedBlock = BOMStorageGetNamedBlock(a1, a3);
+  NamedBlock = BOMStorageGetNamedBlock();
   if (!NamedBlock)
   {
     return 1;
@@ -5257,25 +5263,25 @@ BOOL __copyBlock(uint64_t a1, uint64_t a2, const char *a3)
 
   v7 = NamedBlock;
   v8 = BOMStorageNewNamedBlock(a2, a3);
-  v15 = BOMStorageSizeOfBlock(a1, v7, v9, v10, v11, v12, v13, v14);
-  v16 = malloc_type_malloc(v15, 0xE31AF694uLL);
-  if (BOMStorageCopyFromBlock(a1, v7, v16, v17, v18, v19, v20, v21))
+  v9 = BOMStorageSizeOfBlock(a1, v7);
+  v10 = malloc_type_malloc(v9, 0xE31AF694uLL);
+  if (BOMStorageCopyFromBlock(a1, v7, v10))
   {
-    free(v16);
+    free(v10);
     return 0;
   }
 
-  v27 = BOMStorageCopyToBlock(a2, v8, v16, v15, v22, v23, v24, v25);
-  free(v16);
-  if (v27)
+  v12 = BOMStorageCopyToBlock(a2, v8, v10, v9);
+  free(v10);
+  if (v12)
   {
     return 0;
   }
 
-  return BOMStorageCommit(a2) == 0;
+  return !BOMStorageCommit(a2);
 }
 
-uint64_t __copyTree(uint64_t a1, uint64_t a2, const char *a3, int a4)
+BOOL __copyTree(uint64_t a1, uint64_t a2, char *a3, int a4)
 {
   v7 = BOMTreeOpenWithName(a1, a3, 0);
   if (!v7)
@@ -5303,19 +5309,19 @@ uint64_t __copyTree(uint64_t a1, uint64_t a2, const char *a3, int a4)
     return 0;
   }
 
-  for (i = v12; !BOMTreeIteratorIsAtEnd(i, v13, v14, v15, v16, v17, v18, v19); BOMTreeIteratorNext(i, v56, v57, v58, v59, v60, v61, v62))
+  for (i = v12; !BOMTreeIteratorIsAtEnd(i); BOMTreeIteratorNext(i))
   {
-    v28 = BOMTreeIteratorKey(i, v21, v22, v23, v24, v25, v26, v27);
-    v36 = BOMTreeIteratorKeySize(i, v29, v30, v31, v32, v33, v34, v35);
-    v44 = BOMTreeIteratorValue(i, v37, v38, v39, v40, v41, v42, v43);
-    v52 = BOMTreeIteratorValueSize(i, v45, v46, v47, v48, v49, v50, v51);
-    BOMTreeSetValue(v11, v28, v36, v44, v52, v53, v54, v55);
+    v14 = BOMTreeIteratorKey(i);
+    v15 = BOMTreeIteratorKeySize(i);
+    v16 = BOMTreeIteratorValue(i);
+    v17 = BOMTreeIteratorValueSize(i);
+    BOMTreeSetValue(v11, v14, v15, v16, v17);
   }
 
-  v63 = BOMStorageCommit(a2) == 0;
+  v18 = !BOMStorageCommit(a2);
   BOMTreeIteratorFree(i);
   BOMTreeFree(v11);
-  return v63;
+  return v18;
 }
 
 Class initMDLAsset()
@@ -5360,22 +5366,22 @@ Class initMDLAsset()
 uint64_t CUICGImageGetAlphaInfo(CGImage *a1)
 {
   AlphaInfo = CGImageGetAlphaInfo(a1);
-  v3 = AlphaInfo;
+  v4 = AlphaInfo;
   if (AlphaInfo < 8 && ((0xE1u >> AlphaInfo) & 1) != 0)
   {
     return dword_18E021EB0[AlphaInfo];
   }
 
   memset(&src, 0, sizeof(src));
+  v16 = 0;
+  v12[0] = 0x2000000008;
+  v12[1] = _CUIColorSpaceGetSRGB(AlphaInfo, v3);
+  v13 = 8194;
   v15 = 0;
-  v11[0] = 0x2000000008;
-  v11[1] = _CUIColorSpaceGetSRGB();
-  v12 = 8194;
   v14 = 0;
-  v13 = 0;
-  if (MEMORY[0x193AC74A0](&src, v11, 0, a1, 256))
+  if (MEMORY[0x193AC74A0](&src, v12, 0, a1, 256))
   {
-    return v3;
+    return v4;
   }
 
   dest.height = src.height;
@@ -5387,16 +5393,16 @@ uint64_t CUICGImageGetAlphaInfo(CGImage *a1)
 LABEL_6:
     free(src.data);
     free(dest.data);
-    return v3;
+    return v4;
   }
 
   if (dest.height)
   {
-    v5 = 0;
+    v6 = 0;
     data = dest.data;
     while (1)
     {
-      v7 = data;
+      v8 = data;
       width = dest.width;
       if (dest.width)
       {
@@ -5404,9 +5410,9 @@ LABEL_6:
       }
 
 LABEL_13:
-      ++v5;
+      ++v6;
       data += dest.rowBytes;
-      if (v5 == dest.height)
+      if (v6 == dest.height)
       {
         goto LABEL_14;
       }
@@ -5414,8 +5420,8 @@ LABEL_13:
 
     while (1)
     {
-      v9 = *v7++;
-      if (v9 != 255)
+      v10 = *v8++;
+      if (v10 != 255)
       {
         goto LABEL_6;
       }
@@ -5430,12 +5436,12 @@ LABEL_13:
 LABEL_14:
   free(src.data);
   free(dest.data);
-  if ((v3 - 1) < 4)
+  if ((v4 - 1) < 4)
   {
-    return dword_18E021ED0[(v3 - 1)];
+    return dword_18E021ED0[(v4 - 1)];
   }
 
-  return v3;
+  return v4;
 }
 
 CGFloat CUICalcNonAlphaAreaOfImage(CGImage *a1)
@@ -5447,45 +5453,45 @@ CGFloat CUICalcNonAlphaAreaOfImage(CGImage *a1)
   v5 = Width;
   Height = CGImageGetHeight(a1);
   v7 = malloc_type_malloc((Width * Height), 0x100004077774924uLL);
-  v38[0] = 0x2000000008;
-  v38[1] = _CUIColorSpaceGetSRGB();
-  v39 = 8195;
-  memset(v41, 0, sizeof(v41));
-  v40 = 0;
-  if (MEMORY[0x193AC74A0](&src, v38, 0, a1, 256) || (dest.width = src.width, dest.rowBytes = src.width, dest.data = v7, dest.height = src.height, v8 = vImageExtractChannel_ARGB8888(&src, &dest, 0, 0), free(src.data), v8))
+  v39[0] = 0x2000000008;
+  v39[1] = _CUIColorSpaceGetSRGB(v7, v8);
+  v40 = 8195;
+  memset(v42, 0, sizeof(v42));
+  v41 = 0;
+  if (MEMORY[0x193AC74A0](&src, v39, 0, a1, 256) || (dest.width = src.width, dest.rowBytes = src.width, dest.data = v7, dest.height = src.height, v9 = vImageExtractChannel_ARGB8888(&src, &dest, 0, 0), free(src.data), v9))
   {
     free(v7);
   }
 
   else
   {
-    v10 = Height;
-    v11 = y;
+    v11 = Height;
+    v12 = y;
     if (Height)
     {
-      v12 = 0;
-      v13 = v7;
-      v11 = y;
-      v10 = Height;
+      v13 = 0;
+      v14 = v7;
+      v12 = y;
+      v11 = Height;
       while (!Width)
       {
 LABEL_11:
-        v11 = v11 + 1.0;
-        v10 = v10 + -1.0;
-        ++v12;
-        v13 += v5;
-        if (v12 >= Height)
+        v12 = v12 + 1.0;
+        v11 = v11 + -1.0;
+        ++v13;
+        v14 += v5;
+        if (v13 >= Height)
         {
           goto LABEL_12;
         }
       }
 
-      v14 = 1;
-      v15 = v13;
-      while (!*v15++)
+      v15 = 1;
+      v16 = v14;
+      while (!*v16++)
       {
-        v17 = v14++;
-        if (v17 >= v5)
+        v18 = v15++;
+        if (v18 >= v5)
         {
           goto LABEL_11;
         }
@@ -5493,29 +5499,29 @@ LABEL_11:
     }
 
 LABEL_12:
-    LODWORD(v18) = (v10 + v11 + -1.0);
-    if (v11 <= v18)
+    LODWORD(v19) = (v11 + v12 + -1.0);
+    if (v12 <= v19)
     {
-      v18 = v18;
-      v28 = &v7[v5 * v18];
+      v19 = v19;
+      v29 = &v7[v5 * v19];
       while (!Width)
       {
 LABEL_28:
-        v10 = v10 + -1.0;
-        --v18;
-        v28 -= v5;
-        if (v11 > v18)
+        v11 = v11 + -1.0;
+        --v19;
+        v29 -= v5;
+        if (v12 > v19)
         {
           goto LABEL_13;
         }
       }
 
-      v29 = 1;
-      v30 = v28;
-      while (!*v30++)
+      v30 = 1;
+      v31 = v29;
+      while (!*v31++)
       {
-        v32 = v29++;
-        if (v32 >= v5)
+        v33 = v30++;
+        if (v33 >= v5)
         {
           goto LABEL_28;
         }
@@ -5523,40 +5529,40 @@ LABEL_28:
     }
 
 LABEL_13:
-    v19 = Width;
-    v20 = CGRectZero.origin.x;
+    v20 = Width;
+    v21 = CGRectZero.origin.x;
     if (Width)
     {
-      v21 = 0;
-      v22 = v11 + v10;
-      v23 = &v7[v5 * v11];
-      v20 = CGRectZero.origin.x;
-      v19 = Width;
+      v22 = 0;
+      v23 = v12 + v11;
+      v24 = &v7[v5 * v12];
+      v21 = CGRectZero.origin.x;
+      v20 = Width;
       while (1)
       {
-        v24 = v11 + 1;
-        v25 = v23;
-        if (v22 > v11)
+        v25 = v12 + 1;
+        v26 = v24;
+        if (v23 > v12)
         {
           break;
         }
 
 LABEL_18:
-        v20 = v20 + 1.0;
-        v19 = v19 + -1.0;
-        ++v21;
-        ++v23;
-        if (v21 >= v5)
+        v21 = v21 + 1.0;
+        v20 = v20 + -1.0;
+        ++v22;
+        ++v24;
+        if (v22 >= v5)
         {
           goto LABEL_19;
         }
       }
 
-      while (!*v25)
+      while (!*v26)
       {
-        v25 += v5;
-        v26 = v24++;
-        if (v22 <= v26)
+        v26 += v5;
+        v27 = v25++;
+        if (v23 <= v27)
         {
           goto LABEL_18;
         }
@@ -5564,33 +5570,33 @@ LABEL_18:
     }
 
 LABEL_19:
-    LODWORD(v27) = (v19 + v20 + -1.0);
-    if (v20 <= v27)
+    LODWORD(v28) = (v20 + v21 + -1.0);
+    if (v21 <= v28)
     {
-      v33 = v11 + v10;
-      v27 = v27;
+      v34 = v12 + v11;
+      v28 = v28;
       while (1)
       {
-        v34 = v11 + 1;
-        v35 = &v7[v5 * v11];
-        if (v33 > v11)
+        v35 = v12 + 1;
+        v36 = &v7[v5 * v12];
+        if (v34 > v12)
         {
           break;
         }
 
 LABEL_34:
-        v19 = v19 + -1.0;
-        if (v20 > --v27)
+        v20 = v20 + -1.0;
+        if (v21 > --v28)
         {
           goto LABEL_20;
         }
       }
 
-      while (!v35[v27])
+      while (!v36[v28])
       {
-        v35 += v5;
-        v36 = v34++;
-        if (v33 <= v36)
+        v36 += v5;
+        v37 = v35++;
+        if (v34 <= v37)
         {
           goto LABEL_34;
         }
@@ -5599,15 +5605,15 @@ LABEL_34:
 
 LABEL_20:
     free(v7);
-    v44.origin.x = CGRectZero.origin.x;
-    v44.origin.y = y;
-    v44.size.width = Width;
-    v44.size.height = Height;
-    v43.x = v20;
-    v43.y = v11;
-    if (CGRectContainsPoint(v44, v43))
+    v45.origin.x = CGRectZero.origin.x;
+    v45.origin.y = y;
+    v45.size.width = Width;
+    v45.size.height = Height;
+    v44.x = v21;
+    v44.y = v12;
+    if (CGRectContainsPoint(v45, v44))
     {
-      return v20;
+      return v21;
     }
 
     else
@@ -5832,9 +5838,10 @@ LABEL_20:
 
 vImage_Error CUIGetRGBAImageBuffer(CGImage *a1, uint64_t a2, vImage_Buffer *a3)
 {
-  if (CGImageGetBitsPerComponent(a1) < 9)
+  BitsPerComponent = CGImageGetBitsPerComponent(a1);
+  if (BitsPerComponent < 9)
   {
-    SRGB = _CUIColorSpaceGetSRGB();
+    SRGB = _CUIColorSpaceGetSRGB(BitsPerComponent, v7);
     *a2 = 0x2000000008;
     *(a2 + 8) = SRGB;
     *(a2 + 16) = 2;
@@ -5845,17 +5852,17 @@ vImage_Error CUIGetRGBAImageBuffer(CGImage *a1, uint64_t a2, vImage_Buffer *a3)
   }
 
   ColorSpace = CGImageGetColorSpace(a1);
-  ExtendedRangeSRGB = _CUIColorSpaceGetExtendedRangeSRGB();
+  ExtendedRangeSRGB = _CUIColorSpaceGetExtendedRangeSRGB(ColorSpace, v9);
   *a2 = 0x8000000020;
   *(a2 + 8) = ExtendedRangeSRGB;
   *(a2 + 16) = 8452;
   *(a2 + 28) = 0;
   *(a2 + 20) = 0;
-  v8 = *(a2 + 16);
-  *&v11.bitsPerComponent = *a2;
-  *&v11.bitmapInfo = v8;
-  *&v11.renderingIntent = *(a2 + 32);
-  return CUIConvertCGImageFormat(a1, ColorSpace, &v11, a3);
+  v11 = *(a2 + 16);
+  *&v14.bitsPerComponent = *a2;
+  *&v14.bitmapInfo = v11;
+  *&v14.renderingIntent = *(a2 + 32);
+  return CUIConvertCGImageFormat(a1, ColorSpace, &v14, a3);
 }
 
 void CUIDeallocateRGBAImageBuffer(uint64_t a1, void **a2)
@@ -5883,23 +5890,23 @@ void CUIDeallocateRGBAImageBuffer(uint64_t a1, void **a2)
   }
 }
 
-void sub_18DFCA440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18DFCA440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18DFCAF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18DFCAF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5963,82 +5970,81 @@ void RB::cubic_index<double>(float64x2_t a1, float64x2_t a2, float64x2_t a3, flo
   if (a5 > 0.0)
   {
     v7 = _ZN2RB13CubicIteratorIDv2_dE13segment_countIdEEiS1_S1_S1_S1_T_(a1, a2, a3, a4, a6);
-    v8 = v7;
-    _ZN2RB13CubicIteratorIDv2_dEC1ES1_S1_S1_S1_i(v21, v7, a1, a2, a3, a4);
-    if (v8 >= 1)
+    _ZN2RB13CubicIteratorIDv2_dEC1ES1_S1_S1_S1_i();
+    if (v7 >= 1)
     {
-      v9 = 0;
-      v11 = v21[0];
-      v10 = v21[1];
-      v12 = 0.0;
-      v13 = v21[2];
+      v8 = 0;
+      v10 = v16;
+      v9 = v17;
+      v11 = 0.0;
+      v12 = v18;
       do
       {
-        v14 = v11;
-        v11 = vaddq_f64(v11, v10);
-        v15 = vsubq_f64(v11, v14);
-        v16 = v12 + sqrt(vaddvq_f64(vmulq_f64(v15, v15)));
-        if (v16 > a5)
+        v13 = v10;
+        v10 = vaddq_f64(v10, v9);
+        v14 = vsubq_f64(v10, v13);
+        v15 = v11 + sqrt(vaddvq_f64(vmulq_f64(v14, v14)));
+        if (v15 > a5)
         {
           break;
         }
 
-        v10 = vaddq_f64(v10, v13);
-        v13 = vaddq_f64(v13, v21[3]);
-        ++v9;
-        v12 = v16;
+        v9 = vaddq_f64(v9, v12);
+        v12 = vaddq_f64(v12, v19);
+        ++v8;
+        v11 = v15;
       }
 
-      while (v8 != v9);
+      while (v7 != v8);
     }
   }
 }
 
-float64x2_t CG::Cubic::split@<Q0>(float64x2_t *this@<X0>, double a2@<D0>, float64x2_t *a3@<X8>)
+float64x2_t CG::Cubic::split@<Q0>(float64x2_t *__return_ptr a1@<X8>, float64x2_t *this@<X0>, double a3@<D0>)
 {
   v4 = *this;
   v3 = this[1];
-  v5 = vaddq_f64(*this, vmulq_n_f64(vsubq_f64(v3, *this), a2));
+  v5 = vaddq_f64(*this, vmulq_n_f64(vsubq_f64(v3, *this), a3));
   v6 = this[2];
   v7 = this[3];
-  v8 = vaddq_f64(v3, vmulq_n_f64(vsubq_f64(v6, v3), a2));
-  v9 = vaddq_f64(v5, vmulq_n_f64(vsubq_f64(v8, v5), a2));
-  *a3 = *this;
-  a3[1] = v5;
-  v10 = vaddq_f64(v6, vmulq_n_f64(vsubq_f64(v7, v6), a2));
-  v11 = vaddq_f64(v8, vmulq_n_f64(vsubq_f64(v10, v8), a2));
-  v12 = vaddq_f64(v9, vmulq_n_f64(vsubq_f64(v11, v9), a2));
-  a3[2] = v9;
-  a3[3] = v12;
+  v8 = vaddq_f64(v3, vmulq_n_f64(vsubq_f64(v6, v3), a3));
+  v9 = vaddq_f64(v5, vmulq_n_f64(vsubq_f64(v8, v5), a3));
+  *a1 = *this;
+  a1[1] = v5;
+  v10 = vaddq_f64(v6, vmulq_n_f64(vsubq_f64(v7, v6), a3));
+  v11 = vaddq_f64(v8, vmulq_n_f64(vsubq_f64(v10, v8), a3));
+  v12 = vaddq_f64(v9, vmulq_n_f64(vsubq_f64(v11, v9), a3));
+  a1[2] = v9;
+  a1[3] = v12;
   v13 = vsubq_f64(v5, v4);
   __asm { FMOV            V7.2D, #3.0 }
 
   v19 = vsubq_f64(v9, v5);
-  a3[4] = vmulq_f64(v13, _Q7);
-  a3[5] = vmulq_f64(vsubq_f64(v19, v13), _Q7);
-  a3[6] = vaddq_f64(v13, vsubq_f64(vsubq_f64(v12, v9), vaddq_f64(v19, v19)));
-  a3[7] = v12;
-  a3[8] = v11;
-  a3[9] = v10;
+  a1[4] = vmulq_f64(v13, _Q7);
+  a1[5] = vmulq_f64(vsubq_f64(v19, v13), _Q7);
+  a1[6] = vaddq_f64(v13, vsubq_f64(vsubq_f64(v12, v9), vaddq_f64(v19, v19)));
+  a1[7] = v12;
+  a1[8] = v11;
+  a1[9] = v10;
   v20 = vsubq_f64(v11, v12);
-  a3[10] = v7;
-  a3[11] = vmulq_f64(v20, _Q7);
+  a1[10] = v7;
+  a1[11] = vmulq_f64(v20, _Q7);
   v21 = vsubq_f64(v10, v11);
   v22 = vmulq_f64(vsubq_f64(v21, v20), _Q7);
   result = vaddq_f64(vsubq_f64(vsubq_f64(v7, v10), vaddq_f64(v21, v21)), v20);
-  a3[12] = v22;
-  a3[13] = result;
+  a1[12] = v22;
+  a1[13] = result;
   return result;
 }
 
-id CUIPlaceHolderRendition(uint64_t a1, uint64_t a2)
+id CUIPlaceHolderRendition()
 {
   result = CUIPlaceHolderRendition_placeHolderRendition;
   if (!CUIPlaceHolderRendition_placeHolderRendition)
   {
-    v4 = 0;
-    v3 = 3538945;
-    result = [_LookupStructuredThemeProvider(0 a2)];
+    v2 = 0;
+    v1 = 3538945;
+    result = [_LookupStructuredThemeProvider() renditionWithKey:&v1];
     CUIPlaceHolderRendition_placeHolderRendition = result;
   }
 
@@ -6097,80 +6103,76 @@ void *__csiBlockDataProviderGetBytePointer(uint64_t a1)
     }
   }
 
-  v15 = +[NSAssertionHandler currentHandler];
-  v16 = [NSString stringWithUTF8String:"const void * _Nullable __CUIBlockDataProviderGetBytePointer(void * _Nullable)"];
-  [objc_loadWeak((a1 + 48)) name];
-  v41 = "const void * _Nullable __CUIBlockDataProviderGetBytePointer(void * _Nullable)";
-  [(NSAssertionHandler *)v15 handleFailureInFunction:v16 file:@"CUIThemeRendition.m" lineNumber:1722 description:@"CoreUI: %s unknown pixel format %d rendition '%@'"];
+  -[NSAssertionHandler handleFailureInFunction:file:lineNumber:description:](+[NSAssertionHandler currentHandler](NSAssertionHandler, "currentHandler"), "handleFailureInFunction:file:lineNumber:description:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "const void * _Nullable __CUIBlockDataProviderGetBytePointer(void * _Nullable)"), @"CUIThemeRendition.m", 1722, @"CoreUI: %s unknown pixel format %d rendition '%@'", "const void * _Nullable __CUIBlockDataProviderGetBytePointer(void * _Nullable)", v3[6], [objc_loadWeak((a1 + 48)) name]);
   v13 = 0;
   v14 = 0xFFFFFFFFLL;
 LABEL_22:
   if (v9)
   {
-    v26 = [[_CSIRenditionBlockData alloc] initWithPixelWidth:v5 pixelHeight:SHIDWORD(v5) sourceRowbytes:*(a1 + 112) pixelFormat:v14];
-    v27 = v26;
-    if (v26)
+    v18 = [[_CSIRenditionBlockData alloc] initWithPixelWidth:v5 pixelHeight:SHIDWORD(v5) sourceRowbytes:*(a1 + 112) pixelFormat:v14];
+    v19 = v18;
+    if (v18)
     {
-      strlcpy(v26 + 48, v4 + 40, 0x80uLL);
-      *(v27 + 8) = v4[6];
-      [(_CSIRenditionBlockData *)v27 expandCSIBitmapData:v11 fromSlice:v5 makeReadOnly:1, v28, v29, v30];
-      v24 = *(v27 + 16);
+      strlcpy(v18 + 48, v4 + 40, 0x80uLL);
+      *(v19 + 8) = v4[6];
+      [(_CSIRenditionBlockData *)v19 expandCSIBitmapData:v11 fromSlice:v5 makeReadOnly:1];
+      v16 = *(v19 + 16);
     }
 
     else
     {
-      v24 = 0;
+      v16 = 0;
     }
 
-    *(a1 + 80) = v27;
+    *(a1 + 80) = v19;
   }
 
   else if (_CSIAcquireCachedBlockData(a1, v14))
   {
     if (v13 && (Weak = objc_loadWeak((a1 + 8 * v14 + 56))) != 0)
     {
-      v24 = (Weak[2] + Weak[4] * *(a1 + 12) + 4 * (v4[6] == 1095911234) * *(a1 + 8));
+      v16 = (Weak[2] + Weak[4] * *(a1 + 12) + 4 * (v4[6] == 1095911234) * *(a1 + 8));
     }
 
     else
     {
-      _CUILog(4, "CoreUI: image data is not available, returning a 1,1 image instead that is all black", v17, v18, v19, v20, v21, v22, v41);
-      v24 = &__CUIBlockDataProviderGetBytePointer___imageData;
+      _CUILog(4, "CoreUI: image data is not available, returning a 1,1 image instead that is all black");
+      v16 = &__CUIBlockDataProviderGetBytePointer___imageData;
     }
   }
 
   else
   {
-    v31 = v6 | (v7 << 32);
-    v32 = __bppFromBlockPixelFormat(v14);
-    v33 = [[_CSIRenditionBlockData alloc] initWithPixelWidth:v6 pixelHeight:v7 sourceRowbytes:*(a1 + 112) pixelFormat:v14];
-    v37 = v33;
-    if (v33)
+    v20 = v6 | (v7 << 32);
+    v21 = __bppFromBlockPixelFormat(v14);
+    v22 = [[_CSIRenditionBlockData alloc] initWithPixelWidth:v6 pixelHeight:v7 sourceRowbytes:*(a1 + 112) pixelFormat:v14];
+    v23 = v22;
+    if (v22)
     {
-      strlcpy(v33 + 48, v4 + 40, 0x80uLL);
-      v37[2] = v4[6];
+      strlcpy(v22 + 48, v4 + 40, 0x80uLL);
+      v23[2] = v4[6];
     }
 
-    [(_CSIRenditionBlockData *)v37 expandCSIBitmapData:0 fromSlice:v31 makeReadOnly:1, v34, v35, v36];
-    v38 = _CSIStoreBlockData(a1, v37, v14);
-    if (v38)
+    [(_CSIRenditionBlockData *)v23 expandCSIBitmapData:0 fromSlice:v20 makeReadOnly:1];
+    v24 = _CSIStoreBlockData(a1, v23, v14);
+    if (v24)
     {
-      v39 = v38[2];
-      v40 = v38[4];
+      v25 = v24[2];
+      v26 = v24[4];
     }
 
     else
     {
-      v39 = 0;
-      v40 = 0;
+      v25 = 0;
+      v26 = 0;
     }
 
-    v24 = (v39 + v40 * *(a1 + 12) + (*(a1 + 8) * v32));
-    *(a1 + 80) = v38;
+    v16 = (v25 + v26 * *(a1 + 12) + (*(a1 + 8) * v21));
+    *(a1 + 80) = v24;
   }
 
   kdebug_trace();
-  return v24;
+  return v16;
 }
 
 float64x2_t CG::Quadratic::Quadratic(CG::Quadratic *this, const Point *a2, const Point *a3, const Point *a4)
@@ -6197,39 +6199,37 @@ double CG::Quadratic::length(float64x2_t *this, int a2)
     return sqrt((v7 - v9) * (v7 - v9) + (v6 - v8) * (v6 - v8));
   }
 
-  v16[10] = v5;
-  v16[11] = v4;
-  v16[14] = v2;
-  v16[15] = v3;
-  CG::Quadratic::split(this, 0.5, v15);
-  CG::Quadratic::length(v15, a2 + 1);
-  v12 = v11;
-  CG::Quadratic::length(v16, a2 + 1);
-  return v12 + v13;
+  v14[10] = v5;
+  v14[11] = v4;
+  v14[14] = v2;
+  v14[15] = v3;
+  CG::Quadratic::split(v13, this, 0.5);
+  v11 = CG::Quadratic::length(v13, a2 + 1);
+  return v11 + CG::Quadratic::length(v14, a2 + 1);
 }
 
-float64x2_t CG::Quadratic::split@<Q0>(float64x2_t *this@<X0>, double a2@<D0>, float64x2_t *a3@<X8>)
+float64x2_t CG::Quadratic::split@<Q0>(float64x2_t *__return_ptr a1@<X8>, float64x2_t *this@<X0>, double a3@<D0>)
 {
   v4 = *this;
   v3 = this[1];
-  v5 = vaddq_f64(*this, vmulq_n_f64(vsubq_f64(v3, *this), a2));
+  v5 = vaddq_f64(*this, vmulq_n_f64(vsubq_f64(v3, *this), a3));
   v6 = this[2];
-  v7 = vaddq_f64(v3, vmulq_n_f64(vsubq_f64(v6, v3), a2));
-  v8 = vaddq_f64(v5, vmulq_n_f64(vsubq_f64(v7, v5), a2));
-  *a3 = *this;
-  a3[1] = v5;
+  v7 = vaddq_f64(v3, vmulq_n_f64(vsubq_f64(v6, v3), a3));
+  v8 = vaddq_f64(v5, vmulq_n_f64(vsubq_f64(v7, v5), a3));
+  *a1 = *this;
+  a1[1] = v5;
   v9 = vsubq_f64(v5, v4);
-  a3[2] = v8;
-  a3[3] = vaddq_f64(v9, v9);
-  a3[4] = vsubq_f64(vsubq_f64(v8, v5), v9);
-  a3[5] = v8;
-  a3[6] = v7;
-  a3[7] = v6;
+  a1[2] = v8;
+  a1[3] = vaddq_f64(v9, v9);
+  a1[4] = vsubq_f64(vsubq_f64(v8, v5), v9);
+  a1[5] = v8;
+  a1[6] = v7;
+  a1[7] = v6;
   v10 = vsubq_f64(v7, v8);
   v11 = vaddq_f64(v10, v10);
   result = vsubq_f64(vsubq_f64(v6, v7), v10);
-  a3[8] = v11;
-  a3[9] = result;
+  a1[8] = v11;
+  a1[9] = result;
   return result;
 }
 
@@ -6241,7 +6241,7 @@ void CG::Quadratic::index(float64x2_t *this, double a2)
     v5 = 0.0;
     do
     {
-      CG::Quadratic::split(this, (v4 + v5) * 0.5, v6);
+      CG::Quadratic::split(v6, this, (v4 + v5) * 0.5);
       if (CG::Quadratic::length(v6, 0) <= a2)
       {
         v5 = (v4 + v5) * 0.5;
@@ -6835,34 +6835,34 @@ CGContext *CreateARGBBitmapContext(CGFloat a1, CGFloat a2, CGFloat a3)
   v6 = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
   if (v6)
   {
-    v13 = v6;
-    BitmapContext = CreateBitmapContext(4, v6, 2, a1, a2, a3, v8, v9, v10, v11, v12);
-    CGColorSpaceRelease(v13);
+    v7 = v6;
+    BitmapContext = CreateBitmapContext(4, v6, 2u, a1, a2, a3);
+    CGColorSpaceRelease(v7);
     return BitmapContext;
   }
 
   else
   {
-    _CUILog(4, "CoreUI: CreateARGBBitmapContext() couldln't lookup colorspace kCGColorSpaceSRGB", v7, v8, v9, v10, v11, v12, v16);
+    _CUILog(4, "CoreUI: CreateARGBBitmapContext() couldln't lookup colorspace kCGColorSpaceSRGB");
     return 0;
   }
 }
 
-CGContext *CreateBitmapContext(uint64_t a1, CGColorSpaceRef space, uint64_t a3, CGFloat a4, CGFloat a5, CGFloat a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+CGContext *CreateBitmapContext(uint64_t a1, CGColorSpaceRef space, uint32_t a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
-  v20 = CUICGBitmapContextCreate((a4 * a6), (a5 * a6), 8uLL, (a4 * a6) * a1, space, a3, a10, a11);
-  if (!v20)
+  v9 = CUICGBitmapContextCreate((a4 * a6), (a5 * a6), 8uLL, (a4 * a6) * a1, space, a3);
+  if (!v9)
   {
-    _CUILog(4, "CoreUI: CreateBitmapContext() Context not created!", v14, v15, v16, v17, v18, v19, v22);
+    _CUILog(4, "CoreUI: CreateBitmapContext() Context not created!");
   }
 
-  CGContextScaleCTM(v20, a6, a6);
-  v23.origin.x = 0.0;
-  v23.origin.y = 0.0;
-  v23.size.width = a4;
-  v23.size.height = a5;
-  CGContextClearRect(v20, v23);
-  return v20;
+  CGContextScaleCTM(v9, a6, a6);
+  v11.origin.x = 0.0;
+  v11.origin.y = 0.0;
+  v11.size.width = a4;
+  v11.size.height = a5;
+  CGContextClearRect(v9, v11);
+  return v9;
 }
 
 unint64_t CUIGetChannelDataForImage(CGImage *a1, void **a2, CGFloat a3, CGFloat a4)
@@ -6973,23 +6973,23 @@ double _CUIEffectiveScaleForContext(CGContext *a1)
 
 CGPathRef _CUICreateNewContinuousRoundedRect(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5)
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v10 = getCGPathCreateWithContinuousRoundedRectSymbolLoc_ptr;
-  v22 = getCGPathCreateWithContinuousRoundedRectSymbolLoc_ptr;
+  v16 = getCGPathCreateWithContinuousRoundedRectSymbolLoc_ptr;
   if (!getCGPathCreateWithContinuousRoundedRectSymbolLoc_ptr)
   {
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = __getCGPathCreateWithContinuousRoundedRectSymbolLoc_block_invoke;
-    v18[3] = &unk_1E7257C20;
-    v18[4] = &v19;
-    __getCGPathCreateWithContinuousRoundedRectSymbolLoc_block_invoke(v18);
-    v10 = v20[3];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = __getCGPathCreateWithContinuousRoundedRectSymbolLoc_block_invoke;
+    v12[3] = &unk_1E7257C20;
+    v12[4] = &v13;
+    __getCGPathCreateWithContinuousRoundedRectSymbolLoc_block_invoke(v12);
+    v10 = v14[3];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v10)
   {
     _CUICreateNewContinuousRoundedRect_cold_1();
@@ -6998,20 +6998,20 @@ CGPathRef _CUICreateNewContinuousRoundedRect(CGFloat a1, CGFloat a2, CGFloat a3,
   result = v10(0, a1, a2, a3, a4, a5, a5);
   if (!result)
   {
-    _CUILog(4, "Failed to find CGPathCreateWithContinuousRoundedRect, falling back to a standard rect. LAR=%d", v12, v13, v14, v15, v16, v17, 0);
-    v23.origin.x = a1;
-    v23.origin.y = a2;
-    v23.size.width = a3;
-    v23.size.height = a4;
-    return CGPathCreateWithRect(v23, 0);
+    _CUILog(4, "Failed to find CGPathCreateWithContinuousRoundedRect, falling back to a standard rect. LAR=%d", 0);
+    v17.origin.x = a1;
+    v17.origin.y = a2;
+    v17.size.width = a3;
+    v17.size.height = a4;
+    return CGPathCreateWithRect(v17, 0);
   }
 
   return result;
 }
 
-void sub_18DFE3B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18DFE3B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7048,7 +7048,7 @@ void *__getCGPathCreateWithContinuousRoundedRectSymbolLoc_block_invoke(uint64_t 
   return result;
 }
 
-uint64_t __CoreGraphicsLibraryCore_block_invoke()
+uint64_t __CoreGraphicsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreGraphicsLibraryCore_frameworkLibrary = result;
@@ -7075,20 +7075,20 @@ double CG::LineSegment::index(CG::LineSegment *this, double a2)
   return v2;
 }
 
-float64x2_t CG::LineSegment::split@<Q0>(float64x2_t *this@<X0>, double a2@<D0>, float64x2_t *a3@<X8>)
+float64x2_t CG::LineSegment::split@<Q0>(float64x2_t *__return_ptr a1@<X8>, float64x2_t *this@<X0>, double a3@<D0>)
 {
-  result = vaddq_f64(*this, vmulq_n_f64(vsubq_f64(this[1], *this), a2));
+  result = vaddq_f64(*this, vmulq_n_f64(vsubq_f64(this[1], *this), a3));
   v4 = this[1];
-  *a3 = *this;
-  a3[1] = result;
-  a3[2] = result;
-  a3[3] = v4;
+  *a1 = *this;
+  a1[1] = result;
+  a1[2] = result;
+  a1[3] = v4;
   return result;
 }
 
-void sub_18DFE4740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18DFE4740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7210,14 +7210,14 @@ void __GetShapeEffectCIContextOptions_block_invoke()
   gCIContextOptions = Mutable;
 }
 
-void sub_18DFEDA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18DFEDA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t CUIGetDeviceArtworkDisplayGamut()
+uint64_t CUIGetDeviceArtworkDisplayGamut(uint64_t a1, uint64_t a2)
 {
   if (__getDeviceTraits___getDeviceTraits_once != -1)
   {
@@ -7227,7 +7227,14 @@ uint64_t CUIGetDeviceArtworkDisplayGamut()
   return __getDeviceTraits___deviceDisplayGamut;
 }
 
-uint64_t sub_18DFF9AC4(uint64_t result)
+void sub_18DFF8834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_18DFF9AC4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (result)
   {
@@ -7236,7 +7243,7 @@ uint64_t sub_18DFF9AC4(uint64_t result)
   return result;
 }
 
-uint64_t sub_18DFF9B30(uint64_t result)
+uint64_t sub_18DFF9B30(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (result)
   {
@@ -7245,7 +7252,7 @@ uint64_t sub_18DFF9B30(uint64_t result)
   return result;
 }
 
-uint64_t sub_18DFF9B9C@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_18DFF9B9C@<X0>(void *a1@<X8>)
 {
   v3 = (v1 + OBJC_IVAR___CUIVectorGlyphEncapsulation__samples);
   swift_beginAccess();
@@ -7253,77 +7260,83 @@ uint64_t sub_18DFF9B9C@<X0>(uint64_t *a1@<X8>)
   v4 = v3[1];
   v6 = v3[2];
   v7 = v3[3];
+  v8 = v3[4];
   if (*v3)
   {
-    v8 = *v3;
-    v9 = v3[1];
-    v10 = v3[2];
-    v11 = v3[3];
-    v12 = v3[4];
+    v9 = *v3;
+    v10 = v3[1];
+    v11 = v3[2];
+    v12 = v3[3];
+    v13 = v3[4];
   }
 
   else
   {
-    v28 = v3[4];
-    v29 = v7;
-    v30 = v6;
-    v31 = v4;
-    v13 = OBJC_IVAR___CUIVectorGlyphEncapsulation_shape;
+    v31 = v3[4];
+    v32 = v7;
+    v33 = v6;
+    v34 = v4;
+    v14 = OBJC_IVAR___CUIVectorGlyphEncapsulation_shape;
     swift_beginAccess();
-    v14 = *(v1 + v13);
-    v15 = (v1 + OBJC_IVAR___CUIVectorGlyphEncapsulation_rect);
+    v15 = *(v1 + v14);
+    v16 = (v1 + OBJC_IVAR___CUIVectorGlyphEncapsulation_rect);
     swift_beginAccess();
-    v16 = [v14 pathInRect_];
-    v38 = *v15;
-    v17 = (v38.size.width + v38.size.height) / 100.0;
-    CGRectGetMidX(*v15);
-    CGRectGetMidY(*v15);
+    v17 = [v15 pathInRect_];
+    v41 = *v16;
+    v18 = (v41.size.width + v41.size.height) / 100.0;
+    CGRectGetMidX(*v16);
+    CGRectGetMidY(*v16);
     sub_18E0020BC();
-    v33 = &_swiftEmptyArrayStorage;
-    v34 = &_swiftEmptyArrayStorage;
-    v35 = &_swiftEmptyArrayStorage;
-    v36 = &_swiftEmptyArrayStorage;
-    v37 = &_swiftEmptyArrayStorage;
-    v32 = 0.0;
-    *&v18 = off_1F00D3980();
-    *&v23[2] = v17;
-    v23[3] = &v32;
-    v23[4] = &v33;
-    v24 = v18;
-    sub_18E003034(sub_18DFFA45C, v23);
+    v36 = _swiftEmptyArrayStorage;
+    v37 = _swiftEmptyArrayStorage;
+    v38 = _swiftEmptyArrayStorage;
+    v39 = _swiftEmptyArrayStorage;
+    v40 = _swiftEmptyArrayStorage;
+    v35 = 0.0;
+    *&v20 = off_1F00D3980(v19);
+    *&v26[2] = v18;
+    v26[3] = &v35;
+    v26[4] = &v36;
+    v27 = v20;
+    sub_18E003034(sub_18DFFA45C, v26);
 
-    sub_18DFFA7E8(v19, &v37);
+    sub_18DFFA7E8(v21, &v40);
 
-    if (v32 < 0.0)
+    if (v35 < 0.0)
     {
       sub_18DFFA348();
     }
 
-    v8 = v33;
-    v9 = v34;
-    v10 = v35;
-    v11 = v36;
-    v12 = v37;
-    v20 = *v3;
-    v21 = v3[3];
-    v27 = v3[2];
-    v26 = v21;
-    v25 = v3[4];
-    *v3 = v33;
-    v3[1] = v9;
-    v3[2] = v10;
-    v3[3] = v11;
-    v3[4] = v12;
+    v9 = v36;
+    v10 = v37;
+    v11 = v38;
+    v12 = v39;
+    v13 = v40;
+    v22 = *v3;
+    v23 = v3[1];
+    v24 = v3[3];
+    v30 = v3[2];
+    v29 = v24;
+    v28 = v3[4];
+    *v3 = v36;
+    v3[1] = v10;
+    v3[2] = v11;
+    v3[3] = v12;
+    v3[4] = v13;
 
-    sub_18DFF9B30(v20);
+    sub_18DFF9B30(v22, v23, v30, v29, v28);
+    v6 = v33;
+    v4 = v34;
+    v8 = v31;
+    v7 = v32;
   }
 
-  result = sub_18DFF9AC4(v5);
-  *a1 = v8;
-  a1[1] = v9;
-  a1[2] = v10;
-  a1[3] = v11;
-  a1[4] = v12;
+  result = sub_18DFF9AC4(v5, v4, v6, v7, v8);
+  *a1 = v9;
+  a1[1] = v10;
+  a1[2] = v11;
+  a1[3] = v12;
+  a1[4] = v13;
   return result;
 }
 
@@ -7334,24 +7347,24 @@ id sub_18DFF9E20()
   return [v0 init];
 }
 
-id sub_18DFF9E58()
+id sub_18DFF9E58(uint64_t a1, uint64_t a2)
 {
-  v1 = OBJC_IVAR___CUIVectorGlyphEncapsulation_shape;
-  *&v0[v1] = [objc_opt_self() newRoundedRect];
-  v2 = &v0[OBJC_IVAR___CUIVectorGlyphEncapsulation_rect];
-  *v2 = 0u;
-  *(v2 + 1) = 0u;
-  v3 = &v0[OBJC_IVAR___CUIVectorGlyphEncapsulation_canvasSize];
-  *v3 = 0;
-  *(v3 + 1) = 0;
-  *&v0[OBJC_IVAR___CUIVectorGlyphEncapsulation_representativePointSize] = 0;
-  v4 = &v0[OBJC_IVAR___CUIVectorGlyphEncapsulation__samples];
-  *(v4 + 4) = 0;
+  v3 = OBJC_IVAR___CUIVectorGlyphEncapsulation_shape;
+  *&v2[v3] = [objc_opt_self() newRoundedRect];
+  v4 = &v2[OBJC_IVAR___CUIVectorGlyphEncapsulation_rect];
   *v4 = 0u;
   *(v4 + 1) = 0u;
-  v6.receiver = v0;
-  v6.super_class = CUIVectorGlyphEncapsulation;
-  return objc_msgSendSuper2(&v6, sel_init);
+  v5 = &v2[OBJC_IVAR___CUIVectorGlyphEncapsulation_canvasSize];
+  *v5 = 0;
+  *(v5 + 1) = 0;
+  *&v2[OBJC_IVAR___CUIVectorGlyphEncapsulation_representativePointSize] = 0;
+  v6 = &v2[OBJC_IVAR___CUIVectorGlyphEncapsulation__samples];
+  *(v6 + 4) = 0;
+  *v6 = 0u;
+  *(v6 + 1) = 0u;
+  v8.receiver = v2;
+  v8.super_class = CUIVectorGlyphEncapsulation;
+  return objc_msgSendSuper2(&v8, sel_init);
 }
 
 char *sub_18DFF9FAC(void *a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
@@ -7438,7 +7451,7 @@ void sub_18DFFA45C()
 {
   v1 = *(v0 + 24);
   v2 = *(v0 + 32);
-  v30 = *(v0 + 48);
+  v32 = *(v0 + 48);
   v3 = ceil(sub_18E0031C4() / *(v0 + 16));
   *v1 = sub_18E0033D0() + *v1;
   if ((*&v3 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
@@ -7461,7 +7474,7 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v4 = v3;
+  v5 = v3;
   if (v3 < 0)
   {
 LABEL_32:
@@ -7469,116 +7482,119 @@ LABEL_32:
     return;
   }
 
-  if (v4)
+  if (v5)
   {
-    v5 = 0;
+    v6 = 0;
     do
     {
-      v6.f64[0] = sub_18E0024E8(v5 / v3);
-      v32 = v6;
-      v7 = sub_18E003268();
-      *&v8 = sub_18E003270(v7 & 1, v5 / v3);
-      v31 = v8;
-      v9 = *v2;
+      v4.n128_f64[0] = v6 / v3;
+      v7.f64[0] = sub_18E0024E8(v4);
+      v34 = v7;
+      v8 = sub_18E003268();
+      v9.n128_f64[0] = v6 / v3;
+      *&v10 = sub_18E003270(v8 & 1, v9);
+      v33 = v10;
+      v11 = *v2;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      *v2 = v9;
+      *v2 = v11;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        v9 = sub_18DFFA8A0(0, *(v9 + 2) + 1, 1, v9);
-        *v2 = v9;
+        v11 = sub_18DFFA8A0(0, *(v11 + 2) + 1, 1, v11);
+        *v2 = v11;
       }
 
-      v12 = *(v9 + 2);
-      v11 = *(v9 + 3);
-      if (v12 >= v11 >> 1)
+      v14 = *(v11 + 2);
+      v13 = *(v11 + 3);
+      if (v14 >= v13 >> 1)
       {
-        v9 = sub_18DFFA8A0((v11 > 1), v12 + 1, 1, v9);
-        *v2 = v9;
+        v11 = sub_18DFFA8A0((v13 > 1), v14 + 1, 1, v11);
+        *v2 = v11;
       }
 
-      *(v9 + 2) = v12 + 1;
-      *&v9[8 * v12 + 32] = v32.f64[0];
-      v13 = v2[1];
-      v14 = swift_isUniquelyReferenced_nonNull_native();
-      v2[1] = v13;
-      if ((v14 & 1) == 0)
+      *(v11 + 2) = v14 + 1;
+      *&v11[8 * v14 + 32] = v34.f64[0];
+      v15 = v2[1];
+      v16 = swift_isUniquelyReferenced_nonNull_native();
+      v2[1] = v15;
+      if ((v16 & 1) == 0)
       {
-        v13 = sub_18DFFA8A0(0, *(v13 + 2) + 1, 1, v13);
-        v2[1] = v13;
+        v15 = sub_18DFFA8A0(0, *(v15 + 2) + 1, 1, v15);
+        v2[1] = v15;
       }
 
-      v16 = *(v13 + 2);
-      v15 = *(v13 + 3);
-      if (v16 >= v15 >> 1)
+      v18 = *(v15 + 2);
+      v17 = *(v15 + 3);
+      if (v18 >= v17 >> 1)
       {
-        v13 = sub_18DFFA8A0((v15 > 1), v16 + 1, 1, v13);
-        v2[1] = v13;
+        v15 = sub_18DFFA8A0((v17 > 1), v18 + 1, 1, v15);
+        v2[1] = v15;
       }
 
-      *(v13 + 2) = v16 + 1;
-      *&v13[8 * v16 + 32] = v32.f64[1];
-      v17 = v2[2];
-      v18 = swift_isUniquelyReferenced_nonNull_native();
-      v2[2] = v17;
-      if ((v18 & 1) == 0)
+      *(v15 + 2) = v18 + 1;
+      *&v15[8 * v18 + 32] = v34.f64[1];
+      v19 = v2[2];
+      v20 = swift_isUniquelyReferenced_nonNull_native();
+      v2[2] = v19;
+      if ((v20 & 1) == 0)
       {
-        v17 = sub_18DFFA8A0(0, *(v17 + 2) + 1, 1, v17);
-        v2[2] = v17;
+        v19 = sub_18DFFA8A0(0, *(v19 + 2) + 1, 1, v19);
+        v2[2] = v19;
       }
 
-      v20 = *(v17 + 2);
-      v19 = *(v17 + 3);
-      if (v20 >= v19 >> 1)
+      v22 = *(v19 + 2);
+      v21 = *(v19 + 3);
+      if (v22 >= v21 >> 1)
       {
-        v17 = sub_18DFFA8A0((v19 > 1), v20 + 1, 1, v17);
-        v2[2] = v17;
+        v19 = sub_18DFFA8A0((v21 > 1), v22 + 1, 1, v19);
+        v2[2] = v19;
       }
 
-      *(v17 + 2) = v20 + 1;
-      *&v17[8 * v20 + 32] = v31;
-      v21 = v2[3];
-      v22 = swift_isUniquelyReferenced_nonNull_native();
-      v2[3] = v21;
-      if ((v22 & 1) == 0)
+      *(v19 + 2) = v22 + 1;
+      *&v19[8 * v22 + 32] = v33;
+      v23 = v2[3];
+      v24 = swift_isUniquelyReferenced_nonNull_native();
+      v2[3] = v23;
+      if ((v24 & 1) == 0)
       {
-        v21 = sub_18DFFA8A0(0, *(v21 + 2) + 1, 1, v21);
-        v2[3] = v21;
+        v23 = sub_18DFFA8A0(0, *(v23 + 2) + 1, 1, v23);
+        v2[3] = v23;
       }
 
-      v24 = *(v21 + 2);
-      v23 = *(v21 + 3);
-      if (v24 >= v23 >> 1)
+      v26 = *(v23 + 2);
+      v25 = *(v23 + 3);
+      if (v26 >= v25 >> 1)
       {
-        v21 = sub_18DFFA8A0((v23 > 1), v24 + 1, 1, v21);
-        v2[3] = v21;
+        v23 = sub_18DFFA8A0((v25 > 1), v26 + 1, 1, v23);
+        v2[3] = v23;
       }
 
-      *(v21 + 2) = v24 + 1;
-      *&v21[8 * v24 + 32] = *(&v31 + 1);
-      v25 = v2[4];
-      v26 = swift_isUniquelyReferenced_nonNull_native();
-      v2[4] = v25;
-      if ((v26 & 1) == 0)
+      *(v23 + 2) = v26 + 1;
+      *&v23[8 * v26 + 32] = *(&v33 + 1);
+      v27 = v2[4];
+      v28 = swift_isUniquelyReferenced_nonNull_native();
+      v2[4] = v27;
+      if ((v28 & 1) == 0)
       {
-        v25 = sub_18DFFA8A0(0, *(v25 + 2) + 1, 1, v25);
-        v2[4] = v25;
+        v27 = sub_18DFFA8A0(0, *(v27 + 2) + 1, 1, v27);
+        v2[4] = v27;
       }
 
-      v28 = *(v25 + 2);
-      v27 = *(v25 + 3);
-      if (v28 >= v27 >> 1)
+      v30 = *(v27 + 2);
+      v29 = *(v27 + 3);
+      if (v30 >= v29 >> 1)
       {
-        v25 = sub_18DFFA8A0((v27 > 1), v28 + 1, 1, v25);
-        v2[4] = v25;
+        v27 = sub_18DFFA8A0((v29 > 1), v30 + 1, 1, v27);
+        v2[4] = v27;
       }
 
-      ++v5;
-      v29 = vsubq_f64(v32, v30);
-      *(v25 + 2) = v28 + 1;
-      *&v25[8 * v28 + 32] = vaddvq_f64(vmulq_f64(v29, v29));
+      ++v6;
+      v31 = vsubq_f64(v34, v32);
+      v4 = vmulq_f64(v31, v31);
+      *(v27 + 2) = v30 + 1;
+      *&v27[8 * v30 + 32] = vaddvq_f64(v4);
     }
 
-    while (v4 != v5);
+    while (v5 != v6);
   }
 }
 
@@ -7653,7 +7669,7 @@ char *sub_18DFFA8A0(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EABC0FB0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EABC0FB0, &qword_18E024B98);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7668,7 +7684,7 @@ char *sub_18DFFA8A0(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -7691,7 +7707,7 @@ char *sub_18DFFA8A0(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-unint64_t sub_18DFFA9B8()
+unint64_t sub_18DFFA9B8(uint64_t a1, uint64_t a2)
 {
   result = qword_1EABC10D0;
   if (!qword_1EABC10D0)
@@ -7782,9 +7798,9 @@ void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -7795,7 +7811,7 @@ uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
   }
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -7807,22 +7823,22 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
   return result;
 }
 
-id sub_18DFFAB94()
+id sub_18DFFAB94(uint64_t a1, uint64_t a2)
 {
-  v1 = objc_opt_self();
-  v2 = [objc_opt_self() newRoundedRect];
-  v3 = [v1 newEncapsulationWithShape:v2 rect:0.0 canvasSize:0.0 representativePointSize:{0.0, 0.0, 0.0, 0.0, 0.0}];
+  v3 = objc_opt_self();
+  v4 = [objc_opt_self() newRoundedRect];
+  v5 = [v3 newEncapsulationWithShape:v4 rect:0.0 canvasSize:0.0 representativePointSize:{0.0, 0.0, 0.0, 0.0, 0.0}];
 
-  v4 = &v0[OBJC_IVAR___CUIEncapsulatedVectorGlyphConfiguration_backing];
-  *v4 = 1;
-  *(v4 + 1) = v3;
-  *(v4 + 2) = 0;
-  *(v4 + 3) = 0;
-  *(v4 + 4) = 0x3FF0000000000000;
-  v4[40] = 0;
-  v6.receiver = v0;
-  v6.super_class = CUIEncapsulatedVectorGlyphConfiguration;
-  return objc_msgSendSuper2(&v6, sel_init);
+  v6 = &v2[OBJC_IVAR___CUIEncapsulatedVectorGlyphConfiguration_backing];
+  *v6 = 1;
+  *(v6 + 1) = v5;
+  *(v6 + 2) = 0;
+  *(v6 + 3) = 0;
+  *(v6 + 4) = 0x3FF0000000000000;
+  v6[40] = 0;
+  v8.receiver = v2;
+  v8.super_class = CUIEncapsulatedVectorGlyphConfiguration;
+  return objc_msgSendSuper2(&v8, sel_init);
 }
 
 char *sub_18DFFAD38(void *a1, uint64_t a2, double a3, double a4, double a5)
@@ -7870,15 +7886,15 @@ char *sub_18DFFAE68(void *a1, char a2, char a3, uint64_t a4, uint64_t a5)
   return v11;
 }
 
-id sub_18DFFAF9C@<X0>(void *a1@<X8>)
+id sub_18DFFAF9C@<X0>(void *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  a1[3] = sub_18DFFAFE8();
-  *a1 = v3;
+  a1[3] = sub_18DFFAFE8(a2, a3);
+  *a1 = v5;
 
-  return v3;
+  return v5;
 }
 
-unint64_t sub_18DFFAFE8()
+unint64_t sub_18DFFAFE8(uint64_t a1, uint64_t a2)
 {
   result = qword_1EABC1308;
   if (!qword_1EABC1308)
@@ -7929,7 +7945,7 @@ LABEL_6:
   return MidX;
 }
 
-void sub_18DFFB1B4(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void sub_18DFFB1B4(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v5 = v2 + OBJC_IVAR___CUIEncapsulatedVectorGlyphConfiguration_backing;
   swift_beginAccess();
@@ -8001,14 +8017,14 @@ LABEL_12:
 
 uint64_t sub_18DFFB3BC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EABC0FC0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EABC0FC0, &qword_18E024BB0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_18DFFB440(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EABC0FC0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EABC0FC0, &qword_18E024BB0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8154,12 +8170,12 @@ uint64_t _s23AdjustmentConfigurationV7OptionsOwst(uint64_t result, unsigned int 
   return result;
 }
 
-void sub_18DFFB684(uint64_t a1, unint64_t *a2)
+void sub_18DFFB684(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -8193,9 +8209,9 @@ double sub_18DFFB878(char *a1, uint64_t a2, void *a3)
   v4 = &a1[*a3];
   swift_beginAccess();
   v5 = *v4;
-  v6 = v4[1];
-  v7 = v4[2];
-  v8 = v4[3];
+  v6 = *(v4 + 1);
+  v7 = *(v4 + 2);
+  v8 = *(v4 + 3);
   v9 = OBJC_IVAR___CUIEncapsulatedVectorGlyph__glyph;
   swift_beginAccess();
   v10 = *&a1[v9];
@@ -8553,13 +8569,13 @@ void sub_18DFFC9FC()
 {
   swift_getObjectType();
   [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-  v1 = OBJC_IVAR___CUIEncapsulatedVectorGlyph__glyph;
+  v2 = OBJC_IVAR___CUIEncapsulatedVectorGlyph__glyph;
   swift_beginAccess();
-  [*(v0 + v1) copy];
+  [*(v1 + v2) copy];
   sub_18E013298();
 }
 
-uint64_t sub_18DFFCDB0(uint64_t a1, unint64_t *a2)
+uint64_t sub_18DFFCDB0(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -8745,9 +8761,9 @@ CGContextRef sub_18DFFD298(void *a1, size_t a2, size_t a3)
   }
 
   v9 = CGColorSpaceCreateWithName(*v8);
-  v12 = CUICGBitmapContextCreate(a2, a3, v7, 0, v9, v6, v10, v11);
+  v10 = CUICGBitmapContextCreate(a2, a3, v7, 0, v9, v6);
 
-  return v12;
+  return v10;
 }
 
 id sub_18DFFD344()
@@ -8828,7 +8844,7 @@ CGPathRef sub_18DFFD570(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat 
   return result;
 }
 
-unint64_t sub_18DFFD740()
+unint64_t sub_18DFFD740(uint64_t a1, uint64_t a2)
 {
   result = qword_1EABC1310[0];
   if (!qword_1EABC1310[0])
@@ -8841,15 +8857,15 @@ unint64_t sub_18DFFD740()
   return result;
 }
 
-id sub_18DFFD790()
+id sub_18DFFD790(uint64_t a1, uint64_t a2)
 {
-  v1 = &v0[OBJC_IVAR___CUIEncapsulationShape_backing];
+  v3 = &v2[OBJC_IVAR___CUIEncapsulationShape_backing];
   [objc_opt_self() defaultRoundedRectCornerRadius];
-  *v1 = v2;
-  v1[8] = 0;
-  v4.receiver = v0;
-  v4.super_class = CUIEncapsulationShape;
-  return objc_msgSendSuper2(&v4, sel_init);
+  *v3 = v4;
+  v3[8] = 0;
+  v6.receiver = v2;
+  v6.super_class = CUIEncapsulationShape;
+  return objc_msgSendSuper2(&v6, sel_init);
 }
 
 uint64_t sub_18DFFD998()
@@ -9252,23 +9268,23 @@ uint64_t sub_18DFFDDE4(uint64_t result, int a2, int a3)
   return result;
 }
 
-id sub_18DFFDEA4(double a1, double a2, double a3)
+id sub_18DFFDEA4(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6)
 {
-  if (a3 >= a2)
+  if (a6 >= a5)
   {
-    v4 = a2;
+    v7 = a5;
   }
 
   else
   {
-    v4 = a3;
+    v7 = a6;
   }
 
-  result = [v3 options];
+  result = [v6 options];
   if (result)
   {
-    v6 = result;
-    v7 = [result fillColors];
+    v9 = result;
+    v10 = [result fillColors];
 
     sub_18E013238();
   }
@@ -9280,8 +9296,9 @@ id sub_18DFFDEA4(double a1, double a2, double a3)
   return result;
 }
 
-void sub_18DFFE920(void *a1, uint64_t a2, unsigned __int8 a3, double a4, double a5, double a6)
+void sub_18DFFE920(id a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6)
 {
+  v7 = a3;
   [v6 _backgroundShapeBoundsForTargetSize_scale_];
   v14 = v13;
   v16 = v15;
@@ -9296,7 +9313,7 @@ void sub_18DFFE920(void *a1, uint64_t a2, unsigned __int8 a3, double a4, double 
   v20 = swift_allocObject();
   *(v20 + 16) = a1;
   *(v20 + 24) = a2;
-  *(v20 + 32) = a3;
+  *(v20 + 32) = v7;
   *(v20 + 40) = v6;
   v21 = swift_allocObject();
   *(v21 + 16) = sub_18E000604;
@@ -9310,7 +9327,7 @@ void sub_18DFFE920(void *a1, uint64_t a2, unsigned __int8 a3, double a4, double 
   v22 = _Block_copy(aBlock);
   v23 = v6;
 
-  sub_18E000654(a1, a2, a3);
+  sub_18E000654(a1, a2, v7);
 
   v24 = [v17 rasterizeImageUsingRenderBlock_];
   _Block_release(v22);
@@ -9766,7 +9783,7 @@ LABEL_74:
   return result;
 }
 
-void sub_18DFFFC38(id a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5, void *a6)
+void sub_18DFFFC38(id a1, uint64_t a2, void *a3, uint64_t a4, unsigned __int8 a5, void *a6)
 {
   if (a5 <= 1u)
   {
@@ -9789,7 +9806,7 @@ LABEL_42:
         return;
       }
 
-      sub_18DF639C0(0);
+      sub_18DF639C0(0, 0);
       v32 = swift_allocObject();
       *(v32 + 16) = a3;
       *(v32 + 24) = a4;
@@ -9816,7 +9833,7 @@ LABEL_42:
         do
         {
 
-          sub_18DF639C0(a3);
+          sub_18DF639C0(a3, a4);
           v35 = swift_allocObject();
           *(v35 + 16) = a3;
           *(v35 + 24) = a4;
@@ -9862,7 +9879,7 @@ LABEL_40:
         return;
       }
 
-      sub_18DF639C0(0);
+      sub_18DF639C0(0, 0);
       v11 = swift_allocObject();
       *(v11 + 16) = a3;
       *(v11 + 24) = a4;
@@ -9889,7 +9906,7 @@ LABEL_40:
         do
         {
 
-          sub_18DF639C0(a3);
+          sub_18DF639C0(a3, a4);
           v14 = swift_allocObject();
           *(v14 + 16) = a3;
           *(v14 + 24) = a4;
@@ -9938,7 +9955,7 @@ LABEL_39:
       return;
     }
 
-    sub_18DF639C0(0);
+    sub_18DF639C0(0, 0);
     v21 = swift_allocObject();
     *(v21 + 16) = a3;
     *(v21 + 24) = a4;
@@ -9965,7 +9982,7 @@ LABEL_39:
       while (1)
       {
 
-        sub_18DF639C0(a3);
+        sub_18DF639C0(a3, a4);
         v24 = swift_allocObject();
         *(v24 + 16) = a3;
         *(v24 + 24) = a4;

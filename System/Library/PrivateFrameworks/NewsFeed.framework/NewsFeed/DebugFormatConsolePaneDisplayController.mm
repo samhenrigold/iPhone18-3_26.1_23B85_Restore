@@ -9,13 +9,13 @@
 - (void)doConsolePaneDebuggerDisplay
 {
   selfCopy = self;
-  sub_1D6B18E60();
+  sub_1D6B18E60(1, 0, 0);
 }
 
 - (void)doConsolePaneLoggerDisplay
 {
   selfCopy = self;
-  sub_1D6B18E60();
+  sub_1D6B18E60(2, 2, 1);
 }
 
 - (_TtC8NewsFeed39DebugFormatConsolePaneDisplayController)init

@@ -18,6 +18,7 @@
 - (void)dealloc;
 - (void)handleAnalyticsSubmissionTimer:(id)timer;
 - (void)invalidateAnalyticsSubmissionTimer;
+- (void)recordAutoScanAndDownloadIfAvailable:(int)available downloadNow:(BOOL)now fromClient:(id)client;
 - (void)recordDownloadCompleted:(id)completed withError:(id)error;
 - (void)recordDownloadStarted:(id)started fromClient:(id)client;
 - (void)recordHistoryEvent:(id)event;
@@ -25,6 +26,7 @@
 - (void)recordInstallStarted:(id)started withDownload:(id)download;
 - (void)recordRollbackCompleted:(id)completed withError:(id)error;
 - (void)recordRollbackStarted:(id)started;
+- (void)recordScanComplete:(id)complete downloadNow:(BOOL)now withError:(id)error;
 - (void)recordScanForUpdates:(id)updates fromClient:(id)client;
 - (void)setupAnalyticsSubmissionTimer;
 - (void)updateInstallHistory:(id)history build:(id)build date:(id)date operationType:(int64_t)type;
@@ -87,12 +89,12 @@ void __37__SUSHistoryTracker_trackerWithPath___block_invoke(uint64_t a1)
 
 - (id)initUsingProtectionQueue:(id)queue withBasePath:(id)path
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   pathCopy = path;
-  v113.receiver = self;
-  v113.super_class = SUSHistoryTracker;
-  v9 = [(SUSHistoryTracker *)&v113 init];
+  v112.receiver = self;
+  v112.super_class = SUSHistoryTracker;
+  v9 = [(SUSHistoryTracker *)&v112 init];
   v10 = v9;
   if (v9)
   {
@@ -178,9 +180,9 @@ void __37__SUSHistoryTracker_trackerWithPath___block_invoke(uint64_t a1)
       analyticsManager = [(SUSHistoryTracker *)v10 analyticsManager];
       savePath = [analyticsManager savePath];
 
-      v112 = 0;
-      v64 = [defaultManager contentsOfDirectoryAtPath:savePath error:&v112];
-      v65 = v112;
+      v111 = 0;
+      v64 = [defaultManager contentsOfDirectoryAtPath:savePath error:&v111];
+      v65 = v111;
       v73 = v65;
       if (v65 || !savePath)
       {
@@ -191,36 +193,36 @@ void __37__SUSHistoryTracker_trackerWithPath___block_invoke(uint64_t a1)
 
         else
         {
-          SULogError(@"Analytics manager savePath returned nil", v66, v67, v68, v69, v70, v71, v72, v104);
+          SULogError(@"Analytics manager savePath returned nil", v66, v67, v68, v69, v70, v71, v72, v103);
         }
       }
 
       else
       {
-        v105 = defaultManager;
-        v106 = pathCopy;
+        v104 = defaultManager;
+        v105 = pathCopy;
         v74 = [v64 sortedArrayUsingSelector:sel_compare_];
 
-        v110 = 0u;
-        v111 = 0u;
-        v108 = 0u;
         v109 = 0u;
+        v110 = 0u;
+        v107 = 0u;
+        v108 = 0u;
         v64 = v74;
-        v75 = [v64 countByEnumeratingWithState:&v108 objects:v114 count:16];
+        v75 = [v64 countByEnumeratingWithState:&v107 objects:v113 count:16];
         if (v75)
         {
           v76 = v75;
-          v77 = *v109;
+          v77 = *v108;
           do
           {
             for (i = 0; i != v76; ++i)
             {
-              if (*v109 != v77)
+              if (*v108 != v77)
               {
                 objc_enumerationMutation(v64);
               }
 
-              v79 = [savePath stringByAppendingPathComponent:*(*(&v108 + 1) + 8 * i)];
+              v79 = [savePath stringByAppendingPathComponent:*(*(&v107 + 1) + 8 * i)];
               analyticsManager2 = [(SUSHistoryTracker *)v10 analyticsManager];
               v81 = [analyticsManager2 copyEventFromPath:v79];
 
@@ -236,21 +238,21 @@ void __37__SUSHistoryTracker_trackerWithPath___block_invoke(uint64_t a1)
               }
             }
 
-            v76 = [v64 countByEnumeratingWithState:&v108 objects:v114 count:16];
+            v76 = [v64 countByEnumeratingWithState:&v107 objects:v113 count:16];
           }
 
           while (v76);
         }
 
-        pathCopy = v106;
+        pathCopy = v105;
         v73 = 0;
-        defaultManager = v105;
+        defaultManager = v104;
       }
     }
 
     else
     {
-      SULogInfo(@"Analytics manager unavailable, continuing without analytics support", v54, v55, v56, v57, v58, v59, v60, v104);
+      SULogInfo(@"Analytics manager unavailable, continuing without analytics support", v54, v55, v56, v57, v58, v59, v60, v103);
     }
 
     basePath4 = [(SUSHistoryTracker *)v10 basePath];
@@ -264,9 +266,9 @@ void __37__SUSHistoryTracker_trackerWithPath___block_invoke(uint64_t a1)
     else
     {
       basePath5 = [(SUSHistoryTracker *)v10 basePath];
-      v107 = 0;
-      v94 = [defaultManager createDirectoryAtPath:basePath5 withIntermediateDirectories:1 attributes:0 error:&v107];
-      v92 = v107;
+      v106 = 0;
+      v94 = [defaultManager createDirectoryAtPath:basePath5 withIntermediateDirectories:1 attributes:0 error:&v106];
+      v92 = v106;
 
       if ((v94 & 1) == 0)
       {
@@ -277,7 +279,6 @@ void __37__SUSHistoryTracker_trackerWithPath___block_invoke(uint64_t a1)
     [(SUSHistoryTracker *)v10 setupAnalyticsSubmissionTimer];
   }
 
-  v102 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -446,7 +447,7 @@ LABEL_15:
       v127 = v11;
       v128 = v10;
       v124 = v61;
-      v70 = [v61 componentsSeparatedByString:@"\n"];
+      v70 = objc_msgSend_componentsSeparatedByString_(v61);
       v71 = [MEMORY[0x277CBEB18] array];
       v72 = [v70 count];
       if (v72 - 1 >= 0)
@@ -952,63 +953,62 @@ LABEL_22:
 
 + (id)historyOperationName
 {
-  v6[27] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_287B6F358;
-  v5[1] = &unk_287B6F370;
-  v6[0] = @"NEW_BUCKET_CREATED";
-  v6[1] = @"SCAN_INITIATED";
-  v5[2] = &unk_287B6F388;
-  v5[3] = &unk_287B6F3A0;
-  v6[2] = @"SCAN_OTA_FOUND";
-  v6[3] = @"SCAN_OTA_SLOW_ROLL_FOUND";
-  v5[4] = &unk_287B6F3B8;
-  v5[5] = &unk_287B6F3D0;
-  v6[4] = @"DOWNLOAD_INITIATED";
-  v6[5] = @"DOWNLOAD_COMPLETE";
-  v5[6] = &unk_287B6F3E8;
-  v5[7] = &unk_287B6F400;
-  v6[6] = @"AUTO_DOWNLOAD";
-  v6[7] = @"ALTERNATE_DOWNLOAD";
-  v5[8] = &unk_287B6F418;
-  v5[9] = &unk_287B6F430;
-  v6[8] = @"INSTALL_INITATED";
-  v6[9] = @"AUTO_INSTALL";
-  v5[10] = &unk_287B6F448;
-  v5[11] = &unk_287B6F460;
-  v6[10] = @"ROLLBACK_INITIATED";
-  v6[11] = @"ROLLBACK_COMPLETE";
-  v5[12] = &unk_287B6F478;
-  v5[13] = &unk_287B6F490;
-  v6[12] = @"INSTALL_COMPLETE";
-  v6[13] = @"SUFFICIENT_SPACE";
-  v5[14] = &unk_287B6F4A8;
-  v5[15] = &unk_287B6F4C0;
-  v6[14] = @"SUFFICIENT_SPACE_WITH_PURGE";
-  v6[15] = @"SPACE_PURGED";
-  v5[16] = &unk_287B6F4D8;
-  v5[17] = &unk_287B6F4F0;
-  v6[16] = @"STANDARD_ERROR";
-  v6[17] = @"INTERNAL_ERROR";
-  v5[18] = &unk_287B6F508;
-  v5[19] = &unk_287B6F520;
-  v6[18] = @"BATTERY_ERROR";
-  v6[19] = @"STORAGE_ERROR";
-  v5[20] = &unk_287B6F538;
-  v5[21] = &unk_287B6F550;
-  v6[20] = @"CONTINUITY_CAMERA_IN_USE";
-  v6[21] = @"SCAN_FAILED_NO_NETWORK";
-  v5[22] = &unk_287B6F568;
-  v5[23] = &unk_287B6F580;
-  v6[22] = @"SCAN_FAILED_NO_UPDATE_FOUND";
-  v6[23] = @"DOWNLOAD_FAILED";
-  v5[24] = &unk_287B6F598;
-  v5[25] = &unk_287B6F5B0;
-  v6[24] = @"INSTALL_FAILED";
-  v6[25] = @"ROLLBACK_FAILED";
-  v5[26] = &unk_287B6F5C8;
-  v6[26] = @"QUIET_OPERATION";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:27];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[27] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_287B6F358;
+  v4[1] = &unk_287B6F370;
+  v5[0] = @"NEW_BUCKET_CREATED";
+  v5[1] = @"SCAN_INITIATED";
+  v4[2] = &unk_287B6F388;
+  v4[3] = &unk_287B6F3A0;
+  v5[2] = @"SCAN_OTA_FOUND";
+  v5[3] = @"SCAN_OTA_SLOW_ROLL_FOUND";
+  v4[4] = &unk_287B6F3B8;
+  v4[5] = &unk_287B6F3D0;
+  v5[4] = @"DOWNLOAD_INITIATED";
+  v5[5] = @"DOWNLOAD_COMPLETE";
+  v4[6] = &unk_287B6F3E8;
+  v4[7] = &unk_287B6F400;
+  v5[6] = @"AUTO_DOWNLOAD";
+  v5[7] = @"ALTERNATE_DOWNLOAD";
+  v4[8] = &unk_287B6F418;
+  v4[9] = &unk_287B6F430;
+  v5[8] = @"INSTALL_INITATED";
+  v5[9] = @"AUTO_INSTALL";
+  v4[10] = &unk_287B6F448;
+  v4[11] = &unk_287B6F460;
+  v5[10] = @"ROLLBACK_INITIATED";
+  v5[11] = @"ROLLBACK_COMPLETE";
+  v4[12] = &unk_287B6F478;
+  v4[13] = &unk_287B6F490;
+  v5[12] = @"INSTALL_COMPLETE";
+  v5[13] = @"SUFFICIENT_SPACE";
+  v4[14] = &unk_287B6F4A8;
+  v4[15] = &unk_287B6F4C0;
+  v5[14] = @"SUFFICIENT_SPACE_WITH_PURGE";
+  v5[15] = @"SPACE_PURGED";
+  v4[16] = &unk_287B6F4D8;
+  v4[17] = &unk_287B6F4F0;
+  v5[16] = @"STANDARD_ERROR";
+  v5[17] = @"INTERNAL_ERROR";
+  v4[18] = &unk_287B6F508;
+  v4[19] = &unk_287B6F520;
+  v5[18] = @"BATTERY_ERROR";
+  v5[19] = @"STORAGE_ERROR";
+  v4[20] = &unk_287B6F538;
+  v4[21] = &unk_287B6F550;
+  v5[20] = @"CONTINUITY_CAMERA_IN_USE";
+  v5[21] = @"SCAN_FAILED_NO_NETWORK";
+  v4[22] = &unk_287B6F568;
+  v4[23] = &unk_287B6F580;
+  v5[22] = @"SCAN_FAILED_NO_UPDATE_FOUND";
+  v5[23] = @"DOWNLOAD_FAILED";
+  v4[24] = &unk_287B6F598;
+  v4[25] = &unk_287B6F5B0;
+  v5[24] = @"INSTALL_FAILED";
+  v5[25] = @"ROLLBACK_FAILED";
+  v4[26] = &unk_287B6F5C8;
+  v5[26] = @"QUIET_OPERATION";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:27];
 
   return v2;
 }
@@ -1073,6 +1073,69 @@ LABEL_22:
 
   v10 = [[SUSHistoryEvent alloc] initWithOperation:100 historyType:0 extraInfo:v8];
   [(SUSHistoryTracker *)self recordHistoryEvent:v10];
+}
+
+- (void)recordAutoScanAndDownloadIfAvailable:(int)available downloadNow:(BOOL)now fromClient:(id)client
+{
+  nowCopy = now;
+  v8 = MEMORY[0x277CBEB38];
+  clientCopy = client;
+  v10 = objc_alloc_init(v8);
+  v15 = v10;
+  if (clientCopy)
+  {
+    v11 = clientCopy;
+  }
+
+  else
+  {
+    v11 = @"UNKNOWN";
+  }
+
+  [v10 setObject:v11 forKeyedSubscript:@"identifier"];
+
+  [v15 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"userInitiated"];
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:nowCopy];
+  [v15 setObject:v12 forKeyedSubscript:@"downloadNow"];
+
+  v13 = SUStringFromUpdateType(available);
+  [v15 setObject:v13 forKeyedSubscript:@"softwareUpdateType"];
+
+  v14 = [[SUSHistoryEvent alloc] initWithOperation:100 historyType:0 extraInfo:v15];
+  [(SUSHistoryTracker *)self recordHistoryEvent:v14];
+}
+
+- (void)recordScanComplete:(id)complete downloadNow:(BOOL)now withError:(id)error
+{
+  nowCopy = now;
+  errorCopy = error;
+  v8 = MEMORY[0x277CBEB38];
+  completeCopy = complete;
+  v10 = objc_alloc_init(v8);
+  v11 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(completeCopy, "autoUpdateEnabled") ^ 1}];
+  [v10 setObject:v11 forKeyedSubscript:@"userInitiated"];
+
+  [v10 setObject:completeCopy forKeyedSubscript:@"descriptor"];
+  v12 = [MEMORY[0x277CCABB0] numberWithInt:nowCopy];
+  [v10 setObject:v12 forKeyedSubscript:@"downloadNow"];
+
+  if (errorCopy)
+  {
+    [v10 setObject:errorCopy forKeyedSubscript:@"error"];
+    v13 = [SUSHistoryEvent alloc];
+    v14 = 506;
+    v15 = 4;
+  }
+
+  else
+  {
+    v13 = [SUSHistoryEvent alloc];
+    v14 = 101;
+    v15 = 0;
+  }
+
+  v16 = [(SUSHistoryEvent *)v13 initWithOperation:v14 historyType:v15 extraInfo:v10];
+  [(SUSHistoryTracker *)self recordHistoryEvent:v16];
 }
 
 - (void)recordDownloadStarted:(id)started fromClient:(id)client

@@ -7,7 +7,7 @@
 - (_TtC18Feedback_Assistant19FBAAppGroupMigrator)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FBAAppGroupMigrator();
+  v3.super_class = type metadata accessor for FBAAppGroupMigrator(self, a2);
   return [(FBAAppGroupMigrator *)&v3 init];
 }
 

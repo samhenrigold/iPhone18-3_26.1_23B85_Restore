@@ -42,10 +42,9 @@
 
 - (NSString)description
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtCC13caraccessoryd9CAFDAgent20_CAFDConnectionProxy_connection);
-  swift_getObjectType();
+  ObjectType = swift_getObjectType();
   selfCopy = self;
-  BSServiceConnectionHost.CAFDDescription.getter();
+  BSServiceConnectionHost.CAFDDescription.getter(ObjectType);
 
   v5 = String._bridgeToObjectiveC()();
 

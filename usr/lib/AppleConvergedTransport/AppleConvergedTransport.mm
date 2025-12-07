@@ -9,14 +9,14 @@ uint64_t std::shared_ptr<pci::event::Listener>::~shared_ptr[abi:ne200100](uint64
   return a1;
 }
 
-double AppleConvergedTransportInitParameters(uint64_t a1)
+double AppleConvergedTransportInitParameters(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    return pci::transport::th::initParams(a1);
+    return pci::transport::th::initParams(result);
   }
 
-  return result;
+  return v1;
 }
 
 uint64_t AppleConvergedTransportCreate(_BOOL8 a1, void *a2)
@@ -52,23 +52,23 @@ void sub_295FEEBF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL AppleConvergedTransportFree(unint64_t *a1)
+BOOL AppleConvergedTransportFree(pci::system::info *a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (a1)
   {
+    v8 = 0xAAAAAAAAAAAAAAAALL;
     v9 = 0xAAAAAAAAAAAAAAAALL;
-    v10 = 0xAAAAAAAAAAAAAAAALL;
     pci::system::info::get(&buf);
-    pci::system::info::getTH(buf, *a1, &v9);
+    pci::system::info::getTH(&v8, buf, *a1);
     v2 = *(&buf + 1);
     if (*(&buf + 1))
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
     }
 
-    v3 = v9;
-    if (v9)
+    v3 = v8;
+    if (v8)
     {
       pci::system::info::get(&buf);
       pci::system::info::eraseTH(buf, *a1);
@@ -90,35 +90,32 @@ BOOL AppleConvergedTransportFree(unint64_t *a1)
       }
     }
 
-    if (v10)
+    if (v9)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
     if (v3)
     {
       *a1 = 0;
-      result = 1;
-      goto LABEL_16;
+      return 1;
+    }
+  }
+
+  else
+  {
+    v4 = pci::log::get(0);
+    result = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    if (!result)
+    {
+      return result;
     }
 
-LABEL_15:
-    result = 0;
-    goto LABEL_16;
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_295FEE000, v4, OS_LOG_TYPE_DEFAULT, "bad parameter", &v8, 2u);
   }
 
-  v4 = pci::log::get(0);
-  result = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (result)
-  {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_295FEE000, v4, OS_LOG_TYPE_DEFAULT, "bad parameter", &v9, 2u);
-    goto LABEL_15;
-  }
-
-LABEL_16:
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 void sub_295FEED90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12)
@@ -131,29 +128,29 @@ void sub_295FEED90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void (*AppleConvergedTransportWrite(pci::log *a1, const unsigned __int8 *a2, int a3, _DWORD *a4, int a5, void (*a6)(void *)))(void *)
+void (*AppleConvergedTransportWrite(pci::system::info *a1, unsigned __int8 *a2, uint64_t a3, unsigned int *a4, unsigned int a5, void (*a6)(void *)))(void *)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (a3 && a2 && a4)
   {
     *a4 = 0;
+    v14 = 0xAAAAAAAAAAAAAAAALL;
     v15 = 0xAAAAAAAAAAAAAAAALL;
-    v16 = 0xAAAAAAAAAAAAAAAALL;
     pci::system::info::get(&buf);
-    pci::system::info::getTH(buf, a1, &v15);
+    pci::system::info::getTH(&v14, buf, a1);
     if (*(&buf + 1))
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
     }
 
-    if (v15)
+    if (v14)
     {
-      if (*(v15 + 75) == 1)
+      if (*(v14 + 75) == 1)
       {
-        pci::transport::th::writeAsync(v15, a2, a3, a6);
+        pci::transport::th::writeAsync(v14, a2, a3, a6);
       }
 
-      pci::transport::th::write(v15, a2, a3, a6, a5);
+      pci::transport::th::write(v14, a2, a3, a6, a5);
     }
 
     v12 = pci::log::get(0);
@@ -170,9 +167,9 @@ void (*AppleConvergedTransportWrite(pci::log *a1, const unsigned __int8 *a2, int
       a6 = 0;
     }
 
-    if (v16)
+    if (v15)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
     }
   }
 
@@ -181,18 +178,17 @@ void (*AppleConvergedTransportWrite(pci::log *a1, const unsigned __int8 *a2, int
     v11 = pci::log::get(a1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEFAULT, "invalid parameter", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEFAULT, "invalid parameter", &v14, 2u);
     }
 
     if (a6)
     {
       a6(a2);
-      a6 = 0;
+      return 0;
     }
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return a6;
 }
 
@@ -206,30 +202,30 @@ void sub_295FEEF98(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void (*AppleConvergedTransportRead(pci::log *a1, const unsigned __int8 *a2, unsigned int a3, _DWORD *a4, int a5, void (*a6)(void *)))(void *)
+void (*AppleConvergedTransportRead(pci::system::info *a1, unsigned __int8 *a2, unsigned int a3, unsigned int *a4, unsigned int a5, void (*a6)(void *)))(void *)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  v20 = a3;
+  v21 = *MEMORY[0x29EDCA608];
+  v19 = a3;
   if (a3 && a2 && a4)
   {
     *a4 = 0;
+    v17 = 0xAAAAAAAAAAAAAAAALL;
     v18 = 0xAAAAAAAAAAAAAAAALL;
-    v19 = 0xAAAAAAAAAAAAAAAALL;
     pci::system::info::get(&buf);
-    pci::system::info::getTH(buf, a1, &v18);
+    pci::system::info::getTH(&v17, buf, a1);
     if (*(&buf + 1))
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
     }
 
-    if (v18)
+    if (v17)
     {
-      if (*(v18 + 75) != 1)
+      if (*(v17 + 75) != 1)
       {
-        pci::transport::th::read(v18, a2, &v20, a6, a5);
+        pci::transport::th::read(v17, a2, &v19, a6, a5);
       }
 
-      v10 = pci::log::get(v18);
+      v10 = pci::log::get(v17);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_17;
@@ -253,12 +249,12 @@ LABEL_17:
           a6 = 0;
         }
 
-        if (v19)
+        if (v18)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
         }
 
-        goto LABEL_22;
+        return a6;
       }
 
       LODWORD(buf) = 134217984;
@@ -275,18 +271,16 @@ LABEL_17:
   v14 = pci::log::get(a1);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_295FEE000, v14, OS_LOG_TYPE_DEFAULT, "invalid parameter", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_295FEE000, v14, OS_LOG_TYPE_DEFAULT, "invalid parameter", &v17, 2u);
   }
 
   if (a6)
   {
     a6(a2);
-    a6 = 0;
+    return 0;
   }
 
-LABEL_22:
-  v16 = *MEMORY[0x29EDCA608];
   return a6;
 }
 
@@ -300,31 +294,31 @@ void sub_295FEF1B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void (*AppleConvergedTransportSendImage(pci::log *a1, const unsigned __int8 *a2, int a3, _DWORD *a4, int a5, _DWORD *a6, void (*a7)(void *)))(void *)
+void (*AppleConvergedTransportSendImage(pci::system::info *a1, unsigned __int8 *a2, uint64_t a3, unsigned int *a4, unsigned int a5, unsigned int *a6, void (*a7)(void *)))(void *)
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v18 = 0;
+  v19 = *MEMORY[0x29EDCA608];
+  v17 = 0;
   if (a3 && a2 && a4 && a6)
   {
     *a4 = 0;
     *a6 = 0;
+    v15 = 0xAAAAAAAAAAAAAAAALL;
     v16 = 0xAAAAAAAAAAAAAAAALL;
-    v17 = 0xAAAAAAAAAAAAAAAALL;
     pci::system::info::get(&buf);
-    pci::system::info::getTH(buf, a1, &v16);
+    pci::system::info::getTH(&v15, buf, a1);
     if (*(&buf + 1))
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
     }
 
-    if (v16)
+    if (v15)
     {
-      if (*(v16 + 75) == 1)
+      if (*(v15 + 75) == 1)
       {
-        pci::transport::th::sendImageAsync(v16, a2, a3, a7);
+        pci::transport::th::sendImageAsync(v15, a2, a3, a7);
       }
 
-      pci::transport::th::sendImage(v16, a2, a3, &v18, a7, a5);
+      pci::transport::th::sendImage(v15, a2, a3, &v17, a7, a5);
     }
 
     v13 = pci::log::get(0);
@@ -341,9 +335,9 @@ void (*AppleConvergedTransportSendImage(pci::log *a1, const unsigned __int8 *a2,
       a7 = 0;
     }
 
-    if (v17)
+    if (v16)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
   }
 
@@ -352,18 +346,17 @@ void (*AppleConvergedTransportSendImage(pci::log *a1, const unsigned __int8 *a2,
     v12 = pci::log::get(a1);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_295FEE000, v12, OS_LOG_TYPE_DEFAULT, "invalid parameter", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_295FEE000, v12, OS_LOG_TYPE_DEFAULT, "invalid parameter", &v15, 2u);
     }
 
     if (a7)
     {
       a7(a2);
-      a7 = 0;
+      return 0;
     }
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return a7;
 }
 
@@ -377,25 +370,25 @@ void sub_295FEF3D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AppleConvergedTransportReadRegister(pci::log *a1, int a2, const unsigned __int8 *a3, unsigned int a4, _DWORD *a5)
+uint64_t AppleConvergedTransportReadRegister(pci::system::info *a1, uint64_t a2, const unsigned __int8 *a3, unsigned int a4, unsigned int *a5)
 {
-  v16 = *MEMORY[0x29EDCA608];
-  v14 = a4;
+  v15 = *MEMORY[0x29EDCA608];
+  v13 = a4;
   if (a4 && a3 && a5)
   {
     *a5 = 0;
+    v11 = 0xAAAAAAAAAAAAAAAALL;
     v12 = 0xAAAAAAAAAAAAAAAALL;
-    v13 = 0xAAAAAAAAAAAAAAAALL;
     pci::system::info::get(&buf);
-    pci::system::info::getTH(buf, a1, &v12);
+    pci::system::info::getTH(&v11, buf, a1);
     if (*(&buf + 1))
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
     }
 
-    if (v12)
+    if (v11)
     {
-      pci::transport::th::readRegister(v12, a2, a3, &v14, -1);
+      pci::transport::th::readRegister(v11, a2, a3, &v13, 0xFFFFFFFF);
     }
 
     v9 = pci::log::get(0);
@@ -406,9 +399,9 @@ uint64_t AppleConvergedTransportReadRegister(pci::log *a1, int a2, const unsigne
       _os_log_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEFAULT, "handle %p is not valid", &buf, 0xCu);
     }
 
-    if (v13)
+    if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
   }
 
@@ -417,12 +410,11 @@ uint64_t AppleConvergedTransportReadRegister(pci::log *a1, int a2, const unsigne
     v8 = pci::log::get(a1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_295FEE000, v8, OS_LOG_TYPE_DEFAULT, "invalid parameters", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_295FEE000, v8, OS_LOG_TYPE_DEFAULT, "invalid parameters", &v11, 2u);
     }
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -436,21 +428,21 @@ void sub_295FEF580(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL AppleConvergedTransportIsValid(unint64_t a1)
+BOOL AppleConvergedTransportIsValid(pci::system::info *a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
+  v6 = 0xAAAAAAAAAAAAAAAALL;
   v7 = 0xAAAAAAAAAAAAAAAALL;
-  v8 = 0xAAAAAAAAAAAAAAAALL;
   pci::system::info::get(&buf);
-  pci::system::info::getTH(buf, a1, &v7);
+  pci::system::info::getTH(&v6, buf, a1);
   v2 = *(&buf + 1);
   if (*(&buf + 1))
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](*(&buf + 1));
   }
 
-  v3 = v7;
-  if (!v7)
+  v3 = v6;
+  if (!v6)
   {
     v4 = pci::log::get(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -461,14 +453,12 @@ BOOL AppleConvergedTransportIsValid(unint64_t a1)
     }
   }
 
-  if (v8)
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  result = v3 != 0;
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return v3 != 0;
 }
 
 void sub_295FEF6A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12)
@@ -481,7 +471,7 @@ void sub_295FEF6A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AppleConvergedTransportRegisterEventBlock(uint64_t a1)
+uint64_t AppleConvergedTransportRegisterEventBlock(uint64_t a1, uint64_t a2)
 {
   std::mutex::lock(&eventLock);
   if (!eventListener)
@@ -491,20 +481,20 @@ uint64_t AppleConvergedTransportRegisterEventBlock(uint64_t a1)
     aBlock[2] = __AppleConvergedTransportRegisterEventBlock_block_invoke;
     aBlock[3] = &unk_29EDECF50;
     aBlock[4] = a1;
-    v4 = _Block_copy(aBlock);
-    if (v4)
+    v5 = _Block_copy(aBlock);
+    if (v5)
     {
-      _Block_copy(v4);
+      _Block_copy(v5);
     }
 
     pci::event::Listener::create();
   }
 
-  v3 = pci::log::get(v2);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = pci::log::get(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_295FEE000, v3, OS_LOG_TYPE_DEFAULT, "another block is already registered", buf, 2u);
+    _os_log_impl(&dword_295FEE000, v4, OS_LOG_TYPE_DEFAULT, "another block is already registered", buf, 2u);
   }
 
   std::mutex::unlock(&eventLock);
@@ -527,7 +517,7 @@ void sub_295FEF84C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t __AppleConvergedTransportRegisterEventBlock_block_invoke(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t __AppleConvergedTransportRegisterEventBlock_block_invoke(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   v3 = *(a1 + 32);
   if (*(a3 + 23) < 0)
@@ -538,7 +528,7 @@ uint64_t __AppleConvergedTransportRegisterEventBlock_block_invoke(uint64_t a1, u
   return (*(v3 + 16))(v3, a2, a3);
 }
 
-uint64_t AppleConvergedTransportRegisterEventBlockQ(uint64_t a1)
+uint64_t AppleConvergedTransportRegisterEventBlockQ(uint64_t a1, uint64_t a2)
 {
   std::mutex::lock(&eventLock);
   if (!eventListener)
@@ -548,20 +538,20 @@ uint64_t AppleConvergedTransportRegisterEventBlockQ(uint64_t a1)
     aBlock[2] = __AppleConvergedTransportRegisterEventBlockQ_block_invoke;
     aBlock[3] = &unk_29EDECF78;
     aBlock[4] = a1;
-    v4 = _Block_copy(aBlock);
-    if (v4)
+    v5 = _Block_copy(aBlock);
+    if (v5)
     {
-      _Block_copy(v4);
+      _Block_copy(v5);
     }
 
     pci::event::Listener::create();
   }
 
-  v3 = pci::log::get(v2);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = pci::log::get(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_295FEE000, v3, OS_LOG_TYPE_DEFAULT, "another block is already registered", buf, 2u);
+    _os_log_impl(&dword_295FEE000, v4, OS_LOG_TYPE_DEFAULT, "another block is already registered", buf, 2u);
   }
 
   std::mutex::unlock(&eventLock);
@@ -584,7 +574,7 @@ void sub_295FEFA2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t __AppleConvergedTransportRegisterEventBlockQ_block_invoke(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t __AppleConvergedTransportRegisterEventBlockQ_block_invoke(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   v3 = *(a1 + 32);
   if (*(a3 + 23) < 0)
@@ -623,45 +613,43 @@ BOOL AppleConvergedTransportUnregisterEventBlock()
   return v1 != 0;
 }
 
-uint64_t AppleConvergedTransportRegisterTimeSyncEventBlock()
+uint64_t AppleConvergedTransportRegisterTimeSyncEventBlock(unint64_t a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   std::mutex::lock(&eventLock);
   if (!timesyncListener)
   {
     operator new();
   }
 
-  v1 = pci::log::get(v0);
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v3 = pci::log::get(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_295FEE000, v1, OS_LOG_TYPE_DEFAULT, "another block is already registered", buf, 2u);
+    _os_log_impl(&dword_295FEE000, v3, OS_LOG_TYPE_DEFAULT, "another block is already registered", buf, 2u);
   }
 
   std::mutex::unlock(&eventLock);
-  v2 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-uint64_t AppleConvergedTransportRegisterTimeSyncEventBlockQ()
+uint64_t AppleConvergedTransportRegisterTimeSyncEventBlockQ(unint64_t a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   std::mutex::lock(&eventLock);
   if (!timesyncListener)
   {
     operator new();
   }
 
-  v1 = pci::log::get(v0);
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v3 = pci::log::get(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_295FEE000, v1, OS_LOG_TYPE_DEFAULT, "another block is already registered", buf, 2u);
+    _os_log_impl(&dword_295FEE000, v3, OS_LOG_TYPE_DEFAULT, "another block is already registered", buf, 2u);
   }
 
   std::mutex::unlock(&eventLock);
-  v2 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -725,7 +713,7 @@ uint64_t _GLOBAL__sub_I_AppleConvergedTransport_cpp()
   return __cxa_atexit(std::shared_ptr<pci::event::Listener>::~shared_ptr[abi:ne200100], &eventListener, &dword_295FEE000);
 }
 
-void pci::system::info::get(void *a1@<X8>)
+void pci::system::info::get(uint64_t *__return_ptr a1@<X8>)
 {
   if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
@@ -819,14 +807,17 @@ void pci::system::info::insertTH(os_unfair_lock_s *a1, uint64_t *a2)
 {
   os_unfair_lock_lock(a1 + 4);
   ++pci::system::info::insertTH(std::shared_ptr<pci::transport::th>)::unique;
-  v3 = a2[1];
-  v4 = *a2;
-  if (v3)
+  v5 = *a2;
+  v4 = a2[1];
+  *&v6 = pci::system::info::insertTH(std::shared_ptr<pci::transport::th>)::unique;
+  *(&v6 + 1) = v5;
+  v7 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  std::__tree<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>>>::__emplace_multi<std::pair<void const*,std::shared_ptr<pci::transport::th>>>();
+  std::__tree<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>>>::__emplace_multi<std::pair<void const*,std::shared_ptr<pci::transport::th>>>(&a1[8], &v6);
 }
 
 void sub_295FF052C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -839,19 +830,19 @@ void sub_295FF052C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t pci::system::info::eraseTH(pci::system::info *this, unint64_t a2)
+uint64_t pci::system::info::eraseTH(os_unfair_lock_s *this, unint64_t a2)
 {
   os_unfair_lock_lock(this + 4);
-  v4 = *(this + 5);
+  v4 = *&this[10]._os_unfair_lock_opaque;
   if (!v4)
   {
     goto LABEL_9;
   }
 
-  v5 = (this + 40);
+  v5 = this + 10;
   do
   {
-    v6 = v4[4];
+    v6 = *(v4 + 32);
     v7 = v6 >= a2;
     v8 = v6 < a2;
     if (v7)
@@ -859,25 +850,25 @@ uint64_t pci::system::info::eraseTH(pci::system::info *this, unint64_t a2)
       v5 = v4;
     }
 
-    v4 = v4[v8];
+    v4 = *(v4 + 8 * v8);
   }
 
   while (v4);
-  if (v5 == (this + 40) || v5[4] > a2)
+  if (v5 == &this[10] || *&v5[8]._os_unfair_lock_opaque > a2)
   {
 LABEL_9:
     pci::system::info::eraseTH();
   }
 
-  std::__tree<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>>>::erase(this + 4, v5);
+  std::__tree<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>>>::erase(&this[8], v5);
   os_unfair_lock_unlock(this + 4);
   return 1;
 }
 
-void pci::system::info::getTH(os_unfair_lock_s *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+void pci::system::info::getTH(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>, unint64_t a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   os_unfair_lock_lock(this + 4);
   v6 = *&this[10]._os_unfair_lock_opaque;
   if (v6)
@@ -885,19 +876,19 @@ void pci::system::info::getTH(os_unfair_lock_s *this@<X0>, unint64_t a2@<X1>, vo
     v7 = this + 10;
     do
     {
-      v8 = *&v6[8]._os_unfair_lock_opaque;
-      v9 = v8 >= a2;
-      v10 = v8 < a2;
+      v8 = *(v6 + 32);
+      v9 = v8 >= a3;
+      v10 = v8 < a3;
       if (v9)
       {
         v7 = v6;
       }
 
-      v6 = *&v6[2 * v10]._os_unfair_lock_opaque;
+      v6 = *(v6 + 8 * v10);
     }
 
     while (v6);
-    if (v7 != &this[10] && *&v7[8]._os_unfair_lock_opaque <= a2)
+    if (v7 != &this[10] && *&v7[8]._os_unfair_lock_opaque <= a3)
     {
       v12 = *&v7[10]._os_unfair_lock_opaque;
       v11 = *&v7[12]._os_unfair_lock_opaque;
@@ -906,8 +897,8 @@ void pci::system::info::getTH(os_unfair_lock_s *this@<X0>, unint64_t a2@<X1>, vo
         atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
       }
 
-      *a3 = v12;
-      a3[1] = v11;
+      *a1 = v12;
+      a1[1] = v11;
     }
   }
 
@@ -1019,7 +1010,7 @@ LABEL_25:
       }
 
       v67 = &v66;
-      v39 = std::__tree<std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>,std::__map_value_compare<int,std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>,std::less<int>,true>,std::allocator<std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 80, &v66);
+      v39 = std::__tree<std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>,std::__map_value_compare<int,std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>,std::less<int>,true>,std::allocator<std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 80, &v66, &std::piecewise_construct, &v67);
       v40 = v39[5];
       v39[5] = v38;
       if (v40)
@@ -1098,7 +1089,7 @@ LABEL_25:
   {
 LABEL_10:
     v56 = &v66;
-    v17 = std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::__map_value_compare<int,std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::weak_ptr<pci::transport::bh>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 56, &v66);
+    v17 = std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::__map_value_compare<int,std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::weak_ptr<pci::transport::bh>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 56, &v66, &std::piecewise_construct, &v56);
     v19 = *a3;
     v18 = a3[1];
     if (v18)
@@ -1127,7 +1118,7 @@ LABEL_10:
   return v29;
 }
 
-void sub_295FF0A60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, dispatch_object_t object)
+void sub_295FF0A60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, dispatch_object_t object)
 {
   if (a17)
   {
@@ -1168,21 +1159,22 @@ void __Block_byref_object_dispose_(uint64_t a1)
   }
 }
 
-intptr_t ___ZN3pci6system4info8insertBHEiNSt3__18weak_ptrINS_9transport2bhEEEj_block_invoke(uint64_t a1, uint64_t a2)
+intptr_t ___ZN3pci6system4info8insertBHEiNSt3__18weak_ptrINS_9transport2bhEEEj_block_invoke(pci::log *a1, uint64_t a2)
 {
-  v4 = *(a1 + 48);
+  v4 = *(a1 + 6);
   v5 = pci::log::get(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     ___ZN3pci6system4info8insertBHEiNSt3__18weak_ptrINS_9transport2bhEEEj_block_invoke_cold_1(a2, v5, v6, v7, v8, v9, v10, v11);
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = a2;
+  *(*(*(a1 + 4) + 8) + 24) = a2;
   if (a2)
   {
-    v12 = std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::__map_value_compare<int,std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::weak_ptr<pci::transport::bh>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v4 + 56, (a1 + 72));
-    v14 = *(a1 + 56);
-    v13 = *(a1 + 64);
+    v17 = (a1 + 72);
+    v12 = std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::__map_value_compare<int,std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::weak_ptr<pci::transport::bh>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v4 + 56, a1 + 18, &std::piecewise_construct, &v17);
+    v14 = *(a1 + 7);
+    v13 = *(a1 + 8);
     if (v13)
     {
       atomic_fetch_add_explicit((v13 + 16), 1uLL, memory_order_relaxed);
@@ -1197,7 +1189,7 @@ intptr_t ___ZN3pci6system4info8insertBHEiNSt3__18weak_ptrINS_9transport2bhEEEj_b
     }
   }
 
-  return dispatch_semaphore_signal(*(*(*(a1 + 40) + 8) + 40));
+  return dispatch_semaphore_signal(*(*(*(a1 + 5) + 8) + 40));
 }
 
 uint64_t __copy_helper_block_e8_56c42_ZTSNSt3__18weak_ptrIN3pci9transport2bhEEE(uint64_t result, uint64_t a2)
@@ -1222,7 +1214,7 @@ void __destroy_helper_block_e8_56c42_ZTSNSt3__18weak_ptrIN3pci9transport2bhEEE(u
   }
 }
 
-uint64_t pci::system::info::removeBH(pci::system::info *this, uint64_t a2)
+uint64_t pci::system::info::removeBH(os_unfair_lock_s *this, uint64_t a2)
 {
   v4 = pci::log::get(this);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -1231,51 +1223,51 @@ uint64_t pci::system::info::removeBH(pci::system::info *this, uint64_t a2)
   }
 
   os_unfair_lock_lock(this + 4);
-  v11 = *(this + 8);
+  v11 = *&this[16]._os_unfair_lock_opaque;
   if (!v11)
   {
     goto LABEL_10;
   }
 
-  v12 = (this + 64);
+  v12 = this + 16;
   do
   {
-    if (*(v11 + 8) >= a2)
+    if (v11[8]._os_unfair_lock_opaque >= a2)
     {
       v12 = v11;
     }
 
-    v11 = v11[*(v11 + 8) < a2];
+    v11 = *&v11[2 * (v11[8]._os_unfair_lock_opaque < a2)]._os_unfair_lock_opaque;
   }
 
   while (v11);
-  if (v12 == (this + 64) || *(v12 + 8) > a2)
+  if (v12 == &this[16] || v12[8]._os_unfair_lock_opaque > a2)
   {
 LABEL_10:
     pci::system::info::removeBH();
   }
 
-  std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::__map_value_compare<int,std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::weak_ptr<pci::transport::bh>>>>::erase(this + 7, v12);
-  v13 = *(this + 11);
+  std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::__map_value_compare<int,std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::weak_ptr<pci::transport::bh>>>>::erase(&this[14], v12);
+  v13 = *&this[22]._os_unfair_lock_opaque;
   if (v13)
   {
-    v14 = this + 88;
+    v14 = this + 22;
     do
     {
-      if (*(v13 + 8) >= a2)
+      if (v13[8]._os_unfair_lock_opaque >= a2)
       {
         v14 = v13;
       }
 
-      v13 = *&v13[8 * (*(v13 + 8) < a2)];
+      v13 = *&v13[2 * (v13[8]._os_unfair_lock_opaque < a2)]._os_unfair_lock_opaque;
     }
 
     while (v13);
-    if (v14 != this + 88 && *(v14 + 8) <= a2)
+    if (v14 != &this[22] && v14[8]._os_unfair_lock_opaque <= a2)
     {
-      (*(*(v14 + 5) + 16))();
-      std::__tree<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>>>::__remove_node_pointer(this + 10, v14);
-      std::__destroy_at[abi:ne200100]<std::pair<int const,applesauce::dispatch::v1::block<void ()(BOOL)>>,0>((v14 + 32));
+      (*(*&v14[10]._os_unfair_lock_opaque + 16))();
+      std::__tree<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>>>::__remove_node_pointer(&this[20], v14);
+      std::__destroy_at[abi:ne200100]<std::pair<int const,applesauce::dispatch::v1::block<void ()(BOOL)>>,0>(&v14[8]);
       operator delete(v14);
     }
   }
@@ -1291,9 +1283,9 @@ void std::shared_ptr<pci::system::info>::shared_ptr[abi:ne200100]<pci::system::i
   operator new();
 }
 
-void sub_295FF0DA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_295FF0DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<pci::system::info>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1444,7 +1436,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<int const,applesauce::dispatch::v
   }
 }
 
-uint64_t *std::__tree<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::shared_ptr<pci::transport::th>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::shared_ptr<pci::transport::th>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1470,12 +1462,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1489,22 +1481,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1538,13 +1530,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1729,31 +1721,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -1762,252 +1753,252 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::__map_value_compare<int,std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::weak_ptr<pci::transport::bh>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::__map_value_compare<int,std::__value_type<int,std::weak_ptr<pci::transport::bh>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::weak_ptr<pci::transport::bh>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>,std::__map_value_compare<int,std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>,std::less<int>,true>,std::allocator<std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>,std::__map_value_compare<int,std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>,std::less<int>,true>,std::allocator<std::__value_type<int,applesauce::dispatch::v1::block<void ()(BOOL)>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2044,16 +2035,17 @@ uint64_t *std::__tree<std::__value_type<int,std::weak_ptr<pci::transport::bh>>,s
   return v3;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
-void pci::transport::bh::create(void *a1@<X8>)
+void pci::transport::bh::create(void *a2@<X8>)
 {
-  *a1 = 0xAAAAAAAAAAAAAAAALL;
-  a1[1] = 0xAAAAAAAAAAAAAAAALL;
+  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  a2[1] = 0xAAAAAAAAAAAAAAAALL;
   operator new();
 }
 
@@ -2070,41 +2062,41 @@ void sub_295FF1AF4(_Unwind_Exception *exception_object)
 
 uint64_t pci::transport::bh::init(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x29EDCA608];
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2000000000;
-  v20 = *(a2 + 8);
-  v17[0] = 0;
-  v17[1] = v17;
-  v17[2] = 0x2000000000;
-  v18 = 1;
-  v15[0] = 0;
-  v15[1] = v15;
-  v15[2] = 0x3002000000;
-  v15[3] = __Block_byref_object_copy__0;
-  v15[4] = __Block_byref_object_dispose__0;
-  v16 = 0;
+  v23 = *MEMORY[0x29EDCA608];
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2000000000;
+  v19 = *(a2 + 8);
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x2000000000;
+  v17 = 1;
+  v14[0] = 0;
+  v14[1] = v14;
+  v14[2] = 0x3002000000;
+  v14[3] = __Block_byref_object_copy__0;
+  v14[4] = __Block_byref_object_dispose__0;
+  v15 = 0;
   v4 = pci::log::get(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::bh::init(a1);
+    pci::transport::bh::init();
   }
 
   v5 = *(a1 + 88);
   v6 = *(a1 + 28);
   std::shared_ptr<pci::transport::bh>::shared_ptr[abi:ne200100]<pci::transport::bh,0>(buf, a1);
-  v13 = *buf;
-  v14 = *&buf[8];
+  v12 = *buf;
+  v13 = *&buf[8];
   if (*&buf[8])
   {
     atomic_fetch_add_explicit((*&buf[8] + 16), 1uLL, memory_order_relaxed);
   }
 
-  inserted = pci::system::info::insertBH(v5, v6, &v13, *(a2 + 4));
-  if (v14)
+  inserted = pci::system::info::insertBH(v5, v6, &v12, *(a2 + 4));
+  if (v13)
   {
-    std::__shared_weak_count::__release_weak(v14);
+    std::__shared_weak_count::__release_weak(v13);
   }
 
   v8 = *&buf[8];
@@ -2127,39 +2119,39 @@ uint64_t pci::transport::bh::init(uint64_t a1, uint64_t a2)
     *&buf[4] = "bh";
     *&buf[12] = 2048;
     *&buf[14] = a1;
-    v22 = 1024;
-    v23 = v10;
+    v21 = 1024;
+    v22 = v10;
     _os_log_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:failed to insert in system", buf, 0x1Cu);
   }
 
-  _Block_object_dispose(v15, 8);
-  if (v16)
+  _Block_object_dispose(v14, 8);
+  if (v15)
   {
-    _Block_release(v16);
+    _Block_release(v15);
   }
 
-  _Block_object_dispose(v17, 8);
-  _Block_object_dispose(v19, 8);
-  v11 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(v16, 8);
+  _Block_object_dispose(v18, 8);
   return 0;
 }
 
-void sub_295FF22D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, std::__shared_weak_count *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, dispatch_object_t object, uint64_t a46, std::__shared_weak_count *a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *aBlock, char a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58)
+void sub_295FF22D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, std::__shared_weak_count *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, dispatch_object_t object, uint64_t a46, std::__shared_weak_count *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *aBlock, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, ...)
 {
-  v62 = v60 - 152;
-  v63 = -128;
+  va_start(va, a57);
+  v61 = v59 - 152;
+  v62 = -128;
   do
   {
-    if (*(v62 + 23) < 0)
+    if (*(v61 + 23) < 0)
     {
-      operator delete(*v62);
+      operator delete(*v61);
     }
 
-    v62 -= 32;
-    v63 += 32;
+    v61 -= 32;
+    v62 += 32;
   }
 
-  while (v63);
+  while (v62);
   if (a22)
   {
     std::__shared_weak_count::__release_weak(a22);
@@ -2178,10 +2170,10 @@ void sub_295FF22D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   if (object)
   {
     dispatch_release(object);
-    if (!v59)
+    if (!v58)
     {
 LABEL_13:
-      if (!v58)
+      if (!v57)
       {
         goto LABEL_15;
       }
@@ -2190,13 +2182,13 @@ LABEL_13:
     }
   }
 
-  else if (!v59)
+  else if (!v58)
   {
     goto LABEL_13;
   }
 
-  dispatch_release(v59);
-  if (!v58)
+  dispatch_release(v58);
+  if (!v57)
   {
 LABEL_15:
     _Block_object_dispose(&a48, 8);
@@ -2206,12 +2198,12 @@ LABEL_15:
     }
 
     _Block_object_dispose(&a54, 8);
-    _Block_object_dispose(&a58, 8);
+    _Block_object_dispose(va, 8);
     _Unwind_Resume(a1);
   }
 
 LABEL_14:
-  std::__shared_weak_count::__release_weak(v58);
+  std::__shared_weak_count::__release_weak(v57);
   goto LABEL_15;
 }
 
@@ -2269,7 +2261,7 @@ uint64_t pci::transport::bh::bh(uint64_t a1, unsigned int *a2)
   v9 = pci::log::get(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::bh::bh(a1, (a1 + 28));
+    pci::transport::bh::bh();
   }
 
   return a1;
@@ -2306,7 +2298,7 @@ void sub_295FF2614(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t pci::transport::bh::generateString(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t pci::transport::bh::generateString(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t a4)
 {
   v23 = 0xAAAAAAAAAAAAAAAALL;
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
@@ -2346,7 +2338,7 @@ uint64_t pci::transport::bh::generateString(uint64_t a1, uint64_t a2, uint64_t a
 
   else
   {
-    v10 = *(a2 + 8);
+    v10 = a2[1];
   }
 
   v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, v9, v10);
@@ -2368,7 +2360,7 @@ uint64_t pci::transport::bh::generateString(uint64_t a1, uint64_t a2, uint64_t a
 
   else
   {
-    v14 = *(a3 + 8);
+    v14 = a3[1];
   }
 
   v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v13, v14);
@@ -2395,7 +2387,7 @@ void sub_295FF2868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2409,22 +2401,22 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void pci::transport::bh::~bh(pci::system::info **this)
+void pci::transport::bh::~bh(os_unfair_lock_s **this)
 {
   v2 = pci::log::get(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::bh::init(this);
+    pci::transport::bh::init();
   }
 
   if (this[10])
@@ -2435,7 +2427,7 @@ void pci::transport::bh::~bh(pci::system::info **this)
   v3 = this[6];
   if (v3)
   {
-    pci::transport::task::complete(v3, -536870183, 0, -1);
+    pci::transport::task::complete(v3, 3758097113, 0, -1);
     v4 = this[7];
     this[6] = 0;
     this[7] = 0;
@@ -2469,7 +2461,7 @@ void pci::transport::bh::~bh(pci::system::info **this)
   v7 = pci::log::get(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::bh::~bh(this);
+    pci::transport::bh::~bh();
   }
 
   v8 = this[13];
@@ -2525,27 +2517,27 @@ void __Block_byref_object_dispose__0(uint64_t a1)
   }
 }
 
-intptr_t ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke(uint64_t a1, int a2, int a3, int a4)
+intptr_t ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke(uint64_t a1, int a2, int a3, unsigned int a4)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v8 = *(a1 + 48);
   v9 = pci::log::get(a1);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v18 = *(v8 + 28);
-    v19 = 136316418;
-    v20 = "bh";
-    v21 = 2048;
-    v22 = v8;
-    v23 = 1024;
-    v24 = v18;
-    v25 = 1024;
-    v26 = a2;
-    v27 = 1024;
-    v28 = a3;
-    v29 = 1024;
-    v30 = a4;
-    _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:in addComp added %u, started %u, service 0x%x", &v19, 0x2Eu);
+    v17 = *(v8 + 28);
+    v18 = 136316418;
+    v19 = "bh";
+    v20 = 2048;
+    v21 = v8;
+    v22 = 1024;
+    v23 = v17;
+    v24 = 1024;
+    v25 = a2;
+    v26 = 1024;
+    v27 = a3;
+    v28 = 1024;
+    v29 = a4;
+    _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:in addComp added %u, started %u, service 0x%x", &v18, 0x2Eu);
   }
 
   os_unfair_lock_assert_owner((v8 + 24));
@@ -2558,7 +2550,7 @@ intptr_t ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke(uint64_t a
   v10 = ACIPCBTClass::open(*(v8 + 40));
   if (!v10)
   {
-    goto LABEL_13;
+    return dispatch_semaphore_signal(*(a1 + 56));
   }
 
   v11 = v10;
@@ -2568,43 +2560,40 @@ intptr_t ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke(uint64_t a
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = *(v8 + 28);
-      v19 = 136315906;
-      v20 = "bh";
-      v21 = 2048;
-      v22 = v8;
-      v23 = 1024;
-      v24 = v15;
-      v25 = 1024;
-      v26 = v11;
-      _os_log_impl(&dword_295FEE000, v14, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:failed to open 0x%x", &v19, 0x22u);
+      v18 = 136315906;
+      v19 = "bh";
+      v20 = 2048;
+      v21 = v8;
+      v22 = 1024;
+      v23 = v15;
+      v24 = 1024;
+      v25 = v11;
+      _os_log_impl(&dword_295FEE000, v14, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:failed to open 0x%x", &v18, 0x22u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
 LABEL_12:
     *(*(*(a1 + 40) + 8) + 24) = 0;
-    goto LABEL_13;
+    return dispatch_semaphore_signal(*(a1 + 56));
   }
 
   v12 = pci::log::get(v10);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = *(v8 + 28);
-    v19 = 136315906;
-    v20 = "bh";
-    v21 = 2048;
-    v22 = v8;
-    v23 = 1024;
-    v24 = v13;
-    v25 = 1024;
-    v26 = -536870203;
-    _os_log_impl(&dword_295FEE000, v12, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:failed to open 0x%x", &v19, 0x22u);
+    v18 = 136315906;
+    v19 = "bh";
+    v20 = 2048;
+    v21 = v8;
+    v22 = 1024;
+    v23 = v13;
+    v24 = 1024;
+    v25 = -536870203;
+    _os_log_impl(&dword_295FEE000, v12, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:failed to open 0x%x", &v18, 0x22u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
-LABEL_13:
-  result = dispatch_semaphore_signal(*(a1 + 56));
-  v17 = *MEMORY[0x29EDCA608];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 56));
 }
 
 void __copy_helper_block_e8_56c40_ZTSN10applesauce8dispatch2v19semaphoreE(uint64_t a1, uint64_t a2)
@@ -2641,7 +2630,7 @@ void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_5(void *a1, ui
         v8 = pci::log::get(v6);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_5_cold_1(v5);
+          ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_5_cold_1();
         }
 
         os_unfair_lock_lock(v5 + 6);
@@ -2703,7 +2692,7 @@ void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8(void *a1)
         v6 = pci::log::get(v4);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8_cold_1(v3);
+          ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8_cold_1();
         }
 
         os_unfair_lock_lock((v3 + 24));
@@ -2717,7 +2706,7 @@ void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8(void *a1)
           v8 = pci::log::get(v7);
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
-            ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8_cold_2(v3);
+            ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8_cold_2();
           }
 
           v10 = *(v3 + 48);
@@ -2780,12 +2769,13 @@ void __destroy_helper_block_e8_40c42_ZTSNSt3__18weak_ptrIN3pci9transport2bhEEE(u
   }
 }
 
-void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_11(void *a1, int a2, int a3, int a4)
+void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_11(void *a1, uint64_t a2, int a3, int a4)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v5 = a1[6];
   if (v5)
   {
+    v8 = a2;
     v9 = a1[4];
     v10 = std::__shared_weak_count::lock(v5);
     if (v10)
@@ -2798,21 +2788,21 @@ void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_11(void *a1, i
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           os_unfair_lock_opaque = v9[7]._os_unfair_lock_opaque;
-          v16 = 136316674;
-          v17 = "bh";
-          v18 = 2048;
-          v19 = v9;
-          v20 = 1024;
-          v21 = os_unfair_lock_opaque;
-          v22 = 2080;
+          v15 = 136316674;
+          v16 = "bh";
+          v17 = 2048;
+          v18 = v9;
+          v19 = 1024;
+          v20 = os_unfair_lock_opaque;
+          v21 = 2080;
           ACIPCErrorTypeString = getACIPCErrorTypeString();
-          v24 = 1024;
-          v25 = a2;
-          v26 = 1024;
-          v27 = a3;
-          v28 = 1024;
-          v29 = a4;
-          _os_log_impl(&dword_295FEE000, v13, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:%s (%u): param 0x%x: status 0x%x", &v16, 0x38u);
+          v23 = 1024;
+          v24 = v8;
+          v25 = 1024;
+          v26 = a3;
+          v27 = 1024;
+          v28 = a4;
+          _os_log_impl(&dword_295FEE000, v13, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:%s (%u): param 0x%x: status 0x%x", &v15, 0x38u);
         }
 
         os_unfair_lock_unlock(v9 + 6);
@@ -2821,8 +2811,6 @@ void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_11(void *a1, i
       std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void pci::transport::bh::setNotify(uint64_t a1, uint64_t *a2)
@@ -2896,11 +2884,12 @@ void pci::transport::bh::generateCallback(uint64_t a1@<X0>, uint64_t *a2@<X1>, u
   operator new();
 }
 
-void sub_295FF33BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_295FF33BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  if (v26)
+  va_start(va, a25);
+  if (v25)
   {
-    _Block_release(v26);
+    _Block_release(v25);
   }
 
   if (a20)
@@ -2909,12 +2898,12 @@ void sub_295FF33BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v27 - 120), 8);
-  v29 = *(v27 - 72);
-  if (v29)
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 120), 8);
+  v28 = *(v26 - 72);
+  if (v28)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
   _Unwind_Resume(a1);
@@ -2940,7 +2929,8 @@ void __Block_byref_object_dispose__18(uint64_t a1)
 
 void ___ZN3pci9transport2bh16generateCallbackENSt3__110shared_ptrINS0_4taskEEEPKcb_block_invoke(uint64_t a1, int a2, unsigned int a3, int a4)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  LODWORD(v6) = a2;
+  v32 = *MEMORY[0x29EDCA608];
   v8 = *(a1 + 56);
   os_unfair_lock_lock((v8 + 24));
   dispatch_assert_queue_V2(*(v8 + 16));
@@ -2955,67 +2945,71 @@ void ___ZN3pci9transport2bh16generateCallbackENSt3__110shared_ptrINS0_4taskEEEPK
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
   if (v12)
   {
-    v17 = *(v8 + 28);
-    v18 = *(a1 + 64);
-    v19 = 136316674;
-    v20 = "bh";
-    v21 = 2048;
-    v22 = v8;
-    v23 = 1024;
-    v24 = v17;
-    v25 = 2080;
-    v26 = v18;
-    v27 = 1024;
-    v28 = a2;
-    v29 = 1024;
-    v30 = a3;
-    v31 = 1024;
-    v32 = a4;
-    _os_log_debug_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEBUG, "%s::%p::%d:%s complete 0x%x, size %u, cookie %u", &v19, 0x38u);
+    v16 = *(v8 + 28);
+    v17 = *(a1 + 64);
+    v18 = 136316674;
+    v19 = "bh";
+    v20 = 2048;
+    v21 = v8;
+    v22 = 1024;
+    v23 = v16;
+    v24 = 2080;
+    v25 = v17;
+    v26 = 1024;
+    v27 = v6;
+    v28 = 1024;
+    v29 = a3;
+    v30 = 1024;
+    v31 = a4;
+    _os_log_debug_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEBUG, "%s::%p::%d:%s complete 0x%x, size %u, cookie %u", &v18, 0x38u);
   }
 
-  if (((a2 == -536870168) & *(a1 + 88)) != 0)
+  if (((v6 == -536870168) & *(a1 + 88)) != 0)
   {
-    a2 = 0;
+    v6 = 0;
   }
 
-  if (a2)
+  else
+  {
+    v6 = v6;
+  }
+
+  if (v6)
   {
     v13 = pci::log::get(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(v8 + 28);
       v15 = *(a1 + 64);
-      v19 = 136316674;
-      v20 = "bh";
-      v21 = 2048;
-      v22 = v8;
-      v23 = 1024;
-      v24 = v14;
-      v25 = 2080;
-      v26 = v15;
-      v27 = 1024;
-      v28 = a2;
-      v29 = 1024;
-      v30 = a3;
-      v31 = 1024;
-      v32 = a4;
-      _os_log_impl(&dword_295FEE000, v13, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:%s failed, complete 0x%x, size %u, cookie %u", &v19, 0x38u);
+      v18 = 136316674;
+      v19 = "bh";
+      v20 = 2048;
+      v21 = v8;
+      v22 = 1024;
+      v23 = v14;
+      v24 = 2080;
+      v25 = v15;
+      v26 = 1024;
+      v27 = v6;
+      v28 = 1024;
+      v29 = a3;
+      v30 = 1024;
+      v31 = a4;
+      _os_log_impl(&dword_295FEE000, v13, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:%s failed, complete 0x%x, size %u, cookie %u", &v18, 0x38u);
     }
   }
 
-  std::list<void const*>::remove(v8 + 64, (*(*(a1 + 48) + 8) + 24));
+  std::list<void const*>::remove((v8 + 64), (*(*(a1 + 48) + 8) + 24));
   os_unfair_lock_unlock((v8 + 24));
-  pci::transport::task::complete(*(a1 + 72), a2, a3, a4);
-  v16 = *MEMORY[0x29EDCA608];
+  pci::transport::task::complete(*(a1 + 72), v6, a3, a4);
 }
 
-void *std::list<void const*>::remove(uint64_t a1, void *a2)
+void *std::list<void const*>::remove(void *a1, void *a2)
 {
   v10[0] = v10;
   v10[1] = v10;
   v10[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -3062,9 +3056,9 @@ void *std::list<void const*>::remove(uint64_t a1, void *a2)
   return std::__list_imp<void const*>::clear(v10);
 }
 
-void sub_295FF3710(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_295FF3710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<void const*>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -3136,19 +3130,19 @@ void __destroy_helper_block_e8_32c44_ZTSN10applesauce8dispatch2v15blockIFvijjEEE
   }
 }
 
-void pci::transport::bh::open(uint64_t a1, uint64_t *a2)
+void pci::transport::bh::open(uint64_t a1, uint64_t *a2, int a3)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v2 = a2[1];
-  v3[0] = *a2;
-  v3[1] = v2;
-  if (v2)
+  v6 = *MEMORY[0x29EDCA608];
+  v3 = a2[1];
+  v4[0] = *a2;
+  v4[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   aBlock = 0xAAAAAAAAAAAAAAAALL;
-  pci::transport::bh::generateCallback(a1, v3, "open pipe", 0, &aBlock);
+  pci::transport::bh::generateCallback(a1, v4, "open pipe", 0, &aBlock);
 }
 
 void sub_295FF3AE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -3173,19 +3167,19 @@ void pci::transport::bh::cmdCompletion(pci::transport::bh *this, void *a2)
   _Block_release(v4);
 }
 
-void pci::transport::bh::close(uint64_t a1, uint64_t *a2)
+void pci::transport::bh::close(uint64_t a1, uint64_t *a2, int a3)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v2 = a2[1];
-  v3[0] = *a2;
-  v3[1] = v2;
-  if (v2)
+  v6 = *MEMORY[0x29EDCA608];
+  v3 = a2[1];
+  v4[0] = *a2;
+  v4[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   aBlock = 0xAAAAAAAAAAAAAAAALL;
-  pci::transport::bh::generateCallback(a1, v3, "close pipe", 0, &aBlock);
+  pci::transport::bh::generateCallback(a1, v4, "close pipe", 0, &aBlock);
 }
 
 void sub_295FF3E34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -3297,19 +3291,19 @@ void pci::transport::bh::imageCompletion(pci::transport::bh *this, void *a2, uin
   _Block_release(v9);
 }
 
-void pci::transport::bh::readRegister(uint64_t a1, uint64_t *a2)
+void pci::transport::bh::readRegister(uint64_t a1, uint64_t *a2, int a3)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v2 = a2[1];
-  v3[0] = *a2;
-  v3[1] = v2;
-  if (v2)
+  v6 = *MEMORY[0x29EDCA608];
+  v3 = a2[1];
+  v4[0] = *a2;
+  v4[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   aBlock = 0xAAAAAAAAAAAAAAAALL;
-  pci::transport::bh::generateCallback(a1, v3, "read register", 0, &aBlock);
+  pci::transport::bh::generateCallback(a1, v4, "read register", 0, &aBlock);
 }
 
 void sub_295FF4864(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *aBlock)
@@ -3492,16 +3486,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (LOBYTE(v13[0]) == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -3524,9 +3518,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_295FF4DD0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_295FF4DD0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C255CD0](&a10);
+  MEMORY[0x29C255CD0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -3688,18 +3682,18 @@ LABEL_8:
   }
 }
 
-void *std::map<PCITransportInterface,std::string>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t **std::map<PCITransportInterface,std::string>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__emplace_hint_unique_key_args<PCITransportInterface,std::pair<PCITransportInterface const,std::string> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__emplace_hint_unique_key_args<PCITransportInterface,std::pair<PCITransportInterface const,std::string> const&>(a1, v4, a2, a2);
       a2 += 8;
       v6 -= 32;
     }
@@ -3710,11 +3704,11 @@ void *std::map<PCITransportInterface,std::string>::map[abi:ne200100](void *a1, i
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__emplace_hint_unique_key_args<PCITransportInterface,std::pair<PCITransportInterface const,std::string> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__emplace_hint_unique_key_args<PCITransportInterface,std::pair<PCITransportInterface const,std::string> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  v4 = 0xAAAAAAAAAAAAAAAALL;
   v5 = 0xAAAAAAAAAAAAAAAALL;
-  result = *std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__find_equal<PCITransportInterface>(a1, a2, &v5, &v4, a3);
+  v6 = 0xAAAAAAAAAAAAAAAALL;
+  result = *std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__find_equal<PCITransportInterface>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__construct_node<std::pair<PCITransportInterface const,std::string> const&>();
@@ -3723,9 +3717,9 @@ uint64_t std::__tree<std::__value_type<PCITransportInterface,std::string>,std::_
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__find_equal<PCITransportInterface>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<PCITransportInterface,std::string>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,std::string>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,std::string>>>::__find_equal<PCITransportInterface>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -3752,7 +3746,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -3813,7 +3807,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -3892,7 +3886,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -4037,21 +4031,21 @@ void std::__tree<std::__value_type<PCITransportRegister,unsigned int>,std::__map
   }
 }
 
-void std::shared_ptr<pci::transport::bh>::shared_ptr[abi:ne200100]<pci::transport::bh,0>(void *a1, uint64_t a2)
+void std::shared_ptr<pci::transport::bh>::shared_ptr[abi:ne200100]<pci::transport::bh,0>(void *a1, void *a2)
 {
   *a1 = a2;
   v2 = a2;
   operator new();
 }
 
-void sub_295FF5920(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_295FF5920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<pci::transport::bh>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-pci::system::info ***std::unique_ptr<pci::transport::bh>::~unique_ptr[abi:ne200100](pci::system::info ***a1)
+os_unfair_lock_s ***std::unique_ptr<pci::transport::bh>::~unique_ptr[abi:ne200100](os_unfair_lock_s ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -4071,7 +4065,7 @@ void std::__shared_ptr_pointer<pci::transport::bh *,std::shared_ptr<pci::transpo
   JUMPOUT(0x29C255E00);
 }
 
-pci::system::info **std::__shared_ptr_pointer<pci::transport::bh *,std::shared_ptr<pci::transport::bh>::__shared_ptr_default_delete<pci::transport::bh,pci::transport::bh>,std::allocator<pci::transport::bh>>::__on_zero_shared(uint64_t a1)
+os_unfair_lock_s **std::__shared_ptr_pointer<pci::transport::bh *,std::shared_ptr<pci::transport::bh>::__shared_ptr_default_delete<pci::transport::bh,pci::transport::bh>,std::allocator<pci::transport::bh>>::__on_zero_shared(uint64_t a1)
 {
   result = *(a1 + 24);
   if (result)
@@ -4162,17 +4156,11 @@ uint64_t std::list<void const*>::splice(uint64_t result, uint64_t *a2, uint64_t 
   return result;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x1Cu);
-}
-
-uint64_t OUTLINED_FUNCTION_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 28);
-  return result;
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x1Cu);
 }
 
 uint64_t _GLOBAL__sub_I_PCITransportBH_cpp()
@@ -4185,14 +4173,14 @@ uint64_t _GLOBAL__sub_I_PCITransportBH_cpp()
 
 void pci::event::Listener::create()
 {
-  v0[0] = 0xAAAAAAAAAAAAAAAALL;
-  v0[1] = 0xAAAAAAAAAAAAAAAALL;
+  v3[0] = 0xAAAAAAAAAAAAAAAALL;
+  v3[1] = 0xAAAAAAAAAAAAAAAALL;
   operator new();
 }
 
 {
-  v0[0] = 0xAAAAAAAAAAAAAAAALL;
-  v0[1] = 0xAAAAAAAAAAAAAAAALL;
+  v3[0] = 0xAAAAAAAAAAAAAAAALL;
+  v3[1] = 0xAAAAAAAAAAAAAAAALL;
   operator new();
 }
 
@@ -4208,22 +4196,20 @@ void sub_295FF5CA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL pci::event::Listener::init(pci::event::Listener *this)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (!*(this + 2) || (*(this + 3) == 0) == (*(this + 4) == 0))
   {
     v6 = pci::log::get(this);
     if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_13:
-      v8 = 0;
-      goto LABEL_14;
+      return 0;
     }
 
     *buf = 0;
     v7 = "bad argument";
 LABEL_12:
     _os_log_impl(&dword_295FEE000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 2u);
-    goto LABEL_13;
+    return 0;
   }
 
   v2 = ACIPCBTControlClass::start((this + 40));
@@ -4232,7 +4218,7 @@ LABEL_12:
     v6 = pci::log::get(v2);
     if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_13;
+      return 0;
     }
 
     *buf = 0;
@@ -4242,27 +4228,27 @@ LABEL_12:
 
   std::shared_ptr<pci::transport::bh>::shared_ptr[abi:ne200100]<pci::transport::bh,0>(buf, this);
   v4 = *buf;
-  v3 = v17;
-  if (v17)
+  v3 = v15;
+  if (v15)
   {
-    atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
-  v14[0] = MEMORY[0x29EDCA5F8];
-  v14[1] = 1174405120;
-  v14[2] = ___ZN3pci5event8Listener4initEv_block_invoke;
-  v14[3] = &__block_descriptor_tmp_4;
-  v14[4] = this;
-  v14[5] = v4;
-  v15 = v3;
+  v12[0] = MEMORY[0x29EDCA5F8];
+  v12[1] = 1174405120;
+  v12[2] = ___ZN3pci5event8Listener4initEv_block_invoke;
+  v12[3] = &__block_descriptor_tmp_4;
+  v12[4] = this;
+  v12[5] = v4;
+  v13 = v3;
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
   *&buf[4] = -1431655766;
-  v17 = v14;
+  v15 = v12;
   *buf = 0;
   if (*(this + 3))
   {
@@ -4271,28 +4257,27 @@ LABEL_12:
 
   else
   {
-    v11 = *(this + 4);
     v5 = ACIPCBTControlClass::registerEventNotification();
   }
 
-  v12 = v5;
+  v10 = v5;
   v8 = v5 == 0;
   if (v5)
   {
-    v13 = pci::log::get(v5);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v11 = pci::log::get(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 67109120;
-      v19 = v12;
-      _os_log_impl(&dword_295FEE000, v13, OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::registerEventCallback() returned %#x", v18, 8u);
+      *v16 = 67109120;
+      v17 = v10;
+      _os_log_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::registerEventCallback() returned %#x", v16, 8u);
     }
 
     ACIPCBTControlClass::stop((this + 40));
   }
 
-  if (v15)
+  if (v13)
   {
-    std::__shared_weak_count::__release_weak(v15);
+    std::__shared_weak_count::__release_weak(v13);
   }
 
   if (v3)
@@ -4300,8 +4285,6 @@ LABEL_12:
     std::__shared_weak_count::__release_weak(v3);
   }
 
-LABEL_14:
-  v9 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -4398,16 +4381,17 @@ void *pci::event::Listener::Listener(void *a1, void **a2, const void *a3, dispat
   return a1;
 }
 
-uint64_t pci::event::Listener::notify(pci::log *a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t pci::event::Listener::notify(pci::log *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v71 = *MEMORY[0x29EDCA608];
+  v6 = a2;
+  v70 = *MEMORY[0x29EDCA608];
   v8 = pci::log::get(a1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
     *&buf[4] = getACIPCErrorTypeString();
     *&buf[12] = 1024;
-    *&buf[14] = a2;
+    *&buf[14] = v6;
     *&buf[18] = 2048;
     *&buf[20] = a3;
     *&buf[28] = 2048;
@@ -4415,22 +4399,22 @@ uint64_t pci::event::Listener::notify(pci::log *a1, int a2, uint64_t a3, uint64_
     _os_log_debug_impl(&dword_295FEE000, v8, OS_LOG_TYPE_DEBUG, "%s (%u), arg1 %p, arg2 %p", buf, 0x26u);
   }
 
-  v70 = 0xAAAAAAAAAAAAAAAALL;
+  v69 = 0xAAAAAAAAAAAAAAAALL;
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v69[7] = v9;
-  v69[8] = v9;
-  v69[5] = v9;
-  v69[6] = v9;
-  v69[3] = v9;
-  v69[4] = v9;
-  v69[1] = v9;
-  v69[2] = v9;
-  v69[0] = v9;
+  v68[7] = v9;
+  v68[8] = v9;
+  v68[5] = v9;
+  v68[6] = v9;
+  v68[3] = v9;
+  v68[4] = v9;
+  v68[1] = v9;
+  v68[2] = v9;
+  v68[0] = v9;
+  v66 = v9;
   v67 = v9;
-  v68 = v9;
-  v65 = v9;
-  *v66 = v9;
+  v64 = v9;
+  *v65 = v9;
   *&buf[16] = v9;
   *&buf[32] = v9;
   *buf = v9;
@@ -4438,7 +4422,7 @@ uint64_t pci::event::Listener::notify(pci::log *a1, int a2, uint64_t a3, uint64_
   v10 = "timesync protocol error";
   v11 = buf;
   v12 = 23;
-  switch(a2)
+  switch(v6)
   {
     case 0:
     case 1:
@@ -4502,22 +4486,22 @@ uint64_t pci::event::Listener::notify(pci::log *a1, int a2, uint64_t a3, uint64_
       {
         if (a3 == 3)
         {
-          v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "pci error: ", 11);
-          v55 = getACIPCErrorTypeString();
-          v56 = strlen(v55);
-          v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, v55, v56);
-          v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, ": ", 2);
+          v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "pci error: ", 11);
+          v54 = getACIPCErrorTypeString();
+          v55 = strlen(v54);
+          v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, v54, v55);
+          v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, ": ", 2);
           ACIPCLinkStateString = getACIPCLinkStateString();
-          v60 = strlen(ACIPCLinkStateString);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, ACIPCLinkStateString, v60);
+          v59 = strlen(ACIPCLinkStateString);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, ACIPCLinkStateString, v59);
         }
 
         else
         {
           if (a3 != 4)
           {
-            v61 = pci::log::get(buf);
-            pci::event::Listener::notify(v61, a3);
+            v60 = pci::log::get(buf);
+            pci::event::Listener::notify(v60, a3);
             __assert_rtn("notify", "PCIEvent.cpp", 109, "false");
           }
 
@@ -4527,43 +4511,43 @@ uint64_t pci::event::Listener::notify(pci::log *a1, int a2, uint64_t a3, uint64_
 
       else
       {
-        v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "pci error: ", 11);
-        v32 = getACIPCErrorTypeString();
-        v33 = strlen(v32);
-        v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, v32, v33);
-        v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, ": ", 2);
-        v36 = getACIPCLinkStateString();
-        v37 = strlen(v36);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, v36, v37);
+        v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "pci error: ", 11);
+        v31 = getACIPCErrorTypeString();
+        v32 = strlen(v31);
+        v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, v31, v32);
+        v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, ": ", 2);
+        v35 = getACIPCLinkStateString();
+        v36 = strlen(v35);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, v35, v36);
       }
 
       break;
     case 43:
-      v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "pci error: ", 11);
-      v23 = getACIPCErrorTypeString();
-      v24 = strlen(v23);
-      v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v23, v24);
-      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ": ", 2);
+      v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "pci error: ", 11);
+      v22 = getACIPCErrorTypeString();
+      v23 = strlen(v22);
+      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v22, v23);
+      v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, ": ", 2);
       ACIPCAERErrorTypeString = getACIPCAERErrorTypeString();
-      v28 = strlen(ACIPCAERErrorTypeString);
-      v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, ACIPCAERErrorTypeString, v28);
-      v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ": ", 2);
-      MEMORY[0x29C255CF0](v30, a4);
+      v27 = strlen(ACIPCAERErrorTypeString);
+      v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ACIPCAERErrorTypeString, v27);
+      v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ": ", 2);
+      MEMORY[0x29C255CF0](v29, a4);
       break;
     case 45:
-      v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "Firmware crash detected :(pc = 0x", 35);
-      *(v38 + *(*v38 - 24) + 8) = *(v38 + *(*v38 - 24) + 8) & 0xFFFFFFB5 | 8;
-      v39 = MEMORY[0x29C255D10]();
-      v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, ", lr = 0x", 9);
-      *(v40 + *(*v40 - 24) + 8) = *(v40 + *(*v40 - 24) + 8) & 0xFFFFFFB5 | 8;
-      v41 = MEMORY[0x29C255D10]();
-      v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, ", bcsReason = 0x", 16);
-      *(v42 + *(*v42 - 24) + 8) = *(v42 + *(*v42 - 24) + 8) & 0xFFFFFFB5 | 8;
-      v43 = MEMORY[0x29C255D10]();
-      v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, ", trapReason = 0x", 17);
-      *(v44 + *(*v44 - 24) + 8) = *(v44 + *(*v44 - 24) + 8) & 0xFFFFFFB5 | 8;
-      v45 = MEMORY[0x29C255D20]();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, ")", 2);
+      v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "Firmware crash detected :(pc = 0x", 35);
+      *(v37 + *(*v37 - 24) + 8) = *(v37 + *(*v37 - 24) + 8) & 0xFFFFFFB5 | 8;
+      v38 = MEMORY[0x29C255D10]();
+      v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, ", lr = 0x", 9);
+      *(v39 + *(*v39 - 24) + 8) = *(v39 + *(*v39 - 24) + 8) & 0xFFFFFFB5 | 8;
+      v40 = MEMORY[0x29C255D10]();
+      v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, ", bcsReason = 0x", 16);
+      *(v41 + *(*v41 - 24) + 8) = *(v41 + *(*v41 - 24) + 8) & 0xFFFFFFB5 | 8;
+      v42 = MEMORY[0x29C255D10]();
+      v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, ", trapReason = 0x", 17);
+      *(v43 + *(*v43 - 24) + 8) = *(v43 + *(*v43 - 24) + 8) & 0xFFFFFFB5 | 8;
+      v44 = MEMORY[0x29C255D20]();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, ")", 2);
       break;
     case 58:
       goto LABEL_5;
@@ -4583,21 +4567,21 @@ LABEL_5:
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "Host initiated trap before device reset", 39);
       break;
     default:
-      v46 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "pci error: ", 11);
-      v47 = getACIPCErrorTypeString();
-      v48 = strlen(v47);
-      v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, v47, v48);
-      v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, ": (", 3);
-      v51 = MEMORY[0x29C255CF0](v50, a3);
-      v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, ", ", 2);
-      v53 = MEMORY[0x29C255CF0](v52, a4);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, ")", 1);
+      v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "pci error: ", 11);
+      v46 = getACIPCErrorTypeString();
+      v47 = strlen(v46);
+      v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, v46, v47);
+      v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, ": (", 3);
+      v50 = MEMORY[0x29C255CF0](v49, a3);
+      v51 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, ", ", 2);
+      v52 = MEMORY[0x29C255CF0](v51, a4);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, ")", 1);
       break;
   }
 
   std::stringbuf::str();
   (*(*(a1 + 2) + 16))();
-  if (v63 < 0)
+  if (v62 < 0)
   {
     operator delete(__p);
   }
@@ -4605,28 +4589,26 @@ LABEL_5:
   *buf = *MEMORY[0x29EDC9538];
   *&buf[*(*buf - 24)] = *(MEMORY[0x29EDC9538] + 24);
   *&buf[8] = MEMORY[0x29EDC9570] + 16;
-  if (SHIBYTE(v67) < 0)
+  if (SHIBYTE(v66) < 0)
   {
-    operator delete(v66[1]);
+    operator delete(v65[1]);
   }
 
   *&buf[8] = MEMORY[0x29EDC9568] + 16;
   std::locale::~locale(&buf[16]);
   std::ostream::~ostream();
-  result = MEMORY[0x29C255DD0](v69);
-  v21 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C255DD0](v68);
 }
 
-void sub_295FF68BC(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+void sub_295FF68BC(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a22);
-  std::ostringstream::~ostringstream(&a9, MEMORY[0x29EDC9538]);
+  va_start(va, a26);
+  std::ostringstream::~ostringstream(&a13, MEMORY[0x29EDC9538]);
   MEMORY[0x29C255DD0](va);
   _Unwind_Resume(a1);
 }
 
-void ___ZN3pci5event8Listener4initEv_block_invoke(void *a1, int a2, uint64_t a3, uint64_t a4)
+void ___ZN3pci5event8Listener4initEv_block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = a1[6];
   if (v5)
@@ -4668,16 +4650,16 @@ void __destroy_helper_block_e8_40c44_ZTSNSt3__18weak_ptrIN3pci5event8ListenerEEE
   }
 }
 
-void std::shared_ptr<pci::event::Listener>::shared_ptr[abi:ne200100]<pci::event::Listener,0>(void *a1, uint64_t a2)
+void std::shared_ptr<pci::event::Listener>::shared_ptr[abi:ne200100]<pci::event::Listener,0>(void *a1, void *a2)
 {
   *a1 = a2;
   v2 = a2;
   operator new();
 }
 
-void sub_295FF6A7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_295FF6A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<pci::event::Listener>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4727,10 +4709,10 @@ uint64_t std::__shared_ptr_pointer<pci::event::Listener *,std::shared_ptr<pci::e
   }
 }
 
-void pci::transport::th::create(void *a1@<X8>)
+void pci::transport::th::create(void *a2@<X8>)
 {
-  *a1 = 0xAAAAAAAAAAAAAAAALL;
-  a1[1] = 0xAAAAAAAAAAAAAAAALL;
+  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  a2[1] = 0xAAAAAAAAAAAAAAAALL;
   operator new();
 }
 
@@ -4756,7 +4738,7 @@ void pci::transport::th::init(pci::transport::th *this)
   v3 = pci::log::get(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::th::init(this);
+    pci::transport::th::init();
   }
 
   os_unfair_lock_lock(*this);
@@ -4827,7 +4809,7 @@ void pci::transport::th::init(pci::transport::th *this)
   pci::transport::bh::create(buf);
 }
 
-void sub_295FF73B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, dispatch_object_t object, void *a20, uint64_t a21, dispatch_object_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_295FF73B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, dispatch_object_t object, void *a20, uint64_t a21, dispatch_object_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   if (object)
   {
@@ -4916,7 +4898,7 @@ void pci::transport::th::~th(dispatch_object_t *this)
   v2 = pci::log::get(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::th::init(this);
+    pci::transport::th::init();
   }
 
   os_unfair_lock_lock(*this);
@@ -4985,7 +4967,7 @@ void pci::transport::th::~th(dispatch_object_t *this)
 
     LODWORD(v29) = *(this + 10);
     getPciTransportToDirectionMap();
-    if ((*std::map<PCITransportRegister,unsigned int>::at(getPciTransportToDirectionMap(void)::sMap, &v29) & 0xFFFFFFFD) == 1)
+    if ((*std::map<PCITransportRegister,unsigned int>::at(&getPciTransportToDirectionMap(void)::sMap, &v29) & 0xFFFFFFFD) == 1)
     {
       v29 = 0xAAAAAAAAAAAAAAAALL;
       v30 = 0xAAAAAAAAAAAAAAAALL;
@@ -4994,7 +4976,7 @@ void pci::transport::th::~th(dispatch_object_t *this)
 
     LODWORD(v29) = *(this + 10);
     getPciTransportToDirectionMap();
-    if ((*std::map<PCITransportRegister,unsigned int>::at(getPciTransportToDirectionMap(void)::sMap, &v29) & 0xFFFFFFFE) == 2)
+    if ((*std::map<PCITransportRegister,unsigned int>::at(&getPciTransportToDirectionMap(void)::sMap, &v29) & 0xFFFFFFFE) == 2)
     {
       v29 = 0xAAAAAAAAAAAAAAAALL;
       v30 = 0xAAAAAAAAAAAAAAAALL;
@@ -5006,9 +4988,9 @@ void pci::transport::th::~th(dispatch_object_t *this)
     {
       do
       {
-        v15 = *(v13 + 1);
-        v14 = *(v13 + 2);
-        v16 = *(v13 + 3);
+        isa = v13[1].isa;
+        v14 = v13[2].isa;
+        v16 = v13[3].isa;
         if (v16)
         {
           atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -5016,7 +4998,7 @@ void pci::transport::th::~th(dispatch_object_t *this)
 
         if (*(this + 73) != 1 || pci::transport::task::getType(v14) == 1)
         {
-          pci::transport::task::poison(v14, 0xE00002EB);
+          pci::transport::task::poison(v14, 3758097131);
         }
 
         if (v16)
@@ -5024,10 +5006,10 @@ void pci::transport::th::~th(dispatch_object_t *this)
           std::__shared_weak_count::__release_shared[abi:ne200100](v16);
         }
 
-        v13 = v15;
+        v13 = isa;
       }
 
-      while (v15 != (this + 16));
+      while (isa != this + 16);
     }
 
     v17 = this[4];
@@ -5059,7 +5041,7 @@ void pci::transport::th::~th(dispatch_object_t *this)
   v19 = pci::log::get(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::th::~th(this);
+    pci::transport::th::~th();
   }
 
   std::__list_imp<std::shared_ptr<pci::transport::task>>::clear(this + 16);
@@ -5139,7 +5121,7 @@ void pci::transport::task::parameters::~parameters(pci::transport::task::paramet
   }
 }
 
-uint64_t pci::transport::th::generateString(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t pci::transport::th::generateString(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t a4)
 {
   v23 = 0xAAAAAAAAAAAAAAAALL;
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
@@ -5179,7 +5161,7 @@ uint64_t pci::transport::th::generateString(uint64_t a1, uint64_t a2, uint64_t a
 
   else
   {
-    v10 = *(a2 + 8);
+    v10 = a2[1];
   }
 
   v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, v9, v10);
@@ -5201,7 +5183,7 @@ uint64_t pci::transport::th::generateString(uint64_t a1, uint64_t a2, uint64_t a
 
   else
   {
-    v14 = *(a3 + 8);
+    v14 = a3[1];
   }
 
   v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v13, v14);
@@ -5261,7 +5243,7 @@ void pci::transport::th::notify(dispatch_object_t *this)
   v2 = pci::log::get(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::th::init(this);
+    pci::transport::th::init();
   }
 
   os_unfair_lock_lock(*this);
@@ -5320,12 +5302,12 @@ void pci::transport::th::notify(dispatch_object_t *this)
   pci::transport::task::create(v10);
 }
 
-void sub_295FF7FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_295FF7FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  if (a6)
+  va_start(va, a18);
+  if (a13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a13);
   }
 
   pci::transport::task::parameters::~parameters(va);
@@ -5337,7 +5319,7 @@ void pci::transport::th::readAsync(pci::transport::th *this)
   v2 = pci::log::get(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::th::init(this);
+    pci::transport::th::init();
   }
 
   v10 = 0;
@@ -5379,7 +5361,7 @@ void pci::transport::th::readAsync(pci::transport::th *this)
   pci::transport::th::readInternal(this, 0, v5, 0, v8);
 }
 
-void sub_295FF81C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *aBlock)
+void sub_295FF81C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *aBlock)
 {
   if (v24)
   {
@@ -5410,61 +5392,58 @@ double pci::transport::th::initParams(uint64_t a1)
 
 BOOL pci::transport::th::validateParams(pci::log *a1)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
     v8 = pci::log::get(0);
     result = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (!result)
     {
-      goto LABEL_13;
+      return result;
     }
 
-    LOWORD(v10[0]) = 0;
+    LOWORD(v9[0]) = 0;
     v5 = "no params";
-LABEL_11:
-    v6 = v8;
-    v7 = 2;
-    goto LABEL_12;
-  }
-
-  if (*a1 < 5)
-  {
-    if (*(a1 + 2))
-    {
-      result = 1;
-      goto LABEL_13;
-    }
-
-    v8 = pci::log::get(a1);
-    result = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (!result)
-    {
-      goto LABEL_13;
-    }
-
-    LOWORD(v10[0]) = 0;
-    v5 = "status block is required";
     goto LABEL_11;
   }
 
-  v2 = pci::log::get(a1);
-  result = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-  if (result)
+  if (*a1 >= 5)
   {
+    v2 = pci::log::get(a1);
+    result = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+    if (!result)
+    {
+      return result;
+    }
+
     v4 = *a1;
-    v10[0] = 67109120;
-    v10[1] = v4;
+    v9[0] = 67109120;
+    v9[1] = v4;
     v5 = "invalid interface number %d";
     v6 = v2;
     v7 = 8;
-LABEL_12:
-    _os_log_impl(&dword_295FEE000, v6, OS_LOG_TYPE_DEFAULT, v5, v10, v7);
-    result = 0;
+    goto LABEL_12;
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x29EDCA608];
+  if (*(a1 + 2))
+  {
+    return 1;
+  }
+
+  v8 = pci::log::get(a1);
+  result = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (result)
+  {
+    LOWORD(v9[0]) = 0;
+    v5 = "status block is required";
+LABEL_11:
+    v6 = v8;
+    v7 = 2;
+LABEL_12:
+    _os_log_impl(&dword_295FEE000, v6, OS_LOG_TYPE_DEFAULT, v5, v9, v7);
+    return 0;
+  }
+
   return result;
 }
 
@@ -5545,7 +5524,7 @@ void __destroy_helper_block_e8_32c66_ZTSN10applesauce8dispatch2v15blockIFv18PCIT
   }
 }
 
-void pci::transport::th::write(pci::transport::th *this, const unsigned __int8 *a2, int a3, void (*a4)(void *), int a5)
+void pci::transport::th::write(pci::transport::th *this, const unsigned __int8 *a2, uint64_t a3, void (*a4)(void *), unsigned int a5)
 {
   v35 = *MEMORY[0x29EDCA608];
   v19[0] = 0;
@@ -5606,11 +5585,12 @@ void pci::transport::th::write(pci::transport::th *this, const unsigned __int8 *
   pci::transport::th::writeInternal(this, a2, a3, a4, &v14);
 }
 
-void sub_295FF87C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object, char a27)
+void sub_295FF87C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object, ...)
 {
-  if (v27)
+  va_start(va, object);
+  if (v26)
   {
-    _Block_release(v27);
+    _Block_release(v26);
   }
 
   _Block_object_dispose(&a21, 8);
@@ -5619,12 +5599,12 @@ void sub_295FF87C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     dispatch_release(object);
   }
 
-  if (v28)
+  if (v27)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
   }
 
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5649,25 +5629,25 @@ void __Block_byref_object_dispose__1(uint64_t a1)
 
 intptr_t ___ZN3pci9transport2th5writeEPKhjPFvPvEj_block_invoke(uint64_t a1, int a2, uint64_t a3, int a4)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   v8 = *(a1 + 48);
   v9 = pci::log::get(a1);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v16 = *(v8 + 40);
-    v17 = 136316418;
-    v18 = "th";
-    v19 = 2048;
-    v20 = v8;
-    v21 = 1024;
-    v22 = v16;
-    v23 = 1024;
-    v24 = a2;
-    v25 = 2048;
-    v26 = a3;
-    v27 = 1024;
-    v28 = a4;
-    _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u", &v17, 0x32u);
+    v15 = *(v8 + 40);
+    v16 = 136316418;
+    v17 = "th";
+    v18 = 2048;
+    v19 = v8;
+    v20 = 1024;
+    v21 = v15;
+    v22 = 1024;
+    v23 = a2;
+    v24 = 2048;
+    v25 = a3;
+    v26 = 1024;
+    v27 = a4;
+    _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u", &v16, 0x32u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) &= a2 == 0;
@@ -5721,33 +5701,32 @@ LABEL_12:
 
 LABEL_13:
   *(v12 + 24) = v13;
-  result = dispatch_semaphore_signal(*(*(*(a1 + 40) + 8) + 40));
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  return dispatch_semaphore_signal(*(*(*(a1 + 40) + 8) + 40));
 }
 
-void pci::transport::th::writeInternal(uint64_t a1, uint64_t a2, int a3, uint64_t a4, const void **a5)
+void pci::transport::th::writeInternal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v8 = a3;
+  v24 = *MEMORY[0x29EDCA608];
   os_unfair_lock_assert_owner(*a1);
-  v11 = pci::log::get(v10);
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
-  if (v12)
+  v12 = pci::log::get(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  if (v13)
   {
-    v20 = *(a1 + 40);
-    LODWORD(v22[0]) = 136316418;
-    *(v22 + 4) = "th";
-    WORD6(v22[0]) = 2048;
-    *(v22 + 14) = a1;
-    WORD3(v22[1]) = 1024;
-    DWORD2(v22[1]) = v20;
-    WORD6(v22[1]) = 2048;
-    *(&v22[1] + 14) = a2;
-    WORD3(v22[2]) = 1024;
-    DWORD2(v22[2]) = a3;
-    WORD6(v22[2]) = 2048;
-    *(&v22[2] + 14) = a4;
-    _os_log_debug_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEBUG, "%s::%p::%d:buffer %p, size %u, dDtor %p", v22, 0x36u);
+    v21 = *(a1 + 40);
+    LODWORD(v23[0]) = 136316418;
+    *(v23 + 4) = "th";
+    WORD6(v23[0]) = 2048;
+    *(v23 + 14) = a1;
+    WORD3(v23[1]) = 1024;
+    DWORD2(v23[1]) = v21;
+    WORD6(v23[1]) = 2048;
+    *(&v23[1] + 14) = a2;
+    WORD3(v23[2]) = 1024;
+    DWORD2(v23[2]) = v8;
+    WORD6(v23[2]) = 2048;
+    *(&v23[2] + 14) = a4;
+    _os_log_debug_impl(&dword_295FEE000, v12, OS_LOG_TYPE_DEBUG, "%s::%p::%d:buffer %p, size %u, dDtor %p", v23, 0x36u);
     if (!a2)
     {
       goto LABEL_5;
@@ -5759,36 +5738,21 @@ void pci::transport::th::writeInternal(uint64_t a1, uint64_t a2, int a3, uint64_
     goto LABEL_5;
   }
 
-  v13 = pci::log::get(v12);
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = pci::log::get(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     pci::transport::th::writeInternal();
   }
 
 LABEL_5:
-  *&v14 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22[0] = v14;
-  v22[1] = v14;
-  memset(&v22[2], 0, 32);
+  *&v15 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v23[0] = v15;
+  v23[1] = v15;
+  memset(&v23[2], 0, 32);
   if (*a5)
   {
-    v15 = _Block_copy(*a5);
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  LODWORD(v22[0]) = *(a1 + 40);
-  DWORD1(v22[0]) = 3;
-  *(&v22[0] + 1) = a4;
-  *&v22[1] = a2;
-  DWORD2(v22[1]) = a3;
-  if (v15)
-  {
-    v16 = _Block_copy(v15);
+    v16 = _Block_copy(*a5);
   }
 
   else
@@ -5796,44 +5760,59 @@ LABEL_5:
     v16 = 0;
   }
 
-  *&v22[2] = v16;
-  v18 = *a1;
-  v17 = *(a1 + 8);
-  if (v17)
+  LODWORD(v23[0]) = *(a1 + 40);
+  DWORD1(v23[0]) = 3;
+  *(&v23[0] + 1) = a4;
+  *&v23[1] = a2;
+  DWORD2(v23[1]) = v8;
+  if (v16)
   {
-    atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
+    v17 = _Block_copy(v16);
   }
 
-  *(&v22[2] + 1) = v18;
-  *&v22[3] = v17;
-  v19 = *(a1 + 16);
-  if (v19)
+  else
+  {
+    v17 = 0;
+  }
+
+  *&v23[2] = v17;
+  v19 = *a1;
+  v18 = *(a1 + 8);
+  if (v18)
+  {
+    atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(&v23[2] + 1) = v19;
+  *&v23[3] = v18;
+  v20 = *(a1 + 16);
+  if (v20)
   {
     dispatch_retain(*(a1 + 16));
   }
 
-  *(&v22[3] + 1) = v19;
-  if (v15)
+  *(&v23[3] + 1) = v20;
+  if (v16)
   {
-    _Block_release(v15);
+    _Block_release(v16);
   }
 
   pci::transport::task::create(buf);
 }
 
-void sub_295FF8CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_295FF8CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   pci::transport::task::parameters::~parameters(va);
-  if (v7)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
   _Unwind_Resume(a1);
 }
 
-void pci::transport::th::writeAsync(pci::transport::th *this, const unsigned __int8 *a2, int a3, void (*a4)(void *))
+void pci::transport::th::writeAsync(pci::transport::th *this, const unsigned __int8 *a2, uint64_t a3, void (*a4)(void *))
 {
   v23 = *MEMORY[0x29EDCA608];
   v8 = pci::log::get(this);
@@ -5889,24 +5868,24 @@ void sub_295FF8F20(_Unwind_Exception *exception_object, int a2)
 
 void ___ZN3pci9transport2th10writeAsyncEPKhjPFvPvE_block_invoke(pci::log *a1, int a2, uint64_t a3, int a4)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v7 = *(a1 + 4);
   v8 = pci::log::get(a1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v14 = *(v7 + 40);
+    v13 = *(v7 + 40);
     *buf = 136316418;
-    v21 = "th";
-    v22 = 2048;
-    v23 = v7;
-    v24 = 1024;
-    v25 = v14;
-    v26 = 1024;
-    v27 = a2;
-    v28 = 2048;
-    v29 = a3;
-    v30 = 1024;
-    v31 = a4;
+    v20 = "th";
+    v21 = 2048;
+    v22 = v7;
+    v23 = 1024;
+    v24 = v13;
+    v25 = 1024;
+    v26 = a2;
+    v27 = 2048;
+    v28 = a3;
+    v29 = 1024;
+    v30 = a4;
     _os_log_debug_impl(&dword_295FEE000, v8, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u", buf, 0x32u);
   }
 
@@ -5935,9 +5914,9 @@ void ___ZN3pci9transport2th10writeAsyncEPKhjPFvPvE_block_invoke(pci::log *a1, in
     }
 
     aBlock = v12;
-    v17 = a3;
-    v18 = a2;
-    v19 = a4;
+    v16 = a3;
+    v17 = a2;
+    v18 = a4;
     dispatch_async(v11, block);
     if (aBlock)
     {
@@ -5954,8 +5933,6 @@ void ___ZN3pci9transport2th10writeAsyncEPKhjPFvPvE_block_invoke(pci::log *a1, in
       _Block_release(v10);
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void sub_295FF9114(_Unwind_Exception *a1, int a2)
@@ -5989,7 +5966,7 @@ void __destroy_helper_block_e8_32c45_ZTSN10applesauce8dispatch2v15blockIFviPvjEE
   }
 }
 
-void pci::transport::th::read(pci::transport::th *this, const unsigned __int8 *a2, unsigned int *a3, void (*a4)(void *), int a5)
+void pci::transport::th::read(pci::transport::th *this, const unsigned __int8 *a2, unsigned int *a3, void (*a4)(void *), unsigned int a5)
 {
   v36 = *MEMORY[0x29EDCA608];
   v20[0] = 0;
@@ -6051,11 +6028,12 @@ void pci::transport::th::read(pci::transport::th *this, const unsigned __int8 *a
   pci::transport::th::readInternal(this, a2, v12, a4, &v16);
 }
 
-void sub_295FF94A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, dispatch_object_t object, char a25)
+void sub_295FF94A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, dispatch_object_t object, ...)
 {
-  if (v25)
+  va_start(va, object);
+  if (v24)
   {
-    _Block_release(v25);
+    _Block_release(v24);
   }
 
   _Block_object_dispose(&a19, 8);
@@ -6064,37 +6042,38 @@ void sub_295FF94A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     dispatch_release(object);
   }
 
-  if (v26)
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
-  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-intptr_t ___ZN3pci9transport2th4readEPKhRjPFvPvEj_block_invoke(pci::log *a1, int a2, uint64_t a3, unsigned int a4)
+intptr_t ___ZN3pci9transport2th4readEPKhRjPFvPvEj_block_invoke(pci::log *a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v4 = a4;
+  v31 = *MEMORY[0x29EDCA608];
   v8 = *(a1 + 6);
   v9 = pci::log::get(a1);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (v10)
   {
-    v19 = *(v8 + 40);
-    v20 = 136316418;
-    v21 = "th";
-    v22 = 2048;
-    v23 = v8;
-    v24 = 1024;
-    v25 = v19;
-    v26 = 1024;
-    v27 = a2;
-    v28 = 2048;
-    v29 = a3;
-    v30 = 1024;
-    v31 = a4;
-    _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u", &v20, 0x32u);
+    v18 = *(v8 + 40);
+    v19 = 136316418;
+    v20 = "th";
+    v21 = 2048;
+    v22 = v8;
+    v23 = 1024;
+    v24 = v18;
+    v25 = 1024;
+    v26 = a2;
+    v27 = 2048;
+    v28 = a3;
+    v29 = 1024;
+    v30 = v4;
+    _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u", &v19, 0x32u);
     if (!a3)
     {
       goto LABEL_5;
@@ -6119,60 +6098,43 @@ LABEL_5:
   *(v12 + 24) = v13;
   v14 = *(*(a1 + 4) + 8);
   v15 = *(a1 + 8);
-  v16 = *(v14 + 24) == 1 && *v15 >= a4;
+  v16 = *(v14 + 24) == 1 && *v15 >= v4;
   *(v14 + 24) = v16;
-  *v15 = a4;
-  result = dispatch_semaphore_signal(*(*(*(a1 + 5) + 8) + 40));
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
+  *v15 = v4;
+  return dispatch_semaphore_signal(*(*(*(a1 + 5) + 8) + 40));
 }
 
 void pci::transport::th::readInternal(uint64_t a1, uint64_t a2, int a3, uint64_t a4, const void **a5)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   os_unfair_lock_assert_owner(*a1);
-  v11 = pci::log::get(v10);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = pci::log::get(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v18 = *(a1 + 40);
-    LODWORD(v20[0]) = 136316418;
-    *(v20 + 4) = "th";
-    WORD6(v20[0]) = 2048;
-    *(v20 + 14) = a1;
-    WORD3(v20[1]) = 1024;
-    DWORD2(v20[1]) = v18;
-    WORD6(v20[1]) = 2048;
-    *(&v20[1] + 14) = a2;
-    WORD3(v20[2]) = 1024;
-    DWORD2(v20[2]) = a3;
-    WORD6(v20[2]) = 2048;
-    *(&v20[2] + 14) = a4;
-    _os_log_debug_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEBUG, "%s::%p::%d:buffer %p, size %u, dDtor %p", v20, 0x36u);
+    v19 = *(a1 + 40);
+    LODWORD(v21[0]) = 136316418;
+    *(v21 + 4) = "th";
+    WORD6(v21[0]) = 2048;
+    *(v21 + 14) = a1;
+    WORD3(v21[1]) = 1024;
+    DWORD2(v21[1]) = v19;
+    WORD6(v21[1]) = 2048;
+    *(&v21[1] + 14) = a2;
+    WORD3(v21[2]) = 1024;
+    DWORD2(v21[2]) = a3;
+    WORD6(v21[2]) = 2048;
+    *(&v21[2] + 14) = a4;
+    _os_log_debug_impl(&dword_295FEE000, v12, OS_LOG_TYPE_DEBUG, "%s::%p::%d:buffer %p, size %u, dDtor %p", v21, 0x36u);
   }
 
-  *&v12 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20[0] = v12;
-  v20[1] = v12;
-  memset(&v20[2], 0, 32);
+  *&v13 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v21[0] = v13;
+  v21[1] = v13;
+  memset(&v21[2], 0, 32);
   if (*a5)
   {
-    v13 = _Block_copy(*a5);
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  LODWORD(v20[0]) = *(a1 + 40);
-  DWORD1(v20[0]) = 2;
-  *(&v20[0] + 1) = a4;
-  *&v20[1] = a2;
-  DWORD2(v20[1]) = a3;
-  if (v13)
-  {
-    v14 = _Block_copy(v13);
+    v14 = _Block_copy(*a5);
   }
 
   else
@@ -6180,38 +6142,53 @@ void pci::transport::th::readInternal(uint64_t a1, uint64_t a2, int a3, uint64_t
     v14 = 0;
   }
 
-  *&v20[2] = v14;
-  v16 = *a1;
-  v15 = *(a1 + 8);
-  if (v15)
+  LODWORD(v21[0]) = *(a1 + 40);
+  DWORD1(v21[0]) = 2;
+  *(&v21[0] + 1) = a4;
+  *&v21[1] = a2;
+  DWORD2(v21[1]) = a3;
+  if (v14)
   {
-    atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
+    v15 = _Block_copy(v14);
   }
 
-  *(&v20[2] + 1) = v16;
-  *&v20[3] = v15;
-  v17 = *(a1 + 16);
-  if (v17)
+  else
+  {
+    v15 = 0;
+  }
+
+  *&v21[2] = v15;
+  v17 = *a1;
+  v16 = *(a1 + 8);
+  if (v16)
+  {
+    atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(&v21[2] + 1) = v17;
+  *&v21[3] = v16;
+  v18 = *(a1 + 16);
+  if (v18)
   {
     dispatch_retain(*(a1 + 16));
   }
 
-  *(&v20[3] + 1) = v17;
-  if (v13)
+  *(&v21[3] + 1) = v18;
+  if (v14)
   {
-    _Block_release(v13);
+    _Block_release(v14);
   }
 
   pci::transport::task::create(buf);
 }
 
-void sub_295FF997C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_295FF997C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   pci::transport::task::parameters::~parameters(va);
-  if (v7)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
   _Unwind_Resume(a1);
@@ -6233,27 +6210,28 @@ void __Block_byref_object_dispose__13(uint64_t a1)
   }
 }
 
-void ___ZN3pci9transport2th9readAsyncEv_block_invoke(pci::log *a1, int a2, uint64_t a3, int a4)
+void ___ZN3pci9transport2th9readAsyncEv_block_invoke(pci::log *a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v4 = a4;
+  v40 = *MEMORY[0x29EDCA608];
   v8 = *(a1 + 5);
   v9 = pci::log::get(a1);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (v10)
   {
-    v22 = *(v8 + 40);
+    v21 = *(v8 + 40);
     *buf = 136316418;
-    v30 = "th";
-    v31 = 2048;
-    v32 = v8;
-    v33 = 1024;
-    v34 = v22;
-    v35 = 1024;
-    v36 = a2;
-    v37 = 2048;
-    v38 = a3;
-    v39 = 1024;
-    v40 = a4;
+    v29 = "th";
+    v30 = 2048;
+    v31 = v8;
+    v32 = 1024;
+    v33 = v21;
+    v34 = 1024;
+    v35 = a2;
+    v36 = 2048;
+    v37 = a3;
+    v38 = 1024;
+    v39 = v4;
     _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u", buf, 0x32u);
     if (!a3)
     {
@@ -6305,26 +6283,26 @@ LABEL_5:
   }
 
   aBlock = v15;
-  v26 = a3;
-  v27 = a2;
-  v28 = a4;
+  v25 = a3;
+  v26 = a2;
+  v27 = v4;
   dispatch_async(v14, block);
   if (!a2 && (*(v8 + 152) & 1) == 0)
   {
-    v19 = *(v8 + 80);
-    v20 = *(*(*(a1 + 4) + 8) + 40);
-    if (v20)
+    v18 = *(v8 + 80);
+    v19 = *(*(*(a1 + 4) + 8) + 40);
+    if (v19)
     {
-      v21 = _Block_copy(v20);
+      v20 = _Block_copy(v19);
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    v23 = v21;
-    pci::transport::th::readInternal(v8, 0, v19, 0, &v23);
+    v22 = v20;
+    pci::transport::th::readInternal(v8, 0, v18, 0, &v22);
   }
 
   v16 = *(*(a1 + 4) + 8);
@@ -6349,8 +6327,6 @@ LABEL_5:
   {
     _Block_release(v13);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_295FF9C7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *aBlock)
@@ -6363,8 +6339,9 @@ void sub_295FF9C7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pci::transport::th::sendImage(pci::transport::th *this, const unsigned __int8 *a2, int a3, unsigned int *a4, void (*a5)(void *), int a6)
+void pci::transport::th::sendImage(pci::transport::th *this, const unsigned __int8 *a2, uint64_t a3, unsigned int *a4, void (*a5)(void *), unsigned int a6)
 {
+  v9 = a3;
   v40 = *MEMORY[0x29EDCA608];
   v22[0] = 0;
   v22[1] = v22;
@@ -6391,7 +6368,7 @@ void pci::transport::th::sendImage(pci::transport::th *this, const unsigned __in
     v30 = 2048;
     v31 = a2;
     v32 = 1024;
-    v33 = a3;
+    v33 = v9;
     v34 = 1024;
     v35 = v16;
     v36 = 2048;
@@ -6407,7 +6384,7 @@ void pci::transport::th::sendImage(pci::transport::th *this, const unsigned __in
   aBlock[3] = &unk_29EDED098;
   aBlock[6] = this;
   aBlock[7] = a2;
-  v19 = a3;
+  v19 = v9;
   aBlock[8] = a5;
   aBlock[9] = a4;
   aBlock[4] = v22;
@@ -6425,14 +6402,15 @@ void pci::transport::th::sendImage(pci::transport::th *this, const unsigned __in
   }
 
   v17 = v14;
-  pci::transport::th::sendImageInternal(this, a2, a3, a5, &v17);
+  pci::transport::th::sendImageInternal(this, a2, v9, a5, &v17);
 }
 
-void sub_295FFA018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object, char a27)
+void sub_295FFA018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object, ...)
 {
-  if (v28)
+  va_start(va, object);
+  if (v27)
   {
-    _Block_release(v28);
+    _Block_release(v27);
   }
 
   _Block_object_dispose(&a21, 8);
@@ -6441,38 +6419,38 @@ void sub_295FFA018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     dispatch_release(object);
   }
 
-  if (v27)
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 intptr_t ___ZN3pci9transport2th9sendImageEPKhjRjPFvPvEj_block_invoke(uint64_t a1, int a2, uint64_t a3, int a4, int a5)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v10 = *(a1 + 48);
   v11 = pci::log::get(a1);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v18 = *(v10 + 40);
-    v19 = 136316674;
-    v20 = "th";
-    v21 = 2048;
-    v22 = v10;
-    v23 = 1024;
-    v24 = v18;
-    v25 = 1024;
-    v26 = a2;
-    v27 = 2048;
-    v28 = a3;
-    v29 = 1024;
-    v30 = a4;
-    v31 = 1024;
-    v32 = a5;
-    _os_log_debug_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u, code %u", &v19, 0x38u);
+    v17 = *(v10 + 40);
+    v18 = 136316674;
+    v19 = "th";
+    v20 = 2048;
+    v21 = v10;
+    v22 = 1024;
+    v23 = v17;
+    v24 = 1024;
+    v25 = a2;
+    v26 = 2048;
+    v27 = a3;
+    v28 = 1024;
+    v29 = a4;
+    v30 = 1024;
+    v31 = a5;
+    _os_log_debug_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u, code %u", &v18, 0x38u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) &= a2 == 0;
@@ -6527,57 +6505,40 @@ LABEL_12:
 LABEL_13:
   *(v14 + 24) = v15;
   **(a1 + 72) = a5;
-  result = dispatch_semaphore_signal(*(*(*(a1 + 40) + 8) + 40));
-  v17 = *MEMORY[0x29EDCA608];
-  return result;
+  return dispatch_semaphore_signal(*(*(*(a1 + 40) + 8) + 40));
 }
 
 void pci::transport::th::sendImageInternal(uint64_t a1, uint64_t a2, int a3, uint64_t a4, const void **a5)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   os_unfair_lock_assert_owner(*a1);
-  v11 = pci::log::get(v10);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = pci::log::get(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v18 = *(a1 + 40);
-    LODWORD(v20[0]) = 136316418;
-    *(v20 + 4) = "th";
-    WORD6(v20[0]) = 2048;
-    *(v20 + 14) = a1;
-    WORD3(v20[1]) = 1024;
-    DWORD2(v20[1]) = v18;
-    WORD6(v20[1]) = 2048;
-    *(&v20[1] + 14) = a2;
-    WORD3(v20[2]) = 1024;
-    DWORD2(v20[2]) = a3;
-    WORD6(v20[2]) = 2048;
-    *(&v20[2] + 14) = a4;
-    _os_log_debug_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEBUG, "%s::%p::%d:buffer %p, size %u, dDtor %p", v20, 0x36u);
+    v19 = *(a1 + 40);
+    LODWORD(v21[0]) = 136316418;
+    *(v21 + 4) = "th";
+    WORD6(v21[0]) = 2048;
+    *(v21 + 14) = a1;
+    WORD3(v21[1]) = 1024;
+    DWORD2(v21[1]) = v19;
+    WORD6(v21[1]) = 2048;
+    *(&v21[1] + 14) = a2;
+    WORD3(v21[2]) = 1024;
+    DWORD2(v21[2]) = a3;
+    WORD6(v21[2]) = 2048;
+    *(&v21[2] + 14) = a4;
+    _os_log_debug_impl(&dword_295FEE000, v12, OS_LOG_TYPE_DEBUG, "%s::%p::%d:buffer %p, size %u, dDtor %p", v21, 0x36u);
   }
 
-  *&v12 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20[0] = v12;
-  v20[1] = v12;
-  memset(&v20[2], 0, 32);
+  *&v13 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v21[0] = v13;
+  v21[1] = v13;
+  memset(&v21[2], 0, 32);
   if (*a5)
   {
-    v13 = _Block_copy(*a5);
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  LODWORD(v20[0]) = *(a1 + 40);
-  DWORD1(v20[0]) = 3;
-  *(&v20[0] + 1) = a4;
-  *&v20[1] = a2;
-  DWORD2(v20[1]) = a3;
-  if (v13)
-  {
-    v14 = _Block_copy(v13);
+    v14 = _Block_copy(*a5);
   }
 
   else
@@ -6585,38 +6546,53 @@ void pci::transport::th::sendImageInternal(uint64_t a1, uint64_t a2, int a3, uin
     v14 = 0;
   }
 
-  *&v20[2] = v14;
-  v16 = *a1;
-  v15 = *(a1 + 8);
-  if (v15)
+  LODWORD(v21[0]) = *(a1 + 40);
+  DWORD1(v21[0]) = 3;
+  *(&v21[0] + 1) = a4;
+  *&v21[1] = a2;
+  DWORD2(v21[1]) = a3;
+  if (v14)
   {
-    atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
+    v15 = _Block_copy(v14);
   }
 
-  *(&v20[2] + 1) = v16;
-  *&v20[3] = v15;
-  v17 = *(a1 + 16);
-  if (v17)
+  else
+  {
+    v15 = 0;
+  }
+
+  *&v21[2] = v15;
+  v17 = *a1;
+  v16 = *(a1 + 8);
+  if (v16)
+  {
+    atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(&v21[2] + 1) = v17;
+  *&v21[3] = v16;
+  v18 = *(a1 + 16);
+  if (v18)
   {
     dispatch_retain(*(a1 + 16));
   }
 
-  *(&v20[3] + 1) = v17;
-  if (v13)
+  *(&v21[3] + 1) = v18;
+  if (v14)
   {
-    _Block_release(v13);
+    _Block_release(v14);
   }
 
   pci::transport::task::create(buf);
 }
 
-void sub_295FFA510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_295FFA510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   pci::transport::task::parameters::~parameters(va);
-  if (v7)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
   _Unwind_Resume(a1);
@@ -6678,26 +6654,26 @@ void sub_295FFA738(_Unwind_Exception *exception_object, int a2)
 
 void ___ZN3pci9transport2th14sendImageAsyncEPKhjPFvPvE_block_invoke(pci::log *a1, int a2, uint64_t a3, int a4, int a5)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   v9 = *(a1 + 4);
   v10 = pci::log::get(a1);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v16 = *(v9 + 40);
+    v15 = *(v9 + 40);
     *buf = 136316674;
-    v24 = "th";
-    v25 = 2048;
-    v26 = v9;
-    v27 = 1024;
-    v28 = v16;
-    v29 = 1024;
-    v30 = a2;
-    v31 = 2048;
-    v32 = a3;
-    v33 = 1024;
-    v34 = a4;
-    v35 = 1024;
-    v36 = a5;
+    v23 = "th";
+    v24 = 2048;
+    v25 = v9;
+    v26 = 1024;
+    v27 = v15;
+    v28 = 1024;
+    v29 = a2;
+    v30 = 2048;
+    v31 = a3;
+    v32 = 1024;
+    v33 = a4;
+    v34 = 1024;
+    v35 = a5;
     _os_log_debug_impl(&dword_295FEE000, v10, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u, code %u", buf, 0x38u);
   }
 
@@ -6718,10 +6694,10 @@ void ___ZN3pci9transport2th14sendImageAsyncEPKhjPFvPvE_block_invoke(pci::log *a1
     dispatch_retain(v13);
   }
 
-  v17[0] = MEMORY[0x29EDCA5F8];
-  v17[1] = 1174405120;
-  v17[2] = ___ZN3pci9transport2th14sendImageAsyncEPKhjPFvPvE_block_invoke_20;
-  v17[3] = &__block_descriptor_tmp_21_0;
+  v16[0] = MEMORY[0x29EDCA5F8];
+  v16[1] = 1174405120;
+  v16[2] = ___ZN3pci9transport2th14sendImageAsyncEPKhjPFvPvE_block_invoke_20;
+  v16[3] = &__block_descriptor_tmp_21_0;
   if (v12)
   {
     v14 = _Block_copy(v12);
@@ -6733,11 +6709,11 @@ void ___ZN3pci9transport2th14sendImageAsyncEPKhjPFvPvE_block_invoke(pci::log *a1
   }
 
   aBlock = v14;
-  v19 = a3;
-  v20 = a2;
-  v21 = a4;
-  v22 = a5;
-  dispatch_async(v13, v17);
+  v18 = a3;
+  v19 = a2;
+  v20 = a4;
+  v21 = a5;
+  dispatch_async(v13, v16);
   if (aBlock)
   {
     _Block_release(aBlock);
@@ -6752,8 +6728,6 @@ void ___ZN3pci9transport2th14sendImageAsyncEPKhjPFvPvE_block_invoke(pci::log *a1
   {
     _Block_release(v12);
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void sub_295FFA944(_Unwind_Exception *a1, int a2)
@@ -6787,8 +6761,9 @@ void __destroy_helper_block_e8_32c46_ZTSN10applesauce8dispatch2v15blockIFviPvjjE
   }
 }
 
-void pci::transport::th::readRegister(pci::transport::th *this, int a2, const unsigned __int8 *a3, unsigned int *a4, int a5)
+void pci::transport::th::readRegister(pci::transport::th *this, uint64_t a2, const unsigned __int8 *a3, unsigned int *a4, unsigned int a5)
 {
+  v8 = a2;
   v36 = *MEMORY[0x29EDCA608];
   v20[0] = 0;
   v20[1] = v20;
@@ -6813,7 +6788,7 @@ void pci::transport::th::readRegister(pci::transport::th *this, int a2, const un
     v26 = 1024;
     v27 = v14;
     v28 = 1024;
-    v29 = a2;
+    v29 = v8;
     v30 = 2048;
     v31 = a3;
     v32 = 1024;
@@ -6846,14 +6821,15 @@ void pci::transport::th::readRegister(pci::transport::th *this, int a2, const un
   }
 
   v16 = v13;
-  pci::transport::th::readRegisterInternal(this, a2, a3, v12, &v16);
+  pci::transport::th::readRegisterInternal(this, v8, a3, v12, &v16);
 }
 
-void sub_295FFACD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, dispatch_object_t object, char a25)
+void sub_295FFACD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, dispatch_object_t object, ...)
 {
-  if (v25)
+  va_start(va, object);
+  if (v24)
   {
-    _Block_release(v25);
+    _Block_release(v24);
   }
 
   _Block_object_dispose(&a19, 8);
@@ -6862,36 +6838,36 @@ void sub_295FFACD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     dispatch_release(object);
   }
 
-  if (v26)
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
-  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 intptr_t ___ZN3pci9transport2th12readRegisterEjPKhRjj_block_invoke(pci::log *a1, int a2, uint64_t a3, unsigned int a4)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v8 = *(a1 + 6);
   v9 = pci::log::get(a1);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(v8 + 40);
-    v18 = 136316418;
-    v19 = "th";
-    v20 = 2048;
-    v21 = v8;
-    v22 = 1024;
-    v23 = v17;
-    v24 = 1024;
-    v25 = a2;
-    v26 = 2048;
-    v27 = a3;
-    v28 = 1024;
-    v29 = a4;
-    _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u", &v18, 0x32u);
+    v16 = *(v8 + 40);
+    v17 = 136316418;
+    v18 = "th";
+    v19 = 2048;
+    v20 = v8;
+    v21 = 1024;
+    v22 = v16;
+    v23 = 1024;
+    v24 = a2;
+    v25 = 2048;
+    v26 = a3;
+    v27 = 1024;
+    v28 = a4;
+    _os_log_debug_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEBUG, "%s::%p::%d:status 0x%x, buff %p, size %u", &v17, 0x32u);
   }
 
   *(*(*(a1 + 4) + 8) + 24) &= a2 == 0;
@@ -6903,57 +6879,40 @@ intptr_t ___ZN3pci9transport2th12readRegisterEjPKhRjj_block_invoke(pci::log *a1,
   v14 = *(v12 + 24) == 1 && *v13 >= a4;
   *(v12 + 24) = v14;
   *v13 = a4;
-  result = dispatch_semaphore_signal(*(*(*(a1 + 5) + 8) + 40));
-  v16 = *MEMORY[0x29EDCA608];
-  return result;
+  return dispatch_semaphore_signal(*(*(*(a1 + 5) + 8) + 40));
 }
 
 void pci::transport::th::readRegisterInternal(uint64_t a1, int a2, uint64_t a3, int a4, const void **a5)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   os_unfair_lock_assert_owner(*a1);
-  v11 = pci::log::get(v10);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = pci::log::get(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v18 = *(a1 + 40);
-    LODWORD(v20[0]) = 136316418;
-    *(v20 + 4) = "th";
-    WORD6(v20[0]) = 2048;
-    *(v20 + 14) = a1;
-    WORD3(v20[1]) = 1024;
-    DWORD2(v20[1]) = v18;
-    WORD6(v20[1]) = 1024;
-    *(&v20[1] + 14) = a2;
-    WORD1(v20[2]) = 2048;
-    *(&v20[2] + 4) = a3;
-    WORD6(v20[2]) = 1024;
-    *(&v20[2] + 14) = a4;
-    _os_log_debug_impl(&dword_295FEE000, v11, OS_LOG_TYPE_DEBUG, "%s::%p::%d:reg %u, buffer %p, size %u", v20, 0x32u);
+    v19 = *(a1 + 40);
+    LODWORD(v21[0]) = 136316418;
+    *(v21 + 4) = "th";
+    WORD6(v21[0]) = 2048;
+    *(v21 + 14) = a1;
+    WORD3(v21[1]) = 1024;
+    DWORD2(v21[1]) = v19;
+    WORD6(v21[1]) = 1024;
+    *(&v21[1] + 14) = a2;
+    WORD1(v21[2]) = 2048;
+    *(&v21[2] + 4) = a3;
+    WORD6(v21[2]) = 1024;
+    *(&v21[2] + 14) = a4;
+    _os_log_debug_impl(&dword_295FEE000, v12, OS_LOG_TYPE_DEBUG, "%s::%p::%d:reg %u, buffer %p, size %u", v21, 0x32u);
   }
 
-  *&v12 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20[0] = v12;
-  v20[1] = v12;
-  memset(&v20[2], 0, 32);
+  *&v13 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v21[0] = v13;
+  v21[1] = v13;
+  memset(&v21[2], 0, 32);
   if (*a5)
   {
-    v13 = _Block_copy(*a5);
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  LODWORD(v20[0]) = *(a1 + 40);
-  DWORD1(v20[0]) = 2;
-  *(&v20[0] + 1) = 0;
-  *&v20[1] = a3;
-  DWORD2(v20[1]) = a4;
-  if (v13)
-  {
-    v14 = _Block_copy(v13);
+    v14 = _Block_copy(*a5);
   }
 
   else
@@ -6961,38 +6920,53 @@ void pci::transport::th::readRegisterInternal(uint64_t a1, int a2, uint64_t a3, 
     v14 = 0;
   }
 
-  *&v20[2] = v14;
-  v16 = *a1;
-  v15 = *(a1 + 8);
-  if (v15)
+  LODWORD(v21[0]) = *(a1 + 40);
+  DWORD1(v21[0]) = 2;
+  *(&v21[0] + 1) = 0;
+  *&v21[1] = a3;
+  DWORD2(v21[1]) = a4;
+  if (v14)
   {
-    atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
+    v15 = _Block_copy(v14);
   }
 
-  *(&v20[2] + 1) = v16;
-  *&v20[3] = v15;
-  v17 = *(a1 + 16);
-  if (v17)
+  else
+  {
+    v15 = 0;
+  }
+
+  *&v21[2] = v15;
+  v17 = *a1;
+  v16 = *(a1 + 8);
+  if (v16)
+  {
+    atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(&v21[2] + 1) = v17;
+  *&v21[3] = v16;
+  v18 = *(a1 + 16);
+  if (v18)
   {
     dispatch_retain(*(a1 + 16));
   }
 
-  *(&v20[3] + 1) = v17;
-  if (v13)
+  *(&v21[3] + 1) = v18;
+  if (v14)
   {
-    _Block_release(v13);
+    _Block_release(v14);
   }
 
   pci::transport::task::create(buf);
 }
 
-void sub_295FFB180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_295FFB180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   pci::transport::task::parameters::~parameters(va);
-  if (v7)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
   _Unwind_Resume(a1);
@@ -7003,7 +6977,7 @@ uint64_t pci::transport::th::unblockRead(pci::transport::th **this)
   v2 = pci::log::get(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::th::init(this);
+    pci::transport::th::init();
   }
 
   if ((*(this + 75) & 1) == 0)
@@ -7024,7 +6998,7 @@ uint64_t pci::transport::th::unblockRead(pci::transport::th **this)
 
         if (pci::transport::task::getType(v4) == 2)
         {
-          pci::transport::task::poison(v4, 0xE00002EB);
+          pci::transport::task::poison(v4, 3758097131);
         }
 
         if (v6)
@@ -7035,7 +7009,7 @@ uint64_t pci::transport::th::unblockRead(pci::transport::th **this)
         v3 = v5;
       }
 
-      while (v5 != (this + 16));
+      while (v5 != this + 16);
     }
 
     os_unfair_lock_unlock(*this);
@@ -7056,37 +7030,37 @@ void sub_295FFB2B0(_Unwind_Exception *exception_object)
 
 uint64_t pci::transport::th::flushRead(dispatch_object_t *this)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   v2 = pci::log::get(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::th::init(this);
+    pci::transport::th::init();
   }
 
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2000000000;
-  v40 = 0;
-  v35[0] = 0;
-  v35[1] = v35;
-  v35[2] = 0x3002000000;
-  v35[3] = __Block_byref_object_copy__1;
-  v35[4] = __Block_byref_object_dispose__1;
-  v36 = 0xAAAAAAAAAAAAAAAALL;
-  v36 = dispatch_semaphore_create(0);
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2000000000;
+  v39 = 0;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x3002000000;
+  v34[3] = __Block_byref_object_copy__1;
+  v34[4] = __Block_byref_object_dispose__1;
+  v35 = 0xAAAAAAAAAAAAAAAALL;
+  v35 = dispatch_semaphore_create(0);
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZN3pci9transport2th9flushReadEv_block_invoke;
   aBlock[3] = &unk_29EDED108;
-  aBlock[5] = v35;
+  aBlock[5] = v34;
   aBlock[6] = this;
-  aBlock[4] = &v37;
+  aBlock[4] = &v36;
   v3 = _Block_copy(aBlock);
   clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  if (!*(v38 + 6))
+  if (!*(v37 + 6))
   {
     os_unfair_lock_lock(*this);
-    memset(&v20[3], 170, sizeof(_OWORD));
+    memset(&v19[3], 170, sizeof(_OWORD));
     if (v3)
     {
       v4 = _Block_copy(v3);
@@ -7097,38 +7071,38 @@ uint64_t pci::transport::th::flushRead(dispatch_object_t *this)
       v4 = 0;
     }
 
-    v33 = v4;
-    pci::transport::th::readInternal(this, 0, 0x2000, 0, &v33);
+    v32 = v4;
+    pci::transport::th::readInternal(this, 0, 0x2000, 0, &v32);
   }
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2000000000;
-  v32 = 1;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3002000000;
-  v26 = __Block_byref_object_copy__25;
-  v27 = __Block_byref_object_dispose__26;
-  v28 = 0xAAAAAAAAAAAAAAAALL;
-  v28 = dispatch_group_create();
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 1;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3002000000;
+  v25 = __Block_byref_object_copy__25;
+  v26 = __Block_byref_object_dispose__26;
+  v27 = 0xAAAAAAAAAAAAAAAALL;
+  v27 = dispatch_group_create();
   os_unfair_lock_lock(*this);
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20[3] = v5;
-  v20[4] = v5;
-  *v21 = 0u;
+  v19[3] = v5;
+  v19[4] = v5;
+  *v20 = 0u;
   *object = 0u;
-  *&v20[0] = MEMORY[0x29EDCA5F8];
-  *(&v20[0] + 1) = 0x40000000;
-  *&v20[1] = ___ZN3pci9transport2th9flushReadEv_block_invoke_27;
-  *(&v20[1] + 1) = &unk_29EDED130;
-  *&v20[2] = &v29;
-  *(&v20[2] + 1) = &v23;
-  v6 = _Block_copy(v20);
+  *&v19[0] = MEMORY[0x29EDCA5F8];
+  *(&v19[0] + 1) = 0x40000000;
+  *&v19[1] = ___ZN3pci9transport2th9flushReadEv_block_invoke_27;
+  *(&v19[1] + 1) = &unk_29EDED130;
+  *&v19[2] = &v28;
+  *(&v19[2] + 1) = &v22;
+  v6 = _Block_copy(v19);
   v7 = v6;
-  LODWORD(v20[3]) = *(this + 10);
-  memset(&v20[3] + 4, 0, 24);
+  LODWORD(v19[3]) = *(this + 10);
+  memset(&v19[3] + 4, 0, 24);
   if (v6)
   {
     v8 = _Block_copy(v6);
@@ -7139,8 +7113,8 @@ uint64_t pci::transport::th::flushRead(dispatch_object_t *this)
     v8 = 0;
   }
 
-  v9 = v21[0];
-  v21[0] = v8;
+  v9 = v20[0];
+  v20[0] = v8;
   if (v9)
   {
     _Block_release(v9);
@@ -7154,7 +7128,7 @@ uint64_t pci::transport::th::flushRead(dispatch_object_t *this)
   }
 
   v12 = object[0];
-  v21[1] = v11;
+  v20[1] = v11;
   object[0] = v10;
   if (v12)
   {
@@ -7179,23 +7153,23 @@ uint64_t pci::transport::th::flushRead(dispatch_object_t *this)
     _Block_release(v7);
   }
 
-  if (*(v30 + 24) == 1)
+  if (*(v29 + 24) == 1)
   {
-    dispatch_group_enter(v24[5]);
+    dispatch_group_enter(v23[5]);
     pci::transport::task::create(buf);
   }
 
   os_unfair_lock_unlock(*this);
-  v15 = v24;
+  v15 = v23;
   v16 = dispatch_time(0, 2000000000);
   if (dispatch_group_wait(v15[5], v16))
   {
     os_unfair_lock_lock(*this);
     os_unfair_lock_unlock(*this);
-    dispatch_group_wait(v24[5], 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_group_wait(v23[5], 0xFFFFFFFFFFFFFFFFLL);
   }
 
-  v17 = *(v30 + 24);
+  v17 = *(v29 + 24);
   if (v17 == 1)
   {
     if (*(this + 75) == 1 && *(this + 19))
@@ -7216,71 +7190,71 @@ uint64_t pci::transport::th::flushRead(dispatch_object_t *this)
     std::__shared_weak_count::__release_shared[abi:ne200100](object[0]);
   }
 
-  if (v21[0])
+  if (v20[0])
   {
-    _Block_release(v21[0]);
+    _Block_release(v20[0]);
   }
 
-  _Block_object_dispose(&v23, 8);
-  if (v28)
+  _Block_object_dispose(&v22, 8);
+  if (v27)
   {
-    dispatch_release(v28);
+    dispatch_release(v27);
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
   if (v3)
   {
     _Block_release(v3);
   }
 
-  _Block_object_dispose(v35, 8);
-  if (v36)
+  _Block_object_dispose(v34, 8);
+  if (v35)
   {
-    dispatch_release(v36);
+    dispatch_release(v35);
   }
 
-  _Block_object_dispose(&v37, 8);
-  v18 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v36, 8);
   return v17 & 1;
 }
 
-void sub_295FFB9C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, dispatch_object_t object, char a33)
+void sub_295FFB9C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, dispatch_object_t object, ...)
 {
+  va_start(va, object);
   pci::transport::task::parameters::~parameters(&a19);
   _Block_object_dispose(&a27, 8);
   if (object)
   {
     dispatch_release(object);
-    if (!v35)
+    if (!v34)
     {
 LABEL_3:
-      if (!v34)
+      if (!v33)
       {
 LABEL_5:
-        _Block_object_dispose(&a33, 8);
-        if (v33)
+        _Block_object_dispose(va, 8);
+        if (v32)
         {
-          _Block_release(v33);
+          _Block_release(v32);
         }
 
-        pci::transport::th::flushRead((v37 - 240), (v36 + 40));
-        _Block_object_dispose((v37 - 192), 8);
+        pci::transport::th::flushRead((v36 - 240), (v35 + 40));
+        _Block_object_dispose((v36 - 192), 8);
         _Unwind_Resume(a1);
       }
 
 LABEL_4:
-      std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v33);
       goto LABEL_5;
     }
   }
 
-  else if (!v35)
+  else if (!v34)
   {
     goto LABEL_3;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-  if (!v34)
+  std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+  if (!v33)
   {
     goto LABEL_5;
   }
@@ -7290,7 +7264,7 @@ LABEL_4:
 
 intptr_t ___ZN3pci9transport2th9flushReadEv_block_invoke(pci::log *a1, int a2, void *a3, int a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v5 = *(a1 + 6);
   *(*(*(a1 + 4) + 8) + 24) = a2;
   if (a2 != -536870165)
@@ -7304,19 +7278,19 @@ intptr_t ___ZN3pci9transport2th9flushReadEv_block_invoke(pci::log *a1, int a2, v
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(v5 + 40);
-      v13 = 136316418;
-      v14 = "th";
-      v15 = 2048;
-      v16 = v5;
-      v17 = 1024;
-      v18 = v10;
-      v19 = 1024;
-      v20 = a2;
-      v21 = 2048;
-      v22 = a3;
-      v23 = 1024;
-      v24 = a4;
-      _os_log_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:status 0x%x, buff %p, size %u", &v13, 0x32u);
+      v12 = 136316418;
+      v13 = "th";
+      v14 = 2048;
+      v15 = v5;
+      v16 = 1024;
+      v17 = v10;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2048;
+      v21 = a3;
+      v22 = 1024;
+      v23 = a4;
+      _os_log_impl(&dword_295FEE000, v9, OS_LOG_TYPE_DEFAULT, "%s::%p::%d:status 0x%x, buff %p, size %u", &v12, 0x32u);
     }
 
     if (!a2)
@@ -7326,9 +7300,7 @@ LABEL_6:
     }
   }
 
-  result = dispatch_semaphore_signal(*(*(*(a1 + 5) + 8) + 40));
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return dispatch_semaphore_signal(*(*(*(a1 + 5) + 8) + 40));
 }
 
 void __Block_byref_object_copy__25(uint64_t a1, uint64_t a2)
@@ -7382,29 +7354,29 @@ void std::__list_imp<std::shared_ptr<pci::transport::task>>::clear(uint64_t *a1)
 
 void getPciTransportToDirectionMap(void)
 {
-  v2 = *MEMORY[0x29EDCA608];
+  v1 = *MEMORY[0x29EDCA608];
   {
-    v1[0] = xmmword_295FFFC18;
-    v1[1] = unk_295FFFC28;
-    std::map<PCITransportInterface,PCITransportDirection>::map[abi:ne200100](getPciTransportToDirectionMap(void)::sMap, v1, 4);
-    __cxa_atexit(std::map<PCITransportInterface,PCITransportDirection>::~map[abi:ne200100], getPciTransportToDirectionMap(void)::sMap, &dword_295FEE000);
+    {
+      v0[0] = xmmword_295FFFC18;
+      v0[1] = unk_295FFFC28;
+      std::map<PCITransportInterface,PCITransportDirection>::map[abi:ne200100](&getPciTransportToDirectionMap(void)::sMap, v0, 4);
+      __cxa_atexit(std::map<PCITransportInterface,PCITransportDirection>::~map[abi:ne200100], &getPciTransportToDirectionMap(void)::sMap, &dword_295FEE000);
+    }
   }
-
-  v0 = *MEMORY[0x29EDCA608];
 }
 
-void *std::map<PCITransportInterface,PCITransportDirection>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t **std::map<PCITransportInterface,PCITransportDirection>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 8 * a3;
     do
     {
-      std::__tree<std::__value_type<PCITransportInterface,PCITransportDirection>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,PCITransportDirection>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,PCITransportDirection>>>::__emplace_hint_unique_key_args<PCITransportInterface,std::pair<PCITransportInterface const,PCITransportDirection> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<PCITransportInterface,PCITransportDirection>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,PCITransportDirection>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,PCITransportDirection>>>::__emplace_hint_unique_key_args<PCITransportInterface,std::pair<PCITransportInterface const,PCITransportDirection> const&>(a1, v4, a2, a2);
       a2 += 2;
       v6 -= 8;
     }
@@ -7415,22 +7387,22 @@ void *std::map<PCITransportInterface,PCITransportDirection>::map[abi:ne200100](v
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<PCITransportInterface,PCITransportDirection>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,PCITransportDirection>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,PCITransportDirection>>>::__emplace_hint_unique_key_args<PCITransportInterface,std::pair<PCITransportInterface const,PCITransportDirection> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<PCITransportInterface,PCITransportDirection>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,PCITransportDirection>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,PCITransportDirection>>>::__emplace_hint_unique_key_args<PCITransportInterface,std::pair<PCITransportInterface const,PCITransportDirection> const&>(uint64_t **a1, uint64_t *a2, int *a3, void *a4)
 {
-  v5 = 0xAAAAAAAAAAAAAAAALL;
   v6 = 0xAAAAAAAAAAAAAAAALL;
-  v3 = *std::__tree<std::__value_type<PCITransportInterface,PCITransportDirection>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,PCITransportDirection>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,PCITransportDirection>>>::__find_equal<PCITransportInterface>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v7 = 0xAAAAAAAAAAAAAAAALL;
+  v4 = *std::__tree<std::__value_type<PCITransportInterface,PCITransportDirection>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,PCITransportDirection>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,PCITransportDirection>>>::__find_equal<PCITransportInterface>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<PCITransportInterface,PCITransportDirection>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,PCITransportDirection>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,PCITransportDirection>>>::__find_equal<PCITransportInterface>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<PCITransportInterface,PCITransportDirection>,std::__map_value_compare<PCITransportInterface,std::__value_type<PCITransportInterface,PCITransportDirection>,std::less<PCITransportInterface>,true>,std::allocator<std::__value_type<PCITransportInterface,PCITransportDirection>>>::__find_equal<PCITransportInterface>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -7457,7 +7429,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -7518,7 +7490,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -7597,7 +7569,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -7626,9 +7598,9 @@ void std::shared_ptr<pci::transport::th>::shared_ptr[abi:ne200100]<pci::transpor
   operator new();
 }
 
-void sub_295FFC15C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_295FFC15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<pci::transport::th>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7686,13 +7658,6 @@ void std::__shared_ptr_emplace<os_unfair_lock_s>::~__shared_ptr_emplace(std::__s
   JUMPOUT(0x29C255E00);
 }
 
-uint64_t OUTLINED_FUNCTION_4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 40);
-  return result;
-}
-
 void pci::transport::bind::bind(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = *a2;
@@ -7719,12 +7684,11 @@ void pci::transport::bind::bind(uint64_t a1, uint64_t a2, uint64_t a3)
   v8 = pci::log::get(v6);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::bind::bind(a1);
+    pci::transport::bind::bind();
   }
 
   dispatch_group_enter(*(a1 + 32));
-  v9 = *(a1 + 56);
-  std::list<std::shared_ptr<pci::transport::task>>::push_back();
+  std::list<std::shared_ptr<pci::transport::task>>::push_back(*(a1 + 56), (a1 + 40));
 }
 
 void sub_295FFC3E8(_Unwind_Exception *exception_object)
@@ -7750,15 +7714,15 @@ void sub_295FFC3E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void pci::transport::bind::~bind(pci::transport::bind *this)
+void pci::transport::bind::~bind(dispatch_group_t *this)
 {
   v2 = pci::log::get(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::bind::bind(this);
+    pci::transport::bind::bind();
   }
 
-  v3 = *(this + 3);
+  v3 = this[3];
   if (v3)
   {
     v4 = *(this + 16);
@@ -7767,42 +7731,42 @@ void pci::transport::bind::~bind(pci::transport::bind *this)
       __assert_rtn("~bind", "PCITransportTask.cpp", 46, "fStatus != kIOReturnInvalid");
     }
 
-    (*(v3 + 16))(v3, v4, *(this + 1), *(this + 4), *(this + 17));
-    v5 = *(this + 3);
-    *(this + 3) = 0;
+    (v3[2].isa)(v3, v4, this[1], *(this + 4), *(this + 17));
+    v5 = this[3];
+    this[3] = 0;
     if (v5)
     {
       _Block_release(v5);
     }
   }
 
-  std::list<std::shared_ptr<pci::transport::task>>::remove(*(this + 7), this + 5);
-  dispatch_group_leave(*(this + 4));
-  v6 = *(this + 6);
+  std::list<std::shared_ptr<pci::transport::task>>::remove(this[7], this + 5);
+  dispatch_group_leave(this[4]);
+  v6 = this[6];
   if (v6)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  v7 = *(this + 4);
+  v7 = this[4];
   if (v7)
   {
     dispatch_release(v7);
   }
 
-  v8 = *(this + 3);
+  v8 = this[3];
   if (v8)
   {
     _Block_release(v8);
   }
 }
 
-void std::list<std::shared_ptr<pci::transport::task>>::remove(uint64_t a1, void *a2)
+void std::list<std::shared_ptr<pci::transport::task>>::remove(void *a1, void *a2)
 {
   v9[0] = v9;
   v9[1] = v9;
   v9[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -7849,9 +7813,9 @@ void std::list<std::shared_ptr<pci::transport::task>>::remove(uint64_t a1, void 
   std::__list_imp<std::shared_ptr<pci::transport::task>>::clear(v9);
 }
 
-void sub_295FFC63C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_295FFC63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<std::shared_ptr<pci::transport::task>>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -7886,10 +7850,10 @@ uint64_t pci::transport::bind::setStatus(uint64_t result, int a2, int a3, int a4
   return result;
 }
 
-void pci::transport::task::create(void *a1@<X8>)
+void pci::transport::task::create(void *a3@<X8>)
 {
-  *a1 = 0xAAAAAAAAAAAAAAAALL;
-  a1[1] = 0xAAAAAAAAAAAAAAAALL;
+  *a3 = 0xAAAAAAAAAAAAAAAALL;
+  a3[1] = 0xAAAAAAAAAAAAAAAALL;
   operator new();
 }
 
@@ -7904,39 +7868,39 @@ void sub_295FFC78C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void pci::transport::task::init(uint64_t a1, uint64_t a2)
+void pci::transport::task::init(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   os_unfair_lock_assert_owner(*(a1 + 32));
-  memset(v7, 170, sizeof(v7));
-  v8 = 0;
+  memset(v8, 170, sizeof(v8));
   v9 = 0;
   v10 = 0;
-  v5 = pci::log::get(v4);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v11 = 0;
+  v6 = pci::log::get(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::task::init(a1);
+    pci::transport::task::init();
   }
 
-  LODWORD(v7[0]) = *a2;
-  v7[1] = *(a2 + 16);
-  LODWORD(v7[2]) = *(a2 + 24);
-  v6 = *(a2 + 56);
-  if (v6)
+  LODWORD(v8[0]) = *a2;
+  v8[1] = *(a2 + 16);
+  LODWORD(v8[2]) = *(a2 + 24);
+  v7 = *(a2 + 56);
+  if (v7)
   {
     dispatch_retain(*(a2 + 56));
   }
 
-  v8 = v6;
+  v9 = v7;
   std::shared_ptr<pci::transport::bh>::shared_ptr[abi:ne200100]<pci::transport::bh,0>(buf, a1);
-  v9 = *buf;
-  v10 = v12;
+  v10 = *buf;
+  v11 = v13;
   operator new();
 }
 
-void sub_295FFCAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_295FFCAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   pci::transport::bind::parameters::~parameters(va);
   _Unwind_Resume(a1);
 }
@@ -7967,7 +7931,7 @@ pci::transport::task *pci::transport::task::task(pci::transport::task *this, con
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v9 = *(this + 4);
-    TypeString = getTypeString(*(this + 5));
+    TypeString = getTypeString(*(this + 5), v7);
     v11 = 136315906;
     v12 = "task";
     v13 = 2048;
@@ -7979,7 +7943,6 @@ pci::transport::task *pci::transport::task::task(pci::transport::task *this, con
     _os_log_debug_impl(&dword_295FEE000, v6, OS_LOG_TYPE_DEBUG, "%s::%p::%d:%s: ", &v11, 0x26u);
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -8000,7 +7963,7 @@ void sub_295FFCC2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *getTypeString(unsigned int a1)
+char *getTypeString(uint64_t a1, uint64_t a2)
 {
   if (a1 >= 4)
   {
@@ -8010,14 +7973,14 @@ char *getTypeString(unsigned int a1)
   return off_29EDED150[a1];
 }
 
-void pci::transport::task::~task(pci::transport::task *this)
+void pci::transport::task::~task(std::__shared_weak_count **this)
 {
   v16 = *MEMORY[0x29EDCA608];
   v2 = pci::log::get(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v6 = *(this + 4);
-    TypeString = getTypeString(*(this + 5));
+    TypeString = getTypeString(*(this + 5), v3);
     v8 = 136315906;
     v9 = "task";
     v10 = 2048;
@@ -8029,24 +7992,22 @@ void pci::transport::task::~task(pci::transport::task *this)
     _os_log_debug_impl(&dword_295FEE000, v2, OS_LOG_TYPE_DEBUG, "%s::%p::%d:%s: ", &v8, 0x26u);
   }
 
-  if (*(this + 9))
+  if (this[9])
   {
     __assert_rtn("~task", "PCITransportTask.cpp", 169, "!fBind");
   }
 
-  v3 = *(this + 5);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v4 = *(this + 1);
+  v4 = this[5];
   if (v4)
   {
-    std::__shared_weak_count::__release_weak(v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
-  v5 = *MEMORY[0x29EDCA608];
+  v5 = this[1];
+  if (v5)
+  {
+    std::__shared_weak_count::__release_weak(v5);
+  }
 }
 
 void sub_295FFCDA0(_Unwind_Exception *a1, int a2)
@@ -8059,13 +8020,13 @@ void sub_295FFCDA0(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-os_unfair_lock *pci::transport::task::poison(const os_unfair_lock **this, uint32_t a2)
+os_unfair_lock *pci::transport::task::poison(const os_unfair_lock **this, uint64_t a2)
 {
   os_unfair_lock_assert_owner(this[4]);
   v5 = pci::log::get(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::task::poison(this);
+    pci::transport::task::poison(this, a2);
   }
 
   result = this[9];
@@ -8089,14 +8050,14 @@ os_unfair_lock *pci::transport::task::poison(const os_unfair_lock **this, uint32
   return result;
 }
 
-void pci::transport::task::complete(pci::transport::task *this, int a2, unsigned int a3, int a4)
+void pci::transport::task::complete(pci::transport::task *this, uint64_t a2, unsigned int a3, int a4)
 {
   v33 = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock(*(this + 4));
   v9 = pci::log::get(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    pci::transport::task::poison(this);
+    pci::transport::task::poison(this, a2);
   }
 
   v10 = *(this + 9);
@@ -8184,7 +8145,7 @@ void pci::transport::task::complete(pci::transport::task *this, int a2, unsigned
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       v21 = *(this + 4);
-      TypeString = getTypeString(*(this + 5));
+      TypeString = getTypeString(*(this + 5), v20);
       v23 = 136316162;
       v24 = "task";
       v25 = 2048;
@@ -8200,7 +8161,6 @@ void pci::transport::task::complete(pci::transport::task *this, int a2, unsigned
   }
 
   os_unfair_lock_unlock(*(this + 4));
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void pci::transport::bind::parameters::~parameters(pci::transport::bind::parameters *this)
@@ -8218,21 +8178,21 @@ void pci::transport::bind::parameters::~parameters(pci::transport::bind::paramet
   }
 }
 
-void std::shared_ptr<pci::transport::task>::shared_ptr[abi:ne200100]<pci::transport::task,0>(void *a1, uint64_t a2)
+void std::shared_ptr<pci::transport::task>::shared_ptr[abi:ne200100]<pci::transport::task,0>(void *a1, void *a2)
 {
   *a1 = a2;
   v2 = a2;
   operator new();
 }
 
-void sub_295FFD160(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_295FFD160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<pci::transport::task>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-pci::transport::task **std::unique_ptr<pci::transport::task>::~unique_ptr[abi:ne200100](pci::transport::task **a1)
+std::__shared_weak_count ***std::unique_ptr<pci::transport::task>::~unique_ptr[abi:ne200100](std::__shared_weak_count ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -8252,7 +8212,7 @@ void std::__shared_ptr_pointer<pci::transport::task *,std::shared_ptr<pci::trans
   JUMPOUT(0x29C255E00);
 }
 
-pci::transport::task *std::__shared_ptr_pointer<pci::transport::task *,std::shared_ptr<pci::transport::task>::__shared_ptr_default_delete<pci::transport::task,pci::transport::task>,std::allocator<pci::transport::task>>::__on_zero_shared(uint64_t a1)
+std::__shared_weak_count **std::__shared_ptr_pointer<pci::transport::task *,std::shared_ptr<pci::transport::task>::__shared_ptr_default_delete<pci::transport::task,pci::transport::task>,std::allocator<pci::transport::task>>::__on_zero_shared(uint64_t a1)
 {
   result = *(a1 + 24);
   if (result)
@@ -8277,10 +8237,11 @@ uint64_t std::__shared_ptr_pointer<pci::transport::task *,std::shared_ptr<pci::t
   }
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x2Cu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x2Cu);
 }
 
 uint64_t pci::log::get(pci::log *this)
@@ -8316,102 +8277,96 @@ void pci::system::info::get()
 
 void pci::system::info::insertBH(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0(&dword_295FEE000, a2, a3, "%u", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x29EDCA608];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_295FEE000, a2, a3, "%u", a5, a6, a7, a8, v8);
 }
 
-void pci::system::info::insertBH(unsigned int *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void pci::system::info::insertBH(_DWORD *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  v8 = *a1;
-  OUTLINED_FUNCTION_0(&dword_295FEE000, a2, a3, "already pending for interface %d", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x29EDCA608];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0(&dword_295FEE000, a2, a3, "already pending for interface %d", a5, a6, a7, a8, v8);
 }
 
 {
-  v10 = *MEMORY[0x29EDCA608];
-  v8 = *a1;
-  OUTLINED_FUNCTION_0(&dword_295FEE000, a2, a3, "add interface %d", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x29EDCA608];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0(&dword_295FEE000, a2, a3, "add interface %d", a5, a6, a7, a8, v8);
 }
 
 void ___ZN3pci6system4info8insertBHEiNSt3__18weak_ptrINS_9transport2bhEEEj_block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0(&dword_295FEE000, a2, a3, "completion %u", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x29EDCA608];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1 & 1;
+  OUTLINED_FUNCTION_0(&dword_295FEE000, a2, a3, "completion %u", a5, a6, a7, a8, v8);
 }
 
-void pci::transport::bh::init(uint64_t a1)
+void pci::transport::bh::init()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x29EDCA608]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x29EDCA608]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v1, v2, "%s::%p::%d:", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:", v2, v3, v4, v5, v6);
 }
 
-void pci::transport::bh::bh(uint64_t a1, unsigned int *a2)
+void pci::transport::bh::bh()
 {
-  v6 = *MEMORY[0x29EDCA608];
-  v2 = *a2;
-  v5[0] = 136315650;
+  v2 = *MEMORY[0x29EDCA608];
+  v1[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_295FEE000, v3, OS_LOG_TYPE_DEBUG, "%s::%p::%d:", v5, 0x1Cu);
-  v4 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(&dword_295FEE000, v0, OS_LOG_TYPE_DEBUG, "%s::%p::%d:", v1, 0x1Cu);
 }
 
-void pci::transport::bh::~bh(uint64_t a1)
+void pci::transport::bh::~bh()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x29EDCA608]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x29EDCA608]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v1, v2, "%s::%p::%d:--done", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:--done", v2, v3, v4, v5, v6);
 }
 
-void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_5_cold_1(uint64_t a1)
+void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_5_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x29EDCA608]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x29EDCA608]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v1, v2, "%s::%p::%d:interface added", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:interface added", v2, v3, v4, v5, v6);
 }
 
-void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8_cold_1(uint64_t a1)
+void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x29EDCA608]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x29EDCA608]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v1, v2, "%s::%p::%d:interface removed", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:interface removed", v2, v3, v4, v5, v6);
 }
 
-void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8_cold_2(uint64_t a1)
+void ___ZN3pci9transport2bh4initERKNS1_10parametersE_block_invoke_8_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x29EDCA608]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x29EDCA608]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v1, v2, "%s::%p::%d:notify interface removed", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:notify interface removed", v2, v3, v4, v5, v6);
 }
 
 void pci::event::Listener::notify(NSObject *a1, int a2)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = a2;
-    _os_log_impl(&dword_295FEE000, a1, OS_LOG_TYPE_DEFAULT, "unknown link down type %u", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = a2;
+    _os_log_impl(&dword_295FEE000, a1, OS_LOG_TYPE_DEFAULT, "unknown link down type %u", v4, 8u);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
-void pci::transport::th::init(uint64_t a1)
+void pci::transport::th::init()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x29EDCA608]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x29EDCA608]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v1, v2, "%s::%p::%d:", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:", v2, v3, v4, v5, v6);
 }
 
 void pci::transport::th::th(NSObject **a1, std::__shared_weak_count **a2, dispatch_object_t *a3, uint64_t a4)
@@ -8439,31 +8394,26 @@ void pci::transport::th::th(NSObject **a1, std::__shared_weak_count **a2, dispat
   }
 }
 
-void pci::transport::th::th(uint64_t a1, unsigned int *a2)
+void pci::transport::th::th()
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v2 = *a2;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x1Cu);
-  v8 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void pci::transport::th::~th(uint64_t a1)
+void pci::transport::th::~th()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x29EDCA608]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x29EDCA608]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v1, v2, "%s::%p::%d:--done", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:--done", v2, v3, v4, v5, v6);
 }
 
 void pci::transport::th::writeInternal()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void pci::transport::th::flushRead(const void *a1, dispatch_object_t *a2)
@@ -8475,32 +8425,26 @@ void pci::transport::th::flushRead(const void *a1, dispatch_object_t *a2)
   }
 }
 
-void pci::transport::bind::bind(unsigned int *a1)
+void pci::transport::bind::bind()
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v1 = *a1;
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v2, v3, "%s::%p::%d:", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:", v2, v3, v4, v5, v6);
 }
 
-void pci::transport::task::init(uint64_t a1)
+void pci::transport::task::init()
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 16);
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_295FEE000, v2, v3, "%s::%p::%d:", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1(&dword_295FEE000, v0, v1, "%s::%p::%d:", v2, v3, v4, v5, v6);
 }
 
-void pci::transport::task::poison(uint64_t a1)
+void pci::transport::task::poison(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 16);
-  getTypeString(*(a1 + 20));
+  getTypeString(*(a1 + 20), a2);
+  v8 = 136316162;
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_3_0(&dword_295FEE000, v2, v3, "%s::%p::%d:%s: status 0x%x", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_3_0(&dword_295FEE000, v2, v3, "%s::%p::%d:%s: status 0x%x", v4, v5, v6, v7, v8);
 }
 
 void pci::transport::task::complete()

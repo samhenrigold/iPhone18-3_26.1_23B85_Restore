@@ -32,18 +32,18 @@
   [v6 serviceDestination:eventDestination fromSource:self withCompletionBlock:v8];
 }
 
-uint64_t __73__PNPSyntheticPencilInteractionEventSource__playEventAtPlayheadPosition___block_invoke(uint64_t result)
+void *__73__PNPSyntheticPencilInteractionEventSource__playEventAtPlayheadPosition___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (v1[9] == 1)
   {
     v1[8] = 0;
-    *(*(result + 32) + 9) = 0;
+    *(*(result + 4) + 9) = 0;
   }
 
   else
   {
-    v2 = [*(result + 32) _playlistPositionForPosition:*(result + 40) + 1];
+    v2 = [*(result + 4) _playlistPositionForPosition:*(result + 5) + 1];
 
     return [v1 _playEventAtPlayheadPosition:v2];
   }

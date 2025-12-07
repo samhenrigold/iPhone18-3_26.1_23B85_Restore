@@ -1111,7 +1111,7 @@ LABEL_12:
     v11 = [v9 isScreenShareActivityForTUConversation:tuConversation2];
 
     titleLabel2 = [(CKTUConversationBalloonView *)self titleLabel];
-    v13 = CKFrameworkBundle();
+    v13 = CKFrameworkBundle(titleLabel2);
     tuConversation = v13;
     if (v11)
     {
@@ -1205,7 +1205,7 @@ LABEL_13:
 
     conversationAVMode = [(CKTUConversationBalloonView *)self conversationAVMode];
     subtitleLabel12 = [(CKTUConversationBalloonView *)self subtitleLabel1];
-    v12 = CKFrameworkBundle();
+    v12 = CKFrameworkBundle(subtitleLabel12);
     tuConversation = v12;
     if (conversationAVMode)
     {
@@ -1277,7 +1277,7 @@ LABEL_15:
       [joinButton2 setHidden:0];
 
       joinButton3 = [(CKTUConversationBalloonView *)self joinButton];
-      v7 = CKFrameworkBundle();
+      v7 = CKFrameworkBundle(joinButton3);
       v8 = [v7 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
       [joinButton3 setAccessibilityLabel:v8];
 
@@ -1630,10 +1630,10 @@ void __59__CKTUConversationBalloonView__sharePlayImageWithDiameter___block_invok
 
 - (id)_joinButtonText
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  if (CKIsRunningUnitTests())
+  if (CKIsRunningUnitTests(v5, v6))
   {
     joinButtonText_TestingOverride = [(CKTUConversationBalloonView *)self joinButtonText_TestingOverride];
 

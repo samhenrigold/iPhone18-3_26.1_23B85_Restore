@@ -173,15 +173,14 @@ BOOL __102__HDContributorSyncEntity_generateSyncObjectsForSession_syncAnchorRang
 
 + (id)_orderedProperties
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v5[0] = @"uuid";
-  v5[1] = @"apple_id";
-  v5[2] = @"caller_id";
-  v5[3] = @"deleted";
-  v5[4] = @"mod_date";
-  v5[5] = @"sync_identity";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
+  v4[0] = @"uuid";
+  v4[1] = @"apple_id";
+  v4[2] = @"caller_id";
+  v4[3] = @"deleted";
+  v4[4] = @"mod_date";
+  v4[5] = @"sync_identity";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
 
   return v2;
 }

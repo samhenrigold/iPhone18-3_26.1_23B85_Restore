@@ -42,7 +42,7 @@
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakInit();
   v10.receiver = self;
-  v10.super_class = type metadata accessor for AUGenericViewIntegerParameterCell();
+  v10.super_class = type metadata accessor for AUGenericViewIntegerParameterCell(0);
   coderCopy = coder;
   v8 = [(AUGenericViewParameterCellBase *)&v10 initWithCoder:coderCopy];
 

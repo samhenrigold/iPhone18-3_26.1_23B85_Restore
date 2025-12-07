@@ -122,45 +122,49 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v22 = 0;
-  altDSID = self->_altDSID;
-  NSAppendPrintF();
-  v3 = v22;
+  v26 = 0;
+  NSAppendPrintF(&v26, "SFAppleIDValidationRecord");
+  v3 = v26;
+  v25 = v3;
+  NSAppendPrintF(&v25, "AltDSID: %@", self->_altDSID);
+  v4 = v25;
 
-  data = self->_data;
-  NSAppendPrintF();
-  v4 = v3;
+  v24 = v4;
+  NSAppendPrintF(&v24, ", Data: %p", self->_data);
+  v5 = v24;
 
-  identifier = self->_identifier;
-  NSAppendPrintF();
-  v5 = v4;
+  v23 = v5;
+  NSAppendPrintF(&v23, ", Identifier: %@", self->_identifier);
+  v6 = v23;
 
-  nextCheckDate = self->_nextCheckDate;
-  NSAppendPrintF();
-  v6 = v5;
+  v22 = v6;
+  NSAppendPrintF(&v22, ", Next Check Date: %@", self->_nextCheckDate);
+  v7 = v22;
 
-  suggestedValidDuration = self->_suggestedValidDuration;
-  NSAppendPrintF();
-  v7 = v6;
+  v21 = v7;
+  NSAppendPrintF(&v21, ", Suggested Valid Duration: %ld", self->_suggestedValidDuration);
+  v8 = v21;
 
-  suggestedValidDuration = [(NSArray *)self->_validatedEmailHashes componentsJoinedByString:@", ", suggestedValidDuration];
-  NSAppendPrintF();
-  v8 = v7;
+  v20 = v8;
+  v9 = [(NSArray *)self->_validatedEmailHashes componentsJoinedByString:@", "];
+  NSAppendPrintF(&v20, ", Valided Email Hashes: %@", v9);
+  v10 = v20;
 
-  v9 = [(NSArray *)self->_validatedPhoneHashes componentsJoinedByString:@", ", suggestedValidDuration];
-  NSAppendPrintF();
-  v10 = v8;
+  v19 = v10;
+  v11 = [(NSArray *)self->_validatedPhoneHashes componentsJoinedByString:@", "];
+  NSAppendPrintF(&v19, ", Valided Phone Hashes: %@", v11);
+  v12 = v19;
 
-  validStartDate = self->_validStartDate;
-  NSAppendPrintF();
-  v11 = v10;
+  v18 = v12;
+  NSAppendPrintF(&v18, ", Valid Start Date: %@", self->_validStartDate);
+  v13 = v18;
 
-  version = self->_version;
-  NSAppendPrintF();
-  v12 = v11;
+  v17 = v13;
+  NSAppendPrintF(&v17, ", Version: %@", self->_version);
+  v14 = v17;
+  v15 = v17;
 
-  return v11;
+  return v14;
 }
 
 - (BOOL)isInvalid
@@ -170,52 +174,56 @@
 
   if (!altDSID)
   {
-    if (gLogCategory_SFAppleIDValidationRecord <= 60)
+    if (gLogCategory_SFAppleIDValidationRecord > 60)
     {
-      if (gLogCategory_SFAppleIDValidationRecord == -1)
-      {
-        v9 = 0;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_28;
-        }
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      goto LABEL_27;
+      goto LABEL_24;
     }
 
-    goto LABEL_24;
+    if (gLogCategory_SFAppleIDValidationRecord == -1)
+    {
+      v9 = 0;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    LogPrintF(&gLogCategory_SFAppleIDValidationRecord, "[SFAppleIDValidationRecord isInvalid]", 60, "AltDSID not available\n");
+LABEL_28:
+    v10 = 1;
+    goto LABEL_7;
   }
 
   data = [(SFAppleIDValidationRecord *)self data];
 
   if (!data)
   {
-    if (gLogCategory_SFAppleIDValidationRecord <= 60)
+    if (gLogCategory_SFAppleIDValidationRecord > 60)
     {
-      if (gLogCategory_SFAppleIDValidationRecord == -1)
-      {
-        v9 = 0;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_28;
-        }
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      goto LABEL_27;
+      goto LABEL_24;
     }
 
-    goto LABEL_24;
+    if (gLogCategory_SFAppleIDValidationRecord == -1)
+    {
+      v9 = 0;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    LogPrintF(&gLogCategory_SFAppleIDValidationRecord, "[SFAppleIDValidationRecord isInvalid]", 60, "Data not available\n");
+    goto LABEL_28;
   }
 
   data2 = [(SFAppleIDValidationRecord *)self data];
@@ -223,26 +231,27 @@
 
   if (!v7)
   {
-    if (gLogCategory_SFAppleIDValidationRecord <= 60)
+    if (gLogCategory_SFAppleIDValidationRecord > 60)
     {
-      if (gLogCategory_SFAppleIDValidationRecord == -1)
-      {
-        v9 = 0;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_28;
-        }
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      goto LABEL_27;
+      goto LABEL_24;
     }
 
-    goto LABEL_24;
+    if (gLogCategory_SFAppleIDValidationRecord == -1)
+    {
+      v9 = 0;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    LogPrintF(&gLogCategory_SFAppleIDValidationRecord, "[SFAppleIDValidationRecord isInvalid]", 60, "Data length is 0\n");
+    goto LABEL_28;
   }
 
   expirationDate = [(SFAppleIDValidationRecord *)self expirationDate];
@@ -264,26 +273,23 @@
         v9 = 0;
       }
 
-      goto LABEL_27;
+      LogPrintF(&gLogCategory_SFAppleIDValidationRecord, "[SFAppleIDValidationRecord isInvalid]", 60, "Unable to get expiration date\n");
+      goto LABEL_28;
     }
 
 LABEL_24:
     v9 = 0;
-LABEL_28:
-    v10 = 1;
-    goto LABEL_7;
+    goto LABEL_28;
   }
 
   v9 = expirationDate;
   if ([expirationDate compare:date] != 1)
   {
-    if (gLogCategory_SFAppleIDValidationRecord > 60 || gLogCategory_SFAppleIDValidationRecord == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_SFAppleIDValidationRecord <= 60 && (gLogCategory_SFAppleIDValidationRecord != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_28;
+      LogPrintF(&gLogCategory_SFAppleIDValidationRecord, "[SFAppleIDValidationRecord isInvalid]", 60, "Validation Record expired\n");
     }
 
-LABEL_27:
-    LogPrintF();
     goto LABEL_28;
   }
 
@@ -300,58 +306,67 @@ LABEL_7:
 
   if (!nextCheckDate)
   {
-    if (gLogCategory_SFAppleIDValidationRecord <= 60 && (gLogCategory_SFAppleIDValidationRecord != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFAppleIDValidationRecord <= 60)
     {
-      [SFAppleIDValidationRecord needsUpdate];
+      if (gLogCategory_SFAppleIDValidationRecord != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        [(SFAppleIDValidationRecord *)v5 needsUpdate];
+      }
     }
 
     goto LABEL_15;
   }
 
   nextCheckDate2 = [(SFAppleIDValidationRecord *)self nextCheckDate];
-  v6 = [nextCheckDate2 compare:date];
+  v9 = [nextCheckDate2 compare:date];
 
-  if (v6 != 1)
+  if (v9 != 1)
   {
     [(SFAppleIDValidationRecord *)self needsUpdate];
-    v11 = v13;
-    v8 = v14;
+    v19 = v21;
+    v13 = v22;
     goto LABEL_6;
   }
 
   expirationDate = [(SFAppleIDValidationRecord *)self expirationDate];
   if (!expirationDate)
   {
-    if (gLogCategory_SFAppleIDValidationRecord <= 60 && (gLogCategory_SFAppleIDValidationRecord != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFAppleIDValidationRecord <= 60)
     {
-      [SFAppleIDValidationRecord needsUpdate];
+      if (gLogCategory_SFAppleIDValidationRecord != -1 || (expirationDate = _LogCategory_Initialize(), expirationDate))
+      {
+        [(SFAppleIDValidationRecord *)expirationDate needsUpdate];
+      }
     }
 
 LABEL_15:
-    v8 = 0;
+    v13 = 0;
 LABEL_16:
-    v11 = 1;
+    v19 = 1;
     goto LABEL_6;
   }
 
-  v8 = expirationDate;
-  v9 = [expirationDate dateByAddingTimeInterval:-86400.0];
-  v10 = [date compare:v9];
+  v13 = expirationDate;
+  v14 = [expirationDate dateByAddingTimeInterval:-86400.0];
+  v15 = [date compare:v14];
 
-  if (v10 != -1)
+  if (v15 != -1)
   {
-    if (gLogCategory_SFAppleIDValidationRecord <= 60 && (gLogCategory_SFAppleIDValidationRecord != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFAppleIDValidationRecord <= 60)
     {
-      [SFAppleIDValidationRecord needsUpdate];
+      if (gLogCategory_SFAppleIDValidationRecord != -1 || (v16 = _LogCategory_Initialize(), v16))
+      {
+        [(SFAppleIDValidationRecord *)v16 needsUpdate];
+      }
     }
 
     goto LABEL_16;
   }
 
-  v11 = 0;
+  v19 = 0;
 LABEL_6:
 
-  return v11;
+  return v19;
 }
 
 - (SFAppleIDValidationRecord)initWithCoder:(id)coder
@@ -671,7 +686,7 @@ LABEL_30:
   if (gLogCategory_SFAppleIDValidationRecord <= 60 && (gLogCategory_SFAppleIDValidationRecord != -1 || _LogCategory_Initialize()))
   {
     nextCheckDate = [self nextCheckDate];
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFAppleIDValidationRecord, "[SFAppleIDValidationRecord needsUpdate]", 60, "Next check date %@ is in the past\n", nextCheckDate);
   }
 
   *a3 = 0;

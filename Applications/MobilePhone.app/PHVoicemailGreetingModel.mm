@@ -445,28 +445,29 @@ LABEL_14:
   [v3 fileSystemRepresentation];
   if (__strlcpy_chk() >= 8)
   {
-    if ((mkstemp(v10) & 0x80000000) == 0)
+    v4 = mkstemp(v11);
+    if ((v4 & 0x80000000) == 0)
     {
-      v4 = +[NSFileManager defaultManager];
-      v5 = [NSURL fileURLWithFileSystemRepresentation:v10 isDirectory:0 relativeToURL:0];
-      [v4 removeItemAtURL:v5 error:0];
+      v5 = +[NSFileManager defaultManager];
+      v6 = [NSURL fileURLWithFileSystemRepresentation:v11 isDirectory:0 relativeToURL:0];
+      [v5 removeItemAtURL:v6 error:0];
 
-      v6 = [NSString stringWithUTF8String:v10];
+      v7 = [NSString stringWithUTF8String:v11];
       goto LABEL_8;
     }
 
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[PHVoicemailGreetingModel greetingTempFileLocation];
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_8:
-  v8 = [v6 stringByAppendingString:@".amr"];
+  v9 = [v7 stringByAppendingString:@".amr"];
 
-  return v8;
+  return v9;
 }
 
 - (PHVoicemailGreetingModelDelegate)delegate
@@ -488,7 +489,7 @@ LABEL_8:
 
 - (NSURL)defaultGreetingURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v4 = __chkstk_darwin(v3 - 8);
   v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);

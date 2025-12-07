@@ -36,21 +36,22 @@
 
 - (BOOL)consumeInitialPressDown
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   self->_didResetProxCalibration = 0;
   isObjectInProximity = [(SBProximitySensorManager *)self->_sensorManager isObjectInProximity];
   result = 0;
   if (isObjectInProximity)
   {
-    if (MGGetBoolAnswer())
+    v6 = MGGetBoolAnswer();
+    if (v6)
     {
-      v6 = SBLogButtonsLock();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = SBLogButtonsLock(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = NSStringFromSelector(a2);
-        v8 = 138543362;
-        v9 = v7;
-        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because object within proximity", &v8, 0xCu);
+        v8 = NSStringFromSelector(a2);
+        v9 = 138543362;
+        v10 = v8;
+        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because object within proximity", &v9, 0xCu);
       }
 
       return 1;
@@ -74,7 +75,7 @@
   if (didResetProxCalibration)
   {
     self->_didResetProxCalibration = 0;
-    v4 = SBLogButtonsLock();
+    v4 = SBLogButtonsLock(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = NSStringFromSelector(a2);

@@ -345,7 +345,7 @@ LABEL_17:
 
 - (id)previewItemTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"PREVIEW_TITLE_CONTACT" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -524,15 +524,15 @@ void __42__CKContactMediaObject_generateOOPPreview__block_invoke_245(uint64_t a1
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __42__CKContactMediaObject_generateOOPPreview__block_invoke_2_246(uint64_t a1)
+uint64_t __42__CKContactMediaObject_generateOOPPreview__block_invoke_2_246(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Posting preview change notif for OOP generation completion", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Posting preview change notif for OOP generation completion", v5, 2u);
     }
   }
 

@@ -67,7 +67,7 @@ void __48__HFCameraTimelapseVideoProvider_sharedProvider__block_invoke()
 
 - (void)getVideoForTimelapseClip:(id)clip taskType:(unint64_t)type delegate:(id)delegate
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   delegateCopy = delegate;
   v10 = HFLogForCategory(0x1DuLL);
@@ -75,8 +75,8 @@ void __48__HFCameraTimelapseVideoProvider_sharedProvider__block_invoke()
   {
     uniqueIdentifier = [clipCopy uniqueIdentifier];
     *buf = 138412546;
-    v19 = uniqueIdentifier;
-    v20 = 2048;
+    v18 = uniqueIdentifier;
+    v19 = 2048;
     typeCopy = type;
     _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Provider asked for clip: %@ with task type %lu", buf, 0x16u);
   }
@@ -90,21 +90,19 @@ void __48__HFCameraTimelapseVideoProvider_sharedProvider__block_invoke()
   {
     objc_initWeak(buf, self);
     bookkeepingQueue = [(HFCameraTimelapseVideoProvider *)self bookkeepingQueue];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __77__HFCameraTimelapseVideoProvider_getVideoForTimelapseClip_taskType_delegate___block_invoke;
-    v14[3] = &unk_277DF3540;
-    objc_copyWeak(v17, buf);
-    v15 = clipCopy;
-    v17[1] = type;
-    v16 = delegateCopy;
-    dispatch_async(bookkeepingQueue, v14);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __77__HFCameraTimelapseVideoProvider_getVideoForTimelapseClip_taskType_delegate___block_invoke;
+    v13[3] = &unk_277DF3540;
+    objc_copyWeak(v16, buf);
+    v14 = clipCopy;
+    v16[1] = type;
+    v15 = delegateCopy;
+    dispatch_async(bookkeepingQueue, v13);
 
-    objc_destroyWeak(v17);
+    objc_destroyWeak(v16);
     objc_destroyWeak(buf);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HFCameraTimelapseVideoProvider_getVideoForTimelapseClip_taskType_delegate___block_invoke(uint64_t a1)

@@ -43,76 +43,75 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v257 = *MEMORY[0x277D85DE8];
+  v256 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_translator(self, a2, v2);
   v7 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v5, v6);
   objc_msgSend_setTransactionStateByRequestIDs_(self, v8, v7);
 
-  v212 = objc_opt_new();
+  v211 = objc_opt_new();
   selfCopy = self;
+  v248 = 0u;
   v249 = 0u;
   v250 = 0u;
   v251 = 0u;
-  v252 = 0u;
   v11 = objc_msgSend_successfulBatches(self->_assetTokenRequest, v9, v10);
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v249, v256, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v248, v255, 16);
   if (v13)
   {
-    v14 = *v250;
-    v207 = v235;
-    v227 = v4;
-    v208 = v11;
-    v210 = *v250;
+    v14 = *v249;
+    v206 = v234;
+    v226 = v4;
+    v207 = v11;
+    v209 = *v249;
     do
     {
       v15 = 0;
-      v209 = v13;
+      v208 = v13;
       do
       {
-        if (*v250 != v14)
+        if (*v249 != v14)
         {
           v16 = v15;
           objc_enumerationMutation(v11);
           v15 = v16;
         }
 
-        v211 = v15;
-        v17 = *(*(&v249 + 1) + 8 * v15);
-        v233 = objc_opt_new();
-        objc_msgSend_setAssetBatch_(v233, v18, v17, v207);
-        v217 = objc_opt_new();
+        v210 = v15;
+        v17 = *(*(&v248 + 1) + 8 * v15);
+        v232 = objc_opt_new();
+        objc_msgSend_setAssetBatch_(v232, v18, v17, v206);
+        v216 = objc_opt_new();
+        v244 = 0u;
         v245 = 0u;
         v246 = 0u;
         v247 = 0u;
-        v248 = 0u;
         obj = objc_msgSend_assetRecords(v17, v19, v20);
-        v215 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v245, v255, 16);
-        if (v215)
+        v214 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v244, v254, 16);
+        if (v214)
         {
-          v216 = *v246;
-          v221 = v17;
+          v215 = *v245;
+          v220 = v17;
           do
           {
             v22 = 0;
             do
             {
-              if (*v246 != v216)
+              if (*v245 != v215)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v219 = v22;
-              v23 = *(*(&v245 + 1) + 8 * v22);
+              v218 = v22;
+              v23 = *(*(&v244 + 1) + 8 * v22);
               v24 = objc_opt_new();
               v27 = objc_msgSend_recordID(v23, v25, v26);
               v29 = objc_msgSend_pRecordIdentifierFromRecordID_(v4, v28, v27);
@@ -122,73 +121,73 @@
               v34 = objc_msgSend_recordType(v23, v32, v33);
               objc_msgSend_setName_(v31, v35, v34);
 
-              v218 = v31;
+              v217 = v31;
               objc_msgSend_setType_(v24, v36, v31);
               v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
-              v223 = v24;
+              v222 = v24;
               objc_msgSend_setAssetFields_(v24, v38, v37);
 
-              v230 = v23;
+              v229 = v23;
               v41 = objc_msgSend_allRecordKeys(v23, v39, v40);
+              v240 = 0u;
               v241 = 0u;
               v242 = 0u;
               v243 = 0u;
-              v244 = 0u;
-              v220 = v41;
-              v224 = objc_msgSend_countByEnumeratingWithState_objects_count_(v220, v42, &v241, v254, 16);
-              if (v224)
+              v219 = v41;
+              v223 = objc_msgSend_countByEnumeratingWithState_objects_count_(v219, v42, &v240, v253, 16);
+              if (v223)
               {
-                v222 = *v242;
+                v221 = *v241;
                 do
                 {
                   v44 = 0;
                   do
                   {
-                    if (*v242 != v222)
+                    if (*v241 != v221)
                     {
-                      objc_enumerationMutation(v220);
+                      objc_enumerationMutation(v219);
                     }
 
-                    v45 = *(*(&v241 + 1) + 8 * v44);
-                    v46 = objc_msgSend_allRegularAndSectionAndRereferenceItemsWithRecordKey_(v230, v43, v45);
+                    v45 = *(*(&v240 + 1) + 8 * v44);
+                    v46 = objc_msgSend_allRegularAndSectionAndRereferenceItemsWithRecordKey_(v229, v43, v45);
                     if (!objc_msgSend_count(v46, v47, v48))
                     {
                       __assert_rtn("[CKDFetchContentAuthTokensForPutURLRequest generateRequestOperations]", "CKDFetchContentAuthTokensForPutURLRequest.m", 96, "items.count");
                     }
 
-                    v226 = v44;
+                    v225 = v44;
                     v49 = objc_opt_new();
                     v50 = objc_opt_new();
                     objc_msgSend_setName_(v50, v51, v45);
-                    v225 = v50;
+                    v224 = v50;
                     objc_msgSend_setField_(v49, v52, v50);
                     v53 = objc_alloc(MEMORY[0x277CBEB18]);
                     v56 = objc_msgSend_count(v46, v54, v55);
                     v58 = objc_msgSend_initWithCapacity_(v53, v57, v56);
-                    v231 = v49;
+                    v230 = v49;
                     objc_msgSend_setAssets_(v49, v59, v58);
 
-                    v239 = 0u;
-                    v240 = 0u;
-                    v237 = 0u;
                     v238 = 0u;
-                    v228 = v46;
-                    v232 = objc_msgSend_countByEnumeratingWithState_objects_count_(v228, v60, &v237, v253, 16);
-                    if (v232)
+                    v239 = 0u;
+                    v236 = 0u;
+                    v237 = 0u;
+                    v227 = v46;
+                    v231 = objc_msgSend_countByEnumeratingWithState_objects_count_(v227, v60, &v236, v252, 16);
+                    if (v231)
                     {
-                      v229 = *v238;
+                      v228 = *v237;
                       do
                       {
-                        for (i = 0; i != v232; ++i)
+                        for (i = 0; i != v231; ++i)
                         {
-                          if (*v238 != v229)
+                          if (*v237 != v228)
                           {
-                            objc_enumerationMutation(v228);
+                            objc_enumerationMutation(v227);
                           }
 
-                          v62 = *(*(&v237 + 1) + 8 * i);
+                          v62 = *(*(&v236 + 1) + 8 * i);
                           v63 = objc_opt_new();
-                          v66 = objc_msgSend_recordID(v230, v64, v65);
+                          v66 = objc_msgSend_recordID(v229, v64, v65);
                           v68 = objc_msgSend_pRecordIdentifierFromRecordID_(v4, v67, v66);
                           objc_msgSend_setRecordId_(v63, v69, v68);
 
@@ -225,7 +224,7 @@
                             objc_msgSend_setClearAssetKey_(v63, v100, v99);
                           }
 
-                          v101 = objc_msgSend_assets(v231, v97, v98);
+                          v101 = objc_msgSend_assets(v230, v97, v98);
                           objc_msgSend_addObject_(v101, v102, v63);
 
                           v103 = [CKDAssetID alloc];
@@ -237,13 +236,13 @@
                           v118 = objc_msgSend_numberWithLongLong_(v113, v117, v116);
                           v120 = objc_msgSend_initWithRecordID_fileSignature_referenceSignature_size_(v103, v119, v106, v109, v112, v118);
 
-                          v123 = objc_msgSend_itemsByAssetId(v233, v121, v122);
+                          v123 = objc_msgSend_itemsByAssetId(v232, v121, v122);
                           v125 = objc_msgSend_objectForKeyedSubscript_(v123, v124, v120);
 
                           if (!v125)
                           {
                             v125 = objc_msgSend_set(MEMORY[0x277CBEB58], v126, v127);
-                            v130 = objc_msgSend_itemsByAssetId(v233, v128, v129);
+                            v130 = objc_msgSend_itemsByAssetId(v232, v128, v129);
                             objc_msgSend_setObject_forKeyedSubscript_(v130, v131, v125, v120);
                           }
 
@@ -258,58 +257,58 @@
                             v144 = objc_msgSend_numberWithLongLong_(v139, v143, v142);
                             v146 = objc_msgSend_initWithRecordID_fileSignature_referenceSignature_size_(v132, v145, v135, v138, 0, v144);
 
-                            v149 = objc_msgSend_itemsByAssetIdIgnoreRefSignature(v233, v147, v148);
+                            v149 = objc_msgSend_itemsByAssetIdIgnoreRefSignature(v232, v147, v148);
                             v151 = objc_msgSend_objectForKeyedSubscript_(v149, v150, v146);
 
                             if (!v151)
                             {
                               v151 = objc_msgSend_set(MEMORY[0x277CBEB58], v152, v153);
-                              v156 = objc_msgSend_itemsByAssetIdIgnoreRefSignature(v233, v154, v155);
+                              v156 = objc_msgSend_itemsByAssetIdIgnoreRefSignature(v232, v154, v155);
                               objc_msgSend_setObject_forKeyedSubscript_(v156, v157, v151, v146);
                             }
 
                             objc_msgSend_addObject_(v151, v152, v62);
 
-                            v4 = v227;
+                            v4 = v226;
                           }
                         }
 
-                        v232 = objc_msgSend_countByEnumeratingWithState_objects_count_(v228, v158, &v237, v253, 16);
+                        v231 = objc_msgSend_countByEnumeratingWithState_objects_count_(v227, v158, &v236, v252, 16);
                       }
 
-                      while (v232);
+                      while (v231);
                     }
 
-                    v161 = objc_msgSend_assetFields(v223, v159, v160);
-                    objc_msgSend_addObject_(v161, v162, v231);
+                    v161 = objc_msgSend_assetFields(v222, v159, v160);
+                    objc_msgSend_addObject_(v161, v162, v230);
 
-                    v44 = v226 + 1;
-                    v17 = v221;
+                    v44 = v225 + 1;
+                    v17 = v220;
                   }
 
-                  while (v226 + 1 != v224);
-                  v224 = objc_msgSend_countByEnumeratingWithState_objects_count_(v220, v43, &v241, v254, 16);
+                  while (v225 + 1 != v223);
+                  v223 = objc_msgSend_countByEnumeratingWithState_objects_count_(v219, v43, &v240, v253, 16);
                 }
 
-                while (v224);
+                while (v223);
               }
 
-              objc_msgSend_addObject_(v217, v163, v223);
-              v22 = v219 + 1;
+              objc_msgSend_addObject_(v216, v163, v222);
+              v22 = v218 + 1;
             }
 
-            while (v219 + 1 != v215);
-            v215 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v164, &v245, v255, 16);
+            while (v218 + 1 != v214);
+            v214 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v164, &v244, v254, 16);
           }
 
-          while (v215);
+          while (v214);
         }
 
         v167 = objc_msgSend_operationType(selfCopy, v165, v166);
         v169 = objc_msgSend_operationRequestWithType_(selfCopy, v168, v167);
         v170 = objc_opt_new();
         objc_msgSend_setAssetUploadTokenRetrieveRequest_(v169, v171, v170);
-        objc_msgSend_setUploads_(v170, v172, v217);
+        objc_msgSend_setUploads_(v170, v172, v216);
         v175 = objc_msgSend_authPutRequest(v17, v173, v174);
         objc_msgSend_setAuthPutRequest_(v170, v176, v175);
 
@@ -330,40 +329,38 @@
 
         objc_msgSend_setAuthPutType_(v170, v186, v185);
         headers = selfCopy->_headers;
-        v234[0] = MEMORY[0x277D85DD0];
-        v234[1] = 3221225472;
-        v235[0] = sub_2253BE7FC;
-        v235[1] = &unk_27854D380;
-        v236 = v170;
+        v233[0] = MEMORY[0x277D85DD0];
+        v233[1] = 3221225472;
+        v234[0] = sub_2253BE7FC;
+        v234[1] = &unk_27854D380;
+        v235 = v170;
         v191 = v170;
-        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(headers, v192, v234);
+        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(headers, v192, v233);
         v195 = objc_msgSend_transactionStateByRequestIDs(selfCopy, v193, v194);
         v198 = objc_msgSend_request(v169, v196, v197);
         v201 = objc_msgSend_operationUUID(v198, v199, v200);
-        objc_msgSend_setObject_forKey_(v195, v202, v233, v201);
+        objc_msgSend_setObject_forKey_(v195, v202, v232, v201);
 
-        objc_msgSend_addObject_(v212, v203, v169);
-        v14 = v210;
-        v15 = v211 + 1;
-        v11 = v208;
+        objc_msgSend_addObject_(v211, v203, v169);
+        v14 = v209;
+        v15 = v210 + 1;
+        v11 = v207;
       }
 
-      while (v211 + 1 != v209);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v208, v204, &v249, v256, 16);
-      v14 = v210;
+      while (v210 + 1 != v208);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v207, v204, &v248, v255, 16);
+      v14 = v209;
     }
 
     while (v13);
   }
 
-  v205 = *MEMORY[0x277D85DE8];
-
-  return v212;
+  return v211;
 }
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v449 = *MEMORY[0x277D85DE8];
+  v447 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_msgSend_response(objectCopy, v5, v6);
   v10 = objc_msgSend_operationUUID(v7, v8, v9);
@@ -403,36 +400,36 @@
   v26 = objc_msgSend_authPutResponse(v15, v23, v24);
   objc_msgSend_setAuthPutResponse_(v25, v27, v26);
 
-  v407 = v10;
-  v404 = v25;
-  v405 = v15;
-  v411 = v20;
-  v402 = objectCopy;
+  v405 = v10;
+  v402 = v25;
+  v403 = v15;
+  v409 = v20;
+  v400 = objectCopy;
   if (objc_msgSend_contentResponseHeadersCount(v15, v28, v29))
   {
     v32 = objc_opt_new();
+    v433 = 0u;
+    v434 = 0u;
     v435 = 0u;
     v436 = 0u;
-    v437 = 0u;
-    v438 = 0u;
     v35 = objc_msgSend_contentResponseHeaders(v15, v33, v34);
-    v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v435, v448, 16);
+    v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v433, v446, 16);
     if (v37)
     {
       v40 = v37;
       v41 = MEMORY[0x277CBC880];
-      v42 = *v436;
+      v42 = *v434;
       do
       {
         v43 = 0;
         do
         {
-          if (*v436 != v42)
+          if (*v434 != v42)
           {
             objc_enumerationMutation(v35);
           }
 
-          v44 = *(*(&v435 + 1) + 8 * v43);
+          v44 = *(*(&v433 + 1) + 8 * v43);
           v45 = objc_msgSend_headerKey(v44, v38, v39);
           v48 = objc_msgSend_headerValue(v44, v46, v47);
           v50 = v48;
@@ -460,9 +457,9 @@
               v56 = objc_msgSend_headerKey(v44, v54, v55);
               v59 = objc_msgSend_headerValue(v44, v57, v58);
               *buf = 138543619;
-              v440 = v56;
-              v441 = 2113;
-              v442 = v59;
+              v438 = v56;
+              v439 = 2113;
+              v440 = v59;
               _os_log_error_impl(&dword_22506F000, v53, OS_LOG_TYPE_ERROR, "Unable to set header %{public}@ with value %{private}@", buf, 0x16u);
 
               v41 = MEMORY[0x277CBC880];
@@ -478,22 +475,22 @@
         }
 
         while (v40 != v43);
-        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v38, &v435, v448, 16);
+        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v38, &v433, v446, 16);
       }
 
       while (v40);
     }
 
-    v25 = v404;
+    v25 = v402;
     if (objc_msgSend_count(v32, v60, v61))
     {
-      objc_msgSend_setAuthPutResponseHeaders_(v404, v62, v32);
+      objc_msgSend_setAuthPutResponseHeaders_(v402, v62, v32);
     }
 
-    objectCopy = v402;
-    v10 = v407;
-    v15 = v405;
-    v20 = v411;
+    objectCopy = v400;
+    v10 = v405;
+    v15 = v403;
+    v20 = v409;
   }
 
   if ((objc_msgSend_useMMCSEncryptionV2(v25, v30, v31) & 1) == 0)
@@ -507,7 +504,6 @@
         v389 = objc_msgSend_authPutRequest(v25, v63, v64);
 
         v390 = *MEMORY[0x277CBC878];
-        v391 = *MEMORY[0x277CBC880];
         if (v389)
         {
           if (*MEMORY[0x277CBC880] != -1)
@@ -515,14 +511,14 @@
             dispatch_once(MEMORY[0x277CBC880], v390);
           }
 
-          v392 = *MEMORY[0x277CBC830];
+          v391 = *MEMORY[0x277CBC830];
           if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&dword_22506F000, v392, OS_LOG_TYPE_ERROR, "Server did not return the required authPutResponse even though an authPutRequest was sent.", buf, 2u);
+            _os_log_error_impl(&dword_22506F000, v391, OS_LOG_TYPE_ERROR, "Server did not return the required authPutResponse even though an authPutRequest was sent.", buf, 2u);
           }
 
-          objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v393, *MEMORY[0x277CBC120], 1000, @"Server did not return the required authPutResponse even though an authPutRequest was sent. AssetUploadTokenRetrieveResponse on %@", objectCopy);
+          objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v392, *MEMORY[0x277CBC120], 1000, @"Server did not return the required authPutResponse even though an authPutRequest was sent. AssetUploadTokenRetrieveResponse on %@", objectCopy);
         }
 
         else
@@ -532,14 +528,14 @@
             dispatch_once(MEMORY[0x277CBC880], v390);
           }
 
-          v395 = *MEMORY[0x277CBC830];
+          v394 = *MEMORY[0x277CBC830];
           if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&dword_22506F000, v395, OS_LOG_TYPE_ERROR, "Missing authPutRequest.", buf, 2u);
+            _os_log_error_impl(&dword_22506F000, v394, OS_LOG_TYPE_ERROR, "Missing authPutRequest.", buf, 2u);
           }
 
-          objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v396, *MEMORY[0x277CBC120], 1000, @"Missing authPutRequest. AssetUploadTokenRetrieveResponse on %@", objectCopy);
+          objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v395, *MEMORY[0x277CBC120], 1000, @"Missing authPutRequest. AssetUploadTokenRetrieveResponse on %@", objectCopy);
         }
 
         goto LABEL_126;
@@ -585,49 +581,49 @@
 
     if (!v80)
     {
-      objectCopy = v402;
-      objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v77, *MEMORY[0x277CBC120], 1000, @"Failed to get headers for authPutResponse AssetUploadTokenRetrieveResponse on %@", v402);
+      objectCopy = v400;
+      objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v77, *MEMORY[0x277CBC120], 1000, @"Failed to get headers for authPutResponse AssetUploadTokenRetrieveResponse on %@", v400);
       goto LABEL_126;
     }
   }
 
-  v433 = 0u;
-  v434 = 0u;
   v431 = 0u;
   v432 = 0u;
+  v429 = 0u;
+  v430 = 0u;
   obj = objc_msgSend_uploadTokens(v15, v77, v78);
-  v399 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v81, &v431, v447, 16);
-  if (!v399)
+  v397 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v81, &v429, v445, 16);
+  if (!v397)
   {
     goto LABEL_102;
   }
 
-  v400 = *v432;
+  v398 = *v430;
   while (2)
   {
     v84 = 0;
     do
     {
-      if (*v432 != v400)
+      if (*v430 != v398)
       {
         objc_enumerationMutation(obj);
       }
 
-      v406 = v84;
-      v85 = *(*(&v431 + 1) + 8 * v84);
+      v404 = v84;
+      v85 = *(*(&v429 + 1) + 8 * v84);
       v86 = objc_msgSend_translator(selfCopy, v82, v83);
       v89 = objc_msgSend_asset(v85, v87, v88);
       v92 = objc_msgSend_recordId(v89, v90, v91);
-      v430 = 0;
-      v94 = objc_msgSend_recordIDFromPRecordIdentifier_error_(v86, v93, v92, &v430);
-      v408 = v430;
+      v428 = 0;
+      v94 = objc_msgSend_recordIDFromPRecordIdentifier_error_(v86, v93, v92, &v428);
+      v406 = v428;
 
-      v421 = v94;
+      v419 = v94;
       if (!v94)
       {
-        v394 = v408;
-        objectCopy = v402;
-        v73 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v95, *MEMORY[0x277CBC120], 1000, @"Failed to parse recordID from AssetUploadTokenRetrieveResponseUploadToken on %@ : %@", v402, v408);
+        v393 = v406;
+        objectCopy = v400;
+        v73 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v95, *MEMORY[0x277CBC120], 1000, @"Failed to parse recordID from AssetUploadTokenRetrieveResponseUploadToken on %@ : %@", v400, v406);
         goto LABEL_119;
       }
 
@@ -636,8 +632,8 @@
 
       if (!v100)
       {
-        objectCopy = v402;
-        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v101, *MEMORY[0x277CBC120], 1000, @"Missing Asset signature from AssetUploadTokenRetrieveResponseUploadToken on %@", v402);
+        objectCopy = v400;
+        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v101, *MEMORY[0x277CBC120], 1000, @"Missing Asset signature from AssetUploadTokenRetrieveResponseUploadToken on %@", v400);
         v73 = LABEL_117:;
         goto LABEL_118;
       }
@@ -647,8 +643,8 @@
 
       if (!v106)
       {
-        objectCopy = v402;
-        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v107, *MEMORY[0x277CBC120], 1000, @"Missing Asset size from AssetUploadTokenRetrieveResponseUploadToken on %@", v402);
+        objectCopy = v400;
+        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v107, *MEMORY[0x277CBC120], 1000, @"Missing Asset size from AssetUploadTokenRetrieveResponseUploadToken on %@", v400);
         goto LABEL_117;
       }
 
@@ -657,8 +653,8 @@
 
       if (!v112)
       {
-        objectCopy = v402;
-        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v113, *MEMORY[0x277CBC120], 1000, @"Missing Asset owner from AssetUploadTokenRetrieveResponseUploadToken on %@", v402);
+        objectCopy = v400;
+        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v113, *MEMORY[0x277CBC120], 1000, @"Missing Asset owner from AssetUploadTokenRetrieveResponseUploadToken on %@", v400);
         goto LABEL_117;
       }
 
@@ -667,8 +663,8 @@
 
       if (!v118)
       {
-        objectCopy = v402;
-        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v119, *MEMORY[0x277CBC120], 1000, @"Missing Asset requestor from AssetUploadTokenRetrieveResponseUploadToken on %@", v402);
+        objectCopy = v400;
+        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v119, *MEMORY[0x277CBC120], 1000, @"Missing Asset requestor from AssetUploadTokenRetrieveResponseUploadToken on %@", v400);
         goto LABEL_117;
       }
 
@@ -676,8 +672,8 @@
 
       if (!v121)
       {
-        objectCopy = v402;
-        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v122, *MEMORY[0x277CBC120], 1000, @"Missing Asset token from AssetUploadTokenRetrieveResponseUploadToken on %@", v402);
+        objectCopy = v400;
+        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v122, *MEMORY[0x277CBC120], 1000, @"Missing Asset token from AssetUploadTokenRetrieveResponseUploadToken on %@", v400);
         goto LABEL_117;
       }
 
@@ -686,8 +682,8 @@
 
       if (!v127)
       {
-        objectCopy = v402;
-        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v128, *MEMORY[0x277CBC120], 1000, @"Missing Asset contentBaseURL from AssetUploadTokenRetrieveResponseUploadToken on %@", v402);
+        objectCopy = v400;
+        objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v128, *MEMORY[0x277CBC120], 1000, @"Missing Asset contentBaseURL from AssetUploadTokenRetrieveResponseUploadToken on %@", v400);
         goto LABEL_117;
       }
 
@@ -698,8 +694,8 @@
 
       if (!v136)
       {
-        objectCopy = v402;
-        v73 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v137, *MEMORY[0x277CBC120], 1000, @"Malformed Asset contentBaseURL from AssetUploadTokenRetrieveResponseUploadToken on %@", v402);
+        objectCopy = v400;
+        v73 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v137, *MEMORY[0x277CBC120], 1000, @"Malformed Asset contentBaseURL from AssetUploadTokenRetrieveResponseUploadToken on %@", v400);
         goto LABEL_134;
       }
 
@@ -711,14 +707,14 @@
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v413 = v148;
+        v411 = v148;
         v149 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
         {
           v385 = v149;
           v388 = objc_msgSend_asset(v85, v386, v387);
           *buf = 138412290;
-          v440 = v388;
+          v438 = v388;
           _os_log_debug_impl(&dword_22506F000, v385, OS_LOG_TYPE_DEBUG, "Asset %@ exists on server. Reuse existing reference signature and asset key and skip uploading.", buf, 0xCu);
         }
 
@@ -733,10 +729,10 @@
         v171 = objc_msgSend_numberWithLongLong_(v163, v170, v169);
         v173 = objc_msgSend_initWithRecordID_fileSignature_referenceSignature_size_(v150, v172, v156, v162, 0, v171);
 
-        v176 = objc_msgSend_itemsByAssetIdIgnoreRefSignature(v411, v174, v175);
+        v176 = objc_msgSend_itemsByAssetIdIgnoreRefSignature(v409, v174, v175);
         v178 = objc_msgSend_objectForKeyedSubscript_(v176, v177, v173);
 
-        v179 = v413;
+        v179 = v411;
         if (!v178)
         {
           if (*MEMORY[0x277CBC880] != -1)
@@ -748,44 +744,44 @@
           if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v440 = v413;
+            v438 = v411;
             _os_log_error_impl(&dword_22506F000, v180, OS_LOG_TYPE_ERROR, "unable to find items for duplicate asset %@", buf, 0xCu);
           }
         }
 
-        v428 = 0u;
-        v429 = 0u;
         v426 = 0u;
         v427 = 0u;
-        v403 = v178;
-        v410 = objc_msgSend_countByEnumeratingWithState_objects_count_(v403, v181, &v426, v446, 16);
-        if (v410)
+        v424 = 0u;
+        v425 = 0u;
+        v401 = v178;
+        v408 = objc_msgSend_countByEnumeratingWithState_objects_count_(v401, v181, &v424, v444, 16);
+        if (v408)
         {
-          v409 = *v427;
+          v407 = *v425;
 LABEL_70:
           v184 = 0;
           while (1)
           {
-            if (*v427 != v409)
+            if (*v425 != v407)
             {
-              objc_enumerationMutation(v403);
+              objc_enumerationMutation(v401);
             }
 
-            v416 = v184;
-            v185 = *(*(&v426 + 1) + 8 * v184);
+            v414 = v184;
+            v185 = *(*(&v424 + 1) + 8 * v184);
             v186 = objc_msgSend_asset(v185, v182, v183);
             v189 = objc_msgSend_record(v186, v187, v188);
 
-            v412 = v185;
+            v410 = v185;
             v192 = objc_msgSend_asset(v185, v190, v191);
             v193 = [CKDWrappingContext alloc];
             v196 = objc_msgSend_recordID(v189, v194, v195);
-            v418 = v192;
+            v416 = v192;
             v199 = objc_msgSend_recordKey(v192, v197, v198);
             v202 = objc_msgSend_signature(v179, v200, v201);
             objc_msgSend_referenceSignature(v179, v203, v204);
             v206 = v205 = v179;
-            v417 = objc_msgSend_initWithRecordID_fieldName_mergeableDeltaID_fileSignature_referenceSignature_(v193, v207, v196, v199, 0, v202, v206);
+            v415 = objc_msgSend_initWithRecordID_fieldName_mergeableDeltaID_fileSignature_referenceSignature_(v193, v207, v196, v199, 0, v202, v206);
 
             v210 = objc_msgSend_operation(selfCopy, v208, v209);
             v213 = objc_msgSend_container(v210, v211, v212);
@@ -793,56 +789,56 @@ LABEL_70:
             v219 = objc_msgSend_protectionInfo(v205, v217, v218);
             v222 = objc_msgSend_protectionInfo(v219, v220, v221);
             v225 = objc_msgSend_recordPCS(v189, v223, v224);
-            v227 = objc_msgSend_unwrapAssetKey_withRecordPCS_inContext_withError_(v216, v226, v222, v225, v417, 0);
+            v227 = objc_msgSend_unwrapAssetKey_withRecordPCS_inContext_withError_(v216, v226, v222, v225, v415, 0);
 
             v228 = v227;
             if (v227)
             {
-              v179 = v413;
-              v231 = objc_msgSend_referenceSignature(v413, v229, v230);
-              objc_msgSend_setReferenceSignature_(v412, v232, v231);
+              v179 = v411;
+              v231 = objc_msgSend_referenceSignature(v411, v229, v230);
+              objc_msgSend_setReferenceSignature_(v410, v232, v231);
 
-              objc_msgSend_setAssetKey_(v412, v233, v227);
-              v236 = objc_msgSend_uploadReceipt(v413, v234, v235);
-              objc_msgSend_setUploadReceipt_(v412, v237, v236);
+              objc_msgSend_setAssetKey_(v410, v233, v227);
+              v236 = objc_msgSend_uploadReceipt(v411, v234, v235);
+              objc_msgSend_setUploadReceipt_(v410, v237, v236);
 
-              objc_msgSend_setContentBaseURL_(v412, v238, v136);
+              objc_msgSend_setContentBaseURL_(v410, v238, v136);
               v241 = objc_msgSend_asset(v85, v239, v240);
               v244 = objc_msgSend_owner(v241, v242, v243);
-              objc_msgSend_setOwner_(v412, v245, v244);
+              objc_msgSend_setOwner_(v410, v245, v244);
 
               v248 = objc_msgSend_asset(v85, v246, v247);
               v251 = objc_msgSend_requestor(v248, v249, v250);
-              objc_msgSend_setRequestor_(v412, v252, v251);
+              objc_msgSend_setRequestor_(v410, v252, v251);
 
               v255 = objc_msgSend_token(v85, v253, v254);
-              objc_msgSend_setAuthToken_(v412, v256, v255);
+              objc_msgSend_setAuthToken_(v410, v256, v255);
 
               v259 = objc_msgSend_tokenExpiration(v85, v257, v258);
-              objc_msgSend_setUploadTokenExpiration_(v412, v260, v259);
-              v263 = objc_msgSend_referenceSignature(v413, v261, v262);
-              v264 = v418;
-              objc_msgSend_setReferenceSignature_(v418, v265, v263);
+              objc_msgSend_setUploadTokenExpiration_(v410, v260, v259);
+              v263 = objc_msgSend_referenceSignature(v411, v261, v262);
+              v264 = v416;
+              objc_msgSend_setReferenceSignature_(v416, v265, v263);
 
-              objc_msgSend_setAssetKey_(v418, v266, v228);
+              objc_msgSend_setAssetKey_(v416, v266, v228);
               v267 = v189;
             }
 
             else
             {
-              v264 = v418;
+              v264 = v416;
               if (*MEMORY[0x277CBC880] != -1)
               {
                 dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
               }
 
-              v179 = v413;
+              v179 = v411;
               v267 = v189;
               v268 = *MEMORY[0x277CBC830];
               if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v440 = v413;
+                v438 = v411;
                 _os_log_error_impl(&dword_22506F000, v268, OS_LOG_TYPE_ERROR, "failed to unwrapp asset key for duplicate asset %@", buf, 0xCu);
               }
             }
@@ -852,11 +848,11 @@ LABEL_70:
               break;
             }
 
-            v184 = v416 + 1;
-            if (v410 == v416 + 1)
+            v184 = v414 + 1;
+            if (v408 == v414 + 1)
             {
-              v410 = objc_msgSend_countByEnumeratingWithState_objects_count_(v403, v182, &v426, v446, 16);
-              if (v410)
+              v408 = objc_msgSend_countByEnumeratingWithState_objects_count_(v401, v182, &v424, v444, 16);
+              if (v408)
               {
                 goto LABEL_70;
               }
@@ -866,15 +862,15 @@ LABEL_70:
           }
         }
 
-        objc_msgSend_removeAllObjects(v403, v269, v270);
-        v10 = v407;
+        objc_msgSend_removeAllObjects(v401, v269, v270);
+        v10 = v405;
       }
 
       else
       {
         v271 = [CKDAssetID alloc];
-        v419 = objc_msgSend_asset(v85, v272, v273);
-        v276 = objc_msgSend_recordId(v419, v274, v275);
+        v417 = objc_msgSend_asset(v85, v272, v273);
+        v276 = objc_msgSend_recordId(v417, v274, v275);
         v279 = objc_msgSend_asset(v85, v277, v278);
         v282 = objc_msgSend_signature(v279, v280, v281);
         v285 = objc_msgSend_asset(v85, v283, v284);
@@ -885,12 +881,12 @@ LABEL_70:
         v297 = objc_msgSend_numberWithLongLong_(v289, v296, v295);
         v299 = objc_msgSend_initWithRecordID_fileSignature_referenceSignature_size_(v271, v298, v276, v282, v288, v297);
 
-        v302 = objc_msgSend_itemsByAssetId(v411, v300, v301);
+        v302 = objc_msgSend_itemsByAssetId(v409, v300, v301);
         v304 = objc_msgSend_objectForKeyedSubscript_(v302, v303, v299);
 
         if (v304)
         {
-          v414 = v299;
+          v412 = v299;
         }
 
         else
@@ -906,8 +902,8 @@ LABEL_70:
           }
 
           v317 = [CKDAssetID alloc];
-          v420 = objc_msgSend_asset(v85, v318, v319);
-          v322 = objc_msgSend_signature(v420, v320, v321);
+          v418 = objc_msgSend_asset(v85, v318, v319);
+          v322 = objc_msgSend_signature(v418, v320, v321);
           v325 = objc_msgSend_asset(v85, v323, v324);
           v328 = objc_msgSend_referenceSignature(v325, v326, v327);
           v329 = MEMORY[0x277CCABB0];
@@ -916,53 +912,53 @@ LABEL_70:
           v337 = objc_msgSend_numberWithLongLong_(v329, v336, v335);
           v339 = objc_msgSend_initWithRecordID_fileSignature_referenceSignature_size_(v317, v338, v315, v322, v328, v337);
 
-          v342 = objc_msgSend_itemsByAssetId(v411, v340, v341);
+          v342 = objc_msgSend_itemsByAssetId(v409, v340, v341);
           v304 = objc_msgSend_objectForKeyedSubscript_(v342, v343, v339);
 
           if (!v304)
           {
             v299 = v339;
 LABEL_133:
-            v25 = v404;
-            v15 = v405;
-            objectCopy = v402;
-            v73 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v316, *MEMORY[0x277CBC120], 1000, @"Failed to find asset for assetID %@ on %@", v299, v402);
+            v25 = v402;
+            v15 = v403;
+            objectCopy = v400;
+            v73 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v316, *MEMORY[0x277CBC120], 1000, @"Failed to find asset for assetID %@ on %@", v299, v400);
 
 LABEL_134:
-            v20 = v411;
+            v20 = v409;
 LABEL_118:
-            v394 = v408;
+            v393 = v406;
 LABEL_119:
-            v10 = v407;
+            v10 = v405;
 
             goto LABEL_127;
           }
 
-          v414 = v339;
+          v412 = v339;
         }
 
-        v424 = 0u;
-        v425 = 0u;
         v422 = 0u;
         v423 = 0u;
+        v420 = 0u;
+        v421 = 0u;
         v173 = v304;
-        v345 = objc_msgSend_countByEnumeratingWithState_objects_count_(v173, v344, &v422, v445, 16);
+        v345 = objc_msgSend_countByEnumeratingWithState_objects_count_(v173, v344, &v420, v443, 16);
         v346 = MEMORY[0x277CBC880];
         if (v345)
         {
           v347 = v345;
-          v348 = *v423;
+          v348 = *v421;
           do
           {
             v349 = 0;
             do
             {
-              if (*v423 != v348)
+              if (*v421 != v348)
               {
                 objc_enumerationMutation(v173);
               }
 
-              v350 = *(*(&v422 + 1) + 8 * v349);
+              v350 = *(*(&v420 + 1) + 8 * v349);
               if (*v346 != -1)
               {
                 dispatch_once(v346, *MEMORY[0x277CBC878]);
@@ -975,11 +971,11 @@ LABEL_119:
                 v379 = objc_msgSend_token(v85, v377, v378);
                 v382 = objc_msgSend_trackingUUID(v350, v380, v381);
                 *buf = 138412802;
-                v440 = v379;
-                v441 = 2114;
-                v442 = v421;
-                v443 = 2112;
-                v444 = v382;
+                v438 = v379;
+                v439 = 2114;
+                v440 = v419;
+                v441 = 2112;
+                v442 = v382;
                 _os_log_debug_impl(&dword_22506F000, v376, OS_LOG_TYPE_DEBUG, "Setting the upload token %@ for recordID:%{public}@, MMCSItem:%@", buf, 0x20u);
 
                 v346 = MEMORY[0x277CBC880];
@@ -1003,26 +999,26 @@ LABEL_119:
             }
 
             while (v347 != v349);
-            v347 = objc_msgSend_countByEnumeratingWithState_objects_count_(v173, v375, &v422, v445, 16);
+            v347 = objc_msgSend_countByEnumeratingWithState_objects_count_(v173, v375, &v420, v443, 16);
           }
 
           while (v347);
         }
 
         objc_msgSend_removeAllObjects(v173, v383, v384);
-        v10 = v407;
-        v179 = v414;
+        v10 = v405;
+        v179 = v412;
       }
 
-      v15 = v405;
-      v84 = v406 + 1;
-      v20 = v411;
-      v25 = v404;
+      v15 = v403;
+      v84 = v404 + 1;
+      v20 = v409;
+      v25 = v402;
     }
 
-    while (v406 + 1 != v399);
-    v399 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v82, &v431, v447, 16);
-    if (v399)
+    while (v404 + 1 != v397);
+    v397 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v82, &v429, v445, 16);
+    if (v397)
     {
       continue;
     }
@@ -1033,20 +1029,18 @@ LABEL_119:
 LABEL_102:
 
   v73 = 0;
-  objectCopy = v402;
+  objectCopy = v400;
 LABEL_127:
 
 LABEL_128:
 LABEL_129:
-
-  v397 = *MEMORY[0x277D85DE8];
 
   return v73;
 }
 
 - (void)requestDidParseNodeFailure:(id)failure
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   v8 = objc_msgSend_result(failureCopy, v6, v7);
   v11 = objc_msgSend_error(v8, v9, v10);
@@ -1088,21 +1082,21 @@ LABEL_11:
 
       if (v66)
       {
-        v95 = MEMORY[0x277CBC560];
+        v94 = MEMORY[0x277CBC560];
         v29 = *MEMORY[0x277CBC120];
-        v97 = objc_msgSend_result(failureCopy, v67, v68);
-        v69 = sub_2253962A4(v97);
-        v96 = objc_msgSend_result(failureCopy, v70, v71);
-        sub_225395734(self, v96);
-        v72 = v98 = v61;
+        v96 = objc_msgSend_result(failureCopy, v67, v68);
+        v69 = sub_2253962A4(v96);
+        v95 = objc_msgSend_result(failureCopy, v70, v71);
+        sub_225395734(self, v95);
+        v72 = v97 = v61;
         v75 = objc_msgSend_result(failureCopy, v73, v74);
         objc_msgSend_error(v75, v76, v77);
         v79 = v78 = a2;
         v82 = objc_msgSend_errorDescription(v79, v80, v81);
-        v56 = objc_msgSend_errorWithDomain_code_userInfo_format_(v95, v83, v29, v69, v72, @"Error uploading asset: %@", v82);
+        v56 = objc_msgSend_errorWithDomain_code_userInfo_format_(v94, v83, v29, v69, v72, @"Error uploading asset: %@", v82);
 
         a2 = v78;
-        v61 = v98;
+        v61 = v97;
       }
 
       else
@@ -1116,9 +1110,9 @@ LABEL_11:
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v100 = v61;
-          v101 = 2112;
-          v102 = failureCopy;
+          v99 = v61;
+          v100 = 2112;
+          v101 = failureCopy;
           _os_log_error_impl(&dword_22506F000, v86, OS_LOG_TYPE_ERROR, "Can't find assetBatch for %{public}@ on %@", buf, 0x16u);
         }
 
@@ -1138,7 +1132,7 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v100 = failureCopy;
+        v99 = failureCopy;
         _os_log_error_impl(&dword_22506F000, v84, OS_LOG_TYPE_ERROR, "Missing requestID on %@", buf, 0xCu);
       }
 
@@ -1185,8 +1179,6 @@ LABEL_26:
 
 LABEL_27:
   objc_msgSend_finishWithError_(self, v57, v56);
-
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 @end

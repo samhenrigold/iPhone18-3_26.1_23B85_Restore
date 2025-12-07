@@ -653,7 +653,7 @@ uint64_t __46__SAUIElementViewController_handleElementTap___block_invoke(uint64_
     [(SAUIElementViewController *)self loadViewIfNeeded];
     WeakRetained = objc_loadWeakRetained(&self->_elementView);
     elementViewProvider = [(SAUIElementViewController *)self elementViewProvider];
-    if (SAUIDirectionEdgeInsetsAnyComponentIsZero())
+    if (SAUIDirectionEdgeInsetsAnyComponentIsZero(v15, v14, v13, v12))
     {
       [WeakRetained suggestedOutsetsForLayoutMode:mode maximumOutsets:{top, leading, bottom, trailing}];
       v15 = SAUIDirectionEdgeInsetsComponentWiseMinimum(v15, v14, v13, v12, v21);

@@ -10,21 +10,23 @@
   if (name)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = v6;
     bundleCopy = bundle;
-    v7 = String._bridgeToObjectiveC()();
+    v9 = String._bridgeToObjectiveC()();
+    v7, v10, v11, v12, v13, v14, v15, v16;
   }
 
   else
   {
     bundleCopy2 = bundle;
-    v7 = 0;
+    v9 = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for CNSecureContactViewController();
-  v9 = [(CNSecureContactViewController *)&v11 initWithNibName:v7 bundle:bundle];
+  v20.receiver = self;
+  v20.super_class = type metadata accessor for CNSecureContactViewController();
+  v18 = [(CNSecureContactViewController *)&v20 initWithNibName:v9 bundle:bundle];
 
-  return v9;
+  return v18;
 }
 
 - (_TtC9AirDropUI29CNSecureContactViewController)initWithCoder:(id)coder

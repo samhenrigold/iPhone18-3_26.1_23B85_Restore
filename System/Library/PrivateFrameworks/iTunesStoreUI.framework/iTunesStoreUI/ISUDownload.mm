@@ -126,7 +126,7 @@ id __25__ISUDownload_artistName__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __30__ISUDownload_bytesDownloaded__block_invoke(uint64_t a1)
+void *__30__ISUDownload_bytesDownloaded__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 8) valueForExternalProperty:{__ExternalProperties), "longLongValue"}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -152,7 +152,7 @@ uint64_t __30__ISUDownload_bytesDownloaded__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __25__ISUDownload_bytesTotal__block_invoke(uint64_t a1)
+void *__25__ISUDownload_bytesTotal__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 8) valueForExternalProperty:{qword_1EBF3B560), "longLongValue"}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -287,7 +287,7 @@ LABEL_23:
   return v3;
 }
 
-uint64_t __40__ISUDownload_estimatedSecondsRemaining__block_invoke(uint64_t a1)
+void *__40__ISUDownload_estimatedSecondsRemaining__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 8) valueForExternalProperty:{qword_1EBF3B568), "doubleValue"}];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -313,7 +313,7 @@ uint64_t __40__ISUDownload_estimatedSecondsRemaining__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__ISUDownload_isContentRestricted__block_invoke(uint64_t a1)
+void *__34__ISUDownload_isContentRestricted__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 8) valueForProperty:{qword_1EBF3B590), "BOOLValue"}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -345,7 +345,7 @@ uint64_t __34__ISUDownload_isContentRestricted__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __25__ISUDownload_isPausable__block_invoke(uint64_t a1)
+void *__25__ISUDownload_isPausable__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 8) valueForProperty:{qword_1EBF3B588), "BOOLValue"}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -371,7 +371,7 @@ uint64_t __25__ISUDownload_isPausable__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __25__ISUDownload_isPurchase__block_invoke(uint64_t a1)
+void *__25__ISUDownload_isPurchase__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 8) valueForProperty:{qword_1EBF3B598), "BOOLValue"}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -425,7 +425,7 @@ id __30__ISUDownload_managedDownload__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __30__ISUDownload_percentComplete__block_invoke(uint64_t a1)
+void *__30__ISUDownload_percentComplete__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 8) valueForExternalProperty:{qword_1EBF3B570), "doubleValue"}];
   *(*(*(a1 + 40) + 8) + 24) = v3;

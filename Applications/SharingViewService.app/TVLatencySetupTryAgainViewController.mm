@@ -12,7 +12,7 @@
   buttonCopy = button;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupTryAgainViewController handleDismissButton:]", 30, "TryAgain button\n");
   }
 
   [self->super.super._mainController dismiss:5];
@@ -23,7 +23,7 @@
   buttonCopy = button;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupTryAgainViewController handleTryAgainButton:]", 30, "TryAgain button\n");
   }
 
   testFlags = [self->super.super._mainController testFlags];
@@ -44,7 +44,7 @@
   disappearCopy = disappear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupTryAgainViewController viewDidDisappear:]", 30, "TryAgain ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -57,7 +57,7 @@
   appearCopy = appear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupTryAgainViewController viewWillAppear:]", 30, "TryAgain ViewWillAppear\n");
   }
 
   v8.receiver = self;

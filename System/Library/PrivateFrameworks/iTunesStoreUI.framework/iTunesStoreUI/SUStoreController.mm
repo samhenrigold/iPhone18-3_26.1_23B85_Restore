@@ -162,7 +162,7 @@
 
 - (void)connect
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E69E47D0] invalidateCurrentMap];
   [objc_msgSend(MEMORY[0x1E69E4778] "sharedInstance")];
   [objc_msgSend(MEMORY[0x1E69D4890] "existingDefaultStore")];
@@ -184,32 +184,36 @@
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v12 = shouldLog | 2;
+        LODWORD(v12) = shouldLog | 2;
       }
 
       else
       {
-        v12 = shouldLog;
+        LODWORD(v12) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v12 = v12;
+      }
+
+      else
       {
         v12 &= 2u;
       }
 
       if (v12)
       {
-        v34 = 138412290;
-        v35 = objc_opt_class();
-        LODWORD(v31) = 12;
-        v30 = &v34;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v36 = 138412290;
+        v37 = objc_opt_class();
+        v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Reloading for storefront change while suspended", &v36, 12);
+        if (v14)
         {
-          v14 = v13;
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v34, v31}];
-          free(v14);
-          v30 = v15;
+          v15 = v14;
+          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+          free(v15);
+          v32 = v16;
           SSFileLog();
         }
       }
@@ -226,7 +230,7 @@
     self->_synchedStoreFrontAtLastSuspend = 0;
     if (v8)
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
   }
 
@@ -237,49 +241,54 @@
 
   if (!self->_lastSectionsResponse)
   {
-LABEL_23:
+LABEL_24:
     reloadSectionsOnNextLaunch = 1;
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   reloadSectionsOnNextLaunch = self->_reloadSectionsOnNextLaunch;
-LABEL_24:
+LABEL_25:
   self->_reloadSectionsOnNextLaunch = 0;
-  v18 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
-  v19 = [objc_msgSend(objc_msgSend(MEMORY[0x1E69D4890] "defaultStore")];
-  if (v19 != v18 && ([v18 isEqual:v19] & 1) == 0)
+  v19 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
+  v20 = [objc_msgSend(objc_msgSend(MEMORY[0x1E69D4890] "defaultStore")];
+  if (v20 != v19 && ([v19 isEqual:v20] & 1) == 0)
   {
     mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v22 = shouldLog2 | 2;
+      LODWORD(v23) = shouldLog2 | 2;
     }
 
     else
     {
-      v22 = shouldLog2;
+      LODWORD(v23) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
     {
-      v22 &= 2u;
+      v23 = v23;
     }
 
-    if (v22)
+    else
     {
-      v23 = objc_opt_class();
-      v34 = 138412290;
-      v35 = v23;
-      LODWORD(v31) = 12;
-      v30 = &v34;
-      v24 = _os_log_send_and_compose_impl();
-      if (v24)
+      v23 &= 2u;
+    }
+
+    if (v23)
+    {
+      v25 = objc_opt_class();
+      v36 = 138412290;
+      v37 = v25;
+      LODWORD(v33) = 12;
+      v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 2, "%@: Ignoring saved navigation path after account change", &v36, v33);
+      if (v26)
       {
-        v25 = v24;
-        v26 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, &v34, v31}];
-        free(v25);
-        v30 = v26;
+        v27 = v26;
+        v28 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
+        free(v27);
+        v32 = v28;
         SSFileLog();
       }
     }
@@ -295,14 +304,14 @@ LABEL_24:
       [(SUTabBarController *)self->_tabBarController dismissViewControllerAnimated:0 completion:0];
       [(SUTabBarController *)self->_tabBarController setSections:0];
       [(SUStoreController *)self _presentSectionFetchUI];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __28__SUStoreController_connect__block_invoke_2;
-      v32[3] = &unk_1E8164348;
-      v32[4] = self;
-      v27 = v32;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __28__SUStoreController_connect__block_invoke_2;
+      v34[3] = &unk_1E8164348;
+      v34[4] = self;
+      v29 = v34;
       selfCopy2 = self;
-      v29 = v9;
+      v31 = v9;
     }
 
     else
@@ -314,17 +323,17 @@ LABEL_24:
         [(SUStoreController *)self setupUI];
       }
 
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __28__SUStoreController_connect__block_invoke;
-      v33[3] = &unk_1E8164348;
-      v33[4] = self;
-      v27 = v33;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __28__SUStoreController_connect__block_invoke;
+      v35[3] = &unk_1E8164348;
+      v35[4] = self;
+      v29 = v35;
       selfCopy2 = self;
-      v29 = 1;
+      v31 = 1;
     }
 
-    [(SUStoreController *)selfCopy2 _loadSectionsAllowingCache:v29 withCompletionBlock:v27];
+    [(SUStoreController *)selfCopy2 _loadSectionsAllowingCache:v31 withCompletionBlock:v29];
   }
 }
 
@@ -541,14 +550,14 @@ LABEL_3:
   [(SUStoreController *)self _cancelLoadSectionsOperation];
 }
 
-uint64_t __38__SUStoreController_prepareForSuspend__block_invoke(uint64_t a1)
+void *__38__SUStoreController_prepareForSuspend__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x1E69DC668] "sharedApplication")];
   *(*(*(a1 + 32) + 8) + 24) = *MEMORY[0x1E69DDBE8];
   return result;
 }
 
-uint64_t __38__SUStoreController_prepareForSuspend__block_invoke_2(uint64_t a1, const void *a2)
+void *__38__SUStoreController_prepareForSuspend__block_invoke_2(uint64_t a1, const void *a2)
 {
   v3 = *MEMORY[0x1E695E8A8];
   CFPreferencesSetAppValue(@"SUAutosavedMessageID", a2, *MEMORY[0x1E695E8A8]);
@@ -695,15 +704,21 @@ LABEL_8:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -712,15 +727,13 @@ LABEL_8:
     {
       v12 = 138412290;
       v13 = objc_opt_class();
-      LODWORD(v11) = 12;
-      v10 = &v12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Reloading for storefront change after account dismissal", &v12, 12);
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v12, v11}];
-        free(v8);
-        v10 = v9;
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        v11 = v10;
         SSFileLog();
       }
     }
@@ -741,15 +754,21 @@ LABEL_8:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -758,14 +777,12 @@ LABEL_8:
     {
       v12 = 138412290;
       v13 = objc_opt_class();
-      LODWORD(v11) = 12;
-      v10 = &v12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Ignoring bag load since account UI is visible", &v12, 12);
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v12, v11}];
-        free(v8);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
         SSFileLog();
         [(SUStoreController *)self _reloadOverlayConfigurations];
         return;
@@ -800,25 +817,31 @@ LABEL_8:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke(uint64_t result)
+void *__54__SUStoreController__restrictionsChangedNotification___block_invoke(void *result)
 {
   v12 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 24))
+  if (*(result[4] + 24))
   {
     v1 = result;
     v2 = [MEMORY[0x1E69D4938] sharedConfig];
     v3 = [v2 shouldLog];
     if ([v2 shouldLogToDisk])
     {
-      v4 = v3 | 2;
+      LODWORD(v4) = v3 | 2;
     }
 
     else
     {
-      v4 = v3;
+      LODWORD(v4) = v3;
     }
 
-    if (!os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_DEBUG))
+    v5 = [v2 OSLogObject];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
@@ -827,20 +850,18 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
     {
       v10 = 138412290;
       v11 = objc_opt_class();
-      LODWORD(v9) = 12;
-      v8 = &v10;
-      v5 = _os_log_send_and_compose_impl();
-      if (v5)
+      v6 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 2, "%@: Reloading sections after restrictions change", &v10, 12);
+      if (v6)
       {
-        v6 = v5;
-        v7 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, &v10, v9}];
-        free(v6);
-        v8 = v7;
+        v7 = v6;
+        v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:4];
+        free(v7);
+        v9 = v8;
         SSFileLog();
       }
     }
 
-    return [*(*(v1 + 32) + 88) setSections:{objc_msgSend(*(*(v1 + 32) + 24), "sections", v8)}];
+    return [*(v1[4] + 88) setSections:{objc_msgSend(*(v1[4] + 24), "sections", v9)}];
   }
 
   return result;
@@ -855,15 +876,21 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -872,13 +899,12 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
     {
       v10 = 138412290;
       v11 = objc_opt_class();
-      LODWORD(v9) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Pending reacting to storefront change until account sheet is dismissed", &v10, 12);
+      if (v8)
       {
-        v8 = v7;
-        [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v10, v9}];
-        free(v8);
+        v9 = v8;
+        [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
         SSFileLog();
       }
     }
@@ -907,15 +933,21 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v8 = shouldLog | 2;
+        LODWORD(v8) = shouldLog | 2;
       }
 
       else
       {
-        v8 = shouldLog;
+        LODWORD(v8) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v8 = v8;
+      }
+
+      else
       {
         v8 &= 2u;
       }
@@ -926,20 +958,18 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
         v15 = objc_opt_class();
         v16 = 2112;
         v17 = v5;
-        LODWORD(v13) = 22;
-        v12 = &v14;
-        v9 = _os_log_send_and_compose_impl();
-        if (v9)
+        v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Selecting section in response to notification: %@", &v14, 22);
+        if (v10)
         {
-          v10 = v9;
-          v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v14, v13}];
-          free(v10);
-          v12 = v11;
+          v11 = v10;
+          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+          free(v11);
+          v13 = v12;
           SSFileLog();
         }
       }
 
-      [(SUTabBarController *)self->_tabBarController setSelectedIdentifier:v5, v12];
+      [(SUTabBarController *)self->_tabBarController setSelectedIdentifier:v5, v13];
     }
   }
 }
@@ -1064,15 +1094,21 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -1081,15 +1117,13 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
     {
       v14 = 138412290;
       v15 = objc_opt_class();
-      LODWORD(v13) = 12;
-      v12 = &v14;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Saw footer version change, will reload on next launch", &v14, 12);
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v14, v13}];
-        free(v10);
-        v12 = v11;
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        v13 = v12;
         SSFileLog();
       }
     }
@@ -1125,15 +1159,21 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1142,20 +1182,18 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
     {
       v15 = 138412290;
       v16 = objc_opt_class();
-      LODWORD(v14) = 12;
-      v13 = &v15;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Ignoring sections failure due to slow network", &v15, 12);
+      if (v9)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v15, v14}];
-        free(v9);
-        v13 = v10;
+        v10 = v9;
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
+        v14 = v11;
         SSFileLog();
       }
     }
 
-    [+[SUDialogManager presentDialogForError:v13], "presentDialogForError:", error];
+    [+[SUDialogManager presentDialogForError:v14], "presentDialogForError:", error];
     [(SUStoreController *)self _retrySectionsAfterNetworkTransition];
   }
 
@@ -1173,15 +1211,15 @@ uint64_t __54__SUStoreController__restrictionsChangedNotification___block_invoke
       [transientViewController setSkLoading:0];
     }
 
-    v12 = +[SUDialogManager sharedInstance];
-    if (![(SUDialogManager *)v12 numberOfPendingDialogs])
+    v13 = +[SUDialogManager sharedInstance];
+    if (![(SUDialogManager *)v13 numberOfPendingDialogs])
     {
       if (!error)
       {
         error = ISError();
       }
 
-      [(SUDialogManager *)v12 presentDialogForError:error];
+      [(SUDialogManager *)v13 presentDialogForError:error];
     }
 
     [(SUStoreController *)self exitStoreAfterDialogsDismiss];
@@ -1245,15 +1283,21 @@ uint64_t __47__SUStoreController__reloadForStorefrontChange__block_invoke(uint64
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
@@ -1262,15 +1306,13 @@ uint64_t __47__SUStoreController__reloadForStorefrontChange__block_invoke(uint64
     {
       v12 = 138412290;
       v13 = objc_opt_class();
-      LODWORD(v10) = 12;
-      v9 = &v12;
-      v6 = _os_log_send_and_compose_impl();
-      if (v6)
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Retrying sections load after network transition", &v12, 12);
+      if (v7)
       {
-        v7 = v6;
-        v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v12, v10}];
-        free(v7);
-        v9 = v8;
+        v8 = v7;
+        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+        free(v8);
+        v10 = v9;
         SSFileLog();
       }
     }

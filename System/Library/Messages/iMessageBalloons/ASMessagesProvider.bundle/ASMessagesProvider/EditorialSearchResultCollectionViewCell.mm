@@ -14,7 +14,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_36BB8();
+  sub_36BB8(v2);
 }
 
 @end

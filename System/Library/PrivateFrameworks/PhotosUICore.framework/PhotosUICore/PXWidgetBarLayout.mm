@@ -24,7 +24,7 @@
   v12 = objc_opt_class();
   if (v12)
   {
-    [v12 tileIdentifier];
+    objc_msgSend_tileIdentifier(v12);
     v13 = *&v39[0];
   }
 
@@ -149,7 +149,7 @@
   v15 = objc_opt_class();
   if (v15)
   {
-    [v15 tileIdentifier];
+    objc_msgSend_tileIdentifier(v15);
   }
 
   else

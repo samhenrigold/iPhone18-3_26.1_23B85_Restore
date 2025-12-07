@@ -7,7 +7,7 @@
 - (_TtC8Announce30StopAnnouncementIntentPerfomer)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for StopAnnouncementIntentPerfomer();
+  v3.super_class = type metadata accessor for StopAnnouncementIntentPerfomer(0);
   return [(IntentPerformer *)&v3 init];
 }
 

@@ -12,21 +12,20 @@
 - (NSLocale)locale
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D7DC778, &qword_227AA0B00);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v11 - v5;
+  v5 = &v10 - v4;
   selfCopy = self;
   GKTextModerator.locale.getter();
 
-  v8 = sub_227A71D0C();
-  v9 = 0;
-  if (__swift_getEnumTagSinglePayload(v6, 1, v8) != 1)
+  v7 = sub_227A71D0C();
+  v8 = 0;
+  if (__swift_getEnumTagSinglePayload(v5, 1, v7) != 1)
   {
-    v9 = sub_227A71CAC();
-    (*(*(v8 - 8) + 8))(v6, v8);
+    v8 = sub_227A71CAC();
+    (*(*(v7 - 8) + 8))(v5, v7);
   }
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)shouldFilter:(id)filter
@@ -59,27 +58,25 @@
 {
   v3 = sub_227A71D0C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_227A71CBC();
-  v8 = static GKTextModerator.isAvailable(locale:)();
-  (*(v4 + 8))(v7, v3);
-  return v8;
+  v7 = static GKTextModerator.isAvailable(locale:)();
+  (*(v4 + 8))(v6, v3);
+  return v7;
 }
 
 + (id)forLocale:(id)locale
 {
   v3 = sub_227A71D0C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_227A71CBC();
-  v8 = static GKTextModerator.for (locale:)(v7);
-  (*(v4 + 8))(v7, v3);
+  v7 = static GKTextModerator.for (locale:)(v6);
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 @end

@@ -27,20 +27,20 @@
 
 - (id)_copyBodyDictionaryWithFairPlaySession:(void *)session
 {
-  v52 = *MEMORY[0x1E69E9840];
-  v44.receiver = self;
-  v44.super_class = SSVPlaybackKDLeaseRequest;
-  v5 = [(SSVPlaybackLeaseRequest *)&v44 _copyBodyDictionaryWithFairPlaySession:?];
+  v50 = *MEMORY[0x1E69E9840];
+  v42.receiver = self;
+  v42.super_class = SSVPlaybackKDLeaseRequest;
+  v5 = [(SSVPlaybackLeaseRequest *)&v42 _copyBodyDictionaryWithFairPlaySession:?];
   _certificateData = [(SSVPlaybackLeaseRequest *)self _certificateData];
   _KDMovieIdentifier = [(SSVPlaybackLeaseRequest *)self _KDMovieIdentifier];
-  v43 = _KDMovieIdentifier;
+  v41 = _KDMovieIdentifier;
   if (!_KDMovieIdentifier && _certificateData)
   {
-    LODWORD(v42[0]) = 1;
-    v8 = Qhl17oSYJtCJIxM([_certificateData bytes], objc_msgSend(_certificateData, "length"), v42, 1, &v43);
+    LODWORD(v40[0]) = 1;
+    v8 = Qhl17oSYJtCJIxM([_certificateData bytes], objc_msgSend(_certificateData, "length"), v40, 1, &v41);
     if (!v8)
     {
-      [(SSVPlaybackLeaseRequest *)self _setKDMovieIdentifier:v43];
+      [(SSVPlaybackLeaseRequest *)self _setKDMovieIdentifier:v41];
       goto LABEL_18;
     }
 
@@ -75,22 +75,20 @@
 
     if (v14)
     {
-      LODWORD(v47) = 134217984;
-      *(&v47 + 4) = v9;
-      LODWORD(v38) = 12;
-      v37 = &v47;
-      v15 = _os_log_send_and_compose_impl();
+      LODWORD(v45) = 134217984;
+      *(&v45 + 4) = v9;
+      v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "GenMovieId failed with error: %ld", &v45);
 
       if (!v15)
       {
 LABEL_16:
 
 LABEL_18:
-        _KDMovieIdentifier = v43;
+        _KDMovieIdentifier = v41;
         goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v47, v38}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
     }
@@ -99,23 +97,23 @@ LABEL_18:
   }
 
 LABEL_19:
-  v48 = 0u;
-  v49 = 0u;
-  *&v47 = 1;
-  *(&v47 + 1) = _KDMovieIdentifier;
-  *&v48 = [_certificateData bytes];
-  DWORD2(v48) = [_certificateData length];
-  *&v49 = 0;
-  DWORD2(v49) = 0;
-  v50 = 0;
+  v46 = 0u;
+  v47 = 0u;
+  *&v45 = 1;
+  *(&v45 + 1) = _KDMovieIdentifier;
+  *&v46 = [_certificateData bytes];
+  DWORD2(v46) = [_certificateData length];
+  *&v47 = 0;
+  DWORD2(v47) = 0;
+  v48 = 0;
   kDChannelIdentifier = [(SSVPlaybackLeaseRequest *)self KDChannelIdentifier];
-  v41 = 0;
-  v42[0] = 1;
-  v42[1] = &v47;
-  v42[2] = 1;
   v39 = 0;
-  v40 = 0;
-  MpP1bcydEGt61uk5lIIoLR(v42, &v39);
+  v40[0] = 1;
+  v40[1] = &v45;
+  v40[2] = 1;
+  v37 = 0;
+  v38 = 0;
+  MpP1bcydEGt61uk5lIIoLR(v40, &v37);
   if (v22)
   {
     v23 = v22;
@@ -149,10 +147,9 @@ LABEL_19:
 
     if (v28)
     {
-      v45 = 134217984;
-      v46 = v23;
-      LODWORD(v38) = 12;
-      v29 = _os_log_send_and_compose_impl();
+      v43 = 134217984;
+      v44 = v23;
+      v29 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "GenerateSPCWithParamaters failed with error: %ld", &v43);
 
       if (!v29)
       {
@@ -161,7 +158,7 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v29 encoding:{4, &v45, v38}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v29 encoding:4];
       free(v29);
       SSFileLog(v24, @"%@", v30, v31, v32, v33, v34, v35, oSLogObject2);
     }
@@ -172,7 +169,7 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if (!v41)
+  if (!v39)
   {
     v29 = 0;
     if (!session)
@@ -183,10 +180,10 @@ LABEL_35:
     goto LABEL_38;
   }
 
-  v29 = *(v40 + 16);
-  if (*v40)
+  v29 = *(v38 + 16);
+  if (*v38)
   {
-    v24 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:*v40 length:*(v40 + 8) freeWhenDone:0];
+    v24 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:*v38 length:*(v38 + 8) freeWhenDone:0];
     oSLogObject2 = [v24 base64EncodedStringWithOptions:0];
     [v5 setObject:oSLogObject2 forKey:@"spc"];
     goto LABEL_35;

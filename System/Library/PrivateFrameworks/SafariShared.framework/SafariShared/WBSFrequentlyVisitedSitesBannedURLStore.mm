@@ -45,7 +45,7 @@ void __53__WBSFrequentlyVisitedSitesBannedURLStore_urlStrings__block_invoke(uint
 
 - (id)_bannedURLStringsToEntriesMap
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   bannedURLStringsToEntriesMap = self->_bannedURLStringsToEntriesMap;
   if (bannedURLStringsToEntriesMap)
   {
@@ -68,49 +68,50 @@ void __53__WBSFrequentlyVisitedSitesBannedURLStore_urlStrings__block_invoke(uint
 
       if (isKindOfClass)
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         obj = [v8 objectForKeyedSubscript:@"BannedURLStrings"];
-        v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-        if (v11)
+        v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        if (v13)
         {
-          v12 = *v26;
+          v14 = *v30;
           while (2)
           {
-            for (i = 0; i != v11; ++i)
+            for (i = 0; i != v13; ++i)
             {
-              if (*v26 != v12)
+              if (*v30 != v14)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v14 = *(*(&v25 + 1) + 8 * i);
+              v16 = *(*(&v29 + 1) + 8 * i);
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              v17 = objc_opt_isKindOfClass();
+              if ((v17 & 1) == 0)
               {
                 goto LABEL_26;
               }
 
-              v15 = [v14 objectForKeyedSubscript:@"URLString"];
+              v19 = [v16 objectForKeyedSubscript:@"URLString"];
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 goto LABEL_25;
               }
 
-              v16 = [v14 objectForKeyedSubscript:@"DateAdded"];
+              v20 = [v16 objectForKeyedSubscript:@"DateAdded"];
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
 
 LABEL_25:
 LABEL_26:
-                v23 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+                v27 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v17, v18);
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
                 {
-                  [(WBSFrequentlyVisitedSitesBannedURLStore *)v23 _bannedURLStringsToEntriesMap];
+                  [(WBSFrequentlyVisitedSitesBannedURLStore *)v27 _bannedURLStringsToEntriesMap];
                 }
 
                 v3 = self->_bannedURLStringsToEntriesMap;
@@ -118,21 +119,21 @@ LABEL_26:
                 goto LABEL_20;
               }
 
-              allKeys = [v14 allKeys];
-              v18 = [allKeys count] == 2;
+              allKeys = [v16 allKeys];
+              v22 = [allKeys count] == 2;
 
-              if (!v18)
+              if (!v22)
               {
                 goto LABEL_26;
               }
 
-              v19 = self->_bannedURLStringsToEntriesMap;
-              v20 = [v14 objectForKeyedSubscript:@"URLString"];
-              [(NSMutableDictionary *)v19 setObject:v14 forKeyedSubscript:v20];
+              v23 = self->_bannedURLStringsToEntriesMap;
+              v24 = [v16 objectForKeyedSubscript:@"URLString"];
+              [(NSMutableDictionary *)v23 setObject:v16 forKeyedSubscript:v24];
             }
 
-            v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-            if (v11)
+            v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+            if (v13)
             {
               continue;
             }
@@ -144,10 +145,10 @@ LABEL_26:
 
       else
       {
-        v21 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v25 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v11, v12);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          [(WBSFrequentlyVisitedSitesBannedURLStore *)v21 _bannedURLStringsToEntriesMap];
+          [(WBSFrequentlyVisitedSitesBannedURLStore *)v25 _bannedURLStringsToEntriesMap];
         }
       }
     }

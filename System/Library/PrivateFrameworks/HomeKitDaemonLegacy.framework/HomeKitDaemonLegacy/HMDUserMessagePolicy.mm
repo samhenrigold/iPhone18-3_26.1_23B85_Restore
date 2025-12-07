@@ -1,4 +1,6 @@
 @interface HMDUserMessagePolicy
++ (HMDUserMessagePolicy)userMessagePolicyWithHome:(id)home userPrivilege:(unint64_t)privilege remoteAccessRequired:(BOOL)required requiresCameraStreamingAccess:(BOOL)access;
++ (HMDUserMessagePolicy)userMessagePolicyWithUserPrivilege:(unint64_t)privilege remoteAccessRequired:(BOOL)required requiresCameraStreamingAccess:(BOOL)access;
 - (BOOL)isEqual:(id)equal;
 - (HMDHome)home;
 - (HMDUserMessagePolicy)init;
@@ -22,6 +24,25 @@
   v5 = [HMDMutableUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:[(HMDUserMessagePolicy *)self userPrivilege] remoteAccessRequired:[(HMDUserMessagePolicy *)self requiresRemoteAccess] requiresCameraStreamingAccess:[(HMDUserMessagePolicy *)self requiresCameraStreamingAccess]];
 
   return v5;
+}
+
++ (HMDUserMessagePolicy)userMessagePolicyWithUserPrivilege:(unint64_t)privilege remoteAccessRequired:(BOOL)required requiresCameraStreamingAccess:(BOOL)access
+{
+  v5 = [[self alloc] __initWithHome:0 homeUUID:0 userPrivilege:privilege remoteAccessRequired:required requiresCameraStreamingAccess:access];
+
+  return v5;
+}
+
++ (HMDUserMessagePolicy)userMessagePolicyWithHome:(id)home userPrivilege:(unint64_t)privilege remoteAccessRequired:(BOOL)required requiresCameraStreamingAccess:(BOOL)access
+{
+  accessCopy = access;
+  requiredCopy = required;
+  homeCopy = home;
+  v11 = [self alloc];
+  uuid = [homeCopy uuid];
+  v13 = [v11 __initWithHome:homeCopy homeUUID:uuid userPrivilege:privilege remoteAccessRequired:requiredCopy requiresCameraStreamingAccess:accessCopy];
+
+  return v13;
 }
 
 - (BOOL)isEqual:(id)equal

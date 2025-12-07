@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sharedLibraryModeAsString:(int)string;
 - (int)StringAsSharedLibraryMode:(id)mode;
 - (int)sharedLibraryMode;
 - (unint64_t)hash;
@@ -24,6 +25,29 @@
   {
     return 0;
   }
+}
+
+- (id)sharedLibraryModeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"On";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Off";
+  }
+
+  return v4;
 }
 
 - (int)StringAsSharedLibraryMode:(id)mode
@@ -87,7 +111,6 @@
 {
   if (*&self->_has)
   {
-    sharedLibraryMode = self->_sharedLibraryMode;
     PBDataWriterWriteInt32Field();
   }
 }

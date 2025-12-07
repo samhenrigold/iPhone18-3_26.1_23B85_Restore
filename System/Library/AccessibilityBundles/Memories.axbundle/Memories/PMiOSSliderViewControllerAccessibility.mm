@@ -2,6 +2,8 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axSetMemoriesEditSliderType:(int64_t)type;
+- (void)_setFontStyleForCell:(id)cell highlighted:(BOOL)highlighted;
+- (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate;
 - (void)scrollViewWillBeginDragging:(id)dragging;
 - (void)setSelectedItem:(int64_t)item;
 - (void)viewDidLayoutSubviews;
@@ -84,10 +86,7 @@
 
 uint64_t __84__PMiOSSliderViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) displayNameForIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) displayNameForIndex:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -119,10 +118,7 @@ uint64_t __84__PMiOSSliderViewControllerAccessibility__accessibilityLoadAccessib
 
 uint64_t __58__PMiOSSliderViewControllerAccessibility_setSelectedItem___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) displayNameForIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) displayNameForIndex:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -135,12 +131,65 @@ uint64_t __58__PMiOSSliderViewControllerAccessibility_setSelectedItem___block_in
   [(PMiOSSliderViewControllerAccessibility *)self _setAXDraggingSlider:1];
 }
 
+- (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate
+{
+  v5.receiver = self;
+  v5.super_class = PMiOSSliderViewControllerAccessibility;
+  [(PMiOSSliderViewControllerAccessibility *)&v5 scrollViewDidEndDragging:dragging willDecelerate:decelerate];
+  [(PMiOSSliderViewControllerAccessibility *)self _setAXDraggingSlider:0];
+}
+
+- (void)_setFontStyleForCell:(id)cell highlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  cellCopy = cell;
+  v23.receiver = self;
+  v23.super_class = PMiOSSliderViewControllerAccessibility;
+  [(PMiOSSliderViewControllerAccessibility *)&v23 _setFontStyleForCell:cellCopy highlighted:highlightedCopy];
+  if ([(PMiOSSliderViewControllerAccessibility *)self _axDraggingSlider]&& highlightedCopy)
+  {
+    objc_opt_class();
+    v7 = [(PMiOSSliderViewControllerAccessibility *)self safeValueForKeyPath:@"collectionView"];
+    v8 = __UIAccessibilityCastAsClass();
+
+    v9 = [v8 indexPathForCell:cellCopy];
+    v10 = [(PMiOSSliderViewControllerAccessibility *)self safeValueForKey:@"provider"];
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy_;
+    v21 = __Block_byref_object_dispose_;
+    v22 = 0;
+    v11 = v10;
+    v12 = v9;
+    AXPerformSafeBlock();
+    v13 = v18[5];
+
+    _Block_object_dispose(&v17, 8);
+    _axLastSpokenSliderDescription = [(PMiOSSliderViewControllerAccessibility *)self _axLastSpokenSliderDescription];
+    v15 = [v13 isEqualToString:_axLastSpokenSliderDescription];
+
+    if ((v15 & 1) == 0)
+    {
+      if ([v13 isEqualToString:@"●"])
+      {
+        v16 = accessibilityMemoriesLocalizedString(@"slider.value.neutral");
+        UIAccessibilitySpeak();
+      }
+
+      else
+      {
+        UIAccessibilitySpeak();
+      }
+
+      [(PMiOSSliderViewControllerAccessibility *)self _setAXLastSpokenSliderDescription:v13];
+    }
+  }
+}
+
 uint64_t __75__PMiOSSliderViewControllerAccessibility__setFontStyleForCell_highlighted___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) displayNameForIndex:{objc_msgSend(*(a1 + 40), "item")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) displayNameForIndex:{objc_msgSend(*(a1 + 40), "item")}];
 
   return MEMORY[0x2A1C71028]();
 }

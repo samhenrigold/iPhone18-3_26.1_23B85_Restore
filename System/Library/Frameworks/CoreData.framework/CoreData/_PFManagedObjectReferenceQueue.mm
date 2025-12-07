@@ -61,11 +61,11 @@
 
 - (void)_processReferenceQueue:(uint64_t)queue
 {
-  v40 = a2;
-  v51 = *MEMORY[0x1E69E9840];
+  v39 = a2;
+  v50 = *MEMORY[0x1E69E9840];
   if (queue)
   {
-    if (v40)
+    if (v39)
     {
       v3 = 9999;
       goto LABEL_6;
@@ -86,18 +86,18 @@ LABEL_6:
         os_unfair_lock_unlock((queue + 12));
         if (!v5)
         {
-          break;
+          return;
         }
 
         Count = CFArrayGetCount(v5);
         if (!Count)
         {
           CFRelease(v5);
-          break;
+          return;
         }
 
         v6 = *(queue + 24);
-        if ((v40 & 1) == 0 && v6)
+        if ((v39 & 1) == 0 && v6)
         {
           if (!*(v6 + 16))
           {
@@ -110,18 +110,18 @@ LABEL_6:
             v34 = objc_alloc(MEMORY[0x1E695DF70]);
             v7 = [v34 initWithCapacity:Count];
             v8 = 0;
-            v39 = _isDeallocating ^ 1;
+            v38 = _isDeallocating ^ 1;
             goto LABEL_15;
           }
 
           v6 = 0;
         }
 
-        v39 = 0;
+        v38 = 0;
         v7 = 0;
         if (v6)
         {
-          v8 = v40;
+          v8 = v39;
         }
 
         else
@@ -130,10 +130,10 @@ LABEL_6:
         }
 
 LABEL_15:
-        v45 = v7;
-        v36[1] = v36;
-        MEMORY[0x1EEE9AC00]();
-        v11 = v36 - v9;
+        v44 = v7;
+        v35[1] = v35;
+        MEMORY[0x1EEE9AC00](v7);
+        v11 = v35 - v9;
         if (v10 > 0x200)
         {
           v11 = NSAllocateScannedUncollectable();
@@ -141,45 +141,45 @@ LABEL_15:
 
         else
         {
-          bzero(v36 - v9, 8 * v10);
+          bzero(v35 - v9, 8 * v10);
         }
 
-        v52.location = 0;
-        v52.length = Count;
-        v43 = v11;
-        CFArrayGetValues(v5, v52, v11);
-        v41 = objc_autoreleasePoolPush();
-        v37 = v5;
-        v38 = v3;
+        v51.location = 0;
+        v51.length = Count;
+        v42 = v11;
+        CFArrayGetValues(v5, v51, v11);
+        v40 = objc_autoreleasePoolPush();
+        v36 = v5;
+        v37 = v3;
         *(queue + 48) = 1;
         if (Count >= 1)
         {
           for (i = 0; i < Count; ++i)
           {
-            v13 = v43[i];
+            v13 = v42[i];
             if (v13 == 1)
             {
-              v42 = i + 1;
-              v17 = v43[i + 1];
-              v48 = 0u;
-              v49 = 0u;
+              v41 = i + 1;
+              v17 = v42[i + 1];
               v47 = 0u;
+              v48 = 0u;
               v46 = 0u;
-              v18 = [v17 countByEnumeratingWithState:&v46 objects:v50 count:16];
+              v45 = 0u;
+              v18 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
               if (v18)
               {
-                v19 = *v47;
+                v19 = *v46;
                 do
                 {
                   for (j = 0; j != v18; ++j)
                   {
-                    if (*v47 != v19)
+                    if (*v46 != v19)
                     {
                       objc_enumerationMutation(v17);
                     }
 
                     v21 = 0;
-                    v22 = *(*(&v46 + 1) + 8 * j);
+                    v22 = *(*(&v45 + 1) + 8 * j);
                     atomic_compare_exchange_strong((v22 + 8), &v21, 1u);
                     if (v21)
                     {
@@ -202,7 +202,7 @@ LABEL_15:
                             v24 = objectID;
                             if (([objectID isTemporaryID] & 1) == 0)
                             {
-                              [v45 addObject:v24];
+                              [v44 addObject:v24];
                             }
                           }
                         }
@@ -219,7 +219,7 @@ LABEL_15:
                     }
                   }
 
-                  v18 = [v17 countByEnumeratingWithState:&v46 objects:v50 count:16];
+                  v18 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
                 }
 
                 while (v18);
@@ -230,7 +230,7 @@ LABEL_15:
                 CFRelease(v17);
               }
 
-              i = v42;
+              i = v41;
             }
 
             else
@@ -258,7 +258,7 @@ LABEL_15:
                       v16 = objectID2;
                       if (([objectID2 isTemporaryID] & 1) == 0)
                       {
-                        [v45 addObject:v16];
+                        [v44 addObject:v16];
                       }
                     }
                   }
@@ -277,7 +277,7 @@ LABEL_15:
           }
         }
 
-        if ((v8 & 1) != 0 || ![v45 count])
+        if ((v8 & 1) != 0 || ![v44 count])
         {
           v26 = 0;
         }
@@ -288,12 +288,12 @@ LABEL_15:
           v25 = *(v6 + 32);
           v26 = 1;
           _queryGenerationToken = [v6 _queryGenerationToken];
-          [v25 managedObjectContextDidUnregisterObjectsWithIDs:v45 generation:_queryGenerationToken];
+          [v25 managedObjectContextDidUnregisterObjectsWithIDs:v44 generation:_queryGenerationToken];
         }
 
-        v28 = v38;
-        v29 = v37;
-        if (v45)
+        v28 = v37;
+        v29 = v36;
+        if (v44)
         {
         }
 
@@ -304,16 +304,16 @@ LABEL_15:
 
         if (Count >= 0x201)
         {
-          NSZoneFree(0, v43);
+          NSZoneFree(0, v42);
         }
 
-        if (v39)
+        if (v38)
         {
         }
 
-        if (v41)
+        if (v40)
         {
-          objc_autoreleasePoolPop(v41);
+          objc_autoreleasePoolPop(v40);
         }
 
         *(queue + 48) = 0;
@@ -327,8 +327,6 @@ LABEL_15:
       while (!v31);
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_queueForDealloc:(uint64_t)dealloc

@@ -13,6 +13,7 @@
 - (HMDResidentReachabilityNotificationManager)initWithResidentReachabilityContext:(id)context workQueue:(id)queue timerFactory:(id)factory bulletinBoard:(id)board;
 - (id)_createTimer;
 - (id)logIdentifier;
+- (void)_evaluateReachabilityBulletinAndPostponeUnreachableBulletin:(BOOL)bulletin;
 - (void)_handleCameraProfileSettingsDidChange:(id)change;
 - (void)_handleCameraProfileUnconfigured:(id)unconfigured;
 - (void)_handleNetworkReachabilityChange:(id)change;
@@ -62,7 +63,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDResidentReachabilityNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -77,9 +78,9 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Debounce timer fired", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Debounce timer fired", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -97,22 +98,20 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Unreachable Bulletin Timer fired", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Unreachable Bulletin Timer fired", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     [(HMDResidentReachabilityNotificationManager *)selfCopy2 setUnreachableBulletinDebounceTimer:0];
     [(HMDResidentReachabilityNotificationManager *)selfCopy2 _evaluateReachabilityBulletinAndPostponeUnreachableBulletin:0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createTimer
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDResidentReachabilityNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -130,9 +129,9 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v22 = 138543362;
-        v23 = v10;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@ResidentReachabilityNotificationAfterConnectivityDelay from IDS is 0.0 so disabling and not posting reachability notification", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = v10;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@ResidentReachabilityNotificationAfterConnectivityDelay from IDS is 0.0 so disabling and not posting reachability notification", &v21, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -155,11 +154,11 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v17;
-    v24 = 2048;
-    v25 = v12;
-    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Creating time for %f", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v17;
+    v23 = 2048;
+    v24 = v12;
+    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Creating time for %f", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -173,14 +172,12 @@
   [v11 resume];
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)_startUnreachableBulletinDebounceTimer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   unreachableBulletinDebounceTimer = [(HMDResidentReachabilityNotificationManager *)self unreachableBulletinDebounceTimer];
 
   if (unreachableBulletinDebounceTimer)
@@ -192,25 +189,23 @@ LABEL_11:
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v7;
+      v10 = v7;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Unreachable bulletin timer already active", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     _createTimer = [(HMDResidentReachabilityNotificationManager *)self _createTimer];
     [(HMDResidentReachabilityNotificationManager *)self setUnreachableBulletinDebounceTimer:?];
-    v9 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_startDebounceTimer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   evaluateDebounceTimer = [(HMDResidentReachabilityNotificationManager *)self evaluateDebounceTimer];
 
   if (evaluateDebounceTimer)
@@ -222,19 +217,17 @@ LABEL_11:
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v7;
+      v10 = v7;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Debounce timer already active", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     _createTimer = [(HMDResidentReachabilityNotificationManager *)self _createTimer];
     [(HMDResidentReachabilityNotificationManager *)self setEvaluateDebounceTimer:?];
-    v9 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -293,29 +286,29 @@ uint64_t __97__HMDResidentReachabilityNotificationManager_anyEnabledResidentSupp
 
 - (BOOL)isReachabilityEventNotificationEnabledForAnyCamera
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   home = [(HMDResidentReachabilityNotificationManager *)self home];
   accessories = [home accessories];
 
-  v21 = [accessories countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v21)
+  v20 = [accessories countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v20)
   {
-    v4 = *v27;
-    v20 = *v27;
+    v4 = *v26;
+    v19 = *v26;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v27 != v4)
+        if (*v26 != v4)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * i);
+        v6 = *(*(&v25 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -329,26 +322,26 @@ uint64_t __97__HMDResidentReachabilityNotificationManager_anyEnabledResidentSupp
 
         v8 = v7;
 
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         cameraProfiles = [v8 cameraProfiles];
-        v10 = [cameraProfiles countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [cameraProfiles countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v23;
+          v12 = *v22;
           while (2)
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v23 != v12)
+              if (*v22 != v12)
               {
                 objc_enumerationMutation(cameraProfiles);
               }
 
-              currentSettings = [*(*(&v22 + 1) + 8 * j) currentSettings];
+              currentSettings = [*(*(&v21 + 1) + 8 * j) currentSettings];
               if (([currentSettings supportedFeatures] & 2) != 0)
               {
                 notificationSettings = [currentSettings notificationSettings];
@@ -367,7 +360,7 @@ uint64_t __97__HMDResidentReachabilityNotificationManager_anyEnabledResidentSupp
               }
             }
 
-            v11 = [cameraProfiles countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v11 = [cameraProfiles countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v11)
             {
               continue;
@@ -377,14 +370,14 @@ uint64_t __97__HMDResidentReachabilityNotificationManager_anyEnabledResidentSupp
           }
         }
 
-        v4 = v20;
+        v4 = v19;
       }
 
       v17 = 0;
-      v21 = [accessories countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v20 = [accessories countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   else
@@ -394,7 +387,6 @@ uint64_t __97__HMDResidentReachabilityNotificationManager_anyEnabledResidentSupp
 
 LABEL_24:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -442,9 +434,230 @@ uint64_t __67__HMDResidentReachabilityNotificationManager_hasReachableResidents_
   return v4;
 }
 
+- (void)_evaluateReachabilityBulletinAndPostponeUnreachableBulletin:(BOOL)bulletin
+{
+  v48 = *MEMORY[0x277D85DE8];
+  workQueue = [(HMDResidentReachabilityNotificationManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  deviceMonitor = [(HMDResidentReachabilityNotificationManager *)self deviceMonitor];
+  isReachable = [deviceMonitor isReachable];
+
+  if (isReachable)
+  {
+    evaluateDebounceTimer = [(HMDResidentReachabilityNotificationManager *)self evaluateDebounceTimer];
+
+    if (evaluateDebounceTimer)
+    {
+      v8 = objc_autoreleasePoolPush();
+      selfCopy3 = self;
+      v10 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = HMFGetLogIdentifier();
+        v46 = 138543362;
+        v47 = v11;
+        v12 = "%{public}@Debounce timer active, delaying check";
+LABEL_22:
+        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, v12, &v46, 0xCu);
+
+        goto LABEL_23;
+      }
+
+      goto LABEL_23;
+    }
+
+    if (![(HMDResidentReachabilityNotificationManager *)self anyEnabledResidentSupportsReachabilityNotifications])
+    {
+      v8 = objc_autoreleasePoolPush();
+      selfCopy3 = self;
+      v10 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = HMFGetLogIdentifier();
+        v46 = 138543362;
+        v47 = v11;
+        v12 = "%{public}@No enabled resident supports Reachability Notifications";
+        goto LABEL_22;
+      }
+
+LABEL_23:
+
+      objc_autoreleasePoolPop(v8);
+      return;
+    }
+
+    if (![(HMDResidentReachabilityNotificationManager *)self notificationEnabled])
+    {
+      v8 = objc_autoreleasePoolPush();
+      selfCopy3 = self;
+      v10 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = HMFGetLogIdentifier();
+        v46 = 138543362;
+        v47 = v11;
+        v12 = "%{public}@There is no camera or all camera settings disabled reachability notification";
+        goto LABEL_22;
+      }
+
+      goto LABEL_23;
+    }
+
+    home = [(HMDResidentReachabilityNotificationManager *)self home];
+    if (home)
+    {
+      if ([(HMDResidentReachabilityNotificationManager *)self hasReachableResidents])
+      {
+        unreachableBulletinDebounceTimer = [(HMDResidentReachabilityNotificationManager *)self unreachableBulletinDebounceTimer];
+        [unreachableBulletinDebounceTimer cancel];
+
+        [(HMDResidentReachabilityNotificationManager *)self setUnreachableBulletinDebounceTimer:0];
+        v19 = objc_autoreleasePoolPush();
+        selfCopy4 = self;
+        v21 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        {
+          v22 = HMFGetLogIdentifier();
+          v46 = 138543362;
+          v47 = v22;
+          _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Home has reachable residents supporting notification", &v46, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v19);
+        shouldPostReachableNotification = [(HMDResidentReachabilityNotificationManager *)selfCopy4 shouldPostReachableNotification];
+        v24 = objc_autoreleasePoolPush();
+        selfCopy6 = selfCopy4;
+        v26 = HMFGetOSLogHandle();
+        v27 = v26;
+        if (shouldPostReachableNotification)
+        {
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+          {
+            v28 = HMFGetLogIdentifier();
+            v46 = 138543362;
+            v47 = v28;
+            _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Posting reachable notification", &v46, 0xCu);
+          }
+
+          objc_autoreleasePoolPop(v24);
+          bulletinBoard = [(HMDResidentReachabilityNotificationManager *)selfCopy6 bulletinBoard];
+          [bulletinBoard insertHomeHubReachabilityBulletinForHome:home reachable:1 hasMultipleResidents:{-[HMDResidentReachabilityNotificationManager hasMultipleResidents](selfCopy6, "hasMultipleResidents")}];
+
+          v30 = [HMDResidentReachabilityContext alloc];
+          v31 = [(HMDResidentReachabilityContext *)v30 initWithMostRecentReachability:MEMORY[0x277CBEC38]];
+          [(HMDResidentReachabilityNotificationManager *)selfCopy6 setReachabilityContext:v31];
+
+          v32 = @"Posted reachable resident notification";
+LABEL_33:
+          [home saveToCurrentAccountWithReason:v32];
+LABEL_40:
+
+          return;
+        }
+
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        {
+          v33 = HMFGetLogIdentifier();
+          v46 = 138543362;
+          v47 = v33;
+          v34 = "%{public}@Not posting reachable notification due to no previous unreachable notification posted or previously posting reachable notification";
+          goto LABEL_38;
+        }
+      }
+
+      else
+      {
+        v35 = objc_autoreleasePoolPush();
+        selfCopy5 = self;
+        v37 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        {
+          v38 = HMFGetLogIdentifier();
+          v46 = 138543362;
+          v47 = v38;
+          _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@Home does not have reachable residents supporting camera recording", &v46, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v35);
+        if ([(HMDResidentReachabilityNotificationManager *)selfCopy5 shouldPostUnreachableNotification])
+        {
+          [(HMDResidentReachabilityNotificationManager *)selfCopy5 setUnreachableBulletinDebounceTimer:0];
+          v39 = objc_autoreleasePoolPush();
+          v40 = selfCopy5;
+          v41 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          {
+            v42 = HMFGetLogIdentifier();
+            v46 = 138543362;
+            v47 = v42;
+            _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_INFO, "%{public}@Posting unreachable notification", &v46, 0xCu);
+          }
+
+          objc_autoreleasePoolPop(v39);
+          bulletinBoard2 = [(HMDResidentReachabilityNotificationManager *)v40 bulletinBoard];
+          [bulletinBoard2 insertHomeHubReachabilityBulletinForHome:home reachable:0 hasMultipleResidents:{-[HMDResidentReachabilityNotificationManager hasMultipleResidents](v40, "hasMultipleResidents")}];
+
+          v44 = [HMDResidentReachabilityContext alloc];
+          v45 = [(HMDResidentReachabilityContext *)v44 initWithMostRecentReachability:MEMORY[0x277CBEC28]];
+          [(HMDResidentReachabilityNotificationManager *)v40 setReachabilityContext:v45];
+
+          v32 = @"Posted no reachable resident notification";
+          goto LABEL_33;
+        }
+
+        v24 = objc_autoreleasePoolPush();
+        selfCopy6 = selfCopy5;
+        v27 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        {
+          v33 = HMFGetLogIdentifier();
+          v46 = 138543362;
+          v47 = v33;
+          v34 = "%{public}@Not posting unreachable notification due to previously posting unreachable notification";
+          goto LABEL_38;
+        }
+      }
+    }
+
+    else
+    {
+      v24 = objc_autoreleasePoolPush();
+      selfCopy6 = self;
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        v33 = HMFGetLogIdentifier();
+        v46 = 138543362;
+        v47 = v33;
+        v34 = "%{public}@Our home has been deallocated";
+LABEL_38:
+        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_DEFAULT, v34, &v46, 0xCu);
+      }
+    }
+
+    objc_autoreleasePoolPop(v24);
+    goto LABEL_40;
+  }
+
+  v13 = objc_autoreleasePoolPush();
+  selfCopy7 = self;
+  v15 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    v16 = HMFGetLogIdentifier();
+    v46 = 138543362;
+    v47 = v16;
+    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Network unreachable, clearing debounce timer and delaying check until reachable", &v46, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v13);
+  [(HMDResidentReachabilityNotificationManager *)selfCopy7 setEvaluateDebounceTimer:0];
+}
+
 - (void)updateNotificationEnabled
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDResidentReachabilityNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -461,11 +674,11 @@ uint64_t __67__HMDResidentReachabilityNotificationManager_hasReachableResidents_
       v15 = HMFGetLogIdentifier();
       [(HMDResidentReachabilityNotificationManager *)selfCopy notificationEnabled];
       v16 = HMFEnabledStatusToString();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v16;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Resident reachability notifications not changing from %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Resident reachability notifications not changing from %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -479,13 +692,13 @@ uint64_t __67__HMDResidentReachabilityNotificationManager_hasReachableResidents_
       [(HMDResidentReachabilityNotificationManager *)selfCopy notificationEnabled];
       v11 = HMFEnabledStatusToString();
       v12 = HMFEnabledStatusToString();
-      v18 = 138543874;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v12;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Updating resident reachability notifications from %@ -> %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v12;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Updating resident reachability notifications from %@ -> %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -499,8 +712,6 @@ uint64_t __67__HMDResidentReachabilityNotificationManager_hasReachableResidents_
       [home saveToCurrentAccountWithReason:@"Camera reachability notification disabled"];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCameraProfileUnconfigured:(id)unconfigured
@@ -516,22 +727,20 @@ uint64_t __67__HMDResidentReachabilityNotificationManager_hasReachableResidents_
 
 uint64_t __79__HMDResidentReachabilityNotificationManager__handleCameraProfileUnconfigured___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received a camera profile is unconfigured, updating notification enabled if needed", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received a camera profile is unconfigured, updating notification enabled if needed", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) updateNotificationEnabled];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) updateNotificationEnabled];
 }
 
 - (void)_handleCameraProfileSettingsDidChange:(id)change
@@ -550,46 +759,40 @@ uint64_t __79__HMDResidentReachabilityNotificationManager__handleCameraProfileUn
 
 uint64_t __84__HMDResidentReachabilityNotificationManager__handleCameraProfileSettingsDidChange___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received camera profile settings did change notification, updating notification enabled if needed", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received camera profile settings did change notification, updating notification enabled if needed", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = [*(a1 + 40) userInfo];
   v7 = [v6 hmf_BOOLForKey:@"HMDCameraProfileSettingsIsInitialSettingsUpdateNotificationKey"];
 
-  if (v7)
+  if (!v7)
   {
-    v8 = objc_autoreleasePoolPush();
-    v9 = *(a1 + 32);
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Initial settings update", &v14, 0xCu);
-    }
-
-    objc_autoreleasePoolPop(v8);
-    result = [*(a1 + 32) setNotificationEnabled:{objc_msgSend(*(a1 + 32), "isReachabilityEventNotificationEnabledForAnyCamera")}];
+    return [*(a1 + 32) updateNotificationEnabled];
   }
 
-  else
+  v8 = objc_autoreleasePoolPush();
+  v9 = *(a1 + 32);
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    result = [*(a1 + 32) updateNotificationEnabled];
+    v11 = HMFGetLogIdentifier();
+    v13 = 138543362;
+    v14 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Initial settings update", &v13, 0xCu);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  objc_autoreleasePoolPop(v8);
+  return [*(a1 + 32) setNotificationEnabled:{objc_msgSend(*(a1 + 32), "isReachabilityEventNotificationEnabledForAnyCamera")}];
 }
 
 - (void)_handleResidentUpdated:(id)updated
@@ -608,7 +811,7 @@ uint64_t __84__HMDResidentReachabilityNotificationManager__handleCameraProfileSe
 
 uint64_t __69__HMDResidentReachabilityNotificationManager__handleResidentUpdated___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -617,18 +820,16 @@ uint64_t __69__HMDResidentReachabilityNotificationManager__handleResidentUpdated
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) home];
     v7 = [v6 name];
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Resident Reachability changed, checking home: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Resident Reachability changed, checking home: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 32) _updatePrimaryResidentLostTime:*(a1 + 40)];
-  result = [*(a1 + 32) _evaluateReachabilityBulletinAndPostponeUnreachableBulletin:1];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _evaluateReachabilityBulletinAndPostponeUnreachableBulletin:1];
 }
 
 - (void)_updatePrimaryResidentLostTime:(id)time
@@ -687,7 +888,7 @@ uint64_t __69__HMDResidentReachabilityNotificationManager__handleResidentUpdated
 
 void __69__HMDResidentReachabilityNotificationManager__handleResidentRemoved___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setEvaluateDebounceTimer:0];
   v2 = [*(a1 + 32) anyEnabledResidentSupportsReachabilityNotifications];
   v3 = objc_autoreleasePoolPush();
@@ -699,9 +900,9 @@ void __69__HMDResidentReachabilityNotificationManager__handleResidentRemoved___b
     if (v6)
     {
       v7 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@A resident was removed, starting debounce timer", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@A resident was removed, starting debounce timer", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -713,9 +914,9 @@ void __69__HMDResidentReachabilityNotificationManager__handleResidentRemoved___b
     if (v6)
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Last resident was reomved", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Last resident was reomved", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -725,8 +926,6 @@ void __69__HMDResidentReachabilityNotificationManager__handleResidentRemoved___b
     v10 = [*(a1 + 32) home];
     [v10 saveToCurrentAccountWithReason:@"All residents were removed"];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleResidentAdded:(id)added
@@ -742,7 +941,7 @@ void __69__HMDResidentReachabilityNotificationManager__handleResidentRemoved___b
 
 uint64_t __67__HMDResidentReachabilityNotificationManager__handleResidentAdded___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -757,18 +956,16 @@ uint64_t __67__HMDResidentReachabilityNotificationManager__handleResidentAdded__
       v8 = @"re";
     }
 
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@A resident was added, %@starting debounce timer", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@A resident was added, %@starting debounce timer", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 32) setEvaluateDebounceTimer:0];
-  result = [*(a1 + 32) _startDebounceTimer];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _startDebounceTimer];
 }
 
 - (void)_handleNetworkReachabilityChange:(id)change
@@ -784,7 +981,7 @@ uint64_t __67__HMDResidentReachabilityNotificationManager__handleResidentAdded__
 
 uint64_t __79__HMDResidentReachabilityNotificationManager__handleNetworkReachabilityChange___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) deviceMonitor];
   v3 = [v2 isReachable];
 
@@ -797,13 +994,13 @@ uint64_t __79__HMDResidentReachabilityNotificationManager__handleNetworkReachabi
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Network became reachable, starting debounce timer", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Network became reachable, starting debounce timer", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    result = [*(a1 + 32) _startDebounceTimer];
+    return [*(a1 + 32) _startDebounceTimer];
   }
 
   else
@@ -811,17 +1008,14 @@ uint64_t __79__HMDResidentReachabilityNotificationManager__handleNetworkReachabi
     if (v7)
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Network became unreachable, clearing debounce timer", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Network became unreachable, clearing debounce timer", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    result = [*(a1 + 32) setEvaluateDebounceTimer:0];
+    return [*(a1 + 32) setEvaluateDebounceTimer:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)configureWithHome:(id)home deviceMonitor:(id)monitor notificationCenter:(id)center idsServerBag:(id)bag completionHandler:(id)handler
@@ -854,16 +1048,16 @@ uint64_t __79__HMDResidentReachabilityNotificationManager__handleNetworkReachabi
 
 uint64_t __128__HMDResidentReachabilityNotificationManager_configureWithHome_deviceMonitor_notificationCenter_idsServerBag_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Starting debounce timer", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Starting debounce timer", &v16, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -890,10 +1084,9 @@ uint64_t __128__HMDResidentReachabilityNotificationManager_configureWithHome_dev
   result = *(a1 + 64);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -964,12 +1157,11 @@ id __92__HMDResidentReachabilityNotificationManager_initWithResidentReachability
 
 uint64_t __57__HMDResidentReachabilityNotificationManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v32_138539;
-  logCategory__hmf_once_v32_138539 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v32_138539;
+  logCategory__hmf_once_v32_138539 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

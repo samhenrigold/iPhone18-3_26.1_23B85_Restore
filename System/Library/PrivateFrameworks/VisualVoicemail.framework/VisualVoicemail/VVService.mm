@@ -66,6 +66,7 @@
 - (void)handleVoicemailInfoUpdate:(id)update;
 - (void)incrementAttemptCountForStateRequest:(id)request;
 - (void)kill;
+- (void)networkReachabilityChangedSync:(BOOL)sync;
 - (void)performAtomicAccessorBlock:(id)block;
 - (void)performSynchronousBlock:(id)block;
 - (void)progressiveDataLengthsForRecord:(void *)record expected:(unsigned int *)expected current:(unsigned int *)current;
@@ -87,6 +88,7 @@
 - (void)setMailboxUsageCache:(unint64_t)cache;
 - (void)setMailboxUsageUpdated:(BOOL)updated;
 - (void)setMessageWaiting:(BOOL)waiting;
+- (void)setOnline:(BOOL)online;
 - (void)setPassword:(id)password;
 - (void)setProvisionalPassword:(id)password;
 - (void)setSMSReady:(BOOL)ready;
@@ -129,8 +131,7 @@
 
     v8 = v7[1];
 LABEL_7:
-    [(VVService *)self setTrashCompactionAge:v8];
-    v9 = sub_100002674();
+    v9 = sub_100002674([(VVService *)self setTrashCompactionAge:v8]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315906;
@@ -153,99 +154,100 @@ LABEL_7:
 - (BOOL)shouldTrashCompactRecord:(id)record record:(void *)a4
 {
   recordCopy = record;
-  v7 = sub_100092B0C(recordCopy, a4);
+  sub_100092B0C(recordCopy, a4);
   if ((v7 & 0x4C) != 8)
   {
-    v17 = v7;
-    v13 = sub_100002674();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v20 = v7;
+    v16 = sub_100002674(v7);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
-    v22 = 136315650;
+    v25 = 136315650;
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-    v24 = 2080;
-    v25 = " ";
-    v26 = 2048;
-    *&v27 = v17;
-    v18 = "#I %s%sCOMPACTION: shouldCompactTrashRecord = no, since flags = %lu";
-    v19 = v13;
-    v20 = 32;
+    v27 = 2080;
+    v28 = " ";
+    v29 = 2048;
+    *&v30 = v20;
+    v21 = "#I %s%sCOMPACTION: shouldCompactTrashRecord = no, since flags = %lu";
+    v22 = v16;
+    v23 = 32;
 LABEL_14:
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, &v22, v20);
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v21, &v25, v23);
     goto LABEL_15;
   }
 
-  [(VVService *)self trashCompactionAge];
-  v9 = v8;
-  if (v8 >= 1.79769313e308)
+  trashCompactionAge = [(VVService *)self trashCompactionAge];
+  v10 = v9;
+  if (v9 >= 1.79769313e308)
   {
-    v13 = sub_100002674();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100002674(trashCompactionAge);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
-    v22 = 136315394;
+    v25 = 136315394;
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-    v24 = 2080;
-    v25 = " ";
-    v18 = "#I %s%sCOMPACTION: shouldCompactTrashRecord = no, since compactionAge >= DBL_MAX";
-    v19 = v13;
-    v20 = 22;
+    v27 = 2080;
+    v28 = " ";
+    v21 = "#I %s%sCOMPACTION: shouldCompactTrashRecord = no, since compactionAge >= DBL_MAX";
+    v22 = v16;
+    v23 = 22;
     goto LABEL_14;
   }
 
-  v10 = sub_1000928B0(recordCopy, a4);
-  v11 = v10;
+  sub_1000928B0(recordCopy, a4);
+  v12 = v11;
+  v13 = v11;
   Current = CFAbsoluteTimeGetCurrent();
-  v13 = sub_100002674();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-  if (!v10 || (v15 = Current - v11, Current - v11 < v9))
+  v16 = sub_100002674(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  if (!v12 || (v18 = Current - v13, Current - v13 < v10))
   {
-    if (v14)
+    if (v17)
     {
-      v22 = 136316162;
+      v25 = 136316162;
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-      v24 = 2080;
-      v25 = " ";
-      v26 = 2048;
-      v27 = Current;
-      v28 = 2048;
-      v29 = v10;
-      v30 = 2048;
-      v31 = v9;
-      v18 = "#I %s%sCOMPACTION: shouldCompactTrashRecord = no, since current time (%f) minus trashed date (%f) < compactionAge (%f)";
-      v19 = v13;
-      v20 = 52;
+      v27 = 2080;
+      v28 = " ";
+      v29 = 2048;
+      v30 = Current;
+      v31 = 2048;
+      v32 = v13;
+      v33 = 2048;
+      v34 = v10;
+      v21 = "#I %s%sCOMPACTION: shouldCompactTrashRecord = no, since current time (%f) minus trashed date (%f) < compactionAge (%f)";
+      v22 = v16;
+      v23 = 52;
       goto LABEL_14;
     }
 
 LABEL_15:
-    v16 = 0;
+    v19 = 0;
     goto LABEL_16;
   }
 
-  if (v14)
+  if (v17)
   {
-    v22 = 136316162;
+    v25 = 136316162;
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-    v24 = 2080;
-    v25 = " ";
-    v26 = 2048;
-    v27 = Current;
-    v28 = 2048;
-    v29 = v10;
-    v30 = 2048;
-    v31 = v9;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: shouldCompactTrashRecord = yes, since current time (%f) minus trashed date (%f) >= compactionAge (%f)", &v22, 0x34u);
+    v27 = 2080;
+    v28 = " ";
+    v29 = 2048;
+    v30 = Current;
+    v31 = 2048;
+    v32 = v13;
+    v33 = 2048;
+    v34 = v10;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: shouldCompactTrashRecord = yes, since current time (%f) minus trashed date (%f) >= compactionAge (%f)", &v25, 0x34u);
   }
 
-  v16 = 1;
+  v19 = 1;
 LABEL_16:
 
-  return v16;
+  return v19;
 }
 
 - (BOOL)doTrashCompaction:(id)compaction
@@ -263,7 +265,7 @@ LABEL_16:
   {
     CFRelease(v6);
 LABEL_17:
-    v20 = 0;
+    v21 = 0;
     goto LABEL_18;
   }
 
@@ -274,7 +276,7 @@ LABEL_17:
     ValueAtIndex = CFArrayGetValueAtIndex(v6, i);
     if ([(VVService *)self shouldTrashCompactRecord:compactionCopy record:ValueAtIndex])
     {
-      v12 = sub_100092B0C(compactionCopy, ValueAtIndex);
+      sub_100092B0C(compactionCopy, ValueAtIndex);
       if (([(VVService *)self supportsDetachedStorage]& ((v12 & 2) >> 1)) != 0)
       {
         v13 = 64;
@@ -287,23 +289,24 @@ LABEL_17:
 
       sub_100092B54(compactionCopy, ValueAtIndex, v13);
       v14 = VMStoreRecordCopyDescription(ValueAtIndex);
-      v15 = sub_100002674();
+      v15 = sub_100002674(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-        v17 = sub_10009278C(compactionCopy, ValueAtIndex);
+        sub_10009278C(compactionCopy, ValueAtIndex);
+        v18 = v17;
         Current = CFAbsoluteTimeGetCurrent();
-        v19 = sub_1000928B0(compactionCopy, ValueAtIndex);
+        sub_1000928B0(compactionCopy, ValueAtIndex);
         *buf = 136316162;
-        v23 = getServiceObjLogPrefix;
-        v24 = 2080;
-        v25 = " ";
-        v26 = 1024;
-        v27 = v17;
-        v28 = 2112;
-        v29 = v14;
-        v30 = 1024;
-        v31 = ((Current - v19) / 86400.0);
+        v24 = getServiceObjLogPrefix;
+        v25 = 2080;
+        v26 = " ";
+        v27 = 1024;
+        v28 = v18;
+        v29 = 2112;
+        v30 = v14;
+        v31 = 1024;
+        v32 = ((Current - v20) / 86400.0);
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sTRASH: UID %u record %@ being deleted by trash compactor (it is %d days old)", buf, 0x2Cu);
       }
 
@@ -323,10 +326,10 @@ LABEL_17:
   }
 
   [compactionCopy save];
-  v20 = 1;
+  v21 = 1;
 LABEL_18:
 
-  return v20;
+  return v21;
 }
 
 - (void)_carrierBundleChanged
@@ -1045,6 +1048,34 @@ LABEL_18:
   }
 }
 
+- (void)setOnline:(BOOL)online
+{
+  if ((*&self->_serviceFlags & 1) == online)
+  {
+    onlineCopy = online;
+    v5 = sub_100026660(self->logger.__ptr_);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
+      v7 = @"OFFLINE";
+      if (onlineCopy)
+      {
+        v7 = @"ONLINE";
+      }
+
+      v8 = 136315650;
+      v9 = getServiceObjLogPrefix;
+      v10 = 2080;
+      v11 = " ";
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sVoicemail offline status: %@", &v8, 0x20u);
+    }
+
+    [(VVService *)self _setOnline:onlineCopy fallbackMode:(*&self->_serviceFlags >> 6) & 1];
+  }
+}
+
 - (BOOL)_isOfflineDueToRoamingWithDataStatusDict:(__CFDictionary *)dict
 {
   if (dict)
@@ -1685,7 +1716,7 @@ LABEL_8:
             break;
           }
 
-          VMStoreRecordSetRemoteUID(ValueAtIndex);
+          VMStoreRecordSetRemoteUID(ValueAtIndex, 0);
           v11 = 1;
           if (Count - 1 == v10++)
           {
@@ -1953,7 +1984,7 @@ LABEL_7:
   if (self->_retryScheduled != scheduled)
   {
     scheduledCopy = scheduled;
-    v5 = sub_10004A3F0();
+    v5 = sub_10004A3F0(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
@@ -2014,7 +2045,7 @@ LABEL_7:
   if (self->_retryImmediate != immediate)
   {
     immediateCopy = immediate;
-    v5 = sub_10004A3F0();
+    v5 = sub_10004A3F0(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
@@ -2052,8 +2083,7 @@ LABEL_7:
 - (void)cancelDelayedSynchronize:(id)synchronize
 {
   synchronizeCopy = synchronize;
-  [(VVService *)self _cancelIndicatorAction];
-  v5 = sub_10004A3F0();
+  v5 = sub_10004A3F0([(VVService *)self _cancelIndicatorAction]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
@@ -2089,7 +2119,7 @@ LABEL_7:
 
 - (void)resetDelayedSynchronizationAttemptCount
 {
-  v3 = sub_10004A3F0();
+  v3 = sub_10004A3F0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
@@ -2120,7 +2150,7 @@ LABEL_7:
 
 - (void)_attemptDelayedSynchronize
 {
-  v3 = sub_10004A3F0();
+  v3 = sub_10004A3F0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
@@ -2178,117 +2208,118 @@ LABEL_7:
 
 - (void)scheduleDelayedSynchronize
 {
-  if ([(VVService *)self isDelayedRetryScheduled])
+  isDelayedRetryScheduled = [(VVService *)self isDelayedRetryScheduled];
+  if (isDelayedRetryScheduled)
   {
-    v3 = sub_10004A3F0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10004A3F0(isDelayedRetryScheduled);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
       retryIntervalIndex = self->_retryIntervalIndex;
       if (byte_10010D948)
       {
-        v6 = 118;
+        v7 = 118;
       }
 
       else
       {
-        v6 = 110;
+        v7 = 110;
       }
 
       *buf = 136315906;
-      v25 = getServiceObjLogPrefix;
-      v26 = 2080;
-      v27 = " ";
-      v28 = 1024;
-      v29 = v6;
+      v27 = getServiceObjLogPrefix;
+      v28 = 2080;
+      v29 = " ";
       v30 = 1024;
-      v31 = retryIntervalIndex;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#I %s%s[%c] Delayed sync is already scheduled, last iteration %d", buf, 0x22u);
+      v31 = v7;
+      v32 = 1024;
+      v33 = retryIntervalIndex;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%s[%c] Delayed sync is already scheduled, last iteration %d", buf, 0x22u);
     }
   }
 
   else
   {
     retryIntervals = [(VVService *)self retryIntervals];
-    v3 = retryIntervals;
-    if (retryIntervals && (v8 = self->_retryIntervalIndex, [retryIntervals count]> v8))
+    v4 = retryIntervals;
+    if (retryIntervals && (v9 = self->_retryIntervalIndex, retryIntervals = [retryIntervals count], retryIntervals > v9))
     {
-      v9 = [v3 objectAtIndex:self->_retryIntervalIndex];
-      unsignedIntValue = [v9 unsignedIntValue];
+      v10 = [v4 objectAtIndex:self->_retryIntervalIndex];
+      unsignedIntValue = [v10 unsignedIntValue];
 
-      v11 = sub_10004A3F0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_10004A3F0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
-        v13 = self->_retryIntervalIndex;
+        v15 = self->_retryIntervalIndex;
         if (byte_10010D948)
         {
-          v14 = 118;
+          v16 = 118;
         }
 
         else
         {
-          v14 = 110;
+          v16 = 110;
         }
 
         *buf = 136316162;
-        v25 = getServiceObjLogPrefix2;
-        v26 = 2080;
-        v27 = " ";
-        v28 = 1024;
-        v29 = v14;
+        v27 = getServiceObjLogPrefix2;
+        v28 = 2080;
+        v29 = " ";
         v30 = 1024;
-        v31 = unsignedIntValue;
+        v31 = v16;
         v32 = 1024;
-        v33 = v13;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%s[%c] Scheduling delayed sync in %u s, iteration %d", buf, 0x28u);
+        v33 = unsignedIntValue;
+        v34 = 1024;
+        v35 = v15;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%s[%c] Scheduling delayed sync in %u s, iteration %d", buf, 0x28u);
       }
 
       [(VVService *)self setDelayedRetryScheduled:1];
-      v15 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_BOOL(v15, XPC_ACTIVITY_REPEATING, 0);
-      xpc_dictionary_set_int64(v15, XPC_ACTIVITY_DELAY, unsignedIntValue);
-      xpc_dictionary_set_int64(v15, XPC_ACTIVITY_GRACE_PERIOD, XPC_ACTIVITY_INTERVAL_1_MIN);
-      xpc_dictionary_set_string(v15, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
+      v17 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_BOOL(v17, XPC_ACTIVITY_REPEATING, 0);
+      xpc_dictionary_set_int64(v17, XPC_ACTIVITY_DELAY, unsignedIntValue);
+      xpc_dictionary_set_int64(v17, XPC_ACTIVITY_GRACE_PERIOD, XPC_ACTIVITY_INTERVAL_1_MIN);
+      xpc_dictionary_set_string(v17, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
       objc_initWeak(buf, self);
       delayedRetryActivityIdentifier = [(VVService *)self delayedRetryActivityIdentifier];
-      v17 = delayedRetryActivityIdentifier;
+      v19 = delayedRetryActivityIdentifier;
       uTF8String = [delayedRetryActivityIdentifier UTF8String];
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_100050A50;
       handler[3] = &unk_1000EEB30;
-      objc_copyWeak(&v23, buf);
-      xpc_activity_register(uTF8String, v15, handler);
+      objc_copyWeak(&v25, buf);
+      xpc_activity_register(uTF8String, v17, handler);
 
       ++self->_retryIntervalIndex;
-      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v25);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v19 = sub_10004A3F0();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_10004A3F0(retryIntervals);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
         if (byte_10010D948)
         {
-          v21 = 118;
+          v23 = 118;
         }
 
         else
         {
-          v21 = 110;
+          v23 = 110;
         }
 
         *buf = 136315650;
-        v25 = getServiceObjLogPrefix3;
-        v26 = 2080;
-        v27 = " ";
-        v28 = 1024;
-        v29 = v21;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%s[%c] Too many delayed sync retries, giving up;", buf, 0x1Cu);
+        v27 = getServiceObjLogPrefix3;
+        v28 = 2080;
+        v29 = " ";
+        v30 = 1024;
+        v31 = v23;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%s[%c] Too many delayed sync retries, giving up;", buf, 0x1Cu);
       }
 
       if ([(VVService *)self isDelayedRetryImmediate])
@@ -2312,14 +2343,14 @@ LABEL_7:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v33 = sub_100026660(self->logger.__ptr_);
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_100026660(self->logger.__ptr_);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-      v40 = 2080;
-      v41 = " ";
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#W %s%sWe were asked to schedule trash compaction, but this class does't support this procedure", buf, 0x16u);
+      v41 = 2080;
+      v42 = " ";
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#W %s%sWe were asked to schedule trash compaction, but this class does't support this procedure", buf, 0x16u);
     }
 
     getAccountStore = 0;
@@ -2329,14 +2360,14 @@ LABEL_7:
   getAccountStore = [(VVService *)self getAccountStore];
   if (![(VVService *)self doesClientManageTrashCompaction])
   {
-    v33 = sub_100026660(self->logger.__ptr_);
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_100026660(self->logger.__ptr_);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-      v40 = 2080;
-      v41 = " ";
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#W %s%sWe were asked to schedule trash compaction, but client doesn't manage trash", buf, 0x16u);
+      v41 = 2080;
+      v42 = " ";
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#W %s%sWe were asked to schedule trash compaction, but client doesn't manage trash", buf, 0x16u);
     }
 
 LABEL_35:
@@ -2348,22 +2379,22 @@ LABEL_35:
   v5 = v4;
   if (v4 && CFArrayGetCount(v4))
   {
-    v6 = COERCE_DOUBLE(VMStoreRecordCopyArrayDescription(v5));
+    *&v6 = COERCE_DOUBLE(VMStoreRecordCopyArrayDescription(v5));
     v7 = sub_100026660(self->logger.__ptr_);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-      v40 = 2080;
-      v41 = " ";
-      v42 = 2112;
-      v43 = v6;
+      v41 = 2080;
+      v42 = " ";
+      v43 = 2112;
+      v44 = *&v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sWe have records that are eligible for compaction; records %@", buf, 0x20u);
     }
 
-    if (v6 != 0.0)
+    if (*&v6 != 0.0)
     {
-      CFRelease(*&v6);
+      CFRelease(v6);
     }
 
     Count = CFArrayGetCount(v5);
@@ -2374,44 +2405,45 @@ LABEL_35:
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v5, v9);
-        v12 = sub_1000928B0(getAccountStore, ValueAtIndex);
-        *&v13 = COERCE_DOUBLE(VMStoreRecordCopyDescription(ValueAtIndex));
-        v14 = sub_100026660(self->logger.__ptr_);
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        sub_1000928B0(getAccountStore, ValueAtIndex);
+        v13 = v12;
+        *&v14 = COERCE_DOUBLE(VMStoreRecordCopyDescription(ValueAtIndex));
+        v15 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix2 = [(VVService *)self getServiceObjLogPrefix];
           *buf = 136315906;
           getServiceObjLogPrefix = getServiceObjLogPrefix2;
-          v40 = 2080;
-          v41 = " ";
-          v42 = 2112;
-          v43 = *&v13;
-          v44 = 1024;
-          LODWORD(v45) = v12;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: trashed date of record %@ is %d", buf, 0x26u);
+          v41 = 2080;
+          v42 = " ";
+          v43 = 2112;
+          v44 = *&v14;
+          v45 = 1024;
+          LODWORD(v46) = v13;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: trashed date of record %@ is %d", buf, 0x26u);
         }
 
-        if (*&v13 != 0.0)
+        if (*&v14 != 0.0)
         {
-          CFRelease(v13);
+          CFRelease(v14);
         }
 
-        if (v12 && v10 > v12)
+        if (v13 && v10 > v13)
         {
-          v16 = sub_100026660(self->logger.__ptr_);
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = sub_100026660(self->logger.__ptr_);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             getServiceObjLogPrefix3 = [(VVService *)self getServiceObjLogPrefix];
             *buf = 136315650;
             getServiceObjLogPrefix = getServiceObjLogPrefix3;
-            v40 = 2080;
-            v41 = " ";
-            v42 = 2048;
-            v43 = v12;
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: trashed date of oldest record is now %f", buf, 0x20u);
+            v41 = 2080;
+            v42 = " ";
+            v43 = 2048;
+            v44 = v13;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: trashed date of oldest record is now %f", buf, 0x20u);
           }
 
-          v10 = v12;
+          v10 = v13;
         }
 
         ++v9;
@@ -2421,75 +2453,75 @@ LABEL_35:
       if (v10 != 1.79769313e308)
       {
         [(VVService *)self trashCompactionAge];
-        v19 = v18;
+        v20 = v19;
         Current = CFAbsoluteTimeGetCurrent();
-        v21 = sub_100026660(self->logger.__ptr_);
-        v22 = Current - v10;
-        v23 = v19 - (Current - v10) + 10.0;
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_100026660(self->logger.__ptr_);
+        v23 = Current - v10;
+        v24 = v20 - (Current - v10) + 10.0;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix4 = [(VVService *)self getServiceObjLogPrefix];
           *buf = 136316418;
           getServiceObjLogPrefix = getServiceObjLogPrefix4;
-          v40 = 2080;
-          v41 = " ";
-          v42 = 2048;
-          v43 = v19;
-          v44 = 2048;
-          v45 = Current;
-          v46 = 2048;
-          v47 = v22;
-          v48 = 2048;
-          v49 = v23;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: ageAtWhichToCompact=%f, currentTime=%f, currentTimeSpentInTrash=%f, timeUntilNextCompaction=%f", buf, 0x3Eu);
+          v41 = 2080;
+          v42 = " ";
+          v43 = 2048;
+          v44 = v20;
+          v45 = 2048;
+          v46 = Current;
+          v47 = 2048;
+          v48 = v23;
+          v49 = 2048;
+          v50 = v24;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: ageAtWhichToCompact=%f, currentTime=%f, currentTimeSpentInTrash=%f, timeUntilNextCompaction=%f", buf, 0x3Eu);
         }
 
-        if (v23 < 0.0)
+        if (v24 < 0.0)
         {
-          v25 = sub_100026660(self->logger.__ptr_);
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v26 = sub_100026660(self->logger.__ptr_);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             getServiceObjLogPrefix5 = [(VVService *)self getServiceObjLogPrefix];
             *buf = 136315394;
             getServiceObjLogPrefix = getServiceObjLogPrefix5;
-            v40 = 2080;
-            v41 = " ";
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: Time until next compaction was less than one minute.  Increasing to one minute.", buf, 0x16u);
+            v41 = 2080;
+            v42 = " ";
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%sCOMPACTION: Time until next compaction was less than one minute.  Increasing to one minute.", buf, 0x16u);
           }
 
-          v23 = 60.0;
+          v24 = 60.0;
         }
 
-        v27 = xpc_dictionary_create(0, 0, 0);
-        xpc_dictionary_set_BOOL(v27, XPC_ACTIVITY_REPEATING, 0);
-        xpc_dictionary_set_int64(v27, XPC_ACTIVITY_DELAY, v23);
-        xpc_dictionary_set_int64(v27, XPC_ACTIVITY_GRACE_PERIOD, XPC_ACTIVITY_INTERVAL_1_MIN);
-        xpc_dictionary_set_string(v27, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
+        v28 = xpc_dictionary_create(0, 0, 0);
+        xpc_dictionary_set_BOOL(v28, XPC_ACTIVITY_REPEATING, 0);
+        xpc_dictionary_set_int64(v28, XPC_ACTIVITY_DELAY, v24);
+        xpc_dictionary_set_int64(v28, XPC_ACTIVITY_GRACE_PERIOD, XPC_ACTIVITY_INTERVAL_1_MIN);
+        xpc_dictionary_set_string(v28, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
         objc_initWeak(&location, self);
         automatedTrashActivityIdentifier = [(VVService *)self automatedTrashActivityIdentifier];
-        v29 = automatedTrashActivityIdentifier;
+        v30 = automatedTrashActivityIdentifier;
         uTF8String = [automatedTrashActivityIdentifier UTF8String];
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 3221225472;
         handler[2] = sub_100051610;
         handler[3] = &unk_1000EEB30;
-        objc_copyWeak(&v36, &location);
-        xpc_activity_register(uTF8String, v27, handler);
+        objc_copyWeak(&v37, &location);
+        xpc_activity_register(uTF8String, v28, handler);
 
-        v31 = sub_100026660(self->logger.__ptr_);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v32 = sub_100026660(self->logger.__ptr_);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           getServiceObjLogPrefix6 = [(VVService *)self getServiceObjLogPrefix];
           *buf = 136315650;
           getServiceObjLogPrefix = getServiceObjLogPrefix6;
-          v40 = 2080;
-          v41 = " ";
-          v42 = 2048;
-          v43 = v23;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#I %s%sScheduling automated trash compaction in %f s", buf, 0x20u);
+          v41 = 2080;
+          v42 = " ";
+          v43 = 2048;
+          v44 = v24;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "#I %s%sScheduling automated trash compaction in %f s", buf, 0x20u);
         }
 
-        objc_destroyWeak(&v36);
+        objc_destroyWeak(&v37);
         objc_destroyWeak(&location);
       }
     }
@@ -2499,14 +2531,14 @@ LABEL_35:
 
   else
   {
-    v34 = sub_100026660(self->logger.__ptr_);
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_100026660(self->logger.__ptr_);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
-      v40 = 2080;
-      v41 = " ";
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#W %s%sWe were asked to schedule trash compaction, but no records were eligible", buf, 0x16u);
+      v41 = 2080;
+      v42 = " ";
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "#W %s%sWe were asked to schedule trash compaction, but no records were eligible", buf, 0x16u);
     }
 
     if (v5)
@@ -2827,7 +2859,7 @@ LABEL_20:
     [(VVService *)self _cancelIndicatorAction];
   }
 
-  [(VVService *)self setMessageWaiting:available, *v21, *&v21[16], v22];
+  [(VVService *)self setMessageWaiting:available, *v21, *&v21[8], v22];
 LABEL_22:
   if ((available & isNetworkOriginated & isVoiceMailMWI) == 1)
   {
@@ -2874,6 +2906,41 @@ LABEL_22:
     v16 = name;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s==== %@ received deprecated <%@> notification", &v9, 0x2Au);
   }
+}
+
+- (void)networkReachabilityChangedSync:(BOOL)sync
+{
+  syncCopy = sync;
+  serialDispatchQueue = [(VVService *)self serialDispatchQueue];
+  dispatch_assert_queue_V2(serialDispatchQueue);
+
+  v6 = sub_100026660(self->logger.__ptr_);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    getServiceObjLogPrefix = [(VVService *)self getServiceObjLogPrefix];
+    v8 = @"NO";
+    if (syncCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *buf = 136315650;
+    v12 = getServiceObjLogPrefix;
+    v13 = 2080;
+    v14 = " ";
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%sNetwork reachability changed to: %@", buf, 0x20u);
+  }
+
+  [(VVService *)self setWiFiNetworkReachable:syncCopy];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100052AB0;
+  v9[3] = &unk_1000ED8D8;
+  v9[4] = self;
+  v10 = syncCopy;
+  [(VVService *)self performAtomicAccessorBlock:v9];
 }
 
 - (void)handleAirplaneModeChanged:(BOOL)changed

@@ -97,25 +97,25 @@
 - (BLControl)init
 {
   selfCopy = self;
-  v40 = a2;
-  v39.receiver = self;
-  v39.super_class = BLControl;
-  selfCopy = [(BLControl *)&v39 init];
+  v39 = a2;
+  v38.receiver = self;
+  v38.super_class = BLControl;
+  selfCopy = [(BLControl *)&v38 init];
   if (selfCopy)
   {
     v2 = os_log_create("com.apple.CoreBrightness.BLControl", "default");
     *(selfCopy + 14) = v2;
     if (!*(selfCopy + 14))
     {
-      v26 = (_COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log());
-      v38 = v26;
-      v37 = 16;
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = (_COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log());
+      v37 = v25;
+      v36 = 16;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        log = v38;
-        v25 = v37;
-        __os_log_helper_16_0_0(v36);
-        _os_log_error_impl(&dword_1DE8E5000, log, v25, "failed to create log handle", v36, 2u);
+        log = v37;
+        v24 = v36;
+        __os_log_helper_16_0_0(v35);
+        _os_log_error_impl(&dword_1DE8E5000, log, v24, "failed to create log handle", v35, 2u);
       }
     }
 
@@ -125,7 +125,7 @@
     {
       if (*(selfCopy + 14))
       {
-        v23 = *(selfCopy + 14);
+        v22 = *(selfCopy + 14);
       }
 
       else
@@ -140,17 +140,17 @@
           inited = init_default_corebrightness_log();
         }
 
-        v23 = inited;
+        v22 = inited;
       }
 
-      v35 = v23;
-      v34 = 16;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v34 = v22;
+      v33 = 16;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v20 = v35;
-        type = v34;
-        __os_log_helper_16_0_0(v33);
-        _os_log_error_impl(&dword_1DE8E5000, v20, type, "creation of _clientDisplayMap failed!! Not starting brightness system", v33, 2u);
+        v19 = v34;
+        type = v33;
+        __os_log_helper_16_0_0(v32);
+        _os_log_error_impl(&dword_1DE8E5000, v19, type, "creation of _clientDisplayMap failed!! Not starting brightness system", v32, 2u);
       }
 
 LABEL_39:
@@ -161,41 +161,40 @@ LABEL_39:
 
     inactive = dispatch_workloop_create_inactive("BacklightControl - Primary workloop");
     *(selfCopy + 2) = inactive;
-    v5 = *(selfCopy + 2);
     dispatch_workloop_set_scheduler_priority();
     dispatch_activate(*(selfCopy + 2));
-    v6 = dispatch_queue_create_with_target_V2("BacklightControl - Primary queue", 0, *(selfCopy + 2));
-    *(selfCopy + 3) = v6;
+    v5 = dispatch_queue_create_with_target_V2("BacklightControl - Primary queue", 0, *(selfCopy + 2));
+    *(selfCopy + 3) = v5;
     if (!*(selfCopy + 3))
     {
       if (*(selfCopy + 14))
       {
-        v19 = *(selfCopy + 14);
+        v18 = *(selfCopy + 14);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v18 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v17 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v18 = init_default_corebrightness_log();
+          v17 = init_default_corebrightness_log();
         }
 
-        v19 = v18;
+        v18 = v17;
       }
 
-      v32 = v19;
-      v31 = 16;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v31 = v18;
+      v30 = 16;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v16 = v32;
-        v17 = v31;
-        __os_log_helper_16_0_0(v30);
-        _os_log_error_impl(&dword_1DE8E5000, v16, v17, "failed to create an internal dispatch queue", v30, 2u);
+        v15 = v31;
+        v16 = v30;
+        __os_log_helper_16_0_0(v29);
+        _os_log_error_impl(&dword_1DE8E5000, v15, v16, "failed to create an internal dispatch queue", v29, 2u);
       }
 
       goto LABEL_39;
@@ -207,45 +206,45 @@ LABEL_39:
     *(selfCopy + 15) = newGlobalConfigProvider;
     *(selfCopy + 15) = -1;
     *(selfCopy + 18) = -1;
+    v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    *(selfCopy + 12) = v7;
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    *(selfCopy + 12) = v8;
-    v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    *(selfCopy + 13) = v9;
+    *(selfCopy + 13) = v8;
     *(selfCopy + 20) = 0;
     *(selfCopy + 21) = 5;
     *(selfCopy + 22) = 0;
-    v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    *(selfCopy + 18) = v10;
+    v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    *(selfCopy + 18) = v9;
     if (!*(selfCopy + 18))
     {
       if (*(selfCopy + 14))
       {
-        v15 = *(selfCopy + 14);
+        v14 = *(selfCopy + 14);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v13 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v14 = init_default_corebrightness_log();
+          v13 = init_default_corebrightness_log();
         }
 
-        v15 = v14;
+        v14 = v13;
       }
 
-      v29 = v15;
-      v28 = 16;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v28 = v14;
+      v27 = 16;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v12 = v29;
-        v13 = v28;
-        __os_log_helper_16_0_0(v27);
-        _os_log_error_impl(&dword_1DE8E5000, v12, v13, "unable to create display containers dictionary", v27, 2u);
+        v11 = v28;
+        v12 = v27;
+        __os_log_helper_16_0_0(v26);
+        _os_log_error_impl(&dword_1DE8E5000, v11, v12, "unable to create display containers dictionary", v26, 2u);
       }
 
       goto LABEL_39;
@@ -314,7 +313,6 @@ LABEL_39:
 
   v3 = MEMORY[0x1E69E5928](v6);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -341,15 +339,15 @@ LABEL_39:
   return v4 & 1;
 }
 
-uint64_t __18__BLControl_start__block_invoke(uint64_t a1)
+void *__18__BLControl_start__block_invoke(uint64_t a1)
 {
-  v56 = a1;
-  v55 = a1;
+  v52 = a1;
+  v51 = a1;
   if (CBU_ShouldWaitForALS())
   {
     if (*(*(a1 + 32) + 112))
     {
-      v24 = *(*(a1 + 32) + 112);
+      v21 = *(*(a1 + 32) + 112);
     }
 
     else
@@ -364,17 +362,17 @@ uint64_t __18__BLControl_start__block_invoke(uint64_t a1)
         inited = init_default_corebrightness_log();
       }
 
-      v24 = inited;
+      v21 = inited;
     }
 
-    v54 = v24;
-    v53 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v50 = v21;
+    v49 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      log = v54;
-      type = v53;
-      __os_log_helper_16_0_0(v52);
-      _os_log_impl(&dword_1DE8E5000, log, type, "check ALS arrival", v52, 2u);
+      log = v50;
+      type = v49;
+      __os_log_helper_16_0_0(v48);
+      _os_log_impl(&dword_1DE8E5000, log, type, "check ALS arrival", v48, 2u);
     }
 
     [*(a1 + 32) waitForALSArrival];
@@ -384,89 +382,89 @@ uint64_t __18__BLControl_start__block_invoke(uint64_t a1)
   {
     if (*(*(a1 + 32) + 112))
     {
-      v20 = *(*(a1 + 32) + 112);
+      v17 = *(*(a1 + 32) + 112);
     }
 
     else
     {
-      v19 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-      v20 = v19;
+      v16 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+      v17 = v16;
     }
 
-    v51 = v20;
-    v50 = 16;
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v47 = v17;
+    v46 = 16;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v17 = v51;
-      v18 = v50;
-      __os_log_helper_16_0_0(v49);
-      _os_log_error_impl(&dword_1DE8E5000, v17, v18, "no HID", v49, 2u);
+      v14 = v47;
+      v15 = v46;
+      __os_log_helper_16_0_0(v45);
+      _os_log_error_impl(&dword_1DE8E5000, v14, v15, "no HID", v45, 2u);
     }
   }
 
-  v48 = [*(a1 + 32) findDisplays];
-  if ((v48 & 1) == 0)
+  v44 = [*(a1 + 32) findDisplays];
+  if ((v44 & 1) == 0)
   {
     if (*(*(a1 + 32) + 112))
     {
-      v16 = *(*(a1 + 32) + 112);
+      v13 = *(*(a1 + 32) + 112);
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v15 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v12 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v15 = init_default_corebrightness_log();
+        v12 = init_default_corebrightness_log();
       }
 
-      v16 = v15;
+      v13 = v12;
     }
 
-    v47 = v16;
-    v46 = 1;
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v43 = v13;
+    v42 = 1;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = v47;
-      v14 = v46;
-      __os_log_helper_16_0_0(v45);
-      _os_log_impl(&dword_1DE8E5000, v13, v14, "CA doesn't provide display list", v45, 2u);
+      v10 = v43;
+      v11 = v42;
+      __os_log_helper_16_0_0(v41);
+      _os_log_impl(&dword_1DE8E5000, v10, v11, "CA doesn't provide display list", v41, 2u);
     }
 
     if ([*(a1 + 32) findBacklight])
     {
       if (*(*(a1 + 32) + 112))
       {
-        v12 = *(*(a1 + 32) + 112);
+        v9 = *(*(a1 + 32) + 112);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v11 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v8 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v11 = init_default_corebrightness_log();
+          v8 = init_default_corebrightness_log();
         }
 
-        v12 = v11;
+        v9 = v8;
       }
 
-      v44 = v12;
-      v43 = 1;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v40 = v9;
+      v39 = 1;
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v9 = v44;
-        v10 = v43;
-        __os_log_helper_16_0_0(v42);
-        _os_log_impl(&dword_1DE8E5000, v9, v10, "CA doesn't provide display list", v42, 2u);
+        v6 = v40;
+        v7 = v39;
+        __os_log_helper_16_0_0(v38);
+        _os_log_impl(&dword_1DE8E5000, v6, v7, "CA doesn't provide display list", v38, 2u);
       }
     }
 
@@ -474,76 +472,72 @@ uint64_t __18__BLControl_start__block_invoke(uint64_t a1)
     {
       if (*(*(a1 + 32) + 112))
       {
-        v8 = *(*(a1 + 32) + 112);
+        v5 = *(*(a1 + 32) + 112);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v7 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v4 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v7 = init_default_corebrightness_log();
+          v4 = init_default_corebrightness_log();
         }
 
-        v8 = v7;
+        v5 = v4;
       }
 
-      v41 = v8;
-      v40 = 16;
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v37 = v5;
+      v36 = 16;
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v5 = v41;
-        v6 = v40;
-        __os_log_helper_16_0_0(v39);
-        _os_log_error_impl(&dword_1DE8E5000, v5, v6, "Built in display/backlight driver has not been found.", v39, 2u);
+        v2 = v37;
+        v3 = v36;
+        __os_log_helper_16_0_0(v35);
+        _os_log_error_impl(&dword_1DE8E5000, v2, v3, "Built in display/backlight driver has not been found.", v35, 2u);
       }
     }
   }
 
-  [*(*(a1 + 32) + 96) enumerateObjectsUsingBlock:{&__block_literal_global_11, v5}];
-  v33 = MEMORY[0x1E69E9820];
-  v34 = -1073741824;
-  v35 = 0;
-  v36 = __18__BLControl_start__block_invoke_2;
-  v37 = &unk_1E867C380;
-  v38 = *(a1 + 32);
-  *(*(a1 + 32) + 64) = &v33;
-  v27 = MEMORY[0x1E69E9820];
-  v28 = -1073741824;
-  v29 = 0;
-  v30 = __18__BLControl_start__block_invoke_3;
-  v31 = &unk_1E867C380;
-  v32 = *(a1 + 32);
-  *(*(a1 + 32) + 80) = &v27;
+  [*(*(a1 + 32) + 96) enumerateObjectsUsingBlock:{&__block_literal_global_11, v2}];
+  v29 = MEMORY[0x1E69E9820];
+  v30 = -1073741824;
+  v31 = 0;
+  v32 = __18__BLControl_start__block_invoke_2;
+  v33 = &unk_1E867C380;
+  v34 = *(a1 + 32);
+  *(*(a1 + 32) + 64) = &v29;
+  v23 = MEMORY[0x1E69E9820];
+  v24 = -1073741824;
+  v25 = 0;
+  v26 = __18__BLControl_start__block_invoke_3;
+  v27 = &unk_1E867C380;
+  v28 = *(a1 + 32);
+  *(*(a1 + 32) + 80) = &v23;
   notify_register_dispatch("com.apple.system.lowpowermode", (*(a1 + 32) + 60), *(*(a1 + 32) + 24), *(*(a1 + 32) + 64));
   notify_register_dispatch("com.apple.powerd.lowpowermode.prefs", (*(a1 + 32) + 72), MEMORY[0x1E69E96A0], *(*(a1 + 32) + 80));
   if (*(*(a1 + 32) + 80))
   {
-    v1 = *(*(a1 + 32) + 72);
     (*(*(*(a1 + 32) + 80) + 16))();
   }
 
   if (*(*(a1 + 32) + 64))
   {
-    v2 = *(*(a1 + 32) + 60);
     (*(*(*(a1 + 32) + 64) + 16))();
   }
 
   [*(a1 + 32) initKeyboardBacklightHIDManager];
-  v3 = *(*(a1 + 32) + 24);
-  v26 = *(a1 + 32);
-  *(v26 + 160) = IOPMScheduleUserActiveChangedNotification();
+  *(*(a1 + 32) + 160) = IOPMScheduleUserActiveChangedNotification();
   *(*(a1 + 32) + 184) = [objc_alloc(MEMORY[0x1E69D54B8]) initWithIdentifier:@"com.apple.CoreBrightness.BLControl" queue:*(*(a1 + 32) + 24)];
   result = [*(*(a1 + 32) + 184) addObserver:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = 1;
   return result;
 }
 
-uint64_t __18__BLControl_start__block_invoke_31(uint64_t a1, void *a2)
+void *__18__BLControl_start__block_invoke_31(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CFD60];
   if (result)
@@ -629,7 +623,6 @@ void __17__BLControl_stop__block_invoke(uint64_t a1)
   *(*(a1 + 32) + 136) = 0;
   if (*(*(a1 + 32) + 160))
   {
-    v2 = *(*(a1 + 32) + 160);
     IOPMUnregisterNotification();
     *(*(a1 + 32) + 160) = 0;
   }
@@ -744,7 +737,7 @@ void __17__BLControl_stop__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __33__BLControl_handleHIDEvent_from___block_invoke(uint64_t a1, void *a2)
+void *__33__BLControl_handleHIDEvent_from___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -755,7 +748,7 @@ uint64_t __33__BLControl_handleHIDEvent_from___block_invoke(uint64_t a1, void *a
   return result;
 }
 
-uint64_t __33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 conformsToProtocol:&unk_1F59CFD60];
   if (result)
@@ -870,7 +863,6 @@ uint64_t __33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint6
     IOObjectRelease(existing);
   }
 
-  *MEMORY[0x1E69E9840];
   return start & 1;
 }
 
@@ -1001,7 +993,7 @@ uint64_t __33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint6
     }
 
     MEMORY[0x1E69E5920](v28);
-    v39 = v36 & 1;
+    return v36 & 1;
   }
 
   else
@@ -1036,11 +1028,8 @@ uint64_t __33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint6
       _os_log_error_impl(&dword_1DE8E5000, log, v19, "CAWindowServer is not running", v32, 2u);
     }
 
-    v39 = v36 & 1;
+    return v36 & 1;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v39 & 1;
 }
 
 - (void)stopDisplayLookup
@@ -1110,8 +1099,6 @@ uint64_t __33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint6
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCADisplay:(id)display
@@ -1178,8 +1165,6 @@ uint64_t __33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint6
 
     [(BLControl *)self handleCADisplayRemoval:display];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCAWindowServerDisplay:(id)display
@@ -1336,8 +1321,6 @@ uint64_t __33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint6
       MEMORY[0x1E69E5920](v29);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -1363,12 +1346,11 @@ uint64_t __33__BLControl_handleHIDEvent_from___block_invoke_2(uint64_t a1, uint6
 
 void __60__BLControl_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v10 = *(a1 + 32);
+  v15 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = *(a1 + 32);
+    v10 = *(a1 + 32);
     if (*(*(a1 + 40) + 112))
     {
       v6 = *(*(a1 + 40) + 112);
@@ -1391,8 +1373,8 @@ void __60__BLControl_observeValueForKeyPath_ofObject_change_context___block_invo
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_4_8_66_8_66_8_66_8_66(v14, [v11 name], *(a1 + 48), objc_msgSend(v11, "valueForKeyPath:", *(a1 + 48)), *(a1 + 56));
-      _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "observed %{public}@ changing %{public}@; is now %{public}@; change dict: %{public}@", v14, 0x2Au);
+      __os_log_helper_16_2_4_8_66_8_66_8_66_8_66(v13, [v10 name], *(a1 + 48), objc_msgSend(v10, "valueForKeyPath:", *(a1 + 48)), *(a1 + 56));
+      _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "observed %{public}@ changing %{public}@; is now %{public}@; change dict: %{public}@", v13, 0x2Au);
     }
 
     if (*(*(a1 + 40) + 112))
@@ -1417,11 +1399,11 @@ void __60__BLControl_observeValueForKeyPath_ofObject_change_context___block_invo
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_2_4_0_8_66(v13, [v11 displayId], objc_msgSend(v11, "uniqueId"));
-      _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "display ID %u; unique ID %{public}@;", v13, 0x12u);
+      __os_log_helper_16_2_2_4_0_8_66(v12, [v10 displayId], objc_msgSend(v10, "uniqueId"));
+      _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "display ID %u; unique ID %{public}@;", v12, 0x12u);
     }
 
-    if (([v11 isExternal] & 1) != 0 || (objc_msgSend(*(a1 + 48), "isEqual:", @"currentMode") & 1) == 0)
+    if (([v10 isExternal] & 1) != 0 || (objc_msgSend(*(a1 + 48), "isEqual:", @"currentMode") & 1) == 0)
     {
       if ([*(a1 + 48) isEqual:@"currentPreset"])
       {
@@ -1430,12 +1412,12 @@ void __60__BLControl_observeValueForKeyPath_ofObject_change_context___block_invo
 
       else if ([*(a1 + 48) isEqual:@"cloning"])
       {
-        [*(a1 + 40) handleCloningChange:v11];
+        [*(a1 + 40) handleCloningChange:v10];
       }
 
       else
       {
-        [*(a1 + 40) handleCADisplay:v11];
+        [*(a1 + 40) handleCADisplay:v10];
       }
     }
 
@@ -1463,8 +1445,8 @@ void __60__BLControl_observeValueForKeyPath_ofObject_change_context___block_invo
 
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_4_0(v12, [v11 displayId]);
-        _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEFAULT, "%u Internal display's mode (resolution) changed, doing nothing", v12, 8u);
+        __os_log_helper_16_0_1_4_0(v11, [v10 displayId]);
+        _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEFAULT, "%u Internal display's mode (resolution) changed, doing nothing", v11, 8u);
       }
     }
   }
@@ -1493,12 +1475,10 @@ void __60__BLControl_observeValueForKeyPath_ofObject_change_context___block_invo
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v15, *(a1 + 32));
-      _os_log_error_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_ERROR, "Unexpected object observed %@", v15, 0xCu);
+      __os_log_helper_16_2_1_8_64(v14, *(a1 + 32));
+      _os_log_error_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_ERROR, "Unexpected object observed %@", v14, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCADisplayArrival:(id)arrival
@@ -1606,8 +1586,6 @@ void __60__BLControl_observeValueForKeyPath_ofObject_change_context___block_invo
       _os_log_error_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_ERROR, "error: failed to create display container for service %{public}@", v14, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCADisplayRemoval:(id)removal
@@ -1699,25 +1677,23 @@ void __60__BLControl_observeValueForKeyPath_ofObject_change_context___block_invo
 
     _Block_object_dispose(&v7, 8);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-void __36__BLControl_handleCADisplayRemoval___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+double __36__BLControl_handleCADisplayRemoval___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([a2 conformsToProtocol:&unk_1F59CFD60])
   {
-    v8 = [a2 copyPropertyForKey:@"CBDisplayID"];
+    v9 = [a2 copyPropertyForKey:@"CBDisplayID"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = [v8 unsignedLongValue];
-      if (v6 == [*(a1 + 32) displayId])
+      v7 = [v9 unsignedLongValue];
+      if (v7 == [*(a1 + 32) displayId])
       {
         if (*(*(a1 + 40) + 112))
         {
-          v5 = *(*(a1 + 40) + 112);
+          v6 = *(*(a1 + 40) + 112);
         }
 
         else
@@ -1732,13 +1708,13 @@ void __36__BLControl_handleCADisplayRemoval___block_invoke(uint64_t a1, void *a2
             inited = init_default_corebrightness_log();
           }
 
-          v5 = inited;
+          v6 = inited;
         }
 
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_2_2_8_0_8_64(v11, *(a1 + 56), a2);
-          _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "found container matching to to registry ID 0x%llX (%@)", v11, 0x16u);
+          __os_log_helper_16_2_2_8_0_8_64(v12, *(a1 + 56), a2);
+          _os_log_debug_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEBUG, "found container matching to to registry ID 0x%llX (%@)", v12, 0x16u);
         }
 
         *(*(*(a1 + 48) + 8) + 40) = a2;
@@ -1746,10 +1722,10 @@ void __36__BLControl_handleCADisplayRemoval___block_invoke(uint64_t a1, void *a2
       }
     }
 
-    MEMORY[0x1E69E5920](v8);
+    *&result = MEMORY[0x1E69E5920](v9).n128_u64[0];
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 - (id)newDevicePariMatchingDictionaryWithPage:(unsigned int)page andUsage:(unsigned int)usage
@@ -1820,10 +1796,9 @@ void __36__BLControl_handleCADisplayRemoval___block_invoke(uint64_t a1, void *a2
   [(NSMutableArray *)self->_hidServiceClients addObject:arrival];
   [(NSMutableArray *)self->_displayContainers enumerateObjectsUsingBlock:?];
   [(NSMutableDictionary *)self->_keyboardContainers enumerateKeysAndObjectsUsingBlock:?];
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __31__BLControl_hidServiceArrival___block_invoke_2(uint64_t a1, void *a2)
+void *__31__BLControl_hidServiceArrival___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -1834,7 +1809,7 @@ uint64_t __31__BLControl_hidServiceArrival___block_invoke_2(uint64_t a1, void *a
   return result;
 }
 
-uint64_t __31__BLControl_hidServiceArrival___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
+void *__31__BLControl_hidServiceArrival___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -1877,10 +1852,9 @@ uint64_t __31__BLControl_hidServiceArrival___block_invoke_3(uint64_t a1, uint64_
   [(NSMutableArray *)self->_hidServiceClients removeObject:service];
   [(NSMutableArray *)self->_displayContainers enumerateObjectsUsingBlock:?];
   [(NSMutableDictionary *)self->_keyboardContainers enumerateKeysAndObjectsUsingBlock:?];
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __30__BLControl_removeHIDService___block_invoke(uint64_t a1, void *a2)
+void *__30__BLControl_removeHIDService___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -1891,7 +1865,7 @@ uint64_t __30__BLControl_removeHIDService___block_invoke(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t __30__BLControl_removeHIDService___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__30__BLControl_removeHIDService___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -1905,101 +1879,95 @@ uint64_t __30__BLControl_removeHIDService___block_invoke_2(uint64_t a1, uint64_t
 - (BOOL)startHIDSystemClient
 {
   selfCopy = self;
-  v38 = a2;
-  v37 = 0;
-  v2 = *MEMORY[0x1E695E480];
-  selfCopy->_hidSystemClient = IOHIDEventSystemClientCreateWithType();
+  v32 = a2;
+  v31 = 0;
+  self->_hidSystemClient = IOHIDEventSystemClientCreateWithType();
   if (selfCopy->_hidSystemClient)
   {
-    v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    if (v36)
+    v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    if (v30)
     {
-      v35 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:65280 andUsage:4];
-      if (v35)
+      v29 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:65280 andUsage:4];
+      if (v29)
       {
-        [v36 addObject:v35];
-        MEMORY[0x1E69E5920](v35);
+        [v30 addObject:v29];
+        MEMORY[0x1E69E5920](v29);
       }
 
-      v35 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:32 andUsage:65];
-      if (v35)
+      v29 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:32 andUsage:65];
+      if (v29)
       {
-        [v36 addObject:v35];
-        MEMORY[0x1E69E5920](v35);
+        [v30 addObject:v29];
+        MEMORY[0x1E69E5920](v29);
       }
 
       if (!selfCopy->_monitorALSOnly)
       {
-        v35 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:65280 andUsage:8];
-        if (v35)
+        v29 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:65280 andUsage:8];
+        if (v29)
         {
-          [v36 addObject:v35];
-          MEMORY[0x1E69E5920](v35);
+          [v30 addObject:v29];
+          MEMORY[0x1E69E5920](v29);
         }
 
-        v35 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:13 andUsage:12];
-        if (v35)
+        v29 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:13 andUsage:12];
+        if (v29)
         {
-          [v35 setObject:MEMORY[0x1E695E118] forKey:@"Built-In"];
-          [v36 addObject:v35];
-          MEMORY[0x1E69E5920](v35);
+          [v29 setObject:MEMORY[0x1E695E118] forKey:@"Built-In"];
+          [v30 addObject:v29];
+          MEMORY[0x1E69E5920](v29);
         }
 
-        v35 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:13 andUsage:4];
-        if (v35)
+        v29 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:13 andUsage:4];
+        if (v29)
         {
-          [v35 setObject:MEMORY[0x1E695E118] forKey:@"Built-In"];
-          [v36 addObject:v35];
-          MEMORY[0x1E69E5920](v35);
+          [v29 setObject:MEMORY[0x1E695E118] forKey:@"Built-In"];
+          [v30 addObject:v29];
+          MEMORY[0x1E69E5920](v29);
         }
 
-        v35 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:11 andUsage:1];
-        if (v35)
+        v29 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:11 andUsage:1];
+        if (v29)
         {
-          [v36 addObject:v35];
-          MEMORY[0x1E69E5920](v35);
+          [v30 addObject:v29];
+          MEMORY[0x1E69E5920](v29);
         }
 
-        v35 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:65280 andUsage:98];
-        if (v35)
+        v29 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:65280 andUsage:98];
+        if (v29)
         {
-          [v36 addObject:v35];
-          MEMORY[0x1E69E5920](v35);
+          [v30 addObject:v29];
+          MEMORY[0x1E69E5920](v29);
         }
       }
 
-      hidSystemClient = selfCopy->_hidSystemClient;
       IOHIDEventSystemClientSetMatchingMultiple();
-      MEMORY[0x1E69E5920](v36);
-      v4 = selfCopy->_hidSystemClient;
-      v29 = MEMORY[0x1E69E9820];
-      v30 = -1073741824;
-      v31 = 0;
-      v32 = __33__BLControl_startHIDSystemClient__block_invoke;
-      v33 = &unk_1E867C470;
-      v34 = selfCopy;
-      IOHIDEventSystemClientRegisterEventBlock();
-      v5 = selfCopy->_hidSystemClient;
+      MEMORY[0x1E69E5920](v30);
       v23 = MEMORY[0x1E69E9820];
       v24 = -1073741824;
       v25 = 0;
-      v26 = __33__BLControl_startHIDSystemClient__block_invoke_2;
-      v27 = &unk_1E867C428;
+      v26 = __33__BLControl_startHIDSystemClient__block_invoke;
+      v27 = &unk_1E867C470;
       v28 = selfCopy;
+      IOHIDEventSystemClientRegisterEventBlock();
+      v17 = MEMORY[0x1E69E9820];
+      v18 = -1073741824;
+      v19 = 0;
+      v20 = __33__BLControl_startHIDSystemClient__block_invoke_2;
+      v21 = &unk_1E867C428;
+      v22 = selfCopy;
       IOHIDEventSystemClientRegisterDeviceMatchingBlock();
-      v6 = selfCopy->_hidSystemClient;
-      queue = selfCopy->_queue;
       IOHIDEventSystemClientScheduleWithDispatchQueue();
-      v22 = IOHIDEventSystemClientCopyServices(selfCopy->_hidSystemClient);
-      v16 = MEMORY[0x1E69E9820];
-      v17 = -1073741824;
-      v18 = 0;
-      v19 = __33__BLControl_startHIDSystemClient__block_invoke_3;
-      v20 = &unk_1E867B668;
-      v21 = selfCopy;
-      [(__CFArray *)v22 enumerateObjectsUsingBlock:?];
-      MEMORY[0x1E69E5920](v22);
-      v37 = 1;
+      v16 = IOHIDEventSystemClientCopyServices(selfCopy->_hidSystemClient);
+      v10 = MEMORY[0x1E69E9820];
+      v11 = -1073741824;
+      v12 = 0;
+      v13 = __33__BLControl_startHIDSystemClient__block_invoke_3;
+      v14 = &unk_1E867B668;
+      v15 = selfCopy;
+      [(__CFArray *)v16 enumerateObjectsUsingBlock:?];
+      MEMORY[0x1E69E5920](v16);
+      v31 = 1;
     }
   }
 
@@ -2030,13 +1998,13 @@ uint64_t __30__BLControl_removeHIDService___block_invoke_2(uint64_t a1, uint64_t
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
     {
       log = oslog;
-      v10 = type;
-      __os_log_helper_16_0_0(v13);
-      _os_log_error_impl(&dword_1DE8E5000, log, v10, "failed to initialise IOHIDSystemClient", v13, 2u);
+      v4 = type;
+      __os_log_helper_16_0_0(v7);
+      _os_log_error_impl(&dword_1DE8E5000, log, v4, "failed to initialise IOHIDSystemClient", v7, 2u);
     }
   }
 
-  return v37 & 1;
+  return v31 & 1;
 }
 
 - (void)cancelHIDSystemClient
@@ -2044,7 +2012,6 @@ uint64_t __30__BLControl_removeHIDService___block_invoke_2(uint64_t a1, uint64_t
   if (self->_hidSystemClient)
   {
     MEMORY[0x1E12C3B10](self->_hidSystemClient, self->_queue);
-    hidSystemClient = self->_hidSystemClient;
     IOHIDEventSystemClientUnregisterEventBlock();
     CFRelease(self->_hidSystemClient);
     self->_hidSystemClient = 0;
@@ -2148,7 +2115,7 @@ uint64_t __30__BLControl_removeHIDService___block_invoke_2(uint64_t a1, uint64_t
   return v12;
 }
 
-uint64_t __42__BLControl_copyBLControlPropertyWithkey___block_invoke(uint64_t a1, void *a2)
+void *__42__BLControl_copyBLControlPropertyWithkey___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CFD60];
   if (result)
@@ -2284,7 +2251,7 @@ double __51__BLControl_copyPropertyInternalWithKey_forClient___block_invoke(uint
   return result;
 }
 
-uint64_t __51__BLControl_copyPropertyInternalWithKey_forClient___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__51__BLControl_copyPropertyInternalWithKey_forClient___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToProtocol:&unk_1F59CFD60];
   if (result)
@@ -2300,7 +2267,7 @@ uint64_t __51__BLControl_copyPropertyInternalWithKey_forClient___block_invoke_2(
   return result;
 }
 
-uint64_t __51__BLControl_copyPropertyInternalWithKey_forClient___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__51__BLControl_copyPropertyInternalWithKey_forClient___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToProtocol:&unk_1F59CFD60];
   if (result)
@@ -2382,11 +2349,10 @@ uint64_t __51__BLControl_copyPropertyInternalWithKey_forClient___block_invoke_4(
 
   v6 = v19[5];
   _Block_object_dispose(&v18, 8);
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
-uint64_t __40__BLControl_copyPropertyWithKey_client___block_invoke(uint64_t a1)
+void *__40__BLControl_copyPropertyWithKey_client___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) copyPropertyInternalWithKey:*(a1 + 40) forClient:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 40) = result;
@@ -2450,12 +2416,12 @@ double __40__BLControl_handleExternalDisplayChange__block_invoke(uint64_t a1, vo
 
 - (BOOL)setBLControlPropertyWithKey:(id)key property:(id)property
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v67 = a2;
+  v65 = a2;
   keyCopy = key;
   propertyCopy = property;
-  v64 = 0;
+  v62 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -2483,15 +2449,15 @@ double __40__BLControl_handleExternalDisplayChange__block_invoke(uint64_t a1, vo
           logHandle = inited;
         }
 
-        v60 = logHandle;
-        v59 = OS_LOG_TYPE_INFO;
+        v58 = logHandle;
+        v57 = OS_LOG_TYPE_INFO;
         if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_2_1_8_32(v71, "DisplayBrightness");
-          _os_log_impl(&dword_1DE8E5000, v60, v59, "Ignoring key %s\n", v71, 0xCu);
+          __os_log_helper_16_2_1_8_32(v69, "DisplayBrightness");
+          _os_log_impl(&dword_1DE8E5000, v58, v57, "Ignoring key %s\n", v69, 0xCu);
         }
 
-        v64 = 1;
+        v62 = 1;
       }
     }
 
@@ -2511,11 +2477,10 @@ double __40__BLControl_handleExternalDisplayChange__block_invoke(uint64_t a1, vo
 
         else
         {
-          v18 = CFBooleanGetTypeID();
-          if (v18 == CFGetTypeID(propertyCopy))
+          v17 = CFBooleanGetTypeID();
+          if (v17 == CFGetTypeID(propertyCopy))
           {
-            v57 = CFEqual(propertyCopy, *MEMORY[0x1E695E4D0]);
-            selfCopy->_overrideIgnoreBrightness = v57 == 0;
+            selfCopy->_overrideIgnoreBrightness = CFEqual(propertyCopy, *MEMORY[0x1E695E4D0]) == 0;
           }
         }
       }
@@ -2532,35 +2497,35 @@ double __40__BLControl_handleExternalDisplayChange__block_invoke(uint64_t a1, vo
       {
         if (selfCopy->_logHandle)
         {
-          v17 = selfCopy->_logHandle;
+          v16 = selfCopy->_logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v16 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v15 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v16 = init_default_corebrightness_log();
+            v15 = init_default_corebrightness_log();
           }
 
-          v17 = v16;
+          v16 = v15;
         }
 
-        v56 = v17;
-        v55 = 1;
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v55 = v16;
+        v54 = 1;
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v14 = v56;
-          v15 = v55;
-          __os_log_helper_16_0_0(v54);
-          _os_log_impl(&dword_1DE8E5000, v14, v15, "ignoring this key as this device does not support this feature.", v54, 2u);
+          v13 = v55;
+          v14 = v54;
+          __os_log_helper_16_0_0(v53);
+          _os_log_impl(&dword_1DE8E5000, v13, v14, "ignoring this key as this device does not support this feature.", v53, 2u);
         }
 
-        v64 = 1;
+        v62 = 1;
       }
     }
 
@@ -2568,11 +2533,11 @@ double __40__BLControl_handleExternalDisplayChange__block_invoke(uint64_t a1, vo
     {
       if (propertyCopy)
       {
-        v13 = CFGetTypeID(propertyCopy);
-        if (v13 == CFBooleanGetTypeID())
+        v12 = CFGetTypeID(propertyCopy);
+        if (v12 == CFBooleanGetTypeID())
         {
           selfCopy->_ignoreALSEvents = CFBooleanGetValue(propertyCopy) != 0;
-          v64 = 1;
+          v62 = 1;
         }
       }
     }
@@ -2581,25 +2546,24 @@ double __40__BLControl_handleExternalDisplayChange__block_invoke(uint64_t a1, vo
     {
       if (propertyCopy)
       {
-        v12 = CFGetTypeID(propertyCopy);
-        if (v12 == CFNumberGetTypeID())
+        v11 = CFGetTypeID(propertyCopy);
+        if (v11 == CFNumberGetTypeID())
         {
-          v53 = 0;
-          if (CFNumberGetValue(propertyCopy, kCFNumberFloatType, &v53))
+          v52 = 0;
+          if (CFNumberGetValue(propertyCopy, kCFNumberFloatType, &v52))
           {
-            v11 = *MEMORY[0x1E695E480];
             mach_absolute_time();
             AmbientLightSensorEvent = IOHIDEventCreateAmbientLightSensorEvent();
             if (AmbientLightSensorEvent)
             {
               hidServiceClients = selfCopy->_hidServiceClients;
-              v45 = MEMORY[0x1E69E9820];
-              v46 = -1073741824;
-              v47 = 0;
-              v48 = __50__BLControl_setBLControlPropertyWithKey_property___block_invoke;
-              v49 = &unk_1E867BC30;
-              v51 = AmbientLightSensorEvent;
-              v50 = selfCopy;
+              v44 = MEMORY[0x1E69E9820];
+              v45 = -1073741824;
+              v46 = 0;
+              v47 = __50__BLControl_setBLControlPropertyWithKey_property___block_invoke;
+              v48 = &unk_1E867BC30;
+              v50 = AmbientLightSensorEvent;
+              v49 = selfCopy;
               [(NSMutableArray *)hidServiceClients enumerateObjectsUsingBlock:?];
               CFRelease(AmbientLightSensorEvent);
             }
@@ -2610,25 +2574,25 @@ double __40__BLControl_handleExternalDisplayChange__block_invoke(uint64_t a1, vo
 
     else if ([keyCopy isEqual:@"DisplayMode"])
     {
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x20000000;
-      v43 = 32;
-      v44 = 0;
+      v39 = 0;
+      v40 = &v39;
+      v41 = 0x20000000;
+      v42 = 32;
+      v43 = 0;
       [(BLControl *)selfCopy releaseDisplayModeCompletionTimer];
       displayContainers = selfCopy->_displayContainers;
-      v33 = MEMORY[0x1E69E9820];
-      v34 = -1073741824;
-      v35 = 0;
-      v36 = __50__BLControl_setBLControlPropertyWithKey_property___block_invoke_2;
-      v37 = &unk_1E867BEB8;
-      v39 = &v40;
-      v38 = propertyCopy;
+      v32 = MEMORY[0x1E69E9820];
+      v33 = -1073741824;
+      v34 = 0;
+      v35 = __50__BLControl_setBLControlPropertyWithKey_property___block_invoke_2;
+      v36 = &unk_1E867BEB8;
+      v38 = &v39;
+      v37 = propertyCopy;
       [(NSMutableArray *)displayContainers enumerateObjectsUsingBlock:?];
-      if ((v41[3] & 1) == 0)
+      if ((v40[3] & 1) == 0)
       {
         v10 = [(BLControl *)selfCopy handleDisplayModeUpdatePropertyHandler:propertyCopy];
-        *(v41 + 24) = (v41[3] & 1 | v10) != 0;
+        *(v40 + 24) = (v40[3] & 1 | v10) != 0;
       }
 
       v9 = [CBDisplayStateUtilities displayModeFromProperty:propertyCopy];
@@ -2656,72 +2620,69 @@ double __40__BLControl_handleExternalDisplayChange__block_invoke(uint64_t a1, vo
         }
 
         oslog = v8;
-        v31 = OS_LOG_TYPE_DEFAULT;
+        v30 = OS_LOG_TYPE_DEFAULT;
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_2_1_8_64(v70, [CBDisplayStateUtilities stringForDisplayMode:selfCopy->_displayMode]);
-          _os_log_impl(&dword_1DE8E5000, oslog, v31, "%@ -> Implicit user interacted with UI message", v70, 0xCu);
+          __os_log_helper_16_2_1_8_64(v68, [CBDisplayStateUtilities stringForDisplayMode:selfCopy->_displayMode]);
+          _os_log_impl(&dword_1DE8E5000, oslog, v30, "%@ -> Implicit user interacted with UI message", v68, 0xCu);
         }
 
         [(BLControl *)selfCopy setPropertyInternalWithKey:@"UserInteractedWithUI" property:MEMORY[0x1E695E118] client:0];
       }
 
-      v64 = v41[3] & 1;
-      _Block_object_dispose(&v40, 8);
+      v62 = v40[3] & 1;
+      _Block_object_dispose(&v39, 8);
     }
 
     else if ([keyCopy isEqual:@"FlipBookState"])
     {
-      v26 = 0;
-      v27 = &v26;
-      v28 = 0x20000000;
-      v29 = 32;
-      v30 = 0;
+      v25 = 0;
+      v26 = &v25;
+      v27 = 0x20000000;
+      v28 = 32;
+      v29 = 0;
       [(NSMutableArray *)selfCopy->_displayContainers enumerateObjectsUsingBlock:?];
-      v64 = v27[3] & 1;
-      _Block_object_dispose(&v26, 8);
+      v62 = v26[3] & 1;
+      _Block_object_dispose(&v25, 8);
     }
 
-    v69 = v64 & 1;
+    return v62 & 1;
   }
 
   else
   {
     if (selfCopy->_logHandle)
     {
-      v25 = selfCopy->_logHandle;
+      v24 = selfCopy->_logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v24 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v23 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v24 = init_default_corebrightness_log();
+        v23 = init_default_corebrightness_log();
       }
 
-      v25 = v24;
+      v24 = v23;
     }
 
-    v63 = v25;
-    v62 = 1;
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v61 = v24;
+    v60 = 1;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      log = v63;
-      type = v62;
-      __os_log_helper_16_0_0(v61);
-      _os_log_impl(&dword_1DE8E5000, log, type, "key is not string", v61, 2u);
+      log = v61;
+      type = v60;
+      __os_log_helper_16_0_0(v59);
+      _os_log_impl(&dword_1DE8E5000, log, type, "key is not string", v59, 2u);
     }
 
-    v69 = v64 & 1;
+    return v62 & 1;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v69 & 1;
 }
 
 uint64_t __50__BLControl_setBLControlPropertyWithKey_property___block_invoke(uint64_t a1, __IOHIDServiceClient *a2, uint64_t a3, _BYTE *a4)
@@ -2739,7 +2700,7 @@ uint64_t __50__BLControl_setBLControlPropertyWithKey_property___block_invoke(uin
   return result;
 }
 
-uint64_t __50__BLControl_setBLControlPropertyWithKey_property___block_invoke_2(uint64_t a1, void *a2)
+void *__50__BLControl_setBLControlPropertyWithKey_property___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59D3468];
   if (result)
@@ -2751,7 +2712,7 @@ uint64_t __50__BLControl_setBLControlPropertyWithKey_property___block_invoke_2(u
   return result;
 }
 
-uint64_t __50__BLControl_setBLControlPropertyWithKey_property___block_invoke_282(void *a1, void *a2)
+void *__50__BLControl_setBLControlPropertyWithKey_property___block_invoke_282(void *a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CFD60];
   if (result)
@@ -2872,7 +2833,6 @@ uint64_t __50__BLControl_setBLControlPropertyWithKey_property___block_invoke_282
 
   v6 = *(v15 + 24);
   _Block_object_dispose(&v14, 8);
-  *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
@@ -2890,7 +2850,7 @@ double __56__BLControl_setPropertyInternalWithKey_property_client___block_invoke
   return result;
 }
 
-uint64_t __56__BLControl_setPropertyInternalWithKey_property_client___block_invoke_2(void *a1, void *a2)
+void *__56__BLControl_setPropertyInternalWithKey_property_client___block_invoke_2(void *a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CFD60];
   if (result)
@@ -2902,7 +2862,7 @@ uint64_t __56__BLControl_setPropertyInternalWithKey_property_client___block_invo
   return result;
 }
 
-uint64_t __56__BLControl_setPropertyInternalWithKey_property_client___block_invoke_3(void *a1, void *a2)
+void *__56__BLControl_setPropertyInternalWithKey_property_client___block_invoke_3(void *a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CFD60];
   if (result)
@@ -2914,7 +2874,7 @@ uint64_t __56__BLControl_setPropertyInternalWithKey_property_client___block_invo
   return result;
 }
 
-uint64_t __56__BLControl_setPropertyInternalWithKey_property_client___block_invoke_4(void *a1, uint64_t a2, void *a3)
+void *__56__BLControl_setPropertyInternalWithKey_property_client___block_invoke_4(void *a1, uint64_t a2, void *a3)
 {
   result = [a3 setProperty:a1[4] forKey:a1[5]];
   *(*(a1[6] + 8) + 24) = (*(*(a1[6] + 8) + 24) & 1 | result) != 0;
@@ -2960,7 +2920,7 @@ uint64_t __56__BLControl_setPropertyInternalWithKey_property_client___block_invo
   return v28 & 1;
 }
 
-uint64_t __48__BLControl_setPropertyWithKey_property_client___block_invoke(uint64_t a1)
+void *__48__BLControl_setPropertyWithKey_property_client___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setPropertyInternalWithKey:*(a1 + 40) property:*(a1 + 48) client:*(a1 + 56)];
   *(*(*(a1 + 64) + 8) + 24) = result;
@@ -3070,7 +3030,6 @@ LABEL_26:
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v18 & 1;
 }
 
@@ -3088,43 +3047,42 @@ LABEL_26:
 - (void)waitForALSArrival
 {
   selfCopy = self;
-  v53 = a2;
-  v52 = dispatch_queue_create("com.apple.CoreBrightness.initQueue", 0);
-  if (v52)
+  v52 = a2;
+  v51 = dispatch_queue_create("com.apple.CoreBrightness.initQueue", 0);
+  if (v51)
   {
-    v2 = *MEMORY[0x1E695E480];
-    v51 = IOHIDEventSystemClientCreate();
-    if (v51)
+    v50 = IOHIDEventSystemClientCreate();
+    if (v50)
     {
-      v50 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:65280 andUsage:4];
-      if (v50)
+      v49 = [(BLControl *)selfCopy newDevicePariMatchingDictionaryWithPage:65280 andUsage:4];
+      if (v49)
       {
         IOHIDEventSystemClientSetMatching();
-        CFRelease(v50);
+        CFRelease(v49);
       }
 
-      v43 = 0;
-      v44 = &v43;
-      v45 = 1375731712;
-      v46 = 48;
-      v47 = __Block_byref_object_copy__15;
-      v48 = __Block_byref_object_dispose__15;
-      v49 = 0;
+      v42 = 0;
+      v43 = &v42;
+      v44 = 1375731712;
+      v45 = 48;
+      v46 = __Block_byref_object_copy__15;
+      v47 = __Block_byref_object_dispose__15;
+      v48 = 0;
       block = MEMORY[0x1E69E9820];
-      v35 = -1073741824;
-      v36 = 0;
-      v37 = __30__BLControl_waitForALSArrival__block_invoke;
-      v38 = &unk_1E867C5B0;
-      v42 = v51;
-      v39 = selfCopy;
-      v41 = &v43;
-      v40 = v52;
-      dispatch_sync(v52, &block);
-      if (v44[5])
+      v34 = -1073741824;
+      v35 = 0;
+      v36 = __30__BLControl_waitForALSArrival__block_invoke;
+      v37 = &unk_1E867C5B0;
+      v41 = v50;
+      v38 = selfCopy;
+      v40 = &v42;
+      v39 = v51;
+      dispatch_sync(v51, &block);
+      if (v43[5])
       {
-        dsema = v44[5];
-        v3 = dispatch_time(0, 5000000000);
-        if (dispatch_semaphore_wait(dsema, v3))
+        dsema = v43[5];
+        v2 = dispatch_time(0, 5000000000);
+        if (dispatch_semaphore_wait(dsema, v2))
         {
           if (selfCopy->_logHandle)
           {
@@ -3146,14 +3104,14 @@ LABEL_26:
             logHandle = inited;
           }
 
-          v33 = logHandle;
-          v32 = 16;
+          v32 = logHandle;
+          v31 = 16;
           if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
           {
-            log = v33;
-            type = v32;
-            __os_log_helper_16_0_0(v31);
-            _os_log_error_impl(&dword_1DE8E5000, log, type, "(CBU_ShouldWaitForALS) error: timeout waiting for ALS arrival", v31, 2u);
+            log = v32;
+            type = v31;
+            __os_log_helper_16_0_0(v30);
+            _os_log_error_impl(&dword_1DE8E5000, log, type, "(CBU_ShouldWaitForALS) error: timeout waiting for ALS arrival", v30, 2u);
           }
         }
 
@@ -3161,97 +3119,97 @@ LABEL_26:
         {
           if (selfCopy->_logHandle)
           {
-            v11 = selfCopy->_logHandle;
+            v10 = selfCopy->_logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v10 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v9 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v10 = init_default_corebrightness_log();
+              v9 = init_default_corebrightness_log();
             }
 
-            v11 = v10;
+            v10 = v9;
           }
 
-          v30 = v11;
-          v29 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v29 = v10;
+          v28 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
-            v8 = v30;
-            v9 = v29;
-            __os_log_helper_16_0_0(v28);
-            _os_log_impl(&dword_1DE8E5000, v8, v9, "(CBU_ShouldWaitForALS) service arrived in time", v28, 2u);
+            v7 = v29;
+            v8 = v28;
+            __os_log_helper_16_0_0(v27);
+            _os_log_impl(&dword_1DE8E5000, v7, v8, "(CBU_ShouldWaitForALS) service arrived in time", v27, 2u);
           }
         }
 
-        v20 = MEMORY[0x1E69E9820];
-        v21 = -1073741824;
-        v22 = 0;
-        v23 = __30__BLControl_waitForALSArrival__block_invoke_306;
-        v24 = &unk_1E867BCD0;
-        v26 = &v43;
-        v27 = v51;
-        v25 = v52;
-        dispatch_sync(v52, &v20);
+        v19 = MEMORY[0x1E69E9820];
+        v20 = -1073741824;
+        v21 = 0;
+        v22 = __30__BLControl_waitForALSArrival__block_invoke_306;
+        v23 = &unk_1E867BCD0;
+        v25 = &v42;
+        v26 = v50;
+        v24 = v51;
+        dispatch_sync(v51, &v19);
       }
 
       else
       {
         if (selfCopy->_logHandle)
         {
-          v7 = selfCopy->_logHandle;
+          v6 = selfCopy->_logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v5 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v6 = init_default_corebrightness_log();
+            v5 = init_default_corebrightness_log();
           }
 
-          v7 = v6;
+          v6 = v5;
         }
 
-        oslog = v7;
-        v18 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        oslog = v6;
+        v17 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v4 = oslog;
-          v5 = v18;
-          __os_log_helper_16_0_0(v17);
-          _os_log_impl(&dword_1DE8E5000, v4, v5, "(CBU_ShouldWaitForALS) found service right away, skip waiting", v17, 2u);
+          v3 = oslog;
+          v4 = v17;
+          __os_log_helper_16_0_0(v16);
+          _os_log_impl(&dword_1DE8E5000, v3, v4, "(CBU_ShouldWaitForALS) found service right away, skip waiting", v16, 2u);
         }
       }
 
-      CFRelease(v51);
-      _Block_object_dispose(&v43, 8);
+      CFRelease(v50);
+      _Block_object_dispose(&v42, 8);
     }
 
-    CFRelease(v52);
+    CFRelease(v51);
   }
 }
 
 void __30__BLControl_waitForALSArrival__block_invoke(uint64_t a1)
 {
-  v15 = a1;
-  v14 = a1;
-  v13 = IOHIDEventSystemClientCopyServices(*(a1 + 56));
-  if (!v13 || !CFArrayGetCount(v13))
+  v11 = a1;
+  v10 = a1;
+  v9 = IOHIDEventSystemClientCopyServices(*(a1 + 56));
+  if (!v9 || !CFArrayGetCount(v9))
   {
     if (*(*(a1 + 32) + 112))
     {
-      v7 = *(*(a1 + 32) + 112);
+      v4 = *(*(a1 + 32) + 112);
     }
 
     else
@@ -3266,34 +3224,30 @@ void __30__BLControl_waitForALSArrival__block_invoke(uint64_t a1)
         inited = init_default_corebrightness_log();
       }
 
-      v7 = inited;
+      v4 = inited;
     }
 
-    v12 = v7;
-    v11 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = v4;
+    v7 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      log = v12;
-      type = v11;
-      __os_log_helper_16_0_0(v10);
-      _os_log_impl(&dword_1DE8E5000, log, type, "(CBU_ShouldWaitForALS) service not found, wait for ALS arrival", v10, 2u);
+      log = v8;
+      type = v7;
+      __os_log_helper_16_0_0(v6);
+      _os_log_impl(&dword_1DE8E5000, log, type, "(CBU_ShouldWaitForALS) service not found, wait for ALS arrival", v6, 2u);
     }
 
     *(*(*(a1 + 48) + 8) + 40) = dispatch_semaphore_create(0);
     if (*(*(*(a1 + 48) + 8) + 40))
     {
-      v1 = *(a1 + 56);
-      v2 = *(a1 + 40);
       IOHIDEventSystemClientScheduleWithDispatchQueue();
-      v3 = *(a1 + 56);
-      v9 = *(a1 + 48);
       IOHIDEventSystemClientRegisterDeviceMatchingBlock();
     }
   }
 
-  if (v13)
+  if (v9)
   {
-    CFRelease(v13);
+    CFRelease(v9);
   }
 }
 
@@ -3311,7 +3265,6 @@ uint64_t __30__BLControl_waitForALSArrival__block_invoke_306(void *a1)
 {
   dispatch_release(*(*(a1[5] + 8) + 40));
   *(*(a1[5] + 8) + 40) = 0;
-  v1 = a1[6];
   IOHIDEventSystemClientUnregisterDeviceMatchingBlock();
   return MEMORY[0x1E12C3B10](a1[6], a1[4]);
 }
@@ -3380,8 +3333,6 @@ void __39__BLControl_registerNotificationBlock___block_invoke(uint64_t a1)
   {
     (*(self->_callback + 2))();
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendNotificationFor:(id)for withValue:(id)value
@@ -3560,7 +3511,6 @@ double __28__BLControl_copyDisplayInfo__block_invoke(uint64_t a1, void *a2)
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Display ID: %d, UseSyncBrightnessTransactionForDisplay: %d", v9, 0xEu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -3855,8 +3805,6 @@ uint64_t __44__BLControl_initKeyboardBacklightHIDManager__block_invoke(uint64_t 
   {
     MEMORY[0x1E69E5920](v55);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 double __47__BLControl_keyboardBacklightHIDDeviceArrived___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -4008,7 +3956,16 @@ double __47__BLControl_keyboardBacklightHIDDeviceArrived___block_invoke_2(uint64
 
       else
       {
-        v4 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          v4 = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          v4 = init_default_corebrightness_log();
+        }
+
         v5 = v4;
       }
 
@@ -4027,8 +3984,6 @@ double __47__BLControl_keyboardBacklightHIDDeviceArrived___block_invoke_2(uint64
   {
     MEMORY[0x1E69E5920](v14);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendNotificationWithKeyboardIDs
@@ -4167,18 +4122,16 @@ double __47__BLControl_keyboardBacklightHIDDeviceArrived___block_invoke_2(uint64
       _os_log_error_impl(&dword_1DE8E5000, v5, v6, "[Display Mode] Failed to create display mode completion timer.", v16, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-void __65__BLControl_scheduleDisplayModeCompletionTimerIn_forDisplayMode___block_invoke(uint64_t a1)
+double __65__BLControl_scheduleDisplayModeCompletionTimerIn_forDisplayMode___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v27 = a1;
   v26 = a1;
-  v25 = a1;
   if (*(*(a1 + 32) + 112))
   {
-    v12 = *(*(a1 + 32) + 112);
+    v13 = *(*(a1 + 32) + 112);
   }
 
   else
@@ -4193,85 +4146,85 @@ void __65__BLControl_scheduleDisplayModeCompletionTimerIn_forDisplayMode___block
       inited = init_default_corebrightness_log();
     }
 
-    v12 = inited;
+    v13 = inited;
   }
 
-  v24 = v12;
-  v23 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v25 = v13;
+  v24 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_3_8_66_4_0_8_0(v27, [CBDisplayStateUtilities stringForDisplayMode:*(a1 + 40)], *(a1 + 40), COERCE__INT64(*(a1 + 48)));
-    _os_log_impl(&dword_1DE8E5000, v24, v23, "[Display Mode] didCompleteTransitionToDisplayMode %{public}@ (%d in %f seconds)", v27, 0x1Cu);
+    __os_log_helper_16_2_3_8_66_4_0_8_0(v28, [CBDisplayStateUtilities stringForDisplayMode:*(a1 + 40)], *(a1 + 40), COERCE__INT64(*(a1 + 48)));
+    _os_log_impl(&dword_1DE8E5000, v25, v24, "[Display Mode] didCompleteTransitionToDisplayMode %{public}@ (%d in %f seconds)", v28, 0x1Cu);
   }
 
   if (*(*(a1 + 32) + 112))
   {
-    v10 = *(*(a1 + 32) + 112);
+    v11 = *(*(a1 + 32) + 112);
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v9 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v10 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v9 = init_default_corebrightness_log();
+      v10 = init_default_corebrightness_log();
     }
 
-    v10 = v9;
+    v11 = v10;
   }
 
-  v22 = v10;
-  v21 = 1;
-  v20 = 0xEEEEB0B5B2B2EEEELL;
-  if (os_signpost_enabled(v10))
+  v23 = v11;
+  v22 = 1;
+  v21 = 0xEEEEB0B5B2B2EEEELL;
+  if (os_signpost_enabled(v11))
   {
-    v6 = v22;
-    v7 = v21;
-    spid = v20;
-    __os_log_helper_16_0_0(v19);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v6, v7, spid, "DisplayModeSendNotification", &unk_1DEAD656F, v19, 2u);
+    v7 = v23;
+    v8 = v22;
+    spid = v21;
+    __os_log_helper_16_0_0(v20);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v7, v8, spid, "DisplayModeSendNotification", &unk_1DEAD656F, v20, 2u);
   }
 
-  v18 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInteger:*(a1 + 40)];
-  [*(a1 + 32) sendSyncNotificationFor:@"DisplayModeChangeComplete" withValue:v18];
+  v19 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInteger:*(a1 + 40)];
+  [*(a1 + 32) sendSyncNotificationFor:@"DisplayModeChangeComplete" withValue:v19];
   if (*(*(a1 + 32) + 112))
   {
-    v5 = *(*(a1 + 32) + 112);
+    v6 = *(*(a1 + 32) + 112);
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v4 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v5 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v4 = init_default_corebrightness_log();
+      v5 = init_default_corebrightness_log();
     }
 
-    v5 = v4;
+    v6 = v5;
   }
 
-  v17 = v5;
-  v16 = 2;
-  v15 = 0xEEEEB0B5B2B2EEEELL;
-  if (os_signpost_enabled(v5))
+  v18 = v6;
+  v17 = 2;
+  v16 = 0xEEEEB0B5B2B2EEEELL;
+  if (os_signpost_enabled(v6))
   {
-    v1 = v17;
-    v2 = v16;
-    v3 = v15;
-    __os_log_helper_16_0_0(v14);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v1, v2, v3, "DisplayModeSendNotification", &unk_1DEAD656F, v14, 2u);
+    v2 = v18;
+    v3 = v17;
+    v4 = v16;
+    __os_log_helper_16_0_0(v15);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v2, v3, v4, "DisplayModeSendNotification", &unk_1DEAD656F, v15, 2u);
   }
 
-  MEMORY[0x1E69E5920](v18);
-  *MEMORY[0x1E69E9840];
+  *&result = MEMORY[0x1E69E5920](v19).n128_u64[0];
+  return result;
 }
 
 - (void)systemSleepMonitorWillWakeFromSleep:(id)sleep

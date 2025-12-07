@@ -141,38 +141,36 @@ uint64_t __51__HAP2SerializedOperationQueue__swapLastOperation___block_invoke(ui
 
   if (v5 && ([v5 isFinished] & 1) == 0)
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __45__HAP2SerializedOperationQueue_addOperation___block_invoke;
-    v28[3] = &unk_2786D4C58;
-    v29 = v5;
-    [allObjects hmf_enumerateWithAutoreleasePoolUsingBlock:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __45__HAP2SerializedOperationQueue_addOperation___block_invoke;
+    v27[3] = &unk_2786D4C58;
+    v28 = v5;
+    [allObjects hmf_enumerateWithAutoreleasePoolUsingBlock:v27];
   }
 
   objc_initWeak(location, v6);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __45__HAP2SerializedOperationQueue_addOperation___block_invoke_2;
-  v26[3] = &unk_2786D6FC8;
-  objc_copyWeak(&v27, location);
-  v14 = MEMORY[0x231885210](v26);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __45__HAP2SerializedOperationQueue_addOperation___block_invoke_2;
+  v25[3] = &unk_2786D6FC8;
+  objc_copyWeak(&v26, location);
+  v14 = MEMORY[0x231885210](v25);
   completionBlock = [v6 completionBlock];
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __45__HAP2SerializedOperationQueue_addOperation___block_invoke_3;
-  v23 = &unk_2786D4C80;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __45__HAP2SerializedOperationQueue_addOperation___block_invoke_3;
+  v22 = &unk_2786D4C80;
   v16 = completionBlock;
-  v24 = v16;
+  v23 = v16;
   v17 = v14;
-  v25 = v17;
-  [v6 setCompletionBlock:&v20];
-  v18 = [(HAP2SerializedOperationQueue *)self queue:v20];
+  v24 = v17;
+  [v6 setCompletionBlock:&v19];
+  v18 = [(HAP2SerializedOperationQueue *)self queue:v19];
   [v18 addOperations:allObjects waitUntilFinished:0];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(location);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HAP2SerializedOperationQueue_addOperation___block_invoke_2(uint64_t a1)

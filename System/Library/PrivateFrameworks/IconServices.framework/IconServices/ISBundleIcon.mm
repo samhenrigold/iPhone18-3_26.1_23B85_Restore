@@ -14,7 +14,7 @@
 
 - (ISBundleIcon)initWithBundleURL:(id)l type:(id)type tag:(id)tag tagClass:(id)class
 {
-  v46[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   obj = l;
   lCopy = l;
   typeCopy = type;
@@ -37,7 +37,7 @@
     v14 = v16;
   }
 
-  v44 = typeCopy;
+  v43 = typeCopy;
   if (classCopy2)
   {
     v17 = [v14 stringByAppendingString:classCopy2];
@@ -62,7 +62,7 @@
   }
 
   alternateIconName = [v18 alternateIconName];
-  v43 = classCopy2;
+  v42 = classCopy2;
   if (alternateIconName)
   {
     v23 = [v14 stringByAppendingString:alternateIconName];
@@ -76,14 +76,14 @@
   [__is__contentModifiedDate timeIntervalSinceReferenceDate];
   v27 = [v26 _IF_UUIDWithDouble:?];
   v28 = MEMORY[0x1E696AFB0];
-  v46[0] = v25;
-  v46[1] = v27;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+  v45[0] = v25;
+  v45[1] = v27;
+  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
   v30 = [v28 _IF_UUIDByXORingUUIDs:v29];
 
-  v45.receiver = self;
-  v45.super_class = ISBundleIcon;
-  v31 = [(ISConcreteIcon *)&v45 initWithDigest:v30];
+  v44.receiver = self;
+  v44.super_class = ISBundleIcon;
+  v31 = [(ISConcreteIcon *)&v44 initWithDigest:v30];
   v32 = v31;
   if (v31)
   {
@@ -93,12 +93,11 @@
     v32->_tag = v33;
 
     objc_storeStrong(&v32->_tagClass, classCopy);
-    v35 = [v44 copy];
+    v35 = [v43 copy];
     type = v32->_type;
     v32->_type = v35;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
@@ -145,31 +144,32 @@
 
 - (id)_makeDocumentResourceProvider
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6963798];
   if ([(NSURL *)self->_url __is_isApplication])
   {
     v4 = objc_alloc(MEMORY[0x1E69635F8]);
     url = self->_url;
-    v24 = 0;
-    containingBundleRecord = [v4 initWithURL:url allowPlaceholder:1 error:&v24];
-    v7 = v24;
+    v27 = 0;
+    containingBundleRecord = [v4 initWithURL:url allowPlaceholder:1 error:&v27];
+    v7 = v27;
+    v8 = v7;
     if (containingBundleRecord)
     {
 LABEL_16:
-      v8 = containingBundleRecord;
+      v9 = containingBundleRecord;
       goto LABEL_17;
     }
 
-    v8 = _ISDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _ISDefaultLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_url;
+      v10 = self->_url;
       *buf = 138412546;
-      v27 = v9;
-      v28 = 2112;
-      v29 = v7;
-      _os_log_impl(&dword_1A77B8000, v8, OS_LOG_TYPE_DEFAULT, "Application record not found for URL %@ with error: %@", buf, 0x16u);
+      v30 = v10;
+      v31 = 2112;
+      v32 = v8;
+      _os_log_impl(&dword_1A77B8000, v9, OS_LOG_TYPE_DEFAULT, "Application record not found for URL %@ with error: %@", buf, 0x16u);
     }
 
 LABEL_15:
@@ -177,57 +177,59 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (![(NSURL *)self->_url __is_isAppExtension])
+  __is_isAppExtension = [(NSURL *)self->_url __is_isAppExtension];
+  if (!__is_isAppExtension)
   {
-    v12 = _ISDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v15 = _ISDefaultLog(__is_isAppExtension);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [(ISBundleIcon *)&self->_url _makeDocumentResourceProvider];
     }
 
-    v8 = 0;
-    v13 = 0;
+    v9 = 0;
+    v16 = 0;
     goto LABEL_22;
   }
 
-  v10 = objc_alloc(MEMORY[0x1E69635D0]);
-  v11 = self->_url;
-  v23 = 0;
-  v8 = [v10 initWithURL:v11 error:&v23];
-  v7 = v23;
-  if (!v8)
+  v12 = objc_alloc(MEMORY[0x1E69635D0]);
+  v13 = self->_url;
+  v26 = 0;
+  v9 = [v12 initWithURL:v13 error:&v26];
+  v14 = v26;
+  v8 = v14;
+  if (!v9)
   {
-    v8 = _ISDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _ISDefaultLog(v14);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = self->_url;
+      v17 = self->_url;
       *buf = 138412546;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v7;
-      _os_log_impl(&dword_1A77B8000, v8, OS_LOG_TYPE_DEFAULT, "ApplicationExtension record not found for URL %@ with error: %@", buf, 0x16u);
+      v30 = v17;
+      v31 = 2112;
+      v32 = v8;
+      _os_log_impl(&dword_1A77B8000, v9, OS_LOG_TYPE_DEFAULT, "ApplicationExtension record not found for URL %@ with error: %@", buf, 0x16u);
     }
 
     containingBundleRecord = 0;
     goto LABEL_15;
   }
 
-  if (([v8 _is_canProvideIconResources]& 1) == 0)
+  if (([v9 _is_canProvideIconResources]& 1) == 0)
   {
-    containingBundleRecord = [v8 containingBundleRecord];
+    containingBundleRecord = [v9 containingBundleRecord];
     goto LABEL_15;
   }
 
 LABEL_17:
 
-  if (!v8)
+  if (!v9)
   {
     goto LABEL_26;
   }
 
   if (self->_type)
   {
-    v15 = [v8 _IS_iconDictionaryForType:?];
+    v18 = [v9 _IS_iconDictionaryForType:?];
   }
 
   else
@@ -237,79 +239,78 @@ LABEL_17:
       goto LABEL_26;
     }
 
-    v15 = [NSObject _IS_iconDictionaryForTag:v8 tagClass:"_IS_iconDictionaryForTag:tagClass:"];
+    v18 = [NSObject _IS_iconDictionaryForTag:v9 tagClass:"_IS_iconDictionaryForTag:tagClass:"];
   }
 
-  v12 = v15;
-  if (!v15)
+  v15 = v18;
+  if (!v18)
   {
 LABEL_26:
-    v13 = 0;
+    v16 = 0;
     goto LABEL_27;
   }
 
-  v25[0] = 0x1F1A4DBE0;
-  v25[1] = 0x1F1A4F2E0;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
-  v17 = [v12 _IF_stringForKeys:v16];
+  v28[0] = 0x1F1A4DBE0;
+  v28[1] = 0x1F1A4F2E0;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v20 = [v15 _IF_stringForKeys:v19];
 
-  v13 = [[ISBundleResourceProvider alloc] initWithBundleURL:self->_url iconDictionary:v12 options:v17 != 0];
+  v16 = [[ISBundleResourceProvider alloc] initWithBundleURL:self->_url iconDictionary:v15 options:v20 != 0];
 LABEL_22:
 
 LABEL_27:
-  if (![(ISResourceProvider *)v13 options])
+  if (![(ISResourceProvider *)v16 options])
   {
-    iconResource = [(ISBundleResourceProvider *)v13 iconResource];
+    iconResource = [(ISBundleResourceProvider *)v16 iconResource];
 
     if (!iconResource)
     {
-      v19 = _ISDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v23 = _ISDefaultLog(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [(ISBundleIcon *)&self->_url _makeDocumentResourceProvider];
       }
 
-      v20 = +[ISResourceProvider defaultAppIconResourceProvider];
+      v24 = +[ISResourceProvider defaultAppIconResourceProvider];
 
-      v13 = v20;
+      v16 = v24;
     }
   }
 
-  [(ISResourceProvider *)v13 setResourceType:2];
+  [(ISResourceProvider *)v16 setResourceType:2];
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v16;
 }
 
 - (id)_makeAppResourceProvider
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if ([(NSURL *)self->_url __is_isApplication])
   {
     v3 = objc_alloc(MEMORY[0x1E69635F8]);
     url = self->_url;
-    v30 = 0;
-    v5 = [v3 initWithURL:url allowPlaceholder:1 error:&v30];
-    v6 = v30;
+    v32 = 0;
+    v5 = [v3 initWithURL:url allowPlaceholder:1 error:&v32];
+    v6 = v32;
+    v7 = v6;
     if (!v5)
     {
-      v15 = _ISDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = _ISDefaultLog(v6);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = self->_url;
+        v18 = self->_url;
         *buf = 138412546;
-        v32 = v16;
-        v33 = 2112;
-        v34 = v6;
-        _os_log_impl(&dword_1A77B8000, v15, OS_LOG_TYPE_DEFAULT, "Application record not found for URL %@ with error: %@", buf, 0x16u);
+        v34 = v18;
+        v35 = 2112;
+        v36 = v7;
+        _os_log_impl(&dword_1A77B8000, v17, OS_LOG_TYPE_DEFAULT, "Application record not found for URL %@ with error: %@", buf, 0x16u);
       }
 
       goto LABEL_17;
     }
 
-    v7 = +[ISDefaults sharedInstance];
-    if ([v7 enableAppIconOverides])
+    v8 = +[ISDefaults sharedInstance];
+    if ([v8 enableAppIconOverides])
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
@@ -317,21 +318,21 @@ LABEL_27:
       if ((isKindOfClass & 1) == 0)
       {
 LABEL_16:
-        v17 = v5;
+        v19 = v5;
 LABEL_17:
-        v7 = 0;
+        v8 = 0;
         containingBundleRecord = v5;
         goto LABEL_18;
       }
 
-      v7 = v5;
-      v9 = +[ISCustomIconManager sharedInstance];
-      bundleIdentifier = [v7 bundleIdentifier];
-      v11 = [v9 overrideResourceForBundleIdentifier:bundleIdentifier];
+      v8 = v5;
+      v10 = +[ISCustomIconManager sharedInstance];
+      bundleIdentifier = [v8 bundleIdentifier];
+      v12 = [v10 overrideResourceForBundleIdentifier:bundleIdentifier];
 
-      if (v11)
+      if (v12)
       {
-        v12 = [[ISResourceProvider alloc] initWithResource:v11 templateResource:0];
+        v13 = [[ISResourceProvider alloc] initWithResource:v12 templateResource:0];
 
         goto LABEL_36;
       }
@@ -342,50 +343,51 @@ LABEL_17:
 
   if (![(NSURL *)self->_url __is_isAppExtension])
   {
+    v8 = 0;
     v7 = 0;
-    v6 = 0;
 LABEL_21:
-    v20 = [MEMORY[0x1E69A8960] bundleWithURL:self->_url];
-    if (v20)
+    v22 = [MEMORY[0x1E69A8960] bundleWithURL:self->_url];
+    if (v22)
     {
-      v12 = [[ISBundleResourceProvider alloc] initWithBundle:v20 options:0];
+      v13 = [[ISBundleResourceProvider alloc] initWithBundle:v22 options:0];
     }
 
     else
     {
-      v21 = _ISDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v23 = _ISDefaultLog(0);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [(ISBundleIcon *)&self->_url _makeAppResourceProvider];
       }
 
-      v12 = 0;
+      v13 = 0;
     }
 
     goto LABEL_27;
   }
 
-  v13 = objc_alloc(MEMORY[0x1E69635D0]);
-  v14 = self->_url;
-  v29 = 0;
-  v5 = [v13 initWithURL:v14 error:&v29];
-  v6 = v29;
+  v14 = objc_alloc(MEMORY[0x1E69635D0]);
+  v15 = self->_url;
+  v31 = 0;
+  v5 = [v14 initWithURL:v15 error:&v31];
+  v16 = v31;
+  v7 = v16;
   if (v5)
   {
     if ([v5 _IS_isMessagesExtension])
     {
-      v7 = objc_opt_new();
+      v8 = objc_opt_new();
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     if (([v5 _is_canProvideIconResources]& 1) != 0)
     {
-      v19 = v6;
-      v6 = v5;
+      v21 = v7;
+      v7 = v5;
       goto LABEL_19;
     }
 
@@ -394,74 +396,72 @@ LABEL_21:
 
   else
   {
-    v5 = _ISDefaultLog();
+    v5 = _ISDefaultLog(v16);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = self->_url;
+      v30 = self->_url;
       *buf = 138412546;
-      v32 = v28;
-      v33 = 2112;
-      v34 = v6;
+      v34 = v30;
+      v35 = 2112;
+      v36 = v7;
       _os_log_impl(&dword_1A77B8000, v5, OS_LOG_TYPE_DEFAULT, "ApplicationExtension record not found for URL %@ with error: %@", buf, 0x16u);
     }
 
-    v7 = 0;
+    v8 = 0;
     containingBundleRecord = 0;
   }
 
 LABEL_18:
 
-  v19 = v6;
-  v6 = containingBundleRecord;
+  v21 = v7;
+  v7 = containingBundleRecord;
 LABEL_19:
 
-  if (!v6)
+  if (!v7)
   {
     goto LABEL_21;
   }
 
-  v12 = [[ISRecordResourceProvider alloc] initWithRecord:v6 options:0];
-  if (!v12)
+  v13 = [[ISRecordResourceProvider alloc] initWithRecord:v7 options:0];
+  if (!v13)
   {
     goto LABEL_21;
   }
 
 LABEL_27:
-  iconResource = [(ISBundleResourceProvider *)v12 iconResource];
+  iconResource = [(ISBundleResourceProvider *)v13 iconResource];
   if (iconResource)
   {
   }
 
   else
   {
-    customRecipe = [(ISResourceProvider *)v12 customRecipe];
+    customRecipe = [(ISResourceProvider *)v13 customRecipe];
 
     if (!customRecipe)
     {
-      v24 = _ISDefaultLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = _ISDefaultLog(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         [(ISBundleIcon *)&self->_url _makeAppResourceProvider];
       }
 
-      v25 = +[ISResourceProvider defaultAppIconResourceProvider];
+      v28 = +[ISResourceProvider defaultAppIconResourceProvider];
 
-      [(ISResourceProvider *)v25 setPlaceholder:1];
-      v12 = v25;
+      [(ISResourceProvider *)v28 setPlaceholder:1];
+      v13 = v28;
     }
   }
 
-  if (v7)
+  if (v8)
   {
-    [(ISResourceProvider *)v12 setSuggestedRecipe:v7];
+    [(ISResourceProvider *)v13 setSuggestedRecipe:v8];
   }
 
-  [(ISResourceProvider *)v12 setResourceType:1];
+  [(ISResourceProvider *)v13 setResourceType:1];
 LABEL_36:
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v13;
 }
 
 - (id)makeResourceProvider
@@ -496,22 +496,16 @@ LABEL_36:
 
 - (void)_makeDocumentResourceProvider
 {
-  v10 = *MEMORY[0x1E69E9840];
   path = [*self path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_3(&dword_1A77B8000, v2, v3, "Failed to find document icon resources for %@ - %@. Creating placeholder provider", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1A77B8000, v2, v3, "Failed to find document icon resources for %@ - %@. Creating placeholder provider", v4, v5, v6, v7);
 }
 
 - (void)_makeAppResourceProvider
 {
-  v10 = *MEMORY[0x1E69E9840];
   path = [*self path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_3(&dword_1A77B8000, v2, v3, "Failed to find icon resources for %@ - %@. Creating placeholder provider", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1A77B8000, v2, v3, "Failed to find icon resources for %@ - %@. Creating placeholder provider", v4, v5, v6, v7);
 }
 
 @end

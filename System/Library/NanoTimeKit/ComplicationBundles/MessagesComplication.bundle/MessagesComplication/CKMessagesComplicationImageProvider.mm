@@ -22,19 +22,18 @@
 
 - (CKMessagesComplicationImageProvider)init
 {
-  v14.receiver = self;
-  v14.super_class = CKMessagesComplicationImageProvider;
-  v2 = [(CKMessagesComplicationImageProvider *)&v14 init];
+  v8.receiver = self;
+  v8.super_class = CKMessagesComplicationImageProvider;
+  v2 = [(CKMessagesComplicationImageProvider *)&v8 init];
   if (v2)
   {
-    v3 = objc_alloc(MEMORY[0x277CCAB00]);
-    v9 = objc_msgSend_initWithKeyOptions_valueOptions_capacity_(v3, v4, v5, v6, v7, v8, 0, 5, 0);
+    v3 = [objc_alloc(MEMORY[0x277CCAB00]) initWithKeyOptions:0 valueOptions:5 capacity:0];
     imageCache = v2->_imageCache;
-    v2->_imageCache = v9;
+    v2->_imageCache = v3;
 
-    v11 = os_log_create("com.apple.Messages", "CKMessagesComplicationImageProvider");
+    v5 = os_log_create("com.apple.Messages", "CKMessagesComplicationImageProvider");
     log = v2->_log;
-    v2->_log = v11;
+    v2->_log = v5;
 
     v2->_lock._os_unfair_lock_opaque = 0;
   }
@@ -47,104 +46,103 @@
   templateCopy = template;
   specsCopy = specs;
   v12 = [CKMessagesComplicationDataContext alloc];
-  objc_msgSend_imageSize(self, v13, v14, v15, v16, v17);
-  v23 = objc_msgSend_initWithUnreadCount_family_template_specs_imageSize_(v12, v18, v19, v20, v21, v22, count, family, templateCopy, specsCopy);
+  [(CKMessagesComplicationImageProvider *)self imageSize];
+  v13 = [(CKMessagesComplicationDataContext *)v12 initWithUnreadCount:count family:family template:templateCopy specs:specsCopy imageSize:?];
   os_unfair_lock_lock(&self->_lock);
-  v29 = objc_msgSend_objectForKey_(self->_imageCache, v24, v25, v26, v27, v28, v23);
-  v35 = v29;
-  if (v29)
+  v14 = [(NSMapTable *)self->_imageCache objectForKey:v13];
+  v15 = v14;
+  if (v14)
   {
-    v36 = v29;
+    v16 = v14;
   }
 
   else
   {
-    v37 = objc_msgSend_systemImageNamed_(MEMORY[0x277D755B8], v30, v31, v32, v33, v34, @"message.fill");
-    v43 = objc_msgSend_imageWithRenderingMode_(v37, v38, v39, v40, v41, v42, 2);
-    v36 = objc_msgSend__simpleTintableImageOverImage_withContext_(self, v44, v45, v46, v47, v48, v43, v23);
+    v17 = [MEMORY[0x277D755B8] systemImageNamed:@"message.fill"];
+    v18 = [v17 imageWithRenderingMode:2];
+    v16 = [(CKMessagesComplicationImageProvider *)self _simpleTintableImageOverImage:v18 withContext:v13];
 
-    objc_msgSend_setObject_forKey_(self->_imageCache, v49, v50, v51, v52, v53, v36, v23);
+    [(NSMapTable *)self->_imageCache setObject:v16 forKey:v13];
   }
 
   os_unfair_lock_unlock(&self->_lock);
 
-  return v36;
+  return v16;
 }
 
 - (id)_simpleTintableImageOverImage:(id)image withContext:(id)context
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   contextCopy = context;
-  objc_msgSend_imageFrame(contextCopy, v8, v9, v10, v11, v12);
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  if (objc_msgSend_unreadCount(contextCopy, v21, v13, v15, v17, v19))
+  [contextCopy imageFrame];
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  if ([contextCopy unreadCount])
   {
-    v27 = objc_msgSend_textAttributes(contextCopy, v22, v23, v24, v25, v26);
-    v28 = v27 != 0;
+    textAttributes = [contextCopy textAttributes];
+    v17 = textAttributes != 0;
   }
 
   else
   {
-    v28 = 0;
+    v17 = 0;
   }
 
-  v29 = objc_msgSend_preferredFormat(MEMORY[0x277D75568], v22, v23, v24, v25, v26);
-  objc_msgSend_setPreferredRange_(v29, v30, v31, v32, v33, v34, 2);
-  v40 = objc_msgSend_log(self, v35, v36, v37, v38, v39);
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  preferredFormat = [MEMORY[0x277D75568] preferredFormat];
+  [preferredFormat setPreferredRange:2];
+  v19 = [(CKMessagesComplicationImageProvider *)self log];
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    objc_msgSend_backgroundFrame(contextCopy, v41, v42, v43, v44, v45);
-    v47 = v46;
-    objc_msgSend_backgroundFrame(contextCopy, v48, v49, v50, v51, v46);
+    [contextCopy backgroundFrame];
+    v21 = v20;
+    [contextCopy backgroundFrame];
     *buf = 134219008;
-    v85 = v47;
-    v86 = 2048;
-    v87 = v56;
-    v88 = 2048;
-    v89 = v20;
-    v90 = 2048;
-    v91 = v18;
-    v92 = 2048;
-    v93 = objc_msgSend_unreadCount(contextCopy, v52, v53, v54, v56, v55);
-    _os_log_impl(&dword_23BD1C000, v40, OS_LOG_TYPE_DEFAULT, "generating image with background size: (%f, %f), imageSize: (%f, %f), unreadCount: %lu", buf, 0x34u);
+    v40 = v21;
+    v41 = 2048;
+    v42 = v22;
+    v43 = 2048;
+    v44 = v15;
+    v45 = 2048;
+    v46 = v13;
+    v47 = 2048;
+    unreadCount = [contextCopy unreadCount];
+    _os_log_impl(&dword_23BD1C000, v19, OS_LOG_TYPE_DEFAULT, "generating image with background size: (%f, %f), imageSize: (%f, %f), unreadCount: %lu", buf, 0x34u);
   }
 
-  v57 = objc_alloc(MEMORY[0x277D75560]);
-  objc_msgSend_backgroundFrame(contextCopy, v58, v59, v60, v61, v62);
-  v66 = objc_msgSend_initWithSize_format_(v57, v63, v64, v65, v64, v65, v29);
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = sub_23BD2012C;
-  v76[3] = &unk_278B93210;
-  v79 = v14;
-  v80 = v16;
-  v81 = v18;
-  v82 = v20;
-  v83 = v28;
-  v77 = imageCopy;
-  v78 = contextCopy;
-  v67 = contextCopy;
-  v68 = imageCopy;
-  v74 = objc_msgSend_imageWithActions_(v66, v69, v70, v71, v72, v73, v76);
+  v23 = objc_alloc(MEMORY[0x277D75560]);
+  [contextCopy backgroundFrame];
+  v26 = [v23 initWithSize:preferredFormat format:{v24, v25}];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = sub_23BD2012C;
+  v31[3] = &unk_278B93210;
+  v34 = v9;
+  v35 = v11;
+  v36 = v13;
+  v37 = v15;
+  v38 = v17;
+  v32 = imageCopy;
+  v33 = contextCopy;
+  v27 = contextCopy;
+  v28 = imageCopy;
+  v29 = [v26 imageWithActions:v31];
 
-  return v74;
+  return v29;
 }
 
 - (CGSize)imageSize
 {
   width = self->_imageSize.width;
   height = self->_imageSize.height;
-  v4 = *(MEMORY[0x277CBF3A8] + 8);
-  if (width == *MEMORY[0x277CBF3A8] && height == v4)
+  if (width == *MEMORY[0x277CBF3A8] && height == *(MEMORY[0x277CBF3A8] + 8))
   {
-    v7 = objc_msgSend_systemImageNamed_(MEMORY[0x277D755B8], a2, width, height, *MEMORY[0x277CBF3A8], v4, @"message.fill");
-    objc_msgSend_size(v7, v8, v9, v10, v11, v12);
-    self->_imageSize.width = v13;
-    self->_imageSize.height = v14;
+    v6 = [MEMORY[0x277D755B8] systemImageNamed:@"message.fill"];
+    [v6 size];
+    self->_imageSize.width = v7;
+    self->_imageSize.height = v8;
 
     width = self->_imageSize.width;
     height = self->_imageSize.height;

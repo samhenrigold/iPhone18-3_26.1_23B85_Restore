@@ -910,11 +910,11 @@ LABEL_9:
   return CFPreferencesGetAppIntegerValue(@"MadridLoggingLevel", @"com.apple.logging", 0);
 }
 
-void sub_2B88(unsigned int a1)
+void sub_2B88(int a1)
 {
   v2 = sub_3348();
-  sub_1ED8((a1 & 0x80000000) == 0, v2);
-  if ((a1 & 0x80000000) != 0)
+  sub_1ED8(a1 >= 0, v2);
+  if (a1 < 0)
   {
     CFPreferencesSetAppValue(@"MadridLoggingLevel", 0, @"com.apple.logging");
     CFPreferencesSetAppValue(@"DebugLevel", 0, @"com.apple.mmcs");
@@ -1006,7 +1006,7 @@ void sub_2EB0(__CFString *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t sub_2FD0()
+uint64_t sub_2FD0(uint64_t a1)
 {
   IMSetDomainBoolForKey();
   IMSetDomainBoolForKey();
@@ -1015,26 +1015,27 @@ uint64_t sub_2FD0()
   return IMSetDomainBoolForKey();
 }
 
-void sub_304C()
+void sub_304C(int a1)
 {
-  v0 = WiFiManagerClientCreate();
-  if (v0)
+  v1 = WiFiManagerClientCreate();
+  if (v1)
   {
-    v1 = v0;
+    v2 = v1;
     WiFiManagerClientSetProperty();
     WiFiManagerClientSetProperty();
     WiFiManagerClientSetProperty();
 
-    CFRelease(v1);
+    CFRelease(v2);
   }
 }
 
-uint64_t sub_310C(int a1)
+uint64_t sub_310C(uint64_t a1)
 {
+  v1 = a1;
   IMSetDomainBoolForKey();
   IMSetDomainBoolForKey();
-  v2 = a1 == 0;
-  if (a1)
+  v2 = v1 == 0;
+  if (v1)
   {
     v3 = @"Info";
   }

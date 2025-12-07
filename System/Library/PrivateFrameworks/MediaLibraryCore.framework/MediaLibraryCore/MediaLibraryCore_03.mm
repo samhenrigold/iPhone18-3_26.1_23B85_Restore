@@ -1,85 +1,3 @@
-uint64_t mlcore::ItemPropertyHLSKeyServerURL(mlcore *this)
-{
-  if (atomic_load_explicit(&mlcore::ItemPropertyHLSKeyServerURL(void)::once, memory_order_acquire) != -1)
-  {
-    v6[1] = v1;
-    v6[2] = v2;
-    v6[0] = &v4;
-    v5 = v6;
-    std::__call_once(&mlcore::ItemPropertyHLSKeyServerURL(void)::once, &v5, std::__call_once_proxy[abi:ne200100]<std::tuple<mlcore::ItemPropertyHLSKeyServerURL(void)::$_0 &&>>);
-  }
-
-  return mlcore::ItemPropertyHLSKeyServerURL(void)::property;
-}
-
-void sub_1D57AB050(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
-{
-  if (a23 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a14 < 0)
-  {
-    operator delete(a9);
-  }
-
-  if (a17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a17);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t mlcore::ItemPropertyHLSKeyServerProtocol(mlcore *this)
-{
-  if (atomic_load_explicit(&mlcore::ItemPropertyHLSKeyServerProtocol(void)::once, memory_order_acquire) != -1)
-  {
-    v6[1] = v1;
-    v6[2] = v2;
-    v6[0] = &v4;
-    v5 = v6;
-    std::__call_once(&mlcore::ItemPropertyHLSKeyServerProtocol(void)::once, &v5, std::__call_once_proxy[abi:ne200100]<std::tuple<mlcore::ItemPropertyHLSKeyServerProtocol(void)::$_0 &&>>);
-  }
-
-  return mlcore::ItemPropertyHLSKeyServerProtocol(void)::property;
-}
-
-void sub_1D57AB330(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
-{
-  if (a23 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a14 < 0)
-  {
-    operator delete(a9);
-  }
-
-  if (a17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a17);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t mlcore::ItemPropertyHLSKeyCertificateURL(mlcore *this)
-{
-  if (atomic_load_explicit(&mlcore::ItemPropertyHLSKeyCertificateURL(void)::once, memory_order_acquire) != -1)
-  {
-    v6[1] = v1;
-    v6[2] = v2;
-    v6[0] = &v4;
-    v5 = v6;
-    std::__call_once(&mlcore::ItemPropertyHLSKeyCertificateURL(void)::once, &v5, std::__call_once_proxy[abi:ne200100]<std::tuple<mlcore::ItemPropertyHLSKeyCertificateURL(void)::$_0 &&>>);
-  }
-
-  return mlcore::ItemPropertyHLSKeyCertificateURL(void)::property;
-}
-
 void sub_1D57AB610(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
@@ -752,9 +670,9 @@ uint64_t mlcore::Entity::valueForProperty<long long>(uint64_t a1, mlcore::ModelP
 
 void *mlcore::Item::setFileSize(mlcore::Item *this, uint64_t a2)
 {
-  v5[0] = mlcore::ItemPropertyFileSize(this);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 22, v5[0]);
+  v5 = mlcore::ItemPropertyFileSize(this);
+  v6 = &v5;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 44, v5, &v6);
   result[3] = a2;
   return result;
 }
@@ -780,9 +698,9 @@ double mlcore::Entity::valueForProperty<double>(uint64_t a1, mlcore::ModelProper
 
 double *mlcore::Item::setTotalTime(mlcore::Item *this, double a2)
 {
-  v5[0] = mlcore::ItemPropertyTotalTime(this);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::__unordered_map_hasher<mlcore::ModelProperty<double> *,std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::hash<mlcore::ModelProperty<double> *>,std::equal_to<mlcore::ModelProperty<double> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<double> *,std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::equal_to<mlcore::ModelProperty<double> *>,std::hash<mlcore::ModelProperty<double> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<double> *,double>>>::__emplace_unique_key_args<mlcore::ModelProperty<double> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<double> * const&>,std::tuple<>>(this + 12, v5[0]);
+  v5 = mlcore::ItemPropertyTotalTime(this);
+  v6 = &v5;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::__unordered_map_hasher<mlcore::ModelProperty<double> *,std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::hash<mlcore::ModelProperty<double> *>,std::equal_to<mlcore::ModelProperty<double> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<double> *,std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::equal_to<mlcore::ModelProperty<double> *>,std::hash<mlcore::ModelProperty<double> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<double> *,double>>>::__emplace_unique_key_args<mlcore::ModelProperty<double> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<double> * const&>,std::tuple<>>(this + 24, v5, &v6);
   result[3] = a2;
   return result;
 }
@@ -854,7 +772,7 @@ uint64_t mlcore::TypedEntityClass<mlcore::Item>::databaseTable()
   return v0;
 }
 
-void mlcore::TypedEntityClass<mlcore::Item>::databaseTablesToDeleteFrom(void *a1@<X8>)
+void mlcore::TypedEntityClass<mlcore::Item>::databaseTablesToDeleteFrom(uint64_t *a1@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
   mediaplatform::Singleton<mlcore::ItemExtraTable>::sharedInstance(&v8);
@@ -917,7 +835,7 @@ void sub_1D57AE874(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::TypedEntityClass<mlcore::Item>::databaseTablesToInsertInto(void *a1@<X8>)
+void mlcore::TypedEntityClass<mlcore::Item>::databaseTablesToInsertInto(uint64_t *a1@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
   mediaplatform::Singleton<mlcore::ItemExtraTable>::sharedInstance(&v8);
@@ -1282,7 +1200,7 @@ mlcore::MLDatabasePropertiesTable *mlcore::MLDatabasePropertiesTable::MLDatabase
   return this;
 }
 
-void sub_1D57AF364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
+void sub_1D57AF364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
 {
   v46 = v43;
   *(v42 + 272) = v46;
@@ -1313,9 +1231,16 @@ void sub_1D57AF364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1D57AF5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<std::string,std::string>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D57AF5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1329,9 +1254,9 @@ void mediaplatform::DatabaseTable<std::string,std::string>::columnNames(uint64_t
   mediaplatform::ColumnNamesApplier::operator()<std::string>(a2, a1 + 80);
 }
 
-void sub_1D57AF64C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57AF64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1527,7 +1452,7 @@ void sub_1D57AFC58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mediaplatform::SQLSelectCoreStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t mediaplatform::SQLSelectCoreStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
   if (!a2)
@@ -1672,7 +1597,7 @@ uint64_t mediaplatform::SQLSelectCoreStatement::sql@<X0>(uint64_t a1@<X0>, uint6
   return MEMORY[0x1DA6EDCB0](&v28);
 }
 
-uint64_t mediaplatform::SQLStringWithStatementList<mediaplatform::SQLExpression>(_BYTE *a1, uint64_t **a2, uint64_t a3, uint64_t a4)
+uint64_t mediaplatform::SQLStringWithStatementList<mediaplatform::SQLExpression>(void *a1, uint64_t **a2, uint64_t a3, uint64_t a4)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v21);
   v8 = *a2;
@@ -1765,16 +1690,16 @@ LABEL_26:
   return MEMORY[0x1DA6EDCB0](&v25);
 }
 
-uint64_t std::__shared_ptr_emplace<mediaplatform::SQLRenderingContext>::__on_zero_shared(uint64_t a1)
+void **std::__shared_ptr_emplace<mediaplatform::SQLRenderingContext>::__on_zero_shared(uint64_t a1)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(a1 + 72);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((a1 + 72));
 
-  return std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(a1 + 32);
+  return std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((a1 + 32));
 }
 
-uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1865,7 +1790,7 @@ void mediaplatform::SQLSelectCoreStatement::~SQLSelectCoreStatement(mediaplatfor
   std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
-uint64_t mediaplatform::SQLSelectStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t mediaplatform::SQLSelectStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v22);
   if (!a2)
@@ -1990,7 +1915,7 @@ uint64_t mediaplatform::SQLSelectStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t 
   return MEMORY[0x1DA6EDCB0](&v26);
 }
 
-uint64_t mediaplatform::SQLStringWithStatementList<mediaplatform::SQLOrderingTerm>(_BYTE *a1, uint64_t **a2, uint64_t a3, uint64_t a4)
+uint64_t mediaplatform::SQLStringWithStatementList<mediaplatform::SQLOrderingTerm>(void *a1, uint64_t **a2, uint64_t a3, uint64_t a4)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v21);
   v8 = *a2;
@@ -2132,7 +2057,7 @@ void mediaplatform::SQLSelectStatement::~SQLSelectStatement(mediaplatform::SQLSe
   }
 }
 
-uint64_t mediaplatform::SQLCompoundSelectStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t mediaplatform::SQLCompoundSelectStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v30);
   if (!a2)
@@ -2427,7 +2352,7 @@ uint64_t mediaplatform::SQLSelectCoreStatement::SQLSelectCoreStatement(uint64_t 
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 16) = 0;
-  std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const>*,std::shared_ptr<mediaplatform::SQLExpression const>*>(a1 + 16, *a2, a2[1], (a2[1] - *a2) >> 4);
+  std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const>*,std::shared_ptr<mediaplatform::SQLExpression const>*>((a1 + 16), *a2, a2[1], (a2[1] - *a2) >> 4);
   v5 = a3[1];
   *(a1 + 40) = *a3;
   *(a1 + 48) = v5;
@@ -2441,7 +2366,7 @@ uint64_t mediaplatform::SQLSelectCoreStatement::SQLSelectCoreStatement(uint64_t 
   return a1;
 }
 
-uint64_t std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const>*,std::shared_ptr<mediaplatform::SQLExpression const>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const>*,std::shared_ptr<mediaplatform::SQLExpression const>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2492,7 +2417,7 @@ uint64_t mediaplatform::SQLSelectCoreStatement::SQLSelectCoreStatement(uint64_t 
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 16) = 0;
-  std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const>*,std::shared_ptr<mediaplatform::SQLExpression const>*>(a1 + 16, *(v4 + 16), *(v4 + 24), (*(v4 + 24) - *(v4 + 16)) >> 4);
+  std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const>*,std::shared_ptr<mediaplatform::SQLExpression const>*>((a1 + 16), *(v4 + 16), *(v4 + 24), (*(v4 + 24) - *(v4 + 16)) >> 4);
   v5 = *a2;
   v6 = *(*a2 + 48);
   *(a1 + 40) = *(*a2 + 40);
@@ -2533,7 +2458,7 @@ void mediaplatform::SQLSelectCoreStatement::setResultColumns(uint64_t a1, uint64
   }
 }
 
-void std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__assign_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const>*,std::shared_ptr<mediaplatform::SQLExpression const>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+void std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__assign_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const>*,std::shared_ptr<mediaplatform::SQLExpression const>*>(uint64_t **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v8 = a1[2];
   v9 = *a1;
@@ -2577,9 +2502,9 @@ void std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__assign_
   if (a4 <= v12 >> 4)
   {
     v13 = std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const> *,std::shared_ptr<mediaplatform::SQLExpression const> *,std::shared_ptr<mediaplatform::SQLExpression const> *>(a2, a3, v9);
-    for (i = a1[1]; i != v13; i -= 2)
+    for (i = a1[1]; i != v13; i -= 16)
     {
-      v15 = *(i - 1);
+      v15 = *(i - 8);
       if (v15)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v15);
@@ -2596,7 +2521,7 @@ void std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__assign_
   }
 }
 
-void *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const> *,std::shared_ptr<mediaplatform::SQLExpression const> *,std::shared_ptr<mediaplatform::SQLExpression const> *>(uint64_t *a1, uint64_t *a2, void *a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<mediaplatform::SQLExpression const> *,std::shared_ptr<mediaplatform::SQLExpression const> *,std::shared_ptr<mediaplatform::SQLExpression const> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -2729,15 +2654,15 @@ void std::__shared_ptr_emplace<mediaplatform::SQLSelectCoreStatement>::~__shared
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mediaplatform::SQLSelectStatement::SQLSelectStatement(void *a1)
+void mediaplatform::SQLSelectStatement::SQLSelectStatement(void *a1, void *a2, uint64_t *a3)
 {
   *a1 = &unk_1F50DC860;
-  std::allocate_shared[abi:ne200100]<mediaplatform::SQLSelectCoreStatement,std::allocator<mediaplatform::SQLSelectCoreStatement>,std::vector<std::shared_ptr<mediaplatform::SQLExpression const>> const&,std::shared_ptr<mediaplatform::SQLFromStatement const> &,0>();
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLSelectCoreStatement,std::allocator<mediaplatform::SQLSelectCoreStatement>,std::vector<std::shared_ptr<mediaplatform::SQLExpression const>> const&,std::shared_ptr<mediaplatform::SQLFromStatement const> &,0>(a1 + 1, a2, a3);
 }
 
 {
   *a1 = &unk_1F50DC860;
-  std::allocate_shared[abi:ne200100]<mediaplatform::SQLSelectCoreStatement,std::allocator<mediaplatform::SQLSelectCoreStatement>,std::vector<std::shared_ptr<mediaplatform::SQLExpression const>> const&,std::shared_ptr<mediaplatform::SQLFromStatement const> &,0>();
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLSelectCoreStatement,std::allocator<mediaplatform::SQLSelectCoreStatement>,std::vector<std::shared_ptr<mediaplatform::SQLExpression const>> const&,std::shared_ptr<mediaplatform::SQLFromStatement const> &,0>(a1 + 1, a2, a3);
 }
 
 void sub_1D57B1DE4(_Unwind_Exception *a1)
@@ -2968,21 +2893,21 @@ uint64_t mediaplatform::SQLSelectStatement::coreStatement@<X0>(uint64_t this@<X0
   return this;
 }
 
-uint64_t mediaplatform::SQLCompoundSelectStatement::SQLCompoundSelectStatement(uint64_t result, uint64_t *a2, void *a3)
+uint64_t mediaplatform::SQLCompoundSelectStatement::SQLCompoundSelectStatement(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   v4 = *a2;
   v3 = a2[1];
-  *result = &unk_1F50DC888;
-  *(result + 8) = v4;
-  *(result + 16) = v3;
+  *a1 = &unk_1F50DC888;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = v3;
   if (v3)
   {
     atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *(result + 24) = 0;
-  *(result + 32) = 0;
-  *(result + 40) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0;
   v5 = a3[1];
   if (v5 != *a3)
   {
@@ -2995,11 +2920,11 @@ uint64_t mediaplatform::SQLCompoundSelectStatement::SQLCompoundSelectStatement(u
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  *(result + 96) = 0;
-  *(result + 64) = 0u;
-  *(result + 80) = 0u;
-  *(result + 48) = 0u;
-  return result;
+  *(a1 + 96) = 0;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 48) = 0u;
+  return a1;
 }
 
 void sub_1D57B2268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
@@ -3183,7 +3108,7 @@ void mediaplatform::WorkQueue_Dispatch::pause(mediaplatform::WorkQueue_Dispatch 
   std::mutex::unlock((this + 8));
 }
 
-_BYTE *mediaplatform::WorkQueue_Dispatch::label@<X0>(dispatch_queue_t *this@<X0>, _BYTE *a2@<X8>)
+void *mediaplatform::WorkQueue_Dispatch::label@<X0>(dispatch_queue_t *this@<X0>, void *a2@<X8>)
 {
   label = dispatch_queue_get_label(this[10]);
 
@@ -3207,7 +3132,7 @@ void mediaplatform::WorkQueue_Dispatch::~WorkQueue_Dispatch(mediaplatform::WorkQ
   std::mutex::~mutex((this + 8));
 }
 
-void mediaplatform::WorkQueue::sharedWorkQueue(mediaplatform::WorkQueueManager *a1@<X0>, int a2@<W1>, void *a3@<X8>)
+void mediaplatform::WorkQueue::sharedWorkQueue(mediaplatform::WorkQueueManager *a1@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
 {
   if (a2)
   {
@@ -3220,7 +3145,8 @@ void mediaplatform::WorkQueue::sharedWorkQueue(mediaplatform::WorkQueueManager *
 
     v5 = mediaplatform::WorkQueueManager::sharedInstance(a1);
     std::mutex::lock(v5);
-    v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v5[1].__m_.__opaque[16], a1);
+    v12 = a1;
+    v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v5 + 88), a1, &v12);
     v7 = v6[7];
     v8 = v6[8];
     *a3 = v7;
@@ -3240,7 +3166,8 @@ void mediaplatform::WorkQueue::sharedWorkQueue(mediaplatform::WorkQueueManager *
   {
     v5 = mediaplatform::WorkQueueManager::sharedInstance(a1);
     std::mutex::lock(v5);
-    v9 = std::__tree<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v5[1], a1);
+    v12 = a1;
+    v9 = std::__tree<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v5 + 64), a1, &v12);
     v10 = v9[7];
     v11 = v9[8];
     *a3 = v10;
@@ -3275,10 +3202,10 @@ uint64_t mediaplatform::WorkQueueManager::sharedInstance(mediaplatform::WorkQueu
   return mediaplatform::WorkQueueManager::sharedInstance(void)::__sharedInstance;
 }
 
-void *std::__tree<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, void *a2, __int128 **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -3288,35 +3215,35 @@ LABEL_7:
   {
     while (1)
     {
-      v4 = v2;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v2 + 4) & 0x80) == 0)
+      v5 = v3;
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v3 + 4) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_7;
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4 + 4, a2) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, a2) & 0x80) == 0)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-void sub_1D57B2D28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57B2D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<mediaplatform::WorkQueue>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3363,12 +3290,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3382,22 +3309,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -3431,13 +3358,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -3546,23 +3473,23 @@ void mediaplatform::WorkQueue::defaultConcurrentQueue(void *a1@<X8>)
     operator new();
   }
 
-  v3 = *(mediaplatform::WorkQueue::defaultConcurrentQueue(void)::_concurrentQueue + 8);
+  v2 = *(mediaplatform::WorkQueue::defaultConcurrentQueue(void)::_concurrentQueue + 8);
   *a1 = *mediaplatform::WorkQueue::defaultConcurrentQueue(void)::_concurrentQueue;
-  a1[1] = v3;
-  if (v3)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 }
 
-void sub_1D57B3124(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1D57B3124(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1DA6EDD40](v15, 0x20C40A4A59CD2);
+  MEMORY[0x1DA6EDD40](v15, 0x20C40A4A59CD2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4160,22 +4087,22 @@ mlcore::SourceTable *mlcore::SourceTable::SourceTable(mlcore::SourceTable *this)
   return this;
 }
 
-void sub_1D57B4354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _Unwind_Exception *exception_objecta, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1D57B4354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _Unwind_Exception *exception_objecta, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  *(v78 + 400) = v82;
-  if (*(v78 + 431) < 0)
+  *(v72 + 400) = v76;
+  if (*(v72 + 431) < 0)
   {
-    operator delete(*v81);
+    operator delete(*v75);
   }
 
-  mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(v80);
-  *(v78 + 288) = v79;
-  if (*(v78 + 319) < 0)
+  mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(v74);
+  *(v72 + 288) = v73;
+  if (*(v72 + 319) < 0)
   {
-    operator delete(*v77);
+    operator delete(*v71);
   }
 
-  mediaplatform::DatabaseTable<long long,std::string,long long,long long>::~DatabaseTable(v78);
+  mediaplatform::DatabaseTable<long long,std::string,long long,long long>::~DatabaseTable(v72);
   if (a35 < 0)
   {
     operator delete(__p);
@@ -4202,20 +4129,20 @@ void sub_1D57B4354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a53);
   }
 
-  a73 = a22;
-  if (a75 < 0)
+  a67 = a22;
+  if (a69 < 0)
   {
-    operator delete(a74);
+    operator delete(a68);
   }
 
-  if (a72 < 0)
+  if (a66 < 0)
   {
-    operator delete(a67);
+    operator delete(a65);
   }
 
-  if (a77 < 0)
+  if (a71 < 0)
   {
-    operator delete(a76);
+    operator delete(a70);
   }
 
   _Unwind_Resume(a1);
@@ -4254,9 +4181,16 @@ void sub_1D57B46A0()
   JUMPOUT(0x1D57B4568);
 }
 
-void sub_1D57B4788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,std::string,long long,long long>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D57B4788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4272,9 +4206,9 @@ void mediaplatform::DatabaseTable<long long,std::string,long long,long long>::co
   mediaplatform::ColumnNamesApplier::operator()<long long>(a2, a1 + 80);
 }
 
-void sub_1D57B4804(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57B4804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4578,25 +4512,19 @@ uint64_t mlcore::TypedEntityClass<mlcore::CloudKVSEntity>::databaseTable()
   return v0;
 }
 
-void *mediaplatform::Singleton<mlcore::CloudKVSTable>::sharedInstance(void *result)
+void mediaplatform::Singleton<mlcore::CloudKVSTable>::sharedInstance(void *a1)
 {
-  v1 = result;
   {
-    if (result)
-    {
-      _ZNSt3__115allocate_sharedB8ne200100IN6mlcore13CloudKVSTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
-    }
+    _ZNSt3__115allocate_sharedB8ne200100IN6mlcore13CloudKVSTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   v2 = mediaplatform::Singleton<mlcore::CloudKVSTable>::sharedInstance(void)::instance;
-  *v1 = mediaplatform::Singleton<mlcore::CloudKVSTable>::sharedInstance(void)::instance;
-  v1[1] = v2;
+  *a1 = mediaplatform::Singleton<mlcore::CloudKVSTable>::sharedInstance(void)::instance;
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void sub_1D57B52AC(_Unwind_Exception *a1)
@@ -4614,11 +4542,11 @@ void std::__shared_ptr_emplace<mlcore::CloudKVSTable>::~__shared_ptr_emplace(std
   JUMPOUT(0x1DA6EDD40);
 }
 
-void sub_1D57B55B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57B55B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -4637,7 +4565,7 @@ void mlcore::TypedEntityClass<mlcore::CloudKVSEntity>::~TypedEntityClass(mlcore:
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::CloudKVSEntity::~CloudKVSEntity(mlcore::CloudKVSEntity *this)
+void mlcore::CloudKVSEntity::~CloudKVSEntity(void **this)
 {
   *this = &unk_1F50D3C08;
   mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(this + 1);
@@ -4877,9 +4805,9 @@ uint64_t mlcore::CloudKVSEntity::playCount(mlcore::CloudKVSEntity *this)
 
 void *mlcore::CloudKVSEntity::setPlayCount(mlcore::CloudKVSEntity *this, uint64_t a2)
 {
-  v5[0] = mlcore::CloudKVSEntityPropertyPlayCount(this);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 22, v5[0]);
+  v5 = mlcore::CloudKVSEntityPropertyPlayCount(this);
+  v6 = &v5;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 44, v5, &v6);
   result[3] = a2;
   return result;
 }
@@ -4893,9 +4821,9 @@ uint64_t mlcore::CloudKVSEntity::hasBeenPlayed(mlcore::CloudKVSEntity *this)
 
 void *mlcore::CloudKVSEntity::setHasBeenPlayed(mlcore::CloudKVSEntity *this, uint64_t a2)
 {
-  v5[0] = mlcore::CloudKVSEntityPropertyHasBeenPlayed(this);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 22, v5[0]);
+  HasBeenPlayed = mlcore::CloudKVSEntityPropertyHasBeenPlayed(this);
+  p_HasBeenPlayed = &HasBeenPlayed;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 44, HasBeenPlayed, &p_HasBeenPlayed);
   result[3] = a2;
   return result;
 }
@@ -4909,9 +4837,9 @@ double mlcore::CloudKVSEntity::bookmarkTime(mlcore::CloudKVSEntity *this)
 
 double *mlcore::CloudKVSEntity::setBookmarkTime(mlcore::CloudKVSEntity *this, double a2)
 {
-  v5[0] = mlcore::CloudKVSEntityPropertyBookmarkTime(this);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::__unordered_map_hasher<mlcore::ModelProperty<double> *,std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::hash<mlcore::ModelProperty<double> *>,std::equal_to<mlcore::ModelProperty<double> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<double> *,std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::equal_to<mlcore::ModelProperty<double> *>,std::hash<mlcore::ModelProperty<double> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<double> *,double>>>::__emplace_unique_key_args<mlcore::ModelProperty<double> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<double> * const&>,std::tuple<>>(this + 12, v5[0]);
+  v5 = mlcore::CloudKVSEntityPropertyBookmarkTime(this);
+  v6 = &v5;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::__unordered_map_hasher<mlcore::ModelProperty<double> *,std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::hash<mlcore::ModelProperty<double> *>,std::equal_to<mlcore::ModelProperty<double> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<double> *,std::__hash_value_type<mlcore::ModelProperty<double> *,double>,std::equal_to<mlcore::ModelProperty<double> *>,std::hash<mlcore::ModelProperty<double> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<double> *,double>>>::__emplace_unique_key_args<mlcore::ModelProperty<double> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<double> * const&>,std::tuple<>>(this + 24, v5, &v6);
   result[3] = a2;
   return result;
 }
@@ -4925,9 +4853,9 @@ uint64_t mlcore::CloudKVSEntity::bookmarkSyncTimestamp(mlcore::CloudKVSEntity *t
 
 void *mlcore::CloudKVSEntity::setBookmarkSyncTimestamp(mlcore::CloudKVSEntity *this, uint64_t a2)
 {
-  v5[0] = mlcore::CloudKVSEntityPropertyBookmarkSyncTimestamp(this);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 22, v5[0]);
+  v5 = mlcore::CloudKVSEntityPropertyBookmarkSyncTimestamp(this);
+  v6 = &v5;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 44, v5, &v6);
   result[3] = a2;
   return result;
 }
@@ -4941,9 +4869,9 @@ uint64_t mlcore::CloudKVSEntity::bookmarkSyncRevision(mlcore::CloudKVSEntity *th
 
 void *mlcore::CloudKVSEntity::setBookmarkSyncRevision(mlcore::CloudKVSEntity *this, uint64_t a2)
 {
-  v5[0] = mlcore::CloudKVSEntityPropertyBookmarkSyncRevision(this);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 22, v5[0]);
+  v5 = mlcore::CloudKVSEntityPropertyBookmarkSyncRevision(this);
+  v6 = &v5;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::__unordered_map_hasher<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::hash<mlcore::ModelProperty<long long> *>,std::equal_to<mlcore::ModelProperty<long long> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<long long> *,std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>,std::equal_to<mlcore::ModelProperty<long long> *>,std::hash<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<long long> *,long long>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> * const&>,std::tuple<>>(this + 44, v5, &v6);
   result[3] = a2;
   return result;
 }
@@ -5350,19 +5278,19 @@ mlcore::ContainerSeedTable *mlcore::ContainerSeedTable::ContainerSeedTable(mlcor
 
 void sub_1D57B7980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55, uint64_t a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62, uint64_t a63)
 {
-  *(v71 + 272) = v73;
-  if (*(v71 + 303) < 0)
+  *(v67 + 272) = v69;
+  if (*(v67 + 303) < 0)
   {
-    operator delete(*v72);
+    operator delete(*v68);
   }
 
-  *(v71 + 224) = v70;
-  if (*(v71 + 255) < 0)
+  *(v67 + 224) = v66;
+  if (*(v67 + 255) < 0)
   {
-    operator delete(*(v71 + 232));
+    operator delete(*(v67 + 232));
   }
 
-  mediaplatform::DatabaseTable<long long,long long,int>::~DatabaseTable(v71);
+  mediaplatform::DatabaseTable<long long,long long,int>::~DatabaseTable(v67);
   if (a32 < 0)
   {
     operator delete(__p);
@@ -5393,7 +5321,7 @@ void sub_1D57B7980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a50);
   }
 
-  if (a70 < 0)
+  if (a66 < 0)
   {
     operator delete(a65);
   }
@@ -5401,9 +5329,16 @@ void sub_1D57B7980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1D57B7C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,long long,int>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D57B7C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5418,9 +5353,9 @@ void mediaplatform::DatabaseTable<long long,long long,int>::columnNames(uint64_t
   mediaplatform::ColumnNamesApplier::operator()<int>(a2, a1 + 80);
 }
 
-void sub_1D57B7CD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57B7CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5705,7 +5640,7 @@ uint64_t mlcore::TypedEntityClass<mlcore::PodcastEpisode>::sectionPropertyForOrd
   }
 }
 
-void mlcore::TypedEntityClass<mlcore::PodcastEpisode>::databaseTablesToInsertInto(void *a1@<X8>)
+void mlcore::TypedEntityClass<mlcore::PodcastEpisode>::databaseTablesToInsertInto(uint64_t *a1@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
   mediaplatform::Singleton<mlcore::ItemExtraTable>::sharedInstance(&v8);
@@ -5768,7 +5703,7 @@ void sub_1D57B8704(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::TypedEntityClass<mlcore::PodcastEpisode>::databaseTablesToDeleteFrom(void *a1@<X8>)
+void mlcore::TypedEntityClass<mlcore::PodcastEpisode>::databaseTablesToDeleteFrom(uint64_t *a1@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
   mediaplatform::Singleton<mlcore::ItemExtraTable>::sharedInstance(&v8);
@@ -5843,11 +5778,11 @@ uint64_t mlcore::TypedEntityClass<mlcore::PodcastEpisode>::databaseTable()
   return v0;
 }
 
-void sub_1D57B8B88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57B8B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -5866,7 +5801,7 @@ void mlcore::TypedEntityClass<mlcore::PodcastEpisode>::~TypedEntityClass(mlcore:
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::PodcastEpisode::~PodcastEpisode(mlcore::PodcastEpisode *this)
+void mlcore::PodcastEpisode::~PodcastEpisode(void **this)
 {
   *this = &unk_1F50D3C08;
   mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(this + 1);
@@ -5981,25 +5916,19 @@ void sub_1D57B9238(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *mediaplatform::Singleton<mlcore::AlbumArtistTable>::sharedInstance(void *result)
+void mediaplatform::Singleton<mlcore::AlbumArtistTable>::sharedInstance(void *a1)
 {
-  v1 = result;
   {
-    if (result)
-    {
-      _ZNSt3__115allocate_sharedB8ne200100IN6mlcore16AlbumArtistTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
-    }
+    _ZNSt3__115allocate_sharedB8ne200100IN6mlcore16AlbumArtistTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   v2 = mediaplatform::Singleton<mlcore::AlbumArtistTable>::sharedInstance(void)::instance;
-  *v1 = mediaplatform::Singleton<mlcore::AlbumArtistTable>::sharedInstance(void)::instance;
-  v1[1] = v2;
+  *a1 = mediaplatform::Singleton<mlcore::AlbumArtistTable>::sharedInstance(void)::instance;
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void sub_1D57B9404(_Unwind_Exception *a1)
@@ -6141,13 +6070,20 @@ uint64_t mlcore::TypedEntityClass<mlcore::Artist>::databaseTable()
   return v0;
 }
 
-void sub_1D57BA164(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void mlcore::TypedEntityClass<mlcore::Artist>::create(uint64_t a1, uint64_t a2)
 {
-  va_start(va, a6);
+  v5[6] = *MEMORY[0x1E69E9840];
+  v5[0] = a2;
+  std::allocate_shared[abi:ne200100]<mlcore::Artist,std::allocator<mlcore::Artist>,long long &,0>(v4, v5);
+}
+
+void sub_1D57BA164(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, std::__shared_weak_count *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](va);
-  if (a3)
+  if (a8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a8);
   }
 
   _Unwind_Resume(a1);
@@ -6168,7 +6104,7 @@ void mlcore::TypedEntityClass<mlcore::Artist>::~TypedEntityClass(mlcore::EntityC
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::Artist::~Artist(mlcore::Artist *this)
+void mlcore::Artist::~Artist(void **this)
 {
   *this = &unk_1F50D3C08;
   mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(this + 1);
@@ -6698,11 +6634,11 @@ uint64_t mlcore::TypedEntityClass<mlcore::Album>::sharedPointer()
   return mlcore::TypedEntityClass<mlcore::Album>::sharedPointer(void)::__sharedPointer;
 }
 
-void sub_1D57BDCE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57BDCE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -6730,7 +6666,7 @@ void mlcore::ArtistPropertyAvailableArtworkToken(mlcore *this)
   operator new();
 }
 
-void sub_1D57BDFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, void **a14, char a15)
+void sub_1D57BDFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, void **a14, uint64_t a15)
 {
   if (a13)
   {
@@ -6765,7 +6701,7 @@ void mlcore::ArtistPropertyFetchableArtworkToken(mlcore *this)
   operator new();
 }
 
-void sub_1D57BE240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, void **a14, char a15)
+void sub_1D57BE240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, void **a14, uint64_t a15)
 {
   if (a13)
   {
@@ -6800,7 +6736,7 @@ void mlcore::ArtistPropertyFetchableArtworkSourceType(mlcore *this)
   operator new();
 }
 
-void sub_1D57BE498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, void **a14, char a15)
+void sub_1D57BE498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, void **a14, uint64_t a15)
 {
   if (a13)
   {
@@ -6937,25 +6873,19 @@ void sub_1D57BEA78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *mediaplatform::Singleton<mlcore::CategoryTable>::sharedInstance(void *result)
+void mediaplatform::Singleton<mlcore::CategoryTable>::sharedInstance(void *a1)
 {
-  v1 = result;
   {
-    if (result)
-    {
-      _ZNSt3__115allocate_sharedB8ne200100IN6mlcore13CategoryTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
-    }
+    _ZNSt3__115allocate_sharedB8ne200100IN6mlcore13CategoryTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   v2 = mediaplatform::Singleton<mlcore::CategoryTable>::sharedInstance(void)::instance;
-  *v1 = mediaplatform::Singleton<mlcore::CategoryTable>::sharedInstance(void)::instance;
-  v1[1] = v2;
+  *a1 = mediaplatform::Singleton<mlcore::CategoryTable>::sharedInstance(void)::instance;
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void sub_1D57BEC44(_Unwind_Exception *a1)
@@ -6999,11 +6929,11 @@ uint64_t mlcore::TypedEntityClass<mlcore::Category>::databaseTable()
   return v0;
 }
 
-void sub_1D57BEFA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57BEFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -7022,7 +6952,7 @@ void mlcore::TypedEntityClass<mlcore::Category>::~TypedEntityClass(mlcore::Entit
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::Category::~Category(mlcore::Category *this)
+void mlcore::Category::~Category(void **this)
 {
   *this = &unk_1F50D3C08;
   mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(this + 1);
@@ -7845,515 +7775,506 @@ void sub_1D57C0008(_Unwind_Exception *exception_object)
 
 void mediaplatform::FormatImplementation<std::string,unsigned long>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v6 = a1->__r_.__value_.__s.__data_[0];
-  if (a1->__r_.__value_.__s.__data_[0])
+  if (!a1->__r_.__value_.__s.__data_[0])
   {
-    v9 = 0;
-    v10 = a3;
-    v11 = a1;
-    while (1)
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = a3;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    ++v10;
+    v13 = v11->__r_.__value_.__s.__data_[1];
+    v11 = (v11 + 1);
+    v6 = v13;
+    if (!v13)
     {
-      if (v6 == 123)
+      std::string::resize(a2, v10, 0);
+      if (v10 != a3)
       {
-        v12 = v11->__r_.__value_.__s.__data_[1];
-        if (v12 != 123)
-        {
-          if (v12 == 42)
-          {
-            v72 = &v11->__r_.__value_.__s.__data_[2];
-            v60 = v11->__r_.__value_.__s.__data_[2];
-            if ((v60 - 48) > 9)
-            {
-              exception = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-            }
 
-            else
-            {
-              v61 = 0;
-              v62 = &v11->__r_.__value_.__s.__data_[3];
-              do
-              {
-                v63 = v62;
-                v72 = v62;
-                v61 = (v60 & 0xF) + 10 * v61;
-                ++v62;
-                v65 = *v63;
-                v64 = (v63 - 1);
-                LOBYTE(v60) = v65;
-              }
-
-              while ((v65 - 58) >= 0xFFFFFFF6);
-              v72 = (v64 + 2);
-              if (*(v62 - 1) == 125)
-              {
-                mediaplatform::FormatterParameters<0ul,std::string,unsigned long>::formatOptionsAtIndex<std::string,unsigned long>(v61);
-              }
-
-              exception = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-            }
-
-            __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-          }
-
-          v72 = v11;
-          mediaplatform::FormatOptions::FormatOptions(&v67, &v72);
-          v16 = v72;
-          if (v68)
-          {
-            if (v68 != 1)
-            {
-              mediaplatform::FormatterParameters<2ul>::formatParameterAtIndex<mediaplatform::FormatterParameters<0ul,std::string,unsigned long>>();
-            }
-
-            v17 = 0;
-            v18 = **a4;
-            v19 = &v67;
-            v73 = &v67;
-            v78 = 0;
-            v20 = 1;
-            v79 = 1;
-            if (SHIDWORD(v67) > 1)
-            {
-              if (HIDWORD(v67) == 2)
-              {
-                v27 = &mediaplatform::TypeFormatterLowerHexMapping;
-                if (BYTE3(v71))
-                {
-                  v27 = &mediaplatform::TypeFormatterUpperHexMapping;
-                }
-
-                v21 = 71;
-                do
-                {
-                  *(&v73 + v21--) = v27[v18 & 0xF];
-                  v22 = v18 >= 0x10;
-                  v18 >>= 4;
-                }
-
-                while (v22);
-              }
-
-              else
-              {
-                if (HIDWORD(v67) != 3)
-                {
-                  goto LABEL_46;
-                }
-
-                v21 = 71;
-                do
-                {
-                  *(&v73 + v21--) = v18 & 1 | 0x30;
-                  v22 = v18 >= 2;
-                  v18 >>= 1;
-                }
-
-                while (v22);
-              }
-            }
-
-            else
-            {
-              if (HIDWORD(v67))
-              {
-                if (HIDWORD(v67) == 1)
-                {
-                  v21 = 71;
-                  do
-                  {
-                    *(&v73 + v21--) = v18 & 7 | 0x30;
-                    v22 = v18 >= 8;
-                    v18 >>= 3;
-                  }
-
-                  while (v22);
-                  goto LABEL_45;
-                }
-
-LABEL_46:
-                if (*(v19 + 48) == 1)
-                {
-LABEL_47:
-                  v28 = 65;
-                }
-
-                else
-                {
-                  v28 = 64;
-                }
-
-                v29 = v28 - v17;
-                if (*(v19 + 50) == 1 && v29 <= v19[3])
-                {
-                  v29 = v19[3];
-                }
-
-                v30 = *(&v69 + 1);
-                if (*(&v69 + 1) <= v29)
-                {
-                  v30 = v29;
-                }
-
-                if (v69)
-                {
-                  v29 = v30;
-                }
-
-                mediaplatform::FormatImplementation<std::string,unsigned long>(v16, a2, v29 + v10, a4);
-                if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-                {
-                  v31 = a2;
-                }
-
-                else
-                {
-                  v31 = a2->__r_.__value_.__r.__words[0];
-                }
-
-                if ((v20 & 1) != 0 && *(v19 + 48) != 1)
-                {
-                  v32 = 64;
-                }
-
-                else
-                {
-                  v32 = 65;
-                }
-
-                v33 = v31 + v10;
-                v34 = v32 - v17;
-                if (*(v19 + 50) == 1 && v34 <= v19[3])
-                {
-                  v34 = v19[3];
-                }
-
-                if (v69 == 1 && (v35 = *(&v69 + 1) - v34, *(&v69 + 1) > v34))
-                {
-                  if (v67)
-                  {
-                    if (v67 == 1)
-                    {
-                      if (v35 >= 2)
-                      {
-                        v38 = v35 >> 1;
-                        if (v35 >> 1 <= 1)
-                        {
-                          v38 = 1;
-                        }
-
-                        v39 = BYTE4(v71);
-                        do
-                        {
-                          *v33++ = v39;
-                          --v38;
-                        }
-
-                        while (v38);
-                      }
-
-                      mediaplatform::TypeFormatter<long long,void>::formatAtLocation<std::__wrap_iter<char *>>(&v73, v33);
-                      v40 = BYTE4(v71);
-                      if (v35 - (v35 >> 1) <= 1)
-                      {
-                        v41 = 1;
-                      }
-
-                      else
-                      {
-                        v41 = v35 - (v35 >> 1);
-                      }
-
-                      v42 = vdupq_n_s64(v41 - 1);
-                      v43 = -((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-                      v44 = &v33[v34 + 7];
-                      v45 = 15;
-                      do
-                      {
-                        v46 = vdupq_n_s64(v45 - 15);
-                        v47 = vmovn_s64(vcgeq_u64(v42, vorrq_s8(v46, xmmword_1D5AFB360)));
-                        if (vuzp1_s8(vuzp1_s16(v47, *v42.i8), *v42.i8).u8[0])
-                        {
-                          *(v44 - 7) = v40;
-                        }
-
-                        if (vuzp1_s8(vuzp1_s16(v47, *&v42), *&v42).i8[1])
-                        {
-                          *(v44 - 6) = v40;
-                        }
-
-                        if (vuzp1_s8(vuzp1_s16(*&v42, vmovn_s64(vcgeq_u64(v42, vorrq_s8(v46, xmmword_1D5AFB350)))), *&v42).i8[2])
-                        {
-                          *(v44 - 5) = v40;
-                          *(v44 - 4) = v40;
-                        }
-
-                        v48 = vmovn_s64(vcgeq_u64(v42, vorrq_s8(v46, xmmword_1D5AFB340)));
-                        if (vuzp1_s8(*&v42, vuzp1_s16(v48, *&v42)).i32[1])
-                        {
-                          *(v44 - 3) = v40;
-                        }
-
-                        if (vuzp1_s8(*&v42, vuzp1_s16(v48, *&v42)).i8[5])
-                        {
-                          *(v44 - 2) = v40;
-                        }
-
-                        if (vuzp1_s8(*&v42, vuzp1_s16(*&v42, vmovn_s64(vcgeq_u64(v42, vorrq_s8(v46, xmmword_1D5AFB330))))).i8[6])
-                        {
-                          *(v44 - 1) = v40;
-                          *v44 = v40;
-                        }
-
-                        v49 = vmovn_s64(vcgeq_u64(v42, vorrq_s8(v46, xmmword_1D5AFB320)));
-                        if (vuzp1_s8(vuzp1_s16(v49, *v42.i8), *v42.i8).u8[0])
-                        {
-                          v44[1] = v40;
-                        }
-
-                        if (vuzp1_s8(vuzp1_s16(v49, *&v42), *&v42).i8[1])
-                        {
-                          v44[2] = v40;
-                        }
-
-                        if (vuzp1_s8(vuzp1_s16(*&v42, vmovn_s64(vcgeq_u64(v42, vorrq_s8(v46, xmmword_1D5AFB310)))), *&v42).i8[2])
-                        {
-                          v44[3] = v40;
-                          v44[4] = v40;
-                        }
-
-                        v50 = vmovn_s64(vcgeq_u64(v42, vorrq_s8(v46, xmmword_1D5AFB300)));
-                        if (vuzp1_s8(*&v42, vuzp1_s16(v50, *&v42)).i32[1])
-                        {
-                          v44[5] = v40;
-                        }
-
-                        if (vuzp1_s8(*&v42, vuzp1_s16(v50, *&v42)).i8[5])
-                        {
-                          v44[6] = v40;
-                        }
-
-                        if (vuzp1_s8(*&v42, vuzp1_s16(*&v42, vmovn_s64(vcgeq_u64(v42, vorrq_s8(v46, xmmword_1D5AFB2F0))))).i8[6])
-                        {
-                          v44[7] = v40;
-                          v44[8] = v40;
-                        }
-
-                        v45 += 16;
-                        v44 += 16;
-                      }
-
-                      while (v43 + v45 != 15);
-                    }
-
-                    else if (v67 == 2)
-                    {
-                      v36 = BYTE4(v71);
-                      do
-                      {
-                        *v33++ = v36;
-                        --v35;
-                      }
-
-                      while (v35);
-                      goto LABEL_73;
-                    }
-                  }
-
-                  else
-                  {
-                    mediaplatform::TypeFormatter<long long,void>::formatAtLocation<std::__wrap_iter<char *>>(&v73, v33);
-                    v51 = BYTE4(v71);
-                    v52 = vdupq_n_s64(v35 - 1);
-                    v53 = &v33[v34 + 7];
-                    v54 = 15;
-                    do
-                    {
-                      v55 = vdupq_n_s64(v54 - 15);
-                      v56 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, xmmword_1D5AFB360)));
-                      if (vuzp1_s8(vuzp1_s16(v56, *v52.i8), *v52.i8).u8[0])
-                      {
-                        *(v53 - 7) = v51;
-                      }
-
-                      if (vuzp1_s8(vuzp1_s16(v56, *&v52), *&v52).i8[1])
-                      {
-                        *(v53 - 6) = v51;
-                      }
-
-                      if (vuzp1_s8(vuzp1_s16(*&v52, vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, xmmword_1D5AFB350)))), *&v52).i8[2])
-                      {
-                        *(v53 - 5) = v51;
-                        *(v53 - 4) = v51;
-                      }
-
-                      v57 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, xmmword_1D5AFB340)));
-                      if (vuzp1_s8(*&v52, vuzp1_s16(v57, *&v52)).i32[1])
-                      {
-                        *(v53 - 3) = v51;
-                      }
-
-                      if (vuzp1_s8(*&v52, vuzp1_s16(v57, *&v52)).i8[5])
-                      {
-                        *(v53 - 2) = v51;
-                      }
-
-                      if (vuzp1_s8(*&v52, vuzp1_s16(*&v52, vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, xmmword_1D5AFB330))))).i8[6])
-                      {
-                        *(v53 - 1) = v51;
-                        *v53 = v51;
-                      }
-
-                      v58 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, xmmword_1D5AFB320)));
-                      if (vuzp1_s8(vuzp1_s16(v58, *v52.i8), *v52.i8).u8[0])
-                      {
-                        v53[1] = v51;
-                      }
-
-                      if (vuzp1_s8(vuzp1_s16(v58, *&v52), *&v52).i8[1])
-                      {
-                        v53[2] = v51;
-                      }
-
-                      if (vuzp1_s8(vuzp1_s16(*&v52, vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, xmmword_1D5AFB310)))), *&v52).i8[2])
-                      {
-                        v53[3] = v51;
-                        v53[4] = v51;
-                      }
-
-                      v59 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, xmmword_1D5AFB300)));
-                      if (vuzp1_s8(*&v52, vuzp1_s16(v59, *&v52)).i32[1])
-                      {
-                        v53[5] = v51;
-                      }
-
-                      if (vuzp1_s8(*&v52, vuzp1_s16(v59, *&v52)).i8[5])
-                      {
-                        v53[6] = v51;
-                      }
-
-                      if (vuzp1_s8(*&v52, vuzp1_s16(*&v52, vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, xmmword_1D5AFB2F0))))).i8[6])
-                      {
-                        v53[7] = v51;
-                        v53[8] = v51;
-                      }
-
-                      v54 += 16;
-                      v53 += 16;
-                    }
-
-                    while (v54 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0) != 15);
-                  }
-                }
-
-                else
-                {
-LABEL_73:
-                  mediaplatform::TypeFormatter<long long,void>::formatAtLocation<std::__wrap_iter<char *>>(&v73, v33);
-                }
-
-LABEL_74:
-                if (v10 != a3)
-                {
-                  mediaplatform::CopyFormatSectionToResult(a1, a2, a3, v10 - a3, v9 & 1);
-                }
-
-                goto LABEL_76;
-              }
-
-              v21 = 71;
-              do
-              {
-                *(&v73 + v21--) = (v18 % 0xA) | 0x30;
-                v22 = v18 >= 0xA;
-                v18 /= 0xAuLL;
-              }
-
-              while (v22);
-            }
-
-LABEL_45:
-            v17 = v21 - 7;
-            v78 = v21 - 7;
-            v19 = v73;
-            v20 = v79;
-            if (v79)
-            {
-              goto LABEL_46;
-            }
-
-            goto LABEL_47;
-          }
-
-          v23 = *(a4 + 8);
-          v73 = v23;
-          v74 = v67;
-          v75 = v69;
-          v76 = v70;
-          v77 = v71;
-          v24 = *(v23 + 23);
-          if ((v24 & 0x8000000000000000) != 0)
-          {
-            v24 = *(v23 + 8);
-          }
-
-          v25 = *(&v69 + 1);
-          if (*(&v69 + 1) <= v24)
-          {
-            v25 = v24;
-          }
-
-          if (v69)
-          {
-            v24 = v25;
-          }
-
-          mediaplatform::FormatImplementation<std::string,unsigned long>(v72, a2, v24 + v10, a4);
-          if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v26 = a2;
-          }
-
-          else
-          {
-            v26 = a2->__r_.__value_.__r.__words[0];
-          }
-
-          mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v67, &v26[v10], &v73);
-          goto LABEL_74;
-        }
-
-        v9 = 1;
-        v11 = (v11 + 1);
+        mediaplatform::CopyFormatSectionToResult(a1, a2, a3, v10 - a3, v9 & 1);
       }
 
-      ++v10;
-      v13 = v11->__r_.__value_.__s.__data_[1];
-      v11 = (v11 + 1);
-      v6 = v13;
-      if (!v13)
-      {
-        std::string::resize(a2, v10, 0);
-        if (v10 != a3)
-        {
-          v14 = *MEMORY[0x1E69E9840];
-
-          mediaplatform::CopyFormatSectionToResult(a1, a2, a3, v10 - a3, v9 & 1);
-          return;
-        }
-
-LABEL_76:
-        v37 = *MEMORY[0x1E69E9840];
-        return;
-      }
+      return;
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v9 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
 
-  std::string::resize(a2, a3, 0);
+  if (v12 == 42)
+  {
+    v69 = &v11->__r_.__value_.__s.__data_[2];
+    v57 = v11->__r_.__value_.__s.__data_[2];
+    if ((v57 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v58 = 0;
+      v59 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v60 = v59;
+        v69 = v59;
+        v58 = (v57 & 0xF) + 10 * v58;
+        ++v59;
+        v62 = *v60;
+        v61 = (v60 - 1);
+        LOBYTE(v57) = v62;
+      }
+
+      while ((v62 - 58) >= 0xFFFFFFF6);
+      v69 = (v61 + 2);
+      if (*(v59 - 1) == 125)
+      {
+        mediaplatform::FormatterParameters<0ul,std::string,unsigned long>::formatOptionsAtIndex<std::string,unsigned long>(v58);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  v69 = v11;
+  mediaplatform::FormatOptions::FormatOptions(&v64, &v69);
+  v14 = v69;
+  if (!v65)
+  {
+    v21 = *(a4 + 8);
+    v70 = v21;
+    v71 = v64;
+    v72 = v66;
+    v73 = v67;
+    v74 = v68;
+    v22 = *(v21 + 23);
+    if ((v22 & 0x8000000000000000) != 0)
+    {
+      v22 = *(v21 + 8);
+    }
+
+    v23 = *(&v66 + 1);
+    if (*(&v66 + 1) <= v22)
+    {
+      v23 = v22;
+    }
+
+    if (v66)
+    {
+      v22 = v23;
+    }
+
+    mediaplatform::FormatImplementation<std::string,unsigned long>(v69, a2, v22 + v10, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v24 = a2;
+    }
+
+    else
+    {
+      v24 = a2->__r_.__value_.__r.__words[0];
+    }
+
+    mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v64, v24 + v10, &v70);
+    goto LABEL_74;
+  }
+
+  if (v65 != 1)
+  {
+    mediaplatform::FormatterParameters<2ul>::formatParameterAtIndex<mediaplatform::FormatterParameters<0ul,std::string,unsigned long>>();
+  }
+
+  v15 = 0;
+  v16 = **a4;
+  v17 = &v64;
+  v70 = &v64;
+  v75 = 0;
+  v18 = 1;
+  v76 = 1;
+  if (SHIDWORD(v64) > 1)
+  {
+    if (HIDWORD(v64) == 2)
+    {
+      v25 = &mediaplatform::TypeFormatterLowerHexMapping;
+      if (BYTE3(v68))
+      {
+        v25 = &mediaplatform::TypeFormatterUpperHexMapping;
+      }
+
+      v19 = 71;
+      do
+      {
+        *(&v70 + v19--) = v25[v16 & 0xF];
+        v20 = v16 >= 0x10;
+        v16 >>= 4;
+      }
+
+      while (v20);
+    }
+
+    else
+    {
+      if (HIDWORD(v64) != 3)
+      {
+        goto LABEL_46;
+      }
+
+      v19 = 71;
+      do
+      {
+        *(&v70 + v19--) = v16 & 1 | 0x30;
+        v20 = v16 >= 2;
+        v16 >>= 1;
+      }
+
+      while (v20);
+    }
+
+LABEL_45:
+    v15 = v19 - 7;
+    v75 = v19 - 7;
+    v17 = v70;
+    v18 = v76;
+    if (v76)
+    {
+      goto LABEL_46;
+    }
+
+    goto LABEL_47;
+  }
+
+  if (!HIDWORD(v64))
+  {
+    v19 = 71;
+    do
+    {
+      *(&v70 + v19--) = (v16 % 0xA) | 0x30;
+      v20 = v16 >= 0xA;
+      v16 /= 0xAuLL;
+    }
+
+    while (v20);
+    goto LABEL_45;
+  }
+
+  if (HIDWORD(v64) == 1)
+  {
+    v19 = 71;
+    do
+    {
+      *(&v70 + v19--) = v16 & 7 | 0x30;
+      v20 = v16 >= 8;
+      v16 >>= 3;
+    }
+
+    while (v20);
+    goto LABEL_45;
+  }
+
+LABEL_46:
+  if (*(v17 + 48) == 1)
+  {
+LABEL_47:
+    v26 = 65;
+  }
+
+  else
+  {
+    v26 = 64;
+  }
+
+  v27 = v26 - v15;
+  if (*(v17 + 50) == 1 && v27 <= v17[3])
+  {
+    v27 = v17[3];
+  }
+
+  v28 = *(&v66 + 1);
+  if (*(&v66 + 1) <= v27)
+  {
+    v28 = v27;
+  }
+
+  if (v66)
+  {
+    v27 = v28;
+  }
+
+  mediaplatform::FormatImplementation<std::string,unsigned long>(v14, a2, v27 + v10, a4);
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v29 = a2;
+  }
+
+  else
+  {
+    v29 = a2->__r_.__value_.__r.__words[0];
+  }
+
+  if ((v18 & 1) != 0 && *(v17 + 48) != 1)
+  {
+    v30 = 64;
+  }
+
+  else
+  {
+    v30 = 65;
+  }
+
+  v31 = v29 + v10;
+  v32 = v30 - v15;
+  if (*(v17 + 50) == 1 && v32 <= v17[3])
+  {
+    v32 = v17[3];
+  }
+
+  if (v66 == 1 && (v33 = *(&v66 + 1) - v32, *(&v66 + 1) > v32))
+  {
+    if (v64)
+    {
+      if (v64 == 1)
+      {
+        if (v33 >= 2)
+        {
+          v35 = v33 >> 1;
+          if (v33 >> 1 <= 1)
+          {
+            v35 = 1;
+          }
+
+          v36 = BYTE4(v68);
+          do
+          {
+            *v31++ = v36;
+            --v35;
+          }
+
+          while (v35);
+        }
+
+        mediaplatform::TypeFormatter<long long,void>::formatAtLocation<std::__wrap_iter<char *>>(&v70, v31);
+        v37 = BYTE4(v68);
+        if (v33 - (v33 >> 1) <= 1)
+        {
+          v38 = 1;
+        }
+
+        else
+        {
+          v38 = v33 - (v33 >> 1);
+        }
+
+        v39 = vdupq_n_s64(v38 - 1);
+        v40 = -((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v41 = &v31[v32 + 7];
+        v42 = 15;
+        do
+        {
+          v43 = vdupq_n_s64(v42 - 15);
+          v44 = vmovn_s64(vcgeq_u64(v39, vorrq_s8(v43, xmmword_1D5AFB360)));
+          if (vuzp1_s8(vuzp1_s16(v44, *v39.i8), *v39.i8).u8[0])
+          {
+            *(v41 - 7) = v37;
+          }
+
+          if (vuzp1_s8(vuzp1_s16(v44, *&v39), *&v39).i8[1])
+          {
+            *(v41 - 6) = v37;
+          }
+
+          if (vuzp1_s8(vuzp1_s16(*&v39, vmovn_s64(vcgeq_u64(v39, vorrq_s8(v43, xmmword_1D5AFB350)))), *&v39).i8[2])
+          {
+            *(v41 - 5) = v37;
+            *(v41 - 4) = v37;
+          }
+
+          v45 = vmovn_s64(vcgeq_u64(v39, vorrq_s8(v43, xmmword_1D5AFB340)));
+          if (vuzp1_s8(*&v39, vuzp1_s16(v45, *&v39)).i32[1])
+          {
+            *(v41 - 3) = v37;
+          }
+
+          if (vuzp1_s8(*&v39, vuzp1_s16(v45, *&v39)).i8[5])
+          {
+            *(v41 - 2) = v37;
+          }
+
+          if (vuzp1_s8(*&v39, vuzp1_s16(*&v39, vmovn_s64(vcgeq_u64(v39, vorrq_s8(v43, xmmword_1D5AFB330))))).i8[6])
+          {
+            *(v41 - 1) = v37;
+            *v41 = v37;
+          }
+
+          v46 = vmovn_s64(vcgeq_u64(v39, vorrq_s8(v43, xmmword_1D5AFB320)));
+          if (vuzp1_s8(vuzp1_s16(v46, *v39.i8), *v39.i8).u8[0])
+          {
+            v41[1] = v37;
+          }
+
+          if (vuzp1_s8(vuzp1_s16(v46, *&v39), *&v39).i8[1])
+          {
+            v41[2] = v37;
+          }
+
+          if (vuzp1_s8(vuzp1_s16(*&v39, vmovn_s64(vcgeq_u64(v39, vorrq_s8(v43, xmmword_1D5AFB310)))), *&v39).i8[2])
+          {
+            v41[3] = v37;
+            v41[4] = v37;
+          }
+
+          v47 = vmovn_s64(vcgeq_u64(v39, vorrq_s8(v43, xmmword_1D5AFB300)));
+          if (vuzp1_s8(*&v39, vuzp1_s16(v47, *&v39)).i32[1])
+          {
+            v41[5] = v37;
+          }
+
+          if (vuzp1_s8(*&v39, vuzp1_s16(v47, *&v39)).i8[5])
+          {
+            v41[6] = v37;
+          }
+
+          if (vuzp1_s8(*&v39, vuzp1_s16(*&v39, vmovn_s64(vcgeq_u64(v39, vorrq_s8(v43, xmmword_1D5AFB2F0))))).i8[6])
+          {
+            v41[7] = v37;
+            v41[8] = v37;
+          }
+
+          v42 += 16;
+          v41 += 16;
+        }
+
+        while (v40 + v42 != 15);
+      }
+
+      else if (v64 == 2)
+      {
+        v34 = BYTE4(v68);
+        do
+        {
+          *v31++ = v34;
+          --v33;
+        }
+
+        while (v33);
+        goto LABEL_73;
+      }
+    }
+
+    else
+    {
+      mediaplatform::TypeFormatter<long long,void>::formatAtLocation<std::__wrap_iter<char *>>(&v70, v31);
+      v48 = BYTE4(v68);
+      v49 = vdupq_n_s64(v33 - 1);
+      v50 = &v31[v32 + 7];
+      v51 = 15;
+      do
+      {
+        v52 = vdupq_n_s64(v51 - 15);
+        v53 = vmovn_s64(vcgeq_u64(v49, vorrq_s8(v52, xmmword_1D5AFB360)));
+        if (vuzp1_s8(vuzp1_s16(v53, *v49.i8), *v49.i8).u8[0])
+        {
+          *(v50 - 7) = v48;
+        }
+
+        if (vuzp1_s8(vuzp1_s16(v53, *&v49), *&v49).i8[1])
+        {
+          *(v50 - 6) = v48;
+        }
+
+        if (vuzp1_s8(vuzp1_s16(*&v49, vmovn_s64(vcgeq_u64(v49, vorrq_s8(v52, xmmword_1D5AFB350)))), *&v49).i8[2])
+        {
+          *(v50 - 5) = v48;
+          *(v50 - 4) = v48;
+        }
+
+        v54 = vmovn_s64(vcgeq_u64(v49, vorrq_s8(v52, xmmword_1D5AFB340)));
+        if (vuzp1_s8(*&v49, vuzp1_s16(v54, *&v49)).i32[1])
+        {
+          *(v50 - 3) = v48;
+        }
+
+        if (vuzp1_s8(*&v49, vuzp1_s16(v54, *&v49)).i8[5])
+        {
+          *(v50 - 2) = v48;
+        }
+
+        if (vuzp1_s8(*&v49, vuzp1_s16(*&v49, vmovn_s64(vcgeq_u64(v49, vorrq_s8(v52, xmmword_1D5AFB330))))).i8[6])
+        {
+          *(v50 - 1) = v48;
+          *v50 = v48;
+        }
+
+        v55 = vmovn_s64(vcgeq_u64(v49, vorrq_s8(v52, xmmword_1D5AFB320)));
+        if (vuzp1_s8(vuzp1_s16(v55, *v49.i8), *v49.i8).u8[0])
+        {
+          v50[1] = v48;
+        }
+
+        if (vuzp1_s8(vuzp1_s16(v55, *&v49), *&v49).i8[1])
+        {
+          v50[2] = v48;
+        }
+
+        if (vuzp1_s8(vuzp1_s16(*&v49, vmovn_s64(vcgeq_u64(v49, vorrq_s8(v52, xmmword_1D5AFB310)))), *&v49).i8[2])
+        {
+          v50[3] = v48;
+          v50[4] = v48;
+        }
+
+        v56 = vmovn_s64(vcgeq_u64(v49, vorrq_s8(v52, xmmword_1D5AFB300)));
+        if (vuzp1_s8(*&v49, vuzp1_s16(v56, *&v49)).i32[1])
+        {
+          v50[5] = v48;
+        }
+
+        if (vuzp1_s8(*&v49, vuzp1_s16(v56, *&v49)).i8[5])
+        {
+          v50[6] = v48;
+        }
+
+        if (vuzp1_s8(*&v49, vuzp1_s16(*&v49, vmovn_s64(vcgeq_u64(v49, vorrq_s8(v52, xmmword_1D5AFB2F0))))).i8[6])
+        {
+          v50[7] = v48;
+          v50[8] = v48;
+        }
+
+        v51 += 16;
+        v50 += 16;
+      }
+
+      while (v51 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0) != 15);
+    }
+  }
+
+  else
+  {
+LABEL_73:
+    mediaplatform::TypeFormatter<long long,void>::formatAtLocation<std::__wrap_iter<char *>>(&v70, v31);
+  }
+
+LABEL_74:
+  if (v10 != a3)
+  {
+    mediaplatform::CopyFormatSectionToResult(a1, a2, a3, v10 - a3, v9 & 1);
+  }
 }
 
 void mediaplatform::FormatterParameters<0ul,std::string,unsigned long>::formatOptionsAtIndex<std::string,unsigned long>(uint64_t a1)
@@ -8434,25 +8355,19 @@ uint64_t mlcore::TypedEntityClass<mlcore::Artwork>::databaseTable()
   return v0;
 }
 
-void *mediaplatform::Singleton<mlcore::ArtworkTable>::sharedInstance(void *result)
+void mediaplatform::Singleton<mlcore::ArtworkTable>::sharedInstance(void *a1)
 {
-  v1 = result;
   {
-    if (result)
-    {
-      _ZNSt3__115allocate_sharedB8ne200100IN6mlcore12ArtworkTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
-    }
+    _ZNSt3__115allocate_sharedB8ne200100IN6mlcore12ArtworkTableENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   v2 = mediaplatform::Singleton<mlcore::ArtworkTable>::sharedInstance(void)::instance;
-  *v1 = mediaplatform::Singleton<mlcore::ArtworkTable>::sharedInstance(void)::instance;
-  v1[1] = v2;
+  *a1 = mediaplatform::Singleton<mlcore::ArtworkTable>::sharedInstance(void)::instance;
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void sub_1D57C0DEC(_Unwind_Exception *a1)
@@ -8470,11 +8385,11 @@ void std::__shared_ptr_emplace<mlcore::ArtworkTable>::~__shared_ptr_emplace(std:
   JUMPOUT(0x1DA6EDD40);
 }
 
-void sub_1D57C10F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D57C10F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -8493,7 +8408,7 @@ void mlcore::TypedEntityClass<mlcore::Artwork>::~TypedEntityClass(mlcore::Entity
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::Artwork::~Artwork(mlcore::Artwork *this)
+void mlcore::Artwork::~Artwork(void **this)
 {
   *this = &unk_1F50D3C08;
   mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(this + 1);
@@ -8697,11 +8612,11 @@ uint64_t mlcore::Artwork::artworkType(mlcore::Artwork *this)
   return mlcore::Entity::valueForProperty<int>(this, v2);
 }
 
-void *mlcore::Artwork::setArtworkType(mlcore *a1, int a2)
+void *mlcore::Artwork::setArtworkType(float *a1, int a2)
 {
-  v5[0] = mlcore::ArtworkPropertyType(a1);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::__unordered_map_hasher<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::hash<mlcore::ModelProperty<int> *>,std::equal_to<mlcore::ModelProperty<int> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::equal_to<mlcore::ModelProperty<int> *>,std::hash<mlcore::ModelProperty<int> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<int> *,int>>>::__emplace_unique_key_args<mlcore::ModelProperty<int> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<int> * const&>,std::tuple<>>(a1 + 17, v5[0]);
+  v5 = mlcore::ArtworkPropertyType(a1);
+  v6 = &v5;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::__unordered_map_hasher<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::hash<mlcore::ModelProperty<int> *>,std::equal_to<mlcore::ModelProperty<int> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::equal_to<mlcore::ModelProperty<int> *>,std::hash<mlcore::ModelProperty<int> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<int> *,int>>>::__emplace_unique_key_args<mlcore::ModelProperty<int> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<int> * const&>,std::tuple<>>(a1 + 34, v5, &v6);
   *(result + 6) = a2;
   return result;
 }
@@ -8713,11 +8628,11 @@ uint64_t mlcore::Artwork::artworkSourceType(mlcore::Artwork *this)
   return mlcore::Entity::valueForProperty<int>(this, v2);
 }
 
-void *mlcore::Artwork::setArtworkSourceType(mlcore *a1, int a2)
+void *mlcore::Artwork::setArtworkSourceType(float *a1, int a2)
 {
-  v5[0] = mlcore::ArtworkPropertySourceType(a1);
-  v5[1] = v5;
-  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::__unordered_map_hasher<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::hash<mlcore::ModelProperty<int> *>,std::equal_to<mlcore::ModelProperty<int> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::equal_to<mlcore::ModelProperty<int> *>,std::hash<mlcore::ModelProperty<int> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<int> *,int>>>::__emplace_unique_key_args<mlcore::ModelProperty<int> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<int> * const&>,std::tuple<>>(a1 + 17, v5[0]);
+  v5 = mlcore::ArtworkPropertySourceType(a1);
+  v6 = &v5;
+  result = std::__hash_table<std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::__unordered_map_hasher<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::hash<mlcore::ModelProperty<int> *>,std::equal_to<mlcore::ModelProperty<int> *>,true>,std::__unordered_map_equal<mlcore::ModelProperty<int> *,std::__hash_value_type<mlcore::ModelProperty<int> *,int>,std::equal_to<mlcore::ModelProperty<int> *>,std::hash<mlcore::ModelProperty<int> *>,true>,std::allocator<std::__hash_value_type<mlcore::ModelProperty<int> *,int>>>::__emplace_unique_key_args<mlcore::ModelProperty<int> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<int> * const&>,std::tuple<>>(a1 + 34, v5, &v6);
   *(result + 6) = a2;
   return result;
 }
@@ -8898,7 +8813,7 @@ uint64_t std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<
   }
 }
 
-uint64_t *std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -8926,25 +8841,25 @@ __n128 std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<me
 
 void mediaplatform::DatabaseConnectionPool::_checkoutConnection(mediaplatform::DatabaseConnectionPool *this, int a2)
 {
-  v8[8] = *MEMORY[0x1E69E9840];
-  v2 = 80;
+  v9[8] = *MEMORY[0x1E69E9840];
+  v3 = 80;
   if (a2)
   {
-    v2 = 64;
+    v3 = 64;
   }
 
-  v3 = this + v2;
-  v5 = *v3;
-  v4 = *(v3 + 1);
-  if (v4)
+  v4 = this + v3;
+  v6 = *v4;
+  v5 = *(v4 + 1);
+  if (v5)
   {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
-  dispatch_semaphore_wait(v5[11], 0xFFFFFFFFFFFFFFFFLL);
-  v6 = 0;
+  dispatch_semaphore_wait(v6[11], 0xFFFFFFFFFFFFFFFFLL);
   v7 = 0;
-  ((*v5)[3].isa)(v8, v5);
+  v8 = 0;
+  ((*v6)[3].isa)(v9, v6);
   operator new();
 }
 
@@ -8990,9 +8905,8 @@ uint64_t std::__function::__func<mediaplatform::DatabaseConnectionPool::_checkou
 
 void std::__function::__func<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0,std::allocator<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0>,void ()(void)>::operator()(void *a1)
 {
-  v4[6] = *MEMORY[0x1E69E9840];
+  v3[6] = *MEMORY[0x1E69E9840];
   v1 = a1[1];
-  v3 = a1[3];
   v2 = a1[4];
   if (v2)
   {
@@ -9000,7 +8914,7 @@ void std::__function::__func<mediaplatform::DatabaseConnectionPool::_checkoutCon
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  (*(*v1 + 24))(v4, v1);
+  (*(*v1 + 24))(v3, v1);
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -9009,19 +8923,20 @@ void std::__function::__func<mediaplatform::DatabaseConnectionPool::_checkoutCon
   operator new();
 }
 
-void sub_1D57C3040(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12)
+void sub_1D57C3040(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, ...)
 {
+  va_start(va, a11);
   if (a2)
   {
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&a12);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
     if (a11)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](a11);
     }
 
-    if (v12)
+    if (v11)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
     __cxa_begin_catch(exception_object);
@@ -9044,7 +8959,7 @@ uint64_t std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<
   }
 }
 
-uint64_t std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::checkinConnection(std::shared_ptr<mediaplatform::DatabaseConnection>)::$_0>(mediaplatform::DBCPSubpool::checkinConnection(std::shared_ptr<mediaplatform::DatabaseConnection>)::$_0)::{lambda(void)#1},std::allocator<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::checkinConnection(std::shared_ptr<mediaplatform::DatabaseConnection>)::$_0>(mediaplatform::DBCPSubpool::checkinConnection(std::shared_ptr<mediaplatform::DatabaseConnection>)::$_0)::{lambda(void)#1}>,void ()(void)>::operator()(uint64_t a1)
+uint64_t *std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::checkinConnection(std::shared_ptr<mediaplatform::DatabaseConnection>)::$_0>(mediaplatform::DBCPSubpool::checkinConnection(std::shared_ptr<mediaplatform::DatabaseConnection>)::$_0)::{lambda(void)#1},std::allocator<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::checkinConnection(std::shared_ptr<mediaplatform::DatabaseConnection>)::$_0>(mediaplatform::DBCPSubpool::checkinConnection(std::shared_ptr<mediaplatform::DatabaseConnection>)::$_0)::{lambda(void)#1}>,void ()(void)>::operator()(uint64_t a1)
 {
   v1 = *(a1 + 8);
   v2 = *(v1 + 224);
@@ -9078,7 +8993,7 @@ LABEL_9:
   std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::erase((v1 + 216), v5);
   v9 = *(a1 + 16);
 
-  return std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__emplace_unique_key_args<std::shared_ptr<mediaplatform::DatabaseConnection>,std::shared_ptr<mediaplatform::DatabaseConnection> const&>(v1 + 192, v9);
+  return std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__emplace_unique_key_args<std::shared_ptr<mediaplatform::DatabaseConnection>,std::shared_ptr<mediaplatform::DatabaseConnection> const&>((v1 + 192), v9, (a1 + 16));
 }
 
 void std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::erase(void ***a1, void **__p)
@@ -9101,11 +9016,11 @@ void std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::erase(void
     do
     {
       v4 = v5[2];
-      v31 = *v4 == v5;
+      v30 = *v4 == v5;
       v5 = v4;
     }
 
-    while (!v31);
+    while (!v30);
   }
 
   if (*a1 == __p)
@@ -9186,7 +9101,7 @@ LABEL_18:
     v9[1] = v15;
     if (v15)
     {
-      v15[2] = v9;
+      *(v15 + 2) = v9;
     }
 
     *(v9 + 24) = *(__p + 24);
@@ -9209,206 +9124,205 @@ LABEL_18:
 
   while (1)
   {
-    v17 = *(v12 + 2);
+    v17 = v12[2];
     v18 = *v17;
-    v19 = *(v12 + 24);
     if (*v17 == v12)
     {
       break;
     }
 
-    if ((*(v12 + 24) & 1) == 0)
+    if ((v12[3] & 1) == 0)
     {
       *(v12 + 24) = 1;
       *(v17 + 24) = 0;
-      v20 = *(v17 + 8);
-      v21 = *v20;
-      *(v17 + 8) = *v20;
-      if (v21)
+      v19 = v17[1];
+      v20 = *v19;
+      v17[1] = *v19;
+      if (v20)
       {
-        *(v21 + 16) = v17;
+        v20[2] = v17;
       }
 
-      v22 = *(v17 + 16);
-      v20[2] = v22;
-      v22[*v22 != v17] = v20;
-      *v20 = v17;
-      *(v17 + 16) = v20;
+      v21 = v17[2];
+      v19[2] = v21;
+      v21[*v21 != v17] = v19;
+      *v19 = v17;
+      v17[2] = v19;
       if (v6 == *v12)
       {
         v6 = v12;
       }
 
-      v12 = *(*v12 + 8);
+      v12 = *(*v12 + 1);
     }
 
-    v23 = *v12;
-    if (*v12 && v23[24] != 1)
+    v22 = *v12;
+    if (*v12 && v22[24] != 1)
     {
-      v24 = *(v12 + 1);
-      if (v24 && (v24[24] & 1) == 0)
+      v23 = v12[1];
+      if (v23 && (v23[3] & 1) == 0)
       {
 LABEL_67:
-        v23 = v12;
+        v22 = v12;
       }
 
       else
       {
-        v23[24] = 1;
+        v22[24] = 1;
         *(v12 + 24) = 0;
-        v32 = *(v23 + 1);
-        *v12 = v32;
-        if (v32)
+        v31 = *(v22 + 1);
+        *v12 = v31;
+        if (v31)
         {
-          *(v32 + 16) = v12;
+          v31[2] = v12;
         }
 
-        v33 = *(v12 + 2);
-        *(v23 + 2) = v33;
-        v33[*v33 != v12] = v23;
-        *(v23 + 1) = v12;
-        *(v12 + 2) = v23;
-        v24 = v12;
+        v32 = v12[2];
+        *(v22 + 2) = v32;
+        v32[*v32 != v12] = v22;
+        *(v22 + 1) = v12;
+        v12[2] = v22;
+        v23 = v12;
       }
 
-      v34 = *(v23 + 2);
-      v23[24] = *(v34 + 24);
-      *(v34 + 24) = 1;
-      v24[24] = 1;
-      v35 = *(v34 + 8);
-      v36 = *v35;
-      *(v34 + 8) = *v35;
-      if (v36)
+      v33 = *(v22 + 2);
+      v22[24] = v33[24];
+      v33[24] = 1;
+      *(v23 + 24) = 1;
+      v34 = *(v33 + 1);
+      v35 = *v34;
+      *(v33 + 1) = *v34;
+      if (v35)
       {
-        *(v36 + 16) = v34;
+        *(v35 + 16) = v33;
       }
 
-      v37 = *(v34 + 16);
-      v35[2] = v37;
-      v37[*v37 != v34] = v35;
-      *v35 = v34;
+      v36 = *(v33 + 2);
+      v34[2] = v36;
+      v36[*v36 != v33] = v34;
+      *v34 = v33;
       goto LABEL_80;
     }
 
-    v24 = *(v12 + 1);
-    if (v24 && v24[24] != 1)
+    v23 = v12[1];
+    if (v23 && *(v23 + 24) != 1)
     {
       goto LABEL_67;
     }
 
     *(v12 + 24) = 0;
-    v25 = *(v12 + 2);
-    if (v25 == v6 || (v25[3] & 1) == 0)
+    v24 = v12[2];
+    if (v24 == v6 || (v24[3] & 1) == 0)
     {
       goto LABEL_61;
     }
 
 LABEL_59:
-    v12 = *(v25[2] + (*v25[2] == v25));
+    v12 = *(v24[2] + (*v24[2] == v24));
   }
 
-  if ((*(v12 + 24) & 1) == 0)
+  if ((v12[3] & 1) == 0)
   {
     *(v12 + 24) = 1;
     *(v17 + 24) = 0;
-    v26 = v18[1];
-    *v17 = v26;
-    if (v26)
+    v25 = v18[1];
+    *v17 = v25;
+    if (v25)
     {
-      *(v26 + 16) = v17;
+      v25[2] = v17;
     }
 
-    v27 = *(v17 + 16);
-    v18[2] = v27;
-    v27[*v27 != v17] = v18;
+    v26 = v17[2];
+    v18[2] = v26;
+    v26[*v26 != v17] = v18;
     v18[1] = v17;
-    *(v17 + 16) = v18;
-    v28 = *(v12 + 1);
-    if (v6 == v28)
+    v17[2] = v18;
+    v27 = v12[1];
+    if (v6 == v27)
     {
       v6 = v12;
     }
 
-    v12 = *v28;
+    v12 = *v27;
   }
 
-  v29 = *v12;
-  if (*v12 && v29[24] != 1)
+  v28 = *v12;
+  if (*v12 && v28[24] != 1)
   {
     goto LABEL_76;
   }
 
-  v30 = *(v12 + 1);
-  if (!v30 || v30[24] == 1)
+  v29 = v12[1];
+  if (!v29 || *(v29 + 24) == 1)
   {
     *(v12 + 24) = 0;
-    v25 = *(v12 + 2);
-    v31 = *(v25 + 24) != 1 || v25 == v6;
-    if (v31)
+    v24 = v12[2];
+    v30 = *(v24 + 24) != 1 || v24 == v6;
+    if (v30)
     {
 LABEL_61:
-      *(v25 + 24) = 1;
+      *(v24 + 24) = 1;
       goto LABEL_81;
     }
 
     goto LABEL_59;
   }
 
-  if (v29 && (v29[24] & 1) == 0)
+  if (v28 && (v28[24] & 1) == 0)
   {
 LABEL_76:
-    v30 = v12;
+    v29 = v12;
     goto LABEL_77;
   }
 
-  v30[24] = 1;
+  *(v29 + 24) = 1;
   *(v12 + 24) = 0;
-  v38 = *v30;
-  *(v12 + 1) = *v30;
-  if (v38)
+  v37 = *v29;
+  v12[1] = *v29;
+  if (v37)
   {
-    *(v38 + 16) = v12;
+    v37[2] = v12;
   }
 
-  v39 = *(v12 + 2);
-  *(v30 + 2) = v39;
-  v39[*v39 != v12] = v30;
-  *v30 = v12;
-  *(v12 + 2) = v30;
-  v29 = v12;
+  v38 = v12[2];
+  v29[2] = v38;
+  v38[*v38 != v12] = v29;
+  *v29 = v12;
+  v12[2] = v29;
+  v28 = v12;
 LABEL_77:
-  v34 = *(v30 + 2);
-  v30[24] = *(v34 + 24);
-  *(v34 + 24) = 1;
-  v29[24] = 1;
-  v35 = *v34;
-  v40 = *(*v34 + 8);
-  *v34 = v40;
-  if (v40)
+  v33 = v29[2];
+  *(v29 + 24) = v33[24];
+  v33[24] = 1;
+  v28[24] = 1;
+  v34 = *v33;
+  v39 = *(*v33 + 8);
+  *v33 = v39;
+  if (v39)
   {
-    *(v40 + 16) = v34;
+    *(v39 + 16) = v33;
   }
 
-  v41 = *(v34 + 16);
-  v35[2] = v41;
-  v41[*v41 != v34] = v35;
-  v35[1] = v34;
+  v40 = *(v33 + 2);
+  v34[2] = v40;
+  v40[*v40 != v33] = v34;
+  v34[1] = v33;
 LABEL_80:
-  *(v34 + 16) = v35;
+  *(v33 + 2) = v34;
 LABEL_81:
-  v42 = __p[5];
-  if (v42)
+  v41 = __p[5];
+  if (v41)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
   }
 
   operator delete(__p);
 }
 
-uint64_t std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__emplace_unique_key_args<std::shared_ptr<mediaplatform::DatabaseConnection>,std::shared_ptr<mediaplatform::DatabaseConnection> const&>(uint64_t result, unint64_t a2)
+uint64_t *std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__emplace_unique_key_args<std::shared_ptr<mediaplatform::DatabaseConnection>,std::shared_ptr<mediaplatform::DatabaseConnection> const&>(uint64_t *result, unint64_t a2, uint64_t *a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -9418,27 +9332,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -9503,9 +9417,9 @@ void *std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<med
   return a1;
 }
 
-void std::__function::__func<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0,std::allocator<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0>,void ()(void)>::destroy_deallocate(void *a1)
+void std::__function::__func<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0,std::allocator<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0>,void ()(void)>::destroy_deallocate(char *a1)
 {
-  std::__function::__alloc_func<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0,std::allocator<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0>,void ()(void)>::destroy[abi:ne200100](a1 + 8);
+  std::__function::__alloc_func<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0,std::allocator<mediaplatform::DatabaseConnectionPool::_checkoutConnection(BOOL)::$_0>,void ()(void)>::destroy[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -9622,7 +9536,7 @@ uint64_t std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<
   }
 }
 
-uint64_t std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::checkoutConnection(std::function<std::shared_ptr<mediaplatform::DatabaseConnection> ()(mediaplatform::FilePath const&,BOOL)> const&)::$_0>(mediaplatform::DBCPSubpool::checkoutConnection(std::function<std::shared_ptr<mediaplatform::DatabaseConnection> ()(mediaplatform::FilePath const&,BOOL)> const&)::$_0)::{lambda(void)#1},std::allocator<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::checkoutConnection(std::function<std::shared_ptr<mediaplatform::DatabaseConnection> ()(mediaplatform::FilePath const&,BOOL)> const&)::$_0>(mediaplatform::DBCPSubpool::checkoutConnection(std::function<std::shared_ptr<mediaplatform::DatabaseConnection> ()(mediaplatform::FilePath const&,BOOL)> const&)::$_0)::{lambda(void)#1}>,void ()(void)>::operator()(uint64_t a1)
+uint64_t *std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::checkoutConnection(std::function<std::shared_ptr<mediaplatform::DatabaseConnection> ()(mediaplatform::FilePath const&,BOOL)> const&)::$_0>(mediaplatform::DBCPSubpool::checkoutConnection(std::function<std::shared_ptr<mediaplatform::DatabaseConnection> ()(mediaplatform::FilePath const&,BOOL)> const&)::$_0)::{lambda(void)#1},std::allocator<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::checkoutConnection(std::function<std::shared_ptr<mediaplatform::DatabaseConnection> ()(mediaplatform::FilePath const&,BOOL)> const&)::$_0>(mediaplatform::DBCPSubpool::checkoutConnection(std::function<std::shared_ptr<mediaplatform::DatabaseConnection> ()(mediaplatform::FilePath const&,BOOL)> const&)::$_0)::{lambda(void)#1}>,void ()(void)>::operator()(uint64_t a1)
 {
   v2 = *(a1 + 8);
   if (*(v2 + 208))
@@ -9645,39 +9559,40 @@ uint64_t std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<
     }
 
     std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::erase((v2 + 192), v3);
-    v8 = **(a1 + 16);
+    v8 = *(a1 + 16);
+    v9 = *v8;
 
-    return std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__emplace_unique_key_args<std::shared_ptr<mediaplatform::DatabaseConnection>,std::shared_ptr<mediaplatform::DatabaseConnection> const&>(v2 + 216, v8);
+    return std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__emplace_unique_key_args<std::shared_ptr<mediaplatform::DatabaseConnection>,std::shared_ptr<mediaplatform::DatabaseConnection> const&>((v2 + 216), v9, v8);
   }
 
   else
   {
-    v10 = *(a1 + 24);
-    v16 = *(v2 + 80);
-    v11 = *(v10 + 24);
-    if (!v11)
+    v11 = *(a1 + 24);
+    v17 = *(v2 + 80);
+    v12 = *(v11 + 24);
+    if (!v12)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v11 + 48))(&v15);
-    v12 = *(a1 + 16);
-    v13 = v15;
-    v15 = 0uLL;
-    v14 = *(v12 + 8);
-    *v12 = v13;
-    if (v14)
+    (*(*v12 + 48))(&v16);
+    v13 = *(a1 + 16);
+    v14 = v16;
+    v16 = 0uLL;
+    v15 = *(v13 + 8);
+    *v13 = v14;
+    if (v15)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
     }
 
-    if (*(&v15 + 1))
+    if (*(&v16 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v15 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v16 + 1));
     }
 
     mediaplatform::DatabaseConnection::setDelegateCallbacks(**(a1 + 16), (v2 + 96));
-    return std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__emplace_unique_key_args<std::shared_ptr<mediaplatform::DatabaseConnection>,std::shared_ptr<mediaplatform::DatabaseConnection> const&>(v2 + 216, **(a1 + 16));
+    return std::__tree<std::shared_ptr<mediaplatform::DatabaseConnection>>::__emplace_unique_key_args<std::shared_ptr<mediaplatform::DatabaseConnection>,std::shared_ptr<mediaplatform::DatabaseConnection> const&>((v2 + 216), **(a1 + 16), *(a1 + 16));
   }
 }
 
@@ -9700,28 +9615,26 @@ void mediaplatform::DatabaseConnectionPool::closeAllConnections(mediaplatform::D
 
 void mediaplatform::DBCPSubpool::closeAllConnections(mediaplatform::DBCPSubpool *this)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  (*(*this + 24))(&v3);
-  v5[0] = &unk_1F50DCD78;
-  v5[1] = this;
-  v5[3] = v5;
-  (*(*v3 + 48))(v3, v5);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
-  if (v4)
+  v4[4] = *MEMORY[0x1E69E9840];
+  (*(*this + 24))(&v2);
+  v4[0] = &unk_1F50DCD78;
+  v4[1] = this;
+  v4[3] = v4;
+  (*(*v2 + 48))(v2, v4);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1D57C3EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1D57C3EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
-  if (a4)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   _Unwind_Resume(a1);
@@ -9742,7 +9655,7 @@ uint64_t std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<
 
 void std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::closeAllConnections(void)::$_0>(mediaplatform::DBCPSubpool::closeAllConnections(void)::$_0)::{lambda(void)#1},std::allocator<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::closeAllConnections(void)::$_0>(mediaplatform::DBCPSubpool::closeAllConnections(void)::$_0)::{lambda(void)#1}>,void ()(void)>::operator()(uint64_t a1)
 {
-  mediaplatform::UnionSets<std::shared_ptr<mediaplatform::DatabaseConnection>>(&v7, *(a1 + 8) + 192, *(a1 + 8) + 216);
+  mediaplatform::UnionSets<std::shared_ptr<mediaplatform::DatabaseConnection>>(&v7, *(a1 + 8) + 192, (*(a1 + 8) + 216));
   v1 = v7;
   if (v7 != v8)
   {
@@ -9884,4 +9797,121 @@ void mlcore::Library::~Library(mlcore::Library *this)
   {
     operator delete(*(this + 1));
   }
+}
+
+void std::__shared_ptr_emplace<mlcore::LocalLibrary>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F50D1EA8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1DA6EDD40);
+}
+
+uint64_t mlcore::DeviceLibrary::localLibrary@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+{
+  v2 = *(this + 160);
+  *a2 = *(this + 152);
+  a2[1] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return this;
+}
+
+uint64_t mlcore::DeviceLibrary::expectedEntityQuerySize(mlcore::DeviceLibrary *this, mlcore::EntityClass *a2)
+{
+  v2 = this + 184;
+  while (1)
+  {
+    v2 = *v2;
+    if (!v2)
+    {
+      break;
+    }
+
+    if (*(v2 + 2) == a2)
+    {
+      return *(v2 + 3);
+    }
+  }
+
+  return 0;
+}
+
+void mlcore::DeviceLibrary::setExpectedEntityQuerySize(int8x8_t *this, unint64_t a2, uint64_t a3)
+{
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = this[22];
+  if (!*&v6)
+  {
+    goto LABEL_18;
+  }
+
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
+  {
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
+    {
+      v8 = v5 % *&v6;
+    }
+  }
+
+  else
+  {
+    v8 = v5 & (*&v6 - 1);
+  }
+
+  v9 = *(*&this[21] + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v11 = v10[1];
+    if (v11 == v5)
+    {
+      break;
+    }
+
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v11 >= *&v6)
+      {
+        v11 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v11 &= *&v6 - 1;
+    }
+
+    if (v11 != v8)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v10 = *v10;
+    if (!v10)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v10[2] != a2)
+  {
+    goto LABEL_17;
+  }
+
+  v10[3] = a3;
 }

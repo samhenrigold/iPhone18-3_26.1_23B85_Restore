@@ -8,7 +8,6 @@
 - (void)_isNFCEnabled;
 - (void)checkHardwareSupportStateWithCompletionHandler:(id)handler;
 - (void)checkNFCEnabledWithCompletionHandler:(id)handler;
-- (void)disconnect;
 - (void)enableNFCWithCompletionHandler:(id)handler;
 - (void)startReaderWithDelegate:(id)delegate errorHandler:(id)handler interruptionHandler:(id)interruptionHandler;
 @end
@@ -236,31 +235,22 @@ void __73__BCSNFCReaderConnection_checkHardwareSupportStateWithCompletionHandler
   [(BCSNotificationServiceConnection *)self->_notificationServiceConnection startNFCReaderWithDelegate:delegateCopy errorHandler:handlerCopy];
 }
 
-- (void)disconnect
-{
-  notificationServiceConnection = self->_notificationServiceConnection;
-  self->_notificationServiceConnection = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (void)_isNFCEnabled
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   _bcs_privacyPreservingDescription = [a2 _bcs_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_241993000, v5, v6, "Get radio enabled error: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = _bcs_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0_1(&dword_241993000, v5, v6, "Get radio enabled error: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_enableNFC
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   _bcs_privacyPreservingDescription = [a2 _bcs_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_241993000, v5, v6, "Failed to enable radio: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = _bcs_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0_1(&dword_241993000, v5, v6, "Failed to enable radio: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -144,22 +144,21 @@
 
 - (BOOL)shouldIncludeForRestrictedGuestWithContext:(id)context
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB58];
   secureClassServices = [MEMORY[0x277CD1D80] secureClassServices];
   v6 = [v4 setWithSet:secureClassServices];
 
-  v12[0] = *MEMORY[0x277CD0DE8];
-  v12[1] = @"00000260-0000-1000-8000-0026BB765291";
-  v12[2] = @"00000266-0000-1000-8000-0026BB765291";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11[0] = *MEMORY[0x277CD0DE8];
+  v11[1] = @"00000260-0000-1000-8000-0026BB765291";
+  v11[2] = @"00000266-0000-1000-8000-0026BB765291";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
   [v6 addObjectsFromArray:v7];
 
-  serviceType = [(_MKFService *)self serviceType];
-  uUIDString = [serviceType UUIDString];
+  v8 = objc_msgSend_serviceType(self);
+  uUIDString = [v8 UUIDString];
   LOBYTE(self) = [v6 containsObject:uUIDString];
 
-  v10 = *MEMORY[0x277D85DE8];
   return self;
 }
 

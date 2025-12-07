@@ -14,7 +14,7 @@
 {
   sceneCopy = scene;
   sessionCopy = session;
-  v9 = sub_1000015E4();
+  v9 = sub_1000015E4(sessionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *v20 = 136315138;
@@ -39,7 +39,7 @@
       if (objc_opt_isKindOfClass())
       {
         bOOLValue = [v13 BOOLValue];
-        v15 = sub_1000015E4();
+        v15 = sub_1000015E4(bOOLValue);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           sub_100005900(bOOLValue, v15);
@@ -69,7 +69,7 @@
 
 - (void)sceneDidDisconnect:(id)disconnect
 {
-  v4 = sub_1000015E4();
+  v4 = sub_1000015E4(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -82,7 +82,7 @@
 
 - (void)sceneDidBecomeActive:(id)active
 {
-  v3 = sub_1000015E4();
+  v3 = sub_1000015E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -93,7 +93,7 @@
 
 - (void)sceneWillResignActive:(id)active
 {
-  v3 = sub_1000015E4();
+  v3 = sub_1000015E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -104,7 +104,7 @@
 
 - (void)sceneWillEnterForeground:(id)foreground
 {
-  v3 = sub_1000015E4();
+  v3 = sub_1000015E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -115,7 +115,7 @@
 
 - (void)sceneDidEnterBackground:(id)background
 {
-  v3 = sub_1000015E4();
+  v3 = sub_1000015E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -126,7 +126,7 @@
 
 - (void)remoteAlertSceneDidInvalidateForRemoteAlertServiceInvalidation:(id)invalidation
 {
-  v3 = sub_1000015E4();
+  v3 = sub_1000015E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;

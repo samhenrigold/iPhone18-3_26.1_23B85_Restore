@@ -367,131 +367,131 @@
     [(UIButton *)v22 setTitleColor:v23 forState:0];
 
     v24 = self->_themeWhiteButton;
-    v25 = AEBundle();
-    v26 = [v25 localizedStringForKey:@"White" value:&stru_1E7188 table:0];
-    [(UIButton *)v24 setAccessibilityLabel:v26];
+    v26 = AEBundle(v25);
+    v27 = [v26 localizedStringForKey:@"White" value:&stru_1E7188 table:0];
+    [(UIButton *)v24 setAccessibilityLabel:v27];
 
     [(UIButton *)self->_themeWhiteButton setAccessibilityIdentifier:@"theme well white"];
     [(UIStackView *)self->_themeContainer addArrangedSubview:self->_themeWhiteButton];
-    v27 = [[UIButton alloc] initWithFrame:{0.0, 0.0, v13, v15}];
+    v28 = [[UIButton alloc] initWithFrame:{0.0, 0.0, v13, v15}];
     themeSepiaButton = self->_themeSepiaButton;
-    self->_themeSepiaButton = v27;
+    self->_themeSepiaButton = v28;
 
     [(UIButton *)self->_themeSepiaButton setTranslatesAutoresizingMaskIntoConstraints:0];
-    v29 = self->_themeSepiaButton;
-    v30 = [(BKAppearanceViewController *)self _sepiaThemeButtonImageSelected:0];
-    [(UIButton *)v29 setImage:v30 forState:0];
+    v30 = self->_themeSepiaButton;
+    v31 = [(BKAppearanceViewController *)self _sepiaThemeButtonImageSelected:0];
+    [(UIButton *)v30 setImage:v31 forState:0];
 
-    v31 = self->_themeSepiaButton;
-    v32 = [(BKAppearanceViewController *)self _sepiaThemeButtonImageSelected:1];
-    [(UIButton *)v31 setImage:v32 forState:4];
+    v32 = self->_themeSepiaButton;
+    v33 = [(BKAppearanceViewController *)self _sepiaThemeButtonImageSelected:1];
+    [(UIButton *)v32 setImage:v33 forState:4];
 
     [(UIButton *)self->_themeSepiaButton addTarget:self action:"setThemeSepia:" forControlEvents:64];
-    v33 = self->_themeSepiaButton;
-    v34 = +[UIColor blackColor];
-    [(UIButton *)v33 setTitleColor:v34 forState:0];
+    v34 = self->_themeSepiaButton;
+    v35 = +[UIColor blackColor];
+    [(UIButton *)v34 setTitleColor:v35 forState:0];
 
-    v35 = self->_themeSepiaButton;
-    v36 = AEBundle();
-    v37 = [v36 localizedStringForKey:@"Sepia" value:&stru_1E7188 table:0];
-    [(UIButton *)v35 setAccessibilityLabel:v37];
+    v36 = self->_themeSepiaButton;
+    v38 = AEBundle(v37);
+    v39 = [v38 localizedStringForKey:@"Sepia" value:&stru_1E7188 table:0];
+    [(UIButton *)v36 setAccessibilityLabel:v39];
 
     [(UIButton *)self->_themeSepiaButton setAccessibilityIdentifier:@"theme well sepia"];
     [(UIStackView *)self->_themeContainer addArrangedSubview:self->_themeSepiaButton];
-    v38 = [[UIButton alloc] initWithFrame:{0.0, 0.0, v13, v15}];
+    v40 = [[UIButton alloc] initWithFrame:{0.0, 0.0, v13, v15}];
     themeGrayButton = self->_themeGrayButton;
-    self->_themeGrayButton = v38;
+    self->_themeGrayButton = v40;
 
     [(UIButton *)self->_themeGrayButton setTranslatesAutoresizingMaskIntoConstraints:0];
-    v40 = self->_themeGrayButton;
-    v41 = [(BKAppearanceViewController *)self _grayThemeButtonImageSelected:0];
-    [(UIButton *)v40 setImage:v41 forState:0];
-
     v42 = self->_themeGrayButton;
-    v43 = [(BKAppearanceViewController *)self _grayThemeButtonImageSelected:1];
-    [(UIButton *)v42 setImage:v43 forState:4];
+    v43 = [(BKAppearanceViewController *)self _grayThemeButtonImageSelected:0];
+    [(UIButton *)v42 setImage:v43 forState:0];
+
+    v44 = self->_themeGrayButton;
+    v45 = [(BKAppearanceViewController *)self _grayThemeButtonImageSelected:1];
+    [(UIButton *)v44 setImage:v45 forState:4];
 
     [(UIButton *)self->_themeGrayButton addTarget:self action:"setThemeGray:" forControlEvents:64];
-    v44 = self->_themeGrayButton;
-    v45 = +[UIColor blackColor];
-    [(UIButton *)v44 setTitleColor:v45 forState:0];
-
     v46 = self->_themeGrayButton;
-    v47 = AEBundle();
-    v48 = [v47 localizedStringForKey:@"Gray" value:&stru_1E7188 table:0];
-    [(UIButton *)v46 setAccessibilityLabel:v48];
+    v47 = +[UIColor blackColor];
+    [(UIButton *)v46 setTitleColor:v47 forState:0];
+
+    v48 = self->_themeGrayButton;
+    v50 = AEBundle(v49);
+    v51 = [v50 localizedStringForKey:@"Gray" value:&stru_1E7188 table:0];
+    [(UIButton *)v48 setAccessibilityLabel:v51];
 
     [(UIButton *)self->_themeGrayButton setAccessibilityIdentifier:@"theme well gray"];
     [(UIStackView *)self->_themeContainer addArrangedSubview:self->_themeGrayButton];
-    v49 = [[UIButton alloc] initWithFrame:{0.0, 0.0, v13, v15}];
+    v52 = [[UIButton alloc] initWithFrame:{0.0, 0.0, v13, v15}];
     themeNightButton = self->_themeNightButton;
-    self->_themeNightButton = v49;
+    self->_themeNightButton = v52;
 
     [(UIButton *)self->_themeNightButton setTranslatesAutoresizingMaskIntoConstraints:0];
-    v51 = self->_themeNightButton;
-    v52 = [(BKAppearanceViewController *)self _nightThemeButtonImageSelected:0];
-    [(UIButton *)v51 setImage:v52 forState:0];
+    v54 = self->_themeNightButton;
+    v55 = [(BKAppearanceViewController *)self _nightThemeButtonImageSelected:0];
+    [(UIButton *)v54 setImage:v55 forState:0];
 
-    v53 = self->_themeNightButton;
-    v54 = [(BKAppearanceViewController *)self _nightThemeButtonImageSelected:1];
-    [(UIButton *)v53 setImage:v54 forState:4];
+    v56 = self->_themeNightButton;
+    v57 = [(BKAppearanceViewController *)self _nightThemeButtonImageSelected:1];
+    [(UIButton *)v56 setImage:v57 forState:4];
 
     [(UIButton *)self->_themeNightButton addTarget:self action:"setThemeNight:" forControlEvents:64];
-    v55 = self->_themeNightButton;
-    v56 = +[UIColor blackColor];
-    [(UIButton *)v55 setTitleColor:v56 forState:0];
+    v58 = self->_themeNightButton;
+    v59 = +[UIColor blackColor];
+    [(UIButton *)v58 setTitleColor:v59 forState:0];
 
-    v57 = self->_themeNightButton;
-    v58 = AEBundle();
-    v59 = [v58 localizedStringForKey:@"Night" value:&stru_1E7188 table:0];
-    [(UIButton *)v57 setAccessibilityLabel:v59];
+    v60 = self->_themeNightButton;
+    v62 = AEBundle(v61);
+    v63 = [v62 localizedStringForKey:@"Night" value:&stru_1E7188 table:0];
+    [(UIButton *)v60 setAccessibilityLabel:v63];
 
     [(UIButton *)self->_themeNightButton setAccessibilityIdentifier:@"theme well night"];
     [(UIStackView *)self->_themeContainer addArrangedSubview:self->_themeNightButton];
     widthAnchor = [(UIStackView *)self->_themeContainer widthAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotSeparator];
-    v61 = v60;
+    v65 = v64;
     [(BKAppearanceViewController *)self appearanceColorPotWidth];
-    v83 = [widthAnchor constraintEqualToConstant:v62 * 4.0 + v61 * 3.0];
-    v85[0] = v83;
+    v87 = [widthAnchor constraintEqualToConstant:v66 * 4.0 + v65 * 3.0];
+    v89[0] = v87;
     heightAnchor = [(UIStackView *)self->_themeContainer heightAnchor];
     [(BKAppearanceViewController *)self appearanceColorContainerHeight];
-    v81 = [heightAnchor constraintEqualToConstant:?];
-    v85[1] = v81;
+    v85 = [heightAnchor constraintEqualToConstant:?];
+    v89[1] = v85;
     widthAnchor2 = [(UIButton *)self->_themeWhiteButton widthAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotWidth];
-    v79 = [widthAnchor2 constraintEqualToConstant:?];
-    v85[2] = v79;
+    v83 = [widthAnchor2 constraintEqualToConstant:?];
+    v89[2] = v83;
     heightAnchor2 = [(UIButton *)self->_themeWhiteButton heightAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotHeight];
-    v77 = [heightAnchor2 constraintEqualToConstant:?];
-    v85[3] = v77;
+    v81 = [heightAnchor2 constraintEqualToConstant:?];
+    v89[3] = v81;
     widthAnchor3 = [(UIButton *)self->_themeSepiaButton widthAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotWidth];
-    v75 = [widthAnchor3 constraintEqualToConstant:?];
-    v85[4] = v75;
+    v79 = [widthAnchor3 constraintEqualToConstant:?];
+    v89[4] = v79;
     heightAnchor3 = [(UIButton *)self->_themeSepiaButton heightAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotHeight];
-    v73 = [heightAnchor3 constraintEqualToConstant:?];
-    v85[5] = v73;
+    v77 = [heightAnchor3 constraintEqualToConstant:?];
+    v89[5] = v77;
     widthAnchor4 = [(UIButton *)self->_themeGrayButton widthAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotWidth];
-    v63 = [widthAnchor4 constraintEqualToConstant:?];
-    v85[6] = v63;
+    v67 = [widthAnchor4 constraintEqualToConstant:?];
+    v89[6] = v67;
     heightAnchor4 = [(UIButton *)self->_themeGrayButton heightAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotHeight];
-    v65 = [heightAnchor4 constraintEqualToConstant:?];
-    v85[7] = v65;
+    v69 = [heightAnchor4 constraintEqualToConstant:?];
+    v89[7] = v69;
     widthAnchor5 = [(UIButton *)self->_themeNightButton widthAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotWidth];
-    v67 = [widthAnchor5 constraintEqualToConstant:?];
-    v85[8] = v67;
+    v71 = [widthAnchor5 constraintEqualToConstant:?];
+    v89[8] = v71;
     heightAnchor5 = [(UIButton *)self->_themeNightButton heightAnchor];
     [(BKAppearanceViewController *)self appearanceColorPotHeight];
-    v69 = [heightAnchor5 constraintEqualToConstant:?];
-    v85[9] = v69;
-    v70 = [NSArray arrayWithObjects:v85 count:10];
-    [NSLayoutConstraint activateConstraints:v70];
+    v73 = [heightAnchor5 constraintEqualToConstant:?];
+    v89[9] = v73;
+    v74 = [NSArray arrayWithObjects:v89 count:10];
+    [NSLayoutConstraint activateConstraints:v74];
 
     [(BKAppearanceViewController *)self updateThemeButtons];
     themeContainer = self->_themeContainer;
@@ -749,7 +749,7 @@ LABEL_16:
       v90 = contentView2;
       v92 = v19;
       v95 = pathCopy;
-      v32 = AEBundle();
+      v32 = AEBundle(1);
       v33 = [v32 localizedStringForKey:@"Fonts" value:&stru_1E7188 table:0];
       textLabel2 = [v8 textLabel];
       [textLabel2 setText:v33];
@@ -807,7 +807,7 @@ LABEL_16:
           {
             if ([v49 kind] == &dword_0 + 1)
             {
-              v55 = AEBundle();
+              v55 = AEBundle(1);
               v56 = [v55 localizedStringForKey:@"Original" value:&stru_1E7188 table:0];
               detailTextLabel3 = [v8 detailTextLabel];
               [detailTextLabel3 setText:v56];
@@ -925,7 +925,7 @@ LABEL_18:
         goto LABEL_21;
       }
 
-      v72 = AEBundle();
+      v72 = AEBundle(1);
       v73 = [v72 localizedStringForKey:@"Auto-Night Theme" value:&stru_1E7188 table:0];
       textLabel3 = [v8 textLabel];
       [textLabel3 setText:v73];
@@ -1712,7 +1712,7 @@ LABEL_14:
 - (id)keyCommands
 {
   v2 = +[NSMutableArray array];
-  v3 = AEBundle();
+  v3 = AEBundle(v2);
   v4 = [v3 localizedStringForKey:@"Dismiss menu" value:&stru_1E7188 table:0];
   v5 = [UIKeyCommand commandWithTitle:v4 image:0 action:"dismissMenu:" input:UIKeyInputEscape modifierFlags:0 propertyList:0];
   [v2 addObject:v5];

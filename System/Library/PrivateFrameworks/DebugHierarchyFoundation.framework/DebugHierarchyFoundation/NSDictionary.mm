@@ -9,7 +9,7 @@
 + (NSDictionary)dictionaryWithJSONData:(id)data error:(id *)error
 {
   dataCopy = data;
-  v7 = DebugHierarchyJSONProcessingOSLog();
+  v7 = DebugHierarchyJSONProcessingOSLog(dataCopy);
   v8 = os_signpost_id_make_with_pointer(v7, self);
   v9 = v7;
   v10 = v9;
@@ -20,17 +20,19 @@
     _os_signpost_emit_with_name_impl(&dword_0, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "JSON Data -> Dict", "Begin with size: %{xcode:size-in-bytes}lu", &v18, 0xCu);
   }
 
-  v11 = [NSJSONSerialization JSONObjectWithData:dataCopy options:0 error:error];
-  if (v11)
+  isKindOfClass = [NSJSONSerialization JSONObjectWithData:dataCopy options:0 error:error];
+  v12 = isKindOfClass;
+  if (isKindOfClass)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v12 = [NSError errorWithDomain:@"Error: Unarchived JSON object is not an NSDictionary." code:-1 userInfo:0];
+      isKindOfClass = [NSError errorWithDomain:@"Error: Unarchived JSON object is not an NSDictionary." code:-1 userInfo:0];
     }
   }
 
-  v13 = DebugHierarchyJSONProcessingOSLog();
+  v13 = DebugHierarchyJSONProcessingOSLog(isKindOfClass);
   v14 = os_signpost_id_make_with_pointer(v13, self);
   v15 = v13;
   v16 = v15;
@@ -40,12 +42,12 @@
     _os_signpost_emit_with_name_impl(&dword_0, v16, OS_SIGNPOST_INTERVAL_END, v14, "JSON Data -> Dict", "Completed", &v18, 2u);
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)generateJSONDataWithError:(id *)error
 {
-  v5 = DebugHierarchyJSONProcessingOSLog();
+  v5 = DebugHierarchyJSONProcessingOSLog(self);
   v6 = os_signpost_id_make_with_pointer(v5, self);
   v7 = v5;
   v8 = v7;
@@ -56,7 +58,7 @@
   }
 
   v9 = [NSJSONSerialization dataWithJSONObject:self options:0 error:error];
-  v10 = DebugHierarchyJSONProcessingOSLog();
+  v10 = DebugHierarchyJSONProcessingOSLog(v9);
   v11 = os_signpost_id_make_with_pointer(v10, self);
   v12 = v10;
   v13 = v12;
@@ -73,7 +75,7 @@
 
 - (id)generateJSONStringWithError:(id *)error
 {
-  v5 = DebugHierarchyJSONProcessingOSLog();
+  v5 = DebugHierarchyJSONProcessingOSLog(self);
   v6 = os_signpost_id_make_with_pointer(v5, self);
   v7 = v5;
   v8 = v7;
@@ -85,7 +87,7 @@
 
   v9 = [(NSDictionary *)self generateJSONDataWithError:error];
   v10 = [[NSString alloc] initWithData:v9 encoding:4];
-  v11 = DebugHierarchyJSONProcessingOSLog();
+  v11 = DebugHierarchyJSONProcessingOSLog(v10);
   v12 = os_signpost_id_make_with_pointer(v11, self);
   v13 = v11;
   v14 = v13;

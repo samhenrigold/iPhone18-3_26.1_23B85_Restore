@@ -220,7 +220,6 @@ LABEL_23:
 
   if (labeledValue)
   {
-    labeledValue = self->_labeledValue;
     PBDataWriterWriteStringField();
   }
 
@@ -234,13 +233,13 @@ LABEL_23:
 
   temporalEventTrigger = [(_INPBSetLabeledSettingIntent *)self temporalEventTrigger];
 
-  v11 = toCopy;
+  v10 = toCopy;
   if (temporalEventTrigger)
   {
     temporalEventTrigger2 = [(_INPBSetLabeledSettingIntent *)self temporalEventTrigger];
     PBDataWriterWriteSubmessage();
 
-    v11 = toCopy;
+    v10 = toCopy;
   }
 }
 

@@ -1,10 +1,10 @@
-__int128 *std::__split_buffer<std::shared_ptr<TSUStringChunk>>::emplace_back<std::shared_ptr<TSUStringChunk> const&>(__int128 *result, void *a2)
+void **std::__split_buffer<std::shared_ptr<TSUStringChunk>>::emplace_back<std::shared_ptr<TSUStringChunk> const&>(void **result, void *a2)
 {
   v3 = result;
-  v4 = *(result + 2);
-  if (v4 == *(result + 3))
+  v4 = result[2];
+  if (v4 == result[3])
   {
-    v5 = *(result + 1);
+    v5 = result[1];
     if (v5 <= *result)
     {
       if (v4 == *result)
@@ -17,28 +17,28 @@ __int128 *std::__split_buffer<std::shared_ptr<TSUStringChunk>>::emplace_back<std
         v8 = (v4 - *result) >> 3;
       }
 
-      v9 = *(result + 4);
-      v11[4] = *(v3 + 4);
+      v9 = result[4];
+      v11[4] = v3[4];
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<TSUStringChunk>>>(v9, v8);
     }
 
     v6 = (((v5 - *result) >> 4) + 1 + ((((v5 - *result) >> 4) + 1) >> 63)) >> 1;
     result = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<TSUStringChunk> *,std::shared_ptr<TSUStringChunk> *,std::shared_ptr<TSUStringChunk> *>(v11, v5, v4, &v5[-v6]);
     v4 = v7;
-    *(v3 + 1) -= 16 * v6;
-    *(v3 + 2) = v7;
+    v3[1] = v3[1] - 16 * v6;
+    v3[2] = v7;
   }
 
   *v4 = *a2;
   v10 = a2[1];
-  *(v4 + 8) = v10;
+  *(v4 + 1) = v10;
   if (v10)
   {
     atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
-    v4 = *(v3 + 2);
+    v4 = v3[2];
   }
 
-  *(v3 + 2) = v4 + 16;
+  v3[2] = v4 + 16;
   return result;
 }
 
@@ -146,11 +146,15 @@ void *TSULocalizedPList(void *a1)
     {
       v5 = [MEMORY[0x277CBEB18] array];
       v6 = [a1 objectEnumerator];
-      v7 = v6;
-      while ([v6 nextObject])
+      for (i = v6; ; v6 = i)
       {
-        [v5 addObject:(TSULocalizedPList)()];
-        v6 = v7;
+        v8 = [v6 nextObject];
+        if (!v8)
+        {
+          break;
+        }
+
+        [v5 addObject:TSULocalizedPList(v8)];
       }
 
       return v5;
@@ -166,18 +170,18 @@ void *TSULocalizedPList(void *a1)
     if (!v3)
     {
       v5 = [MEMORY[0x277CBEB38] dictionary];
-      v8 = [a1 keyEnumerator];
-      v9 = [v8 nextObject];
-      if (v9)
+      v9 = [a1 keyEnumerator];
+      v10 = [v9 nextObject];
+      if (v10)
       {
-        v10 = v9;
+        v11 = v10;
         do
         {
-          [v5 setObject:TSULocalizedPList(objc_msgSend(v2 forKey:{"objectForKey:", v10)), v10}];
-          v10 = [v8 nextObject];
+          [v5 setObject:TSULocalizedPList(objc_msgSend(v2 forKey:{"objectForKey:", v11)), v11}];
+          v11 = [v9 nextObject];
         }
 
-        while (v10);
+        while (v11);
       }
 
       return v5;
@@ -191,7 +195,7 @@ void *TSULocalizedPList(void *a1)
   if (objc_opt_isKindOfClass())
   {
     v4 = [MEMORY[0x277CBEB38] dictionary];
-    v26 = 0;
+    v27 = 0;
   }
 
   else
@@ -199,42 +203,42 @@ void *TSULocalizedPList(void *a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26 = [MEMORY[0x277CBEB18] array];
+      v27 = [MEMORY[0x277CBEB18] array];
     }
 
     else
     {
-      v11 = +[TSUAssertionHandler currentHandler];
-      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSULocalizedPList(id)"];
-      [v11 handleFailureInFunction:v12 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSULocalization.mm"), 79, @"TSULocalizedPList() - unexpected type"}];
-      v26 = 0;
+      v12 = +[TSUAssertionHandler currentHandler];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSULocalizedPList(id)"];
+      [v12 handleFailureInFunction:v13 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSULocalization.mm"), 79, @"TSULocalizedPList() - unexpected type"}];
+      v27 = 0;
     }
 
     v4 = 0;
   }
 
-  v13 = [v2 objectEnumerator];
-  for (i = [v13 nextObject]; i; i = objc_msgSend(v13, "nextObject"))
+  v14 = [v2 objectEnumerator];
+  for (j = [v14 nextObject]; j; j = objc_msgSend(v14, "nextObject"))
   {
-    v15 = TSULocalizedPList(i);
+    v16 = TSULocalizedPList(j);
     if (v4)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v16 = +[TSUAssertionHandler currentHandler];
-        v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSULocalizedPList(id)"];
-        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSULocalization.mm"];
-        v19 = v16;
+        v17 = +[TSUAssertionHandler currentHandler];
+        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSULocalizedPList(id)"];
+        v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSULocalization.mm"];
         v20 = v17;
-        v21 = 90;
-        v22 = @"TSULocalizedPList() - expected dictionary";
+        v21 = v18;
+        v22 = 90;
+        v23 = @"TSULocalizedPList() - expected dictionary";
 LABEL_26:
-        [v19 handleFailureInFunction:v20 file:v18 lineNumber:v21 description:v22];
+        [v20 handleFailureInFunction:v21 file:v19 lineNumber:v22 description:v23];
         continue;
       }
 
-      [v4 addEntriesFromDictionary:v15];
+      [v4 addEntriesFromDictionary:v16];
     }
 
     else
@@ -242,17 +246,17 @@ LABEL_26:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v23 = +[TSUAssertionHandler currentHandler];
-        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSULocalizedPList(id)"];
-        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSULocalization.mm"];
-        v19 = v23;
+        v24 = +[TSUAssertionHandler currentHandler];
+        v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSULocalizedPList(id)"];
+        v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSULocalization.mm"];
         v20 = v24;
-        v21 = 97;
-        v22 = @"TSULocalizedPList() - expected array";
+        v21 = v25;
+        v22 = 97;
+        v23 = @"TSULocalizedPList() - expected array";
         goto LABEL_26;
       }
 
-      [v26 addObjectsFromArray:v15];
+      [v27 addObjectsFromArray:v16];
     }
   }
 
@@ -263,7 +267,7 @@ LABEL_26:
 
   else
   {
-    return v26;
+    return v27;
   }
 }
 
@@ -375,9 +379,9 @@ NSMutableArray *TSUFindInputLanguagesWithBlock(uint64_t a1)
   return v5;
 }
 
-void sub_26CBB77C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26CBB77C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -426,7 +430,7 @@ CFDataRef _createASCIIData(const __CFString *a1, UInt8 a2, CFIndex a3, CFIndex a
   }
 }
 
-uint64_t TSUOperatorStringAddition()
+void *TSUOperatorStringAddition()
 {
   result = TSUOperatorStringAddition_sOperatorString;
   if (!TSUOperatorStringAddition_sOperatorString)
@@ -438,7 +442,7 @@ uint64_t TSUOperatorStringAddition()
   return result;
 }
 
-uint64_t TSUOperatorStringSubtraction()
+void *TSUOperatorStringSubtraction()
 {
   result = TSUOperatorStringSubtraction_sOperatorString;
   if (!TSUOperatorStringSubtraction_sOperatorString)
@@ -450,7 +454,7 @@ uint64_t TSUOperatorStringSubtraction()
   return result;
 }
 
-uint64_t TSUOperatorStringMultiplication()
+void *TSUOperatorStringMultiplication()
 {
   result = TSUOperatorStringMultiplication_sOperatorString;
   if (!TSUOperatorStringMultiplication_sOperatorString)
@@ -462,7 +466,7 @@ uint64_t TSUOperatorStringMultiplication()
   return result;
 }
 
-uint64_t TSUOperatorStringDivision()
+void *TSUOperatorStringDivision()
 {
   result = TSUOperatorStringDivision_sOperatorString;
   if (!TSUOperatorStringDivision_sOperatorString)
@@ -474,7 +478,7 @@ uint64_t TSUOperatorStringDivision()
   return result;
 }
 
-uint64_t TSUOperatorStringPower()
+void *TSUOperatorStringPower()
 {
   result = TSUOperatorStringPower_sOperatorString;
   if (!TSUOperatorStringPower_sOperatorString)
@@ -486,7 +490,7 @@ uint64_t TSUOperatorStringPower()
   return result;
 }
 
-uint64_t TSUOperatorStringConcatenation()
+void *TSUOperatorStringConcatenation()
 {
   result = TSUOperatorStringConcatenation_sOperatorString;
   if (!TSUOperatorStringConcatenation_sOperatorString)
@@ -498,7 +502,7 @@ uint64_t TSUOperatorStringConcatenation()
   return result;
 }
 
-uint64_t TSUOperatorStringGreaterThan()
+void *TSUOperatorStringGreaterThan()
 {
   result = TSUOperatorStringGreaterThan_sOperatorString;
   if (!TSUOperatorStringGreaterThan_sOperatorString)
@@ -510,7 +514,7 @@ uint64_t TSUOperatorStringGreaterThan()
   return result;
 }
 
-uint64_t TSUOperatorStringGreaterThanOrEqualTo()
+void *TSUOperatorStringGreaterThanOrEqualTo()
 {
   result = TSUOperatorStringGreaterThanOrEqualTo_sOperatorString;
   if (!TSUOperatorStringGreaterThanOrEqualTo_sOperatorString)
@@ -522,7 +526,7 @@ uint64_t TSUOperatorStringGreaterThanOrEqualTo()
   return result;
 }
 
-uint64_t TSUOperatorStringLessThan()
+void *TSUOperatorStringLessThan()
 {
   result = TSUOperatorStringLessThan_sOperatorString;
   if (!TSUOperatorStringLessThan_sOperatorString)
@@ -534,7 +538,7 @@ uint64_t TSUOperatorStringLessThan()
   return result;
 }
 
-uint64_t TSUOperatorStringLessThanOrEqualTo()
+void *TSUOperatorStringLessThanOrEqualTo()
 {
   result = TSUOperatorStringLessThanOrEqualTo_sOperatorString;
   if (!TSUOperatorStringLessThanOrEqualTo_sOperatorString)
@@ -546,7 +550,7 @@ uint64_t TSUOperatorStringLessThanOrEqualTo()
   return result;
 }
 
-uint64_t TSUOperatorStringEqualTo()
+void *TSUOperatorStringEqualTo()
 {
   result = TSUOperatorStringEqualTo_sOperatorString;
   if (!TSUOperatorStringEqualTo_sOperatorString)
@@ -558,7 +562,7 @@ uint64_t TSUOperatorStringEqualTo()
   return result;
 }
 
-uint64_t TSUOperatorStringNotEqualTo()
+void *TSUOperatorStringNotEqualTo()
 {
   result = TSUOperatorStringNotEqualTo_sOperatorString;
   if (!TSUOperatorStringNotEqualTo_sOperatorString)
@@ -570,7 +574,7 @@ uint64_t TSUOperatorStringNotEqualTo()
   return result;
 }
 
-uint64_t TSUOperatorStringPercent()
+void *TSUOperatorStringPercent()
 {
   result = TSUOperatorStringPercent_sOperatorString;
   if (!TSUOperatorStringPercent_sOperatorString)
@@ -582,7 +586,7 @@ uint64_t TSUOperatorStringPercent()
   return result;
 }
 
-uint64_t TSUOperatorStringColon()
+void *TSUOperatorStringColon()
 {
   result = TSUOperatorStringColon_sOperatorString;
   if (!TSUOperatorStringColon_sOperatorString)
@@ -616,9 +620,9 @@ void TSUBlockCleanup::~TSUBlockCleanup(id *this)
   (*(*this + 2))();
 }
 
-void sub_26CBBB0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26CBBB0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2339,18 +2343,18 @@ __CFString *NSStringForTSUFormatType(int a1)
   return result;
 }
 
-__CFString *DisplayNSStringForTSUFormatType(int a1)
+__CFString *DisplayNSStringForTSUFormatType(uint64_t a1, uint64_t a2)
 {
   if (a1 <= 0)
   {
     if (a1 == -999)
     {
-      v1 = @"Unknown";
+      v2 = @"Unknown";
     }
 
     else if (a1 == -1)
     {
-      v1 = @"Invalid";
+      v2 = @"Invalid";
     }
 
     else
@@ -2360,66 +2364,66 @@ __CFString *DisplayNSStringForTSUFormatType(int a1)
         return @"Unknown TSU format type";
       }
 
-      v1 = @"Unsupported";
+      v2 = @"Unsupported";
     }
   }
 
   else
   {
-    v1 = @"Number";
+    v2 = @"Number";
     switch(a1)
     {
       case 254:
-        v1 = @"Conflicting";
+        v2 = @"Conflicting";
         break;
       case 255:
-        v1 = @"Automatic";
+        v2 = @"Automatic";
         break;
       case 256:
         break;
       case 257:
-        v1 = @"Currency";
+        v2 = @"Currency";
         break;
       case 258:
-        v1 = @"Percentage";
+        v2 = @"Percentage";
         break;
       case 259:
-        v1 = @"Scientific";
+        v2 = @"Scientific";
         break;
       case 260:
-        v1 = @"Text";
+        v2 = @"Text";
         break;
       case 261:
-        v1 = @"Date & Time";
+        v2 = @"Date & Time";
         break;
       case 262:
-        v1 = @"Fraction";
+        v2 = @"Fraction";
         break;
       case 263:
-        v1 = @"Checkbox";
+        v2 = @"Checkbox";
         break;
       case 264:
-        v1 = @"Stepper";
+        v2 = @"Stepper";
         break;
       case 265:
-        v1 = @"Slider";
+        v2 = @"Slider";
         break;
       case 266:
-        v1 = @"Pop-Up Menu";
+        v2 = @"Pop-Up Menu";
         break;
       case 267:
-        v1 = @"Star Rating";
+        v2 = @"Star Rating";
         break;
       case 268:
-        v1 = @"Duration";
+        v2 = @"Duration";
         break;
       case 269:
-        v1 = @"Numeral System";
+        v2 = @"Numeral System";
         break;
       case 270:
       case 271:
       case 272:
-        v1 = @"Custom";
+        v2 = @"Custom";
         break;
       default:
         if (a1 != 1)
@@ -2427,129 +2431,157 @@ __CFString *DisplayNSStringForTSUFormatType(int a1)
           return @"Unknown TSU format type";
         }
 
-        v1 = @"Not Set";
+        v2 = @"Not Set";
         break;
     }
   }
 
-  v3 = SFUBundle();
+  v4 = SFUBundle(a1, a2);
 
-  return [v3 localizedStringForKey:v1 value:&stru_287DDF830 table:@"TSUtility"];
+  return [v4 localizedStringForKey:v2 value:&stru_287DDF830 table:@"TSUtility"];
 }
 
-uint64_t TSUFormatTypeForDisplayNSString(void *a1)
+uint64_t TSUFormatTypeForDisplayNSString(void *a1, uint64_t a2)
 {
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Number", &stru_287DDF830, @"TSUtility"}] & 1) != 0 || (objc_msgSend(a1, "isEqualToString:", objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Number", &stru_287DDF830, @"TSUtility")))
+  v3 = [a1 isEqualToString:{objc_msgSend(SFUBundle(a1, a2), "localizedStringForKey:value:table:", @"Number", &stru_287DDF830, @"TSUtility"}];
+  if (v3)
   {
     return 256;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Scientific", &stru_287DDF830, @"TSUtility"}])
+  v5 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v3, v4), "localizedStringForKey:value:table:", @"Number", &stru_287DDF830, @"TSUtility"}];
+  if (v5)
+  {
+    return 256;
+  }
+
+  v8 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v5, v6), "localizedStringForKey:value:table:", @"Scientific", &stru_287DDF830, @"TSUtility"}];
+  if (v8)
   {
     return 259;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Fraction", &stru_287DDF830, @"TSUtility"}])
+  v10 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v8, v9), "localizedStringForKey:value:table:", @"Fraction", &stru_287DDF830, @"TSUtility"}];
+  if (v10)
   {
     return 262;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Currency", &stru_287DDF830, @"TSUtility"}])
+  v12 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v10, v11), "localizedStringForKey:value:table:", @"Currency", &stru_287DDF830, @"TSUtility"}];
+  if (v12)
   {
     return 257;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Percentage", &stru_287DDF830, @"TSUtility"}])
+  v14 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v12, v13), "localizedStringForKey:value:table:", @"Percentage", &stru_287DDF830, @"TSUtility"}];
+  if (v14)
   {
     return 258;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Date & Time", &stru_287DDF830, @"TSUtility"}])
+  v16 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v14, v15), "localizedStringForKey:value:table:", @"Date & Time", &stru_287DDF830, @"TSUtility"}];
+  if (v16)
   {
     return 261;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Duration", &stru_287DDF830, @"TSUtility"}])
+  v18 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v16, v17), "localizedStringForKey:value:table:", @"Duration", &stru_287DDF830, @"TSUtility"}];
+  if (v18)
   {
     return 268;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Text", &stru_287DDF830, @"TSUtility"}])
+  v20 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v18, v19), "localizedStringForKey:value:table:", @"Text", &stru_287DDF830, @"TSUtility"}];
+  if (v20)
   {
     return 260;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Unknown", &stru_287DDF830, @"TSUtility"}])
+  v22 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v20, v21), "localizedStringForKey:value:table:", @"Unknown", &stru_287DDF830, @"TSUtility"}];
+  if (v22)
   {
     return 4294966297;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Not Set", &stru_287DDF830, @"TSUtility"}])
+  v24 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v22, v23), "localizedStringForKey:value:table:", @"Not Set", &stru_287DDF830, @"TSUtility"}];
+  if (v24)
   {
     return 1;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Invalid", &stru_287DDF830, @"TSUtility"}])
+  v26 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v24, v25), "localizedStringForKey:value:table:", @"Invalid", &stru_287DDF830, @"TSUtility"}];
+  if (v26)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Conflicting", &stru_287DDF830, @"TSUtility"}])
+  v28 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v26, v27), "localizedStringForKey:value:table:", @"Conflicting", &stru_287DDF830, @"TSUtility"}];
+  if (v28)
   {
     return 254;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Unsupported", &stru_287DDF830, @"TSUtility"}])
+  v30 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v28, v29), "localizedStringForKey:value:table:", @"Unsupported", &stru_287DDF830, @"TSUtility"}];
+  if (v30)
   {
     return 0;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Checkbox", &stru_287DDF830, @"TSUtility"}])
+  v32 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v30, v31), "localizedStringForKey:value:table:", @"Checkbox", &stru_287DDF830, @"TSUtility"}];
+  if (v32)
   {
     return 263;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Stepper", &stru_287DDF830, @"TSUtility"}])
+  v34 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v32, v33), "localizedStringForKey:value:table:", @"Stepper", &stru_287DDF830, @"TSUtility"}];
+  if (v34)
   {
     return 264;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Slider", &stru_287DDF830, @"TSUtility"}])
+  v36 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v34, v35), "localizedStringForKey:value:table:", @"Slider", &stru_287DDF830, @"TSUtility"}];
+  if (v36)
   {
     return 265;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Pop-Up Menu", &stru_287DDF830, @"TSUtility"}])
+  v38 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v36, v37), "localizedStringForKey:value:table:", @"Pop-Up Menu", &stru_287DDF830, @"TSUtility"}];
+  if (v38)
   {
     return 266;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Star Rating", &stru_287DDF830, @"TSUtility"}])
+  v40 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v38, v39), "localizedStringForKey:value:table:", @"Star Rating", &stru_287DDF830, @"TSUtility"}];
+  if (v40)
   {
     return 267;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Numeral System", &stru_287DDF830, @"TSUtility"}])
+  v42 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v40, v41), "localizedStringForKey:value:table:", @"Numeral System", &stru_287DDF830, @"TSUtility"}];
+  if (v42)
   {
     return 269;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Custom", &stru_287DDF830, @"TSUtility"}])
+  v44 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v42, v43), "localizedStringForKey:value:table:", @"Custom", &stru_287DDF830, @"TSUtility"}];
+  if (v44)
   {
     return 270;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Custom", &stru_287DDF830, @"TSUtility"}])
+  v46 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v44, v45), "localizedStringForKey:value:table:", @"Custom", &stru_287DDF830, @"TSUtility"}];
+  if (v46)
   {
     return 271;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Custom", &stru_287DDF830, @"TSUtility"}])
+  v48 = [a1 isEqualToString:{objc_msgSend(SFUBundle(v46, v47), "localizedStringForKey:value:table:", @"Custom", &stru_287DDF830, @"TSUtility"}];
+  if (v48)
   {
     return 272;
   }
 
-  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(), "localizedStringForKey:value:table:", @"Automatic", &stru_287DDF830, @"TSUtility"}])
+  if ([a1 isEqualToString:{objc_msgSend(SFUBundle(v48, v49), "localizedStringForKey:value:table:", @"Automatic", &stru_287DDF830, @"TSUtility"}])
   {
     return 255;
   }
@@ -2662,7 +2694,7 @@ uint64_t TSUFormatStructNumberEquals(void *a1, int a2, uint64_t a3, int a4)
 
   else
   {
-    return [a1 isEqual:?];
+    return [a1 isEqual:a3];
   }
 }
 
@@ -2722,14 +2754,14 @@ uint64_t TSUFormatStructMultipleChoiceListEquals(uint64_t a1, void *a2, uint64_t
   return [v6 isEqual:v7];
 }
 
-unint64_t TSUFormatStructHash(unsigned int *a1, double a2, uint16x4_t a3)
+unint64_t TSUFormatStructHash(unsigned int *a1, double a2, double a3)
 {
   v3 = *a1;
   if ((v3 & 0xFFFFFFFC) == 0x100)
   {
-    a3.i32[0] = *(a1 + 8);
-    v4 = vshl_u16(vdup_n_s16(a3.u32[0]), 0xFFF4FFF6FFFAFFFBLL);
-    v4.i16[0] = vshl_u16(a3, 0xC000A00060005).u16[0];
+    LODWORD(a3) = *(a1 + 8);
+    v4 = vshl_u16(vdup_n_s16(LODWORD(a3)), 0xFFF4FFF6FFFAFFFBLL);
+    v4.i16[0] = vshl_u16(*&a3, 0xC000A00060005).u16[0];
     v5 = vand_s8(v4, 0x10002001C1FE0);
     return [*(a1 + 1) hash] ^ v3 ^ (v5.i16[0] | v5.i16[2] | ((v5.i32[0] | v5.i32[1]) >> 16));
   }
@@ -2786,7 +2818,7 @@ unint64_t TSUFormatStructHash(unsigned int *a1, double a2, uint16x4_t a3)
   }
 
   v11 = *(a1 + 1);
-  v12 = [objc_msgSend(*(a1 + 2) "choices")];
+  v12 = [objc_msgSend(*(a1 + 2) choices];
   v7 = v11 ^ HIDWORD(v11);
   v8 = v12 ^ 0x10A;
   return v7 ^ v8;
@@ -3065,141 +3097,143 @@ __CFString *TSUFormatCustomStringFromDouble(uint64_t a1, double a2)
 
   if ([v13 characterAtIndex:0] == 39 && objc_msgSend(v13, "characterAtIndex:", objc_msgSend(v13, "length") - 1) == 39)
   {
-    v16 = [v13 substringFromIndex:1];
-    v17 = [v16 rangeOfString:@"'"];
-    if (v17 == [v16 length] - 1)
+    v17 = [v13 substringFromIndex:1];
+    v18 = [v17 rangeOfString:@"'"];
+    if (v18 == [v17 length] - 1)
     {
-      v18 = [v16 substringToIndex:{objc_msgSend(v16, "length") - 1}];
+      v19 = [v17 substringToIndex:{objc_msgSend(v17, "length") - 1}];
 
-      return v18;
+      return v19;
     }
   }
 
-  v20 = *(v6 + 56);
-  v21 = *a1;
-  if ((v20 & 0x20) != 0)
+  v21 = *(v6 + 56);
+  v22 = *a1;
+  if ((v21 & 0x20) != 0)
   {
-    v26 = TSUFormatTypeToTSUNumberValueType(v21);
-    if (v26 != -999)
+    v27 = TSUFormatTypeToTSUNumberValueType(v22);
+    if (v27 != -999)
     {
-      HIBYTE(v55) = (v20 & 4) != 0;
-      LOBYTE(v55) = (v20 & 0x10) != 0;
-      HIWORD(v54) = *(v6 + 53);
-      WORD2(v54) = *(v6 + 54);
-      LODWORD(v54) = *(v6 + 49);
-      return TSUNumberFormatStringFromDouble(v26, 0, 0, (v20 >> 3) & 1, *(v6 + 8), *(v6 + 16), 1, *(v6 + 24), a2, *(v6 + 40), *(v6 + 32), v54, (v20 & 8) != 0, 0, 0x101u, v55, v20 & 1, (v20 & 2) != 0, 0, 0, 0, 0, *(v6 + 48));
+      HIBYTE(v56) = (v21 & 4) != 0;
+      LOBYTE(v56) = (v21 & 0x10) != 0;
+      HIWORD(v55) = *(v6 + 53);
+      WORD2(v55) = *(v6 + 54);
+      LODWORD(v55) = *(v6 + 49);
+      return TSUNumberFormatStringFromDouble(v27, 0, 0, (v21 >> 3) & 1, *(v6 + 8), *(v6 + 16), 1, *(v6 + 24), a2, *(v6 + 40), *(v6 + 32), v55, (v21 & 8) != 0, 0, 0x101u, v56, v21 & 1, (v21 & 2) != 0, 0, 0, 0, 0, *(v6 + 48));
     }
 
     return &stru_287DDF830;
   }
 
-  v22 = *v4;
-  if (v21 != 270)
+  v23 = *v4;
+  if (v22 != 270)
   {
-    v23 = +[TSUAssertionHandler currentHandler];
-    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSUFormatGetCustomNumberFormatScaleFactor(const TSUFormatStruct)"];
-    [v23 handleFailureInFunction:v24 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 614, @"Accessor requires a custom number format."}];
+    v24 = +[TSUAssertionHandler currentHandler];
+    v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSUFormatGetCustomNumberFormatScaleFactor(const TSUFormatStruct)"];
+    [v24 handleFailureInFunction:v25 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 614, @"Accessor requires a custom number format."}];
   }
 
-  if (v22)
+  if (v23)
   {
-    v25 = *(v22 + 40);
+    v26 = *(v23 + 40);
   }
 
   else
   {
-    v27 = +[TSUAssertionHandler currentHandler];
-    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSUFormatGetCustomNumberFormatScaleFactor(const TSUFormatStruct)"];
-    [v27 handleFailureInFunction:v28 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 615, @"Custom format is not correctly populated."}];
-    v25 = 1.0;
+    v28 = +[TSUAssertionHandler currentHandler];
+    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSUFormatGetCustomNumberFormatScaleFactor(const TSUFormatStruct)"];
+    [v28 handleFailureInFunction:v29 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 615, @"Custom format is not correctly populated."}];
+    v26 = 1.0;
   }
 
-  v29 = *(a1 + 16);
+  v30 = *(a1 + 16);
   if ((*a1 - 270) >= 3)
   {
-    v30 = +[TSUAssertionHandler currentHandler];
-    v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSUFormatGetCustomFormatString(const TSUFormatStruct)"];
-    [v30 handleFailureInFunction:v31 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 592, @"Accessor requires a custom format."}];
+    v31 = +[TSUAssertionHandler currentHandler];
+    v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSUFormatGetCustomFormatString(const TSUFormatStruct)"];
+    [v31 handleFailureInFunction:v32 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 592, @"Accessor requires a custom format."}];
   }
 
-  if (v29)
+  if (v30)
   {
-    v32 = *(v29 + 8);
+    v33 = *(v30 + 8);
   }
 
   else
   {
-    v33 = +[TSUAssertionHandler currentHandler];
-    v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSUFormatGetCustomFormatString(const TSUFormatStruct)"];
-    [v33 handleFailureInFunction:v34 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 593, @"Custom format is not correctly populated."}];
-    v32 = 0;
+    v34 = +[TSUAssertionHandler currentHandler];
+    v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSUFormatGetCustomFormatString(const TSUFormatStruct)"];
+    [v34 handleFailureInFunction:v35 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 593, @"Custom format is not correctly populated."}];
+    v33 = 0;
   }
 
-  v35 = *(a1 + 16);
+  v36 = *(a1 + 16);
   if (*a1 != 270)
   {
-    v36 = +[TSUAssertionHandler currentHandler];
-    v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSUFormatGetCustomNumberFormatShowThousandsSeparator(const TSUFormatStruct)"];
-    [v36 handleFailureInFunction:v37 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 624, @"Accessor requires a custom number format."}];
+    v37 = +[TSUAssertionHandler currentHandler];
+    v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSUFormatGetCustomNumberFormatShowThousandsSeparator(const TSUFormatStruct)"];
+    [v37 handleFailureInFunction:v38 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 624, @"Accessor requires a custom number format."}];
   }
 
-  if (v35)
+  if (v36)
   {
-    v38 = *(v35 + 56);
+    v39 = *(v36 + 56);
   }
 
   else
   {
-    v39 = +[TSUAssertionHandler currentHandler];
-    v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSUFormatGetCustomNumberFormatShowThousandsSeparator(const TSUFormatStruct)"];
-    [v39 handleFailureInFunction:v40 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 625, @"Custom format is not correctly populated."}];
-    v38 = 0;
+    v40 = +[TSUAssertionHandler currentHandler];
+    v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSUFormatGetCustomNumberFormatShowThousandsSeparator(const TSUFormatStruct)"];
+    [v40 handleFailureInFunction:v41 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 625, @"Custom format is not correctly populated."}];
+    v39 = 0;
   }
 
-  v41 = *(a1 + 16);
+  v42 = *(a1 + 16);
   if (*a1 != 270)
   {
-    v42 = +[TSUAssertionHandler currentHandler];
-    v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSUFormatGetCustomNumberFormatCurrencyCode(const TSUFormatStruct)"];
-    [v42 handleFailureInFunction:v43 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 603, @"Accessor requires a custom number format."}];
+    v43 = +[TSUAssertionHandler currentHandler];
+    v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSUFormatGetCustomNumberFormatCurrencyCode(const TSUFormatStruct)"];
+    [v43 handleFailureInFunction:v44 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 603, @"Accessor requires a custom number format."}];
   }
 
-  if (v41)
+  if (v42)
   {
-    v44 = *(v41 + 16);
+    v45 = *(v42 + 16);
   }
 
   else
   {
-    v45 = +[TSUAssertionHandler currentHandler];
-    v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSUFormatGetCustomNumberFormatCurrencyCode(const TSUFormatStruct)"];
-    [v45 handleFailureInFunction:v46 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 604, @"Custom format is not correctly populated."}];
-    v44 = 0;
+    v46 = +[TSUAssertionHandler currentHandler];
+    v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *TSUFormatGetCustomNumberFormatCurrencyCode(const TSUFormatStruct)"];
+    [v46 handleFailureInFunction:v47 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 604, @"Custom format is not correctly populated."}];
+    v45 = 0;
   }
 
-  v47 = *(a1 + 16);
+  v48 = *(a1 + 16);
   if (*a1 != 270)
   {
-    v48 = +[TSUAssertionHandler currentHandler];
-    v49 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSUFormatGetCustomNumberFormatIsConditional(const TSUFormatStruct)"];
-    [v48 handleFailureInFunction:v49 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 664, @"Accessor requires a custom number format."}];
+    v49 = +[TSUAssertionHandler currentHandler];
+    v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSUFormatGetCustomNumberFormatIsConditional(const TSUFormatStruct)"];
+    [v49 handleFailureInFunction:v50 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 664, @"Accessor requires a custom number format."}];
   }
 
-  v50 = v25 * a2;
-  if (v47)
+  v51 = v26 * a2;
+  if (v48)
   {
-    v51 = (*(v47 + 56) >> 3) & 1;
+    v52 = (*(v48 + 56) >> 3) & 1;
   }
 
   else
   {
-    v52 = +[TSUAssertionHandler currentHandler];
-    v53 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSUFormatGetCustomNumberFormatIsConditional(const TSUFormatStruct)"];
-    [v52 handleFailureInFunction:v53 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 665, @"Custom format is not correctly populated."}];
-    v51 = 0;
+    v53 = +[TSUAssertionHandler currentHandler];
+    v54 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSUFormatGetCustomNumberFormatIsConditional(const TSUFormatStruct)"];
+    [v53 handleFailureInFunction:v54 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/TSUFormatTypes.h"), 665, @"Custom format is not correctly populated."}];
+    v52 = 0;
   }
 
-  return TSUNumberFormatterStringFromDoubleWithFormat(v32, 0, 0, 0, v38 & 1, v44, v51, v50);
+  v16.n128_f64[0] = v51;
+
+  return TSUNumberFormatterStringFromDoubleWithFormat(v33, 0, 0, 0, v39 & 1, v45, v52, v16);
 }
 
 TSUNumberFormat *TSUFormatStructNumberToTSUNumberFormat(int a1, uint64_t a2)
@@ -3428,7 +3462,7 @@ void sub_26CBC1F44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TSUCustomFormat::addConditionalFormat(uint64_t a1, int a2, __int128 *a3, double a4)
+unint64_t TSUCustomFormat::addConditionalFormat(uint64_t a1, int a2, __int128 *a3, double a4)
 {
   *(a1 + 8) = 270;
   v8 = *(a3 + 1);
@@ -4059,23 +4093,23 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<TSUCustomFormatCondit
   std::vector<TSUCustomFormatCondition>::__throw_out_of_range[abi:nn200100]();
 }
 
-void sub_26CBC3D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26CBC3D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26CBC3FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26CBC3FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26CBC4248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26CBC4248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4105,9 +4139,9 @@ uint64_t TSUPerformBlockOnNextRunloop(void *a1)
   return [v1 performSelector:sel_tsu_runBlock withObject:0 afterDelay:0.0];
 }
 
-void sub_26CBC5AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26CBC5AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4235,11 +4269,11 @@ void sub_26CBCB344(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SFUCGDataProviderSkipForward(void *a1, uint64_t a2)
+char *SFUCGDataProviderSkipForward(void *a1, uint64_t a2)
 {
   v4 = [a1 offset];
   [a1 seekToOffset:v4 + a2];
-  return [a1 offset] - v4;
+  return ([a1 offset] - v4);
 }
 
 void SFUCGDataProviderReleaseInfo(void *a1)
@@ -4612,11 +4646,11 @@ double SFUStopwatch::Initialize(SFUStopwatch *this)
   return result;
 }
 
-void SFUStopwatch::Start(SFUStopwatch *this)
+void SFUStopwatch::Start(double *this)
 {
   if (!*(this + 8))
   {
-    *(this + 5) = SFUStopwatch::GetMicroseconds(this);
+    this[5] = SFUStopwatch::GetMicroseconds(this);
     *(this + 8) = 1;
   }
 }
@@ -4649,11 +4683,11 @@ void sub_26CBD77C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void SFUStopwatch::Stop(SFUStopwatch *this)
+void SFUStopwatch::Stop(double *this)
 {
   if (*(this + 8) == 1)
   {
-    *(this + 6) = SFUStopwatch::GetMicroseconds(this);
+    this[6] = SFUStopwatch::GetMicroseconds(this);
     *(this + 8) = 2;
   }
 }
@@ -5032,9 +5066,9 @@ void *TSULogSinkSetBlock(void *aBlock)
   return result;
 }
 
-void sub_26CBDC58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26CBDC58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5053,29 +5087,36 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26CBDDF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_26CBDDF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 80), 8);
+  _Block_object_dispose((v22 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26CBDEEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_26CBDEAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26CBDEEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v24 - 144), 8);
+  _Block_object_dispose((v24 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26CBE40E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
   va_start(va, a17);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 144), 8);
-  _Block_object_dispose((v17 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26CBE40E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 128), 8);
-  _Block_object_dispose((v10 - 96), 8);
+  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v17 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5086,11 +5127,11 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26CBE4F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26CBE4F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 136), 8);
+  _Block_object_dispose((v18 - 136), 8);
   _Unwind_Resume(a1);
 }
 

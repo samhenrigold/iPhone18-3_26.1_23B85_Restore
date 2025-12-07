@@ -45,7 +45,7 @@
 
 + (void)encodeInputStream:(id)stream withChunkHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   handlerCopy = handler;
   [streamCopy open];
@@ -53,12 +53,12 @@
   {
     do
     {
-      v8 = [streamCopy read:v14 maxLength:18000];
+      v8 = [streamCopy read:v13 maxLength:18000];
       if (v8)
       {
         v9 = v8;
         v10 = objc_autoreleasePoolPush();
-        v11 = [MEMORY[0x277CBEA90] dataWithBytes:v14 length:v9];
+        v11 = [MEMORY[0x277CBEA90] dataWithBytes:v13 length:v9];
         v12 = [self encodeData:v11];
         handlerCopy[2](handlerCopy, v12);
 
@@ -70,8 +70,6 @@
   }
 
   [streamCopy close];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)encodeData:(id)data

@@ -10,7 +10,7 @@
 - (void)updateTheme
 {
   selfCopy = self;
-  sub_18BBAE178();
+  sub_18BBAE178(selfCopy, v2);
 }
 
 - (void)userDidChangeTheme:(id)theme
@@ -23,7 +23,7 @@
 - (void)reloadFonts
 {
   selfCopy = self;
-  sub_18BBAEA40();
+  sub_18BBAEA40(v2);
 }
 
 - (void)fontDownloadDidFail:(id)fail

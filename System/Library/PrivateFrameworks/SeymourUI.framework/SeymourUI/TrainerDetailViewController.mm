@@ -15,13 +15,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20B8B7630();
+  sub_20B8B7630(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_20B8B7770(appear);
+  sub_20B8B7770(appearCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
@@ -54,8 +55,8 @@
   v7.super_class = type metadata accessor for TrainerDetailViewController();
   v4 = v7.receiver;
   [(TrainerDetailViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20B8B9520(&qword_27C7671D8, v5, type metadata accessor for TrainerDetailViewController);
-  sub_20B8B9520(&qword_27C7671E0, v6, type metadata accessor for TrainerDetailViewController);
+  sub_20B8B9520(&qword_27C7671D8, v5, type metadata accessor for TrainerDetailViewController, &unk_20C1600D0);
+  sub_20B8B9520(&qword_27C7671E0, v6, type metadata accessor for TrainerDetailViewController, &unk_20C160048);
   sub_20C139374();
 }
 
@@ -81,7 +82,7 @@
   swift_unknownObjectRelease();
   sub_20B8B85D4();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC9SeymourUI27TrainerDetailViewController)initWithNibName:(id)name bundle:(id)bundle

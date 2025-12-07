@@ -46,36 +46,36 @@
 
 - (void)cancelSearchForDeviceWithIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = identifierCopy;
+    v21 = identifierCopy;
     _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Device Locator: Cancelling search with identifier %@", buf, 0xCu);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allValues = [(NSMutableDictionary *)self->_searches allValues];
-  v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         identifier = [v11 identifier];
         v13 = [identifier isEqualToString:identifierCopy];
 
@@ -96,7 +96,7 @@
         }
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -108,21 +108,19 @@
 
   v14 = 0;
 LABEL_15:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_timerExpired:(id)expired
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   userInfo = [expired userInfo];
-  v5 = _TVRCGeneralLog();
+  v5 = _TVRCGeneralLog(userInfo);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [userInfo identifier];
-    v12 = 138412290;
-    v13 = identifier;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Device Locator: Timer expired while looking for search with identifier %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = identifier;
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Device Locator: Timer expired while looking for search with identifier %@", &v11, 0xCu);
   }
 
   completionBlock = [userInfo completionBlock];
@@ -140,8 +138,6 @@ LABEL_15:
   {
     [(TVRXDeviceQuery *)self->_query stop];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceQueryDidUpdateDevices:(id)devices
@@ -173,23 +169,24 @@ LABEL_15:
         allValues = [alternateIdentifiers allValues];
 
         v11 = [(NSMutableDictionary *)self->_searches objectForKey:identifier];
+        v12 = v11;
         if (v11)
         {
 LABEL_17:
-          v18 = _TVRCGeneralLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = _TVRCGeneralLog(v11);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            identifier2 = [v11 identifier];
+            identifier2 = [v12 identifier];
             *buf = 138412290;
             v36 = identifier2;
-            _os_log_impl(&dword_26CF7F000, v18, OS_LOG_TYPE_DEFAULT, "Device Locator: Found device in query with identifier %@", buf, 0xCu);
+            _os_log_impl(&dword_26CF7F000, v19, OS_LOG_TYPE_DEFAULT, "Device Locator: Found device in query with identifier %@", buf, 0xCu);
           }
 
-          expirationTimer = [v11 expirationTimer];
+          expirationTimer = [v12 expirationTimer];
           [expirationTimer invalidate];
 
-          completionBlock = [v11 completionBlock];
-          v22 = completionBlock;
+          completionBlock = [v12 completionBlock];
+          v23 = completionBlock;
           if (completionBlock)
           {
             (*(completionBlock + 16))(completionBlock, v7);
@@ -208,35 +205,35 @@ LABEL_17:
           v30 = 0u;
           v27 = 0u;
           v28 = 0u;
-          v11 = allValues;
-          v12 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
-          if (v12)
+          v12 = allValues;
+          v13 = [v12 countByEnumeratingWithState:&v27 objects:v37 count:16];
+          if (v13)
           {
-            v13 = v12;
-            v14 = *v28;
+            v14 = v13;
+            v15 = *v28;
             while (2)
             {
-              for (j = 0; j != v13; ++j)
+              for (j = 0; j != v14; ++j)
               {
-                if (*v28 != v14)
+                if (*v28 != v15)
                 {
-                  objc_enumerationMutation(v11);
+                  objc_enumerationMutation(v12);
                 }
 
-                v16 = [(NSMutableDictionary *)self->_searches objectForKey:*(*(&v27 + 1) + 8 * j)];
-                if (v16)
+                v17 = [(NSMutableDictionary *)self->_searches objectForKey:*(*(&v27 + 1) + 8 * j)];
+                if (v17)
                 {
-                  v17 = v16;
+                  v18 = v17;
 
-                  v11 = v17;
+                  v12 = v18;
                   v5 = v24;
                   devices = v25;
                   goto LABEL_17;
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
-              if (v13)
+              v14 = [v12 countByEnumeratingWithState:&v27 objects:v37 count:16];
+              if (v14)
               {
                 continue;
               }
@@ -255,8 +252,6 @@ LABEL_17:
 
     while (v26);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

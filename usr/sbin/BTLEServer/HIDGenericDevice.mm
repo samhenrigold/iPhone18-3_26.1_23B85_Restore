@@ -10,9 +10,9 @@
 - (HIDGenericDevice)initWithProperties:(id)properties reports:(id)reports
 {
   propertiesCopy = properties;
-  v11.receiver = self;
-  v11.super_class = HIDGenericDevice;
-  v7 = [(HIDBluetoothDevice *)&v11 initWithProperties:propertiesCopy reports:reports];
+  v10.receiver = self;
+  v10.super_class = HIDGenericDevice;
+  v7 = [(HIDBluetoothDevice *)&v10 initWithProperties:propertiesCopy reports:reports];
   if (v7)
   {
     v8 = IOHIDUserDeviceCreateWithOptions();
@@ -20,7 +20,6 @@
     if (v8)
     {
       IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
-      device = v7->_device;
       IOHIDUserDeviceRegisterSetReportCallback();
     }
 

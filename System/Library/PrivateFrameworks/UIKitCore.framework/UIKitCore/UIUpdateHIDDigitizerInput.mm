@@ -25,24 +25,24 @@ uint64_t __39___UIUpdateHIDDigitizerInput_addEvent___block_invoke(void *a1, uint
   return result;
 }
 
-void __39___UIUpdateHIDDigitizerInput_addEvent___block_invoke_2(uint64_t a1)
+void __39___UIUpdateHIDDigitizerInput_addEvent___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   IntegerValue = IOHIDEventGetIntegerValue();
-  v3 = IOHIDEventGetIntegerValue();
+  v5 = IOHIDEventGetIntegerValue();
   TouchLocus = BKSHIDEventDigitizerGetTouchLocus();
-  v5 = _UIEventHIDPathIndexForDigitizerEvent();
-  if (!IntegerValue || v3 < 0 || TouchLocus == 3)
+  v7 = _UIEventHIDPathIndexForDigitizerEvent(*(a1 + 40), a2);
+  if (!IntegerValue || v5 < 0 || TouchLocus == 3)
   {
-    v7 = *(*(a1 + 32) + 120);
-    v8 = [MEMORY[0x1E696AD98] numberWithLong:v5];
-    [v7 removeObject:?];
+    v9 = *(*(a1 + 32) + 120);
+    v10 = [MEMORY[0x1E696AD98] numberWithLong:v7];
+    [v9 removeObject:?];
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 120);
-    v8 = [MEMORY[0x1E696AD98] numberWithLong:v5];
-    [v6 addObject:?];
+    v8 = *(*(a1 + 32) + 120);
+    v10 = [MEMORY[0x1E696AD98] numberWithLong:v7];
+    [v8 addObject:?];
   }
 }
 

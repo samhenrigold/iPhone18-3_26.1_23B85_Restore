@@ -1,4 +1,5 @@
 @interface BMStreamDatastoreWriter
++ (id)outOfProcessWriterForStream:(id)stream user:(unsigned int)user eventDataClass:(Class)class;
 - (BMStreamDatastoreWriter)initWithStream:(id)stream config:(id)config eventDataClass:(Class)class;
 @end
 
@@ -20,6 +21,15 @@
   }
 
   return v10;
+}
+
++ (id)outOfProcessWriterForStream:(id)stream user:(unsigned int)user eventDataClass:(Class)class
+{
+  v6 = *&user;
+  streamCopy = stream;
+  v8 = [[BMStreamDatastoreOutOfProcessWriter alloc] initWithStream:streamCopy user:v6 eventDataClass:class];
+
+  return v8;
 }
 
 @end

@@ -20,12 +20,12 @@
 - (Class)automationHelperClassWithName:(id)name
 {
   nameCopy = name;
-  v5 = sub_10000EE80();
+  v5 = sub_10000EE80(nameCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = nameCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Loading automation class %@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = nameCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Loading automation class %@", &v16, 0xCu);
   }
 
   if (![(FMDAutomationHelperFactory *)self hasAttemptedLoad])
@@ -40,7 +40,7 @@
 
   if ([(FMDAutomationHelperFactory *)self hasAttemptedLoad]&& ([(FMDAutomationHelperFactory *)self automationHelperBundle], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
@@ -50,17 +50,17 @@
 
     if (!v11)
     {
-      v12 = sub_10000EE80();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_10000EE80(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_10001D918(nameCopy, v12);
+        sub_10001D918(nameCopy, v13);
       }
     }
 
-    v13 = v11;
+    v14 = v11;
   }
 
-  return v13;
+  return v14;
 }
 
 @end

@@ -319,7 +319,7 @@ void __56__CUIKOccurrenceCacheSearchDataSource__updateCachedDays__block_invoke(u
 
 void __54__CUIKOccurrenceCacheSearchDataSource_searchWithTerm___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -329,16 +329,16 @@ void __54__CUIKOccurrenceCacheSearchDataSource_searchWithTerm___block_invoke(uin
     {
       v7 = *(a1 + 56);
       *buf = 67109376;
-      v67 = v7;
-      v68 = 2048;
-      v69 = [v4 count];
+      v69 = v7;
+      v70 = 2048;
+      v71 = [v4 count];
       _os_log_impl(&dword_1CAB19000, v6, OS_LOG_TYPE_DEFAULT, "Search %i: Spotlight handler called with matches: %lu", buf, 0x12u);
     }
 
     pthread_mutex_lock((WeakRetained + 88));
     if (*(*(a1 + 32) + 164) == *(a1 + 56))
     {
-      v42 = 88;
+      v44 = 88;
       if (*(*(*(a1 + 40) + 8) + 24) == 1)
       {
         [*(WeakRetained + 10) removeAllObjects];
@@ -346,31 +346,31 @@ void __54__CUIKOccurrenceCacheSearchDataSource_searchWithTerm___block_invoke(uin
 
       v8 = *(WeakRetained + 10);
       v9 = CUIKCalendar();
-      v60 = 0u;
-      v61 = 0u;
       v62 = 0u;
       v63 = 0u;
-      v43 = v4;
+      v64 = 0u;
+      v65 = 0u;
+      v45 = v4;
       v10 = v4;
-      v48 = [v10 countByEnumeratingWithState:&v60 objects:v65 count:16];
-      if (v48)
+      v50 = [v10 countByEnumeratingWithState:&v62 objects:v67 count:16];
+      if (v50)
       {
-        v47 = *v61;
-        v44 = v10;
-        v45 = WeakRetained;
-        v49 = v9;
+        v49 = *v63;
+        v46 = v10;
+        v47 = WeakRetained;
+        v51 = v9;
         do
         {
           v11 = 0;
           do
           {
-            if (*v61 != v47)
+            if (*v63 != v49)
             {
               objc_enumerationMutation(v10);
             }
 
-            v51 = v11;
-            v12 = *(*(&v60 + 1) + 8 * v11);
+            v53 = v11;
+            v12 = *(*(&v62 + 1) + 8 * v11);
             v13 = [*(WeakRetained + 1) showDeclinedEvents];
             v14 = [v12 selfAttendee];
             v15 = [v14 participantStatus];
@@ -384,62 +384,62 @@ void __54__CUIKOccurrenceCacheSearchDataSource_searchWithTerm___block_invoke(uin
               if (v17)
               {
                 v19 = [v12 endDateUnadjustedForLegacyClients];
-                v20 = CUIKTimeZoneForChoice(1);
-                v21 = [v19 dateForDayInTimeZone:v20];
+                v21 = CUIKTimeZoneForChoice(1, v20);
+                v22 = [v19 dateForDayInTimeZone:v21];
 
-                v46 = v19;
-                v52 = [v19 isEqualToDate:v21];
-                v22 = [v12 startDate];
-                if ([v22 isBeforeOrSameDayAsDate:v21 inCalendar:v9])
+                v48 = v19;
+                v54 = [v19 isEqualToDate:v22];
+                v23 = [v12 startDate];
+                if ([v23 isBeforeOrSameDayAsDate:v22 inCalendar:v9])
                 {
-                  v50 = v21;
-                  while (([v22 isSameDayAsDate:v21 inCalendar:v9] & v52 & 1) == 0)
+                  v52 = v22;
+                  while (([v23 isSameDayAsDate:v22 inCalendar:v9] & v54 & 1) == 0)
                   {
-                    v23 = CUIKTimeZoneForChoice(1);
-                    v24 = [v22 dateForDayInTimeZone:v23];
+                    v25 = CUIKTimeZoneForChoice(1, v24);
+                    v26 = [v23 dateForDayInTimeZone:v25];
 
-                    v25 = [v8 objectForKeyedSubscript:v24];
-                    if (v25)
+                    v27 = [v8 objectForKeyedSubscript:v26];
+                    if (v27)
                     {
-                      v53 = v24;
+                      v55 = v26;
+                      v60 = 0u;
+                      v61 = 0u;
                       v58 = 0u;
                       v59 = 0u;
-                      v56 = 0u;
-                      v57 = 0u;
-                      v26 = v25;
-                      v27 = [v26 countByEnumeratingWithState:&v56 objects:v64 count:16];
-                      if (v27)
+                      v28 = v27;
+                      v29 = [v28 countByEnumeratingWithState:&v58 objects:v66 count:16];
+                      if (v29)
                       {
-                        v28 = v27;
-                        v29 = *v57;
+                        v30 = v29;
+                        v31 = *v59;
                         while (2)
                         {
-                          v30 = v8;
-                          for (i = 0; i != v28; ++i)
+                          v32 = v8;
+                          for (i = 0; i != v30; ++i)
                           {
-                            if (*v57 != v29)
+                            if (*v59 != v31)
                             {
-                              objc_enumerationMutation(v26);
+                              objc_enumerationMutation(v28);
                             }
 
-                            v32 = [*(*(&v56 + 1) + 8 * i) objectForKeyedSubscript:CUIKOccurrenceInfoEventKey];
-                            v33 = [v32 isEqual:v12];
+                            v34 = [*(*(&v58 + 1) + 8 * i) objectForKeyedSubscript:CUIKOccurrenceInfoEventKey];
+                            v35 = [v34 isEqual:v12];
 
-                            if (v33)
+                            if (v35)
                             {
 
-                              v9 = v49;
-                              v34 = [v49 dateByAddingUnit:16 value:1 toDate:v22 options:0];
-                              v8 = v30;
-                              v21 = v50;
-                              v24 = v53;
+                              v9 = v51;
+                              v36 = [v51 dateByAddingUnit:16 value:1 toDate:v23 options:0];
+                              v8 = v32;
+                              v22 = v52;
+                              v26 = v55;
                               goto LABEL_33;
                             }
                           }
 
-                          v28 = [v26 countByEnumeratingWithState:&v56 objects:v64 count:16];
-                          v8 = v30;
-                          if (v28)
+                          v30 = [v28 countByEnumeratingWithState:&v58 objects:v66 count:16];
+                          v8 = v32;
+                          if (v30)
                           {
                             continue;
                           }
@@ -448,76 +448,76 @@ void __54__CUIKOccurrenceCacheSearchDataSource_searchWithTerm___block_invoke(uin
                         }
                       }
 
-                      v9 = v49;
-                      v21 = v50;
-                      v24 = v53;
+                      v9 = v51;
+                      v22 = v52;
+                      v26 = v55;
                     }
 
                     else
                     {
-                      v26 = objc_opt_new();
-                      [v8 setObject:v26 forKeyedSubscript:v24];
+                      v28 = objc_opt_new();
+                      [v8 setObject:v28 forKeyedSubscript:v26];
                     }
 
-                    v35 = objc_opt_new();
-                    [v35 setObject:v12 forKeyedSubscript:CUIKOccurrenceInfoEventKey];
-                    v36 = [v12 startDate];
-                    [v35 setObject:v36 forKeyedSubscript:CUIKOccurrenceInfoDateKey];
+                    v37 = objc_opt_new();
+                    [v37 setObject:v12 forKeyedSubscript:CUIKOccurrenceInfoEventKey];
+                    v38 = [v12 startDate];
+                    [v37 setObject:v38 forKeyedSubscript:CUIKOccurrenceInfoDateKey];
 
-                    [v26 addObject:v35];
-                    v34 = [v9 dateByAddingUnit:16 value:1 toDate:v22 options:0];
+                    [v28 addObject:v37];
+                    v36 = [v9 dateByAddingUnit:16 value:1 toDate:v23 options:0];
 
-                    v22 = v35;
+                    v23 = v37;
 LABEL_33:
 
-                    v22 = v34;
-                    if (([v34 isBeforeOrSameDayAsDate:v21 inCalendar:v9] & 1) == 0)
+                    v23 = v36;
+                    if (([v36 isBeforeOrSameDayAsDate:v22 inCalendar:v9] & 1) == 0)
                     {
                       goto LABEL_36;
                     }
                   }
                 }
 
-                v34 = v22;
+                v36 = v23;
 LABEL_36:
 
-                v10 = v44;
-                WeakRetained = v45;
+                v10 = v46;
+                WeakRetained = v47;
               }
             }
 
-            v11 = v51 + 1;
+            v11 = v53 + 1;
           }
 
-          while (v51 + 1 != v48);
-          v48 = [v10 countByEnumeratingWithState:&v60 objects:v65 count:16];
+          while (v53 + 1 != v50);
+          v50 = [v10 countByEnumeratingWithState:&v62 objects:v67 count:16];
         }
 
-        while (v48);
+        while (v50);
       }
 
-      v37 = *(*(a1 + 40) + 8);
-      if (*(v37 + 24) == 1)
+      v39 = *(*(a1 + 40) + 8);
+      if (*(v39 + 24) == 1)
       {
-        *(v37 + 24) = 0;
+        *(v39 + 24) = 0;
       }
 
-      v38 = objc_opt_new();
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = __54__CUIKOccurrenceCacheSearchDataSource_searchWithTerm___block_invoke_34;
-      v54[3] = &unk_1E839AA98;
-      v55 = v38;
-      v39 = v38;
-      [v8 enumerateKeysAndObjectsUsingBlock:v54];
-      v40 = [v39 sortedArrayUsingComparator:&__block_literal_global_38];
-      v41 = *(WeakRetained + 19);
-      *(WeakRetained + 19) = v40;
+      v40 = objc_opt_new();
+      v56[0] = MEMORY[0x1E69E9820];
+      v56[1] = 3221225472;
+      v56[2] = __54__CUIKOccurrenceCacheSearchDataSource_searchWithTerm___block_invoke_34;
+      v56[3] = &unk_1E839AA98;
+      v57 = v40;
+      v41 = v40;
+      [v8 enumerateKeysAndObjectsUsingBlock:v56];
+      v42 = [v41 sortedArrayUsingComparator:&__block_literal_global_38];
+      v43 = *(WeakRetained + 19);
+      *(WeakRetained + 19) = v42;
 
       *(*(a1 + 32) + 160) = 1;
-      pthread_mutex_unlock(&WeakRetained[v42]);
+      pthread_mutex_unlock(&WeakRetained[v44]);
 
-      v4 = v43;
+      v4 = v45;
     }
 
     else

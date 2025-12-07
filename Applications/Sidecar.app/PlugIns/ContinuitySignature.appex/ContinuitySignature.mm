@@ -1,19 +1,19 @@
-id sub_100001518()
+id sub_100001518(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v1 = sub_100003BFC();
+  v2 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v3 = sub_100003BFC();
 
-  v2 = [v0 initWithTitle:v1];
+  v4 = [v2 initWithTitle:v3];
 
-  return v2;
+  return v4;
 }
 
 void sub_1000015A4()
 {
-  v103.receiver = v0;
-  v103.super_class = type metadata accessor for SignatureViewController();
-  super_class = v103.super_class;
-  objc_msgSendSuper2(&v103, "viewDidLoad");
+  v105.receiver = v0;
+  v105.super_class = type metadata accessor for SignatureViewController();
+  super_class = v105.super_class;
+  objc_msgSendSuper2(&v105, "viewDidLoad");
   v1 = [v0 view];
   if (v1)
   {
@@ -51,7 +51,7 @@ void sub_1000015A4()
     v19 = [v4 clearColor];
     [v18 setBackgroundColor:v19];
 
-    v99 = v3;
+    v101 = v3;
     [v2 insertSubview:v18 aboveSubview:v3];
     v20 = [v18 leftAnchor];
     v21 = sub_100003A64([v2 leftAnchor]);
@@ -82,11 +82,11 @@ void sub_1000015A4()
     v32 = [v4 clearColor];
     [v29 setBackgroundColor:v32];
 
-    v97 = objc_opt_self();
-    v33 = [v97 mainBundle];
-    v94._countAndFlagsBits = 0xE000000000000000;
+    v99 = objc_opt_self();
+    v33 = [v99 mainBundle];
+    v96._countAndFlagsBits = 0xE000000000000000;
     sub_100003B5C();
-    v34 = sub_100003B9C(v106, v108, v104, v110, v94);
+    v34 = sub_100003B9C(v108, v110, v106, v112, 0, v96);
     v36 = v35;
 
     sub_10000393C(v34, v36, v29);
@@ -125,82 +125,82 @@ void sub_1000015A4()
 
     sub_100003AF0();
     v61 = [v50 topAnchor];
-    v98 = v2;
+    v100 = v2;
     v62 = [v2 topAnchor];
     v63 = [v61 constraintEqualToAnchor:v62 constant:0.0];
 
     sub_100003AF0();
-    sub_100003080(&qword_10000C638, &qword_100004288);
-    v64 = sub_100003B44();
-    *(v64 + 16) = xmmword_1000041E0;
-    v65 = *&v0[OBJC_IVAR___SignatureViewController_titleItem];
-    *(v64 + 32) = v65;
-    v96 = v65;
-    sub_1000039A0(v64, v50, &qword_10000C670, UINavigationItem_ptr, &selRef_setItems_);
-    *(&v102 + 1) = super_class;
-    *&v101 = v0;
-    v66 = objc_allocWithZone(UIBarButtonItem);
-    v67 = v0;
-    v68 = sub_100003100(1, &v101, "_cancelWithSender:");
-    v69 = [v97 mainBundle];
-    v95._countAndFlagsBits = 0xEC000000656C7469;
+    v64 = sub_100003080(&qword_10000C638, &qword_100004288);
+    v65 = sub_100003B44(v64);
+    *(v65 + 16) = xmmword_1000041E0;
+    v66 = *&v0[OBJC_IVAR___SignatureViewController_titleItem];
+    *(v65 + 32) = v66;
+    v98 = v66;
+    sub_1000039A0(v65, v50, &qword_10000C670, UINavigationItem_ptr, &selRef_setItems_);
+    *(&v104 + 1) = super_class;
+    *&v103 = v0;
+    v67 = objc_allocWithZone(UIBarButtonItem);
+    v68 = v0;
+    v69 = sub_100003100(1, &v103, "_cancelWithSender:");
+    v70 = [v99 mainBundle];
+    v97._countAndFlagsBits = 0xEC000000656C7469;
     sub_100003B5C();
-    v70 = sub_100003B9C(v107, v109, v105, v111, v95);
-    v72 = v71;
+    v72 = sub_100003B9C(v109, v111, v107, v113, v71, v97);
+    v74 = v73;
 
-    *(&v102 + 1) = super_class;
-    *&v101 = v67;
-    v73 = objc_allocWithZone(UIBarButtonItem);
-    v74 = v67;
-    v75 = sub_100003258(v70, v72, 0, &v101, "_clearWithSender:");
-    *(&v102 + 1) = super_class;
-    *&v101 = v74;
-    v76 = objc_allocWithZone(UIBarButtonItem);
-    v77 = v74;
-    v78 = sub_100003100(0, &v101, "_doneWithSender:");
-    v101 = 0u;
-    v102 = 0u;
-    v79 = objc_allocWithZone(UIBarButtonItem);
-    v80 = sub_100003100(6, &v101, 0);
-    [v80 setWidth:27.0];
-    v81 = [v77 presentationController];
-    if (v81 && (v82 = v81, v83 = [v81 presentationStyle], v82, v83 == 7))
+    *(&v104 + 1) = super_class;
+    *&v103 = v68;
+    v75 = objc_allocWithZone(UIBarButtonItem);
+    v76 = v68;
+    v77 = sub_100003258(v72, v74, 0, &v103, "_clearWithSender:");
+    *(&v104 + 1) = super_class;
+    *&v103 = v76;
+    v78 = objc_allocWithZone(UIBarButtonItem);
+    v79 = v76;
+    v80 = sub_100003100(0, &v103, "_doneWithSender:");
+    v103 = 0u;
+    v104 = 0u;
+    v81 = objc_allocWithZone(UIBarButtonItem);
+    v82 = sub_100003100(6, &v103, 0);
+    [v82 setWidth:27.0];
+    v83 = [v79 presentationController];
+    if (v83 && (v84 = v83, v85 = [v83 presentationStyle], v84, v85 == 7))
     {
-      v84 = sub_100003B44();
-      *(v84 + 16) = xmmword_1000041E0;
-      *(v84 + 32) = v75;
-      v85 = v75;
-      v86 = v96;
-      sub_1000039A0(v84, v96, &unk_10000C680, UIBarButtonItem_ptr, &selRef_setLeftBarButtonItems_);
-      v87 = sub_100003B44();
-      *(v87 + 16) = xmmword_1000041E0;
-      *(v87 + 32) = v78;
-      v88 = v78;
+      v86 = sub_100003B44(v64);
+      *(v86 + 16) = xmmword_1000041E0;
+      *(v86 + 32) = v77;
+      v87 = v77;
+      v88 = v98;
+      sub_1000039A0(v86, v98, &unk_10000C680, UIBarButtonItem_ptr, &selRef_setLeftBarButtonItems_);
+      v89 = sub_100003B44(v64);
+      *(v89 + 16) = xmmword_1000041E0;
+      *(v89 + 32) = v80;
+      v90 = v80;
     }
 
     else
     {
+      v91 = swift_allocObject();
+      *(v91 + 16) = xmmword_1000041F0;
+      *(v91 + 32) = v69;
+      *(v91 + 40) = v82;
+      v92 = v69;
+      v90 = v82;
+      v88 = v98;
+      sub_1000039A0(v91, v98, &unk_10000C680, UIBarButtonItem_ptr, &selRef_setLeftBarButtonItems_);
       v89 = swift_allocObject();
-      *(v89 + 16) = xmmword_1000041F0;
-      *(v89 + 32) = v68;
-      *(v89 + 40) = v80;
-      v90 = v68;
-      v88 = v80;
-      v86 = v96;
-      sub_1000039A0(v89, v96, &unk_10000C680, UIBarButtonItem_ptr, &selRef_setLeftBarButtonItems_);
-      v87 = swift_allocObject();
-      *(v87 + 16) = xmmword_100004200;
-      *(v87 + 32) = v75;
-      *(v87 + 40) = v88;
-      *(v87 + 48) = v78;
-      v91 = v75;
-      v92 = v78;
+      *(v89 + 16) = xmmword_100004200;
+      *(v89 + 32) = v77;
+      *(v89 + 40) = v90;
+      *(v89 + 48) = v80;
+      v93 = v77;
+      v94 = v80;
     }
 
-    v93 = v88;
-    sub_1000039A0(v87, v86, &unk_10000C680, UIBarButtonItem_ptr, &selRef_setRightBarButtonItems_);
-    [v99 setLiveDelegate:v77];
-    [v77 sidecarServiceUpdateSupportedOrientations];
+    v95 = v90;
+    sub_1000039A0(v89, v88, &unk_10000C680, UIBarButtonItem_ptr, &selRef_setRightBarButtonItems_);
+    [v101 setLiveDelegate:v79];
+    [v79 sidecarServiceUpdateSupportedOrientations];
   }
 
   else
@@ -289,41 +289,39 @@ uint64_t sub_1000023E0(uint64_t a1)
 {
   v2 = v1;
   v4 = sub_100003BBC();
-  v5 = sub_100003B68(v4);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v5, v10);
-  v12 = &aBlock[-1] - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_100003BDC();
-  v14 = sub_100003B68(v13);
-  v16 = v15;
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v14, v19);
-  v21 = &aBlock[-1] - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = 1;
+  sub_100003B68();
+  v6 = v5;
+  __chkstk_darwin(v7);
+  v9 = &aBlock[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_100003BDC();
+  sub_100003B68();
+  v12 = v11;
+  __chkstk_darwin(v13);
+  v15 = &aBlock[-1] - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = 1;
   sub_100003C9C();
-  sub_1000026E4(aBlock, a1, &v30);
+  sub_1000026E4(a1, &v24, aBlock);
   sub_100003508(aBlock);
-  if (!v31)
+  if (!v25)
   {
-    return sub_10000355C(&v30);
+    return sub_10000355C(&v24);
   }
 
   result = swift_dynamicCast();
-  if ((result & 1) != 0 && v29 == 3)
+  if ((result & 1) != 0 && v23 == 3)
   {
     sub_100003A24(0, &qword_10000C650, OS_dispatch_queue_ptr);
-    v23 = sub_100003C3C();
-    v24 = swift_allocObject();
-    *(v24 + 16) = v2;
+    v17 = sub_100003C3C();
+    v18 = swift_allocObject();
+    *(v18 + 16) = v2;
     aBlock[4] = sub_1000035FC;
-    aBlock[5] = v24;
+    aBlock[5] = v18;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_100002748;
     aBlock[3] = &unk_1000083C0;
-    v25 = _Block_copy(aBlock);
-    v26 = v2;
+    v19 = _Block_copy(aBlock);
+    v20 = v2;
 
     sub_100003BCC();
     aBlock[0] = &_swiftEmptyArrayStorage;
@@ -332,29 +330,29 @@ uint64_t sub_1000023E0(uint64_t a1)
     sub_100003688();
     sub_100003C6C();
     sub_100003C4C();
-    _Block_release(v25);
+    _Block_release(v19);
 
-    (*(v7 + 8))(v12, v4);
-    return (*(v16 + 8))(v21, v13);
+    (*(v6 + 8))(v9, v4);
+    return (*(v12 + 8))(v15, v10);
   }
 
   return result;
 }
 
-double sub_1000026E4@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+double sub_1000026E4@<D0>(uint64_t a1@<X1>, _OWORD *a2@<X8>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 16) && (v5 = sub_100003734(a1), (v6 & 1) != 0))
+  if (*(a1 + 16) && (v5 = sub_100003734(a3), (v6 & 1) != 0))
   {
-    v7 = *(a2 + 56) + 32 * v5;
+    v7 = *(a1 + 56) + 32 * v5;
 
-    sub_100003778(v7, a3);
+    sub_100003778(v7, a2);
   }
 
   else
   {
     result = 0.0;
-    *a3 = 0u;
-    a3[1] = 0u;
+    *a2 = 0u;
+    a2[1] = 0u;
   }
 
   return result;
@@ -363,9 +361,8 @@ double sub_1000026E4@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
 uint64_t sub_100002748(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 void sub_10000278C()
@@ -396,10 +393,10 @@ void sub_10000278C()
     if (v11)
     {
       v12 = v11;
-      sub_100003080(&qword_10000C638, &qword_100004288);
-      v13 = sub_100003B44();
-      *(v13 + 16) = xmmword_1000041E0;
-      *(v13 + 32) = v10;
+      v13 = sub_100003080(&qword_10000C638, &qword_100004288);
+      v14 = sub_100003B44(v13);
+      *(v14 + 16) = xmmword_1000041E0;
+      *(v14 + 32) = v10;
       sub_100003A24(0, &qword_10000C640, SidecarItem_ptr);
       v10 = v10;
       isa = sub_100003C1C().super.isa;
@@ -436,28 +433,29 @@ id sub_100002A34(uint64_t a1, uint64_t a2, void *a3)
   v9 = [objc_opt_self() mainBundle];
   sub_100003AA4();
   sub_100003B5C();
-  sub_100003B9C(v18, v19, v17, v20, v15);
+  v11 = sub_100003B9C(v22, v23, v21, v24, v10, v19);
+  v13 = v12;
 
-  *&v4[v8] = sub_100001518();
-  v10 = OBJC_IVAR___SignatureViewController_signatureView;
-  *&v4[v10] = sub_100003A84(objc_allocWithZone(AKSignatureView), "initWithFrame:");
-  v11 = OBJC_IVAR___SignatureViewController_lineView;
-  *&v4[v11] = sub_1000038F4();
+  *&v4[v8] = sub_100001518(v11, v13);
+  v14 = OBJC_IVAR___SignatureViewController_signatureView;
+  *&v4[v14] = sub_100003A84(objc_allocWithZone(AKSignatureView), "initWithFrame:");
+  v15 = OBJC_IVAR___SignatureViewController_lineView;
+  *&v4[v15] = sub_1000038F4();
   if (a2)
   {
-    v12 = sub_100003BFC();
+    v16 = sub_100003BFC();
   }
 
   else
   {
-    v12 = 0;
+    v16 = 0;
   }
 
-  v16.receiver = v4;
-  v16.super_class = type metadata accessor for SignatureViewController();
-  v13 = objc_msgSendSuper2(&v16, "initWithNibName:bundle:", v12, a3);
+  v20.receiver = v4;
+  v20.super_class = type metadata accessor for SignatureViewController();
+  v17 = objc_msgSendSuper2(&v20, "initWithNibName:bundle:", v16, a3);
 
-  return v13;
+  return v17;
 }
 
 id sub_100002C0C(void *a1)
@@ -470,29 +468,30 @@ id sub_100002C0C(void *a1)
   v6 = [objc_opt_self() mainBundle];
   sub_100003AA4();
   sub_100003B5C();
-  sub_100003B9C(v14, v15, v13, v16, v11);
+  v8 = sub_100003B9C(v18, v19, v17, v20, v7, v15);
+  v10 = v9;
 
-  *&v2[v5] = sub_100001518();
-  v7 = OBJC_IVAR___SignatureViewController_signatureView;
-  *&v2[v7] = sub_100003A84(objc_allocWithZone(AKSignatureView), "initWithFrame:");
-  v8 = OBJC_IVAR___SignatureViewController_lineView;
-  *&v2[v8] = sub_1000038F4();
-  v12.receiver = v2;
-  v12.super_class = type metadata accessor for SignatureViewController();
-  v9 = objc_msgSendSuper2(&v12, "initWithCoder:", a1);
+  *&v2[v5] = sub_100001518(v8, v10);
+  v11 = OBJC_IVAR___SignatureViewController_signatureView;
+  *&v2[v11] = sub_100003A84(objc_allocWithZone(AKSignatureView), "initWithFrame:");
+  v12 = OBJC_IVAR___SignatureViewController_lineView;
+  *&v2[v12] = sub_1000038F4();
+  v16.receiver = v2;
+  v16.super_class = type metadata accessor for SignatureViewController();
+  v13 = objc_msgSendSuper2(&v16, "initWithCoder:", a1);
 
-  if (v9)
+  if (v13)
   {
   }
 
-  return v9;
+  return v13;
 }
 
-id sub_100002D80()
+id sub_100002D80(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SignatureViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SignatureViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void sub_100002E44()
@@ -523,12 +522,12 @@ void sub_100002E44()
     if (v11)
     {
       v12 = v11;
-      sub_100003080(&qword_10000C638, &qword_100004288);
-      v13 = sub_100003B44();
-      *(v13 + 16) = xmmword_1000041E0;
-      *(v13 + 32) = v10;
+      v13 = sub_100003080(&qword_10000C638, &qword_100004288);
+      v14 = sub_100003B44(v13);
+      *(v14 + 16) = xmmword_1000041E0;
+      *(v14 + 32) = v10;
       sub_100003A24(0, &qword_10000C640, SidecarItem_ptr);
-      v14 = v10;
+      v15 = v10;
       isa = sub_100003C1C().super.isa;
 
       [v12 sendItems:isa complete:0];
@@ -541,7 +540,6 @@ uint64_t sub_100003080(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -556,33 +554,32 @@ id sub_1000030C8(uint64_t a1)
   return v1;
 }
 
-id sub_100003100(uint64_t a1, uint64_t *a2, uint64_t a3)
+id sub_100003100(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = a2[3];
   if (v6)
   {
     v8 = sub_100003478(a2, a2[3]);
     v9 = *(v6 - 8);
-    v10 = *(v9 + 64);
-    __chkstk_darwin(v8, v8);
-    v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v9 + 16))(v12);
-    v13 = sub_100003CCC();
-    (*(v9 + 8))(v12, v6);
+    __chkstk_darwin(v8);
+    v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v9 + 16))(v11);
+    v12 = sub_100003CCC();
+    (*(v9 + 8))(v11, v6);
     sub_1000034BC(a2);
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v14 = [v3 initWithBarButtonSystemItem:a1 target:v13 action:a3];
+  v13 = [v3 initWithBarButtonSystemItem:a1 target:v12 action:a3];
   swift_unknownObjectRelease();
-  return v14;
+  return v13;
 }
 
-id sub_100003258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+id sub_100003258(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
   v6 = v5;
   if (a2)
@@ -600,37 +597,36 @@ id sub_100003258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a
   {
     v12 = sub_100003478(a4, a4[3]);
     v13 = *(v11 - 8);
-    v14 = *(v13 + 64);
-    __chkstk_darwin(v12, v12);
-    v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v13 + 16))(v16);
-    v17 = sub_100003CCC();
-    (*(v13 + 8))(v16, v11);
+    __chkstk_darwin(v12);
+    v15 = &v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v13 + 16))(v15);
+    v16 = sub_100003CCC();
+    (*(v13 + 8))(v15, v11);
     sub_1000034BC(a4);
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  v18 = [v6 initWithTitle:v10 style:a3 target:v17 action:a5];
+  v17 = [v6 initWithTitle:v10 style:a3 target:v16 action:a5];
 
   swift_unknownObjectRelease();
-  return v18;
+  return v17;
 }
 
-id sub_1000033DC(uint64_t *a1)
+id sub_1000033DC(void *a1, uint64_t a2, uint64_t a3)
 {
   sub_100003478(a1, a1[3]);
-  v3 = sub_100003CCC();
-  v4 = sub_100003BFC();
+  v5 = sub_100003CCC();
+  v6 = sub_100003BFC();
 
-  v5 = [v1 initWithObject:v3 type:v4];
+  v7 = [v3 initWithObject:v5 type:v6];
   swift_unknownObjectRelease();
 
   sub_1000034BC(a1);
-  return v5;
+  return v7;
 }
 
 void *sub_100003478(void *result, uint64_t a2)
@@ -643,15 +639,17 @@ void *sub_100003478(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1000034BC(uint64_t *a1)
+uint64_t sub_1000034BC(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_10000355C(uint64_t a1)
@@ -705,7 +703,6 @@ uint64_t sub_1000036EC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -760,7 +757,7 @@ void sub_10000393C(uint64_t a1, uint64_t a2, void *a3)
   [a3 setText:v4];
 }
 
-void sub_1000039A0(uint64_t a1, void *a2, unint64_t *a3, uint64_t *a4, SEL *a5)
+void sub_1000039A0(uint64_t a1, void *a2, unint64_t *a3, void *a4, SEL *a5)
 {
   sub_100003A24(0, a3, a4);
   isa = sub_100003C1C().super.isa;
@@ -768,12 +765,11 @@ void sub_1000039A0(uint64_t a1, void *a2, unint64_t *a3, uint64_t *a4, SEL *a5)
   [a2 *a5];
 }
 
-uint64_t sub_100003A24(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100003A24(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -816,7 +812,7 @@ id sub_100003B28()
   return [v1 v3];
 }
 
-uint64_t sub_100003B44()
+uint64_t sub_100003B44(uint64_t a1)
 {
 
   return swift_allocObject();
@@ -825,5 +821,5 @@ uint64_t sub_100003B44()
 id sub_100003B7C()
 {
 
-  return sub_1000033DC((v0 - 96));
+  return sub_1000033DC((v0 - 96), 0, 0xE000000000000000);
 }

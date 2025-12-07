@@ -46,7 +46,7 @@
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s Push context time out for pid %@", buf, 0x16u);
         }
 
-        v11 = [(NSMutableDictionary *)self->_completionsByPID objectForKey:v9, v12, v13];
+        v11 = objc_msgSend_objectForKey_(self->_completionsByPID, v12, v13);
         v11[2](v11, 0);
 
         v8 = v8 + 1;
@@ -68,7 +68,7 @@
   contextCopy = context;
   completionsByPID = self->_completionsByPID;
   v7 = [NSNumber numberWithInt:v4];
-  v8 = [(NSMutableDictionary *)completionsByPID objectForKey:v7];
+  v8 = objc_msgSend_objectForKey_(completionsByPID);
 
   if (v8)
   {
@@ -93,7 +93,7 @@
 {
   completionsByPID = self->_completionsByPID;
   v4 = [NSNumber numberWithInt:*&d];
-  v5 = [(NSMutableDictionary *)completionsByPID objectForKey:v4];
+  v5 = objc_msgSend_objectForKey_(completionsByPID);
   LOBYTE(completionsByPID) = v5 != 0;
 
   return completionsByPID;

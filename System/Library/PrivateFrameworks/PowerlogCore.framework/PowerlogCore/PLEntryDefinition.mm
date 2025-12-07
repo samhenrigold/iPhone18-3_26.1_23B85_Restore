@@ -132,8 +132,8 @@ LABEL_3:
         v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLEntryDefinition entryDefinitionsForOperatorClass:]"];
         [PLCoreStorage logMessage:v7 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:116];
 
-        v11 = PLLogCommon();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v12 = PLLogCommon(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [(PLSubmissionFileSP *)v7 copyAndPrepareLog];
         }
@@ -150,29 +150,28 @@ LABEL_3:
     v29[1] = v23;
     v28[2] = @"EventBackward";
     entryEventBackwardDefinitions = [(objc_class *)class entryEventBackwardDefinitions];
-    v13 = [self constructEntryDefinition:entryEventBackwardDefinitions];
-    v29[2] = v13;
+    v14 = [self constructEntryDefinition:entryEventBackwardDefinitions];
+    v29[2] = v14;
     v28[3] = @"EventInterval";
     entryEventIntervalDefinitions = [(objc_class *)class entryEventIntervalDefinitions];
-    v15 = [self constructEntryDefinition:entryEventIntervalDefinitions];
-    v29[3] = v15;
+    v16 = [self constructEntryDefinition:entryEventIntervalDefinitions];
+    v29[3] = v16;
     v28[4] = @"EventNone";
     entryEventNoneDefinitions = [(objc_class *)class entryEventNoneDefinitions];
-    v17 = [self constructEntryDefinition:entryEventNoneDefinitions];
-    v29[4] = v17;
+    v18 = [self constructEntryDefinition:entryEventNoneDefinitions];
+    v29[4] = v18;
     v28[5] = @"Aggregate";
     entryAggregateDefinitions = [(objc_class *)class entryAggregateDefinitions];
-    v19 = [self constructEntryDefinition:entryAggregateDefinitions];
-    v29[5] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:6];
-    [entryDefinitionsForOperatorClass__entryDefinitions setObject:v20 forKeyedSubscript:class];
+    v20 = [self constructEntryDefinition:entryAggregateDefinitions];
+    v29[5] = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:6];
+    [entryDefinitionsForOperatorClass__entryDefinitions setObject:v21 forKeyedSubscript:class];
 
     v5 = [entryDefinitionsForOperatorClass__entryDefinitions objectForKeyedSubscript:class];
   }
 
   dispatch_semaphore_signal(entryDefinitionsForOperatorClass__entryDefinitionsSem);
 LABEL_15:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -183,9 +182,10 @@ uint64_t __54__PLEntryDefinition_entryDefinitionsForOperatorClass___block_invoke
   v1 = entryDefinitionsForOperatorClass__entryDefinitionsSem;
   entryDefinitionsForOperatorClass__entryDefinitionsSem = v0;
 
-  entryDefinitionsForOperatorClass__entryDefinitions = objc_opt_new();
+  v2 = objc_opt_new();
+  entryDefinitionsForOperatorClass__entryDefinitions = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 BOOL __54__PLEntryDefinition_entryDefinitionsForOperatorClass___block_invoke_2(uint64_t a1)
@@ -777,17 +777,18 @@ void __46__PLEntryDefinition_constructEntryDefinition___block_invoke(uint64_t a1
     v10 = [v8 setWithArray:v9];
     [v7 minusSet:v10];
 
-    if ([v7 count])
+    v11 = [v7 count];
+    if (v11)
     {
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = PLLogCommon(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(PLEntryDefinition *)v7 manualSortOrderForEntryDefinition:v11];
+        [(PLEntryDefinition *)v7 manualSortOrderForEntryDefinition:v12];
       }
 
-      v12 = [MEMORY[0x1E695DFA8] setWithArray:v6];
-      [v12 minusSet:v7];
-      allObjects = [v12 allObjects];
+      v13 = [MEMORY[0x1E695DFA8] setWithArray:v6];
+      [v13 minusSet:v7];
+      allObjects = [v13 allObjects];
     }
 
     else
@@ -925,79 +926,77 @@ LABEL_7:
 
 + (id)notificationNameForEntryKey:(id)key withFilterDefintion:(id)defintion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   defintionCopy = defintion;
   v6 = [MEMORY[0x1E696AD60] stringWithFormat:@"%@.filtered", key];
-  v25 = defintionCopy;
+  v24 = defintionCopy;
   allKeys = [defintionCopy allKeys];
   v8 = [allKeys sortedArrayUsingSelector:?];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = v8;
-  v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  if (v25)
   {
-    v24 = *v33;
+    v23 = *v32;
     do
     {
       v9 = 0;
       do
       {
-        if (*v33 != v24)
+        if (*v32 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = v9;
-        v10 = *(*(&v32 + 1) + 8 * v9);
-        v11 = [v25 objectForKeyedSubscript:v10];
+        v26 = v9;
+        v10 = *(*(&v31 + 1) + 8 * v9);
+        v11 = [v24 objectForKeyedSubscript:v10];
         allKeys2 = [v11 allKeys];
         v13 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
 
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
         v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v29;
+          v17 = *v28;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v29 != v17)
+              if (*v28 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = *(*(&v28 + 1) + 8 * i);
+              v19 = *(*(&v27 + 1) + 8 * i);
               v20 = [v11 objectForKeyedSubscript:v19];
               [v6 appendFormat:@".%@_%@_%@", v10, v19, v20];
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
           }
 
           while (v16);
         }
 
-        v9 = v27 + 1;
+        v9 = v26 + 1;
       }
 
-      while (v27 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      while (v26 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1016,9 +1015,10 @@ LABEL_7:
 
 uint64_t __35__PLEntryDefinition_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_0 = objc_alloc_init(PLEntryDefinition);
+  v0 = objc_alloc_init(PLEntryDefinition);
+  sharedInstance_sharedInstance_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (id)commonTypeDict_BoolFormat
@@ -1035,14 +1035,12 @@ uint64_t __35__PLEntryDefinition_sharedInstance__block_invoke()
 
 void __46__PLEntryDefinition_commonTypeDict_BoolFormat__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"Type";
-  v4[0] = &unk_1F5405AD8;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"Type";
+  v3[0] = &unk_1F5405AD8;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = commonTypeDict_BoolFormat__typedict_BOOL;
   commonTypeDict_BoolFormat__typedict_BOOL = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat
@@ -1059,14 +1057,12 @@ void __46__PLEntryDefinition_commonTypeDict_BoolFormat__block_invoke()
 
 void __49__PLEntryDefinition_commonTypeDict_IntegerFormat__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"Type";
-  v4[0] = &unk_1F5405AF0;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"Type";
+  v3[0] = &unk_1F5405AF0;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = commonTypeDict_IntegerFormat__typedict_integer;
   commonTypeDict_IntegerFormat__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_withUnit_s
@@ -1083,16 +1079,14 @@ void __49__PLEntryDefinition_commonTypeDict_IntegerFormat__block_invoke()
 
 void __60__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_s__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = @"s";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = @"s";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_IntegerFormat_withUnit_s__typedict_integer;
   commonTypeDict_IntegerFormat_withUnit_s__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_withUnit_ms
@@ -1109,16 +1103,14 @@ void __60__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_s__block_invo
 
 void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_ms__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = @"ms";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = @"ms";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_IntegerFormat_withUnit_ms__typedict_integer;
   commonTypeDict_IntegerFormat_withUnit_ms__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_withUnit_us
@@ -1135,16 +1127,14 @@ void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_ms__block_inv
 
 void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_us__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = @"us";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = @"us";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_IntegerFormat_withUnit_us__typedict_integer;
   commonTypeDict_IntegerFormat_withUnit_us__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_withUnit_mV
@@ -1161,16 +1151,14 @@ void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_us__block_inv
 
 void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_mV__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = @"mV";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = @"mV";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_IntegerFormat_withUnit_mV__typedict_integer;
   commonTypeDict_IntegerFormat_withUnit_mV__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_withUnit_mA
@@ -1187,16 +1175,14 @@ void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_mV__block_inv
 
 void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_mA__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = @"mA";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = @"mA";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_IntegerFormat_withUnit_mA__typedict_integer;
   commonTypeDict_IntegerFormat_withUnit_mA__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_withUnit_mAh
@@ -1213,16 +1199,14 @@ void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_mA__block_inv
 
 void __62__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_mAh__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = @"mAh";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = @"mAh";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_IntegerFormat_withUnit_mAh__typedict_integer;
   commonTypeDict_IntegerFormat_withUnit_mAh__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_withUnit_mJ
@@ -1239,16 +1223,14 @@ void __62__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_mAh__block_in
 
 void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_mJ__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = @"mJ";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = @"mJ";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_IntegerFormat_withUnit_mJ__typedict_integer;
   commonTypeDict_IntegerFormat_withUnit_mJ__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_withUnit_W
@@ -1265,16 +1247,14 @@ void __61__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_mJ__block_inv
 
 void __60__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_W__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = @"W";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = @"W";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_IntegerFormat_withUnit_W__typedict_integer;
   commonTypeDict_IntegerFormat_withUnit_W__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_IntegerFormat_aggregateFunction_sum
@@ -1291,18 +1271,16 @@ void __60__PLEntryDefinition_commonTypeDict_IntegerFormat_withUnit_W__block_invo
 
 void __71__PLEntryDefinition_commonTypeDict_IntegerFormat_aggregateFunction_sum__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"IsAggregateValue";
-  v4[0] = &unk_1F5405AF0;
-  v4[1] = MEMORY[0x1E695E118];
-  v3[2] = @"AggregateFunction";
-  v4[2] = &unk_1F5405B08;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"IsAggregateValue";
+  v3[0] = &unk_1F5405AF0;
+  v3[1] = MEMORY[0x1E695E118];
+  v2[2] = @"AggregateFunction";
+  v3[2] = &unk_1F5405B08;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = commonTypeDict_IntegerFormat_aggregateFunction_sum__typedict_integer;
   commonTypeDict_IntegerFormat_aggregateFunction_sum__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_RealFormat
@@ -1319,14 +1297,12 @@ void __71__PLEntryDefinition_commonTypeDict_IntegerFormat_aggregateFunction_sum_
 
 void __46__PLEntryDefinition_commonTypeDict_RealFormat__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"Type";
-  v4[0] = &unk_1F5405B20;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"Type";
+  v3[0] = &unk_1F5405B20;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = commonTypeDict_RealFormat__typedict_real;
   commonTypeDict_RealFormat__typedict_real = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_RealFormat_withUnit_s
@@ -1343,16 +1319,14 @@ void __46__PLEntryDefinition_commonTypeDict_RealFormat__block_invoke()
 
 void __57__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_s__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405B20;
-  v4[1] = @"s";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405B20;
+  v3[1] = @"s";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_RealFormat_withUnit_s__typedict_real;
   commonTypeDict_RealFormat_withUnit_s__typedict_real = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_RealFormat_withUnit_mJ
@@ -1369,16 +1343,14 @@ void __57__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_s__block_invoke(
 
 void __58__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_mJ__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405B20;
-  v4[1] = @"mJ";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405B20;
+  v3[1] = @"mJ";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_RealFormat_withUnit_mJ__typedict_real;
   commonTypeDict_RealFormat_withUnit_mJ__typedict_real = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_RealFormat_withUnit_mW
@@ -1395,16 +1367,14 @@ void __58__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_mJ__block_invoke
 
 void __58__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_mW__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405B20;
-  v4[1] = @"mW";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405B20;
+  v3[1] = @"mW";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_RealFormat_withUnit_mW__typedict_real;
   commonTypeDict_RealFormat_withUnit_mW__typedict_real = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_RealFormat_withUnit_W
@@ -1421,16 +1391,14 @@ void __58__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_mW__block_invoke
 
 void __57__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_W__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405B20;
-  v4[1] = @"W";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405B20;
+  v3[1] = @"W";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_RealFormat_withUnit_W__typedict_real;
   commonTypeDict_RealFormat_withUnit_W__typedict_real = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_RealFormat_withUnit_mWhr
@@ -1447,16 +1415,14 @@ void __57__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_W__block_invoke(
 
 void __60__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_mWhr__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"Unit";
-  v4[0] = &unk_1F5405B20;
-  v4[1] = @"mWhr";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"Unit";
+  v3[0] = &unk_1F5405B20;
+  v3[1] = @"mWhr";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_RealFormat_withUnit_mWhr__typedict_real;
   commonTypeDict_RealFormat_withUnit_mWhr__typedict_real = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_RealFormat_aggregateFunction_sum
@@ -1473,18 +1439,16 @@ void __60__PLEntryDefinition_commonTypeDict_RealFormat_withUnit_mWhr__block_invo
 
 void __68__PLEntryDefinition_commonTypeDict_RealFormat_aggregateFunction_sum__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"IsAggregateValue";
-  v4[0] = &unk_1F5405B20;
-  v4[1] = MEMORY[0x1E695E118];
-  v3[2] = @"AggregateFunction";
-  v4[2] = &unk_1F5405B08;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"IsAggregateValue";
+  v3[0] = &unk_1F5405B20;
+  v3[1] = MEMORY[0x1E695E118];
+  v2[2] = @"AggregateFunction";
+  v3[2] = &unk_1F5405B08;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = commonTypeDict_RealFormat_aggregateFunction_sum__typedict_integer;
   commonTypeDict_RealFormat_aggregateFunction_sum__typedict_integer = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_StringFormat
@@ -1501,14 +1465,12 @@ void __68__PLEntryDefinition_commonTypeDict_RealFormat_aggregateFunction_sum__bl
 
 void __48__PLEntryDefinition_commonTypeDict_StringFormat__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"Type";
-  v4[0] = &unk_1F5405B38;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"Type";
+  v3[0] = &unk_1F5405B38;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = commonTypeDict_StringFormat__typedict_string;
   commonTypeDict_StringFormat__typedict_string = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_StringFormat_withBundleID
@@ -1525,16 +1487,14 @@ void __48__PLEntryDefinition_commonTypeDict_StringFormat__block_invoke()
 
 void __61__PLEntryDefinition_commonTypeDict_StringFormat_withBundleID__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"BundleID";
-  v4[0] = &unk_1F5405B38;
-  v4[1] = MEMORY[0x1E695E118];
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"BundleID";
+  v3[0] = &unk_1F5405B38;
+  v3[1] = MEMORY[0x1E695E118];
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_StringFormat_withBundleID__typedict_string;
   commonTypeDict_StringFormat_withBundleID__typedict_string = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_StringFormat_withAppName
@@ -1551,16 +1511,14 @@ void __61__PLEntryDefinition_commonTypeDict_StringFormat_withBundleID__block_inv
 
 void __60__PLEntryDefinition_commonTypeDict_StringFormat_withAppName__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"AppName";
-  v4[0] = &unk_1F5405B38;
-  v4[1] = MEMORY[0x1E695E118];
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"AppName";
+  v3[0] = &unk_1F5405B38;
+  v3[1] = MEMORY[0x1E695E118];
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_StringFormat_withAppName__typedict_string;
   commonTypeDict_StringFormat_withAppName__typedict_string = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_StringFormat_withProcessName
@@ -1577,16 +1535,14 @@ void __60__PLEntryDefinition_commonTypeDict_StringFormat_withAppName__block_invo
 
 void __64__PLEntryDefinition_commonTypeDict_StringFormat_withProcessName__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"ProcessName";
-  v4[0] = &unk_1F5405B38;
-  v4[1] = MEMORY[0x1E695E118];
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"ProcessName";
+  v3[0] = &unk_1F5405B38;
+  v3[1] = MEMORY[0x1E695E118];
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_StringFormat_withProcessName__typedict_string;
   commonTypeDict_StringFormat_withProcessName__typedict_string = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_DateFormat
@@ -1603,14 +1559,12 @@ void __64__PLEntryDefinition_commonTypeDict_StringFormat_withProcessName__block_
 
 void __46__PLEntryDefinition_commonTypeDict_DateFormat__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"Type";
-  v4[0] = &unk_1F5405B50;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"Type";
+  v3[0] = &unk_1F5405B50;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = commonTypeDict_DateFormat__typedict_date;
   commonTypeDict_DateFormat__typedict_date = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_DateFormat_isCFAbsoluteTime
@@ -1627,16 +1581,14 @@ void __46__PLEntryDefinition_commonTypeDict_DateFormat__block_invoke()
 
 void __63__PLEntryDefinition_commonTypeDict_DateFormat_isCFAbsoluteTime__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Type";
-  v3[1] = @"isCFAbsoluteTime";
-  v4[0] = &unk_1F5405B50;
-  v4[1] = MEMORY[0x1E695E118];
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Type";
+  v2[1] = @"isCFAbsoluteTime";
+  v3[0] = &unk_1F5405B50;
+  v3[1] = MEMORY[0x1E695E118];
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = commonTypeDict_DateFormat_isCFAbsoluteTime__typedict_date;
   commonTypeDict_DateFormat_isCFAbsoluteTime__typedict_date = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)commonTypeDict_RawDataFormat
@@ -1653,23 +1605,20 @@ void __63__PLEntryDefinition_commonTypeDict_DateFormat_isCFAbsoluteTime__block_i
 
 void __49__PLEntryDefinition_commonTypeDict_RawDataFormat__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"Type";
-  v4[0] = &unk_1F5405B68;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"Type";
+  v3[0] = &unk_1F5405B68;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = commonTypeDict_RawDataFormat__typedict_rawdata;
   commonTypeDict_RawDataFormat__typedict_rawdata = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)manualSortOrderForEntryDefinition:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "[Error] Manual sort order keys not in table schema: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "[Error] Manual sort order keys not in table schema: %@", &v2, 0xCu);
 }
 
 @end

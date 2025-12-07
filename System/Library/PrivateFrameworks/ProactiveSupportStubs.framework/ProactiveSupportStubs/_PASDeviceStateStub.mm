@@ -3,6 +3,7 @@
 + (void)setCurrentOsBuild:(id)build;
 + (void)setDeviceFormattedForProtection:(BOOL)protection;
 + (void)setLockState:(int)state;
++ (void)setLockStateAKS:(int)s;
 + (void)startMockingSystem;
 + (void)stopMockingSystem;
 @end
@@ -26,6 +27,52 @@
   objc_sync_enter(obj);
   _deviceFormattedForProtection = protection;
   objc_sync_exit(obj);
+}
+
++ (void)setLockStateAKS:(int)s
+{
+  v3 = *&s;
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = objc_opt_class();
+  objc_sync_enter(v4);
+  if (v3 <= 5)
+  {
+    _lockState = dword_260E00B50[v3];
+  }
+
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = _callbackMapAKS;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = *v11;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v9 = [_callbackMapAKS objectForKeyedSubscript:{*(*(&v10 + 1) + 8 * v8), v10}];
+        v9[2](v9, v3);
+
+        ++v8;
+      }
+
+      while (v6 != v8);
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v6);
+  }
+
+  objc_sync_exit(v4);
 }
 
 + (void)setClassCLocked:(BOOL)locked
@@ -55,44 +102,43 @@
 
 + (void)setLockState:(int)state
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_class();
   objc_sync_enter(v4);
   _lockState = state;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = _callbackMap;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = [_callbackMap objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * v8), v11}];
+        v9 = [_callbackMap objectForKeyedSubscript:{*(*(&v10 + 1) + 8 * v8), v10}];
         v9[2](v9, _lockState);
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(v4);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)stopMockingSystem

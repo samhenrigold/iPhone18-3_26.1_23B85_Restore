@@ -231,7 +231,7 @@
 
 + (BOOL)canMediaProfileContainer:(id)container supportHomeTheaterWithAppleTV:(id)v
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   vCopy = v;
   accessories = [containerCopy accessories];
@@ -241,15 +241,15 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = NSStringFromSelector(a2);
-    v26 = 138413058;
+    v25 = 138413058;
     selfCopy3 = self;
-    v28 = 2112;
-    v29 = v12;
-    v30 = 2112;
-    v31 = anyObject;
-    v32 = 2112;
-    v33 = containerCopy;
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@:%@ Extracted homepod accessory for media profile container. HomePod: %@ mediaProfileContainer: %@", &v26, 0x2Au);
+    v27 = 2112;
+    v28 = v12;
+    v29 = 2112;
+    v30 = anyObject;
+    v31 = 2112;
+    v32 = containerCopy;
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@:%@ Extracted homepod accessory for media profile container. HomePod: %@ mediaProfileContainer: %@", &v25, 0x2Au);
   }
 
   if (!vCopy)
@@ -270,15 +270,15 @@
     if (os_log_type_enabled(audioDestinationController2, OS_LOG_TYPE_DEFAULT))
     {
       v21 = NSStringFromSelector(a2);
-      v26 = 138413058;
+      v25 = 138413058;
       selfCopy3 = self;
-      v28 = 2112;
-      v29 = v21;
-      v30 = 2112;
-      v31 = anyObject;
-      v32 = 2112;
-      v33 = vCopy;
-      _os_log_impl(&dword_20D9BF000, audioDestinationController2, OS_LOG_TYPE_DEFAULT, "%@:%@ Accessory does not support B620 as audio destination. HomePod: %@ Accessory: %@", &v26, 0x2Au);
+      v27 = 2112;
+      v28 = v21;
+      v29 = 2112;
+      v30 = anyObject;
+      v31 = 2112;
+      v32 = vCopy;
+      _os_log_impl(&dword_20D9BF000, audioDestinationController2, OS_LOG_TYPE_DEFAULT, "%@:%@ Accessory does not support B620 as audio destination. HomePod: %@ Accessory: %@", &v25, 0x2Au);
     }
 
     v20 = 0;
@@ -291,15 +291,15 @@
     {
       v16 = NSStringFromSelector(a2);
       audioDestinationController = [vCopy audioDestinationController];
-      v26 = 138413058;
+      v25 = 138413058;
       selfCopy3 = self;
-      v28 = 2112;
-      v29 = v16;
-      v30 = 2112;
-      v31 = vCopy;
-      v32 = 2112;
-      v33 = audioDestinationController;
-      _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "%@:%@ Checking Accessory %@ with audio destination controller %@ for empty destination.", &v26, 0x2Au);
+      v27 = 2112;
+      v28 = v16;
+      v29 = 2112;
+      v30 = vCopy;
+      v31 = 2112;
+      v32 = audioDestinationController;
+      _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "%@:%@ Checking Accessory %@ with audio destination controller %@ for empty destination.", &v25, 0x2Au);
     }
 
     audioDestinationController2 = [vCopy audioDestinationController];
@@ -307,13 +307,12 @@
     v20 = destination == 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 + (BOOL)supportsDoorbellChime:(id)chime
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   chimeCopy = chime;
   settings = [chimeCopy settings];
   v7 = [settings hf_accessorySettingAtKeyPath:@"root.doorbellChime.enabled"];
@@ -322,15 +321,15 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(a2);
-    v19 = 138413058;
+    v18 = 138413058;
     selfCopy2 = self;
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2112;
-    v24 = chimeCopy;
-    v25 = 2112;
-    v26 = v7;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@:%@ media profile container: %@ has doorbell setting: %@", &v19, 0x2Au);
+    v20 = 2112;
+    v21 = v9;
+    v22 = 2112;
+    v23 = chimeCopy;
+    v24 = 2112;
+    v25 = v7;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@:%@ media profile container: %@ has doorbell setting: %@", &v18, 0x2Au);
   }
 
   if (v7 || ![self isSiriEndpoint:chimeCopy])
@@ -349,23 +348,22 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = NSStringFromSelector(a2);
-      v19 = 138413314;
+      v18 = 138413314;
       selfCopy2 = self;
-      v21 = 2112;
-      v22 = v15;
-      v23 = 2112;
-      v24 = chimeCopy;
-      v25 = 2112;
-      v26 = v13;
-      v27 = 2112;
-      v28 = hf_mediaAccessoryCommonSettingsManager;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "%@:%@ Siri endpoint media profile container: %@ has doorbell setting: %@, for common settings manager: %@", &v19, 0x34u);
+      v20 = 2112;
+      v21 = v15;
+      v22 = 2112;
+      v23 = chimeCopy;
+      v24 = 2112;
+      v25 = v13;
+      v26 = 2112;
+      v27 = hf_mediaAccessoryCommonSettingsManager;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "%@:%@ Siri endpoint media profile container: %@ has doorbell setting: %@, for common settings manager: %@", &v18, 0x34u);
     }
 
     v16 = v13 != 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7 != 0 || v16;
 }
 
@@ -513,7 +511,7 @@ LABEL_15:
 
 + (id)siriLanguageOptionFor:(id)for
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   forCopy = for;
   objc_opt_class();
   v5 = forCopy;
@@ -586,28 +584,28 @@ LABEL_15:
 
     else
     {
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       obj = [v14 mediaProfiles];
-      v21 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v21 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
       if (v21)
       {
         v22 = v21;
         aSelector = a2;
         v23 = 0;
-        v24 = *v43;
+        v24 = *v42;
         while (2)
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v43 != v24)
+            if (*v42 != v24)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v42 + 1) + 8 * i);
+            v26 = *(*(&v41 + 1) + 8 * i);
             v27 = +[HFHomeKitDispatcher sharedDispatcher];
             homeManager3 = [v27 homeManager];
             hasOptedToHH23 = [homeManager3 hasOptedToHH2];
@@ -632,9 +630,9 @@ LABEL_15:
               {
                 v37 = NSStringFromSelector(aSelector);
                 *buf = 138412546;
-                v47 = v37;
-                v48 = 2112;
-                v49 = v26;
+                v46 = v37;
+                v47 = 2112;
+                v48 = v26;
                 _os_log_impl(&dword_20D9BF000, v36, OS_LOG_TYPE_DEFAULT, "%@ Media Profile %@ does not have a selected language option", buf, 0x16u);
               }
 
@@ -658,7 +656,7 @@ LABEL_38:
             }
           }
 
-          v22 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+          v22 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
           v16 = 0;
           if (v22)
           {
@@ -680,14 +678,12 @@ LABEL_41:
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return selectedLanguageOption;
 }
 
 + (id)changeAllSiriLanguageOptionsFor:(id)for to:(id)to
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   forCopy = for;
   toCopy = to;
   hmf_isEmpty = [forCopy hmf_isEmpty];
@@ -699,11 +695,11 @@ LABEL_41:
       v16 = NSStringFromSelector(a2);
       recognitionLanguage = [toCopy recognitionLanguage];
       *buf = 138412802;
-      v26 = v16;
-      v27 = 2112;
-      v28 = recognitionLanguage;
-      v29 = 2112;
-      v30 = forCopy;
+      v25 = v16;
+      v26 = 2112;
+      v27 = recognitionLanguage;
+      v28 = 2112;
+      v29 = forCopy;
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "%@ No speaker languages changed to %@ for %@", buf, 0x20u);
     }
 
@@ -713,44 +709,42 @@ LABEL_41:
   else
   {
     array = [MEMORY[0x277CBEB18] array];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = forCopy;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [HFMediaHelper changeSiriLanguageOptionFor:*(*(&v20 + 1) + 8 * i) to:toCopy, v20];
+          v15 = [HFMediaHelper changeSiriLanguageOptionFor:*(*(&v19 + 1) + 8 * i) to:toCopy, v19];
           [array na_safeAddObject:v15];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 + (id)changeSiriLanguageOptionFor:(id)for to:(id)to
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   forCopy = for;
   toCopy = to;
   v9 = HFLogForCategory(0);
@@ -760,12 +754,12 @@ LABEL_41:
     recognitionLanguage = [toCopy recognitionLanguage];
     *buf = 138413058;
     selfCopy2 = self;
-    v49 = 2112;
-    *v50 = v10;
-    *&v50[8] = 2112;
-    *&v50[10] = recognitionLanguage;
-    v51 = 2112;
-    v52 = forCopy;
+    v48 = 2112;
+    *v49 = v10;
+    *&v49[8] = 2112;
+    *&v49[10] = recognitionLanguage;
+    v50 = 2112;
+    v51 = forCopy;
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "%@:%@: Changing Siri language to [%@] for [%@]", buf, 0x2Au);
   }
 
@@ -774,11 +768,11 @@ LABEL_41:
     v17 = HFLogForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v40 = NSStringFromSelector(a2);
+      v39 = NSStringFromSelector(a2);
       *buf = 138412546;
       selfCopy2 = self;
-      v49 = 2112;
-      *v50 = v40;
+      v48 = 2112;
+      *v49 = v39;
       _os_log_error_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_ERROR, "%@:%@: Can't change to an nil Siri language", buf, 0x16u);
     }
 
@@ -793,15 +787,15 @@ LABEL_41:
     v21 = HFLogForCategory(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v41 = NSStringFromSelector(a2);
+      v40 = NSStringFromSelector(a2);
       hf_isReachable = [forCopy hf_isReachable];
       hf_displayName = [forCopy hf_displayName];
       *buf = 138412802;
-      selfCopy2 = v41;
-      v49 = 1024;
-      *v50 = hf_isReachable;
-      *&v50[4] = 2112;
-      *&v50[6] = hf_displayName;
+      selfCopy2 = v40;
+      v48 = 1024;
+      *v49 = hf_isReachable;
+      *&v49[4] = 2112;
+      *&v49[6] = hf_displayName;
       _os_log_error_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_ERROR, "%@ Controller is reachable? %{BOOL}d. Language change failed for [%@]", buf, 0x1Cu);
     }
 
@@ -875,13 +869,13 @@ LABEL_29:
       v16 = [hf_siriLanguageOptionsManager updateSelectedLanguageOption:toCopy];
     }
 
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __48__HFMediaHelper_changeSiriLanguageOptionFor_to___block_invoke;
-    v44[3] = &unk_277DF6718;
-    v46 = a2;
-    v45 = v24;
-    v34 = [v16 addFailureBlock:v44];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __48__HFMediaHelper_changeSiriLanguageOptionFor_to___block_invoke;
+    v43[3] = &unk_277DF6718;
+    v45 = a2;
+    v44 = v24;
+    v34 = [v16 addFailureBlock:v43];
   }
 
   if (v16)
@@ -891,34 +885,30 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v38 = MEMORY[0x277D2C900];
-  v39 = [MEMORY[0x277CCA9B8] hf_errorWithCode:33];
-  v35 = [v38 futureWithError:v39];
+  v37 = MEMORY[0x277D2C900];
+  v38 = [MEMORY[0x277CCA9B8] hf_errorWithCode:33];
+  v35 = [v37 futureWithError:v38];
 
   v22 = 0;
 LABEL_30:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
 
 void __48__HFMediaHelper_changeSiriLanguageOptionFor_to___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(*(a1 + 40));
-    v5 = [*(a1 + 32) hf_displayName];
-    v6 = 138412546;
-    v7 = v4;
-    v8 = 2112;
-    v9 = v5;
-    _os_log_error_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_ERROR, "%@ Language change failed for %@", &v6, 0x16u);
+    v3 = NSStringFromSelector(*(a1 + 40));
+    v4 = [*(a1 + 32) hf_displayName];
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_error_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_ERROR, "%@ Language change failed for %@", &v5, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allAccessoriesContainedIn:(id)in
@@ -940,33 +930,33 @@ void __48__HFMediaHelper_changeSiriLanguageOptionFor_to___block_invoke(uint64_t 
 
 void __43__HFMediaHelper_allAccessoriesContainedIn___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([HFMediaHelper isHomePodMediaSystem:v3])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v4 = [v3 accessories];
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(a1 + 32) addObject:*(*(&v12 + 1) + 8 * i)];
+          [*(a1 + 32) addObject:*(*(&v11 + 1) + 8 * i)];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -980,14 +970,12 @@ void __43__HFMediaHelper_allAccessoriesContainedIn___block_invoke(uint64_t a1, v
     v10 = [v4 anyObject];
     [v9 addObject:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)mediaProfileContainerForItem:(id)item forTopLevel:(BOOL)level
 {
   levelCopy = level;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   objc_opt_class();
   v9 = itemCopy;
@@ -1017,7 +1005,7 @@ void __43__HFMediaHelper_allAccessoriesContainedIn___block_invoke(uint64_t a1, v
 
   v14 = v13;
 
-  if (v11 | v14 && (!v14 || ([v14 service], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "accessory"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "hf_isHomePod"), v16, v15, v17)))
+  if (v11 | v14 && (!v14 || (objc_msgSend_service(v14), v15 = objc_claimAutoreleasedReturnValue(), [v15 accessory], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "hf_isHomePod"), v16, v15, v17)))
   {
     v18 = a2;
     selfCopy = self;
@@ -1028,8 +1016,8 @@ void __43__HFMediaHelper_allAccessoriesContainedIn___block_invoke(uint64_t a1, v
 
     else
     {
-      service = [v14 service];
-      accessory = [service accessory];
+      v34 = objc_msgSend_service(v14);
+      accessory = [v34 accessory];
       [accessory mediaProfile];
     }
     v19 = ;
@@ -1050,7 +1038,7 @@ void __43__HFMediaHelper_allAccessoriesContainedIn___block_invoke(uint64_t a1, v
     if (!v11)
     {
 
-      v19 = service;
+      v19 = v34;
     }
 
     if (levelCopy)
@@ -1087,15 +1075,15 @@ void __43__HFMediaHelper_allAccessoriesContainedIn___block_invoke(uint64_t a1, v
     {
       v32 = NSStringFromSelector(v18);
       *buf = 138413314;
-      v38 = selfCopy;
-      v39 = 2112;
-      v40 = v32;
-      v41 = 2112;
-      v42 = v11;
-      v43 = 2112;
-      v44 = v14;
-      v45 = 2112;
-      v46 = v20;
+      v37 = selfCopy;
+      v38 = 2112;
+      v39 = v32;
+      v40 = 2112;
+      v41 = v11;
+      v42 = 2112;
+      v43 = v14;
+      v44 = 2112;
+      v45 = v20;
       _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "%@:%@ Found top level of media profile container for this accessory. accessoryItem: %@ serviceItem: %@ mediaProfileContainer: %@", buf, 0x34u);
     }
   }
@@ -1104,8 +1092,6 @@ void __43__HFMediaHelper_allAccessoriesContainedIn___block_invoke(uint64_t a1, v
   {
     v20 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

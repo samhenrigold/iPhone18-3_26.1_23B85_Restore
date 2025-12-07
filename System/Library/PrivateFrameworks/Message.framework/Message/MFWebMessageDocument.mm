@@ -1,5 +1,6 @@
 @interface MFWebMessageDocument
 - (MFWebMessageDocument)init;
+- (MFWebMessageDocument)initWithMimePart:(id)part htmlData:(id)data encoding:(unsigned int)encoding;
 - (id)_initWithMimePart:(id)part htmlData:(id)data;
 - (id)attachmentForURL:(id)l;
 - (id)attachmentsInDocument;
@@ -58,6 +59,21 @@
     self = v11->_htmlData;
     v11->_htmlData = v13;
 LABEL_6:
+  }
+
+  return v11;
+}
+
+- (MFWebMessageDocument)initWithMimePart:(id)part htmlData:(id)data encoding:(unsigned int)encoding
+{
+  v5 = *&encoding;
+  partCopy = part;
+  dataCopy = data;
+  v10 = [(MFWebMessageDocument *)self _initWithMimePart:partCopy htmlData:dataCopy];
+  v11 = v10;
+  if (v10)
+  {
+    [(MFWebMessageDocument *)v10 setPreferredEncoding:v5];
   }
 
   return v11;
@@ -183,7 +199,7 @@ LABEL_6:
 
 - (id)attachmentsInDocument
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [(MFWebMessageDocument *)self mimePartForURL:0];
   [(MFLock *)self->_lock lock];
   allKeys = [(NSMutableDictionary *)self->_partsByURL allKeys];
@@ -191,32 +207,32 @@ LABEL_6:
   if ([allKeys count])
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = allKeys;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [(MFWebMessageDocument *)self attachmentForURL:*(*(&v13 + 1) + 8 * i), v13];
+          v10 = [(MFWebMessageDocument *)self attachmentForURL:*(*(&v12 + 1) + 8 * i), v12];
           if (v10)
           {
             [v5 addObject:v10];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -227,8 +243,6 @@ LABEL_6:
   {
     v5 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -356,7 +356,7 @@ LABEL_2:
   v34 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -375,7 +375,7 @@ LABEL_2:
   color = v53;
   if (styledLayout)
   {
-    [styledLayout transformInRoot];
+    objc_msgSend_transformInRoot(styledLayout);
   }
 
   else
@@ -430,7 +430,7 @@ LABEL_2:
     v46 = geometry;
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else

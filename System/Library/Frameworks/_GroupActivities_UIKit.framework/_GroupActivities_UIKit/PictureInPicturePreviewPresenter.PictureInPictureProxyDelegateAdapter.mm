@@ -76,21 +76,21 @@
 {
   proxyCopy = proxy;
   selfCopy = self;
-  specialized PictureInPicturePreviewPresenter.PictureInPictureProxyDelegateAdapter.picture(_:willStartPictureInPictureWith:)(proxy, "Will present preview in picture in picture for session: %s");
+  specialized PictureInPicturePreviewPresenter.PictureInPictureProxyDelegateAdapter.picture(_:willStartPictureInPictureWith:)(proxy, "Will present preview in picture in picture for session: %s", v7);
 }
 
 - (void)pictureInPictureProxy:(id)proxy didStartPictureInPictureWithAnimationType:(int64_t)type
 {
   proxyCopy = proxy;
   selfCopy = self;
-  specialized PictureInPicturePreviewPresenter.PictureInPictureProxyDelegateAdapter.picture(_:willStartPictureInPictureWith:)(proxy, "Presented preview in picture in picture for session: %s");
+  specialized PictureInPicturePreviewPresenter.PictureInPictureProxyDelegateAdapter.picture(_:willStartPictureInPictureWith:)(proxy, "Presented preview in picture in picture for session: %s", v7);
 }
 
 - (void)pictureInPictureProxy:(id)proxy didStopPictureInPictureWithAnimationType:(int64_t)type reason:(int64_t)reason
 {
   proxyCopy = proxy;
   selfCopy = self;
-  specialized PictureInPicturePreviewPresenter.PictureInPictureProxyDelegateAdapter.picture(_:willStartPictureInPictureWith:)(proxy, "Stopping preview in picture in picture for session: %s");
+  specialized PictureInPicturePreviewPresenter.PictureInPictureProxyDelegateAdapter.picture(_:willStartPictureInPictureWith:)(proxy, "Stopping preview in picture in picture for session: %s", v8);
 }
 
 - (void)pictureInPictureProxy:(id)proxy failedToStartPictureInPictureWithAnimationType:(int64_t)type error:(id)error

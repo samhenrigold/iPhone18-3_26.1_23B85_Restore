@@ -11,29 +11,30 @@
 {
   identifierCopy = identifier;
   configureCopy = configure;
-  v15.receiver = self;
-  v15.super_class = BLSAlwaysOnFrequencyPerMinuteTimeline;
-  v10 = [(BLSAlwaysOnTimeline *)&v15 initWithIdentifier:identifierCopy configure:configureCopy];
+  v16.receiver = self;
+  v16.super_class = BLSAlwaysOnFrequencyPerMinuteTimeline;
+  v10 = [(BLSAlwaysOnTimeline *)&v16 initWithIdentifier:identifierCopy configure:configureCopy];
+  v11 = v10;
   if (v10)
   {
     if (frequency <= 0)
     {
-      v11 = bls_timelines_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v12 = bls_timelines_log(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        [BLSAlwaysOnFrequencyPerMinuteTimeline initWithPerMinuteUpdateFrequency:frequency identifier:identifierCopy configure:v11];
+        [BLSAlwaysOnFrequencyPerMinuteTimeline initWithPerMinuteUpdateFrequency:frequency identifier:identifierCopy configure:v12];
       }
 
       frequency = 1;
     }
 
-    v10->_frequencyPerMinute = frequency;
+    v11->_frequencyPerMinute = frequency;
     autoupdatingCurrentCalendar = [MEMORY[0x277CBEA80] autoupdatingCurrentCalendar];
-    calendar = v10->_calendar;
-    v10->_calendar = autoupdatingCurrentCalendar;
+    calendar = v11->_calendar;
+    v11->_calendar = autoupdatingCurrentCalendar;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)description
@@ -63,12 +64,12 @@ id __52__BLSAlwaysOnFrequencyPerMinuteTimeline_description__block_invoke(uint64_
 
 - (id)unconfiguredEntriesForDateInterval:(id)interval previousEntry:(id)entry
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   entryCopy = entry;
   startDate = [intervalCopy startDate];
   presentationTime = [entryCopy presentationTime];
-  v40 = presentationTime;
+  v39 = presentationTime;
   if (presentationTime && [startDate compare:presentationTime] != 1)
   {
     v9 = presentationTime;
@@ -83,10 +84,10 @@ id __52__BLSAlwaysOnFrequencyPerMinuteTimeline_description__block_invoke(uint64_
   }
 
   v10 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-  v42 = v10;
+  v41 = v10;
   [v10 setSecond:0];
   v11 = [(NSCalendar *)self->_calendar components:32896 fromDate:startDate];
-  v38 = v11;
+  v37 = v11;
   if ([v11 second])
   {
     v12 = 0;
@@ -112,45 +113,45 @@ id __52__BLSAlwaysOnFrequencyPerMinuteTimeline_description__block_invoke(uint64_
   v15 = self->_calendar;
   frequencyPerMinute = self->_frequencyPerMinute;
   endDate = [intervalCopy endDate];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterval_previousEntry___block_invoke;
-  v50[3] = &unk_278428BA0;
-  v56 = frequencyPerMinute;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterval_previousEntry___block_invoke;
+  v49[3] = &unk_278428BA0;
+  v55 = frequencyPerMinute;
   v18 = v15;
-  v51 = v18;
+  v50 = v18;
   v19 = v14;
-  v52 = v19;
+  v51 = v19;
   v20 = startDate;
-  v53 = v20;
-  v57 = v8;
+  v52 = v20;
+  v56 = v8;
   v21 = array;
-  v54 = v21;
-  v37 = endDate;
-  v55 = v37;
-  v22 = MEMORY[0x223D716E0](v50);
-  v49 = 0;
-  (v22)[2](v22, v19, &v49);
-  if ((v49 & 1) == 0)
+  v53 = v21;
+  v36 = endDate;
+  v54 = v36;
+  v22 = MEMORY[0x223D716E0](v49);
+  v48 = 0;
+  (v22)[2](v22, v19, &v48);
+  if ((v48 & 1) == 0)
   {
     calendar = self->_calendar;
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterval_previousEntry___block_invoke_2;
-    v47[3] = &unk_278428BC8;
-    v48 = v22;
-    [(NSCalendar *)calendar enumerateDatesStartingAfterDate:v19 matchingComponents:v10 options:5120 usingBlock:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterval_previousEntry___block_invoke_2;
+    v46[3] = &unk_278428BC8;
+    v47 = v22;
+    [(NSCalendar *)calendar enumerateDatesStartingAfterDate:v19 matchingComponents:v10 options:5120 usingBlock:v46];
   }
 
   v24 = [v21 count];
   if (v24 >= 2)
   {
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterval_previousEntry___block_invoke_3;
-    v45[3] = &unk_278428BF0;
-    v46 = v20;
-    v25 = [v21 indexOfObjectPassingTest:v45];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterval_previousEntry___block_invoke_3;
+    v44[3] = &unk_278428BF0;
+    v45 = v20;
+    v25 = [v21 indexOfObjectPassingTest:v44];
     if (v25 != 0x7FFFFFFFFFFFFFFFLL)
     {
       if (v25 <= 1)
@@ -169,40 +170,38 @@ LABEL_18:
 
 LABEL_19:
   v26 = [BLSFidelityThreshold fidelityForUpdateInterval:60.0 / self->_frequencyPerMinute];
-  v27 = bls_timelines_log();
+  v27 = bls_timelines_log(v26);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     identifier = [(BLSAlwaysOnTimeline *)self identifier];
-    v34 = [v21 count];
-    v31 = NSStringFromBLSUpdateFidelity(v26);
+    v33 = [v21 count];
+    v30 = NSStringFromBLSUpdateFidelity(v26);
     bls_shortLoggingString = [intervalCopy bls_shortLoggingString];
-    v32 = [v21 bls_boundedDescriptionWithMax:8 transformer:&__block_literal_global_6];
+    v31 = [v21 bls_boundedDescriptionWithMax:8 transformer:&__block_literal_global_6];
     *buf = 134219522;
     selfCopy = self;
-    v60 = 2114;
-    v61 = identifier;
-    v62 = 1024;
-    v63 = v34;
-    v64 = 2112;
-    v65 = v31;
-    v66 = 1024;
-    v67 = frequencyPerMinute;
-    v68 = 2114;
-    v69 = bls_shortLoggingString;
-    v70 = 2112;
-    v35 = v32;
-    v71 = v32;
+    v59 = 2114;
+    v60 = identifier;
+    v61 = 1024;
+    v62 = v33;
+    v63 = 2112;
+    v64 = v30;
+    v65 = 1024;
+    v66 = frequencyPerMinute;
+    v67 = 2114;
+    v68 = bls_shortLoggingString;
+    v69 = 2112;
+    v34 = v31;
+    v70 = v31;
     _os_log_debug_impl(&dword_21FE25000, v27, OS_LOG_TYPE_DEBUG, "%p:%{public}@ -> %d entries(%@) @ %d/m for %{public}@ : %@", buf, 0x40u);
   }
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterval_previousEntry___block_invoke_59;
-  v44[3] = &__block_descriptor_40_e16__16__0__NSDate_8l;
-  v44[4] = v26;
-  v28 = [v21 bs_map:v44];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterval_previousEntry___block_invoke_59;
+  v43[3] = &__block_descriptor_40_e16__16__0__NSDate_8l;
+  v43[4] = v26;
+  v28 = [v21 bs_map:v43];
 
   return v28;
 }
@@ -268,13 +267,12 @@ id __90__BLSAlwaysOnFrequencyPerMinuteTimeline_unconfiguredEntriesForDateInterva
 
 - (void)initWithPerMinuteUpdateFrequency:(int)a1 identifier:(uint64_t)a2 configure:(os_log_t)log .cold.1(int a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "frequency:%d for identifier:%@ must be > 0, using 1 instead", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "frequency:%d for identifier:%@ must be > 0, using 1 instead", v3, 0x12u);
 }
 
 @end

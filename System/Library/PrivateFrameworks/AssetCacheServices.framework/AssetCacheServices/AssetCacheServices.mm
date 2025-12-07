@@ -1,6 +1,6 @@
 void ACSMightCurrentNetworkHaveCachingServer(__CFString *a1, NSObject *global_queue, uint64_t a3)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   if (acl != -1)
   {
@@ -18,15 +18,15 @@ void ACSMightCurrentNetworkHaveCachingServer(__CFString *a1, NSObject *global_qu
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110146;
-    v44 = v8;
-    v45 = 2080;
-    v46 = "ACSMightCurrentNetworkHaveCachingServer";
-    v47 = 2112;
-    v48 = a1;
-    v49 = 2048;
-    *v50 = global_queue;
-    *&v50[8] = 2048;
-    *&v50[10] = a3;
+    v43 = v8;
+    v44 = 2080;
+    v45 = "ACSMightCurrentNetworkHaveCachingServer";
+    v46 = 2112;
+    v47 = a1;
+    v48 = 2048;
+    *v49 = global_queue;
+    *&v49[8] = 2048;
+    *&v49[10] = a3;
     _os_log_impl(&dword_2411B8000, v9, OS_LOG_TYPE_DEFAULT, "#%08x %s(options=%@, callbackQueue=%p, callback=%p)", buf, 0x30u);
   }
 
@@ -41,37 +41,37 @@ void ACSMightCurrentNetworkHaveCachingServer(__CFString *a1, NSObject *global_qu
   }
 
   dispatch_retain(global_queue);
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2000000000;
-  v42 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2000000000;
   v38 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2000000000;
+  v39 = &v38;
+  v40 = 0x2000000000;
+  v41 = 0;
   v34 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2000000000;
+  v35 = &v34;
+  v36 = 0x2000000000;
+  v37 = 0;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x2000000000;
+  v33 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2000000000;
+  v29 = 0;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 0x40000000;
   block[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke;
   block[3] = &unk_278CC57C8;
-  block[4] = &v39;
-  block[5] = &v35;
-  block[6] = &v31;
-  block[7] = &v27;
+  block[4] = &v38;
+  block[5] = &v34;
+  block[6] = &v30;
+  block[7] = &v26;
   dispatch_sync(qword_280BB8FD0, block);
-  if (CFAbsoluteTimeGetCurrent() - v40[3] >= 5.0)
+  if (CFAbsoluteTimeGetCurrent() - v39[3] >= 5.0)
   {
     goto LABEL_16;
   }
 
-  v10 = v36[3];
+  v10 = v35[3];
   if (!a1)
   {
     if (!v10)
@@ -90,8 +90,8 @@ LABEL_16:
   }
 
 LABEL_13:
-  v11 = *(v32 + 24);
-  v12 = v28[3];
+  v11 = *(v31 + 24);
+  v12 = v27[3];
   if (v12)
   {
     Copy = aclErrorCreateCopy(v12);
@@ -102,56 +102,56 @@ LABEL_13:
     Copy = 0;
   }
 
-  v19 = qword_280BB8FB0;
+  v18 = qword_280BB8FB0;
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = CFAbsoluteTimeGetCurrent();
+    v19 = CFAbsoluteTimeGetCurrent();
     *buf = 67110402;
-    v44 = v8;
-    v45 = 2080;
-    v46 = "ACSMightCurrentNetworkHaveCachingServer";
-    v47 = 2112;
-    v48 = @"same";
-    v49 = 1024;
-    *v50 = v11;
-    *&v50[4] = 2112;
-    *&v50[6] = Copy;
-    *&v50[14] = 2048;
-    *&v50[16] = v20 - Current;
-    _os_log_impl(&dword_2411B8000, v19, OS_LOG_TYPE_DEFAULT, "#%08x %s -> [%@] mightHave %{BOOL}d, error %@, elapsed %.3f", buf, 0x36u);
+    v43 = v8;
+    v44 = 2080;
+    v45 = "ACSMightCurrentNetworkHaveCachingServer";
+    v46 = 2112;
+    v47 = @"same";
+    v48 = 1024;
+    *v49 = v11;
+    *&v49[4] = 2112;
+    *&v49[6] = Copy;
+    *&v49[14] = 2048;
+    *&v49[16] = v19 - Current;
+    _os_log_impl(&dword_2411B8000, v18, OS_LOG_TYPE_DEFAULT, "#%08x %s -> [%@] mightHave %{BOOL}d, error %@, elapsed %.3f", buf, 0x36u);
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 0x40000000;
-  v23[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_105;
-  v23[3] = &unk_278CC57F0;
-  v23[4] = a3;
-  v23[5] = Copy;
-  v25 = v11;
-  v24 = v8;
-  v23[6] = "ACSMightCurrentNetworkHaveCachingServer";
-  v23[7] = global_queue;
-  dispatch_async(global_queue, v23);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 0x40000000;
+  v22[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_105;
+  v22[3] = &unk_278CC57F0;
+  v22[4] = a3;
+  v22[5] = Copy;
+  v24 = v11;
+  v23 = v8;
+  v22[6] = "ACSMightCurrentNetworkHaveCachingServer";
+  v22[7] = global_queue;
+  dispatch_async(global_queue, v22);
   v14 = 0;
 LABEL_17:
-  v15 = v28[3];
+  v15 = v27[3];
   if (v15)
   {
     CFRelease(v15);
-    v28[3] = 0;
+    v27[3] = 0;
   }
 
-  v16 = v36[3];
+  v16 = v35[3];
   if (v16)
   {
     CFRelease(v16);
-    v36[3] = 0;
+    v35[3] = 0;
   }
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
   if (v14)
   {
 LABEL_22:
@@ -173,21 +173,19 @@ LABEL_22:
       CFRetain(a1);
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 0x40000000;
-    v21[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2;
-    v21[3] = &unk_278CC5890;
-    v22 = v8;
-    *&v21[6] = Current;
-    v21[7] = a1;
-    v21[8] = "ACSMightCurrentNetworkHaveCachingServer";
-    v21[4] = a3;
-    v21[5] = v17;
-    v21[9] = global_queue;
-    dispatch_async(qword_280BB8FB8, v21);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 0x40000000;
+    v20[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2;
+    v20[3] = &unk_278CC5890;
+    v21 = v8;
+    *&v20[6] = Current;
+    v20[7] = a1;
+    v20[8] = "ACSMightCurrentNetworkHaveCachingServer";
+    v20[4] = a3;
+    v20[5] = v17;
+    v20[9] = global_queue;
+    dispatch_async(qword_280BB8FB8, v20);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 CFTypeRef __ACSMightCurrentNetworkHaveCachingServer_block_invoke(void *a1)
@@ -214,7 +212,7 @@ CFTypeRef __ACSMightCurrentNetworkHaveCachingServer_block_invoke(void *a1)
 
 void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   cf = 0;
   SharedLocatorConnection = aclGetSharedLocatorConnection(*(a1 + 80), &cf, a3, a4, a5, a6, a7, a8);
   if (SharedLocatorConnection)
@@ -227,7 +225,7 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2(uint64_t a1, uint6
     handler[1] = 0x40000000;
     handler[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118;
     handler[3] = &unk_278CC5868;
-    v29 = *(a1 + 80);
+    v28 = *(a1 + 80);
     handler[6] = *(a1 + 48);
     v14 = *(a1 + 56);
     v13 = *(a1 + 64);
@@ -247,13 +245,13 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2(uint64_t a1, uint6
     v16 = *(a1 + 48);
     v17 = *(a1 + 56);
     block = MEMORY[0x277D85DD0];
-    *v34 = 0x40000000;
-    *&v34[8] = __aclSaveMightHaveResult_block_invoke;
-    *&v34[16] = &__block_descriptor_tmp_276;
-    *&v34[24] = v16;
-    v37 = 1;
-    v35 = v17;
-    v36 = cf;
+    *v33 = 0x40000000;
+    *&v33[8] = __aclSaveMightHaveResult_block_invoke;
+    *&v33[16] = &__block_descriptor_tmp_276;
+    *&v33[24] = v16;
+    v36 = 1;
+    v34 = v17;
+    v35 = cf;
     dispatch_sync(qword_280BB8FD0, &block);
     v18 = *(a1 + 56);
     if (v18)
@@ -270,14 +268,14 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2(uint64_t a1, uint6
       v23 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
       LODWORD(block) = 67110146;
       HIDWORD(block) = v20;
-      *v34 = 2080;
-      *&v34[2] = v21;
-      *&v34[10] = 2112;
-      *&v34[12] = @"new";
-      *&v34[20] = 2112;
-      *&v34[22] = v22;
-      *&v34[30] = 2048;
-      v35 = v23;
+      *v33 = 2080;
+      *&v33[2] = v21;
+      *&v33[10] = 2112;
+      *&v33[12] = @"new";
+      *&v33[20] = 2112;
+      *&v33[22] = v22;
+      *&v33[30] = 2048;
+      v34 = v23;
       _os_log_impl(&dword_2411B8000, v19, OS_LOG_TYPE_DEFAULT, "#%08x %s -> [%@] error: %@, elapsed %.3f", &block, 0x30u);
     }
 
@@ -291,17 +289,17 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2(uint64_t a1, uint6
         v24 = *(a1 + 32);
       }
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 0x40000000;
-      v30[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_115;
-      v30[3] = &unk_278CC5818;
-      v30[4] = v24;
-      v30[5] = Copy;
-      v31 = *(a1 + 80);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 0x40000000;
+      v29[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_115;
+      v29[3] = &unk_278CC5818;
+      v29[4] = v24;
+      v29[5] = Copy;
+      v30 = *(a1 + 80);
       v26 = *(a1 + 72);
-      v30[6] = *(a1 + 64);
-      v30[7] = v26;
-      dispatch_async(v26, v30);
+      v29[6] = *(a1 + 64);
+      v29[7] = v26;
+      dispatch_async(v26, v29);
     }
 
     if (cf)
@@ -309,8 +307,6 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2(uint64_t a1, uint6
       CFRelease(cf);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 _xpc_connection_s *aclGetSharedLocatorConnection(uint64_t a1, CFErrorRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -345,71 +341,93 @@ _xpc_connection_s *aclGetSharedLocatorConnection(uint64_t a1, CFErrorRef *a2, ui
   return v8;
 }
 
-void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118(uint64_t a1, void *a2)
+void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118(uint64_t a1, __CFString *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEBUG))
   {
-    __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118_cold_1(a1);
+    __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118_cold_1();
   }
 
   if (MEMORY[0x245CDE690](a2) == MEMORY[0x277D86468])
   {
-    v9 = xpc_dictionary_get_BOOL(a2, "recentlySeen");
-    v8 = aclErrorCreateFromXPC(*(a1 + 80), a2);
+    v12 = xpc_dictionary_get_BOOL(a2, "recentlySeen");
+    v11 = aclErrorCreateFromXPC(*(a1 + 80), a2);
   }
 
   else
   {
-    v8 = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 100, @"unexpected reply from XPC service %s: %@", v4, v5, v6, v7, "com.apple.AssetCacheLocatorService");
-    v9 = 1;
+    v8 = @"XPC_ERROR_CONNECTION_INTERRUPTED";
+    v9 = @"XPC_ERROR_CONNECTION_INVALID";
+    if (a2 == MEMORY[0x277D86420])
+    {
+      v10 = @"XPC_ERROR_TERMINATION_IMMINENT";
+    }
+
+    else
+    {
+      v10 = a2;
+    }
+
+    if (a2 != MEMORY[0x277D863F8])
+    {
+      v9 = v10;
+    }
+
+    if (a2 != MEMORY[0x277D863F0])
+    {
+      v8 = v9;
+    }
+
+    v11 = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 100, @"unexpected reply from XPC service %s: %@", v4, v5, v6, v7, "com.apple.AssetCacheLocatorService", v8);
+    v12 = 1;
   }
 
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 56);
+  v13 = *(a1 + 48);
+  v14 = *(a1 + 56);
   block = MEMORY[0x277D85DD0];
-  *v25 = 0x40000000;
-  *&v25[8] = __aclSaveMightHaveResult_block_invoke;
-  *&v25[16] = &__block_descriptor_tmp_276;
-  *&v25[24] = v10;
-  v26 = v9;
-  *&v25[32] = v11;
-  *&v25[40] = v8;
+  *v27 = 0x40000000;
+  *&v27[8] = __aclSaveMightHaveResult_block_invoke;
+  *&v27[16] = &__block_descriptor_tmp_276;
+  *&v27[24] = v13;
+  v28 = v12;
+  *&v27[32] = v14;
+  *&v27[40] = v11;
   dispatch_sync(qword_280BB8FD0, &block);
-  v12 = *(a1 + 56);
-  if (v12)
+  v15 = *(a1 + 56);
+  if (v15)
   {
-    CFRelease(v12);
+    CFRelease(v15);
   }
 
-  v13 = qword_280BB8FB0;
+  v16 = qword_280BB8FB0;
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 80);
-    v15 = *(a1 + 40);
-    v16 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
+    v17 = *(a1 + 80);
+    v18 = *(a1 + 40);
+    v19 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
     LODWORD(block) = 67110402;
-    HIDWORD(block) = v14;
-    *v25 = 2080;
-    *&v25[2] = v15;
-    *&v25[10] = 2112;
-    *&v25[12] = @"new";
-    *&v25[20] = 1024;
-    *&v25[22] = v9;
-    *&v25[26] = 2112;
-    *&v25[28] = v8;
-    *&v25[36] = 2048;
-    *&v25[38] = v16;
-    _os_log_impl(&dword_2411B8000, v13, OS_LOG_TYPE_DEFAULT, "#%08x %s -> [%@] mightHave %{BOOL}d, error %@, elapsed %.3f", &block, 0x36u);
+    HIDWORD(block) = v17;
+    *v27 = 2080;
+    *&v27[2] = v18;
+    *&v27[10] = 2112;
+    *&v27[12] = @"new";
+    *&v27[20] = 1024;
+    *&v27[22] = v12;
+    *&v27[26] = 2112;
+    *&v27[28] = v11;
+    *&v27[36] = 2048;
+    *&v27[38] = v19;
+    _os_log_impl(&dword_2411B8000, v16, OS_LOG_TYPE_DEFAULT, "#%08x %s -> [%@] mightHave %{BOOL}d, error %@, elapsed %.3f", &block, 0x36u);
   }
 
-  v17 = *(a1 + 32);
-  if (v17)
+  v20 = *(a1 + 32);
+  if (v20)
   {
-    if (v8)
+    if (v11)
     {
-      Copy = aclErrorCreateCopy(v8);
-      v17 = *(a1 + 32);
+      Copy = aclErrorCreateCopy(v11);
+      v20 = *(a1 + 32);
     }
 
     else
@@ -417,27 +435,26 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118(uint64_t a1, v
       Copy = 0;
     }
 
-    v19 = *(a1 + 64);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 0x40000000;
-    v21[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_123;
-    v21[3] = &unk_278CC5840;
-    v21[4] = v17;
-    v21[5] = Copy;
-    v23 = v9;
-    v22 = *(a1 + 80);
-    v21[6] = *(a1 + 40);
-    v21[7] = v19;
-    dispatch_async(v19, v21);
+    v22 = *(a1 + 64);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 0x40000000;
+    v23[2] = __ACSMightCurrentNetworkHaveCachingServer_block_invoke_123;
+    v23[3] = &unk_278CC5840;
+    v23[4] = v20;
+    v23[5] = Copy;
+    v25 = v12;
+    v24 = *(a1 + 80);
+    v23[6] = *(a1 + 40);
+    v23[7] = v22;
+    dispatch_async(v22, v23);
   }
 
-  if (v8)
+  if (v11)
   {
-    CFRelease(v8);
+    CFRelease(v11);
   }
 
   xpc_release(*(a1 + 72));
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 CFErrorRef aclErrorCreateFromXPC(uint64_t a1, xpc_object_t xdict)
@@ -555,35 +572,33 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_123(uint64_t a1)
     }
 
     CFRetain(*(a1 + 40));
-    v3 = *(a1 + 40);
   }
 
-  v4 = *(a1 + 68);
   (*(*(a1 + 32) + 16))();
-  v5 = *(a1 + 40);
-  if (v5)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    if (CFGetRetainCount(v5) <= 1)
+    if (CFGetRetainCount(v3) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 64), *(a1 + 48), "error", *(a1 + 40));
     }
 
     CFRelease(*(a1 + 40));
-    v6 = *(a1 + 40);
-    if (v6)
+    v4 = *(a1 + 40);
+    if (v4)
     {
-      CFRelease(v6);
+      CFRelease(v4);
     }
   }
 
-  v7 = *(a1 + 56);
+  v5 = *(a1 + 56);
 
-  dispatch_release(v7);
+  dispatch_release(v5);
 }
 
 void ACSLocateCachingServer(const void *a1, const __CFDictionary *a2, NSObject *global_queue, uint64_t a4, double a5)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   if (acl != -1)
   {
@@ -601,19 +616,19 @@ void ACSLocateCachingServer(const void *a1, const __CFDictionary *a2, NSObject *
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110658;
-    v26 = v12;
-    v27 = 2080;
-    v28 = "ACSLocateCachingServer";
-    v29 = 2112;
-    v30 = a1;
-    v31 = 2048;
-    v32 = a5;
-    v33 = 2112;
-    v34 = a2;
-    v35 = 2048;
-    v36 = global_queue;
-    v37 = 2048;
-    v38 = a4;
+    v25 = v12;
+    v26 = 2080;
+    v27 = "ACSLocateCachingServer";
+    v28 = 2112;
+    v29 = a1;
+    v30 = 2048;
+    v31 = a5;
+    v32 = 2112;
+    v33 = a2;
+    v34 = 2048;
+    v35 = global_queue;
+    v36 = 2048;
+    v37 = a4;
     _os_log_impl(&dword_2411B8000, v13, OS_LOG_TYPE_DEFAULT, "#%08x %s(assetURL=%@, locateTimeout=%.3f, options=%@, callbackQueue=%p, callback=%p)", buf, 0x44u);
   }
 
@@ -626,18 +641,18 @@ void ACSLocateCachingServer(const void *a1, const __CFDictionary *a2, NSObject *
     }
 
     dispatch_retain(global_queue);
-    v14 = v23;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 0x40000000;
-    v23[2] = __ACSLocateCachingServer_block_invoke;
-    v23[3] = &unk_278CC5750;
-    v24 = v12;
-    v23[5] = a1;
-    v23[6] = "ACSLocateCachingServer";
-    *&v23[7] = Current;
-    *&v23[8] = a5;
-    v23[9] = global_queue;
-    v23[4] = a4;
+    v14 = v22;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 0x40000000;
+    v22[2] = __ACSLocateCachingServer_block_invoke;
+    v22[3] = &unk_278CC5750;
+    v23 = v12;
+    v22[5] = a1;
+    v22[6] = "ACSLocateCachingServer";
+    *&v22[7] = Current;
+    *&v22[8] = a5;
+    v22[9] = global_queue;
+    v22[4] = a4;
   }
 
   else
@@ -695,11 +710,10 @@ LABEL_17:
     v21 = 0;
   }
 
-  aclLocateCommon(v12, 1u, a2, v21, v14, Current, a5);
-  v22 = *MEMORY[0x277D85DE8];
+  aclLocateCommon(v12, 1, a2, v21, v14, Current, a5);
 }
 
-void aclLocateCommon(unsigned int a1, unsigned int a2, const __CFDictionary *a3, int a4, uint64_t a5, double a6, double a7)
+void aclLocateCommon(unsigned int a1, signed int a2, const __CFDictionary *a3, int a4, uint64_t a5, double a6, double a7)
 {
   v7 = a5;
   if (!a5)
@@ -1000,24 +1014,24 @@ LABEL_39:
 
 void __aclLocateCommon_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 0x40000000;
-  v50 = __aclLocateCommon_block_invoke_3;
-  v51 = &unk_278CC5AA8;
-  v53 = *(a1 + 40);
-  v54 = *(a1 + 48);
-  v57 = *(a1 + 88);
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 0x40000000;
+  v49 = __aclLocateCommon_block_invoke_3;
+  v50 = &unk_278CC5AA8;
+  v52 = *(a1 + 40);
+  v53 = *(a1 + 48);
+  v56 = *(a1 + 88);
   v9 = *(a1 + 80);
   v10 = *(a1 + 84);
-  v55 = v9;
-  v56 = v10;
-  v52 = *(a1 + 32);
-  v48 = 0;
-  SharedLocatorConnection = aclGetSharedLocatorConnection(v9, &v48, a3, a4, a5, a6, a7, a8);
+  v54 = v9;
+  v55 = v10;
+  v51 = *(a1 + 32);
+  v47 = 0;
+  SharedLocatorConnection = aclGetSharedLocatorConnection(v9, &v47, a3, a4, a5, a6, a7, a8);
   if (!SharedLocatorConnection)
   {
     xpc_release(*(a1 + 56));
-    v50(v49, v48);
+    v49(v48, v47);
     return;
   }
 
@@ -1025,10 +1039,10 @@ void __aclLocateCommon_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uin
   xpc_retain(SharedLocatorConnection);
   v13 = 0;
   v14 = 0;
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x2000000000;
-  v47 = 0;
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x2000000000;
+  v46 = 0;
   v15 = *(a1 + 64);
   if (v15 >= 0.0)
   {
@@ -1051,8 +1065,8 @@ void __aclLocateCommon_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uin
 
       xpc_release(v12);
       xpc_release(*(a1 + 56));
-      v35 = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 12, @"dispatch_queue/semaphore_create failed", v31, v32, v33, v34, v36);
-      v50(v49, v35);
+      v35 = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 12, @"dispatch_queue/semaphore_create failed", v31, v32, v33, v34);
+      v49(v48, v35);
       goto LABEL_23;
     }
 
@@ -1074,12 +1088,12 @@ void __aclLocateCommon_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uin
   handler[9] = *(a1 + 72);
   handler[10] = *(a1 + 40);
   v21 = *(a1 + 48);
-  v45 = *(a1 + 88);
+  v44 = *(a1 + 88);
   v22 = *(a1 + 84);
-  v43 = *(a1 + 80);
-  v44 = v22;
+  v42 = *(a1 + 80);
+  v43 = v22;
   handler[4] = *(a1 + 32);
-  handler[5] = v46;
+  handler[5] = v45;
   handler[11] = v21;
   handler[12] = v12;
   xpc_connection_send_message_with_reply(v12, v19, global_queue, handler);
@@ -1101,18 +1115,18 @@ void __aclLocateCommon_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uin
 
     if (dispatch_semaphore_wait(v13, v25))
     {
-      v38 = 0;
-      v39 = &v38;
-      v40 = 0x2000000000;
-      v41 = 0;
+      v37 = 0;
+      v38 = &v37;
+      v39 = 0x2000000000;
+      v40 = 0;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 0x40000000;
       block[2] = __aclLocateCommon_block_invoke_2_250;
       block[3] = &unk_278CC5B20;
-      block[4] = &v38;
-      block[5] = v46;
+      block[4] = &v37;
+      block[5] = v45;
       dispatch_sync(v14, block);
-      if (!*(v39 + 24))
+      if (!*(v38 + 24))
       {
         xpc_connection_cancel(v12);
         if (v12 == qword_280BB8FC0)
@@ -1122,10 +1136,10 @@ void __aclLocateCommon_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uin
         }
 
         v30 = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 60, @"timed out waiting for reply from XPC service %s", v26, v27, v28, v29, "com.apple.AssetCacheLocatorService");
-        v50(v49, v30);
+        v49(v48, v30);
       }
 
-      _Block_object_dispose(&v38, 8);
+      _Block_object_dispose(&v37, 8);
     }
 
     xpc_release(v12);
@@ -1134,7 +1148,7 @@ void __aclLocateCommon_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uin
   }
 
 LABEL_23:
-  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(v45, 8);
 }
 
 void __aclLocateCommon_block_invoke_4(uint64_t a1, __CFString *a2)
@@ -1161,39 +1175,39 @@ void __aclLocateCommon_block_invoke_4(uint64_t a1, __CFString *a2)
   v6 = qword_280BB8FB0;
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEBUG))
   {
-    v33 = *(a1 + 104);
-    v34 = @"XPC_ERROR_CONNECTION_INTERRUPTED";
-    v35 = @"XPC_ERROR_CONNECTION_INVALID";
-    v36 = *(a1 + 72);
+    v35 = *(a1 + 104);
+    v36 = @"XPC_ERROR_CONNECTION_INTERRUPTED";
+    v37 = @"XPC_ERROR_CONNECTION_INVALID";
+    v38 = *(a1 + 72);
     if (a2 == MEMORY[0x277D86420])
     {
-      v37 = @"XPC_ERROR_TERMINATION_IMMINENT";
+      v39 = @"XPC_ERROR_TERMINATION_IMMINENT";
     }
 
     else
     {
-      v37 = a2;
+      v39 = a2;
     }
 
     if (a2 != MEMORY[0x277D863F8])
     {
-      v35 = v37;
+      v37 = v39;
     }
 
-    v38 = *(v45 + 24);
+    v40 = *(v45 + 24);
     if (a2 != MEMORY[0x277D863F0])
     {
-      v34 = v35;
+      v36 = v37;
     }
 
     LODWORD(applier) = 67109890;
-    HIDWORD(applier) = v33;
+    HIDWORD(applier) = v35;
     *v49 = 2080;
-    *&v49[2] = v36;
+    *&v49[2] = v38;
     *&v49[10] = 2112;
-    *&v49[12] = v34;
+    *&v49[12] = v36;
     *&v49[20] = 1024;
-    *&v49[22] = v38;
+    *&v49[22] = v40;
     _os_log_debug_impl(&dword_2411B8000, v6, OS_LOG_TYPE_DEBUG, "#%08x %s reply callback(object=%@) calledback=%{BOOL}d", &applier, 0x22u);
   }
 
@@ -1201,115 +1215,135 @@ void __aclLocateCommon_block_invoke_4(uint64_t a1, __CFString *a2)
   {
     if (MEMORY[0x245CDE690](a2) == MEMORY[0x277D86468])
     {
-      v11 = xpc_dictionary_get_double(a2, "validityInterval");
-      if (v11 >= 5.0)
+      v12 = xpc_dictionary_get_double(a2, "validityInterval");
+      if (v12 >= 5.0)
       {
-        v12 = v11;
+        v13 = v12;
       }
 
       else
       {
-        v12 = 5.0;
+        v13 = 5.0;
       }
 
       array = xpc_dictionary_get_array(a2, "servers");
       if (array)
       {
-        v14 = array;
+        v15 = array;
         count = xpc_array_get_count(array);
         Mutable = CFArrayCreateMutable(0, count, MEMORY[0x277CBF128]);
         if (Mutable)
         {
-          v17 = Mutable;
+          v18 = Mutable;
           applier = MEMORY[0x277D85DD0];
           *v49 = 0x40000000;
           *&v49[8] = __aclResultsCreateFromXPC_block_invoke;
           *&v49[16] = &__block_descriptor_tmp_270;
-          *&v49[24] = v12;
+          *&v49[24] = v13;
           v50 = Mutable;
-          xpc_array_apply(v14, &applier);
-          v18 = CFArrayGetCount(v17);
-          if (v18 >= 1)
+          xpc_array_apply(v15, &applier);
+          v19 = CFArrayGetCount(v18);
+          if (v19 >= 1)
           {
-            v19 = v18;
-            v20 = 0;
-            v21 = 0.0;
+            v20 = v19;
+            v21 = 0;
+            v22 = 0.0;
             do
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(v17, v20);
+              ValueAtIndex = CFArrayGetValueAtIndex(v18, v21);
               Value = CFDictionaryGetValue(ValueAtIndex, @"advice");
               if (Value && CFDictionaryGetValue(Value, @"validUntil"))
               {
-                v24 = MEMORY[0x245CDDC80]();
-                v25 = v24 - CFAbsoluteTimeGetCurrent();
-                if (v21 > v25 || v20 == 0)
+                v25 = MEMORY[0x245CDDC80]();
+                v26 = v25 - CFAbsoluteTimeGetCurrent();
+                if (v22 > v26 || v21 == 0)
                 {
-                  v21 = v25;
+                  v22 = v26;
                 }
               }
 
-              ++v20;
+              ++v21;
             }
 
-            while (v19 != v20);
-            if (v21 >= 5.0)
+            while (v20 != v21);
+            if (v22 >= 5.0)
             {
-              v27 = *(a1 + 80);
-              v28 = *(a1 + 88);
-              v29 = *(a1 + 112);
-              v30 = *(a1 + 108);
+              v28 = *(a1 + 80);
+              v29 = *(a1 + 88);
+              v30 = *(a1 + 112);
+              v31 = *(a1 + 108);
               applier = MEMORY[0x277D85DD0];
               *v49 = 0x40000000;
               *&v49[8] = __aclSaveLocateResult_block_invoke;
               *&v49[16] = &__block_descriptor_tmp_259;
-              *&v49[24] = v27;
-              v54 = v29;
-              v53 = v30;
-              v50 = v28;
-              v51 = v17;
+              *&v49[24] = v28;
+              v54 = v30;
+              v53 = v31;
+              v50 = v29;
+              v51 = v18;
               v52 = 0;
               dispatch_sync(qword_280BB8FD0, &applier);
             }
           }
 
-          v31 = 0;
           v32 = 0;
-          goto LABEL_35;
+          v33 = 0;
+          goto LABEL_42;
         }
       }
 
-      v39 = aclErrorCreateFromXPC(*(a1 + 104), a2);
+      v34 = aclErrorCreateFromXPC(*(a1 + 104), a2);
     }
 
     else
     {
-      v39 = aclErrorCreate(*(a1 + 104), *MEMORY[0x277CBEE48], 100, @"unexpected reply from XPC service %s: %@", v7, v8, v9, v10, "com.apple.AssetCacheLocatorService");
+      if (a2 == MEMORY[0x277D863F0])
+      {
+        v11 = @"XPC_ERROR_CONNECTION_INTERRUPTED";
+      }
+
+      else if (a2 == MEMORY[0x277D863F8])
+      {
+        v11 = @"XPC_ERROR_CONNECTION_INVALID";
+      }
+
+      else if (a2 == MEMORY[0x277D86420])
+      {
+        v11 = @"XPC_ERROR_TERMINATION_IMMINENT";
+      }
+
+      else
+      {
+        v11 = a2;
+      }
+
+      v34 = aclErrorCreate(*(a1 + 104), *MEMORY[0x277CBEE48], 100, @"unexpected reply from XPC service %s: %@", v7, v8, v9, v10, "com.apple.AssetCacheLocatorService", v11);
     }
 
-    v32 = v39;
-    v17 = 0;
-    v31 = 1;
-LABEL_35:
-    v40 = *(a1 + 88);
-    if (v40)
-    {
-      CFRelease(v40);
-    }
-
-    v41 = *(a1 + 32);
+    v33 = v34;
+    v18 = 0;
+    v32 = 1;
+LABEL_42:
+    v41 = *(a1 + 88);
     if (v41)
     {
-      (*(v41 + 16))(v41, @"new", v17, v32);
+      CFRelease(v41);
     }
 
-    if (v32)
+    v42 = *(a1 + 32);
+    if (v42)
     {
-      CFRelease(v32);
+      (*(v42 + 16))(v42, @"new", v18, v33);
     }
 
-    if ((v31 & 1) == 0)
+    if (v33)
     {
-      CFRelease(v17);
+      CFRelease(v33);
+    }
+
+    if ((v32 & 1) == 0)
+    {
+      CFRelease(v18);
     }
   }
 
@@ -1321,7 +1355,6 @@ LABEL_35:
   }
 
   _Block_object_dispose(&v44, 8);
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __aclLocateCommon_block_invoke_5(uint64_t result)
@@ -1334,97 +1367,96 @@ uint64_t __aclLocateCommon_block_invoke_5(uint64_t result)
 uint64_t __aclResultsCreateFromXPC_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   keys[3] = *MEMORY[0x277D85DE8];
-  if (MEMORY[0x245CDE690](a3) == MEMORY[0x277D86468])
+  if (MEMORY[0x245CDE690](a3, a2) == MEMORY[0x277D86468])
   {
     string = xpc_dictionary_get_string(a3, "hostport");
-    v8 = xpc_dictionary_get_string(a3, "guid");
-    v9 = xpc_dictionary_get_double(a3, "timeout");
-    if (v9 < 0.2)
+    v7 = xpc_dictionary_get_string(a3, "guid");
+    v8 = xpc_dictionary_get_double(a3, "timeout");
+    if (v8 < 0.2)
     {
-      v9 = 1.0;
+      v8 = 1.0;
     }
 
-    valuePtr = v9;
-    v10 = xpc_dictionary_get_BOOL(a3, "healthy");
-    v11 = xpc_dictionary_get_BOOL(a3, "favored");
-    v12 = xpc_dictionary_get_BOOL(a3, "supportsUrgency");
-    v13 = xpc_dictionary_get_double(a3, "validityInterval");
-    if (v13 < 5.0)
+    valuePtr = v8;
+    v9 = xpc_dictionary_get_BOOL(a3, "healthy");
+    v10 = xpc_dictionary_get_BOOL(a3, "favored");
+    v11 = xpc_dictionary_get_BOOL(a3, "supportsUrgency");
+    v12 = xpc_dictionary_get_double(a3, "validityInterval");
+    if (v12 < 5.0)
     {
-      v13 = 5.0;
+      v12 = 5.0;
     }
 
     int64 = xpc_dictionary_get_int64(a3, "rank");
-    if (string && *string && v8 && *v8)
+    if (string && *string && v7 && *v7)
     {
       *keys = xmmword_278CC5B88;
       keys[2] = @"validUntil";
-      v14 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+      v13 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
       Current = CFAbsoluteTimeGetCurrent();
-      v16 = CFDateCreate(0, v13 + Current);
-      v17 = v16;
-      v18 = *MEMORY[0x277CBED28];
-      v19 = *MEMORY[0x277CBED10];
-      if (v12)
+      v15 = CFDateCreate(0, v12 + Current);
+      v16 = v15;
+      v17 = *MEMORY[0x277CBED28];
+      v18 = *MEMORY[0x277CBED10];
+      if (v11)
       {
-        v20 = *MEMORY[0x277CBED28];
+        v19 = *MEMORY[0x277CBED28];
       }
 
       else
       {
-        v20 = *MEMORY[0x277CBED10];
+        v19 = *MEMORY[0x277CBED10];
       }
 
-      values[0] = v14;
-      values[1] = v20;
-      values[2] = v16;
-      v21 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      CFRelease(v17);
-      CFRelease(v14);
-      *v32 = xmmword_278CC5BA0;
-      v33 = *&off_278CC5BB0;
-      v34 = xmmword_278CC5BC0;
-      v22 = CFStringCreateWithCString(0, v8, 0x8000100u);
-      v23 = CFStringCreateWithCString(0, string, 0x8000100u);
-      v24 = CFNumberCreate(0, kCFNumberIntType, &int64);
-      v25 = v24;
-      if (v11)
+      values[0] = v13;
+      values[1] = v19;
+      values[2] = v15;
+      v20 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      CFRelease(v16);
+      CFRelease(v13);
+      *v31 = xmmword_278CC5BA0;
+      v32 = *&off_278CC5BB0;
+      v33 = xmmword_278CC5BC0;
+      v21 = CFStringCreateWithCString(0, v7, 0x8000100u);
+      v22 = CFStringCreateWithCString(0, string, 0x8000100u);
+      v23 = CFNumberCreate(0, kCFNumberIntType, &int64);
+      v24 = v23;
+      if (v10)
+      {
+        v25 = v17;
+      }
+
+      else
+      {
+        v25 = v18;
+      }
+
+      v30[0] = v20;
+      v30[1] = v25;
+      if (v9)
+      {
+        v26 = v17;
+      }
+
+      else
       {
         v26 = v18;
       }
 
-      else
-      {
-        v26 = v19;
-      }
-
-      v31[0] = v21;
-      v31[1] = v26;
-      if (v10)
-      {
-        v27 = v18;
-      }
-
-      else
-      {
-        v27 = v19;
-      }
-
-      v31[2] = v22;
-      v31[3] = v27;
-      v31[4] = v23;
-      v31[5] = v24;
-      v28 = CFDictionaryCreate(0, v32, v31, 6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      CFRelease(v25);
-      CFRelease(v23);
+      v30[2] = v21;
+      v30[3] = v26;
+      v30[4] = v22;
+      v30[5] = v23;
+      v27 = CFDictionaryCreate(0, v31, v30, 6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      CFRelease(v24);
       CFRelease(v22);
       CFRelease(v21);
-      CFArrayAppendValue(*(a1 + 40), v28);
-      CFRelease(v28);
+      CFRelease(v20);
+      CFArrayAppendValue(*(a1 + 40), v27);
+      CFRelease(v27);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1478,6 +1510,13 @@ double *__aclSaveLocateResult_block_invoke(double *result)
   return result;
 }
 
+void sub_2411BEC74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -1485,39 +1524,32 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2411C71E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2411C71E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2411C7724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2411C7724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2411C7BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2411C7BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2411C8070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2411C8070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
-}
-
-uint64_t OUTLINED_FUNCTION_0()
-{
-  v3 = *(v2 + 64);
-  v4 = *v0;
-  return *v1;
 }
 
 void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1527,60 +1559,38 @@ void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-uint64_t OUTLINED_FUNCTION_9()
+void OUTLINED_FUNCTION_11(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v3 = *(v2 + 64);
-  v4 = *v1;
-  return *v0;
-}
+  va_start(va, a8);
 
-uint64_t OUTLINED_FUNCTION_10()
-{
-  v3 = *(v2 + 72);
-  v4 = *v1;
-  return *v0;
-}
-
-void OUTLINED_FUNCTION_11(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-uint64_t OUTLINED_FUNCTION_14()
-{
-  v3 = *(v2 + 56);
-  v4 = *v1;
-  return *v0;
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v8 = qword_280BB8FB0;
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_ERROR))
   {
-    v11[0] = 67109890;
-    v11[1] = a1;
-    v12 = 2080;
-    v13 = a2;
-    v14 = 2080;
-    v15 = a3;
-    v16 = 2048;
-    v17 = a4;
-    _os_log_error_impl(&dword_2411B8000, v8, OS_LOG_TYPE_ERROR, "#%08x A callback block invoked by %s released an object it did not own: %s, %p", v11, 0x26u);
+    v10[0] = 67109890;
+    v10[1] = a1;
+    v11 = 2080;
+    v12 = a2;
+    v13 = 2080;
+    v14 = a3;
+    v15 = 2048;
+    v16 = a4;
+    _os_log_error_impl(&dword_2411B8000, v8, OS_LOG_TYPE_ERROR, "#%08x A callback block invoked by %s released an object it did not own: %s, %p", v10, 0x26u);
   }
 
   raise(6);
   pause();
-  result = pause();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return pause();
 }
 
 void __ACSLocateCachingServer_block_invoke(uint64_t a1, uint64_t a2, CFArrayRef theArray, __CFError *a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     Copy = aclErrorCreateCopy(a4);
@@ -1613,7 +1623,7 @@ LABEL_22:
     if (!Mutable)
     {
 LABEL_44:
-      Copy = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 22, @"unable to rewrite %@ for caching server host/port %@", v12, v13, v14, v15, *(a1 + 40));
+      Copy = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 22, @"unable to rewrite %@ for caching server host/port %@", v12, v13, v14, v15, *(a1 + 40), Copy);
       goto LABEL_45;
     }
 
@@ -1797,21 +1807,21 @@ LABEL_48:
     v44 = CFAbsoluteTimeGetCurrent() - *(a1 + 56);
     v45 = *(a1 + 64);
     *buf = 67110914;
-    v51 = v42;
-    v52 = 2080;
-    v53 = v43;
-    v54 = 2112;
-    v55 = a2;
-    v56 = 2112;
-    v57 = v8;
-    v58 = 2112;
-    v59 = MutableCopy;
-    v60 = 2112;
-    v61 = Copy;
-    v62 = 2048;
-    v63 = v44;
-    v64 = 2048;
-    v65 = v45;
+    v50 = v42;
+    v51 = 2080;
+    v52 = v43;
+    v53 = 2112;
+    v54 = a2;
+    v55 = 2112;
+    v56 = v8;
+    v57 = 2112;
+    v58 = MutableCopy;
+    v59 = 2112;
+    v60 = Copy;
+    v61 = 2048;
+    v62 = v44;
+    v63 = 2048;
+    v64 = v45;
     _os_log_impl(&dword_2411B8000, v41, OS_LOG_TYPE_DEFAULT, "#%08x %s -> [%@] newURL %@, advice %@, error %@, elapsed %.3f/%.3f", buf, 0x4Eu);
   }
 
@@ -1824,11 +1834,10 @@ LABEL_48:
   block[7] = Copy;
   block[4] = *(a1 + 32);
   block[5] = v8;
-  v49 = *(a1 + 80);
+  v48 = *(a1 + 80);
   block[8] = *(a1 + 48);
   block[9] = v46;
   dispatch_async(v46, block);
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 CFErrorRef aclErrorCreateCopy(__CFError *a1)
@@ -1845,40 +1854,41 @@ CFErrorRef aclErrorCreateCopy(__CFError *a1)
   return v5;
 }
 
-CFErrorRef aclErrorCreate(uint64_t a1, const __CFString *a2, CFIndex a3, const __CFString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+CFErrorRef aclErrorCreate(uint64_t a1, const __CFString *a2, CFIndex a3, const __CFString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
-    v14 = Mutable;
-    v15 = CFStringCreateWithFormat(0, 0, @"#%08x", a1);
-    if (v15)
+    v13 = Mutable;
+    v14 = CFStringCreateWithFormat(0, 0, @"#%08x", a1);
+    if (v14)
     {
-      v16 = v15;
-      CFDictionaryAddValue(v14, @"com.apple.AssetCacheLocator.tag", v15);
-      CFRelease(v16);
+      v15 = v14;
+      CFDictionaryAddValue(v13, @"com.apple.AssetCacheLocator.tag", v14);
+      CFRelease(v15);
     }
 
     if (a4)
     {
-      v17 = CFStringCreateWithFormatAndArguments(0, 0, a4, &a9);
-      if (v17)
+      v16 = CFStringCreateWithFormatAndArguments(0, 0, a4, va);
+      if (v16)
       {
-        v18 = v17;
-        CFDictionaryAddValue(v14, *MEMORY[0x277CBEE58], v17);
-        CFRelease(v18);
+        v17 = v16;
+        CFDictionaryAddValue(v13, *MEMORY[0x277CBEE58], v16);
+        CFRelease(v17);
       }
     }
 
-    Copy = CFDictionaryCreateCopy(0, v14);
-    CFRelease(v14);
-    v20 = CFErrorCreate(0, a2, a3, Copy);
+    Copy = CFDictionaryCreateCopy(0, v13);
+    CFRelease(v13);
+    v19 = CFErrorCreate(0, a2, a3, Copy);
     if (Copy)
     {
       CFRelease(Copy);
     }
 
-    return v20;
+    return v19;
   }
 
   else
@@ -1921,16 +1931,13 @@ void __ACSLocateCachingServer_block_invoke_85(uint64_t a1)
     }
 
     CFRetain(*(a1 + 56));
-    v5 = *(a1 + 56);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
   (*(*(a1 + 32) + 16))();
-  v8 = *(a1 + 40);
-  if (v8)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    if (CFGetRetainCount(v8) <= 1)
+    if (CFGetRetainCount(v5) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 80), *(a1 + 64), "modifiedURL", *(a1 + 40));
     }
@@ -1938,10 +1945,10 @@ void __ACSLocateCachingServer_block_invoke_85(uint64_t a1)
     CFRelease(*(a1 + 40));
   }
 
-  v9 = *(a1 + 48);
-  if (v9)
+  v6 = *(a1 + 48);
+  if (v6)
   {
-    if (CFGetRetainCount(v9) <= 1)
+    if (CFGetRetainCount(v6) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 80), *(a1 + 64), "advice", *(a1 + 48));
     }
@@ -1949,42 +1956,42 @@ void __ACSLocateCachingServer_block_invoke_85(uint64_t a1)
     CFRelease(*(a1 + 48));
   }
 
-  v10 = *(a1 + 56);
-  if (v10)
+  v7 = *(a1 + 56);
+  if (v7)
   {
-    if (CFGetRetainCount(v10) <= 1)
+    if (CFGetRetainCount(v7) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 80), *(a1 + 64), "error", *(a1 + 56));
     }
 
     CFRelease(*(a1 + 56));
-    v11 = *(a1 + 56);
-    if (v11)
+    v8 = *(a1 + 56);
+    if (v8)
     {
-      CFRelease(v11);
+      CFRelease(v8);
     }
   }
 
-  v12 = *(a1 + 48);
-  if (v12)
+  v9 = *(a1 + 48);
+  if (v9)
   {
-    CFRelease(v12);
+    CFRelease(v9);
   }
 
-  v13 = *(a1 + 40);
-  if (v13)
+  v10 = *(a1 + 40);
+  if (v10)
   {
-    CFRelease(v13);
+    CFRelease(v10);
   }
 
-  v14 = *(a1 + 72);
+  v11 = *(a1 + 72);
 
-  dispatch_release(v14);
+  dispatch_release(v11);
 }
 
 void _ACSLocateAllCachingServers(const __CFDictionary *a1, NSObject *global_queue, uint64_t a3, double a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   if (acl != -1)
   {
@@ -2002,17 +2009,17 @@ void _ACSLocateAllCachingServers(const __CFDictionary *a1, NSObject *global_queu
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110402;
-    v17 = v10;
-    v18 = 2080;
-    v19 = "_ACSLocateAllCachingServers";
-    v20 = 2048;
-    v21 = a4;
-    v22 = 2112;
-    v23 = a1;
-    v24 = 2048;
-    v25 = global_queue;
-    v26 = 2048;
-    v27 = a3;
+    v16 = v10;
+    v17 = 2080;
+    v18 = "_ACSLocateAllCachingServers";
+    v19 = 2048;
+    v20 = a4;
+    v21 = 2112;
+    v22 = a1;
+    v23 = 2048;
+    v24 = global_queue;
+    v25 = 2048;
+    v26 = a3;
     _os_log_impl(&dword_2411B8000, v11, OS_LOG_TYPE_DEFAULT, "#%08x %s(locateTimeout=%.3f, options=%@, callbackQueue=%p, callback=%p)", buf, 0x3Au);
   }
 
@@ -2024,17 +2031,17 @@ void _ACSLocateAllCachingServers(const __CFDictionary *a1, NSObject *global_queu
     }
 
     dispatch_retain(global_queue);
-    v12 = v14;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 0x40000000;
-    v14[2] = ___ACSLocateAllCachingServers_block_invoke;
-    v14[3] = &unk_278CC57A0;
-    v15 = v10;
-    *&v14[6] = Current;
-    *&v14[7] = a4;
-    v14[8] = global_queue;
-    v14[4] = a3;
-    v14[5] = "_ACSLocateAllCachingServers";
+    v12 = v13;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 0x40000000;
+    v13[2] = ___ACSLocateAllCachingServers_block_invoke;
+    v13[3] = &unk_278CC57A0;
+    v14 = v10;
+    *&v13[6] = Current;
+    *&v13[7] = a4;
+    v13[8] = global_queue;
+    v13[4] = a3;
+    v13[5] = "_ACSLocateAllCachingServers";
   }
 
   else
@@ -2043,7 +2050,6 @@ void _ACSLocateAllCachingServers(const __CFDictionary *a1, NSObject *global_queu
   }
 
   aclLocateCommon(v10, 0, a1, 1, v12, Current, a4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_105(uint64_t a1)
@@ -2057,30 +2063,28 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_105(uint64_t a1)
     }
 
     CFRetain(*(a1 + 40));
-    v3 = *(a1 + 40);
   }
 
-  v4 = *(a1 + 68);
   (*(*(a1 + 32) + 16))();
-  v5 = *(a1 + 40);
-  if (v5)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    if (CFGetRetainCount(v5) <= 1)
+    if (CFGetRetainCount(v3) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 64), *(a1 + 48), "error", *(a1 + 40));
     }
 
     CFRelease(*(a1 + 40));
-    v6 = *(a1 + 40);
-    if (v6)
+    v4 = *(a1 + 40);
+    if (v4)
     {
-      CFRelease(v6);
+      CFRelease(v4);
     }
   }
 
-  v7 = *(a1 + 56);
+  v5 = *(a1 + 56);
 
-  dispatch_release(v7);
+  dispatch_release(v5);
 }
 
 void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_115(uint64_t a1)
@@ -2094,34 +2098,33 @@ void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_115(uint64_t a1)
     }
 
     CFRetain(*(a1 + 40));
-    v3 = *(a1 + 40);
   }
 
   (*(*(a1 + 32) + 16))();
-  v4 = *(a1 + 40);
-  if (v4)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    if (CFGetRetainCount(v4) <= 1)
+    if (CFGetRetainCount(v3) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 64), *(a1 + 48), "error", *(a1 + 40));
     }
 
     CFRelease(*(a1 + 40));
-    v5 = *(a1 + 40);
-    if (v5)
+    v4 = *(a1 + 40);
+    if (v4)
     {
-      CFRelease(v5);
+      CFRelease(v4);
     }
   }
 
-  v6 = *(a1 + 56);
+  v5 = *(a1 + 56);
 
-  dispatch_release(v6);
+  dispatch_release(v5);
 }
 
 uint64_t ACSUpdateCachingServerHealth(const __CFURL *a1, uint64_t a2, int a3, CFErrorRef *a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (acl != -1)
   {
     ACSLocateCachingServer_cold_1();
@@ -2165,7 +2168,7 @@ uint64_t ACSUpdateCachingServerHealth(const __CFURL *a1, uint64_t a2, int a3, CF
 
       else
       {
-        v32 = a3;
+        v30 = a3;
         v15 = 0;
         while (1)
         {
@@ -2191,7 +2194,7 @@ uint64_t ACSUpdateCachingServerHealth(const __CFURL *a1, uint64_t a2, int a3, CF
 
         v20 = 1;
 LABEL_18:
-        a3 = v32;
+        a3 = v30;
       }
 
       CFRelease(v14);
@@ -2212,8 +2215,8 @@ LABEL_18:
 
   v21 = CFURLCopyHostName(a1);
   v22 = CFURLGetPortNumber(a1);
-  v42 = 0u;
-  memset(v43, 0, sizeof(v43));
+  v40 = 0u;
+  memset(v41, 0, sizeof(v41));
   memset(buf, 0, sizeof(buf));
   if (!v20 || !v21 || v22 < 1)
   {
@@ -2230,31 +2233,27 @@ LABEL_18:
 LABEL_33:
     CFRelease(v21);
 LABEL_34:
-    if (a4)
+    if (!a4)
     {
-      v29 = aclErrorCreate(v9, *MEMORY[0x277CBEE48], 22, @"invalid URL", v23, v24, v25, v26, v31);
-      result = 0;
-      *a4 = v29;
+      return 0;
     }
 
-    else
-    {
-      result = 0;
-    }
-
-    goto LABEL_37;
+    v29 = aclErrorCreate(v9, *MEMORY[0x277CBEE48], 22, @"invalid URL", v23, v24, v25, v26);
+    result = 0;
+    *a4 = v29;
+    return result;
   }
 
-  v36 = 0;
-  v35[0] = 0;
-  v35[1] = 0;
-  *v39 = 0;
-  v40 = 0;
-  *v37 = 0u;
-  memset(v38, 0, sizeof(v38));
-  if (strcasecmp(buffer, "localhost") && (inet_pton(2, buffer, &v36) != 1 || !inet_ntop(2, &v36, v39, 0x10u)))
+  v34 = 0;
+  v33[0] = 0;
+  v33[1] = 0;
+  *v37 = 0;
+  v38 = 0;
+  *v35 = 0u;
+  memset(v36, 0, sizeof(v36));
+  if (strcasecmp(buffer, "localhost") && (inet_pton(2, buffer, &v34) != 1 || !inet_ntop(2, &v34, v37, 0x10u)))
   {
-    if (inet_pton(30, buffer, v35) == 1 && inet_ntop(30, v35, v37, 0x2Eu))
+    if (inet_pton(30, buffer, v33) == 1 && inet_ntop(30, v33, v35, 0x2Eu))
     {
       snprintf(buf, 0x5EuLL, "[%s]:%u");
       goto LABEL_29;
@@ -2269,11 +2268,11 @@ LABEL_29:
   if (!a3)
   {
     *buffer = MEMORY[0x277D85DD0];
-    v45 = 0x40000000;
-    v46 = __aclSaveLocateResult_block_invoke;
-    v47 = &__block_descriptor_tmp_259;
-    v48 = 0u;
-    memset(v49, 0, sizeof(v49));
+    v43 = 0x40000000;
+    v44 = __aclSaveLocateResult_block_invoke;
+    v45 = &__block_descriptor_tmp_259;
+    v46 = 0u;
+    memset(v47, 0, sizeof(v47));
     dispatch_sync(qword_280BB8FD0, buffer);
   }
 
@@ -2286,13 +2285,10 @@ LABEL_29:
   block[1] = 0x40000000;
   block[2] = __ACSUpdateCachingServerHealth_block_invoke;
   block[3] = &__block_descriptor_tmp_146;
-  v34 = v9;
+  v32 = v9;
   block[4] = v27;
   dispatch_async(qword_280BB8FB8, block);
-  result = 1;
-LABEL_37:
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 void __ACSUpdateCachingServerHealth_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -2310,7 +2306,7 @@ void __ACSUpdateCachingServerHealth_block_invoke(uint64_t a1, uint64_t a2, uint6
 
 void ACSImportFileIntoCachingServer(const __CFURL *a1, const __CFString *a2, const __CFDictionary *a3, const __CFDictionary *a4, NSObject *global_queue, uint64_t a6)
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   if (acl != -1)
   {
@@ -2328,21 +2324,21 @@ void ACSImportFileIntoCachingServer(const __CFURL *a1, const __CFString *a2, con
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110914;
-    v84 = v14;
-    v85 = 2080;
-    v86 = "ACSImportFileIntoCachingServer";
-    v87 = 2112;
-    v88 = a1;
-    v89 = 2112;
-    v90 = a2;
-    v91 = 2112;
-    v92 = a3;
-    v93 = 2112;
-    v94 = a4;
-    v95 = 2048;
-    v96 = global_queue;
-    v97 = 2048;
-    v98 = a6;
+    v83 = v14;
+    v84 = 2080;
+    v85 = "ACSImportFileIntoCachingServer";
+    v86 = 2112;
+    v87 = a1;
+    v88 = 2112;
+    v89 = a2;
+    v90 = 2112;
+    v91 = a3;
+    v92 = 2112;
+    v93 = a4;
+    v94 = 2048;
+    v95 = global_queue;
+    v96 = 2048;
+    v97 = a6;
     _os_log_impl(&dword_2411B8000, v15, OS_LOG_TYPE_DEFAULT, "#%08x %s(assetURL=%@, sourcePath=%@, headers=%@, options=%@, callbackQueue=%p, callback=%p)", buf, 0x4Eu);
   }
 
@@ -2378,9 +2374,9 @@ void ACSImportFileIntoCachingServer(const __CFURL *a1, const __CFString *a2, con
   if ((v18 & 0x80000000) == 0)
   {
     v19 = v18;
-    v75 = global_queue;
-    v76 = a6;
-    v74 = CFFileDescriptorCreate(0, v18, 1u, 0, 0);
+    v74 = global_queue;
+    v75 = a6;
+    v73 = CFFileDescriptorCreate(0, v18, 1u, 0, 0);
     v20 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_uint64(v20, "tag", v14);
     xpc_dictionary_set_string(v20, "command", "import");
@@ -2461,10 +2457,10 @@ void ACSImportFileIntoCachingServer(const __CFURL *a1, const __CFString *a2, con
         if (v44 >= 1)
         {
           v45 = v44;
-          v99[0] = xmmword_278CC5C50;
-          v99[1] = *&off_278CC5C60;
-          v99[2] = xmmword_278CC5C70;
-          v99[3] = *&off_278CC5C80;
+          v98[0] = xmmword_278CC5C50;
+          v98[1] = *&off_278CC5C60;
+          v98[2] = xmmword_278CC5C70;
+          v98[3] = *&off_278CC5C80;
           v46 = xpc_array_create(0, 0);
           v47 = 0;
 LABEL_33:
@@ -2474,10 +2470,10 @@ LABEL_33:
             v49 = 0;
             while (1)
             {
-              if (CFEqual(ValueAtIndex, *&v99[v49]))
+              if (CFEqual(ValueAtIndex, *&v98[v49]))
               {
-                v50 = &v99[v49];
-                if (!BYTE13(v99[v49]))
+                v50 = &v98[v49];
+                if (!BYTE13(v98[v49]))
                 {
                   break;
                 }
@@ -2583,39 +2579,39 @@ LABEL_59:
     block[1] = 0x40000000;
     block[2] = __ACSImportFileIntoCachingServer_block_invoke_2;
     block[3] = &unk_278CC5978;
-    v80 = v14;
+    v79 = v14;
     *&block[6] = Current;
-    block[7] = v74;
+    block[7] = v73;
     block[8] = v20;
-    block[4] = v76;
+    block[4] = v75;
     block[5] = "ACSImportFileIntoCachingServer";
-    block[9] = v75;
+    block[9] = v74;
     v64 = block;
     goto LABEL_60;
   }
 
 LABEL_48:
-  if (a6)
+  if (!a6)
   {
-    v57 = *MEMORY[0x277CBEE48];
-    v58 = __error();
-    v63 = aclErrorCreate(v14, v57, *v58, @"open(%@) failed", v59, v60, v61, v62, a2);
-    v81[0] = MEMORY[0x277D85DD0];
-    v81[1] = 0x40000000;
-    v81[2] = __ACSImportFileIntoCachingServer_block_invoke;
-    v81[3] = &unk_278CC58D8;
-    v81[4] = a6;
-    v81[5] = v63;
-    v82 = v14;
-    v81[6] = "ACSImportFileIntoCachingServer";
-    v81[7] = global_queue;
-    v64 = v81;
-    v65 = global_queue;
-LABEL_60:
-    dispatch_async(v65, v64);
+    return;
   }
 
-  v73 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277CBEE48];
+  v58 = __error();
+  v63 = aclErrorCreate(v14, v57, *v58, @"open(%@) failed", v59, v60, v61, v62, a2);
+  v80[0] = MEMORY[0x277D85DD0];
+  v80[1] = 0x40000000;
+  v80[2] = __ACSImportFileIntoCachingServer_block_invoke;
+  v80[3] = &unk_278CC58D8;
+  v80[4] = a6;
+  v80[5] = v63;
+  v81 = v14;
+  v80[6] = "ACSImportFileIntoCachingServer";
+  v80[7] = global_queue;
+  v64 = v80;
+  v65 = global_queue;
+LABEL_60:
+  dispatch_async(v65, v64);
 }
 
 void __ACSImportFileIntoCachingServer_block_invoke(uint64_t a1)
@@ -2629,29 +2625,28 @@ void __ACSImportFileIntoCachingServer_block_invoke(uint64_t a1)
     }
 
     CFRetain(*(a1 + 40));
-    v3 = *(a1 + 40);
   }
 
   (*(*(a1 + 32) + 16))();
-  v4 = *(a1 + 40);
-  if (v4)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    if (CFGetRetainCount(v4) <= 1)
+    if (CFGetRetainCount(v3) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 64), *(a1 + 48), "error", *(a1 + 40));
     }
 
     CFRelease(*(a1 + 40));
-    v5 = *(a1 + 40);
-    if (v5)
+    v4 = *(a1 + 40);
+    if (v4)
     {
-      CFRelease(v5);
+      CFRelease(v4);
     }
   }
 
-  v6 = *(a1 + 56);
+  v5 = *(a1 + 56);
 
-  dispatch_release(v6);
+  dispatch_release(v5);
 }
 
 void aclSetU64Option(void *a1, const char *a2, CFTypeRef cf)
@@ -2672,9 +2667,9 @@ void aclSetU64Option(void *a1, const char *a2, CFTypeRef cf)
 
 void __ACSImportFileIntoCachingServer_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  SharedLocatorConnection = aclGetSharedLocatorConnection(*(a1 + 80), &v30, a3, a4, a5, a6, a7, a8);
+  v38 = *MEMORY[0x277D85DE8];
+  v29 = 0;
+  SharedLocatorConnection = aclGetSharedLocatorConnection(*(a1 + 80), &v29, a3, a4, a5, a6, a7, a8);
   if (SharedLocatorConnection)
   {
     v10 = SharedLocatorConnection;
@@ -2685,12 +2680,12 @@ void __ACSImportFileIntoCachingServer_block_invoke_2(uint64_t a1, uint64_t a2, u
     handler[1] = 0x40000000;
     handler[2] = __ACSImportFileIntoCachingServer_block_invoke_2_167;
     handler[3] = &unk_278CC5950;
-    v27 = *(a1 + 80);
-    v23 = *(a1 + 56);
-    v24 = *(a1 + 48);
-    v22 = *(a1 + 32);
-    v25 = *(a1 + 72);
-    v26 = v10;
+    v26 = *(a1 + 80);
+    v22 = *(a1 + 56);
+    v23 = *(a1 + 48);
+    v21 = *(a1 + 32);
+    v24 = *(a1 + 72);
+    v25 = v10;
     xpc_connection_send_message_with_reply(v10, v11, global_queue, handler);
     xpc_release(*(a1 + 64));
   }
@@ -2702,16 +2697,16 @@ void __ACSImportFileIntoCachingServer_block_invoke_2(uint64_t a1, uint64_t a2, u
     {
       v14 = *(a1 + 80);
       v15 = *(a1 + 40);
-      v16 = v30;
+      v16 = v29;
       v17 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
       *buf = 67109890;
-      v32 = v14;
-      v33 = 2080;
-      v34 = v15;
-      v35 = 2112;
-      v36 = v16;
-      v37 = 2048;
-      v38 = v17;
+      v31 = v14;
+      v32 = 2080;
+      v33 = v15;
+      v34 = 2112;
+      v35 = v16;
+      v36 = 2048;
+      v37 = v17;
       _os_log_impl(&dword_2411B8000, v13, OS_LOG_TYPE_DEFAULT, "#%08x %s -> error: %@, elapsed %.3f", buf, 0x26u);
     }
 
@@ -2726,20 +2721,18 @@ void __ACSImportFileIntoCachingServer_block_invoke_2(uint64_t a1, uint64_t a2, u
       block[2] = __ACSImportFileIntoCachingServer_block_invoke_164;
       block[3] = &unk_278CC5900;
       block[4] = v18;
-      block[5] = v30;
-      v29 = *(a1 + 80);
+      block[5] = v29;
+      v28 = *(a1 + 80);
       block[6] = *(a1 + 40);
       block[7] = v19;
       dispatch_async(v19, block);
     }
 
-    else if (v30)
+    else if (v29)
     {
-      CFRelease(v30);
+      CFRelease(v29);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __ACSImportFileIntoCachingServer_block_invoke_164(uint64_t a1)
@@ -2753,95 +2746,115 @@ void __ACSImportFileIntoCachingServer_block_invoke_164(uint64_t a1)
     }
 
     CFRetain(*(a1 + 40));
-    v3 = *(a1 + 40);
   }
 
   (*(*(a1 + 32) + 16))();
-  v4 = *(a1 + 40);
-  if (v4)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    if (CFGetRetainCount(v4) <= 1)
+    if (CFGetRetainCount(v3) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 64), *(a1 + 48), "error", *(a1 + 40));
     }
 
     CFRelease(*(a1 + 40));
-    v5 = *(a1 + 40);
-    if (v5)
+    v4 = *(a1 + 40);
+    if (v4)
     {
-      CFRelease(v5);
+      CFRelease(v4);
     }
   }
 
-  v6 = *(a1 + 56);
+  v5 = *(a1 + 56);
 
-  dispatch_release(v6);
+  dispatch_release(v5);
 }
 
-void __ACSImportFileIntoCachingServer_block_invoke_2_167(uint64_t a1, void *a2)
+void __ACSImportFileIntoCachingServer_block_invoke_2_167(uint64_t a1, __CFString *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEBUG))
   {
-    __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118_cold_1(a1);
+    __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118_cold_1();
   }
 
   if (MEMORY[0x245CDE690](a2) == MEMORY[0x277D86468])
   {
-    v9 = xpc_dictionary_get_BOOL(a2, "success");
-    v8 = aclErrorCreateFromXPC(*(a1 + 80), a2);
+    v12 = xpc_dictionary_get_BOOL(a2, "success");
+    v11 = aclErrorCreateFromXPC(*(a1 + 80), a2);
   }
 
   else
   {
-    v8 = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 100, @"unexpected reply from XPC service %s: %@", v4, v5, v6, v7, "com.apple.AssetCacheLocatorService");
-    v9 = 0;
+    v8 = @"XPC_ERROR_CONNECTION_INTERRUPTED";
+    v9 = @"XPC_ERROR_CONNECTION_INVALID";
+    if (a2 == MEMORY[0x277D86420])
+    {
+      v10 = @"XPC_ERROR_TERMINATION_IMMINENT";
+    }
+
+    else
+    {
+      v10 = a2;
+    }
+
+    if (a2 != MEMORY[0x277D863F8])
+    {
+      v9 = v10;
+    }
+
+    if (a2 != MEMORY[0x277D863F0])
+    {
+      v8 = v9;
+    }
+
+    v11 = aclErrorCreate(*(a1 + 80), *MEMORY[0x277CBEE48], 100, @"unexpected reply from XPC service %s: %@", v4, v5, v6, v7, "com.apple.AssetCacheLocatorService", v8);
+    v12 = 0;
   }
 
   CFRelease(*(a1 + 48));
-  v10 = qword_280BB8FB0;
+  v13 = qword_280BB8FB0;
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 80);
-    v12 = *(a1 + 40);
-    v13 = CFAbsoluteTimeGetCurrent() - *(a1 + 56);
+    v14 = *(a1 + 80);
+    v15 = *(a1 + 40);
+    v16 = CFAbsoluteTimeGetCurrent() - *(a1 + 56);
     *buf = 67110146;
-    v21 = v11;
-    v22 = 2080;
-    v23 = v12;
-    v24 = 1024;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v8;
-    v28 = 2048;
-    v29 = v13;
-    _os_log_impl(&dword_2411B8000, v10, OS_LOG_TYPE_DEFAULT, "#%08x %s -> success %{BOOL}d, error %@, elapsed %.3f", buf, 0x2Cu);
+    v23 = v14;
+    v24 = 2080;
+    v25 = v15;
+    v26 = 1024;
+    v27 = v12;
+    v28 = 2112;
+    v29 = v11;
+    v30 = 2048;
+    v31 = v16;
+    _os_log_impl(&dword_2411B8000, v13, OS_LOG_TYPE_DEFAULT, "#%08x %s -> success %{BOOL}d, error %@, elapsed %.3f", buf, 0x2Cu);
   }
 
-  v14 = *(a1 + 32);
-  if (v14)
+  v17 = *(a1 + 32);
+  if (v17)
   {
-    v15 = *(a1 + 64);
+    v18 = *(a1 + 64);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = __ACSImportFileIntoCachingServer_block_invoke_169;
     block[3] = &unk_278CC5928;
-    block[4] = v14;
-    block[5] = v8;
-    v19 = v9;
-    v18 = *(a1 + 80);
+    block[4] = v17;
+    block[5] = v11;
+    v21 = v12;
+    v20 = *(a1 + 80);
     block[6] = *(a1 + 40);
-    block[7] = v15;
-    dispatch_async(v15, block);
+    block[7] = v18;
+    dispatch_async(v18, block);
   }
 
-  else if (v8)
+  else if (v11)
   {
-    CFRelease(v8);
+    CFRelease(v11);
   }
 
   xpc_release(*(a1 + 72));
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __ACSImportFileIntoCachingServer_block_invoke_169(uint64_t a1)
@@ -2855,35 +2868,33 @@ void __ACSImportFileIntoCachingServer_block_invoke_169(uint64_t a1)
     }
 
     CFRetain(*(a1 + 40));
-    v3 = *(a1 + 40);
   }
 
-  v4 = *(a1 + 68);
   (*(*(a1 + 32) + 16))();
-  v5 = *(a1 + 40);
-  if (v5)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    if (CFGetRetainCount(v5) <= 1)
+    if (CFGetRetainCount(v3) <= 1)
     {
       _A_CALLBACK_BLOCK_RELEASED_AN_ASSETCACHESERVICES_OBJECT_IT_DID_NOT_OWN(*(a1 + 64), *(a1 + 48), "error", *(a1 + 40));
     }
 
     CFRelease(*(a1 + 40));
-    v6 = *(a1 + 40);
-    if (v6)
+    v4 = *(a1 + 40);
+    if (v4)
     {
-      CFRelease(v6);
+      CFRelease(v4);
     }
   }
 
-  v7 = *(a1 + 56);
+  v5 = *(a1 + 56);
 
-  dispatch_release(v7);
+  dispatch_release(v5);
 }
 
 void _ACSIntrospect(const __CFDictionary *a1, NSObject *global_queue, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   if (acl != -1)
   {
@@ -2901,15 +2912,15 @@ void _ACSIntrospect(const __CFDictionary *a1, NSObject *global_queue, uint64_t a
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110146;
-    v15 = v8;
-    v16 = 2080;
-    v17 = "_ACSIntrospect";
-    v18 = 2112;
-    v19 = a1;
-    v20 = 2048;
-    v21 = global_queue;
-    v22 = 2048;
-    v23 = a3;
+    v14 = v8;
+    v15 = 2080;
+    v16 = "_ACSIntrospect";
+    v17 = 2112;
+    v18 = a1;
+    v19 = 2048;
+    v20 = global_queue;
+    v21 = 2048;
+    v22 = a3;
     _os_log_impl(&dword_2411B8000, v9, OS_LOG_TYPE_DEFAULT, "#%08x %s(options=%@, callbackQueue=%p, callback=%p)", buf, 0x30u);
   }
 
@@ -2931,23 +2942,22 @@ void _ACSIntrospect(const __CFDictionary *a1, NSObject *global_queue, uint64_t a
     xpc_dictionary_set_BOOL(v10, "forceMiss", 1);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 0x40000000;
-  v12[2] = ___ACSIntrospect_block_invoke;
-  v12[3] = &unk_278CC5A18;
-  v13 = v8;
-  v12[5] = v10;
-  v12[6] = "_ACSIntrospect";
-  *&v12[7] = Current;
-  v12[4] = a3;
-  v12[8] = global_queue;
-  dispatch_async(qword_280BB8FB8, v12);
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 0x40000000;
+  v11[2] = ___ACSIntrospect_block_invoke;
+  v11[3] = &unk_278CC5A18;
+  v12 = v8;
+  v11[5] = v10;
+  v11[6] = "_ACSIntrospect";
+  *&v11[7] = Current;
+  v11[4] = a3;
+  v11[8] = global_queue;
+  dispatch_async(qword_280BB8FB8, v11);
 }
 
 void _ACSSetTestFlags(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (acl != -1)
   {
     ACSLocateCachingServer_cold_1();
@@ -2964,13 +2974,13 @@ void _ACSSetTestFlags(uint64_t a1, uint64_t a2)
   if (os_log_type_enabled(qword_280BB8FB0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109890;
-    v12 = v5;
-    v13 = 2080;
-    v14 = "_ACSSetTestFlags";
-    v15 = 2048;
-    v16 = a1;
-    v17 = 2112;
-    v18 = a2;
+    v11 = v5;
+    v12 = 2080;
+    v13 = "_ACSSetTestFlags";
+    v14 = 2048;
+    v15 = a1;
+    v16 = 2112;
+    v17 = a2;
     _os_log_impl(&dword_2411B8000, v6, OS_LOG_TYPE_DEFAULT, "#%08x %s(flags=%#llx, options=%@)", buf, 0x26u);
   }
 
@@ -2983,14 +2993,13 @@ void _ACSSetTestFlags(uint64_t a1, uint64_t a2)
   xpc_dictionary_set_uint64(v7, "tag", v5);
   xpc_dictionary_set_string(v7, "command", "setTestFlags");
   xpc_dictionary_set_uint64(v7, "flags", a1 & 0x7FFFFFFFFFFFFFFFLL);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 0x40000000;
-  v9[2] = ___ACSSetTestFlags_block_invoke;
-  v9[3] = &__block_descriptor_tmp_186;
-  v10 = v5;
-  v9[4] = v7;
-  dispatch_async(qword_280BB8FB8, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 0x40000000;
+  v8[2] = ___ACSSetTestFlags_block_invoke;
+  v8[3] = &__block_descriptor_tmp_186;
+  v9 = v5;
+  v8[4] = v7;
+  dispatch_async(qword_280BB8FB8, v8);
 }
 
 dispatch_queue_t __aclInit_block_invoke()
@@ -3062,12 +3071,12 @@ void __aclLocateCommon_block_invoke_3(uint64_t a1, const void *a2)
   v7 = MEMORY[0x277CBF150];
   v8 = CFDictionaryCreate(0, keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   CFRelease(v5);
-  v23 = @"advice";
-  v22 = v8;
-  v9 = CFDictionaryCreate(0, &v23, &v22, 1, v6, v7);
+  v22 = @"advice";
+  v21 = v8;
+  v9 = CFDictionaryCreate(0, &v22, &v21, 1, v6, v7);
   CFRelease(v8);
-  v21 = v9;
-  v10 = CFArrayCreate(0, &v21, 1, MEMORY[0x277CBF128]);
+  v20 = v9;
+  v10 = CFArrayCreate(0, &v20, 1, MEMORY[0x277CBF128]);
   CFRelease(v9);
   v11 = *(a1 + 40);
   v12 = *(a1 + 48);
@@ -3078,8 +3087,8 @@ void __aclLocateCommon_block_invoke_3(uint64_t a1, const void *a2)
   block[2] = __aclSaveLocateResult_block_invoke;
   block[3] = &__block_descriptor_tmp_259;
   block[4] = v11;
-  v20 = v13;
-  v19 = v14;
+  v19 = v13;
+  v18 = v14;
   block[5] = v12;
   block[6] = v10;
   block[7] = a2;
@@ -3105,8 +3114,6 @@ void __aclLocateCommon_block_invoke_3(uint64_t a1, const void *a2)
   {
     CFRelease(v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __aclLocateCommon_block_invoke_2_250(uint64_t result)
@@ -3130,7 +3137,7 @@ void __aclGetSharedLocatorConnection_block_invoke(uint64_t a1, xpc_object_t obje
 
 void __aclGetSharedLocatorConnection_block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = **(a1 + 40);
   if (*(a1 + 32) == v2)
   {
@@ -3164,13 +3171,13 @@ void __aclGetSharedLocatorConnection_block_invoke_2(uint64_t a1)
         v7 = v5;
       }
 
-      v9[0] = 67109634;
-      v9[1] = 0;
-      v10 = 2080;
-      v11 = "com.apple.AssetCacheLocatorService";
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_2411B8000, v3, OS_LOG_TYPE_INFO, "#%08x event from XPC service %s: %@", v9, 0x1Cu);
+      v8[0] = 67109634;
+      v8[1] = 0;
+      v9 = 2080;
+      v10 = "com.apple.AssetCacheLocatorService";
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_2411B8000, v3, OS_LOG_TYPE_INFO, "#%08x event from XPC service %s: %@", v8, 0x1Cu);
       v2 = **(a1 + 40);
     }
 
@@ -3180,7 +3187,6 @@ void __aclGetSharedLocatorConnection_block_invoke_2(uint64_t a1)
   }
 
   xpc_release(*(a1 + 48));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -3188,16 +3194,6 @@ void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   va_start(va, a4);
 
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x1Cu);
-}
-
-void __ACSMightCurrentNetworkHaveCachingServer_block_invoke_2_118_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 80);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2411B8000, v3, v4, "#%08x %s reply callback(object=%@)");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 CFRange CFStringFind(CFStringRef theString, CFStringRef stringToFind, CFStringCompareFlags compareOptions)

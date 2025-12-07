@@ -194,110 +194,271 @@ void __141___DKSync3Coordinator__DKSyncRemoteContextStorageDelegate__remoteConte
 {
   OUTLINED_FUNCTION_17();
   v2 = v1;
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = *(v1 + 32);
-  v4 = [objc_opt_class() description];
-  v5 = *(v2 + 40);
-  v6 = &stru_28584E620;
+  v3 = [objc_opt_class() description];
+  v4 = &stru_28584E620;
   [*(v2 + 48) me];
-  v7 = [*(v2 + 48) identifier];
-  v8 = [*(v2 + 48) model];
-  if (v8)
+  v5 = [*(v2 + 48) identifier];
+  v6 = [*(v2 + 48) model];
+  if (v6)
   {
-    v9 = MEMORY[0x277CCACA8];
+    v7 = MEMORY[0x277CCACA8];
     [*(v2 + 48) model];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_13();
-    v6 = [v9 stringWithFormat:@" (%@)"];
+    v4 = [v7 stringWithFormat:@" (%@)"];
   }
 
-  v10 = *(v2 + 56);
   OUTLINED_FUNCTION_5();
-  v11 = _CDPrettyPrintCollection();
+  v8 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v12, v13, v14, v15, v16, 0x3Eu);
-  if (v8)
+  _os_log_debug_impl(v9, v10, v11, v12, v13, 0x3Eu);
+  if (v6)
   {
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_16();
 }
 
 void __126___DKSync3Coordinator__CDRemoteUserContextServer__subscribeToContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() description];
-  v7 = &stru_28584E620;
+  v5 = [objc_opt_class() description];
+  v6 = &stru_28584E620;
   [*(a1 + 40) me];
-  v8 = [*(a1 + 40) identifier];
-  v9 = [*(a1 + 40) model];
-  if (v9)
+  v7 = [*(a1 + 40) identifier];
+  v8 = [*(a1 + 40) model];
+  if (v8)
   {
-    v10 = MEMORY[0x277CCACA8];
+    v9 = MEMORY[0x277CCACA8];
     [*(a1 + 40) model];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_12();
-    v7 = [v10 stringWithFormat:@" (%@)"];
+    v6 = [v9 stringWithFormat:@" (%@)"];
   }
 
-  v11 = [*(a1 + 48) identifier];
-  v12 = [a2 domain];
+  v10 = [*(a1 + 48) identifier];
+  v11 = [a2 domain];
   [a2 code];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_18(&dword_245377000, v13, v14, "%{public}@: Failed to subscribe %{public}@peer %{public}@%{public}@ to context value change notifications with registration %{public}@: %{public}@:%lld (%@)", v15, v16, v17, v18, v20, v21, v22);
+  OUTLINED_FUNCTION_18(&dword_245377000, v12, v13, "%{public}@: Failed to subscribe %{public}@peer %{public}@%{public}@ to context value change notifications with registration %{public}@: %{public}@:%lld (%@)", v14, v15, v16, v17, v18, v19);
 
-  if (v9)
+  if (v8)
   {
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __126___DKSync3Coordinator__CDRemoteUserContextServer__subscribeToContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_19();
   v2 = v1;
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = [OUTLINED_FUNCTION_21(v1) description];
-  v5 = &stru_28584E620;
+  v3 = [OUTLINED_FUNCTION_21(v1) description];
+  v4 = &stru_28584E620;
   [*(v2 + 40) me];
-  v6 = [*(v2 + 40) identifier];
-  v7 = [*(v2 + 40) model];
-  if (v7)
+  v5 = [*(v2 + 40) identifier];
+  v6 = [*(v2 + 40) model];
+  if (v6)
   {
-    v8 = MEMORY[0x277CCACA8];
+    v7 = MEMORY[0x277CCACA8];
     [*(v2 + 40) model];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_12();
-    v5 = [v8 stringWithFormat:@" (%@)"];
+    v4 = [v7 stringWithFormat:@" (%@)"];
   }
 
-  v9 = [*(v2 + 48) identifier];
+  v8 = [*(v2 + 48) identifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v10, v11, v12, v13, v14, 0x34u);
+  _os_log_debug_impl(v9, v10, v11, v12, v13, 0x34u);
 
-  if (v7)
+  if (v6)
   {
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_20();
 }
 
 void __130___DKSync3Coordinator__CDRemoteUserContextServer__unsubscribeFromContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() description];
-  v7 = &stru_28584E620;
+  v5 = [objc_opt_class() description];
+  v6 = &stru_28584E620;
   [*(a1 + 40) me];
+  v7 = [*(a1 + 40) identifier];
+  v8 = [*(a1 + 40) model];
+  if (v8)
+  {
+    v9 = MEMORY[0x277CCACA8];
+    [*(a1 + 40) model];
+    objc_claimAutoreleasedReturnValue();
+    OUTLINED_FUNCTION_12();
+    v6 = [v9 stringWithFormat:@" (%@)"];
+  }
+
+  v10 = [*(a1 + 48) identifier];
+  v11 = [a2 domain];
+  [a2 code];
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_18(&dword_245377000, v12, v13, "%{public}@: Failed to unsubscribe %{public}@peer %{public}@%{public}@ from context value change notifications with registration %{public}@: %{public}@:%lld (%@)", v14, v15, v16, v17, v18, v19);
+
+  if (v8)
+  {
+  }
+}
+
+void __130___DKSync3Coordinator__CDRemoteUserContextServer__unsubscribeFromContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke_cold_2()
+{
+  OUTLINED_FUNCTION_19();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_21(v1) description];
+  v4 = &stru_28584E620;
+  [*(v2 + 40) me];
+  v5 = [*(v2 + 40) identifier];
+  v6 = [*(v2 + 40) model];
+  if (v6)
+  {
+    v7 = MEMORY[0x277CCACA8];
+    [*(v2 + 40) model];
+    objc_claimAutoreleasedReturnValue();
+    OUTLINED_FUNCTION_12();
+    v4 = [v7 stringWithFormat:@" (%@)"];
+  }
+
+  v8 = [*(v2 + 48) identifier];
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_6();
+  _os_log_debug_impl(v9, v10, v11, v12, v13, 0x34u);
+
+  if (v6)
+  {
+  }
+
+  OUTLINED_FUNCTION_20();
+}
+
+void __92___DKSync3Coordinator__CDRemoteUserContextServer___fetchPropertiesOfRemoteKeyPaths_handler___block_invoke_cold_1(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int buf, int a12, __int128 a13, void *a14, __int128 a15, __int128 a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+{
+  OUTLINED_FUNCTION_17();
+  a29 = v30;
+  a30 = v31;
+  v33 = v32;
+  v35 = v34;
+  v37 = v36;
+  a18 = *MEMORY[0x277D85DE8];
+  v38 = [objc_opt_class() description];
+  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v35, "count")}];
+  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v37[5], "count")}];
+  v41 = &stru_28584E620;
+  if ([v37[6] me])
+  {
+    v42 = @"pseudo ";
+  }
+
+  else
+  {
+    v42 = &stru_28584E620;
+  }
+
+  v43 = [v37[6] identifier];
+  v44 = [v37[6] model];
+  if (v44)
+  {
+    v45 = MEMORY[0x277CCACA8];
+    v37 = [v37[6] model];
+    v41 = [v45 stringWithFormat:@" (%@)"];
+  }
+
+  OUTLINED_FUNCTION_14();
+  *(&a13 + 6) = v39;
+  HIWORD(a13) = v46;
+  a14 = v40;
+  LOWORD(a15) = 2114;
+  *(&a15 + 2) = v42;
+  WORD5(a15) = 2114;
+  *(&a15 + 12) = v43;
+  WORD2(a16) = 2114;
+  *(&a16 + 6) = v41;
+  _os_log_debug_impl(&dword_245377000, v33, OS_LOG_TYPE_DEBUG, "%{public}@: Successfullly fetched %@ of %@ properties of key paths from %{public}@peer %{public}@%{public}@", &buf, 0x3Eu);
+  if (v44)
+  {
+  }
+
+  OUTLINED_FUNCTION_16();
+}
+
+void __92___DKSync3Coordinator__CDRemoteUserContextServer___fetchPropertiesOfRemoteKeyPaths_handler___block_invoke_cold_2(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int buf, int a12, __int128 a13, void *a14, __int128 a15, __int128 a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+{
+  OUTLINED_FUNCTION_17();
+  a29 = v30;
+  a30 = v31;
+  v33 = v32;
+  v35 = v34;
+  v37 = v36;
+  a18 = *MEMORY[0x277D85DE8];
+  v38 = [objc_opt_class() description];
+  v39 = &stru_28584E620;
+  if ([v37[6] me])
+  {
+    v40 = @"pseudo ";
+  }
+
+  else
+  {
+    v40 = &stru_28584E620;
+  }
+
+  v41 = [v37[6] identifier];
+  v42 = [v37[6] model];
+  if (v42)
+  {
+    v43 = MEMORY[0x277CCACA8];
+    [v37[6] model];
+    objc_claimAutoreleasedReturnValue();
+    OUTLINED_FUNCTION_12();
+    v39 = [v43 stringWithFormat:@" (%@)"];
+  }
+
+  v44 = [v35 domain];
+  [v35 code];
+  OUTLINED_FUNCTION_1();
+  *(&a13 + 6) = v40;
+  HIWORD(a13) = v45;
+  a14 = v41;
+  LOWORD(a15) = v45;
+  *(&a15 + 2) = v39;
+  WORD5(a15) = v45;
+  *(&a15 + 12) = v44;
+  WORD2(a16) = 2048;
+  *(&a16 + 6) = v46;
+  HIWORD(a16) = 2112;
+  a17 = v35;
+  _os_log_error_impl(&dword_245377000, v33, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch properties of key paths from %{public}@peer %{public}@%{public}@: %{public}@:%lld (%@)", &buf, 0x48u);
+
+  if (v42)
+  {
+  }
+
+  OUTLINED_FUNCTION_16();
+}
+
+void __107___DKSync3Coordinator__CDRemoteUserContextServer__sendContextValuesToPeer_registrationIdentifier_keyPaths___block_invoke_cold_1(uint64_t a1, NSObject *a2)
+{
+  v5 = [OUTLINED_FUNCTION_21(a1) description];
+  v6 = &stru_28584E620;
+  if ([*(a1 + 40) me])
+  {
+    v7 = @"pseudo ";
+  }
+
+  else
+  {
+    v7 = &stru_28584E620;
+  }
+
   v8 = [*(a1 + 40) identifier];
   v9 = [*(a1 + 40) model];
   if (v9)
@@ -305,131 +466,52 @@ void __130___DKSync3Coordinator__CDRemoteUserContextServer__unsubscribeFromConte
     v10 = MEMORY[0x277CCACA8];
     [*(a1 + 40) model];
     objc_claimAutoreleasedReturnValue();
-    OUTLINED_FUNCTION_12();
-    v7 = [v10 stringWithFormat:@" (%@)"];
+    OUTLINED_FUNCTION_13();
+    v6 = [v10 stringWithFormat:@" (%@)"];
   }
 
-  v11 = [*(a1 + 48) identifier];
-  v12 = [a2 domain];
-  [a2 code];
+  v11 = [*(a1 + 48) valueForKey:@"key"];
+  OUTLINED_FUNCTION_5();
+  v12 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_18(&dword_245377000, v13, v14, "%{public}@: Failed to unsubscribe %{public}@peer %{public}@%{public}@ from context value change notifications with registration %{public}@: %{public}@:%lld (%@)", v15, v16, v17, v18, v20, v21, v22);
+  v14 = v7;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_15();
+  _os_log_error_impl(&dword_245377000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send context values to %{public}@peer %{public}@%{public}@ for key paths: %{public}@", buf, 0x34u);
 
   if (v9)
   {
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void __130___DKSync3Coordinator__CDRemoteUserContextServer__unsubscribeFromContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke_cold_2()
+void __107___DKSync3Coordinator__CDRemoteUserContextServer__sendContextValuesToPeer_registrationIdentifier_keyPaths___block_invoke_cold_2(uint64_t a1)
 {
-  OUTLINED_FUNCTION_19();
-  v2 = v1;
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = [OUTLINED_FUNCTION_21(v1) description];
-  v5 = &stru_28584E620;
-  [*(v2 + 40) me];
-  v6 = [*(v2 + 40) identifier];
-  v7 = [*(v2 + 40) model];
-  if (v7)
+  v3 = [OUTLINED_FUNCTION_21(a1) description];
+  v4 = &stru_28584E620;
+  [*(a1 + 40) me];
+  v5 = [*(a1 + 40) identifier];
+  v6 = [*(a1 + 40) model];
+  if (v6)
   {
-    v8 = MEMORY[0x277CCACA8];
-    [*(v2 + 40) model];
+    v7 = MEMORY[0x277CCACA8];
+    [*(a1 + 40) model];
     objc_claimAutoreleasedReturnValue();
-    OUTLINED_FUNCTION_12();
-    v5 = [v8 stringWithFormat:@" (%@)"];
+    OUTLINED_FUNCTION_13();
+    v4 = [v7 stringWithFormat:@" (%@)"];
   }
 
-  v9 = [*(v2 + 48) identifier];
+  v8 = [*(a1 + 48) valueForKey:@"key"];
+  OUTLINED_FUNCTION_5();
+  v9 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v10, v11, v12, v13, v14, 0x34u);
 
-  if (v7)
+  if (v6)
   {
   }
-
-  v15 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_20();
-}
-
-void __107___DKSync3Coordinator__CDRemoteUserContextServer__sendContextValuesToPeer_registrationIdentifier_keyPaths___block_invoke_cold_1(uint64_t a1, NSObject *a2)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v6 = [OUTLINED_FUNCTION_21(a1) description];
-  v7 = &stru_28584E620;
-  if ([*(a1 + 40) me])
-  {
-    v8 = @"pseudo ";
-  }
-
-  else
-  {
-    v8 = &stru_28584E620;
-  }
-
-  v9 = [*(a1 + 40) identifier];
-  v10 = [*(a1 + 40) model];
-  if (v10)
-  {
-    v11 = MEMORY[0x277CCACA8];
-    [*(a1 + 40) model];
-    objc_claimAutoreleasedReturnValue();
-    OUTLINED_FUNCTION_13();
-    v7 = [v11 stringWithFormat:@" (%@)"];
-  }
-
-  v12 = [*(a1 + 48) valueForKey:@"key"];
-  OUTLINED_FUNCTION_5();
-  v13 = _CDPrettyPrintCollection();
-  OUTLINED_FUNCTION_1();
-  v16 = v8;
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_15();
-  _os_log_error_impl(&dword_245377000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send context values to %{public}@peer %{public}@%{public}@ for key paths: %{public}@", buf, 0x34u);
-
-  if (v10)
-  {
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-void __107___DKSync3Coordinator__CDRemoteUserContextServer__sendContextValuesToPeer_registrationIdentifier_keyPaths___block_invoke_cold_2(uint64_t a1)
-{
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = [OUTLINED_FUNCTION_21(a1) description];
-  v5 = &stru_28584E620;
-  [*(a1 + 40) me];
-  v6 = [*(a1 + 40) identifier];
-  v7 = [*(a1 + 40) model];
-  if (v7)
-  {
-    v8 = MEMORY[0x277CCACA8];
-    [*(a1 + 40) model];
-    objc_claimAutoreleasedReturnValue();
-    OUTLINED_FUNCTION_13();
-    v5 = [v8 stringWithFormat:@" (%@)"];
-  }
-
-  v9 = [*(a1 + 48) valueForKey:@"key"];
-  OUTLINED_FUNCTION_5();
-  v10 = _CDPrettyPrintCollection();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v11, v12, v13, v14, v15, 0x34u);
-
-  if (v7)
-  {
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

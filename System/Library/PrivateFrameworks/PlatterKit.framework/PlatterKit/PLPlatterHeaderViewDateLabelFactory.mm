@@ -18,9 +18,11 @@
 
 uint64_t __53__PLPlatterHeaderViewDateLabelFactory_sharedInstance__block_invoke()
 {
-  sharedInstance___factory = objc_alloc_init(MEMORY[0x277CF0D50]);
+  v0 = objc_alloc_init(MEMORY[0x277CF0D50]);
+  v1 = sharedInstance___factory;
+  sharedInstance___factory = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -23,6 +23,8 @@
 - (void)findMyAccessoryManager:(id)manager didHaveRangingMovementOnDevice:(id)device;
 - (void)findMyAccessoryManager:(id)manager didInitRangingOnDevice:(id)device withStatus:(unsigned int)status error:(id)error;
 - (void)findMyAccessoryManager:(id)manager didPrepareRangingOnDevice:(id)device withConnInterval:(id)interval error:(id)error;
+- (void)findMyAccessoryManager:(id)manager didReceiveRangingErrorFromDevice:(id)device withStatus:(unsigned int)status;
+- (void)findMyAccessoryManager:(id)manager didReceiveRangingTimestampFromDevice:(id)device status:(unsigned __int16)status rtt:(unint64_t)rtt tat:(unint64_t)tat cycleIndex:(unsigned __int16)index;
 - (void)findMyAccessoryManager:(id)manager didStartRangingOnDevice:(id)device error:(id)error;
 - (void)handleError:(id)error;
 - (void)initCompanion:(id)companion;
@@ -1433,108 +1435,108 @@ LABEL_43:
   {
     uUID = [(PRRemoteDevice *)self->_companion UUID];
     *buf = 138412290;
-    v40 = uUID;
+    v35 = uUID;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Configure companion for ranging. UUID: %@", buf, 0xCu);
   }
 
-  v10 = sub_10035D02C();
-  v11 = *(v10 + 406);
-  v12 = *(v10 + 407);
-  if (v12)
+  v5 = sub_10035D02C();
+  v6 = *(v5 + 406);
+  v7 = *(v5 + 407);
+  if (v7)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (v11)
+  if (v6)
   {
     ptr = self->_rangingRequest.__ptr_;
     if (ptr)
     {
-      v32 = 0;
-      if (sub_10032A118(v11, ptr, &v32, v5, v6, v7, v8, v9))
+      v27 = 0;
+      if (sub_10032A118(v6, ptr, &v27))
       {
-        v14 = qword_1009F9820;
+        v9 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "+++++++++++++++++++++++++++++++++++++++++", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "+++++++++++++++++++++++++++++++++++++++++", buf, 2u);
+        }
+
+        v10 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Sent command to remote device:", buf, 2u);
+        }
+
+        v11 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          LODWORD(v35) = v27;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "   countryCode: 0x%x", buf, 8u);
+        }
+
+        v12 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          LODWORD(v35) = BYTE1(v27) & 3;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "   channel: 0x%x", buf, 8u);
+        }
+
+        v13 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          LODWORD(v35) = (BYTE1(v27) >> 2) & 3;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "   txPreamble: 0x%x", buf, 8u);
+        }
+
+        v14 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          LODWORD(v35) = (BYTE1(v27) >> 4) & 3;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "   rxPreamble: 0x%x", buf, 8u);
         }
 
         v15 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Sent command to remote device:", buf, 2u);
+          *buf = 67109120;
+          LODWORD(v35) = HIWORD(v27);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "   intervalMs: %d", buf, 8u);
         }
 
         v16 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = 67109120;
-          LODWORD(v40) = v32;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "   countryCode: 0x%x", buf, 8u);
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "+++++++++++++++++++++++++++++++++++++++++", buf, 2u);
         }
 
         v17 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = 67109120;
-          LODWORD(v40) = BYTE1(v32) & 3;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "   channel: 0x%x", buf, 8u);
-        }
-
-        v18 = qword_1009F9820;
-        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109120;
-          LODWORD(v40) = (BYTE1(v32) >> 2) & 3;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "   txPreamble: 0x%x", buf, 8u);
-        }
-
-        v19 = qword_1009F9820;
-        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109120;
-          LODWORD(v40) = (BYTE1(v32) >> 4) & 3;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "   rxPreamble: 0x%x", buf, 8u);
-        }
-
-        v20 = qword_1009F9820;
-        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109120;
-          LODWORD(v40) = HIWORD(v32);
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "   intervalMs: %d", buf, 8u);
-        }
-
-        v21 = qword_1009F9820;
-        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-        {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "+++++++++++++++++++++++++++++++++++++++++", buf, 2u);
-        }
-
-        v22 = qword_1009F9820;
-        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "_companionRangingManager setRoseRangingParameters #companion-retry", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "_companionRangingManager setRoseRangingParameters #companion-retry", buf, 2u);
         }
 
         self->_companionRoseState = 2;
         companionRangingManager = self->_companionRangingManager;
         uUID2 = [(PRRemoteDevice *)self->_companion UUID];
         roseMACAddress = [(PRRemoteDevice *)self->_companion roseMACAddress];
-        LOWORD(v31) = HIWORD(v32);
-        [(CLFindMyAccessoryManager *)companionRangingManager configureRangingOnDevice:uUID2 macAddress:roseMACAddress countryCode:v32 uwbChannel:BYTE1(v32) & 3 acqPreamble:(BYTE1(v32) >> 2) & 3 trackingPreamble:(BYTE1(v32) >> 4) & 3 interval:v31];
+        LOWORD(v26) = HIWORD(v27);
+        [(CLFindMyAccessoryManager *)companionRangingManager configureRangingOnDevice:uUID2 macAddress:roseMACAddress countryCode:v27 uwbChannel:BYTE1(v27) & 3 acqPreamble:(BYTE1(v27) >> 2) & 3 trackingPreamble:(BYTE1(v27) >> 4) & 3 interval:v26];
       }
 
       else
       {
-        v33 = NSLocalizedDescriptionKey;
-        v34 = @"Failed to construct companion range config command.";
-        v30 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-        uUID2 = PRErrorWithCodeAndUserInfo(101, v30);
+        v28 = NSLocalizedDescriptionKey;
+        v29 = @"Failed to construct companion range config command.";
+        v25 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+        uUID2 = PRErrorWithCodeAndUserInfo(101, v25);
 
         [(PRCompanionRangingClientProxy *)self handleError:uUID2];
       }
@@ -1542,28 +1544,28 @@ LABEL_43:
 
     else
     {
-      v35 = NSLocalizedDescriptionKey;
-      v36 = @"No cached ranging request.";
-      v28 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-      v29 = PRErrorWithCodeAndUserInfo(999, v28);
+      v30 = NSLocalizedDescriptionKey;
+      v31 = @"No cached ranging request.";
+      v23 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v24 = PRErrorWithCodeAndUserInfo(999, v23);
 
-      [(PRCompanionRangingClientProxy *)self handleError:v29];
+      [(PRCompanionRangingClientProxy *)self handleError:v24];
     }
   }
 
   else
   {
-    v37 = NSLocalizedDescriptionKey;
-    v38 = @"Configuration Manager Error.";
-    v26 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-    v27 = PRErrorWithCodeAndUserInfo(999, v26);
+    v32 = NSLocalizedDescriptionKey;
+    v33 = @"Configuration Manager Error.";
+    v21 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v22 = PRErrorWithCodeAndUserInfo(999, v21);
 
-    [(PRCompanionRangingClientProxy *)self handleError:v27];
+    [(PRCompanionRangingClientProxy *)self handleError:v22];
   }
 
-  if (v12)
+  if (v7)
   {
-    sub_10000AD84(v12);
+    sub_10000AD84(v7);
   }
 }
 
@@ -2187,6 +2189,110 @@ LABEL_14:
       }
 
 LABEL_13:
+    }
+  }
+}
+
+- (void)findMyAccessoryManager:(id)manager didReceiveRangingErrorFromDevice:(id)device withStatus:(unsigned int)status
+{
+  v5 = *&status;
+  deviceCopy = device;
+  if (self->_companionRangingManager == manager)
+  {
+    uUID = [(PRRemoteDevice *)self->_companion UUID];
+    v10 = [deviceCopy isEqual:uUID];
+
+    if (v10)
+    {
+      self->_companionRoseState = 0;
+      v11 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        LODWORD(v19) = v5;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "_companionRangingManager didReceiveRoseError #companion-retry, status: %d", buf, 8u);
+      }
+
+      v12 = [NSString stringWithFormat:@"Error event ROSE_STATUS: %d", v5];
+      v13 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v19 = v12;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      }
+
+      v16[0] = NSLocalizedDescriptionKey;
+      v16[1] = NSLocalizedFailureReasonErrorKey;
+      v17[0] = @"Remote Device Reported Error";
+      v17[1] = v12;
+      v14 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
+      v15 = PRErrorWithCodeAndUserInfo(301, v14);
+
+      [(PRCompanionRangingClientProxy *)self handleError:v15];
+    }
+  }
+}
+
+- (void)findMyAccessoryManager:(id)manager didReceiveRangingTimestampFromDevice:(id)device status:(unsigned __int16)status rtt:(unint64_t)rtt tat:(unint64_t)tat cycleIndex:(unsigned __int16)index
+{
+  indexCopy = index;
+  statusCopy = status;
+  managerCopy = manager;
+  deviceCopy = device;
+  if (self->_companionRangingManager == managerCopy)
+  {
+    uUID = [(PRRemoteDevice *)self->_companion UUID];
+    v17 = [deviceCopy isEqual:uUID];
+
+    if (v17)
+    {
+      v18 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109888;
+        v29 = statusCopy;
+        v30 = 2048;
+        rttCopy = rtt;
+        v32 = 2048;
+        tatCopy = tat;
+        v34 = 1024;
+        v35 = indexCopy;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "_companionRangingManager didReceiveRangingTimestampsFromDevice #companion-retry, status: %d, rtt: %llu, tat: %llu, cycleIndex: %d", buf, 0x22u);
+      }
+
+      if ((self->_companionRangingState - 5) >= 2)
+      {
+        v36 = NSLocalizedDescriptionKey;
+        v37 = @"Unexpected didReceiveRangingTimestampsFromDevice";
+        v22 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v23 = PRErrorWithCodeAndUserInfo(301, v22);
+
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+        {
+          sub_1004C0F3C();
+        }
+
+        [(PRCompanionRangingClientProxy *)self handleError:v23];
+      }
+
+      else
+      {
+        v25[0] = sub_100427984(statusCopy, v19);
+        v25[1] = indexCopy;
+        rttCopy2 = rtt;
+        tatCopy2 = tat;
+        sub_100193800(buf, 1, 0, 0, self->_p2pServiceId, v25);
+        v20 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *v24 = 0;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "PRRangingManager ingestOutOfBandTimestampEvent #companion-retry", v24, 2u);
+        }
+
+        v21 = sub_10035D02C();
+        (*(*v21 + 128))(v21, buf);
+      }
     }
   }
 }

@@ -105,9 +105,9 @@ id sub_1000013F4()
   return v0;
 }
 
-void sub_100001674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -152,7 +152,7 @@ LABEL_12:
   v8 = *(a1 + 32);
   if (v8)
   {
-    [v8 auditToken];
+    objc_msgSend_auditToken(v8);
   }
 
   v15 = [v7 fileSystemRepresentation];
@@ -183,10 +183,11 @@ uint64_t sub_100001D40(uint64_t a1)
   return result;
 }
 
-void sub_1000023EC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000023EC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_100002450()
@@ -194,7 +195,7 @@ void sub_100002450()
   v0 = __error();
   strerror(*v0);
   sub_1000023D4();
-  sub_1000023EC(&_mh_execute_header, v1, v2, "failed to get real path for %s: %s", v3, v4, v5, v6, v7);
+  sub_1000023EC(&_mh_execute_header, v1, v2, "failed to get real path for %s: %s", v3, v4, v5, v6);
 }
 
 void sub_1000024D4()
@@ -202,7 +203,7 @@ void sub_1000024D4()
   v0 = __error();
   strerror(*v0);
   sub_1000023D4();
-  sub_1000023EC(&_mh_execute_header, v1, v2, "failed to open path %s: %s", v3, v4, v5, v6, v7);
+  sub_1000023EC(&_mh_execute_header, v1, v2, "failed to open path %s: %s", v3, v4, v5, v6);
 }
 
 void sub_100002558(uint64_t *a1, int a2, os_log_t log)

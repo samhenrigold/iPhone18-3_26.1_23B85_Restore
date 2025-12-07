@@ -1,121 +1,3 @@
-uint64_t __MLEntityClassToTranslator(void)
-{
-  {
-    operator new();
-  }
-
-  return __MLEntityClassToTranslator(void)::__MLEntityClassToTranslator;
-}
-
-void *std::__hash_table<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::hash<mlcore::EntityClass *>,std::equal_to<mlcore::EntityClass *>,true>,std::__unordered_map_equal<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<mlcore::EntityClass *>,std::hash<mlcore::EntityClass *>,true>,std::allocator<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<mlcore::EntityClass *,std::piecewise_construct_t const&,std::tuple<mlcore::EntityClass * const&>,std::tuple<>>(void *a1, unint64_t a2)
-{
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
-  {
-    goto LABEL_18;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
-    {
-      v7 = v4 % *&v5;
-    }
-  }
-
-  else
-  {
-    v7 = v4 & (*&v5 - 1);
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v10 = v9[1];
-    if (v10 == v4)
-    {
-      break;
-    }
-
-    if (v6.u32[0] > 1uLL)
-    {
-      if (v10 >= *&v5)
-      {
-        v10 %= *&v5;
-      }
-    }
-
-    else
-    {
-      v10 &= *&v5 - 1;
-    }
-
-    if (v10 != v7)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v9 = *v9;
-    if (!v9)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v9[2] != a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v9;
-}
-
-void sub_1A2622150(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void sub_1A2622788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  _Unwind_Resume(a1);
-}
-
 void sub_1A2622838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
 {
   if (a10)
@@ -186,7 +68,7 @@ void sub_1A2622A84(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void std::vector<int>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](uint64_t a1, int *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -283,7 +165,7 @@ uint64_t MPMediaLibraryGetProperty(ModelPropertyBase *a1, ModelPropertyBase *a2)
   }
 }
 
-void sub_1A2622F18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_1A2622F18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void ***__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   v24 = *(v21 - 40);
   if (v24)
@@ -341,26 +223,26 @@ void sub_1A2623150(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::map<unsigned long,std::shared_ptr<mlcore::Predicate>>::map[abi:ne200100](void *result, unint64_t *a2, uint64_t a3)
+uint64_t **std::map<unsigned long,std::shared_ptr<mlcore::Predicate>>::map[abi:ne200100](uint64_t **a1, unint64_t *a2, uint64_t a3)
 {
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v3 = a2;
     v4 = 0;
-    v5 = result + 1;
+    v5 = a1 + 1;
     while (1)
     {
-      v6 = result + 1;
-      if (v5 == result + 1)
+      v6 = a1 + 1;
+      if (v5 == a1 + 1)
       {
         goto LABEL_9;
       }
 
       v7 = v4;
-      v8 = result + 1;
+      v8 = a1 + 1;
       if (v4)
       {
         do
@@ -388,15 +270,15 @@ void *std::map<unsigned long,std::shared_ptr<mlcore::Predicate>>::map[abi:ne2001
       if (v6[4] < *v3)
       {
 LABEL_9:
-        v11 = v4 ? v6 + 1 : result + 1;
+        v11 = v4 ? v6 + 1 : a1 + 1;
       }
 
       else
       {
-        v11 = result + 1;
+        v11 = a1 + 1;
         if (v4)
         {
-          v11 = result + 1;
+          v11 = a1 + 1;
           while (1)
           {
             while (1)
@@ -443,15 +325,15 @@ LABEL_13:
         break;
       }
 
-      v5 = *result;
-      v4 = result[1];
+      v5 = *a1;
+      v4 = a1[1];
     }
   }
 
-  return result;
+  return a1;
 }
 
-void _MPMLPredicateForVariants(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void _MPMLPredicateForVariants(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v23 = 0;
   v24 = 0;
@@ -618,7 +500,7 @@ void _MPMLPredicateForVariants(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v32);
 }
 
-void sub_1A2623578(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, std::__shared_weak_count *a26, void **a27, std::__shared_weak_count *a28)
+void sub_1A2623578(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, std::__shared_weak_count *a26, void **a27, std::__shared_weak_count *a28)
 {
   if (a28)
   {
@@ -751,7 +633,7 @@ void sub_1A2623A1C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_1A2623E48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char *a27, char a28, uint64_t a29)
+void sub_1A2623E48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void ***__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char *a27, uint64_t a28, uint64_t a29)
 {
   if (a21)
   {
@@ -887,7 +769,7 @@ void sub_1A2624314(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_1A2624AFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void **__p, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, uint64_t a47, void **p_p, std::__shared_weak_count *a49)
+void sub_1A2624AFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void ***__p, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, uint64_t a47, void ***p_p, std::__shared_weak_count *a49)
 {
   if (a49)
   {
@@ -954,7 +836,7 @@ void sub_1A2624AFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2624F98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, std::__shared_weak_count *a23)
+void sub_1A2624F98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void ***__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, std::__shared_weak_count *a23)
 {
   if (a23)
   {
@@ -1004,7 +886,7 @@ void sub_1A2624F98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2625610(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, void **p_p, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53)
+void sub_1A2625610(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t ***p_p, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t **__p, uint64_t a49, int a50, __int16 a51, char a52, char a53)
 {
   v57 = *(v54 - 248);
   if (v57)
@@ -1063,7 +945,7 @@ void sub_1A2625610(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2625B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void **__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+void sub_1A2625B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void ***__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
 {
   *(v30 - 112) = v29;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100]((v30 - 112));
@@ -1172,7 +1054,7 @@ void sub_1A2626034(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_1A2626458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, std::__shared_weak_count *a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, std::__shared_weak_count *a22, char *a23, char a24)
+void sub_1A2626458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void ***__p, std::__shared_weak_count *a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, std::__shared_weak_count *a22, char *a23, char a24)
 {
   if (a20)
   {
@@ -1674,146 +1556,128 @@ LABEL_80:
   return v39;
 }
 
-void _MPMLInitPropertyMaps(void)
+void _MPMLInitPropertyMaps(uint64_t a1, uint64_t a2)
 {
-  v907 = *MEMORY[0x1E69E9840];
-  v0 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
+  v905 = *MEMORY[0x1E69E9840];
+  v2 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [v0 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_38_43833];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v1 = __p[0];
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [v2 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_38_43833];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v3 = __p[0];
   __p[0] = 0;
-  if (v1)
+  if (v3)
   {
-    operator delete(v1);
+    operator delete(v3);
   }
 
-  [v0 setEntityQueryBlock:{&__block_literal_global_41_43834, __p[0]}];
-  v2 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericSong" toModelClass:v2 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v2)];
-  v3 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericAlbum" toModelClass:v3 transient:1 usingForeignPropertyBase:mlcore::AlbumPropertyPersistentID(v3)];
+  [v2 setEntityQueryBlock:{&__block_literal_global_41_43834, __p[0]}];
   v4 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericArtist" toModelClass:v4 transient:1 usingForeignPropertyBase:mlcore::AlbumPropertyArtistPersistentID(v4)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericSong" toModelClass:v4 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v4)];
   v5 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericPlaylist" toModelClass:v5 transient:1 usingForeignPropertyBase:mlcore::PlaylistPropertyPersistentID(v5)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericAlbum" toModelClass:v5 transient:1 usingForeignPropertyBase:mlcore::AlbumPropertyPersistentID(v5)];
   v6 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericPlaylistEntry" toModelClass:v6 transient:1 usingForeignPropertyBase:mlcore::PlaylistItemPropertyPersistentID(v6)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericArtist" toModelClass:v6 transient:1 usingForeignPropertyBase:mlcore::AlbumPropertyArtistPersistentID(v6)];
   v7 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericTVEpisode" toModelClass:v7 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v7)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericPlaylist" toModelClass:v7 transient:1 usingForeignPropertyBase:mlcore::PlaylistPropertyPersistentID(v7)];
   v8 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericTVSeason" toModelClass:v8 transient:1 usingForeignPropertyBase:mlcore::AlbumPropertyPersistentID(v8)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericPlaylistEntry" toModelClass:v8 transient:1 usingForeignPropertyBase:mlcore::PlaylistItemPropertyPersistentID(v8)];
   v9 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericTVShow" toModelClass:v9 transient:1 usingForeignPropertyBase:mlcore::ItemArtistPropertyPersistentID(v9)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericTVEpisode" toModelClass:v9 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v9)];
   v10 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericMovie" toModelClass:v10 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v10)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericTVSeason" toModelClass:v10 transient:1 usingForeignPropertyBase:mlcore::AlbumPropertyPersistentID(v10)];
   v11 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericPodcast" toModelClass:v11 transient:1 usingForeignPropertyBase:mlcore::AlbumPropertyPersistentID(v11)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericTVShow" toModelClass:v11 transient:1 usingForeignPropertyBase:mlcore::ItemArtistPropertyPersistentID(v11)];
   v12 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericPodcastEpisode" toModelClass:v12 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v12)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericMovie" toModelClass:v12 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v12)];
   v13 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericComposer" toModelClass:v13 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyComposerPersistentID(v13)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericPodcast" toModelClass:v13 transient:1 usingForeignPropertyBase:mlcore::AlbumPropertyPersistentID(v13)];
   v14 = objc_opt_class();
-  [v0 mapRelationshipKey:@"MPModelRelationshipGenericGenre" toModelClass:v14 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyGenrePersistentID(v14)];
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericPodcastEpisode" toModelClass:v14 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v14)];
+  v15 = objc_opt_class();
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericComposer" toModelClass:v15 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyComposerPersistentID(v15)];
+  v16 = objc_opt_class();
+  [v2 mapRelationshipKey:@"MPModelRelationshipGenericGenre" toModelClass:v16 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyGenrePersistentID(v16)];
 
   _MPMLInitPropertySongMap();
-  v15 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
-  v16 = mlcore::ItemPropertyPersistentID(v15);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v16;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v15 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_213_43836];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v17 = __p[0];
+  v17 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
+  v18 = mlcore::ItemPropertyPersistentID(v17);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v18;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v17 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_213_43836];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v19 = __p[0];
   __p[0] = 0;
-  if (v17)
+  if (v19)
   {
-    operator delete(v17);
+    operator delete(v19);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v18 = mlcore::ItemPropertyLocation(v17);
-  v19 = std::string::basic_string[abi:ne200100]<0>(__p, "location");
-  v875[1] = v18;
-  v20 = mlcore::ItemPropertyBaseLocationPath(v19);
-  std::string::basic_string[abi:ne200100]<0>(v876, "baseLocationPath");
-  v877 = v20;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetFilePath" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_217_43839];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v21 = v899[0];
-  v899[0] = 0;
-  if (v21)
-  {
-    operator delete(v21);
-  }
-
-  for (i = 0; i != -16; i -= 8)
-  {
-    if (SHIBYTE(v876[i + 5]) < 0)
-    {
-      operator delete(*&v876[i]);
-    }
-  }
-
-  v23 = [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetFileSize" toMLProperty:mlcore::ItemPropertyFileSize(v21)];
-  HasStreamingAsset = mlcore::ItemPropertyHasStreamingAsset(v23);
-  v25 = std::string::basic_string[abi:ne200100]<0>(__p, "hasStreamingAsset");
-  v875[1] = HasStreamingAsset;
-  v26 = mlcore::ItemPropertyLocation(v25);
-  v27 = std::string::basic_string[abi:ne200100]<0>(v876, "location");
-  v877 = v26;
-  v28 = mlcore::ItemPropertyBaseLocationPath(v27);
+  v20 = mlcore::ItemPropertyLocation(v19);
+  v21 = std::string::basic_string[abi:ne200100]<0>(__p, "location");
+  v877[1] = v20;
+  v22 = mlcore::ItemPropertyBaseLocationPath(v21);
   std::string::basic_string[abi:ne200100]<0>(v878, "baseLocationPath");
-  v879 = v28;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 3);
-  [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetPurchaseBundleFilePath" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_220];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v29 = v899[0];
-  v899[0] = 0;
-  if (v29)
+  v879 = v22;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetFilePath" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_217_43839];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v23 = v898[0];
+  v898[0] = 0;
+  if (v23)
   {
-    operator delete(v29);
+    operator delete(v23);
   }
 
-  for (j = 0; j != -96; j -= 32)
+  for (i = 0; i != -8; i -= 4)
   {
-    if (v878[j + 23] < 0)
+    if (SHIBYTE(v878[i + 2]) < 0)
     {
-      operator delete(*&v878[j]);
+      operator delete(v878[i]);
     }
   }
 
-  IsProtected = mlcore::ItemPropertyIsProtected(v29);
-  std::string::basic_string[abi:ne200100]<0>(v899, "protected");
-  v901 = IsProtected;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetProtectionType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_226];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v32 = __p[0];
-  __p[0] = 0;
-  if (v32)
+  v25 = [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetFileSize" toMLProperty:mlcore::ItemPropertyFileSize(v23)];
+  HasStreamingAsset = mlcore::ItemPropertyHasStreamingAsset(v25);
+  v27 = std::string::basic_string[abi:ne200100]<0>(__p, "hasStreamingAsset");
+  v877[1] = HasStreamingAsset;
+  v28 = mlcore::ItemPropertyLocation(v27);
+  v29 = std::string::basic_string[abi:ne200100]<0>(v878, "location");
+  v879 = v28;
+  v30 = mlcore::ItemPropertyBaseLocationPath(v29);
+  std::string::basic_string[abi:ne200100]<0>(v880, "baseLocationPath");
+  v881 = v30;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 3);
+  [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetPurchaseBundleFilePath" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_220];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v31 = v898[0];
+  v898[0] = 0;
+  if (v31)
   {
-    operator delete(v32);
+    operator delete(v31);
   }
 
-  if (SHIBYTE(v900) < 0)
+  for (j = 0; j != -12; j -= 4)
   {
-    operator delete(v899[0]);
+    if (SHIBYTE(v880[j + 2]) < 0)
+    {
+      operator delete(v880[j]);
+    }
   }
 
-  HasLoFiStreamingAsset = mlcore::ItemPropertyHasLoFiStreamingAsset(v32);
-  std::string::basic_string[abi:ne200100]<0>(v899, "hasLoFiStreamingAsset");
-  v901 = HasLoFiStreamingAsset;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetQualityType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_229_43843];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  IsProtected = mlcore::ItemPropertyIsProtected(v31);
+  std::string::basic_string[abi:ne200100]<0>(v898, "protected");
+  v900 = IsProtected;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetProtectionType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_226];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v34 = __p[0];
   __p[0] = 0;
   if (v34)
@@ -1821,17 +1685,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v34);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  HasNonPurgeableAsset = mlcore::ItemPropertyHasNonPurgeableAsset(v34);
-  std::string::basic_string[abi:ne200100]<0>(v899, "hasNonPurgeableAsset");
-  v901 = HasNonPurgeableAsset;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetNonPurgeable" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_235];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  HasLoFiStreamingAsset = mlcore::ItemPropertyHasLoFiStreamingAsset(v34);
+  std::string::basic_string[abi:ne200100]<0>(v898, "hasLoFiStreamingAsset");
+  v900 = HasLoFiStreamingAsset;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetQualityType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_229_43843];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v36 = __p[0];
   __p[0] = 0;
   if (v36)
@@ -1839,374 +1703,363 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v36);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v37 = [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetHLSKeyServerURL" toMLProperty:mlcore::ItemPropertyHLSKeyServerURL(v36)];
-  v38 = [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetHLSKeyServerProtocol" toMLProperty:mlcore::ItemPropertyHLSKeyServerProtocol(v37)];
-  v39 = [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetHLSKeyCertificateURL" toMLProperty:mlcore::ItemPropertyHLSKeyCertificateURL(v38)];
-  v40 = mlcore::ItemPropertyHLSAssetTraits(v39);
-  v41 = std::string::basic_string[abi:ne200100]<0>(__p, "hlsTraits");
-  v875[1] = v40;
-  IsMasteredForiTunes = mlcore::ItemPropertyIsMasteredForiTunes(v41);
-  std::string::basic_string[abi:ne200100]<0>(v876, "masteredForiTunes");
-  v877 = IsMasteredForiTunes;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v15 mapPropertyKey:@"MPModelPropertyFileAssetTraits" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_239];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v43 = v899[0];
-  v899[0] = 0;
-  if (v43)
+  HasNonPurgeableAsset = mlcore::ItemPropertyHasNonPurgeableAsset(v36);
+  std::string::basic_string[abi:ne200100]<0>(v898, "hasNonPurgeableAsset");
+  v900 = HasNonPurgeableAsset;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetNonPurgeable" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_235];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v38 = __p[0];
+  __p[0] = 0;
+  if (v38)
   {
-    operator delete(v43);
+    operator delete(v38);
   }
 
-  for (k = 0; k != -16; k -= 8)
+  if (SHIBYTE(v899) < 0)
   {
-    if (SHIBYTE(v876[k + 5]) < 0)
+    operator delete(v898[0]);
+  }
+
+  v39 = [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetHLSKeyServerURL" toMLProperty:mlcore::ItemPropertyHLSKeyServerURL(v38)];
+  v40 = [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetHLSKeyServerProtocol" toMLProperty:mlcore::ItemPropertyHLSKeyServerProtocol(v39)];
+  v41 = [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetHLSKeyCertificateURL" toMLProperty:mlcore::ItemPropertyHLSKeyCertificateURL(v40)];
+  v42 = mlcore::ItemPropertyHLSAssetTraits(v41);
+  v43 = std::string::basic_string[abi:ne200100]<0>(__p, "hlsTraits");
+  v877[1] = v42;
+  IsMasteredForiTunes = mlcore::ItemPropertyIsMasteredForiTunes(v43);
+  std::string::basic_string[abi:ne200100]<0>(v878, "masteredForiTunes");
+  v879 = IsMasteredForiTunes;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v17 mapPropertyKey:@"MPModelPropertyFileAssetTraits" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_239];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v45 = v898[0];
+  v898[0] = 0;
+  if (v45)
+  {
+    operator delete(v45);
+  }
+
+  for (k = 0; k != -8; k -= 4)
+  {
+    if (SHIBYTE(v878[k + 2]) < 0)
     {
-      operator delete(*&v876[k]);
+      operator delete(v878[k]);
     }
   }
 
-  v45 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
-  v46 = mlcore::ItemPropertyPersistentID(v45);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v46;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v45 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_241_43847];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v47 = __p[0];
+  v47 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
+  v48 = mlcore::ItemPropertyPersistentID(v47);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v48;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v47 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_241_43847];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v49 = __p[0];
   __p[0] = 0;
-  if (v47)
+  if (v49)
   {
-    operator delete(v47);
+    operator delete(v49);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v45 mapPropertyKey:@"MPModelPropertyHomeSharingAssetProtectedContentSupportStorageFileURL" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_243_43848];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v48 = __p[0];
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v47 mapPropertyKey:@"MPModelPropertyHomeSharingAssetProtectedContentSupportStorageFileURL" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_243_43848];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v50 = __p[0];
   __p[0] = 0;
-  if (v48)
+  if (v50)
   {
-    operator delete(v48);
+    operator delete(v50);
   }
 
-  v49 = mlcore::ItemPropertyLocation(v48);
-  v50 = std::string::basic_string[abi:ne200100]<0>(__p, "location");
-  v875[1] = v49;
-  v51 = mlcore::ItemPropertyHomeSharingID(v50);
-  std::string::basic_string[abi:ne200100]<0>(v876, "homeSharingID");
-  v877 = v51;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v45 mapPropertyKey:@"MPModelPropertyHomeSharingAssetURL" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_246];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v52 = v899[0];
-  v899[0] = 0;
-  if (v52)
+  v51 = mlcore::ItemPropertyLocation(v50);
+  v52 = std::string::basic_string[abi:ne200100]<0>(__p, "location");
+  v877[1] = v51;
+  v53 = mlcore::ItemPropertyHomeSharingID(v52);
+  std::string::basic_string[abi:ne200100]<0>(v878, "homeSharingID");
+  v879 = v53;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v47 mapPropertyKey:@"MPModelPropertyHomeSharingAssetURL" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_246];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v54 = v898[0];
+  v898[0] = 0;
+  if (v54)
   {
-    operator delete(v52);
+    operator delete(v54);
   }
 
-  for (m = 0; m != -16; m -= 8)
+  for (m = 0; m != -8; m -= 4)
   {
-    if (SHIBYTE(v876[m + 5]) < 0)
+    if (SHIBYTE(v878[m + 2]) < 0)
     {
-      operator delete(*&v876[m]);
+      operator delete(v878[m]);
     }
   }
 
-  [(mlcore *)v45 mapPropertyKey:@"MPModelPropertyHomeSharingAssetAvailable" toMLProperty:mlcore::ItemPropertyHomeSharingAssetAvailable(v52)];
+  [(mlcore *)v47 mapPropertyKey:@"MPModelPropertyHomeSharingAssetAvailable" toMLProperty:mlcore::ItemPropertyHomeSharingAssetAvailable(v54)];
 
-  v54 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
-  v55 = mlcore::ItemPropertyPersistentID(v54);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v55;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v54 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_254_43850];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v56 = __p[0];
+  v56 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
+  v57 = mlcore::ItemPropertyPersistentID(v56);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v57;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v56 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_254_43850];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v58 = __p[0];
   __p[0] = 0;
-  if (v56)
+  if (v58)
   {
-    operator delete(v56);
+    operator delete(v58);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v57 = [(mlcore *)v54 mapPropertyKey:@"MPModelPropertyStoreAssetAccountIdentifier" toMLProperty:mlcore::ItemPropertyStoreAccountID(v56)];
-  v58 = [(mlcore *)v54 mapPropertyKey:@"MPModelPropertyStoreAssetShouldReportPlayEvents" toMLProperty:mlcore::ItemPropertyStoreNeedsReporting(v57)];
-  v59 = [(mlcore *)v54 mapPropertyKey:@"MPModelPropertyStoreAssetRedownloadable" toMLProperty:mlcore::ItemPropertyIsStoreRedownloadable(v58)];
-  matched = mlcore::ItemPropertyMatchRedownloadParameters(v59);
-  v61 = std::string::basic_string[abi:ne200100]<0>(__p, "matchRedownloadParams");
-  v875[1] = matched;
-  v62 = mlcore::ItemPropertyPurchaseHistoryRedownloadParameters(v61);
-  v63 = std::string::basic_string[abi:ne200100]<0>(v876, "purchaseHistoryRedownloadParams");
-  v877 = v62;
-  v64 = mlcore::ItemPropertyStoreCloudID(v63);
-  v65 = std::string::basic_string[abi:ne200100]<0>(v878, "storeCloudID");
+  v59 = [(mlcore *)v56 mapPropertyKey:@"MPModelPropertyStoreAssetAccountIdentifier" toMLProperty:mlcore::ItemPropertyStoreAccountID(v58)];
+  v60 = [(mlcore *)v56 mapPropertyKey:@"MPModelPropertyStoreAssetShouldReportPlayEvents" toMLProperty:mlcore::ItemPropertyStoreNeedsReporting(v59)];
+  v61 = [(mlcore *)v56 mapPropertyKey:@"MPModelPropertyStoreAssetRedownloadable" toMLProperty:mlcore::ItemPropertyIsStoreRedownloadable(v60)];
+  matched = mlcore::ItemPropertyMatchRedownloadParameters(v61);
+  v63 = std::string::basic_string[abi:ne200100]<0>(__p, "matchRedownloadParams");
+  v877[1] = matched;
+  v64 = mlcore::ItemPropertyPurchaseHistoryRedownloadParameters(v63);
+  v65 = std::string::basic_string[abi:ne200100]<0>(v878, "purchaseHistoryRedownloadParams");
   v879 = v64;
-  v66 = mlcore::ItemPropertyPurchaseHistoryID(v65);
-  std::string::basic_string[abi:ne200100]<0>(v880, "purchaseHistoryID");
+  v66 = mlcore::ItemPropertyStoreCloudID(v65);
+  v67 = std::string::basic_string[abi:ne200100]<0>(v880, "storeCloudID");
   v881 = v66;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 4);
-  [(mlcore *)v54 mapPropertyKey:@"MPModelPropertyStoreAssetRedownloadParameters" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_260];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v67 = v899[0];
-  v899[0] = 0;
-  if (v67)
+  v68 = mlcore::ItemPropertyPurchaseHistoryID(v67);
+  std::string::basic_string[abi:ne200100]<0>(v882, "purchaseHistoryID");
+  v883 = v68;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 4);
+  [(mlcore *)v56 mapPropertyKey:@"MPModelPropertyStoreAssetRedownloadParameters" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_260];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v69 = v898[0];
+  v898[0] = 0;
+  if (v69)
   {
-    operator delete(v67);
+    operator delete(v69);
   }
 
-  for (n = 0; n != -128; n -= 32)
+  for (n = 0; n != -16; n -= 4)
   {
-    if (v880[n + 23] < 0)
+    if (SHIBYTE(v882[n + 2]) < 0)
     {
-      operator delete(*&v880[n]);
+      operator delete(v882[n]);
     }
   }
 
-  v69 = MPModelPropertyStoreAssetNeedsUserUpload;
-  v70 = mlcore::ItemPropertyCloudAssetAvailable(v67);
-  v71 = std::string::basic_string[abi:ne200100]<0>(__p, "cloudAssetAvailable");
-  v875[1] = v70;
-  v72 = mlcore::ItemPropertyStoreCloudStatus(v71);
-  v73 = std::string::basic_string[abi:ne200100]<0>(v876, "cloudStatus");
-  v877 = v72;
-  v74 = mlcore::ItemPropertyStoreCloudID(v73);
-  std::string::basic_string[abi:ne200100]<0>(v878, "storeCloudID");
+  v71 = MPModelPropertyStoreAssetNeedsUserUpload;
+  v72 = mlcore::ItemPropertyCloudAssetAvailable(v69);
+  v73 = std::string::basic_string[abi:ne200100]<0>(__p, "cloudAssetAvailable");
+  v877[1] = v72;
+  v74 = mlcore::ItemPropertyStoreCloudStatus(v73);
+  v75 = std::string::basic_string[abi:ne200100]<0>(v878, "cloudStatus");
   v879 = v74;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 3);
-  [(mlcore *)v54 mapPropertyKey:v69 withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_264];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v75 = v899[0];
-  v899[0] = 0;
-  if (v75)
+  v76 = mlcore::ItemPropertyStoreCloudID(v75);
+  std::string::basic_string[abi:ne200100]<0>(v880, "storeCloudID");
+  v881 = v76;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 3);
+  [(mlcore *)v56 mapPropertyKey:v71 withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_264];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v77 = v898[0];
+  v898[0] = 0;
+  if (v77)
   {
-    operator delete(v75);
+    operator delete(v77);
   }
 
-  for (ii = 0; ii != -96; ii -= 32)
+  for (ii = 0; ii != -12; ii -= 4)
   {
-    if (v878[ii + 23] < 0)
+    if (SHIBYTE(v880[ii + 2]) < 0)
     {
-      operator delete(*&v878[ii]);
+      operator delete(v880[ii]);
     }
   }
 
-  v77 = mlcore::ItemPropertyStorePlaybackEndpointType(v75);
-  v78 = std::string::basic_string[abi:ne200100]<0>(__p, "endpointType");
-  v875[1] = v77;
-  v79 = mlcore::ItemPropertyMatchRedownloadParameters(v78);
-  v80 = std::string::basic_string[abi:ne200100]<0>(v876, "matchRedownloadParams");
-  v877 = v79;
-  v81 = mlcore::ItemPropertyPurchaseHistoryRedownloadParameters(v80);
-  v82 = std::string::basic_string[abi:ne200100]<0>(v878, "purchaseHistoryRedownloadParams");
+  v79 = mlcore::ItemPropertyStorePlaybackEndpointType(v77);
+  v80 = std::string::basic_string[abi:ne200100]<0>(__p, "endpointType");
+  v877[1] = v79;
+  v81 = mlcore::ItemPropertyMatchRedownloadParameters(v80);
+  v82 = std::string::basic_string[abi:ne200100]<0>(v878, "matchRedownloadParams");
   v879 = v81;
-  v83 = mlcore::ItemPropertyStoreCloudID(v82);
-  v84 = std::string::basic_string[abi:ne200100]<0>(v880, "storeCloudID");
+  v83 = mlcore::ItemPropertyPurchaseHistoryRedownloadParameters(v82);
+  v84 = std::string::basic_string[abi:ne200100]<0>(v880, "purchaseHistoryRedownloadParams");
   v881 = v83;
-  v85 = mlcore::ItemPropertyStoreID(v84);
-  v86 = std::string::basic_string[abi:ne200100]<0>(v882, "storeAdamID");
+  v85 = mlcore::ItemPropertyStoreCloudID(v84);
+  v86 = std::string::basic_string[abi:ne200100]<0>(v882, "storeCloudID");
   v883 = v85;
-  v87 = mlcore::ItemPropertyCloudAssetAvailable(v86);
-  std::string::basic_string[abi:ne200100]<0>(v884, "cloudAssetAvailable");
+  v87 = mlcore::ItemPropertyStoreID(v86);
+  v88 = std::string::basic_string[abi:ne200100]<0>(v884, "storeAdamID");
   v885 = v87;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 6);
-  [(mlcore *)v54 mapPropertyKey:@"MPModelPropertyStoreAssetEndpointType" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_268];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v88 = v899[0];
-  v899[0] = 0;
-  if (v88)
+  v89 = mlcore::ItemPropertyCloudAssetAvailable(v88);
+  std::string::basic_string[abi:ne200100]<0>(v886, "cloudAssetAvailable");
+  v887 = v89;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 6);
+  [(mlcore *)v56 mapPropertyKey:@"MPModelPropertyStoreAssetEndpointType" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_268];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v90 = v898[0];
+  v898[0] = 0;
+  if (v90)
   {
-    operator delete(v88);
+    operator delete(v90);
   }
 
-  for (jj = 0; jj != -192; jj -= 32)
+  for (jj = 0; jj != -24; jj -= 4)
   {
-    if (v884[jj + 23] < 0)
+    if (SHIBYTE(v886[jj + 2]) < 0)
     {
-      operator delete(*&v884[jj]);
+      operator delete(v886[jj]);
     }
   }
 
-  v90 = mlcore::ItemPropertyStorePlaybackEndpointType(v88);
-  v91 = std::string::basic_string[abi:ne200100]<0>(__p, "endpointType");
-  v875[1] = v90;
-  IsArtistUploadedContent = mlcore::ItemPropertyIsArtistUploadedContent(v91);
-  v93 = std::string::basic_string[abi:ne200100]<0>(v876, "isAUC");
-  v877 = IsArtistUploadedContent;
-  v94 = mlcore::ItemPropertyEpisodeType(v93);
-  std::string::basic_string[abi:ne200100]<0>(v878, "episodeType");
-  v879 = v94;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 3);
-  [(mlcore *)v54 mapPropertyKey:@"MPModelPropertyStoreAssetSubscriptionRequired" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_272];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v95 = v899[0];
-  v899[0] = 0;
-  if (v95)
+  v92 = mlcore::ItemPropertyStorePlaybackEndpointType(v90);
+  v93 = std::string::basic_string[abi:ne200100]<0>(__p, "endpointType");
+  v877[1] = v92;
+  IsArtistUploadedContent = mlcore::ItemPropertyIsArtistUploadedContent(v93);
+  v95 = std::string::basic_string[abi:ne200100]<0>(v878, "isAUC");
+  v879 = IsArtistUploadedContent;
+  v96 = mlcore::ItemPropertyEpisodeType(v95);
+  std::string::basic_string[abi:ne200100]<0>(v880, "episodeType");
+  v881 = v96;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 3);
+  [(mlcore *)v56 mapPropertyKey:@"MPModelPropertyStoreAssetSubscriptionRequired" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_272];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v97 = v898[0];
+  v898[0] = 0;
+  if (v97)
   {
-    operator delete(v95);
+    operator delete(v97);
   }
 
-  for (kk = 0; kk != -96; kk -= 32)
+  for (kk = 0; kk != -12; kk -= 4)
   {
-    if (v878[kk + 23] < 0)
+    if (SHIBYTE(v880[kk + 2]) < 0)
     {
-      operator delete(*&v878[kk]);
+      operator delete(v880[kk]);
     }
   }
 
-  v97 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
-  v98 = mlcore::ItemPropertyPersistentID(v97);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v98;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v97 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_274];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v99 = __p[0];
+  v99 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
+  v100 = mlcore::ItemPropertyPersistentID(v99);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v100;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v99 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_274];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v101 = __p[0];
   __p[0] = 0;
-  if (v99)
+  if (v101)
   {
-    operator delete(v99);
+    operator delete(v101);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v100 = [(mlcore *)v97 mapPropertyKey:@"MPModelPropertyLyricsText" toMLProperty:mlcore::ItemPropertyLyrics(v99)];
-  v101 = [(mlcore *)v97 mapPropertyKey:@"MPModelPropertyLyricsHasStoreLyrics" toMLProperty:mlcore::ItemPropertyStoreLyricsAvailable(v100)];
-  v102 = [(mlcore *)v97 mapPropertyKey:@"MPModelPropertyLyricsHasTimeSyncedLyrics" toMLProperty:mlcore::ItemPropertyTimeSyncedLyricsAvailable(v101)];
-  [(mlcore *)v97 mapPropertyKey:@"MPModelPropertyLyricsHasLibraryLyrics" toMLProperty:mlcore::ItemPropertyLibraryLyricsAvailable(v102)];
+  v102 = [(mlcore *)v99 mapPropertyKey:@"MPModelPropertyLyricsText" toMLProperty:mlcore::ItemPropertyLyrics(v101)];
+  v103 = [(mlcore *)v99 mapPropertyKey:@"MPModelPropertyLyricsHasStoreLyrics" toMLProperty:mlcore::ItemPropertyStoreLyricsAvailable(v102)];
+  v104 = [(mlcore *)v99 mapPropertyKey:@"MPModelPropertyLyricsHasTimeSyncedLyrics" toMLProperty:mlcore::ItemPropertyTimeSyncedLyricsAvailable(v103)];
+  [(mlcore *)v99 mapPropertyKey:@"MPModelPropertyLyricsHasLibraryLyrics" toMLProperty:mlcore::ItemPropertyLibraryLyricsAvailable(v104)];
 
-  v103 = MEMORY[0x1A58E1180]();
-  v104 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v103];
-  v105 = mlcore::AlbumPropertyPersistentID(v104);
-  v106 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v105;
-  v107 = mlcore::AlbumPropertyStoreID(v106);
-  v108 = std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v107;
-  v109 = mlcore::AlbumPropertySyncID(v108);
-  v110 = std::string::basic_string[abi:ne200100]<0>(v878, "syncID");
+  v105 = MEMORY[0x1A58E1180]();
+  v106 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v105];
+  v107 = mlcore::AlbumPropertyPersistentID(v106);
+  v108 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v107;
+  v109 = mlcore::AlbumPropertyStoreID(v108);
+  v110 = std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
   v879 = v109;
-  v111 = mlcore::AlbumPropertyCloudLibraryID(v110);
-  std::string::basic_string[abi:ne200100]<0>(v880, "albumCloudLibraryID");
+  v111 = mlcore::AlbumPropertySyncID(v110);
+  v112 = std::string::basic_string[abi:ne200100]<0>(v880, "syncID");
   v881 = v111;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 4);
-  [(mlcore *)v104 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_277];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v112 = v899[0];
-  v899[0] = 0;
-  if (v112)
+  v113 = mlcore::AlbumPropertyCloudLibraryID(v112);
+  std::string::basic_string[abi:ne200100]<0>(v882, "albumCloudLibraryID");
+  v883 = v113;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 4);
+  [(mlcore *)v106 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_277];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v114 = v898[0];
+  v898[0] = 0;
+  if (v114)
   {
-    operator delete(v112);
+    operator delete(v114);
   }
 
-  for (mm = 0; mm != -128; mm -= 32)
+  for (mm = 0; mm != -16; mm -= 4)
   {
-    if (v880[mm + 23] < 0)
+    if (SHIBYTE(v882[mm + 2]) < 0)
     {
-      operator delete(*&v880[mm]);
+      operator delete(v882[mm]);
     }
   }
 
-  [(mlcore *)v104 setEntityQueryBlock:&__block_literal_global_279];
-  v114 = [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumIsCompilation" toMLProperty:mlcore::AlbumPropertyAllCompilations([(mlcore *)v104 setAllowedItemPredicatesBlock:&__block_literal_global_291])];
-  v115 = [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumIsClassical" toMLProperty:mlcore::AlbumPropertyContainsClassicalWork(v114)];
-  v116 = [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumCopyrightText" toMLProperty:mlcore::AlbumPropertyCopyright(v115)];
-  v117 = mlcore::AlbumPropertyTitle(v116);
-  std::string::basic_string[abi:ne200100]<0>(v896, "title");
-  v898 = v117;
-  v118 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  HasTitle = mlcore::AlbumPropertyHasTitle(v118);
-  v120 = std::string::basic_string[abi:ne200100]<0>(__p, "hasTitle");
-  v875[1] = HasTitle;
-  v121 = mlcore::AlbumPropertyOrder(v120);
-  std::string::basic_string[abi:ne200100]<0>(v876, "titleOrder");
-  v877 = v121;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumTitle" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_294 filterTransformer:&__block_literal_global_296_43867 valueTransformer:&__block_literal_global_301];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v122 = v904[0];
-  v904[0] = 0;
-  if (v122)
-  {
-    operator delete(v122);
-  }
-
-  for (nn = 0; nn != -16; nn -= 8)
-  {
-    if (SHIBYTE(v876[nn + 5]) < 0)
-    {
-      operator delete(*&v876[nn]);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v124 = v899[0];
-  v899[0] = 0;
+  [(mlcore *)v106 setEntityQueryBlock:&__block_literal_global_279];
+  v116 = [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumIsCompilation" toMLProperty:mlcore::AlbumPropertyAllCompilations([(mlcore *)v106 setAllowedItemPredicatesBlock:&__block_literal_global_291])];
+  v117 = [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumIsClassical" toMLProperty:mlcore::AlbumPropertyContainsClassicalWork(v116)];
+  v118 = [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumCopyrightText" toMLProperty:mlcore::AlbumPropertyCopyright(v117)];
+  v119 = mlcore::AlbumPropertyTitle(v118);
+  std::string::basic_string[abi:ne200100]<0>(v895, "title");
+  v897 = v119;
+  v120 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  HasTitle = mlcore::AlbumPropertyHasTitle(v120);
+  v122 = std::string::basic_string[abi:ne200100]<0>(__p, "hasTitle");
+  v877[1] = HasTitle;
+  v123 = mlcore::AlbumPropertyOrder(v122);
+  std::string::basic_string[abi:ne200100]<0>(v878, "titleOrder");
+  v879 = v123;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumTitle" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_294 filterTransformer:&__block_literal_global_296_43867 valueTransformer:&__block_literal_global_301];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v124 = v902[0];
+  v902[0] = 0;
   if (v124)
   {
     operator delete(v124);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (nn = 0; nn != -8; nn -= 4)
   {
-    operator delete(v896[0]);
+    if (SHIBYTE(v878[nn + 2]) < 0)
+    {
+      operator delete(v878[nn]);
+    }
   }
 
-  IsPreOrder = mlcore::AlbumPropertyIsPreOrder(v124);
-  std::string::basic_string[abi:ne200100]<0>(v899, "isPreOrder");
-  v901 = IsPreOrder;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumPreorder" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_304];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v126 = __p[0];
-  __p[0] = 0;
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v126 = v898[0];
+  v898[0] = 0;
   if (v126)
   {
     operator delete(v126);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v896) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v895[0]);
   }
 
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumEditorNotes" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_306];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v127 = __p[0];
-  __p[0] = 0;
-  if (v127)
-  {
-    operator delete(v127);
-  }
-
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumShortEditorNotes" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_308];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  IsPreOrder = mlcore::AlbumPropertyIsPreOrder(v126);
+  std::string::basic_string[abi:ne200100]<0>(v898, "isPreOrder");
+  v900 = IsPreOrder;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumPreorder" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_304];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v128 = __p[0];
   __p[0] = 0;
   if (v128)
@@ -2214,89 +2067,100 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v128);
   }
 
-  v129 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v128);
-  v130 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v129;
-  v131 = mlcore::AlbumPropertyRepresentativeItemMediaType(v130);
-  v132 = std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v131;
-  v133 = mlcore::AlbumPropertyRepresentativeItemAvailableArtworkToken(v132);
-  v134 = std::string::basic_string[abi:ne200100]<0>(v878, "availableArtworkToken");
-  v879 = v133;
-  v135 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkToken(v134);
-  v136 = std::string::basic_string[abi:ne200100]<0>(v880, "fetchableArtworkToken");
-  v881 = v135;
-  v137 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkSourceType(v136);
-  std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkSourceType");
-  v883 = v137;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 5);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_310_43874, __p[0]];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v138 = v899[0];
-  v899[0] = 0;
-  if (v138)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v138);
-  }
-
-  for (i1 = 0; i1 != -160; i1 -= 32)
-  {
-    if (v882[i1 + 23] < 0)
-    {
-      operator delete(*&v882[i1]);
-    }
+    operator delete(v898[0]);
   }
 
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumStaticTallEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_312];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v140 = __p[0];
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumEditorNotes" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_306];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v129 = __p[0];
   __p[0] = 0;
+  if (v129)
+  {
+    operator delete(v129);
+  }
+
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumShortEditorNotes" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_308];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v130 = __p[0];
+  __p[0] = 0;
+  if (v130)
+  {
+    operator delete(v130);
+  }
+
+  v131 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v130);
+  v132 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v131;
+  v133 = mlcore::AlbumPropertyRepresentativeItemMediaType(v132);
+  v134 = std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
+  v879 = v133;
+  v135 = mlcore::AlbumPropertyRepresentativeItemAvailableArtworkToken(v134);
+  v136 = std::string::basic_string[abi:ne200100]<0>(v880, "availableArtworkToken");
+  v881 = v135;
+  v137 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkToken(v136);
+  v138 = std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkToken");
+  v883 = v137;
+  v139 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkSourceType(v138);
+  std::string::basic_string[abi:ne200100]<0>(v884, "fetchableArtworkSourceType");
+  v885 = v139;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 5);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_310_43874, __p[0]];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v140 = v898[0];
+  v898[0] = 0;
   if (v140)
   {
     operator delete(v140);
   }
 
+  for (i1 = 0; i1 != -20; i1 -= 4)
+  {
+    if (SHIBYTE(v884[i1 + 2]) < 0)
+    {
+      operator delete(v884[i1]);
+    }
+  }
+
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumSuperHeroTallEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_314];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v141 = __p[0];
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumStaticTallEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_312];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v142 = __p[0];
   __p[0] = 0;
-  if (v141)
+  if (v142)
   {
-    operator delete(v141);
+    operator delete(v142);
   }
 
-  v142 = [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumTrackCount" toMLProperty:mlcore::AlbumPropertyItemCount(v141)];
-  v143 = [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumMaximumItemTrackNumber" toMLProperty:mlcore::AlbumPropertyMaximumItemTrackNumber(v142)];
-  v144 = mlcore::AlbumPropertyDateReleased(v143);
-  std::string::basic_string[abi:ne200100]<0>(v899, "dateReleased");
-  v901 = v144;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumReleaseDateComponents" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_317];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v145 = __p[0];
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumSuperHeroTallEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_314];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v143 = __p[0];
   __p[0] = 0;
-  if (v145)
+  if (v143)
   {
-    operator delete(v145);
+    operator delete(v143);
   }
 
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v146 = mlcore::AlbumPropertyLatestItemDateAdded(v145);
-  std::string::basic_string[abi:ne200100]<0>(v899, "libraryAdded");
-  v901 = v146;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_319];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v144 = [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumTrackCount" toMLProperty:mlcore::AlbumPropertyItemCount(v143)];
+  v145 = [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumMaximumItemTrackNumber" toMLProperty:mlcore::AlbumPropertyMaximumItemTrackNumber(v144)];
+  v146 = mlcore::AlbumPropertyDateReleased(v145);
+  std::string::basic_string[abi:ne200100]<0>(v898, "dateReleased");
+  v900 = v146;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumReleaseDateComponents" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_317];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v147 = __p[0];
   __p[0] = 0;
   if (v147)
@@ -2304,17 +2168,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v147);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v148 = mlcore::AlbumPropertyDateDownloaded(v147);
-  std::string::basic_string[abi:ne200100]<0>(v899, "downloadedDate");
-  v901 = v148;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumDownloadedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_321];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v148 = mlcore::AlbumPropertyLatestItemDateAdded(v147);
+  std::string::basic_string[abi:ne200100]<0>(v898, "libraryAdded");
+  v900 = v148;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_319];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v149 = __p[0];
   __p[0] = 0;
   if (v149)
@@ -2322,17 +2186,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v149);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v150 = mlcore::AlbumPropertyVolumeNormalization(v149);
-  std::string::basic_string[abi:ne200100]<0>(v899, "volumeNormalization");
-  v901 = v150;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumVolumeNormalization" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_323];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v150 = mlcore::AlbumPropertyDateDownloaded(v149);
+  std::string::basic_string[abi:ne200100]<0>(v898, "downloadedDate");
+  v900 = v150;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumDownloadedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_321];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v151 = __p[0];
   __p[0] = 0;
   if (v151)
@@ -2340,36 +2204,36 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v151);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v152 = [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumYear" toMLProperty:mlcore::AlbumPropertyYear(v151)];
-  v153 = mlcore::AlbumPropertyLibraryTracksItemCount(v152);
-  std::string::basic_string[abi:ne200100]<0>(v899, "libraryTracksItemCount");
-  v901 = v153;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumLibraryAdded" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_326];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v154 = __p[0];
+  v152 = mlcore::AlbumPropertyVolumeNormalization(v151);
+  std::string::basic_string[abi:ne200100]<0>(v898, "volumeNormalization");
+  v900 = v152;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumVolumeNormalization" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_323];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v153 = __p[0];
   __p[0] = 0;
-  if (v154)
+  if (v153)
   {
-    operator delete(v154);
+    operator delete(v153);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v155 = mlcore::AlbumPropertyExplicitLibraryTracksItemCount(v154);
-  std::string::basic_string[abi:ne200100]<0>(v899, "explicitLibraryTracksItemCount");
-  v901 = v155;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumHasExplicitContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_329];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v154 = [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumYear" toMLProperty:mlcore::AlbumPropertyYear(v153)];
+  v155 = mlcore::AlbumPropertyLibraryTracksItemCount(v154);
+  std::string::basic_string[abi:ne200100]<0>(v898, "libraryTracksItemCount");
+  v900 = v155;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumLibraryAdded" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_326];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v156 = __p[0];
   __p[0] = 0;
   if (v156)
@@ -2377,17 +2241,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v156);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v157 = mlcore::AlbumPropertyCleanLibraryTracksItemCount(v156);
-  std::string::basic_string[abi:ne200100]<0>(v899, "cleanLibraryTracksItemCount");
-  v901 = v157;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumCleanSongCount" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_332_43882];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v157 = mlcore::AlbumPropertyExplicitLibraryTracksItemCount(v156);
+  std::string::basic_string[abi:ne200100]<0>(v898, "explicitLibraryTracksItemCount");
+  v900 = v157;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumHasExplicitContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_329];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v158 = __p[0];
   __p[0] = 0;
   if (v158)
@@ -2395,29 +2259,34 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v158);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
+  }
+
+  v159 = mlcore::AlbumPropertyCleanLibraryTracksItemCount(v158);
+  std::string::basic_string[abi:ne200100]<0>(v898, "cleanLibraryTracksItemCount");
+  v900 = v159;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumCleanSongCount" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_332_43882];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v160 = __p[0];
+  __p[0] = 0;
+  if (v160)
+  {
+    operator delete(v160);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
   }
 
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumLibraryAddEligible" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_334];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v159 = __p[0];
-  __p[0] = 0;
-  if (v159)
-  {
-    operator delete(v159);
-  }
-
-  v160 = mlcore::AlbumPropertyDatePlayedLocal(v159);
-  std::string::basic_string[abi:ne200100]<0>(v899, "datePlayedLocal");
-  v901 = v160;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumLastDevicePlaybackDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_337];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumLibraryAddEligible" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_334];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v161 = __p[0];
   __p[0] = 0;
   if (v161)
@@ -2425,37 +2294,32 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v161);
   }
 
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v162 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v161);
-  IsExplicit = mlcore::ItemPropertyIsExplicit(v162);
-  Property = MPMediaLibraryGetProperty(v162, IsExplicit);
-  std::string::basic_string[abi:ne200100]<0>(v899, "representativeItemExplicit");
-  v901 = Property;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumHasCleanContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_340];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v165 = __p[0];
+  v162 = mlcore::AlbumPropertyDatePlayedLocal(v161);
+  std::string::basic_string[abi:ne200100]<0>(v898, "datePlayedLocal");
+  v900 = v162;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumLastDevicePlaybackDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_337];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v163 = __p[0];
   __p[0] = 0;
-  if (v165)
+  if (v163)
   {
-    operator delete(v165);
+    operator delete(v163);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v166 = mlcore::AlbumPropertyKeepLocal(v165);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocal");
-  v901 = v166;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumKeepLocalEnableState" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_342_43886];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v164 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v163);
+  IsExplicit = mlcore::ItemPropertyIsExplicit(v164);
+  Property = MPMediaLibraryGetProperty(v164, IsExplicit);
+  std::string::basic_string[abi:ne200100]<0>(v898, "representativeItemExplicit");
+  v900 = Property;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumHasCleanContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_340];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v167 = __p[0];
   __p[0] = 0;
   if (v167)
@@ -2463,17 +2327,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v167);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v168 = mlcore::AlbumPropertyKeepLocalStatus(v167);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalStatus");
-  v901 = v168;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumKeepLocalManagedStatus" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_344];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v168 = mlcore::AlbumPropertyKeepLocal(v167);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocal");
+  v900 = v168;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumKeepLocalEnableState" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_342_43886];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v169 = __p[0];
   __p[0] = 0;
   if (v169)
@@ -2481,17 +2345,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v169);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v170 = mlcore::AlbumPropertyKeepLocalStatusReason(v169);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalStatusReason");
-  v901 = v170;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumKeepLocalManagedStatusReason" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_346];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v170 = mlcore::AlbumPropertyKeepLocalStatus(v169);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalStatus");
+  v900 = v170;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumKeepLocalManagedStatus" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_344];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v171 = __p[0];
   __p[0] = 0;
   if (v171)
@@ -2499,17 +2363,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v171);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v172 = mlcore::AlbumPropertyKeepLocalConstraints(v171);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalConstraints");
-  v901 = v172;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumKeepLocalConstraints" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_348];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v172 = mlcore::AlbumPropertyKeepLocalStatusReason(v171);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalStatusReason");
+  v900 = v172;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumKeepLocalManagedStatusReason" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_346];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v173 = __p[0];
   __p[0] = 0;
   if (v173)
@@ -2517,17 +2381,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v173);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v174 = mlcore::AlbumPropertyAppData(v173);
-  std::string::basic_string[abi:ne200100]<0>(v899, "appData");
-  v901 = v174;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumSongPopularity" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_351];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v174 = mlcore::AlbumPropertyKeepLocalConstraints(v173);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalConstraints");
+  v900 = v174;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumKeepLocalConstraints" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_348];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v175 = __p[0];
   __p[0] = 0;
   if (v175)
@@ -2535,76 +2399,76 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v175);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v176 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v175);
-  v177 = mlcore::ItemPropertyHLSAudioCapability(v176);
-  v178 = MPMediaLibraryGetProperty(v176, v177);
-  v179 = std::string::basic_string[abi:ne200100]<0>(__p, "hlsAudioCapability");
-  v875[1] = v178;
-  v180 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v179);
-  v181 = mlcore::ItemPropertyIsMasteredForiTunes(v180);
-  v182 = MPMediaLibraryGetProperty(v180, v181);
-  std::string::basic_string[abi:ne200100]<0>(v876, "masteredForiTunes");
-  v877 = v182;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumTraits" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_356, __p[0]];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v183 = v899[0];
-  v899[0] = 0;
-  if (v183)
-  {
-    operator delete(v183);
-  }
-
-  for (i2 = 0; i2 != -16; i2 -= 8)
-  {
-    if (SHIBYTE(v876[i2 + 5]) < 0)
-    {
-      operator delete(*&v876[i2]);
-    }
-  }
-
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumVersionHash" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_358];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v185 = __p[0];
+  v176 = mlcore::AlbumPropertyAppData(v175);
+  std::string::basic_string[abi:ne200100]<0>(v898, "appData");
+  v900 = v176;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumSongPopularity" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_351];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v177 = __p[0];
   __p[0] = 0;
+  if (v177)
+  {
+    operator delete(v177);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
+  v178 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v177);
+  v179 = mlcore::ItemPropertyHLSAudioCapability(v178);
+  v180 = MPMediaLibraryGetProperty(v178, v179);
+  v181 = std::string::basic_string[abi:ne200100]<0>(__p, "hlsAudioCapability");
+  v877[1] = v180;
+  v182 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v181);
+  v183 = mlcore::ItemPropertyIsMasteredForiTunes(v182);
+  v184 = MPMediaLibraryGetProperty(v182, v183);
+  std::string::basic_string[abi:ne200100]<0>(v878, "masteredForiTunes");
+  v879 = v184;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumTraits" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_356, __p[0]];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v185 = v898[0];
+  v898[0] = 0;
   if (v185)
   {
     operator delete(v185);
   }
 
-  v186 = [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumClassicalExperienceAvailable" toMLProperty:mlcore::AlbumPropertyClassicalExperienceAvailable(v185)];
-  v187 = mlcore::AlbumPropertyLikedState(v186);
-  std::string::basic_string[abi:ne200100]<0>(v899, "likedState");
-  v901 = v187;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumIsFavorite" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_360_43893];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v188 = __p[0];
+  for (i2 = 0; i2 != -8; i2 -= 4)
+  {
+    if (SHIBYTE(v878[i2 + 2]) < 0)
+    {
+      operator delete(v878[i2]);
+    }
+  }
+
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumVersionHash" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_358];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v187 = __p[0];
   __p[0] = 0;
-  if (v188)
+  if (v187)
   {
-    operator delete(v188);
+    operator delete(v187);
   }
 
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
+  v188 = [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumClassicalExperienceAvailable" toMLProperty:mlcore::AlbumPropertyClassicalExperienceAvailable(v187)];
   v189 = mlcore::AlbumPropertyLikedState(v188);
-  std::string::basic_string[abi:ne200100]<0>(v899, "likedState");
-  v901 = v189;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumIsDisliked" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_362_43894];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  std::string::basic_string[abi:ne200100]<0>(v898, "likedState");
+  v900 = v189;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumIsFavorite" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_360_43893];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v190 = __p[0];
   __p[0] = 0;
   if (v190)
@@ -2612,17 +2476,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v190);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v191 = mlcore::AlbumPropertyLikedStateChangedDate(v190);
-  std::string::basic_string[abi:ne200100]<0>(v899, "likedStateChangedDate");
-  v901 = v191;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumDateFavorited" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_364];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v191 = mlcore::AlbumPropertyLikedState(v190);
+  std::string::basic_string[abi:ne200100]<0>(v898, "likedState");
+  v900 = v191;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumIsDisliked" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_362_43894];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v192 = __p[0];
   __p[0] = 0;
   if (v192)
@@ -2630,17 +2494,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v192);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  IsStoreRedownloadable = mlcore::AlbumPropertyIsStoreRedownloadable(v192);
-  std::string::basic_string[abi:ne200100]<0>(v899, "isStoreRedownloadable");
-  v901 = IsStoreRedownloadable;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumIsStoreRedownloadable" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_366];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v193 = mlcore::AlbumPropertyLikedStateChangedDate(v192);
+  std::string::basic_string[abi:ne200100]<0>(v898, "likedStateChangedDate");
+  v900 = v193;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumDateFavorited" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_364];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v194 = __p[0];
   __p[0] = 0;
   if (v194)
@@ -2648,245 +2512,245 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v194);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  IsLibraryPinned = mlcore::AlbumPropertyIsLibraryPinned(v194);
-  v196 = [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumDownloadedTrackCount" toMLProperty:mlcore::AlbumPropertyNonPurgeableTracksItemCount([(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumIsPinned" toMLProperty:IsLibraryPinned, __p[0]])];
-  [(mlcore *)v104 mapPropertyKey:@"MPModelPropertyAlbumCleanDownloadedTrackCount" toMLProperty:mlcore::AlbumPropertyCleanDownloadedLibraryTracksCount(v196)];
-  v197 = objc_opt_class();
-  [(mlcore *)v104 mapRelationshipKey:@"MPModelRelationshipAlbumGenre" toModelClass:v197 usingForeignPropertyBase:mlcore::AlbumPropertyGenrePersistentID(v197)];
-  v198 = objc_opt_class();
-  [(mlcore *)v104 mapRelationshipKey:@"MPModelRelationshipAlbumArtist" toModelClass:v198 usingForeignPropertyBase:mlcore::AlbumPropertyArtistPersistentID(v198)];
+  IsStoreRedownloadable = mlcore::AlbumPropertyIsStoreRedownloadable(v194);
+  std::string::basic_string[abi:ne200100]<0>(v898, "isStoreRedownloadable");
+  v900 = IsStoreRedownloadable;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumIsStoreRedownloadable" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_366];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v196 = __p[0];
+  __p[0] = 0;
+  if (v196)
+  {
+    operator delete(v196);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
+  IsLibraryPinned = mlcore::AlbumPropertyIsLibraryPinned(v196);
+  v198 = [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumDownloadedTrackCount" toMLProperty:mlcore::AlbumPropertyNonPurgeableTracksItemCount([(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumIsPinned" toMLProperty:IsLibraryPinned, __p[0]])];
+  [(mlcore *)v106 mapPropertyKey:@"MPModelPropertyAlbumCleanDownloadedTrackCount" toMLProperty:mlcore::AlbumPropertyCleanDownloadedLibraryTracksCount(v198)];
   v199 = objc_opt_class();
-  [(mlcore *)v104 mapRelationshipKey:@"MPModelRelationshipAlbumRepresentativeSong" toModelClass:v199 usingForeignPropertyBase:mlcore::AlbumPropertyRepresentativeItemPersistentID(v199)];
+  [(mlcore *)v106 mapRelationshipKey:@"MPModelRelationshipAlbumGenre" toModelClass:v199 usingForeignPropertyBase:mlcore::AlbumPropertyGenrePersistentID(v199)];
+  v200 = objc_opt_class();
+  [(mlcore *)v106 mapRelationshipKey:@"MPModelRelationshipAlbumArtist" toModelClass:v200 usingForeignPropertyBase:mlcore::AlbumPropertyArtistPersistentID(v200)];
+  v201 = objc_opt_class();
+  [(mlcore *)v106 mapRelationshipKey:@"MPModelRelationshipAlbumRepresentativeSong" toModelClass:v201 usingForeignPropertyBase:mlcore::AlbumPropertyRepresentativeItemPersistentID(v201)];
 
   _MPMLInitPropertyPlaylistMap();
-  v200 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
-  v201 = mlcore::PlaylistPropertyPersistentID(v200);
-  v202 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v201;
-  v203 = mlcore::PlaylistPropertyCloudAuthorStoreID(v202);
-  std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v203;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v200 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_528];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v204 = v899[0];
-  v899[0] = 0;
-  if (v204)
+  v202 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
+  v203 = mlcore::PlaylistPropertyPersistentID(v202);
+  v204 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v203;
+  v205 = mlcore::PlaylistPropertyCloudAuthorStoreID(v204);
+  std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
+  v879 = v205;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v202 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_528];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v206 = v898[0];
+  v898[0] = 0;
+  if (v206)
   {
-    operator delete(v204);
+    operator delete(v206);
   }
 
-  for (i3 = 0; i3 != -16; i3 -= 8)
+  for (i3 = 0; i3 != -8; i3 -= 4)
   {
-    if (SHIBYTE(v876[i3 + 5]) < 0)
+    if (SHIBYTE(v878[i3 + 2]) < 0)
     {
-      operator delete(*&v876[i3]);
+      operator delete(v878[i3]);
     }
   }
 
-  v206 = mlcore::PlaylistPropertyCloudAuthorName(v204);
-  v207 = std::string::basic_string[abi:ne200100]<0>(__p, "name");
-  v875[1] = v206;
-  v208 = mlcore::PlaylistPropertyExternalVendorDisplayName(v207);
-  std::string::basic_string[abi:ne200100]<0>(v876, "externalVendorName");
-  v877 = v208;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v200 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_531];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v209 = v899[0];
-  v899[0] = 0;
-  if (v209)
-  {
-    operator delete(v209);
-  }
-
-  for (i4 = 0; i4 != -16; i4 -= 8)
-  {
-    if (SHIBYTE(v876[i4 + 5]) < 0)
-    {
-      operator delete(*&v876[i4]);
-    }
-  }
-
-  [(mlcore *)v200 mapPropertyKey:@"MPModelPropertyCuratorHandle" toMLProperty:mlcore::PlaylistPropertyCloudAuthorHandle(v209)];
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v200 mapPropertyKey:@"MPModelPropertyCuratorKind" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_533_43899];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v211 = __p[0];
-  __p[0] = 0;
+  v208 = mlcore::PlaylistPropertyCloudAuthorName(v206);
+  v209 = std::string::basic_string[abi:ne200100]<0>(__p, "name");
+  v877[1] = v208;
+  v210 = mlcore::PlaylistPropertyExternalVendorDisplayName(v209);
+  std::string::basic_string[abi:ne200100]<0>(v878, "externalVendorName");
+  v879 = v210;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v202 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_531];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v211 = v898[0];
+  v898[0] = 0;
   if (v211)
   {
     operator delete(v211);
   }
 
+  for (i4 = 0; i4 != -8; i4 -= 4)
+  {
+    if (SHIBYTE(v878[i4 + 2]) < 0)
+    {
+      operator delete(v878[i4]);
+    }
+  }
+
+  [(mlcore *)v202 mapPropertyKey:@"MPModelPropertyCuratorHandle" toMLProperty:mlcore::PlaylistPropertyCloudAuthorHandle(v211)];
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v200 mapPropertyKey:@"MPModelPropertyCuratorSubKind" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_535];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v212 = __p[0];
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v202 mapPropertyKey:@"MPModelPropertyCuratorKind" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_533_43899];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v213 = __p[0];
   __p[0] = 0;
-  if (v212)
+  if (v213)
   {
-    operator delete(v212);
+    operator delete(v213);
   }
 
-  v213 = MEMORY[0x1A58E11E0]();
-  v214 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v213];
-  v215 = mlcore::ArtistPropertyPersistentID(v214);
-  v216 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v215;
-  v217 = mlcore::ArtistPropertyStoreID(v216);
-  v218 = std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v217;
-  v219 = mlcore::ArtistPropertyCloudUniversalLibraryID(v218);
-  std::string::basic_string[abi:ne200100]<0>(v878, "albumArtistCloudUniversalLibraryID");
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v202 mapPropertyKey:@"MPModelPropertyCuratorSubKind" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_535];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v214 = __p[0];
+  __p[0] = 0;
+  if (v214)
+  {
+    operator delete(v214);
+  }
+
+  v215 = MEMORY[0x1A58E11E0]();
+  v216 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v215];
+  v217 = mlcore::ArtistPropertyPersistentID(v216);
+  v218 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v217;
+  v219 = mlcore::ArtistPropertyStoreID(v218);
+  v220 = std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
   v879 = v219;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 3);
-  [(mlcore *)v214 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_538];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v220 = v899[0];
-  v899[0] = 0;
-  if (v220)
+  v221 = mlcore::ArtistPropertyCloudUniversalLibraryID(v220);
+  std::string::basic_string[abi:ne200100]<0>(v880, "albumArtistCloudUniversalLibraryID");
+  v881 = v221;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 3);
+  [(mlcore *)v216 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_538];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v222 = v898[0];
+  v898[0] = 0;
+  if (v222)
   {
-    operator delete(v220);
+    operator delete(v222);
   }
 
-  for (i5 = 0; i5 != -96; i5 -= 32)
+  for (i5 = 0; i5 != -12; i5 -= 4)
   {
-    if (v878[i5 + 23] < 0)
+    if (SHIBYTE(v880[i5 + 2]) < 0)
     {
-      operator delete(*&v878[i5]);
+      operator delete(v880[i5]);
     }
   }
 
-  [(mlcore *)v214 setEntityQueryBlock:&__block_literal_global_540];
-  v222 = mlcore::ArtistPropertyName([(mlcore *)v214 setAllowedItemPredicatesBlock:&__block_literal_global_546]);
-  std::string::basic_string[abi:ne200100]<0>(v896, "name");
-  v898 = v222;
-  v223 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  HasName = mlcore::ArtistPropertyHasName(v223);
-  v225 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
-  v875[1] = HasName;
-  v226 = mlcore::ArtistPropertyOrder(v225);
-  std::string::basic_string[abi:ne200100]<0>(v876, "nameOrder");
-  v877 = v226;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_549_43902 filterTransformer:&__block_literal_global_551_43903 valueTransformer:&__block_literal_global_556];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v227 = v904[0];
-  v904[0] = 0;
-  if (v227)
-  {
-    operator delete(v227);
-  }
-
-  for (i6 = 0; i6 != -16; i6 -= 8)
-  {
-    if (SHIBYTE(v876[i6 + 5]) < 0)
-    {
-      operator delete(*&v876[i6]);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v229 = v899[0];
-  v899[0] = 0;
+  [(mlcore *)v216 setEntityQueryBlock:&__block_literal_global_540];
+  v224 = mlcore::ArtistPropertyName([(mlcore *)v216 setAllowedItemPredicatesBlock:&__block_literal_global_546]);
+  std::string::basic_string[abi:ne200100]<0>(v895, "name");
+  v897 = v224;
+  v225 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  HasName = mlcore::ArtistPropertyHasName(v225);
+  v227 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
+  v877[1] = HasName;
+  v228 = mlcore::ArtistPropertyOrder(v227);
+  std::string::basic_string[abi:ne200100]<0>(v878, "nameOrder");
+  v879 = v228;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_549_43902 filterTransformer:&__block_literal_global_551_43903 valueTransformer:&__block_literal_global_556];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v229 = v902[0];
+  v902[0] = 0;
   if (v229)
   {
     operator delete(v229);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i6 = 0; i6 != -8; i6 -= 4)
   {
-    operator delete(v896[0]);
-  }
-
-  v230 = mlcore::ArtistPropertyPersistentID(v229);
-  v231 = std::string::basic_string[abi:ne200100]<0>(__p, "artistPID");
-  v875[1] = v230;
-  v232 = mlcore::ArtistPropertyAvailableArtworkToken(v231);
-  v233 = std::string::basic_string[abi:ne200100]<0>(v876, "artistAvailableArtworkToken");
-  v877 = v232;
-  v234 = mlcore::ArtistPropertyFetchableArtworkToken(v233);
-  v235 = std::string::basic_string[abi:ne200100]<0>(v878, "artistFetchableArtworkToken");
-  v879 = v234;
-  v236 = mlcore::ArtistPropertyFetchableArtworkSourceType(v235);
-  std::string::basic_string[abi:ne200100]<0>(v880, "artistFetchableArtworkSourceType");
-  v881 = v236;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 4);
-  [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_562];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v237 = v899[0];
-  v899[0] = 0;
-  if (v237)
-  {
-    operator delete(v237);
-  }
-
-  for (i7 = 0; i7 != -128; i7 -= 32)
-  {
-    if (v880[i7 + 23] < 0)
+    if (SHIBYTE(v878[i6 + 2]) < 0)
     {
-      operator delete(*&v880[i7]);
+      operator delete(v878[i6]);
     }
   }
 
-  v239 = [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistCleanSongCount" toMLProperty:mlcore::ArtistPropertyLibraryCleanItemCount(v237)];
-  v240 = [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistSongCount" toMLProperty:mlcore::ArtistPropertyLibraryItemCount(v239)];
-  v241 = [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistCleanDownloadedSongCount" toMLProperty:mlcore::ArtistPropertyLibraryNonPurgeableCleanItemCount(v240)];
-  v242 = [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistDownloadedSongCount" toMLProperty:mlcore::ArtistPropertyLibraryNonPurgeableItemCount(v241)];
-  v243 = [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistAlbumCount" toMLProperty:mlcore::ArtistPropertyAlbumCount(v242)];
-  v244 = mlcore::ArtistPropertyLatestItemDateAdded(v243);
-  std::string::basic_string[abi:ne200100]<0>(v899, "libraryAdded");
-  v901 = v244;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_564];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v245 = __p[0];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v231 = v898[0];
+  v898[0] = 0;
+  if (v231)
+  {
+    operator delete(v231);
+  }
+
+  if (SHIBYTE(v896) < 0)
+  {
+    operator delete(v895[0]);
+  }
+
+  v232 = mlcore::ArtistPropertyPersistentID(v231);
+  v233 = std::string::basic_string[abi:ne200100]<0>(__p, "artistPID");
+  v877[1] = v232;
+  v234 = mlcore::ArtistPropertyAvailableArtworkToken(v233);
+  v235 = std::string::basic_string[abi:ne200100]<0>(v878, "artistAvailableArtworkToken");
+  v879 = v234;
+  v236 = mlcore::ArtistPropertyFetchableArtworkToken(v235);
+  v237 = std::string::basic_string[abi:ne200100]<0>(v880, "artistFetchableArtworkToken");
+  v881 = v236;
+  v238 = mlcore::ArtistPropertyFetchableArtworkSourceType(v237);
+  std::string::basic_string[abi:ne200100]<0>(v882, "artistFetchableArtworkSourceType");
+  v883 = v238;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 4);
+  [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_562];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v239 = v898[0];
+  v898[0] = 0;
+  if (v239)
+  {
+    operator delete(v239);
+  }
+
+  for (i7 = 0; i7 != -16; i7 -= 4)
+  {
+    if (SHIBYTE(v882[i7 + 2]) < 0)
+    {
+      operator delete(v882[i7]);
+    }
+  }
+
+  v241 = [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistCleanSongCount" toMLProperty:mlcore::ArtistPropertyLibraryCleanItemCount(v239)];
+  v242 = [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistSongCount" toMLProperty:mlcore::ArtistPropertyLibraryItemCount(v241)];
+  v243 = [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistCleanDownloadedSongCount" toMLProperty:mlcore::ArtistPropertyLibraryNonPurgeableCleanItemCount(v242)];
+  v244 = [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistDownloadedSongCount" toMLProperty:mlcore::ArtistPropertyLibraryNonPurgeableItemCount(v243)];
+  v245 = [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistAlbumCount" toMLProperty:mlcore::ArtistPropertyAlbumCount(v244)];
+  v246 = mlcore::ArtistPropertyLatestItemDateAdded(v245);
+  std::string::basic_string[abi:ne200100]<0>(v898, "libraryAdded");
+  v900 = v246;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_564];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v247 = __p[0];
   __p[0] = 0;
-  if (v245)
+  if (v247)
   {
-    operator delete(v245);
+    operator delete(v247);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v246 = [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistClassicalExperienceAvailable" toMLProperty:mlcore::ArtistPropertyClassicalExperienceAvailable(v245)];
-  v247 = mlcore::ArtistPropertyLikedState(v246);
-  std::string::basic_string[abi:ne200100]<0>(v899, "likedState");
-  v901 = v247;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistIsFavorite" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_566];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v248 = __p[0];
-  __p[0] = 0;
-  if (v248)
-  {
-    operator delete(v248);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
+  v248 = [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistClassicalExperienceAvailable" toMLProperty:mlcore::ArtistPropertyClassicalExperienceAvailable(v247)];
   v249 = mlcore::ArtistPropertyLikedState(v248);
-  std::string::basic_string[abi:ne200100]<0>(v899, "likedState");
-  v901 = v249;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistIsDisliked" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_568];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  std::string::basic_string[abi:ne200100]<0>(v898, "likedState");
+  v900 = v249;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistIsFavorite" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_566];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v250 = __p[0];
   __p[0] = 0;
   if (v250)
@@ -2894,17 +2758,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v250);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v251 = mlcore::ArtistPropertyLikedStateChangedDate(v250);
-  std::string::basic_string[abi:ne200100]<0>(v899, "likedStateChangedDate");
-  v901 = v251;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistDateFavorited" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_570];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v251 = mlcore::ArtistPropertyLikedState(v250);
+  std::string::basic_string[abi:ne200100]<0>(v898, "likedState");
+  v900 = v251;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistIsDisliked" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_568];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v252 = __p[0];
   __p[0] = 0;
   if (v252)
@@ -2912,168 +2776,162 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v252);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v253 = mlcore::ArtistPropertyIsLibraryPinned(v252);
-  v254 = mlcore::ArtistPropertyLikedState([(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistIsPinned" toMLProperty:v253, __p[0]]);
-  v255 = std::string::basic_string[abi:ne200100]<0>(__p, "likedState");
-  v875[1] = v254;
-  v256 = mlcore::ArtistPropertyLibraryItemCount(v255);
-  std::string::basic_string[abi:ne200100]<0>(v876, "libraryItemCount");
-  v877 = v256;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v214 mapPropertyKey:@"MPModelPropertyArtistLibraryAdded" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_573_43908];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v257 = v899[0];
-  v899[0] = 0;
-  if (v257)
+  v253 = mlcore::ArtistPropertyLikedStateChangedDate(v252);
+  std::string::basic_string[abi:ne200100]<0>(v898, "likedStateChangedDate");
+  v900 = v253;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistDateFavorited" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_570];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v254 = __p[0];
+  __p[0] = 0;
+  if (v254)
   {
-    operator delete(v257);
+    operator delete(v254);
   }
 
-  for (i8 = 0; i8 != -16; i8 -= 8)
+  if (SHIBYTE(v899) < 0)
   {
-    if (SHIBYTE(v876[i8 + 5]) < 0)
+    operator delete(v898[0]);
+  }
+
+  v255 = mlcore::ArtistPropertyIsLibraryPinned(v254);
+  v256 = mlcore::ArtistPropertyLikedState([(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistIsPinned" toMLProperty:v255, __p[0]]);
+  v257 = std::string::basic_string[abi:ne200100]<0>(__p, "likedState");
+  v877[1] = v256;
+  v258 = mlcore::ArtistPropertyLibraryItemCount(v257);
+  std::string::basic_string[abi:ne200100]<0>(v878, "libraryItemCount");
+  v879 = v258;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v216 mapPropertyKey:@"MPModelPropertyArtistLibraryAdded" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_573_43908];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v259 = v898[0];
+  v898[0] = 0;
+  if (v259)
+  {
+    operator delete(v259);
+  }
+
+  for (i8 = 0; i8 != -8; i8 -= 4)
+  {
+    if (SHIBYTE(v878[i8 + 2]) < 0)
     {
-      operator delete(*&v876[i8]);
+      operator delete(v878[i8]);
     }
   }
 
-  v259 = objc_opt_class();
-  v260 = mlcore::ArtistPropertyRepresentativeItemPersistentID(v259);
-  v261 = mlcore::ItemPropertyGenrePersistentID(v260);
-  [(mlcore *)v214 mapRelationshipKey:@"MPModelRelationshipArtistGenre" toModelClass:v259 usingForeignPropertyBase:MPMediaLibraryGetProperty(v260, v261)];
+  v261 = objc_opt_class();
+  v262 = mlcore::ArtistPropertyRepresentativeItemPersistentID(v261);
+  v263 = mlcore::ItemPropertyGenrePersistentID(v262);
+  [(mlcore *)v216 mapRelationshipKey:@"MPModelRelationshipArtistGenre" toModelClass:v261 usingForeignPropertyBase:MPMediaLibraryGetProperty(v262, v263)];
 
-  v262 = MEMORY[0x1A58DF740]();
-  v263 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v262];
-  v264 = mlcore::ItemArtistPropertyPersistentID(v263);
-  v265 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v264;
-  v266 = mlcore::ItemArtistPropertyStoreID(v265);
-  std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v266;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v263 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_575];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v267 = v899[0];
-  v899[0] = 0;
-  if (v267)
+  v264 = MEMORY[0x1A58DF740]();
+  v265 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v264];
+  v266 = mlcore::ItemArtistPropertyPersistentID(v265);
+  v267 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v266;
+  v268 = mlcore::ItemArtistPropertyStoreID(v267);
+  std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
+  v879 = v268;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v265 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_575];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v269 = v898[0];
+  v898[0] = 0;
+  if (v269)
   {
-    operator delete(v267);
+    operator delete(v269);
   }
 
-  for (i9 = 0; i9 != -16; i9 -= 8)
+  for (i9 = 0; i9 != -8; i9 -= 4)
   {
-    if (SHIBYTE(v876[i9 + 5]) < 0)
+    if (SHIBYTE(v878[i9 + 2]) < 0)
     {
-      operator delete(*&v876[i9]);
+      operator delete(v878[i9]);
     }
   }
 
-  v269 = mlcore::ItemArtistPropertyName(v267);
-  std::string::basic_string[abi:ne200100]<0>(v896, "name");
-  v898 = v269;
-  v270 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  v271 = mlcore::ItemArtistPropertyHasName(v270);
-  v272 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
-  v875[1] = v271;
-  v273 = mlcore::ItemArtistPropertyOrder(v272);
-  std::string::basic_string[abi:ne200100]<0>(v876, "nameOrder");
-  v877 = v273;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v263 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_577 filterTransformer:&__block_literal_global_579 valueTransformer:&__block_literal_global_581];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v274 = v904[0];
-  v904[0] = 0;
-  if (v274)
-  {
-    operator delete(v274);
-  }
-
-  for (i10 = 0; i10 != -16; i10 -= 8)
-  {
-    if (SHIBYTE(v876[i10 + 5]) < 0)
-    {
-      operator delete(*&v876[i10]);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v276 = v899[0];
-  v899[0] = 0;
+  v271 = mlcore::ItemArtistPropertyName(v269);
+  std::string::basic_string[abi:ne200100]<0>(v895, "name");
+  v897 = v271;
+  v272 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  v273 = mlcore::ItemArtistPropertyHasName(v272);
+  v274 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
+  v877[1] = v273;
+  v275 = mlcore::ItemArtistPropertyOrder(v274);
+  std::string::basic_string[abi:ne200100]<0>(v878, "nameOrder");
+  v879 = v275;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v265 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_577 filterTransformer:&__block_literal_global_579 valueTransformer:&__block_literal_global_581];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v276 = v902[0];
+  v902[0] = 0;
   if (v276)
   {
     operator delete(v276);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i10 = 0; i10 != -8; i10 -= 4)
   {
-    operator delete(v896[0]);
-  }
-
-  v277 = mlcore::ItemArtistPropertyPersistentID(v276);
-  v278 = std::string::basic_string[abi:ne200100]<0>(__p, "artistPID");
-  v875[1] = v277;
-  v279 = mlcore::ItemArtistPropertyAvailableArtworkToken(v278);
-  v280 = std::string::basic_string[abi:ne200100]<0>(v876, "artistAvailableArtworkToken");
-  v877 = v279;
-  v281 = mlcore::ItemArtistPropertyFetchableArtworkToken(v280);
-  v282 = std::string::basic_string[abi:ne200100]<0>(v878, "artistFetchableArtworkToken");
-  v879 = v281;
-  v283 = mlcore::ItemArtistPropertyFetchableArtworkSourceType(v282);
-  std::string::basic_string[abi:ne200100]<0>(v880, "artistFetchableArtworkSourceType");
-  v881 = v283;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 4);
-  [(mlcore *)v263 mapPropertyKey:@"MPModelPropertyArtistArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_583];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v284 = v899[0];
-  v899[0] = 0;
-  if (v284)
-  {
-    operator delete(v284);
-  }
-
-  for (i11 = 0; i11 != -128; i11 -= 32)
-  {
-    if (v880[i11 + 23] < 0)
+    if (SHIBYTE(v878[i10 + 2]) < 0)
     {
-      operator delete(*&v880[i11]);
+      operator delete(v878[i10]);
     }
   }
 
-  [(mlcore *)v263 mapPropertyKey:@"MPModelPropertyArtistClassicalExperienceAvailable" toMLProperty:mlcore::ItemArtistPropertyClassicalExperienceAvailable(v284)];
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v263 mapPropertyKey:@"MPModelPropertyArtistIsFavorite" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_585];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v286 = __p[0];
-  __p[0] = 0;
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v278 = v898[0];
+  v898[0] = 0;
+  if (v278)
+  {
+    operator delete(v278);
+  }
+
+  if (SHIBYTE(v896) < 0)
+  {
+    operator delete(v895[0]);
+  }
+
+  v279 = mlcore::ItemArtistPropertyPersistentID(v278);
+  v280 = std::string::basic_string[abi:ne200100]<0>(__p, "artistPID");
+  v877[1] = v279;
+  v281 = mlcore::ItemArtistPropertyAvailableArtworkToken(v280);
+  v282 = std::string::basic_string[abi:ne200100]<0>(v878, "artistAvailableArtworkToken");
+  v879 = v281;
+  v283 = mlcore::ItemArtistPropertyFetchableArtworkToken(v282);
+  v284 = std::string::basic_string[abi:ne200100]<0>(v880, "artistFetchableArtworkToken");
+  v881 = v283;
+  v285 = mlcore::ItemArtistPropertyFetchableArtworkSourceType(v284);
+  std::string::basic_string[abi:ne200100]<0>(v882, "artistFetchableArtworkSourceType");
+  v883 = v285;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 4);
+  [(mlcore *)v265 mapPropertyKey:@"MPModelPropertyArtistArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_583];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v286 = v898[0];
+  v898[0] = 0;
   if (v286)
   {
     operator delete(v286);
   }
 
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v263 mapPropertyKey:@"MPModelPropertyArtistIsDisliked" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_587_43909];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v287 = __p[0];
-  __p[0] = 0;
-  if (v287)
+  for (i11 = 0; i11 != -16; i11 -= 4)
   {
-    operator delete(v287);
+    if (SHIBYTE(v882[i11 + 2]) < 0)
+    {
+      operator delete(v882[i11]);
+    }
   }
 
+  [(mlcore *)v265 mapPropertyKey:@"MPModelPropertyArtistClassicalExperienceAvailable" toMLProperty:mlcore::ItemArtistPropertyClassicalExperienceAvailable(v286)];
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v263 mapPropertyKey:@"MPModelPropertyArtistDateFavorited" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_589_43910];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v265 mapPropertyKey:@"MPModelPropertyArtistIsFavorite" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_585];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v288 = __p[0];
   __p[0] = 0;
   if (v288)
@@ -3082,10 +2940,10 @@ void _MPMLInitPropertyMaps(void)
   }
 
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v263 mapPropertyKey:@"MPModelPropertyArtistLibraryAdded" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_591];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v265 mapPropertyKey:@"MPModelPropertyArtistIsDisliked" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_587_43909];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v289 = __p[0];
   __p[0] = 0;
   if (v289)
@@ -3093,478 +2951,484 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v289);
   }
 
-  v290 = objc_opt_class();
-  v291 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v290);
-  v292 = mlcore::ItemPropertyGenrePersistentID(v291);
-  [(mlcore *)v263 mapRelationshipKey:@"MPModelRelationshipArtistGenre" toModelClass:v290 usingForeignPropertyBase:MPMediaLibraryGetProperty(v291, v292)];
-
-  v293 = MEMORY[0x1A58E1270]();
-  v294 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v293];
-  v295 = mlcore::ComposerPropertyPersistentID(v294);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v295;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v294 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_593];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v296 = __p[0];
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v265 mapPropertyKey:@"MPModelPropertyArtistDateFavorited" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_589_43910];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v290 = __p[0];
   __p[0] = 0;
-  if (v296)
+  if (v290)
   {
-    operator delete(v296);
+    operator delete(v290);
   }
 
-  if (SHIBYTE(v900) < 0)
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v265 mapPropertyKey:@"MPModelPropertyArtistLibraryAdded" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_591];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v291 = __p[0];
+  __p[0] = 0;
+  if (v291)
   {
-    operator delete(v899[0]);
+    operator delete(v291);
   }
 
-  v297 = mlcore::ComposerPropertyName([(mlcore *)v294 setEntityQueryBlock:&__block_literal_global_595, __p[0]]);
-  std::string::basic_string[abi:ne200100]<0>(v896, "name");
-  v898 = v297;
-  v298 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  v299 = mlcore::ComposerPropertyHasName(v298);
-  v300 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
-  v875[1] = v299;
-  v301 = mlcore::ComposerPropertyOrder(v300);
-  std::string::basic_string[abi:ne200100]<0>(v876, "nameOrder");
-  v877 = v301;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v294 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_601_43911 filterTransformer:&__block_literal_global_603 valueTransformer:&__block_literal_global_608];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v302 = v904[0];
-  v904[0] = 0;
-  if (v302)
+  v292 = objc_opt_class();
+  v293 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v292);
+  v294 = mlcore::ItemPropertyGenrePersistentID(v293);
+  [(mlcore *)v265 mapRelationshipKey:@"MPModelRelationshipArtistGenre" toModelClass:v292 usingForeignPropertyBase:MPMediaLibraryGetProperty(v293, v294)];
+
+  v295 = MEMORY[0x1A58E1270]();
+  v296 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v295];
+  v297 = mlcore::ComposerPropertyPersistentID(v296);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v297;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v296 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_593];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v298 = __p[0];
+  __p[0] = 0;
+  if (v298)
   {
-    operator delete(v302);
+    operator delete(v298);
   }
 
-  for (i12 = 0; i12 != -16; i12 -= 8)
+  if (SHIBYTE(v899) < 0)
   {
-    if (SHIBYTE(v876[i12 + 5]) < 0)
-    {
-      operator delete(*&v876[i12]);
-    }
+    operator delete(v898[0]);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v304 = v899[0];
-  v899[0] = 0;
+  v299 = mlcore::ComposerPropertyName([(mlcore *)v296 setEntityQueryBlock:&__block_literal_global_595, __p[0]]);
+  std::string::basic_string[abi:ne200100]<0>(v895, "name");
+  v897 = v299;
+  v300 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  v301 = mlcore::ComposerPropertyHasName(v300);
+  v302 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
+  v877[1] = v301;
+  v303 = mlcore::ComposerPropertyOrder(v302);
+  std::string::basic_string[abi:ne200100]<0>(v878, "nameOrder");
+  v879 = v303;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v296 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_601_43911 filterTransformer:&__block_literal_global_603 valueTransformer:&__block_literal_global_608];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v304 = v902[0];
+  v902[0] = 0;
   if (v304)
   {
     operator delete(v304);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i12 = 0; i12 != -8; i12 -= 4)
   {
-    operator delete(v896[0]);
+    if (SHIBYTE(v878[i12 + 2]) < 0)
+    {
+      operator delete(v878[i12]);
+    }
   }
 
-  v305 = mlcore::ComposerPropertyLatestItemDateAdded(v304);
-  std::string::basic_string[abi:ne200100]<0>(v899, "libraryAdded");
-  v901 = v305;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v294 mapPropertyKey:@"MPModelPropertyComposerLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_610];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v306 = __p[0];
-  __p[0] = 0;
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v306 = v898[0];
+  v898[0] = 0;
   if (v306)
   {
     operator delete(v306);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v896) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v895[0]);
   }
 
-  v307 = MEMORY[0x1A58E1190]();
-  v308 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v307];
-  v309 = mlcore::GenrePropertyPersistentID(v308);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v309;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v308 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_612];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v310 = __p[0];
+  v307 = mlcore::ComposerPropertyLatestItemDateAdded(v306);
+  std::string::basic_string[abi:ne200100]<0>(v898, "libraryAdded");
+  v900 = v307;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v296 mapPropertyKey:@"MPModelPropertyComposerLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_610];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v308 = __p[0];
   __p[0] = 0;
-  if (v310)
+  if (v308)
   {
-    operator delete(v310);
+    operator delete(v308);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  [(mlcore *)v308 setEntityQueryBlock:&__block_literal_global_614, __p[0]];
-  v311 = mlcore::GenrePropertyName([(mlcore *)v308 setAllowedItemPredicatesBlock:&__block_literal_global_620]);
-  std::string::basic_string[abi:ne200100]<0>(v896, "name");
-  v898 = v311;
-  v312 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  v313 = mlcore::GenrePropertyHasName(v312);
-  v314 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
-  v875[1] = v313;
-  v315 = mlcore::GenrePropertyOrder(v314);
-  std::string::basic_string[abi:ne200100]<0>(v876, "nameOrder");
-  v877 = v315;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v308 mapPropertyKey:@"MPModelPropertyGenreName" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_622 filterTransformer:&__block_literal_global_624 valueTransformer:&__block_literal_global_629];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v316 = v904[0];
-  v904[0] = 0;
-  if (v316)
+  v309 = MEMORY[0x1A58E1190]();
+  v310 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v309];
+  v311 = mlcore::GenrePropertyPersistentID(v310);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v311;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v310 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_612];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v312 = __p[0];
+  __p[0] = 0;
+  if (v312)
   {
-    operator delete(v316);
+    operator delete(v312);
   }
 
-  for (i13 = 0; i13 != -16; i13 -= 8)
+  if (SHIBYTE(v899) < 0)
   {
-    if (SHIBYTE(v876[i13 + 5]) < 0)
-    {
-      operator delete(*&v876[i13]);
-    }
+    operator delete(v898[0]);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v318 = v899[0];
-  v899[0] = 0;
+  [(mlcore *)v310 setEntityQueryBlock:&__block_literal_global_614, __p[0]];
+  v313 = mlcore::GenrePropertyName([(mlcore *)v310 setAllowedItemPredicatesBlock:&__block_literal_global_620]);
+  std::string::basic_string[abi:ne200100]<0>(v895, "name");
+  v897 = v313;
+  v314 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  v315 = mlcore::GenrePropertyHasName(v314);
+  v316 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
+  v877[1] = v315;
+  v317 = mlcore::GenrePropertyOrder(v316);
+  std::string::basic_string[abi:ne200100]<0>(v878, "nameOrder");
+  v879 = v317;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v310 mapPropertyKey:@"MPModelPropertyGenreName" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_622 filterTransformer:&__block_literal_global_624 valueTransformer:&__block_literal_global_629];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v318 = v902[0];
+  v902[0] = 0;
   if (v318)
   {
     operator delete(v318);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i13 = 0; i13 != -8; i13 -= 4)
   {
-    operator delete(v896[0]);
+    if (SHIBYTE(v878[i13 + 2]) < 0)
+    {
+      operator delete(v878[i13]);
+    }
   }
 
-  v319 = mlcore::GenrePropertyLatestItemDateAdded(v318);
-  std::string::basic_string[abi:ne200100]<0>(v899, "libraryAdded");
-  v901 = v319;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v308 mapPropertyKey:@"MPModelPropertyGenreLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_631];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v320 = __p[0];
-  __p[0] = 0;
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v320 = v898[0];
+  v898[0] = 0;
   if (v320)
   {
     operator delete(v320);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v896) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v895[0]);
   }
 
-  v321 = MEMORY[0x1A58DF9B0]();
-  v322 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v321];
-  v323 = mlcore::PlaylistItemPropertyPersistentID(v322);
-  v324 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v323;
-  v325 = mlcore::PlaylistItemPropertyItemPersistentID(v324);
-  v326 = std::string::basic_string[abi:ne200100]<0>(v876, "itemPid");
-  v877 = v325;
+  v321 = mlcore::GenrePropertyLatestItemDateAdded(v320);
+  std::string::basic_string[abi:ne200100]<0>(v898, "libraryAdded");
+  v900 = v321;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v310 mapPropertyKey:@"MPModelPropertyGenreLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_631];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v322 = __p[0];
+  __p[0] = 0;
+  if (v322)
+  {
+    operator delete(v322);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
+  v323 = MEMORY[0x1A58DF9B0]();
+  v324 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v323];
+  v325 = mlcore::PlaylistItemPropertyPersistentID(v324);
+  v326 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v325;
   v327 = mlcore::PlaylistItemPropertyItemPersistentID(v326);
-  v328 = mlcore::ItemPropertyExcludeFromShuffle(v327);
-  v329 = MPMediaLibraryGetProperty(v327, v328);
-  v330 = std::string::basic_string[abi:ne200100]<0>(v878, "excludeFromShuffle");
-  v879 = v329;
-  v331 = mlcore::PlaylistItemPropertyItemPersistentID(v330);
-  v332 = mlcore::ItemPropertyStoreID(v331);
-  v333 = MPMediaLibraryGetProperty(v331, v332);
-  v334 = std::string::basic_string[abi:ne200100]<0>(v880, "storeID");
-  v881 = v333;
-  v335 = mlcore::PlaylistItemPropertyItemPersistentID(v334);
-  v336 = mlcore::ItemPropertyStoreCloudID(v335);
-  v337 = MPMediaLibraryGetProperty(v335, v336);
-  v338 = std::string::basic_string[abi:ne200100]<0>(v882, "cloudID");
-  v883 = v337;
-  v339 = mlcore::PlaylistItemPropertyItemPersistentID(v338);
-  v340 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v339);
-  v341 = MPMediaLibraryGetProperty(v339, v340);
-  v342 = std::string::basic_string[abi:ne200100]<0>(v884, "cloudUniversalLibraryID");
-  v885 = v341;
-  v343 = mlcore::PlaylistItemPropertyItemPersistentID(v342);
-  v344 = mlcore::ItemPropertySubscriptionStoreItemID(v343);
-  v345 = MPMediaLibraryGetProperty(v343, v344);
-  v346 = std::string::basic_string[abi:ne200100]<0>(v886, "subscriptionStoreID");
-  v887 = v345;
-  v347 = mlcore::PlaylistItemPropertyItemPersistentID(v346);
-  v348 = mlcore::ItemPropertyStoreCloudAlbumID(v347);
-  v349 = MPMediaLibraryGetProperty(v347, v348);
-  v350 = std::string::basic_string[abi:ne200100]<0>(v888, "storeCloudAlbumID");
-  v889 = v349;
-  v351 = mlcore::PlaylistItemPropertyItemPersistentID(v350);
-  v352 = mlcore::ItemPropertyReportingStoreItemID(v351);
-  v353 = MPMediaLibraryGetProperty(v351, v352);
-  v354 = std::string::basic_string[abi:ne200100]<0>(v890, "reportingStoreItemID");
-  v891 = v353;
-  v355 = mlcore::PlaylistItemPropertyItemPersistentID(v354);
-  v356 = mlcore::ItemPropertyAssetStoreItemID(v355);
-  v357 = MPMediaLibraryGetProperty(v355, v356);
-  v358 = std::string::basic_string[abi:ne200100]<0>(v892, "assetStoreItemID");
-  v893 = v357;
-  v359 = mlcore::PlaylistItemPropertyOccurrenceID(v358);
+  v328 = std::string::basic_string[abi:ne200100]<0>(v878, "itemPid");
+  v879 = v327;
+  v329 = mlcore::PlaylistItemPropertyItemPersistentID(v328);
+  v330 = mlcore::ItemPropertyExcludeFromShuffle(v329);
+  v331 = MPMediaLibraryGetProperty(v329, v330);
+  v332 = std::string::basic_string[abi:ne200100]<0>(v880, "excludeFromShuffle");
+  v881 = v331;
+  v333 = mlcore::PlaylistItemPropertyItemPersistentID(v332);
+  v334 = mlcore::ItemPropertyStoreID(v333);
+  v335 = MPMediaLibraryGetProperty(v333, v334);
+  v336 = std::string::basic_string[abi:ne200100]<0>(v882, "storeID");
+  v883 = v335;
+  v337 = mlcore::PlaylistItemPropertyItemPersistentID(v336);
+  v338 = mlcore::ItemPropertyStoreCloudID(v337);
+  v339 = MPMediaLibraryGetProperty(v337, v338);
+  v340 = std::string::basic_string[abi:ne200100]<0>(v884, "cloudID");
+  v885 = v339;
+  v341 = mlcore::PlaylistItemPropertyItemPersistentID(v340);
+  v342 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v341);
+  v343 = MPMediaLibraryGetProperty(v341, v342);
+  v344 = std::string::basic_string[abi:ne200100]<0>(v886, "cloudUniversalLibraryID");
+  v887 = v343;
+  v345 = mlcore::PlaylistItemPropertyItemPersistentID(v344);
+  v346 = mlcore::ItemPropertySubscriptionStoreItemID(v345);
+  v347 = MPMediaLibraryGetProperty(v345, v346);
+  v348 = std::string::basic_string[abi:ne200100]<0>(v888, "subscriptionStoreID");
+  v889 = v347;
+  v349 = mlcore::PlaylistItemPropertyItemPersistentID(v348);
+  v350 = mlcore::ItemPropertyStoreCloudAlbumID(v349);
+  v351 = MPMediaLibraryGetProperty(v349, v350);
+  v352 = std::string::basic_string[abi:ne200100]<0>(v890, "storeCloudAlbumID");
+  v891 = v351;
+  v353 = mlcore::PlaylistItemPropertyItemPersistentID(v352);
+  v354 = mlcore::ItemPropertyReportingStoreItemID(v353);
+  v355 = MPMediaLibraryGetProperty(v353, v354);
+  v356 = std::string::basic_string[abi:ne200100]<0>(v892, "reportingStoreItemID");
+  v892[3] = v355;
+  v357 = mlcore::PlaylistItemPropertyItemPersistentID(v356);
+  v358 = mlcore::ItemPropertyAssetStoreItemID(v357);
+  v359 = MPMediaLibraryGetProperty(v357, v358);
+  v360 = std::string::basic_string[abi:ne200100]<0>(v893, "assetStoreItemID");
+  v893[3] = v359;
+  v361 = mlcore::PlaylistItemPropertyOccurrenceID(v360);
   std::string::basic_string[abi:ne200100]<0>(v894, "occurrenceID");
-  v895 = v359;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 11);
-  [(mlcore *)v322 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_635];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v360 = v899[0];
-  v899[0] = 0;
-  if (v360)
+  v894[3] = v361;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 11);
+  [(mlcore *)v324 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_635];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v362 = v898[0];
+  v898[0] = 0;
+  if (v362)
   {
-    operator delete(v360);
+    operator delete(v362);
   }
 
-  v361 = 44;
+  v363 = 44;
   do
   {
-    if (*(&__p[v361 - 1] - 1) < 0)
+    if (*(&__p[v363 - 1] - 1) < 0)
     {
-      operator delete(__p[v361 - 4]);
+      operator delete(__p[v363 - 4]);
     }
 
-    v361 -= 4;
+    v363 -= 4;
   }
 
-  while (v361 * 8);
-  v362 = mlcore::PlaylistItemPropertyItemPersistentID([(mlcore *)v322 setEntityQueryBlock:&__block_literal_global_637]);
-  v363 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v362;
-  v364 = mlcore::PlaylistItemPropertyItemPersistentID(v363);
-  v365 = mlcore::ItemPropertyMediaType(v364);
-  v366 = MPMediaLibraryGetProperty(v364, v365);
-  v367 = std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v366;
-  v368 = mlcore::PlaylistItemPropertyAvailableArtworkToken(v367);
-  v369 = std::string::basic_string[abi:ne200100]<0>(v878, "availableArtworkToken");
+  while (v363 * 8);
+  v364 = mlcore::PlaylistItemPropertyItemPersistentID([(mlcore *)v324 setEntityQueryBlock:&__block_literal_global_637]);
+  v365 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v364;
+  v366 = mlcore::PlaylistItemPropertyItemPersistentID(v365);
+  v367 = mlcore::ItemPropertyMediaType(v366);
+  v368 = MPMediaLibraryGetProperty(v366, v367);
+  v369 = std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
   v879 = v368;
-  v370 = mlcore::PlaylistItemPropertyFetchableArtworkToken(v369);
-  v371 = std::string::basic_string[abi:ne200100]<0>(v880, "fetchableArtworkToken");
+  v370 = mlcore::PlaylistItemPropertyAvailableArtworkToken(v369);
+  v371 = std::string::basic_string[abi:ne200100]<0>(v880, "availableArtworkToken");
   v881 = v370;
-  v372 = mlcore::PlaylistItemPropertyFetchableArtworkSourceType(v371);
-  std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkSourceType");
+  v372 = mlcore::PlaylistItemPropertyFetchableArtworkToken(v371);
+  v373 = std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkToken");
   v883 = v372;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 5);
-  [(mlcore *)v322 mapPropertyKey:@"_MPModelPropertyPlaylistEntryArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_647];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v373 = v899[0];
-  v899[0] = 0;
-  if (v373)
+  v374 = mlcore::PlaylistItemPropertyFetchableArtworkSourceType(v373);
+  std::string::basic_string[abi:ne200100]<0>(v884, "fetchableArtworkSourceType");
+  v885 = v374;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 5);
+  [(mlcore *)v324 mapPropertyKey:@"_MPModelPropertyPlaylistEntryArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_647];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v375 = v898[0];
+  v898[0] = 0;
+  if (v375)
   {
-    operator delete(v373);
+    operator delete(v375);
   }
 
-  for (i14 = 0; i14 != -160; i14 -= 32)
+  for (i14 = 0; i14 != -20; i14 -= 4)
   {
-    if (v882[i14 + 23] < 0)
+    if (SHIBYTE(v884[i14 + 2]) < 0)
     {
-      operator delete(*&v882[i14]);
+      operator delete(v884[i14]);
     }
   }
 
-  v375 = mlcore::PlaylistItemPropertyPosition(v373);
-  std::string::basic_string[abi:ne200100]<0>(v899, "position");
-  v901 = v375;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v322 mapPropertyKey:@"MPModelPropertyPlaylistEntryPosition" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_650];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v376 = __p[0];
+  v377 = mlcore::PlaylistItemPropertyPosition(v375);
+  std::string::basic_string[abi:ne200100]<0>(v898, "position");
+  v900 = v377;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v324 mapPropertyKey:@"MPModelPropertyPlaylistEntryPosition" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_650];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v378 = __p[0];
   __p[0] = 0;
-  if (v376)
+  if (v378)
   {
-    operator delete(v376);
+    operator delete(v378);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v377 = mlcore::PlaylistItemPropertyUUID(v376);
-  v378 = std::string::basic_string[abi:ne200100]<0>(__p, "UUID");
-  v875[1] = v377;
-  v379 = mlcore::PlaylistItemPropertyPersistentID(v378);
-  std::string::basic_string[abi:ne200100]<0>(v876, "persistentID");
-  v877 = v379;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v322 mapPropertyKey:@"MPModelPropertyPlaylistEntryUniversalIdentifier" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_653_43924];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v380 = v899[0];
-  v899[0] = 0;
-  if (v380)
+  v379 = mlcore::PlaylistItemPropertyUUID(v378);
+  v380 = std::string::basic_string[abi:ne200100]<0>(__p, "UUID");
+  v877[1] = v379;
+  v381 = mlcore::PlaylistItemPropertyPersistentID(v380);
+  std::string::basic_string[abi:ne200100]<0>(v878, "persistentID");
+  v879 = v381;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v324 mapPropertyKey:@"MPModelPropertyPlaylistEntryUniversalIdentifier" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_653_43924];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v382 = v898[0];
+  v898[0] = 0;
+  if (v382)
   {
-    operator delete(v380);
+    operator delete(v382);
   }
 
-  for (i15 = 0; i15 != -16; i15 -= 8)
+  for (i15 = 0; i15 != -8; i15 -= 4)
   {
-    if (SHIBYTE(v876[i15 + 5]) < 0)
+    if (SHIBYTE(v878[i15 + 2]) < 0)
     {
-      operator delete(*&v876[i15]);
+      operator delete(v878[i15]);
     }
   }
 
-  v382 = mlcore::PlaylistItemPropertyPositionUUID(v380);
-  v383 = std::string::basic_string[abi:ne200100]<0>(__p, "positionUUID");
-  v875[1] = v382;
-  v384 = mlcore::PlaylistItemPropertyPersistentID(v383);
-  std::string::basic_string[abi:ne200100]<0>(v876, "persistentID");
-  v877 = v384;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v322 mapPropertyKey:@"MPModelPropertyPlaylistEntryPositionUniversalIdentifier" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_659];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v385 = v899[0];
-  v899[0] = 0;
-  if (v385)
+  v384 = mlcore::PlaylistItemPropertyPositionUUID(v382);
+  v385 = std::string::basic_string[abi:ne200100]<0>(__p, "positionUUID");
+  v877[1] = v384;
+  v386 = mlcore::PlaylistItemPropertyPersistentID(v385);
+  std::string::basic_string[abi:ne200100]<0>(v878, "persistentID");
+  v879 = v386;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v324 mapPropertyKey:@"MPModelPropertyPlaylistEntryPositionUniversalIdentifier" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_659];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v387 = v898[0];
+  v898[0] = 0;
+  if (v387)
   {
-    operator delete(v385);
+    operator delete(v387);
   }
 
-  for (i16 = 0; i16 != -16; i16 -= 8)
+  for (i16 = 0; i16 != -8; i16 -= 4)
   {
-    if (SHIBYTE(v876[i16 + 5]) < 0)
+    if (SHIBYTE(v878[i16 + 2]) < 0)
     {
-      operator delete(*&v876[i16]);
+      operator delete(v878[i16]);
     }
   }
 
-  v387 = objc_opt_class();
-  v388 = mlcore::PlaylistItemPropertyItemPersistentID(v387);
-  v389 = mlcore::PlaylistItemPropertyItemPersistentID(v388);
-  v390 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v389;
+  v389 = objc_opt_class();
+  v390 = mlcore::PlaylistItemPropertyItemPersistentID(v389);
   v391 = mlcore::PlaylistItemPropertyItemPersistentID(v390);
-  v392 = mlcore::ItemPropertyMediaType(v391);
-  v393 = MPMediaLibraryGetProperty(v391, v392);
-  std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v393;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v322 mapRelationshipKey:@"MPModelRelationshipPlaylistEntrySong" toModelClass:v387 transient:0 usingForeignPropertyBase:v388 relationshipValidationProperties:v899 isValidRelationshipHandler:&__block_literal_global_665];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v394 = v899[0];
-  v899[0] = 0;
-  if (v394)
+  v392 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v391;
+  v393 = mlcore::PlaylistItemPropertyItemPersistentID(v392);
+  v394 = mlcore::ItemPropertyMediaType(v393);
+  v395 = MPMediaLibraryGetProperty(v393, v394);
+  std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
+  v879 = v395;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v324 mapRelationshipKey:@"MPModelRelationshipPlaylistEntrySong" toModelClass:v389 transient:0 usingForeignPropertyBase:v390 relationshipValidationProperties:v898 isValidRelationshipHandler:&__block_literal_global_665];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v396 = v898[0];
+  v898[0] = 0;
+  if (v396)
   {
-    operator delete(v394);
+    operator delete(v396);
   }
 
-  for (i17 = 0; i17 != -16; i17 -= 8)
+  for (i17 = 0; i17 != -8; i17 -= 4)
   {
-    if (SHIBYTE(v876[i17 + 5]) < 0)
+    if (SHIBYTE(v878[i17 + 2]) < 0)
     {
-      operator delete(*&v876[i17]);
+      operator delete(v878[i17]);
     }
   }
 
-  v396 = objc_opt_class();
-  v397 = mlcore::PlaylistItemPropertyItemPersistentID(v396);
-  v398 = mlcore::PlaylistItemPropertyItemPersistentID(v397);
-  v399 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v398;
+  v398 = objc_opt_class();
+  v399 = mlcore::PlaylistItemPropertyItemPersistentID(v398);
   v400 = mlcore::PlaylistItemPropertyItemPersistentID(v399);
-  v401 = mlcore::ItemPropertyMediaType(v400);
-  v402 = MPMediaLibraryGetProperty(v400, v401);
-  std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v402;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v322 mapRelationshipKey:@"MPModelRelationshipPlaylistEntryTVEpisode" toModelClass:v396 transient:0 usingForeignPropertyBase:v397 relationshipValidationProperties:v899 isValidRelationshipHandler:&__block_literal_global_667];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v403 = v899[0];
-  v899[0] = 0;
-  if (v403)
+  v401 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v400;
+  v402 = mlcore::PlaylistItemPropertyItemPersistentID(v401);
+  v403 = mlcore::ItemPropertyMediaType(v402);
+  v404 = MPMediaLibraryGetProperty(v402, v403);
+  std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
+  v879 = v404;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v324 mapRelationshipKey:@"MPModelRelationshipPlaylistEntryTVEpisode" toModelClass:v398 transient:0 usingForeignPropertyBase:v399 relationshipValidationProperties:v898 isValidRelationshipHandler:&__block_literal_global_667];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v405 = v898[0];
+  v898[0] = 0;
+  if (v405)
   {
-    operator delete(v403);
+    operator delete(v405);
   }
 
-  for (i18 = 0; i18 != -16; i18 -= 8)
+  for (i18 = 0; i18 != -8; i18 -= 4)
   {
-    if (SHIBYTE(v876[i18 + 5]) < 0)
+    if (SHIBYTE(v878[i18 + 2]) < 0)
     {
-      operator delete(*&v876[i18]);
+      operator delete(v878[i18]);
     }
   }
 
-  v405 = objc_opt_class();
-  v406 = mlcore::PlaylistItemPropertyItemPersistentID(v405);
-  v407 = mlcore::PlaylistItemPropertyItemPersistentID(v406);
-  v408 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v407;
+  v407 = objc_opt_class();
+  v408 = mlcore::PlaylistItemPropertyItemPersistentID(v407);
   v409 = mlcore::PlaylistItemPropertyItemPersistentID(v408);
-  v410 = mlcore::ItemPropertyMediaType(v409);
-  v411 = MPMediaLibraryGetProperty(v409, v410);
-  std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v411;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v322 mapRelationshipKey:@"MPModelRelationshipPlaylistEntryMovie" toModelClass:v405 transient:0 usingForeignPropertyBase:v406 relationshipValidationProperties:v899 isValidRelationshipHandler:&__block_literal_global_669];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v412 = v899[0];
-  v899[0] = 0;
-  if (v412)
+  v410 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v409;
+  v411 = mlcore::PlaylistItemPropertyItemPersistentID(v410);
+  v412 = mlcore::ItemPropertyMediaType(v411);
+  v413 = MPMediaLibraryGetProperty(v411, v412);
+  std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
+  v879 = v413;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v324 mapRelationshipKey:@"MPModelRelationshipPlaylistEntryMovie" toModelClass:v407 transient:0 usingForeignPropertyBase:v408 relationshipValidationProperties:v898 isValidRelationshipHandler:&__block_literal_global_669];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v414 = v898[0];
+  v898[0] = 0;
+  if (v414)
   {
-    operator delete(v412);
+    operator delete(v414);
   }
 
-  for (i19 = 0; i19 != -16; i19 -= 8)
+  for (i19 = 0; i19 != -8; i19 -= 4)
   {
-    if (SHIBYTE(v876[i19 + 5]) < 0)
+    if (SHIBYTE(v878[i19 + 2]) < 0)
     {
-      operator delete(*&v876[i19]);
+      operator delete(v878[i19]);
     }
   }
 
-  v414 = objc_opt_class();
-  v415 = mlcore::PlaylistItemPropertyPersistentID(v414);
-  v416 = mlcore::ContainerItemPersonPropertyPersonPersistentID(v415);
-  [(mlcore *)v322 mapRelationshipKey:@"MPModelRelationshipPlaylistEntrySocialContributor" toModelClass:v414 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v415, v416)];
+  v416 = objc_opt_class();
+  v417 = mlcore::PlaylistItemPropertyPersistentID(v416);
+  v418 = mlcore::ContainerItemPersonPropertyPersonPersistentID(v417);
+  [(mlcore *)v324 mapRelationshipKey:@"MPModelRelationshipPlaylistEntrySocialContributor" toModelClass:v416 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v417, v418)];
 
-  v417 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
-  v418 = mlcore::ItemPropertyPersistentID(v417);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v418;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v417 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_693_43926];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v419 = __p[0];
+  v419 = [MPMediaLibraryEntityTranslator translatorForTransientMPModelClass:objc_opt_class()];
+  v420 = mlcore::ItemPropertyPersistentID(v419);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v420;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v419 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_693_43926];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v421 = __p[0];
   __p[0] = 0;
-  if (v419)
+  if (v421)
   {
-    operator delete(v419);
+    operator delete(v421);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v420 = mlcore::ItemPropertyCloudKVSKey(v419);
-  v421 = mlcore::CloudKVSEntityPropertyBookmarkTime(v420);
-  v422 = MPMediaLibraryGetProperty(v420, v421);
-  std::string::basic_string[abi:ne200100]<0>(v899, "cloudKVSBookmarkTime");
-  v901 = v422;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v417 mapPropertyKey:@"MPModelPropertyPlaybackPositionBookmarkTime" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_696_43928];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v423 = __p[0];
-  __p[0] = 0;
-  if (v423)
-  {
-    operator delete(v423);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v424 = mlcore::ItemPropertyCloudKVSKey(v423);
-  std::string::basic_string[abi:ne200100]<0>(v899, "cloudKVSKey");
-  v901 = v424;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v417 mapPropertyKey:@"MPModelPropertyPlaybackPositionStoreUbiquitousIdentifier" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_699];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v422 = mlcore::ItemPropertyCloudKVSKey(v421);
+  v423 = mlcore::CloudKVSEntityPropertyBookmarkTime(v422);
+  v424 = MPMediaLibraryGetProperty(v422, v423);
+  std::string::basic_string[abi:ne200100]<0>(v898, "cloudKVSBookmarkTime");
+  v900 = v424;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v419 mapPropertyKey:@"MPModelPropertyPlaybackPositionBookmarkTime" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_696_43928];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v425 = __p[0];
   __p[0] = 0;
   if (v425)
@@ -3572,36 +3436,36 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v425);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v426 = [(mlcore *)v417 mapPropertyKey:@"MPModelPropertyPlaybackPositionShouldRememberBookmarkTime" toMLProperty:mlcore::ItemPropertyRememberBookmarkTime(v425)];
-  started = mlcore::ItemPropertyStartTime(v426);
-  std::string::basic_string[abi:ne200100]<0>(v899, "startTime");
-  v901 = started;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v417 mapPropertyKey:@"MPModelPropertyPlaybackPositionStartTime" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_702];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v428 = __p[0];
+  v426 = mlcore::ItemPropertyCloudKVSKey(v425);
+  std::string::basic_string[abi:ne200100]<0>(v898, "cloudKVSKey");
+  v900 = v426;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v419 mapPropertyKey:@"MPModelPropertyPlaybackPositionStoreUbiquitousIdentifier" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_699];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v427 = __p[0];
   __p[0] = 0;
-  if (v428)
+  if (v427)
   {
-    operator delete(v428);
+    operator delete(v427);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v429 = mlcore::ItemPropertyStopTime(v428);
-  std::string::basic_string[abi:ne200100]<0>(v899, "stopTime");
-  v901 = v429;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v417 mapPropertyKey:@"MPModelPropertyPlaybackPositionStopTime" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_705_43930];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v428 = [(mlcore *)v419 mapPropertyKey:@"MPModelPropertyPlaybackPositionShouldRememberBookmarkTime" toMLProperty:mlcore::ItemPropertyRememberBookmarkTime(v427)];
+  started = mlcore::ItemPropertyStartTime(v428);
+  std::string::basic_string[abi:ne200100]<0>(v898, "startTime");
+  v900 = started;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v419 mapPropertyKey:@"MPModelPropertyPlaybackPositionStartTime" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_702];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v430 = __p[0];
   __p[0] = 0;
   if (v430)
@@ -3609,305 +3473,305 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v430);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v431 = mlcore::ItemPropertyCloudKVSKey(v430);
-  HasBeenPlayed = mlcore::CloudKVSEntityPropertyHasBeenPlayed(v431);
-  v433 = MPMediaLibraryGetProperty(v431, HasBeenPlayed);
-  std::string::basic_string[abi:ne200100]<0>(v899, "cloudKVSHasBeenPlayed");
-  v901 = v433;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v417 mapPropertyKey:@"MPModelPropertyPlaybackPositionHasBeenPlayed" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_708];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v434 = __p[0];
+  v431 = mlcore::ItemPropertyStopTime(v430);
+  std::string::basic_string[abi:ne200100]<0>(v898, "stopTime");
+  v900 = v431;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v419 mapPropertyKey:@"MPModelPropertyPlaybackPositionStopTime" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_705_43930];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v432 = __p[0];
   __p[0] = 0;
-  if (v434)
+  if (v432)
   {
-    operator delete(v434);
+    operator delete(v432);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v435 = mlcore::ItemPropertyCloudKVSKey(v434);
-  v436 = mlcore::CloudKVSEntityPropertyPlayCount(v435);
-  v437 = MPMediaLibraryGetProperty(v435, v436);
-  std::string::basic_string[abi:ne200100]<0>(v899, "cloudKVSPlayCount");
-  v901 = v437;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v417 mapPropertyKey:@"MPModelPropertyPlaybackPositionUserPlayCount" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_711_43932];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v438 = __p[0];
+  v433 = mlcore::ItemPropertyCloudKVSKey(v432);
+  HasBeenPlayed = mlcore::CloudKVSEntityPropertyHasBeenPlayed(v433);
+  v435 = MPMediaLibraryGetProperty(v433, HasBeenPlayed);
+  std::string::basic_string[abi:ne200100]<0>(v898, "cloudKVSHasBeenPlayed");
+  v900 = v435;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v419 mapPropertyKey:@"MPModelPropertyPlaybackPositionHasBeenPlayed" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_708];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v436 = __p[0];
   __p[0] = 0;
-  if (v438)
+  if (v436)
   {
-    operator delete(v438);
+    operator delete(v436);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v439 = MEMORY[0x1A58E1250]();
-  v440 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v439];
-  v441 = mlcore::AlbumPropertyPersistentID(v440);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v441;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v440 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_713];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v442 = __p[0];
+  v437 = mlcore::ItemPropertyCloudKVSKey(v436);
+  v438 = mlcore::CloudKVSEntityPropertyPlayCount(v437);
+  v439 = MPMediaLibraryGetProperty(v437, v438);
+  std::string::basic_string[abi:ne200100]<0>(v898, "cloudKVSPlayCount");
+  v900 = v439;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v419 mapPropertyKey:@"MPModelPropertyPlaybackPositionUserPlayCount" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_711_43932];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v440 = __p[0];
   __p[0] = 0;
-  if (v442)
+  if (v440)
   {
-    operator delete(v442);
+    operator delete(v440);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  [(mlcore *)v440 setEntityQueryBlock:&__block_literal_global_715, __p[0]];
-  v443 = mlcore::AlbumPropertyTitle([(mlcore *)v440 setAllowedItemPredicatesBlock:&__block_literal_global_721]);
-  std::string::basic_string[abi:ne200100]<0>(v896, "title");
-  v898 = v443;
-  v444 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  v445 = mlcore::AlbumPropertyHasTitle(v444);
-  v446 = std::string::basic_string[abi:ne200100]<0>(__p, "hasTitle");
-  v875[1] = v445;
-  v447 = mlcore::AlbumPropertyOrder(v446);
-  std::string::basic_string[abi:ne200100]<0>(v876, "titleOrder");
-  v877 = v447;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v440 mapPropertyKey:@"MPModelPropertyPodcastTitle" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_723 valueTransformer:&__block_literal_global_725];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v448 = v904[0];
-  v904[0] = 0;
-  if (v448)
+  v441 = MEMORY[0x1A58E1250]();
+  v442 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v441];
+  v443 = mlcore::AlbumPropertyPersistentID(v442);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v443;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v442 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_713];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v444 = __p[0];
+  __p[0] = 0;
+  if (v444)
   {
-    operator delete(v448);
+    operator delete(v444);
   }
 
-  for (i20 = 0; i20 != -16; i20 -= 8)
+  if (SHIBYTE(v899) < 0)
   {
-    if (SHIBYTE(v876[i20 + 5]) < 0)
-    {
-      operator delete(*&v876[i20]);
-    }
+    operator delete(v898[0]);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v450 = v899[0];
-  v899[0] = 0;
+  [(mlcore *)v442 setEntityQueryBlock:&__block_literal_global_715, __p[0]];
+  v445 = mlcore::AlbumPropertyTitle([(mlcore *)v442 setAllowedItemPredicatesBlock:&__block_literal_global_721]);
+  std::string::basic_string[abi:ne200100]<0>(v895, "title");
+  v897 = v445;
+  v446 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  v447 = mlcore::AlbumPropertyHasTitle(v446);
+  v448 = std::string::basic_string[abi:ne200100]<0>(__p, "hasTitle");
+  v877[1] = v447;
+  v449 = mlcore::AlbumPropertyOrder(v448);
+  std::string::basic_string[abi:ne200100]<0>(v878, "titleOrder");
+  v879 = v449;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v442 mapPropertyKey:@"MPModelPropertyPodcastTitle" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_723 valueTransformer:&__block_literal_global_725];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v450 = v902[0];
+  v902[0] = 0;
   if (v450)
   {
     operator delete(v450);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i20 = 0; i20 != -8; i20 -= 4)
   {
-    operator delete(v896[0]);
+    if (SHIBYTE(v878[i20 + 2]) < 0)
+    {
+      operator delete(v878[i20]);
+    }
   }
 
-  v451 = mlcore::AlbumPropertyFeedURL(v450);
-  std::string::basic_string[abi:ne200100]<0>(v899, "feedURL");
-  v901 = v451;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v440 mapPropertyKey:@"MPModelPropertyPodcastFeedURL" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_728];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v452 = __p[0];
-  __p[0] = 0;
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v452 = v898[0];
+  v898[0] = 0;
   if (v452)
   {
     operator delete(v452);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v896) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v895[0]);
   }
 
-  v453 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v452);
-  v454 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v453;
-  v455 = mlcore::AlbumPropertyRepresentativeItemMediaType(v454);
-  v456 = std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v455;
-  v457 = mlcore::AlbumPropertyRepresentativeItemAvailableArtworkToken(v456);
-  v458 = std::string::basic_string[abi:ne200100]<0>(v878, "availableArtworkToken");
+  v453 = mlcore::AlbumPropertyFeedURL(v452);
+  std::string::basic_string[abi:ne200100]<0>(v898, "feedURL");
+  v900 = v453;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v442 mapPropertyKey:@"MPModelPropertyPodcastFeedURL" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_728];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v454 = __p[0];
+  __p[0] = 0;
+  if (v454)
+  {
+    operator delete(v454);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
+  v455 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v454);
+  v456 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v455;
+  v457 = mlcore::AlbumPropertyRepresentativeItemMediaType(v456);
+  v458 = std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
   v879 = v457;
-  v459 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkToken(v458);
-  v460 = std::string::basic_string[abi:ne200100]<0>(v880, "fetchableArtworkToken");
+  v459 = mlcore::AlbumPropertyRepresentativeItemAvailableArtworkToken(v458);
+  v460 = std::string::basic_string[abi:ne200100]<0>(v880, "availableArtworkToken");
   v881 = v459;
-  v461 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkSourceType(v460);
-  std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkSourceType");
+  v461 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkToken(v460);
+  v462 = std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkToken");
   v883 = v461;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 5);
-  [(mlcore *)v440 mapPropertyKey:@"MPModelPropertyPodcastArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_730];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v462 = v899[0];
-  v899[0] = 0;
-  if (v462)
+  v463 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkSourceType(v462);
+  std::string::basic_string[abi:ne200100]<0>(v884, "fetchableArtworkSourceType");
+  v885 = v463;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 5);
+  [(mlcore *)v442 mapPropertyKey:@"MPModelPropertyPodcastArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_730];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v464 = v898[0];
+  v898[0] = 0;
+  if (v464)
   {
-    operator delete(v462);
+    operator delete(v464);
   }
 
-  for (i21 = 0; i21 != -160; i21 -= 32)
+  for (i21 = 0; i21 != -20; i21 -= 4)
   {
-    if (v882[i21 + 23] < 0)
+    if (SHIBYTE(v884[i21 + 2]) < 0)
     {
-      operator delete(*&v882[i21]);
+      operator delete(v884[i21]);
     }
   }
 
-  v464 = objc_opt_class();
-  [(mlcore *)v440 mapRelationshipKey:@"MPModelRelationshipPodcastAuthor" toModelClass:v464 usingForeignPropertyBase:mlcore::AlbumPropertyArtistPersistentID(v464)];
+  v466 = objc_opt_class();
+  [(mlcore *)v442 mapRelationshipKey:@"MPModelRelationshipPodcastAuthor" toModelClass:v466 usingForeignPropertyBase:mlcore::AlbumPropertyArtistPersistentID(v466)];
 
-  v465 = MEMORY[0x1A58E11E0]();
-  v466 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v465];
-  v467 = mlcore::ArtistPropertyPersistentID(v466);
-  v468 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v467;
-  v469 = mlcore::ArtistPropertyStoreID(v468);
-  std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v469;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v466 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_733_43933];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v470 = v899[0];
-  v899[0] = 0;
-  if (v470)
+  v467 = MEMORY[0x1A58E11E0]();
+  v468 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v467];
+  v469 = mlcore::ArtistPropertyPersistentID(v468);
+  v470 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v469;
+  v471 = mlcore::ArtistPropertyStoreID(v470);
+  std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
+  v879 = v471;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v468 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_733_43933];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v472 = v898[0];
+  v898[0] = 0;
+  if (v472)
   {
-    operator delete(v470);
+    operator delete(v472);
   }
 
-  for (i22 = 0; i22 != -16; i22 -= 8)
+  for (i22 = 0; i22 != -8; i22 -= 4)
   {
-    if (SHIBYTE(v876[i22 + 5]) < 0)
+    if (SHIBYTE(v878[i22 + 2]) < 0)
     {
-      operator delete(*&v876[i22]);
+      operator delete(v878[i22]);
     }
   }
 
-  v472 = mlcore::ArtistPropertyName(v470);
-  std::string::basic_string[abi:ne200100]<0>(v896, "name");
-  v898 = v472;
-  v473 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  v474 = mlcore::ArtistPropertyHasName(v473);
-  v475 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
-  v875[1] = v474;
-  v476 = mlcore::ArtistPropertyOrder(v475);
-  std::string::basic_string[abi:ne200100]<0>(v876, "nameOrder");
-  v877 = v476;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v466 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_735 valueTransformer:&__block_literal_global_737];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v477 = v904[0];
-  v904[0] = 0;
-  if (v477)
-  {
-    operator delete(v477);
-  }
-
-  for (i23 = 0; i23 != -16; i23 -= 8)
-  {
-    if (SHIBYTE(v876[i23 + 5]) < 0)
-    {
-      operator delete(*&v876[i23]);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v479 = v899[0];
-  v899[0] = 0;
+  v474 = mlcore::ArtistPropertyName(v472);
+  std::string::basic_string[abi:ne200100]<0>(v895, "name");
+  v897 = v474;
+  v475 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  v476 = mlcore::ArtistPropertyHasName(v475);
+  v477 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
+  v877[1] = v476;
+  v478 = mlcore::ArtistPropertyOrder(v477);
+  std::string::basic_string[abi:ne200100]<0>(v878, "nameOrder");
+  v879 = v478;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v468 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_735 valueTransformer:&__block_literal_global_737];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v479 = v902[0];
+  v902[0] = 0;
   if (v479)
   {
     operator delete(v479);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i23 = 0; i23 != -8; i23 -= 4)
   {
-    operator delete(v896[0]);
-  }
-
-  v480 = MEMORY[0x1A58DFA20]();
-  v481 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v480];
-  v482 = mlcore::ItemPropertyPersistentID(v481);
-  v483 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v482;
-  v484 = mlcore::ItemPropertyStoreID(v483);
-  v485 = std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v484;
-  v486 = mlcore::ItemPropertyPodcastExternalGUID(v485);
-  std::string::basic_string[abi:ne200100]<0>(v878, "externalGUID");
-  v879 = v486;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 3);
-  [(mlcore *)v481 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_740];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v487 = v899[0];
-  v899[0] = 0;
-  if (v487)
-  {
-    operator delete(v487);
-  }
-
-  for (i24 = 0; i24 != -96; i24 -= 32)
-  {
-    if (v878[i24 + 23] < 0)
+    if (SHIBYTE(v878[i23 + 2]) < 0)
     {
-      operator delete(*&v878[i24]);
+      operator delete(v878[i23]);
     }
   }
 
-  [(mlcore *)v481 setEntityQueryBlock:&__block_literal_global_742];
-  v489 = mlcore::ItemPropertyTitle([(mlcore *)v481 setAllowedItemPredicatesBlock:&__block_literal_global_748]);
-  std::string::basic_string[abi:ne200100]<0>(v904, "title");
-  v906 = v489;
-  v490 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v904, 1);
-  v491 = mlcore::ItemPropertyTitleOrder(v490);
-  std::string::basic_string[abi:ne200100]<0>(v896, "titleOrder");
-  v898 = v491;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  [(mlcore *)v481 mapPropertyKey:@"MPModelPropertyPodcastEpisodeTitle" withPropertiesToFetch:__p propertiesToSort:v899 sortTransformer:&__block_literal_global_750 valueTransformer:&__block_literal_global_752];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v492 = v899[0];
-  v899[0] = 0;
-  if (v492)
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v481 = v898[0];
+  v898[0] = 0;
+  if (v481)
   {
-    operator delete(v492);
+    operator delete(v481);
   }
 
-  if (SHIBYTE(v897) < 0)
+  if (SHIBYTE(v896) < 0)
   {
-    operator delete(v896[0]);
+    operator delete(v895[0]);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v493 = __p[0];
-  __p[0] = 0;
-  if (v493)
+  v482 = MEMORY[0x1A58DFA20]();
+  v483 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v482];
+  v484 = mlcore::ItemPropertyPersistentID(v483);
+  v485 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v484;
+  v486 = mlcore::ItemPropertyStoreID(v485);
+  v487 = std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
+  v879 = v486;
+  v488 = mlcore::ItemPropertyPodcastExternalGUID(v487);
+  std::string::basic_string[abi:ne200100]<0>(v880, "externalGUID");
+  v881 = v488;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 3);
+  [(mlcore *)v483 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_740];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v489 = v898[0];
+  v898[0] = 0;
+  if (v489)
   {
-    operator delete(v493);
+    operator delete(v489);
   }
 
-  if (SHIBYTE(v905) < 0)
+  for (i24 = 0; i24 != -12; i24 -= 4)
   {
-    operator delete(v904[0]);
+    if (SHIBYTE(v880[i24 + 2]) < 0)
+    {
+      operator delete(v880[i24]);
+    }
   }
 
-  v494 = mlcore::ItemPropertyTotalTime(v493);
-  std::string::basic_string[abi:ne200100]<0>(v899, "time");
-  v901 = v494;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v481 mapPropertyKey:@"MPModelPropertyPodcastEpisodeDuration" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_754];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  [(mlcore *)v483 setEntityQueryBlock:&__block_literal_global_742];
+  v491 = mlcore::ItemPropertyTitle([(mlcore *)v483 setAllowedItemPredicatesBlock:&__block_literal_global_748]);
+  std::string::basic_string[abi:ne200100]<0>(v902, "title");
+  v904 = v491;
+  v492 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v902, 1);
+  v493 = mlcore::ItemPropertyTitleOrder(v492);
+  std::string::basic_string[abi:ne200100]<0>(v895, "titleOrder");
+  v897 = v493;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  [(mlcore *)v483 mapPropertyKey:@"MPModelPropertyPodcastEpisodeTitle" withPropertiesToFetch:__p propertiesToSort:v898 sortTransformer:&__block_literal_global_750 valueTransformer:&__block_literal_global_752];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v494 = v898[0];
+  v898[0] = 0;
+  if (v494)
+  {
+    operator delete(v494);
+  }
+
+  if (SHIBYTE(v896) < 0)
+  {
+    operator delete(v895[0]);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v495 = __p[0];
   __p[0] = 0;
   if (v495)
@@ -3915,17 +3779,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v495);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v903) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v902[0]);
   }
 
-  v496 = mlcore::ItemPropertyDateReleased(v495);
-  std::string::basic_string[abi:ne200100]<0>(v899, "dateReleased");
-  v901 = v496;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v481 mapPropertyKey:@"MPModelPropertyPodcastEpisodeReleaseDateComponents" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_756];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v496 = mlcore::ItemPropertyTotalTime(v495);
+  std::string::basic_string[abi:ne200100]<0>(v898, "time");
+  v900 = v496;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v483 mapPropertyKey:@"MPModelPropertyPodcastEpisodeDuration" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_754];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v497 = __p[0];
   __p[0] = 0;
   if (v497)
@@ -3933,17 +3797,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v497);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v498 = mlcore::ItemPropertyUserRating(v497);
-  std::string::basic_string[abi:ne200100]<0>(v899, "userRating");
-  v901 = v498;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v481 mapPropertyKey:@"MPModelPropertyPodcastEpisodeUserRating" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_758];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v498 = mlcore::ItemPropertyDateReleased(v497);
+  std::string::basic_string[abi:ne200100]<0>(v898, "dateReleased");
+  v900 = v498;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v483 mapPropertyKey:@"MPModelPropertyPodcastEpisodeReleaseDateComponents" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_756];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v499 = __p[0];
   __p[0] = 0;
   if (v499)
@@ -3951,213 +3815,213 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v499);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v500 = [(mlcore *)v481 mapPropertyKey:@"MPModelPropertyPodcastEpisodeExplicit" toMLProperty:mlcore::ItemPropertyIsExplicit(v499)];
-  v501 = [(mlcore *)v481 mapPropertyKey:@"MPModelPropertyPodcastEpisodeDescriptionText" toMLProperty:mlcore::ItemPropertyLongDescription(v500)];
-  v502 = [(mlcore *)v481 mapPropertyKey:@"MPModelPropertyPodcastEpisodeHasVideo" toMLProperty:mlcore::ItemPropertyIsVideo(v501)];
-  v503 = mlcore::ItemPropertyDatePlayed(v502);
-  std::string::basic_string[abi:ne200100]<0>(v899, "datePlayed");
-  v901 = v503;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v481 mapPropertyKey:@"MPModelPropertyPodcastEpisodeDatePlayed" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_760];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v504 = __p[0];
+  v500 = mlcore::ItemPropertyUserRating(v499);
+  std::string::basic_string[abi:ne200100]<0>(v898, "userRating");
+  v900 = v500;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v483 mapPropertyKey:@"MPModelPropertyPodcastEpisodeUserRating" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_758];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v501 = __p[0];
   __p[0] = 0;
-  if (v504)
+  if (v501)
   {
-    operator delete(v504);
+    operator delete(v501);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v505 = objc_opt_class();
-  [(mlcore *)v481 mapRelationshipKey:@"MPModelRelationshipPodcastEpisodeAuthor" toModelClass:v505 usingForeignPropertyBase:mlcore::ItemPropertyItemArtistPersistentID(v505)];
-  v506 = objc_opt_class();
-  [(mlcore *)v481 mapRelationshipKey:@"MPModelRelationshipPodcastEpisodeLocalFileAsset" toModelClass:v506 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v506)];
+  v502 = [(mlcore *)v483 mapPropertyKey:@"MPModelPropertyPodcastEpisodeExplicit" toMLProperty:mlcore::ItemPropertyIsExplicit(v501)];
+  v503 = [(mlcore *)v483 mapPropertyKey:@"MPModelPropertyPodcastEpisodeDescriptionText" toMLProperty:mlcore::ItemPropertyLongDescription(v502)];
+  v504 = [(mlcore *)v483 mapPropertyKey:@"MPModelPropertyPodcastEpisodeHasVideo" toMLProperty:mlcore::ItemPropertyIsVideo(v503)];
+  v505 = mlcore::ItemPropertyDatePlayed(v504);
+  std::string::basic_string[abi:ne200100]<0>(v898, "datePlayed");
+  v900 = v505;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v483 mapPropertyKey:@"MPModelPropertyPodcastEpisodeDatePlayed" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_760];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v506 = __p[0];
+  __p[0] = 0;
+  if (v506)
+  {
+    operator delete(v506);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
   v507 = objc_opt_class();
-  [(mlcore *)v481 mapRelationshipKey:@"MPModelRelationshipPodcastEpisodePodcast" toModelClass:v507 usingForeignPropertyBase:mlcore::ItemPropertyAlbumPersistentID(v507)];
+  [(mlcore *)v483 mapRelationshipKey:@"MPModelRelationshipPodcastEpisodeAuthor" toModelClass:v507 usingForeignPropertyBase:mlcore::ItemPropertyItemArtistPersistentID(v507)];
   v508 = objc_opt_class();
-  [(mlcore *)v481 mapRelationshipKey:@"MPModelRelationshipPodcastEpisodePlaybackPosition" toModelClass:v508 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v508)];
+  [(mlcore *)v483 mapRelationshipKey:@"MPModelRelationshipPodcastEpisodeLocalFileAsset" toModelClass:v508 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v508)];
+  v509 = objc_opt_class();
+  [(mlcore *)v483 mapRelationshipKey:@"MPModelRelationshipPodcastEpisodePodcast" toModelClass:v509 usingForeignPropertyBase:mlcore::ItemPropertyAlbumPersistentID(v509)];
+  v510 = objc_opt_class();
+  [(mlcore *)v483 mapRelationshipKey:@"MPModelRelationshipPodcastEpisodePlaybackPosition" toModelClass:v510 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v510)];
 
-  v509 = MEMORY[0x1A58DF740]();
-  v510 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v509];
-  v511 = mlcore::ItemArtistPropertyPersistentID(v510);
-  v512 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v511;
-  v513 = mlcore::ItemArtistPropertyStoreID(v512);
-  std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v513;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v510 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_763_43937];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v514 = v899[0];
-  v899[0] = 0;
-  if (v514)
+  v511 = MEMORY[0x1A58DF740]();
+  v512 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v511];
+  v513 = mlcore::ItemArtistPropertyPersistentID(v512);
+  v514 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v513;
+  v515 = mlcore::ItemArtistPropertyStoreID(v514);
+  std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
+  v879 = v515;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v512 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_763_43937];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v516 = v898[0];
+  v898[0] = 0;
+  if (v516)
   {
-    operator delete(v514);
+    operator delete(v516);
   }
 
-  for (i25 = 0; i25 != -16; i25 -= 8)
+  for (i25 = 0; i25 != -8; i25 -= 4)
   {
-    if (SHIBYTE(v876[i25 + 5]) < 0)
+    if (SHIBYTE(v878[i25 + 2]) < 0)
     {
-      operator delete(*&v876[i25]);
+      operator delete(v878[i25]);
     }
   }
 
-  v516 = mlcore::ItemArtistPropertyName(v514);
-  std::string::basic_string[abi:ne200100]<0>(v896, "name");
-  v898 = v516;
-  v517 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  v518 = mlcore::ItemArtistPropertyHasName(v517);
-  v519 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
-  v875[1] = v518;
-  v520 = mlcore::ItemArtistPropertyOrder(v519);
-  std::string::basic_string[abi:ne200100]<0>(v876, "nameOrder");
-  v877 = v520;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v510 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_765 valueTransformer:&__block_literal_global_767];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v521 = v904[0];
-  v904[0] = 0;
-  if (v521)
-  {
-    operator delete(v521);
-  }
-
-  for (i26 = 0; i26 != -16; i26 -= 8)
-  {
-    if (SHIBYTE(v876[i26 + 5]) < 0)
-    {
-      operator delete(*&v876[i26]);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v523 = v899[0];
-  v899[0] = 0;
+  v518 = mlcore::ItemArtistPropertyName(v516);
+  std::string::basic_string[abi:ne200100]<0>(v895, "name");
+  v897 = v518;
+  v519 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  v520 = mlcore::ItemArtistPropertyHasName(v519);
+  v521 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
+  v877[1] = v520;
+  v522 = mlcore::ItemArtistPropertyOrder(v521);
+  std::string::basic_string[abi:ne200100]<0>(v878, "nameOrder");
+  v879 = v522;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v512 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_765 valueTransformer:&__block_literal_global_767];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v523 = v902[0];
+  v902[0] = 0;
   if (v523)
   {
     operator delete(v523);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i26 = 0; i26 != -8; i26 -= 4)
   {
-    operator delete(v896[0]);
-  }
-
-  v524 = MEMORY[0x1A58E11B0]();
-  v525 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v524];
-  v526 = mlcore::ItemPropertyStoreID(v525);
-  v527 = std::string::basic_string[abi:ne200100]<0>(__p, "storeID");
-  v875[1] = v526;
-  v528 = mlcore::ItemPropertyStoreCloudID(v527);
-  v529 = std::string::basic_string[abi:ne200100]<0>(v876, "cloudID");
-  v877 = v528;
-  v530 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v529);
-  v531 = std::string::basic_string[abi:ne200100]<0>(v878, "cloudUniversalLibraryID");
-  v879 = v530;
-  v532 = mlcore::ItemPropertyPersistentID(v531);
-  v533 = std::string::basic_string[abi:ne200100]<0>(v880, "pid");
-  v881 = v532;
-  v534 = mlcore::ItemPropertySubscriptionStoreItemID(v533);
-  v535 = std::string::basic_string[abi:ne200100]<0>(v882, "subscriptionStoreID");
-  v883 = v534;
-  v536 = mlcore::ItemPropertyStoreCloudAlbumID(v535);
-  v537 = std::string::basic_string[abi:ne200100]<0>(v884, "storeCloudAlbumID");
-  v885 = v536;
-  v538 = mlcore::ItemPropertyReportingStoreItemID(v537);
-  v539 = std::string::basic_string[abi:ne200100]<0>(v886, "reportingStoreItemID");
-  v887 = v538;
-  v540 = mlcore::ItemPropertyAssetStoreItemID(v539);
-  std::string::basic_string[abi:ne200100]<0>(v888, "assetStoreItemID");
-  v889 = v540;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 8);
-  [(mlcore *)v525 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_769];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v541 = v899[0];
-  v899[0] = 0;
-  if (v541)
-  {
-    operator delete(v541);
-  }
-
-  for (i27 = 0; i27 != -256; i27 -= 32)
-  {
-    if (v888[i27 + 23] < 0)
+    if (SHIBYTE(v878[i26 + 2]) < 0)
     {
-      operator delete(*&v888[i27]);
+      operator delete(v878[i26]);
     }
   }
 
-  [(mlcore *)v525 setEntityQueryBlock:&__block_literal_global_771];
-  v543 = mlcore::ItemPropertyTitle([(mlcore *)v525 setAllowedItemPredicatesBlock:&__block_literal_global_777]);
-  std::string::basic_string[abi:ne200100]<0>(v904, "title");
-  v906 = v543;
-  v544 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v904, 1);
-  v545 = mlcore::ItemPropertyTitleOrder(v544);
-  std::string::basic_string[abi:ne200100]<0>(v896, "titleOrder");
-  v898 = v545;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieTitle" withPropertiesToFetch:__p propertiesToSort:v899 sortTransformer:&__block_literal_global_779 valueTransformer:&__block_literal_global_781_43938];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v546 = v899[0];
-  v899[0] = 0;
-  if (v546)
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v525 = v898[0];
+  v898[0] = 0;
+  if (v525)
   {
-    operator delete(v546);
+    operator delete(v525);
   }
 
-  if (SHIBYTE(v897) < 0)
+  if (SHIBYTE(v896) < 0)
   {
-    operator delete(v896[0]);
+    operator delete(v895[0]);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v547 = __p[0];
+  v526 = MEMORY[0x1A58E11B0]();
+  v527 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v526];
+  v528 = mlcore::ItemPropertyStoreID(v527);
+  v529 = std::string::basic_string[abi:ne200100]<0>(__p, "storeID");
+  v877[1] = v528;
+  v530 = mlcore::ItemPropertyStoreCloudID(v529);
+  v531 = std::string::basic_string[abi:ne200100]<0>(v878, "cloudID");
+  v879 = v530;
+  v532 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v531);
+  v533 = std::string::basic_string[abi:ne200100]<0>(v880, "cloudUniversalLibraryID");
+  v881 = v532;
+  v534 = mlcore::ItemPropertyPersistentID(v533);
+  v535 = std::string::basic_string[abi:ne200100]<0>(v882, "pid");
+  v883 = v534;
+  v536 = mlcore::ItemPropertySubscriptionStoreItemID(v535);
+  v537 = std::string::basic_string[abi:ne200100]<0>(v884, "subscriptionStoreID");
+  v885 = v536;
+  v538 = mlcore::ItemPropertyStoreCloudAlbumID(v537);
+  v539 = std::string::basic_string[abi:ne200100]<0>(v886, "storeCloudAlbumID");
+  v887 = v538;
+  v540 = mlcore::ItemPropertyReportingStoreItemID(v539);
+  v541 = std::string::basic_string[abi:ne200100]<0>(v888, "reportingStoreItemID");
+  v889 = v540;
+  v542 = mlcore::ItemPropertyAssetStoreItemID(v541);
+  std::string::basic_string[abi:ne200100]<0>(v890, "assetStoreItemID");
+  v891 = v542;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 8);
+  [(mlcore *)v527 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_769];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v543 = v898[0];
+  v898[0] = 0;
+  if (v543)
+  {
+    operator delete(v543);
+  }
+
+  for (i27 = 0; i27 != -32; i27 -= 4)
+  {
+    if (SHIBYTE(v890[i27 + 2]) < 0)
+    {
+      operator delete(v890[i27]);
+    }
+  }
+
+  [(mlcore *)v527 setEntityQueryBlock:&__block_literal_global_771];
+  v545 = mlcore::ItemPropertyTitle([(mlcore *)v527 setAllowedItemPredicatesBlock:&__block_literal_global_777]);
+  std::string::basic_string[abi:ne200100]<0>(v902, "title");
+  v904 = v545;
+  v546 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v902, 1);
+  v547 = mlcore::ItemPropertyTitleOrder(v546);
+  std::string::basic_string[abi:ne200100]<0>(v895, "titleOrder");
+  v897 = v547;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieTitle" withPropertiesToFetch:__p propertiesToSort:v898 sortTransformer:&__block_literal_global_779 valueTransformer:&__block_literal_global_781_43938];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v548 = v898[0];
+  v898[0] = 0;
+  if (v548)
+  {
+    operator delete(v548);
+  }
+
+  if (SHIBYTE(v896) < 0)
+  {
+    operator delete(v895[0]);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v549 = __p[0];
   __p[0] = 0;
-  if (v547)
+  if (v549)
   {
-    operator delete(v547);
+    operator delete(v549);
   }
 
-  if (SHIBYTE(v905) < 0)
+  if (SHIBYTE(v903) < 0)
   {
-    operator delete(v904[0]);
+    operator delete(v902[0]);
   }
 
-  v548 = [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieDescriptionText" toMLProperty:mlcore::ItemPropertyLongDescription(v547)];
-  v549 = mlcore::MoviePropertyInfo(v548);
-  std::string::basic_string[abi:ne200100]<0>(v899, "movieInfoPlist");
-  v901 = v549;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieInfoDictionary" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_784];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v550 = __p[0];
-  __p[0] = 0;
-  if (v550)
-  {
-    operator delete(v550);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v551 = mlcore::ItemPropertyDateReleased(v550);
-  std::string::basic_string[abi:ne200100]<0>(v899, "dateReleased");
-  v901 = v551;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieReleaseDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_786_43939];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v550 = [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieDescriptionText" toMLProperty:mlcore::ItemPropertyLongDescription(v549)];
+  v551 = mlcore::MoviePropertyInfo(v550);
+  std::string::basic_string[abi:ne200100]<0>(v898, "movieInfoPlist");
+  v900 = v551;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieInfoDictionary" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_784];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v552 = __p[0];
   __p[0] = 0;
   if (v552)
@@ -4165,62 +4029,67 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v552);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v553 = mlcore::ItemPropertyPersistentID(v552);
-  v554 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v553;
-  v555 = mlcore::ItemPropertyMediaType(v554);
-  v556 = std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v555;
-  v557 = mlcore::ItemPropertyAvailableArtworkToken(v556);
-  v558 = std::string::basic_string[abi:ne200100]<0>(v878, "availableArtworkToken");
-  v879 = v557;
-  v559 = mlcore::ItemPropertyFetchableArtworkToken(v558);
-  v560 = std::string::basic_string[abi:ne200100]<0>(v880, "fetchableArtworkToken");
-  v881 = v559;
-  v561 = mlcore::ItemPropertyFetchableArtworkSourceType(v560);
-  std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkSourceType");
-  v883 = v561;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 5);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_788_43940, __p[0]];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v562 = v899[0];
-  v899[0] = 0;
-  if (v562)
-  {
-    operator delete(v562);
-  }
-
-  for (i28 = 0; i28 != -160; i28 -= 32)
-  {
-    if (v882[i28 + 23] < 0)
-    {
-      operator delete(*&v882[i28]);
-    }
-  }
-
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_790];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v564 = __p[0];
+  v553 = mlcore::ItemPropertyDateReleased(v552);
+  std::string::basic_string[abi:ne200100]<0>(v898, "dateReleased");
+  v900 = v553;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieReleaseDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_786_43939];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v554 = __p[0];
   __p[0] = 0;
+  if (v554)
+  {
+    operator delete(v554);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
+  v555 = mlcore::ItemPropertyPersistentID(v554);
+  v556 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v555;
+  v557 = mlcore::ItemPropertyMediaType(v556);
+  v558 = std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
+  v879 = v557;
+  v559 = mlcore::ItemPropertyAvailableArtworkToken(v558);
+  v560 = std::string::basic_string[abi:ne200100]<0>(v880, "availableArtworkToken");
+  v881 = v559;
+  v561 = mlcore::ItemPropertyFetchableArtworkToken(v560);
+  v562 = std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkToken");
+  v883 = v561;
+  v563 = mlcore::ItemPropertyFetchableArtworkSourceType(v562);
+  std::string::basic_string[abi:ne200100]<0>(v884, "fetchableArtworkSourceType");
+  v885 = v563;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 5);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_788_43940, __p[0]];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v564 = v898[0];
+  v898[0] = 0;
   if (v564)
   {
     operator delete(v564);
   }
 
-  v565 = mlcore::ItemPropertyTotalTime(v564);
-  std::string::basic_string[abi:ne200100]<0>(v899, "time");
-  v901 = v565;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieDuration" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_792];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  for (i28 = 0; i28 != -20; i28 -= 4)
+  {
+    if (SHIBYTE(v884[i28 + 2]) < 0)
+    {
+      operator delete(v884[i28]);
+    }
+  }
+
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_790];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v566 = __p[0];
   __p[0] = 0;
   if (v566)
@@ -4228,69 +4097,64 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v566);
   }
 
-  if (SHIBYTE(v900) < 0)
+  v567 = mlcore::ItemPropertyTotalTime(v566);
+  std::string::basic_string[abi:ne200100]<0>(v898, "time");
+  v900 = v567;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieDuration" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_792];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v568 = __p[0];
+  __p[0] = 0;
+  if (v568)
   {
-    operator delete(v899[0]);
+    operator delete(v568);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
   }
 
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieTagline" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_794];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v567 = __p[0];
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieTagline" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_794];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v569 = __p[0];
   __p[0] = 0;
-  if (v567)
+  if (v569)
   {
-    operator delete(v567);
+    operator delete(v569);
   }
 
-  v568 = [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieExplicitRating" toMLProperty:mlcore::ItemPropertyContentRatingLevel(v567)];
-  v569 = [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieHasCloudSyncSource" toMLProperty:mlcore::ItemPropertyHasCloudSyncSource(v568)];
-  v570 = [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieLibraryAdded" toMLProperty:mlcore::ItemPropertyInMyLibrary(v569)];
-  v571 = mlcore::ItemPropertyDateAdded(v570);
-  std::string::basic_string[abi:ne200100]<0>(v899, "libraryAdded");
-  v901 = v571;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_796];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v572 = __p[0];
+  v570 = [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieExplicitRating" toMLProperty:mlcore::ItemPropertyContentRatingLevel(v569)];
+  v571 = [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieHasCloudSyncSource" toMLProperty:mlcore::ItemPropertyHasCloudSyncSource(v570)];
+  v572 = [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieLibraryAdded" toMLProperty:mlcore::ItemPropertyInMyLibrary(v571)];
+  v573 = mlcore::ItemPropertyDateAdded(v572);
+  std::string::basic_string[abi:ne200100]<0>(v898, "libraryAdded");
+  v900 = v573;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_796];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v574 = __p[0];
   __p[0] = 0;
-  if (v572)
+  if (v574)
   {
-    operator delete(v572);
+    operator delete(v574);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v573 = MPModelPropertyMovieDownloadedDate;
-  v574 = mlcore::ItemPropertyDateDownloaded(v572);
-  std::string::basic_string[abi:ne200100]<0>(v899, "downloadedDate");
-  v901 = v574;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:v573 withPropertiesToFetch:__p valueTransformer:&__block_literal_global_798];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v575 = __p[0];
-  __p[0] = 0;
-  if (v575)
-  {
-    operator delete(v575);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v576 = mlcore::ItemPropertyDatePlayed(v575);
-  std::string::basic_string[abi:ne200100]<0>(v899, "datePlayed");
-  v901 = v576;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieLastDevicePlaybackDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_800];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v575 = MPModelPropertyMovieDownloadedDate;
+  v576 = mlcore::ItemPropertyDateDownloaded(v574);
+  std::string::basic_string[abi:ne200100]<0>(v898, "downloadedDate");
+  v900 = v576;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:v575 withPropertiesToFetch:__p valueTransformer:&__block_literal_global_798];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v577 = __p[0];
   __p[0] = 0;
   if (v577)
@@ -4298,59 +4162,59 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v577);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v578 = mlcore::ItemPropertyHasNonPurgeableAsset(v577);
-  v579 = std::string::basic_string[abi:ne200100]<0>(__p, "hasNonPurgeableAsset");
-  v875[1] = v578;
-  v580 = mlcore::ItemPropertyIsStoreRedownloadable(v579);
-  std::string::basic_string[abi:ne200100]<0>(v876, "isStoreRedownloadable");
-  v877 = v580;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieLibraryAddEligible" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_802];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v581 = v899[0];
-  v899[0] = 0;
-  if (v581)
+  v578 = mlcore::ItemPropertyDatePlayed(v577);
+  std::string::basic_string[abi:ne200100]<0>(v898, "datePlayed");
+  v900 = v578;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieLastDevicePlaybackDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_800];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v579 = __p[0];
+  __p[0] = 0;
+  if (v579)
   {
-    operator delete(v581);
+    operator delete(v579);
   }
 
-  for (i29 = 0; i29 != -16; i29 -= 8)
+  if (SHIBYTE(v899) < 0)
   {
-    if (SHIBYTE(v876[i29 + 5]) < 0)
+    operator delete(v898[0]);
+  }
+
+  v580 = mlcore::ItemPropertyHasNonPurgeableAsset(v579);
+  v581 = std::string::basic_string[abi:ne200100]<0>(__p, "hasNonPurgeableAsset");
+  v877[1] = v580;
+  v582 = mlcore::ItemPropertyIsStoreRedownloadable(v581);
+  std::string::basic_string[abi:ne200100]<0>(v878, "isStoreRedownloadable");
+  v879 = v582;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieLibraryAddEligible" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_802];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v583 = v898[0];
+  v898[0] = 0;
+  if (v583)
+  {
+    operator delete(v583);
+  }
+
+  for (i29 = 0; i29 != -8; i29 -= 4)
+  {
+    if (SHIBYTE(v878[i29 + 2]) < 0)
     {
-      operator delete(*&v876[i29]);
+      operator delete(v878[i29]);
     }
   }
 
-  v583 = mlcore::ItemPropertyKeepLocal(v581);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocal");
-  v901 = v583;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieKeepLocalEnableState" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_804];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v584 = __p[0];
-  __p[0] = 0;
-  if (v584)
-  {
-    operator delete(v584);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v585 = mlcore::ItemPropertyKeepLocalStatus(v584);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalStatus");
-  v901 = v585;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieKeepLocalManagedStatus" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_806];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v585 = mlcore::ItemPropertyKeepLocal(v583);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocal");
+  v900 = v585;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieKeepLocalEnableState" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_804];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v586 = __p[0];
   __p[0] = 0;
   if (v586)
@@ -4358,17 +4222,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v586);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
   v587 = mlcore::ItemPropertyKeepLocalStatus(v586);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalStatusReason");
-  v901 = v587;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieKeepLocalManagedStatusReason" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_808];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalStatus");
+  v900 = v587;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieKeepLocalManagedStatus" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_806];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v588 = __p[0];
   __p[0] = 0;
   if (v588)
@@ -4376,17 +4240,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v588);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v589 = mlcore::ItemPropertyKeepLocalConstraints(v588);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalConstraints");
-  v901 = v589;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieKeepLocalConstraints" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_810];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v589 = mlcore::ItemPropertyKeepLocalStatus(v588);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalStatusReason");
+  v900 = v589;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieKeepLocalManagedStatusReason" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_808];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v590 = __p[0];
   __p[0] = 0;
   if (v590)
@@ -4394,18 +4258,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v590);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v591 = mlcore::ItemPropertyStoreCanonicalItemId(v590);
-  [(mlcore *)v525 mapPropertyKey:@"MPModelPropertyMovieStoreCanonicalID" toMLProperty:v591, __p[0]];
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v525 mapPropertyKey:@"MPModelRelationshipMovieClips" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_812];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v591 = mlcore::ItemPropertyKeepLocalConstraints(v590);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalConstraints");
+  v900 = v591;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieKeepLocalConstraints" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_810];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v592 = __p[0];
   __p[0] = 0;
   if (v592)
@@ -4413,242 +4276,243 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v592);
   }
 
-  v593 = objc_opt_class();
-  [(mlcore *)v525 mapRelationshipKey:@"MPModelRelationshipMovieLocalFileAsset" toModelClass:v593 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v593)];
-  v594 = objc_opt_class();
-  [(mlcore *)v525 mapRelationshipKey:@"MPModelRelationshipMovieStoreAsset" toModelClass:v594 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v594)];
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
+  v593 = mlcore::ItemPropertyStoreCanonicalItemId(v592);
+  [(mlcore *)v527 mapPropertyKey:@"MPModelPropertyMovieStoreCanonicalID" toMLProperty:v593, __p[0]];
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v527 mapPropertyKey:@"MPModelRelationshipMovieClips" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_812];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v594 = __p[0];
+  __p[0] = 0;
+  if (v594)
+  {
+    operator delete(v594);
+  }
+
   v595 = objc_opt_class();
-  [(mlcore *)v525 mapRelationshipKey:@"MPModelRelationshipMoviePlaybackPosition" toModelClass:v595 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v595)];
+  [(mlcore *)v527 mapRelationshipKey:@"MPModelRelationshipMovieLocalFileAsset" toModelClass:v595 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v595)];
+  v596 = objc_opt_class();
+  [(mlcore *)v527 mapRelationshipKey:@"MPModelRelationshipMovieStoreAsset" toModelClass:v596 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v596)];
+  v597 = objc_opt_class();
+  [(mlcore *)v527 mapRelationshipKey:@"MPModelRelationshipMoviePlaybackPosition" toModelClass:v597 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v597)];
 
-  v596 = MEMORY[0x1A58E12C0]();
-  v597 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v596];
-  v598 = mlcore::ItemPropertyStoreID(v597);
-  v599 = std::string::basic_string[abi:ne200100]<0>(__p, "storeID");
-  v875[1] = v598;
-  v600 = mlcore::ItemPropertyStoreCloudID(v599);
-  v601 = std::string::basic_string[abi:ne200100]<0>(v876, "cloudID");
-  v877 = v600;
-  v602 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v601);
-  v603 = std::string::basic_string[abi:ne200100]<0>(v878, "cloudUniversalLibraryID");
+  v598 = MEMORY[0x1A58E12C0]();
+  v599 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v598];
+  v600 = mlcore::ItemPropertyStoreID(v599);
+  v601 = std::string::basic_string[abi:ne200100]<0>(__p, "storeID");
+  v877[1] = v600;
+  v602 = mlcore::ItemPropertyStoreCloudID(v601);
+  v603 = std::string::basic_string[abi:ne200100]<0>(v878, "cloudID");
   v879 = v602;
-  v604 = mlcore::ItemPropertyPersistentID(v603);
-  v605 = std::string::basic_string[abi:ne200100]<0>(v880, "pid");
+  v604 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v603);
+  v605 = std::string::basic_string[abi:ne200100]<0>(v880, "cloudUniversalLibraryID");
   v881 = v604;
-  v606 = mlcore::ItemPropertySubscriptionStoreItemID(v605);
-  v607 = std::string::basic_string[abi:ne200100]<0>(v882, "subscriptionStoreID");
+  v606 = mlcore::ItemPropertyPersistentID(v605);
+  v607 = std::string::basic_string[abi:ne200100]<0>(v882, "pid");
   v883 = v606;
-  v608 = mlcore::ItemPropertyStoreCloudAlbumID(v607);
-  v609 = std::string::basic_string[abi:ne200100]<0>(v884, "storeCloudAlbumID");
+  v608 = mlcore::ItemPropertySubscriptionStoreItemID(v607);
+  v609 = std::string::basic_string[abi:ne200100]<0>(v884, "subscriptionStoreID");
   v885 = v608;
-  v610 = mlcore::ItemPropertyReportingStoreItemID(v609);
-  v611 = std::string::basic_string[abi:ne200100]<0>(v886, "reportingStoreItemID");
+  v610 = mlcore::ItemPropertyStoreCloudAlbumID(v609);
+  v611 = std::string::basic_string[abi:ne200100]<0>(v886, "storeCloudAlbumID");
   v887 = v610;
-  v612 = mlcore::ItemPropertyAssetStoreItemID(v611);
-  std::string::basic_string[abi:ne200100]<0>(v888, "assetStoreItemID");
+  v612 = mlcore::ItemPropertyReportingStoreItemID(v611);
+  v613 = std::string::basic_string[abi:ne200100]<0>(v888, "reportingStoreItemID");
   v889 = v612;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 8);
-  [(mlcore *)v597 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_814];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v613 = v899[0];
-  v899[0] = 0;
-  if (v613)
+  v614 = mlcore::ItemPropertyAssetStoreItemID(v613);
+  std::string::basic_string[abi:ne200100]<0>(v890, "assetStoreItemID");
+  v891 = v614;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 8);
+  [(mlcore *)v599 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_814];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v615 = v898[0];
+  v898[0] = 0;
+  if (v615)
   {
-    operator delete(v613);
+    operator delete(v615);
   }
 
-  for (i30 = 0; i30 != -256; i30 -= 32)
+  for (i30 = 0; i30 != -32; i30 -= 4)
   {
-    if (v888[i30 + 23] < 0)
+    if (SHIBYTE(v890[i30 + 2]) < 0)
     {
-      operator delete(*&v888[i30]);
+      operator delete(v890[i30]);
     }
   }
 
-  [(mlcore *)v597 setEntityQueryBlock:&__block_literal_global_816];
-  v615 = mlcore::ItemPropertyTitle([(mlcore *)v597 setAllowedItemPredicatesBlock:&__block_literal_global_822]);
-  std::string::basic_string[abi:ne200100]<0>(v904, "title");
-  v906 = v615;
-  v616 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v904, 1);
-  v617 = mlcore::ItemPropertyTitleOrder(v616);
-  std::string::basic_string[abi:ne200100]<0>(v896, "titleOrder");
-  v898 = v617;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeTitle" withPropertiesToFetch:__p propertiesToSort:v899 sortTransformer:&__block_literal_global_824 valueTransformer:&__block_literal_global_826];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v618 = v899[0];
-  v899[0] = 0;
-  if (v618)
+  [(mlcore *)v599 setEntityQueryBlock:&__block_literal_global_816];
+  v617 = mlcore::ItemPropertyTitle([(mlcore *)v599 setAllowedItemPredicatesBlock:&__block_literal_global_822]);
+  std::string::basic_string[abi:ne200100]<0>(v902, "title");
+  v904 = v617;
+  v618 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v902, 1);
+  v619 = mlcore::ItemPropertyTitleOrder(v618);
+  std::string::basic_string[abi:ne200100]<0>(v895, "titleOrder");
+  v897 = v619;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeTitle" withPropertiesToFetch:__p propertiesToSort:v898 sortTransformer:&__block_literal_global_824 valueTransformer:&__block_literal_global_826];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v620 = v898[0];
+  v898[0] = 0;
+  if (v620)
   {
-    operator delete(v618);
+    operator delete(v620);
   }
 
-  if (SHIBYTE(v897) < 0)
+  if (SHIBYTE(v896) < 0)
   {
-    operator delete(v896[0]);
+    operator delete(v895[0]);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v619 = __p[0];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v621 = __p[0];
   __p[0] = 0;
-  if (v619)
+  if (v621)
   {
-    operator delete(v619);
+    operator delete(v621);
   }
 
-  if (SHIBYTE(v905) < 0)
+  if (SHIBYTE(v903) < 0)
   {
-    operator delete(v904[0]);
+    operator delete(v902[0]);
   }
 
-  v620 = [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeDescriptionText" toMLProperty:mlcore::ItemPropertyLongDescription(v619)];
-  v621 = mlcore::ItemPropertyTotalTime(v620);
-  std::string::basic_string[abi:ne200100]<0>(v899, "time");
-  v901 = v621;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeDuration" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_828];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v622 = __p[0];
+  v622 = [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeDescriptionText" toMLProperty:mlcore::ItemPropertyLongDescription(v621)];
+  v623 = mlcore::ItemPropertyTotalTime(v622);
+  std::string::basic_string[abi:ne200100]<0>(v898, "time");
+  v900 = v623;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeDuration" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_828];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v624 = __p[0];
   __p[0] = 0;
-  if (v622)
+  if (v624)
   {
-    operator delete(v622);
+    operator delete(v624);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v623 = [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeExplicitRating" toMLProperty:mlcore::ItemPropertyContentRatingLevel(v622)];
-  v624 = [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeHasCloudSyncSource" toMLProperty:mlcore::ItemPropertyHasCloudSyncSource(v623)];
-  v625 = [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeMusicShow" toMLProperty:mlcore::ItemPropertyIsMusicShow(v624)];
-  v626 = mlcore::TVEpisodePropertyEpisodeSortID(v625);
-  v627 = std::string::basic_string[abi:ne200100]<0>(v899, "sortID");
-  v901 = v626;
-  v628 = mlcore::ItemPropertyTrackNumber(v627);
-  std::string::basic_string[abi:ne200100]<0>(v902, "trackNumber");
-  v903 = v628;
-  v629 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, v899, 2);
-  v630 = mlcore::ItemPropertyEpisodeSortID(v629);
-  v631 = std::string::basic_string[abi:ne200100]<0>(__p, "sortID");
-  v875[1] = v630;
-  v632 = mlcore::ItemPropertyEpisodeSubSortOrder(v631);
-  v633 = std::string::basic_string[abi:ne200100]<0>(v876, "subOrder");
-  v877 = v632;
-  v634 = mlcore::ItemPropertyTrackNumber(v633);
-  std::string::basic_string[abi:ne200100]<0>(v878, "trackNumber");
+  v625 = [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeExplicitRating" toMLProperty:mlcore::ItemPropertyContentRatingLevel(v624)];
+  v626 = [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeHasCloudSyncSource" toMLProperty:mlcore::ItemPropertyHasCloudSyncSource(v625)];
+  v627 = [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeMusicShow" toMLProperty:mlcore::ItemPropertyIsMusicShow(v626)];
+  v628 = mlcore::TVEpisodePropertyEpisodeSortID(v627);
+  v629 = std::string::basic_string[abi:ne200100]<0>(v898, "sortID");
+  v900 = v628;
+  v630 = mlcore::ItemPropertyTrackNumber(v629);
+  std::string::basic_string[abi:ne200100]<0>(v901, "trackNumber");
+  v901[3] = v630;
+  v631 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, v898, 2);
+  v632 = mlcore::ItemPropertyEpisodeSortID(v631);
+  v633 = std::string::basic_string[abi:ne200100]<0>(__p, "sortID");
+  v877[1] = v632;
+  v634 = mlcore::ItemPropertyEpisodeSubSortOrder(v633);
+  v635 = std::string::basic_string[abi:ne200100]<0>(v878, "subOrder");
   v879 = v634;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v896, __p, 3);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeNumber" withPropertiesToFetch:v904 propertiesToSort:v896 sortTransformer:&__block_literal_global_832 valueTransformer:&__block_literal_global_834_43943];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v897);
-  v635 = v896[0];
-  v896[0] = 0;
-  if (v635)
-  {
-    operator delete(v635);
-  }
-
-  for (i31 = 0; i31 != -96; i31 -= 32)
-  {
-    if (v878[i31 + 23] < 0)
-    {
-      operator delete(*&v878[i31]);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v637 = v904[0];
-  v904[0] = 0;
+  v636 = mlcore::ItemPropertyTrackNumber(v635);
+  std::string::basic_string[abi:ne200100]<0>(v880, "trackNumber");
+  v881 = v636;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v895, __p, 3);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeNumber" withPropertiesToFetch:v902 propertiesToSort:v895 sortTransformer:&__block_literal_global_832 valueTransformer:&__block_literal_global_834_43943];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v896);
+  v637 = v895[0];
+  v895[0] = 0;
   if (v637)
   {
     operator delete(v637);
   }
 
-  for (i32 = 0; i32 != -64; i32 -= 32)
+  for (i31 = 0; i31 != -12; i31 -= 4)
   {
-    if (v902[i32 + 23] < 0)
+    if (SHIBYTE(v880[i31 + 2]) < 0)
     {
-      operator delete(*&v902[i32]);
+      operator delete(v880[i31]);
     }
   }
 
-  v639 = mlcore::ItemPropertyEpisodeType(v637);
-  std::string::basic_string[abi:ne200100]<0>(v899, "episodeType");
-  v901 = v639;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_836];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v640 = __p[0];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v639 = v902[0];
+  v902[0] = 0;
+  if (v639)
+  {
+    operator delete(v639);
+  }
+
+  for (i32 = 0; i32 != -8; i32 -= 4)
+  {
+    if (SHIBYTE(v901[i32 + 2]) < 0)
+    {
+      operator delete(v901[i32]);
+    }
+  }
+
+  v641 = mlcore::ItemPropertyEpisodeType(v639);
+  std::string::basic_string[abi:ne200100]<0>(v898, "episodeType");
+  v900 = v641;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_836];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v642 = __p[0];
   __p[0] = 0;
-  if (v640)
+  if (v642)
   {
-    operator delete(v640);
+    operator delete(v642);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v641 = [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeTypeDisplayName" toMLProperty:mlcore::ItemPropertyEpisodeTypeDisplayName(v640)];
-  v642 = mlcore::ItemPropertyPersistentID(v641);
-  v643 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v642;
-  v644 = mlcore::ItemPropertyMediaType(v643);
-  v645 = std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v644;
-  v646 = mlcore::TVEpisodePropertyAvailableScreenshotToken(v645);
-  v647 = std::string::basic_string[abi:ne200100]<0>(v878, "availableArtworkToken");
+  v643 = [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeTypeDisplayName" toMLProperty:mlcore::ItemPropertyEpisodeTypeDisplayName(v642)];
+  v644 = mlcore::ItemPropertyPersistentID(v643);
+  v645 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v644;
+  v646 = mlcore::ItemPropertyMediaType(v645);
+  v647 = std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
   v879 = v646;
-  v648 = mlcore::TVEpisodePropertyFetchableScreenshotToken(v647);
-  v649 = std::string::basic_string[abi:ne200100]<0>(v880, "fetchableArtworkToken");
+  v648 = mlcore::TVEpisodePropertyAvailableScreenshotToken(v647);
+  v649 = std::string::basic_string[abi:ne200100]<0>(v880, "availableArtworkToken");
   v881 = v648;
-  v650 = mlcore::TVEpisodePropertyFetchableScreenshotSourceType(v649);
-  std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkSourceType");
+  v650 = mlcore::TVEpisodePropertyFetchableScreenshotToken(v649);
+  v651 = std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkToken");
   v883 = v650;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 5);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_849];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v651 = v899[0];
-  v899[0] = 0;
-  if (v651)
+  v652 = mlcore::TVEpisodePropertyFetchableScreenshotSourceType(v651);
+  std::string::basic_string[abi:ne200100]<0>(v884, "fetchableArtworkSourceType");
+  v885 = v652;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 5);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_849];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v653 = v898[0];
+  v898[0] = 0;
+  if (v653)
   {
-    operator delete(v651);
+    operator delete(v653);
   }
 
-  for (i33 = 0; i33 != -160; i33 -= 32)
+  for (i33 = 0; i33 != -20; i33 -= 4)
   {
-    if (v882[i33 + 23] < 0)
+    if (SHIBYTE(v884[i33 + 2]) < 0)
     {
-      operator delete(*&v882[i33]);
+      operator delete(v884[i33]);
     }
   }
 
-  v653 = [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeLibraryAdded" toMLProperty:mlcore::ItemPropertyInMyLibrary(v651)];
-  v654 = mlcore::ItemPropertyDateAdded(v653);
-  std::string::basic_string[abi:ne200100]<0>(v899, "libraryAdded");
-  v901 = v654;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_852];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v655 = __p[0];
-  __p[0] = 0;
-  if (v655)
-  {
-    operator delete(v655);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v656 = mlcore::ItemPropertyDatePlayed(v655);
-  std::string::basic_string[abi:ne200100]<0>(v899, "datePlayed");
-  v901 = v656;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeLastDevicePlaybackDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_855];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v655 = [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeLibraryAdded" toMLProperty:mlcore::ItemPropertyInMyLibrary(v653)];
+  v656 = mlcore::ItemPropertyDateAdded(v655);
+  std::string::basic_string[abi:ne200100]<0>(v898, "libraryAdded");
+  v900 = v656;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_852];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v657 = __p[0];
   __p[0] = 0;
   if (v657)
@@ -4656,17 +4520,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v657);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v658 = mlcore::ItemPropertyDateReleased(v657);
-  std::string::basic_string[abi:ne200100]<0>(v899, "dateReleased");
-  v901 = v658;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeReleaseDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_858_43944];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v658 = mlcore::ItemPropertyDatePlayed(v657);
+  std::string::basic_string[abi:ne200100]<0>(v898, "datePlayed");
+  v900 = v658;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeLastDevicePlaybackDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_855];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v659 = __p[0];
   __p[0] = 0;
   if (v659)
@@ -4674,78 +4538,78 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v659);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v660 = MPModelPropertyTVEpisodeDownloadedDate;
-  v661 = mlcore::ItemPropertyDateDownloaded(v659);
-  std::string::basic_string[abi:ne200100]<0>(v899, "downloadedDate");
-  v901 = v661;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:v660 withPropertiesToFetch:__p valueTransformer:&__block_literal_global_861];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v662 = __p[0];
+  v660 = mlcore::ItemPropertyDateReleased(v659);
+  std::string::basic_string[abi:ne200100]<0>(v898, "dateReleased");
+  v900 = v660;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeReleaseDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_858_43944];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v661 = __p[0];
   __p[0] = 0;
-  if (v662)
+  if (v661)
   {
-    operator delete(v662);
+    operator delete(v661);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v663 = mlcore::ItemPropertyHasNonPurgeableAsset(v662);
-  v664 = std::string::basic_string[abi:ne200100]<0>(__p, "hasNonPurgeableAsset");
-  v875[1] = v663;
-  v665 = mlcore::ItemPropertyIsStoreRedownloadable(v664);
-  std::string::basic_string[abi:ne200100]<0>(v876, "isStoreRedownloadable");
-  v877 = v665;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeLibraryAddEligible" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_864];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v666 = v899[0];
-  v899[0] = 0;
-  if (v666)
+  v662 = MPModelPropertyTVEpisodeDownloadedDate;
+  v663 = mlcore::ItemPropertyDateDownloaded(v661);
+  std::string::basic_string[abi:ne200100]<0>(v898, "downloadedDate");
+  v900 = v663;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:v662 withPropertiesToFetch:__p valueTransformer:&__block_literal_global_861];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v664 = __p[0];
+  __p[0] = 0;
+  if (v664)
   {
-    operator delete(v666);
+    operator delete(v664);
   }
 
-  for (i34 = 0; i34 != -16; i34 -= 8)
+  if (SHIBYTE(v899) < 0)
   {
-    if (SHIBYTE(v876[i34 + 5]) < 0)
+    operator delete(v898[0]);
+  }
+
+  v665 = mlcore::ItemPropertyHasNonPurgeableAsset(v664);
+  v666 = std::string::basic_string[abi:ne200100]<0>(__p, "hasNonPurgeableAsset");
+  v877[1] = v665;
+  v667 = mlcore::ItemPropertyIsStoreRedownloadable(v666);
+  std::string::basic_string[abi:ne200100]<0>(v878, "isStoreRedownloadable");
+  v879 = v667;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeLibraryAddEligible" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_864];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v668 = v898[0];
+  v898[0] = 0;
+  if (v668)
+  {
+    operator delete(v668);
+  }
+
+  for (i34 = 0; i34 != -8; i34 -= 4)
+  {
+    if (SHIBYTE(v878[i34 + 2]) < 0)
     {
-      operator delete(*&v876[i34]);
+      operator delete(v878[i34]);
     }
   }
 
-  v668 = mlcore::ItemPropertyKeepLocal(v666);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocal");
-  v901 = v668;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeKeepLocalEnableState" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_867];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v669 = __p[0];
-  __p[0] = 0;
-  if (v669)
-  {
-    operator delete(v669);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v670 = mlcore::ItemPropertyKeepLocalStatus(v669);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalStatus");
-  v901 = v670;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeKeepLocalManagedStatus" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_870];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v670 = mlcore::ItemPropertyKeepLocal(v668);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocal");
+  v900 = v670;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeKeepLocalEnableState" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_867];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v671 = __p[0];
   __p[0] = 0;
   if (v671)
@@ -4753,17 +4617,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v671);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
   v672 = mlcore::ItemPropertyKeepLocalStatus(v671);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalStatusReason");
-  v901 = v672;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeKeepLocalManagedStatusReason" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_873];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalStatus");
+  v900 = v672;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeKeepLocalManagedStatus" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_870];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v673 = __p[0];
   __p[0] = 0;
   if (v673)
@@ -4771,17 +4635,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v673);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v674 = mlcore::ItemPropertyKeepLocalConstraints(v673);
-  std::string::basic_string[abi:ne200100]<0>(v899, "keepLocalConstraints");
-  v901 = v674;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeKeepLocalConstraints" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_876_43945];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v674 = mlcore::ItemPropertyKeepLocalStatus(v673);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalStatusReason");
+  v900 = v674;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeKeepLocalManagedStatusReason" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_873];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v675 = __p[0];
   __p[0] = 0;
   if (v675)
@@ -4789,17 +4653,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v675);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v676 = mlcore::ItemPropertyStoreCanonicalItemId(v675);
-  std::string::basic_string[abi:ne200100]<0>(v899, "canonicalID");
-  v901 = v676;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v597 mapPropertyKey:@"MPModelPropertyTVEpisodeStoreCanonicalID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_880];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v676 = mlcore::ItemPropertyKeepLocalConstraints(v675);
+  std::string::basic_string[abi:ne200100]<0>(v898, "keepLocalConstraints");
+  v900 = v676;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeKeepLocalConstraints" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_876_43945];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v677 = __p[0];
   __p[0] = 0;
   if (v677)
@@ -4807,76 +4671,76 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v677);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v678 = objc_opt_class();
-  [(mlcore *)v597 mapRelationshipKey:@"MPModelRelationshipTVEpisodeSeason" toModelClass:v678 usingForeignPropertyBase:mlcore::ItemPropertyAlbumPersistentID(v678)];
-  v679 = objc_opt_class();
-  [(mlcore *)v597 mapRelationshipKey:@"MPModelRelationshipTVEpisodeShow" toModelClass:v679 usingForeignPropertyBase:mlcore::ItemPropertyItemArtistPersistentID(v679)];
+  v678 = mlcore::ItemPropertyStoreCanonicalItemId(v677);
+  std::string::basic_string[abi:ne200100]<0>(v898, "canonicalID");
+  v900 = v678;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v599 mapPropertyKey:@"MPModelPropertyTVEpisodeStoreCanonicalID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_880];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v679 = __p[0];
+  __p[0] = 0;
+  if (v679)
+  {
+    operator delete(v679);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
   v680 = objc_opt_class();
-  [(mlcore *)v597 mapRelationshipKey:@"MPModelRelationshipTVEpisodeLocalFileAsset" toModelClass:v680 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v680)];
+  [(mlcore *)v599 mapRelationshipKey:@"MPModelRelationshipTVEpisodeSeason" toModelClass:v680 usingForeignPropertyBase:mlcore::ItemPropertyAlbumPersistentID(v680)];
   v681 = objc_opt_class();
-  [(mlcore *)v597 mapRelationshipKey:@"MPModelRelationshipTVEpisodePlaybackPosition" toModelClass:v681 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v681)];
+  [(mlcore *)v599 mapRelationshipKey:@"MPModelRelationshipTVEpisodeShow" toModelClass:v681 usingForeignPropertyBase:mlcore::ItemPropertyItemArtistPersistentID(v681)];
   v682 = objc_opt_class();
-  [(mlcore *)v597 mapRelationshipKey:@"MPModelRelationshipTVEpisodeStoreAsset" toModelClass:v682 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v682)];
+  [(mlcore *)v599 mapRelationshipKey:@"MPModelRelationshipTVEpisodeLocalFileAsset" toModelClass:v682 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v682)];
+  v683 = objc_opt_class();
+  [(mlcore *)v599 mapRelationshipKey:@"MPModelRelationshipTVEpisodePlaybackPosition" toModelClass:v683 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v683)];
+  v684 = objc_opt_class();
+  [(mlcore *)v599 mapRelationshipKey:@"MPModelRelationshipTVEpisodeStoreAsset" toModelClass:v684 transient:1 usingForeignPropertyBase:mlcore::ItemPropertyPersistentID(v684)];
 
-  v683 = MEMORY[0x1A58E12B0]();
-  v684 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v683];
-  v685 = mlcore::AlbumPropertyPersistentID(v684);
-  v686 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v685;
-  v687 = mlcore::AlbumPropertyStoreID(v686);
-  std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v687;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v684 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_882];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v688 = v899[0];
-  v899[0] = 0;
-  if (v688)
+  v685 = MEMORY[0x1A58E12B0]();
+  v686 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v685];
+  v687 = mlcore::AlbumPropertyPersistentID(v686);
+  v688 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v687;
+  v689 = mlcore::AlbumPropertyStoreID(v688);
+  std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
+  v879 = v689;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v686 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_882];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v690 = v898[0];
+  v898[0] = 0;
+  if (v690)
   {
-    operator delete(v688);
+    operator delete(v690);
   }
 
-  for (i35 = 0; i35 != -16; i35 -= 8)
+  for (i35 = 0; i35 != -8; i35 -= 4)
   {
-    if (SHIBYTE(v876[i35 + 5]) < 0)
+    if (SHIBYTE(v878[i35 + 2]) < 0)
     {
-      operator delete(*&v876[i35]);
+      operator delete(v878[i35]);
     }
   }
 
-  [(mlcore *)v684 setEntityQueryBlock:&__block_literal_global_884];
-  v690 = [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonNumber" toMLProperty:mlcore::AlbumPropertySeasonNumber([(mlcore *)v684 setAllowedItemPredicatesBlock:&__block_literal_global_895])];
-  v691 = [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonDescriptionText" toMLProperty:mlcore::AlbumPropertyRepresentativeItemCollectionDescription(v690)];
-  v692 = [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonYear" toMLProperty:mlcore::AlbumPropertyYear(v691)];
-  v693 = mlcore::TVSeasonPropertyLatestItemDateAdded(v692);
-  std::string::basic_string[abi:ne200100]<0>(v899, "libraryAdded");
-  v901 = v693;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_897];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v694 = __p[0];
-  __p[0] = 0;
-  if (v694)
-  {
-    operator delete(v694);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v695 = mlcore::TVSeasonPropertyLatestItemDateDownloaded(v694);
-  std::string::basic_string[abi:ne200100]<0>(v899, "downloadedDate");
-  v901 = v695;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonDownloadedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_899];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  [(mlcore *)v686 setEntityQueryBlock:&__block_literal_global_884];
+  v692 = [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonNumber" toMLProperty:mlcore::AlbumPropertySeasonNumber([(mlcore *)v686 setAllowedItemPredicatesBlock:&__block_literal_global_895])];
+  v693 = [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonDescriptionText" toMLProperty:mlcore::AlbumPropertyRepresentativeItemCollectionDescription(v692)];
+  v694 = [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonYear" toMLProperty:mlcore::AlbumPropertyYear(v693)];
+  v695 = mlcore::TVSeasonPropertyLatestItemDateAdded(v694);
+  std::string::basic_string[abi:ne200100]<0>(v898, "libraryAdded");
+  v900 = v695;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_897];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v696 = __p[0];
   __p[0] = 0;
   if (v696)
@@ -4884,28 +4748,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v696);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonLibraryAdded" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_901];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v697 = __p[0];
-  __p[0] = 0;
-  if (v697)
-  {
-    operator delete(v697);
-  }
-
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonLibraryAddEligible" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_903];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v697 = mlcore::TVSeasonPropertyLatestItemDateDownloaded(v696);
+  std::string::basic_string[abi:ne200100]<0>(v898, "downloadedDate");
+  v900 = v697;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonDownloadedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_899];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v698 = __p[0];
   __p[0] = 0;
   if (v698)
@@ -4913,11 +4766,16 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v698);
   }
 
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonHasExplicitContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_905];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonLibraryAdded" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_901];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v699 = __p[0];
   __p[0] = 0;
   if (v699)
@@ -4925,409 +4783,409 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v699);
   }
 
-  v700 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v699);
-  v701 = mlcore::ItemPropertyIsExplicit(v700);
-  v702 = MPMediaLibraryGetProperty(v700, v701);
-  std::string::basic_string[abi:ne200100]<0>(v899, "representativeItemExplicit");
-  v901 = v702;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonHasCleanContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_907];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v703 = __p[0];
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonLibraryAddEligible" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_903];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v700 = __p[0];
   __p[0] = 0;
-  if (v703)
+  if (v700)
   {
-    operator delete(v703);
+    operator delete(v700);
   }
 
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v704 = [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonEpisodesCount" toMLProperty:mlcore::TVSeasonPropertyEpisodeCount(v703)];
-  v705 = mlcore::AlbumPropertyRepresentativeItemShowSortType(v704);
-  std::string::basic_string[abi:ne200100]<0>(v899, "sortType");
-  v901 = v705;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonSortType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_910];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v706 = __p[0];
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonHasExplicitContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_905];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v701 = __p[0];
   __p[0] = 0;
-  if (v706)
+  if (v701)
   {
-    operator delete(v706);
+    operator delete(v701);
   }
 
-  if (SHIBYTE(v900) < 0)
+  v702 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v701);
+  v703 = mlcore::ItemPropertyIsExplicit(v702);
+  v704 = MPMediaLibraryGetProperty(v702, v703);
+  std::string::basic_string[abi:ne200100]<0>(v898, "representativeItemExplicit");
+  v900 = v704;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonHasCleanContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_907];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v705 = __p[0];
+  __p[0] = 0;
+  if (v705)
   {
-    operator delete(v899[0]);
+    operator delete(v705);
   }
 
-  v707 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v706);
-  v708 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v707;
-  v709 = mlcore::AlbumPropertyRepresentativeItemMediaType(v708);
-  v710 = std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v709;
-  v711 = mlcore::AlbumPropertyRepresentativeItemAvailableArtworkToken(v710);
-  v712 = std::string::basic_string[abi:ne200100]<0>(v878, "availableArtworkToken");
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
+  v706 = [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonEpisodesCount" toMLProperty:mlcore::TVSeasonPropertyEpisodeCount(v705)];
+  v707 = mlcore::AlbumPropertyRepresentativeItemShowSortType(v706);
+  std::string::basic_string[abi:ne200100]<0>(v898, "sortType");
+  v900 = v707;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonSortType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_910];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v708 = __p[0];
+  __p[0] = 0;
+  if (v708)
+  {
+    operator delete(v708);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
+  }
+
+  v709 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v708);
+  v710 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v709;
+  v711 = mlcore::AlbumPropertyRepresentativeItemMediaType(v710);
+  v712 = std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
   v879 = v711;
-  v713 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkToken(v712);
-  v714 = std::string::basic_string[abi:ne200100]<0>(v880, "fetchableArtworkToken");
+  v713 = mlcore::AlbumPropertyRepresentativeItemAvailableArtworkToken(v712);
+  v714 = std::string::basic_string[abi:ne200100]<0>(v880, "availableArtworkToken");
   v881 = v713;
-  v715 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkSourceType(v714);
-  std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkSourceType");
+  v715 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkToken(v714);
+  v716 = std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkToken");
   v883 = v715;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 5);
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_912];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v716 = v899[0];
-  v899[0] = 0;
-  if (v716)
+  v717 = mlcore::AlbumPropertyRepresentativeItemFetchableArtworkSourceType(v716);
+  std::string::basic_string[abi:ne200100]<0>(v884, "fetchableArtworkSourceType");
+  v885 = v717;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 5);
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_912];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v718 = v898[0];
+  v898[0] = 0;
+  if (v718)
   {
-    operator delete(v716);
+    operator delete(v718);
   }
 
-  for (i36 = 0; i36 != -160; i36 -= 32)
+  for (i36 = 0; i36 != -20; i36 -= 4)
   {
-    if (v882[i36 + 23] < 0)
+    if (SHIBYTE(v884[i36 + 2]) < 0)
     {
-      operator delete(*&v882[i36]);
+      operator delete(v884[i36]);
     }
   }
 
-  v718 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v716);
-  v719 = mlcore::ItemPropertyStoreTVSeasonCanonicalItemId(v718);
-  v720 = MPMediaLibraryGetProperty(v718, v719);
-  std::string::basic_string[abi:ne200100]<0>(v899, "storeCanonicalID");
-  v901 = v720;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v684 mapPropertyKey:@"MPModelPropertyTVSeasonStoreCanonicalID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_915];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v721 = __p[0];
+  v720 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v718);
+  v721 = mlcore::ItemPropertyStoreTVSeasonCanonicalItemId(v720);
+  v722 = MPMediaLibraryGetProperty(v720, v721);
+  std::string::basic_string[abi:ne200100]<0>(v898, "storeCanonicalID");
+  v900 = v722;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v686 mapPropertyKey:@"MPModelPropertyTVSeasonStoreCanonicalID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_915];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v723 = __p[0];
   __p[0] = 0;
-  if (v721)
+  if (v723)
   {
-    operator delete(v721);
+    operator delete(v723);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v722 = objc_opt_class();
-  v723 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v722);
-  v724 = mlcore::ItemPropertyItemArtistPersistentID(v723);
-  v725 = MPMediaLibraryGetProperty(v723, v724);
-  [(mlcore *)v684 mapRelationshipKey:@"MPModelRelationshipTVSeasonShow" toModelClass:v722 usingForeignPropertyBase:v725, __p[0]];
-  v726 = objc_opt_class();
-  [(mlcore *)v684 mapRelationshipKey:@"MPModelRelationshipTVSeasonRepresentativeEpisode" toModelClass:v726 usingForeignPropertyBase:mlcore::AlbumPropertyRepresentativeItemPersistentID(v726)];
+  v724 = objc_opt_class();
+  v725 = mlcore::AlbumPropertyRepresentativeItemPersistentID(v724);
+  v726 = mlcore::ItemPropertyItemArtistPersistentID(v725);
+  v727 = MPMediaLibraryGetProperty(v725, v726);
+  [(mlcore *)v686 mapRelationshipKey:@"MPModelRelationshipTVSeasonShow" toModelClass:v724 usingForeignPropertyBase:v727, __p[0]];
+  v728 = objc_opt_class();
+  [(mlcore *)v686 mapRelationshipKey:@"MPModelRelationshipTVSeasonRepresentativeEpisode" toModelClass:v728 usingForeignPropertyBase:mlcore::AlbumPropertyRepresentativeItemPersistentID(v728)];
 
-  v727 = MEMORY[0x1A58E1220]();
-  v728 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v727];
-  v729 = mlcore::ItemArtistPropertyPersistentID(v728);
-  v730 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v729;
-  v731 = mlcore::ItemArtistPropertyStoreID(v730);
-  std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v731;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v728 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_918];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v732 = v899[0];
-  v899[0] = 0;
-  if (v732)
+  v729 = MEMORY[0x1A58E1220]();
+  v730 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v729];
+  v731 = mlcore::ItemArtistPropertyPersistentID(v730);
+  v732 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v731;
+  v733 = mlcore::ItemArtistPropertyStoreID(v732);
+  std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
+  v879 = v733;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v730 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_918];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v734 = v898[0];
+  v898[0] = 0;
+  if (v734)
   {
-    operator delete(v732);
+    operator delete(v734);
   }
 
-  for (i37 = 0; i37 != -16; i37 -= 8)
+  for (i37 = 0; i37 != -8; i37 -= 4)
   {
-    if (SHIBYTE(v876[i37 + 5]) < 0)
+    if (SHIBYTE(v878[i37 + 2]) < 0)
     {
-      operator delete(*&v876[i37]);
+      operator delete(v878[i37]);
     }
   }
 
-  [(mlcore *)v728 setEntityQueryBlock:&__block_literal_global_920];
-  v734 = mlcore::ItemArtistPropertySeriesName([(mlcore *)v728 setAllowedItemPredicatesBlock:&__block_literal_global_926]);
-  std::string::basic_string[abi:ne200100]<0>(v896, "name");
-  v898 = v734;
-  v735 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  HasSeriesName = mlcore::TVShowPropertyHasSeriesName(v735);
-  v737 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
-  v875[1] = HasSeriesName;
-  v738 = mlcore::TVShowPropertySeriesOrder(v737);
-  std::string::basic_string[abi:ne200100]<0>(v876, "nameOrder");
-  v877 = v738;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v728 mapPropertyKey:@"MPModelPropertyTVShowTitle" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_928 valueTransformer:&__block_literal_global_930];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v739 = v904[0];
-  v904[0] = 0;
-  if (v739)
-  {
-    operator delete(v739);
-  }
-
-  for (i38 = 0; i38 != -16; i38 -= 8)
-  {
-    if (SHIBYTE(v876[i38 + 5]) < 0)
-    {
-      operator delete(*&v876[i38]);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v741 = v899[0];
-  v899[0] = 0;
+  [(mlcore *)v730 setEntityQueryBlock:&__block_literal_global_920];
+  v736 = mlcore::ItemArtistPropertySeriesName([(mlcore *)v730 setAllowedItemPredicatesBlock:&__block_literal_global_926]);
+  std::string::basic_string[abi:ne200100]<0>(v895, "name");
+  v897 = v736;
+  v737 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  HasSeriesName = mlcore::TVShowPropertyHasSeriesName(v737);
+  v739 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
+  v877[1] = HasSeriesName;
+  v740 = mlcore::TVShowPropertySeriesOrder(v739);
+  std::string::basic_string[abi:ne200100]<0>(v878, "nameOrder");
+  v879 = v740;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v730 mapPropertyKey:@"MPModelPropertyTVShowTitle" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_928 valueTransformer:&__block_literal_global_930];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v741 = v902[0];
+  v902[0] = 0;
   if (v741)
   {
     operator delete(v741);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i38 = 0; i38 != -8; i38 -= 4)
   {
-    operator delete(v896[0]);
-  }
-
-  v742 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v741);
-  v743 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v742;
-  v744 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v743);
-  v745 = mlcore::ItemPropertyMediaType(v744);
-  v746 = MPMediaLibraryGetProperty(v744, v745);
-  v747 = std::string::basic_string[abi:ne200100]<0>(v876, "mediaType");
-  v877 = v746;
-  v748 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v747);
-  v749 = mlcore::ItemPropertyAvailableArtworkToken(v748);
-  v750 = MPMediaLibraryGetProperty(v748, v749);
-  v751 = std::string::basic_string[abi:ne200100]<0>(v878, "availableArtworkToken");
-  v879 = v750;
-  v752 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v751);
-  v753 = mlcore::ItemPropertyFetchableArtworkToken(v752);
-  v754 = MPMediaLibraryGetProperty(v752, v753);
-  v755 = std::string::basic_string[abi:ne200100]<0>(v880, "fetchableArtworkToken");
-  v881 = v754;
-  v756 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v755);
-  v757 = mlcore::ItemPropertyFetchableArtworkSourceType(v756);
-  v758 = MPMediaLibraryGetProperty(v756, v757);
-  std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkSourceType");
-  v883 = v758;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 5);
-  [(mlcore *)v728 mapPropertyKey:@"MPModelPropertyTVShowArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_932];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v759 = v899[0];
-  v899[0] = 0;
-  if (v759)
-  {
-    operator delete(v759);
-  }
-
-  for (i39 = 0; i39 != -160; i39 -= 32)
-  {
-    if (v882[i39 + 23] < 0)
+    if (SHIBYTE(v878[i38 + 2]) < 0)
     {
-      operator delete(*&v882[i39]);
+      operator delete(v878[i38]);
     }
   }
 
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v728 mapPropertyKey:@"MPModelPropertyTVShowEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_934];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v761 = __p[0];
-  __p[0] = 0;
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v743 = v898[0];
+  v898[0] = 0;
+  if (v743)
+  {
+    operator delete(v743);
+  }
+
+  if (SHIBYTE(v896) < 0)
+  {
+    operator delete(v895[0]);
+  }
+
+  v744 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v743);
+  v745 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v744;
+  v746 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v745);
+  v747 = mlcore::ItemPropertyMediaType(v746);
+  v748 = MPMediaLibraryGetProperty(v746, v747);
+  v749 = std::string::basic_string[abi:ne200100]<0>(v878, "mediaType");
+  v879 = v748;
+  v750 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v749);
+  v751 = mlcore::ItemPropertyAvailableArtworkToken(v750);
+  v752 = MPMediaLibraryGetProperty(v750, v751);
+  v753 = std::string::basic_string[abi:ne200100]<0>(v880, "availableArtworkToken");
+  v881 = v752;
+  v754 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v753);
+  v755 = mlcore::ItemPropertyFetchableArtworkToken(v754);
+  v756 = MPMediaLibraryGetProperty(v754, v755);
+  v757 = std::string::basic_string[abi:ne200100]<0>(v882, "fetchableArtworkToken");
+  v883 = v756;
+  v758 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v757);
+  v759 = mlcore::ItemPropertyFetchableArtworkSourceType(v758);
+  v760 = MPMediaLibraryGetProperty(v758, v759);
+  std::string::basic_string[abi:ne200100]<0>(v884, "fetchableArtworkSourceType");
+  v885 = v760;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 5);
+  [(mlcore *)v730 mapPropertyKey:@"MPModelPropertyTVShowArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_932];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v761 = v898[0];
+  v898[0] = 0;
   if (v761)
   {
     operator delete(v761);
   }
 
-  v762 = [(mlcore *)v728 mapPropertyKey:@"MPModelPropertyTVShowEpisodeCount" toMLProperty:mlcore::TVShowPropertyEpisodeCount(v761)];
-  v763 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v762);
-  v764 = mlcore::ItemPropertyStoreTVShowCanonicalItemId(v763);
-  v765 = MPMediaLibraryGetProperty(v763, v764);
-  std::string::basic_string[abi:ne200100]<0>(v899, "canonicalID");
-  v901 = v765;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v728 mapPropertyKey:@"MPModelPropertyTVShowStoreCanonicalID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_936];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v766 = __p[0];
+  for (i39 = 0; i39 != -20; i39 -= 4)
+  {
+    if (SHIBYTE(v884[i39 + 2]) < 0)
+    {
+      operator delete(v884[i39]);
+    }
+  }
+
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v730 mapPropertyKey:@"MPModelPropertyTVShowEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_934];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v763 = __p[0];
   __p[0] = 0;
-  if (v766)
+  if (v763)
   {
-    operator delete(v766);
+    operator delete(v763);
   }
 
-  if (SHIBYTE(v900) < 0)
+  v764 = [(mlcore *)v730 mapPropertyKey:@"MPModelPropertyTVShowEpisodeCount" toMLProperty:mlcore::TVShowPropertyEpisodeCount(v763)];
+  v765 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v764);
+  v766 = mlcore::ItemPropertyStoreTVShowCanonicalItemId(v765);
+  v767 = MPMediaLibraryGetProperty(v765, v766);
+  std::string::basic_string[abi:ne200100]<0>(v898, "canonicalID");
+  v900 = v767;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v730 mapPropertyKey:@"MPModelPropertyTVShowStoreCanonicalID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_936];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v768 = __p[0];
+  __p[0] = 0;
+  if (v768)
   {
-    operator delete(v899[0]);
+    operator delete(v768);
   }
 
-  v767 = objc_opt_class();
-  v768 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v767);
-  v769 = mlcore::ItemPropertyAlbumArtistPersistentID(v768);
-  v770 = MPMediaLibraryGetProperty(v768, v769);
-  [(mlcore *)v728 mapRelationshipKey:@"MPModelRelationshipTVShowCreator" toModelClass:v767 usingForeignPropertyBase:v770, __p[0]];
-
-  v771 = MEMORY[0x1A58E11E0]();
-  v772 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v771];
-  v773 = mlcore::ArtistPropertyPersistentID(v772);
-  v774 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v773;
-  v775 = mlcore::ArtistPropertyStoreID(v774);
-  std::string::basic_string[abi:ne200100]<0>(v876, "storeID");
-  v877 = v775;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v772 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_939];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v776 = v899[0];
-  v899[0] = 0;
-  if (v776)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v776);
+    operator delete(v898[0]);
   }
 
-  for (i40 = 0; i40 != -16; i40 -= 8)
+  v769 = objc_opt_class();
+  v770 = mlcore::ItemArtistPropertyRepresentativeItemPersistentID(v769);
+  v771 = mlcore::ItemPropertyAlbumArtistPersistentID(v770);
+  v772 = MPMediaLibraryGetProperty(v770, v771);
+  [(mlcore *)v730 mapRelationshipKey:@"MPModelRelationshipTVShowCreator" toModelClass:v769 usingForeignPropertyBase:v772, __p[0]];
+
+  v773 = MEMORY[0x1A58E11E0]();
+  v774 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v773];
+  v775 = mlcore::ArtistPropertyPersistentID(v774);
+  v776 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v775;
+  v777 = mlcore::ArtistPropertyStoreID(v776);
+  std::string::basic_string[abi:ne200100]<0>(v878, "storeID");
+  v879 = v777;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v774 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_939];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v778 = v898[0];
+  v898[0] = 0;
+  if (v778)
   {
-    if (SHIBYTE(v876[i40 + 5]) < 0)
+    operator delete(v778);
+  }
+
+  for (i40 = 0; i40 != -8; i40 -= 4)
+  {
+    if (SHIBYTE(v878[i40 + 2]) < 0)
     {
-      operator delete(*&v876[i40]);
+      operator delete(v878[i40]);
     }
   }
 
-  v778 = mlcore::ArtistPropertyName(v776);
-  std::string::basic_string[abi:ne200100]<0>(v896, "name");
-  v898 = v778;
-  v779 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, v896, 1);
-  v780 = mlcore::ArtistPropertyHasName(v779);
-  v781 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
-  v875[1] = v780;
-  v782 = mlcore::ArtistPropertyOrder(v781);
-  std::string::basic_string[abi:ne200100]<0>(v876, "nameOrder");
-  v877 = v782;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v904, __p, 2);
-  [(mlcore *)v772 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v899 propertiesToSort:v904 sortTransformer:&__block_literal_global_941 valueTransformer:&__block_literal_global_943];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v905);
-  v783 = v904[0];
-  v904[0] = 0;
-  if (v783)
-  {
-    operator delete(v783);
-  }
-
-  for (i41 = 0; i41 != -16; i41 -= 8)
-  {
-    if (SHIBYTE(v876[i41 + 5]) < 0)
-    {
-      operator delete(*&v876[i41]);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v785 = v899[0];
-  v899[0] = 0;
+  v780 = mlcore::ArtistPropertyName(v778);
+  std::string::basic_string[abi:ne200100]<0>(v895, "name");
+  v897 = v780;
+  v781 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, v895, 1);
+  v782 = mlcore::ArtistPropertyHasName(v781);
+  v783 = std::string::basic_string[abi:ne200100]<0>(__p, "hasName");
+  v877[1] = v782;
+  v784 = mlcore::ArtistPropertyOrder(v783);
+  std::string::basic_string[abi:ne200100]<0>(v878, "nameOrder");
+  v879 = v784;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v902, __p, 2);
+  [(mlcore *)v774 mapPropertyKey:@"MPModelPropertyPersonName" withPropertiesToFetch:v898 propertiesToSort:v902 sortTransformer:&__block_literal_global_941 valueTransformer:&__block_literal_global_943];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v903);
+  v785 = v902[0];
+  v902[0] = 0;
   if (v785)
   {
     operator delete(v785);
   }
 
-  if (SHIBYTE(v897) < 0)
+  for (i41 = 0; i41 != -8; i41 -= 4)
   {
-    operator delete(v896[0]);
+    if (SHIBYTE(v878[i41 + 2]) < 0)
+    {
+      operator delete(v878[i41]);
+    }
   }
 
-  v786 = mlcore::ArtistPropertyPersistentID(v785);
-  v787 = std::string::basic_string[abi:ne200100]<0>(__p, "artistPID");
-  v875[1] = v786;
-  v788 = mlcore::ArtistPropertyAvailableArtworkToken(v787);
-  v789 = std::string::basic_string[abi:ne200100]<0>(v876, "artistAvailableArtworkToken");
-  v877 = v788;
-  v790 = mlcore::ArtistPropertyFetchableArtworkToken(v789);
-  v791 = std::string::basic_string[abi:ne200100]<0>(v878, "artistFetchableArtworkToken");
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v787 = v898[0];
+  v898[0] = 0;
+  if (v787)
+  {
+    operator delete(v787);
+  }
+
+  if (SHIBYTE(v896) < 0)
+  {
+    operator delete(v895[0]);
+  }
+
+  v788 = mlcore::ArtistPropertyPersistentID(v787);
+  v789 = std::string::basic_string[abi:ne200100]<0>(__p, "artistPID");
+  v877[1] = v788;
+  v790 = mlcore::ArtistPropertyAvailableArtworkToken(v789);
+  v791 = std::string::basic_string[abi:ne200100]<0>(v878, "artistAvailableArtworkToken");
   v879 = v790;
-  v792 = mlcore::ArtistPropertyFetchableArtworkSourceType(v791);
-  std::string::basic_string[abi:ne200100]<0>(v880, "artistFetchableArtworkSourceType");
+  v792 = mlcore::ArtistPropertyFetchableArtworkToken(v791);
+  v793 = std::string::basic_string[abi:ne200100]<0>(v880, "artistFetchableArtworkToken");
   v881 = v792;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 4);
-  [(mlcore *)v772 mapPropertyKey:@"MPModelPropertyTVShowCreatorArtwork" withPropertiesToFetch:v899 valueTransformer:&__block_literal_global_945];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v793 = v899[0];
-  v899[0] = 0;
-  if (v793)
+  v794 = mlcore::ArtistPropertyFetchableArtworkSourceType(v793);
+  std::string::basic_string[abi:ne200100]<0>(v882, "artistFetchableArtworkSourceType");
+  v883 = v794;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 4);
+  [(mlcore *)v774 mapPropertyKey:@"MPModelPropertyTVShowCreatorArtwork" withPropertiesToFetch:v898 valueTransformer:&__block_literal_global_945];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v795 = v898[0];
+  v898[0] = 0;
+  if (v795)
   {
-    operator delete(v793);
+    operator delete(v795);
   }
 
-  for (i42 = 0; i42 != -128; i42 -= 32)
+  for (i42 = 0; i42 != -16; i42 -= 4)
   {
-    if (v880[i42 + 23] < 0)
+    if (SHIBYTE(v882[i42 + 2]) < 0)
     {
-      operator delete(*&v880[i42]);
+      operator delete(v882[i42]);
     }
   }
 
-  v795 = MEMORY[0x1A58E1210]();
-  v796 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v795];
-  v797 = mlcore::PersonPropertyPersistentID(v796);
-  v798 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
-  v875[1] = v797;
-  v799 = mlcore::PersonPropertyCloudIdentifier(v798);
-  std::string::basic_string[abi:ne200100]<0>(v876, "socialProfileID");
-  v877 = v799;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v796 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_948];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v800 = v899[0];
-  v899[0] = 0;
-  if (v800)
+  v797 = MEMORY[0x1A58E1210]();
+  v798 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v797];
+  v799 = mlcore::PersonPropertyPersistentID(v798);
+  v800 = std::string::basic_string[abi:ne200100]<0>(__p, "pid");
+  v877[1] = v799;
+  v801 = mlcore::PersonPropertyCloudIdentifier(v800);
+  std::string::basic_string[abi:ne200100]<0>(v878, "socialProfileID");
+  v879 = v801;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v798 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_948];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v802 = v898[0];
+  v898[0] = 0;
+  if (v802)
   {
-    operator delete(v800);
+    operator delete(v802);
   }
 
-  for (i43 = 0; i43 != -16; i43 -= 8)
+  for (i43 = 0; i43 != -8; i43 -= 4)
   {
-    if (SHIBYTE(v876[i43 + 5]) < 0)
+    if (SHIBYTE(v878[i43 + 2]) < 0)
     {
-      operator delete(*&v876[i43]);
+      operator delete(v878[i43]);
     }
   }
 
-  v802 = [(mlcore *)v796 mapPropertyKey:@"MPModelPropertyPersonName" toMLProperty:mlcore::PersonPropertyName(v800)];
-  v803 = [(mlcore *)v796 mapPropertyKey:@"MPModelPropertySocialPersonUncensoredName" toMLProperty:mlcore::PersonPropertyName(v802)];
-  [(mlcore *)v796 mapPropertyKey:@"MPModelPropertySocialPersonHandle" toMLProperty:mlcore::PersonPropertyHandle(v803)];
+  v804 = [(mlcore *)v798 mapPropertyKey:@"MPModelPropertyPersonName" toMLProperty:mlcore::PersonPropertyName(v802)];
+  v805 = [(mlcore *)v798 mapPropertyKey:@"MPModelPropertySocialPersonUncensoredName" toMLProperty:mlcore::PersonPropertyName(v804)];
+  [(mlcore *)v798 mapPropertyKey:@"MPModelPropertySocialPersonHandle" toMLProperty:mlcore::PersonPropertyHandle(v805)];
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v796 mapPropertyKey:@"MPModelPropertySocialPersonBiography" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_950];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v804 = __p[0];
-  __p[0] = 0;
-  if (v804)
-  {
-    operator delete(v804);
-  }
-
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v796 mapPropertyKey:@"MPModelPropertySocialPersonPendingRequestsCount" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_952];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v805 = __p[0];
-  __p[0] = 0;
-  if (v805)
-  {
-    operator delete(v805);
-  }
-
-  *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v796 mapPropertyKey:@"MPModelPropertySocialPersonIsPrivate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_954];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v798 mapPropertyKey:@"MPModelPropertySocialPersonBiography" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_950];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v806 = __p[0];
   __p[0] = 0;
   if (v806)
@@ -5336,10 +5194,10 @@ void _MPMLInitPropertyMaps(void)
   }
 
   *__p = 0u;
-  *v875 = 0u;
-  v876[0] = 1065353216;
-  [(mlcore *)v796 mapPropertyKey:@"MPModelPropertySocialPersonIsVerified" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_956];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v798 mapPropertyKey:@"MPModelPropertySocialPersonPendingRequestsCount" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_952];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v807 = __p[0];
   __p[0] = 0;
   if (v807)
@@ -5347,12 +5205,23 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v807);
   }
 
-  v808 = mlcore::PersonPropertyImageURL(v807);
-  std::string::basic_string[abi:ne200100]<0>(v899, "imageURL");
-  v901 = v808;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v796 mapPropertyKey:@"MPModelPropertySocialPersonArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_959];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v798 mapPropertyKey:@"MPModelPropertySocialPersonIsPrivate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_954];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v808 = __p[0];
+  __p[0] = 0;
+  if (v808)
+  {
+    operator delete(v808);
+  }
+
+  *__p = 0u;
+  *v877 = 0u;
+  LODWORD(v878[0]) = 1065353216;
+  [(mlcore *)v798 mapPropertyKey:@"MPModelPropertySocialPersonIsVerified" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_956];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v809 = __p[0];
   __p[0] = 0;
   if (v809)
@@ -5360,125 +5229,120 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v809);
   }
 
-  if (SHIBYTE(v900) < 0)
+  v810 = mlcore::PersonPropertyImageURL(v809);
+  std::string::basic_string[abi:ne200100]<0>(v898, "imageURL");
+  v900 = v810;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v798 mapPropertyKey:@"MPModelPropertySocialPersonArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_959];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v811 = __p[0];
+  __p[0] = 0;
+  if (v811)
   {
-    operator delete(v899[0]);
+    operator delete(v811);
   }
 
-  [(mlcore *)v796 mapPropertyKey:@"MPModelPropertySocialPersonHasLightweightProfile" toMLProperty:mlcore::PersonPropertyHasLightweightProfile(v809)];
-
-  v810 = MEMORY[0x1A58DFA10]();
-  v811 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v810];
-  v812 = mlcore::PlaylistAuthorPropertyPersistentID(v811);
-  v813 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
-  v875[1] = v812;
-  v814 = mlcore::PlaylistAuthorSocialProfileID(v813);
-  std::string::basic_string[abi:ne200100]<0>(v876, "socialProfileID");
-  v877 = v814;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v899, __p, 2);
-  [(mlcore *)v811 mapIdentifierMLProperties:v899 identifierCreationBlock:&__block_literal_global_976];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v900);
-  v815 = v899[0];
-  v899[0] = 0;
-  if (v815)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v815);
+    operator delete(v898[0]);
   }
 
-  for (i44 = 0; i44 != -16; i44 -= 8)
+  [(mlcore *)v798 mapPropertyKey:@"MPModelPropertySocialPersonHasLightweightProfile" toMLProperty:mlcore::PersonPropertyHasLightweightProfile(v811)];
+
+  v812 = MEMORY[0x1A58DFA10]();
+  v813 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v812];
+  v814 = mlcore::PlaylistAuthorPropertyPersistentID(v813);
+  v815 = std::string::basic_string[abi:ne200100]<0>(__p, "itemPID");
+  v877[1] = v814;
+  v816 = mlcore::PlaylistAuthorSocialProfileID(v815);
+  std::string::basic_string[abi:ne200100]<0>(v878, "socialProfileID");
+  v879 = v816;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v898, __p, 2);
+  [(mlcore *)v813 mapIdentifierMLProperties:v898 identifierCreationBlock:&__block_literal_global_976];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v899);
+  v817 = v898[0];
+  v898[0] = 0;
+  if (v817)
   {
-    if (SHIBYTE(v876[i44 + 5]) < 0)
+    operator delete(v817);
+  }
+
+  for (i44 = 0; i44 != -8; i44 -= 4)
+  {
+    if (SHIBYTE(v878[i44 + 2]) < 0)
     {
-      operator delete(*&v876[i44]);
+      operator delete(v878[i44]);
     }
   }
 
-  v817 = [(mlcore *)v811 mapPropertyKey:@"MPModelPropertyPlaylistAuthorRole" toMLProperty:mlcore::PlaylistAuthorPropertyRole([(mlcore *)v811 setEntityQueryBlock:&__block_literal_global_978])];
-  v818 = [(mlcore *)v811 mapPropertyKey:@"MPModelPropertyPlaylistAuthorIsPendingApproval" toMLProperty:mlcore::PlaylistAuthorPropertyIsPending(v817)];
-  [(mlcore *)v811 mapPropertyKey:@"MPModelPropertyPlaylistAuthorPosition" toMLProperty:mlcore::PlaylistAuthorPropertyPosition(v818)];
-  v819 = objc_opt_class();
-  v820 = mlcore::PlaylistAuthorPropertyPersistentID(v819);
-  v821 = mlcore::PlaylistAuthorPropertyPersonPersistentID(v820);
-  [(mlcore *)v811 mapRelationshipKey:@"MPModelRelationshipPlaylistAuthorSocialProfile" toModelClass:v819 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v820, v821)];
-  v822 = objc_opt_class();
-  v823 = mlcore::PlaylistAuthorPropertyPersistentID(v822);
-  v824 = mlcore::PlaylistAuthorPropertyContainerPersistentID(v823);
-  [(mlcore *)v811 mapRelationshipKey:@"MPModelRelationshipPlaylistAuthorPlaylist" toModelClass:v822 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v823, v824)];
+  v819 = [(mlcore *)v813 mapPropertyKey:@"MPModelPropertyPlaylistAuthorRole" toMLProperty:mlcore::PlaylistAuthorPropertyRole([(mlcore *)v813 setEntityQueryBlock:&__block_literal_global_978])];
+  v820 = [(mlcore *)v813 mapPropertyKey:@"MPModelPropertyPlaylistAuthorIsPendingApproval" toMLProperty:mlcore::PlaylistAuthorPropertyIsPending(v819)];
+  [(mlcore *)v813 mapPropertyKey:@"MPModelPropertyPlaylistAuthorPosition" toMLProperty:mlcore::PlaylistAuthorPropertyPosition(v820)];
+  v821 = objc_opt_class();
+  v822 = mlcore::PlaylistAuthorPropertyPersistentID(v821);
+  v823 = mlcore::PlaylistAuthorPropertyPersonPersistentID(v822);
+  [(mlcore *)v813 mapRelationshipKey:@"MPModelRelationshipPlaylistAuthorSocialProfile" toModelClass:v821 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v822, v823)];
+  v824 = objc_opt_class();
+  v825 = mlcore::PlaylistAuthorPropertyPersistentID(v824);
+  v826 = mlcore::PlaylistAuthorPropertyContainerPersistentID(v825);
+  [(mlcore *)v813 mapRelationshipKey:@"MPModelRelationshipPlaylistAuthorPlaylist" toModelClass:v824 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v825, v826)];
 
-  v825 = MEMORY[0x1A58DFE70]();
-  v826 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v825];
-  v827 = mlcore::PlaylistItemReactionPropertyPersistentID(v826);
-  std::string::basic_string[abi:ne200100]<0>(v899, "itemPID");
-  v901 = v827;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v826 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_988];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v828 = __p[0];
+  v827 = MEMORY[0x1A58DFE70]();
+  v828 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v827];
+  v829 = mlcore::PlaylistItemReactionPropertyPersistentID(v828);
+  std::string::basic_string[abi:ne200100]<0>(v898, "itemPID");
+  v900 = v829;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v828 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_988];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v830 = __p[0];
   __p[0] = 0;
-  if (v828)
+  if (v830)
   {
-    operator delete(v828);
+    operator delete(v830);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v829 = [(mlcore *)v826 mapPropertyKey:@"MPModelPropertyPlaylistEntryReactionText" toMLProperty:mlcore::PlaylistItemReactionPropertyReactionText([(mlcore *)v826 setEntityQueryBlock:&__block_literal_global_990, __p[0]])];
-  v830 = mlcore::PlaylistItemReactionPropertyDate(v829);
-  std::string::basic_string[abi:ne200100]<0>(v899, "date");
-  v901 = v830;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v826 mapPropertyKey:@"MPModelPropertyPlaylistEntryReactionDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1000];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v831 = __p[0];
+  v831 = [(mlcore *)v828 mapPropertyKey:@"MPModelPropertyPlaylistEntryReactionText" toMLProperty:mlcore::PlaylistItemReactionPropertyReactionText([(mlcore *)v828 setEntityQueryBlock:&__block_literal_global_990, __p[0]])];
+  v832 = mlcore::PlaylistItemReactionPropertyDate(v831);
+  std::string::basic_string[abi:ne200100]<0>(v898, "date");
+  v900 = v832;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v828 mapPropertyKey:@"MPModelPropertyPlaylistEntryReactionDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1000];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v833 = __p[0];
   __p[0] = 0;
-  if (v831)
+  if (v833)
   {
-    operator delete(v831);
+    operator delete(v833);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v832 = objc_opt_class();
-  v833 = mlcore::PlaylistItemReactionPropertyPersistentID(v832);
-  v834 = mlcore::PlaylistItemReactionPropertyPersonPersistentID(v833);
-  [(mlcore *)v826 mapRelationshipKey:@"MPModelRelationshipPlaylistEntryReactionSocialProfile" toModelClass:v832 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v833, v834)];
-  v835 = objc_opt_class();
-  v836 = mlcore::PlaylistItemReactionPropertyPersistentID(v835);
-  v837 = mlcore::PlaylistItemReactionPropertyContainerItemPersistentID(v836);
-  [(mlcore *)v826 mapRelationshipKey:@"MPModelRelationshipPlaylistEntryReactionPlaylistEntry" toModelClass:v835 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v836, v837)];
+  v834 = objc_opt_class();
+  v835 = mlcore::PlaylistItemReactionPropertyPersistentID(v834);
+  v836 = mlcore::PlaylistItemReactionPropertyPersonPersistentID(v835);
+  [(mlcore *)v828 mapRelationshipKey:@"MPModelRelationshipPlaylistEntryReactionSocialProfile" toModelClass:v834 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v835, v836)];
+  v837 = objc_opt_class();
+  v838 = mlcore::PlaylistItemReactionPropertyPersistentID(v837);
+  v839 = mlcore::PlaylistItemReactionPropertyContainerItemPersistentID(v838);
+  [(mlcore *)v828 mapRelationshipKey:@"MPModelRelationshipPlaylistEntryReactionPlaylistEntry" toModelClass:v837 transient:0 usingForeignPropertyBase:MPMediaLibraryGetProperty(v838, v839)];
 
-  v838 = MEMORY[0x1A58DF750]();
-  v839 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v838];
-  v840 = mlcore::LibraryPinPropertyPersistentID(v839);
-  std::string::basic_string[abi:ne200100]<0>(v899, "pid");
-  v901 = v840;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_1004];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v841 = __p[0];
-  __p[0] = 0;
-  if (v841)
-  {
-    operator delete(v841);
-  }
-
-  if (SHIBYTE(v900) < 0)
-  {
-    operator delete(v899[0]);
-  }
-
-  v842 = mlcore::LibraryPinPropertyEntityType([(mlcore *)v839 setEntityQueryBlock:&__block_literal_global_1006, __p[0]]);
-  std::string::basic_string[abi:ne200100]<0>(v899, "entityType");
-  v901 = v842;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapPropertyKey:@"MPModelPropertyLibraryPinEntityType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1013];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v840 = MEMORY[0x1A58DF750]();
+  v841 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v840];
+  v842 = mlcore::LibraryPinPropertyPersistentID(v841);
+  std::string::basic_string[abi:ne200100]<0>(v898, "pid");
+  v900 = v842;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapIdentifierMLProperties:__p identifierCreationBlock:&__block_literal_global_1004];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v843 = __p[0];
   __p[0] = 0;
   if (v843)
@@ -5486,17 +5350,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v843);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v844 = mlcore::LibraryPinPropertyPosition(v843);
-  std::string::basic_string[abi:ne200100]<0>(v899, "position");
-  v901 = v844;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapPropertyKey:@"MPModelPropertyLibraryPinPosition" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1015];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v844 = mlcore::LibraryPinPropertyEntityType([(mlcore *)v841 setEntityQueryBlock:&__block_literal_global_1006, __p[0]]);
+  std::string::basic_string[abi:ne200100]<0>(v898, "entityType");
+  v900 = v844;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapPropertyKey:@"MPModelPropertyLibraryPinEntityType" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1013];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v845 = __p[0];
   __p[0] = 0;
   if (v845)
@@ -5504,17 +5368,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v845);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v846 = mlcore::LibraryPinPropertyPersistentID(v845);
-  std::string::basic_string[abi:ne200100]<0>(v899, "persistentID");
-  v901 = v846;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapPropertyKey:@"MPModelPropertyLibraryPinPersistentID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1017];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v846 = mlcore::LibraryPinPropertyPosition(v845);
+  std::string::basic_string[abi:ne200100]<0>(v898, "position");
+  v900 = v846;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapPropertyKey:@"MPModelPropertyLibraryPinPosition" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1015];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v847 = __p[0];
   __p[0] = 0;
   if (v847)
@@ -5522,17 +5386,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v847);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v848 = mlcore::LibraryPinPropertyEntityPersistentID(v847);
-  std::string::basic_string[abi:ne200100]<0>(v899, "entityPersistentID");
-  v901 = v848;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapPropertyKey:@"MPModelPropertyLibraryPinEntityPersistentID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1020];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v848 = mlcore::LibraryPinPropertyPersistentID(v847);
+  std::string::basic_string[abi:ne200100]<0>(v898, "persistentID");
+  v900 = v848;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapPropertyKey:@"MPModelPropertyLibraryPinPersistentID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1017];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v849 = __p[0];
   __p[0] = 0;
   if (v849)
@@ -5540,17 +5404,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v849);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v850 = mlcore::LibraryPinPropertyDefaultAction(v849);
-  std::string::basic_string[abi:ne200100]<0>(v899, "defaultAction");
-  v901 = v850;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapPropertyKey:@"MPModelPropertyLibraryPinDefaultAction" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1023];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v850 = mlcore::LibraryPinPropertyEntityPersistentID(v849);
+  std::string::basic_string[abi:ne200100]<0>(v898, "entityPersistentID");
+  v900 = v850;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapPropertyKey:@"MPModelPropertyLibraryPinEntityPersistentID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1020];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v851 = __p[0];
   __p[0] = 0;
   if (v851)
@@ -5558,17 +5422,17 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v851);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v852 = mlcore::LibraryPinPropertyPositionUUID(v851);
-  std::string::basic_string[abi:ne200100]<0>(v899, "positionUUID");
-  v901 = v852;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapPropertyKey:@"MPModelPropertyLibraryPinPositionUUID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1025];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
+  v852 = mlcore::LibraryPinPropertyDefaultAction(v851);
+  std::string::basic_string[abi:ne200100]<0>(v898, "defaultAction");
+  v900 = v852;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapPropertyKey:@"MPModelPropertyLibraryPinDefaultAction" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1023];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
   v853 = __p[0];
   __p[0] = 0;
   if (v853)
@@ -5576,93 +5440,111 @@ void _MPMLInitPropertyMaps(void)
     operator delete(v853);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v854 = MPModelRelationshipLibraryPinPlaylist;
-  v855 = objc_opt_class();
-  v856 = mlcore::LibraryPinPropertyEntityPersistentID(v855);
-  v857 = mlcore::LibraryPinPropertyEntityType(v856);
-  std::string::basic_string[abi:ne200100]<0>(v899, "entityType");
-  v901 = v857;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapRelationshipKey:v854 toModelClass:v855 transient:1 usingForeignPropertyBase:v856 relationshipValidationProperties:__p isValidRelationshipHandler:&__block_literal_global_1027];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v858 = __p[0];
+  v854 = mlcore::LibraryPinPropertyPositionUUID(v853);
+  std::string::basic_string[abi:ne200100]<0>(v898, "positionUUID");
+  v900 = v854;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapPropertyKey:@"MPModelPropertyLibraryPinPositionUUID" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_1025];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v855 = __p[0];
   __p[0] = 0;
-  if (v858)
+  if (v855)
   {
-    operator delete(v858);
+    operator delete(v855);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v859 = MPModelRelationshipLibraryPinAlbum;
-  v860 = objc_opt_class();
-  v861 = mlcore::LibraryPinPropertyEntityPersistentID(v860);
-  v862 = mlcore::LibraryPinPropertyEntityType(v861);
-  std::string::basic_string[abi:ne200100]<0>(v899, "entityType");
-  v901 = v862;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapRelationshipKey:v859 toModelClass:v860 transient:1 usingForeignPropertyBase:v861 relationshipValidationProperties:__p isValidRelationshipHandler:&__block_literal_global_1029];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v863 = __p[0];
+  v856 = MPModelRelationshipLibraryPinPlaylist;
+  v857 = objc_opt_class();
+  v858 = mlcore::LibraryPinPropertyEntityPersistentID(v857);
+  v859 = mlcore::LibraryPinPropertyEntityType(v858);
+  std::string::basic_string[abi:ne200100]<0>(v898, "entityType");
+  v900 = v859;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapRelationshipKey:v856 toModelClass:v857 transient:1 usingForeignPropertyBase:v858 relationshipValidationProperties:__p isValidRelationshipHandler:&__block_literal_global_1027];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v860 = __p[0];
   __p[0] = 0;
-  if (v863)
+  if (v860)
   {
-    operator delete(v863);
+    operator delete(v860);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v864 = MPModelRelationshipLibraryPinSong;
-  v865 = objc_opt_class();
-  v866 = mlcore::LibraryPinPropertyEntityPersistentID(v865);
-  v867 = mlcore::LibraryPinPropertyEntityType(v866);
-  std::string::basic_string[abi:ne200100]<0>(v899, "entityType");
-  v901 = v867;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapRelationshipKey:v864 toModelClass:v865 transient:1 usingForeignPropertyBase:v866 relationshipValidationProperties:__p isValidRelationshipHandler:&__block_literal_global_1031];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v868 = __p[0];
+  v861 = MPModelRelationshipLibraryPinAlbum;
+  v862 = objc_opt_class();
+  v863 = mlcore::LibraryPinPropertyEntityPersistentID(v862);
+  v864 = mlcore::LibraryPinPropertyEntityType(v863);
+  std::string::basic_string[abi:ne200100]<0>(v898, "entityType");
+  v900 = v864;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapRelationshipKey:v861 toModelClass:v862 transient:1 usingForeignPropertyBase:v863 relationshipValidationProperties:__p isValidRelationshipHandler:&__block_literal_global_1029];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v865 = __p[0];
   __p[0] = 0;
-  if (v868)
+  if (v865)
   {
-    operator delete(v868);
+    operator delete(v865);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
   }
 
-  v869 = MPModelRelationshipLibraryPinArtist;
-  v870 = objc_opt_class();
-  v871 = mlcore::LibraryPinPropertyEntityPersistentID(v870);
-  v872 = mlcore::LibraryPinPropertyEntityType(v871);
-  std::string::basic_string[abi:ne200100]<0>(v899, "entityType");
-  v901 = v872;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v899, 1);
-  [(mlcore *)v839 mapRelationshipKey:v869 toModelClass:v870 transient:1 usingForeignPropertyBase:v871 relationshipValidationProperties:__p isValidRelationshipHandler:&__block_literal_global_1033];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v875[0]);
-  v873 = __p[0];
+  v866 = MPModelRelationshipLibraryPinSong;
+  v867 = objc_opt_class();
+  v868 = mlcore::LibraryPinPropertyEntityPersistentID(v867);
+  v869 = mlcore::LibraryPinPropertyEntityType(v868);
+  std::string::basic_string[abi:ne200100]<0>(v898, "entityType");
+  v900 = v869;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapRelationshipKey:v866 toModelClass:v867 transient:1 usingForeignPropertyBase:v868 relationshipValidationProperties:__p isValidRelationshipHandler:&__block_literal_global_1031];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v870 = __p[0];
   __p[0] = 0;
-  if (v873)
+  if (v870)
   {
-    operator delete(v873);
+    operator delete(v870);
   }
 
-  if (SHIBYTE(v900) < 0)
+  if (SHIBYTE(v899) < 0)
   {
-    operator delete(v899[0]);
+    operator delete(v898[0]);
+  }
+
+  v871 = MPModelRelationshipLibraryPinArtist;
+  v872 = objc_opt_class();
+  v873 = mlcore::LibraryPinPropertyEntityPersistentID(v872);
+  v874 = mlcore::LibraryPinPropertyEntityType(v873);
+  std::string::basic_string[abi:ne200100]<0>(v898, "entityType");
+  v900 = v874;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v898, 1);
+  [(mlcore *)v841 mapRelationshipKey:v871 toModelClass:v872 transient:1 usingForeignPropertyBase:v873 relationshipValidationProperties:__p isValidRelationshipHandler:&__block_literal_global_1033];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v877[0]);
+  v875 = __p[0];
+  __p[0] = 0;
+  if (v875)
+  {
+    operator delete(v875);
+  }
+
+  if (SHIBYTE(v899) < 0)
+  {
+    operator delete(v898[0]);
   }
 }
 
@@ -5719,7 +5601,7 @@ void sub_1A262F5A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void _MPMLInitPropertySongMap(void)
 {
-  v160 = *MEMORY[0x1E69E9840];
+  v155 = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1A58E1100]();
   v1 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v0];
   v2 = mlcore::ItemPropertyStoreID(v1);
@@ -5739,24 +5621,24 @@ void _MPMLInitPropertySongMap(void)
   v146 = v10;
   v12 = mlcore::ItemPropertySubscriptionStoreItemID(v11);
   v13 = std::string::basic_string[abi:ne200100]<0>(v147, "subscriptionStoreID");
-  v148 = v12;
+  v147[3] = v12;
   v14 = mlcore::ItemPropertyStoreCloudAlbumID(v13);
-  v15 = std::string::basic_string[abi:ne200100]<0>(v149, "storeCloudAlbumID");
-  v150 = v14;
+  v15 = std::string::basic_string[abi:ne200100]<0>(v148, "storeCloudAlbumID");
+  v148[3] = v14;
   v16 = mlcore::ItemPropertySyncID(v15);
-  v17 = std::string::basic_string[abi:ne200100]<0>(v151, "syncID");
-  v152 = v16;
+  v17 = std::string::basic_string[abi:ne200100]<0>(v149, "syncID");
+  v149[3] = v16;
   v18 = mlcore::ItemPropertyReportingStoreItemID(v17);
-  v19 = std::string::basic_string[abi:ne200100]<0>(v153, "reportingStoreItemID");
-  v154 = v18;
+  v19 = std::string::basic_string[abi:ne200100]<0>(v150, "reportingStoreItemID");
+  v150[3] = v18;
   v20 = mlcore::ItemPropertyAssetStoreItemID(v19);
-  std::string::basic_string[abi:ne200100]<0>(v155, "assetStoreItemID");
-  v156 = v20;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v157, __p, 10);
-  [(mlcore *)v1 mapIdentifierMLProperties:v157 identifierCreationBlock:&__block_literal_global_69];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v158);
-  v21 = v157[0];
-  v157[0] = 0;
+  std::string::basic_string[abi:ne200100]<0>(v151, "assetStoreItemID");
+  v151[3] = v20;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v152, __p, 10);
+  [(mlcore *)v1 mapIdentifierMLProperties:v152 identifierCreationBlock:&__block_literal_global_69];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v153);
+  v21 = v152[0];
+  v152[0] = 0;
   if (v21)
   {
     operator delete(v21);
@@ -5783,7 +5665,7 @@ void _MPMLInitPropertySongMap(void)
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongYear" toMLProperty:mlcore::ItemPropertyYear(v27)];
   *__p = 0u;
   v138 = 0u;
-  v139[0] = 1065353216;
+  LODWORD(v139[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongHasCredits" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_93];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v28 = __p[0];
@@ -5794,9 +5676,9 @@ void _MPMLInitPropertySongMap(void)
   }
 
   v29 = mlcore::ItemPropertyUserRating(v28);
-  std::string::basic_string[abi:ne200100]<0>(v157, "userRating");
-  v159 = v29;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "userRating");
+  v154 = v29;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongUserRating" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_96];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v30 = __p[0];
@@ -5806,9 +5688,9 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v30);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v31 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongCloudStatus" toMLProperty:mlcore::ItemPropertyStoreCloudStatus(v30)];
@@ -5819,11 +5701,11 @@ void _MPMLInitPropertySongMap(void)
   v34 = mlcore::ItemPropertyTitleOrder(v33);
   std::string::basic_string[abi:ne200100]<0>(v131, "titleOrder");
   v133 = v34;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v157, v131, 1);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongTitle" withPropertiesToFetch:__p propertiesToSort:v157 sortTransformer:&__block_literal_global_101 filterTransformer:&__block_literal_global_104 valueTransformer:&__block_literal_global_109];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v158);
-  v35 = v157[0];
-  v157[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v152, v131, 1);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongTitle" withPropertiesToFetch:__p propertiesToSort:v152 sortTransformer:&__block_literal_global_101 filterTransformer:&__block_literal_global_104 valueTransformer:&__block_literal_global_109];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v153);
+  v35 = v152[0];
+  v152[0] = 0;
   if (v35)
   {
     operator delete(v35);
@@ -5857,11 +5739,11 @@ void _MPMLInitPropertySongMap(void)
   HasTrackNumber = mlcore::ItemPropertyHasTrackNumber(v41);
   std::string::basic_string[abi:ne200100]<0>(v131, "hasTrackNumber");
   v133 = HasTrackNumber;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v157, v131, 1);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongTrackNumber" withPropertiesToFetch:__p propertiesToSort:v157 sortTransformer:&__block_literal_global_113 valueTransformer:&__block_literal_global_115];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v158);
-  v43 = v157[0];
-  v157[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v152, v131, 1);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongTrackNumber" withPropertiesToFetch:__p propertiesToSort:v152 sortTransformer:&__block_literal_global_113 valueTransformer:&__block_literal_global_115];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v153);
+  v43 = v152[0];
+  v152[0] = 0;
   if (v43)
   {
     operator delete(v43);
@@ -5896,11 +5778,11 @@ void _MPMLInitPropertySongMap(void)
   v51 = mlcore::ItemPropertyClassicalMovementNumber(v50);
   std::string::basic_string[abi:ne200100]<0>(v131, "classicalMovementNumber");
   v133 = v51;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v157, v131, 1);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongClassicalMovement" withPropertiesToFetch:__p propertiesToSort:v157 sortTransformer:&__block_literal_global_119 valueTransformer:&__block_literal_global_121];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v158);
-  v52 = v157[0];
-  v157[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v152, v131, 1);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongClassicalMovement" withPropertiesToFetch:__p propertiesToSort:v152 sortTransformer:&__block_literal_global_119 valueTransformer:&__block_literal_global_121];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v153);
+  v52 = v152[0];
+  v152[0] = 0;
   if (v52)
   {
     operator delete(v52);
@@ -5926,9 +5808,9 @@ void _MPMLInitPropertySongMap(void)
 
   v54 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongShouldShowComposer" toMLProperty:mlcore::ItemPropertyShowComposerAsArtist(v53)];
   v55 = mlcore::ItemPropertyVolumeNormalization(v54);
-  std::string::basic_string[abi:ne200100]<0>(v157, "volumeNormalization");
-  v159 = v55;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "volumeNormalization");
+  v154 = v55;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongVolumeNormalization" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_124];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v56 = __p[0];
@@ -5938,9 +5820,9 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v56);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v57 = mlcore::ItemPropertyDurationInSamples(v56);
@@ -5958,28 +5840,28 @@ void _MPMLInitPropertySongMap(void)
   FrameResync = mlcore::ItemPropertyGaplessLastFrameResync(v64);
   std::string::basic_string[abi:ne200100]<0>(v145, "gaplessLastFrameResync");
   v146 = FrameResync;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v157, __p, 5);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongGaplessInfo" withPropertiesToFetch:v157 valueTransformer:&__block_literal_global_131];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v158);
-  v66 = v157[0];
-  v157[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v152, __p, 5);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongGaplessInfo" withPropertiesToFetch:v152 valueTransformer:&__block_literal_global_131];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v153);
+  v66 = v152[0];
+  v152[0] = 0;
   if (v66)
   {
     operator delete(v66);
   }
 
-  for (i = 0; i != -160; i -= 32)
+  for (i = 0; i != -20; i -= 4)
   {
-    if (v145[i + 23] < 0)
+    if (SHIBYTE(v145[i + 2]) < 0)
     {
-      operator delete(*&v145[i]);
+      operator delete(v145[i]);
     }
   }
 
   v68 = mlcore::ItemPropertyRelativeVolume(v66);
-  std::string::basic_string[abi:ne200100]<0>(v157, "relativeVolume");
-  v159 = v68;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "relativeVolume");
+  v154 = v68;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongVolumeAdjustment" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_135];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v69 = __p[0];
@@ -5989,16 +5871,16 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v69);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v70 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongBeatsPerMinute" toMLProperty:mlcore::ItemPropertyBPM(v69)];
   v71 = mlcore::ItemPropertyTotalTime(v70);
-  std::string::basic_string[abi:ne200100]<0>(v157, "time");
-  v159 = v71;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "time");
+  v154 = v71;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongDuration" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_138];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v72 = __p[0];
@@ -6008,9 +5890,9 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v72);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v73 = mlcore::ItemPropertyPersistentID(v72);
@@ -6028,21 +5910,21 @@ void _MPMLInitPropertySongMap(void)
   v81 = mlcore::ItemPropertyFetchableArtworkSourceType(v80);
   std::string::basic_string[abi:ne200100]<0>(v145, "fetchableArtworkSourceType");
   v146 = v81;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v157, __p, 5);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongArtwork" withPropertiesToFetch:v157 valueTransformer:&__block_literal_global_145];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v158);
-  v82 = v157[0];
-  v157[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v152, __p, 5);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongArtwork" withPropertiesToFetch:v152 valueTransformer:&__block_literal_global_145];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v153);
+  v82 = v152[0];
+  v152[0] = 0;
   if (v82)
   {
     operator delete(v82);
   }
 
-  for (j = 0; j != -160; j -= 32)
+  for (j = 0; j != -20; j -= 4)
   {
-    if (v145[j + 23] < 0)
+    if (SHIBYTE(v145[j + 2]) < 0)
     {
-      operator delete(*&v145[j]);
+      operator delete(v145[j]);
     }
   }
 
@@ -6052,30 +5934,30 @@ void _MPMLInitPropertySongMap(void)
   IsMasteredForiTunes = mlcore::ItemPropertyIsMasteredForiTunes(v85);
   std::string::basic_string[abi:ne200100]<0>(v139, "masteredForiTunes");
   v140 = IsMasteredForiTunes;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v157, __p, 2);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongTraits" withPropertiesToFetch:v157 valueTransformer:&__block_literal_global_149_44113];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v158);
-  v87 = v157[0];
-  v157[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v152, __p, 2);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongTraits" withPropertiesToFetch:v152 valueTransformer:&__block_literal_global_149_44113];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v153);
+  v87 = v152[0];
+  v152[0] = 0;
   if (v87)
   {
     operator delete(v87);
   }
 
-  for (k = 0; k != -16; k -= 8)
+  for (k = 0; k != -8; k -= 4)
   {
-    if (SHIBYTE(v139[k + 5]) < 0)
+    if (SHIBYTE(v139[k + 2]) < 0)
     {
-      operator delete(*&v139[k]);
+      operator delete(v139[k]);
     }
   }
 
   v89 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongArtistUploadedContent" toMLProperty:mlcore::ItemPropertyIsArtistUploadedContent(v87)];
   v90 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongLibraryAdded" toMLProperty:mlcore::ItemPropertyInMyLibrary(v89)];
   v91 = mlcore::ItemPropertyDateAdded(v90);
-  std::string::basic_string[abi:ne200100]<0>(v157, "libraryAdded");
-  v159 = v91;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "libraryAdded");
+  v154 = v91;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_153];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v92 = __p[0];
@@ -6085,15 +5967,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v92);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v93 = mlcore::ItemPropertyDateDownloaded(v92);
-  std::string::basic_string[abi:ne200100]<0>(v157, "downloadedDate");
-  v159 = v93;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "downloadedDate");
+  v154 = v93;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongDownloadedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_156];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v94 = __p[0];
@@ -6103,15 +5985,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v94);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v95 = mlcore::ItemPropertyDatePlayed(v94);
-  std::string::basic_string[abi:ne200100]<0>(v157, "datePlayed");
-  v159 = v95;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "datePlayed");
+  v154 = v95;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongLastDevicePlaybackDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_159];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v96 = __p[0];
@@ -6121,9 +6003,9 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v96);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   HasNonPurgeableAsset = mlcore::ItemPropertyHasNonPurgeableAsset(v96);
@@ -6132,28 +6014,28 @@ void _MPMLInitPropertySongMap(void)
   IsStoreRedownloadable = mlcore::ItemPropertyIsStoreRedownloadable(v98);
   std::string::basic_string[abi:ne200100]<0>(v139, "isStoreRedownloadable");
   v140 = IsStoreRedownloadable;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v157, __p, 2);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongLibraryAddEligible" withPropertiesToFetch:v157 valueTransformer:&__block_literal_global_163];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v158);
-  v100 = v157[0];
-  v157[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v152, __p, 2);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongLibraryAddEligible" withPropertiesToFetch:v152 valueTransformer:&__block_literal_global_163];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v153);
+  v100 = v152[0];
+  v152[0] = 0;
   if (v100)
   {
     operator delete(v100);
   }
 
-  for (m = 0; m != -16; m -= 8)
+  for (m = 0; m != -8; m -= 4)
   {
-    if (SHIBYTE(v139[m + 5]) < 0)
+    if (SHIBYTE(v139[m + 2]) < 0)
     {
-      operator delete(*&v139[m]);
+      operator delete(v139[m]);
     }
   }
 
   v102 = mlcore::ItemPropertyKeepLocal(v100);
-  std::string::basic_string[abi:ne200100]<0>(v157, "keepLocal");
-  v159 = v102;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "keepLocal");
+  v154 = v102;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongKeepLocalEnableState" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_166];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v103 = __p[0];
@@ -6163,15 +6045,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v103);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v104 = mlcore::ItemPropertyKeepLocalStatus(v103);
-  std::string::basic_string[abi:ne200100]<0>(v157, "keepLocalStatus");
-  v159 = v104;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "keepLocalStatus");
+  v154 = v104;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongKeepLocalManagedStatus" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_169_44114];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v105 = __p[0];
@@ -6181,15 +6063,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v105);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v106 = mlcore::ItemPropertyKeepLocalStatusReason(v105);
-  std::string::basic_string[abi:ne200100]<0>(v157, "keepLocalStatusReason");
-  v159 = v106;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "keepLocalStatusReason");
+  v154 = v106;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongKeepLocalManagedStatusReason" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_172_44115];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v107 = __p[0];
@@ -6199,15 +6081,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v107);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v108 = mlcore::ItemPropertyKeepLocalConstraints(v107);
-  std::string::basic_string[abi:ne200100]<0>(v157, "keepLocalConstraints");
-  v159 = v108;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "keepLocalConstraints");
+  v154 = v108;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongKeepLocalConstraints" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_175];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v109 = __p[0];
@@ -6217,15 +6099,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v109);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v110 = mlcore::ItemPropertyLikedState(v109);
-  std::string::basic_string[abi:ne200100]<0>(v157, "likedState");
-  v159 = v110;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "likedState");
+  v154 = v110;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongIsFavorite" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_178_44116];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v111 = __p[0];
@@ -6235,15 +6117,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v111);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v112 = mlcore::ItemPropertyLikedState(v111);
-  std::string::basic_string[abi:ne200100]<0>(v157, "likedState");
-  v159 = v112;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "likedState");
+  v154 = v112;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongIsDisliked" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_180];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v113 = __p[0];
@@ -6253,15 +6135,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v113);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v114 = mlcore::ItemPropertyLikedStateChangedDate(v113);
-  std::string::basic_string[abi:ne200100]<0>(v157, "likedStateChangedDate");
-  v159 = v114;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "likedStateChangedDate");
+  v154 = v114;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongDateFavorited" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_183];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v115 = __p[0];
@@ -6271,17 +6153,17 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v115);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v116 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongSupportsExtendedLyricsAttribute" toMLProperty:mlcore::ItemPropertyStoreExtendedLyricsAttribute(v115)];
   v117 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongIsPinned" toMLProperty:mlcore::ItemPropertyIsLibraryPinned(v116)];
   v118 = mlcore::ItemPropertyImmersiveDeepLinkURL(v117);
-  std::string::basic_string[abi:ne200100]<0>(v157, "immersiveURL");
-  v159 = v118;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "immersiveURL");
+  v154 = v118;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongImmersiveDeeplinkURL" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_186];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v119 = __p[0];
@@ -6291,15 +6173,15 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v119);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v120 = mlcore::ItemPropertyDateReleased(v119);
-  std::string::basic_string[abi:ne200100]<0>(v157, "releasedDate");
-  v159 = v120;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v157, 1);
+  std::string::basic_string[abi:ne200100]<0>(v152, "releasedDate");
+  v154 = v120;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v152, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertySongDateReleased" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_190];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v138);
   v121 = __p[0];
@@ -6309,9 +6191,9 @@ void _MPMLInitPropertySongMap(void)
     operator delete(v121);
   }
 
-  if (SHIBYTE(v158) < 0)
+  if (SHIBYTE(v153) < 0)
   {
-    operator delete(v157[0]);
+    operator delete(v152[0]);
   }
 
   v122 = objc_opt_class();
@@ -6387,7 +6269,7 @@ void sub_1A2635AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void _MPMLInitPropertyPlaylistMap(void)
 {
-  v210 = *MEMORY[0x1E69E9840];
+  v206 = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1A58E1290]();
   v1 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class() mlcoreEntityClass:v0];
   v2 = mlcore::PlaylistPropertyPersistentID(v1);
@@ -6411,45 +6293,45 @@ void _MPMLInitPropertyPlaylistMap(void)
   IsFolder = mlcore::PlaylistPropertySmartIsFolder(v13);
   std::string::basic_string[abi:ne200100]<0>(v189, "isFolder");
   v190 = IsFolder;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 7);
-  [(mlcore *)v1 mapIdentifierMLProperties:v207 identifierCreationBlock:&__block_literal_global_375];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v15 = v207[0];
-  v207[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 7);
+  [(mlcore *)v1 mapIdentifierMLProperties:v203 identifierCreationBlock:&__block_literal_global_375];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v15 = v203[0];
+  v203[0] = 0;
   if (v15)
   {
     operator delete(v15);
   }
 
-  for (i = 0; i != -224; i -= 32)
+  for (i = 0; i != -28; i -= 4)
   {
-    if (v189[i + 23] < 0)
+    if (SHIBYTE(v189[i + 2]) < 0)
     {
-      operator delete(*&v189[i]);
+      operator delete(v189[i]);
     }
   }
 
   [(mlcore *)v1 setEntityQueryBlock:&__block_literal_global_378];
   v17 = mlcore::PlaylistPropertyName([(mlcore *)v1 setAllowedItemPredicatesBlock:&__block_literal_global_393]);
-  std::string::basic_string[abi:ne200100]<0>(v204, "name");
-  v206 = v17;
-  v18 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v204, 1);
+  std::string::basic_string[abi:ne200100]<0>(v200, "name");
+  v202 = v17;
+  v18 = std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v200, 1);
   v19 = mlcore::PlaylistPropertyNameOrder(v18);
-  std::string::basic_string[abi:ne200100]<0>(v201, "nameOrder");
-  v203 = v19;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, v201, 1);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistName" withPropertiesToFetch:__p propertiesToSort:v207 sortTransformer:&__block_literal_global_397 filterTransformer:&__block_literal_global_399 valueTransformer:&__block_literal_global_404];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v20 = v207[0];
-  v207[0] = 0;
+  std::string::basic_string[abi:ne200100]<0>(v197, "nameOrder");
+  v199 = v19;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, v197, 1);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistName" withPropertiesToFetch:__p propertiesToSort:v203 sortTransformer:&__block_literal_global_397 filterTransformer:&__block_literal_global_399 valueTransformer:&__block_literal_global_404];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v20 = v203[0];
+  v203[0] = 0;
   if (v20)
   {
     operator delete(v20);
   }
 
-  if (v202 < 0)
+  if (v198 < 0)
   {
-    operator delete(v201[0]);
+    operator delete(v197[0]);
   }
 
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
@@ -6460,9 +6342,9 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v21);
   }
 
-  if (v205 < 0)
+  if (v201 < 0)
   {
-    operator delete(v204[0]);
+    operator delete(v200[0]);
   }
 
   v22 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistDescriptionText" toMLProperty:mlcore::PlaylistPropertyDescription(v21)];
@@ -6496,28 +6378,28 @@ void _MPMLInitPropertyPlaylistMap(void)
   IsCollaborative = mlcore::PlaylistPropertyIsCollaborative(v42);
   std::string::basic_string[abi:ne200100]<0>(v191, "isCollaborative");
   v192 = IsCollaborative;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 8);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistUserEditableComponents" withPropertiesToFetch:v207 valueTransformer:&__block_literal_global_413];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v44 = v207[0];
-  v207[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 8);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistUserEditableComponents" withPropertiesToFetch:v203 valueTransformer:&__block_literal_global_413];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v44 = v203[0];
+  v203[0] = 0;
   if (v44)
   {
     operator delete(v44);
   }
 
-  for (j = 0; j != -256; j -= 32)
+  for (j = 0; j != -32; j -= 4)
   {
-    if (v191[j + 23] < 0)
+    if (SHIBYTE(v191[j + 2]) < 0)
     {
-      operator delete(*&v191[j]);
+      operator delete(v191[j]);
     }
   }
 
   v46 = mlcore::PlaylistPropertyCloudShareURL(v44);
-  std::string::basic_string[abi:ne200100]<0>(v207, "shareURL");
-  v209 = v46;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "shareURL");
+  v205 = v46;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistShareURL" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_420_44037];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v47 = __p[0];
@@ -6527,14 +6409,14 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v47);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistShareShortURL" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_423];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v48 = __p[0];
@@ -6556,28 +6438,28 @@ void _MPMLInitPropertyPlaylistMap(void)
   v55 = mlcore::PlaylistPropertyFetchableArtworkSourceType(v54);
   std::string::basic_string[abi:ne200100]<0>(v183, "fetchableArtworkSourceType");
   v184 = v55;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 4);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistArtwork" withPropertiesToFetch:v207 valueTransformer:&__block_literal_global_427];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v56 = v207[0];
-  v207[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 4);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistArtwork" withPropertiesToFetch:v203 valueTransformer:&__block_literal_global_427];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v56 = v203[0];
+  v203[0] = 0;
   if (v56)
   {
     operator delete(v56);
   }
 
-  for (k = 0; k != -128; k -= 32)
+  for (k = 0; k != -16; k -= 4)
   {
-    if (v183[k + 23] < 0)
+    if (SHIBYTE(v183[k + 2]) < 0)
     {
-      operator delete(*&v183[k]);
+      operator delete(v183[k]);
     }
   }
 
   v58 = mlcore::PlaylistPropertyPersistentID(v56);
-  std::string::basic_string[abi:ne200100]<0>(v207, "playlistPID");
-  v209 = v58;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "playlistPID");
+  v205 = v58;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistTracksTiledArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_430];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v59 = __p[0];
@@ -6587,14 +6469,14 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v59);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_435];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v60 = __p[0];
@@ -6606,7 +6488,7 @@ void _MPMLInitPropertyPlaylistMap(void)
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistStaticTallEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_438];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v61 = __p[0];
@@ -6618,7 +6500,7 @@ void _MPMLInitPropertyPlaylistMap(void)
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistSuperHeroTallEditorialArtwork" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_441];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v62 = __p[0];
@@ -6640,27 +6522,27 @@ void _MPMLInitPropertyPlaylistMap(void)
   v69 = mlcore::PlaylistPropertyFetchablePortraitArtworkSourceType(v68);
   std::string::basic_string[abi:ne200100]<0>(v183, "fetchableArtworkSourceType");
   v184 = v69;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 4);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistPortraitArtwork" withPropertiesToFetch:v207 valueTransformer:&__block_literal_global_444, __p[0]];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v70 = v207[0];
-  v207[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 4);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistPortraitArtwork" withPropertiesToFetch:v203 valueTransformer:&__block_literal_global_444, __p[0]];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v70 = v203[0];
+  v203[0] = 0;
   if (v70)
   {
     operator delete(v70);
   }
 
-  for (m = 0; m != -128; m -= 32)
+  for (m = 0; m != -16; m -= 4)
   {
-    if (v183[m + 23] < 0)
+    if (SHIBYTE(v183[m + 2]) < 0)
     {
-      operator delete(*&v183[m]);
+      operator delete(v183[m]);
     }
   }
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistReleaseDateComponents" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_447];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v72 = __p[0];
@@ -6672,7 +6554,7 @@ void _MPMLInitPropertyPlaylistMap(void)
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistShortEditorNotes" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_449];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v73 = __p[0];
@@ -6684,7 +6566,7 @@ void _MPMLInitPropertyPlaylistMap(void)
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistEditorNotes" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_451];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v74 = __p[0];
@@ -6696,7 +6578,7 @@ void _MPMLInitPropertyPlaylistMap(void)
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistVersionHash" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_453];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v75 = __p[0];
@@ -6707,9 +6589,9 @@ void _MPMLInitPropertyPlaylistMap(void)
   }
 
   IsHidden = mlcore::PlaylistPropertyIsHidden(v75);
-  std::string::basic_string[abi:ne200100]<0>(v207, "isHidden");
-  v209 = IsHidden;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "isHidden");
+  v205 = IsHidden;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistLibraryAdded" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_456];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v77 = __p[0];
@@ -6719,15 +6601,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v77);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v78 = mlcore::PlaylistPropertyDateCreated(v77);
-  std::string::basic_string[abi:ne200100]<0>(v207, "libraryAdded");
-  v209 = v78;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "libraryAdded");
+  v205 = v78;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistLibraryAddedDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_458_44039];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v79 = __p[0];
@@ -6737,16 +6619,16 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v79);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v80 = MPModelPropertyPlaylistDownloadedDate;
   v81 = mlcore::PlaylistPropertyDateDownloaded(v79);
-  std::string::basic_string[abi:ne200100]<0>(v207, "downloadedDate");
-  v209 = v81;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "downloadedDate");
+  v205 = v81;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:v80 withPropertiesToFetch:__p valueTransformer:&__block_literal_global_460_44040];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v82 = __p[0];
@@ -6756,15 +6638,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v82);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v83 = mlcore::PlaylistPropertyDateModified(v82);
-  std::string::basic_string[abi:ne200100]<0>(v207, "dateModified");
-  v209 = v83;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "dateModified");
+  v205 = v83;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistLastModifiedDateComponents" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_463];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v84 = __p[0];
@@ -6774,15 +6656,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v84);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v85 = mlcore::PlaylistPropertyDatePlayedLocal(v84);
-  std::string::basic_string[abi:ne200100]<0>(v207, "datePlayedLocal");
-  v209 = v85;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "datePlayedLocal");
+  v205 = v85;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistLastDevicePlaybackDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_465_44042];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v86 = __p[0];
@@ -6792,14 +6674,14 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v86);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistHasCleanContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_467_44043];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v87 = __p[0];
@@ -6811,7 +6693,7 @@ void _MPMLInitPropertyPlaylistMap(void)
 
   *__p = 0u;
   *v178 = 0u;
-  v179[0] = 1065353216;
+  LODWORD(v179[0]) = 1065353216;
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistHasExplicitContent" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_469];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v88 = __p[0];
@@ -6847,21 +6729,21 @@ void _MPMLInitPropertyPlaylistMap(void)
   v192 = v103;
   IsPublic = mlcore::PlaylistPropertyCloudIsPublic(v104);
   v106 = std::string::basic_string[abi:ne200100]<0>(v193, "isPublic");
-  v194 = IsPublic;
+  v193[3] = IsPublic;
   IsEditorial = mlcore::PlaylistCategoryTypeIsEditorial(v106);
-  v108 = std::string::basic_string[abi:ne200100]<0>(v195, "isEditorial");
-  v196 = IsEditorial;
+  v108 = std::string::basic_string[abi:ne200100]<0>(v194, "isEditorial");
+  v194[3] = IsEditorial;
   IsUserShared = mlcore::PlaylistCategoryTypeIsUserShared(v108);
-  v110 = std::string::basic_string[abi:ne200100]<0>(v197, "isUserShared");
-  v198 = IsUserShared;
+  v110 = std::string::basic_string[abi:ne200100]<0>(v195, "isUserShared");
+  v195[3] = IsUserShared;
   v111 = mlcore::PlaylistPropertyEditSessionID(v110);
-  std::string::basic_string[abi:ne200100]<0>(v199, "editSessionID");
-  v200 = v111;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 12);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistType" withPropertiesToFetch:v207 valueTransformer:&__block_literal_global_478];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v112 = v207[0];
-  v207[0] = 0;
+  std::string::basic_string[abi:ne200100]<0>(v196, "editSessionID");
+  v196[3] = v111;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 12);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistType" withPropertiesToFetch:v203 valueTransformer:&__block_literal_global_478];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v112 = v203[0];
+  v203[0] = 0;
   if (v112)
   {
     operator delete(v112);
@@ -6880,9 +6762,9 @@ void _MPMLInitPropertyPlaylistMap(void)
 
   while (v113 * 8);
   v114 = mlcore::PlaylistPropertyKeepLocal(v112);
-  std::string::basic_string[abi:ne200100]<0>(v207, "keepLocal");
-  v209 = v114;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "keepLocal");
+  v205 = v114;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistKeepLocalEnableState" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_480];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v115 = __p[0];
@@ -6892,15 +6774,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v115);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v116 = mlcore::PlaylistPropertyKeepLocalStatus(v115);
-  std::string::basic_string[abi:ne200100]<0>(v207, "keepLocalStatus");
-  v209 = v116;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "keepLocalStatus");
+  v205 = v116;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistKeepLocalManagedStatus" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_482];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v117 = __p[0];
@@ -6910,15 +6792,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v117);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v118 = mlcore::PlaylistPropertyKeepLocalStatusReason(v117);
-  std::string::basic_string[abi:ne200100]<0>(v207, "keepLocalStatusReason");
-  v209 = v118;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "keepLocalStatusReason");
+  v205 = v118;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistKeepLocalManagedStatusReason" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_484];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v119 = __p[0];
@@ -6928,15 +6810,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v119);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v120 = mlcore::PlaylistPropertyKeepLocalConstraints(v119);
-  std::string::basic_string[abi:ne200100]<0>(v207, "keepLocalConstraints");
-  v209 = v120;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "keepLocalConstraints");
+  v205 = v120;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistKeepLocalConstraints" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_486];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v121 = __p[0];
@@ -6946,15 +6828,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v121);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v122 = mlcore::PlaylistPropertyTraits(v121);
-  std::string::basic_string[abi:ne200100]<0>(v207, "traits");
-  v209 = v122;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "traits");
+  v205 = v122;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistTraits" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_489];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v123 = __p[0];
@@ -6964,15 +6846,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v123);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v124 = mlcore::PlaylistPropertyLikedState(v123);
-  std::string::basic_string[abi:ne200100]<0>(v207, "likedState");
-  v209 = v124;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "likedState");
+  v205 = v124;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistIsFavorite" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_491];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v125 = __p[0];
@@ -6982,15 +6864,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v125);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v126 = mlcore::PlaylistPropertyLikedState(v125);
-  std::string::basic_string[abi:ne200100]<0>(v207, "likedState");
-  v209 = v126;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "likedState");
+  v205 = v126;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistIsDisliked" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_493];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v127 = __p[0];
@@ -7000,15 +6882,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v127);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v128 = mlcore::PlaylistPropertyLikedStateChangedDate(v127);
-  std::string::basic_string[abi:ne200100]<0>(v207, "likedStateChangedDate");
-  v209 = v128;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "likedStateChangedDate");
+  v205 = v128;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistDateFavorited" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_495];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v129 = __p[0];
@@ -7018,15 +6900,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v129);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v130 = mlcore::PlaylistPropertyIsFavoritedSongs(v129);
-  std::string::basic_string[abi:ne200100]<0>(v207, "favoriteSongsPlaylist");
-  v209 = v130;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "favoriteSongsPlaylist");
+  v205 = v130;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistIsFavoriteSongsPlaylist" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_498];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v131 = __p[0];
@@ -7036,9 +6918,9 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v131);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v132 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistCoverArtworkRecipe" toMLProperty:mlcore::PlaylistPropertyCoverArtworkRecipe(v131)];
@@ -7048,9 +6930,9 @@ void _MPMLInitPropertyPlaylistMap(void)
   v136 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistCollaboratorPermissions" toMLProperty:mlcore::PlaylistPropertyCollaboratorPermissions(v135)];
   v137 = [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistCollaborationInvitationURL" toMLProperty:mlcore::PlaylistPropertyCollaborationInvitationURL(v136)];
   v138 = mlcore::PlaylistPropertyCollaborationInvitationURL(v137);
-  std::string::basic_string[abi:ne200100]<0>(v207, "invitationURL");
-  v209 = v138;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "invitationURL");
+  v205 = v138;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistCollaborationInvitationURL" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_501];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v139 = __p[0];
@@ -7060,15 +6942,15 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v139);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v140 = mlcore::PlaylistPropertyCollaborationInvitationURLExpirationDate(v139);
-  std::string::basic_string[abi:ne200100]<0>(v207, "collaborationInvitationURLExpirationDate");
-  v209 = v140;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v207, 1);
+  std::string::basic_string[abi:ne200100]<0>(v203, "collaborationInvitationURLExpirationDate");
+  v205 = v140;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v203, 1);
   [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistCollaborationInvitationURLExpirationDate" withPropertiesToFetch:__p valueTransformer:&__block_literal_global_504];
   std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v178[0]);
   v141 = __p[0];
@@ -7078,9 +6960,9 @@ void _MPMLInitPropertyPlaylistMap(void)
     operator delete(v141);
   }
 
-  if (SHIBYTE(v208) < 0)
+  if (SHIBYTE(v204) < 0)
   {
-    operator delete(v207[0]);
+    operator delete(v203[0]);
   }
 
   v142 = mlcore::PlaylistPropertyCollaborationJoinRequestPending(v141);
@@ -7093,21 +6975,21 @@ void _MPMLInitPropertyPlaylistMap(void)
   IsStoreRedownloadable = mlcore::PlaylistPropertyIsStoreRedownloadable(v147);
   std::string::basic_string[abi:ne200100]<0>(v179, "isStoreRedownloadable");
   v180 = IsStoreRedownloadable;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 2);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistIsStoreRedownloadable" withPropertiesToFetch:v207 valueTransformer:&__block_literal_global_506];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v149 = v207[0];
-  v207[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 2);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistIsStoreRedownloadable" withPropertiesToFetch:v203 valueTransformer:&__block_literal_global_506];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v149 = v203[0];
+  v203[0] = 0;
   if (v149)
   {
     operator delete(v149);
   }
 
-  for (n = 0; n != -16; n -= 8)
+  for (n = 0; n != -8; n -= 4)
   {
-    if (SHIBYTE(v179[n + 5]) < 0)
+    if (SHIBYTE(v179[n + 2]) < 0)
     {
-      operator delete(*&v179[n]);
+      operator delete(v179[n]);
     }
   }
 
@@ -7122,21 +7004,21 @@ void _MPMLInitPropertyPlaylistMap(void)
   v157 = mlcore::PlaylistPropertyIsSmart(v156);
   std::string::basic_string[abi:ne200100]<0>(v181, "isSmartPlaylist");
   v182 = v157;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 3);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistTrackCount" withPropertiesToFetch:v207 valueTransformer:&__block_literal_global_511];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v158 = v207[0];
-  v207[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 3);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistTrackCount" withPropertiesToFetch:v203 valueTransformer:&__block_literal_global_511];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v158 = v203[0];
+  v203[0] = 0;
   if (v158)
   {
     operator delete(v158);
   }
 
-  for (ii = 0; ii != -96; ii -= 32)
+  for (ii = 0; ii != -12; ii -= 4)
   {
-    if (v181[ii + 23] < 0)
+    if (SHIBYTE(v181[ii + 2]) < 0)
     {
-      operator delete(*&v181[ii]);
+      operator delete(v181[ii]);
     }
   }
 
@@ -7152,21 +7034,21 @@ void _MPMLInitPropertyPlaylistMap(void)
   v166 = mlcore::PlaylistPropertyIsSmart(v165);
   std::string::basic_string[abi:ne200100]<0>(v183, "isSmartPlaylist");
   v184 = v166;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 4);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistHasAnyCleanTracks" withPropertiesToFetch:v207 valueTransformer:&__block_literal_global_519_44055];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v167 = v207[0];
-  v207[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 4);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistHasAnyCleanTracks" withPropertiesToFetch:v203 valueTransformer:&__block_literal_global_519_44055];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v167 = v203[0];
+  v203[0] = 0;
   if (v167)
   {
     operator delete(v167);
   }
 
-  for (jj = 0; jj != -128; jj -= 32)
+  for (jj = 0; jj != -16; jj -= 4)
   {
-    if (v183[jj + 23] < 0)
+    if (SHIBYTE(v183[jj + 2]) < 0)
     {
-      operator delete(*&v183[jj]);
+      operator delete(v183[jj]);
     }
   }
 
@@ -7179,21 +7061,21 @@ void _MPMLInitPropertyPlaylistMap(void)
   v173 = mlcore::PlaylistPropertyIsSmart(v172);
   std::string::basic_string[abi:ne200100]<0>(v181, "isSmartPlaylist");
   v182 = v173;
-  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v207, __p, 3);
-  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistHasAnyCleanDownloadedTracks" withPropertiesToFetch:v207 valueTransformer:&__block_literal_global_523];
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v208);
-  v174 = v207[0];
-  v207[0] = 0;
+  std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v203, __p, 3);
+  [(mlcore *)v1 mapPropertyKey:@"MPModelPropertyPlaylistHasAnyCleanDownloadedTracks" withPropertiesToFetch:v203 valueTransformer:&__block_literal_global_523];
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__deallocate_node(v204);
+  v174 = v203[0];
+  v203[0] = 0;
   if (v174)
   {
     operator delete(v174);
   }
 
-  for (kk = 0; kk != -96; kk -= 32)
+  for (kk = 0; kk != -12; kk -= 4)
   {
-    if (v181[kk + 23] < 0)
+    if (SHIBYTE(v181[kk + 2]) < 0)
     {
-      operator delete(*&v181[kk]);
+      operator delete(v181[kk]);
     }
   }
 
@@ -7203,7 +7085,7 @@ void _MPMLInitPropertyPlaylistMap(void)
 
 void sub_1A26378A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
-  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::~__hash_table(v23 - 96);
+  std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::~__hash_table((v23 - 96));
   v26 = &a22;
   v27 = -96;
   v28 = &a22;
@@ -7857,56 +7739,56 @@ LABEL_47:
     if (a3 && v56 != v55)
     {
       v96 = a3;
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v59, &v96, &v55);
     }
 
     if (a4 && v94 != v93)
     {
       v96 = a4;
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v59, &v96, &v93);
     }
 
     if (a5 && v91 != v90)
     {
       v96 = a5;
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v59, &v96, &v90);
     }
 
     if (a6 && v88 != v87)
     {
       v96 = a6;
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v59, &v96, &v87);
     }
 
     if (v46 && v85 != v84)
     {
       v96 = v46;
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v59, &v96, &v84);
     }
 
     if (a8 && v82 != v81)
     {
       v96 = a8;
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v59, &v96, &v81);
     }
 
     if (a10 && v79 != v78)
     {
       v96 = a10;
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v59, &v96, &v78);
     }
 
     if (a9 && v76 != v75)
     {
       v96 = a9;
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v59, &v96, &v75);
     }
 
     if (v73 == v72 && [obj count])
     {
       v96 = a5;
       LODWORD(v65) = 1;
-      std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<long long>,std::allocator<mlcore::UnaryPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::UnaryOperator,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<long long>,std::allocator<mlcore::UnaryPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::UnaryOperator,0>(&v59, &v96, &v65);
     }
 
     memset(v58, 0, sizeof(v58));
@@ -7960,7 +7842,7 @@ LABEL_47:
   }
 }
 
-void sub_1A26396C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_1A26396C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char ***a43, std::__shared_weak_count *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char **a56, uint64_t a57, uint64_t a58, char *a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
 {
   if (a44)
   {
@@ -7979,26 +7861,26 @@ void sub_1A26396C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
     operator delete(__p);
   }
 
-  __p = &a68;
+  __p = &a67;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  if (a71)
+  if (a68)
   {
-    a72 = a71;
-    operator delete(a71);
+    a69 = a68;
+    operator delete(a68);
   }
 
-  v74 = STACK[0x208];
+  v71 = STACK[0x208];
   if (STACK[0x208])
   {
-    STACK[0x210] = v74;
-    operator delete(v74);
+    STACK[0x210] = v71;
+    operator delete(v71);
   }
 
-  v75 = STACK[0x220];
+  v72 = STACK[0x220];
   if (STACK[0x220])
   {
-    STACK[0x228] = v75;
-    operator delete(v75);
+    STACK[0x228] = v72;
+    operator delete(v72);
   }
 
   if (a19)
@@ -8009,42 +7891,42 @@ void sub_1A26396C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
   if (a2 == 2)
   {
-    v76 = __cxa_begin_catch(a1);
-    v77 = MEMORY[0x1E695DF30];
-    v78 = MEMORY[0x1E696AEC0];
+    v73 = __cxa_begin_catch(a1);
+    v74 = MEMORY[0x1E695DF30];
+    v75 = MEMORY[0x1E696AEC0];
     mediaplatform::FormatOptions::FormatOptions(&a19);
-    (*(*v76 + 24))(&STACK[0x220], v76, &a19);
+    (*(*v73 + 24))(&STACK[0x220], v73, &a19);
     if (SLOBYTE(STACK[0x237]) >= 0)
     {
-      v79 = &STACK[0x220];
+      v76 = &STACK[0x220];
     }
 
     else
     {
-      v79 = STACK[0x220];
+      v76 = STACK[0x220];
     }
 
-    v80 = [v78 stringWithUTF8String:v79];
-    v81 = [v77 exceptionWithName:@"MediaPlatform" reason:v80 userInfo:0];
-    v82 = v81;
+    v77 = [v75 stringWithUTF8String:v76];
+    v78 = [v74 exceptionWithName:@"MediaPlatform" reason:v77 userInfo:0];
+    v79 = v78;
 
     if (SLOBYTE(STACK[0x237]) < 0)
     {
       operator delete(STACK[0x220]);
     }
 
-    objc_exception_throw(v81);
+    objc_exception_throw(v78);
   }
 
   if (a2 == 1)
   {
-    v83 = __cxa_begin_catch(a1);
-    v84 = MEMORY[0x1E695DF30];
-    v85 = [MEMORY[0x1E696AEC0] stringWithUTF8String:(*(*v83 + 16))(v83)];
-    v86 = [v84 exceptionWithName:*MEMORY[0x1E695D920] reason:v85 userInfo:0];
-    v87 = v86;
+    v80 = __cxa_begin_catch(a1);
+    v81 = MEMORY[0x1E695DF30];
+    v82 = [MEMORY[0x1E696AEC0] stringWithUTF8String:(*(*v80 + 16))(v80)];
+    v83 = [v81 exceptionWithName:*MEMORY[0x1E695D920] reason:v82 userInfo:0];
+    v84 = v83;
 
-    objc_exception_throw(v86);
+    objc_exception_throw(v83);
   }
 
   _Unwind_Resume(a1);
@@ -8118,10 +8000,10 @@ id _MPMLDateFromStoredInt64(void *a1)
   return a1;
 }
 
-void ___ZL41_MPMLInitPropertyPlaylistEntryReactionMapv_block_invoke_3(uint64_t a1, void *a2, uint64_t *a3)
+void ___ZL41_MPMLInitPropertyPlaylistEntryReactionMapv_block_invoke_3(void x0_0, void *a1, uint64_t *a2)
 {
   v37 = *MEMORY[0x1E69E9840];
-  v4 = a2;
+  v4 = a1;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
@@ -8163,8 +8045,8 @@ LABEL_12:
               [v24 handleFailureInFunction:v25 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:2731 description:@"Must have PlaylistEntryReaction kind to generate PlaylistEntryReaction entity query."];
             }
 
-            v18 = a3[1];
-            v30 = *a3;
+            v18 = a2[1];
+            v30 = *a2;
             v31 = v18;
             if (v18)
             {
@@ -8223,12 +8105,12 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void mlcore::LibraryView::performQuery<mlcore::EntityQuery>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void mlcore::LibraryView::performQuery<mlcore::EntityQuery>(void (***a1)(void, uint64_t *, uint64_t *, _BYTE *), uint64_t a2, std::__shared_weak_count *a3, uint64_t a4)
 {
   v13 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    atomic_fetch_add_explicit((a3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&a3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   std::__function::__value_func<void ()(std::shared_ptr<mlcore::EntityQueryResult>)>::__value_func[abi:ne200100](v10, a4);
@@ -8236,7 +8118,7 @@ void mlcore::LibraryView::performQuery<mlcore::EntityQuery>(uint64_t a1, uint64_
   v9 = a3;
   if (a3)
   {
-    atomic_fetch_add_explicit((a3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&a3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v6 = 0;
@@ -8412,7 +8294,7 @@ void _ZNSt3__110__function6__funcIZZL41_MPMLInitPropertyPlaylistEntryReactionMap
   *(a2 + 8) = 0;
   if (mlcore::EntityQueryResult::entityCount(v4))
   {
-    mlcore::EntityQueryResult::entityAtIndex(v4);
+    mlcore::EntityQueryResult::entityAtIndex(&lpsrc, v4);
     if (lpsrc && (v5 = __dynamic_cast(lpsrc, MEMORY[0x1E69B07F0], MEMORY[0x1E69B07D8], 0)) != 0)
     {
       *buf = v5;
@@ -8511,31 +8393,31 @@ void ___ZL41_MPMLInitPropertyPlaylistEntryReactionMapv_block_invoke_2(uint64_t a
   }
 }
 
-void ___ZL34_MPMLInitPropertyPlaylistAuthorMapv_block_invoke_4(uint64_t a1, void *a2, uint64_t *a3)
+void ___ZL34_MPMLInitPropertyPlaylistAuthorMapv_block_invoke_4(void x0_0, void *a1, uint64_t *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v4 = a2;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
+  v41 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v5 = [v4 scopedContainers];
   v6 = [v5 reverseObjectEnumerator];
 
-  v7 = [v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v7)
   {
-    v8 = *v31;
+    v8 = *v35;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v30 + 1) + 8 * i);
+        v10 = *(*(&v34 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -8551,23 +8433,23 @@ LABEL_12:
 
             if ((v17 & 1) == 0)
             {
-              v24 = [MEMORY[0x1E696AAA8] currentHandler];
-              v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _MPMLInitPropertyPlaylistAuthorMap()_block_invoke_4"];
-              [v24 handleFailureInFunction:v25 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:2650 description:@"Must have PlaylistAuthor kind to generate PlaylistAuthor entity query."];
+              v25 = [MEMORY[0x1E696AAA8] currentHandler];
+              v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _MPMLInitPropertyPlaylistAuthorMap()_block_invoke_4"];
+              [v25 handleFailureInFunction:v26 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:2650 description:@"Must have PlaylistAuthor kind to generate PlaylistAuthor entity query."];
             }
 
-            v18 = a3[1];
-            v28 = *a3;
-            v29 = v18;
+            v18 = a2[1];
+            v32 = *a2;
+            v33 = v18;
             if (v18)
             {
               atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            [v14 applyToView:&v28 withContext:v4];
-            if (v29)
+            [v14 applyToView:&v32 withContext:v4];
+            if (v33)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v33);
             }
 
             std::string::basic_string[abi:ne200100]<0>(__p, "");
@@ -8578,23 +8460,24 @@ LABEL_12:
             {
               v21 = [v4 filterText];
               v22 = v21;
-              std::string::basic_string[abi:ne200100]<0>(&v34, [v21 UTF8String]);
-              if (SHIBYTE(v27) < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v38, [v21 UTF8String]);
+              if (SHIBYTE(v31) < 0)
               {
                 operator delete(__p[0]);
               }
 
-              *__p = v34;
-              v27 = v35;
-              HIBYTE(v35) = 0;
-              LOBYTE(v34) = 0;
+              *__p = v38;
+              v31 = v39;
+              HIBYTE(v39) = 0;
+              LOBYTE(v38) = 0;
             }
 
-            [v13 identifiers];
-            v23 = [objc_claimAutoreleasedReturnValue() library];
-            [v23 persistentID];
+            v29 = [v13 identifiers];
+            v23 = [v29 library];
+            v24 = [v23 persistentID];
 
-            std::allocate_shared[abi:ne200100]<mlcore::Playlist,std::allocator<mlcore::Playlist>,long long &,0>();
+            v28 = v24;
+            std::allocate_shared[abi:ne200100]<mlcore::Playlist,std::allocator<mlcore::Playlist>,long long &,0>(&v27, &v28);
           }
 
 LABEL_10:
@@ -8607,7 +8490,7 @@ LABEL_10:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v7);
@@ -8645,7 +8528,7 @@ void _ZNSt3__110__function6__funcIZZL34_MPMLInitPropertyPlaylistAuthorMapvEUb0_E
   *(a2 + 8) = 0;
   if (mlcore::EntityQueryResult::entityCount(v4))
   {
-    mlcore::EntityQueryResult::entityAtIndex(v4);
+    mlcore::EntityQueryResult::entityAtIndex(&v9, v4);
     std::dynamic_pointer_cast[abi:ne200100]<mlcore::Playlist,mlcore::Entity>(buf, &v9);
     v5 = *(a1 + 16);
     v6 = *(v5 + 8);
@@ -9093,7 +8976,7 @@ id ___ZL33_MPMLInitPropertyTVShowCreatorMapv_block_invoke_5(uint64_t a1, void *a
   return v8;
 }
 
-void ___ZL33_MPMLInitPropertyTVShowCreatorMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL33_MPMLInitPropertyTVShowCreatorMapv_block_invoke_4(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -9330,7 +9213,7 @@ id ___ZL26_MPMLInitPropertyTVShowMapv_block_invoke_7(uint64_t a1, void *a2, void
   return v8;
 }
 
-void ___ZL26_MPMLInitPropertyTVShowMapv_block_invoke_6(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL26_MPMLInitPropertyTVShowMapv_block_invoke_6(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -9390,11 +9273,11 @@ void sub_1A263D9E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZL26_MPMLInitPropertyTVShowMapv_block_invoke_4(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v25 = 0;
   v26 = 0;
   v27 = 0;
+  v28 = 0;
   v5 = [v4 modelKind];
   v6 = [v5 identityKind];
   v7 = +[MPModelTVShowKind identityKind];
@@ -9408,23 +9291,23 @@ void ___ZL26_MPMLInitPropertyTVShowMapv_block_invoke_4(uint64_t a1, void *a2, ui
   }
 
   v9 = a3[1];
-  v23 = *a3;
-  v24 = v9;
+  v24 = *a3;
+  v25 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v5 applyToView:&v23 withContext:v4];
-  if (v24)
+  [v5 applyToView:&v24 withContext:v4];
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
   v10 = [v4 allowedEntityIdentifiers];
   v11 = mlcore::ItemArtistPropertyStoreID(v10);
   v12 = mlcore::ItemArtistPropertyPersistentID(v11);
-  _MPMLInsertPredicatesForIdentifierSet(&v25, v10, v11, 0, v12, 0, 0, 0, 0, 0);
+  _MPMLInsertPredicatesForIdentifierSet(&v26, v10, v11, 0, v12, 0, 0, 0, 0, 0);
 
   v13 = [v4 filterText];
   LOBYTE(v11) = [v13 length] == 0;
@@ -9436,11 +9319,11 @@ void ___ZL26_MPMLInitPropertyTVShowMapv_block_invoke_4(uint64_t a1, void *a2, ui
     std::string::basic_string[abi:ne200100]<0>(__p, [v14 UTF8String]);
 
     v21 = mlcore::ItemArtistPropertyName(v16);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(&v22, &v21, __p);
   }
 
   memset(v19, 0, sizeof(v19));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v19, v25, v26, (v26 - v25) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v19, v26, v27, (v27 - v26) >> 4);
   mlcore::CreateAndPredicate();
   mlcore::EntityQuery::tvShowsQuery();
   if (v20)
@@ -9451,7 +9334,7 @@ void ___ZL26_MPMLInitPropertyTVShowMapv_block_invoke_4(uint64_t a1, void *a2, ui
   __p[0] = v19;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 
-  __p[0] = &v25;
+  __p[0] = &v26;
   std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](__p);
 }
 
@@ -9654,4 +9537,90 @@ id ___ZL28_MPMLInitPropertyTVSeasonMapv_block_invoke_15(uint64_t a1, void *a2, v
   v23 = _MPMLTranslatorCreateArtworkCatalogBlock(v9, v14 | v22.i32[0] | v12 & 0x3210 | v22.i32[1] | (4 * v12) & 0x400 | (4 * ((v12 >> 1) & 1)) | (2 * v12) & 0x800, 0, 1, 0, v16, v18, v20, v21);
 
   return v23;
+}
+
+void *___ZL28_MPMLInitPropertyTVSeasonMapv_block_invoke_14(uint64_t a1, void *a2, void *a3, int8x8_t *a4)
+{
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(__p, "sortType");
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a3, __p);
+  if (!v7)
+  {
+    std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+  }
+
+  v8 = MPMediaLibraryPropertyCacheValueForProperty(v7[5], a4);
+  v9 = [v8 integerValue];
+
+  if (v13 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (v9 == 2)
+  {
+    v10 = &unk_1F1509B38;
+  }
+
+  else
+  {
+    v10 = &unk_1F1509BF8;
+  }
+
+  return v10;
+}
+
+void sub_1A263E7C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+id ___ZL28_MPMLInitPropertyTVSeasonMapv_block_invoke_13(uint64_t a1, void *a2, void *a3, int8x8_t *a4)
+{
+  v6 = a2;
+  v7 = MEMORY[0x1E696AD98];
+  std::string::basic_string[abi:ne200100]<0>(__p, "representativeItemExplicit");
+  v8 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a3, __p);
+  if (!v8)
+  {
+    std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+  }
+
+  v9 = MPMediaLibraryPropertyCacheValueForProperty(v8[5], a4);
+  v10 = [v7 numberWithBool:{objc_msgSend(v9, "BOOLValue") ^ 1}];
+
+  if (v13 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v10;
+}
+
+id ___ZL28_MPMLInitPropertyTVSeasonMapv_block_invoke_9(uint64_t a1, void *a2, void *a3, int8x8_t *a4)
+{
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(__p, "downloadedDate");
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a3, __p);
+  if (!v7)
+  {
+    std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+  }
+
+  v8 = MPMediaLibraryPropertyCacheValueForProperty(v7[5], a4);
+  v9 = [v8 longLongValue];
+
+  if (v13 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  v10 = _MPMLDateFromStoredInt64(v9);
+
+  return v10;
 }

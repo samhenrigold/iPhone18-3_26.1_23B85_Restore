@@ -124,7 +124,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -139,7 +139,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -162,7 +162,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -232,7 +232,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -295,7 +295,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -310,7 +310,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -333,7 +333,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -403,7 +403,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -466,7 +466,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -481,7 +481,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -504,7 +504,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -574,7 +574,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -637,7 +637,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -652,7 +652,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -675,7 +675,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -745,7 +745,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -808,7 +808,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -823,7 +823,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -846,7 +846,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -916,7 +916,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -979,7 +979,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -994,7 +994,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -1017,7 +1017,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -1087,7 +1087,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -1150,7 +1150,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -1165,7 +1165,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -1188,7 +1188,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -1258,7 +1258,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -1321,7 +1321,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -1336,7 +1336,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -1359,7 +1359,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -1429,7 +1429,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -1492,7 +1492,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -1507,7 +1507,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v54 = 0;
       v55 = 0xE000000000000000;
       v32 = &v54;
@@ -1530,7 +1530,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v24 = swift_initStackObject();
         *(v24 + 16) = xmmword_181218E20;
         *(v24 + 56) = &type metadata for _CodingKey;
@@ -1599,7 +1599,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v46 = v41;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v45, v46);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -1662,7 +1662,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -1677,7 +1677,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -1700,7 +1700,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -1770,7 +1770,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -1833,7 +1833,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -1848,7 +1848,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v55 = 0;
       v56 = 0xE000000000000000;
       v33 = &v55;
@@ -1871,7 +1871,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v24 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v25 = swift_initStackObject();
         *(v25 + 16) = xmmword_181218E20;
         *(v25 + 56) = &type metadata for _CodingKey;
@@ -1941,7 +1941,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v47 = v42;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v46, v47);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -2004,7 +2004,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         v18 = _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -2019,7 +2019,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v54 = 0;
       v55 = 0xE000000000000000;
       v32 = &v54;
@@ -2042,7 +2042,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
       {
         outlined copy of _CodingKey(a5, a6, a7, a8);
         _CodingPathNode.path.getter(a4);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v24 = swift_initStackObject();
         *(v24 + 16) = xmmword_181218E20;
         *(v24 + 56) = &type metadata for _CodingKey;
@@ -2111,7 +2111,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v46 = v41;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v45, v46);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -2345,7 +2345,7 @@ LABEL_17:
   v11 = v0[1];
   v12 = v1 - v11;
   JSON5Scanner.JSONPartialMapData.resizeIfNecessary(with:)(v11, v0[2], v3);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_18121D6B0;
   *(inited + 32) = v9;
@@ -2568,7 +2568,7 @@ uint64_t __JSONEncoder.takeValue()()
   return v1;
 }
 
-uint64_t outlined copy of JSONEncoderValue(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+uint64_t outlined copy of JSONEncoderValue(uint64_t result, uint64_t a2, unsigned __int8 a3)
 {
   if (a3 > 3u)
   {
@@ -2580,7 +2580,7 @@ uint64_t outlined copy of JSONEncoderValue(uint64_t a1, uint64_t a2, unsigned __
 
       if (a3 != 6)
       {
-        return result;
+        return v4;
       }
     }
   }
@@ -2589,7 +2589,7 @@ uint64_t outlined copy of JSONEncoderValue(uint64_t a1, uint64_t a2, unsigned __
   {
   }
 
-  return result;
+  return v4;
 }
 
 uint64_t specialized __JSONEncoder.wrapGeneric<A, B>(_:for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
@@ -2746,8 +2746,8 @@ LABEL_106:
       }
 
       v186 = v205[0];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd);
-      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ReversedCollection<String> and conformance ReversedCollection<A>, &_ss18ReversedCollectionVySSGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd, &_ss18ReversedCollectionVySSGMR);
+      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ReversedCollection<String> and conformance ReversedCollection<A>, &_ss18ReversedCollectionVySSGMd, &_ss18ReversedCollectionVySSGMR, MEMORY[0x1E69E6EB0]);
       return String.init<A>(_:)();
     }
 
@@ -2777,7 +2777,7 @@ LABEL_106:
       NSDecimal.asVariableLengthInteger()(v193 | (WORD2(v193) << 32) | (WORD3(v193) << 48), WORD4(v193) | (WORD5(v193) << 16) | (WORD6(v193) << 32) | (HIWORD(v193) << 48), v194 | (WORD1(v194) << 16));
       v47 = v46;
       v48 = *(v46 + 16);
-      v50._rawValue = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v48);
+      v50 = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v48);
       *&v186 = v50;
       if (v48)
       {
@@ -2786,9 +2786,9 @@ LABEL_106:
 
       v56 = 48;
 LABEL_26:
-      for (i = *(v50._rawValue + 2); i; i = *(v186 + 16))
+      for (i = v50[1].i64[0]; i; i = *(v186 + 16))
       {
-        if (*(v50._rawValue + i + 15))
+        if (v50[1].i16[i + 7])
         {
           break;
         }
@@ -2798,7 +2798,7 @@ LABEL_26:
           specialized Array.remove(at:)(*(v186 + 16) - 1);
         }
 
-        v50._rawValue = v186;
+        v50 = v186;
       }
 
       LODWORD(v186) = v182;
@@ -2817,7 +2817,7 @@ LABEL_26:
         goto LABEL_135;
       }
 
-      v59 = *(v50._rawValue + 2);
+      v59 = v50[1].u64[0];
 
       if (HIDWORD(v59))
       {
@@ -2852,17 +2852,17 @@ LABEL_26:
       v54 = *(v47 + 2 * v52);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v50._rawValue = specialized _ArrayBuffer._consumeAndCreateNew()(v50._rawValue);
+        v50 = specialized _ArrayBuffer._consumeAndCreateNew()(v50);
       }
 
-      v53 = *(v50._rawValue + 2);
+      v53 = v50[1].i64[0];
       if ((v52 - 15) > v53)
       {
         goto LABEL_115;
       }
 
       v55 = v54 | (v51 << 16);
-      *(v50._rawValue + v52) = v55 / 0xA;
+      v50->i16[v52] = v55 / 0xA;
       v51 = v55 % 0xA;
       if (--v52 == 15)
       {
@@ -2880,20 +2880,20 @@ LABEL_115:
   }
 
   v36(v177, v32, a6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pMd, &_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pMR);
   if (!swift_dynamicCast())
   {
     v206 = 0;
     memset(v205, 0, sizeof(v205));
-    outlined destroy of TermOfAddress?(v205, &_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMd);
+    outlined destroy of TermOfAddress?(v205, &_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMd, &_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMR);
     v181(v176, v32, a6);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pMd, &_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pMR);
     if (!swift_dynamicCast())
     {
       *&v195 = 0;
       v193 = 0u;
       v194 = 0u;
-      outlined destroy of TermOfAddress?(&v193, &_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMd);
+      outlined destroy of TermOfAddress?(&v193, &_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMd, &_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMR);
       v148 = v172;
       if (v172 == 0xFF)
       {
@@ -2922,7 +2922,7 @@ LABEL_115:
       *&v186 = v150;
       *(&v187 + 1) = v153;
       *&v188 = v149;
-      outlined init with copy of FloatingPointRoundingRule?(&v186, &v197, &_ss9CodingKey_pSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v186, &v197, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
       if (*(&v198 + 1))
       {
         outlined init with take of Equatable(&v197, &v207);
@@ -2932,7 +2932,7 @@ LABEL_115:
         {
           *(v182 + 184) = 0;
           outlined copy of _CodingKey?(v174, v173, v152, v148);
-          outlined destroy of TermOfAddress?(v157 + 192, &_ss9CodingKey_pSgMd);
+          outlined destroy of TermOfAddress?(v157 + 192, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
           outlined init with take of Equatable(&v207, v157 + 192);
           *(v157 + 176) = v158;
           v159 = v158;
@@ -2986,16 +2986,16 @@ LABEL_115:
       else
       {
         outlined copy of _CodingKey?(v40, v151, v152, v148);
-        outlined destroy of TermOfAddress?(&v197, &_ss9CodingKey_pSgMd);
+        outlined destroy of TermOfAddress?(&v197, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
         v157 = v182;
 
         v159 = v157;
       }
 
-      outlined destroy of TermOfAddress?(&v186, &_ss9CodingKey_pSgMd);
+      outlined destroy of TermOfAddress?(&v186, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
       v192[0] = v157;
       *(&v198 + 1) = type metadata accessor for __JSONEncoder();
-      *&v199 = lazy protocol witness table accessor for type __JSONEncoder and conformance __JSONEncoder(&lazy protocol witness table cache variable for type __JSONEncoder and conformance __JSONEncoder, type metadata accessor for __JSONEncoder);
+      *&v199 = lazy protocol witness table accessor for type __JSONEncoder and conformance __JSONEncoder(&lazy protocol witness table cache variable for type __JSONEncoder and conformance __JSONEncoder, type metadata accessor for __JSONEncoder, &protocol conformance descriptor for __JSONEncoder);
       *&v197 = v157;
 
       v167 = v211;
@@ -3015,7 +3015,7 @@ LABEL_115:
 
     outlined init with take of Equatable(&v193, &v197);
     v145 = *(v182 + 56);
-    v50._rawValue = *(&v198 + 1);
+    v50 = *(&v198 + 1);
     v52 = v199;
     __swift_project_boxed_opaque_existential_1(&v197, *(&v198 + 1));
     v49 = lazy protocol witness table accessor for type _CodingKey and conformance _CodingKey();
@@ -3049,12 +3049,12 @@ LABEL_116:
 
   outlined init with take of Equatable(v205, &v207);
   outlined init with copy of Hashable & Sendable(&v207, v192);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSE_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSE_pGMd, &_sSDySSSE_pGMR);
   swift_dynamicCast();
   v62 = v191;
   v190 = MEMORY[0x1E69E7CC8];
   v63 = *(v191 + 2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation16JSONEncoderValueOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation16JSONEncoderValueOGMd, &_sSDySS10Foundation16JSONEncoderValueOGMR);
   v64 = v182;
   Dictionary.reserveCapacity(_:)(v63);
   v65 = *(v64 + 136);
@@ -3334,7 +3334,7 @@ LABEL_44:
     goto LABEL_74;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16JSONEncoderValueOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16JSONEncoderValueOGMd, &_ss18_DictionaryStorageCySS10Foundation16JSONEncoderValueOGMR);
   v119 = v103;
   v120 = static _DictionaryStorage.copy(original:)();
   v103 = v120;
@@ -3456,7 +3456,7 @@ uint64_t sub_180889210()
   return MEMORY[0x1EEE6BDD0](v0, 41, 7);
 }
 
-uint64_t lazy protocol witness table accessor for type __JSONEncoder and conformance __JSONEncoder(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type __JSONEncoder and conformance __JSONEncoder(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3471,7 +3471,7 @@ uint64_t lazy protocol witness table accessor for type __JSONEncoder and conform
 
 uint64_t outlined assign with take of CodingKey?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_pSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -3480,28 +3480,28 @@ uint64_t protocol witness for Encoder.singleValueContainer() in conformance __JS
 {
   v3 = *v1;
   a1[3] = type metadata accessor for __JSONEncoder();
-  a1[4] = lazy protocol witness table accessor for type __JSONEncoder and conformance __JSONEncoder(&lazy protocol witness table cache variable for type __JSONEncoder and conformance __JSONEncoder, type metadata accessor for __JSONEncoder);
+  a1[4] = lazy protocol witness table accessor for type __JSONEncoder and conformance __JSONEncoder(&lazy protocol witness table cache variable for type __JSONEncoder and conformance __JSONEncoder, type metadata accessor for __JSONEncoder, &protocol conformance descriptor for __JSONEncoder);
   *a1 = v3;
 }
 
 uint64_t *JSONEncoder.encode<A>(_:)(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = v3;
-  v37 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v9 = *(v3 + 96);
-  v35[4] = *(v3 + 80);
-  v35[5] = v9;
-  v35[6] = *(v3 + 112);
-  v36 = *(v3 + 128);
+  v37[4] = *(v3 + 80);
+  v37[5] = v9;
+  v37[6] = *(v3 + 112);
+  v38 = *(v3 + 128);
   v10 = *(v3 + 32);
-  v35[0] = *(v3 + 16);
-  v35[1] = v10;
+  v37[0] = *(v3 + 16);
+  v37[1] = v10;
   v11 = *(v3 + 64);
-  v35[2] = *(v3 + 48);
-  v35[3] = v11;
+  v37[2] = *(v3 + 48);
+  v37[3] = v11;
   type metadata accessor for __JSONEncoder();
-  memset(v30, 0, sizeof(v30));
-  v31 = 0;
+  memset(v32, 0, sizeof(v32));
+  v33 = 0;
   v12 = swift_allocObject();
   *(v12 + 23) = 0u;
   *(v12 + 25) = 0u;
@@ -3524,8 +3524,8 @@ uint64_t *JSONEncoder.encode<A>(_:)(uint64_t a1, uint64_t a2, void *a3)
   *(v12 + 13) = v15;
   v12[21] = v16;
   v12[22] = 0;
-  outlined init with copy of JSONEncoder._Options(v35, &v32);
-  outlined assign with take of CodingKey?(v30, (v12 + 24));
+  outlined init with copy of JSONEncoder._Options(v37, &v34);
+  outlined assign with take of CodingKey?(v32, (v12 + 24));
   v17 = specialized __JSONEncoder.wrapGeneric<A, B>(_:for:)(a1, 0, 0, 0, 255, a2, a3);
   if (!v4)
   {
@@ -3534,57 +3534,59 @@ uint64_t *JSONEncoder.encode<A>(_:)(uint64_t a1, uint64_t a2, void *a3)
     {
       v22 = v17;
       v23 = v18;
-      (*(*v5 + 96))(&v32);
-      v24 = v32;
-      v32 = 0;
-      LOBYTE(v33) = v24 & 1;
-      BYTE1(v33) = (v24 & 2) != 0;
-      BYTE2(v33) = (v24 & 8) != 0;
-      v34 = MEMORY[0x1E69E7CC0];
-      JSONWriter.serializeJSON(_:depth:)(v22, v23, v21, 0);
+      (*(*v5 + 96))(&v34);
+      v24 = v34;
+      v34 = 0;
+      LOBYTE(v35) = v24 & 1;
+      BYTE1(v35) = (v24 & 2) != 0;
+      BYTE2(v35) = (v24 & 8) != 0;
+      v36 = MEMORY[0x1E69E7CC0];
+      v25._rawValue = v22;
+      v26._rawValue = v23;
+      JSONWriter.serializeJSON(_:depth:)(v25, v26, v21, 0);
       outlined consume of JSONEncoderValue?(v22, v23, v21);
-      v12 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v34);
+      v12 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v36);
 
       return v12;
     }
 
-    v25 = type metadata accessor for EncodingError();
+    v27 = type metadata accessor for EncodingError();
     swift_allocError();
-    v27 = v26;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd);
-    v27[3] = a2;
-    boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v27);
+    v29 = v28;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd, &_syp_s13EncodingErrorO7ContextVtMR);
+    v29[3] = a2;
+    boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v29);
     (*(*(a2 - 8) + 16))(boxed_opaque_existential_0, a1, a2);
-    v32 = 0;
-    v33 = 0xE000000000000000;
+    v34 = 0;
+    v35 = 0xE000000000000000;
     _StringGuts.grow(_:)(39);
 
-    v32 = 0x6576656C2D706F54;
-    v33 = 0xEA0000000000206CLL;
-    v29 = _typeName(_:qualified:)();
-    MEMORY[0x1865CB0E0](v29);
+    v34 = 0x6576656C2D706F54;
+    v35 = 0xEA0000000000206CLL;
+    v31 = _typeName(_:qualified:)();
+    MEMORY[0x1865CB0E0](v31);
 
-    v12 = &v32;
+    v12 = &v34;
     MEMORY[0x1865CB0E0](0xD00000000000001BLL, 0x8000000181482320);
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-    (*(*(v25 - 8) + 104))(v27, *MEMORY[0x1E69E6B30], v25);
+    (*(*(v27 - 8) + 104))(v29, *MEMORY[0x1E69E6B30], v27);
     swift_willThrow();
   }
 
   return v12;
 }
 
-uint64_t outlined consume of JSONEncoderValue?(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+uint64_t outlined consume of JSONEncoderValue?(uint64_t result, uint64_t a2, unsigned __int8 a3)
 {
   if (a3 != 0xFF)
   {
-    return outlined consume of JSONEncoderValue(a1, a2, a3);
+    return outlined consume of JSONEncoderValue(result, a2, a3);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t outlined consume of JSONEncoderValue(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+uint64_t outlined consume of JSONEncoderValue(uint64_t result, uint64_t a2, unsigned __int8 a3)
 {
   if (a3 > 3u)
   {
@@ -3596,7 +3598,7 @@ uint64_t outlined consume of JSONEncoderValue(uint64_t a1, uint64_t a2, unsigned
 
       if (a3 != 6)
       {
-        return result;
+        return v4;
       }
     }
   }
@@ -3605,7 +3607,7 @@ uint64_t outlined consume of JSONEncoderValue(uint64_t a1, uint64_t a2, unsigned
   {
   }
 
-  return result;
+  return v4;
 }
 
 uint64_t get_enum_tag_for_layout_string_10Foundation11JSONEncoderC34NonConformingFloatEncodingStrategyO(uint64_t a1)
@@ -3632,7 +3634,7 @@ uint64_t $defer #1 <A>() in __JSONEncoder.wrap<A>(_:for:)(uint64_t result, void 
       v6 = *a2;
       v7 = v5;
       v8 = v4;
-      outlined destroy of TermOfAddress?(v6 + 192, &_ss9CodingKey_pSgMd);
+      outlined destroy of TermOfAddress?(v6 + 192, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
       *(v6 + 192) = 0u;
       *(v6 + 208) = 0u;
       *(v6 + 224) = 0;
@@ -3645,94 +3647,94 @@ uint64_t $defer #1 <A>() in __JSONEncoder.wrap<A>(_:for:)(uint64_t result, void 
   return result;
 }
 
-uint64_t __JSONEncoder.container<A>(keyedBy:)()
+uint64_t __JSONEncoder.container<A>(keyedBy:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (*(v0 + 48))
+  if (*(v4 + 48))
   {
-    type metadata accessor for _JSONKeyedEncodingContainer();
+    type metadata accessor for _JSONKeyedEncodingContainer(0, a2, a3, a4);
 
     swift_getWitnessTable();
     return KeyedEncodingContainer.init<A>(_:)();
   }
 
-  v4 = *(v0 + 16);
-  v5 = *(v0 + 32);
-  if (v5 != 255)
+  v8 = *(v4 + 16);
+  v9 = *(v4 + 32);
+  if (v9 != 255)
   {
-    v35 = v0;
-    if (v5 == 4)
+    v43 = v4;
+    if (v9 == 4)
     {
-      v34 = (v0 + 16);
-      v32 = *(v0 + 24);
-      outlined copy of JSONEncoderValue(v4, v32, 4u);
-      v6 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySS10Foundation16JSONEncoderValueOG_SS_AF10JSONFutureOts5NeverOTg5016_s10Foundation16ef27O20convertedToObjectRefAA10G39O0gF0CSgyFSS_AFtSS3key_AC5valuet_tXEfU_Tf1cn_n(v4);
-      v33 = v4;
-      if (*(v6 + 16))
+      v42 = (v4 + 16);
+      v40 = *(v4 + 24);
+      outlined copy of JSONEncoderValue(v8, v40, 4u);
+      v10 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySS10Foundation16JSONEncoderValueOG_SS_AF10JSONFutureOts5NeverOTg5016_s10Foundation16ef27O20convertedToObjectRefAA10G39O0gF0CSgyFSS_AFtSS3key_AC5valuet_tXEfU_Tf1cn_n(v8);
+      v41 = v8;
+      if (*(v10 + 16))
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation10JSONFutureOGMd);
-        v7 = static _DictionaryStorage.allocate(capacity:)();
-        v38 = v7;
-        v36 = *(v6 + 16);
-        if (v36)
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation10JSONFutureOGMd, &_ss18_DictionaryStorageCySS10Foundation10JSONFutureOGMR);
+        v11 = static _DictionaryStorage.allocate(capacity:)();
+        v48 = v11;
+        v46 = *(v10 + 16);
+        if (v46)
         {
-          v8 = 0;
-          v9 = (v6 + 64);
-          while (v8 < *(v6 + 16))
+          v12 = 0;
+          v13 = (v10 + 64);
+          while (v12 < *(v10 + 16))
           {
-            v10 = *(v9 - 4);
-            v11 = *(v9 - 3);
-            v1 = *(v9 - 2);
-            v3 = *(v9 - 1);
-            v2 = *v9;
+            v14 = *(v13 - 4);
+            v15 = *(v13 - 3);
+            v5 = *(v13 - 2);
+            v7 = *(v13 - 1);
+            v6 = *v13;
 
-            outlined copy of JSONFuture(v1, v3, v2);
-            v12 = specialized __RawDictionaryStorage.find<A>(_:)(v10, v11);
-            v14 = v7[2];
-            v15 = (v13 & 1) == 0;
-            v16 = __OFADD__(v14, v15);
-            v17 = v14 + v15;
-            if (v16)
+            outlined copy of JSONFuture(v5, v7, v6);
+            v16 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
+            v18 = v11[2];
+            v19 = (v17 & 1) == 0;
+            v20 = __OFADD__(v18, v19);
+            v21 = v18 + v19;
+            if (v20)
             {
               goto LABEL_22;
             }
 
-            v18 = v13;
-            if (v7[3] < v17)
+            v22 = v17;
+            if (v11[3] < v21)
             {
-              specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, 1);
-              v7 = v38;
-              v12 = specialized __RawDictionaryStorage.find<A>(_:)(v10, v11);
-              if ((v18 & 1) != (v19 & 1))
+              specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v21, 1);
+              v11 = v48;
+              v16 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
+              if ((v22 & 1) != (v23 & 1))
               {
                 goto LABEL_28;
               }
             }
 
-            if (v18)
+            if (v22)
             {
               goto LABEL_26;
             }
 
-            v7[(v12 >> 6) + 8] |= 1 << v12;
-            v20 = (v7[6] + 16 * v12);
-            *v20 = v10;
-            v20[1] = v11;
-            v21 = v7[7] + 24 * v12;
-            *v21 = v1;
-            *(v21 + 8) = v3;
-            *(v21 + 16) = v2;
-            v22 = v7[2];
-            v16 = __OFADD__(v22, 1);
-            v23 = v22 + 1;
-            if (v16)
+            v11[(v16 >> 6) + 8] |= 1 << v16;
+            v24 = (v11[6] + 16 * v16);
+            *v24 = v14;
+            v24[1] = v15;
+            v25 = v11[7] + 24 * v16;
+            *v25 = v5;
+            *(v25 + 8) = v7;
+            *(v25 + 16) = v6;
+            v26 = v11[2];
+            v20 = __OFADD__(v26, 1);
+            v27 = v26 + 1;
+            if (v20)
             {
               goto LABEL_23;
             }
 
-            ++v8;
-            v7[2] = v23;
-            v9 += 40;
-            if (v36 == v8)
+            ++v12;
+            v11[2] = v27;
+            v13 += 40;
+            if (v46 == v12)
             {
               goto LABEL_19;
             }
@@ -3749,25 +3751,25 @@ LABEL_23:
 
       else
       {
-        v7 = MEMORY[0x1E69E7CC8];
+        v11 = MEMORY[0x1E69E7CC8];
       }
 
 LABEL_19:
-      outlined consume of JSONEncoderValue?(v33, v32, 4u);
+      outlined consume of JSONEncoderValue?(v41, v40, 4u);
 
       type metadata accessor for JSONFuture.RefObject();
-      v25 = swift_allocObject();
-      *(v25 + 16) = v7;
-      v26 = *(v35 + 16);
-      v27 = *(v35 + 24);
-      *v34 = 0;
-      v34[1] = 0;
-      v28 = *(v35 + 32);
-      *(v35 + 32) = -1;
-      outlined consume of JSONEncoderValue?(v26, v27, v28);
-      *(v35 + 48) = v25;
+      v32 = swift_allocObject();
+      *(v32 + 16) = v11;
+      v33 = *(v43 + 16);
+      v34 = *(v43 + 24);
+      *v42 = 0;
+      v42[1] = 0;
+      v35 = *(v43 + 32);
+      *(v43 + 32) = -1;
+      outlined consume of JSONEncoderValue?(v33, v34, v35);
+      *(v43 + 48) = v32;
 
-      type metadata accessor for _JSONKeyedEncodingContainer();
+      type metadata accessor for _JSONKeyedEncodingContainer(0, a2, a3, v36);
 
       swift_getWitnessTable();
       return KeyedEncodingContainer.init<A>(_:)();
@@ -3778,16 +3780,16 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  if (!*(v0 + 40))
+  if (!*(v4 + 40))
   {
     type metadata accessor for JSONFuture.RefObject();
-    v24 = swift_allocObject();
-    *(v24 + 16) = MEMORY[0x1E69E7CC8];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation10JSONFutureOGMd);
+    v30 = swift_allocObject();
+    *(v30 + 16) = MEMORY[0x1E69E7CC8];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation10JSONFutureOGMd, &_sSDySS10Foundation10JSONFutureOGMR);
     Dictionary.reserveCapacity(_:)(4);
-    *(v0 + 48) = v24;
+    *(v4 + 48) = v30;
 
-    type metadata accessor for _JSONKeyedEncodingContainer();
+    type metadata accessor for _JSONKeyedEncodingContainer(0, a2, a3, v31);
 
     swift_getWitnessTable();
     return KeyedEncodingContainer.init<A>(_:)();
@@ -3797,12 +3799,12 @@ LABEL_25:
   __break(1u);
 LABEL_26:
 
-  v30 = swift_allocError();
+  v38 = swift_allocError();
   swift_willThrow();
-  outlined consume of JSONFuture(v1, v3, v2);
-  v37 = v30;
-  v31 = v30;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+  outlined consume of JSONFuture(v5, v7, v6);
+  v47 = v38;
+  v39 = v38;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   if (swift_dynamicCast())
   {
     _StringGuts.grow(_:)(30);
@@ -3973,8 +3975,8 @@ LABEL_107:
       }
 
       v176 = v195[0];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd);
-      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ReversedCollection<String> and conformance ReversedCollection<A>, &_ss18ReversedCollectionVySSGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd, &_ss18ReversedCollectionVySSGMR);
+      lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ReversedCollection<String> and conformance ReversedCollection<A>, &_ss18ReversedCollectionVySSGMd, &_ss18ReversedCollectionVySSGMR, MEMORY[0x1E69E6EB0]);
       return String.init<A>(_:)();
     }
 
@@ -4005,7 +4007,7 @@ LABEL_107:
       NSDecimal.asVariableLengthInteger()(v183 | (WORD2(v183) << 32) | (WORD3(v183) << 48), WORD4(v183) | (WORD5(v183) << 16) | (WORD6(v183) << 32) | (HIWORD(v183) << 48), v184 | (WORD1(v184) << 16));
       v41 = v40;
       v42 = *(v40 + 16);
-      v46._rawValue = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v42);
+      v46 = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v42);
       *&v176 = v46;
       if (v42)
       {
@@ -4014,9 +4016,9 @@ LABEL_107:
 
       v52 = 48;
 LABEL_30:
-      for (i = *(v46._rawValue + 2); i; i = *(v176 + 16))
+      for (i = v46[1].i64[0]; i; i = *(v176 + 16))
       {
-        if (*(v46._rawValue + i + 15))
+        if (v46[1].i16[i + 7])
         {
           break;
         }
@@ -4026,7 +4028,7 @@ LABEL_30:
           specialized Array.remove(at:)(*(v176 + 16) - 1);
         }
 
-        v46._rawValue = v176;
+        v46 = v176;
       }
 
       LODWORD(v176) = v172;
@@ -4045,7 +4047,7 @@ LABEL_30:
         goto LABEL_135;
       }
 
-      v54 = *(v46._rawValue + 2);
+      v54 = v46[1].u64[0];
 
       if (HIDWORD(v54))
       {
@@ -4080,17 +4082,17 @@ LABEL_30:
       v50 = *(v41 + 2 * v48);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v46._rawValue = specialized _ArrayBuffer._consumeAndCreateNew()(v46._rawValue);
+        v46 = specialized _ArrayBuffer._consumeAndCreateNew()(v46);
       }
 
-      v49 = *(v46._rawValue + 2);
+      v49 = v46[1].i64[0];
       if ((v48 - 15) > v49)
       {
         goto LABEL_116;
       }
 
       v51 = v50 | (v47 << 16);
-      *(v46._rawValue + v48) = v51 / 0xA;
+      v46->i16[v48] = v51 / 0xA;
       v47 = v51 % 0xA;
       if (--v48 == 15)
       {
@@ -4108,20 +4110,20 @@ LABEL_116:
   }
 
   (v26)(v168, a1, a3);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pMd, &_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pMR);
   if (!swift_dynamicCast())
   {
     v196 = 0;
     memset(v195, 0, sizeof(v195));
-    outlined destroy of TermOfAddress?(v195, &_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMd);
+    outlined destroy of TermOfAddress?(v195, &_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMd, &_s10Foundation36_JSONStringDictionaryEncodableMarker33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMR);
     (v26)(v167, a1, a3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pMd, &_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pMR);
     if (!swift_dynamicCast())
     {
       *&v185 = 0;
       v183 = 0u;
       v184 = 0u;
-      outlined destroy of TermOfAddress?(&v183, &_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMd);
+      outlined destroy of TermOfAddress?(&v183, &_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMd, &_s10Foundation25_JSONDirectArrayEncodable33_12768CA107A31EF2DCE034FD75B541C9LL_pSgMR);
       v140 = v163;
       v141 = v164;
       v142 = v165;
@@ -4145,7 +4147,7 @@ LABEL_116:
       }
 
       a1 = v166;
-      outlined init with copy of FloatingPointRoundingRule?(&v176, &v187, &_ss9CodingKey_pSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v176, &v187, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
       if (*(&v188 + 1))
       {
         outlined init with take of Equatable(&v187, &v197);
@@ -4154,7 +4156,7 @@ LABEL_116:
         if (v147)
         {
           *(v172 + 184) = 0;
-          outlined destroy of TermOfAddress?(v147 + 192, &_ss9CodingKey_pSgMd);
+          outlined destroy of TermOfAddress?(v147 + 192, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
           outlined init with take of Equatable(&v197, v147 + 192);
           *(v147 + 176) = v148;
           v149 = v148;
@@ -4206,16 +4208,16 @@ LABEL_116:
 
       else
       {
-        outlined destroy of TermOfAddress?(&v187, &_ss9CodingKey_pSgMd);
+        outlined destroy of TermOfAddress?(&v187, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
         v147 = v172;
 
         v149 = v147;
       }
 
-      outlined destroy of TermOfAddress?(&v176, &_ss9CodingKey_pSgMd);
+      outlined destroy of TermOfAddress?(&v176, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
       v182[0] = v147;
       *(&v188 + 1) = type metadata accessor for __JSONEncoder();
-      *&v189 = lazy protocol witness table accessor for type __JSONEncoder and conformance __JSONEncoder(&lazy protocol witness table cache variable for type __JSONEncoder and conformance __JSONEncoder, type metadata accessor for __JSONEncoder);
+      *&v189 = lazy protocol witness table accessor for type __JSONEncoder and conformance __JSONEncoder(&lazy protocol witness table cache variable for type __JSONEncoder and conformance __JSONEncoder, type metadata accessor for __JSONEncoder, &protocol conformance descriptor for __JSONEncoder);
       *&v187 = v147;
 
       v157 = v199;
@@ -4233,7 +4235,7 @@ LABEL_116:
 
     outlined init with take of Equatable(&v183, &v187);
     a1 = *(v172 + 56);
-    v46._rawValue = *(&v188 + 1);
+    v46 = *(&v188 + 1);
     v48 = v189;
     __swift_project_boxed_opaque_existential_1(&v187, *(&v188 + 1));
     v6 = v199;
@@ -4269,12 +4271,12 @@ LABEL_117:
 
   outlined init with take of Equatable(v195, &v197);
   outlined init with copy of Hashable & Sendable(&v197, v182);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSE_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSE_pGMd, &_sSDySSSE_pGMR);
   swift_dynamicCast();
   v56 = v181;
   v180 = MEMORY[0x1E69E7CC8];
   v57 = *(v181 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation16JSONEncoderValueOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation16JSONEncoderValueOGMd, &_sSDySS10Foundation16JSONEncoderValueOGMR);
   v58 = v172;
   Dictionary.reserveCapacity(_:)(v57);
   v59 = *(v58 + 136);
@@ -4564,7 +4566,7 @@ LABEL_75:
   }
 
   v158 = v100;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16JSONEncoderValueOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16JSONEncoderValueOGMd, &_ss18_DictionaryStorageCySS10Foundation16JSONEncoderValueOGMR);
   v116 = static _DictionaryStorage.copy(original:)();
   v108 = v116;
   if (!*(v98 + 16))
@@ -4696,13 +4698,13 @@ uint64_t get_enum_tag_for_layout_string_10Foundation16JSONEncoderValueO(uint64_t
   }
 }
 
-unint64_t specialized String.withUTF8<A>(_:)(uint64_t *a1, uint64_t a2)
+unint64_t specialized String.withUTF8<A>(_:)(unint64_t *a1, uint64_t a2)
 {
   v4 = *a1;
   v5 = a1[1];
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v10 = static String._copying(_:)();
+    v10 = static String._copying(_:)(v4, v5);
     v12 = v11;
 
     v4 = v10;
@@ -5458,22 +5460,28 @@ uint64_t __JSONEncoder.__deallocating_deinit()
   outlined consume of JSONEncoderValue?(*(v0 + 16), *(v0 + 24), *(v0 + 32));
 
   v1 = *(v0 + 88);
-  v2 = *(v0 + 104);
-  v3 = *(v0 + 112);
-  v4 = *(v0 + 152);
+  v2 = *(v0 + 96);
+  v3 = *(v0 + 104);
+  v4 = *(v0 + 112);
+  v5 = *(v0 + 120);
+  v6 = *(v0 + 128);
+  v7 = *(v0 + 136);
+  v8 = *(v0 + 144);
+  v9 = *(v0 + 152);
+  v11 = *(v0 + 160);
   outlined consume of JSONDecoder.DateDecodingStrategy(*(v0 + 64), *(v0 + 72), *(v0 + 80));
-  sub_1807A5C7C(v1);
-  outlined consume of JSONDecoder.NonConformingFloatDecodingStrategy(v2, v3);
-  sub_1807A5C7C(v4);
+  sub_1807A5C7C(v1, v2);
+  outlined consume of JSONDecoder.NonConformingFloatDecodingStrategy(v3, v4, v5, v6, v7, v8);
+  sub_1807A5C7C(v9, v11);
 
-  outlined destroy of TermOfAddress?(v0 + 192, &_ss9CodingKey_pSgMd);
+  outlined destroy of TermOfAddress?(v0 + 192, &_ss9CodingKey_pSgMd, &_ss9CodingKey_pSgMR);
 
   return swift_deallocClassInstance();
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> JSONWriter.serializeObject(_:depth:)(Swift::OpaquePointer _, Swift::Int depth)
 {
-  v57[5] = *MEMORY[0x1E69E9840];
+  v59[5] = *MEMORY[0x1E69E9840];
   if (depth > 511)
   {
     lazy protocol witness table accessor for type JSONError and conformance JSONError();
@@ -5489,8 +5497,8 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     return;
   }
 
-  v5 = v2[2];
-  v51 = v3;
+  v5 = *(v2 + 16);
+  v53 = v3;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
     goto LABEL_72;
@@ -5508,7 +5516,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 
     *(v5 + 2) = v8;
     v5[v7 + 32] = 123;
-    v2[2] = v5;
+    *(v2 + 16) = v5;
     if (*(v2 + 8) == 1)
     {
       v9 = *(v5 + 3);
@@ -5519,7 +5527,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 
       *(v5 + 2) = v7 + 2;
       v5[v8 + 32] = 10;
-      v2[2] = v5;
+      *(v2 + 16) = v5;
       if (__OFADD__(*v2, 1))
       {
         __break(1u);
@@ -5535,9 +5543,9 @@ LABEL_74:
       }
     }
 
-    v52 = v2;
-    v53 = swift_allocObject();
-    *(v53 + 16) = 1;
+    v54 = v2;
+    v55 = swift_allocObject();
+    *(v55 + 16) = 1;
     if (*(v2 + 9) != 1)
     {
       v5 = _._rawValue + 64;
@@ -5565,16 +5573,16 @@ LABEL_51:
         rawValue = _._rawValue;
         v35 = (*(_._rawValue + 6) + 16 * v33);
         v2 = v35[1];
-        v49 = *v35;
+        v51 = *v35;
         v36 = *(_._rawValue + 7) + 24 * v33;
         v37 = *v36;
         v38 = *(v36 + 8);
         v39 = *(v36 + 16);
 
         outlined copy of JSONEncoderValue(v37, v38, v39);
-        v3 = v51;
-        serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v49, v2, v37, v38, v39, depth, v53, v52);
-        if (v51)
+        v3 = v53;
+        serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v51, v2, v37, v38, v39, depth, v55, v54);
+        if (v53)
         {
 
           outlined consume of JSONEncoderValue(v37, v38, v39);
@@ -5618,7 +5626,7 @@ LABEL_70:
       goto LABEL_71;
     }
 
-    v3 = v51;
+    v3 = v53;
     if (one-time initialization token for compatibility1 != -1)
     {
       goto LABEL_74;
@@ -5633,55 +5641,59 @@ LABEL_13:
     v40 = *(_._rawValue + 2);
     if (v40)
     {
-      v41 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS3key_10Foundation16JSONEncoderValueO5valuet_Tt1g5(*(_._rawValue + 2), 0);
-      v50 = specialized Sequence._copyContents(initializing:)(v57, (v41 + 4), v40, _._rawValue);
-      _._rawValue = v57[1];
+      v41 = v3;
+      v42 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS3key_10Foundation16JSONEncoderValueO5valuet_Tt1g5(*(_._rawValue + 2), 0);
+      v52 = specialized Sequence._copyContents(initializing:)(v59, (v42 + 4), v40, _._rawValue);
+      v43 = v59[0];
+      _._rawValue = v59[1];
 
-      outlined consume of Set<AnyKeyPath>.Iterator._Variant();
-      if (v50 != v40)
+      outlined consume of Set<AnyKeyPath>.Iterator._Variant(v43);
+      if (v52 != v40)
       {
         goto LABEL_76;
       }
+
+      v3 = v41;
     }
 
     else
     {
-      v41 = MEMORY[0x1E69E7CC0];
+      v42 = MEMORY[0x1E69E7CC0];
     }
 
-    v57[0] = v41;
-    specialized MutableCollection<>.sort(by:)(v57);
+    v59[0] = v42;
+    specialized MutableCollection<>.sort(by:)(v59);
     v10 = v3;
     if (v3)
     {
       goto LABEL_78;
     }
 
-    v2 = v57[0];
-    v51 = v57[0][2];
-    if (!v51)
+    v2 = v59[0];
+    v53 = *(v59[0] + 16);
+    if (!v53)
     {
       goto LABEL_64;
     }
 
     v5 = 0;
-    v42 = (v57[0] + 8);
-    while (v5 < v2[2])
+    v44 = (v59[0] + 64);
+    while (v5 < *(v2 + 16))
     {
-      v43 = *(v42 - 2);
-      v44 = *(v42 - 1);
-      _._rawValue = *v42;
-      v46 = *(v42 - 4);
-      v45 = *(v42 - 3);
+      v45 = *(v44 - 2);
+      v46 = *(v44 - 1);
+      _._rawValue = *v44;
+      v48 = *(v44 - 4);
+      v47 = *(v44 - 3);
 
-      outlined copy of JSONEncoderValue(v43, v44, _._rawValue);
+      outlined copy of JSONEncoderValue(v45, v46, _._rawValue);
       v3 = 0;
-      serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v46, v45, v43, v44, _._rawValue, depth, v53, v52);
+      serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v48, v47, v45, v46, _._rawValue, depth, v55, v54);
 
       ++v5;
-      outlined consume of JSONEncoderValue(v43, v44, _._rawValue);
-      v42 += 40;
-      if (v51 == v5)
+      outlined consume of JSONEncoderValue(v45, v46, _._rawValue);
+      v44 += 40;
+      if (v53 == v5)
       {
         goto LABEL_64;
       }
@@ -5693,32 +5705,32 @@ LABEL_72:
     v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 2) + 1, 1, v5);
   }
 
-  v57[0] = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySS10Foundation16JSONEncoderValueOG_So8NSStringC3key_AH5valuets5NeverOTg5061_s10Foundation10JSONWriterV15serializeObject_5depthySDySSAA16ef11OG_SitKFSo8G31C3key_AG5valuetSSAK_AgLt_tXEfU_Tf1cn_n(_._rawValue);
+  v59[0] = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySS10Foundation16JSONEncoderValueOG_So8NSStringC3key_AH5valuets5NeverOTg5061_s10Foundation10JSONWriterV15serializeObject_5depthySDySSAA16ef11OG_SitKFSo8G31C3key_AG5valuetSSAK_AgLt_tXEfU_Tf1cn_n(_._rawValue);
 
-  specialized MutableCollection<>.sort(by:)(v57);
+  specialized MutableCollection<>.sort(by:)(v59);
   v10 = v3;
   if (v3)
   {
     goto LABEL_78;
   }
 
-  v11 = v57[0];
-  v48 = v57[0][2];
-  if (!v48)
+  v11 = v59[0];
+  v50 = *(v59[0] + 16);
+  if (!v50)
   {
 LABEL_64:
 
-    if (*(v52 + 8) == 1)
+    if (*(v54 + 8) == 1)
     {
       specialized Array.append<A>(contentsOf:)("\n", 1);
-      if (__OFSUB__(*v52, 1))
+      if (__OFSUB__(*v54, 1))
       {
         __break(1u);
 LABEL_76:
         __break(1u);
       }
 
-      --*v52;
+      --*v54;
       JSONWriter.writeIndent()();
     }
 
@@ -5728,11 +5740,11 @@ LABEL_76:
   }
 
   v5 = 0;
-  _._rawValue = v57[0] + 7;
-  v47 = v57[0];
+  _._rawValue = (v59[0] + 56);
+  v49 = v59[0];
   while (2)
   {
-    if (v5 >= v11[2])
+    if (v5 >= *(v11 + 16))
     {
       goto LABEL_70;
     }
@@ -5742,7 +5754,7 @@ LABEL_76:
     v14 = *_._rawValue;
     v15 = *(_._rawValue - 3);
     outlined copy of JSONEncoderValue(v12, v13, v14);
-    LODWORD(v51) = v14;
+    LODWORD(v53) = v14;
     if (!_objc_isTaggedPointer(v15))
     {
       goto LABEL_23;
@@ -5760,8 +5772,8 @@ LABEL_76:
 
         swift_unknownObjectRelease();
         swift_dynamicCast();
-        v17 = v55;
-        v2 = v56;
+        v17 = v57;
+        v2 = v58;
         goto LABEL_40;
       }
 
@@ -5785,11 +5797,11 @@ LABEL_33:
       }
 
 LABEL_23:
-      LOBYTE(v55) = 0;
-      v57[0] = 0;
+      LOBYTE(v57) = 0;
+      v59[0] = 0;
       if (__CFStringIsCF())
       {
-        if (v57[0])
+        if (v59[0])
         {
 LABEL_39:
           v17 = String.init(_cocoaString:)();
@@ -5817,10 +5829,10 @@ LABEL_40:
 
         else
         {
-          v57[0] = [v19 length];
-          if (v57[0])
+          v59[0] = [v19 length];
+          if (v59[0])
           {
-            v11 = v47;
+            v11 = v49;
             goto LABEL_39;
           }
 
@@ -5829,16 +5841,16 @@ LABEL_40:
         }
 
 LABEL_37:
-        v11 = v47;
+        v11 = v49;
       }
 
       v3 = v10;
-      serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v17, v2, v12, v13, v51, depth, v53, v52);
+      serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v17, v2, v12, v13, v53, depth, v55, v54);
       ++v5;
 
-      outlined consume of JSONEncoderValue(v12, v13, v51);
+      outlined consume of JSONEncoderValue(v12, v13, v53);
       _._rawValue = _._rawValue + 32;
-      if (v48 == v5)
+      if (v50 == v5)
       {
         goto LABEL_64;
       }
@@ -5869,13 +5881,13 @@ LABEL_78:
   __break(1u);
 }
 
-void serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(int64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, int a5, unint64_t a6, uint64_t a7, unint64_t a8)
+void serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(int64_t a1, unint64_t a2, unint64_t a3, void *a4, int a5, void *a6, uint64_t a7, unint64_t a8)
 {
-  v9 = v8;
+  rawValue = v8;
   v10 = a8;
   v11 = a6;
   LOBYTE(v12) = a5;
-  v13 = a4;
+  v13._rawValue = a4;
   v14 = a3;
   if (*(a7 + 16) == 1)
   {
@@ -5886,7 +5898,7 @@ void serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(
   LODWORD(v419) = a5;
   v12 = a6;
   v15 = a4;
-  v13 = v8;
+  v13._rawValue = v8;
   v16 = a3;
   v17 = a1;
   v14 = a2;
@@ -5917,8 +5929,8 @@ LABEL_7:
   a2 = v14;
   a1 = v17;
   v14 = v16;
-  v9 = v13;
-  v13 = v15;
+  rawValue = v13._rawValue;
+  v13._rawValue = v15;
   v11 = v12;
   LOBYTE(v12) = v419;
 LABEL_8:
@@ -5956,13 +5968,13 @@ LABEL_14:
       if (v12)
       {
 
-        specialized Array.append<A>(contentsOf:)(v14, v13);
+        specialized Array.append<A>(contentsOf:)(v14, v13._rawValue);
       }
 
       else
       {
         v27._countAndFlagsBits = v14;
-        v27._object = v13;
+        v27._object = v13._rawValue;
         JSONWriter.serializeString(_:)(v27);
       }
 
@@ -6036,11 +6048,11 @@ LABEL_476:
       if (*(v10 + 8))
       {
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        v334 = *(*(v10 + 16) + 16);
-        specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v334);
-        v335 = *(v10 + 16);
-        *(v335 + 16) = v334 + 1;
-        *(v335 + v334 + 32) = 10;
+        v333 = *(*(v10 + 16) + 16);
+        specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v333);
+        v334 = *(v10 + 16);
+        *(v334 + 16) = v333 + 1;
+        *(v334 + v333 + 32) = 10;
         if (__OFSUB__(*v10, 1))
         {
           goto LABEL_561;
@@ -6051,24 +6063,24 @@ LABEL_476:
       }
 
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      v336 = *(*(v10 + 16) + 16);
-      specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v336);
-      v337 = *(v10 + 16);
-      *(v337 + 16) = v336 + 1;
-      *(v337 + v336 + 32) = 93;
+      v335 = *(*(v10 + 16) + 16);
+      specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v335);
+      v336 = *(v10 + 16);
+      *(v336 + 16) = v335 + 1;
+      *(v336 + v335 + 32) = 93;
       return;
     }
 
     v45 = 0;
     v391 = v14 + 32;
-    v13 = 24;
+    v13._rawValue = 24;
     v46 = 1;
     v413 = v15;
     v415 = v10;
     v384 = *(v14 + 16);
     while (1)
     {
-      v419 = v9;
+      v419 = rawValue;
       v47 = v391 + 24 * v45;
       v49._rawValue = *v47;
       v48 = *(v47 + 8);
@@ -6076,7 +6088,7 @@ LABEL_476:
       v50 = *(v10 + 8);
       if (v46)
       {
-        v9 = *(v47 + 8);
+        rawValue = *(v47 + 8);
         outlined copy of JSONEncoderValue(*v47, v48, *(v47 + 16));
         if (v50)
         {
@@ -6088,7 +6100,7 @@ LABEL_476:
       {
         if (*(v10 + 8))
         {
-          v9 = *(v47 + 8);
+          rawValue = *(v47 + 8);
           outlined copy of JSONEncoderValue(*v47, v48, *(v47 + 16));
           specialized Array.append<A>(contentsOf:)(&outlined read-only object #5 of serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:));
         }
@@ -6096,7 +6108,7 @@ LABEL_476:
         else
         {
           v51 = *(v10 + 16);
-          v9 = *(v47 + 8);
+          rawValue = *(v47 + 8);
           outlined copy of JSONEncoderValue(*v47, v48, *(v47 + 16));
           v52 = swift_isUniquelyReferenced_nonNull_native();
           *(v10 + 16) = v51;
@@ -6118,7 +6130,7 @@ LABEL_476:
           *(v51 + 2) = v55 + 1;
           v51[v55 + 32] = 44;
           v45 = v53;
-          v13 = 24;
+          v13._rawValue = 24;
         }
 
         if (*(v10 + 8) == 1)
@@ -6152,15 +6164,15 @@ LABEL_421:
           {
             lazy protocol witness table accessor for type JSONError and conformance JSONError();
             swift_allocError();
-            *v355 = 0;
-            *(v355 + 8) = 0;
-            *(v355 + 16) = 0;
-            *(v355 + 24) = 1;
-            *(v355 + 32) = 0;
-            *(v355 + 40) = 0;
-            *(v355 + 48) = 2;
+            *v354 = 0;
+            *(v354 + 8) = 0;
+            *(v354 + 16) = 0;
+            *(v354 + 24) = 1;
+            *(v354 + 32) = 0;
+            *(v354 + 40) = 0;
+            *(v354 + 48) = 2;
             swift_willThrow();
-            outlined consume of JSONEncoderValue(v49._rawValue, v9, 4u);
+            outlined consume of JSONEncoderValue(v49._rawValue, rawValue, 4u);
             return;
           }
 
@@ -6188,7 +6200,7 @@ LABEL_421:
 
           v385 = swift_allocObject();
           *(v385 + 16) = 1;
-          v370 = v9;
+          v370 = rawValue;
           v395 = v45;
           if (*(v10 + 9) == 1)
           {
@@ -6200,32 +6212,32 @@ LABEL_421:
             if (static JSONEncoder.compatibility1)
             {
               v70 = *(v49._rawValue + 2);
-              rawValue = v49._rawValue;
+              v405 = v49._rawValue;
               if (v70)
               {
                 v417 = MEMORY[0x1E69E7CC0];
                 specialized ContiguousArray.reserveCapacity(_:)(v70);
                 v407 = v49._rawValue + 64;
-                v9 = _HashTable.startBucket.getter();
+                rawValue = _HashTable.startBucket.getter();
                 v71 = 0;
                 v377 = v49._rawValue + 72;
                 v380 = v70;
                 do
                 {
-                  if ((v9 & 0x8000000000000000) != 0 || v9 >= 1 << *(v49._rawValue + 32))
+                  if ((rawValue & 0x8000000000000000) != 0 || rawValue >= 1 << *(v49._rawValue + 32))
                   {
                     goto LABEL_531;
                   }
 
                   v387._rawValue = v71;
-                  v73 = v9 >> 6;
-                  if ((*&v407[8 * (v9 >> 6)] & (1 << v9)) == 0)
+                  v73 = rawValue >> 6;
+                  if ((*&v407[8 * (rawValue >> 6)] & (1 << rawValue)) == 0)
                   {
                     goto LABEL_532;
                   }
 
                   v397._rawValue = *(v49._rawValue + 9);
-                  v74 = *(v49._rawValue + 7) + 24 * v9;
+                  v74 = *(v49._rawValue + 7) + 24 * rawValue;
                   v75 = *v74;
                   v76 = *(v74 + 8);
                   v77 = *(v74 + 16);
@@ -6235,12 +6247,12 @@ LABEL_421:
                   _._rawValue = v78;
                   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                   {
-                    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v79[2] + 1, 1);
+                    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v79 + 16) + 1, 1);
                     v79 = v417;
                   }
 
-                  v14 = v79[2];
-                  v80 = v79[3];
+                  v14 = *(v79 + 16);
+                  v80 = *(v79 + 24);
                   v10 = v14 + 1;
                   v81 = v397._rawValue;
                   if (v14 >= v80 >> 1)
@@ -6250,15 +6262,15 @@ LABEL_421:
                     v79 = v417;
                   }
 
-                  v79[2] = v10;
-                  v82 = &v79[4 * v14];
-                  v82[4] = _._rawValue;
-                  v82[5] = v75;
-                  v82[6] = v76;
+                  *(v79 + 16) = v10;
+                  v82 = v79 + 32 * v14;
+                  *(v82 + 32) = _;
+                  *(v82 + 40) = v75;
+                  *(v82 + 48) = v76;
                   *(v82 + 56) = v77;
-                  v49._rawValue = rawValue;
-                  v72 = 1 << *(rawValue + 32);
-                  if (v9 >= v72)
+                  v49._rawValue = v405;
+                  v72 = 1 << *(v405 + 32);
+                  if (rawValue >= v72)
                   {
                     goto LABEL_533;
                   }
@@ -6267,20 +6279,20 @@ LABEL_421:
                   v15 = v413;
                   v10 = v415;
                   v14 = v380;
-                  if ((v83 & (1 << v9)) == 0)
+                  if ((v83 & (1 << rawValue)) == 0)
                   {
                     goto LABEL_534;
                   }
 
-                  if (v81 != *(rawValue + 36))
+                  if (v81 != *(v405 + 36))
                   {
                     goto LABEL_535;
                   }
 
-                  v84 = v83 & (-2 << (v9 & 0x3F));
+                  v84 = v83 & (-2 << (rawValue & 0x3F));
                   if (v84)
                   {
-                    v72 = __clz(__rbit64(v84)) | v9 & 0x7FFFFFFFFFFFFFC0;
+                    v72 = __clz(__rbit64(v84)) | rawValue & 0x7FFFFFFFFFFFFFC0;
                   }
 
                   else
@@ -6296,87 +6308,87 @@ LABEL_421:
                       ++v86;
                       if (v89)
                       {
-                        outlined consume of Set<Date.ComponentsFormatStyle.Field>.Index._Variant(v9, v81, 0);
+                        outlined consume of Set<Date.ComponentsFormatStyle.Field>.Index._Variant(rawValue, v81, 0);
                         v72 = __clz(__rbit64(v88)) + v85;
                         goto LABEL_92;
                       }
                     }
 
-                    outlined consume of Set<Date.ComponentsFormatStyle.Field>.Index._Variant(v9, v81, 0);
+                    outlined consume of Set<Date.ComponentsFormatStyle.Field>.Index._Variant(rawValue, v81, 0);
                   }
 
 LABEL_92:
                   v71 = v387._rawValue + 1;
-                  v9 = v72;
+                  rawValue = v72;
                   v45 = v395;
-                  v13 = 24;
+                  v13._rawValue = 24;
                 }
 
                 while (v387._rawValue + 1 != v380);
-                v320 = v419;
-                v312 = v370;
+                v319 = v419;
+                v311 = v370;
               }
 
               else
               {
-                v312 = v9;
+                v311 = rawValue;
                 v79 = MEMORY[0x1E69E7CC0];
-                v320 = v419;
+                v319 = v419;
               }
 
               v417 = v79;
 
               specialized MutableCollection<>.sort(by:)(&v417);
-              v9 = v320;
-              if (v320)
+              rawValue = v319;
+              if (v319)
               {
                 goto LABEL_574;
               }
 
-              v321 = v417;
-              v410 = v417[2];
+              v320 = v417;
+              v410 = *(v417 + 2);
               if (v410)
               {
                 v419 = 0;
-                v9 = 0;
-                v322 = (v417 + 7);
-                v404 = v417;
+                rawValue = 0;
+                v321 = v417 + 56;
+                v404._rawValue = v417;
                 while (1)
                 {
-                  if (v9 >= v321[2])
+                  if (rawValue >= *(v320 + 16))
                   {
                     goto LABEL_550;
                   }
 
-                  v323 = *(v322 - 3);
-                  v14 = *(v322 - 2);
-                  v324 = *(v322 - 1);
-                  v325 = *v322;
-                  v326 = static String._unconditionallyBridgeFromObjectiveC(_:)(v323);
-                  v328 = v327;
-                  v329 = v323;
-                  outlined copy of JSONEncoderValue(v14, v324, v325);
-                  v330 = v419;
-                  serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v326, v328, v14, v324, v325, v413 + 1, v385, v10);
-                  v419 = v330;
-                  if (v330)
+                  v322 = *(v321 - 3);
+                  v14 = *(v321 - 2);
+                  v323 = *(v321 - 1);
+                  v324 = *v321;
+                  v325 = static String._unconditionallyBridgeFromObjectiveC(_:)(v322);
+                  v327 = v326;
+                  v328 = v322;
+                  outlined copy of JSONEncoderValue(v14, v323, v324);
+                  v329 = v419;
+                  serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v325, v327, v14, v323, v324, v413 + 1, v385, v10);
+                  v419 = v329;
+                  if (v329)
                   {
                     break;
                   }
 
-                  ++v9;
-                  outlined consume of JSONEncoderValue(v14, v324, v325);
-                  v322 += 32;
-                  v321 = v404;
-                  if (v410 == v9)
+                  ++rawValue;
+                  outlined consume of JSONEncoderValue(v14, v323, v324);
+                  v321 += 32;
+                  v320 = v404._rawValue;
+                  if (v410 == rawValue)
                   {
-                    v9 = v419;
+                    rawValue = v419;
                     goto LABEL_463;
                   }
                 }
 
-                outlined consume of JSONEncoderValue(v14, v324, v325);
-                outlined consume of JSONEncoderValue(rawValue, v370, 4u);
+                outlined consume of JSONEncoderValue(v14, v323, v324);
+                outlined consume of JSONEncoderValue(v405, v370, 4u);
 
                 goto LABEL_505;
               }
@@ -6398,7 +6410,7 @@ LABEL_464:
               specialized Array.append<A>(contentsOf:)("}", 1);
 
               v94 = v49._rawValue;
-              v95 = v312;
+              v95 = v311;
               v96 = 4;
 LABEL_468:
               outlined consume of JSONEncoderValue(v94, v95, v96);
@@ -6406,55 +6418,55 @@ LABEL_468:
               goto LABEL_469;
             }
 
-            v312 = v9;
+            v311 = rawValue;
             v417 = specialized _copyCollectionToContiguousArray<A>(_:)(v49._rawValue);
-            v313 = v419;
+            v312 = v419;
             specialized MutableCollection<>.sort(by:)(&v417);
-            v9 = v313;
-            if (v313)
+            rawValue = v312;
+            if (v312)
             {
               goto LABEL_574;
             }
 
-            v314 = v417;
-            v419 = v417[2];
+            v313 = v417;
+            v419 = *(v417 + 2);
             if (v419)
             {
-              rawValue = v49._rawValue;
+              v405 = v49._rawValue;
               v10 = 0;
-              v9 = (v417 + 8);
+              rawValue = (v417 + 64);
               do
               {
-                if (v10 >= v314[2])
+                if (v10 >= *(v313 + 16))
                 {
                   goto LABEL_549;
                 }
 
-                v315 = v314;
-                v316 = *(v9 - 16);
-                v14 = *(v9 - 8);
-                v317 = *v9;
-                v319 = *(v9 - 32);
-                v318 = *(v9 - 24);
+                v314 = v313;
+                v315 = *(rawValue - 16);
+                v14 = *(rawValue - 8);
+                v316 = *rawValue;
+                v318 = *(rawValue - 32);
+                v317 = *(rawValue - 24);
 
-                outlined copy of JSONEncoderValue(v316, v14, v317);
-                serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v319, v318, v316, v14, v317, v413 + 1, v385, v415);
+                outlined copy of JSONEncoderValue(v315, v14, v316);
+                serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v318, v317, v315, v14, v316, v413 + 1, v385, v415);
 
                 ++v10;
-                outlined consume of JSONEncoderValue(v316, v14, v317);
-                v9 += 40;
-                v314 = v315;
+                outlined consume of JSONEncoderValue(v315, v14, v316);
+                rawValue += 40;
+                v313 = v314;
               }
 
               while (v419 != v10);
-              v9 = 0;
+              rawValue = 0;
               v10 = v415;
 LABEL_463:
-              v312 = v370;
-              v49._rawValue = rawValue;
+              v311 = v370;
+              v49._rawValue = v405;
               v15 = v413;
               v45 = v395;
-              v13 = 24;
+              v13._rawValue = 24;
               goto LABEL_464;
             }
 
@@ -6463,62 +6475,62 @@ LABEL_463:
 
           else
           {
-            v299 = v49._rawValue;
-            v301 = *(v49._rawValue + 8);
+            v298 = v49._rawValue;
+            v300 = *(v49._rawValue + 8);
             v12 = v49._rawValue + 64;
-            v300 = v301;
-            v302 = 1 << v299[32];
-            if (v302 < 64)
+            v299 = v300;
+            v301 = 1 << v298[32];
+            if (v301 < 64)
             {
-              v303 = ~(-1 << v302);
+              v302 = ~(-1 << v301);
             }
 
             else
             {
-              v303 = -1;
+              v302 = -1;
             }
 
-            v10 = v303 & v300;
-            v304 = (v302 + 63) >> 6;
-            v11 = v299;
+            v10 = v302 & v299;
+            v303 = (v301 + 63) >> 6;
+            v11 = v298;
 
-            v305 = 0;
+            v304 = 0;
             if (v10)
             {
               while (1)
               {
-                v9 = v305;
+                rawValue = v304;
 LABEL_443:
-                v306 = __clz(__rbit64(v10)) | (v9 << 6);
-                v307 = (*(v11 + 48) + 16 * v306);
-                v23 = v307[1];
-                v409 = *v307;
-                v308 = *(v11 + 56) + 24 * v306;
-                v309 = *v308;
-                v14 = *(v308 + 8);
-                v310 = *(v308 + 16);
+                v305 = __clz(__rbit64(v10)) | (rawValue << 6);
+                v306 = (*(v11 + 48) + 16 * v305);
+                v23 = v306[1];
+                v409 = *v306;
+                v307 = *(v11 + 56) + 24 * v305;
+                v308 = *v307;
+                v14 = *(v307 + 8);
+                v309 = *(v307 + 16);
 
-                outlined copy of JSONEncoderValue(v309, v14, v310);
-                v311 = v419;
-                serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v409, v23, v309, v14, v310, v413 + 1, v385, v415);
-                v419 = v311;
-                if (v311)
+                outlined copy of JSONEncoderValue(v308, v14, v309);
+                v310 = v419;
+                serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v409, v23, v308, v14, v309, v413 + 1, v385, v415);
+                v419 = v310;
+                if (v310)
                 {
                   break;
                 }
 
                 v10 &= v10 - 1;
-                outlined consume of JSONEncoderValue(v309, v14, v310);
+                outlined consume of JSONEncoderValue(v308, v14, v309);
 
-                v305 = v9;
-                v13 = 24;
+                v304 = rawValue;
+                v13._rawValue = 24;
                 if (!v10)
                 {
                   goto LABEL_440;
                 }
               }
 
-              outlined consume of JSONEncoderValue(v309, v14, v310);
+              outlined consume of JSONEncoderValue(v308, v14, v309);
 
               outlined consume of JSONEncoderValue(v11, v370, 4u);
 LABEL_505:
@@ -6529,19 +6541,19 @@ LABEL_505:
             while (1)
             {
 LABEL_440:
-              v9 = v305 + 1;
-              if (__OFADD__(v305, 1))
+              rawValue = v304 + 1;
+              if (__OFADD__(v304, 1))
               {
                 goto LABEL_526;
               }
 
-              if (v9 >= v304)
+              if (rawValue >= v303)
               {
                 break;
               }
 
-              v10 = *(v12 + 8 * v9);
-              ++v305;
+              v10 = v12[rawValue];
+              ++v304;
               if (v10)
               {
                 goto LABEL_443;
@@ -6549,19 +6561,19 @@ LABEL_440:
             }
 
             v49._rawValue = v11;
-            v9 = v419;
+            rawValue = v419;
             v15 = v413;
             v10 = v415;
-            v312 = v370;
+            v311 = v370;
           }
 
           v45 = v395;
           goto LABEL_464;
         }
 
-        v92 = v9;
-        JSONWriter.serializePreformattedByteArray(_:_:depth:)(v49, v9, v15 + 1);
-        v9 = v93;
+        v92 = rawValue;
+        JSONWriter.serializePreformattedByteArray(_:_:depth:)(v49, rawValue, v15 + 1);
+        rawValue = v93;
         v94 = v49._rawValue;
         v95 = v92;
         v96 = 5;
@@ -6578,7 +6590,7 @@ LABEL_440:
       {
         if (!v14)
         {
-          v56 = v9;
+          v56 = rawValue;
           v57 = *(v10 + 16);
           v58 = swift_isUniquelyReferenced_nonNull_native();
           *(v10 + 16) = v57;
@@ -6594,13 +6606,13 @@ LABEL_440:
           if (v60 >= v59 >> 1)
           {
             v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1, v57);
-            v61 = v9;
+            v61 = rawValue;
             *(v10 + 16) = v57;
           }
 
           else
           {
-            v61 = v9;
+            v61 = rawValue;
           }
 
           *(v57 + 2) = v60 + 1;
@@ -6610,7 +6622,7 @@ LABEL_440:
 
           v62 = v419;
           specialized String.withUTF8<A>(_:)(&v417, v10);
-          v9 = v62;
+          rawValue = v62;
 
           v63 = *(v10 + 16);
           v64 = swift_isUniquelyReferenced_nonNull_native();
@@ -6626,9 +6638,9 @@ LABEL_440:
           v67 = v56;
           if (v66 >= v65 >> 1)
           {
-            v331 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v65 > 1), v66 + 1, 1, v63);
+            v330 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v65 > 1), v66 + 1, 1, v63);
             v67 = v56;
-            *(v10 + 16) = v331;
+            *(v10 + 16) = v330;
           }
 
           outlined consume of JSONEncoderValue(v49._rawValue, v67, 0);
@@ -6640,10 +6652,10 @@ LABEL_440:
           goto LABEL_469;
         }
 
-        specialized Array.append<A>(contentsOf:)(v49._rawValue, v9);
+        specialized Array.append<A>(contentsOf:)(v49._rawValue, rawValue);
 LABEL_422:
         v69 = v384;
-        v9 = v419;
+        rawValue = v419;
         goto LABEL_469;
       }
 
@@ -6672,18 +6684,18 @@ LABEL_422:
         goto LABEL_421;
       }
 
-      v371 = v9;
+      v371 = rawValue;
       if (v15 == 511)
       {
         lazy protocol witness table accessor for type JSONError and conformance JSONError();
         swift_allocError();
-        *v354 = 0;
-        *(v354 + 8) = 0;
-        *(v354 + 16) = 0;
-        *(v354 + 24) = 1;
-        *(v354 + 32) = 0;
-        *(v354 + 40) = 0;
-        *(v354 + 48) = 2;
+        *v353 = 0;
+        *(v353 + 8) = 0;
+        *(v353 + 16) = 0;
+        *(v353 + 24) = 1;
+        *(v353 + 32) = 0;
+        *(v353 + 40) = 0;
+        *(v353 + 48) = 2;
         swift_willThrow();
         goto LABEL_524;
       }
@@ -6732,13 +6744,13 @@ LABEL_422:
       v376 = *(v49._rawValue + 2);
       if (v376)
       {
-        v9 = 0;
+        rawValue = 0;
         v386 = v49._rawValue + 32;
         v104 = 1;
-        rawValue = v49._rawValue;
+        v405 = v49._rawValue;
         while (1)
         {
-          v105 = &v386[24 * v9];
+          v105 = &v386[24 * rawValue];
           v107 = *v105;
           v106 = *(v105 + 1);
           v14 = v105[16];
@@ -6794,7 +6806,7 @@ LABEL_144:
             }
           }
 
-          ++v9;
+          ++rawValue;
           if (v14 <= 3)
           {
             if (v14 <= 1)
@@ -6853,9 +6865,9 @@ LABEL_144:
                 v123 = _a._rawValue;
                 if (v122 >= v121 >> 1)
                 {
-                  v289 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v121 > 1), v122 + 1, 1, v119);
+                  v288 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v121 > 1), v122 + 1, 1, v119);
                   v123 = _a._rawValue;
-                  *(v10 + 16) = v289;
+                  *(v10 + 16) = v288;
                 }
 
                 outlined consume of JSONEncoderValue(v408, v123, 0);
@@ -6871,25 +6883,25 @@ LABEL_144:
             {
               if (v107)
               {
-                v140 = "true";
+                v136 = "true";
               }
 
               else
               {
-                v140 = "false";
+                v136 = "false";
               }
 
               if (v107)
               {
-                v141 = 4;
+                v137 = 4;
               }
 
               else
               {
-                v141 = 5;
+                v137 = 5;
               }
 
-              specialized Array.append<A>(contentsOf:)(v140, v141);
+              specialized Array.append<A>(contentsOf:)(v136, v137);
               goto LABEL_416;
             }
 
@@ -6897,86 +6909,86 @@ LABEL_144:
             {
               lazy protocol witness table accessor for type JSONError and conformance JSONError();
               swift_allocError();
-              *v361 = 0;
-              *(v361 + 8) = 0;
-              *(v361 + 16) = 0;
-              *(v361 + 24) = 1;
-              *(v361 + 32) = 0;
-              *(v361 + 40) = 0;
-              *(v361 + 48) = 2;
+              *v360 = 0;
+              *(v360 + 8) = 0;
+              *(v360 + 16) = 0;
+              *(v360 + 24) = 1;
+              *(v360 + 32) = 0;
+              *(v360 + 40) = 0;
+              *(v360 + 48) = 2;
               swift_willThrow();
-              v358 = v107;
+              v357 = v107;
               goto LABEL_522;
             }
 
-            v146 = *(v10 + 16);
-            v147 = swift_isUniquelyReferenced_nonNull_native();
-            *(v10 + 16) = v146;
-            if ((v147 & 1) == 0)
+            v142 = *(v10 + 16);
+            v143 = swift_isUniquelyReferenced_nonNull_native();
+            *(v10 + 16) = v142;
+            if ((v143 & 1) == 0)
             {
-              v146 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v146 + 2) + 1, 1, v146);
-              *(v10 + 16) = v146;
+              v142 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v142 + 2) + 1, 1, v142);
+              *(v10 + 16) = v142;
             }
 
-            v149 = *(v146 + 2);
-            v148 = *(v146 + 3);
-            if (v149 >= v148 >> 1)
+            v145 = *(v142 + 2);
+            v144 = *(v142 + 3);
+            if (v145 >= v144 >> 1)
             {
-              v146 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v148 > 1), v149 + 1, 1, v146);
-              *(v10 + 16) = v146;
+              v142 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v144 > 1), v145 + 1, 1, v142);
+              *(v10 + 16) = v142;
             }
 
-            *(v146 + 2) = v149 + 1;
-            v146[v149 + 32] = 91;
-            v150 = v408;
+            *(v142 + 2) = v145 + 1;
+            v142[v145 + 32] = 91;
+            v146 = v408;
             if (*(v10 + 8))
             {
-              v151 = *(v10 + 16);
-              v153 = *(v151 + 2);
-              v152 = *(v151 + 3);
-              if (v153 >= v152 >> 1)
+              v147 = *(v10 + 16);
+              v149 = *(v147 + 2);
+              v148 = *(v147 + 3);
+              if (v149 >= v148 >> 1)
               {
-                v151 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v152 > 1), v153 + 1, 1, v151);
-                *(v10 + 16) = v151;
+                v147 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v148 > 1), v149 + 1, 1, v147);
+                *(v10 + 16) = v147;
               }
 
-              *(v151 + 2) = v153 + 1;
-              v151[v153 + 32] = 10;
+              *(v147 + 2) = v149 + 1;
+              v147[v149 + 32] = 10;
               if (__OFADD__(*v10, 1))
               {
                 goto LABEL_564;
               }
 
               ++*v10;
-              v150 = v408;
+              v146 = v408;
             }
 
-            v375 = *(v150 + 16);
+            v375 = *(v146 + 16);
             if (v375)
             {
-              v154 = 0;
-              v379 = v150 + 32;
-              v155 = 1;
-              v373 = v9;
+              v150 = 0;
+              v379 = v146 + 32;
+              v151 = 1;
+              v373 = rawValue;
               while (1)
               {
-                v158 = v379 + 24 * v154;
-                v160 = *v158;
-                v159 = *(v158 + 8);
-                v161 = *(v158 + 16);
-                v389._rawValue = v159;
-                if (v155)
+                v154 = v379 + 24 * v150;
+                v156 = *v154;
+                v155 = *(v154 + 8);
+                v157 = *(v154 + 16);
+                v389._rawValue = v155;
+                if (v151)
                 {
-                  v14 = v150;
+                  v14 = v146;
                   if ((*(v10 + 8) & 1) == 0)
                   {
-                    outlined copy of JSONEncoderValue(v160, v159, v161);
+                    outlined copy of JSONEncoderValue(v156, v155, v157);
                     goto LABEL_251;
                   }
 
-                  v162 = *v10;
-                  outlined copy of JSONEncoderValue(v160, v159, v161);
-                  if (v162 > 4)
+                  v158 = *v10;
+                  outlined copy of JSONEncoderValue(v156, v155, v157);
+                  if (v158 > 4)
                   {
                     goto LABEL_231;
                   }
@@ -6986,53 +6998,53 @@ LABEL_144:
                 {
                   if (*(v10 + 8))
                   {
-                    outlined copy of JSONEncoderValue(v160, v159, v161);
+                    outlined copy of JSONEncoderValue(v156, v155, v157);
                     specialized Array.append<A>(contentsOf:)(&outlined read-only object #3 of serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:));
                   }
 
                   else
                   {
-                    v163 = v9;
-                    v164 = *(v10 + 16);
-                    outlined copy of JSONEncoderValue(v160, v159, v161);
-                    v165 = swift_isUniquelyReferenced_nonNull_native();
-                    *(v10 + 16) = v164;
-                    v166 = v154;
-                    if ((v165 & 1) == 0)
+                    v159 = rawValue;
+                    v160 = *(v10 + 16);
+                    outlined copy of JSONEncoderValue(v156, v155, v157);
+                    v161 = swift_isUniquelyReferenced_nonNull_native();
+                    *(v10 + 16) = v160;
+                    v162 = v150;
+                    if ((v161 & 1) == 0)
                     {
-                      v164 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v164 + 2) + 1, 1, v164);
-                      *(v10 + 16) = v164;
+                      v160 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v160 + 2) + 1, 1, v160);
+                      *(v10 + 16) = v160;
                     }
 
-                    v168 = *(v164 + 2);
-                    v167 = *(v164 + 3);
-                    if (v168 >= v167 >> 1)
+                    v164 = *(v160 + 2);
+                    v163 = *(v160 + 3);
+                    if (v164 >= v163 >> 1)
                     {
-                      v164 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v167 > 1), v168 + 1, 1, v164);
-                      *(v10 + 16) = v164;
+                      v160 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v163 > 1), v164 + 1, 1, v160);
+                      *(v10 + 16) = v160;
                     }
 
-                    *(v164 + 2) = v168 + 1;
-                    v164[v168 + 32] = 44;
-                    v150 = v408;
-                    v154 = v166;
-                    v9 = v163;
-                    v13 = 24;
+                    *(v160 + 2) = v164 + 1;
+                    v160[v164 + 32] = 44;
+                    v146 = v408;
+                    v150 = v162;
+                    rawValue = v159;
+                    v13._rawValue = 24;
                   }
 
-                  v14 = v150;
+                  v14 = v146;
                   if (*(v10 + 8) != 1)
                   {
                     goto LABEL_251;
                   }
 
-                  v162 = *v10;
+                  v158 = *v10;
                   if (*v10 > 4)
                   {
 LABEL_231:
-                    if (v162 > 7)
+                    if (v158 > 7)
                     {
-                      switch(v162)
+                      switch(v158)
                       {
                         case 8:
                           specialized Array.append<A>(contentsOf:)("                ", 16);
@@ -7048,7 +7060,7 @@ LABEL_231:
 
                     else
                     {
-                      switch(v162)
+                      switch(v158)
                       {
                         case 5:
                           specialized Array.append<A>(contentsOf:)("          ", 10);
@@ -7066,14 +7078,14 @@ LABEL_231:
                   }
                 }
 
-                if (v162 <= 1)
+                if (v158 <= 1)
                 {
-                  if (!v162)
+                  if (!v158)
                   {
                     goto LABEL_251;
                   }
 
-                  if (v162 == 1)
+                  if (v158 == 1)
                   {
                     specialized Array.append<A>(contentsOf:)("  ", 2);
                     goto LABEL_251;
@@ -7082,7 +7094,7 @@ LABEL_231:
 
                 else
                 {
-                  switch(v162)
+                  switch(v158)
                   {
                     case 2:
                       specialized Array.append<A>(contentsOf:)("    ", 4);
@@ -7097,7 +7109,7 @@ LABEL_231:
                 }
 
 LABEL_249:
-                if (v162 < 0)
+                if (v158 < 0)
                 {
                   goto LABEL_571;
                 }
@@ -7105,165 +7117,165 @@ LABEL_249:
                 do
                 {
                   specialized Array.append<A>(contentsOf:)("  ", 2);
-                  --v162;
+                  --v158;
                 }
 
-                while (v162);
+                while (v158);
 LABEL_251:
-                ++v154;
-                if (v161 <= 3)
+                ++v150;
+                if (v157 <= 3)
                 {
-                  v150 = v14;
-                  if (v161 <= 1)
+                  v146 = v14;
+                  if (v157 <= 1)
                   {
-                    if (v161)
+                    if (v157)
                     {
-                      specialized Array.append<A>(contentsOf:)(v160, v389._rawValue);
+                      specialized Array.append<A>(contentsOf:)(v156, v389._rawValue);
                       goto LABEL_210;
                     }
 
-                    v169 = *(v10 + 16);
-                    v170 = swift_isUniquelyReferenced_nonNull_native();
-                    *(v10 + 16) = v169;
-                    v368 = v154;
-                    if ((v170 & 1) == 0)
+                    v165 = *(v10 + 16);
+                    v166 = swift_isUniquelyReferenced_nonNull_native();
+                    *(v10 + 16) = v165;
+                    v368 = v150;
+                    if ((v166 & 1) == 0)
                     {
-                      v169 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v169 + 2) + 1, 1, v169);
-                      *(v10 + 16) = v169;
+                      v165 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v165 + 2) + 1, 1, v165);
+                      *(v10 + 16) = v165;
                     }
 
-                    v399 = v160;
-                    v172 = *(v169 + 2);
-                    v171 = *(v169 + 3);
-                    v173 = v389._rawValue;
-                    if (v172 >= v171 >> 1)
+                    v399 = v156;
+                    v168 = *(v165 + 2);
+                    v167 = *(v165 + 3);
+                    v169 = v389._rawValue;
+                    if (v168 >= v167 >> 1)
                     {
-                      v169 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v171 > 1), v172 + 1, 1, v169);
-                      v173 = v389._rawValue;
-                      *(v10 + 16) = v169;
+                      v165 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v167 > 1), v168 + 1, 1, v165);
+                      v169 = v389._rawValue;
+                      *(v10 + 16) = v165;
                     }
 
                     v15 = v413;
-                    *(v169 + 2) = v172 + 1;
-                    v169[v172 + 32] = 34;
-                    v49._rawValue = rawValue;
+                    *(v165 + 2) = v168 + 1;
+                    v165[v168 + 32] = 34;
+                    v49._rawValue = v405;
                     v417 = v399;
-                    v418 = v173;
+                    v418 = v169;
 
-                    v174 = v419;
+                    v170 = v419;
                     specialized String.withUTF8<A>(_:)(&v417, v10);
-                    v419 = v174;
+                    v419 = v170;
 
-                    v175 = *(v10 + 16);
-                    v176 = swift_isUniquelyReferenced_nonNull_native();
-                    *(v10 + 16) = v175;
-                    if ((v176 & 1) == 0)
+                    v171 = *(v10 + 16);
+                    v172 = swift_isUniquelyReferenced_nonNull_native();
+                    *(v10 + 16) = v171;
+                    if ((v172 & 1) == 0)
                     {
-                      v175 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v175 + 2) + 1, 1, v175);
-                      *(v10 + 16) = v175;
+                      v171 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v171 + 2) + 1, 1, v171);
+                      *(v10 + 16) = v171;
                     }
 
-                    v178 = *(v175 + 2);
-                    v177 = *(v175 + 3);
-                    v179 = v389._rawValue;
-                    if (v178 >= v177 >> 1)
+                    v174 = *(v171 + 2);
+                    v173 = *(v171 + 3);
+                    v175 = v389._rawValue;
+                    if (v174 >= v173 >> 1)
                     {
-                      v251 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v177 > 1), v178 + 1, 1, v175);
-                      v179 = v389._rawValue;
-                      *(v10 + 16) = v251;
+                      v250 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v173 > 1), v174 + 1, 1, v171);
+                      v175 = v389._rawValue;
+                      *(v10 + 16) = v250;
                     }
 
-                    outlined consume of JSONEncoderValue(v399, v179, 0);
-                    v180 = *(v10 + 16);
-                    *(v180 + 16) = v178 + 1;
-                    v181 = v180 + v178;
-                    v182 = 34;
+                    outlined consume of JSONEncoderValue(v399, v175, 0);
+                    v176 = *(v10 + 16);
+                    *(v176 + 16) = v174 + 1;
+                    v177 = v176 + v174;
+                    v178 = 34;
 LABEL_352:
-                    *(v181 + 32) = v182;
-                    v150 = v408;
-                    v154 = v368;
+                    *(v177 + 32) = v178;
+                    v146 = v408;
+                    v150 = v368;
                     goto LABEL_211;
                   }
 
-                  if (v161 == 2)
+                  if (v157 == 2)
                   {
-                    if (v160)
+                    if (v156)
                     {
-                      v156 = "true";
+                      v152 = "true";
                     }
 
                     else
                     {
-                      v156 = "false";
+                      v152 = "false";
                     }
 
-                    if (v160)
+                    if (v156)
                     {
-                      v157 = 4;
+                      v153 = 4;
                     }
 
                     else
                     {
-                      v157 = 5;
+                      v153 = 5;
                     }
 
                     goto LABEL_209;
                   }
 
-                  v401 = v160;
+                  v401 = v156;
                   v15 = v413;
                   if (v413 >= 509)
                   {
                     lazy protocol witness table accessor for type JSONError and conformance JSONError();
                     swift_allocError();
-                    *v362 = 0;
-                    *(v362 + 8) = 0;
-                    *(v362 + 16) = 0;
-                    *(v362 + 24) = 1;
-                    *(v362 + 32) = 0;
-                    *(v362 + 40) = 0;
-                    *(v362 + 48) = 2;
+                    *v361 = 0;
+                    *(v361 + 8) = 0;
+                    *(v361 + 16) = 0;
+                    *(v361 + 24) = 1;
+                    *(v361 + 32) = 0;
+                    *(v361 + 40) = 0;
+                    *(v361 + 48) = 2;
                     swift_willThrow();
                     outlined consume of JSONEncoderValue(v401, v389._rawValue, 3u);
                     outlined consume of JSONEncoderValue(v14, _a._rawValue, 3u);
-                    v356 = rawValue;
+                    v355 = v405;
                     goto LABEL_515;
                   }
 
-                  v202 = *(v10 + 16);
-                  v203 = swift_isUniquelyReferenced_nonNull_native();
-                  *(v10 + 16) = v202;
-                  v49._rawValue = rawValue;
-                  v368 = v154;
-                  if ((v203 & 1) == 0)
+                  v198 = *(v10 + 16);
+                  v199 = swift_isUniquelyReferenced_nonNull_native();
+                  *(v10 + 16) = v198;
+                  v49._rawValue = v405;
+                  v368 = v150;
+                  if ((v199 & 1) == 0)
                   {
-                    v202 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v202 + 2) + 1, 1, v202);
-                    *(v10 + 16) = v202;
+                    v198 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v198 + 2) + 1, 1, v198);
+                    *(v10 + 16) = v198;
                   }
 
-                  v205 = *(v202 + 2);
-                  v204 = *(v202 + 3);
-                  if (v205 >= v204 >> 1)
+                  v201 = *(v198 + 2);
+                  v200 = *(v198 + 3);
+                  if (v201 >= v200 >> 1)
                   {
-                    v202 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v204 > 1), v205 + 1, 1, v202);
-                    *(v10 + 16) = v202;
+                    v198 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v200 > 1), v201 + 1, 1, v198);
+                    *(v10 + 16) = v198;
                   }
 
-                  *(v202 + 2) = v205 + 1;
-                  v202[v205 + 32] = 91;
+                  *(v198 + 2) = v201 + 1;
+                  v198[v201 + 32] = 91;
                   if (*(v10 + 8))
                   {
-                    v206 = *(v10 + 16);
-                    v208 = *(v206 + 2);
-                    v207 = *(v206 + 3);
-                    if (v208 >= v207 >> 1)
+                    v202 = *(v10 + 16);
+                    v204 = *(v202 + 2);
+                    v203 = *(v202 + 3);
+                    if (v204 >= v203 >> 1)
                     {
-                      v206 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v207 > 1), v208 + 1, 1, v206);
-                      *(v10 + 16) = v206;
+                      v202 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v203 > 1), v204 + 1, 1, v202);
+                      *(v10 + 16) = v202;
                     }
 
-                    *(v206 + 2) = v208 + 1;
-                    v206[v208 + 32] = 10;
+                    *(v202 + 2) = v204 + 1;
+                    v202[v204 + 32] = 10;
                     if (__OFADD__(*v10, 1))
                     {
                       goto LABEL_567;
@@ -7276,27 +7288,27 @@ LABEL_352:
                   if (!v383)
                   {
 LABEL_340:
-                    v233 = *(v10 + 16);
+                    v231 = *(v10 + 16);
                     if (*(v10 + 8))
                     {
-                      v234 = swift_isUniquelyReferenced_nonNull_native();
-                      *(v10 + 16) = v233;
-                      if ((v234 & 1) == 0)
+                      v232 = swift_isUniquelyReferenced_nonNull_native();
+                      *(v10 + 16) = v231;
+                      if ((v232 & 1) == 0)
                       {
-                        v233 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v233 + 2) + 1, 1, v233);
-                        *(v10 + 16) = v233;
+                        v231 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v231 + 2) + 1, 1, v231);
+                        *(v10 + 16) = v231;
                       }
 
-                      v236 = *(v233 + 2);
-                      v235 = *(v233 + 3);
-                      if (v236 >= v235 >> 1)
+                      v234 = *(v231 + 2);
+                      v233 = *(v231 + 3);
+                      if (v234 >= v233 >> 1)
                       {
-                        v233 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v235 > 1), v236 + 1, 1, v233);
-                        *(v10 + 16) = v233;
+                        v231 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v233 > 1), v234 + 1, 1, v231);
+                        *(v10 + 16) = v231;
                       }
 
-                      *(v233 + 2) = v236 + 1;
-                      v233[v236 + 32] = 10;
+                      *(v231 + 2) = v234 + 1;
+                      v231[v234 + 32] = 10;
                       if (__OFSUB__(*v10, 1))
                       {
                         goto LABEL_572;
@@ -7304,55 +7316,55 @@ LABEL_340:
 
                       --*v10;
                       JSONWriter.writeIndent()();
-                      v233 = *(v10 + 16);
+                      v231 = *(v10 + 16);
                     }
 
-                    v237 = swift_isUniquelyReferenced_nonNull_native();
-                    *(v10 + 16) = v233;
-                    if ((v237 & 1) == 0)
+                    v235 = swift_isUniquelyReferenced_nonNull_native();
+                    *(v10 + 16) = v231;
+                    if ((v235 & 1) == 0)
                     {
-                      v233 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v233 + 2) + 1, 1, v233);
-                      *(v10 + 16) = v233;
+                      v231 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v231 + 2) + 1, 1, v231);
+                      *(v10 + 16) = v231;
                     }
 
-                    v238 = v389._rawValue;
-                    v240 = *(v233 + 2);
-                    v239 = *(v233 + 3);
-                    if (v240 >= v239 >> 1)
+                    v236 = v389._rawValue;
+                    v238 = *(v231 + 2);
+                    v237 = *(v231 + 3);
+                    if (v238 >= v237 >> 1)
                     {
-                      v252 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v239 > 1), v240 + 1, 1, v233);
-                      v238 = v389._rawValue;
-                      *(v10 + 16) = v252;
+                      v251 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v237 > 1), v238 + 1, 1, v231);
+                      v236 = v389._rawValue;
+                      *(v10 + 16) = v251;
                     }
 
-                    outlined consume of JSONEncoderValue(v401, v238, 3u);
-                    v241 = *(v10 + 16);
-                    *(v241 + 16) = v240 + 1;
-                    v181 = v241 + v240;
-                    v182 = 93;
+                    outlined consume of JSONEncoderValue(v401, v236, 3u);
+                    v239 = *(v10 + 16);
+                    *(v239 + 16) = v238 + 1;
+                    v177 = v239 + v238;
+                    v178 = 93;
                     goto LABEL_352;
                   }
 
-                  v209 = v419;
+                  v205 = v419;
 
                   v10 = 0;
-                  v9 = v210 + 48;
-                  v211 = 1;
+                  rawValue = v206 + 48;
+                  v207 = 1;
                   while (2)
                   {
-                    if (v10 >= *(v210 + 16))
+                    if (v10 >= *(v206 + 16))
                     {
                       goto LABEL_537;
                     }
 
-                    v14 = *(v9 - 16);
-                    v212 = *(v9 - 8);
-                    v213 = *v9;
-                    v214 = *(v415 + 8);
-                    if (v211)
+                    v14 = *(rawValue - 16);
+                    v208 = *(rawValue - 8);
+                    v209 = *rawValue;
+                    v210 = *(v415 + 8);
+                    if (v207)
                     {
-                      outlined copy of JSONEncoderValue(*(v9 - 16), *(v9 - 8), *v9);
-                      if ((v214 & 1) == 0)
+                      outlined copy of JSONEncoderValue(*(rawValue - 16), *(rawValue - 8), *rawValue);
+                      if ((v210 & 1) == 0)
                       {
                         goto LABEL_325;
                       }
@@ -7362,37 +7374,37 @@ LABEL_340:
                     {
                       if (*(v415 + 8))
                       {
-                        outlined copy of JSONEncoderValue(*(v9 - 16), *(v9 - 8), *v9);
-                        v215 = v415;
+                        outlined copy of JSONEncoderValue(*(rawValue - 16), *(rawValue - 8), *rawValue);
+                        v211 = v415;
                         specialized Array.append<A>(contentsOf:)(&outlined read-only object #2 of serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:));
                       }
 
                       else
                       {
-                        v216 = *(v415 + 16);
-                        outlined copy of JSONEncoderValue(*(v9 - 16), *(v9 - 8), *v9);
-                        v217 = swift_isUniquelyReferenced_nonNull_native();
-                        *(v415 + 16) = v216;
-                        if ((v217 & 1) == 0)
+                        v212 = *(v415 + 16);
+                        outlined copy of JSONEncoderValue(*(rawValue - 16), *(rawValue - 8), *rawValue);
+                        v213 = swift_isUniquelyReferenced_nonNull_native();
+                        *(v415 + 16) = v212;
+                        if ((v213 & 1) == 0)
                         {
-                          v216 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v216 + 2) + 1, 1, v216);
-                          *(v415 + 16) = v216;
+                          v212 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v212 + 2) + 1, 1, v212);
+                          *(v415 + 16) = v212;
                         }
 
-                        v219 = *(v216 + 2);
-                        v218 = *(v216 + 3);
-                        if (v219 >= v218 >> 1)
+                        v215 = *(v212 + 2);
+                        v214 = *(v212 + 3);
+                        if (v215 >= v214 >> 1)
                         {
-                          v216 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v218 > 1), v219 + 1, 1, v216);
-                          *(v415 + 16) = v216;
+                          v212 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v214 > 1), v215 + 1, 1, v212);
+                          *(v415 + 16) = v212;
                         }
 
-                        *(v216 + 2) = v219 + 1;
-                        v216[v219 + 32] = 44;
-                        v215 = v415;
+                        *(v212 + 2) = v215 + 1;
+                        v212[v215 + 32] = 44;
+                        v211 = v415;
                       }
 
-                      if (*(v215 + 8) != 1)
+                      if (*(v211 + 8) != 1)
                       {
                         goto LABEL_325;
                       }
@@ -7400,31 +7412,33 @@ LABEL_340:
 
                     JSONWriter.writeIndent()();
 LABEL_325:
-                    JSONWriter.serializeJSON(_:depth:)(v14, v212, v213, v413 + 3);
-                    if (v209)
+                    v216._rawValue = v14;
+                    v217._rawValue = v208;
+                    JSONWriter.serializeJSON(_:depth:)(v216, v217, v209, v413 + 3);
+                    if (v205)
                     {
-                      outlined consume of JSONEncoderValue(v14, v212, v213);
+                      outlined consume of JSONEncoderValue(v14, v208, v209);
                       outlined consume of JSONEncoderValue(v401, v389._rawValue, 3u);
                       outlined consume of JSONEncoderValue(v401, v389._rawValue, 3u);
                       outlined consume of JSONEncoderValue(v408, _a._rawValue, 3u);
-                      outlined consume of JSONEncoderValue(rawValue, v371, 3u);
+                      outlined consume of JSONEncoderValue(v405, v371, 3u);
                       return;
                     }
 
                     ++v10;
-                    outlined consume of JSONEncoderValue(v14, v212, v213);
-                    v211 = 0;
-                    v9 += 24;
-                    v210 = v401;
+                    outlined consume of JSONEncoderValue(v14, v208, v209);
+                    v207 = 0;
+                    rawValue += 24;
+                    v206 = v401;
                     if (v383 == v10)
                     {
                       outlined consume of JSONEncoderValue(v401, v389._rawValue, 3u);
                       v419 = 0;
                       v15 = v413;
                       v10 = v415;
-                      v49._rawValue = rawValue;
-                      v13 = 24;
-                      v9 = v373;
+                      v49._rawValue = v405;
+                      v13._rawValue = 24;
+                      rawValue = v373;
                       goto LABEL_340;
                     }
 
@@ -7432,75 +7446,75 @@ LABEL_325:
                   }
                 }
 
-                v150 = v14;
-                if (v161 > 5)
+                v146 = v14;
+                if (v157 > 5)
                 {
-                  if (v161 == 6)
+                  if (v157 == 6)
                   {
-                    specialized Array.append<A>(contentsOf:)(v160);
+                    specialized Array.append<A>(contentsOf:)(v156);
                     goto LABEL_210;
                   }
 
-                  v156 = "null";
-                  v157 = 4;
+                  v152 = "null";
+                  v153 = 4;
 LABEL_209:
-                  specialized Array.append<A>(contentsOf:)(v156, v157);
+                  specialized Array.append<A>(contentsOf:)(v152, v153);
 LABEL_210:
                   v15 = v413;
-                  v49._rawValue = rawValue;
+                  v49._rawValue = v405;
                   goto LABEL_211;
                 }
 
-                v400 = v160;
-                if (v161 == 4)
+                v400 = v156;
+                if (v157 == 4)
                 {
                   v15 = v413;
-                  v49._rawValue = rawValue;
+                  v49._rawValue = v405;
                   if (v413 < 509)
                   {
-                    v183 = *(v10 + 16);
-                    v184 = swift_isUniquelyReferenced_nonNull_native();
-                    *(v10 + 16) = v183;
-                    v369 = v154;
-                    if ((v184 & 1) == 0)
+                    v179 = *(v10 + 16);
+                    v180 = swift_isUniquelyReferenced_nonNull_native();
+                    *(v10 + 16) = v179;
+                    v369 = v150;
+                    if ((v180 & 1) == 0)
                     {
-                      v183 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v183 + 2) + 1, 1, v183);
-                      *(v10 + 16) = v183;
+                      v179 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v179 + 2) + 1, 1, v179);
+                      *(v10 + 16) = v179;
                     }
 
-                    v186 = *(v183 + 2);
-                    v185 = *(v183 + 3);
-                    if (v186 >= v185 >> 1)
+                    v182 = *(v179 + 2);
+                    v181 = *(v179 + 3);
+                    if (v182 >= v181 >> 1)
                     {
-                      v183 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v185 > 1), v186 + 1, 1, v183);
-                      *(v10 + 16) = v183;
+                      v179 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v181 > 1), v182 + 1, 1, v179);
+                      *(v10 + 16) = v179;
                     }
 
-                    *(v183 + 2) = v186 + 1;
-                    v183[v186 + 32] = 123;
-                    v150 = v408;
-                    v154 = v369;
+                    *(v179 + 2) = v182 + 1;
+                    v179[v182 + 32] = 123;
+                    v146 = v408;
+                    v150 = v369;
                     if (*(v10 + 8))
                     {
                       v14 = v408;
-                      v187 = *(v10 + 16);
-                      v189 = *(v187 + 2);
-                      v188 = *(v187 + 3);
-                      if (v189 >= v188 >> 1)
+                      v183 = *(v10 + 16);
+                      v185 = *(v183 + 2);
+                      v184 = *(v183 + 3);
+                      if (v185 >= v184 >> 1)
                       {
-                        v187 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v188 > 1), v189 + 1, 1, v187);
-                        *(v10 + 16) = v187;
+                        v183 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v184 > 1), v185 + 1, 1, v183);
+                        *(v10 + 16) = v183;
                       }
 
-                      *(v187 + 2) = v189 + 1;
-                      v187[v189 + 32] = 10;
+                      *(v183 + 2) = v185 + 1;
+                      v183[v185 + 32] = 10;
                       if (__OFADD__(*v10, 1))
                       {
                         goto LABEL_568;
                       }
 
                       ++*v10;
-                      v150 = v408;
+                      v146 = v408;
                       if (*(v400 + 16))
                       {
                         JSONWriter.writeIndent()();
@@ -7511,42 +7525,42 @@ LABEL_210:
                     *(v382 + 16) = 1;
                     if (*(v10 + 9) != 1)
                     {
-                      v220 = 1 << *(v400 + 32);
-                      if (v220 < 64)
+                      v218 = 1 << *(v400 + 32);
+                      if (v218 < 64)
                       {
-                        v221 = ~(-1 << v220);
+                        v219 = ~(-1 << v218);
                       }
 
                       else
                       {
-                        v221 = -1;
+                        v219 = -1;
                       }
 
-                      v10 = v221 & *(v400 + 64);
-                      v222 = (v220 + 63) >> 6;
+                      v10 = v219 & *(v400 + 64);
+                      v220 = (v218 + 63) >> 6;
 
-                      v224 = 0;
+                      v222 = 0;
                       if (!v10)
                       {
 LABEL_333:
                         while (1)
                         {
-                          v9 = v224 + 1;
-                          if (__OFADD__(v224, 1))
+                          rawValue = v222 + 1;
+                          if (__OFADD__(v222, 1))
                           {
                             break;
                           }
 
-                          if (v9 >= v222)
+                          if (rawValue >= v220)
                           {
                             v15 = v413;
                             v10 = v415;
-                            v49._rawValue = rawValue;
+                            v49._rawValue = v405;
                             goto LABEL_364;
                           }
 
-                          v10 = *(v400 + 64 + 8 * v9);
-                          ++v224;
+                          v10 = *(v400 + 64 + 8 * rawValue);
+                          ++v222;
                           if (v10)
                           {
                             goto LABEL_336;
@@ -7618,13 +7632,13 @@ LABEL_28:
 
                             v417 = specialized _copyCollectionToContiguousArray<A>(_:)(v14);
                             specialized MutableCollection<>.sort(by:)(&v417);
-                            if (v9)
+                            if (rawValue)
                             {
                               goto LABEL_574;
                             }
 
-                            v348 = v417[2];
-                            if (!v348)
+                            v347 = *(v417 + 2);
+                            if (!v347)
                             {
                               goto LABEL_497;
                             }
@@ -7632,22 +7646,22 @@ LABEL_28:
                             v414 = v10;
                             v14 = 0;
                             v412 = v417;
-                            v349 = (v417 + 8);
-                            while (v14 < v412[2])
+                            v348 = v417 + 64;
+                            while (v14 < *(v412 + 16))
                             {
-                              v350 = *(v349 - 2);
-                              v351 = *(v349 - 1);
-                              v352 = *v349;
-                              v353 = *(v349 - 4);
-                              v10 = *(v349 - 3);
+                              v349 = *(v348 - 2);
+                              v350 = *(v348 - 1);
+                              v351 = *v348;
+                              v352 = *(v348 - 4);
+                              v10 = *(v348 - 3);
 
-                              outlined copy of JSONEncoderValue(v350, v351, v352);
-                              serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v353, v10, v350, v351, v352, rawValue, v413, v414);
+                              outlined copy of JSONEncoderValue(v349, v350, v351);
+                              serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v352, v10, v349, v350, v351, v405, v413, v414);
 
                               ++v14;
-                              outlined consume of JSONEncoderValue(v350, v351, v352);
-                              v349 += 40;
-                              if (v348 == v14)
+                              outlined consume of JSONEncoderValue(v349, v350, v351);
+                              v348 += 40;
+                              if (v347 == v14)
                               {
 LABEL_496:
                                 v10 = v414;
@@ -7659,12 +7673,12 @@ LABEL_496:
                           v417 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySS10Foundation16JSONEncoderValueOG_So8NSStringC3key_AH5valuets5NeverOTg5061_s10Foundation10JSONWriterV15serializeObject_5depthySDySSAA16ef11OG_SitKFSo8G31C3key_AG5valuetSSAK_AgLt_tXEfU_Tf1cn_n(v14);
 
                           specialized MutableCollection<>.sort(by:)(&v417);
-                          if (v9)
+                          if (rawValue)
                           {
                             goto LABEL_574;
                           }
 
-                          v419 = v417[2];
+                          v419 = *(v417 + 2);
                           if (!v419)
                           {
                             goto LABEL_497;
@@ -7673,8 +7687,8 @@ LABEL_496:
                           v414 = v10;
                           v14 = 0;
                           v406 = v417;
-                          v30 = (v417 + 7);
-                          while (v14 < v406[2])
+                          v30 = v417 + 56;
+                          while (v14 < *(v406 + 16))
                           {
                             v32 = *(v30 - 3);
                             v31 = *(v30 - 2);
@@ -7682,16 +7696,16 @@ LABEL_496:
                             v34 = *v30;
                             v35 = static String._unconditionallyBridgeFromObjectiveC(_:)(v32);
                             v10 = v36;
-                            v9 = v32;
+                            rawValue = v32;
                             outlined copy of JSONEncoderValue(v31, v33, v34);
-                            serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v35, v10, v31, v33, v34, rawValue, v413, v414);
+                            serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v35, v10, v31, v33, v34, v405, v413, v414);
 
                             ++v14;
                             outlined consume of JSONEncoderValue(v31, v33, v34);
                             v30 += 32;
                             if (v419 == v14)
                             {
-                              v9 = 0;
+                              rawValue = 0;
                               goto LABEL_496;
                             }
                           }
@@ -7700,46 +7714,46 @@ LABEL_496:
 
                       while (1)
                       {
-                        v9 = v224;
+                        rawValue = v222;
 LABEL_336:
-                        v225 = __clz(__rbit64(v10)) | (v9 << 6);
-                        v226 = (*(v223 + 48) + 16 * v225);
-                        v228 = *v226;
-                        v227 = v226[1];
-                        v229 = *(v223 + 56) + 24 * v225;
-                        v230 = *v229;
-                        v14 = *(v229 + 8);
-                        v231 = *(v229 + 16);
+                        v223 = __clz(__rbit64(v10)) | (rawValue << 6);
+                        v224 = (*(v221 + 48) + 16 * v223);
+                        v226 = *v224;
+                        v225 = v224[1];
+                        v227 = *(v221 + 56) + 24 * v223;
+                        v228 = *v227;
+                        v14 = *(v227 + 8);
+                        v229 = *(v227 + 16);
 
-                        outlined copy of JSONEncoderValue(v230, v14, v231);
-                        v232 = v419;
-                        serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v228, v227, v230, v14, v231, v413 + 3, v382, v415);
-                        v419 = v232;
-                        if (v232)
+                        outlined copy of JSONEncoderValue(v228, v14, v229);
+                        v230 = v419;
+                        serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v226, v225, v228, v14, v229, v413 + 3, v382, v415);
+                        v419 = v230;
+                        if (v230)
                         {
                           break;
                         }
 
                         v10 &= v10 - 1;
-                        outlined consume of JSONEncoderValue(v230, v14, v231);
+                        outlined consume of JSONEncoderValue(v228, v14, v229);
 
-                        v224 = v9;
-                        v13 = 24;
-                        v223 = v400;
+                        v222 = rawValue;
+                        v13._rawValue = 24;
+                        v221 = v400;
                         if (!v10)
                         {
                           goto LABEL_333;
                         }
                       }
 
-                      outlined consume of JSONEncoderValue(v230, v14, v231);
+                      outlined consume of JSONEncoderValue(v228, v14, v229);
 
                       outlined consume of JSONEncoderValue(v400, v389._rawValue, 4u);
 LABEL_513:
 
                       outlined consume of JSONEncoderValue(v408, _a._rawValue, 3u);
 LABEL_514:
-                      v356 = rawValue;
+                      v355 = v405;
                       goto LABEL_515;
                     }
 
@@ -7750,59 +7764,59 @@ LABEL_514:
 
                     if (static JSONEncoder.compatibility1)
                     {
-                      v14 = v150;
-                      v190 = v419;
+                      v14 = v146;
+                      v186 = v419;
                       v417 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySS10Foundation16JSONEncoderValueOG_So8NSStringC3key_AH5valuets5NeverOTg5061_s10Foundation10JSONWriterV15serializeObject_5depthySDySSAA16ef11OG_SitKFSo8G31C3key_AG5valuetSSAK_AgLt_tXEfU_Tf1cn_n(v400);
 
                       specialized MutableCollection<>.sort(by:)(&v417);
-                      if (v190)
+                      if (v186)
                       {
-                        v364 = v190;
+                        v363 = v186;
                         goto LABEL_578;
                       }
 
-                      v191 = v417;
-                      v365 = v417[2];
+                      v187 = v417;
+                      v365 = *(v417 + 2);
                       v419 = 0;
                       if (v365)
                       {
-                        v9 = 0;
-                        v192 = (v417 + 7);
+                        rawValue = 0;
+                        v188 = v417 + 56;
                         while (1)
                         {
-                          if (v9 >= v191[2])
+                          if (rawValue >= *(v187 + 16))
                           {
                             goto LABEL_553;
                           }
 
-                          v193 = v191;
-                          v194 = *(v192 - 3);
-                          v14 = *(v192 - 2);
-                          v195 = *(v192 - 1);
-                          v196 = *v192;
-                          v197 = static String._unconditionallyBridgeFromObjectiveC(_:)(v194);
-                          v199 = v198;
-                          v10 = v194;
-                          outlined copy of JSONEncoderValue(v14, v195, v196);
-                          v200 = v419;
-                          serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v197, v199, v14, v195, v196, v413 + 3, v382, v415);
-                          v419 = v200;
-                          if (v200)
+                          v189 = v187;
+                          v190 = *(v188 - 3);
+                          v14 = *(v188 - 2);
+                          v191 = *(v188 - 1);
+                          v192 = *v188;
+                          v193 = static String._unconditionallyBridgeFromObjectiveC(_:)(v190);
+                          v195 = v194;
+                          v10 = v190;
+                          outlined copy of JSONEncoderValue(v14, v191, v192);
+                          v196 = v419;
+                          serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v193, v195, v14, v191, v192, v413 + 3, v382, v415);
+                          v419 = v196;
+                          if (v196)
                           {
                             break;
                           }
 
-                          ++v9;
-                          outlined consume of JSONEncoderValue(v14, v195, v196);
-                          v192 += 32;
-                          v191 = v193;
-                          if (v365 == v9)
+                          ++rawValue;
+                          outlined consume of JSONEncoderValue(v14, v191, v192);
+                          v188 += 32;
+                          v187 = v189;
+                          if (v365 == rawValue)
                           {
                             goto LABEL_363;
                           }
                         }
 
-                        outlined consume of JSONEncoderValue(v14, v195, v196);
+                        outlined consume of JSONEncoderValue(v14, v191, v192);
                         outlined consume of JSONEncoderValue(v400, v389._rawValue, 4u);
 
                         goto LABEL_513;
@@ -7812,63 +7826,65 @@ LABEL_514:
                     else
                     {
                       v14 = v400;
-                      v242 = *(v400 + 16);
-                      if (v242)
+                      v240 = *(v400 + 16);
+                      if (v240)
                       {
-                        v243 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS3key_10Foundation16JSONEncoderValueO5valuet_Tt1g5(*(v400 + 16), 0);
-                        v366 = specialized Sequence._copyContents(initializing:)(&v417, (v243 + 4), v242, v400);
+                        v241 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS3key_10Foundation16JSONEncoderValueO5valuet_Tt1g5(*(v400 + 16), 0);
+                        v242 = specialized Sequence._copyContents(initializing:)(&v417, (v241 + 32), v240, v400);
+                        v364 = v417;
+                        v366 = v242;
                         outlined copy of JSONEncoderValue(v400, v389._rawValue, 4u);
-                        outlined consume of Set<AnyKeyPath>.Iterator._Variant();
-                        if (v366 != v242)
+                        outlined consume of Set<AnyKeyPath>.Iterator._Variant(v364);
+                        if (v366 != v240)
                         {
                           goto LABEL_573;
                         }
 
                         v15 = v413;
-                        v13 = 24;
+                        v13._rawValue = 24;
                       }
 
                       else
                       {
-                        v243 = MEMORY[0x1E69E7CC0];
+                        v241 = MEMORY[0x1E69E7CC0];
                       }
 
-                      v417 = v243;
-                      v244 = v419;
+                      v417 = v241;
+                      v243 = v419;
                       specialized MutableCollection<>.sort(by:)(&v417);
-                      if (v244)
+                      if (v243)
                       {
-                        v364 = v244;
+                        v363 = v243;
                         goto LABEL_578;
                       }
 
-                      v245 = v417;
-                      v419 = v417[2];
+                      v244 = v417;
+                      v419 = *(v417 + 2);
                       if (v419)
                       {
                         v10 = 0;
-                        v9 = (v417 + 8);
+                        rawValue = (v417 + 64);
                         do
                         {
-                          if (v10 >= v245[2])
+                          if (v10 >= *(v244 + 16))
                           {
                             goto LABEL_554;
                           }
 
-                          v246 = v245;
-                          v247 = *(v9 - 16);
-                          v14 = *(v9 - 8);
-                          v248 = *v9;
-                          v250 = *(v9 - 32);
-                          v249 = *(v9 - 24);
+                          v245 = v244;
+                          v246 = *(rawValue - 16);
+                          v14 = *(rawValue - 8);
+                          v247 = *rawValue;
+                          v249 = *(rawValue - 32);
+                          v248 = *(rawValue - 24);
 
-                          outlined copy of JSONEncoderValue(v247, v14, v248);
-                          serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v250, v249, v247, v14, v248, v413 + 3, v382, v415);
+                          outlined copy of JSONEncoderValue(v246, v14, v247);
+                          serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v249, v248, v246, v14, v247, v413 + 3, v382, v415);
 
                           ++v10;
-                          outlined consume of JSONEncoderValue(v247, v14, v248);
-                          v9 += 40;
-                          v245 = v246;
+                          outlined consume of JSONEncoderValue(v246, v14, v247);
+                          rawValue += 40;
+                          v244 = v245;
                         }
 
                         while (v419 != v10);
@@ -7876,20 +7892,20 @@ LABEL_514:
 LABEL_363:
                         v15 = v413;
                         v10 = v415;
-                        v49._rawValue = rawValue;
-                        v13 = 24;
+                        v49._rawValue = v405;
+                        v13._rawValue = 24;
 LABEL_364:
-                        v150 = v408;
-                        v9 = v373;
+                        v146 = v408;
+                        rawValue = v373;
                       }
 
                       else
                       {
                         v419 = 0;
-                        v150 = v408;
+                        v146 = v408;
                       }
 
-                      v154 = v369;
+                      v150 = v369;
                     }
 
                     if (*(v10 + 8) == 1)
@@ -7908,7 +7924,7 @@ LABEL_364:
 
                     outlined consume of JSONEncoderValue(v400, v389._rawValue, 4u);
 LABEL_211:
-                    if (v154 == v375)
+                    if (v150 == v375)
                     {
                       break;
                     }
@@ -7918,82 +7934,82 @@ LABEL_211:
 
                   lazy protocol witness table accessor for type JSONError and conformance JSONError();
                   swift_allocError();
-                  *v363 = 0;
-                  *(v363 + 8) = 0;
-                  *(v363 + 16) = 0;
-                  *(v363 + 24) = 1;
-                  *(v363 + 32) = 0;
-                  *(v363 + 40) = 0;
-                  *(v363 + 48) = 2;
+                  *v362 = 0;
+                  *(v362 + 8) = 0;
+                  *(v362 + 16) = 0;
+                  *(v362 + 24) = 1;
+                  *(v362 + 32) = 0;
+                  *(v362 + 40) = 0;
+                  *(v362 + 48) = 2;
                   swift_willThrow();
                   outlined consume of JSONEncoderValue(v400, v389._rawValue, 4u);
-                  v358 = v14;
+                  v357 = v14;
 LABEL_522:
-                  v359 = _a._rawValue;
-                  v360 = 3;
+                  v358 = _a._rawValue;
+                  v359 = 3;
 LABEL_523:
-                  outlined consume of JSONEncoderValue(v358, v359, v360);
+                  outlined consume of JSONEncoderValue(v357, v358, v359);
 LABEL_524:
-                  v356 = v49._rawValue;
+                  v355 = v49._rawValue;
 LABEL_515:
-                  outlined consume of JSONEncoderValue(v356, v371, 3u);
+                  outlined consume of JSONEncoderValue(v355, v371, 3u);
                   return;
                 }
 
                 v15 = v413;
                 JSONWriter.serializePreformattedByteArray(_:_:depth:)(v400, v389, v413 + 3);
-                v419 = v201;
-                v49._rawValue = rawValue;
-                if (v201)
+                v419 = v197;
+                v49._rawValue = v405;
+                if (v197)
                 {
                   outlined consume of JSONEncoderValue(v400, v389._rawValue, 5u);
-                  v143 = v14;
-                  v144 = _a._rawValue;
-                  v145 = 3;
+                  v139 = v14;
+                  v140 = _a._rawValue;
+                  v141 = 3;
 LABEL_520:
-                  outlined consume of JSONEncoderValue(v143, v144, v145);
-                  v356 = v49._rawValue;
+                  outlined consume of JSONEncoderValue(v139, v140, v141);
+                  v355 = v49._rawValue;
                   goto LABEL_515;
                 }
 
                 outlined consume of JSONEncoderValue(v400, v389._rawValue, 5u);
-                v13 = 24;
-                v150 = v14;
-                if (v154 == v375)
+                v13._rawValue = 24;
+                v146 = v14;
+                if (v150 == v375)
                 {
                   break;
                 }
 
 LABEL_212:
-                v155 = 0;
-                if (v154 >= *(v150 + 16))
+                v151 = 0;
+                if (v150 >= *(v146 + 16))
                 {
                   goto LABEL_543;
                 }
               }
             }
 
-            v253 = *(v10 + 16);
+            v252 = *(v10 + 16);
             if (*(v10 + 8))
             {
-              v254 = swift_isUniquelyReferenced_nonNull_native();
-              *(v10 + 16) = v253;
-              if ((v254 & 1) == 0)
+              v253 = swift_isUniquelyReferenced_nonNull_native();
+              *(v10 + 16) = v252;
+              if ((v253 & 1) == 0)
               {
-                v253 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v253 + 2) + 1, 1, v253);
-                *(v10 + 16) = v253;
+                v252 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v252 + 2) + 1, 1, v252);
+                *(v10 + 16) = v252;
               }
 
-              v256 = *(v253 + 2);
-              v255 = *(v253 + 3);
-              if (v256 >= v255 >> 1)
+              v255 = *(v252 + 2);
+              v254 = *(v252 + 3);
+              if (v255 >= v254 >> 1)
               {
-                v253 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v255 > 1), v256 + 1, 1, v253);
-                *(v10 + 16) = v253;
+                v252 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v254 > 1), v255 + 1, 1, v252);
+                *(v10 + 16) = v252;
               }
 
-              *(v253 + 2) = v256 + 1;
-              v253[v256 + 32] = 10;
+              *(v252 + 2) = v255 + 1;
+              v252[v255 + 32] = 10;
               if (__OFSUB__(*v10, 1))
               {
                 goto LABEL_570;
@@ -8001,32 +8017,32 @@ LABEL_212:
 
               --*v10;
               JSONWriter.writeIndent()();
-              v253 = *(v10 + 16);
+              v252 = *(v10 + 16);
             }
 
-            v257 = swift_isUniquelyReferenced_nonNull_native();
-            *(v10 + 16) = v253;
-            if ((v257 & 1) == 0)
+            v256 = swift_isUniquelyReferenced_nonNull_native();
+            *(v10 + 16) = v252;
+            if ((v256 & 1) == 0)
             {
-              v253 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v253 + 2) + 1, 1, v253);
-              *(v10 + 16) = v253;
+              v252 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v252 + 2) + 1, 1, v252);
+              *(v10 + 16) = v252;
             }
 
-            v144 = _a._rawValue;
-            v259 = *(v253 + 2);
-            v258 = *(v253 + 3);
-            if (v259 >= v258 >> 1)
+            v140 = _a._rawValue;
+            v258 = *(v252 + 2);
+            v257 = *(v252 + 3);
+            if (v258 >= v257 >> 1)
             {
-              v290 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v258 > 1), v259 + 1, 1, v253);
-              v144 = _a._rawValue;
-              v253 = v290;
-              *(v10 + 16) = v290;
+              v289 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v257 > 1), v258 + 1, 1, v252);
+              v140 = _a._rawValue;
+              v252 = v289;
+              *(v10 + 16) = v289;
             }
 
-            *(v253 + 2) = v259 + 1;
-            v253[v259 + 32] = 93;
-            v143 = v408;
-            v145 = 3;
+            *(v252 + 2) = v258 + 1;
+            v252[v258 + 32] = 93;
+            v139 = v408;
+            v141 = 3;
             goto LABEL_415;
           }
 
@@ -8051,34 +8067,34 @@ LABEL_212:
             {
               lazy protocol witness table accessor for type JSONError and conformance JSONError();
               swift_allocError();
-              *v357 = 0;
-              *(v357 + 8) = 0;
-              *(v357 + 16) = 0;
-              *(v357 + 24) = 1;
-              *(v357 + 32) = 0;
-              *(v357 + 40) = 0;
-              *(v357 + 48) = 2;
+              *v356 = 0;
+              *(v356 + 8) = 0;
+              *(v356 + 16) = 0;
+              *(v356 + 24) = 1;
+              *(v356 + 32) = 0;
+              *(v356 + 40) = 0;
+              *(v356 + 48) = 2;
               swift_willThrow();
-              v358 = v107;
-              v359 = _a._rawValue;
-              v360 = 4;
+              v357 = v107;
+              v358 = _a._rawValue;
+              v359 = 4;
               goto LABEL_523;
             }
 
             specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
             v18 = *(*(v10 + 16) + 16);
             specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v18);
-            v125 = specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v18, 123);
+            specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v18, 123);
             v20 = v10 + 16;
-            _NSBundleDeallocatingImmortalBundle(v125, v126);
+            _NSBundleDeallocatingImmortalBundle();
             if (*(v10 + 8))
             {
               specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
               v18 = *(*(v10 + 16) + 16);
               specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v18);
-              v127 = specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v18, 10);
+              specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v18, 10);
               v20 = v10 + 16;
-              _NSBundleDeallocatingImmortalBundle(v127, v128);
+              _NSBundleDeallocatingImmortalBundle();
               if (__OFADD__(*v10, 1))
               {
                 goto LABEL_563;
@@ -8092,65 +8108,65 @@ LABEL_212:
               }
             }
 
-            v372 = v9;
+            v372 = rawValue;
             v374 = swift_allocObject();
             *(v374 + 16) = 1;
             if (*(v10 + 9) != 1)
             {
-              v260 = v49._rawValue;
-              v12 = v107 + 64;
-              v261 = 1 << *(v107 + 32);
-              if (v261 < 64)
+              v259 = v49._rawValue;
+              v12 = (v107 + 64);
+              v260 = 1 << *(v107 + 32);
+              if (v260 < 64)
               {
-                v262 = ~(-1 << v261);
+                v261 = ~(-1 << v260);
               }
 
               else
               {
-                v262 = -1;
+                v261 = -1;
               }
 
-              v263 = v262 & *(v107 + 64);
-              v17 = (v261 + 63) >> 6;
+              v262 = v261 & *(v107 + 64);
+              v17 = (v260 + 63) >> 6;
 
-              v264 = 0;
-              if (v263)
+              v263 = 0;
+              if (v262)
               {
                 while (1)
                 {
-                  v16 = v264;
+                  v16 = v263;
 LABEL_392:
-                  v265 = __clz(__rbit64(v263)) | (v16 << 6);
-                  v266 = (*(v408 + 48) + 16 * v265);
-                  v15 = *v266;
-                  v18 = v266[1];
-                  v267 = *(v408 + 56) + 24 * v265;
-                  v20 = *v267;
-                  v14 = *(v267 + 8);
-                  v268 = *(v267 + 16);
+                  v264 = __clz(__rbit64(v262)) | (v16 << 6);
+                  v265 = (*(v408 + 48) + 16 * v264);
+                  v15 = *v265;
+                  v18 = v265[1];
+                  v266 = *(v408 + 56) + 24 * v264;
+                  v20 = *v266;
+                  v14 = *(v266 + 8);
+                  v267 = *(v266 + 16);
 
-                  outlined copy of JSONEncoderValue(v20, v14, v268);
-                  v269 = v419;
-                  serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v15, v18, v20, v14, v268, v413 + 2, v374, v415);
-                  v419 = v269;
-                  if (v269)
+                  outlined copy of JSONEncoderValue(v20, v14, v267);
+                  v268 = v419;
+                  serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v15, v18, v20, v14, v267, v413 + 2, v374, v415);
+                  v419 = v268;
+                  if (v268)
                   {
                     break;
                   }
 
-                  v263 &= v263 - 1;
-                  outlined consume of JSONEncoderValue(v20, v14, v268);
+                  v262 &= v262 - 1;
+                  outlined consume of JSONEncoderValue(v20, v14, v267);
 
-                  v264 = v16;
-                  v260 = rawValue;
-                  v13 = 24;
-                  if (!v263)
+                  v263 = v16;
+                  v259 = v405;
+                  v13._rawValue = 24;
+                  if (!v262)
                   {
                     goto LABEL_389;
                   }
                 }
 
-                outlined consume of JSONEncoderValue(v20, v14, v268);
+                outlined consume of JSONEncoderValue(v20, v14, v267);
 
                 outlined consume of JSONEncoderValue(v408, _a._rawValue, 4u);
 LABEL_508:
@@ -8161,25 +8177,25 @@ LABEL_508:
 LABEL_389:
               while (1)
               {
-                v16 = v264 + 1;
-                if (__OFADD__(v264, 1))
+                v16 = v263 + 1;
+                if (__OFADD__(v263, 1))
                 {
                   break;
                 }
 
                 if (v16 >= v17)
                 {
-                  v270 = v408;
+                  v269 = v408;
                   v15 = v413;
                   v10 = v415;
-                  v49._rawValue = v260;
-                  v9 = v372;
+                  v49._rawValue = v259;
+                  rawValue = v372;
                   goto LABEL_411;
                 }
 
-                v263 = *(v12 + 8 * v16);
-                ++v264;
-                if (v263)
+                v262 = v12[v16];
+                ++v263;
+                if (v262)
                 {
                   goto LABEL_392;
                 }
@@ -8200,13 +8216,13 @@ LABEL_529:
 
             if (static JSONEncoder.compatibility1)
             {
-              v129 = v49._rawValue;
-              v130 = *(v107 + 16);
-              if (v130)
+              v125 = v49._rawValue;
+              v126 = *(v107 + 16);
+              if (v126)
               {
                 v417 = MEMORY[0x1E69E7CC0];
-                specialized ContiguousArray.reserveCapacity(_:)(v130);
-                v131 = v107 + 64;
+                specialized ContiguousArray.reserveCapacity(_:)(v126);
+                v127 = v107 + 64;
                 v14 = _HashTable.startBucket.getter();
                 v367 = v107 + 64;
                 do
@@ -8216,53 +8232,53 @@ LABEL_529:
                     goto LABEL_544;
                   }
 
-                  if ((*(v131 + 8 * (v14 >> 6)) & (1 << v14)) == 0)
+                  if ((*(v127 + 8 * (v14 >> 6)) & (1 << v14)) == 0)
                   {
                     goto LABEL_545;
                   }
 
-                  v10 = v130;
+                  v10 = v126;
                   v378 = *(v408 + 36);
-                  v132 = *(v408 + 56) + 24 * v14;
-                  v134 = *v132;
-                  v133 = *(v132 + 8);
-                  v135 = *(v132 + 16);
+                  v128 = *(v408 + 56) + 24 * v14;
+                  v130 = *v128;
+                  v129 = *(v128 + 8);
+                  v131 = *(v128 + 16);
                   v381 = String._bridgeToObjectiveCImpl()();
-                  v136 = v417;
-                  v388 = v135;
-                  outlined copy of JSONEncoderValue(v134, v133, v135);
-                  v398._rawValue = v133;
+                  v132 = v417;
+                  v388 = v131;
+                  outlined copy of JSONEncoderValue(v130, v129, v131);
+                  v398._rawValue = v129;
                   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
                   {
-                    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v136[2] + 1, 1);
-                    v136 = v417;
+                    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v132 + 16) + 1, 1);
+                    v132 = v417;
                   }
 
-                  v138 = v136[2];
-                  v137 = v136[3];
-                  v9 = v138 + 1;
-                  if (v138 >= v137 >> 1)
+                  v134 = *(v132 + 16);
+                  v133 = *(v132 + 24);
+                  rawValue = v134 + 1;
+                  if (v134 >= v133 >> 1)
                   {
-                    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v137 > 1), v138 + 1, 1);
-                    v136 = v417;
+                    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v133 > 1), v134 + 1, 1);
+                    v132 = v417;
                   }
 
-                  v136[2] = v9;
-                  v139 = &v136[4 * v138];
-                  v139[4] = v381;
-                  v139[5] = v134;
-                  v139[6] = v398._rawValue;
-                  *(v139 + 56) = v388;
+                  *(v132 + 16) = rawValue;
+                  v135 = v132 + 32 * v134;
+                  *(v135 + 32) = v381;
+                  *(v135 + 40) = v130;
+                  *(v135 + 48) = v398;
+                  *(v135 + 56) = v388;
                   if (v14 >= -(-1 << *(v408 + 32)))
                   {
                     goto LABEL_546;
                   }
 
-                  v131 = v367;
+                  v127 = v367;
                   v10 = v415;
-                  v129 = rawValue;
-                  v13 = 24;
-                  v9 = v372;
+                  v125 = v405;
+                  v13._rawValue = 24;
+                  rawValue = v372;
                   if ((*(v367 + 8 * (v14 >> 6)) & (1 << v14)) == 0)
                   {
                     goto LABEL_547;
@@ -8275,134 +8291,134 @@ LABEL_529:
                   }
 
                   v14 = _HashTable.occupiedBucket(after:)();
-                  --v130;
+                  --v126;
                 }
 
-                while (v130);
+                while (v126);
               }
 
               else
               {
-                v136 = MEMORY[0x1E69E7CC0];
+                v132 = MEMORY[0x1E69E7CC0];
               }
 
-              v417 = v136;
+              v417 = v132;
 
-              v278 = v419;
+              v277 = v419;
               specialized MutableCollection<>.sort(by:)(&v417);
               v15 = v413;
-              v419 = v278;
-              if (v278)
+              v419 = v277;
+              if (v277)
               {
 LABEL_576:
-                v364 = v419;
+                v363 = v419;
                 goto LABEL_578;
               }
 
-              v49._rawValue = v129;
+              v49._rawValue = v125;
 
-              v279 = v417;
-              v403._rawValue = v417[2];
+              v278 = v417;
+              v403._rawValue = *(v417 + 2);
               if (v403._rawValue)
               {
-                v9 = 0;
-                v280 = (v417 + 7);
-                v390 = v417;
+                rawValue = 0;
+                v279 = v417 + 56;
+                v390._rawValue = v417;
                 while (1)
                 {
-                  if (v9 >= v279[2])
+                  if (rawValue >= *(v278 + 16))
                   {
                     goto LABEL_552;
                   }
 
-                  v281 = *(v280 - 3);
-                  v14 = *(v280 - 2);
-                  v282 = *(v280 - 1);
-                  v283 = *v280;
-                  v284 = static String._unconditionallyBridgeFromObjectiveC(_:)(v281);
-                  v286 = v285;
-                  v287 = v281;
-                  outlined copy of JSONEncoderValue(v14, v282, v283);
-                  v288 = v419;
-                  serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v284, v286, v14, v282, v283, v413 + 2, v374, v10);
-                  v419 = v288;
-                  if (v288)
+                  v280 = *(v279 - 3);
+                  v14 = *(v279 - 2);
+                  v281 = *(v279 - 1);
+                  v282 = *v279;
+                  v283 = static String._unconditionallyBridgeFromObjectiveC(_:)(v280);
+                  v285 = v284;
+                  v286 = v280;
+                  outlined copy of JSONEncoderValue(v14, v281, v282);
+                  v287 = v419;
+                  serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v283, v285, v14, v281, v282, v413 + 2, v374, v10);
+                  v419 = v287;
+                  if (v287)
                   {
                     break;
                   }
 
-                  ++v9;
-                  outlined consume of JSONEncoderValue(v14, v282, v283);
-                  v280 += 32;
-                  v279 = v390;
-                  if (v403._rawValue == v9)
+                  ++rawValue;
+                  outlined consume of JSONEncoderValue(v14, v281, v282);
+                  v279 += 32;
+                  v278 = v390._rawValue;
+                  if (v403._rawValue == rawValue)
                   {
                     goto LABEL_409;
                   }
                 }
 
-                outlined consume of JSONEncoderValue(v14, v282, v283);
+                outlined consume of JSONEncoderValue(v14, v281, v282);
                 outlined consume of JSONEncoderValue(v408, _a._rawValue, 4u);
 
                 goto LABEL_508;
               }
 
 LABEL_410:
-              v270 = v408;
+              v269 = v408;
             }
 
             else
             {
               v417 = specialized _copyCollectionToContiguousArray<A>(_:)(v107);
-              v271 = v419;
+              v270 = v419;
               specialized MutableCollection<>.sort(by:)(&v417);
-              v419 = v271;
-              if (v271)
+              v419 = v270;
+              if (v270)
               {
                 goto LABEL_576;
               }
 
-              v272 = v417;
-              v402._rawValue = v417[2];
+              v271 = v417;
+              v402._rawValue = *(v417 + 2);
               if (!v402._rawValue)
               {
                 goto LABEL_410;
               }
 
               v10 = 0;
-              v9 = (v417 + 8);
+              rawValue = (v417 + 64);
               do
               {
-                if (v10 >= v272[2])
+                if (v10 >= *(v271 + 16))
                 {
                   goto LABEL_551;
                 }
 
-                v273 = v272;
-                v274 = *(v9 - 16);
-                v14 = *(v9 - 8);
-                v275 = *v9;
-                v277 = *(v9 - 32);
-                v276 = *(v9 - 24);
+                v272 = v271;
+                v273 = *(rawValue - 16);
+                v14 = *(rawValue - 8);
+                v274 = *rawValue;
+                v276 = *(rawValue - 32);
+                v275 = *(rawValue - 24);
 
-                outlined copy of JSONEncoderValue(v274, v14, v275);
-                serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v277, v276, v274, v14, v275, v413 + 2, v374, v415);
+                outlined copy of JSONEncoderValue(v273, v14, v274);
+                serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v276, v275, v273, v14, v274, v413 + 2, v374, v415);
 
                 ++v10;
-                outlined consume of JSONEncoderValue(v274, v14, v275);
-                v9 += 40;
-                v272 = v273;
+                outlined consume of JSONEncoderValue(v273, v14, v274);
+                rawValue += 40;
+                v271 = v272;
               }
 
               while (v402._rawValue != v10);
               v419 = 0;
               v10 = v415;
 LABEL_409:
-              v49._rawValue = rawValue;
-              v270 = v408;
+              v49._rawValue = v405;
+              v269 = v408;
               v15 = v413;
-              v13 = 24;
-              v9 = v372;
+              v13._rawValue = 24;
+              rawValue = v372;
             }
 
 LABEL_411:
@@ -8421,59 +8437,59 @@ LABEL_411:
 
             specialized Array.append<A>(contentsOf:)("}", 1);
 
-            v143 = v270;
-            v144 = _a._rawValue;
-            v145 = 4;
+            v139 = v269;
+            v140 = _a._rawValue;
+            v141 = 4;
             goto LABEL_415;
           }
 
           JSONWriter.serializePreformattedByteArray(_:_:depth:)(v107, _a, v15 + 2);
-          v419 = v142;
-          v143 = v107;
-          v144 = _a._rawValue;
-          v145 = 5;
-          if (v142)
+          v419 = v138;
+          v139 = v107;
+          v140 = _a._rawValue;
+          v141 = 5;
+          if (v138)
           {
             goto LABEL_520;
           }
 
 LABEL_415:
-          outlined consume of JSONEncoderValue(v143, v144, v145);
+          outlined consume of JSONEncoderValue(v139, v140, v141);
 LABEL_416:
-          if (v9 == v376)
+          if (rawValue == v376)
           {
             break;
           }
 
           v104 = 0;
-          if (v9 >= *(v49._rawValue + 2))
+          if (rawValue >= *(v49._rawValue + 2))
           {
             goto LABEL_536;
           }
         }
       }
 
-      v291 = *(v10 + 16);
+      v290 = *(v10 + 16);
       if (*(v10 + 8))
       {
-        v292 = swift_isUniquelyReferenced_nonNull_native();
-        *(v10 + 16) = v291;
-        if ((v292 & 1) == 0)
+        v291 = swift_isUniquelyReferenced_nonNull_native();
+        *(v10 + 16) = v290;
+        if ((v291 & 1) == 0)
         {
-          v291 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v291 + 2) + 1, 1, v291);
-          *(v10 + 16) = v291;
+          v290 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v290 + 2) + 1, 1, v290);
+          *(v10 + 16) = v290;
         }
 
-        v294 = *(v291 + 2);
-        v293 = *(v291 + 3);
-        if (v294 >= v293 >> 1)
+        v293 = *(v290 + 2);
+        v292 = *(v290 + 3);
+        if (v293 >= v292 >> 1)
         {
-          v291 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v293 > 1), v294 + 1, 1, v291);
-          *(v10 + 16) = v291;
+          v290 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v292 > 1), v293 + 1, 1, v290);
+          *(v10 + 16) = v290;
         }
 
-        *(v291 + 2) = v294 + 1;
-        v291[v294 + 32] = 10;
+        *(v290 + 2) = v293 + 1;
+        v290[v293 + 32] = 10;
         if (__OFSUB__(*v10, 1))
         {
           goto LABEL_565;
@@ -8481,34 +8497,34 @@ LABEL_416:
 
         --*v10;
         JSONWriter.writeIndent()();
-        v291 = *(v10 + 16);
+        v290 = *(v10 + 16);
       }
 
-      v295 = swift_isUniquelyReferenced_nonNull_native();
-      *(v10 + 16) = v291;
-      if ((v295 & 1) == 0)
+      v294 = swift_isUniquelyReferenced_nonNull_native();
+      *(v10 + 16) = v290;
+      if ((v294 & 1) == 0)
       {
-        v291 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v291 + 2) + 1, 1, v291);
-        *(v10 + 16) = v291;
+        v290 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v290 + 2) + 1, 1, v290);
+        *(v10 + 16) = v290;
       }
 
-      v296 = v371;
-      v298 = *(v291 + 2);
-      v297 = *(v291 + 3);
-      if (v298 >= v297 >> 1)
+      v295 = v371;
+      v297 = *(v290 + 2);
+      v296 = *(v290 + 3);
+      if (v297 >= v296 >> 1)
       {
-        v332 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v297 > 1), v298 + 1, 1, v291);
-        v296 = v371;
-        v291 = v332;
-        *(v10 + 16) = v332;
+        v331 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v296 > 1), v297 + 1, 1, v290);
+        v295 = v371;
+        v290 = v331;
+        *(v10 + 16) = v331;
       }
 
-      *(v291 + 2) = v298 + 1;
-      v291[v298 + 32] = 93;
-      outlined consume of JSONEncoderValue(v49._rawValue, v296, 3u);
+      *(v290 + 2) = v297 + 1;
+      v290[v297 + 32] = 93;
+      outlined consume of JSONEncoderValue(v49._rawValue, v295, 3u);
       v69 = v384;
       v45 = v396;
-      v9 = v419;
+      rawValue = v419;
 LABEL_469:
       if (v45 == v69)
       {
@@ -8554,13 +8570,13 @@ LABEL_469:
 LABEL_475:
     lazy protocol witness table accessor for type JSONError and conformance JSONError();
     swift_allocError();
-    *v333 = 0;
-    *(v333 + 8) = 0;
-    *(v333 + 16) = 0;
-    *(v333 + 24) = 1;
-    *(v333 + 32) = 0;
-    *(v333 + 40) = 0;
-    *(v333 + 48) = 2;
+    *v332 = 0;
+    *(v332 + 8) = 0;
+    *(v332 + 16) = 0;
+    *(v332 + 24) = 1;
+    *(v332 + 32) = 0;
+    *(v332 + 40) = 0;
+    *(v332 + 48) = 2;
     swift_willThrow();
     return;
   }
@@ -8593,7 +8609,7 @@ LABEL_475:
 
   v413 = swift_allocObject();
   *(v413 + 16) = 1;
-  rawValue = v11 + 1;
+  v405 = v11 + 1;
   if (*(v10 + 9) == 1)
   {
     if (one-time initialization token for compatibility1 != -1)
@@ -8604,49 +8620,49 @@ LABEL_475:
     goto LABEL_28;
   }
 
-  v419 = v9;
-  v9 = v14 + 64;
-  v338 = 1 << *(v14 + 32);
-  v339 = -1;
-  if (v338 < 64)
+  v419 = rawValue;
+  rawValue = v14 + 64;
+  v337 = 1 << *(v14 + 32);
+  v338 = -1;
+  if (v337 < 64)
   {
-    v339 = ~(-1 << v338);
+    v338 = ~(-1 << v337);
   }
 
-  v11 = v339 & *(v14 + 64);
-  v340 = (v338 + 63) >> 6;
+  v11 = v338 & *(v14 + 64);
+  v339 = (v337 + 63) >> 6;
   v411 = v14;
 
-  v341 = 0;
+  v340 = 0;
   v416 = v10;
   if (v11)
   {
     while (1)
     {
-      v14 = v341;
+      v14 = v340;
 LABEL_487:
-      v342 = __clz(__rbit64(v11)) | (v14 << 6);
-      v343 = (*(v411 + 48) + 16 * v342);
-      v13 = *v343;
-      v23 = v343[1];
-      v344 = *(v411 + 56) + 24 * v342;
-      v345 = *v344;
-      v12 = *(v344 + 8);
-      v346 = *(v344 + 16);
+      v341 = __clz(__rbit64(v11)) | (v14 << 6);
+      v342 = (*(v411 + 48) + 16 * v341);
+      v13._rawValue = v342->_rawValue;
+      v23 = v342[1]._rawValue;
+      v343 = *(v411 + 56) + 24 * v341;
+      v344 = *v343;
+      v12 = *(v343 + 8);
+      v345 = *(v343 + 16);
 
-      outlined copy of JSONEncoderValue(v345, v12, v346);
-      v347 = v419;
-      serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v13, v23, v345, v12, v346, rawValue, v413, v416);
-      v419 = v347;
-      if (v347)
+      outlined copy of JSONEncoderValue(v344, v12, v345);
+      v346 = v419;
+      serializeObjectElement #1 (key:value:depth:) in JSONWriter.serializeObject(_:depth:)(v13._rawValue, v23, v344, v12, v345, v405, v413, v416);
+      v419 = v346;
+      if (v346)
       {
         break;
       }
 
       v11 &= v11 - 1;
-      outlined consume of JSONEncoderValue(v345, v12, v346);
+      outlined consume of JSONEncoderValue(v344, v12, v345);
 
-      v341 = v14;
+      v340 = v14;
       v10 = v416;
       if (!v11)
       {
@@ -8654,7 +8670,7 @@ LABEL_487:
       }
     }
 
-    outlined consume of JSONEncoderValue(v345, v12, v346);
+    outlined consume of JSONEncoderValue(v344, v12, v345);
 
     return;
   }
@@ -8662,8 +8678,8 @@ LABEL_487:
   while (1)
   {
 LABEL_484:
-    v14 = v341 + 1;
-    if (__OFADD__(v341, 1))
+    v14 = v340 + 1;
+    if (__OFADD__(v340, 1))
     {
       __break(1u);
 LABEL_526:
@@ -8674,20 +8690,20 @@ LABEL_527:
       goto LABEL_11;
     }
 
-    if (v14 >= v340)
+    if (v14 >= v339)
     {
       break;
     }
 
-    v11 = *(v9 + 8 * v14);
-    ++v341;
+    v11 = *(rawValue + 8 * v14);
+    ++v340;
     if (v11)
     {
       goto LABEL_487;
     }
   }
 
-  v9 = v419;
+  rawValue = v419;
 LABEL_497:
 
   if (*(v10 + 8) == 1)
@@ -8732,7 +8748,7 @@ LABEL_572:
 LABEL_573:
     __break(1u);
 LABEL_574:
-    v364 = v9;
+    v363 = rawValue;
 LABEL_578:
 
     __break(1u);
@@ -8745,7 +8761,7 @@ LABEL_500:
   }
 }
 
-void JSONWriter.serializeJSON(_:depth:)(Swift::Int a1, unint64_t a2, unsigned __int8 a3, uint64_t a4)
+void JSONWriter.serializeJSON(_:depth:)(Swift::OpaquePointer a1, Swift::OpaquePointer a2, unsigned __int8 a3, uint64_t a4)
 {
   if (a3 > 3u)
   {
@@ -8790,8 +8806,8 @@ LABEL_27:
   {
     if (a3 == 2)
     {
-      v4 = (a1 & 1) == 0;
-      if (a1)
+      v4 = (a1._rawValue & 1) == 0;
+      if (a1._rawValue)
       {
         v5 = "true";
       }
@@ -8828,12 +8844,12 @@ LABEL_24:
   if (a3)
   {
 
-    specialized Array.append<A>(contentsOf:)(a1, a2);
+    specialized Array.append<A>(contentsOf:)(a1._rawValue, a2._rawValue);
   }
 
   else
   {
-    JSONWriter.serializeString(_:)(*&a1);
+    JSONWriter.serializeString(_:)(*&a1._rawValue);
   }
 }
 
@@ -9739,7 +9755,7 @@ LABEL_149:
   return specialized Array.append<A>(contentsOf:)(MEMORY[0x1E69E7CC0]);
 }
 
-uint64_t closure #1 in TimeZoneCache.fixed(_:)@<X0>(uint64_t a1@<X1>, unint64_t a2@<X2>, uint64_t *a3@<X8>)
+void *closure #1 in TimeZoneCache.fixed(_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
 {
   result = TimeZoneCache.State.fixed(_:)(a1, a2);
   *a3 = result;
@@ -9756,7 +9772,7 @@ uint64_t static PredicateExpressions.build_Arg<A>(_:)@<X0>(uint64_t a1@<X0>, uin
   return (*(*(a2 - 8) + 16))(a3, a1, a2);
 }
 
-uint64_t type metadata accessor for JSONDecoder()
+uint64_t type metadata accessor for JSONDecoder(uint64_t a1)
 {
   result = type metadata singleton initialization cache for JSONDecoder;
   if (!type metadata singleton initialization cache for JSONDecoder)
@@ -9769,47 +9785,47 @@ uint64_t type metadata accessor for JSONDecoder()
 
 uint64_t _JSONKeyedEncodingContainer.encode<A>(_:forKey:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
-  v179 = a5;
-  v177 = a3;
+  v180 = a5;
+  v178 = a3;
   v9 = *(a3 + 16);
-  v189 = type metadata accessor for Optional();
-  v178 = *(v189 - 8);
-  MEMORY[0x1EEE9AC00](v189);
-  v11 = &v167 - v10;
+  v190 = type metadata accessor for Optional();
+  v179 = *(v190 - 8);
+  MEMORY[0x1EEE9AC00](v190);
+  v11 = &v168 - v10;
   v12 = *(a4 - 8);
   v14 = MEMORY[0x1EEE9AC00](v13);
-  v16 = &v167 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v175 = v5;
+  v16 = &v168 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v176 = v5;
   v17 = *v5;
   (*(v12 + 16))(v16, a1, a4, v14);
   v18 = *(v9 - 8);
   v20 = v18 + 16;
   v19 = *(v18 + 16);
-  v176 = a2;
-  v174 = v19;
+  v177 = a2;
+  v175 = v19;
   (v19)(v11, a2, v9);
   (*(v18 + 56))(v11, 0, 1, v9);
-  v21 = *(v177 + 24);
-  v22 = v179;
-  v23 = v180;
-  v179 = v17;
+  v21 = *(v178 + 24);
+  v22 = v180;
+  v23 = v181;
+  v180 = v17;
   v24 = __JSONEncoder.wrapGeneric<A, B>(_:for:)(v16, v11, a4, v9, v22, v21);
-  v27 = (v178 + 8);
+  v27 = (v179 + 8);
   if (v23)
   {
-    (*v27)(v11, v189);
+    (*v27)(v11, v190);
     return (*(v12 + 8))(v16, a4);
   }
 
-  v173 = v18;
-  v180 = 0;
+  v174 = v18;
+  v181 = 0;
   v29 = v26;
   v30 = *v27;
   v31 = v24;
   v32 = v11;
   v33 = v25;
-  v34 = v189;
-  LODWORD(v189) = v26;
+  v34 = v190;
+  LODWORD(v190) = v26;
   v30(v32, v34);
   if (v29 == 255)
   {
@@ -9831,8 +9847,8 @@ uint64_t _JSONKeyedEncodingContainer.encode<A>(_:forKey:)(uint64_t a1, uint64_t 
     v36 = v33;
   }
 
-  v177 = v36;
-  v178 = v35;
+  v178 = v36;
+  v179 = v35;
   if (v29 == 255)
   {
     v37 = 4;
@@ -9840,18 +9856,18 @@ uint64_t _JSONKeyedEncodingContainer.encode<A>(_:forKey:)(uint64_t a1, uint64_t 
 
   else
   {
-    v37 = v189;
+    v37 = v190;
   }
 
   (*(v12 + 8))(v16, a4);
-  v39 = *(v175 + 8);
-  v38 = *(v175 + 16);
-  v188[3] = v9;
-  v188[4] = v21;
-  v189 = v21;
-  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v188);
-  (v174)(boxed_opaque_existential_0, v176, v9);
-  v41 = *(v179 + 152);
+  v39 = *(v176 + 8);
+  v38 = *(v176 + 16);
+  v189[3] = v9;
+  v189[4] = v21;
+  v190 = v21;
+  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v189);
+  (v175)(boxed_opaque_existential_0, v177, v9);
+  v41 = *(v180 + 152);
   if (!v41)
   {
     v44 = dispatch thunk of CodingKey.stringValue.getter();
@@ -9862,48 +9878,49 @@ uint64_t _JSONKeyedEncodingContainer.encode<A>(_:forKey:)(uint64_t a1, uint64_t 
 
   if (v41 != 1)
   {
-    v171 = v37;
+    v172 = v37;
+    v56 = *(v180 + 160);
 
-    v56 = __JSONEncoder.codingPath.getter();
-    v57 = _CodingPathNode.path.getter(v38);
-    v184 = v56;
-    specialized Array.append<A>(contentsOf:)(v57);
-    v58 = v184;
-    outlined init with copy of Hashable & Sendable(v188, &v184);
+    v57 = __JSONEncoder.codingPath.getter();
+    v58 = _CodingPathNode.path.getter(v38);
+    v185 = v57;
+    specialized Array.append<A>(contentsOf:)(v58);
+    v59 = v185;
+    outlined init with copy of Hashable & Sendable(v189, &v185);
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v58[2] + 1, 1, v58);
+      v59 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v59[2] + 1, 1, v59);
     }
 
-    v60 = v58[2];
-    v59 = v58[3];
-    v172 = v39;
-    if (v60 >= v59 >> 1)
+    v61 = v59[2];
+    v60 = v59[3];
+    v173 = v39;
+    if (v61 >= v60 >> 1)
     {
-      v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1, v58);
+      v59 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v60 > 1), v61 + 1, 1, v59);
     }
 
-    v61 = __swift_mutable_project_boxed_opaque_existential_1(&v184, v186);
-    v62 = MEMORY[0x1EEE9AC00](v61);
-    v64 = &v167 - ((v63 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v65 + 16))(v64, v62);
-    v182 = v9;
-    v183 = v189;
-    v66 = __swift_allocate_boxed_opaque_existential_0(&v181);
-    (*(v173 + 32))(v66, v64, v9);
-    v58[2] = v60 + 1;
-    outlined init with take of Equatable(&v181, &v58[5 * v60 + 4]);
-    __swift_destroy_boxed_opaque_existential_1(&v184);
-    v41(&v184, v58);
+    v62 = __swift_mutable_project_boxed_opaque_existential_1(&v185, v187);
+    v63 = MEMORY[0x1EEE9AC00](v62);
+    v65 = &v168 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v66 + 16))(v65, v63);
+    v183 = v9;
+    v184 = v190;
+    v67 = __swift_allocate_boxed_opaque_existential_0(&v182);
+    (*(v174 + 32))(v67, v65, v9);
+    v59[2] = v61 + 1;
+    outlined init with take of Equatable(&v182, &v59[5 * v61 + 4]);
+    __swift_destroy_boxed_opaque_existential_1(&v185);
+    v41(&v185, v59);
 
-    LOBYTE(v9) = v187;
-    __swift_project_boxed_opaque_existential_1(&v184, v186);
-    v67 = dispatch thunk of CodingKey.stringValue.getter();
-    v45 = v68;
-    v69 = v41;
-    v44 = v67;
-    sub_1807A5C7C(v69);
-    __swift_destroy_boxed_opaque_existential_1(&v184);
+    LOBYTE(v9) = v188;
+    __swift_project_boxed_opaque_existential_1(&v185, v187);
+    v68 = dispatch thunk of CodingKey.stringValue.getter();
+    v45 = v69;
+    v70 = v41;
+    v44 = v68;
+    sub_1807A5C7C(v70, v56);
+    __swift_destroy_boxed_opaque_existential_1(&v185);
     goto LABEL_94;
   }
 
@@ -9923,7 +9940,7 @@ uint64_t _JSONKeyedEncodingContainer.encode<A>(_:forKey:)(uint64_t a1, uint64_t 
   LODWORD(v47) = v37;
   if (v46)
   {
-    v172 = v39;
+    v173 = v39;
     v48 = String.index(after:)();
     v49 = 7;
     if (((v45 >> 60) & ((v44 & 0x800000000000000) == 0)) != 0)
@@ -9931,7 +9948,7 @@ uint64_t _JSONKeyedEncodingContainer.encode<A>(_:forKey:)(uint64_t a1, uint64_t 
       v49 = 11;
     }
 
-    v173 = 4 * v46;
+    v174 = 4 * v46;
     if (4 * v46 < v48 >> 14)
     {
       __break(1u);
@@ -9939,38 +9956,38 @@ uint64_t _JSONKeyedEncodingContainer.encode<A>(_:forKey:)(uint64_t a1, uint64_t 
 
     else
     {
-      v170 = v49 | (v46 << 16);
-      v189 = v44;
+      v171 = v49 | (v46 << 16);
+      v190 = v44;
       v50 = String.subscript.getter();
       v54 = v53;
-      v171 = v37;
+      v172 = v37;
       if ((v50 ^ v51) >= 0x4000)
       {
         v44 = v50;
-        v70 = v51;
+        v71 = v51;
         v39 = v52;
-        v174 = MEMORY[0x1E69E7CC0];
+        v175 = MEMORY[0x1E69E7CC0];
         v20 = 15;
-        v179 = v45;
+        v180 = v45;
         while (1)
         {
-          v169 = v20;
+          v170 = v20;
           v47 = Substring.UnicodeScalarView.index(before:)();
-          v71 = Substring.UnicodeScalarView.subscript.getter();
-          v72 = v71;
-          v73 = BuiltInUnicodeScalarSet._bitmapPtrForPlane(_:)(BYTE2(v71), 1u);
+          v72 = Substring.UnicodeScalarView.subscript.getter();
+          v73 = v72;
+          v74 = BuiltInUnicodeScalarSet._bitmapPtrForPlane(_:)(BYTE2(v72), 1u);
           v9 = v44;
-          if (!BuiltInUnicodeScalarSet._isMemberOfBitmap(_:_:)(v72, v73, 0x700030001))
+          if (!BuiltInUnicodeScalarSet._isMemberOfBitmap(_:_:)(v73, v74, 0x700030001))
           {
             break;
           }
 
 LABEL_31:
-          v74 = Substring.UnicodeScalarView.index(after:)();
+          v75 = Substring.UnicodeScalarView.index(after:)();
 
-          v75 = v9 >> 14;
-          v76 = v169;
-          if (v9 >> 14 < v169 >> 14 || v74 >> 14 < v75)
+          v76 = v9 >> 14;
+          v77 = v170;
+          if (v9 >> 14 < v170 >> 14 || v75 >> 14 < v76)
           {
             __break(1u);
 LABEL_128:
@@ -9984,107 +10001,107 @@ LABEL_131:
             goto LABEL_132;
           }
 
-          v44 = v174;
+          v44 = v175;
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
             v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v44 + 16) + 1, 1, v44);
           }
 
-          v78 = *(v44 + 16);
-          v77 = *(v44 + 24);
-          if (v78 >= v77 >> 1)
+          v79 = *(v44 + 16);
+          v78 = *(v44 + 24);
+          if (v79 >= v78 >> 1)
           {
-            v75 = v9 >> 14;
-            v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v77 > 1), v78 + 1, 1, v44);
+            v76 = v9 >> 14;
+            v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v78 > 1), v79 + 1, 1, v44);
           }
 
-          *(v44 + 16) = v78 + 1;
-          v174 = v44;
-          v79 = v44 + 16 * v78;
-          *(v79 + 32) = v76;
-          *(v79 + 40) = v9;
-          if (v173 < v75)
+          *(v44 + 16) = v79 + 1;
+          v175 = v44;
+          v80 = v44 + 16 * v79;
+          *(v80 + 32) = v77;
+          *(v80 + 40) = v9;
+          if (v174 < v76)
           {
             goto LABEL_128;
           }
 
-          v80 = String.subscript.getter();
-          v84 = v83;
-          if ((v80 ^ v81) < 0x4000)
+          v81 = String.subscript.getter();
+          v85 = v84;
+          if ((v81 ^ v82) < 0x4000)
           {
             goto LABEL_84;
           }
 
-          v47 = v80;
-          v44 = v81;
-          v39 = v82;
-          v167 = v75;
-          v176 = Substring.UnicodeScalarView.index(before:)();
-          v85 = Substring.UnicodeScalarView.subscript.getter();
-          v86 = v85;
-          v87 = BuiltInUnicodeScalarSet._bitmapPtrForPlane(_:)(BYTE2(v85), 0);
-          v88 = BuiltInUnicodeScalarSet._isMemberOfBitmap(_:_:)(v86, v87, 0x700030000);
-          v89 = v47;
-          if (!v88)
+          v47 = v81;
+          v44 = v82;
+          v39 = v83;
+          v168 = v76;
+          v177 = Substring.UnicodeScalarView.index(before:)();
+          v86 = Substring.UnicodeScalarView.subscript.getter();
+          v87 = v86;
+          v88 = BuiltInUnicodeScalarSet._bitmapPtrForPlane(_:)(BYTE2(v86), 0);
+          v89 = BuiltInUnicodeScalarSet._isMemberOfBitmap(_:_:)(v87, v88, 0x700030000);
+          v90 = v47;
+          if (!v89)
           {
-            v102 = HIBYTE(v84) & 0xF;
-            if ((v84 & 0x2000000000000000) == 0)
+            v103 = HIBYTE(v85) & 0xF;
+            if ((v85 & 0x2000000000000000) == 0)
             {
-              v102 = v39 & 0xFFFFFFFFFFFFLL;
+              v103 = v39 & 0xFFFFFFFFFFFFLL;
             }
 
-            v175 = v102;
-            v169 = v84 & 0xFFFFFFFFFFFFFFLL;
-            v168 = (v84 & 0xFFFFFFFFFFFFFFFLL) + 32;
-            v89 = v47;
-            while ((v89 ^ v176) >= 0x4000)
+            v176 = v103;
+            v170 = v85 & 0xFFFFFFFFFFFFFFLL;
+            v169 = (v85 & 0xFFFFFFFFFFFFFFFLL) + 32;
+            v90 = v47;
+            while ((v90 ^ v177) >= 0x4000)
             {
-              v96 = _StringGuts.validateInclusiveScalarIndex(_:)(v89, v39, v84);
-              v70 = v96 >> 16;
-              if (v96 >> 16 >= v175)
+              v97 = _StringGuts.validateInclusiveScalarIndex(_:)(v90, v39, v85);
+              v71 = v97 >> 16;
+              if (v97 >> 16 >= v176)
               {
                 goto LABEL_105;
               }
 
-              if ((v84 & 0x1000000000000000) != 0)
+              if ((v85 & 0x1000000000000000) != 0)
               {
-                v89 = String.UnicodeScalarView._foreignIndex(after:)();
+                v90 = String.UnicodeScalarView._foreignIndex(after:)();
               }
 
               else
               {
-                if ((v84 & 0x2000000000000000) != 0)
+                if ((v85 & 0x2000000000000000) != 0)
                 {
-                  v184 = v39;
-                  v185 = v169;
-                  v107 = *(&v184 + v70);
+                  v185 = v39;
+                  v186 = v170;
+                  v108 = *(&v185 + v71);
                 }
 
                 else
                 {
-                  v106 = v168;
+                  v107 = v169;
                   if ((v39 & 0x1000000000000000) == 0)
                   {
-                    v106 = _StringObject.sharedUTF8.getter();
+                    v107 = _StringObject.sharedUTF8.getter();
                   }
 
-                  v107 = *(v106 + v70);
+                  v108 = *(v107 + v71);
                 }
 
-                v108 = v107;
-                v109 = __clz(v107 ^ 0xFF) - 24;
-                if (v108 >= 0)
+                v109 = v108;
+                v110 = __clz(v108 ^ 0xFF) - 24;
+                if (v109 >= 0)
                 {
-                  LOBYTE(v109) = 1;
+                  LOBYTE(v110) = 1;
                 }
 
-                v89 = ((v70 + v109) << 16) | 5;
+                v90 = ((v71 + v110) << 16) | 5;
               }
 
-              v103 = Substring.UnicodeScalarView.subscript.getter();
-              v104 = v103;
-              v105 = BuiltInUnicodeScalarSet._bitmapPtrForPlane(_:)(BYTE2(v103), 0);
-              if (BuiltInUnicodeScalarSet._isMemberOfBitmap(_:_:)(v104, v105, 0x700030000))
+              v104 = Substring.UnicodeScalarView.subscript.getter();
+              v105 = v104;
+              v106 = BuiltInUnicodeScalarSet._bitmapPtrForPlane(_:)(BYTE2(v104), 0);
+              if (BuiltInUnicodeScalarSet._isMemberOfBitmap(_:_:)(v105, v106, 0x700030000))
               {
                 goto LABEL_40;
               }
@@ -10096,51 +10113,51 @@ LABEL_84:
           }
 
 LABEL_40:
-          v90 = Substring.UnicodeScalarView.index(after:)();
+          v91 = Substring.UnicodeScalarView.index(after:)();
 
-          if (v90 >> 14 < v89 >> 14)
+          if (v91 >> 14 < v90 >> 14)
           {
             goto LABEL_129;
           }
 
-          if (v89 >> 14 == String.index(after:)() >> 14)
+          if (v90 >> 14 == String.index(after:)() >> 14)
           {
             v20 = v9;
           }
 
           else
           {
-            v110 = String.index(before:)();
-            if (v167 > v110 >> 14)
+            v111 = String.index(before:)();
+            if (v168 > v111 >> 14)
             {
               goto LABEL_131;
             }
 
-            v20 = v110;
-            v112 = *(v174 + 2);
-            v111 = *(v174 + 3);
-            if (v112 >= v111 >> 1)
+            v20 = v111;
+            v113 = *(v175 + 2);
+            v112 = *(v175 + 3);
+            if (v113 >= v112 >> 1)
             {
-              v174 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v111 > 1), v112 + 1, 1, v174);
+              v175 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v112 > 1), v113 + 1, 1, v175);
             }
 
-            v113 = v174;
-            *(v174 + 2) = v112 + 1;
-            v114 = &v113[16 * v112];
-            *(v114 + 4) = v9;
-            *(v114 + 5) = v20;
+            v114 = v175;
+            *(v175 + 2) = v113 + 1;
+            v115 = &v114[16 * v113];
+            *(v115 + 4) = v9;
+            *(v115 + 5) = v20;
           }
 
-          if (v173 < v90 >> 14)
+          if (v174 < v91 >> 14)
           {
             goto LABEL_130;
           }
 
           v44 = String.subscript.getter();
-          v70 = v115;
-          v39 = v116;
-          v54 = v117;
-          if ((v44 ^ v115) < 0x4000)
+          v71 = v116;
+          v39 = v117;
+          v54 = v118;
+          if ((v44 ^ v116) < 0x4000)
           {
             goto LABEL_85;
           }
@@ -10148,28 +10165,28 @@ LABEL_40:
 
         if ((v54 & 0x2000000000000000) != 0)
         {
-          v91 = HIBYTE(v54) & 0xF;
+          v92 = HIBYTE(v54) & 0xF;
         }
 
         else
         {
-          v91 = v39 & 0xFFFFFFFFFFFFLL;
+          v92 = v39 & 0xFFFFFFFFFFFFLL;
         }
 
-        v175 = (v54 & 0xFFFFFFFFFFFFFFFLL) + 32;
-        v176 = v54 & 0xFFFFFFFFFFFFFFLL;
+        v176 = (v54 & 0xFFFFFFFFFFFFFFFLL) + 32;
+        v177 = v54 & 0xFFFFFFFFFFFFFFLL;
         v9 = v44;
         while (1)
         {
           if ((v9 ^ v47) < 0x4000)
           {
-            v20 = v169;
+            v20 = v170;
             goto LABEL_85;
           }
 
-          v96 = _StringGuts.validateInclusiveScalarIndex(_:)(v9, v39, v54);
-          v97 = v96 >> 16;
-          if (v96 >> 16 >= v91)
+          v97 = _StringGuts.validateInclusiveScalarIndex(_:)(v9, v39, v54);
+          v98 = v97 >> 16;
+          if (v97 >> 16 >= v92)
           {
             break;
           }
@@ -10183,38 +10200,38 @@ LABEL_40:
           {
             if ((v54 & 0x2000000000000000) != 0)
             {
-              v184 = v39;
-              v185 = v176;
-              v99 = *(&v184 + v97);
+              v185 = v39;
+              v186 = v177;
+              v100 = *(&v185 + v98);
             }
 
             else
             {
-              v98 = v175;
+              v99 = v176;
               if ((v39 & 0x1000000000000000) == 0)
               {
-                v98 = _StringObject.sharedUTF8.getter();
+                v99 = _StringObject.sharedUTF8.getter();
               }
 
-              v99 = *(v98 + v97);
+              v100 = *(v99 + v98);
             }
 
-            v100 = v99;
-            v101 = __clz(v99 ^ 0xFF) - 24;
-            if (v100 >= 0)
+            v101 = v100;
+            v102 = __clz(v100 ^ 0xFF) - 24;
+            if (v101 >= 0)
             {
-              LOBYTE(v101) = 1;
+              LOBYTE(v102) = 1;
             }
 
-            v9 = ((v97 + v101) << 16) | 5;
+            v9 = ((v98 + v102) << 16) | 5;
           }
 
-          v92 = Substring.UnicodeScalarView.subscript.getter();
-          v93 = v92;
-          v94 = BuiltInUnicodeScalarSet._bitmapPtrForPlane(_:)(BYTE2(v92), 1u);
-          v95 = BuiltInUnicodeScalarSet._isMemberOfBitmap(_:_:)(v93, v94, 0x700030001);
-          v45 = v179;
-          if (v95)
+          v93 = Substring.UnicodeScalarView.subscript.getter();
+          v94 = v93;
+          v95 = BuiltInUnicodeScalarSet._bitmapPtrForPlane(_:)(BYTE2(v93), 1u);
+          v96 = BuiltInUnicodeScalarSet._isMemberOfBitmap(_:_:)(v94, v95, 0x700030001);
+          v45 = v180;
+          if (v96)
           {
             goto LABEL_31;
           }
@@ -10227,65 +10244,65 @@ LABEL_105:
       }
 
       v20 = 15;
-      v174 = MEMORY[0x1E69E7CC0];
+      v175 = MEMORY[0x1E69E7CC0];
 LABEL_85:
 
-      if (v173 >= v20 >> 14)
+      if (v174 >= v20 >> 14)
       {
-        v44 = v174;
+        v44 = v175;
         if (swift_isUniquelyReferenced_nonNull_native())
         {
 LABEL_87:
-          v119 = *(v44 + 16);
-          v118 = *(v44 + 24);
-          v120 = v119 + 1;
-          if (v119 >= v118 >> 1)
+          v120 = *(v44 + 16);
+          v119 = *(v44 + 24);
+          v121 = v120 + 1;
+          if (v120 >= v119 >> 1)
           {
-            v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v118 > 1), v119 + 1, 1, v44);
+            v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v119 > 1), v120 + 1, 1, v44);
           }
 
-          *(v44 + 16) = v120;
-          v121 = v44 + 16 * v119;
-          v122 = v170;
-          *(v121 + 32) = v20;
-          *(v121 + 40) = v122;
-          v184 = MEMORY[0x1E69E7CC0];
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v120, 0);
-          v9 = v184;
-          v174 = v44;
-          v123 = v44 + 40;
+          *(v44 + 16) = v121;
+          v122 = v44 + 16 * v120;
+          v123 = v171;
+          *(v122 + 32) = v20;
+          *(v122 + 40) = v123;
+          v185 = MEMORY[0x1E69E7CC0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v121, 0);
+          v9 = v185;
+          v175 = v44;
+          v124 = v44 + 40;
           do
           {
             String.subscript.getter();
-            v124 = Substring.lowercased()();
+            v125 = Substring.lowercased()();
 
-            v184 = v9;
-            v126 = *(v9 + 16);
-            v125 = *(v9 + 24);
-            if (v126 >= v125 >> 1)
+            v185 = v9;
+            v127 = *(v9 + 16);
+            v126 = *(v9 + 24);
+            if (v127 >= v126 >> 1)
             {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v125 > 1), v126 + 1, 1);
-              v9 = v184;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v126 > 1), v127 + 1, 1);
+              v9 = v185;
             }
 
-            v123 += 16;
-            *(v9 + 16) = v126 + 1;
-            *(v9 + 16 * v126 + 32) = v124;
-            --v120;
+            v124 += 16;
+            *(v9 + 16) = v127 + 1;
+            *(v9 + 16 * v127 + 32) = v125;
+            --v121;
           }
 
-          while (v120);
+          while (v121);
 
-          v184 = v9;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
-          lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd);
+          v185 = v9;
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+          lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd, &_sSaySSGMR, MEMORY[0x1E69E6310]);
           v44 = BidirectionalCollection<>.joined(separator:)();
-          v128 = v127;
+          v129 = v128;
 
-          v45 = v128;
+          v45 = v129;
 LABEL_94:
-          v39 = v172;
-          LODWORD(v47) = v171;
+          v39 = v173;
+          LODWORD(v47) = v172;
           goto LABEL_95;
         }
 
@@ -10300,32 +10317,32 @@ LABEL_126:
   }
 
 LABEL_95:
-  __swift_destroy_boxed_opaque_existential_1(v188);
+  __swift_destroy_boxed_opaque_existential_1(v189);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v188[0] = *(v39 + 16);
-  v70 = v188[0];
+  v189[0] = *(v39 + 16);
+  v71 = v189[0];
   *(v39 + 16) = 0x8000000000000000;
-  v96 = specialized __RawDictionaryStorage.find<A>(_:)(v44, v45);
-  v131 = *(v70 + 16);
-  v132 = (v130 & 1) == 0;
-  v133 = __OFADD__(v131, v132);
-  v134 = v131 + v132;
-  if (v133)
+  v97 = specialized __RawDictionaryStorage.find<A>(_:)(v44, v45);
+  v132 = *(v71 + 16);
+  v133 = (v131 & 1) == 0;
+  v134 = __OFADD__(v132, v133);
+  v135 = v132 + v133;
+  if (v134)
   {
 LABEL_106:
     __break(1u);
 LABEL_107:
-    v172 = v39;
-    v176 = v96;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation10JSONFutureOGMd);
-    v143 = static _DictionaryStorage.copy(original:)();
-    v135 = v143;
-    if (!*(v70 + 16))
+    v173 = v39;
+    v177 = v97;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation10JSONFutureOGMd, &_ss18_DictionaryStorageCySS10Foundation10JSONFutureOGMR);
+    v144 = static _DictionaryStorage.copy(original:)();
+    v136 = v144;
+    if (!*(v71 + 16))
     {
 LABEL_122:
 
-      v96 = v176;
-      v39 = v172;
+      v97 = v177;
+      v39 = v173;
       if (v9)
       {
         goto LABEL_99;
@@ -10334,83 +10351,83 @@ LABEL_122:
       goto LABEL_102;
     }
 
-    v179 = v45;
-    v189 = v44;
-    v171 = v47;
-    v144 = (v143 + 64);
-    v145 = v70 + 64;
-    v146 = ((1 << *(v135 + 32)) + 63) >> 6;
-    if (v135 != v70 || v144 >= v145 + 8 * v146)
+    v180 = v45;
+    v190 = v44;
+    v172 = v47;
+    v145 = (v144 + 64);
+    v146 = v71 + 64;
+    v147 = ((1 << *(v136 + 32)) + 63) >> 6;
+    if (v136 != v71 || v145 >= v146 + 8 * v147)
     {
-      memmove(v144, (v70 + 64), 8 * v146);
+      memmove(v145, (v71 + 64), 8 * v147);
     }
 
-    v147 = 0;
-    *(v135 + 16) = *(v70 + 16);
-    v148 = 1 << *(v70 + 32);
-    v149 = *(v70 + 64);
-    v150 = -1;
-    if (v148 < 64)
+    v148 = 0;
+    *(v136 + 16) = *(v71 + 16);
+    v149 = 1 << *(v71 + 32);
+    v150 = *(v71 + 64);
+    v151 = -1;
+    if (v149 < 64)
     {
-      v150 = ~(-1 << v148);
+      v151 = ~(-1 << v149);
     }
 
-    v151 = v150 & v149;
-    v152 = (v148 + 63) >> 6;
-    if ((v150 & v149) != 0)
+    v152 = v151 & v150;
+    v153 = (v149 + 63) >> 6;
+    if ((v151 & v150) != 0)
     {
       do
       {
-        v153 = __clz(__rbit64(v151));
-        v151 &= v151 - 1;
+        v154 = __clz(__rbit64(v152));
+        v152 &= v152 - 1;
 LABEL_120:
-        v156 = v153 | (v147 << 6);
-        v157 = 16 * v156;
-        v158 = (*(v70 + 48) + 16 * v156);
-        v160 = *v158;
-        v159 = v158[1];
-        v156 *= 24;
-        v161 = *(v70 + 56) + v156;
-        v162 = *v161;
-        v163 = *(v161 + 8);
-        v164 = (*(v135 + 48) + v157);
-        v165 = *(v161 + 16);
-        *v164 = v160;
-        v164[1] = v159;
-        v166 = *(v135 + 56) + v156;
-        *v166 = v162;
-        *(v166 + 8) = v163;
-        *(v166 + 16) = v165;
+        v157 = v154 | (v148 << 6);
+        v158 = 16 * v157;
+        v159 = (*(v71 + 48) + 16 * v157);
+        v161 = *v159;
+        v160 = v159[1];
+        v157 *= 24;
+        v162 = *(v71 + 56) + v157;
+        v163 = *v162;
+        v164 = *(v162 + 8);
+        v165 = (*(v136 + 48) + v158);
+        v166 = *(v162 + 16);
+        *v165 = v161;
+        v165[1] = v160;
+        v167 = *(v136 + 56) + v157;
+        *v167 = v163;
+        *(v167 + 8) = v164;
+        *(v167 + 16) = v166;
 
-        outlined copy of JSONFuture(v162, v163, v165);
+        outlined copy of JSONFuture(v163, v164, v166);
       }
 
-      while (v151);
+      while (v152);
     }
 
-    v154 = v147;
-    LOBYTE(v47) = v171;
-    v44 = v189;
-    v45 = v179;
+    v155 = v148;
+    LOBYTE(v47) = v172;
+    v44 = v190;
+    v45 = v180;
     while (1)
     {
-      v147 = v154 + 1;
-      if (__OFADD__(v154, 1))
+      v148 = v155 + 1;
+      if (__OFADD__(v155, 1))
       {
         break;
       }
 
-      if (v147 >= v152)
+      if (v148 >= v153)
       {
         goto LABEL_122;
       }
 
-      v155 = *(v145 + 8 * v147);
-      ++v154;
-      if (v155)
+      v156 = *(v146 + 8 * v148);
+      ++v155;
+      if (v156)
       {
-        v153 = __clz(__rbit64(v155));
-        v151 = (v155 - 1) & v155;
+        v154 = __clz(__rbit64(v156));
+        v152 = (v156 - 1) & v156;
         goto LABEL_120;
       }
     }
@@ -10420,13 +10437,13 @@ LABEL_132:
     goto LABEL_133;
   }
 
-  LOBYTE(v9) = v130;
-  if (*(v70 + 24) >= v134)
+  LOBYTE(v9) = v131;
+  if (*(v71 + 24) >= v135)
   {
     if (isUniquelyReferenced_nonNull_native)
     {
-      v135 = v70;
-      if (v130)
+      v136 = v71;
+      if (v131)
       {
         goto LABEL_99;
       }
@@ -10437,32 +10454,32 @@ LABEL_132:
     goto LABEL_107;
   }
 
-  specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v134, isUniquelyReferenced_nonNull_native);
-  v135 = v188[0];
-  v96 = specialized __RawDictionaryStorage.find<A>(_:)(v44, v45);
-  if ((v9 & 1) == (v136 & 1))
+  specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v135, isUniquelyReferenced_nonNull_native);
+  v136 = v189[0];
+  v97 = specialized __RawDictionaryStorage.find<A>(_:)(v44, v45);
+  if ((v9 & 1) == (v137 & 1))
   {
     if (v9)
     {
 LABEL_99:
-      v137 = v96;
+      v138 = v97;
 
-      v138 = *(v135 + 56) + 24 * v137;
-      v139 = *v138;
-      v140 = *(v138 + 8);
-      v141 = v177;
-      *v138 = v178;
-      *(v138 + 8) = v141;
-      v142 = *(v138 + 16);
-      *(v138 + 16) = v47;
-      result = outlined consume of JSONFuture(v139, v140, v142);
+      v139 = *(v136 + 56) + 24 * v138;
+      v140 = *v139;
+      v141 = *(v139 + 8);
+      v142 = v178;
+      *v139 = v179;
+      *(v139 + 8) = v142;
+      v143 = *(v139 + 16);
+      *(v139 + 16) = v47;
+      result = outlined consume of JSONFuture(v140, v141, v143);
 LABEL_103:
-      *(v39 + 16) = v135;
+      *(v39 + 16) = v136;
       return result;
     }
 
 LABEL_102:
-    result = specialized _NativeDictionary._insert(at:key:value:)(v96, v44, v45, v178, v177, v47, v135);
+    result = specialized _NativeDictionary._insert(at:key:value:)(v97, v44, v45, v179, v178, v47, v136);
     goto LABEL_103;
   }
 

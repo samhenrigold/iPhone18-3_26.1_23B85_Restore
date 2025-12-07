@@ -1,3 +1,4600 @@
+uint64_t AUv3InstanceBase::isOutOfProcessAUv2(AUv3InstanceBase *this)
+{
+  if (!*(this + 9))
+  {
+    return 0;
+  }
+
+  result = (*(*this + 216))(this);
+  if (result)
+  {
+    return [*(this + 9) isLoadedInProcess] ^ 1;
+  }
+
+  return result;
+}
+
+uint64_t std::function<int ()(objc_object *,void *,unsigned int &)>::operator()(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  v9 = a3;
+  v10 = a2;
+  v6 = *(a1 + 24);
+  if (!v6)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  v7 = (*(*v6 + 48))(v6, &v10, &v9, a4);
+
+  return v7;
+}
+
+uint64_t layoutSize(AVAudioChannelLayout *a1)
+{
+  v1 = a1;
+  if ([(AVAudioChannelLayout *)v1 layout])
+  {
+    if (*[(AVAudioChannelLayout *)v1 layout])
+    {
+      v2 = 12;
+    }
+
+    else
+    {
+      v2 = 20 * [(AVAudioChannelLayout *)v1 layout][8] + 12;
+    }
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+void AUv3InstanceBase::ParameterMap::paramIDsForScope(AUv3InstanceBase::ParameterMap *this, AUv3InstanceBase::ParameterMap *a2, unsigned int a3)
+{
+  AUv3InstanceBase::ParameterMap::checkCacheParameters(a2);
+  *this = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  memset(v14, 0, sizeof(v14));
+  v6 = *(a2 + 6);
+  v7 = *(a2 + 7);
+  if (v7 != v6)
+  {
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4);
+    do
+    {
+      v9 = v8 >> 1;
+      v10 = &v6[48 * (v8 >> 1)];
+      v11 = *v10;
+      if (*v10 != a3)
+      {
+        v12 = (v10 + 12);
+        v13 = v8 + ~v9;
+        if (v11 < a3)
+        {
+          v9 = v13;
+          v6 = v12;
+        }
+      }
+
+      v8 = v9;
+    }
+
+    while (v9);
+    if (v6 < v7 && *v6 == a3)
+    {
+      std::allocator<APAC::UI18>::allocate_at_least[abi:ne200100](1uLL);
+    }
+  }
+
+  objc_destroyWeak(v14);
+}
+
+void sub_18F75EDD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  objc_destroyWeak(va);
+  if (v6)
+  {
+    *(v5 + 8) = v6;
+    operator delete(v6);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t AUv3InstanceBase::ParameterMap::parameterInfo(AUv3InstanceBase::ParameterMap *this, unsigned int a2, unsigned int a3, AudioUnitParameterInfo *a4)
+{
+  AUv3InstanceBase::ParameterMap::checkCacheParameters(this);
+  *&a4->flags = 0;
+  *&a4->clumpID = 0u;
+  *&a4->unit = 0u;
+  *&a4->name[32] = 0u;
+  *&a4->name[48] = 0u;
+  *a4->name = 0u;
+  *&a4->name[16] = 0u;
+  v34 = 0u;
+  v36 = 0;
+  v35 = 0u;
+  LODWORD(v34) = a3;
+  v9 = *(this + 3);
+  v8 = *(this + 4);
+  if (v8 == v9)
+  {
+    goto LABEL_16;
+  }
+
+  v10 = 0xAAAAAAAAAAAAAAABLL * ((v8 - v9) >> 4);
+  do
+  {
+    v11 = v10 >> 1;
+    v12 = &v9[6 * (v10 >> 1)];
+    v13 = *v12 >= a2;
+    if (*v12 == a2)
+    {
+      if (*(v12 + 1))
+      {
+        goto LABEL_8;
+      }
+
+      v13 = *(v12 + 2) >= a3;
+    }
+
+    if (!v13)
+    {
+      v9 = v12 + 6;
+      v11 = v10 + ~v11;
+    }
+
+LABEL_8:
+    v10 = v11;
+  }
+
+  while (v11);
+  if (v9 == v8 || *v9 != a2 || *(v9 + 1) || *(v9 + 2) != a3)
+  {
+LABEL_16:
+    objc_destroyWeak(&v34 + 1);
+    WeakRetained = 0;
+    goto LABEL_17;
+  }
+
+  WeakRetained = objc_loadWeakRetained(v9 + 2);
+  v15 = *(v9 + 10);
+  objc_destroyWeak(&v34 + 1);
+  if (!WeakRetained)
+  {
+LABEL_17:
+    v23 = 4294956418;
+    goto LABEL_18;
+  }
+
+  v16 = objc_loadWeakRetained(this);
+  v17 = [v16 parameterTree];
+  v18 = [v17 _autoCreatedForV2AU];
+
+  v19 = [WeakRetained unitName];
+  a4->unitName = v19;
+
+  a4->unit = [WeakRetained unit];
+  [WeakRetained minValue];
+  a4->minValue = v20;
+  [WeakRetained maxValue];
+  a4->maxValue = v21;
+  if (v18)
+  {
+    [WeakRetained _defaultValue];
+  }
+
+  else
+  {
+    [WeakRetained value];
+  }
+
+  a4->defaultValue = v22;
+  v25 = [WeakRetained flags];
+  a4->flags = v25 | 0x8000000;
+  a4->clumpID = v15;
+  v28 = *(this + 13);
+  v27 = this + 104;
+  v26 = v28;
+  if (v28)
+  {
+    v29 = v27;
+    do
+    {
+      v30 = *(v26 + 8);
+      v13 = v30 >= v15;
+      v31 = v30 < v15;
+      if (v13)
+      {
+        v29 = v26;
+      }
+
+      v26 = *&v26[8 * v31];
+    }
+
+    while (v26);
+    if (v29 != v27 && v15 >= *(v29 + 8))
+    {
+      a4->flags = v25 | 0x8100000;
+    }
+  }
+
+  v32 = [WeakRetained displayName];
+  v33 = v32;
+  if (v32)
+  {
+    a4->cfNameString = v32;
+    stpncpy(a4->name, [(__CFString *)v32 UTF8String], 0x34uLL);
+  }
+
+  else
+  {
+    a4->cfNameString = &stru_1F0340B48;
+  }
+
+  v23 = 0;
+LABEL_18:
+
+  return v23;
+}
+
+uint64_t AUv3InstanceBase::ParameterMap::parameterValueStrings(id **a1, unsigned int a2, unsigned int a3, void *a4)
+{
+  v5 = AUv3InstanceBase::ParameterMap::findParameterByScopeElementID(a1, a2, 0, a3);
+  v6 = v5;
+  if (v5)
+  {
+    v7 = [v5 valueStrings];
+    *a4 = v7;
+    if (v7)
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = 4294956417;
+    }
+  }
+
+  else
+  {
+    v8 = 4294956418;
+  }
+
+  return v8;
+}
+
+uint64_t AUv3InstanceBase::ParameterMap::parameterStringFromValue(id **this, unsigned int a2, unsigned int a3, const float *a4, const __CFString **a5)
+{
+  *a5 = 0;
+  v7 = AUv3InstanceBase::ParameterMap::findParameterByScopeElementID(this, a2, 0, a3);
+  v8 = v7;
+  if (v7)
+  {
+    v9 = [v7 stringFromValue:a4];
+    v10 = v9;
+    if (v9)
+    {
+      *a5 = v9;
+    }
+
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = 4294956418;
+  }
+
+  return v11;
+}
+
+uint64_t AUv3InstanceBase::ParameterMap::parameterIDName(id *this, unsigned int a2, unsigned int a3, int a4, const __CFString **a5)
+{
+  WeakRetained = objc_loadWeakRetained(this);
+  v11 = [WeakRetained parameterTree];
+
+  *a5 = 0;
+  v12 = AUv3InstanceBase::ParameterMap::findParameterByScopeElementID(this, a2, 0, a3);
+  v13 = v12;
+  if (v12)
+  {
+    v14 = [v12 displayNameWithLength:a4];
+    v15 = v14;
+    if (v14)
+    {
+      v16 = 0;
+      *a5 = v14;
+    }
+
+    else
+    {
+      v16 = 4294956417;
+    }
+  }
+
+  else
+  {
+    v16 = 4294956418;
+  }
+
+  return v16;
+}
+
+uint64_t AUv3InstanceBase::ParameterMap::parameterGroupName(AUv3InstanceBase::ParameterMap *this, unsigned int a2, const __CFString **a3)
+{
+  AUv3InstanceBase::ParameterMap::checkCacheParameters(this);
+  *a3 = 0;
+  v8 = *(this + 13);
+  v7 = this + 104;
+  v6 = v8;
+  if (!v8)
+  {
+    return 4294967246;
+  }
+
+  v9 = v7;
+  do
+  {
+    v10 = *(v6 + 8);
+    v11 = v10 >= a2;
+    v12 = v10 < a2;
+    if (v11)
+    {
+      v9 = v6;
+    }
+
+    v6 = *&v6[8 * v12];
+  }
+
+  while (v6);
+  if (v9 == v7 || *(v9 + 8) > a2)
+  {
+    return 4294967246;
+  }
+
+  v14 = *(v9 + 5);
+  v15 = [v14 displayName];
+
+  if (v15)
+  {
+    *a3 = [v14 displayName];
+  }
+
+  return 0;
+}
+
+uint64_t AUv3InstanceBase::ParameterMap::parameterValueFromString(id **this, unsigned int a2, unsigned int a3, const __CFString *a4, float *a5)
+{
+  *a5 = 0.0;
+  v7 = AUv3InstanceBase::ParameterMap::findParameterByScopeElementID(this, a2, 0, a3);
+  v8 = v7;
+  if (v7)
+  {
+    [v7 valueFromString:a4];
+    v9 = 0;
+    *a5 = v10;
+  }
+
+  else
+  {
+    v9 = 4294956418;
+  }
+
+  return v9;
+}
+
+uint64_t AUv3InstanceBase::GetPropertyInfo(AUv3InstanceBase *this, int a2, int a3, int a4, unsigned int *a5, unsigned __int8 *a6)
+{
+  v9 = a3;
+  v10 = a2;
+  v8 = a4;
+  v7[0] = this;
+  v7[1] = &v10;
+  v7[2] = &v9;
+  v7[3] = &v8;
+  v7[4] = a5;
+  v7[5] = a6;
+  return AUv3InstanceBase::NSExceptionBarrier(caulk::function_ref<int ()(void)>::functor_invoker<AUv3InstanceBase::GetPropertyInfo(unsigned int,unsigned int,unsigned int,unsigned int &,unsigned char &)::{lambda(void)#1}>, v7);
+}
+
+uint64_t caulk::function_ref<int ()(void)>::functor_invoker<AUv3InstanceBase::GetPropertyInfo(unsigned int,unsigned int,unsigned int,unsigned int &,unsigned char &)::{lambda(void)#1}>(uint64_t **a1)
+{
+  v53 = *MEMORY[0x1E69E9840];
+  v1 = **a1;
+  v2 = *(*a1)[1];
+  v3 = *(*a1)[2];
+  v4 = *(*a1)[3];
+  v5 = (*a1)[4];
+  v6 = (*a1)[5];
+  v43 = 0;
+  v7 = CADeprecated::TSingleton<AUAudioUnitProperties>::instance();
+  Value = CFDictionaryGetValue(*(v7 + 8), v2);
+  if (Value)
+  {
+    v9 = Value;
+    *__p = 0;
+    v10 = objc_opt_class();
+    v11 = [v9[1] UTF8String];
+    AUAudioUnitProperties::accessorsForProperty(v10, v11, 0, __p, v12);
+    *v6 = objc_opt_respondsToSelector() & 1;
+    v13 = (**v9)(v9, *(v1 + 72), v3, v4);
+    v14 = v13;
+    if ((v13 & 0x100000000) == 0)
+    {
+      return v14;
+    }
+
+    if (v13)
+    {
+      *v5 = v13;
+      if ((v9[2] & 5) != 0)
+      {
+        return 0;
+      }
+
+      v14 = 0;
+LABEL_47:
+      *v6 = 0;
+      return v14;
+    }
+
+    if (v9[6])
+    {
+      if ((v9[2] & 2) != 0)
+      {
+        v22 = AUv3InstanceBase::GetBus(v1, v3, v4, &v43);
+        v23 = v22;
+        v14 = v43;
+        if (v43)
+        {
+
+          v15 = 0;
+          goto LABEL_99;
+        }
+
+        v15 = [v22 valueForKey:v9[1]];
+      }
+
+      else
+      {
+        if (v3)
+        {
+          v15 = 0;
+          v14 = 4294956430;
+LABEL_99:
+
+          return v14;
+        }
+
+        if (v4)
+        {
+          v15 = 0;
+          v14 = 4294956419;
+          goto LABEL_99;
+        }
+
+        v15 = [*(v1 + 72) valueForKey:v9[1]];
+      }
+
+      if (v15)
+      {
+        *v5 = 0;
+        v14 = std::function<int ()(objc_object *,void *,unsigned int &)>::operator()((v9 + 3), v15, 0, v5);
+      }
+
+      else
+      {
+        v14 = 4294956445;
+      }
+
+      goto LABEL_99;
+    }
+  }
+
+  if (v2 <= 37)
+  {
+    switch(v2)
+    {
+      case 1:
+      case 23:
+        if (v3 != 1)
+        {
+          return 4294956430;
+        }
+
+        if (0xCCCCCCCCCCCCCCCDLL * ((*(v1 + 152) - *(v1 + 144)) >> 3) <= v4)
+        {
+          return 4294956419;
+        }
+
+        if (v2 == 23 || v2 == 1)
+        {
+          v14 = 0;
+          v17 = 16;
+          goto LABEL_61;
+        }
+
+        return 4294956417;
+      case 2:
+        if (v3)
+        {
+          v31 = v4;
+        }
+
+        else
+        {
+          v31 = 0;
+        }
+
+        if (v3)
+        {
+          v32 = v3;
+        }
+
+        else
+        {
+          v32 = 2;
+        }
+
+        v33 = AUv3InstanceBase::GetBus(v1, v32, v31, &v43);
+        v14 = v43;
+        if (!v43)
+        {
+          goto LABEL_42;
+        }
+
+        return v14;
+      case 3:
+        AUv3InstanceBase::ParameterMap::paramIDsForScope(__p, (v1 + 200), v3);
+        v34 = *__p;
+        *v5 = (*&__p[8] - *__p) & 0xFFFFFFFC;
+        *v6 = 0;
+        if (v34)
+        {
+          operator delete(v34);
+        }
+
+        return 0;
+      case 4:
+        v14 = 0;
+        v21 = 104;
+        goto LABEL_46;
+      case 8:
+        if (v3)
+        {
+          v28 = v4;
+        }
+
+        else
+        {
+          v28 = 0;
+        }
+
+        if (v3)
+        {
+          v29 = v3;
+        }
+
+        else
+        {
+          v29 = 2;
+        }
+
+        v30 = AUv3InstanceBase::GetBus(v1, v29, v28, &v43);
+        v14 = v43;
+        if (!v43)
+        {
+          goto LABEL_60;
+        }
+
+        return v14;
+      case 11:
+        if ((v3 - 3) < 0xFFFFFFFE)
+        {
+          return 4294956430;
+        }
+
+        v37 = *(v1 + 72);
+        if (v3 == 1)
+        {
+          [v37 inputBusses];
+        }
+
+        else
+        {
+          [v37 outputBusses];
+        }
+        v42 = ;
+        *v5 = 4;
+        *v6 = [v42 isCountChangeable];
+
+        return 0;
+      case 13:
+        v26 = [*(v1 + 72) channelCapabilities];
+        v27 = v26;
+        if (v26)
+        {
+          *v5 = 2 * [v26 count];
+          *v6 = 0;
+
+          return 0;
+        }
+
+        v36 = *AudioComponentLogCategory();
+        if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        {
+          return 4294956417;
+        }
+
+        *__p = 136316162;
+        *&__p[4] = "AUv3Instance.mm";
+        v45 = 1024;
+        v46 = 767;
+        v47 = 1024;
+        v48 = 13;
+        v49 = 1024;
+        v50 = v3;
+        v51 = 1024;
+        v52 = v4;
+        goto LABEL_93;
+      case 19:
+        v24 = AUv3InstanceBase::GetBus(v1, v3, v4, &v43);
+        v25 = v24;
+        v14 = v43;
+        if (v43)
+        {
+
+          return v14;
+        }
+
+        *v6 = 1;
+        v38 = [v24 format];
+        v39 = [v38 channelLayout];
+
+        if (v39)
+        {
+          *v5 = layoutSize(v39);
+
+          return 0;
+        }
+
+        v14 = 4294956445;
+        break;
+      case 27:
+        v14 = 0;
+LABEL_60:
+        v17 = 40;
+        goto LABEL_61;
+      case 29:
+        *v5 = 4;
+        if (*(v1 + 72) && (*(*v1 + 216))(v1))
+        {
+          v35 = [*(v1 + 72) isLoadedInProcess];
+        }
+
+        else
+        {
+          v35 = 1;
+        }
+
+        v14 = 0;
+        *v6 = v35;
+        return v14;
+      case 33:
+        goto LABEL_40;
+      case 34:
+      case 35:
+        v14 = 0;
+        v21 = 16;
+        goto LABEL_46;
+      default:
+        goto LABEL_75;
+    }
+
+    return v14;
+  }
+
+  if (v2 <= 1841)
+  {
+    if (v2 <= 55)
+    {
+      if (v2 != 38)
+      {
+        if (v2 == 45)
+        {
+          v18 = AUv3InstanceBase::ParameterMap::findParameterByScopeElementID((v1 + 200), v3, 0, v4);
+          v19 = v18;
+          if (!v18)
+          {
+            return 4294967246;
+          }
+
+          v20 = [v18 dependentParameters];
+          *v5 = 8 * [v20 count];
+
+          *v6 = 0;
+          return 0;
+        }
+
+        goto LABEL_75;
+      }
+
+LABEL_40:
+      v14 = 0;
+      v21 = 24;
+LABEL_46:
+      *v5 = v21;
+      goto LABEL_47;
+    }
+
+    if (v2 != 56)
+    {
+      if (v2 == 57)
+      {
+        v14 = 0;
+        *v5 = 0;
+        goto LABEL_47;
+      }
+
+      goto LABEL_75;
+    }
+
+LABEL_41:
+    v14 = 0;
+LABEL_42:
+    v17 = 8;
+LABEL_61:
+    *v5 = v17;
+    *v6 = 1;
+    return v14;
+  }
+
+  if (v2 > 3500)
+  {
+    if (v2 != 3501 && v2 != 3502)
+    {
+      goto LABEL_75;
+    }
+
+LABEL_36:
+    v14 = 0;
+    v21 = 8;
+    goto LABEL_46;
+  }
+
+  if (v2 == 1842)
+  {
+    goto LABEL_41;
+  }
+
+  if (v2 == 2015)
+  {
+    goto LABEL_36;
+  }
+
+LABEL_75:
+  if (!gAudioComponentLogCategory)
+  {
+    operator new();
+  }
+
+  v36 = *gAudioComponentLogCategory;
+  if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_ERROR))
+  {
+    *__p = 136316162;
+    *&__p[4] = "AUv3Instance.mm";
+    v45 = 1024;
+    v46 = 910;
+    v47 = 1024;
+    v48 = v2;
+    v49 = 1024;
+    v50 = v3;
+    v51 = 1024;
+    v52 = v4;
+LABEL_93:
+    _os_log_impl(&dword_18F5DF000, v36, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid property id %d (scope %d, element %d)", __p, 0x24u);
+  }
+
+  return 4294956417;
+}
+
+os_log_t *AudioComponentLogCategory(void)
+{
+  if (!gAudioComponentLogCategory)
+  {
+    operator new();
+  }
+
+  return gAudioComponentLogCategory;
+}
+
+uint64_t AUv3InstanceBase::Reset(AUv3InstanceBase *this, int a2, int a3)
+{
+  v5 = a3;
+  v6 = a2;
+  v4[0] = &v6;
+  v4[1] = &v5;
+  v4[2] = this;
+  return AUv3InstanceBase::NSExceptionBarrier(caulk::function_ref<int ()(void)>::functor_invoker<AUv3InstanceBase::Reset(unsigned int,unsigned int)::{lambda(void)#1}>, v4);
+}
+
+uint64_t caulk::function_ref<int ()(void)>::functor_invoker<AUv3InstanceBase::Reset(unsigned int,unsigned int)::{lambda(void)#1}>(void *a1)
+{
+  v3 = *a1;
+  if (***a1)
+  {
+    return 4294956430;
+  }
+
+  if (*v3[1])
+  {
+    return 4294956419;
+  }
+
+  [*(v3[2] + 9) reset];
+  return 0;
+}
+
+uint64_t caulk::function_ref<int ()(void)>::functor_invoker<AUv3InstanceBase::Uninitialize(void)::{lambda(void)#1}>(uint64_t **a1)
+{
+  v1 = **a1;
+  if (*(v1 + 80) == 1)
+  {
+    [*(v1 + 72) deallocateRenderResources];
+    *(v1 + 80) = 0;
+  }
+
+  return 0;
+}
+
+uint64_t caulk::function_ref<int ()(void)>::functor_invoker<AUv3InstanceBase::Initialize(void)::{lambda(void)#1}>(uint64_t **a1)
+{
+  v1 = **a1;
+  if (*(v1 + 80))
+  {
+    return 0;
+  }
+
+  v3 = *(v1 + 72);
+  v8 = 0;
+  v4 = [v3 allocateRenderResourcesAndReturnError:&v8];
+  v5 = v8;
+  v6 = v5;
+  if (v4)
+  {
+    AUv3RenderAdapter::initialize((v1 + 136), *(v1 + 72));
+    v2 = 0;
+    *(v1 + 80) = 1;
+  }
+
+  else if (v5)
+  {
+    v2 = [v5 code];
+  }
+
+  else
+  {
+    v2 = 0xFFFFFFFFLL;
+  }
+
+  return v2;
+}
+
+uint64_t AUv3InstanceBase::Close(AUv3InstanceBase *this)
+{
+  (*(*this + 64))(this);
+  v2 = *(this + 11);
+  *(this + 11) = 0;
+
+  v3 = *(this + 22);
+  if (v3)
+  {
+    *(this + 22) = 0;
+  }
+
+  v4 = *(this + 23);
+  if (v4)
+  {
+    *(this + 23) = 0;
+  }
+
+  v5 = *(this + 24);
+  if (v5)
+  {
+    *(this + 24) = 0;
+  }
+
+  AUv3InstanceBase::ParameterMap::setAudioUnit((this + 200), 0, 0);
+  v6 = *(this + 9);
+  *(this + 9) = 0;
+
+  return 0;
+}
+
+void AUv3InstanceBase::ParameterMap::setAudioUnit(AUv3InstanceBase::ParameterMap *this, AUv3InstanceBase *a2, AUAudioUnit *a3)
+{
+  obj = a3;
+  WeakRetained = objc_loadWeakRetained(this);
+
+  if (WeakRetained != obj)
+  {
+    v6 = objc_loadWeakRetained(this);
+    [v6 removeObserver:*(this + 9) forKeyPath:@"parameterTree" context:0];
+
+    v7 = atomic_exchange(this + 11, 0);
+    if (v7)
+    {
+      v8 = objc_loadWeakRetained(this);
+      v9 = [v8 parameterTree];
+      [v9 removeParameterObserver:v7];
+    }
+
+    atomic_store(0, this + 16);
+    v10 = objc_storeWeak(this, obj);
+    *(this + 1) = a2;
+    v11 = v10;
+
+    if (obj)
+    {
+      v12 = objc_loadWeakRetained(this);
+      [v12 addObserver:*(this + 9) forKeyPath:@"parameterTree" options:3 context:0];
+
+      *(this + 80) = 1;
+    }
+  }
+}
+
+void sub_18F75FFCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  if (a2 == 1)
+  {
+    objc_begin_catch(a1);
+    objc_end_catch();
+    JUMPOUT(0x18F75FF44);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL AUv3InstanceBase::CanDo(AUv3InstanceBase *this, unsigned int a2)
+{
+  if (a2 <= 0x15)
+  {
+    result = 1;
+    if (((1 << a2) & 0x37CEFE) != 0)
+    {
+      return result;
+    }
+  }
+
+  if (a2 - 257 >= 2)
+  {
+    if (a2 - 513 <= 1)
+    {
+      return *(this + 12) == 1635086197;
+    }
+
+    return 0;
+  }
+
+  v4 = *(this + 12);
+  result = 1;
+  if (v4 > 1635086952)
+  {
+    if (v4 == 1635086953)
+    {
+      return result;
+    }
+
+    v5 = 29293;
+  }
+
+  else
+  {
+    if (v4 == 1635085673)
+    {
+      return result;
+    }
+
+    v5 = 28021;
+  }
+
+  if (v4 != (v5 | 0x61750000))
+  {
+    return 0;
+  }
+
+  return result;
+}
+
+void ___ZN16AUv3InstanceBase12ParameterMapC2Ev_block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = objc_autoreleasePoolPush();
+  os_unfair_recursive_lock_lock_with_options();
+  WeakRetained = objc_loadWeakRetained((v1 + 128));
+  v4 = WeakRetained;
+  if (WeakRetained)
+  {
+    if (atomic_exchange((v1 + 88), 0))
+    {
+      [WeakRetained removeParameterObserver:?];
+    }
+
+    objc_storeWeak((v1 + 128), 0);
+  }
+
+  atomic_store(0, (v1 + 16));
+  os_unfair_recursive_lock_unlock();
+  v5 = objc_loadWeakRetained(v1);
+  v6 = [v5 parameterTree];
+
+  if (v6)
+  {
+    v7 = v6;
+    if ([v7 _autoCreatedForV2AU] >= 2)
+    {
+      v8 = *(v1 + 8);
+      os_unfair_recursive_lock_lock_with_options();
+      memset(v12, 0, sizeof(v12));
+      v9 = *(v8 + 104);
+      v10 = *(v8 + 112);
+      v13 = v12;
+      v14 = 0;
+      v11 = v10 - v9;
+      if (v10 != v9)
+      {
+        if (!((v11 >> 4) >> 60))
+        {
+          std::allocator<std::shared_ptr<CA::ADMContent>>::allocate_at_least[abi:ne200100](v11 >> 4);
+        }
+
+        std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
+      }
+
+      v13 = v12;
+      std::vector<std::shared_ptr<AudioMetadataTimeline::Node<AudioMetadataStreamFormat,AudioMetadataTimeline::Node<AudioMetadataTrackFormat,AudioMetadataTimeline::Node<AudioMetadataTrackUID,AudioMetadataTimeline::Node<AudioMetadataObject,AudioMetadataTimeline::Node<AudioMetadataContent,AudioMetadataTimeline::Node<AudioMetadataProgramme,AudioMetadataTimeline::Node<AudioMetadataFormatExtended,decltype(nullptr)>>>>>>>>>::__destroy_vector::operator()[abi:ne200100](&v13);
+      os_unfair_recursive_lock_unlock();
+    }
+  }
+
+  objc_autoreleasePoolPop(v2);
+}
+
+void sub_18F7602B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  std::vector<std::shared_ptr<AudioMetadataTimeline::Node<AudioMetadataStreamFormat,AudioMetadataTimeline::Node<AudioMetadataTrackFormat,AudioMetadataTimeline::Node<AudioMetadataTrackUID,AudioMetadataTimeline::Node<AudioMetadataObject,AudioMetadataTimeline::Node<AudioMetadataContent,AudioMetadataTimeline::Node<AudioMetadataProgramme,AudioMetadataTimeline::Node<AudioMetadataFormatExtended,decltype(nullptr)>>>>>>>>>::__destroy_vector::operator()[abi:ne200100](va);
+  os_unfair_recursive_lock_unlock();
+
+  _Unwind_Resume(a1);
+}
+
+void AUv3InstanceBase::AUv3InstanceBase(AUv3InstanceBase *this, const AudioComponentDescription *a2)
+{
+  *this = &unk_1F033C758;
+  *(this + 5) = 0;
+  *(this + 1) = AUIB_Open;
+  *(this + 2) = AUIB_Close;
+  componentType = a2->componentType;
+  v4 = AUInstanceBase::LookupMethod_Music;
+  if (a2->componentType <= 1635086196)
+  {
+    v5 = componentType - 1635085670;
+    v6 = v5 > 0xF;
+    v7 = (1 << v5) & 0x8009;
+    if (!v6 && v7 != 0)
+    {
+      goto LABEL_15;
+    }
+
+LABEL_14:
+    v4 = AUInstanceBase::LookupMethod;
+    goto LABEL_15;
+  }
+
+  if (componentType != 1635086957 && componentType != 1635086953)
+  {
+    if (componentType == 1635086197)
+    {
+      v4 = AUInstanceBase::LookupMethod_Output;
+      goto LABEL_15;
+    }
+
+    goto LABEL_14;
+  }
+
+LABEL_15:
+  *(this + 3) = v4;
+  *(this + 4) = 0;
+  *this = &unk_1F033C378;
+  v10 = *&a2->componentType;
+  *(this + 16) = a2->componentFlagsMask;
+  *(this + 3) = v10;
+  *(this + 9) = 0;
+  *(this + 80) = 0;
+  *(this + 88) = 0u;
+  *(this + 104) = 0u;
+  *(this + 120) = 0u;
+  *(this + 136) = 0u;
+  *(this + 152) = 0u;
+  *(this + 168) = 0u;
+  *(this + 184) = 0u;
+  *(this + 14) = 0u;
+  *(this + 25) = 0;
+  *(this + 26) = 0;
+  *(this + 216) = 0;
+  *(this + 15) = 0u;
+  *(this + 16) = 0u;
+  v11 = objc_alloc_init(_AUParameterTreeObserver);
+  *(this + 34) = v11;
+  *(this + 280) = 0;
+  *(this + 38) = 0;
+  *(this + 39) = 0;
+  *(this + 36) = 0;
+  *(this + 37) = this + 304;
+  *(this + 20) = 0u;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = ___ZN16AUv3InstanceBase12ParameterMapC2Ev_block_invoke;
+  v12[3] = &__block_descriptor_40_e5_v8__0l;
+  v12[4] = this + 200;
+  [(_AUParameterTreeObserver *)v11 setCallback:v12];
+  *(this + 21) = 0u;
+  *(this + 22) = 0u;
+  *(this + 364) = 0u;
+  *(this + 48) = 0;
+  *(this + 49) = 0;
+  if (AUv3InstanceBase::sSelectorsOnce != -1)
+  {
+    dispatch_once(&AUv3InstanceBase::sSelectorsOnce, &__block_literal_global_4193);
+  }
+}
+
+void sub_18F760558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14)
+{
+  objc_destroyWeak((v14 + 328));
+  std::__tree<std::__value_type<unsigned int,AUParameterGroup * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AUParameterGroup * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AUParameterGroup * {__strong}>>>::destroy(*(v14 + 304));
+
+  a14 = (v14 + 248);
+  std::vector<AUv3InstanceBase::ScopeElementIDObj>::__destroy_vector::operator()[abi:ne200100](&a14);
+  std::vector<AUv3InstanceBase::ScopeElementIDObj>::__destroy_vector::operator()[abi:ne200100](&a14);
+  objc_destroyWeak(v15);
+
+  AUv3RenderAdapter::~AUv3RenderAdapter((v14 + 136));
+  v17 = *(v14 + 128);
+  *(v14 + 128) = 0;
+  if (v17)
+  {
+    (*(*v17 + 8))(v17);
+  }
+
+  a14 = (v14 + 104);
+  std::vector<std::shared_ptr<AudioMetadataTimeline::Node<AudioMetadataStreamFormat,AudioMetadataTimeline::Node<AudioMetadataTrackFormat,AudioMetadataTimeline::Node<AudioMetadataTrackUID,AudioMetadataTimeline::Node<AudioMetadataObject,AudioMetadataTimeline::Node<AudioMetadataContent,AudioMetadataTimeline::Node<AudioMetadataProgramme,AudioMetadataTimeline::Node<AudioMetadataFormatExtended,decltype(nullptr)>>>>>>>>>::__destroy_vector::operator()[abi:ne200100](&a14);
+
+  _Unwind_Resume(a1);
+}
+
+IMP ___ZN16AUv3InstanceBaseC2ERK25AudioComponentDescription_block_invoke()
+{
+  AUv3InstanceBase::sSel_SetV2Parameter = sel_setV2Parameter_value_bufferOffset_sequenceNumber_;
+  AUv3InstanceBase::sSel_GetV2Parameter = sel_getV2Parameter_sequenceNumber_;
+  AUv3InstanceBase::sSel_address = sel_address;
+  v0 = objc_opt_class();
+  result = class_getMethodImplementation(v0, AUv3InstanceBase::sSel_address);
+  AUv3InstanceBase::sAUParameter_address = result;
+  return result;
+}
+
+void AUv3InstanceBase::DoOpen(AUv3InstanceBase *this, OpaqueAudioComponentInstance *a2, AUAudioUnit *a3)
+{
+  v27 = a3;
+  *(this + 5) = a2;
+  objc_storeStrong(this + 9, a3);
+  AUv3InstanceBase::ParameterMap::setAudioUnit((this + 200), this, v27);
+  v6 = [*(this + 9) renderBlock];
+
+  if (!v6)
+  {
+    AudioComponentInstanceSetNoCanDo(a2, 14);
+  }
+
+  AudioComponentInstanceSetNoCanDo(a2, 20);
+  AudioComponentInstanceSetNoCanDo(a2, 21);
+  v7 = [(AUAudioUnit *)v27 inputBusses];
+  std::vector<AUv3RenderAdapter::AUInputElement>::resize(this + 18, [v7 count]);
+
+  v8 = [*(this + 9) scheduleParameterBlock];
+  v9 = *(this + 22);
+  *(this + 22) = v8;
+
+  v10 = *(this + 22);
+  if (v10)
+  {
+    v11 = [v10 copy];
+    v12 = *(this + 22);
+    *(this + 22) = v11;
+  }
+
+  v13 = [*(this + 9) scheduleMIDIEventBlock];
+  v14 = *(this + 23);
+  *(this + 23) = v13;
+
+  v15 = *(this + 23);
+  if (v15)
+  {
+    v16 = [v15 copy];
+    v17 = *(this + 23);
+    *(this + 23) = v16;
+  }
+
+  v18 = [*(this + 9) scheduleMIDIEventListBlock];
+  v19 = *(this + 24);
+  *(this + 24) = v18;
+
+  v20 = *(this + 24);
+  if (v20)
+  {
+    v21 = [v20 copy];
+    v22 = *(this + 24);
+    *(this + 24) = v21;
+  }
+
+  v23 = objc_opt_class();
+  *(this + 49) = class_getMethodImplementation(v23, AUv3InstanceBase::sSel_GetV2Parameter);
+  MethodImplementation = class_getMethodImplementation(v23, AUv3InstanceBase::sSel_SetV2Parameter);
+  *(this + 48) = MethodImplementation;
+  if (!*(this + 49) || !MethodImplementation)
+  {
+    std::terminate();
+  }
+
+  v25 = *(this + 5);
+  if (v25)
+  {
+    v26 = (*(*v25 + 8))(v25);
+    if (v26)
+    {
+      *(v26 + 80) = [*(this + 9) isLoadedInProcess] ^ 1;
+    }
+  }
+}
+
+uint64_t MP4BoxParser_SampleSize::Init(MP4BoxParser **this)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  result = MP4BoxParser_Full::Initialize(this);
+  if (!result)
+  {
+    v3 = *(this + 5);
+    if (v3 != 1937013298 && v3 != 1937011578)
+    {
+      return 4294967294;
+    }
+
+    v5 = (*(*this + 3))(this);
+    result = MP4BoxParser::ReadDataSourceBytes(this[1], v5, 8uLL, v11);
+    if (!result)
+    {
+      *(this + 16) = bswap32(v11[1]);
+      v6 = *(this + 6);
+      v7 = (*(*this + 3))(this);
+      if (*(this + 5) == 1937011578)
+      {
+        v8 = v11[0];
+        *(this + 15) = bswap32(v11[0]);
+        if (v8)
+        {
+          return 0;
+        }
+
+        v10 = 2;
+      }
+
+      else
+      {
+        v9 = HIBYTE(v11[0]);
+        *(this + 15) = HIBYTE(v11[0]);
+        if (v9 != 16)
+        {
+          return 2003334207;
+        }
+
+        v10 = 1;
+      }
+
+      if (*(this + 16) <= (v6 - v7 - 8) >> v10)
+      {
+        return 0;
+      }
+
+      else
+      {
+        return 2003334207;
+      }
+    }
+  }
+
+  return result;
+}
+
+void MP4BoxParser_SampleSize::~MP4BoxParser_SampleSize(MP4BoxParser_SampleSize *this)
+{
+  v2 = *(this + 1);
+  *this = &unk_1F0330650;
+  *(this + 1) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  JUMPOUT(0x193ADF220);
+}
+
+{
+  v2 = *(this + 1);
+  *this = &unk_1F0330650;
+  *(this + 1) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+}
+
+void MP4BoxParser_SampleSize::MP4BoxParser_SampleSize(MP4BoxParser_SampleSize *this, DataSource *a2, uint64_t a3)
+{
+  *this = &unk_1F0330650;
+  (*(*a2 + 88))(a2, a3);
+  *(this + 16) = 0;
+  *(this + 5) = 0;
+  *(this + 3) = 0;
+  *(this + 32) = 0;
+  *(this + 9) = 8;
+  *this = &unk_1F032BFF8;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+}
+
+uint64_t MP4BoxParser_SampleSize::GetSampleSize(MP4BoxParser_SampleSize *this, unsigned int a2, unsigned int *a3)
+{
+  result = 2003334207;
+  if (*(this + 16) <= a2)
+  {
+    return result;
+  }
+
+  *a3 = 0;
+  v7 = *(this + 15);
+  if (*(this + 5) == 1937011578)
+  {
+    if (v7)
+    {
+LABEL_4:
+      result = 0;
+      *a3 = v7;
+      return result;
+    }
+  }
+
+  else if (v7)
+  {
+    if (v7 != 16)
+    {
+      return result;
+    }
+
+    v8 = 2;
+    goto LABEL_9;
+  }
+
+  v8 = 4;
+LABEL_9:
+  v9 = (*(*this + 24))(this);
+  result = MP4BoxParser::ReadDataSourceBytes(*(this + 1), v8 * a2 + v9 + 8, v8, &v11);
+  if (!result)
+  {
+    v10 = *(this + 15);
+    if (v10 == 16)
+    {
+      v7 = bswap32(v11) >> 16;
+      goto LABEL_4;
+    }
+
+    result = 2003334207;
+    if (!v10)
+    {
+      v7 = bswap32(v11);
+      goto LABEL_4;
+    }
+  }
+
+  return result;
+}
+
+uint64_t MP4BoxParser_SampleSize::GetByteCount(MP4BoxParser_SampleSize *this)
+{
+  if (*(this + 5) == 1937011578)
+  {
+    v2 = *(this + 15);
+    if (v2)
+    {
+      return (*(this + 16) * v2);
+    }
+  }
+
+  v6 = 0;
+  if (*(this + 16))
+  {
+    v4 = 0;
+    LODWORD(v3) = 0;
+    while (!MP4BoxParser_SampleSize::GetSampleSize(this, v4, &v6))
+    {
+      v3 = v6 + v3;
+      if (++v4 >= *(this + 16))
+      {
+        return v3;
+      }
+    }
+  }
+
+  return 0;
+}
+
+void _ZNSt3__16vectorIDv8_fNS_9allocatorIS1_EEE6insertENS_11__wrap_iterIPKS1_EEmRS6_(uint64_t a1, char *__src, unint64_t a3, char *a4)
+{
+  if (a3)
+  {
+    v4 = a4;
+    v6 = __src;
+    v8 = *(a1 + 8);
+    v9 = *(a1 + 16);
+    if (a3 <= (v9 - v8) >> 5)
+    {
+      v14 = v8 - __src;
+      v15 = *(a1 + 8);
+      v16 = a3;
+      if (a3 <= (v8 - __src) >> 5)
+      {
+        goto LABEL_16;
+      }
+
+      v17 = 0;
+      v16 = v14 >> 5;
+      v15 = &v8[32 * (a3 - (v14 >> 5))];
+      v18 = 32 * a3 - 32 * (v14 >> 5);
+      do
+      {
+        v19 = &v8[v17];
+        v20 = *(a4 + 1);
+        *v19 = *a4;
+        *(v19 + 1) = v20;
+        v17 += 32;
+      }
+
+      while (v18 != v17);
+      *(a1 + 8) = v15;
+      if (v8 != __src)
+      {
+LABEL_16:
+        v21 = &__src[32 * a3];
+        v22 = &v15[-32 * a3];
+        v23 = v15;
+        if (v22 < v8)
+        {
+          v23 = v15;
+          do
+          {
+            v24 = *v22;
+            v25 = *(v22 + 1);
+            v22 += 32;
+            *v23 = v24;
+            *(v23 + 1) = v25;
+            v23 += 32;
+          }
+
+          while (v22 < v8);
+        }
+
+        *(a1 + 8) = v23;
+        if (v15 != v21)
+        {
+          memmove(&__src[32 * a3], __src, v15 - v21);
+        }
+
+        if (v6 <= v4)
+        {
+          if (*(a1 + 8) <= v4)
+          {
+            v26 = 0;
+          }
+
+          else
+          {
+            v26 = a3;
+          }
+
+          v4 += 32 * v26;
+        }
+
+        do
+        {
+          v27 = *(v4 + 1);
+          *v6 = *v4;
+          *(v6 + 1) = v27;
+          v6 += 32;
+          --v16;
+        }
+
+        while (v16);
+      }
+    }
+
+    else
+    {
+      v10 = *a1;
+      v11 = a3 + (&v8[-*a1] >> 5);
+      if (v11 >> 59)
+      {
+        std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
+      }
+
+      v12 = v9 - v10;
+      if (v12 >> 4 > v11)
+      {
+        v11 = v12 >> 4;
+      }
+
+      if (v12 >= 0x7FFFFFFFFFFFFFE0)
+      {
+        v13 = 0x7FFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v13 = v11;
+      }
+
+      if (v13)
+      {
+        if (!(v13 >> 59))
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      v28 = 32 * ((__src - v10) >> 5);
+      v29 = (v28 + 32 * a3);
+      v30 = 32 * a3;
+      v31 = v28;
+      do
+      {
+        v32 = *(a4 + 1);
+        *v31 = *a4;
+        v31[1] = v32;
+        v31 += 2;
+        v30 -= 32;
+      }
+
+      while (v30);
+      v33 = *(a1 + 8) - __src;
+      memcpy(v29, __src, v33);
+      v34 = &v29[v33];
+      *(a1 + 8) = v6;
+      v35 = *a1;
+      v36 = &v6[-*a1];
+      v37 = v28 - v36;
+      memcpy((v28 - v36), *a1, v36);
+      *a1 = v37;
+      *(a1 + 8) = v34;
+      *(a1 + 16) = 0;
+      if (v35)
+      {
+
+        operator delete(v35);
+      }
+    }
+  }
+}
+
+void ramstadPrecalculateCoeffs<float>(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, float *a5, float *a6, double a7)
+{
+  if (a1 >= 1)
+  {
+    v9 = a7 * 3.14159265;
+    v10 = (a4 + 176);
+    v11 = a1;
+    v12 = (a2 + 8);
+    v13 = (a3 + 8);
+    do
+    {
+      v14 = v9 * *(v12 - 1);
+      v15 = v9 * *v12;
+      v16 = exp(v14);
+      v17 = (v16 + v16) * cos(v15);
+      *a5++ = v17;
+      v18 = exp(v14 + v14);
+      *a6++ = -v18;
+      v19 = v9 * *(v13 - 1);
+      v20 = v9 * *v13;
+      v21 = hypot(v19, v20);
+      *(v10 - 22) = v21 + v21;
+      *(v10 - 11) = atan2(v20, v19);
+      *v10 = v14;
+      v10[22] = v16;
+      v10[11] = v15;
+      v12 += 2;
+      v13 += 2;
+      ++v10;
+      --v11;
+    }
+
+    while (v11);
+  }
+}
+
+void ramstadBackEndCoeffs<float>(unsigned int a1, uint64_t a2, float *a3, _DWORD *a4, double a5)
+{
+  if (a1 >= 1)
+  {
+    v8 = (a2 + 176);
+    v9 = a1;
+    do
+    {
+      v10 = *(v8 - 22);
+      v11 = v10 * exp(*v8 * a5);
+      v12 = *(v8 - 11);
+      v13 = v8[11];
+      v14 = cos(v12 + v13 * a5);
+      v15 = v8[22];
+      v16 = cos(v12 - v13 + v13 * a5);
+      v17 = v11 * v14;
+      *a3++ = v17;
+      *&v16 = v11 * -(v15 * v16);
+      *a4++ = LODWORD(v16);
+      ++v8;
+      --v9;
+    }
+
+    while (v9);
+  }
+}
+
+void _ZNSt3__16vectorIDv8_dNS_9allocatorIS1_EEE6insertENS_11__wrap_iterIPKS1_EEmRS6_(uint64_t a1, char *__src, unint64_t a3, char *a4)
+{
+  if (a3)
+  {
+    v4 = a4;
+    v6 = __src;
+    v8 = *(a1 + 8);
+    v9 = *(a1 + 16);
+    if (a3 <= (v9 - v8) >> 6)
+    {
+      v14 = v8 - __src;
+      v15 = *(a1 + 8);
+      v16 = a3;
+      if (a3 <= (v8 - __src) >> 6)
+      {
+        goto LABEL_16;
+      }
+
+      v17 = 0;
+      v16 = v14 >> 6;
+      v15 = &v8[64 * (a3 - (v14 >> 6))];
+      v18 = (a3 << 6) - (v14 >> 6 << 6);
+      do
+      {
+        v19 = &v8[v17];
+        v21 = *a4;
+        v20 = *(a4 + 1);
+        v22 = *(a4 + 3);
+        *(v19 + 2) = *(a4 + 2);
+        *(v19 + 3) = v22;
+        *v19 = v21;
+        *(v19 + 1) = v20;
+        v17 += 64;
+      }
+
+      while (v18 != v17);
+      *(a1 + 8) = v15;
+      if (v8 != __src)
+      {
+LABEL_16:
+        v23 = &__src[64 * a3];
+        v24 = &v15[-64 * a3];
+        v25 = v15;
+        if (v24 < v8)
+        {
+          v25 = v15;
+          do
+          {
+            v27 = *v24;
+            v26 = *(v24 + 1);
+            v28 = *(v24 + 3);
+            *(v25 + 2) = *(v24 + 2);
+            *(v25 + 3) = v28;
+            *v25 = v27;
+            *(v25 + 1) = v26;
+            v25 += 64;
+            v24 += 64;
+          }
+
+          while (v24 < v8);
+        }
+
+        *(a1 + 8) = v25;
+        if (v15 != v23)
+        {
+          memmove(&__src[64 * a3], __src, v15 - v23);
+        }
+
+        if (v6 <= v4)
+        {
+          if (*(a1 + 8) <= v4)
+          {
+            v29 = 0;
+          }
+
+          else
+          {
+            v29 = a3;
+          }
+
+          v4 += 64 * v29;
+        }
+
+        do
+        {
+          v31 = *v4;
+          v30 = *(v4 + 1);
+          v32 = *(v4 + 3);
+          *(v6 + 2) = *(v4 + 2);
+          *(v6 + 3) = v32;
+          *v6 = v31;
+          *(v6 + 1) = v30;
+          v6 += 64;
+          --v16;
+        }
+
+        while (v16);
+      }
+    }
+
+    else
+    {
+      v10 = *a1;
+      v11 = a3 + (&v8[-*a1] >> 6);
+      if (v11 >> 58)
+      {
+        std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
+      }
+
+      v12 = v9 - v10;
+      if (v12 >> 5 > v11)
+      {
+        v11 = v12 >> 5;
+      }
+
+      if (v12 >= 0x7FFFFFFFFFFFFFC0)
+      {
+        v13 = 0x3FFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v13 = v11;
+      }
+
+      if (v13)
+      {
+        if (!(v13 >> 58))
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      v33 = (__src - v10) >> 6 << 6;
+      v34 = (v33 + (a3 << 6));
+      v35 = a3 << 6;
+      v36 = v33;
+      do
+      {
+        v38 = *a4;
+        v37 = *(a4 + 1);
+        v39 = *(a4 + 3);
+        v36[2] = *(a4 + 2);
+        v36[3] = v39;
+        *v36 = v38;
+        v36[1] = v37;
+        v36 += 4;
+        v35 -= 64;
+      }
+
+      while (v35);
+      v40 = *(a1 + 8) - __src;
+      memcpy(v34, __src, v40);
+      v41 = &v34[v40];
+      *(a1 + 8) = v6;
+      v42 = *a1;
+      v43 = &v6[-*a1];
+      v44 = v33 - v43;
+      memcpy((v33 - v43), *a1, v43);
+      *a1 = v44;
+      *(a1 + 8) = v41;
+      *(a1 + 16) = 0;
+      if (v42)
+      {
+
+        operator delete(v42);
+      }
+    }
+  }
+}
+
+void ramstadPrecalculateCoeffs<double>(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, long double *a5, long double *a6, double a7)
+{
+  if (a1 >= 1)
+  {
+    v9 = a7 * 3.14159265;
+    v10 = (a4 + 176);
+    v11 = a1;
+    v12 = (a2 + 8);
+    v13 = (a3 + 8);
+    do
+    {
+      v14 = v9 * *(v12 - 1);
+      v15 = v9 * *v12;
+      v16 = exp(v14);
+      *a5++ = (v16 + v16) * cos(v15);
+      *a6++ = -exp(v14 + v14);
+      v17 = v9 * *(v13 - 1);
+      v18 = v9 * *v13;
+      v19 = hypot(v17, v18);
+      *(v10 - 22) = v19 + v19;
+      *(v10 - 11) = atan2(v18, v17);
+      *v10 = v14;
+      v10[22] = v16;
+      v10[11] = v15;
+      v12 += 2;
+      v13 += 2;
+      ++v10;
+      --v11;
+    }
+
+    while (v11);
+  }
+}
+
+void ramstadBackEndCoeffs<double>(unsigned int a1, uint64_t a2, double *a3, double *a4, double a5)
+{
+  if (a1 >= 1)
+  {
+    v8 = (a2 + 176);
+    v9 = a1;
+    do
+    {
+      v10 = *(v8 - 22);
+      v11 = v10 * exp(*v8 * a5);
+      v12 = *(v8 - 11);
+      v13 = v8[11];
+      v14 = cos(v12 + v13 * a5);
+      v15 = v8[22];
+      v16 = cos(v12 - v13 + v13 * a5);
+      *a3++ = v11 * v14;
+      *a4++ = v11 * -(v15 * v16);
+      ++v8;
+      --v9;
+    }
+
+    while (v9);
+  }
+}
+
+_DWORD *RamstadSRC::initFilter(RamstadSRC *this, double a2, int a3)
+{
+  if (a3 == 34)
+  {
+    v4 = vcvtpd_s64_f64(*(this + 4) / *(this + 5));
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(this + 22) = v4;
+  v5 = fmin(a2, 1.0) * *(this + 13);
+  v6 = *(this + 12);
+  if (*(this + 14) == 8)
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = (3 * v6 + 1) >> 1;
+  }
+
+  if (*(this + 93) == 1)
+  {
+    v52 = 0uLL;
+    v53 = 0uLL;
+    v50 = 0uLL;
+    v51 = 0uLL;
+    _ZNSt3__16vectorIDv8_dNS_9allocatorIS1_EEE6insertENS_11__wrap_iterIPKS1_EEmRS6_(this + 160, *(this + 20), v7, &v50);
+    _ZNSt3__16vectorIDv8_dNS_9allocatorIS1_EEE6insertENS_11__wrap_iterIPKS1_EEmRS6_(this + 184, *(this + 23), v7, &v50);
+    {
+      GetKernelFactoryD(void)::sFactory.__m_.__sig = 850045863;
+      *GetKernelFactoryD(void)::sFactory.__m_.__opaque = 0u;
+      *&GetKernelFactoryD(void)::sFactory.__m_.__opaque[16] = 0u;
+      *&GetKernelFactoryD(void)::sFactory.__m_.__opaque[32] = 0u;
+      *&GetKernelFactoryD(void)::sFactory.__m_.__opaque[48] = 0u;
+      *&qword_1EAD30EB8 = 0u;
+    }
+
+    v9 = *(this + 13);
+    v8 = *(this + 14);
+    v10 = (*(this + 92) & 1) == 0;
+    std::mutex::lock(&GetKernelFactoryD(void)::sFactory);
+    v12 = qword_1EAD30EB0;
+    v11 = qword_1EAD30EB8;
+    v13 = qword_1EAD30EB0;
+    if (!qword_1EAD30EB0 && qword_1EAD30EB8)
+    {
+LABEL_29:
+      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+    }
+
+    while (1)
+    {
+      v14 = v12 + 40 * v11;
+      if (v13 == v14)
+      {
+        break;
+      }
+
+      v15 = *(v13 + 32);
+      if (!v15 || *(v15 + 8) == -1)
+      {
+        if (v12 > v13)
+        {
+          goto LABEL_67;
+        }
+
+        if (!v12 && v11)
+        {
+          __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+        }
+
+        if (v13 >= v14)
+        {
+LABEL_67:
+          __assert_rtn("erase", "vector.hpp", 2092, "this->priv_in_range(position)");
+        }
+
+        if (v13 + 40 != v14)
+        {
+          v16 = v13;
+          do
+          {
+            v17 = v16 + 40;
+            v18 = boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>::operator=(v16, v16 + 40) + 80;
+            v16 = v17;
+          }
+
+          while (v18 != v14);
+        }
+
+        v19 = *(v14 - 8);
+        if (v19)
+        {
+          std::__shared_weak_count::__release_weak(v19);
+        }
+
+        v12 = qword_1EAD30EB0;
+        v11 = --qword_1EAD30EB8;
+      }
+
+      else
+      {
+        v13 += 40;
+      }
+
+      if (v12)
+      {
+        v20 = 1;
+      }
+
+      else
+      {
+        v20 = v11 == 0;
+      }
+
+      if (!v20)
+      {
+        goto LABEL_29;
+      }
+    }
+
+    *&v54 = __PAIR64__(v9, v8);
+    *(&v54 + 1) = v5;
+    v55 = v10;
+    v34 = boost::container::flat_map<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>,std::less<std::tuple<int,int,double,BOOL>>,void>::priv_subscript(&v54);
+    v35 = v34[1];
+    if (!v35 || (v36 = std::__shared_weak_count::lock(v35)) == 0 || !*v34)
+    {
+      operator new();
+    }
+
+    *&v37 = *v34;
+    *(&v37 + 1) = v36;
+    v48 = v37;
+    std::mutex::unlock(&GetKernelFactoryD(void)::sFactory);
+    v42 = *(this + 3);
+    v43 = v48;
+    *(this + 1) = v48;
+    if (v42)
+    {
+LABEL_62:
+      std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+    }
+  }
+
+  else
+  {
+    v50 = 0uLL;
+    v51 = 0uLL;
+    _ZNSt3__16vectorIDv8_fNS_9allocatorIS1_EEE6insertENS_11__wrap_iterIPKS1_EEmRS6_(this + 112, *(this + 14), v7, &v50);
+    _ZNSt3__16vectorIDv8_fNS_9allocatorIS1_EEE6insertENS_11__wrap_iterIPKS1_EEmRS6_(this + 136, *(this + 17), v7, &v50);
+    {
+      GetKernelFactory(void)::sFactory.__m_.__sig = 850045863;
+      *GetKernelFactory(void)::sFactory.__m_.__opaque = 0u;
+      *&GetKernelFactory(void)::sFactory.__m_.__opaque[16] = 0u;
+      *&GetKernelFactory(void)::sFactory.__m_.__opaque[32] = 0u;
+      *&GetKernelFactory(void)::sFactory.__m_.__opaque[48] = 0u;
+      *&qword_1EAD0E4D8 = 0u;
+    }
+
+    v22 = *(this + 13);
+    v21 = *(this + 14);
+    v23 = (*(this + 92) & 1) == 0;
+    std::mutex::lock(&GetKernelFactory(void)::sFactory);
+    v25 = qword_1EAD0E4D0;
+    v24 = qword_1EAD0E4D8;
+    v26 = qword_1EAD0E4D0;
+    if (!qword_1EAD0E4D0 && qword_1EAD0E4D8)
+    {
+LABEL_51:
+      __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+    }
+
+    while (1)
+    {
+      v27 = v25 + 40 * v24;
+      if (v26 == v27)
+      {
+        break;
+      }
+
+      v28 = *(v26 + 32);
+      if (!v28 || *(v28 + 8) == -1)
+      {
+        if (v25 > v26)
+        {
+          goto LABEL_68;
+        }
+
+        if (!v25 && v24)
+        {
+          __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+        }
+
+        if (v26 >= v27)
+        {
+LABEL_68:
+          __assert_rtn("erase", "vector.hpp", 2092, "this->priv_in_range(position)");
+        }
+
+        if (v26 + 40 != v27)
+        {
+          v29 = v26;
+          do
+          {
+            v30 = v29 + 40;
+            v31 = boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>::operator=(v29, v29 + 40) + 80;
+            v29 = v30;
+          }
+
+          while (v31 != v27);
+        }
+
+        v32 = *(v27 - 8);
+        if (v32)
+        {
+          std::__shared_weak_count::__release_weak(v32);
+        }
+
+        v25 = qword_1EAD0E4D0;
+        v24 = --qword_1EAD0E4D8;
+      }
+
+      else
+      {
+        v26 += 40;
+      }
+
+      if (v25)
+      {
+        v33 = 1;
+      }
+
+      else
+      {
+        v33 = v24 == 0;
+      }
+
+      if (!v33)
+      {
+        goto LABEL_51;
+      }
+    }
+
+    *&v54 = __PAIR64__(v22, v21);
+    *(&v54 + 1) = v5;
+    v55 = v23;
+    v38 = boost::container::flat_map<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>,std::less<std::tuple<int,int,double,BOOL>>,void>::priv_subscript(&v54);
+    v39 = v38[1];
+    if (!v39 || (v40 = std::__shared_weak_count::lock(v39)) == 0 || !*v38)
+    {
+      operator new();
+    }
+
+    *&v41 = *v38;
+    *(&v41 + 1) = v40;
+    v49 = v41;
+    std::mutex::unlock(&GetKernelFactory(void)::sFactory);
+    v42 = *(this + 1);
+    v43 = v49;
+    *this = v49;
+    if (v42)
+    {
+      goto LABEL_62;
+    }
+  }
+
+  v44 = *(this + 12);
+  LODWORD(v56) = 0;
+  std::vector<float>::assign(this + 26, v44, &v56, v43);
+  v45 = *(this + 12);
+  LODWORD(v56) = 0;
+  return std::vector<float>::assign(this + 29, v45, &v56, v46);
+}
+
+void sub_18F761ED4(_Unwind_Exception *a1)
+{
+  shared_weak_owners = v2[2].__shared_weak_owners_;
+  if (shared_weak_owners)
+  {
+    v2[3].__vftable = shared_weak_owners;
+    operator delete(shared_weak_owners);
+  }
+
+  v6 = *v3;
+  if (*v3)
+  {
+    v2[2].__vftable = v6;
+    operator delete(v6);
+  }
+
+  std::__shared_weak_count::~__shared_weak_count(v2);
+  operator delete(v7);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  std::mutex::unlock(&GetKernelFactory(void)::sFactory);
+  _Unwind_Resume(a1);
+}
+
+uint64_t boost::container::flat_map<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>,std::less<std::tuple<int,int,double,BOOL>>,void>::priv_subscript(__int128 *a1)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v1 = qword_1EAD0E4D0;
+  v2 = qword_1EAD0E4D8;
+  if (qword_1EAD0E4D0)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = qword_1EAD0E4D8 == 0;
+  }
+
+  if (!v3)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v5 = qword_1EAD0E4D0;
+  if (qword_1EAD0E4D8)
+  {
+    v5 = qword_1EAD0E4D0;
+    v6 = qword_1EAD0E4D8;
+    do
+    {
+      if (v6 != 1 && !v5)
+      {
+        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+      }
+
+      if (!v5)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(v5 + 40 * (v6 >> 1), a1) == 255)
+      {
+        v5 += 40 * (v6 >> 1) + 40;
+        v6 += ~(v6 >> 1);
+      }
+
+      else
+      {
+        v6 >>= 1;
+      }
+    }
+
+    while (v6);
+  }
+
+  v7 = (v1 + 40 * v2);
+  v8 = v7;
+  if (v5 == v7)
+  {
+    goto LABEL_18;
+  }
+
+  if (!v5)
+  {
+    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+  }
+
+  v8 = v5;
+  if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(a1, v5) == 0xFF)
+  {
+LABEL_18:
+    v25 = *a1;
+    v9 = *(a1 + 2);
+    v27[0] = 0;
+    v27[1] = 0;
+    v26 = v9;
+    v10 = "this->priv_in_range_or_end(hint)";
+    v11 = 879;
+    v12 = "flat_tree.hpp";
+    v13 = "insert_unique";
+    if (v1 > v8 || v8 > v7)
+    {
+      goto LABEL_60;
+    }
+
+    v23 = 0;
+    if (v8 != v7)
+    {
+      if (!v8)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(&v25, v8) != 0xFF)
+      {
+        v24 = v7;
+        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>,boost::container::dtl::select1st<std::tuple<int,int,double,BOOL>>,std::less<std::tuple<int,int,double,BOOL>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>>::priv_insert_unique_prepare(v8, &v24, &v25, &v23))
+        {
+          goto LABEL_43;
+        }
+
+LABEL_32:
+        v14 = v23;
+        if (qword_1EAD0E4D0 > v23)
+        {
+          goto LABEL_57;
+        }
+
+        if (!qword_1EAD0E4D0 && qword_1EAD0E4D8)
+        {
+          __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+        }
+
+        v15 = qword_1EAD0E4D0 + 40 * qword_1EAD0E4D8;
+        if (v23 > v15)
+        {
+LABEL_57:
+          v10 = "this->priv_in_range_or_end(position)";
+          v11 = 1862;
+          v12 = "vector.hpp";
+          v13 = "emplace";
+        }
+
+        else
+        {
+          if (qword_1EAD0E4E0 >= qword_1EAD0E4D8)
+          {
+            if (qword_1EAD0E4E0 == qword_1EAD0E4D8)
+            {
+              boost::container::vector<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>,boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>*,boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>>(&v22, v23, &v25);
+            }
+
+            else
+            {
+              if (v15 == v23)
+              {
+                v20 = v25;
+                *(v15 + 16) = v26;
+                *v15 = v20;
+                *(v15 + 24) = *v27;
+                v27[0] = 0;
+                v27[1] = 0;
+                ++qword_1EAD0E4D8;
+              }
+
+              else
+              {
+                v16 = v15 - 40;
+                *v15 = *(v15 - 40);
+                *(v15 + 16) = *(v15 - 24);
+                *(v15 + 24) = *(v15 - 16);
+                *(v15 - 16) = 0;
+                *(v15 - 8) = 0;
+                ++qword_1EAD0E4D8;
+                if ((v15 - 40) != v14)
+                {
+                  do
+                  {
+                    v17 = (v16 - 40);
+                    boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>::operator=(v16, v16 - 40);
+                    v16 = v17;
+                  }
+
+                  while (v17 != v14);
+                }
+
+                *v14 = v25;
+                v14[16] = v26;
+                v18 = *v27;
+                v27[0] = 0;
+                v27[1] = 0;
+                v19 = *(v14 + 4);
+                *(v14 + 24) = v18;
+                if (v19)
+                {
+                  std::__shared_weak_count::__release_weak(v19);
+                }
+              }
+
+              v22 = v14;
+            }
+
+            goto LABEL_48;
+          }
+
+          v10 = "this->m_holder.capacity() >= this->m_holder.m_size";
+          v11 = 2821;
+          v12 = "vector.hpp";
+          v13 = "priv_insert_forward_range";
+        }
+
+LABEL_60:
+        __assert_rtn(v13, v12, v11, v10);
+      }
+
+      v7 = v8;
+    }
+
+    v23 = v7;
+    if (v7 != v1)
+    {
+      if (!v7)
+      {
+        __assert_rtn("operator--", "vector.hpp", 174, "!!m_ptr");
+      }
+
+      if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>((v7 - 40), &v25) != 0xFF)
+      {
+        if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(&v25, (v7 - 40)) != 0xFF)
+        {
+          v23 = (v7 - 40);
+          goto LABEL_43;
+        }
+
+        v24 = v7 - 40;
+        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>,boost::container::dtl::select1st<std::tuple<int,int,double,BOOL>>,std::less<std::tuple<int,int,double,BOOL>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>>::priv_insert_unique_prepare(v1, &v24, &v25, &v23))
+        {
+LABEL_43:
+          if (!qword_1EAD0E4D0 && v23)
+          {
+            __assert_rtn("operator+", "vector.hpp", 188, "x.m_ptr || !off");
+          }
+
+          v22 = v23;
+LABEL_48:
+          if (v27[1])
+          {
+            std::__shared_weak_count::__release_weak(v27[1]);
+          }
+
+          v5 = v22;
+          if (!v22)
+          {
+            __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+          }
+
+          return v5 + 24;
+        }
+      }
+    }
+
+    goto LABEL_32;
+  }
+
+  return v5 + 24;
+}
+
+void sub_18F7624A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  __clang_call_terminate(exception_object);
+}
+
+void std::__shared_ptr_emplace<RamstadKernel>::__on_zero_shared(void *a1)
+{
+  v2 = a1[8];
+  if (v2)
+  {
+    a1[9] = v2;
+    operator delete(v2);
+  }
+
+  v3 = a1[5];
+  if (v3)
+  {
+    a1[6] = v3;
+
+    operator delete(v3);
+  }
+}
+
+void std::__shared_ptr_emplace<RamstadKernel>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F032C0A0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x193ADF220);
+}
+
+uint64_t std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(uint64_t a1, uint64_t a2)
+{
+  if (*a1 < *a2)
+  {
+    v2 = 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    v2 = 1;
+  }
+
+  if (*a1 == *a2)
+  {
+    v3 = *(a1 + 4);
+    v4 = *(a2 + 4);
+    v5 = v3 == v4;
+    v2 = v3 < v4 ? 0xFFFFFFFFLL : 1;
+    if (v5)
+    {
+      v6 = *(a1 + 8);
+      v7 = *(a2 + 8);
+      if (v6 == v7)
+      {
+        LODWORD(v2) = 0;
+      }
+
+      else
+      {
+        LODWORD(v2) = -127;
+      }
+
+      if (v6 > v7)
+      {
+        LODWORD(v2) = 1;
+      }
+
+      if (v6 < v7)
+      {
+        v2 = 0xFFFFFFFFLL;
+      }
+
+      else
+      {
+        v2 = v2;
+      }
+
+      if (!v2)
+      {
+        v8 = *(a1 + 16);
+        v9 = *(a2 + 16);
+        v10 = v8 == v9;
+        if (v8 < v9)
+        {
+          LODWORD(v2) = -1;
+        }
+
+        else
+        {
+          LODWORD(v2) = 1;
+        }
+
+        if (v10)
+        {
+          return 0;
+        }
+
+        else
+        {
+          return v2;
+        }
+      }
+    }
+  }
+
+  return v2;
+}
+
+void boost::container::vector<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>,boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>*,boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>>(boost::container *a1, const char *a2, __int128 *a3)
+{
+  if (qword_1EAD0E4E0 != qword_1EAD0E4D8)
+  {
+    __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
+  }
+
+  if (qword_1EAD0E4E0 == 0x333333333333333)
+  {
+    goto LABEL_30;
+  }
+
+  if (qword_1EAD0E4E0 >> 61 > 4)
+  {
+    v3 = -1;
+  }
+
+  else
+  {
+    v3 = 8 * qword_1EAD0E4E0;
+  }
+
+  if (qword_1EAD0E4E0 >> 61)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 8 * qword_1EAD0E4E0 / 5uLL;
+  }
+
+  v5 = qword_1EAD0E4E0 + 1;
+  if (v4 >= 0x333333333333333)
+  {
+    v4 = 0x333333333333333;
+  }
+
+  v6 = v5 > v4 ? qword_1EAD0E4E0 + 1 : v4;
+  if (v5 > 0x333333333333333)
+  {
+LABEL_30:
+    boost::container::throw_length_error(a1, a2);
+  }
+
+  v10 = qword_1EAD0E4D0;
+  v11 = operator new(40 * v6);
+  v12 = v11;
+  v13 = qword_1EAD0E4D0;
+  v14 = (qword_1EAD0E4D0 + 40 * qword_1EAD0E4D8);
+  v15 = v11;
+  if (qword_1EAD0E4D0 != a2)
+  {
+    v16 = qword_1EAD0E4D0;
+    v15 = v11;
+    do
+    {
+      v17 = *v16;
+      *(v15 + 2) = *(v16 + 16);
+      *v15 = v17;
+      *(v15 + 24) = *(v16 + 24);
+      *(v16 + 24) = 0;
+      *(v16 + 32) = 0;
+      v16 += 40;
+      v15 += 40;
+    }
+
+    while (v16 != a2);
+  }
+
+  v18 = *a3;
+  *(v15 + 2) = *(a3 + 2);
+  *v15 = v18;
+  *(v15 + 24) = *(a3 + 24);
+  *(a3 + 3) = 0;
+  *(a3 + 4) = 0;
+  if (v14 != a2)
+  {
+    v19 = v15 + 64;
+    v20 = a2;
+    do
+    {
+      v21 = *v20;
+      *(v19 - 1) = *(v20 + 2);
+      *(v19 - 24) = v21;
+      *v19 = *(v20 + 24);
+      v19 = (v19 + 40);
+      *(v20 + 3) = 0;
+      *(v20 + 4) = 0;
+      v20 += 40;
+    }
+
+    while (v20 != v14);
+  }
+
+  if (v13)
+  {
+    v22 = qword_1EAD0E4D8;
+    if (qword_1EAD0E4D8)
+    {
+      v23 = (v13 + 32);
+      do
+      {
+        if (*v23)
+        {
+          std::__shared_weak_count::__release_weak(*v23);
+        }
+
+        v23 += 5;
+        --v22;
+      }
+
+      while (v22);
+    }
+
+    operator delete(qword_1EAD0E4D0);
+  }
+
+  qword_1EAD0E4D0 = v12;
+  ++qword_1EAD0E4D8;
+  qword_1EAD0E4E0 = v6;
+  *a1 = &a2[v12 - v10];
+}
+
+void boost::container::throw_length_error(boost::container *this, const char *a2)
+{
+  exception = __cxa_allocate_exception(0x10uLL);
+  *exception = &unk_1F032C040;
+  exception[1] = "get_next_capacity, allocator's max size reached";
+}
+
+const char *boost::container::exception::what(boost::container::exception *this)
+{
+  if (*(this + 1))
+  {
+    return *(this + 1);
+  }
+
+  else
+  {
+    return "unknown boost::container exception";
+  }
+}
+
+void boost::container::out_of_range::~out_of_range(std::exception *this)
+{
+  std::exception::~exception(this);
+
+  JUMPOUT(0x193ADF220);
+}
+
+BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>,boost::container::dtl::select1st<std::tuple<int,int,double,BOOL>>,std::less<std::tuple<int,int,double,BOOL>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernel>>>>::priv_insert_unique_prepare(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4)
+{
+  v7 = a1;
+  if (*a2 != a1)
+  {
+    v8 = 0xCCCCCCCCCCCCCCCDLL * ((*a2 - a1) >> 3);
+    do
+    {
+      if (v8 != 1 && !v7)
+      {
+        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+      }
+
+      if (!v7)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(v7 + 40 * (v8 >> 1), a3) == 255)
+      {
+        v7 += 40 * (v8 >> 1) + 40;
+        v8 += ~(v8 >> 1);
+      }
+
+      else
+      {
+        v8 >>= 1;
+      }
+    }
+
+    while (v8);
+  }
+
+  *a4 = v7;
+  if (v7 == *a2)
+  {
+    return 1;
+  }
+
+  if (!v7)
+  {
+    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+  }
+
+  return std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(a3, v7) == 0xFF;
+}
+
+uint64_t boost::container::flat_map<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>,std::less<std::tuple<int,int,double,BOOL>>,void>::priv_subscript(uint64_t a1)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v1 = qword_1EAD30EB0;
+  v2 = qword_1EAD30EB8;
+  if (qword_1EAD30EB0)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = qword_1EAD30EB8 == 0;
+  }
+
+  if (!v3)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v5 = qword_1EAD30EB0;
+  if (qword_1EAD30EB8)
+  {
+    v5 = qword_1EAD30EB0;
+    v6 = qword_1EAD30EB8;
+    do
+    {
+      if (v6 != 1 && !v5)
+      {
+        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+      }
+
+      if (!v5)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(v5 + 40 * (v6 >> 1), a1) == 255)
+      {
+        v5 += 40 * (v6 >> 1) + 40;
+        v6 += ~(v6 >> 1);
+      }
+
+      else
+      {
+        v6 >>= 1;
+      }
+    }
+
+    while (v6);
+  }
+
+  v7 = (v1 + 40 * v2);
+  v8 = v7;
+  if (v5 == v7)
+  {
+    goto LABEL_18;
+  }
+
+  if (!v5)
+  {
+    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+  }
+
+  v8 = v5;
+  if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(a1, v5) == 0xFF)
+  {
+LABEL_18:
+    v25 = *a1;
+    v9 = *(a1 + 16);
+    v27[0] = 0;
+    v27[1] = 0;
+    v26 = v9;
+    v10 = "this->priv_in_range_or_end(hint)";
+    v11 = 879;
+    v12 = "flat_tree.hpp";
+    v13 = "insert_unique";
+    if (v1 > v8 || v8 > v7)
+    {
+      goto LABEL_60;
+    }
+
+    v23 = 0;
+    if (v8 != v7)
+    {
+      if (!v8)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(&v25, v8) != 0xFF)
+      {
+        v24 = v7;
+        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>,boost::container::dtl::select1st<std::tuple<int,int,double,BOOL>>,std::less<std::tuple<int,int,double,BOOL>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>>::priv_insert_unique_prepare(v8, &v24, &v25, &v23))
+        {
+          goto LABEL_43;
+        }
+
+LABEL_32:
+        v14 = v23;
+        if (qword_1EAD30EB0 > v23)
+        {
+          goto LABEL_57;
+        }
+
+        if (!qword_1EAD30EB0 && qword_1EAD30EB8)
+        {
+          __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+        }
+
+        v15 = qword_1EAD30EB0 + 40 * qword_1EAD30EB8;
+        if (v23 > v15)
+        {
+LABEL_57:
+          v10 = "this->priv_in_range_or_end(position)";
+          v11 = 1862;
+          v12 = "vector.hpp";
+          v13 = "emplace";
+        }
+
+        else
+        {
+          if (qword_1EAD30EC0 >= qword_1EAD30EB8)
+          {
+            if (qword_1EAD30EC0 == qword_1EAD30EB8)
+            {
+              boost::container::vector<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>,boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>*,boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>>(&v22, v23, &v25);
+            }
+
+            else
+            {
+              if (v15 == v23)
+              {
+                v20 = v25;
+                *(v15 + 16) = v26;
+                *v15 = v20;
+                *(v15 + 24) = *v27;
+                v27[0] = 0;
+                v27[1] = 0;
+                ++qword_1EAD30EB8;
+              }
+
+              else
+              {
+                v16 = v15 - 40;
+                *v15 = *(v15 - 40);
+                *(v15 + 16) = *(v15 - 24);
+                *(v15 + 24) = *(v15 - 16);
+                *(v15 - 16) = 0;
+                *(v15 - 8) = 0;
+                ++qword_1EAD30EB8;
+                if ((v15 - 40) != v14)
+                {
+                  do
+                  {
+                    v17 = (v16 - 40);
+                    boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>::operator=(v16, v16 - 40);
+                    v16 = v17;
+                  }
+
+                  while (v17 != v14);
+                }
+
+                *v14 = v25;
+                v14[16] = v26;
+                v18 = *v27;
+                v27[0] = 0;
+                v27[1] = 0;
+                v19 = *(v14 + 4);
+                *(v14 + 24) = v18;
+                if (v19)
+                {
+                  std::__shared_weak_count::__release_weak(v19);
+                }
+              }
+
+              v22 = v14;
+            }
+
+            goto LABEL_48;
+          }
+
+          v10 = "this->m_holder.capacity() >= this->m_holder.m_size";
+          v11 = 2821;
+          v12 = "vector.hpp";
+          v13 = "priv_insert_forward_range";
+        }
+
+LABEL_60:
+        __assert_rtn(v13, v12, v11, v10);
+      }
+
+      v7 = v8;
+    }
+
+    v23 = v7;
+    if (v7 != v1)
+    {
+      if (!v7)
+      {
+        __assert_rtn("operator--", "vector.hpp", 174, "!!m_ptr");
+      }
+
+      if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>((v7 - 40), &v25) != 0xFF)
+      {
+        if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(&v25, (v7 - 40)) != 0xFF)
+        {
+          v23 = (v7 - 40);
+          goto LABEL_43;
+        }
+
+        v24 = v7 - 40;
+        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>,boost::container::dtl::select1st<std::tuple<int,int,double,BOOL>>,std::less<std::tuple<int,int,double,BOOL>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>>::priv_insert_unique_prepare(v1, &v24, &v25, &v23))
+        {
+LABEL_43:
+          if (!qword_1EAD30EB0 && v23)
+          {
+            __assert_rtn("operator+", "vector.hpp", 188, "x.m_ptr || !off");
+          }
+
+          v22 = v23;
+LABEL_48:
+          if (v27[1])
+          {
+            std::__shared_weak_count::__release_weak(v27[1]);
+          }
+
+          v5 = v22;
+          if (!v22)
+          {
+            __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+          }
+
+          return v5 + 24;
+        }
+      }
+    }
+
+    goto LABEL_32;
+  }
+
+  return v5 + 24;
+}
+
+void sub_18F762ED4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  __clang_call_terminate(exception_object);
+}
+
+void std::__shared_ptr_emplace<RamstadKernelD>::__on_zero_shared(void *a1)
+{
+  v2 = a1[8];
+  if (v2)
+  {
+    a1[9] = v2;
+    operator delete(v2);
+  }
+
+  v3 = a1[5];
+  if (v3)
+  {
+    a1[6] = v3;
+
+    operator delete(v3);
+  }
+}
+
+void std::__shared_ptr_emplace<RamstadKernelD>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F032C068;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x193ADF220);
+}
+
+uint64_t boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>::operator=(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  *(a1 + 4) = *(a2 + 4);
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = *(a2 + 16);
+  v3 = *(a2 + 24);
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 0;
+  v4 = *(a1 + 32);
+  *(a1 + 24) = v3;
+  if (v4)
+  {
+    std::__shared_weak_count::__release_weak(v4);
+  }
+
+  return a1;
+}
+
+void boost::container::vector<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>,boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>*,boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>>(boost::container *a1, const char *a2, __int128 *a3)
+{
+  if (qword_1EAD30EC0 != qword_1EAD30EB8)
+  {
+    __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
+  }
+
+  if (qword_1EAD30EC0 == 0x333333333333333)
+  {
+    goto LABEL_30;
+  }
+
+  if (qword_1EAD30EC0 >> 61 > 4)
+  {
+    v3 = -1;
+  }
+
+  else
+  {
+    v3 = 8 * qword_1EAD30EC0;
+  }
+
+  if (qword_1EAD30EC0 >> 61)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 8 * qword_1EAD30EC0 / 5uLL;
+  }
+
+  v5 = qword_1EAD30EC0 + 1;
+  if (v4 >= 0x333333333333333)
+  {
+    v4 = 0x333333333333333;
+  }
+
+  v6 = v5 > v4 ? qword_1EAD30EC0 + 1 : v4;
+  if (v5 > 0x333333333333333)
+  {
+LABEL_30:
+    boost::container::throw_length_error(a1, a2);
+  }
+
+  v10 = qword_1EAD30EB0;
+  v11 = operator new(40 * v6);
+  v12 = v11;
+  v13 = qword_1EAD30EB0;
+  v14 = (qword_1EAD30EB0 + 40 * qword_1EAD30EB8);
+  v15 = v11;
+  if (qword_1EAD30EB0 != a2)
+  {
+    v16 = qword_1EAD30EB0;
+    v15 = v11;
+    do
+    {
+      v17 = *v16;
+      *(v15 + 2) = *(v16 + 16);
+      *v15 = v17;
+      *(v15 + 24) = *(v16 + 24);
+      *(v16 + 24) = 0;
+      *(v16 + 32) = 0;
+      v16 += 40;
+      v15 += 40;
+    }
+
+    while (v16 != a2);
+  }
+
+  v18 = *a3;
+  *(v15 + 2) = *(a3 + 2);
+  *v15 = v18;
+  *(v15 + 24) = *(a3 + 24);
+  *(a3 + 3) = 0;
+  *(a3 + 4) = 0;
+  if (v14 != a2)
+  {
+    v19 = v15 + 64;
+    v20 = a2;
+    do
+    {
+      v21 = *v20;
+      *(v19 - 1) = *(v20 + 2);
+      *(v19 - 24) = v21;
+      *v19 = *(v20 + 24);
+      v19 = (v19 + 40);
+      *(v20 + 3) = 0;
+      *(v20 + 4) = 0;
+      v20 += 40;
+    }
+
+    while (v20 != v14);
+  }
+
+  if (v13)
+  {
+    v22 = qword_1EAD30EB8;
+    if (qword_1EAD30EB8)
+    {
+      v23 = (v13 + 32);
+      do
+      {
+        if (*v23)
+        {
+          std::__shared_weak_count::__release_weak(*v23);
+        }
+
+        v23 += 5;
+        --v22;
+      }
+
+      while (v22);
+    }
+
+    operator delete(qword_1EAD30EB0);
+  }
+
+  qword_1EAD30EB0 = v12;
+  ++qword_1EAD30EB8;
+  qword_1EAD30EC0 = v6;
+  *a1 = &a2[v12 - v10];
+}
+
+BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>,boost::container::dtl::select1st<std::tuple<int,int,double,BOOL>>,std::less<std::tuple<int,int,double,BOOL>>,boost::container::new_allocator<boost::container::dtl::pair<std::tuple<int,int,double,BOOL>,std::weak_ptr<RamstadKernelD>>>>::priv_insert_unique_prepare(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4)
+{
+  v7 = a1;
+  if (*a2 != a1)
+  {
+    v8 = 0xCCCCCCCCCCCCCCCDLL * ((*a2 - a1) >> 3);
+    do
+    {
+      if (v8 != 1 && !v7)
+      {
+        __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+      }
+
+      if (!v7)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      if (std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(v7 + 40 * (v8 >> 1), a3) == 255)
+      {
+        v7 += 40 * (v8 >> 1) + 40;
+        v8 += ~(v8 >> 1);
+      }
+
+      else
+      {
+        v8 >>= 1;
+      }
+    }
+
+    while (v8);
+  }
+
+  *a4 = v7;
+  if (v7 == *a2)
+  {
+    return 1;
+  }
+
+  if (!v7)
+  {
+    __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+  }
+
+  return std::__tuple_compare_three_way[abi:ne200100]<int,int,double,BOOL,int,int,double,BOOL,0ul,1ul,2ul,3ul>(a3, v7) == 0xFF;
+}
+
+void RamstadSRC::RamstadSRC(RamstadSRC *this, double a2, double a3, int a4, unsigned int a5)
+{
+  *this = 0u;
+  *(this + 1) = 0u;
+  *(this + 4) = a2;
+  *(this + 5) = a3;
+  *(this + 12) = a4;
+  *(this + 18) = 0;
+  *(this + 22) = 1;
+  *(this + 92) = 0;
+  *(this + 7) = 0u;
+  *(this + 8) = 0u;
+  *(this + 9) = 0u;
+  *(this + 10) = 0u;
+  *(this + 11) = 0u;
+  *(this + 12) = 0u;
+  *(this + 13) = 0u;
+  *(this + 14) = 0u;
+  *(this + 15) = 0u;
+  *(this + 32) = -1;
+  if (a5 <= 0x3F)
+  {
+    v5 = 8;
+  }
+
+  else
+  {
+    v5 = 11;
+  }
+
+  *(this + 66) = -1;
+  *(this + 14) = v5;
+  *(this + 93) = a5 > 0x5F;
+  v6 = floor(a2);
+  v7 = v6 == a2;
+  v8 = a2 / a3;
+  *(this + 13) = qword_18F901820[a5 - 33 < 2];
+  if (!v7 || (v9 = floor(a3), v9 != a3))
+  {
+    *(this + 12) = 0x3E80000000000000;
+    *(this + 92) = 0;
+    *(this + 13) = 256;
+    v18 = vcvtmd_s64_f64(v8);
+    *(this + 15) = v18;
+    v19 = vcvtmd_s64_f64((v8 - floor(v8)) * 2147483650.0);
+    *(this + 17) = v19;
+    *(this + 10) = (v18 << 32 >> 1) + v19;
+    *(this + 32) = -1;
+LABEL_26:
+    *(this + 66) = -1;
+    goto LABEL_27;
+  }
+
+  v10 = v6;
+  v11 = v9;
+  if (v6 >= 0)
+  {
+    v12 = v6;
+  }
+
+  else
+  {
+    v12 = -v10;
+  }
+
+  if (v11 >= 0)
+  {
+    v13 = v9;
+  }
+
+  else
+  {
+    v13 = -v11;
+  }
+
+  v14 = 1;
+  if (v12 >= 2 && v13 >= 2)
+  {
+    v14 = v13;
+    do
+    {
+      if (v12 <= v14)
+      {
+        v15 = v14;
+      }
+
+      else
+      {
+        v15 = v12;
+      }
+
+      if (v12 < v14)
+      {
+        v14 = v12;
+      }
+
+      v12 = v15 % v14;
+    }
+
+    while (v15 % v14);
+  }
+
+  v16 = v11 / v14;
+  if (v16 > 1280)
+  {
+    *(this + 12) = 0x3E80000000000000;
+    *(this + 92) = 0;
+    *(this + 13) = 256;
+    v20 = vcvtmd_s64_f64(v8);
+    *(this + 15) = v20;
+    v21 = vcvtmd_s64_f64((v8 - floor(v8)) * 2147483650.0);
+    *(this + 17) = v21;
+    *(this + 10) = (v20 << 32 >> 1) + v21;
+    *(this + 32) = -1;
+    goto LABEL_26;
+  }
+
+  *(this + 92) = 1;
+  v17 = v10 / v14;
+  *(this + 13) = v16;
+  *(this + 15) = v17 / v16;
+  *(this + 16) = v17;
+  *(this + 17) = v17 % v16;
+LABEL_27:
+  *(this + 18) = 0;
+  RamstadSRC::initFilter(this, 1.0 / v8, a5);
+}
+
+void sub_18F763574(_Unwind_Exception *exception_object)
+{
+  v4 = v1[29];
+  if (v4)
+  {
+    v1[30] = v4;
+    operator delete(v4);
+  }
+
+  v5 = v1[26];
+  if (v5)
+  {
+    v1[27] = v5;
+    operator delete(v5);
+  }
+
+  v6 = v1[23];
+  if (v6)
+  {
+    v1[24] = v6;
+    operator delete(v6);
+  }
+
+  v7 = v1[20];
+  if (v7)
+  {
+    v1[21] = v7;
+    operator delete(v7);
+  }
+
+  v8 = v1[17];
+  if (v8)
+  {
+    v1[18] = v8;
+    operator delete(v8);
+  }
+
+  v9 = *v2;
+  if (*v2)
+  {
+    v1[15] = v9;
+    operator delete(v9);
+  }
+
+  v10 = v1[3];
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  v11 = v1[1];
+  if (v11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void RamstadSRC::~RamstadSRC(RamstadSRC *this)
+{
+  v2 = *(this + 29);
+  if (v2)
+  {
+    *(this + 30) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(this + 26);
+  if (v3)
+  {
+    *(this + 27) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(this + 23);
+  if (v4)
+  {
+    *(this + 24) = v4;
+    operator delete(v4);
+  }
+
+  v5 = *(this + 20);
+  if (v5)
+  {
+    *(this + 21) = v5;
+    operator delete(v5);
+  }
+
+  v6 = *(this + 17);
+  if (v6)
+  {
+    *(this + 18) = v6;
+    operator delete(v6);
+  }
+
+  v7 = *(this + 14);
+  if (v7)
+  {
+    *(this + 15) = v7;
+    operator delete(v7);
+  }
+
+  v8 = *(this + 3);
+  if (v8)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  v9 = *(this + 1);
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  }
+}
+
+void RamstadSRC::reset(RamstadSRC *this)
+{
+  *(this + 18) = 0;
+  *(this + 22) = 1;
+  if (*(this + 93) == 1)
+  {
+    v2 = *(this + 20);
+    v3 = *(this + 21) - v2;
+    if (v3 >= 1)
+    {
+      bzero(v2, v3);
+    }
+
+    v4 = *(this + 23);
+    v5 = *(this + 24);
+  }
+
+  else
+  {
+    v6 = *(this + 14);
+    v7 = *(this + 15) - v6;
+    if (v7 >= 1)
+    {
+      bzero(v6, v7);
+    }
+
+    v4 = *(this + 17);
+    v5 = *(this + 18);
+  }
+
+  if (v5 - v4 >= 1)
+  {
+
+    bzero(v4, v5 - v4);
+  }
+}
+
+double RamstadSRC::processMono(RamstadSRC *this, RamstadSRC *a2, const float *a3, float *a4, int a5, int a6, int a7, int a8)
+{
+  if (*(a2 + 12) == 1)
+  {
+    RamstadSRC::checkPreflight(&v306, a2, a5, a6);
+    if ((v307 & 1) == 0)
+    {
+      v45 = 0;
+      v26 = v306;
+LABEL_161:
+      *this = v26;
+      *(this + 4) = v45;
+      goto LABEL_162;
+    }
+
+    if (*(a2 + 93) == 1)
+    {
+      if (*(a2 + 92))
+      {
+        v17 = *(a2 + 17);
+        v16 = *(a2 + 18);
+        v18 = *(a2 + 22);
+        v19 = *(a2 + 2);
+        v20 = *(v19 + 16);
+        v21 = *(v19 + 40);
+        v22 = *(a2 + 20);
+        v23 = *(a2 + 23);
+        v24 = *(a2 + 13);
+        v25 = *(a2 + 15);
+        if (*(a2 + 14) == 8)
+        {
+          if (a6 < 1)
+          {
+            v26 = 0;
+          }
+
+          else
+          {
+            v26 = 0;
+            v27 = 0;
+            do
+            {
+              v29 = v22[2];
+              v28 = v22[3];
+              v30 = v18;
+              v32 = *v22;
+              v31 = v22[1];
+              if (v18 >= 1)
+              {
+                do
+                {
+                  v33 = vdupq_lane_s64(COERCE__INT64(*a3), 0);
+                  v34 = vmlaq_f64(v33, v29, v20[2]);
+                  v35 = vmlaq_f64(v33, v28, v20[3]);
+                  v36 = vmlaq_f64(v33, v32, *v20);
+                  v37 = vmlaq_f64(vmlaq_f64(v33, v31, v20[1]), v23[1], v20[5]);
+                  v38 = vmlaq_f64(v36, *v23, v20[4]);
+                  v39 = vmlaq_f64(v35, v23[3], v20[7]);
+                  v40 = vmlaq_f64(v34, v23[2], v20[6]);
+                  *v23 = v32;
+                  v23[1] = v31;
+                  v23[2] = v29;
+                  v23[3] = v28;
+                  v22[2] = v40;
+                  v22[3] = v39;
+                  a3 += a7;
+                  v32 = v38;
+                  *v22 = v38;
+                  v22[1] = v37;
+                  v31 = v37;
+                  v29 = v40;
+                  v28 = v39;
+                  --v30;
+                }
+
+                while (v30);
+              }
+
+              v26 += v18;
+              v41 = (v21 + ((2 * v16) << 6));
+              v42 = vaddvq_f64(vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(v41[4], *v23), v32, *v41), vmlaq_f64(vmulq_f64(v41[6], v23[2]), v29, v41[2])), vaddq_f64(vmlaq_f64(vmulq_f64(v41[5], v23[1]), v31, v41[1]), vmlaq_f64(vmulq_f64(v41[7], v23[3]), v28, v41[3]))));
+              *a4 = v42;
+              a4 += a8;
+              v43 = v16 + v17;
+              if (v43 < v24)
+              {
+                v18 = v25;
+              }
+
+              else
+              {
+                v18 = v25 + 1;
+              }
+
+              if (v43 < v24)
+              {
+                v44 = 0;
+              }
+
+              else
+              {
+                v44 = v24;
+              }
+
+              v16 = v43 - v44;
+              ++v27;
+            }
+
+            while (v27 != a6);
+          }
+
+          v204 = a5 - v26;
+          if (a5 <= v26)
+          {
+            goto LABEL_160;
+          }
+
+          if (v18 < v204)
+          {
+            v204 = v18;
+          }
+
+          if (v204 >= 1)
+          {
+            v206 = v22[2];
+            v205 = v22[3];
+            v207 = *v22;
+            v208 = v22[1];
+            v209 = v204;
+            do
+            {
+              v210 = vdupq_lane_s64(COERCE__INT64(*a3), 0);
+              v211 = vmlaq_f64(v210, v206, v20[2]);
+              v212 = vmlaq_f64(v210, v205, v20[3]);
+              v213 = vmlaq_f64(v210, v207, *v20);
+              v214 = vmlaq_f64(vmlaq_f64(v210, v208, v20[1]), v23[1], v20[5]);
+              v215 = vmlaq_f64(v213, *v23, v20[4]);
+              v216 = vmlaq_f64(v212, v23[3], v20[7]);
+              v217 = vmlaq_f64(v211, v23[2], v20[6]);
+              *v23 = v207;
+              v23[1] = v208;
+              v23[2] = v206;
+              v23[3] = v205;
+              v22[2] = v217;
+              v22[3] = v216;
+              a3 += a7;
+              v207 = v215;
+              *v22 = v215;
+              v22[1] = v214;
+              v208 = v214;
+              v206 = v217;
+              v205 = v216;
+              --v209;
+            }
+
+            while (v209);
+          }
+        }
+
+        else
+        {
+          if (a6 < 1)
+          {
+            v26 = 0;
+          }
+
+          else
+          {
+            v110 = 0;
+            v26 = 0;
+            do
+            {
+              if (v18 < 1)
+              {
+                v127 = v22[6];
+                v126 = v22[7];
+                v129 = v22[4];
+                v128 = v22[5];
+              }
+
+              else
+              {
+                v111 = v18;
+                do
+                {
+                  v112 = vdupq_lane_s64(COERCE__INT64(*a3), 0);
+                  v113 = *v22;
+                  v114 = v22[1];
+                  v115 = v22[2];
+                  v116 = v22[3];
+                  v117 = vmlaq_f64(vmlaq_f64(v112, *v22, *v20), *v23, v20[8]);
+                  v118 = vmlaq_f64(vmlaq_f64(v112, v114, v20[1]), v23[1], v20[9]);
+                  v119 = vmlaq_f64(vmlaq_f64(v112, v115, v20[2]), v23[2], v20[10]);
+                  v120 = vmlaq_f64(vmlaq_f64(v112, v116, v20[3]), v23[3], v20[11]);
+                  v23[2] = v115;
+                  v23[3] = v116;
+                  *v23 = v113;
+                  v23[1] = v114;
+                  v22[2] = v119;
+                  v22[3] = v120;
+                  *v22 = v117;
+                  v22[1] = v118;
+                  v122 = v22[4];
+                  v121 = v22[5];
+                  v124 = v22[6];
+                  v123 = v22[7];
+                  v125 = vmlaq_f64(v112, v122, v20[4]);
+                  v126 = vmlaq_f64(vmlaq_f64(0, v123, v20[7]), v23[7], v20[15]);
+                  v127 = vmlaq_f64(vmlaq_f64(0, v124, v20[6]), v23[6], v20[14]);
+                  v128 = vmlaq_f64(vmlaq_f64(v112, v121, v20[5]), v23[5], v20[13]);
+                  v129 = vmlaq_f64(v125, v23[4], v20[12]);
+                  v23[4] = v122;
+                  v23[5] = v121;
+                  v23[6] = v124;
+                  v23[7] = v123;
+                  v22[6] = v127;
+                  v22[7] = v126;
+                  v22[4] = v129;
+                  v22[5] = v128;
+                  a3 += a7;
+                  --v111;
+                }
+
+                while (v111);
+              }
+
+              v26 += v18;
+              v130 = (v21 + ((4 * v16) << 6));
+              v131 = vaddvq_f64(vpaddq_f64(vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(v130[8], *v23), *v22, *v130), vmlaq_f64(vmulq_f64(v130[10], v23[2]), v22[2], v130[2])), vaddq_f64(vmlaq_f64(vmulq_f64(v130[9], v23[1]), v22[1], v130[1]), vmlaq_f64(vmulq_f64(v130[11], v23[3]), v22[3], v130[3]))), vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(v130[12], v23[4]), v129, v130[4]), vmlaq_f64(vmulq_f64(v130[14], v23[6]), v127, v130[6])), vaddq_f64(vmlaq_f64(vmulq_f64(v130[13], v23[5]), v128, v130[5]), vmlaq_f64(vmulq_f64(v130[15], v23[7]), v126, v130[7])))));
+              *a4 = v131;
+              a4 += a8;
+              v132 = v16 + v17;
+              if (v132 < v24)
+              {
+                v18 = v25;
+              }
+
+              else
+              {
+                v18 = v25 + 1;
+              }
+
+              if (v132 < v24)
+              {
+                v133 = 0;
+              }
+
+              else
+              {
+                v133 = v24;
+              }
+
+              v16 = v132 - v133;
+              ++v110;
+            }
+
+            while (v110 != a6);
+          }
+
+          v204 = a5 - v26;
+          if (a5 <= v26)
+          {
+            goto LABEL_160;
+          }
+
+          if (v18 < v204)
+          {
+            v204 = v18;
+          }
+
+          if (v204 >= 1)
+          {
+            v247 = v204;
+            do
+            {
+              v248 = vdupq_lane_s64(COERCE__INT64(*a3), 0);
+              v249 = *v22;
+              v250 = v22[1];
+              v251 = v22[2];
+              v252 = v22[3];
+              v253 = vmlaq_f64(vmlaq_f64(v248, *v22, *v20), *v23, v20[8]);
+              v254 = vmlaq_f64(vmlaq_f64(v248, v250, v20[1]), v23[1], v20[9]);
+              v255 = vmlaq_f64(vmlaq_f64(v248, v251, v20[2]), v23[2], v20[10]);
+              v256 = vmlaq_f64(vmlaq_f64(v248, v252, v20[3]), v23[3], v20[11]);
+              v23[2] = v251;
+              v23[3] = v252;
+              *v23 = v249;
+              v23[1] = v250;
+              v22[2] = v255;
+              v22[3] = v256;
+              *v22 = v253;
+              v22[1] = v254;
+              v258 = v22[4];
+              v257 = v22[5];
+              v260 = v22[6];
+              v259 = v22[7];
+              v261 = vmlaq_f64(v248, v258, v20[4]);
+              v262 = vmlaq_f64(vmlaq_f64(0, v259, v20[7]), v23[7], v20[15]);
+              v263 = vmlaq_f64(vmlaq_f64(0, v260, v20[6]), v23[6], v20[14]);
+              v264 = vmlaq_f64(vmlaq_f64(v248, v257, v20[5]), v23[5], v20[13]);
+              v265 = vmlaq_f64(v261, v23[4], v20[12]);
+              v23[4] = v258;
+              v23[5] = v257;
+              v23[6] = v260;
+              v23[7] = v259;
+              v22[6] = v263;
+              v22[7] = v262;
+              v22[4] = v265;
+              v22[5] = v264;
+              a3 += a7;
+              --v247;
+            }
+
+            while (v247);
+          }
+        }
+      }
+
+      else
+      {
+        v65 = *(a2 + 17);
+        v16 = *(a2 + 18);
+        v18 = *(a2 + 22);
+        v66 = *(a2 + 2);
+        v67 = *(v66 + 16);
+        v68 = *(v66 + 40);
+        v69 = *(a2 + 20);
+        v70 = *(a2 + 23);
+        v71 = *(a2 + 15);
+        if (*(a2 + 14) == 8)
+        {
+          if (a6 < 1)
+          {
+            v26 = 0;
+          }
+
+          else
+          {
+            v26 = 0;
+            v72 = 0;
+            do
+            {
+              v74 = v69[2];
+              v73 = v69[3];
+              v75 = v18;
+              v77 = *v69;
+              v76 = v69[1];
+              if (v18 >= 1)
+              {
+                do
+                {
+                  v78 = vdupq_lane_s64(COERCE__INT64(*a3), 0);
+                  v79 = vmlaq_f64(v78, v74, v67[2]);
+                  v80 = vmlaq_f64(v78, v73, v67[3]);
+                  v81 = vmlaq_f64(v78, v77, *v67);
+                  v82 = vmlaq_f64(vmlaq_f64(v78, v76, v67[1]), v70[1], v67[5]);
+                  v83 = vmlaq_f64(v81, *v70, v67[4]);
+                  v84 = vmlaq_f64(v80, v70[3], v67[7]);
+                  v85 = vmlaq_f64(v79, v70[2], v67[6]);
+                  *v70 = v77;
+                  v70[1] = v76;
+                  v70[2] = v74;
+                  v70[3] = v73;
+                  v69[2] = v85;
+                  v69[3] = v84;
+                  a3 += a7;
+                  v77 = v83;
+                  *v69 = v83;
+                  v69[1] = v82;
+                  v76 = v82;
+                  v74 = v85;
+                  v73 = v84;
+                  --v75;
+                }
+
+                while (v75);
+              }
+
+              v26 += v18;
+              v86 = (v68 + (((v16 >> 22) & 0x1FE) << 6));
+              v87 = v70[2];
+              v88 = v70[3];
+              v89 = vpaddq_f64(vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(*v70, v86[12]), v77, v86[8]), vmlaq_f64(vmulq_f64(v87, v86[14]), v74, v86[10])), vaddq_f64(vmlaq_f64(vmulq_f64(v70[1], v86[13]), v76, v86[9]), vmlaq_f64(vmulq_f64(v88, v86[15]), v73, v86[11]))), vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(v86[4], *v70), v77, *v86), vmlaq_f64(vmulq_f64(v86[6], v87), v74, v86[2])), vaddq_f64(vmlaq_f64(vmulq_f64(v86[5], v70[1]), v76, v86[1]), vmlaq_f64(vmulq_f64(v86[7], v88), v73, v86[3]))));
+              *v89.f64 = v89.f64[1] + *(a2 + 12) * (v16 & 0x7FFFFF) * (v89.f64[0] - v89.f64[1]);
+              *a4 = *v89.f64;
+              a4 += a8;
+              LODWORD(v86) = v16 + v65;
+              v16 = (v16 + v65) & 0x7FFFFFFF;
+              v18 = v71 + (v86 >> 31);
+              ++v72;
+            }
+
+            while (v72 != a6);
+          }
+
+          v204 = a5 - v26;
+          if (a5 <= v26)
+          {
+            goto LABEL_160;
+          }
+
+          if (v18 < v204)
+          {
+            v204 = v18;
+          }
+
+          if (v204 >= 1)
+          {
+            v227 = v69[2];
+            v226 = v69[3];
+            v228 = *v69;
+            v229 = v69[1];
+            v230 = v204;
+            do
+            {
+              v231 = vdupq_lane_s64(COERCE__INT64(*a3), 0);
+              v232 = vmlaq_f64(v231, v227, v67[2]);
+              v233 = vmlaq_f64(v231, v226, v67[3]);
+              v234 = vmlaq_f64(v231, v228, *v67);
+              v235 = vmlaq_f64(vmlaq_f64(v231, v229, v67[1]), v70[1], v67[5]);
+              v236 = vmlaq_f64(v234, *v70, v67[4]);
+              v237 = vmlaq_f64(v233, v70[3], v67[7]);
+              v238 = vmlaq_f64(v232, v70[2], v67[6]);
+              *v70 = v228;
+              v70[1] = v229;
+              v70[2] = v227;
+              v70[3] = v226;
+              v69[2] = v238;
+              v69[3] = v237;
+              a3 += a7;
+              v228 = v236;
+              *v69 = v236;
+              v69[1] = v235;
+              v229 = v235;
+              v227 = v238;
+              v226 = v237;
+              --v230;
+            }
+
+            while (v230);
+          }
+        }
+
+        else
+        {
+          if (a6 < 1)
+          {
+            v26 = 0;
+          }
+
+          else
+          {
+            v26 = 0;
+            v151 = 0;
+            do
+            {
+              if (v18 < 1)
+              {
+                v168 = v69[6];
+                v167 = v69[7];
+                v170 = v69[4];
+                v169 = v69[5];
+              }
+
+              else
+              {
+                v152 = v18;
+                do
+                {
+                  v153 = vdupq_lane_s64(COERCE__INT64(*a3), 0);
+                  v154 = *v69;
+                  v155 = v69[1];
+                  v156 = v69[2];
+                  v157 = v69[3];
+                  v158 = vmlaq_f64(vmlaq_f64(v153, *v69, *v67), *v70, v67[8]);
+                  v159 = vmlaq_f64(vmlaq_f64(v153, v155, v67[1]), v70[1], v67[9]);
+                  v160 = vmlaq_f64(vmlaq_f64(v153, v156, v67[2]), v70[2], v67[10]);
+                  v161 = vmlaq_f64(vmlaq_f64(v153, v157, v67[3]), v70[3], v67[11]);
+                  v70[2] = v156;
+                  v70[3] = v157;
+                  *v70 = v154;
+                  v70[1] = v155;
+                  v69[2] = v160;
+                  v69[3] = v161;
+                  *v69 = v158;
+                  v69[1] = v159;
+                  v163 = v69[4];
+                  v162 = v69[5];
+                  v165 = v69[6];
+                  v164 = v69[7];
+                  v166 = vmlaq_f64(v153, v163, v67[4]);
+                  v167 = vmlaq_f64(vmlaq_f64(0, v164, v67[7]), v70[7], v67[15]);
+                  v168 = vmlaq_f64(vmlaq_f64(0, v165, v67[6]), v70[6], v67[14]);
+                  v169 = vmlaq_f64(vmlaq_f64(v153, v162, v67[5]), v70[5], v67[13]);
+                  v170 = vmlaq_f64(v166, v70[4], v67[12]);
+                  v70[4] = v163;
+                  v70[5] = v162;
+                  v70[6] = v165;
+                  v70[7] = v164;
+                  v69[6] = v168;
+                  v69[7] = v167;
+                  v69[4] = v170;
+                  v69[5] = v169;
+                  a3 += a7;
+                  --v152;
+                }
+
+                while (v152);
+              }
+
+              v26 += v18;
+              v171 = (v68 + (((v16 >> 21) & 0x3FC) << 6));
+              v172 = v69[1];
+              v174 = v69[2];
+              v173 = v69[3];
+              v175 = v70[2];
+              v176 = v70[3];
+              v177 = v70[6];
+              v178 = v70[7];
+              v179 = v70[4];
+              v180 = v70[5];
+              v181 = vaddq_f64(vpaddq_f64(vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(*v70, v171[24]), *v69, v171[16]), vmlaq_f64(vmulq_f64(v175, v171[26]), v174, v171[18])), vaddq_f64(vmlaq_f64(vmulq_f64(v70[1], v171[25]), v172, v171[17]), vmlaq_f64(vmulq_f64(v176, v171[27]), v173, v171[19]))), vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(v171[8], *v70), *v69, *v171), vmlaq_f64(vmulq_f64(v171[10], v175), v174, v171[2])), vaddq_f64(vmlaq_f64(vmulq_f64(v171[9], v70[1]), v172, v171[1]), vmlaq_f64(vmulq_f64(v171[11], v176), v173, v171[3])))), vpaddq_f64(vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(v179, v171[28]), v170, v171[20]), vmlaq_f64(vmulq_f64(v177, v171[30]), v168, v171[22])), vaddq_f64(vmlaq_f64(vmulq_f64(v180, v171[29]), v169, v171[21]), vmlaq_f64(vmulq_f64(v178, v171[31]), v167, v171[23]))), vaddq_f64(vaddq_f64(vmlaq_f64(vmulq_f64(v171[12], v179), v170, v171[4]), vmlaq_f64(vmulq_f64(v171[14], v177), v168, v171[6])), vaddq_f64(vmlaq_f64(vmulq_f64(v171[13], v180), v169, v171[5]), vmlaq_f64(vmulq_f64(v171[15], v178), v167, v171[7])))));
+              *v181.f64 = v181.f64[1] + *(a2 + 12) * (v16 & 0x7FFFFF) * (v181.f64[0] - v181.f64[1]);
+              *a4 = *v181.f64;
+              a4 += a8;
+              LODWORD(v171) = v16 + v65;
+              v16 = (v16 + v65) & 0x7FFFFFFF;
+              v18 = v71 + (v171 >> 31);
+              ++v151;
+            }
+
+            while (v151 != a6);
+          }
+
+          v204 = a5 - v26;
+          if (a5 <= v26)
+          {
+            goto LABEL_160;
+          }
+
+          if (v18 < v204)
+          {
+            v204 = v18;
+          }
+
+          if (v204 >= 1)
+          {
+            v276 = v204;
+            do
+            {
+              v277 = vdupq_lane_s64(COERCE__INT64(*a3), 0);
+              v278 = *v69;
+              v279 = v69[1];
+              v280 = v69[2];
+              v281 = v69[3];
+              v282 = vmlaq_f64(vmlaq_f64(v277, *v69, *v67), *v70, v67[8]);
+              v283 = vmlaq_f64(vmlaq_f64(v277, v279, v67[1]), v70[1], v67[9]);
+              v284 = vmlaq_f64(vmlaq_f64(v277, v280, v67[2]), v70[2], v67[10]);
+              v285 = vmlaq_f64(vmlaq_f64(v277, v281, v67[3]), v70[3], v67[11]);
+              v70[2] = v280;
+              v70[3] = v281;
+              *v70 = v278;
+              v70[1] = v279;
+              v69[2] = v284;
+              v69[3] = v285;
+              *v69 = v282;
+              v69[1] = v283;
+              v287 = v69[4];
+              v286 = v69[5];
+              v289 = v69[6];
+              v288 = v69[7];
+              v290 = vmlaq_f64(v277, v287, v67[4]);
+              v291 = vmlaq_f64(vmlaq_f64(0, v288, v67[7]), v70[7], v67[15]);
+              v292 = vmlaq_f64(vmlaq_f64(0, v289, v67[6]), v70[6], v67[14]);
+              v293 = vmlaq_f64(vmlaq_f64(v277, v286, v67[5]), v70[5], v67[13]);
+              v294 = vmlaq_f64(v290, v70[4], v67[12]);
+              v70[4] = v287;
+              v70[5] = v286;
+              v70[6] = v289;
+              v70[7] = v288;
+              v69[6] = v292;
+              v69[7] = v291;
+              v69[4] = v294;
+              v69[5] = v293;
+              a3 += a7;
+              --v276;
+            }
+
+            while (v276);
+          }
+        }
+      }
+    }
+
+    else if (*(a2 + 92))
+    {
+      v46 = *(a2 + 17);
+      v16 = *(a2 + 18);
+      v18 = *(a2 + 22);
+      v47 = *(*a2 + 16);
+      v48 = *(*a2 + 40);
+      v49 = *(a2 + 14);
+      v50 = *(a2 + 17);
+      v51 = *(a2 + 13);
+      v52 = *(a2 + 15);
+      if (*(a2 + 14) == 8)
+      {
+        if (a6 < 1)
+        {
+          v26 = 0;
+        }
+
+        else
+        {
+          v26 = 0;
+          v53 = 0;
+          do
+          {
+            v55 = *v49;
+            v56 = v49[1];
+            v57 = v18;
+            if (v18 >= 1)
+            {
+              do
+              {
+                v58 = vld1q_dup_f32(a3);
+                v54 = 4 * a7;
+                a3 = (a3 + v54);
+                v59 = vmlaq_f32(v58, v56, v47[1]);
+                v60 = vmlaq_f32(vmlaq_f32(v58, v55, *v47), *v50, v47[2]);
+                v61 = vmlaq_f32(v59, v50[1], v47[3]);
+                *v50 = v55;
+                v50[1] = v56;
+                *v49 = v60;
+                v49[1] = v61;
+                v55 = v60;
+                v56 = v61;
+                --v57;
+              }
+
+              while (v57);
+            }
+
+            v26 += v18;
+            v62 = vaddq_f32(vmlaq_f32(vmulq_f32(*(v48 + 32 * (2 * v16) + 32), *v50), v55, *(v48 + 32 * (2 * v16))), vmlaq_f32(vmulq_f32(*(v48 + 32 * (2 * v16) + 48), v50[1]), v56, *(v48 + 32 * (2 * v16) + 16)));
+            *a4 = vaddv_f32(vadd_f32(*v62.i8, *&vextq_s8(v62, v62, 8uLL)));
+            a4 += a8;
+            v63 = v16 + v46;
+            if (v63 < v51)
+            {
+              v18 = v52;
+            }
+
+            else
+            {
+              v18 = v52 + 1;
+            }
+
+            if (v63 < v51)
+            {
+              v64 = 0;
+            }
+
+            else
+            {
+              v64 = v51;
+            }
+
+            v16 = v63 - v64;
+            ++v53;
+          }
+
+          while (v53 != a6);
+        }
+
+        v204 = a5 - v26;
+        if (a5 <= v26)
+        {
+          goto LABEL_160;
+        }
+
+        if (v18 < v204)
+        {
+          v204 = v18;
+        }
+
+        if (v204 >= 1)
+        {
+          v219 = *v49;
+          v218 = v49[1];
+          v221 = v204;
+          do
+          {
+            v222 = vld1q_dup_f32(a3);
+            v220 = 4 * a7;
+            a3 = (a3 + v220);
+            v223 = vmlaq_f32(v222, v218, v47[1]);
+            v224 = vmlaq_f32(vmlaq_f32(v222, v219, *v47), *v50, v47[2]);
+            v225 = vmlaq_f32(v223, v50[1], v47[3]);
+            *v50 = v219;
+            v50[1] = v218;
+            *v49 = v224;
+            v49[1] = v225;
+            v219 = v224;
+            v218 = v225;
+            --v221;
+          }
+
+          while (v221);
+        }
+      }
+
+      else
+      {
+        if (a6 < 1)
+        {
+          v26 = 0;
+        }
+
+        else
+        {
+          v134 = 0;
+          v26 = 0;
+          do
+          {
+            if (v18 < 1)
+            {
+              v144 = v49[2];
+              v143 = v49[3];
+            }
+
+            else
+            {
+              v136 = v18;
+              do
+              {
+                v137 = vld1q_dup_f32(a3);
+                v135 = 4 * a7;
+                a3 = (a3 + v135);
+                v138 = v49[1];
+                v139 = vmlaq_f32(vmlaq_f32(v137, *v49, *v47), *v50, v47[4]);
+                v140 = vmlaq_f32(vmlaq_f32(v137, v138, v47[1]), v50[1], v47[5]);
+                *v50 = *v49;
+                v50[1] = v138;
+                *v49 = v139;
+                v49[1] = v140;
+                v141 = v49[2];
+                v142 = v49[3];
+                v143 = vmlaq_f32(vmlaq_f32(0, v142, v47[3]), v50[3], v47[7]);
+                v144 = vmlaq_f32(vmlaq_f32(v137, v141, v47[2]), v50[2], v47[6]);
+                v50[2] = v141;
+                v50[3] = v142;
+                v49[2] = v144;
+                v49[3] = v143;
+                --v136;
+              }
+
+              while (v136);
+            }
+
+            v26 += v18;
+            v145 = (v48 + 32 * (4 * v16));
+            v146 = vmlaq_f32(vmulq_f32(v145[6], v50[2]), v144, v145[2]);
+            v147 = vaddq_f32(vmlaq_f32(vmulq_f32(v145[4], *v50), *v49, *v145), vmlaq_f32(vmulq_f32(v145[5], v50[1]), v49[1], v145[1]));
+            *v147.i8 = vadd_f32(*v147.i8, *&vextq_s8(v147, v147, 8uLL));
+            v148 = vaddq_f32(v146, vmlaq_f32(vmulq_f32(v145[7], v50[3]), v143, v145[3]));
+            *v148.i8 = vadd_f32(*v148.i8, *&vextq_s8(v148, v148, 8uLL));
+            *a4 = vaddv_f32(vadd_f32(vzip1_s32(*v147.i8, *v148.i8), vzip2_s32(*v147.i8, *v148.i8)));
+            a4 += a8;
+            v149 = v16 + v46;
+            if (v149 < v51)
+            {
+              v18 = v52;
+            }
+
+            else
+            {
+              v18 = v52 + 1;
+            }
+
+            if (v149 < v51)
+            {
+              v150 = 0;
+            }
+
+            else
+            {
+              v150 = v51;
+            }
+
+            v16 = v149 - v150;
+            ++v134;
+          }
+
+          while (v134 != a6);
+        }
+
+        v204 = a5 - v26;
+        if (a5 <= v26)
+        {
+          goto LABEL_160;
+        }
+
+        if (v18 < v204)
+        {
+          v204 = v18;
+        }
+
+        if (v204 >= 1)
+        {
+          v267 = v204;
+          do
+          {
+            v268 = vld1q_dup_f32(a3);
+            v266 = 4 * a7;
+            a3 = (a3 + v266);
+            v269 = v49[1];
+            v270 = vmlaq_f32(vmlaq_f32(v268, *v49, *v47), *v50, v47[4]);
+            v271 = vmlaq_f32(vmlaq_f32(v268, v269, v47[1]), v50[1], v47[5]);
+            *v50 = *v49;
+            v50[1] = v269;
+            *v49 = v270;
+            v49[1] = v271;
+            v272 = v49[2];
+            v273 = v49[3];
+            v274 = vmlaq_f32(vmlaq_f32(0, v273, v47[3]), v50[3], v47[7]);
+            v275 = vmlaq_f32(vmlaq_f32(v268, v272, v47[2]), v50[2], v47[6]);
+            v50[2] = v272;
+            v50[3] = v273;
+            v49[2] = v275;
+            v49[3] = v274;
+            --v267;
+          }
+
+          while (v267);
+        }
+      }
+    }
+
+    else
+    {
+      v90 = *(a2 + 17);
+      v16 = *(a2 + 18);
+      v18 = *(a2 + 22);
+      v91 = *(*a2 + 16);
+      v92 = *(*a2 + 40);
+      v93 = *(a2 + 14);
+      v94 = *(a2 + 17);
+      v95 = *(a2 + 15);
+      if (*(a2 + 14) == 8)
+      {
+        if (a6 < 1)
+        {
+          v26 = 0;
+        }
+
+        else
+        {
+          v26 = 0;
+          v96 = 0;
+          do
+          {
+            v98 = *v93;
+            v99 = v93[1];
+            v100 = v18;
+            if (v18 >= 1)
+            {
+              do
+              {
+                v101 = vld1q_dup_f32(a3);
+                v97 = 4 * a7;
+                a3 = (a3 + v97);
+                v102 = vmlaq_f32(v101, v99, v91[1]);
+                v103 = vmlaq_f32(vmlaq_f32(v101, v98, *v91), *v94, v91[2]);
+                v104 = vmlaq_f32(v102, v94[1], v91[3]);
+                *v94 = v98;
+                v94[1] = v99;
+                *v93 = v103;
+                v93[1] = v104;
+                v98 = v103;
+                v99 = v104;
+                --v100;
+              }
+
+              while (v100);
+            }
+
+            v26 += v18;
+            v105 = *(a2 + 12) * (v16 & 0x7FFFFF);
+            v106 = (v92 + 32 * ((v16 >> 22) & 0x1FE));
+            v107 = v94[1];
+            v108 = vaddq_f32(vmlaq_f32(vmulq_f32(v106[2], *v94), v98, *v106), vmlaq_f32(vmulq_f32(v106[3], v107), v99, v106[1]));
+            *v108.i8 = vadd_f32(*v108.i8, *&vextq_s8(v108, v108, 8uLL));
+            v109 = vaddq_f32(vmlaq_f32(vmulq_f32(*v94, v106[6]), v98, v106[4]), vmlaq_f32(vmulq_f32(v107, v106[7]), v99, v106[5]));
+            *v109.i8 = vadd_f32(*v109.i8, *&vextq_s8(v109, v109, 8uLL));
+            *v109.i8 = vadd_f32(vzip1_s32(*v109.i8, *v108.i8), vzip2_s32(*v109.i8, *v108.i8));
+            *a4 = *&v109.i32[1] + (v105 * (*v109.i32 - *&v109.i32[1]));
+            a4 += a8;
+            LODWORD(v106) = v16 + v90;
+            v16 = (v16 + v90) & 0x7FFFFFFF;
+            v18 = v95 + (v106 >> 31);
+            ++v96;
+          }
+
+          while (v96 != a6);
+        }
+
+        v204 = a5 - v26;
+        if (a5 <= v26)
+        {
+          goto LABEL_160;
+        }
+
+        if (v18 < v204)
+        {
+          v204 = v18;
+        }
+
+        if (v204 >= 1)
+        {
+          v240 = *v93;
+          v239 = v93[1];
+          v242 = v204;
+          do
+          {
+            v243 = vld1q_dup_f32(a3);
+            v241 = 4 * a7;
+            a3 = (a3 + v241);
+            v244 = vmlaq_f32(v243, v239, v91[1]);
+            v245 = vmlaq_f32(vmlaq_f32(v243, v240, *v91), *v94, v91[2]);
+            v246 = vmlaq_f32(v244, v94[1], v91[3]);
+            *v94 = v240;
+            v94[1] = v239;
+            *v93 = v245;
+            v93[1] = v246;
+            v240 = v245;
+            v239 = v246;
+            --v242;
+          }
+
+          while (v242);
+        }
+      }
+
+      else
+      {
+        if (a6 < 1)
+        {
+          v26 = 0;
+        }
+
+        else
+        {
+          v26 = 0;
+          v182 = 0;
+          do
+          {
+            if (v18 < 1)
+            {
+              v192 = v93[2];
+              v191 = v93[3];
+            }
+
+            else
+            {
+              v184 = v18;
+              do
+              {
+                v185 = vld1q_dup_f32(a3);
+                v183 = 4 * a7;
+                a3 = (a3 + v183);
+                v186 = v93[1];
+                v187 = vmlaq_f32(vmlaq_f32(v185, *v93, *v91), *v94, v91[4]);
+                v188 = vmlaq_f32(vmlaq_f32(v185, v186, v91[1]), v94[1], v91[5]);
+                *v94 = *v93;
+                v94[1] = v186;
+                *v93 = v187;
+                v93[1] = v188;
+                v189 = v93[2];
+                v190 = v93[3];
+                v191 = vmlaq_f32(vmlaq_f32(0, v190, v91[3]), v94[3], v91[7]);
+                v192 = vmlaq_f32(vmlaq_f32(v185, v189, v91[2]), v94[2], v91[6]);
+                v94[2] = v189;
+                v94[3] = v190;
+                v93[2] = v192;
+                v93[3] = v191;
+                --v184;
+              }
+
+              while (v184);
+            }
+
+            v26 += v18;
+            v193 = *(a2 + 12) * (v16 & 0x7FFFFF);
+            v194 = (v92 + 32 * ((v16 >> 21) & 0x3FC));
+            v195 = v93[1];
+            v196 = v94[1];
+            v198 = v94[2];
+            v197 = v94[3];
+            v199 = vaddq_f32(vmlaq_f32(vmulq_f32(v194[4], *v94), *v93, *v194), vmlaq_f32(vmulq_f32(v194[5], v196), v195, v194[1]));
+            *v199.i8 = vadd_f32(*v199.i8, *&vextq_s8(v199, v199, 8uLL));
+            v200 = vaddq_f32(vmlaq_f32(vmulq_f32(v194[6], v198), v192, v194[2]), vmlaq_f32(vmulq_f32(v194[7], v197), v191, v194[3]));
+            *v200.i8 = vadd_f32(*v200.i8, *&vextq_s8(v200, v200, 8uLL));
+            v201 = vmlaq_f32(vmulq_f32(v198, v194[14]), v192, v194[10]);
+            v202 = vaddq_f32(vmlaq_f32(vmulq_f32(*v94, v194[12]), *v93, v194[8]), vmlaq_f32(vmulq_f32(v196, v194[13]), v195, v194[9]));
+            *v202.i8 = vadd_f32(*v202.i8, *&vextq_s8(v202, v202, 8uLL));
+            v203 = vaddq_f32(v201, vmlaq_f32(vmulq_f32(v197, v194[15]), v191, v194[11]));
+            *v203.i8 = vadd_f32(*v203.i8, *&vextq_s8(v203, v203, 8uLL));
+            *v202.i8 = vadd_f32(vadd_f32(vzip1_s32(*v202.i8, *v199.i8), vzip2_s32(*v202.i8, *v199.i8)), vadd_f32(vzip1_s32(*v203.i8, *v200.i8), vzip2_s32(*v203.i8, *v200.i8)));
+            *a4 = *&v202.i32[1] + (v193 * (*v202.i32 - *&v202.i32[1]));
+            a4 += a8;
+            LODWORD(v194) = v16 + v90;
+            v16 = (v16 + v90) & 0x7FFFFFFF;
+            v18 = v95 + (v194 >> 31);
+            ++v182;
+          }
+
+          while (v182 != a6);
+        }
+
+        v204 = a5 - v26;
+        if (a5 <= v26)
+        {
+          goto LABEL_160;
+        }
+
+        if (v18 < v204)
+        {
+          v204 = v18;
+        }
+
+        if (v204 >= 1)
+        {
+          v296 = v204;
+          do
+          {
+            v297 = vld1q_dup_f32(a3);
+            v295 = 4 * a7;
+            a3 = (a3 + v295);
+            v298 = v93[1];
+            v299 = vmlaq_f32(vmlaq_f32(v297, *v93, *v91), *v94, v91[4]);
+            v300 = vmlaq_f32(vmlaq_f32(v297, v298, v91[1]), v94[1], v91[5]);
+            *v94 = *v93;
+            v94[1] = v298;
+            *v93 = v299;
+            v93[1] = v300;
+            v301 = v93[2];
+            v302 = v93[3];
+            v303 = vmlaq_f32(vmlaq_f32(0, v302, v91[3]), v94[3], v91[7]);
+            v304 = vmlaq_f32(vmlaq_f32(v297, v301, v91[2]), v94[2], v91[6]);
+            v94[2] = v301;
+            v94[3] = v302;
+            v93[2] = v304;
+            v93[3] = v303;
+            --v296;
+          }
+
+          while (v296);
+        }
+      }
+    }
+
+    v18 -= v204;
+    v26 += v204;
+LABEL_160:
+    *(a2 + 18) = v16;
+    *(a2 + 22) = v18;
+    v45 = 1;
+    goto LABEL_161;
+  }
+
+  *this = 1919747238;
+  *(this + 4) = 0;
+LABEL_162:
+  result = NAN;
+  *(a2 + 32) = -1;
+  *(a2 + 66) = -1;
+  return result;
+}
+
 uint64_t RamstadSRC::checkPreflight(uint64_t this, RamstadSRC *a2, int a3, int a4)
 {
   v6 = this;
@@ -3744,20 +8341,15 @@ void sub_18F768E84(void *a1, int a2)
   __break(1u);
 }
 
-void sub_18F768EE8(void *a1, int a2)
+void sub_18F768EE8(void *a1)
 {
   __cxa_end_catch();
-  v5 = __cxa_begin_catch(a1);
-  if (a2 == v2)
-  {
-    v6 = *v5;
-  }
-
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x18F768E6CLL);
 }
 
-uint64_t AudioFileStreamPrepareToOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t AudioFileStreamPrepareToOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   if (a6)
   {
@@ -3782,15 +8374,10 @@ void sub_18F769058(void *a1, int a2)
   __break(1u);
 }
 
-void sub_18F7690E0(void *a1, int a2)
+void sub_18F7690E0(void *a1)
 {
   __cxa_end_catch();
-  v5 = __cxa_begin_catch(a1);
-  if (a2 == v2)
-  {
-    v6 = *v5;
-  }
-
+  __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x18F76903CLL);
 }
@@ -3798,12 +8385,10 @@ void sub_18F7690E0(void *a1, int a2)
 OSStatus AudioFileStreamParseBytes(AudioFileStreamID inAudioFileStream, UInt32 inDataByteSize, const void *inData, AudioFileStreamParseFlags inFlags)
 {
   v4 = inFlags;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (inDataByteSize && !inData)
   {
-LABEL_3:
-    result = -50;
-    goto LABEL_27;
+    return -50;
   }
 
   v8 = BaseOpaqueObject::ResolveOpaqueRef();
@@ -3811,14 +8396,14 @@ LABEL_3:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v18[0]) = 136315394;
-      *(v18 + 4) = "AudioFileStream.cpp";
-      WORD6(v18[0]) = 1024;
-      *(v18 + 14) = 122;
-      _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", v18, 0x12u);
+      LODWORD(v17[0]) = 136315394;
+      *(v17 + 4) = "AudioFileStream.cpp";
+      WORD6(v17[0]) = 1024;
+      *(v17 + 14) = 122;
+      _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", v17, 0x12u);
     }
 
-    goto LABEL_3;
+    return -50;
   }
 
   v9 = v8;
@@ -3830,8 +8415,8 @@ LABEL_3:
   {
     for (i = *(v8 + 16); ; *(i + 236) = 0)
     {
-      v19 = 0;
-      memset(v18, 0, sizeof(v18));
+      v18 = 0;
+      memset(v17, 0, sizeof(v17));
       v11 = v4 | *(i + 176);
       *(i + 176) = v11 & 1;
       if (*(*(i + 8) + 104) == 1 && (v11 & 1) != 0 && ((*(*i + 216))(i) & 1) != 0)
@@ -3847,9 +8432,9 @@ LABEL_3:
         v12 = *(*v14 + v12);
       }
 
-      result = v12(v14, v18);
+      result = v12(v14, v17);
       *(i + 176) = 0;
-      i = *&v18[0];
+      i = *&v17[0];
       if (result)
       {
         v15 = 1;
@@ -3857,7 +8442,7 @@ LABEL_3:
 
       else
       {
-        v15 = *&v18[0] == 0;
+        v15 = *&v17[0] == 0;
       }
 
       if (v15)
@@ -3866,14 +8451,14 @@ LABEL_3:
       }
 
       v16 = *(v9 + 16);
-      if (v16 == *&v18[0])
+      if (v16 == *&v17[0])
       {
         i = *(v9 + 16);
       }
 
       else
       {
-        *(v9 + 16) = *&v18[0];
+        *(v9 + 16) = *&v17[0];
         *(i + 8) = v9;
         if (v16)
         {
@@ -3882,7 +8467,7 @@ LABEL_3:
         }
       }
 
-      *(i + 240) = *(v18 + 8);
+      *(i + 240) = *(v17 + 8);
     }
 
     result = 1685283617;
@@ -3895,8 +8480,6 @@ LABEL_3:
 
 LABEL_26:
   *(v9 + 116) = 0;
-LABEL_27:
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3904,12 +8487,7 @@ void sub_18F769380(_Unwind_Exception *a1, int a2)
 {
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v4 = *v3;
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x18F769350);
   }
@@ -3919,12 +8497,10 @@ void sub_18F769380(_Unwind_Exception *a1, int a2)
 
 OSStatus AudioFileStreamSeek(AudioFileStreamID inAudioFileStream, SInt64 inPacketOffset, SInt64 *outDataByteOffset, AudioFileStreamSeekFlags *ioFlags)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!outDataByteOffset)
   {
-LABEL_7:
-    result = -50;
-    goto LABEL_8;
+    return -50;
   }
 
   v7 = BaseOpaqueObject::ResolveOpaqueRef();
@@ -3932,42 +8508,33 @@ LABEL_7:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "AudioFileStream.cpp";
-      v13 = 1024;
-      v14 = 148;
-      _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "AudioFileStream.cpp";
+      v12 = 1024;
+      v13 = 148;
+      _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", &v10, 0x12u);
     }
 
-    goto LABEL_7;
+    return -50;
   }
 
   v8 = *(v7 + 16);
   if (v8)
   {
-    result = (*(*v8 + 48))(v8, inPacketOffset, outDataByteOffset, ioFlags);
+    return (*(*v8 + 48))(v8, inPacketOffset, outDataByteOffset, ioFlags);
   }
 
   else
   {
-    result = 1836020325;
+    return 1836020325;
   }
-
-LABEL_8:
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_18F7694F0(_Unwind_Exception *a1, int a2)
 {
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v4 = *v3;
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x18F7694B4);
   }
@@ -3975,16 +8542,61 @@ void sub_18F7694F0(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
+OSStatus AudioFileStreamGetPropertyInfo(AudioFileStreamID inAudioFileStream, AudioFileStreamPropertyID inPropertyID, UInt32 *outPropertyDataSize, Boolean *outWritable)
+{
+  v6 = *&inPropertyID;
+  v15 = *MEMORY[0x1E69E9840];
+  v7 = BaseOpaqueObject::ResolveOpaqueRef();
+  if (v7)
+  {
+    v8 = *(v7 + 16);
+    if (v8)
+    {
+      return (*(*v8 + 24))(*(v7 + 16), v6, outPropertyDataSize, outWritable);
+    }
+
+    else if (v6 == 1869640816)
+    {
+      if (outPropertyDataSize)
+      {
+        *outPropertyDataSize = (*(v7 + 56) - *(v7 + 48)) & 0xFFFFFFFC;
+      }
+
+      v9 = 0;
+      if (outWritable)
+      {
+        *outWritable = 1;
+      }
+    }
+
+    else
+    {
+      return 1886681407;
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 136315394;
+      v12 = "AudioFileStream.cpp";
+      v13 = 1024;
+      v14 = 172;
+      _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", &v11, 0x12u);
+    }
+
+    return -50;
+  }
+
+  return v9;
+}
+
 void sub_18F769698(_Unwind_Exception *a1, int a2)
 {
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v4 = *v3;
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x18F769664);
   }
@@ -3992,16 +8604,91 @@ void sub_18F769698(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
+OSStatus AudioFileStreamGetProperty(AudioFileStreamID inAudioFileStream, AudioFileStreamPropertyID inPropertyID, UInt32 *ioPropertyDataSize, void *outPropertyData)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  result = -50;
+  if (ioPropertyDataSize)
+  {
+    v5 = outPropertyData;
+    if (outPropertyData)
+    {
+      v7 = *&inPropertyID;
+      v8 = BaseOpaqueObject::ResolveOpaqueRef();
+      if (v8)
+      {
+        v9 = v8;
+        if (v7 == 1869640816)
+        {
+          bzero(v5, *ioPropertyDataSize);
+          v10 = *ioPropertyDataSize >> 2;
+          v11 = *(v9 + 48);
+          v12 = (*(v9 + 56) - v11) >> 2;
+          if (v12 >= v10)
+          {
+            v13 = v10;
+          }
+
+          else
+          {
+            v13 = v12;
+          }
+
+          *ioPropertyDataSize = 4 * v13;
+          if (v13)
+          {
+            do
+            {
+              v14 = *v11++;
+              *v5++ = v14;
+              --v13;
+            }
+
+            while (v13);
+          }
+
+          return 0;
+        }
+
+        else
+        {
+          v15 = *(v8 + 16);
+          if (v15)
+          {
+            return (*(*v15 + 32))(v15, v7, ioPropertyDataSize, v5);
+          }
+
+          else
+          {
+            return 1886681407;
+          }
+        }
+      }
+
+      else
+      {
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = 136315394;
+          v17 = "AudioFileStream.cpp";
+          v18 = 1024;
+          v19 = 198;
+          _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", &v16, 0x12u);
+        }
+
+        return -50;
+      }
+    }
+  }
+
+  return result;
+}
+
 void sub_18F769864(_Unwind_Exception *a1, int a2)
 {
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v4 = *v3;
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x18F769834);
   }
@@ -4009,16 +8696,145 @@ void sub_18F769864(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
+OSStatus AudioFileStreamSetProperty(AudioFileStreamID inAudioFileStream, AudioFileStreamPropertyID inPropertyID, UInt32 inPropertyDataSize, const void *inPropertyData)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v4 = -50;
+  if (inPropertyDataSize && inPropertyData)
+  {
+    v6 = *&inPropertyDataSize;
+    v7 = *&inPropertyID;
+    v8 = BaseOpaqueObject::ResolveOpaqueRef();
+    if (v8)
+    {
+      v9 = v8;
+      if (v7 == 1869640816)
+      {
+        if (v6 >= 4)
+        {
+          v10 = 0;
+          v11 = v6 >> 2;
+          v12 = *(v8 + 56);
+          do
+          {
+            v13 = *(inPropertyData + v10);
+            v14 = v9[6];
+            v15 = v12 - v14;
+            v16 = (v12 - v14) >> 2;
+            if (v12 == v14)
+            {
+LABEL_11:
+              v20 = v9[8];
+              if (v12 >= v20)
+              {
+                v21 = v16 + 1;
+                if ((v16 + 1) >> 62)
+                {
+                  std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
+                }
+
+                v22 = v20 - v14;
+                if (v22 >> 1 > v21)
+                {
+                  v21 = v22 >> 1;
+                }
+
+                if (v22 >= 0x7FFFFFFFFFFFFFFCLL)
+                {
+                  v23 = 0x3FFFFFFFFFFFFFFFLL;
+                }
+
+                else
+                {
+                  v23 = v21;
+                }
+
+                if (v23)
+                {
+                  std::allocator<APAC::UI18>::allocate_at_least[abi:ne200100](v23);
+                }
+
+                v24 = (v12 - v14) >> 2;
+                v25 = (4 * v16);
+                v26 = (4 * v16 - 4 * v24);
+                *v25 = v13;
+                v12 = (v25 + 1);
+                memcpy(v26, v14, v15);
+                v27 = v9[6];
+                v9[6] = v26;
+                v9[7] = v12;
+                v9[8] = 0;
+                if (v27)
+                {
+                  operator delete(v27);
+                }
+              }
+
+              else
+              {
+                *v12 = v13;
+                v12 += 4;
+              }
+
+              v9[7] = v12;
+            }
+
+            else
+            {
+              v17 = 0;
+              v18 = 1;
+              while (*&v14[4 * v17] != v13)
+              {
+                v17 = v18;
+                if (v16 <= v18++)
+                {
+                  goto LABEL_11;
+                }
+              }
+            }
+
+            ++v10;
+          }
+
+          while (v10 != v11);
+        }
+
+        return 0;
+      }
+
+      else
+      {
+        v28 = *(v8 + 16);
+        if (v28)
+        {
+          return (*(*v28 + 40))(v28, v7, v6, inPropertyData);
+        }
+
+        else
+        {
+          return 1886681407;
+        }
+      }
+    }
+
+    else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      v30 = 136315394;
+      v31 = "AudioFileStream.cpp";
+      v32 = 1024;
+      v33 = 223;
+      _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", &v30, 0x12u);
+    }
+  }
+
+  return v4;
+}
+
 void sub_18F769AFC(_Unwind_Exception *a1, int a2)
 {
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v4 = *v3;
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x18F769AB4);
   }
@@ -4028,30 +8844,27 @@ void sub_18F769AFC(_Unwind_Exception *a1, int a2)
 
 OSStatus AudioFileStreamClose(AudioFileStreamID inAudioFileStream)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = BaseOpaqueObject::ResolveOpaqueRef();
   if (v1)
   {
     (*(*v1 + 8))(v1);
-    result = 0;
+    return 0;
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315394;
-      v5 = "AudioFileStream.cpp";
-      v6 = 1024;
-      v7 = 242;
-      _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", &v4, 0x12u);
+      v3 = 136315394;
+      v4 = "AudioFileStream.cpp";
+      v5 = 1024;
+      v6 = 242;
+      _os_log_impl(&dword_18F5DF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  afsw == NULL", &v3, 0x12u);
     }
 
-    result = -50;
+    return -50;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t HOA::getTDesign(HOA *this, _OWORD *__dst, float *a3, float *__C, float *a5)
@@ -4438,24 +9251,23 @@ void sub_18F76A638(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::sync_message(void *a1, void *a2)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F032C3A0;
-  v6[1] = a1;
-  v6[3] = v6;
+  v5[4] = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F032C3A0;
+  v5[1] = a1;
+  v5[3] = v5;
   v3 = a2;
   *a1 = v3;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100]((a1 + 1), v6);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100]((a1 + 1), v5);
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
   a1[5] = 0;
   a1[6] = 0;
-  v4 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-void sub_18F76AA20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18F76AA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -4463,18 +9275,17 @@ void sub_18F76AA20(_Unwind_Exception *a1, uint64_t a2, ...)
 
 id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::sync_proxy(void **a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP7NSArrayEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c69_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP7NSArrayEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP7NSArrayEE10sync_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c69_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP7NSArrayEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -4488,17 +9299,16 @@ void sub_18F76AB34(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::reply(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
+  v6 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100](v5, a1 + 8);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3321888768;
   aBlock[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP7NSArrayEE5replyEv_block_invoke;
   aBlock[3] = &__block_descriptor_64_ea8_32c69_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP7NSArrayEEEEEE_e29_v24__0__NSError_8__NSArray_16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100](v5, v6);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::__value_func[abi:ne200100](v4, v5);
   v1 = _Block_copy(aBlock);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -4594,30 +9404,29 @@ uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcprot
   return result;
 }
 
-void sub_18F76B1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_18F76B1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  std::recursive_mutex::unlock((v9 + v12));
+  std::recursive_mutex::unlock((v16 + v19));
 
   _Unwind_Resume(a1);
 }
 
 id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::async_proxy(void **a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v8, (a1 + 1));
+  v8 = *MEMORY[0x1E69E9840];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJEE11async_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v7, v8);
-  v3 = [v2 remoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJEE11async_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v6, v7);
+  v3 = [v2 remoteObjectProxyWithErrorHandler:v5];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v6);
   _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v7);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v8);
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -4629,22 +9438,22 @@ void sub_18F76B318(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18F76B544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_18F76B544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  std::recursive_mutex::unlock((v9 + v12));
+  std::recursive_mutex::unlock((v16 + v19));
 
   _Unwind_Resume(a1);
 }
 
-void sub_18F76B760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_18F76B760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  std::recursive_mutex::unlock((v9 + v12));
+  std::recursive_mutex::unlock((v16 + v19));
 
   _Unwind_Resume(a1);
 }
@@ -4679,9 +9488,9 @@ id getAVAudioFormatClass()
   return v1;
 }
 
-void sub_18F76BB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18F76BB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4756,9 +9565,9 @@ id getAVAudioChannelLayoutClass()
   return v1;
 }
 
-void sub_18F76BC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18F76BC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4784,117 +9593,108 @@ void ___ZL28getAVAudioChannelLayoutClassv_block_invoke_4324(uint64_t a1)
 
 void AVFAudioLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!AVFAudioLibraryCore(char **)::frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = ___ZL19AVFAudioLibraryCorePPc_block_invoke_4331;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E72C0E98;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = ___ZL19AVFAudioLibraryCorePPc_block_invoke_4331;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E72C0E98;
+    v5 = 0;
     AVFAudioLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
   if (!AVFAudioLibraryCore(char **)::frameworkLibrary)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AVFAudioLibrary()"];
-    [v2 handleFailureInFunction:v3 file:@"AVFASoftLink.h" lineNumber:63 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AVFAudioLibrary()"];
+    [v1 handleFailureInFunction:v2 file:@"AVFASoftLink.h" lineNumber:63 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!AVFAudioLibraryCore(char **)::frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = ___ZL19AVFAudioLibraryCorePPc_block_invoke_5085;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E72C0F68;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = ___ZL19AVFAudioLibraryCorePPc_block_invoke_5085;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E72C0F68;
+    v5 = 0;
     AVFAudioLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
   if (!AVFAudioLibraryCore(char **)::frameworkLibrary)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AVFAudioLibrary()"];
-    [v2 handleFailureInFunction:v3 file:@"AVFASoftLink.h" lineNumber:63 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AVFAudioLibrary()"];
+    [v1 handleFailureInFunction:v2 file:@"AVFASoftLink.h" lineNumber:63 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!AVFAudioLibraryCore(char **)::frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = ___ZL19AVFAudioLibraryCorePPc_block_invoke_9367;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E72C19A0;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = ___ZL19AVFAudioLibraryCorePPc_block_invoke_9367;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E72C19A0;
+    v5 = 0;
     AVFAudioLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
   if (!AVFAudioLibraryCore(char **)::frameworkLibrary)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AVFAudioLibrary()"];
-    [v2 handleFailureInFunction:v3 file:@"AVFASoftLink.h" lineNumber:63 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AVFAudioLibrary()"];
+    [v1 handleFailureInFunction:v2 file:@"AVFASoftLink.h" lineNumber:63 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___ZL19AVFAudioLibraryCorePPc_block_invoke_4331(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AVFAudioLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4924,13 +9724,6 @@ void sub_18F76C588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   a9.super_class = AUMessageChannel_XPC;
   [(_Unwind_Exception *)&a9 dealloc];
   _Unwind_Resume(a1);
-}
-
-uint64_t _ZNSt3__110__function6__funcIU8__strongU13block_pointerFvP7NSErrorNS_5tupleIJEEEENS_9allocatorIS8_EEFvS3_OS5_EE7destroyEv(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  return MEMORY[0x1EEE66BB8]();
 }
 
 void *_ZNKSt3__110__function6__funcIU8__strongU13block_pointerFvP7NSErrorNS_5tupleIJEEEENS_9allocatorIS8_EEFvS3_OS5_EE7__cloneEPNS0_6__baseISC_EE(uint64_t a1, void *a2)
@@ -4964,24 +9757,23 @@ void sub_18F76C9D0(_Unwind_Exception *a1)
 
 uint64_t caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL>::sync_message(uint64_t a1, void *a2)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F032CD60;
-  v6[1] = a1;
-  v6[3] = v6;
+  v5[4] = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F032CD60;
+  v5[1] = a1;
+  v5[3] = v5;
   v3 = a2;
   *a1 = v3;
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](a1 + 8, v6);
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](a1 + 8, v5);
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v6);
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v5);
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  v4 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-void sub_18F76CE64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18F76CE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -4989,18 +9781,17 @@ void sub_18F76CE64(_Unwind_Exception *a1, uint64_t a2, ...)
 
 id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL>::sync_proxy(void **a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJbEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJbEE10sync_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -5014,17 +9805,16 @@ void sub_18F76CF78(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL>::reply(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
+  v6 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v5, a1 + 8);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3321888768;
   aBlock[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJbEE5replyEv_block_invoke;
   aBlock[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e20_v20__0__NSError_8B16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v5, v6);
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v4, v5);
   v1 = _Block_copy(aBlock);
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v4);
   std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -5043,9337 +9833,4 @@ uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::
   }
 
   return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void std::function<void ()(NSError *,std::tuple<BOOL> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<BOOL> &&)#1},std::allocator<std::tuple<BOOL> &>,void ()(NSError,std::tuple<BOOL>)>::operator()(uint64_t a1, id *a2, _BYTE *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  *(v6 + 48) = *a3;
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<BOOL> &&)#1},std::allocator<std::tuple<BOOL> &>,void ()(NSError,std::tuple<BOOL>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032CD60;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F76D4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  v11 = v10;
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL>::~sync_message(&a9);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F76D600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  v11 = v10;
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::~sync_message(&a9);
-  _Unwind_Resume(a1);
-}
-
-void *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_message(void *a1, void *a2)
-{
-  v6[4] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F032C8C8;
-  v6[1] = a1;
-  v6[3] = v6;
-  v3 = a2;
-  *a1 = v3;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::__value_func[abi:ne200100]((a1 + 1), v6);
-
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
-  a1[5] = 0;
-  a1[6] = 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return a1;
-}
-
-void sub_18F76D6E8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_proxy(void **a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
-  v2 = *a1;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP8NSStringEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c70_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP8NSStringEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
-}
-
-void sub_18F76D7FC(_Unwind_Exception *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v1 + 32);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v2 - 56);
-  _Unwind_Resume(a1);
-}
-
-id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::reply(uint64_t a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 3321888768;
-  aBlock[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP8NSStringEE5replyEv_block_invoke;
-  aBlock[3] = &__block_descriptor_64_ea8_32c70_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP8NSStringEEEEEE_e30_v24__0__NSError_8__NSString_16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::__value_func[abi:ne200100](v5, v6);
-  v1 = _Block_copy(aBlock);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x1E69E9840];
-
-  return v1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP8NSStringEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP8NSStringEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSString *> &&)#1},std::allocator<std::tuple<NSString *> &>,void ()(NSError,std::tuple<NSString *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSString *> &&)#1},std::allocator<std::tuple<NSString *> &>,void ()(NSError,std::tuple<NSString *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032C8C8;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F76DDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  v11 = v10;
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::~sync_message(&a9);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F76DF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
-{
-  va_start(va, a6);
-  v8 = v6;
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F76E0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
-{
-  va_start(va, a6);
-  v9 = v7;
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F76E408(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSXPCListenerEndpoint * {__strong}>::~sync_message(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSXPCListenerEndpoint * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSXPCListenerEndpoint * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSXPCListenerEndpoint * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSXPCListenerEndpoint * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP21NSXPCListenerEndpointEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<NSXPCListenerEndpoint * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<NSXPCListenerEndpoint * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP21NSXPCListenerEndpointEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<NSXPCListenerEndpoint * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSXPCListenerEndpoint * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSXPCListenerEndpoint *> &&)#1},std::allocator<std::tuple<NSXPCListenerEndpoint *> &>,void ()(NSError,std::tuple<NSXPCListenerEndpoint *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSXPCListenerEndpoint * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSXPCListenerEndpoint *> &&)#1},std::allocator<std::tuple<NSXPCListenerEndpoint *> &>,void ()(NSError,std::tuple<NSXPCListenerEndpoint *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032CCB8;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F76EB88(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray<AUAudioUnitPreset *> * {__strong}>::~sync_message(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<AUAudioUnitPreset *> * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray<AUAudioUnitPreset *> * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<AUAudioUnitPreset *> * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<AUAudioUnitPreset *> * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP7NSArrayIP17AUAudioUnitPresetEEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<NSArray<AUAudioUnitPreset *> * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<NSArray<AUAudioUnitPreset *> * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP7NSArrayIP17AUAudioUnitPresetEEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<NSArray<AUAudioUnitPreset *> * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray<AUAudioUnitPreset *> * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSArray<AUAudioUnitPreset *> *> &&)#1},std::allocator<std::tuple<NSArray<AUAudioUnitPreset *> *> &>,void ()(NSError,std::tuple<NSArray<AUAudioUnitPreset *> *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray<AUAudioUnitPreset *> * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSArray<AUAudioUnitPreset *> *> &&)#1},std::allocator<std::tuple<NSArray<AUAudioUnitPreset *> *> &>,void ()(NSError,std::tuple<NSArray<AUAudioUnitPreset *> *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032CC10;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F76F248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSDictionary<NSString *,objc_object *> * {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary<NSString *,objc_object *> * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSDictionary<NSString *,objc_object *> * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary<NSString *,objc_object *> * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary<NSString *,objc_object *> * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP12NSDictionaryIP8NSStringP11objc_objectEEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<NSDictionary<NSString *,objc_object *> * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<NSDictionary<NSString *,objc_object *> * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP12NSDictionaryIP8NSStringP11objc_objectEEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<NSDictionary<NSString *,objc_object *> * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSDictionary<NSString *,objc_object *> * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSDictionary<NSString *,objc_object *> *> &&)#1},std::allocator<std::tuple<NSDictionary<NSString *,objc_object *> *> &>,void ()(NSError,std::tuple<NSDictionary<NSString *,objc_object *> *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSDictionary<NSString *,objc_object *> * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSDictionary<NSString *,objc_object *> *> &&)#1},std::allocator<std::tuple<NSDictionary<NSString *,objc_object *> *> &>,void ()(NSError,std::tuple<NSDictionary<NSString *,objc_object *> *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032CB68;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F76F7C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F76F964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F76FCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F76FE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<MIDICIProfileState * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},MIDICIProfileState * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<MIDICIProfileState * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<MIDICIProfileState * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP18MIDICIProfileStateEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<MIDICIProfileState * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<MIDICIProfileState * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP18MIDICIProfileStateEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<MIDICIProfileState * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},MIDICIProfileState * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<MIDICIProfileState *> &&)#1},std::allocator<std::tuple<MIDICIProfileState *> &>,void ()(NSError,std::tuple<MIDICIProfileState *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},MIDICIProfileState * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<MIDICIProfileState *> &&)#1},std::allocator<std::tuple<MIDICIProfileState *> &>,void ()(NSError,std::tuple<MIDICIProfileState *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032CAC0;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F770608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
-{
-  va_start(va, a6);
-  v9 = v7;
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F770880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  v12 = v11;
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSIndexSet * {__strong}>::~sync_message(&a9);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSIndexSet * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSIndexSet * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSIndexSet * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSIndexSet * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP10NSIndexSetEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<NSIndexSet * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<NSIndexSet * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP10NSIndexSetEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<NSIndexSet * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSIndexSet * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSIndexSet *> &&)#1},std::allocator<std::tuple<NSIndexSet *> &>,void ()(NSError,std::tuple<NSIndexSet *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSIndexSet * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSIndexSet *> &&)#1},std::allocator<std::tuple<NSIndexSet *> &>,void ()(NSError,std::tuple<NSIndexSet *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032CA18;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP7NSArrayIP8NSNumberEEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP7NSArrayIP8NSNumberEEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSArray<NSNumber *> *> &&)#1},std::allocator<std::tuple<NSArray<NSNumber *> *> &>,void ()(NSError,std::tuple<NSArray<NSNumber *> *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSArray<NSNumber *> *> &&)#1},std::allocator<std::tuple<NSArray<NSNumber *> *> &>,void ()(NSError,std::tuple<NSArray<NSNumber *> *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032C970;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_message(uint64_t a1, void *a2)
-{
-  v6[4] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F032C820;
-  v6[1] = a1;
-  v6[3] = v6;
-  v3 = a2;
-  *a1 = v3;
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::__value_func[abi:ne200100](a1 + 8, v6);
-
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v6);
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return a1;
-}
-
-void sub_18F7714D8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_proxy(void **a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
-  v2 = *a1;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJfEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJfEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
-}
-
-void sub_18F7715EC(_Unwind_Exception *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v1 + 32);
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v2 - 56);
-  _Unwind_Resume(a1);
-}
-
-id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::reply(uint64_t a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 3321888768;
-  aBlock[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJfEE5replyEv_block_invoke;
-  aBlock[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJfEEEEEE_e20_v20__0__NSError_8f16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::__value_func[abi:ne200100](v5, v6);
-  v1 = _Block_copy(aBlock);
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x1E69E9840];
-
-  return v1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void std::function<void ()(NSError *,std::tuple<float> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<float> &&)#1},std::allocator<std::tuple<float> &>,void ()(NSError,std::tuple<float>)>::operator()(uint64_t a1, id *a2, _DWORD *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  *(v6 + 48) = *a3;
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<float> &&)#1},std::allocator<std::tuple<float> &>,void ()(NSError,std::tuple<float>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032C820;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F771E8C(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v6 + 32));
-  objc_destroyWeak((v5 + 32));
-  objc_destroyWeak((v3 + 32));
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v7 - 200));
-  std::mutex::unlock((v1 + v4));
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<AUParameterTree * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void sub_18F7720D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  v12 = v11;
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::~sync_message(&a9);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F772260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F7723B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  v13 = v11;
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::~sync_message(&a9);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F772528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},AUParameterTree * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<AUParameterTree * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<AUParameterTree * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP15AUParameterTreeEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<AUParameterTree * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<AUParameterTree * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP15AUParameterTreeEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<AUParameterTree * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},AUParameterTree * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<AUParameterTree *> &&)#1},std::allocator<std::tuple<AUParameterTree *> &>,void ()(NSError,std::tuple<AUParameterTree *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},AUParameterTree * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<AUParameterTree *> &&)#1},std::allocator<std::tuple<AUParameterTree *> &>,void ()(NSError,std::tuple<AUParameterTree *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032C778;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F772DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
-{
-  va_start(va, a8);
-  v14 = v11;
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  std::recursive_mutex::unlock((v9 + v13));
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F772FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
-{
-  va_start(va, a8);
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  std::recursive_mutex::unlock((v9 + v13));
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F7731A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
-{
-  va_start(va, a8);
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  std::recursive_mutex::unlock((v9 + v13));
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F77356C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F7736B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  v12 = v11;
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},objc_object * {__strong}>::~sync_message(&a9);
-  _Unwind_Resume(a1);
-}
-
-void *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},objc_object * {__strong}>::sync_message(void *a1, void *a2)
-{
-  v6[4] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F032C6D0;
-  v6[1] = a1;
-  v6[3] = v6;
-  v3 = a2;
-  *a1 = v3;
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::__value_func[abi:ne200100]((a1 + 1), v6);
-
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
-  a1[5] = 0;
-  a1[6] = 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return a1;
-}
-
-void sub_18F7737A4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},objc_object * {__strong}>::sync_proxy(void **a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
-  v2 = *a1;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP11objc_objectEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c74_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP11objc_objectEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
-}
-
-void sub_18F7738B8(_Unwind_Exception *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](v1 + 32);
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](v2 - 56);
-  _Unwind_Resume(a1);
-}
-
-id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},objc_object * {__strong}>::reply(uint64_t a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 3321888768;
-  aBlock[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP11objc_objectEE5replyEv_block_invoke;
-  aBlock[3] = &__block_descriptor_64_ea8_32c74_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP11objc_objectEEEEEE_e20_v24__0__NSError_8_16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::__value_func[abi:ne200100](v5, v6);
-  v1 = _Block_copy(aBlock);
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x1E69E9840];
-
-  return v1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},objc_object * {__strong}>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP11objc_objectEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  std::function<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
-}
-
-void std::function<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJU8__strongP11objc_objectEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  std::function<void ()(NSError *,std::tuple<objc_object * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},objc_object * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<objc_object *> &&)#1},std::allocator<std::tuple<objc_object *> &>,void ()(NSError,std::tuple<objc_object *>)>::operator()(uint64_t a1, id *a2, id *a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  objc_storeStrong((v6 + 48), *a3);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},objc_object * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<objc_object *> &&)#1},std::allocator<std::tuple<objc_object *> &>,void ()(NSError,std::tuple<objc_object *>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032C6D0;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F773ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F7740D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
-{
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},objc_object * {__strong}>::~sync_message(&a9);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F774DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
-{
-  va_start(va, a6);
-  v7 = v6;
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F774F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F776600(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, void *a24, int a25, int a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
-{
-  v65 = *(v62 + 112);
-  if (v65)
-  {
-    *(v62 + 120) = v65;
-    operator delete(v65);
-  }
-
-  v66 = *(v62 + 88);
-  if (v66)
-  {
-    operator delete(v66);
-  }
-
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-auoop::RenderPipeUser *caulk::__expected_detail::base<auoop::RenderPipeUser,NSError * {__strong}>::~base(auoop::RenderPipeUser *this)
-{
-  if (*(this + 72) == 1)
-  {
-    auoop::RenderPipeUser::~RenderPipeUser(this);
-  }
-
-  else
-  {
-  }
-
-  return this;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJmmmU8__strongP6NSDatabjEE5replyEv_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, char a7, int a8)
-{
-  v12[0] = a3;
-  v12[1] = a4;
-  v12[2] = a5;
-  v13 = a6;
-  v14 = a7;
-  v15 = a8;
-  std::function<void ()(NSError *,std::tuple<unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int> &&)>::operator()(a1 + 32, a2, v12);
-}
-
-void std::function<void ()(NSError *,std::tuple<unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJmmmU8__strongP6NSDatabjEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v5 = 0;
-  v2 = 0u;
-  v3 = 0u;
-  v4 = 0;
-  std::function<void ()(NSError *,std::tuple<unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<unsigned long,unsigned long,unsigned long,NSData *,BOOL,unsigned int> &&)#1},std::allocator<std::tuple<unsigned long,unsigned long,unsigned long,NSData *,BOOL,unsigned int> &>,void ()(NSError,std::tuple<unsigned long,unsigned long,unsigned long,NSData *,BOOL,unsigned int>)>::operator()(uint64_t a1, id *a2, uint64_t a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  *(v6 + 48) = *a3;
-  *(v6 + 56) = *(a3 + 8);
-  *(v6 + 64) = *(a3 + 16);
-  objc_storeStrong((v6 + 72), *(a3 + 24));
-  *(v6 + 80) = *(a3 + 32);
-  *(v6 + 84) = *(a3 + 36);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},unsigned long,unsigned long,unsigned long,NSData * {__strong},BOOL,unsigned int>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<unsigned long,unsigned long,unsigned long,NSData *,BOOL,unsigned int> &&)#1},std::allocator<std::tuple<unsigned long,unsigned long,unsigned long,NSData *,BOOL,unsigned int> &>,void ()(NSError,std::tuple<unsigned long,unsigned long,unsigned long,NSData *,BOOL,unsigned int>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032C628;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_18F776F10(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F776FE8(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_18F7773A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9, uint64_t a10, uint64_t a11, id a12)
-{
-  v13 = v12;
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(&a12);
-  a9.super_class = AUAudioUnit_XPC;
-  [(_Unwind_Exception *)&a9 dealloc];
-  _Unwind_Resume(a1);
-}
-
-void postNotificationIfNotPosted<caulk::weak_ref<AUAudioUnit_XPC>>(id *a1, void *a2)
-{
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained(a1);
-  v5 = WeakRetained;
-  if (WeakRetained)
-  {
-    std::mutex::lock((WeakRetained + 656));
-    if ((v5[648] & 1) == 0)
-    {
-      LocalCenter = CFNotificationCenterGetLocalCenter();
-      CFNotificationCenterPostNotification(LocalCenter, @"com.apple.coreaudio.AudioComponentInstanceInvalidated", v5, v3, 0);
-      v5[648] = 1;
-    }
-
-    std::mutex::unlock((v5 + 656));
-  }
-
-  objc_destroyWeak(a1);
-}
-
-void sub_18F7778A4(_Unwind_Exception *a1)
-{
-  v5 = v4;
-  std::mutex::unlock(&v3[v5]);
-
-  objc_destroyWeak(v1);
-  _Unwind_Resume(a1);
-}
-
-void sub_18F778688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id location, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
-{
-  if (*(v71 + 200) == 1)
-  {
-    auoop::WorkgroupPropagator::~WorkgroupPropagator(v73);
-  }
-
-  *(v74 - 216) = v70;
-  std::vector<std::unique_ptr<auoop::PipeSubPool>>::__destroy_vector::operator()[abi:ne200100]((v74 - 216));
-  std::recursive_mutex::~recursive_mutex(v72);
-  std::__shared_weak_count::~__shared_weak_count(v71);
-  operator delete(v76);
-  os_unfair_lock_unlock(&auoop::RenderPipePoolManager::instance(void)::global);
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL,BOOL,NSArray * {__strong},NSArray *,BOOL,BOOL,int,unsigned long,unsigned long>::~sync_message(&a70);
-  objc_destroyWeak(&location);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<BOOL,BOOL,NSArray * {__strong},NSArray * {__strong},BOOL,BOOL,int,unsigned long,unsigned long> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL,BOOL,NSArray * {__strong},NSArray *,BOOL,BOOL,int,unsigned long,unsigned long>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL,BOOL,NSArray * {__strong},NSArray * {__strong},BOOL,BOOL,int,unsigned long,unsigned long> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<BOOL,BOOL,NSArray * {__strong},NSArray * {__strong},BOOL,BOOL,int,unsigned long,unsigned long> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJbbU8__strongP7NSArrayS7_bbimmEE5replyEv_block_invoke(uint64_t a1, void *a2, char a3, char a4, void *a5, void *a6, char a7, char a8, int a9, uint64_t a10, uint64_t a11)
-{
-  v16[0] = a3;
-  v16[1] = a4;
-  v17 = a5;
-  v18 = a6;
-  v19 = a7;
-  v20 = a8;
-  v21 = a9;
-  v22 = a10;
-  v23 = a11;
-  std::function<void ()(NSError *,std::tuple<BOOL,BOOL,NSArray * {__strong},NSArray * {__strong},BOOL,BOOL,int,unsigned long,unsigned long> &&)>::operator()(a1 + 32, a2, v16);
-}
-
-void std::function<void ()(NSError *,std::tuple<BOOL,BOOL,NSArray * {__strong},NSArray * {__strong},BOOL,BOOL,int,unsigned long,unsigned long> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = a2;
-  v5 = *(a1 + 24);
-  if (!v5)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  (*(*v5 + 48))(v5, &v6, a3);
-}
-
-void ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJbbU8__strongP7NSArrayS7_bbimmEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = 0;
-  v3 = 0;
-  v4 = 0;
-  v5 = 0;
-  v7 = 0;
-  v6 = 0;
-  v8 = 0;
-  std::function<void ()(NSError *,std::tuple<BOOL,BOOL,NSArray * {__strong},NSArray * {__strong},BOOL,BOOL,int,unsigned long,unsigned long> &&)>::operator()(a1 + 32, a2, &v2);
-}
-
-void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL,BOOL,NSArray * {__strong},NSArray *,BOOL,BOOL,int,unsigned long,unsigned long>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<BOOL,BOOL,NSArray *,NSArray *,BOOL,BOOL,int,unsigned long,unsigned long> &&)#1},std::allocator<std::tuple<BOOL,BOOL,NSArray *,NSArray *,BOOL,BOOL,int,unsigned long,unsigned long> &>,void ()(NSError,std::tuple<BOOL,BOOL,NSArray *,NSArray *,BOOL,BOOL,int,unsigned long,unsigned long>)>::operator()(uint64_t a1, id *a2, uint64_t a3)
-{
-  v5 = *a2;
-  v6 = *(a1 + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = v5;
-
-  *(v6 + 48) = *a3;
-  *(v6 + 49) = *(a3 + 1);
-  objc_storeStrong((v6 + 56), *(a3 + 8));
-  objc_storeStrong((v6 + 64), *(a3 + 16));
-  *(v6 + 72) = *(a3 + 24);
-  *(v6 + 73) = *(a3 + 25);
-  *(v6 + 76) = *(a3 + 28);
-  *(v6 + 80) = *(a3 + 32);
-  *(v6 + 88) = *(a3 + 40);
-}
-
-uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},BOOL,BOOL,NSArray * {__strong},NSArray *,BOOL,BOOL,int,unsigned long,unsigned long>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<BOOL,BOOL,NSArray *,NSArray *,BOOL,BOOL,int,unsigned long,unsigned long> &&)#1},std::allocator<std::tuple<BOOL,BOOL,NSArray *,NSArray *,BOOL,BOOL,int,unsigned long,unsigned long> &>,void ()(NSError,std::tuple<BOOL,BOOL,NSArray *,NSArray *,BOOL,BOOL,int,unsigned long,unsigned long>)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032C538;
-  a2[1] = v2;
-  return result;
-}
-
-void APAC::RendererDataJSON(unsigned __int8 *a1, float *a2, int a3)
-{
-  v3 = a2;
-  if (!a3)
-  {
-    goto LABEL_76;
-  }
-
-  v5 = *a2;
-  v611[0] = 4;
-  v612 = v5;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v611);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v611);
-  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1, "mHasData");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v611);
-  v7 = *v6;
-  *v6 = 4;
-  v611[0] = v7;
-  v8 = *(v6 + 1);
-  *(v6 + 1) = v5;
-  v612 = v8;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v611);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v612, v7);
-  if (*v3 == 1)
-  {
-LABEL_76:
-    v9 = a1;
-    v10 = *(v3 + 1);
-    v609[0] = 5;
-    v610 = v10;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v609);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v609);
-    v433 = v9;
-    v11 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v9, "mNumParameters");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v609);
-    v12 = *v11;
-    *v11 = 5;
-    v609[0] = v12;
-    v13 = *(v11 + 1);
-    *(v11 + 1) = v10;
-    v610 = v13;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v609);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v610, v12);
-    v14 = v10;
-    v15 = v433;
-    if (v14)
-    {
-      v16 = 0;
-      v434 = (v3 + 1);
-      v431 = v3 + 52;
-      v432 = v3;
-      while (2)
-      {
-        v17 = *&v434[2 * v16];
-        v607[0] = 6;
-        v608 = v17;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v607);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v607);
-        v18 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mParamIndexList");
-        v19 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v18, v16);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v607);
-        v20 = *v19;
-        *v19 = 6;
-        v607[0] = v20;
-        v21 = *(v19 + 1);
-        *(v19 + 1) = v17;
-        v608 = v21;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v607);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v608, v20);
-        switch(v17)
-        {
-          case 0:
-            v22 = *(v3 + 68);
-            v605[0] = 4;
-            v606 = v22;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v605);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v605);
-            v23 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-            v24 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v23, "mPositionPresent");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v605);
-            v25 = *v24;
-            *v24 = 4;
-            v605[0] = v25;
-            v26 = *(v24 + 1);
-            *(v24 + 1) = v22;
-            v606 = v26;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v605);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v606, v25);
-            if (*(v3 + 68) == 1)
-            {
-              v27 = *(v3 + 69);
-              v603[0] = 4;
-              v604 = v27;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v603);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v603);
-              v28 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-              v29 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v28, "mIsCartesian");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v603);
-              v30 = *v29;
-              *v29 = 4;
-              v603[0] = v30;
-              v31 = *(v29 + 1);
-              *(v29 + 1) = v27;
-              v604 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v603);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v604, v30);
-              if (*(v3 + 69) == 1)
-              {
-                v32 = v3[22];
-                v601[0] = 7;
-                v602 = v32;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v601);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v601);
-                v33 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-                v34 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v33, "mCoordinate");
-                v35 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v34, 0);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v601);
-                v36 = *v35;
-                *v35 = 7;
-                v601[0] = v36;
-                v37 = *(v35 + 1);
-                *(v35 + 1) = v32;
-                v602 = *&v37;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v35);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v601);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v602, v36);
-                v38 = v3[23];
-                v599[0] = 7;
-                v600 = v38;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v599);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v599);
-                v39 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-                v40 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v39, "mCoordinate");
-                v41 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v40, 1uLL);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v599);
-                v42 = *v41;
-                *v41 = 7;
-                v599[0] = v42;
-                v43 = *(v41 + 1);
-                *(v41 + 1) = v38;
-                v600 = *&v43;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v41);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v599);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v600, v42);
-                v44 = v3[24];
-                v597[0] = 7;
-                v598 = v44;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v597);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v597);
-                v45 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-                v46 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v45, "mCoordinate");
-                v47 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v46, 2uLL);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v597);
-                v48 = *v47;
-                *v47 = 7;
-                v597[0] = v48;
-                v49 = *(v47 + 1);
-                *(v47 + 1) = v44;
-                v598 = v49;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v47);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v597);
-                v50 = v597;
-              }
-
-              else
-              {
-                v310 = v3[18];
-                v595[0] = 7;
-                v596 = v310;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v595);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v595);
-                v311 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-                v312 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v311, "mAzimuth");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v595);
-                v313 = *v312;
-                *v312 = 7;
-                v595[0] = v313;
-                v314 = *(v312 + 1);
-                *(v312 + 1) = v310;
-                v596 = *&v314;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v312);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v595);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v596, v313);
-                v315 = v3[19];
-                v593[0] = 7;
-                v594 = v315;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v593);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v593);
-                v316 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-                v317 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v316, "mElevation");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v593);
-                v318 = *v317;
-                *v317 = 7;
-                v593[0] = v318;
-                v319 = *(v317 + 1);
-                *(v317 + 1) = v315;
-                v594 = *&v319;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v317);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v593);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v594, v318);
-                v320 = v3[20];
-                v591[0] = 7;
-                v592 = v320;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v591);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v591);
-                v321 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-                v322 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v321, "mRadius");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v591);
-                v48 = *v322;
-                *v322 = 7;
-                v591[0] = v48;
-                v323 = v322[1];
-                v322[1] = v320;
-                v592 = v323;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v322);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v591);
-                v50 = v591;
-              }
-
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v50 + 1, v48);
-            }
-
-            v324 = *(v3 + 84);
-            v589[0] = 4;
-            v590 = v324;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v589);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v589);
-            v325 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-            v326 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v325, "mRotationPresent");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v589);
-            v327 = *v326;
-            *v326 = 4;
-            v589[0] = v327;
-            v328 = *(v326 + 1);
-            *(v326 + 1) = v324;
-            v590 = v328;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v326);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v589);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v590, v327);
-            if (*(v3 + 84) != 1)
-            {
-              goto LABEL_73;
-            }
-
-            v329 = v3[25];
-            v587[0] = 7;
-            v588 = v329;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v587);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v587);
-            v330 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-            v331 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v330, "mQuaternion");
-            v332 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v331, 0);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v587);
-            v333 = *v332;
-            *v332 = 7;
-            v587[0] = v333;
-            v334 = *(v332 + 1);
-            *(v332 + 1) = v329;
-            v588 = *&v334;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v332);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v587);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v588, v333);
-            v335 = v3[26];
-            v585[0] = 7;
-            v586 = v335;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v585);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v585);
-            v336 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-            v337 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v336, "mQuaternion");
-            v338 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v337, 1uLL);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v585);
-            v339 = *v338;
-            *v338 = 7;
-            v585[0] = v339;
-            v340 = *(v338 + 1);
-            *(v338 + 1) = v335;
-            v586 = *&v340;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v338);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v585);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v586, v339);
-            v341 = v3[27];
-            v583[0] = 7;
-            v584 = v341;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v583);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v583);
-            v342 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-            v343 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v342, "mQuaternion");
-            v344 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v343, 2uLL);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v583);
-            v345 = *v344;
-            *v344 = 7;
-            v583[0] = v345;
-            v346 = *(v344 + 1);
-            *(v344 + 1) = v341;
-            v584 = *&v346;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v344);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v583);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v584, v345);
-            v347 = v3[28];
-            v581[0] = 7;
-            v582 = v347;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v581);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v581);
-            v348 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectPosition");
-            v349 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v348, "mQuaternion");
-            v350 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v349, 3uLL);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v581);
-            v54 = *v350;
-            *v350 = 7;
-            v581[0] = v54;
-            v351 = *(v350 + 1);
-            *(v350 + 1) = v347;
-            v582 = v351;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v350);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v581);
-            v56 = v581;
-            goto LABEL_72;
-          case 1:
-            v227 = *(v3 + 116);
-            v579[0] = 4;
-            v580 = v227;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v579);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v579);
-            v228 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectSpread");
-            v229 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v228, "mIsCartesian");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v579);
-            v230 = *v229;
-            *v229 = 4;
-            v579[0] = v230;
-            v231 = *(v229 + 1);
-            *(v229 + 1) = v227;
-            v580 = v231;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v229);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v579);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v580, v230);
-            v232 = v3[30];
-            v577[0] = 7;
-            v578 = v232;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v577);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v577);
-            v233 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectSpread");
-            v234 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v233, "mWidth");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v577);
-            v235 = *v234;
-            *v234 = 7;
-            v577[0] = v235;
-            v236 = *(v234 + 1);
-            *(v234 + 1) = v232;
-            v578 = *&v236;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v234);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v577);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v578, v235);
-            v237 = v3[31];
-            v575[0] = 7;
-            v576 = v237;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v575);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v575);
-            v238 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectSpread");
-            v239 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v238, "mHeight");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v575);
-            v240 = *v239;
-            *v239 = 7;
-            v575[0] = v240;
-            v241 = *(v239 + 1);
-            *(v239 + 1) = v237;
-            v576 = *&v241;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v239);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v575);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v576, v240);
-            v242 = *(v3 + 117);
-            v573[0] = 4;
-            v574 = v242;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v573);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v573);
-            v243 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectSpread");
-            v244 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v243, "mHasDepth");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v573);
-            v245 = *v244;
-            *v244 = 4;
-            v573[0] = v245;
-            v246 = *(v244 + 1);
-            *(v244 + 1) = v242;
-            v574 = v246;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v244);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v573);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v574, v245);
-            if (*(v3 + 117) != 1)
-            {
-              goto LABEL_73;
-            }
-
-            v247 = v3[32];
-            v571[0] = 7;
-            v572 = v247;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v571);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v571);
-            v248 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectSpread");
-            v249 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v248, "mDepth");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v571);
-            v54 = *v249;
-            *v249 = 7;
-            v571[0] = v54;
-            v250 = v249[1];
-            v249[1] = v247;
-            v572 = v250;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v249);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v571);
-            v56 = v571;
-            goto LABEL_72;
-          case 2:
-            v132 = v3[33];
-            v569[0] = 7;
-            v570 = v132;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v569);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v569);
-            v133 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mSceneReverb");
-            v134 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v133, "mGain");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v569);
-            v54 = *v134;
-            *v134 = 7;
-            v569[0] = v54;
-            v135 = v134[1];
-            v134[1] = v132;
-            v570 = v135;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v134);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v569);
-            v56 = v569;
-            goto LABEL_72;
-          case 3:
-            v140 = v3[34];
-            v567[0] = 7;
-            v568 = v140;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v567);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v567);
-            v141 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectDiffuse");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v567);
-            v54 = *v141;
-            *v141 = 7;
-            v567[0] = v54;
-            v142 = v141[1];
-            v141[1] = v140;
-            v568 = v142;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v141);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v567);
-            v56 = v567;
-            goto LABEL_72;
-          case 4:
-            v86 = *(v3 + 141);
-            v565[0] = 4;
-            v566 = v86;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v565);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v565);
-            v87 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectChannelLock");
-            v88 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v87, "mHasMaxDistance");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v565);
-            v89 = *v88;
-            *v88 = 4;
-            v565[0] = v89;
-            v90 = *(v88 + 1);
-            *(v88 + 1) = v86;
-            v566 = v90;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v88);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v565);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v566, v89);
-            if (*(v3 + 141) != 1)
-            {
-              goto LABEL_73;
-            }
-
-            v91 = v3[36];
-            v563[0] = 7;
-            v564 = v91;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v563);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v563);
-            v92 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectChannelLock");
-            v93 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v92, "mHasMaxDistance");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v563);
-            v54 = *v93;
-            *v93 = 7;
-            v563[0] = v54;
-            v94 = v93[1];
-            v93[1] = v91;
-            v564 = v94;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v93);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v563);
-            v56 = v563;
-            goto LABEL_72;
-          case 5:
-            v265 = v3[37];
-            v561[0] = 7;
-            v562 = v265;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v561);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v561);
-            v266 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectDivergence");
-            v267 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v266, "mDivergence");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v561);
-            v268 = *v267;
-            *v267 = 7;
-            v561[0] = v268;
-            v269 = *(v267 + 1);
-            *(v267 + 1) = v265;
-            v562 = *&v269;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v267);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v561);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v562, v268);
-            v270 = *(v3 + 152);
-            v559[0] = 4;
-            v560 = v270;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v559);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v559);
-            v271 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectDivergence");
-            v272 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v271, "mIsCartesian");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v559);
-            v273 = *v272;
-            *v272 = 4;
-            v559[0] = v273;
-            v274 = *(v272 + 1);
-            *(v272 + 1) = v270;
-            v560 = v274;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v272);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v559);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v560, v273);
-            if (*(v3 + 152) == 1)
-            {
-              v275 = v3[40];
-              v557[0] = 7;
-              v558 = v275;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v557);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v557);
-              v276 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectDivergence");
-              v277 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v276, "mIsCartesian");
-              v278 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v277, "mPositionRange");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v557);
-              v54 = *v278;
-              *v278 = 7;
-              v557[0] = v54;
-              v279 = v278[1];
-              v278[1] = v275;
-              v558 = v279;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v278);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v557);
-              v56 = v557;
-            }
-
-            else
-            {
-              v305 = v3[41];
-              v555[0] = 7;
-              v556 = v305;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v555);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v555);
-              v306 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectDivergence");
-              v307 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v306, "mIsCartesian");
-              v308 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v307, "mAzimuthRange");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v555);
-              v54 = *v308;
-              *v308 = 7;
-              v555[0] = v54;
-              v309 = v308[1];
-              v308[1] = v305;
-              v556 = v309;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v308);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v555);
-              v56 = v555;
-            }
-
-            goto LABEL_72;
-          case 6:
-            v284 = *(v3 + 168);
-            v553[0] = 4;
-            v554 = v284;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v553);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v553);
-            v285 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mIsScreenSizeAdaptationEnabled");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v553);
-            v54 = *v285;
-            *v285 = 4;
-            v553[0] = v54;
-            v286 = *(v285 + 1);
-            *(v285 + 1) = v284;
-            v554 = v286;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v285);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v553);
-            v56 = v553;
-            goto LABEL_72;
-          case 7:
-            v143 = *(v3 + 172);
-            v551[0] = 4;
-            v552 = v143;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v551);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v551);
-            v144 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectZoneExclusion");
-            v145 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v144, "mIsZoneDefined");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v551);
-            v146 = *v145;
-            *v145 = 4;
-            v551[0] = v146;
-            v147 = *(v145 + 1);
-            *(v145 + 1) = v143;
-            v552 = v147;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v145);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v551);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v552, v146);
-            if (*(v3 + 172) == 1)
-            {
-              v148 = *(v3 + 173);
-              v549[0] = 4;
-              v550 = v148;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v549);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v549);
-              v149 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectZoneExclusion");
-              v150 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v149, "mKeepPreviousZone");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v549);
-              v151 = *v150;
-              *v150 = 4;
-              v549[0] = v151;
-              v152 = *(v150 + 1);
-              *(v150 + 1) = v148;
-              v550 = v152;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v150);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v549);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v550, v151);
-              if ((*(v3 + 173) & 1) == 0)
-              {
-                v153 = *(v3 + 174);
-                v547[0] = 4;
-                v548 = v153;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v547);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v547);
-                v154 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectZoneExclusion");
-                v155 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v154, "mIsCartesian");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v547);
-                v156 = *v155;
-                *v155 = 4;
-                v547[0] = v156;
-                v157 = *(v155 + 1);
-                *(v155 + 1) = v153;
-                v548 = v157;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v155);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v547);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v548, v156);
-                v158 = *(v3 + 175);
-                v545[0] = 5;
-                v546 = v158;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v545);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v545);
-                v159 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mObjectZoneExclusion");
-                v160 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v159, "mNumZones");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v545);
-                v161 = *v160;
-                *v160 = 5;
-                v545[0] = v161;
-                v162 = *(v160 + 1);
-                *(v160 + 1) = v158;
-                v546 = v162;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v160);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v545);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v546, v161);
-                v163 = *(v3 + 175);
-                if (*(v3 + 175))
-                {
-                  v164 = 0;
-                  v165 = v431;
-                  v166 = v3;
-                  do
-                  {
-                    v167 = v15;
-                    v168 = v14;
-                    v169 = *(v166 + 176);
-                    v543[0] = 4;
-                    v544 = v169;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v543);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v543);
-                    v170 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v167, "mObjectZoneExclusion");
-                    v171 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v170, "mUsePreDefinedZone");
-                    v172 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v171, v164);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v543);
-                    v173 = *v172;
-                    *v172 = 4;
-                    v543[0] = v173;
-                    v174 = *(v172 + 1);
-                    *(v172 + 1) = v169;
-                    v544 = v174;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v172);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v543);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v544, v173);
-                    if (*(v166 + 176) == 1)
-                    {
-                      v175 = *(v166 + 191);
-                      v541[0] = 5;
-                      v542 = v175;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v541);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v541);
-                      v176 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v433, "mObjectZoneExclusion");
-                      v177 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v176, "mZoneIndex");
-                      v178 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v177, v164);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v541);
-                      v179 = *v178;
-                      *v178 = 5;
-                      v541[0] = v179;
-                      v180 = *(v178 + 1);
-                      *(v178 + 1) = v175;
-                      v542 = v180;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v178);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v541);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v542, v179);
-                    }
-
-                    else
-                    {
-                      v181 = *(v3 + 174);
-                      v182 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v433, "mObjectZoneExclusion");
-                      v183 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v182, "mZone");
-                      v184 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v183, v164);
-                      if (v181 == 1)
-                      {
-                        v185 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v184, "cartesian");
-                        v186 = *v165;
-                        v539[0] = 7;
-                        v540 = v186;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v539);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v539);
-                        v187 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v185, "mMinX");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v539);
-                        v188 = *v187;
-                        *v187 = 7;
-                        v539[0] = v188;
-                        v189 = *(v187 + 1);
-                        *(v187 + 1) = v186;
-                        v540 = *&v189;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v187);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v539);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v540, v188);
-                        v190 = v165[1];
-                        v537[0] = 7;
-                        v538 = v190;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v537);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v537);
-                        v191 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v185, "mMaxX");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v537);
-                        v192 = *v191;
-                        *v191 = 7;
-                        v537[0] = v192;
-                        v193 = *(v191 + 1);
-                        *(v191 + 1) = v190;
-                        v538 = *&v193;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v191);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v537);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v538, v192);
-                        v194 = v165[2];
-                        v535[0] = 7;
-                        v536 = v194;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v535);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v535);
-                        v195 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v185, "mMinY");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v535);
-                        v196 = *v195;
-                        *v195 = 7;
-                        v535[0] = v196;
-                        v197 = *(v195 + 1);
-                        *(v195 + 1) = v194;
-                        v536 = *&v197;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v195);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v535);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v536, v196);
-                        v198 = v165[3];
-                        v533[0] = 7;
-                        v534 = v198;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v533);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v533);
-                        v199 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v185, "mMaxY");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v533);
-                        v200 = *v199;
-                        *v199 = 7;
-                        v533[0] = v200;
-                        v201 = *(v199 + 1);
-                        *(v199 + 1) = v198;
-                        v534 = *&v201;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v199);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v533);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v534, v200);
-                        v202 = v165[4];
-                        v531[0] = 7;
-                        v532 = v202;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v531);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v531);
-                        v203 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v185, "mMinZ");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v531);
-                        v204 = *v203;
-                        *v203 = 7;
-                        v531[0] = v204;
-                        v205 = *(v203 + 1);
-                        *(v203 + 1) = v202;
-                        v532 = *&v205;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v203);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v531);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v532, v204);
-                        v206 = v165[5];
-                        v529[0] = 7;
-                        v530 = v206;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v529);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v529);
-                        v207 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v185, "mMaxZ");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v529);
-                        v208 = *v207;
-                        *v207 = 7;
-                        v529[0] = v208;
-                        v209 = v207[1];
-                        v207[1] = v206;
-                        v530 = v209;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v207);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v529);
-                        v210 = v529;
-                      }
-
-                      else
-                      {
-                        v211 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v184, "spherical");
-                        v212 = *v165;
-                        v527[0] = 7;
-                        v528 = v212;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v527);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v527);
-                        v213 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v211, "mMinAzimuth");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v527);
-                        v214 = *v213;
-                        *v213 = 7;
-                        v527[0] = v214;
-                        v215 = *(v213 + 1);
-                        *(v213 + 1) = v212;
-                        v528 = *&v215;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v213);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v527);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v528, v214);
-                        v216 = v165[1];
-                        v525[0] = 7;
-                        v526 = v216;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v525);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v525);
-                        v217 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v211, "mMaxAzimuth");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v525);
-                        v218 = *v217;
-                        *v217 = 7;
-                        v525[0] = v218;
-                        v219 = *(v217 + 1);
-                        *(v217 + 1) = v216;
-                        v526 = *&v219;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v217);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v525);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v526, v218);
-                        v220 = v165[2];
-                        v523[0] = 7;
-                        v524 = v220;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v523);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v523);
-                        v221 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v211, "mMinElevation");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v523);
-                        v222 = *v221;
-                        *v221 = 7;
-                        v523[0] = v222;
-                        v223 = *(v221 + 1);
-                        *(v221 + 1) = v220;
-                        v524 = *&v223;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v221);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v523);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v524, v222);
-                        v224 = v165[3];
-                        v521[0] = 7;
-                        v522 = v224;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v521);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v521);
-                        v225 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v211, "mMzxElevation");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v521);
-                        v208 = *v225;
-                        *v225 = 7;
-                        v521[0] = v208;
-                        v226 = v225[1];
-                        v225[1] = v224;
-                        v522 = v226;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v225);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v521);
-                        v210 = v521;
-                      }
-
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v210 + 1, v208);
-                      v3 = v432;
-                    }
-
-                    v14 = v168;
-                    ++v164;
-                    v166 = (v166 + 1);
-                    v165 += 6;
-                    --v163;
-                    v15 = v433;
-                  }
-
-                  while (v163);
-                }
-              }
-            }
-
-            goto LABEL_73;
-          case 8:
-            v301 = *(v3 + 1037);
-            v447[0] = 5;
-            v448 = v301;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v447);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v447);
-            v302 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mBinauralizationPreset");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v447);
-            v54 = *v302;
-            *v302 = 5;
-            v447[0] = v54;
-            v303 = *(v302 + 1);
-            *(v302 + 1) = v301;
-            v448 = v303;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v302);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v447);
-            v56 = v447;
-            goto LABEL_72;
-          case 9:
-            v109 = *(v3 + 568);
-            v487[0] = 5;
-            v488 = v109;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v487);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v487);
-            v110 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mSceneReverb");
-            v111 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v110, "mReverbProcIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v487);
-            v112 = *v111;
-            *v111 = 5;
-            v487[0] = v112;
-            v113 = *(v111 + 1);
-            *(v111 + 1) = v109;
-            v488 = v113;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v111);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v487);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v488, v112);
-            if (*(v3 + 568) != 1)
-            {
-              goto LABEL_73;
-            }
-
-            v114 = *(v3 + 285);
-            v485[0] = 5;
-            v486 = v114;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v485);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v485);
-            v115 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mSceneReverb");
-            v116 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v115, "mAUSMReverbPreset");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v485);
-            v117 = *v116;
-            *v116 = 5;
-            v485[0] = v117;
-            v118 = *(v116 + 1);
-            *(v116 + 1) = v114;
-            v486 = v118;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v116);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v485);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v486, v117);
-            v119 = *(v3 + 732);
-            v483[0] = 4;
-            v484 = v119;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v483);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v483);
-            v120 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mSceneReverb");
-            v121 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v120, "mReverbParams");
-            v122 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v121, "mWetDryMix");
-            v123 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v122, "mHasData");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v483);
-            v124 = *v123;
-            *v123 = 4;
-            v483[0] = v124;
-            v125 = *(v123 + 1);
-            *(v123 + 1) = v119;
-            v484 = v125;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v123);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v483);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v484, v124);
-            v126 = v3[182];
-            v481[0] = 7;
-            v482 = v126;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v481);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v481);
-            v127 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mSceneReverb");
-            v128 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v127, "mReverbParams");
-            v129 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v128, "mWetDryMix");
-            v130 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v129, "mValue");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v481);
-            v54 = *v130;
-            *v130 = 7;
-            v481[0] = v54;
-            v131 = v130[1];
-            v130[1] = v126;
-            v482 = v131;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v130);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v481);
-            v56 = v481;
-            goto LABEL_72;
-          case 10:
-            v287 = *(v3 + 780);
-            v479[0] = 5;
-            v480 = v287;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v479);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v479);
-            v288 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mPostProcReverb");
-            v289 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v288, "mReverbProcIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v479);
-            v290 = *v289;
-            *v289 = 5;
-            v479[0] = v290;
-            v291 = *(v289 + 1);
-            *(v289 + 1) = v287;
-            v480 = v291;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v289);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v479);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v480, v290);
-            if (*(v3 + 780) != 1)
-            {
-              goto LABEL_73;
-            }
-
-            v292 = *(v3 + 781);
-            v477[0] = 4;
-            v478 = v292;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v477);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v477);
-            v293 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mPostProcReverb");
-            v294 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v293, "mEarlyReflectionTimeProvided");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v477);
-            v295 = *v294;
-            *v294 = 4;
-            v477[0] = v295;
-            v296 = *(v294 + 1);
-            *(v294 + 1) = v292;
-            v478 = v296;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v294);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v477);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v478, v295);
-            if (*(v3 + 781) != 1)
-            {
-              goto LABEL_73;
-            }
-
-            v297 = v3[196];
-            v475[0] = 7;
-            v476 = v297;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v475);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v475);
-            v298 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mPostProcReverb");
-            v299 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v298, "mEarlyReflectionTime");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v475);
-            v54 = *v299;
-            *v299 = 7;
-            v475[0] = v54;
-            v300 = v299[1];
-            v299[1] = v297;
-            v476 = v300;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v299);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v475);
-            v56 = v475;
-            goto LABEL_72;
-          case 11:
-            v60 = *(v3 + 792);
-            v473[0] = 5;
-            v474 = v60;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v473);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v473);
-            v61 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mRadiationPattern");
-            v62 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v61, "mAuSMProcIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v473);
-            v63 = *v62;
-            *v62 = 5;
-            v473[0] = v63;
-            v64 = *(v62 + 1);
-            *(v62 + 1) = v60;
-            v474 = v64;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v62);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v473);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v474, v63);
-            v65 = *(v3 + 792);
-            if (v65 > 2)
-            {
-              if (v65 == 3)
-              {
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v462);
-              }
-
-              if (v65 == 4)
-              {
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v461);
-              }
-            }
-
-            else
-            {
-              if (v65 == 1)
-              {
-                v392 = *(v3 + 397);
-                v471[0] = 5;
-                v472 = v392;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v471);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v471);
-                v393 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mRadiationPattern");
-                v394 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v393, "mSourceType");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v471);
-                v54 = *v394;
-                *v394 = 5;
-                v471[0] = v54;
-                v395 = *(v394 + 1);
-                *(v394 + 1) = v392;
-                v472 = v395;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v394);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v471);
-                v56 = v471;
-              }
-
-              else
-              {
-                if (v65 != 2)
-                {
-                  goto LABEL_73;
-                }
-
-                v66 = *(v3 + 796);
-                v469[0] = 5;
-                v470 = v66;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v469);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v469);
-                v67 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mRadiationPattern");
-                v68 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v67, "mDataLocationIndex");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v469);
-                v69 = *v68;
-                *v68 = 5;
-                v469[0] = v69;
-                v70 = *(v68 + 1);
-                *(v68 + 1) = v66;
-                v470 = v70;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v68);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v469);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v470, v69);
-                v71 = *(v3 + 399);
-                v467[0] = 5;
-                v468 = v71;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v467);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v467);
-                v72 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mRadiationPattern");
-                v73 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v72, "mCustomData_TableID");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v467);
-                v74 = *v73;
-                *v73 = 5;
-                v467[0] = v74;
-                v75 = *(v73 + 1);
-                *(v73 + 1) = v71;
-                v468 = v75;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v73);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v467);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v468, v74);
-                v76 = *(v3 + 400);
-                v465[0] = 5;
-                v466 = v76;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v465);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v465);
-                v77 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mRadiationPattern");
-                v78 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v77, "mCustomData_EntryID");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v465);
-                v79 = *v78;
-                *v78 = 5;
-                v465[0] = v79;
-                v80 = *(v78 + 1);
-                *(v78 + 1) = v76;
-                v466 = v80;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v78);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v465);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v466, v79);
-                v81 = *(v3 + 401);
-                v463[0] = 5;
-                v464 = v81;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v463);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v463);
-                v82 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mRadiationPattern");
-                v83 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v82, "mFallbackCustomIR");
-                v84 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v83, "mSourceType");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v463);
-                v54 = *v84;
-                *v84 = 5;
-                v463[0] = v54;
-                v85 = *(v84 + 1);
-                *(v84 + 1) = v81;
-                v464 = v85;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v84);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v463);
-                v56 = v463;
-              }
-
-LABEL_72:
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v56 + 1, v54);
-            }
-
-LABEL_73:
-            if (++v16 == v14)
-            {
-              return;
-            }
-
-            continue;
-          case 12:
-            v95 = *(v3 + 1024);
-            v459[0] = 4;
-            v460 = v95;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v459);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v459);
-            v96 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mHPVirtualize");
-            v97 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v96, "mBypass");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v459);
-            v98 = *v97;
-            *v97 = 4;
-            v459[0] = v98;
-            v99 = *(v97 + 1);
-            *(v97 + 1) = v95;
-            v460 = v99;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v97);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v459);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v460, v98);
-            v100 = *(v3 + 1025);
-            v457[0] = 4;
-            v458 = v100;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v457);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v457);
-            v101 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mHPVirtualize");
-            v102 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v101, "mHasDRR");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v457);
-            v103 = *v102;
-            *v102 = 4;
-            v457[0] = v103;
-            v104 = *(v102 + 1);
-            *(v102 + 1) = v100;
-            v458 = v104;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v102);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v457);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v458, v103);
-            if (*(v3 + 1025) != 1)
-            {
-              goto LABEL_73;
-            }
-
-            v105 = v3[257];
-            v455[0] = 7;
-            v456 = v105;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v455);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v455);
-            v106 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mHPVirtualize");
-            v107 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v106, "mDRR");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v455);
-            v54 = *v107;
-            *v107 = 7;
-            v455[0] = v54;
-            v108 = v107[1];
-            v107[1] = v105;
-            v456 = v108;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v107);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v455);
-            v56 = v455;
-            goto LABEL_72;
-          case 13:
-            v280 = *(v3 + 1032);
-            v453[0] = 4;
-            v454 = v280;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v453);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v453);
-            v281 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mHeadLock");
-            v282 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v281, "mHeadLocked");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v453);
-            v54 = *v282;
-            *v282 = 4;
-            v453[0] = v54;
-            v283 = *(v282 + 1);
-            *(v282 + 1) = v280;
-            v454 = v283;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v282);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v453);
-            v56 = v453;
-            goto LABEL_72;
-          case 14:
-            v57 = *(v3 + 1035);
-            v451[0] = 4;
-            v452 = v57;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v451);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v451);
-            v58 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mParallax");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v451);
-            v54 = *v58;
-            *v58 = 4;
-            v451[0] = v54;
-            v59 = *(v58 + 1);
-            *(v58 + 1) = v57;
-            v452 = v59;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v58);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v451);
-            v56 = v451;
-            goto LABEL_72;
-          case 15:
-            v136 = *(v3 + 1036);
-            v449[0] = 5;
-            v450 = v136;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v449);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v449);
-            v137 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mPreferredDoF");
-            v138 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v137, "mDoFIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v449);
-            v54 = *v138;
-            *v138 = 5;
-            v449[0] = v54;
-            v139 = *(v138 + 1);
-            *(v138 + 1) = v136;
-            v450 = v139;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v138);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v449);
-            v56 = v449;
-            goto LABEL_72;
-          case 16:
-            v51 = v3[260];
-            v445[0] = 7;
-            v446 = v51;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v445);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v445);
-            v52 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mFieldOfView");
-            v53 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v52, "mAzimuth");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v445);
-            v54 = *v53;
-            *v53 = 7;
-            v445[0] = v54;
-            v55 = v53[1];
-            v53[1] = v51;
-            v446 = v55;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v53);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v445);
-            v56 = v445;
-            goto LABEL_72;
-          case 17:
-            v251 = *(v3 + 1044);
-            v519[0] = 4;
-            v520 = v251;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v519);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v519);
-            v252 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-            v253 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v252, "mIsZoneDefined");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v519);
-            v254 = *v253;
-            *v253 = 4;
-            v519[0] = v254;
-            v255 = *(v253 + 1);
-            *(v253 + 1) = v251;
-            v520 = v255;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v253);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v519);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v520, v254);
-            if (*(v3 + 1044) != 1)
-            {
-              goto LABEL_73;
-            }
-
-            v256 = *(v3 + 1045);
-            v517[0] = 4;
-            v518 = v256;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v517);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v517);
-            v257 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-            v258 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v257, "mUsePreDefinedZone");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v517);
-            v259 = *v258;
-            *v258 = 4;
-            v517[0] = v259;
-            v260 = *(v258 + 1);
-            *(v258 + 1) = v256;
-            v518 = v260;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v258);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v517);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v518, v259);
-            if (*(v3 + 1045) == 1)
-            {
-              v261 = *(v3 + 1047);
-              v515[0] = 5;
-              v516 = v261;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v515);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v515);
-              v262 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-              v263 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v262, "mZoneIndex");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v515);
-              v54 = *v263;
-              *v263 = 5;
-              v515[0] = v54;
-              v264 = *(v263 + 1);
-              *(v263 + 1) = v261;
-              v516 = v264;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v263);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v515);
-              v56 = v515;
-            }
-
-            else
-            {
-              v352 = *(v3 + 1046);
-              v513[0] = 4;
-              v514 = v352;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v513);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v513);
-              v353 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-              v354 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v353, "mIsCartesian");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v513);
-              v355 = *v354;
-              *v354 = 4;
-              v513[0] = v355;
-              v356 = *(v354 + 1);
-              *(v354 + 1) = v352;
-              v514 = v356;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v354);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v513);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v514, v355);
-              if (*(v3 + 1046) == 1)
-              {
-                v357 = v3[262];
-                v511[0] = 7;
-                v512 = v357;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v511);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v511);
-                v358 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v359 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v358, "mZone");
-                v360 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v359, "mMinX");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v511);
-                v361 = *v360;
-                *v360 = 7;
-                v511[0] = v361;
-                v362 = *(v360 + 1);
-                *(v360 + 1) = v357;
-                v512 = *&v362;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v360);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v511);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v512, v361);
-                v363 = v3[263];
-                v509[0] = 7;
-                v510 = v363;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v509);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v509);
-                v364 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v365 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v364, "mZone");
-                v366 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v365, "mMaxX");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v509);
-                v367 = *v366;
-                *v366 = 7;
-                v509[0] = v367;
-                v368 = *(v366 + 1);
-                *(v366 + 1) = v363;
-                v510 = *&v368;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v366);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v509);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v510, v367);
-                v369 = v3[264];
-                v507[0] = 7;
-                v508 = v369;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v507);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v507);
-                v370 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v371 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v370, "mZone");
-                v372 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v371, "mMinY");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v507);
-                v373 = *v372;
-                *v372 = 7;
-                v507[0] = v373;
-                v374 = *(v372 + 1);
-                *(v372 + 1) = v369;
-                v508 = *&v374;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v372);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v507);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v508, v373);
-                v375 = v3[265];
-                v505[0] = 7;
-                v506 = v375;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v505);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v505);
-                v376 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v377 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v376, "mZone");
-                v378 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v377, "mMaxY");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v505);
-                v379 = *v378;
-                *v378 = 7;
-                v505[0] = v379;
-                v380 = *(v378 + 1);
-                *(v378 + 1) = v375;
-                v506 = *&v380;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v378);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v505);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v506, v379);
-                v381 = v3[266];
-                v503[0] = 7;
-                v504 = v381;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v503);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v503);
-                v382 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v383 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v382, "mZone");
-                v384 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v383, "mMinZ");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v503);
-                v385 = *v384;
-                *v384 = 7;
-                v503[0] = v385;
-                v386 = *(v384 + 1);
-                *(v384 + 1) = v381;
-                v504 = *&v386;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v384);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v503);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v504, v385);
-                v387 = v3[267];
-                v501[0] = 7;
-                v502 = v387;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v501);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v501);
-                v388 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v389 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v388, "mZone");
-                v390 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v389, "mMaxZ");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v501);
-                v54 = *v390;
-                *v390 = 7;
-                v501[0] = v54;
-                v391 = v390[1];
-                v390[1] = v387;
-                v502 = v391;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v390);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v501);
-                v56 = v501;
-              }
-
-              else
-              {
-                v396 = v3[268];
-                v499[0] = 7;
-                v500 = v396;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v499);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v499);
-                v397 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v398 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v397, "mZone");
-                v399 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v398, "mMinAzimuth");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v499);
-                v400 = *v399;
-                *v399 = 7;
-                v499[0] = v400;
-                v401 = *(v399 + 1);
-                *(v399 + 1) = v396;
-                v500 = *&v401;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v399);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v499);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v500, v400);
-                v402 = v3[269];
-                v497[0] = 7;
-                v498 = v402;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v497);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v497);
-                v403 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v404 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v403, "mZone");
-                v405 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v404, "mMaxAzimuth");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v497);
-                v406 = *v405;
-                *v405 = 7;
-                v497[0] = v406;
-                v407 = *(v405 + 1);
-                *(v405 + 1) = v402;
-                v498 = *&v407;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v405);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v497);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v498, v406);
-                v408 = v3[270];
-                v495[0] = 7;
-                v496 = v408;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v495);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v495);
-                v409 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v410 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v409, "mZone");
-                v411 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v410, "mMinElevation");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v495);
-                v412 = *v411;
-                *v411 = 7;
-                v495[0] = v412;
-                v413 = *(v411 + 1);
-                *(v411 + 1) = v408;
-                v496 = *&v413;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v411);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v495);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v496, v412);
-                v414 = v3[271];
-                v493[0] = 7;
-                v494 = v414;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v493);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v493);
-                v415 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v416 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v415, "mZone");
-                v417 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v416, "mMaxElevation");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v493);
-                v418 = *v417;
-                *v417 = 7;
-                v493[0] = v418;
-                v419 = *(v417 + 1);
-                *(v417 + 1) = v414;
-                v494 = *&v419;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v417);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v493);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v494, v418);
-                v420 = v3[272];
-                v491[0] = 7;
-                v492 = v420;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v491);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v491);
-                v421 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v422 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v421, "mZone");
-                v423 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v422, "mMinDistance");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v491);
-                v424 = *v423;
-                *v423 = 7;
-                v491[0] = v424;
-                v425 = *(v423 + 1);
-                *(v423 + 1) = v420;
-                v492 = *&v425;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v423);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v491);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v492, v424);
-                v426 = v3[273];
-                v489[0] = 7;
-                v490 = v426;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v489);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v489);
-                v427 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "mMaskingZone");
-                v428 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v427, "mZone");
-                v429 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v428, "mMaxDistance");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v489);
-                v54 = *v429;
-                *v429 = 7;
-                v489[0] = v54;
-                v430 = v429[1];
-                v429[1] = v426;
-                v490 = v430;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v429);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v489);
-                v56 = v489;
-              }
-            }
-
-            goto LABEL_72;
-          case 18:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v444);
-          case 19:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v443);
-          case 20:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v442);
-          case 21:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v441);
-          case 22:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v440);
-          case 23:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v439);
-          case 24:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v438);
-          default:
-            std::to_string(&v436, v17);
-            v304 = std::string::insert(&v436, 0, "Unknown parameter id ", 0x15uLL);
-            v437 = *v304;
-            v304->__r_.__value_.__l.__size_ = 0;
-            v304->__r_.__value_.__r.__words[2] = 0;
-            v304->__r_.__value_.__r.__words[0] = 0;
-            if (SHIBYTE(v436.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v436.__r_.__value_.__l.__data_);
-            }
-
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[16],char [16],0>(v435);
-        }
-      }
-    }
-  }
-}
-
-unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(unsigned __int8 *result)
-{
-  v1 = *result;
-  if (v1 > 2)
-  {
-    if (v1 == 3)
-    {
-      if (*(result + 1))
-      {
-        return result;
-      }
-
-      v2 = "m_type != value_t::string or m_value.string != nullptr";
-      v3 = 1222;
-    }
-
-    else
-    {
-      if (v1 != 8 || *(result + 1))
-      {
-        return result;
-      }
-
-      v2 = "m_type != value_t::binary or m_value.binary != nullptr";
-      v3 = 1223;
-    }
-
-LABEL_15:
-    __assert_rtn("assert_invariant", "json.hpp", v3, v2);
-  }
-
-  if (v1 == 1)
-  {
-    if (*(result + 1))
-    {
-      return result;
-    }
-
-    v2 = "m_type != value_t::object or m_value.object != nullptr";
-    v3 = 1220;
-    goto LABEL_15;
-  }
-
-  if (v1 == 2 && !*(result + 1))
-  {
-    v2 = "m_type != value_t::array or m_value.array != nullptr";
-    v3 = 1221;
-    goto LABEL_15;
-  }
-
-  return result;
-}
-
-uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(unsigned __int8 *a1, char *__s)
-{
-  if (!*a1)
-  {
-    *a1 = 1;
-    operator new();
-  }
-
-  if (*a1 != 1)
-  {
-    exception = __cxa_allocate_exception(0x20uLL);
-    v7 = *a1;
-    if (v7 > 9)
-    {
-      v8 = "number";
-    }
-
-    else
-    {
-      v8 = off_1E72C0EB8[v7];
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v9, v8);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, "cannot use operator[] with a string argument with ", &v9);
-    nlohmann::detail::type_error::create(exception, 305, &__p);
-  }
-
-  v3 = *(a1 + 1);
-  std::string::basic_string[abi:ne200100]<0>(&__p, __s);
-  v4 = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(v3, &v9, &__p);
-  if (!v4)
-  {
-    operator new();
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  return v4 + 56;
-}
-
-void sub_18F77C4A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(unsigned __int8 *a1)
-{
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a1);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a1 + 1, *a1);
-  return a1;
-}
-
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(uint64_t **a1, int a2)
-{
-  v32 = 0;
-  v33 = 0;
-  v34 = 0;
-  if (a2 == 1)
-  {
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(&v32, (*a1)[2]);
-    v6 = (*a1 + 1);
-    v7 = **a1;
-    if (v7 != v6)
-    {
-      v8 = v33;
-      do
-      {
-        if (v8 >= v34)
-        {
-          v8 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v32, (v7 + 7));
-        }
-
-        else
-        {
-          *v8 = *(v7 + 56);
-          *(v8 + 8) = v7[8];
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v7 + 56);
-          *(v7 + 56) = 0;
-          v7[8] = 0;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
-          v8 += 16;
-        }
-
-        v33 = v8;
-        v9 = v7[1];
-        if (v9)
-        {
-          do
-          {
-            v10 = v9;
-            v9 = *v9;
-          }
-
-          while (v9);
-        }
-
-        else
-        {
-          do
-          {
-            v10 = v7[2];
-            v11 = *v10 == v7;
-            v7 = v10;
-          }
-
-          while (!v11);
-        }
-
-        v7 = v10;
-      }
-
-      while (v10 != v6);
-    }
-  }
-
-  else if (a2 == 2)
-  {
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(&v32, ((*a1)[1] - **a1) >> 4);
-    v4 = **a1;
-    v5 = (*a1)[1];
-    while (v4 != v5)
-    {
-      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](&v32, v4);
-      v4 += 16;
-    }
-  }
-
-  for (i = v33; v32 != v33; i = v33)
-  {
-    v15 = *(i - 16);
-    v13 = i - 16;
-    v14 = v15;
-    LOBYTE(v30) = v15;
-    v16 = *(v13 + 8);
-    v31 = v16;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v13);
-    *v13 = 0;
-    *(v13 + 8) = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v30);
-    v17 = v33;
-    v18 = v33 - 16;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((v33 - 16));
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v17 - 8, *(v17 - 16));
-    v33 = v18;
-    if (v15 == 1)
-    {
-      v24 = *v16;
-      if (*v16 == v16 + 1)
-      {
-        v14 = 1;
-      }
-
-      else
-      {
-        do
-        {
-          if (v18 >= v34)
-          {
-            v18 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v32, (v24 + 7));
-          }
-
-          else
-          {
-            *v18 = *(v24 + 56);
-            *(v18 + 8) = v24[8];
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24 + 56);
-            *(v24 + 56) = 0;
-            v24[8] = 0;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v18);
-            v18 += 16;
-          }
-
-          v33 = v18;
-          v25 = v24[1];
-          if (v25)
-          {
-            do
-            {
-              v26 = v25;
-              v25 = *v25;
-            }
-
-            while (v25);
-          }
-
-          else
-          {
-            do
-            {
-              v26 = v24[2];
-              v11 = *v26 == v24;
-              v24 = v26;
-            }
-
-            while (!v11);
-          }
-
-          v24 = v26;
-        }
-
-        while (v26 != v16 + 1);
-        v16 = v31;
-        v14 = v30;
-      }
-
-      std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(v16[1]);
-      *v16 = (v16 + 1);
-      v16[2] = 0;
-      v16[1] = 0;
-    }
-
-    else if (v14 == 2)
-    {
-      v19 = *v16;
-      v20 = v16[1];
-      if (*v16 != v20)
-      {
-        do
-        {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](&v32, v19);
-          v19 += 16;
-        }
-
-        while (v19 != v20);
-        v19 = *v16;
-        v20 = v16[1];
-      }
-
-      if (v20 != v19)
-      {
-        v21 = (v20 - 16);
-        v22 = v21;
-        do
-        {
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v21);
-          v23 = *v22;
-          v22 -= 16;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v21 + 8, v23);
-          v11 = v21 == v19;
-          v21 = v22;
-        }
-
-        while (!v11);
-      }
-
-      v16[1] = v19;
-      v14 = 2;
-    }
-
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v14);
-  }
-
-  if (a2 > 2)
-  {
-    if (a2 == 3)
-    {
-      v27 = *a1;
-      if (*(*a1 + 23) < 0)
-      {
-        v29 = *v27;
-        goto LABEL_53;
-      }
-    }
-
-    else
-    {
-      if (a2 != 8)
-      {
-        goto LABEL_56;
-      }
-
-      v27 = *a1;
-      v28 = **a1;
-      if (v28)
-      {
-        v27[1] = v28;
-        v29 = v28;
-LABEL_53:
-        operator delete(v29);
-        goto LABEL_54;
-      }
-    }
-
-LABEL_55:
-    operator delete(v27);
-    goto LABEL_56;
-  }
-
-  if (a2 == 1)
-  {
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy((*a1)[1]);
-    goto LABEL_54;
-  }
-
-  if (a2 == 2)
-  {
-    v30 = *a1;
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v30);
-LABEL_54:
-    v27 = *a1;
-    goto LABEL_55;
-  }
-
-LABEL_56:
-  v30 = &v32;
-  std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v30);
-}
-
-unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](unsigned __int8 *a1, unint64_t a2)
-{
-  v2 = a2;
-  v3 = a1;
-  if (!*a1)
-  {
-    *a1 = 2;
-    operator new();
-  }
-
-  if (*a1 != 2)
-  {
-    exception = __cxa_allocate_exception(0x20uLL);
-    v43 = *v3;
-    if (v43 > 9)
-    {
-      v44 = "number";
-    }
-
-    else
-    {
-      v44 = off_1E72C0EB8[v43];
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v48, v44);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v49, "cannot use operator[] with a numeric argument with ", &v48);
-    nlohmann::detail::type_error::create(exception, 305, &v49);
-  }
-
-  v4 = *(a1 + 1);
-  v5 = *v4;
-  v6 = *(v4 + 8);
-  v7 = (v6 - *v4) >> 4;
-  if (v7 <= a2)
-  {
-    v8 = a2 - v7 + 1;
-    v48.__r_.__value_.__s.__data_[0] = 0;
-    v48.__r_.__value_.__l.__size_ = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v48);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v48);
-    if (v2 - v7 != -1)
-    {
-      v10 = *(v4 + 8);
-      v9 = *(v4 + 16);
-      if (v8 > (v9 - v10) >> 4)
-      {
-        v11 = *v4;
-        v12 = v8 + ((v10 - *v4) >> 4);
-        if (v12 >> 60)
-        {
-          std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-        }
-
-        v13 = v9 - v11;
-        if (v13 >> 3 > v12)
-        {
-          v12 = v13 >> 3;
-        }
-
-        if (v13 >= 0x7FFFFFFFFFFFFFF0)
-        {
-          v14 = 0xFFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v14 = v12;
-        }
-
-        v51 = v4;
-        if (v14)
-        {
-          std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](v14);
-        }
-
-        v34 = v2;
-        v35 = (16 * ((v6 - v11) >> 4));
-        v49.__r_.__value_.__r.__words[0] = 0;
-        v49.__r_.__value_.__l.__size_ = v35;
-        v49.__r_.__value_.__r.__words[2] = v35;
-        v50 = 0;
-        v36 = &v35[16 * (v2 - v7) + 16];
-        v37 = 16 * v34 - 16 * v7 + 16;
-        do
-        {
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v35, &v48);
-          v35 += 16;
-          v37 -= 16;
-        }
-
-        while (v37);
-        v49.__r_.__value_.__r.__words[2] = v36;
-        std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v4, v6, *(v4 + 8), v36);
-        v49.__r_.__value_.__r.__words[2] += *(v4 + 8) - v6;
-        *(v4 + 8) = v6;
-        v38 = v49.__r_.__value_.__l.__size_ + *v4 - v6;
-        std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v4, *v4, v6, v38);
-        v39 = *v4;
-        *v4 = v38;
-        v49.__r_.__value_.__r.__words[0] = v39;
-        v49.__r_.__value_.__l.__size_ = v39;
-        *(v4 + 8) = *(&v49.__r_.__value_.__l + 2);
-        v49.__r_.__value_.__r.__words[2] = v39;
-        v40 = *(v4 + 16);
-        *(v4 + 16) = v50;
-        v50 = v40;
-        std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(&v49);
-        v2 = v34;
-        goto LABEL_37;
-      }
-
-      v15 = v10 - v6;
-      v46 = v2 - v7 + 1;
-      if (v8 <= (v10 - v6) >> 4)
-      {
-        v47 = v2;
-        v17 = *(v4 + 8);
-        v16 = v2 - v7 + 1;
-        goto LABEL_21;
-      }
-
-      v16 = v15 >> 4;
-      v17 = v10 + 16 * (v8 - (v15 >> 4));
-      v18 = 16 * v2 - 16 * (v7 + (v15 >> 4)) + 16;
-      v19 = *(v4 + 8);
-      do
-      {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v19, &v48);
-        v19 += 16;
-        v18 -= 16;
-      }
-
-      while (v18);
-      *(v4 + 8) = v17;
-      v8 = v2 - v7 + 1;
-      if (v10 != v6)
-      {
-        v47 = v2;
-LABEL_21:
-        v45 = v3;
-        v20 = v17 - 16 * v8;
-        v21 = v17;
-        if (v20 < v10)
-        {
-          v22 = v20;
-          v21 = v17;
-          do
-          {
-            *v21 = *v22;
-            *(v21 + 8) = *(v22 + 8);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
-            *v22 = 0;
-            *(v22 + 8) = 0;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v21);
-            v22 += 16;
-            v21 += 16;
-          }
-
-          while (v22 < v10);
-        }
-
-        *(v4 + 8) = v21;
-        if (v20 != v6)
-        {
-          v23 = 0;
-          v24 = v17 + 16 * v7 - 16 * v47;
-          do
-          {
-            v49.__r_.__value_.__s.__data_[0] = *(v24 + v23 - 32);
-            v25 = v49.__r_.__value_.__s.__data_[0];
-            v49.__r_.__value_.__l.__size_ = *(v24 + v23 - 24);
-            size = v49.__r_.__value_.__l.__size_;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((v24 + v23 - 32));
-            *(v24 + v23 - 32) = 0;
-            *(v24 + v23 - 24) = 0;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v49);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v49);
-            v27 = (v17 + v23 - 16);
-            v28 = *v27;
-            *v27 = v25;
-            v49.__r_.__value_.__s.__data_[0] = v28;
-            v29 = *(v17 + v23 - 8);
-            *(v27 + 1) = size;
-            v49.__r_.__value_.__l.__size_ = v29;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v49);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v49.__r_.__value_.__l.__size_, v28);
-            v23 -= 16;
-          }
-
-          while (v24 + v23 - 16 != v6);
-        }
-
-        v30 = &v48;
-        if (v6 <= &v48)
-        {
-          v31 = v46;
-          if (*(v4 + 8) <= &v48)
-          {
-            v31 = 0;
-          }
-
-          v30 = (&v48 + 16 * v31);
-        }
-
-        v3 = v45;
-        v2 = v47;
-        do
-        {
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(&v49, v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v49);
-          v32 = *v6;
-          *v6 = v49.__r_.__value_.__s.__data_[0];
-          v49.__r_.__value_.__s.__data_[0] = v32;
-          v33 = *(v6 + 8);
-          *(v6 + 8) = v49.__r_.__value_.__l.__size_;
-          v49.__r_.__value_.__l.__size_ = v33;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v49);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v49.__r_.__value_.__l.__size_, v49.__r_.__value_.__s.__data_[0]);
-          v6 += 16;
-          --v16;
-        }
-
-        while (v16);
-      }
-    }
-
-LABEL_37:
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(&v48);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v48.__r_.__value_.__l.__size_, v48.__r_.__value_.__s.__data_[0]);
-    v5 = **(v3 + 1);
-  }
-
-  return &v5[16 * v2];
-}
-
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(uint64_t a1)
-{
-  *(a1 + 8) = 0;
-  *a1 = 3;
-  operator new();
-}
-
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[16],char [16],0>(uint64_t a1)
-{
-  *(a1 + 8) = 0;
-  *a1 = 3;
-  operator new();
-}
-
-void nlohmann::detail::type_error::create(uint64_t a1, int a2, uint64_t a3)
-{
-  std::string::basic_string[abi:ne200100]<0>(&__p, "type_error");
-  std::operator+<char>();
-  v6 = std::string::append(&v26, ".", 1uLL);
-  v7 = *&v6->__r_.__value_.__l.__data_;
-  v27.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-  *&v27.__r_.__value_.__l.__data_ = v7;
-  v6->__r_.__value_.__l.__size_ = 0;
-  v6->__r_.__value_.__r.__words[2] = 0;
-  v6->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&v25, a2);
-  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v8 = &v25;
-  }
-
-  else
-  {
-    v8 = v25.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = v25.__r_.__value_.__l.__size_;
-  }
-
-  v10 = std::string::append(&v27, v8, size);
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  v28.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&v28.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  v12 = std::string::append(&v28, "] ", 2uLL);
-  v13 = *&v12->__r_.__value_.__l.__data_;
-  v22.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-  *&v22.__r_.__value_.__l.__data_ = v13;
-  v12->__r_.__value_.__l.__size_ = 0;
-  v12->__r_.__value_.__r.__words[2] = 0;
-  v12->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v28.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v25.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v27.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v26.__r_.__value_.__l.__data_);
-  }
-
-  v14 = *(a3 + 23);
-  if (v14 >= 0)
-  {
-    v15 = a3;
-  }
-
-  else
-  {
-    v15 = *a3;
-  }
-
-  if (v14 >= 0)
-  {
-    v16 = *(a3 + 23);
-  }
-
-  else
-  {
-    v16 = *(a3 + 8);
-  }
-
-  v17 = std::string::append(&v22, v15, v16);
-  v18 = *&v17->__r_.__value_.__l.__data_;
-  v24 = v17->__r_.__value_.__r.__words[2];
-  *v23 = v18;
-  v17->__r_.__value_.__l.__size_ = 0;
-  v17->__r_.__value_.__r.__words[2] = 0;
-  v17->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v22.__r_.__value_.__l.__data_);
-  }
-
-  if (v21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v24 >= 0)
-  {
-    v19 = v23;
-  }
-
-  else
-  {
-    v19 = v23[0];
-  }
-
-  *a1 = &unk_1F0336C18;
-  *(a1 + 8) = a2;
-  std::runtime_error::runtime_error((a1 + 16), v19);
-  *a1 = &unk_1F0336BF0;
-  if (SHIBYTE(v24) < 0)
-  {
-    operator delete(v23[0]);
-  }
-}
-
-void sub_18F77D130(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
-{
-  std::exception::~exception(v41);
-  if (a28 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void nlohmann::detail::type_error::~type_error(std::runtime_error *this)
-{
-  this->__vftable = &unk_1F0336C18;
-  std::runtime_error::~runtime_error(this + 1);
-
-  std::exception::~exception(this);
-}
-
-{
-  this->__vftable = &unk_1F0336C18;
-  std::runtime_error::~runtime_error(this + 1);
-  std::exception::~exception(this);
-
-  JUMPOUT(0x193ADF220);
-}
-
-void nlohmann::detail::exception::~exception(std::runtime_error *this)
-{
-  this->__vftable = &unk_1F0336C18;
-  std::runtime_error::~runtime_error(this + 1);
-  std::exception::~exception(this);
-
-  JUMPOUT(0x193ADF220);
-}
-
-{
-  this->__vftable = &unk_1F0336C18;
-  std::runtime_error::~runtime_error(this + 1);
-
-  std::exception::~exception(this);
-}
-
-unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(unsigned __int8 *a1, unsigned __int8 *a2)
-{
-  *a1 = *a2;
-  *(a1 + 1) = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2);
-  v4 = *a1;
-  if (v4 > 4)
-  {
-    if (*a1 > 6u)
-    {
-      if (v4 != 7)
-      {
-        if (v4 == 8)
-        {
-          v7 = *(a2 + 1);
-          operator new();
-        }
-
-        goto LABEL_18;
-      }
-    }
-
-    else if (v4 != 5 && v4 != 6)
-    {
-      goto LABEL_18;
-    }
-
-    v6 = *(a2 + 1);
-    goto LABEL_17;
-  }
-
-  if (*a1 <= 2u)
-  {
-    if (v4 == 1)
-    {
-      v9 = *(a2 + 1);
-      operator new();
-    }
-
-    if (v4 == 2)
-    {
-      v5 = *(a2 + 1);
-      operator new();
-    }
-
-    goto LABEL_18;
-  }
-
-  if (v4 == 3)
-  {
-    v10 = *(a2 + 1);
-    operator new();
-  }
-
-  if (v4 == 4)
-  {
-    v6 = a2[8];
-LABEL_17:
-    *(a1 + 1) = v6;
-  }
-
-LABEL_18:
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a1);
-  return a1;
-}
-
-void std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](unint64_t a1)
-{
-  if (!(a1 >> 60))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-uint64_t std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v2; i = *(a1 + 16))
-  {
-    *(a1 + 16) = i - 16;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((i - 16));
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(i - 8, *(i - 16));
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
-{
-  v13 = a4;
-  v14 = a4;
-  v11[0] = a1;
-  v11[1] = &v13;
-  v11[2] = &v14;
-  if (a2 == a3)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-    v4 = a4;
-    v6 = a2;
-    v7 = a2;
-    do
-    {
-      *v4 = *v7;
-      *(v4 + 8) = *(v7 + 1);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v7);
-      *v7 = 0;
-      *(v7 + 1) = 0;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v4);
-      v7 += 16;
-      v4 = v14 + 16;
-      v14 += 16;
-    }
-
-    while (v7 != a3);
-    v12 = 1;
-    v8 = v6;
-    do
-    {
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
-      v9 = *v8;
-      v8 += 16;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6 + 8, v9);
-      v6 = v8;
-    }
-
-    while (v8 != a3);
-  }
-
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>>::~__exception_guard_exceptions[abi:ne200100](v11);
-}
-
-uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
-{
-  if ((*(a1 + 24) & 1) == 0)
-  {
-    v2 = **(a1 + 16);
-    v3 = **(a1 + 8);
-    if (v2 != v3)
-    {
-      v4 = v2 - 16;
-      v5 = v2 - 16;
-      do
-      {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v4);
-        v6 = *v5;
-        v5 -= 16;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v4 + 8, v6);
-        v7 = v4 == v3;
-        v4 = v5;
-      }
-
-      while (!v7);
-    }
-  }
-
-  return a1;
-}
-
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      v6 = v4 - 16;
-      v7 = v4 - 16;
-      do
-      {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
-        v8 = *v7;
-        v7 -= 16;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6 + 8, v8);
-        v9 = v6 == v2;
-        v6 = v7;
-      }
-
-      while (!v9);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(char *a1)
-{
-  if (a1)
-  {
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*a1);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*(a1 + 1));
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a1 + 56);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a1 + 64, a1[56]);
-    if (a1[55] < 0)
-    {
-      operator delete(*(a1 + 4));
-    }
-
-    operator delete(a1);
-  }
-}
-
-void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *>>>::operator()[abi:ne200100](char a1, uint64_t a2)
-{
-  if (a1)
-  {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((a2 + 56));
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy((a2 + 64), *(a2 + 56));
-    if (*(a2 + 55) < 0)
-    {
-      operator delete(*(a2 + 32));
-    }
-  }
-
-  else if (!a2)
-  {
-    return;
-  }
-
-  operator delete(a2);
-}
-
-void *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(uint64_t a1, void *a2, void *a3)
-{
-  v5 = (a1 + 8);
-  v4 = *(a1 + 8);
-  if (v4)
-  {
-    do
-    {
-      while (1)
-      {
-        v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 4) & 0x80) == 0)
-        {
-          break;
-        }
-
-        v4 = *v7;
-        v5 = v7;
-        if (!*v7)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v7 + 4, a3) & 0x80) == 0)
-      {
-        break;
-      }
-
-      v5 = v7 + 1;
-      v4 = v7[1];
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-    v7 = (a1 + 8);
-  }
-
-LABEL_9:
-  *a2 = v7;
-  return v5;
-}
-
-void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 4)
-  {
-    if (!(a2 >> 60))
-    {
-      v2 = result[1] - *result;
-      v3 = result;
-      std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](a2);
-    }
-
-    std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
-}
-
-void sub_18F77DC04(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 8);
-  if (v4 >= *(a1 + 16))
-  {
-    result = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(a1, a2);
-  }
-
-  else
-  {
-    *v4 = *a2;
-    *(v4 + 8) = *(a2 + 8);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2);
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v4);
-    result = v4 + 16;
-  }
-
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t a1, uint64_t a2)
-{
-  v2 = (*(a1 + 8) - *a1) >> 4;
-  v3 = v2 + 1;
-  if ((v2 + 1) >> 60)
-  {
-    std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-  }
-
-  v6 = *(a1 + 16) - *a1;
-  if (v6 >> 3 > v3)
-  {
-    v3 = v6 >> 3;
-  }
-
-  if (v6 >= 0x7FFFFFFFFFFFFFF0)
-  {
-    v7 = 0xFFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v7 = v3;
-  }
-
-  v18 = a1;
-  if (v7)
-  {
-    std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](v7);
-  }
-
-  v8 = 16 * v2;
-  v15 = 0;
-  v16 = v8;
-  *(&v17 + 1) = 0;
-  *v8 = *a2;
-  *(v8 + 8) = *(a2 + 8);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2);
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
-  *&v17 = v8 + 16;
-  v9 = *(a1 + 8);
-  v10 = v8 + *a1 - v9;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(a1, *a1, v9, v10);
-  v11 = *a1;
-  *a1 = v10;
-  v12 = *(a1 + 16);
-  v14 = v17;
-  *(a1 + 8) = v17;
-  *&v17 = v11;
-  *(&v17 + 1) = v12;
-  v15 = v11;
-  v16 = v11;
-  std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(&v15);
-  return v14;
-}
-
-void sub_18F77DDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
-  _Unwind_Resume(a1);
-}
-
-void APAC::MetadataJSON(unsigned __int16 *a1@<X0>, void *a2@<X8>)
-{
-  v2082[0] = 0;
-  v2083 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2082);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2082);
-  v3 = *a1;
-  v2080[0] = 5;
-  v2081 = v3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2080);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2080);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "header");
-  v5 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v4, "syncWords");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2080);
-  v6 = *v5;
-  *v5 = 5;
-  v2080[0] = v6;
-  v7 = *(v5 + 1);
-  *(v5 + 1) = v3;
-  v2081 = v7;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v5);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2080);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2081, v6);
-  v8 = a1[1];
-  v2078[0] = 5;
-  v2079 = v8;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2078);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2078);
-  v9 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "header");
-  v10 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v9, "chunkSize");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2078);
-  v11 = *v10;
-  *v10 = 5;
-  v2078[0] = v11;
-  v12 = *(v10 + 1);
-  *(v10 + 1) = v8;
-  v2079 = v12;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v10);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2078);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2079, v11);
-  v13 = *(a1 + 4);
-  v2076[0] = 5;
-  v2077 = v13;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2076);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2076);
-  v14 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "header");
-  v15 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v14, "version");
-  v16 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v15, "major");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2076);
-  v17 = *v16;
-  *v16 = 5;
-  v2076[0] = v17;
-  v18 = *(v16 + 1);
-  *(v16 + 1) = v13;
-  v2077 = v18;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v16);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2076);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2077, v17);
-  v19 = *(a1 + 5);
-  v2074[0] = 5;
-  v2075 = v19;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2074);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2074);
-  v20 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "header");
-  v21 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v20, "version");
-  v22 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v21, "minor");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2074);
-  v23 = *v22;
-  *v22 = 5;
-  v2074[0] = v23;
-  v24 = *(v22 + 1);
-  *(v22 + 1) = v19;
-  v2075 = v24;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2074);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2075, v23);
-  v25 = *(a1 + 6);
-  v2072[0] = 4;
-  v2073 = v25;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2072);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2072);
-  v26 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "header");
-  v27 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v26, "informationFrame");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2072);
-  v28 = *v27;
-  *v27 = 4;
-  v2072[0] = v28;
-  v29 = *(v27 + 1);
-  *(v27 + 1) = v25;
-  v2073 = v29;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2072);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2073, v28);
-  if (*(a1 + 4) != 1 || (v30 = *(a1 + 5), (v30 - 4) <= 0xFFFFFFFC))
-  {
-    exception = __cxa_allocate_exception(8uLL);
-    *exception = "unsupported version";
-    __cxa_throw(exception, MEMORY[0x1E69E53D8], 0);
-  }
-
-  v1638 = a1;
-  if (v30 != 3)
-  {
-    if (v30 == 2)
-    {
-      v31 = a1 + 86582;
-      if (*(a1 + 6) == 1)
-      {
-        v1650 = a1 + 86582;
-        v32 = *(a1 + 8);
-        v2070[0] = 4;
-        v2071 = v32;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2070);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2070);
-        v33 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "staticMetadata");
-        v34 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v33, "refScreen");
-        v35 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v34, "hasData");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2070);
-        v36 = *v35;
-        *v35 = 4;
-        v2070[0] = v36;
-        v37 = *(v35 + 1);
-        *(v35 + 1) = v32;
-        v2071 = v37;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v35);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2070);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2071, v36);
-        v38 = *(a1 + 436);
-        v2068[0] = 4;
-        v2069 = v38;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2068);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2068);
-        v39 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "staticMetadata");
-        v40 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v39, "groupStaticData");
-        v41 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v40, "hasData");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2068);
-        v42 = *v41;
-        *v41 = 4;
-        v2068[0] = v42;
-        v43 = *(v41 + 1);
-        *(v41 + 1) = v38;
-        v2069 = v43;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v41);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2068);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2069, v42);
-        v44 = *(a1 + 27872);
-        v2066[0] = 5;
-        v2067 = v44;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2066);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2066);
-        v45 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "staticMetadata");
-        v46 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v45, "sceneComponentStaticData");
-        v47 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v46, "ASCCount");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2066);
-        v48 = *v47;
-        *v47 = 5;
-        v2066[0] = v48;
-        v49 = *(v47 + 1);
-        *(v47 + 1) = v44;
-        v2067 = v49;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v47);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2066);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2067, v48);
-        v1658 = *(a1 + 27872);
-        if (*(a1 + 27872))
-        {
-          v50 = 0;
-          v1654 = a1 + 13938;
-          v51 = a1 + 13978;
-          while (1)
-          {
-            v52 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "staticMetadata");
-            v53 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v52, "sceneComponentStaticData");
-            v54 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v53, "ASCData");
-            v55 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v54, v50);
-            v56 = &v1654[572 * v50];
-            v57 = *v56;
-            v2064[0] = 5;
-            v2065 = v57;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2064);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2064);
-            v58 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "sceneComponentID");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2064);
-            v59 = *v58;
-            *v58 = 5;
-            v2064[0] = v59;
-            v60 = *(v58 + 1);
-            *(v58 + 1) = v57;
-            v2065 = v60;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v58);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2064);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2065, v59);
-            v61 = *(v56 + 1);
-            v2062[0] = 5;
-            v2063 = v61;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2062);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2062);
-            v62 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "sceneComponentType");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2062);
-            v63 = *v62;
-            *v62 = 5;
-            v2062[0] = v63;
-            v64 = *(v62 + 1);
-            *(v62 + 1) = v61;
-            v2063 = v64;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v62);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2062);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2063, v63);
-            v65 = *(v56 + 2);
-            v2060[0] = 5;
-            v2061 = v65;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2060);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2060);
-            v66 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "startChannelIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2060);
-            v67 = *v66;
-            *v66 = 5;
-            v2060[0] = v67;
-            v68 = *(v66 + 1);
-            *(v66 + 1) = v65;
-            v2061 = v68;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v66);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2060);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2061, v67);
-            v69 = *(v56 + 3);
-            v2058[0] = 5;
-            v2059 = v69;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2058);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2058);
-            v70 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "rendererSubType");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2058);
-            v71 = *v70;
-            *v70 = 5;
-            v2058[0] = v71;
-            v72 = *(v70 + 1);
-            *(v70 + 1) = v69;
-            v2059 = v72;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v70);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2058);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2059, v71);
-            v73 = *(v56 + 4);
-            v2056[0] = 5;
-            v2057 = v73;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2056);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2056);
-            v74 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "rendererVersion");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2056);
-            v75 = *v74;
-            *v74 = 5;
-            v2056[0] = v75;
-            v76 = *(v74 + 1);
-            *(v74 + 1) = v73;
-            v2057 = v76;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v74);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2056);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2057, v75);
-            v77 = *(v56 + 2);
-            v2054[0] = 5;
-            v2055 = v77;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2054);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2054);
-            v78 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "channelLayoutTag");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2054);
-            v79 = *v78;
-            *v78 = 5;
-            v2054[0] = v79;
-            v80 = *(v78 + 1);
-            *(v78 + 1) = v77;
-            v2055 = v80;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v78);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2054);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2055, v79);
-            v81 = *(v56 + 12);
-            v2052[0] = 5;
-            v2053 = v81;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2052);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2052);
-            v82 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "HOAOrder");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2052);
-            v83 = *v82;
-            *v82 = 5;
-            v2052[0] = v83;
-            v84 = *(v82 + 1);
-            *(v82 + 1) = v81;
-            v2053 = v84;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v82);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2052);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2053, v83);
-            v85 = *(v56 + 13);
-            v2050[0] = 5;
-            v2051 = v85;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2050);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2050);
-            v86 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "HOAOrdering");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2050);
-            v87 = *v86;
-            *v86 = 5;
-            v2050[0] = v87;
-            v88 = *(v86 + 1);
-            *(v86 + 1) = v85;
-            v2051 = v88;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v86);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2050);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2051, v87);
-            v89 = *(v56 + 14);
-            v2048[0] = 5;
-            v2049 = v89;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2048);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2048);
-            v90 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "HOANormalization");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2048);
-            v91 = *v90;
-            *v90 = 5;
-            v2048[0] = v91;
-            v92 = *(v90 + 1);
-            *(v90 + 1) = v89;
-            v2049 = v92;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v90);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2048);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2049, v91);
-            v93 = *(v56 + 16);
-            v2046[0] = 4;
-            v2047 = v93;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2046);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2046);
-            v94 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "NFCRefDist");
-            v95 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v94, "hasData");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2046);
-            v96 = *v95;
-            *v95 = 4;
-            v2046[0] = v96;
-            v97 = *(v95 + 1);
-            *(v95 + 1) = v93;
-            v2047 = v97;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v95);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2046);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2047, v96);
-            v98 = *(v56 + 24);
-            v2044[0] = 4;
-            v2045 = v98;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2044);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2044);
-            v99 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "screenRef");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2044);
-            v100 = *v99;
-            *v99 = 4;
-            v2044[0] = v100;
-            v101 = *(v99 + 1);
-            *(v99 + 1) = v98;
-            v2045 = v101;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v99);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2044);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2045, v100);
-            v102 = *(v56 + 28);
-            v2042[0] = 4;
-            v2043 = v102;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2042);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2042);
-            v103 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-            v104 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v103, "hasData");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2042);
-            v105 = *v104;
-            *v104 = 4;
-            v2042[0] = v105;
-            v106 = *(v104 + 1);
-            *(v104 + 1) = v102;
-            v2043 = v106;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v104);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2042);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2043, v105);
-            if (*(v56 + 28) == 1)
-            {
-              v107 = *(v56 + 29);
-              v2040[0] = 5;
-              v2041 = v107;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2040);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2040);
-              v108 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-              v109 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v108, "numParameters");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2040);
-              v110 = *v109;
-              *v109 = 5;
-              v2040[0] = v110;
-              v111 = *(v109 + 1);
-              *(v109 + 1) = v107;
-              v2041 = v111;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v109);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2040);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2041, v110);
-              if (*(v56 + 29))
-              {
-                break;
-              }
-            }
-
-LABEL_39:
-            v197 = *(v56 + 112);
-            v2003[0] = 4;
-            v2004 = v197;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2003);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2003);
-            v198 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "dolbyStaticData");
-            v199 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v198, "hasData");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2003);
-            v200 = *v199;
-            *v199 = 4;
-            v2003[0] = v200;
-            v201 = *(v199 + 1);
-            *(v199 + 1) = v197;
-            v2004 = v201;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v199);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2003);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2004, v200);
-            v202 = *(v56 + 114);
-            v2001[0] = 4;
-            v2002 = v202;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2001);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2001);
-            v203 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "extASCStaticData");
-            v204 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v203, "hasData");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2001);
-            v205 = *v204;
-            *v204 = 4;
-            v2001[0] = v205;
-            v206 = *(v204 + 1);
-            *(v204 + 1) = v202;
-            v2002 = v206;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v204);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2001);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2002, v205);
-            ++v50;
-            v51 += 572;
-            a1 = v1638;
-            if (v50 == v1658)
-            {
-              goto LABEL_40;
-            }
-          }
-
-          v112 = 0;
-          while (1)
-          {
-            v113 = *(v51 + v112);
-            v2038[0] = 5;
-            v2039 = v113;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2038);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2038);
-            v114 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-            v115 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v114, "paramIndexList");
-            v116 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v115, v112);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2038);
-            v117 = *v116;
-            *v116 = 5;
-            v2038[0] = v117;
-            v118 = *(v116 + 1);
-            *(v116 + 1) = v113;
-            v2039 = v118;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v116);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2038);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2039, v117);
-            v119 = *(v51 + v112);
-            if (v119 <= 3)
-            {
-              if (*(v51 + v112) > 1u)
-              {
-                if (v119 == 2)
-                {
-                  v185 = *(v56 + 32);
-                  v2032[0] = 5;
-                  v2033 = v185;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2032);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2032);
-                  v186 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                  v187 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v186, "productionCoordinate");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2032);
-                  v141 = *v187;
-                  *v187 = 5;
-                  v2032[0] = v141;
-                  v188 = *(v187 + 1);
-                  *(v187 + 1) = v185;
-                  v2033 = v188;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v187);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2032);
-                  v143 = v2032;
-                }
-
-                else
-                {
-                  if (v119 != 3)
-                  {
-                    goto LABEL_29;
-                  }
-
-                  v144 = *(v56 + 34);
-                  v2030[0] = 5;
-                  v2031 = v144;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2030);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2030);
-                  v145 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                  v146 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v145, "sceneReverb");
-                  v147 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v146, "reverbProcIndex");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2030);
-                  v148 = *v147;
-                  *v147 = 5;
-                  v2030[0] = v148;
-                  v149 = *(v147 + 1);
-                  *(v147 + 1) = v144;
-                  v2031 = v149;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v147);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2030);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2031, v148);
-                  v150 = *(v56 + 34);
-                  if (v150 == 1)
-                  {
-                    v151 = *(v56 + 18);
-                    v2028[0] = 5;
-                    v2029 = v151;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2028);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2028);
-                    v152 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                    v153 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v152, "sceneReverb");
-                    v154 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v153, "reverbProcPreset");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2028);
-                    v155 = *v154;
-                    *v154 = 5;
-                    v2028[0] = v155;
-                    v156 = *(v154 + 1);
-                    *(v154 + 1) = v151;
-                    v2029 = v156;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v154);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2028);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2029, v155);
-                    v157 = *(v56 + 38);
-                    v2026[0] = 5;
-                    v2027 = v157;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2026);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2026);
-                    v158 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                    v159 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v158, "sceneReverb");
-                    v160 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v159, "mixLevel");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2026);
-                    v161 = *v160;
-                    *v160 = 5;
-                    v2026[0] = v161;
-                    v162 = *(v160 + 1);
-                    *(v160 + 1) = v157;
-                    v2027 = v162;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v160);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2026);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2027, v161);
-                    v150 = *(v56 + 34);
-                  }
-
-                  if (v150 != 2)
-                  {
-                    goto LABEL_38;
-                  }
-
-                  v163 = *(v56 + 39);
-                  v2024[0] = 5;
-                  v2025 = v163;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2024);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2024);
-                  v164 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                  v165 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v164, "sceneReverb");
-                  v166 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v165, "codeBookID");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2024);
-                  v167 = *v166;
-                  *v166 = 5;
-                  v2024[0] = v167;
-                  v168 = *(v166 + 1);
-                  *(v166 + 1) = v163;
-                  v2025 = v168;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v166);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2024);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2025, v167);
-                  v169 = *(v56 + 20);
-                  v2022[0] = 5;
-                  v2023 = v169;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2022);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2022);
-                  v170 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                  v171 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v170, "sceneReverb");
-                  v172 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v171, "IRFilterID");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2022);
-                  v173 = *v172;
-                  *v172 = 5;
-                  v2022[0] = v173;
-                  v174 = *(v172 + 1);
-                  *(v172 + 1) = v169;
-                  v2023 = v174;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v172);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2022);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2023, v173);
-                  v175 = *(v56 + 38);
-                  v2020[0] = 5;
-                  v2021 = v175;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2020);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2020);
-                  v176 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                  v177 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v176, "sceneReverb");
-                  v178 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v177, "mixLevel");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2020);
-                  v141 = *v178;
-                  *v178 = 5;
-                  v2020[0] = v141;
-                  v179 = *(v178 + 1);
-                  *(v178 + 1) = v175;
-                  v2021 = v179;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v178);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2020);
-                  v143 = v2020;
-                }
-              }
-
-              else if (*(v51 + v112))
-              {
-                v138 = *(v56 + 31);
-                v2034[0] = 4;
-                v2035 = v138;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2034);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2034);
-                v139 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                v140 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v139, "isCSPhase");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2034);
-                v141 = *v140;
-                *v140 = 4;
-                v2034[0] = v141;
-                v142 = *(v140 + 1);
-                *(v140 + 1) = v138;
-                v2035 = v142;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v140);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2034);
-                v143 = v2034;
-              }
-
-              else
-              {
-                v181 = *(v56 + 30);
-                v2036[0] = 4;
-                v2037 = v181;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2036);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2036);
-                v182 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                v183 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v182, "isComplexSH");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2036);
-                v141 = *v183;
-                *v183 = 4;
-                v2036[0] = v141;
-                v184 = *(v183 + 1);
-                *(v183 + 1) = v181;
-                v2037 = v184;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v183);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2036);
-                v143 = v2036;
-              }
-            }
-
-            else if (*(v51 + v112) <= 5u)
-            {
-              if (v119 != 4)
-              {
-                if (v119 == 5)
-                {
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v2017);
-                }
-
-LABEL_29:
-                std::to_string(&v2006, v119);
-                v180 = std::string::insert(&v2006, 0, "Unknown parameter id ", 0x15uLL);
-                v2007 = *v180;
-                v180->__r_.__value_.__l.__size_ = 0;
-                v180->__r_.__value_.__r.__words[2] = 0;
-                v180->__r_.__value_.__r.__words[0] = 0;
-                if (SHIBYTE(v2006.__r_.__value_.__r.__words[2]) < 0)
-                {
-                  operator delete(v2006.__r_.__value_.__l.__data_);
-                }
-
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[16],char [16],0>(v2005);
-              }
-
-              v189 = *(v56 + 42);
-              v2018[0] = 5;
-              v2019 = v189;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2018);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2018);
-              v190 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-              v191 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v190, "PostProcReverbIndex");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2018);
-              v141 = *v191;
-              *v191 = 5;
-              v2018[0] = v141;
-              v192 = *(v191 + 1);
-              *(v191 + 1) = v189;
-              v2019 = v192;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v191);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2018);
-              v143 = v2018;
-            }
-
-            else
-            {
-              if (v119 == 6)
-              {
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v2016);
-              }
-
-              if (v119 != 7)
-              {
-                if (v119 == 8)
-                {
-                  v120 = v56[17];
-                  v2012[0] = 7;
-                  v2013 = v120;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2012);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2012);
-                  v121 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                  v122 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v121, "hoaRotation");
-                  v123 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v122, "pitch");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2012);
-                  v124 = *v123;
-                  *v123 = 7;
-                  v2012[0] = v124;
-                  v125 = *(v123 + 1);
-                  *(v123 + 1) = v120;
-                  v2013 = *&v125;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v123);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2012);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2013, v124);
-                  v126 = v56[18];
-                  v2010[0] = 7;
-                  v2011 = v126;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2010);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2010);
-                  v127 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                  v128 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v127, "hoaRotation");
-                  v129 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v128, "yaw");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2010);
-                  v130 = *v129;
-                  *v129 = 7;
-                  v2010[0] = v130;
-                  v131 = *(v129 + 1);
-                  *(v129 + 1) = v126;
-                  v2011 = *&v131;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v129);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2010);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2011, v130);
-                  v132 = v56[19];
-                  v2008[0] = 7;
-                  v2009 = v132;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2008);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2008);
-                  v133 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-                  v134 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v133, "hoaRotation");
-                  v135 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v134, "roll");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2008);
-                  v136 = *v135;
-                  *v135 = 7;
-                  v2008[0] = v136;
-                  v137 = *(v135 + 1);
-                  *(v135 + 1) = v132;
-                  v2009 = *&v137;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v135);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2008);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2009, v136);
-                }
-
-                goto LABEL_29;
-              }
-
-              v193 = *(v56 + 64);
-              v2014[0] = 5;
-              v2015 = v193;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2014);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2014);
-              v194 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v55, "proprietaryStaticData");
-              v195 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v194, "HCFilterCodeBookID");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2014);
-              v141 = *v195;
-              *v195 = 5;
-              v2014[0] = v141;
-              v196 = *(v195 + 1);
-              *(v195 + 1) = v193;
-              v2015 = v196;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v195);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v2014);
-              v143 = v2014;
-            }
-
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v143 + 1, v141);
-LABEL_38:
-            if (++v112 >= *(v56 + 29))
-            {
-              goto LABEL_39;
-            }
-          }
-        }
-
-LABEL_40:
-        v31 = v1650;
-        v207 = *v1650;
-        v1999[0] = 4;
-        v2000 = v207;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1999);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1999);
-        v208 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "staticMetadata");
-        v209 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v208, "extStaticData");
-        v210 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v209, "hasData");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1999);
-        v211 = *v210;
-        *v210 = 4;
-        v1999[0] = v211;
-        v212 = *(v210 + 1);
-        *(v210 + 1) = v207;
-        v2000 = v212;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v210);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1999);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v2000, v211);
-      }
-
-      v213 = *(v31 + 1028);
-      v1997[0] = 4;
-      v1998 = v213;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1997);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1997);
-      v214 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "dynamicMetadata");
-      v215 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v214, "groupDynamicData");
-      v216 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v215, "hasData");
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1997);
-      v217 = *v216;
-      *v216 = 4;
-      v1997[0] = v217;
-      v218 = *(v216 + 1);
-      *(v216 + 1) = v213;
-      v1998 = v218;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v216);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1997);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1998, v217);
-      v219 = *(a1 + 206708);
-      v1995[0] = 5;
-      v1996 = v219;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1995);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1995);
-      v220 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "dynamicMetadata");
-      v221 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v220, "sceneComponentDynamicData");
-      v222 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v221, "ASCCount");
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1995);
-      v223 = *v222;
-      *v222 = 5;
-      v1995[0] = v223;
-      v224 = *(v222 + 1);
-      *(v222 + 1) = v219;
-      v1996 = v224;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v222);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1995);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1996, v223);
-      v1640 = *(a1 + 206708);
-      if (*(a1 + 206708))
-      {
-        v225 = 0;
-        v1639 = v1638 + 103356;
-        v1641 = a1 + 103468;
-        v1642 = v1638 + 103453;
-        v226 = "dynamicMetadata";
-        while (1)
-        {
-          v1645 = &v1639[4876 * v225];
-          v227 = *v1645;
-          v1993[0] = 5;
-          v1994 = v227;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1993);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1993);
-          v228 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-          v229 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v228, "sceneComponentDynamicData");
-          v230 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v229, "ASCData");
-          v231 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v230, v225);
-          v232 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v231, "ASCType");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1993);
-          v233 = *v232;
-          *v232 = 5;
-          v1993[0] = v233;
-          v234 = *(v232 + 1);
-          *(v232 + 1) = v227;
-          v1994 = v234;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v232);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1993);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1994, v233);
-          v235 = *v1645;
-          if (!*v1645)
-          {
-            break;
-          }
-
-          if (v235 == 1)
-          {
-            v337 = *(v1645 + 68);
-            v1951[0] = 5;
-            v1952 = v337;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1951);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1951);
-            v338 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-            v339 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v338, "sceneComponentDynamicData");
-            v340 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v339, "ASCData");
-            v341 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v340, v225);
-            v342 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v341, "objectMetadata");
-            v343 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v342, "objectID");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1951);
-            v344 = *v343;
-            *v343 = 5;
-            v1951[0] = v344;
-            v345 = *(v343 + 1);
-            *(v343 + 1) = v337;
-            v1952 = v345;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v343);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1951);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1952, v344);
-            v346 = *(v1645 + 69);
-            v1949[0] = 5;
-            v1950 = v346;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1949);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1949);
-            v347 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-            v348 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v347, "sceneComponentDynamicData");
-            v349 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v348, "ASCData");
-            v350 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v349, v225);
-            v351 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v350, "objectMetadata");
-            v352 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v351, "numBlocks");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1949);
-            v353 = *v352;
-            *v352 = 5;
-            v1949[0] = v353;
-            v354 = *(v352 + 1);
-            *(v352 + 1) = v346;
-            v1950 = v354;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v352);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1949);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1950, v353);
-            if (*(v1645 + 69))
-            {
-              v355 = 0;
-              v1643 = v1641;
-              v1647 = v1642;
-              do
-              {
-                v1655 = &v1645[125 * v355 + 18];
-                v1659 = v355;
-                v356 = *v1655;
-                v1947[0] = 4;
-                v1948 = v356;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1947);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1947);
-                v357 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                v358 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v357, "sceneComponentDynamicData");
-                v359 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v358, "ASCData");
-                v360 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v359, v225);
-                v361 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v360, "objectMetadata");
-                v362 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v361, "blockData");
-                v363 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v362, v1659);
-                v364 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v363, "isNewBlk");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1947);
-                v365 = *v364;
-                *v364 = 4;
-                v1947[0] = v365;
-                v366 = *(v364 + 1);
-                *(v364 + 1) = v356;
-                v1948 = v366;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v364);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1947);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1948, v365);
-                if (v1659 && v1659 < *(v1645 + 69) - 1)
-                {
-                  v367 = *(v1655 + 1);
-                  v1945[0] = 5;
-                  v1946 = v367;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1945);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1945);
-                  v368 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                  v369 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v368, "sceneComponentDynamicData");
-                  v370 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v369, "ASCData");
-                  v371 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v370, v225);
-                  v372 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v371, "objectMetadata");
-                  v373 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v372, "blockData");
-                  v374 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v373, v1659);
-                  v375 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v374, "rtime");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1945);
-                  v376 = *v375;
-                  *v375 = 5;
-                  v1945[0] = v376;
-                  v377 = *(v375 + 1);
-                  *(v375 + 1) = v367;
-                  v1946 = v377;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v375);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1945);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1946, v376);
-                }
-
-                if (*v1655 == 1)
-                {
-                  v378 = *(v1655 + 4);
-                  v1943[0] = 4;
-                  v1944 = v378;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1943);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1943);
-                  v379 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                  v380 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v379, "sceneComponentDynamicData");
-                  v381 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v380, "ASCData");
-                  v382 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v381, v225);
-                  v383 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v382, "objectMetadata");
-                  v384 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v383, "blockData");
-                  v385 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v384, v1659);
-                  v386 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v385, "cartesian");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1943);
-                  v387 = *v386;
-                  *v386 = 4;
-                  v1943[0] = v387;
-                  v388 = *(v386 + 1);
-                  *(v386 + 1) = v378;
-                  v1944 = v388;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v386);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1943);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1944, v387);
-                  v389 = v1655[2];
-                  v390 = v389;
-                  if (*(v1655 + 4) == 1)
-                  {
-                    v1941[0] = 7;
-                    v1942 = v389;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1941);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1941);
-                    v391 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v392 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v391, "sceneComponentDynamicData");
-                    v393 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v392, "ASCData");
-                    v394 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v393, v225);
-                    v395 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v394, "objectMetadata");
-                    v396 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v395, "blockData");
-                    v397 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v396, v1659);
-                    v398 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v397, "X");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1941);
-                    v399 = *v398;
-                    *v398 = 7;
-                    v1941[0] = v399;
-                    v400 = *(v398 + 1);
-                    *(v398 + 1) = v390;
-                    v1942 = *&v400;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v398);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1941);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1942, v399);
-                    v401 = v1655[3];
-                    v1939[0] = 7;
-                    v1940 = v401;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1939);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1939);
-                    v402 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v403 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v402, "sceneComponentDynamicData");
-                    v404 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v403, "ASCData");
-                    v405 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v404, v225);
-                    v406 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v405, "objectMetadata");
-                    v407 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v406, "blockData");
-                    v408 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v407, v1659);
-                    v409 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v408, "Y");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1939);
-                    v410 = *v409;
-                    *v409 = 7;
-                    v1939[0] = v410;
-                    v411 = *(v409 + 1);
-                    *(v409 + 1) = v401;
-                    v1940 = *&v411;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v409);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1939);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1940, v410);
-                    v412 = v1655[4];
-                    v1937[0] = 7;
-                    v1938 = v412;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1937);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1937);
-                    v413 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v414 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v413, "sceneComponentDynamicData");
-                    v415 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v414, "ASCData");
-                    v416 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v415, v225);
-                    v417 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v416, "objectMetadata");
-                    v418 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v417, "blockData");
-                    v419 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v418, v1659);
-                    v420 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v419, "Z");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1937);
-                    v421 = *v420;
-                    *v420 = 7;
-                    v1937[0] = v421;
-                    v422 = v420[1];
-                    v420[1] = v412;
-                    v1938 = v422;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v420);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1937);
-                    v423 = v1937;
-                  }
-
-                  else
-                  {
-                    v1935[0] = 7;
-                    v1936 = v389;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1935);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1935);
-                    v424 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v425 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v424, "sceneComponentDynamicData");
-                    v426 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v425, "ASCData");
-                    v427 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v426, v225);
-                    v428 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v427, "objectMetadata");
-                    v429 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v428, "blockData");
-                    v430 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v429, v1659);
-                    v431 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v430, "azimuth");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1935);
-                    v432 = *v431;
-                    *v431 = 7;
-                    v1935[0] = v432;
-                    v433 = *(v431 + 1);
-                    *(v431 + 1) = v390;
-                    v1936 = *&v433;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v431);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1935);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1936, v432);
-                    v434 = v1655[3];
-                    v1933[0] = 7;
-                    v1934 = v434;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1933);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1933);
-                    v435 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v436 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v435, "sceneComponentDynamicData");
-                    v437 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v436, "ASCData");
-                    v438 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v437, v225);
-                    v439 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v438, "objectMetadata");
-                    v440 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v439, "blockData");
-                    v441 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v440, v1659);
-                    v442 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v441, "elevation");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1933);
-                    v443 = *v442;
-                    *v442 = 7;
-                    v1933[0] = v443;
-                    v444 = *(v442 + 1);
-                    *(v442 + 1) = v434;
-                    v1934 = *&v444;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v442);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1933);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1934, v443);
-                    v445 = v1655[4];
-                    v1931[0] = 7;
-                    v1932 = v445;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1931);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1931);
-                    v446 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v447 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v446, "sceneComponentDynamicData");
-                    v448 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v447, "ASCData");
-                    v449 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v448, v225);
-                    v450 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v449, "objectMetadata");
-                    v451 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v450, "blockData");
-                    v452 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v451, v1659);
-                    v453 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v452, "distance");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1931);
-                    v421 = *v453;
-                    *v453 = 7;
-                    v1931[0] = v421;
-                    v454 = v453[1];
-                    v453[1] = v445;
-                    v1932 = v454;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v453);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1931);
-                    v423 = v1931;
-                  }
-
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v423 + 1, v421);
-                  v455 = *(v1655 + 20);
-                  v1929[0] = 4;
-                  v1930 = v455;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1929);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1929);
-                  v456 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                  v457 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v456, "sceneComponentDynamicData");
-                  v458 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v457, "ASCData");
-                  v459 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v458, v225);
-                  v460 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v459, "objectMetadata");
-                  v461 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v460, "blockData");
-                  v462 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v461, v1659);
-                  v463 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v462, "hasADMMetadata");
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1929);
-                  v464 = *v463;
-                  *v463 = 4;
-                  v1929[0] = v464;
-                  v465 = *(v463 + 1);
-                  *(v463 + 1) = v455;
-                  v1930 = v465;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v463);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1929);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1930, v464);
-                  if (*(v1655 + 20) == 1)
-                  {
-                    v466 = *(v1655 + 24);
-                    v1927[0] = 4;
-                    v1928 = v466;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1927);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1927);
-                    v467 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v468 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v467, "sceneComponentDynamicData");
-                    v469 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v468, "ASCData");
-                    v470 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v469, v225);
-                    v471 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v470, "objectMetadata");
-                    v472 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v471, "blockData");
-                    v473 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v472, v1659);
-                    v474 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v473, "absoluteDistance");
-                    v475 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v474, "hasData");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1927);
-                    v476 = *v475;
-                    *v475 = 4;
-                    v1927[0] = v476;
-                    v477 = *(v475 + 1);
-                    *(v475 + 1) = v466;
-                    v1928 = v477;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v475);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1927);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1928, v476);
-                    v478 = v1655;
-                    if (*(v1655 + 24) == 1)
-                    {
-                      v479 = v1655[7];
-                      v1925[0] = 7;
-                      v1926 = v479;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1925);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1925);
-                      v480 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v481 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v480, "sceneComponentDynamicData");
-                      v482 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v481, "ASCData");
-                      v483 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v482, v225);
-                      v484 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v483, "objectMetadata");
-                      v485 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v484, "blockData");
-                      v486 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v485, v1659);
-                      v487 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v486, "absoluteDistance");
-                      v488 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v487, "distance");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1925);
-                      v489 = *v488;
-                      *v488 = 7;
-                      v1925[0] = v489;
-                      v490 = *(v488 + 1);
-                      *(v488 + 1) = v479;
-                      v1926 = *&v490;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v488);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1925);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1926, v489);
-                      v478 = v1655;
-                    }
-
-                    v491 = *(v478 + 32);
-                    v1923[0] = 4;
-                    v1924 = v491;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1923);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1923);
-                    v492 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v493 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v492, "sceneComponentDynamicData");
-                    v494 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v493, "ASCData");
-                    v495 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v494, v225);
-                    v496 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v495, "objectMetadata");
-                    v497 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v496, "blockData");
-                    v498 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v497, v1659);
-                    v499 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v498, "spread");
-                    v500 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v499, "hasData");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1923);
-                    v501 = *v500;
-                    *v500 = 4;
-                    v1923[0] = v501;
-                    v502 = *(v500 + 1);
-                    *(v500 + 1) = v491;
-                    v1924 = v502;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v500);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1923);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1924, v501);
-                    v503 = v1655;
-                    if (*(v1655 + 32) == 1)
-                    {
-                      v504 = v1655[9];
-                      v1921[0] = 7;
-                      v1922 = v504;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1921);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1921);
-                      v505 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v506 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v505, "sceneComponentDynamicData");
-                      v507 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v506, "ASCData");
-                      v508 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v507, v225);
-                      v509 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v508, "objectMetadata");
-                      v510 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v509, "blockData");
-                      v511 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v510, v1659);
-                      v512 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v511, "spread");
-                      v513 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v512, "width");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1921);
-                      v514 = *v513;
-                      *v513 = 7;
-                      v1921[0] = v514;
-                      v515 = *(v513 + 1);
-                      *(v513 + 1) = v504;
-                      v1922 = *&v515;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v513);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1921);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1922, v514);
-                      v516 = v1655[10];
-                      v1919[0] = 7;
-                      v1920 = v516;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1919);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1919);
-                      v517 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v518 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v517, "sceneComponentDynamicData");
-                      v519 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v518, "ASCData");
-                      v520 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v519, v225);
-                      v521 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v520, "objectMetadata");
-                      v522 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v521, "blockData");
-                      v523 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v522, v1659);
-                      v524 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v523, "spread");
-                      v525 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v524, "height");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1919);
-                      v526 = *v525;
-                      *v525 = 7;
-                      v1919[0] = v526;
-                      v527 = *(v525 + 1);
-                      *(v525 + 1) = v516;
-                      v1920 = *&v527;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v525);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1919);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1920, v526);
-                      v528 = v1655[11];
-                      v1917[0] = 7;
-                      v1918 = v528;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1917);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1917);
-                      v529 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v530 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v529, "sceneComponentDynamicData");
-                      v531 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v530, "ASCData");
-                      v532 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v531, v225);
-                      v533 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v532, "objectMetadata");
-                      v534 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v533, "blockData");
-                      v535 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v534, v1659);
-                      v536 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v535, "spread");
-                      v537 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v536, "depth");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1917);
-                      v538 = *v537;
-                      *v537 = 7;
-                      v1917[0] = v538;
-                      v539 = *(v537 + 1);
-                      *(v537 + 1) = v528;
-                      v1918 = *&v539;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v537);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1917);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1918, v538);
-                      v503 = v1655;
-                    }
-
-                    v540 = *(v503 + 48);
-                    v1915[0] = 4;
-                    v1916 = v540;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1915);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1915);
-                    v541 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v542 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v541, "sceneComponentDynamicData");
-                    v543 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v542, "ASCData");
-                    v544 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v543, v225);
-                    v545 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v544, "objectMetadata");
-                    v546 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v545, "blockData");
-                    v547 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v546, v1659);
-                    v548 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v547, "gain");
-                    v549 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v548, "hasData");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1915);
-                    v550 = *v549;
-                    *v549 = 4;
-                    v1915[0] = v550;
-                    v551 = *(v549 + 1);
-                    *(v549 + 1) = v540;
-                    v1916 = v551;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v549);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1915);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1916, v550);
-                    v552 = v1655;
-                    if (*(v1655 + 48) == 1)
-                    {
-                      v553 = *(v1655 + 49);
-                      v1913[0] = 4;
-                      v1914 = v553;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1913);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1913);
-                      v554 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v555 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v554, "sceneComponentDynamicData");
-                      v556 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v555, "ASCData");
-                      v557 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v556, v225);
-                      v558 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v557, "objectMetadata");
-                      v559 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v558, "blockData");
-                      v560 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v559, v1659);
-                      v561 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v560, "gain");
-                      v562 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v561, "isDB");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1913);
-                      v563 = *v562;
-                      *v562 = 4;
-                      v1913[0] = v563;
-                      v564 = *(v562 + 1);
-                      *(v562 + 1) = v553;
-                      v1914 = v564;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v562);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1913);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1914, v563);
-                      v565 = v1655[13];
-                      v1911[0] = 7;
-                      v1912 = v565;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1911);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1911);
-                      v566 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v567 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v566, "sceneComponentDynamicData");
-                      v568 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v567, "ASCData");
-                      v569 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v568, v225);
-                      v570 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v569, "objectMetadata");
-                      v571 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v570, "blockData");
-                      v572 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v571, v1659);
-                      v573 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v572, "gain");
-                      v574 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v573, "gain");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1911);
-                      v575 = *v574;
-                      *v574 = 7;
-                      v1911[0] = v575;
-                      v576 = *(v574 + 1);
-                      *(v574 + 1) = v565;
-                      v1912 = *&v576;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v574);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1911);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1912, v575);
-                      v552 = v1655;
-                    }
-
-                    v577 = *(v552 + 56);
-                    v1909[0] = 4;
-                    v1910 = v577;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1909);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1909);
-                    v578 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v579 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v578, "sceneComponentDynamicData");
-                    v580 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v579, "ASCData");
-                    v581 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v580, v225);
-                    v582 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v581, "objectMetadata");
-                    v583 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v582, "blockData");
-                    v584 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v583, v1659);
-                    v585 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v584, "diffuse");
-                    v586 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v585, "hasData");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1909);
-                    v587 = *v586;
-                    *v586 = 4;
-                    v1909[0] = v587;
-                    v588 = *(v586 + 1);
-                    *(v586 + 1) = v577;
-                    v1910 = v588;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v586);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1909);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1910, v587);
-                    v589 = v1655;
-                    if (*(v1655 + 56) == 1)
-                    {
-                      v590 = v1655[15];
-                      v1907[0] = 7;
-                      v1908 = v590;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1907);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1907);
-                      v591 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v592 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v591, "sceneComponentDynamicData");
-                      v593 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v592, "ASCData");
-                      v594 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v593, v225);
-                      v595 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v594, "objectMetadata");
-                      v596 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v595, "blockData");
-                      v597 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v596, v1659);
-                      v598 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v597, "diffuse");
-                      v599 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v598, "diffuse");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1907);
-                      v600 = *v599;
-                      *v599 = 7;
-                      v1907[0] = v600;
-                      v601 = *(v599 + 1);
-                      *(v599 + 1) = v590;
-                      v1908 = *&v601;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v599);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1907);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1908, v600);
-                      v589 = v1655;
-                    }
-
-                    v602 = *(v589 + 64);
-                    v1905[0] = 4;
-                    v1906 = v602;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1905);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1905);
-                    v603 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v604 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v603, "sceneComponentDynamicData");
-                    v605 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v604, "ASCData");
-                    v606 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v605, v225);
-                    v607 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v606, "objectMetadata");
-                    v608 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v607, "blockData");
-                    v609 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v608, v1659);
-                    v610 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v609, "channelLock");
-                    v611 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v610, "channelLock");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1905);
-                    v612 = *v611;
-                    *v611 = 4;
-                    v1905[0] = v612;
-                    v613 = *(v611 + 1);
-                    *(v611 + 1) = v602;
-                    v1906 = v613;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v611);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1905);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1906, v612);
-                    v614 = v1655;
-                    if (*(v1655 + 64) == 1)
-                    {
-                      v615 = *(v1655 + 65);
-                      v1903[0] = 4;
-                      v1904 = v615;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1903);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1903);
-                      v616 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v617 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v616, "sceneComponentDynamicData");
-                      v618 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v617, "ASCData");
-                      v619 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v618, v225);
-                      v620 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v619, "objectMetadata");
-                      v621 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v620, "blockData");
-                      v622 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v621, v1659);
-                      v623 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v622, "channelLock");
-                      v624 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v623, "hasMaxDistance");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1903);
-                      v625 = *v624;
-                      *v624 = 4;
-                      v1903[0] = v625;
-                      v626 = *(v624 + 1);
-                      *(v624 + 1) = v615;
-                      v1904 = v626;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v624);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1903);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1904, v625);
-                      v614 = v1655;
-                      if (*(v1655 + 65) == 1)
-                      {
-                        v627 = v1655[17];
-                        v1901[0] = 7;
-                        v1902 = v627;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1901);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1901);
-                        v628 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                        v629 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v628, "sceneComponentDynamicData");
-                        v630 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v629, "ASCData");
-                        v631 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v630, v225);
-                        v632 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v631, "objectMetadata");
-                        v633 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v632, "blockData");
-                        v634 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v633, v1659);
-                        v635 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v634, "channelLock");
-                        v636 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v635, "maxDistance");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1901);
-                        v637 = *v636;
-                        *v636 = 7;
-                        v1901[0] = v637;
-                        v638 = *(v636 + 1);
-                        *(v636 + 1) = v627;
-                        v1902 = *&v638;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v636);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1901);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1902, v637);
-                        v614 = v1655;
-                      }
-                    }
-
-                    v639 = *(v614 + 72);
-                    v1899[0] = 4;
-                    v1900 = v639;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1899);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1899);
-                    v640 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v641 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v640, "sceneComponentDynamicData");
-                    v642 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v641, "ASCData");
-                    v643 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v642, v225);
-                    v644 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v643, "objectMetadata");
-                    v645 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v644, "blockData");
-                    v646 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v645, v1659);
-                    v647 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v646, "objectDivergence");
-                    v648 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v647, "hasData");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1899);
-                    v649 = *v648;
-                    *v648 = 4;
-                    v1899[0] = v649;
-                    v650 = *(v648 + 1);
-                    *(v648 + 1) = v639;
-                    v1900 = v650;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v648);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1899);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1900, v649);
-                    v651 = v1655;
-                    if (*(v1655 + 72) == 1)
-                    {
-                      v652 = v1655[19];
-                      v1897[0] = 7;
-                      v1898 = v652;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1897);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1897);
-                      v653 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v654 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v653, "sceneComponentDynamicData");
-                      v655 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v654, "ASCData");
-                      v656 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v655, v225);
-                      v657 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v656, "objectMetadata");
-                      v658 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v657, "blockData");
-                      v659 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v658, v1659);
-                      v660 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v659, "objectDivergence");
-                      v661 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v660, "objectDivergence");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1897);
-                      v662 = *v661;
-                      *v661 = 7;
-                      v1897[0] = v662;
-                      v663 = *(v661 + 1);
-                      *(v661 + 1) = v652;
-                      v1898 = *&v663;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v661);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1897);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1898, v662);
-                      if (*(v1655 + 4) == 1)
-                      {
-                        v664 = v1655[20];
-                        v1895[0] = 7;
-                        v1896 = v664;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1895);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1895);
-                        v665 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                        v666 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v665, "sceneComponentDynamicData");
-                        v667 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v666, "ASCData");
-                        v668 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v667, v225);
-                        v669 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v668, "objectMetadata");
-                        v670 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v669, "blockData");
-                        v671 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v670, v1659);
-                        v672 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v671, "objectDivergence");
-                        v673 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v672, "positionRange");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1895);
-                        v674 = *v673;
-                        *v673 = 7;
-                        v1895[0] = v674;
-                        v675 = v673[1];
-                        v673[1] = v664;
-                        v1896 = v675;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v673);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1895);
-                        v676 = v1895;
-                      }
-
-                      else
-                      {
-                        v677 = v1655[21];
-                        v1893[0] = 7;
-                        v1894 = v677;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1893);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1893);
-                        v678 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                        v679 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v678, "sceneComponentDynamicData");
-                        v680 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v679, "ASCData");
-                        v681 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v680, v225);
-                        v682 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v681, "objectMetadata");
-                        v683 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v682, "blockData");
-                        v684 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v683, v1659);
-                        v685 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v684, "objectDivergence");
-                        v686 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v685, "azimuthRange");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1893);
-                        v674 = *v686;
-                        *v686 = 7;
-                        v1893[0] = v674;
-                        v687 = v686[1];
-                        v686[1] = v677;
-                        v1894 = v687;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v686);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1893);
-                        v676 = v1893;
-                      }
-
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v676 + 1, v674);
-                      v651 = v1655;
-                    }
-
-                    v688 = *(v651 + 92);
-                    v1891[0] = 4;
-                    v1892 = v688;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1891);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1891);
-                    v689 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v690 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v689, "sceneComponentDynamicData");
-                    v691 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v690, "ASCData");
-                    v692 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v691, v225);
-                    v693 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v692, "objectMetadata");
-                    v694 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v693, "blockData");
-                    v695 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v694, v1659);
-                    v696 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v695, "screenRef");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1891);
-                    v697 = *v696;
-                    *v696 = 4;
-                    v1891[0] = v697;
-                    v698 = *(v696 + 1);
-                    *(v696 + 1) = v688;
-                    v1892 = v698;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v696);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1891);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1892, v697);
-                    v699 = *(v1655 + 95);
-                    v1889[0] = 4;
-                    v1890 = v699;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1889);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1889);
-                    v700 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v701 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v700, "sceneComponentDynamicData");
-                    v702 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v701, "ASCData");
-                    v703 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v702, v225);
-                    v704 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v703, "objectMetadata");
-                    v705 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v704, "blockData");
-                    v706 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v705, v1659);
-                    v707 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v706, "headLocked");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1889);
-                    v708 = *v707;
-                    *v707 = 4;
-                    v1889[0] = v708;
-                    v709 = *(v707 + 1);
-                    *(v707 + 1) = v699;
-                    v1890 = v709;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v707);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1889);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1890, v708);
-                    v710 = *(v1655 + 96);
-                    v1887[0] = 4;
-                    v1888 = v710;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1887);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1887);
-                    v711 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v712 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v711, "sceneComponentDynamicData");
-                    v713 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v712, "ASCData");
-                    v714 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v713, v225);
-                    v715 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v714, "objectMetadata");
-                    v716 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v715, "blockData");
-                    v717 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v716, v1659);
-                    v718 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v717, "headphoneVirtualize");
-                    v719 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v718, "hasData");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1887);
-                    v720 = *v719;
-                    *v719 = 4;
-                    v1887[0] = v720;
-                    v721 = *(v719 + 1);
-                    *(v719 + 1) = v710;
-                    v1888 = v721;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v719);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1887);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1888, v720);
-                    v722 = v1655;
-                    if (*(v1655 + 96) == 1)
-                    {
-                      v723 = *(v1655 + 97);
-                      v1885[0] = 4;
-                      v1886 = v723;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1885);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1885);
-                      v724 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v725 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v724, "sceneComponentDynamicData");
-                      v726 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v725, "ASCData");
-                      v727 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v726, v225);
-                      v728 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v727, "objectMetadata");
-                      v729 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v728, "blockData");
-                      v730 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v729, v1659);
-                      v731 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v730, "headphoneVirtualize");
-                      v732 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v731, "bypass");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1885);
-                      v733 = *v732;
-                      *v732 = 4;
-                      v1885[0] = v733;
-                      v734 = *(v732 + 1);
-                      *(v732 + 1) = v723;
-                      v1886 = v734;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v732);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1885);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1886, v733);
-                      v735 = v1655[25];
-                      v1883[0] = 7;
-                      v1884 = v735;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1883);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1883);
-                      v736 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v737 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v736, "sceneComponentDynamicData");
-                      v738 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v737, "ASCData");
-                      v739 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v738, v225);
-                      v740 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v739, "objectMetadata");
-                      v741 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v740, "blockData");
-                      v742 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v741, v1659);
-                      v743 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v742, "headphoneVirtualize");
-                      v744 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v743, "DRR");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1883);
-                      v745 = *v744;
-                      *v744 = 7;
-                      v1883[0] = v745;
-                      v746 = *(v744 + 1);
-                      *(v744 + 1) = v735;
-                      v1884 = *&v746;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v744);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1883);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1884, v745);
-                      v722 = v1655;
-                    }
-
-                    v747 = *(v722 + 104);
-                    v1881[0] = 4;
-                    v1882 = v747;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1881);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1881);
-                    v748 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                    v749 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v748, "sceneComponentDynamicData");
-                    v750 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v749, "ASCData");
-                    v751 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v750, v225);
-                    v752 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v751, "objectMetadata");
-                    v753 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v752, "blockData");
-                    v754 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v753, v1659);
-                    v755 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v754, "zoneExclusion");
-                    v756 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v755, "isZoneDefined");
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1881);
-                    v757 = *v756;
-                    *v756 = 4;
-                    v1881[0] = v757;
-                    v758 = *(v756 + 1);
-                    *(v756 + 1) = v747;
-                    v1882 = v758;
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v756);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1881);
-                    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1882, v757);
-                    if (*(v1655 + 104) == 1)
-                    {
-                      v759 = *(v1655 + 105);
-                      v1879[0] = 4;
-                      v1880 = v759;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1879);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1879);
-                      v760 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                      v761 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v760, "sceneComponentDynamicData");
-                      v762 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v761, "ASCData");
-                      v763 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v762, v225);
-                      v764 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v763, "objectMetadata");
-                      v765 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v764, "blockData");
-                      v766 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v765, v1659);
-                      v767 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v766, "zoneExclusion");
-                      v768 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v767, "keepPreviousZone");
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1879);
-                      v769 = *v768;
-                      *v768 = 4;
-                      v1879[0] = v769;
-                      v770 = *(v768 + 1);
-                      *(v768 + 1) = v759;
-                      v1880 = v770;
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v768);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1879);
-                      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1880, v769);
-                      if (*(v1655 + 105) == 1)
-                      {
-                        v771 = *(v1655 + 106);
-                        v1877[0] = 5;
-                        v1878 = v771;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1877);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1877);
-                        v772 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-                        v773 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v772, "sceneComponentDynamicData");
-                        v774 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v773, "ASCData");
-                        v775 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v774, v225);
-                        v776 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v775, "objectMetadata");
-                        v777 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v776, "blockData");
-                        v778 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v777, v1659);
-                        v779 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v778, "zoneExclusion");
-                        v780 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v779, "numZones");
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1877);
-                        v781 = *v780;
-                        *v780 = 5;
-                        v1877[0] = v781;
-                        v782 = *(v780 + 1);
-                        *(v780 + 1) = v771;
-                        v1878 = v782;
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v780);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1877);
-                        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1878, v781);
-                        if (*(v1655 + 106))
-                        {
-                          v783 = 0;
-                          v1651 = v1643;
-                          do
-                          {
-                            v784 = v226;
-                            v785 = *(v1647 + v783 - 15);
-                            v1875[0] = 4;
-                            v1876 = v785;
-                            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1875);
-                            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1875);
-                            v786 = v784;
-                            v787 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v784);
-                            v788 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v787, "sceneComponentDynamicData");
-                            v789 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v788, "ASCData");
-                            v790 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v789, v225);
-                            v791 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v790, "objectMetadata");
-                            v792 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v791, "blockData");
-                            v793 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v792, v1659);
-                            v794 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v793, "zoneExclusion");
-                            v795 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v794, "usePreDefinedZone");
-                            v796 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v795, v783);
-                            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1875);
-                            LODWORD(v784) = *v796;
-                            *v796 = 4;
-                            v1875[0] = v784;
-                            v797 = *(v796 + 1);
-                            *(v796 + 1) = v785;
-                            v1876 = v797;
-                            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v796);
-                            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1875);
-                            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1876, v784);
-                            if (*(v1647 + v783 - 15) == 1)
-                            {
-                              v798 = *(v1647 + v783);
-                              v1873[0] = 5;
-                              v1874 = v798;
-                              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1873);
-                              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1873);
-                              v799 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                              v800 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v799, "sceneComponentDynamicData");
-                              v801 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v800, "ASCData");
-                              v802 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v801, v225);
-                              v803 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v802, "objectMetadata");
-                              v804 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v803, "blockData");
-                              v805 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v804, v1659);
-                              v806 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v805, "zoneExclusion");
-                              v807 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v806, "zoneIndex");
-                              v808 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v807, v783);
-                              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1873);
-                              v809 = *v808;
-                              *v808 = 5;
-                              v1873[0] = v809;
-                              v810 = *(v808 + 1);
-                              *(v808 + 1) = v798;
-                              v1874 = v810;
-                              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v808);
-                              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1873);
-                              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1874, v809);
-                              v226 = v786;
-                            }
-
-                            else
-                            {
-                              v811 = *(v1651 - 3);
-                              v812 = v811;
-                              if (*(v1655 + 4) == 1)
-                              {
-                                v1871[0] = 7;
-                                v1872 = v811;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1871);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1871);
-                                v226 = v786;
-                                v813 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v814 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v813, "sceneComponentDynamicData");
-                                v815 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v814, "ASCData");
-                                v816 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v815, v225);
-                                v817 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v816, "objectMetadata");
-                                v818 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v817, "blockData");
-                                v819 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v818, v1659);
-                                v820 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v819, "zoneExclusion");
-                                v821 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v820, "zone");
-                                v822 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v821, v783);
-                                v823 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v822, "minX");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1871);
-                                v824 = *v823;
-                                *v823 = 7;
-                                v1871[0] = v824;
-                                v825 = *(v823 + 1);
-                                *(v823 + 1) = v812;
-                                v1872 = *&v825;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v823);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1871);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1872, v824);
-                                v826 = *(v1651 - 2);
-                                v1869[0] = 7;
-                                v1870 = v826;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1869);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1869);
-                                v827 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v828 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v827, "sceneComponentDynamicData");
-                                v829 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v828, "ASCData");
-                                v830 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v829, v225);
-                                v831 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v830, "objectMetadata");
-                                v832 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v831, "blockData");
-                                v833 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v832, v1659);
-                                v834 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v833, "zoneExclusion");
-                                v835 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v834, "zone");
-                                v836 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v835, v783);
-                                v837 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v836, "maxX");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1869);
-                                v838 = *v837;
-                                *v837 = 7;
-                                v1869[0] = v838;
-                                v839 = *(v837 + 1);
-                                *(v837 + 1) = v826;
-                                v1870 = *&v839;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v837);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1869);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1870, v838);
-                                v840 = *(v1651 - 1);
-                                v1867[0] = 7;
-                                v1868 = v840;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1867);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1867);
-                                v841 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v842 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v841, "sceneComponentDynamicData");
-                                v843 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v842, "ASCData");
-                                v844 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v843, v225);
-                                v845 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v844, "objectMetadata");
-                                v846 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v845, "blockData");
-                                v847 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v846, v1659);
-                                v848 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v847, "zoneExclusion");
-                                v849 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v848, "zone");
-                                v850 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v849, v783);
-                                v851 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v850, "minY");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1867);
-                                v852 = *v851;
-                                *v851 = 7;
-                                v1867[0] = v852;
-                                v853 = *(v851 + 1);
-                                *(v851 + 1) = v840;
-                                v1868 = *&v853;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v851);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1867);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1868, v852);
-                                v854 = *v1651;
-                                v1865[0] = 7;
-                                v1866 = v854;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1865);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1865);
-                                v855 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v856 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v855, "sceneComponentDynamicData");
-                                v857 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v856, "ASCData");
-                                v858 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v857, v225);
-                                v859 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v858, "objectMetadata");
-                                v860 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v859, "blockData");
-                                v861 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v860, v1659);
-                                v862 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v861, "zoneExclusion");
-                                v863 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v862, "zone");
-                                v864 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v863, v783);
-                                v865 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v864, "maxY");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1865);
-                                v866 = *v865;
-                                *v865 = 7;
-                                v1865[0] = v866;
-                                v867 = *(v865 + 1);
-                                *(v865 + 1) = v854;
-                                v1866 = *&v867;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v865);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1865);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1866, v866);
-                                v868 = v1651[1];
-                                v1863[0] = 7;
-                                v1864 = v868;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1863);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1863);
-                                v869 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v870 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v869, "sceneComponentDynamicData");
-                                v871 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v870, "ASCData");
-                                v872 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v871, v225);
-                                v873 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v872, "objectMetadata");
-                                v874 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v873, "blockData");
-                                v875 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v874, v1659);
-                                v876 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v875, "zoneExclusion");
-                                v877 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v876, "zone");
-                                v878 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v877, v783);
-                                v879 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v878, "minZ");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1863);
-                                v880 = *v879;
-                                *v879 = 7;
-                                v1863[0] = v880;
-                                v881 = *(v879 + 1);
-                                *(v879 + 1) = v868;
-                                v1864 = *&v881;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v879);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1863);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1864, v880);
-                                v882 = v1651[2];
-                                v1861[0] = 7;
-                                v1862 = v882;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1861);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1861);
-                                v883 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v884 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v883, "sceneComponentDynamicData");
-                                v885 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v884, "ASCData");
-                                v886 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v885, v225);
-                                v887 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v886, "objectMetadata");
-                                v888 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v887, "blockData");
-                                v889 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v888, v1659);
-                                v890 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v889, "zoneExclusion");
-                                v891 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v890, "zone");
-                                v892 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v891, v783);
-                                v893 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v892, "maxZ");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1861);
-                                v894 = *v893;
-                                *v893 = 7;
-                                v1861[0] = v894;
-                                v895 = v893[1];
-                                v893[1] = v882;
-                                v1862 = v895;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v893);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1861);
-                                v896 = v1861;
-                              }
-
-                              else
-                              {
-                                v1859[0] = 7;
-                                v1860 = v811;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1859);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1859);
-                                v226 = v786;
-                                v897 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v898 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v897, "sceneComponentDynamicData");
-                                v899 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v898, "ASCData");
-                                v900 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v899, v225);
-                                v901 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v900, "objectMetadata");
-                                v902 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v901, "blockData");
-                                v903 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v902, v1659);
-                                v904 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v903, "zoneExclusion");
-                                v905 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v904, "zone");
-                                v906 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v905, v783);
-                                v907 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v906, "minAzimuth");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1859);
-                                v908 = *v907;
-                                *v907 = 7;
-                                v1859[0] = v908;
-                                v909 = *(v907 + 1);
-                                *(v907 + 1) = v812;
-                                v1860 = *&v909;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v907);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1859);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1860, v908);
-                                v910 = *(v1651 - 2);
-                                v1857[0] = 7;
-                                v1858 = v910;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1857);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1857);
-                                v911 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v912 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v911, "sceneComponentDynamicData");
-                                v913 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v912, "ASCData");
-                                v914 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v913, v225);
-                                v915 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v914, "objectMetadata");
-                                v916 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v915, "blockData");
-                                v917 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v916, v1659);
-                                v918 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v917, "zoneExclusion");
-                                v919 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v918, "zone");
-                                v920 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v919, v783);
-                                v921 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v920, "maxAzimuth");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1857);
-                                v922 = *v921;
-                                *v921 = 7;
-                                v1857[0] = v922;
-                                v923 = *(v921 + 1);
-                                *(v921 + 1) = v910;
-                                v1858 = *&v923;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v921);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1857);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1858, v922);
-                                v924 = *(v1651 - 1);
-                                v1855[0] = 7;
-                                v1856 = v924;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1855);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1855);
-                                v925 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v926 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v925, "sceneComponentDynamicData");
-                                v927 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v926, "ASCData");
-                                v928 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v927, v225);
-                                v929 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v928, "objectMetadata");
-                                v930 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v929, "blockData");
-                                v931 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v930, v1659);
-                                v932 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v931, "zoneExclusion");
-                                v933 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v932, "zone");
-                                v934 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v933, v783);
-                                v935 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v934, "minElevation");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1855);
-                                v936 = *v935;
-                                *v935 = 7;
-                                v1855[0] = v936;
-                                v937 = *(v935 + 1);
-                                *(v935 + 1) = v924;
-                                v1856 = *&v937;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v935);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1855);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1856, v936);
-                                v938 = *v1651;
-                                v1853[0] = 7;
-                                v1854 = v938;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1853);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1853);
-                                v939 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v786);
-                                v940 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v939, "sceneComponentDynamicData");
-                                v941 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v940, "ASCData");
-                                v942 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v941, v225);
-                                v943 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v942, "objectMetadata");
-                                v944 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v943, "blockData");
-                                v945 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v944, v1659);
-                                v946 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v945, "zoneExclusion");
-                                v947 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v946, "zone");
-                                v948 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v947, v783);
-                                v949 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v948, "maxElevation");
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1853);
-                                v894 = *v949;
-                                *v949 = 7;
-                                v1853[0] = v894;
-                                v950 = v949[1];
-                                v949[1] = v938;
-                                v1854 = v950;
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v949);
-                                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1853);
-                                v896 = v1853;
-                              }
-
-                              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v896 + 1, v894);
-                            }
-
-                            ++v783;
-                            v1651 += 6;
-                          }
-
-                          while (v783 < *(v1655 + 106));
-                        }
-                      }
-                    }
-                  }
-                }
-
-                v355 = v1659 + 1;
-                v1647 += 250;
-                v1643 += 125;
-              }
-
-              while (v1659 + 1 < *(v1645 + 69));
-            }
-
-            goto LABEL_105;
-          }
-
-          if (v235 != 2)
-          {
-            std::to_string(&v2006, v235);
-            v1050 = std::string::insert(&v2006, 0, "Unknown ASC type ", 0x11uLL);
-            v2007 = *v1050;
-            v1050->__r_.__value_.__l.__size_ = 0;
-            v1050->__r_.__value_.__r.__words[2] = 0;
-            v1050->__r_.__value_.__r.__words[0] = 0;
-            if (SHIBYTE(v2006.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v2006.__r_.__value_.__l.__data_);
-            }
-
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[16],char [16],0>(v1852);
-          }
-
-          v236 = *(v1645 + 36);
-          v1971[0] = 4;
-          v1972 = v236;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1971);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1971);
-          v237 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-          v238 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v237, "sceneComponentDynamicData");
-          v239 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v238, "ASCData");
-          v240 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v239, v225);
-          v241 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v240, "HOAMetadata");
-          v242 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v241, "hasADMMetadata");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1971);
-          v243 = *v242;
-          *v242 = 4;
-          v1971[0] = v243;
-          v244 = *(v242 + 1);
-          *(v242 + 1) = v236;
-          v1972 = v244;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v242);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1971);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1972, v243);
-          if (*(v1645 + 36) == 1)
-          {
-            v245 = *(v1645 + 40);
-            v1969[0] = 4;
-            v1970 = v245;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1969);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1969);
-            v246 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-            v247 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v246, "sceneComponentDynamicData");
-            v248 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v247, "ASCData");
-            v249 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v248, v225);
-            v250 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v249, "HOAMetadata");
-            v251 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v250, "absoluteDistance");
-            v252 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v251, "hasData");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1969);
-            v253 = *v252;
-            *v252 = 4;
-            v1969[0] = v253;
-            v254 = *(v252 + 1);
-            *(v252 + 1) = v245;
-            v1970 = v254;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v252);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1969);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1970, v253);
-            v255 = &v1639[4876 * v225];
-            if (*(v1645 + 40) == 1)
-            {
-              v256 = v1645[11];
-              v1967[0] = 7;
-              v1968 = v256;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1967);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1967);
-              v257 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-              v258 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v257, "sceneComponentDynamicData");
-              v259 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v258, "ASCData");
-              v260 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v259, v225);
-              v261 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v260, "HOAMetadata");
-              v262 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v261, "absoluteDistance");
-              v263 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v262, "distance");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1967);
-              v264 = *v263;
-              *v263 = 7;
-              v1967[0] = v264;
-              v265 = *(v263 + 1);
-              *(v263 + 1) = v256;
-              v1968 = *&v265;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v263);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1967);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1968, v264);
-              v255 = &v1639[4876 * v225];
-            }
-
-            v266 = *(v255 + 48);
-            v1965[0] = 4;
-            v1966 = v266;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1965);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1965);
-            v267 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-            v268 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v267, "sceneComponentDynamicData");
-            v269 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v268, "ASCData");
-            v270 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v269, v225);
-            v271 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v270, "HOAMetadata");
-            v272 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v271, "gain");
-            v273 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v272, "hasData");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1965);
-            v274 = *v273;
-            *v273 = 4;
-            v1965[0] = v274;
-            v275 = *(v273 + 1);
-            *(v273 + 1) = v266;
-            v1966 = v275;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v273);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1965);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1966, v274);
-            v276 = &v1639[4876 * v225];
-            if (*(v1645 + 48) == 1)
-            {
-              v277 = *(v1645 + 49);
-              v1963[0] = 4;
-              v1964 = v277;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1963);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1963);
-              v278 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-              v279 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v278, "sceneComponentDynamicData");
-              v280 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v279, "ASCData");
-              v281 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v280, v225);
-              v282 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v281, "HOAMetadata");
-              v283 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v282, "gain");
-              v284 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v283, "isDB");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1963);
-              v285 = *v284;
-              *v284 = 4;
-              v1963[0] = v285;
-              v286 = *(v284 + 1);
-              *(v284 + 1) = v277;
-              v1964 = v286;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v284);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1963);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1964, v285);
-              v287 = v1645[13];
-              v1961[0] = 7;
-              v1962 = v287;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1961);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1961);
-              v288 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-              v289 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v288, "sceneComponentDynamicData");
-              v290 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v289, "ASCData");
-              v291 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v290, v225);
-              v292 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v291, "HOAMetadata");
-              v293 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v292, "gain");
-              v294 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v293, "gain");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1961);
-              v295 = *v294;
-              *v294 = 7;
-              v1961[0] = v295;
-              v296 = *(v294 + 1);
-              *(v294 + 1) = v287;
-              v1962 = *&v296;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v294);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1961);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1962, v295);
-              v276 = &v1639[4876 * v225];
-            }
-
-            v297 = *(v276 + 58);
-            v1959[0] = 4;
-            v1960 = v297;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1959);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1959);
-            v298 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-            v299 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v298, "sceneComponentDynamicData");
-            v300 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v299, "ASCData");
-            v301 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v300, v225);
-            v302 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v301, "HOAMetadata");
-            v303 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v302, "headLocked");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1959);
-            v304 = *v303;
-            *v303 = 4;
-            v1959[0] = v304;
-            v305 = *(v303 + 1);
-            *(v303 + 1) = v297;
-            v1960 = v305;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v303);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1959);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1960, v304);
-            v306 = *(v1645 + 60);
-            v1957[0] = 4;
-            v1958 = v306;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1957);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1957);
-            v307 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-            v308 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v307, "sceneComponentDynamicData");
-            v309 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v308, "ASCData");
-            v310 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v309, v225);
-            v311 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v310, "HOAMetadata");
-            v312 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v311, "headphoneVirtualize");
-            v313 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v312, "hasData");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1957);
-            v314 = *v313;
-            *v313 = 4;
-            v1957[0] = v314;
-            v315 = *(v313 + 1);
-            *(v313 + 1) = v306;
-            v1958 = v315;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v313);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1957);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1958, v314);
-            if (*(v1645 + 60) == 1)
-            {
-              v316 = *(v1645 + 61);
-              v1955[0] = 4;
-              v1956 = v316;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1955);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1955);
-              v317 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-              v318 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v317, "sceneComponentDynamicData");
-              v319 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v318, "ASCData");
-              v320 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v319, v225);
-              v321 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v320, "HOAMetadata");
-              v322 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v321, "headphoneVirtualize");
-              v323 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v322, "bypass");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1955);
-              v324 = *v323;
-              *v323 = 4;
-              v1955[0] = v324;
-              v325 = *(v323 + 1);
-              *(v323 + 1) = v316;
-              v1956 = v325;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v323);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1955);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1956, v324);
-              v326 = v1645[16];
-              v1953[0] = 7;
-              v1954 = v326;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1953);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1953);
-              v327 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-              v328 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v327, "sceneComponentDynamicData");
-              v329 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v328, "ASCData");
-              v330 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v329, v225);
-              v331 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v330, "HOAMetadata");
-              v332 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v331, "headphoneVirtualize");
-              v333 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v332, "DRR");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1953);
-              v334 = *v333;
-              *v333 = 7;
-              v1953[0] = v334;
-              v335 = v333[1];
-              v333[1] = v326;
-              v1954 = v335;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v333);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1953);
-              v336 = v1953;
-LABEL_101:
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v336 + 1, v334);
-            }
-          }
-
-LABEL_105:
-          ++v225;
-          v1642 += 4876;
-          v1641 += 4876;
-          if (v225 == v1640)
-          {
-            goto LABEL_106;
-          }
-        }
-
-        v951 = *(v1645 + 4);
-        v1991[0] = 4;
-        v1992 = v951;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1991);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1991);
-        v952 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-        v953 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v952, "sceneComponentDynamicData");
-        v954 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v953, "ASCData");
-        v955 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v954, v225);
-        v956 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v955, "channelMetadata");
-        v957 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v956, "hasADMMetadata");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1991);
-        v958 = *v957;
-        *v957 = 4;
-        v1991[0] = v958;
-        v959 = *(v957 + 1);
-        *(v957 + 1) = v951;
-        v1992 = v959;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v957);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1991);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1992, v958);
-        if (*(v1645 + 4) != 1)
-        {
-          goto LABEL_105;
-        }
-
-        v960 = *(v1645 + 8);
-        v1989[0] = 4;
-        v1990 = v960;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1989);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1989);
-        v961 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-        v962 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v961, "sceneComponentDynamicData");
-        v963 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v962, "ASCData");
-        v964 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v963, v225);
-        v965 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v964, "channelMetadata");
-        v966 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v965, "absoluteDistance");
-        v967 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v966, "hasData");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1989);
-        v968 = *v967;
-        *v967 = 4;
-        v1989[0] = v968;
-        v969 = *(v967 + 1);
-        *(v967 + 1) = v960;
-        v1990 = v969;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v967);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1989);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1990, v968);
-        v970 = &v1639[4876 * v225];
-        if (*(v1645 + 8) == 1)
-        {
-          v971 = v1645[3];
-          v1987[0] = 7;
-          v1988 = v971;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1987);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1987);
-          v972 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-          v973 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v972, "sceneComponentDynamicData");
-          v974 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v973, "ASCData");
-          v975 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v974, v225);
-          v976 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v975, "channelMetadata");
-          v977 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v976, "absoluteDistance");
-          v978 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v977, "distance");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1987);
-          v979 = *v978;
-          *v978 = 7;
-          v1987[0] = v979;
-          v980 = *(v978 + 1);
-          *(v978 + 1) = v971;
-          v1988 = *&v980;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v978);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1987);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1988, v979);
-          v970 = &v1639[4876 * v225];
-        }
-
-        v981 = *(v970 + 16);
-        v1985[0] = 4;
-        v1986 = v981;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1985);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1985);
-        v982 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-        v983 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v982, "sceneComponentDynamicData");
-        v984 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v983, "ASCData");
-        v985 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v984, v225);
-        v986 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v985, "channelMetadata");
-        v987 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v986, "gain");
-        v988 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v987, "hasData");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1985);
-        v989 = *v988;
-        *v988 = 4;
-        v1985[0] = v989;
-        v990 = *(v988 + 1);
-        *(v988 + 1) = v981;
-        v1986 = v990;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v988);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1985);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1986, v989);
-        v991 = &v1639[4876 * v225];
-        if (*(v1645 + 16) == 1)
-        {
-          v992 = *(v1645 + 17);
-          v1983[0] = 4;
-          v1984 = v992;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1983);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1983);
-          v993 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-          v994 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v993, "sceneComponentDynamicData");
-          v995 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v994, "ASCData");
-          v996 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v995, v225);
-          v997 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v996, "channelMetadata");
-          v998 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v997, "gain");
-          v999 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v998, "isDB");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1983);
-          v1000 = *v999;
-          *v999 = 4;
-          v1983[0] = v1000;
-          v1001 = *(v999 + 1);
-          *(v999 + 1) = v992;
-          v1984 = v1001;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v999);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1983);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1984, v1000);
-          v1002 = v1645[5];
-          v1981[0] = 7;
-          v1982 = v1002;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1981);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1981);
-          v1003 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-          v1004 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1003, "sceneComponentDynamicData");
-          v1005 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1004, "ASCData");
-          v1006 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1005, v225);
-          v1007 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1006, "channelMetadata");
-          v1008 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1007, "gain");
-          v1009 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1008, "gain");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1981);
-          v1010 = *v1009;
-          *v1009 = 7;
-          v1981[0] = v1010;
-          v1011 = *(v1009 + 1);
-          *(v1009 + 1) = v1002;
-          v1982 = *&v1011;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1009);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1981);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1982, v1010);
-          v991 = &v1639[4876 * v225];
-        }
-
-        v1012 = *(v991 + 26);
-        v1979[0] = 4;
-        v1980 = v1012;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1979);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1979);
-        v1013 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-        v1014 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1013, "sceneComponentDynamicData");
-        v1015 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1014, "ASCData");
-        v1016 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1015, v225);
-        v1017 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1016, "channelMetadata");
-        v1018 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1017, "headLocked");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1979);
-        v1019 = *v1018;
-        *v1018 = 4;
-        v1979[0] = v1019;
-        v1020 = *(v1018 + 1);
-        *(v1018 + 1) = v1012;
-        v1980 = v1020;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1018);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1979);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1980, v1019);
-        v1021 = *(v1645 + 28);
-        v1977[0] = 4;
-        v1978 = v1021;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1977);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1977);
-        v1022 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-        v1023 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1022, "sceneComponentDynamicData");
-        v1024 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1023, "ASCData");
-        v1025 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1024, v225);
-        v1026 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1025, "channelMetadata");
-        v1027 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1026, "headphoneVirtualize");
-        v1028 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1027, "hasData");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1977);
-        v1029 = *v1028;
-        *v1028 = 4;
-        v1977[0] = v1029;
-        v1030 = *(v1028 + 1);
-        *(v1028 + 1) = v1021;
-        v1978 = v1030;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1028);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1977);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1978, v1029);
-        if (*(v1645 + 28) != 1)
-        {
-          goto LABEL_105;
-        }
-
-        v1031 = *(v1645 + 29);
-        v1975[0] = 4;
-        v1976 = v1031;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1975);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1975);
-        v1032 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-        v1033 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1032, "sceneComponentDynamicData");
-        v1034 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1033, "ASCData");
-        v1035 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1034, v225);
-        v1036 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1035, "channelMetadata");
-        v1037 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1036, "headphoneVirtualize");
-        v1038 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1037, "bypass");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1975);
-        v1039 = *v1038;
-        *v1038 = 4;
-        v1975[0] = v1039;
-        v1040 = *(v1038 + 1);
-        *(v1038 + 1) = v1031;
-        v1976 = v1040;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1038);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1975);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1976, v1039);
-        v1041 = v1645[8];
-        v1973[0] = 7;
-        v1974 = v1041;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1973);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1973);
-        v1042 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v226);
-        v1043 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1042, "sceneComponentDynamicData");
-        v1044 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1043, "ASCData");
-        v1045 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1044, v225);
-        v1046 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1045, "channelMetadata");
-        v1047 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1046, "headphoneVirtualize");
-        v1048 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1047, "DRR");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1973);
-        v334 = *v1048;
-        *v1048 = 7;
-        v1973[0] = v334;
-        v1049 = v1048[1];
-        v1048[1] = v1041;
-        v1974 = v1049;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1048);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1973);
-        v336 = v1973;
-        goto LABEL_101;
-      }
-
-LABEL_106:
-      v1051 = *(v1638 + 1445216);
-      v1850[0] = 4;
-      v1851 = v1051;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1850);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1850);
-      v1052 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "dynamicMetadata");
-      v1053 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1052, "extDynamicData");
-      v1054 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1053, "hasData");
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1850);
-      v1055 = *v1054;
-      *v1054 = 4;
-      v1850[0] = v1055;
-      v1056 = *(v1054 + 1);
-      *(v1054 + 1) = v1051;
-      v1851 = v1056;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1054);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1850);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1851, v1055);
-    }
-
-LABEL_202:
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(a2);
-  }
-
-  v1057 = *(a1 + 1451081);
-  v1848[0] = 4;
-  v1849 = v1057;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1848);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1848);
-  v1058 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-  v1059 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1058, "mRendererMetadataPresent");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1848);
-  v1060 = *v1059;
-  *v1059 = 4;
-  v1848[0] = v1060;
-  v1061 = *(v1059 + 1);
-  *(v1059 + 1) = v1057;
-  v1849 = v1061;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1059);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1848);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1849, v1060);
-  if (*(a1 + 1451081) != 1)
-  {
-    goto LABEL_202;
-  }
-
-  v1644 = a1 + 727598;
-  v1646 = a1 + 1451081;
-  if (*(a1 + 6) != 1)
-  {
-    goto LABEL_193;
-  }
-
-  v1062 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-  v1063 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1062, "mRendererMetadata");
-  v1064 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1063, "mGlobalConfig");
-  v1065 = *(a1 + 1451096);
-  v1846[0] = 4;
-  v1847 = v1065;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1846);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1846);
-  v1066 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mHasData");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1846);
-  v1067 = *v1066;
-  *v1066 = 4;
-  v1846[0] = v1067;
-  v1068 = *(v1066 + 1);
-  *(v1066 + 1) = v1065;
-  v1847 = v1068;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1066);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1846);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1847, v1067);
-  v1069 = a1 + 727598;
-  if (*(a1 + 1451096) == 1)
-  {
-    v1070 = a1[725549];
-    v1844[0] = 5;
-    v1845 = v1070;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1844);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1844);
-    v1071 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mNumParameters");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1844);
-    v1072 = *v1071;
-    *v1071 = 5;
-    v1844[0] = v1072;
-    v1073 = *(v1071 + 1);
-    *(v1071 + 1) = v1070;
-    v1845 = v1073;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1071);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1844);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1845, v1072);
-    v1069 = a1 + 727598;
-    v1652 = a1[725549];
-    if (a1[725549])
-    {
-      v1074 = 0;
-      v1648 = a1 + 727898;
-      v1075 = a1 + 1455255;
-      v1660 = v1638 + 725550;
-      while (1)
-      {
-        v1076 = v1660[v1074];
-        v1842[0] = 5;
-        v1843 = v1076;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1842);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1842);
-        v1077 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mParamIndexList");
-        v1078 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1077, v1074);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1842);
-        v1079 = *v1078;
-        *v1078 = 5;
-        v1842[0] = v1079;
-        v1080 = *(v1078 + 1);
-        *(v1078 + 1) = v1076;
-        v1843 = v1080;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1078);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1842);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1843, v1079);
-        switch(v1660[v1074])
-        {
-          case 0u:
-            v1081 = *v1069;
-            v1840[0] = 4;
-            v1841 = v1081;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1840);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1840);
-            v1082 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mApplyPostProcReverb");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1840);
-            v1083 = *v1082;
-            *v1082 = 4;
-            v1840[0] = v1083;
-            v1084 = *(v1082 + 1);
-            *(v1082 + 1) = v1081;
-            v1841 = v1084;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1082);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1840);
-            v1085 = v1840;
-            goto LABEL_133;
-          case 1u:
-            v1226 = *(v1069 + 1);
-            v1838[0] = 4;
-            v1839 = v1226;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1838);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1838);
-            v1227 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mIs6DoF");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1838);
-            v1083 = *v1227;
-            *v1227 = 4;
-            v1838[0] = v1083;
-            v1228 = *(v1227 + 1);
-            *(v1227 + 1) = v1226;
-            v1839 = v1228;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1227);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1838);
-            v1085 = v1838;
-            goto LABEL_133;
-          case 2u:
-            v1180 = *(v1069 + 2);
-            v1836[0] = 4;
-            v1837 = v1180;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1836);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1836);
-            v1181 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mHasSceneRadiationPattern");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1836);
-            v1083 = *v1181;
-            *v1181 = 4;
-            v1836[0] = v1083;
-            v1182 = *(v1181 + 1);
-            *(v1181 + 1) = v1180;
-            v1837 = v1182;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1181);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1836);
-            v1085 = v1836;
-LABEL_133:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v1085 + 1, v1083);
-            v1075 = v1638 + 1455255;
-            goto LABEL_157;
-          case 3u:
-            v1183 = *(v1069 + 3);
-            v1834[0] = 5;
-            v1835 = v1183;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1834);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1834);
-            v1184 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mTargetPlaybackSystemIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1834);
-            v1152 = *v1184;
-            *v1184 = 5;
-            v1834[0] = v1152;
-            v1185 = *(v1184 + 1);
-            *(v1184 + 1) = v1183;
-            v1835 = v1185;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1184);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1834);
-            v1154 = v1834;
-            goto LABEL_153;
-          case 4u:
-            v1108 = *(v1069 + 6);
-            v1832[0] = 5;
-            v1833 = v1108;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1832);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1832);
-            v1109 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mAuthoringInformation");
-            v1110 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1109, "mAuthoringToolNameIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1832);
-            v1111 = *v1110;
-            *v1110 = 5;
-            v1832[0] = v1111;
-            v1112 = *(v1110 + 1);
-            *(v1110 + 1) = v1108;
-            v1833 = v1112;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1110);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1832);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1833, v1111);
-            v1113 = *(v1069 + 7);
-            v1830[0] = 5;
-            v1831 = v1113;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1830);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1830);
-            v1114 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mAuthoringInformation");
-            v1115 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1114, "mAuthoringToolVersion");
-            v1116 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1115, "mMajor");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1830);
-            v1117 = *v1116;
-            *v1116 = 5;
-            v1830[0] = v1117;
-            v1118 = *(v1116 + 1);
-            *(v1116 + 1) = v1113;
-            v1831 = v1118;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1116);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1830);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1831, v1117);
-            v1119 = *(v1069 + 8);
-            v1828[0] = 5;
-            v1829 = v1119;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1828);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1828);
-            v1120 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mAuthoringInformation");
-            v1121 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1120, "mAuthoringToolVersion");
-            v1122 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1121, "mMinor");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1828);
-            v1123 = *v1122;
-            *v1122 = 5;
-            v1828[0] = v1123;
-            v1124 = *(v1122 + 1);
-            *(v1122 + 1) = v1119;
-            v1829 = v1124;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1122);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1828);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1829, v1123);
-            v1125 = *(v1069 + 9);
-            v1826[0] = 5;
-            v1827 = v1125;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1826);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1826);
-            v1126 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mAuthoringInformation");
-            v1127 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1126, "mAuthoringToolVersion");
-            v1128 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1127, "mPatch");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1826);
-            v1129 = *v1128;
-            *v1128 = 5;
-            v1826[0] = v1129;
-            v1130 = *(v1128 + 1);
-            *(v1128 + 1) = v1125;
-            v1827 = v1130;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1128);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1826);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1827, v1129);
-            v1131 = *(v1069 + 10);
-            v1824[0] = 5;
-            v1825 = v1131;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1824);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1824);
-            v1132 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mAuthoringInformation");
-            v1133 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1132, "mRendererNameIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1824);
-            v1134 = *v1133;
-            *v1133 = 5;
-            v1824[0] = v1134;
-            v1135 = *(v1133 + 1);
-            *(v1133 + 1) = v1131;
-            v1825 = v1135;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1133);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1824);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1825, v1134);
-            v1136 = *(v1069 + 11);
-            v1822[0] = 5;
-            v1823 = v1136;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1822);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1822);
-            v1137 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mAuthoringInformation");
-            v1138 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1137, "mRendererVersion");
-            v1139 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1138, "mMajor");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1822);
-            v1140 = *v1139;
-            *v1139 = 5;
-            v1822[0] = v1140;
-            v1141 = *(v1139 + 1);
-            *(v1139 + 1) = v1136;
-            v1823 = v1141;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1139);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1822);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1823, v1140);
-            v1142 = *(v1069 + 12);
-            v1820[0] = 5;
-            v1821 = v1142;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1820);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1820);
-            v1143 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mAuthoringInformation");
-            v1144 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1143, "mRendererVersion");
-            v1145 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1144, "mMinor");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1820);
-            v1146 = *v1145;
-            *v1145 = 5;
-            v1820[0] = v1146;
-            v1147 = *(v1145 + 1);
-            *(v1145 + 1) = v1142;
-            v1821 = v1147;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1145);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1820);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1821, v1146);
-            v1148 = *(v1069 + 13);
-            v1818[0] = 5;
-            v1819 = v1148;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1818);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1818);
-            v1149 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mAuthoringInformation");
-            v1150 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1149, "mRendererVersion");
-            v1151 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1150, "mPatch");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1818);
-            v1152 = *v1151;
-            *v1151 = 5;
-            v1818[0] = v1152;
-            v1153 = *(v1151 + 1);
-            *(v1151 + 1) = v1148;
-            v1819 = v1153;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1151);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1818);
-            v1154 = v1818;
-            goto LABEL_153;
-          case 5u:
-            v1229 = *(v1069 + 4);
-            v1816[0] = 7;
-            v1817 = v1229;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1816);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1816);
-            v1230 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-            v1231 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1230, "mAspectRatio");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1816);
-            v1232 = *v1231;
-            *v1231 = 7;
-            v1816[0] = v1232;
-            v1233 = *(v1231 + 1);
-            *(v1231 + 1) = v1229;
-            v1817 = *&v1233;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1231);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1816);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1817, v1232);
-            v1234 = *(v1069 + 20);
-            v1814[0] = 4;
-            v1815 = v1234;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1814);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1814);
-            v1235 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-            v1236 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1235, "mIsCartesian");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1814);
-            v1237 = *v1236;
-            *v1236 = 4;
-            v1814[0] = v1237;
-            v1238 = *(v1236 + 1);
-            *(v1236 + 1) = v1234;
-            v1815 = v1238;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1236);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1814);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1815, v1237);
-            if (*(v1069 + 20) == 1)
-            {
-              v1239 = *(v1069 + 6);
-              v1812[0] = 7;
-              v1813 = v1239;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1812);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1812);
-              v1240 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-              v1241 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1240, "mScreenCentrePosition");
-              v1242 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1241, "mX");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1812);
-              v1243 = *v1242;
-              *v1242 = 7;
-              v1812[0] = v1243;
-              v1244 = *(v1242 + 1);
-              *(v1242 + 1) = v1239;
-              v1813 = *&v1244;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1242);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1812);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1813, v1243);
-              v1245 = *(v1069 + 7);
-              v1810[0] = 7;
-              v1811 = v1245;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1810);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1810);
-              v1246 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-              v1247 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1246, "mScreenCentrePosition");
-              v1248 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1247, "mY");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1810);
-              v1249 = *v1248;
-              *v1248 = 7;
-              v1810[0] = v1249;
-              v1250 = *(v1248 + 1);
-              *(v1248 + 1) = v1245;
-              v1811 = *&v1250;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1248);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1810);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1811, v1249);
-              v1251 = *(v1069 + 8);
-              v1808[0] = 7;
-              v1809 = v1251;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1808);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1808);
-              v1252 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-              v1253 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1252, "mScreenCentrePosition");
-              v1254 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1253, "mZ");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1808);
-              v1255 = *v1254;
-              *v1254 = 7;
-              v1808[0] = v1255;
-              v1256 = *(v1254 + 1);
-              *(v1254 + 1) = v1251;
-              v1809 = *&v1256;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1254);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1808);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1809, v1255);
-              v1257 = *(v1069 + 12);
-              v1806[0] = 7;
-              v1807 = v1257;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1806);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1806);
-              v1258 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-              v1259 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1258, "mScreenWidth");
-              v1260 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1259, "mX");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1806);
-              v1152 = *v1260;
-              *v1260 = 7;
-              v1806[0] = v1152;
-              v1261 = v1260[1];
-              v1260[1] = v1257;
-              v1807 = v1261;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1260);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1806);
-              v1154 = v1806;
-            }
-
-            else
-            {
-              v1393 = *(v1069 + 9);
-              v1804[0] = 7;
-              v1805 = v1393;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1804);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1804);
-              v1394 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-              v1395 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1394, "mScreenCentrePosition");
-              v1396 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1395, "mAzimuth");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1804);
-              v1397 = *v1396;
-              *v1396 = 7;
-              v1804[0] = v1397;
-              v1398 = *(v1396 + 1);
-              *(v1396 + 1) = v1393;
-              v1805 = *&v1398;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1396);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1804);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1805, v1397);
-              v1399 = *(v1069 + 10);
-              v1802[0] = 7;
-              v1803 = v1399;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1802);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1802);
-              v1400 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-              v1401 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1400, "mScreenCentrePosition");
-              v1402 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1401, "mElevation");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1802);
-              v1403 = *v1402;
-              *v1402 = 7;
-              v1802[0] = v1403;
-              v1404 = *(v1402 + 1);
-              *(v1402 + 1) = v1399;
-              v1803 = *&v1404;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1402);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1802);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1803, v1403);
-              v1405 = *(v1069 + 11);
-              v1800[0] = 7;
-              v1801 = v1405;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1800);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1800);
-              v1406 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-              v1407 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1406, "mScreenCentrePosition");
-              v1408 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1407, "mRadius");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1800);
-              v1409 = *v1408;
-              *v1408 = 7;
-              v1800[0] = v1409;
-              v1410 = *(v1408 + 1);
-              *(v1408 + 1) = v1405;
-              v1801 = *&v1410;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1408);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1800);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1801, v1409);
-              v1411 = *(v1069 + 12);
-              v1798[0] = 7;
-              v1799 = v1411;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1798);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1798);
-              v1412 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mRefScreen");
-              v1413 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1412, "mScreenWidth");
-              v1414 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1413, "mAzimuth");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1798);
-              v1152 = *v1414;
-              *v1414 = 7;
-              v1798[0] = v1152;
-              v1415 = v1414[1];
-              v1414[1] = v1411;
-              v1799 = v1415;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1414);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1798);
-              v1154 = v1798;
-            }
-
-LABEL_153:
-            v1416 = (v1154 + 8);
-            v1417 = v1152;
-            goto LABEL_156;
-          case 6u:
-            v1265 = *(v1069 + 56);
-            v1796[0] = 5;
-            v1797 = v1265;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1796);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1796);
-            v1266 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-            v1267 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1266, "mSurroundDownmix");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1796);
-            v1268 = *v1267;
-            *v1267 = 5;
-            v1796[0] = v1268;
-            v1269 = *(v1267 + 1);
-            *(v1267 + 1) = v1265;
-            v1797 = v1269;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1267);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1796);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1797, v1268);
-            v1270 = *(v1069 + 57);
-            v1794[0] = 5;
-            v1795 = v1270;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1794);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1794);
-            v1271 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-            v1272 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1271, "mSurroundToStereoDownmix");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1794);
-            v1273 = *v1272;
-            *v1272 = 5;
-            v1794[0] = v1273;
-            v1274 = *(v1272 + 1);
-            *(v1272 + 1) = v1270;
-            v1795 = v1274;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1272);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1794);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1795, v1273);
-            v1275 = *(v1069 + 58);
-            v1792[0] = 5;
-            v1793 = v1275;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1792);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1792);
-            v1276 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-            v1277 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1276, "mPositionAdjustment");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1792);
-            v1278 = *v1277;
-            *v1277 = 5;
-            v1792[0] = v1278;
-            v1279 = *(v1277 + 1);
-            *(v1277 + 1) = v1275;
-            v1793 = v1279;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1277);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1792);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1793, v1278);
-            v1280 = 0;
-            v1281 = (v1644 + 36);
-            do
-            {
-              v1282 = v1075[v1280];
-              v1790[0] = 4;
-              v1791 = v1282;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1790);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1790);
-              v1283 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-              v1284 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1283, "mIsAutoTrim");
-              v1285 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1284, v1280);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1790);
-              v1286 = *v1285;
-              *v1285 = 4;
-              v1790[0] = v1286;
-              v1287 = *(v1285 + 1);
-              *(v1285 + 1) = v1282;
-              v1791 = v1287;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1285);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1790);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1791, v1286);
-              if ((v1075[v1280] & 1) == 0)
-              {
-                v1288 = *(v1281 - 1);
-                v1788[0] = 7;
-                v1789 = v1288;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1788);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1788);
-                v1289 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-                v1290 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1289, "mMixingGains");
-                v1291 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1290, v1280);
-                v1292 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1291, "mFrontGain");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1788);
-                v1293 = *v1292;
-                *v1292 = 7;
-                v1788[0] = v1293;
-                v1294 = *(v1292 + 1);
-                *(v1292 + 1) = v1288;
-                v1789 = *&v1294;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1292);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1788);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1789, v1293);
-                v1295 = *v1281;
-                v1786[0] = 7;
-                v1787 = v1295;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1786);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1786);
-                v1296 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-                v1297 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1296, "mMixingGains");
-                v1298 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1297, v1280);
-                v1299 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1298, "mBackGain");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1786);
-                v1300 = *v1299;
-                *v1299 = 7;
-                v1786[0] = v1300;
-                v1301 = *(v1299 + 1);
-                *(v1299 + 1) = v1295;
-                v1787 = *&v1301;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1299);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1786);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1787, v1300);
-                v1302 = v1281[1];
-                v1784[0] = 7;
-                v1785 = v1302;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1784);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1784);
-                v1303 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-                v1304 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1303, "mMixingGains");
-                v1305 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1304, v1280);
-                v1306 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1305, "mTopGain");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1784);
-                v1307 = *v1306;
-                *v1306 = 7;
-                v1784[0] = v1307;
-                v1308 = *(v1306 + 1);
-                *(v1306 + 1) = v1302;
-                v1785 = *&v1308;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1306);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1784);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1785, v1307);
-                v1309 = v1281[2];
-                v1782[0] = 7;
-                v1783 = v1309;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1782);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1782);
-                v1310 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-                v1311 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1310, "mMixingGains");
-                v1312 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1311, v1280);
-                v1313 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1312, "mEarLevelBalance");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1782);
-                v1314 = *v1313;
-                *v1313 = 7;
-                v1782[0] = v1314;
-                v1315 = *(v1313 + 1);
-                *(v1313 + 1) = v1309;
-                v1783 = *&v1315;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1313);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1782);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1783, v1314);
-                v1316 = v1281[3];
-                v1780[0] = 7;
-                v1781 = v1316;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1780);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1780);
-                v1317 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-                v1318 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1317, "mMixingGains");
-                v1319 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1318, v1280);
-                v1320 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1319, "mHeightBalance");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1780);
-                v1321 = *v1320;
-                *v1320 = 7;
-                v1780[0] = v1321;
-                v1322 = *(v1320 + 1);
-                *(v1320 + 1) = v1316;
-                v1781 = *&v1322;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1320);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1780);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1781, v1321);
-              }
-
-              ++v1280;
-              v1281 += 5;
-            }
-
-            while (v1280 != 9);
-            v1069 = v1644;
-            v1323 = *(v1644 + 248);
-            v1778[0] = 5;
-            v1779 = v1323;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1778);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1778);
-            v1324 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-            v1325 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1324, "mNumChannels");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1778);
-            v1326 = *v1325;
-            *v1325 = 5;
-            v1778[0] = v1326;
-            v1327 = *(v1325 + 1);
-            *(v1325 + 1) = v1323;
-            v1779 = v1327;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1325);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1778);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1779, v1326);
-            if (*(v1644 + 248))
-            {
-              v1328 = 0;
-              do
-              {
-                v1329 = *(v1638 + v1328 + 1455445);
-                v1776[0] = 4;
-                v1777 = v1329;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1776);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1776);
-                v1330 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSupplementaryProductionMetadata");
-                v1331 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1330, "mIsPerChTrimEnabled");
-                v1332 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1331, v1328);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1776);
-                v1333 = *v1332;
-                *v1332 = 4;
-                v1776[0] = v1333;
-                v1334 = *(v1332 + 1);
-                *(v1332 + 1) = v1329;
-                v1777 = v1334;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1332);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1776);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1777, v1333);
-                ++v1328;
-              }
-
-              while (v1328 < *(v1644 + 248));
-            }
-
-            goto LABEL_157;
-          case 7u:
-            v1186 = *(v1069 + 380);
-            v1774[0] = 4;
-            v1775 = v1186;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1774);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1774);
-            v1187 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-            v1188 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1187, "mIsDirectBinauralization");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1774);
-            v1189 = *v1188;
-            *v1188 = 4;
-            v1774[0] = v1189;
-            v1190 = *(v1188 + 1);
-            *(v1188 + 1) = v1186;
-            v1775 = v1190;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1188);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1774);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1775, v1189);
-            if (*(v1069 + 380) == 1)
-            {
-              v1191 = *(v1069 + 96);
-              v1772[0] = 5;
-              v1773 = v1191;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1772);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1772);
-              v1192 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-              v1193 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1192, "mChannelLayoutTag");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1772);
-              v1194 = *v1193;
-              *v1193 = 5;
-              v1772[0] = v1194;
-              v1195 = *(v1193 + 1);
-              *(v1193 + 1) = v1191;
-              v1773 = v1195;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1193);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1772);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1773, v1194);
-            }
-
-            v1196 = *(v1069 + 388);
-            v1770[0] = 5;
-            v1771 = v1196;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1770);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1770);
-            v1197 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-            v1198 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1197, "mHRTFType");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1770);
-            v1199 = *v1198;
-            *v1198 = 5;
-            v1770[0] = v1199;
-            v1200 = *(v1198 + 1);
-            *(v1198 + 1) = v1196;
-            v1771 = v1200;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1198);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1770);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1771, v1199);
-            v1201 = *(v1069 + 388);
-            if (v1201 == 1)
-            {
-              v1418 = *(v1069 + 389);
-              v1768[0] = 5;
-              v1769 = v1418;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1768);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1768);
-              v1419 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-              v1420 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1419, "mPredefinedIR_ID");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1768);
-              v1163 = *v1420;
-              *v1420 = 5;
-              v1768[0] = v1163;
-              v1421 = *(v1420 + 1);
-              *(v1420 + 1) = v1418;
-              v1769 = v1421;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1420);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1768);
-              v1165 = v1768;
-LABEL_155:
-              v1416 = (v1165 + 8);
-              v1417 = v1163;
-LABEL_156:
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v1416, v1417);
-              goto LABEL_157;
-            }
-
-            if (v1201 == 2)
-            {
-              v1202 = *(v1069 + 389);
-              v1766[0] = 5;
-              v1767 = v1202;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1766);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1766);
-              v1203 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-              v1204 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1203, "mPredefinedIR_ID");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1766);
-              v1205 = *v1204;
-              *v1204 = 5;
-              v1766[0] = v1205;
-              v1206 = *(v1204 + 1);
-              *(v1204 + 1) = v1202;
-              v1767 = v1206;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1204);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1766);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1767, v1205);
-              v1207 = *(v1069 + 394);
-              v1764[0] = 5;
-              v1765 = v1207;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1764);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1764);
-              v1208 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-              v1209 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1208, "mDataLocationIndex");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1764);
-              v1210 = *v1209;
-              *v1209 = 5;
-              v1764[0] = v1210;
-              v1211 = *(v1209 + 1);
-              *(v1209 + 1) = v1207;
-              v1765 = v1211;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1209);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1764);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1765, v1210);
-              v1212 = v1069[195];
-              v1762[0] = 5;
-              v1763 = v1212;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1762);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1762);
-              v1213 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-              v1214 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1213, "mCustomData_TableID");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1762);
-              v1215 = *v1214;
-              *v1214 = 5;
-              v1762[0] = v1215;
-              v1216 = *(v1214 + 1);
-              *(v1214 + 1) = v1212;
-              v1763 = v1216;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1214);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1762);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1763, v1215);
-              v1217 = v1069[196];
-              v1760[0] = 5;
-              v1761 = v1217;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1760);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1760);
-              v1218 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-              v1219 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1218, "mCustomData_EntryID");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1760);
-              v1220 = *v1219;
-              *v1219 = 5;
-              v1760[0] = v1220;
-              v1221 = *(v1219 + 1);
-              *(v1219 + 1) = v1217;
-              v1761 = v1221;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1219);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1760);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1761, v1220);
-              v1222 = *(v1069 + 388);
-              v1758[0] = 5;
-              v1759 = v1222;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1758);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1758);
-              v1223 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mBinauralization");
-              v1224 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1223, "mHRTFType");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1758);
-              v1163 = *v1224;
-              *v1224 = 5;
-              v1758[0] = v1163;
-              v1225 = *(v1224 + 1);
-              *(v1224 + 1) = v1222;
-              v1759 = v1225;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1224);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1758);
-              v1165 = v1758;
-              goto LABEL_155;
-            }
-
-LABEL_157:
-            if (++v1074 == v1652)
-            {
-              goto LABEL_164;
-            }
-
-            break;
-          case 8u:
-            v1354 = *(v1069 + 396);
-            v1756[0] = 5;
-            v1757 = v1354;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1756);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1756);
-            v1355 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mHCFilter");
-            v1356 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1355, "mDataLocationIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1756);
-            v1357 = *v1356;
-            *v1356 = 5;
-            v1756[0] = v1357;
-            v1358 = *(v1356 + 1);
-            *(v1356 + 1) = v1354;
-            v1757 = v1358;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1356);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1756);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1757, v1357);
-            v1359 = v1069[199];
-            v1754[0] = 5;
-            v1755 = v1359;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1754);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1754);
-            v1360 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mHCFilter");
-            v1361 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1360, "mCustomData_TableID");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1754);
-            v1362 = *v1361;
-            *v1361 = 5;
-            v1754[0] = v1362;
-            v1363 = *(v1361 + 1);
-            *(v1361 + 1) = v1359;
-            v1755 = v1363;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1361);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1754);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1755, v1362);
-            v1364 = v1069[200];
-            v1752[0] = 5;
-            v1753 = v1364;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1752);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1752);
-            v1365 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mHCFilter");
-            v1366 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1365, "mCustomData_EntryID");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1752);
-            v1163 = *v1366;
-            *v1366 = 5;
-            v1752[0] = v1163;
-            v1367 = *(v1366 + 1);
-            *(v1366 + 1) = v1364;
-            v1753 = v1367;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1366);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1752);
-            v1165 = v1752;
-            goto LABEL_155;
-          case 9u:
-            v1166 = *(v1069 + 404);
-            v1750[0] = 5;
-            v1751 = v1166;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1750);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1750);
-            v1167 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSPAD");
-            v1168 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1167, "mDataLocationIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1750);
-            v1169 = *v1168;
-            *v1168 = 5;
-            v1750[0] = v1169;
-            v1170 = *(v1168 + 1);
-            *(v1168 + 1) = v1166;
-            v1751 = v1170;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1168);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1750);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1751, v1169);
-            v1171 = v1069[203];
-            v1748[0] = 5;
-            v1749 = v1171;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1748);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1748);
-            v1172 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSPAD");
-            v1173 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1172, "mCustomData_TableID");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1748);
-            v1174 = *v1173;
-            *v1173 = 5;
-            v1748[0] = v1174;
-            v1175 = *(v1173 + 1);
-            *(v1173 + 1) = v1171;
-            v1749 = v1175;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1173);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1748);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1749, v1174);
-            v1176 = v1069[204];
-            v1746[0] = 5;
-            v1747 = v1176;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1746);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1746);
-            v1177 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mSPAD");
-            v1178 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1177, "mCustomData_EntryID");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1746);
-            v1163 = *v1178;
-            *v1178 = 5;
-            v1746[0] = v1163;
-            v1179 = *(v1178 + 1);
-            *(v1178 + 1) = v1176;
-            v1747 = v1179;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1178);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1746);
-            v1165 = v1746;
-            goto LABEL_155;
-          case 0xAu:
-            v1335 = *(v1069 + 548);
-            v1744[0] = 5;
-            v1745 = v1335;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1744);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1744);
-            v1336 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mDistanceAttenuation");
-            v1337 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1336, "mAttnLawIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1744);
-            v1338 = *v1337;
-            *v1337 = 5;
-            v1744[0] = v1338;
-            v1339 = *(v1337 + 1);
-            *(v1337 + 1) = v1335;
-            v1745 = v1339;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1337);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1744);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1745, v1338);
-            v1340 = *(v1069 + 139);
-            v1742[0] = 7;
-            v1743 = v1340;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1742);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1742);
-            v1341 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mDistanceAttenuation");
-            v1342 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1341, "mRefDistance");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1742);
-            v1343 = *v1342;
-            *v1342 = 7;
-            v1742[0] = v1343;
-            v1344 = *(v1342 + 1);
-            *(v1342 + 1) = v1340;
-            v1743 = *&v1344;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1342);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1742);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1743, v1343);
-            v1345 = *(v1069 + 140);
-            v1740[0] = 7;
-            v1741 = v1345;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1740);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1740);
-            v1346 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mDistanceAttenuation");
-            v1347 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1346, "mMaxDistance");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1740);
-            v1348 = *v1347;
-            *v1347 = 7;
-            v1740[0] = v1348;
-            v1349 = *(v1347 + 1);
-            *(v1347 + 1) = v1345;
-            v1741 = *&v1349;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1347);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1740);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1741, v1348);
-            v1350 = *(v1069 + 564);
-            v1738[0] = 4;
-            v1739 = v1350;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1738);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1738);
-            v1351 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mDistanceAttenuation");
-            v1352 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1351, "mAttnNormIndex");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1738);
-            v1088 = *v1352;
-            *v1352 = 4;
-            v1738[0] = v1088;
-            v1353 = *(v1352 + 1);
-            *(v1352 + 1) = v1350;
-            v1739 = v1353;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1352);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1738);
-            v1090 = v1738;
-            goto LABEL_146;
-          case 0xBu:
-            v1091 = *(v1069 + 568);
-            v1736[0] = 4;
-            v1737 = v1091;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1736);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1736);
-            v1092 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mCameraPerspective");
-            v1093 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1092, "mPositionPresent");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1736);
-            v1094 = *v1093;
-            *v1093 = 4;
-            v1736[0] = v1094;
-            v1095 = *(v1093 + 1);
-            *(v1093 + 1) = v1091;
-            v1737 = v1095;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1093);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1736);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1737, v1094);
-            if (*(v1069 + 568) == 1)
-            {
-              v1096 = *(v1069 + 569);
-              v1734[0] = 4;
-              v1735 = v1096;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1734);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1734);
-              v1097 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mCameraPerspective");
-              v1098 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1097, "mIsCartesian");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1734);
-              v1099 = *v1098;
-              *v1098 = 4;
-              v1734[0] = v1099;
-              v1100 = *(v1098 + 1);
-              *(v1098 + 1) = v1096;
-              v1735 = v1100;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1098);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1734);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1735, v1099);
-              if (*(v1069 + 569) == 1)
-              {
-                for (i = 0; i != 3; ++i)
-                {
-                  v1102 = *&v1638[2 * i + 727892];
-                  v1732[0] = 7;
-                  v1733 = v1102;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1732);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1732);
-                  v1103 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mCameraPerspective");
-                  v1104 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1103, "mCoordinate");
-                  v1105 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1104, i);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1732);
-                  v1106 = *v1105;
-                  *v1105 = 7;
-                  v1732[0] = v1106;
-                  v1107 = *(v1105 + 1);
-                  *(v1105 + 1) = v1102;
-                  v1733 = *&v1107;
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1105);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1732);
-                  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1733, v1106);
-                }
-              }
-
-              else
-              {
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<float const&,float,0>(v1731, v1638 + 363942);
-                v1422 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mCameraPerspective");
-                v1423 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1422, "mAzimuth");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator=(v1423, v1731);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v1731);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<float const&,float,0>(v1730, v1638 + 363943);
-                v1424 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mCameraPerspective");
-                v1425 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1424, "mElevation");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator=(v1425, v1730);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v1730);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<float const&,float,0>(v1729, v1638 + 363944);
-                v1426 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mCameraPerspective");
-                v1427 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1426, "mRadius");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator=(v1427, v1729);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v1729);
-              }
-            }
-
-            v1428 = *(v1069 + 584);
-            v1727[0] = 4;
-            v1728 = v1428;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1727);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1727);
-            v1429 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mCameraPerspective");
-            v1430 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1429, "mRotationPresent");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1727);
-            v1431 = *v1430;
-            *v1430 = 4;
-            v1727[0] = v1431;
-            v1432 = *(v1430 + 1);
-            *(v1430 + 1) = v1428;
-            v1728 = v1432;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1430);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1727);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1728, v1431);
-            if (*(v1069 + 584) == 1)
-            {
-              for (j = 0; j != 4; ++j)
-              {
-                v1434 = *&v1648[2 * j];
-                v1725[0] = 7;
-                v1726 = v1434;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1725);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1725);
-                v1435 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mCameraPerspective");
-                v1436 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1435, "mQuaternion");
-                v1437 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1436, j);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1725);
-                v1438 = *v1437;
-                *v1437 = 7;
-                v1725[0] = v1438;
-                v1439 = *(v1437 + 1);
-                *(v1437 + 1) = v1434;
-                v1726 = *&v1439;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1437);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1725);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1726, v1438);
-              }
-            }
-
-            goto LABEL_157;
-          case 0xCu:
-            v1155 = *(v1069 + 616);
-            v1723[0] = 4;
-            v1724 = v1155;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1723);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1723);
-            v1156 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mGenericRenderingConfig");
-            v1157 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1156, "mHasPreset");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1723);
-            v1158 = *v1157;
-            *v1157 = 4;
-            v1723[0] = v1158;
-            v1159 = *(v1157 + 1);
-            *(v1157 + 1) = v1155;
-            v1724 = v1159;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1157);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1723);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1724, v1158);
-            if (*(v1069 + 616) == 1)
-            {
-              v1160 = v1069[309];
-              v1721[0] = 5;
-              v1722 = v1160;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1721);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1721);
-              v1161 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mGenericRenderingConfig");
-              v1162 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1161, "mPresetIndex");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1721);
-              v1163 = *v1162;
-              *v1162 = 5;
-              v1721[0] = v1163;
-              v1164 = *(v1162 + 1);
-              *(v1162 + 1) = v1160;
-              v1722 = v1164;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1162);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1721);
-              v1165 = v1721;
-            }
-
-            else
-            {
-              v1369 = *(v1069 + 620);
-              v1719[0] = 5;
-              v1720 = v1369;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1719);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1719);
-              v1370 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mGenericRenderingConfig");
-              v1371 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1370, "mDataLocationIndex");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1719);
-              v1372 = *v1371;
-              *v1371 = 5;
-              v1719[0] = v1372;
-              v1373 = *(v1371 + 1);
-              *(v1371 + 1) = v1369;
-              v1720 = v1373;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1371);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1719);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1720, v1372);
-              v1374 = v1069[311];
-              v1717[0] = 5;
-              v1718 = v1374;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1717);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1717);
-              v1375 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mGenericRenderingConfig");
-              v1376 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1375, "mCustomData_TableID");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1717);
-              v1377 = *v1376;
-              *v1376 = 5;
-              v1717[0] = v1377;
-              v1378 = *(v1376 + 1);
-              *(v1376 + 1) = v1374;
-              v1718 = v1378;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1376);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1717);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1718, v1377);
-              v1379 = v1069[312];
-              v1715[0] = 5;
-              v1716 = v1379;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1715);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1715);
-              v1380 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mGenericRenderingConfig");
-              v1381 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1380, "mCustomData_EntryID");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1715);
-              v1382 = *v1381;
-              *v1381 = 5;
-              v1715[0] = v1382;
-              v1383 = *(v1381 + 1);
-              *(v1381 + 1) = v1379;
-              v1716 = v1383;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1381);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1715);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1716, v1382);
-              v1384 = v1069[313];
-              v1713[0] = 5;
-              v1714 = v1384;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1713);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1713);
-              v1385 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mGenericRenderingConfig");
-              v1386 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1385, "mFallbackIndex");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1713);
-              v1387 = *v1386;
-              *v1386 = 5;
-              v1713[0] = v1387;
-              v1388 = *(v1386 + 1);
-              *(v1386 + 1) = v1384;
-              v1714 = v1388;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1386);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1713);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1714, v1387);
-              v1389 = *(v1069 + 157);
-              v1711[0] = 5;
-              v1712 = v1389;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1711);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1711);
-              v1390 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mGenericRenderingConfig");
-              v1391 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1390, "mDataByteSize");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1711);
-              v1163 = *v1391;
-              *v1391 = 5;
-              v1711[0] = v1163;
-              v1392 = *(v1391 + 1);
-              *(v1391 + 1) = v1389;
-              v1712 = v1392;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1391);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1711);
-              v1165 = v1711;
-            }
-
-            goto LABEL_155;
-          case 0xDu:
-            v1262 = *(v1069 + 4);
-            v1709[0] = 5;
-            v1710 = v1262;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1709);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1709);
-            v1263 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mContentKind");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1709);
-            v1088 = *v1263;
-            *v1263 = 5;
-            v1709[0] = v1088;
-            v1264 = *(v1263 + 1);
-            *(v1263 + 1) = v1262;
-            v1710 = v1264;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1263);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1709);
-            v1090 = v1709;
-            goto LABEL_146;
-          case 0xEu:
-            v1086 = *(v1069 + 5);
-            v1707[0] = 5;
-            v1708 = v1086;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1707);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1707);
-            v1087 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1064, "mMaxNumBlocks");
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1707);
-            v1088 = *v1087;
-            *v1087 = 5;
-            v1707[0] = v1088;
-            v1089 = *(v1087 + 1);
-            *(v1087 + 1) = v1086;
-            v1708 = v1089;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1087);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1707);
-            v1090 = v1707;
-LABEL_146:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v1090 + 1, v1088);
-            goto LABEL_157;
-          case 0xFu:
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[21],char [21],0>(v1706);
-          default:
-            std::to_string(&v2006, v1660[v1074]);
-            v1368 = std::string::insert(&v2006, 0, "Unknown parameter id ", 0x15uLL);
-            v2007 = *v1368;
-            v1368->__r_.__value_.__l.__size_ = 0;
-            v1368->__r_.__value_.__r.__words[2] = 0;
-            v1368->__r_.__value_.__r.__words[0] = 0;
-            if (SHIBYTE(v2006.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v2006.__r_.__value_.__l.__data_);
-            }
-
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[16],char [16],0>(v1705);
-        }
-      }
-    }
-  }
-
-LABEL_164:
-  v1656 = (v1069 + 334);
-  v1440 = *(v1069 + 334);
-  v1441 = -1431655765 * ((*(v1069 + 338) - v1440) >> 4);
-  v1661 = *(v1646 + 7);
-  if (v1441 >= v1661)
-  {
-    v1441 = *(v1646 + 7);
-  }
-
-  if (!v1441)
-  {
-LABEL_193:
-    v1564 = *(v1646 + 7);
-    v1675[0] = 5;
-    v1676 = v1564;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1675);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1675);
-    v1565 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-    v1566 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1565, "mRendererMetadata");
-    v1567 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1566, "mGroupCount");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1675);
-    v1568 = *v1567;
-    *v1567 = 5;
-    v1675[0] = v1568;
-    v1569 = *(v1567 + 1);
-    *(v1567 + 1) = v1564;
-    v1676 = v1569;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1567);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1675);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1676, v1568);
-    v1653 = *(v1646 + 7);
-    if (*(v1646 + 7))
-    {
-      v1570 = 0;
-      v1649 = (v1644 + 346);
-      v1657 = 16;
-      do
-      {
-        v1571 = *v1649;
-        v1572 = (*v1649 + 40200 * v1570);
-        v1573 = *v1572;
-        v1673[0] = 4;
-        v1674 = v1573;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1673);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1673);
-        v1574 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-        v1575 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1574, "mRendererMetadata");
-        v1576 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1575, "mGroupData");
-        v1577 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1576, v1570);
-        v1578 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1577, "mHasData");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1673);
-        v1579 = *v1578;
-        *v1578 = 4;
-        v1673[0] = v1579;
-        v1580 = *(v1578 + 1);
-        *(v1578 + 1) = v1573;
-        v1674 = v1580;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1578);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1673);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1674, v1579);
-        if (*v1572 == 1)
-        {
-          v1581 = *(v1572 + 1);
-          v1671[0] = 5;
-          v1672 = v1581;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1671);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1671);
-          v1582 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-          v1583 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1582, "mRendererMetadata");
-          v1584 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1583, "mGroupData");
-          v1585 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1584, v1570);
-          v1586 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1585, "mGroupID");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1671);
-          v1587 = *v1586;
-          *v1586 = 5;
-          v1671[0] = v1587;
-          v1588 = *(v1586 + 1);
-          *(v1586 + 1) = v1581;
-          v1672 = v1588;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1586);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1671);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1672, v1587);
-          v1589 = v1572[4];
-          v1669[0] = 5;
-          v1670 = v1589;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1669);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1669);
-          v1590 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-          v1591 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1590, "mRendererMetadata");
-          v1592 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1591, "mGroupData");
-          v1593 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1592, v1570);
-          v1594 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1593, "mNumBlocks");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1669);
-          v1595 = *v1594;
-          *v1594 = 5;
-          v1669[0] = v1595;
-          v1596 = *(v1594 + 1);
-          *(v1594 + 1) = v1589;
-          v1670 = v1596;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1594);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1669);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1670, v1595);
-          v1662 = v1572[4];
-          if (v1572[4])
-          {
-            v1597 = 0;
-            v1598 = (v1571 + v1657);
-            do
-            {
-              v1599 = *(v1598 - 4);
-              v1667[0] = 5;
-              v1668 = v1599;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1667);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1667);
-              v1600 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-              v1601 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1600, "mRendererMetadata");
-              v1602 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1601, "mGroupData");
-              v1603 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1602, v1570);
-              v1604 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1603, "mBlockData");
-              v1605 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1604, v1597);
-              v1606 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1605, "mRtime");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1667);
-              v1607 = *v1606;
-              *v1606 = 5;
-              v1667[0] = v1607;
-              v1608 = *(v1606 + 1);
-              *(v1606 + 1) = v1599;
-              v1668 = v1608;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1606);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1667);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1668, v1607);
-              v1609 = *(v1598 - 6);
-              v1665[0] = 4;
-              v1666 = v1609;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1665);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1665);
-              v1610 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-              v1611 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1610, "mRendererMetadata");
-              v1612 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1611, "mGroupData");
-              v1613 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1612, v1570);
-              v1614 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1613, "mBlockData");
-              v1615 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1614, v1597);
-              v1616 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1615, "mHasInterpolationLength");
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1665);
-              v1617 = *v1616;
-              *v1616 = 4;
-              v1665[0] = v1617;
-              v1618 = *(v1616 + 1);
-              *(v1616 + 1) = v1609;
-              v1666 = v1618;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1616);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1665);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1666, v1617);
-              if (*(v1598 - 6) == 1)
-              {
-                v1619 = *(v1598 - 2);
-                v1663[0] = 5;
-                v1664 = v1619;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1663);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1663);
-                v1620 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-                v1621 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1620, "mRendererMetadata");
-                v1622 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1621, "mGroupData");
-                v1623 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1622, v1570);
-                v1624 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1623, "mBlockData");
-                v1625 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1624, v1597);
-                v1626 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1625, "mInterpolationLength");
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1663);
-                v1627 = *v1626;
-                *v1626 = 5;
-                v1663[0] = v1627;
-                v1628 = *(v1626 + 1);
-                *(v1626 + 1) = v1619;
-                v1664 = v1628;
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1626);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1663);
-                nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1664, v1627);
-              }
-
-              v1629 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, "mMetadataFrame");
-              v1630 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1629, "mRendererMetadata");
-              v1631 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1630, "mGroupData");
-              v1632 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1631, v1570);
-              v1633 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1632, "mBlockData");
-              v1634 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1633, v1597);
-              v1635 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1634, "mRendererData");
-              APAC::RendererDataJSON(v1635, v1598, 0);
-              ++v1597;
-              v1598 += 314;
-            }
-
-            while (v1662 != v1597);
-          }
-        }
-
-        ++v1570;
-        v1657 += 40200;
-      }
-
-      while (v1570 != v1653);
-    }
-
-    goto LABEL_202;
-  }
-
-  v1442 = 0;
-  v1443 = "mMetadataFrame";
-  while (1)
-  {
-    v1444 = (v1440 + 48 * v1442);
-    v1445 = *v1444;
-    v1703[0] = 5;
-    v1704 = v1445;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1703);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1703);
-    v1446 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-    v1447 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1446, "mRendererMetadata");
-    v1448 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1447, "mGroupConfig");
-    v1449 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1448, v1442);
-    v1450 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1449, "mGroupID");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1703);
-    v1451 = *v1450;
-    *v1450 = 5;
-    v1703[0] = v1451;
-    v1452 = *(v1450 + 1);
-    *(v1450 + 1) = v1445;
-    v1704 = v1452;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1450);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1703);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1704, v1451);
-    v1453 = *(v1444 + 2);
-    v1701[0] = 4;
-    v1702 = v1453;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1701);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1701);
-    v1454 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-    v1455 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1454, "mRendererMetadata");
-    v1456 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1455, "mGroupConfig");
-    v1457 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1456, v1442);
-    v1458 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1457, "mIsGlobal");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1701);
-    v1459 = *v1458;
-    *v1458 = 4;
-    v1701[0] = v1459;
-    v1460 = *(v1458 + 1);
-    *(v1458 + 1) = v1453;
-    v1702 = v1460;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1458);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1701);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1702, v1459);
-    if ((v1444[1] & 1) == 0)
-    {
-      v1461 = v1444[2];
-      v1699[0] = 5;
-      v1700 = v1461;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1699);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1699);
-      v1462 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-      v1463 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1462, "mRendererMetadata");
-      v1464 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1463, "mGroupConfig");
-      v1465 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1464, v1442);
-      v1466 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1465, "mASCID");
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1699);
-      v1467 = *v1466;
-      *v1466 = 5;
-      v1699[0] = v1467;
-      v1468 = *(v1466 + 1);
-      *(v1466 + 1) = v1461;
-      v1700 = v1468;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1466);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1699);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1700, v1467);
-      v1469 = *(v1444 + 3);
-      v1697[0] = 4;
-      v1698 = v1469;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1697);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1697);
-      v1470 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-      v1471 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1470, "mRendererMetadata");
-      v1472 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1471, "mGroupConfig");
-      v1473 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1472, v1442);
-      v1474 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1473, "mIsPerASC");
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1697);
-      v1475 = *v1474;
-      *v1474 = 4;
-      v1697[0] = v1475;
-      v1476 = *(v1474 + 1);
-      *(v1474 + 1) = v1469;
-      v1698 = v1476;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1474);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1697);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1698, v1475);
-      if (*(v1444 + 3) != 1)
-      {
-        v1495 = v1444[9];
-        v1683[0] = 5;
-        v1684 = v1495;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1683);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1683);
-        v1496 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-        v1497 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1496, "mRendererMetadata");
-        v1498 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1497, "mGroupConfig");
-        v1499 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1498, v1442);
-        v1500 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1499, "mMemberCount");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1683);
-        v1501 = *v1500;
-        *v1500 = 5;
-        v1683[0] = v1501;
-        v1502 = *(v1500 + 1);
-        *(v1500 + 1) = v1495;
-        v1684 = v1502;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1500);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1683);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1684, v1501);
-        v1503 = v1444[9];
-        v1504 = *(v1444 + 20);
-        v1681[0] = 4;
-        v1682 = v1504;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1681);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1681);
-        v1505 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-        v1506 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1505, "mRendererMetadata");
-        v1507 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1506, "mGroupConfig");
-        v1508 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1507, v1442);
-        v1509 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1508, "mHasConjunctMembers");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1681);
-        v1510 = *v1509;
-        *v1509 = 4;
-        v1681[0] = v1510;
-        v1511 = *(v1509 + 1);
-        *(v1509 + 1) = v1504;
-        v1682 = v1511;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1509);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1681);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1682, v1510);
-        if ((v1444[10] & 1) == 0)
-        {
-          v1519 = *(v1444 + 3);
-          v1520 = (*(v1444 + 4) - v1519) >> 1;
-          if (v1520 >= v1503)
-          {
-            LODWORD(v1520) = v1503;
-          }
-
-          if (v1520)
-          {
-            v1521 = 0;
-            do
-            {
-              v1522 = *(v1519 + 2 * v1521);
-              v1677[0] = 5;
-              v1678 = v1522;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1677);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1677);
-              v1523 = v1443;
-              v1524 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-              v1525 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1524, "mRendererMetadata");
-              v1526 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1525, "mGroupConfig");
-              v1527 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1526, v1442);
-              v1528 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1527, "mASCIDList");
-              v1529 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1528, v1521);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1677);
-              v1530 = *v1529;
-              *v1529 = 5;
-              v1677[0] = v1530;
-              v1531 = *(v1529 + 1);
-              *(v1529 + 1) = v1522;
-              v1678 = v1531;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1529);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1677);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1678, v1530);
-              ++v1521;
-              v1519 = *(v1444 + 3);
-              v1532 = (*(v1444 + 4) - v1519) >> 1;
-              if (v1532 >= v1503)
-              {
-                v1532 = v1503;
-              }
-
-              else
-              {
-                v1532 = v1532;
-              }
-
-              v1443 = v1523;
-            }
-
-            while (v1521 < v1532);
-          }
-
-          goto LABEL_189;
-        }
-
-        v1512 = v1444[11];
-        v1679[0] = 5;
-        v1680 = v1512;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1679);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1679);
-        v1513 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-        v1514 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1513, "mRendererMetadata");
-        v1515 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1514, "mGroupConfig");
-        v1516 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1515, v1442);
-        v1517 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1516, "mStartASCID");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1679);
-        v1492 = *v1517;
-        *v1517 = 5;
-        v1679[0] = v1492;
-        v1518 = *(v1517 + 1);
-        *(v1517 + 1) = v1512;
-        v1680 = v1518;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1517);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1679);
-        v1494 = v1679;
-        goto LABEL_188;
-      }
-
-      v1477 = *(v1444 + 6);
-      v1695[0] = 5;
-      v1696 = v1477;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1695);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1695);
-      v1478 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-      v1479 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1478, "mRendererMetadata");
-      v1480 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1479, "mGroupConfig");
-      v1481 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1480, v1442);
-      v1482 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1481, "mASCType");
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1695);
-      v1483 = *v1482;
-      *v1482 = 5;
-      v1695[0] = v1483;
-      v1484 = *(v1482 + 1);
-      *(v1482 + 1) = v1477;
-      v1696 = v1484;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1482);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1695);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1696, v1483);
-      v1485 = *(v1444 + 6);
-      if (!*(v1444 + 6))
-      {
-        v1556 = v1444[8];
-        v1693[0] = 5;
-        v1694 = v1556;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1693);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1693);
-        v1557 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-        v1558 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1557, "mRendererMetadata");
-        v1559 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1558, "mGroupConfig");
-        v1560 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1559, v1442);
-        v1561 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1560, "mChBedID");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1693);
-        v1492 = *v1561;
-        *v1561 = 5;
-        v1693[0] = v1492;
-        v1562 = *(v1561 + 1);
-        *(v1561 + 1) = v1556;
-        v1694 = v1562;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1561);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1693);
-        v1494 = v1693;
-        goto LABEL_188;
-      }
-
-      if (v1485 == 1)
-      {
-        v1533 = v1444[4];
-        v1691[0] = 5;
-        v1692 = v1533;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1691);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1691);
-        v1534 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-        v1535 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1534, "mRendererMetadata");
-        v1536 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1535, "mGroupConfig");
-        v1537 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1536, v1442);
-        v1538 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1537, "mObjectID");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1691);
-        v1539 = *v1538;
-        *v1538 = 5;
-        v1691[0] = v1539;
-        v1540 = *(v1538 + 1);
-        *(v1538 + 1) = v1533;
-        v1692 = v1540;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1538);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1691);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1692, v1539);
-        v1541 = *(v1444 + 10);
-        v1689[0] = 4;
-        v1690 = v1541;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1689);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1689);
-        v1542 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-        v1543 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1542, "mRendererMetadata");
-        v1544 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1543, "mGroupConfig");
-        v1545 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1544, v1442);
-        v1546 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1545, "mIsObjectInBed");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1689);
-        v1547 = *v1546;
-        *v1546 = 4;
-        v1689[0] = v1547;
-        v1548 = *(v1546 + 1);
-        *(v1546 + 1) = v1541;
-        v1690 = v1548;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1546);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1689);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v1690, v1547);
-        if (*(v1444 + 10) == 1)
-        {
-          v1549 = v1444[6];
-          v1687[0] = 5;
-          v1688 = v1549;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1687);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1687);
-          v1550 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-          v1551 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1550, "mRendererMetadata");
-          v1552 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1551, "mGroupConfig");
-          v1553 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1552, v1442);
-          v1554 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1553, "mBedASCID");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1687);
-          v1492 = *v1554;
-          *v1554 = 5;
-          v1687[0] = v1492;
-          v1555 = *(v1554 + 1);
-          *(v1554 + 1) = v1549;
-          v1688 = v1555;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1554);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1687);
-          v1494 = v1687;
-          goto LABEL_188;
-        }
-      }
-
-      else if (v1485 == 2)
-      {
-        v1486 = v1444[7];
-        v1685[0] = 5;
-        v1686 = v1486;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1685);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1685);
-        v1487 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v2082, v1443);
-        v1488 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1487, "mRendererMetadata");
-        v1489 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1488, "mGroupConfig");
-        v1490 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](v1489, v1442);
-        v1491 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v1490, "mHOAID");
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1685);
-        v1492 = *v1491;
-        *v1491 = 5;
-        v1685[0] = v1492;
-        v1493 = *(v1491 + 1);
-        *(v1491 + 1) = v1486;
-        v1686 = v1493;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1491);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v1685);
-        v1494 = v1685;
-LABEL_188:
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v1494 + 1, v1492);
-      }
-    }
-
-LABEL_189:
-    ++v1442;
-    v1440 = *v1656;
-    LODWORD(v1563) = -1431655765 * ((*(v1069 + 338) - *v1656) >> 4);
-    if (v1563 >= v1661)
-    {
-      v1563 = v1661;
-    }
-
-    else
-    {
-      v1563 = v1563;
-    }
-
-    if (v1442 >= v1563)
-    {
-      goto LABEL_193;
-    }
-  }
 }

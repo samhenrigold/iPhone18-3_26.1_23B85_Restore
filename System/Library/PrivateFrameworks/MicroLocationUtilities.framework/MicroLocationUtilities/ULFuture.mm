@@ -377,7 +377,7 @@ uint64_t __33__ULFuture__join_ignoreFailures___block_invoke_4(uint64_t a1)
 
 + (id)sequence:(id)sequence
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sequenceCopy = sequence;
   if ([sequenceCopy count])
   {
@@ -393,64 +393,62 @@ uint64_t __33__ULFuture__join_ignoreFailures___block_invoke_4(uint64_t a1)
     }
 
     firstObject = [sequenceCopy firstObject];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         v12 = 0;
         v13 = firstObject;
         do
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * v12);
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __21__ULFuture_sequence___block_invoke;
-          v21[3] = &unk_2798DA8C0;
-          v22 = array;
-          v23 = v14;
-          firstObject = [v13 then:v21];
+          v14 = *(*(&v23 + 1) + 8 * v12);
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __21__ULFuture_sequence___block_invoke;
+          v20[3] = &unk_2798DA8C0;
+          v21 = array;
+          v22 = v14;
+          firstObject = [v13 then:v20];
 
           ++v12;
           v13 = firstObject;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v10);
     }
 
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __21__ULFuture_sequence___block_invoke_2;
-    v19[3] = &unk_2798DA8E8;
-    v20 = array;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __21__ULFuture_sequence___block_invoke_2;
+    v18[3] = &unk_2798DA8E8;
+    v19 = array;
     v15 = array;
-    v6 = [firstObject then:v19];
+    v6 = [firstObject then:v18];
 
-    sequenceCopy = v18;
+    sequenceCopy = v17;
   }
 
   else
   {
     v6 = [ULFuture futureWithResult:MEMORY[0x277CBEBF8]];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -834,45 +832,41 @@ void __40__ULFuture_onScheduler_addFailureBlock___block_invoke(uint64_t a1, void
 
 - (void)_flushCompletionBlocks
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(NSConditionLock *)self->_stateLock lock];
   v3 = [(NSMutableArray *)self->_completionBlocks copy];
   [(NSMutableArray *)self->_completionBlocks removeAllObjects];
   [(NSConditionLock *)self->_stateLock unlock];
-  v14 = 0u;
-  v15 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        result = self->_result;
-        error = self->_error;
-        (*(*(*(&v12 + 1) + 8 * v8) + 16))(*(*(&v12 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)always:(id)always

@@ -19,9 +19,9 @@ id getPHPersonClass()
   return v1;
 }
 
-void sub_1B5ED294C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED294C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -47,9 +47,9 @@ id getMLDictionaryFeatureProviderClass()
   return v1;
 }
 
-void sub_1B5ED2A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED2A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -75,9 +75,9 @@ id getMLDictionaryFeatureProviderClass_0()
   return v1;
 }
 
-void sub_1B5ED2B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED2B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -103,9 +103,9 @@ id getMLDictionaryFeatureProviderClass_1()
   return v1;
 }
 
-void sub_1B5ED2C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED2C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -119,7 +119,7 @@ id getCNPhoneNumberClass()
   v6 = getCNPhoneNumberClass_softClass;
   if (!getCNPhoneNumberClass_softClass)
   {
-    ContactsLibraryCore_0();
+    ContactsLibraryCore_0(0);
     v4[3] = objc_getClass("CNPhoneNumber");
     getCNPhoneNumberClass_softClass = v4[3];
     v0 = v4[3];
@@ -131,9 +131,9 @@ id getCNPhoneNumberClass()
   return v1;
 }
 
-void sub_1B5ED2D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED2D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -147,7 +147,7 @@ id getCNPhoneNumberClass_0()
   v6 = getCNPhoneNumberClass_softClass_1;
   if (!getCNPhoneNumberClass_softClass_1)
   {
-    ContactsLibraryCore_3();
+    ContactsLibraryCore_3(0);
     v4[3] = objc_getClass("CNPhoneNumber");
     getCNPhoneNumberClass_softClass_1 = v4[3];
     v0 = v4[3];
@@ -159,9 +159,9 @@ id getCNPhoneNumberClass_0()
   return v1;
 }
 
-void sub_1B5ED2E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED2E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -187,9 +187,9 @@ id getATXProactiveSuggestionClientModelClass()
   return v1;
 }
 
-void sub_1B5ED2F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED2F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -215,9 +215,9 @@ id getATXProactiveSuggestionClientModelClass_0()
   return v1;
 }
 
-void sub_1B5ED3070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -243,34 +243,35 @@ id getATXProactiveSuggestionClientModelClass_1()
   return v1;
 }
 
-void sub_1B5ED3174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id getCNContactPhoneNumbersKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactPhoneNumbersKeySymbolLoc_ptr;
-  v8 = getCNContactPhoneNumbersKeySymbolLoc_ptr;
+  v9 = getCNContactPhoneNumbersKeySymbolLoc_ptr;
   if (!getCNContactPhoneNumbersKeySymbolLoc_ptr)
   {
     v1 = ContactsLibrary();
-    v6[3] = dlsym(v1, "CNContactPhoneNumbersKey");
-    getCNContactPhoneNumbersKeySymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactPhoneNumbersKey");
+    getCNContactPhoneNumbersKeySymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -280,25 +281,26 @@ id getCNContactPhoneNumbersKey()
 
 id getCNContactPhoneNumbersKey_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactPhoneNumbersKeySymbolLoc_ptr_3;
-  v8 = getCNContactPhoneNumbersKeySymbolLoc_ptr_3;
+  v9 = getCNContactPhoneNumbersKeySymbolLoc_ptr_3;
   if (!getCNContactPhoneNumbersKeySymbolLoc_ptr_3)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactPhoneNumbersKey");
-    getCNContactPhoneNumbersKeySymbolLoc_ptr_3 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactPhoneNumbersKey");
+    getCNContactPhoneNumbersKeySymbolLoc_ptr_3 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -308,25 +310,26 @@ id getCNContactPhoneNumbersKey_0()
 
 id getCNContactEmailAddressesKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactEmailAddressesKeySymbolLoc_ptr_3;
-  v8 = getCNContactEmailAddressesKeySymbolLoc_ptr_3;
+  v9 = getCNContactEmailAddressesKeySymbolLoc_ptr_3;
   if (!getCNContactEmailAddressesKeySymbolLoc_ptr_3)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactEmailAddressesKey");
-    getCNContactEmailAddressesKeySymbolLoc_ptr_3 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactEmailAddressesKey");
+    getCNContactEmailAddressesKeySymbolLoc_ptr_3 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -343,7 +346,7 @@ id getCNContactClass()
   v6 = getCNContactClass_softClass;
   if (!getCNContactClass_softClass)
   {
-    ContactsLibraryCore_0();
+    ContactsLibraryCore_0(0);
     v4[3] = objc_getClass("CNContact");
     getCNContactClass_softClass = v4[3];
     v0 = v4[3];
@@ -355,9 +358,9 @@ id getCNContactClass()
   return v1;
 }
 
-void sub_1B5ED3588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -386,9 +389,9 @@ id getCNContactClass_0()
   return v1;
 }
 
-void sub_1B5ED3668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -402,7 +405,7 @@ id getCNContactClass_1()
   v6 = getCNContactClass_softClass_1;
   if (!getCNContactClass_softClass_1)
   {
-    ContactsLibraryCore_1();
+    ContactsLibraryCore_1(0);
     v4[3] = objc_getClass("CNContact");
     getCNContactClass_softClass_1 = v4[3];
     v0 = v4[3];
@@ -414,9 +417,9 @@ id getCNContactClass_1()
   return v1;
 }
 
-void sub_1B5ED3770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -430,7 +433,7 @@ id getCNContactClass_2()
   v6 = getCNContactClass_softClass_2;
   if (!getCNContactClass_softClass_2)
   {
-    ContactsLibraryCore_3();
+    ContactsLibraryCore_3(0);
     v4[3] = objc_getClass("CNContact");
     getCNContactClass_softClass_2 = v4[3];
     v0 = v4[3];
@@ -442,9 +445,9 @@ id getCNContactClass_2()
   return v1;
 }
 
-void sub_1B5ED3878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -458,7 +461,7 @@ id getCNContactClass_3()
   v6 = getCNContactClass_softClass_4;
   if (!getCNContactClass_softClass_4)
   {
-    ContactsLibraryCore_8();
+    ContactsLibraryCore_8(0);
     v4[3] = objc_getClass("CNContact");
     getCNContactClass_softClass_4 = v4[3];
     v0 = v4[3];
@@ -470,9 +473,9 @@ id getCNContactClass_3()
   return v1;
 }
 
-void sub_1B5ED3980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -486,7 +489,7 @@ id getCNContactFetchRequestClass()
   v6 = getCNContactFetchRequestClass_softClass_0;
   if (!getCNContactFetchRequestClass_softClass_0)
   {
-    ContactsLibraryCore_2();
+    ContactsLibraryCore_2(0);
     v4[3] = objc_getClass("CNContactFetchRequest");
     getCNContactFetchRequestClass_softClass_0 = v4[3];
     v0 = v4[3];
@@ -498,34 +501,35 @@ id getCNContactFetchRequestClass()
   return v1;
 }
 
-void sub_1B5ED3A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id getCNContactTypeKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactTypeKeySymbolLoc_ptr_1;
-  v8 = getCNContactTypeKeySymbolLoc_ptr_1;
+  v9 = getCNContactTypeKeySymbolLoc_ptr_1;
   if (!getCNContactTypeKeySymbolLoc_ptr_1)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactTypeKey");
-    getCNContactTypeKeySymbolLoc_ptr_1 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactTypeKey");
+    getCNContactTypeKeySymbolLoc_ptr_1 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -542,7 +546,7 @@ id getCNContactStoreClass()
   v6 = getCNContactStoreClass_softClass;
   if (!getCNContactStoreClass_softClass)
   {
-    ContactsLibraryCore();
+    ContactsLibraryCore(0);
     v4[3] = objc_getClass("CNContactStore");
     getCNContactStoreClass_softClass = v4[3];
     v0 = v4[3];
@@ -554,9 +558,9 @@ id getCNContactStoreClass()
   return v1;
 }
 
-void sub_1B5ED3C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -570,7 +574,7 @@ id getCNContactStoreClass_0()
   v6 = getCNContactStoreClass_softClass_5;
   if (!getCNContactStoreClass_softClass_5)
   {
-    ContactsLibraryCore_7();
+    ContactsLibraryCore_7(0);
     v4[3] = objc_getClass("CNContactStore");
     getCNContactStoreClass_softClass_5 = v4[3];
     v0 = v4[3];
@@ -582,34 +586,35 @@ id getCNContactStoreClass_0()
   return v1;
 }
 
-void sub_1B5ED3D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED3D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id getCNContactPreviousFamilyNameKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr_1;
-  v8 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr_1;
+  v9 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr_1;
   if (!getCNContactPreviousFamilyNameKeySymbolLoc_ptr_1)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactPreviousFamilyNameKey");
-    getCNContactPreviousFamilyNameKeySymbolLoc_ptr_1 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactPreviousFamilyNameKey");
+    getCNContactPreviousFamilyNameKeySymbolLoc_ptr_1 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -619,25 +624,26 @@ id getCNContactPreviousFamilyNameKey()
 
 id getCNContactNicknameKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactNicknameKeySymbolLoc_ptr_2;
-  v8 = getCNContactNicknameKeySymbolLoc_ptr_2;
+  v9 = getCNContactNicknameKeySymbolLoc_ptr_2;
   if (!getCNContactNicknameKeySymbolLoc_ptr_2)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactNicknameKey");
-    getCNContactNicknameKeySymbolLoc_ptr_2 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactNicknameKey");
+    getCNContactNicknameKeySymbolLoc_ptr_2 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -647,25 +653,26 @@ id getCNContactNicknameKey()
 
 id getCNContactNameSuffixKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactNameSuffixKeySymbolLoc_ptr_1;
-  v8 = getCNContactNameSuffixKeySymbolLoc_ptr_1;
+  v9 = getCNContactNameSuffixKeySymbolLoc_ptr_1;
   if (!getCNContactNameSuffixKeySymbolLoc_ptr_1)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactNameSuffixKey");
-    getCNContactNameSuffixKeySymbolLoc_ptr_1 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactNameSuffixKey");
+    getCNContactNameSuffixKeySymbolLoc_ptr_1 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -675,25 +682,26 @@ id getCNContactNameSuffixKey()
 
 id getCNContactNamePrefixKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactNamePrefixKeySymbolLoc_ptr_1;
-  v8 = getCNContactNamePrefixKeySymbolLoc_ptr_1;
+  v9 = getCNContactNamePrefixKeySymbolLoc_ptr_1;
   if (!getCNContactNamePrefixKeySymbolLoc_ptr_1)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactNamePrefixKey");
-    getCNContactNamePrefixKeySymbolLoc_ptr_1 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactNamePrefixKey");
+    getCNContactNamePrefixKeySymbolLoc_ptr_1 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -703,25 +711,26 @@ id getCNContactNamePrefixKey()
 
 id getCNContactMiddleNameKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactMiddleNameKeySymbolLoc_ptr_2;
-  v8 = getCNContactMiddleNameKeySymbolLoc_ptr_2;
+  v9 = getCNContactMiddleNameKeySymbolLoc_ptr_2;
   if (!getCNContactMiddleNameKeySymbolLoc_ptr_2)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactMiddleNameKey");
-    getCNContactMiddleNameKeySymbolLoc_ptr_2 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactMiddleNameKey");
+    getCNContactMiddleNameKeySymbolLoc_ptr_2 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -731,25 +740,26 @@ id getCNContactMiddleNameKey()
 
 id getCNContactIdentifierKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactIdentifierKeySymbolLoc_ptr;
-  v8 = getCNContactIdentifierKeySymbolLoc_ptr;
+  v9 = getCNContactIdentifierKeySymbolLoc_ptr;
   if (!getCNContactIdentifierKeySymbolLoc_ptr)
   {
     v1 = ContactsLibrary();
-    v6[3] = dlsym(v1, "CNContactIdentifierKey");
-    getCNContactIdentifierKeySymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactIdentifierKey");
+    getCNContactIdentifierKeySymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -759,28 +769,29 @@ id getCNContactIdentifierKey()
 
 id getCNContactIdentifierKey_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactIdentifierKeySymbolLoc_ptr_0;
-  v8 = getCNContactIdentifierKeySymbolLoc_ptr_0;
+  v9 = getCNContactIdentifierKeySymbolLoc_ptr_0;
   if (!getCNContactIdentifierKeySymbolLoc_ptr_0)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __getCNContactIdentifierKeySymbolLoc_block_invoke_0;
-    v4[3] = &unk_1E7C23BF0;
-    v4[4] = &v5;
-    __getCNContactIdentifierKeySymbolLoc_block_invoke_0(v4);
-    v0 = v6[3];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __getCNContactIdentifierKeySymbolLoc_block_invoke_0;
+    v5[3] = &unk_1E7C23BF0;
+    v5[4] = &v6;
+    __getCNContactIdentifierKeySymbolLoc_block_invoke_0(v5);
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v3 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v3);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v4 = v3;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v4);
   }
 
   v1 = *v0;
@@ -790,25 +801,26 @@ id getCNContactIdentifierKey_0()
 
 id getCNContactIdentifierKey_1()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactIdentifierKeySymbolLoc_ptr_2;
-  v8 = getCNContactIdentifierKeySymbolLoc_ptr_2;
+  v9 = getCNContactIdentifierKeySymbolLoc_ptr_2;
   if (!getCNContactIdentifierKeySymbolLoc_ptr_2)
   {
     v1 = ContactsLibrary_1();
-    v6[3] = dlsym(v1, "CNContactIdentifierKey");
-    getCNContactIdentifierKeySymbolLoc_ptr_2 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactIdentifierKey");
+    getCNContactIdentifierKeySymbolLoc_ptr_2 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -818,25 +830,26 @@ id getCNContactIdentifierKey_1()
 
 id getCNContactIdentifierKey_2()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactIdentifierKeySymbolLoc_ptr_5;
-  v8 = getCNContactIdentifierKeySymbolLoc_ptr_5;
+  v9 = getCNContactIdentifierKeySymbolLoc_ptr_5;
   if (!getCNContactIdentifierKeySymbolLoc_ptr_5)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactIdentifierKey");
-    getCNContactIdentifierKeySymbolLoc_ptr_5 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactIdentifierKey");
+    getCNContactIdentifierKeySymbolLoc_ptr_5 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -846,25 +859,26 @@ id getCNContactIdentifierKey_2()
 
 id getCNContactIdentifierKey_3()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactIdentifierKeySymbolLoc_ptr_6;
-  v8 = getCNContactIdentifierKeySymbolLoc_ptr_6;
+  v9 = getCNContactIdentifierKeySymbolLoc_ptr_6;
   if (!getCNContactIdentifierKeySymbolLoc_ptr_6)
   {
     v1 = ContactsLibrary_6();
-    v6[3] = dlsym(v1, "CNContactIdentifierKey");
-    getCNContactIdentifierKeySymbolLoc_ptr_6 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactIdentifierKey");
+    getCNContactIdentifierKeySymbolLoc_ptr_6 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -874,25 +888,26 @@ id getCNContactIdentifierKey_3()
 
 id getCNContactIdentifierKey_4()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactIdentifierKeySymbolLoc_ptr_7;
-  v8 = getCNContactIdentifierKeySymbolLoc_ptr_7;
+  v9 = getCNContactIdentifierKeySymbolLoc_ptr_7;
   if (!getCNContactIdentifierKeySymbolLoc_ptr_7)
   {
     v1 = ContactsLibrary_7();
-    v6[3] = dlsym(v1, "CNContactIdentifierKey");
-    getCNContactIdentifierKeySymbolLoc_ptr_7 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactIdentifierKey");
+    getCNContactIdentifierKeySymbolLoc_ptr_7 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -902,25 +917,26 @@ id getCNContactIdentifierKey_4()
 
 id getCNContactGivenNameKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactGivenNameKeySymbolLoc_ptr;
-  v8 = getCNContactGivenNameKeySymbolLoc_ptr;
+  v9 = getCNContactGivenNameKeySymbolLoc_ptr;
   if (!getCNContactGivenNameKeySymbolLoc_ptr)
   {
     v1 = ContactsLibrary();
-    v6[3] = dlsym(v1, "CNContactGivenNameKey");
-    getCNContactGivenNameKeySymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactGivenNameKey");
+    getCNContactGivenNameKeySymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -930,25 +946,26 @@ id getCNContactGivenNameKey()
 
 id getCNContactGivenNameKey_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactGivenNameKeySymbolLoc_ptr_2;
-  v8 = getCNContactGivenNameKeySymbolLoc_ptr_2;
+  v9 = getCNContactGivenNameKeySymbolLoc_ptr_2;
   if (!getCNContactGivenNameKeySymbolLoc_ptr_2)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactGivenNameKey");
-    getCNContactGivenNameKeySymbolLoc_ptr_2 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactGivenNameKey");
+    getCNContactGivenNameKeySymbolLoc_ptr_2 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -965,7 +982,7 @@ id getCNContactFormatterClass()
   v6 = getCNContactFormatterClass_softClass_3;
   if (!getCNContactFormatterClass_softClass_3)
   {
-    ContactsLibraryCore_5();
+    ContactsLibraryCore_5(0);
     v4[3] = objc_getClass("CNContactFormatter");
     getCNContactFormatterClass_softClass_3 = v4[3];
     v0 = v4[3];
@@ -977,34 +994,35 @@ id getCNContactFormatterClass()
   return v1;
 }
 
-void sub_1B5ED4BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED4BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id getCNContactFamilyNameKey()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactFamilyNameKeySymbolLoc_ptr;
-  v8 = getCNContactFamilyNameKeySymbolLoc_ptr;
+  v9 = getCNContactFamilyNameKeySymbolLoc_ptr;
   if (!getCNContactFamilyNameKeySymbolLoc_ptr)
   {
     v1 = ContactsLibrary();
-    v6[3] = dlsym(v1, "CNContactFamilyNameKey");
-    getCNContactFamilyNameKeySymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactFamilyNameKey");
+    getCNContactFamilyNameKeySymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -1014,25 +1032,26 @@ id getCNContactFamilyNameKey()
 
 id getCNContactFamilyNameKey_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getCNContactFamilyNameKeySymbolLoc_ptr_2;
-  v8 = getCNContactFamilyNameKeySymbolLoc_ptr_2;
+  v9 = getCNContactFamilyNameKeySymbolLoc_ptr_2;
   if (!getCNContactFamilyNameKeySymbolLoc_ptr_2)
   {
     v1 = ContactsLibrary_4();
-    v6[3] = dlsym(v1, "CNContactFamilyNameKey");
-    getCNContactFamilyNameKeySymbolLoc_ptr_2 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "CNContactFamilyNameKey");
+    getCNContactFamilyNameKeySymbolLoc_ptr_2 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -1042,30 +1061,30 @@ id getCNContactFamilyNameKey_0()
 
 id _PSShareSheetSuggestionBundleIDs(char a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = _PSShareSheetSuggestionBundleIDMapping(a1);
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
-        [v2 addObject:{v8, v15}];
+        v8 = *(*(&v14 + 1) + 8 * i);
+        [v2 addObject:{v8, v14}];
         v9 = [v3 objectForKeyedSubscript:v8];
         if ([v9 count])
         {
@@ -1073,7 +1092,7 @@ id _PSShareSheetSuggestionBundleIDs(char a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -1086,7 +1105,6 @@ id _PSShareSheetSuggestionBundleIDs(char a1)
   [v2 addObject:v11];
 
   v12 = [v2 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1117,69 +1135,69 @@ id _PSShareSheetSuggestionBundleIDMapping(char a1)
   return v2;
 }
 
-void sub_1B5ED5760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED5760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id _uncachedPSShareSheetSuggestionBundleIDMapping(char a1)
 {
-  v42[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   v2 = +[_PSConstants mobileMessagesBundleId];
-  v41[0] = v2;
+  v40[0] = v2;
   v3 = +[_PSConstants shareSheetTargetBundleIdMessages];
-  v40 = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
-  v42[0] = v4;
+  v39 = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+  v41[0] = v4;
   v5 = +[_PSConstants mobileMailBundleId];
-  v41[1] = v5;
+  v40[1] = v5;
   v6 = +[_PSConstants shareSheetTargetBundleIdMail];
-  v39 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
-  v42[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
+  v38 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+  v41[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
   v9 = [v8 mutableCopy];
 
   v10 = [objc_alloc(MEMORY[0x1E6963668]) initWithIdentifier:@"com.apple.share-services" platform:dyld_get_active_platform() error:0];
   if (v10)
   {
-    v31 = v10;
+    v30 = v10;
     v11 = [MEMORY[0x1E69635D0] enumeratorWithExtensionPointRecord:v10 options:0];
     if ((a1 & 1) == 0)
     {
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = ___uncachedPSShareSheetSuggestionBundleIDMapping_block_invoke;
-      v36[3] = &unk_1E7C26020;
-      v37 = v13;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = ___uncachedPSShareSheetSuggestionBundleIDMapping_block_invoke;
+      v35[3] = &unk_1E7C26020;
+      v36 = v13;
       v14 = v13;
-      [v11 setFilter:v36];
+      [v11 setFilter:v35];
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v15 = v11;
-    v16 = [v15 countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v33;
+      v18 = *v32;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v33 != v18)
+          if (*v32 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v32 + 1) + 8 * i);
+          v20 = *(*(&v31 + 1) + 8 * i);
           v21 = objc_autoreleasePoolPush();
           v22 = [v20 containingBundleRecord];
           v23 = [v22 bundleIdentifier];
@@ -1204,18 +1222,16 @@ id _uncachedPSShareSheetSuggestionBundleIDMapping(char a1)
           objc_autoreleasePoolPop(v21);
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v17);
     }
 
-    v10 = v31;
+    v10 = v30;
   }
 
   v28 = [v9 copy];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -1270,23 +1286,23 @@ uint64_t ___uncachedPSShareSheetSuggestionBundleIDMapping_block_invoke(uint64_t 
 
 void *__getTUBundleIdentifierCallServicesDaemonSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary_0)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __TelephonyUtilitiesLibraryCore_block_invoke_0;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7C24F18;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __TelephonyUtilitiesLibraryCore_block_invoke_0;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7C24F18;
+    v7 = 0;
     TelephonyUtilitiesLibraryCore_frameworkLibrary_0 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = TelephonyUtilitiesLibraryCore_frameworkLibrary_0;
     if (TelephonyUtilitiesLibraryCore_frameworkLibrary_0)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -1294,7 +1310,7 @@ void *__getTUBundleIdentifierCallServicesDaemonSymbolLoc_block_invoke(uint64_t a
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1306,151 +1322,117 @@ LABEL_5:
   result = dlsym(v2, "TUBundleIdentifierCallServicesDaemon");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTUBundleIdentifierCallServicesDaemonSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t ContactsLibraryCore()
+uint64_t ContactsLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary)
   {
     ContactsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary;
 }
 
-uint64_t ContactsLibraryCore_0()
+uint64_t ContactsLibraryCore_0(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_0)
   {
     ContactsLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_0;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_0;
 }
 
-uint64_t ContactsLibraryCore_1()
+uint64_t ContactsLibraryCore_1(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_2)
   {
     ContactsLibraryCore_frameworkLibrary_2 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_2;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_2;
 }
 
-uint64_t ContactsLibraryCore_2()
+uint64_t ContactsLibraryCore_2(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_4)
   {
     ContactsLibraryCore_frameworkLibrary_4 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_4;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_4;
 }
 
-uint64_t ContactsLibraryCore_3()
+uint64_t ContactsLibraryCore_3(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_5)
   {
     ContactsLibraryCore_frameworkLibrary_5 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_5;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_5;
 }
 
-uint64_t ContactsLibraryCore_4()
+uint64_t ContactsLibraryCore_4(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_6)
   {
     ContactsLibraryCore_frameworkLibrary_6 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_6;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_6;
 }
 
-uint64_t ContactsLibraryCore_5()
+uint64_t ContactsLibraryCore_5(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_9)
   {
     ContactsLibraryCore_frameworkLibrary_9 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_9;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_9;
 }
 
-uint64_t ContactsLibraryCore_6()
+uint64_t ContactsLibraryCore_6(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_11)
   {
     ContactsLibraryCore_frameworkLibrary_11 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_11;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_11;
 }
 
-uint64_t ContactsLibraryCore_7()
+uint64_t ContactsLibraryCore_7(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_12)
   {
     ContactsLibraryCore_frameworkLibrary_12 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_12;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_12;
 }
 
-uint64_t ContactsLibraryCore_8()
+uint64_t ContactsLibraryCore_8(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_13)
   {
     ContactsLibraryCore_frameworkLibrary_13 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_13;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_13;
 }
 
-uint64_t ContactsLibraryCore_9()
+uint64_t ContactsLibraryCore_9(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_16)
   {
     ContactsLibraryCore_frameworkLibrary_16 = _sl_dlopen();
   }
 
-  result = ContactsLibraryCore_frameworkLibrary_16;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ContactsLibraryCore_frameworkLibrary_16;
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -1631,9 +1613,9 @@ id getATXSuggestionRequestResponseClass()
   return v1;
 }
 
-void sub_1B5ED78C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED78C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1659,165 +1641,165 @@ id getATXSuggestionRequestResponseClass_0()
   return v1;
 }
 
-void sub_1B5ED79C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED79C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5ED8434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED8434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5ED858C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED858C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5ED98C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED98C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5ED9FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5ED9FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id _PSMapsContactKeysToFetch()
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v25 = [getCNContactFormatterClass() descriptorForRequiredKeysForStyle:0];
-  v32 = getCNContactIdentifierKey_2();
-  v37[0] = v32;
-  v31 = getCNContactNamePrefixKey();
-  v37[1] = v31;
-  v30 = getCNContactGivenNameKey_0();
-  v37[2] = v30;
-  v29 = getCNContactMiddleNameKey();
-  v37[3] = v29;
-  v28 = getCNContactFamilyNameKey_0();
-  v37[4] = v28;
-  v27 = getCNContactPreviousFamilyNameKey();
-  v37[5] = v27;
-  v26 = getCNContactNameSuffixKey();
-  v37[6] = v26;
+  v38 = *MEMORY[0x1E69E9840];
+  v24 = [getCNContactFormatterClass() descriptorForRequiredKeysForStyle:0];
+  v31 = getCNContactIdentifierKey_2();
+  v36[0] = v31;
+  v30 = getCNContactNamePrefixKey();
+  v36[1] = v30;
+  v29 = getCNContactGivenNameKey_0();
+  v36[2] = v29;
+  v28 = getCNContactMiddleNameKey();
+  v36[3] = v28;
+  v27 = getCNContactFamilyNameKey_0();
+  v36[4] = v27;
+  v26 = getCNContactPreviousFamilyNameKey();
+  v36[5] = v26;
+  v25 = getCNContactNameSuffixKey();
+  v36[6] = v25;
   v0 = getCNContactNicknameKey();
-  v37[7] = v0;
+  v36[7] = v0;
   v1 = getCNContactTypeKey();
-  v37[8] = v1;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
+  v36[8] = v1;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v2 = getCNContactImageDataKeySymbolLoc_ptr;
-  v36 = getCNContactImageDataKeySymbolLoc_ptr;
+  v35 = getCNContactImageDataKeySymbolLoc_ptr;
   if (!getCNContactImageDataKeySymbolLoc_ptr)
   {
     v3 = ContactsLibrary_4();
-    v34[3] = dlsym(v3, "CNContactImageDataKey");
-    getCNContactImageDataKeySymbolLoc_ptr = v34[3];
-    v2 = v34[3];
+    v33[3] = dlsym(v3, "CNContactImageDataKey");
+    getCNContactImageDataKeySymbolLoc_ptr = v33[3];
+    v2 = v33[3];
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v2)
   {
     goto LABEL_21;
   }
 
   v4 = *v2;
-  v37[9] = v4;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
+  v36[9] = v4;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v5 = getCNContactImageDataAvailableKeySymbolLoc_ptr;
-  v36 = getCNContactImageDataAvailableKeySymbolLoc_ptr;
+  v35 = getCNContactImageDataAvailableKeySymbolLoc_ptr;
   if (!getCNContactImageDataAvailableKeySymbolLoc_ptr)
   {
     v6 = ContactsLibrary_4();
-    v34[3] = dlsym(v6, "CNContactImageDataAvailableKey");
-    getCNContactImageDataAvailableKeySymbolLoc_ptr = v34[3];
-    v5 = v34[3];
+    v33[3] = dlsym(v6, "CNContactImageDataAvailableKey");
+    getCNContactImageDataAvailableKeySymbolLoc_ptr = v33[3];
+    v5 = v33[3];
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v5)
   {
     goto LABEL_21;
   }
 
   v7 = *v5;
-  v37[10] = v7;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
+  v36[10] = v7;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v8 = getCNContactThumbnailImageDataKeySymbolLoc_ptr;
-  v36 = getCNContactThumbnailImageDataKeySymbolLoc_ptr;
+  v35 = getCNContactThumbnailImageDataKeySymbolLoc_ptr;
   if (!getCNContactThumbnailImageDataKeySymbolLoc_ptr)
   {
     v9 = ContactsLibrary_4();
-    v34[3] = dlsym(v9, "CNContactThumbnailImageDataKey");
-    getCNContactThumbnailImageDataKeySymbolLoc_ptr = v34[3];
-    v8 = v34[3];
+    v33[3] = dlsym(v9, "CNContactThumbnailImageDataKey");
+    getCNContactThumbnailImageDataKeySymbolLoc_ptr = v33[3];
+    v8 = v33[3];
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v8)
   {
     goto LABEL_21;
   }
 
   v10 = *v8;
-  v37[11] = v10;
+  v36[11] = v10;
   v11 = getCNContactPhoneNumbersKey_0();
-  v37[12] = v11;
+  v36[12] = v11;
   v12 = getCNContactEmailAddressesKey();
-  v37[13] = v12;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
+  v36[13] = v12;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v13 = getCNContactPostalAddressesKeySymbolLoc_ptr;
-  v36 = getCNContactPostalAddressesKeySymbolLoc_ptr;
+  v35 = getCNContactPostalAddressesKeySymbolLoc_ptr;
   if (!getCNContactPostalAddressesKeySymbolLoc_ptr)
   {
     v14 = ContactsLibrary_4();
-    v34[3] = dlsym(v14, "CNContactPostalAddressesKey");
-    getCNContactPostalAddressesKeySymbolLoc_ptr = v34[3];
-    v13 = v34[3];
+    v33[3] = dlsym(v14, "CNContactPostalAddressesKey");
+    getCNContactPostalAddressesKeySymbolLoc_ptr = v33[3];
+    v13 = v33[3];
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v13)
   {
     goto LABEL_21;
   }
 
   v15 = *v13;
-  v37[14] = v15;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
+  v36[14] = v15;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v16 = getCNContactInstantMessageAddressesKeySymbolLoc_ptr;
-  v36 = getCNContactInstantMessageAddressesKeySymbolLoc_ptr;
+  v35 = getCNContactInstantMessageAddressesKeySymbolLoc_ptr;
   if (!getCNContactInstantMessageAddressesKeySymbolLoc_ptr)
   {
     v17 = ContactsLibrary_4();
-    v34[3] = dlsym(v17, "CNContactInstantMessageAddressesKey");
-    getCNContactInstantMessageAddressesKeySymbolLoc_ptr = v34[3];
-    v16 = v34[3];
+    v33[3] = dlsym(v17, "CNContactInstantMessageAddressesKey");
+    getCNContactInstantMessageAddressesKeySymbolLoc_ptr = v33[3];
+    v16 = v33[3];
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v16)
   {
 LABEL_21:
@@ -1825,35 +1807,33 @@ LABEL_21:
     __break(1u);
   }
 
-  v38 = *v16;
+  v37 = *v16;
   v18 = MEMORY[0x1E695DEC8];
-  v19 = v38;
-  v20 = [v18 arrayWithObjects:v37 count:16];
+  v19 = v37;
+  v20 = [v18 arrayWithObjects:v36 count:16];
 
-  v21 = v25;
-  if (v25)
+  v21 = v24;
+  if (v24)
   {
     v22 = [v20 arrayByAddingObject:?];
 
     v20 = v22;
-    v21 = v25;
+    v21 = v24;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
-void sub_1B5EDA5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B5EDA5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5EDB4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EDB4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1879,9 +1859,9 @@ id getMLMultiArrayClass()
   return v1;
 }
 
-void sub_1B5EDE170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EDE170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1907,24 +1887,25 @@ id getMLFeatureValueClass()
   return v1;
 }
 
-void sub_1B5EDE274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EDE274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5EDE428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EDE428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5EDE8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1B5EDE8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1939,22 +1920,16 @@ Class __getMLModelClass_block_invoke(uint64_t a1)
 
 void CoreMLLibraryCore()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!CoreMLLibraryCore_frameworkLibrary)
   {
     CoreMLLibraryCore_frameworkLibrary = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __CoreMLLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2028,10 +2003,11 @@ _BYTE *OUTLINED_FUNCTION_2(_BYTE *result, _BYTE *a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t PeopleSuggesterFeatureDoubleReadFrom(uint64_t a1, void *a2)
@@ -2221,10 +2197,11 @@ LABEL_50:
   return [a2 hasError] ^ 1;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 _BYTE *PSStaticFeatureFromString(const void *a1)
@@ -2279,23 +2256,24 @@ __CFString *PSDynamicFeatureOperatorAsString(unint64_t a1)
   return v2;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_1B5EEA884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EEA884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getTUPrivacyRulesChangedNotificationSymbolLoc_block_invoke(uint64_t a1)
+void *__getTUPrivacyRulesChangedNotificationSymbolLoc_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = TelephonyUtilitiesLibrary();
-  result = dlsym(v2, "TUPrivacyRulesChangedNotification");
+  v5 = TelephonyUtilitiesLibrary();
+  result = dlsym(v5, "TUPrivacyRulesChangedNotification");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTUPrivacyRulesChangedNotificationSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -2303,45 +2281,41 @@ void *__getTUPrivacyRulesChangedNotificationSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t TelephonyUtilitiesLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __TelephonyUtilitiesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7C242F0;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __TelephonyUtilitiesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7C242F0;
+    v5 = 0;
     TelephonyUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = TelephonyUtilitiesLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __TelephonyUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TelephonyUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2357,16 +2331,23 @@ _PSContactSuggester *__getTUPrivacyManagerClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getTUPrivacyManagerClass_block_invoke_cold_1();
+    __getTUPrivacyManagerClass_block_invoke_cold_1();
     return [(_PSContactSuggester *)v3 init];
   }
 
   return result;
 }
 
-void sub_1B5EEBBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EEB77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  va_start(va, a7);
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5EEBBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2395,23 +2376,23 @@ id getBMGameCenterSuggestionFeedbackClass()
   return v1;
 }
 
-void sub_1B5EEE9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EEE9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5EF0DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EF0DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5EF21C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1B5EF21C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2437,9 +2418,9 @@ id getSEMCascadeEntityInfoClass()
   return v1;
 }
 
-void sub_1B5EF264C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EF264C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2465,34 +2446,35 @@ id getSEMCascadeEntityFieldInfoClass()
   return v1;
 }
 
-void sub_1B5EF2750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EF2750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5EF2D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1B5EF2D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  if (v28)
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  if (v27)
   {
-    (*(v28 + 16))(v28);
+    (*(v27 + 16))(v27);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_1B5EF3A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B5EF3A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNContactStoreClass_block_invoke(uint64_t a1)
 {
-  ContactsLibraryCore();
+  ContactsLibraryCore(0);
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2501,33 +2483,30 @@ Class __getCNContactStoreClass_block_invoke(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *__getIMSPIQueryMessagesWithIDsWithOnlyUnreadAndQOSSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!IMCoreLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __IMCoreLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7C24710;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __IMCoreLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7C24710;
+    v7 = 0;
     IMCoreLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = IMCoreLibraryCore_frameworkLibrary;
     if (IMCoreLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -2535,7 +2514,7 @@ void *__getIMSPIQueryMessagesWithIDsWithOnlyUnreadAndQOSSymbolLoc_block_invoke(u
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -2547,24 +2526,20 @@ LABEL_5:
   result = dlsym(v2, "IMSPIQueryMessagesWithIDsWithOnlyUnreadAndQOS");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getIMSPIQueryMessagesWithIDsWithOnlyUnreadAndQOSSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IMCoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IMCoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *__getCNContactIdentifierKeySymbolLoc_block_invoke(uint64_t a1)
+void *__getCNContactIdentifierKeySymbolLoc_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = ContactsLibrary();
-  result = dlsym(v2, "CNContactIdentifierKey");
+  v5 = ContactsLibrary();
+  result = dlsym(v5, "CNContactIdentifierKey");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactIdentifierKeySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -2572,11 +2547,19 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t ContactsLibrary()
 {
-  v0 = ContactsLibraryCore();
+  v3 = 0;
+  v0 = ContactsLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -2611,7 +2594,6 @@ void *__getCNContactPhoneNumbersKeySymbolLoc_block_invoke(uint64_t a1)
 
 Class __getINImageClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!IntentsLibraryCore_frameworkLibrary)
   {
     IntentsLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -2620,38 +2602,34 @@ Class __getINImageClass_block_invoke(uint64_t a1)
   result = objc_getClass("INImage");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getINImageClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IntentsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IntentsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getBMGameCenterSuggestionFeedbackClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!BiomeStreamsLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __BiomeStreamsLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7C24740;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __BiomeStreamsLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7C24740;
+    v6 = 0;
     BiomeStreamsLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (BiomeStreamsLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -2659,7 +2637,7 @@ Class __getBMGameCenterSuggestionFeedbackClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2674,17 +2652,13 @@ LABEL_4:
   }
 
   getBMGameCenterSuggestionFeedbackClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2699,22 +2673,16 @@ Class __getSEMTokenizerClass_block_invoke(uint64_t a1)
 
 void SiriEntityMatcherLibraryCore()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!SiriEntityMatcherLibraryCore_frameworkLibrary)
   {
     SiriEntityMatcherLibraryCore_frameworkLibrary = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __SiriEntityMatcherLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SiriEntityMatcherLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2790,9 +2758,9 @@ void *__getCNContactEmailAddressesKeySymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1B5EF4C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5EF4C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2817,9 +2785,9 @@ void LogCompletionForCache(void *a1)
   }
 }
 
-void sub_1B5EFBB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B5EFBB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2848,44 +2816,57 @@ id getINImageClass()
   return v1;
 }
 
-void sub_1B5F00318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F00318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F04C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F04C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F0540C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F050B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
-  va_start(va, a7);
+  va_start(va, a42);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F084E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B5F0540C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a17);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F090B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B5F084E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a15);
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F090B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F09FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
+{
+  va_start(va, a58);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getTRIClientClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!TrialLibraryCore_frameworkLibrary)
   {
     TrialLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -2894,23 +2875,19 @@ Class __getTRIClientClass_block_invoke(uint64_t a1)
   result = objc_getClass("TRIClient");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTRIClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __TrialLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TrialLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactStoreClass_block_invoke_0(uint64_t a1)
 {
-  ContactsLibraryCore_0();
+  ContactsLibraryCore_0(0);
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -2919,21 +2896,26 @@ Class __getCNContactStoreClass_block_invoke_0(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *__getCNContactIdentifierKeySymbolLoc_block_invoke_0(uint64_t a1)
 {
-  v2 = ContactsLibraryCore_0();
+  v5 = 0;
+  v2 = ContactsLibraryCore_0(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "CNContactIdentifierKey");
@@ -2944,7 +2926,6 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke_0(uint64_t a1)
 
 Class __getINImageClass_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!IntentsLibraryCore_frameworkLibrary_0)
   {
     IntentsLibraryCore_frameworkLibrary_0 = _sl_dlopen();
@@ -2953,23 +2934,19 @@ Class __getINImageClass_block_invoke_0(uint64_t a1)
   result = objc_getClass("INImage");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getINImageClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IntentsLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IntentsLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactClass_block_invoke(uint64_t a1)
 {
-  ContactsLibraryCore_0();
+  ContactsLibraryCore_0(0);
   result = objc_getClass("CNContact");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2978,14 +2955,14 @@ Class __getCNContactClass_block_invoke(uint64_t a1)
 
 Class __getCNPhoneNumberClass_block_invoke(uint64_t a1)
 {
-  ContactsLibraryCore_0();
+  ContactsLibraryCore_0(0);
   result = objc_getClass("CNPhoneNumber");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNPhoneNumberClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-Class __getAMLFeaturesSpecificationClass_block_invoke(uint64_t a1)
+Class __getAMLFeaturesSpecificationClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   AeroMLLibraryCore();
   result = objc_getClass("AMLFeaturesSpecification");
@@ -2996,22 +2973,16 @@ Class __getAMLFeaturesSpecificationClass_block_invoke(uint64_t a1)
 
 void AeroMLLibraryCore()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!AeroMLLibraryCore_frameworkLibrary)
   {
     AeroMLLibraryCore_frameworkLibrary = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __AeroMLLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AeroMLLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3035,7 +3006,7 @@ Class __getAMLPipelineLoggerClass_block_invoke(uint64_t a1)
 
 Class __getCNContactFormatterClass_block_invoke(uint64_t a1)
 {
-  ContactsLibraryCore_0();
+  ContactsLibraryCore_0(0);
   result = objc_getClass("CNContactFormatter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFormatterClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -3053,23 +3024,23 @@ Class __getAMLFeaturesDonationMetadataClass_block_invoke(uint64_t a1)
 
 void *__getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!IMCoreLibraryCore_frameworkLibrary_0)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __IMCoreLibraryCore_block_invoke_0;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7C24E08;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __IMCoreLibraryCore_block_invoke_0;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7C24E08;
+    v7 = 0;
     IMCoreLibraryCore_frameworkLibrary_0 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = IMCoreLibraryCore_frameworkLibrary_0;
     if (IMCoreLibraryCore_frameworkLibrary_0)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -3077,7 +3048,7 @@ void *__getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_block_invo
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -3089,17 +3060,13 @@ LABEL_5:
   result = dlsym(v2, "IMSPIGetDisplayNameAndParticipantsForChatWithGUID");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IMCoreLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IMCoreLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3110,23 +3077,22 @@ void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_1B5F0B608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F0B608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F0B7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F0B7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getTRIClientClass_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!TrialLibraryCore_frameworkLibrary_0)
   {
     TrialLibraryCore_frameworkLibrary_0 = _sl_dlopen();
@@ -3135,17 +3101,13 @@ Class __getTRIClientClass_block_invoke_0(uint64_t a1)
   result = objc_getClass("TRIClient");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTRIClientClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __TrialLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TrialLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3160,22 +3122,16 @@ Class __getMLModelConfigurationClass_block_invoke(uint64_t a1)
 
 void CoreMLLibraryCore_0()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!CoreMLLibraryCore_frameworkLibrary_0)
   {
     CoreMLLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __CoreMLLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3197,7 +3153,6 @@ void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, os_log_t log, const char *a4, 
 
 Class __getCNContactClass_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_1)
   {
     ContactsLibraryCore_frameworkLibrary_1 = _sl_dlopen();
@@ -3206,27 +3161,20 @@ Class __getCNContactClass_block_invoke_0(uint64_t a1)
   result = objc_getClass("CNContact");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ContactsLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __TelephonyUtilitiesLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TelephonyUtilitiesLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3935,44 +3883,58 @@ LABEL_123:
   }
 }
 
-void sub_1B5F177DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F177DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F17A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F17A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F18580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B5F18580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F18BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F18BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F18F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F18F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F19EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F1D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNContactStoreClass_block_invoke_1(uint64_t a1)
 {
-  ContactsLibraryCore_1();
+  ContactsLibraryCore_1(0);
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
@@ -3981,11 +3943,8 @@ Class __getCNContactStoreClass_block_invoke_1(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4000,22 +3959,16 @@ Class __getHKMedicalIDStoreClass_block_invoke(uint64_t a1)
 
 void HealthKitLibraryCore()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!HealthKitLibraryCore_frameworkLibrary)
   {
     HealthKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __HealthKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4030,17 +3983,17 @@ Class __getHKHealthStoreClass_block_invoke(uint64_t a1)
 
 Class __getCNContactFormatterClass_block_invoke_0(uint64_t a1)
 {
-  ContactsLibraryCore_1();
+  ContactsLibraryCore_1(0);
   result = objc_getClass("CNContactFormatter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFormatterClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-void *__getCNContactIdentifierKeySymbolLoc_block_invoke_1(uint64_t a1)
+void *__getCNContactIdentifierKeySymbolLoc_block_invoke_1(uint64_t a1, uint64_t a2)
 {
-  v2 = ContactsLibrary_0();
-  result = dlsym(v2, "CNContactIdentifierKey");
+  v3 = ContactsLibrary_0();
+  result = dlsym(v3, "CNContactIdentifierKey");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactIdentifierKeySymbolLoc_ptr_1 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -4048,11 +4001,19 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke_1(uint64_t a1)
 
 uint64_t ContactsLibrary_0()
 {
-  v0 = ContactsLibraryCore_1();
+  v3 = 0;
+  v0 = ContactsLibraryCore_1(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -4222,7 +4183,7 @@ void *__getCNLabelContactRelationFemaleFriendSymbolLoc_block_invoke(uint64_t a1)
 
 Class __getCNContactFetchRequestClass_block_invoke(uint64_t a1)
 {
-  ContactsLibraryCore_1();
+  ContactsLibraryCore_1(0);
   result = objc_getClass("CNContactFetchRequest");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFetchRequestClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -4231,7 +4192,6 @@ Class __getCNContactFetchRequestClass_block_invoke(uint64_t a1)
 
 Class __getFAFetchFamilyCircleRequestClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!FamilyCircleLibraryCore_frameworkLibrary)
   {
     FamilyCircleLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -4240,23 +4200,19 @@ Class __getFAFetchFamilyCircleRequestClass_block_invoke(uint64_t a1)
   result = objc_getClass("FAFetchFamilyCircleRequest");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getFAFetchFamilyCircleRequestClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __FamilyCircleLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FamilyCircleLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactClass_block_invoke_1(uint64_t a1)
 {
-  ContactsLibraryCore_1();
+  ContactsLibraryCore_1(0);
   result = objc_getClass("CNContact");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
@@ -4265,7 +4221,7 @@ Class __getCNContactClass_block_invoke_1(uint64_t a1)
 
 Class __getCNPhoneNumberClass_block_invoke_0(uint64_t a1)
 {
-  ContactsLibraryCore_1();
+  ContactsLibraryCore_1(0);
   result = objc_getClass("CNPhoneNumber");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNPhoneNumberClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -4274,7 +4230,6 @@ Class __getCNPhoneNumberClass_block_invoke_0(uint64_t a1)
 
 Class __getATXSuggestionRequestResponseClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ProactiveSuggestionClientModelLibraryCore_frameworkLibrary)
   {
     ProactiveSuggestionClientModelLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -4283,37 +4238,33 @@ Class __getATXSuggestionRequestResponseClass_block_invoke(uint64_t a1)
   result = objc_getClass("ATXSuggestionRequestResponse");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getATXSuggestionRequestResponseClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ProactiveSuggestionClientModelLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ProactiveSuggestionClientModelLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F1FF34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F1FF34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F208E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F208E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F20E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F20E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4325,86 +4276,86 @@ uint64_t __Block_byref_object_copy__202(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1B5F22EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F22EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F23BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F23BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F23ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F23ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F241B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F241B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F24708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F24708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F24954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F24954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F24EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F24EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F250D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F250D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F252CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F252CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F254C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F254C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F256BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F256BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F25AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F25AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4427,52 +4378,54 @@ void sub_1B5F27694(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B5F29308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B5F29308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getBMStoreConfigClass_block_invoke(uint64_t a1)
 {
-  BiomeStorageLibraryCore();
+  BiomeStorageLibraryCore(0);
   result = objc_getClass("BMStoreConfig");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getBMStoreConfigClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t BiomeStorageLibraryCore()
+uint64_t BiomeStorageLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!BiomeStorageLibraryCore_frameworkLibrary)
   {
     BiomeStorageLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = BiomeStorageLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return BiomeStorageLibraryCore_frameworkLibrary;
 }
 
 uint64_t __BiomeStorageLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStorageLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *__getbm_defaultStoreSegmentSizeSymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = BiomeStorageLibraryCore();
+  v5 = 0;
+  v2 = BiomeStorageLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "bm_defaultStoreSegmentSize");
@@ -4483,39 +4436,32 @@ void *__getbm_defaultStoreSegmentSizeSymbolLoc_block_invoke(uint64_t a1)
 
 Class __getBMStoreStreamClass_block_invoke(uint64_t a1)
 {
-  BiomeStreamsLibraryCore();
+  BiomeStreamsLibraryCore(0);
   result = objc_getClass("BMStoreStream");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getBMStoreStreamClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t BiomeStreamsLibraryCore()
+uint64_t BiomeStreamsLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!BiomeStreamsLibraryCore_frameworkLibrary_0)
   {
     BiomeStreamsLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
-  result = BiomeStreamsLibraryCore_frameworkLibrary_0;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return BiomeStreamsLibraryCore_frameworkLibrary_0;
 }
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactStoreClass_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_3)
   {
     ContactsLibraryCore_frameworkLibrary_3 = _sl_dlopen();
@@ -4524,30 +4470,37 @@ Class __getCNContactStoreClass_block_invoke_2(uint64_t a1)
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ContactsLibraryCore_block_invoke_3(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_3 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-Class __getBMPeopleSuggesterSuggestLessFeedbackClass_block_invoke(uint64_t a1)
+void __getBMPeopleSuggesterSuggestLessFeedbackClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
 {
-  if (!BiomeStreamsLibraryCore())
+  v20 = 0;
+  v10 = BiomeStreamsLibraryCore(&v20);
+  v11 = v20;
+  if (v10)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v20)
+    {
+      goto LABEL_3;
+    }
   }
 
-  result = objc_getClass("BMPeopleSuggesterSuggestLessFeedback");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  else
+  {
+    v11 = abort_report_np("%s", v20);
+  }
+
+  free(v11);
+LABEL_3:
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("BMPeopleSuggesterSuggestLessFeedback");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getBMPeopleSuggesterSuggestLessFeedbackClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -4555,17 +4508,16 @@ Class __getBMPeopleSuggesterSuggestLessFeedbackClass_block_invoke(uint64_t a1)
 
   else
   {
-    v4 = __getBMPeopleSuggesterSuggestLessFeedbackClass_block_invoke_cold_1();
-    return OUTLINED_FUNCTION_3_1(v4);
+    __getBMPeopleSuggesterSuggestLessFeedbackClass_block_invoke_cold_1();
+    OUTLINED_FUNCTION_3_1(v12, v13, v14, v15, v16, v17, v18, v19, a9);
   }
-
-  return result;
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t PeopleSuggesterTrialIdentifierReadFrom(uint64_t a1, void *a2)
@@ -4648,16 +4600,16 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1B5F2AF68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F2AF68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F2B1F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F2B1F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4673,22 +4625,16 @@ Class __getMLModelClass_block_invoke_1(uint64_t a1)
 
 void CoreMLLibraryCore_1()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!CoreMLLibraryCore_frameworkLibrary_1)
   {
     CoreMLLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __CoreMLLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4701,9 +4647,9 @@ Class __getMLMultiArrayClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void sub_1B5F2D3F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F2D3F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4719,22 +4665,16 @@ Class __getMLDictionaryFeatureProviderClass_block_invoke_0(uint64_t a1)
 
 void CoreMLLibraryCore_2()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!CoreMLLibraryCore_frameworkLibrary_2)
   {
     CoreMLLibraryCore_frameworkLibrary_2 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __CoreMLLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5055,16 +4995,23 @@ LABEL_38:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1B5F31E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F31E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F33CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F33CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F34A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5080,22 +5027,16 @@ Class __getATXProactiveSuggestionClientModelClass_block_invoke(uint64_t a1)
 
 void ProactiveSuggestionClientModelLibraryCore()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_0)
   {
     ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __ProactiveSuggestionClientModelLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5278,6 +5219,13 @@ void sub_1B5F367A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_1B5F37680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
+{
+  va_start(va, a43);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void *__getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke(uint64_t a1)
 {
   v2 = ContactsLibrary_1();
@@ -5289,11 +5237,19 @@ void *__getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke(uint64_t a1
 
 uint64_t ContactsLibrary_1()
 {
-  v0 = ContactsLibraryCore_2();
+  v3 = 0;
+  v0 = ContactsLibraryCore_2(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -5301,17 +5257,14 @@ uint64_t ContactsLibrary_1()
 
 uint64_t __ContactsLibraryCore_block_invoke_4(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_4 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactFetchRequestClass_block_invoke_0(uint64_t a1)
 {
-  ContactsLibraryCore_2();
+  ContactsLibraryCore_2(0);
   result = objc_getClass("CNContactFetchRequest");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFetchRequestClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -5329,7 +5282,7 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke_2(uint64_t a1)
 
 Class __getCNChangeHistoryFetchRequestClass_block_invoke(uint64_t a1)
 {
-  ContactsLibraryCore_2();
+  ContactsLibraryCore_2(0);
   result = objc_getClass("CNChangeHistoryFetchRequest");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNChangeHistoryFetchRequestClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -5338,7 +5291,7 @@ Class __getCNChangeHistoryFetchRequestClass_block_invoke(uint64_t a1)
 
 Class __getCNChangeHistoryDropEverythingEventClass_block_invoke(uint64_t a1)
 {
-  ContactsLibraryCore_2();
+  ContactsLibraryCore_2(0);
   result = objc_getClass("CNChangeHistoryDropEverythingEvent");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNChangeHistoryDropEverythingEventClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -5347,7 +5300,7 @@ Class __getCNChangeHistoryDropEverythingEventClass_block_invoke(uint64_t a1)
 
 id _PSResolveContactWithPredicate(void *a1, void *a2, void *a3, int a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -5357,9 +5310,9 @@ id _PSResolveContactWithPredicate(void *a1, void *a2, void *a3, int a4)
     goto LABEL_15;
   }
 
-  v18 = 0;
-  v10 = [v8 unifiedContactsMatchingPredicate:v7 keysToFetch:v9 error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [v8 unifiedContactsMatchingPredicate:v7 keysToFetch:v9 error:&v17];
+  v11 = v17;
   if (v11)
   {
     v12 = +[_PSLogging heuristicsChannel];
@@ -5385,7 +5338,7 @@ id _PSResolveContactWithPredicate(void *a1, void *a2, void *a3, int a4)
     {
       v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v10, "count")}];
       *buf = 138412290;
-      v20 = v15;
+      v19 = v15;
       _os_log_impl(&dword_1B5ED1000, v14, OS_LOG_TYPE_INFO, "Multiple contacts found: %@ contacts. Returning first one", buf, 0xCu);
     }
   }
@@ -5394,28 +5347,27 @@ id _PSResolveContactWithPredicate(void *a1, void *a2, void *a3, int a4)
 LABEL_14:
 
 LABEL_15:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
-void sub_1B5F38B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F38B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F3923C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B5F3923C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNContactClass_block_invoke_2(uint64_t a1)
 {
-  ContactsLibraryCore_3();
+  ContactsLibraryCore_3(0);
   result = objc_getClass("CNContact");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
@@ -5424,17 +5376,14 @@ Class __getCNContactClass_block_invoke_2(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke_5(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_5 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNPhoneNumberClass_block_invoke_1(uint64_t a1)
 {
-  ContactsLibraryCore_3();
+  ContactsLibraryCore_3(0);
   result = objc_getClass("CNPhoneNumber");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNPhoneNumberClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
@@ -5452,11 +5401,19 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke_3(uint64_t a1)
 
 uint64_t ContactsLibrary_2()
 {
-  v0 = ContactsLibraryCore_3();
+  v3 = 0;
+  v0 = ContactsLibraryCore_3(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -5480,30 +5437,30 @@ void *__getCNContactEmailAddressesKeySymbolLoc_block_invoke_1(uint64_t a1)
   return result;
 }
 
-void sub_1B5F3A3F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B5F3A3F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F3B2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B5F3B2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F3B51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F3B51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNContactFormatterClass_block_invoke_1(uint64_t a1)
 {
-  ContactsLibraryCore_4();
+  ContactsLibraryCore_4(0);
   result = objc_getClass("CNContactFormatter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFormatterClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
@@ -5512,18 +5469,15 @@ Class __getCNContactFormatterClass_block_invoke_1(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke_6(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_6 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *__getCNContactIdentifierKeySymbolLoc_block_invoke_4(uint64_t a1)
+void *__getCNContactIdentifierKeySymbolLoc_block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = ContactsLibrary_3();
-  result = dlsym(v2, "CNContactIdentifierKey");
+  v5 = ContactsLibrary_3();
+  result = dlsym(v5, "CNContactIdentifierKey");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactIdentifierKeySymbolLoc_ptr_4 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -5531,11 +5485,19 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke_4(uint64_t a1)
 
 uint64_t ContactsLibrary_3()
 {
-  v0 = ContactsLibraryCore_4();
+  v3 = 0;
+  v0 = ContactsLibraryCore_4(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -5651,7 +5613,7 @@ void *__getCNContactEmailAddressesKeySymbolLoc_block_invoke_2(uint64_t a1)
 
 Class __getCNContactStoreClass_block_invoke_3(uint64_t a1)
 {
-  ContactsLibraryCore_4();
+  ContactsLibraryCore_4(0);
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_3 = *(*(*(a1 + 32) + 8) + 24);
@@ -5660,11 +5622,18 @@ Class __getCNContactStoreClass_block_invoke_3(uint64_t a1)
 
 Class __getCNContactFetchRequestClass_block_invoke_1(uint64_t a1)
 {
-  ContactsLibraryCore_4();
+  ContactsLibraryCore_4(0);
   result = objc_getClass("CNContactFetchRequest");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFetchRequestClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
   return result;
+}
+
+void sub_1B5F3CE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 Class __getATXSuggestionRequestResponseClass_block_invoke_1(uint64_t a1)
@@ -5678,22 +5647,16 @@ Class __getATXSuggestionRequestResponseClass_block_invoke_1(uint64_t a1)
 
 void ProactiveSuggestionClientModelLibraryCore_0()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_1)
   {
     ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __ProactiveSuggestionClientModelLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5760,9 +5723,9 @@ Class __getATXProactiveSuggestionClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void sub_1B5F3F198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B5F3F198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5894,9 +5857,9 @@ uint64_t getIMSPIGetAllChatsContainingParticipantWithHandleSymbolLoc()
   return v0;
 }
 
-void sub_1B5F402F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F402F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5912,11 +5875,19 @@ void *__getIMSPIGetAllChatsContainingParticipantWithHandleSymbolLoc_block_invoke
 
 uint64_t IMCoreLibrary()
 {
-  v0 = IMCoreLibraryCore();
+  v3 = 0;
+  v0 = IMCoreLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -5949,7 +5920,7 @@ id getIMSPISuggestionsObjectClass()
   v6 = getIMSPISuggestionsObjectClass_softClass;
   if (!getIMSPISuggestionsObjectClass_softClass)
   {
-    IMCoreLibraryCore();
+    IMCoreLibraryCore(0);
     v4[3] = objc_getClass("IMSPISuggestionsObject");
     getIMSPISuggestionsObjectClass_softClass = v4[3];
     v0 = v4[3];
@@ -5961,33 +5932,30 @@ id getIMSPISuggestionsObjectClass()
   return v1;
 }
 
-void sub_1B5F40508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F40508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getIMSPISuggestionsObjectClass_block_invoke(uint64_t a1)
 {
-  IMCoreLibraryCore();
+  IMCoreLibraryCore(0);
   result = objc_getClass("IMSPISuggestionsObject");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getIMSPISuggestionsObjectClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t IMCoreLibraryCore()
+uint64_t IMCoreLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!IMCoreLibraryCore_frameworkLibrary_1)
   {
     IMCoreLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
 
-  result = IMCoreLibraryCore_frameworkLibrary_1;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return IMCoreLibraryCore_frameworkLibrary_1;
 }
 
 uint64_t getIMSPIGetGroupPhotosForChatsWithGroupIDsSymbolLoc()
@@ -6009,9 +5977,9 @@ uint64_t getIMSPIGetGroupPhotosForChatsWithGroupIDsSymbolLoc()
   return v0;
 }
 
-void sub_1B5F40718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F40718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6038,8 +6006,8 @@ id LocalIMSPIGetGroupPhotosForChatsWithGroupIDs(void *a1)
 
   else
   {
-    v5 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    return getIMSPIGetContactsByChatGUIDSymbolLoc(v5);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    return getIMSPIGetContactsByChatGUIDSymbolLoc();
   }
 }
 
@@ -6062,9 +6030,9 @@ uint64_t getIMSPIGetContactsByChatGUIDSymbolLoc()
   return v0;
 }
 
-void sub_1B5F408B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F408B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6091,7 +6059,7 @@ _PSHyperRecentActivity *LocalIMSPIGetContactsByChatGUID(void *a1)
 
   else
   {
-    v5 = [_PSBlockedHandlesCache beginSyncingWithTU];
+    [_PSBlockedHandlesCache beginSyncingWithTU];
     return [(_PSHyperRecentActivity *)v5 initWithDate:v6 activityType:v7 conversationId:v8, v9];
   }
 }
@@ -6107,9 +6075,30 @@ id chatGUIDFromHandlesBlock_block_invoke(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_1B5F43A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F42344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
-  va_start(va, a9);
+  va_start(va, a54);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F43218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F43A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F44D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6134,34 +6123,38 @@ void LogCompletion(void *a1)
   }
 }
 
+void sub_1B5F45C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __IMCoreLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IMCoreLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getGDViewServiceClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!IntelligencePlatformLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __IntelligencePlatformLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7C25CF8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __IntelligencePlatformLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7C25CF8;
+    v6 = 0;
     IntelligencePlatformLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (IntelligencePlatformLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -6169,7 +6162,7 @@ Class __getGDViewServiceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6184,23 +6177,18 @@ LABEL_4:
   }
 
   getGDViewServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IntelligencePlatformLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IntelligencePlatformLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getINImageClass_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!IntentsLibraryCore_frameworkLibrary_1)
   {
     IntentsLibraryCore_frameworkLibrary_1 = _sl_dlopen();
@@ -6209,17 +6197,13 @@ Class __getINImageClass_block_invoke_1(uint64_t a1)
   result = objc_getClass("INImage");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getINImageClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IntentsLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IntentsLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6234,22 +6218,16 @@ Class __getSYDocumentWorkflowsClientClass_block_invoke(uint64_t a1)
 
 void SynapseLibraryCore()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!SynapseLibraryCore_frameworkLibrary)
   {
     SynapseLibraryCore_frameworkLibrary = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __SynapseLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SynapseLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6376,16 +6354,15 @@ LABEL_28:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1B5F499D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F499D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNContactClass_block_invoke_3(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_7)
   {
     ContactsLibraryCore_frameworkLibrary_7 = _sl_dlopen();
@@ -6394,45 +6371,41 @@ Class __getCNContactClass_block_invoke_3(uint64_t a1)
   result = objc_getClass("CNContact");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactClass_softClass_3 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ContactsLibraryCore_block_invoke_7(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_7 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F4C2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F4C2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getBMMapsShareETAFeedbackClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!BiomeStreamsLibraryCore_frameworkLibrary_1)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __BiomeStreamsLibraryCore_block_invoke_1;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7C25DC0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __BiomeStreamsLibraryCore_block_invoke_1;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7C25DC0;
+    v6 = 0;
     BiomeStreamsLibraryCore_frameworkLibrary_1 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (BiomeStreamsLibraryCore_frameworkLibrary_1)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -6440,7 +6413,7 @@ Class __getBMMapsShareETAFeedbackClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6455,50 +6428,46 @@ LABEL_4:
   }
 
   getBMMapsShareETAFeedbackClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F4F3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B5F4F3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_1B5F5176C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F5176C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F52890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B5F52890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNContactFormatterClass_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_8)
   {
     ContactsLibraryCore_frameworkLibrary_8 = _sl_dlopen();
@@ -6507,23 +6476,18 @@ Class __getCNContactFormatterClass_block_invoke_2(uint64_t a1)
   result = objc_getClass("CNContactFormatter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFormatterClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ContactsLibraryCore_block_invoke_8(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_8 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getREMStoreClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ReminderKitLibraryCore_frameworkLibrary)
   {
     ReminderKitLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -6532,17 +6496,13 @@ Class __getREMStoreClass_block_invoke(uint64_t a1)
   result = objc_getClass("REMStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getREMStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ReminderKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ReminderKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6557,22 +6517,16 @@ Class __getPPFuzzyContactQueryClass_block_invoke(uint64_t a1)
 
 void PersonalizationPortraitLibraryCore()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!PersonalizationPortraitLibraryCore_frameworkLibrary)
   {
     PersonalizationPortraitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __PersonalizationPortraitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PersonalizationPortraitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6587,113 +6541,110 @@ Class __getPPContactStoreClass_block_invoke(uint64_t a1)
 
 id _PSDefaultContactKeysToFetch()
 {
-  v16[11] = *MEMORY[0x1E69E9840];
-  v13 = [getCNContactFormatterClass() descriptorForRequiredKeysForStyle:0];
-  v15 = getCNContactIdentifierKey_2();
-  v16[0] = v15;
-  v14 = getCNContactNamePrefixKey();
-  v16[1] = v14;
+  v15[11] = *MEMORY[0x1E69E9840];
+  v12 = [getCNContactFormatterClass() descriptorForRequiredKeysForStyle:0];
+  v14 = getCNContactIdentifierKey_2();
+  v15[0] = v14;
+  v13 = getCNContactNamePrefixKey();
+  v15[1] = v13;
   v0 = getCNContactGivenNameKey_0();
-  v16[2] = v0;
+  v15[2] = v0;
   v1 = getCNContactMiddleNameKey();
-  v16[3] = v1;
+  v15[3] = v1;
   v2 = getCNContactFamilyNameKey_0();
-  v16[4] = v2;
+  v15[4] = v2;
   v3 = getCNContactPreviousFamilyNameKey();
-  v16[5] = v3;
+  v15[5] = v3;
   v4 = getCNContactNameSuffixKey();
-  v16[6] = v4;
+  v15[6] = v4;
   v5 = getCNContactNicknameKey();
-  v16[7] = v5;
+  v15[7] = v5;
   v6 = getCNContactTypeKey();
-  v16[8] = v6;
+  v15[8] = v6;
   v7 = getCNContactPhoneNumbersKey_0();
-  v16[9] = v7;
+  v15[9] = v7;
   v8 = getCNContactEmailAddressesKey();
-  v16[10] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:11];
+  v15[10] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:11];
 
-  if (v13)
+  if (v12)
   {
-    v10 = [v9 arrayByAddingObject:v13];
+    v10 = [v9 arrayByAddingObject:v12];
 
     v9 = v10;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 id _PSShareSheetExtensionBundleIDToAppBundleIDMapping(char a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v1 = _PSShareSheetSuggestionBundleIDMapping(a1);
   v2 = [MEMORY[0x1E695DF90] dictionary];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * i);
+        v8 = *(*(&v20 + 1) + 8 * i);
         v9 = [v3 objectForKeyedSubscript:v8];
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
-        v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v18;
+          v12 = *v17;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v18 != v12)
+              if (*v17 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              [v2 setObject:v8 forKeyedSubscript:*(*(&v17 + 1) + 8 * j)];
+              [v2 setObject:v8 forKeyedSubscript:*(*(&v16 + 1) + 8 * j)];
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v11);
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v5);
   }
 
   v14 = [v2 copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 Class __getCNContactFormatterClass_block_invoke_3(uint64_t a1)
 {
-  ContactsLibraryCore_5();
+  ContactsLibraryCore_5(0);
   result = objc_getClass("CNContactFormatter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFormatterClass_softClass_3 = *(*(*(a1 + 32) + 8) + 24);
@@ -6702,11 +6653,8 @@ Class __getCNContactFormatterClass_block_invoke_3(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke_9(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_9 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6721,11 +6669,19 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke_5(uint64_t a1)
 
 uint64_t ContactsLibrary_4()
 {
-  v0 = ContactsLibraryCore_5();
+  v3 = 0;
+  v0 = ContactsLibraryCore_5(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -6866,9 +6822,15 @@ void *__getCNContactInstantMessageAddressesKeySymbolLoc_block_invoke(uint64_t a1
   return result;
 }
 
+void sub_1B5F5559C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class __getMLDictionaryFeatureProviderClass_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!CoreMLLibraryCore_frameworkLibrary_3)
   {
     CoreMLLibraryCore_frameworkLibrary_3 = _sl_dlopen();
@@ -6877,23 +6839,18 @@ Class __getMLDictionaryFeatureProviderClass_block_invoke_1(uint64_t a1)
   result = objc_getClass("MLDictionaryFeatureProvider");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMLDictionaryFeatureProviderClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreMLLibraryCore_block_invoke_3(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_3 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactFormatterClass_block_invoke_4(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_10)
   {
     ContactsLibraryCore_frameworkLibrary_10 = _sl_dlopen();
@@ -6902,25 +6859,21 @@ Class __getCNContactFormatterClass_block_invoke_4(uint64_t a1)
   result = objc_getClass("CNContactFormatter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFormatterClass_softClass_4 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ContactsLibraryCore_block_invoke_10(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_10 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F5961C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F5961C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7049,16 +7002,16 @@ LABEL_23:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1B5F5AB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F5AB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F5B22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F5B22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7072,7 +7025,7 @@ id getPHPhotoLibraryClass()
   v6 = getPHPhotoLibraryClass_softClass;
   if (!getPHPhotoLibraryClass_softClass)
   {
-    PhotosLibraryCore();
+    PhotosLibraryCore(0);
     v4[3] = objc_getClass("PHPhotoLibrary");
     getPHPhotoLibraryClass_softClass = v4[3];
     v0 = v4[3];
@@ -7084,9 +7037,9 @@ id getPHPhotoLibraryClass()
   return v1;
 }
 
-void sub_1B5F5B4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F5B4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7115,16 +7068,23 @@ id getPFSceneTaxonomyClass()
   return v1;
 }
 
-void sub_1B5F5B5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F5B5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F5BA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F5BA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F5C614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
+{
+  va_start(va, a45);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7140,60 +7100,47 @@ Class __getMADServiceClass_block_invoke(uint64_t a1)
 
 void MediaAnalysisServicesLibraryCore()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!MediaAnalysisServicesLibraryCore_frameworkLibrary)
   {
     MediaAnalysisServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __MediaAnalysisServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaAnalysisServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getPHPhotoLibraryClass_block_invoke(uint64_t a1)
 {
-  PhotosLibraryCore();
+  PhotosLibraryCore(0);
   result = objc_getClass("PHPhotoLibrary");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPHPhotoLibraryClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t PhotosLibraryCore()
+uint64_t PhotosLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!PhotosLibraryCore_frameworkLibrary)
   {
     PhotosLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = PhotosLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return PhotosLibraryCore_frameworkLibrary;
 }
 
 uint64_t __PhotosLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PhotosLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getPFSceneTaxonomyClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!PhotosFormatsLibraryCore_frameworkLibrary)
   {
     PhotosFormatsLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -7202,23 +7149,19 @@ Class __getPFSceneTaxonomyClass_block_invoke(uint64_t a1)
   result = objc_getClass("PFSceneTaxonomy");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPFSceneTaxonomyClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PhotosFormatsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PhotosFormatsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getPHFetchOptionsClass_block_invoke(uint64_t a1)
 {
-  PhotosLibraryCore();
+  PhotosLibraryCore(0);
   result = objc_getClass("PHFetchOptions");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPHFetchOptionsClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -7227,11 +7170,19 @@ Class __getPHFetchOptionsClass_block_invoke(uint64_t a1)
 
 void *__getPHAssetPropertySetSceneAnalysisSymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = PhotosLibraryCore();
+  v5 = 0;
+  v2 = PhotosLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "PHAssetPropertySetSceneAnalysis");
@@ -7242,7 +7193,7 @@ void *__getPHAssetPropertySetSceneAnalysisSymbolLoc_block_invoke(uint64_t a1)
 
 Class __getPHAssetClass_block_invoke(uint64_t a1)
 {
-  PhotosLibraryCore();
+  PhotosLibraryCore(0);
   result = objc_getClass("PHAsset");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getPHAssetClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -7258,37 +7209,37 @@ Class __getMADPersonIdentificationRequestClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1B5F5CE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B5F5CE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F60154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F60154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F606F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B5F606F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F60DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B5F60DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F61B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B5F61B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7303,7 +7254,7 @@ void sub_1B5F62DB0(_Unwind_Exception *a1)
 
 Class __getCNContactStoreClass_block_invoke_4(uint64_t a1)
 {
-  ContactsLibraryCore_6();
+  ContactsLibraryCore_6(0);
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_4 = *(*(*(a1 + 32) + 8) + 24);
@@ -7312,33 +7263,30 @@ Class __getCNContactStoreClass_block_invoke_4(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke_11(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_11 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *__getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_block_invoke_0(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!IMCoreLibraryCore_frameworkLibrary_2)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __IMCoreLibraryCore_block_invoke_2;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7C26550;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __IMCoreLibraryCore_block_invoke_2;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7C26550;
+    v7 = 0;
     IMCoreLibraryCore_frameworkLibrary_2 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = IMCoreLibraryCore_frameworkLibrary_2;
     if (IMCoreLibraryCore_frameworkLibrary_2)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -7346,7 +7294,7 @@ void *__getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_block_invo
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -7358,17 +7306,13 @@ LABEL_5:
   result = dlsym(v2, "IMSPIGetDisplayNameAndParticipantsForChatWithGUID");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IMCoreLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IMCoreLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7383,51 +7327,47 @@ void *__getIMStringIsPhoneNumberSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t IMFoundationLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!IMFoundationLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __IMFoundationLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7C26568;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __IMFoundationLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7C26568;
+    v5 = 0;
     IMFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = IMFoundationLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!IMFoundationLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __IMFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IMFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNPhoneNumberClass_block_invoke_2(uint64_t a1)
 {
-  ContactsLibraryCore_6();
+  ContactsLibraryCore_6(0);
   result = objc_getClass("CNPhoneNumber");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNPhoneNumberClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
@@ -7443,10 +7383,10 @@ void *__getIMStringIsEmailSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void *__getCNContactNamePrefixKeySymbolLoc_block_invoke_2(uint64_t a1)
+void *__getCNContactNamePrefixKeySymbolLoc_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = ContactsLibrary_5();
-  result = dlsym(v2, "CNContactNamePrefixKey");
+  v9 = ContactsLibrary_5();
+  result = dlsym(v9, "CNContactNamePrefixKey");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactNamePrefixKeySymbolLoc_ptr_2 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -7454,11 +7394,19 @@ void *__getCNContactNamePrefixKeySymbolLoc_block_invoke_2(uint64_t a1)
 
 uint64_t ContactsLibrary_5()
 {
-  v0 = ContactsLibraryCore_6();
+  v3 = 0;
+  v0 = ContactsLibraryCore_6(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -7601,7 +7549,6 @@ void *__getCNContactInstantMessageAddressesKeySymbolLoc_block_invoke_0(uint64_t 
 
 Class __getLCFFeatureStoreClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!LighthouseCoreMLFeatureStoreLibraryCore_frameworkLibrary)
   {
     LighthouseCoreMLFeatureStoreLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -7610,67 +7557,64 @@ Class __getLCFFeatureStoreClass_block_invoke(uint64_t a1)
   result = objc_getClass("LCFFeatureStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getLCFFeatureStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __LighthouseCoreMLFeatureStoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LighthouseCoreMLFeatureStoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_1B5F70860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F70860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getMGCopyAnswerSymbolLoc_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v14 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = libMobileGestaltLibraryCore_frameworkLibrary;
-  v12 = libMobileGestaltLibraryCore_frameworkLibrary;
+  v11 = libMobileGestaltLibraryCore_frameworkLibrary;
   if (!libMobileGestaltLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __libMobileGestaltLibraryCore_block_invoke;
-    v6[4] = &unk_1E7C266F0;
-    v7 = &v9;
-    v8 = v6;
-    v13 = xmmword_1E7C266D0;
-    v14 = 0;
-    v10[3] = _sl_dlopen();
-    libMobileGestaltLibraryCore_frameworkLibrary = *(v7[1] + 24);
-    v2 = v10[3];
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __libMobileGestaltLibraryCore_block_invoke;
+    v5[4] = &unk_1E7C266F0;
+    v6 = &v8;
+    v7 = v5;
+    v12 = xmmword_1E7C266D0;
+    v13 = 0;
+    v9[3] = _sl_dlopen();
+    libMobileGestaltLibraryCore_frameworkLibrary = *(v6[1] + 24);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v9, 8);
-  v3 = v6[0];
+  _Block_object_dispose(&v8, 8);
+  v3 = v5[0];
   if (!v2)
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("%s", v5[0]);
     __break(1u);
     goto LABEL_7;
   }
 
-  if (v6[0])
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -7679,46 +7623,42 @@ LABEL_7:
   result = dlsym(v2, "MGCopyAnswer");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMGCopyAnswerSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F70CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F70CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __libMobileGestaltLibraryCore_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   libMobileGestaltLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B5F72C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1B5F730FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B5F72C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
   va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getCNContactIdentifierKeySymbolLoc_block_invoke_6(uint64_t a1)
+void sub_1B5F730FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  v2 = ContactsLibrary_6();
-  result = dlsym(v2, "CNContactIdentifierKey");
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getCNContactIdentifierKeySymbolLoc_block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v7 = ContactsLibrary_6();
+  result = dlsym(v7, "CNContactIdentifierKey");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactIdentifierKeySymbolLoc_ptr_6 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -7726,11 +7666,19 @@ void *__getCNContactIdentifierKeySymbolLoc_block_invoke_6(uint64_t a1)
 
 uint64_t ContactsLibrary_6()
 {
-  v0 = ContactsLibraryCore_7();
+  v3 = 0;
+  v0 = ContactsLibraryCore_7(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -7738,11 +7686,8 @@ uint64_t ContactsLibrary_6()
 
 uint64_t __ContactsLibraryCore_block_invoke_12(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_12 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7838,7 +7783,6 @@ void *__getCNContactTypeKeySymbolLoc_block_invoke_3(uint64_t a1)
 
 Class __getFAFetchFamilyCircleRequestClass_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!FamilyCircleLibraryCore_frameworkLibrary_0)
   {
     FamilyCircleLibraryCore_frameworkLibrary_0 = _sl_dlopen();
@@ -7847,23 +7791,19 @@ Class __getFAFetchFamilyCircleRequestClass_block_invoke_0(uint64_t a1)
   result = objc_getClass("FAFetchFamilyCircleRequest");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getFAFetchFamilyCircleRequestClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __FamilyCircleLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FamilyCircleLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactStoreClass_block_invoke_5(uint64_t a1)
 {
-  ContactsLibraryCore_7();
+  ContactsLibraryCore_7(0);
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_5 = *(*(*(a1 + 32) + 8) + 24);
@@ -7878,37 +7818,44 @@ void sub_1B5F76974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F77154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F77154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F774B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F774B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F79C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B5F77EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a3);
+  va_start(va, a30);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F79F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B5F79C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a6);
+  va_start(va, a5);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B5F79F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNContactStoreClass_block_invoke_6(uint64_t a1)
 {
-  ContactsLibraryCore_8();
+  ContactsLibraryCore_8(0);
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_6 = *(*(*(a1 + 32) + 8) + 24);
@@ -7917,43 +7864,34 @@ Class __getCNContactStoreClass_block_invoke_6(uint64_t a1)
 
 uint64_t __ContactsLibraryCore_block_invoke_13(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_13 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getIDSIDQueryControllerClass_block_invoke(uint64_t a1)
 {
-  IDSLibraryCore();
+  IDSLibraryCore(0);
   result = objc_getClass("IDSIDQueryController");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getIDSIDQueryControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t IDSLibraryCore()
+uint64_t IDSLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!IDSLibraryCore_frameworkLibrary)
   {
     IDSLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = IDSLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return IDSLibraryCore_frameworkLibrary;
 }
 
 uint64_t __IDSLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IDSLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7968,20 +7906,28 @@ void *__getIDSServiceNameFaceTimeSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t IDSLibrary()
 {
-  v0 = IDSLibraryCore();
+  v3 = 0;
+  v0 = IDSLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
 }
 
-void *__getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke_0(uint64_t a1)
+void *__getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = ContactsLibrary_7();
-  result = dlsym(v2, "CNContactStoreDidChangeNotification");
+  v5 = ContactsLibrary_7();
+  result = dlsym(v5, "CNContactStoreDidChangeNotification");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreDidChangeNotificationSymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -7989,11 +7935,19 @@ void *__getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke_0(uint64_t 
 
 uint64_t ContactsLibrary_7()
 {
-  v0 = ContactsLibraryCore_8();
+  v3 = 0;
+  v0 = ContactsLibraryCore_8(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -8001,7 +7955,7 @@ uint64_t ContactsLibrary_7()
 
 Class __getCNChangeHistoryFetchRequestClass_block_invoke_0(uint64_t a1)
 {
-  ContactsLibraryCore_8();
+  ContactsLibraryCore_8(0);
   result = objc_getClass("CNChangeHistoryFetchRequest");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNChangeHistoryFetchRequestClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -8010,7 +7964,7 @@ Class __getCNChangeHistoryFetchRequestClass_block_invoke_0(uint64_t a1)
 
 Class __getCNChangeHistoryDropEverythingEventClass_block_invoke_0(uint64_t a1)
 {
-  ContactsLibraryCore_8();
+  ContactsLibraryCore_8(0);
   result = objc_getClass("CNChangeHistoryDropEverythingEvent");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNChangeHistoryDropEverythingEventClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -8046,7 +8000,7 @@ void *__getIDSCopyIDForEmailAddressSymbolLoc_block_invoke(uint64_t a1)
 
 Class __getCNContactClass_block_invoke_4(uint64_t a1)
 {
-  ContactsLibraryCore_8();
+  ContactsLibraryCore_8(0);
   result = objc_getClass("CNContact");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactClass_softClass_4 = *(*(*(a1 + 32) + 8) + 24);
@@ -8055,7 +8009,7 @@ Class __getCNContactClass_block_invoke_4(uint64_t a1)
 
 Class __getCNPhoneNumberClass_block_invoke_3(uint64_t a1)
 {
-  ContactsLibraryCore_8();
+  ContactsLibraryCore_8(0);
   result = objc_getClass("CNPhoneNumber");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNPhoneNumberClass_softClass_3 = *(*(*(a1 + 32) + 8) + 24);
@@ -8064,7 +8018,7 @@ Class __getCNPhoneNumberClass_block_invoke_3(uint64_t a1)
 
 Class __getCNContactFormatterClass_block_invoke_5(uint64_t a1)
 {
-  ContactsLibraryCore_8();
+  ContactsLibraryCore_8(0);
   result = objc_getClass("CNContactFormatter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactFormatterClass_softClass_5 = *(*(*(a1 + 32) + 8) + 24);
@@ -8089,47 +8043,41 @@ void *__getCNContactEmailAddressesKeySymbolLoc_block_invoke_6(uint64_t a1)
   return result;
 }
 
-void sub_1B5F7BF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F7BF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F7C46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F7C46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F7C9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1B5F7C9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t ProactiveSuggestionClientModelLibraryCore_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_2)
   {
     ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_2 = _sl_dlopen();
   }
 
-  result = ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_2;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_2;
 }
 
 uint64_t __ProactiveSuggestionClientModelLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ProactiveSuggestionClientModelLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8144,7 +8092,6 @@ Class __getATXProactiveSuggestionClientModelClass_block_invoke_1(uint64_t a1)
 
 Class __getEKEventStoreClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!EventKitLibraryCore_frameworkLibrary)
   {
     EventKitLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -8153,23 +8100,18 @@ Class __getEKEventStoreClass_block_invoke(uint64_t a1)
   result = objc_getClass("EKEventStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getEKEventStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __EventKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   EventKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getCNContactStoreClass_block_invoke_7(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_14)
   {
     ContactsLibraryCore_frameworkLibrary_14 = _sl_dlopen();
@@ -8178,17 +8120,13 @@ Class __getCNContactStoreClass_block_invoke_7(uint64_t a1)
   result = objc_getClass("CNContactStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactStoreClass_softClass_7 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ContactsLibraryCore_block_invoke_14(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_14 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8219,9 +8157,9 @@ Class __getATXSuggestionLayoutClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_1B5F7DB8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F7DB8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9383,16 +9321,16 @@ LABEL_205:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1B5F86568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B5F86568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B5F86B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F86B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9413,45 +9351,41 @@ Class __getGDViewServiceClass_block_invoke_0(uint64_t a1)
 
 uint64_t IntelligencePlatformLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!IntelligencePlatformLibraryCore_frameworkLibrary_0)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __IntelligencePlatformLibraryCore_block_invoke_0;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7C26AA8;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __IntelligencePlatformLibraryCore_block_invoke_0;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7C26AA8;
+    v5 = 0;
     IntelligencePlatformLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   v0 = IntelligencePlatformLibraryCore_frameworkLibrary_0;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!IntelligencePlatformLibraryCore_frameworkLibrary_0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __IntelligencePlatformLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IntelligencePlatformLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9464,7 +9398,7 @@ void *__getGDAutonamingViewPhotosAutonamingViewNameSymbolLoc_block_invoke(uint64
   return result;
 }
 
-Class __getPHPersonClass_block_invoke(uint64_t a1)
+Class __getPHPersonClass_block_invoke(uint64_t a1, uint64_t a2)
 {
   PhotosLibraryCore_0();
   result = objc_getClass("PHPerson");
@@ -9475,22 +9409,16 @@ Class __getPHPersonClass_block_invoke(uint64_t a1)
 
 void PhotosLibraryCore_0()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!PhotosLibraryCore_frameworkLibrary_0)
   {
     PhotosLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __PhotosLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PhotosLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9503,22 +9431,22 @@ Class __getPHPhotoLibraryClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_1B5F8747C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5F8747C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCNContactClass_block_invoke_5(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!ContactsLibraryCore_frameworkLibrary_15)
   {
     ContactsLibraryCore_frameworkLibrary_15 = _sl_dlopen();
@@ -9527,17 +9455,13 @@ Class __getCNContactClass_block_invoke_5(uint64_t a1)
   result = objc_getClass("CNContact");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCNContactClass_softClass_5 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ContactsLibraryCore_block_invoke_15(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContactsLibraryCore_frameworkLibrary_15 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 

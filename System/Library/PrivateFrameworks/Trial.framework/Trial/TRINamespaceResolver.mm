@@ -10,6 +10,7 @@
 - (TRINamespaceResolver)initWithPaths:(id)paths factorsState:(id)state activeFactorProvidersParser:(id)parser;
 - (char)_realpathWithFileSystemRepresentation:(const char *)representation buffer:(char *)buffer;
 - (id)counterfactualFactorsStatesForNamespace:(id)namespace;
+- (id)resolveFactorProviderChainForNamespaceName:(id)name faultOnMissingInstalledFactors:(BOOL)factors installedFactorsAccessible:(BOOL *)accessible;
 - (void)dealloc;
 @end
 
@@ -66,13 +67,13 @@
 
 - (TRINamespaceResolver)initWithPaths:(id)paths factorsState:(id)state activeFactorProvidersParser:(id)parser
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   stateCopy = state;
   parserCopy = parser;
-  v20.receiver = self;
-  v20.super_class = TRINamespaceResolver;
-  v12 = [(TRINamespaceResolver *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = TRINamespaceResolver;
+  v12 = [(TRINamespaceResolver *)&v19 init];
   v13 = v12;
   if (v12 && ((objc_storeStrong(&v12->_paths, paths), !parserCopy) ? (v14 = [[TRIActiveFactorProvidersParser alloc] initWithPaths:pathsCopy]) : (v14 = parserCopy), activeFactorProvidersParser = v13->_activeFactorProvidersParser, v13->_activeFactorProvidersParser = v14, activeFactorProvidersParser, ![(TRINamespaceResolver *)v13 _prepareFactorsState:stateCopy]))
   {
@@ -80,7 +81,7 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = stateCopy;
+      v21 = stateCopy;
       _os_log_error_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_ERROR, "Failed to prepare factorsState: %{public}@", buf, 0xCu);
     }
 
@@ -92,7 +93,6 @@
     v16 = v13;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -127,7 +127,7 @@
 
 - (BOOL)_prepareFactorsStateForCounterfactualsOrInvestigationsForFactorsState:(id)state
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = [(TRIActiveFactorProvidersParser *)self->_activeFactorProvidersParser resolveTargetedFactorPackSetForExperimentFactorsState:stateCopy];
   v6 = v5;
@@ -137,9 +137,9 @@
     v8 = [path stringByAppendingPathComponent:@"factorPacks"];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v21 = 0;
-    v10 = [defaultManager contentsOfDirectoryAtPath:v8 error:&v21];
-    v11 = v21;
+    v20 = 0;
+    v10 = [defaultManager contentsOfDirectoryAtPath:v8 error:&v20];
+    v11 = v20;
 
     v12 = v10 != 0;
     if (v10)
@@ -168,7 +168,7 @@
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v23 = v11;
+        v22 = v11;
         _os_log_error_impl(&dword_22EA6B000, p_super, OS_LOG_TYPE_ERROR, "Failed to enumerate namespace names: %@", buf, 0xCu);
       }
     }
@@ -180,14 +180,13 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = stateCopy;
+      v22 = stateCopy;
       _os_log_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_INFO, "Failed to resolve targeted experiment factor pack set for factor state: %@", buf, 0xCu);
     }
 
     v12 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -221,14 +220,108 @@
   return v5;
 }
 
+- (id)resolveFactorProviderChainForNamespaceName:(id)name faultOnMissingInstalledFactors:(BOOL)factors installedFactorsAccessible:(BOOL *)accessible
+{
+  factorsCopy = factors;
+  nameCopy = name;
+  v10 = objc_opt_new();
+  v11 = [TRINamespaceFactorProvider factorProviderWithNamespaceName:nameCopy paths:self->_paths treatmentLayer:1 faultOnMissingFactors:factorsCopy shouldLockFactorDirectory:0];
+  if (v11)
+  {
+    v12 = [TRITypedFactorProvider alloc];
+    namespaceDescriptorsDefaultDir = [(TRIPaths *)self->_paths namespaceDescriptorsDefaultDir];
+    v14 = [(TRITypedFactorProvider *)v12 initWithType:1 provider:v11 logDesc:namespaceDescriptorsDefaultDir];
+    [v10 addObject:v14];
+  }
+
+  if (accessible)
+  {
+    *accessible = v11 != 0;
+  }
+
+  v15 = [(TRIActiveFactorProvidersParser *)self->_activeFactorProvidersParser resolvePropertyListFactorProviderChainForNamespaceName:nameCopy];
+  v16 = [v15 mutableCopy];
+
+  [v16 addObjectsFromArray:v10];
+  if ([(TRINamespaceResolver *)self _hasOverrideExperimentFactorsState])
+  {
+    namespacesInFactorsState = [(TRINamespaceResolver *)self namespacesInFactorsState];
+    v18 = [namespacesInFactorsState containsObject:nameCopy];
+
+    if (v18)
+    {
+      overrideExperimentFactorsState = [(TRINamespaceResolver *)self overrideExperimentFactorsState];
+      if (!overrideExperimentFactorsState)
+      {
+        currentHandler = [MEMORY[0x277CCA890] currentHandler];
+        [currentHandler handleFailureInMethod:a2 object:self file:@"TRINamespaceResolver.m" lineNumber:255 description:{@"Expression was unexpectedly nil/false: %@", @"self.overrideExperimentFactorsState"}];
+      }
+
+      v20 = [(TRIActiveFactorProvidersParser *)self->_activeFactorProvidersParser resolveTargetedFactorPackSetForExperimentFactorsState:overrideExperimentFactorsState];
+      if (!v20)
+      {
+        currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+        [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRINamespaceResolver.m" lineNumber:257 description:@"lockedSet for counterfactuals or investigations unexpectedly not present"];
+      }
+
+      v44 = 0;
+      activeFactorProvidersParser = self->_activeFactorProvidersParser;
+      deployment = [overrideExperimentFactorsState deployment];
+      experimentId = [deployment experimentId];
+      deployment2 = [overrideExperimentFactorsState deployment];
+      deploymentId = [deployment2 deploymentId];
+      v43 = overrideExperimentFactorsState;
+      treatmentId = [overrideExperimentFactorsState treatmentId];
+      v42 = v20;
+      path = [v20 path];
+      v27 = [(TRIActiveFactorProvidersParser *)activeFactorProvidersParser factorProviderForNamespaceName:nameCopy parentId:experimentId deploymentId:deploymentId treatmentId:treatmentId fromFactorPackSetWithDir:path resolvedPath:&v44];
+
+      if (v27 && v44)
+      {
+        [v16 triRemoveFirstItemPassingTest:&__block_literal_global_6];
+        v28 = [TRITypedFactorProvider alloc];
+        v29 = [(TRITypedFactorProvider *)v28 initWithType:32 provider:v27 logDesc:v44];
+        [v16 insertObject:v29 atIndex:0];
+      }
+    }
+  }
+
+  if (![(TRINamespaceResolver *)self _hasOverrideExperimentFactorsState])
+  {
+    v30 = [TRINamespaceFactorProvider factorProviderWithNamespaceName:nameCopy paths:self->_paths treatmentLayer:4 faultOnMissingFactors:1 shouldLockFactorDirectory:1];
+    if (v30)
+    {
+      v31 = [TRITypedFactorProvider alloc];
+      namespaceDescriptorsExperimentDir = [(TRIPaths *)self->_paths namespaceDescriptorsExperimentDir];
+      v33 = [(TRITypedFactorProvider *)v31 initWithType:4 provider:v30 logDesc:namespaceDescriptorsExperimentDir];
+
+      [v16 insertObject:v33 atIndex:0];
+    }
+
+    [v16 triMoveFirstItemToFrontPassingTest:&__block_literal_global_133];
+  }
+
+  v34 = [TRINamespaceFactorProvider factorProviderWithNamespaceName:nameCopy paths:self->_paths treatmentLayer:8 faultOnMissingFactors:1 shouldLockFactorDirectory:1];
+  if (v34)
+  {
+    v35 = [TRITypedFactorProvider alloc];
+    namespaceDescriptorsExperimentDir2 = [(TRIPaths *)self->_paths namespaceDescriptorsExperimentDir];
+    v37 = [(TRITypedFactorProvider *)v35 initWithType:8 provider:v34 logDesc:namespaceDescriptorsExperimentDir2];
+
+    [v16 insertObject:v37 atIndex:0];
+  }
+
+  return v16;
+}
+
 + (id)_namespacePathComponentsFromEntitlements
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [TRIEntitlement objectForCurrentProcessEntitlement:@"com.apple.trial.client"];
   if (!v2)
   {
 LABEL_16:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_17;
   }
 
@@ -236,45 +329,44 @@ LABEL_16:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_13:
-    v10 = TRILogCategory_ClientFramework();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = TRILogCategory_ClientFramework();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       processInfo = [MEMORY[0x277CCAC38] processInfo];
       processName = [processInfo processName];
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138412802;
-      v22 = processName;
+      v20 = processName;
+      v21 = 2112;
+      v22 = @"com.apple.trial.client";
       v23 = 2112;
-      v24 = @"com.apple.trial.client";
-      v25 = 2112;
-      v26 = v16;
-      _os_log_error_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_ERROR, "Process %@ has incorrectly-typed entitlement %@ (expected array of string, decoded %@)", buf, 0x20u);
+      v24 = v14;
+      _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, "Process %@ has incorrectly-typed entitlement %@ (expected array of string, decoded %@)", buf, 0x20u);
     }
 
     goto LABEL_16;
   }
 
-  v19 = 0u;
-  v20 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v16;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -283,7 +375,7 @@ LABEL_13:
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v25 count:16];
       if (v5)
       {
         continue;
@@ -293,17 +385,15 @@ LABEL_13:
     }
   }
 
-  v9 = v3;
+  v8 = v3;
 LABEL_17:
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v8;
 }
 
 + (id)preferredPathForFactorDataWithCandidatePaths:(id)paths
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   if (![pathsCopy count])
   {
@@ -338,59 +428,59 @@ LABEL_17:
 
     else
     {
-      v36 = v7;
+      v35 = v7;
       v9 = [v7 _pas_mappedArrayWithTransform:&__block_literal_global_146];
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
-      v37 = pathsCopy;
+      v36 = pathsCopy;
       obj = pathsCopy;
-      v10 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v10 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
       if (v10)
       {
         v11 = v10;
-        v39 = *v49;
+        v38 = *v48;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v49 != v39)
+            if (*v48 != v38)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v48 + 1) + 8 * i);
+            v13 = *(*(&v47 + 1) + 8 * i);
             v14 = objc_autoreleasePoolPush();
             triStringByResolvingSymlinksInPath = [v13 triStringByResolvingSymlinksInPath];
+            v43 = 0u;
             v44 = 0u;
             v45 = 0u;
             v46 = 0u;
-            v47 = 0u;
             v16 = v9;
             v17 = v9;
-            v18 = [v17 countByEnumeratingWithState:&v44 objects:v56 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v43 objects:v55 count:16];
             if (v18)
             {
               v19 = v18;
-              v20 = *v45;
+              v20 = *v44;
 LABEL_14:
               v21 = 0;
               while (1)
               {
-                if (*v45 != v20)
+                if (*v44 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                if ([triStringByResolvingSymlinksInPath containsString:*(*(&v44 + 1) + 8 * v21)])
+                if ([triStringByResolvingSymlinksInPath containsString:*(*(&v43 + 1) + 8 * v21)])
                 {
                   break;
                 }
 
                 if (v19 == ++v21)
                 {
-                  v19 = [v17 countByEnumeratingWithState:&v44 objects:v56 count:16];
+                  v19 = [v17 countByEnumeratingWithState:&v43 objects:v55 count:16];
                   if (v19)
                   {
                     goto LABEL_14;
@@ -405,8 +495,8 @@ LABEL_14:
                 v32 = v13;
 
                 objc_autoreleasePoolPop(v14);
-                v7 = v36;
-                pathsCopy = v37;
+                v7 = v35;
+                pathsCopy = v36;
                 goto LABEL_49;
               }
 
@@ -416,7 +506,7 @@ LABEL_14:
                 if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v55 = obj;
+                  v54 = obj;
                   _os_log_impl(&dword_22EA6B000, v22, OS_LOG_TYPE_INFO, "Sandbox/datavault prevents accessing candidate path: %@", buf, 0xCu);
                 }
               }
@@ -428,14 +518,14 @@ LABEL_26:
             v9 = v16;
           }
 
-          v11 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
+          v11 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
         }
 
         while (v11);
       }
 
-      v7 = v36;
-      pathsCopy = v37;
+      v7 = v35;
+      pathsCopy = v36;
     }
   }
 
@@ -446,26 +536,26 @@ LABEL_26:
     _os_log_impl(&dword_22EA6B000, v23, OS_LOG_TYPE_DEFAULT, "Unable to resolve candidate path based on calling process entitlement; falling back on naive access() check.", buf, 2u);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v24 = pathsCopy;
-  v25 = [v24 countByEnumeratingWithState:&v40 objects:v53 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v39 objects:v52 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v41;
+    v27 = *v40;
     while (2)
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v41 != v27)
+        if (*v40 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v40 + 1) + 8 * j);
+        v29 = *(*(&v39 + 1) + 8 * j);
         v30 = objc_autoreleasePoolPush();
         if (!access([v29 fileSystemRepresentation], 4))
         {
@@ -481,7 +571,7 @@ LABEL_26:
           if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v55 = v24;
+            v54 = v24;
             _os_log_impl(&dword_22EA6B000, v31, OS_LOG_TYPE_INFO, "Sandbox/datavault prevents accessing candidate path: %@", buf, 0xCu);
           }
         }
@@ -489,7 +579,7 @@ LABEL_26:
         objc_autoreleasePoolPop(v30);
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v40 objects:v53 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v39 objects:v52 count:16];
       if (v26)
       {
         continue;
@@ -501,8 +591,6 @@ LABEL_26:
 
   v32 = [v24 objectAtIndexedSubscript:0];
 LABEL_49:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }

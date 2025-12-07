@@ -12,19 +12,17 @@
 
 + (NSSet)allowedStatusKeys
 {
-  v7[7] = *MEMORY[0x277D85DE8];
+  v6[7] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"identifier";
-  v7[1] = @"_removed";
-  v7[2] = @"declaration-identifier";
-  v7[3] = @"name";
-  v7[4] = @"version";
-  v7[5] = @"state";
-  v7[6] = @"reasons";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:7];
+  v6[0] = @"identifier";
+  v6[1] = @"_removed";
+  v6[2] = @"declaration-identifier";
+  v6[3] = @"name";
+  v6[4] = @"version";
+  v6[5] = @"state";
+  v6[6] = @"reasons";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:7];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -75,17 +73,15 @@
 
 + (id)supportedOS
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = &unk_28746CAD0;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = &unk_28746CAD0;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874699B0];
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874699C8];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v5;
 }

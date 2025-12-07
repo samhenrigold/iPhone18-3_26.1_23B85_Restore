@@ -97,25 +97,25 @@
     v9 = objc_msgSend_name(self, v4, v6, v7, v8);
     objc_msgSend_setName_(v5, v10, v11, v12, v13, v9);
 
-    objc_msgSend_ambientColor(self, v14, v15, v16, v17);
-    v74 = v73;
-    objc_msgSend_setAmbientColor_(v5, v18, *&v73, v19, v20, &v74);
-    objc_msgSend_diffuseColor(self, v21, v22, v23, v24);
-    v74 = v72;
-    objc_msgSend_setDiffuseColor_(v5, v25, *&v72, v26, v27, &v74);
-    objc_msgSend_specularColor(self, v28, v29, v30, v31);
-    v74 = v71;
-    objc_msgSend_setSpecularColor_(v5, v32, *&v71, v33, v34, &v74);
-    objc_msgSend_intensity(self, v35, v36, v37, v38);
-    objc_msgSend_setIntensity_(v5, v39, v40, v41, v42);
-    objc_msgSend_attenuation(self, v43, v44, v45, v46);
-    *&v74 = v69;
-    DWORD2(v74) = v70;
-    objc_msgSend_setAttenuation_(v5, v47, COERCE_DOUBLE(__PAIR64__(HIDWORD(v69), v70)), v48, v49, &v74);
-    v54 = objc_msgSend_coordinateSpace(self, v50, v51, v52, v53);
-    objc_msgSend_setCoordinateSpace_(v5, v55, v56, v57, v58, v54);
-    v63 = objc_msgSend_enabled(self, v59, v60, v61, v62);
-    objc_msgSend_setEnabled_(v5, v64, v65, v66, v67, v63);
+    objc_msgSend_ambientColor(self, v14, v15, v16);
+    v70 = v69;
+    objc_msgSend_setAmbientColor_(v5, v17, *&v69, v18, v19, &v70);
+    objc_msgSend_diffuseColor(self, v20, v21, v22);
+    v70 = v68;
+    objc_msgSend_setDiffuseColor_(v5, v23, *&v68, v24, v25, &v70);
+    objc_msgSend_specularColor(self, v26, v27, v28);
+    v70 = v67;
+    objc_msgSend_setSpecularColor_(v5, v29, *&v67, v30, v31, &v70);
+    objc_msgSend_intensity(self, v32, v33, v34, v35);
+    objc_msgSend_setIntensity_(v5, v36, v37, v38, v39);
+    objc_msgSend_attenuation(self, v40, v41, v42);
+    *&v70 = v65;
+    DWORD2(v70) = v66;
+    objc_msgSend_setAttenuation_(v5, v43, COERCE_DOUBLE(__PAIR64__(HIDWORD(v65), v66)), v44, v45, &v70);
+    v50 = objc_msgSend_coordinateSpace(self, v46, v47, v48, v49);
+    objc_msgSend_setCoordinateSpace_(v5, v51, v52, v53, v54, v50);
+    v59 = objc_msgSend_enabled(self, v55, v56, v57, v58);
+    objc_msgSend_setEnabled_(v5, v60, v61, v62, v63, v59);
   }
 
   return v5;
@@ -158,7 +158,7 @@
   if (ambientColor || (v9 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v3, v4, v5, "[TSCH3DLight ambientColor]"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLight.mm"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v17, v18, v19, v10, v15, 129, 0, "invalid nil value for '%{public}s'", "_ambientColor"), v15, v10, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23), (ambientColor = self->_ambientColor) != 0))
   {
 
-    ambientColor = objc_msgSend_value(ambientColor, a2, v3, v4, v5);
+    ambientColor = objc_msgSend_value(ambientColor, v3, v4, v5, a2);
   }
 
   else
@@ -190,7 +190,7 @@
   if (diffuseColor || (v9 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v3, v4, v5, "[TSCH3DLight diffuseColor]"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLight.mm"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v17, v18, v19, v10, v15, 138, 0, "invalid nil value for '%{public}s'", "_diffuseColor"), v15, v10, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23), (diffuseColor = self->_diffuseColor) != 0))
   {
 
-    diffuseColor = objc_msgSend_value(diffuseColor, a2, v3, v4, v5);
+    diffuseColor = objc_msgSend_value(diffuseColor, v3, v4, v5, a2);
   }
 
   else
@@ -222,7 +222,7 @@
   if (specularColor || (v9 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v3, v4, v5, "[TSCH3DLight specularColor]"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLight.mm"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v17, v18, v19, v10, v15, 147, 0, "invalid nil value for '%{public}s'", "_specularColor"), v15, v10, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23), (specularColor = self->_specularColor) != 0))
   {
 
-    specularColor = objc_msgSend_value(specularColor, a2, v3, v4, v5);
+    specularColor = objc_msgSend_value(specularColor, v3, v4, v5, a2);
   }
 
   else
@@ -254,7 +254,7 @@
   if (diffuseColor || (v9 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v3, v4, v5, "[TSCH3DLight attenuation]"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLight.mm"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v17, v18, v19, v10, v15, 156, 0, "invalid nil value for '%{public}s'", "_diffuseColor"), v15, v10, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23), (diffuseColor = self->_diffuseColor) != 0))
   {
 
-    diffuseColor = objc_msgSend_value3(diffuseColor, a2, v3, v4, v5);
+    diffuseColor = objc_msgSend_value3(diffuseColor, v3, v4, v5, a2);
   }
 
   else

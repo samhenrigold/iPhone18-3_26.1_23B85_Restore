@@ -25,7 +25,7 @@
 - (NSDateComponents)completionSuggestionEndDateComponents
 {
   completionSuggestionDateComponents = [(PLSearchSuggestionComponent *)self completionSuggestionDateComponents];
-  v4 = [completionSuggestionDateComponents count];
+  v4 = objc_msgSend_count(completionSuggestionDateComponents);
 
   if (v4 >= 2)
   {
@@ -44,7 +44,7 @@
 - (NSDateComponents)completionSuggestionStartDateComponents
 {
   completionSuggestionDateComponents = [(PLSearchSuggestionComponent *)self completionSuggestionDateComponents];
-  v4 = [completionSuggestionDateComponents count];
+  v4 = objc_msgSend_count(completionSuggestionDateComponents);
 
   if (v4)
   {
@@ -214,7 +214,7 @@
     v5 = equalCopy;
     contentString = [(PLSearchSuggestionComponent *)self contentString];
     contentString2 = [v5 contentString];
-    v47 = [contentString isEqualToString:contentString2];
+    isEqualToString = objc_msgSend_isEqualToString_(contentString);
 
     psiGroupId = [(PLSearchSuggestionComponent *)self psiGroupId];
     psiGroupId2 = [v5 psiGroupId];
@@ -233,7 +233,7 @@
     {
       lookupIdentifier3 = [(PLSearchSuggestionComponent *)self lookupIdentifier];
       lookupIdentifier4 = [v5 lookupIdentifier];
-      v12 = [lookupIdentifier3 isEqualToString:lookupIdentifier4];
+      v12 = objc_msgSend_isEqualToString_(lookupIdentifier3);
 
       v40 = v12 ^ 1;
     }
@@ -272,7 +272,7 @@
     matchType = [(PLSearchSuggestionComponent *)self matchType];
     matchType2 = [v5 matchType];
     v13 = 0;
-    if (!((psiGroupId != psiGroupId2 || (v47 & 1) == 0 || psiOwningGroupId != psiOwningGroupId2 || indexCategory != indexCategory2) | v40 & 1) && v15 == v17 && suggestionType == suggestionType2 && matchedAssetsCount == matchedAssetsCount2 && matchedCollectionsCount == matchedCollectionsCount2 && matchedText == matchedText2 && matchRangeOfSearchText == matchRangeOfSearchText2 && v31 == v30)
+    if (!((psiGroupId != psiGroupId2 || (isEqualToString & 1) == 0 || psiOwningGroupId != psiOwningGroupId2 || indexCategory != indexCategory2) | v40 & 1) && v15 == v17 && suggestionType == suggestionType2 && matchedAssetsCount == matchedAssetsCount2 && matchedCollectionsCount == matchedCollectionsCount2 && matchedText == matchedText2 && matchRangeOfSearchText == matchRangeOfSearchText2 && v31 == v30)
     {
       if (matchType == matchType2)
       {

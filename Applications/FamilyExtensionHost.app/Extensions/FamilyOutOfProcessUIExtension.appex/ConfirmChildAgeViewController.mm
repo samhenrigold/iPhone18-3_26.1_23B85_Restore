@@ -57,140 +57,134 @@
 {
   v6 = sub_10001B410();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10001B3F0();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_100003034(viewCopy);
+  v12 = sub_100003034(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
 {
-  v3 = *&self->OBTableWelcomeController_opaque[OBJC_IVAR____TtC29FamilyOutOfProcessUIExtension29ConfirmChildAgeViewController_viewModel];
   selfCopy = self;
 
-  v5 = sub_10001B720();
+  v4 = sub_10001B720();
 
-  v6 = *(v5 + 16);
+  v5 = *(v4 + 16);
 
-  return v6;
+  return v5;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v5 = sub_10001B410();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10001B3F0();
   viewCopy = view;
   isa = sub_10001B3E0().super.isa;
   [viewCopy deselectRowAtIndexPath:isa animated:0];
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (id)showUpdateChildBdayLink
 {
   v0 = sub_10001B930();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = __chkstk_darwin(v0);
-  v5 = &v41 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v41 - v6;
-  v8 = sub_100003C14(&qword_10002E5B8, &qword_10001CDE8);
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  v11 = &v41 - v10;
-  v12 = sub_10001B3B0();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = __chkstk_darwin(v12);
-  v17 = &v41 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v19 = &v41 - v18;
+  v2 = __chkstk_darwin(v0);
+  v4 = &v38 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v6 = &v38 - v5;
+  v7 = sub_100003C14(&qword_10002E5B8, &qword_10001CDE8);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v38 - v8;
+  v10 = sub_10001B3B0();
+  v11 = *(v10 - 8);
+  v12 = __chkstk_darwin(v10);
+  v14 = &v38 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v16 = &v38 - v15;
   sub_10001B3A0();
-  if ((*(v13 + 48))(v11, 1, v12) == 1)
+  if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    v20 = v1;
-    sub_100005DE8(v11, &qword_10002E5B8, &qword_10001CDE8);
+    v17 = v1;
+    sub_100005DE8(v9, &qword_10002E5B8, &qword_10001CDE8);
     sub_10001B420();
-    v21 = sub_10001B920();
-    v22 = sub_10001BE50();
-    if (os_log_type_enabled(v21, v22))
+    v18 = sub_10001B920();
+    v19 = sub_10001BE50();
+    if (os_log_type_enabled(v18, v19))
     {
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v46 = v24;
-      *v23 = 136315138;
-      *(v23 + 4) = sub_100012460(0xD000000000000057, 0x800000010001DB80, &v46);
-      _os_log_impl(&_mh_execute_header, v21, v22, "Could not create update birthdate URL from string: %s", v23, 0xCu);
-      sub_100005E48(v24);
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      v43 = v21;
+      *v20 = 136315138;
+      *(v20 + 4) = sub_100012460(0xD000000000000057, 0x800000010001DB80, &v43);
+      _os_log_impl(&_mh_execute_header, v18, v19, "Could not create update birthdate URL from string: %s", v20, 0xCu);
+      sub_100005E48(v21);
     }
 
-    return (*(v20 + 8))(v5, v0);
+    return (*(v17 + 8))(v4, v0);
   }
 
   else
   {
-    v45 = v0;
-    (*(v13 + 32))(v19, v11, v12);
+    v42 = v0;
+    (*(v11 + 32))(v16, v9, v10);
     sub_10001B420();
-    (*(v13 + 16))(v17, v19, v12);
-    v26 = sub_10001B920();
-    v27 = sub_10001BE70();
-    if (os_log_type_enabled(v26, v27))
+    (*(v11 + 16))(v14, v16, v10);
+    v23 = sub_10001B920();
+    v24 = sub_10001BE70();
+    if (os_log_type_enabled(v23, v24))
     {
-      v28 = swift_slowAlloc();
-      v42 = v28;
-      v44 = swift_slowAlloc();
-      v46 = v44;
-      *v28 = 136315138;
-      sub_100005E94(&qword_10002E5C0, &type metadata accessor for URL);
-      v29 = sub_10001BFB0();
-      v43 = v1;
-      v31 = v30;
-      v32 = *(v13 + 8);
-      v32(v17, v12);
-      v33 = sub_100012460(v29, v31, &v46);
+      v25 = swift_slowAlloc();
+      v39 = v25;
+      v41 = swift_slowAlloc();
+      v43 = v41;
+      *v25 = 136315138;
+      sub_100005E94(&qword_10002E5C0, &type metadata accessor for URL, &protocol conformance descriptor for URL);
+      v26 = sub_10001BFB0();
+      v40 = v1;
+      v28 = v27;
+      v29 = *(v11 + 8);
+      v29(v14, v10);
+      v30 = sub_100012460(v26, v28, &v43);
 
-      v34 = v42;
-      *(v42 + 1) = v33;
-      _os_log_impl(&_mh_execute_header, v26, v27, "Update birthdate url: %s", v34, 0xCu);
-      sub_100005E48(v44);
+      v31 = v39;
+      *(v39 + 1) = v30;
+      _os_log_impl(&_mh_execute_header, v23, v24, "Update birthdate url: %s", v31, 0xCu);
+      sub_100005E48(v41);
 
-      v35 = v32;
-      (*(v43 + 8))(v7, v45);
+      v32 = v29;
+      (*(v40 + 8))(v6, v42);
     }
 
     else
     {
 
-      v35 = *(v13 + 8);
-      v35(v17, v12);
-      (*(v1 + 8))(v7, v45);
+      v32 = *(v11 + 8);
+      v32(v14, v10);
+      (*(v1 + 8))(v6, v42);
     }
 
     result = [objc_opt_self() defaultWorkspace];
     if (result)
     {
-      v37 = result;
-      sub_10001B390(v36);
-      v39 = v38;
+      v34 = result;
+      sub_10001B390(v33);
+      v36 = v35;
       sub_100005574(&_swiftEmptyArrayStorage);
       isa = sub_10001BCB0().super.isa;
 
-      [v37 openSensitiveURL:v39 withOptions:isa];
+      [v34 openSensitiveURL:v36 withOptions:isa];
 
-      return (v35)(v19, v12);
+      return (v32)(v16, v10);
     }
 
     else

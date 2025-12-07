@@ -457,7 +457,7 @@ LABEL_47:
   return v5;
 }
 
-uint64_t __83__UIPredictionViewController__autocorrectionListContainsContinuousPathConversions___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__83__UIPredictionViewController__autocorrectionListContainsContinuousPathConversions___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isContinuousPathConversion];
   *a4 = result;

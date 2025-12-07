@@ -72,9 +72,11 @@
 
 - (void)setAttitude:(id)attitude
 {
+  v5 = *(attitude.var1 + 16);
+  v6 = *attitude.var1;
   v3 = *(attitude.var1 + 32);
   selfCopy = self;
-  sub_1B3871F6C(v3);
+  sub_1B3871F6C(v3, v6, v5);
 }
 
 - (void)setDeviceOrientation:(int64_t)orientation
@@ -86,13 +88,15 @@
 - (void)setUnlockProgress:(double)progress
 {
   selfCopy = self;
-  sub_1B387216C(progress);
+  v4.n128_f64[0] = progress;
+  sub_1B387216C(v4);
 }
 
 - (void)setBacklightProgress:(double)progress
 {
   selfCopy = self;
-  sub_1B387222C(progress);
+  v4.n128_f64[0] = progress;
+  sub_1B387222C(v4);
 }
 
 - (void)setIsGeneratingPoster:(BOOL)poster

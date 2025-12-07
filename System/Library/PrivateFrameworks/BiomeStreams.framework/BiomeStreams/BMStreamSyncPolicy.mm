@@ -8,29 +8,29 @@
 
 + (id)syncableStreamConfigurations
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = BiomeLibraryNodeBridge();
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allStreams = [v2 allStreams];
-  v5 = [allStreams countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [allStreams countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allStreams);
         }
 
-        configuration = [*(*(&v16 + 1) + 8 * i) configuration];
+        configuration = [*(*(&v15 + 1) + 8 * i) configuration];
         syncPolicy = [configuration syncPolicy];
         v11 = syncPolicy;
         if (syncPolicy)
@@ -45,13 +45,11 @@
         }
       }
 
-      v6 = [allStreams countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allStreams countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -74,29 +72,29 @@
 
 + (id)syncableStreams
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = BiomeLibraryNodeBridge();
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allStreams = [v2 allStreams];
-  v5 = [allStreams countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [allStreams countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allStreams);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         configuration = [v9 configuration];
         syncPolicy = [configuration syncPolicy];
 
@@ -112,13 +110,11 @@
         }
       }
 
-      v6 = [allStreams countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allStreams countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

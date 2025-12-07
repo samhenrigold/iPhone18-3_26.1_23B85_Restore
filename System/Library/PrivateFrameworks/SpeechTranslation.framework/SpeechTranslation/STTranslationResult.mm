@@ -30,18 +30,16 @@
 {
   if (*(self + OBJC_IVAR___STTranslationResult_sourceText + 8))
   {
-    v2 = *(self + OBJC_IVAR___STTranslationResult_sourceText);
-    v3 = *(self + OBJC_IVAR___STTranslationResult_sourceText + 8);
 
-    v4 = sub_26B5E198C();
+    v2 = sub_26B5E198C();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setSourceText:(id)text
@@ -58,7 +56,6 @@
   }
 
   v6 = (self + OBJC_IVAR___STTranslationResult_sourceText);
-  v7 = *(self + OBJC_IVAR___STTranslationResult_sourceText + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -66,24 +63,23 @@
 - (NSUUID)sourceIdentifier
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280407D90, &unk_26B5E3B80);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  STTranslationResult.sourceIdentifier.getter(v6);
+  STTranslationResult.sourceIdentifier.getter(v5);
 
-  v8 = sub_26B5E15DC();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_26B5E15DC();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_26B5E15AC();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_26B5E15AC();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (STTranslationResult)initWithTranslation:(id)translation sourceText:(id)text isFinal:(BOOL)final
@@ -113,41 +109,39 @@
   finalCopy = final;
   selfCopy = self;
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280407D90, &unk_26B5E3B80);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v25[-v11];
-  v13 = sub_26B5E15DC();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v25[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v18 = sub_26B5E199C();
-  v20 = v19;
+  v11 = &v23[-v10];
+  v12 = sub_26B5E15DC();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = &v23[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v16 = sub_26B5E199C();
+  v18 = v17;
   if (text)
   {
     text = sub_26B5E199C();
-    v22 = v21;
+    v20 = v19;
   }
 
   else
   {
-    v22 = 0;
+    v20 = 0;
   }
 
   sub_26B5E15BC();
   if (sourceIdentifier)
   {
     sub_26B5E15BC();
-    v23 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v23 = 1;
+    v21 = 1;
   }
 
-  (*(v14 + 56))(v12, v23, 1, v13);
-  return STTranslationResult.init(translation:sourceText:isFinal:identifier:sourceIdentifier:)(v18, v20, text, v22, finalCopy, v17, v12);
+  (*(v13 + 56))(v11, v21, 1, v12);
+  return STTranslationResult.init(translation:sourceText:isFinal:identifier:sourceIdentifier:)(v16, v18, text, v20, finalCopy, v15, v11);
 }
 
 - (void)encodeWithCoder:(id)coder

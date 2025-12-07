@@ -5,6 +5,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityUpdateCenterPersonViewAXInfo;
 - (void)_accessibilityUpdateDeleteButtonLabel;
+- (void)_selectSlotAtIndex:(unint64_t)index includeSelectionIndicator:(BOOL)indicator animated:(BOOL)animated;
 - (void)peripheryPersonViewTapped:(id)tapped;
 - (void)viewDidLoad;
 @end
@@ -57,6 +58,15 @@
   v3.super_class = NPLSettingsPeopleViewControllerAccessibility;
   [(NPLSettingsPeopleViewControllerAccessibility *)&v3 viewDidLoad];
   [(NPLSettingsPeopleViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)_selectSlotAtIndex:(unint64_t)index includeSelectionIndicator:(BOOL)indicator animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = NPLSettingsPeopleViewControllerAccessibility;
+  [(NPLSettingsPeopleViewControllerAccessibility *)&v6 _selectSlotAtIndex:index includeSelectionIndicator:indicator animated:animated];
+  [(NPLSettingsPeopleViewControllerAccessibility *)self _accessibilityUpdateDeleteButtonLabel];
+  [(NPLSettingsPeopleViewControllerAccessibility *)self _accessibilityUpdateCenterPersonViewAXInfo];
 }
 
 - (void)peripheryPersonViewTapped:(id)tapped

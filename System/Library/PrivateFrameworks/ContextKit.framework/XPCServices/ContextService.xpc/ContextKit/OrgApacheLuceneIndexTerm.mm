@@ -109,7 +109,6 @@ LABEL_4:
   objc_opt_class();
   if (!id)
   {
-    field = self->field_;
     JreThrowNullPointerException();
   }
 
@@ -118,13 +117,13 @@ LABEL_4:
     JreThrowClassCastException();
   }
 
-  v5 = self->field_;
-  if (!v5)
+  field = self->field_;
+  if (!field)
   {
     goto LABEL_11;
   }
 
-  if ([(NSString *)v5 isEqual:*(id + 1)])
+  if ([(NSString *)field isEqual:*(id + 1)])
   {
     bytes = self->bytes_;
     if (bytes)

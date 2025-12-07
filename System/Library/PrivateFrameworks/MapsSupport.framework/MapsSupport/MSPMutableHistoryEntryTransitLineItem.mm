@@ -23,31 +23,13 @@
   v14.super_class = MSPMutableHistoryEntryTransitLineItem;
   v6 = [(MSPMutableHistoryEntry *)&v14 initWithStorage:storageCopy];
   v7 = v6;
-  if (!v6)
+  if (!v6 || (-[MSPMutableHistoryEntry storage](v6, "storage"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 searchType], v8, v9 == 4) && (-[MSPMutableHistoryEntry storage](v7, "storage"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "transitLineItem"), v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v11))
   {
-    goto LABEL_6;
-  }
-
-  storage = [(MSPMutableHistoryEntry *)v6 storage];
-  searchType = [storage searchType];
-
-  if (searchType != 4)
-  {
-    goto LABEL_7;
-  }
-
-  storage2 = [(MSPMutableHistoryEntry *)v7 storage];
-  transitLineItem = [storage2 transitLineItem];
-
-  if (transitLineItem)
-  {
-LABEL_6:
     v12 = v7;
   }
 
   else
   {
-LABEL_7:
     v12 = 0;
   }
 
@@ -56,7 +38,7 @@ LABEL_7:
 
 - (id)transferToImmutableIfValidWithError:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   lineItem = [(MSPMutableHistoryEntryTransitLineItem *)self lineItem];
   if (lineItem)
@@ -87,11 +69,11 @@ LABEL_7:
     if (error)
     {
       v12 = MEMORY[0x277CCA9B8];
-      v16[0] = @"MSPContainerUntransferableObject";
-      v16[1] = @"MSPContainerUnavailableKeys";
-      v17[0] = self;
-      v17[1] = v5;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+      v15[0] = @"MSPContainerUntransferableObject";
+      v15[1] = @"MSPContainerUnavailableKeys";
+      v16[0] = self;
+      v16[1] = v5;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
       *error = [v12 errorWithDomain:@"com.apple.MapsSupport.MSPContainer" code:1 userInfo:v13];
 
       error = 0;
@@ -103,8 +85,6 @@ LABEL_7:
     [(MSPMutableHistoryEntry *)self _markImmutable];
     error = self;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return error;
 }

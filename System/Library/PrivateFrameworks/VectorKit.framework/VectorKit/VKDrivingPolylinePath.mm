@@ -811,17 +811,17 @@ LABEL_164:
 - (unint64_t)splitGradientTrafficSegmentationAndAddTo:with:shouldSnap:
 {
   v7 = *a3;
-  if (*a3 != *a2 || (v8 = *(a2 + 1), vabds_f32(*(a3 + 1), v8) >= 0.00000011921))
+  if (*a3 != *a2 || (v8 = a2[1], vabds_f32(*(a3 + 1), v8) >= 0.00000011921))
   {
     WeakRetained = objc_loadWeakRetained((*self + 16));
     composedRouteSegment = [WeakRetained composedRouteSegment];
     composedRoute = [composedRouteSegment composedRoute];
 
     v12 = *a2;
-    v13 = *(a2 + 1);
+    v13 = a2[1];
     if (v13 >= 1.0)
     {
-      v12 += vcvtms_u32_f32(v13);
+      LODWORD(v12) += vcvtms_u32_f32(v13);
       v13 = v13 - floorf(v13);
     }
 
@@ -833,7 +833,7 @@ LABEL_164:
       v15 = v15 - floorf(v15);
     }
 
-    [composedRoute distanceBetweenRouteCoordinate:v12 | (LODWORD(v13) << 32) andRouteCoordinate:v14 | (LODWORD(v15) << 32)];
+    [composedRoute distanceBetweenRouteCoordinate:LODWORD(v12) | (LODWORD(v13) << 32) andRouteCoordinate:v14 | (LODWORD(v15) << 32)];
     v17 = [composedRoute routeCoordinateForDistance:*a2 afterRouteCoordinate:v16 * a4];
     v8 = *(&v17 + 1);
     v7 = v17;
@@ -959,7 +959,7 @@ LABEL_16:
   self->_gradientTraffics.__end_ = v30;
 LABEL_29:
   memcpy(self->_gradientTraffics.__begin_, traffics, 8 * count);
-  std::vector<geo::PolylineCoordinate>::resize(&self->super._polylineCoordinates, count);
+  std::vector<geo::PolylineCoordinate>::resize(&self->super._polylineCoordinates.__begin_, count);
   v31 = self->super._polylineCoordinates.__begin_;
 
   memcpy(v31, coordinates, 8 * count);

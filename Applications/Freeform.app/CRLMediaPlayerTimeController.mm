@@ -306,7 +306,7 @@ LABEL_11:
   [(CRLMediaPlayerTimeController *)self didChangeValueForKey:@"absoluteCurrentTime"];
   [(CRLMediaPlayerTimeController *)self willChangeValueForKey:@"currentTime"];
   playerController2 = [(CRLMediaPlayerTimeController *)self playerController];
-  [playerController2 currentTime];
+  objc_msgSend_currentTime(playerController2);
   self->mCurrentTime = v6;
 
   [(CRLMediaPlayerTimeController *)self didChangeValueForKey:@"currentTime"];

@@ -265,7 +265,7 @@
 
 - (BOOL)_handleJavascriptBridgeRequest:(id)request
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [requestCopy URL];
   scheme = [v5 scheme];
@@ -276,53 +276,55 @@
     goto LABEL_14;
   }
 
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(v8, v9);
+  if (isInternalInstall)
   {
-    v8 = _RUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [requestCopy URL];
-      v19 = 138412290;
-      v20 = v9;
-      _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, "handling webview javascript bridge request with url: %@", &v19, 0xCu);
+      v12 = [requestCopy URL];
+      v25 = 138412290;
+      v26 = v12;
+      _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "handling webview javascript bridge request with url: %@", &v25, 0xCu);
     }
   }
 
-  v10 = [requestCopy URL];
-  path = [v10 path];
-  v12 = [path isEqualToString:@"/contentDidChange"];
+  v13 = [requestCopy URL];
+  path = [v13 path];
+  v15 = [path isEqualToString:@"/contentDidChange"];
 
-  if (v12)
+  if (v15)
   {
-    if (_isInternalInstall())
+    v18 = _isInternalInstall(v16, v17);
+    if (v18)
     {
-      v13 = _RUILoggingFacility();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v19 = _RUILoggingFacility(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_21B93D000, v13, OS_LOG_TYPE_DEFAULT, "webview content did change, notifying delegate", &v19, 2u);
+        LOWORD(v25) = 0;
+        _os_log_impl(&dword_21B93D000, v19, OS_LOG_TYPE_DEFAULT, "webview content did change, notifying delegate", &v25, 2u);
       }
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v15 = objc_opt_respondsToSelector();
+    v21 = objc_opt_respondsToSelector();
 
-    if (v15)
+    if (v21)
     {
-      v16 = objc_loadWeakRetained(&self->_delegate);
-      [v16 webContainerViewContentDidChange:self];
+      v22 = objc_loadWeakRetained(&self->_delegate);
+      [v22 webContainerViewContentDidChange:self];
     }
 
-    v17 = 1;
+    v23 = 1;
   }
 
   else
   {
 LABEL_14:
-    v17 = 0;
+    v23 = 0;
   }
 
-  return v17;
+  return v23;
 }
 
 - (BOOL)webView:(id)view shouldStartLoadWithRequest:(id)request navigationType:(int64_t)type

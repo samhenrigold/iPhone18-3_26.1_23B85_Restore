@@ -36,11 +36,11 @@
 
 - (MRNowPlayingOriginClientRequests)initWithOrigin:(id)origin
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   originCopy = origin;
-  v23.receiver = self;
-  v23.super_class = MRNowPlayingOriginClientRequests;
-  v6 = [(MRNowPlayingOriginClientRequests *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = MRNowPlayingOriginClientRequests;
+  v6 = [(MRNowPlayingOriginClientRequests *)&v22 init];
   v7 = v6;
   if (v6)
   {
@@ -77,17 +77,16 @@
       {
         callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
         *buf = 138412802;
-        v25 = v7;
-        v26 = 2112;
-        v27 = originCopy;
-        v28 = 2112;
-        v29 = callStackSymbols;
+        v24 = v7;
+        v25 = 2112;
+        v26 = originCopy;
+        v27 = 2112;
+        v28 = callStackSymbols;
         _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientRequests] Creating %@ for origin %@ at %@", buf, 0x20u);
       }
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -101,7 +100,7 @@ void __51__MRNowPlayingOriginClientRequests_initWithOrigin___block_invoke()
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = +[MRUserSettings currentSettings];
   verboseOriginClientLogging = [v3 verboseOriginClientLogging];
 
@@ -114,34 +113,32 @@ void __51__MRNowPlayingOriginClientRequests_initWithOrigin___block_invoke()
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
       *buf = 138412802;
       selfCopy = self;
-      v12 = 2112;
-      v13 = origin;
-      v14 = 2112;
-      v15 = callStackSymbols;
+      v11 = 2112;
+      v12 = origin;
+      v13 = 2112;
+      v14 = callStackSymbols;
       _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientRequests] Destroying %@ for origin %@ at %@", buf, 0x20u);
     }
   }
 
-  v9.receiver = self;
-  v9.super_class = MRNowPlayingOriginClientRequests;
-  [(MRNowPlayingOriginClientRequests *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = MRNowPlayingOriginClientRequests;
+  [(MRNowPlayingOriginClientRequests *)&v8 dealloc];
 }
 
 - (id)debugDescription
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__18;
-  v9 = __Block_byref_object_dispose__18;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__18;
+  v8 = __Block_byref_object_dispose__18;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __52__MRNowPlayingOriginClientRequests_debugDescription__block_invoke(uint64_t a1)
@@ -196,27 +193,27 @@ void __52__MRNowPlayingOriginClientRequests_debugDescription__block_invoke(uint6
 
 void __74__MRNowPlayingOriginClientRequests_nowPlayingClientRequestsForPlayerPath___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(*(a1 + 32) + 72);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [v7 client];
         v9 = [*(a1 + 40) client];
         v10 = [v8 isEqual:v9];
@@ -229,7 +226,7 @@ void __74__MRNowPlayingOriginClientRequests_nowPlayingClientRequestsForPlayerPat
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v4)
       {
         continue;
@@ -250,8 +247,6 @@ LABEL_11:
 
     [*(*(a1 + 32) + 72) addObject:*(*(*(a1 + 48) + 8) + 40)];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)existingNowPlayingClientRequestsForPlayerPath:(id)path
@@ -286,27 +281,27 @@ LABEL_11:
 
 void __82__MRNowPlayingOriginClientRequests_existingNowPlayingClientRequestsForPlayerPath___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(*(a1 + 32) + 72);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 client];
         v9 = [*(a1 + 40) client];
         v10 = [v8 isEqual:v9];
@@ -318,7 +313,7 @@ void __82__MRNowPlayingOriginClientRequests_existingNowPlayingClientRequestsForP
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -329,8 +324,6 @@ void __82__MRNowPlayingOriginClientRequests_existingNowPlayingClientRequestsForP
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeClient:(id)client
@@ -349,27 +342,27 @@ LABEL_11:
 
 void __49__MRNowPlayingOriginClientRequests_removeClient___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(*(a1 + 32) + 72);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 client];
         v9 = [*(a1 + 40) client];
         v10 = [v8 isEqual:v9];
@@ -381,7 +374,7 @@ void __49__MRNowPlayingOriginClientRequests_removeClient___block_invoke(uint64_t
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -392,8 +385,6 @@ void __49__MRNowPlayingOriginClientRequests_removeClient___block_invoke(uint64_t
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllClients
@@ -439,7 +430,7 @@ void __60__MRNowPlayingOriginClientRequests_nowPlayingClientRequests__block_invo
 
 - (void)setVolumeCapabilities:(id)capabilities
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   v5 = +[MRUserSettings currentSettings];
   verboseOriginClientLogging = [v5 verboseOriginClientLogging];
@@ -452,39 +443,35 @@ void __60__MRNowPlayingOriginClientRequests_nowPlayingClientRequests__block_invo
       playerPath = self->_playerPath;
       v9 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription([capabilitiesCopy intValue]);
       *buf = 138543618;
-      v14 = playerPath;
-      v15 = 2114;
-      v16 = v9;
+      v12 = playerPath;
+      v13 = 2114;
+      v14 = v9;
       _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientRequests] %{public}@ UpdatingCache: volumeCapabilities %{public}@", buf, 0x16u);
     }
   }
 
-  serialQueue = self->_serialQueue;
-  v11 = capabilitiesCopy;
+  v10 = capabilitiesCopy;
   msv_dispatch_sync_on_queue();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NSNumber)volumeCapabilities
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__18;
-  v9 = __Block_byref_object_dispose__18;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__18;
+  v8 = __Block_byref_object_dispose__18;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (void)setVolume:(id)volume
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   volumeCopy = volume;
   v5 = +[MRUserSettings currentSettings];
   verboseOriginClientLogging = [v5 verboseOriginClientLogging];
@@ -497,39 +484,35 @@ void __60__MRNowPlayingOriginClientRequests_nowPlayingClientRequests__block_invo
       playerPath = self->_playerPath;
       [volumeCopy floatValue];
       *buf = 138543618;
-      v14 = playerPath;
-      v15 = 2048;
-      v16 = v9;
+      v12 = playerPath;
+      v13 = 2048;
+      v14 = v9;
       _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientRequests] %{public}@ UpdatingCache: volume %lf", buf, 0x16u);
     }
   }
 
-  serialQueue = self->_serialQueue;
-  v11 = volumeCopy;
+  v10 = volumeCopy;
   msv_dispatch_sync_on_queue();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NSNumber)volume
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__18;
-  v9 = __Block_byref_object_dispose__18;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__18;
+  v8 = __Block_byref_object_dispose__18;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (void)setLastPlayingDate:(id)date
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v5 = +[MRUserSettings currentSettings];
   verboseOriginClientLogging = [v5 verboseOriginClientLogging];
@@ -541,34 +524,30 @@ void __60__MRNowPlayingOriginClientRequests_nowPlayingClientRequests__block_invo
     {
       playerPath = self->_playerPath;
       *buf = 138543618;
-      v13 = playerPath;
-      v14 = 2112;
-      v15 = dateCopy;
+      v11 = playerPath;
+      v12 = 2112;
+      v13 = dateCopy;
       _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientRequests] %{public}@ UpdatingCache: lastPlayingDate %@", buf, 0x16u);
     }
   }
 
-  serialQueue = self->_serialQueue;
-  v10 = dateCopy;
+  v9 = dateCopy;
   msv_dispatch_sync_on_queue();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDate)lastPlayingDate
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__18;
-  v9 = __Block_byref_object_dispose__18;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__18;
+  v8 = __Block_byref_object_dispose__18;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (void)handleDeviceInfoRequestWithCompletion:(id)completion
@@ -638,7 +617,7 @@ void __74__MRNowPlayingOriginClientRequests_handleDeviceInfoRequestWithCompletio
 
 void __74__MRNowPlayingOriginClientRequests_handleDeviceInfoRequestWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   os_unfair_lock_lock((*(a1 + 32) + 24));
@@ -657,38 +636,36 @@ void __74__MRNowPlayingOriginClientRequests_handleDeviceInfoRequestWithCompletio
   v12 = [*(*(a1 + 32) + 40) copy];
   [*(*(a1 + 32) + 40) removeAllObjects];
   os_unfair_lock_unlock((*(a1 + 32) + 24));
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        (*(*(*(&v19 + 1) + 8 * v17) + 16))(*(*(&v19 + 1) + 8 * v17));
+        (*(*(*(&v18 + 1) + 8 * v17) + 16))(*(*(&v18 + 1) + 8 * v17));
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleVolumeRequestWithCompletion:(id)completion
@@ -758,7 +735,7 @@ void __70__MRNowPlayingOriginClientRequests_handleVolumeRequestWithCompletion___
 uint64_t __70__MRNowPlayingOriginClientRequests_handleVolumeRequestWithCompletion___block_invoke_2(uint64_t a1, double a2)
 {
   v2 = *&a2;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   if (!*(v4 + 56))
   {
@@ -768,39 +745,37 @@ uint64_t __70__MRNowPlayingOriginClientRequests_handleVolumeRequestWithCompletio
     v4 = *(a1 + 32);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = *(v4 + 80);
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v10++) + 16))(v2);
+        (*(*(*(&v12 + 1) + 8 * v10++) + 16))(v2);
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
-  result = [*(*(a1 + 32) + 80) removeAllObjects];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 80) removeAllObjects];
 }
 
 - (void)handleVolumeCapabilitiesRequestWithCompletion:(id)completion
@@ -870,7 +845,7 @@ void __82__MRNowPlayingOriginClientRequests_handleVolumeCapabilitiesRequestWithC
 
 uint64_t __82__MRNowPlayingOriginClientRequests_handleVolumeCapabilitiesRequestWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (!*(v3 + 48))
   {
@@ -880,40 +855,38 @@ uint64_t __82__MRNowPlayingOriginClientRequests_handleVolumeCapabilitiesRequestW
     v3 = *(a1 + 32);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(v3 + 88);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v9) + 16))(*(*(&v12 + 1) + 8 * v9));
+        (*(*(*(&v11 + 1) + 8 * v9) + 16))(*(*(&v11 + 1) + 8 * v9));
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  result = [*(*(a1 + 32) + 88) removeAllObjects];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 88) removeAllObjects];
 }
 
 - (void)handleLastPlayingDateRequestWithCompletion:(id)completion
@@ -940,48 +913,47 @@ void __79__MRNowPlayingOriginClientRequests_handleLastPlayingDateRequestWithComp
   v2 = *(a1 + 32);
   if (*(v2 + 64))
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(v2 + 96);
-    if (!v5)
+    v4 = *(v2 + 96);
+    if (!v4)
     {
-      v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v7 = *(a1 + 32);
-      v8 = *(v7 + 96);
-      *(v7 + 96) = v6;
+      v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 96);
+      *(v6 + 96) = v5;
 
-      v5 = *(*(a1 + 32) + 96);
+      v4 = *(*(a1 + 32) + 96);
     }
 
-    v9 = [*(a1 + 40) copy];
-    v10 = MEMORY[0x1A58E3570]();
-    [v5 addObject:v10];
+    v8 = [*(a1 + 40) copy];
+    v9 = MEMORY[0x1A58E3570]();
+    [v4 addObject:v9];
 
     if ([*(*(a1 + 32) + 96) count] == 1)
     {
-      v11 = MRGetSharedService();
-      v12 = *(a1 + 32);
-      v13 = *(v12 + 112);
-      v14 = *(v12 + 8);
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __79__MRNowPlayingOriginClientRequests_handleLastPlayingDateRequestWithCompletion___block_invoke_2;
-      v15[3] = &unk_1E769EDF8;
-      v15[4] = v12;
-      MRMediaRemoteServiceGetLastPlayingDateForPlayer(v11, v13, v14, v15);
+      v10 = MRGetSharedService();
+      v11 = *(a1 + 32);
+      v12 = *(v11 + 112);
+      v13 = *(v11 + 8);
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __79__MRNowPlayingOriginClientRequests_handleLastPlayingDateRequestWithCompletion___block_invoke_2;
+      v14[3] = &unk_1E769EDF8;
+      v14[4] = v11;
+      MRMediaRemoteServiceGetLastPlayingDateForPlayer(v10, v12, v13, v14);
     }
   }
 }
 
 void __79__MRNowPlayingOriginClientRequests_handleLastPlayingDateRequestWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -991,39 +963,38 @@ void __79__MRNowPlayingOriginClientRequests_handleLastPlayingDateRequestWithComp
     v7 = *(a1 + 32);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = *(v7 + 96);
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
+        (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
 
   [*(*(a1 + 32) + 96) removeAllObjects];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)restoreNowPlayingClientState
@@ -1039,38 +1010,36 @@ void __79__MRNowPlayingOriginClientRequests_handleLastPlayingDateRequestWithComp
 
 void __64__MRNowPlayingOriginClientRequests_restoreNowPlayingClientState__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(*(a1 + 32) + 72);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) restoreNowPlayingClientState];
+        [*(*(&v6 + 1) + 8 * v5++) restoreNowPlayingClientState];
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDeviceInfo:(id)info

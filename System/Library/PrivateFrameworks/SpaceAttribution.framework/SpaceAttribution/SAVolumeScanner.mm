@@ -30,6 +30,9 @@
 - (void)populateVendorName;
 - (void)postProcessResults;
 - (void)processAttributionTags:(BOOL)tags;
+- (void)processCloneGroups:(BOOL)groups error:(id *)error;
+- (void)processClones:(BOOL)clones;
+- (void)processClonesMap:(BOOL)map error:(id *)error;
 - (void)processPurgeableAttributionTags:(BOOL)tags;
 - (void)processSpeculativeDownloadData;
 - (void)sendCacheUsageTelemetryWithBGTask:(id)task;
@@ -1020,6 +1023,242 @@ LABEL_18:
 
   _Block_object_dispose(&v33, 8);
   _Block_object_dispose(&v39, 8);
+}
+
+- (void)processClones:(BOOL)clones
+{
+  clonesCopy = clones;
+  v10 = 0;
+  [(SAVolumeScanner *)self processCloneGroups:clones error:&v10];
+  v5 = v10;
+  if ([v5 code] == 45)
+  {
+    v6 = SALog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v12 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Failed to process clone groups with %@, fallback to clone mapping", buf, 0xCu);
+    }
+
+    v9 = 0;
+    [(SAVolumeScanner *)self processClonesMap:clonesCopy error:&v9];
+    v5 = v9;
+    if ([v5 code] == 45)
+    {
+      v7 = SALog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        sub_10003E85C();
+      }
+
+      v8 = SALog();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      {
+        sub_10003E89C();
+      }
+    }
+  }
+}
+
+- (void)processCloneGroups:(BOOL)groups error:(id *)error
+{
+  groupsCopy = groups;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = sub_100017264;
+  v32[4] = sub_100017274;
+  v33 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_100017264;
+  v30 = sub_100017274;
+  v31 = 0;
+  v19 = objc_opt_new();
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  relevantVolumesInfo = [(SAVolumeScanner *)self relevantVolumesInfo];
+  obj = [relevantVolumesInfo volumesPaths];
+
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v36 count:16];
+  if (v7)
+  {
+    v8 = *v23;
+    while (2)
+    {
+      for (i = 0; i != v7; i = i + 1)
+      {
+        if (*v23 != v8)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v11 = SALog();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v35 = v10;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Process clone groups on volume %@", buf, 0xCu);
+        }
+
+        relevantVolumesInfo2 = [(SAVolumeScanner *)self relevantVolumesInfo];
+        appSizerResults = [(SAVolumeScanner *)self appSizerResults];
+        appSizeBreakdownList = [appSizerResults appSizeBreakdownList];
+        v20[0] = _NSConcreteStackBlock;
+        v20[1] = 3221225472;
+        v20[2] = sub_10001B8C8;
+        v20[3] = &unk_100065118;
+        v20[5] = self;
+        v20[6] = &v26;
+        v20[7] = v32;
+        v20[4] = v10;
+        v21 = groupsCopy;
+        [v19 processCloneGroupsOnVol:v10 volumesInfo:relevantVolumesInfo2 appSizeBreakdownList:appSizeBreakdownList collectClonesPaths:groupsCopy reply:v20];
+
+        v15 = v27[5];
+        if (v15)
+        {
+          if (error)
+          {
+            *error = v15;
+          }
+
+          goto LABEL_14;
+        }
+      }
+
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v36 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_14:
+
+  if (!v27[5])
+  {
+    appSizerResults2 = [(SAVolumeScanner *)self appSizerResults];
+    [appSizerResults2 setInternalFlags:{objc_msgSend(appSizerResults2, "internalFlags") | 2}];
+  }
+
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(v32, 8);
+}
+
+- (void)processClonesMap:(BOOL)map error:(id *)error
+{
+  mapCopy = map;
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x3032000000;
+  v38[3] = sub_100017264;
+  v38[4] = sub_100017274;
+  v39 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_100017264;
+  v32 = sub_100017274;
+  v33 = 0;
+  v6 = SALog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "START: App Sizer Clone Mapper", buf, 2u);
+  }
+
+  telemetryManager = [(SAVolumeScanner *)self telemetryManager];
+  [telemetryManager startTimeForTimeInfoEntry:8];
+
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  relevantVolumesInfo = [(SAVolumeScanner *)self relevantVolumesInfo];
+  obj = [relevantVolumesInfo volumesPaths];
+
+  v9 = [obj countByEnumeratingWithState:&v24 objects:v42 count:16];
+  if (v9)
+  {
+    v21 = *v25;
+LABEL_5:
+    v10 = 0;
+    while (1)
+    {
+      if (*v25 != v21)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v11 = *(*(&v24 + 1) + 8 * v10);
+      pathList = [(SAVolumeScanner *)self pathList];
+      appSizerResults = [(SAVolumeScanner *)self appSizerResults];
+      appSizeBreakdownList = [appSizerResults appSizeBreakdownList];
+      relevantVolumesInfo2 = [(SAVolumeScanner *)self relevantVolumesInfo];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_10001C1F0;
+      v22[3] = &unk_100065140;
+      v22[5] = self;
+      v22[6] = &v28;
+      v22[7] = v38;
+      v22[4] = v11;
+      v22[8] = &v34;
+      v23 = mapCopy;
+      [SACloneTreeWalker processCloneMapOnVol:v11 pathList:pathList appSizeBreakdownList:appSizeBreakdownList volumesInfo:relevantVolumesInfo2 collectClonesPaths:mapCopy reply:v22];
+
+      if (v29[5])
+      {
+        break;
+      }
+
+      if (v9 == ++v10)
+      {
+        v9 = [obj countByEnumeratingWithState:&v24 objects:v42 count:16];
+        if (v9)
+        {
+          goto LABEL_5;
+        }
+
+        break;
+      }
+    }
+  }
+
+  if (!v29[5])
+  {
+    appSizerResults2 = [(SAVolumeScanner *)self appSizerResults];
+    [appSizerResults2 setInternalFlags:{objc_msgSend(appSizerResults2, "internalFlags") | 4}];
+  }
+
+  v17 = SALog();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = v35[3];
+    *buf = 134217984;
+    v41 = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "CloneTreeWalker: totalClonesSize = %llu", buf, 0xCu);
+  }
+
+  telemetryManager2 = [(SAVolumeScanner *)self telemetryManager];
+  [telemetryManager2 stopTimeForTimeInfoEntry:8];
+
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(v38, 8);
 }
 
 - (unsigned)scheduleAppSizerReRun:(unint64_t)run mode:(unint64_t)mode

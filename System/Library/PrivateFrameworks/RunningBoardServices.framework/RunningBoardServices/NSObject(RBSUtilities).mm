@@ -7,7 +7,7 @@
 
 - (uint64_t)RBSIsXPCObject
 {
-  v0 = NSClassFromString(&cfstr_OsXpcObject.isa);
+  v1 = NSClassFromString(&cfstr_OsXpcObject.isa);
   return objc_opt_isKindOfClass() & 1;
 }
 

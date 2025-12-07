@@ -7,14 +7,14 @@
 - (int)computeAlignmentFromWiderSampleBuffer:(opaqueCMSampleBuffer *)buffer narrowerSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer narrowerToWiderTransformsOut:(id *)out;
 - (int)computeApproximateCorrectionForWiderCamera:(opaqueCMSampleBuffer *)camera narrowerCameraPortType:(id)type narrowerPixelBufferDimensions:(id)dimensions narrowerToWiderCameraScale:(double)scale narrowerToWiderTransformsOut:(id *)out;
 - (int)registerWiderSampleBufferUsingADC:(opaqueCMSampleBuffer *)c narrowerSampleBuffer:(opaqueCMSampleBuffer *)buffer narrowerRect:(CGRect)rect macroTransitionType:(int)type narrowerToWiderTransformsOut:(id *)out;
-- (uint64_t)_computeApproximateHomographyAtDepth:(uint64_t)depth@<X2> calibration:(void *)calibration@<X3> narrowerPortType:(unint64_t)type@<X4> widerMetadata:(float64x2_t *)metadata@<X8> pixelBufferDimensions:(double)dimensions@<D0>;
 - (uint64_t)_computeApproximateOISCalibrationFromWiderMetadata:(uint64_t)metadata narrowerPortType:(double *)type narrowerToWiderCameraScale:(double)scale calibrationOut:;
 - (uint64_t)_computeOISCalibrationFromWiderMetadata:(uint64_t)metadata narrowerMetadata:(int)narrowerMetadata updateEstimatedSagPositions:(int)positions excludeEstimatedSagFromAlignment:(uint64_t)alignment calibrationOut:;
 - (uint64_t)_estimateDepthFromKeypointsUsingCalibration:(float64x2_t *)calibration narrowerRawSensorResolution:(int)resolution fundamentalMatrix:(void *)matrix macroTransitionType:(float64x2_t)type totalZoomFactor:(float64x2_t)factor consolidatedDepthsOut:(float64x2_t)out;
-- (uint64_t)_homographyAtDepth:(void *)depth@<X2> calibration:(void *)calibration@<X3> narrowerMetadata:(uint64_t)metadata@<X4> widerMetadata:(char)widerMetadata@<W5> pixelBufferDimensions:(float64x2_t *)dimensions@<X8> excludeExtrinsics:(double)extrinsics@<D0>;
 - (uint64_t)_loadAdaptiveCorrectionSymbols;
 - (uint64_t)_updateCorrectedCalibrationUsingInitialOISCalibration:(int)calibration macroTransitionType:;
-- (uint64_t)_verifyRegistrationTransform:(uint64_t)transform usingInitialOISCalibration:(uint64_t)calibration narrowerMetadata:(uint64_t)metadata widerMetadata:(unint64_t)widerMetadata narrowerDimensions:;
+- (uint64_t)_verifyRegistrationTransform:(const void *)transform usingInitialOISCalibration:(uint64_t)calibration narrowerMetadata:(uint64_t)metadata widerMetadata:(unint64_t)widerMetadata narrowerDimensions:;
+- (void)_computeApproximateHomographyAtDepth:(uint64_t)depth@<X2> calibration:(void *)calibration@<X3> narrowerPortType:(unint64_t)type@<X4> widerMetadata:(float64x2_t *)metadata@<X8> pixelBufferDimensions:(double)dimensions@<D0>;
+- (void)_homographyAtDepth:(void *)depth@<X2> calibration:(void *)calibration@<X3> narrowerMetadata:(uint64_t)metadata@<X4> widerMetadata:(char)widerMetadata@<W5> pixelBufferDimensions:(float64x2_t *)dimensions@<X8> excludeExtrinsics:(double)extrinsics@<D0>;
 - (void)cleanupResources;
 - (void)dealloc;
 @end
@@ -23,9 +23,9 @@
 
 - (BWAdaptiveCorrectionPreviewRegistration)initWithCameraInfoByPortType:(id)type excludeStaticComponentFromAlignmentShifts:(BOOL)shifts
 {
-  v37.receiver = self;
-  v37.super_class = BWAdaptiveCorrectionPreviewRegistration;
-  v6 = [(BWAdaptiveCorrectionPreviewRegistration *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = BWAdaptiveCorrectionPreviewRegistration;
+  v6 = [(BWAdaptiveCorrectionPreviewRegistration *)&v36 init];
   v7 = v6;
   if (!type)
   {
@@ -45,35 +45,34 @@ LABEL_25:
   v25 = v7;
   v7->_estimatedSagPositionsByPortType = [MEMORY[0x1E695DF90] dictionary];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = [type allKeys];
-  v31 = [obj countByEnumeratingWithState:&v33 objects:v32 count:16];
-  if (!v31)
+  v30 = [obj countByEnumeratingWithState:&v32 objects:v31 count:16];
+  if (!v30)
   {
     goto LABEL_18;
   }
 
-  v29 = *v34;
+  v28 = *v33;
   v8 = *off_1E7989F18;
   v9 = *off_1E7989E80;
-  v28 = *off_1E798A0D0;
   v10 = *off_1E7989E50;
   v26 = *off_1E7989E58;
   v11 = *off_1E7989F28;
   v12 = *off_1E7989F10;
   while (2)
   {
-    for (i = 0; i != v31; ++i)
+    for (i = 0; i != v30; ++i)
     {
-      if (*v34 != v29)
+      if (*v33 != v28)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v33 + 1) + 8 * i);
+      v14 = *(*(&v32 + 1) + 8 * i);
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
       v16 = [objc_msgSend(type objectForKeyedSubscript:{v14), "objectForKeyedSubscript:", v8}];
       if (!v16)
@@ -91,9 +90,9 @@ LABEL_25:
       }
 
       [dictionary2 setObject:v17 forKeyedSubscript:v9];
-      v18 = [v14 isEqualToString:v28];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
       v19 = [type objectForKeyedSubscript:v14];
-      if (v18)
+      if (isEqualToString)
       {
         v20 = [v19 objectForKeyedSubscript:v26];
         if (!v20)
@@ -135,8 +134,8 @@ LABEL_24:
       [dictionary setObject:dictionary2 forKeyedSubscript:v14];
     }
 
-    v31 = [obj countByEnumeratingWithState:&v33 objects:v32 count:16];
-    if (v31)
+    v30 = [obj countByEnumeratingWithState:&v32 objects:v31 count:16];
+    if (v30)
     {
       continue;
     }
@@ -158,7 +157,7 @@ LABEL_18:
 {
   if (!context)
   {
-    [BWAdaptiveCorrectionPreviewRegistration allocateResourcesWithVideoFormat:metalContext:];
+    [(BWAdaptiveCorrectionPreviewRegistration *)self allocateResourcesWithVideoFormat:a2 metalContext:format];
 LABEL_36:
     v35 = -12780;
     goto LABEL_33;
@@ -166,7 +165,7 @@ LABEL_36:
 
   if (!format)
   {
-    [BWAdaptiveCorrectionPreviewRegistration allocateResourcesWithVideoFormat:metalContext:];
+    [BWAdaptiveCorrectionPreviewRegistration allocateResourcesWithVideoFormat:a2 metalContext:?];
     goto LABEL_36;
   }
 
@@ -207,7 +206,7 @@ LABEL_33:
     tuningParameters = self->_tuningParameters;
     if (tuningParameters)
     {
-      [(BWAdaptiveCorrectionPreviewRegistrationTuningParameters *)tuningParameters regToolBoxConfig];
+      objc_msgSend_regToolBoxConfig(tuningParameters);
       v11 = v44;
       v12 = DWORD1(v44);
       v13 = DWORD2(v44);
@@ -242,7 +241,7 @@ LABEL_33:
       v20 = self->_tuningParameters;
       if (v20)
       {
-        [(BWAdaptiveCorrectionPreviewRegistrationTuningParameters *)v20 regToolBoxConfig];
+        objc_msgSend_regToolBoxConfig(v20);
         v21 = DWORD1(v42);
       }
 
@@ -257,7 +256,7 @@ LABEL_33:
       v22 = self->_tuningParameters;
       if (v22)
       {
-        [(BWAdaptiveCorrectionPreviewRegistrationTuningParameters *)v22 regToolBoxConfig];
+        objc_msgSend_regToolBoxConfig(v22);
         v23 = DWORD2(v40);
       }
 
@@ -358,7 +357,7 @@ LABEL_33:
   __dst = out;
   if (!c || !buffer)
   {
-    [BWAdaptiveCorrectionPreviewRegistration registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:];
+    [BWAdaptiveCorrectionPreviewRegistration registerWiderSampleBufferUsingADC:v12 narrowerSampleBuffer:? narrowerRect:? macroTransitionType:? narrowerToWiderTransformsOut:?];
 LABEL_50:
     v116 = -12780;
     goto LABEL_37;
@@ -366,7 +365,7 @@ LABEL_50:
 
   if (!out)
   {
-    [BWAdaptiveCorrectionPreviewRegistration registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:];
+    [BWAdaptiveCorrectionPreviewRegistration registerWiderSampleBufferUsingADC:v12 narrowerSampleBuffer:? narrowerRect:? macroTransitionType:? narrowerToWiderTransformsOut:?];
     goto LABEL_50;
   }
 
@@ -431,7 +430,7 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  [v23 regToolBoxConfig];
+  objc_msgSend_regToolBoxConfig(v23);
   v24 = *(*&v193.f64[1] + 8);
   LODWORD(v150) = DWORD1(v231);
   if (!v24)
@@ -439,7 +438,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  [v24 regToolBoxConfig];
+  objc_msgSend_regToolBoxConfig(v24);
   LODWORD(v25) = DWORD2(v229);
   *&v25 = v25;
 LABEL_12:
@@ -774,7 +773,7 @@ LABEL_37:
   return v116;
 }
 
-- (uint64_t)_homographyAtDepth:(void *)depth@<X2> calibration:(void *)calibration@<X3> narrowerMetadata:(uint64_t)metadata@<X4> widerMetadata:(char)widerMetadata@<W5> pixelBufferDimensions:(float64x2_t *)dimensions@<X8> excludeExtrinsics:(double)extrinsics@<D0>
+- (void)_homographyAtDepth:(void *)depth@<X2> calibration:(void *)calibration@<X3> narrowerMetadata:(uint64_t)metadata@<X4> widerMetadata:(char)widerMetadata@<W5> pixelBufferDimensions:(float64x2_t *)dimensions@<X8> excludeExtrinsics:(double)extrinsics@<D0>
 {
   if (result)
   {
@@ -804,11 +803,11 @@ LABEL_37:
       *(&v67 + 1) = a2[v51 + 4];
       v68 = 0uLL;
       *v54 = *(&v66 + 1);
-      *(v54 + 1) = 0u;
-      *(v54 + 2) = v66;
-      *(v54 + 3) = 0u;
-      *(v54 + 4) = v67;
-      *(v54 + 5) = v155;
+      v54[1] = 0u;
+      v54[2] = v66;
+      v54[3] = 0u;
+      v54[4] = v67;
+      v54[5] = v155;
       v54 = &STACK[0x610];
       v51 = 1;
     }
@@ -1180,11 +1179,11 @@ LABEL_37:
       v81 = v80;
       [v50 setObject:objc_msgSend(objc_msgSend(v49 atIndexedSubscript:{"objectAtIndexedSubscript:", v76), "objectForKeyedSubscript:", v78), v76}];
       v80 = 0;
-      v82.i64[0] = 0;
-      v82.i64[1] = a2[v76];
-      v83.i64[0] = a2[v76 + 2];
-      v83.i64[1] = a2[v76 + 4];
-      *v79 = v82.u64[1];
+      *&v82 = 0;
+      *(&v82 + 1) = a2[v76];
+      *&v83 = a2[v76 + 2];
+      *(&v83 + 1) = a2[v76 + 4];
+      *v79 = *(&v82 + 1);
       v79[1] = 0u;
       v79[2] = v82;
       v79[3] = 0u;
@@ -1358,21 +1357,21 @@ LABEL_37:
 {
   if (!buffer || !sampleBuffer)
   {
-    [BWAdaptiveCorrectionPreviewRegistration computeAlignmentFromWiderSampleBuffer:narrowerSampleBuffer:narrowerToWiderTransformsOut:];
+    [BWAdaptiveCorrectionPreviewRegistration computeAlignmentFromWiderSampleBuffer:a2 narrowerSampleBuffer:? narrowerToWiderTransformsOut:?];
     return -12780;
   }
 
   if (!out)
   {
-    [BWAdaptiveCorrectionPreviewRegistration computeAlignmentFromWiderSampleBuffer:narrowerSampleBuffer:narrowerToWiderTransformsOut:];
+    [BWAdaptiveCorrectionPreviewRegistration computeAlignmentFromWiderSampleBuffer:a2 narrowerSampleBuffer:? narrowerToWiderTransformsOut:?];
     return -12780;
   }
 
   v9 = *off_1E798A3C8;
   v10 = CMGetAttachment(sampleBuffer, *off_1E798A3C8, 0);
   v11 = CMGetAttachment(buffer, v9, 0);
-  v12 = [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0D8}];
-  v13 = self->_excludeEstimatedSagFromWideTeleAlignment & v12;
+  isEqualToString = objc_msgSend_isEqualToString_([v10 objectForKeyedSubscript:*off_1E798B540]);
+  v13 = self->_excludeEstimatedSagFromWideTeleAlignment & isEqualToString;
   memset(&v36[8], 0, 24);
   CMSampleBufferGetPresentationTimeStamp(&v36[8], sampleBuffer);
   if (self->_excludeEstimatedSagFromWideTeleAlignment)
@@ -1415,7 +1414,7 @@ LABEL_37:
     Width = CVPixelBufferGetWidth(ImageBuffer);
     Height = CVPixelBufferGetHeight(ImageBuffer);
     v19 = 0;
-    v20 = self->_excludeExtrinsicsCorrectionFromWideTeleAlignment & v12;
+    v20 = self->_excludeExtrinsicsCorrectionFromWideTeleAlignment & isEqualToString;
     v21 = Width | (Height << 32);
     do
     {
@@ -1446,13 +1445,13 @@ LABEL_37:
 {
   if (!camera || !type)
   {
-    [BWAdaptiveCorrectionPreviewRegistration computeApproximateCorrectionForWiderCamera:narrowerCameraPortType:narrowerPixelBufferDimensions:narrowerToWiderCameraScale:narrowerToWiderTransformsOut:];
+    [BWAdaptiveCorrectionPreviewRegistration computeApproximateCorrectionForWiderCamera:a2 narrowerCameraPortType:*&scale narrowerPixelBufferDimensions:? narrowerToWiderCameraScale:? narrowerToWiderTransformsOut:?];
     return -12780;
   }
 
   if (!out)
   {
-    [BWAdaptiveCorrectionPreviewRegistration computeApproximateCorrectionForWiderCamera:narrowerCameraPortType:narrowerPixelBufferDimensions:narrowerToWiderCameraScale:narrowerToWiderTransformsOut:];
+    [BWAdaptiveCorrectionPreviewRegistration computeApproximateCorrectionForWiderCamera:a2 narrowerCameraPortType:scale narrowerPixelBufferDimensions:? narrowerToWiderCameraScale:? narrowerToWiderTransformsOut:?];
     return -12780;
   }
 
@@ -1509,7 +1508,7 @@ LABEL_37:
   return v19;
 }
 
-- (uint64_t)_computeApproximateHomographyAtDepth:(uint64_t)depth@<X2> calibration:(void *)calibration@<X3> narrowerPortType:(unint64_t)type@<X4> widerMetadata:(float64x2_t *)metadata@<X8> pixelBufferDimensions:(double)dimensions@<D0>
+- (void)_computeApproximateHomographyAtDepth:(uint64_t)depth@<X2> calibration:(void *)calibration@<X3> narrowerPortType:(unint64_t)type@<X4> widerMetadata:(float64x2_t *)metadata@<X8> pixelBufferDimensions:(double)dimensions@<D0>
 {
   if (result)
   {
@@ -1524,11 +1523,11 @@ LABEL_37:
     do
     {
       v60 = v59;
-      v61.f64[0] = 0.0;
-      *&v61.f64[1] = a2[v52];
-      *&v62.f64[0] = a2[v52 + 2];
-      *&v62.f64[1] = a2[v52 + 4];
-      *v53 = *&v61.f64[1];
+      *&v61 = 0;
+      *(&v61 + 1) = a2[v52];
+      *&v62 = a2[v52 + 2];
+      *(&v62 + 1) = a2[v52 + 4];
+      *v53 = *(&v61 + 1);
       v53[1] = 0uLL;
       v53[2] = v61;
       v53[3] = 0uLL;
@@ -1545,7 +1544,7 @@ LABEL_37:
     *&v65 = a2[7];
     *&v66 = a2[8];
     *(&v64 + 1) = a2[10];
-    v61.f64[0] = a2[14];
+    *&v61 = a2[14];
     *&v50 = a2[15];
     *&v51 = a2[16];
     *(&v65 + 1) = a2[11];
@@ -1699,7 +1698,7 @@ LABEL_37:
     a19 = a31;
     a14 = a26;
     a15 = a27;
-    v118 = [objc_msgSend(*(v48 + 48) objectForKeyedSubscript:{depth), "objectForKeyedSubscript:", *off_1E7989F28}];
+    v118 = [objc_msgSend(v48[6] objectForKeyedSubscript:{depth), "objectForKeyedSubscript:", *off_1E7989F28}];
     v119 = [v118 objectForKeyedSubscript:*off_1E798A2C0];
     v120 = [v118 objectForKeyedSubscript:*off_1E798A288];
     intValue = [v119 intValue];
@@ -1825,7 +1824,7 @@ LABEL_37:
   dimensions[1] = 0u;
   v28 = a2;
   v29 = SHIDWORD(a2);
-  result = FigCaptureMetadataUtilitiesDenormalizeCropRect(rect, scale, center, a8);
+  result = FigCaptureMetadataUtilitiesDenormalizeCropRect(rect, scale, center, a8, a2, SHIDWORD(a2));
   v32.f64[0] = a9;
   v33 = 0;
   *v74 = v34;
@@ -2051,7 +2050,7 @@ LABEL_37:
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v13, v14, v15, v16, v17, v18, v19);
       }
 
       return 4294954510;
@@ -2059,7 +2058,7 @@ LABEL_37:
 
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v14, v15, v16, v17, v18, v19);
     return 0;
   }
 
@@ -2069,59 +2068,59 @@ LABEL_37:
 - (uint64_t)_computeOISCalibrationFromWiderMetadata:(uint64_t)metadata narrowerMetadata:(int)narrowerMetadata updateEstimatedSagPositions:(int)positions excludeEstimatedSagFromAlignment:(uint64_t)alignment calibrationOut:
 {
   alignmentCopy = alignment;
-  HIDWORD(v111) = positions;
-  HIDWORD(v118) = narrowerMetadata;
+  HIDWORD(v120) = positions;
+  HIDWORD(v130) = narrowerMetadata;
   if (!self)
   {
     return 0;
   }
 
-  v134 = v170;
-  v135 = &v168;
-  v133 = v172;
+  v146 = v173;
+  v147 = &v171;
+  v145 = v175;
   v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
   v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
   [v8 setObject:metadata atIndexedSubscript:0];
   v10 = 1;
   [OUTLINED_FUNCTION_7_15() setObject:? atIndexedSubscript:?];
   v11 = 0;
-  v130 = *off_1E798B540;
-  v128 = *off_1E798B530;
-  v124 = *off_1E798B520;
+  v142 = *off_1E798B540;
+  v140 = *off_1E798B530;
+  v136 = *off_1E798B520;
   v12 = *MEMORY[0x1E695EFF8];
   v13 = *(MEMORY[0x1E695EFF8] + 8);
-  v14 = &v171;
-  v15 = v169;
-  v16 = &v167;
-  v17 = v166;
-  v119 = *off_1E798B5A0;
-  v121 = *off_1E798B5A8;
+  v14 = &v174;
+  v15 = v172;
+  v16 = &v170;
+  v17 = v169;
+  v131 = *off_1E798B5A0;
+  v133 = *off_1E798B5A8;
   do
   {
     v18 = v10;
-    [v9 setObject:objc_msgSend(OUTLINED_FUNCTION_10_9() atIndexedSubscript:{"objectForKeyedSubscript:", v130), v11}];
-    [objc_msgSend(OUTLINED_FUNCTION_10_9() objectForKeyedSubscript:{v128), "floatValue"}];
+    [v9 setObject:objc_msgSend(OUTLINED_FUNCTION_10_9() atIndexedSubscript:{"objectForKeyedSubscript:", v142), v11}];
+    [objc_msgSend(OUTLINED_FUNCTION_10_9() objectForKeyedSubscript:{v140), "floatValue"}];
     *v17 = v19;
-    if (v19 == 0.0 || ((v20 = [OUTLINED_FUNCTION_10_9() objectForKeyedSubscript:v124], CGPointMakeWithDictionaryRepresentation(v20, v15), v15->x == v12) ? (v21 = v15->y == v13) : (v21 = 0), v21))
+    if (v19 == 0.0 || ((v20 = [OUTLINED_FUNCTION_10_9() objectForKeyedSubscript:v136], CGPointMakeWithDictionaryRepresentation(v20, v15), v15->x == v12) ? (v21 = v15->y == v13) : (v21 = 0), v21))
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       return 0xFFFFFFFFLL;
     }
 
-    [objc_msgSend(OUTLINED_FUNCTION_10_9() objectForKeyedSubscript:{v121), "floatValue"}];
+    [objc_msgSend(OUTLINED_FUNCTION_10_9() objectForKeyedSubscript:{v133), "floatValue"}];
     v23 = v22;
     *v16 = v22;
-    [objc_msgSend(OUTLINED_FUNCTION_10_9() objectForKeyedSubscript:{v119), "floatValue"}];
+    [objc_msgSend(OUTLINED_FUNCTION_10_9() objectForKeyedSubscript:{v131), "floatValue"}];
     v10 = 0;
     *(v16 + 1) = v24;
-    v17 = v165;
+    v17 = v168;
     *v14 = v23;
     *(v14 + 1) = v24;
-    v15 = v170;
-    v16 = &v168;
-    v14 = v172;
+    v15 = v173;
+    v16 = &v171;
+    v14 = v175;
     v11 = 1;
   }
 
@@ -2129,94 +2128,96 @@ LABEL_37:
   v25 = [*(self + 48) objectForKeyedSubscript:{objc_msgSend(v9, "objectAtIndexedSubscript:", 1)}];
   v26 = *off_1E7989E80;
   v27 = [objc_msgSend(v25 objectForKeyedSubscript:{*off_1E7989E80), "bytes"}];
-  v28 = [objc_msgSend(objc_msgSend(*(self + 48) objectForKeyedSubscript:{objc_msgSend(v9, "objectAtIndexedSubscript:", 0)), "objectForKeyedSubscript:", v26), "bytes"}];
+  v28 = *(self + 48);
+  v29 = [objc_msgSend(objc_msgSend(v28 objectForKeyedSubscript:{objc_msgSend(v9, "objectAtIndexedSubscript:", 0)), "objectForKeyedSubscript:", v26), "bytes"}];
   if (v27)
   {
-    v34 = v28;
-    if (v28)
+    v35 = v29;
+    if (v29)
     {
-      *v35.i64 = acpr_convertFloatRowMajorArrayToSimdMatrix(v27, v29, v30, v31, v32, v33);
-      v35.i32[3] = 0;
+      *v36.i64 = acpr_convertFloatRowMajorArrayToSimdMatrix(v27, v30, v31, v32, v33, v34);
       v36.i32[3] = 0;
-      v129 = v36;
-      v131 = v35;
       v37.i32[3] = 0;
-      HIDWORD(v38) = 0;
-      v123 = v38;
-      v125 = v37;
-      acpr_convertFloatRowMajorArrayToSimdMatrix(v34, *v35.i64, *v36.i64, *v37.i64, v39, v40);
+      v141 = v37;
+      v143 = v36;
+      v38.i32[3] = 0;
+      HIDWORD(v39) = 0;
+      v135 = v39;
+      v137 = v38;
+      acpr_convertFloatRowMajorArrayToSimdMatrix(v35, *v36.i64, *v37.i64, *v38.i64, v40, v41);
       OUTLINED_FUNCTION_9_6();
-      v158 = v41;
-      v160 = v41;
-      v162 = v41;
-      v164 = v41;
-      v46.n128_f64[0] = acpr_computeRelativeExtrinsics(v42, v43, v44, v45, v131, v129, v125);
-      OUTLINED_FUNCTION_12_8(v46, v47);
-      v157 = v48;
-      v159 = v49;
-      OUTLINED_FUNCTION_11_9(v48, v49, v50, v51);
-      v161 = v53;
-      v163 = v54;
+      v167[2] = v42;
+      v167[4] = v42;
+      v167[6] = v42;
+      v167[8] = v42;
+      v47.n128_f64[0] = acpr_computeRelativeExtrinsics(v43, v44, v45, v46, v143, v141, v137);
+      OUTLINED_FUNCTION_12_8(v47, v48);
+      *&v167[1] = v49;
+      *&v167[3] = v50;
+      OUTLINED_FUNCTION_11_9(v49, v50, v51, v52);
+      v167[5] = v54;
+      v167[7] = v55;
       do
       {
         do
         {
-          OUTLINED_FUNCTION_6_14(v52);
+          OUTLINED_FUNCTION_6_14(v53);
         }
 
         while (!v21);
-        ++v52;
+        ++v53;
       }
 
-      while (v52 != 3);
-      v55 = 0;
-      v56 = alignmentCopy + 16;
-      v131.i64[0] = alignmentCopy + 32;
-      v125.i64[0] = *off_1E7989F18;
-      v122 = *off_1E798B588;
-      v120 = *off_1E798B3B8;
-      v117 = *off_1E798A420;
-      HIDWORD(v116) = *(MEMORY[0x1E6960C70] + 12);
-      v115 = *(MEMORY[0x1E6960C70] + 16);
-      HIDWORD(v113) = HIDWORD(v118) | HIDWORD(v111);
-      v112 = *off_1E798B730;
-      v57 = &v171;
-      v58 = v169;
-      v59 = &v167;
-      v60 = v166;
-      v61 = 1;
-      v62 = *off_1E798B3C0;
-      v63 = *off_1E798B3C8;
-      v114 = alignmentCopy + 16;
+      while (v53 != 3);
+      v56 = 0;
+      v57 = (alignmentCopy + 16);
+      v143.i64[0] = alignmentCopy + 32;
+      v137.i64[0] = *off_1E7989F18;
+      v134 = *off_1E798B588;
+      v132 = *off_1E798B3B8;
+      v129 = *off_1E798A420;
+      HIDWORD(v128) = *(MEMORY[0x1E6960C70] + 12);
+      v127 = *(MEMORY[0x1E6960C70] + 16);
+      HIDWORD(v123) = HIDWORD(v130) | HIDWORD(v120);
+      v122 = *off_1E798B730;
+      v58 = &v174;
+      v59 = v172;
+      v60 = &v170;
+      v61 = v169;
+      v62 = 1;
+      v63 = *off_1E798B3C0;
+      v64 = *off_1E798B3C8;
+      v125 = (alignmentCopy + 16);
       while (1)
       {
-        v64 = v61;
-        v65 = v59[1] + -1.0;
-        v66 = v58[1];
-        v67 = v57[1] + -1.0;
-        *(v56 + 8 * v55) = (*v57 + -1.0) * 0.5 + *v58 - (*v59 + -1.0) * 0.5;
-        *(v131.i64[0] + 8 * v55) = v67 * 0.5 + v66 - v65 * 0.5;
-        [objc_msgSend(objc_msgSend(*(self + 48) objectForKeyedSubscript:{objc_msgSend(v9, "objectAtIndexedSubscript:", v55)), "objectForKeyedSubscript:", v125.i64[0]), "floatValue"}];
-        v69 = v68;
-        v70 = [objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_7_15() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", v122), "intValue"}")];
-        if (v70)
+        v65 = v62;
+        v66 = v60[1] + -1.0;
+        v67 = v59[1];
+        v68 = v58[1] + -1.0;
+        *&v57[8 * v56] = (*v58 + -1.0) * 0.5 + *v59 - (*v60 + -1.0) * 0.5;
+        *(v143.i64[0] + 8 * v56) = v68 * 0.5 + v67 - v66 * 0.5;
+        v28 = *(self + 48);
+        [objc_msgSend(objc_msgSend(v28 objectForKeyedSubscript:{objc_msgSend(v9, "objectAtIndexedSubscript:", v56)), "objectForKeyedSubscript:", v137.i64[0]), "floatValue"}];
+        v70 = v69;
+        v71 = [objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_7_15() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", v134), "intValue"}")];
+        if (v71)
         {
-          v69 = v69 * v70;
+          v70 = v70 * v71;
         }
 
-        *(alignmentCopy + 8 * v55) = (*v60 / v69);
-        if ([objc_msgSend(OUTLINED_FUNCTION_7_15() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", v120}")])
+        *(alignmentCopy + 8 * v56) = (*v61 / v70);
+        if ([objc_msgSend(OUTLINED_FUNCTION_7_15() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", v132}")])
         {
-          v129.i32[0] = v64;
-          v71 = [objc_msgSend(OUTLINED_FUNCTION_7_15() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", v117}")];
-          v156 = 0;
+          v141.i32[0] = v65;
+          v72 = [objc_msgSend(OUTLINED_FUNCTION_7_15() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", v129}")];
+          v167[0] = 0;
           value = *MEMORY[0x1E6960C70];
           timescale = *(MEMORY[0x1E6960C70] + 8);
-          flags = HIDWORD(v116);
-          epoch = v115;
-          if (v71)
+          flags = HIDWORD(v128);
+          epoch = v127;
+          if (v72)
           {
-            CMTimeMakeFromDictionary(&time, v71);
+            CMTimeMakeFromDictionary(&time, v72);
             value = time.value;
             flags = time.flags;
             timescale = time.timescale;
@@ -2227,118 +2228,129 @@ LABEL_37:
           {
             OUTLINED_FUNCTION_7_5();
             OUTLINED_FUNCTION_3_14();
-            FigDebugAssert3();
-            OUTLINED_FUNCTION_7_5();
-            return FigSignalErrorAtGM();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v116, v118, v119, v120, v122, v123, v125, v127);
+            v112 = OUTLINED_FUNCTION_7_5();
+            v115 = 869;
+            return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v112, 0xFFFFCE14, "<<<< BWAdaptiveCorrectionPreviewRegistration >>>>", v115, v28, v113, v114, v117);
           }
 
-          [OUTLINED_FUNCTION_7_15() objectAtIndexedSubscript:?];
+          v75 = [OUTLINED_FUNCTION_7_15() objectAtIndexedSubscript:?];
           time.value = value;
           time.timescale = timescale;
           time.flags = flags;
           time.epoch = epoch;
           CMTimeGetSeconds(&time);
-          v74 = FigMotionComputeAverageSpherePosition();
-          if (v74)
+          v78 = FigMotionComputeAverageSpherePosition(v75, v167, v76, v77);
+          if (v78)
           {
-            v106 = v74;
+            v110 = v78;
             fig_log_get_emitter();
-            FigDebugAssert3();
-            return v106;
+            LODWORD(v116) = v110;
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v116, v119, v119, v120, v122, v123, v125, v127);
+            return v110;
           }
 
-          v75 = 1.0 / v69;
-          v76 = v156;
-          *(v56 + 8 * v55) = *(v56 + 8 * v55) + ((1.0 / v69) * *&v156);
-          *(v131.i64[0] + 8 * v55) = *(v131.i64[0] + 8 * v55) + ((1.0 / v69) * *(&v76 + 1));
-          if (HIDWORD(v113))
+          v79 = 1.0 / v70;
+          v80 = v167[0];
+          *&v57[8 * v56] = *&v57[8 * v56] + ((1.0 / v70) * *v167);
+          *(v143.i64[0] + 8 * v56) = *(v143.i64[0] + 8 * v56) + ((1.0 / v70) * *(&v80 + 1));
+          if (HIDWORD(v123))
           {
-            v102 = -[BWAdaptiveCorrectionPreviewRegistration _estimatedSagPositionUsingOISShift:forPortType:](self, [v9 objectAtIndexedSubscript:v55], *&v76, *(&v76 + 1));
-            v104 = v102;
-            v105 = v103;
-            if (HIDWORD(v118))
+            v106 = -[BWAdaptiveCorrectionPreviewRegistration _estimatedSagPositionUsingOISShift:forPortType:](self, [v9 objectAtIndexedSubscript:v56], *&v80, *(&v80 + 1));
+            v108 = v106;
+            v109 = v107;
+            if (HIDWORD(v130))
             {
-              [*(self + 632) setObject:CGPointCreateDictionaryRepresentation(*&v102) forKeyedSubscript:{objc_msgSend(v9, "objectAtIndexedSubscript:", v55)}];
+              [*(self + 632) setObject:CGPointCreateDictionaryRepresentation(*&v106) forKeyedSubscript:{objc_msgSend(v9, "objectAtIndexedSubscript:", v56)}];
             }
 
-            if (HIDWORD(v111))
+            if (HIDWORD(v120))
             {
-              *(v56 + 8 * v55) = *(v56 + 8 * v55) - v104 * v75;
-              *(v131.i64[0] + 8 * v55) = *(v131.i64[0] + 8 * v55) - v105 * v75;
+              *&v57[8 * v56] = *&v57[8 * v56] - v108 * v79;
+              *(v143.i64[0] + 8 * v56) = *(v143.i64[0] + 8 * v56) - v109 * v79;
             }
           }
 
-          v77 = [objc_msgSend(OUTLINED_FUNCTION_7_15() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", v112}")];
-          if (HIDWORD(v118))
+          v81 = [objc_msgSend(OUTLINED_FUNCTION_7_15() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", v122}")];
+          if (HIDWORD(v130))
           {
-            v85 = v77;
-            if (v77)
+            v89 = v81;
+            if (v81)
             {
-              v86 = OUTLINED_FUNCTION_15_6(v77, v78, v79, v80, v81, v82, v83, v84, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v120, v122, v123, v125.i64[0], v125.i64[1], v126, alignmentCopy, v129.i64[0], v129.i64[1], v131.i64[0], v131.i64[1], v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151, 0);
-              if (v86)
+              v90 = OUTLINED_FUNCTION_15_6(v81, v82, v83, v84, v85, v86, v87, v88, v116, v118, v119, v120, v122, v123, v125, v127, v128, v129, v130, v132, v134, v135, v137.i64[0], v137.i64[1], v138, alignmentCopy, v141.i64[0], v141.i64[1], v143.i64[0], v143.i64[1], v144, v145, v146, v147, v148, v149, v150, v151, v152, v153, v154, v155, v156, v157, v158, v159, v160, v161, v162, v163);
+              if (v90)
               {
-                v87 = v86;
-                v88 = MEMORY[0];
+                v91 = v90;
+                v92 = MEMORY[0];
                 do
                 {
-                  v89 = 0;
-                  do
+                  for (i = 0; i != v91; ++i)
                   {
-                    if (MEMORY[0] != v88)
+                    if (MEMORY[0] != v92)
                     {
-                      objc_enumerationMutation(v85);
+                      objc_enumerationMutation(v89);
                     }
 
-                    v90 = *(8 * v89);
-                    v91 = [v90 isEqualToString:{objc_msgSend(v9, "objectAtIndexedSubscript:", 0)}];
-                    if ((v91 & 1) == 0)
+                    v94 = *(8 * i);
+                    [v9 objectAtIndexedSubscript:0];
+                    isEqualToString = objc_msgSend_isEqualToString_(v94);
+                    if ((isEqualToString & 1) == 0)
                     {
-                      v91 = [v90 isEqualToString:{objc_msgSend(v9, "objectAtIndexedSubscript:", 1)}];
-                      if ((v91 & 1) == 0)
+                      [v9 objectAtIndexedSubscript:1];
+                      isEqualToString = objc_msgSend_isEqualToString_(v94);
+                      if ((isEqualToString & 1) == 0)
                       {
-                        [objc_msgSend(objc_msgSend(v85 objectForKeyedSubscript:{v90), "objectForKeyedSubscript:", v62), "doubleValue"}];
-                        v100 = v99 * 0.00390625;
-                        [objc_msgSend(objc_msgSend(v85 objectForKeyedSubscript:{v90), "objectForKeyedSubscript:", v63), "doubleValue"}];
-                        v173.x = [(BWAdaptiveCorrectionPreviewRegistration *)self _estimatedSagPositionUsingOISShift:v90 forPortType:v100, v101 * 0.00390625];
-                        v91 = [*(self + 632) setObject:CGPointCreateDictionaryRepresentation(v173) forKeyedSubscript:v90];
+                        [objc_msgSend(objc_msgSend(v89 objectForKeyedSubscript:{v94), "objectForKeyedSubscript:", v63), "doubleValue"}];
+                        v104 = v103 * 0.00390625;
+                        [objc_msgSend(objc_msgSend(v89 objectForKeyedSubscript:{v94), "objectForKeyedSubscript:", v64), "doubleValue"}];
+                        v176.x = [(BWAdaptiveCorrectionPreviewRegistration *)self _estimatedSagPositionUsingOISShift:v94 forPortType:v104, v105 * 0.00390625];
+                        isEqualToString = [*(self + 632) setObject:CGPointCreateDictionaryRepresentation(v176) forKeyedSubscript:v94];
                       }
                     }
-
-                    ++v89;
                   }
 
-                  while (v87 != v89);
-                  v87 = OUTLINED_FUNCTION_15_6(v91, v92, v93, v94, v95, v96, v97, v98, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v120, v122, v123, v125.i64[0], v125.i64[1], v126, alignmentCopy, v129.i64[0], v129.i64[1], v131.i64[0], v131.i64[1], v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151, v152);
+                  v91 = OUTLINED_FUNCTION_15_6(isEqualToString, v96, v97, v98, v99, v100, v101, v102, v116, v118, v119, v120, v122, v123, v125, v127, v128, v129, v130, v132, v134, v135, v137.i64[0], v137.i64[1], v138, alignmentCopy, v141.i64[0], v141.i64[1], v143.i64[0], v143.i64[1], v144, v145, v146, v147, v148, v149, v150, v151, v152, v153, v154, v155, v156, v157, v158, v159, v160, v161, v162, v163);
                 }
 
-                while (v87);
+                while (v91);
               }
             }
           }
 
-          v56 = v114;
-          LOBYTE(v64) = v129.i8[0];
+          v57 = v125;
+          LOBYTE(v65) = v141.i8[0];
         }
 
-        v61 = 0;
-        v60 = v165;
-        v58 = v134;
-        v59 = v135;
-        v57 = v133;
-        v55 = 1;
-        if ((v64 & 1) == 0)
+        v62 = 0;
+        v61 = v168;
+        v59 = v146;
+        v60 = v147;
+        v58 = v145;
+        v56 = 1;
+        if ((v65 & 1) == 0)
         {
           return 0;
         }
       }
     }
+
+    OUTLINED_FUNCTION_7_5();
+    OUTLINED_FUNCTION_3_14();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v116, v118, v119, v120, v121, v123, v124, v126);
+    v112 = OUTLINED_FUNCTION_7_5();
+    v115 = 817;
   }
 
-  OUTLINED_FUNCTION_7_5();
-  OUTLINED_FUNCTION_3_14();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_7_5();
-  return FigSignalErrorAtGM();
+  else
+  {
+    OUTLINED_FUNCTION_7_5();
+    OUTLINED_FUNCTION_3_14();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v116, v118, v119, v120, v121, v123, v124, v126);
+    v112 = OUTLINED_FUNCTION_7_5();
+    v115 = 816;
+  }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v112, 0xFFFFCE14, "<<<< BWAdaptiveCorrectionPreviewRegistration >>>>", v115, v28, v113, v114, v117);
 }
 
 - (uint64_t)_updateCorrectedCalibrationUsingInitialOISCalibration:(int)calibration macroTransitionType:
@@ -2348,18 +2360,18 @@ LABEL_37:
     return 0;
   }
 
-  bzero(v33, 0xB8uLL);
+  bzero(v35, 0xB8uLL);
   bzero(__src, 0xB8uLL);
-  bzero(v31, 0xB8uLL);
-  bzero(v30, 0x748uLL);
+  bzero(v33, 0xB8uLL);
+  bzero(v32, 0x748uLL);
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v25.columns[0] = 0;
-  v25.columns[1] = 0;
-  v24.columns[0] = 0;
-  v24.columns[1] = 0;
+  v27.columns[0] = 0;
+  v27.columns[1] = 0;
+  v26.columns[0] = 0;
+  v26.columns[1] = 0;
   v6 = *(a2 + 48);
   v7 = *(a2 + 64);
   *&v6.f64[0] = vcvt_f32_f64(v6);
@@ -2373,42 +2385,50 @@ LABEL_37:
   v11 = vzip1q_s32(v6, v9);
   v12 = vzip1q_s32(v7, v10);
   v13 = vzip2q_s32(vcvt_hight_f32_f64(*(a2 + 96), *(a2 + 96)), 0);
-  v22 = vzip1q_s32(v11, v8);
-  v23 = vzip1q_s32(v12, v13);
-  v20 = vzip2q_s32(v11, vdupq_lane_s32(*&v8.f64[0], 1));
-  v21 = vzip2q_s32(v12, v13);
-  v14 = (*(self + 672))(&v26, &v25, &v24);
-  if (v14 || (v14 = (*(self + 688))(*(self + 240), *(self + 256), *(self + 264), *v25.columns, *&v25.columns[1]), v14) || (v14 = (*(self + 688))(*(self + 248), *(self + 256), *(self + 272), *v24.columns, *&v24.columns[1]), v14) || (v14 = (*(self + 680))(a2, v33, v26, v27, v28, v29, *v25.columns, *&v25.columns[1], *v24.columns, *&v24.columns[1]), v14))
+  v24 = vzip1q_s32(v11, v8);
+  v25 = vzip1q_s32(v12, v13);
+  v22 = vzip2q_s32(v11, vdupq_lane_s32(*&v8.f64[0], 1));
+  v23 = vzip2q_s32(v12, v13);
+  v14 = (*(self + 672))(&v28, &v27, &v26);
+  if (v14 || (v14 = (*(self + 688))(*(self + 240), *(self + 256), *(self + 264), *v27.columns, *&v27.columns[1]), v14) || (v14 = (*(self + 688))(*(self + 248), *(self + 256), *(self + 272), *v26.columns, *&v26.columns[1]), v14) || (v14 = (*(self + 680))(a2, v35, v28, v29, v30, v31, *v27.columns, *&v27.columns[1], *v26.columns, *&v26.columns[1]), v14))
   {
     v18 = v14;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-LABEL_14:
-    FigDebugAssert3();
-    return v18;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18);
   }
 
-  (*(self + 664))(v31, *(self + 264), *(self + 272), *(self + 256), v33, [*(self + 8) adaptiveCorrectionConfigsPtr] + (calibration << 9), v30);
-  if ((v30[812] & 1) == 0)
+  else
   {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
-    return 0xFFFFFFFFLL;
+    (*(self + 664))(v33, *(self + 264), *(self + 272), *(self + 256), v35, [*(self + 8) adaptiveCorrectionConfigsPtr] + (calibration << 9), v32);
+    if (v32[812])
+    {
+      v15 = *(self + 680);
+      v16 = __invert_f2(v27);
+      v17 = __invert_f2(v26);
+      v18 = v15(v33, __src, v24, v22, v25, v23, *v16.columns, *&v16.columns[1], *v17.columns, *&v17.columns[1]);
+      if (v18)
+      {
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_1_6();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18);
+      }
+
+      else
+      {
+        memcpy((self + 56), __src, 0xB8uLL);
+      }
+    }
+
+    else
+    {
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_1_11();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v21, v22.n128_u64[0], v22.n128_u64[1], v23.n128_u32[0], v23.n128_u64[1], v24.n128_u64[0], v24.n128_u32[2]);
+      return 0xFFFFFFFFLL;
+    }
   }
 
-  v15 = *(self + 680);
-  v16 = __invert_f2(v25);
-  v17 = __invert_f2(v24);
-  v18 = v15(v31, __src, v22, v20, v23, v21, *v16.columns, *&v16.columns[1], *v17.columns, *&v17.columns[1]);
-  if (v18)
-  {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_6();
-    goto LABEL_14;
-  }
-
-  memcpy((self + 56), __src, 0xB8uLL);
   return v18;
 }
 
@@ -2418,33 +2438,33 @@ LABEL_14:
   {
     if (matrix)
     {
-      v70 = *out.f64;
-      v71 = type.f64[0];
-      v73 = result;
-      v74 = 0;
+      v66 = *out.f64;
+      v67 = type.f64[0];
+      v69 = result;
+      v70 = 0;
       *matrix = 0;
       matrix[1] = 0;
       matrix[2] = 0;
-      v75 = type.f64[0] * 0.5;
-      v76 = factor.f64[0] * 0.5;
-      *&v77 = a2[6];
-      *&v78 = a2[7];
-      *&v79 = a2[8];
+      v71 = type.f64[0] * 0.5;
+      v72 = factor.f64[0] * 0.5;
+      *&v73 = a2[6];
+      *&v74 = a2[7];
+      *&v75 = a2[8];
       type.f64[0] = a2[9];
-      *(&v77 + 1) = a2[10];
+      *(&v73 + 1) = a2[10];
       out.f64[0] = a2[13];
       a12.n128_u64[0] = a2[14];
       a13.n128_u64[0] = a2[15];
-      *&v69 = a2[16];
+      *&v65 = a2[16];
       factor.f64[0] = a2[17];
-      *(&v78 + 1) = a2[11];
-      *(&v79 + 1) = a2[12];
+      *(&v74 + 1) = a2[11];
+      *(&v75 + 1) = a2[12];
       *&STACK[0xA70] = a12;
-      *&STACK[0xA60] = v77;
+      *&STACK[0xA60] = v73;
       *&STACK[0xA90] = a13;
-      *&STACK[0xA80] = v78;
-      *&STACK[0xAB0] = v69;
-      *&STACK[0xAA0] = v79;
+      *&STACK[0xA80] = v74;
+      *&STACK[0xAB0] = v65;
+      *&STACK[0xAA0] = v75;
       *&STACK[0x960] = 0u;
       *&STACK[0x970] = 0u;
       *&STACK[0x980] = 0u;
@@ -2455,22 +2475,22 @@ LABEL_14:
       *&STACK[0x9B0] = 0u;
       do
       {
-        v86 = *(&STACK[0xA60] + v74);
-        v85 = *(&STACK[0xA60] + v74 + 16);
-        v87 = (&STACK[0x960] + v74);
-        *v87 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(xmmword_1AD046840, v86.f64[0]), xmmword_1AD046850, v86, 1), 0, v85.f64[0]);
-        v87[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v86, 0), 0, v86, 1), _Q3, v85);
-        v74 += 32;
+        v82 = *(&STACK[0xA60] + v70);
+        v81 = *(&STACK[0xA60] + v70 + 16);
+        v83 = (&STACK[0x960] + v70);
+        *v83 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(xmmword_1AD046840, v82.f64[0]), xmmword_1AD046850, v82, 1), 0, v81.f64[0]);
+        v83[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v82, 0), 0, v82, 1), _Q3, v81);
+        v70 += 32;
       }
 
-      while (v74 != 96);
-      v88 = 0;
-      v90 = *&STACK[0x960];
-      v89 = *&STACK[0x970];
-      v92 = *&STACK[0x980];
-      v91 = *&STACK[0x990];
-      v93 = *&STACK[0x9B0];
-      v94 = *&STACK[0x9A0];
+      while (v70 != 96);
+      v84 = 0;
+      v86 = *&STACK[0x960];
+      v85 = *&STACK[0x970];
+      v88 = *&STACK[0x980];
+      v87 = *&STACK[0x990];
+      v89 = *&STACK[0x9B0];
+      v90 = *&STACK[0x9A0];
       *&STACK[0xA70] = 0u;
       *&STACK[0xA60] = xmmword_1AD046840;
       *&STACK[0xA90] = 0u;
@@ -2485,25 +2505,25 @@ LABEL_14:
       *&STACK[0xA30] = 0u;
       do
       {
-        v96 = *(&STACK[0xA60] + v88);
-        v95 = *(&STACK[0xA60] + v88 + 16);
-        v97 = (&STACK[0x9E0] + v88);
-        *v97 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v90, v96.f64[0]), v92, v96, 1), v94, *&v95);
-        v97[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v89, v96.f64[0]), v91, v96, 1), v93, *&v95);
-        v88 += 32;
+        v92 = *(&STACK[0xA60] + v84);
+        v91 = *(&STACK[0xA60] + v84 + 16);
+        v93 = (&STACK[0x9E0] + v84);
+        *v93 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v86, v92.f64[0]), v88, v92, 1), v90, *&v91);
+        v93[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v85, v92.f64[0]), v87, v92, 1), v89, *&v91);
+        v84 += 32;
       }
 
-      while (v88 != 96);
-      v98 = 0;
-      v99 = *&STACK[0x9F0];
-      v100 = *&STACK[0x9E0];
-      v101 = *&STACK[0xA10];
-      v102 = *&STACK[0xA00];
-      v103 = *&STACK[0xA30];
-      v104 = *&STACK[0xA20];
-      v105 = vmulq_n_f64(xmmword_1AD046840, type.f64[0]);
-      v106 = vmlaq_f64(vmlaq_f64(vmulq_f64(type, 0), 0, out), _Q3, factor);
-      v107 = vmlaq_n_f64(vmlaq_n_f64(v105, xmmword_1AD046850, out.f64[0]), 0, factor.f64[0]);
+      while (v84 != 96);
+      v94 = 0;
+      v95 = *&STACK[0x9F0];
+      v96 = *&STACK[0x9E0];
+      v97 = *&STACK[0xA10];
+      v98 = *&STACK[0xA00];
+      v99 = *&STACK[0xA30];
+      v100 = *&STACK[0xA20];
+      v101 = vmulq_n_f64(xmmword_1AD046840, type.f64[0]);
+      v102 = vmlaq_f64(vmlaq_f64(vmulq_f64(type, 0), 0, out), _Q3, factor);
+      v103 = vmlaq_n_f64(vmlaq_n_f64(v101, xmmword_1AD046850, out.f64[0]), 0, factor.f64[0]);
       *&STACK[0x860] = xmmword_1AD046830;
       *&STACK[0x870] = 0u;
       *&STACK[0x880] = xmmword_1AD046820;
@@ -2512,70 +2532,70 @@ LABEL_14:
       *&STACK[0x8B0] = _Q3;
       *&STACK[0x8C0] = 0u;
       *&STACK[0x8D0] = 0u;
-      v108.i64[0] = vdupq_laneq_s64(v104, 1).u64[0];
-      v108.i64[1] = v107.i64[1];
-      v109 = vzip1q_s64(v104, v107);
-      v110 = vzip1q_s64(v100, v102);
-      v111 = vzip2q_s64(v100, v102);
-      *&STACK[0x8E0] = vzip1q_s64(v110, v111);
-      *&STACK[0x8F0] = v99;
-      *&STACK[0x900] = vzip2q_s64(v110, v111);
-      *&STACK[0x910] = v101;
-      *&STACK[0x920] = vzip1q_s64(v109, v108);
-      *&STACK[0x930] = v103;
-      *&STACK[0x940] = vzip2q_s64(v109, v108);
-      *&STACK[0x950] = v106;
-      v112 = &STACK[0x860];
-      v113 = &a53;
-      v114 = 1;
+      v104.i64[0] = vdupq_laneq_s64(v100, 1).u64[0];
+      v104.i64[1] = v103.i64[1];
+      v105 = vzip1q_s64(v100, v103);
+      v106 = vzip1q_s64(v96, v98);
+      v107 = vzip2q_s64(v96, v98);
+      *&STACK[0x8E0] = vzip1q_s64(v106, v107);
+      *&STACK[0x8F0] = v95;
+      *&STACK[0x900] = vzip2q_s64(v106, v107);
+      *&STACK[0x910] = v97;
+      *&STACK[0x920] = vzip1q_s64(v105, v104);
+      *&STACK[0x930] = v99;
+      *&STACK[0x940] = vzip2q_s64(v105, v104);
+      *&STACK[0x950] = v102;
+      v108 = &STACK[0x860];
+      v109 = &a53;
+      v110 = 1;
       do
       {
-        v115 = v114;
-        v177 = *&a2[v98];
-        v176 = *&a2[v98 + 2];
-        v179 = *&a2[v98 + 4];
-        memcpy(&STACK[0xA60], v112, 0x80uLL);
-        v119.f64[0] = v176;
-        v116 = 0;
+        v111 = v110;
+        v173 = *&a2[v94];
+        v172 = *&a2[v94 + 2];
+        v175 = *&a2[v94 + 4];
+        memcpy(&STACK[0xA60], v108, 0x80uLL);
+        v115.f64[0] = v172;
+        v112 = 0;
         *&STACK[0x9E0] = 0u;
         *&STACK[0x9F0] = 0u;
         *&STACK[0xA00] = 0u;
         *&STACK[0xA10] = 0u;
         *&STACK[0xA20] = 0u;
         *&STACK[0xA30] = 0u;
-        v117.f64[0] = 0.0;
+        v113.f64[0] = 0.0;
         *&STACK[0xA40] = 0u;
         *&STACK[0xA50] = 0u;
-        v118.f64[0] = 0.0;
-        v118.f64[1] = v177;
-        v119.f64[1] = v179;
-        v120.f64[0] = 1.0;
+        v114.f64[0] = 0.0;
+        v114.f64[1] = v173;
+        v115.f64[1] = v175;
+        v116.f64[0] = 1.0;
         do
         {
-          v122 = *(&STACK[0xA60] + v116);
-          v121 = *(&STACK[0xA60] + v116 + 16);
-          v123 = (&STACK[0x9E0] + v116);
-          *v123 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*&v177, v122.f64[0]), v118, v122, 1), v119, v121.f64[0]);
-          v123[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v117, v122), v117, v122, 1), v121, v120);
-          v116 += 32;
+          v118 = *(&STACK[0xA60] + v112);
+          v117 = *(&STACK[0xA60] + v112 + 16);
+          v119 = (&STACK[0x9E0] + v112);
+          *v119 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(*&v173, v118.f64[0]), v114, v118, 1), v115, v117.f64[0]);
+          v119[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v113, v118), v113, v118, 1), v117, v116);
+          v112 += 32;
         }
 
-        while (v116 != 128);
-        memcpy(v113, &STACK[0x9E0], 0x80uLL);
-        v114 = 0;
-        v113 = &a69;
-        v112 = &STACK[0x8E0];
-        v98 = 1;
+        while (v112 != 128);
+        memcpy(v109, &STACK[0x9E0], 0x80uLL);
+        v110 = 0;
+        v109 = &a65;
+        v108 = &STACK[0x8E0];
+        v94 = 1;
       }
 
-      while ((v115 & 1) != 0);
-      bzero(*(v73 + 280), 8 * [*(v73 + 8) configuredNumKeypoints]);
-      v180 = *(v73 + 240);
-      v178 = *(v73 + 248);
-      v124 = *(v73 + 256);
-      v175 = *(v73 + 280);
+      while ((v111 & 1) != 0);
+      bzero(*(v69 + 280), 8 * [*(v69 + 8) configuredNumKeypoints]);
+      v176 = *(v69 + 240);
+      v174 = *(v69 + 248);
+      v120 = *(v69 + 256);
+      v171 = *(v69 + 280);
       memcpy(&a37, &a53, 0x80uLL);
-      v125 = memcpy(&a21, &a69, 0x80uLL);
+      v121 = memcpy(&a21, &a65, 0x80uLL);
       *&STACK[0x9D0] = 0u;
       *&STACK[0x9C0] = 0u;
       *&STACK[0x9B0] = 0u;
@@ -2592,23 +2612,23 @@ LABEL_14:
       *&STACK[0xA30] = 0u;
       *&STACK[0xA40] = 0u;
       *&STACK[0xA50] = 0u;
-      if (v124 >= 1)
+      if (v120 >= 1)
       {
-        for (i = 0; i != v124; ++i)
+        for (i = 0; i != v120; ++i)
         {
-          v128 = 0;
-          v129 = *(v180 + 16 * i);
-          v130 = *(v178 + 16 * i);
+          v124 = 0;
+          v125 = *(v176 + 16 * i);
+          v126 = *(v174 + 16 * i);
           do
           {
-            v131 = vmlaq_n_f64(vnegq_f64(*(&a21 + v128)), v130, *(&a21 + v128 + 16));
-            v132 = (&STACK[0x960] + v128);
-            *v132 = vmlaq_n_f64(vnegq_f64(*(&a37 + v128)), v129, *(&a37 + v128 + 16));
-            v132[1] = v131;
-            v128 += 32;
+            v127 = vmlaq_n_f64(vnegq_f64(*(&a21 + v124)), v126, *(&a23 + v124));
+            v128 = (&STACK[0x960] + v124);
+            *v128 = vmlaq_n_f64(vnegq_f64(*(&a37 + v124)), v125, *(&a39 + v124));
+            v128[1] = v127;
+            v124 += 32;
           }
 
-          while (v128 != 128);
+          while (v124 != 128);
           LODWORD(STACK[0xB3C]) = 4;
           LODWORD(STACK[0xB38]) = 4;
           LODWORD(STACK[0xB34]) = 4;
@@ -2617,135 +2637,135 @@ LABEL_14:
           LODWORD(STACK[0xB28]) = 0;
           LODWORD(STACK[0xB24]) = -1;
           STACK[0xB18] = 0xBFF0000000000000;
-          OUTLINED_FUNCTION_5_20(v125, v126, &STACK[0xB3C]);
-          if (LODWORD(STACK[0xB28]) || (v133 = *&STACK[0xB18], LODWORD(STACK[0xB24]) = v133, (v134 = malloc_type_malloc(8 * v133, 0x100004000313F17uLL)) == 0) || (v136 = v134, OUTLINED_FUNCTION_5_20(v134, v135, &STACK[0xB3C]), free(v136), LODWORD(STACK[0xB28])))
+          OUTLINED_FUNCTION_5_20(v121, v122, &STACK[0xB3C]);
+          if (LODWORD(STACK[0xB28]) || (v129 = *&STACK[0xB18], LODWORD(STACK[0xB24]) = v129, (v130 = malloc_type_malloc(8 * v129, 0x100004000313F17uLL)) == 0) || (v132 = v130, OUTLINED_FUNCTION_5_20(v130, v131, &STACK[0xB3C]), free(v132), LODWORD(STACK[0xB28])))
           {
             fig_log_get_emitter();
             OUTLINED_FUNCTION_0();
-            v125 = FigDebugAssert3();
+            v121 = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
           }
 
           else if (*&STACK[0xA58] != 0.0)
           {
-            v137 = *&STACK[0xA38] / *&STACK[0xA58];
-            if (v137 <= 0.0)
+            v133 = *&STACK[0xA38] / *&STACK[0xA58];
+            if (v133 <= 0.0)
             {
-              v137 = -v137;
+              v133 = -v133;
             }
 
-            *(v175 + 8 * i) = v137;
+            *(v171 + 8 * i) = v133;
             continue;
           }
 
-          *(v175 + 8 * i) = 0;
+          *(v171 + 8 * i) = 0;
         }
       }
 
-      v138 = 0;
-      v139 = v73 + 288;
+      v134 = 0;
+      v135 = v69 + 288;
       do
       {
-        bzero(*(v139 + v138), 8 * [*(v73 + 8) configuredNumKeypoints]);
-        v138 += 8;
+        bzero(*(v135 + v134), 8 * [*(v69 + 8) configuredNumKeypoints]);
+        v134 += 8;
       }
 
-      while (v138 != 24);
-      [*(v73 + 8) epipolarWeightFalloffDistance];
-      v141 = v140;
-      [*(v73 + 8) macroDepthWeightFalloffDistance];
-      v142 = v143;
-      LODWORD(v143) = 1.0;
+      while (v134 != 24);
+      [*(v69 + 8) epipolarWeightFalloffDistance];
+      v137 = v136;
+      [*(v69 + 8) macroDepthWeightFalloffDistance];
+      v138 = v139;
+      LODWORD(v139) = 1.0;
       if (resolution == 2)
       {
-        [objc_msgSend(objc_msgSend(*(v73 + 48) objectForKeyedSubscript:{*off_1E798A0C0, v143), "objectForKeyedSubscript:", *off_1E7989E50), "floatValue"}];
-        v143 = fmin((v70 / v144), 3.0);
-        if (v143 < 1.0)
+        [objc_msgSend(objc_msgSend(*(v69 + 48) objectForKeyedSubscript:{*off_1E798A0C0, v139), "objectForKeyedSubscript:", *off_1E7989E50), "floatValue"}];
+        v139 = fmin((v66 / v140), 3.0);
+        if (v139 < 1.0)
         {
-          v143 = 1.0;
+          v139 = 1.0;
         }
 
-        *&v143 = v143;
+        *&v139 = v139;
       }
 
-      v145 = *(v73 + 256);
-      if (v145)
+      v141 = *(v69 + 256);
+      if (v141)
       {
-        v146 = 0;
-        v147 = v71 * 0.25 * (v71 * 0.25);
-        v148 = v141 / 0.693147181;
-        v149 = v142 / 0.693147181;
-        v150 = *(v73 + 280);
-        v151 = v147 / (*&v143 * *&v143);
+        v142 = 0;
+        v143 = v67 * 0.25 * (v67 * 0.25);
+        v144 = v137 / 0.693147181;
+        v145 = v138 / 0.693147181;
+        v146 = *(v69 + 280);
+        v147 = v143 / (*&v139 * *&v139);
         do
         {
-          if (*(v150 + 8 * v146) != 0.0)
+          if (*(v146 + 8 * v142) != 0.0)
           {
-            v152 = *(v73 + 240);
-            *(*(v73 + 288) + 8 * v146) = exp(-(*(v152 + 16 * v146) * *(v152 + 16 * v146)) / v147);
-            *(*(v73 + 296) + 8 * v146) = exp(-((v71 - *(v152 + 16 * v146)) * (v71 - *(v152 + 16 * v146))) / v147);
-            v153 = (2 * (v146 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
-            v154 = sqrt((v76 - *(v152 + 8 * v153)) * (v76 - *(v152 + 8 * v153)) + (v75 - *(v152 + 16 * v146)) * (v75 - *(v152 + 16 * v146)));
-            v155.f64[0] = exp(-(v154 * v154) / v151);
-            v157 = *(v73 + 304);
-            *(v157 + 8 * v146) = v155.f64[0];
+            v148 = *(v69 + 240);
+            *(*(v69 + 288) + 8 * v142) = exp(-(*(v148 + 16 * v142) * *(v148 + 16 * v142)) / v143);
+            *(*(v69 + 296) + 8 * v142) = exp(-((v67 - *(v148 + 16 * v142)) * (v67 - *(v148 + 16 * v142))) / v143);
+            v149 = (2 * (v142 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
+            v150 = sqrt((v72 - *(v148 + 8 * v149)) * (v72 - *(v148 + 8 * v149)) + (v71 - *(v148 + 16 * v142)) * (v71 - *(v148 + 16 * v142)));
+            v151.f64[0] = exp(-(v150 * v150) / v147);
+            v153 = *(v69 + 304);
+            *(v153 + 8 * v142) = v151.f64[0];
             if (resolution)
             {
-              *(v157 + 8 * v146) = v155.f64[0] * exp(-*(v150 + 8 * v146) / v149);
+              *(v153 + 8 * v142) = v151.f64[0] * exp(-*(v146 + 8 * v142) / v145);
             }
 
-            v156.f64[0] = *(v152 + 16 * v146);
-            v155.f64[0] = *(v152 + 8 * v153);
-            v158 = vaddq_f64(calibration[4], vmlaq_n_f64(vmulq_n_f64(*calibration, v156.f64[0]), calibration[2], v155.f64[0]));
-            v159 = sqrt(vmuld_lane_f64(v158.f64[1], v158, 1) + v158.f64[0] * v158.f64[0]);
-            if (v159 == 0.0)
+            v152.f64[0] = *(v148 + 16 * v142);
+            v151.f64[0] = *(v148 + 8 * v149);
+            v154 = vaddq_f64(calibration[4], vmlaq_n_f64(vmulq_n_f64(*calibration, v152.f64[0]), calibration[2], v151.f64[0]));
+            v155 = sqrt(vmuld_lane_f64(v154.f64[1], v154, 1) + v154.f64[0] * v154.f64[0]);
+            if (v155 == 0.0)
             {
-              v161 = 0.0;
+              v157 = 0.0;
             }
 
             else
             {
-              v160 = (vaddq_f64(calibration[5], vmlaq_f64(vmulq_f64(v156, calibration[1]), v155, calibration[3])).f64[0] + v158.f64[1] * *(*(v73 + 248) + 8 * v153) + v158.f64[0] * *(*(v73 + 248) + 16 * v146)) / fabs(v159);
-              if (v160 >= 0.0)
+              v156 = (vaddq_f64(calibration[5], vmlaq_f64(vmulq_f64(v152, calibration[1]), v151, calibration[3])).f64[0] + v154.f64[1] * *(*(v69 + 248) + 8 * v149) + v154.f64[0] * *(*(v69 + 248) + 16 * v142)) / fabs(v155);
+              if (v156 >= 0.0)
               {
-                v160 = -v160;
+                v156 = -v156;
               }
 
-              v161 = exp(v160 / v148);
+              v157 = exp(v156 / v144);
             }
 
             for (j = 0; j != 24; j += 8)
             {
-              *(*(v139 + j) + 8 * v146) = v161 * *(*(v139 + j) + 8 * v146);
+              *(*(v135 + j) + 8 * v142) = v157 * *(*(v135 + j) + 8 * v142);
             }
           }
 
-          ++v146;
+          ++v142;
         }
 
-        while (v146 != v145);
+        while (v142 != v141);
         OUTLINED_FUNCTION_13_9();
-        v164 = *(v73 + 280);
+        v160 = *(v69 + 280);
         do
         {
-          v165 = 0;
-          v166 = *(v164 + 8 * v163);
+          v161 = 0;
+          v162 = *(v160 + 8 * v159);
           do
           {
-            if (v166 != 0.0)
+            if (v162 != 0.0)
             {
-              v167 = *(*(v139 + v165) + 8 * v163);
-              *(&a18 + v165) = *(&a18 + v165) + 1.0 / v166 * v167;
-              *(&vars0 + v165) = v167 + *(&vars0 + v165);
+              v163 = *(*(v135 + v161) + 8 * v159);
+              *(&a18 + v161) = *(&a18 + v161) + 1.0 / v162 * v163;
+              *(&vars0 + v161) = v163 + *(&vars0 + v161);
             }
 
-            v165 += 8;
+            v161 += 8;
           }
 
-          while (v165 != 24);
-          ++v163;
+          while (v161 != 24);
+          ++v159;
         }
 
-        while (v163 != v145);
+        while (v159 != v141);
       }
 
       else
@@ -2753,25 +2773,25 @@ LABEL_14:
         OUTLINED_FUNCTION_13_9();
       }
 
-      v168 = 0;
+      v164 = 0;
       while (1)
       {
-        v169 = *(&vars0 + v168 * 8);
-        if (v169 == 0.0)
+        v165 = *(&vars0 + v164 * 8);
+        if (v165 == 0.0)
         {
           break;
         }
 
-        v170 = *(&a18 + v168 * 8);
-        if (v170 == 0.0)
+        v166 = *(&a18 + v164 * 8);
+        if (v166 == 0.0)
         {
           break;
         }
 
-        v171 = v170 / v169;
-        *(&a18 + v168 * 8) = v171;
-        *&matrix[v168++] = 1.0 / v171;
-        if (v168 == 3)
+        v167 = v166 / v165;
+        *(&a18 + v164 * 8) = v167;
+        *&matrix[v164++] = 1.0 / v167;
+        if (v164 == 3)
         {
           return 0;
         }
@@ -2779,22 +2799,23 @@ LABEL_14:
 
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
-    FigDebugAssert3();
     return 0xFFFFFFFFLL;
   }
 
   return result;
 }
 
-- (uint64_t)_verifyRegistrationTransform:(uint64_t)transform usingInitialOISCalibration:(uint64_t)calibration narrowerMetadata:(uint64_t)metadata widerMetadata:(unint64_t)widerMetadata narrowerDimensions:
+- (uint64_t)_verifyRegistrationTransform:(const void *)transform usingInitialOISCalibration:(uint64_t)calibration narrowerMetadata:(uint64_t)metadata widerMetadata:(unint64_t)widerMetadata narrowerDimensions:
 {
   *&v64 = calibration;
   *(&v64 + 1) = metadata;
@@ -2897,7 +2918,7 @@ LABEL_14:
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v44, v46, v48, v50, LODWORD(v52.f64[0]), *&v52.f64[1], v55, DWORD2(v55));
         return 0xFFFFFFFFLL;
       }
 
@@ -2918,99 +2939,115 @@ LABEL_14:
     return 0;
   }
 
-  v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
-  [v10 setObject:metadata atIndexedSubscript:0];
-  [v10 setObject:objc_msgSend(a2 atIndexedSubscript:{"objectForKeyedSubscript:", *off_1E798B540), 1}];
-  v11 = [*(self + 48) objectForKeyedSubscript:{objc_msgSend(v10, "objectAtIndexedSubscript:", 1)}];
-  v12 = *off_1E7989E80;
-  v13 = [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E7989E80), "bytes"}];
-  v14 = [objc_msgSend(objc_msgSend(*(self + 48) objectForKeyedSubscript:{objc_msgSend(v10, "objectAtIndexedSubscript:", 0)), "objectForKeyedSubscript:", v12), "bytes"}];
-  if (!v13 || (v20 = v14) == 0)
+  v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
+  [v11 setObject:metadata atIndexedSubscript:0];
+  [v11 setObject:objc_msgSend(a2 atIndexedSubscript:{"objectForKeyedSubscript:", *off_1E798B540), 1}];
+  v12 = [*(self + 48) objectForKeyedSubscript:{objc_msgSend(v11, "objectAtIndexedSubscript:", 1)}];
+  v13 = *off_1E7989E80;
+  v14 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E7989E80), "bytes"}];
+  v15 = [objc_msgSend(objc_msgSend(*(self + 48) objectForKeyedSubscript:{objc_msgSend(v11, "objectAtIndexedSubscript:", 0)), "objectForKeyedSubscript:", v13), "bytes"}];
+  if (!v14)
   {
     OUTLINED_FUNCTION_7_5();
+    v68 = v5;
     OUTLINED_FUNCTION_4_6();
-    FigDebugAssert3();
-    OUTLINED_FUNCTION_7_5();
-    return FigSignalErrorAtGM();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v73, v75, v76, v78, v79, v81, v82, v84);
+    v69 = OUTLINED_FUNCTION_7_5();
+    v72 = 936;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v69, 0xFFFFCE14, "<<<< BWAdaptiveCorrectionPreviewRegistration >>>>", v72, v68, v70, v71, v74);
   }
 
-  *v21.i64 = acpr_convertFloatRowMajorArrayToSimdMatrix(v13, v15, v16, v17, v18, v19);
-  v21.i32[3] = 0;
+  v21 = v15;
+  if (!v15)
+  {
+    OUTLINED_FUNCTION_7_5();
+    v68 = v5;
+    OUTLINED_FUNCTION_4_6();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v73, v75, v76, v78, v79, v81, v82, v84);
+    v69 = OUTLINED_FUNCTION_7_5();
+    v72 = 937;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v69, 0xFFFFCE14, "<<<< BWAdaptiveCorrectionPreviewRegistration >>>>", v72, v68, v70, v71, v74);
+  }
+
+  *v22.i64 = acpr_convertFloatRowMajorArrayToSimdMatrix(v14, v16, v17, v18, v19, v20);
   v22.i32[3] = 0;
-  v66 = v22;
-  v67 = v21;
   v23.i32[3] = 0;
-  v65 = v23;
-  acpr_convertFloatRowMajorArrayToSimdMatrix(v20, *v21.i64, *v22.i64, *v23.i64, v24, v25);
+  v83 = v23;
+  v85 = v22;
+  v24.i32[3] = 0;
+  HIDWORD(v25) = 0;
+  v77 = v25;
+  v80 = v24;
+  acpr_convertFloatRowMajorArrayToSimdMatrix(v21, *v22.i64, *v23.i64, *v24.i64, *&v25, v26);
   OUTLINED_FUNCTION_9_6();
-  v74 = v26;
-  v76 = v26;
-  v78 = v26;
-  v80 = v26;
-  v31.n128_f64[0] = acpr_computeRelativeExtrinsics(v27, v28, v29, v30, v67, v66, v65);
-  OUTLINED_FUNCTION_12_8(v31, v32);
-  v73 = v33;
-  v75 = v34;
-  OUTLINED_FUNCTION_11_9(v33, v34, v35, v36);
-  v77 = v38;
-  v79 = v39;
+  v90[2] = v27;
+  v90[4] = v27;
+  v90[6] = v27;
+  v90[8] = v27;
+  v32.n128_f64[0] = acpr_computeRelativeExtrinsics(v28, v29, v30, v31, v85, v83, v80);
+  OUTLINED_FUNCTION_12_8(v32, v33);
+  *&v90[1] = v34;
+  *&v90[3] = v35;
+  OUTLINED_FUNCTION_11_9(v34, v35, v36, v37);
+  v90[5] = v39;
+  v90[7] = v40;
   do
   {
     do
     {
-      v40 = OUTLINED_FUNCTION_6_14(v37);
+      v41 = OUTLINED_FUNCTION_6_14(v38);
     }
 
-    while (!v44);
-    ++v37;
+    while (!v45);
+    ++v38;
   }
 
-  while (v37 != 3);
-  [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B530, v40), "floatValue"}];
-  if (v41 == 0.0)
+  while (v38 != 3);
+  [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B530, v41), "floatValue"}];
+  if (v42 == 0.0)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-LABEL_28:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0xFFFFFFFFLL;
   }
 
-  v42 = v41;
-  CGPointMakeWithDictionaryRepresentation([a2 objectForKeyedSubscript:*off_1E798B520], &v83);
-  v43 = MEMORY[0x1E695EFF8];
-  v44 = v83.x == *MEMORY[0x1E695EFF8] && v83.y == *(MEMORY[0x1E695EFF8] + 8);
-  if (v44)
+  v43 = v42;
+  CGPointMakeWithDictionaryRepresentation([a2 objectForKeyedSubscript:*off_1E798B520], &v93);
+  v44 = MEMORY[0x1E695EFF8];
+  v45 = v93.x == *MEMORY[0x1E695EFF8] && v93.y == *(MEMORY[0x1E695EFF8] + 8);
+  if (v45)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    goto LABEL_28;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    return 0xFFFFFFFFLL;
   }
 
-  [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B5A8, v83.x, v83.y), "floatValue"}];
-  v46 = v45;
+  [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B5A8, v93.x, v93.y), "floatValue"}];
+  v47 = v46;
   [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B5A0), "floatValue"}];
-  y = v83.y;
-  type[3] = (v46 + -1.0) * 0.5 + v83.x - (v46 + -1.0) * 0.5;
-  type[5] = (v47 + -1.0) * 0.5 + y - (v47 + -1.0) * 0.5;
-  [objc_msgSend(objc_msgSend(*(self + 48) objectForKeyedSubscript:{objc_msgSend(v10, "objectAtIndexedSubscript:", 1)), "objectForKeyedSubscript:", *off_1E7989F18), "floatValue"}];
-  v50 = v49;
-  v51 = [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
-  if (v51)
+  y = v93.y;
+  type[3] = (v47 + -1.0) * 0.5 + v93.x - (v47 + -1.0) * 0.5;
+  type[5] = (v48 + -1.0) * 0.5 + y - (v48 + -1.0) * 0.5;
+  [objc_msgSend(objc_msgSend(*(self + 48) objectForKeyedSubscript:{objc_msgSend(v11, "objectAtIndexedSubscript:", 1)), "objectForKeyedSubscript:", *off_1E7989F18), "floatValue"}];
+  v51 = v50;
+  v52 = [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+  if (v52)
   {
-    v50 = v50 * v51;
+    v51 = v51 * v52;
   }
 
-  type[1] = (v42 / v50);
+  type[1] = (v43 / v51);
   if ([a2 objectForKeyedSubscript:*off_1E798B3B8])
   {
-    v52 = [a2 objectForKeyedSubscript:*off_1E798A420];
-    v72 = 0;
+    v53 = [a2 objectForKeyedSubscript:*off_1E798A420];
+    v90[0] = 0;
     value = *MEMORY[0x1E6960C70];
     timescale = *(MEMORY[0x1E6960C70] + 8);
-    if (v52)
+    if (v53)
     {
-      CMTimeMakeFromDictionary(&time, v52);
+      CMTimeMakeFromDictionary(&time, v53);
       value = time.value;
       flags = time.flags;
       timescale = time.timescale;
@@ -3023,18 +3060,18 @@ LABEL_18:
         time.flags = flags;
         time.epoch = epoch;
         CMTimeGetSeconds(&time);
-        v55 = FigMotionComputeAverageSpherePosition();
-        if (v55)
+        v58 = FigMotionComputeAverageSpherePosition(a2, v90, v56, v57);
+        if (v58)
         {
-          v61 = v55;
+          v64 = v58;
           fig_log_get_emitter();
-          FigDebugAssert3();
-          return v61;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v64, v5, v77, *(&v77 + 1), v80.i32[0], v80.i64[1], v83.i64[0], v83.i32[2]);
+          return v64;
         }
 
-        v56 = *(&v72 + 1);
-        type[3] = type[3] + ((1.0 / v50) * *&v72);
-        type[5] = type[5] + ((1.0 / v50) * v56);
+        v59 = *(v90 + 1);
+        type[3] = type[3] + ((1.0 / v51) * *v90);
+        type[5] = type[5] + ((1.0 / v51) * v59);
         goto LABEL_20;
       }
     }
@@ -3050,29 +3087,31 @@ LABEL_18:
     }
 
     OUTLINED_FUNCTION_7_5();
+    v68 = v5;
     OUTLINED_FUNCTION_4_6();
-    FigDebugAssert3();
-    OUTLINED_FUNCTION_7_5();
-    return FigSignalErrorAtGM();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v73, v75, v77, *(&v77 + 1), v80.i32[0], v80.i64[1], v83.i64[0], v83.i32[2]);
+    v69 = OUTLINED_FUNCTION_7_5();
+    v72 = 998;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v69, 0xFFFFCE14, "<<<< BWAdaptiveCorrectionPreviewRegistration >>>>", v72, v68, v70, v71, v74);
   }
 
 LABEL_20:
-  [v10 setObject:metadata atIndexedSubscript:0];
-  v57 = 1.0 / scale * v42;
-  v58 = [objc_msgSend(*(self + 48) objectForKeyedSubscript:{metadata), "objectForKeyedSubscript:", *off_1E7989F28}];
-  v59 = [objc_msgSend(v58 objectForKeyedSubscript:{*off_1E798A2C0), "intValue"}];
-  v60 = [objc_msgSend(v58 objectForKeyedSubscript:{*off_1E798A288), "intValue"}];
-  v81 = vcvtd_n_f64_s32(v59, 1uLL);
-  v82 = vcvtd_n_f64_s32(v60, 1uLL);
-  point = *v43;
+  [v11 setObject:metadata atIndexedSubscript:0];
+  v60 = 1.0 / scale * v43;
+  v61 = [objc_msgSend(*(self + 48) objectForKeyedSubscript:{metadata), "objectForKeyedSubscript:", *off_1E7989F28}];
+  v62 = [objc_msgSend(v61 objectForKeyedSubscript:{*off_1E798A2C0), "intValue"}];
+  v63 = [objc_msgSend(v61 objectForKeyedSubscript:{*off_1E798A288), "intValue"}];
+  v91 = vcvtd_n_f64_s32(v62, 1uLL);
+  v92 = vcvtd_n_f64_s32(v63, 1uLL);
+  point = *v44;
   CGPointMakeWithDictionaryRepresentation([objc_msgSend(*(self + 48) objectForKeyedSubscript:{metadata), "objectForKeyedSubscript:", *off_1E7989F10}], &point);
-  v61 = 0;
-  v62 = point.x + v81;
-  v63 = point.y + v82;
-  *type = v57;
-  type[2] = v62;
-  type[4] = v63;
-  return v61;
+  v64 = 0;
+  v65 = point.x + v91;
+  v66 = point.y + v92;
+  *type = v60;
+  type[2] = v65;
+  type[4] = v66;
+  return v64;
 }
 
 - (CGFloat)_estimatedSagPositionUsingOISShift:(double)shift forPortType:(double)type
@@ -3101,265 +3140,6 @@ LABEL_20:
   }
 
   return shift;
-}
-
-- (uint64_t)initWithCameraInfoByPortType:excludeStaticComponentFromAlignmentShifts:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:excludeStaticComponentFromAlignmentShifts:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:excludeStaticComponentFromAlignmentShifts:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:excludeStaticComponentFromAlignmentShifts:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:excludeStaticComponentFromAlignmentShifts:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:excludeStaticComponentFromAlignmentShifts:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:excludeStaticComponentFromAlignmentShifts:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.11()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.12()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)allocateResourcesWithVideoFormat:metalContext:.cold.13()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)registerWiderSampleBufferUsingADC:narrowerSampleBuffer:narrowerRect:macroTransitionType:narrowerToWiderTransformsOut:.cold.11()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeAlignmentFromWiderSampleBuffer:narrowerSampleBuffer:narrowerToWiderTransformsOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeAlignmentFromWiderSampleBuffer:narrowerSampleBuffer:narrowerToWiderTransformsOut:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeAlignmentFromWiderSampleBuffer:narrowerSampleBuffer:narrowerToWiderTransformsOut:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeApproximateCorrectionForWiderCamera:narrowerCameraPortType:narrowerPixelBufferDimensions:narrowerToWiderCameraScale:narrowerToWiderTransformsOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeApproximateCorrectionForWiderCamera:narrowerCameraPortType:narrowerPixelBufferDimensions:narrowerToWiderCameraScale:narrowerToWiderTransformsOut:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeApproximateCorrectionForWiderCamera:narrowerCameraPortType:narrowerPixelBufferDimensions:narrowerToWiderCameraScale:narrowerToWiderTransformsOut:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

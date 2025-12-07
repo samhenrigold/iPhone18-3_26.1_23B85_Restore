@@ -73,7 +73,7 @@
     uUIDString4 = [unassociatedFaceCropUUID UUIDString];
     [dictionary setValue:uUIDString4 forKey:@"HMDCSEFC.ck.unassociatedFaceCropUUID"];
 
-    v16 = [dictionary copy];
+    v16 = objc_msgSend_copy(dictionary);
   }
 
   else

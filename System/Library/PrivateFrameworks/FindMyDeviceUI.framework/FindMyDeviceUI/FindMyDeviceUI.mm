@@ -45,14 +45,14 @@ void sub_24AE97150(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id LogCategory_Unspecified()
+id LogCategory_Unspecified(uint64_t a1)
 {
   if (LogCategory_Unspecified_onceToken != -1)
   {
     LogCategory_Unspecified_cold_1();
   }
 
-  v1 = LogCategory_Unspecified_log;
+  v2 = LogCategory_Unspecified_log;
 
-  return v1;
+  return v2;
 }

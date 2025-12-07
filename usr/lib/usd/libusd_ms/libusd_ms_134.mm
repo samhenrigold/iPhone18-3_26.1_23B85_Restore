@@ -1,33 +1,4 @@
-pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetSchemaToken(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
-{
-  result = atomic_load(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
-  if (!result)
-  {
-    return sub_29ABEE0B0(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
-  }
-
-  return result;
-}
-
-void *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetDefaultLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
-{
-  if ((atomic_load_explicit(&qword_2A1749C20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1749C20))
-  {
-    v2 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
-    if (!v2)
-    {
-      v2 = sub_29ABEE0B0(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
-    }
-
-    pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::HdDataSourceLocator(&unk_2A1749BE8, v2);
-    __cxa_atexit(sub_29ABC33B4, &unk_2A1749BE8, &dword_299FE7000);
-    __cxa_guard_release(&qword_2A1749C20);
-  }
-
-  return &unk_2A1749BE8;
-}
-
-_DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetEnabledLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetEnabledLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A1749C60, memory_order_acquire) & 1) == 0)
   {
@@ -41,16 +12,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetEnabledLocator
         v3 = sub_29ABEE0B0(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749BE8, (v3 + 8), dword_2A1749C28);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749C28, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749C28, &unk_2A1749BE8, v3 + 1);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749C28, &dword_299FE7000);
       __cxa_guard_release(&qword_2A1749C60);
     }
   }
 
-  return dword_2A1749C28;
+  return qword_2A1749C28;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetPriorityLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetPriorityLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A1749CA0, memory_order_acquire) & 1) == 0)
   {
@@ -64,16 +35,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetPriorityLocato
         v3 = sub_29ABEE0B0(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749BE8, (v3 + 16), dword_2A1749C68);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749C68, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749C68, &unk_2A1749BE8, v3 + 2);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749C68, &dword_299FE7000);
       __cxa_guard_release(&qword_2A1749CA0);
     }
   }
 
-  return dword_2A1749C68;
+  return qword_2A1749C68;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetFilePathLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetFilePathLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A1749CE0, memory_order_acquire) & 1) == 0)
   {
@@ -87,16 +58,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetFilePathLocato
         v3 = sub_29ABEE0B0(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749BE8, (v3 + 24), dword_2A1749CA8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749CA8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749CA8, &unk_2A1749BE8, v3 + 3);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749CA8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A1749CE0);
     }
   }
 
-  return dword_2A1749CA8;
+  return qword_2A1749CA8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetConstantsLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetConstantsLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A1749D20, memory_order_acquire) & 1) == 0)
   {
@@ -110,16 +81,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetConstantsLocat
         v3 = sub_29ABEE0B0(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749BE8, (v3 + 32), dword_2A1749CE8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749CE8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749CE8, &unk_2A1749BE8, v3 + 4);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749CE8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A1749D20);
     }
   }
 
-  return dword_2A1749CE8;
+  return qword_2A1749CE8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetMaterialNetworkLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetMaterialNetworkLocator(pxrInternal__aapl__pxrReserved__::HdImageShaderSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A1749D60, memory_order_acquire) & 1) == 0)
   {
@@ -133,13 +104,13 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdImageShaderSchema::GetMaterialNetwor
         v3 = sub_29ABEE0B0(&pxrInternal__aapl__pxrReserved__::HdImageShaderSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749BE8, (v3 + 40), dword_2A1749D28);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749D28, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749D28, &unk_2A1749BE8, v3 + 5);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749D28, &dword_299FE7000);
       __cxa_guard_release(&qword_2A1749D60);
     }
   }
 
-  return dword_2A1749D28;
+  return qword_2A1749D28;
 }
 
 void *sub_29AC33FB8@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
@@ -181,12 +152,12 @@ void pxrInternal__aapl__pxrReserved__::HdInstanceCategoriesSchemaTokens_StaticTo
   }
 }
 
-pxrInternal__aapl__pxrReserved__::HdInstanceCategoriesSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdInstanceCategoriesSchemaTokens_StaticTokenType::HdInstanceCategoriesSchemaTokens_StaticTokenType(atomic_uint **this)
+atomic_uint **pxrInternal__aapl__pxrReserved__::HdInstanceCategoriesSchemaTokens_StaticTokenType::HdInstanceCategoriesSchemaTokens_StaticTokenType(atomic_uint **this)
 {
   v13 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instanceCategories", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "categoriesValues", 0);
-  v3 = this + 2;
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instanceCategories");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "categoriesValues");
+  v3 = (this + 2);
   v4 = *this;
   v11 = v4;
   if ((v4 & 7) != 0)
@@ -464,9 +435,9 @@ void pxrInternal__aapl__pxrReserved__::HdInstancedBySchemaTokens_StaticTokenType
 pxrInternal__aapl__pxrReserved__::HdInstancedBySchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdInstancedBySchemaTokens_StaticTokenType::HdInstancedBySchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdInstancedBySchemaTokens_StaticTokenType *this)
 {
   v16 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instancedBy", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "paths", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "prototypeRoots", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instancedBy");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "paths");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "prototypeRoots");
   v3 = (this + 24);
   v4 = *this;
   v13 = v4;
@@ -553,7 +524,7 @@ void sub_29AC34818(_Unwind_Exception *a1)
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdInstancedBySchema::GetPaths(pxrInternal__aapl__pxrReserved__::HdInstancedBySchema *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdInstancedBySchema::GetPaths(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdInstancedBySchema *this@<X0>)
 {
   v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdInstancedBySchemaTokens);
   if (!v4)
@@ -572,7 +543,7 @@ void pxrInternal__aapl__pxrReserved__::HdInstancedBySchema::GetPaths(pxrInternal
     }
   }
 
-  sub_29AC3494C(this, a2);
+  sub_29AC3494C(this, a1);
   if ((v7 & 7) != 0)
   {
     atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -866,7 +837,7 @@ void *pxrInternal__aapl__pxrReserved__::HdInstancedBySchema::GetDefaultLocator(p
   return &unk_2A1749DA8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdInstancedBySchema::GetPathsLocator(pxrInternal__aapl__pxrReserved__::HdInstancedBySchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdInstancedBySchema::GetPathsLocator(pxrInternal__aapl__pxrReserved__::HdInstancedBySchema *this)
 {
   if ((atomic_load_explicit(&qword_2A1749E20, memory_order_acquire) & 1) == 0)
   {
@@ -880,13 +851,13 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdInstancedBySchema::GetPathsLocator(p
         v3 = sub_29ABEE6B4(&pxrInternal__aapl__pxrReserved__::HdInstancedBySchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749DA8, (v3 + 8), dword_2A1749DE8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749DE8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749DE8, &unk_2A1749DA8, v3 + 1);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749DE8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A1749E20);
     }
   }
 
-  return dword_2A1749DE8;
+  return qword_2A1749DE8;
 }
 
 void *sub_29AC34FD4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
@@ -937,9 +908,9 @@ void pxrInternal__aapl__pxrReserved__::HdInstanceIndicesSchemaTokens_StaticToken
 pxrInternal__aapl__pxrReserved__::HdInstanceIndicesSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdInstanceIndicesSchemaTokens_StaticTokenType::HdInstanceIndicesSchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdInstanceIndicesSchemaTokens_StaticTokenType *this)
 {
   v16 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instancer", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "prototypeIndex", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "instanceIndices", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instancer");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "prototypeIndex");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "instanceIndices");
   v3 = (this + 24);
   v4 = *this;
   v13 = v4;
@@ -1413,9 +1384,9 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdInstancer::GetInstancerNumLevels(px
   return v5;
 }
 
-void sub_29AC35B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29AC35B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1536,9 +1507,9 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdInstancer::_SyncInstancerAndParents(
   return sub_29A1DE3A4(&v11);
 }
 
-void sub_29AC35F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29AC35F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1573,9 +1544,9 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdInstancer::_UpdateInstancer(pxrInter
   return result;
 }
 
-void sub_29AC36084(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AC36084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1617,11 +1588,11 @@ void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchemaTokens_StaticTok
 pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchemaTokens_StaticTokenType::HdInstancerTopologySchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchemaTokens_StaticTokenType *this)
 {
   v22 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instancerTopology", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "prototypes", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "instanceIndices", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "mask", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "instanceLocations", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instancerTopology");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "prototypes");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "instanceIndices");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "mask");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "instanceLocations");
   v3 = (this + 40);
   v4 = *this;
   v17 = v4;
@@ -1749,13 +1720,13 @@ void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::ComputeInstanc
   *(a3 + 16) = 0u;
   v32 = 0;
   memset(v31, 0, sizeof(v31));
-  pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetInstanceIndices(this, &v29);
+  pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetInstanceIndices(&v29, this);
   if (pxrInternal__aapl__pxrReserved__::HdVectorSchema::IsDefined(&v29))
   {
     v28 = 0;
     v26 = 0u;
     v27 = 0u;
-    pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetPrototypes(this, v21);
+    pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetPrototypes(v21, this);
     if (*&v21[0])
     {
       (*(**&v21[0] + 32))(&v23, 0.0);
@@ -1892,7 +1863,7 @@ void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::ComputeInstanc
   pxrInternal__aapl__pxrReserved__::VtArray<int>::_DecRef();
 }
 
-void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetInstanceIndices(pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetInstanceIndices(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema *this@<X0>)
 {
   v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchemaTokens);
   if (!v4)
@@ -1913,8 +1884,8 @@ void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetInstanceInd
 
   sub_29AC100E4(this, &v9);
   v7 = v10;
-  *a2 = v9;
-  a2[1] = v7;
+  *a1 = v9;
+  a1[1] = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1930,7 +1901,7 @@ void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetInstanceInd
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetPrototypes(pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetPrototypes(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema *this@<X0>)
 {
   v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchemaTokens);
   if (!v4)
@@ -1949,7 +1920,7 @@ void pxrInternal__aapl__pxrReserved__::HdInstancerTopologySchema::GetPrototypes(
     }
   }
 
-  sub_29AC3494C(this, a2);
+  sub_29AC3494C(this, a1);
   if ((v7 & 7) != 0)
   {
     atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -2446,10 +2417,10 @@ void pxrInternal__aapl__pxrReserved__::HdInstanceSchemaTokens_StaticTokenType::~
 pxrInternal__aapl__pxrReserved__::HdInstanceSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdInstanceSchemaTokens_StaticTokenType::HdInstanceSchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdInstanceSchemaTokens_StaticTokenType *this)
 {
   v19 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instance", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "instancer", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "prototypeIndex", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "instanceIndex", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "instance");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "instancer");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "prototypeIndex");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "instanceIndex");
   v3 = (this + 32);
   v4 = *this;
   v15 = v4;
@@ -2967,12 +2938,12 @@ void pxrInternal__aapl__pxrReserved__::HdIntegratorSchemaTokens_StaticTokenType:
   }
 }
 
-pxrInternal__aapl__pxrReserved__::HdIntegratorSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdIntegratorSchemaTokens_StaticTokenType::HdIntegratorSchemaTokens_StaticTokenType(atomic_uint **this)
+atomic_uint **pxrInternal__aapl__pxrReserved__::HdIntegratorSchemaTokens_StaticTokenType::HdIntegratorSchemaTokens_StaticTokenType(atomic_uint **this)
 {
   v13 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "integrator", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "resource", 0);
-  v3 = this + 2;
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "integrator");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "resource");
+  v3 = (this + 2);
   v4 = *this;
   v11 = v4;
   if ((v4 & 7) != 0)
@@ -3247,7 +3218,7 @@ void *pxrInternal__aapl__pxrReserved__::HdIntegratorSchema::GetDefaultLocator(px
   return &unk_2A1749EC8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdIntegratorSchema::GetResourceLocator(pxrInternal__aapl__pxrReserved__::HdIntegratorSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdIntegratorSchema::GetResourceLocator(pxrInternal__aapl__pxrReserved__::HdIntegratorSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A1749F40, memory_order_acquire) & 1) == 0)
   {
@@ -3261,13 +3232,13 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdIntegratorSchema::GetResourceLocator
         v3 = sub_29ABEE740(&pxrInternal__aapl__pxrReserved__::HdIntegratorSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749EC8, (v3 + 8), dword_2A1749F08);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749F08, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749F08, &unk_2A1749EC8, v3 + 1);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749F08, &dword_299FE7000);
       __cxa_guard_release(&qword_2A1749F40);
     }
   }
 
-  return dword_2A1749F08;
+  return qword_2A1749F08;
 }
 
 void *pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::HdLazyContainerDataSource(void *a1, uint64_t a2)
@@ -3301,7 +3272,7 @@ void pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::~HdLazyContain
 
 void pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::GetNames(pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource *this@<X0>, void *a2@<X8>)
 {
-  pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::_GetSrc(this, &v4);
+  pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::_GetSrc(&v4, this);
   v3 = v4;
   if (v4)
   {
@@ -3331,12 +3302,12 @@ void sub_29AC3865C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::_GetSrc(pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource *this@<X0>, uint64_t *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::_GetSrc(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource *this@<X0>)
 {
-  sub_29ABEC66C(this + 5, a2);
-  if (!*a2)
+  sub_29ABEC66C(this + 5, a1);
+  if (!*a1)
   {
-    v4 = a2[1];
+    v4 = a1[1];
     if (v4)
     {
       sub_29A014BEC(v4);
@@ -3349,7 +3320,7 @@ void pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::_GetSrc(pxrInt
     }
 
     (*(*v5 + 48))(v5);
-    sub_29ABE60F4(this + 5, a2);
+    sub_29ABE60F4(this + 5, a1);
   }
 }
 
@@ -3366,7 +3337,7 @@ void sub_29AC386F4(_Unwind_Exception *exception_object)
 
 void pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::Get(pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, void *a3@<X8>)
 {
-  pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::_GetSrc(this, &v6);
+  pxrInternal__aapl__pxrReserved__::HdLazyContainerDataSource::_GetSrc(&v6, this);
   v5 = v6;
   if (v6)
   {
@@ -3503,16 +3474,16 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens_StaticTo
 pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens_StaticTokenType::HdLegacyDisplayStyleSchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens_StaticTokenType *this)
 {
   v37 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "displayStyle", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "refineLevel", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "flatShadingEnabled", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "displacementEnabled", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "occludedSelectionShowsThrough", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "pointsShadingEnabled", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 48, "materialIsFinal", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 56, "shadingStyle", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 64, "reprSelector", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 72, "cullStyle", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "displayStyle");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "refineLevel");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "flatShadingEnabled");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "displacementEnabled");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "occludedSelectionShowsThrough");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 5, "pointsShadingEnabled");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 6, "materialIsFinal");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 7, "shadingStyle");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 8, "reprSelector");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 9, "cullStyle");
   v3 = (this + 80);
   v4 = *this;
   v27 = v4;
@@ -3900,7 +3871,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetShadingSty
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetReprSelector(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetReprSelector(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this@<X0>)
 {
   v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
   if (!v4)
@@ -3919,7 +3890,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetReprSelect
     }
   }
 
-  sub_29AC393A4(this, a2);
+  sub_29AC393A4(this, a1);
   if ((v7 & 7) != 0)
   {
     atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -4577,7 +4548,7 @@ void *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetDefaultLo
   return &unk_2A1749F48;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetRefineLevelLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetRefineLevelLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A1749FC0, memory_order_acquire) & 1) == 0)
   {
@@ -4591,16 +4562,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetRefineL
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 8), dword_2A1749F88);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749F88, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749F88, &unk_2A1749F48, v3 + 1);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749F88, &dword_299FE7000);
       __cxa_guard_release(&qword_2A1749FC0);
     }
   }
 
-  return dword_2A1749F88;
+  return qword_2A1749F88;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetFlatShadingEnabledLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetFlatShadingEnabledLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A000, memory_order_acquire) & 1) == 0)
   {
@@ -4614,16 +4585,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetFlatSha
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 16), dword_2A1749FC8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A1749FC8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A1749FC8, &unk_2A1749F48, v3 + 2);
+      __cxa_atexit(sub_29ABC33B4, qword_2A1749FC8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A000);
     }
   }
 
-  return dword_2A1749FC8;
+  return qword_2A1749FC8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetDisplacementEnabledLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetDisplacementEnabledLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A040, memory_order_acquire) & 1) == 0)
   {
@@ -4637,16 +4608,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetDisplac
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 24), dword_2A174A008);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A008, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A008, &unk_2A1749F48, v3 + 3);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A008, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A040);
     }
   }
 
-  return dword_2A174A008;
+  return qword_2A174A008;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetOccludedSelectionShowsThroughLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetOccludedSelectionShowsThroughLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A080, memory_order_acquire) & 1) == 0)
   {
@@ -4660,16 +4631,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetOcclude
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 32), dword_2A174A048);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A048, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A048, &unk_2A1749F48, v3 + 4);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A048, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A080);
     }
   }
 
-  return dword_2A174A048;
+  return qword_2A174A048;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetPointsShadingEnabledLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetPointsShadingEnabledLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A0C0, memory_order_acquire) & 1) == 0)
   {
@@ -4683,16 +4654,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetPointsS
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 40), dword_2A174A088);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A088, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A088, &unk_2A1749F48, v3 + 5);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A088, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A0C0);
     }
   }
 
-  return dword_2A174A088;
+  return qword_2A174A088;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetMaterialIsFinalLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetMaterialIsFinalLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A100, memory_order_acquire) & 1) == 0)
   {
@@ -4706,16 +4677,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetMateria
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 48), dword_2A174A0C8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A0C8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A0C8, &unk_2A1749F48, v3 + 6);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A0C8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A100);
     }
   }
 
-  return dword_2A174A0C8;
+  return qword_2A174A0C8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetShadingStyleLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetShadingStyleLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A140, memory_order_acquire) & 1) == 0)
   {
@@ -4729,16 +4700,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetShading
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 56), dword_2A174A108);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A108, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A108, &unk_2A1749F48, v3 + 7);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A108, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A140);
     }
   }
 
-  return dword_2A174A108;
+  return qword_2A174A108;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetReprSelectorLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetReprSelectorLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A180, memory_order_acquire) & 1) == 0)
   {
@@ -4752,16 +4723,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetReprSel
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 64), dword_2A174A148);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A148, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A148, &unk_2A1749F48, v3 + 8);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A148, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A180);
     }
   }
 
-  return dword_2A174A148;
+  return qword_2A174A148;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetCullStyleLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetCullStyleLocator(pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A1C0, memory_order_acquire) & 1) == 0)
   {
@@ -4775,13 +4746,13 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchema::GetCullSty
         v3 = sub_29ABEDC10(&pxrInternal__aapl__pxrReserved__::HdLegacyDisplayStyleSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A1749F48, (v3 + 72), dword_2A174A188);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A188, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A188, &unk_2A1749F48, v3 + 9);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A188, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A1C0);
     }
   }
 
-  return dword_2A174A188;
+  return qword_2A174A188;
 }
 
 void *sub_29AC3A620@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
@@ -4807,7 +4778,7 @@ void *sub_29AC3A620@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::HdLegacyGeomSubsetSceneIndex(pxrInternal__aapl__pxrReserved__::HdSceneIndexBase *a1, void *a2)
+void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::HdLegacyGeomSubsetSceneIndex(pxrInternal__aapl__pxrReserved__::HdSceneIndexBase *a1, uint64_t *a2)
 {
   pxrInternal__aapl__pxrReserved__::HdSingleInputFilteringSceneIndexBase::HdSingleInputFilteringSceneIndexBase(a1, a2);
 }
@@ -4822,7 +4793,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::~HdLegacyGe
   sub_29A6551B8(this + 144, *(this + 19));
   *this = &unk_2A207B330;
   pxrInternal__aapl__pxrReserved__::HdSceneIndexObserver::~HdSceneIndexObserver((this + 120), v2);
-  sub_29ABD4DDC();
+  sub_29ABD4DDC(this + 14);
 }
 
 {
@@ -4832,11 +4803,11 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::~HdLegacyGe
 void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetPrim(pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, atomic_uint **a3@<X8>)
 {
   v6 = sub_29AC1199C(this + 14);
-  (*(*v6 + 16))(&v25);
-  if (!v26)
+  (*(*v6 + 16))(&v24);
+  if (!v25)
   {
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(a2, &v23);
-    if ((this + 152) != sub_29A55CDFC(this + 144))
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v23, a2);
+    if ((this + 152) != sub_29A55CDFC(this + 144, &v23))
     {
       v7 = sub_29AC1199C(this + 14);
       (*(*v7 + 16))(&v20);
@@ -4870,7 +4841,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetPrim(pxr
         pxrInternal__aapl__pxrReserved__::HdDataSourceLegacyPrim::HdDataSourceLegacyPrim(v12, a2, (v13 + 48), v8);
         *v12 = &unk_2A207C018;
         sub_29A1E21F4(v12 + 22, &v23);
-        sub_29A1E2240(v12 + 23, &v24);
+        sub_29A1E2240(v12 + 23, &v23 + 1);
         v15 = v20;
         *(v12 + 12) = v20;
         if ((v15 & 7) != 0 && (atomic_fetch_add_explicit((v15 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
@@ -4880,12 +4851,12 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetPrim(pxr
 
         if (!pxrInternal__aapl__pxrReserved__::HdPrimTypeSupportsGeomSubsets((v12 + 24), v14))
         {
-          v28[0] = "hd/legacyGeomSubsetSceneIndex.cpp";
-          v28[1] = "_HdDataSourceLegacyGeomSubset";
-          v28[2] = 141;
-          v28[3] = "pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_HdDataSourceLegacyGeomSubset::_HdDataSourceLegacyGeomSubset(const SdfPath &, const SdfPath &, const TfToken &, HdSceneDelegate *)";
-          v29 = 0;
-          pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(v28, "HdPrimTypeSupportsGeomSubsets(_parentType)", 0);
+          v27[0] = "hd/legacyGeomSubsetSceneIndex.cpp";
+          v27[1] = "_HdDataSourceLegacyGeomSubset";
+          v27[2] = 141;
+          v27[3] = "pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_HdDataSourceLegacyGeomSubset::_HdDataSourceLegacyGeomSubset(const SdfPath &, const SdfPath &, const TfToken &, HdSceneDelegate *)";
+          v28 = 0;
+          pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(v27, "HdPrimTypeSupportsGeomSubsets(_parentType)", 0);
         }
 
         v16 = operator new(0x20uLL);
@@ -4905,7 +4876,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetPrim(pxr
           atomic_fetch_add_explicit((v20 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v24);
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23 + 1);
         sub_29A1DE3A4(&v23);
         goto LABEL_31;
       }
@@ -4921,12 +4892,12 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetPrim(pxr
       }
     }
 
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v24);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23 + 1);
     sub_29A1DE3A4(&v23);
   }
 
-  v17 = v25;
-  *a3 = v25;
+  v17 = v24;
+  *a3 = v24;
   if ((v17 & 7) != 0)
   {
     v18 = (v17 & 0xFFFFFFFFFFFFFFF8);
@@ -4936,8 +4907,8 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetPrim(pxr
     }
   }
 
-  v19 = v27;
-  a3[1] = v26;
+  v19 = v26;
+  a3[1] = v25;
   a3[2] = v19;
   if (v19)
   {
@@ -4945,18 +4916,18 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetPrim(pxr
   }
 
 LABEL_31:
-  if (v27)
+  if (v26)
   {
-    sub_29A014BEC(v27);
+    sub_29A014BEC(v26);
   }
 
-  if ((v25 & 7) != 0)
+  if ((v24 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v25 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v24 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 }
 
-void sub_29AC3AB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, int a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
+void sub_29AC3AB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
 {
   if ((*v17 & 7) != 0)
   {
@@ -5044,22 +5015,22 @@ void sub_29AC3AD7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int *pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetChildPrimPaths@<X0>(pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, void *a3@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::GetChildPrimPaths@<X0>(pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, void *a3@<X8>)
 {
   v6 = sub_29AC1199C(this + 14);
   (*(*v6 + 24))(v6, a2);
-  result = sub_29A55CDFC(this + 144);
+  result = sub_29A55CDFC(this + 144, a2);
   if ((this + 152) != result)
   {
-    return sub_29A23DE4C(a3, a3[1], *(result + 5), *(result + 6), (*(result + 6) - *(result + 5)) >> 3);
+    return sub_29A23DE4C(a3, a3[1], result[5], result[6], (result[6] - result[5]) >> 3);
   }
 
   return result;
 }
 
-void sub_29AC3AE30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AC3AE30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1E234C(va);
   _Unwind_Resume(a1);
 }
@@ -5082,10 +5053,10 @@ void **pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_PrimsAdd
   v6 = *(a3 + 64);
   if (v6)
   {
-    v7 = &v5[16 * v6];
+    v7 = &v5[2 * v6];
     do
     {
-      if (pxrInternal__aapl__pxrReserved__::HdPrimTypeSupportsGeomSubsets((v5 + 8), a2))
+      if (pxrInternal__aapl__pxrReserved__::HdPrimTypeSupportsGeomSubsets((v5 + 1), a2))
       {
         v8 = sub_29AC1199C(a1 + 14);
         (*(*v8 + 16))(v14);
@@ -5108,7 +5079,7 @@ void **pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_PrimsAdd
         }
       }
 
-      v5 += 16;
+      v5 += 2;
     }
 
     while (v5 != v7);
@@ -5143,8 +5114,9 @@ void **pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_PrimsAdd
   return sub_29AC263E4(v16);
 }
 
-void sub_29AC3B094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, void *a20)
+void sub_29AC3B094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, ...)
 {
+  va_start(va, a19);
   a9 = &a13;
   sub_29A1E234C(&a9);
   if (a18)
@@ -5157,17 +5129,17 @@ void sub_29AC3B094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     atomic_fetch_add_explicit((a16 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  sub_29AC263E4(&a20);
+  sub_29AC263E4(va);
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelegateSubsets(pxrInternal__aapl__pxrReserved__::SdfPath *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelegateSubsets(pxrInternal__aapl__pxrReserved__::SdfPath *a1@<X0>, pxrInternal__aapl__pxrReserved__ *a2@<X1>, void *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  v4 = a2 + 1;
-  if (a2[1])
+  v4 = (a2 + 8);
+  if (*(a2 + 1))
   {
     if (pxrInternal__aapl__pxrReserved__::HdPrimTypeSupportsGeomSubsets(a2, a2))
     {
@@ -5195,9 +5167,9 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelega
             for (i = v19; v12 != i; v12 += 64)
             {
               NameToken = pxrInternal__aapl__pxrReserved__::SdfPath::GetNameToken((v12 + 4));
-              pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a1, NameToken, &v22);
+              pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v22, a1, NameToken);
               sub_29A377BD0(a3, &v22);
-              pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23);
+              pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v22 + 1);
               sub_29A1DE3A4(&v22);
             }
 
@@ -5209,7 +5181,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelega
                 v15 = sub_29AC3C298();
               }
 
-              pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a1, (v15 + 16), &v22);
+              pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v22, a1, (v15 + 2));
               sub_29A377BD0(a3, &v22);
               sub_29A1DCEA8(&v22);
             }
@@ -5222,7 +5194,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelega
                 v16 = sub_29AC3C298();
               }
 
-              pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a1, v16, &v22);
+              pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v22, a1, v16);
               sub_29A377BD0(a3, &v22);
               sub_29A1DCEA8(&v22);
             }
@@ -5242,9 +5214,9 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelega
               v9 = sub_29AC3C298();
             }
 
-            pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a1, (v9 + 8), &v22);
+            pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v22, a1, (v9 + 1));
             sub_29A377BD0(a3, &v22);
-            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23);
+            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v22 + 1);
             sub_29A1DE3A4(&v22);
           }
 
@@ -5256,9 +5228,9 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelega
               v10 = sub_29AC3C298();
             }
 
-            pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a1, v10, &v22);
+            pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v22, a1, v10);
             sub_29A377BD0(a3, &v22);
-            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23);
+            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v22 + 1);
             sub_29A1DE3A4(&v22);
           }
 
@@ -5269,13 +5241,13 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelega
   }
 }
 
-void sub_29AC3B3E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AC3B3E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_29A1DCEA8((v3 - 56));
+  va_start(va, a3);
+  sub_29A1DCEA8((v4 - 56));
   pxrInternal__aapl__pxrReserved__::HdMeshTopology::~HdMeshTopology(va);
-  *(v3 - 56) = v2;
-  sub_29A1E234C((v3 - 56));
+  *(v4 - 56) = v3;
+  sub_29A1E234C((v4 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -5300,7 +5272,7 @@ _DWORD *sub_29AC3B4B8(uint64_t a1)
   return sub_29A1DE3A4(a1);
 }
 
-void sub_29AC3B510(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_29AC3B510(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
   v5 = a3;
   v6 = a2;
@@ -5464,144 +5436,144 @@ uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_Prims
   return pxrInternal__aapl__pxrReserved__::HdSceneIndexBase::_SendPrimsRemoved(a1, a3);
 }
 
-void **pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_PrimsDirtied(uint64_t a1, uint64_t a2, uint64_t a3)
+void **pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_PrimsDirtied(uint64_t a1)
 {
-  v3 = MEMORY[0x2A1C7C4A8](a1, a2, a3);
-  v5 = v4;
-  v21 = v3;
-  v34 = *MEMORY[0x29EDCA608];
+  v1 = MEMORY[0x2A1C7C4A8](a1);
+  v3 = v2;
+  v19 = v1;
+  v32 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A174A390, memory_order_acquire) & 1) == 0)
   {
-    v12 = __cxa_guard_acquire(&qword_2A174A390);
-    if (v12)
+    v10 = __cxa_guard_acquire(&qword_2A174A390);
+    if (v10)
     {
-      v13 = v5;
-      DefaultLocator = pxrInternal__aapl__pxrReserved__::HdBasisCurvesTopologySchema::GetDefaultLocator(v12);
-      v15 = sub_29ABD30AC(v27, DefaultLocator);
-      v16 = pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema::GetDefaultLocator(v15);
-      sub_29ABD30AC(v28, v16);
-      v25 = v27;
-      v26 = 2;
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocatorSet::HdDataSourceLocatorSet(&unk_2A174A1C8, &v25);
-      for (i = 7; i != -7; i -= 7)
+      v11 = v3;
+      DefaultLocator = pxrInternal__aapl__pxrReserved__::HdBasisCurvesTopologySchema::GetDefaultLocator(v10);
+      v13 = sub_29ABD30AC(v25, DefaultLocator);
+      v14 = pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema::GetDefaultLocator(v13);
+      sub_29ABD30AC(v26, v14);
+      v23 = v25;
+      v24 = 2;
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocatorSet::HdDataSourceLocatorSet(&unk_2A174A1C8, &v23);
+      for (i = 14; i != -14; i -= 14)
       {
-        sub_29ABC3488(&v27[i]);
+        sub_29ABC3488(&v25[i]);
       }
 
       __cxa_atexit(sub_29ABE62AC, &unk_2A174A1C8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A390);
-      v5 = v13;
+      v3 = v11;
     }
   }
 
   if ((atomic_load_explicit(&qword_2A174A560, memory_order_acquire) & 1) == 0)
   {
-    v18 = __cxa_guard_acquire(&qword_2A174A560);
-    if (v18)
+    v16 = __cxa_guard_acquire(&qword_2A174A560);
+    if (v16)
     {
-      v19 = pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::EmptyLocator(v18);
-      sub_29ABD30AC(v27, v19);
-      v25 = v27;
-      v26 = 1;
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocatorSet::HdDataSourceLocatorSet(&unk_2A174A398, &v25);
-      sub_29ABC3488(v27);
+      v17 = pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::EmptyLocator(v16);
+      sub_29ABD30AC(v25, v17);
+      v23 = v25;
+      v24 = 1;
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocatorSet::HdDataSourceLocatorSet(&unk_2A174A398, &v23);
+      sub_29ABC3488(v25);
       __cxa_atexit(sub_29ABE62AC, &unk_2A174A398, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A560);
     }
   }
 
-  v33 = 0x1000000000;
   v31 = 0x1000000000;
   v29 = 0x1000000000;
-  if (*(v5 + 1857) >= 0x11u)
+  v27 = 0x1000000000;
+  if (*(v3 + 1857) >= 0x11u)
   {
-    v6 = *v5;
+    v4 = *v3;
   }
 
   else
   {
-    v6 = v5;
+    v4 = v3;
   }
 
-  v7 = *(v5 + 1856);
-  if (v7)
+  v5 = *(v3 + 1856);
+  if (v5)
   {
-    v20 = &v6[58 * v7];
+    v18 = v4 + 464 * v5;
     do
     {
-      if (pxrInternal__aapl__pxrReserved__::HdDataSourceLocatorSet::Intersects((v6 + 1), &unk_2A174A1C8))
+      if (pxrInternal__aapl__pxrReserved__::HdDataSourceLocatorSet::Intersects((v4 + 8), &unk_2A174A1C8))
       {
-        v8 = sub_29AC1199C(v21 + 14);
-        (*(*v8 + 16))(v23);
-        pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelegateSubsets(v6, v23, v22);
-        if (v21 + 19 != sub_29A55CDFC((v21 + 18)))
+        v6 = sub_29AC1199C(v19 + 14);
+        (*(*v6 + 16))(v21);
+        pxrInternal__aapl__pxrReserved__::HdLegacyGeomSubsetSceneIndex::_ListDelegateSubsets(v4, v21, v20);
+        if (v19 + 19 != sub_29A55CDFC((v19 + 18), v4))
         {
           std::vector<pxrInternal__aapl__pxrReserved__::SdfPath>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::SdfPath*,pxrInternal__aapl__pxrReserved__::SdfPath*>();
         }
 
-        if (v22[0] != v22[1])
+        if (v20[0] != v20[1])
         {
-          sub_29AC3C1B4(&v25, v6);
+          sub_29AC3C1B4(&v23, v4);
         }
 
-        v25 = v22;
-        sub_29A1E234C(&v25);
-        if (v24)
+        v23 = v20;
+        sub_29A1E234C(&v23);
+        if (v22)
         {
-          sub_29A014BEC(v24);
+          sub_29A014BEC(v22);
         }
 
-        if ((v23[0] & 7) != 0)
+        if ((v21[0] & 7) != 0)
         {
-          atomic_fetch_add_explicit((v23[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v21[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
       }
 
-      v6 += 58;
+      v4 += 464;
     }
 
-    while (v6 != v20);
-    if (v31)
+    while (v4 != v18);
+    if (v29)
     {
-      pxrInternal__aapl__pxrReserved__::HdSceneIndexBase::_SendPrimsRemoved(v21, v30);
+      pxrInternal__aapl__pxrReserved__::HdSceneIndexBase::_SendPrimsRemoved(v19, v28);
     }
   }
 
-  if (v29)
+  if (v27)
   {
-    if (HIDWORD(v29) >= 0x11)
+    if (HIDWORD(v27) >= 0x11)
     {
-      v9 = v27[0];
+      v7 = *v25;
     }
 
     else
     {
-      v9 = v27;
+      v7 = v25;
     }
 
-    if (*(v5 + 1857) >= 0x11u)
+    if (*(v3 + 1857) >= 0x11u)
     {
-      v10 = *v5;
+      v8 = *v3;
     }
 
     else
     {
-      v10 = v5;
+      v8 = v3;
     }
 
-    sub_29AC12278(v27, v9, v10, &v10[116 * *(v5 + 1856)]);
-    v5 = v27;
+    sub_29AC12278(v25, v7, v8, v8 + 464 * *(v3 + 1856));
+    v3 = v25;
   }
 
-  pxrInternal__aapl__pxrReserved__::HdSceneIndexBase::_SendPrimsDirtied(v21, v5);
-  if (v33)
+  pxrInternal__aapl__pxrReserved__::HdSceneIndexBase::_SendPrimsDirtied(v19, v3);
+  if (v31)
   {
-    pxrInternal__aapl__pxrReserved__::HdSceneIndexBase::_SendPrimsAdded(v21, v32);
+    pxrInternal__aapl__pxrReserved__::HdSceneIndexBase::_SendPrimsAdded(v19, v30);
   }
 
-  sub_29ABD3844(v27);
-  sub_29AC26348(v30);
-  return sub_29AC263E4(v32);
+  sub_29ABD3844(v25);
+  sub_29AC26348(v28);
+  return sub_29AC263E4(v30);
 }
 
 void sub_29AC3BF30(_Unwind_Exception *a1)
@@ -5665,13 +5637,13 @@ uint64_t sub_29AC3C228(uint64_t a1, _DWORD *a2, uint64_t *a3)
   return a1;
 }
 
-unint64_t sub_29AC3C298()
+uint64_t *sub_29AC3C298()
 {
   v16 = *MEMORY[0x29EDCA608];
   v0 = operator new(0x30uLL);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "__invisiblePoints", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 1, "__invisibleCurves", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 2, "__invisibleFaces", 0);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "__invisiblePoints");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 1, "__invisibleCurves");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 2, "__invisibleFaces");
   v1 = v0 + 3;
   v2 = *v0;
   v13 = v2;
@@ -5872,9 +5844,9 @@ void *sub_29AC3C660@<X0>(pxrInternal__aapl__pxrReserved__::HdGeomSubsetSchema *a
   return sub_29A1D8028(a2, v10);
 }
 
-void sub_29AC3C6FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AC3C6FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A124AB0(va);
   _Unwind_Resume(a1);
 }
@@ -6112,9 +6084,9 @@ void sub_29AC3C714(pxrInternal__aapl__pxrReserved__::HdGeomSubsetSchema *a1@<X0>
   }
 }
 
-void sub_29AC3CCB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_29AC3CCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a8);
+  va_start(va, a16);
   __cxa_guard_abort(&qword_2A174A588);
   sub_29AC3D390(va);
 }
@@ -6169,7 +6141,7 @@ void sub_29AC3CE28(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v12 = sub_29AC3C298();
     }
 
-    if ((*(v12 + 16) ^ *NameToken) > 7)
+    if ((v12[2] ^ *NameToken) > 7)
     {
       v25 = atomic_load(&qword_2A174A568);
       if (!v25)
@@ -6301,7 +6273,7 @@ LABEL_56:
     v6 = sub_29AC3C298();
   }
 
-  if ((*(v6 + 8) ^ *NameToken) > 7)
+  if ((v6[1] ^ *NameToken) > 7)
   {
     v19 = atomic_load(&qword_2A174A568);
     if (!v19)
@@ -6379,9 +6351,9 @@ LABEL_37:
   pxrInternal__aapl__pxrReserved__::HdBasisCurvesTopology::~HdBasisCurvesTopology(v38);
 }
 
-void sub_29AC3D364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29AC3D364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   pxrInternal__aapl__pxrReserved__::HdMeshTopology::~HdMeshTopology(va);
   _Unwind_Resume(a1);
 }
@@ -6399,8 +6371,8 @@ void *sub_29AC3D3EC(void *result, void *a2, void *a3, unint64_t a4)
   {
     v6 = result;
     sub_29A0D0518(result, a4);
-    result = sub_29AC3D474(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = sub_29AC3D474(v6, a2, a3, v6[1]);
+    v6[1] = result;
   }
 
   return result;
@@ -6487,9 +6459,9 @@ uint64_t sub_29AC3D590(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t *sub_29AC3D5D0(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t *sub_29AC3D5D0(uint64_t ***a1, uint64_t a2, uint64_t a3)
 {
-  v5 = sub_29A38932C(a1, &v9);
+  v5 = sub_29A38932C(a1, &v9, a2);
   v6 = *v5;
   if (!*v5)
   {
@@ -6502,14 +6474,14 @@ uint64_t *sub_29AC3D5D0(uint64_t **a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-_DWORD *sub_29AC3D658(_DWORD *a1, uint64_t a2)
+_DWORD *sub_29AC3D658(uint64_t *a1, uint64_t a2)
 {
-  v4 = a1[64];
-  v5 = a1[65];
+  v4 = *(a1 + 64);
+  v5 = *(a1 + 65);
   if (v4 == v5)
   {
     sub_29AC3D6F0(a1, v4 + (v4 >> 1) + 1);
-    v5 = a1[65];
+    v5 = *(a1 + 65);
   }
 
   v6 = a1;
@@ -6518,12 +6490,12 @@ _DWORD *sub_29AC3D658(_DWORD *a1, uint64_t a2)
     v6 = *a1;
   }
 
-  v7 = &v6[4 * a1[64]];
+  v7 = &v6[2 * *(a1 + 64)];
   sub_29A1DDD84(v7, a2);
   result = sub_29A1DDDC0(v7 + 1, (a2 + 4));
-  *(v7 + 1) = *(a2 + 8);
+  v7[1] = *(a2 + 8);
   *(a2 + 8) = 0;
-  ++a1[64];
+  ++*(a1 + 64);
   return result;
 }
 
@@ -6620,14 +6592,14 @@ uint64_t sub_29AC3D888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return a3;
 }
 
-_DWORD *sub_29AC3D914(_DWORD *a1, _DWORD *a2)
+_DWORD *sub_29AC3D914(uint64_t *a1, _DWORD *a2)
 {
-  v5 = a1[32];
-  v4 = a1[33];
+  v5 = *(a1 + 32);
+  v4 = *(a1 + 33);
   if (v5 == v4)
   {
     sub_29AC3D990(a1, v5 + (v5 >> 1) + 1);
-    v4 = a1[33];
+    v4 = *(a1 + 33);
   }
 
   v6 = a1;
@@ -6636,9 +6608,9 @@ _DWORD *sub_29AC3D914(_DWORD *a1, _DWORD *a2)
     v6 = *a1;
   }
 
-  v7 = sub_29A1DDD84(&v6[2 * a1[32]], a2);
+  v7 = sub_29A1DDD84(&v6[*(a1 + 32)], a2);
   result = sub_29A1DDDC0(v7 + 1, a2 + 1);
-  ++a1[32];
+  ++*(a1 + 32);
   return result;
 }
 
@@ -6663,14 +6635,14 @@ void sub_29AC3D990(_DWORD *a1, uint64_t a2)
   a1[33] = v2;
 }
 
-uint64_t sub_29AC3DA10(uint64_t a1, _DWORD *a2)
+uint64_t sub_29AC3DA10(unsigned int *a1, _DWORD *a2)
 {
-  v4 = *(a1 + 7424);
-  v5 = *(a1 + 7428);
+  v4 = a1[1856];
+  v5 = a1[1857];
   if (v4 == v5)
   {
     sub_29AC14D54(a1, v4 + (v4 >> 1) + 1);
-    v5 = *(a1 + 7428);
+    v5 = a1[1857];
   }
 
   v6 = a1;
@@ -6679,11 +6651,11 @@ uint64_t sub_29AC3DA10(uint64_t a1, _DWORD *a2)
     v6 = *a1;
   }
 
-  v7 = (v6 + 464 * *(a1 + 7424));
+  v7 = &v6[116 * a1[1856]];
   sub_29A1DDD84(v7, a2);
   sub_29A1DDDC0(v7 + 1, a2 + 1);
   result = sub_29AC14EB8((v7 + 2), (a2 + 2));
-  ++*(a1 + 7424);
+  ++a1[1856];
   return result;
 }
 
@@ -6808,14 +6780,14 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyPrimSceneIndex::AddLegacyTask(uin
   }
 }
 
-void sub_29AC3DF04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_29AC3DF04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29AC3DF78(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void sub_29AC3DF78(_DWORD *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
 {
   v8 = operator new(0x28uLL);
   v9 = v8;
@@ -6911,68 +6883,68 @@ void sub_29AC3E21C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdLegacyPrimSceneIndex::DirtyPrims(pxrInternal__aapl__pxrReserved__::HdDataSourceLegacyPrim *a1, uint64_t a2, uint64_t a3)
+uint64_t pxrInternal__aapl__pxrReserved__::HdLegacyPrimSceneIndex::DirtyPrims(pxrInternal__aapl__pxrReserved__::HdDataSourceLegacyPrim *a1, uint64_t **a2)
 {
-  v4 = a1;
-  if (*(a2 + 7428) >= 0x11u)
+  v2 = a1;
+  if (*(a2 + 1857) >= 0x11u)
   {
-    v5 = *a2;
+    v3 = *a2;
   }
 
   else
   {
-    v5 = a2;
+    v3 = a2;
   }
 
-  v6 = *(a2 + 7424);
-  if (v6)
+  v4 = *(a2 + 1856);
+  if (v4)
   {
-    v7 = 464 * v6;
+    v5 = 464 * v4;
     do
     {
       CachedLocators = pxrInternal__aapl__pxrReserved__::HdDataSourceLegacyPrim::GetCachedLocators(a1);
-      a1 = pxrInternal__aapl__pxrReserved__::HdDataSourceLocatorSet::Intersects((v5 + 8), CachedLocators);
+      a1 = pxrInternal__aapl__pxrReserved__::HdDataSourceLocatorSet::Intersects((v3 + 1), CachedLocators);
       if (a1)
       {
-        (*(*v4 + 16))(&v10, v4, v5);
-        v12 = v11;
-        v11 = 0uLL;
-        sub_29AC3E3B0(&v12, &v13);
-        if (*(&v12 + 1))
+        (*(*v2 + 16))(&v8, v2, v3);
+        v10 = v9;
+        v9 = 0uLL;
+        sub_29AC3E3B0(&v10, &v11);
+        if (*(&v10 + 1))
         {
-          sub_29A014BEC(*(&v12 + 1));
+          sub_29A014BEC(*(&v10 + 1));
         }
 
-        if (*(&v11 + 1))
+        if (*(&v9 + 1))
         {
-          sub_29A014BEC(*(&v11 + 1));
+          sub_29A014BEC(*(&v9 + 1));
         }
 
-        if ((v10 & 7) != 0)
+        if ((v8 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v10 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        if (v13)
+        if (v11)
         {
-          pxrInternal__aapl__pxrReserved__::HdDataSourceLegacyPrim::PrimDirtied(v13, (v5 + 8));
+          pxrInternal__aapl__pxrReserved__::HdDataSourceLegacyPrim::PrimDirtied(v11, (v3 + 1));
         }
 
-        a1 = v14;
-        if (v14)
+        a1 = v12;
+        if (v12)
         {
-          sub_29A014BEC(v14);
+          sub_29A014BEC(v12);
         }
       }
 
-      v5 += 464;
-      v7 -= 464;
+      v3 += 58;
+      v5 -= 464;
     }
 
-    while (v7);
+    while (v5);
   }
 
-  return pxrInternal__aapl__pxrReserved__::HdRetainedSceneIndex::DirtyPrims(v4, a2, a3);
+  return pxrInternal__aapl__pxrReserved__::HdRetainedSceneIndex::DirtyPrims(v2);
 }
 
 void sub_29AC3E398(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
@@ -7007,7 +6979,7 @@ void *sub_29AC3E3B0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-void sub_29AC3E440(uint64_t *a1)
+void sub_29AC3E440(pxrInternal__aapl__pxrReserved__::HdSceneIndexBase *a1)
 {
   *a1 = &unk_2A20844A8;
   sub_29AC3E4EC(a1 + 14);
@@ -7015,7 +6987,7 @@ void sub_29AC3E440(uint64_t *a1)
   pxrInternal__aapl__pxrReserved__::HdSceneIndexBase::~HdSceneIndexBase(a1);
 }
 
-void sub_29AC3E494(uint64_t *a1)
+void sub_29AC3E494(pxrInternal__aapl__pxrReserved__::HdSceneIndexBase *a1)
 {
   *a1 = &unk_2A20844A8;
   sub_29AC3E4EC(a1 + 14);
@@ -7143,14 +7115,14 @@ void *sub_29AC3E6DC(void *result, uint64_t a2, uint64_t a3, unint64_t a4)
   {
     v6 = result;
     sub_29A15A71C(result, a4);
-    result = sub_29AC3E764(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = sub_29AC3E764(v6, a2, a3, v6[1]);
+    v6[1] = result;
   }
 
   return result;
 }
 
-void sub_29AC3E744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_29AC3E744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   sub_29AC3E968(&a9);
@@ -7372,11 +7344,11 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens_StaticTokenType:
 pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens_StaticTokenType::HdLegacyTaskSchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens_StaticTokenType *this)
 {
   v22 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "task", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "factory", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "parameters", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "collection", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "renderTags", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "task");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "factory");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "parameters");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "collection");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "renderTags");
   v3 = (this + 40);
   v4 = *this;
   v17 = v4;
@@ -7497,7 +7469,7 @@ void sub_29AC3ED74(_Unwind_Exception *a1)
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetFactory(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetFactory(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this@<X0>)
 {
   v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens);
   if (!v4)
@@ -7516,7 +7488,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetFactory(pxrInterna
     }
   }
 
-  sub_29AC3EEE0(this, a2);
+  sub_29AC3EEE0(this, a1);
   if ((v7 & 7) != 0)
   {
     atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -7569,7 +7541,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetParameters(pxrInte
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetCollection(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetCollection(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this@<X0>)
 {
   v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens);
   if (!v4)
@@ -7588,7 +7560,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetCollection(pxrInte
     }
   }
 
-  sub_29AC3F0C0(this, a2);
+  sub_29AC3F0C0(this, a1);
   if ((v7 & 7) != 0)
   {
     atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -7615,7 +7587,7 @@ void sub_29AC3F0C0(uint64_t *a1@<X0>, void *a2@<X8>)
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetRenderTags(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetRenderTags(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this@<X0>)
 {
   v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens);
   if (!v4)
@@ -7634,7 +7606,7 @@ void pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetRenderTags(pxrInte
     }
   }
 
-  sub_29AC3F1EC(this, a2);
+  sub_29AC3F1EC(this, a1);
   if ((v7 & 7) != 0)
   {
     atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -8005,7 +7977,7 @@ void *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetDefaultLocator(px
   return &unk_2A174A5A8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetFactoryLocator(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetFactoryLocator(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A620, memory_order_acquire) & 1) == 0)
   {
@@ -8019,16 +7991,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetFactoryLocator(
         v3 = sub_29AC05970(&pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A174A5A8, (v3 + 8), dword_2A174A5E8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A5E8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A5E8, &unk_2A174A5A8, v3 + 1);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A5E8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A620);
     }
   }
 
-  return dword_2A174A5E8;
+  return qword_2A174A5E8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetParametersLocator(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetParametersLocator(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A660, memory_order_acquire) & 1) == 0)
   {
@@ -8042,16 +8014,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetParametersLocat
         v3 = sub_29AC05970(&pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A174A5A8, (v3 + 16), dword_2A174A628);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A628, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A628, &unk_2A174A5A8, v3 + 2);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A628, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A660);
     }
   }
 
-  return dword_2A174A628;
+  return qword_2A174A628;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetCollectionLocator(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetCollectionLocator(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A6A0, memory_order_acquire) & 1) == 0)
   {
@@ -8065,16 +8037,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetCollectionLocat
         v3 = sub_29AC05970(&pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A174A5A8, (v3 + 24), dword_2A174A668);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A668, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A668, &unk_2A174A5A8, v3 + 3);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A668, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A6A0);
     }
   }
 
-  return dword_2A174A668;
+  return qword_2A174A668;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetRenderTagsLocator(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetRenderTagsLocator(pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A6E0, memory_order_acquire) & 1) == 0)
   {
@@ -8088,13 +8060,13 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchema::GetRenderTagsLocat
         v3 = sub_29AC05970(&pxrInternal__aapl__pxrReserved__::HdLegacyTaskSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A174A5A8, (v3 + 32), dword_2A174A6A8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A6A8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A6A8, &unk_2A174A5A8, v3 + 4);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A6A8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A6E0);
     }
   }
 
-  return dword_2A174A6A8;
+  return qword_2A174A6A8;
 }
 
 void *sub_29AC3FBB4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
@@ -8239,17 +8211,17 @@ void pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens_StaticTokenT
 pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens_StaticTokenType::HdLensDistortionSchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens_StaticTokenType *this)
 {
   v29 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "lensDistortion", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "type", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "k1", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "k2", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "center", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "anaSq", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 48, "asym", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 56, "scale", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 64, "ior", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 72, "standard", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 80, "fisheye", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "lensDistortion");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "type");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "k1");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "k2");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "center");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 5, "anaSq");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 6, "asym");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 7, "scale");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 8, "ior");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 9, "standard");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 10, "fisheye");
   v3 = (this + 88);
   v4 = *this;
   v18 = v4;
@@ -9170,7 +9142,7 @@ pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens_StaticTokenType *
   return result;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema::GetDefaultLocator(pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema::GetDefaultLocator(pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A720, memory_order_acquire) & 1) == 0)
   {
@@ -9184,36 +9156,36 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema::GetDefaultLoca
         v4 = sub_29AC413F8(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(DefaultLocator, v4, dword_2A174A6E8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A6E8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A6E8, DefaultLocator, v4);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A6E8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A720);
     }
   }
 
-  return dword_2A174A6E8;
+  return qword_2A174A6E8;
 }
 
 double pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema::BuildTypeDataSource@<D0>(pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema *this@<X0>, uint64_t a2@<X8>)
 {
-  v5 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
-  if (!v5)
+  v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
+  if (!v4)
   {
-    v5 = sub_29AC413F8(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
+    v4 = sub_29AC413F8(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
   }
 
-  if ((*(v5 + 9) ^ *this) > 7)
+  if ((*(v4 + 9) ^ *this) > 7)
   {
-    v7 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
-    if (!v7)
+    v6 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
+    if (!v6)
     {
-      v7 = sub_29AC413F8(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
+      v6 = sub_29AC413F8(&pxrInternal__aapl__pxrReserved__::HdLensDistortionSchemaTokens);
     }
 
-    if ((*(v7 + 10) ^ *this) > 7)
+    if ((*(v6 + 10) ^ *this) > 7)
     {
-      sub_29ABCCFA4(this, &v11);
-      result = *&v11;
-      *a2 = v11;
+      sub_29ABCCFA4(this, &v10);
+      result = *&v10;
+      *a2 = v10;
       return result;
     }
 
@@ -9224,7 +9196,7 @@ double pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema::BuildTypeDataSo
       __cxa_guard_release(&qword_2A174A750);
     }
 
-    v6 = &qword_2A174A740;
+    v5 = &qword_2A174A740;
   }
 
   else
@@ -9236,16 +9208,16 @@ double pxrInternal__aapl__pxrReserved__::HdLensDistortionSchema::BuildTypeDataSo
       __cxa_guard_release(&qword_2A174A738);
     }
 
-    v6 = &qword_2A174A728;
+    v5 = &qword_2A174A728;
   }
 
-  v9 = *v6;
-  v8 = v6[1];
-  *a2 = v9;
-  *(a2 + 8) = v8;
-  if (v8)
+  v8 = *v5;
+  v7 = v5[1];
+  *a2 = v8;
+  *(a2 + 8) = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
   return result;
@@ -9482,39 +9454,39 @@ void pxrInternal__aapl__pxrReserved__::HdLightTokens_StaticTokenType::~HdLightTo
 pxrInternal__aapl__pxrReserved__::HdLightTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdLightTokens_StaticTokenType::HdLightTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdLightTokens_StaticTokenType *this)
 {
   v72 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "angle", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "color", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "colorTemperature", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "enableColorTemperature", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "domeOffset", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "exposure", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 48, "height", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 56, "intensity", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 64, "radius", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 72, "length", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 80, "texture:file", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 88, "texture:format", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 96, "width", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 104, "ambient", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 112, "diffuse", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 120, "specular", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 128, "normalize", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 136, "hasShadow", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 144, "shaping:focus", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 152, "shaping:focusTint", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 160, "shaping:cone:angle", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 168, "shaping:cone:softness", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 176, "shaping:ies:file", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 184, "shaping:ies:angleScale", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 192, "shaping:ies:normalize", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 200, "shadow:enable", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 208, "shadow:color", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 216, "shadow:distance", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 224, "shadow:falloff", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 232, "shadow:falloffGamma", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 240, "params", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 248, "shadowCollection", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 256, "shadowParams", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "angle");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "color");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "colorTemperature");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "enableColorTemperature");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "domeOffset");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 5, "exposure");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 6, "height");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 7, "intensity");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 8, "radius");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 9, "length");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 10, "texture:file");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 11, "texture:format");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 12, "width");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 13, "ambient");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 14, "diffuse");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 15, "specular");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "normalize");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 17, "hasShadow");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 18, "shaping:focus");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 19, "shaping:focusTint");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 20, "shaping:cone:angle");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 21, "shaping:cone:softness");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 22, "shaping:ies:file");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 23, "shaping:ies:angleScale");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "shaping:ies:normalize");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 25, "shadow:enable");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 26, "shadow:color");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 27, "shadow:distance");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 28, "shadow:falloff");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 29, "shadow:falloffGamma");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 30, "params");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 31, "shadowCollection");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "shadowParams");
   v3 = *this;
   v39 = v3;
   if ((v3 & 7) != 0 && (atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)

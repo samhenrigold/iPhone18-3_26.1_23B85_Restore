@@ -27,7 +27,7 @@
         return 1;
       }
       v7 = ;
-      v8 = gs_default_log();
+      v8 = gs_default_log(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_8;
@@ -36,7 +36,7 @@
 
     else
       v7 = {;
-      v8 = gs_default_log();
+      v8 = gs_default_log(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_8;
@@ -47,7 +47,7 @@
   else
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid Name [%@]", self];
-    v8 = gs_default_log();
+    v8 = gs_default_log(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
 LABEL_8:
@@ -70,7 +70,7 @@ LABEL_8:
   if (v7)
   {
     v8 = v7;
-    v9 = gs_default_log();
+    v9 = gs_default_log(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(NSString(GSExtensions) *)a3 gs_issueExtension:self error:v9];
@@ -84,16 +84,17 @@ LABEL_8:
     if (*__error() != 2)
     {
       v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to issue [%s] extension for <%@>", a3, self];
-      v12 = *__error();
-      v13 = gs_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v12 = __error();
+      v13 = *v12;
+      v14 = gs_default_log(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        [(NSString(GSExtensions) *)v11 gs_issueExtension:v12 error:v13];
+        [(NSString(GSExtensions) *)v11 gs_issueExtension:v13 error:v14];
       }
 
       if (a4)
       {
-        *a4 = _GSErrorForErrno(v12, v11);
+        *a4 = _GSErrorForErrno(v13, v11);
       }
     }
 
@@ -105,22 +106,18 @@ LABEL_8:
 
 - (id)gs_issueReadExtensionIfNeededForAuditToken:()GSExtensions
 {
-  v5 = *MEMORY[0x277D861D8];
   fileSystemRepresentation = [self fileSystemRepresentation];
-  v10 = *a3;
-  v11 = a3[1];
-  v9 = fileSystemRepresentation;
   if (sandbox_check_by_audit_token())
   {
-    v7 = [self gs_issueExtension:"com.apple.revisiond.revision" error:{0, v9}];
+    v4 = [self gs_issueExtension:"com.apple.revisiond.revision" error:{0, fileSystemRepresentation}];
   }
 
   else
   {
-    v7 = 0;
+    v4 = 0;
   }
 
-  return v7;
+  return v4;
 }
 
 - (id)gs_stringByUpdatingPathExtensionWithPathOrURL:()GSExtensions
@@ -173,36 +170,26 @@ LABEL_8:
   return selfCopy;
 }
 
-- (void)validateGSNameAllowingDot:()GSExtensions error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_24FD46000, v0, v1, "[DEBUG] %@; status %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)gs_issueExtension:()GSExtensions error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 136315394;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_24FD46000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Issued [%s] extension to <%@>", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_24FD46000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Issued [%s] extension to <%@>", &v3, 0x16u);
 }
 
 - (void)gs_issueExtension:()GSExtensions error:.cold.2(uint64_t a1, int __errnum, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = 138412802;
-  v6 = a1;
-  v7 = 1024;
-  v8 = __errnum;
-  v9 = 2080;
-  v10 = strerror(__errnum);
-  _os_log_debug_impl(&dword_24FD46000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@; error %d (%s)", &v5, 0x1Cu);
-  v4 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = 138412802;
+  v5 = a1;
+  v6 = 1024;
+  v7 = __errnum;
+  v8 = 2080;
+  v9 = strerror(__errnum);
+  _os_log_debug_impl(&dword_24FD46000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@; error %d (%s)", &v4, 0x1Cu);
 }
 
 @end

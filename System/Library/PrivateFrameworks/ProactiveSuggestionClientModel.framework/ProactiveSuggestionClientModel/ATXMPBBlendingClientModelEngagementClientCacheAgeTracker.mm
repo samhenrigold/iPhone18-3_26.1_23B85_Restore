@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)outcomeTypeAsString:(int)string;
 - (int)StringAsOutcomeType:(id)type;
 - (int)outcomeType;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 1;
   }
+}
+
+- (id)outcomeTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86A4C98[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsOutcomeType:(id)type
@@ -107,30 +123,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    outcomeType = self->_outcomeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_clientModelId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_consumerSubType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_clientModelABGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -196,7 +211,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_outcomeType != *(equalCopy + 8))
@@ -208,7 +222,7 @@
   else if (*(equalCopy + 36))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -230,17 +244,17 @@ LABEL_13:
   clientModelABGroup = self->_clientModelABGroup;
   if (clientModelABGroup | *(equalCopy + 1))
   {
-    v9 = [(NSString *)clientModelABGroup isEqual:?];
+    v8 = [(NSString *)clientModelABGroup isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

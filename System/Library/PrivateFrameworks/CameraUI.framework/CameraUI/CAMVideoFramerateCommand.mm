@@ -202,8 +202,8 @@ LABEL_28:
     [currentSecondaryVideoDevice setActiveVideoMaxFrameDuration:&buf];
     if (currentSecondaryVideoDevice)
     {
-      [currentSecondaryVideoDevice activeVideoMinFrameDuration];
-      [currentSecondaryVideoDevice activeVideoMaxFrameDuration];
+      objc_msgSend_activeVideoMinFrameDuration(currentSecondaryVideoDevice);
+      objc_msgSend_activeVideoMaxFrameDuration(currentSecondaryVideoDevice);
     }
 
     v12 = os_log_create("com.apple.camera", "CaptureCommand");

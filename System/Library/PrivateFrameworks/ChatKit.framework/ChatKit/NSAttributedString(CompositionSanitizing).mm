@@ -12,9 +12,9 @@
     +[NSAttributedString(CompositionSanitizing) ck_defaultAllowedAttributesForComposition];
   }
 
-  v1 = ck_defaultAllowedAttributesForComposition_sAttributes;
+  v2 = ck_defaultAllowedAttributesForComposition_sAttributes;
 
-  return v1;
+  return v2;
 }
 
 - (id)ck_attributedStringByRemovingUnsupportedCompositionAttributes

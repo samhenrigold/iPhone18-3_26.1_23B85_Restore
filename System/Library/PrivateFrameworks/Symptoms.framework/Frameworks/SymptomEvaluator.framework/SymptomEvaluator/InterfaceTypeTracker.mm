@@ -1,4 +1,5 @@
 @interface InterfaceTypeTracker
+- (InterfaceTypeTracker)initWithInterfaceType:(unsigned __int8)type;
 - (id)infoDir;
 - (unint64_t)scheduleExpiryCheckFor:(unint64_t)for delay:(double)delay;
 - (void)_dumpState;
@@ -17,19 +18,55 @@
 
 void __45__InterfaceTypeTracker_setupLightweightTimer__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "Timer expiry block with %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "Timer expiry block with %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) noteFlowClassificationExpiry:v3];
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (InterfaceTypeTracker)initWithInterfaceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v15.receiver = self;
+  v15.super_class = InterfaceTypeTracker;
+  v4 = [(InterfaceTypeTracker *)&v15 init];
+  if (v4)
+  {
+    v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    trackerCache = v4->_trackerCache;
+    v4->_trackerCache = v5;
+
+    v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    alwaysNote = v4->_alwaysNote;
+    v4->_alwaysNote = v7;
+
+    v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    neverNote = v4->_neverNote;
+    v4->_neverNote = v9;
+
+    v4->_functionalInterfaceType = typeCopy;
+    if (typeCopy == 5 || typeCopy == 3)
+    {
+      v11 = [NetworkStateRelay getStateRelayFor:typeCopy];
+      stateRelay = v4->_stateRelay;
+      v4->_stateRelay = v11;
+    }
+
+    v13 = v4->_stateRelay;
+    if (v13)
+    {
+      [(NetworkStateRelay *)v13 addObserver:v4 forKeyPath:@"primary" options:7 context:0];
+    }
+  }
+
+  return v4;
 }
 
 - (void)dealloc
@@ -92,11 +129,11 @@ void __31__InterfaceTypeTracker_infoDir__block_invoke(uint64_t a1, void *a2, voi
 
 - (void)_dumpState
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
+  v15 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = 0;
   if (self->_observer)
   {
     v3 = flowLogHandle;
@@ -104,7 +141,7 @@ void __31__InterfaceTypeTracker_infoDir__block_invoke(uint64_t a1, void *a2, voi
     {
       v4 = [(flowDispositionObserver *)self->_observer description];
       *buf = 138412290;
-      v15 = v4;
+      v14 = v4;
       _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "AppTracking Observer %@", buf, 0xCu);
     }
   }
@@ -112,13 +149,13 @@ void __31__InterfaceTypeTracker_infoDir__block_invoke(uint64_t a1, void *a2, voi
   allValues = [(NSMutableDictionary *)self->_trackerCache allValues];
   v6 = [allValues sortedArrayUsingComparator:&__block_literal_global_51];
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __34__InterfaceTypeTracker__dumpState__block_invoke_2;
-  v9[3] = &unk_27898FE70;
-  v9[4] = &v10;
-  [v6 enumerateObjectsUsingBlock:v9];
-  if ((v11[3] & 1) == 0)
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __34__InterfaceTypeTracker__dumpState__block_invoke_2;
+  v8[3] = &unk_27898FE70;
+  v8[4] = &v9;
+  [v6 enumerateObjectsUsingBlock:v8];
+  if ((v10[3] & 1) == 0)
   {
     v7 = flowLogHandle;
     if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -128,8 +165,7 @@ void __31__InterfaceTypeTracker_infoDir__block_invoke(uint64_t a1, void *a2, voi
     }
   }
 
-  _Block_object_dispose(&v10, 8);
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v9, 8);
 }
 
 uint64_t __34__InterfaceTypeTracker__dumpState__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -156,7 +192,7 @@ uint64_t __34__InterfaceTypeTracker__dumpState__block_invoke(uint64_t a1, void *
 
 void __34__InterfaceTypeTracker__dumpState__block_invoke_2(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 prevFlows] || objc_msgSend(v3, "flowsForSelf") || objc_msgSend(v3, "flowsForOthers") || objc_msgSend(v3, "prevFlowsForOthers"))
   {
@@ -164,8 +200,8 @@ void __34__InterfaceTypeTracker__dumpState__block_invoke_2(uint64_t a1, void *a2
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 userName];
-      v18 = [v3 flowsForSelf];
-      v17 = [v3 flowsForOthers];
+      v17 = [v3 flowsForSelf];
+      v16 = [v3 flowsForOthers];
       v6 = [v3 prevFlows];
       v7 = [v3 prevFlowsForOthers];
       v8 = [v3 prevFlowRxBytes];
@@ -204,34 +240,32 @@ void __34__InterfaceTypeTracker__dumpState__block_invoke_2(uint64_t a1, void *a2
       }
 
       *buf = 138414850;
-      v20 = v5;
-      v21 = 1024;
-      v22 = v18;
-      v23 = 1024;
-      v24 = v17;
-      v25 = 1024;
-      v26 = v6;
-      v27 = 1024;
-      v28 = v7;
-      v29 = 2048;
-      v30 = v8;
-      v31 = 2048;
-      v32 = v9;
-      v33 = 2048;
-      v34 = v11;
-      v35 = 2048;
-      v36 = v13;
-      v37 = 2048;
-      v38 = v15;
-      v39 = 1024;
-      v40 = [v3 eversetClassFlags];
+      v19 = v5;
+      v20 = 1024;
+      v21 = v17;
+      v22 = 1024;
+      v23 = v16;
+      v24 = 1024;
+      v25 = v6;
+      v26 = 1024;
+      v27 = v7;
+      v28 = 2048;
+      v29 = v8;
+      v30 = 2048;
+      v31 = v9;
+      v32 = 2048;
+      v33 = v11;
+      v34 = 2048;
+      v35 = v13;
+      v36 = 2048;
+      v37 = v15;
+      v38 = 1024;
+      v39 = [v3 eversetClassFlags];
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "AppTracker for %@ flows: self %d others %d prev %d %d traffic rx %lld tx %lld avg duration %f rx %lld tx %lld everset 0x%x", buf, 0x5Cu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 1;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -277,51 +311,48 @@ void __34__InterfaceTypeTracker__dumpState__block_invoke_2(uint64_t a1, void *a2
 
 void __71__InterfaceTypeTracker_observeValueForKeyPath_ofObject_change_context___block_invoke(id *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([a1[4] BOOLValue])
   {
     v2 = [a1[6] madePrimaryDate];
     [a1[5] setMadePrimaryDate:v2];
 
-    v14 = 0u;
-    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v3 = [a1[5] trackerCache];
     v4 = [v3 allValues];
 
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v11;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v12 + 1) + 8 * i) resetFlowCountAfterMadePrimary];
+          [*(*(&v10 + 1) + 8 * i) resetFlowCountAfterMadePrimary];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = a1[5];
-    v11 = *MEMORY[0x277D85DE8];
+    v9 = a1[5];
 
-    [v10 setMadePrimaryDate:0];
+    [v9 setMadePrimaryDate:0];
   }
 }
 
@@ -347,7 +378,7 @@ void __71__InterfaceTypeTracker_observeValueForKeyPath_ofObject_change_context__
 
 - (void)setupLightweightTimer
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __45__InterfaceTypeTracker_setupLightweightTimer__block_invoke;
@@ -365,11 +396,9 @@ void __71__InterfaceTypeTracker_observeValueForKeyPath_ofObject_change_context__
   {
     v9 = self->_lwTimer;
     *buf = 138412290;
-    v13 = v9;
+    v12 = v9;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Setup lightweight timer %@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)scheduleExpiryCheckFor:(unint64_t)for delay:(double)delay
@@ -393,7 +422,7 @@ void __71__InterfaceTypeTracker_observeValueForKeyPath_ofObject_change_context__
 
 - (void)noteFlowClassificationExpiry:(id)expiry
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   expiryCopy = expiry;
   v5 = [TrackedFlow flowForKey:expiryCopy];
   unsignedLongLongValue = [expiryCopy unsignedLongLongValue];
@@ -406,11 +435,11 @@ void __71__InterfaceTypeTracker_observeValueForKeyPath_ofObject_change_context__
     v9 = flowLogHandle;
     if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 134218242;
-      v18 = unsignedLongLongValue;
-      v19 = 2112;
-      v20 = classification;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "noteFlowClassificationExpiry on %llu remove %@", &v17, 0x16u);
+      v16 = 134218242;
+      v17 = unsignedLongLongValue;
+      v18 = 2112;
+      v19 = classification;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "noteFlowClassificationExpiry on %llu remove %@", &v16, 0x16u);
     }
 
     [(flowDispositionObserver *)self->_observer noteFlow:v5 snapshot:0 present:0 trackedBy:0];
@@ -420,11 +449,11 @@ void __71__InterfaceTypeTracker_observeValueForKeyPath_ofObject_change_context__
       v11 = flowLogHandle;
       if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v17 = 134218242;
-        v18 = unsignedLongLongValue;
-        v19 = 2112;
-        v20 = nextClassification;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "noteFlowClassificationExpiry on %llu add %@", &v17, 0x16u);
+        v16 = 134218242;
+        v17 = unsignedLongLongValue;
+        v18 = 2112;
+        v19 = nextClassification;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "noteFlowClassificationExpiry on %llu add %@", &v16, 0x16u);
       }
 
       [(flowDispositionObserver *)self->_observer noteFlow:v5 snapshot:0 present:1 trackedBy:0];
@@ -436,11 +465,11 @@ void __71__InterfaceTypeTracker_observeValueForKeyPath_ofObject_change_context__
         {
           v14 = v13;
           [nextClassification expirationTime];
-          v17 = 134218240;
-          v18 = unsignedLongLongValue;
-          v19 = 2048;
-          v20 = v15;
-          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "noteFlowClassificationExpiry on %llu schedule for %f", &v17, 0x16u);
+          v16 = 134218240;
+          v17 = unsignedLongLongValue;
+          v18 = 2048;
+          v19 = v15;
+          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "noteFlowClassificationExpiry on %llu schedule for %f", &v16, 0x16u);
         }
 
         [nextClassification expirationTime];
@@ -453,21 +482,19 @@ void __71__InterfaceTypeTracker_observeValueForKeyPath_ofObject_change_context__
       v10 = flowLogHandle;
       if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v17 = 134217984;
-        v18 = unsignedLongLongValue;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "noteFlowClassificationExpiry on %llu remove linkages", &v17, 0xCu);
+        v16 = 134217984;
+        v17 = unsignedLongLongValue;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "noteFlowClassificationExpiry on %llu remove linkages", &v16, 0xCu);
       }
 
       [(InterfaceTypeTracker *)self removeLinkages:v5];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteFlow:(id)flow withDelegatee:(id)delegatee snapshot:(id)snapshot
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   delegateeCopy = delegatee;
   snapshotCopy = snapshot;
@@ -538,13 +565,13 @@ LABEL_24:
                 immediateUser6 = @"<nil>";
               }
 
-              v45 = 134218498;
-              v46 = flowId;
-              v47 = 2112;
-              v48 = delegateeCopy;
-              v49 = 2112;
-              v50 = immediateUser6;
-              _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "Flow %llu delegatee %@, changed user from %@", &v45, 0x20u);
+              v44 = 134218498;
+              v45 = flowId;
+              v46 = 2112;
+              v47 = delegateeCopy;
+              v48 = 2112;
+              v49 = immediateUser6;
+              _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "Flow %llu delegatee %@, changed user from %@", &v44, 0x20u);
               if (immediateUser5)
               {
               }
@@ -614,11 +641,11 @@ LABEL_18:
           flowId2 = [flowCopy flowId];
           classification7 = [flowCopy classification];
           [classification7 expirationTime];
-          v45 = 134218240;
-          v46 = flowId2;
-          v47 = 2048;
-          v48 = v33;
-          _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEBUG, "noteFlow:withDelegatee %llu for %f", &v45, 0x16u);
+          v44 = 134218240;
+          v45 = flowId2;
+          v46 = 2048;
+          v47 = v33;
+          _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEBUG, "noteFlow:withDelegatee %llu for %f", &v44, 0x16u);
         }
 
         flowId3 = [flowCopy flowId];
@@ -632,13 +659,11 @@ LABEL_18:
   }
 
 LABEL_38:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteFlow:(id)flow withOwner:(id)owner snapshot:(id)snapshot
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   ownerCopy = owner;
   snapshotCopy = snapshot;
@@ -700,13 +725,13 @@ LABEL_24:
               v41 = v40;
               flowId = [flowCopy flowId];
               ultimateUser5 = [flowCopy ultimateUser];
-              v45 = 134218498;
-              v46 = flowId;
-              v47 = 2112;
-              v48 = ownerCopy;
-              v49 = 2112;
-              v50 = ultimateUser5;
-              _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_DEFAULT, "Flow %llu owner %@, changed user from %@", &v45, 0x20u);
+              v44 = 134218498;
+              v45 = flowId;
+              v46 = 2112;
+              v47 = ownerCopy;
+              v48 = 2112;
+              v49 = ultimateUser5;
+              _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_DEFAULT, "Flow %llu owner %@, changed user from %@", &v44, 0x20u);
             }
           }
 
@@ -773,11 +798,11 @@ LABEL_18:
           flowId2 = [flowCopy flowId];
           classification7 = [flowCopy classification];
           [classification7 expirationTime];
-          v45 = 134218240;
-          v46 = flowId2;
-          v47 = 2048;
-          v48 = v33;
-          _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEBUG, "noteFlow:withOwner  %llu for %f", &v45, 0x16u);
+          v44 = 134218240;
+          v45 = flowId2;
+          v46 = 2048;
+          v47 = v33;
+          _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEBUG, "noteFlow:withOwner  %llu for %f", &v44, 0x16u);
         }
 
         flowId3 = [flowCopy flowId];
@@ -791,8 +816,6 @@ LABEL_18:
   }
 
 LABEL_32:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNetworkActivity:(id)activity
@@ -812,48 +835,48 @@ LABEL_32:
 
 void __43__InterfaceTypeTracker_getNetworkActivity___block_invoke(uint64_t a1, int a2, __n128 a3)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     +[AppStateMonitor foregroundAppKeys];
+    v61 = 0u;
+    v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    v65 = 0u;
-    obj = v66 = 0u;
-    v3 = [obj countByEnumeratingWithState:&v63 objects:v72 count:16];
+    obj = v64 = 0u;
+    v3 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
     v4 = &stru_2847966D8;
     if (v3)
     {
       v5 = v3;
-      v55 = 0;
-      v56 = 0;
+      v53 = 0;
+      v54 = 0;
       v6 = 0;
       v7 = 0;
-      v8 = *v64;
+      v8 = *v62;
       v9 = 0.0;
-      v51 = &stru_2847966D8;
+      v49 = &stru_2847966D8;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v64 != v8)
+          if (*v62 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v63 + 1) + 8 * i);
+          v11 = *(*(&v61 + 1) + 8 * i);
           if (appTrackerVerbose)
           {
-            if (v56)
+            if (v54)
             {
-              v12 = [(__CFString *)v56 stringByAppendingFormat:@" %@", *(*(&v63 + 1) + 8 * i)];
+              v12 = [(__CFString *)v54 stringByAppendingFormat:@" %@", *(*(&v61 + 1) + 8 * i)];
 
-              v56 = v12;
+              v54 = v12;
             }
 
             else
             {
-              v56 = v11;
+              v54 = v11;
             }
           }
 
@@ -880,10 +903,10 @@ void __43__InterfaceTypeTracker_getNetworkActivity___block_invoke(uint64_t a1, i
           v16 = v15;
           if (v15)
           {
-            v17 = [v15 flowsForSelf] + v55;
+            v17 = [v15 flowsForSelf] + v53;
             v18 = [v16 timestamp];
             v19 = v18;
-            v55 = v17;
+            v53 = v17;
             if (v17)
             {
               v7 |= 8u;
@@ -903,7 +926,7 @@ void __43__InterfaceTypeTracker_getNetworkActivity___block_invoke(uint64_t a1, i
           v6 |= v13;
         }
 
-        v5 = [obj countByEnumeratingWithState:&v63 objects:v72 count:16];
+        v5 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
         if (v5)
         {
           continue;
@@ -915,100 +938,100 @@ void __43__InterfaceTypeTracker_getNetworkActivity___block_invoke(uint64_t a1, i
 
     else
     {
-      v55 = 0;
-      v56 = 0;
+      v53 = 0;
+      v54 = 0;
       v6 = 0;
       v7 = 0;
       v9 = 0.0;
 LABEL_30:
-      v51 = v4;
+      v49 = v4;
     }
 
-    v61 = 0u;
-    v62 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v53 = *(*(a1 + 32) + 32);
-    v57 = [v53 countByEnumeratingWithState:&v59 objects:v71 count:16];
-    if (v57)
+    v57 = 0u;
+    v58 = 0u;
+    v51 = *(*(a1 + 32) + 32);
+    v55 = [v51 countByEnumeratingWithState:&v57 objects:v69 count:16];
+    if (v55)
     {
-      v23 = *v60;
+      v22 = *v58;
       while (2)
       {
-        for (j = 0; j != v57; ++j)
+        for (j = 0; j != v55; ++j)
         {
-          if (*v60 != v23)
+          if (*v58 != v22)
           {
-            objc_enumerationMutation(v53);
+            objc_enumerationMutation(v51);
           }
 
-          v25 = *(*(&v59 + 1) + 8 * j);
-          v26 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:v25];
-          v27 = v26;
-          if (v26)
+          v24 = *(*(&v57 + 1) + 8 * j);
+          v25 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:v24];
+          v26 = v25;
+          if (v25)
           {
-            if ([v26 flowsForSelf])
+            if ([v25 flowsForSelf])
             {
               v7 |= 0x20u;
-              v28 = [v27 flowsForSelf];
-              v29 = rnfLogHandle;
+              v27 = [v26 flowsForSelf];
+              v28 = rnfLogHandle;
               if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                v30 = v25;
-                v31 = v29;
-                v32 = [v25 UTF8String];
-                v33 = [v27 flowsForSelf];
+                v29 = v24;
+                v30 = v28;
+                v31 = [v24 UTF8String];
+                v32 = [v26 flowsForSelf];
                 *buf = 136315394;
+                v66 = v31;
+                v67 = 1024;
                 v68 = v32;
-                v69 = 1024;
-                v70 = v33;
-                _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "Daemon %s has %d flows for self", buf, 0x12u);
+                _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "Daemon %s has %d flows for self", buf, 0x12u);
               }
             }
 
             else
             {
-              v28 = 0;
+              v27 = 0;
             }
 
-            if ([v27 flowsForOthers])
+            if ([v26 flowsForOthers])
             {
-              v54 = v28;
+              v52 = v27;
               v7 |= 0x20u;
-              v34 = [v27 flowsForOthers];
-              v35 = rnfLogHandle;
+              v33 = [v26 flowsForOthers];
+              v34 = rnfLogHandle;
               if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                v36 = v25;
-                v37 = v35;
-                v38 = [v25 UTF8String];
-                v39 = [v27 flowsForOthers];
+                v35 = v24;
+                v36 = v34;
+                v37 = [v24 UTF8String];
+                v38 = [v26 flowsForOthers];
                 *buf = 136315394;
+                v66 = v37;
+                v67 = 1024;
                 v68 = v38;
-                v69 = 1024;
-                v70 = v39;
-                _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "Daemon %s has %d flows for others", buf, 0x12u);
+                _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEFAULT, "Daemon %s has %d flows for others", buf, 0x12u);
               }
 
-              v28 = v54;
+              v27 = v52;
             }
 
             else
             {
-              v34 = 0;
+              v33 = 0;
             }
 
-            if (v28 | v34)
+            if (v27 | v33)
             {
-              v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"active daemon:%@ with %d own flows, %d delegated", v25, v28, v34];
+              v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"active daemon:%@ with %d own flows, %d delegated", v24, v27, v33];
 
               goto LABEL_51;
             }
           }
         }
 
-        v57 = [v53 countByEnumeratingWithState:&v59 objects:v71 count:16];
-        if (v57)
+        v55 = [v51 countByEnumeratingWithState:&v57 objects:v69 count:16];
+        if (v55)
         {
           continue;
         }
@@ -1017,55 +1040,52 @@ LABEL_30:
       }
     }
 
-    v40 = 0;
+    v39 = 0;
 LABEL_51:
 
-    v41 = v56;
-    if (!v56)
+    v40 = v54;
+    if (!v54)
     {
-      v42 = [obj count];
-      v43 = @"<present>";
-      if (!v42)
+      v41 = [obj count];
+      v42 = @"<present>";
+      if (!v41)
       {
-        v43 = @"<not-present>";
+        v42 = @"<not-present>";
       }
 
-      v41 = v43;
+      v40 = v42;
     }
 
-    v44 = MEMORY[0x277CCACA8];
-    v45 = v41;
+    v43 = MEMORY[0x277CCACA8];
+    v44 = v40;
     if (v6)
     {
-      v46 = @"(don't-ignore)";
+      v45 = @"(don't-ignore)";
     }
 
     else
     {
-      v46 = &stru_2847966D8;
+      v45 = &stru_2847966D8;
     }
 
-    v47 = +[TrackedFlow allActiveFlowsCount];
-    if (v40)
+    v46 = +[TrackedFlow allActiveFlowsCount];
+    if (v39)
     {
-      v48 = v40;
+      v47 = v39;
     }
 
     else
     {
-      v48 = &stru_2847966D8;
+      v47 = &stru_2847966D8;
     }
 
-    v49 = [v44 stringWithFormat:@"Foreground app %@ %@%@ interval %f flows %d (total %d) %@", v45, v51, v46, *&v9, v55, v47, v48];
+    v48 = [v43 stringWithFormat:@"Foreground app %@ %@%@ interval %f flows %d (total %d) %@", v44, v49, v45, *&v9, v53, v46, v47];
     (*(*(a1 + 40) + 16))(v9);
-
-    v50 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     v21 = *(*(a1 + 40) + 16);
-    v22 = *MEMORY[0x277D85DE8];
     a3.n128_u64[0] = 0;
 
     v21(a3);
@@ -1074,78 +1094,75 @@ LABEL_51:
 
 - (void)configurePolicies:(id)policies
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
   policiesCopy = policies;
-  v5 = [policiesCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [policiesCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
-    v8 = 0x277CBE000uLL;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(policiesCopy);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
-        v11 = *(v8 + 2752);
+        v9 = *(*(&v22 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = v10;
-          v13 = [v12 objectForKeyedSubscript:@"POLICY_APPLIES_TO"];
-          v14 = v13;
-          if (!v13)
+          v10 = v9;
+          v11 = [v10 objectForKeyedSubscript:@"POLICY_APPLIES_TO"];
+          v12 = v11;
+          if (!v11)
           {
-            v18 = [v12 objectForKeyedSubscript:@"OBSERVER_POLICIES"];
-            if (v18)
+            v16 = [v10 objectForKeyedSubscript:@"OBSERVER_POLICIES"];
+            if (v16)
             {
               observer = [(InterfaceTypeTracker *)self observer];
 
               if (observer)
               {
                 observer2 = [(InterfaceTypeTracker *)self observer];
-                [observer2 configurePolicies:v18];
+                [observer2 configurePolicies:v16];
               }
             }
 
             goto LABEL_27;
           }
 
-          if ([v13 isEqualToString:@"POLICY_APPLY_AS_DEFAULT"])
+          if ([v11 isEqualToString:@"POLICY_APPLY_AS_DEFAULT"])
           {
             defaultPolicy = self->_defaultPolicy;
-            v16 = defaultPolicy == 0;
+            v14 = defaultPolicy == 0;
             if (defaultPolicy)
             {
-              v17 = 0;
+              v15 = 0;
             }
 
             else
             {
-              v22 = objc_alloc_init(TrackerPolicy);
-              [(TrackerPolicy *)v22 configureInstance:v12];
-              v17 = [TrackerPolicy preferredInstance:v22];
+              v20 = objc_alloc_init(TrackerPolicy);
+              [(TrackerPolicy *)v20 configureInstance:v10];
+              v15 = [TrackerPolicy preferredInstance:v20];
 
-              objc_storeStrong(&self->_defaultPolicy, v17);
+              objc_storeStrong(&self->_defaultPolicy, v15);
               defaultPolicy = self->_defaultPolicy;
             }
 
-            v18 = defaultPolicy;
+            v16 = defaultPolicy;
 LABEL_24:
 
-            v8 = 0x277CBE000;
-            if (v18 && !v16)
+            if (v16 && !v14)
             {
-              [(TrackerPolicy *)v18 configureInstance:v12];
+              [(TrackerPolicy *)v16 configureInstance:v10];
             }
 
 LABEL_27:
@@ -1153,49 +1170,47 @@ LABEL_27:
             continue;
           }
 
-          v17 = [(NSMutableDictionary *)self->_trackerCache objectForKeyedSubscript:v14];
-          if (v17)
+          v15 = [(NSMutableDictionary *)self->_trackerCache objectForKeyedSubscript:v12];
+          if (v15)
           {
 LABEL_17:
-            specificPolicy = [(AppTracker *)v17 specificPolicy];
+            specificPolicy = [(AppTracker *)v15 specificPolicy];
             if (!specificPolicy)
             {
-              v23 = objc_alloc_init(TrackerPolicy);
-              [(TrackerPolicy *)v23 configureInstance:v12];
-              v18 = [TrackerPolicy preferredInstance:v23];
+              v21 = objc_alloc_init(TrackerPolicy);
+              [(TrackerPolicy *)v21 configureInstance:v10];
+              v16 = [TrackerPolicy preferredInstance:v21];
 
-              [(AppTracker *)v17 setSpecificPolicy:v18];
-              v16 = 1;
+              [(AppTracker *)v15 setSpecificPolicy:v16];
+              v14 = 1;
               goto LABEL_24;
             }
 
-            v18 = specificPolicy;
+            v16 = specificPolicy;
           }
 
           else
           {
-            v17 = [[AppTracker alloc] initWithUserName:v14 interfaceType:[(InterfaceTypeTracker *)self functionalInterfaceType]];
-            if (v17)
+            v15 = [[AppTracker alloc] initWithUserName:v12 interfaceType:[(InterfaceTypeTracker *)self functionalInterfaceType]];
+            if (v15)
             {
-              [(NSMutableDictionary *)self->_trackerCache setObject:v17 forKeyedSubscript:v14];
+              [(NSMutableDictionary *)self->_trackerCache setObject:v15 forKeyedSubscript:v12];
               goto LABEL_17;
             }
 
-            v18 = 0;
+            v16 = 0;
           }
 
-          v16 = 0;
+          v14 = 0;
           goto LABEL_24;
         }
       }
 
-      v6 = [policiesCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [policiesCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

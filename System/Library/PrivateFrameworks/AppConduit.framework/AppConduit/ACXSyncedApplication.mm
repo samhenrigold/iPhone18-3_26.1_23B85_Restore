@@ -593,33 +593,33 @@ LABEL_75:
 
 - (id)localizedInfoPlistStringsForKeys:(id)keys fetchingFirstMatchingLocalizationInList:(id)list
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   prefArray = list;
-  v32 = objc_opt_new();
+  v31 = objc_opt_new();
   selfCopy = self;
   localizedInfoPlistStrings = [(ACXSyncedApplication *)self localizedInfoPlistStrings];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = keysCopy;
-  v7 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v7 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v7)
   {
     v8 = v7;
-    v34 = *v41;
+    v33 = *v40;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v41 != v34)
+        if (*v40 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v40 + 1) + 8 * i);
-        v11 = [localizedInfoPlistStrings objectForKeyedSubscript:{v10, v26, v27}];
+        v10 = *(*(&v39 + 1) + 8 * i);
+        v11 = [localizedInfoPlistStrings objectForKeyedSubscript:{v10, v25, v26}];
         v12 = v11;
         if (v11)
         {
@@ -628,43 +628,43 @@ LABEL_75:
           if (gLogHandle && *(gLogHandle + 44) >= 7)
           {
             [(ACXSyncedApplication *)selfCopy bundleIdentifier];
-            v28 = prefArray;
-            v26 = v29 = v14;
-            v27 = allKeys;
+            v27 = prefArray;
+            v25 = v28 = v14;
+            v26 = allKeys;
             MOLogWrite();
           }
 
-          v38 = 0u;
-          v39 = 0u;
-          v36 = 0u;
           v37 = 0u;
+          v38 = 0u;
+          v35 = 0u;
+          v36 = 0u;
           v15 = v14;
-          v16 = [(__CFArray *)v15 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v16 = [(__CFArray *)v15 countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v37;
+            v18 = *v36;
             while (2)
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v37 != v18)
+                if (*v36 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = [v12 objectForKeyedSubscript:{*(*(&v36 + 1) + 8 * j), v26, v27, v28, v29}];
+                v20 = [v12 objectForKeyedSubscript:{*(*(&v35 + 1) + 8 * j), v25, v26, v27, v28}];
                 if (v20)
                 {
                   v22 = v20;
-                  [v32 setObject:v20 forKeyedSubscript:v10];
+                  [v31 setObject:v20 forKeyedSubscript:v10];
 
                   v21 = v15;
                   goto LABEL_21;
                 }
               }
 
-              v17 = [(__CFArray *)v15 countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v17 = [(__CFArray *)v15 countByEnumeratingWithState:&v35 objects:v43 count:16];
               if (v17)
               {
                 continue;
@@ -677,7 +677,7 @@ LABEL_75:
           v21 = [v12 objectForKeyedSubscript:&stru_2851ED680];
           if (v21)
           {
-            [v32 setObject:v21 forKeyedSubscript:v10];
+            [v31 setObject:v21 forKeyedSubscript:v10];
           }
 
 LABEL_21:
@@ -688,21 +688,20 @@ LABEL_21:
         if (!gLogHandle || *(gLogHandle + 44) >= 5)
         {
           allKeys = [(ACXSyncedApplication *)selfCopy bundleIdentifier];
-          v26 = v10;
-          v27 = allKeys;
+          v25 = v10;
+          v26 = allKeys;
           MOLogWrite();
 LABEL_25:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v8 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v8);
   }
 
-  v23 = [v32 copy];
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = [v31 copy];
 
   return v23;
 }

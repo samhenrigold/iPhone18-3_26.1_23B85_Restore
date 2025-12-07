@@ -10,13 +10,13 @@
   v9 = *(self + 32);
   if (a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7CGPointVABXBMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7CGPointVABXBMd, &_sSo7CGPointVABXBMR);
     v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   if (a3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo18CHStrokeIdentifier_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo18CHStrokeIdentifier_pGMd, &_sSaySo18CHStrokeIdentifier_pGMR);
     a3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

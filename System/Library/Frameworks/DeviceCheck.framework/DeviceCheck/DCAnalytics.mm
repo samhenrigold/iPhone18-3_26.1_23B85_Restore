@@ -103,17 +103,17 @@ uint64_t __21__DCAnalytics_shared__block_invoke()
 
 - (void)sendPayload:(id)payload forEvent:(id)event withError:(id)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   eventCopy = event;
   errorCopy = error;
-  v18 = MEMORY[0x277D85DD0];
+  v17 = MEMORY[0x277D85DD0];
   v11 = payloadCopy;
-  v19 = v11;
+  v18 = v11;
   v12 = errorCopy;
-  v20 = v12;
+  v19 = v12;
   v13 = eventCopy;
-  v21 = v13;
+  v20 = v13;
   v14 = AnalyticsSendEventLazy();
   if (DCLogSystem_onceToken_0 != -1)
   {
@@ -125,21 +125,19 @@ uint64_t __21__DCAnalytics_shared__block_invoke()
   {
     v16 = v15;
     *buf = 136316418;
-    v23 = "DCAnalytics.m";
-    v24 = 1024;
-    v25 = 98;
-    v26 = 1024;
-    v27 = v14;
-    v28 = 2112;
-    v29 = v13;
-    v30 = 2048;
+    v22 = "DCAnalytics.m";
+    v23 = 1024;
+    v24 = 98;
+    v25 = 1024;
+    v26 = v14;
+    v27 = 2112;
+    v28 = v13;
+    v29 = 2048;
     code = [v12 code];
-    v32 = 1024;
+    v31 = 1024;
     isNetworkReachable = [(DCAnalytics *)self isNetworkReachable];
     _os_log_impl(&dword_238044000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d Attempted to submit analytics event. { didSend=%d, event=%@, errorClass=%ld, networkReachable=%d }", buf, 0x32u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
@@ -163,7 +161,7 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
 
 - (void)sendPerformanceForCategory:(unint64_t)category eventType:(unint64_t)type
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = [(DCAnalytics *)selfCopy convertCategory:category];
@@ -180,13 +178,13 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
     v20 = DCLogSystem_log_0;
     if (os_log_type_enabled(DCLogSystem_log_0, OS_LOG_TYPE_DEFAULT))
     {
-      *v46 = 136315650;
-      *&v46[4] = "DCAnalytics.m";
-      v47 = 1024;
-      v48 = 106;
-      v49 = 2112;
-      v50 = v7;
-      _os_log_impl(&dword_238044000, v20, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Performance analytics disabled. { category=%@ }", v46, 0x1Cu);
+      *v45 = 136315650;
+      *&v45[4] = "DCAnalytics.m";
+      v46 = 1024;
+      v47 = 106;
+      v48 = 2112;
+      v49 = v7;
+      _os_log_impl(&dword_238044000, v20, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Performance analytics disabled. { category=%@ }", v45, 0x1Cu);
     }
 
     goto LABEL_113;
@@ -217,15 +215,15 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
     v21 = DCLogSystem_log_0;
     if (os_log_type_enabled(DCLogSystem_log_0, OS_LOG_TYPE_DEBUG))
     {
-      *v46 = 136315906;
-      *&v46[4] = "DCAnalytics.m";
-      v47 = 1024;
-      v48 = 141;
-      v49 = 2112;
-      v50 = v7;
-      v51 = 2048;
-      v52 = v13;
-      _os_log_impl(&dword_238044000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d Dropping signpost end. { eventName=%@, eventId=%llu }", v46, 0x26u);
+      *v45 = 136315906;
+      *&v45[4] = "DCAnalytics.m";
+      v46 = 1024;
+      v47 = 141;
+      v48 = 2112;
+      v49 = v7;
+      v50 = 2048;
+      v51 = v13;
+      _os_log_impl(&dword_238044000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d Dropping signpost end. { eventName=%@, eventId=%llu }", v45, 0x26u);
     }
 
     if (category > 8)
@@ -241,7 +239,7 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
             goto LABEL_111;
           }
 
-          *v46 = 0;
+          *v45 = 0;
           v24 = "attestKeyPriv";
           v25 = " enableTelemetry=YES com.apple.devicecheck.appattestpriv.attestKey";
         }
@@ -255,7 +253,7 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
             goto LABEL_111;
           }
 
-          *v46 = 0;
+          *v45 = 0;
           v24 = "attestKeyWeb";
           v25 = " enableTelemetry=YES com.apple.devicecheck.appattestweb.attestKey";
         }
@@ -273,7 +271,7 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
             goto LABEL_111;
           }
 
-          *v46 = 0;
+          *v45 = 0;
           v24 = "attestKeyDevice";
           v25 = " enableTelemetry=YES com.apple.devicecheck.appattestdevice.attestKey";
           goto LABEL_110;
@@ -285,7 +283,7 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
             goto LABEL_111;
           }
 
-          *v46 = 0;
+          *v45 = 0;
           v24 = "generateAssertion";
           v25 = " enableTelemetry=YES com.apple.devicecheck.appattest.generateAssertion";
           goto LABEL_110;
@@ -297,7 +295,7 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
             goto LABEL_111;
           }
 
-          *v46 = 0;
+          *v45 = 0;
           v24 = "generateAssertionPriv";
           v25 = " enableTelemetry=YES com.apple.devicecheck.appattestpriv.generateAssertion";
           goto LABEL_110;
@@ -317,7 +315,7 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
             goto LABEL_111;
           }
 
-          *v46 = 0;
+          *v45 = 0;
           v24 = "generateKey";
           v25 = " enableTelemetry=YES com.apple.devicecheck.appattest.generateKey";
         }
@@ -331,7 +329,7 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
             goto LABEL_111;
           }
 
-          *v46 = 0;
+          *v45 = 0;
           v24 = "generateKeyPriv";
           v25 = " enableTelemetry=YES com.apple.devicecheck.appattestpriv.generateKey";
         }
@@ -345,13 +343,13 @@ id __46__DCAnalytics_sendPayload_forEvent_withError___block_invoke(uint64_t a1)
             goto LABEL_111;
           }
 
-          *v46 = 0;
+          *v45 = 0;
           v24 = "attestKey";
           v25 = " enableTelemetry=YES com.apple.devicecheck.appattest.attestKey";
         }
 
 LABEL_110:
-        _os_signpost_emit_with_name_impl(&dword_238044000, v23, OS_SIGNPOST_INTERVAL_END, v13, v24, v25, v46, 2u);
+        _os_signpost_emit_with_name_impl(&dword_238044000, v23, OS_SIGNPOST_INTERVAL_END, v13, v24, v25, v45, 2u);
 LABEL_111:
 
         goto LABEL_112;
@@ -366,7 +364,7 @@ LABEL_111:
           goto LABEL_111;
         }
 
-        *v46 = 0;
+        *v45 = 0;
         v24 = "isSupported";
         v25 = " enableTelemetry=YES com.apple.devicecheck.isSupported";
         goto LABEL_110;
@@ -381,7 +379,7 @@ LABEL_111:
           goto LABEL_111;
         }
 
-        *v46 = 0;
+        *v45 = 0;
         v24 = "generateToken";
         v25 = " enableTelemetry=YES com.apple.devicecheck.generateToken";
         goto LABEL_110;
@@ -405,15 +403,15 @@ LABEL_112:
     v17 = DCLogSystem_log_0;
     if (os_log_type_enabled(DCLogSystem_log_0, OS_LOG_TYPE_DEBUG))
     {
-      *v46 = 136315906;
-      *&v46[4] = "DCAnalytics.m";
-      v47 = 1024;
-      v48 = 117;
-      v49 = 2112;
-      v50 = v7;
-      v51 = 2048;
-      v52 = v13;
-      _os_log_impl(&dword_238044000, v17, OS_LOG_TYPE_DEBUG, "%25s:%-5d Dropping signpost begin. { eventName=%@, eventId=%llu }", v46, 0x26u);
+      *v45 = 136315906;
+      *&v45[4] = "DCAnalytics.m";
+      v46 = 1024;
+      v47 = 117;
+      v48 = 2112;
+      v49 = v7;
+      v50 = 2048;
+      v51 = v13;
+      _os_log_impl(&dword_238044000, v17, OS_LOG_TYPE_DEBUG, "%25s:%-5d Dropping signpost begin. { eventName=%@, eventId=%llu }", v45, 0x26u);
     }
 
     if (category > 8)
@@ -426,8 +424,8 @@ LABEL_112:
           v19 = perfLog13;
           if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog13))
           {
-            *v46 = 0;
-            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "attestKeyPriv", " enableTelemetry=YES com.apple.devicecheck.appattestpriv.attestKey", v46, 2u);
+            *v45 = 0;
+            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "attestKeyPriv", " enableTelemetry=YES com.apple.devicecheck.appattestpriv.attestKey", v45, 2u);
           }
         }
 
@@ -437,8 +435,8 @@ LABEL_112:
           v19 = perfLog14;
           if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog14))
           {
-            *v46 = 0;
-            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "attestKeyWeb", " enableTelemetry=YES com.apple.devicecheck.appattestweb.attestKey", v46, 2u);
+            *v45 = 0;
+            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "attestKeyWeb", " enableTelemetry=YES com.apple.devicecheck.appattestweb.attestKey", v45, 2u);
           }
         }
 
@@ -452,8 +450,8 @@ LABEL_112:
           v19 = perfLog15;
           if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog15))
           {
-            *v46 = 0;
-            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "attestKeyDevice", " enableTelemetry=YES com.apple.devicecheck.appattestdevice.attestKey", v46, 2u);
+            *v45 = 0;
+            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "attestKeyDevice", " enableTelemetry=YES com.apple.devicecheck.appattestdevice.attestKey", v45, 2u);
           }
 
           goto LABEL_97;
@@ -462,8 +460,8 @@ LABEL_112:
           v19 = perfLog16;
           if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog16))
           {
-            *v46 = 0;
-            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateAssertion", " enableTelemetry=YES com.apple.devicecheck.appattest.generateAssertion", v46, 2u);
+            *v45 = 0;
+            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateAssertion", " enableTelemetry=YES com.apple.devicecheck.appattest.generateAssertion", v45, 2u);
           }
 
           goto LABEL_97;
@@ -472,8 +470,8 @@ LABEL_112:
           v19 = perfLog17;
           if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog17))
           {
-            *v46 = 0;
-            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateAssertionPriv", " enableTelemetry=YES com.apple.devicecheck.appattestpriv.generateAssertion", v46, 2u);
+            *v45 = 0;
+            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateAssertionPriv", " enableTelemetry=YES com.apple.devicecheck.appattestpriv.generateAssertion", v45, 2u);
           }
 
           goto LABEL_97;
@@ -490,8 +488,8 @@ LABEL_112:
           v19 = perfLog18;
           if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog18))
           {
-            *v46 = 0;
-            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateKey", " enableTelemetry=YES com.apple.devicecheck.appattest.generateKey", v46, 2u);
+            *v45 = 0;
+            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateKey", " enableTelemetry=YES com.apple.devicecheck.appattest.generateKey", v45, 2u);
           }
         }
 
@@ -501,8 +499,8 @@ LABEL_112:
           v19 = perfLog19;
           if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog19))
           {
-            *v46 = 0;
-            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateKeyPriv", " enableTelemetry=YES com.apple.devicecheck.appattestpriv.generateKey", v46, 2u);
+            *v45 = 0;
+            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateKeyPriv", " enableTelemetry=YES com.apple.devicecheck.appattestpriv.generateKey", v45, 2u);
           }
         }
 
@@ -512,8 +510,8 @@ LABEL_112:
           v19 = perfLog20;
           if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog20))
           {
-            *v46 = 0;
-            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "attestKey", " enableTelemetry=YES com.apple.devicecheck.appattest.attestKey", v46, 2u);
+            *v45 = 0;
+            _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "attestKey", " enableTelemetry=YES com.apple.devicecheck.appattest.attestKey", v45, 2u);
           }
         }
 
@@ -528,8 +526,8 @@ LABEL_97:
         v19 = perfLog21;
         if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog21))
         {
-          *v46 = 0;
-          _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "isSupported", " enableTelemetry=YES com.apple.devicecheck.isSupported", v46, 2u);
+          *v45 = 0;
+          _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "isSupported", " enableTelemetry=YES com.apple.devicecheck.isSupported", v45, 2u);
         }
 
         goto LABEL_97;
@@ -541,8 +539,8 @@ LABEL_97:
         v19 = perfLog22;
         if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(perfLog22))
         {
-          *v46 = 0;
-          _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateToken", " enableTelemetry=YES com.apple.devicecheck.generateToken", v46, 2u);
+          *v45 = 0;
+          _os_signpost_emit_with_name_impl(&dword_238044000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v13, "generateToken", " enableTelemetry=YES com.apple.devicecheck.generateToken", v45, 2u);
         }
 
         goto LABEL_97;
@@ -553,7 +551,6 @@ LABEL_97:
 LABEL_113:
 
   objc_sync_exit(selfCopy);
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)convertCategory:(unint64_t)category

@@ -216,25 +216,23 @@ LABEL_45:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_hasAbsoluteTimestamp)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_mediaUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_hasType)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 

@@ -170,7 +170,7 @@ LABEL_11:
 - (void)setConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  if ([configurationCopy _isBeingUsedForCellularServiceBootstrap] && (-[SFBrowserServiceViewController _hostAuditToken](self, "_hostAuditToken"), WBSAuditTokenHasEntitlement()))
+  if ([configurationCopy _isBeingUsedForCellularServiceBootstrap] && (objc_msgSend__hostAuditToken(self), WBSAuditTokenHasEntitlement()))
   {
     [configurationCopy _setEphemeral:1];
   }
@@ -180,7 +180,7 @@ LABEL_11:
     [configurationCopy set_isBeingUsedForCellularServiceBootstrap:0];
   }
 
-  [(SFBrowserServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   if ((WBSAuditTokenHasEntitlement() & 1) == 0)
   {
     [configurationCopy _setNetworkAttributionApplicationBundleIdentifier:0];
@@ -241,16 +241,17 @@ LABEL_11:
     [v4 removeClientForApplication:_hostApplicationBundleIdentifier2];
 
     _hostProcessIdentifier = [(SFBrowserServiceViewController *)self _hostProcessIdentifier];
+    v7 = _hostProcessIdentifier;
     if (self->_processPool)
     {
-      v7 = safariViewControllerProcessPoolStorage();
-      [v7 decrementReferenceForPID:_hostProcessIdentifier];
+      v8 = safariViewControllerProcessPoolStorage(_hostProcessIdentifier);
+      [v8 decrementReferenceForPID:v7];
     }
 
     if (self->_persistentDataStore)
     {
-      v8 = safariViewControllerDataStoreStorage();
-      [v8 decrementReferenceForPID:_hostProcessIdentifier];
+      v9 = safariViewControllerDataStoreStorage(_hostProcessIdentifier);
+      [v9 decrementReferenceForPID:v7];
     }
   }
 
@@ -260,9 +261,9 @@ LABEL_11:
   WeakRetained = objc_loadWeakRetained(&self->_redirectNotificationTimer);
   [WeakRetained invalidate];
 
-  v10.receiver = self;
-  v10.super_class = SFBrowserServiceViewController;
-  [(_SFBrowserContentViewController *)&v10 dealloc];
+  v11.receiver = self;
+  v11.super_class = SFBrowserServiceViewController;
+  [(_SFBrowserContentViewController *)&v11 dealloc];
 }
 
 - (void)_willAppearInRemoteViewController
@@ -378,7 +379,7 @@ LABEL_11:
   [v4 setPresentingApplicationPID:{-[SFBrowserServiceViewController _hostProcessIdentifier](self, "_hostProcessIdentifier")}];
   if (objc_opt_respondsToSelector())
   {
-    [(SFBrowserServiceViewController *)self _hostAuditToken];
+    objc_msgSend__hostAuditToken(self);
     v6[0] = v6[2];
     v6[1] = v6[3];
     [v4 setPresentingApplicationProcessToken:v6];
@@ -397,14 +398,15 @@ LABEL_11:
   v9 = insets.bottom;
   v10 = insets.left;
   v11 = insets.top;
-  v15[3] = *MEMORY[0x1E69E9840];
-  if ((_SFInsetIsInvalid() & 1) != 0 || _SFInsetIsInvalid())
+  v17[3] = *MEMORY[0x1E69E9840];
+  IsInvalid = _SFInsetIsInvalid();
+  if ((IsInvalid & 1) != 0 || (IsInvalid = _SFInsetIsInvalid(), IsInvalid))
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXViewService();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v15 = WBS_LOG_CHANNEL_PREFIXViewService(IsInvalid, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       _hostApplicationBundleIdentifier = [(SFBrowserServiceViewController *)self _hostApplicationBundleIdentifier];
-      [SFBrowserServiceViewController updateScrollViewIndicatorVerticalInsets:_hostApplicationBundleIdentifier horizontalInsets:v15];
+      [SFBrowserServiceViewController updateScrollViewIndicatorVerticalInsets:_hostApplicationBundleIdentifier horizontalInsets:v17];
     }
   }
 
@@ -417,37 +419,42 @@ LABEL_11:
 
 - (id)processPool
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   processPool = self->_processPool;
   if (!processPool)
   {
     _hostProcessIdentifier = [(SFBrowserServiceViewController *)self _hostProcessIdentifier];
-    if (!_hostProcessIdentifier && [MEMORY[0x1E69C8880] hasInternalContent])
+    v5 = _hostProcessIdentifier;
+    if (!_hostProcessIdentifier)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXViewService();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      _hostProcessIdentifier = [MEMORY[0x1E69C8880] hasInternalContent];
+      if (_hostProcessIdentifier)
       {
-        v6 = objc_opt_class();
-        [(SFBrowserServiceViewController *)v6 processPool];
+        v7 = WBS_LOG_CHANNEL_PREFIXViewService(_hostProcessIdentifier, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+        {
+          v8 = objc_opt_class();
+          [(SFBrowserServiceViewController *)v8 processPool];
+        }
       }
     }
 
-    v7 = safariViewControllerProcessPoolStorage();
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __45__SFBrowserServiceViewController_processPool__block_invoke;
-    v12[3] = &unk_1E8492318;
-    v12[4] = self;
-    v8 = [v7 incrementReferenceForPID:_hostProcessIdentifier valueCreationBlock:v12];
-    v9 = self->_processPool;
-    self->_processPool = v8;
+    v9 = safariViewControllerProcessPoolStorage(_hostProcessIdentifier);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __45__SFBrowserServiceViewController_processPool__block_invoke;
+    v14[3] = &unk_1E8492318;
+    v14[4] = self;
+    v10 = [v9 incrementReferenceForPID:v5 valueCreationBlock:v14];
+    v11 = self->_processPool;
+    self->_processPool = v10;
 
     processPool = self->_processPool;
   }
 
-  v10 = processPool;
+  v12 = processPool;
 
-  return v10;
+  return v12;
 }
 
 id __45__SFBrowserServiceViewController_processPool__block_invoke(uint64_t a1)
@@ -461,7 +468,7 @@ id __45__SFBrowserServiceViewController_processPool__block_invoke(uint64_t a1)
 {
   lCopy = l;
   v5 = MEMORY[0x1E695A950];
-  [(SFBrowserServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   [v5 handleSSOExtensionIdentifier:location];
   [(_SFWebViewUsageMonitor *)self->_usageMonitor checkURL:lCopy];
   v6 = [MEMORY[0x1E695AC68] safari_nonAppInitiatedRequestWithURL:lCopy];
@@ -514,24 +521,26 @@ void __42__SFBrowserServiceViewController_loadURL___block_invoke_2(uint64_t a1)
 
 - (BOOL)_shouldAcceptMessage:(id)message
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  if ([messageCopy originIdentifier] != 0xC181BADB23D8497BLL)
+  originIdentifier = [messageCopy originIdentifier];
+  if (originIdentifier != 0xC181BADB23D8497BLL)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXEventAttribution();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXEventAttribution(originIdentifier, v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      -[SFBrowserServiceViewController _shouldAcceptMessage:].cold.1(v12, [messageCopy originIdentifier], v8);
+      -[SFBrowserServiceViewController _shouldAcceptMessage:].cold.1(v18, [messageCopy originIdentifier], v14);
     }
 
     goto LABEL_12;
   }
 
   timestamp = [messageCopy timestamp];
+  v8 = timestamp;
   if (timestamp <= [SFBrowserServiceViewController _shouldAcceptMessage:]::lastSeenBackBoardTimestamp)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXEventAttribution();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXEventAttribution(timestamp, v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserServiceViewController _shouldAcceptMessage:];
     }
@@ -540,77 +549,78 @@ void __42__SFBrowserServiceViewController_loadURL___block_invoke_2(uint64_t a1)
   }
 
   mEMORY[0x1E698E3B0] = [MEMORY[0x1E698E3B0] sharedInstance];
-  v6 = [mEMORY[0x1E698E3B0] authenticateMessage:messageCopy];
+  v10 = [mEMORY[0x1E698E3B0] authenticateMessage:messageCopy];
 
-  if ((v6 & 0xFFFFFFFFFFFFFFFELL) != 2)
+  if ((v10 & 0xFFFFFFFFFFFFFFFELL) != 2)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXEventAttribution();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXEventAttribution(v11, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserServiceViewController _shouldAcceptMessage:];
     }
 
 LABEL_12:
-    v7 = 0;
+    v13 = 0;
     goto LABEL_13;
   }
 
-  [SFBrowserServiceViewController _shouldAcceptMessage:]::lastSeenBackBoardTimestamp = timestamp;
-  v7 = 1;
+  [SFBrowserServiceViewController _shouldAcceptMessage:]::lastSeenBackBoardTimestamp = v8;
+  v13 = 1;
 LABEL_13:
 
-  return v7;
+  return v13;
 }
 
 - (id)_trustedReportEndpoint
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E6963620];
-  [(SFBrowserServiceViewController *)self _hostAuditToken];
-  v13 = 0;
-  v3 = [v2 bundleRecordForAuditToken:v14 error:&v13];
-  v4 = v13;
-  v5 = v4;
+  objc_msgSend__hostAuditToken(self, a2);
+  v16 = 0;
+  v3 = [v2 bundleRecordForAuditToken:v17 error:&v16];
+  v4 = v16;
+  v6 = v4;
   if (v3)
   {
-    v6 = v4 == 0;
+    v7 = v4 == 0;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if (v6)
+  if (v7)
   {
     infoDictionary = [v3 infoDictionary];
-    v10 = [infoDictionary objectForKey:@"NSAdvertisingAttributionReportEndpoint" ofClass:objc_opt_class()];
-    v9 = [MEMORY[0x1E695DFF8] URLWithString:v10];
-    if (([v9 safari_isHTTPSURL] & 1) == 0)
+    v11 = [infoDictionary objectForKey:@"NSAdvertisingAttributionReportEndpoint" ofClass:objc_opt_class()];
+    v10 = [MEMORY[0x1E695DFF8] URLWithString:v11];
+    safari_isHTTPSURL = [v10 safari_isHTTPSURL];
+    if ((safari_isHTTPSURL & 1) == 0)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXEventAttribution();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXEventAttribution(safari_isHTTPSURL, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [SFBrowserServiceViewController _trustedReportEndpoint];
       }
 
-      v9 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    infoDictionary = WBS_LOG_CHANNEL_PREFIXEventAttribution();
+    infoDictionary = WBS_LOG_CHANNEL_PREFIXEventAttribution(v4, v5);
     if (os_log_type_enabled(infoDictionary, OS_LOG_TYPE_ERROR))
     {
-      safari_privacyPreservingDescription = [v5 safari_privacyPreservingDescription];
+      safari_privacyPreservingDescription = [v6 safari_privacyPreservingDescription];
       [(SFBrowserServiceViewController *)safari_privacyPreservingDescription _trustedReportEndpoint];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)addClickAttribution:(id)attribution
@@ -633,7 +643,7 @@ LABEL_13:
 
 - (void)decideCookieSharingForURL:(id)l callback:(id)callback proxiedAssociatedDomains:(id)domains
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   callbackCopy = callback;
   domainsCopy = domains;
@@ -648,9 +658,9 @@ LABEL_6:
     aBlock[1] = 3221225472;
     aBlock[2] = __94__SFBrowserServiceViewController_decideCookieSharingForURL_callback_proxiedAssociatedDomains___block_invoke;
     aBlock[3] = &unk_1E8492390;
-    objc_copyWeak(&v46, &location);
+    objc_copyWeak(&v50, &location);
     v14 = lCopy;
-    v45 = v14;
+    v49 = v14;
     v15 = _Block_copy(aBlock);
     if ([(SFBrowserServiceViewController *)self _isUsedForAuthentication])
     {
@@ -670,7 +680,7 @@ LABEL_22:
         v15[2](v15, v18);
 LABEL_23:
 
-        objc_destroyWeak(&v46);
+        objc_destroyWeak(&v50);
         goto LABEL_24;
       }
     }
@@ -693,29 +703,29 @@ LABEL_23:
     }
 
     v25 = self->_webAuthenticationDataSharingConfirmation;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __94__SFBrowserServiceViewController_decideCookieSharingForURL_callback_proxiedAssociatedDomains___block_invoke_2;
-    v42[3] = &unk_1E84923B8;
-    v43 = v15;
-    [(SFSystemAlert *)v25 scheduleWithCompletionBlock:v42];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __94__SFBrowserServiceViewController_decideCookieSharingForURL_callback_proxiedAssociatedDomains___block_invoke_2;
+    v46[3] = &unk_1E84923B8;
+    v47 = v15;
+    [(SFSystemAlert *)v25 scheduleWithCompletionBlock:v46];
 
     goto LABEL_23;
   }
 
   if ([domainsCopy count])
   {
-    [(SFBrowserServiceViewController *)self _hostAuditToken];
+    objc_msgSend__hostAuditToken(self);
     if ((WBSAuditTokenHasEntitlement() & 1) == 0)
     {
       v26 = MEMORY[0x1E696ABC0];
-      v51 = *MEMORY[0x1E696A588];
-      v52[0] = @"Process is not entitled to perform proxied requests.";
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+      v55 = *MEMORY[0x1E696A588];
+      v56[0] = @"Process is not entitled to perform proxied requests.";
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:&v55 count:1];
       v28 = [v26 errorWithDomain:*MEMORY[0x1E695A900] code:1 userInfo:v27];
 
-      v29 = WBS_LOG_CHANNEL_PREFIXAuthenticationSession();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = WBS_LOG_CHANNEL_PREFIXAuthenticationSession(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [SFBrowserServiceViewController decideCookieSharingForURL:callback:proxiedAssociatedDomains:];
       }
@@ -736,34 +746,33 @@ LABEL_23:
   }
 
   v12 = MEMORY[0x1E696B0B8];
-  [(SFBrowserServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   host3 = [callbackCopy host];
-  LOBYTE(v12) = [v12 safari_applicationWithAuditToken:v47 hasApprovedWebCredentialsDomainAssociationForDomain:host3];
+  LOBYTE(v12) = [v12 safari_applicationWithAuditToken:v51 hasApprovedWebCredentialsDomainAssociationForDomain:host3];
 
   if (v12)
   {
     goto LABEL_6;
   }
 
-  v31 = MEMORY[0x1E696ABC0];
-  v49 = *MEMORY[0x1E696A588];
-  v32 = MEMORY[0x1E696AEC0];
+  v33 = MEMORY[0x1E696ABC0];
+  v53 = *MEMORY[0x1E696A588];
+  v34 = MEMORY[0x1E696AEC0];
   _hostApplicationBundleIdentifier2 = [(SFBrowserServiceViewController *)self _hostApplicationBundleIdentifier];
   host4 = [callbackCopy host];
-  host5 = [callbackCopy host];
-  v36 = objc_claimAutoreleasedReturnValue();
-  v50 = v36;
-  v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-  v38 = [v31 errorWithDomain:*MEMORY[0x1E695A900] code:1 userInfo:v37];
+  v38 = host5 = [callbackCopy host];
+  v54 = v38;
+  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+  v40 = [v33 errorWithDomain:*MEMORY[0x1E695A900] code:1 userInfo:v39];
 
-  v39 = WBS_LOG_CHANNEL_PREFIXAuthenticationSession();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+  v43 = WBS_LOG_CHANNEL_PREFIXAuthenticationSession(v41, v42);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
   {
     [SFBrowserServiceViewController decideCookieSharingForURL:callback:proxiedAssociatedDomains:];
   }
 
   _remoteViewControllerProxy2 = [(SFBrowserServiceViewController *)self _remoteViewControllerProxy];
-  [_remoteViewControllerProxy2 didDecideCookieSharingForURL:lCopy shouldCancel:1 withError:v38];
+  [_remoteViewControllerProxy2 didDecideCookieSharingForURL:lCopy shouldCancel:1 withError:v40];
 
 LABEL_24:
   objc_destroyWeak(&location);
@@ -819,8 +828,8 @@ void __94__SFBrowserServiceViewController_decideCookieSharingForURL_callback_pro
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SFBrowserServiceViewController startResolveRedirectionForURL:];
     }
@@ -914,46 +923,46 @@ void __62__SFBrowserServiceViewController_requestPrewarmingWithTokens___block_in
   }
 }
 
-void __60__SFBrowserServiceViewController__prewarmConnectionsToURLs___block_invoke(uint64_t a1)
+void __60__SFBrowserServiceViewController__prewarmConnectionsToURLs___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXPrewarming();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXPrewarming(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138739971;
-    v15 = v3;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "Prewarming connections to %{sensitive}@", buf, 0xCu);
+    v16 = v4;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "Prewarming connections to %{sensitive}@", buf, 0xCu);
   }
 
-  v4 = [*(a1 + 40) webView];
-  v11 = 0u;
+  v5 = [*(a1 + 40) webView];
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v6)
+  v11 = 0u;
+  v6 = *(a1 + 32);
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v7)
   {
-    v7 = *v10;
+    v8 = *v11;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v10 != v7)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        [v4 _preconnectToServer:{*(*(&v9 + 1) + 8 * v8++), v9}];
+        [v5 _preconnectToServer:{*(*(&v10 + 1) + 8 * v9++), v10}];
       }
 
-      while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v7 != v9);
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 }
 
@@ -1138,7 +1147,7 @@ void __80__SFBrowserServiceViewController__didResolveDestinationURL_pendingAppLi
 
 - (BOOL)_ensureWebsiteDataStoreURL:(id)l cookieStoreURL:(id)rL
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v24[4] = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   v7 = rLCopy;
@@ -1151,16 +1160,16 @@ void __80__SFBrowserServiceViewController__didResolveDestinationURL_pendingAppLi
 
     if ((v11 & 1) == 0)
     {
-      v21[0] = 0;
-      v12 = [defaultManager createDirectoryAtURL:lCopy withIntermediateDirectories:1 attributes:0 error:v21];
-      v13 = v21[0];
-      v14 = v13;
+      v24[0] = 0;
+      v12 = [defaultManager createDirectoryAtURL:lCopy withIntermediateDirectories:1 attributes:0 error:v24];
+      v13 = v24[0];
+      v15 = v13;
       if ((v12 & 1) == 0)
       {
-        v18 = WBS_LOG_CHANNEL_PREFIXViewService();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v21 = WBS_LOG_CHANNEL_PREFIXViewService(v13, v14);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          [v14 safari_privacyPreservingDescription];
+          [v15 safari_privacyPreservingDescription];
           objc_claimAutoreleasedReturnValue();
           [SFBrowserServiceViewController _ensureWebsiteDataStoreURL:cookieStoreURL:];
         }
@@ -1170,9 +1179,9 @@ void __80__SFBrowserServiceViewController__didResolveDestinationURL_pendingAppLi
     }
 
     path2 = [v7 path];
-    v16 = [defaultManager fileExistsAtPath:path2];
+    v17 = [defaultManager fileExistsAtPath:path2];
 
-    if (v16)
+    if (v17)
     {
       v8 = 1;
 LABEL_16:
@@ -1180,10 +1189,11 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v20 = 0;
-    v17 = [defaultManager createDirectoryAtURL:v7 withIntermediateDirectories:1 attributes:0 error:&v20];
-    v14 = v20;
-    if (v17)
+    v23 = 0;
+    v18 = [defaultManager createDirectoryAtURL:v7 withIntermediateDirectories:1 attributes:0 error:&v23];
+    v19 = v23;
+    v15 = v19;
+    if (v18)
     {
       v8 = 1;
 LABEL_15:
@@ -1191,10 +1201,10 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v18 = WBS_LOG_CHANNEL_PREFIXViewService();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = WBS_LOG_CHANNEL_PREFIXViewService(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [v14 safari_privacyPreservingDescription];
+      [v15 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       [SFBrowserServiceViewController _ensureWebsiteDataStoreURL:cookieStoreURL:];
     }
@@ -1212,29 +1222,30 @@ LABEL_17:
 
 - (id)websiteDataStoreConfiguration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E6985430]);
   _webDataStoreRootURL = [(SFBrowserServiceViewController *)self _webDataStoreRootURL];
   _websiteDataStoreURL = [(SFBrowserServiceViewController *)self _websiteDataStoreURL];
   _cookieStoreURL = [(SFBrowserServiceViewController *)self _cookieStoreURL];
-  if ([(SFBrowserServiceViewController *)self _ensureWebsiteDataStoreURL:_websiteDataStoreURL cookieStoreURL:_cookieStoreURL])
+  v7 = [(SFBrowserServiceViewController *)self _ensureWebsiteDataStoreURL:_websiteDataStoreURL cookieStoreURL:_cookieStoreURL];
+  if (v7)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       _hostApplicationBundleIdentifier = [(SFBrowserServiceViewController *)self _hostApplicationBundleIdentifier];
-      v24 = 138543618;
-      v25 = _hostApplicationBundleIdentifier;
-      v26 = 2114;
-      v27 = _webDataStoreRootURL;
-      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Data Store URL for app %{public}@ is %{public}@.", &v24, 0x16u);
+      v26 = 138543618;
+      v27 = _hostApplicationBundleIdentifier;
+      v28 = 2114;
+      v29 = _webDataStoreRootURL;
+      _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_DEFAULT, "Data Store URL for app %{public}@ is %{public}@.", &v26, 0x16u);
     }
 
-    v9 = MEMORY[0x1E695DFF8];
+    v11 = MEMORY[0x1E695DFF8];
     path = [_cookieStoreURL path];
-    v11 = [path stringByAppendingPathComponent:@"/Cookies.binarycookies"];
-    v12 = [v9 fileURLWithPath:v11 isDirectory:0];
-    [v3 _setCookieStorageFile:v12];
+    v13 = [path stringByAppendingPathComponent:@"/Cookies.binarycookies"];
+    v14 = [v11 fileURLWithPath:v13 isDirectory:0];
+    [v3 _setCookieStorageFile:v14];
 
     [v3 _setWebStorageDirectory:_websiteDataStoreURL];
     [v3 _setWebSQLDatabaseDirectory:_websiteDataStoreURL];
@@ -1244,18 +1255,18 @@ LABEL_17:
     [v3 _setServiceWorkerRegistrationDirectory:_websiteDataStoreURL];
     configuration = [(_SFBrowserContentViewController *)self configuration];
     _networkAttributionApplicationBundleIdentifier = [configuration _networkAttributionApplicationBundleIdentifier];
-    v15 = _networkAttributionApplicationBundleIdentifier;
+    v17 = _networkAttributionApplicationBundleIdentifier;
     if (_networkAttributionApplicationBundleIdentifier)
     {
-      v16 = _networkAttributionApplicationBundleIdentifier;
+      v18 = _networkAttributionApplicationBundleIdentifier;
     }
 
     else
     {
-      v16 = @"com.apple.mobilesafari";
+      v18 = @"com.apple.mobilesafari";
     }
 
-    [v3 setSourceApplicationBundleIdentifier:v16];
+    [v3 setSourceApplicationBundleIdentifier:v18];
 
     if (objc_opt_respondsToSelector())
     {
@@ -1269,28 +1280,28 @@ LABEL_17:
 
     if (objc_opt_respondsToSelector())
     {
-      v17 = [_websiteDataStoreURL URLByAppendingPathComponent:@"Default" isDirectory:1];
-      [v3 setGeneralStorageDirectory:v17];
+      v19 = [_websiteDataStoreURL URLByAppendingPathComponent:@"Default" isDirectory:1];
+      [v3 setGeneralStorageDirectory:v19];
     }
 
-    v18 = [_websiteDataStoreURL URLByAppendingPathComponent:@"NetworkCache" isDirectory:1];
-    [v3 setNetworkCacheDirectory:v18];
+    v20 = [_websiteDataStoreURL URLByAppendingPathComponent:@"NetworkCache" isDirectory:1];
+    [v3 setNetworkCacheDirectory:v20];
 
-    v19 = [_websiteDataStoreURL URLByAppendingPathComponent:@"OfflineWebApplicationCache" isDirectory:1];
-    [v3 setApplicationCacheDirectory:v19];
+    v21 = [_websiteDataStoreURL URLByAppendingPathComponent:@"OfflineWebApplicationCache" isDirectory:1];
+    [v3 setApplicationCacheDirectory:v21];
 
-    v20 = [_websiteDataStoreURL URLByAppendingPathComponent:@"MediaCache" isDirectory:1];
-    [v3 setMediaCacheDirectory:v20];
+    v22 = [_websiteDataStoreURL URLByAppendingPathComponent:@"MediaCache" isDirectory:1];
+    [v3 setMediaCacheDirectory:v22];
 
-    v21 = [_websiteDataStoreURL URLByAppendingPathComponent:@"MediaKeys" isDirectory:1];
-    [v3 setMediaKeysStorageDirectory:v21];
+    v23 = [_websiteDataStoreURL URLByAppendingPathComponent:@"MediaKeys" isDirectory:1];
+    [v3 setMediaKeysStorageDirectory:v23];
 
-    v22 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v22 = v3;
+    v24 = v3;
     v3 = 0;
   }
 
@@ -1309,7 +1320,7 @@ LABEL_17:
   else
   {
     _hostProcessIdentifier = [(SFBrowserServiceViewController *)self _hostProcessIdentifier];
-    v8 = safariViewControllerDataStoreStorage();
+    v8 = safariViewControllerDataStoreStorage(_hostProcessIdentifier);
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
     v12[2] = __78__SFBrowserServiceViewController__createPersistentDataStoreWithConfiguration___block_invoke;
@@ -1338,7 +1349,7 @@ id __78__SFBrowserServiceViewController__createPersistentDataStoreWithConfigurat
 
 - (int64_t)_decideDataSharingMode
 {
-  v13[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   configuration = [(_SFBrowserContentViewController *)self configuration];
   _isEphemeral = [configuration _isEphemeral];
 
@@ -1347,15 +1358,16 @@ id __78__SFBrowserServiceViewController__createPersistentDataStoreWithConfigurat
     _hostApplicationBundleIdentifier = [(SFBrowserServiceViewController *)self _hostApplicationBundleIdentifier];
     if ([_hostApplicationBundleIdentifier hasPrefix:@"com.apple."])
     {
-      v13[0] = 0;
-      v7 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:_hostApplicationBundleIdentifier allowPlaceholder:0 error:v13];
-      v8 = v13[0];
+      v15[0] = 0;
+      v7 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:_hostApplicationBundleIdentifier allowPlaceholder:0 error:v15];
+      v8 = v15[0];
+      v10 = v8;
       if (v7)
       {
         dataContainerURL = [v7 dataContainerURL];
-        v10 = dataContainerURL == 0;
+        v12 = dataContainerURL == 0;
 
-        if (v10)
+        if (v12)
         {
 
           v5 = 4;
@@ -1367,18 +1379,18 @@ LABEL_12:
 
       else
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXViewService();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = WBS_LOG_CHANNEL_PREFIXViewService(v8, v9);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [v8 safari_privacyPreservingDescription];
+          [v10 safari_privacyPreservingDescription];
           objc_claimAutoreleasedReturnValue();
           [SFBrowserServiceViewController _decideDataSharingMode];
         }
       }
     }
 
-    v8 = +[_SFSafariDataSharingController sharedController];
-    [v8 checkInAppBundleIDIfNeeded:_hostApplicationBundleIdentifier];
+    v10 = +[_SFSafariDataSharingController sharedController];
+    [v10 checkInAppBundleIDIfNeeded:_hostApplicationBundleIdentifier];
     v5 = 2;
     goto LABEL_12;
   }
@@ -1536,28 +1548,29 @@ LABEL_12:
 
 - (BOOL)_redirectToHostAppForAuthenticationSession:(id)session
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   v5 = [(SFBrowserServiceViewController *)self shouldRedirectToHostAppForAuthenticationSession:sessionCopy];
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       _hostApplicationBundleIdentifier = [(SFBrowserServiceViewController *)self _hostApplicationBundleIdentifier];
       hostApplicationCallback = self->_hostApplicationCallback;
-      v11 = 138543618;
-      v12 = _hostApplicationBundleIdentifier;
-      v13 = 2114;
-      v14 = hostApplicationCallback;
-      _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "Application %{public}@ is able to handle %{public}@ for authentication", &v11, 0x16u);
+      v13 = 138543618;
+      v14 = _hostApplicationBundleIdentifier;
+      v15 = 2114;
+      v16 = hostApplicationCallback;
+      _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Application %{public}@ is able to handle %{public}@ for authentication", &v13, 0x16u);
     }
 
     _remoteViewControllerProxy = [(SFBrowserServiceViewController *)self _remoteViewControllerProxy];
     [_remoteViewControllerProxy willOpenURLInHostApplication:sessionCopy];
   }
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)_redirectToHostAppWithNavigationResult:(id)result options:(id)options
@@ -1724,10 +1737,10 @@ LABEL_12:
   _Block_object_dispose(&v12, 8);
 }
 
-uint64_t __74__SFBrowserServiceViewController_closeDatabasesOnBackgroundingOrDismissal__block_invoke(uint64_t a1)
+uint64_t __74__SFBrowserServiceViewController_closeDatabasesOnBackgroundingOrDismissal__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXViewService();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXViewService(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __74__SFBrowserServiceViewController_closeDatabasesOnBackgroundingOrDismissal__block_invoke_cold_1();
   }

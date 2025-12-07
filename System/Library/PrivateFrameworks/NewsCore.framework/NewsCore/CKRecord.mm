@@ -216,7 +216,7 @@
   v2 = a2;
   objc_opt_self();
   v3 = objc_alloc(MEMORY[0x1E695BA60]);
-  v4 = +[CKRecordID fc_staticSecureSentinelRecordID];
+  v4 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
   v5 = [v3 initWithRecordType:@"SentinelSecure" recordID:v4];
 
   if (v5)

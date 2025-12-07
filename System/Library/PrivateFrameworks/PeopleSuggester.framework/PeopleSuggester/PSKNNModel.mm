@@ -63,7 +63,7 @@ uint64_t __94___PSKNNModel_rankedMessagesAutocompleteSuggestionsWithPredictionCo
 
 _PSSuggestion *__79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTimeBudget___block_invoke(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (*(*(*(a1 + 56) + 8) + 24) <= 0.0)
@@ -83,16 +83,16 @@ _PSSuggestion *__79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    *&v48 = __Block_byref_object_copy__14;
-    *(&v48 + 1) = __Block_byref_object_dispose__14;
-    v49 = 0;
+    *&v47 = __Block_byref_object_copy__14;
+    *(&v47 + 1) = __Block_byref_object_dispose__14;
+    v48 = 0;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTimeBudget___block_invoke_194;
     block[3] = &unk_1E7C26410;
-    v45 = buf;
+    v44 = buf;
     v5 = v3;
-    v44 = v5;
+    v43 = v5;
     v6 = dispatch_block_create(0, block);
     dispatch_async(*(a1 + 32), v6);
     v7 = [MEMORY[0x1E695DF00] now];
@@ -118,7 +118,7 @@ _PSSuggestion *__79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = [v5 conversationIdentifier];
-        __79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTimeBudget___block_invoke_cold_2(v14, v46, v13);
+        __79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTimeBudget___block_invoke_cold_2(v14, v45, v13);
       }
 
       v12 = 0;
@@ -176,11 +176,11 @@ _PSSuggestion *__79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_
 
         v23 = *(a1 + 48);
         v24 = [v12 firstObject];
-        v42 = [v23 recipientsForChat:v24];
+        v41 = [v23 recipientsForChat:v24];
 
         v25 = *(a1 + 48);
         v26 = [v5 recipients];
-        v27 = [v25 suggestedRecipientHandles:v26 differFromFetchedRecipientHandles:v42];
+        v27 = [v25 suggestedRecipientHandles:v26 differFromFetchedRecipientHandles:v41];
 
         v28 = v21 ^ 1;
         if ((v28 | v27))
@@ -194,21 +194,21 @@ _PSSuggestion *__79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_
             *&buf[12] = 2113;
             *&buf[14] = v18;
             *&buf[22] = 1024;
-            LODWORD(v48) = v28;
-            WORD2(v48) = 1024;
-            *(&v48 + 6) = v27;
+            LODWORD(v47) = v28;
+            WORD2(v47) = 1024;
+            *(&v47 + 6) = v27;
             _os_log_impl(&dword_1B5ED1000, v29, OS_LOG_TYPE_DEFAULT, "Updating suggestion conversationIdentifier(%{private}@) since groupName(%{private}@) changed: %{BOOL}d or participants changed: %{BOOL}d", buf, 0x22u);
           }
 
           v31 = [_PSSuggestion alloc];
-          v41 = [v5 bundleID];
-          v40 = [v5 conversationIdentifier];
+          v40 = [v5 bundleID];
+          v39 = [v5 conversationIdentifier];
           v32 = [v5 derivedIntentIdentifier];
           v33 = [v5 image];
           v34 = [v5 reason];
           v35 = [v5 reasonType];
           v36 = [v5 score];
-          v11 = [(_PSSuggestion *)v31 initWithBundleID:v41 conversationIdentifier:v40 groupName:v18 recipients:v42 derivedIntentIdentifier:v32 image:v33 reason:v34 reasonType:v35 score:v36];
+          v11 = [(_PSSuggestion *)v31 initWithBundleID:v40 conversationIdentifier:v39 groupName:v18 recipients:v41 derivedIntentIdentifier:v32 image:v33 reason:v34 reasonType:v35 score:v36];
 
           v37 = [v5 messagesGroupIdentifier];
           [(_PSSuggestion *)v11 setMessagesGroupIdentifier:v37];
@@ -227,36 +227,35 @@ _PSSuggestion *__79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_
     }
   }
 
-  v38 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 void __79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTimeBudget___block_invoke_194(uint64_t a1)
 {
   v2 = [*(a1 + 32) conversationIdentifier];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v3 = getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_ptr_0;
-  v12 = getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_ptr_0;
+  v13 = getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_ptr_0;
   if (!getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_ptr_0)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_block_invoke_0;
-    v8[3] = &unk_1E7C23BF0;
-    v8[4] = &v9;
-    __getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_block_invoke_0(v8);
-    v3 = v10[3];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_block_invoke_0;
+    v9[3] = &unk_1E7C23BF0;
+    v9[4] = &v10;
+    __getIMSPIGetDisplayNameAndParticipantsForChatWithGUIDSymbolLoc_block_invoke_0(v9);
+    v3 = v11[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v3)
   {
-    v7 = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v9, 8);
-    _Unwind_Resume(v7);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v8 = v7;
+    _Block_object_dispose(&v10, 8);
+    _Unwind_Resume(v8);
   }
 
   v4 = v3(v2);
@@ -268,337 +267,337 @@ void __79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTime
 
 void __33___PSKNNModel_contactKeysToFetch__block_invoke()
 {
-  v59 = *MEMORY[0x1E69E9840];
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v58 = *MEMORY[0x1E69E9840];
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v0 = getCNContactNamePrefixKeySymbolLoc_ptr_2;
-  v56 = getCNContactNamePrefixKeySymbolLoc_ptr_2;
+  v55 = getCNContactNamePrefixKeySymbolLoc_ptr_2;
   if (!getCNContactNamePrefixKeySymbolLoc_ptr_2)
   {
     v1 = ContactsLibrary_5();
-    v54[3] = dlsym(v1, "CNContactNamePrefixKey");
-    getCNContactNamePrefixKeySymbolLoc_ptr_2 = v54[3];
-    v0 = v54[3];
+    v53[3] = dlsym(v1, "CNContactNamePrefixKey");
+    getCNContactNamePrefixKeySymbolLoc_ptr_2 = v53[3];
+    v0 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v0)
   {
     goto LABEL_50;
   }
 
   v2 = *v0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v3 = getCNContactGivenNameKeySymbolLoc_ptr_3;
-  v56 = getCNContactGivenNameKeySymbolLoc_ptr_3;
-  v57[0] = v2;
+  v55 = getCNContactGivenNameKeySymbolLoc_ptr_3;
+  v56[0] = v2;
   if (!getCNContactGivenNameKeySymbolLoc_ptr_3)
   {
     v4 = ContactsLibrary_5();
-    v54[3] = dlsym(v4, "CNContactGivenNameKey");
-    getCNContactGivenNameKeySymbolLoc_ptr_3 = v54[3];
-    v3 = v54[3];
+    v53[3] = dlsym(v4, "CNContactGivenNameKey");
+    getCNContactGivenNameKeySymbolLoc_ptr_3 = v53[3];
+    v3 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v3)
   {
     goto LABEL_50;
   }
 
   v5 = *v3;
-  v57[1] = v5;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v56[1] = v5;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v6 = getCNContactMiddleNameKeySymbolLoc_ptr_3;
-  v56 = getCNContactMiddleNameKeySymbolLoc_ptr_3;
+  v55 = getCNContactMiddleNameKeySymbolLoc_ptr_3;
   if (!getCNContactMiddleNameKeySymbolLoc_ptr_3)
   {
     v7 = ContactsLibrary_5();
-    v54[3] = dlsym(v7, "CNContactMiddleNameKey");
-    getCNContactMiddleNameKeySymbolLoc_ptr_3 = v54[3];
-    v6 = v54[3];
+    v53[3] = dlsym(v7, "CNContactMiddleNameKey");
+    getCNContactMiddleNameKeySymbolLoc_ptr_3 = v53[3];
+    v6 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v6)
   {
     goto LABEL_50;
   }
 
   v8 = *v6;
-  v57[2] = v8;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v56[2] = v8;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v9 = getCNContactFamilyNameKeySymbolLoc_ptr_3;
-  v56 = getCNContactFamilyNameKeySymbolLoc_ptr_3;
+  v55 = getCNContactFamilyNameKeySymbolLoc_ptr_3;
   if (!getCNContactFamilyNameKeySymbolLoc_ptr_3)
   {
     v10 = ContactsLibrary_5();
-    v54[3] = dlsym(v10, "CNContactFamilyNameKey");
-    getCNContactFamilyNameKeySymbolLoc_ptr_3 = v54[3];
-    v9 = v54[3];
+    v53[3] = dlsym(v10, "CNContactFamilyNameKey");
+    getCNContactFamilyNameKeySymbolLoc_ptr_3 = v53[3];
+    v9 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v9)
   {
     goto LABEL_50;
   }
 
   v11 = *v9;
-  v57[3] = v11;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v56[3] = v11;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v12 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr_2;
-  v56 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr_2;
+  v55 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr_2;
   if (!getCNContactPreviousFamilyNameKeySymbolLoc_ptr_2)
   {
     v13 = ContactsLibrary_5();
-    v54[3] = dlsym(v13, "CNContactPreviousFamilyNameKey");
-    getCNContactPreviousFamilyNameKeySymbolLoc_ptr_2 = v54[3];
-    v12 = v54[3];
+    v53[3] = dlsym(v13, "CNContactPreviousFamilyNameKey");
+    getCNContactPreviousFamilyNameKeySymbolLoc_ptr_2 = v53[3];
+    v12 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v12)
   {
     goto LABEL_50;
   }
 
-  v52 = *v12;
-  v57[4] = v52;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v51 = *v12;
+  v56[4] = v51;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v14 = getCNContactNameSuffixKeySymbolLoc_ptr_2;
-  v56 = getCNContactNameSuffixKeySymbolLoc_ptr_2;
+  v55 = getCNContactNameSuffixKeySymbolLoc_ptr_2;
   if (!getCNContactNameSuffixKeySymbolLoc_ptr_2)
   {
     v15 = ContactsLibrary_5();
-    v54[3] = dlsym(v15, "CNContactNameSuffixKey");
-    getCNContactNameSuffixKeySymbolLoc_ptr_2 = v54[3];
-    v14 = v54[3];
+    v53[3] = dlsym(v15, "CNContactNameSuffixKey");
+    getCNContactNameSuffixKeySymbolLoc_ptr_2 = v53[3];
+    v14 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v14)
   {
     goto LABEL_50;
   }
 
-  v51 = *v14;
-  v57[5] = v51;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v50 = *v14;
+  v56[5] = v50;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v16 = getCNContactNicknameKeySymbolLoc_ptr_3;
-  v56 = getCNContactNicknameKeySymbolLoc_ptr_3;
+  v55 = getCNContactNicknameKeySymbolLoc_ptr_3;
   if (!getCNContactNicknameKeySymbolLoc_ptr_3)
   {
     v17 = ContactsLibrary_5();
-    v54[3] = dlsym(v17, "CNContactNicknameKey");
-    getCNContactNicknameKeySymbolLoc_ptr_3 = v54[3];
-    v16 = v54[3];
+    v53[3] = dlsym(v17, "CNContactNicknameKey");
+    getCNContactNicknameKeySymbolLoc_ptr_3 = v53[3];
+    v16 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v16)
   {
     goto LABEL_50;
   }
 
-  v50 = *v16;
-  v57[6] = v50;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v49 = *v16;
+  v56[6] = v49;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v18 = getCNContactOrganizationNameKeySymbolLoc_ptr;
-  v56 = getCNContactOrganizationNameKeySymbolLoc_ptr;
+  v55 = getCNContactOrganizationNameKeySymbolLoc_ptr;
   if (!getCNContactOrganizationNameKeySymbolLoc_ptr)
   {
     v19 = ContactsLibrary_5();
-    v54[3] = dlsym(v19, "CNContactOrganizationNameKey");
-    getCNContactOrganizationNameKeySymbolLoc_ptr = v54[3];
-    v18 = v54[3];
+    v53[3] = dlsym(v19, "CNContactOrganizationNameKey");
+    getCNContactOrganizationNameKeySymbolLoc_ptr = v53[3];
+    v18 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v18)
   {
     goto LABEL_50;
   }
 
-  v49 = *v18;
-  v57[7] = v49;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v48 = *v18;
+  v56[7] = v48;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v20 = getCNContactImageDataKeySymbolLoc_ptr_0;
-  v56 = getCNContactImageDataKeySymbolLoc_ptr_0;
+  v55 = getCNContactImageDataKeySymbolLoc_ptr_0;
   if (!getCNContactImageDataKeySymbolLoc_ptr_0)
   {
     v21 = ContactsLibrary_5();
-    v54[3] = dlsym(v21, "CNContactImageDataKey");
-    getCNContactImageDataKeySymbolLoc_ptr_0 = v54[3];
-    v20 = v54[3];
+    v53[3] = dlsym(v21, "CNContactImageDataKey");
+    getCNContactImageDataKeySymbolLoc_ptr_0 = v53[3];
+    v20 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v20)
   {
     goto LABEL_50;
   }
 
-  v48 = *v20;
-  v57[8] = v48;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v47 = *v20;
+  v56[8] = v47;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v22 = getCNContactImageDataAvailableKeySymbolLoc_ptr_0;
-  v56 = getCNContactImageDataAvailableKeySymbolLoc_ptr_0;
+  v55 = getCNContactImageDataAvailableKeySymbolLoc_ptr_0;
   if (!getCNContactImageDataAvailableKeySymbolLoc_ptr_0)
   {
     v23 = ContactsLibrary_5();
-    v54[3] = dlsym(v23, "CNContactImageDataAvailableKey");
-    getCNContactImageDataAvailableKeySymbolLoc_ptr_0 = v54[3];
-    v22 = v54[3];
+    v53[3] = dlsym(v23, "CNContactImageDataAvailableKey");
+    getCNContactImageDataAvailableKeySymbolLoc_ptr_0 = v53[3];
+    v22 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v22)
   {
     goto LABEL_50;
   }
 
-  v47 = *v22;
-  v57[9] = v47;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v46 = *v22;
+  v56[9] = v46;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v24 = getCNContactThumbnailImageDataKeySymbolLoc_ptr_0;
-  v56 = getCNContactThumbnailImageDataKeySymbolLoc_ptr_0;
+  v55 = getCNContactThumbnailImageDataKeySymbolLoc_ptr_0;
   if (!getCNContactThumbnailImageDataKeySymbolLoc_ptr_0)
   {
     v25 = ContactsLibrary_5();
-    v54[3] = dlsym(v25, "CNContactThumbnailImageDataKey");
-    getCNContactThumbnailImageDataKeySymbolLoc_ptr_0 = v54[3];
-    v24 = v54[3];
+    v53[3] = dlsym(v25, "CNContactThumbnailImageDataKey");
+    getCNContactThumbnailImageDataKeySymbolLoc_ptr_0 = v53[3];
+    v24 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v24)
   {
     goto LABEL_50;
   }
 
   v26 = *v24;
-  v57[10] = v26;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v56[10] = v26;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v27 = getCNContactTypeKeySymbolLoc_ptr_2;
-  v56 = getCNContactTypeKeySymbolLoc_ptr_2;
+  v55 = getCNContactTypeKeySymbolLoc_ptr_2;
   if (!getCNContactTypeKeySymbolLoc_ptr_2)
   {
     v28 = ContactsLibrary_5();
-    v54[3] = dlsym(v28, "CNContactTypeKey");
-    getCNContactTypeKeySymbolLoc_ptr_2 = v54[3];
-    v27 = v54[3];
+    v53[3] = dlsym(v28, "CNContactTypeKey");
+    getCNContactTypeKeySymbolLoc_ptr_2 = v53[3];
+    v27 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v27)
   {
     goto LABEL_50;
   }
 
   v29 = *v27;
-  v57[11] = v29;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v56[11] = v29;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v30 = getCNContactPhoneNumbersKeySymbolLoc_ptr_4;
-  v56 = getCNContactPhoneNumbersKeySymbolLoc_ptr_4;
+  v55 = getCNContactPhoneNumbersKeySymbolLoc_ptr_4;
   if (!getCNContactPhoneNumbersKeySymbolLoc_ptr_4)
   {
     v31 = ContactsLibrary_5();
-    v54[3] = dlsym(v31, "CNContactPhoneNumbersKey");
-    getCNContactPhoneNumbersKeySymbolLoc_ptr_4 = v54[3];
-    v30 = v54[3];
+    v53[3] = dlsym(v31, "CNContactPhoneNumbersKey");
+    getCNContactPhoneNumbersKeySymbolLoc_ptr_4 = v53[3];
+    v30 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v30)
   {
     goto LABEL_50;
   }
 
   v32 = *v30;
-  v57[12] = v32;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v56[12] = v32;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v33 = getCNContactEmailAddressesKeySymbolLoc_ptr_4;
-  v56 = getCNContactEmailAddressesKeySymbolLoc_ptr_4;
+  v55 = getCNContactEmailAddressesKeySymbolLoc_ptr_4;
   if (!getCNContactEmailAddressesKeySymbolLoc_ptr_4)
   {
     v34 = ContactsLibrary_5();
-    v54[3] = dlsym(v34, "CNContactEmailAddressesKey");
-    getCNContactEmailAddressesKeySymbolLoc_ptr_4 = v54[3];
-    v33 = v54[3];
+    v53[3] = dlsym(v34, "CNContactEmailAddressesKey");
+    getCNContactEmailAddressesKeySymbolLoc_ptr_4 = v53[3];
+    v33 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v33)
   {
     goto LABEL_50;
   }
 
   v35 = *v33;
-  v57[13] = v35;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v56[13] = v35;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v36 = getCNContactPostalAddressesKeySymbolLoc_ptr_0;
-  v56 = getCNContactPostalAddressesKeySymbolLoc_ptr_0;
+  v55 = getCNContactPostalAddressesKeySymbolLoc_ptr_0;
   if (!getCNContactPostalAddressesKeySymbolLoc_ptr_0)
   {
     v37 = ContactsLibrary_5();
-    v54[3] = dlsym(v37, "CNContactPostalAddressesKey");
-    getCNContactPostalAddressesKeySymbolLoc_ptr_0 = v54[3];
-    v36 = v54[3];
+    v53[3] = dlsym(v37, "CNContactPostalAddressesKey");
+    getCNContactPostalAddressesKeySymbolLoc_ptr_0 = v53[3];
+    v36 = v53[3];
   }
 
-  v46 = v2;
-  _Block_object_dispose(&v53, 8);
+  v45 = v2;
+  _Block_object_dispose(&v52, 8);
   if (!v36)
   {
     goto LABEL_50;
   }
 
   v38 = *v36;
-  v57[14] = v38;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v56[14] = v38;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v39 = getCNContactInstantMessageAddressesKeySymbolLoc_ptr_0;
-  v56 = getCNContactInstantMessageAddressesKeySymbolLoc_ptr_0;
+  v55 = getCNContactInstantMessageAddressesKeySymbolLoc_ptr_0;
   if (!getCNContactInstantMessageAddressesKeySymbolLoc_ptr_0)
   {
     v40 = ContactsLibrary_5();
-    v54[3] = dlsym(v40, "CNContactInstantMessageAddressesKey");
-    getCNContactInstantMessageAddressesKeySymbolLoc_ptr_0 = v54[3];
-    v39 = v54[3];
+    v53[3] = dlsym(v40, "CNContactInstantMessageAddressesKey");
+    getCNContactInstantMessageAddressesKeySymbolLoc_ptr_0 = v53[3];
+    v39 = v53[3];
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v39)
   {
 LABEL_50:
@@ -606,14 +605,12 @@ LABEL_50:
     __break(1u);
   }
 
-  v58 = *v39;
+  v57 = *v39;
   v41 = MEMORY[0x1E695DEC8];
-  v42 = v58;
-  v43 = [v41 arrayWithObjects:v57 count:16];
+  v42 = v57;
+  v43 = [v41 arrayWithObjects:v56 count:16];
   v44 = contactKeysToFetch_contactKeysToFetch;
   contactKeysToFetch_contactKeysToFetch = v43;
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 void __99___PSKNNModel_rankedCoRecipientSuggestionsWithPredictionContext_modelConfiguration_maxSuggestions___block_invoke(uint64_t a1, void *a2)
@@ -912,12 +909,9 @@ uint64_t __84___PSKNNModel_extractNearestNeighborsForMapsQueryResult_andNeighbor
 
 void __79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTimeBudget___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 conversationIdentifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Skipping IMCore groupName fetch for conversation identifier %{private}@ (no more time budget)", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Skipping IMCore groupName fetch for conversation identifier %{private}@ (no more time budget)", v4, v5, v6, v7);
 }
 
 void __79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTimeBudget___block_invoke_cold_2(void *a1, uint8_t *buf, os_log_t log)
@@ -929,12 +923,9 @@ void __79___PSKNNModel_suggestionsByUpdatingGroupNamesFromSuggestions_imCoreTime
 
 void __60___PSKNNModel_rankedMapsShareEtaSuggestions_maxSuggestions___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Finalizing local events failed: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Finalizing local events failed: %@", v4, v5, v6, v7);
 }
 
 @end

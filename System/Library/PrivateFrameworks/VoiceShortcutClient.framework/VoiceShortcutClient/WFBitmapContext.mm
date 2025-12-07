@@ -1,10 +1,12 @@
 @interface WFBitmapContext
 + (id)HDRCapableContextWithSize:(CGSize)size scale:(double)scale;
 + (id)contextWithSize:(CGSize)size scale:(double)scale;
++ (id)contextWithSize:(CGSize)size scale:(double)scale flipped:(BOOL)flipped;
 + (id)currentContextWithScale:(double)scale;
 - (CGSize)size;
 - (WFBitmapContext)initWithCGContext:(CGContext *)context scale:(double)scale;
 - (WFBitmapContext)initWithSize:(CGSize)size opaque:(BOOL)opaque scale:(double)scale colorspace:(CGColorSpace *)colorspace flipped:(BOOL)flipped hdrCapable:(BOOL)capable;
+- (id)imageWithOrientation:(unsigned int)orientation;
 - (void)becomeCurrent;
 - (void)dealloc;
 - (void)resignCurrent;
@@ -84,6 +86,26 @@
   }
 }
 
+- (id)imageWithOrientation:(unsigned int)orientation
+{
+  v3 = *&orientation;
+  Image = CGBitmapContextCreateImage([(WFBitmapContext *)self CGContext]);
+  if (Image)
+  {
+    v6 = Image;
+    [(WFBitmapContext *)self scale];
+    v7 = [WFImage imageWithCGImage:v6 scale:v3 orientation:?];
+    CGImageRelease(v6);
+  }
+
+  else
+  {
+    v7 = objc_opt_new();
+  }
+
+  return v7;
+}
+
 - (void)dealloc
 {
   CGContextRelease(self->_CGContext);
@@ -98,7 +120,7 @@
   flippedCopy = flipped;
   height = size.height;
   width = size.width;
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   v16 = WFEffectiveScaleForScale(scale);
   if (width <= 0.0 || height <= 0.0)
   {
@@ -137,10 +159,10 @@ LABEL_11:
   opaqueCopy = opaque;
   aBlock[4] = colorspace;
   v22 = _Block_copy(aBlock);
-  v35 = *MEMORY[0x1E695F080];
+  v34 = *MEMORY[0x1E695F080];
   v23 = [MEMORY[0x1E696AD98] numberWithInt:5];
-  v36[0] = v23;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+  v35[0] = v23;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
 
   v25 = CGBitmapContextCreateWithCallbacks();
   if (!v25)
@@ -149,11 +171,11 @@ LABEL_11:
   }
 
 LABEL_7:
-  v37.size.width = v20;
-  v37.origin.x = 0.0;
-  v37.origin.y = 0.0;
-  v37.size.height = v21;
-  CGContextClearRect(v25, v37);
+  v36.size.width = v20;
+  v36.origin.x = 0.0;
+  v36.origin.y = 0.0;
+  v36.size.height = v21;
+  CGContextClearRect(v25, v36);
   v26 = v17;
   if (flippedCopy)
   {
@@ -162,7 +184,7 @@ LABEL_7:
   }
 
   CGContextScaleCTM(v25, v17, v26);
-  CGContextGetCTM(&v32, v25);
+  CGContextGetCTM(&v31, v25);
   CGContextSetBaseCTM();
   v27 = [(WFBitmapContext *)self initWithCGContext:v25 scale:scale];
   CGContextRelease(v25);
@@ -170,7 +192,6 @@ LABEL_7:
   selfCopy = self;
 LABEL_12:
 
-  v30 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -234,6 +255,13 @@ LABEL_12:
 + (id)HDRCapableContextWithSize:(CGSize)size scale:(double)scale
 {
   scale = [[WFBitmapContext alloc] initWithSize:0 opaque:0 scale:1 colorspace:1 flipped:size.width hdrCapable:size.height, scale];
+
+  return scale;
+}
+
++ (id)contextWithSize:(CGSize)size scale:(double)scale flipped:(BOOL)flipped
+{
+  scale = [[WFBitmapContext alloc] initWithSize:0 opaque:0 scale:flipped colorspace:size.width flipped:size.height, scale];
 
   return scale;
 }

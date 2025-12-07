@@ -71,14 +71,14 @@
 - (void)updateShouldPIPWhenEnteringBackground
 {
   shouldPIPWhenEnteringBackground = [(PHPIPController *)self shouldPIPWhenEnteringBackground];
-  v4 = sub_10000B2A0();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_10000B2A0(shouldPIPWhenEnteringBackground, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v8 = 1024;
-    v9 = shouldPIPWhenEnteringBackground;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating shouldPIPWhenEnteringBackground to %d", &v6, 0x12u);
+    v9 = 1024;
+    v10 = shouldPIPWhenEnteringBackground;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating shouldPIPWhenEnteringBackground to %d", &v7, 0x12u);
   }
 
   pipProxy = [(PHPIPController *)self pipProxy];
@@ -87,19 +87,20 @@
 
 - (BOOL)shouldPIPWhenEnteringBackground
 {
-  if ((+[PGPictureInPictureProxy isPictureInPictureSupported]& 1) == 0)
+  v3 = +[PGPictureInPictureProxy isPictureInPictureSupported];
+  if ((v3 & 1) == 0)
   {
-    v11 = sub_10000B2A0();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v21 = sub_10000B2A0(v3, v4);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       return 0;
     }
 
-    v32 = 138543362;
+    v60 = 138543362;
     selfCopy15 = self;
-    v12 = "%{public}@: isPictureInPictureSupported is false";
+    v22 = "%{public}@: isPictureInPictureSupported is false";
 LABEL_15:
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, v12, &v32, 0xCu);
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, v22, &v60, 0xCu);
     return 0;
   }
 
@@ -107,236 +108,251 @@ LABEL_15:
 
   if (!windowForTransitionAnimation)
   {
-    v11 = sub_10000B2A0();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v21 = sub_10000B2A0(v6, v7);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       return 0;
     }
 
-    v32 = 138543362;
+    v60 = 138543362;
     selfCopy15 = self;
-    v12 = "%{public}@: windowForTransitionAnimation is nil";
+    v22 = "%{public}@: windowForTransitionAnimation is nil";
     goto LABEL_15;
   }
 
-  v4 = +[TUCallCenter sharedInstance];
-  currentAudioAndVideoCallCount = [v4 currentAudioAndVideoCallCount];
+  v8 = +[TUCallCenter sharedInstance];
+  currentAudioAndVideoCallCount = [v8 currentAudioAndVideoCallCount];
 
   if (currentAudioAndVideoCallCount == 1)
   {
-    v6 = +[TUCallCenter sharedInstance];
-    currentAudioAndVideoCalls = [v6 currentAudioAndVideoCalls];
+    v12 = +[TUCallCenter sharedInstance];
+    currentAudioAndVideoCalls = [v12 currentAudioAndVideoCalls];
     firstObject = [currentAudioAndVideoCalls firstObject];
 
-    if (([firstObject isConnected] & 1) == 0 && objc_msgSend(firstObject, "status") != 3)
+    if (([firstObject isConnected] & 1) == 0)
     {
-      v14 = sub_10000B2A0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      status = [firstObject status];
+      if (status != 3)
       {
-        v32 = 138543362;
-        selfCopy15 = self;
-        v15 = "%{public}@: call is not connected or sending";
-        goto LABEL_27;
-      }
+        v30 = sub_10000B2A0(status, v16);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        {
+          v60 = 138543362;
+          selfCopy15 = self;
+          v31 = "%{public}@: call is not connected or sending";
+          goto LABEL_27;
+        }
 
 LABEL_28:
-      isVideo = 0;
+        isVideo2 = 0;
 LABEL_29:
 
-      return isVideo;
+        return isVideo2;
+      }
     }
 
-    if ([(PHPIPController *)self isUsedForScreenSharing])
+    isUsedForScreenSharing = [(PHPIPController *)self isUsedForScreenSharing];
+    if (isUsedForScreenSharing)
     {
-      v9 = sub_10000B2A0();
-      isVideo = 1;
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v19 = sub_10000B2A0(isUsedForScreenSharing, v18);
+      isVideo2 = 1;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v32 = 138543362;
+        v60 = 138543362;
         selfCopy15 = self;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%{public}@: pip isUsedForScreenSharing", &v32, 0xCu);
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%{public}@: pip isUsedForScreenSharing", &v60, 0xCu);
       }
 
       goto LABEL_29;
     }
 
-    if (([firstObject isVideo] & 1) == 0)
+    isVideo = [firstObject isVideo];
+    if ((isVideo & 1) == 0)
     {
-      v14 = sub_10000B2A0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v30 = sub_10000B2A0(isVideo, v25);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v32 = 138543362;
+        v60 = 138543362;
         selfCopy15 = self;
-        v15 = "%{public}@: call is not video";
+        v31 = "%{public}@: call is not video";
         goto LABEL_27;
       }
 
       goto LABEL_28;
     }
 
-    if (([firstObject isConversation] & 1) == 0)
+    isConversation = [firstObject isConversation];
+    if ((isConversation & 1) == 0)
     {
-      v16 = sub_10000B2A0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v32 = sub_10000B2A0(isConversation, v27);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
-        v17 = v16;
+        v33 = v32;
         [firstObject isVideo];
-        v18 = NSStringFromBOOL();
-        v32 = 138543618;
+        v34 = NSStringFromBOOL();
+        v60 = 138543618;
         selfCopy15 = self;
-        v34 = 2112;
-        v35 = v18;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%{public}@: call isVideo is %@", &v32, 0x16u);
+        v62 = 2112;
+        v63 = v34;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%{public}@: call isVideo is %@", &v60, 0x16u);
       }
 
-      isVideo = [firstObject isVideo];
+      isVideo2 = [firstObject isVideo];
       goto LABEL_29;
     }
 
-    if ([firstObject wantsHoldMusic])
+    wantsHoldMusic = [firstObject wantsHoldMusic];
+    if (wantsHoldMusic)
     {
-      v14 = sub_10000B2A0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v30 = sub_10000B2A0(wantsHoldMusic, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v32 = 138543362;
+        v60 = 138543362;
         selfCopy15 = self;
-        v15 = "%{public}@: call wantsHoldMusic";
+        v31 = "%{public}@: call wantsHoldMusic";
 LABEL_27:
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, v15, &v32, 0xCu);
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, v31, &v60, 0xCu);
         goto LABEL_28;
       }
 
       goto LABEL_28;
     }
 
-    v19 = +[TUCallCenter sharedInstance];
-    v20 = [v19 activeConversationForCall:firstObject];
+    v35 = +[TUCallCenter sharedInstance];
+    v36 = [v35 activeConversationForCall:firstObject];
 
-    if (!v20)
+    if (!v36)
     {
-      v23 = sub_10000B2A0();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v43 = sub_10000B2A0(v37, v38);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
-        v24 = v23;
+        v44 = v43;
         [firstObject isVideo];
-        v25 = NSStringFromBOOL();
-        v32 = 138543618;
+        v45 = NSStringFromBOOL();
+        v60 = 138543618;
         selfCopy15 = self;
-        v34 = 2112;
-        v35 = v25;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%{public}@: conversation is nil, call isVideo is %@", &v32, 0x16u);
+        v62 = 2112;
+        v63 = v45;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%{public}@: conversation is nil, call isVideo is %@", &v60, 0x16u);
       }
 
-      isVideo = [firstObject isVideo];
+      isVideo2 = [firstObject isVideo];
       goto LABEL_42;
     }
 
-    if ([v20 isContinuitySession])
+    isContinuitySession = [v36 isContinuitySession];
+    if (isContinuitySession)
     {
-      v21 = sub_10000B2A0();
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v41 = sub_10000B2A0(isContinuitySession, v40);
+      if (!os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
 LABEL_38:
-        isVideo = 0;
+        isVideo2 = 0;
 LABEL_42:
 
         goto LABEL_29;
       }
 
-      v32 = 138543362;
+      v60 = 138543362;
       selfCopy15 = self;
-      v22 = "%{public}@: conversation presentationMode is continuitySession";
+      v42 = "%{public}@: conversation presentationMode is continuitySession";
 LABEL_37:
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, v22, &v32, 0xCu);
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, v42, &v60, 0xCu);
       goto LABEL_38;
     }
 
-    if ([v20 state] != 2 && objc_msgSend(v20, "state") != 3)
+    if ([v36 state] != 2)
     {
-      v21 = sub_10000B2A0();
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      state = [v36 state];
+      if (state != 3)
       {
-        goto LABEL_38;
-      }
+        v41 = sub_10000B2A0(state, v47);
+        if (!os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+        {
+          goto LABEL_38;
+        }
 
-      v32 = 138543362;
-      selfCopy15 = self;
-      v22 = "%{public}@: conversation has not been joined";
-      goto LABEL_37;
+        v60 = 138543362;
+        selfCopy15 = self;
+        v42 = "%{public}@: conversation has not been joined";
+        goto LABEL_37;
+      }
     }
 
-    if ([v20 isOneToOneModeEnabled])
+    isOneToOneModeEnabled = [v36 isOneToOneModeEnabled];
+    if (isOneToOneModeEnabled)
     {
-      v26 = sub_10000B2A0();
-      isVideo = 1;
-      if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v50 = sub_10000B2A0(isOneToOneModeEnabled, v49);
+      isVideo2 = 1;
+      if (!os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
       {
         goto LABEL_42;
       }
 
-      v32 = 138543362;
+      v60 = 138543362;
       selfCopy15 = self;
-      v27 = "%{public}@: conversation isOneToOneModeEnabled";
-      v28 = v26;
+      v51 = "%{public}@: conversation isOneToOneModeEnabled";
+      v52 = v50;
     }
 
     else
     {
-      if (![(PHPIPController *)self hasParticipantVideoForActiveConversation])
+      hasParticipantVideoForActiveConversation = [(PHPIPController *)self hasParticipantVideoForActiveConversation];
+      if ((hasParticipantVideoForActiveConversation & 1) == 0)
       {
-        v21 = sub_10000B2A0();
-        if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v41 = sub_10000B2A0(hasParticipantVideoForActiveConversation, v54);
+        if (!os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
         {
           goto LABEL_38;
         }
 
-        v32 = 138543362;
+        v60 = 138543362;
         selfCopy15 = self;
-        v22 = "%{public}@: conversation hasParticipantVideoForActiveConversation is false";
+        v42 = "%{public}@: conversation hasParticipantVideoForActiveConversation is false";
         goto LABEL_37;
       }
 
-      remoteMembers = [v20 remoteMembers];
-      v30 = [remoteMembers count];
+      remoteMembers = [v36 remoteMembers];
+      v56 = [remoteMembers count];
 
-      v21 = sub_10000B2A0();
-      v31 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
-      if (!v30)
+      v41 = sub_10000B2A0(v57, v58);
+      v59 = os_log_type_enabled(v41, OS_LOG_TYPE_INFO);
+      if (!v56)
       {
-        if (!v31)
+        if (!v59)
         {
           goto LABEL_38;
         }
 
-        v32 = 138543362;
+        v60 = 138543362;
         selfCopy15 = self;
-        v22 = "%{public}@: conversation remoteMembers equals 0";
+        v42 = "%{public}@: conversation remoteMembers equals 0";
         goto LABEL_37;
       }
 
-      if (!v31)
+      if (!v59)
       {
-        isVideo = 1;
+        isVideo2 = 1;
         goto LABEL_42;
       }
 
-      v32 = 138543362;
+      v60 = 138543362;
       selfCopy15 = self;
-      v27 = "%{public}@: shouldPIPWhenEnteringBackground";
-      v28 = v21;
-      isVideo = 1;
+      v51 = "%{public}@: shouldPIPWhenEnteringBackground";
+      v52 = v41;
+      isVideo2 = 1;
     }
 
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, v27, &v32, 0xCu);
+    _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, v51, &v60, 0xCu);
     goto LABEL_42;
   }
 
-  v11 = sub_10000B2A0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v21 = sub_10000B2A0(v10, v11);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v32 = 138543362;
+    v60 = 138543362;
     selfCopy15 = self;
-    v12 = "%{public}@: currentAudioAndVideoCallCount is not 1";
+    v22 = "%{public}@: currentAudioAndVideoCallCount is not 1";
     goto LABEL_15;
   }
 
@@ -410,7 +426,7 @@ LABEL_37:
 
 - (void)updatePIPProxyLayerCloning
 {
-  v3 = sub_10000B2A0();
+  v3 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
@@ -575,14 +591,14 @@ LABEL_37:
 
   if (WeakRetained != animationCopy)
   {
-    v6 = sub_10000B2A0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000B2A0(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543618;
+      v9 = 138543618;
       selfCopy = self;
-      v9 = 2112;
-      v10 = animationCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating PIP with window %@", &v7, 0x16u);
+      v11 = 2112;
+      v12 = animationCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating PIP with window %@", &v9, 0x16u);
     }
 
     objc_storeWeak(&self->_windowForTransitionAnimation, animationCopy);
@@ -626,34 +642,35 @@ LABEL_37:
 - (void)rotatePIPDeviceOrientationTo:(int64_t)to withCompletion:(id)completion
 {
   completionCopy = completion;
-  if ([(PHPIPController *)self pipDeviceOrientation]!= to)
+  pipDeviceOrientation = [(PHPIPController *)self pipDeviceOrientation];
+  if (pipDeviceOrientation != to)
   {
-    v7 = sub_10000B2A0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_10000B2A0(pipDeviceOrientation, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy = self;
-      v18 = 2048;
+      v20 = 2048;
       toCopy = to;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Rotating pip to device orientation %ld", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Rotating pip to device orientation %ld", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100051820;
+    v15[3] = &unk_100356E48;
+    objc_copyWeak(&v17, buf);
+    v15[4] = self;
+    v16 = completionCopy;
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
-    v13[2] = sub_100051820;
-    v13[3] = &unk_100356E48;
-    objc_copyWeak(&v15, buf);
+    v13[2] = sub_100051958;
+    v13[3] = &unk_100356E70;
     v13[4] = self;
-    v14 = completionCopy;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100051958;
-    v11[3] = &unk_100356E70;
-    v11[4] = self;
-    v8 = objc_retainBlock(v13);
-    v12 = v8;
-    v9 = objc_retainBlock(v11);
+    v10 = objc_retainBlock(v15);
+    v14 = v10;
+    v11 = objc_retainBlock(v13);
     if (to > 2)
     {
       if (to == 3)
@@ -685,9 +702,9 @@ LABEL_37:
         {
           if ([(PHPIPController *)self pipDeviceOrientation]== 3)
           {
-            v10 = 3;
+            v12 = 3;
 LABEL_29:
-            (v9[2])(v9, v10);
+            (v11[2])(v11, v12);
             goto LABEL_30;
           }
 
@@ -720,19 +737,19 @@ LABEL_29:
             }
 
 LABEL_28:
-            v10 = 1;
+            v12 = 1;
             goto LABEL_29;
           }
 
 LABEL_26:
-          v10 = 2;
+          v12 = 2;
           goto LABEL_29;
         }
 
 LABEL_30:
         [(PHPIPController *)self setPipDeviceOrientation:to];
 
-        objc_destroyWeak(&v15);
+        objc_destroyWeak(&v17);
         objc_destroyWeak(buf);
         goto LABEL_31;
       }
@@ -754,7 +771,7 @@ LABEL_30:
     }
 
 LABEL_19:
-    v10 = 0;
+    v12 = 0;
     goto LABEL_29;
   }
 
@@ -796,22 +813,22 @@ LABEL_31:
 
     if (supportsScreenSharing)
     {
-      v10 = sub_10000B2A0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_10000B2A0(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v15 = 138543874;
-        *&v15[4] = self;
-        v16 = 1024;
-        v17 = titleCopy != 0;
-        v18 = 1024;
-        v19 = neededCopy != 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating screen sharing title and avatar on PiP Proxy; hasTitle: %i; hasImage: %i", v15, 0x18u);
+        *v19 = 138543874;
+        *&v19[4] = self;
+        v20 = 1024;
+        v21 = titleCopy != 0;
+        v22 = 1024;
+        v23 = neededCopy != 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating screen sharing title and avatar on PiP Proxy; hasTitle: %i; hasImage: %i", v19, 0x18u);
       }
 
       pipProxy = [(PHPIPController *)self pipProxy];
-      v12 = objc_opt_respondsToSelector();
+      v14 = objc_opt_respondsToSelector();
 
-      if (v12)
+      if (v14)
       {
         pipProxy2 = [(PHPIPController *)self pipProxy];
         [pipProxy2 setScreenSharingTitle:titleCopy avatar:neededCopy];
@@ -819,10 +836,10 @@ LABEL_31:
 
       else
       {
-        v14 = sub_10000B2A0();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v18 = sub_10000B2A0(v15, v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          sub_100254300(self, v14);
+          sub_100254300(self, v18);
         }
       }
     }
@@ -862,17 +879,17 @@ LABEL_31:
 - (void)stopPIPAndStealViewController:(id)controller
 {
   controllerCopy = controller;
-  v5 = sub_10000B2A0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000B2A0(controllerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     restoreUserInterfaceForPictureInPictureStopCompletionBlock = [(PHPIPController *)self restoreUserInterfaceForPictureInPictureStopCompletionBlock];
-    v8 = objc_retainBlock(restoreUserInterfaceForPictureInPictureStopCompletionBlock);
+    v9 = objc_retainBlock(restoreUserInterfaceForPictureInPictureStopCompletionBlock);
     *buf = 138543618;
     selfCopy2 = self;
-    v20 = 2112;
-    v21 = v8;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: stopPIPAndStealViewController (we have this restore UI block %@)", buf, 0x16u);
+    v23 = 2112;
+    v24 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: stopPIPAndStealViewController (we have this restore UI block %@)", buf, 0x16u);
   }
 
   pipProxy = [(PHPIPController *)self pipProxy];
@@ -880,9 +897,9 @@ LABEL_31:
   if (pipProxy)
   {
     objc_initWeak(&location, self);
-    objc_copyWeak(&v16, &location);
-    v10 = [(PHPIPController *)self wrapperViewController:_NSConcreteStackBlock];
-    [v10 setWillAnimatePictureInPictureStopCompletionBlock:&v15];
+    objc_copyWeak(&v19, &location);
+    v11 = [(PHPIPController *)self wrapperViewController:_NSConcreteStackBlock];
+    [v11 setWillAnimatePictureInPictureStopCompletionBlock:&v18];
 
     wrapperViewController = [(PHPIPController *)self wrapperViewController];
     [wrapperViewController setDidAnimatePictureInPictureStopCompletionBlock:controllerCopy];
@@ -891,12 +908,12 @@ LABEL_31:
 
     if (restoreUserInterfaceForPictureInPictureStopCompletionBlock2)
     {
-      v13 = sub_10000B2A0();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_10000B2A0(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         selfCopy2 = self;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: ... stopPIPAndStealViewController running the restore UI block", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: ... stopPIPAndStealViewController running the restore UI block", buf, 0xCu);
       }
 
       restoreUserInterfaceForPictureInPictureStopCompletionBlock3 = [(PHPIPController *)self restoreUserInterfaceForPictureInPictureStopCompletionBlock];
@@ -905,7 +922,7 @@ LABEL_31:
       [(PHPIPController *)self setRestoreUserInterfaceForPictureInPictureStopCompletionBlock:0];
     }
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 }
@@ -915,12 +932,12 @@ LABEL_31:
   completionCopy = completion;
   if ([(PHPIPController *)self pipState]== 2)
   {
-    v5 = sub_10000B2A0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000B2A0(2, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Manually calling stop picture in picture", &v7, 0xCu);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Manually calling stop picture in picture", &v8, 0xCu);
     }
 
     [(PHPIPController *)self setPreparedToAnimateToFullScreenCompletionBlock:completionCopy];
@@ -931,48 +948,49 @@ LABEL_31:
 
 - (void)cancelPIPIfNeeded
 {
-  if (![(PHPIPController *)self isPippedOrStartingPIP])
+  isPippedOrStartingPIP = [(PHPIPController *)self isPippedOrStartingPIP];
+  if ((isPippedOrStartingPIP & 1) == 0)
   {
-    v7 = sub_10000B2A0();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v11 = sub_10000B2A0(isPippedOrStartingPIP, v4);
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       return;
     }
 
-    v11 = 138543362;
+    v15 = 138543362;
     selfCopy3 = self;
-    v8 = "%{public}@: No need to cancel PiP since it's not starting or active";
-    v9 = v7;
-    v10 = OS_LOG_TYPE_INFO;
+    v12 = "%{public}@: No need to cancel PiP since it's not starting or active";
+    v13 = v11;
+    v14 = OS_LOG_TYPE_INFO;
 LABEL_10:
-    _os_log_impl(&_mh_execute_header, v9, v10, v8, &v11, 0xCu);
+    _os_log_impl(&_mh_execute_header, v13, v14, v12, &v15, 0xCu);
     return;
   }
 
   pipProxy = [(PHPIPController *)self pipProxy];
 
-  v4 = sub_10000B2A0();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v8 = sub_10000B2A0(v6, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (!pipProxy)
   {
-    if (!v5)
+    if (!v9)
     {
       return;
     }
 
-    v11 = 138543362;
+    v15 = 138543362;
     selfCopy3 = self;
-    v8 = "%{public}@: Not cancelling PiP because pipProxy is nil";
-    v9 = v4;
-    v10 = OS_LOG_TYPE_DEFAULT;
+    v12 = "%{public}@: Not cancelling PiP because pipProxy is nil";
+    v13 = v8;
+    v14 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_10;
   }
 
-  if (v5)
+  if (v9)
   {
-    v11 = 138543362;
+    v15 = 138543362;
     selfCopy3 = self;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: cancelPIP", &v11, 0xCu);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: cancelPIP", &v15, 0xCu);
   }
 
   pipProxy2 = [(PHPIPController *)self pipProxy];
@@ -1028,7 +1046,7 @@ LABEL_10:
   if (self->_pipState != state)
   {
     self->_pipState = state;
-    v5 = sub_10000B2A0();
+    v5 = sub_10000B2A0(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = v5;
@@ -1115,7 +1133,7 @@ LABEL_10:
 
 - (id)pictureInPictureProxyViewControllerWindowForTransitionAnimation:(id)animation
 {
-  v4 = sub_10000B2A0();
+  v4 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
@@ -1134,7 +1152,7 @@ LABEL_10:
 
 - (void)pictureInPictureProxy:(id)proxy willStartPictureInPictureWithAnimationType:(int64_t)type
 {
-  v6 = sub_10000B2A0();
+  v6 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138543618;
@@ -1168,22 +1186,23 @@ LABEL_10:
 
 - (void)pictureInPictureProxy:(id)proxy didStartPictureInPictureWithAnimationType:(int64_t)type
 {
-  v6 = sub_10000B2A0();
+  v6 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
+    v14 = 138543618;
     selfCopy = self;
-    v14 = 2048;
+    v16 = 2048;
     typeCopy = type;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didStart animationType: %ld", &v12, 0x16u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didStart animationType: %ld", &v14, 0x16u);
   }
 
-  if (![(PHPIPController *)self shouldPIPWhenEnteringBackground])
+  shouldPIPWhenEnteringBackground = [(PHPIPController *)self shouldPIPWhenEnteringBackground];
+  if ((shouldPIPWhenEnteringBackground & 1) == 0)
   {
-    v7 = sub_10000B2A0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = sub_10000B2A0(shouldPIPWhenEnteringBackground, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      sub_100254378(v7);
+      sub_100254378(v9);
     }
 
     pipProxy = [(PHPIPController *)self pipProxy];
@@ -1195,15 +1214,15 @@ LABEL_10:
 
   if (type)
   {
-    v9 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v9 = 2;
+    v11 = 2;
   }
 
-  [(PHPIPController *)self setCurrentPIPAnimationStyle:v9];
+  [(PHPIPController *)self setCurrentPIPAnimationStyle:v11];
   [(PHPIPController *)self setPipState:2];
   startCompletionBlock = [(PHPIPController *)self startCompletionBlock];
 
@@ -1220,16 +1239,16 @@ LABEL_10:
 {
   errorCopy = error;
   proxyCopy = proxy;
-  v10 = sub_10000B2A0();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_10000B2A0(proxyCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543874;
+    v12 = 138543874;
     selfCopy = self;
-    v13 = 2048;
+    v14 = 2048;
     typeCopy = type;
-    v15 = 2112;
-    v16 = errorCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: failedToStart animationType: %ld error: %@", &v11, 0x20u);
+    v16 = 2112;
+    v17 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: failedToStart animationType: %ld error: %@", &v12, 0x20u);
   }
 
   [(PHPIPController *)self setCurrentPIPAnimationStyle:0];
@@ -1244,7 +1263,7 @@ LABEL_10:
 
 - (void)pictureInPictureProxy:(id)proxy willStopPictureInPictureWithAnimationType:(int64_t)type reason:(int64_t)reason
 {
-  v8 = sub_10000B2A0();
+  v8 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138543874;
@@ -1276,7 +1295,7 @@ LABEL_10:
 
 - (void)pictureInPictureProxy:(id)proxy didStopPictureInPictureWithAnimationType:(int64_t)type reason:(int64_t)reason
 {
-  v8 = sub_10000B2A0();
+  v8 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138543874;
@@ -1315,12 +1334,12 @@ LABEL_10:
 
 - (void)pictureInPictureProxyPictureInPictureInterruptionBegan:(id)began
 {
-  v4 = sub_10000B2A0();
+  v4 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138543362;
+    v23 = 138543362;
     selfCopy2 = self;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP interruption began", &v21, 0xCu);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP interruption began", &v23, 0xCu);
   }
 
   v5 = +[NSNotificationCenter defaultCenter];
@@ -1332,33 +1351,33 @@ LABEL_10:
     currentVideoCall = [v6 currentVideoCall];
     -[PHPIPController setVideoWasPausedForInterruption:](self, "setVideoWasPausedForInterruption:", [currentVideoCall isSendingVideo]);
 
-    v8 = sub_10000B2A0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10000B2A0(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = v8;
+      v11 = v10;
       videoWasPausedForInterruption = [(PHPIPController *)self videoWasPausedForInterruption];
-      v21 = 138543618;
+      v23 = 138543618;
       selfCopy2 = self;
-      v23 = 1024;
-      v24 = videoWasPausedForInterruption;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Storing videoWasPausedForInterruption as %d before stopping sending video", &v21, 0x12u);
+      v25 = 1024;
+      v26 = videoWasPausedForInterruption;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Storing videoWasPausedForInterruption as %d before stopping sending video", &v23, 0x12u);
     }
 
-    v11 = +[TUCallCenter sharedInstance];
-    currentVideoCall2 = [v11 currentVideoCall];
-
     v13 = +[TUCallCenter sharedInstance];
-    v14 = [v13 activeConversationForCall:currentVideoCall2];
+    currentVideoCall2 = [v13 currentVideoCall];
 
-    if ([currentVideoCall2 isConversation] && (objc_msgSend(v14, "isOneToOneModeEnabled") & 1) == 0)
+    v15 = +[TUCallCenter sharedInstance];
+    v16 = [v15 activeConversationForCall:currentVideoCall2];
+
+    if ([currentVideoCall2 isConversation] && (objc_msgSend(v16, "isOneToOneModeEnabled") & 1) == 0)
     {
       if ([(PHPIPController *)self videoWasPausedForInterruption])
       {
         [currentVideoCall2 setRemoteVideoPresentationState:2];
       }
 
-      v15 = +[TUCallCenter sharedInstance];
-      videoDeviceController = [v15 videoDeviceController];
+      v17 = +[TUCallCenter sharedInstance];
+      videoDeviceController = [v17 videoDeviceController];
       [videoDeviceController stopPreview];
     }
 
@@ -1369,19 +1388,19 @@ LABEL_10:
         [currentVideoCall2 setIsSendingVideo:0];
       }
 
-      v15 = +[TUCallCenter sharedInstance];
-      videoDeviceController = [v15 videoDeviceController];
+      v17 = +[TUCallCenter sharedInstance];
+      videoDeviceController = [v17 videoDeviceController];
       [videoDeviceController pausePreview];
     }
 
     if ([(PHPIPController *)self videoWasPausedForInterruption])
     {
-      v17 = +[NSNotificationCenter defaultCenter];
-      [v17 postNotificationName:@"PHPIPControllerDidHandleVideoMuteControlAction" object:self];
+      v19 = +[NSNotificationCenter defaultCenter];
+      [v19 postNotificationName:@"PHPIPControllerDidHandleVideoMuteControlAction" object:self];
     }
 
-    v18 = +[TUCallCenter sharedInstance];
-    currentVideoCall3 = [v18 currentVideoCall];
+    v20 = +[TUCallCenter sharedInstance];
+    currentVideoCall3 = [v20 currentVideoCall];
     uniqueProxyIdentifier = [currentVideoCall3 uniqueProxyIdentifier];
     [(PHPIPController *)self setPipInterruptedCallIdentifier:uniqueProxyIdentifier];
   }
@@ -1389,36 +1408,37 @@ LABEL_10:
 
 - (void)pictureInPictureProxyPictureInPictureInterruptionEnded:(id)ended
 {
-  v4 = sub_10000B2A0();
+  v4 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138543362;
+    v23 = 138543362;
     selfCopy3 = self;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP interruption ended", &v19, 0xCu);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP interruption ended", &v23, 0xCu);
   }
 
   v5 = +[NSNotificationCenter defaultCenter];
   [v5 postNotificationName:@"PHPIPControllerInterruptionChangeNotification" object:self];
 
-  if ([(PHPIPController *)self isPipped])
+  isPipped = [(PHPIPController *)self isPipped];
+  if (isPipped)
   {
     if (![(PHPIPController *)self isUsedForScreenSharing])
     {
       if ([(PHPIPController *)self videoWasPausedForInterruption])
       {
-        v6 = +[TUCallCenter sharedInstance];
-        frontmostAudioOrVideoCall = [v6 frontmostAudioOrVideoCall];
+        v8 = +[TUCallCenter sharedInstance];
+        frontmostAudioOrVideoCall = [v8 frontmostAudioOrVideoCall];
         isVideo = [frontmostAudioOrVideoCall isVideo];
 
         if (isVideo)
         {
-          v9 = +[TUCallCenter sharedInstance];
-          currentVideoCall = [v9 currentVideoCall];
-
           v11 = +[TUCallCenter sharedInstance];
-          v12 = [v11 activeConversationForCall:currentVideoCall];
+          currentVideoCall = [v11 currentVideoCall];
 
-          if ([currentVideoCall isConversation] && (objc_msgSend(v12, "isOneToOneModeEnabled") & 1) == 0)
+          v13 = +[TUCallCenter sharedInstance];
+          v14 = [v13 activeConversationForCall:currentVideoCall];
+
+          if ([currentVideoCall isConversation] && (objc_msgSend(v14, "isOneToOneModeEnabled") & 1) == 0)
           {
             [currentVideoCall setRemoteVideoPresentationState:1];
           }
@@ -1428,27 +1448,28 @@ LABEL_10:
             [currentVideoCall setIsSendingVideo:1];
           }
 
-          v14 = +[TUCallCenter sharedInstance];
-          videoDeviceController = [v14 videoDeviceController];
+          v16 = +[TUCallCenter sharedInstance];
+          videoDeviceController = [v16 videoDeviceController];
           [videoDeviceController startPreview];
         }
 
         [(PHPIPController *)self setVideoWasPausedForInterruption:0];
-        v16 = +[NSNotificationCenter defaultCenter];
-        [v16 postNotificationName:@"PHPIPControllerDidHandleVideoMuteControlAction" object:self];
+        v18 = +[NSNotificationCenter defaultCenter];
+        [v18 postNotificationName:@"PHPIPControllerDidHandleVideoMuteControlAction" object:self];
 
-        if ([(PHPIPController *)self expectingSystemInitiatedPIPInterruptionStop])
+        expectingSystemInitiatedPIPInterruptionStop = [(PHPIPController *)self expectingSystemInitiatedPIPInterruptionStop];
+        if (expectingSystemInitiatedPIPInterruptionStop)
         {
-          v17 = sub_10000B2A0();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v21 = sub_10000B2A0(expectingSystemInitiatedPIPInterruptionStop, v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 138543362;
+            v23 = 138543362;
             selfCopy3 = self;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP interruption was ended by system, posting notification...", &v19, 0xCu);
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP interruption was ended by system, posting notification...", &v23, 0xCu);
           }
 
-          v18 = +[NSNotificationCenter defaultCenter];
-          [v18 postNotificationName:@"PHPIPControllerSystemInitiatedPIPInterruptionStoppedNotification" object:self];
+          v22 = +[NSNotificationCenter defaultCenter];
+          [v22 postNotificationName:@"PHPIPControllerSystemInitiatedPIPInterruptionStoppedNotification" object:self];
         }
       }
 
@@ -1459,12 +1480,12 @@ LABEL_10:
 
   else
   {
-    v13 = sub_10000B2A0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_10000B2A0(isPipped, v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
+      v23 = 138412290;
       selfCopy3 = self;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@: Not handling PIP interruption ended because we are not PIPped", &v19, 0xCu);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@: Not handling PIP interruption ended because we are not PIPped", &v23, 0xCu);
     }
   }
 }
@@ -1477,7 +1498,7 @@ LABEL_10:
 
 - (void)pictureInPictureProxyWillSetupPictureInPictureStop:(id)stop
 {
-  v4 = sub_10000B2A0();
+  v4 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
@@ -1528,8 +1549,8 @@ LABEL_10:
 
     else
     {
-      v6 = +[TUCallCenter sharedInstance];
-      incomingVideoCall = [v6 incomingVideoCall];
+      v8 = +[TUCallCenter sharedInstance];
+      incomingVideoCall = [v8 incomingVideoCall];
 
       if (!incomingVideoCall)
       {
@@ -1537,12 +1558,12 @@ LABEL_10:
       }
     }
 
-    v8 = sub_10000B2A0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10000B2A0(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
+      v16 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Call center call status changed to an incoming call, manually animating out of the PIP to show call waiting", &v12, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Call center call status changed to an incoming call, manually animating out of the PIP to show call waiting", &v16, 0xCu);
     }
 
     [(PHPIPController *)self manuallyStopPIPWithCompletion:0];
@@ -1551,23 +1572,23 @@ LABEL_10:
 LABEL_9:
   if ([(PHPIPController *)self pipState]== 2)
   {
-    v9 = +[TUCallCenter sharedInstance];
-    if ([v9 hasCurrentCalls])
+    v11 = +[TUCallCenter sharedInstance];
+    if ([v11 hasCurrentCalls])
     {
     }
 
     else
     {
-      v10 = +[PHSOSViewController isSOSDismissalAssertionActive];
+      v12 = +[PHSOSViewController isSOSDismissalAssertionActive];
 
-      if (v10)
+      if (v12)
       {
-        v11 = sub_10000B2A0();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v15 = sub_10000B2A0(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138543362;
+          v16 = 138543362;
           selfCopy2 = self;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Call center status changed to no current calls, but InCallRootViewController still wants to show SOS. Manually animating out of PIP", &v12, 0xCu);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Call center status changed to no current calls, but InCallRootViewController still wants to show SOS. Manually animating out of PIP", &v16, 0xCu);
         }
 
         [(PHPIPController *)self manuallyStopPIPWithCompletion:0];
@@ -1604,21 +1625,25 @@ LABEL_17:
       v11 = +[TUCallCenter sharedInstance];
       featureFlags = [v11 activeConversationForCall:currentVideoCall];
 
-      if (featureFlags && [conversationCopy isEqualToConversation:featureFlags])
+      if (featureFlags)
       {
-        v12 = sub_10000B2A0();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v12 = [conversationCopy isEqualToConversation:featureFlags];
+        if (v12)
         {
-          v13 = v12;
-          groupUUID = [conversationCopy groupUUID];
-          v28 = 138543618;
-          selfCopy2 = self;
-          v30 = 2112;
-          v31 = groupUUID;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring conversation update for groupUUID %@.", &v28, 0x16u);
-        }
+          v14 = sub_10000B2A0(v12, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            v15 = v14;
+            groupUUID = [conversationCopy groupUUID];
+            v32 = 138543618;
+            selfCopy2 = self;
+            v34 = 2112;
+            v35 = groupUUID;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring conversation update for groupUUID %@.", &v32, 0x16u);
+          }
 
-        goto LABEL_17;
+          goto LABEL_17;
+        }
       }
     }
 
@@ -1629,21 +1654,21 @@ LABEL_17:
 
     activitySessions = [conversationCopy activitySessions];
     allObjects = [activitySessions allObjects];
-    v17 = [allObjects tu_firstObjectPassingTest:&stru_100356ED8];
+    v19 = [allObjects tu_firstObjectPassingTest:&stru_100356ED8];
 
-    activity = [v17 activity];
+    activity = [v19 activity];
     activityIdentifier = [activity activityIdentifier];
-    v20 = [activityIdentifier isEqualToString:TUGroupActivityIdentifierScreenSharing];
+    v22 = [activityIdentifier isEqualToString:TUGroupActivityIdentifierScreenSharing];
 
-    if ((v20 & 1) != 0 || ([v17 activity], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "bundleIdentifier"), bundleIdentifier = objc_claimAutoreleasedReturnValue(), v21, !bundleIdentifier))
+    if ((v22 & 1) != 0 || ([v19 activity], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "bundleIdentifier"), bundleIdentifier = objc_claimAutoreleasedReturnValue(), v23, !bundleIdentifier))
     {
       activeRemoteParticipants = [conversationCopy activeRemoteParticipants];
-      v24 = [activeRemoteParticipants tu_containsObjectPassingTest:&stru_100356F18];
+      v28 = [activeRemoteParticipants tu_containsObjectPassingTest:&stru_100356F18];
 
-      if (v24)
+      if (v28)
       {
-        v25 = [NSBundle bundleForClass:objc_opt_class()];
-        bundleIdentifier = [v25 bundleIdentifier];
+        v29 = [NSBundle bundleForClass:objc_opt_class()];
+        bundleIdentifier = [v29 bundleIdentifier];
       }
 
       else
@@ -1652,14 +1677,14 @@ LABEL_17:
       }
     }
 
-    v26 = sub_10000B2A0();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_10000B2A0(v25, v26);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138543618;
+      v32 = 138543618;
       selfCopy2 = self;
-      v30 = 2114;
-      v31 = bundleIdentifier;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting PiP to SharePlay session ID: %{public}@", &v28, 0x16u);
+      v34 = 2114;
+      v35 = bundleIdentifier;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting PiP to SharePlay session ID: %{public}@", &v32, 0x16u);
     }
 
     pipProxy = [(PHPIPController *)self pipProxy];
@@ -1679,14 +1704,14 @@ LABEL_18:
 
   if (supportsScreenSharing)
   {
-    v7 = sub_10000B2A0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_10000B2A0(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543618;
+      v11 = 138543618;
       selfCopy = self;
-      v11 = 2114;
-      v12 = authorizationCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting PiP client session identifier for background PiP authorization to session ID: %{public}@", &v9, 0x16u);
+      v13 = 2114;
+      v14 = authorizationCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting PiP client session identifier for background PiP authorization to session ID: %{public}@", &v11, 0x16u);
     }
 
     pipProxy = [(PHPIPController *)self pipProxy];
@@ -1728,7 +1753,7 @@ LABEL_18:
 
 - (void)sceneDidUpdate
 {
-  v3 = sub_10000B2A0();
+  v3 = sub_10000B2A0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -1742,14 +1767,15 @@ LABEL_18:
 
 - (void)pictureInPictureProxy:(id)proxy didRequestFaceTimeAction:(int64_t)action
 {
-  v6 = sub_10000B2A0();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000B2A0(self, a2);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
-    v8 = 138543618;
+    v10 = 138543618;
     selfCopy = self;
-    v10 = 2048;
+    v12 = 2048;
     actionCopy = action;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP proxy requested FaceTime action %ld", &v8, 0x16u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: PIP proxy requested FaceTime action %ld", &v10, 0x16u);
   }
 
   if (action > 3)
@@ -1784,10 +1810,10 @@ LABEL_18:
     }
   }
 
-  v7 = sub_10000B2A0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v9 = sub_10000B2A0(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_1002543BC(self, action, v7);
+    sub_1002543BC(self, action, v9);
   }
 }
 
@@ -1870,20 +1896,20 @@ LABEL_18:
 
     if (v16)
     {
-      v17 = sub_10000B2A0();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_10000B2A0(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = v17;
+        v20 = v19;
         pipProxy2 = [(PHPIPController *)self pipProxy];
-        v21 = 138543618;
+        v23 = 138543618;
         selfCopy = self;
-        v23 = 1024;
+        v25 = 1024;
         isPictureInPictureActive = [pipProxy2 isPictureInPictureActive];
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: PGPictureInPictureProxy isPictureInPictureActive changed to %d, firing state change notification", &v21, 0x12u);
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: PGPictureInPictureProxy isPictureInPictureActive changed to %d, firing state change notification", &v23, 0x12u);
       }
 
-      v20 = +[NSNotificationCenter defaultCenter];
-      [v20 postNotificationName:@"PHPIPControllerPIPProxyActiveDidChangeNotification" object:self userInfo:0];
+      v22 = +[NSNotificationCenter defaultCenter];
+      [v22 postNotificationName:@"PHPIPControllerPIPProxyActiveDidChangeNotification" object:self userInfo:0];
     }
 
 LABEL_12:
@@ -1929,31 +1955,31 @@ LABEL_13:
   featureFlags = [(PHPIPController *)self featureFlags];
   screenSharingRemoteControlEnabled = [featureFlags screenSharingRemoteControlEnabled];
 
-  v8 = sub_10000B2A0();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_10000B2A0(v8, v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (screenSharingRemoteControlEnabled)
   {
-    if (v9)
+    if (v11)
     {
-      v10 = @"NO";
+      v12 = @"NO";
       if (statusCopy)
       {
-        v10 = @"YES";
+        v12 = @"YES";
       }
 
-      v11 = 138412290;
-      v12 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating state for remote control, remote control state is %@", &v11, 0xCu);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Updating state for remote control, remote control state is %@", &v13, 0xCu);
     }
 
     [(PHPIPController *)self setIsBeingRemoteControlled:statusCopy];
     [(PHPIPController *)self updatePIPProxyLayerCloning];
   }
 
-  else if (v9)
+  else if (v11)
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not updating state PiP state for remote control, screen sharing remote control feature flag is disabled", &v11, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not updating state PiP state for remote control, screen sharing remote control feature flag is disabled", &v13, 2u);
   }
 }
 

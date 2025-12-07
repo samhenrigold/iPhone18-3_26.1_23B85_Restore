@@ -113,11 +113,11 @@
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"targetDirection" applyBlock:v8];
 }
 
-void __44__SCNDistanceConstraint_setTargetDirection___block_invoke(uint64_t a1, __n128 a2)
+void __44__SCNDistanceConstraint_setTargetDirection___block_invoke(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  a2.n128_u64[0] = *(a1 + 40);
-  a2.n128_u32[2] = *(a1 + 48);
-  C3DConstraintDistanceSetTargetDirection(*(*(a1 + 32) + 8), a2);
+  a3.n128_u64[0] = *(a1 + 40);
+  a3.n128_u32[2] = *(a1 + 48);
+  C3DConstraintDistanceSetTargetDirection(*(*(a1 + 32) + 8), a2, a3);
 }
 
 - (void)setKeepTargetDirection:(BOOL)direction
@@ -147,10 +147,10 @@ void __44__SCNDistanceConstraint_setTargetDirection___block_invoke(uint64_t a1, 
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"minimumDistance" applyBlock:v7];
 }
 
-float __44__SCNDistanceConstraint_setMinimumDistance___block_invoke(uint64_t a1)
+float __44__SCNDistanceConstraint_setMinimumDistance___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DConstraintDistanceSetMinimumDistance(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DConstraintDistanceSetMinimumDistance(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -168,10 +168,10 @@ float __44__SCNDistanceConstraint_setMinimumDistance___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"maximumDistance" applyBlock:v7];
 }
 
-float __44__SCNDistanceConstraint_setMaximumDistance___block_invoke(uint64_t a1)
+float __44__SCNDistanceConstraint_setMaximumDistance___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DConstraintDistanceSetMaximumDistance(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DConstraintDistanceSetMaximumDistance(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 

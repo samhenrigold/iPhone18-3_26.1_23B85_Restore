@@ -9,6 +9,7 @@
 - (void)_axUpdateSelectionAXElementsForGraphView;
 - (void)graphView:(id)view didUpdateSelectedPoint:(id)point;
 - (void)graphViewDidEndSelection:(id)selection;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation HKSingleAudiogramChartViewControllerAccessibility
@@ -51,6 +52,15 @@
   v3.receiver = self;
   v3.super_class = HKSingleAudiogramChartViewControllerAccessibility;
   [(HKSingleAudiogramChartViewControllerAccessibility *)&v3 _accessibilityLoadAccessibilityInformation];
+  [(HKSingleAudiogramChartViewControllerAccessibility *)self _axSetupGraphViewDescription];
+  [(HKSingleAudiogramChartViewControllerAccessibility *)self _axUpdateAXElementsForGraphView];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HKSingleAudiogramChartViewControllerAccessibility;
+  [(HKSingleAudiogramChartViewControllerAccessibility *)&v4 viewDidAppear:appear];
   [(HKSingleAudiogramChartViewControllerAccessibility *)self _axSetupGraphViewDescription];
   [(HKSingleAudiogramChartViewControllerAccessibility *)self _axUpdateAXElementsForGraphView];
 }
@@ -108,22 +118,22 @@
   }
 }
 
-id __81__HKSingleAudiogramChartViewControllerAccessibility__axSetupGraphViewDescription__block_invoke(uint64_t a1)
+id __81__HKSingleAudiogramChartViewControllerAccessibility__axSetupGraphViewDescription__block_invoke(uint64_t a1, double a2)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = __Block_byref_object_copy_;
-  v10 = __Block_byref_object_dispose_;
-  v11 = 0;
-  v4 = MEMORY[0x29EDCA5F8];
-  v5 = *(a1 + 32);
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x3032000000;
+  v10 = __Block_byref_object_copy_;
+  v11 = __Block_byref_object_dispose_;
+  v12 = 0;
+  v5 = MEMORY[0x29EDCA5F8];
+  v6 = *(a1 + 32);
   AXPerformSafeBlock();
-  v2 = [MEMORY[0x29EDBA0F8] stringWithFormat:*(a1 + 40), v7[5], v4, 3221225472, __81__HKSingleAudiogramChartViewControllerAccessibility__axSetupGraphViewDescription__block_invoke_434, &unk_29F2C4390];
+  v3 = [MEMORY[0x29EDBA0F8] stringWithFormat:*(a1 + 40), v8[5], v5, 3221225472, __81__HKSingleAudiogramChartViewControllerAccessibility__axSetupGraphViewDescription__block_invoke_434, &unk_29F2C4390];
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
 
-  return v2;
+  return v3;
 }
 
 void __81__HKSingleAudiogramChartViewControllerAccessibility__axSetupGraphViewDescription__block_invoke_434(uint64_t a1)
@@ -141,72 +151,72 @@ void __81__HKSingleAudiogramChartViewControllerAccessibility__axSetupGraphViewDe
 
 - (void)_axUpdateAXElementsForGraphView
 {
-  v113 = *MEMORY[0x29EDCA608];
+  v106 = *MEMORY[0x29EDCA608];
   v2 = [(HKSingleAudiogramChartViewControllerAccessibility *)self safeValueForKey:@"scalarGraphViewController"];
-  v65 = [v2 safeUIViewForKey:@"graphView"];
+  v64 = [v2 safeUIViewForKey:@"graphView"];
 
-  if (v65)
+  if (v64)
   {
     _axHearingSensitivityFormatter = [(HKSingleAudiogramChartViewControllerAccessibility *)self _axHearingSensitivityFormatter];
-    v3 = [(HKSingleAudiogramChartViewControllerAccessibility *)self _axCollectSeriesDataForGraphView:v65];
-    v62 = [(HKSingleAudiogramChartViewControllerAccessibility *)self _axSelectedXCoordinateForGraphView:v65];
-    [v62 floatValue];
+    v3 = [(HKSingleAudiogramChartViewControllerAccessibility *)self _axCollectSeriesDataForGraphView:v64];
+    v61 = [(HKSingleAudiogramChartViewControllerAccessibility *)self _axSelectedXCoordinateForGraphView:v64];
+    [v61 floatValue];
     v5 = v4;
+    v59 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
     v60 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-    v61 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-    v69 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
     v68 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-    v105 = 0u;
-    v106 = 0u;
-    v107 = 0u;
-    v108 = 0u;
+    v67 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+    v98 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    v101 = 0u;
     obj = v3;
-    v63 = [obj countByEnumeratingWithState:&v105 objects:v112 count:16];
-    if (v63)
+    v62 = [obj countByEnumeratingWithState:&v98 objects:v105 count:16];
+    if (v62)
     {
       v6 = (v5 + -1.0);
-      v58 = *v106;
+      v57 = *v99;
       v7 = *MEMORY[0x29EDB90B8];
       v8 = (v6 + 2);
       v9 = v6;
-      v56 = *MEMORY[0x29EDC7FC0];
+      v55 = *MEMORY[0x29EDC7FC0];
       do
       {
-        for (i = 0; i != v63; ++i)
+        for (i = 0; i != v62; ++i)
         {
-          if (*v106 != v58)
+          if (*v99 != v57)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v105 + 1) + 8 * i);
-          v99 = 0;
-          v100 = &v99;
-          v101 = 0x3032000000;
-          v102 = __Block_byref_object_copy_;
-          v103 = __Block_byref_object_dispose_;
-          v104 = 0;
+          v10 = *(*(&v98 + 1) + 8 * i);
+          v92 = 0;
+          v93 = &v92;
+          v94 = 0x3032000000;
+          v95 = __Block_byref_object_copy_;
+          v96 = __Block_byref_object_dispose_;
+          v97 = 0;
           v11 = objc_opt_new();
-          v98 = 0u;
-          v97 = 0u;
-          v96 = 0u;
-          v95 = 0u;
-          v66 = v10;
-          v12 = [v66 countByEnumeratingWithState:&v95 objects:v111 count:16];
+          v91 = 0u;
+          v90 = 0u;
+          v89 = 0u;
+          v88 = 0u;
+          v65 = v10;
+          v12 = [v65 countByEnumeratingWithState:&v88 objects:v104 count:16];
           v13 = v7;
           if (v12)
           {
-            v14 = *v96;
+            v14 = *v89;
             do
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v96 != v14)
+                if (*v89 != v14)
                 {
-                  objc_enumerationMutation(v66);
+                  objc_enumerationMutation(v65);
                 }
 
-                v16 = *(*(&v95 + 1) + 8 * j);
+                v16 = *(*(&v88 + 1) + 8 * j);
                 v17 = [v16 safeValueForKey:@"userInfo"];
                 [v11 axSafelyAddObject:v17];
                 [v16 safeCGPointForKey:@"coordinate"];
@@ -216,74 +226,74 @@ void __81__HKSingleAudiogramChartViewControllerAccessibility__axSetupGraphViewDe
                 [v17 safeDoubleForKey:@"sensitivityDBHL"];
                 v22 = v21;
                 v23 = [v17 safeBoolForKey:@"isLeftEar"];
-                v88 = MEMORY[0x29EDCA5F8];
-                v89 = 3221225472;
-                v90 = __84__HKSingleAudiogramChartViewControllerAccessibility__axUpdateAXElementsForGraphView__block_invoke;
-                v91 = &unk_29F2C4390;
-                v93 = &v99;
-                selfCopy = self;
-                v94 = v20;
+                v87[0] = MEMORY[0x29EDCA5F8];
+                v87[1] = 3221225472;
+                v87[2] = __84__HKSingleAudiogramChartViewControllerAccessibility__axUpdateAXElementsForGraphView__block_invoke;
+                v87[3] = &unk_29F2C4390;
+                v87[5] = &v92;
+                v87[4] = self;
+                v87[6] = v20;
                 AXPerformSafeBlock();
                 v24 = objc_alloc(MEMORY[0x29EDB8060]);
-                v25 = [MEMORY[0x29EDB8068] valueWithCategory:v100[5]];
+                v25 = [MEMORY[0x29EDB8068] valueWithCategory:v93[5]];
                 v26 = [MEMORY[0x29EDB8068] valueWithNumber:v22];
                 v27 = [v24 initWithX:v25 y:v26];
 
                 if (v23)
                 {
-                  v28 = v69;
+                  v28 = v68;
                 }
 
                 else
                 {
-                  v28 = v68;
+                  v28 = v67;
                 }
 
                 [v28 axSafelyAddObject:v27];
               }
 
-              v12 = [v66 countByEnumeratingWithState:&v95 objects:v111 count:16];
+              v12 = [v65 countByEnumeratingWithState:&v88 objects:v104 count:16];
             }
 
             while (v12);
           }
 
-          [v61 axSafelyAddObject:v100[5]];
-          v82 = 0;
-          v83 = &v82;
-          v84 = 0x3032000000;
-          v85 = __Block_byref_object_copy_;
-          v86 = __Block_byref_object_dispose_;
-          v87 = 0;
-          v75 = MEMORY[0x29EDCA5F8];
-          v76 = 3221225472;
-          v77 = __84__HKSingleAudiogramChartViewControllerAccessibility__axUpdateAXElementsForGraphView__block_invoke_2;
-          v78 = &unk_29F2C43E0;
-          v81 = &v82;
-          v79 = _axHearingSensitivityFormatter;
-          v67 = v11;
-          v80 = v67;
+          [v60 axSafelyAddObject:v93[5]];
+          v81 = 0;
+          v82 = &v81;
+          v83 = 0x3032000000;
+          v84 = __Block_byref_object_copy_;
+          v85 = __Block_byref_object_dispose_;
+          v86 = 0;
+          v74 = MEMORY[0x29EDCA5F8];
+          v75 = 3221225472;
+          v76 = __84__HKSingleAudiogramChartViewControllerAccessibility__axUpdateAXElementsForGraphView__block_invoke_2;
+          v77 = &unk_29F2C43E0;
+          v80 = &v81;
+          v78 = _axHearingSensitivityFormatter;
+          v66 = v11;
+          v79 = v66;
           AXPerformSafeBlock();
           v29 = objc_opt_new();
-          v73 = 0u;
-          v74 = 0u;
-          v71 = 0u;
           v72 = 0u;
-          v30 = v83[5];
-          v31 = [v30 countByEnumeratingWithState:&v71 objects:v110 count:16];
+          v73 = 0u;
+          v70 = 0u;
+          v71 = 0u;
+          v30 = v82[5];
+          v31 = [v30 countByEnumeratingWithState:&v70 objects:v103 count:16];
           if (v31)
           {
-            v32 = *v72;
+            v32 = *v71;
             do
             {
               for (k = 0; k != v31; ++k)
               {
-                if (*v72 != v32)
+                if (*v71 != v32)
                 {
                   objc_enumerationMutation(v30);
                 }
 
-                v34 = *(*(&v71 + 1) + 8 * k);
+                v34 = *(*(&v70 + 1) + 8 * k);
                 v35 = [v34 safeStringForKey:@"titleOverride"];
                 [v29 axSafelyAddObject:v35];
                 objc_opt_class();
@@ -294,60 +304,58 @@ void __81__HKSingleAudiogramChartViewControllerAccessibility__axSetupGraphViewDe
                 [v29 axSafelyAddObject:string];
               }
 
-              v31 = [v30 countByEnumeratingWithState:&v71 objects:v110 count:16];
+              v31 = [v30 countByEnumeratingWithState:&v70 objects:v103 count:16];
             }
 
             while (v31);
           }
 
-          v39 = [v65 safeUIViewForKey:@"overlayView"];
-          v40 = [objc_alloc(MEMORY[0x29EDC78F8]) initWithAccessibilityContainer:v65];
+          v39 = [v64 safeUIViewForKey:@"overlayView"];
+          v40 = [objc_alloc(MEMORY[0x29EDC78F8]) initWithAccessibilityContainer:v64];
           v41 = MEMORY[0x29C2D9150](v29);
           [v39 frame];
           v43 = v42;
-          [v65 frame];
+          [v64 frame];
           v45 = v44;
-          [v65 frame];
+          [v64 frame];
           [v40 setAccessibilityFrameInContainerSpace:{v13 + v43, v45, 3.0}];
           [v40 setAccessibilityLabel:v41];
           v46 = [MEMORY[0x29EDBA070] numberWithDouble:v13];
           [v40 _accessibilitySetRetainedValue:v46 forKey:@"kAXAccessibilityHealthUIAudiogramChartPointX"];
 
-          v47 = v13 > v8 || v62 == 0;
+          v47 = v13 > v8 || v61 == 0;
           if (!v47 && v13 >= v9)
           {
-            [v40 setAccessibilityTraits:v56];
+            [v40 setAccessibilityTraits:v55];
           }
 
-          [v60 addObject:v40];
+          [v59 addObject:v40];
 
-          _Block_object_dispose(&v82, 8);
-          _Block_object_dispose(&v99, 8);
+          _Block_object_dispose(&v81, 8);
+          _Block_object_dispose(&v92, 8);
         }
 
-        v63 = [obj countByEnumeratingWithState:&v105 objects:v112 count:16];
+        v62 = [obj countByEnumeratingWithState:&v98 objects:v105 count:16];
       }
 
-      while (v63);
+      while (v62);
     }
 
-    [v65 setAccessibilityElements:v60];
-    [v65 _accessibilitySetRetainedValue:v61 forKey:@"kAXGraphViewGraphElementsXValues"];
+    [v64 setAccessibilityElements:v59];
+    [v64 _accessibilitySetRetainedValue:v60 forKey:@"kAXGraphViewGraphElementsXValues"];
     v48 = objc_alloc(MEMORY[0x29EDB8070]);
     v49 = accessibilityYodelLocalizedString(@"left.ear");
-    v50 = [v48 initWithName:v49 isContinuous:1 dataPoints:v69];
+    v50 = [v48 initWithName:v49 isContinuous:1 dataPoints:v68];
 
     v51 = objc_alloc(MEMORY[0x29EDB8070]);
     v52 = accessibilityYodelLocalizedString(@"right.ear");
-    v53 = [v51 initWithName:v52 isContinuous:1 dataPoints:v68];
+    v53 = [v51 initWithName:v52 isContinuous:1 dataPoints:v67];
 
-    v109[0] = v50;
-    v109[1] = v53;
-    v54 = [MEMORY[0x29EDB8D80] arrayWithObjects:v109 count:2];
-    [v65 _accessibilitySetRetainedValue:v54 forKey:@"kAXGraphViewGraphElementsSeriesDescription"];
+    v102[0] = v50;
+    v102[1] = v53;
+    v54 = [MEMORY[0x29EDB8D80] arrayWithObjects:v102 count:2];
+    [v64 _accessibilitySetRetainedValue:v54 forKey:@"kAXGraphViewGraphElementsSeriesDescription"];
   }
-
-  v55 = *MEMORY[0x29EDCA608];
 }
 
 void __84__HKSingleAudiogramChartViewControllerAccessibility__axUpdateAXElementsForGraphView__block_invoke(uint64_t a1)
@@ -374,26 +382,26 @@ void __84__HKSingleAudiogramChartViewControllerAccessibility__axUpdateAXElements
 
 - (id)_axCollectSeriesDataForGraphView:(id)view
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   viewCopy = view;
-  v30 = 0;
+  v29 = 0;
   objc_opt_class();
   v4 = [viewCopy safeValueForKey:@"allSeries"];
   v5 = __UIAccessibilityCastAsClass();
 
-  v23 = objc_opt_new();
+  v22 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
-    v22 = *v27;
+    v21 = *v26;
     do
     {
       v10 = 0;
@@ -401,35 +409,24 @@ void __84__HKSingleAudiogramChartViewControllerAccessibility__axUpdateAXElements
       v12 = v9;
       do
       {
-        if (*v27 != v22)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [*(*(&v26 + 1) + 8 * v10) safeValueForKey:@"visibleValueRange"];
-        v30 = 0;
+        v13 = [*(*(&v25 + 1) + 8 * v10) safeValueForKey:@"visibleValueRange"];
+        v29 = 0;
         objc_opt_class();
         v14 = [v13 safeValueForKey:@"minValue"];
         v9 = __UIAccessibilityCastAsClass();
 
-        if (v30 == 1)
+        if (v29 == 1 || (v12, v29 = 0, objc_opt_class(), [v13 safeValueForKey:@"maxValue"], v15 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v8 = objc_claimAutoreleasedReturnValue(), v15, v29 == 1))
         {
-          goto LABEL_15;
-        }
-
-        v30 = 0;
-        objc_opt_class();
-        v15 = [v13 safeValueForKey:@"maxValue"];
-        v8 = __UIAccessibilityCastAsClass();
-
-        if (v30 == 1)
-        {
-LABEL_15:
           abort();
         }
 
-        v24 = viewCopy;
-        v25 = v23;
+        v23 = viewCopy;
+        v24 = v22;
         AXPerformSafeBlock();
 
         ++v10;
@@ -438,7 +435,7 @@ LABEL_15:
       }
 
       while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
@@ -452,12 +449,10 @@ LABEL_15:
 
   [viewCopy _accessibilitySetRetainedValue:v9 forKey:@"kAXGraphViewYAxisMin"];
   [viewCopy _accessibilitySetRetainedValue:v8 forKey:@"kAXGraphViewYAxisMax"];
-  allKeys = [v23 allKeys];
+  allKeys = [v22 allKeys];
   v17 = [allKeys sortedArrayUsingComparator:&__block_literal_global_0];
 
-  v18 = [v23 objectsForKeys:v17 notFoundMarker:MEMORY[0x29EDB8E90]];
-
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = [v22 objectsForKeys:v17 notFoundMarker:MEMORY[0x29EDB8E90]];
 
   return v18;
 }
@@ -476,7 +471,7 @@ void __86__HKSingleAudiogramChartViewControllerAccessibility__axCollectSeriesDat
 
 void __86__HKSingleAudiogramChartViewControllerAccessibility__axCollectSeriesDataForGraphView___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   v4 = a3;
   v5 = v4;
   if (v4)
@@ -493,20 +488,18 @@ void __86__HKSingleAudiogramChartViewControllerAccessibility__axCollectSeriesDat
 
     else
     {
-      v12[0] = v5;
-      v10 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
+      v11[0] = v5;
+      v10 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
       v9 = [v10 mutableCopy];
     }
 
     [*(a1 + 32) setObject:v9 forKey:v7];
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_axUpdateSelectionAXElementsForGraphView
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   v3 = [(HKSingleAudiogramChartViewControllerAccessibility *)self safeValueForKey:@"scalarGraphViewController"];
   v4 = [v3 safeUIViewForKey:@"graphView"];
 
@@ -516,30 +509,30 @@ void __86__HKSingleAudiogramChartViewControllerAccessibility__axCollectSeriesDat
   {
     [v5 floatValue];
     v8 = v7;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     accessibilityElements = [v4 accessibilityElements];
-    v10 = [accessibilityElements countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v10 = [accessibilityElements countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = (v8 + -1.0);
       v13 = (v12 + 2);
       v14 = v12;
-      v15 = *v29;
+      v15 = *v28;
       v16 = *MEMORY[0x29EDC7FC0];
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v29 != v15)
+          if (*v28 != v15)
           {
             objc_enumerationMutation(accessibilityElements);
           }
 
-          v18 = *(*(&v28 + 1) + 8 * i);
+          v18 = *(*(&v27 + 1) + 8 * i);
           v19 = [v18 _accessibilityValueForKey:@"kAXAccessibilityHealthUIAudiogramChartPointX"];
           [v19 floatValue];
           v21 = v20;
@@ -550,7 +543,7 @@ void __86__HKSingleAudiogramChartViewControllerAccessibility__axCollectSeriesDat
           }
         }
 
-        v11 = [accessibilityElements countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v11 = [accessibilityElements countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v11);
@@ -559,36 +552,34 @@ void __86__HKSingleAudiogramChartViewControllerAccessibility__axCollectSeriesDat
 
   else
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     accessibilityElements = [v4 accessibilityElements];
-    v23 = [accessibilityElements countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v23 = [accessibilityElements countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v33;
+      v25 = *v32;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v33 != v25)
+          if (*v32 != v25)
           {
             objc_enumerationMutation(accessibilityElements);
           }
 
-          [*(*(&v32 + 1) + 8 * j) setAccessibilityTraits:0];
+          [*(*(&v31 + 1) + 8 * j) setAccessibilityTraits:0];
         }
 
-        v24 = [accessibilityElements countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v24 = [accessibilityElements countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v24);
     }
   }
-
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_axHearingSensitivityFormatter
@@ -601,74 +592,73 @@ void __86__HKSingleAudiogramChartViewControllerAccessibility__axCollectSeriesDat
 
 - (id)_axSelectedXCoordinateForGraphView:(id)view
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   viewCopy = view;
-  v26 = 0;
+  v24 = 0;
   objc_opt_class();
   v4 = [viewCopy safeValueForKey:@"_seriesGroupRows"];
   v5 = __UIAccessibilityCastAsClass();
 
-  v20 = viewCopy;
+  v18 = viewCopy;
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v21;
 LABEL_4:
     v10 = 0;
     while (1)
     {
-      if (*v23 != v9)
+      if (*v21 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = [*(*(&v22 + 1) + 8 * v10) safeValueForKey:@"selectionContext"];
-      v26 = 0;
+      v11 = [*(*(&v20 + 1) + 8 * v10) safeValueForKey:@"selectionContext"];
+      v24 = 0;
       objc_opt_class();
       v12 = [v11 safeValueForKey:@"selectedRangeBoundariesXValue"];
       v13 = __UIAccessibilityCastAsClass();
 
-      if (v26 == 1)
+      if (v24 == 1)
       {
 LABEL_19:
         abort();
       }
 
-      memset(v21, 0, sizeof(v21));
+      memset(v19, 0, sizeof(v19));
       v14 = v13;
-      if ([v14 countByEnumeratingWithState:v21 objects:v27 count:16])
+      if ([v14 countByEnumeratingWithState:v19 objects:v25 count:16])
       {
-        v15 = **(&v21[0] + 1);
-        v26 = 0;
+        v24 = 0;
         objc_opt_class();
-        v16 = __UIAccessibilityCastAsClass();
-        if (v26 == 1)
+        v15 = __UIAccessibilityCastAsClass();
+        if (v24 == 1)
         {
           goto LABEL_19;
         }
 
-        v17 = v16;
+        v16 = v15;
       }
 
       else
       {
-        v17 = 0;
+        v16 = 0;
       }
 
-      if (v17)
+      if (v16)
       {
         break;
       }
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
         if (v8)
         {
           goto LABEL_4;
@@ -682,12 +672,10 @@ LABEL_19:
   else
   {
 LABEL_15:
-    v17 = 0;
+    v16 = 0;
   }
 
-  v18 = *MEMORY[0x29EDCA608];
-
-  return v17;
+  return v16;
 }
 
 @end

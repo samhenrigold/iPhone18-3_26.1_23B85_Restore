@@ -18,24 +18,23 @@
 
 - (BKCatacomb)init
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = BKCatacomb;
-  v2 = [(BKCatacomb *)&v9 init];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = BKCatacomb;
+  v2 = [(BKCatacomb *)&v8 init];
   v3 = v2;
   if (v2)
   {
     catacombDir = v2->_catacombDir;
     v2->_catacombDir = @"/Library/Catacomb/";
 
-    v10 = *MEMORY[0x277CCA1B0];
-    v11[0] = *MEMORY[0x277CCA1A0];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x277CCA1B0];
+    v10[0] = *MEMORY[0x277CCA1A0];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     writeAttributes = v3->_writeAttributes;
     v3->_writeAttributes = v5;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -91,7 +90,7 @@
 
 - (int)writeData:(id)data toFile:(id)file
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   fileCopy = file;
   v8 = fileCopy;
@@ -99,29 +98,29 @@
   {
     if (__osLog)
     {
-      v27 = __osLog;
+      v26 = __osLog;
     }
 
     else
     {
-      v27 = MEMORY[0x277D86220];
+      v26 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 136316162;
-    v39 = "data";
-    v40 = 2048;
-    v41 = 0;
-    v42 = 2080;
-    v43 = &unk_223E5FC53;
-    v44 = 2080;
-    v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-    v46 = 1024;
-    v47 = 97;
+    v38 = "data";
+    v39 = 2048;
+    v40 = 0;
+    v41 = 2080;
+    v42 = &unk_223E5FC53;
+    v43 = 2080;
+    v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+    v45 = 1024;
+    v46 = 97;
     goto LABEL_24;
   }
 
@@ -129,31 +128,31 @@
   {
     if (__osLog)
     {
-      v27 = __osLog;
+      v26 = __osLog;
     }
 
     else
     {
-      v27 = MEMORY[0x277D86220];
+      v26 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_25;
     }
 
     *buf = 136316162;
-    v39 = "fileName";
-    v40 = 2048;
-    v41 = 0;
-    v42 = 2080;
-    v43 = &unk_223E5FC53;
-    v44 = 2080;
-    v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-    v46 = 1024;
-    v47 = 98;
+    v38 = "fileName";
+    v39 = 2048;
+    v40 = 0;
+    v41 = 2080;
+    v42 = &unk_223E5FC53;
+    v43 = 2080;
+    v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+    v45 = 1024;
+    v46 = 98;
 LABEL_24:
-    _os_log_impl(&dword_223E00000, v27, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+    _os_log_impl(&dword_223E00000, v26, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
 LABEL_25:
     v22 = 0;
     v18 = 0;
@@ -171,27 +170,27 @@ LABEL_25:
   {
     if (__osLog)
     {
-      v28 = __osLog;
+      v27 = __osLog;
     }
 
     else
     {
-      v28 = MEMORY[0x277D86220];
+      v27 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v39 = "![[NSFileManager defaultManager] fileExistsAtPath:[self catacombCommitDir]]";
-      v40 = 2048;
-      v41 = 0;
-      v42 = 2080;
-      v43 = &unk_223E5FC53;
-      v44 = 2080;
-      v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-      v46 = 1024;
-      v47 = 100;
-      _os_log_impl(&dword_223E00000, v28, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+      v38 = "![[NSFileManager defaultManager] fileExistsAtPath:[self catacombCommitDir]]";
+      v39 = 2048;
+      v40 = 0;
+      v41 = 2080;
+      v42 = &unk_223E5FC53;
+      v43 = 2080;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+      v45 = 1024;
+      v46 = 100;
+      _os_log_impl(&dword_223E00000, v27, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
 
     v22 = 0;
@@ -207,27 +206,27 @@ LABEL_25:
   {
     if (__osLog)
     {
-      v29 = __osLog;
+      v28 = __osLog;
     }
 
     else
     {
-      v29 = MEMORY[0x277D86220];
+      v28 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v39 = "prepareDir";
-      v40 = 2048;
-      v41 = 0;
-      v42 = 2080;
-      v43 = &unk_223E5FC53;
-      v44 = 2080;
-      v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-      v46 = 1024;
-      v47 = 103;
-      _os_log_impl(&dword_223E00000, v29, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+      v38 = "prepareDir";
+      v39 = 2048;
+      v40 = 0;
+      v41 = 2080;
+      v42 = &unk_223E5FC53;
+      v43 = 2080;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+      v45 = 1024;
+      v46 = 103;
+      _os_log_impl(&dword_223E00000, v28, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
 
     v22 = 0;
@@ -243,35 +242,35 @@ LABEL_25:
   {
     defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
     writeAttributes = self->_writeAttributes;
-    v37 = 0;
-    [defaultManager3 createDirectoryAtPath:catacombPrepareDir withIntermediateDirectories:1 attributes:writeAttributes error:&v37];
-    v17 = v37;
+    v36 = 0;
+    [defaultManager3 createDirectoryAtPath:catacombPrepareDir withIntermediateDirectories:1 attributes:writeAttributes error:&v36];
+    v17 = v36;
 
     if (v17)
     {
       if (__osLog)
       {
-        v33 = __osLog;
+        v32 = __osLog;
       }
 
       else
       {
-        v33 = MEMORY[0x277D86220];
+        v32 = MEMORY[0x277D86220];
       }
 
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v39 = "!nserr";
-        v40 = 2048;
-        v41 = 0;
-        v42 = 2080;
-        v43 = &unk_223E5FC53;
-        v44 = 2080;
-        v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-        v46 = 1024;
-        v47 = 109;
-        _os_log_impl(&dword_223E00000, v33, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+        v38 = "!nserr";
+        v39 = 2048;
+        v40 = 0;
+        v41 = 2080;
+        v42 = &unk_223E5FC53;
+        v43 = 2080;
+        v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+        v45 = 1024;
+        v46 = 109;
+        _os_log_impl(&dword_223E00000, v32, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
       }
 
       v22 = 0;
@@ -285,27 +284,27 @@ LABEL_25:
   {
     if (__osLog)
     {
-      v30 = __osLog;
+      v29 = __osLog;
     }
 
     else
     {
-      v30 = MEMORY[0x277D86220];
+      v29 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v39 = "fullPath";
-      v40 = 2048;
-      v41 = 0;
-      v42 = 2080;
-      v43 = &unk_223E5FC53;
-      v44 = 2080;
-      v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-      v46 = 1024;
-      v47 = 113;
-      _os_log_impl(&dword_223E00000, v30, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+      v38 = "fullPath";
+      v39 = 2048;
+      v40 = 0;
+      v41 = 2080;
+      v42 = &unk_223E5FC53;
+      v43 = 2080;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+      v45 = 1024;
+      v46 = 113;
+      _os_log_impl(&dword_223E00000, v29, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
 
     v22 = 0;
@@ -323,29 +322,29 @@ LABEL_44:
   {
     if (__osLog)
     {
-      v31 = __osLog;
+      v30 = __osLog;
     }
 
     else
     {
-      v31 = MEMORY[0x277D86220];
+      v30 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_56;
     }
 
     *buf = 136316162;
-    v39 = "[[NSFileManager defaultManager] createFileAtPath:fullPath contents:((void*)0) attributes:_writeAttributes]";
-    v40 = 2048;
-    v41 = 0;
-    v42 = 2080;
-    v43 = &unk_223E5FC53;
-    v44 = 2080;
-    v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-    v46 = 1024;
-    v47 = 116;
+    v38 = "[[NSFileManager defaultManager] createFileAtPath:fullPath contents:((void*)0) attributes:_writeAttributes]";
+    v39 = 2048;
+    v40 = 0;
+    v41 = 2080;
+    v42 = &unk_223E5FC53;
+    v43 = 2080;
+    v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+    v45 = 1024;
+    v46 = 116;
     goto LABEL_55;
   }
 
@@ -355,31 +354,31 @@ LABEL_44:
   {
     if (__osLog)
     {
-      v31 = __osLog;
+      v30 = __osLog;
     }
 
     else
     {
-      v31 = MEMORY[0x277D86220];
+      v30 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_56;
     }
 
     *buf = 136316162;
-    v39 = "file";
-    v40 = 2048;
-    v41 = 0;
-    v42 = 2080;
-    v43 = &unk_223E5FC53;
-    v44 = 2080;
-    v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-    v46 = 1024;
-    v47 = 119;
+    v38 = "file";
+    v39 = 2048;
+    v40 = 0;
+    v41 = 2080;
+    v42 = &unk_223E5FC53;
+    v43 = 2080;
+    v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+    v45 = 1024;
+    v46 = 119;
 LABEL_55:
-    _os_log_impl(&dword_223E00000, v31, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+    _os_log_impl(&dword_223E00000, v30, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
 LABEL_56:
     v22 = 0;
     v17 = 0;
@@ -411,27 +410,27 @@ LABEL_71:
 
     if (__osLog)
     {
-      v32 = __osLog;
+      v31 = __osLog;
     }
 
     else
     {
-      v32 = MEMORY[0x277D86220];
+      v31 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v39 = "err == 0 ";
-      v40 = 2048;
-      v41 = v24;
-      v42 = 2080;
-      v43 = &unk_223E5FC53;
-      v44 = 2080;
-      v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-      v46 = 1024;
-      v47 = 143;
-      _os_log_impl(&dword_223E00000, v32, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+      v38 = "err == 0 ";
+      v39 = 2048;
+      v40 = v24;
+      v41 = 2080;
+      v42 = &unk_223E5FC53;
+      v43 = 2080;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+      v45 = 1024;
+      v46 = 143;
+      _os_log_impl(&dword_223E00000, v31, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
 
     v22 = 0;
@@ -442,49 +441,48 @@ LABEL_72:
   recover = [(BKCatacomb *)self recover];
   if (recover)
   {
-    v35 = recover;
+    v34 = recover;
     if (__osLog)
     {
-      v36 = __osLog;
+      v35 = __osLog;
     }
 
     else
     {
-      v36 = MEMORY[0x277D86220];
+      v35 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v39 = "[self recover] == 0 ";
-      v40 = 2048;
-      v41 = v35;
-      v42 = 2080;
-      v43 = &unk_223E5FC53;
-      v44 = 2080;
-      v45 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-      v46 = 1024;
-      v47 = 152;
-      _os_log_impl(&dword_223E00000, v36, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+      v38 = "[self recover] == 0 ";
+      v39 = 2048;
+      v40 = v34;
+      v41 = 2080;
+      v42 = &unk_223E5FC53;
+      v43 = 2080;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+      v45 = 1024;
+      v46 = 152;
+      _os_log_impl(&dword_223E00000, v35, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
   }
 
 LABEL_13:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (int)commitWrite
 {
   selfCopy = self;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   catacombPrepareDir = [(BKCatacomb *)self catacombPrepareDir];
   if (!catacombPrepareDir)
   {
     [BKCatacomb commitWrite];
 LABEL_27:
-    v33 = v48;
+    v33 = v47;
     goto LABEL_24;
   }
 
@@ -517,9 +515,9 @@ LABEL_30:
   }
 
   defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-  v47 = 0;
-  [defaultManager3 moveItemAtPath:catacombPrepareDir toPath:v5 error:&v47];
-  v11 = v47;
+  v46 = 0;
+  [defaultManager3 moveItemAtPath:catacombPrepareDir toPath:v5 error:&v46];
+  v11 = v46;
 
   if (v11)
   {
@@ -530,9 +528,9 @@ LABEL_33:
   }
 
   defaultManager4 = [MEMORY[0x277CCAA00] defaultManager];
-  v46 = 0;
-  v13 = [defaultManager4 contentsOfDirectoryAtPath:v5 error:&v46];
-  v14 = v46;
+  v45 = 0;
+  v13 = [defaultManager4 contentsOfDirectoryAtPath:v5 error:&v45];
+  v14 = v45;
 
   if (v14)
   {
@@ -540,31 +538,31 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v37 = catacombPrepareDir;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v36 = catacombPrepareDir;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v15 = v13;
-  v16 = [v15 countByEnumeratingWithState:&v42 objects:v49 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (!v16)
   {
     goto LABEL_17;
   }
 
   v17 = v16;
-  v18 = *v43;
+  v18 = *v42;
   obj = v15;
   while (2)
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v43 != v18)
+      if (*v42 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v42 + 1) + 8 * i);
+      v20 = *(*(&v41 + 1) + 8 * i);
       v21 = v5;
       v22 = [v5 stringByAppendingPathComponent:v20];
       v23 = selfCopy;
@@ -575,9 +573,9 @@ LABEL_33:
       if (v26)
       {
         defaultManager6 = [MEMORY[0x277CCAA00] defaultManager];
-        v41 = 0;
-        [defaultManager6 removeItemAtPath:v24 error:&v41];
-        v28 = v41;
+        v40 = 0;
+        [defaultManager6 removeItemAtPath:v24 error:&v40];
+        v28 = v40;
 
         if (v28)
         {
@@ -587,15 +585,15 @@ LABEL_33:
       }
 
       defaultManager7 = [MEMORY[0x277CCAA00] defaultManager];
-      v40 = 0;
-      [defaultManager7 moveItemAtPath:v22 toPath:v24 error:&v40];
-      v30 = v40;
+      v39 = 0;
+      [defaultManager7 moveItemAtPath:v22 toPath:v24 error:&v39];
+      v30 = v39;
 
       if (v30)
       {
         [BKCatacomb commitWrite];
 LABEL_21:
-        v34 = v48;
+        v34 = v47;
 
         goto LABEL_22;
       }
@@ -605,7 +603,7 @@ LABEL_21:
     }
 
     v15 = obj;
-    v17 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+    v17 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
     if (v17)
     {
       continue;
@@ -617,9 +615,9 @@ LABEL_21:
 LABEL_17:
 
   defaultManager8 = [MEMORY[0x277CCAA00] defaultManager];
-  v39 = 0;
-  [defaultManager8 removeItemAtPath:v5 error:&v39];
-  v32 = v39;
+  v38 = 0;
+  [defaultManager8 removeItemAtPath:v5 error:&v38];
+  v32 = v38;
 
   if (v32)
   {
@@ -635,45 +633,44 @@ LABEL_22:
     v33 = 0;
   }
 
-  catacombPrepareDir = v37;
+  catacombPrepareDir = v36;
 LABEL_24:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
 - (int)readData:(id *)data fromFile:(id)file logString:(id *)string
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v9 = fileCopy;
   if (!data)
   {
     if (__osLog)
     {
-      v38 = __osLog;
+      v37 = __osLog;
     }
 
     else
     {
-      v38 = MEMORY[0x277D86220];
+      v37 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_48;
     }
 
     *buf = 136316162;
-    v44 = "data";
-    v45 = 2048;
-    v46 = 0;
-    v47 = 2080;
-    v48 = &unk_223E5FC53;
-    v49 = 2080;
-    v50 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-    v51 = 1024;
-    v52 = 218;
+    v43 = "data";
+    v44 = 2048;
+    v45 = 0;
+    v46 = 2080;
+    v47 = &unk_223E5FC53;
+    v48 = 2080;
+    v49 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+    v50 = 1024;
+    v51 = 218;
     goto LABEL_47;
   }
 
@@ -681,31 +678,31 @@ LABEL_24:
   {
     if (__osLog)
     {
-      v38 = __osLog;
+      v37 = __osLog;
     }
 
     else
     {
-      v38 = MEMORY[0x277D86220];
+      v37 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_48;
     }
 
     *buf = 136316162;
-    v44 = "fileName";
-    v45 = 2048;
-    v46 = 0;
-    v47 = 2080;
-    v48 = &unk_223E5FC53;
-    v49 = 2080;
-    v50 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-    v51 = 1024;
-    v52 = 219;
+    v43 = "fileName";
+    v44 = 2048;
+    v45 = 0;
+    v46 = 2080;
+    v47 = &unk_223E5FC53;
+    v48 = 2080;
+    v49 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+    v50 = 1024;
+    v51 = 219;
 LABEL_47:
-    _os_log_impl(&dword_223E00000, v38, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+    _os_log_impl(&dword_223E00000, v37, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
 LABEL_48:
     v26 = 0;
     data = 0;
@@ -723,29 +720,29 @@ LABEL_48:
   {
     if (__osLog)
     {
-      v39 = __osLog;
+      v38 = __osLog;
     }
 
     else
     {
-      v39 = MEMORY[0x277D86220];
+      v38 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_60;
     }
 
     *buf = 136316162;
-    v44 = "![[NSFileManager defaultManager] fileExistsAtPath:[self catacombCommitDir]]";
-    v45 = 2048;
-    v46 = 0;
-    v47 = 2080;
-    v48 = &unk_223E5FC53;
-    v49 = 2080;
-    v50 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-    v51 = 1024;
-    v52 = 221;
+    v43 = "![[NSFileManager defaultManager] fileExistsAtPath:[self catacombCommitDir]]";
+    v44 = 2048;
+    v45 = 0;
+    v46 = 2080;
+    v47 = &unk_223E5FC53;
+    v48 = 2080;
+    v49 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+    v50 = 1024;
+    v51 = 221;
     goto LABEL_59;
   }
 
@@ -757,31 +754,31 @@ LABEL_48:
   {
     if (__osLog)
     {
-      v39 = __osLog;
+      v38 = __osLog;
     }
 
     else
     {
-      v39 = MEMORY[0x277D86220];
+      v38 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_60;
     }
 
     *buf = 136316162;
-    v44 = "![[NSFileManager defaultManager] fileExistsAtPath:[self catacombPrepareDir]]";
-    v45 = 2048;
-    v46 = 0;
-    v47 = 2080;
-    v48 = &unk_223E5FC53;
-    v49 = 2080;
-    v50 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-    v51 = 1024;
-    v52 = 222;
+    v43 = "![[NSFileManager defaultManager] fileExistsAtPath:[self catacombPrepareDir]]";
+    v44 = 2048;
+    v45 = 0;
+    v46 = 2080;
+    v47 = &unk_223E5FC53;
+    v48 = 2080;
+    v49 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+    v50 = 1024;
+    v51 = 222;
 LABEL_59:
-    _os_log_impl(&dword_223E00000, v39, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+    _os_log_impl(&dword_223E00000, v38, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
 LABEL_60:
     v26 = 0;
     data = 0;
@@ -808,15 +805,15 @@ LABEL_60:
 
     v20 = MEMORY[0x277CCA9F8];
     v21 = [MEMORY[0x277CBEBC0] fileURLWithPath:v17];
-    v42 = 0;
-    v22 = [v20 fileHandleForReadingFromURL:v21 error:&v42];
-    v23 = v42;
+    v41 = 0;
+    v22 = [v20 fileHandleForReadingFromURL:v21 error:&v41];
+    v23 = v41;
 
     if (v22)
     {
-      v41 = 0;
-      data = [v22 readDataToEndOfFileAndReturnError:&v41];
-      v25 = v41;
+      v40 = 0;
+      data = [v22 readDataToEndOfFileAndReturnError:&v40];
+      v25 = v40;
 
       if (data)
       {
@@ -844,7 +841,7 @@ LABEL_11:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = v26;
+        v43 = v26;
         _os_log_impl(&dword_223E00000, v33, OS_LOG_TYPE_ERROR, "%{public}@\n", buf, 0xCu);
       }
 
@@ -861,15 +858,15 @@ LABEL_11:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v44 = "0";
-        v45 = 2048;
-        v46 = 0;
-        v47 = 2080;
-        v48 = &unk_223E5FC53;
-        v49 = 2080;
-        v50 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-        v51 = 1024;
-        v52 = 243;
+        v43 = "0";
+        v44 = 2048;
+        v45 = 0;
+        v46 = 2080;
+        v47 = &unk_223E5FC53;
+        v48 = 2080;
+        v49 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+        v50 = 1024;
+        v51 = 243;
         _os_log_impl(&dword_223E00000, v34, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
       }
 
@@ -893,7 +890,7 @@ LABEL_11:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = v26;
+        v43 = v26;
         _os_log_impl(&dword_223E00000, v30, OS_LOG_TYPE_ERROR, "%{public}@\n", buf, 0xCu);
       }
 
@@ -910,15 +907,15 @@ LABEL_11:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v44 = "0";
-        v45 = 2048;
-        v46 = 0;
-        v47 = 2080;
-        v48 = &unk_223E5FC53;
-        v49 = 2080;
-        v50 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-        v51 = 1024;
-        v52 = 235;
+        v43 = "0";
+        v44 = 2048;
+        v45 = 0;
+        v46 = 2080;
+        v47 = &unk_223E5FC53;
+        v48 = 2080;
+        v49 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+        v50 = 1024;
+        v51 = 235;
         _os_log_impl(&dword_223E00000, v31, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
       }
     }
@@ -931,27 +928,27 @@ LABEL_11:
   {
     if (__osLog)
     {
-      v40 = __osLog;
+      v39 = __osLog;
     }
 
     else
     {
-      v40 = MEMORY[0x277D86220];
+      v39 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v44 = "fullPath";
-      v45 = 2048;
-      v46 = 0;
-      v47 = 2080;
-      v48 = &unk_223E5FC53;
-      v49 = 2080;
-      v50 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
-      v51 = 1024;
-      v52 = 225;
-      _os_log_impl(&dword_223E00000, v40, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+      v43 = "fullPath";
+      v44 = 2048;
+      v45 = 0;
+      v46 = 2080;
+      v47 = &unk_223E5FC53;
+      v48 = 2080;
+      v49 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/BKCatacomb.m";
+      v50 = 1024;
+      v51 = 225;
+      _os_log_impl(&dword_223E00000, v39, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
 
     v26 = 0;
@@ -968,7 +965,6 @@ LABEL_34:
     *string = v26;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -1037,15 +1033,15 @@ LABEL_7:
 - (int)recover
 {
   selfCopy = self;
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   catacombPrepareDir = [(BKCatacomb *)self catacombPrepareDir];
   if (!catacombPrepareDir)
   {
     [BKCatacomb recover];
 LABEL_30:
-    v5 = v47;
-    v14 = v48;
-    v32 = v49;
+    v5 = v46;
+    v14 = v47;
+    v32 = v48;
     goto LABEL_22;
   }
 
@@ -1063,9 +1059,9 @@ LABEL_30:
   if (v7)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v46 = 0;
-    [defaultManager2 removeItemAtPath:catacombPrepareDir error:&v46];
-    v9 = v46;
+    v45 = 0;
+    [defaultManager2 removeItemAtPath:catacombPrepareDir error:&v45];
+    v9 = v45;
 
     if (v9)
     {
@@ -1080,9 +1076,9 @@ LABEL_30:
   if (v11)
   {
     defaultManager4 = [MEMORY[0x277CCAA00] defaultManager];
-    v45 = 0;
-    v13 = [defaultManager4 contentsOfDirectoryAtPath:v5 error:&v45];
-    v14 = v45;
+    v44 = 0;
+    v13 = [defaultManager4 contentsOfDirectoryAtPath:v5 error:&v44];
+    v14 = v44;
 
     if (v14)
     {
@@ -1091,31 +1087,31 @@ LABEL_30:
       goto LABEL_22;
     }
 
-    v36 = catacombPrepareDir;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
+    v35 = catacombPrepareDir;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v41 objects:v50 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v40 objects:v49 count:16];
     if (!v15)
     {
       goto LABEL_17;
     }
 
     v16 = v15;
-    v17 = *v42;
+    v17 = *v41;
     obj = v14;
 LABEL_9:
     v18 = 0;
     while (1)
     {
-      if (*v42 != v17)
+      if (*v41 != v17)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v41 + 1) + 8 * v18);
+      v19 = *(*(&v40 + 1) + 8 * v18);
       v20 = v5;
       v21 = [v5 stringByAppendingPathComponent:v19];
       v22 = selfCopy;
@@ -1126,9 +1122,9 @@ LABEL_9:
       if (v25)
       {
         defaultManager6 = [MEMORY[0x277CCAA00] defaultManager];
-        v40 = 0;
-        [defaultManager6 removeItemAtPath:v23 error:&v40];
-        v27 = v40;
+        v39 = 0;
+        [defaultManager6 removeItemAtPath:v23 error:&v39];
+        v27 = v39;
 
         if (v27)
         {
@@ -1137,19 +1133,19 @@ LABEL_9:
       }
 
       defaultManager7 = [MEMORY[0x277CCAA00] defaultManager];
-      v39 = 0;
-      [defaultManager7 moveItemAtPath:v21 toPath:v23 error:&v39];
-      v29 = v39;
+      v38 = 0;
+      [defaultManager7 moveItemAtPath:v21 toPath:v23 error:&v38];
+      v29 = v38;
 
       if (v29)
       {
         [BKCatacomb recover];
 LABEL_25:
-        v35 = v48;
+        v34 = v47;
         v5 = v20;
 
         v32 = 5;
-        v14 = v35;
+        v14 = v34;
         goto LABEL_26;
       }
 
@@ -1159,7 +1155,7 @@ LABEL_25:
       if (v16 == v18)
       {
         v14 = obj;
-        v16 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v16 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
         if (v16)
         {
           goto LABEL_9;
@@ -1168,13 +1164,13 @@ LABEL_25:
 LABEL_17:
 
         defaultManager8 = [MEMORY[0x277CCAA00] defaultManager];
-        v38 = 0;
-        [defaultManager8 removeItemAtPath:v5 error:&v38];
-        v31 = v38;
+        v37 = 0;
+        [defaultManager8 removeItemAtPath:v5 error:&v37];
+        v31 = v37;
 
         if (!v31)
         {
-          catacombPrepareDir = v36;
+          catacombPrepareDir = v35;
           goto LABEL_20;
         }
 
@@ -1182,7 +1178,7 @@ LABEL_17:
         v32 = 5;
         v14 = v31;
 LABEL_26:
-        catacombPrepareDir = v36;
+        catacombPrepareDir = v35;
         goto LABEL_22;
       }
     }
@@ -1203,7 +1199,6 @@ LABEL_20:
   v32 = 0;
 LABEL_22:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -1244,7 +1239,7 @@ LABEL_22:
 
 - (void)syncDir:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (__osLog)
   {
     v2 = __osLog;
@@ -1258,168 +1253,142 @@ LABEL_22:
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2_0();
-    v5 = a1;
-    v6 = 2080;
-    v7 = &unk_223E5FC53;
+    v4 = a1;
+    v5 = 2080;
+    v6 = &unk_223E5FC53;
     OUTLINED_FUNCTION_1();
-    v8 = 78;
-    _os_log_impl(&dword_223E00000, v2, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, 0x30u);
+    v7 = 78;
+    _os_log_impl(&dword_223E00000, v2, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v3, 0x30u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncDir:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9(5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncDir:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9(22);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeData:(_DWORD *)a3 toFile:.cold.1(uint64_t a1, int a2, _DWORD *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10);
   }
 
   *a3 = a2;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)commitWrite
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9(12);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteFile:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteFile:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9(12);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteFile:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9(1);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteFile:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9(1);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteFile:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9(22);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recover
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_7_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_8(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_8(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_11();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAll
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

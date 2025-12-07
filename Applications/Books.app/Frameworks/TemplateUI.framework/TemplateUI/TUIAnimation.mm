@@ -184,10 +184,10 @@
   v12 = objc_alloc_init(TUIAnimationRenderModel);
   [(TUIAnimation *)self delay];
   [(TUIAnimationRenderModel *)v12 setDelay:?];
-  [(TUIAnimation *)self duration];
+  objc_msgSend_duration(self);
   [(TUIAnimationRenderModel *)v12 setDuration:?];
   [(TUIAnimationRenderModel *)v12 setOptions:[(TUIAnimationRenderModel *)v12 options]| [(TUIAnimation *)self options]];
-  [(TUIAnimation *)self timing];
+  objc_msgSend_timing(self);
   v18[0] = v20;
   v18[1] = v21;
   v19 = v22;
@@ -242,7 +242,7 @@
 
             v17 = *(*(&v37 + 1) + 8 * i);
             v18 = [v9 objectForKeyedSubscript:v17];
-            if ([v17 isEqualToString:@"alpha"])
+            if (objc_msgSend_isEqualToString_(v17))
             {
               v19 = objc_opt_class();
               v20 = TUIDynamicCast(v19, v18);
@@ -254,17 +254,17 @@
               }
             }
 
-            else if ([v17 isEqualToString:@"transform"])
+            else if (objc_msgSend_isEqualToString_(v17))
             {
               memset(&v36, 0, sizeof(v36));
               if (v18)
               {
-                [v18 CGAffineTransformValue];
+                objc_msgSend_CGAffineTransformValue(v18);
               }
 
               if (v11)
               {
-                [v11 transform];
+                objc_msgSend_transform(v11);
               }
 
               else
@@ -292,7 +292,7 @@
     v22 = [TUIAnimationRenderModelStep alloc];
     [stepCopy startTime];
     v24 = v23;
-    [stepCopy duration];
+    objc_msgSend_duration(stepCopy);
     v26 = v25;
     values2 = [stepCopy values];
     allKeys = [values2 allKeys];

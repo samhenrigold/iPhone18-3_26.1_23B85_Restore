@@ -30,39 +30,33 @@
 
 - (NSString)_searchString
 {
-  v2 = *(self + OBJC_IVAR___MPContactSearchManager__searchString);
-  v3 = *(self + OBJC_IVAR___MPContactSearchManager__searchString + 8);
 
-  v4 = sub_1CFB8FA80();
+  v2 = sub_1CFB8FA80();
 
-  return v4;
+  return v2;
 }
 
 - (void)set_searchString:(id)string
 {
   v4 = sub_1CFB8FA90();
   v5 = (self + OBJC_IVAR___MPContactSearchManager__searchString);
-  v6 = *(self + OBJC_IVAR___MPContactSearchManager__searchString + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (NSArray)_contactSearchResults
 {
-  v2 = *(self + OBJC_IVAR___MPContactSearchManager__contactSearchResults);
   sub_1CFB5D38C(0, &unk_1EE04BCF0, 0x1E69BDCF8);
 
-  v3 = sub_1CFB8FB20();
+  v2 = sub_1CFB8FB20();
 
-  return v3;
+  return v2;
 }
 
 - (void)set_contactSearchResults:(id)results
 {
   sub_1CFB5D38C(0, &unk_1EE04BCF0, 0x1E69BDCF8);
-  v4 = sub_1CFB8FB30();
-  v5 = *(self + OBJC_IVAR___MPContactSearchManager__contactSearchResults);
-  *(self + OBJC_IVAR___MPContactSearchManager__contactSearchResults) = v4;
+  *(self + OBJC_IVAR___MPContactSearchManager__contactSearchResults) = sub_1CFB8FB30();
 }
 
 - (MPContactSearchManager)initWithType:(int64_t)type contactStore:(id)store searchResultsRanker:(id)ranker
@@ -90,30 +84,29 @@
 - (void)searchFor:(NSString *)for shouldRefreshResult:(BOOL)result completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4EC4B0, &qword_1CFB91F10);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v20 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  *(v14 + 16) = for;
-  *(v14 + 24) = result;
-  *(v14 + 32) = v13;
-  *(v14 + 40) = self;
-  v15 = sub_1CFB8FBF0();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v19 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  *(v13 + 16) = for;
+  *(v13 + 24) = result;
+  *(v13 + 32) = v12;
+  *(v13 + 40) = self;
+  v14 = sub_1CFB8FBF0();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_1CFB922B8;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_1CFB922B8;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_1CFB922C0;
-  v17[5] = v16;
+  v16[4] = &unk_1CFB922C0;
+  v16[5] = v15;
   forCopy = for;
   selfCopy = self;
-  sub_1CFB8C0EC(0, 0, v12, &unk_1CFB922C8, v17);
+  sub_1CFB8C0EC(0, 0, v11, &unk_1CFB922C8, v16);
 }
 
 - (void)cancelPreviousSearch

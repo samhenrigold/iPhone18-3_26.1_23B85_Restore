@@ -21,30 +21,34 @@
 
 - (void)remoteVideoClient:(id)client remoteVideoDidPause:(BOOL)pause
 {
+  pauseCopy = pause;
   clientCopy = client;
   selfCopy = self;
-  sub_1000178BC(clientCopy, pause);
+  sub_1000178BC(clientCopy, pauseCopy);
 }
 
 - (void)remoteVideoClient:(id)client remoteMediaDidStall:(BOOL)stall
 {
+  stallCopy = stall;
   clientCopy = client;
   selfCopy = self;
-  sub_100017938(clientCopy, stall);
+  sub_100017938(clientCopy, stallCopy);
 }
 
 - (void)remoteVideoClient:(id)client videoDidDegrade:(BOOL)degrade
 {
+  degradeCopy = degrade;
   clientCopy = client;
   selfCopy = self;
-  sub_1000179B4(clientCopy, degrade);
+  sub_1000179B4(clientCopy, degradeCopy);
 }
 
 - (void)remoteVideoClient:(id)client videoDidSuspend:(BOOL)suspend
 {
+  suspendCopy = suspend;
   clientCopy = client;
   selfCopy = self;
-  sub_100017A30(clientCopy, suspend);
+  sub_100017A30(clientCopy, suspendCopy);
 }
 
 - (void)remoteVideoClientDidReceiveLastFrame:(id)frame

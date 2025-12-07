@@ -140,14 +140,15 @@
 
   sub_24E0523DC();
 
-  sub_24DF8C95C(v6, &qword_27F1E0370);
+  sub_24DF8C95C(v6, &qword_27F1E0370, &unk_24E369A10);
 }
 
 - (void)loadMoreWithContinuationToken:(id)token
 {
-  sub_24E347CF8();
+  v4 = sub_24E347CF8();
+  v6 = v5;
   selfCopy = self;
-  sub_24E052630();
+  sub_24E052630(v4, v6);
 }
 
 @end

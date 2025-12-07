@@ -6,7 +6,7 @@
 
 - (double)msvl_timeValue
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [self componentsSeparatedByString:@":"];
   lastObject = [v2 lastObject];
   [lastObject doubleValue];
@@ -22,14 +22,13 @@
       v7 = os_log_create("com.apple.amp.MediaServices", "LyricsTTMLParser");
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
+        v9 = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1AC81F000, v7, OS_LOG_TYPE_DEFAULT, "Warning: time format should specify [minutes:]seconds only; other components are ignored: %@", &v10, 0xCu);
+        _os_log_impl(&dword_1AC81F000, v7, OS_LOG_TYPE_DEFAULT, "Warning: time format should specify [minutes:]seconds only; other components are ignored: %@", &v9, 0xCu);
       }
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

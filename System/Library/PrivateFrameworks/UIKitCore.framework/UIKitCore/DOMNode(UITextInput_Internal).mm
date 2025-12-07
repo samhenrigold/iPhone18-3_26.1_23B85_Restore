@@ -1355,7 +1355,7 @@ LABEL_13:
   _selectableText = [self _selectableText];
   if (![v6 length])
   {
-    v11 = [_selectableText textRangeFromPosition:v7 toPosition:v7];
+    v12 = [_selectableText textRangeFromPosition:v7 toPosition:v7];
     goto LABEL_30;
   }
 
@@ -1363,14 +1363,16 @@ LABEL_13:
   if (v9)
   {
     v10 = [_selectableText textInRange:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
   }
 
   else
   {
     v10 = 0;
+    isEqualToString = objc_msgSend_isEqualToString_(0);
   }
 
-  if (![v10 isEqualToString:v6])
+  if (!isEqualToString)
   {
     beginningOfDocument = [_selectableText positionFromPosition:v7 offset:{-objc_msgSend(v6, "length")}];
     if (!beginningOfDocument)
@@ -1378,37 +1380,37 @@ LABEL_13:
       beginningOfDocument = [_selectableText beginningOfDocument];
     }
 
-    v14 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:v7];
+    v15 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:v7];
 
-    if (v14)
+    if (v15)
     {
-      v15 = [_selectableText textInRange:v14];
+      v16 = [_selectableText textInRange:v15];
 
-      v16 = [v15 length];
-      if (v16 <= [v6 length])
+      v17 = [v16 length];
+      if (v17 <= [v6 length])
       {
-        v12 = v14;
-        v10 = v15;
+        v13 = v15;
+        v10 = v16;
 LABEL_25:
-        v21 = [self _normalizedStringForRangeComparison:v10];
-        v22 = [self _normalizedStringForRangeComparison:v6];
-        if ([v21 isEqualToString:v22])
+        v22 = [self _normalizedStringForRangeComparison:v10];
+        v23 = [self _normalizedStringForRangeComparison:v6];
+        if (objc_msgSend_isEqualToString_(v22))
         {
-          v11 = v12;
+          v12 = v13;
         }
 
         else
         {
-          v11 = 0;
+          v12 = 0;
         }
 
         goto LABEL_29;
       }
 
-      v17 = 0;
+      v18 = 0;
       while (1)
       {
-        v18 = beginningOfDocument;
+        v19 = beginningOfDocument;
         beginningOfDocument = [_selectableText positionFromPosition:beginningOfDocument offset:1];
 
         if (!beginningOfDocument)
@@ -1422,21 +1424,21 @@ LABEL_25:
           break;
         }
 
-        v12 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:v7];
+        v13 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:v7];
 
-        if (!v12)
+        if (!v13)
         {
           goto LABEL_24;
         }
 
-        v10 = [_selectableText textInRange:v12];
+        v10 = [_selectableText textInRange:v13];
 
-        v19 = [v10 length];
-        if (v19 > [v6 length])
+        v20 = [v10 length];
+        if (v20 > [v6 length])
         {
-          v14 = v12;
-          v15 = v10;
-          if (v17++ < 9)
+          v15 = v13;
+          v16 = v10;
+          if (v18++ < 9)
           {
             continue;
           }
@@ -1450,23 +1452,23 @@ LABEL_25:
 
     else
     {
-      v15 = v10;
+      v16 = v10;
     }
 
 LABEL_24:
 
-    v12 = 0;
+    v13 = 0;
     v10 = 0;
     goto LABEL_25;
   }
 
-  v12 = v9;
-  v11 = v12;
+  v13 = v9;
+  v12 = v13;
 LABEL_29:
 
 LABEL_30:
 
-  return v11;
+  return v12;
 }
 
 - (id)_rangeOfTextUnit:()UITextInput_Internal enclosingPosition:
@@ -1802,14 +1804,14 @@ LABEL_12:
   v9 = [v4 end];
   v10 = [tokenizer rangeEnclosingPosition:v9 withGranularity:4 inDirection:0];
 
-  if (!v8 || !v10 || ([v8 isEmpty] & 1) != 0 || (objc_msgSend(v10, "isEmpty") & 1) != 0 || (objc_msgSend(v8, "isEqual:", v10) & 1) != 0)
+  if (!v8 || !v10 || ([v8 isEmpty] & 1) != 0 || (objc_msgSend(v10, "isEmpty") & 1) != 0 || (objc_msgSend_isEqual_(v8) & 1) != 0)
   {
     goto LABEL_9;
   }
 
   start2 = [v8 start];
   start3 = [v10 start];
-  if ([start2 isEqual:start3])
+  if (objc_msgSend_isEqual_(start2))
   {
 
 LABEL_9:
@@ -1819,9 +1821,9 @@ LABEL_9:
 
   v13 = [v8 end];
   v14 = [v10 end];
-  v28 = [v13 isEqual:v14];
+  isEqual = objc_msgSend_isEqual_(v13);
 
-  if (v28)
+  if (isEqual)
   {
     goto LABEL_9;
   }
@@ -1838,12 +1840,12 @@ LABEL_9:
 
   if (v21)
   {
-    while (([v21 isEqual:v10] & 1) == 0)
+    while ((objc_msgSend_isEqual_(v21) & 1) == 0)
     {
       v22 = [v21 end];
       v23 = [tokenizer rangeEnclosingPosition:v22 withGranularity:4 inDirection:0];
 
-      if ([v23 isEqual:v21])
+      if (objc_msgSend_isEqual_(v23))
       {
 
         break;
@@ -2314,7 +2316,7 @@ LABEL_10:
     goto LABEL_19;
   }
 
-  if ([v4 anchor] == 1)
+  if (objc_msgSend_anchor(v4) == 1)
   {
     cursor2 = [v4 cursor];
 LABEL_5:
@@ -2322,10 +2324,10 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  anchor = [v4 anchor];
+  v8 = objc_msgSend_anchor(v4);
   cursor2 = [v4 cursor];
   [v4 setStart:cursor2];
-  if (anchor != 2)
+  if (v8 != 2)
   {
     goto LABEL_5;
   }
@@ -2338,7 +2340,7 @@ LABEL_6:
 
   if (v11 >= 1)
   {
-    if ([v4 anchor] == 1)
+    if (objc_msgSend_anchor(v4) == 1)
     {
       v12 = 2;
     }
@@ -2356,9 +2358,9 @@ LABEL_6:
   v15 = [_selectableText textRangeFromPosition:start2 toPosition:v14];
 
   [self _updateSelectionWithTextRange:v15 withAffinityDownstream:{objc_msgSend(v4, "affinityDownstream")}];
-  if ([v4 anchor])
+  if (objc_msgSend_anchor(v4))
   {
-    if ([v4 anchor] == 1)
+    if (objc_msgSend_anchor(v4) == 1)
     {
       [_selectableText _lastRectForRange:v15];
     }
@@ -2410,12 +2412,12 @@ LABEL_19:
   v16 = [selectedTextRange2 end];
   [(UITextInputArrowKeyHistory *)v11 setEnd:v16];
 
-  anchor = [(UITextInputArrowKeyHistory *)v11 anchor];
+  v17 = objc_msgSend_anchor(v11);
   selectedTextRange3 = [_selectableText selectedTextRange];
   v19 = selectedTextRange3;
   if (a5 == 2)
   {
-    if (anchor == 1)
+    if (v17 == 1)
     {
 LABEL_7:
       start2 = [selectedTextRange3 end];
@@ -2423,7 +2425,7 @@ LABEL_7:
     }
   }
 
-  else if (anchor != 2)
+  else if (v17 != 2)
   {
     goto LABEL_7;
   }
@@ -2458,7 +2460,7 @@ LABEL_17:
   }
 
 LABEL_12:
-  if (!-[UITextInputArrowKeyHistory anchor](v11, "anchor") || [self _isEmptySelection])
+  if (!objc_msgSend_anchor(v11) || [self _isEmptySelection])
   {
     goto LABEL_17;
   }

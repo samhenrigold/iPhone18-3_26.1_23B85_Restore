@@ -118,16 +118,12 @@ uint64_t __181__ASDBackgroundAssets_didReachAssetPackTerminalPhaseForStoreItemId
 {
   if (a2)
   {
-    v3 = *(a1 + 64);
-    return [a2 didReachAssetPackTerminalPhaseForStoreItemIdentifier:*(a1 + 32) bundleIdentifier:*(a1 + 40) assetPackIdentifier:*(a1 + 48) assetPackVersion:*(a1 + 56) internalBeta:*(a1 + 88) terminalPhase:*(a1 + 80) error:v3 replyHandler:*(a1 + 72)];
+    return [a2 didReachAssetPackTerminalPhaseForStoreItemIdentifier:*(a1 + 32) bundleIdentifier:*(a1 + 40) assetPackIdentifier:*(a1 + 48) assetPackVersion:*(a1 + 56) internalBeta:*(a1 + 88) terminalPhase:*(a1 + 80) error:*(a1 + 64) replyHandler:*(a1 + 72)];
   }
 
-  else
-  {
-    v5 = *(*(a1 + 72) + 16);
+  v4 = *(*(a1 + 72) + 16);
 
-    return v5();
-  }
+  return v4();
 }
 
 @end

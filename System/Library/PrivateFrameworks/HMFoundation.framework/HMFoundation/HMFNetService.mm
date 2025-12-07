@@ -274,36 +274,7 @@ uint64_t __24__HMFNetService_dealloc__block_invoke(uint64_t a1)
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_11;
-    }
-
-    port = [(HMFNetService *)self port];
-    port2 = [(HMFNetService *)equalCopy port];
-    if (port != -1 && port2 != -1)
-    {
-      port3 = [(HMFNetService *)self port];
-      if (port3 != [(HMFNetService *)equalCopy port])
-      {
-        goto LABEL_11;
-      }
-    }
-
-    name = [(HMFNetService *)self name];
-    name2 = [(HMFNetService *)equalCopy name];
-    v10 = [name isEqualToString:name2];
-
-    if (!v10)
-    {
-      goto LABEL_11;
-    }
-
-    type = [(HMFNetService *)self type];
-    type2 = [(HMFNetService *)equalCopy type];
-    v13 = [type isEqualToString:type2];
-
-    if (v13)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && ((v5 = -[HMFNetService port](self, "port"), v6 = -[HMFNetService port](equalCopy, "port"), v5 == -1) || v6 == -1 || (v7 = -[HMFNetService port](self, "port"), v7 == -[HMFNetService port](equalCopy, "port"))) && (-[HMFNetService name](self, "name"), v8 = objc_claimAutoreleasedReturnValue(), -[HMFNetService name](equalCopy, "name"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v8 isEqualToString:v9], v9, v8, v10) && (-[HMFNetService type](self, "type"), v11 = objc_claimAutoreleasedReturnValue(), -[HMFNetService type](equalCopy, "type"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqualToString:", v12), v12, v11, v13))
     {
       domain = [(HMFNetService *)self domain];
       if ([domain length])
@@ -330,7 +301,6 @@ uint64_t __24__HMFNetService_dealloc__block_invoke(uint64_t a1)
 
     else
     {
-LABEL_11:
       v18 = 0;
     }
   }
@@ -645,31 +615,29 @@ void __40__HMFNetService_notifyUpdatedAddresses___block_invoke(uint64_t a1)
 
 void __54__HMFNetService_resolveWithTimeout_completionHandler___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) resolveState] == 1 && (objc_msgSend(*(a1 + 32), "bestAddress"), (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v3 = v2;
     v4 = objc_autoreleasePoolPush();
     v5 = *(a1 + 32);
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = HMFGetOSLogHandle(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v7 = HMFGetLogIdentifier(v5);
-      v14 = 138543618;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v3;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Skipping resolving service, already have a cached address: %@", &v14, 0x16u);
+      v8 = HMFGetLogIdentifier(v5);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Skipping resolving service, already have a cached address: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
-    v8 = *(a1 + 40);
-    if (v8)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      (*(v8 + 16))(v8, v3, 0);
+      (*(v9 + 16))(v9, v3, 0);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -677,7 +645,6 @@ void __54__HMFNetService_resolveWithTimeout_completionHandler___block_invoke(uin
     v10 = *(a1 + 48);
     v11 = *(a1 + 32);
     v12 = *(a1 + 40);
-    v13 = *MEMORY[0x277D85DE8];
 
     [v11 _reallyResolveWithTimeout:v12 completionHandler:v10];
   }
@@ -705,36 +672,34 @@ void __54__HMFNetService_confirmWithTimeout_completionHandler___block_invoke(uin
   {
     v2 = objc_autoreleasePoolPush();
     v3 = *(a1 + 32);
-    v4 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = HMFGetOSLogHandle(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v5 = HMFGetLogIdentifier(v3);
+      v6 = HMFGetLogIdentifier(v3);
       *buf = 138543362;
-      v13 = v5;
-      _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Skipping resolving service, still running and already resolved", buf, 0xCu);
+      v13 = v6;
+      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Skipping resolving service, still running and already resolved", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
-    v6 = *(a1 + 40);
-    if (v6)
+    v7 = *(a1 + 40);
+    if (v7)
     {
-      (*(v6 + 16))(v6, 0);
+      (*(v7 + 16))(v7, 0);
     }
   }
 
   else
   {
-    v7 = *(a1 + 48);
+    v8 = *(a1 + 48);
     v10[0] = MEMORY[0x277D85DD0];
     v10[1] = 3221225472;
     v10[2] = __54__HMFNetService_confirmWithTimeout_completionHandler___block_invoke_43;
     v10[3] = &unk_2786E80B0;
-    v8 = *(a1 + 32);
+    v9 = *(a1 + 32);
     v11 = *(a1 + 40);
-    [v8 _reallyResolveWithTimeout:v10 completionHandler:v7];
+    [v9 _reallyResolveWithTimeout:v10 completionHandler:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__HMFNetService_confirmWithTimeout_completionHandler___block_invoke_43(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -764,19 +729,19 @@ uint64_t __54__HMFNetService_confirmWithTimeout_completionHandler___block_invoke
   {
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = HMFGetOSLogHandle(selfCopy, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v13 = HMFGetLogIdentifier(selfCopy);
+      v14 = HMFGetLogIdentifier(selfCopy);
       v18 = 138543362;
-      v19 = v13;
-      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Starting to resolve service", &v18, 0xCu);
+      v19 = v14;
+      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Starting to resolve service", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     [(HMFNetService *)selfCopy setResolveRunningState:1];
     internal = [(HMFNetService *)selfCopy internal];
-    v15 = internal;
+    v16 = internal;
     timeoutCopy = 15.0;
     if (timeout > 0.0)
     {
@@ -785,8 +750,6 @@ uint64_t __54__HMFNetService_confirmWithTimeout_completionHandler___block_invoke
 
     [internal resolveWithTimeout:timeoutCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -816,17 +779,16 @@ uint64_t __28__HMFNetService_logCategory__block_invoke()
   resolveCopy = resolve;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = HMFGetLogIdentifier(selfCopy);
+    v9 = HMFGetLogIdentifier(selfCopy);
     v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Net service will resolve", &v10, 0xCu);
+    v11 = v9;
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Net service will resolve", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceDidResolveAddress:(id)address
@@ -848,115 +810,113 @@ void __45__HMFNetService_netServiceDidResolveAddress___block_invoke(uint64_t a1)
   v40 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     *buf = 138543362;
-    v39 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Net service resolved", buf, 0xCu);
+    v39 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Net service resolved", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 32) setResolveState:1];
-  v6 = [*(a1 + 40) port];
-  if (v6 != [*(a1 + 32) port])
+  v7 = [*(a1 + 40) port];
+  if (v7 != [*(a1 + 32) port])
   {
-    __HMFNetServiceUpdatePort(*(a1 + 32), v6);
+    __HMFNetServiceUpdatePort(*(a1 + 32), v7);
   }
 
-  v7 = [HMFNetAddress alloc];
-  v8 = [*(a1 + 40) hostName];
-  v9 = [(HMFNetAddress *)v7 initWithHostname:v8];
+  v8 = [HMFNetAddress alloc];
+  v9 = [*(a1 + 40) hostName];
+  v10 = [(HMFNetAddress *)v8 initWithHostname:v9];
 
-  [*(a1 + 32) setHostname:v9];
-  v10 = [*(a1 + 40) addresses];
-  v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count") + 1}];
-  v12 = v11;
-  if (v9)
+  [*(a1 + 32) setHostname:v10];
+  v11 = [*(a1 + 40) addresses];
+  v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count") + 1}];
+  v13 = v12;
+  if (v10)
   {
-    [v11 addObject:v9];
+    [v12 addObject:v10];
   }
 
   v34 = 0u;
   v35 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v14)
+  v14 = v11;
+  v15 = [v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v33;
+    v16 = v15;
+    v17 = *v33;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v33 != v16)
+        if (*v33 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = -[HMFNetAddress initWithSocketAddress:]([HMFNetAddress alloc], "initWithSocketAddress:", [*(*(&v32 + 1) + 8 * i) bytes]);
-        if (v18)
+        v19 = -[HMFNetAddress initWithSocketAddress:]([HMFNetAddress alloc], "initWithSocketAddress:", [*(*(&v32 + 1) + 8 * i) bytes]);
+        if (v19)
         {
-          [v12 addObject:v18];
+          [v13 addObject:v19];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
-  [*(a1 + 32) setAddresses:v12];
+  [*(a1 + 32) setAddresses:v13];
   [*(a1 + 32) setResolved:1];
-  if ([v12 count])
+  if ([v13 count])
   {
     v30 = 0u;
     v31 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v19 = [*(a1 + 32) resolveBlocks];
-    v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
-    if (v20)
+    v20 = [*(a1 + 32) resolveBlocks];
+    v21 = [v20 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    if (v21)
     {
-      v21 = v20;
-      v22 = *v29;
+      v22 = v21;
+      v23 = *v29;
       do
       {
-        for (j = 0; j != v21; ++j)
+        for (j = 0; j != v22; ++j)
         {
-          if (*v29 != v22)
+          if (*v29 != v23)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v20);
           }
 
-          v24 = *(*(&v28 + 1) + 8 * j);
-          if (v9)
+          v25 = *(*(&v28 + 1) + 8 * j);
+          if (v10)
           {
-            (*(v24 + 16))(*(*(&v28 + 1) + 8 * j), v9, 0);
+            (*(v25 + 16))(*(*(&v28 + 1) + 8 * j), v10, 0);
           }
 
           else
           {
-            v25 = [v12 firstObject];
-            (*(v24 + 16))(v24, v25, 0);
+            v26 = [v13 firstObject];
+            (*(v25 + 16))(v25, v26, 0);
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
-      while (v21);
+      while (v22);
     }
 
-    v26 = [*(a1 + 32) resolveBlocks];
-    [v26 removeAllObjects];
+    v27 = [*(a1 + 32) resolveBlocks];
+    [v27 removeAllObjects];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netService:(id)service didNotResolve:(id)resolve
@@ -975,65 +935,62 @@ void __45__HMFNetService_netServiceDidResolveAddress___block_invoke(uint64_t a1)
 
 void __42__HMFNetService_netService_didNotResolve___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = HMFGetLogIdentifier(v3);
-    v6 = *(a1 + 40);
+    v6 = HMFGetLogIdentifier(v3);
+    v7 = *(a1 + 40);
     *buf = 138543618;
-    v25 = v5;
-    v26 = 2112;
-    v27 = v6;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Net service failed to resolve with error: %@", buf, 0x16u);
+    v24 = v6;
+    v25 = 2112;
+    v26 = v7;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Net service failed to resolve with error: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 32) setResolveState:0];
   [*(a1 + 32) setResolveRunningState:0];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v7 = [*(a1 + 32) resolveBlocks];
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v8)
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v8 = [*(a1 + 32) resolveBlocks];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v20;
+    v10 = v9;
+    v11 = *v19;
     do
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        if (*v20 != v10)
+        if (*v19 != v11)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v11);
-        v13 = MEMORY[0x277CCA9B8];
-        v14 = *(a1 + 32);
+        v13 = *(*(&v18 + 1) + 8 * v12);
+        v14 = MEMORY[0x277CCA9B8];
         v15 = [objc_opt_class() errorFromNetServiceErrorDict:*(a1 + 40)];
-        v16 = [v13 hmfErrorWithCode:2 reason:@"Failed to resolve." suggestion:0 underlyingError:v15];
+        v16 = [v14 hmfErrorWithCode:2 reason:@"Failed to resolve." suggestion:0 underlyingError:v15];
 
-        (*(v12 + 16))(v12, 0, v16);
-        ++v11;
+        (*(v13 + 16))(v13, 0, v16);
+        ++v12;
       }
 
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 
   v17 = [*(a1 + 32) resolveBlocks];
   [v17 removeAllObjects];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceDidStop:(id)stop
@@ -1052,13 +1009,13 @@ void __35__HMFNetService_netServiceDidStop___block_invoke(uint64_t a1)
   v22 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     *buf = 138543362;
-    v21 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Net service stopped resolving", buf, 0xCu);
+    v21 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Net service stopped resolving", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1067,40 +1024,38 @@ void __35__HMFNetService_netServiceDidStop___block_invoke(uint64_t a1)
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v6 = [*(a1 + 32) resolveBlocks];
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v7)
+  v7 = [*(a1 + 32) resolveBlocks];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v16;
+    v9 = v8;
+    v10 = *v16;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v16 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
-        v12 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12 reason:@"Net service stopped resolving."];
-        (*(v11 + 16))(v11, 0, v12);
+        v12 = *(*(&v15 + 1) + 8 * v11);
+        v13 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12 reason:@"Net service stopped resolving."];
+        (*(v12 + 16))(v12, 0, v13);
 
-        ++v10;
+        ++v11;
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  v13 = [*(a1 + 32) resolveBlocks];
-  [v13 removeAllObjects];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14 = [*(a1 + 32) resolveBlocks];
+  [v14 removeAllObjects];
 }
 
 - (void)netService:(id)service didUpdateTXTRecordData:(id)data
@@ -1110,21 +1065,19 @@ void __35__HMFNetService_netServiceDidStop___block_invoke(uint64_t a1)
   dataCopy = data;
   v8 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = HMFGetOSLogHandle(selfCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v11 = HMFGetLogIdentifier(selfCopy);
+    v12 = HMFGetLogIdentifier(selfCopy);
     v13 = 138543618;
-    v14 = v11;
+    v14 = v12;
     v15 = 2112;
     v16 = dataCopy;
-    _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Net service TXT record updated: %@", &v13, 0x16u);
+    _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Net service TXT record updated: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMFNetService *)selfCopy updateTXTRecordWithData:dataCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFNetServiceDelegate)delegate

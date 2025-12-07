@@ -34,11 +34,11 @@
 
 - (id)initFromDictionary:(id)dictionary
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v35.receiver = self;
-  v35.super_class = CCMergeableDeltaFileTransferMessageMetadata;
-  v5 = [(CCPeerToPeerMessage *)&v35 initFromDictionary:dictionaryCopy];
+  v34.receiver = self;
+  v34.super_class = CCMergeableDeltaFileTransferMessageMetadata;
+  v5 = [(CCPeerToPeerMessage *)&v34 initFromDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x1E69939E0]);
@@ -58,32 +58,32 @@
 
     v15 = [dictionaryCopy objectForKeyedSubscript:@"mergeableDeltaMetadataVectors"];
     v16 = v5[7];
-    v29 = v5;
+    v28 = v5;
     v5[7] = v15;
 
     v17 = objc_opt_new();
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v30 = dictionaryCopy;
+    v29 = dictionaryCopy;
     v18 = [dictionaryCopy objectForKeyedSubscript:@"relayedDeviceSites"];
-    v19 = [v18 countByEnumeratingWithState:&v31 objects:v38 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v30 objects:v37 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v32;
+      v21 = *v31;
       do
       {
         v22 = 0;
         do
         {
-          if (*v32 != v21)
+          if (*v31 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v31 + 1) + 8 * v22);
+          v23 = *(*(&v30 + 1) + 8 * v22);
           v24 = [objc_alloc(MEMORY[0x1E69939E0]) initFromDictionary:v23];
           if (v24)
           {
@@ -96,7 +96,7 @@
             if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v37 = v23;
+              v36 = v23;
               _os_log_error_impl(&dword_1DA444000, v25, OS_LOG_TYPE_ERROR, "Failed to decode deviceSite from opack encoding %@", buf, 0xCu);
             }
           }
@@ -105,79 +105,76 @@
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v31 objects:v38 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v30 objects:v37 count:16];
       }
 
       while (v20);
     }
 
-    v5 = v29;
-    v26 = v29[9];
-    v29[9] = v17;
+    v5 = v28;
+    v26 = v28[9];
+    v28[9] = v17;
 
-    dictionaryCopy = v30;
+    dictionaryCopy = v29;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)dictionaryRepresentation
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = self->_relayedDeviceSites;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        dictionaryRepresentation = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
         [v3 addObject:dictionaryRepresentation];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v6);
   }
 
-  v24[0] = @"fileFormatVersion";
+  v23[0] = @"fileFormatVersion";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_fileFormatVersion];
   mergeableDeltaMetadataVectors = self->_mergeableDeltaMetadataVectors;
-  v25[0] = v10;
-  v25[1] = mergeableDeltaMetadataVectors;
-  v24[1] = @"mergeableDeltaMetadataVectors";
-  v24[2] = @"relayedDeviceSites";
-  v25[2] = v3;
-  v24[3] = @"set";
+  v24[0] = v10;
+  v24[1] = mergeableDeltaMetadataVectors;
+  v23[1] = @"mergeableDeltaMetadataVectors";
+  v23[2] = @"relayedDeviceSites";
+  v24[2] = v3;
+  v23[3] = @"set";
   dictionaryRepresentation2 = [(CCSet *)self->_set dictionaryRepresentation];
-  v25[3] = dictionaryRepresentation2;
-  v24[4] = @"deviceSite";
+  v24[3] = dictionaryRepresentation2;
+  v23[4] = @"deviceSite";
   dictionaryRepresentation3 = [(CCDeviceSite *)self->_deviceSite dictionaryRepresentation];
-  v25[4] = dictionaryRepresentation3;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:5];
+  v24[4] = dictionaryRepresentation3;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:5];
   v15 = [v14 mutableCopy];
 
-  v19.receiver = self;
-  v19.super_class = CCMergeableDeltaFileTransferMessageMetadata;
-  dictionaryRepresentation4 = [(CCPeerToPeerMessage *)&v19 dictionaryRepresentation];
+  v18.receiver = self;
+  v18.super_class = CCMergeableDeltaFileTransferMessageMetadata;
+  dictionaryRepresentation4 = [(CCPeerToPeerMessage *)&v18 dictionaryRepresentation];
   [v15 addEntriesFromDictionary:dictionaryRepresentation4];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -264,7 +264,7 @@ void __41__GKEditActionsView_prepareActionButtons__block_invoke(uint64_t a1, voi
   }
 }
 
-void __38__GKEditActionsView_setActionButtons___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __38__GKEditActionsView_setActionButtons___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v20 = a2;
   v5 = *(a1 + 32);
@@ -291,7 +291,7 @@ void __38__GKEditActionsView_setActionButtons___block_invoke(uint64_t a1, void *
     [v11 addObject:v14];
   }
 
-  if ([*(*(a1 + 40) + 440) count] - 1 == a3)
+  if (([*(*(a1 + 40) + 440) count] - 1) == a3)
   {
     v15 = *(a1 + 32);
     v16 = [MEMORY[0x277CCAAD0] constraintWithItem:*(a1 + 40) attribute:1 relatedBy:0 toItem:v20 attribute:1 multiplier:1.0 constant:0.0];

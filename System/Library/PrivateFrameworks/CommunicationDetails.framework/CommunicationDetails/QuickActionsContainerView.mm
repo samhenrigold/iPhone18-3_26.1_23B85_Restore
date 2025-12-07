@@ -20,9 +20,9 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20CommunicationDetails25QuickActionsContainerView_model) = 0;
   v4 = OBJC_IVAR____TtC20CommunicationDetails25QuickActionsContainerView_actionButtons;
   v5 = MEMORY[0x1E69E7CC0];
-  *(&self->super.super.super.isa + v4) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC20CommunicationDetails15QuickActionViewC10ButtonTypeO_AETt0g5Tf4g_nTm(MEMORY[0x1E69E7CC0], &_ss18_DictionaryStorageCy20CommunicationDetails15QuickActionViewC10ButtonTypeOAEGMd);
+  *(&self->super.super.super.isa + v4) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC20CommunicationDetails15QuickActionViewC10ButtonTypeO_AETt0g5Tf4g_nTm(MEMORY[0x1E69E7CC0], &_ss18_DictionaryStorageCy20CommunicationDetails15QuickActionViewC10ButtonTypeOAEGMd, &_ss18_DictionaryStorageCy20CommunicationDetails15QuickActionViewC10ButtonTypeOAEGMR);
   v6 = OBJC_IVAR____TtC20CommunicationDetails25QuickActionsContainerView_customActionButtons;
-  *(&self->super.super.super.isa + v6) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC20CommunicationDetails15QuickActionViewC10ButtonTypeO_AETt0g5Tf4g_nTm(v5, &_ss18_DictionaryStorageCy20CommunicationDetails15QuickActionViewC10ButtonTypeOSo8UIButtonCGMd);
+  *(&self->super.super.super.isa + v6) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC20CommunicationDetails15QuickActionViewC10ButtonTypeO_AETt0g5Tf4g_nTm(v5, &_ss18_DictionaryStorageCy20CommunicationDetails15QuickActionViewC10ButtonTypeOSo8UIButtonCGMd, &_ss18_DictionaryStorageCy20CommunicationDetails15QuickActionViewC10ButtonTypeOSo8UIButtonCGMR);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;

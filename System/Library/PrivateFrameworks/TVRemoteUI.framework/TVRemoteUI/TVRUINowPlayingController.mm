@@ -99,20 +99,21 @@
 
 - (void)setNowPlayingInfo:(id)info
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v6 = infoCopy;
   if (infoCopy)
   {
-    if ([infoCopy tvrui_isSimplePlaybackRateUpdate])
+    tvrui_isSimplePlaybackRateUpdate = [infoCopy tvrui_isSimplePlaybackRateUpdate];
+    if (tvrui_isSimplePlaybackRateUpdate)
     {
-      v7 = _TVRUINowPlayingLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = _TVRUINowPlayingLog(tvrui_isSimplePlaybackRateUpdate);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         playbackRate = [v6 playbackRate];
         *buf = 138412290;
-        v62 = playbackRate;
-        _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_INFO, "Updating playbackRate to %@", buf, 0xCu);
+        v68 = playbackRate;
+        _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_INFO, "Updating playbackRate to %@", buf, 0xCu);
       }
 
       playbackRate2 = [v6 playbackRate];
@@ -124,17 +125,17 @@
       playbackState = [v6 playbackState];
       integerValue = [playbackState integerValue];
 
-      v18 = _TVRUINowPlayingLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v20 = _TVRUINowPlayingLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
+        v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
         *buf = 138412290;
-        v62 = v19;
-        _os_log_impl(&dword_26CFEB000, v18, OS_LOG_TYPE_INFO, "Updating playbackState to %@", buf, 0xCu);
+        v68 = v21;
+        _os_log_impl(&dword_26CFEB000, v20, OS_LOG_TYPE_INFO, "Updating playbackState to %@", buf, 0xCu);
       }
 
-      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
-      [(TVRCNowPlayingInfo *)self->_nowPlayingInfo setPlaybackState:v20];
+      v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
+      [(TVRCNowPlayingInfo *)self->_nowPlayingInfo setPlaybackState:v22];
 
       if (integerValue == 3)
       {
@@ -149,89 +150,93 @@
       }
     }
 
-    else if ([v6 tvrui_isSimpleCaptionStateUpdate])
-    {
-      v29 = _TVRUINowPlayingLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
-      {
-        captionsEnabled = [v6 captionsEnabled];
-        hasValidCaptionOptions = [v6 hasValidCaptionOptions];
-        *buf = 138412546;
-        v62 = captionsEnabled;
-        v63 = 2112;
-        v64 = hasValidCaptionOptions;
-        _os_log_impl(&dword_26CFEB000, v29, OS_LOG_TYPE_INFO, "Updating captionsEnabled to %@; hasValidCaptionsOptoins to %@", buf, 0x16u);
-      }
-
-      captionsEnabled2 = [v6 captionsEnabled];
-      [(TVRCNowPlayingInfo *)self->_nowPlayingInfo setCaptionsEnabled:captionsEnabled2];
-
-      hasValidCaptionOptions2 = [v6 hasValidCaptionOptions];
-      [(TVRCNowPlayingInfo *)self->_nowPlayingInfo setHasValidCaptionOptions:hasValidCaptionOptions2];
-    }
-
     else
     {
-      identifier = [v6 identifier];
-      p_nowPlayingInfo = &self->_nowPlayingInfo;
-      identifier2 = [(TVRCNowPlayingInfo *)self->_nowPlayingInfo identifier];
-      v41 = [identifier isEqualToString:identifier2];
-
-      if (v41)
+      tvrui_isSimpleCaptionStateUpdate = [v6 tvrui_isSimpleCaptionStateUpdate];
+      if (tvrui_isSimpleCaptionStateUpdate)
       {
-        v42 = [(TVRCNowPlayingInfo *)*p_nowPlayingInfo nowPlayingInfoMergedWithNowPlayingInfo:v6];
-        v43 = *p_nowPlayingInfo;
-        *p_nowPlayingInfo = v42;
-
-        v44 = _TVRUINowPlayingLog();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+        v32 = _TVRUINowPlayingLog(tvrui_isSimpleCaptionStateUpdate);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
-          metadata = [(TVRCNowPlayingInfo *)*p_nowPlayingInfo metadata];
-          canonicalID = [metadata canonicalID];
-          *buf = 138412290;
-          v62 = canonicalID;
-          _os_log_impl(&dword_26CFEB000, v44, OS_LOG_TYPE_INFO, "Updating nowPlayingInfo (identifiers remained the same; merging info) for canonicalID=%@", buf, 0xCu);
+          captionsEnabled = [v6 captionsEnabled];
+          hasValidCaptionOptions = [v6 hasValidCaptionOptions];
+          *buf = 138412546;
+          v68 = captionsEnabled;
+          v69 = 2112;
+          v70 = hasValidCaptionOptions;
+          _os_log_impl(&dword_26CFEB000, v32, OS_LOG_TYPE_INFO, "Updating captionsEnabled to %@; hasValidCaptionsOptoins to %@", buf, 0x16u);
         }
+
+        captionsEnabled2 = [v6 captionsEnabled];
+        [(TVRCNowPlayingInfo *)self->_nowPlayingInfo setCaptionsEnabled:captionsEnabled2];
+
+        hasValidCaptionOptions2 = [v6 hasValidCaptionOptions];
+        [(TVRCNowPlayingInfo *)self->_nowPlayingInfo setHasValidCaptionOptions:hasValidCaptionOptions2];
       }
 
       else
       {
-        v49 = _TVRUINowPlayingLog();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
-        {
-          identifier3 = [v6 identifier];
-          identifier4 = [(TVRCNowPlayingInfo *)*p_nowPlayingInfo identifier];
-          *buf = 138412546;
-          v62 = identifier3;
-          v63 = 2112;
-          v64 = identifier4;
-          _os_log_impl(&dword_26CFEB000, v49, OS_LOG_TYPE_INFO, "Updating nowPlayingInfo via identified change %@ -> %@", buf, 0x16u);
-        }
+        identifier = [v6 identifier];
+        p_nowPlayingInfo = &self->_nowPlayingInfo;
+        identifier2 = [(TVRCNowPlayingInfo *)self->_nowPlayingInfo identifier];
+        v45 = [identifier isEqualToString:identifier2];
 
-        identifier5 = [v6 identifier];
-        if ([identifier5 length])
+        if (v45)
         {
-          identifier6 = [(TVRCNowPlayingInfo *)*p_nowPlayingInfo identifier];
-          v54 = [identifier6 length] == 0;
+          v47 = [(TVRCNowPlayingInfo *)*p_nowPlayingInfo nowPlayingInfoMergedWithNowPlayingInfo:v6];
+          v48 = *p_nowPlayingInfo;
+          *p_nowPlayingInfo = v47;
 
-          objc_storeStrong(&self->_nowPlayingInfo, info);
-          if (!v54)
+          v50 = _TVRUINowPlayingLog(v49);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
           {
-            +[TVRUIUpNextController refreshDelayOnMediaDidChangeTimeInterval];
-            v56 = dispatch_time(0, (v55 * 1000000000.0));
-            block[0] = MEMORY[0x277D85DD0];
-            block[1] = 3221225472;
-            block[2] = __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke;
-            block[3] = &unk_279D87C20;
-            block[4] = self;
-            dispatch_after(v56, MEMORY[0x277D85CD0], block);
+            metadata = [(TVRCNowPlayingInfo *)*p_nowPlayingInfo metadata];
+            canonicalID = [metadata canonicalID];
+            *buf = 138412290;
+            v68 = canonicalID;
+            _os_log_impl(&dword_26CFEB000, v50, OS_LOG_TYPE_INFO, "Updating nowPlayingInfo (identifiers remained the same; merging info) for canonicalID=%@", buf, 0xCu);
           }
         }
 
         else
         {
+          v55 = _TVRUINowPlayingLog(v46);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+          {
+            identifier3 = [v6 identifier];
+            identifier4 = [(TVRCNowPlayingInfo *)*p_nowPlayingInfo identifier];
+            *buf = 138412546;
+            v68 = identifier3;
+            v69 = 2112;
+            v70 = identifier4;
+            _os_log_impl(&dword_26CFEB000, v55, OS_LOG_TYPE_INFO, "Updating nowPlayingInfo via identified change %@ -> %@", buf, 0x16u);
+          }
 
-          objc_storeStrong(&self->_nowPlayingInfo, info);
+          identifier5 = [v6 identifier];
+          if ([identifier5 length])
+          {
+            identifier6 = [(TVRCNowPlayingInfo *)*p_nowPlayingInfo identifier];
+            v60 = [identifier6 length] == 0;
+
+            objc_storeStrong(&self->_nowPlayingInfo, info);
+            if (!v60)
+            {
+              +[TVRUIUpNextController refreshDelayOnMediaDidChangeTimeInterval];
+              v62 = dispatch_time(0, (v61 * 1000000000.0));
+              block[0] = MEMORY[0x277D85DD0];
+              block[1] = 3221225472;
+              block[2] = __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke;
+              block[3] = &unk_279D87C20;
+              block[4] = self;
+              dispatch_after(v62, MEMORY[0x277D85CD0], block);
+            }
+          }
+
+          else
+          {
+
+            objc_storeStrong(&self->_nowPlayingInfo, info);
+          }
         }
       }
     }
@@ -243,15 +248,15 @@
       metadata3 = [v6 metadata];
       isMissingCriticalMetadata = [metadata3 isMissingCriticalMetadata];
 
-      v14 = isMissingCriticalMetadata ^ 1;
+      v15 = isMissingCriticalMetadata ^ 1;
     }
 
     else
     {
-      v14 = 1;
+      v15 = 1;
     }
 
-    if (([tvrui_effectiveCanonicalID length] == 0) | v14 & 1)
+    if (([tvrui_effectiveCanonicalID length] == 0) | v15 & 1)
     {
       nowPlayingInfo = [(TVRUINowPlayingController *)self nowPlayingInfo];
       [(TVRUINowPlayingController *)self _updateNowPlayingUIWithNowPlayingInfo:nowPlayingInfo];
@@ -261,14 +266,14 @@
     {
       cachedMediaInfo = [(TVRUINowPlayingController *)self cachedMediaInfo];
       identifier7 = [cachedMediaInfo identifier];
-      v25 = [tvrui_effectiveCanonicalID isEqualToString:identifier7];
+      v27 = [tvrui_effectiveCanonicalID isEqualToString:identifier7];
 
-      if (v25)
+      if (v27)
       {
         metadata4 = [(TVRCNowPlayingInfo *)self->_nowPlayingInfo metadata];
         cachedMediaInfo2 = [(TVRUINowPlayingController *)self cachedMediaInfo];
-        v28 = [metadata4 metadataMergedFromTVRCMediaInfo:cachedMediaInfo2];
-        [(TVRCNowPlayingInfo *)self->_nowPlayingInfo setMetadata:v28];
+        v30 = [metadata4 metadataMergedFromTVRCMediaInfo:cachedMediaInfo2];
+        [(TVRCNowPlayingInfo *)self->_nowPlayingInfo setMetadata:v30];
 
         [(TVRUINowPlayingController *)self _updateNowPlayingUIWithNowPlayingInfo:self->_nowPlayingInfo];
       }
@@ -276,42 +281,42 @@
       else
       {
         canonicalIDOfCurrentUTSRequest = [(TVRUINowPlayingController *)self canonicalIDOfCurrentUTSRequest];
-        v35 = [tvrui_effectiveCanonicalID isEqualToString:canonicalIDOfCurrentUTSRequest];
+        v38 = [tvrui_effectiveCanonicalID isEqualToString:canonicalIDOfCurrentUTSRequest];
 
-        v36 = _TVRUINowPlayingLog();
-        v37 = os_log_type_enabled(v36, OS_LOG_TYPE_INFO);
-        if (v35)
+        v40 = _TVRUINowPlayingLog(v39);
+        v41 = os_log_type_enabled(v40, OS_LOG_TYPE_INFO);
+        if (v38)
         {
-          if (v37)
+          if (v41)
           {
             *buf = 138412290;
-            v62 = tvrui_effectiveCanonicalID;
-            _os_log_impl(&dword_26CFEB000, v36, OS_LOG_TYPE_INFO, "Already requesting metadata from UTS for canonicalID=%@ ... will not request again.", buf, 0xCu);
+            v68 = tvrui_effectiveCanonicalID;
+            _os_log_impl(&dword_26CFEB000, v40, OS_LOG_TYPE_INFO, "Already requesting metadata from UTS for canonicalID=%@ ... will not request again.", buf, 0xCu);
           }
         }
 
         else
         {
-          if (v37)
+          if (v41)
           {
             *buf = 138412290;
-            v62 = tvrui_effectiveCanonicalID;
-            _os_log_impl(&dword_26CFEB000, v36, OS_LOG_TYPE_INFO, "Requesting metadata from UTS for canonicalID=%@", buf, 0xCu);
+            v68 = tvrui_effectiveCanonicalID;
+            _os_log_impl(&dword_26CFEB000, v40, OS_LOG_TYPE_INFO, "Requesting metadata from UTS for canonicalID=%@", buf, 0xCu);
           }
 
           [(TVRUINowPlayingController *)self setCanonicalIDOfCurrentUTSRequest:tvrui_effectiveCanonicalID];
-          v47 = objc_alloc_init(MEMORY[0x277D6C540]);
+          v53 = objc_alloc_init(MEMORY[0x277D6C540]);
           objc_initWeak(buf, self);
-          v57[0] = MEMORY[0x277D85DD0];
-          v57[1] = 3221225472;
-          v57[2] = __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke_13;
-          v57[3] = &unk_279D89130;
-          objc_copyWeak(&v59, buf);
-          v57[4] = self;
-          v58 = tvrui_effectiveCanonicalID;
-          [v47 requestForCanonicalID:v58 completion:v57];
+          v63[0] = MEMORY[0x277D85DD0];
+          v63[1] = 3221225472;
+          v63[2] = __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke_13;
+          v63[3] = &unk_279D89130;
+          objc_copyWeak(&v65, buf);
+          v63[4] = self;
+          v64 = tvrui_effectiveCanonicalID;
+          [v53 requestForCanonicalID:v64 completion:v63];
 
-          objc_destroyWeak(&v59);
+          objc_destroyWeak(&v65);
           objc_destroyWeak(buf);
         }
       }
@@ -333,18 +338,18 @@ void __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke(uint64_t a
 
 void __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke_13(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v8 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained setCanonicalIDOfCurrentUTSRequest:0];
+    v9 = [WeakRetained setCanonicalIDOfCurrentUTSRequest:0];
     if (v6)
     {
-      v9 = _TVRUINowPlayingLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _TVRUINowPlayingLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke_13_cold_1();
       }
@@ -352,45 +357,45 @@ void __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke_13(uint64_
 
     else
     {
-      v10 = [*(a1 + 32) nowPlayingInfo];
-      v11 = [v10 metadata];
-      v12 = [v11 canonicalID];
-      v13 = [v5 identifier];
-      v14 = [v12 isEqualToString:v13];
+      v11 = [*(a1 + 32) nowPlayingInfo];
+      v12 = [v11 metadata];
+      v13 = [v12 canonicalID];
+      v14 = [v5 identifier];
+      v15 = [v13 isEqualToString:v14];
 
-      if (v14)
+      if (v15)
       {
         [*(a1 + 32) setCachedMediaInfo:v5];
-        v15 = [*(a1 + 32) nowPlayingInfo];
-        v9 = [v15 metadata];
-
-        v16 = [v9 metadataMergedFromTVRCMediaInfo:v5];
         v17 = [*(a1 + 32) nowPlayingInfo];
-        [v17 setMetadata:v16];
+        v10 = [v17 metadata];
 
-        v18 = *(a1 + 32);
-        v19 = [v18 nowPlayingInfo];
-        [v18 _updateNowPlayingUIWithNowPlayingInfo:v19];
+        v18 = [v10 metadataMergedFromTVRCMediaInfo:v5];
+        v19 = [*(a1 + 32) nowPlayingInfo];
+        [v19 setMetadata:v18];
 
-        v20 = _TVRUINowPlayingLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v20 = *(a1 + 32);
+        v21 = [v20 nowPlayingInfo];
+        [v20 _updateNowPlayingUIWithNowPlayingInfo:v21];
+
+        v23 = _TVRUINowPlayingLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v21 = *(a1 + 40);
-          v23 = 138412290;
-          v24 = v21;
-          _os_log_impl(&dword_26CFEB000, v20, OS_LOG_TYPE_INFO, "Received metadata from UTS for canonicalID=%@", &v23, 0xCu);
+          v24 = *(a1 + 40);
+          v26 = 138412290;
+          v27 = v24;
+          _os_log_impl(&dword_26CFEB000, v23, OS_LOG_TYPE_INFO, "Received metadata from UTS for canonicalID=%@", &v26, 0xCu);
         }
       }
 
       else
       {
-        v9 = _TVRUINowPlayingLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v10 = _TVRUINowPlayingLog(v16);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v22 = *(a1 + 40);
-          v23 = 138412290;
-          v24 = v22;
-          _os_log_impl(&dword_26CFEB000, v9, OS_LOG_TYPE_INFO, "Received metadata from UTS but request canonicalID=%@ has changed so discarding info", &v23, 0xCu);
+          v25 = *(a1 + 40);
+          v26 = 138412290;
+          v27 = v25;
+          _os_log_impl(&dword_26CFEB000, v10, OS_LOG_TYPE_INFO, "Received metadata from UTS but request canonicalID=%@ has changed so discarding info", &v26, 0xCu);
         }
       }
     }
@@ -547,10 +552,11 @@ void __47__TVRUINowPlayingController_setNowPlayingInfo___block_invoke_13(uint64_
 
 - (void)displayUpNext
 {
-  if ([(TVRUINowPlayingController *)self _upNextViewControllerIsPresented]|| [(TVRUINowPlayingController *)self _nowPlayingViewControllerIsPresented])
+  _upNextViewControllerIsPresented = [(TVRUINowPlayingController *)self _upNextViewControllerIsPresented];
+  if (_upNextViewControllerIsPresented & 1) != 0 || (_upNextViewControllerIsPresented = [(TVRUINowPlayingController *)self _nowPlayingViewControllerIsPresented], (_upNextViewControllerIsPresented))
   {
-    v3 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TVRUINowPlayingLog(_upNextViewControllerIsPresented);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [TVRUINowPlayingController displayUpNext];
     }
@@ -564,8 +570,8 @@ LABEL_5:
 
   if (!device)
   {
-    v3 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TVRUINowPlayingLog(v6);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [TVRUINowPlayingController displayUpNext];
     }
@@ -923,10 +929,11 @@ void __52__TVRUINowPlayingController_nowPlayingNavController__block_invoke(uint6
 void __38__TVRUINowPlayingController__openURL___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRUINowPlayingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __38__TVRUINowPlayingController__openURL___block_invoke_cold_1();
     }

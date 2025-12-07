@@ -7,23 +7,23 @@
 
 - (BOOL)improveEntry:(id)entry
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   v5 = entryCopy;
   if (!entryCopy)
   {
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136446978;
-      v15 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsRecentHistoryImprover.m";
-      v16 = 1024;
-      v17 = 23;
-      v18 = 2082;
-      v19 = "[MapsSuggestionsRecentHistoryImprover improveEntry:]";
-      v20 = 2082;
-      v21 = "entry == nil";
-      _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", &v14, 0x26u);
+      v15 = 136446978;
+      v16 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsRecentHistoryImprover.m";
+      v17 = 1024;
+      v18 = 23;
+      v19 = 2082;
+      v20 = "[MapsSuggestionsRecentHistoryImprover improveEntry:]";
+      v21 = 2082;
+      v22 = "entry == nil";
+      _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", &v15, 0x26u);
     }
 
     goto LABEL_7;
@@ -32,7 +32,7 @@
   if ([entryCopy type] != 5)
   {
 LABEL_7:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_8;
   }
 
@@ -40,13 +40,13 @@ LABEL_7:
   v7 = [(MapsSuggestionsRecentHistoryImprover *)self _titleFromMapItem:geoMapItem];
   v8 = [(MapsSuggestionsBaseImprover *)self improveMyUndecoratedTitle:v7 forEntry:v5];
 
-  v9 = MapsSuggestionsLocalizedRecentlyViewedString();
-  v10 = [(MapsSuggestionsBaseImprover *)self improveMyUndecoratedSubtitle:v9 forEntry:v5];
+  v10 = MapsSuggestionsLocalizedRecentlyViewedString(v9);
+  v11 = [(MapsSuggestionsBaseImprover *)self improveMyUndecoratedSubtitle:v10 forEntry:v5];
 
-  v11 = v8 | v10;
+  v12 = v8 | v11;
 LABEL_8:
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 - (id)_titleFromMapItem:(uint64_t)item

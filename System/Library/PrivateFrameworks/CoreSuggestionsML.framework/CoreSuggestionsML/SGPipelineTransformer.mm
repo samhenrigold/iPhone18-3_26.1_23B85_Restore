@@ -89,22 +89,20 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
   v5 = objc_alloc(MEMORY[0x277D41F60]);
   v6 = [v5 initWithClassNameKey:*MEMORY[0x277D41F98]];
   transformers = [(SGPipelineTransformer *)self transformers];
-  v14 = v6;
-  v15 = chunksCopy;
+  v13 = v6;
+  v14 = chunksCopy;
   v8 = chunksCopy;
   v9 = v6;
   v10 = sgMap();
 
-  v16 = @"TRANSFORMERS";
-  v17[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v15 = @"TRANSFORMERS";
+  v16[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
   return v11;
 }
@@ -138,10 +136,7 @@ uint64_t __65__SGPipelineTransformer_transform_stopAfterTransformerWithIndex___b
   if (*(result + 40) >= a3)
   {
     v5 = result;
-    v6 = [a2 transform:*(*(*(result + 32) + 8) + 40)];
-    v7 = *(*(v5 + 32) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    *(*(*(v5 + 32) + 8) + 40) = [a2 transform:{*(*(*(result + 32) + 8) + 40), a4}];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -179,10 +174,7 @@ uint64_t __65__SGPipelineTransformer_transform_stopAfterTransformerWithIndex___b
 
 uint64_t __35__SGPipelineTransformer_transform___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 transform:*(*(*(a1 + 32) + 8) + 40)];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 transform:*(*(*(a1 + 32) + 8) + 40)];
 
   return MEMORY[0x2821F96F8]();
 }

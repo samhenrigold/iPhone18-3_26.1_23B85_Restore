@@ -29,7 +29,7 @@
 
 - (void)presentRemotePassValueEntryViewControllerForRequest:(id)request contact:(id)contact completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   contactCopy = contact;
   completionCopy = completion;
@@ -42,25 +42,23 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = MEMORY[0x25F868160](completionCopy);
-      v17 = 138412802;
-      v18 = requestCopy;
-      v19 = 2112;
-      v20 = contactCopy;
-      v21 = 2112;
-      v22 = v14;
-      _os_log_impl(&dword_25B64D000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKRemotePassActionUIService: Present remote pass value entry view controller for request: %@ contact: %@ completion: %@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = requestCopy;
+      v18 = 2112;
+      v19 = contactCopy;
+      v20 = 2112;
+      v21 = v14;
+      _os_log_impl(&dword_25B64D000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKRemotePassActionUIService: Present remote pass value entry view controller for request: %@ contact: %@ completion: %@", &v16, 0x20u);
     }
   }
 
   connection = [(NPKRemotePassActionUIService *)self connection];
   [connection presentRemotePassValueEntryViewControllerForRequest:requestCopy contact:contactCopy completion:completionCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentRemotePassItemSelectionViewControllerForRequest:(id)request contact:(id)contact completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   contactCopy = contact;
   completionCopy = completion;
@@ -73,20 +71,18 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = MEMORY[0x25F868160](completionCopy);
-      v17 = 138412802;
-      v18 = requestCopy;
-      v19 = 2112;
-      v20 = contactCopy;
-      v21 = 2112;
-      v22 = v14;
-      _os_log_impl(&dword_25B64D000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKRemotePassActionUIService: Present remote pass value select item controller for request: %@ contact: %@ completion: %@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = requestCopy;
+      v18 = 2112;
+      v19 = contactCopy;
+      v20 = 2112;
+      v21 = v14;
+      _os_log_impl(&dword_25B64D000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKRemotePassActionUIService: Present remote pass value select item controller for request: %@ contact: %@ completion: %@", &v16, 0x20u);
     }
   }
 
   connection = [(NPKRemotePassActionUIService *)self connection];
   [connection presentRemotePassItemSelectionViewControllerForRequest:requestCopy contact:contactCopy completion:completionCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)companionViewServiceConnection:(id)connection handleCompanionValueEntryDidFinishWithCurrencyAmount:(id)amount forRequestWithIdentifier:(id)identifier

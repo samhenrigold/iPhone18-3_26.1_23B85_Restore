@@ -439,7 +439,7 @@ uint64_t __78__VCStreamOutputManager_dispatchedDeregisterStreamOutputSourceForSt
   return v7;
 }
 
-uint64_t __86__VCStreamOutputManager_allocStreamOutputWithStreamToken_clientPid_options_errorCode___block_invoke(uint64_t a1)
+void *__86__VCStreamOutputManager_allocStreamOutputWithStreamToken_clientPid_options_errorCode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) allocDispatchedStreamOutputWithStreamToken:*(a1 + 56) clientPid:*(a1 + 72) options:*(a1 + 40) errorCode:*(a1 + 64)];
   *(*(*(a1 + 48) + 8) + 40) = result;
@@ -516,7 +516,7 @@ LABEL_6:
   return v4;
 }
 
-uint64_t __52__VCStreamOutputManager_sourceExistsForStreamToken___block_invoke(void *a1)
+void *__52__VCStreamOutputManager_sourceExistsForStreamToken___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", a1[6])}];
   *(*(a1[5] + 8) + 24) = result != 0;
@@ -654,29 +654,30 @@ LABEL_31:
 
 - (id)serviceHandlerStreamOutputNotifyCacheWithArguments:(id)arguments error:(id *)error
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v5 = [arguments objectForKeyedSubscript:@"CONTEXT"];
   v6 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInt:{objc_msgSend(v5, "streamToken")}];
   if (v5)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      [VCRemoteVideoManager_DefaultManager() notifyCachedStateForStreamToken:v6];
+      [VCRemoteVideoManager_DefaultManager(isKindOfClass v8)];
       goto LABEL_4;
     }
 
-    [VCStreamOutputManager serviceHandlerStreamOutputNotifyCacheWithArguments:v8 error:?];
+    [VCStreamOutputManager serviceHandlerStreamOutputNotifyCacheWithArguments:v10 error:?];
   }
 
   else
   {
-    [VCStreamOutputManager serviceHandlerStreamOutputNotifyCacheWithArguments:v8 error:?];
+    [VCStreamOutputManager serviceHandlerStreamOutputNotifyCacheWithArguments:v10 error:?];
   }
 
   if (error)
   {
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCStreamOutputManager" code:v8[0] userInfo:0];
+    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCStreamOutputManager" code:v10[0] userInfo:0];
   }
 
 LABEL_4:
@@ -777,14 +778,14 @@ uint64_t __49__VCStreamOutputManager_registerBlocksForService__block_invoke_3(ui
   }
 }
 
-uint64_t __67__VCStreamOutputManager_dispatchedRemoteMediaDidStall_streamToken___block_invoke(uint64_t result)
+void *__67__VCStreamOutputManager_dispatchedRemoteMediaDidStall_streamToken___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
     v2 = +[AVConferenceXPCServer AVConferenceXPCServerSingleton];
-    v4 = *(v1 + 32);
-    v3 = *(v1 + 40);
+    v4 = v1[4];
+    v3 = v1[5];
 
     return [v2 sendMessageAsync:"streamOutputDidRemoteMediaStall" arguments:v3 context:v4];
   }
@@ -818,14 +819,14 @@ uint64_t __67__VCStreamOutputManager_dispatchedRemoteMediaDidStall_streamToken__
   }
 }
 
-uint64_t __69__VCStreamOutputManager_dispatchedRemoteVideoDidDegrade_streamToken___block_invoke(uint64_t result)
+void *__69__VCStreamOutputManager_dispatchedRemoteVideoDidDegrade_streamToken___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
     v2 = +[AVConferenceXPCServer AVConferenceXPCServerSingleton];
-    v4 = *(v1 + 32);
-    v3 = *(v1 + 40);
+    v4 = v1[4];
+    v3 = v1[5];
 
     return [v2 sendMessageAsync:"streamOutputDidVideoDegrade" arguments:v3 context:v4];
   }
@@ -859,14 +860,14 @@ uint64_t __69__VCStreamOutputManager_dispatchedRemoteVideoDidDegrade_streamToken
   }
 }
 
-uint64_t __67__VCStreamOutputManager_dispatchedRemoteVideoDidPause_streamToken___block_invoke(uint64_t result)
+void *__67__VCStreamOutputManager_dispatchedRemoteVideoDidPause_streamToken___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
     v2 = +[AVConferenceXPCServer AVConferenceXPCServerSingleton];
-    v4 = *(v1 + 32);
-    v3 = *(v1 + 40);
+    v4 = v1[4];
+    v3 = v1[5];
 
     return [v2 sendMessageAsync:"streamOutputDidRemoteVideoPause" arguments:v3 context:v4];
   }
@@ -900,14 +901,14 @@ uint64_t __67__VCStreamOutputManager_dispatchedRemoteVideoDidPause_streamToken__
   }
 }
 
-uint64_t __69__VCStreamOutputManager_dispatchedRemoteVideoDidSuspend_streamToken___block_invoke(uint64_t result)
+void *__69__VCStreamOutputManager_dispatchedRemoteVideoDidSuspend_streamToken___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
     v2 = +[AVConferenceXPCServer AVConferenceXPCServerSingleton];
-    v4 = *(v1 + 32);
-    v3 = *(v1 + 40);
+    v4 = v1[4];
+    v3 = v1[5];
 
     return [v2 sendMessageAsync:"streamOutputDidVideoSuspend" arguments:v3 context:v4];
   }
@@ -1027,7 +1028,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate _dispatchQueue", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate _dispatchQueue", v2, v3, v4, v5);
     }
   }
 }
@@ -1081,7 +1082,7 @@ LABEL_10:
       OUTLINED_FUNCTION_7_4();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_11_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create stream output for streamToken=%u", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_11_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create stream output for streamToken=%u", v2, v3, v4, v5);
     }
   }
 
@@ -1098,7 +1099,7 @@ LABEL_10:
       OUTLINED_FUNCTION_7_4();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_11_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d No streamOutputSource registered for streamToken=%u", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_11_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d No streamOutputSource registered for streamToken=%u", v2, v3, v4, v5);
     }
   }
 

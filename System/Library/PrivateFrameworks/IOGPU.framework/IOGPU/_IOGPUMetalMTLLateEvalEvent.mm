@@ -48,16 +48,13 @@
 {
   if (*__globalGPUCommPage)
   {
-    globalTraceObjectID = self->super._globalTraceObjectID;
-    labelTraceID = self->_labelTraceID;
-    [label cStringUsingEncoding:1];
-    self->_labelTraceID = IOGPUDeviceTraceObjectLabel(0, 8, 0, globalTraceObjectID, labelTraceID);
+    self->_labelTraceID = IOGPUDeviceTraceObjectLabel(0, 8, 0, self->super._globalTraceObjectID, self->_labelTraceID, [label cStringUsingEncoding:1]);
   }
 
-  v7 = [label copy];
+  v5 = [label copy];
   os_unfair_lock_lock(&self->_labelLock);
   label = self->_label;
-  self->_label = v7;
+  self->_label = v5;
   os_unfair_lock_unlock(&self->_labelLock);
 }
 

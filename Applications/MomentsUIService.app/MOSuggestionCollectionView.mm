@@ -254,7 +254,7 @@ LABEL_7:
   __chkstk_darwin(v9);
   v12 = &v20 - v11;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIContextMenuConfiguration);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIContextMenuConfiguration, UIContextMenuConfiguration_ptr);
   v13 = swift_allocObject();
   swift_unknownObjectWeakInit();
   (*(v7 + 16))(v10, v12, v6);

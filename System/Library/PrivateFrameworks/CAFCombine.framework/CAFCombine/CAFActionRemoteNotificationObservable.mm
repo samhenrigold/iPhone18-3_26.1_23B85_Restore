@@ -42,9 +42,10 @@
 
 - (void)actionRemoteNotificationService:(id)service didUpdateTrailingButtonState:(unsigned __int8)state
 {
+  stateCopy = state;
   serviceCopy = service;
   selfCopy = self;
-  CAFActionRemoteNotificationObservable.actionRemoteNotificationService(_:didUpdateTrailingButtonState:)(selfCopy, state);
+  CAFActionRemoteNotificationObservable.actionRemoteNotificationService(_:didUpdateTrailingButtonState:)(selfCopy, stateCopy);
 }
 
 - (void)actionRemoteNotificationService:(id)service didUpdateSymbolNotificationUserActions:(id)actions
@@ -57,16 +58,17 @@
 
 - (void)actionRemoteNotificationService:(id)service didUpdateUserAction:(unsigned __int8)action
 {
+  actionCopy = action;
   serviceCopy = service;
   selfCopy = self;
-  CAFActionRemoteNotificationObservable.actionRemoteNotificationService(_:didUpdateUserAction:)(selfCopy, action);
+  CAFActionRemoteNotificationObservable.actionRemoteNotificationService(_:didUpdateUserAction:)(selfCopy, actionCopy);
 }
 
 - (void)actionRemoteNotificationService:(id)service didUpdateShowsPrimaryActionHighlight:(BOOL)highlight
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFActionRemoteNotificationObservable.actionRemoteNotificationService(_:didUpdateShowsPrimaryActionHighlight:)();
+  CAFActionRemoteNotificationObservable.actionRemoteNotificationService(_:didUpdateShowsPrimaryActionHighlight:)(selfCopy, highlight);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

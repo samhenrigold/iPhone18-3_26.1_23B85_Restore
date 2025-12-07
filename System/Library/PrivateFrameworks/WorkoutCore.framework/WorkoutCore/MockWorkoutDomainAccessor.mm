@@ -53,13 +53,12 @@
 
   swift_beginAccess();
   outlined copy of Data._Representation(v10, v12);
-  v13 = *&self->dataDictionary[4];
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v15 = *&self->dataDictionary[4];
+  v14 = *&self->dataDictionary[4];
   *&self->dataDictionary[4] = 0x8000000000000000;
   specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v10, v12, v6, v8, isUniquelyReferenced_nonNull_native);
 
-  *&self->dataDictionary[4] = v15;
+  *&self->dataDictionary[4] = v14;
   swift_endAccess();
 
   outlined consume of Data._Representation(v10, v12);
@@ -71,12 +70,11 @@
   v8 = v7;
   swift_beginAccess();
 
-  v9 = *&self->BOOLDictionary[4];
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *&self->BOOLDictionary[4];
+  v10 = *&self->BOOLDictionary[4];
   *&self->BOOLDictionary[4] = 0x8000000000000000;
   specialized _NativeDictionary.setValue(_:forKey:isUnique:)(value, v6, v8, isUniquelyReferenced_nonNull_native);
-  *&self->BOOLDictionary[4] = v11;
+  *&self->BOOLDictionary[4] = v10;
   swift_endAccess();
 }
 

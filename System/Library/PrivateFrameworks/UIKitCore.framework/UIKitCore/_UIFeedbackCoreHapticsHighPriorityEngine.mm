@@ -32,7 +32,7 @@
   {
 
 LABEL_10:
-    v13 = 0;
+    isEqualToString = 0;
     goto LABEL_11;
   }
 
@@ -74,10 +74,10 @@ LABEL_10:
   {
     v11 = [configurationDictionary valueForKey:*v9];
     v12 = getCHHapticPriorityHigh();
-    v13 = [v11 isEqualToString:v12];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
 LABEL_11:
-    return v13;
+    return isEqualToString;
   }
 
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];

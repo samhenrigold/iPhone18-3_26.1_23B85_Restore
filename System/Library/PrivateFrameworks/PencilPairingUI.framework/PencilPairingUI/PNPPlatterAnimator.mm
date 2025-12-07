@@ -60,16 +60,16 @@
   }
 }
 
-uint64_t __40__PNPPlatterAnimator_animateTransition___block_invoke(uint64_t result)
+id *__40__PNPPlatterAnimator_animateTransition___block_invoke(id *result)
 {
   if (*(result + 48) == 1)
   {
     v2 = result;
-    v3 = *(result + 32);
-    [*(result + 40) bounds];
+    v3 = result[4];
+    [result[5] bounds];
     [v3 setFrame:?];
-    v5 = *(v2 + 32);
-    v4 = *(v2 + 40);
+    v5 = v2[4];
+    v4 = v2[5];
 
     return [v4 addSubview:v5];
   }

@@ -359,7 +359,7 @@ LABEL_30:
       v39 = presentationLayer;
       if (presentationLayer)
       {
-        [presentationLayer sublayerTransform];
+        objc_msgSend_sublayerTransform(presentationLayer);
       }
 
       else

@@ -143,7 +143,7 @@ LABEL_7:
   v4 = MEMORY[0x277D42620];
   coderCopy = coder;
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   v8 = [v4 robustDecodeObjectOfClass:v6 forKey:@"transition" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXModeBiomeEventContextWrapper" errorCode:-1 logHandle:v7];
 
   v9 = [(ATXModeBiomeEventContextWrapper *)self initWithTransitionEvent:v8 eventToWrap:0];
@@ -166,71 +166,70 @@ LABEL_7:
   pathCopy = path;
   if (pathCopy)
   {
-    if ([(ATXModeBiomeEventContextWrapper *)self _fileExistsAtPath:pathCopy])
+    v5 = [(ATXModeBiomeEventContextWrapper *)self _fileExistsAtPath:pathCopy];
+    if (v5)
     {
-      v5 = [MEMORY[0x277CCA9F8] fileHandleForReadingAtPath:pathCopy];
-      v6 = v5;
-      if (v5)
+      v6 = [MEMORY[0x277CCA9F8] fileHandleForReadingAtPath:pathCopy];
+      v7 = v6;
+      if (v6)
       {
         v16 = 0;
-        v7 = [v5 readDataToEndOfFileAndReturnError:&v16];
-        v8 = v16;
-        v9 = v8;
-        if (!v7 || v8)
+        v8 = [v6 readDataToEndOfFileAndReturnError:&v16];
+        v9 = v16;
+        v10 = v9;
+        if (!v8 || v9)
         {
-          v13 = __atxlog_handle_default();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = __atxlog_handle_default(v9);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             [ATXModeBiomeEventContextWrapper _dataFromPath:];
           }
 
-          v10 = 0;
+          v11 = 0;
         }
 
         else
         {
-          v10 = v7;
+          v11 = v8;
         }
       }
 
       else
       {
-        v9 = __atxlog_handle_default();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = __atxlog_handle_default(0);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          [ATXModeBiomeEventContextWrapper _dataFromPath:v9];
+          [ATXModeBiomeEventContextWrapper _dataFromPath:v10];
         }
 
-        v10 = 0;
+        v11 = 0;
       }
     }
 
     else
     {
-      v6 = __atxlog_handle_default();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = __atxlog_handle_default(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138412546;
-        v18 = v12;
+        v18 = v13;
         v19 = 2112;
         v20 = pathCopy;
-        _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "%@ - file doesn't exist at path %@", buf, 0x16u);
+        _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "%@ - file doesn't exist at path %@", buf, 0x16u);
       }
 
-      v10 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 - (ATXModeBiomeEventContextWrapper)initWithData:(id)data
@@ -239,36 +238,37 @@ LABEL_7:
   if (dataCopy)
   {
     v5 = objc_autoreleasePoolPush();
-    v12 = 0;
-    v6 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:&v12];
-    v7 = v12;
+    v13 = 0;
+    v6 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:&v13];
+    v7 = v13;
+    v8 = v7;
     if (v7)
     {
-      v8 = __atxlog_handle_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [ATXModeBiomeEventContextWrapper initWithData:];
       }
 
-      v9 = [(ATXModeBiomeEventContextWrapper *)self init];
+      v10 = [(ATXModeBiomeEventContextWrapper *)self init];
     }
 
     else
     {
-      v9 = [(ATXModeBiomeEventContextWrapper *)self initWithCoder:v6];
+      v10 = [(ATXModeBiomeEventContextWrapper *)self initWithCoder:v6];
     }
 
-    v10 = v9;
+    v11 = v10;
 
     objc_autoreleasePoolPop(v5);
   }
 
   else
   {
-    v10 = [(ATXModeBiomeEventContextWrapper *)self init];
+    v11 = [(ATXModeBiomeEventContextWrapper *)self init];
   }
 
-  return v10;
+  return v11;
 }
 
 - (ATXModeBiomeEventContextWrapper)initWithPath:(id)path
@@ -285,47 +285,47 @@ LABEL_7:
 - (id)serialize:(id *)serialize
 {
   v5 = objc_autoreleasePoolPush();
-  v13 = 0;
-  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v13];
-  v7 = v13;
+  v14 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v14];
+  v7 = v14;
   objc_autoreleasePoolPop(v5);
   if (v6)
   {
-    v8 = v7 == 0;
+    v9 = v7 == 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (v8)
+  if (v9)
   {
-    v11 = v6;
+    v12 = v6;
   }
 
   else
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_default(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [ATXModeBiomeEventContextWrapper serialize:];
+      [ATXModeBiomeEventContextWrapper serialize:?];
     }
 
     if (serialize)
     {
-      v10 = v7;
-      v11 = 0;
+      v11 = v7;
+      v12 = 0;
       *serialize = v7;
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)persistToPath:(id)path
@@ -333,10 +333,10 @@ LABEL_7:
   pathCopy = path;
   if (!pathCopy)
   {
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [ATXModeBiomeEventContextWrapper persistToPath:];
+      [ATXModeBiomeEventContextWrapper persistToPath:?];
     }
 
     v6 = MEMORY[0x277CBEAD8];
@@ -346,15 +346,16 @@ LABEL_7:
     [v6 raise:v7 format:{@"%@ - Attempting to persist with a nil path", v9}];
   }
 
-  v15 = 0;
-  v10 = [(ATXModeBiomeEventContextWrapper *)self serialize:&v15];
-  v11 = v15;
+  v17 = 0;
+  v10 = [(ATXModeBiomeEventContextWrapper *)self serialize:&v17];
+  v11 = v17;
+  v12 = v11;
   if (v11)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [ATXModeBiomeEventContextWrapper persistToPath:];
+      [ATXModeBiomeEventContextWrapper persistToPath:?];
     }
 
 LABEL_11:
@@ -363,14 +364,14 @@ LABEL_11:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v14 = [defaultManager createFileAtPath:pathCopy contents:v10 attributes:0];
+  v15 = [defaultManager createFileAtPath:pathCopy contents:v10 attributes:0];
 
-  if ((v14 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(v16);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [ATXModeBiomeEventContextWrapper persistToPath:];
+      [ATXModeBiomeEventContextWrapper persistToPath:?];
     }
 
     goto LABEL_11;
@@ -420,7 +421,7 @@ ATXModeBiomeEventContextWrapper *__89__ATXModeBiomeEventContextWrapper_wrapEvent
 
 + (id)wrapEventStream:(id)stream modeTransitionStream:(id)transitionStream startingContext:(id)context
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   v8 = MEMORY[0x277CBEA60];
   contextCopy = context;
@@ -428,77 +429,61 @@ ATXModeBiomeEventContextWrapper *__89__ATXModeBiomeEventContextWrapper_wrapEvent
   streamCopy2 = stream;
   v12 = [v8 arrayWithObjects:&streamCopy count:1];
 
-  v13 = [self wrapEventStreams:v12 modeTransitionStream:transitionStreamCopy startingContext:{contextCopy, streamCopy, v17}];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [self wrapEventStreams:v12 modeTransitionStream:transitionStreamCopy startingContext:{contextCopy, streamCopy, v16}];
 
   return v13;
 }
 
 - (void)_dataFromPath:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Unable to read data from file handle %@ - %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Unable to read data from file handle %@ - %@", v2, 0x16u);
 }
 
 - (void)initWithData:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "Unable to initialize coder for data, err: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "Unable to initialize coder for data, err: %@", v1, 0xCu);
 }
 
-- (void)serialize:.cold.1()
+- (void)serialize:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-- (void)persistToPath:.cold.1()
+- (void)persistToPath:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)persistToPath:.cold.2()
+- (void)persistToPath:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)persistToPath:.cold.3()
+- (void)persistToPath:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

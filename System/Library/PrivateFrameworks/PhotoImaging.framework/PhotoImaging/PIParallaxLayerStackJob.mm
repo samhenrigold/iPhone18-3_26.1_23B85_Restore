@@ -29,7 +29,7 @@ BOOL __36___PIParallaxLayerStackJob_prepare___block_invoke(uint64_t a1, __int128
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [*(a1 + 32) extent];
+  objc_msgSend_extent(*(a1 + 32), v24, v25);
   v29.origin.x = v11;
   v29.origin.y = v12;
   v29.size.width = v13;
@@ -43,7 +43,7 @@ BOOL __36___PIParallaxLayerStackJob_prepare___block_invoke(uint64_t a1, __int128
   y = v27.origin.y;
   width = v27.size.width;
   height = v27.size.height;
-  [*(a1 + 32) extent];
+  objc_msgSend_extent(*(a1 + 32));
   v30.origin.x = v19;
   v30.origin.y = v20;
   v30.size.width = v21;

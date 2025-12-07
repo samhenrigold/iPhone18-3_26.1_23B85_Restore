@@ -19,9 +19,9 @@
     +[CNChangeHistoryLegacyResultConverter os_log];
   }
 
-  v0 = os_log_cn_once_object_0_5;
+  v1 = os_log_cn_once_object_0_5;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __46__CNChangeHistoryLegacyResultConverter_os_log__block_invoke()
@@ -67,54 +67,54 @@ uint64_t __46__CNChangeHistoryLegacyResultConverter_os_log__block_invoke()
 
 - (id)eventsFromResult:(id)result
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = [(CNChangeHistoryLegacyResultConverter *)&self->super.isa contactEventsFromLegacyResult:resultCopy];
   if ([v5 isSuccess])
   {
-    v9 = [(CNChangeHistoryLegacyResultConverter *)self groupEventsFromLegacyResult:resultCopy];
-    if ([v9 isSuccess])
+    v10 = [(CNChangeHistoryLegacyResultConverter *)self groupEventsFromLegacyResult:resultCopy];
+    if ([v10 isSuccess])
     {
       value = [v5 value];
-      v17[0] = value;
-      value2 = [v9 value];
-      v17[1] = value2;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
-      _cn_flatten = [v12 _cn_flatten];
+      v19[0] = value;
+      value2 = [v10 value];
+      v19[1] = value2;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+      _cn_flatten = [v13 _cn_flatten];
 
-      v14 = [MEMORY[0x1E6996810] successWithValue:_cn_flatten];
+      v15 = [MEMORY[0x1E6996810] successWithValue:_cn_flatten];
     }
 
     else
     {
-      objc_opt_class();
-      v15 = +[CNChangeHistoryLegacyResultConverter os_log];
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = objc_opt_class();
+      v17 = +[(CNChangeHistoryLegacyResultConverter *)v16];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [CNChangeHistoryLegacyResultConverter eventsFromResult:v9];
+        [CNChangeHistoryLegacyResultConverter eventsFromResult:v10];
       }
 
-      v16 = MEMORY[0x1E6996810];
-      _cn_flatten = [v9 error];
-      v14 = [v16 failureWithError:_cn_flatten];
+      v18 = MEMORY[0x1E6996810];
+      _cn_flatten = [v10 error];
+      v15 = [v18 failureWithError:_cn_flatten];
     }
 
-    v7 = v14;
+    v8 = v15;
   }
 
   else
   {
-    objc_opt_class();
-    v6 = +[CNChangeHistoryLegacyResultConverter os_log];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = objc_opt_class();
+    v7 = +[(CNChangeHistoryLegacyResultConverter *)v6];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CNChangeHistoryLegacyResultConverter eventsFromResult:v5];
     }
 
-    v7 = v5;
+    v8 = v5;
   }
 
-  return v7;
+  return v8;
 }
 
 + (id)contactEventForChange:(void *)change factory:
@@ -427,13 +427,17 @@ LABEL_20:
 - (void)eventsFromResult:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Could not fetch contacts for change history delta sync: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Could not fetch contacts for change history delta sync: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)eventsFromResult:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Could not fetch groups for change history delta sync: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Could not fetch groups for change history delta sync: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

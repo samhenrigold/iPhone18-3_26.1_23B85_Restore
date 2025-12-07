@@ -81,7 +81,7 @@
 - (NSDictionary)bundleIconsDictionary
 {
   selfCopy = self;
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = self->_iconsDictionary;
@@ -124,14 +124,14 @@
         {
         }
 
-        v17 = @"CFBundleIconFiles";
+        v16 = @"CFBundleIconFiles";
         fileNames = selfCopy->_fileNames;
-        v19 = @"CFBundlePrimaryIcon";
+        v18 = @"CFBundlePrimaryIcon";
         v11 = MEMORY[0x1E695DF20];
         v12 = fileNames;
-        v13 = [v11 dictionaryWithObjects:&fileNames forKeys:&v17 count:1];
-        v20[0] = v13;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+        v13 = [v11 dictionaryWithObjects:&fileNames forKeys:&v16 count:1];
+        v19[0] = v13;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
         propertyList = v14;
       }
@@ -139,7 +139,6 @@
   }
 
 LABEL_12:
-  v15 = *MEMORY[0x1E69E9840];
 
   return propertyList;
 }

@@ -11,7 +11,7 @@
 
 - (NSArray)languageTags
 {
-  sub_232BD876C();
+  sub_232BD876C(self);
   v2 = sub_232CE9FD0();
 
   return v2;
@@ -26,7 +26,7 @@
 
 - (_TtC21DocumentUnderstanding11DUDebugInfo)responseDebugInfo
 {
-  v2 = sub_232BD890C();
+  v2 = sub_232BD890C(self);
 
   return v2;
 }

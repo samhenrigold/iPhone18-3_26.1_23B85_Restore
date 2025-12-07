@@ -63,9 +63,9 @@
 
 - (IXSAppInstallObserverManager)init
 {
-  v84.receiver = self;
-  v84.super_class = IXSAppInstallObserverManager;
-  v2 = [(IXSAppInstallObserverManager *)&v84 init];
+  v78.receiver = self;
+  v78.super_class = IXSAppInstallObserverManager;
+  v2 = [(IXSAppInstallObserverManager *)&v78 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -74,190 +74,181 @@
     v2->_internalQueue = v4;
 
     saveURL = [(IXSAppInstallObserverManager *)v2 saveURL];
-    v83 = 0;
-    v7 = [NSData dataWithContentsOfURL:saveURL options:3 error:&v83];
-    v8 = v83;
+    v77 = 0;
+    v7 = [NSData dataWithContentsOfURL:saveURL options:3 error:&v77];
+    v8 = v77;
 
-    v9 = &MKBDeviceUnlockedSinceBoot_ptr;
     if (!v7)
     {
-      v17 = 0;
-      v25 = 0;
+      v16 = 0;
+      v24 = 0;
       goto LABEL_29;
     }
 
-    v82 = v8;
-    v10 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v7 error:&v82];
-    v11 = v82;
+    v76 = v8;
+    v9 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v7 error:&v76];
+    v10 = v76;
 
-    if (!v10)
+    if (!v9)
     {
-      v25 = sub_1000031B0(off_100121958);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_10009C478();
       }
 
-      v15 = 0;
-      v17 = 0;
+      v14 = 0;
+      v16 = 0;
       goto LABEL_24;
     }
 
+    v11 = objc_opt_class();
     v12 = objc_opt_class();
     v13 = objc_opt_class();
-    v14 = objc_opt_class();
-    v15 = [NSSet setWithObjects:v12, v13, v14, objc_opt_class(), 0];
-    v16 = [v10 decodeObjectOfClasses:v15 forKey:@"ClientObserverMap"];
-    if (v16)
+    v14 = [NSSet setWithObjects:v11, v12, v13, objc_opt_class(), 0];
+    v15 = [v9 decodeObjectOfClasses:v14 forKey:@"ClientObserverMap"];
+    if (v15)
     {
-      v17 = v16;
+      v16 = v15;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
+        v17 = objc_opt_class();
         v18 = objc_opt_class();
         v19 = objc_opt_class();
-        v20 = objc_opt_class();
-        if (sub_10008EDBC(v17, v18, v19, v20, 0))
+        if (sub_10008EDBC(v16, v17, v18, v19, 0))
         {
+          v20 = objc_opt_class();
           v21 = objc_opt_class();
-          v22 = objc_opt_class();
-          v23 = [NSSet setWithObjects:v21, v22, objc_opt_class(), 0];
+          v22 = [NSSet setWithObjects:v20, v21, objc_opt_class(), 0];
 
-          v24 = [v10 decodeObjectOfClasses:v23 forKey:@"RespondsToMap"];
-          if (v24)
+          v23 = [v9 decodeObjectOfClasses:v22 forKey:@"RespondsToMap"];
+          if (v23)
           {
-            v25 = v24;
+            v24 = v23;
             objc_opt_class();
-            v9 = &MKBDeviceUnlockedSinceBoot_ptr;
             if (objc_opt_isKindOfClass())
             {
+              v25 = objc_opt_class();
               v26 = objc_opt_class();
-              v27 = objc_opt_class();
-              if (sub_10008EFF8(v25, v26, v27))
+              if (sub_10008EFF8(v24, v25, v26))
               {
                 goto LABEL_25;
               }
 
-              v28 = sub_1000031B0(off_100121958);
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              v27 = sub_1000031B0(off_100121958);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
-                sub_10009C280(v28, v29, v30, v31, v32, v33, v34, v35);
+                sub_10009C280(v27, v28, v29, v30, v31, v32, v33, v34);
               }
             }
 
             else
             {
-              v28 = sub_1000031B0(off_100121958);
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              v27 = sub_1000031B0(off_100121958);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
-                sub_10009C208(v28, v75, v76, v77, v78, v79, v80, v81);
+                sub_10009C208(v27, v69, v70, v71, v72, v73, v74, v75);
               }
             }
           }
 
           else
           {
-            v25 = sub_1000031B0(off_100121958);
-            v9 = &MKBDeviceUnlockedSinceBoot_ptr;
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v24 = sub_1000031B0(off_100121958);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               sub_10009C2F8();
             }
           }
 
-          v15 = v23;
+          v14 = v22;
 LABEL_24:
 
-          v25 = 0;
-          v23 = v15;
+          v24 = 0;
+          v22 = v14;
 LABEL_25:
-          [v10 finishDecoding];
+          [v9 finishDecoding];
 
-          if (v17 && v25)
+          if (v16 && v24)
           {
-            v51 = [v17 mutableCopy];
+            v50 = [v16 mutableCopy];
             clientToObserverServiceNameMap = v2->_clientToObserverServiceNameMap;
-            v2->_clientToObserverServiceNameMap = v51;
+            v2->_clientToObserverServiceNameMap = v50;
 
-            v53 = [v25 mutableCopy];
+            v52 = [v24 mutableCopy];
             serviceRespondsToMap = v2->_serviceRespondsToMap;
-            v2->_serviceRespondsToMap = v53;
+            v2->_serviceRespondsToMap = v52;
 
             [(NSMutableDictionary *)v2->_clientToObserverServiceNameMap enumerateKeysAndObjectsUsingBlock:&stru_100101A00];
             [(NSMutableDictionary *)v2->_serviceRespondsToMap enumerateKeysAndObjectsUsingBlock:&stru_100101A40];
 LABEL_30:
-            v63 = v9[398];
-            v64 = objc_opt_new();
+            v60 = objc_opt_new();
             serviceToConnectionMap = v2->_serviceToConnectionMap;
-            v2->_serviceToConnectionMap = v64;
+            v2->_serviceToConnectionMap = v60;
 
-            v66 = v9[398];
-            v67 = objc_opt_new();
+            v62 = objc_opt_new();
             clientToObserverEndpointMap = v2->_clientToObserverEndpointMap;
-            v2->_clientToObserverEndpointMap = v67;
+            v2->_clientToObserverEndpointMap = v62;
 
-            v69 = v9[398];
-            v70 = objc_opt_new();
+            v64 = objc_opt_new();
             listenerRespondsToMap = v2->_listenerRespondsToMap;
-            v2->_listenerRespondsToMap = v70;
+            v2->_listenerRespondsToMap = v64;
 
-            v72 = +[NSHashTable weakObjectsHashTable];
+            v66 = +[NSHashTable weakObjectsHashTable];
             clientConnections = v2->_clientConnections;
-            v2->_clientConnections = v72;
+            v2->_clientConnections = v66;
 
             return v2;
           }
 
-          v8 = v11;
+          v8 = v10;
 LABEL_29:
-          v55 = v9[398];
+          v54 = objc_opt_new();
+          v55 = v2->_clientToObserverServiceNameMap;
+          v2->_clientToObserverServiceNameMap = v54;
+
           v56 = objc_opt_new();
-          v57 = v2->_clientToObserverServiceNameMap;
-          v2->_clientToObserverServiceNameMap = v56;
+          v57 = v2->_serviceRespondsToMap;
+          v2->_serviceRespondsToMap = v56;
 
-          v58 = v9[398];
-          v59 = objc_opt_new();
-          v60 = v2->_serviceRespondsToMap;
-          v2->_serviceRespondsToMap = v59;
-
-          v61 = +[IXFileManager defaultManager];
+          v58 = +[IXFileManager defaultManager];
           saveURL2 = [(IXSAppInstallObserverManager *)v2 saveURL];
-          [v61 removeItemAtURL:saveURL2 error:0];
+          [v58 removeItemAtURL:saveURL2 error:0];
 
-          v11 = v8;
+          v10 = v8;
           goto LABEL_30;
         }
 
-        v36 = sub_1000031B0(off_100121958);
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v35 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          sub_10009C190(v36, v44, v45, v46, v47, v48, v49, v50);
+          sub_10009C190(v35, v43, v44, v45, v46, v47, v48, v49);
         }
       }
 
       else
       {
-        v36 = sub_1000031B0(off_100121958);
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v35 = sub_1000031B0(off_100121958);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          sub_10009C118(v36, v37, v38, v39, v40, v41, v42, v43);
+          sub_10009C118(v35, v36, v37, v38, v39, v40, v41, v42);
         }
       }
 
-      v25 = v17;
+      v24 = v16;
     }
 
     else
     {
-      v25 = sub_1000031B0(off_100121958);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_10009C3B8();
       }
     }
 
-    v17 = 0;
-    v9 = &MKBDeviceUnlockedSinceBoot_ptr;
+    v16 = 0;
     goto LABEL_24;
   }
 

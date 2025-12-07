@@ -3,6 +3,8 @@
 - (_INPBSearchForTimersIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
@@ -290,7 +292,6 @@ LABEL_17:
   toCopy = to;
   if ([(_INPBSearchForTimersIntent *)self hasDuration])
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
   }
 
@@ -312,13 +313,11 @@ LABEL_17:
 
   if ([(_INPBSearchForTimersIntent *)self hasState])
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBSearchForTimersIntent *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -344,6 +343,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7285CB0[string];
   }
 
   return v4;
@@ -400,6 +414,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7285C98[string];
   }
 
   return v4;

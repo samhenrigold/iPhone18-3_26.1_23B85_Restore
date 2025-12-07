@@ -124,12 +124,11 @@
 
 - (void)timerHandler
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(self + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_DEBUG, "Removing all from penalty tracker %@ ", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_DEBUG, "Removing all from penalty tracker %@ ", &v3, 0xCu);
 }
 
 - (void)removeAllFromActivityTracker
@@ -260,7 +259,7 @@ LABEL_12:
 
 - (void)addToPenaltyBox:(id)box
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   boxCopy = box;
   if (![(_DASSubmissionRateLimiter *)self limitsApplyToActivity:boxCopy])
   {
@@ -314,9 +313,9 @@ LABEL_12:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         name5 = [boxCopy name];
-        v51 = 138412290;
-        v52 = name5;
-        _os_log_impl(&dword_1B6E2F000, v18, OS_LOG_TYPE_DEFAULT, "%@ added to major penalty", &v51, 0xCu);
+        v50 = 138412290;
+        v51 = name5;
+        _os_log_impl(&dword_1B6E2F000, v18, OS_LOG_TYPE_DEFAULT, "%@ added to major penalty", &v50, 0xCu);
       }
     }
   }
@@ -401,9 +400,9 @@ LABEL_28:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         name10 = [boxCopy name];
-        v51 = 138412290;
-        v52 = name10;
-        _os_log_impl(&dword_1B6E2F000, v33, OS_LOG_TYPE_DEFAULT, "%@ added to minor penalty", &v51, 0xCu);
+        v50 = 138412290;
+        v51 = name10;
+        _os_log_impl(&dword_1B6E2F000, v33, OS_LOG_TYPE_DEFAULT, "%@ added to minor penalty", &v50, 0xCu);
       }
     }
 
@@ -439,11 +438,11 @@ LABEL_34:
       v45 = MEMORY[0x1E696AD98];
       v46 = log;
       v47 = [v45 numberWithDouble:v38 / 60.0];
-      v51 = 138412546;
-      v52 = boxCopy;
-      v53 = 2112;
-      v54 = v47;
-      _os_log_impl(&dword_1B6E2F000, v46, OS_LOG_TYPE_DEFAULT, "%@ is rate limited by submission rate limiter by %@ min from now", &v51, 0x16u);
+      v50 = 138412546;
+      v51 = boxCopy;
+      v52 = 2112;
+      v53 = v47;
+      _os_log_impl(&dword_1B6E2F000, v46, OS_LOG_TYPE_DEFAULT, "%@ is rate limited by submission rate limiter by %@ min from now", &v50, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_penaltyLock);
@@ -456,7 +455,6 @@ LABEL_34:
   }
 
 LABEL_42:
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)trackActivity:(id)activity
@@ -473,7 +471,7 @@ LABEL_42:
 
 - (id)shouldLimitActivityAtSubmission:(id)submission
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   submissionCopy = submission;
   if (![(_DASSubmissionRateLimiter *)self limitsApplyToActivity:submissionCopy])
   {
@@ -498,20 +496,20 @@ LABEL_20:
         if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v24 = submissionCopy;
+          v23 = submissionCopy;
           _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "Overriding submission rate limits for activity %@", buf, 0xCu);
         }
 
         v16 = [_DASLimiterResponse limitResponseWithDecision:0 withLimiter:@"ActivityRate" validityDuration:0 rationale:0.0];
-        v22 = v16;
-        v17 = &v22;
+        v21 = v16;
+        v17 = &v21;
       }
 
       else
       {
         v16 = [_DASLimiterResponse limitResponseWithDecision:2 withLimiter:@"ActivityRate" validityDuration:v14 rationale:v15];
-        v21 = v16;
-        v17 = &v21;
+        v20 = v16;
+        v17 = &v20;
       }
 
       goto LABEL_25;
@@ -561,13 +559,12 @@ LABEL_20:
 
 LABEL_18:
   v16 = [_DASLimiterResponse limitResponseWithDecision:0 withLimiter:@"ActivityRate" validityDuration:0 rationale:0.0];
-  v25[0] = v16;
-  v17 = v25;
+  v24[0] = v16;
+  v17 = v24;
 LABEL_25:
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:{1, v21, v22}];
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:{1, v20, v21}];
 
 LABEL_26:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -592,11 +589,10 @@ LABEL_26:
 
 - (void)init
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*self];
-  OUTLINED_FUNCTION_1(&dword_1B6E2F000, v2, v3, "Initialized testing state to %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1(&dword_1B6E2F000, v2, v3, "Initialized testing state to %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

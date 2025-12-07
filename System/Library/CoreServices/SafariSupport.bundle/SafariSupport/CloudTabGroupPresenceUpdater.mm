@@ -2,6 +2,7 @@
 - (CloudTabGroupPresenceUpdater)initWithCloudBookmarkStore:(id)store;
 - (id)_sharedPresenceRecordDatabaseForTabRecordZone:(id)zone;
 - (id)_sharedPresenceRecordNameForUserRecordID:(id)d;
+- (void)_acquireLockToSetPresenceInTabWithRecordID:(id)d inOperationGroup:(id)group isRetry:(BOOL)retry completionHandler:(id)handler;
 - (void)_acquireLockUsingPrivatePresenceRecord:(id)record toSetPresenceInTabWithRecordID:(id)d previousPrivatePresenceRecord:(id)presenceRecord inOperationGroup:(id)group isRetry:(BOOL)retry completionHandler:(id)handler;
 - (void)_cacheUserRecordIDIfNeededInOperationGroup:(id)group withCompletionHandler:(id)handler;
 - (void)_checkPrivatePresenceLockValidityWithRecord:(id)record toUpdatePresenceInTabWithRecordID:(id)d inOperationGroup:(id)group completionHandler:(id)handler;
@@ -129,29 +130,29 @@
 - (void)_cacheUserRecordIDIfNeededInOperationGroup:(id)group withCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = handlerCopy;
+  v8 = handlerCopy;
   if (self->_cachedUserRecordID)
   {
-    v8 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(handlerCopy, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "UserRecordID is already cached", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "UserRecordID is already cached", buf, 2u);
     }
 
-    v7[2](v7, 1);
+    v8[2](v8, 1);
   }
 
   else
   {
     store = self->_store;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10002EF68;
-    v10[3] = &unk_100132868;
-    v10[4] = self;
-    v11 = handlerCopy;
-    [(CloudBookmarkStore *)store fetchUserIdentityInOperationGroup:group withCompletionHandler:v10];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10002EF68;
+    v11[3] = &unk_100132868;
+    v11[4] = self;
+    v12 = handlerCopy;
+    [(CloudBookmarkStore *)store fetchUserIdentityInOperationGroup:group withCompletionHandler:v11];
   }
 }
 
@@ -188,37 +189,57 @@
   dCopy = d;
   groupCopy = group;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
-  v11 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  inited = objc_initWeak(&location, self);
+  v13 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(inited, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     ckShortDescription = [dCopy ckShortDescription];
     *buf = 138543362;
-    v29 = ckShortDescription;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Will fetch shared presence for heartbeat update for tabRecordID: %{public}@", buf, 0xCu);
+    v31 = ckShortDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Will fetch shared presence for heartbeat update for tabRecordID: %{public}@", buf, 0xCu);
   }
 
   zoneID = [dCopy zoneID];
-  v14 = [[CKRecordID alloc] initWithRecordName:self->_cachedSharedPresenceRecordName zoneID:zoneID];
-  v15 = [(CloudTabGroupPresenceUpdater *)self _sharedPresenceRecordDatabaseForTabRecordZone:zoneID];
+  v16 = [[CKRecordID alloc] initWithRecordName:self->_cachedSharedPresenceRecordName zoneID:zoneID];
+  v17 = [(CloudTabGroupPresenceUpdater *)self _sharedPresenceRecordDatabaseForTabRecordZone:zoneID];
   store = self->_store;
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10002F74C;
-  v21[3] = &unk_1001328E0;
-  objc_copyWeak(&v26, &location);
-  v17 = handlerCopy;
-  v25 = v17;
-  v18 = v15;
-  v22 = v18;
-  v19 = groupCopy;
-  v23 = v19;
-  v20 = dCopy;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10002F74C;
+  v23[3] = &unk_1001328E0;
+  objc_copyWeak(&v28, &location);
+  v19 = handlerCopy;
+  v27 = v19;
+  v20 = v17;
   v24 = v20;
-  [(CloudBookmarkStore *)store fetchRecordWithID:v14 inDatabase:v18 operationGroup:v19 completionHandler:v21];
+  v21 = groupCopy;
+  v25 = v21;
+  v22 = dCopy;
+  v26 = v22;
+  [(CloudBookmarkStore *)store fetchRecordWithID:v16 inDatabase:v20 operationGroup:v21 completionHandler:v23];
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
+}
+
+- (void)_acquireLockToSetPresenceInTabWithRecordID:(id)d inOperationGroup:(id)group isRetry:(BOOL)retry completionHandler:(id)handler
+{
+  retryCopy = retry;
+  dCopy = d;
+  groupCopy = group;
+  handlerCopy = handler;
+  cachedPrivatePresenceRecord = self->_cachedPrivatePresenceRecord;
+  if (!cachedPrivatePresenceRecord)
+  {
+    v13 = [[CKRecord alloc] initWithRecordType:@"TabGroupTabParticipantPresence" recordID:self->_privatePresenceRecordID];
+    v14 = self->_cachedPrivatePresenceRecord;
+    self->_cachedPrivatePresenceRecord = v13;
+
+    cachedPrivatePresenceRecord = self->_cachedPrivatePresenceRecord;
+  }
+
+  v15 = [(CKRecord *)cachedPrivatePresenceRecord copy];
+  [(CloudTabGroupPresenceUpdater *)self _acquireLockUsingPrivatePresenceRecord:v15 toSetPresenceInTabWithRecordID:dCopy previousPrivatePresenceRecord:0 inOperationGroup:groupCopy isRetry:retryCopy completionHandler:handlerCopy];
 }
 
 - (void)_acquireLockUsingPrivatePresenceRecord:(id)record toSetPresenceInTabWithRecordID:(id)d previousPrivatePresenceRecord:(id)presenceRecord inOperationGroup:(id)group isRetry:(BOOL)retry completionHandler:(id)handler
@@ -228,49 +249,49 @@
   presenceRecordCopy = presenceRecord;
   groupCopy = group;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
-  v18 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  inited = objc_initWeak(&location, self);
+  v20 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(inited, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     recordID = [recordCopy recordID];
     *buf = 138543362;
-    v38 = recordID;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Attempting to acquire update presence lock with ID: %{public}@", buf, 0xCu);
+    v40 = recordID;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Attempting to acquire update presence lock with ID: %{public}@", buf, 0xCu);
   }
 
   if (dCopy)
   {
-    v20 = [[CKReference alloc] initWithRecordID:dCopy action:0];
+    v22 = [[CKReference alloc] initWithRecordID:dCopy action:0];
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
-  [recordCopy setObject:v20 forKeyedSubscript:@"TabGroupTab"];
+  [recordCopy setObject:v22 forKeyedSubscript:@"TabGroupTab"];
   [recordCopy setObject:&off_10013C338 forKeyedSubscript:@"Lock"];
   [recordCopy setExpirationAfterTimeInterval:&off_10013C2C0];
   store = self->_store;
   container = [(CloudBookmarkStore *)store container];
   privateCloudDatabase = [container privateCloudDatabase];
-  v29[0] = _NSConcreteStackBlock;
-  v29[1] = 3221225472;
-  v29[2] = sub_10002FE00;
-  v29[3] = &unk_100132908;
-  objc_copyWeak(&v34, &location);
-  v24 = handlerCopy;
-  v33 = v24;
-  v25 = presenceRecordCopy;
-  v30 = v25;
-  v26 = dCopy;
-  v31 = v26;
-  v27 = groupCopy;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_10002FE00;
+  v31[3] = &unk_100132908;
+  objc_copyWeak(&v36, &location);
+  v26 = handlerCopy;
+  v35 = v26;
+  v27 = presenceRecordCopy;
   v32 = v27;
+  v28 = dCopy;
+  v33 = v28;
+  v29 = groupCopy;
+  v34 = v29;
   retryCopy = retry;
-  [(CloudBookmarkStore *)store saveOrLoadRecord:recordCopy inDatabase:privateCloudDatabase operationGroup:v27 completionHandler:v29];
+  [(CloudBookmarkStore *)store saveOrLoadRecord:recordCopy inDatabase:privateCloudDatabase operationGroup:v29 completionHandler:v31];
 
-  objc_destroyWeak(&v34);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(&location);
 }
 
@@ -291,15 +312,15 @@
 
   else
   {
-    v17 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v19 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      *v19 = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "The presence lock is too old, we are going to try to steal it.", v19, 2u);
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "The presence lock is too old, we are going to try to steal it.", v21, 2u);
     }
 
-    v18 = [recordCopy copy];
-    [(CloudTabGroupPresenceUpdater *)self _acquireLockUsingPrivatePresenceRecord:recordCopy toSetPresenceInTabWithRecordID:dCopy previousPrivatePresenceRecord:v18 inOperationGroup:groupCopy isRetry:0 completionHandler:handlerCopy];
+    v20 = [recordCopy copy];
+    [(CloudTabGroupPresenceUpdater *)self _acquireLockUsingPrivatePresenceRecord:recordCopy toSetPresenceInTabWithRecordID:dCopy previousPrivatePresenceRecord:v20 inOperationGroup:groupCopy isRetry:0 completionHandler:handlerCopy];
   }
 }
 
@@ -313,65 +334,66 @@
   handlerCopy = handler;
   objc_initWeak(&location, self);
   v16 = [presenceRecordCopy objectForKeyedSubscript:@"TabGroupTab"];
-  v17 = v16;
+  v18 = v16;
   if (v16)
   {
     recordID = [v16 recordID];
     zoneID = [recordID zoneID];
-    v27 = [[CKRecordID alloc] initWithRecordName:self->_cachedSharedPresenceRecordName zoneID:zoneID];
-    v25 = [(CloudTabGroupPresenceUpdater *)self _sharedPresenceRecordDatabaseForTabRecordZone:zoneID];
-    if ([recordID isEqual:dCopy])
+    v30 = [[CKRecordID alloc] initWithRecordName:self->_cachedSharedPresenceRecordName zoneID:zoneID];
+    v28 = [(CloudTabGroupPresenceUpdater *)self _sharedPresenceRecordDatabaseForTabRecordZone:zoneID];
+    v21 = [recordID isEqual:dCopy];
+    if (v21)
     {
-      v38[0] = _NSConcreteStackBlock;
-      v38[1] = 3221225472;
-      v38[2] = sub_100030560;
-      v38[3] = &unk_100132930;
-      v38[4] = self;
-      v39 = recordCopy;
-      v40 = groupCopy;
-      v41 = handlerCopy;
-      [(CloudTabGroupPresenceUpdater *)self _performSharedPresenceInTabHeartbeatUpdateIfNeededWithRecordID:dCopy inOperationGroup:v40 completionHandler:v38];
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = sub_100030560;
+      v41[3] = &unk_100132930;
+      v41[4] = self;
+      v42 = recordCopy;
+      v43 = groupCopy;
+      v44 = handlerCopy;
+      [(CloudTabGroupPresenceUpdater *)self _performSharedPresenceInTabHeartbeatUpdateIfNeededWithRecordID:dCopy inOperationGroup:v43 completionHandler:v41];
     }
 
     else
     {
-      v21 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v24 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v21, v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        ckShortDescription = [v27 ckShortDescription];
+        ckShortDescription = [v30 ckShortDescription];
         ckShortDescription2 = [recordID ckShortDescription];
         *buf = 138543618;
-        v44 = ckShortDescription;
-        v45 = 2114;
-        v46 = ckShortDescription2;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Deleting previous presence record with ID: %{public}@ to tab: %{public}@", buf, 0x16u);
+        v47 = ckShortDescription;
+        v48 = 2114;
+        v49 = ckShortDescription2;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Deleting previous presence record with ID: %{public}@ to tab: %{public}@", buf, 0x16u);
       }
 
       store = self->_store;
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = sub_100030570;
-      v30[3] = &unk_100132958;
-      objc_copyWeak(&v36, &location);
-      v35 = handlerCopy;
-      v31 = v27;
-      v32 = dCopy;
-      v33 = recordCopy;
-      v34 = groupCopy;
-      v37 = retryCopy;
-      [(CloudBookmarkStore *)store deleteRecordWithID:v31 inDatabase:v25 operationGroup:v34 completionHandler:v30];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_100030570;
+      v33[3] = &unk_100132958;
+      objc_copyWeak(&v39, &location);
+      v38 = handlerCopy;
+      v34 = v30;
+      v35 = dCopy;
+      v36 = recordCopy;
+      v37 = groupCopy;
+      v40 = retryCopy;
+      [(CloudBookmarkStore *)store deleteRecordWithID:v34 inDatabase:v28 operationGroup:v37 completionHandler:v33];
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v39);
     }
   }
 
   else
   {
-    v20 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v23 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(0, v17);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "No previous presence record to delete", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "No previous presence record to delete", buf, 2u);
     }
 
     [(CloudTabGroupPresenceUpdater *)self _createSharedPresenceRecordWithTabRecordID:dCopy currentPrivatePresenceRecord:recordCopy inOperationGroup:groupCopy isRetry:retryCopy completionHandler:handlerCopy];
@@ -386,46 +408,46 @@
   recordCopy = record;
   groupCopy = group;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   if (dCopy)
   {
-    v15 = [CKRecordID alloc];
+    v17 = [CKRecordID alloc];
     cachedSharedPresenceRecordName = self->_cachedSharedPresenceRecordName;
     zoneID = [dCopy zoneID];
-    v18 = [v15 initWithRecordName:cachedSharedPresenceRecordName zoneID:zoneID];
+    v20 = [v17 initWithRecordName:cachedSharedPresenceRecordName zoneID:zoneID];
 
-    v19 = [[CKRecord alloc] initWithRecordType:@"TabGroupTabParticipantPresence" recordID:v18];
-    v20 = [[CKReference alloc] initWithRecordID:self->_cachedUserRecordID action:0];
-    [v19 setObject:v20 forKeyedSubscript:@"Participant"];
+    v21 = [[CKRecord alloc] initWithRecordType:@"TabGroupTabParticipantPresence" recordID:v20];
+    v22 = [[CKReference alloc] initWithRecordID:self->_cachedUserRecordID action:0];
+    [v21 setObject:v22 forKeyedSubscript:@"Participant"];
 
-    v21 = [[CKReference alloc] initWithRecordID:dCopy action:1];
-    [v19 setObject:v21 forKeyedSubscript:@"TabGroupTab"];
+    v23 = [[CKReference alloc] initWithRecordID:dCopy action:1];
+    [v21 setObject:v23 forKeyedSubscript:@"TabGroupTab"];
 
-    [v19 setExpirationAfterTimeInterval:&off_10013C2B0];
+    [v21 setExpirationAfterTimeInterval:&off_10013C2B0];
     zoneID2 = [dCopy zoneID];
-    v23 = [(CloudTabGroupPresenceUpdater *)self _sharedPresenceRecordDatabaseForTabRecordZone:zoneID2];
+    v25 = [(CloudTabGroupPresenceUpdater *)self _sharedPresenceRecordDatabaseForTabRecordZone:zoneID2];
 
     store = self->_store;
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_100030954;
-    v26[3] = &unk_100132980;
-    objc_copyWeak(&v30, &location);
-    v29 = handlerCopy;
-    v27 = recordCopy;
-    v28 = groupCopy;
-    [(CloudBookmarkStore *)store saveOrLoadRecord:v19 inDatabase:v23 operationGroup:v28 completionHandler:v26];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100030954;
+    v28[3] = &unk_100132980;
+    objc_copyWeak(&v32, &location);
+    v31 = handlerCopy;
+    v29 = recordCopy;
+    v30 = groupCopy;
+    [(CloudBookmarkStore *)store saveOrLoadRecord:v21 inDatabase:v25 operationGroup:v30 completionHandler:v28];
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v32);
   }
 
   else
   {
-    v25 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v27 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(inited, v16);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "No need to create a new shared presence record", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "No need to create a new shared presence record", buf, 2u);
     }
 
     [(CloudTabGroupPresenceUpdater *)self _releaseLockForPrivatePresenceRecord:recordCopy inOperationGroup:groupCopy completionHandler:handlerCopy];
@@ -439,14 +461,14 @@
   recordCopy = record;
   handlerCopy = handler;
   groupCopy = group;
-  v11 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(groupCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     recordID = [recordCopy recordID];
     *buf = 138543362;
-    v21 = recordID;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Releasing update presence lock with ID: %{public}@", buf, 0xCu);
+    v22 = recordID;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Releasing update presence lock with ID: %{public}@", buf, 0xCu);
   }
 
   [recordCopy setObject:&off_10013C350 forKeyedSubscript:@"Lock"];
@@ -454,14 +476,14 @@
   store = self->_store;
   container = [(CloudBookmarkStore *)store container];
   privateCloudDatabase = [container privateCloudDatabase];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100030C18;
-  v18[3] = &unk_1001328B8;
-  v18[4] = self;
-  v19 = handlerCopy;
-  v17 = handlerCopy;
-  [(CloudBookmarkStore *)store saveOrLoadRecord:recordCopy inDatabase:privateCloudDatabase operationGroup:groupCopy completionHandler:v18];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100030C18;
+  v19[3] = &unk_1001328B8;
+  v19[4] = self;
+  v20 = handlerCopy;
+  v18 = handlerCopy;
+  [(CloudBookmarkStore *)store saveOrLoadRecord:recordCopy inDatabase:privateCloudDatabase operationGroup:groupCopy completionHandler:v19];
 }
 
 - (void)_setUpRetryTimerToSetPresenceInTabWithRecordID:(id)d inOperationGroup:(id)group completionHandler:(id)handler

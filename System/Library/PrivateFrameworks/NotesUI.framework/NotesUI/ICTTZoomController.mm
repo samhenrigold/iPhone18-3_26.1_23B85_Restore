@@ -29,11 +29,11 @@
   directionCopy = direction;
   v6 = [attributes mutableCopy];
   v7 = *MEMORY[0x1E69DB648];
-  v8 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(v6);
 
   if (v8)
   {
-    v9 = [v6 objectForKeyedSubscript:v7];
+    v9 = objc_msgSend_objectForKeyedSubscript_(v6);
     if (directionCopy)
     {
       [(ICTTZoomController *)self zoomFont:v9];
@@ -56,11 +56,11 @@
   attributesCopy = attributes;
   v7 = [attributesCopy mutableCopy];
   v8 = *MEMORY[0x1E69DB648];
-  v9 = [v7 objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
+  v9 = objc_msgSend_objectForKeyedSubscript_(v7);
   if (v9)
   {
     v10 = v9;
-    v11 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B75E0]];
+    v11 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     v12 = v11;
     if (v11)
     {
@@ -70,7 +70,7 @@
 
     else
     {
-      v15 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+      v15 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
       v16 = v15;
       if (v15)
       {
@@ -159,7 +159,7 @@ LABEL_23:
 void __63__ICTTZoomController_reallyZoomAttributedString_zoomDirection___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v10 = a2;
-  v7 = [v10 objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v10);
   if (v7)
   {
     v8 = *(a1 + 32);

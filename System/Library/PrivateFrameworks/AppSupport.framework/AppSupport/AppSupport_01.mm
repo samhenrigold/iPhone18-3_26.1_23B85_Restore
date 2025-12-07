@@ -207,7 +207,7 @@ LABEL_10:
   }
 }
 
-const char *CPPhoneNumberCopyCountryCodeForInternationalCallingCode(const char *result)
+const UInt8 *CPPhoneNumberCopyCountryCodeForInternationalCallingCode(const UInt8 *result)
 {
   if (result)
   {
@@ -222,20 +222,20 @@ const char *CPPhoneNumberCopyCountryCodeForInternationalCallingCode(const char *
   return result;
 }
 
-uint64_t CPPhoneNumberCopyFormattedStringForVoiceCall()
+uint64_t CPPhoneNumberCopyFormattedStringForVoiceCall(uint64_t a1)
 {
-  v0 = CPPhoneNumberCopyCountryCodeForIncomingNumber();
-  v1 = PNCreateFormattedStringWithCountry();
-  CFRelease(v0);
-  return v1;
+  v1 = CPPhoneNumberCopyCountryCodeForIncomingNumber();
+  v2 = PNCreateFormattedStringWithCountry();
+  CFRelease(v1);
+  return v2;
 }
 
-uint64_t CPPhoneNumberCopyFormattedStringForTextMessage()
+uint64_t CPPhoneNumberCopyFormattedStringForTextMessage(uint64_t a1)
 {
-  v0 = CPPhoneNumberCopyActiveCountryCode();
-  v1 = PNCreateFormattedStringWithCountry();
-  CFRelease(v0);
-  return v1;
+  v1 = CPPhoneNumberCopyActiveCountryCode();
+  v2 = PNCreateFormattedStringWithCountry();
+  CFRelease(v1);
+  return v2;
 }
 
 void handleCountryChanged(_DWORD *a1, const __CFString *a2, const void **a3, const void **a4, const __CFString *a5)
@@ -324,7 +324,7 @@ LABEL_3:
   CFNotificationCenterPostNotification(LocalCenter, a5, 0, 0, 1u);
 }
 
-unint64_t CPFileBuildDirectoriesToPath(CFStringRef filePath, uint64_t a2)
+const __CFURL *CPFileBuildDirectoriesToPath(CFStringRef filePath, uint64_t a2)
 {
   if (!filePath)
   {
@@ -343,7 +343,7 @@ unint64_t CPFileBuildDirectoriesToPath(CFStringRef filePath, uint64_t a2)
   return v5;
 }
 
-unint64_t CPFileBuildDirectoriesToURL(const __CFURL *a1, uint64_t a2)
+const __CFURL *CPFileBuildDirectoriesToURL(const __CFURL *a1, uint64_t a2)
 {
   if (CPPathUtils_MakePath(a1, a2))
   {
@@ -473,13 +473,13 @@ LABEL_21:
 
 FTS *CPDeleteTree(char *a1, int a2)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v12[0] = a1;
-  v12[1] = 0;
-  result = fts_open(v12, 20, 0);
+  v11[2] = *MEMORY[0x1E69E9840];
+  v11[0] = a1;
+  v11[1] = 0;
+  result = fts_open(v11, 20, 0);
   if (!result)
   {
-    goto LABEL_50;
+    return result;
   }
 
   v4 = result;
@@ -500,8 +500,7 @@ LABEL_27:
       }
     }
 
-    result = 1;
-    goto LABEL_50;
+    return 1;
   }
 
   v6 = v5;
@@ -530,13 +529,13 @@ LABEL_27:
             result = os_log_type_enabled(logHandle_logHandle, OS_LOG_TYPE_ERROR);
             if (!result)
             {
-              goto LABEL_50;
+              return result;
             }
 
             goto LABEL_54;
           }
 
-          goto LABEL_49;
+          return 0;
         }
       }
 
@@ -547,7 +546,7 @@ LABEL_27:
         {
           if (fts_close(v4) != -1)
           {
-            goto LABEL_49;
+            return 0;
           }
 
           if (logHandle_onceToken != -1)
@@ -558,12 +557,12 @@ LABEL_27:
           result = os_log_type_enabled(logHandle_logHandle, OS_LOG_TYPE_ERROR);
           if (!result)
           {
-            goto LABEL_50;
+            return result;
           }
 
 LABEL_54:
           CPDeleteTree_cold_2();
-          goto LABEL_49;
+          return 0;
         }
       }
     }
@@ -580,15 +579,13 @@ LABEL_54:
         result = os_log_type_enabled(logHandle_logHandle, OS_LOG_TYPE_ERROR);
         if (!result)
         {
-          goto LABEL_50;
+          return result;
         }
 
         goto LABEL_54;
       }
 
-LABEL_49:
-      result = 0;
-      goto LABEL_50;
+      return 0;
     }
 
 LABEL_26:
@@ -612,7 +609,7 @@ LABEL_26:
 
   if (fts_close(v4) != -1)
   {
-    goto LABEL_49;
+    return 0;
   }
 
   if (logHandle_onceToken != -1)
@@ -626,47 +623,41 @@ LABEL_26:
     goto LABEL_54;
   }
 
-LABEL_50:
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t CPTemporaryFileWithUniqueName(uint64_t a1, int *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = [[(NSString *)NSTemporaryDirectory() stringByAppendingPathComponent:a1] fileSystemRepresentation];
-  v4 = CPOpenTemporaryFile(v3, v9, 0x400uLL);
+  v4 = CPOpenTemporaryFile(v3, v8, 0x400uLL);
   if (v4 == -1)
   {
-    v6 = 0;
+    return 0;
+  }
+
+  v5 = v4;
+  v6 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v8 isDirectory:0 relativeToURL:0];
+  if (a2)
+  {
+    *a2 = v5;
   }
 
   else
   {
-    v5 = v4;
-    v6 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v9 isDirectory:0 relativeToURL:0];
-    if (a2)
-    {
-      *a2 = v5;
-    }
-
-    else
-    {
-      close(v5);
-    }
+    close(v5);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-unint64_t CPPathUtils_MakePath(const __CFURL *a1, mode_t a2)
+CFURLRef CPPathUtils_MakePath(const __CFURL *a1, mode_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   result = CFURLCopyAbsoluteURL(a1);
   if (!result)
   {
-    goto LABEL_8;
+    return result;
   }
 
   v4 = result;
@@ -674,7 +665,7 @@ unint64_t CPPathUtils_MakePath(const __CFURL *a1, mode_t a2)
   if (!v5)
   {
     CFRelease(v4);
-    goto LABEL_7;
+    return 0;
   }
 
   v6 = v5;
@@ -683,40 +674,31 @@ unint64_t CPPathUtils_MakePath(const __CFURL *a1, mode_t a2)
   CFRelease(v4);
   if (!CString)
   {
-LABEL_7:
-    result = 0;
-    goto LABEL_8;
+    return 0;
   }
 
-  memset(&v11, 0, sizeof(v11));
-  if (stat(buffer, &v11) == -1)
+  memset(&v10, 0, sizeof(v10));
+  if (stat(buffer, &v10) != -1)
   {
-    v9 = *__error();
-    if (v9 != 20 && v9 != 2 || buffer[0] == 47 && !buffer[1])
-    {
-      if (logHandle_onceToken != -1)
-      {
-        CPDeleteTree_cold_1();
-      }
+    return 1;
+  }
 
-      v10 = logHandle_logHandle;
-      if (os_log_type_enabled(logHandle_logHandle, OS_LOG_TYPE_ERROR))
-      {
-        CPPathUtils_MakePath_cold_2(buffer, v9, v10);
-      }
+  v8 = *__error();
+  if (v8 != 20 && v8 != 2 || buffer[0] == 47 && !buffer[1])
+  {
+    if (logHandle_onceToken != -1)
+    {
+      CPDeleteTree_cold_1();
     }
 
-    result = mkdir(buffer, a2) == 0;
+    v9 = logHandle_logHandle;
+    if (os_log_type_enabled(logHandle_logHandle, OS_LOG_TYPE_ERROR))
+    {
+      CPPathUtils_MakePath_cold_2(buffer, v8, v9);
+    }
   }
 
-  else
-  {
-    result = 1;
-  }
-
-LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (mkdir(buffer, a2) == 0);
 }
 
 os_log_t __logHandle_block_invoke()
@@ -726,10 +708,11 @@ os_log_t __logHandle_block_invoke()
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void CPCancelWakeAtDateWithIdentifier(const __CFDate *a1, CFStringRef my_id)
@@ -797,7 +780,7 @@ CFIndex __CPPowerAssertionsGetCount()
   return Count;
 }
 
-uint64_t __CPPowerAssertionGetTimeouts(uint64_t a1, uint64_t a2)
+CFIndex __CPPowerAssertionGetTimeouts(uint64_t a1, CFIndex a2)
 {
   pthread_mutex_lock(&_PowerAssertionsLock);
   Count = _PowerAssertions;
@@ -888,7 +871,7 @@ uint64_t CPSetPowerAssertionWithIdentifier(int a1, const void *a2)
   return v4;
 }
 
-uint64_t CPPowerAssertionCreate(uint64_t a1, double a2)
+_CPPowerAssertion *CPPowerAssertionCreate(uint64_t a1, double a2)
 {
   v4 = [_CPPowerAssertion alloc];
 
@@ -908,9 +891,9 @@ UInt8 *_CPCreateUTF8StringFromCFString(const __CFString *a1)
   return v4;
 }
 
-void sub_195E7D1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_195E7D1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -959,33 +942,33 @@ uint64_t _CPDNCheckIn(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void *dictionaryWithoutLargestNSData(void *a1, uint64_t *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   objc_opt_class();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v6 = [a1 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [a1 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v16 = a2;
-    v17 = a3;
+    v15 = a2;
+    v16 = a3;
     v8 = 0;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(a1);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = [a1 objectForKey:{v12, v16, v17}];
+        v12 = *(*(&v17 + 1) + 8 * i);
+        v13 = [a1 objectForKey:{v12, v15, v16}];
         if (objc_opt_isKindOfClass() & 1) != 0 && [v13 length] >= 0x4000 && (objc_opt_isKindOfClass())
         {
           v8 = v13;
@@ -993,7 +976,7 @@ void *dictionaryWithoutLargestNSData(void *a1, uint64_t *a2, void *a3)
         }
       }
 
-      v7 = [a1 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [a1 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -1008,8 +991,8 @@ void *dictionaryWithoutLargestNSData(void *a1, uint64_t *a2, void *a3)
       v8 = 0;
     }
 
-    a2 = v16;
-    a3 = v17;
+    a2 = v15;
+    a3 = v16;
   }
 
   else
@@ -1020,7 +1003,6 @@ void *dictionaryWithoutLargestNSData(void *a1, uint64_t *a2, void *a3)
 
   *a2 = v9;
   *a3 = v8;
-  v14 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -1201,10 +1183,10 @@ uint64_t CPAggregateDictionaryAddValueForScalarKey(uint64_t a1, uint64_t a2)
 
 CPAggregateDictionary *initializeAggregateDictionary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4 = 8;
-  result = sysctlbyname("hw.model", &v5, &v4, 0, 0);
-  if (v5 != 14414 || v6 != 50)
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = 8;
+  result = sysctlbyname("hw.model", &v4, &v3, 0, 0);
+  if (v4 != 14414 || v5 != 50)
   {
     result = dlopen("/System/Library/PrivateFrameworks/AggregateDictionary.framework/AggregateDictionary", 1);
     if (result)
@@ -1223,13 +1205,12 @@ CPAggregateDictionary *initializeAggregateDictionary()
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_195E82EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_195E82EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1381,7 +1362,7 @@ uint64_t matche(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 a3, ui
     v155 = v15;
     v21 = v10 - 34;
     v22 = (v10 - 34) > 0x3Eu;
-    if (*(v8 + v14))
+    if (v8[v14])
     {
       ++v14;
     }
@@ -1426,9 +1407,9 @@ uint64_t matche(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 a3, ui
         }
 
         v100 = utf8_byte_length_noerror_utf8_len_table[v20 >> 4];
-        v165[0] = v17;
+        *v165 = v17;
         v101 = utf8_decodestr(v19, v100, v165, &v163, 2, &v164, 0);
-        LOWORD(v17) = v165[0];
+        LOWORD(v17) = *v165;
         if (v101)
         {
           --v9;
@@ -1436,9 +1417,9 @@ uint64_t matche(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 a3, ui
           goto LABEL_394;
         }
 
-        if (v165[0] - 12441 >= 2)
+        if (*v165 - 12441 >= 2)
         {
-          v103 = (v7 & 2) != 0 || v165[0] - 768 >= 0x70;
+          v103 = (v7 & 2) != 0 || *v165 - 768 >= 0x70;
           v104 = !v103;
           result = v104 ^ 1u;
           if (!v103 || !a5)
@@ -1447,7 +1428,7 @@ uint64_t matche(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 a3, ui
           }
 
 LABEL_379:
-          *a5 = &v16[-v8];
+          *a5 = v16 - v8;
           v102 = (v19 - v16);
 LABEL_441:
           *a6 = v102;
@@ -1729,10 +1710,10 @@ LABEL_125:
     if (v11)
     {
       v37 = utf8_byte_length_noerror_utf8_len_table[*v11 >> 4];
-      v165[0] = 0;
+      *v165 = 0;
       v157 = v37;
       v38 = utf8_decodestr(v11, v37, v165, &v163, 2, &v164, 0);
-      v18 = v165[0];
+      v18 = *v165;
       if (v38)
       {
         goto LABEL_392;
@@ -1754,9 +1735,9 @@ LABEL_77:
       if (v12)
       {
         v27 = utf8_byte_length_noerror_utf8_len_table[*v12 >> 4];
-        v165[0] = 0;
+        *v165 = 0;
         v39 = utf8_decodestr(v12, v27, v165, &v163, 2, &v164, 0);
-        v17 = v165[0];
+        v17 = *v165;
         if (v39)
         {
 LABEL_392:
@@ -1998,9 +1979,9 @@ LABEL_268:
               goto LABEL_204;
             }
 
-            v165[0] = v17;
+            *v165 = v17;
             v66 = utf8_decodestr(v54, 3uLL, v165, &v163, 2, &v164, 0);
-            LOWORD(v17) = v165[0];
+            LOWORD(v17) = *v165;
             if (v66)
             {
               v57 = 0;
@@ -2009,15 +1990,15 @@ LABEL_268:
               goto LABEL_259;
             }
 
-            v17 = v165[0] - 65248;
-            if (((LOBYTE(v165[0]) + 32) & 0x80) != 0)
+            v17 = *v165 - 65248;
+            if (((v165[0] + 32) & 0x80) != 0)
             {
               v64 = 3;
             }
 
             else
             {
-              if (separator_map[(LOBYTE(v165[0]) + 32) & 0x7F])
+              if (separator_map[(v165[0] + 32) & 0x7F])
               {
                 goto LABEL_198;
               }
@@ -2068,10 +2049,10 @@ LABEL_199:
     else if (v11)
     {
       v44 = utf8_byte_length_noerror_utf8_len_table[*v11 >> 4];
-      v165[0] = 0;
+      *v165 = 0;
       v157 = v44;
       v45 = utf8_decodestr(v11, v44, v165, &v163, 2, &v164, 0);
-      v43 = v165[0];
+      v43 = *v165;
       if (v45)
       {
         goto LABEL_380;
@@ -2096,9 +2077,9 @@ LABEL_199:
     if (v12)
     {
       v27 = utf8_byte_length_noerror_utf8_len_table[*v12 >> 4];
-      v165[0] = 0;
+      *v165 = 0;
       v46 = utf8_decodestr(v12, v27, v165, &v163, 2, &v164, 0);
-      v17 = v165[0];
+      v17 = *v165;
       if (!v46)
       {
         v11 = v161;
@@ -2622,15 +2603,15 @@ LABEL_404:
       while (1)
       {
         v110 = utf8_byte_length_noerror_utf8_len_table[*v19 >> 4];
-        v165[0] = v17;
+        *v165 = v17;
         if (utf8_decodestr(v19, v110, v165, &v163, 2, &v164, 0))
         {
           break;
         }
 
-        LOWORD(v17) = v165[0];
+        LOWORD(v17) = *v165;
         v19 += v110;
-        if (!unicode_combinable(v165[0]))
+        if (!unicode_combinable(*v165))
         {
           goto LABEL_411;
         }
@@ -2658,20 +2639,20 @@ LABEL_411:
       }
 
       v112 = utf8_byte_length_noerror_utf8_len_table[*v9 >> 4];
-      v165[0] = v18;
+      *v165 = v18;
       if (utf8_decodestr(v9, v112, v165, &v163, 2, &v164, 0))
       {
         goto LABEL_425;
       }
 
-      LOWORD(v18) = v165[0];
-      if (v165[0] - 12441 < 2)
+      LOWORD(v18) = *v165;
+      if (*v165 - 12441 < 2)
       {
         break;
       }
     }
 
-    while (unicode_combinable(v165[0]));
+    while (unicode_combinable(*v165));
     a5 = v111;
   }
 
@@ -2713,7 +2694,7 @@ LABEL_424:
       return 1;
     }
 
-    *a5 = &v154[-v8];
+    *a5 = v154 - v8;
     v102 = (v19 - v154);
     goto LABEL_441;
   }
@@ -2943,7 +2924,7 @@ unint64_t utf8_to_code_point(unsigned __int8 *a1)
     v5 = v3;
   }
 
-  v6 = (a1 + 1);
+  v6 = a1 + 1;
   v7 = v5 - 1;
   do
   {
@@ -3075,7 +3056,7 @@ uint64_t utf8_encodelen(unsigned __int16 *a1, unint64_t a2, int a3, char a4)
 
 uint64_t utf8_encodestr(unsigned __int16 *a1, unint64_t a2, _BYTE *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  *&v33[14] = *MEMORY[0x1E69E9840];
+  *&v32[14] = *MEMORY[0x1E69E9840];
   if (a2 < 2)
   {
     result = 0;
@@ -3115,21 +3096,21 @@ uint64_t utf8_encodestr(unsigned __int16 *a1, unint64_t a2, _BYTE *a3, void *a4,
               goto LABEL_18;
             }
 
-            v31 = result;
+            v30 = result;
             v20 = a4;
             v21 = a3;
             v22 = a6;
             v23 = a7;
-            v24 = unicode_decompose(v14, &v32);
+            v24 = unicode_decompose(v14, &v31);
             a7 = v23;
             a6 = v22;
             a3 = v21;
             a4 = v20;
             v10 = v24 - 1;
-            result = v31;
+            result = v30;
             v13 += v10;
-            v14 = v32;
-            v11 = v33;
+            v14 = v31;
+            v11 = v32;
           }
         }
       }
@@ -3184,7 +3165,7 @@ LABEL_18:
             goto LABEL_23;
           }
 
-          if ((v8 + 3) >= v12)
+          if (v8 + 3 >= v12)
           {
             goto LABEL_39;
           }
@@ -3206,7 +3187,7 @@ LABEL_18:
         else
         {
 LABEL_23:
-          if ((v8 + 2) >= v12)
+          if (v8 + 2 >= v12)
           {
             goto LABEL_39;
           }
@@ -3224,7 +3205,7 @@ LABEL_23:
 
       else
       {
-        if ((v8 + 1) >= v12)
+        if (v8 + 1 >= v12)
         {
           goto LABEL_39;
         }
@@ -3263,7 +3244,6 @@ LABEL_40:
     v8[1] = 0;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3286,9 +3266,9 @@ uint64_t unicode_decompose(__int16 a1, _WORD *a2)
   return 3;
 }
 
-uint64_t utf8_decodestr(unsigned __int8 *a1, unint64_t a2, _WORD *a3, void *a4, uint64_t a5, _DWORD *a6, char a7)
+uint64_t utf8_decodestr(unsigned __int8 *a1, unint64_t a2, char *a3, void *a4, uint64_t a5, _DWORD *a6, char a7)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   *a6 = 0;
   if (!a2)
   {
@@ -3298,7 +3278,7 @@ uint64_t utf8_decodestr(unsigned __int8 *a1, unint64_t a2, _WORD *a3, void *a4, 
   }
 
   v9 = a2;
-  v10 = a3 + a5;
+  v10 = &a3[a5];
   v11 = a3;
   v12 = a1;
   while (1)
@@ -3343,8 +3323,8 @@ LABEL_62:
     if (a7)
     {
       *v11 = bswap32(v32) >> 16;
-      v33 = v11 + 1;
-      if ((v11 + 1) >= v10)
+      v33 = v11 + 2;
+      if (v11 + 2 >= v10)
       {
 LABEL_65:
         result = 63;
@@ -3358,8 +3338,8 @@ LABEL_65:
     else
     {
       *v11 = v32;
-      v33 = v11 + 1;
-      if ((v11 + 1) >= v10)
+      v33 = v11 + 2;
+      if (v11 + 2 >= v10)
       {
         goto LABEL_65;
       }
@@ -3368,8 +3348,8 @@ LABEL_65:
     }
 
     v12 = a1 + 4;
-    v11[1] = v34;
-    v11 += 2;
+    *(v11 + 1) = v34;
+    v11 += 4;
 LABEL_54:
     a1 = v12;
     if (!v9)
@@ -3452,13 +3432,13 @@ LABEL_54:
             }
 
             v26 = a4;
-            v45 = a6;
+            v44 = a6;
             v27 = unicode_combine(v24, v18);
-            a6 = v45;
+            a6 = v44;
             a4 = v26;
             if (v27)
             {
-              --v11;
+              v11 -= 2;
               v18 = v27;
             }
           }
@@ -3489,7 +3469,8 @@ LABEL_50:
       LOWORD(v13) = v43;
     }
 
-    *v11++ = v13;
+    *v11 = v13;
+    v11 += 2;
     goto LABEL_54;
   }
 
@@ -3504,20 +3485,20 @@ LABEL_50:
     goto LABEL_47;
   }
 
-  v46 = a6;
+  v45 = a6;
   v36 = a4;
-  v37 = unicode_decompose(v18, v47);
+  v37 = unicode_decompose(v18, v46);
   if (v37 < 1)
   {
     a4 = v36;
-    a6 = v46;
+    a6 = v45;
     goto LABEL_54;
   }
 
   v38 = v37;
-  v39 = v47;
+  v39 = v46;
   a4 = v36;
-  a6 = v46;
+  a6 = v45;
   while (1)
   {
     v41 = *v39++;
@@ -3528,7 +3509,8 @@ LABEL_50:
       v40 = v42;
     }
 
-    *v11++ = v40;
+    *v11 = v40;
+    v11 += 2;
     if (v11 >= v10)
     {
       break;
@@ -3544,7 +3526,6 @@ LABEL_63:
   result = 63;
 LABEL_64:
   *a4 = v11 - a3;
-  v44 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3586,7 +3567,7 @@ uint64_t unicode_combine(unsigned int a1, unsigned int a2)
   v6 = &unk_195EA3F4C;
   while (1)
   {
-    v7 = &v5[2 * ((v6 - v5) >> 4)];
+    v7 = &v5[8 * ((v6 - v5) >> 4)];
     if (*v7 <= a2)
     {
       break;
@@ -3747,12 +3728,12 @@ LABEL_10:
   }
 
   v10 = utf8_byte_length_noerror_utf8_len_table_0[*v9 >> 4];
-  if (utf8_decodestr(v9, v10, &v27, &v28, 4, &v29, 0))
+  if (utf8_decodestr(v9, v10, v27, &v28, 4, &v29, 0))
   {
     return 22;
   }
 
-  if (v27 < 0xC0u || (v11 = __CFUniCharDecomposableBitmap[v27 >> 8]) == 0 || v11 != 255 && ((__CFUniCharDecomposableBitmap[32 * v11 + 224 + (v27 >> 3)] >> (v27 & 7)) & 1) == 0)
+  if (*v27 < 0xC0u || (v11 = __CFUniCharDecomposableBitmap[*v27 >> 8]) == 0 || v11 != 255 && ((__CFUniCharDecomposableBitmap[32 * v11 + 224 + (v27[0] >> 3)] >> (v27[0] & 7)) & 1) == 0)
   {
     v8 += v10 - 1;
     v9 += v10 - 1;
@@ -3805,7 +3786,8 @@ LABEL_11:
     v19 = v13;
     do
     {
-      v21 = *v19++;
+      v21 = *v19;
+      v19 += 2;
       v20 = v21;
       if (!v21)
       {
@@ -3887,7 +3869,7 @@ uint64_t map_case(uint64_t a1)
   {
     if ((a1 - 97) > 0x19)
     {
-      v2 = &tolower_map;
+      v2 = tolower_map;
     }
 
     else
@@ -3914,7 +3896,7 @@ void get_canonical_language_identifier_for_string(char *cStr, char *a2, int a3)
 
 const void *CRCopyRestrictionsDictionary()
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&CRCopyRestrictionsDictionary_lastSynchronizationTimeMutex);
   Current = CFAbsoluteTimeGetCurrent();
   if (Current - *&CRCopyRestrictionsDictionary_lastSynchronizationTime > 2.0)
@@ -3930,12 +3912,12 @@ const void *CRCopyRestrictionsDictionary()
     v2 = *MEMORY[0x1E695E480];
     v3 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &CRMaxRank);
     *keys = xmmword_1E7450DB8;
-    v8 = *&off_1E7450DC8;
-    v6[0] = v3;
-    v6[1] = v3;
-    v6[2] = v3;
-    v6[3] = &stru_1F0A49170;
-    v1 = CFDictionaryCreate(v2, keys, v6, 4, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    v7 = *&off_1E7450DC8;
+    v5[0] = v3;
+    v5[1] = v3;
+    v5[2] = v3;
+    v5[3] = &stru_1F0A49170;
+    v1 = CFDictionaryCreate(v2, keys, v5, 4, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     CFPreferencesSetAppValue(@"SBParentalControlsMCContentRestrictions", v1, @"com.apple.springboard");
     if (v3)
     {
@@ -3943,7 +3925,6 @@ const void *CRCopyRestrictionsDictionary()
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
@@ -3971,33 +3952,31 @@ void _DisposeICUSQLiteContext(void *a1)
 {
   if (a1)
   {
-    v2 = a1[3];
     usearch_close();
-    v3 = a1[4];
     ubrk_close();
     CPICUReleaseSearchCollator(a1);
-    v4 = a1[5];
-    if (v4)
+    v2 = a1[5];
+    if (v2)
     {
-      utext_close(v4);
+      utext_close(v2);
     }
 
-    v5 = a1[24];
-    if (v5)
+    v3 = a1[24];
+    if (v3)
+    {
+      free(v3);
+    }
+
+    v4 = a1[26];
+    if (v4 && v4 != a1 + 27)
+    {
+      free(v4);
+    }
+
+    v5 = a1[22];
+    if (v5 && v5 != a1 + 6)
     {
       free(v5);
-    }
-
-    v6 = a1[26];
-    if (v6 && v6 != a1 + 27)
-    {
-      free(v6);
-    }
-
-    v7 = a1[22];
-    if (v7 && v7 != a1 + 6)
-    {
-      free(v7);
     }
 
     free(a1);
@@ -4006,7 +3985,7 @@ void _DisposeICUSQLiteContext(void *a1)
 
 void *_CreateICUSQLiteContext(uint64_t a1, char a2)
 {
-  v14 = U_ZERO_ERROR;
+  v9 = U_ZERO_ERROR;
   v4 = malloc_type_malloc(0x2E0uLL, 0x10B004033E6159AuLL);
   v4[3] = 0;
   *(v4 + 24) = 65;
@@ -4018,47 +3997,37 @@ void *_CreateICUSQLiteContext(uint64_t a1, char a2)
   *(v4 + 188) = 1;
   v4[26] = v4 + 27;
   *(v4 + 182) = 256;
-  CPICUCreateSearchCollator(a1, &v12);
-  *v4 = v12;
-  v4[2] = v13;
+  CPICUCreateSearchCollator(a1, &v7);
+  *v4 = v7;
+  v4[2] = v8;
   v4[4] = ubrk_open();
   if (a2)
   {
-    v6 = *v4;
     ucol_setAttribute();
     if ((a2 & 2) != 0)
     {
-      goto LABEL_7;
+      goto LABEL_6;
     }
-
-    v7 = *v4;
   }
 
-  else
+  else if ((a2 & 2) == 0)
   {
-    if ((a2 & 2) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    v5 = *v4;
+    goto LABEL_6;
   }
 
   ucol_setAttribute();
-LABEL_7:
+LABEL_6:
   if ((a2 & 4) != 0)
   {
-    v8 = *v4;
     ucol_setAttribute();
   }
 
-  v9 = *v4;
   v4[3] = usearch_openFromCollator();
-  if (v14 >= U_ILLEGAL_ARGUMENT_ERROR)
+  if (v9 >= U_ILLEGAL_ARGUMENT_ERROR)
   {
     _DisposeICUSQLiteContext(v4);
-    v10 = u_errorName(v14);
-    NSLog(@"Failed to open ICUSQLite collator: %s", v10);
+    v5 = u_errorName(v9);
+    NSLog(@"Failed to open ICUSQLite collator: %s", v5);
     return 0;
   }
 
@@ -4122,29 +4091,27 @@ UChar *_ICUSQLiteMatch(const char *a1, char *__s2, int a3, int a4, uint64_t a5)
         *(a5 + 200) = pDestLength + 1;
         pErrorCode = U_ZERO_ERROR;
         u_strFromUTF8(v14, v16, &pDestLength, __s2, v10, &pErrorCode);
-        v17 = *(a5 + 192);
       }
 
-      v18 = *(a5 + 24);
       usearch_setPattern();
       *(a5 + 188) = 1;
-      v19 = pDestLength;
+      v17 = pDestLength;
       if (pDestLength >= 1)
       {
-        v20 = *(a5 + 192);
+        v18 = *(a5 + 192);
         do
         {
-          v22 = *v20++;
-          v21 = v22;
-          if ((v22 + 160) < 0x50u || (v21 & 0xFF80) == 0xE00 || ((v21 - 11904) >> 7) <= 0x196u)
+          v20 = *v18++;
+          v19 = v20;
+          if ((v20 + 160) < 0x50u || (v19 & 0xFF80) == 0xE00 || ((v19 - 11904) >> 7) <= 0x196u)
           {
             *(a5 + 188) = 0;
           }
 
-          --v19;
+          --v17;
         }
 
-        while (v19);
+        while (v17);
       }
 
       if (pErrorCode <= U_ZERO_ERROR)
@@ -4159,72 +4126,66 @@ UChar *_ICUSQLiteMatch(const char *a1, char *__s2, int a3, int a4, uint64_t a5)
   }
 
 LABEL_26:
-  v58 = 0;
-  v23 = strlen(a1);
-  if (v23 < 1)
+  v42 = 0;
+  v21 = strlen(a1);
+  if (v21 < 1)
   {
     return 0;
   }
 
-  u_strFromUTF8(*(a5 + 208), *(a5 + 728), &v58, a1, v23, &pErrorCode);
+  u_strFromUTF8(*(a5 + 208), *(a5 + 728), &v42, a1, v21, &pErrorCode);
   if (pErrorCode == U_BUFFER_OVERFLOW_ERROR)
   {
-    result = malloc_type_malloc(2 * v58 + 2, 0x1000040BDFB0063uLL);
+    result = malloc_type_malloc(2 * v42 + 2, 0x1000040BDFB0063uLL);
     if (!result)
     {
       return result;
     }
 
-    v25 = result;
-    v26 = *(a5 + 208);
-    if (v26 != (a5 + 216))
+    v23 = result;
+    v24 = *(a5 + 208);
+    if (v24 != (a5 + 216))
     {
-      free(v26);
+      free(v24);
     }
 
-    *(a5 + 208) = v25;
-    v27 = v58 + 1;
-    *(a5 + 728) = v58 + 1;
+    *(a5 + 208) = v23;
+    v25 = v42 + 1;
+    *(a5 + 728) = v42 + 1;
     pErrorCode = U_ZERO_ERROR;
-    u_strFromUTF8(v25, v27, &v58, a1, v23, &pErrorCode);
+    u_strFromUTF8(v23, v25, &v42, a1, v21, &pErrorCode);
   }
 
-  v28 = *(a5 + 24);
-  v29 = *(a5 + 208);
   usearch_setText();
-  v30 = *(a5 + 24);
   if (a4 == 3)
   {
-    v31 = usearch_last();
-    if (v31 != -1)
+    v26 = usearch_last();
+    if (v26 != -1)
     {
-      v32 = v31;
-      v33 = *(a5 + 24);
-      v34 = usearch_getMatchedLength() + v32 == v58;
+      v27 = usearch_getMatchedLength() + v26 == v42;
       goto LABEL_35;
     }
 
 LABEL_71:
-    v35 = 0;
-    return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v35);
+    v28 = 0;
+    return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v28);
   }
 
-  v36 = usearch_first();
-  v37 = v36;
-  v35 = 0;
+  v29 = usearch_first();
+  v30 = v29;
+  v28 = 0;
   if (a4 > 3)
   {
     if ((a4 - 5) >= 2)
     {
       if (a4 != 4)
       {
-        return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v35);
+        return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v28);
       }
 
-      if (!v36)
+      if (!v29)
       {
-        v57 = *(a5 + 24);
-        v34 = usearch_getMatchedLength() == v58;
+        v27 = usearch_getMatchedLength() == v42;
         goto LABEL_35;
       }
 
@@ -4233,81 +4194,75 @@ LABEL_71:
 
     if (*(a5 + 188) == 1)
     {
-      if (v36 != -1)
+      if (v29 != -1)
       {
-        v38 = *(a5 + 32);
-        v39 = *(a5 + 208);
         ubrk_setText();
         if (pErrorCode <= U_ZERO_ERROR)
         {
-          v40 = 0;
+          v31 = 0;
           while (1)
           {
-            v41 = *(a5 + 32);
             if (ubrk_isBoundary())
             {
-              if (a4 == 5 || (v42 = *(a5 + 24), v43 = *(a5 + 32), usearch_getMatchedLength(), ubrk_isBoundary()))
+              if (a4 == 5 || (usearch_getMatchedLength(), ubrk_isBoundary()))
               {
 LABEL_75:
-                v35 = 1;
-                return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v35);
+                v28 = 1;
+                return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v28);
               }
             }
 
             else
             {
-              v44 = *(a5 + 40);
-              if ((v40 & 1) == 0)
+              v32 = *(a5 + 40);
+              if ((v31 & 1) == 0)
               {
-                v44 = utext_openUChars(v44, *(a5 + 208), v58, &pErrorCode);
-                *(a5 + 40) = v44;
+                v32 = utext_openUChars(v32, *(a5 + 208), v42, &pErrorCode);
+                *(a5 + 40) = v32;
               }
 
-              utext_setNativeIndex(v44, v37);
+              utext_setNativeIndex(v32, v30);
               utext_moveIndex32(*(a5 + 40), -1);
-              v45 = utext_next32(*(a5 + 40));
-              isUUppercase = u_isUUppercase(v45);
-              v47 = utext_next32(*(a5 + 40));
-              v48 = u_isUUppercase(v47);
-              v49 = utext_next32(*(a5 + 40));
-              v50 = u_isUUppercase(v49);
+              v33 = utext_next32(*(a5 + 40));
+              isUUppercase = u_isUUppercase(v33);
+              v35 = utext_next32(*(a5 + 40));
+              v36 = u_isUUppercase(v35);
+              v37 = utext_next32(*(a5 + 40));
+              v38 = u_isUUppercase(v37);
               if (isUUppercase)
               {
-                v51 = v50 == 0;
+                v39 = v38 == 0;
               }
 
               else
               {
-                v51 = 1;
+                v39 = 1;
               }
 
-              v52 = v51;
-              v40 = 1;
-              if (v48 && v52)
+              v40 = v39;
+              v31 = 1;
+              if (v36 && v40)
               {
                 if (a4 == 5)
                 {
                   goto LABEL_75;
                 }
 
-                v53 = *(a5 + 24);
-                v54 = *(a5 + 32);
                 usearch_getMatchedLength();
                 isBoundary = ubrk_isBoundary();
-                v35 = 1;
+                v28 = 1;
                 if (isBoundary)
                 {
-                  return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v35);
+                  return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v28);
                 }
               }
             }
 
-            v56 = *(a5 + 24);
-            v37 = usearch_next();
-            v35 = 0;
-            if (v37 == -1)
+            v30 = usearch_next();
+            v28 = 0;
+            if (v30 == -1)
             {
-              return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v35);
+              return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v28);
             }
           }
         }
@@ -4317,8 +4272,8 @@ LABEL_75:
     }
 
 LABEL_68:
-    v35 = v36 != -1;
-    return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v35);
+    v28 = v29 != -1;
+    return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v28);
   }
 
   switch(a4)
@@ -4326,30 +4281,30 @@ LABEL_68:
     case 0:
       goto LABEL_68;
     case 1:
-      v34 = v36 == -1;
+      v27 = v29 == -1;
       break;
     case 2:
-      v34 = v36 == 0;
+      v27 = v29 == 0;
       break;
     default:
-      return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v35);
+      return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v28);
   }
 
 LABEL_35:
-  v35 = v34;
-  return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v35);
+  v28 = v27;
+  return ((pErrorCode < U_ILLEGAL_ARGUMENT_ERROR) & v28);
 }
 
-void sub_195E86A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_195E86A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_195E86C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_195E86C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4368,26 +4323,20 @@ void CPStopInhibitorWithIdentifier(uint64_t a1)
   [v2 stopInhibitorWithIdentifier:a1];
 }
 
-uint64_t RunningBoardServicesLibraryCore()
+uint64_t RunningBoardServicesLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!RunningBoardServicesLibraryCore_frameworkLibrary)
   {
     RunningBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = RunningBoardServicesLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return RunningBoardServicesLibraryCore_frameworkLibrary;
 }
 
 uint64_t __RunningBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   RunningBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4408,9 +4357,14 @@ Class __getRBSProcessHandleClass_block_invoke(uint64_t a1)
 void RunningBoardServicesLibrary()
 {
   v0 = 0;
-  if (!RunningBoardServicesLibraryCore())
+  if (!RunningBoardServicesLibraryCore(&v0))
   {
     RunningBoardServicesLibrary_cold_1(&v0);
+  }
+
+  if (v0)
+  {
+    free(v0);
   }
 }
 
@@ -4582,50 +4536,49 @@ void RadioPreferencesCallback(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_195E8C05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_195E8C05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_195E8C40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_195E8C40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  _Block_object_dispose((v8 - 128), 8);
+  va_start(va, a15);
+  _Block_object_dispose((v15 - 128), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t NanoPreferencesSyncLibraryCore()
+uint64_t NanoPreferencesSyncLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!NanoPreferencesSyncLibraryCore_frameworkLibrary)
   {
     NanoPreferencesSyncLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = NanoPreferencesSyncLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return NanoPreferencesSyncLibraryCore_frameworkLibrary;
 }
 
 uint64_t __NanoPreferencesSyncLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   NanoPreferencesSyncLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getNPSDomainAccessorClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!NanoPreferencesSyncLibraryCore())
+  if (!NanoPreferencesSyncLibraryCore(&v3))
   {
     __getNPSDomainAccessorClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("NPSDomainAccessor");
@@ -4639,35 +4592,34 @@ Class __getNPSDomainAccessorClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t NanoSystemSettingsLibraryCore()
+uint64_t NanoSystemSettingsLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!NanoSystemSettingsLibraryCore_frameworkLibrary)
   {
     NanoSystemSettingsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = NanoSystemSettingsLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return NanoSystemSettingsLibraryCore_frameworkLibrary;
 }
 
 uint64_t __NanoSystemSettingsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   NanoSystemSettingsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getNSSManagerClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!NanoSystemSettingsLibraryCore())
+  if (!NanoSystemSettingsLibraryCore(&v3))
   {
     __getNSSManagerClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("NSSManager");
@@ -4681,11 +4633,11 @@ Class __getNSSManagerClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t CPICUCreateSearchCollator@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t CPICUCreateSearchCollator@<X0>(uint64_t a1@<X0>, uint64_t *a3@<X8>)
 {
   v14 = *MEMORY[0x1E69E9840];
-  a2[1] = 0;
-  a2[2] = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   v13 = 0;
   memset(v12, 0, sizeof(v12));
   if (a1)
@@ -4695,17 +4647,17 @@ uint64_t CPICUCreateSearchCollator@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 
   else
   {
-    v3 = *MEMORY[0x1E695E8A8];
-    v4 = CFPreferencesCopyAppValue(@"AppleCollationOrder", *MEMORY[0x1E695E8A8]);
-    if (v4)
+    v4 = *MEMORY[0x1E695E8A8];
+    v5 = CFPreferencesCopyAppValue(@"AppleCollationOrder", *MEMORY[0x1E695E8A8]);
+    if (v5)
     {
-      ValueAtIndex = v4;
+      ValueAtIndex = v5;
     }
 
     else
     {
-      v8 = CFPreferencesCopyAppValue(@"AppleLanguages", v3);
-      if (!v8 || (v9 = v8, ValueAtIndex = CFArrayGetValueAtIndex(v8, 0), CFRetain(ValueAtIndex), CFRelease(v9), !ValueAtIndex))
+      v9 = CFPreferencesCopyAppValue(@"AppleLanguages", v4);
+      if (!v9 || (v10 = v9, ValueAtIndex = CFArrayGetValueAtIndex(v9, 0), CFRetain(ValueAtIndex), CFRelease(v10), !ValueAtIndex))
       {
         LOBYTE(v12[0]) = 0;
         goto LABEL_11;
@@ -4715,9 +4667,9 @@ uint64_t CPICUCreateSearchCollator@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
     CanonicalLanguageIdentifierFromString = CFLocaleCreateCanonicalLanguageIdentifierFromString(*MEMORY[0x1E695E480], ValueAtIndex);
     if (CanonicalLanguageIdentifierFromString)
     {
-      v7 = CanonicalLanguageIdentifierFromString;
+      v8 = CanonicalLanguageIdentifierFromString;
       CFStringGetCString(CanonicalLanguageIdentifierFromString, v12, 257, 0x600u);
-      CFRelease(v7);
+      CFRelease(v8);
     }
 
     CFRelease(ValueAtIndex);
@@ -4725,15 +4677,13 @@ uint64_t CPICUCreateSearchCollator@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 
 LABEL_11:
   uloc_setKeywordValue();
-  *a2 = ucol_open();
-  result = ucol_setStrength();
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  *a3 = ucol_open();
+  return ucol_setStrength();
 }
 
-CFErrorRef *CPBitmapWriteImagesToPath(const __CFArray *a1, unsigned int a2, const __CFData *a3, const __CFString *a4, int a5, CFErrorRef *a6)
+CFErrorRef *CPBitmapWriteImagesToPath(const __CFArray *a1, uint64_t a2, NSObject *a3, const __CFString *a4, uint64_t a5, CFErrorRef *a6)
 {
-  if (!a1 || !CFArrayGetCount(a1))
+  if (!a1 || (v7 = a5, v10 = a2, !CFArrayGetCount(a1)))
   {
     if (!a6)
     {
@@ -4745,7 +4695,7 @@ CFErrorRef *CPBitmapWriteImagesToPath(const __CFArray *a1, unsigned int a2, cons
   }
 
   Count = CFArrayGetCount(a1);
-  CPBitmapWriterCreateWithPath(a4, a2, a5, Count, a3, a6);
+  CPBitmapWriterCreateWithPath(a4, v10, v7, Count, a3, a6);
   if (!v13)
   {
     return 0;
@@ -4804,7 +4754,7 @@ void __CPBitmapSetErrorIfNecessary(CFErrorRef *a1, const __CFString *a2, CFIndex
   }
 }
 
-void CPBitmapWriterCreateWithPath(const __CFString *a1, unsigned int a2, int a3, unint64_t a4, const __CFData *a5, CFErrorRef *a6)
+void CPBitmapWriterCreateWithPath(const __CFString *a1, unsigned int a2, int a3, unint64_t a4, NSObject *a5, CFErrorRef *a6)
 {
   v12 = malloc_type_malloc(0x400uLL, 0xE0956004uLL);
   if (v12)
@@ -4938,7 +4888,7 @@ CFErrorRef *CPBitmapCreateImagesFromPath(const __CFString *a1, CFPropertyListRef
 
 CFErrorRef *CPBitmapCreateMappedDataFromPath(const __CFString *a1, CFErrorRef *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   buffer[0] = 0;
   if (a1 && CFStringGetCString(a1, buffer, 1024, 0x8000100u))
   {
@@ -4966,17 +4916,17 @@ CFErrorRef *CPBitmapCreateMappedDataFromPath(const __CFString *a1, CFErrorRef *a
         if (v7 != -1)
         {
           v8 = v7;
-          v20.version = 0;
-          memset(&v20.retain, 0, 40);
-          v20.info = v6;
-          v20.deallocate = MEMORY[0x1E69E9A78];
-          v20.preferredSize = 0;
-          v9 = CFAllocatorCreate(0, &v20);
+          v19.version = 0;
+          memset(&v19.retain, 0, 40);
+          v19.info = v6;
+          v19.deallocate = MEMORY[0x1E69E9A78];
+          v19.preferredSize = 0;
+          v9 = CFAllocatorCreate(0, &v19);
           a2 = CFDataCreateWithBytesNoCopy(0, v8, v6, v9);
           CFRelease(v9);
 LABEL_17:
           close(v4);
-          goto LABEL_18;
+          return a2;
         }
 
         if (!a2)
@@ -5013,21 +4963,19 @@ LABEL_17:
     v13 = 4;
 LABEL_9:
     __CPBitmapSetErrorIfNecessary(v12, v10, v13, v11);
-    a2 = 0;
+    return 0;
   }
 
-LABEL_18:
-  v18 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
 __CFArray *CPBitmapCreateImagesFromData(const __CFData *a1, CFPropertyListRef *a2, char a3, CFErrorRef *a4)
 {
-  v100 = *MEMORY[0x1E69E9840];
-  v96 = 0;
-  v94 = 0u;
-  v95 = 0u;
+  v99 = *MEMORY[0x1E69E9840];
+  v95 = 0;
   v93 = 0u;
+  v94 = 0u;
+  v92 = 0u;
   if (!a1 || (BytePtr = CFDataGetBytePtr(a1)) == 0 || (v9 = BytePtr, (v10 = CFDataGetLength(a1)) == 0))
   {
     if (!a4)
@@ -5087,17 +5035,17 @@ LABEL_71:
     v13 = *&v9[v11 - 28];
   }
 
-  v21 = &v9[v11];
-  v23 = *&v9[v11 - 8];
-  v22 = *&v9[v11 - 4];
-  v24 = *&v9[v11 - 16];
-  v25 = *(v21 - 3);
-  v26 = *(v21 - 5);
-  v27 = v11 > 0x1B && v22 == -592100446;
-  v28 = v27;
-  if (!v27)
+  v20 = &v9[v11];
+  v22 = *&v9[v11 - 8];
+  v21 = *&v9[v11 - 4];
+  v23 = *&v9[v11 - 16];
+  v24 = *(v20 - 3);
+  v25 = *(v20 - 5);
+  v26 = v11 > 0x1B && v21 == -592100446;
+  v27 = v26;
+  if (!v26)
   {
-    if (v22 != -878431599)
+    if (v21 != -878431599)
     {
       if (!a4)
       {
@@ -5115,147 +5063,147 @@ LABEL_71:
     v12 = 24;
   }
 
-  v73 = v23;
-  if (!v23)
+  v72 = v22;
+  if (!v22)
   {
     Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
     goto LABEL_98;
   }
 
-  v71 = v12;
-  length = *(v21 - 6);
-  if (v25 <= 7 && ((1 << v25) & 0xD0) != 0)
+  v70 = v12;
+  length = *(v20 - 6);
+  if (v24 <= 7 && ((1 << v24) & 0xD0) != 0)
   {
     decode[0] = 0.0;
     *&decode[1] = decode;
-    v98 = 0x2000000000;
-    v99 = 0;
-    v89 = 0;
-    v90 = &v89;
-    v91 = 0x2000000000;
-    v92 = 0;
-    v85 = 0;
-    v86 = &v85;
-    v87 = 0x2000000000;
+    v97 = 0x2000000000;
+    v98 = 0;
     v88 = 0;
-    v81 = 0;
-    v82 = &v81;
-    v83 = 0x2000000000;
+    v89 = &v88;
+    v90 = 0x2000000000;
+    v91 = 0;
     v84 = 0;
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 0x40000000;
-    v75 = __CPBitmapCreateImagesFromData_block_invoke;
-    v76 = &unk_1E7450F40;
-    v77 = decode;
-    v78 = &v89;
-    v79 = &v85;
-    v80 = &v81;
-    if (v23 == 1)
+    v85 = &v84;
+    v86 = 0x2000000000;
+    v87 = 0;
+    v80 = 0;
+    v81 = &v80;
+    v82 = 0x2000000000;
+    v83 = 0;
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 0x40000000;
+    v74 = __CPBitmapCreateImagesFromData_block_invoke;
+    v75 = &unk_1E7450F40;
+    v76 = decode;
+    v77 = &v88;
+    v78 = &v84;
+    v79 = &v80;
+    if (v22 == 1)
     {
-      v29 = *MEMORY[0x1E695E480];
-      v30 = CFDictionaryCreate(*MEMORY[0x1E695E480], MEMORY[0x1E696E0A8], MEMORY[0x1E695E4C0], 1, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
-      if (v30)
+      v28 = *MEMORY[0x1E695E480];
+      v29 = CFDictionaryCreate(*MEMORY[0x1E695E480], MEMORY[0x1E696E0A8], MEMORY[0x1E695E4C0], 1, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
+      if (v29)
       {
-        v31 = v30;
-        v32 = CPBitmapDataWithOffsetCreate(a1, 0);
-        if (v32)
+        v30 = v29;
+        v31 = CPBitmapDataWithOffsetCreate(a1, 0);
+        if (v31)
         {
-          v33 = v32;
-          Direct = CGDataProviderCreateDirect(v32, v11 - (v71 + length + v13), &__CPBitmapDataWithOffsetDirectProviderCallbacks);
+          v32 = v31;
+          Direct = CGDataProviderCreateDirect(v31, v11 - (v70 + length + v13), &__CPBitmapDataWithOffsetDirectProviderCallbacks);
           if (Direct)
           {
-            v35 = Direct;
-            v36 = CGImageSourceCreateWithDataProvider(Direct, v31);
-            if (!v36)
+            v34 = Direct;
+            v35 = CGImageSourceCreateWithDataProvider(Direct, v30);
+            if (!v35)
             {
-              v75(v74, *MEMORY[0x1E695E640], 12, "Could not allocate image source");
+              v74(v73, *MEMORY[0x1E695E640], 12, "Could not allocate image source");
               Mutable = 0;
 LABEL_88:
-              CFRelease(v35);
+              CFRelease(v34);
               goto LABEL_89;
             }
 
-            v37 = v36;
-            if (CGImageSourceGetCount(v36) == 1)
+            v36 = v35;
+            if (CGImageSourceGetCount(v35) == 1)
             {
-              ImageAtIndex = CGImageSourceCreateImageAtIndex(v37, 0, v31);
+              ImageAtIndex = CGImageSourceCreateImageAtIndex(v36, 0, v30);
               if (ImageAtIndex)
               {
-                v39 = ImageAtIndex;
-                Mutable = CFArrayCreateMutable(v29, 1, MEMORY[0x1E695E9C0]);
-                CFArrayAppendValue(Mutable, v39);
-                CFRelease(v39);
+                v38 = ImageAtIndex;
+                Mutable = CFArrayCreateMutable(v28, 1, MEMORY[0x1E695E9C0]);
+                CFArrayAppendValue(Mutable, v38);
+                CFRelease(v38);
 LABEL_87:
-                CFRelease(v37);
+                CFRelease(v36);
                 goto LABEL_88;
               }
 
-              v75(v74, @"CPBitmapErrorDomain", 6, "Could not create image from KTX source");
+              v74(v73, @"CPBitmapErrorDomain", 6, "Could not create image from KTX source");
             }
 
             else
             {
-              v75(v74, @"CPBitmapErrorDomain", 6, "Unexpected image count for KTX format");
+              v74(v73, @"CPBitmapErrorDomain", 6, "Unexpected image count for KTX format");
             }
 
             Mutable = 0;
             goto LABEL_87;
           }
 
-          v75(v74, *MEMORY[0x1E695E640], 12, "Could not allocate source data provider");
-          CFRelease(*v33);
-          free(v33);
+          v74(v73, *MEMORY[0x1E695E640], 12, "Could not allocate source data provider");
+          CFRelease(*v32);
+          free(v32);
         }
 
         else
         {
-          v75(v74, *MEMORY[0x1E695E640], 12, "Could not allocate offsetted source data");
+          v74(v73, *MEMORY[0x1E695E640], 12, "Could not allocate offsetted source data");
         }
 
         Mutable = 0;
 LABEL_89:
-        CFRelease(v31);
+        CFRelease(v30);
         goto LABEL_90;
       }
 
-      v75(v74, *MEMORY[0x1E695E640], 12, "Could not allocate image source props");
+      v74(v73, *MEMORY[0x1E695E640], 12, "Could not allocate image source props");
       Mutable = 0;
     }
 
     else
     {
       Mutable = 0;
-      v99 = 1;
-      v92 = @"CPBitmapErrorDomain";
-      v88 = 6;
-      v84 = "KTX container can only have one image";
+      v98 = 1;
+      v91 = @"CPBitmapErrorDomain";
+      v87 = 6;
+      v83 = "KTX container can only have one image";
     }
 
 LABEL_90:
-    v55 = *(*&decode[1] + 24);
+    v54 = *(*&decode[1] + 24);
     if (a4 && *(*&decode[1] + 24))
     {
-      __CPBitmapSetErrorIfNecessary(a4, v90[3], v86[3], v82[3]);
+      __CPBitmapSetErrorIfNecessary(a4, v89[3], v85[3], v81[3]);
     }
 
-    _Block_object_dispose(&v81, 8);
-    _Block_object_dispose(&v85, 8);
-    _Block_object_dispose(&v89, 8);
+    _Block_object_dispose(&v80, 8);
+    _Block_object_dispose(&v84, 8);
+    _Block_object_dispose(&v88, 8);
     _Block_object_dispose(decode, 8);
-    if ((v55 & 1) == 0)
+    if ((v54 & 1) == 0)
     {
 LABEL_94:
       if (a2)
       {
         if (length)
         {
-          v56 = *MEMORY[0x1E695E480];
-          v57 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], &v21[-v71 - length], length, *MEMORY[0x1E695E498]);
-          if (v57)
+          v55 = *MEMORY[0x1E695E480];
+          v56 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], &v20[-v70 - length], length, *MEMORY[0x1E695E498]);
+          if (v56)
           {
-            v58 = v57;
-            *a2 = CFPropertyListCreateWithData(v56, v57, 0, 0, a4);
-            CFRelease(v58);
+            v57 = v56;
+            *a2 = CFPropertyListCreateWithData(v55, v56, 0, 0, a4);
+            CFRelease(v57);
           }
         }
       }
@@ -5266,8 +5214,8 @@ LABEL_94:
 
   if (v13)
   {
-    v40 = v12 + *(v21 - 6) + v13;
-    if (v40 > v11)
+    v39 = v12 + *(v20 - 6) + v13;
+    if (v39 > v11)
     {
       if (!a4)
       {
@@ -5279,10 +5227,10 @@ LABEL_94:
       goto LABEL_50;
     }
 
-    width = *(v21 - 5);
+    width = *(v20 - 5);
     allocator = *MEMORY[0x1E695E480];
-    v41 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], &v21[-v40], v13, *MEMORY[0x1E695E498]);
-    if (!v41)
+    v40 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], &v20[-v39], v13, *MEMORY[0x1E695E498]);
+    if (!v40)
     {
       if (!a4)
       {
@@ -5296,15 +5244,15 @@ LABEL_94:
       goto LABEL_14;
     }
 
-    cfa = v41;
-    allocatora = CFPropertyListCreateWithData(allocator, v41, 0, 0, 0);
+    cfa = v40;
+    allocatora = CFPropertyListCreateWithData(allocator, v40, 0, 0, 0);
     CFRelease(cfa);
     if (allocatora)
     {
-      *&v93 = CGColorSpaceCreateWithPropertyList(allocatora);
+      *&v92 = CGColorSpaceCreateWithPropertyList(allocatora);
       CFRelease(allocatora);
-      v26 = width;
-      if (v93)
+      v25 = width;
+      if (v92)
       {
         goto LABEL_56;
       }
@@ -5337,8 +5285,8 @@ LABEL_50:
   }
 
 LABEL_56:
-  widtha = v26;
-  if (!__CPBitmapGetImageInfoForFormat(v25, v26, v24, &v93, v28, a3 & 1))
+  widtha = v25;
+  if (!__CPBitmapGetImageInfoForFormat(v24, v25, v23, &v92, v27, a3 & 1))
   {
     if (!a4)
     {
@@ -5352,87 +5300,87 @@ LABEL_56:
     goto LABEL_14;
   }
 
-  v42 = v95;
-  if (!is_mul_ok(v95, v24))
+  v41 = v94;
+  if (!is_mul_ok(v94, v23))
   {
     goto LABEL_71;
   }
 
-  if (!is_mul_ok((v73 - 1), *(&v95 + 1)))
+  if (!is_mul_ok((v72 - 1), *(&v94 + 1)))
   {
     goto LABEL_71;
   }
 
-  v43 = (v73 - 1) * *(&v95 + 1);
-  v44 = __CFADD__(v43, v95 * v24);
-  v45 = v43 + v95 * v24;
-  if (v44)
+  v42 = (v72 - 1) * *(&v94 + 1);
+  v43 = __CFADD__(v42, v94 * v23);
+  v44 = v42 + v94 * v23;
+  if (v43)
   {
     goto LABEL_71;
   }
 
-  v44 = __CFADD__(v45, v13);
-  v46 = v45 + v13;
-  if (v44)
+  v43 = __CFADD__(v44, v13);
+  v45 = v44 + v13;
+  if (v43)
   {
     goto LABEL_71;
   }
 
-  v44 = __CFADD__(v46, length);
-  v47 = v46 + length;
-  if (v44)
+  v43 = __CFADD__(v45, length);
+  v46 = v45 + length;
+  if (v43)
   {
     goto LABEL_71;
   }
 
-  v44 = __CFADD__(v47, v71);
-  v48 = v47 + v71;
-  if (v44)
+  v43 = __CFADD__(v46, v70);
+  v47 = v46 + v70;
+  if (v43)
   {
     goto LABEL_71;
   }
 
-  v62 = *(&v95 + 1);
-  size = v95 * v24;
-  if (v11 != v48)
+  v61 = *(&v94 + 1);
+  size = v94 * v23;
+  if (v11 != v47)
   {
     goto LABEL_71;
   }
 
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-  v49 = 0;
-  v61 = v94;
-  space = v93;
-  bitmapInfo = v96;
-  v50 = v73;
+  v48 = 0;
+  v60 = v93;
+  space = v92;
+  bitmapInfo = v95;
+  v49 = v72;
   while (1)
   {
-    cf = v49;
-    v51 = CPBitmapDataWithOffsetCreate(a1, v49);
-    v52 = CGDataProviderCreateDirect(v51, size, &__CPBitmapDataWithOffsetDirectProviderCallbacks);
-    allocatorb = v52;
-    if (v25 == 5)
+    cf = v48;
+    v50 = CPBitmapDataWithOffsetCreate(a1, v48);
+    v51 = CGDataProviderCreateDirect(v50, size, &__CPBitmapDataWithOffsetDirectProviderCallbacks);
+    allocatorb = v51;
+    if (v24 == 5)
     {
       *decode = xmmword_195EA88C0;
-      v53 = CGImageMaskCreate(widtha, v24, v61, *(&v61 + 1), v42, v52, decode, 0);
+      v52 = CGImageMaskCreate(widtha, v23, v60, *(&v60 + 1), v41, v51, decode, 0);
     }
 
     else
     {
-      v53 = CGImageCreate(widtha, v24, v61, *(&v61 + 1), v42, space, bitmapInfo, v52, 0, 1, kCGRenderingIntentDefault);
+      v52 = CGImageCreate(widtha, v23, v60, *(&v60 + 1), v41, space, bitmapInfo, v51, 0, 1, kCGRenderingIntentDefault);
     }
 
-    v54 = v53;
+    v53 = v52;
     CGDataProviderRelease(allocatorb);
-    if (!v54)
+    if (!v53)
     {
       break;
     }
 
-    CFArrayAppendValue(Mutable, v54);
-    CGImageRelease(v54);
-    v49 = cf + v62;
-    if (!--v50)
+    CFArrayAppendValue(Mutable, v53);
+    CGImageRelease(v53);
+    v48 = cf + v61;
+    if (!--v49)
     {
       goto LABEL_94;
     }
@@ -5444,25 +5392,24 @@ LABEL_56:
   }
 
 LABEL_98:
-  if (Mutable && CFArrayGetCount(Mutable) != v73)
+  if (Mutable && CFArrayGetCount(Mutable) != v72)
   {
     CFRelease(Mutable);
     goto LABEL_15;
   }
 
 LABEL_16:
-  if (v93)
+  if (v92)
   {
-    CGColorSpaceRelease(v93);
+    CGColorSpaceRelease(v92);
   }
 
 LABEL_18:
-  if (*(&v93 + 1))
+  if (*(&v92 + 1))
   {
-    CGColorSpaceRelease(*(&v93 + 1));
+    CGColorSpaceRelease(*(&v92 + 1));
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -5627,7 +5574,7 @@ uint64_t __CPBitmapGetImageInfoForFormat(int a1, uint64_t a2, uint64_t a3, uint6
   return 1;
 }
 
-uint64_t CPBitmapWriterGetTypeID()
+uint64_t CPBitmapWriterGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (CPBitmapWriterGetTypeID_once != -1)
   {
@@ -5644,7 +5591,7 @@ uint64_t __CPBitmapWriterGetTypeID_block_invoke()
   return result;
 }
 
-void CPBitmapWriterCreate(unsigned int a1, const __CFData *a2, const __CFString *a3, int a4, CFErrorRef *a5)
+void CPBitmapWriterCreate(unsigned int a1, NSObject *a2, const __CFString *a3, int a4, CFErrorRef *a5)
 {
   if (a1 == 6)
   {
@@ -5673,7 +5620,7 @@ LABEL_7:
   CPBitmapWriterCreateWithPath(a3, a1, a4, 1uLL, a2, a5);
 }
 
-double CPBitmapWriterCreateWithFileDescriptor(int a1, unsigned int a2, int a3, unint64_t a4, CFDataRef Data, CFErrorRef *a6)
+double CPBitmapWriterCreateWithFileDescriptor(int a1, unsigned int a2, int a3, unint64_t a4, NSObject *a5, CFErrorRef *a6)
 {
   if (a1 == -1)
   {
@@ -5722,14 +5669,13 @@ LABEL_11:
   if (v17)
   {
     v18 = v17;
-    v19 = *MEMORY[0x1E695E480];
-    if (Data && (Data = CFPropertyListCreateData(*MEMORY[0x1E695E480], Data, kCFPropertyListBinaryFormat_v1_0, 0, a6)) == 0)
+    if (a5 && (a5 = CFPropertyListCreateData(*MEMORY[0x1E695E480], a5, kCFPropertyListBinaryFormat_v1_0, 0, a6)) == 0)
     {
       if (a6)
       {
-        v21 = *MEMORY[0x1E695E640];
-        v22 = __error();
-        __CPBitmapSetErrorIfNecessary(a6, v21, *v22, "Could not encode info dictionary");
+        v20 = *MEMORY[0x1E695E640];
+        v21 = __error();
+        __CPBitmapSetErrorIfNecessary(a6, v20, *v21, "Could not encode info dictionary");
       }
 
       dispatch_release(v18);
@@ -5750,7 +5696,7 @@ LABEL_11:
         *(Instance + 28) = a2;
         *(Instance + 32) = a3;
         *(Instance + 40) = a4;
-        *(Instance + 48) = Data;
+        *(Instance + 48) = a5;
         *(Instance + 56) = 0;
         *(Instance + 64) = 0;
         result = 0.0;
@@ -5768,9 +5714,9 @@ LABEL_11:
         }
 
         dispatch_release(v18);
-        if (Data)
+        if (a5)
         {
-          CFRelease(Data);
+          CFRelease(a5);
         }
       }
     }
@@ -5795,676 +5741,661 @@ void __CPBitmapWriterAddImage_block_invoke(uint64_t a1)
   if (!v2)
   {
     v4 = *(a1 + 48);
-    if (v4)
+    if (!v4)
     {
-      v8 = *MEMORY[0x1E69E9840];
-      v6 = "No images provided";
-      v7 = 1;
-      goto LABEL_7;
+      return;
     }
 
-LABEL_67:
-    v61 = *MEMORY[0x1E69E9840];
-    return;
+    v5 = "No images provided";
+    v6 = 1;
+    goto LABEL_7;
   }
 
   v3 = *(a1 + 56);
-  if (*(v3 + 64) != 1)
+  if (*(v3 + 64) == 1)
   {
-    if (*(v3 + 112))
+    v4 = *(a1 + 48);
+    if (!v4)
     {
-      goto LABEL_11;
+      return;
     }
 
-    v14 = *(v3 + 28);
-    if (v14 > 7)
-    {
-      goto LABEL_11;
-    }
+    v5 = "Writer already finalized";
+    v6 = 9;
+LABEL_7:
 
-    if (((1 << v14) & 0x2F) != 0)
+    __CPBitmapSetErrorIfNecessary(v4, @"CPBitmapErrorDomain", v6, v5);
+    return;
+  }
+
+  if (!*(v3 + 112))
+  {
+    v10 = *(v3 + 28);
+    if (v10 <= 7)
     {
-      v15 = *(a1 + 48);
-      v101 = 0;
-      v102 = &v101;
-      v103 = 0x2000000000;
-      v97 = 0;
-      v98 = &v97;
-      v99 = 0x2000000000;
-      v100 = 0;
+      if (((1 << v10) & 0x2F) != 0)
+      {
+        v11 = *(a1 + 48);
+        v93 = 0;
+        v94 = &v93;
+        v95 = 0x2000000000;
+        v89 = 0;
+        v90 = &v89;
+        v91 = 0x2000000000;
+        v92 = 0;
+        v85 = 0;
+        v86 = &v85;
+        v87 = 0x2000000000;
+        v88 = 0;
+        v96 = 0;
+        keys = MEMORY[0x1E69E9820];
+        v98 = 0x40000000;
+        v99 = ____CPCGBitmapContextBlockSetup_block_invoke;
+        v100 = &unk_1E7450FD8;
+        v101 = &v85;
+        v102 = &v89;
+        v103 = &v93;
+        Width = CGImageGetWidth(v2);
+        Height = CGImageGetHeight(v2);
+        v14 = malloc_type_malloc(0x38uLL, 0x10200401A3D0951uLL);
+        v15 = v94;
+        v94[3] = v14;
+        if (v14)
+        {
+          v14[6] = 0;
+          *(v14 + 1) = 0u;
+          *(v14 + 2) = 0u;
+          *v14 = 0u;
+          v16 = *(v3 + 32);
+          if (v16)
+          {
+            ColorSpace = CGImageGetColorSpace(v2);
+            v18 = CGColorSpaceRetain(ColorSpace);
+            *v94[3] = v18;
+            v15 = v94;
+          }
+
+          if (__CPBitmapGetImageInfoForFormat(*(v3 + 28), Width, Height, v15[3], 1, 0))
+          {
+            v19 = v16 & 1;
+            if (v16 & 1) == 0 || (CGColorSpaceEqualToColorSpace())
+            {
+              Data = 0;
+              goto LABEL_25;
+            }
+
+            v52 = CGColorSpaceCopyPropertyList(*v94[3]);
+            if (v52)
+            {
+              v53 = v52;
+              Data = CFPropertyListCreateData(*MEMORY[0x1E695E480], v52, kCFPropertyListBinaryFormat_v1_0, 0, v11);
+              CFRelease(v53);
+              if (Data)
+              {
+LABEL_25:
+                if (Height >= 0x100)
+                {
+                  v21 = 256;
+                }
+
+                else
+                {
+                  v21 = Height;
+                }
+
+                v22 = *(v94[3] + 32) * v21;
+                v23 = malloc_type_malloc(v22, 0xCA723304uLL);
+                v90[3] = v23;
+                if (v23)
+                {
+                  v24 = CGBitmapContextCreate(v23, Width, v21, *(v94[3] + 16), *(v94[3] + 32), *v94[3], *(v94[3] + 48));
+                  v86[3] = v24;
+                  if (v24)
+                  {
+                    aBlock = MEMORY[0x1E69E9820];
+                    v61 = 0x40000000;
+                    v62 = ____CPCGBitmapContextBlockSetup_block_invoke_2;
+                    v63 = &unk_1E7451000;
+                    v71 = v19;
+                    v68 = v21;
+                    v69 = Width;
+                    v64 = &v93;
+                    v65 = &v89;
+                    v70 = v22;
+                    v66 = &v85;
+                    v67 = Height;
+                    *(v3 + 96) = Width;
+                    *(v3 + 104) = Height;
+                    *(v3 + 56) = Data;
+                    *(v3 + 112) = _Block_copy(&aBlock);
+                    *(v3 + 120) = _Block_copy(&keys);
+                    _Block_object_dispose(&v85, 8);
+                    _Block_object_dispose(&v89, 8);
+                    _Block_object_dispose(&v93, 8);
+                    goto LABEL_11;
+                  }
+
+                  if (!v11)
+                  {
+                    goto LABEL_64;
+                  }
+
+                  v48 = @"CPBitmapErrorDomain";
+                  v49 = "Could not create bitmap context with desired arguments";
+                  v50 = v11;
+                  v51 = 3;
+                }
+
+                else
+                {
+                  if (!v11)
+                  {
+                    goto LABEL_64;
+                  }
+
+                  v48 = *MEMORY[0x1E695E640];
+                  v49 = "Could not allocate bitmap buffer";
+                  v50 = v11;
+                  v51 = 12;
+                }
+
+                __CPBitmapSetErrorIfNecessary(v50, v48, v51, v49);
+LABEL_64:
+                if (Data)
+                {
+                  CFRelease(Data);
+                }
+              }
+
+LABEL_66:
+              (v99)(&keys, 0, 0);
+              _Block_object_dispose(&v85, 8);
+              _Block_object_dispose(&v89, 8);
+              _Block_object_dispose(&v93, 8);
+              return;
+            }
+
+            if (!v11)
+            {
+              goto LABEL_66;
+            }
+
+            v41 = @"CPBitmapErrorDomain";
+            v42 = "Failed to create colorSpace plist";
+            v43 = v11;
+            v44 = 8;
+          }
+
+          else
+          {
+            if (!v11)
+            {
+              goto LABEL_66;
+            }
+
+            v41 = @"CPBitmapErrorDomain";
+            v42 = "Trying to serialize invalid bitmap format";
+            v43 = v11;
+            v44 = 3;
+          }
+        }
+
+        else
+        {
+          if (!v11)
+          {
+            goto LABEL_66;
+          }
+
+          v41 = *MEMORY[0x1E695E640];
+          v42 = "Could not allocate bitmap info";
+          v43 = v11;
+          v44 = 12;
+        }
+
+        __CPBitmapSetErrorIfNecessary(v43, v41, v44, v42);
+        goto LABEL_66;
+      }
+
+      v26 = *(a1 + 48);
       v93 = 0;
       v94 = &v93;
       v95 = 0x2000000000;
       v96 = 0;
-      v104 = 0;
-      keys = MEMORY[0x1E69E9820];
-      v106 = 0x40000000;
-      v107 = ____CPCGBitmapContextBlockSetup_block_invoke;
-      v108 = &unk_1E7450FD8;
-      v109 = &v93;
-      v110 = &v97;
-      v111 = &v101;
-      Width = CGImageGetWidth(v2);
-      Height = CGImageGetHeight(v2);
-      v18 = malloc_type_malloc(0x38uLL, 0x10200401A3D0951uLL);
-      v19 = v102;
-      v102[3] = v18;
-      if (v18)
+      v89 = 0;
+      v90 = &v89;
+      v91 = 0x2000000000;
+      v92 = 0;
+      v85 = 0;
+      v86 = &v85;
+      v87 = 0x2000000000;
+      v88 = 0;
+      v81 = 0;
+      v82 = &v81;
+      v83 = 0x2000000000;
+      v84 = 0;
+      v77 = 0;
+      v78 = &v77;
+      v79 = 0x2000000000;
+      v80 = 0;
+      v73 = 0;
+      v74 = &v73;
+      v75 = 0x2000000000;
+      v76 = 0;
+      aBlock = MEMORY[0x1E69E9820];
+      v61 = 0x40000000;
+      v62 = ____CPCGDestinationKTXBlockSetup_block_invoke;
+      v63 = &unk_1E7451028;
+      v64 = &v73;
+      v65 = &v77;
+      v66 = &v81;
+      v67 = &v85;
+      v68 = &v93;
+      v69 = &v89;
+      v27 = CGImageGetWidth(v2);
+      v28 = CGImageGetHeight(v2);
+      v29 = *(v3 + 28);
+      if ((v29 & 0xFFFFFFFE) == 6)
       {
-        v18[6] = 0;
-        *(v18 + 1) = 0u;
-        *(v18 + 2) = 0u;
-        *v18 = 0u;
-        v20 = *(v3 + 32);
-        if (v20)
-        {
-          ColorSpace = CGImageGetColorSpace(v2);
-          v22 = CGColorSpaceRetain(ColorSpace);
-          *v102[3] = v22;
-          v19 = v102;
-        }
-
-        if (__CPBitmapGetImageInfoForFormat(*(v3 + 28), Width, Height, v19[3], 1, 0))
-        {
-          v23 = v20 & 1;
-          if (v20 & 1) == 0 || (v24 = v102[3], v25 = *v24, v26 = v24[1], (CGColorSpaceEqualToColorSpace()))
-          {
-            Data = 0;
-            goto LABEL_25;
-          }
-
-          v59 = CGColorSpaceCopyPropertyList(*v102[3]);
-          if (v59)
-          {
-            v60 = v59;
-            Data = CFPropertyListCreateData(*MEMORY[0x1E695E480], v59, kCFPropertyListBinaryFormat_v1_0, 0, v15);
-            CFRelease(v60);
-            if (Data)
-            {
-LABEL_25:
-              if (Height >= 0x100)
-              {
-                v28 = 256;
-              }
-
-              else
-              {
-                v28 = Height;
-              }
-
-              v29 = *(v102[3] + 32) * v28;
-              v30 = malloc_type_malloc(v29, 0xCA723304uLL);
-              v98[3] = v30;
-              if (v30)
-              {
-                v31 = CGBitmapContextCreate(v30, Width, v28, *(v102[3] + 16), *(v102[3] + 32), *v102[3], *(v102[3] + 48));
-                v94[3] = v31;
-                if (v31)
-                {
-                  aBlock = MEMORY[0x1E69E9820];
-                  v69 = 0x40000000;
-                  v70 = ____CPCGBitmapContextBlockSetup_block_invoke_2;
-                  v71 = &unk_1E7451000;
-                  v79 = v23;
-                  v76 = v28;
-                  v77 = Width;
-                  v72 = &v101;
-                  v73 = &v97;
-                  v78 = v29;
-                  v74 = &v93;
-                  v75 = Height;
-                  *(v3 + 96) = Width;
-                  *(v3 + 104) = Height;
-                  *(v3 + 56) = Data;
-                  *(v3 + 112) = _Block_copy(&aBlock);
-                  *(v3 + 120) = _Block_copy(&keys);
-                  _Block_object_dispose(&v93, 8);
-                  _Block_object_dispose(&v97, 8);
-                  _Block_object_dispose(&v101, 8);
-                  goto LABEL_11;
-                }
-
-                if (!v15)
-                {
-                  goto LABEL_64;
-                }
-
-                v55 = @"CPBitmapErrorDomain";
-                v56 = "Could not create bitmap context with desired arguments";
-                v57 = v15;
-                v58 = 3;
-              }
-
-              else
-              {
-                if (!v15)
-                {
-                  goto LABEL_64;
-                }
-
-                v55 = *MEMORY[0x1E695E640];
-                v56 = "Could not allocate bitmap buffer";
-                v57 = v15;
-                v58 = 12;
-              }
-
-              __CPBitmapSetErrorIfNecessary(v57, v55, v58, v56);
-LABEL_64:
-              if (Data)
-              {
-                CFRelease(Data);
-              }
-            }
-
-LABEL_66:
-            (v107)(&keys, 0, 0);
-            _Block_object_dispose(&v93, 8);
-            _Block_object_dispose(&v97, 8);
-            _Block_object_dispose(&v101, 8);
-            goto LABEL_67;
-          }
-
-          if (!v15)
-          {
-            goto LABEL_66;
-          }
-
-          v48 = @"CPBitmapErrorDomain";
-          v49 = "Failed to create colorSpace plist";
-          v50 = v15;
-          v51 = 8;
-        }
-
-        else
-        {
-          if (!v15)
-          {
-            goto LABEL_66;
-          }
-
-          v48 = @"CPBitmapErrorDomain";
-          v49 = "Trying to serialize invalid bitmap format";
-          v50 = v15;
-          v51 = 3;
-        }
+        v30 = @"com.apple.atx";
       }
 
       else
       {
-        if (!v15)
+        v30 = @"org.khronos.ktx";
+      }
+
+      v31 = malloc_type_malloc(0x18uLL, 0x1060040C052FB36uLL);
+      v94[3] = v31;
+      if (!v31 || (*v31 = v3, v31[2] = 0, *(v31 + 2) = 0, v32 = CGDataConsumerCreate(v94[3], __CPCGDestinationKTXDataConsumerCallbacks), (v90[3] = v32) == 0))
+      {
+        if (!v26)
         {
-          goto LABEL_66;
+LABEL_48:
+          (v62)(&aBlock, 0, 0);
+          v47 = 0;
+          goto LABEL_49;
         }
 
-        v48 = *MEMORY[0x1E695E640];
-        v49 = "Could not allocate bitmap info";
-        v50 = v15;
-        v51 = 12;
-      }
-
-      __CPBitmapSetErrorIfNecessary(v50, v48, v51, v49);
-      goto LABEL_66;
-    }
-
-    v33 = *(a1 + 48);
-    v101 = 0;
-    v102 = &v101;
-    v103 = 0x2000000000;
-    v104 = 0;
-    v97 = 0;
-    v98 = &v97;
-    v99 = 0x2000000000;
-    v100 = 0;
-    v93 = 0;
-    v94 = &v93;
-    v95 = 0x2000000000;
-    v96 = 0;
-    v89 = 0;
-    v90 = &v89;
-    v91 = 0x2000000000;
-    v92 = 0;
-    v85 = 0;
-    v86 = &v85;
-    v87 = 0x2000000000;
-    v88 = 0;
-    v81 = 0;
-    v82 = &v81;
-    v83 = 0x2000000000;
-    v84 = 0;
-    aBlock = MEMORY[0x1E69E9820];
-    v69 = 0x40000000;
-    v70 = ____CPCGDestinationKTXBlockSetup_block_invoke;
-    v71 = &unk_1E7451028;
-    v72 = &v81;
-    v73 = &v85;
-    v74 = &v89;
-    v75 = &v93;
-    v76 = &v101;
-    v77 = &v97;
-    v34 = CGImageGetWidth(v2);
-    v35 = CGImageGetHeight(v2);
-    v36 = *(v3 + 28);
-    if ((v36 & 0xFFFFFFFE) == 6)
-    {
-      v37 = @"com.apple.atx";
-    }
-
-    else
-    {
-      v37 = @"org.khronos.ktx";
-    }
-
-    v38 = malloc_type_malloc(0x18uLL, 0x1060040C052FB36uLL);
-    v102[3] = v38;
-    if (!v38 || (*v38 = v3, v38[2] = 0, *(v38 + 2) = 0, v39 = CGDataConsumerCreate(v102[3], __CPCGDestinationKTXDataConsumerCallbacks), (v98[3] = v39) == 0))
-    {
-      if (!v33)
-      {
-LABEL_48:
-        (v70)(&aBlock, 0, 0);
-        v54 = 0;
-        goto LABEL_49;
-      }
-
-      v52 = *MEMORY[0x1E695E640];
-      v53 = "Could not allocate ATX/KTX data consumer";
+        v45 = *MEMORY[0x1E695E640];
+        v46 = "Could not allocate ATX/KTX data consumer";
 LABEL_47:
-      __CPBitmapSetErrorIfNecessary(v33, v52, 12, v53);
-      goto LABEL_48;
-    }
-
-    v40 = CGImageDestinationCreateWithDataConsumer(v39, v37, *(v3 + 40), 0);
-    v94[3] = v40;
-    if (!v40)
-    {
-      if (!v33)
-      {
+        __CPBitmapSetErrorIfNecessary(v26, v45, 12, v46);
         goto LABEL_48;
       }
 
-      v52 = *MEMORY[0x1E695E640];
-      v53 = "Could not allocate ATX/KTX destination";
-      goto LABEL_47;
-    }
-
-    v41 = *(v3 + 32);
-    if (v41)
-    {
-      v42 = CGImageGetColorSpace(v2);
-      v43 = CGColorSpaceRetain(v42);
-      v82[3] = v43;
-    }
-
-    if (v36 == 7)
-    {
-      keys = *MEMORY[0x1E696D8A0];
-      values[0] = *MEMORY[0x1E696D3B8];
-      v44 = *MEMORY[0x1E695E480];
-      v45 = MEMORY[0x1E695E528];
-      v46 = MEMORY[0x1E695E9E8];
-      v47 = 1;
-    }
-
-    else
-    {
-      v62 = *(v3 + 28);
-      valuePtr = 68;
-      v63 = *MEMORY[0x1E695E480];
-      v64 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &valuePtr);
-      v90[3] = v64;
-      if (!v64)
+      v33 = CGImageDestinationCreateWithDataConsumer(v32, v30, *(v3 + 40), 0);
+      v86[3] = v33;
+      if (!v33)
       {
-LABEL_74:
-        if (!v33)
+        if (!v26)
         {
           goto LABEL_48;
         }
 
-        v52 = *MEMORY[0x1E695E640];
-        v53 = "Could not allocate ATX/KTX props";
+        v45 = *MEMORY[0x1E695E640];
+        v46 = "Could not allocate ATX/KTX destination";
         goto LABEL_47;
       }
 
-      v65 = *MEMORY[0x1E695E4D0];
-      if (v62 != 6)
+      v34 = *(v3 + 32);
+      if (v34)
       {
-        v65 = *MEMORY[0x1E695E4C0];
+        v35 = CGImageGetColorSpace(v2);
+        v36 = CGColorSpaceRetain(v35);
+        v74[3] = v36;
       }
 
-      v66 = *MEMORY[0x1E696D3E0];
-      keys = *MEMORY[0x1E696D8A0];
-      v106 = v66;
-      v107 = *MEMORY[0x1E696D400];
-      values[0] = *MEMORY[0x1E696D3E8];
-      values[1] = v64;
-      values[2] = v65;
-      v45 = MEMORY[0x1E695E528];
-      v46 = MEMORY[0x1E695E9E8];
-      v44 = v63;
-      v47 = 3;
-    }
+      if (v29 == 7)
+      {
+        keys = *MEMORY[0x1E696D8A0];
+        values[0] = *MEMORY[0x1E696D3B8];
+        v37 = *MEMORY[0x1E695E480];
+        v38 = MEMORY[0x1E695E528];
+        v39 = MEMORY[0x1E695E9E8];
+        v40 = 1;
+      }
 
-    v67 = CFDictionaryCreate(v44, &keys, values, v47, v45, v46);
-    v86[3] = v67;
-    if (v67)
-    {
-      keys = MEMORY[0x1E69E9820];
-      v106 = 0x40000000;
-      v107 = ____CPCGDestinationKTXBlockSetup_block_invoke_2;
-      v108 = &unk_1E7451050;
-      v112 = v41 & 1;
-      v109 = &v81;
-      v110 = &v93;
-      v111 = &v85;
-      *(v3 + 96) = v34;
-      *(v3 + 104) = v35;
-      *(v3 + 112) = _Block_copy(&keys);
-      *(v3 + 120) = _Block_copy(&aBlock);
-      v54 = 1;
+      else
+      {
+        v54 = *(v3 + 28);
+        valuePtr = 68;
+        v55 = *MEMORY[0x1E695E480];
+        v56 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &valuePtr);
+        v82[3] = v56;
+        if (!v56)
+        {
+LABEL_74:
+          if (!v26)
+          {
+            goto LABEL_48;
+          }
+
+          v45 = *MEMORY[0x1E695E640];
+          v46 = "Could not allocate ATX/KTX props";
+          goto LABEL_47;
+        }
+
+        v57 = *MEMORY[0x1E695E4D0];
+        if (v54 != 6)
+        {
+          v57 = *MEMORY[0x1E695E4C0];
+        }
+
+        v58 = *MEMORY[0x1E696D3E0];
+        keys = *MEMORY[0x1E696D8A0];
+        v98 = v58;
+        v99 = *MEMORY[0x1E696D400];
+        values[0] = *MEMORY[0x1E696D3E8];
+        values[1] = v56;
+        values[2] = v57;
+        v38 = MEMORY[0x1E695E528];
+        v39 = MEMORY[0x1E695E9E8];
+        v37 = v55;
+        v40 = 3;
+      }
+
+      v59 = CFDictionaryCreate(v37, &keys, values, v40, v38, v39);
+      v78[3] = v59;
+      if (v59)
+      {
+        keys = MEMORY[0x1E69E9820];
+        v98 = 0x40000000;
+        v99 = ____CPCGDestinationKTXBlockSetup_block_invoke_2;
+        v100 = &unk_1E7451050;
+        v104 = v34 & 1;
+        v101 = &v73;
+        v102 = &v85;
+        v103 = &v77;
+        *(v3 + 96) = v27;
+        *(v3 + 104) = v28;
+        *(v3 + 112) = _Block_copy(&keys);
+        *(v3 + 120) = _Block_copy(&aBlock);
+        v47 = 1;
 LABEL_49:
-      _Block_object_dispose(&v81, 8);
-      _Block_object_dispose(&v85, 8);
-      _Block_object_dispose(&v89, 8);
-      _Block_object_dispose(&v93, 8);
-      _Block_object_dispose(&v97, 8);
-      _Block_object_dispose(&v101, 8);
-      if (!v54)
-      {
-        goto LABEL_67;
+        _Block_object_dispose(&v73, 8);
+        _Block_object_dispose(&v77, 8);
+        _Block_object_dispose(&v81, 8);
+        _Block_object_dispose(&v85, 8);
+        _Block_object_dispose(&v89, 8);
+        _Block_object_dispose(&v93, 8);
+        if (!v47)
+        {
+          return;
+        }
+
+        goto LABEL_11;
       }
+
+      goto LABEL_74;
+    }
+  }
 
 LABEL_11:
-      v9 = *(a1 + 56);
-      if (*(v9 + 112))
-      {
-        v10 = *(v9 + 96);
-        if (v10 == CGImageGetWidth(*(a1 + 40)) && (v11 = *(*(a1 + 56) + 104), v11 == CGImageGetHeight(*(a1 + 40))))
-        {
-          v12 = *(a1 + 48);
-          v13 = *(a1 + 40);
-          if ((*(*(*(a1 + 56) + 112) + 16))())
-          {
-            ++*(*(a1 + 56) + 88);
-            *(*(*(a1 + 32) + 8) + 24) = 1;
-          }
-        }
-
-        else
-        {
-          v32 = *(a1 + 48);
-          if (v32)
-          {
-            __CPBitmapSetErrorIfNecessary(v32, @"CPBitmapErrorDomain", 2, "Mismatched image sizes");
-          }
-        }
-      }
-
-      goto LABEL_67;
-    }
-
-    goto LABEL_74;
-  }
-
-  v4 = *(a1 + 48);
-  if (!v4)
+  v7 = *(a1 + 56);
+  if (*(v7 + 112))
   {
-    goto LABEL_67;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
-  v6 = "Writer already finalized";
-  v7 = 9;
-LABEL_7:
-
-  __CPBitmapSetErrorIfNecessary(v4, @"CPBitmapErrorDomain", v7, v6);
-}
-
-void __CPBitmapWriterFinalize_block_invoke(void *a1)
-{
-  v41 = *MEMORY[0x1E69E9840];
-  v2 = a1[5];
-  if (*(v2 + 64) != 1)
-  {
-    *(v2 + 64) = 1;
-    v8 = *(v2 + 112);
-    if (v8)
+    v8 = *(v7 + 96);
+    if (v8 == CGImageGetWidth(*(a1 + 40)) && (v9 = *(*(a1 + 56) + 104), v9 == CGImageGetHeight(*(a1 + 40))))
     {
-      _Block_release(v8);
-      v2 = a1[5];
-      *(v2 + 112) = 0;
-    }
-
-    if (*(v2 + 88))
-    {
-      v9 = *(v2 + 120);
-      if (v9)
+      if ((*(*(*(a1 + 56) + 112) + 16))())
       {
-        v10 = (*(v9 + 16))(v9, 1, a1[6]);
-        _Block_release(*(a1[5] + 120));
-        v2 = a1[5];
-        *(v2 + 120) = 0;
-        if (!v10)
-        {
-          goto LABEL_56;
-        }
-      }
-
-      if (lseek(*(v2 + 24), 0, 2) != -1)
-      {
-        v11 = a1[5];
-        v12 = *(v11 + 56);
-        if (v12)
-        {
-          Length = CFDataGetLength(v12);
-          v11 = a1[5];
-        }
-
-        else
-        {
-          Length = 0;
-        }
-
-        v17 = *(v11 + 48);
-        if (v17)
-        {
-          v18 = CFDataGetLength(v17);
-          v11 = a1[5];
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        v19 = *(v11 + 88);
-        v20 = *(v11 + 40);
-        if (v19 != v20 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          v38 = 134218240;
-          *v39 = v19;
-          *&v39[8] = 2048;
-          *&v39[10] = v20;
-          _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "count=%zu does not equal expectedCount=%zu", &v38, 0x16u);
-          v11 = a1[5];
-          v19 = *(v11 + 88);
-        }
-
-        v38 = Length;
-        *v39 = v18;
-        *&v39[4] = vmovn_s64(*(v11 + 96));
-        *&v39[12] = *(v11 + 28);
-        *&v39[16] = v19;
-        v40 = -592100446;
-        if (Length)
-        {
-          v21 = *(v11 + 24);
-          BytePtr = CFDataGetBytePtr(*(v11 + 56));
-          if (write(v21, BytePtr, Length) == -1)
-          {
-            v33 = a1[6];
-            if (!v33)
-            {
-              goto LABEL_56;
-            }
-
-            v34 = *MEMORY[0x1E695E640];
-            v35 = *__error();
-            v36 = "Could not write colorSpace data";
-            goto LABEL_51;
-          }
-
-          v11 = a1[5];
-        }
-
-        if (v18 >= 1)
-        {
-          v23 = *(v11 + 24);
-          v24 = CFDataGetBytePtr(*(v11 + 48));
-          if (write(v23, v24, v18) == -1)
-          {
-            v33 = a1[6];
-            if (!v33)
-            {
-              goto LABEL_56;
-            }
-
-            v34 = *MEMORY[0x1E695E640];
-            v35 = *__error();
-            v36 = "Could not write info data";
-            goto LABEL_51;
-          }
-
-          v11 = a1[5];
-        }
-
-        if (write(*(v11 + 24), &v38, 0x1CuLL) == -1)
-        {
-          v33 = a1[6];
-          if (!v33)
-          {
-            goto LABEL_56;
-          }
-
-          v34 = *MEMORY[0x1E695E640];
-          v35 = *__error();
-          v36 = "Could not write trailer";
-          goto LABEL_51;
-        }
-
-        v25 = lseek(*(a1[5] + 24), 0, 2);
-        if (v25 == -1)
-        {
-          v33 = a1[6];
-          if (!v33)
-          {
-            goto LABEL_56;
-          }
-
-          v34 = *MEMORY[0x1E695E640];
-          v35 = *__error();
-          v36 = "Could not seek to end of file after writing";
-          goto LABEL_51;
-        }
-
-        v27 = v25;
-        v28 = a1[5];
-        v29 = *(v28 + 72);
-        if (v29)
-        {
-          v30 = *(v28 + 80);
-          if (v30)
-          {
-            rename(v29, v30, v26);
-            if (v31 == -1)
-            {
-              v33 = a1[6];
-              if (!v33)
-              {
-                goto LABEL_56;
-              }
-
-              v34 = *MEMORY[0x1E695E640];
-              v35 = *__error();
-              v36 = "Could not rename temp file to dest path";
-              goto LABEL_51;
-            }
-
-            v28 = a1[5];
-          }
-        }
-
-        if (*(v28 + 65) == 1)
-        {
-          v32 = *(v28 + 24);
-          if (v32 != -1)
-          {
-            if (close(v32))
-            {
-              v33 = a1[6];
-              if (!v33)
-              {
-                goto LABEL_56;
-              }
-
-              v34 = *MEMORY[0x1E695E640];
-              v35 = *__error();
-              v36 = "Could not close the file";
-LABEL_51:
-              __CPBitmapSetErrorIfNecessary(v33, v34, v35, v36);
-              goto LABEL_56;
-            }
-
-            *(a1[5] + 65) = 0;
-          }
-        }
-
-        *(*(a1[4] + 8) + 24) = v27;
-        goto LABEL_56;
-      }
-
-      v15 = a1[6];
-      if (v15)
-      {
-        v7 = *__error();
-        v16 = *MEMORY[0x1E69E9840];
-        v5 = *MEMORY[0x1E695E640];
-        v6 = "Could not seek to end of file";
-        v3 = v15;
-        goto LABEL_16;
+        ++*(*(a1 + 56) + 88);
+        *(*(*(a1 + 32) + 8) + 24) = 1;
       }
     }
 
     else
     {
-      v3 = a1[6];
-      if (v3)
+      v25 = *(a1 + 48);
+      if (v25)
       {
-        v14 = *MEMORY[0x1E69E9840];
-        v5 = @"CPBitmapErrorDomain";
-        v6 = "No images provided";
-        v7 = 1;
-        goto LABEL_16;
+        __CPBitmapSetErrorIfNecessary(v25, @"CPBitmapErrorDomain", 2, "Mismatched image sizes");
+      }
+    }
+  }
+}
+
+void __CPBitmapWriterFinalize_block_invoke(void *a1)
+{
+  v37 = *MEMORY[0x1E69E9840];
+  v2 = a1[5];
+  if (*(v2 + 64) != 1)
+  {
+    *(v2 + 64) = 1;
+    v7 = *(v2 + 112);
+    if (v7)
+    {
+      _Block_release(v7);
+      v2 = a1[5];
+      *(v2 + 112) = 0;
+    }
+
+    if (!*(v2 + 88))
+    {
+      v3 = a1[6];
+      if (!v3)
+      {
+        return;
+      }
+
+      v4 = @"CPBitmapErrorDomain";
+      v5 = "No images provided";
+      v6 = 1;
+      goto LABEL_16;
+    }
+
+    v8 = *(v2 + 120);
+    if (v8)
+    {
+      v9 = (*(v8 + 16))(v8, 1, a1[6]);
+      _Block_release(*(a1[5] + 120));
+      v2 = a1[5];
+      *(v2 + 120) = 0;
+      if (!v9)
+      {
+        return;
       }
     }
 
-LABEL_56:
-    v37 = *MEMORY[0x1E69E9840];
+    if (lseek(*(v2 + 24), 0, 2) == -1)
+    {
+      v13 = a1[6];
+      if (!v13)
+      {
+        return;
+      }
+
+      v6 = *__error();
+      v4 = *MEMORY[0x1E695E640];
+      v5 = "Could not seek to end of file";
+      v3 = v13;
+      goto LABEL_16;
+    }
+
+    v10 = a1[5];
+    v11 = *(v10 + 56);
+    if (v11)
+    {
+      Length = CFDataGetLength(v11);
+      v10 = a1[5];
+    }
+
+    else
+    {
+      Length = 0;
+    }
+
+    v14 = *(v10 + 48);
+    if (v14)
+    {
+      v15 = CFDataGetLength(v14);
+      v10 = a1[5];
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    v16 = *(v10 + 88);
+    v17 = *(v10 + 40);
+    if (v16 != v17 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      v34 = 134218240;
+      *v35 = v16;
+      *&v35[8] = 2048;
+      *&v35[10] = v17;
+      _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "count=%zu does not equal expectedCount=%zu", &v34, 0x16u);
+      v10 = a1[5];
+      v16 = *(v10 + 88);
+    }
+
+    v34 = Length;
+    *v35 = v15;
+    *&v35[4] = vmovn_s64(*(v10 + 96));
+    *&v35[12] = *(v10 + 28);
+    *&v35[16] = v16;
+    v36 = -592100446;
+    if (Length)
+    {
+      v18 = *(v10 + 24);
+      BytePtr = CFDataGetBytePtr(*(v10 + 56));
+      if (write(v18, BytePtr, Length) == -1)
+      {
+        v30 = a1[6];
+        if (!v30)
+        {
+          return;
+        }
+
+        v31 = *MEMORY[0x1E695E640];
+        v32 = *__error();
+        v33 = "Could not write colorSpace data";
+        goto LABEL_51;
+      }
+
+      v10 = a1[5];
+    }
+
+    if (v15 >= 1)
+    {
+      v20 = *(v10 + 24);
+      v21 = CFDataGetBytePtr(*(v10 + 48));
+      if (write(v20, v21, v15) == -1)
+      {
+        v30 = a1[6];
+        if (!v30)
+        {
+          return;
+        }
+
+        v31 = *MEMORY[0x1E695E640];
+        v32 = *__error();
+        v33 = "Could not write info data";
+        goto LABEL_51;
+      }
+
+      v10 = a1[5];
+    }
+
+    if (write(*(v10 + 24), &v34, 0x1CuLL) == -1)
+    {
+      v30 = a1[6];
+      if (!v30)
+      {
+        return;
+      }
+
+      v31 = *MEMORY[0x1E695E640];
+      v32 = *__error();
+      v33 = "Could not write trailer";
+      goto LABEL_51;
+    }
+
+    v22 = lseek(*(a1[5] + 24), 0, 2);
+    if (v22 == -1)
+    {
+      v30 = a1[6];
+      if (!v30)
+      {
+        return;
+      }
+
+      v31 = *MEMORY[0x1E695E640];
+      v32 = *__error();
+      v33 = "Could not seek to end of file after writing";
+      goto LABEL_51;
+    }
+
+    v24 = v22;
+    v25 = a1[5];
+    v26 = *(v25 + 72);
+    if (v26)
+    {
+      v27 = *(v25 + 80);
+      if (v27)
+      {
+        rename(v26, v27, v23);
+        if (v28 == -1)
+        {
+          v30 = a1[6];
+          if (!v30)
+          {
+            return;
+          }
+
+          v31 = *MEMORY[0x1E695E640];
+          v32 = *__error();
+          v33 = "Could not rename temp file to dest path";
+LABEL_51:
+          __CPBitmapSetErrorIfNecessary(v30, v31, v32, v33);
+          return;
+        }
+
+        v25 = a1[5];
+      }
+    }
+
+    if (*(v25 + 65) == 1)
+    {
+      v29 = *(v25 + 24);
+      if (v29 != -1)
+      {
+        if (close(v29))
+        {
+          v30 = a1[6];
+          if (!v30)
+          {
+            return;
+          }
+
+          v31 = *MEMORY[0x1E695E640];
+          v32 = *__error();
+          v33 = "Could not close the file";
+          goto LABEL_51;
+        }
+
+        *(a1[5] + 65) = 0;
+      }
+    }
+
+    *(*(a1[4] + 8) + 24) = v24;
     return;
   }
 
   v3 = a1[6];
   if (!v3)
   {
-    goto LABEL_56;
+    return;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  v5 = @"CPBitmapErrorDomain";
-  v6 = "Writer already finalized";
-  v7 = 9;
+  v4 = @"CPBitmapErrorDomain";
+  v5 = "Writer already finalized";
+  v6 = 9;
 LABEL_16:
 
-  __CPBitmapSetErrorIfNecessary(v3, v5, v7, v6);
+  __CPBitmapSetErrorIfNecessary(v3, v4, v6, v5);
 }
 
 void finalizeWriter(uint64_t a1)
@@ -6554,7 +6485,7 @@ ssize_t __CPCGDestinationKTXDataConsumerPutBytes(uint64_t a1, const void *a2, si
 
 CGImageRef create_image_with_memory(const void *a1, uint64_t a2, int a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = malloc_type_malloc(4uLL, 0x100004052888210uLL);
   *v6 = a3;
   v7 = CGDataProviderCreateWithData(v6, a1, *(a2 + 8), release_munmap);
@@ -6638,7 +6569,7 @@ LABEL_20:
     v19.i64[1] = v17.u32[1];
     v21 = vdupq_n_s64(0x406FE00000000000uLL);
     *components = vdivq_f64(v20, v21);
-    v29 = vdivq_f64(vcvtq_f64_u64(v19), v21);
+    v28 = vdivq_f64(vcvtq_f64_u64(v19), v21);
     v22 = CGColorSpaceCreateDeviceRGB();
     v23 = CGColorCreate(v22, components);
     CGImageSetProperty();
@@ -6648,7 +6579,6 @@ LABEL_20:
 
 LABEL_24:
   CGDataProviderRelease(v7);
-  v26 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -6675,30 +6605,20 @@ uint64_t format_bitmapinfo(unsigned int a1)
   }
 }
 
-void *_CPLog(uint64_t a1, const void *a2, uint64_t a3, const __CFString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void *_CPLog(uint64_t a1, const void *a2, uint64_t a3, const __CFString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (_init_once != -1)
   {
     _CPLog_cold_1();
   }
 
-  _CPLog_os_log_shim(v9, a1);
+  _CPLog_os_log_shim(v9, a1, a4, &a9);
   if (os_log_shim_legacy_logging_enabled())
   {
     _logV(a1, a2, 0, 0, 0, a3, a4, &a9);
   }
 
   return _releaseObfuscatedStrings();
-}
-
-uint64_t _CPLog_os_log_shim(uint64_t a1, unsigned int a2)
-{
-  if (a2 <= 7)
-  {
-    v2 = _CPLog_os_trace_type_map[a2];
-  }
-
-  return os_log_shim_with_CFString();
 }
 
 void _logV(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const __CFString *a7, va_list a8)
@@ -7065,28 +6985,29 @@ void *_releaseObfuscatedStrings()
   return result;
 }
 
-void *_CPLogLine(uint64_t a1, const void *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, const __CFString *a7, uint64_t a8, char a9)
+void *_CPLogLine(uint64_t a1, const void *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, const __CFString *a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (_init_once != -1)
   {
     _CPLog_cold_1();
   }
 
-  _CPLog_os_log_shim(v9, a1);
+  _CPLog_os_log_shim(v8, a1, a7, va);
   if (os_log_shim_legacy_logging_enabled())
   {
-    v17 = strrchr(a3, 47);
-    if (v17)
+    v16 = strrchr(a3, 47);
+    if (v16)
     {
-      v18 = (v17 + 1);
+      v17 = v16 + 1;
     }
 
     else
     {
-      v18 = a3;
+      v17 = a3;
     }
 
-    _logV(a1, a2, v18, a4, a5, a6, a7, &a9);
+    _logV(a1, a2, v17, a4, a5, a6, a7, va);
   }
 
   return _releaseObfuscatedStrings();
@@ -7099,7 +7020,7 @@ void *CPLogV(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5,
     _CPLog_cold_1();
   }
 
-  _CPLog_os_log_shim(v8, a1);
+  _CPLog_os_log_shim(v8, a1, a7, a8);
   if (os_log_shim_legacy_logging_enabled())
   {
     _logV(a1, a2, a3, a4, a5, a6, a7, a8);
@@ -7330,25 +7251,17 @@ void __CPLoggingAppendDataToLogFile_block_invoke_3(uint64_t a1)
   }
 }
 
-void _workQueueAppendDataToLogFile(uint64_t a1, const __CFData *a2)
+void _workQueueAppendDataToLogFile(uint64_t *refreshed, const __CFData *a2)
 {
-  if (!a1)
+  if (!refreshed || (v3 = refreshed[8]) == 0)
   {
-    goto LABEL_11;
-  }
-
-  v3 = *(a1 + 64);
-  if (!v3)
-  {
-    v31 = *a1;
-LABEL_11:
     CFLog();
     return;
   }
 
-  if (*(a1 + 24) < 1)
+  if (refreshed[3] < 1)
   {
-    goto LABEL_12;
+    goto LABEL_10;
   }
 
   if (*v3)
@@ -7356,7 +7269,7 @@ LABEL_11:
     v4 = MEMORY[0x19A8C17F0]();
     if (v4 < CFAbsoluteTimeGetCurrent())
     {
-      v5 = **(a1 + 64);
+      v5 = *refreshed[8];
       if (v5)
       {
         CFRelease(v5);
@@ -7365,17 +7278,17 @@ LABEL_11:
       goto LABEL_8;
     }
 
-LABEL_12:
+LABEL_10:
     value = 0;
-    goto LABEL_13;
+    goto LABEL_11;
   }
 
 LABEL_8:
   Current = CFAbsoluteTimeGetCurrent();
-  **(a1 + 64) = CFDateCreate(0, Current + 13.0);
-  value = *(a1 + 24);
-LABEL_13:
-  v33 = 0;
+  *refreshed[8] = CFDateCreate(0, Current + 13.0);
+  value = refreshed[3];
+LABEL_11:
+  v31 = 0;
   v7 = 0;
   v8 = 0;
   do
@@ -7385,48 +7298,48 @@ LABEL_13:
       CFRelease(v7);
     }
 
-    v9 = *(*(a1 + 64) + 8);
+    v9 = *(refreshed[8] + 8);
     if (!v9)
     {
-      _workQueueRefreshUUIDForWorkSettings(a1);
-      v9 = *(*(a1 + 64) + 8);
+      _workQueueRefreshUUIDForWorkSettings(refreshed);
+      v9 = *(refreshed[8] + 8);
       if (!v9)
       {
         v7 = 0;
-        goto LABEL_50;
+        goto LABEL_48;
       }
     }
 
-    v10 = *(a1 + 74);
-    v11 = *(a1 + 72);
-    v12 = *(a1 + 32);
+    v10 = *(refreshed + 74);
+    v11 = *(refreshed + 72);
+    v12 = *(refreshed + 8);
     v13 = _workQueueCopyConnection();
     if (!v13)
     {
       v7 = 0;
-LABEL_47:
-      v28 = *(a1 + 64);
+LABEL_45:
+      v28 = refreshed[8];
       v29 = *(v28 + 8);
       if (v29)
       {
         CFRelease(v29);
-        v28 = *(a1 + 64);
+        v28 = refreshed[8];
       }
 
       *(v28 + 8) = 0;
-LABEL_50:
+LABEL_48:
       v27 = 1;
-      goto LABEL_51;
+      goto LABEL_49;
     }
 
     v14 = v13;
     UTF8StringFromString = _createUTF8StringFromString(v9);
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3052000000;
-    v41 = __Block_byref_object_copy__1;
-    v42 = __Block_byref_object_dispose__1;
-    v43 = 0;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x3052000000;
+    v39 = __Block_byref_object_copy__1;
+    v40 = __Block_byref_object_dispose__1;
+    v41 = 0;
     Length = CFDataGetLength(a2);
     if (_workQueueCreateMemoryMapOfSize_currentSize >= Length && _workQueueCreateMemoryMapOfSize_currentXPCObject)
     {
@@ -7452,7 +7365,7 @@ LABEL_50:
         v7 = 0;
         LODWORD(v18) = 0;
         _workQueueCreateMemoryMapOfSize_currentSize = 0;
-        goto LABEL_42;
+        goto LABEL_40;
       }
 
       _workQueueCreateMemoryMapOfSize_currentSize = Length;
@@ -7500,17 +7413,17 @@ LABEL_50:
         _workQueueAppendDataToLogFile_cold_1();
       }
 
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = ___workQueueLogToFileUUID_block_invoke_2;
-      v36[3] = &unk_1E7450E18;
-      v36[4] = &v38;
-      dispatch_sync(_waitForResponseQueue_queue, v36);
-      v22 = v39[5];
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = ___workQueueLogToFileUUID_block_invoke_2;
+      v34[3] = &unk_1E7450E18;
+      v34[4] = &v36;
+      dispatch_sync(_waitForResponseQueue_queue, v34);
+      v22 = v37[5];
       if (v22)
       {
-        v33 = xpc_dictionary_get_BOOL(v22, "didcreate");
-        string = xpc_dictionary_get_string(v39[5], "newfilepath");
+        v31 = xpc_dictionary_get_BOOL(v22, "didcreate");
+        string = xpc_dictionary_get_string(v37[5], "newfilepath");
         v24 = string;
         if (string)
         {
@@ -7523,8 +7436,8 @@ LABEL_50:
           v7 = 0;
         }
 
-        LODWORD(v18) = xpc_dictionary_get_BOOL(v39[5], "retval");
-        xpc_release(v39[5]);
+        LODWORD(v18) = xpc_dictionary_get_BOOL(v37[5], "retval");
+        xpc_release(v37[5]);
       }
 
       else
@@ -7540,33 +7453,32 @@ LABEL_50:
       v7 = 0;
     }
 
-LABEL_42:
+LABEL_40:
     if (UTF8StringFromString)
     {
       free(UTF8StringFromString);
     }
 
     xpc_release(v14);
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v36, 8);
     if (!v18)
     {
-      goto LABEL_47;
+      goto LABEL_45;
     }
 
-    v27 = *(*(a1 + 64) + 8) == 0;
-LABEL_51:
+    v27 = *(refreshed[8] + 8) == 0;
+LABEL_49:
     v8 += v27;
   }
 
   while (v27 && v8 < 3);
   if (v8 >= 3)
   {
-    v32 = *a1;
     CFLog();
   }
 
-  v30 = *(a1 + 48);
-  if (v30 && v33)
+  v30 = refreshed[6];
+  if (v30 && v31)
   {
     (*(v30 + 16))(v30, v7);
   }
@@ -7575,6 +7487,13 @@ LABEL_51:
   {
     CFRelease(v7);
   }
+}
+
+void sub_195E92820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void __CPLoggingAppendDataToLogFile_block_invoke_4(uint64_t a1)
@@ -7676,13 +7595,12 @@ void CPLoggingSlurpFileIntoLogFile(signed int a1, const void *a2, const __CFStri
   }
 }
 
-void __CPLoggingSlurpFileIntoLogFile_block_invoke_2(uint64_t a1)
+void __CPLoggingSlurpFileIntoLogFile_block_invoke_2(CFDateRef refreshed)
 {
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 56);
-  v36 = v2;
-  v37 = *(a1 + 48);
-  v35 = *(a1 + 64);
+  v1 = *(refreshed + 5);
+  v34 = *(refreshed + 7);
+  v35 = *(refreshed + 6);
+  v33 = *(refreshed + 8);
   if (*(v1 + 24) < 1)
   {
     goto LABEL_7;
@@ -7690,13 +7608,13 @@ void __CPLoggingSlurpFileIntoLogFile_block_invoke_2(uint64_t a1)
 
   if (**(v1 + 64))
   {
-    v3 = MEMORY[0x19A8C17F0]();
-    if (v3 < CFAbsoluteTimeGetCurrent())
+    v2 = MEMORY[0x19A8C17F0]();
+    if (v2 < CFAbsoluteTimeGetCurrent())
     {
-      v4 = **(v1 + 64);
-      if (v4)
+      v3 = **(v1 + 64);
+      if (v3)
       {
-        CFRelease(v4);
+        CFRelease(v3);
       }
 
       goto LABEL_6;
@@ -7712,60 +7630,60 @@ LABEL_6:
   **(v1 + 64) = CFDateCreate(0, Current + 13.0);
   value = *(v1 + 24);
 LABEL_8:
-  v32 = 0;
+  v30 = 0;
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
-  v8 = *(*(v1 + 64) + 8);
-  v33 = v1;
+  v7 = *(*(v1 + 64) + 8);
+  v31 = v1;
   do
   {
-    if (!v8)
+    if (!v7)
     {
       _workQueueRefreshUUIDForWorkSettings(v1);
-      v8 = *(*(v1 + 64) + 8);
-      if (!v8)
+      v7 = *(*(v1 + 64) + 8);
+      if (!v7)
       {
         goto LABEL_41;
       }
     }
 
-    if (v6)
+    if (v5)
     {
-      CFRelease(v6);
-      v8 = *(*(v1 + 64) + 8);
+      CFRelease(v5);
+      v7 = *(*(v1 + 64) + 8);
     }
 
-    v9 = *(v1 + 74);
-    v10 = *(v1 + 72);
-    v11 = *(v1 + 32);
+    v8 = *(v1 + 74);
+    v9 = *(v1 + 72);
+    v10 = *(v1 + 32);
     object = _workQueueCopyConnection();
     if (!object)
     {
-      v6 = 0;
+      v5 = 0;
       goto LABEL_38;
     }
 
-    UTF8StringFromString = _createUTF8StringFromString(v8);
-    v13 = _createUTF8StringFromString(v37);
-    v14 = open(v13, 0);
-    v15 = _createUTF8StringFromString(v36);
-    v16 = _createUTF8StringFromString(v35);
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3052000000;
-    v44 = __Block_byref_object_copy__1;
-    v45 = __Block_byref_object_dispose__1;
-    v46 = 0;
-    v17 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v17, "message", 4);
-    xpc_dictionary_set_string(v17, "uuid", UTF8StringFromString);
-    xpc_dictionary_set_fd(v17, "slurpeefd", v14);
-    xpc_dictionary_set_string(v17, "prefix", v15);
-    xpc_dictionary_set_string(v17, "suffix", v16);
-    xpc_dictionary_set_BOOL(v17, "startnewfile", v9 != 0);
-    xpc_dictionary_set_int64(v17, "sizecheck", value);
-    xpc_dictionary_set_int64(v17, "maxfilecount", v11);
-    xpc_dictionary_set_BOOL(v17, "wantscompressed", v10 != 0);
+    UTF8StringFromString = _createUTF8StringFromString(v7);
+    v12 = _createUTF8StringFromString(v35);
+    v13 = open(v12, 0);
+    v14 = _createUTF8StringFromString(v34);
+    v15 = _createUTF8StringFromString(v33);
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3052000000;
+    v42 = __Block_byref_object_copy__1;
+    v43 = __Block_byref_object_dispose__1;
+    v44 = 0;
+    v16 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v16, "message", 4);
+    xpc_dictionary_set_string(v16, "uuid", UTF8StringFromString);
+    xpc_dictionary_set_fd(v16, "slurpeefd", v13);
+    xpc_dictionary_set_string(v16, "prefix", v14);
+    xpc_dictionary_set_string(v16, "suffix", v15);
+    xpc_dictionary_set_BOOL(v16, "startnewfile", v8 != 0);
+    xpc_dictionary_set_int64(v16, "sizecheck", value);
+    xpc_dictionary_set_int64(v16, "maxfilecount", v10);
+    xpc_dictionary_set_BOOL(v16, "wantscompressed", v9 != 0);
     if (_waitForResponseQueue_once != -1)
     {
       _workQueueAppendDataToLogFile_cold_1();
@@ -7776,7 +7694,7 @@ LABEL_8:
     block[2] = ___workQueueSlurpToFileUUID_block_invoke;
     block[3] = &unk_1E7450C88;
     block[4] = object;
-    block[5] = v17;
+    block[5] = v16;
     dispatch_sync(_waitForResponseQueue_queue, block);
     if (_waitForResponseSema_once != -1)
     {
@@ -7784,44 +7702,44 @@ LABEL_8:
     }
 
     dispatch_semaphore_wait(_waitForResponseSema_sema, 0xFFFFFFFFFFFFFFFFLL);
-    xpc_release(v17);
+    xpc_release(v16);
     if (_waitForResponseQueue_once != -1)
     {
       _workQueueAppendDataToLogFile_cold_1();
     }
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = ___workQueueSlurpToFileUUID_block_invoke_2;
-    v39[3] = &unk_1E7450E18;
-    v39[4] = &v41;
-    dispatch_sync(_waitForResponseQueue_queue, v39);
-    v18 = v42[5];
-    if (v18)
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = ___workQueueSlurpToFileUUID_block_invoke_2;
+    v37[3] = &unk_1E7450E18;
+    v37[4] = &v39;
+    dispatch_sync(_waitForResponseQueue_queue, v37);
+    v17 = v40[5];
+    if (v17)
     {
-      v32 = xpc_dictionary_get_BOOL(v18, "didcreate");
-      string = xpc_dictionary_get_string(v42[5], "newfilepath");
-      v6 = string;
+      v30 = xpc_dictionary_get_BOOL(v17, "didcreate");
+      string = xpc_dictionary_get_string(v40[5], "newfilepath");
+      v5 = string;
       if (string)
       {
-        v20 = strlen(string);
-        v6 = CFStringCreateWithBytes(0, v6, v20, 0x8000100u, 0);
+        v19 = strlen(string);
+        v5 = CFStringCreateWithBytes(0, v5, v19, 0x8000100u, 0);
       }
 
-      v21 = xpc_dictionary_get_BOOL(v42[5], "retval");
-      xpc_release(v42[5]);
+      v20 = xpc_dictionary_get_BOOL(v40[5], "retval");
+      xpc_release(v40[5]);
     }
 
     else
     {
       CFLog();
-      v6 = 0;
-      v21 = 0;
+      v5 = 0;
+      v20 = 0;
     }
 
-    if (v14 != -1)
+    if (v13 != -1)
     {
-      close(v14);
+      close(v13);
     }
 
     if (UTF8StringFromString)
@@ -7829,9 +7747,14 @@ LABEL_8:
       free(UTF8StringFromString);
     }
 
-    if (v13)
+    if (v12)
     {
-      free(v13);
+      free(v12);
+    }
+
+    if (v14)
+    {
+      free(v14);
     }
 
     if (v15)
@@ -7839,85 +7762,79 @@ LABEL_8:
       free(v15);
     }
 
-    if (v16)
-    {
-      free(v16);
-    }
-
     xpc_release(object);
-    _Block_object_dispose(&v41, 8);
-    if (!v21)
+    _Block_object_dispose(&v39, 8);
+    if (!v20)
     {
-      v1 = v33;
+      v1 = v31;
 LABEL_38:
-      v23 = *(v1 + 64);
-      v24 = *(v23 + 8);
-      if (v24)
+      v22 = *(v1 + 64);
+      v23 = *(v22 + 8);
+      if (v23)
       {
-        CFRelease(v24);
-        v23 = *(v1 + 64);
+        CFRelease(v23);
+        v22 = *(v1 + 64);
       }
 
-      *(v23 + 8) = 0;
+      *(v22 + 8) = 0;
 LABEL_41:
-      v22 = 1;
+      v21 = 1;
       goto LABEL_42;
     }
 
-    v1 = v33;
-    v22 = *(*(v33 + 64) + 8) == 0;
+    v1 = v31;
+    v21 = *(*(v31 + 64) + 8) == 0;
 LABEL_42:
-    v7 += v22;
-    if (!v22)
+    v6 += v21;
+    if (!v21)
     {
       break;
     }
 
-    v8 = 0;
+    v7 = 0;
   }
 
-  while (v7 < 3);
-  if (v7 >= 3)
+  while (v6 < 3);
+  if (v6 >= 3)
   {
-    v30 = *v1;
     CFLog();
   }
 
-  v25 = *(v1 + 48);
-  if (v25 && v32)
+  v24 = *(v1 + 48);
+  if (v24 && v30)
   {
-    (*(v25 + 16))(v25, v6);
+    (*(v24 + 16))(v24, v5);
   }
 
-  if (v6)
+  if (v5)
   {
-    CFRelease(v6);
+    CFRelease(v5);
   }
 
-  free(*(a1 + 40));
-  v26 = *(a1 + 48);
+  free(*(refreshed + 5));
+  v25 = *(refreshed + 6);
+  if (v25)
+  {
+    CFRelease(v25);
+  }
+
+  v26 = *(refreshed + 7);
   if (v26)
   {
     CFRelease(v26);
   }
 
-  v27 = *(a1 + 56);
+  v27 = *(refreshed + 8);
   if (v27)
   {
     CFRelease(v27);
   }
 
-  v28 = *(a1 + 64);
+  v28 = *(refreshed + 4);
   if (v28)
   {
-    CFRelease(v28);
-  }
-
-  v29 = *(a1 + 32);
-  if (v29)
-  {
-    (*(v29 + 16))(v29);
-    _Block_release(*(a1 + 32));
+    (*(v28 + 16))(v28);
+    _Block_release(*(refreshed + 4));
   }
 }
 
@@ -7935,7 +7852,7 @@ void *_CPLogObfusc(void *a1)
 
 const void *_obfuscatedRepresentation(void *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
@@ -8000,15 +7917,15 @@ LABEL_21:
         if (UTF8StringFromString)
         {
           v8 = UTF8StringFromString;
-          memset(&v16, 0, sizeof(v16));
-          CC_SHA1_Init(&v16);
-          CC_SHA1_Update(&v16, &_createHashRepresentationOfString_seed, 4u);
+          memset(&v15, 0, sizeof(v15));
+          CC_SHA1_Init(&v15);
+          CC_SHA1_Update(&v15, &_createHashRepresentationOfString_seed, 4u);
           v9 = strlen(v8);
-          CC_SHA1_Update(&v16, v8, v9);
-          CC_SHA1_Final(md, &v16);
+          CC_SHA1_Update(&v15, v8, v9);
+          CC_SHA1_Final(md, &v15);
           v10 = 0;
           bytes[0] = 91;
-          v11 = v18;
+          v11 = v17;
           do
           {
             v12 = md[v10];
@@ -8043,13 +7960,10 @@ LABEL_21:
 
 LABEL_28:
     [v2 drain];
-    goto LABEL_29;
+    return v3;
   }
 
-  v3 = 0;
-LABEL_29:
-  v14 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 0;
 }
 
 void CPLoggingAddCustomLogConfiguration(const __CFArray *a1, CFDictionaryRef theDict)
@@ -8785,12 +8699,12 @@ void __CPLoggingStartNewLogFile_block_invoke(uint64_t a1)
     {
       v7 = v6;
       UTF8StringFromString = _createUTF8StringFromString(v5);
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x3052000000;
-      v23 = __Block_byref_object_copy__1;
-      v24 = __Block_byref_object_dispose__1;
-      v25 = 0;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x3052000000;
+      v22 = __Block_byref_object_copy__1;
+      v23 = __Block_byref_object_dispose__1;
+      v24 = 0;
       v9 = xpc_dictionary_create(0, 0, 0);
       xpc_dictionary_set_int64(v9, "message", 3);
       xpc_dictionary_set_string(v9, "uuid", UTF8StringFromString);
@@ -8818,13 +8732,13 @@ void __CPLoggingStartNewLogFile_block_invoke(uint64_t a1)
         _workQueueAppendDataToLogFile_cold_1();
       }
 
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = ___workQueueStartNewLogFile_block_invoke_2;
-      v18[3] = &unk_1E7450E18;
-      v18[4] = &v20;
-      dispatch_sync(_waitForResponseQueue_queue, v18);
-      v10 = v21[5];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = ___workQueueStartNewLogFile_block_invoke_2;
+      v17[3] = &unk_1E7450E18;
+      v17[4] = &v19;
+      dispatch_sync(_waitForResponseQueue_queue, v17);
+      v10 = v20[5];
       if (v10)
       {
         string = xpc_dictionary_get_string(v10, "newfilepath");
@@ -8835,8 +8749,8 @@ void __CPLoggingStartNewLogFile_block_invoke(uint64_t a1)
           v2 = CFStringCreateWithBytes(0, v2, v12, 0x8000100u, 0);
         }
 
-        v13 = xpc_dictionary_get_BOOL(v21[5], "retval");
-        xpc_release(v21[5]);
+        v13 = xpc_dictionary_get_BOOL(v20[5], "retval");
+        xpc_release(v20[5]);
         if (UTF8StringFromString)
         {
           goto LABEL_17;
@@ -8856,7 +8770,7 @@ LABEL_17:
       }
 
       xpc_release(v7);
-      _Block_object_dispose(&v20, 8);
+      _Block_object_dispose(&v19, 8);
       if (v13)
       {
         goto LABEL_20;
@@ -8886,7 +8800,6 @@ LABEL_20:
   while (!v14);
   if (v3 >= 3)
   {
-    v17 = *v4;
     CFLog();
     v4 = *(a1 + 32);
   }
@@ -8918,17 +8831,17 @@ LABEL_37:
   free(v4);
 }
 
-void sub_195E9434C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_195E9434C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void _workQueueRefreshUUIDForWorkSettings(uint64_t a1)
+void _workQueueRefreshUUIDForWorkSettings(void *a1)
 {
-  v2 = *(a1 + 8);
-  UTF8StringFromString = _createUTF8StringFromString(*(a1 + 16));
+  v2 = a1[1];
+  UTF8StringFromString = _createUTF8StringFromString(a1[2]);
   v4 = _createUTF8StringFromString(v2);
   v15 = 0;
   v16 = &v15;
@@ -9015,20 +8928,20 @@ LABEL_13:
   }
 
   _Block_object_dispose(&v15, 8);
-  v11 = *(a1 + 64);
+  v11 = a1[8];
   v12 = *(v11 + 8);
   if (v12)
   {
     CFRelease(v12);
-    v11 = *(a1 + 64);
+    v11 = a1[8];
   }
 
   *(v11 + 8) = v9;
 }
 
-void sub_195E9461C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_195E9461C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9728,24 +9641,25 @@ uint64_t _rereadObfuscationPreferences()
   CFPreferencesAppSynchronize(@".GlobalPreferences");
   keyExistsAndHasValidFormat = 0;
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"CPLoggingUnobfuscate", @".GlobalPreferences", &keyExistsAndHasValidFormat);
-  result = CPIsInternalDevice();
-  v2 = 0;
+  v1 = AppBooleanValue;
+  result = CPIsInternalDevice(AppBooleanValue, v2);
+  v4 = 0;
   if (!result)
   {
-    if (AppBooleanValue)
+    if (v1)
     {
-      v3 = keyExistsAndHasValidFormat == 0;
+      v5 = keyExistsAndHasValidFormat == 0;
     }
 
     else
     {
-      v3 = 1;
+      v5 = 1;
     }
 
-    v2 = v3;
+    v4 = v5;
   }
 
-  atomic_store(v2, _shouldObfuscate);
+  atomic_store(v4, _shouldObfuscate);
   return result;
 }
 
@@ -9800,4 +9714,83 @@ void ___logDateFormatter_block_invoke()
   _logDateFormatter_dateFormatter = v0;
 
   CFDateFormatterSetFormat(v0, @"yyyy-MM-dd'T'HH:mm:ss.SSS");
+}
+
+unsigned __int16 *_createUTF8StringFromString(const __CFString *a1)
+{
+  v2 = malloc_type_malloc(0xC8uLL, 0xF5C95697uLL);
+  if (v2)
+  {
+    v3 = 200;
+    while (!CFStringGetCString(a1, v2, v3, 0x8000100u))
+    {
+      free(v2);
+      if (v3 < 0x100000)
+      {
+        v3 *= 2;
+        v2 = malloc_type_malloc(v3, 0x33395582uLL);
+        if (v2)
+        {
+          continue;
+        }
+      }
+
+      CFLog();
+      Length = CFStringGetLength(a1);
+      if (Length)
+      {
+        v5 = Length;
+        v2 = malloc_type_malloc(2 * Length, 0xF5335D44uLL);
+        if (!v2)
+        {
+          return v2;
+        }
+
+        v11.location = 0;
+        v11.length = v5;
+        CFStringGetCharacters(a1, v11, v2);
+        Mutable = CFStringCreateMutable(0, 0);
+        if (Mutable)
+        {
+          v7 = Mutable;
+          CFStringAppend(Mutable, @"UTF-16 Bytes: ");
+          if (v5 >= 1)
+          {
+            v8 = v2;
+            do
+            {
+              v9 = *v8++;
+              CFStringAppendFormat(v7, 0, @"%04x ", v9);
+              --v5;
+            }
+
+            while (v5);
+          }
+
+          CFLog();
+          CFRelease(v7);
+        }
+
+        free(v2);
+      }
+
+      return 0;
+    }
+  }
+
+  else
+  {
+    CFLog();
+  }
+
+  return v2;
+}
+
+void ___performLog_block_invoke(uint64_t a1)
+{
+  _workQueueAppendDataToLogFile(*(a1 + 32), *(a1 + 40));
+  CFRelease(*(a1 + 40));
+  v2 = *(a1 + 32);
+
+  free(v2);
 }

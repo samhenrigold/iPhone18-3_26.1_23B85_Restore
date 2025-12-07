@@ -1,10 +1,10 @@
 @interface NSDictionary(CAMLWriter)
-- (uint64_t)encodeWithCAMLWriter:()CAMLWriter;
+- (char)encodeWithCAMLWriter:()CAMLWriter;
 @end
 
 @implementation NSDictionary(CAMLWriter)
 
-- (uint64_t)encodeWithCAMLWriter:()CAMLWriter
+- (char)encodeWithCAMLWriter:()CAMLWriter
 {
   v5 = [objc_msgSend(self "allKeys")];
   result = [v5 count];

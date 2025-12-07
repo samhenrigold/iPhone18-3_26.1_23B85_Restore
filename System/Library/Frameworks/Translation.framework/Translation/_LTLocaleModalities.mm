@@ -11,146 +11,145 @@
 
 - (_LTLocaleModalities)initWithSupportedLocales:(id)locales asrLocales:(id)asrLocales ttsLocales:(id)ttsLocales
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   localesCopy = locales;
   asrLocalesCopy = asrLocales;
   ttsLocalesCopy = ttsLocales;
-  v58.receiver = self;
-  v58.super_class = _LTLocaleModalities;
-  v11 = [(_LTLocaleModalities *)&v58 init];
+  v59.receiver = self;
+  v59.super_class = _LTLocaleModalities;
+  v11 = [(_LTLocaleModalities *)&v59 init];
   v12 = v11;
   if (v11)
   {
-    v45 = ttsLocalesCopy;
-    v42 = v11;
+    v46 = ttsLocalesCopy;
+    v43 = v11;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
     v14 = localesCopy;
-    v15 = [v14 countByEnumeratingWithState:&v54 objects:v63 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v55 objects:v64 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v55;
+      v17 = *v56;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v55 != v17)
+          if (*v56 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [dictionary setObject:&unk_284DC9990 forKeyedSubscript:*(*(&v54 + 1) + 8 * i)];
+          [dictionary setObject:&unk_284DC9990 forKeyedSubscript:*(*(&v55 + 1) + 8 * i)];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v54 objects:v63 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v55 objects:v64 count:16];
       }
 
       while (v16);
     }
 
-    v44 = localesCopy;
+    v45 = localesCopy;
 
-    v52 = 0u;
     v53 = 0u;
-    v50 = 0u;
+    v54 = 0u;
     v51 = 0u;
-    v43 = asrLocalesCopy;
+    v52 = 0u;
+    v44 = asrLocalesCopy;
     v19 = asrLocalesCopy;
-    v20 = [v19 countByEnumeratingWithState:&v50 objects:v62 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v51;
+      v22 = *v52;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v51 != v22)
+          if (*v52 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v50 + 1) + 8 * j);
-          v25 = [dictionary objectForKeyedSubscript:v24];
-          if (!v25)
+          v24 = *(*(&v51 + 1) + 8 * j);
+          v26 = [dictionary objectForKeyedSubscript:v24];
+          if (!v26)
           {
-            v26 = _LTOSLogAssets();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+            v27 = _LTOSLogAssets(0, v25);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
             {
               *buf = 138543362;
-              v61 = v24;
-              _os_log_fault_impl(&dword_23AAF5000, v26, OS_LOG_TYPE_FAULT, "ASR locale is not present in supported locale list, %{public}@", buf, 0xCu);
+              v62 = v24;
+              _os_log_fault_impl(&dword_23AAF5000, v27, OS_LOG_TYPE_FAULT, "ASR locale is not present in supported locale list, %{public}@", buf, 0xCu);
             }
           }
 
-          v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "integerValue") | 1}];
-          [dictionary setObject:v27 forKeyedSubscript:v24];
+          v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "integerValue") | 1}];
+          [dictionary setObject:v28 forKeyedSubscript:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v50 objects:v62 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v51 objects:v63 count:16];
       }
 
       while (v21);
     }
 
-    v48 = 0u;
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v28 = v45;
-    v29 = [v28 countByEnumeratingWithState:&v46 objects:v59 count:16];
-    if (v29)
+    v48 = 0u;
+    v29 = v46;
+    v30 = [v29 countByEnumeratingWithState:&v47 objects:v60 count:16];
+    if (v30)
     {
-      v30 = v29;
-      v31 = *v47;
+      v31 = v30;
+      v32 = *v48;
       do
       {
-        for (k = 0; k != v30; ++k)
+        for (k = 0; k != v31; ++k)
         {
-          if (*v47 != v31)
+          if (*v48 != v32)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v29);
           }
 
-          v33 = *(*(&v46 + 1) + 8 * k);
-          v34 = [dictionary objectForKeyedSubscript:v33];
-          if (!v34)
+          v34 = *(*(&v47 + 1) + 8 * k);
+          v36 = [dictionary objectForKeyedSubscript:v34];
+          if (!v36)
           {
-            v35 = _LTOSLogAssets();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+            v37 = _LTOSLogAssets(0, v35);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
             {
               *buf = 138543362;
-              v61 = v33;
-              _os_log_fault_impl(&dword_23AAF5000, v35, OS_LOG_TYPE_FAULT, "TTS locale is not present in supported locale list, %{public}@", buf, 0xCu);
+              v62 = v34;
+              _os_log_fault_impl(&dword_23AAF5000, v37, OS_LOG_TYPE_FAULT, "TTS locale is not present in supported locale list, %{public}@", buf, 0xCu);
             }
           }
 
-          v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v34, "integerValue") | 2}];
-          [dictionary setObject:v36 forKeyedSubscript:v33];
+          v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v36, "integerValue") | 2}];
+          [dictionary setObject:v38 forKeyedSubscript:v34];
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v46 objects:v59 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v47 objects:v60 count:16];
       }
 
-      while (v30);
+      while (v31);
     }
 
-    v37 = [dictionary copy];
-    v12 = v42;
-    modalitiesPerLocale = v42->_modalitiesPerLocale;
-    v42->_modalitiesPerLocale = v37;
+    v39 = [dictionary copy];
+    v12 = v43;
+    modalitiesPerLocale = v43->_modalitiesPerLocale;
+    v43->_modalitiesPerLocale = v39;
 
-    v39 = v42;
-    asrLocalesCopy = v43;
-    localesCopy = v44;
-    ttsLocalesCopy = v45;
+    v41 = v43;
+    asrLocalesCopy = v44;
+    localesCopy = v45;
+    ttsLocalesCopy = v46;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -182,18 +181,18 @@
 
 - (_LTLocaleModalities)initWithCoder:(id)coder
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = _LTLocaleModalities;
-  v5 = [(_LTLocaleModalities *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = _LTLocaleModalities;
+  v5 = [(_LTLocaleModalities *)&v13 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v15[0] = objc_opt_class();
-    v15[1] = objc_opt_class();
-    v15[2] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[0] = objc_opt_class();
+    v14[1] = objc_opt_class();
+    v14[2] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"modalitiesPerLocale"];
@@ -203,7 +202,6 @@
     v11 = v5;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -217,42 +215,41 @@
 
 - (id)debugDescription
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   [string appendString:@"{\n"];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = self->_modalitiesPerLocale;
-  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         _ltLocaleIdentifier = [v9 _ltLocaleIdentifier];
         v11 = [(NSDictionary *)self->_modalitiesPerLocale objectForKeyedSubscript:v9];
-        [string appendFormat:@"\t%@: %@, \n", _ltLocaleIdentifier, v11, v14];
+        [string appendFormat:@"\t%@: %@, \n", _ltLocaleIdentifier, v11, v13];
       }
 
-      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   [string appendString:@"}"];
-  v12 = *MEMORY[0x277D85DE8];
 
   return string;
 }

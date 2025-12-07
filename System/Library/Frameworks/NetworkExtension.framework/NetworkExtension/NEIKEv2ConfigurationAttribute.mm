@@ -1,9 +1,26 @@
 @interface NEIKEv2ConfigurationAttribute
 - (NSString)attributeName;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initEmptyRequest;
 @end
 
 @implementation NEIKEv2ConfigurationAttribute
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  attributeName = [(NEIKEv2ConfigurationAttribute *)self attributeName];
+  [v7 appendPrettyObject:attributeName withName:@"Name" andIndent:v5 options:options];
+
+  String = NEIKEv2AttributeTypeCreateString([(NEIKEv2ConfigurationAttribute *)self attributeType]);
+  [v7 appendPrettyObject:String withName:@"Type" andIndent:v5 options:options];
+
+  typeDescription = [(NEIKEv2ConfigurationAttribute *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  return v7;
+}
 
 - (NSString)attributeName
 {

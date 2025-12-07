@@ -29,7 +29,7 @@ uint64_t __33__TapToRadarHelper_dispatchQueue__block_invoke()
   radarCopy = radar;
   messageCopy = message;
   reasonCopy = reason;
-  v11 = _CSFGetLogSystem();
+  v11 = _CSFGetLogSystem(reasonCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -52,37 +52,37 @@ uint64_t __33__TapToRadarHelper_dispatchQueue__block_invoke()
 
 void __54__TapToRadarHelper_tapToRadar_withMessage_withReason___block_invoke(void *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v2 = _CSFGetLogSystem();
+  v27 = *MEMORY[0x1E69E9840];
+  v2 = _CSFGetLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __54__TapToRadarHelper_tapToRadar_withMessage_withReason___block_invoke_cold_1(v2);
   }
 
-  v3 = [getTapToRadarServiceClass[0]() shared];
+  v3 = [(objc_class *)getTapToRadarServiceClass() shared];
   v4 = [v3 serviceSettings];
 
-  v5 = _CSFGetLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _CSFGetLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_1DF47C000, v5, OS_LOG_TYPE_DEFAULT, "Got settings, checking if we should post a new TTR.", &v22, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&dword_1DF47C000, v6, OS_LOG_TYPE_DEFAULT, "Got settings, checking if we should post a new TTR.", &v25, 2u);
   }
 
   if ([v4 authorizationStatus])
   {
     if ([v4 authorizationStatus] == 1)
     {
-      v6 = _CSFGetLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _CSFGetLogSystem(1);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
-        v7 = "User denied authorization for process to file TTR. Will not prompt user.";
+        LOWORD(v25) = 0;
+        v8 = "User denied authorization for process to file TTR. Will not prompt user.";
 LABEL_14:
-        v8 = v6;
-        v9 = 2;
+        v9 = v7;
+        v10 = 2;
 LABEL_15:
-        _os_log_impl(&dword_1DF47C000, v8, OS_LOG_TYPE_DEFAULT, v7, &v22, v9);
+        _os_log_impl(&dword_1DF47C000, v9, OS_LOG_TYPE_DEFAULT, v8, &v25, v10);
         goto LABEL_16;
       }
 
@@ -91,11 +91,11 @@ LABEL_15:
 
     if ([v4 authorizationStatus] == 2)
     {
-      v6 = _CSFGetLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _CSFGetLogSystem(2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
-        v7 = "Process is rate limited for sending TTRs. Will not prompt user.";
+        LOWORD(v25) = 0;
+        v8 = "Process is rate limited for sending TTRs. Will not prompt user.";
         goto LABEL_14;
       }
 
@@ -103,8 +103,8 @@ LABEL_15:
     }
 
     v11 = [v4 authorizationStatus];
-    v6 = _CSFGetLogSystem();
-    v12 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = _CSFGetLogSystem(v11);
+    v12 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (v11 != 3)
     {
       if (!v12)
@@ -112,93 +112,92 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v19 = [v4 authorizationStatus];
-      v22 = 134217984;
-      v23 = v19;
-      v7 = "Process has unknown authorization to display prompt %zd, will not post prompt.";
-      v8 = v6;
-      v9 = 12;
+      v21 = [v4 authorizationStatus];
+      v25 = 134217984;
+      v26 = v21;
+      v8 = "Process has unknown authorization to display prompt %zd, will not post prompt.";
+      v9 = v7;
+      v10 = 12;
       goto LABEL_15;
     }
 
     if (v12)
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_1DF47C000, v6, OS_LOG_TYPE_DEFAULT, "Process is fully authorized to display TTR.", &v22, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_1DF47C000, v7, OS_LOG_TYPE_DEFAULT, "Process is fully authorized to display TTR.", &v25, 2u);
     }
 
-    v6 = [v4 rateLimitResetDate];
-    if (v6)
+    v13 = [v4 rateLimitResetDate];
+    v7 = v13;
+    if (v13)
     {
-      v13 = [MEMORY[0x1E695DF00] now];
-      v14 = [v6 compare:v13];
+      v14 = [MEMORY[0x1E695DF00] now];
+      v15 = [v7 compare:v14];
 
-      v15 = _CSFGetLogSystem();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-      if (v14 != -1)
+      v17 = _CSFGetLogSystem(v16);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      if (v15 != -1)
       {
-        if (!v16)
+        if (!v18)
         {
 LABEL_33:
 
           goto LABEL_16;
         }
 
-        v17 = objc_alloc_init(MEMORY[0x1E696AC80]);
-        v18 = [v17 stringFromDate:v6];
-        v22 = 138412290;
-        v23 = v18;
-        _os_log_impl(&dword_1DF47C000, v15, OS_LOG_TYPE_DEFAULT, "Device is being rate limited and is not eligible for another TTR prompt. will be shown %@", &v22, 0xCu);
+        v19 = objc_alloc_init(MEMORY[0x1E696AC80]);
+        v20 = [v19 stringFromDate:v7];
+        v25 = 138412290;
+        v26 = v20;
+        _os_log_impl(&dword_1DF47C000, v17, OS_LOG_TYPE_DEFAULT, "Device is being rate limited and is not eligible for another TTR prompt. will be shown %@", &v25, 0xCu);
 
 LABEL_32:
         goto LABEL_33;
       }
 
-      if (v16)
+      if (v18)
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_1DF47C000, v15, OS_LOG_TYPE_DEFAULT, "Device is not being rate limited and is eligible for another TTR prompt.", &v22, 2u);
+        LOWORD(v25) = 0;
+        _os_log_impl(&dword_1DF47C000, v17, OS_LOG_TYPE_DEFAULT, "Device is not being rate limited and is eligible for another TTR prompt.", &v25, 2u);
       }
     }
 
-    v20 = _CSFGetLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = _CSFGetLogSystem(v13);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_1DF47C000, v20, OS_LOG_TYPE_DEFAULT, "Posting TTR.", &v22, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_1DF47C000, v22, OS_LOG_TYPE_DEFAULT, "Posting TTR.", &v25, 2u);
     }
 
-    v15 = objc_alloc_init(getRadarDraftClass[0]());
-    [v15 setTitle:a1[4]];
-    [v15 setProblemDescription:a1[5]];
-    [v15 setClassification:6];
-    [v15 setReproducibility:6];
-    [v15 setIsUserInitiated:0];
-    v21 = [objc_alloc(getRadarComponentClass()) initWithName:@"iCloudSubscription Client" version:@"Greymatter" identifier:1656574];
-    [v15 setComponent:v21];
+    v17 = objc_alloc_init(getRadarDraftClass());
+    [v17 setTitle:a1[4]];
+    [v17 setProblemDescription:a1[5]];
+    [v17 setClassification:6];
+    [v17 setReproducibility:6];
+    v23 = [v17 setIsUserInitiated:0];
+    v24 = [objc_alloc(getRadarComponentClass(v23)) initWithName:@"iCloudSubscription Client" version:@"Greymatter" identifier:1656574];
+    [v17 setComponent:v24];
 
-    v18 = [getTapToRadarServiceClass[0]() shared];
-    [v18 createDraft:v15 forProcessNamed:@"iCloud daemon" withDisplayReason:a1[6] completionHandler:&__block_literal_global_19_0];
+    v20 = [(objc_class *)getTapToRadarServiceClass() shared];
+    [v20 createDraft:v17 forProcessNamed:@"iCloud daemon" withDisplayReason:a1[6] completionHandler:&__block_literal_global_19_0];
     goto LABEL_32;
   }
 
-  v6 = _CSFGetLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CSFGetLogSystem(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v22) = 0;
-    v7 = "Process is not authorized for TTR. Will not prompt user.";
+    LOWORD(v25) = 0;
+    v8 = "Process is not authorized for TTR. Will not prompt user.";
     goto LABEL_14;
   }
 
 LABEL_16:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __54__TapToRadarHelper_tapToRadar_withMessage_withReason___block_invoke_16(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _CSFGetLogSystem();
+  v3 = _CSFGetLogSystem(v2);
   v4 = v3;
   if (v2)
   {
@@ -217,11 +216,10 @@ void __54__TapToRadarHelper_tapToRadar_withMessage_withReason___block_invoke_16(
 
 void __54__TapToRadarHelper_tapToRadar_withMessage_withReason___block_invoke_16_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF47C000, a2, OS_LOG_TYPE_ERROR, "Error posting TTR: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF47C000, a2, OS_LOG_TYPE_ERROR, "Error posting TTR: %@", &v2, 0xCu);
 }
 
 @end

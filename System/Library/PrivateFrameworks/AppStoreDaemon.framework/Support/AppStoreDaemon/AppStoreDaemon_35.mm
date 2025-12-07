@@ -1,3 +1,386 @@
+void sub_1003B1F58(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  v7 = a2;
+  v8 = a3;
+  v9 = a4;
+  if (v9)
+  {
+    v10 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v41 = *(a1 + 32);
+      *v42 = 138543618;
+      *&v42[4] = v41;
+      *&v42[12] = 2114;
+      *&v42[14] = v9;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Install attribution pingback for app: %{public}@ failed with error: %{public}@", v42, 0x16u);
+    }
+
+    v11 = [_TtC9appstored12SkannerEvent requestWithResult:*(a1 + 40) destination:*(a1 + 48) responseCode:0 postback:*(a1 + 56) error:v9];
+    v12 = +[_TtC9appstored18SkannerCoordinator sharedInstance];
+    v13 = *(a1 + 56);
+    if (v13)
+    {
+      v13 = v13[2];
+    }
+
+    v14 = v13;
+    [v12 logEvent:v11 forAdvertisedAppAdamID:objc_msgSend(v14 completionHandler:{"longLongValue"), &stru_100526CF8}];
+
+    v16 = *(a1 + 56);
+    v15 = *(a1 + 64);
+    if (*(a1 + 80) != 1)
+    {
+      sub_1003AF538(v15, v16);
+LABEL_28:
+
+      goto LABEL_29;
+    }
+
+    sub_1003AF2D0(v15, v16);
+
+LABEL_23:
+    v32 = +[NSDate date];
+    [v32 timeIntervalSince1970];
+    v34 = v33;
+    v35 = *(a1 + 56);
+    if (v35)
+    {
+      v35 = v35[13];
+    }
+
+    v36 = v35;
+    [v36 doubleValue];
+    v11 = [NSNumber numberWithDouble:-(v37 - v34 * 1000.0)];
+
+    sub_10024CF08(*(a1 + 56), v9 == 0, v11);
+    v38 = *(a1 + 56);
+    v39 = *(a1 + 64);
+    if (v38)
+    {
+      v38 = v38[2];
+    }
+
+    v40 = v38;
+    sub_1003AD388(v39, v40);
+
+    goto LABEL_28;
+  }
+
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
+  {
+    v24 = ASDErrorWithDescription();
+    v25 = [_TtC9appstored12SkannerEvent requestWithResult:*(a1 + 40) destination:*(a1 + 48) responseCode:0 postback:*(a1 + 56) error:v24];
+
+    if (!v25)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_19;
+  }
+
+  v18 = [v8 statusCode];
+  v19 = ASDLogHandleForCategory();
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+  if (v18 == 200)
+  {
+    if (!v20)
+    {
+      goto LABEL_18;
+    }
+
+    *v42 = 0;
+    v21 = "Pingback sent successfully";
+    v22 = v19;
+    v23 = 2;
+  }
+
+  else
+  {
+    if (!v20)
+    {
+      goto LABEL_18;
+    }
+
+    *v42 = 134349056;
+    *&v42[4] = v18;
+    v21 = "Sending pingback failed with HTTP error code: %{public}ld";
+    v22 = v19;
+    v23 = 12;
+  }
+
+  _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v21, v42, v23);
+LABEL_18:
+
+  v26 = *(a1 + 40);
+  v27 = *(a1 + 48);
+  v28 = [NSNumber numberWithInteger:v18];
+  v25 = [_TtC9appstored12SkannerEvent requestWithResult:v26 destination:v27 responseCode:v28 postback:*(a1 + 56) error:0];
+
+  sub_1003AF2D0(*(a1 + 64), *(a1 + 56));
+  if (!v25)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_19:
+  v29 = [_TtC9appstored18SkannerCoordinator sharedInstance:*v42];
+  v30 = *(a1 + 56);
+  if (v30)
+  {
+    v30 = v30[2];
+  }
+
+  v31 = v30;
+  [v29 logEvent:v25 forAdvertisedAppAdamID:objc_msgSend(v31 completionHandler:{"longLongValue"), &stru_100526D18}];
+
+LABEL_22:
+  if (isKindOfClass)
+  {
+    goto LABEL_23;
+  }
+
+LABEL_29:
+  dispatch_group_leave(*(a1 + 72));
+}
+
+void sub_1003B2364(uint64_t a1)
+{
+  if (!xpc_activity_set_state(*(a1 + 32), 5))
+  {
+    v1 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    {
+      *v2 = 0;
+      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Could not set state of the install attribution pingback retry task activity to XPC_ACTIVITY_STATE_DONE", v2, 2u);
+    }
+  }
+}
+
+void sub_1003B23E0(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  state = xpc_activity_get_state(v3);
+  if (state != 2)
+  {
+    v5 = state;
+    if (!state)
+    {
+      v6 = xpc_activity_copy_criteria(v3);
+      if (!v6)
+      {
+        v7 = ASDLogHandleForCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting criteria for Install Attribution clean params task", buf, 2u);
+        }
+
+        xpc_activity_set_criteria(v3, *(a1 + 32));
+        v6 = 0;
+      }
+
+      goto LABEL_20;
+    }
+
+    v6 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      *&buf[4] = v5;
+      v35 = "Unknown state: %d when processing Install Attribution clean params task";
+      v36 = v6;
+      v37 = 8;
+LABEL_19:
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, v35, buf, v37);
+      goto LABEL_20;
+    }
+
+    goto LABEL_20;
+  }
+
+  v8 = sub_1003A4EE0(InstallAttributionManager);
+  if (v8)
+  {
+    v9 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Running Install Attribution clean params task", buf, 2u);
+    }
+
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
+    v10 = v8[2];
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_1003B2AE4;
+    v39[3] = &unk_100526C08;
+    v39[4] = &v40;
+    [v10 readUsingSession:v39];
+    if (v41[3])
+    {
+      v11 = sub_1003B198C();
+      v12 = [v11 integerForKey:@"install-attribution-max-impressions-age" defaultValue:1];
+      v13 = [v11 integerForKey:@"install-attribution-max-web-impression-age-days" defaultValue:1];
+      v14 = [v11 integerForKey:@"install-attribution-max-lo-fi-params-age" defaultValue:1];
+      v15 = [v11 integerForKey:@"install-attribution-max-cache-age" defaultValue:3];
+      v16 = [v11 integerForKey:@"install-attribution-max-pingback-cache-age" defaultValue:6];
+      v17 = [v11 integerForKey:@"skadnetwork-max-ghostback-age" defaultValue:6];
+      v38 = [v11 integerForKey:@"skadnetwork-max-token-age" defaultValue:1];
+      v18 = [NSDate dateWithTimeIntervalSinceNow:(-86400 * v12)];
+      v19 = v8[2];
+      *buf = _NSConcreteStackBlock;
+      v45 = 3221225472;
+      v46 = sub_1003B2BD0;
+      v47 = &unk_100526878;
+      v20 = v18;
+      v48 = v20;
+      [v19 modifyUsingTransaction:buf];
+
+      v21 = [NSDate dateWithTimeIntervalSinceNow:(-86400 * v13)];
+      v22 = v8[2];
+      *buf = _NSConcreteStackBlock;
+      v45 = 3221225472;
+      v46 = sub_1003B2C5C;
+      v47 = &unk_100526878;
+      v23 = v21;
+      v48 = v23;
+      [v22 modifyUsingTransaction:buf];
+
+      v24 = [NSDate dateWithTimeIntervalSinceNow:(-86400 * v14)];
+      sub_1003B2B18(v8, v24, 1);
+
+      v25 = [NSDate dateWithTimeIntervalSinceNow:(-86400 * v15)];
+      sub_1003B2B18(v8, v25, 0);
+
+      v26 = [NSDate dateWithTimeIntervalSinceNow:(-86400 * v16)];
+      v27 = v8[2];
+      *buf = _NSConcreteStackBlock;
+      v45 = 3221225472;
+      v46 = sub_1003B2DD0;
+      v47 = &unk_100526878;
+      v28 = v26;
+      v48 = v28;
+      [v27 modifyUsingTransaction:buf];
+
+      v29 = [NSDate dateWithTimeIntervalSinceNow:(-86400 * v17)];
+      v30 = v8[2];
+      *buf = _NSConcreteStackBlock;
+      v45 = 3221225472;
+      v46 = sub_1003B2EB4;
+      v47 = &unk_100526878;
+      v31 = v29;
+      v48 = v31;
+      [v30 modifyUsingTransaction:buf];
+
+      v32 = [NSDate dateWithTimeIntervalSinceNow:(-86400 * v38)];
+      v33 = v8[2];
+      *buf = _NSConcreteStackBlock;
+      v45 = 3221225472;
+      v46 = sub_1003B2EC4;
+      v47 = &unk_100526878;
+      v34 = v32;
+      v48 = v34;
+      [v33 modifyUsingTransaction:buf];
+    }
+
+    else
+    {
+      xpc_activity_unregister([@"com.apple.appstored.InstallAttributionManager.CleanDatabase" UTF8String]);
+    }
+
+    _Block_object_dispose(&v40, 8);
+  }
+
+  if (!xpc_activity_set_state(v3, 5))
+  {
+    v6 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      v35 = "Could not set state of the Install Attribution clean params task activity to XPC_ACTIVITY_STATE_DONE";
+      v36 = v6;
+      v37 = 2;
+      goto LABEL_19;
+    }
+
+LABEL_20:
+  }
+}
+
+void sub_1003B2A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+BOOL sub_1003B2AB0(uint64_t a1, _BOOL8 a2)
+{
+  result = sub_1003C5740(a2);
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+BOOL sub_1003B2AE4(uint64_t a1, _BOOL8 a2)
+{
+  result = sub_1003C5740(a2);
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+void sub_1003B2B18(uint64_t a1, void *a2, char a3)
+{
+  v5 = a2;
+  v6 = *(a1 + 16);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1003B2CE8;
+  v8[3] = &unk_100526D68;
+  v7 = v5;
+  v9 = v7;
+  v10 = a3;
+  [v6 modifyUsingTransaction:v8];
+}
+
+id sub_1003B2BD0(uint64_t a1, void *a2)
+{
+  v2 = sub_100319EF4(a2, *(a1 + 32));
+  if ((v2 & 1) == 0)
+  {
+    v3 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Error removing install attribution impressions.", v5, 2u);
+    }
+  }
+
+  return v2;
+}
+
+id sub_1003B2C5C(uint64_t a1, void *a2)
+{
+  v2 = sub_10031A4B8(a2, *(a1 + 32));
+  if ((v2 & 1) == 0)
+  {
+    v3 = ASDLogHandleForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Error removing web impressions.", v5, 2u);
+    }
+  }
+
+  return v2;
+}
+
 uint64_t sub_1003B2CE8(uint64_t a1, void *a2)
 {
   v2 = sub_10031A6D8(a2, *(a1 + 32), *(a1 + 40));
@@ -34,30 +417,30 @@ unint64_t sub_1003B2DD0(uint64_t a1, void *a2)
   return v2;
 }
 
-void sub_1003B2ED4(uint64_t a1, void *a2)
+void sub_1003B2ED4(void *a1, void *a2)
 {
   v13 = a2;
-  v3 = sub_1003C8EE4(v13, *(a1 + 32));
+  v3 = sub_1003C8EE4(v13, a1[4]);
   if (v3)
   {
     v4 = +[_TtC9appstored12SkannerEvent postbackTypePending];
-    v5 = *(*(a1 + 40) + 8);
+    v5 = *(a1[5] + 8);
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
   }
 
   else
   {
-    v6 = sub_1003C73F0(v13, *(a1 + 32));
+    v6 = sub_1003C73F0(v13, a1[4]);
     if (v6)
     {
       v7 = +[_TtC9appstored12SkannerEvent postbackTypeRealized];
-      v8 = *(*(a1 + 40) + 8);
+      v8 = *(a1[5] + 8);
       v9 = *(v8 + 40);
       *(v8 + 40) = v7;
 
       v10 = [NSNumber numberWithInteger:v6[21]];
-      v11 = *(*(a1 + 48) + 8);
+      v11 = *(a1[6] + 8);
       v12 = *(v11 + 40);
       *(v11 + 40) = v10;
     }
@@ -274,7 +657,7 @@ id *sub_1003B35AC(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
     [v11 setObject:&__kCFBooleanTrue forKeyedSubscript:@"default_browser"];
   }
 
-  v29 = sub_1003B6560();
+  v29 = sub_1003B6560(AppInstallPolicy);
   v31 = v29;
   if (v8)
   {
@@ -621,7 +1004,7 @@ id *sub_1003B48EC(void *a1, void *a2)
   }
 
   v4 = a2;
-  v5 = sub_1003BBF50();
+  v5 = sub_1003BBF50(Device);
   v6 = v4;
   v7 = v5;
   v15.receiver = a1;
@@ -1390,14 +1773,14 @@ void sub_1003B6144(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void *sub_1003B6560()
+void *sub_1003B6560(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_1003B65C4([AppInstallPolicy alloc], &__NSDictionary0__struct);
-  sub_1003B6638(v0, 1);
-  sub_1003B66A8(v0, 62);
+  v1 = sub_1003B65C4([AppInstallPolicy alloc], &__NSDictionary0__struct);
+  sub_1003B6638(v1, 1);
+  sub_1003B66A8(v1, 62);
 
-  return v0;
+  return v1;
 }
 
 void *sub_1003B65C4(void *a1, void *a2)
@@ -1962,7 +2345,7 @@ sqlite3_stmt **sub_1003B7608(sqlite3_stmt **a1, void *a2)
     if (v5)
     {
       v6 = v4 ? v4[2] : 0;
-      v5[6] = v6;
+      *(v5 + 6) = v6;
       objc_storeStrong(v5 + 7, a2);
       v7 = sqlite3_column_count(a1[6]);
       *(a1 + 2) = v7;
@@ -2192,22 +2575,23 @@ void *sub_1003B7B64(void *a1, void *a2)
   return a1;
 }
 
-void sub_1003B7C70(uint64_t a1, void *a2, unsigned int a3)
+void sub_1003B7C70(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v7 = a2;
   v5 = *(a1 + 32);
   if (!v5 || [v5 containsObject:v7])
   {
-    v6 = sub_1003B7CF4(*(a1 + 48), a3);
+    v6 = sub_1003B7CF4(*(a1 + 48), v3);
     [*(a1 + 40) setObject:v6 forKeyedSubscript:v7];
   }
 }
 
-id sub_1003B7CF4(void *a1, unsigned int a2)
+id sub_1003B7CF4(void *a1, int a2)
 {
   v3 = a1;
   v4 = v3;
-  if (!v3 || (a2 & 0x80000000) != 0)
+  if (!v3 || a2 < 0)
   {
     if (!v3)
     {
@@ -2568,19 +2952,19 @@ void sub_1003B87F0(uint64_t a1, void *a2)
   }
 }
 
-id sub_1003B8B1C()
+id sub_1003B8B1C(uint64_t a1)
 {
   objc_opt_self();
-  v2[0] = @"bundle_id";
-  v2[1] = @"event_type";
-  v2[2] = @"event_subtype";
-  v2[3] = @"metrics_type";
-  v2[4] = @"timestamp";
-  v2[5] = @"payload";
-  v2[6] = @"has_been_posted";
-  v0 = [NSArray arrayWithObjects:v2 count:7];
+  v3[0] = @"bundle_id";
+  v3[1] = @"event_type";
+  v3[2] = @"event_subtype";
+  v3[3] = @"metrics_type";
+  v3[4] = @"timestamp";
+  v3[5] = @"payload";
+  v3[6] = @"has_been_posted";
+  v1 = [NSArray arrayWithObjects:v3 count:7];
 
-  return v0;
+  return v1;
 }
 
 id *sub_1003B8BE4(id *a1, void *a2, void *a3)
@@ -3288,9 +3672,9 @@ id sub_1003BA8D4(id *a1)
   return v2;
 }
 
-void sub_1003BAAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1003BAAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3448,7 +3832,7 @@ LABEL_10:
       [v6 hideUserPrompts];
     }
 
-    v24 = sub_100284B90();
+    v24 = sub_100284B90(TaskQueue);
     v48 = v18;
     v25 = [NSArray arrayWithObjects:&v48 count:1];
     if (v24)
@@ -3859,7 +4243,7 @@ uint64_t sub_1003BBB20(uint64_t result)
   return result;
 }
 
-id sub_1003BBF50()
+id sub_1003BBF50(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1005AAE30 != -1)
@@ -3867,9 +4251,9 @@ id sub_1003BBF50()
     dispatch_once(&qword_1005AAE30, &stru_100527180);
   }
 
-  v0 = qword_1005AAE38;
+  v1 = qword_1005AAE38;
 
-  return v0;
+  return v1;
 }
 
 void sub_1003BBFA8(id a1)
@@ -3882,7 +4266,7 @@ void sub_1003BBFA8(id a1)
     v2 = objc_msgSendSuper2(&v14, "init");
     if (v2)
     {
-      if (sub_100383448())
+      if (sub_100383448(HRNSupport))
       {
         v3 = ASDLogHandleForCategory();
         if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -3961,7 +4345,7 @@ void sub_1003BC30C(void *a1, uint64_t a2, void *a3)
   }
 }
 
-id sub_1003BC9A0()
+id sub_1003BC9A0(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1005AAE48 != -1)
@@ -3969,9 +4353,9 @@ id sub_1003BC9A0()
     dispatch_once(&qword_1005AAE48, &stru_1005271A0);
   }
 
-  v0 = qword_1005AAE40;
+  v1 = qword_1005AAE40;
 
-  return v0;
+  return v1;
 }
 
 void sub_1003BC9F8(id a1)
@@ -4009,7 +4393,7 @@ void sub_1003BD744(uint64_t a1, void *a2)
     v6 = sub_1003BD800(*(a1 + 32), *(a1 + 40));
   }
 
-  v4 = sub_1003A4EE0();
+  v4 = sub_1003A4EE0(InstallAttributionManager);
   sub_1003AD6C8(v4, *(a1 + 40), v6, v3);
 
   v5 = *(a1 + 48);
@@ -4070,7 +4454,7 @@ void sub_1003BDA88(uint64_t a1, void *a2)
     v4 = sub_1003BD800(*(a1 + 32), *(a1 + 40));
   }
 
-  v5 = sub_1003A4EE0();
+  v5 = sub_1003A4EE0(InstallAttributionManager);
   v7 = *(a1 + 48);
   v6 = *(a1 + 56);
   v8 = *(a1 + 40);
@@ -4106,7 +4490,7 @@ void sub_1003BDD0C(uint64_t a1, void *a2)
     v4 = sub_1003BD800(*(a1 + 32), *(a1 + 40));
   }
 
-  v5 = sub_1003A4EE0();
+  v5 = sub_1003A4EE0(InstallAttributionManager);
   v7 = *(a1 + 48);
   v6 = *(a1 + 56);
   v8 = *(a1 + 40);
@@ -4220,7 +4604,7 @@ LABEL_25:
 
     if (v17)
     {
-      v18 = sub_1003A4EE0();
+      v18 = sub_1003A4EE0(InstallAttributionManager);
       v19 = [v4 campaignId];
       v20 = sub_1003A69D0(v18, [v19 integerValue]);
       goto LABEL_27;
@@ -4244,7 +4628,7 @@ LABEL_25:
 
   if (v22)
   {
-    v18 = sub_1003A4EE0();
+    v18 = sub_1003A4EE0(InstallAttributionManager);
     v19 = [v4 sourceIdentifier];
     v20 = sub_1003A67D0(v18, [v19 integerValue]);
 LABEL_27:
@@ -4282,7 +4666,7 @@ LABEL_20:
 void sub_1003BE5FC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1003A4EE0();
+  v4 = sub_1003A4EE0(InstallAttributionManager);
   v5 = *(a1 + 32);
   v6 = [*(a1 + 40) sourceAppBundleId];
   v8 = sub_1003A8124(v4, v5, v6, [*(a1 + 40) overrideCampaignLimit], v3);
@@ -4720,90 +5104,91 @@ id sub_1003BF604(uint64_t a1, void *a2, int a3, int a4)
   v6 = [v5 isUpdate];
   v7 = [v5 name];
   v8 = [v5 bytes];
-  [v5 isRemaining];
-  v9 = [v5 logKey];
-  v10 = v7;
-  v11 = v9;
-  v12 = objc_opt_self();
-  v13 = objc_alloc_init(AMSDialogRequest);
-  v14 = [v11 description];
+  v9 = [v5 isRemaining];
+  v10 = [v5 logKey];
+  v11 = v7;
+  v12 = v10;
+  v13 = objc_opt_self();
+  v14 = objc_alloc_init(AMSDialogRequest);
+  v15 = [v12 description];
 
-  [v13 setLogKey:v14];
+  [v14 setLogKey:v15];
   if (v6)
   {
-    if (v10 && [v10 length])
+    if (v11 && [v11 length])
     {
-      v15 = ASDLocalizedString();
-      v16 = [NSString stringWithFormat:v15, v10];
-      [v13 setTitle:v16];
+      v16 = ASDLocalizedString();
+      v17 = [NSString stringWithFormat:v16, v11];
+      [v14 setTitle:v17];
     }
 
     else
     {
-      v15 = ASDLocalizedString();
-      [v13 setTitle:v15];
+      v16 = ASDLocalizedString();
+      [v14 setTitle:v16];
     }
 
-    v19 = sub_1003BFD58(v12, v8);
-    [v13 setMessage:v19];
+    v20 = sub_1003BFD58(v13, v8, v9);
+    [v14 setMessage:v20];
 
-    v20 = sub_1003BFB78(v12, a4);
-    [v13 setButtonActions:v20];
+    v21 = sub_1003BFB78(v13, a4);
+    [v14 setButtonActions:v21];
 
-    v21 = [v13 buttonActions];
-    v22 = [v21 lastObject];
-    [v13 setDefaultAction:v22];
+    v22 = [v14 buttonActions];
+    v23 = [v22 lastObject];
+    [v14 setDefaultAction:v23];
 
-    v23 = @"cellularLimitUpdate";
-    v24 = @"cellularLimitUpdateRoaming";
+    v24 = @"cellularLimitUpdate";
+    v25 = @"cellularLimitUpdateRoaming";
   }
 
   else
   {
-    if (v10 && [v10 length])
+    if (v11 && [v11 length])
     {
-      v17 = ASDLocalizedString();
-      v18 = [NSString stringWithFormat:v17, v10];
-      [v13 setTitle:v18];
+      v18 = ASDLocalizedString();
+      v19 = [NSString stringWithFormat:v18, v11];
+      [v14 setTitle:v19];
     }
 
     else
     {
-      v17 = ASDLocalizedString();
-      [v13 setTitle:v17];
+      v18 = ASDLocalizedString();
+      [v14 setTitle:v18];
     }
 
-    v25 = sub_1003BFD58(v12, v8);
-    [v13 setMessage:v25];
+    v26 = sub_1003BFD58(v13, v8, v9);
+    [v14 setMessage:v26];
 
-    v26 = sub_1003BFB78(v12, 1);
-    [v13 setButtonActions:v26];
+    v27 = sub_1003BFB78(v13, 1);
+    [v14 setButtonActions:v27];
 
-    v27 = [v13 buttonActions];
-    v28 = [v27 lastObject];
-    [v13 setDefaultAction:v28];
+    v28 = [v14 buttonActions];
+    v29 = [v28 lastObject];
+    [v14 setDefaultAction:v29];
 
-    v23 = @"cellularLimitDownload";
-    v24 = @"cellularLimitDownloadRoaming";
+    v24 = @"cellularLimitDownload";
+    v25 = @"cellularLimitDownloadRoaming";
   }
 
   if (a3)
   {
-    v29 = v24;
+    v30 = v25;
   }
 
   else
   {
-    v29 = v23;
+    v30 = v24;
   }
 
-  sub_100406DAC(v13, v29);
+  sub_100406DAC(v14, v30);
 
-  return v13;
+  return v14;
 }
 
-id sub_1003BF980(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void *a6)
+id sub_1003BF980(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, void *a6)
 {
+  v6 = a5;
   v10 = a6;
   v11 = objc_opt_self();
   v12 = objc_alloc_init(AMSDialogRequest);
@@ -4827,7 +5212,7 @@ id sub_1003BF980(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void *a6)
     [v12 setMessage:v15];
   }
 
-  v18 = sub_1003BFB78(v11, a5);
+  v18 = sub_1003BFB78(v11, v6);
   [v12 setButtonActions:v18];
 
   v19 = [v12 buttonActions];
@@ -4891,21 +5276,21 @@ id sub_1003BFB78(uint64_t a1, int a2)
   return v9;
 }
 
-id sub_1003BFD58(uint64_t a1, uint64_t a2)
+id sub_1003BFD58(uint64_t a1, uint64_t a2, int a3)
 {
   objc_opt_self();
   ASDLocalizedString();
   if (a2)
-    v3 = {;
-    v4 = [_TtC9appstored17EvaluatorDownload formatSize:a2];
-    v5 = [NSString stringWithFormat:v3, v4];
+    v4 = {;
+    v5 = [_TtC9appstored17EvaluatorDownload formatSize:a2];
+    v6 = [NSString stringWithFormat:v4, v5];
   }
 
   else
-    v5 = {;
+    v6 = {;
   }
 
-  return v5;
+  return v6;
 }
 
 id sub_1003C021C(id a1, void *a2)
@@ -5772,9 +6157,9 @@ id sub_1003C1E2C(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_1003C1F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1003C1F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6046,7 +6431,7 @@ void sub_1003C26EC(uint64_t a1, void *a2, void *a3)
   [*(a1 + 32) setObject:v5 forKey:v6];
 }
 
-id sub_1003C27BC()
+id sub_1003C27BC(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1005AAE58 != -1)
@@ -6054,15 +6439,15 @@ id sub_1003C27BC()
     dispatch_once(&qword_1005AAE58, &stru_1005272C8);
   }
 
-  v0 = qword_1005AAE50;
+  v1 = qword_1005AAE50;
 
-  return v0;
+  return v1;
 }
 
 void sub_1003C2814(id a1)
 {
   v1 = [AppInstallsDatabaseStore alloc];
-  v5 = sub_1001C0DF0();
+  v5 = sub_1001C0DF0(Environment);
   v2 = sub_1001C0EC4(v5);
   v3 = [(SQLiteDatabaseStore *)v1 initWithDatabase:v2];
   v4 = qword_1005AAE50;
@@ -6075,7 +6460,7 @@ uint64_t sub_1003C29DC(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (a1)
   {
-    v7 = sub_1003FACA0();
+    v7 = sub_1003FACA0(AppInstallQueue);
     if (v5)
     {
       objc_storeWeak(v5 + 2, v7);
@@ -6156,7 +6541,7 @@ void sub_1003C2BF4(uint64_t a1, void *a2)
             }
 
             v11 = *(*(&v76 + 1) + 8 * i);
-            v12 = sub_1003649C8();
+            v12 = sub_1003649C8(ProgressCache);
             sub_100365318(v12, v11);
           }
 
@@ -6183,7 +6568,7 @@ void sub_1003C2BF4(uint64_t a1, void *a2)
 
       if (v4[17])
       {
-        v15 = sub_1002C0D84();
+        v15 = sub_1002C0D84(AppInstallScheduler);
         sub_1002C13BC(v15, v67[17]);
 
         v4 = v67;
@@ -6233,7 +6618,7 @@ void sub_1003C2BF4(uint64_t a1, void *a2)
 
               if (v27)
               {
-                v32 = sub_1002BB3F0();
+                v32 = sub_1002BB3F0(AppUpdatesDatabaseStore);
                 v33 = [v27 integerValue];
                 v34 = [v29 integerValue];
                 v35 = [v31 integerValue];
@@ -6310,7 +6695,7 @@ void sub_1003C2BF4(uint64_t a1, void *a2)
       {
         v44 = [v4[15] copy];
         v45 = objc_alloc_init(v18[246]);
-        v46 = sub_1003C27BC();
+        v46 = sub_1003C27BC(AppInstallsDatabaseStore);
         *&buf = _NSConcreteStackBlock;
         *(&buf + 1) = 3221225472;
         v84 = sub_1003C3E10;
@@ -6324,7 +6709,7 @@ void sub_1003C2BF4(uint64_t a1, void *a2)
         v49 = [v48 copy];
         if ([v49 count])
         {
-          v50 = sub_1002856D4();
+          v50 = sub_1002856D4(RestoreManager);
           sub_100287B80(v50, v49);
         }
 
@@ -6371,7 +6756,7 @@ void sub_1003C2BF4(uint64_t a1, void *a2)
               _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Finishing progress for bundleID: %{public}@", &buf, 0xCu);
             }
 
-            v59 = sub_1003649C8();
+            v59 = sub_1003649C8(ProgressCache);
             sub_100366260(v59, v57, @"Install complete");
           }
 
@@ -6438,7 +6823,7 @@ void sub_1003C33CC(uint64_t a1, void *a2)
 
       if (v8)
       {
-        v9 = sub_1002AB1B0();
+        v9 = sub_1002AB1B0(AppLedger);
         v10 = [v4[12] copy];
         v11 = [v10 allObjects];
         sub_1002ABA10(v9, v11);
@@ -6551,7 +6936,7 @@ void sub_1003C33CC(uint64_t a1, void *a2)
           _os_log_debug_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "Starting %lu async task(s): %@", buf, 0x16u);
         }
 
-        v34 = sub_100284B90();
+        v34 = sub_100284B90(TaskQueue);
         v35 = v34;
         if (v34)
         {
@@ -6571,7 +6956,7 @@ void sub_1003C33CC(uint64_t a1, void *a2)
 void sub_1003C3948(uint64_t a1, void *a2)
 {
   v4 = a2;
-  v3 = sub_1003FACA0();
+  v3 = sub_1003FACA0(AppInstallQueue);
   if (v4)
   {
     objc_storeWeak(v4 + 2, v3);
@@ -6583,7 +6968,7 @@ void sub_1003C3948(uint64_t a1, void *a2)
 id sub_1003C3A90(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1003FACA0();
+  v4 = sub_1003FACA0(AppInstallQueue);
   if (v3)
   {
     objc_storeWeak(v3 + 2, v4);
@@ -6613,7 +6998,7 @@ void sub_1003C3B20(dispatch_queue_t **a1, void *a2)
 uint64_t sub_1003C3BD8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1003FACA0();
+  v4 = sub_1003FACA0(AppInstallQueue);
   if (v3)
   {
     objc_storeWeak(v3 + 2, v4);
@@ -6669,7 +7054,7 @@ void sub_1003C3D80(id a1, RecentBag *a2, NSError *a3)
     v3 = a2;
     v6 = [[_TtC9appstored19AppDownloadDoneTask alloc] initWithBag:v3];
 
-    v4 = sub_100284B90();
+    v4 = sub_100284B90(TaskQueue);
     v5 = v4;
     if (v4)
     {
@@ -6907,9 +7292,9 @@ void sub_1003C4558(uint64_t a1, void *a2)
   }
 }
 
-void sub_1003C4F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1003C4F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7202,7 +7587,7 @@ id sub_1003C5914(id a1, void *a2)
     v16 = sub_1003C5B6C;
     v17 = sub_1003C5B7C;
     v18 = objc_opt_new();
-    v10 = sub_100278EE8();
+    v10 = sub_100278EE8(InstallAttributionWebParamsDatabaseEntity);
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
     v12[2] = sub_1003C5B84;
@@ -7217,9 +7602,9 @@ id sub_1003C5914(id a1, void *a2)
   return a1;
 }
 
-void sub_1003C5B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1003C5B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7296,7 +7681,7 @@ id sub_1003C5E6C(id a1, void *a2, void *a3)
     v8 = [v3 connection];
     v9 = sub_1002D4680(InstallAttributionParamsDatabaseEntity, v8, v6, v5);
 
-    v10 = sub_10023F760();
+    v10 = sub_10023F760(InstallAttributionParamsDatabaseEntity);
     v13 = _NSConcreteStackBlock;
     v14 = 3221225472;
     v15 = sub_1003C5FC8;
@@ -7562,6 +7947,13 @@ id sub_1003C6568(id a1, void *a2)
   return a1;
 }
 
+void sub_1003C6A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1003C6A78(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 {
   v29 = a3;
@@ -7753,7 +8145,7 @@ id sub_1003C7208(id a1, void *a2, void *a3)
     v8 = [v3 connection];
     v9 = sub_1002D4680(InstallAttributionPingbackDatabaseEntity, v8, v6, v5);
 
-    v10 = sub_1003DBF54();
+    v10 = sub_1003DBF54(InstallAttributionPingbackDatabaseEntity);
     v13 = _NSConcreteStackBlock;
     v14 = 3221225472;
     v15 = sub_1003C93B8;
@@ -7825,7 +8217,7 @@ InstallAttributionPingback *sub_1003C73F0(InstallAttributionPingback *a1, void *
           v17 = *(*(&v23 + 1) + 8 * i);
           if (sub_1003C7698(v2, v17, v11))
           {
-            v18 = sub_1003DBF54();
+            v18 = sub_1003DBF54(InstallAttributionPingbackDatabaseEntity);
             v19 = [v17 getValuesForProperties:v18];
 
             v2 = sub_1003C7988(v2, v19);
@@ -8228,7 +8620,7 @@ id sub_1003C8188(void *a1, void *a2, void *a3)
     v40 = sub_1003C5B6C;
     v41 = sub_1003C5B7C;
     v42 = objc_opt_new();
-    v10 = sub_1003DBF54();
+    v10 = sub_1003DBF54(InstallAttributionPingbackDatabaseEntity);
     v36[0] = _NSConcreteStackBlock;
     v36[1] = 3221225472;
     v36[2] = sub_1003C88D8;
@@ -8339,11 +8731,11 @@ id sub_1003C8188(void *a1, void *a2, void *a3)
   return v28;
 }
 
-void sub_1003C8878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1003C8878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  _Block_object_dispose((v14 - 240), 8);
-  _Block_object_dispose((v14 - 192), 8);
+  va_start(va, a21);
+  _Block_object_dispose((v21 - 240), 8);
+  _Block_object_dispose((v21 - 192), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8488,388 +8880,4 @@ int64_t sub_1003C8B90(id a1, id a2, id a3)
 
   v9 = [v6 compare:v8];
   return v9;
-}
-
-BOOL sub_1003C8C10(id a1, InstallAttributionPingback *a2)
-{
-  v2 = a2;
-  v3 = v2 && v2->_didWin && !v2->_isDeveloperPingback;
-
-  return v3;
-}
-
-BOOL sub_1003C8C58(id a1, InstallAttributionPingback *a2)
-{
-  v2 = a2;
-  v3 = v2 && v2->_didWin && v2->_isDeveloperPingback;
-
-  return v3;
-}
-
-BOOL sub_1003C8CB8(_BOOL8 a1, void *a2)
-{
-  v2 = a1;
-  if (a1)
-  {
-    v3 = a2;
-    v18 = +[SQLiteComparisonPredicate predicateWithProperty:equalToLongLong:](SQLiteComparisonPredicate, "predicateWithProperty:equalToLongLong:", @"app_adam_id", [v3 longLongValue]);
-    v4 = [SQLiteComparisonPredicate predicateWithProperty:@"registered" equalToLongLong:1];
-    v20[0] = v18;
-    v20[1] = v4;
-    v5 = [NSArray arrayWithObjects:v20 count:2];
-    v6 = [SQLiteCompoundPredicate predicateMatchingAllPredicates:v5];
-
-    v7 = [v3 longLongValue];
-    v8 = [SQLiteComparisonPredicate predicateWithProperty:@"app_adam_id" equalToLongLong:v7];
-    v9 = [SQLiteComparisonPredicate predicateWithProperty:@"is_registered" equalToLongLong:1];
-    v19[0] = v8;
-    v19[1] = v9;
-    v10 = [NSArray arrayWithObjects:v19 count:2];
-    v11 = [SQLiteCompoundPredicate predicateMatchingAllPredicates:v10];
-
-    v12 = [v2 connection];
-    v13 = sub_1002D3DF0(InstallAttributionPingbackDatabaseEntity, v12, v6);
-
-    v14 = [v2 connection];
-    v15 = sub_1002D3DF0(SKANGhostbackEntity, v14, v11);
-    v16 = v13 | v15;
-
-    v2 = v16 != 0;
-  }
-
-  return v2;
-}
-
-id sub_1003C8EE4(void *a1, void *a2)
-{
-  v3 = a2;
-  v4 = v3;
-  if (a1)
-  {
-    v5 = +[SQLiteComparisonPredicate predicateWithProperty:equalToLongLong:](SQLiteComparisonPredicate, "predicateWithProperty:equalToLongLong:", @"app_adam_id", [v3 longLongValue]);
-    v6 = [a1 connection];
-    v7 = sub_1002D3F5C(SKANGhostbackEntity, v6, v5);
-
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3032000000;
-    v14 = sub_1003C5B6C;
-    v15 = sub_1003C5B7C;
-    v16 = 0;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1003C9080;
-    v10[3] = &unk_10051B010;
-    v10[4] = &v11;
-    [v7 enumerateMemoryEntitiesUsingBlock:v10];
-    v8 = v12[5];
-    _Block_object_dispose(&v11, 8);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-void sub_1003C9068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id sub_1003C90B8(void *a1, void *a2)
-{
-  v3 = a2;
-  v4 = v3;
-  if (a1)
-  {
-    v5 = +[SQLiteComparisonPredicate predicateWithProperty:equalToLongLong:](SQLiteComparisonPredicate, "predicateWithProperty:equalToLongLong:", @"app_adam_id", [v3 longLongValue]);
-    v6 = [a1 connection];
-    v7 = sub_1002D3F5C(SKANTokenEntity, v6, v5);
-
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3032000000;
-    v14 = sub_1003C5B6C;
-    v15 = sub_1003C5B7C;
-    v16 = 0;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1003C9254;
-    v10[3] = &unk_10051B010;
-    v10[4] = &v11;
-    [v7 enumerateMemoryEntitiesUsingBlock:v10];
-    v8 = v12[5];
-    _Block_object_dispose(&v11, 8);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-void sub_1003C923C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id sub_1003C928C(id a1, void *a2, void *a3)
-{
-  v3 = a1;
-  if (a1)
-  {
-    v5 = a3;
-    v6 = a2;
-    v7 = objc_opt_new();
-    v8 = [v3 connection];
-    v9 = sub_1002D4680(SKANGhostbackEntity, v8, v6, v5);
-
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1003C93AC;
-    v11[3] = &unk_10051B038;
-    v3 = v7;
-    v12 = v3;
-    [v9 enumerateMemoryEntitiesUsingBlock:v11];
-  }
-
-  return v3;
-}
-
-void sub_1003C93B8(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = sub_1003C7988(*(a1 + 32), a3);
-  [*(a1 + 40) addObject:v4];
-}
-
-void sub_1003C9414(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v10 = v3;
-  if (v3)
-  {
-    v4 = *(v3 + 4);
-    v5 = v10[22];
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-  }
-
-  v6 = v5;
-  v7 = [_TtC9appstored21SKANEnvironmentHelper shouldUseDevelopmentSettingsForEnvironment:v6];
-
-  if (v10 && (v8 = v10[15]) != 0)
-  {
-    if (v8 < 1)
-    {
-      v9 = 0;
-    }
-
-    else
-    {
-      v9 = sub_10024C5C0(v10);
-    }
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (![*(*(*(a1 + 32) + 8) + 40) containsObject:v4] && ((v7 | v9) & 1) != 0)
-  {
-    [*(*(*(a1 + 40) + 8) + 40) addObject:v10];
-    [*(*(*(a1 + 32) + 8) + 40) addObject:v4];
-  }
-}
-
-void sub_1003C9528(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v10 = v3;
-  if (v3)
-  {
-    v4 = *(v3 + 4);
-    v5 = v10[22];
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-  }
-
-  v6 = v5;
-  v7 = [_TtC9appstored21SKANEnvironmentHelper shouldUseDevelopmentSettingsForEnvironment:v6];
-
-  if (v10 && (v8 = v10[15]) != 0)
-  {
-    if (v8 < 1)
-    {
-      v9 = 0;
-    }
-
-    else
-    {
-      v9 = sub_10024C5C0(v10);
-    }
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (![*(*(*(a1 + 32) + 8) + 40) containsObject:v4] && ((v7 | v9) & 1) != 0)
-  {
-    [*(*(*(a1 + 40) + 8) + 40) addObject:v10];
-    [*(*(*(a1 + 32) + 8) + 40) addObject:v4];
-  }
-}
-
-void sub_1003C963C(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v10 = v3;
-  if (v3)
-  {
-    v4 = *(v3 + 4);
-    v5 = v10[22];
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-  }
-
-  v6 = v5;
-  v7 = [_TtC9appstored21SKANEnvironmentHelper shouldUseDevelopmentSettingsForEnvironment:v6];
-
-  if (v10 && (v8 = v10[15]) != 0)
-  {
-    if (v8 < 1)
-    {
-      v9 = 0;
-    }
-
-    else
-    {
-      v9 = sub_10024C5C0(v10);
-    }
-  }
-
-  else
-  {
-    v9 = 1;
-  }
-
-  if (![*(*(*(a1 + 32) + 8) + 40) containsObject:v4] && ((v7 | v9) & 1) != 0)
-  {
-    [*(*(*(a1 + 40) + 8) + 40) addObject:v10];
-    [*(*(*(a1 + 32) + 8) + 40) addObject:v4];
-  }
-}
-
-void sub_1003C9768()
-{
-  objc_opt_self();
-  if (qword_1005AAE60 != -1)
-  {
-
-    dispatch_once(&qword_1005AAE60, &stru_100527658);
-  }
-}
-
-void sub_1003C97B8(id a1)
-{
-  v1 = objc_opt_new();
-  v2 = qword_1005AAE70;
-  qword_1005AAE70 = v1;
-
-  v3 = qword_1005AAE70;
-  if (qword_1005AAE70)
-  {
-    v4 = @"com.apple.storekitservice";
-    v5 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.storekitservice"];
-
-    [v5 setDelegate:v3];
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6 = qword_1005AAE68;
-  qword_1005AAE68 = v5;
-
-  v7 = ASDLogHandleForCategory();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Starting StoreKit Service", v8, 2u);
-  }
-
-  [qword_1005AAE68 resume];
-}
-
-void sub_1003CA374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_1003CA394(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-id sub_1003CA3AC(uint64_t a1)
-{
-  v2 = ASDLogHandleForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = objc_opt_class();
-    v4 = *(a1 + 40);
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v4;
-    v5 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection to %{public}@ invalidated", &v7, 0x16u);
-  }
-
-  return [*(*(*(a1 + 48) + 8) + 40) setExportedObject:0];
-}
-
-void sub_1003CA494(uint64_t a1)
-{
-  v2 = ASDLogHandleForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = objc_opt_class();
-    v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    v5 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection to %{public}@ interrupted", &v6, 0x16u);
-  }
 }

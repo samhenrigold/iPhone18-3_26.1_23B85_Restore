@@ -73,16 +73,16 @@
 
 void __48__WFPocketAddAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = *(a1 + 32);
   v10 = a4;
   dispatch_group_enter(v9);
-  v20[0] = @"url";
+  v19[0] = @"url";
   v11 = [v7 absoluteString];
-  v21[0] = v11;
-  v20[1] = @"title";
+  v20[0] = v11;
+  v19[1] = @"title";
   v12 = [v8 length];
   v13 = v8;
   if (!v12)
@@ -90,8 +90,8 @@ void __48__WFPocketAddAction_runAsynchronouslyWithInput___block_invoke(uint64_t 
     v13 = [v7 absoluteString];
   }
 
-  v21[1] = v13;
-  v20[2] = @"tags";
+  v20[1] = v13;
+  v19[2] = @"tags";
   v14 = [*(a1 + 40) parameterValueForKey:@"WFPocketTags" ofClass:objc_opt_class()];
   v15 = v14;
   v16 = &stru_2850323E8;
@@ -100,8 +100,8 @@ void __48__WFPocketAddAction_runAsynchronouslyWithInput___block_invoke(uint64_t 
     v16 = v14;
   }
 
-  v21[2] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v20[2] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
 
   if (!v12)
   {
@@ -111,7 +111,6 @@ void __48__WFPocketAddAction_runAsynchronouslyWithInput___block_invoke(uint64_t 
   [v18 callAPIMethod:@"add" withHTTPMethod:1 arguments:v17 delegate:*(a1 + 40)];
 
   v10[2](v10, 0);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __48__WFPocketAddAction_runAsynchronouslyWithInput___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)

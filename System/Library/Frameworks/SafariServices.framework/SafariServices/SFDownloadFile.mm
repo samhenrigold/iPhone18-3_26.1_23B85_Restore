@@ -34,16 +34,16 @@
     }
 
     startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
-    v28 = 0;
-    v8 = [lCopy bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&v28];
-    v19 = v28;
-    if (v19)
+    v31 = 0;
+    v8 = [lCopy bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&v31];
+    v21 = v31;
+    if (v21)
     {
-      v20 = v19;
-      v21 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = v21;
+      v24 = WBS_LOG_CHANNEL_PREFIXDownloads(v21, v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [SFDownloadFile initWithURL:v21 bookmarkData:v20];
+        [SFDownloadFile initWithURL:v24 bookmarkData:v23];
         if (!startAccessingSecurityScopedResource)
         {
           goto LABEL_17;
@@ -65,15 +65,16 @@ LABEL_17:
   else
   {
     LOBYTE(location) = 0;
-    v29 = 0;
-    lCopy = [objc_alloc(MEMORY[0x1E695DFF8]) initByResolvingBookmarkData:dataCopy options:0 relativeToURL:0 bookmarkDataIsStale:&location error:&v29];
-    v17 = v29;
+    v32 = 0;
+    lCopy = [objc_alloc(MEMORY[0x1E695DFF8]) initByResolvingBookmarkData:dataCopy options:0 relativeToURL:0 bookmarkDataIsStale:&location error:&v32];
+    v17 = v32;
+    v19 = v17;
     if (v17 || location == 1)
     {
-      v18 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = WBS_LOG_CHANNEL_PREFIXDownloads(v17, v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [SFDownloadFile initWithURL:v18 bookmarkData:v17];
+        [SFDownloadFile initWithURL:v20 bookmarkData:v19];
       }
 
       [lCopy stopAccessingSecurityScopedResource];
@@ -95,9 +96,9 @@ LABEL_17:
   }
 
 LABEL_5:
-  v27.receiver = self;
-  v27.super_class = SFDownloadFile;
-  self = [(SFDownloadFile *)&v27 init];
+  v30.receiver = self;
+  v30.super_class = SFDownloadFile;
+  self = [(SFDownloadFile *)&v30 init];
   if (!self)
   {
 LABEL_18:
@@ -121,10 +122,10 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = __43__SFDownloadFile_initWithURL_bookmarkData___block_invoke;
   block[3] = &unk_1E848F8F0;
-  objc_copyWeak(&v25, &location);
+  objc_copyWeak(&v28, &location);
   dispatch_async(MEMORY[0x1E69E96A0], block);
   self = self;
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
   selfCopy = self;
 LABEL_19:
@@ -235,39 +236,40 @@ void __43__SFDownloadFile_initWithURL_bookmarkData___block_invoke(uint64_t a1)
 
 void __32__SFDownloadFile__startResuming__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695DFF8]);
   v3 = *(a1 + 32);
-  v15 = 0;
-  v4 = [v2 initByResolvingBookmarkData:v3 options:0 relativeToURL:0 bookmarkDataIsStale:0 error:&v15];
-  v5 = v15;
+  v17 = 0;
+  v4 = [v2 initByResolvingBookmarkData:v3 options:0 relativeToURL:0 bookmarkDataIsStale:0 error:&v17];
+  v5 = v17;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = WBS_LOG_CHANNEL_PREFIXDownloads(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v8 = v6;
-      v9 = [v5 safari_privacyPreservingDescription];
+      v9 = *(a1 + 40);
+      v10 = v8;
+      v11 = [v7 safari_privacyPreservingDescription];
       *buf = 138740227;
-      v17 = v7;
-      v18 = 2114;
       v19 = v9;
-      _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Could not resolve bookmark previously at %{sensitive}@; %{public}@", buf, 0x16u);
+      v20 = 2114;
+      v21 = v11;
+      _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "Could not resolve bookmark previously at %{sensitive}@; %{public}@", buf, 0x16u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __32__SFDownloadFile__startResuming__block_invoke_13;
-  v11[3] = &unk_1E848FB68;
-  objc_copyWeak(&v14, (a1 + 48));
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __32__SFDownloadFile__startResuming__block_invoke_13;
+  v13[3] = &unk_1E848FB68;
+  objc_copyWeak(&v16, (a1 + 48));
+  v14 = v4;
+  v15 = *(a1 + 40);
   v12 = v4;
-  v13 = *(a1 + 40);
-  v10 = v4;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
 }
 
 void __32__SFDownloadFile__startResuming__block_invoke_13(uint64_t a1)
@@ -344,14 +346,18 @@ void __32__SFDownloadFile__startResuming__block_invoke_13(uint64_t a1)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Failed to resolve download file bookmark data: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Failed to resolve download file bookmark data: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)initWithURL:(void *)a1 bookmarkData:(void *)a2 .cold.2(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Failed to create bookmark data for download file: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Failed to create bookmark data for download file: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -11,7 +11,7 @@
   v7 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

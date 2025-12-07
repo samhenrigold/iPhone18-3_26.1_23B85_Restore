@@ -286,7 +286,7 @@ uint64_t __91__PXStoryViewControllerViewModelTransitionsCoordinator__updateSwipe
   v5 = viewModel;
   if (viewModel)
   {
-    [viewModel swipeDownInteractionState];
+    objc_msgSend_swipeDownInteractionState(viewModel);
   }
 
   else

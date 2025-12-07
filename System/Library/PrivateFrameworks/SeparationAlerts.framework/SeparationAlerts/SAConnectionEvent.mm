@@ -157,25 +157,23 @@ LABEL_16:
 
 - (id)descriptionDictionary
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = @"EventType";
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v14[0] = v4;
-  v13[1] = @"SAConnectionEventIdentifier";
+  v13[0] = v4;
+  v12[1] = @"SAConnectionEventIdentifier";
   identifier = [(SAConnectionEvent *)self identifier];
   v6 = [identifier description];
-  v14[1] = v6;
-  v13[2] = @"SAConnectionEventState";
+  v13[1] = v6;
+  v12[2] = @"SAConnectionEventState";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SAConnectionEvent state](self, "state")}];
-  v14[2] = v7;
-  v13[3] = @"SAConnectionEventDate";
+  v13[2] = v7;
+  v12[3] = @"SAConnectionEventDate";
   date = [(SAConnectionEvent *)self date];
   getDateString = [date getDateString];
-  v14[3] = getDateString;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[3] = getDateString;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }
@@ -209,17 +207,15 @@ LABEL_16:
 
 - (void)description
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a3;
-  _os_log_error_impl(&dword_2656EA000, selfCopy, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a3;
+  _os_log_error_impl(&dword_2656EA000, selfCopy, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", &v7, 0x16u);
 }
 
 @end

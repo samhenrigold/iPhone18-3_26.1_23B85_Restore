@@ -113,13 +113,13 @@
     [watchdog resume];
 
     v10 = objc_autoreleasePoolPush();
-    v36 = 0;
-    v11 = [(MBStatefulEngine *)self handleCancelation:&v36];
-    v12 = v36;
+    v33 = 0;
+    v11 = [(MBStatefulEngine *)self handleCancelation:&v33];
+    v12 = v33;
     if (v11)
     {
 LABEL_4:
-      [(MBStatefulEngine *)self setIsFinished:1, selfCopy2, v32];
+      [(MBStatefulEngine *)self setIsFinished:1];
       [(MBStatefulEngine *)self setEngineError:v12];
     }
 
@@ -128,9 +128,9 @@ LABEL_4:
       v13 = MBError_ptr;
       while (1)
       {
-        v35 = 0;
-        v14 = [(MBStatefulEngine *)self engineWillTransitionToNextState:&v35, selfCopy2, v32];
-        v15 = v35;
+        v32 = 0;
+        v14 = [(MBStatefulEngine *)self engineWillTransitionToNextState:&v32];
+        v15 = v32;
         v16 = v15;
         if ((v14 & 1) == 0)
         {
@@ -141,9 +141,9 @@ LABEL_20:
           goto LABEL_21;
         }
 
-        v34 = 0;
-        v17 = phaseCopy[2](phaseCopy, &v34);
-        v18 = v34;
+        v31 = 0;
+        v17 = phaseCopy[2](phaseCopy, &v31);
+        v18 = v31;
         v16 = v18;
         if (v17)
         {
@@ -167,10 +167,9 @@ LABEL_20:
             if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              selfCopy3 = v19;
+              selfCopy2 = v19;
               _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_FAULT, "%@", buf, 0xCu);
-              v31 = v19;
-              _MBLog();
+              _MBLog(@"F ", "%@", v19);
             }
           }
 
@@ -189,29 +188,27 @@ LABEL_20:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          selfCopy3 = self;
-          v39 = 2112;
-          v40 = v16;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Retrying transition for %{public}@ after error: %@", buf, 0x16u);
           selfCopy2 = self;
-          v32 = v16;
-          _MBLog();
+          v36 = 2112;
+          v37 = v16;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Retrying transition for %{public}@ after error: %@", buf, 0x16u);
+          _MBLog(@"Df", "Retrying transition for %{public}@ after error: %@", self, v16);
         }
 
         objc_autoreleasePoolPop(v10);
         v10 = objc_autoreleasePoolPush();
-        v36 = 0;
-        v26 = [(MBStatefulEngine *)self handleCancelation:&v36];
-        v12 = v36;
+        v33 = 0;
+        v26 = [(MBStatefulEngine *)self handleCancelation:&v33];
+        v12 = v33;
         if (v26)
         {
           goto LABEL_4;
         }
       }
 
-      v33 = v12;
-      v28 = [(MBStatefulEngine *)self handleCancelation:&v33];
-      v27 = v33;
+      v30 = v12;
+      v28 = [(MBStatefulEngine *)self handleCancelation:&v30];
+      v27 = v30;
 
       if (v28)
       {
@@ -225,11 +222,11 @@ LABEL_20:
         if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           *buf = 138543618;
-          selfCopy3 = self;
-          v39 = 2112;
-          v40 = v16;
+          selfCopy2 = self;
+          v36 = 2112;
+          v37 = v16;
           _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Not retrying transition for %{public}@ after error: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"I ", "Not retrying transition for %{public}@ after error: %@", self, v16);
         }
 
         [(MBStatefulEngine *)self setIsFinished:1];

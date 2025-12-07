@@ -8,6 +8,7 @@
 + (int64_t)matchTypeForSubarray:(id)subarray inTZChangeArray:(id)array;
 - (BOOL)isEqualToNSTimeZone:(id)zone forDate:(id)date;
 - (ICSTimeZone)initWithSystemTimeZone:(id)zone;
+- (ICSTimeZone)initWithSystemTimeZone:(id)zone fromDate:(id)date options:(int)options;
 - (ICSTimeZone)initWithTimeZone:(id)zone fromDate:(id)date options:(int)options;
 - (NSString)tzid;
 - (id)_previousDSTTransitionForDate:(id)date timezone:(id)timezone;
@@ -37,17 +38,26 @@
 
 void __45__ICSTimeZone_propertiesToExcludeForChecksum__block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6.receiver = *(a1 + 32);
-  v6.super_class = ICSTimeZone;
-  v1 = objc_msgSendSuper2(&v6, sel_propertiesToExcludeForChecksum);
-  v7[0] = @"UID";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5.receiver = *(a1 + 32);
+  v5.super_class = ICSTimeZone;
+  v1 = objc_msgSendSuper2(&v5, sel_propertiesToExcludeForChecksum);
+  v6[0] = @"UID";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v3 = [v1 setByAddingObjectsFromArray:v2];
   v4 = propertiesToExcludeForChecksum_propertiesToExcludeForChecksum;
   propertiesToExcludeForChecksum_propertiesToExcludeForChecksum = v3;
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (ICSTimeZone)initWithSystemTimeZone:(id)zone fromDate:(id)date options:(int)options
+{
+  v5 = *&options;
+  dateCopy = date;
+  name = [zone name];
+  v10 = [ICSTimeZone timeZoneWithSystemTimeZoneName:name];
+  v11 = [(ICSTimeZone *)self initWithTimeZone:v10 fromDate:dateCopy options:v5];
+
+  return v11;
 }
 
 - (NSString)tzid
@@ -97,29 +107,29 @@ void __45__ICSTimeZone_propertiesToExcludeForChecksum__block_invoke(uint64_t a1)
 
 + (id)blocksAfterDate:(id)date untilDate:(id)untilDate forTimeZone:(id)zone
 {
-  v197 = *MEMORY[0x277D85DE8];
+  v196 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   untilDateCopy = untilDate;
   zoneCopy = zone;
   array = [MEMORY[0x277CBEB18] array];
-  v157 = dateCopy;
+  v156 = dateCopy;
   v12 = [zoneCopy nextDaylightSavingTimeTransitionAfterDate:dateCopy];
-  v163 = *MEMORY[0x277CBE5C0];
-  v166 = untilDateCopy;
-  v182 = array;
-  v162 = zoneCopy;
+  v162 = *MEMORY[0x277CBE5C0];
+  v165 = untilDateCopy;
+  v181 = array;
+  v161 = zoneCopy;
   if ([v12 compare:untilDateCopy] == -1)
   {
+    v166 = 0;
     v167 = 0;
     v168 = 0;
     v169 = 0;
-    v170 = 0;
     v16 = 0;
-    v172 = 0;
+    v171 = 0;
     v17 = 0;
     v18 = 0;
+    v172 = 0;
     v173 = 0;
-    v174 = 0;
     v19 = v12;
     selfCopy = self;
     while (1)
@@ -127,39 +137,39 @@ void __45__ICSTimeZone_propertiesToExcludeForChecksum__block_invoke(uint64_t a1)
       v20 = [v19 dateByAddingTimeInterval:1.0];
       if ([zoneCopy isDaylightSavingTimeForDate:v20])
       {
-        v176 = 0;
-        v183 = 1;
+        v175 = 0;
+        v182 = 1;
       }
 
       else
       {
-        v183 = [self _isTimeZone:zoneCopy pseudoDSTForDate:v20];
-        v176 = v183;
+        v182 = [self _isTimeZone:zoneCopy pseudoDSTForDate:v20];
+        v175 = v182;
       }
 
       obj = [zoneCopy abbreviationForDate:v20];
       v21 = [v19 dateByAddingTimeInterval:-1.0];
       v22 = [zoneCopy secondsFromGMTForDate:v21];
 
-      v186 = v20;
+      v185 = v20;
       v23 = [zoneCopy secondsFromGMTForDate:v20];
       if ([array count] && v22 == v23)
       {
-        v180 = v18;
+        v179 = v18;
         v14 = v17;
         v15 = v16;
         v24 = obj;
         goto LABEL_57;
       }
 
-      v171 = v19;
-      v178 = v22;
-      v25 = [objc_alloc(MEMORY[0x277CBEA80]) initWithCalendarIdentifier:v163];
-      v27 = v167;
-      v26 = v168;
-      v28 = v183 ? v167 : v168;
+      v170 = v19;
+      v177 = v22;
+      v25 = [objc_alloc(MEMORY[0x277CBEA80]) initWithCalendarIdentifier:v162];
+      v27 = v166;
+      v26 = v167;
+      v28 = v182 ? v166 : v167;
       v29 = v28;
-      v180 = v23;
+      v179 = v23;
       if (!v29)
       {
         break;
@@ -173,13 +183,13 @@ void __45__ICSTimeZone_propertiesToExcludeForChecksum__block_invoke(uint64_t a1)
       components = [value components];
       v34 = [v25 dateFromComponents:components];
 
-      v35 = v174;
-      if (!v183)
+      v35 = v173;
+      if (!v182)
       {
-        v35 = v173;
+        v35 = v172;
       }
 
-      v159 = v35;
+      v158 = v35;
       if (!v34)
       {
         goto LABEL_22;
@@ -192,8 +202,8 @@ void __45__ICSTimeZone_propertiesToExcludeForChecksum__block_invoke(uint64_t a1)
 
       v39 = [v25 components:1788 fromDate:v34];
       [v25 rangeOfUnit:16 inUnit:8 forDate:v34];
-      v164 = v34;
-      v165 = v39;
+      v163 = v34;
+      v164 = v39;
       if ([v39 day] + 7 > v40)
       {
         [v39 setWeekdayOrdinal:-1];
@@ -201,15 +211,15 @@ void __45__ICSTimeZone_propertiesToExcludeForChecksum__block_invoke(uint64_t a1)
 
 LABEL_23:
       v42 = MEMORY[0x277CBEBB0];
-      v43 = [v171 dateByAddingTimeInterval:-1.0];
+      v43 = [v170 dateByAddingTimeInterval:-1.0];
       v44 = [v42 timeZoneForSecondsFromGMT:{objc_msgSend(zoneCopy, "secondsFromGMTForDate:", v43)}];
       [v25 setTimeZone:v44];
 
-      if (v171)
+      if (v170)
       {
-        v45 = [v25 components:1788 fromDate:v171];
-        [v25 rangeOfUnit:16 inUnit:8 forDate:v171];
-        v46 = v178;
+        v45 = [v25 components:1788 fromDate:v170];
+        [v25 rangeOfUnit:16 inUnit:8 forDate:v170];
+        v46 = v177;
         if ([v45 day] + 7 > v47)
         {
           [v45 setWeekdayOrdinal:-1];
@@ -220,29 +230,29 @@ LABEL_23:
       {
         [0 day];
         v45 = 0;
-        v46 = v178;
+        v46 = v177;
       }
 
-      v48 = v183;
-      if (v46 == [v30 tzoffsetfrom] && v180 == objc_msgSend(v30, "tzoffsetto") && ((v176 ^ 1 | v172) & 1) != 0)
+      v48 = v182;
+      if (v46 == [v30 tzoffsetfrom] && v179 == objc_msgSend(v30, "tzoffsetto") && ((v175 ^ 1 | v171) & 1) != 0)
       {
-        v156 = v30;
+        v155 = v30;
         tzname = [v30 tzname];
         lastObject = [tzname lastObject];
-        if ([obj isEqualToString:lastObject] && objc_msgSend(v45, "year") == v159 + 1 && (v51 = objc_msgSend(v45, "month"), v51 == objc_msgSend(v165, "month")) && (v52 = objc_msgSend(v45, "weekday"), v52 == objc_msgSend(v165, "weekday")) && (v53 = objc_msgSend(v45, "weekdayOrdinal"), v53 == objc_msgSend(v165, "weekdayOrdinal")) && (v54 = objc_msgSend(v45, "hour"), v54 == objc_msgSend(v165, "hour")))
+        if ([obj isEqualToString:lastObject] && objc_msgSend(v45, "year") == v158 + 1 && (v51 = objc_msgSend(v45, "month"), v51 == objc_msgSend(v164, "month")) && (v52 = objc_msgSend(v45, "weekday"), v52 == objc_msgSend(v164, "weekday")) && (v53 = objc_msgSend(v45, "weekdayOrdinal"), v53 == objc_msgSend(v164, "weekdayOrdinal")) && (v54 = objc_msgSend(v45, "hour"), v54 == objc_msgSend(v164, "hour")))
         {
           minute = [v45 minute];
-          minute2 = [v165 minute];
+          minute2 = [v164 minute];
 
           v57 = minute == minute2;
-          v48 = v183;
-          v30 = v156;
+          v48 = v182;
+          v30 = v155;
           if (v57)
           {
-            rrule = [v156 rrule];
+            rrule = [v155 rrule];
             v59 = [rrule count];
 
-            v60 = v156;
+            v60 = v155;
             if (!v59)
             {
               v61 = [[ICSRecurrenceRule alloc] initWithFrequency:7];
@@ -252,28 +262,28 @@ LABEL_23:
               [(ICSRecurrenceRule *)v61 setBymonth:v64];
 
               v65 = MEMORY[0x277CBEA60];
-              v160 = [ICSByDayValue alloc];
+              v159 = [ICSByDayValue alloc];
               weekday = [v45 weekday];
               v67 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v45, "weekdayOrdinal")}];
-              v68 = [(ICSByDayValue *)v160 initWithWeekday:weekday number:v67];
+              v68 = [(ICSByDayValue *)v159 initWithWeekday:weekday number:v67];
               v69 = [v65 arrayWithObject:v68];
               [(ICSRecurrenceRule *)v61 setByday:v69];
 
               v70 = [MEMORY[0x277CBEA60] arrayWithObjects:{v61, 0}];
-              [v156 setRrule:v70];
+              [v155 setRrule:v70];
 
-              [v156 setRdate:0];
+              [v155 setRdate:0];
             }
 
-            v71 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
+            v71 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
             [v25 setTimeZone:v71];
 
-            v72 = v170;
-            v19 = v171;
+            v72 = v169;
+            v19 = v170;
             v24 = obj;
-            if (v171)
+            if (v170)
             {
-              v73 = [v25 components:764 fromDate:v171];
+              v73 = [v25 components:764 fromDate:v170];
             }
 
             else
@@ -282,7 +292,7 @@ LABEL_23:
             }
 
             v87 = [(ICSDateTimeValue *)[ICSDateTimeUTCValue alloc] initWithYear:[(ICSDate *)v73 year] month:[(ICSDate *)v73 month] day:[(ICSDate *)v73 day] hour:[(ICSDate *)v73 hour] minute:[(ICSDate *)v73 minute] second:[(ICSDate *)v73 second]];
-            rrule2 = [v156 rrule];
+            rrule2 = [v155 rrule];
             v95 = [rrule2 objectAtIndex:0];
 
             [v95 setUntil:v87];
@@ -293,12 +303,12 @@ LABEL_23:
         else
         {
 
-          v48 = v183;
-          v30 = v156;
+          v48 = v182;
+          v30 = v155;
         }
       }
 
-      v183 = v48;
+      v182 = v48;
       v74 = off_27A64B680;
       if (!v48)
       {
@@ -316,8 +326,8 @@ LABEL_23:
         v26 = v75;
       }
 
-      v167 = v27;
-      v168 = v26;
+      v166 = v27;
+      v167 = v26;
       v76 = [ICSDate alloc];
       year = [v45 year];
       month = [v45 month];
@@ -327,7 +337,7 @@ LABEL_23:
       minute3 = [v45 minute];
       second = [v45 second];
       v84 = v79;
-      zoneCopy = v162;
+      zoneCopy = v161;
       v85 = minute3;
       v25 = v81;
       v73 = [(ICSDate *)v76 initWithYear:year month:month day:v84 hour:hour minute:v85 second:second];
@@ -336,29 +346,29 @@ LABEL_23:
       v86 = [MEMORY[0x277CBEA60] arrayWithObject:obj];
       [v75 setTzname:v86];
 
-      [v75 setTzoffsetfrom:v178];
-      [v75 setTzoffsetto:v180];
+      [v75 setTzoffsetfrom:v177];
+      [v75 setTzoffsetto:v179];
       [v75 addRecurrenceDate:v73];
       v87 = v75;
 
-      [v182 addObject:v87];
+      [v181 addObject:v87];
       v60 = v30;
-      v72 = v170;
-      v19 = v171;
+      v72 = v169;
+      v19 = v170;
 LABEL_49:
 
       year2 = [v45 year];
-      v15 = v183;
-      v89 = v172;
-      if (v183)
+      v15 = v182;
+      v89 = v171;
+      if (v182)
       {
-        v89 = v176;
+        v89 = v175;
       }
 
-      v172 = v89;
-      if (v183)
+      v171 = v89;
+      if (v182)
       {
-        v90 = v173;
+        v90 = v172;
       }
 
       else
@@ -366,38 +376,38 @@ LABEL_49:
         v90 = year2;
       }
 
-      v91 = v174;
-      if (v183)
+      v91 = v173;
+      if (v182)
       {
         v91 = year2;
       }
 
-      v173 = v90;
-      v174 = v91;
+      v172 = v90;
+      v173 = v91;
       v92 = v45;
 
       v93 = v24;
-      v169 = v92;
-      v170 = v93;
-      v14 = v178;
+      v168 = v92;
+      v169 = v93;
+      v14 = v177;
       self = selfCopy;
-      array = v182;
+      array = v181;
 LABEL_57:
-      v12 = [zoneCopy nextDaylightSavingTimeTransitionAfterDate:v186];
+      v12 = [zoneCopy nextDaylightSavingTimeTransitionAfterDate:v185];
       if ([v12 compare:v19] != 1)
       {
 
         v12 = v19;
-        v13 = v180;
+        v13 = v179;
         goto LABEL_63;
       }
 
-      v94 = [v12 compare:v166];
+      v94 = [v12 compare:v165];
       v19 = v12;
       v16 = v15;
       v17 = v14;
-      v13 = v180;
-      v18 = v180;
+      v13 = v179;
+      v18 = v179;
       if (v94 != -1)
       {
         goto LABEL_63;
@@ -405,45 +415,45 @@ LABEL_57:
     }
 
     v30 = 0;
-    v41 = v174;
-    if (!v183)
+    v41 = v173;
+    if (!v182)
     {
-      v41 = v173;
+      v41 = v172;
     }
 
-    v159 = v41;
+    v158 = v41;
 LABEL_22:
     [0 day];
+    v163 = 0;
     v164 = 0;
-    v165 = 0;
     goto LABEL_23;
   }
 
   v13 = 0;
   v14 = 0;
-  LOBYTE(v172) = 0;
+  LOBYTE(v171) = 0;
   LOBYTE(v15) = 0;
-  v169 = 0;
-  v170 = 0;
-  v167 = 0;
   v168 = 0;
+  v169 = 0;
+  v166 = 0;
+  v167 = 0;
 LABEL_63:
-  v181 = v13;
-  if ((v172 & 1) != 0 && (v15 & 1) == 0)
+  v180 = v13;
+  if ((v171 & 1) != 0 && (v15 & 1) == 0)
   {
     [array removeAllObjects];
   }
 
-  v177 = v12;
-  v179 = v14;
-  v184 = v15;
+  v176 = v12;
+  v178 = v14;
+  v183 = v15;
 
+  v190 = 0u;
   v191 = 0u;
   v192 = 0u;
   v193 = 0u;
-  v194 = 0u;
   obja = [array copy];
-  v96 = [obja countByEnumeratingWithState:&v191 objects:v196 count:16];
+  v96 = [obja countByEnumeratingWithState:&v190 objects:v195 count:16];
   if (!v96)
   {
     v98 = 0;
@@ -454,17 +464,17 @@ LABEL_63:
   v97 = v96;
   v98 = 0;
   v99 = 0;
-  v100 = *v192;
+  v100 = *v191;
   do
   {
     for (i = 0; i != v97; ++i)
     {
-      if (*v192 != v100)
+      if (*v191 != v100)
       {
         objc_enumerationMutation(obja);
       }
 
-      v102 = *(*(&v191 + 1) + 8 * i);
+      v102 = *(*(&v190 + 1) + 8 * i);
       rrule3 = [v102 rrule];
       v104 = [rrule3 count];
 
@@ -495,14 +505,14 @@ LABEL_63:
             {
               tzname2 = [v106 tzname];
               tzname3 = [v102 tzname];
-              v187 = [tzname2 isEqualToArray:tzname3];
+              v186 = [tzname2 isEqualToArray:tzname3];
 
-              if (v187)
+              if (v186)
               {
                 dtstart2 = [v102 dtstart];
                 [v106 addRecurrenceDate:dtstart2];
 
-                [v182 removeObjectIdenticalTo:v102];
+                [v181 removeObjectIdenticalTo:v102];
                 goto LABEL_87;
               }
             }
@@ -536,20 +546,20 @@ LABEL_63:
 LABEL_87:
     }
 
-    v97 = [obja countByEnumeratingWithState:&v191 objects:v196 count:16];
+    v97 = [obja countByEnumeratingWithState:&v190 objects:v195 count:16];
   }
 
   while (v97);
 LABEL_91:
 
-  v116 = [objc_alloc(MEMORY[0x277CBEA80]) initWithCalendarIdentifier:v163];
+  v116 = [objc_alloc(MEMORY[0x277CBEA80]) initWithCalendarIdentifier:v162];
   date = [MEMORY[0x277CBEAA8] date];
   v118 = [v116 components:4 fromDate:date];
 
   rrule5 = [v99 rrule];
   v120 = [rrule5 count];
 
-  v121 = v182;
+  v121 = v181;
   if (v120)
   {
     rrule6 = [v99 rrule];
@@ -592,7 +602,7 @@ LABEL_91:
 
   if (v134)
   {
-    v175 = v118;
+    v174 = v118;
     rrule9 = [v99 rrule];
     v135 = [rrule9 objectAtIndex:0];
     until3 = [(ICSDate *)v135 until];
@@ -606,66 +616,65 @@ LABEL_91:
     v139 = [rrule11 objectAtIndex:0];
     until4 = [v139 until];
 
-    v118 = v175;
+    v118 = v174;
     if (until4)
     {
       v141 = off_27A64B680;
-      if ((v184 & 1) == 0)
+      if ((v183 & 1) == 0)
       {
         v141 = off_27A64B688;
       }
 
       rrule9 = objc_alloc_init(*v141);
-      v135 = -[ICSDate initWithYear:month:day:hour:minute:second:]([ICSDate alloc], "initWithYear:month:day:hour:minute:second:", [v169 year], objc_msgSend(v169, "month"), objc_msgSend(v169, "day"), objc_msgSend(v169, "hour"), objc_msgSend(v169, "minute"), objc_msgSend(v169, "second"));
+      v135 = -[ICSDate initWithYear:month:day:hour:minute:second:]([ICSDate alloc], "initWithYear:month:day:hour:minute:second:", [v168 year], objc_msgSend(v168, "month"), objc_msgSend(v168, "day"), objc_msgSend(v168, "hour"), objc_msgSend(v168, "minute"), objc_msgSend(v168, "second"));
       [rrule9 setDtstart:v135];
-      if (v170)
+      if (v169)
       {
-        v195 = v170;
-        v142 = [MEMORY[0x277CBEA60] arrayWithObjects:&v195 count:1];
+        v194 = v169;
+        v142 = [MEMORY[0x277CBEA60] arrayWithObjects:&v194 count:1];
         [rrule9 setTzname:v142];
       }
 
-      [rrule9 setTzoffsetfrom:v179];
-      [rrule9 setTzoffsetto:v181];
-      [v182 addObject:rrule9];
+      [rrule9 setTzoffsetfrom:v178];
+      [rrule9 setTzoffsetto:v180];
+      [v181 addObject:rrule9];
 LABEL_108:
 
-      v118 = v175;
+      v118 = v174;
 LABEL_109:
     }
   }
 
-  if (![v182 count])
+  if (![v181 count])
   {
-    v143 = [objc_alloc(MEMORY[0x277CBEA80]) initWithCalendarIdentifier:v163];
-    v144 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
-    v185 = v143;
+    v143 = [objc_alloc(MEMORY[0x277CBEA80]) initWithCalendarIdentifier:v162];
+    v144 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
+    v184 = v143;
     [v143 setTimeZone:v144];
 
     v145 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:0.0];
     v146 = [v143 components:252 fromDate:?];
-    v188 = v116;
+    v187 = v116;
     v147 = v118;
     v148 = -[ICSDate initWithYear:month:day:hour:minute:second:]([ICSDate alloc], "initWithYear:month:day:hour:minute:second:", [v146 year], objc_msgSend(v146, "month"), objc_msgSend(v146, "day"), objc_msgSend(v146, "hour"), objc_msgSend(v146, "minute"), objc_msgSend(v146, "second"));
     v149 = objc_alloc_init(ICSTimeZoneStandardBlock);
     [(ICSTimeZoneBlock *)v149 setDtstart:v148];
     v150 = MEMORY[0x277CBEA60];
-    v151 = [v162 abbreviationForDate:v145];
+    v151 = [v161 abbreviationForDate:v145];
     v152 = [v150 arrayWithObject:v151];
     [(ICSTimeZoneBlock *)v149 setTzname:v152];
 
     v118 = v147;
-    -[ICSTimeZoneBlock setTzoffsetfrom:](v149, "setTzoffsetfrom:", [v162 secondsFromGMTForDate:v157]);
-    v116 = v188;
-    -[ICSTimeZoneBlock setTzoffsetto:](v149, "setTzoffsetto:", [v162 secondsFromGMTForDate:v157]);
-    [v182 addObject:v149];
+    -[ICSTimeZoneBlock setTzoffsetfrom:](v149, "setTzoffsetfrom:", [v161 secondsFromGMTForDate:v156]);
+    v116 = v187;
+    -[ICSTimeZoneBlock setTzoffsetto:](v149, "setTzoffsetto:", [v161 secondsFromGMTForDate:v156]);
+    [v181 addObject:v149];
 
-    v121 = v182;
+    v121 = v181;
   }
 
   v153 = v121;
 
-  v154 = *MEMORY[0x277D85DE8];
   return v121;
 }
 
@@ -711,7 +720,7 @@ uint64_t __64__ICSTimeZone_TimeZoneGeneration___isTimeZone_pseudoDSTForDate___bl
 
 - (ICSTimeZone)initWithSystemTimeZone:(id)zone
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   v5 = [(ICSComponent *)self init];
   if (v5)
@@ -722,7 +731,7 @@ uint64_t __64__ICSTimeZone_TimeZoneGeneration___isTimeZone_pseudoDSTForDate___bl
     v7 = objc_alloc_init(MEMORY[0x277CBEAB8]);
     v8 = objc_alloc(MEMORY[0x277CBEA80]);
     v9 = [v8 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
-    v10 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"GMT"];
+    v10 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
     [v9 setTimeZone:v10];
 
     [v7 setYear:1900];
@@ -730,43 +739,42 @@ uint64_t __64__ICSTimeZone_TimeZoneGeneration___isTimeZone_pseudoDSTForDate___bl
     [v7 setYear:2050];
     v12 = [v9 dateFromComponents:v7];
     v13 = [ICSTimeZone blocksAfterDate:v11 untilDate:v12 forTimeZone:zoneCopy];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [(ICSComponent *)v5 addComponent:*(*(&v20 + 1) + 8 * v17++) withUIDGenerator:0];
+          [(ICSComponent *)v5 addComponent:*(*(&v19 + 1) + 8 * v17++) withUIDGenerator:0];
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v15);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (ICSTimeZone)initWithTimeZone:(id)zone fromDate:(id)date options:(int)options
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   dateCopy = date;
   v9 = [(ICSComponent *)self init];
@@ -775,23 +783,23 @@ uint64_t __64__ICSTimeZone_TimeZoneGeneration___isTimeZone_pseudoDSTForDate___bl
     tzid = [zoneCopy tzid];
     [(ICSTimeZone *)v9 setTzid:tzid];
 
-    v53 = [MEMORY[0x277CBEB58] set];
+    v51 = [MEMORY[0x277CBEB58] set];
     optionsCopy = options;
-    v48 = zoneCopy;
+    v46 = zoneCopy;
     if (options == 1)
     {
       v11 = objc_alloc(MEMORY[0x277CBEA80]);
       v12 = [v11 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
-      v13 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"GMT"];
+      v13 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
       [v12 setTimeZone:v13];
 
-      v56 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-      [v56 setYear:2050];
+      v54 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+      [v54 setYear:2050];
       v14 = v12;
-      v54 = [v12 dateFromComponents:v56];
+      v52 = [v12 dateFromComponents:v54];
       v15 = MEMORY[0x277CBEBB0];
       tzid2 = [zoneCopy tzid];
-      v17 = [v15 timeZoneWithName:tzid2];
+      v17 = objc_msgSend_timeZoneWithName_(v15);
 
       options = 1;
       v18 = objc_opt_new();
@@ -806,7 +814,7 @@ uint64_t __64__ICSTimeZone_TimeZoneGeneration___isTimeZone_pseudoDSTForDate___bl
       v20 = [v14 dateFromComponents:v18];
       v21 = [(ICSTimeZone *)v9 _previousDSTTransitionForDate:v20 timezone:v17];
       v22 = [v21 dateByAddingTimeInterval:-1.0];
-      components = [ICSTimeZone blocksAfterDate:v22 untilDate:v54 forTimeZone:v17];
+      components = [ICSTimeZone blocksAfterDate:v22 untilDate:v52 forTimeZone:v17];
 
       v24 = 1;
     }
@@ -820,10 +828,10 @@ uint64_t __64__ICSTimeZone_TimeZoneGeneration___isTimeZone_pseudoDSTForDate___bl
     if ([components count])
     {
       v25 = 0;
+      v53 = 0;
       v55 = 0;
-      v57 = 0;
       v26 = 0x27A64B000;
-      v50 = v24;
+      v48 = v24;
       while (1)
       {
         v27 = [components objectAtIndex:v25];
@@ -861,18 +869,17 @@ LABEL_14:
           v26 = 0x27A64B000uLL;
         }
 
-        v35 = *(v26 + 1400);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v36 = [objc_alloc(*(v26 + 1400)) initWithYear:objc_msgSend(value month:"year") day:objc_msgSend(value hour:"month") minute:objc_msgSend(value second:{"day"), objc_msgSend(value, "hour"), objc_msgSend(value, "minute"), objc_msgSend(value, "second")}];
-          v37 = v36;
-          if (v36)
+          v35 = [objc_alloc(*(v26 + 1400)) initWithYear:objc_msgSend(value month:"year") day:objc_msgSend(value hour:"month") minute:objc_msgSend(value second:{"day"), objc_msgSend(value, "hour"), objc_msgSend(value, "minute"), objc_msgSend(value, "second")}];
+          v36 = v35;
+          if (v35)
           {
             options = optionsCopy;
-            v24 = v50;
+            v24 = v48;
             v26 = 0x27A64B000;
-            if ([v36 compare:dateCopy] != 1)
+            if ([v35 compare:dateCopy] != 1)
             {
               goto LABEL_35;
             }
@@ -881,19 +888,19 @@ LABEL_14:
           else
           {
             options = optionsCopy;
-            v24 = v50;
+            v24 = v48;
             v26 = 0x27A64B000;
           }
         }
 
         else
         {
-          v37 = 0;
+          v36 = 0;
         }
 
         if (options == 2)
         {
-          [v53 addObject:v27];
+          [v51 addObject:v27];
           goto LABEL_35;
         }
 
@@ -909,21 +916,21 @@ LABEL_14:
           goto LABEL_30;
         }
 
-        v39 = v57;
-        if (v57 < v24)
+        v38 = v55;
+        if (v55 < v24)
         {
-          ++v57;
+          ++v55;
 LABEL_29:
-          [v53 addObject:v27];
+          [v51 addObject:v27];
 LABEL_30:
-          v39 = v57;
+          v38 = v55;
         }
 
-        v38 = v55;
+        v37 = v53;
 LABEL_33:
+        v53 = v37;
         v55 = v38;
-        v57 = v39;
-        if (v38 == v24 && v39 == v24)
+        if (v37 == v24 && v38 == v24)
         {
 
           goto LABEL_38;
@@ -937,52 +944,51 @@ LABEL_35:
         }
       }
 
-      v38 = v55;
-      if (v55 >= v24)
+      v37 = v53;
+      if (v53 >= v24)
       {
-        v39 = v57;
+        v38 = v55;
         goto LABEL_33;
       }
 
-      ++v55;
+      ++v53;
       goto LABEL_29;
     }
 
 LABEL_38:
-    v60 = 0u;
-    v61 = 0u;
     v58 = 0u;
     v59 = 0u;
-    allObjects = [v53 allObjects];
-    v41 = [allObjects sortedArrayUsingSelector:sel_compare_];
+    v56 = 0u;
+    v57 = 0u;
+    allObjects = [v51 allObjects];
+    v40 = [allObjects sortedArrayUsingSelector:sel_compare_];
 
-    v42 = [v41 countByEnumeratingWithState:&v58 objects:v62 count:16];
-    if (v42)
+    v41 = [v40 countByEnumeratingWithState:&v56 objects:v60 count:16];
+    if (v41)
     {
-      v43 = v42;
-      v44 = *v59;
+      v42 = v41;
+      v43 = *v57;
       do
       {
-        for (i = 0; i != v43; ++i)
+        for (i = 0; i != v42; ++i)
         {
-          if (*v59 != v44)
+          if (*v57 != v43)
           {
-            objc_enumerationMutation(v41);
+            objc_enumerationMutation(v40);
           }
 
-          [(ICSComponent *)v9 addComponent:*(*(&v58 + 1) + 8 * i) withUIDGenerator:0];
+          [(ICSComponent *)v9 addComponent:*(*(&v56 + 1) + 8 * i) withUIDGenerator:0];
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v58 objects:v62 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v56 objects:v60 count:16];
       }
 
-      while (v43);
+      while (v42);
     }
 
-    zoneCopy = v49;
+    zoneCopy = v47;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1055,7 +1061,7 @@ LABEL_4:
   if (!v9)
   {
     v10 = [ICSTimeZone alloc];
-    v11 = [MEMORY[0x277CBEBB0] timeZoneWithName:nameCopy];
+    v11 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
     v9 = [(ICSTimeZone *)v10 initWithSystemTimeZone:v11];
 
     [_sCache setObject:v9 forKey:nameCopy];
@@ -1087,10 +1093,11 @@ LABEL_4:
     v17 = [(ICSTimeZone *)selfCopy computeTimeZoneChangeListFromDate:v8 toDate:v16];
     v18 = [zoneCopy ICSComputeTimeZoneChangeListFromDate:v8 toDate:v16];
     v19 = [v18 ICSContainsArray:v17];
+    v20 = v19;
     if ((v19 & 1) == 0)
     {
-      v20 = logHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = logHandle(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         name = [zoneCopy name];
         v24 = [(ICSComponent *)selfCopy ICSStringWithOptions:0];
@@ -1106,18 +1113,17 @@ LABEL_4:
         v35 = v18;
         v36 = 2112;
         v37 = v24;
-        _os_log_error_impl(&dword_2754C5000, v20, OS_LOG_TYPE_ERROR, "VTIMEZONE does not match System Time Zone (%@) for %@ to %@: %@ != %@\n\n%@", buf, 0x3Eu);
+        _os_log_error_impl(&dword_2754C5000, v21, OS_LOG_TYPE_ERROR, "VTIMEZONE does not match System Time Zone (%@) for %@ to %@: %@ != %@\n\n%@", buf, 0x3Eu);
       }
     }
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v20;
 }
 
 - (id)getNSTimeZoneFromDate:(id)date toDate:(id)toDate
@@ -1127,7 +1133,7 @@ LABEL_4:
   toDateCopy = toDate;
   selfCopy = self;
   tzid = [(ICSTimeZone *)self tzid];
-  v7 = [MEMORY[0x277CBEBB0] timeZoneWithName:tzid];
+  v7 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
   if (v7 && [tzid rangeOfString:@"/"] != 0x7FFFFFFFFFFFFFFFLL)
   {
     systemTimeZone = v7;
@@ -1174,14 +1180,15 @@ LABEL_4:
 
       if (v14)
       {
-        v19 = [MEMORY[0x277CBEBB0] timeZoneWithName:v14];
+        v19 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
 
         if (v19)
         {
-          if (((v11)[2](v11, v19) & 1) == 0)
+          v20 = (v11)[2](v11, v19);
+          if ((v20 & 1) == 0)
           {
-            v20 = logHandle();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v21 = logHandle(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               v50 = [(ICSComponent *)selfCopy ICSStringWithOptions:0];
               *buf = 138413314;
@@ -1194,7 +1201,7 @@ LABEL_4:
               v90 = v52;
               v91 = 2112;
               v92 = v50;
-              _os_log_error_impl(&dword_2754C5000, v20, OS_LOG_TYPE_ERROR, "VTIMEZONE does not match System Time Zone (%@) for %@ to %@: %@\n\n%@", buf, 0x34u);
+              _os_log_error_impl(&dword_2754C5000, v21, OS_LOG_TYPE_ERROR, "VTIMEZONE does not match System Time Zone (%@) for %@ to %@: %@\n\n%@", buf, 0x34u);
             }
           }
 
@@ -1212,25 +1219,25 @@ LABEL_4:
     v64 = 0u;
     v65 = 0u;
     quickTimeZoneNames = [objc_opt_class() quickTimeZoneNames];
-    v22 = [quickTimeZoneNames countByEnumeratingWithState:&v64 objects:v82 count:16];
-    if (v22)
+    v23 = [quickTimeZoneNames countByEnumeratingWithState:&v64 objects:v82 count:16];
+    if (v23)
     {
-      v23 = *v65;
+      v24 = *v65;
       while (2)
       {
-        v24 = 0;
-        v25 = systemTimeZone;
-        v26 = v14;
+        v25 = 0;
+        v26 = systemTimeZone;
+        v27 = v14;
         do
         {
-          if (*v65 != v23)
+          if (*v65 != v24)
           {
             objc_enumerationMutation(quickTimeZoneNames);
           }
 
-          v14 = *(*(&v64 + 1) + 8 * v24);
+          v14 = *(*(&v64 + 1) + 8 * v25);
 
-          systemTimeZone = [MEMORY[0x277CBEBB0] timeZoneWithName:v14];
+          systemTimeZone = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
 
           if ((v11)[2](v11, systemTimeZone))
           {
@@ -1239,14 +1246,14 @@ LABEL_4:
             goto LABEL_38;
           }
 
-          ++v24;
-          v25 = systemTimeZone;
-          v26 = v14;
+          ++v25;
+          v26 = systemTimeZone;
+          v27 = v14;
         }
 
-        while (v22 != v24);
-        v22 = [quickTimeZoneNames countByEnumeratingWithState:&v64 objects:v82 count:16];
-        if (v22)
+        while (v23 != v25);
+        v23 = [quickTimeZoneNames countByEnumeratingWithState:&v64 objects:v82 count:16];
+        if (v23)
         {
           continue;
         }
@@ -1260,26 +1267,26 @@ LABEL_4:
     v60 = 0u;
     v61 = 0u;
     slowTimeZoneNames = [objc_opt_class() slowTimeZoneNames];
-    v28 = [slowTimeZoneNames countByEnumeratingWithState:&v60 objects:v81 count:16];
-    if (v28)
+    v29 = [slowTimeZoneNames countByEnumeratingWithState:&v60 objects:v81 count:16];
+    if (v29)
     {
       v14 = 0;
-      v29 = *v61;
+      v30 = *v61;
       while (2)
       {
-        v30 = 0;
-        v31 = systemTimeZone;
-        v32 = v14;
+        v31 = 0;
+        v32 = systemTimeZone;
+        v33 = v14;
         do
         {
-          if (*v61 != v29)
+          if (*v61 != v30)
           {
             objc_enumerationMutation(slowTimeZoneNames);
           }
 
-          v14 = *(*(&v60 + 1) + 8 * v30);
+          v14 = *(*(&v60 + 1) + 8 * v31);
 
-          systemTimeZone = [MEMORY[0x277CBEBB0] timeZoneWithName:v14];
+          systemTimeZone = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
 
           if ((v11)[2](v11, systemTimeZone))
           {
@@ -1288,14 +1295,14 @@ LABEL_4:
             goto LABEL_38;
           }
 
-          ++v30;
-          v31 = systemTimeZone;
-          v32 = v14;
+          ++v31;
+          v32 = systemTimeZone;
+          v33 = v14;
         }
 
-        while (v28 != v30);
-        v28 = [slowTimeZoneNames countByEnumeratingWithState:&v60 objects:v81 count:16];
-        if (v28)
+        while (v29 != v31);
+        v29 = [slowTimeZoneNames countByEnumeratingWithState:&v60 objects:v81 count:16];
+        if (v29)
         {
           continue;
         }
@@ -1304,10 +1311,10 @@ LABEL_4:
       }
     }
 
-    v33 = v75[5];
-    if (v33)
+    v34 = v75[5];
+    if (v34)
     {
-      v15 = v33;
+      v15 = v34;
       v14 = 0;
     }
 
@@ -1341,7 +1348,7 @@ LABEL_4:
 
             v14 = *(*(&v56 + 1) + 8 * v41);
 
-            systemTimeZone = [MEMORY[0x277CBEBB0] timeZoneWithName:v14];
+            systemTimeZone = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
 
             currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
             v45 = [systemTimeZone localizedName:0 locale:currentLocale];
@@ -1403,8 +1410,6 @@ LABEL_39:
   tzid = v14;
 LABEL_40:
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
@@ -1415,36 +1420,35 @@ uint64_t __54__ICSTimeZone_Internal__getNSTimeZoneFromDate_toDate___block_invoke
   if (v4)
   {
     v6 = [v4 ICSComputeTimeZoneChangeListFromDate:a1[4] toDate:a1[5]];
-    v7 = a1[6];
-    v8 = [objc_opt_class() matchTypeForSubarray:a1[7] inTZChangeArray:v6];
-    if (v8 == 2)
+    v7 = [objc_opt_class() matchTypeForSubarray:a1[7] inTZChangeArray:v6];
+    if (v7 == 2)
     {
-      v12 = 1;
+      v11 = 1;
     }
 
     else
     {
-      if (v8 == 1)
+      if (v7 == 1)
       {
-        v9 = *(a1[8] + 8);
-        v11 = *(v9 + 40);
-        v10 = (v9 + 40);
-        if (!v11)
+        v8 = *(a1[8] + 8);
+        v10 = *(v8 + 40);
+        v9 = (v8 + 40);
+        if (!v10)
         {
-          objc_storeStrong(v10, a2);
+          objc_storeStrong(v9, a2);
         }
       }
 
-      v12 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 + (id)quickTimeZoneNames
@@ -1622,61 +1626,61 @@ LABEL_18:
 
 - (id)computeTimeZoneChangeListFromDate:(id)date toDate:(id)toDate
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   toDateCopy = toDate;
   array = [MEMORY[0x277CBEB18] array];
+  v74 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v80 = 0u;
   selfCopy = self;
   obj = [(ICSComponent *)self components];
-  v7 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+  v7 = [obj countByEnumeratingWithState:&v74 objects:v82 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v78;
+    v9 = *v75;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v78 != v9)
+        if (*v75 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v77 + 1) + 8 * i);
+        v11 = *(*(&v74 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v12 = [v11 computeTimeZoneChangeListFromDate:dateCopy toDate:toDateCopy];
+          v70 = 0u;
+          v71 = 0u;
+          v72 = 0u;
           v73 = 0u;
-          v74 = 0u;
-          v75 = 0u;
-          v76 = 0u;
-          v13 = [v12 countByEnumeratingWithState:&v73 objects:v84 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v70 objects:v81 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v74;
+            v15 = *v71;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v74 != v15)
+                if (*v71 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v73 + 1) + 8 * j);
+                v17 = *(*(&v70 + 1) + 8 * j);
                 if (([array containsObject:v17] & 1) == 0)
                 {
                   [array addObject:v17];
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v73 objects:v84 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v70 objects:v81 count:16];
             }
 
             while (v14);
@@ -1684,7 +1688,7 @@ LABEL_18:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+      v8 = [obj countByEnumeratingWithState:&v74 objects:v82 count:16];
     }
 
     while (v8);
@@ -1692,142 +1696,139 @@ LABEL_18:
 
   if (![array count])
   {
-    v71 = 0u;
-    v72 = 0u;
+    v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     components = [(ICSComponent *)selfCopy components];
-    v19 = [components countByEnumeratingWithState:&v69 objects:v83 count:16];
+    v19 = [components countByEnumeratingWithState:&v66 objects:v80 count:16];
     if (v19)
     {
       v20 = v19;
       obja = 0;
       v21 = 0;
-      v22 = *v70;
-      v23 = 0x27A64B000uLL;
-      v51 = *v70;
-      v52 = components;
+      v22 = *v67;
+      v48 = *v67;
+      v49 = components;
       do
       {
-        v24 = 0;
-        v53 = v20;
+        v23 = 0;
+        v50 = v20;
         do
         {
-          if (*v70 != v22)
+          if (*v67 != v22)
           {
             objc_enumerationMutation(components);
           }
 
-          v25 = *(*(&v69 + 1) + 8 * v24);
-          v26 = *(v23 + 1648);
+          v24 = *(*(&v66 + 1) + 8 * v23);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            dtstart = [v25 dtstart];
+            dtstart = [v24 dtstart];
             value = [dtstart value];
 
             if ([value compare:toDateCopy] == -1)
             {
-              v54 = value;
+              v51 = value;
               if (!v21 || [value compare:v21] == 1)
               {
-                v29 = value;
+                v27 = value;
 
-                obja = [v25 tzoffsetto];
-                v21 = v29;
+                obja = [v24 tzoffsetto];
+                v21 = v27;
               }
 
-              v56 = v24;
-              v67 = 0u;
-              v68 = 0u;
+              v53 = v23;
+              v64 = 0u;
               v65 = 0u;
-              v66 = 0u;
-              rrule = [v25 rrule];
-              v31 = [rrule countByEnumeratingWithState:&v65 objects:v82 count:16];
-              if (v31)
+              v62 = 0u;
+              v63 = 0u;
+              rrule = [v24 rrule];
+              v29 = [rrule countByEnumeratingWithState:&v62 objects:v79 count:16];
+              if (v29)
               {
-                v32 = v31;
-                v33 = *v66;
+                v30 = v29;
+                v31 = *v63;
                 do
                 {
-                  for (k = 0; k != v32; ++k)
+                  for (k = 0; k != v30; ++k)
                   {
-                    if (*v66 != v33)
+                    if (*v63 != v31)
                     {
                       objc_enumerationMutation(rrule);
                     }
 
-                    v35 = *(*(&v65 + 1) + 8 * k);
-                    until = [v35 until];
-                    v37 = [until compare:v21];
+                    v33 = *(*(&v62 + 1) + 8 * k);
+                    until = [v33 until];
+                    v35 = [until compare:v21];
 
-                    if (v37 == 1)
+                    if (v35 == 1)
                     {
-                      until2 = [v35 until];
+                      until2 = [v33 until];
 
-                      obja = [v25 tzoffsetto];
+                      obja = [v24 tzoffsetto];
                       v21 = until2;
                     }
                   }
 
-                  v32 = [rrule countByEnumeratingWithState:&v65 objects:v82 count:16];
+                  v30 = [rrule countByEnumeratingWithState:&v62 objects:v79 count:16];
                 }
 
-                while (v32);
+                while (v30);
               }
 
-              v63 = 0u;
-              v64 = 0u;
+              v60 = 0u;
               v61 = 0u;
-              v62 = 0u;
-              rdate = [v25 rdate];
-              v40 = [rdate countByEnumeratingWithState:&v61 objects:v81 count:16];
-              if (v40)
+              v58 = 0u;
+              v59 = 0u;
+              rdate = [v24 rdate];
+              v38 = [rdate countByEnumeratingWithState:&v58 objects:v78 count:16];
+              if (v38)
               {
-                v41 = v40;
-                v42 = *v62;
+                v39 = v38;
+                v40 = *v59;
                 do
                 {
-                  for (m = 0; m != v41; ++m)
+                  for (m = 0; m != v39; ++m)
                   {
-                    if (*v62 != v42)
+                    if (*v59 != v40)
                     {
                       objc_enumerationMutation(rdate);
                     }
 
-                    v44 = *(*(&v61 + 1) + 8 * m);
-                    value2 = [v44 value];
-                    v46 = [value2 compare:v21];
+                    v42 = *(*(&v58 + 1) + 8 * m);
+                    value2 = [v42 value];
+                    v44 = [value2 compare:v21];
 
-                    if (v46 == 1)
+                    if (v44 == 1)
                     {
-                      value3 = [v44 value];
+                      value3 = [v42 value];
 
-                      obja = [v25 tzoffsetto];
+                      obja = [v24 tzoffsetto];
                       v21 = value3;
                     }
                   }
 
-                  v41 = [rdate countByEnumeratingWithState:&v61 objects:v81 count:16];
+                  v39 = [rdate countByEnumeratingWithState:&v58 objects:v78 count:16];
                 }
 
-                while (v41);
+                while (v39);
               }
 
-              v22 = v51;
-              components = v52;
-              v23 = 0x27A64B000;
-              v20 = v53;
-              value = v54;
-              v24 = v56;
+              v22 = v48;
+              components = v49;
+              v20 = v50;
+              value = v51;
+              v23 = v53;
             }
           }
 
-          ++v24;
+          ++v23;
         }
 
-        while (v24 != v20);
-        v20 = [components countByEnumeratingWithState:&v69 objects:v83 count:16];
+        while (v23 != v20);
+        v20 = [components countByEnumeratingWithState:&v66 objects:v80 count:16];
       }
 
       while (v20);
@@ -1839,13 +1840,11 @@ LABEL_18:
       v21 = 0;
     }
 
-    v48 = [[ICSTimeZoneChange alloc] initWithTimeInterval:obja tzOffsetTo:0.0];
-    [array addObject:v48];
+    v46 = [[ICSTimeZoneChange alloc] initWithTimeInterval:obja tzOffsetTo:0.0];
+    [array addObject:v46];
   }
 
-  [array sortUsingSelector:{sel_compare_, v51, v52}];
-
-  v49 = *MEMORY[0x277D85DE8];
+  [array sortUsingSelector:{sel_compare_, v48, v49}];
 
   return array;
 }

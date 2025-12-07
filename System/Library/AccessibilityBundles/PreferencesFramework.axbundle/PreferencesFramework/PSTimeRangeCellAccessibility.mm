@@ -17,10 +17,9 @@
 
 - (unint64_t)accessibilityTraits
 {
-  v4.receiver = self;
-  v4.super_class = PSTimeRangeCellAccessibility;
-  [(PSTimeRangeCellAccessibility *)&v4 accessibilityTraits];
-  v2 = *MEMORY[0x29EDBDB18];
+  v3.receiver = self;
+  v3.super_class = PSTimeRangeCellAccessibility;
+  [(PSTimeRangeCellAccessibility *)&v3 accessibilityTraits];
   return _AXTraitsRemoveTrait();
 }
 

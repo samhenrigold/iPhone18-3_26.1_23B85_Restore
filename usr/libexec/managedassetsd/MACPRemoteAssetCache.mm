@@ -944,7 +944,7 @@ LABEL_41:
 
     else if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100026094(error);
+      sub_100026094();
     }
   }
 
@@ -952,7 +952,7 @@ LABEL_41:
   {
     if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100032B0C(error);
+      sub_100032B0C();
     }
 
     return 0;
@@ -965,7 +965,7 @@ LABEL_41:
 {
   if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_DEBUG))
   {
-    sub_100032B74(self);
+    sub_100032B74();
   }
 
   v7 = 0;
@@ -1042,7 +1042,7 @@ LABEL_41:
 
     else if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100032C5C(entryCopy, error);
+      sub_100032C5C();
     }
   }
 
@@ -1050,7 +1050,7 @@ LABEL_41:
   {
     if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100032B0C(error);
+      sub_100032B0C();
     }
 
     v18 = 0;
@@ -1072,7 +1072,7 @@ LABEL_41:
   {
     if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100032B0C(error);
+      sub_100032B0C();
     }
 
     goto LABEL_10;
@@ -1096,7 +1096,7 @@ LABEL_41:
   {
     if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100032CC4(sizeCopy, error);
+      sub_100032CC4();
     }
 
 LABEL_10:
@@ -1171,7 +1171,7 @@ LABEL_11:
         {
           if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
           {
-            sub_100032D94(cacheCopy, error);
+            sub_100032D94();
           }
 
           v21 = 0;
@@ -1220,7 +1220,7 @@ LABEL_11:
 
             if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
             {
-              sub_100032E64(cacheCopy, error);
+              sub_100032E64();
             }
 
             v20 = v34;
@@ -1252,7 +1252,7 @@ LABEL_34:
 
     else if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100032D2C(cacheCopy, error);
+      sub_100032D2C();
     }
 
     v22 = 0;
@@ -1264,7 +1264,7 @@ LABEL_36:
 
   if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
   {
-    sub_100032B0C(error);
+    sub_100032B0C();
   }
 
   v22 = 0;
@@ -1299,7 +1299,7 @@ LABEL_37:
     {
       if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
       {
-        sub_100032D2C(entryCopy, error);
+        sub_100032D2C();
       }
 
       v16 = 0;
@@ -1312,7 +1312,7 @@ LABEL_37:
     {
       if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
       {
-        sub_100032ECC(entryCopy, error);
+        sub_100032ECC();
       }
     }
 
@@ -1344,7 +1344,7 @@ LABEL_37:
 
       if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
       {
-        sub_100032E64(entryCopy, error);
+        sub_100032E64();
       }
     }
 
@@ -1410,7 +1410,7 @@ LABEL_13:
 
     else if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100032F9C(error);
+      sub_100032F9C();
     }
 
     v16 = 0;
@@ -1481,7 +1481,7 @@ LABEL_15:
   {
     if (os_log_type_enabled(off_100127D60, OS_LOG_TYPE_ERROR))
     {
-      sub_100033004(error);
+      sub_100033004();
     }
 
     goto LABEL_15;

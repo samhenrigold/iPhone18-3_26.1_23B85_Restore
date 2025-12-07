@@ -157,7 +157,7 @@ LABEL_4:
   errorCopy = error;
   if (self)
   {
-    v9 = [self copy];
+    v9 = objc_msgSend_copy(self);
     if ([(HDDataEntityEnumerator *)self _prepareDescriptor:v9 error:transaction])
     {
       entityClass = [self entityClass];
@@ -183,7 +183,7 @@ LABEL_4:
       v21 = v30;
 
       lastSQLStatement = [v13 lastSQLStatement];
-      v23 = [lastSQLStatement copy];
+      v23 = objc_msgSend_copy(lastSQLStatement);
       v24 = *(self + 152);
       *(self + 152) = v23;
 
@@ -323,14 +323,14 @@ LABEL_9:
 
 uint64_t __73__HDDataEntityEnumerator_enumerateIncludingDeletedObjects_error_handler___block_invoke_2(uint64_t a1, void *a2, __CFString **a3)
 {
-  v31[5] = *MEMORY[0x277D85DE8];
+  v30[5] = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v6 = [*(a1 + 32) copy];
+  v6 = objc_msgSend_copy(*(a1 + 32));
   v6[80] = 1;
   if ([(HDDataEntityEnumerator *)*(a1 + 32) _prepareDeletedObjectsAndSamplesDescriptor:v6 error:a3])
   {
-    v27 = [v5 databaseForEntityClass:*(a1 + 48)];
-    v7 = [objc_alloc(MEMORY[0x277D10B78]) initWithDatabase:v27 descriptor:v6];
+    v26 = [v5 databaseForEntityClass:*(a1 + 48)];
+    v7 = [objc_alloc(MEMORY[0x277D10B78]) initWithDatabase:v26 descriptor:v6];
     v8 = *(a1 + 48);
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
     v10 = *(a1 + 32);
@@ -339,26 +339,26 @@ uint64_t __73__HDDataEntityEnumerator_enumerateIncludingDeletedObjects_error_han
     v13 = [v8 entityEncoderForProfile:WeakRetained transaction:v5 purpose:1 encodingOptions:v11 authorizationFilter:v12];
 
     v14 = [HDDataEntity disambiguatedSQLForProperty:@"data_id"];
-    v31[0] = v14;
-    v31[1] = @"type";
-    v31[2] = @"external_sync_ids.sid";
-    v31[3] = @"external_sync_ids.version";
-    v31[4] = @"external_sync_ids.object_code";
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:5];
+    v30[0] = v14;
+    v30[1] = @"type";
+    v30[2] = @"external_sync_ids.sid";
+    v30[3] = @"external_sync_ids.version";
+    v30[4] = @"external_sync_ids.object_code";
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:5];
     v16 = [v13 orderedProperties];
     v17 = [v15 arrayByAddingObjectsFromArray:v16];
 
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __73__HDDataEntityEnumerator_enumerateIncludingDeletedObjects_error_handler___block_invoke_3;
-    v28[3] = &unk_2786265D0;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __73__HDDataEntityEnumerator_enumerateIncludingDeletedObjects_error_handler___block_invoke_3;
+    v27[3] = &unk_2786265D0;
     v18 = *(a1 + 40);
-    v29 = v13;
-    v30 = v18;
+    v28 = v13;
+    v29 = v18;
     v19 = v13;
-    v20 = [v7 enumerateProperties:v17 error:a3 enumerationHandler:v28];
+    v20 = [v7 enumerateProperties:v17 error:a3 enumerationHandler:v27];
     v21 = [v7 lastSQLStatement];
-    v22 = [v21 copy];
+    v22 = objc_msgSend_copy(v21);
     v23 = *(a1 + 32);
     v24 = *(v23 + 152);
     *(v23 + 152) = v22;
@@ -371,13 +371,12 @@ uint64_t __73__HDDataEntityEnumerator_enumerateIncludingDeletedObjects_error_han
     v20 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (uint64_t)_prepareDeletedObjectsAndSamplesDescriptor:(__CFString *)descriptor error:
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (!self)
   {
@@ -394,16 +393,16 @@ LABEL_18:
     {
       if (descriptor)
       {
-        v36 = *descriptor;
+        v35 = *descriptor;
       }
 
       else
       {
-        v36 = @"<no provided outError>";
+        v35 = @"<no provided outError>";
       }
 
       *buf = 138412290;
-      v40 = v36;
+      v39 = v35;
       _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "Invalid sort descriptor: %@", buf, 0xCu);
     }
 
@@ -425,7 +424,7 @@ LABEL_18:
     [v7 hk_addNonNilObject:v10];
   }
 
-  v37 = v5;
+  v36 = v5;
   v11 = *(self + 96);
   if (v11)
   {
@@ -471,19 +470,18 @@ LABEL_18:
   v26 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v23];
   v27 = MEMORY[0x277D10B70];
   v28 = MEMORY[0x277D10B20];
-  v38[0] = v22;
-  v38[1] = v26;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+  v37[0] = v22;
+  v37[1] = v26;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
   v30 = [v28 predicateMatchingAnyPredicates:v29];
   v31 = [v27 compoundPredicateWithPredicate:v13 otherPredicate:v30];
 
-  v5 = v37;
-  [v37 setPredicate:v31];
+  v5 = v36;
+  [v36 setPredicate:v31];
 
   v32 = 1;
 LABEL_19:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -578,9 +576,9 @@ LABEL_6:
 
 uint64_t __84__HDDataEntityEnumerator_enumerateSampleTimesIncludingDeletedObjects_error_handler___block_invoke(uint64_t a1, void *a2, __CFString **a3)
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v6 = [*(a1 + 32) copy];
+  v6 = objc_msgSend_copy(*(a1 + 32));
   v7 = *(a1 + 32);
   if (*(a1 + 56) != 1)
   {
@@ -604,31 +602,30 @@ LABEL_5:
   v8 = [v5 databaseForEntityClass:*(a1 + 48)];
   v9 = [objc_alloc(MEMORY[0x277D10B78]) initWithDatabase:v8 descriptor:v6];
   v10 = [HDDataEntity disambiguatedSQLForProperty:@"data_id"];
-  v21[0] = v10;
-  v21[1] = @"start_date";
-  v21[2] = @"end_date";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  v20[0] = v10;
+  v20[1] = @"start_date";
+  v20[2] = @"end_date";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __84__HDDataEntityEnumerator_enumerateSampleTimesIncludingDeletedObjects_error_handler___block_invoke_2;
-  v19[3] = &unk_2786145A8;
-  v20 = *(a1 + 40);
-  v12 = [v9 enumerateProperties:v11 error:a3 enumerationHandler:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __84__HDDataEntityEnumerator_enumerateSampleTimesIncludingDeletedObjects_error_handler___block_invoke_2;
+  v18[3] = &unk_2786145A8;
+  v19 = *(a1 + 40);
+  v12 = [v9 enumerateProperties:v11 error:a3 enumerationHandler:v18];
   v13 = [v9 lastSQLStatement];
-  v14 = [v13 copy];
+  v14 = objc_msgSend_copy(v13);
   v15 = *(a1 + 32);
   v16 = *(v15 + 152);
   *(v15 + 152) = v14;
 
 LABEL_7:
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (uint64_t)_prepareDescriptor:(__CFString *)descriptor error:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -691,16 +688,16 @@ LABEL_7:
       {
         if (descriptor)
         {
-          v33 = *descriptor;
+          v32 = *descriptor;
         }
 
         else
         {
-          v33 = @"<no provided outError>";
+          v32 = @"<no provided outError>";
         }
 
         *buf = 138543362;
-        v36 = v33;
+        v35 = v32;
         _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "Invalid sort descriptor: %{public}@", buf, 0xCu);
       }
 
@@ -727,9 +724,9 @@ LABEL_7:
       v28 = 1;
     }
 
-    v34 = v28;
+    v33 = v28;
 
-    v30 = v34;
+    v30 = v33;
   }
 
   else
@@ -737,7 +734,6 @@ LABEL_7:
     v30 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -772,30 +768,30 @@ uint64_t __84__HDDataEntityEnumerator_enumerateSampleTimesIncludingDeletedObject
 
 - (uint64_t)_setOrderingTermsOnDescriptor:(uint64_t)descriptor error:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   entityClass = [self entityClass];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = *(self + 136);
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         v13 = [entityClass orderingTermForSortDescriptor:v12];
         if (!v13)
         {
@@ -811,7 +807,7 @@ uint64_t __84__HDDataEntityEnumerator_enumerateSampleTimesIncludingDeletedObject
         [v5 addObject:v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v9)
       {
         continue;
@@ -825,17 +821,16 @@ uint64_t __84__HDDataEntityEnumerator_enumerateSampleTimesIncludingDeletedObject
   v15 = 1;
 LABEL_11:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-uint64_t __81__HDDataEntityEnumerator__enumerateObjectsWithDatabaseTransaction_error_handler___block_invoke(uint64_t a1)
+uint64_t __81__HDDataEntityEnumerator__enumerateObjectsWithDatabaseTransaction_error_handler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v2 = HKWithAutoreleasePool();
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v6 = HKWithAutoreleasePool();
 
-  return v2;
+  return v6;
 }
 
 uint64_t __81__HDDataEntityEnumerator__enumerateObjectsWithDatabaseTransaction_error_handler___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -843,21 +838,20 @@ uint64_t __81__HDDataEntityEnumerator__enumerateObjectsWithDatabaseTransaction_e
   v3 = [*(a1 + 32) objectForPersistentID:*(a1 + 48) row:*(a1 + 56) error:a2];
   if (v3)
   {
-    v4 = *(a1 + 48);
-    v5 = (*(*(a1 + 40) + 16))();
+    v4 = (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v5 = 1;
+    v4 = 1;
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)_joinClauseForProperties:(id)properties
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   if (self->_useLeftJoin)
   {
@@ -897,81 +891,79 @@ uint64_t __81__HDDataEntityEnumerator__enumerateObjectsWithDatabaseTransaction_e
     v17 = [predicate SQLJoinClausesForEntityClass:entityClass2];
     [v14 unionSet:v17];
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v32 = propertiesCopy;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v31 = propertiesCopy;
     v18 = propertiesCopy;
-    v19 = [v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v40;
+      v21 = *v39;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v40 != v21)
+          if (*v39 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = [(objc_class *)entityClass2 joinClausesForProperty:*(*(&v39 + 1) + 8 * i)];
+          v23 = [(objc_class *)entityClass2 joinClausesForProperty:*(*(&v38 + 1) + 8 * i)];
           if (v23)
           {
             [v14 unionSet:v23];
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v20);
     }
 
-    v38.receiver = self;
-    v38.super_class = HDDataEntityEnumerator;
-    v24 = [(HDSQLiteQueryDescriptor *)&v38 _sortedJoinClauses:v14 preferredOrder:0 baseTables:v9];
+    v37.receiver = self;
+    v37.super_class = HDDataEntityEnumerator;
+    v24 = [(HDSQLiteQueryDescriptor *)&v37 _sortedJoinClauses:v14 preferredOrder:0 baseTables:v9];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v25 = [v24 countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v35;
+      v27 = *v34;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v35 != v27)
+          if (*v34 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          sQLJoinClause = [*(*(&v34 + 1) + 8 * j) SQLJoinClause];
+          sQLJoinClause = [*(*(&v33 + 1) + 8 * j) SQLJoinClause];
           [v6 appendFormat:@" %@", sQLJoinClause];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v33 objects:v42 count:16];
       }
 
       while (v26);
     }
 
-    propertiesCopy = v32;
+    propertiesCopy = v31;
   }
 
   else
   {
-    v33.receiver = self;
-    v33.super_class = HDDataEntityEnumerator;
-    v6 = [(HDSQLiteQueryDescriptor *)&v33 _joinClauseForProperties:propertiesCopy];
+    v32.receiver = self;
+    v32.super_class = HDDataEntityEnumerator;
+    v6 = [(HDSQLiteQueryDescriptor *)&v32 _joinClauseForProperties:propertiesCopy];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

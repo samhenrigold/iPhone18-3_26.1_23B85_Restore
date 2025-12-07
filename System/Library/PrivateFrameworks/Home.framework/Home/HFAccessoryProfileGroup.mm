@@ -76,18 +76,16 @@ id __49__HFAccessoryProfileGroup_groupProfiles_options___block_invoke(uint64_t a
 
 void __67__HFAccessoryProfileGroup__groupProfilesKeyedByIdentifier_options___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v7 = v3;
-  v5 = [*(a1 + 48) _groupIdentifierForProfile:? options:?];
-  v6 = [*(a1 + 40) objectForKey:v5];
-  if (!v6)
+  v5 = a2;
+  v3 = [*(a1 + 48) _groupIdentifierForProfile:? options:?];
+  v4 = [*(a1 + 40) objectForKey:v3];
+  if (!v4)
   {
-    v6 = [MEMORY[0x277CBEB18] array];
+    v4 = [MEMORY[0x277CBEB18] array];
   }
 
-  [v6 addObject:v7];
-  [*(a1 + 40) setObject:v6 forKey:v5];
+  [v4 addObject:v5];
+  [*(a1 + 40) setObject:v4 forKey:v3];
 }
 
 + (id)_groupIdentifierForProfile:(id)profile options:(id)options
@@ -149,31 +147,31 @@ void __67__HFAccessoryProfileGroup__groupProfilesKeyedByIdentifier_options___blo
 
 + (id)_hashCombiningHashes:(id)hashes
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   hashesCopy = hashes;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [hashesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [hashesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(hashesCopy);
         }
 
-        v6 = [*(*(&v12 + 1) + 8 * i) unsignedIntegerValue] + 131 * v6;
+        v6 = [*(*(&v11 + 1) + 8 * i) unsignedIntegerValue] + 131 * v6;
       }
 
-      v5 = [hashesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [hashesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -185,8 +183,6 @@ void __67__HFAccessoryProfileGroup__groupProfilesKeyedByIdentifier_options___blo
   }
 
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

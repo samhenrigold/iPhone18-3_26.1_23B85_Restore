@@ -11,16 +11,17 @@
 
 - (FTInitiateMessage)init
 {
-  v9.receiver = self;
-  v9.super_class = FTInitiateMessage;
-  v2 = [(FTFaceTimeMessage *)&v9 init];
-  v7 = v2;
+  v10.receiver = self;
+  v10.super_class = FTInitiateMessage;
+  v2 = [(FTFaceTimeMessage *)&v10 init];
+  v8 = v2;
   if (v2)
   {
-    objc_msgSend_setTimeout_(v2, v3, v4, v5, v6, 35.0);
+    v7.n128_u64[0] = 0x4041800000000000;
+    objc_msgSend_setTimeout_(v2, v3, v4, v5, v7, v6);
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -40,11 +41,11 @@
 - (id)requiredKeys
 {
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  objc_msgSend_addObject_(v2, v3, @"self-push-token", v4, v5);
-  objc_msgSend_addObject_(v2, v6, @"self-blob", v7, v8);
-  objc_msgSend_addObject_(v2, v9, @"self-nat-ip", v10, v11);
-  objc_msgSend_addObject_(v2, v12, @"self-nat-type", v13, v14);
-  objc_msgSend_addObject_(v2, v15, @"peers", v16, v17);
+  objc_msgSend_addObject_(v2, v3, @"self-push-token", v4, v6, v5);
+  objc_msgSend_addObject_(v2, v7, @"self-blob", v8, v10, v9);
+  objc_msgSend_addObject_(v2, v11, @"self-nat-ip", v12, v14, v13);
+  objc_msgSend_addObject_(v2, v15, @"self-nat-type", v16, v18, v17);
+  objc_msgSend_addObject_(v2, v19, @"peers", v20, v22, v21);
 
   return v2;
 }
@@ -52,28 +53,28 @@
 - (id)messageBody
 {
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v8 = objc_msgSend_sessionToken(self, v4, v5, v6, v7);
-  if (v8)
+  v9 = objc_msgSend_sessionToken(self, v4, v5, v6, v8, v7);
+  if (v9)
   {
-    CFDictionarySetValue(v3, @"session-token", v8);
+    CFDictionarySetValue(v3, @"session-token", v9);
   }
 
-  v13 = objc_msgSend_regionInformation(self, v9, v10, v11, v12);
-  if (v13)
+  v15 = objc_msgSend_regionInformation(self, v10, v11, v12, v14, v13);
+  if (v15)
   {
-    CFDictionarySetValue(v3, @"service-data", v13);
+    CFDictionarySetValue(v3, @"service-data", v15);
   }
 
-  v18 = objc_msgSend_clientInfo(self, v14, v15, v16, v17);
-  if (v18)
+  v21 = objc_msgSend_clientInfo(self, v16, v17, v18, v20, v19);
+  if (v21)
   {
-    CFDictionarySetValue(v3, @"client-data", v18);
+    CFDictionarySetValue(v3, @"client-data", v21);
   }
 
-  v23 = objc_msgSend_selfPushToken(self, v19, v20, v21, v22);
-  if (v23)
+  v27 = objc_msgSend_selfPushToken(self, v22, v23, v24, v26, v25);
+  if (v27)
   {
-    CFDictionarySetValue(v3, @"self-push-token", v23);
+    CFDictionarySetValue(v3, @"self-push-token", v27);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -81,10 +82,10 @@
     sub_23BCBF934();
   }
 
-  v28 = objc_msgSend_selfBlob(self, v24, v25, v26, v27);
-  if (v28)
+  v33 = objc_msgSend_selfBlob(self, v28, v29, v30, v32, v31);
+  if (v33)
   {
-    CFDictionarySetValue(v3, @"self-blob", v28);
+    CFDictionarySetValue(v3, @"self-blob", v33);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -92,10 +93,10 @@
     sub_23BCBFA44();
   }
 
-  v33 = objc_msgSend_selfNatIP(self, v29, v30, v31, v32);
-  if (v33)
+  v39 = objc_msgSend_selfNatIP(self, v34, v35, v36, v38, v37);
+  if (v39)
   {
-    CFDictionarySetValue(v3, @"self-nat-ip", v33);
+    CFDictionarySetValue(v3, @"self-nat-ip", v39);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -103,13 +104,13 @@
     sub_23BCBFACC();
   }
 
-  v38 = MEMORY[0x277CCABB0];
-  v39 = objc_msgSend_selfNATType(self, v34, v35, v36, v37);
-  v44 = objc_msgSend_intValue(v39, v40, v41, v42, v43);
-  v48 = objc_msgSend_numberWithInt_(v38, v45, v44, v46, v47);
-  if (v48)
+  v45 = MEMORY[0x277CCABB0];
+  v46 = objc_msgSend_selfNATType(self, v40, v41, v42, v44, v43);
+  v52 = objc_msgSend_intValue(v46, v47, v48, v49, v51, v50);
+  v57 = objc_msgSend_numberWithInt_(v45, v53, v52, v54, v56, v55);
+  if (v57)
   {
-    CFDictionarySetValue(v3, @"self-nat-type", v48);
+    CFDictionarySetValue(v3, @"self-nat-type", v57);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -117,10 +118,10 @@
     sub_23BCBF9BC();
   }
 
-  v53 = objc_msgSend_peers(self, v49, v50, v51, v52);
-  if (v53)
+  v63 = objc_msgSend_peers(self, v58, v59, v60, v62, v61);
+  if (v63)
   {
-    CFDictionarySetValue(v3, @"peers", v53);
+    CFDictionarySetValue(v3, @"peers", v63);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -128,10 +129,10 @@
     sub_23BCBFF34();
   }
 
-  v58 = objc_msgSend_pushTokensToExclude(self, v54, v55, v56, v57);
-  if (v58)
+  v69 = objc_msgSend_pushTokensToExclude(self, v64, v65, v66, v68, v67);
+  if (v69)
   {
-    CFDictionarySetValue(v3, @"exclude-peers", v58);
+    CFDictionarySetValue(v3, @"exclude-peers", v69);
   }
 
   return v3;
@@ -139,21 +140,21 @@
 
 - (void)handleResponseDictionary:(id)dictionary
 {
-  v7 = objc_msgSend_objectForKey_(dictionary, a2, @"session-token", v3, v4);
-  if (v7)
+  v8 = objc_msgSend_objectForKey_(dictionary, a2, @"session-token", v3, v5, v4);
+  if (v8)
   {
-    objc_msgSend_setSessionToken_(self, v8, v7, v9, v10);
+    objc_msgSend_setSessionToken_(self, v9, v8, v10, v12, v11);
   }
 
-  v11 = objc_msgSend_objectForKey_(dictionary, v8, @"peers", v9, v10);
-  if (v11)
+  v13 = objc_msgSend_objectForKey_(dictionary, v9, @"peers", v10, v12, v11);
+  if (v13)
   {
-    objc_msgSend_setCanonicalizedPeers_(self, v12, v11, v13, v14);
+    objc_msgSend_setCanonicalizedPeers_(self, v14, v13, v15, v17, v16);
   }
 
-  v15 = objc_msgSend_objectForKey_(dictionary, v12, @"alert", v13, v14);
+  v18 = objc_msgSend_objectForKey_(dictionary, v14, @"alert", v15, v17, v16);
 
-  MEMORY[0x2821F9670](self, sel_setResponseAlertInfo_, v15, v16, v17);
+  MEMORY[0x2821F9670](self, sel_setResponseAlertInfo_, v18, v19, v20);
 }
 
 @end

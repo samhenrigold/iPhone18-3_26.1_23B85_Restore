@@ -321,7 +321,7 @@ LABEL_19:
     v10 = listLayout;
     if (listLayout)
     {
-      [listLayout iconImageInfo];
+      objc_msgSend_iconImageInfo(listLayout);
     }
 
     else

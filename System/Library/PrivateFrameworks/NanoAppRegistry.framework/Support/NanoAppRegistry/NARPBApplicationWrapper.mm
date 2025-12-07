@@ -237,7 +237,6 @@
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 
@@ -251,105 +250,101 @@
     PBDataWriterWriteDataField();
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v6 = self->_infoPlistLocalizations;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v44 objects:v51 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v45;
-    do
-    {
-      v10 = 0;
-      do
-      {
-        if (*v45 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v11 = *(*(&v44 + 1) + 8 * v10);
-        PBDataWriterWriteSubmessage();
-        v10 = v10 + 1;
-      }
-
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v44 objects:v51 count:16];
-    }
-
-    while (v8);
-  }
-
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v12 = self->_iTunesPlistKeys;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v40 objects:v50 count:16];
-  if (v13)
-  {
-    v14 = v13;
-    v15 = *v41;
-    do
-    {
-      v16 = 0;
-      do
-      {
-        if (*v41 != v15)
-        {
-          objc_enumerationMutation(v12);
-        }
-
-        v17 = *(*(&v40 + 1) + 8 * v16);
-        PBDataWriterWriteStringField();
-        v16 = v16 + 1;
-      }
-
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v40 objects:v50 count:16];
-    }
-
-    while (v14);
-  }
-
-  v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v18 = self->_iTunesPlistValues;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v36 objects:v49 count:16];
-  if (v19)
+  v38 = 0u;
+  v5 = self->_infoPlistLocalizations;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v37 objects:v44 count:16];
+  if (v6)
   {
-    v20 = v19;
-    v21 = *v37;
+    v7 = v6;
+    v8 = *v38;
     do
     {
-      v22 = 0;
+      v9 = 0;
       do
       {
-        if (*v37 != v21)
+        if (*v38 != v8)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v5);
         }
 
-        v23 = *(*(&v36 + 1) + 8 * v22);
-        PBDataWriterWriteStringField();
-        v22 = v22 + 1;
+        PBDataWriterWriteSubmessage();
+        ++v9;
       }
 
-      while (v20 != v22);
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v36 objects:v49 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
-    while (v20);
+    while (v7);
+  }
+
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v10 = self->_iTunesPlistKeys;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v43 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v34;
+    do
+    {
+      v14 = 0;
+      do
+      {
+        if (*v34 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        PBDataWriterWriteStringField();
+        ++v14;
+      }
+
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v43 count:16];
+    }
+
+    while (v12);
+  }
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v15 = self->_iTunesPlistValues;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v42 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v30;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v30 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteStringField();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v42 count:16];
+    }
+
+    while (v17);
   }
 
   if (*&self->_has)
   {
-    sequenceNumber = self->_sequenceNumber;
     PBDataWriterWriteUint32Field();
   }
 
@@ -363,41 +358,39 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v25 = self->_appTags;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v32 objects:v48 count:16];
-  if (v26)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v20 = self->_appTags;
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v25 objects:v41 count:16];
+  if (v21)
   {
-    v27 = v26;
-    v28 = *v33;
+    v22 = v21;
+    v23 = *v26;
     do
     {
-      v29 = 0;
+      v24 = 0;
       do
       {
-        if (*v33 != v28)
+        if (*v26 != v23)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v20);
         }
 
-        v30 = *(*(&v32 + 1) + 8 * v29);
         PBDataWriterWriteStringField();
-        v29 = v29 + 1;
+        ++v24;
       }
 
-      while (v27 != v29);
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v32 objects:v48 count:16];
+      while (v22 != v24);
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v25 objects:v41 count:16];
     }
 
-    while (v27);
+    while (v22);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    supportsForegroundApplication = self->_supportsForegroundApplication;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -686,7 +679,6 @@
     goto LABEL_30;
   }
 
-  v5 = *(equalCopy + 88);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 88) & 2) == 0 || self->_version != *(equalCopy + 20))
@@ -742,7 +734,6 @@
     }
   }
 
-  v11 = *(equalCopy + 88);
   if (*&self->_has)
   {
     if ((*(equalCopy + 88) & 1) == 0 || self->_sequenceNumber != *(equalCopy + 14))
@@ -780,13 +771,13 @@
     }
   }
 
-  v15 = (*(equalCopy + 88) & 4) == 0;
+  v13 = (*(equalCopy + 88) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 88) & 4) == 0)
     {
 LABEL_30:
-      v15 = 0;
+      v13 = 0;
       goto LABEL_31;
     }
 
@@ -803,12 +794,12 @@ LABEL_30:
       goto LABEL_30;
     }
 
-    v15 = 1;
+    v13 = 1;
   }
 
 LABEL_31:
 
-  return v15;
+  return v13;
 }
 
 - (unint64_t)hash

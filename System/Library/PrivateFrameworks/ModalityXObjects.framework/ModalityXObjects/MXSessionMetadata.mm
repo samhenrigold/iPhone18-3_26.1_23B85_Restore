@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)userInterfaceIdiomAsString:(int)string;
 - (int)StringAsUserInterfaceIdiom:(id)idiom;
 - (int)userInterfaceIdiom;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   {
     return 0;
   }
+}
+
+- (id)userInterfaceIdiomAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BD38[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsUserInterfaceIdiom:(id)idiom
@@ -152,33 +168,31 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_deviceInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    dataSharingOptInStatus = self->_dataSharingOptInStatus;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    userInterfaceIdiom = self->_userInterfaceIdiom;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_language)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -258,7 +272,6 @@
     }
   }
 
-  v6 = *(equalCopy + 32);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 32) & 2) == 0)
@@ -267,7 +280,7 @@
     }
 
 LABEL_18:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_19;
   }
 
@@ -276,7 +289,6 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v7 = *(equalCopy + 28);
   if (self->_dataSharingOptInStatus)
   {
     if ((*(equalCopy + 28) & 1) == 0)
@@ -307,17 +319,17 @@ LABEL_6:
   language = self->_language;
   if (language | *(equalCopy + 2))
   {
-    v9 = [(NSString *)language isEqual:?];
+    v7 = [(NSString *)language isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

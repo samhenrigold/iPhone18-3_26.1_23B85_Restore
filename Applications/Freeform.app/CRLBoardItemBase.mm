@@ -37,7 +37,7 @@
 
 - (NSUUID)parentUUID
 {
-  v3 = sub_1005B981C(&qword_1019F6990);
+  v3 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v3 - 8);
   v5 = &v15 - v4;
   v6 = *(**&self->_TtC8Freeform12CRLBoardItem_opaque[OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData] + 272);
@@ -90,7 +90,7 @@
 {
   lockedCopy = locked;
   selfCopy = self;
-  if (sub_1011255D4(selfCopy))
+  if (sub_1011255D4())
   {
     v4 = OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData;
     v5 = *(**&selfCopy->_TtC8Freeform12CRLBoardItem_opaque[OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData] + 368);
@@ -130,7 +130,7 @@
 {
   lockedCopy = locked;
   selfCopy = self;
-  if (sub_1011255D4(selfCopy))
+  if (sub_1011255D4())
   {
     v4 = OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData;
     v5 = *(**&selfCopy->_TtC8Freeform12CRLBoardItem_opaque[OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData] + 392);
@@ -198,7 +198,7 @@
   sub_100743DF0();
 
   type metadata accessor for UUID();
-  sub_1009C2C74(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_1009C2C74(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v4.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -215,9 +215,10 @@
 - (BOOL)needsDownload
 {
   selfCopy = self;
-  v3 = sub_1009B07F4();
+  sub_1009B07F4();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (NSArray)stringContentForSearch

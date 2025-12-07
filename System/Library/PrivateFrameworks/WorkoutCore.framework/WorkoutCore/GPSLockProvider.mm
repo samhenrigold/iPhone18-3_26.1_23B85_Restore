@@ -12,7 +12,7 @@
   selfCopy = self;
   GPSLockProvider.deactivate()();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for GPSLockProvider();
+  v3.super_class = type metadata accessor for GPSLockProvider(0);
   [(GPSLockProvider *)&v3 dealloc];
 }
 

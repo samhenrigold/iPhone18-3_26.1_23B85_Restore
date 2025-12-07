@@ -46,7 +46,7 @@ void __17__DMCEvents_init__block_invoke(uint64_t a1)
 
 - (void)logRegularEventForTopic:(id)topic reason:(id)reason details:(id)details
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (reason)
   {
     reasonCopy = reason;
@@ -57,25 +57,24 @@ void __17__DMCEvents_init__block_invoke(uint64_t a1)
     reasonCopy = @"Unknown";
   }
 
-  v16 = @"Reason";
-  v17[0] = reasonCopy;
+  v15 = @"Reason";
+  v16[0] = reasonCopy;
   v9 = MEMORY[0x1E695DF20];
   detailsCopy = details;
   reasonCopy2 = reason;
   topicCopy = topic;
-  v13 = [v9 dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v13 = [v9 dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
   v14 = [v13 mutableCopy];
   [(DMCEvents *)self _injectTimestamps:v14];
   [v14 setObject:detailsCopy forKeyedSubscript:@"Details"];
 
   [(DMCEvents *)self _logEvent:v14 category:@"Regular" forTopic:topicCopy];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logErrorEventForTopic:(id)topic reason:(id)reason error:(id)error details:(id)details
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   topicCopy = topic;
   reasonCopy = reason;
   errorCopy = error;
@@ -90,9 +89,9 @@ void __17__DMCEvents_init__block_invoke(uint64_t a1)
     v14 = @"Unknown";
   }
 
-  v38 = @"Reason";
-  v39[0] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v37 = @"Reason";
+  v38[0] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
   v16 = [v15 mutableCopy];
 
   [(DMCEvents *)self _injectTimestamps:v16];
@@ -114,36 +113,36 @@ void __17__DMCEvents_init__block_invoke(uint64_t a1)
     if (v21)
     {
       selfCopy = self;
-      v32 = topicCopy;
+      v31 = topicCopy;
       v22 = objc_opt_new();
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       underlyingErrors2 = [errorCopy underlyingErrors];
-      v24 = [underlyingErrors2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v24 = [underlyingErrors2 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v34;
+        v26 = *v33;
         do
         {
           v27 = 0;
           do
           {
-            if (*v34 != v26)
+            if (*v33 != v26)
             {
               objc_enumerationMutation(underlyingErrors2);
             }
 
-            v28 = [*(*(&v33 + 1) + 8 * v27) description];
+            v28 = [*(*(&v32 + 1) + 8 * v27) description];
             [v22 addObject:v28];
 
             ++v27;
           }
 
           while (v25 != v27);
-          v25 = [underlyingErrors2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v25 = [underlyingErrors2 countByEnumeratingWithState:&v32 objects:v36 count:16];
         }
 
         while (v25);
@@ -153,13 +152,11 @@ void __17__DMCEvents_init__block_invoke(uint64_t a1)
       [v16 setObject:v29 forKeyedSubscript:@"Error Underlying Errors"];
 
       self = selfCopy;
-      topicCopy = v32;
+      topicCopy = v31;
     }
   }
 
-  [(DMCEvents *)self _logEvent:v16 category:@"Error" forTopic:topicCopy, selfCopy, v32];
-
-  v30 = *MEMORY[0x1E69E9840];
+  [(DMCEvents *)self _logEvent:v16 category:@"Error" forTopic:topicCopy, selfCopy, v31];
 }
 
 - (void)_logEvent:(id)event category:(id)category forTopic:(id)topic
@@ -196,39 +193,37 @@ uint64_t __41__DMCEvents__logEvent_category_forTopic___block_invoke()
 
 void __41__DMCEvents__logEvent_category_forTopic___block_invoke_2(id *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = a1 + 4;
   v3 = [a1[4] _eventsPlistFilePath];
   v4 = [MEMORY[0x1E695DFF8] URLWithString:v3];
   v5 = objc_opt_new();
-  v16 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __41__DMCEvents__logEvent_category_forTopic___block_invoke_3;
-  v13[3] = &unk_1E7ADC788;
+  v17 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __41__DMCEvents__logEvent_category_forTopic___block_invoke_3;
+  v14[3] = &unk_1E7ADC788;
   v6 = a1[5];
   v7 = a1[6];
   *&v8 = a1[7];
   *(&v8 + 1) = *v2;
   *&v9 = v6;
   *(&v9 + 1) = v7;
-  v14 = v9;
-  v15 = v8;
-  [v5 coordinateReadingItemAtURL:v4 options:0 writingItemAtURL:v4 options:0 error:&v16 byAccessor:v13];
-  v10 = v16;
+  v15 = v9;
+  v16 = v8;
+  [v5 coordinateReadingItemAtURL:v4 options:0 writingItemAtURL:v4 options:0 error:&v17 byAccessor:v14];
+  v10 = v17;
 
   if (v10)
   {
-    v11 = *DMCLogObjects();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = *DMCLogObjects(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v10;
-      _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_ERROR, "[NSFileCoordinator coordinateReadingItemAtURL] failed with error: %{public}@", buf, 0xCu);
+      v19 = v10;
+      _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_ERROR, "[NSFileCoordinator coordinateReadingItemAtURL] failed with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __41__DMCEvents__logEvent_category_forTopic___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -240,94 +235,83 @@ void __41__DMCEvents__logEvent_category_forTopic___block_invoke_3(uint64_t a1, v
   v9 = [v5 absoluteString];
   v10 = [v8 fileExistsAtPath:v9];
 
-  if (!v10)
+  if (!v10 || (v13 = MEMORY[0x1E695DF20], [v5 absoluteString], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "DMCDictionaryFromFile:", v14), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "mutableCopy"), v15, v14, !v16))
   {
-    goto LABEL_3;
-  }
-
-  v11 = MEMORY[0x1E695DF20];
-  v12 = [v5 absoluteString];
-  v13 = [v11 DMCDictionaryFromFile:v12];
-  v14 = [v13 mutableCopy];
-
-  if (!v14)
-  {
-LABEL_3:
-    v15 = *DMCLogObjects();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = *DMCLogObjects(v11, v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_INFO, "Failed to load event dictionary. Creating a new one", buf, 2u);
+      _os_log_impl(&dword_1B1630000, v17, OS_LOG_TYPE_INFO, "Failed to load event dictionary. Creating a new one", buf, 2u);
     }
 
-    v14 = objc_opt_new();
+    v16 = objc_opt_new();
   }
 
-  v16 = [v14 objectForKeyedSubscript:*(a1 + 32)];
-  if (v16)
+  v18 = [v16 objectForKeyedSubscript:*(a1 + 32)];
+  if (v18)
   {
-    v17 = v16;
-    v18 = [v14 objectForKeyedSubscript:*(a1 + 32)];
+    v19 = v18;
+    v20 = [v16 objectForKeyedSubscript:*(a1 + 32)];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if ((isKindOfClass & 1) == 0)
     {
-      v20 = *DMCLogObjects();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = *DMCLogObjects(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        *v36 = 0;
-        _os_log_impl(&dword_1B1630000, v20, OS_LOG_TYPE_ERROR, "Event category is not a dictionary", v36, 2u);
+        *v42 = 0;
+        _os_log_impl(&dword_1B1630000, v24, OS_LOG_TYPE_ERROR, "Event category is not a dictionary", v42, 2u);
       }
 
-      [v14 setObject:0 forKeyedSubscript:*(a1 + 32)];
+      [v16 setObject:0 forKeyedSubscript:*(a1 + 32)];
     }
   }
 
-  v21 = MEMORY[0x1E695DF90];
-  v22 = [v14 objectForKeyedSubscript:*(a1 + 32)];
-  v23 = [v21 dictionaryWithDictionary:v22];
+  v25 = MEMORY[0x1E695DF90];
+  v26 = [v16 objectForKeyedSubscript:*(a1 + 32)];
+  v27 = [v25 dictionaryWithDictionary:v26];
 
-  v24 = [v23 objectForKeyedSubscript:*(a1 + 40)];
-  if (v24)
+  v28 = [v27 objectForKeyedSubscript:*(a1 + 40)];
+  if (v28)
   {
-    v25 = v24;
-    v26 = [v23 objectForKeyedSubscript:*(a1 + 40)];
+    v29 = v28;
+    v30 = [v27 objectForKeyedSubscript:*(a1 + 40)];
     objc_opt_class();
-    v27 = objc_opt_isKindOfClass();
+    v31 = objc_opt_isKindOfClass();
 
-    if ((v27 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
-      v28 = *DMCLogObjects();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v34 = *DMCLogObjects(v32, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        *v35 = 0;
-        _os_log_impl(&dword_1B1630000, v28, OS_LOG_TYPE_ERROR, "Topic is not an array", v35, 2u);
+        *v41 = 0;
+        _os_log_impl(&dword_1B1630000, v34, OS_LOG_TYPE_ERROR, "Topic is not an array", v41, 2u);
       }
 
-      [v23 setObject:0 forKeyedSubscript:*(a1 + 40)];
+      [v27 setObject:0 forKeyedSubscript:*(a1 + 40)];
     }
   }
 
-  v29 = MEMORY[0x1E695DF70];
-  v30 = [v23 objectForKeyedSubscript:*(a1 + 40)];
-  v31 = [v29 arrayWithArray:v30];
+  v35 = MEMORY[0x1E695DF70];
+  v36 = [v27 objectForKeyedSubscript:*(a1 + 40)];
+  v37 = [v35 arrayWithArray:v36];
 
-  [v31 insertObject:*(a1 + 48) atIndex:0];
-  v32 = [*(a1 + 56) _maximumEventCount];
-  if ([v31 count] > v32)
+  [v37 insertObject:*(a1 + 48) atIndex:0];
+  v38 = [*(a1 + 56) _maximumEventCount];
+  if ([v37 count] > v38)
   {
-    [v31 removeObjectsInRange:{v32, objc_msgSend(v31, "count") - v32}];
+    [v37 removeObjectsInRange:{v38, objc_msgSend(v37, "count") - v38}];
   }
 
-  [v23 setObject:v31 forKeyedSubscript:*(a1 + 40)];
-  [v14 setObject:v23 forKeyedSubscript:*(a1 + 32)];
-  v33 = [v7 absoluteString];
-  [v14 DMCWriteToBinaryFile:v33];
+  [v27 setObject:v37 forKeyedSubscript:*(a1 + 40)];
+  [v16 setObject:v27 forKeyedSubscript:*(a1 + 32)];
+  v39 = [v7 absoluteString];
+  [v16 DMCWriteToBinaryFile:v39];
 
-  v34 = [v7 absoluteString];
+  v40 = [v7 absoluteString];
 
-  DMCSetSkipBackupAttributeToItemAtPath(v34, 1);
+  DMCSetSkipBackupAttributeToItemAtPath(v40, 1);
 }
 
 - (void)_injectTimestamps:(id)timestamps
@@ -347,7 +331,7 @@ LABEL_3:
   errorFilePath = self->_errorFilePath;
   if (!errorFilePath)
   {
-    v4 = DMCEventsFilePath();
+    v4 = DMCEventsFilePath(0);
     v5 = self->_errorFilePath;
     self->_errorFilePath = v4;
 

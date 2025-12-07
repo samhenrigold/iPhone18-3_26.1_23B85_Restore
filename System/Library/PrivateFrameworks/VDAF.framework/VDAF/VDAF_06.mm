@@ -1,93 +1,91 @@
 void Array<A>.xor.getter(uint64_t a1)
 {
-  v38 = *(a1 + 16);
-  if (v38)
+  v36 = *(a1 + 16);
+  if (v36)
   {
-    v2 = a1 + 32;
-    v1 = *(a1 + 32);
-    v3 = *(v1 + 16);
-    v4 = MEMORY[0x277D84F90];
-    if (v3)
+    v1 = a1 + 32;
+    v2 = *(*(a1 + 32) + 16);
+    v3 = MEMORY[0x277D84F90];
+    if (v2)
     {
-      v5 = *(v1 + 16);
-      v6 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-      v6[2] = v3;
-      bzero(v6 + 4, v3);
+      v4 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      v4[2] = v2;
+      bzero(v4 + 4, v2);
     }
 
     else
     {
-      v6 = MEMORY[0x277D84F90];
+      v4 = MEMORY[0x277D84F90];
     }
 
-    v8 = 0;
-    v37 = v2;
-    while (!__OFADD__(v8, 1))
+    v6 = 0;
+    v35 = v1;
+    while (!__OFADD__(v6, 1))
     {
-      v9 = v6;
-      v10 = *(v2 + 8 * v8);
-      v11 = v6[2];
-      v12 = *(v10 + 16);
-      if (v11 != v12)
+      v7 = v4;
+      v8 = *(v1 + 8 * v6);
+      v9 = v4[2];
+      v10 = *(v8 + 16);
+      if (v9 != v10)
       {
         lazy protocol witness table accessor for type XORError and conformance XORError();
         swift_allocError();
-        *v31 = v11;
-        *(v31 + 8) = v12;
-        *(v31 + 16) = 0;
+        *v29 = v9;
+        *(v29 + 8) = v10;
+        *(v29 + 16) = 0;
         swift_willThrow();
 
         return;
       }
 
-      v39 = v8 + 1;
+      v37 = v6 + 1;
 
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
-      v6 = v4;
-      if (v11)
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v9, 0);
+      v4 = v3;
+      if (v9)
       {
-        v13 = 0;
-        v14 = v9[2];
-        v15 = v10 + 32;
-        v16 = v9;
-        v17 = v10;
-        while (v14 != v13)
+        v11 = 0;
+        v12 = v7[2];
+        v13 = v8 + 32;
+        v14 = v7;
+        v15 = v8;
+        while (v12 != v11)
         {
-          if (v13 >= v16[2])
+          if (v11 >= v14[2])
           {
             goto LABEL_34;
           }
 
-          v18 = *(v17 + 16);
-          if (v13 == v18)
+          v16 = *(v15 + 16);
+          if (v11 == v16)
           {
             goto LABEL_35;
           }
 
-          if (v13 >= v18)
+          if (v11 >= v16)
           {
             goto LABEL_36;
           }
 
-          v19 = *(v9 + v13 + 32);
-          v20 = *(v15 + v13);
-          v22 = v6[2];
-          v21 = v6[3];
-          if (v22 >= v21 >> 1)
+          v17 = *(v7 + v11 + 32);
+          v18 = *(v13 + v11);
+          v20 = v4[2];
+          v19 = v4[3];
+          if (v20 >= v19 >> 1)
           {
-            v33 = v17;
-            v35 = v16;
-            v32 = v14;
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v22 + 1, 1);
-            v14 = v32;
-            v17 = v33;
-            v16 = v35;
+            v31 = v15;
+            v33 = v14;
+            v30 = v12;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1);
+            v12 = v30;
+            v15 = v31;
+            v14 = v33;
           }
 
-          ++v13;
-          v6[2] = v22 + 1;
-          *(v6 + v22 + 32) = v19 ^ v20;
-          if (v11 == v13)
+          ++v11;
+          v4[2] = v20 + 1;
+          *(v4 + v20 + 32) = v17 ^ v18;
+          if (v9 == v11)
           {
             goto LABEL_22;
           }
@@ -103,46 +101,46 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      v16 = v9;
-      v17 = v10;
+      v14 = v7;
+      v15 = v8;
 LABEL_22:
-      v23 = v16[2];
-      if (v11 != v23)
+      v21 = v14[2];
+      if (v9 != v21)
       {
-        v24 = v16 + 4;
-        v25 = v17 + 32;
-        v4 = MEMORY[0x277D84F90];
-        while (v11 < v23)
+        v22 = v14 + 4;
+        v23 = v15 + 32;
+        v3 = MEMORY[0x277D84F90];
+        while (v9 < v21)
         {
-          v26 = *(v17 + 16);
-          if (v11 == v26)
+          v24 = *(v15 + 16);
+          if (v9 == v24)
           {
             goto LABEL_8;
           }
 
-          if (v11 >= v26)
+          if (v9 >= v24)
           {
             goto LABEL_38;
           }
 
-          v27 = *(v24 + v11);
-          v28 = *(v25 + v11);
-          v30 = v6[2];
-          v29 = v6[3];
-          if (v30 >= v29 >> 1)
+          v25 = *(v22 + v9);
+          v26 = *(v23 + v9);
+          v28 = v4[2];
+          v27 = v4[3];
+          if (v28 >= v27 >> 1)
           {
-            v34 = v17;
-            v36 = v16;
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1);
-            v17 = v34;
-            v16 = v36;
+            v32 = v15;
+            v34 = v14;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v27 > 1), v28 + 1, 1);
+            v15 = v32;
+            v14 = v34;
           }
 
-          ++v11;
-          v6[2] = v30 + 1;
-          *(v6 + v30 + 32) = v27 ^ v28;
-          v23 = v16[2];
-          if (v11 == v23)
+          ++v9;
+          v4[2] = v28 + 1;
+          *(v4 + v28 + 32) = v25 ^ v26;
+          v21 = v14[2];
+          if (v9 == v21)
           {
             goto LABEL_8;
           }
@@ -155,13 +153,13 @@ LABEL_38:
         break;
       }
 
-      v4 = MEMORY[0x277D84F90];
+      v3 = MEMORY[0x277D84F90];
 LABEL_8:
 
       swift_bridgeObjectRelease_n();
-      v8 = v39;
-      v2 = v37;
-      if (v39 == v38)
+      v6 = v37;
+      v1 = v35;
+      if (v37 == v36)
       {
         return;
       }
@@ -174,18 +172,19 @@ LABEL_8:
   {
     lazy protocol witness table accessor for type XORError and conformance XORError();
     swift_allocError();
-    *v7 = 0;
-    *(v7 + 8) = 0;
-    *(v7 + 16) = 1;
+    *v5 = 0;
+    *(v5 + 8) = 0;
+    *(v5 + 16) = 1;
     swift_willThrow();
   }
 }
 
-void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *a1, int a2)
+void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *result, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v4 = a1[1];
+  v2 = a2;
+  v23 = *MEMORY[0x277D85DE8];
+  v5 = *result;
+  v4 = result[1];
   v6 = v4 >> 62;
   if ((v4 >> 62) <= 1)
   {
@@ -194,91 +193,87 @@ void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *a1
 
       outlined consume of Data._Representation(v5, v4);
       __b = v5;
-      v24 = v4 & 0x3FFFFFFFFFFFFFFFLL;
-      *a1 = xmmword_270C44D60;
+      v22 = v4 & 0x3FFFFFFFFFFFFFFFLL;
+      *result = xmmword_270C44D60;
       outlined consume of Data._Representation(0, 0xC000000000000000);
-      specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(&__b, a2);
+      specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(&__b, v2);
       v7 = __b;
-      v8 = v24 | 0x4000000000000000;
+      v8 = v22 | 0x4000000000000000;
     }
 
     else
     {
+      __c = a2;
       outlined consume of Data._Representation(v5, v4);
       __b = v5;
-      LOWORD(v24) = v4;
-      BYTE2(v24) = BYTE2(v4);
-      BYTE3(v24) = BYTE3(v4);
-      BYTE4(v24) = BYTE4(v4);
-      BYTE5(v24) = BYTE5(v4);
-      BYTE6(v24) = BYTE6(v4);
-      memset(&__b, a2, BYTE6(v4));
+      LOWORD(v22) = v4;
+      BYTE2(v22) = BYTE2(v4);
+      BYTE3(v22) = BYTE3(v4);
+      BYTE4(v22) = BYTE4(v4);
+      BYTE5(v22) = BYTE5(v4);
+      BYTE6(v22) = BYTE6(v4);
+      memset(&__b, __c, BYTE6(v4));
       v7 = __b;
-      v8 = v24 | ((WORD2(v24) | (BYTE6(v24) << 16)) << 32);
+      v8 = v22 | ((WORD2(v22) | (BYTE6(v22) << 16)) << 32);
     }
 
-    *a1 = v7;
-    a1[1] = v8;
-    goto LABEL_14;
+    *result = v7;
+    result[1] = v8;
+    return;
   }
 
   if (v6 != 2)
   {
-LABEL_14:
-    v21 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v9 = *a1;
-
   outlined consume of Data._Representation(v5, v4);
   __b = v5;
-  v24 = v4 & 0x3FFFFFFFFFFFFFFFLL;
-  *a1 = xmmword_270C44D60;
+  v22 = v4 & 0x3FFFFFFFFFFFFFFFLL;
+  *result = xmmword_270C44D60;
   outlined consume of Data._Representation(0, 0xC000000000000000);
   Data.LargeSlice.ensureUniqueReference()();
-  v10 = v24;
-  v11 = *(__b + 16);
-  v12 = *(__b + 24);
-  v13 = __DataStorage._bytes.getter();
-  if (v13)
+  v9 = v22;
+  v10 = *(__b + 16);
+  v11 = *(__b + 24);
+  v12 = __DataStorage._bytes.getter();
+  if (!v12)
   {
-    v14 = v13;
-    v15 = __DataStorage._offset.getter();
-    v16 = v11 - v15;
-    if (__OFSUB__(v11, v15))
-    {
-      __break(1u);
-    }
+    __break(1u);
+    return;
+  }
 
-    else
-    {
-      v17 = __OFSUB__(v12, v11);
-      v18 = v12 - v11;
-      if (!v17)
-      {
-        v19 = MEMORY[0x2743B2250]();
-        if (v19 >= v18)
-        {
-          v20 = v18;
-        }
-
-        else
-        {
-          v20 = v19;
-        }
-
-        memset((v14 + v16), a2, v20);
-        *a1 = __b;
-        a1[1] = v10 | 0x8000000000000000;
-        goto LABEL_14;
-      }
-    }
-
+  v13 = v12;
+  v14 = __DataStorage._offset.getter();
+  v15 = v10 - v14;
+  if (__OFSUB__(v10, v14))
+  {
+    __break(1u);
+LABEL_16:
     __break(1u);
   }
 
-  __break(1u);
+  v16 = __OFSUB__(v11, v10);
+  v17 = v11 - v10;
+  if (v16)
+  {
+    goto LABEL_16;
+  }
+
+  v18 = MEMORY[0x2743B2250]();
+  if (v18 >= v17)
+  {
+    v19 = v17;
+  }
+
+  else
+  {
+    v19 = v18;
+  }
+
+  memset((v13 + v15), v2, v19);
+  *result = __b;
+  result[1] = v9 | 0x8000000000000000;
 }
 
 void specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(int *a1, int a2)
@@ -292,39 +287,37 @@ void specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(int *a1, int a2)
     goto LABEL_9;
   }
 
-  v6 = *(a1 + 1);
-
-  v7 = __DataStorage._bytes.getter();
-  if (!v7)
+  v6 = __DataStorage._bytes.getter();
+  if (!v6)
   {
 LABEL_10:
     __break(1u);
     return;
   }
 
-  v8 = v7;
-  v9 = __DataStorage._offset.getter();
-  v10 = v4 - v9;
-  if (__OFSUB__(v4, v9))
+  v7 = v6;
+  v8 = __DataStorage._offset.getter();
+  v9 = v4 - v8;
+  if (__OFSUB__(v4, v8))
   {
 LABEL_9:
     __break(1u);
     goto LABEL_10;
   }
 
-  v11 = v5 - v4;
-  v12 = MEMORY[0x2743B2250]();
-  if (v12 >= v11)
+  v10 = v5 - v4;
+  v11 = MEMORY[0x2743B2250]();
+  if (v11 >= v10)
   {
-    v13 = v11;
+    v12 = v10;
   }
 
   else
   {
-    v13 = v12;
+    v12 = v11;
   }
 
-  memset((v8 + v10), a2, v13);
+  memset((v7 + v9), a2, v12);
 }
 
 uint64_t specialized Zip2Sequence.underestimatedCount.getter(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
@@ -413,20 +406,11 @@ LABEL_20:
   }
 }
 
-uint64_t partial apply for closure #1 in Array<A>.xor(_:)()
-{
-  v1 = *(*(v0 + 24) + 8);
-  v2 = *(v0 + 16);
-  return dispatch thunk of static BinaryInteger.^ infix(_:_:)();
-}
-
 uint64_t partial apply for thunk for @callee_guaranteed (@in_guaranteed A, @in_guaranteed A) -> (@out A)(uint64_t a1)
 {
-  v3 = v1[2];
-  v5 = v1[5];
-  v4 = v1[6];
+  v3 = *(v1 + 40);
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  return v5(a1, a1 + *(TupleTypeMetadata2 + 48));
+  return v3(a1, a1 + *(TupleTypeMetadata2 + 48));
 }
 
 uint64_t specialized Data.init(count:)(uint64_t result)
@@ -441,9 +425,7 @@ uint64_t specialized Data.init(count:)(uint64_t result)
 
     else
     {
-      v2 = type metadata accessor for __DataStorage();
-      v3 = *(v2 + 48);
-      v4 = *(v2 + 52);
+      type metadata accessor for __DataStorage();
       swift_allocObject();
       __DataStorage.init(length:)();
       if (v1 >= 0x7FFFFFFF)
@@ -503,6 +485,68 @@ uint64_t specialized FixedWidthInteger.nextPowerOfTwo.getter(uint64_t result)
   return result;
 }
 
+VDAF::HadamardTransform __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> HadamardTransform.init(dimension:forwardScale:)(Swift::Int dimension, Swift::Double_optional forwardScale)
+{
+  if (dimension < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v4 = v3;
+    v5 = 1 << -__clz(dimension - 1);
+    if (dimension)
+    {
+      v6 = v5;
+    }
+
+    else
+    {
+      v6 = 1;
+    }
+
+    v7 = v2;
+    v8 = *&forwardScale.is_nil;
+    v9 = v6;
+    v10 = 1.0 / sqrt(v6);
+    if (v7)
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = v8;
+    }
+
+    v12 = 1.0 / (v11 * v9);
+    forwardScale.value = fabs(v11 * v12 * v9 + -1.0);
+    v13 = 0.001;
+    if (forwardScale.value >= 0.001)
+    {
+      lazy protocol witness table accessor for type HadamardTransformError and conformance HadamardTransformError();
+      swift_allocError();
+      *v14 = v11;
+      *(v14 + 8) = v12;
+      *(v14 + 16) = 2;
+      dimension = swift_willThrow();
+    }
+
+    else
+    {
+      *v4 = v6;
+      *(v4 + 8) = v11;
+      *(v4 + 16) = v12;
+    }
+  }
+
+  result.forwardScale = forwardScale.value;
+  result.inverseScale = v13;
+  result.dimension = dimension;
+  return result;
+}
+
 unint64_t lazy protocol witness table accessor for type HadamardTransformError and conformance HadamardTransformError()
 {
   result = lazy protocol witness table cache variable for type HadamardTransformError and conformance HadamardTransformError;
@@ -548,7 +592,7 @@ LABEL_9:
   return *(v2 + 8) * v6;
 }
 
-uint64_t HadamardTransform.inverseTransform(_:)(uint64_t a1)
+uint64_t HadamardTransform.inverseTransform(_:)(uint64_t *a1)
 {
   v2 = *v1;
   v3 = *(*a1 + 16);
@@ -610,7 +654,6 @@ uint64_t fwht #1 (_:) in HadamardTransform.inverseTransform(_:)(uint64_t result)
   }
 
   v2 = result;
-  v3 = *result;
   result = swift_isUniquelyReferenced_nonNull_native();
   if ((result & 1) == 0)
   {
@@ -619,46 +662,46 @@ LABEL_35:
     v1 = result;
   }
 
-  v4 = v1 + 32;
-  v5 = *(v1 + 16);
-  v6 = 1;
+  v3 = v1 + 32;
+  v4 = *(v1 + 16);
+  v5 = 1;
   while (1)
   {
-    if (v6 + 0x4000000000000000 < 0)
+    if (v5 + 0x4000000000000000 < 0)
     {
 LABEL_34:
       __break(1u);
       goto LABEL_35;
     }
 
-    v7 = 2 * v6;
-    if (2 * v6 >= 1)
+    v6 = 2 * v5;
+    if (2 * v5 >= 1)
     {
-      if (v5)
+      if (v4)
       {
         break;
       }
     }
 
 LABEL_5:
-    v6 *= 2;
-    if (v7 >= v5)
+    v5 *= 2;
+    if (v6 >= v4)
     {
       goto LABEL_28;
     }
   }
 
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    v9 = v8 + v7;
-    if (__OFADD__(v8, v7))
+    v8 = v7 + v6;
+    if (__OFADD__(v7, v6))
     {
-      v9 = ((v8 + v7) >> 63) ^ 0x8000000000000000;
+      v8 = ((v7 + v6) >> 63) ^ 0x8000000000000000;
     }
 
-    v10 = v8 + v6;
-    if (__OFADD__(v8, v6))
+    v9 = v7 + v5;
+    if (__OFADD__(v7, v5))
     {
       __break(1u);
 LABEL_31:
@@ -666,26 +709,26 @@ LABEL_31:
       goto LABEL_32;
     }
 
-    if (v10 < v8)
+    if (v9 < v7)
     {
       goto LABEL_31;
     }
 
-    if (v8 != v10)
+    if (v7 != v9)
     {
       break;
     }
 
 LABEL_10:
-    v8 = v9;
-    if (v9 >= v5)
+    v7 = v8;
+    if (v8 >= v4)
     {
-      v5 = *(v1 + 16);
+      v4 = *(v1 + 16);
       goto LABEL_5;
     }
   }
 
-  if ((v8 & 0x8000000000000000) != 0)
+  if ((v7 & 0x8000000000000000) != 0)
   {
 LABEL_32:
     __break(1u);
@@ -694,37 +737,37 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  v11 = *(v1 + 16);
-  if (v8 >= v11 || v10 - 1 >= v11)
+  v10 = *(v1 + 16);
+  if (v7 >= v10 || v9 - 1 >= v10)
   {
     goto LABEL_33;
   }
 
-  v12 = v6;
+  v11 = v5;
   while (1)
   {
-    v13 = v8 + v6;
-    if (__OFADD__(v8, v6))
+    v12 = v7 + v5;
+    if (__OFADD__(v7, v5))
     {
       break;
     }
 
-    if ((v13 & 0x8000000000000000) != 0)
+    if ((v12 & 0x8000000000000000) != 0)
     {
       goto LABEL_26;
     }
 
-    if (v13 >= *(v1 + 16))
+    if (v12 >= *(v1 + 16))
     {
       goto LABEL_27;
     }
 
-    v14 = *(v4 + 8 * v8);
-    v15 = *(v4 + 8 * v13);
-    *(v4 + 8 * v8) = v14 + v15;
-    *(v4 + 8 * v13) = v14 - v15;
-    ++v8;
-    if (!--v12)
+    v13 = *(v3 + 8 * v7);
+    v14 = *(v3 + 8 * v12);
+    *(v3 + 8 * v7) = v13 + v14;
+    *(v3 + 8 * v12) = v13 - v14;
+    ++v7;
+    if (!--v11)
     {
       goto LABEL_10;
     }
@@ -906,19 +949,16 @@ _WORD *storeEnumTagSinglePayload for PreamblePrepareShare(_WORD *result, int a2,
 
 uint64_t RandomAccessCollection<>.popFirst(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = v3;
-  v7 = *(a2 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](a1, a2);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v7 + 16))(v10, v4, a2);
-  v11 = *(*(a3 + 8) + 8);
+  v5 = *(a2 - 8);
+  MEMORY[0x28223BE20](a1);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v5 + 16))(v7, v3, a2);
   Collection.prefix(_:)();
-  (*(v7 + 32))(v10, v4, a2);
+  (*(v5 + 32))(v7, v3, a2);
   return Collection.dropFirst(_:)();
 }
 
-unint64_t specialized SignedInteger<>.isMultiple(of:)(unint64_t result, uint64_t a2, unint64_t a3, int64_t a4)
+BOOL specialized SignedInteger<>.isMultiple(of:)(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!(a2 | result))
   {
@@ -974,17 +1014,15 @@ double static _UInt128.one.getter@<D0>(_OWORD *a1@<X8>)
 
 uint64_t _UInt128.description.getter()
 {
-  v3 = *v0;
   lazy protocol witness table accessor for type _UInt128 and conformance _UInt128();
-  v1 = String.init<A>(_:radix:uppercase:)();
-  MEMORY[0x2743B25F0](v1);
+  v0 = String.init<A>(_:radix:uppercase:)();
+  MEMORY[0x2743B25F0](v0);
 
   return 30768;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance _UInt128()
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance _UInt128(uint64_t a1)
 {
-  v3 = *v0;
   lazy protocol witness table accessor for type _UInt128 and conformance _UInt128();
   v1 = String.init<A>(_:radix:uppercase:)();
   MEMORY[0x2743B25F0](v1);
@@ -1094,7 +1132,7 @@ Swift::Int _UInt128.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t (*_UInt128.components.modify(int8x16_t *a1))()
+double (*_UInt128.components.modify(int8x16_t *a1))(int8x16_t *a1)
 {
   a1[1].i64[0] = v1;
   *a1 = vextq_s8(*v1, *v1, 8uLL);
@@ -1314,26 +1352,25 @@ __n128 _UInt128.init(_:)@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
   return result;
 }
 
-uint64_t _UInt128.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+void *_UInt128.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v8 = *(a2 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](a1, a2);
-  v11 = &v16[-1] - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v8 + 16))(v11, a1, a2);
-  result = _UInt128.init<A>(exactly:)(v11, a2, a3, v16);
-  if (v17 == 1)
+  MEMORY[0x28223BE20](a1);
+  v10 = &v15[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v8 + 16))(v10, a1, a2);
+  result = _UInt128.init<A>(exactly:)(v10, a2, a3, v15);
+  if (v16 == 1)
   {
     __break(1u);
   }
 
   else
   {
-    v14 = v16[0];
-    v13 = v16[1];
+    v13 = v15[0];
+    v12 = v15[1];
     result = (*(v8 + 8))(a1, a2);
-    *a4 = v14;
-    a4[1] = v13;
+    *a4 = v13;
+    a4[1] = v12;
   }
 
   return result;
@@ -1343,88 +1380,82 @@ uint64_t _UInt128.init<A>(exactly:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64
 {
   v8 = *(a3 + 24);
   swift_getAssociatedTypeWitness();
-  v119 = *(swift_getAssociatedConformanceWitness() + 16);
+  v94 = *(swift_getAssociatedConformanceWitness() + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(*(AssociatedTypeWitness - 8) + 64);
-  MEMORY[0x28223BE20](AssociatedTypeWitness, v10);
-  v117 = &v114 - v11;
-  v12 = swift_checkMetadataState();
-  v128 = *(v12 - 8);
-  v13 = *(v128 + 64);
-  v15 = MEMORY[0x28223BE20](v12, v14);
-  v125 = &v114 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15, v17);
-  v127 = &v114 - v18;
-  v122 = *(v8 + 16);
-  v121 = swift_getAssociatedTypeWitness();
-  v19 = *(*(v121 - 8) + 64);
-  v21 = MEMORY[0x28223BE20](v121, v20);
-  v120 = &v114 - v22;
-  v23 = *(a2 - 8);
-  v24 = *(v23 + 64);
-  v26 = MEMORY[0x28223BE20](v21, v25);
-  v116 = &v114 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = MEMORY[0x28223BE20](v26, v28);
-  v31 = &v114 - v30;
-  v33 = MEMORY[0x28223BE20](v29, v32);
-  v126 = &v114 - v34;
-  v36 = MEMORY[0x28223BE20](v33, v35);
-  v123 = &v114 - v37;
-  MEMORY[0x28223BE20](v36, v38);
-  v130 = &v114 - v39;
-  v40 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v131 = a1;
-  v129 = v23;
-  if (v40)
+  MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v92 = &v89 - v9;
+  v10 = swift_checkMetadataState();
+  v103 = *(v10 - 8);
+  v11 = MEMORY[0x28223BE20](v10);
+  v100 = &v89 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v102 = &v89 - v13;
+  v97 = *(v8 + 16);
+  v96 = swift_getAssociatedTypeWitness();
+  v14 = MEMORY[0x28223BE20](v96);
+  v95 = &v89 - v15;
+  v16 = *(a2 - 8);
+  v17 = MEMORY[0x28223BE20](v14);
+  v91 = &v89 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x28223BE20](v17);
+  v21 = &v89 - v20;
+  v22 = MEMORY[0x28223BE20](v19);
+  v101 = &v89 - v23;
+  v24 = MEMORY[0x28223BE20](v22);
+  v98 = &v89 - v25;
+  MEMORY[0x28223BE20](v24);
+  v105 = &v89 - v26;
+  v27 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v106 = a1;
+  v104 = v16;
+  if (v27)
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
     {
-      v41 = v130;
-      (*(v23 + 16))(v130, a1, a2);
+      v28 = v105;
+      (*(v16 + 16))(v105, a1, a2);
       goto LABEL_12;
     }
 
-    v132 = 0;
+    v107 = 0;
     lazy protocol witness table accessor for type Int and conformance Int();
-    v44 = v130;
+    v31 = v105;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v47 = *(*(a3 + 32) + 8);
-    v46 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v32 = dispatch thunk of static Comparable.< infix(_:_:)();
     goto LABEL_8;
   }
 
-  v42 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v43 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if (v42)
+  v29 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v30 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if (v29)
   {
-    if (v43 <= 64)
+    if (v30 <= 64)
     {
-      v114 = v31;
-      v124 = a4;
+      v89 = v21;
+      v99 = a4;
       swift_getAssociatedConformanceWitness();
       dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-      v62 = v130;
+      v47 = v105;
       dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-      v63 = *(*(a3 + 32) + 8);
-      LODWORD(v115) = dispatch thunk of static Comparable.< infix(_:_:)();
-      v64 = v129;
-      v65 = v62;
-      v66 = a1;
-      v48 = *(v129 + 8);
-      v48(v65, a2);
-      if (v115)
+      LODWORD(v90) = dispatch thunk of static Comparable.< infix(_:_:)();
+      v48 = v104;
+      v49 = v47;
+      v50 = a1;
+      v33 = *(v104 + 8);
+      v33(v49, a2);
+      if (v90)
       {
-        a4 = v124;
+        a4 = v99;
       }
 
       else
       {
-        (*(v64 + 16))(v65, v66, a2);
-        v96 = dispatch thunk of BinaryInteger._lowWord.getter();
-        v48(v65, a2);
-        a4 = v124;
-        v31 = v114;
-        if ((v96 & 0x8000000000000000) == 0)
+        (*(v48 + 16))(v49, v50, a2);
+        v75 = dispatch thunk of BinaryInteger._lowWord.getter();
+        v33(v49, a2);
+        a4 = v99;
+        v21 = v89;
+        if ((v75 & 0x8000000000000000) == 0)
         {
           goto LABEL_13;
         }
@@ -1433,17 +1464,16 @@ uint64_t _UInt128.init<A>(exactly:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64
       goto LABEL_21;
     }
 
-    v132 = 0;
+    v107 = 0;
     lazy protocol witness table accessor for type Int and conformance Int();
-    v44 = v130;
+    v31 = v105;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v45 = *(*(a3 + 32) + 8);
-    v46 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v23 = v129;
+    v32 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v16 = v104;
 LABEL_8:
-    v48 = *(v23 + 8);
-    v48(v44, a2);
-    if (v46)
+    v33 = *(v16 + 8);
+    v33(v31, a2);
+    if (v32)
     {
       goto LABEL_21;
     }
@@ -1451,70 +1481,53 @@ LABEL_8:
     goto LABEL_13;
   }
 
-  if (v43 < 64)
+  if (v30 < 64)
   {
-    v23 = v129;
-    v41 = v130;
-    (*(v129 + 16))(v130, v131, a2);
+    v16 = v104;
+    v28 = v105;
+    (*(v104 + 16))(v105, v106, a2);
 LABEL_12:
-    v49 = dispatch thunk of BinaryInteger._lowWord.getter();
-    v48 = *(v23 + 8);
-    v48(v41, a2);
-    if ((v49 & 0x8000000000000000) == 0)
+    v34 = dispatch thunk of BinaryInteger._lowWord.getter();
+    v33 = *(v16 + 8);
+    v33(v28, a2);
+    if ((v34 & 0x8000000000000000) == 0)
     {
       goto LABEL_13;
     }
 
 LABEL_21:
-    result = (v48)(v131, a2);
+    result = (v33)(v106, a2);
     goto LABEL_22;
   }
 
 LABEL_13:
-  v124 = a4;
-  v50 = v127;
+  v99 = a4;
+  v35 = v102;
   dispatch thunk of Numeric.magnitude.getter();
-  v115 = a3;
+  v90 = a3;
   swift_getAssociatedConformanceWitness();
-  if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
+  if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || (swift_getAssociatedConformanceWitness(), dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)(), v36 = v21, v37 = v100, dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)(), swift_getAssociatedConformanceWitness(), v38 = dispatch thunk of static Comparable.< infix(_:_:)(), v39 = *(v103 + 8), v40 = v37, v21 = v36, v39(v40, v10), (v38 & 1) == 0))
   {
-    goto LABEL_16;
-  }
-
-  swift_getAssociatedConformanceWitness();
-  dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-  v51 = v31;
-  v52 = v125;
-  dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-  swift_getAssociatedConformanceWitness();
-  v53 = dispatch thunk of static Comparable.< infix(_:_:)();
-  v54 = *(v128 + 8);
-  v55 = v52;
-  v31 = v51;
-  v54(v55, v12);
-  if ((v53 & 1) == 0)
-  {
-LABEL_16:
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
     {
       goto LABEL_36;
     }
 
-    v132 = -1;
-    v57 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v58 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if (v57)
+    v107 = -1;
+    v42 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v43 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if (v42)
     {
-      if (v58 <= 64)
+      if (v43 <= 64)
       {
         swift_getAssociatedConformanceWitness();
         dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-        v59 = v125;
+        v44 = v100;
         dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
         swift_getAssociatedConformanceWitness();
-        v60 = dispatch thunk of static Comparable.> infix(_:_:)();
-        (*(v128 + 8))(v59, v12);
-        if ((v60 & 1) == 0)
+        v45 = dispatch thunk of static Comparable.> infix(_:_:)();
+        (*(v103 + 8))(v44, v10);
+        if ((v45 & 1) == 0)
         {
           goto LABEL_36;
         }
@@ -1523,7 +1536,7 @@ LABEL_16:
       }
     }
 
-    else if (v58 < 65)
+    else if (v43 < 65)
     {
 LABEL_35:
       dispatch thunk of BinaryInteger._lowWord.getter();
@@ -1531,123 +1544,118 @@ LABEL_35:
     }
 
     lazy protocol witness table accessor for type UInt64 and conformance UInt64();
-    v114 = v31;
-    v67 = v125;
+    v89 = v21;
+    v51 = v100;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
     swift_getAssociatedConformanceWitness();
-    v68 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v54 = *(v128 + 8);
-    v69 = v114;
-    v54(v67, v12);
-    if (v68)
+    v52 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v39 = *(v103 + 8);
+    v53 = v89;
+    v39(v51, v10);
+    if (v52)
     {
-      v56 = v69;
+      v41 = v53;
       goto LABEL_28;
     }
 
 LABEL_36:
-    v87 = dispatch thunk of BinaryInteger._lowWord.getter();
-    (*(v128 + 8))(v50, v12);
-    v88 = *(v8 + 8);
-    v89 = v130;
+    v68 = dispatch thunk of BinaryInteger._lowWord.getter();
+    (*(v103 + 8))(v35, v10);
+    v69 = v105;
     dispatch thunk of static AdditiveArithmetic.zero.getter();
-    v90 = *(*(v115 + 32) + 8);
-    v91 = v131;
-    v92 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v93 = *(v129 + 8);
-    v93(v91, a2);
-    result = (v93)(v89, a2);
-    v94 = v92 << 63 >> 63;
-    if (v92)
+    v70 = v106;
+    v71 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v72 = *(v104 + 8);
+    v72(v70, a2);
+    result = (v72)(v69, a2);
+    v73 = v71 << 63 >> 63;
+    if (v71)
     {
-      v95 = -v87;
+      v74 = -v68;
     }
 
     else
     {
-      v95 = v87;
+      v74 = v68;
     }
 
     goto LABEL_58;
   }
 
-  v56 = v51;
+  v41 = v36;
 LABEL_28:
-  v54(v127, v12);
-  v132 = -1;
-  v70 = lazy protocol witness table accessor for type UInt64 and conformance UInt64();
-  v71 = v130;
-  v128 = v70;
-  v72 = v115;
+  v39(v102, v10);
+  v107 = -1;
+  v54 = lazy protocol witness table accessor for type UInt64 and conformance UInt64();
+  v55 = v105;
+  v103 = v54;
   dispatch thunk of BinaryInteger.init<A>(_:)();
-  v73 = v123;
+  v56 = v98;
   dispatch thunk of static BinaryInteger.& infix(_:_:)();
-  v74 = v129;
-  v75 = *(v129 + 8);
-  v75(v71, a2);
-  v132 = 64;
+  v57 = v104;
+  v58 = *(v104 + 8);
+  v58(v55, a2);
+  v107 = 64;
   lazy protocol witness table accessor for type Int and conformance Int();
   dispatch thunk of static BinaryInteger.>> infix<A>(_:_:)();
-  v76 = v56;
-  v77 = *(v74 + 16);
-  v129 = v74 + 16;
-  v77(v76, v73, a2);
-  v78 = v76;
-  if (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || (swift_getAssociatedConformanceWitness(), dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)(), v79 = v130, dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)(), v80 = *(*(v72 + 32) + 8), v81 = dispatch thunk of static Comparable.>= infix(_:_:)(), result = (v75)(v79, a2), (v81))
+  v59 = v41;
+  v60 = *(v57 + 16);
+  v104 = v57 + 16;
+  v60(v59, v56, a2);
+  v61 = v59;
+  if (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || (swift_getAssociatedConformanceWitness(), dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)(), v62 = v105, dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)(), v63 = dispatch thunk of static Comparable.>= infix(_:_:)(), result = (v58)(v62, a2), (v63))
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() <= 63)
     {
       goto LABEL_45;
     }
 
-    v132 = -1;
-    v82 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v83 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if (v82)
+    v107 = -1;
+    v64 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v65 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if (v64)
     {
-      if (v83 <= 64)
+      if (v65 <= 64)
       {
         swift_getAssociatedConformanceWitness();
         dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-        v84 = v130;
+        v66 = v105;
         dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-        v85 = *(*(v72 + 32) + 8);
-        v86 = dispatch thunk of static Comparable.> infix(_:_:)();
-        v75(v84, a2);
-        if (v86)
+        v67 = dispatch thunk of static Comparable.> infix(_:_:)();
+        v58(v66, a2);
+        if (v67)
         {
           goto LABEL_44;
         }
 
 LABEL_45:
-        v95 = dispatch thunk of BinaryInteger._lowWord.getter();
-        v75(v78, a2);
-        v100 = v116;
-        v77(v116, v126, a2);
-        v101 = v100;
-        if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || (swift_getAssociatedConformanceWitness(), dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)(), v102 = v130, dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)(), v103 = *(*(v72 + 32) + 8), v104 = dispatch thunk of static Comparable.< infix(_:_:)(), v75(v102, a2), (v104 & 1) == 0))
+        v74 = dispatch thunk of BinaryInteger._lowWord.getter();
+        v58(v61, a2);
+        v78 = v91;
+        v60(v91, v101, a2);
+        v79 = v78;
+        if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || (swift_getAssociatedConformanceWitness(), dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)(), v80 = v105, dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)(), v81 = dispatch thunk of static Comparable.< infix(_:_:)(), v58(v80, a2), (v81 & 1) == 0))
         {
           if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
           {
             goto LABEL_57;
           }
 
-          v132 = -1;
-          v105 = dispatch thunk of static BinaryInteger.isSigned.getter();
-          v106 = dispatch thunk of BinaryInteger.bitWidth.getter();
-          if (v105)
+          v107 = -1;
+          v82 = dispatch thunk of static BinaryInteger.isSigned.getter();
+          v83 = dispatch thunk of BinaryInteger.bitWidth.getter();
+          if (v82)
           {
-            if (v106 <= 64)
+            if (v83 <= 64)
             {
               swift_getAssociatedConformanceWitness();
               dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-              v107 = v130;
+              v84 = v105;
               dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-              v108 = *(*(v72 + 32) + 8);
-              v101 = v116;
-              v109 = dispatch thunk of static Comparable.> infix(_:_:)();
-              v75(v107, a2);
-              if ((v109 & 1) == 0)
+              v79 = v91;
+              v85 = dispatch thunk of static Comparable.> infix(_:_:)();
+              v58(v84, a2);
+              if ((v85 & 1) == 0)
               {
                 goto LABEL_57;
               }
@@ -1656,42 +1664,41 @@ LABEL_45:
             }
           }
 
-          else if (v106 < 65)
+          else if (v83 < 65)
           {
-            v101 = v116;
+            v79 = v91;
 LABEL_56:
             dispatch thunk of BinaryInteger._lowWord.getter();
             goto LABEL_57;
           }
 
-          v110 = v130;
+          v86 = v105;
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v111 = *(*(v72 + 32) + 8);
-          v101 = v116;
-          v112 = dispatch thunk of static Comparable.< infix(_:_:)();
-          v75(v110, a2);
-          if ((v112 & 1) == 0)
+          v79 = v91;
+          v87 = dispatch thunk of static Comparable.< infix(_:_:)();
+          v58(v86, a2);
+          if ((v87 & 1) == 0)
           {
 LABEL_57:
-            v94 = dispatch thunk of BinaryInteger._lowWord.getter();
-            v75(v131, a2);
-            v75(v101, a2);
-            v75(v126, a2);
-            result = (v75)(v123, a2);
+            v73 = dispatch thunk of BinaryInteger._lowWord.getter();
+            v58(v106, a2);
+            v58(v79, a2);
+            v58(v101, a2);
+            result = (v58)(v98, a2);
 LABEL_58:
-            v113 = v124;
-            *v124 = v95;
-            v113[1] = v94;
-            *(v113 + 16) = 0;
+            v88 = v99;
+            *v99 = v74;
+            v88[1] = v73;
+            *(v88 + 16) = 0;
             return result;
           }
         }
 
-        v75(v131, a2);
-        v75(v101, a2);
-        v75(v126, a2);
-        result = (v75)(v123, a2);
-        a4 = v124;
+        v58(v106, a2);
+        v58(v79, a2);
+        v58(v101, a2);
+        result = (v58)(v98, a2);
+        a4 = v99;
 LABEL_22:
         *a4 = 0;
         a4[1] = 0;
@@ -1700,17 +1707,16 @@ LABEL_22:
       }
     }
 
-    else if (v83 < 65)
+    else if (v65 < 65)
     {
       goto LABEL_44;
     }
 
-    v97 = v130;
+    v76 = v105;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v98 = *(*(v72 + 32) + 8);
-    v99 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v75(v97, a2);
-    if ((v99 & 1) == 0)
+    v77 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v58(v76, a2);
+    if ((v77 & 1) == 0)
     {
       goto LABEL_45;
     }
@@ -1985,7 +1991,7 @@ uint64_t _UInt128.quotientAndRemainder(dividingBy:)(void *a1, unint64_t *a2, uni
   return result;
 }
 
-uint64_t specialized _wideDivide22<A>(_:by:)(void *a1, unint64_t *a2, unint64_t *a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7)
+uint64_t specialized _wideDivide22<A>(_:by:)(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7)
 {
   if (!(a6 | a7))
   {
@@ -2323,7 +2329,7 @@ _OWORD *_UInt128.multipliedFullWidth(by:)(_OWORD *result, void *a2, unint64_t *a
   return result;
 }
 
-uint64_t _UInt128.dividingFullWidth(_:)(void *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
+unint64_t _UInt128.dividingFullWidth(_:)(void *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
   result = specialized _wideDivide42<A>(_:by:)(&v12, &v11, &v10, a3[1], *a3, a4[1], *a4, v4[1], *v4);
   v8 = v11;
@@ -2335,7 +2341,7 @@ uint64_t _UInt128.dividingFullWidth(_:)(void *a1, unint64_t *a2, unint64_t *a3, 
   return result;
 }
 
-uint64_t specialized _wideDivide42<A>(_:by:)(uint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, unint64_t a9)
+unint64_t specialized _wideDivide42<A>(_:by:)(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, unint64_t a9)
 {
   v9 = a9;
   if (!(a8 | a9))
@@ -2937,7 +2943,7 @@ uint64_t *static _UInt128.<<= infix(_:_:)(uint64_t *result, unint64_t *a2)
   return result;
 }
 
-uint64_t *static _UInt128.>>= infix(_:_:)(uint64_t *result, unint64_t *a2)
+unint64_t *static _UInt128.>>= infix(_:_:)(unint64_t *result, unint64_t *a2)
 {
   if (a2[1] || (v2 = *a2, *a2 >= 0x80))
   {
@@ -2981,7 +2987,7 @@ uint64_t *static _UInt128.>>= infix(_:_:)(uint64_t *result, unint64_t *a2)
   return result;
 }
 
-uint64_t *static _UInt128.&<< infix(_:_:)@<X0>(uint64_t *result@<X0>, void *a2@<X1>, void *a3@<X8>)
+uint64_t *static _UInt128.&<< infix(_:_:)@<X0>(uint64_t *result@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
   v3 = *result;
   v4 = result[1];
@@ -3003,7 +3009,7 @@ uint64_t *static _UInt128.&<< infix(_:_:)@<X0>(uint64_t *result@<X0>, void *a2@<
   return result;
 }
 
-uint64_t *static _UInt128.&>> infix(_:_:)@<X0>(uint64_t *result@<X0>, void *a2@<X1>, unint64_t *a3@<X8>)
+unint64_t *static _UInt128.&>> infix(_:_:)@<X0>(unint64_t *result@<X0>, void *a2@<X1>, unint64_t *a3@<X8>)
 {
   v3 = *result;
   v4 = result[1];
@@ -3122,13 +3128,6 @@ int8x16_t _UInt128.byteSwapped.getter@<Q0>(int8x16_t *a1@<X8>)
   return result;
 }
 
-uint64_t protocol witness for static FixedWidthInteger.&* infix(_:_:) in conformance _UInt128@<X0>(__int128 *a1@<X0>, __int128 *a2@<X1>, unint64_t *a3@<X8>)
-{
-  v4 = *a2;
-  v5 = *a1;
-  return _UInt128.multipliedReportingOverflow(by:)(a3, &v5);
-}
-
 uint64_t protocol witness for BinaryInteger.init<A>(exactly:) in conformance _UInt128(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = lazy protocol witness table accessor for type _UInt128 and conformance _UInt128();
@@ -3136,19 +3135,19 @@ uint64_t protocol witness for BinaryInteger.init<A>(exactly:) in conformance _UI
   return MEMORY[0x2821FD5C0](a1, a4, a2, v8, a3);
 }
 
-uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance _UInt128@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance _UInt128@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a5@<X8>)
 {
   lazy protocol witness table accessor for type _UInt128 and conformance _UInt128();
   static FixedWidthInteger._convert<A>(from:)();
-  if (v10)
+  if (v12)
   {
     _StringGuts.grow(_:)(80);
-    v7 = _typeName(_:qualified:)();
-    MEMORY[0x2743B25F0](v7);
+    v9 = _typeName(_:qualified:)();
+    MEMORY[0x2743B25F0](v9);
 
     MEMORY[0x2743B25F0](0xD00000000000001ELL, 0x8000000270C52110);
-    v8 = _typeName(_:qualified:)();
-    MEMORY[0x2743B25F0](v8);
+    v10 = _typeName(_:qualified:)();
+    MEMORY[0x2743B25F0](v10);
 
     MEMORY[0x2743B25F0](0xD00000000000002ELL, 0x8000000270C52130);
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -3158,7 +3157,7 @@ uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance _UInt128@
   else
   {
     result = (*(*(a2 - 8) + 8))(a1, a2);
-    *a3 = v9;
+    *a5 = v11;
   }
 
   return result;
@@ -3212,7 +3211,7 @@ uint64_t protocol witness for static AdditiveArithmetic.+= infix(_:_:) in confor
   v6 = *a1;
   v8[0] = *a2;
   v8[1] = v6;
-  result = a5(&v9, v8);
+  result = (a5)(&v9, v8, a3, a4);
   if (result)
   {
     __break(1u);
@@ -3234,24 +3233,21 @@ unint64_t protocol witness for static BinaryInteger.~ prefix(_:) in conformance 
   return _UInt128.subtractingReportingOverflow(_:)(a2, &v4);
 }
 
-double protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance _UInt128@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void (*a5)(__int128 *__return_ptr, void *, __int128 *)@<X6>, void (*a6)(__int128 *__return_ptr, void *, __int128 *)@<X7>, _OWORD *a7@<X8>)
+double protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance _UInt128@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void (*a5)(__int128 *__return_ptr, void *, __int128 *)@<X6>, void (*a6)(__int128 *__return_ptr, void *, __int128 *)@<X7>, _OWORD *a7@<X8>)
 {
-  v54 = a6;
-  v55 = a7;
-  v51 = a5;
-  v11 = *(*(a4 + 24) + 16);
+  v39 = a6;
+  v40 = a7;
+  v36 = a5;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v13 = *(*(AssociatedTypeWitness - 8) + 64);
-  v15 = MEMORY[0x28223BE20](AssociatedTypeWitness, v14);
-  v56 = *(a3 - 8);
-  v16 = *(v56 + 64);
-  v18 = MEMORY[0x28223BE20](v15, v17);
-  v20 = &v51 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18, v21);
-  v23 = &v51 - v22;
-  v24 = *a1;
-  v52 = a1[1];
-  v53 = v24;
+  v11 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v41 = *(a3 - 8);
+  v12 = MEMORY[0x28223BE20](v11);
+  v14 = &v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v16 = &v36 - v15;
+  v17 = *a1;
+  v37 = a1[1];
+  v38 = v17;
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
@@ -3265,13 +3261,12 @@ double protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformanc
     }
 
 LABEL_7:
-    *&v60 = -128;
+    *&v45 = -128;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v27 = *(*(a4 + 32) + 8);
-    v28 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v56 + 8))(v23, a3);
-    if (v28)
+    v20 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v41 + 8))(v16, a3);
+    if (v20)
     {
       goto LABEL_19;
     }
@@ -3279,11 +3274,11 @@ LABEL_7:
     goto LABEL_13;
   }
 
-  v25 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v26 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if (v25)
+  v18 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v19 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if (v18)
   {
-    if (v26 > 64)
+    if (v19 > 64)
     {
       goto LABEL_7;
     }
@@ -3291,16 +3286,15 @@ LABEL_7:
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v29 = *(*(a4 + 32) + 8);
-    v30 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v56 + 8))(v23, a3);
-    if (v30)
+    v21 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v41 + 8))(v16, a3);
+    if (v21)
     {
       goto LABEL_19;
     }
   }
 
-  else if (v26 >= 64)
+  else if (v19 >= 64)
   {
     goto LABEL_13;
   }
@@ -3311,26 +3305,25 @@ LABEL_7:
   }
 
 LABEL_13:
-  v31 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v32 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if (v31)
+  v22 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v23 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if (v22)
   {
-    if (v32 > 64)
+    if (v23 > 64)
     {
       goto LABEL_15;
     }
   }
 
-  else if (v32 >= 64)
+  else if (v23 >= 64)
   {
 LABEL_15:
-    *&v60 = 128;
+    *&v45 = 128;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v33 = *(*(a4 + 32) + 8);
-    v34 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v56 + 8))(v23, a3);
-    if (v34)
+    v24 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v41 + 8))(v16, a3);
+    if (v24)
     {
       goto LABEL_19;
     }
@@ -3344,7 +3337,7 @@ LABEL_15:
   }
 
 LABEL_20:
-  (*(v56 + 16))(v20, a2, a3);
+  (*(v41 + 16))(v14, a2, a3);
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
   {
     goto LABEL_34;
@@ -3357,13 +3350,12 @@ LABEL_20:
       goto LABEL_33;
     }
 
-    *&v60 = 0x8000000000000000;
+    *&v45 = 0x8000000000000000;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v35 = *(*(a4 + 32) + 8);
-    v36 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v56 + 8))(v23, a3);
-    if ((v36 & 1) == 0)
+    v25 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v41 + 8))(v16, a3);
+    if ((v25 & 1) == 0)
     {
       goto LABEL_34;
     }
@@ -3371,28 +3363,27 @@ LABEL_20:
     __break(1u);
   }
 
-  v37 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v38 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  v40 = __OFSUB__(v38, 64);
-  v39 = v38 - 64 < 0;
-  if ((v37 & 1) == 0)
+  v26 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v27 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  v29 = __OFSUB__(v27, 64);
+  v28 = v27 - 64 < 0;
+  if ((v26 & 1) == 0)
   {
     goto LABEL_30;
   }
 
-  if (v38 > 64)
+  if (v27 > 64)
   {
-    *&v60 = 0x8000000000000000;
+    *&v45 = 0x8000000000000000;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v41 = *(*(a4 + 32) + 8);
-    v42 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v56 + 8))(v23, a3);
-    if (v42)
+    v30 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v41 + 8))(v16, a3);
+    if (v30)
     {
       __break(1u);
 LABEL_30:
-      if (v39 == v40)
+      if (v28 == v29)
       {
         goto LABEL_34;
       }
@@ -3408,25 +3399,24 @@ LABEL_34:
 
     while (1)
     {
-      v45 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      v46 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      if ((v45 & 1) == 0)
+      v32 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      v33 = dispatch thunk of BinaryInteger.bitWidth.getter();
+      if ((v32 & 1) == 0)
       {
         break;
       }
 
-      if (v46 <= 64)
+      if (v33 <= 64)
       {
         goto LABEL_44;
       }
 
-      *&v60 = 0x7FFFFFFFFFFFFFFFLL;
+      *&v45 = 0x7FFFFFFFFFFFFFFFLL;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v47 = *(*(a4 + 32) + 8);
-      v48 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v56 + 8))(v23, a3);
-      if (v48)
+      v34 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v41 + 8))(v16, a3);
+      if (v34)
       {
         __break(1u);
 LABEL_39:
@@ -3439,40 +3429,39 @@ LABEL_39:
       goto LABEL_46;
     }
 
-    if (v46 < 64)
+    if (v33 < 64)
     {
 LABEL_44:
       dispatch thunk of BinaryInteger._lowWord.getter();
       goto LABEL_46;
     }
 
-    *&v60 = 0x7FFFFFFFFFFFFFFFLL;
+    *&v45 = 0x7FFFFFFFFFFFFFFFLL;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v49 = *(*(a4 + 32) + 8);
-    v44 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v56 + 8))(v23, a3);
-    if (v44)
+    v31 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v41 + 8))(v16, a3);
+    if (v31)
     {
       __break(1u);
       goto LABEL_51;
     }
 
 LABEL_46:
-    v44 = dispatch thunk of BinaryInteger._lowWord.getter();
-    (*(v56 + 8))(v20, a3);
-    v59[0] = v53;
-    v59[1] = v52;
-    if ((v44 & 0x8000000000000000) != 0)
+    v31 = dispatch thunk of BinaryInteger._lowWord.getter();
+    (*(v41 + 8))(v14, a3);
+    v44[0] = v38;
+    v44[1] = v37;
+    if ((v31 & 0x8000000000000000) != 0)
     {
       goto LABEL_52;
     }
 
-    if (v44 < 0x80)
+    if (v31 < 0x80)
     {
-      _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_SiTt1g5(v44, &v57);
-      v58 = v57;
-      v54(&v60, v59, &v58);
+      _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_SiTt1g5(v31, &v42);
+      v43 = v42;
+      v39(&v45, v44, &v43);
       goto LABEL_49;
     }
 
@@ -3482,10 +3471,9 @@ LABEL_46:
   swift_getAssociatedConformanceWitness();
   dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
   dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-  v43 = *(*(a4 + 32) + 8);
-  v44 = dispatch thunk of static Comparable.< infix(_:_:)();
-  (*(v56 + 8))(v23, a3);
-  if ((v44 & 1) == 0)
+  v31 = dispatch thunk of static Comparable.< infix(_:_:)();
+  (*(v41 + 8))(v16, a3);
+  if ((v31 & 1) == 0)
   {
 LABEL_33:
     dispatch thunk of BinaryInteger._lowWord.getter();
@@ -3495,54 +3483,50 @@ LABEL_33:
 LABEL_51:
   __break(1u);
 LABEL_52:
-  if (v44 > 0xFFFFFFFFFFFFFF80)
+  if (v31 > 0xFFFFFFFFFFFFFF80)
   {
-    _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_SiTt1g5(-v44, &v57);
-    v58 = v57;
-    v51(&v60, v59, &v58);
+    _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_SiTt1g5(-v31, &v42);
+    v43 = v42;
+    v36(&v45, v44, &v43);
     goto LABEL_49;
   }
 
 LABEL_19:
-  v60 = 0uLL;
+  v45 = 0uLL;
 LABEL_49:
-  result = *&v60;
-  *v55 = v60;
+  result = *&v45;
+  *v40 = v45;
   return result;
 }
 
 uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance _UInt128(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *(*a7)(unint64_t *__return_ptr, __int128 *, __int128 *), void *(*a8)(unint64_t *__return_ptr, __int128 *, __int128 *))
 {
-  v56 = a7;
-  v57 = a8;
-  v12 = *(*(a4 + 24) + 16);
+  v41 = a7;
+  v42 = a8;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v14 = *(*(AssociatedTypeWitness - 8) + 64);
-  v16 = MEMORY[0x28223BE20](AssociatedTypeWitness, v15);
-  v59 = *(a3 - 8);
-  v17 = *(v59 + 64);
-  v19 = MEMORY[0x28223BE20](v16, v18);
-  v21 = &v56 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v19, v22);
-  v24 = &v56 - v23;
-  v25 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v58 = a1;
-  if ((v25 & 1) == 0)
+  v12 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v44 = *(a3 - 8);
+  v13 = MEMORY[0x28223BE20](v12);
+  v15 = &v41 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v17 = &v41 - v16;
+  v18 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v43 = a1;
+  if ((v18 & 1) == 0)
   {
-    v27 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v28 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if (v27)
+    v20 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v21 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if (v20)
     {
-      if (v28 > 64)
+      if (v21 > 64)
       {
 LABEL_7:
-        v63 = -128;
+        v48 = -128;
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v29 = *(*(a4 + 32) + 8);
-        v30 = dispatch thunk of static Comparable.< infix(_:_:)();
-        result = (*(v59 + 8))(v24, a3);
-        if (v30)
+        v22 = dispatch thunk of static Comparable.< infix(_:_:)();
+        result = (*(v44 + 8))(v17, a3);
+        if (v22)
         {
           goto LABEL_25;
         }
@@ -3553,18 +3537,17 @@ LABEL_7:
       swift_getAssociatedConformanceWitness();
       dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
       dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-      v31 = *(*(a4 + 32) + 8);
-      v32 = dispatch thunk of static Comparable.< infix(_:_:)();
-      result = (*(v59 + 8))(v24, a3);
-      if (v32)
+      v23 = dispatch thunk of static Comparable.< infix(_:_:)();
+      result = (*(v44 + 8))(v17, a3);
+      if (v23)
       {
 LABEL_25:
-        v41 = v58;
+        v30 = v43;
         goto LABEL_26;
       }
     }
 
-    else if (v28 >= 64)
+    else if (v21 >= 64)
     {
       goto LABEL_13;
     }
@@ -3590,35 +3573,34 @@ LABEL_25:
   }
 
 LABEL_13:
-  v33 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v34 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  v36 = __OFSUB__(v34, 64);
-  v35 = v34 - 64 < 0;
-  if ((v33 & 1) == 0)
+  v24 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v25 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  v27 = __OFSUB__(v25, 64);
+  v26 = v25 - 64 < 0;
+  if ((v24 & 1) == 0)
   {
     goto LABEL_22;
   }
 
-  if (v34 <= 64)
+  if (v25 <= 64)
   {
     goto LABEL_24;
   }
 
 LABEL_15:
-  v63 = 128;
+  v48 = 128;
   lazy protocol witness table accessor for type Int and conformance Int();
   dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-  v37 = *(*(a4 + 32) + 8);
-  v38 = dispatch thunk of static Comparable.< infix(_:_:)();
-  result = (*(v59 + 8))(v24, a3);
-  if (v38)
+  v28 = dispatch thunk of static Comparable.< infix(_:_:)();
+  result = (*(v44 + 8))(v17, a3);
+  if (v28)
   {
     goto LABEL_25;
   }
 
   while (1)
   {
-    (*(v59 + 16))(v21, a2, a3);
+    (*(v44 + 16))(v15, a2, a3);
     if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
     {
       goto LABEL_35;
@@ -3634,20 +3616,19 @@ LABEL_15:
       goto LABEL_34;
     }
 
-    v63 = 0x8000000000000000;
+    v48 = 0x8000000000000000;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v39 = *(*(a4 + 32) + 8);
-    v40 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v59 + 8))(v24, a3);
-    if ((v40 & 1) == 0)
+    v29 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v44 + 8))(v17, a3);
+    if ((v29 & 1) == 0)
     {
       goto LABEL_35;
     }
 
     __break(1u);
 LABEL_22:
-    if (v35 == v36)
+    if (v26 == v27)
     {
       goto LABEL_15;
     }
@@ -3660,14 +3641,14 @@ LABEL_24:
     }
   }
 
-  v42 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v43 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  v45 = __OFSUB__(v43, 64);
-  v44 = v43 - 64 < 0;
-  if ((v42 & 1) == 0)
+  v31 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v32 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  v34 = __OFSUB__(v32, 64);
+  v33 = v32 - 64 < 0;
+  if ((v31 & 1) == 0)
   {
 LABEL_31:
-    if (v44 == v45)
+    if (v33 == v34)
     {
       goto LABEL_35;
     }
@@ -3675,15 +3656,14 @@ LABEL_31:
     goto LABEL_34;
   }
 
-  if (v43 > 64)
+  if (v32 > 64)
   {
-    v63 = 0x8000000000000000;
+    v48 = 0x8000000000000000;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v46 = *(*(a4 + 32) + 8);
-    v47 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v59 + 8))(v24, a3);
-    if ((v47 & 1) == 0)
+    v35 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v44 + 8))(v17, a3);
+    if ((v35 & 1) == 0)
     {
 LABEL_35:
       if (dispatch thunk of BinaryInteger.bitWidth.getter() <= 64)
@@ -3693,25 +3673,24 @@ LABEL_35:
 
       while (1)
       {
-        v49 = dispatch thunk of static BinaryInteger.isSigned.getter();
-        v50 = dispatch thunk of BinaryInteger.bitWidth.getter();
-        if ((v49 & 1) == 0)
+        v36 = dispatch thunk of static BinaryInteger.isSigned.getter();
+        v37 = dispatch thunk of BinaryInteger.bitWidth.getter();
+        if ((v36 & 1) == 0)
         {
           break;
         }
 
-        if (v50 <= 64)
+        if (v37 <= 64)
         {
           goto LABEL_45;
         }
 
-        v63 = 0x7FFFFFFFFFFFFFFFLL;
+        v48 = 0x7FFFFFFFFFFFFFFFLL;
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v51 = *(*(a4 + 32) + 8);
-        v52 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v59 + 8))(v24, a3);
-        if (v52)
+        v38 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v44 + 8))(v17, a3);
+        if (v38)
         {
           __break(1u);
 LABEL_40:
@@ -3724,31 +3703,30 @@ LABEL_40:
         goto LABEL_47;
       }
 
-      if (v50 < 64)
+      if (v37 < 64)
       {
 LABEL_45:
         dispatch thunk of BinaryInteger._lowWord.getter();
         goto LABEL_47;
       }
 
-      v63 = 0x7FFFFFFFFFFFFFFFLL;
+      v48 = 0x7FFFFFFFFFFFFFFFLL;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v53 = *(*(a4 + 32) + 8);
-      v41 = dispatch thunk of static Comparable.< infix(_:_:)();
-      result = (*(v59 + 8))(v24, a3);
-      if (v41)
+      v30 = dispatch thunk of static Comparable.< infix(_:_:)();
+      result = (*(v44 + 8))(v17, a3);
+      if (v30)
       {
         __break(1u);
         goto LABEL_52;
       }
 
 LABEL_47:
-      v54 = dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v59 + 8))(v21, a3);
-      result = v54;
-      v41 = v58;
-      v62 = *v58;
+      v39 = dispatch thunk of BinaryInteger._lowWord.getter();
+      (*(v44 + 8))(v15, a3);
+      result = v39;
+      v30 = v43;
+      v47 = *v43;
       if (result < 0)
       {
         goto LABEL_53;
@@ -3756,9 +3734,9 @@ LABEL_47:
 
       if (result < 0x80)
       {
-        _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_SiTt1g5(result, &v60);
-        v61 = v60;
-        result = v57(&v63, &v62, &v61);
+        _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_SiTt1g5(result, &v45);
+        v46 = v45;
+        result = v42(&v48, &v47, &v46);
         goto LABEL_50;
       }
 
@@ -3772,10 +3750,9 @@ LABEL_47:
   swift_getAssociatedConformanceWitness();
   dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
   dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-  v48 = *(*(a4 + 32) + 8);
-  v41 = dispatch thunk of static Comparable.< infix(_:_:)();
-  result = (*(v59 + 8))(v24, a3);
-  if ((v41 & 1) == 0)
+  v30 = dispatch thunk of static Comparable.< infix(_:_:)();
+  result = (*(v44 + 8))(v17, a3);
+  if ((v30 & 1) == 0)
   {
 LABEL_34:
     dispatch thunk of BinaryInteger._lowWord.getter();
@@ -3787,19 +3764,19 @@ LABEL_52:
 LABEL_53:
   if (result > 0xFFFFFFFFFFFFFF80)
   {
-    _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_SiTt1g5(-result, &v60);
-    v61 = v60;
-    result = v56(&v63, &v62, &v61);
+    _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_SiTt1g5(-result, &v45);
+    v46 = v45;
+    result = v41(&v48, &v47, &v46);
     goto LABEL_50;
   }
 
 LABEL_26:
-  v63 = 0;
-  v64 = 0;
+  v48 = 0;
+  v49 = 0;
 LABEL_50:
-  v55 = v64;
-  *v41 = v63;
-  *(v41 + 8) = v55;
+  v40 = v49;
+  *v30 = v48;
+  *(v30 + 8) = v40;
   return result;
 }
 
@@ -3823,7 +3800,7 @@ uint64_t specialized BinaryInteger.signum()@<X0>(uint64_t result@<X0>, uint64_t 
   return result;
 }
 
-uint64_t protocol witness for LosslessStringConvertible.init(_:) in conformance _UInt128@<X0>(uint64_t result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+unint64_t protocol witness for LosslessStringConvertible.init(_:) in conformance _UInt128@<X0>(unint64_t result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = HIBYTE(a2) & 0xF;
   v6 = result & 0xFFFFFFFFFFFFLL;
@@ -4176,13 +4153,6 @@ LABEL_12:
   return v14;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance _Int128()
-{
-  v2 = *v0;
-  lazy protocol witness table accessor for type _Int128 and conformance _Int128();
-  return String.init<A>(_:radix:uppercase:)();
-}
-
 BOOL static _Int128.< infix(_:_:)(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (a2 == a4)
@@ -4282,13 +4252,13 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance _UInt12
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance _UInt128()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance _UInt128(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  MEMORY[0x2743B31A0](v1);
   MEMORY[0x2743B31A0](v2);
+  MEMORY[0x2743B31A0](v3);
   return Hasher._finalize()();
 }
 
@@ -4537,7 +4507,7 @@ unint64_t *protocol witness for static AdditiveArithmetic.-= infix(_:_:) in conf
   return result;
 }
 
-unint64_t _Int128.magnitude.getter@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+int64_t _Int128.magnitude.getter@<X0>(int64_t result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v4 = -result;
   v5 = -__PAIR128__(v3, result) >> 64;
@@ -4572,40 +4542,35 @@ uint64_t _Int128.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t _Int128.init<A>(exactly:)(char *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a3 + 24);
-  v90 = *(v6 + 16);
+  v65 = *(*(a3 + 24) + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(*(AssociatedTypeWitness - 8) + 64);
-  v9 = MEMORY[0x28223BE20](AssociatedTypeWitness, v8);
-  v88[1] = v88 - v10;
-  v100 = *(a2 - 8);
-  v11 = *(v100 + 64);
-  v13 = MEMORY[0x28223BE20](v9, v12);
-  v92 = v88 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x28223BE20](v13, v15);
-  v91 = v88 - v17;
-  v19 = MEMORY[0x28223BE20](v16, v18);
-  v96 = v88 - v20;
-  v22 = MEMORY[0x28223BE20](v19, v21);
-  v97 = v88 - v23;
-  MEMORY[0x28223BE20](v22, v24);
-  v93 = v88 - v25;
+  v6 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v63[1] = v63 - v7;
+  v75 = *(a2 - 8);
+  v8 = MEMORY[0x28223BE20](v6);
+  v67 = v63 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x28223BE20](v8);
+  v66 = v63 - v11;
+  v12 = MEMORY[0x28223BE20](v10);
+  v71 = v63 - v13;
+  v14 = MEMORY[0x28223BE20](v12);
+  v72 = v63 - v15;
+  MEMORY[0x28223BE20](v14);
+  v68 = v63 - v16;
   swift_getAssociatedTypeWitness();
-  v26 = *(swift_getAssociatedConformanceWitness() + 16);
-  v27 = swift_getAssociatedTypeWitness();
-  v28 = *(*(v27 - 8) + 64);
-  MEMORY[0x28223BE20](v27, v29);
-  v30 = swift_checkMetadataState();
-  v99 = *(v30 - 8);
-  v31 = *(v99 + 64);
-  v33 = MEMORY[0x28223BE20](v30, v32);
-  v35 = v88 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v33, v36);
-  v38 = v88 - v37;
-  v98 = a1;
+  swift_getAssociatedConformanceWitness();
+  v17 = swift_getAssociatedTypeWitness();
+  MEMORY[0x28223BE20](v17);
+  v18 = swift_checkMetadataState();
+  v74 = *(v18 - 8);
+  v19 = MEMORY[0x28223BE20](v18);
+  v21 = v63 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v19);
+  v23 = v63 - v22;
+  v73 = a1;
   dispatch thunk of Numeric.magnitude.getter();
-  v95 = a3;
-  v101 = a2;
+  v70 = a3;
+  v76 = a2;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
@@ -4613,10 +4578,10 @@ uint64_t _Int128.init<A>(exactly:)(char *a1, uint64_t a2, uint64_t a3)
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
     swift_getAssociatedConformanceWitness();
-    v39 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v40 = *(v99 + 8);
-    v40(v35, v30);
-    if (v39)
+    v24 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v25 = *(v74 + 8);
+    v25(v21, v18);
+    if (v24)
     {
       goto LABEL_3;
     }
@@ -4624,22 +4589,22 @@ uint64_t _Int128.init<A>(exactly:)(char *a1, uint64_t a2, uint64_t a3)
 
   if (dispatch thunk of BinaryInteger.bitWidth.getter() >= 64)
   {
-    v102 = -1;
-    v57 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v58 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if (v57)
+    v77 = -1;
+    v39 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v40 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if (v39)
     {
-      v88[0] = v38;
-      if (v58 > 64)
+      v63[0] = v23;
+      if (v40 > 64)
       {
         lazy protocol witness table accessor for type UInt64 and conformance UInt64();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
         swift_getAssociatedConformanceWitness();
-        v38 = v88[0];
-        v59 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v40 = *(v99 + 8);
-        v40(v35, v30);
-        if (v59)
+        v23 = v63[0];
+        v41 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v25 = *(v74 + 8);
+        v25(v21, v18);
+        if (v41)
         {
           goto LABEL_4;
         }
@@ -4651,10 +4616,10 @@ uint64_t _Int128.init<A>(exactly:)(char *a1, uint64_t a2, uint64_t a3)
       dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
       dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
       swift_getAssociatedConformanceWitness();
-      v38 = v88[0];
-      v61 = dispatch thunk of static Comparable.> infix(_:_:)();
-      (*(v99 + 8))(v35, v30);
-      if ((v61 & 1) == 0)
+      v23 = v63[0];
+      v43 = dispatch thunk of static Comparable.> infix(_:_:)();
+      (*(v74 + 8))(v21, v18);
+      if ((v43 & 1) == 0)
       {
         goto LABEL_21;
       }
@@ -4664,7 +4629,7 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    if (v58 < 65)
+    if (v40 < 65)
     {
       goto LABEL_20;
     }
@@ -4672,71 +4637,68 @@ LABEL_20:
     lazy protocol witness table accessor for type UInt64 and conformance UInt64();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
     swift_getAssociatedConformanceWitness();
-    v60 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v40 = *(v99 + 8);
-    v40(v35, v30);
-    if (v60)
+    v42 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v25 = *(v74 + 8);
+    v25(v21, v18);
+    if (v42)
     {
 LABEL_3:
-      v88[0] = v38;
+      v63[0] = v23;
 LABEL_4:
-      v40(v88[0], v30);
-      v102 = -1;
+      v25(v63[0], v18);
+      v77 = -1;
       lazy protocol witness table accessor for type UInt64 and conformance UInt64();
-      v41 = v97;
-      v42 = v101;
-      v43 = v95;
+      v26 = v72;
+      v27 = v76;
       dispatch thunk of BinaryInteger.init<A>(_:)();
-      v44 = v93;
+      v28 = v68;
       dispatch thunk of static BinaryInteger.& infix(_:_:)();
-      v45 = v100;
-      v46 = *(v100 + 8);
-      v46(v41, v42);
-      v102 = 64;
+      v29 = v75;
+      v30 = *(v75 + 8);
+      v30(v26, v27);
+      v77 = 64;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of static BinaryInteger.>> infix<A>(_:_:)();
-      v47 = v91;
-      v99 = *(v45 + 16);
-      v100 = v45 + 16;
-      (v99)(v91, v44, v42);
+      v31 = v66;
+      v74 = *(v29 + 16);
+      v75 = v29 + 16;
+      (v74)(v66, v28, v27);
       if (dispatch thunk of static BinaryInteger.isSigned.getter())
       {
         swift_getAssociatedConformanceWitness();
         dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
         dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-        v48 = *(*(v43 + 32) + 8);
-        v49 = dispatch thunk of static Comparable.>= infix(_:_:)();
-        result = (v46)(v41, v42);
-        if ((v49 & 1) == 0)
+        v32 = dispatch thunk of static Comparable.>= infix(_:_:)();
+        result = (v30)(v26, v27);
+        if ((v32 & 1) == 0)
         {
           __break(1u);
           return result;
         }
       }
 
-      v51 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      v52 = v92;
-      if (v51 <= 63)
+      v34 = dispatch thunk of BinaryInteger.bitWidth.getter();
+      v35 = v67;
+      if (v34 <= 63)
       {
         goto LABEL_29;
       }
 
-      v102 = -1;
-      v53 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      v54 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      if (v53)
+      v77 = -1;
+      v36 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      v37 = dispatch thunk of BinaryInteger.bitWidth.getter();
+      if (v36)
       {
-        if (v54 <= 64)
+        if (v37 <= 64)
         {
           goto LABEL_27;
         }
 
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v55 = *(*(v43 + 32) + 8);
-        v56 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v46(v41, v42);
-        v52 = v92;
-        if ((v56 & 1) == 0)
+        v38 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v30(v26, v27);
+        v35 = v67;
+        if ((v38 & 1) == 0)
         {
           goto LABEL_29;
         }
@@ -4744,8 +4706,8 @@ LABEL_4:
 
       else
       {
-        v52 = v92;
-        if (v54 < 65)
+        v35 = v67;
+        if (v37 < 65)
         {
 LABEL_28:
           dispatch thunk of BinaryInteger._lowWord.getter();
@@ -4753,18 +4715,17 @@ LABEL_28:
         }
 
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v70 = *(*(v43 + 32) + 8);
-        v71 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v46(v41, v42);
-        if ((v71 & 1) == 0)
+        v50 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v30(v26, v27);
+        if ((v50 & 1) == 0)
         {
 LABEL_29:
-          v74 = dispatch thunk of BinaryInteger._lowWord.getter();
-          v46(v47, v42);
-          (v99)(v52, v96, v42);
+          v52 = dispatch thunk of BinaryInteger._lowWord.getter();
+          v30(v31, v27);
+          (v74)(v35, v71, v27);
           if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() >= 65)
           {
-            v102 = 0x8000000000000000;
+            v77 = 0x8000000000000000;
             if (dispatch thunk of static BinaryInteger.isSigned.getter())
             {
               if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
@@ -4777,11 +4738,11 @@ LABEL_41:
 
             else
             {
-              v75 = dispatch thunk of static BinaryInteger.isSigned.getter();
-              v76 = dispatch thunk of BinaryInteger.bitWidth.getter();
-              if ((v75 & 1) == 0)
+              v53 = dispatch thunk of static BinaryInteger.isSigned.getter();
+              v54 = dispatch thunk of BinaryInteger.bitWidth.getter();
+              if ((v53 & 1) == 0)
               {
-                if (v76 >= 64)
+                if (v54 >= 64)
                 {
                   goto LABEL_42;
                 }
@@ -4789,22 +4750,21 @@ LABEL_41:
                 goto LABEL_41;
               }
 
-              if (v76 <= 64)
+              if (v54 <= 64)
               {
                 swift_getAssociatedConformanceWitness();
                 dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-                v80 = v97;
+                v57 = v72;
                 dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-                v81 = *(*(v43 + 32) + 8);
-                v82 = dispatch thunk of static Comparable.< infix(_:_:)();
-                v46(v80, v42);
-                if (v82)
+                v58 = dispatch thunk of static Comparable.< infix(_:_:)();
+                v30(v57, v27);
+                if (v58)
                 {
 LABEL_46:
-                  v46(v98, v42);
-                  v46(v52, v42);
-                  v46(v96, v42);
-                  v46(v93, v42);
+                  v30(v73, v27);
+                  v30(v35, v27);
+                  v30(v71, v27);
+                  v30(v68, v27);
                   return 0;
                 }
 
@@ -4813,12 +4773,11 @@ LABEL_46:
             }
 
             lazy protocol witness table accessor for type Int64 and conformance Int64();
-            v77 = v97;
+            v55 = v72;
             dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-            v78 = *(*(v43 + 32) + 8);
-            v79 = dispatch thunk of static Comparable.< infix(_:_:)();
-            v46(v77, v42);
-            if (v79)
+            v56 = dispatch thunk of static Comparable.< infix(_:_:)();
+            v30(v55, v27);
+            if (v56)
             {
               goto LABEL_46;
             }
@@ -4830,38 +4789,37 @@ LABEL_42:
             goto LABEL_52;
           }
 
-          v102 = 0x7FFFFFFFFFFFFFFFLL;
-          v83 = dispatch thunk of static BinaryInteger.isSigned.getter();
-          v84 = dispatch thunk of BinaryInteger.bitWidth.getter();
-          if (v83)
+          v77 = 0x7FFFFFFFFFFFFFFFLL;
+          v59 = dispatch thunk of static BinaryInteger.isSigned.getter();
+          v60 = dispatch thunk of BinaryInteger.bitWidth.getter();
+          if (v59)
           {
-            if (v84 > 64)
+            if (v60 > 64)
             {
               goto LABEL_45;
             }
           }
 
-          else if (v84 > 63)
+          else if (v60 > 63)
           {
 LABEL_45:
             lazy protocol witness table accessor for type Int64 and conformance Int64();
-            v85 = v97;
+            v61 = v72;
             dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-            v86 = *(*(v43 + 32) + 8);
-            v87 = dispatch thunk of static Comparable.< infix(_:_:)();
-            v46(v85, v42);
-            if (v87)
+            v62 = dispatch thunk of static Comparable.< infix(_:_:)();
+            v30(v61, v27);
+            if (v62)
             {
               goto LABEL_46;
             }
 
 LABEL_52:
             dispatch thunk of BinaryInteger._lowWord.getter();
-            v46(v98, v42);
-            v46(v52, v42);
-            v46(v96, v42);
-            v46(v93, v42);
-            return v74;
+            v30(v73, v27);
+            v30(v35, v27);
+            v30(v71, v27);
+            v30(v68, v27);
+            return v52;
           }
 
           dispatch thunk of BinaryInteger._lowWord.getter();
@@ -4874,11 +4832,10 @@ LABEL_27:
       swift_getAssociatedConformanceWitness();
       dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
       dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-      v72 = *(*(v43 + 32) + 8);
-      v73 = dispatch thunk of static Comparable.> infix(_:_:)();
-      v46(v41, v42);
-      v52 = v92;
-      if (v73)
+      v51 = dispatch thunk of static Comparable.> infix(_:_:)();
+      v30(v26, v27);
+      v35 = v67;
+      if (v51)
       {
         goto LABEL_28;
       }
@@ -4888,30 +4845,28 @@ LABEL_27:
   }
 
 LABEL_21:
-  v62 = dispatch thunk of BinaryInteger._lowWord.getter();
-  (*(v99 + 8))(v38, v30);
-  v63 = *(v6 + 8);
-  v64 = v97;
-  v65 = v101;
+  v44 = dispatch thunk of BinaryInteger._lowWord.getter();
+  (*(v74 + 8))(v23, v18);
+  v45 = v72;
+  v46 = v76;
   dispatch thunk of static AdditiveArithmetic.zero.getter();
-  v66 = *(*(v95 + 32) + 8);
-  v67 = v98;
-  v68 = dispatch thunk of static Comparable.< infix(_:_:)();
-  v69 = *(v100 + 8);
-  v69(v67, v65);
-  v69(v64, v65);
-  if (v68)
+  v47 = v73;
+  v48 = dispatch thunk of static Comparable.< infix(_:_:)();
+  v49 = *(v75 + 8);
+  v49(v47, v46);
+  v49(v45, v46);
+  if (v48)
   {
-    return -v62;
+    return -v44;
   }
 
   else
   {
-    return v62;
+    return v44;
   }
 }
 
-unint64_t static _Int128.* infix(_:_:)(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t static _Int128.* infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = _Int128.multipliedReportingOverflow(by:)(a3, a4, a1, a2);
   if (v5)
@@ -4922,7 +4877,7 @@ unint64_t static _Int128.* infix(_:_:)(unint64_t a1, uint64_t a2, unint64_t a3, 
   return result;
 }
 
-unint64_t _Int128.multipliedReportingOverflow(by:)(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t _Int128.multipliedReportingOverflow(by:)(uint64_t a1, uint64_t a2, int64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4996,9 +4951,9 @@ LABEL_6:
   }
 }
 
-unint64_t static _Int128.*= infix(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t static _Int128.*= infix(_:_:)(int64_t *a1, uint64_t a2, uint64_t a3)
 {
-  result = _Int128.multipliedReportingOverflow(by:)(a2, a3, *a1, *(a1 + 8));
+  result = _Int128.multipliedReportingOverflow(by:)(a2, a3, *a1, a1[1]);
   if (v6)
   {
     __break(1u);
@@ -5007,7 +4962,7 @@ unint64_t static _Int128.*= infix(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3)
   else
   {
     *a1 = result;
-    *(a1 + 8) = v5;
+    a1[1] = v5;
   }
 
   return result;
@@ -5022,9 +4977,9 @@ uint64_t protocol witness for Numeric.init<A>(exactly:) in conformance _Int128@<
   return result;
 }
 
-unint64_t protocol witness for static Numeric.* infix(_:_:) in conformance _Int128@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
+unint64_t protocol witness for static Numeric.* infix(_:_:) in conformance _Int128@<X0>(int64_t *a1@<X0>, uint64_t *a2@<X1>, unint64_t *a3@<X8>)
 {
-  result = _Int128.multipliedReportingOverflow(by:)(*a2, *(a2 + 8), *a1, *(a1 + 8));
+  result = _Int128.multipliedReportingOverflow(by:)(*a2, a2[1], *a1, a1[1]);
   if (v6)
   {
     __break(1u);
@@ -5039,9 +4994,9 @@ unint64_t protocol witness for static Numeric.* infix(_:_:) in conformance _Int1
   return result;
 }
 
-unint64_t protocol witness for static Numeric.*= infix(_:_:) in conformance _Int128(uint64_t a1, uint64_t a2)
+unint64_t protocol witness for static Numeric.*= infix(_:_:) in conformance _Int128(int64_t *a1, uint64_t *a2)
 {
-  result = _Int128.multipliedReportingOverflow(by:)(*a2, *(a2 + 8), *a1, *(a1 + 8));
+  result = _Int128.multipliedReportingOverflow(by:)(*a2, a2[1], *a1, a1[1]);
   if (v5)
   {
     __break(1u);
@@ -5050,7 +5005,7 @@ unint64_t protocol witness for static Numeric.*= infix(_:_:) in conformance _Int
   else
   {
     *a1 = result;
-    *(a1 + 8) = v4;
+    a1[1] = v4;
   }
 
   return result;
@@ -5205,7 +5160,7 @@ void *protocol witness for Collection._failEarlyRangeCheck(_:bounds:) in conform
   return result;
 }
 
-unint64_t _Int128.multipliedReportingOverflow(by:)(unint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t _Int128.multipliedReportingOverflow(by:)(unint64_t a1, int64_t a2, uint64_t a3)
 {
   v4 = -a2;
   v5 = -__PAIR128__(v3, a2) >> 64;
@@ -5227,7 +5182,7 @@ unint64_t _Int128.multipliedReportingOverflow(by:)(unint64_t a1, unint64_t a2, u
   }
 }
 
-unint64_t _Int128.multiplied(by:)(unint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t _Int128.multiplied(by:)(unint64_t a1, int64_t a2, uint64_t a3)
 {
   result = _Int128.multipliedReportingOverflow(by:)(a1, a2, a3);
   if (v4)
@@ -5238,7 +5193,7 @@ unint64_t _Int128.multiplied(by:)(unint64_t a1, unint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t _Int128.quotientAndRemainder(dividingBy:)(unint64_t a1, uint64_t a2, unint64_t a3, int64_t a4)
+uint64_t _Int128.quotientAndRemainder(dividingBy:)(int64_t a1, uint64_t a2, int64_t a3, int64_t a4)
 {
   v5 = a4;
   v6 = -__PAIR128__(v4, a3) >> 64;
@@ -5351,7 +5306,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t _Int128.dividedReportingOverflow(by:)(unint64_t a1, uint64_t a2, unint64_t a3, int64_t a4)
+uint64_t _Int128.dividedReportingOverflow(by:)(int64_t a1, uint64_t a2, int64_t a3, int64_t a4)
 {
   v4 = a3;
   if (a2 != -1)
@@ -5372,7 +5327,7 @@ uint64_t _Int128.dividedReportingOverflow(by:)(unint64_t a1, uint64_t a2, unint6
   return v4;
 }
 
-unint64_t _Int128.remainderReportingOverflow(dividingBy:)(unint64_t a1, uint64_t a2, unint64_t a3, int64_t a4)
+int64_t _Int128.remainderReportingOverflow(dividingBy:)(int64_t a1, uint64_t a2, int64_t a3, int64_t a4)
 {
   if (a2 != -1)
   {
@@ -5394,7 +5349,7 @@ LABEL_8:
   return a3;
 }
 
-uint64_t *_Int128.multipliedFullWidth(by:)(uint64_t *result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
+uint64_t *_Int128.multipliedFullWidth(by:)(uint64_t *result, int64_t a2, uint64_t a3, int64_t a4, uint64_t a5)
 {
   if (a5)
   {
@@ -5529,7 +5484,7 @@ LABEL_41:
   return result;
 }
 
-uint64_t _Int128.dividingFullWidth(_:)(uint64_t a1, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5)
+uint64_t _Int128.dividingFullWidth(_:)(uint64_t a1, uint64_t a2, uint64_t *a3, int64_t a4, uint64_t a5)
 {
   specialized _wideMagnitude22<A>(_:)(v18, v17, a1, a2, *a3, a3[1]);
   v8 = -a4;
@@ -5555,7 +5510,7 @@ uint64_t _Int128.dividingFullWidth(_:)(uint64_t a1, uint64_t a2, uint64_t *a3, u
       goto LABEL_16;
     }
 
-    if (v12 < 0)
+    if ((v12 & 0x8000000000000000) != 0)
     {
       goto LABEL_21;
     }
@@ -5569,7 +5524,7 @@ uint64_t _Int128.dividingFullWidth(_:)(uint64_t a1, uint64_t a2, uint64_t *a3, u
     goto LABEL_17;
   }
 
-  if (v12 < 0)
+  if ((v12 & 0x8000000000000000) != 0)
   {
     __break(1u);
 LABEL_20:
@@ -5605,7 +5560,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t specialized _wideMagnitude22<A>(_:)(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *specialized _wideMagnitude22<A>(_:)(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   result = _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF8_UInt128V_AD7_Int128VTt1g5(a3, a4, &v18);
   v12 = v18;
@@ -5803,7 +5758,7 @@ LABEL_18:
   return result;
 }
 
-unint64_t static _Int128./ infix(_:_:)(unint64_t result, int64_t a2, unint64_t a3, uint64_t a4)
+int64_t static _Int128./ infix(_:_:)(int64_t result, int64_t a2, int64_t a3, uint64_t a4)
 {
   if (a4 == -1)
   {
@@ -5825,7 +5780,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t static _Int128.% infix(_:_:)(unint64_t result, int64_t a2, unint64_t a3, uint64_t a4)
+int64_t static _Int128.% infix(_:_:)(int64_t result, int64_t a2, int64_t a3, uint64_t a4)
 {
   if (a4 == -1)
   {
@@ -5987,9 +5942,9 @@ LABEL_13:
   return v3;
 }
 
-uint64_t protocol witness for FixedWidthInteger.multipliedReportingOverflow(by:) in conformance _Int128(unint64_t *a1, uint64_t a2)
+uint64_t protocol witness for FixedWidthInteger.multipliedReportingOverflow(by:) in conformance _Int128(unint64_t *a1, uint64_t *a2)
 {
-  *a1 = _Int128.multipliedReportingOverflow(by:)(*a2, *(a2 + 8), *v2, *(v2 + 8));
+  *a1 = _Int128.multipliedReportingOverflow(by:)(*a2, a2[1], *v2, v2[1]);
   a1[1] = v4;
   return v5 & 1;
 }
@@ -6083,9 +6038,9 @@ LABEL_18:
   return result;
 }
 
-uint64_t *protocol witness for FixedWidthInteger.multipliedFullWidth(by:) in conformance _Int128(uint64_t **a1, uint64_t *a2, uint64_t a3)
+uint64_t *protocol witness for FixedWidthInteger.multipliedFullWidth(by:) in conformance _Int128(uint64_t **a1, uint64_t *a2, int64_t *a3)
 {
-  result = _Int128.multipliedFullWidth(by:)(a2, *a3, *(a3 + 8), *v3, *(v3 + 8));
+  result = _Int128.multipliedFullWidth(by:)(a2, *a3, a3[1], *v3, v3[1]);
   *a1 = result;
   a1[1] = v6;
   return result;
@@ -6093,7 +6048,7 @@ uint64_t *protocol witness for FixedWidthInteger.multipliedFullWidth(by:) in con
 
 uint64_t protocol witness for FixedWidthInteger.dividingFullWidth(_:) in conformance _Int128(uint64_t *a1, void *a2, uint64_t *a3, uint64_t *a4)
 {
-  result = _Int128.dividingFullWidth(_:)(*a3, a3[1], a4, *v4, *(v4 + 8));
+  result = _Int128.dividingFullWidth(_:)(*a3, a3[1], a4, *v4, v4[1]);
   *a1 = result;
   a1[1] = v8;
   *a2 = v9;
@@ -6109,9 +6064,9 @@ uint64_t protocol witness for static FixedWidthInteger.&>> infix(_:_:) in confor
   return result;
 }
 
-unint64_t protocol witness for static FixedWidthInteger.&* infix(_:_:) in conformance _Int128@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
+unint64_t protocol witness for static FixedWidthInteger.&* infix(_:_:) in conformance _Int128@<X0>(uint64_t *a1@<X0>, int64_t *a2@<X1>, unint64_t *a3@<X8>)
 {
-  result = _Int128.multipliedReportingOverflow(by:)(*a1, *(a1 + 8), *a2, *(a2 + 8));
+  result = _Int128.multipliedReportingOverflow(by:)(*a1, a1[1], *a2, a2[1]);
   *a3 = result;
   a3[1] = v5;
   return result;
@@ -6124,19 +6079,19 @@ uint64_t protocol witness for BinaryInteger.init<A>(exactly:) in conformance _In
   return MEMORY[0x2821FD5C0](a1, a4, a2, v8, a3);
 }
 
-uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance _Int128@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance _Int128@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a5@<X8>)
 {
   lazy protocol witness table accessor for type _Int128 and conformance _Int128();
   static FixedWidthInteger._convert<A>(from:)();
-  if (v11)
+  if (v13)
   {
     _StringGuts.grow(_:)(80);
-    v7 = _typeName(_:qualified:)();
-    MEMORY[0x2743B25F0](v7);
+    v9 = _typeName(_:qualified:)();
+    MEMORY[0x2743B25F0](v9);
 
     MEMORY[0x2743B25F0](0xD00000000000001ELL, 0x8000000270C52110);
-    v8 = _typeName(_:qualified:)();
-    MEMORY[0x2743B25F0](v8);
+    v10 = _typeName(_:qualified:)();
+    MEMORY[0x2743B25F0](v10);
 
     MEMORY[0x2743B25F0](0xD00000000000002ELL, 0x8000000270C52130);
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -6146,20 +6101,20 @@ uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance _Int128@<
   else
   {
     result = (*(*(a2 - 8) + 8))(a1, a2);
-    *a3 = v9;
-    a3[1] = v10;
+    *a5 = v11;
+    a5[1] = v12;
   }
 
   return result;
 }
 
-uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance _Int128@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t protocol witness for BinaryInteger.init<A>(_:) in conformance _Int128@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, uint64_t a4@<X2>)
 {
-  v7 = specialized _Int128.init<A>(_:)(a1, a2, a3);
+  v7 = specialized _Int128.init<A>(_:)(a1, a2, a4);
   v9 = v8;
   result = (*(*(a2 - 8) + 8))(a1, a2);
-  *a4 = v7;
-  a4[1] = v9;
+  *a3 = v7;
+  a3[1] = v9;
   return result;
 }
 
@@ -6202,7 +6157,7 @@ unint64_t protocol witness for BinaryInteger._binaryLogarithm() in conformance _
   return result;
 }
 
-unint64_t protocol witness for static BinaryInteger./ infix(_:_:) in conformance _Int128@<X0>(unint64_t *a1@<X0>, unint64_t *a2@<X1>, unint64_t *a3@<X8>)
+int64_t protocol witness for static BinaryInteger./ infix(_:_:) in conformance _Int128@<X0>(unint64_t *a1@<X0>, unint64_t *a2@<X1>, unint64_t *a3@<X8>)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -6242,7 +6197,7 @@ LABEL_6:
   return result;
 }
 
-unint64_t protocol witness for static BinaryInteger.% infix(_:_:) in conformance _Int128@<X0>(unint64_t *a1@<X0>, unint64_t *a2@<X1>, void *a3@<X8>)
+int64_t protocol witness for static BinaryInteger.% infix(_:_:) in conformance _Int128@<X0>(unint64_t *a1@<X0>, unint64_t *a2@<X1>, void *a3@<X8>)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -6301,24 +6256,21 @@ void *protocol witness for static BinaryInteger.~ prefix(_:) in conformance _Int
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance _Int128@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conformance _Int128@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t *a5@<X8>)
 {
-  v64 = a5;
-  v9 = *(*(a4 + 24) + 16);
+  v49 = a5;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v11 = *(*(AssociatedTypeWitness - 8) + 64);
-  v13 = MEMORY[0x28223BE20](AssociatedTypeWitness, v12);
-  v65 = *(a3 - 8);
-  v14 = *(v65 + 64);
-  v16 = MEMORY[0x28223BE20](v13, v15);
-  v18 = &v61 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16, v19);
-  v21 = &v61 - v20;
-  v22 = a1[1];
-  v62 = *a1;
-  v23 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v63 = v22;
-  if (v23)
+  v9 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v50 = *(a3 - 8);
+  v10 = MEMORY[0x28223BE20](v9);
+  v12 = &v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v14 = &v46 - v13;
+  v15 = a1[1];
+  v47 = *a1;
+  v16 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v48 = v15;
+  if (v16)
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
     {
@@ -6328,21 +6280,20 @@ uint64_t protocol witness for static BinaryInteger.>> infix<A>(_:_:) in conforma
       }
 
 LABEL_13:
-      specialized static _Int128.&>> infix(_:_:)(v62, v63, 127);
+      specialized static _Int128.&>> infix(_:_:)(v47, v48, 127);
 LABEL_14:
       result = 0;
-      v31 = 0;
+      v22 = 0;
       goto LABEL_52;
     }
 
 LABEL_7:
-    v66 = -128;
+    v51 = -128;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v26 = *(*(a4 + 32) + 8);
-    v27 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v65 + 8))(v21, a3);
-    if ((v27 & 1) == 0)
+    v19 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v50 + 8))(v14, a3);
+    if ((v19 & 1) == 0)
     {
       goto LABEL_15;
     }
@@ -6350,11 +6301,11 @@ LABEL_7:
     goto LABEL_13;
   }
 
-  v24 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v25 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if (v24)
+  v17 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v18 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if (v17)
   {
-    if (v25 > 64)
+    if (v18 > 64)
     {
       goto LABEL_7;
     }
@@ -6362,16 +6313,15 @@ LABEL_7:
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v28 = *(*(a4 + 32) + 8);
-    v29 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v65 + 8))(v21, a3);
-    if (v29)
+    v20 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v50 + 8))(v14, a3);
+    if (v20)
     {
       goto LABEL_13;
     }
   }
 
-  else if (v25 >= 64)
+  else if (v18 >= 64)
   {
     goto LABEL_15;
   }
@@ -6382,32 +6332,31 @@ LABEL_7:
   }
 
 LABEL_15:
-  v32 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v33 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  v35 = __OFSUB__(v33, 64);
-  v34 = v33 - 64 < 0;
-  if ((v32 & 1) == 0)
+  v23 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v24 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  v26 = __OFSUB__(v24, 64);
+  v25 = v24 - 64 < 0;
+  if ((v23 & 1) == 0)
   {
     goto LABEL_24;
   }
 
-  if (v33 <= 64)
+  if (v24 <= 64)
   {
     goto LABEL_26;
   }
 
 LABEL_17:
-  v66 = 128;
+  v51 = 128;
   lazy protocol witness table accessor for type Int and conformance Int();
   dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-  v36 = *(*(a4 + 32) + 8);
-  v37 = dispatch thunk of static Comparable.< infix(_:_:)();
-  (*(v65 + 8))(v21, a3);
-  if ((v37 & 1) == 0)
+  v27 = dispatch thunk of static Comparable.< infix(_:_:)();
+  (*(v50 + 8))(v14, a3);
+  if ((v27 & 1) == 0)
   {
     while (1)
     {
-      (*(v65 + 16))(v18, a2, a3);
+      (*(v50 + 16))(v12, a2, a3);
       if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
       {
         goto LABEL_36;
@@ -6423,20 +6372,19 @@ LABEL_17:
         goto LABEL_35;
       }
 
-      v66 = 0x8000000000000000;
+      v51 = 0x8000000000000000;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v38 = *(*(a4 + 32) + 8);
-      v39 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v65 + 8))(v21, a3);
-      if ((v39 & 1) == 0)
+      v28 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v50 + 8))(v14, a3);
+      if ((v28 & 1) == 0)
       {
         goto LABEL_36;
       }
 
       __break(1u);
 LABEL_24:
-      if (v34 == v35)
+      if (v25 == v26)
       {
         goto LABEL_17;
       }
@@ -6448,14 +6396,14 @@ LABEL_26:
       }
     }
 
-    v43 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v44 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    v46 = __OFSUB__(v44, 64);
-    v45 = v44 - 64 < 0;
-    if ((v43 & 1) == 0)
+    v32 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v33 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    v35 = __OFSUB__(v33, 64);
+    v34 = v33 - 64 < 0;
+    if ((v32 & 1) == 0)
     {
 LABEL_32:
-      if (v45 == v46)
+      if (v34 == v35)
       {
         goto LABEL_36;
       }
@@ -6463,15 +6411,14 @@ LABEL_32:
       goto LABEL_35;
     }
 
-    if (v44 > 64)
+    if (v33 > 64)
     {
-      v66 = 0x8000000000000000;
+      v51 = 0x8000000000000000;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v47 = *(*(a4 + 32) + 8);
-      v48 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v65 + 8))(v21, a3);
-      if ((v48 & 1) == 0)
+      v36 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v50 + 8))(v14, a3);
+      if ((v36 & 1) == 0)
       {
 LABEL_36:
         if (dispatch thunk of BinaryInteger.bitWidth.getter() <= 64)
@@ -6481,25 +6428,24 @@ LABEL_36:
 
         while (1)
         {
-          v52 = dispatch thunk of static BinaryInteger.isSigned.getter();
-          v53 = dispatch thunk of BinaryInteger.bitWidth.getter();
-          if ((v52 & 1) == 0)
+          v39 = dispatch thunk of static BinaryInteger.isSigned.getter();
+          v40 = dispatch thunk of BinaryInteger.bitWidth.getter();
+          if ((v39 & 1) == 0)
           {
             break;
           }
 
-          if (v53 <= 64)
+          if (v40 <= 64)
           {
             goto LABEL_46;
           }
 
-          v66 = 0x7FFFFFFFFFFFFFFFLL;
+          v51 = 0x7FFFFFFFFFFFFFFFLL;
           lazy protocol witness table accessor for type Int and conformance Int();
           dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-          v54 = *(*(a4 + 32) + 8);
-          v55 = dispatch thunk of static Comparable.< infix(_:_:)();
-          (*(v65 + 8))(v21, a3);
-          if (v55)
+          v41 = dispatch thunk of static Comparable.< infix(_:_:)();
+          (*(v50 + 8))(v14, a3);
+          if (v41)
           {
             __break(1u);
 LABEL_41:
@@ -6512,43 +6458,42 @@ LABEL_41:
           goto LABEL_48;
         }
 
-        if (v53 < 64)
+        if (v40 < 64)
         {
 LABEL_46:
           dispatch thunk of BinaryInteger._lowWord.getter();
           goto LABEL_48;
         }
 
-        v66 = 0x7FFFFFFFFFFFFFFFLL;
+        v51 = 0x7FFFFFFFFFFFFFFFLL;
         lazy protocol witness table accessor for type Int and conformance Int();
-        v49 = a3;
+        v37 = a3;
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v56 = *(*(a4 + 32) + 8);
-        v51 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v65 + 8))(v21, a3);
-        if (v51)
+        v38 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v50 + 8))(v14, a3);
+        if (v38)
         {
           __break(1u);
           goto LABEL_54;
         }
 
 LABEL_48:
-        v49 = dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v65 + 8))(v18, a3);
-        v57 = v62;
-        v51 = v63;
-        result = specialized static _Int128.&>> infix(_:_:)(v62, v63, 127);
-        if ((v49 & 0x8000000000000000) != 0)
+        v37 = dispatch thunk of BinaryInteger._lowWord.getter();
+        (*(v50 + 8))(v12, a3);
+        v42 = v47;
+        v38 = v48;
+        result = specialized static _Int128.&>> infix(_:_:)(v47, v48, 127);
+        if ((v37 & 0x8000000000000000) != 0)
         {
           goto LABEL_55;
         }
 
-        if (v49 < 0x80)
+        if (v37 < 0x80)
         {
           _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-          v42 = v58;
-          v40 = v57;
-          v41 = v51;
+          v31 = v43;
+          v29 = v42;
+          v30 = v38;
           goto LABEL_51;
         }
 
@@ -6561,12 +6506,11 @@ LABEL_48:
 
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-    v49 = a3;
+    v37 = a3;
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v50 = *(*(a4 + 32) + 8);
-    v51 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v65 + 8))(v21, a3);
-    if ((v51 & 1) == 0)
+    v38 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v50 + 8))(v14, a3);
+    if ((v38 & 1) == 0)
     {
 LABEL_35:
       dispatch thunk of BinaryInteger._lowWord.getter();
@@ -6576,10 +6520,10 @@ LABEL_35:
 LABEL_54:
     __break(1u);
 LABEL_55:
-    if (v49 > 0xFFFFFFFFFFFFFF80)
+    if (v37 > 0xFFFFFFFFFFFFFF80)
     {
       _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-      result = specialized static _Int128.&<< infix(_:_:)(v62, v51, v60);
+      result = specialized static _Int128.&<< infix(_:_:)(v47, v38, v45);
       goto LABEL_52;
     }
 
@@ -6587,30 +6531,28 @@ LABEL_55:
   }
 
 LABEL_27:
-  v40 = v62;
-  v41 = v63;
-  v42 = 127;
+  v29 = v47;
+  v30 = v48;
+  v31 = 127;
 LABEL_51:
-  result = specialized static _Int128.&>> infix(_:_:)(v40, v41, v42);
+  result = specialized static _Int128.&>> infix(_:_:)(v29, v30, v31);
 LABEL_52:
-  v59 = v64;
-  *v64 = result;
-  v59[1] = v31;
+  v44 = v49;
+  *v49 = result;
+  v44[1] = v22;
   return result;
 }
 
 uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conformance _Int128(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v53[1] = *(*(a4 + 24) + 16);
+  v39[1] = *(*(a4 + 24) + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(*(AssociatedTypeWitness - 8) + 64);
-  v11 = MEMORY[0x28223BE20](AssociatedTypeWitness, v10);
-  v54 = *(a3 - 8);
-  v12 = *(v54 + 64);
-  v14 = MEMORY[0x28223BE20](v11, v13);
-  v16 = v53 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14, v17);
-  v19 = v53 - v18;
+  v8 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v40 = *(a3 - 8);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v39 - v12;
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
@@ -6621,18 +6563,18 @@ uint64_t protocol witness for static BinaryInteger.>>= infix<A>(_:_:) in conform
       }
 
 LABEL_13:
-      v22 = -128;
+      v16 = -128;
       goto LABEL_48;
     }
 
     goto LABEL_7;
   }
 
-  v20 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v21 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if ((v20 & 1) == 0)
+  v14 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v15 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if ((v14 & 1) == 0)
   {
-    if (v21 >= 64)
+    if (v15 >= 64)
     {
       goto LABEL_14;
     }
@@ -6646,15 +6588,14 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (v21 <= 64)
+  if (v15 <= 64)
   {
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v25 = *(*(a4 + 32) + 8);
-    v26 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v54 + 8))(v19, a3);
-    if (v26)
+    v18 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v40 + 8))(v13, a3);
+    if (v18)
     {
       goto LABEL_13;
     }
@@ -6663,40 +6604,38 @@ LABEL_12:
   }
 
 LABEL_7:
-  v22 = -128;
-  v55 = -128;
+  v16 = -128;
+  v41 = -128;
   lazy protocol witness table accessor for type Int and conformance Int();
   dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-  v23 = *(*(a4 + 32) + 8);
-  v24 = dispatch thunk of static Comparable.< infix(_:_:)();
-  (*(v54 + 8))(v19, a3);
-  if (v24)
+  v17 = dispatch thunk of static Comparable.< infix(_:_:)();
+  (*(v40 + 8))(v13, a3);
+  if (v17)
   {
     goto LABEL_48;
   }
 
 LABEL_14:
-  v27 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v28 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if (v27)
+  v19 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v20 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if (v19)
   {
-    if (v28 > 64)
+    if (v20 > 64)
     {
       goto LABEL_16;
     }
   }
 
-  else if (v28 >= 64)
+  else if (v20 >= 64)
   {
 LABEL_16:
-    v22 = 128;
-    v55 = 128;
+    v16 = 128;
+    v41 = 128;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v29 = *(*(a4 + 32) + 8);
-    v30 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v54 + 8))(v19, a3);
-    if ((v30 & 1) == 0)
+    v21 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v40 + 8))(v13, a3);
+    if ((v21 & 1) == 0)
     {
       goto LABEL_21;
     }
@@ -6707,7 +6646,7 @@ LABEL_16:
   if (dispatch thunk of BinaryInteger._lowWord.getter() <= 128)
   {
 LABEL_21:
-    (*(v54 + 16))(v16, a2, a3);
+    (*(v40 + 16))(v11, a2, a3);
     if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
     {
       goto LABEL_35;
@@ -6720,13 +6659,12 @@ LABEL_21:
         goto LABEL_34;
       }
 
-      v55 = 0x8000000000000000;
+      v41 = 0x8000000000000000;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v31 = *(*(a4 + 32) + 8);
-      v32 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v54 + 8))(v19, a3);
-      if ((v32 & 1) == 0)
+      v22 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v40 + 8))(v13, a3);
+      if ((v22 & 1) == 0)
       {
         goto LABEL_35;
       }
@@ -6734,28 +6672,27 @@ LABEL_21:
       __break(1u);
     }
 
-    v33 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v34 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    v36 = __OFSUB__(v34, 64);
-    v35 = v34 - 64 < 0;
-    if ((v33 & 1) == 0)
+    v23 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v24 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    v26 = __OFSUB__(v24, 64);
+    v25 = v24 - 64 < 0;
+    if ((v23 & 1) == 0)
     {
       goto LABEL_31;
     }
 
-    if (v34 > 64)
+    if (v24 > 64)
     {
-      v55 = 0x8000000000000000;
+      v41 = 0x8000000000000000;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v37 = *(*(a4 + 32) + 8);
-      v38 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v54 + 8))(v19, a3);
-      if (v38)
+      v27 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v40 + 8))(v13, a3);
+      if (v27)
       {
         __break(1u);
 LABEL_31:
-        if (v35 == v36)
+        if (v25 == v26)
         {
           goto LABEL_35;
         }
@@ -6771,25 +6708,24 @@ LABEL_35:
 
       while (1)
       {
-        v41 = dispatch thunk of static BinaryInteger.isSigned.getter();
-        v42 = dispatch thunk of BinaryInteger.bitWidth.getter();
-        if ((v41 & 1) == 0)
+        v29 = dispatch thunk of static BinaryInteger.isSigned.getter();
+        v30 = dispatch thunk of BinaryInteger.bitWidth.getter();
+        if ((v29 & 1) == 0)
         {
           break;
         }
 
-        if (v42 <= 64)
+        if (v30 <= 64)
         {
           goto LABEL_45;
         }
 
-        v55 = 0x7FFFFFFFFFFFFFFFLL;
+        v41 = 0x7FFFFFFFFFFFFFFFLL;
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v43 = *(*(a4 + 32) + 8);
-        v44 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v54 + 8))(v19, a3);
-        if (v44)
+        v31 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v40 + 8))(v13, a3);
+        if (v31)
         {
           __break(1u);
 LABEL_40:
@@ -6802,23 +6738,22 @@ LABEL_40:
         goto LABEL_47;
       }
 
-      if (v42 < 64)
+      if (v30 < 64)
       {
 LABEL_45:
         dispatch thunk of BinaryInteger._lowWord.getter();
 LABEL_47:
-        v22 = dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v54 + 8))(v16, a3);
+        v16 = dispatch thunk of BinaryInteger._lowWord.getter();
+        (*(v40 + 8))(v11, a3);
         goto LABEL_48;
       }
 
-      v55 = 0x7FFFFFFFFFFFFFFFLL;
+      v41 = 0x7FFFFFFFFFFFFFFFLL;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v45 = *(*(a4 + 32) + 8);
-      v46 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v54 + 8))(v19, a3);
-      if ((v46 & 1) == 0)
+      v32 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v40 + 8))(v13, a3);
+      if ((v32 & 1) == 0)
       {
         goto LABEL_47;
       }
@@ -6830,10 +6765,9 @@ LABEL_47:
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v39 = *(*(a4 + 32) + 8);
-    v40 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v54 + 8))(v19, a3);
-    if (v40)
+    v28 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v40 + 8))(v13, a3);
+    if (v28)
     {
 LABEL_55:
       __break(1u);
@@ -6845,55 +6779,52 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v22 = 128;
+  v16 = 128;
 LABEL_48:
-  v47 = *a1;
-  v48 = a1[1];
-  result = specialized static _Int128.&>> infix(_:_:)(*a1, v48, 127);
-  if ((v22 & 0x8000000000000000) != 0)
+  v33 = *a1;
+  v34 = a1[1];
+  result = specialized static _Int128.&>> infix(_:_:)(*a1, v34, 127);
+  if ((v16 & 0x8000000000000000) != 0)
   {
-    if (v22 <= 0xFFFFFFFFFFFFFF80)
+    if (v16 <= 0xFFFFFFFFFFFFFF80)
     {
 LABEL_56:
       result = 0;
-      v50 = 0;
+      v36 = 0;
       goto LABEL_51;
     }
 
     _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-    result = specialized static _Int128.&<< infix(_:_:)(v47, v48, v52);
+    result = specialized static _Int128.&<< infix(_:_:)(v33, v34, v38);
   }
 
-  else if (v22 < 0x80)
+  else if (v16 < 0x80)
   {
     _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-    result = specialized static _Int128.&>> infix(_:_:)(v47, v48, v51);
+    result = specialized static _Int128.&>> infix(_:_:)(v33, v34, v37);
   }
 
 LABEL_51:
   *a1 = result;
-  a1[1] = v50;
+  a1[1] = v36;
   return result;
 }
 
-uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance _Int128@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conformance _Int128@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t *a5@<X8>)
 {
-  v61 = a5;
-  v9 = *(*(a4 + 24) + 16);
+  v46 = a5;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v11 = *(*(AssociatedTypeWitness - 8) + 64);
-  v13 = MEMORY[0x28223BE20](AssociatedTypeWitness, v12);
-  v62 = *(a3 - 8);
-  v14 = *(v62 + 64);
-  v16 = MEMORY[0x28223BE20](v13, v15);
-  v18 = &v58 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16, v19);
-  v21 = &v58 - v20;
-  v22 = a1[1];
-  v59 = *a1;
-  v23 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v60 = v22;
-  if (v23)
+  v9 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v47 = *(a3 - 8);
+  v10 = MEMORY[0x28223BE20](v9);
+  v12 = &v43 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v14 = &v43 - v13;
+  v15 = a1[1];
+  v44 = *a1;
+  v16 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v45 = v15;
+  if (v16)
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
     {
@@ -6903,18 +6834,18 @@ uint64_t protocol witness for static BinaryInteger.<< infix<A>(_:_:) in conforma
       }
 
 LABEL_13:
-      result = specialized static _Int128.&>> infix(_:_:)(v59, v60, 127);
+      result = specialized static _Int128.&>> infix(_:_:)(v44, v45, 127);
       goto LABEL_51;
     }
 
     goto LABEL_7;
   }
 
-  v24 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v25 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if ((v24 & 1) == 0)
+  v17 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v18 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if ((v17 & 1) == 0)
   {
-    if (v25 >= 64)
+    if (v18 >= 64)
     {
       goto LABEL_14;
     }
@@ -6928,15 +6859,14 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (v25 <= 64)
+  if (v18 <= 64)
   {
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v28 = *(*(a4 + 32) + 8);
-    v29 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v62 + 8))(v21, a3);
-    if (v29)
+    v20 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v47 + 8))(v14, a3);
+    if (v20)
     {
       goto LABEL_13;
     }
@@ -6945,50 +6875,48 @@ LABEL_12:
   }
 
 LABEL_7:
-  v63 = -128;
+  v48 = -128;
   lazy protocol witness table accessor for type Int and conformance Int();
   dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-  v26 = *(*(a4 + 32) + 8);
-  v27 = dispatch thunk of static Comparable.< infix(_:_:)();
-  (*(v62 + 8))(v21, a3);
-  if (v27)
+  v19 = dispatch thunk of static Comparable.< infix(_:_:)();
+  (*(v47 + 8))(v14, a3);
+  if (v19)
   {
     goto LABEL_13;
   }
 
 LABEL_14:
-  v32 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v33 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  v35 = __OFSUB__(v33, 64);
-  v34 = v33 - 64 < 0;
-  if ((v32 & 1) == 0)
+  v23 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v24 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  v26 = __OFSUB__(v24, 64);
+  v25 = v24 - 64 < 0;
+  if ((v23 & 1) == 0)
   {
     goto LABEL_23;
   }
 
-  if (v33 <= 64)
+  if (v24 <= 64)
   {
     goto LABEL_25;
   }
 
 LABEL_16:
-  v63 = 128;
+  v48 = 128;
   lazy protocol witness table accessor for type Int and conformance Int();
   dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-  v36 = *(*(a4 + 32) + 8);
-  v37 = dispatch thunk of static Comparable.< infix(_:_:)();
-  (*(v62 + 8))(v21, a3);
-  if (v37)
+  v27 = dispatch thunk of static Comparable.< infix(_:_:)();
+  (*(v47 + 8))(v14, a3);
+  if (v27)
   {
 LABEL_26:
-    specialized static _Int128.&>> infix(_:_:)(v59, v60, 127);
+    specialized static _Int128.&>> infix(_:_:)(v44, v45, 127);
   }
 
   else
   {
     while (1)
     {
-      (*(v62 + 16))(v18, a2, a3);
+      (*(v47 + 16))(v12, a2, a3);
       if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
       {
         break;
@@ -6996,21 +6924,20 @@ LABEL_26:
 
       if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
       {
-        v40 = dispatch thunk of static BinaryInteger.isSigned.getter();
-        v41 = dispatch thunk of BinaryInteger.bitWidth.getter();
-        v43 = __OFSUB__(v41, 64);
-        v42 = v41 - 64 < 0;
-        if (v40)
+        v29 = dispatch thunk of static BinaryInteger.isSigned.getter();
+        v30 = dispatch thunk of BinaryInteger.bitWidth.getter();
+        v32 = __OFSUB__(v30, 64);
+        v31 = v30 - 64 < 0;
+        if (v29)
         {
-          if (v41 > 64)
+          if (v30 > 64)
           {
-            v63 = 0x8000000000000000;
+            v48 = 0x8000000000000000;
             lazy protocol witness table accessor for type Int and conformance Int();
             dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-            v44 = *(*(a4 + 32) + 8);
-            v45 = dispatch thunk of static Comparable.< infix(_:_:)();
-            (*(v62 + 8))(v21, a3);
-            if ((v45 & 1) == 0)
+            v33 = dispatch thunk of static Comparable.< infix(_:_:)();
+            (*(v47 + 8))(v14, a3);
+            if ((v33 & 1) == 0)
             {
               break;
             }
@@ -7021,20 +6948,19 @@ LABEL_26:
 
           swift_getAssociatedConformanceWitness();
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-          v46 = a3;
+          v34 = a3;
           dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-          v47 = *(*(a4 + 32) + 8);
-          v48 = dispatch thunk of static Comparable.< infix(_:_:)();
-          result = (*(v62 + 8))(v21, a3);
-          if (v48)
+          v35 = dispatch thunk of static Comparable.< infix(_:_:)();
+          result = (*(v47 + 8))(v14, a3);
+          if (v35)
           {
 LABEL_53:
             __break(1u);
 LABEL_54:
-            if (v46 > 0xFFFFFFFFFFFFFF80)
+            if (v34 > 0xFFFFFFFFFFFFFF80)
             {
               _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-              result = specialized static _Int128.&>> infix(_:_:)(v59, v48, v57);
+              result = specialized static _Int128.&>> infix(_:_:)(v44, v35, v42);
             }
 
             goto LABEL_51;
@@ -7044,7 +6970,7 @@ LABEL_54:
         else
         {
 LABEL_32:
-          if (v42 == v43)
+          if (v31 == v32)
           {
             break;
           }
@@ -7060,20 +6986,19 @@ LABEL_35:
         goto LABEL_35;
       }
 
-      v63 = 0x8000000000000000;
+      v48 = 0x8000000000000000;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v38 = *(*(a4 + 32) + 8);
-      v39 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v62 + 8))(v21, a3);
-      if ((v39 & 1) == 0)
+      v28 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v47 + 8))(v14, a3);
+      if ((v28 & 1) == 0)
       {
         break;
       }
 
       __break(1u);
 LABEL_23:
-      if (v34 == v35)
+      if (v25 == v26)
       {
         goto LABEL_16;
       }
@@ -7092,25 +7017,24 @@ LABEL_25:
 
     while (1)
     {
-      v49 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      v50 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      if ((v49 & 1) == 0)
+      v36 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      v37 = dispatch thunk of BinaryInteger.bitWidth.getter();
+      if ((v36 & 1) == 0)
       {
         break;
       }
 
-      if (v50 <= 64)
+      if (v37 <= 64)
       {
         goto LABEL_46;
       }
 
-      v63 = 0x7FFFFFFFFFFFFFFFLL;
+      v48 = 0x7FFFFFFFFFFFFFFFLL;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v51 = *(*(a4 + 32) + 8);
-      v52 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v62 + 8))(v21, a3);
-      if (v52)
+      v38 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v47 + 8))(v14, a3);
+      if (v38)
       {
         __break(1u);
 LABEL_41:
@@ -7123,66 +7047,63 @@ LABEL_41:
       goto LABEL_48;
     }
 
-    if (v50 < 64)
+    if (v37 < 64)
     {
 LABEL_46:
       dispatch thunk of BinaryInteger._lowWord.getter();
       goto LABEL_48;
     }
 
-    v63 = 0x7FFFFFFFFFFFFFFFLL;
+    v48 = 0x7FFFFFFFFFFFFFFFLL;
     lazy protocol witness table accessor for type Int and conformance Int();
-    v46 = a3;
+    v34 = a3;
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v53 = *(*(a4 + 32) + 8);
-    v48 = dispatch thunk of static Comparable.< infix(_:_:)();
-    result = (*(v62 + 8))(v21, a3);
-    if (v48)
+    v35 = dispatch thunk of static Comparable.< infix(_:_:)();
+    result = (*(v47 + 8))(v14, a3);
+    if (v35)
     {
       __break(1u);
       goto LABEL_53;
     }
 
 LABEL_48:
-    v46 = dispatch thunk of BinaryInteger._lowWord.getter();
-    (*(v62 + 8))(v18, a3);
-    v54 = v59;
-    v48 = v60;
-    result = specialized static _Int128.&>> infix(_:_:)(v59, v60, 127);
-    if ((v46 & 0x8000000000000000) != 0)
+    v34 = dispatch thunk of BinaryInteger._lowWord.getter();
+    (*(v47 + 8))(v12, a3);
+    v39 = v44;
+    v35 = v45;
+    result = specialized static _Int128.&>> infix(_:_:)(v44, v45, 127);
+    if ((v34 & 0x8000000000000000) != 0)
     {
       goto LABEL_54;
     }
 
-    if (v46 < 0x80)
+    if (v34 < 0x80)
     {
       _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-      result = specialized static _Int128.&<< infix(_:_:)(v54, v48, v55);
+      result = specialized static _Int128.&<< infix(_:_:)(v39, v35, v40);
       goto LABEL_51;
     }
   }
 
   result = 0;
-  v31 = 0;
+  v22 = 0;
 LABEL_51:
-  v56 = v61;
-  *v61 = result;
-  v56[1] = v31;
+  v41 = v46;
+  *v46 = result;
+  v41[1] = v22;
   return result;
 }
 
 uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conformance _Int128(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v53[1] = *(*(a4 + 24) + 16);
+  v39[1] = *(*(a4 + 24) + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(*(AssociatedTypeWitness - 8) + 64);
-  v11 = MEMORY[0x28223BE20](AssociatedTypeWitness, v10);
-  v54 = *(a3 - 8);
-  v12 = *(v54 + 64);
-  v14 = MEMORY[0x28223BE20](v11, v13);
-  v16 = v53 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14, v17);
-  v19 = v53 - v18;
+  v8 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v40 = *(a3 - 8);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v39 - v12;
   if (dispatch thunk of static BinaryInteger.isSigned.getter())
   {
     if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
@@ -7193,18 +7114,18 @@ uint64_t protocol witness for static BinaryInteger.<<= infix<A>(_:_:) in conform
       }
 
 LABEL_13:
-      v22 = -128;
+      v16 = -128;
       goto LABEL_48;
     }
 
     goto LABEL_7;
   }
 
-  v20 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v21 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if ((v20 & 1) == 0)
+  v14 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v15 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if ((v14 & 1) == 0)
   {
-    if (v21 >= 64)
+    if (v15 >= 64)
     {
       goto LABEL_14;
     }
@@ -7218,15 +7139,14 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (v21 <= 64)
+  if (v15 <= 64)
   {
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v25 = *(*(a4 + 32) + 8);
-    v26 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v54 + 8))(v19, a3);
-    if (v26)
+    v18 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v40 + 8))(v13, a3);
+    if (v18)
     {
       goto LABEL_13;
     }
@@ -7235,40 +7155,38 @@ LABEL_12:
   }
 
 LABEL_7:
-  v22 = -128;
-  v55 = -128;
+  v16 = -128;
+  v41 = -128;
   lazy protocol witness table accessor for type Int and conformance Int();
   dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-  v23 = *(*(a4 + 32) + 8);
-  v24 = dispatch thunk of static Comparable.< infix(_:_:)();
-  (*(v54 + 8))(v19, a3);
-  if (v24)
+  v17 = dispatch thunk of static Comparable.< infix(_:_:)();
+  (*(v40 + 8))(v13, a3);
+  if (v17)
   {
     goto LABEL_48;
   }
 
 LABEL_14:
-  v27 = dispatch thunk of static BinaryInteger.isSigned.getter();
-  v28 = dispatch thunk of BinaryInteger.bitWidth.getter();
-  if (v27)
+  v19 = dispatch thunk of static BinaryInteger.isSigned.getter();
+  v20 = dispatch thunk of BinaryInteger.bitWidth.getter();
+  if (v19)
   {
-    if (v28 > 64)
+    if (v20 > 64)
     {
       goto LABEL_16;
     }
   }
 
-  else if (v28 >= 64)
+  else if (v20 >= 64)
   {
 LABEL_16:
-    v22 = 128;
-    v55 = 128;
+    v16 = 128;
+    v41 = 128;
     lazy protocol witness table accessor for type Int and conformance Int();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v29 = *(*(a4 + 32) + 8);
-    v30 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v54 + 8))(v19, a3);
-    if ((v30 & 1) == 0)
+    v21 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v40 + 8))(v13, a3);
+    if ((v21 & 1) == 0)
     {
       goto LABEL_21;
     }
@@ -7279,7 +7197,7 @@ LABEL_16:
   if (dispatch thunk of BinaryInteger._lowWord.getter() <= 128)
   {
 LABEL_21:
-    (*(v54 + 16))(v16, a2, a3);
+    (*(v40 + 16))(v11, a2, a3);
     if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0 || dispatch thunk of BinaryInteger.bitWidth.getter() < 65)
     {
       goto LABEL_35;
@@ -7292,13 +7210,12 @@ LABEL_21:
         goto LABEL_34;
       }
 
-      v55 = 0x8000000000000000;
+      v41 = 0x8000000000000000;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v31 = *(*(a4 + 32) + 8);
-      v32 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v54 + 8))(v19, a3);
-      if ((v32 & 1) == 0)
+      v22 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v40 + 8))(v13, a3);
+      if ((v22 & 1) == 0)
       {
         goto LABEL_35;
       }
@@ -7306,28 +7223,27 @@ LABEL_21:
       __break(1u);
     }
 
-    v33 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v34 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    v36 = __OFSUB__(v34, 64);
-    v35 = v34 - 64 < 0;
-    if ((v33 & 1) == 0)
+    v23 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v24 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    v26 = __OFSUB__(v24, 64);
+    v25 = v24 - 64 < 0;
+    if ((v23 & 1) == 0)
     {
       goto LABEL_31;
     }
 
-    if (v34 > 64)
+    if (v24 > 64)
     {
-      v55 = 0x8000000000000000;
+      v41 = 0x8000000000000000;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v37 = *(*(a4 + 32) + 8);
-      v38 = dispatch thunk of static Comparable.< infix(_:_:)();
-      (*(v54 + 8))(v19, a3);
-      if (v38)
+      v27 = dispatch thunk of static Comparable.< infix(_:_:)();
+      (*(v40 + 8))(v13, a3);
+      if (v27)
       {
         __break(1u);
 LABEL_31:
-        if (v35 == v36)
+        if (v25 == v26)
         {
           goto LABEL_35;
         }
@@ -7343,25 +7259,24 @@ LABEL_35:
 
       while (1)
       {
-        v42 = dispatch thunk of static BinaryInteger.isSigned.getter();
-        v43 = dispatch thunk of BinaryInteger.bitWidth.getter();
-        if ((v42 & 1) == 0)
+        v30 = dispatch thunk of static BinaryInteger.isSigned.getter();
+        v31 = dispatch thunk of BinaryInteger.bitWidth.getter();
+        if ((v30 & 1) == 0)
         {
           break;
         }
 
-        if (v43 <= 64)
+        if (v31 <= 64)
         {
           goto LABEL_45;
         }
 
-        v55 = 0x7FFFFFFFFFFFFFFFLL;
+        v41 = 0x7FFFFFFFFFFFFFFFLL;
         lazy protocol witness table accessor for type Int and conformance Int();
         dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-        v44 = *(*(a4 + 32) + 8);
-        v45 = dispatch thunk of static Comparable.< infix(_:_:)();
-        (*(v54 + 8))(v19, a3);
-        if (v45)
+        v32 = dispatch thunk of static Comparable.< infix(_:_:)();
+        (*(v40 + 8))(v13, a3);
+        if (v32)
         {
           __break(1u);
 LABEL_40:
@@ -7374,23 +7289,22 @@ LABEL_40:
         goto LABEL_47;
       }
 
-      if (v43 < 64)
+      if (v31 < 64)
       {
 LABEL_45:
         dispatch thunk of BinaryInteger._lowWord.getter();
 LABEL_47:
-        v22 = dispatch thunk of BinaryInteger._lowWord.getter();
-        (*(v54 + 8))(v16, a3);
+        v16 = dispatch thunk of BinaryInteger._lowWord.getter();
+        (*(v40 + 8))(v11, a3);
         goto LABEL_48;
       }
 
-      v55 = 0x7FFFFFFFFFFFFFFFLL;
+      v41 = 0x7FFFFFFFFFFFFFFFLL;
       lazy protocol witness table accessor for type Int and conformance Int();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v46 = *(*(a4 + 32) + 8);
-      v47 = dispatch thunk of static Comparable.< infix(_:_:)();
-      result = (*(v54 + 8))(v19, a3);
-      if ((v47 & 1) == 0)
+      v33 = dispatch thunk of static Comparable.< infix(_:_:)();
+      result = (*(v40 + 8))(v13, a3);
+      if ((v33 & 1) == 0)
       {
         goto LABEL_47;
       }
@@ -7402,10 +7316,9 @@ LABEL_47:
     swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-    v39 = *(*(a4 + 32) + 8);
-    v40 = dispatch thunk of static Comparable.< infix(_:_:)();
-    result = (*(v54 + 8))(v19, a3);
-    if (v40)
+    v28 = dispatch thunk of static Comparable.< infix(_:_:)();
+    result = (*(v40 + 8))(v13, a3);
+    if (v28)
     {
 LABEL_56:
       __break(1u);
@@ -7417,40 +7330,40 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v22 = 128;
+  v16 = 128;
 LABEL_48:
-  v48 = *a1;
-  v49 = a1[1];
-  result = specialized static _Int128.&>> infix(_:_:)(*a1, v49, 127);
-  if ((v22 & 0x8000000000000000) != 0)
+  v34 = *a1;
+  v35 = a1[1];
+  result = specialized static _Int128.&>> infix(_:_:)(*a1, v35, 127);
+  if ((v16 & 0x8000000000000000) != 0)
   {
-    if (v22 > 0xFFFFFFFFFFFFFF80)
+    if (v16 > 0xFFFFFFFFFFFFFF80)
     {
       _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-      result = specialized static _Int128.&>> infix(_:_:)(v48, v49, v52);
+      result = specialized static _Int128.&>> infix(_:_:)(v34, v35, v38);
     }
   }
 
-  else if (v22 >= 0x80)
+  else if (v16 >= 0x80)
   {
     result = 0;
-    v50 = 0;
+    v36 = 0;
   }
 
   else
   {
     _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-    result = specialized static _Int128.&<< infix(_:_:)(v48, v49, v51);
+    result = specialized static _Int128.&<< infix(_:_:)(v34, v35, v37);
   }
 
   *a1 = result;
-  a1[1] = v50;
+  a1[1] = v36;
   return result;
 }
 
-uint64_t protocol witness for BinaryInteger.quotientAndRemainder(dividingBy:) in conformance _Int128(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t protocol witness for BinaryInteger.quotientAndRemainder(dividingBy:) in conformance _Int128(uint64_t *a1, void *a2, int64_t *a3)
 {
-  result = _Int128.quotientAndRemainder(dividingBy:)(*a3, *(a3 + 8), *v3, *(v3 + 8));
+  result = _Int128.quotientAndRemainder(dividingBy:)(*a3, a3[1], *v3, v3[1]);
   *a1 = result;
   a1[1] = v7;
   *a2 = v8;
@@ -7461,25 +7374,24 @@ uint64_t protocol witness for BinaryInteger.quotientAndRemainder(dividingBy:) in
 void protocol witness for BinaryInteger.signum() in conformance _Int128(unint64_t *a1@<X8>)
 {
   v2 = v1[1];
-  v3 = *v1 != 0;
   if (v2)
   {
-    v4 = v2 > 0;
+    v3 = v2 > 0;
   }
 
   else
   {
-    v4 = *v1 != 0;
+    v3 = *v1 != 0;
   }
 
-  v5 = v4 >= v2 >> 63;
-  v6 = v4 - (v2 >> 63);
-  v7 = !v5;
-  *a1 = v6;
-  a1[1] = v7 << 63 >> 63;
+  v4 = v3 >= v2 >> 63;
+  v5 = v3 - (v2 >> 63);
+  v6 = !v4;
+  *a1 = v5;
+  a1[1] = v6 << 63 >> 63;
 }
 
-uint64_t protocol witness for LosslessStringConvertible.init(_:) in conformance _Int128@<X0>(uint64_t result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+unint64_t protocol witness for LosslessStringConvertible.init(_:) in conformance _Int128@<X0>(unint64_t result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = HIBYTE(a2) & 0xF;
   v6 = result & 0xFFFFFFFFFFFFLL;
@@ -7937,23 +7849,22 @@ LABEL_36:
   return result;
 }
 
-void protocol witness for Strideable.advanced(by:) in conformance _Int128(uint64_t *a1@<X0>, void *a2@<X8>)
+void protocol witness for Strideable.advanced(by:) in conformance _Int128(void *a2@<X8>)
 {
-  v4 = *a1;
-  v6 = *v2;
-  v5 = v2[1];
+  v5 = *v2;
+  v4 = v2[1];
   _ss17FixedWidthIntegerPsE15_truncatingInityxqd__SzRd__lFZ4VDAF7_Int128V_SiTt1gq5();
-  v9 = __CFADD__(v6, v7);
-  v10 = v5 + v8;
-  if (__OFADD__(v5, v8) || (v9 ? (v11 = v10 == 0x7FFFFFFFFFFFFFFFLL) : (v11 = 0), v11))
+  v8 = __CFADD__(v5, v6);
+  v9 = v4 + v7;
+  if (__OFADD__(v4, v7) || (v8 ? (v10 = v9 == 0x7FFFFFFFFFFFFFFFLL) : (v10 = 0), v10))
   {
     __break(1u);
   }
 
   else
   {
-    *a2 = v6 + v7;
-    a2[1] = v10 + v9;
+    *a2 = v5 + v6;
+    a2[1] = v9 + v8;
   }
 }
 
@@ -8083,9 +7994,9 @@ uint64_t protocol witness for static SignedInteger._maskingSubtract(_:_:) in con
   return MEMORY[0x2821FC238](a1, a2, a3, v8, a4);
 }
 
-uint64_t _Int128.dividedBy1e18()(unint64_t a1, unint64_t a2)
+uint64_t _Int128.dividedBy1e18()(int64_t a1, unint64_t a2)
 {
-  v3 = _Int128.multipliedFullWidth(by:)(&v10, 0x73AFF322E62439FDuLL, 0x9392EE8E921D5D0, a1, a2);
+  v3 = _Int128.multipliedFullWidth(by:)(&v10, 0x73AFF322E62439FDLL, 0x9392EE8E921D5D0, a1, a2);
   *(&v6 + 1) = v4;
   *&v6 = v3;
   v5 = v6 >> 55;
@@ -8100,13 +8011,13 @@ uint64_t _Int128.dividedBy1e18()(unint64_t a1, unint64_t a2)
     v8 = v4 >> 55;
   }
 
-  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 0xDE0B6B3A7640000uLL, 0);
+  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 1000000000000000000, 0);
   return v7;
 }
 
 uint64_t _Int128.dividedBy1e15()(unint64_t a1, unint64_t a2)
 {
-  v4 = _Int128.multipliedFullWidth(by:)(&v10, 0xF9D37014BF60A11uLL, 0x901D7CF73AB0ACD9, a1, a2);
+  v4 = _Int128.multipliedFullWidth(by:)(&v10, 0xF9D37014BF60A11, 0x901D7CF73AB0ACD9, a1, a2);
   v6 = (__PAIR128__(v5, v4) + __PAIR128__(a2, a1)) >> 49;
   v7 = v6 + (a2 >> 63);
   if (__CFADD__(v6, a2 >> 63))
@@ -8119,11 +8030,11 @@ uint64_t _Int128.dividedBy1e15()(unint64_t a1, unint64_t a2)
     v8 = ((__PAIR128__(v5, v4) + __PAIR128__(a2, a1)) >> 64) >> 49;
   }
 
-  _Int128.multipliedReportingOverflow(by:)(v6 + (a2 >> 63), v8, 0x38D7EA4C68000uLL, 0);
+  _Int128.multipliedReportingOverflow(by:)(v6 + (a2 >> 63), v8, 1000000000000000, 0);
   return v7;
 }
 
-uint64_t _Int128.dividedBy1e12()(unint64_t a1, unint64_t a2)
+uint64_t _Int128.dividedBy1e12()(int64_t a1, unint64_t a2)
 {
   v3 = _Int128.multipliedFullWidth(by:)(&v10, 0xFE4FE1EDD10B9175, 0x232F33025BD42232, a1, a2);
   *(&v6 + 1) = v4;
@@ -8140,11 +8051,11 @@ uint64_t _Int128.dividedBy1e12()(unint64_t a1, unint64_t a2)
     v8 = v4 >> 37;
   }
 
-  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 0xE8D4A51000uLL, 0);
+  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 1000000000000, 0);
   return v7;
 }
 
-uint64_t _Int128.dividedBy1e9()(unint64_t a1, unint64_t a2)
+uint64_t _Int128.dividedBy1e9()(int64_t a1, unint64_t a2)
 {
   v3 = _Int128.multipliedFullWidth(by:)(&v10, 0x98B405447C4A9819, 0x44B82FA09B5A52CBLL, a1, a2);
   *(&v6 + 1) = v4;
@@ -8161,13 +8072,13 @@ uint64_t _Int128.dividedBy1e9()(unint64_t a1, unint64_t a2)
     v8 = v4 >> 28;
   }
 
-  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 0x3B9ACA00uLL, 0);
+  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 1000000000, 0);
   return v7;
 }
 
-uint64_t _Int128.dividedBy1e6()(unint64_t a1, unint64_t a2)
+uint64_t _Int128.dividedBy1e6()(int64_t a1, unint64_t a2)
 {
-  v3 = _Int128.multipliedFullWidth(by:)(&v10, 0x5A63F9A49C2C1B11uLL, 0x8637BD05AF6C69BLL, a1, a2);
+  v3 = _Int128.multipliedFullWidth(by:)(&v10, 0x5A63F9A49C2C1B11, 0x8637BD05AF6C69BLL, a1, a2);
   *(&v6 + 1) = v4;
   *&v6 = v3;
   v5 = v6 >> 15;
@@ -8182,11 +8093,11 @@ uint64_t _Int128.dividedBy1e6()(unint64_t a1, unint64_t a2)
     v8 = v4 >> 15;
   }
 
-  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 0xF4240uLL, 0);
+  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 1000000, 0);
   return v7;
 }
 
-uint64_t _Int128.dividedBy1e3()(unint64_t a1, unint64_t a2)
+uint64_t _Int128.dividedBy1e3()(int64_t a1, unint64_t a2)
 {
   v3 = _Int128.multipliedFullWidth(by:)(&v10, 0xB22D0E5604189375, 0x4189374BC6A7EF9DLL, a1, a2);
   *(&v6 + 1) = v4;
@@ -8203,7 +8114,7 @@ uint64_t _Int128.dividedBy1e3()(unint64_t a1, unint64_t a2)
     v8 = v4 >> 8;
   }
 
-  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 0x3E8uLL, 0);
+  _Int128.multipliedReportingOverflow(by:)(v5 + (a2 >> 63), v8, 1000, 0);
   return v7;
 }
 
@@ -8628,7 +8539,7 @@ LABEL_60:
   return result;
 }
 
-unint64_t specialized _parseIntegerDigits<A>(ascii:radix:isNegative:)(unsigned __int8 *a1, uint64_t a2, uint64_t a3, char a4)
+int64_t specialized _parseIntegerDigits<A>(ascii:radix:isNegative:)(unsigned __int8 *a1, uint64_t a2, uint64_t a3, char a4)
 {
   if (!a2)
   {
@@ -8766,7 +8677,7 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)@<X0>(uint64_t a1@
   v9 = v7;
   if ((v7 & 0x1000000000000000) != 0)
   {
-    v8 = static String._copying(_:)();
+    v8 = static String._copying(_:)(result, v7);
     v14 = v13;
 
     v9 = v14;
@@ -8889,7 +8800,7 @@ uint64_t specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint64_t a2,
   result = String.init<A>(_:)();
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v69 = static String._copying(_:)();
+    v69 = static String._copying(_:)(result, v5);
     v71 = v70;
 
     result = v69;
@@ -9646,22 +9557,35 @@ LABEL_214:
   return result;
 }
 
-uint64_t static String._copying(_:)()
+uint64_t static String._copying(_:)(uint64_t a1, unint64_t a2)
 {
-  v0 = String.subscript.getter();
-  v4 = static String._copying(_:)(v0, v1, v2, v3);
+  v2 = String.subscript.getter();
+  v6 = static String._copying(_:)(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1g5(v9, 0), v12 = specialized Sequence._copySequenceContents(initializing:)(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -9669,32 +9593,8 @@ uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, un
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = MEMORY[0x277D84F90];
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1g5(v9, 0);
-  v12 = specialized Sequence._copySequenceContents(initializing:)(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -9860,5 +9760,81 @@ LABEL_37:
   __break(1u);
 LABEL_38:
   __break(1u);
+  return result;
+}
+
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = a1 >> 14;
+  if ((a3 & 0x1000000000000000) == 0 || (a2 & 0x800000000000000) != 0)
+  {
+    v10 = String.UTF16View.index(_:offsetBy:)();
+    v11 = v10 + (v4 << 16);
+    v12 = v10 & 0xFFFFFFFFFFFFFFFCLL | v3 & 3;
+    v13 = v11 & 0xFFFFFFFFFFFF0000;
+    if (!v4)
+    {
+      v13 = v12;
+    }
+
+    return v13 | 4;
+  }
+
+  else
+  {
+    v5 = MEMORY[0x2743B2610](15, a1 >> 16);
+    v6 = v5 + (v4 << 16);
+    v7 = v5 & 0xFFFFFFFFFFFFFFFCLL | v3 & 3;
+    v8 = v6 & 0xFFFFFFFFFFFF0000;
+    if (!v4)
+    {
+      v8 = v7;
+    }
+
+    return v8 | 8;
+  }
+}
+
+unint64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(unint64_t result, uint64_t a2, unint64_t a3)
+{
+  if (result > 2 || a3 > 2)
+  {
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v3 = a3 - result;
+  if (a2 >= 1)
+  {
+    if (v3 < 0 || v3 >= a2)
+    {
+      goto LABEL_10;
+    }
+
+    return 0;
+  }
+
+  if (v3 <= 0 && v3 > a2)
+  {
+    return 0;
+  }
+
+LABEL_10:
+  v4 = __OFADD__(result, a2);
+  result += a2;
+  if (v4)
+  {
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  if (result > 2)
+  {
+LABEL_15:
+    __break(1u);
+  }
+
   return result;
 }

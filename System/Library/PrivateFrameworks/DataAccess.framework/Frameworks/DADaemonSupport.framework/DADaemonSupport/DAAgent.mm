@@ -88,7 +88,7 @@
 - (void)startOrStopMonitoringReachability:(BOOL)reachability
 {
   reachabilityCopy = reachability;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
   v7 = os_log_type_enabled(v5, v6);
@@ -96,9 +96,9 @@
   {
     if (v7)
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_248524000, v5, v6, "Agent %@ is now monitoring reachability", &v10, 0xCu);
+      _os_log_impl(&dword_248524000, v5, v6, "Agent %@ is now monitoring reachability", &v9, 0xCu);
     }
 
     v8 = +[DAReachability sharedReachability];
@@ -109,21 +109,19 @@
   {
     if (v7)
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_248524000, v5, v6, "Agent %@ is no longer monitoring reachability", &v10, 0xCu);
+      _os_log_impl(&dword_248524000, v5, v6, "Agent %@ is no longer monitoring reachability", &v9, 0xCu);
     }
 
     v8 = +[DAReachability sharedReachability];
     [v8 removeDelegate:self];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkReachable
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (![(DAAgent *)self syncWhenReachable]|| ([(DAAgent *)self networkReachableBlock], (v3 = objc_claimAutoreleasedReturnValue()) == 0) || (delayingReachabilityCallback = self->_delayingReachabilityCallback, v3, delayingReachabilityCallback))
   {
     v5 = DALoggingwithCategory();
@@ -135,11 +133,11 @@
       _os_log_impl(&dword_248524000, v5, v6, "%@: Notified that network is reachable, but we weren't asked to sync when reachable so ignoring.", buf, 0xCu);
     }
 
-    goto LABEL_7;
+    return;
   }
 
-  v8 = CalApproximateContinuousTime();
-  if (self->_reachabilityUnrestrictedTimestamp <= v8)
+  v7 = CalApproximateContinuousTime();
+  if (self->_reachabilityUnrestrictedTimestamp <= v7)
   {
     consecutiveDelayedReachabilityCallbacks = 0;
     self->_consecutiveDelayedReachabilityCallbacks = 0;
@@ -152,101 +150,96 @@
     {
       if (consecutiveDelayedReachabilityCallbacks < 2)
       {
-        v16 = *&reachabilityCallbackDelays[consecutiveDelayedReachabilityCallbacks];
+        v15 = reachabilityCallbackDelays[consecutiveDelayedReachabilityCallbacks];
         self->_consecutiveDelayedReachabilityCallbacks = consecutiveDelayedReachabilityCallbacks + 1;
         CalContinuousIntervalToNSTimeInterval();
-        v18 = v17;
-        reachabilityUnrestrictedTimestamp = self->_reachabilityUnrestrictedTimestamp;
+        v17 = v16;
         CalContinuousIntervalToNSTimeInterval();
-        v21 = v20;
-        v22 = DALoggingwithCategory();
-        v23 = MEMORY[0x277D03988];
-        v24 = *(MEMORY[0x277D03988] + 3);
-        if (os_log_type_enabled(v22, v24))
+        v19 = v18;
+        v20 = DALoggingwithCategory();
+        v21 = MEMORY[0x277D03988];
+        v22 = *(MEMORY[0x277D03988] + 3);
+        if (os_log_type_enabled(v20, v22))
         {
           *buf = 138412802;
           selfCopy5 = self;
-          v37 = 2048;
-          v38 = v16 + v18 - v21;
-          v39 = 2048;
-          v40 = v16 / 60.0;
-          _os_log_impl(&dword_248524000, v22, v24, "%@: Network is reachable, but we triggered the reachability block just %f seconds ago, less than the %f minute limit. Disabling reachability for now; we'll enable it again later.", buf, 0x20u);
+          v34 = 2048;
+          v35 = v15 + v17 - v19;
+          v36 = 2048;
+          v37 = v15 / 60.0;
+          _os_log_impl(&dword_248524000, v20, v22, "%@: Network is reachable, but we triggered the reachability block just %f seconds ago, less than the %f minute limit. Disabling reachability for now; we'll enable it again later.", buf, 0x20u);
         }
 
         [(DAAgent *)self setDelayingReachabilityCallback:1];
         objc_initWeak(&location, self);
-        v25 = self->_reachabilityCallbackSequence + 1;
-        self->_reachabilityCallbackSequence = v25;
-        v26 = self->_reachabilityUnrestrictedTimestamp;
+        v23 = self->_reachabilityCallbackSequence + 1;
+        self->_reachabilityCallbackSequence = v23;
         CalContinuousIntervalToNSTimeInterval();
-        v28 = v27;
-        v29 = DALoggingwithCategory();
-        v30 = *(v23 + 5);
-        if (os_log_type_enabled(v29, v30))
+        v25 = v24;
+        v26 = DALoggingwithCategory();
+        v27 = *(v21 + 5);
+        if (os_log_type_enabled(v26, v27))
         {
           *buf = 138412546;
           selfCopy5 = self;
-          v37 = 2048;
-          v38 = v28;
-          _os_log_impl(&dword_248524000, v29, v30, "%@: Re-enabling reachability in %f seconds", buf, 0x16u);
+          v34 = 2048;
+          v35 = v25;
+          _os_log_impl(&dword_248524000, v26, v27, "%@: Re-enabling reachability in %f seconds", buf, 0x16u);
         }
 
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __27__DAAgent_networkReachable__block_invoke;
-        v31[3] = &unk_278F1CCF0;
-        objc_copyWeak(&v32, &location);
-        v33 = v25;
-        [(DAAgent *)self _scheduleDelayedReachabilityCallback:v31 block:v28];
-        objc_destroyWeak(&v32);
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __27__DAAgent_networkReachable__block_invoke;
+        v28[3] = &unk_278F1CCF0;
+        objc_copyWeak(&v29, &location);
+        v30 = v23;
+        [(DAAgent *)self _scheduleDelayedReachabilityCallback:v28 block:v25];
+        objc_destroyWeak(&v29);
         objc_destroyWeak(&location);
       }
 
       else
       {
-        v10 = DALoggingwithCategory();
-        v11 = *(MEMORY[0x277D03988] + 3);
-        if (os_log_type_enabled(v10, v11))
+        v9 = DALoggingwithCategory();
+        v10 = *(MEMORY[0x277D03988] + 3);
+        if (os_log_type_enabled(v9, v10))
         {
           *buf = 138412290;
           selfCopy5 = self;
-          _os_log_impl(&dword_248524000, v10, v11, "%@: Network is reachable, but we've gotten too many reachability notifications without being able to actually sync this account. Disabling reachability and not trying again.", buf, 0xCu);
+          _os_log_impl(&dword_248524000, v9, v10, "%@: Network is reachable, but we've gotten too many reachability notifications without being able to actually sync this account. Disabling reachability and not trying again.", buf, 0xCu);
         }
 
         [(DAAgent *)self setSyncWhenReachable:0];
       }
 
-      goto LABEL_7;
+      return;
     }
   }
 
   self->_allowNextReachabilityCallback = 0;
-  v12 = *&reachabilityCallbackDelays[consecutiveDelayedReachabilityCallbacks];
-  self->_reachabilityUnrestrictedTimestamp = CalNSTimeIntervalToContinuousInterval() + v8;
-  v13 = DALoggingwithCategory();
-  v14 = *(MEMORY[0x277D03988] + 6);
-  if (os_log_type_enabled(v13, v14))
+  v11 = reachabilityCallbackDelays[consecutiveDelayedReachabilityCallbacks];
+  self->_reachabilityUnrestrictedTimestamp = CalNSTimeIntervalToContinuousInterval() + v7;
+  v12 = DALoggingwithCategory();
+  v13 = *(MEMORY[0x277D03988] + 6);
+  if (os_log_type_enabled(v12, v13))
   {
     *buf = 138412546;
     selfCopy5 = self;
-    v37 = 1024;
-    LODWORD(v38) = v12;
-    _os_log_impl(&dword_248524000, v13, v14, "%@: Network is reachable, so triggering reachability block. Next reachability notification allowed in %i s", buf, 0x12u);
+    v34 = 1024;
+    LODWORD(v35) = v11;
+    _os_log_impl(&dword_248524000, v12, v13, "%@: Network is reachable, so triggering reachability block. Next reachability notification allowed in %i s", buf, 0x12u);
   }
 
   networkReachableBlock = [(DAAgent *)self networkReachableBlock];
   networkReachableBlock[2]();
-
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __27__DAAgent_networkReachable__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
-  if (WeakRetained && *(WeakRetained + 33) == 1 && WeakRetained[7] == *(a1 + 40))
+  if (WeakRetained && *(WeakRetained + 33) == 1 && *(WeakRetained + 7) == *(a1 + 40))
   {
     if ([WeakRetained syncWhenReachable] && (objc_msgSend(v3, "networkReachableBlock"), v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
     {
@@ -254,11 +247,11 @@ void __27__DAAgent_networkReachable__block_invoke(uint64_t a1)
       v6 = *(MEMORY[0x277D03988] + 5);
       if (os_log_type_enabled(v5, v6))
       {
-        v11 = 138412290;
-        v12 = v3;
+        v9 = 138412290;
+        v10 = v3;
         v7 = "%@: No longer delaying reachability callbacks. If the network is still reachable, we should try syncing again soon.";
 LABEL_10:
-        _os_log_impl(&dword_248524000, v5, v6, v7, &v11, 0xCu);
+        _os_log_impl(&dword_248524000, v5, v6, v7, &v9, 0xCu);
       }
     }
 
@@ -268,21 +261,18 @@ LABEL_10:
       v6 = *(MEMORY[0x277D03988] + 5);
       if (os_log_type_enabled(v5, v6))
       {
-        v11 = 138412290;
-        v12 = v3;
+        v9 = 138412290;
+        v10 = v3;
         v7 = "%@: No longer delaying reachability callbacks, but that doesn't matter because we no longer need reachability callbacks.";
         goto LABEL_10;
       }
     }
 
-    v8 = reachabilityCallbackDelays[v3[6]];
-    v9 = CalApproximateContinuousTime();
-    *(v3 + 2) = CalNSTimeIntervalToContinuousInterval() + v9;
+    v8 = CalApproximateContinuousTime();
+    *(v3 + 2) = CalNSTimeIntervalToContinuousInterval() + v8;
     *(v3 + 32) = 1;
     [v3 setDelayingReachabilityCallback:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleDelayedReachabilityCallback:(double)callback block:(id)block
@@ -314,7 +304,7 @@ LABEL_10:
 
 - (void)setSyncWhenReachable:(BOOL)reachable
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->reachabilityLock);
   shouldBeMonitoringReachability = [(DAAgent *)self shouldBeMonitoringReachability];
   if (!reachable && self->_syncWhenReachable)
@@ -323,9 +313,9 @@ LABEL_10:
     v7 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v6, v7))
     {
-      v11 = 138412290;
+      v10 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_248524000, v6, v7, "%@: syncWhenReachable set to NO; disabling reachability and resetting delay.", &v11, 0xCu);
+      _os_log_impl(&dword_248524000, v6, v7, "%@: syncWhenReachable set to NO; disabling reachability and resetting delay.", &v10, 0xCu);
     }
 
     v8 = self->_reachabilityCallbackSequence + 1;
@@ -343,7 +333,6 @@ LABEL_10:
   }
 
   os_unfair_lock_unlock(&self->reachabilityLock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDelayingReachabilityCallback:(BOOL)callback

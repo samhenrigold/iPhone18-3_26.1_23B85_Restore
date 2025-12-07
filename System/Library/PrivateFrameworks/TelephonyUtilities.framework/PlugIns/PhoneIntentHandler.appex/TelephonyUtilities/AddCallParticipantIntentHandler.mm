@@ -84,8 +84,8 @@
   personHandle = [participantCopy personHandle];
   if (personHandle && (v17 = personHandle, [participantCopy personHandle], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "faceTimeType"), v18, v17, v19 == 2))
   {
-    v20 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v21 = IntentHandlerDefaultLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       sub_10002F7E0();
     }
@@ -96,64 +96,64 @@
   else
   {
     remoteMembers = [conversationCopy remoteMembers];
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_10000BD88;
-    v41[3] = &unk_10004CE60;
-    v22 = memberCopy;
-    v42 = v22;
-    v23 = [remoteMembers tu_containsObjectPassingTest:v41];
+    v43[0] = _NSConcreteStackBlock;
+    v43[1] = 3221225472;
+    v43[2] = sub_10000BD88;
+    v43[3] = &unk_10004CE60;
+    v23 = memberCopy;
+    v44 = v23;
+    v24 = [remoteMembers tu_containsObjectPassingTest:v43];
 
-    v24 = IntentHandlerDefaultLog();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
-    if (v23)
+    v26 = IntentHandlerDefaultLog(v25);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+    if (v24)
     {
-      if (v25)
+      if (v27)
       {
         sub_10002F8D8();
       }
 
       callCenter2 = [(AddCallParticipantIntentHandler *)self callCenter];
       conversationManager = [callCenter2 conversationManager];
-      [conversationManager buzzMember:v22 conversation:conversationCopy];
+      [conversationManager buzzMember:v23 conversation:conversationCopy];
 
-      v28 = [INCallInvite alloc];
-      v45 = participantCopy;
-      v29 = [NSArray arrayWithObjects:&v45 count:1];
-      v30 = v28;
-      v31 = v29;
-      v32 = 2;
+      v30 = [INCallInvite alloc];
+      v47 = participantCopy;
+      v31 = [NSArray arrayWithObjects:&v47 count:1];
+      v32 = v30;
+      v33 = v31;
+      v34 = 2;
     }
 
     else
     {
-      if (v25)
+      if (v27)
       {
         sub_10002F85C();
       }
 
       callCenter3 = [(AddCallParticipantIntentHandler *)self callCenter];
       conversationManager2 = [callCenter3 conversationManager];
-      v35 = [NSSet setWithObject:v22];
-      v36 = +[NSSet set];
-      [conversationManager2 addRemoteMembers:v35 otherInvitedHandles:v36 toConversation:conversationCopy];
+      v37 = [NSSet setWithObject:v23];
+      v38 = +[NSSet set];
+      [conversationManager2 addRemoteMembers:v37 otherInvitedHandles:v38 toConversation:conversationCopy];
 
-      v37 = [INCallInvite alloc];
-      v44 = participantCopy;
-      v29 = [NSArray arrayWithObjects:&v44 count:1];
-      v30 = v37;
-      v31 = v29;
-      v32 = 1;
+      v39 = [INCallInvite alloc];
+      v46 = participantCopy;
+      v31 = [NSArray arrayWithObjects:&v46 count:1];
+      v32 = v39;
+      v33 = v31;
+      v34 = 1;
     }
 
-    v38 = [v30 initWithParticipants:v31 inviteType:v32 callURL:0];
+    v40 = [v32 initWithParticipants:v33 inviteType:v34 callURL:0];
 
-    v39 = [[INAddCallParticipantIntentResponse alloc] initWithCode:3 userActivity:0];
-    v43 = v38;
-    v40 = [NSArray arrayWithObjects:&v43 count:1];
-    [v39 setInvites:v40];
+    v41 = [[INAddCallParticipantIntentResponse alloc] initWithCode:3 userActivity:0];
+    v45 = v40;
+    v42 = [NSArray arrayWithObjects:&v45 count:1];
+    [v41 setInvites:v42];
 
-    completionCopy[2](completionCopy, v39);
+    completionCopy[2](completionCopy, v41);
   }
 }
 
@@ -223,7 +223,7 @@ LABEL_8:
 
     if (v14)
     {
-      fetchFaceTimeAccountAliases = IntentHandlerDefaultLog();
+      fetchFaceTimeAccountAliases = IntentHandlerDefaultLog(v15);
       if (os_log_type_enabled(fetchFaceTimeAccountAliases, OS_LOG_TYPE_DEBUG))
       {
         sub_10002FA74(conversationCopy, fetchFaceTimeAccountAliases);
@@ -248,26 +248,26 @@ LABEL_8:
   {
     handle5 = [addCopy handle];
     normalizedValue = [handle5 normalizedValue];
-    v20 = [fetchFaceTimeAccountAliases containsObject:normalizedValue];
+    v22 = [fetchFaceTimeAccountAliases containsObject:normalizedValue];
 
-    if (!v20)
+    if (!v22)
     {
-      v22 = 0;
+      v24 = 0;
       goto LABEL_13;
     }
   }
 
-  v21 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v23 = IntentHandlerDefaultLog(v19);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     sub_10002FB14();
   }
 
 LABEL_12:
-  v22 = 1;
+  v24 = 1;
 LABEL_13:
 
-  return v22;
+  return v24;
 }
 
 - (BOOL)_checkParticipantAlreadyActive:(id)active inConversation:(id)conversation
@@ -334,8 +334,8 @@ LABEL_5:
 LABEL_7:
   [v8 addObject:v14];
 
-  v17 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = IntentHandlerDefaultLog(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     sub_10002FB94();
   }
@@ -382,15 +382,15 @@ LABEL_7:
 
     if (!v20)
     {
-      v21 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = IntentHandlerDefaultLog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         sub_10002FC10();
       }
 
-      v22 = [INAddCallParticipantParticipantResolutionResult unsupportedForReason:3];
+      v23 = [INAddCallParticipantParticipantResolutionResult unsupportedForReason:3];
 
-      v7 = v22;
+      v7 = v23;
     }
   }
 

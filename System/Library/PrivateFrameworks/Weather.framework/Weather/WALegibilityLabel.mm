@@ -11,6 +11,7 @@
 - (void)_updateLabelForLegibilitySettings;
 - (void)_updateLegibilityView;
 - (void)layoutSubviews;
+- (void)setAdjustsFontSizeToFitWidth:(BOOL)width;
 - (void)setAttributedText:(id)text;
 - (void)setBounds:(CGRect)bounds;
 - (void)setFont:(id)font;
@@ -59,17 +60,17 @@
 
 - (WALegibilityLabel)initWithSettings:(id)settings strength:(double)strength text:(id)text font:(id)font options:(int64_t)options
 {
-  v75[4] = *MEMORY[0x277D85DE8];
+  v74[4] = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   textCopy = text;
   fontCopy = font;
-  v73.receiver = self;
-  v73.super_class = WALegibilityLabel;
+  v72.receiver = self;
+  v72.super_class = WALegibilityLabel;
   v16 = *MEMORY[0x277CBF3A0];
   v17 = *(MEMORY[0x277CBF3A0] + 8);
   v18 = *(MEMORY[0x277CBF3A0] + 16);
   v19 = *(MEMORY[0x277CBF3A0] + 24);
-  v20 = [(WALegibilityLabel *)&v73 initWithFrame:*MEMORY[0x277CBF3A0], v17, v18, v19];
+  v20 = [(WALegibilityLabel *)&v72 initWithFrame:*MEMORY[0x277CBF3A0], v17, v18, v19];
   v21 = v20;
   if (v20)
   {
@@ -82,7 +83,7 @@
     objc_storeStrong(&v21->_font, font);
     v21->_options = options;
     v24 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v16, v17, v18, v19}];
-    v72 = settingsCopy;
+    v71 = settingsCopy;
     lookasideLabel = v21->_lookasideLabel;
     v21->_lookasideLabel = v24;
 
@@ -91,27 +92,27 @@
     [(UILabel *)v21->_lookasideLabel setFont:v21->_font];
     [(UILabel *)v21->_lookasideLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [(WALegibilityLabel *)v21 addSubview:v21->_lookasideLabel];
-    v58 = MEMORY[0x277CCAAD0];
+    v57 = MEMORY[0x277CCAAD0];
     topAnchor = [(UILabel *)v21->_lookasideLabel topAnchor];
     topAnchor2 = [(WALegibilityLabel *)v21 topAnchor];
-    v64 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v75[0] = v64;
+    v63 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v74[0] = v63;
     leadingAnchor = [(UILabel *)v21->_lookasideLabel leadingAnchor];
     leadingAnchor2 = [(WALegibilityLabel *)v21 leadingAnchor];
     [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v26 = v70 = fontCopy;
-    v75[1] = v26;
+    v26 = v69 = fontCopy;
+    v74[1] = v26;
     widthAnchor = [(UILabel *)v21->_lookasideLabel widthAnchor];
     widthAnchor2 = [(WALegibilityLabel *)v21 widthAnchor];
     [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    v29 = v71 = textCopy;
-    v75[2] = v29;
+    v29 = v70 = textCopy;
+    v74[2] = v29;
     heightAnchor = [(UILabel *)v21->_lookasideLabel heightAnchor];
     heightAnchor2 = [(WALegibilityLabel *)v21 heightAnchor];
     v32 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-    v75[3] = v32;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:4];
-    [v58 activateConstraints:v33];
+    v74[3] = v32;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:4];
+    [v57 activateConstraints:v33];
 
     v34 = objc_alloc_init(MEMORY[0x277D756D0]);
     firstBaselineLayoutGuide = v21->_firstBaselineLayoutGuide;
@@ -123,48 +124,47 @@
     v21->_lastBaselineLayoutGuide = v36;
 
     [(WALegibilityLabel *)v21 addLayoutGuide:v21->_lastBaselineLayoutGuide];
-    v55 = MEMORY[0x277CCAAD0];
+    v54 = MEMORY[0x277CCAAD0];
     topAnchor3 = [(UILayoutGuide *)v21->_firstBaselineLayoutGuide topAnchor];
     firstBaselineAnchor = [(UILabel *)v21->_lookasideLabel firstBaselineAnchor];
-    v65 = [topAnchor3 constraintEqualToAnchor:firstBaselineAnchor];
-    v74[0] = v65;
+    v64 = [topAnchor3 constraintEqualToAnchor:firstBaselineAnchor];
+    v73[0] = v64;
     heightAnchor3 = [(UILayoutGuide *)v21->_firstBaselineLayoutGuide heightAnchor];
-    v61 = [heightAnchor3 constraintEqualToConstant:0.0];
-    v74[1] = v61;
+    v60 = [heightAnchor3 constraintEqualToConstant:0.0];
+    v73[1] = v60;
     leadingAnchor3 = [(UILayoutGuide *)v21->_firstBaselineLayoutGuide leadingAnchor];
     leadingAnchor4 = [(WALegibilityLabel *)v21 leadingAnchor];
-    v56 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v74[2] = v56;
+    v55 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v73[2] = v55;
     trailingAnchor = [(UILayoutGuide *)v21->_firstBaselineLayoutGuide trailingAnchor];
     trailingAnchor2 = [(WALegibilityLabel *)v21 trailingAnchor];
-    v52 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v74[3] = v52;
+    v51 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v73[3] = v51;
     topAnchor4 = [(UILayoutGuide *)v21->_lastBaselineLayoutGuide topAnchor];
     lastBaselineAnchor = [(UILabel *)v21->_lookasideLabel lastBaselineAnchor];
-    v49 = [topAnchor4 constraintEqualToAnchor:lastBaselineAnchor];
-    v74[4] = v49;
+    v48 = [topAnchor4 constraintEqualToAnchor:lastBaselineAnchor];
+    v73[4] = v48;
     heightAnchor4 = [(UILayoutGuide *)v21->_lastBaselineLayoutGuide heightAnchor];
     v39 = [heightAnchor4 constraintEqualToConstant:0.0];
-    v74[5] = v39;
+    v73[5] = v39;
     leadingAnchor5 = [(UILayoutGuide *)v21->_lastBaselineLayoutGuide leadingAnchor];
     leadingAnchor6 = [(WALegibilityLabel *)v21 leadingAnchor];
     v42 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-    v74[6] = v42;
+    v73[6] = v42;
     trailingAnchor3 = [(UILayoutGuide *)v21->_lastBaselineLayoutGuide trailingAnchor];
     trailingAnchor4 = [(WALegibilityLabel *)v21 trailingAnchor];
     v45 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v74[7] = v45;
-    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:8];
-    [v55 activateConstraints:v46];
+    v73[7] = v45;
+    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:8];
+    [v54 activateConstraints:v46];
 
-    fontCopy = v70;
-    textCopy = v71;
+    fontCopy = v69;
+    textCopy = v70;
 
-    settingsCopy = v72;
+    settingsCopy = v71;
     [(WALegibilityLabel *)v21 _markOurselfDirty];
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -231,6 +231,13 @@
   [(WALegibilityLabel *)self _markOurselfDirty];
 }
 
+- (void)setAdjustsFontSizeToFitWidth:(BOOL)width
+{
+  [(UILabel *)self->_lookasideLabel setAdjustsFontSizeToFitWidth:width];
+
+  [(WALegibilityLabel *)self _markOurselfDirty];
+}
+
 - (void)setMinimumScaleFactor:(double)factor
 {
   [(UILabel *)self->_lookasideLabel setMinimumScaleFactor:factor];
@@ -258,58 +265,58 @@
 
 - (void)updateConstraints
 {
-  v31[4] = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = WALegibilityLabel;
-  [(WALegibilityLabel *)&v29 updateConstraints];
+  v30[4] = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = WALegibilityLabel;
+  [(WALegibilityLabel *)&v28 updateConstraints];
   legibilityView = self->_legibilityView;
   if (legibilityView)
   {
     leadingAnchor = [(_UILegibilityView *)legibilityView leadingAnchor];
     leadingAnchor2 = [(WALegibilityLabel *)self leadingAnchor];
-    v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v31[0] = v22;
+    v21 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v30[0] = v21;
     trailingAnchor = [(_UILegibilityView *)self->_legibilityView trailingAnchor];
     trailingAnchor2 = [(WALegibilityLabel *)self trailingAnchor];
     v5 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v31[1] = v5;
+    v30[1] = v5;
     bottomAnchor = [(_UILegibilityView *)self->_legibilityView bottomAnchor];
     lastBaselineAnchor = [(WALegibilityLabel *)self lastBaselineAnchor];
     [(UILabel *)self->_lookasideLabel _baselineOffsetFromBottom];
     v8 = [bottomAnchor constraintEqualToAnchor:lastBaselineAnchor constant:?];
-    v31[2] = v8;
+    v30[2] = v8;
     topAnchor = [(_UILegibilityView *)self->_legibilityView topAnchor];
     topAnchor2 = [(WALegibilityLabel *)self topAnchor];
     v11 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v31[3] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
+    v30[3] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v13 = v12;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v14)
     {
       v16 = v14;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         v18 = 0;
         do
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v13);
           }
 
           LODWORD(v15) = 1144750080;
-          [*(*(&v25 + 1) + 8 * v18++) setPriority:v15];
+          [*(*(&v24 + 1) + 8 * v18++) setPriority:v15];
         }
 
         while (v16 != v18);
-        v16 = [(NSArray *)v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v16 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v16);
@@ -319,8 +326,6 @@
     legibilityConstraints = self->_legibilityConstraints;
     self->_legibilityConstraints = v13;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFrame:(CGRect)frame

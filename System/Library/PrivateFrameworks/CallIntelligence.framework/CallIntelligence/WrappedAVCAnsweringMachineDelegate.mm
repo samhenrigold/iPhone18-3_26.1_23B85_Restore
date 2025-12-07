@@ -11,7 +11,7 @@
 - (_TtC16CallIntelligence34WrappedAVCAnsweringMachineDelegate)init
 {
   ObjectType = swift_getObjectType();
-  v4 = (&self->super.isa + OBJC_IVAR____TtC16CallIntelligence34WrappedAVCAnsweringMachineDelegate_onAnsweringMachineDidFinishAnnouncement);
+  v4 = (self + OBJC_IVAR____TtC16CallIntelligence34WrappedAVCAnsweringMachineDelegate_onAnsweringMachineDidFinishAnnouncement);
   *v4 = nullsub_1;
   v4[1] = 0;
   v6.receiver = self;
@@ -38,28 +38,27 @@
 - (void)answeringMachine:(id)machine didStop:(BOOL)stop messageRecordingURL:(id)l error:(id)error
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7393B0, &unk_1D2EF28C0);
-  v12 = *(*(v11 - 8) + 64);
   MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v20 - v13;
+  v13 = &v19 - v12;
   if (l)
   {
     sub_1D2EE3D48();
-    v15 = sub_1D2EE3D88();
-    (*(*(v15 - 8) + 56))(v14, 0, 1, v15);
+    v14 = sub_1D2EE3D88();
+    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
   }
 
   else
   {
-    v16 = sub_1D2EE3D88();
-    (*(*(v16 - 8) + 56))(v14, 1, 1, v16);
+    v15 = sub_1D2EE3D88();
+    (*(*(v15 - 8) + 56))(v13, 1, 1, v15);
   }
 
   machineCopy = machine;
   errorCopy = error;
   selfCopy = self;
-  sub_1D2EB9A30(stop, v14, error);
+  sub_1D2EB9A30(stop, v13, error);
 
-  sub_1D2E8A91C(v14);
+  sub_1D2E8A91C(v13);
 }
 
 - (void)serverDidDisconnectForAnsweringMachine:

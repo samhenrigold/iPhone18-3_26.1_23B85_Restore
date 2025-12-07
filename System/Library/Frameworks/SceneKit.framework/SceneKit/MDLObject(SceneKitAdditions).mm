@@ -1,156 +1,157 @@
 @interface MDLObject(SceneKitAdditions)
-- (uint64_t)_updateAssociatedSCNNodeWithGeometrySetter:()SceneKitAdditions texturePathProvider:vertexAttributeNamed:materialPropertyNamed:;
+- (void)_updateAssociatedSCNNodeWithGeometrySetter:()SceneKitAdditions texturePathProvider:vertexAttributeNamed:materialPropertyNamed:;
 @end
 
 @implementation MDLObject(SceneKitAdditions)
 
-- (uint64_t)_updateAssociatedSCNNodeWithGeometrySetter:()SceneKitAdditions texturePathProvider:vertexAttributeNamed:materialPropertyNamed:
+- (void)_updateAssociatedSCNNodeWithGeometrySetter:()SceneKitAdditions texturePathProvider:vertexAttributeNamed:materialPropertyNamed:
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   AssociatedObject = objc_getAssociatedObject(self, @"SCNSceneKitAssociatedObject");
   if (AssociatedObject)
   {
-    v70 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
+    v72 = 0u;
     obj = [self children];
-    v7 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
+    v7 = [obj countByEnumeratingWithState:&v71 objects:v78 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v69;
+      v10 = *v72;
       v11 = 0x277CBE000uLL;
-      v43 = a3;
-      v42 = *v69;
+      v46 = a3;
+      v45 = *v72;
       do
       {
         v12 = 0;
-        v44 = v8;
+        v47 = v8;
         do
         {
-          if (*v69 != v10)
+          if (*v72 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v68 + 1) + 8 * v12);
+          v13 = *(*(&v71 + 1) + 8 * v12);
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
-            v47 = v12;
+            v50 = v12;
             if (v9)
             {
-              v14 = scn_default_log();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+              v16 = scn_default_log(isKindOfClass, v15);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
-                [MDLObject(SceneKitAdditions) _updateAssociatedSCNNodeWithGeometrySetter:v67 texturePathProvider:v14 vertexAttributeNamed:? materialPropertyNamed:?];
+                [MDLObject(SceneKitAdditions) _updateAssociatedSCNNodeWithGeometrySetter:v70 texturePathProvider:v16 vertexAttributeNamed:? materialPropertyNamed:?];
               }
             }
 
-            v15 = [objc_msgSend(AssociatedObject "geometry")];
-            v16 = [SCNGeometry geometryWithMDLMesh:v13];
+            v17 = [objc_msgSend(AssociatedObject "geometry")];
+            v18 = [SCNGeometry geometryWithMDLMesh:v13];
             array = [*(v11 + 2840) array];
-            v18 = [*(v11 + 2840) arrayWithCapacity:{objc_msgSend(v15, "count")}];
-            v62 = 0u;
-            v63 = 0u;
-            v64 = 0u;
+            v20 = [*(v11 + 2840) arrayWithCapacity:{objc_msgSend(v17, "count")}];
             v65 = 0u;
+            v66 = 0u;
+            v67 = 0u;
+            v68 = 0u;
             submeshes = [v13 submeshes];
-            v20 = [submeshes countByEnumeratingWithState:&v62 objects:v74 count:16];
-            if (v20)
+            v22 = [submeshes countByEnumeratingWithState:&v65 objects:v77 count:16];
+            if (v22)
             {
-              v21 = v20;
-              v22 = *v63;
+              v23 = v22;
+              v24 = *v66;
               do
               {
-                for (i = 0; i != v21; ++i)
+                for (i = 0; i != v23; ++i)
                 {
-                  if (*v63 != v22)
+                  if (*v66 != v24)
                   {
                     objc_enumerationMutation(submeshes);
                   }
 
-                  v24 = *(*(&v62 + 1) + 8 * i);
-                  if ([v24 material] && objc_msgSend(v24, "indexCount"))
+                  v26 = *(*(&v65 + 1) + 8 * i);
+                  if ([v26 material] && objc_msgSend(v26, "indexCount"))
                   {
-                    [v18 addObject:{objc_msgSend(v24, "material")}];
+                    [v20 addObject:{objc_msgSend(v26, "material")}];
                   }
                 }
 
-                v21 = [submeshes countByEnumeratingWithState:&v62 objects:v74 count:16];
+                v23 = [submeshes countByEnumeratingWithState:&v65 objects:v77 count:16];
               }
 
-              while (v21);
+              while (v23);
             }
 
-            v46 = v15;
-            v25 = [*(v11 + 2840) arrayWithCapacity:{objc_msgSend(v15, "count")}];
-            v26 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:&stru_282DCC058];
-            v58 = 0u;
-            v59 = 0u;
-            v60 = 0u;
+            v49 = v17;
+            v27 = [*(v11 + 2840) arrayWithCapacity:{objc_msgSend(v17, "count")}];
+            v28 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:&stru_282DCC058];
             v61 = 0u;
-            v27 = [v18 countByEnumeratingWithState:&v58 objects:v73 count:16];
-            if (v27)
+            v62 = 0u;
+            v63 = 0u;
+            v64 = 0u;
+            v29 = [v20 countByEnumeratingWithState:&v61 objects:v76 count:16];
+            if (v29)
             {
-              v28 = v27;
-              v29 = *v59;
+              v30 = v29;
+              v31 = *v62;
               do
               {
-                for (j = 0; j != v28; ++j)
+                for (j = 0; j != v30; ++j)
                 {
-                  if (*v59 != v29)
+                  if (*v62 != v31)
                   {
-                    objc_enumerationMutation(v18);
+                    objc_enumerationMutation(v20);
                   }
 
-                  v31 = *(*(&v58 + 1) + 8 * j);
-                  v32 = objc_getAssociatedObject(v31, @"SCNSceneKitAssociatedObject");
-                  if (v32)
+                  v33 = *(*(&v61 + 1) + 8 * j);
+                  v34 = objc_getAssociatedObject(v33, @"SCNSceneKitAssociatedObject");
+                  if (v34)
                   {
-                    v33 = [v32 copy];
-                    v34 = [v33 _integrateModelKitComputedMaps:v31 withGeometry:v16 node:AssociatedObject texturePathProvider:a4 vertexAttributeNamed:a5 materialPropertyNamed:a6 filePath:v26];
-                    if (v34)
+                    v36 = [v34 copy];
+                    v37 = [v36 _integrateModelKitComputedMaps:v33 withGeometry:v18 node:AssociatedObject texturePathProvider:a4 vertexAttributeNamed:a5 materialPropertyNamed:a6 filePath:v28];
+                    if (v37)
                     {
-                      [array addObject:v34];
+                      [array addObject:v37];
                     }
 
-                    [v25 addObject:v33];
+                    [v27 addObject:v36];
                   }
 
                   else
                   {
-                    v35 = scn_default_log();
-                    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                    v38 = scn_default_log(0, v35);
+                    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
                     {
-                      [MDLObject(SceneKitAdditions) _updateAssociatedSCNNodeWithGeometrySetter:v57 texturePathProvider:v35 vertexAttributeNamed:? materialPropertyNamed:?];
+                      [MDLObject(SceneKitAdditions) _updateAssociatedSCNNodeWithGeometrySetter:v60 texturePathProvider:v38 vertexAttributeNamed:? materialPropertyNamed:?];
                     }
                   }
                 }
 
-                v28 = [v18 countByEnumeratingWithState:&v58 objects:v73 count:16];
+                v30 = [v20 countByEnumeratingWithState:&v61 objects:v76 count:16];
               }
 
-              while (v28);
+              while (v30);
             }
 
-            [(SCNGeometry *)v16 setMaterials:v25];
-            a3 = v43;
-            if (v43)
+            [(SCNGeometry *)v18 setMaterials:v27];
+            a3 = v46;
+            if (v46)
             {
-              (*(v43 + 16))(v43, AssociatedObject, v16, array);
+              (*(v46 + 16))(v46, AssociatedObject, v18, array);
             }
 
             else
             {
-              [AssociatedObject setGeometry:v16];
+              [AssociatedObject setGeometry:v18];
             }
 
-            v8 = v44;
-            v10 = v42;
-            v12 = v47;
+            v8 = v47;
+            v10 = v45;
+            v12 = v50;
 
             v9 = 1;
             v11 = 0x277CBE000;
@@ -160,39 +161,40 @@
         }
 
         while (v12 != v8);
-        v8 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
+        v8 = [obj countByEnumeratingWithState:&v71 objects:v78 count:16];
       }
 
       while (v8);
     }
   }
 
-  v54 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
+  v56 = 0u;
   children = [self children];
-  result = [children countByEnumeratingWithState:&v52 objects:v72 count:16];
+  result = [children countByEnumeratingWithState:&v55 objects:v75 count:16];
   if (result)
   {
-    v38 = result;
-    v39 = *v53;
+    v41 = result;
+    v42 = *v56;
     do
     {
-      v40 = 0;
+      v43 = 0;
       do
       {
-        if (*v53 != v39)
+        if (*v56 != v42)
         {
           objc_enumerationMutation(children);
         }
 
-        [*(*(&v52 + 1) + 8 * v40++) _updateAssociatedSCNNodeWithGeometrySetter:a3 texturePathProvider:a4 vertexAttributeNamed:a5 materialPropertyNamed:a6];
+        [*(*(&v55 + 1) + 8 * v43) _updateAssociatedSCNNodeWithGeometrySetter:a3 texturePathProvider:a4 vertexAttributeNamed:a5 materialPropertyNamed:a6];
+        v43 = v43 + 1;
       }
 
-      while (v38 != v40);
-      result = [children countByEnumeratingWithState:&v52 objects:v72 count:16];
-      v38 = result;
+      while (v41 != v43);
+      result = [children countByEnumeratingWithState:&v55 objects:v75 count:16];
+      v41 = result;
     }
 
     while (result);

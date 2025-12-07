@@ -11,14 +11,14 @@
 {
   if (!self->_buffer)
   {
-    v5 = sub_1AF0D5194();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDEA64C(v5, a2, v2, v3, v6, v7, v8, v9);
+      sub_1AFDEA64C(v4, a2, v2, v5, v6, v7, v8, v9);
     }
   }
 
-  return (objc_msgSend_contents(self->_buffer, a2, v2, v3) + self->_offset);
+  return (objc_msgSend_contents(self->_buffer, a2, v2) + self->_offset);
 }
 
 - (void)dealloc
@@ -30,17 +30,17 @@
 
 - (void)incrementUsedCount
 {
-  v6 = objc_msgSend_usedCount(self, a2, v2, v3) + 1;
+  v5 = objc_msgSend_usedCount(self, a2, v2) + 1;
 
-  objc_msgSend_setUsedCount_(self, v5, v6, v7);
+  objc_msgSend_setUsedCount_(self, v4, v5);
 }
 
 - (int64_t)decrementUsedCount
 {
-  v5 = objc_msgSend_usedCount(self, a2, v2, v3);
-  objc_msgSend_setUsedCount_(self, v6, v5 - 1, v7);
+  v4 = objc_msgSend_usedCount(self, a2, v2);
+  objc_msgSend_setUsedCount_(self, v5, v4 - 1);
 
-  return objc_msgSend_usedCount(self, v8, v9, v10);
+  return objc_msgSend_usedCount(self, v6, v7);
 }
 
 @end

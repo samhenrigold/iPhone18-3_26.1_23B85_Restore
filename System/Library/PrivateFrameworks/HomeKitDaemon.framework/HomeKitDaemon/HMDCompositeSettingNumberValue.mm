@@ -8,14 +8,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   numberValue = [(HMDCompositeSettingNumberValue *)self numberValue];
   v5 = [v3 initWithName:@"value" value:numberValue];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -67,7 +65,7 @@
   v5 = [(HMDCompositeSettingValue *)&v9 init];
   if (v5)
   {
-    v6 = [valueCopy copy];
+    v6 = objc_msgSend_copy(valueCopy);
     numberValue = v5->_numberValue;
     v5->_numberValue = v6;
   }

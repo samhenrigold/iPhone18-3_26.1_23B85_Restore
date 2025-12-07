@@ -740,7 +740,7 @@ LABEL_34:
   [(AVConferenceXPCClient *)self->_connection registerBlockForService:"conferenceDidServerDie" block:v4 queue:self->_callbackQueue];
 }
 
-uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke(uint64_t a1, void *a2)
+void *__51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke(uint64_t a1, void *a2)
 {
   v23 = *MEMORY[0x1E69E9840];
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
@@ -813,7 +813,7 @@ uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke(ui
   return result;
 }
 
-uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_107(uint64_t a1, void *a2)
+void *__51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_107(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -837,7 +837,7 @@ uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_10
   return result;
 }
 
-uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_2(uint64_t a1, void *a2)
+void *__51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -861,7 +861,7 @@ uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_2(
   return result;
 }
 
-uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_3(uint64_t a1, void *a2)
+void *__51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -879,7 +879,7 @@ uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_3(
   return result;
 }
 
-uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_4(uint64_t a1, void *a2)
+void *__51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_4(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -967,7 +967,7 @@ void __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_5(uint
   }
 }
 
-uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_129(uint64_t a1, void *a2)
+void *__51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_129(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -1071,7 +1071,7 @@ void *__51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_137(u
   return result;
 }
 
-uint64_t __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_2_139(uint64_t a1, void *a2)
+void *__51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_2_139(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -1179,8 +1179,8 @@ void __51__AVCCaptionsClient_registerBlocksForNotifications__block_invoke_3_145(
         }
 
         confidence = [v18 confidence];
-        range = [v18 range];
-        [(AVCCaptionsResult *)v12 addTokenWithString:text confidence:range range:v22, confidence];
+        v21 = objc_msgSend_range(v18);
+        [(AVCCaptionsResult *)v12 addTokenWithString:text confidence:v21 range:v22, confidence];
       }
 
       v15 = [segments countByEnumeratingWithState:&v25 objects:v24 count:16];
@@ -1750,7 +1750,7 @@ LABEL_11:
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
 }
 
-- (void)setUpInternalStateWithDelegate:(uint64_t)a3 clientType:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+- (void)setUpInternalStateWithDelegate:(uint64_t)a3 clientType:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_40_0();
   a23 = v25;

@@ -1,9 +1,24 @@
 @interface GCDeviceCursor
 - (CGRect)frame;
+- (GCDeviceCursor)initWithDigital:(BOOL)digital descriptionName:(id)name;
 - (void)setFrame:(CGRect)frame;
 @end
 
 @implementation GCDeviceCursor
+
+- (GCDeviceCursor)initWithDigital:(BOOL)digital descriptionName:(id)name
+{
+  v7.receiver = self;
+  v7.super_class = GCDeviceCursor;
+  v4 = [(GCControllerDirectionPad *)&v7 initWithDigital:digital descriptionName:name];
+  v5 = v4;
+  if (v4)
+  {
+    [(GCDeviceCursor *)v4 setFrame:-1.0, -1.0, 2.0, 2.0];
+  }
+
+  return v5;
+}
 
 - (void)setFrame:(CGRect)frame
 {

@@ -34,7 +34,7 @@
 
 - (void)_handleSelectedStreamConfigurationWriteResponses:(id)responses completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
@@ -46,9 +46,9 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v12;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received response for selected stream configuration write", &v28, 0xCu);
+    v27 = 138543362;
+    v28 = v12;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received response for selected stream configuration write", &v27, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -71,11 +71,11 @@
     {
       v19 = HMFGetLogIdentifier();
       error2 = [v14 error];
-      v28 = 138543618;
-      v29 = v19;
-      v30 = 2114;
-      v31 = error2;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to write selected stream configuration: the write reply ended in error response: %{public}@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v19;
+      v29 = 2114;
+      v30 = error2;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to write selected stream configuration: the write reply ended in error response: %{public}@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -90,9 +90,9 @@
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v25;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to write selected stream configuration: the write reply did not contain any responses", &v28, 0xCu);
+      v27 = 138543362;
+      v28 = v25;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to write selected stream configuration: the write reply did not contain any responses", &v27, 0xCu);
     }
 
     objc_autoreleasePoolPop(v22);
@@ -103,12 +103,11 @@
   completionCopy[2](completionCopy, error3);
 
 LABEL_13:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeSelectedStreamConfigurationData:(id)data completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
@@ -121,16 +120,16 @@ LABEL_13:
     v11 = [streamManagementService findCharacteristicWithType:*MEMORY[0x277CFE6D8]];
 
     v12 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v11 value:dataCopy authorizationData:0 type:0];
-    v22 = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v21 = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
     workQueue2 = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __94__HMDCameraLocalStreamAccessoryCommunicator__writeSelectedStreamConfigurationData_completion___block_invoke;
-    v20[3] = &unk_278689FC0;
-    v20[4] = self;
-    v21 = completionCopy;
-    [accessory writeCharacteristicValues:v13 source:1070 queue:workQueue2 completionHandler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __94__HMDCameraLocalStreamAccessoryCommunicator__writeSelectedStreamConfigurationData_completion___block_invoke;
+    v19[3] = &unk_278689FC0;
+    v19[4] = self;
+    v20 = completionCopy;
+    [accessory writeCharacteristicValues:v13 source:1070 queue:workQueue2 completionHandler:v19];
   }
 
   else
@@ -142,7 +141,7 @@ LABEL_13:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v18;
+      v23 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to write selected stream configuration: accessory reference is nil", buf, 0xCu);
     }
 
@@ -150,13 +149,11 @@ LABEL_13:
     v11 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1011];
     (*(completionCopy + 2))(completionCopy, v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSetupEndPointReadResponses:(id)responses completion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
@@ -165,40 +162,40 @@ LABEL_13:
   v9 = objc_autoreleasePoolPush();
   selfCopy = self;
   v11 = HMFGetOSLogHandle();
-  v42 = selfCopy;
+  v41 = selfCopy;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v50 = v12;
+    v49 = v12;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received response for setup endpoint read", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v13 = responsesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v44 objects:v52 count:16];
   obj = v13;
   if (v14)
   {
     v15 = v14;
-    v41 = completionCopy;
-    v44 = 0;
-    v16 = *v46;
+    v40 = completionCopy;
+    v43 = 0;
+    v16 = *v45;
     v17 = *MEMORY[0x277CFE6E0];
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v46 != v16)
+        if (*v45 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v45 + 1) + 8 * i);
+        v19 = *(*(&v44 + 1) + 8 * i);
         value = [v19 value];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -224,45 +221,45 @@ LABEL_13:
           {
             v27 = v22;
 
-            v44 = value;
+            v43 = value;
           }
         }
       }
 
       v28 = obj;
-      v15 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v15 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v15);
 
-    completionCopy = v41;
-    v29 = v44;
-    if (v44)
+    completionCopy = v40;
+    v29 = v43;
+    if (v43)
     {
-      v30 = [(HAPTLVBase *)[HMDSetupEndPointRead alloc] initWithTLVData:v44];
+      v30 = [(HAPTLVBase *)[HMDSetupEndPointRead alloc] initWithTLVData:v43];
       if (v30)
       {
-        (v41)[2](v41, v30, 0);
+        (v40)[2](v40, v30, 0);
       }
 
       else
       {
         v35 = objc_autoreleasePoolPush();
-        v36 = v42;
+        v36 = v41;
         v37 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           v38 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v50 = v38;
-          v51 = 2112;
-          v52 = v44;
+          v49 = v38;
+          v50 = 2112;
+          v51 = v43;
           _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Failed to read setup endpoint: could not initialize setup endpoint from TLV data: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v35);
         v39 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1042];
-        v41[2](v41, 0, v39);
+        v40[2](v40, 0, v39);
       }
 
       goto LABEL_27;
@@ -274,13 +271,13 @@ LABEL_13:
   }
 
   v31 = objc_autoreleasePoolPush();
-  v32 = v42;
+  v32 = v41;
   v33 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     v34 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v50 = v34;
+    v49 = v34;
     _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to read setup endpoint: the reply does not contain the expected response", buf, 0xCu);
   }
 
@@ -289,13 +286,11 @@ LABEL_13:
   completionCopy[2](completionCopy, 0, v29);
   v28 = obj;
 LABEL_27:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSetupEndPointWriteResponses:(id)responses completion:(id)completion
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
@@ -308,33 +303,33 @@ LABEL_27:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v44 = v11;
+    v43 = v11;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response for setup endpoint write", buf, 0xCu);
   }
 
-  v37 = selfCopy;
+  v36 = selfCopy;
   objc_autoreleasePoolPop(v8);
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v12 = responsesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v40;
+    v15 = *v39;
     v16 = *MEMORY[0x277CFE6E0];
 LABEL_5:
     v17 = 0;
     while (1)
     {
-      if (*v40 != v15)
+      if (*v39 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v18 = *(*(&v39 + 1) + 8 * v17);
+      v18 = *(*(&v38 + 1) + 8 * v17);
       request = [v18 request];
       characteristic = [request characteristic];
       type = [characteristic type];
@@ -347,7 +342,7 @@ LABEL_5:
 
       if (v14 == ++v17)
       {
-        v14 = [v12 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v38 objects:v46 count:16];
         if (v14)
         {
           goto LABEL_5;
@@ -370,16 +365,16 @@ LABEL_5:
     if (error)
     {
       v26 = objc_autoreleasePoolPush();
-      v27 = v37;
+      v27 = v36;
       v28 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v29 = HMFGetLogIdentifier();
         error2 = [v23 error];
         *buf = 138543618;
-        v44 = v29;
-        v45 = 2112;
-        v46 = error2;
+        v43 = v29;
+        v44 = 2112;
+        v45 = error2;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to write setup endpoint: %@", buf, 0x16u);
       }
 
@@ -400,14 +395,14 @@ LABEL_11:
 
 LABEL_17:
     v32 = objc_autoreleasePoolPush();
-    v33 = v37;
+    v33 = v36;
     v34 = HMFGetOSLogHandle();
     v25 = completionCopy;
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v35;
+      v43 = v35;
       _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to write setup endpoint: the reply does not contain the expected response", buf, 0xCu);
     }
 
@@ -415,13 +410,11 @@ LABEL_17:
     v23 = [MEMORY[0x277CCA9B8] hmErrorWithCode:50];
     (*(completionCopy + 2))(completionCopy, v23);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleReadSupportedConfigurationsResponses:(id)responses completion:(id)completion
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
@@ -434,17 +427,17 @@ LABEL_17:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v85 = v11;
+    v84 = v11;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response for supported configurations read", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v12 = responsesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v80 objects:v88 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v79 objects:v87 count:16];
   if (!v13)
   {
 
@@ -458,7 +451,7 @@ LABEL_29:
     {
       v46 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v85 = v46;
+      v84 = v46;
       _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@Failed to read supported configurations: Supported configurations read response did not include supported video stream configuration", buf, 0xCu);
     }
 
@@ -471,25 +464,25 @@ LABEL_29:
   }
 
   v14 = v13;
-  v71 = selfCopy;
+  v70 = selfCopy;
   v15 = 0;
-  v75 = 0;
-  v78 = 0;
-  v79 = *v81;
-  v77 = *MEMORY[0x277CFE708];
-  v74 = *MEMORY[0x277CFE6F8];
-  v73 = *MEMORY[0x277CFE700];
+  v74 = 0;
+  v77 = 0;
+  v78 = *v80;
+  v76 = *MEMORY[0x277CFE708];
+  v73 = *MEMORY[0x277CFE6F8];
+  v72 = *MEMORY[0x277CFE700];
   obj = v12;
   do
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v81 != v79)
+      if (*v80 != v78)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v80 + 1) + 8 * i);
+      v17 = *(*(&v79 + 1) + 8 * i);
       value = [v17 value];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -510,12 +503,12 @@ LABEL_29:
         request = [v17 request];
         characteristic = [request characteristic];
         type = [characteristic type];
-        v25 = [type isEqualToString:v77];
+        v25 = [type isEqualToString:v76];
 
         if (v25)
         {
-          v26 = v78;
-          v78 = value;
+          v26 = v77;
+          v77 = value;
         }
 
         else
@@ -523,12 +516,12 @@ LABEL_29:
           request2 = [v17 request];
           characteristic2 = [request2 characteristic];
           type2 = [characteristic2 type];
-          v30 = [type2 isEqualToString:v74];
+          v30 = [type2 isEqualToString:v73];
 
           if (v30)
           {
-            v26 = v75;
-            v75 = value;
+            v26 = v74;
+            v74 = value;
           }
 
           else
@@ -536,7 +529,7 @@ LABEL_29:
             request3 = [v17 request];
             characteristic3 = [request3 characteristic];
             type3 = [characteristic3 type];
-            v34 = [type3 isEqualToString:v73];
+            v34 = [type3 isEqualToString:v72];
 
             v15 = v21;
             v26 = v21;
@@ -557,33 +550,33 @@ LABEL_18:
     }
 
     v12 = obj;
-    v14 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
+    v14 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
   }
 
   while (v14);
 
-  v36 = v78;
-  if (!v78)
+  v36 = v77;
+  if (!v77)
   {
-    v38 = v75;
-    selfCopy = v71;
+    v38 = v74;
+    selfCopy = v70;
     goto LABEL_29;
   }
 
-  v37 = [(HAPTLVBase *)[HMDSupportedVideoStreamConfiguration alloc] initWithTLVData:v78];
-  v38 = v75;
+  v37 = [(HAPTLVBase *)[HMDSupportedVideoStreamConfiguration alloc] initWithTLVData:v77];
+  v38 = v74;
   if (!v37)
   {
     v47 = objc_autoreleasePoolPush();
-    v48 = v71;
+    v48 = v70;
     v49 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       v50 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v85 = v50;
-      v86 = 2112;
-      v87 = v78;
+      v84 = v50;
+      v85 = 2112;
+      v86 = v77;
       _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_ERROR, "%{public}@Failed to read supported configurations: Could not initialize video stream configuration from TLV data: %@", buf, 0x16u);
     }
 
@@ -592,16 +585,16 @@ LABEL_18:
     goto LABEL_38;
   }
 
-  if (!v75)
+  if (!v74)
   {
     v52 = objc_autoreleasePoolPush();
-    v53 = v71;
+    v53 = v70;
     v54 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       v55 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v85 = v55;
+      v84 = v55;
       _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_ERROR, "%{public}@Failed to read supported configurations: Supported configurations read response did not include supported audio stream configuration", buf, 0xCu);
     }
 
@@ -614,19 +607,19 @@ LABEL_38:
     goto LABEL_47;
   }
 
-  v39 = [(HAPTLVBase *)[HMDSupportedAudioStreamConfiguration alloc] initWithTLVData:v75];
+  v39 = [(HAPTLVBase *)[HMDSupportedAudioStreamConfiguration alloc] initWithTLVData:v74];
   if (!v39)
   {
     v56 = objc_autoreleasePoolPush();
-    v57 = v71;
+    v57 = v70;
     v58 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       v59 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v85 = v59;
-      v86 = 2112;
-      v87 = v75;
+      v84 = v59;
+      v85 = 2112;
+      v86 = v74;
       _os_log_impl(&dword_229538000, v58, OS_LOG_TYPE_ERROR, "%{public}@Failed to read supported configurations: Could not initialize audio stream configuration from TLV data: %@", buf, 0x16u);
     }
 
@@ -638,13 +631,13 @@ LABEL_38:
   if (!v15)
   {
     v61 = objc_autoreleasePoolPush();
-    v62 = v71;
+    v62 = v70;
     v63 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
     {
       v64 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v85 = v64;
+      v84 = v64;
       _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_ERROR, "%{public}@Failed to read supported configurations: Supported configurations read response did not include supported RTP configuration", buf, 0xCu);
     }
 
@@ -667,23 +660,23 @@ LABEL_45:
 
   else
   {
-    v66 = objc_autoreleasePoolPush();
-    v67 = v71;
-    v68 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+    v65 = objc_autoreleasePoolPush();
+    v66 = v70;
+    v67 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
-      v69 = HMFGetLogIdentifier();
+      v68 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v85 = v69;
-      v86 = 2112;
-      v87 = v15;
-      _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_ERROR, "%{public}@Failed to read supported configurations: Could not initialize RTP configuration from TLV data: %@", buf, 0x16u);
+      v84 = v68;
+      v85 = 2112;
+      v86 = v15;
+      _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_ERROR, "%{public}@Failed to read supported configurations: Could not initialize RTP configuration from TLV data: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v66);
-    v70 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1040];
+    objc_autoreleasePoolPop(v65);
+    v69 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1040];
     v42 = completionCopy;
-    (*(completionCopy + 2))(completionCopy, 0, 0, 0, v70);
+    (*(completionCopy + 2))(completionCopy, 0, 0, 0, v69);
 
     v41 = 0;
   }
@@ -693,13 +686,11 @@ LABEL_46:
 LABEL_47:
   v12 = obj;
 LABEL_48:
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeReselectedStreamConfiguration:(id)configuration completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
@@ -711,23 +702,21 @@ LABEL_48:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2112;
-    v18 = configurationCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Writing reselected stream configuration %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2112;
+    v17 = configurationCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Writing reselected stream configuration %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   tlvData = [configurationCopy tlvData];
   [(HMDCameraLocalStreamAccessoryCommunicator *)selfCopy _writeSelectedStreamConfigurationData:tlvData completion:completionCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeSelectedStreamConfiguration:(id)configuration completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
@@ -739,23 +728,21 @@ LABEL_48:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2112;
-    v18 = configurationCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Writing selected stream configuration: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2112;
+    v17 = configurationCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Writing selected stream configuration: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   tlvData = [configurationCopy tlvData];
   [(HMDCameraLocalStreamAccessoryCommunicator *)selfCopy _writeSelectedStreamConfigurationData:tlvData completion:completionCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readSetupEndPointWithCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -767,7 +754,7 @@ LABEL_48:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v9;
+    v24 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Reading setup endpoint", buf, 0xCu);
   }
 
@@ -779,17 +766,17 @@ LABEL_48:
     v12 = [streamManagementService findCharacteristicWithType:*MEMORY[0x277CFE6E0]];
 
     v13 = [HMDCharacteristicRequest requestWithCharacteristic:v12];
-    v23 = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+    v22 = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
 
     workQueue2 = [(HMDCameraLocalStreamAccessoryCommunicator *)selfCopy workQueue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __77__HMDCameraLocalStreamAccessoryCommunicator_readSetupEndPointWithCompletion___block_invoke;
-    v21[3] = &unk_278689FC0;
-    v21[4] = selfCopy;
-    v22 = completionCopy;
-    [accessory readCharacteristicValues:v14 source:1070 queue:workQueue2 completionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __77__HMDCameraLocalStreamAccessoryCommunicator_readSetupEndPointWithCompletion___block_invoke;
+    v20[3] = &unk_278689FC0;
+    v20[4] = selfCopy;
+    v21 = completionCopy;
+    [accessory readCharacteristicValues:v14 source:1070 queue:workQueue2 completionHandler:v20];
   }
 
   else
@@ -801,7 +788,7 @@ LABEL_48:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v19;
+      v24 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to read setup endpoint: accessory reference is nil", buf, 0xCu);
     }
 
@@ -809,13 +796,11 @@ LABEL_48:
     v12 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1011];
     (*(completionCopy + 2))(completionCopy, 0, v12);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeSetupEndPoint:(id)point completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pointCopy = point;
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
@@ -828,9 +813,9 @@ LABEL_48:
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v29 = v12;
-    v30 = 2112;
-    v31 = pointCopy;
+    v28 = v12;
+    v29 = 2112;
+    v30 = pointCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Writing setup endpoint: %@", buf, 0x16u);
   }
 
@@ -844,16 +829,16 @@ LABEL_48:
     tlvData = [pointCopy tlvData];
     v17 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v15 value:tlvData authorizationData:0 type:0];
 
-    v27 = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+    v26 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
     workQueue2 = [(HMDCameraLocalStreamAccessoryCommunicator *)selfCopy workQueue];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __75__HMDCameraLocalStreamAccessoryCommunicator_writeSetupEndPoint_completion___block_invoke;
-    v25[3] = &unk_278689FC0;
-    v25[4] = selfCopy;
-    v26 = completionCopy;
-    [accessory writeCharacteristicValues:v18 source:1070 queue:workQueue2 completionHandler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __75__HMDCameraLocalStreamAccessoryCommunicator_writeSetupEndPoint_completion___block_invoke;
+    v24[3] = &unk_278689FC0;
+    v24[4] = selfCopy;
+    v25 = completionCopy;
+    [accessory writeCharacteristicValues:v18 source:1070 queue:workQueue2 completionHandler:v24];
   }
 
   else
@@ -865,7 +850,7 @@ LABEL_48:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v23;
+      v28 = v23;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to write setup endpoint: accessory reference is nil", buf, 0xCu);
     }
 
@@ -873,13 +858,11 @@ LABEL_48:
     v15 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1011];
     (*(completionCopy + 2))(completionCopy, v15);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readSupportedConfigurationsWithCompletion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDCameraLocalStreamAccessoryCommunicator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -891,7 +874,7 @@ LABEL_48:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v31 = v9;
+    v30 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Reading supported configurations", buf, 0xCu);
   }
 
@@ -909,21 +892,21 @@ LABEL_48:
     v16 = [streamManagementService3 findCharacteristicWithType:*MEMORY[0x277CFE700]];
 
     v17 = [HMDCharacteristicRequest requestWithCharacteristic:v12];
-    v29[0] = v17;
+    v28[0] = v17;
     v18 = [HMDCharacteristicRequest requestWithCharacteristic:v14];
-    v29[1] = v18;
+    v28[1] = v18;
     v19 = [HMDCharacteristicRequest requestWithCharacteristic:v16];
-    v29[2] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+    v28[2] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
 
     workQueue2 = [(HMDCameraLocalStreamAccessoryCommunicator *)selfCopy workQueue];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __87__HMDCameraLocalStreamAccessoryCommunicator_readSupportedConfigurationsWithCompletion___block_invoke;
-    v27[3] = &unk_278689FC0;
-    v27[4] = selfCopy;
-    v28 = completionCopy;
-    [accessory readCharacteristicValues:v20 source:1070 queue:workQueue2 completionHandler:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __87__HMDCameraLocalStreamAccessoryCommunicator_readSupportedConfigurationsWithCompletion___block_invoke;
+    v26[3] = &unk_278689FC0;
+    v26[4] = selfCopy;
+    v27 = completionCopy;
+    [accessory readCharacteristicValues:v20 source:1070 queue:workQueue2 completionHandler:v26];
   }
 
   else
@@ -935,7 +918,7 @@ LABEL_48:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v25;
+      v30 = v25;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to read supported configurations: accessory reference is nil", buf, 0xCu);
     }
 
@@ -943,8 +926,6 @@ LABEL_48:
     v12 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1011];
     (*(completionCopy + 2))(completionCopy, 0, 0, 0, v12);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraLocalStreamAccessoryCommunicator)initWithWorkQueue:(id)queue sessionID:(id)d accessory:(id)accessory streamManagementService:(id)service
@@ -1010,10 +991,9 @@ LABEL_11:
 
 void __56__HMDCameraLocalStreamAccessoryCommunicator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v28_105688;
-  logCategory__hmf_once_v28_105688 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v28_105688;
+  logCategory__hmf_once_v28_105688 = v0;
 }
 
 @end

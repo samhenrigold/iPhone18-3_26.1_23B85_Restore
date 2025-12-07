@@ -21,17 +21,18 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   qualityReasonEnum = self->_qualityReasonEnum;
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithQualityReasonEnum_);
+  return MEMORY[0x1EEE66B58](v8, sel_initWithQualityReasonEnum_, qualityReasonEnum, v9);
 }
 
 - (CLMiLoServiceQualityReason)initWithCoder:(id)coder
 {
-  [coder decodeIntegerForKey:@"kCLMiLoConnectionCodingKeyServiceQualityReason"];
+  v5 = objc_msgSend_decodeIntegerForKey_(coder, a2, @"kCLMiLoConnectionCodingKeyServiceQualityReason", v3);
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithQualityReasonEnum_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithQualityReasonEnum_, v5, v6);
 }
 
 @end

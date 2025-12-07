@@ -26,6 +26,7 @@
 - (void)allocationDone:(id)done sessionInfo:(id)info;
 - (void)cancelInvitation;
 - (void)cancelInvitationWithData:(id)data;
+- (void)cancelInvitationWithRemoteEndedReasonOverride:(unsigned int)override;
 - (void)connection:(id)connection didReceiveData:(id)data;
 - (void)daemonDisconnected;
 - (void)dealloc;
@@ -35,6 +36,7 @@
 - (void)endSessionWithData:(id)data;
 - (void)reconnectSession;
 - (void)sendAllocationRequest:(id)request;
+- (void)sendInvitationWithData:(id)data declineOnError:(BOOL)error;
 - (void)sendInvitationWithOptions:(id)options;
 - (void)sendSessionMessage:(id)message;
 - (void)sendSessionMessage:(id)message toDestinations:(id)destinations;
@@ -49,9 +51,11 @@
 - (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error;
 - (void)sessionMessageReceived:(id)received fromID:(id)d withData:(id)data;
 - (void)sessionStarted:(id)started;
+- (void)setAudioEnabled:(BOOL)enabled;
 - (void)setDelegate:(id)delegate queue:(id)queue;
 - (void)setInviteTimeout:(int64_t)timeout;
 - (void)setLinkSelectionStrategy:(id)strategy;
+- (void)setMuted:(BOOL)muted;
 - (void)setPreferences:(id)preferences;
 - (void)xpcObject:(id)object objectContext:(id)context;
 @end
@@ -68,7 +72,7 @@
 
 - (id)_initWithAccount:(id)account destinations:(id)destinations transportType:(int64_t)type connectionCountHint:(unint64_t)hint needsToWaitForPreConnectionData:(BOOL)data uniqueID:(id)d delegateContext:(id)context
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   destinationsCopy = destinations;
   dCopy = d;
@@ -78,7 +82,7 @@
     v18 = +[IDSLogging _IDSSession];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_195B2E9C8();
+      sub_195B2E9C8(self, v18);
     }
 
     selfCopy = 0;
@@ -98,9 +102,9 @@
       }
     }
 
-    v58.receiver = self;
-    v58.super_class = _IDSSession;
-    v23 = [(_IDSSession *)&v58 init];
+    v57.receiver = self;
+    v57.super_class = _IDSSession;
+    v23 = [(_IDSSession *)&v57 init];
     if (v23)
     {
       hintCopy = hint;
@@ -124,31 +128,31 @@
       v23->_accountID = uniqueID;
 
       v29 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
-      v53 = destinationsCopy;
+      v52 = destinationsCopy;
       v30 = destinationsCopy;
-      v31 = [v30 countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v53 objects:v58 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v55;
+        v33 = *v54;
         do
         {
           for (i = 0; i != v32; ++i)
           {
-            if (*v55 != v33)
+            if (*v54 != v33)
             {
               objc_enumerationMutation(v30);
             }
 
-            destinationURIs = [*(*(&v54 + 1) + 8 * i) destinationURIs];
+            destinationURIs = [*(*(&v53 + 1) + 8 * i) destinationURIs];
             [(NSSet *)v29 unionSet:destinationURIs];
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v54 objects:v59 count:16];
+          v32 = [v30 countByEnumeratingWithState:&v53 objects:v58 count:16];
         }
 
         while (v32);
@@ -192,20 +196,19 @@
       daemonListener = [(_IDSSession *)v23 daemonListener];
       [daemonListener addHandler:v23];
 
-      destinationsCopy = v53;
+      destinationsCopy = v52;
     }
 
     self = v23;
     selfCopy = self;
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)_initWithAccount:(id)account destinations:(id)destinations options:(id)options delegateContext:(id)context
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   destinationsCopy = destinations;
   optionsCopy = options;
@@ -215,7 +218,7 @@
     v14 = +[IDSLogging _IDSSession];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_195B2E9C8();
+      sub_195B2E9C8(self, v14);
     }
 
     selfCopy = 0;
@@ -235,13 +238,13 @@
       }
     }
 
-    v73.receiver = self;
-    v73.super_class = _IDSSession;
-    v19 = [(_IDSSession *)&v73 init];
+    v71.receiver = self;
+    v71.super_class = _IDSSession;
+    v19 = [(_IDSSession *)&v71 init];
     if (v19)
     {
       v20 = [optionsCopy objectForKey:*MEMORY[0x1E69A5160]];
-      v66 = v20;
+      v64 = v20;
       if ([v20 length])
       {
         stringGUID = v20;
@@ -261,31 +264,31 @@
       v19->_accountID = uniqueID;
 
       v26 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v67 = 0u;
+      v68 = 0u;
       v69 = 0u;
       v70 = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      v68 = destinationsCopy;
+      v66 = destinationsCopy;
       v27 = destinationsCopy;
-      v28 = [v27 countByEnumeratingWithState:&v69 objects:v74 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v67 objects:v72 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v70;
+        v30 = *v68;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v70 != v30)
+            if (*v68 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            destinationURIs = [*(*(&v69 + 1) + 8 * i) destinationURIs];
+            destinationURIs = [*(*(&v67 + 1) + 8 * i) destinationURIs];
             [v26 unionSet:destinationURIs];
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v69 objects:v74 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v67 objects:v72 count:16];
         }
 
         while (v29);
@@ -344,30 +347,29 @@
       v50 = *MEMORY[0x1E69A5168];
       v51 = [optionsCopy objectForKey:*MEMORY[0x1E69A5168]];
 
-      v52 = *MEMORY[0x1E69A5130];
       if (v51)
       {
-        v53 = v50;
+        v52 = v50;
       }
 
       else
       {
-        v53 = *MEMORY[0x1E69A5130];
+        v52 = *MEMORY[0x1E69A5130];
       }
 
-      v54 = [optionsCopy objectForKey:{v53, v66}];
-      v19->_needsToWaitForPreConnectionData = [v54 BOOLValue];
+      v53 = [optionsCopy objectForKey:{v52, v64}];
+      v19->_needsToWaitForPreConnectionData = [v53 BOOLValue];
 
       _internal2 = [accountCopy _internal];
       serviceName = [_internal2 serviceName];
-      v57 = [serviceName isEqualToIgnoringCase:@"com.apple.private.alloy.screensharing"];
+      v56 = [serviceName isEqualToIgnoringCase:@"com.apple.private.alloy.screensharing"];
 
-      v19->_isLegacy = v57;
+      v19->_isLegacy = v56;
       _internal3 = [accountCopy _internal];
       serviceName2 = [_internal3 serviceName];
-      v60 = [serviceName2 isEqualToIgnoringCase:@"com.apple.private.alloy.phonecontinuity"];
+      v59 = [serviceName2 isEqualToIgnoringCase:@"com.apple.private.alloy.phonecontinuity"];
 
-      if (v60)
+      if (v59)
       {
         v19->_shouldUseSocketForTransport = 1;
       }
@@ -375,18 +377,17 @@
       daemonListener = [(_IDSSession *)v19 daemonListener];
       [daemonListener addHandler:v19];
 
-      v62 = [optionsCopy mutableCopy];
+      v61 = [optionsCopy mutableCopy];
       sessionConfig = v19->_sessionConfig;
-      v19->_sessionConfig = v62;
+      v19->_sessionConfig = v61;
 
-      destinationsCopy = v68;
+      destinationsCopy = v66;
     }
 
     self = v19;
     selfCopy = self;
   }
 
-  v64 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -401,7 +402,7 @@
     v16 = +[IDSLogging _IDSSession];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_195B2E9C8();
+      sub_195B2E9C8(self, v16);
     }
 
     selfCopy = 0;
@@ -453,7 +454,7 @@
     dictionary = +[IDSLogging _IDSSession];
     if (os_log_type_enabled(dictionary, OS_LOG_TYPE_ERROR))
     {
-      sub_195B2E9C8();
+      sub_195B2E9C8(self, dictionary);
     }
 
     selfCopy = 0;
@@ -501,7 +502,7 @@
     v14 = +[IDSLogging _IDSSession];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_195B2E9C8();
+      sub_195B2E9C8(self, v14);
     }
 
     selfCopy = 0;
@@ -562,7 +563,7 @@
 
 - (void)daemonDisconnected
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -581,15 +582,13 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = self->_uniqueID;
-      v9 = 138412290;
-      v10 = uniqueID;
-      _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_DEFAULT, "Disconnected from daemon, notifying client of session %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = uniqueID;
+      _os_log_impl(&dword_1959FF000, v6, OS_LOG_TYPE_DEFAULT, "Disconnected from daemon, notifying client of session %@", &v8, 0xCu);
     }
 
     [(_IDSSession *)self sessionEnded:self->_uniqueID withReason:16 error:0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_broadcastNewSessionToDaemon
@@ -767,7 +766,7 @@
 
 - (void)setDelegate:(id)delegate queue:(id)queue
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   queueCopy = queue;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -786,7 +785,7 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v17 = delegateCopy;
+    v16 = delegateCopy;
     _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Setting up session delegate %p", buf, 0xCu);
   }
 
@@ -800,20 +799,18 @@
   objc_storeStrong(&self->_queue, queue);
   if (self->_state == 2)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = sub_195B18EE8;
-    v15[3] = &unk_1E7443418;
-    v15[4] = self;
-    [(_IDSSession *)self _callDelegateWithBlock:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_195B18EE8;
+    v14[3] = &unk_1E7443418;
+    v14[4] = self;
+    [(_IDSSession *)self _callDelegateWithBlock:v14];
   }
 
   else if (self->_isLegacy)
   {
     [(_IDSSession *)self _setupSocketPairToDaemon];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (int)socket
@@ -905,7 +902,7 @@
 
 - (void)_setupSocketPairToDaemon
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v3 assertQueueIsCurrent];
 
@@ -918,299 +915,297 @@
     }
   }
 
-  *v39 = 0xAAAAAAAAAAAAAAAALL;
-  if (socketpair(1, 2, 0, v39) < 0)
+  *v27 = 0xAAAAAAAAAAAAAAAALL;
+  if (socketpair(1, 2, 0, v27) < 0)
   {
-    v6 = *__error();
-    v7 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    __error();
+    v6 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_195B42BE8();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  v8 = fcntl(v39[0], 3, 0);
-  if (v8 < 0)
+  v7 = fcntl(v27[0], 3, 0);
+  if (v7 < 0)
   {
-    v9 = *__error();
-    v10 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    __error();
+    v8 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_195B42C80();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  if (fcntl(v39[0], 4, v8 | 4u) < 0)
+  if (fcntl(v27[0], 4, v7 | 4u) < 0)
   {
-    v11 = *__error();
-    v12 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    __error();
+    v9 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_195B42D18();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  v13 = fcntl(v39[1], 3, 0);
-  if (v13 < 0)
+  v10 = fcntl(v27[1], 3, 0);
+  if (v10 < 0)
   {
-    v14 = *__error();
-    v15 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    __error();
+    v11 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_195B42DB0();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  if (fcntl(v39[1], 4, v13 | 4u) < 0)
+  if (fcntl(v27[1], 4, v10 | 4u) < 0)
   {
-    v16 = *__error();
-    v17 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    __error();
+    v12 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_195B42E48();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  v38 = 1;
-  if (setsockopt(v39[0], 0xFFFF, 4130, &v38, 4u) < 0)
+  v26 = 1;
+  if (setsockopt(v27[0], 0xFFFF, 4130, &v26, 4u) < 0)
   {
-    v18 = *__error();
-    v19 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    __error();
+    v13 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_195B42EE0();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  if (setsockopt(v39[1], 0xFFFF, 4130, &v38, 4u) < 0)
+  if (setsockopt(v27[1], 0xFFFF, 4130, &v26, 4u) < 0)
   {
-    v20 = *__error();
-    v21 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    __error();
+    v14 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_195B42F78();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  v37 = 0x40000;
-  if (setsockopt(v39[0], 0xFFFF, 4097, &v37, 4u) < 0)
+  v25 = 0x40000;
+  if (setsockopt(v27[0], 0xFFFF, 4097, &v25, 4u) < 0)
   {
-    v22 = *__error();
-    v23 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    __error();
+    v15 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_195B43010();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  if (setsockopt(v39[1], 0xFFFF, 4097, &v37, 4u) < 0)
+  if (setsockopt(v27[1], 0xFFFF, 4097, &v25, 4u) < 0)
   {
-    v24 = *__error();
-    v25 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    __error();
+    v16 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_195B430A8();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  if (setsockopt(v39[0], 0xFFFF, 4098, &v37, 4u) < 0)
+  if (setsockopt(v27[0], 0xFFFF, 4098, &v25, 4u) < 0)
   {
-    v26 = *__error();
-    v27 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    __error();
+    v17 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_195B43140();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  if (setsockopt(v39[1], 0xFFFF, 4098, &v37, 4u) < 0)
+  if (setsockopt(v27[1], 0xFFFF, 4098, &v25, 4u) < 0)
   {
-    v28 = *__error();
-    v29 = +[IDSLogging _IDSSession];
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    __error();
+    v18 = +[IDSLogging _IDSSession];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_195B431D8();
     }
 
-    if ((v39[0] & 0x80000000) == 0)
+    if ((v27[0] & 0x80000000) == 0)
     {
-      close(v39[0]);
-      v39[0] = -1;
+      close(v27[0]);
+      v27[0] = -1;
     }
 
-    if ((v39[1] & 0x80000000) == 0)
+    if ((v27[1] & 0x80000000) == 0)
     {
-      close(v39[1]);
-      v39[1] = -1;
+      close(v27[1]);
+      v27[1] = -1;
     }
 
     [(_IDSSession *)self endSession];
   }
 
-  v30 = v39[1];
-  self->_socket = v39[0];
-  v31 = xpc_fd_create(v30);
-  v32 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v32 setObject:@"socket" forKey:@"object-type"];
-  [v32 setObject:@"session-socket" forKey:@"socket-type"];
-  [v32 setObject:self->_uniqueID forKey:@"sessionID"];
+  v19 = v27[1];
+  self->_socket = v27[0];
+  v20 = xpc_fd_create(v19);
+  v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  [v21 setObject:@"socket" forKey:@"object-type"];
+  [v21 setObject:@"session-socket" forKey:@"socket-type"];
+  [v21 setObject:self->_uniqueID forKey:@"sessionID"];
   object = [(CUTWeakReference *)self->_delegate object];
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v34 = [MEMORY[0x1E696AD98] numberWithBool:1];
-    [v32 setObject:v34 forKey:@"raw-socket"];
+    v23 = [MEMORY[0x1E696AD98] numberWithBool:1];
+    [v21 setObject:v23 forKey:@"raw-socket"];
   }
 
   daemonController = [(_IDSSession *)self daemonController];
-  [daemonController sendXPCObject:v31 objectContext:v32];
+  [daemonController sendXPCObject:v20 objectContext:v21];
 
-  if (v31)
+  if (v20)
   {
   }
 
-  close(v30);
-
-  v36 = *MEMORY[0x1E69E9840];
+  close(v19);
 }
 
 - (void)_cleanupSocketPairConnections
@@ -1222,7 +1217,7 @@
 
 - (void)sendAllocationRequest:(id)request
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1239,20 +1234,18 @@
   v8 = +[IDSLogging _IDSSession];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = requestCopy;
-    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending allocation request with options %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = requestCopy;
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending allocation request with options %@", &v10, 0xCu);
   }
 
   daemonController = [(_IDSSession *)self daemonController];
   [daemonController sendAllocationRequest:self->_uniqueID options:requestCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendInvitationWithOptions:(id)options
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1269,15 +1262,51 @@
   v8 = +[IDSLogging _IDSSession];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = optionsCopy;
-    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation with options %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = optionsCopy;
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation with options %@", &v10, 0xCu);
   }
 
   daemonController = [(_IDSSession *)self daemonController];
   [daemonController sendInvitation:self->_uniqueID withOptions:optionsCopy];
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)sendInvitationWithData:(id)data declineOnError:(BOOL)error
+{
+  errorCopy = error;
+  v18 = *MEMORY[0x1E69E9840];
+  dataCopy = data;
+  v7 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v7 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B433B0();
+    }
+  }
+
+  v10 = +[IDSLogging _IDSSession];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = [dataCopy length];
+    v12 = @"NO";
+    if (errorCopy)
+    {
+      v12 = @"YES";
+    }
+
+    v14 = 134218242;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v12;
+    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation with data (%lu bytes), declineOnError %@", &v14, 0x16u);
+  }
+
+  daemonController = [(_IDSSession *)self daemonController];
+  [daemonController sendInvitation:self->_uniqueID withData:dataCopy declineOnError:errorCopy];
 }
 
 - (void)cancelInvitation
@@ -1307,7 +1336,7 @@
 
 - (void)cancelInvitationWithData:(id)data
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1324,15 +1353,41 @@
   v8 = +[IDSLogging _IDSSession];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = [dataCopy length];
-    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation Cancel with data (%lu bytes)", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = [dataCopy length];
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation Cancel with data (%lu bytes)", &v10, 0xCu);
   }
 
   daemonController = [(_IDSSession *)self daemonController];
   [daemonController cancelInvitation:self->_uniqueID withData:dataCopy];
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)cancelInvitationWithRemoteEndedReasonOverride:(unsigned int)override
+{
+  v3 = *&override;
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v5 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B43590();
+    }
+  }
+
+  v8 = +[IDSLogging _IDSSession];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v10[0] = 67109120;
+    v10[1] = v3;
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation Cancel with Reason %u", v10, 8u);
+  }
+
+  daemonController = [(_IDSSession *)self daemonController];
+  [daemonController cancelInvitation:self->_uniqueID withRemoteEndedReasonOverride:v3];
 }
 
 - (void)acceptInvitation
@@ -1362,7 +1417,7 @@
 
 - (void)acceptInvitationWithData:(id)data
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1379,15 +1434,13 @@
   v8 = +[IDSLogging _IDSSession];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = [dataCopy length];
-    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation Accept with data (%lu bytes)", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = [dataCopy length];
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation Accept with data (%lu bytes)", &v10, 0xCu);
   }
 
   daemonController = [(_IDSSession *)self daemonController];
   [daemonController acceptInvitation:self->_uniqueID withData:dataCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)declineInvitation
@@ -1417,7 +1470,7 @@
 
 - (void)declineInvitationWithData:(id)data
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1434,15 +1487,13 @@
   v8 = +[IDSLogging _IDSSession];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = [dataCopy length];
-    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation Decline with data (%lu bytes)", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = [dataCopy length];
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Sending Session Invitation Decline with data (%lu bytes)", &v10, 0xCu);
   }
 
   daemonController = [(_IDSSession *)self daemonController];
   [daemonController declineInvitation:self->_uniqueID withData:dataCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reconnectSession
@@ -1524,7 +1575,7 @@
 
 - (void)sendSessionMessage:(id)message toDestinations:(id)destinations
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   destinationsCopy = destinations;
   v7 = +[IDSInternalQueueController sharedInstance];
@@ -1540,28 +1591,28 @@
   }
 
   v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v22 = destinationsCopy;
+  v21 = destinationsCopy;
   [MEMORY[0x1E69A5240] destinationWithDestinations:destinationsCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v21 = v27 = 0u;
-  destinationURIs = [v21 destinationURIs];
-  v12 = [destinationURIs countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v20 = v26 = 0u;
+  destinationURIs = [v20 destinationURIs];
+  v12 = [destinationURIs countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(destinationURIs);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         if ([(NSSet *)self->_destinations containsObject:v16])
         {
           [v10 addObject:v16];
@@ -1574,15 +1625,15 @@
           {
             destinations = self->_destinations;
             *buf = 138478083;
-            v29 = v16;
-            v30 = 2113;
+            v28 = v16;
+            v29 = 2113;
             destinationsCopy2 = destinations;
             _os_log_error_impl(&dword_1959FF000, v17, OS_LOG_TYPE_ERROR, "Skipping destination %{private}@, which is not in this session's list of destinations: %{private}@", buf, 0x16u);
           }
         }
       }
 
-      v13 = [destinationURIs countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v13 = [destinationURIs countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v13);
@@ -1590,8 +1641,25 @@
 
   daemonController = [(_IDSSession *)self daemonController];
   [daemonController sendSessionMessage:messageCopy toDestinations:v10 forSessionWithUniqueID:self->_uniqueID];
+}
 
-  v20 = *MEMORY[0x1E69E9840];
+- (void)setAudioEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v5 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B43BD0();
+    }
+  }
+
+  daemonController = [(_IDSSession *)self daemonController];
+  [daemonController setAudioEnabled:enabledCopy forSessionWithUniqueID:self->_uniqueID];
 }
 
 - (BOOL)getAudioEnabled
@@ -1609,6 +1677,25 @@
   }
 
   return self->_isAudioEnabled;
+}
+
+- (void)setMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  v5 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v5 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B43D10();
+    }
+  }
+
+  daemonController = [(_IDSSession *)self daemonController];
+  [daemonController setMuted:mutedCopy forSessionWithUniqueID:self->_uniqueID];
 }
 
 - (BOOL)getMuted
@@ -1772,7 +1859,7 @@
 
 - (BOOL)shouldUseSocketForTransport
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = +[IDSLogging _IDSSession];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1786,14 +1873,12 @@
       v4 = @"NO";
     }
 
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Asked if shouldUseSocketForTransport %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Asked if shouldUseSocketForTransport %@", &v6, 0xCu);
   }
 
-  result = self->_shouldUseSocketForTransport;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->_shouldUseSocketForTransport;
 }
 
 - (unint64_t)MTUForAddressFamily:(unint64_t)family
@@ -1811,7 +1896,7 @@
 
 - (BOOL)sendData:(id)data error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v7 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v7 assertQueueIsCurrent];
@@ -1867,7 +1952,7 @@ LABEL_19:
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_195B443C8(v12, v35, v36, v37, v38, v39, v40, v41);
+      sub_195B443C8(v12, v34, v35, v36, v37, v38, v39, v40);
     }
 
     if (error)
@@ -1883,24 +1968,23 @@ LABEL_19:
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v42 = 134218240;
-    v43 = [dataCopy hash];
-    v44 = 2048;
-    v45 = [dataCopy length];
-    _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_INFO, "Sending data Client -> Daemon  (hash: %lu)  (length: %lu)", &v42, 0x16u);
+    v41 = 134218240;
+    v42 = [dataCopy hash];
+    v43 = 2048;
+    v44 = [dataCopy length];
+    _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_INFO, "Sending data Client -> Daemon  (hash: %lu)  (length: %lu)", &v41, 0x16u);
   }
 
   [(IDSBaseSocketPairConnection *)self->_unreliableSocketPairConnection sendData:dataCopy];
   v13 = 1;
 LABEL_20:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (void)sessionAcceptReceived:(id)received fromID:(id)d withData:(id)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   dCopy = d;
   dataCopy = data;
@@ -1920,11 +2004,11 @@ LABEL_20:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = receivedCopy;
-    v27 = 2112;
-    v28 = dataCopy;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = receivedCopy;
+    v26 = 2112;
+    v27 = dataCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Session accept received fromID %@ sessionID %@ with data %@", buf, 0x20u);
   }
 
@@ -1934,14 +2018,14 @@ LABEL_20:
     destinations = self->_destinations;
     self->_destinations = v15;
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = sub_195B1B6C4;
-    v20[3] = &unk_1E7443440;
-    v20[4] = self;
-    v21 = dCopy;
-    v22 = dataCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_195B1B6C4;
+    v19[3] = &unk_1E7443440;
+    v19[4] = self;
+    v20 = dCopy;
+    v21 = dataCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v19];
   }
 
   else
@@ -1951,19 +2035,17 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v24 = uniqueID;
-      v25 = 2112;
-      v26 = receivedCopy;
+      v23 = uniqueID;
+      v24 = 2112;
+      v25 = receivedCopy;
       _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "Ignoring accept, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sessionDeclineReceived:(id)received fromID:(id)d withData:(id)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   dCopy = d;
   dataCopy = data;
@@ -1983,11 +2065,11 @@ LABEL_20:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = receivedCopy;
-    v27 = 2112;
-    v28 = dataCopy;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = receivedCopy;
+    v26 = 2112;
+    v27 = dataCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Session decline received fromID %@ sessionID %@ with data %@", buf, 0x20u);
   }
 
@@ -1997,14 +2079,14 @@ LABEL_20:
     destinations = self->_destinations;
     self->_destinations = v15;
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = sub_195B1B9DC;
-    v20[3] = &unk_1E7443440;
-    v20[4] = self;
-    v21 = dCopy;
-    v22 = dataCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_195B1B9DC;
+    v19[3] = &unk_1E7443440;
+    v19[4] = self;
+    v20 = dCopy;
+    v21 = dataCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v19];
   }
 
   else
@@ -2014,19 +2096,17 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v24 = uniqueID;
-      v25 = 2112;
-      v26 = receivedCopy;
+      v23 = uniqueID;
+      v24 = 2112;
+      v25 = receivedCopy;
       _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "Ignoring decline, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sessionCancelReceived:(id)received fromID:(id)d withData:(id)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   dCopy = d;
   dataCopy = data;
@@ -2046,11 +2126,11 @@ LABEL_20:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = receivedCopy;
-    v27 = 2112;
-    v28 = dataCopy;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = receivedCopy;
+    v26 = 2112;
+    v27 = dataCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Session cancel received fromID %@ sessionID %@ with data %@", buf, 0x20u);
   }
 
@@ -2060,14 +2140,14 @@ LABEL_20:
     destinations = self->_destinations;
     self->_destinations = v15;
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = sub_195B1BCF4;
-    v20[3] = &unk_1E7443440;
-    v20[4] = self;
-    v21 = dCopy;
-    v22 = dataCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_195B1BCF4;
+    v19[3] = &unk_1E7443440;
+    v19[4] = self;
+    v20 = dCopy;
+    v21 = dataCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v19];
   }
 
   else
@@ -2077,19 +2157,17 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v24 = uniqueID;
-      v25 = 2112;
-      v26 = receivedCopy;
+      v23 = uniqueID;
+      v24 = 2112;
+      v25 = receivedCopy;
       _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "Ignoring cancel, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sessionMessageReceived:(id)received fromID:(id)d withData:(id)data
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   dCopy = d;
   dataCopy = data;
@@ -2109,24 +2187,24 @@ LABEL_20:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v22 = dCopy;
-    v23 = 2112;
-    v24 = receivedCopy;
-    v25 = 2112;
-    v26 = dataCopy;
+    v21 = dCopy;
+    v22 = 2112;
+    v23 = receivedCopy;
+    v24 = 2112;
+    v25 = dataCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Session message received fromID %@ sessionID %@ with data %@", buf, 0x20u);
   }
 
   if (([(NSString *)self->_uniqueID isEqualToIgnoringCase:receivedCopy]& 1) != 0)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_195B1BFDC;
-    v18[3] = &unk_1E7443440;
-    v18[4] = self;
-    v19 = dCopy;
-    v20 = dataCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_195B1BFDC;
+    v17[3] = &unk_1E7443440;
+    v17[4] = self;
+    v18 = dCopy;
+    v19 = dataCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v17];
   }
 
   else
@@ -2136,19 +2214,17 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v22 = uniqueID;
-      v23 = 2112;
-      v24 = receivedCopy;
+      v21 = uniqueID;
+      v22 = 2112;
+      v23 = receivedCopy;
       _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "Ignoring message, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sessionEndReceived:(id)received fromID:(id)d withData:(id)data
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   dCopy = d;
   dataCopy = data;
@@ -2168,24 +2244,24 @@ LABEL_20:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v22 = dCopy;
-    v23 = 2112;
-    v24 = receivedCopy;
-    v25 = 2112;
-    v26 = dataCopy;
+    v21 = dCopy;
+    v22 = 2112;
+    v23 = receivedCopy;
+    v24 = 2112;
+    v25 = dataCopy;
     _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Session end received fromID %@ sessionID %@ with data %@", buf, 0x20u);
   }
 
   if (([(NSString *)self->_uniqueID isEqualToIgnoringCase:receivedCopy]& 1) != 0)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_195B1C294;
-    v18[3] = &unk_1E7443440;
-    v18[4] = self;
-    v19 = dCopy;
-    v20 = dataCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_195B1C294;
+    v17[3] = &unk_1E7443440;
+    v17[4] = self;
+    v18 = dCopy;
+    v19 = dataCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v17];
   }
 
   else
@@ -2195,20 +2271,18 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v22 = uniqueID;
-      v23 = 2112;
-      v24 = receivedCopy;
+      v21 = uniqueID;
+      v22 = 2112;
+      v23 = receivedCopy;
       _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "Ignoring end, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)session:(id)session invitationSentToTokens:(id)tokens shouldBreakBeforeMake:(BOOL)make
 {
   makeCopy = make;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   tokensCopy = tokens;
   v10 = +[IDSInternalQueueController sharedInstance];
@@ -2228,29 +2302,29 @@ LABEL_20:
   {
     v14 = @"NO";
     *buf = 138412802;
-    v22 = sessionCopy;
-    v23 = 2112;
+    v21 = sessionCopy;
+    v22 = 2112;
     if (makeCopy)
     {
       v14 = @"YES";
     }
 
-    v24 = tokensCopy;
-    v25 = 2112;
-    v26 = v14;
+    v23 = tokensCopy;
+    v24 = 2112;
+    v25 = v14;
     _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "Session %@ invitation sent to tokens %@ shouldBreakBeforeMake %@", buf, 0x20u);
   }
 
   if (([(NSString *)self->_uniqueID isEqualToIgnoringCase:sessionCopy]& 1) != 0)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_195B1C54C;
-    v18[3] = &unk_1E7443468;
-    v18[4] = self;
-    v19 = tokensCopy;
-    v20 = makeCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_195B1C54C;
+    v17[3] = &unk_1E7443468;
+    v17[4] = self;
+    v18 = tokensCopy;
+    v19 = makeCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v17];
   }
 
   else
@@ -2260,19 +2334,17 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v22 = uniqueID;
-      v23 = 2112;
-      v24 = sessionCopy;
+      v21 = uniqueID;
+      v22 = 2112;
+      v23 = sessionCopy;
       _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "Ignoring session:invitationSentToTokens:, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)allocationDone:(id)done sessionInfo:(id)info
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   doneCopy = done;
   infoCopy = info;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -2289,13 +2361,13 @@ LABEL_20:
 
   if (([(NSString *)self->_uniqueID isEqualToIgnoringCase:doneCopy]& 1) != 0)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = sub_195B1C7BC;
-    v14[3] = &unk_1E7443490;
-    v14[4] = self;
-    v15 = infoCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = sub_195B1C7BC;
+    v13[3] = &unk_1E7443490;
+    v13[4] = self;
+    v14 = infoCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v13];
   }
 
   else
@@ -2305,19 +2377,17 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v17 = uniqueID;
-      v18 = 2112;
-      v19 = doneCopy;
+      v16 = uniqueID;
+      v17 = 2112;
+      v18 = doneCopy;
       _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring session started, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sessionStarted:(id)started
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   startedCopy = started;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -2335,19 +2405,19 @@ LABEL_20:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = startedCopy;
+    v13 = startedCopy;
     _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Session started for IDSSessionID: %@", buf, 0xCu);
   }
 
   if (([(NSString *)self->_uniqueID isEqualToIgnoringCase:startedCopy]& 1) != 0)
   {
     self->_state = 1;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_195B1CA20;
-    v12[3] = &unk_1E7443418;
-    v12[4] = self;
-    [(_IDSSession *)self _callDelegateWithBlock:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = sub_195B1CA20;
+    v11[3] = &unk_1E7443418;
+    v11[4] = self;
+    [(_IDSSession *)self _callDelegateWithBlock:v11];
   }
 
   else
@@ -2357,19 +2427,17 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v14 = uniqueID;
-      v15 = 2112;
-      v16 = startedCopy;
+      v13 = uniqueID;
+      v14 = 2112;
+      v15 = startedCopy;
       _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring session started, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   endedCopy = ended;
   errorCopy = error;
   v10 = +[IDSInternalQueueController sharedInstance];
@@ -2388,9 +2456,9 @@ LABEL_20:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = endedCopy;
-    v23 = 2112;
-    v24 = errorCopy;
+    v21 = endedCopy;
+    v22 = 2112;
+    v23 = errorCopy;
     _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "Session ended %@ with error: %@", buf, 0x16u);
   }
 
@@ -2409,14 +2477,14 @@ LABEL_20:
     }
 
     self->_sessionEndedReason = reasonCopy;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_195B1CCD0;
-    v18[3] = &unk_1E74434B8;
-    v18[4] = self;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_195B1CCD0;
+    v17[3] = &unk_1E74434B8;
+    v17[4] = self;
     reasonCopy2 = reason;
-    v19 = errorCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v18];
+    v18 = errorCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v17];
   }
 
   else
@@ -2426,20 +2494,18 @@ LABEL_20:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v22 = uniqueID;
-      v23 = 2112;
-      v24 = endedCopy;
+      v21 = uniqueID;
+      v22 = 2112;
+      v23 = endedCopy;
       _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "Ignoring session ended, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)session:(id)session audioEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   v7 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v7 assertQueueIsCurrent];
@@ -2462,9 +2528,9 @@ LABEL_20:
       v11 = @"YES";
     }
 
-    v15 = 138412290;
-    v16 = v11;
-    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "Session audio enabled ? %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v11;
+    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "Session audio enabled ? %@", &v14, 0xCu);
   }
 
   if (([(NSString *)self->_uniqueID isEqualToIgnoringCase:sessionCopy]& 1) != 0)
@@ -2478,21 +2544,19 @@ LABEL_20:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = self->_uniqueID;
-      v15 = 138412546;
-      v16 = uniqueID;
-      v17 = 2112;
-      v18 = sessionCopy;
-      _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "Ignoring audioEnabled, session doesn't match %@ vs. %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = uniqueID;
+      v16 = 2112;
+      v17 = sessionCopy;
+      _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "Ignoring audioEnabled, session doesn't match %@ vs. %@", &v14, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)session:(id)session muted:(BOOL)muted
 {
   mutedCopy = muted;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   v7 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v7 assertQueueIsCurrent];
@@ -2515,9 +2579,9 @@ LABEL_20:
       v11 = @"YES";
     }
 
-    v15 = 138412290;
-    v16 = v11;
-    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "Session muted ? %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v11;
+    _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "Session muted ? %@", &v14, 0xCu);
   }
 
   if (([(NSString *)self->_uniqueID isEqualToIgnoringCase:sessionCopy]& 1) != 0)
@@ -2531,20 +2595,18 @@ LABEL_20:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = self->_uniqueID;
-      v15 = 138412546;
-      v16 = uniqueID;
-      v17 = 2112;
-      v18 = sessionCopy;
-      _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "Ignoring muted, session doesn't match %@ vs. %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = uniqueID;
+      v16 = 2112;
+      v17 = sessionCopy;
+      _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "Ignoring muted, session doesn't match %@ vs. %@", &v14, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)xpcObject:(id)object objectContext:(id)context
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   Value = context;
   v8 = Value;
@@ -2566,11 +2628,11 @@ LABEL_20:
     v12 = +[IDSLogging _IDSSession];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412546;
-      *v27 = objectCopy;
-      *&v27[8] = 2112;
-      *&v27[10] = v8;
-      _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "xpc object: [%@] context: [%@]", &v26, 0x16u);
+      v25 = 138412546;
+      *v26 = objectCopy;
+      *&v26[8] = 2112;
+      *&v26[10] = v8;
+      _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "xpc object: [%@] context: [%@]", &v25, 0x16u);
     }
 
     if ([v9 isEqualToIgnoringCase:@"session-device-socket"])
@@ -2592,11 +2654,11 @@ LABEL_20:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         socket = self->_socket;
-        v26 = 67109378;
-        *v27 = socket;
-        *&v27[4] = 2112;
-        *&v27[6] = v11;
-        _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "Received XPC Response/Socket: %d    Error: %@", &v26, 0x12u);
+        v25 = 67109378;
+        *v26 = socket;
+        *&v26[4] = 2112;
+        *&v26[6] = v11;
+        _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "Received XPC Response/Socket: %d    Error: %@", &v25, 0x12u);
       }
 
       [(_IDSSession *)self sessionStarted:self->_uniqueID];
@@ -2613,12 +2675,12 @@ LABEL_20:
         {
           initialLinkType = self->_initialLinkType;
           uniqueID = self->_uniqueID;
-          v26 = 67109634;
-          *v27 = initialLinkType;
-          *&v27[4] = 2112;
-          *&v27[6] = uniqueID;
-          *&v27[14] = 2112;
-          *&v27[16] = v11;
+          v25 = 67109634;
+          *v26 = initialLinkType;
+          *&v26[4] = 2112;
+          *&v26[6] = uniqueID;
+          *&v26[14] = 2112;
+          *&v26[16] = v11;
           v17 = "Received initial link type %d for session %@ with error %@.";
           v18 = v15;
           v19 = 28;
@@ -2632,15 +2694,15 @@ LABEL_20:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           v16 = self->_uniqueID;
-          v26 = 138412546;
-          *v27 = v16;
-          *&v27[8] = 2112;
-          *&v27[10] = v11;
+          v25 = 138412546;
+          *v26 = v16;
+          *&v26[8] = 2112;
+          *&v26[10] = v11;
           v17 = "Received invalid initial link type xpc object for session %@ with error %@.";
           v18 = v15;
           v19 = 22;
 LABEL_26:
-          _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_DEFAULT, v17, &v26, v19);
+          _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_DEFAULT, v17, &v25, v19);
         }
       }
 
@@ -2650,9 +2712,9 @@ LABEL_26:
     v20 = +[IDSLogging _IDSSession];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412290;
-      *v27 = v9;
-      _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Received invalid xpc object type: %@.", &v26, 0xCu);
+      v25 = 138412290;
+      *v26 = v9;
+      _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Received invalid xpc object type: %@.", &v25, 0xCu);
     }
   }
 
@@ -2662,22 +2724,20 @@ LABEL_26:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v14 = self->_uniqueID;
-      v26 = 138412546;
-      *v27 = v14;
-      *&v27[8] = 2112;
-      *&v27[10] = v10;
-      _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring xpc object, session doesn't match %@ vs. %@", &v26, 0x16u);
+      v25 = 138412546;
+      *v26 = v14;
+      *&v26[8] = 2112;
+      *&v26[10] = v10;
+      _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring xpc object, session doesn't match %@ vs. %@", &v25, 0x16u);
     }
   }
 
 LABEL_28:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)session:(id)session didReceiveReport:(id)report
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   reportCopy = report;
   v8 = +[IDSInternalQueueController sharedInstance];
@@ -2696,21 +2756,21 @@ LABEL_28:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = sessionCopy;
-    v19 = 2112;
-    v20 = reportCopy;
+    v17 = sessionCopy;
+    v18 = 2112;
+    v19 = reportCopy;
     _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "Session %@ received the report: %@", buf, 0x16u);
   }
 
   if (([(NSString *)self->_uniqueID isEqualToIgnoringCase:sessionCopy]& 1) != 0)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = sub_195B1D700;
-    v15[3] = &unk_1E7443490;
-    v15[4] = self;
-    v16 = reportCopy;
-    [(_IDSSession *)self _callDelegateWithBlock:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_195B1D700;
+    v14[3] = &unk_1E7443490;
+    v14[4] = self;
+    v15 = reportCopy;
+    [(_IDSSession *)self _callDelegateWithBlock:v14];
   }
 
   else
@@ -2720,14 +2780,12 @@ LABEL_28:
     {
       uniqueID = self->_uniqueID;
       *buf = 138412546;
-      v18 = uniqueID;
-      v19 = 2112;
-      v20 = sessionCopy;
+      v17 = uniqueID;
+      v18 = 2112;
+      v19 = sessionCopy;
       _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "Ignoring didReceiveReport, session doesn't match %@ vs. %@", buf, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection didReceiveData:(id)data

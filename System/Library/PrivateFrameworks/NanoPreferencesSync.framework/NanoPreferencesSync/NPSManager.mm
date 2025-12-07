@@ -13,17 +13,17 @@
 
 - (NPSManager)init
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = NPSManager;
-  v2 = [(NPSManager *)&v10 init];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = NPSManager;
+  v2 = [(NPSManager *)&v9 init];
   if (v2)
   {
     v3 = nps_framework_log;
     if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v12 = v2;
+      v11 = v2;
       _os_log_impl(&dword_1C0D93000, v3, OS_LOG_TYPE_DEFAULT, "self: (%p)", buf, 0xCu);
     }
 
@@ -34,7 +34,6 @@
     v2->_internalQueue = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -57,14 +56,14 @@
       [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:connection_remoteObjectInterface];
       objc_initWeak(location, self);
       [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:&__block_literal_global_70];
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __24__NPSManager_connection__block_invoke_71;
-      v9[3] = &unk_1E8129680;
-      objc_copyWeak(&v10, location);
-      [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v9];
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __24__NPSManager_connection__block_invoke_71;
+      v8[3] = &unk_1E8129680;
+      objc_copyWeak(&v9, location);
+      [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v8];
       [(NSXPCConnection *)self->_xpcConnection resume];
-      objc_destroyWeak(&v10);
+      objc_destroyWeak(&v9);
       objc_destroyWeak(location);
     }
   }
@@ -88,14 +87,12 @@
     v5 = self->_xpcConnection;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = nps_framework_log;
   if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -105,10 +102,9 @@
   }
 
   [(NPSManager *)self unsafe_invalidate];
-  v5.receiver = self;
-  v5.super_class = NPSManager;
-  [(NPSManager *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NPSManager;
+  [(NPSManager *)&v4 dealloc];
 }
 
 - (void)unsafe_invalidate
@@ -164,7 +160,7 @@ void __24__NPSManager_connection__block_invoke_71(uint64_t a1)
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = nps_framework_log;
   if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -180,12 +176,11 @@ void __24__NPSManager_connection__block_invoke_71(uint64_t a1)
   block[3] = &unk_1E8129518;
   block[4] = self;
   dispatch_async(internalQueue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)synchronizeUserDefaultsDomain:(id)domain keys:(id)keys container:(id)container appGroupContainer:(id)groupContainer cloudEnabled:(BOOL)enabled
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   keysCopy = keys;
   containerCopy = container;
@@ -194,34 +189,32 @@ void __24__NPSManager_connection__block_invoke_71(uint64_t a1)
   if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v30 = domainCopy;
-    v31 = 2112;
-    v32 = keysCopy;
-    v33 = 2112;
-    v34 = containerCopy;
-    v35 = 2112;
-    v36 = groupContainerCopy;
+    v29 = domainCopy;
+    v30 = 2112;
+    v31 = keysCopy;
+    v32 = 2112;
+    v33 = containerCopy;
+    v34 = 2112;
+    v35 = groupContainerCopy;
     _os_log_impl(&dword_1C0D93000, v16, OS_LOG_TYPE_DEFAULT, "synchronizeUserDefaultsDomain: (%@); keys: (%@); container: (%@); appGroupContainer: (%@)", buf, 0x2Au);
   }
 
   internalQueue = self->_internalQueue;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __90__NPSManager_synchronizeUserDefaultsDomain_keys_container_appGroupContainer_cloudEnabled___block_invoke;
-  v23[3] = &unk_1E81296D0;
-  v23[4] = self;
-  v24 = domainCopy;
-  v25 = keysCopy;
-  v26 = containerCopy;
-  v27 = groupContainerCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __90__NPSManager_synchronizeUserDefaultsDomain_keys_container_appGroupContainer_cloudEnabled___block_invoke;
+  v22[3] = &unk_1E81296D0;
+  v22[4] = self;
+  v23 = domainCopy;
+  v24 = keysCopy;
+  v25 = containerCopy;
+  v26 = groupContainerCopy;
   enabledCopy = enabled;
   v18 = groupContainerCopy;
   v19 = containerCopy;
   v20 = keysCopy;
   v21 = domainCopy;
-  dispatch_sync(internalQueue, v23);
-
-  v22 = *MEMORY[0x1E69E9840];
+  dispatch_sync(internalQueue, v22);
 }
 
 void __90__NPSManager_synchronizeUserDefaultsDomain_keys_container_appGroupContainer_cloudEnabled___block_invoke(uint64_t a1)
@@ -247,7 +240,7 @@ void __90__NPSManager_synchronizeUserDefaultsDomain_keys_container_appGroupConta
 
 void __90__NPSManager_synchronizeUserDefaultsDomain_keys_container_appGroupContainer_cloudEnabled___block_invoke_2(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = nps_framework_log;
   if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
@@ -256,53 +249,49 @@ void __90__NPSManager_synchronizeUserDefaultsDomain_keys_container_appGroupConta
     v6 = a1[5];
     v7 = a1[6];
     v8 = a1[7];
-    v10 = 138413314;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_1C0D93000, v4, OS_LOG_TYPE_DEFAULT, "domain: (%@); keys: (%@); container: (%@); appGroupContainer: (%@) failed with error %@", &v10, 0x34u);
+    v9 = 138413314;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_1C0D93000, v4, OS_LOG_TYPE_DEFAULT, "domain: (%@); keys: (%@); container: (%@); appGroupContainer: (%@) failed with error %@", &v9, 0x34u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)synchronizeNanoDomain:(id)domain keys:(id)keys cloudEnabled:(BOOL)enabled
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   keysCopy = keys;
   v10 = nps_framework_log;
   if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v20 = "[NPSManager synchronizeNanoDomain:keys:cloudEnabled:]";
-    v21 = 2114;
-    v22 = domainCopy;
-    v23 = 2112;
-    v24 = keysCopy;
+    v19 = "[NPSManager synchronizeNanoDomain:keys:cloudEnabled:]";
+    v20 = 2114;
+    v21 = domainCopy;
+    v22 = 2112;
+    v23 = keysCopy;
     _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "%s: (%{public}@); keys: (%@)", buf, 0x20u);
   }
 
   internalQueue = self->_internalQueue;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __54__NPSManager_synchronizeNanoDomain_keys_cloudEnabled___block_invoke;
-  v15[3] = &unk_1E8129720;
-  v15[4] = self;
-  v16 = domainCopy;
-  v17 = keysCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __54__NPSManager_synchronizeNanoDomain_keys_cloudEnabled___block_invoke;
+  v14[3] = &unk_1E8129720;
+  v14[4] = self;
+  v15 = domainCopy;
+  v16 = keysCopy;
   enabledCopy = enabled;
   v12 = keysCopy;
   v13 = domainCopy;
-  dispatch_sync(internalQueue, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_sync(internalQueue, v14);
 }
 
 void __54__NPSManager_synchronizeNanoDomain_keys_cloudEnabled___block_invoke(uint64_t a1)
@@ -320,23 +309,21 @@ void __54__NPSManager_synchronizeNanoDomain_keys_cloudEnabled___block_invoke(uin
 
 void __54__NPSManager_synchronizeNanoDomain_keys_cloudEnabled___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = nps_framework_log;
   if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v8 = 138412802;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_1C0D93000, v4, OS_LOG_TYPE_DEFAULT, "synchronizeNanoDomain: (%@); keys: (%@) failed with error %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_1C0D93000, v4, OS_LOG_TYPE_DEFAULT, "synchronizeNanoDomain: (%@); keys: (%@) failed with error %@", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)supportsWatch

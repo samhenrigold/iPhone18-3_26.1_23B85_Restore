@@ -212,8 +212,30 @@ LABEL_6:
 
   if (*ptr[-v8 + 4].var0)
   {
-    v10 = &ptr[*ptr[-v8 + 4].var0];
-    v11 = &v10[*v10->var0];
+    valid = AFBIsValidUTF8();
+    if (!valid)
+    {
+      return valid;
+    }
+
+    ptr = self->_ptr;
+    v11 = *ptr->var0;
+    v12 = -v11;
+    v9 = *ptr[-v11].var0;
+  }
+
+  else
+  {
+    v12 = -v8;
+  }
+
+  if (v9 < 9)
+  {
+    goto LABEL_21;
+  }
+
+  if (*ptr[v12 + 8].var0)
+  {
     valid = AFBIsValidUTF8();
     if (!valid)
     {
@@ -222,45 +244,16 @@ LABEL_6:
 
     ptr = self->_ptr;
     v13 = *ptr->var0;
-    v14 = -v13;
+    v12 = -v13;
     v9 = *ptr[-v13].var0;
   }
 
-  else
-  {
-    v14 = -v8;
-  }
-
-  if (v9 < 9)
-  {
-    goto LABEL_21;
-  }
-
-  if (*ptr[v14 + 8].var0)
-  {
-    v15 = &ptr[*ptr[v14 + 8].var0];
-    v16 = &v15[*v15->var0];
-    valid = AFBIsValidUTF8();
-    if (!valid)
-    {
-      return valid;
-    }
-
-    ptr = self->_ptr;
-    v17 = *ptr->var0;
-    v14 = -v17;
-    v9 = *ptr[-v17].var0;
-  }
-
-  if (v9 < 0x13 || !*ptr[v14 + 18].var0)
+  if (v9 < 0x13 || !*ptr[v12 + 18].var0)
   {
 LABEL_21:
     LOBYTE(valid) = 1;
     return valid;
   }
-
-  v18 = &ptr[*ptr[v14 + 18].var0];
-  v19 = &v18[*v18->var0 + 4];
 
   LOBYTE(valid) = AFBIsValidUTF8();
   return valid;

@@ -1015,7 +1015,7 @@ uint64_t __85__CKMentionsController_updateTextViewIfNecessary_withAttributedStri
   [textEffectsDelegate mentionsControllerDidFinishAnimation:self];
 }
 
-uint64_t __73__CKMentionsController_didFinishAnimatingMentionWithAnimationIdentifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__73__CKMentionsController_didFinishAnimatingMentionWithAnimationIdentifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (([a2 isEqualToString:*(a1 + 32)] & 1) != 0 || (result = objc_msgSend(*(a1 + 40), "containsObject:", *(a1 + 32)), result))
   {

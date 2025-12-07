@@ -27,10 +27,11 @@
 {
   valueCopy = value;
   propertyCopy = property;
-  if (!+[VUIJSThreadUtils isVideosUICoreJSThread])
+  v8 = +[VUIJSThreadUtils isVideosUICoreJSThread];
+  if ((v8 & 1) == 0)
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [VUIJSObject setJSValue:forProperty:];
     }
@@ -38,13 +39,13 @@
 
   appContext = [(VUIJSObject *)self appContext];
   managedProperties = [(VUIJSObject *)self managedProperties];
-  v11 = [managedProperties objectForKey:propertyCopy];
+  v12 = [managedProperties objectForKey:propertyCopy];
 
-  if (v11)
+  if (v12)
   {
     jsContext = [appContext jsContext];
     virtualMachine = [jsContext virtualMachine];
-    [virtualMachine removeManagedReference:v11 withOwner:self];
+    [virtualMachine removeManagedReference:v12 withOwner:self];
 
     managedProperties2 = [(VUIJSObject *)self managedProperties];
     [managedProperties2 removeObjectForKey:propertyCopy];
@@ -60,31 +61,32 @@
       [(VUIJSObject *)self setManagedProperties:dictionary];
     }
 
-    v17 = [MEMORY[0x1E696EB48] managedValueWithValue:valueCopy];
+    v18 = [MEMORY[0x1E696EB48] managedValueWithValue:valueCopy];
     jsContext2 = [appContext jsContext];
     virtualMachine2 = [jsContext2 virtualMachine];
-    [virtualMachine2 addManagedReference:v17 withOwner:self];
+    [virtualMachine2 addManagedReference:v18 withOwner:self];
 
     managedProperties4 = [(VUIJSObject *)self managedProperties];
-    [managedProperties4 setObject:v17 forKey:propertyCopy];
+    [managedProperties4 setObject:v18 forKey:propertyCopy];
   }
 }
 
 - (id)jsValueForProperty:(id)property
 {
   propertyCopy = property;
-  if (!+[VUIJSThreadUtils isVideosUICoreJSThread])
+  v5 = +[VUIJSThreadUtils isVideosUICoreJSThread];
+  if ((v5 & 1) == 0)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [VUIJSObject jsValueForProperty:];
     }
   }
 
   managedProperties = [(VUIJSObject *)self managedProperties];
-  v7 = [managedProperties objectForKey:propertyCopy];
-  value = [v7 value];
+  v8 = [managedProperties objectForKey:propertyCopy];
+  value = [v8 value];
 
   return value;
 }
@@ -93,34 +95,35 @@
 {
   methodCopy = method;
   argumentsCopy = arguments;
-  if (!+[VUIJSThreadUtils isVideosUICoreJSThread])
+  v8 = +[VUIJSThreadUtils isVideosUICoreJSThread];
+  if ((v8 & 1) == 0)
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [VUIJSObject invokeMethod:withArguments:];
     }
   }
 
   appContext = [(VUIJSObject *)self appContext];
-  v10 = MEMORY[0x1E696EB58];
+  v11 = MEMORY[0x1E696EB58];
   jsContext = [appContext jsContext];
-  v12 = [v10 valueWithObject:self inContext:jsContext];
+  v13 = [v11 valueWithObject:self inContext:jsContext];
 
-  if ([v12 hasProperty:methodCopy])
+  if ([v13 hasProperty:methodCopy])
   {
-    v13 = [v12 invokeMethod:methodCopy withArguments:argumentsCopy];
+    v14 = [v13 invokeMethod:methodCopy withArguments:argumentsCopy];
   }
 
   else
   {
-    v14 = MEMORY[0x1E696EB58];
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invokeMethod: failed - Method [%@] not defined in [%@]", methodCopy, objc_opt_class()];
+    v15 = MEMORY[0x1E696EB58];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invokeMethod: failed - Method [%@] not defined in [%@]", methodCopy, objc_opt_class()];
     jsContext2 = [appContext jsContext];
-    v13 = [v14 valueWithNewErrorFromMessage:v15 inContext:jsContext2];
+    v14 = [v15 valueWithNewErrorFromMessage:v16 inContext:jsContext2];
   }
 
-  return v13;
+  return v14;
 }
 
 - (VUIAppContext)appContext

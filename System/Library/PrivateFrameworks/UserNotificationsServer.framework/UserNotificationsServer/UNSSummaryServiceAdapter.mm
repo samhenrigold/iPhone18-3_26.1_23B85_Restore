@@ -20,20 +20,17 @@
 
 - (NSDictionary)queue_observers
 {
-  v2 = *(self + OBJC_IVAR___UNSSummaryServiceAdapter_queue_observers);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280843AC0, &qword_270AE6F68);
-  v3 = sub_270AE3CAC();
+  v2 = sub_270AE3CAC();
 
-  return v3;
+  return v2;
 }
 
 - (void)setQueue_observers:(id)queue_observers
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280843AC0, &qword_270AE6F68);
-  v4 = sub_270AE3CBC();
-  v5 = *(self + OBJC_IVAR___UNSSummaryServiceAdapter_queue_observers);
-  *(self + OBJC_IVAR___UNSSummaryServiceAdapter_queue_observers) = v4;
+  *(self + OBJC_IVAR___UNSSummaryServiceAdapter_queue_observers) = sub_270AE3CBC();
 }
 
 @end

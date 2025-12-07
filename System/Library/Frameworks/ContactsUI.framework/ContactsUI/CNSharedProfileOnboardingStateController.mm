@@ -99,9 +99,11 @@
 
 uint64_t __47__CNSharedProfileOnboardingStateController_log__block_invoke()
 {
-  log_cn_once_object_21 = os_log_create("com.apple.contactsui", "CNSharedProfileOnboardingController");
+  v0 = os_log_create("com.apple.contactsui", "CNSharedProfileOnboardingController");
+  v1 = log_cn_once_object_21;
+  log_cn_once_object_21 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)writeToDefaultsDidSkipPosterSetup:(BOOL)setup

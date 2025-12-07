@@ -83,132 +83,133 @@
 
 - (BOOL)perform:(BOOL *)perform withStopDate:(id *)date
 {
-  v36 = objc_alloc_init(SignpostSupportObjectExtractor);
-  [v36 setShouldComposeMetadataString:0];
-  v56[0] = _NSConcreteStackBlock;
-  v56[1] = 3221225472;
-  v56[2] = sub_100004448;
-  v56[3] = &unk_100010A10;
+  v38 = objc_alloc_init(SignpostSupportObjectExtractor);
+  [v38 setShouldComposeMetadataString:0];
+  v58[0] = _NSConcreteStackBlock;
+  v58[1] = 3221225472;
+  v58[2] = sub_100004448;
+  v58[3] = &unk_100010A10;
   val = self;
-  v56[4] = self;
-  v56[5] = perform;
+  v58[4] = self;
+  v58[5] = perform;
   performCopy = perform;
-  v34 = objc_retainBlock(v56);
-  [v36 setIntervalCompletionProcessingBlock:v34];
-  v55[0] = _NSConcreteStackBlock;
-  v55[1] = 3221225472;
-  v55[2] = sub_100004704;
-  v55[3] = &unk_100010A38;
-  v55[4] = self;
-  [v36 setProcessingCompletionBlock:v55];
-  v35 = +[WRWorkflow allWorkflows];
-  if ([v35 count])
+  v36 = objc_retainBlock(v58);
+  [v38 setIntervalCompletionProcessingBlock:v36];
+  v57[0] = _NSConcreteStackBlock;
+  v57[1] = 3221225472;
+  v57[2] = sub_100004704;
+  v57[3] = &unk_100010A38;
+  v57[4] = self;
+  [v38 setProcessingCompletionBlock:v57];
+  v37 = +[WRWorkflow allWorkflows];
+  if ([v37 count])
   {
     v6 = +[NSMutableArray array];
+    v55 = 0u;
+    v56 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v7 = v35;
-    v8 = [v7 countByEnumeratingWithState:&v51 objects:v61 count:16];
+    v7 = v37;
+    v8 = [v7 countByEnumeratingWithState:&v53 objects:v63 count:16];
     if (v8)
     {
-      v9 = *v52;
+      v9 = *v54;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v52 != v9)
+          if (*v54 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v51 + 1) + 8 * i);
+          v11 = *(*(&v53 + 1) + 8 * i);
           contextualTelemetryEnabled = [v11 contextualTelemetryEnabled];
-          v13 = PPSLogSignpostTimeSeriesTask();
-          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-          if (contextualTelemetryEnabled)
+          v13 = contextualTelemetryEnabled;
+          v14 = PPSLogSignpostTimeSeriesTask(contextualTelemetryEnabled);
+          v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+          if (v13)
           {
-            if (v14)
+            if (v15)
             {
               name = [v11 name];
               *buf = 138412290;
-              v58 = name;
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Setting up tracker for workflow '%@'...", buf, 0xCu);
+              v60 = name;
+              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Setting up tracker for workflow '%@'...", buf, 0xCu);
             }
 
-            v50[0] = _NSConcreteStackBlock;
-            v50[1] = 3221225472;
-            v50[2] = sub_100004770;
-            v50[3] = &unk_100010A60;
-            v50[4] = v11;
-            v50[5] = val;
-            v16 = objc_retainBlock(v50);
-            v17 = [[WRWorkflowEventTracker alloc] initForReadbackWithWorkflow:v11 eventCompletionCallback:v16];
-            [v6 addObject:v17];
+            v52[0] = _NSConcreteStackBlock;
+            v52[1] = 3221225472;
+            v52[2] = sub_100004770;
+            v52[3] = &unk_100010A60;
+            v52[4] = v11;
+            v52[5] = val;
+            v17 = objc_retainBlock(v52);
+            v18 = [[WRWorkflowEventTracker alloc] initForReadbackWithWorkflow:v11 eventCompletionCallback:v17];
+            [v6 addObject:v18];
           }
 
           else
           {
-            if (v14)
+            if (v15)
             {
               name2 = [v11 name];
               contextualTelemetryEnabled2 = [v11 contextualTelemetryEnabled];
               *buf = 138412546;
-              v58 = name2;
-              v59 = 1024;
-              v60 = contextualTelemetryEnabled2;
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Skipping workflow '%@' (contextualTelemetryEnabled=%d)...", buf, 0x12u);
+              v60 = name2;
+              v61 = 1024;
+              v62 = contextualTelemetryEnabled2;
+              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Skipping workflow '%@' (contextualTelemetryEnabled=%d)...", buf, 0x12u);
             }
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v51 objects:v61 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v53 objects:v63 count:16];
       }
 
       while (v8);
     }
 
-    v47[0] = _NSConcreteStackBlock;
-    v47[1] = 3221225472;
-    v47[2] = sub_10000510C;
-    v47[3] = &unk_100010A88;
-    v20 = v6;
-    v48 = v20;
-    v49 = performCopy;
-    v21 = objc_retainBlock(v47);
-    [v36 setEmitEventProcessingBlock:v21];
-    [v36 setBeginEventProcessingBlock:v21];
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_1000052C8;
-    v43[3] = &unk_100010AB0;
-    v43[4] = val;
-    v44 = v21;
-    v45 = v34;
-    v46 = performCopy;
-    v22 = v21;
-    [v36 setIntervalCompletionProcessingBlock:v43];
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_100005398;
-    v40[3] = &unk_100010AD8;
-    v41 = v20;
-    v42 = performCopy;
-    v23 = v20;
-    [v36 setDeviceRebootProcessingBlock:v40];
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_10000510C;
+    v49[3] = &unk_100010A88;
+    v21 = v6;
+    v50 = v21;
+    v51 = performCopy;
+    v22 = objc_retainBlock(v49);
+    [v38 setEmitEventProcessingBlock:v22];
+    [v38 setBeginEventProcessingBlock:v22];
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_1000052C8;
+    v45[3] = &unk_100010AB0;
+    v45[4] = val;
+    v46 = v22;
+    v47 = v36;
+    v48 = performCopy;
+    v23 = v22;
+    [v38 setIntervalCompletionProcessingBlock:v45];
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v42[2] = sub_100005398;
+    v42[3] = &unk_100010AD8;
+    v43 = v21;
+    v44 = performCopy;
+    v24 = v21;
+    [v38 setDeviceRebootProcessingBlock:v42];
   }
 
-  [v36 setSubsystemCategoryFilter:val->_allowlistForParsing];
+  [v38 setSubsystemCategoryFilter:val->_allowlistForParsing];
   sourceURL = [(PPSSignpostServiceRequest *)val->_request sourceURL];
   path = [sourceURL path];
   startDate = [(PPSSignpostServiceRequest *)val->_request startDate];
   endDate = [(PPSSignpostServiceRequest *)val->_request endDate];
-  v39 = 0;
-  v28 = [v36 processLogArchiveWithPath:path startDate:startDate endDate:endDate errorOut:&v39];
-  v29 = v39;
+  v41 = 0;
+  v29 = [v38 processLogArchiveWithPath:path startDate:startDate endDate:endDate errorOut:&v41];
+  v30 = v41;
 
-  if (v28)
+  if (v29)
   {
     if (date)
     {
@@ -216,22 +217,22 @@
     }
 
     objc_initWeak(buf, val);
-    objc_copyWeak(&v38, buf);
+    objc_copyWeak(&v40, buf);
     AnalyticsSendEventLazy();
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v40);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v30 = PPSLogSignpostTimeSeriesTask();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v32 = PPSLogSignpostTimeSeriesTask(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      sub_100007BD0(&val->_request, v29, v30);
+      sub_100007BD0(&val->_request, v30, v32);
     }
   }
 
-  return v28;
+  return v29;
 }
 
 - (id)_compositeAllowlist:(id)allowlist
@@ -306,36 +307,36 @@
   v12 = [NSNumber numberWithDouble:?];
   [v6 setObject:v12 forKeyedSubscript:@"perceivedGlitchRatio"];
 
-  v13 = PPSLogSignpostTimeSeriesTask();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = PPSLogSignpostTimeSeriesTask(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [v6 objectForKeyedSubscript:@"EndProcessName"];
-    if (v14)
+    v15 = [v6 objectForKeyedSubscript:@"EndProcessName"];
+    if (v15)
     {
-      v15 = @"EndProcessName";
+      v16 = @"EndProcessName";
     }
 
     else
     {
-      v15 = @"BeginProcessName";
+      v16 = @"BeginProcessName";
     }
 
-    v16 = [v6 objectForKeyedSubscript:v15];
-    v17 = [v6 objectForKeyedSubscript:@"Subsystem"];
-    v18 = [v6 objectForKeyedSubscript:@"Category"];
-    v19 = [v6 objectForKeyedSubscript:@"Name"];
+    v17 = [v6 objectForKeyedSubscript:v16];
+    v18 = [v6 objectForKeyedSubscript:@"Subsystem"];
+    v19 = [v6 objectForKeyedSubscript:@"Category"];
+    v20 = [v6 objectForKeyedSubscript:@"Name"];
     beginDate = [dataCopy beginDate];
-    v22 = 138413314;
-    v23 = v16;
-    v24 = 2112;
-    v25 = v17;
-    v26 = 2112;
-    v27 = v18;
-    v28 = 2112;
-    v29 = v19;
-    v30 = 2112;
-    v31 = beginDate;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Generated animation interval data for process '%@': '%@::%@::%@' (%@)", &v22, 0x34u);
+    v23 = 138413314;
+    v24 = v17;
+    v25 = 2112;
+    v26 = v18;
+    v27 = 2112;
+    v28 = v19;
+    v29 = 2112;
+    v30 = v20;
+    v31 = 2112;
+    v32 = beginDate;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Generated animation interval data for process '%@': '%@::%@::%@' (%@)", &v23, 0x34u);
   }
 
   return v6;
@@ -428,7 +429,7 @@
   number2Name = [dataCopy number2Name];
   if (number2Name)
   {
-    v33 = number2Name;
+    v34 = number2Name;
     number2Value = [dataCopy number2Value];
 
     if (number2Value)
@@ -441,12 +442,13 @@
     }
   }
 
-  if (IsInternalBuild())
+  v38 = IsInternalBuild(number2Name, v33);
+  if (v38)
   {
     subsystem2 = [dataCopy subsystem];
-    v38 = [subsystem2 isEqualToString:@"com.apple.metrickit.log"];
+    v40 = [subsystem2 isEqualToString:@"com.apple.metrickit.log"];
 
-    if (v38)
+    if (v40)
     {
       beginEvent4 = [dataCopy beginEvent];
       metrics = [beginEvent4 metrics];
@@ -457,8 +459,8 @@
         metrics2 = [beginEvent5 metrics];
         cpuTimeNsec = [metrics2 cpuTimeNsec];
         [cpuTimeNsec doubleValue];
-        v45 = [NSNumber numberWithDouble:v44 / 1000000000.0];
-        [v4 setObject:v45 forKeyedSubscript:@"BeginCPUTime"];
+        v47 = [NSNumber numberWithDouble:v46 / 1000000000.0];
+        [v4 setObject:v47 forKeyedSubscript:@"BeginCPUTime"];
 
         beginEvent6 = [dataCopy beginEvent];
         metrics3 = [beginEvent6 metrics];
@@ -485,8 +487,8 @@
         metrics7 = [endEvent5 metrics];
         cpuTimeNsec2 = [metrics7 cpuTimeNsec];
         [cpuTimeNsec2 doubleValue];
-        v61 = [NSNumber numberWithDouble:v60 / 1000000000.0];
-        [v4 setObject:v61 forKeyedSubscript:@"EndCPUTime"];
+        v63 = [NSNumber numberWithDouble:v62 / 1000000000.0];
+        [v4 setObject:v63 forKeyedSubscript:@"EndCPUTime"];
 
         endEvent6 = [dataCopy endEvent];
         metrics8 = [endEvent6 metrics];
@@ -506,36 +508,36 @@
     }
   }
 
-  v71 = PPSLogSignpostTimeSeriesTask();
-  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+  v73 = PPSLogSignpostTimeSeriesTask(v38);
+  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
   {
-    v72 = [v4 objectForKeyedSubscript:@"EndProcessName"];
-    if (v72)
+    v74 = [v4 objectForKeyedSubscript:@"EndProcessName"];
+    if (v74)
     {
-      v73 = @"EndProcessName";
+      v75 = @"EndProcessName";
     }
 
     else
     {
-      v73 = @"BeginProcessName";
+      v75 = @"BeginProcessName";
     }
 
-    v74 = [v4 objectForKeyedSubscript:v73];
-    v75 = [v4 objectForKeyedSubscript:@"Subsystem"];
-    v76 = [v4 objectForKeyedSubscript:@"Category"];
-    v77 = [v4 objectForKeyedSubscript:@"Name"];
+    v76 = [v4 objectForKeyedSubscript:v75];
+    v77 = [v4 objectForKeyedSubscript:@"Subsystem"];
+    v78 = [v4 objectForKeyedSubscript:@"Category"];
+    v79 = [v4 objectForKeyedSubscript:@"Name"];
     beginDate = [dataCopy beginDate];
-    v80 = 138413314;
-    v81 = v74;
-    v82 = 2112;
-    v83 = v75;
+    v82 = 138413314;
+    v83 = v76;
     v84 = 2112;
-    v85 = v76;
+    v85 = v77;
     v86 = 2112;
-    v87 = v77;
+    v87 = v78;
     v88 = 2112;
-    v89 = beginDate;
-    _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "Generated signpost interval data for process '%@': '%@::%@::%@' (%@)", &v80, 0x34u);
+    v89 = v79;
+    v90 = 2112;
+    v91 = beginDate;
+    _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "Generated signpost interval data for process '%@': '%@::%@::%@' (%@)", &v82, 0x34u);
   }
 
   return v4;
@@ -746,67 +748,67 @@
 
   if (targetDirectory)
   {
-    v4 = +[NSFileManager defaultManager];
+    v5 = +[NSFileManager defaultManager];
     targetDirectory2 = [(PPSSignpostTimeSeriesTask *)self targetDirectory];
-    [v4 createDirectoryAtURL:targetDirectory2 withIntermediateDirectories:1 attributes:0 error:0];
+    [v5 createDirectoryAtURL:targetDirectory2 withIntermediateDirectories:1 attributes:0 error:0];
 
     timeSeries = [(PPSSignpostTimeSeriesTask *)self timeSeries];
-    v7 = [NSJSONSerialization dataWithJSONObject:timeSeries options:0 error:0];
+    v8 = [NSJSONSerialization dataWithJSONObject:timeSeries options:0 error:0];
 
-    v8 = [(PPSSignpostTimeSeriesTask *)self _compressData:v7];
-    if (v8)
+    v9 = [(PPSSignpostTimeSeriesTask *)self _compressData:v8];
+    if (v9)
     {
       targetDirectory3 = [(PPSSignpostTimeSeriesTask *)self targetDirectory];
       firstSignpostDate = [(PPSSignpostTimeSeriesTask *)self firstSignpostDate];
       [firstSignpostDate timeIntervalSince1970];
-      v12 = [NSString stringWithFormat:@"signpost.%f.json.gz", v11];
-      v13 = [targetDirectory3 URLByAppendingPathComponent:v12];
+      v13 = [NSString stringWithFormat:@"signpost.%f.json.gz", v12];
+      v14 = [targetDirectory3 URLByAppendingPathComponent:v13];
 
-      v50 = 0;
-      LOBYTE(firstSignpostDate) = [v8 writeToURL:v13 options:1 error:&v50];
-      v14 = v50;
-      v15 = PPSLogSignpostTimeSeriesTask();
-      timeSeries4 = v15;
+      v52 = 0;
+      LOBYTE(firstSignpostDate) = [v9 writeToURL:v14 options:1 error:&v52];
+      v15 = v52;
+      v16 = PPSLogSignpostTimeSeriesTask(v15);
+      timeSeries4 = v16;
       if (firstSignpostDate)
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           timeSeries2 = [(PPSSignpostTimeSeriesTask *)self timeSeries];
-          v18 = [timeSeries2 count];
-          lastPathComponent = [v13 lastPathComponent];
+          v19 = [timeSeries2 count];
+          lastPathComponent = [v14 lastPathComponent];
           *buf = 134218242;
-          v52 = v18;
-          v53 = 2112;
-          v54 = lastPathComponent;
+          v54 = v19;
+          v55 = 2112;
+          v56 = lastPathComponent;
           _os_log_impl(&_mh_execute_header, timeSeries4, OS_LOG_TYPE_DEFAULT, "Flushed %lu signposts to '%@'", buf, 0x16u);
         }
 
         firstSignpostDate2 = [(PPSSignpostTimeSeriesTask *)self firstSignpostDate];
         if (firstSignpostDate2)
         {
-          v21 = firstSignpostDate2;
+          v22 = firstSignpostDate2;
           firstSignpostDate3 = [(PPSSignpostTimeSeriesTask *)self firstSignpostDate];
-          v49 = v14;
-          v23 = [v13 setResourceValue:firstSignpostDate3 forKey:NSURLCreationDateKey error:&v49];
-          v24 = v49;
+          v51 = v15;
+          v24 = [v14 setResourceValue:firstSignpostDate3 forKey:NSURLCreationDateKey error:&v51];
+          v25 = v51;
 
-          if ((v23 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
-            v25 = PPSLogSignpostTimeSeriesTask();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v27 = PPSLogSignpostTimeSeriesTask(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
-              sub_100007CFC(v13, v25);
+              sub_100007CFC(v14, v27);
             }
           }
         }
 
         else
         {
-          v24 = v14;
+          v25 = v15;
         }
 
-        v47 = [NSDate dateWithTimeIntervalSinceNow:129600.0];
-        [PPSFileUtilities markAsPurgeable:v13 urgency:512 startDate:v47];
+        v49 = [NSDate dateWithTimeIntervalSinceNow:129600.0];
+        [PPSFileUtilities markAsPurgeable:v14 urgency:512 startDate:v49];
 
         timeSeries3 = [(PPSSignpostTimeSeriesTask *)self timeSeries];
         -[PPSSignpostTimeSeriesTask setTimeSeriesSize:](self, "setTimeSeriesSize:", [timeSeries3 count] + -[PPSSignpostTimeSeriesTask timeSeriesSize](self, "timeSeriesSize"));
@@ -814,31 +816,31 @@
         [(PPSSignpostTimeSeriesTask *)self setOutputFileCount:[(PPSSignpostTimeSeriesTask *)self outputFileCount]+ 1];
         timeSeries4 = [(PPSSignpostTimeSeriesTask *)self timeSeries];
         [timeSeries4 removeAllObjects];
-        v14 = v24;
+        v15 = v25;
       }
 
-      else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_100007CC4(timeSeries4, v40, v41, v42, v43, v44, v45, v46);
+        sub_100007CC4(timeSeries4, v42, v43, v44, v45, v46, v47, v48);
       }
     }
 
     else
     {
-      v14 = PPSLogSignpostTimeSeriesTask();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = PPSLogSignpostTimeSeriesTask(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_100007D94(v14, v33, v34, v35, v36, v37, v38, v39);
+        sub_100007D94(v15, v35, v36, v37, v38, v39, v40, v41);
       }
     }
   }
 
   else
   {
-    v7 = PPSLogSignpostTimeSeriesTask();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PPSLogSignpostTimeSeriesTask(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100007DCC(v7, v26, v27, v28, v29, v30, v31, v32);
+      sub_100007DCC(v8, v28, v29, v30, v31, v32, v33, v34);
     }
   }
 }

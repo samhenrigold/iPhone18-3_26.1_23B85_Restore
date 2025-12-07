@@ -23,7 +23,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_1001328A8(controller, &qword_1005FFF58, &qword_1006043F8);
+  sub_1001328A8(controller, &qword_1005FFF58, &qword_1006043F8, sub_100130290);
 }
 
 - (NSData)playActivityForwardedRecommendationData
@@ -89,7 +89,7 @@
 
 - (id)playActivityFeatureNamesWithSourceChildViewController:(id)controller
 {
-  sub_100003ABC(&unk_1006040A0);
+  sub_100003ABC(&unk_1006040A0, &unk_1004CF310);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1004C50A0;
   selfCopy = self;
@@ -121,7 +121,7 @@
   completePlayActivityFeatureNames = [(UIViewController *)selfCopy completePlayActivityFeatureNames];
   sub_1004BC2A4();
 
-  sub_100003ABC(&unk_100603590);
+  sub_100003ABC(&unk_100603590, &unk_1004C8150);
   sub_100132984();
   sub_10000E7F4();
   sub_1004BC234();

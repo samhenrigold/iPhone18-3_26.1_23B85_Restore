@@ -73,7 +73,7 @@
 
 id __82__FMFindingViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained _axCachedAccessibilityElements];
 
@@ -90,28 +90,28 @@ id __82__FMFindingViewControllerAccessibility__accessibilityLoadAccessibilityInf
       v7 = [v5 subviews];
       v8 = [v7 mutableCopy];
 
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v9 = [v6 representedElements];
-      v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v10)
       {
-        v11 = *v37;
+        v11 = *v36;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v37 != v11)
+            if (*v36 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            [v8 removeObject:*(*(&v36 + 1) + 8 * i)];
+            [v8 removeObject:*(*(&v35 + 1) + 8 * i)];
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v10);
@@ -144,27 +144,27 @@ id __82__FMFindingViewControllerAccessibility__accessibilityLoadAccessibilityInf
       }
 
       [v8 axFilterObjectsUsingBlock:&__block_literal_global_327];
+      v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
-      v23 = v32 = 0u;
-      v24 = [v23 countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v30 = 0u;
+      v23 = v31 = 0u;
+      v24 = [v23 countByEnumeratingWithState:&v30 objects:v39 count:16];
       if (v24)
       {
-        v25 = *v32;
+        v25 = *v31;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v32 != v25)
+            if (*v31 != v25)
             {
               objc_enumerationMutation(v23);
             }
 
-            [v8 removeObject:{*(*(&v31 + 1) + 8 * j), v31}];
+            [v8 removeObject:{*(*(&v30 + 1) + 8 * j), v30}];
           }
 
-          v24 = [v23 countByEnumeratingWithState:&v31 objects:v40 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v30 objects:v39 count:16];
         }
 
         while (v24);
@@ -178,8 +178,6 @@ id __82__FMFindingViewControllerAccessibility__accessibilityLoadAccessibilityInf
   }
 
   v28 = [WeakRetained _axCachedAccessibilityElements];
-
-  v29 = *MEMORY[0x29EDCA608];
 
   return v28;
 }

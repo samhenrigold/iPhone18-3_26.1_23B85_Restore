@@ -45,7 +45,7 @@
 
 - (void)extractionEnteredPassThroughMode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [(HMDSoftwareUpdateDocumentationAsset *)self setExtractionEnteredPassThrough:1];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -53,18 +53,17 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Unarchive in pass through mode", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Unarchive in pass through mode", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)extractionCompleteAtArchivePath:(id)path
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -72,40 +71,38 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = pathCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Completed unarchiving to path: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = pathCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Completed unarchiving to path: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setExtractionProgress:(double)progress
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2048;
-    v13 = progress * 100.0;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Unarchive progress: %.1f%%", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2048;
+    v12 = progress * 100.0;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Unarchive progress: %.1f%%", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session downloadTask:(id)task didFinishDownloadingToURL:(id)l
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   lCopy = l;
@@ -117,9 +114,9 @@
     v14 = HMFGetLogIdentifier();
     path = [lCopy path];
     *buf = 138543618;
-    v51 = v14;
-    v52 = 2112;
-    v53 = path;
+    v50 = v14;
+    v51 = 2112;
+    v52 = path;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Finished downloading archived asset to: %@", buf, 0x16u);
   }
 
@@ -149,11 +146,11 @@
       archiveURL = [(HMDSoftwareUpdateDocumentationAsset *)v20 archiveURL];
       path2 = [archiveURL path];
       *buf = 138543874;
-      v51 = v22;
-      v52 = 2112;
-      v53 = path2;
-      v54 = 2112;
-      v55 = v18;
+      v50 = v22;
+      v51 = 2112;
+      v52 = path2;
+      v53 = 2112;
+      v54 = v18;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to download asset to '%@' due to bad response status: %@", buf, 0x20u);
     }
 
@@ -167,9 +164,9 @@
   {
     fileManager = [(HMDSoftwareUpdateDocumentationAsset *)selfCopy fileManager];
     archiveURL2 = [(HMDSoftwareUpdateDocumentationAsset *)selfCopy archiveURL];
-    v49 = 0;
-    v28 = [fileManager moveItemAtURL:lCopy toURL:archiveURL2 error:&v49];
-    v29 = v49;
+    v48 = 0;
+    v28 = [fileManager moveItemAtURL:lCopy toURL:archiveURL2 error:&v48];
+    v29 = v48;
 
     if (v28)
     {
@@ -180,7 +177,7 @@
 
     else
     {
-      v47 = sessionCopy;
+      v46 = sessionCopy;
       v30 = objc_autoreleasePoolPush();
       v31 = selfCopy;
       v32 = HMFGetOSLogHandle();
@@ -190,22 +187,22 @@
         archiveURL3 = [(HMDSoftwareUpdateDocumentationAsset *)v31 archiveURL];
         path3 = [archiveURL3 path];
         *buf = 138543874;
-        v51 = v33;
-        v52 = 2112;
-        v53 = path3;
-        v54 = 2112;
-        v55 = v29;
+        v50 = v33;
+        v51 = 2112;
+        v52 = path3;
+        v53 = 2112;
+        v54 = v29;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to move downloaded asset to '%@' with error: %@. Removing existing assets at that path.", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v30);
       fileManager2 = [(HMDSoftwareUpdateDocumentationAsset *)v31 fileManager];
       archiveURL4 = [(HMDSoftwareUpdateDocumentationAsset *)v31 archiveURL];
-      v48 = v29;
-      v38 = [fileManager2 removeItemAtURL:archiveURL4 error:&v48];
-      v25 = v48;
+      v47 = v29;
+      v38 = [fileManager2 removeItemAtURL:archiveURL4 error:&v47];
+      v25 = v47;
 
-      sessionCopy = v47;
+      sessionCopy = v46;
       if ((v38 & 1) == 0)
       {
         v39 = objc_autoreleasePoolPush();
@@ -216,17 +213,17 @@
           v42 = HMFGetLogIdentifier();
           archiveURL5 = [(HMDSoftwareUpdateDocumentationAsset *)v40 archiveURL];
           [archiveURL5 path];
-          v44 = v46 = v39;
+          v44 = v45 = v39;
           *buf = 138543874;
-          v51 = v42;
-          v52 = 2112;
-          v53 = v44;
-          v54 = 2112;
-          v55 = v25;
+          v50 = v42;
+          v51 = 2112;
+          v52 = v44;
+          v53 = 2112;
+          v54 = v25;
           _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove existing asset at url '%@' with error: %@.", buf, 0x20u);
 
-          v39 = v46;
-          sessionCopy = v47;
+          v39 = v45;
+          sessionCopy = v46;
         }
 
         objc_autoreleasePoolPop(v39);
@@ -236,13 +233,11 @@
       [(HMDSoftwareUpdateDocumentationAsset *)v31 increaseDownloadRetryCount];
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session downloadTask:(id)task didWriteData:(int64_t)data totalBytesWritten:(int64_t)written totalBytesExpectedToWrite:(int64_t)write
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   v13 = objc_autoreleasePoolPush();
@@ -252,20 +247,19 @@
   {
     v16 = written / write;
     v17 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v17;
-    v21 = 2048;
-    v22 = (v16 * 100.0);
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Download progress: %.1f%%", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v17;
+    v20 = 2048;
+    v21 = (v16 * 100.0);
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Download progress: %.1f%%", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
@@ -277,19 +271,17 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = errorCopy;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to download asset with error: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = errorCopy;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to download asset with error: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     [(HMDSoftwareUpdateDocumentationAsset *)selfCopy setState:0];
     [(HMDSoftwareUpdateDocumentationAsset *)selfCopy increaseDownloadRetryCount];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -344,7 +336,7 @@
 
 void __54__HMDSoftwareUpdateDocumentationAsset_finishUnarchive__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) state] == 3;
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -356,25 +348,25 @@ void __54__HMDSoftwareUpdateDocumentationAsset_finishUnarchive__block_invoke(uin
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v7;
+      v14 = v7;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Finishing unarchive", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     objc_initWeak(buf, *(a1 + 32));
     v8 = [*(a1 + 32) extractor];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __54__HMDSoftwareUpdateDocumentationAsset_finishUnarchive__block_invoke_187;
-    v12[3] = &unk_278688A18;
-    objc_copyWeak(&v13, buf);
-    [v8 finishStreamWithCompletionBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __54__HMDSoftwareUpdateDocumentationAsset_finishUnarchive__block_invoke_187;
+    v11[3] = &unk_278688A18;
+    objc_copyWeak(&v12, buf);
+    [v8 finishStreamWithCompletionBlock:v11];
 
     v9 = [*(a1 + 32) archivedFileStream];
     [v9 close];
 
     [*(a1 + 32) setArchivedFileStream:0];
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
@@ -384,14 +376,12 @@ void __54__HMDSoftwareUpdateDocumentationAsset_finishUnarchive__block_invoke(uin
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v10;
+      v14 = v10;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to finish unarchive, not currently unarchiving", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDSoftwareUpdateDocumentationAsset_finishUnarchive__block_invoke_187(uint64_t a1, void *a2)
@@ -425,7 +415,7 @@ void __54__HMDSoftwareUpdateDocumentationAsset_finishUnarchive__block_invoke_187
 
 void __54__HMDSoftwareUpdateDocumentationAsset_cancelUnarchive__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -433,7 +423,7 @@ void __54__HMDSoftwareUpdateDocumentationAsset_cancelUnarchive__block_invoke(uin
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Cancelling unarchive", buf, 0xCu);
   }
 
@@ -445,9 +435,9 @@ void __54__HMDSoftwareUpdateDocumentationAsset_cancelUnarchive__block_invoke(uin
   [*(a1 + 32) setArchivedFileStream:0];
   v7 = [*(a1 + 32) fileManager];
   v8 = [*(a1 + 32) bundleURL];
-  v16 = 0;
-  v9 = [v7 removeItemAtURL:v8 error:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [v7 removeItemAtURL:v8 error:&v15];
+  v10 = v15;
 
   if ((v9 & 1) == 0)
   {
@@ -458,9 +448,9 @@ void __54__HMDSoftwareUpdateDocumentationAsset_cancelUnarchive__block_invoke(uin
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v10;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v10;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Failed to remove bundle with error: %@", buf, 0x16u);
     }
 
@@ -468,8 +458,6 @@ void __54__HMDSoftwareUpdateDocumentationAsset_cancelUnarchive__block_invoke(uin
   }
 
   [*(a1 + 32) setState:2];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startUnarchive
@@ -485,7 +473,7 @@ void __54__HMDSoftwareUpdateDocumentationAsset_cancelUnarchive__block_invoke(uin
 
 void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) state] == 2;
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -497,7 +485,7 @@ void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke(uint
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v7;
+      v43 = v7;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Starting unarchive", buf, 0xCu);
     }
 
@@ -526,9 +514,9 @@ void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke(uint
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v44 = v20;
-          v45 = 2112;
-          v46 = v13;
+          v43 = v20;
+          v44 = 2112;
+          v45 = v13;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Starting extraction using options: %@", buf, 0x16u);
         }
 
@@ -544,14 +532,14 @@ void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke(uint
         objc_initWeak(buf, *v21);
         v27 = [*v21 bundleURL];
         v28 = [v27 path];
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke_185;
-        v41[3] = &unk_27867D828;
-        objc_copyWeak(&v42, buf);
-        [v26 prepareForExtractionToPath:v28 completionBlock:v41];
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke_185;
+        v40[3] = &unk_27867D828;
+        objc_copyWeak(&v41, buf);
+        [v26 prepareForExtractionToPath:v28 completionBlock:v40];
 
-        objc_destroyWeak(&v42);
+        objc_destroyWeak(&v41);
         objc_destroyWeak(buf);
       }
 
@@ -564,7 +552,7 @@ void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke(uint
         {
           v39 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v44 = v39;
+          v43 = v39;
           _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to create input stream", buf, 0xCu);
         }
 
@@ -583,9 +571,9 @@ void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke(uint
         v34 = [*(a1 + 32) metadata];
         v35 = [v34 digest];
         *buf = 138543618;
-        v44 = v33;
-        v45 = 2112;
-        v46 = v35;
+        v43 = v33;
+        v44 = 2112;
+        v45 = v35;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Failed to create validation options for unarchiving with digest: %@", buf, 0x16u);
       }
 
@@ -599,14 +587,12 @@ void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke(uint
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v29;
+      v43 = v29;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to unarchive, asset is not downloaded", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke_185(uint64_t a1, uint64_t a2, void *a3)
@@ -641,16 +627,16 @@ void __53__HMDSoftwareUpdateDocumentationAsset_startUnarchive__block_invoke_185(
 
 uint64_t __53__HMDSoftwareUpdateDocumentationAsset_finishDownload__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Finished download", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Finished download", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -658,9 +644,7 @@ uint64_t __53__HMDSoftwareUpdateDocumentationAsset_finishDownload__block_invoke(
   [v6 invalidateAndCancel];
 
   [*(a1 + 32) setURLSession:0];
-  result = [*(a1 + 32) setState:2];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setState:2];
 }
 
 - (void)cancelDownload
@@ -676,16 +660,16 @@ uint64_t __53__HMDSoftwareUpdateDocumentationAsset_finishDownload__block_invoke(
 
 uint64_t __53__HMDSoftwareUpdateDocumentationAsset_cancelDownload__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Cancelling download", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Cancelling download", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -693,9 +677,7 @@ uint64_t __53__HMDSoftwareUpdateDocumentationAsset_cancelDownload__block_invoke(
   [v6 invalidateAndCancel];
 
   [*(a1 + 32) setURLSession:0];
-  result = [*(a1 + 32) setState:0];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setState:0];
 }
 
 - (void)startDownload
@@ -711,7 +693,7 @@ uint64_t __53__HMDSoftwareUpdateDocumentationAsset_cancelDownload__block_invoke(
 
 void __52__HMDSoftwareUpdateDocumentationAsset_startDownload__block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) state])
   {
     v2 = objc_autoreleasePoolPush();
@@ -720,13 +702,13 @@ void __52__HMDSoftwareUpdateDocumentationAsset_startDownload__block_invoke(uint6
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = HMFGetLogIdentifier();
-      v34 = 138543362;
-      v35 = v5;
+      v33 = 138543362;
+      v34 = v5;
       v6 = "%{public}@Unable to download, asset is already downloading or downloaded";
       v7 = v4;
       v8 = OS_LOG_TYPE_DEFAULT;
 LABEL_16:
-      _os_log_impl(&dword_229538000, v7, v8, v6, &v34, 0xCu);
+      _os_log_impl(&dword_229538000, v7, v8, v6, &v33, 0xCu);
 
       goto LABEL_17;
     }
@@ -742,8 +724,8 @@ LABEL_16:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = HMFGetLogIdentifier();
-      v34 = 138543362;
-      v35 = v5;
+      v33 = 138543362;
+      v34 = v5;
       v6 = "%{public}@Failed to save asset";
       v7 = v4;
       v8 = OS_LOG_TYPE_ERROR;
@@ -754,7 +736,7 @@ LABEL_17:
 
 LABEL_18:
     objc_autoreleasePoolPop(v2);
-    goto LABEL_19;
+    return;
   }
 
   v9 = [*(a1 + 32) isDownloadPermitted];
@@ -766,10 +748,10 @@ LABEL_18:
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v29 = HMFGetLogIdentifier();
-      v34 = 138543362;
-      v35 = v29;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Not attempting to download documentation now as we are in a backoff", &v34, 0xCu);
+      v28 = HMFGetLogIdentifier();
+      v33 = 138543362;
+      v34 = v28;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Not attempting to download documentation now as we are in a backoff", &v33, 0xCu);
     }
 
     goto LABEL_18;
@@ -778,9 +760,9 @@ LABEL_18:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = HMFGetLogIdentifier();
-    v34 = 138543362;
-    v35 = v13;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Starting download", &v34, 0xCu);
+    v33 = 138543362;
+    v34 = v13;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Starting download", &v33, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -812,11 +794,11 @@ LABEL_18:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       v27 = HMFGetLogIdentifier();
-      v34 = 138543618;
-      v35 = v27;
-      v36 = 2112;
-      v37 = v23;
-      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Resuming task: %@", &v34, 0x16u);
+      v33 = 138543618;
+      v34 = v27;
+      v35 = 2112;
+      v36 = v23;
+      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Resuming task: %@", &v33, 0x16u);
     }
 
     objc_autoreleasePoolPop(v24);
@@ -825,38 +807,35 @@ LABEL_18:
 
   else
   {
-    v30 = objc_autoreleasePoolPush();
-    v31 = *(a1 + 32);
-    v32 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v29 = objc_autoreleasePoolPush();
+    v30 = *(a1 + 32);
+    v31 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v33 = HMFGetLogIdentifier();
-      v34 = 138543362;
-      v35 = v33;
-      _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Cannot download software update from nil url", &v34, 0xCu);
+      v32 = HMFGetLogIdentifier();
+      v33 = 138543362;
+      v34 = v32;
+      _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Cannot download software update from nil url", &v33, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v30);
+    objc_autoreleasePoolPop(v29);
     [*(a1 + 32) cancelDownload];
     [*(a1 + 32) increaseDownloadRetryCount];
   }
-
-LABEL_19:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)purgeWithError:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Purging", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Purging", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -866,7 +845,6 @@ LABEL_19:
   v10 = [(HMDSoftwareUpdateDocumentationAsset *)selfCopy URL];
   v11 = [fileManager removeItemAtURL:v10 error:error];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -890,12 +868,12 @@ LABEL_19:
 
 - (BOOL)saveWithError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   fileManager = [(HMDSoftwareUpdateDocumentationAsset *)self fileManager];
   v6 = [(HMDSoftwareUpdateDocumentationAsset *)self URL];
-  v32 = 0;
-  v7 = [fileManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v32];
-  v8 = v32;
+  v31 = 0;
+  v7 = [fileManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v31];
+  v8 = v31;
 
   if (v7)
   {
@@ -904,10 +882,10 @@ LABEL_19:
     {
       fileManager2 = [(HMDSoftwareUpdateDocumentationAsset *)self fileManager];
       metadataURL = [(HMDSoftwareUpdateDocumentationAsset *)self metadataURL];
-      v31 = v8;
+      v30 = v8;
       v12 = 1;
-      v13 = [fileManager2 writeData:v9 toURL:metadataURL options:1 error:&v31];
-      v14 = v31;
+      v13 = [fileManager2 writeData:v9 toURL:metadataURL options:1 error:&v30];
+      v14 = v30;
 
       if ((v13 & 1) == 0)
       {
@@ -918,9 +896,9 @@ LABEL_19:
         {
           v18 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v34 = v18;
-          v35 = 2112;
-          v36 = v14;
+          v33 = v18;
+          v34 = 2112;
+          v35 = v14;
           _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to archive asset metadata (write) %@", buf, 0x16u);
         }
 
@@ -950,7 +928,7 @@ LABEL_19:
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v34 = v28;
+        v33 = v28;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to archive asset metadata (encode)", buf, 0xCu);
       }
 
@@ -968,9 +946,9 @@ LABEL_19:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v23;
-      v35 = 2112;
-      v36 = v8;
+      v33 = v23;
+      v34 = 2112;
+      v35 = v8;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create asset directory with error: %@", buf, 0x16u);
     }
 
@@ -988,13 +966,12 @@ LABEL_19:
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)resetDownloadRetryCount
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
   [(HMDSoftwareUpdateDocumentationAsset *)self setNextPermittedDownloadDate:distantPast];
@@ -1007,18 +984,17 @@ LABEL_19:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resetting download retry count", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resetting download retry count", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)increaseDownloadRetryCount
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   downloadRetryCount = [(HMDSoftwareUpdateDocumentationAsset *)self downloadRetryCount];
   if (downloadRetryCount >= [&unk_283E75B18 count])
@@ -1048,17 +1024,16 @@ LABEL_19:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v13;
-    v17 = 2048;
-    v18 = downloadRetryCount3;
-    v19 = 2112;
-    v20 = nextPermittedDownloadDate;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Increased download retry count to: %lu next retry is at: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v13;
+    v16 = 2048;
+    v17 = downloadRetryCount3;
+    v18 = 2112;
+    v19 = nextPermittedDownloadDate;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Increased download retry count to: %lu next retry is at: %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDownloadPermitted
@@ -1075,16 +1050,16 @@ LABEL_19:
 
 - (HMSoftwareUpdateDocumentation)documentation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v23 = 138543362;
-    v24 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Parsing documentation", &v23, 0xCu);
+    v22 = 138543362;
+    v23 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Parsing documentation", &v22, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -1104,9 +1079,9 @@ LABEL_19:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v18 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v18;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Failed to find documentation bundle", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v18;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Failed to find documentation bundle", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -1121,16 +1096,15 @@ LABEL_19:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v20;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Documentation not cached", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v20;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Documentation not cached", &v22, 0xCu);
     }
 
     v14 = 0;
   }
 
   objc_autoreleasePoolPop(v8);
-  v21 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1171,11 +1145,10 @@ LABEL_19:
 
 - (void)setState:(int64_t)state
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if (self->_state == state)
   {
-    v5 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -1185,11 +1158,11 @@ LABEL_19:
     self->_state = state;
     os_unfair_lock_unlock(&self->_lock);
     notificationCenter = [(HMDSoftwareUpdateDocumentationAsset *)self notificationCenter];
-    v12 = @"state";
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:state];
-    v13[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    [notificationCenter postNotificationName:@"HMDSoftwareUpdateDocumentationAssetStateUpdatedNotification" object:self userInfo:v8];
+    v10 = @"state";
+    v6 = [MEMORY[0x277CCABB0] numberWithInteger:state];
+    v11[0] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    [notificationCenter postNotificationName:@"HMDSoftwareUpdateDocumentationAssetStateUpdatedNotification" object:self userInfo:v7];
 
     queue = self->_queue;
     block[0] = MEMORY[0x277D85DD0];
@@ -1199,18 +1172,17 @@ LABEL_19:
     block[4] = self;
     block[5] = state;
     dispatch_async(queue, block);
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
-uint64_t __48__HMDSoftwareUpdateDocumentationAsset_setState___block_invoke(uint64_t result)
+void *__48__HMDSoftwareUpdateDocumentationAsset_setState___block_invoke(void *result)
 {
-  v1 = *(result + 40);
+  v1 = *(result + 5);
   v2 = v1 > 4;
   v3 = (1 << v1) & 0x15;
   if (!v2 && v3 != 0)
   {
-    return [*(result + 32) saveWithError:0];
+    return [*(result + 4) saveWithError:0];
   }
 
   return result;
@@ -1438,15 +1410,14 @@ id __69__HMDSoftwareUpdateDocumentationAsset_initWithDocumentationMetadata___blo
 
 void __50__HMDSoftwareUpdateDocumentationAsset_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v75_182854;
-  logCategory__hmf_once_v75_182854 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v75_182854;
+  logCategory__hmf_once_v75_182854 = v0;
 }
 
 + (id)assetWithURL:(id)l fileManager:(id)manager
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   lCopy = l;
   managerCopy = manager;
   if (lCopy)
@@ -1456,9 +1427,9 @@ void __50__HMDSoftwareUpdateDocumentationAsset_logCategory__block_invoke()
 
     if (v9)
     {
-      v36 = 0;
-      v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v36];
-      v11 = v36;
+      v35 = 0;
+      v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v35];
+      v11 = v35;
       [v10 setFileManager:managerCopy];
       if (v10)
       {
@@ -1499,9 +1470,9 @@ void __50__HMDSoftwareUpdateDocumentationAsset_logCategory__block_invoke()
             v31 = HMFGetLogIdentifier();
             v32 = off_27867D8A8[v15];
             *buf = 138543618;
-            v38 = v31;
-            v39 = 2112;
-            v40 = v32;
+            v37 = v31;
+            v38 = 2112;
+            v39 = v32;
             _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Setting state to: %@", buf, 0x16u);
           }
 
@@ -1521,9 +1492,9 @@ void __50__HMDSoftwareUpdateDocumentationAsset_logCategory__block_invoke()
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v38 = v27;
-          v39 = 2112;
-          v40 = v11;
+          v37 = v27;
+          v38 = 2112;
+          v39 = v11;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive software update documentation asset from serialized object data: %@", buf, 0x16u);
         }
 
@@ -1541,9 +1512,9 @@ void __50__HMDSoftwareUpdateDocumentationAsset_logCategory__block_invoke()
         v19 = HMFGetLogIdentifier();
         path2 = [lCopy path];
         *buf = 138543618;
-        v38 = v19;
-        v39 = 2112;
-        v40 = path2;
+        v37 = v19;
+        v38 = 2112;
+        v39 = path2;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to find metadata at path: %@", buf, 0x16u);
       }
 
@@ -1556,8 +1527,6 @@ void __50__HMDSoftwareUpdateDocumentationAsset_logCategory__block_invoke()
   {
     v10 = 0;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

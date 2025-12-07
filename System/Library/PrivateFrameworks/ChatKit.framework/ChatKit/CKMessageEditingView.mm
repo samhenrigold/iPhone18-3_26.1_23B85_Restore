@@ -402,11 +402,11 @@ void __90__CKMessageEditingView__applyExpressiveTextFormattingToAttributedText_f
   }
 }
 
-uint64_t __90__CKMessageEditingView__applyExpressiveTextFormattingToAttributedText_forCompositionText___block_invoke_6(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__90__CKMessageEditingView__applyExpressiveTextFormattingToAttributedText_forCompositionText___block_invoke_6(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) ck_addTextStyle:1 options:3 range:{a3, a4}];
+    return [result[4] ck_addTextStyle:1 options:3 range:{a3, a4}];
   }
 
   return result;

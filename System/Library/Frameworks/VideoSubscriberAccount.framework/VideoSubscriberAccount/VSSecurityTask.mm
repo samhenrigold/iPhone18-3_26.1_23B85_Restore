@@ -47,7 +47,7 @@
     {
       v7 = 0u;
       v8 = 0u;
-      [currentConnection auditToken];
+      objc_msgSend_auditToken(currentConnection);
       v6[0] = v7;
       v6[1] = v8;
       v2 = [VSSecurityTask securityTaskWithAuditToken:v6];
@@ -222,15 +222,16 @@ LABEL_16:
 {
   entitlementCopy = entitlement;
   v5 = objc_autoreleasePoolPush();
-  v12 = 0;
   v13 = 0;
-  v6 = [(VSSecurityTask *)self getValue:&v13 forEntitlement:entitlementCopy error:&v12];
-  v7 = v13;
-  v8 = v12;
+  v14 = 0;
+  v6 = [(VSSecurityTask *)self getValue:&v14 forEntitlement:entitlementCopy error:&v13];
+  v7 = v14;
+  v8 = v13;
+  v9 = v8;
   if (!v6)
   {
-    v10 = VSErrorLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = VSErrorLogObject(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [VSSecurityTask shouldAllowAccessForBooleanEntitlement:];
     }
@@ -254,77 +255,80 @@ LABEL_8:
 
 - (BOOL)shouldAllowAccessToSubscriberIdentifierHashModifier:(id)modifier
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   modifierCopy = modifier;
   v5 = objc_autoreleasePoolPush();
-  v32 = 0;
-  v31 = 0;
-  v6 = [(VSSecurityTask *)self getValue:&v32 forEntitlement:@"com.apple.private.subscriptionservce.subscriber-identifier-hash-modifiers" error:&v31];
-  v7 = v32;
-  v8 = v31;
+  v36 = 0;
+  v35 = 0;
+  v6 = [(VSSecurityTask *)self getValue:&v36 forEntitlement:@"com.apple.private.subscriptionservce.subscriber-identifier-hash-modifiers" error:&v35];
+  v7 = v36;
+  v8 = v35;
+  v9 = v8;
   if (v6)
   {
     if (v7)
     {
-      v9 = v7;
+      v10 = v7;
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v10 = MEMORY[0x277CBEAD8];
-          v11 = *MEMORY[0x277CBE660];
-          v12 = objc_opt_class();
-          v13 = NSStringFromClass(v12);
-          [v10 raise:v11 format:{@"Unexpectedly, allowedHashModifiers was %@, instead of NSArray.", v13}];
+          v12 = MEMORY[0x277CBEAD8];
+          v13 = *MEMORY[0x277CBE660];
+          v14 = objc_opt_class();
+          v15 = NSStringFromClass(v14);
+          [v12 raise:v13 format:{@"Unexpectedly, allowedHashModifiers was %@, instead of NSArray.", v15}];
         }
 
-        v14 = v9;
-        if ([v14 count])
+        v16 = v10;
+        if ([v16 count])
         {
-          v25 = v5;
-          v26 = modifierCopy;
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
-          v28 = 0u;
-          v15 = v14;
-          v16 = [v15 countByEnumeratingWithState:&v27 objects:v33 count:16];
-          if (v16)
+          v29 = v5;
+          v30 = modifierCopy;
+          v33 = 0u;
+          v34 = 0u;
+          v31 = 0u;
+          v32 = 0u;
+          v17 = v16;
+          v18 = [v17 countByEnumeratingWithState:&v31 objects:v37 count:16];
+          if (v18)
           {
-            v17 = v16;
-            v18 = *v28;
+            v19 = v18;
+            v20 = *v32;
             while (2)
             {
-              for (i = 0; i != v17; ++i)
+              for (i = 0; i != v19; ++i)
               {
-                if (*v28 != v18)
+                if (*v32 != v20)
                 {
-                  objc_enumerationMutation(v15);
+                  objc_enumerationMutation(v17);
                 }
 
-                v20 = objc_autoreleasePoolPush();
+                v22 = objc_autoreleasePoolPush();
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
+                v23 = objc_opt_isKindOfClass();
+                if ((v23 & 1) == 0)
                 {
-                  v22 = VSErrorLogObject();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                  v26 = VSErrorLogObject(v23);
+                  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                   {
                     [VSSecurityTask shouldAllowAccessToSubscriberIdentifierHashModifier:];
                   }
 
-                  objc_autoreleasePoolPop(v20);
-                  v5 = v25;
-                  modifierCopy = v26;
+                  objc_autoreleasePoolPop(v22);
+                  v5 = v29;
+                  modifierCopy = v30;
                   goto LABEL_32;
                 }
 
-                objc_autoreleasePoolPop(v20);
+                objc_autoreleasePoolPop(v22);
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v27 objects:v33 count:16];
-              if (v17)
+              v19 = [v17 countByEnumeratingWithState:&v31 objects:v37 count:16];
+              if (v19)
               {
                 continue;
               }
@@ -333,30 +337,31 @@ LABEL_8:
             }
           }
 
-          modifierCopy = v26;
-          if (([v15 containsObject:v26]& 1) != 0)
+          modifierCopy = v30;
+          v24 = [v17 containsObject:v30];
+          if (v24)
           {
-            v21 = 1;
-            v5 = v25;
+            v25 = 1;
+            v5 = v29;
 LABEL_34:
 
             goto LABEL_35;
           }
 
-          v23 = VSErrorLogObject();
-          v5 = v25;
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v27 = VSErrorLogObject(v24);
+          v5 = v29;
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             [VSSecurityTask shouldAllowAccessToSubscriberIdentifierHashModifier:];
           }
 
-          v15 = v23;
+          v17 = v27;
         }
 
         else
         {
-          v15 = VSErrorLogObject();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v17 = VSErrorLogObject(0);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             [VSSecurityTask shouldAllowAccessToSubscriberIdentifierHashModifier:];
           }
@@ -367,19 +372,19 @@ LABEL_32:
 
       else
       {
-        v14 = VSErrorLogObject();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = VSErrorLogObject(isKindOfClass);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           [VSSecurityTask shouldAllowAccessToSubscriberIdentifierHashModifier:];
         }
       }
 
-      v21 = 0;
+      v25 = 0;
       goto LABEL_34;
     }
 
-    v9 = VSErrorLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = VSErrorLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [VSSecurityTask shouldAllowAccessToSubscriberIdentifierHashModifier:];
     }
@@ -387,18 +392,18 @@ LABEL_32:
 
   else
   {
-    v9 = VSErrorLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = VSErrorLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [VSSecurityTask shouldAllowAccessToSubscriberIdentifierHashModifier:];
     }
   }
 
-  v21 = 0;
+  v25 = 0;
 LABEL_35:
 
   objc_autoreleasePoolPop(v5);
-  return v21;
+  return v25;
 }
 
 - (NSString)signingIdentifier
@@ -410,7 +415,7 @@ LABEL_35:
     _taskRef = ([(VSSecurityTask *)self _copySigningIdentifier])(_taskRef, &v6);
     if (!_taskRef)
     {
-      v4 = VSErrorLogObject();
+      v4 = VSErrorLogObject(0);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         [(VSSecurityTask *)&v6 signingIdentifier];

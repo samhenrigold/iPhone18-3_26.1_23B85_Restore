@@ -329,49 +329,49 @@ LABEL_20:
 - (id)contents
 {
   selfCopy = self;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   unfilteredContents = [(IMLibraryPlist *)self unfilteredContents];
   unfilteredSidecarContents = [(IMLibraryPlist *)selfCopy unfilteredSidecarContents];
   v5 = [IMLibraryPlist deletesArrayFromPlistEntry:unfilteredSidecarContents];
   v6 = [IMLibraryPlist booksArrayFromPlistEntry:unfilteredContents];
   if ([v5 count] && objc_msgSend(v6, "count"))
   {
-    v36 = selfCopy;
-    v37 = v6;
-    v39 = unfilteredSidecarContents;
+    v35 = selfCopy;
+    v36 = v6;
+    v38 = unfilteredSidecarContents;
     v7 = [v6 sortedArrayUsingFunction:sub_241D31F1C context:0];
-    v38 = v5;
+    v37 = v5;
     sidecarPath2 = [v5 sortedArrayUsingSelector:sel_compare_];
     v9 = [sidecarPath2 count];
     v10 = [sidecarPath2 objectAtIndex:0];
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
-    v40 = unfilteredContents;
-    v41 = [unfilteredContents mutableCopyWithZone:0];
+    v39 = unfilteredContents;
+    v40 = [unfilteredContents mutableCopyWithZone:0];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     defaultManager = v7;
-    v12 = [defaultManager countByEnumeratingWithState:&v46 objects:v56 count:16];
+    v12 = [defaultManager countByEnumeratingWithState:&v45 objects:v55 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v43 = 0;
+      v42 = 0;
       obj = defaultManager;
-      v15 = *v47;
+      v15 = *v46;
       do
       {
         v16 = 0;
         do
         {
-          if (*v47 != v15)
+          if (*v46 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v46 + 1) + 8 * v16);
+          v17 = *(*(&v45 + 1) + 8 * v16);
           v18 = [IMLibraryPlist folderNameFromPlistEntry:v17];
           if ([v18 length])
           {
@@ -419,7 +419,7 @@ LABEL_20:
             if (!v20)
             {
               [array addObject:v18];
-              ++v43;
+              ++v42;
               if (v14 >= v9)
               {
 
@@ -440,7 +440,7 @@ LABEL_20:
 
         while (v16 != v13);
         defaultManager = obj;
-        v23 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
+        v23 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
         v13 = v23;
       }
 
@@ -449,58 +449,58 @@ LABEL_20:
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
     v27 = BLDefaultLog();
-    v6 = v37;
-    v5 = v38;
+    v6 = v36;
+    v5 = v37;
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      v28 = [v37 count];
-      v29 = [v38 count];
+      v28 = [v36 count];
+      v29 = [v37 count];
       v30 = [array2 count];
       *buf = 67109888;
-      *v51 = v28;
-      *&v51[4] = 1024;
-      *&v51[6] = v29;
-      v52 = 1024;
-      v53 = v30;
-      v54 = 1024;
-      v55 = v43;
+      *v50 = v28;
+      *&v50[4] = 1024;
+      *&v50[6] = v29;
+      v51 = 1024;
+      v52 = v30;
+      v53 = 1024;
+      v54 = v42;
       _os_log_impl(&dword_241D1F000, v27, OS_LOG_TYPE_DEBUG, "IMLibraryPlist: Unfiltered: %d; Filter: %d; Filtered: %d; Filter Hit: %d", buf, 0x1Au);
     }
 
-    if (v43)
+    if (v42)
     {
-      unfilteredSidecarContents = v39;
-      unfilteredContents = v40;
-      if ([sidecarPath2 count] > v43)
+      unfilteredSidecarContents = v38;
+      unfilteredContents = v39;
+      if ([sidecarPath2 count] > v42)
       {
-        [(IMLibraryPlist *)v36 p_rewriteSidecarWithDeletes:array];
+        [(IMLibraryPlist *)v35 p_rewriteSidecarWithDeletes:array];
       }
 
-      [IMLibraryPlist setBooksArray:array2 toPlistEntry:v41];
+      [IMLibraryPlist setBooksArray:array2 toPlistEntry:v40];
 
 LABEL_44:
-      v25 = v41;
+      v25 = v40;
       goto LABEL_45;
     }
 
-    [IMLibraryPlist setBooksArray:array2 toPlistEntry:v41];
+    [IMLibraryPlist setBooksArray:array2 toPlistEntry:v40];
 
-    v25 = v41;
-    unfilteredSidecarContents = v39;
-    unfilteredContents = v40;
-    selfCopy = v36;
+    v25 = v40;
+    unfilteredSidecarContents = v38;
+    unfilteredContents = v39;
+    selfCopy = v35;
 LABEL_41:
-    v41 = v25;
+    v40 = v25;
     v31 = BLDefaultLog();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       sidecarPath = [(IMLibraryPlist *)selfCopy sidecarPath];
       *buf = 138412290;
-      *v51 = sidecarPath;
+      *v50 = sidecarPath;
       _os_log_impl(&dword_241D1F000, v31, OS_LOG_TYPE_DEBUG, "IMLibraryPlist: Removing sidecar; %@", buf, 0xCu);
     }
 
@@ -525,7 +525,7 @@ LABEL_41:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    *v51 = [v6 count];
+    *v50 = [v6 count];
     _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_DEBUG, "IMLibraryPlist: Nothing to filter; Book Count: %d", buf, 8u);
   }
 
@@ -537,7 +537,6 @@ LABEL_41:
 LABEL_45:
   v33 = v25;
 
-  v34 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -552,7 +551,7 @@ LABEL_45:
 
 - (void)addDeletedFiles:(id)files
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   if ([filesCopy count])
   {
@@ -583,29 +582,29 @@ LABEL_45:
     }
 
     v12 = v11;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v13 = filesCopy;
-    v14 = [v13 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [v12 addObject:{*(*(&v24 + 1) + 8 * i), v24}];
+          [v12 addObject:{*(*(&v23 + 1) + 8 * i), v23}];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
       while (v15);
@@ -620,7 +619,7 @@ LABEL_45:
     {
       v21 = [v12 count];
       *buf = 67109120;
-      v29 = v21;
+      v28 = v21;
       _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_DEBUG, "addDeletedPaths -- rewritePlist %d entries", buf, 8u);
     }
 
@@ -629,13 +628,11 @@ LABEL_45:
 
     [(IMLibraryPlist *)self bumpModificationDate];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDeletedPaths:(id)paths
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   if ([pathsCopy count])
   {
@@ -649,36 +646,36 @@ LABEL_45:
       if (v8)
       {
         v10 = [v8 mutableCopyWithZone:0];
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
         v11 = pathsCopy;
-        v12 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
         if (v12)
         {
           v13 = v12;
-          v24 = v7;
+          v23 = v7;
           selfCopy = self;
-          v25 = pathsCopy;
+          v24 = pathsCopy;
           v14 = 0;
-          v15 = *v28;
+          v15 = *v27;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v28 != v15)
+              if (*v27 != v15)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v17 = *(*(&v27 + 1) + 8 * i);
-              v26[0] = MEMORY[0x277D85DD0];
-              v26[1] = 3221225472;
-              v26[2] = sub_241D3251C;
-              v26[3] = &unk_278D17548;
-              v26[4] = v17;
-              v18 = [v10 indexesOfObjectsPassingTest:{v26, selfCopy}];
+              v17 = *(*(&v26 + 1) + 8 * i);
+              v25[0] = MEMORY[0x277D85DD0];
+              v25[1] = 3221225472;
+              v25[2] = sub_241D3251C;
+              v25[3] = &unk_278D17548;
+              v25[4] = v17;
+              v18 = [v10 indexesOfObjectsPassingTest:{v25, selfCopy}];
               if ([v18 count])
               {
                 [v10 removeObjectsAtIndexes:v18];
@@ -686,13 +683,13 @@ LABEL_45:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
           }
 
           while (v13);
 
-          pathsCopy = v25;
-          v7 = v24;
+          pathsCopy = v24;
+          v7 = v23;
           if (v14)
           {
             v19 = BLDefaultLog();
@@ -700,13 +697,13 @@ LABEL_45:
             {
               v20 = [v10 count];
               *buf = 67109120;
-              v32 = v20;
+              v31 = v20;
               _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_DEBUG, "removeDeletedPaths -- rewritePlist %d entries", buf, 8u);
             }
 
-            [IMLibraryPlist setDeletesArray:v10 toPlistEntry:v24];
+            [IMLibraryPlist setDeletesArray:v10 toPlistEntry:v23];
             sidecarPath = [(IMLibraryPlist *)selfCopy sidecarPath];
-            [v24 writeToFile:sidecarPath atomically:1];
+            [v23 writeToFile:sidecarPath atomically:1];
 
             [(IMLibraryPlist *)selfCopy bumpModificationDate];
           }
@@ -718,64 +715,61 @@ LABEL_45:
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)entryForAssetID:(id)d contents:(id)contents
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [IMLibraryPlist booksArrayFromPlistEntry:contents];
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v6 = v22 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = v20 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
-        v12 = BUDynamicCast();
-        v13 = [IMLibraryPlist storeIdFromPlistEntry:v12, v19];
-        v14 = v13;
-        if (v13 && ([v13 isEqualToString:dCopy] & 1) != 0)
+        v11 = BUDynamicCast();
+        v12 = [IMLibraryPlist storeIdFromPlistEntry:v11, v17];
+        v13 = v12;
+        if (v12 && ([v12 isEqualToString:dCopy] & 1) != 0)
         {
           goto LABEL_17;
         }
 
-        v15 = [IMLibraryPlist bookEpubIdFromPlistEntry:v12];
+        v14 = [IMLibraryPlist bookEpubIdFromPlistEntry:v11];
 
-        if (v15 && ([v15 isEqualToString:dCopy] & 1) != 0)
+        if (v14 && ([v14 isEqualToString:dCopy] & 1) != 0)
         {
-          v14 = v15;
+          v13 = v14;
 LABEL_17:
-          v16 = v12;
+          v15 = v11;
 
           goto LABEL_18;
         }
 
-        v14 = [IMLibraryPlist uniqueIdFromPlistEntry:v12];
+        v13 = [IMLibraryPlist uniqueIdFromPlistEntry:v11];
 
-        if (v14 && [v14 isEqualToString:dCopy])
+        if (v13 && [v13 isEqualToString:dCopy])
         {
           goto LABEL_17;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      v16 = 0;
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v15 = 0;
       if (v8)
       {
         continue;
@@ -787,49 +781,46 @@ LABEL_17:
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
 + (id)entryForAssetURL:(id)l contents:(id)contents
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   lCopy = l;
   [IMLibraryPlist booksArrayFromPlistEntry:contents];
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v6 = v21 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = v19 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
-        v12 = BUDynamicCast();
-        v13 = [IMLibraryPlist folderNameFromPlistEntry:v12, v18];
-        if (v13)
+        v11 = BUDynamicCast();
+        v12 = [IMLibraryPlist folderNameFromPlistEntry:v11, v16];
+        if (v12)
         {
           lastPathComponent = [lCopy lastPathComponent];
-          v15 = [v13 isEqualToString:lastPathComponent];
+          v14 = [v12 isEqualToString:lastPathComponent];
 
-          if (v15)
+          if (v14)
           {
 
             goto LABEL_12;
@@ -837,7 +828,7 @@ LABEL_18:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -847,12 +838,10 @@ LABEL_18:
     }
   }
 
-  v12 = 0;
+  v11 = 0;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v11;
 }
 
 + (id)isManagedBookFromURL:(id)l
@@ -876,17 +865,17 @@ LABEL_12:
 
 - (BOOL)bumpModificationDate
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v18 = *MEMORY[0x277CCA150];
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277CCA150];
   date = [MEMORY[0x277CBEAA8] date];
-  v19[0] = date;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = date;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [(IMLibraryPlist *)self path];
-  v13 = 0;
-  v7 = [defaultManager setAttributes:v4 ofItemAtPath:path error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [defaultManager setAttributes:v4 ofItemAtPath:path error:&v12];
+  v8 = v12;
 
   if ((v7 & 1) == 0)
   {
@@ -895,14 +884,13 @@ LABEL_12:
     {
       path2 = [(IMLibraryPlist *)self path];
       *buf = 138412546;
-      v15 = path2;
-      v16 = 2112;
-      v17 = v8;
+      v14 = path2;
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "Error changing modification date of %@ --  %@", buf, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1697,7 +1685,7 @@ LABEL_12:
 
 + (id)collectionIdFromPlistEntry:(id)entry
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   v4 = +[IMLibraryPlist keyNameForCollectionId];
   objc_opt_class();
@@ -1707,13 +1695,13 @@ LABEL_12:
 
   if (v6)
   {
-    v13 = 0;
+    v12 = 0;
     v7 = [MEMORY[0x277CCAC80] scannerWithString:v6];
-    v8 = [v7 scanHexLongLong:&v13];
+    v8 = [v7 scanHexLongLong:&v12];
 
     if (v8)
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v13];
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v12];
       stringValue = [v9 stringValue];
     }
 
@@ -1723,9 +1711,9 @@ LABEL_12:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v15 = v4;
-        v16 = 2112;
-        v17 = v6;
+        v14 = v4;
+        v15 = 2112;
+        v16 = v6;
         _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "Failed to convert key '%{public}@' hex->decimal: [%@]", buf, 0x16u);
       }
 
@@ -1737,8 +1725,6 @@ LABEL_12:
   {
     stringValue = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return stringValue;
 }
@@ -1802,7 +1788,7 @@ LABEL_8:
 
 + (id)storeIdFromPlistEntry:(id)entry
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   objc_opt_class();
   v4 = +[IMLibraryPlist keyNameForStoreId2];
@@ -1838,13 +1824,13 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  v15 = 0;
+  v14 = 0;
   v7 = [MEMORY[0x277CCAC80] scannerWithString:v6];
-  v8 = [v7 scanHexLongLong:&v15];
+  v8 = [v7 scanHexLongLong:&v14];
 
   if (v8)
   {
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v15];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v14];
     stringValue2 = [v9 stringValue];
   }
 
@@ -1854,7 +1840,7 @@ LABEL_13:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v6;
+      v16 = v6;
       _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "Failed to hex->decimal: [%@]", buf, 0xCu);
     }
 
@@ -1867,8 +1853,6 @@ LABEL_15:
 
     stringValue2 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return stringValue2;
 }

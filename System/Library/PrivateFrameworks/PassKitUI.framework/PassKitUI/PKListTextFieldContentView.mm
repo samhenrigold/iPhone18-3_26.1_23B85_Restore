@@ -172,9 +172,9 @@
   [labelCopy setAllowsDefaultTighteningForTruncation:{objc_msgSend(propertiesCopy, "allowsDefaultTighteningForTruncation")}];
   [labelCopy setAdjustsFontForContentSizeCategory:{objc_msgSend(propertiesCopy, "adjustsFontForContentSizeCategory")}];
   text = [labelCopy text];
-  transform = [propertiesCopy transform];
+  v10 = objc_msgSend_transform(propertiesCopy);
 
-  v11 = [(PKListTextFieldContentView *)self _transformedText:text forTransform:transform];
+  v11 = [(PKListTextFieldContentView *)self _transformedText:text forTransform:v10];
   [labelCopy setText:v11];
 }
 
@@ -194,11 +194,11 @@
   [fieldCopy setMinimumFontSize:?];
   [fieldCopy setAdjustsFontForContentSizeCategory:{objc_msgSend(propertiesCopy, "adjustsFontForContentSizeCategory")}];
   text = [fieldCopy text];
-  v10 = -[PKListTextFieldContentView _transformedText:forTransform:](self, "_transformedText:forTransform:", text, [propertiesCopy transform]);
+  v10 = [(PKListTextFieldContentView *)self _transformedText:text forTransform:objc_msgSend_transform(propertiesCopy)];
   [fieldCopy setText:v10];
 
-  transform = [propertiesCopy transform];
-  [fieldCopy setAutocapitalizationType:{-[PKListTextFieldContentView _textAutocapTypeForTextTransform:](self, "_textAutocapTypeForTextTransform:", transform)}];
+  v11 = objc_msgSend_transform(propertiesCopy);
+  [fieldCopy setAutocapitalizationType:{-[PKListTextFieldContentView _textAutocapTypeForTextTransform:](self, "_textAutocapTypeForTextTransform:", v11)}];
 }
 
 - (int64_t)_textAlignmentForListAlignment:(int64_t)alignment

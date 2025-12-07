@@ -374,7 +374,7 @@ void __61__PKApplyCollectionViewController__withdrawApplicationTapped__block_inv
 LABEL_9:
 }
 
-uint64_t __61__PKApplyCollectionViewController__withdrawApplicationTapped__block_invoke_2(uint64_t a1, char a2)
+void *__61__PKApplyCollectionViewController__withdrawApplicationTapped__block_invoke_2(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) setShowNavigationBarSpinner:0];
   if ((a2 & 1) == 0)
@@ -442,7 +442,7 @@ void __49__PKApplyCollectionViewController_handleNextStep__block_invoke(uint64_t
   }
 }
 
-uint64_t __77__PKApplyCollectionViewController_handleNextViewController_displayableError___block_invoke(uint64_t a1, char a2)
+void *__77__PKApplyCollectionViewController_handleNextViewController_displayableError___block_invoke(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) setShowNavigationBarSpinner:0];
   if ((a2 & 1) == 0)

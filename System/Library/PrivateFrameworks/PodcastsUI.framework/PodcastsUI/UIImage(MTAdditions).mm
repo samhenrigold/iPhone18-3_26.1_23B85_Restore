@@ -28,9 +28,9 @@
     +[UIImage(MTAdditions) nowPlayingIcon];
   }
 
-  v1 = nowPlayingIcon_templateNowPlayingIcon;
+  v2 = nowPlayingIcon_templateNowPlayingIcon;
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)unplayedIconForTheme:()MTAdditions
@@ -47,9 +47,9 @@
     +[UIImage(MTAdditions) unplayedIconForDarkBackground:];
   }
 
-  v1 = unplayedIconForDarkBackground__strokedUnplayedIcon;
+  v2 = unplayedIconForDarkBackground__strokedUnplayedIcon;
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)halfPlayedIconForTheme:()MTAdditions
@@ -66,9 +66,9 @@
     +[UIImage(MTAdditions) halfPlayedIconForDarkBackground:];
   }
 
-  v1 = halfPlayedIconForDarkBackground__strokedHalfPlayedIcon;
+  v2 = halfPlayedIconForDarkBackground__strokedHalfPlayedIcon;
 
-  return v1;
+  return v2;
 }
 
 + (id)backCatalogIconForTheme:()MTAdditions
@@ -156,9 +156,9 @@
     +[UIImage(MTAdditions) multiCheckIcon];
   }
 
-  v1 = multiCheckIcon_templateMultiCheckIcon;
+  v2 = multiCheckIcon_templateMultiCheckIcon;
 
-  return v1;
+  return v2;
 }
 
 + (id)multiUncheckIcon
@@ -168,9 +168,9 @@
     +[UIImage(MTAdditions) multiUncheckIcon];
   }
 
-  v1 = multiUncheckIcon_templateMultiUncheckIcon;
+  v2 = multiUncheckIcon_templateMultiUncheckIcon;
 
-  return v1;
+  return v2;
 }
 
 + (id)infoIcon
@@ -180,9 +180,9 @@
     +[UIImage(MTAdditions) infoIcon];
   }
 
-  v1 = infoIcon_templateInfoIcon;
+  v2 = infoIcon_templateInfoIcon;
 
-  return v1;
+  return v2;
 }
 
 + (id)defaultPodcastArtworkWithWidth:()MTAdditions

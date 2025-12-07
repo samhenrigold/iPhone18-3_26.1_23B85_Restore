@@ -261,7 +261,6 @@ LABEL_41:
 
   ktrace_end();
   dispatch_semaphore_wait(self->_stoppingSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-  ktraceSession = self->_ktraceSession;
   ktrace_session_destroy();
   self->_ktraceSession = 0;
   _providerTopErrors = [(DTKTraceSessionCreator *)self _providerTopErrors];
@@ -271,55 +270,55 @@ LABEL_41:
     return 1;
   }
 
-  v7 = objc_opt_new();
+  v6 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v8 = _providerTopErrors;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
-  if (v9)
+  v7 = _providerTopErrors;
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v23;
+    v9 = v8;
+    v10 = *v22;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v23 != v11)
+        if (*v22 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        userInfo = [*(*(&v22 + 1) + 8 * i) userInfo];
-        v14 = [userInfo objectForKeyedSubscript:@"DVTKtraceSessionProviderName"];
+        userInfo = [*(*(&v21 + 1) + 8 * i) userInfo];
+        v13 = [userInfo objectForKeyedSubscript:@"DVTKtraceSessionProviderName"];
 
-        if (v14)
+        if (v13)
         {
-          [v7 addObject:v14];
+          [v6 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
-  v26[0] = NSLocalizedDescriptionKey;
-  allObjects = [v7 allObjects];
-  v16 = [allObjects componentsJoinedByString:{@", "}];
-  v17 = [NSString stringWithFormat:@"Data Providers emitted errors: %@", v16];
-  v26[1] = @"DVTKtraceSessionProviderErrorsArrayKey";
-  v27[0] = v17;
-  v27[1] = v8;
-  v18 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:2];
-  v19 = [NSError errorWithDomain:@"com.apple.dt.ktrace_recording.provider" code:2 userInfo:v18];
+  v25[0] = NSLocalizedDescriptionKey;
+  allObjects = [v6 allObjects];
+  v15 = [allObjects componentsJoinedByString:{@", "}];
+  v16 = [NSString stringWithFormat:@"Data Providers emitted errors: %@", v15];
+  v25[1] = @"DVTKtraceSessionProviderErrorsArrayKey";
+  v26[0] = v16;
+  v26[1] = v7;
+  v17 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v18 = [NSError errorWithDomain:@"com.apple.dt.ktrace_recording.provider" code:2 userInfo:v17];
 
   if (error)
   {
-    v20 = v19;
-    *error = v19;
+    v19 = v18;
+    *error = v18;
   }
 
   return 0;

@@ -43,24 +43,24 @@
         v34 = v11;
         if (v12)
         {
-          allKeys = __atxlog_handle_metrics();
+          allKeys = __atxlog_handle_metrics(v13);
           if (!os_log_type_enabled(allKeys, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_18;
           }
 
-          v14 = objc_opt_class();
-          NSStringFromClass(v14);
-          v15 = v33 = v9;
+          v15 = objc_opt_class();
+          NSStringFromClass(v15);
+          v16 = v33 = v9;
           localizedDescription = [v12 localizedDescription];
           [v8 semanticType];
-          v17 = DNDModeSemanticTypeToString();
+          v18 = DNDModeSemanticTypeToString();
           *buf = 138412802;
-          v46 = v15;
+          v46 = v16;
           v47 = 2112;
           v48 = localizedDescription;
           v49 = 2112;
-          v50 = v17;
+          v50 = v18;
           _os_log_error_impl(&dword_2263AA000, allKeys, OS_LOG_TYPE_ERROR, "%@: Got error: %@, when getting AppConfigturation for %@", buf, 0x20u);
 
           v5 = v31;
@@ -74,36 +74,36 @@
           v35 = 0u;
           v36 = 0u;
           allKeys = [v11 allKeys];
-          v18 = [allKeys countByEnumeratingWithState:&v35 objects:v44 count:16];
-          if (v18)
+          v19 = [allKeys countByEnumeratingWithState:&v35 objects:v44 count:16];
+          if (v19)
           {
-            v19 = v18;
-            v20 = *v36;
+            v20 = v19;
+            v21 = *v36;
             do
             {
-              for (i = 0; i != v19; ++i)
+              for (i = 0; i != v20; ++i)
               {
-                if (*v36 != v20)
+                if (*v36 != v21)
                 {
                   objc_enumerationMutation(allKeys);
                 }
 
-                v22 = *(*(&v35 + 1) + 8 * i);
-                v23 = objc_opt_new();
-                bundleID = [v22 bundleID];
-                [v23 setBundleId:bundleID];
+                v23 = *(*(&v35 + 1) + 8 * i);
+                v24 = objc_opt_new();
+                bundleID = [v23 bundleID];
+                [v24 setBundleId:bundleID];
 
                 [v8 semanticType];
-                v25 = DNDModeSemanticTypeToString();
-                [v23 setModeSemanticType:v25];
+                v26 = DNDModeSemanticTypeToString();
+                [v24 setModeSemanticType:v26];
 
-                [v23 logToCoreAnalytics];
+                [v24 logToCoreAnalytics];
               }
 
-              v19 = [allKeys countByEnumeratingWithState:&v35 objects:v44 count:16];
+              v20 = [allKeys countByEnumeratingWithState:&v35 objects:v44 count:16];
             }
 
-            while (v19);
+            while (v20);
             v6 = v29;
             mEMORY[0x277CEB440] = v30;
             v5 = v31;
@@ -123,8 +123,6 @@ LABEL_18:
 
     while (v5);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,12 +1,15 @@
 @interface NWStatsSource
 - (BOOL)bundleNameImpliesNonAppInitiated:(id)initiated;
 - (BOOL)handleDomainInfo:(nstat_domain_info *)info;
+- (BOOL)handleUnknownExtension:(unsigned int)extension data:(id)data;
 - (BOOL)processExtendedDetails:(nstat_msg_src_extended_item_hdr *)details length:(int64_t)length;
 - (id)_createNSUUIDForBytes:(unsigned __int8)bytes[16];
 - (unsigned)flagsForProvider:(unsigned int)provider;
 - (unsigned)flagsForProvider:(unsigned int)provider sockaddr:(sockaddr *)sockaddr;
 - (void)logAddressChangeOn:(unint64_t)on procName:(char *)name variant:(id)variant oldAddress:(sockaddr *)address newAddress:(sockaddr *)newAddress;
+- (void)logAttributionChangeOn:(unint64_t)on oldProcName:(char *)name newProcName:(char *)procName oldPid:(int)pid newPid:(int)newPid oldEPid:(int)ePid newEPid:(int)newEPid oldUUID:(unsigned __int8)self0[16] newUUID:(unsigned __int8)self1[16] oldEUUID:(unsigned __int8)self2[16] newEUUID:(unsigned __int8)self3[16] monitor:(id)self4;
 - (void)saveOldValues:(nstat_detailed_counts *)values;
+- (void)setAttribution:(id)attribution derivation:(int)derivation delegateName:(id)name delegateDerivation:(int)delegateDerivation extensionName:(id)extensionName;
 @end
 
 @implementation NWStatsSource
@@ -97,32 +100,96 @@
   *&self->_prevItems.savedRxOutOfOrderBytes = vmovn_s64(*&values->nstat_rxoutoforderbytes);
 }
 
+- (void)logAttributionChangeOn:(unint64_t)on oldProcName:(char *)name newProcName:(char *)procName oldPid:(int)pid newPid:(int)newPid oldEPid:(int)ePid newEPid:(int)newEPid oldUUID:(unsigned __int8)self0[16] newUUID:(unsigned __int8)self1[16] oldEUUID:(unsigned __int8)self2[16] newEUUID:(unsigned __int8)self3[16] monitor:(id)self4
+{
+  v14 = *&newPid;
+  v60 = *MEMORY[0x277D85DE8];
+  v17 = MEMORY[0x277CCAD78];
+  monitorCopy = monitor;
+  v19 = [[v17 alloc] initWithUUIDBytes:iD];
+  v20 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:uUID];
+  v38 = [monitorCopy bestIdentifierForUUID:v19 EUUID:v20 pid:v14 epid:newEPid procname:procName derivation:0];
+
+  v22 = NStatGetLog(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:d];
+    [v32 UUIDString];
+    v23 = v34 = v20;
+    selfCopy = self;
+    v24 = v19;
+    v25 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:uID];
+    uUIDString = [v25 UUIDString];
+    uUIDString2 = [v24 UUIDString];
+    uUIDString3 = [v34 UUIDString];
+    *buf = 134220546;
+    onCopy2 = on;
+    v42 = 2080;
+    nameCopy = name;
+    v44 = 1024;
+    *v45 = pid;
+    *&v45[4] = 1024;
+    *&v45[6] = ePid;
+    v46 = 2112;
+    v47 = v23;
+    v48 = 2112;
+    v49 = uUIDString;
+    v50 = 2080;
+    procNameCopy = procName;
+    v52 = 1024;
+    v53 = v14;
+    v54 = 1024;
+    newEPidCopy = newEPid;
+    v56 = 2112;
+    v57 = uUIDString2;
+    v58 = 2112;
+    v59 = uUIDString3;
+    _os_log_impl(&dword_25BA3A000, v22, OS_LOG_TYPE_DEFAULT, "Source %lld attribution change, was procname %s pid %d epid %d uuid %@ euuid %@  now %s %d %d %@ %@", buf, 0x60u);
+
+    v19 = v24;
+    self = selfCopy;
+
+    v20 = v34;
+  }
+
+  v30 = NStatGetLog(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  {
+    attributedEntity = [(NWStatsSource *)self attributedEntity];
+    *buf = 134218498;
+    onCopy2 = on;
+    v42 = 2112;
+    nameCopy = attributedEntity;
+    v44 = 2112;
+    *v45 = v38;
+    _os_log_impl(&dword_25BA3A000, v30, OS_LOG_TYPE_DEFAULT, "Source %lld old attribution %@ new attribution %@", buf, 0x20u);
+  }
+}
+
 - (void)logAddressChangeOn:(unint64_t)on procName:(char *)name variant:(id)variant oldAddress:(sockaddr *)address newAddress:(sockaddr *)newAddress
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   variantCopy = variant;
-  v13 = NStatGetLog();
+  v13 = NStatGetLog(variantCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     attributedEntity = [(NWStatsSource *)self attributedEntity];
     v15 = sockaddrForLogging(address);
     v16 = sockaddrForLogging(newAddress);
-    v18 = 138413570;
-    v19 = variantCopy;
-    v20 = 2048;
+    v17 = 138413570;
+    v18 = variantCopy;
+    v19 = 2048;
     onCopy = on;
-    v22 = 2080;
+    v21 = 2080;
     nameCopy = name;
-    v24 = 2112;
-    v25 = attributedEntity;
-    v26 = 2112;
-    v27 = v15;
-    v28 = 2112;
-    v29 = v16;
-    _os_log_impl(&dword_25BA3A000, v13, OS_LOG_TYPE_DEFAULT, "Unexpected %@ on flow %lld for process %s attributed %@, was %@ now %@", &v18, 0x3Eu);
+    v23 = 2112;
+    v24 = attributedEntity;
+    v25 = 2112;
+    v26 = v15;
+    v27 = 2112;
+    v28 = v16;
+    _os_log_impl(&dword_25BA3A000, v13, OS_LOG_TYPE_DEFAULT, "Unexpected %@ on flow %lld for process %s attributed %@, was %@ now %@", &v17, 0x3Eu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)handleDomainInfo:(nstat_domain_info *)info
@@ -183,10 +250,35 @@
   return 1;
 }
 
+- (BOOL)handleUnknownExtension:(unsigned int)extension data:(id)data
+{
+  v4 = *&extension;
+  dataCopy = data;
+  if (!dataCopy)
+  {
+    [NWStatsSource handleUnknownExtension:data:];
+  }
+
+  v7 = dataCopy;
+  extensions = [(NWStatsSource *)self extensions];
+
+  if (!extensions)
+  {
+    v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [(NWStatsSource *)self setExtensions:v9];
+  }
+
+  extensions2 = [(NWStatsSource *)self extensions];
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  [extensions2 setObject:v7 forKeyedSubscript:v11];
+
+  return 1;
+}
+
 - (BOOL)processExtendedDetails:(nstat_msg_src_extended_item_hdr *)details length:(int64_t)length
 {
   v18 = *MEMORY[0x277D85DE8];
-  result = 1;
+  v5 = 1;
   if (length >= 8)
   {
     detailsCopy = details;
@@ -199,7 +291,7 @@
         v9 = length - 8;
         if (length - 8 < var1)
         {
-          v10 = NStatGetLog();
+          v10 = NStatGetLog(v5);
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
@@ -224,7 +316,8 @@
             [NWStatsSource processExtendedDetails:length:];
           }
 
-          if (![(NWStatsSource *)self handleDomainInfo:&detailsCopy[1]])
+          v5 = [(NWStatsSource *)self handleDomainInfo:&detailsCopy[1]];
+          if (!v5)
           {
             goto LABEL_17;
           }
@@ -233,7 +326,7 @@
         else
         {
           v11 = [MEMORY[0x277CBEA90] dataWithBytes:&detailsCopy[1] length:var1];
-          v12 = NStatGetLog();
+          v12 = NStatGetLog(v11);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109634;
@@ -249,8 +342,8 @@
           if (!v13)
           {
 LABEL_17:
-            result = 0;
-            break;
+            LOBYTE(v5) = 0;
+            return v5;
           }
         }
 
@@ -259,15 +352,14 @@ LABEL_17:
         detailsCopy = (detailsCopy + v14 + 8);
         if (v9 - v14 <= 7)
         {
-          result = 1;
-          break;
+          LOBYTE(v5) = 1;
+          return v5;
         }
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5;
 }
 
 - (BOOL)bundleNameImpliesNonAppInitiated:(id)initiated
@@ -303,6 +395,32 @@ void __50__NWStatsSource_bundleNameImpliesNonAppInitiated___block_invoke()
 {
   v0 = bundleNameImpliesNonAppInitiated__nonAppInitiatedBundleIDs;
   bundleNameImpliesNonAppInitiated__nonAppInitiatedBundleIDs = &unk_286D3E5B8;
+}
+
+- (void)setAttribution:(id)attribution derivation:(int)derivation delegateName:(id)name delegateDerivation:(int)delegateDerivation extensionName:(id)extensionName
+{
+  v8 = *&delegateDerivation;
+  v9 = *&derivation;
+  nameCopy = name;
+  extensionNameCopy = extensionName;
+  v13 = MEMORY[0x277CCACA8];
+  attributionCopy = attribution;
+  v15 = [[v13 alloc] initWithString:attributionCopy];
+
+  [(NWStatsSource *)self setAttributedEntity:v15];
+  [(NWStatsSource *)self setAttributionReason:v9];
+  [(NWStatsSource *)self setDelegateAttributionReason:v8];
+  if (nameCopy)
+  {
+    v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:nameCopy];
+    [(NWStatsSource *)self setDelegateName:v16];
+  }
+
+  if (extensionNameCopy)
+  {
+    v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:extensionNameCopy];
+    [(NWStatsSource *)self setAttributedExtension:v17];
+  }
 }
 
 @end

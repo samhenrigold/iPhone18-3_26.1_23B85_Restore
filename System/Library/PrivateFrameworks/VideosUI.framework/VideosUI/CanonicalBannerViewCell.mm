@@ -25,7 +25,7 @@
 - (void)vui_prepareForReuse
 {
   selfCopy = self;
-  sub_1E3D12478();
+  sub_1E3D12478(selfCopy);
 }
 
 - (CGSize)intrinsicContentSize
@@ -57,7 +57,7 @@
 - (void)vui_cellWillBeDisplayed
 {
   selfCopy = self;
-  sub_1E3D17AF4();
+  sub_1E3D17AF4(selfCopy);
 }
 
 - (VUIImageView)accessibilityTitleImageView
@@ -115,7 +115,7 @@
 
   if (v3)
   {
-    sub_1E3280A90(0, &qword_1EE23AE80);
+    sub_1E3280A90(0, &qword_1EE23AE80, 0x1E69DD250);
     v4 = sub_1E42062A4();
   }
 

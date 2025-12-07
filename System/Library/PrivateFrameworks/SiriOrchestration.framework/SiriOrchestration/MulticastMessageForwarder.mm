@@ -65,27 +65,27 @@ BOOL __44__MulticastMessageForwarder_removeReceiver___block_invoke(uint64_t a1, 
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   receivers = [(MulticastMessageForwarder *)self receivers];
-  v4 = [receivers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [receivers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(receivers);
         }
 
-        wrappedObject = [*(*(&v13 + 1) + 8 * i) wrappedObject];
+        wrappedObject = [*(*(&v12 + 1) + 8 * i) wrappedObject];
         v9 = objc_opt_respondsToSelector();
 
         if (v9)
@@ -95,7 +95,7 @@ BOOL __44__MulticastMessageForwarder_removeReceiver___block_invoke(uint64_t a1, 
         }
       }
 
-      v5 = [receivers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [receivers countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -108,33 +108,32 @@ BOOL __44__MulticastMessageForwarder_removeReceiver___block_invoke(uint64_t a1, 
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)methodSignatureForSelector:(SEL)selector
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   receivers = [(MulticastMessageForwarder *)self receivers];
-  v5 = [receivers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [receivers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(receivers);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         wrappedObject = [v9 wrappedObject];
         v11 = objc_opt_respondsToSelector();
 
@@ -147,7 +146,7 @@ LABEL_11:
         }
       }
 
-      v6 = [receivers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [receivers countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -159,8 +158,6 @@ LABEL_11:
 
   v12 = 0;
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -222,34 +219,34 @@ void __48__MulticastMessageForwarder_cleanupNilReceivers__block_invoke(uint64_t 
 
 - (void)forwardInvocation:(id)invocation
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   selector = [invocationCopy selector];
   methodSignature = [invocationCopy methodSignature];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   selfCopy = self;
   obj = [(MulticastMessageForwarder *)self receivers];
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
-    v22 = *v27;
+    v9 = *v26;
+    v21 = *v26;
     do
     {
       v10 = 0;
-      v23 = v8;
+      v22 = v8;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        wrappedObject = [*(*(&v26 + 1) + 8 * v10) wrappedObject];
+        wrappedObject = [*(*(&v25 + 1) + 8 * v10) wrappedObject];
         if (wrappedObject && (objc_opt_respondsToSelector() & 1) != 0)
         {
           v12 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:methodSignature];
@@ -276,11 +273,11 @@ void __48__MulticastMessageForwarder_cleanupNilReceivers__block_invoke(uint64_t 
                   case 'h':
                     goto LABEL_24;
                   case 'c':
-                    LOBYTE(v25) = 0;
+                    LOBYTE(v24) = 0;
                     goto LABEL_21;
                   case 'f':
                   case 'i':
-                    LODWORD(v25) = 0;
+                    LODWORD(v24) = 0;
                     goto LABEL_21;
                   default:
                     JUMPOUT(0);
@@ -310,10 +307,10 @@ LABEL_24:
                 }
               }
 
-              LOWORD(v25) = 0;
+              LOWORD(v24) = 0;
 LABEL_21:
-              [invocationCopy getArgument:&v25 atIndex:v13];
-              [v12 setArgument:&v25 atIndex:v13];
+              [invocationCopy getArgument:&v24 atIndex:v13];
+              [v12 setArgument:&v24 atIndex:v13];
 LABEL_22:
               if (++v13 >= [methodSignature numberOfArguments])
               {
@@ -322,29 +319,28 @@ LABEL_22:
             }
 
 LABEL_19:
-            v25 = 0;
+            v24 = 0;
             goto LABEL_21;
           }
 
 LABEL_25:
           [v12 invokeWithTarget:wrappedObject];
 
-          v9 = v22;
-          v8 = v23;
+          v9 = v21;
+          v8 = v22;
         }
 
         ++v10;
       }
 
       while (v10 != v8);
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
 
   [(MulticastMessageForwarder *)selfCopy cleanupNilReceivers];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

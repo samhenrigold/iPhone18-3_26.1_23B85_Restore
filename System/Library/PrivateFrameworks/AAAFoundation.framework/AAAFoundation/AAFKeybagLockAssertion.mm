@@ -9,7 +9,7 @@
 {
   v19[2] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(AAFKeybagLockAssertion);
-  v5 = _AAFLogSystem();
+  v5 = _AAFLogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [AAFKeybagLockAssertion lockWithError:v5];
@@ -45,12 +45,13 @@
   }
 
   v8 = v7(v6, &v12);
+  v9 = v8;
   if (v12)
   {
-    v9 = _AAFLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _AAFLogSystem(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(AAFKeybagLockAssertion *)&v12 lockWithError:v9];
+      [(AAFKeybagLockAssertion *)&v12 lockWithError:v10];
     }
 
     if (error)
@@ -64,9 +65,9 @@
     }
   }
 
-  if (v8)
+  if (v9)
   {
-    v4->_assertionRef = v8;
+    v4->_assertionRef = v9;
   }
 
   else
@@ -75,19 +76,17 @@
     v4 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)unlock
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v3 = _AAFLogSystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v3 = objc_sync_enter(selfCopy);
+  v4 = _AAFLogSystem(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(AAFKeybagLockAssertion *)v3 unlock];
+    [(AAFKeybagLockAssertion *)v4 unlock];
   }
 
   assertionRef = selfCopy->_assertionRef;
@@ -102,12 +101,11 @@
 
 + (void)lockWithError:(uint64_t *)a1 .cold.2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Failed to take device lock assertion: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Failed to take device lock assertion: %@", &v3, 0xCu);
 }
 
 @end

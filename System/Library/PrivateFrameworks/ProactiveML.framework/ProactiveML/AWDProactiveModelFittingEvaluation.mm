@@ -15,7 +15,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[6])
@@ -69,35 +69,33 @@
     [(AWDProactiveModelFittingEvaluation *)self setEvaluationMetrics:?];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = *(v5 + 5);
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(AWDProactiveModelFittingEvaluation *)self addPrecisionAtK:*(*(&v18 + 1) + 8 * i), v18];
+        [(AWDProactiveModelFittingEvaluation *)self addPrecisionAtK:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -126,7 +124,6 @@
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -138,7 +135,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -169,22 +166,22 @@ LABEL_15:
   precisionAtKs = self->_precisionAtKs;
   if (precisionAtKs | *(equalCopy + 5))
   {
-    v10 = [(NSMutableArray *)precisionAtKs isEqual:?];
+    v9 = [(NSMutableArray *)precisionAtKs isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -205,40 +202,39 @@ LABEL_16:
   v12 = v6[2];
   v6[2] = v11;
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = self->_precisionAtKs;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v21 + 1) + 8 * v17) copyWithZone:{zone, v21}];
+        v18 = [*(*(&v20 + 1) + 8 * v17) copyWithZone:{zone, v20}];
         [v6 addPrecisionAtK:v18];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -285,11 +281,10 @@ LABEL_16:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -308,44 +303,41 @@ LABEL_16:
     PBDataWriterWriteSubmessage();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_precisionAtKs;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_precisionAtKs;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -377,30 +369,30 @@ LABEL_16:
   if ([(NSMutableArray *)self->_precisionAtKs count])
   {
     v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_precisionAtKs, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v12 = self->_precisionAtKs;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation4 = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
           [v11 addObject:dictionaryRepresentation4];
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v14);
@@ -408,8 +400,6 @@ LABEL_16:
 
     [dictionary setObject:v11 forKey:@"precisionAtK"];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -446,28 +436,28 @@ LABEL_16:
 
 - (float)precisionAtK:(unint64_t)k
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   precisionAtKs = [(AWDProactiveModelFittingEvaluation *)self precisionAtKs];
-  v5 = [precisionAtKs countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [precisionAtKs countByEnumeratingWithState:&v13 objects:v17 count:16];
   v6 = -1.0;
   if (v5)
   {
     v7 = v5;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(precisionAtKs);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 k] == k)
         {
           [v10 precision];
@@ -476,7 +466,7 @@ LABEL_16:
         }
       }
 
-      v7 = [precisionAtKs countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [precisionAtKs countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -488,7 +478,6 @@ LABEL_16:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

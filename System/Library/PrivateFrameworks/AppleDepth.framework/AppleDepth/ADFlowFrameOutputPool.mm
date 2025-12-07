@@ -3,7 +3,7 @@
 + (ADFlowFrameOutputPool)poolWithDepthDescriptor:(id)descriptor confidenceDescriptor:(id)confidenceDescriptor confidenceLevelsDescriptor:(id)levelsDescriptor normalsDescriptor:(id)normalsDescriptor uncertaintyDescriptor:(id)uncertaintyDescriptor depthMaskDescriptor:(id)maskDescriptor layout:(unint64_t)layout;
 + (ADFlowFrameOutputPool)poolWithDepthDescriptor:(id)descriptor confidenceDescriptor:(id)confidenceDescriptor layout:(unint64_t)layout;
 + (ADFlowFrameOutputPool)poolWithDepthDimensions:(CGSize)dimensions depthFormat:(unsigned int)format confidenceDimensions:(CGSize)confidenceDimensions confidenceFormat:(unsigned int)confidenceFormat confidenceLevelsDimensions:(CGSize)levelsDimensions confidenceLevelsFormat:(unsigned int)levelsFormat normalsDimensions:(CGSize)normalsDimensions normalsFormat:(unsigned int)self0 uncertaintyDimensions:(CGSize)self1 uncertaintyFormat:(unsigned int)self2 depthMaskDimensions:(CGSize)self3 depthMaskFormat:(unsigned int)self4;
-- (ADFlowFrameOutputPool)initWithDepthDimensions:(CGSize)dimensions depthFormat:(unsigned int)format confidenceDimensions:(CGSize)confidenceDimensions confidenceFormat:(unsigned int)confidenceFormat confidenceLevelsDimensions:(CGSize)levelsDimensions confidenceLevelsFormat:(unsigned int)levelsFormat normalsDimensions:(CGSize)normalsDimensions normalsFormat:(unsigned int)self0 uncertaintyDimensions:(CGSize)self1 uncertaintyFormat:(double)self2 depthMaskDimensions:(CGSize)self3 depthMaskFormat:(unsigned int)self4;
+- (ADFlowFrameOutputPool)initWithDepthDimensions:(CGSize)dimensions depthFormat:(unsigned int)format confidenceDimensions:(CGSize)confidenceDimensions confidenceFormat:(unsigned int)confidenceFormat confidenceLevelsDimensions:(CGSize)levelsDimensions confidenceLevelsFormat:(unsigned int)levelsFormat normalsDimensions:(CGSize)normalsDimensions normalsFormat:(unsigned int)self0 uncertaintyDimensions:(CGSize)self1 uncertaintyFormat:(unsigned int)self2 depthMaskDimensions:(CGSize)self3 depthMaskFormat:(unsigned int)self4;
 - (__CVBuffer)bufferFromPool:(__CVPixelBufferPool *)pool;
 - (id)frameOutput;
 - (void)dealloc;
@@ -49,7 +49,7 @@
   return pixelBufferOut;
 }
 
-- (ADFlowFrameOutputPool)initWithDepthDimensions:(CGSize)dimensions depthFormat:(unsigned int)format confidenceDimensions:(CGSize)confidenceDimensions confidenceFormat:(unsigned int)confidenceFormat confidenceLevelsDimensions:(CGSize)levelsDimensions confidenceLevelsFormat:(unsigned int)levelsFormat normalsDimensions:(CGSize)normalsDimensions normalsFormat:(unsigned int)self0 uncertaintyDimensions:(CGSize)self1 uncertaintyFormat:(double)self2 depthMaskDimensions:(CGSize)self3 depthMaskFormat:(unsigned int)self4
+- (ADFlowFrameOutputPool)initWithDepthDimensions:(CGSize)dimensions depthFormat:(unsigned int)format confidenceDimensions:(CGSize)confidenceDimensions confidenceFormat:(unsigned int)confidenceFormat confidenceLevelsDimensions:(CGSize)levelsDimensions confidenceLevelsFormat:(unsigned int)levelsFormat normalsDimensions:(CGSize)normalsDimensions normalsFormat:(unsigned int)self0 uncertaintyDimensions:(CGSize)self1 uncertaintyFormat:(unsigned int)self2 depthMaskDimensions:(CGSize)self3 depthMaskFormat:(unsigned int)self4
 {
   height = uncertaintyDimensions.height;
   width = uncertaintyDimensions.width;
@@ -138,10 +138,10 @@
       v32 = v30[1];
     }
 
-    uncertaintyFormatCopy = uncertaintyFormat;
+    v37 = *&uncertaintyFormat;
     v38 = maskDimensions.width;
     v29->_uncertaintyBufferPool = 0;
-    v39 = uncertaintyFormat == v31;
+    v39 = *&uncertaintyFormat == v31;
     if (maskDimensions.width != v32)
     {
       v39 = 0;
@@ -149,7 +149,7 @@
 
     if (LODWORD(width) && !v39)
     {
-      v29->_uncertaintyBufferPool = PixelBufferUtils::createPixelBufferPool(*&width, *&uncertaintyFormatCopy, 10);
+      v29->_uncertaintyBufferPool = PixelBufferUtils::createPixelBufferPool(*&width, *&v37, 10);
       v31 = *v30;
       v32 = v30[1];
     }

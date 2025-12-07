@@ -38,7 +38,7 @@
   (*(v9 + 8))(v11, v8);
   swift_getObjectType();
   sub_20C138464();
-  sub_20B9D072C(&unk_27C76F050, MEMORY[0x277D53FF0]);
+  sub_20B9D072C(&unk_27C76F050, MEMORY[0x277D53FF0], MEMORY[0x277D53FE8]);
   sub_20C13A764();
   (*(v5 + 8))(v7, v4);
 }

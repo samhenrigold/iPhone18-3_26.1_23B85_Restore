@@ -255,7 +255,7 @@ void __81__PLAssetResourceUploadJob__countOfUploadJobsWithPredicate_inPhotoLibra
   }
 
   v34[0] = v16;
-  if ([statesCopy count])
+  if (objc_msgSend_count(statesCopy))
   {
     [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"state", statesCopy];
   }

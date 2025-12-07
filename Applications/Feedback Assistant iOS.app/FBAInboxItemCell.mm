@@ -132,11 +132,11 @@
   dateLabel = [(FBAInboxItemCell *)self dateLabel];
   [dateLabel setText:formattedMailboxSortDate];
 
-  v35 = sub_1000143E4();
+  v36 = sub_1000143E4(v35);
   mailboxSortDate = [itemCopy mailboxSortDate];
-  v37 = [v35 stringFromDate:mailboxSortDate];
+  v38 = [v36 stringFromDate:mailboxSortDate];
   dateLabel2 = [(FBAInboxItemCell *)self dateLabel];
-  [dateLabel2 setAccessibilityLabel:v37];
+  [dateLabel2 setAccessibilityLabel:v38];
 
   visibleFeedbackClosedStatus = [itemCopy visibleFeedbackClosedStatus];
   closedLabel = [(FBAInboxItemCell *)self closedLabel];
@@ -150,17 +150,17 @@
   teamInfoLabel3 = [(FBAInboxItemCell *)self teamInfoLabel];
   [teamInfoLabel3 setTextColor:itemTitleColor2];
 
-  v45 = +[UIColor secondaryLabelColor];
+  v46 = +[UIColor secondaryLabelColor];
   subtitleLabel2 = [(FBAInboxItemCell *)self subtitleLabel];
-  [subtitleLabel2 setTextColor:v45];
+  [subtitleLabel2 setTextColor:v46];
 
-  v47 = +[UIColor secondaryLabelColor];
+  v48 = +[UIColor secondaryLabelColor];
   dateLabel3 = [(FBAInboxItemCell *)self dateLabel];
-  [dateLabel3 setTextColor:v47];
+  [dateLabel3 setTextColor:v48];
 
-  v49 = +[UIColor secondaryLabelColor];
+  v50 = +[UIColor secondaryLabelColor];
   closedLabel2 = [(FBAInboxItemCell *)self closedLabel];
-  [closedLabel2 setTextColor:v49];
+  [closedLabel2 setTextColor:v50];
 
   accessibilityTraits = [(FBAInboxItemCell *)self accessibilityTraits];
   [(FBAInboxItemCell *)self setAccessibilityTraits:UIAccessibilityTraitButton | accessibilityTraits];
@@ -180,12 +180,12 @@
   dateLabel = [(FBAInboxItemCell *)self dateLabel];
   [dateLabel setText:&stru_1000E2210];
 
-  v10 = sub_1000143E4();
+  v11 = sub_1000143E4(v10);
   updatedAt = [sessionCopy updatedAt];
 
-  v12 = [v10 stringFromDate:updatedAt];
+  v13 = [v11 stringFromDate:updatedAt];
   dateLabel2 = [(FBAInboxItemCell *)self dateLabel];
-  [dateLabel2 setAccessibilityLabel:v12];
+  [dateLabel2 setAccessibilityLabel:v13];
 
   [(FBAInboxItemCell *)self setTeamInfoLabel:0];
   traitCollection = [(FBAInboxItemCell *)self traitCollection];
@@ -195,26 +195,26 @@
   closedLabel = [(FBAInboxItemCell *)self closedLabel];
   [closedLabel setText:0];
 
-  v17 = +[UIColor labelColor];
+  v18 = +[UIColor labelColor];
   titleLabel2 = [(FBAInboxItemCell *)self titleLabel];
-  [titleLabel2 setTextColor:v17];
+  [titleLabel2 setTextColor:v18];
 
-  v19 = +[UIColor secondaryLabelColor];
+  v20 = +[UIColor secondaryLabelColor];
   subtitleLabel2 = [(FBAInboxItemCell *)self subtitleLabel];
-  [subtitleLabel2 setTextColor:v19];
+  [subtitleLabel2 setTextColor:v20];
 
-  v21 = +[UIColor secondaryLabelColor];
+  v22 = +[UIColor secondaryLabelColor];
   dateLabel3 = [(FBAInboxItemCell *)self dateLabel];
-  [dateLabel3 setTextColor:v21];
+  [dateLabel3 setTextColor:v22];
 
-  v23 = +[UIColor secondaryLabelColor];
+  v24 = +[UIColor secondaryLabelColor];
   closedLabel2 = [(FBAInboxItemCell *)self closedLabel];
-  [closedLabel2 setTextColor:v23];
+  [closedLabel2 setTextColor:v24];
 
   accessibilityTraits = [(FBAInboxItemCell *)self accessibilityTraits];
-  v26 = UIAccessibilityTraitButton | accessibilityTraits;
+  v27 = UIAccessibilityTraitButton | accessibilityTraits;
 
-  [(FBAInboxItemCell *)self setAccessibilityTraits:v26];
+  [(FBAInboxItemCell *)self setAccessibilityTraits:v27];
 }
 
 - (void)updateLabelLinesForContentSizeCategory:(id)category

@@ -40,28 +40,28 @@
     absoluteString = &stru_2D2930;
   }
 
-  v11 = IMCommonCoreBundle();
-  v12 = [v11 localizedStringForKey:@"%@ %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v12 = IMCommonCoreBundle(v11);
+  v13 = [v12 localizedStringForKey:@"%@ %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-  v13 = [[NSString alloc] initWithFormat:v12, &stru_2D2930, absoluteString];
-  v14 = [v13 length];
-  v15 = [(__CFString *)absoluteString length];
-  v16 = 138;
-  if (!v15)
+  v14 = [[NSString alloc] initWithFormat:v13, &stru_2D2930, absoluteString];
+  v15 = [v14 length];
+  v16 = [(__CFString *)absoluteString length];
+  v17 = 138;
+  if (!v16)
   {
-    v16 = 113;
+    v17 = 113;
   }
 
-  v10 = v16 - v14;
+  v10 = v17 - v15;
 
   return v10;
 }
 
 - (id)text
 {
-  v15.receiver = self;
-  v15.super_class = AEAnnotationTwitterWeiboActivityItemProvider;
-  text = [(AEAnnotationSocialActivityItemProvider *)&v15 text];
+  v16.receiver = self;
+  v16.super_class = AEAnnotationTwitterWeiboActivityItemProvider;
+  text = [(AEAnnotationSocialActivityItemProvider *)&v16 text];
   propertyProvider = [(AEAssetActivityItemProviderSource *)self propertyProvider];
   isStoreAsset = [propertyProvider isStoreAsset];
 
@@ -81,12 +81,12 @@
       absoluteString = &stru_2D2930;
     }
 
-    v11 = IMCommonCoreBundle();
-    v12 = [v11 localizedStringForKey:@"%@ %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v12 = IMCommonCoreBundle(v11);
+    v13 = [v12 localizedStringForKey:@"%@ %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-    v13 = [NSString stringWithFormat:v12, text, absoluteString];
+    v14 = [NSString stringWithFormat:v13, text, absoluteString];
 
-    text = v13;
+    text = v14;
   }
 
   return text;

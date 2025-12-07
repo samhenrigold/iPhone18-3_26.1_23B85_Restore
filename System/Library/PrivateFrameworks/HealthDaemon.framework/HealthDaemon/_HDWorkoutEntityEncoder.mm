@@ -10,22 +10,22 @@
 
 - (id)orderedProperties
 {
-  v12[9] = *MEMORY[0x277D85DE8];
-  v12[0] = @"activities.activity_type";
-  v12[1] = @"activities.duration";
-  v12[2] = @"active_energy.quantity";
-  v12[3] = @"basal_energy.quantity";
-  v12[4] = @"total_distance";
-  v12[5] = @"goal";
-  v12[6] = @"goal_type";
-  v12[7] = @"swimming_strokes.quantity";
-  v12[8] = @"flights_climbed.quantity";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:9];
+  v11[9] = *MEMORY[0x277D85DE8];
+  v11[0] = @"activities.activity_type";
+  v11[1] = @"activities.duration";
+  v11[2] = @"active_energy.quantity";
+  v11[3] = @"basal_energy.quantity";
+  v11[4] = @"total_distance";
+  v11[5] = @"goal";
+  v11[6] = @"goal_type";
+  v11[7] = @"swimming_strokes.quantity";
+  v11[8] = @"flights_climbed.quantity";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:9];
   if (self->_includeCondenserInfo)
   {
-    v11[0] = @"condenser_version";
-    v11[1] = @"condenser_date";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+    v10[0] = @"condenser_version";
+    v10[1] = @"condenser_date";
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
     v5 = [v3 arrayByAddingObjectsFromArray:v4];
 
     v3 = v5;
@@ -35,28 +35,26 @@
   orderedProperties = [superclassEncoder orderedProperties];
   v8 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (_HDWorkoutEntityEncoder)initWithHealthEntityClass:(Class)class profile:(id)profile transaction:(id)transaction purpose:(int64_t)purpose encodingOptions:(id)options authorizationFilter:(id)filter
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   optionsCopy = options;
-  v26.receiver = self;
-  v26.super_class = _HDWorkoutEntityEncoder;
-  v16 = [(HDEntityEncoder *)&v26 initWithHealthEntityClass:class profile:profile transaction:transactionCopy purpose:purpose encodingOptions:optionsCopy authorizationFilter:filter];
+  v25.receiver = self;
+  v25.super_class = _HDWorkoutEntityEncoder;
+  v16 = [(HDEntityEncoder *)&v25 initWithHealthEntityClass:class profile:profile transaction:transactionCopy purpose:purpose encodingOptions:optionsCopy authorizationFilter:filter];
   if (v16)
   {
     v17 = [optionsCopy objectForKeyedSubscript:@"IncludeCondenserInfo"];
     v16->_includeCondenserInfo = [v17 BOOLValue];
 
     v18 = [transactionCopy databaseForEntityClass:class];
-    v25 = 0;
-    v19 = [HDWorkoutEventEntity statementForEnumeratingEventsForOwnerInDatabase:v18 error:&v25];
-    v20 = v25;
+    v24 = 0;
+    v19 = [HDWorkoutEventEntity statementForEnumeratingEventsForOwnerInDatabase:v18 error:&v24];
+    v20 = v24;
     workoutEntryLookupStatement = v16->_workoutEntryLookupStatement;
     v16->_workoutEntryLookupStatement = v19;
 
@@ -67,13 +65,12 @@
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v28 = v20;
+        v27 = v20;
         _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "Unable to create statement to look up workout events: %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -148,7 +145,7 @@
       }
     }
 
-    else if (([v16 hk_isObjectNotFoundError] & 1) == 0)
+    else if ((objc_msgSend_hk_isObjectNotFoundError(v16) & 1) == 0)
     {
       v31 = v16;
       v21 = v16;
@@ -296,7 +293,7 @@ LABEL_46:
 
 - (BOOL)applyPropertiesToObject:(id)object persistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   v11 = [superclassEncoder applyPropertiesToObject:objectCopy persistentID:d row:row error:error];
@@ -380,12 +377,12 @@ LABEL_46:
     }
 
     transaction = [(HDEntityEncoder *)self transaction];
-    v98 = [transaction databaseForEntityClass:objc_opt_class()];
+    v97 = [transaction databaseForEntityClass:objc_opt_class()];
 
     v35 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
-    v116 = 0;
-    v36 = [HDWorkoutEventEntity workoutEventsWithOwnerID:v35 database:v98 error:&v116];
-    v96 = v116;
+    v115 = 0;
+    v36 = [HDWorkoutEventEntity workoutEventsWithOwnerID:v35 database:v97 error:&v115];
+    v95 = v115;
 
     if (!v36)
     {
@@ -394,12 +391,12 @@ LABEL_46:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = v96;
+        *(&buf + 4) = v95;
         _os_log_error_impl(&dword_228986000, v47, OS_LOG_TYPE_ERROR, "Error retrieving workout events: %{public}@", &buf, 0xCu);
       }
 
-      v97 = v96;
-      if (!v97)
+      v96 = v95;
+      if (!v96)
       {
         LOBYTE(v46) = 1;
 
@@ -409,9 +406,9 @@ LABEL_88:
 
       if (error)
       {
-        v48 = v97;
+        v48 = v96;
         LOBYTE(v46) = 0;
-        *error = v97;
+        *error = v96;
       }
 
       else
@@ -431,23 +428,23 @@ LABEL_87:
     }
 
     transaction2 = [(HDEntityEncoder *)self transaction];
-    v94 = [transaction2 databaseForEntityClass:objc_opt_class()];
+    v93 = [transaction2 databaseForEntityClass:objc_opt_class()];
 
-    v115 = 0;
-    v95 = [HDWorkoutActivityEntity subActivitiesWithOwnerID:d database:v94 error:&v115];
-    v97 = v115;
-    if (!v95)
+    v114 = 0;
+    v94 = [HDWorkoutActivityEntity subActivitiesWithOwnerID:d database:v93 error:&v114];
+    v96 = v114;
+    if (!v94)
     {
       _HKInitializeLogging();
       v49 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = v97;
+        *(&buf + 4) = v96;
         _os_log_error_impl(&dword_228986000, v49, OS_LOG_TYPE_ERROR, "Error retrieving workout activities: %{public}@", &buf, 0xCu);
       }
 
-      v50 = v97;
+      v50 = v96;
       v44 = v50;
       if (v50)
       {
@@ -473,44 +470,44 @@ LABEL_87:
       goto LABEL_86;
     }
 
-    if ([v95 count])
+    if ([v94 count])
     {
       if ([v36 count])
       {
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
         v112 = 0u;
-        v38 = v95;
-        v39 = [v38 countByEnumeratingWithState:&v111 objects:v122 count:16];
+        v113 = 0u;
+        v110 = 0u;
+        v111 = 0u;
+        v38 = v94;
+        v39 = [v38 countByEnumeratingWithState:&v110 objects:v121 count:16];
         if (v39)
         {
-          v40 = *v112;
+          v40 = *v111;
           do
           {
             for (i = 0; i != v39; ++i)
             {
-              if (*v112 != v40)
+              if (*v111 != v40)
               {
                 objc_enumerationMutation(v38);
               }
 
-              [*(*(&v111 + 1) + 8 * i) _filterAndSetWorkoutEvents:v36];
+              [*(*(&v110 + 1) + 8 * i) _filterAndSetWorkoutEvents:v36];
             }
 
-            v39 = [v38 countByEnumeratingWithState:&v111 objects:v122 count:16];
+            v39 = [v38 countByEnumeratingWithState:&v110 objects:v121 count:16];
           }
 
           while (v39);
         }
       }
 
-      [objectCopy _setSubActivities:v95];
+      [objectCopy _setSubActivities:v94];
     }
 
-    v110 = 0;
-    v42 = [HDWorkoutActivityEntity primaryWorkoutActivityForOwnerID:d database:v94 error:&v110];
-    v43 = v110;
+    v109 = 0;
+    v42 = [HDWorkoutActivityEntity primaryWorkoutActivityForOwnerID:d database:v93 error:&v109];
+    v43 = v109;
     v44 = v43;
     if (v42)
     {
@@ -520,7 +517,7 @@ LABEL_87:
 
     else
     {
-      if (([v43 hk_isObjectNotFoundError] & 1) == 0)
+      if ((objc_msgSend_hk_isObjectNotFoundError(v43) & 1) == 0)
       {
         v84 = v44;
         v42 = v84;
@@ -557,7 +554,7 @@ LABEL_86:
       {
         [v52 workoutActivityType];
         metadata2 = [workoutEvents metadata];
-        v91 = _HKWorkoutConfigurationWithActivityTypeAndMetadata();
+        v90 = _HKWorkoutConfigurationWithActivityTypeAndMetadata();
 
         v54 = objc_alloc(MEMORY[0x277CCDBF0]);
         uUID = [workoutEvents UUID];
@@ -565,7 +562,7 @@ LABEL_86:
         endDate = [workoutEvents endDate];
         v45WorkoutEvents = [workoutEvents workoutEvents];
         [workoutEvents duration];
-        v42 = [v54 _initWithUUID:uUID workoutConfiguration:v91 startDate:startDate endDate:endDate workoutEvents:v45WorkoutEvents startsPaused:0 duration:0 metadata:0 statisticsPerType:?];
+        v42 = [v54 _initWithUUID:uUID workoutConfiguration:v90 startDate:startDate endDate:endDate workoutEvents:v45WorkoutEvents startsPaused:0 duration:0 metadata:0 statisticsPerType:?];
 
         v57 = HDSQLiteColumnWithName();
         if ((MEMORY[0x22AAC6CD0](row, v57) & 1) == 0)
@@ -610,20 +607,20 @@ LABEL_86:
     [objectCopy _setPrimaryActivity:v42];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v118 = 0x3032000000;
-    v119 = __Block_byref_object_copy__81;
-    v120 = __Block_byref_object_dispose__81;
-    v121 = 0;
+    v117 = 0x3032000000;
+    v118 = __Block_byref_object_copy__81;
+    v119 = __Block_byref_object_dispose__81;
+    v120 = 0;
     profile = [(HDEntityEncoder *)self profile];
     transaction3 = [(HDEntityEncoder *)self transaction];
-    v108[0] = MEMORY[0x277D85DD0];
-    v108[1] = 3221225472;
-    v108[2] = __74___HDWorkoutEntityEncoder_applyPropertiesToObject_persistentID_row_error___block_invoke;
-    v108[3] = &unk_27861F6E8;
-    v108[4] = &buf;
-    v109 = 0;
-    v74 = [HDWorkoutZonesAssociationEntity enumerateZonesSamplesWithWorkoutPersistentID:d profile:profile transaction:transaction3 error:&v109 handler:v108];
-    v75 = v109;
+    v107[0] = MEMORY[0x277D85DD0];
+    v107[1] = 3221225472;
+    v107[2] = __74___HDWorkoutEntityEncoder_applyPropertiesToObject_persistentID_row_error___block_invoke;
+    v107[3] = &unk_27861F6E8;
+    v107[4] = &buf;
+    v108 = 0;
+    v74 = [HDWorkoutZonesAssociationEntity enumerateZonesSamplesWithWorkoutPersistentID:d profile:profile transaction:transaction3 error:&v108 handler:v107];
+    v75 = v108;
 
     if (v74)
     {
@@ -636,26 +633,26 @@ LABEL_86:
         goto LABEL_83;
       }
 
-      v102 = 0;
-      v103 = &v102;
-      v104 = 0x3032000000;
-      v105 = __Block_byref_object_copy__81;
-      v106 = __Block_byref_object_dispose__81;
-      v107 = 0;
+      v101 = 0;
+      v102 = &v101;
+      v103 = 0x3032000000;
+      v104 = __Block_byref_object_copy__81;
+      v105 = __Block_byref_object_dispose__81;
+      v106 = 0;
       v46 = HDWorkoutZonesEntity;
       transaction4 = [(HDEntityEncoder *)self transaction];
-      v100[4] = &v102;
-      v101 = 0;
-      v100[0] = MEMORY[0x277D85DD0];
-      v100[1] = 3221225472;
-      v100[2] = __74___HDWorkoutEntityEncoder_applyPropertiesToObject_persistentID_row_error___block_invoke_2;
-      v100[3] = &unk_27861F6C0;
-      v79 = [HDWorkoutZonesEntity enumerateZonesWithOwnerID:d transaction:transaction4 error:&v101 handler:v100];
-      v80 = v101;
+      v99[4] = &v101;
+      v100 = 0;
+      v99[0] = MEMORY[0x277D85DD0];
+      v99[1] = 3221225472;
+      v99[2] = __74___HDWorkoutEntityEncoder_applyPropertiesToObject_persistentID_row_error___block_invoke_2;
+      v99[3] = &unk_27861F6C0;
+      v79 = [HDWorkoutZonesEntity enumerateZonesWithOwnerID:d transaction:transaction4 error:&v100 handler:v99];
+      v80 = v100;
 
       if (v79)
       {
-        [objectCopy _setWorkoutZonesByType:v103[5]];
+        [objectCopy _setWorkoutZonesByType:v102[5]];
       }
 
       else
@@ -678,7 +675,7 @@ LABEL_86:
         }
       }
 
-      _Block_object_dispose(&v102, 8);
+      _Block_object_dispose(&v101, 8);
       if (v79)
       {
 LABEL_83:
@@ -713,7 +710,6 @@ LABEL_83:
   LOBYTE(v46) = 0;
 LABEL_89:
 
-  v89 = *MEMORY[0x277D85DE8];
   return v46 & 1;
 }
 

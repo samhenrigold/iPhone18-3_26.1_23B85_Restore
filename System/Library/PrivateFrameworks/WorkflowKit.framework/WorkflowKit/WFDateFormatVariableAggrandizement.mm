@@ -4,6 +4,7 @@
 - (NSString)dateStyle;
 - (NSString)relativeDateStyle;
 - (NSString)timeStyle;
+- (WFDateFormatVariableAggrandizement)initWithDateStyle:(id)style timeStyle:(id)timeStyle relativeDateStyle:(id)dateStyle customDateFormat:(id)format includesTimeForISO8601:(BOOL)o8601;
 - (id)processedContentClasses:(id)classes;
 - (void)applyToContentCollection:(id)collection completionHandler:(id)handler;
 @end
@@ -114,6 +115,27 @@ LABEL_5:
   v3 = [dictionary objectForKey:@"WFDateFormatStyle"];
 
   return v3;
+}
+
+- (WFDateFormatVariableAggrandizement)initWithDateStyle:(id)style timeStyle:(id)timeStyle relativeDateStyle:(id)dateStyle customDateFormat:(id)format includesTimeForISO8601:(BOOL)o8601
+{
+  o8601Copy = o8601;
+  formatCopy = format;
+  dateStyleCopy = dateStyle;
+  timeStyleCopy = timeStyle;
+  styleCopy = style;
+  v16 = objc_opt_new();
+  [v16 setValue:styleCopy forKey:@"WFDateFormatStyle"];
+
+  [v16 setValue:timeStyleCopy forKey:@"WFTimeFormatStyle"];
+  [v16 setValue:dateStyleCopy forKey:@"WFRelativeDateFormatStyle"];
+
+  [v16 setValue:formatCopy forKey:@"WFDateFormat"];
+  v17 = [MEMORY[0x1E696AD98] numberWithBool:o8601Copy];
+  [v16 setValue:v17 forKey:@"WFISO8601IncludeTime"];
+
+  v18 = [(WFVariableAggrandizement *)self initWithDictionary:v16];
+  return v18;
 }
 
 @end

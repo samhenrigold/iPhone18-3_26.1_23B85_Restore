@@ -256,9 +256,9 @@ LABEL_10:
     +[NSDate(MOExtensions) dateFormatter];
   }
 
-  v1 = dateFormatter_dateFormatter;
+  v2 = dateFormatter_dateFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)firstSaturdayBeforeReferenceDate:()MOExtensions
@@ -314,9 +314,9 @@ LABEL_9:
     +[NSDate(MOExtensions) dayNameFormatterInEnglish];
   }
 
-  v1 = dayNameFormatterInEnglish_dateFormatter;
+  v2 = dayNameFormatterInEnglish_dateFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)relativeBundleDateFormatter
@@ -326,9 +326,9 @@ LABEL_9:
     +[NSDate(MOExtensions) relativeBundleDateFormatter];
   }
 
-  v1 = relativeBundleDateFormatter_dateFormatter;
+  v2 = relativeBundleDateFormatter_dateFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)monthDayFormatter
@@ -338,14 +338,14 @@ LABEL_9:
     +[NSDate(MOExtensions) monthDayFormatter];
   }
 
-  v1 = monthDayFormatter_dateFormatter;
+  v2 = monthDayFormatter_dateFormatter;
 
-  return v1;
+  return v2;
 }
 
 - (id)getBundleRelativeDate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dayNameFormatterInEnglish = [MEMORY[0x277CBEAA8] dayNameFormatterInEnglish];
   v3 = [dayNameFormatterInEnglish stringFromDate:self];
 
@@ -356,11 +356,11 @@ LABEL_9:
   v7 = _mo_log_facility_get_os_log(MOLogFacilityNotificationManager);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412546;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_INFO, "bundleDay: %@, nowDay: %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v6;
+    _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_INFO, "bundleDay: %@, nowDay: %@", &v13, 0x16u);
   }
 
   [self timeIntervalSinceNow];
@@ -379,8 +379,6 @@ LABEL_9:
   {
     v11 = v3;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

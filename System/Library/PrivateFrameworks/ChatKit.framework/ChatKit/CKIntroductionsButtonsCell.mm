@@ -28,7 +28,7 @@
     v14 = IMLogHandleForCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [CKIntroductionsButtonsCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKIntroductionsButtonsCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
   }
 }

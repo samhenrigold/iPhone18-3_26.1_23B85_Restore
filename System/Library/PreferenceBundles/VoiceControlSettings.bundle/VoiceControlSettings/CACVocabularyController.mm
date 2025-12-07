@@ -5,6 +5,7 @@
 - (void)documentPicker:(id)picker didPickDocumentsAtURLs:(id)ls;
 - (void)exportVocabulary;
 - (void)importVocabulary;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CACVocabularyController
@@ -66,6 +67,14 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CACVocabularyController;
+  [(CACVocabularyController *)&v4 viewWillAppear:appear];
+  [(CACVocabularyController *)self reloadSpecifiers];
 }
 
 - (id)vocabularySummary:(id)summary

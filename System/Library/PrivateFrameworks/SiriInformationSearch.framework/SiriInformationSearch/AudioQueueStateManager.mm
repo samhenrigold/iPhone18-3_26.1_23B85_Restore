@@ -8,46 +8,45 @@
 - (void)nowPlayingObserver:(id)observer playbackStateDidChangeFrom:(int64_t)from to:(int64_t)to lastPlayingDate:(id)date
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8, v13);
-  v15 = &v24[-1] - v14;
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v22[-1] - v12;
   if (date)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v16 = type metadata accessor for Date();
-    (*(*(v16 - 8) + 56))(v15, 0, 1, v16);
+    v14 = type metadata accessor for Date();
+    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
   }
 
   else
   {
-    v17 = type metadata accessor for Date();
-    (*(*(v17 - 8) + 56))(v15, 1, 1, v17);
+    v15 = type metadata accessor for Date();
+    (*(*(v15 - 8) + 56))(v13, 1, 1, v15);
   }
 
-  v18 = 0;
+  v16 = 0;
   if (observer)
   {
-    v18 = type metadata accessor for SOMediaNowPlayingObserver();
-    v19 = &protocol witness table for SOMediaNowPlayingObserver;
+    v16 = type metadata accessor for SOMediaNowPlayingObserver();
+    v17 = &protocol witness table for SOMediaNowPlayingObserver;
   }
 
   else
   {
-    v19 = 0;
-    v24[1] = 0;
-    v24[2] = 0;
+    v17 = 0;
+    v22[1] = 0;
+    v22[2] = 0;
   }
 
-  v24[0] = observer;
-  v24[3] = v18;
-  v24[4] = v19;
-  v20 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x130);
+  v22[0] = observer;
+  v22[3] = v16;
+  v22[4] = v17;
+  v18 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x130);
   observerCopy = observer;
   selfCopy = self;
-  v20(v24, from, to, v15);
+  v18(v22, from, to, v13);
 
-  outlined destroy of MediaUserStateCenter?(v15, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  outlined destroy of MediaUserStateCenter?(v24, &_s21SiriInformationSearch24MediaNowPlayingObserving_pSgMd, &_s21SiriInformationSearch24MediaNowPlayingObserving_pSgMR);
+  outlined destroy of MediaUserStateCenter?(v13, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  outlined destroy of MediaUserStateCenter?(v22, &_s21SiriInformationSearch24MediaNowPlayingObserving_pSgMd, &_s21SiriInformationSearch24MediaNowPlayingObserving_pSgMR);
 }
 
 - (_TtC21SiriInformationSearch22AudioQueueStateManager)init

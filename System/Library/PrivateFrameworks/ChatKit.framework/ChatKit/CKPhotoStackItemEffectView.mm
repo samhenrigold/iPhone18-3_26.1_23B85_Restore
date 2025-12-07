@@ -82,7 +82,7 @@
   v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  [(CKPhotoStackItemEffectView *)self contentBalloonDescriptorForCurrentTraitCollection];
+  objc_msgSend_contentBalloonDescriptorForCurrentTraitCollection(self);
   contentBackdropLayer = self->_contentBackdropLayer;
   if (!contentBackdropLayer)
   {

@@ -1,10 +1,21 @@
 @interface RPBroadcastActivityExtensionHostContext
 - (RPBroadcastActivityHostViewController)hostViewController;
 - (id)extensionObjectProxy;
+- (void)extensionDidFinishWithLaunchURL:(id)l broadcastURL:(id)rL extensionBundleID:(id)d cancelled:(BOOL)cancelled;
 - (void)presentationInfoWithCompletion:(id)completion;
 @end
 
 @implementation RPBroadcastActivityExtensionHostContext
+
+- (void)extensionDidFinishWithLaunchURL:(id)l broadcastURL:(id)rL extensionBundleID:(id)d cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  dCopy = d;
+  rLCopy = rL;
+  lCopy = l;
+  WeakRetained = objc_loadWeakRetained(&self->_hostViewController);
+  [WeakRetained extensionDidFinishWithLaunchURL:lCopy broadcastURL:rLCopy extensionBundleID:dCopy cancelled:cancelledCopy];
+}
 
 - (void)presentationInfoWithCompletion:(id)completion
 {
@@ -38,11 +49,10 @@ void __63__RPBroadcastActivityExtensionHostContext_extensionObjectProxy__block_i
 
 void __63__RPBroadcastActivityExtensionHostContext_extensionObjectProxy__block_invoke_cold_1(void *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = [a1 code];
-  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error calling extension - %i", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = [a1 code];
+  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error calling extension - %i", v1, 8u);
 }
 
 @end

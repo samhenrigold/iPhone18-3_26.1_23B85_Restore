@@ -6,9 +6,9 @@
 - (id)copyWithOffset:(void *)offset index:(double)index supplementaryEnrollmentIdentifier:(double)identifier;
 - (id)description;
 - (id)initWithFrame:(int)frame pinningAlignment:(void *)alignment adjustedForPinning:(void *)pinning visibleRectDisplacement:(void *)displacement index:(void *)index zIndex:(void *)zIndex resultKind:(double)kind item:(double)self0 auxillaryKind:(double)self1 supplementaryEnrollmentIdentifier:(double)self2;
-- (id)supplementaryItem;
 - (uint64_t)kindIndexKey;
 - (void)auxillaryItem;
+- (void)supplementaryItem;
 @end
 
 @implementation _UICollectionLayoutFramesQueryResult
@@ -33,7 +33,7 @@
   return self;
 }
 
-- (id)supplementaryItem
+- (void)supplementaryItem
 {
   if (self)
   {
@@ -225,19 +225,19 @@ LABEL_3:
     v7 = result;
     v8 = *(result + 10);
     v9 = *(result + 11);
-    v10 = *(result + 12);
-    v11 = *(result + 13);
+    v10 = result[12];
+    v11 = result[13];
     v12 = index + v8;
     v13 = identifier + v9;
     v16.origin.x = v8;
     v16.origin.y = v9;
-    v16.size.width = v10;
-    v16.size.height = v11;
+    *&v16.size.width = v10;
+    *&v16.size.height = v11;
     Width = CGRectGetWidth(v16);
     v17.origin.x = v8;
     v17.origin.y = v9;
-    v17.size.width = v10;
-    v17.size.height = v11;
+    *&v17.size.width = v10;
+    *&v17.size.height = v11;
     Height = CGRectGetHeight(v17);
     return [[_UICollectionLayoutFramesQueryResult alloc] initWithFrame:*(v7 + 8) pinningAlignment:a2 adjustedForPinning:v7[3] visibleRectDisplacement:v7[4] index:v7[5] zIndex:v7[6] resultKind:v12 item:v13 auxillaryKind:Width supplementaryEnrollmentIdentifier:Height, *(v7 + 9), offset];
   }
@@ -252,19 +252,19 @@ LABEL_3:
     v3 = result;
     v4 = *(result + 10);
     v5 = *(result + 11);
-    v6 = *(result + 12);
-    v7 = *(result + 13);
+    v6 = result[12];
+    v7 = result[13];
     v8 = a2 + v4;
     v9 = offset + v5;
     v12.origin.x = v4;
     v12.origin.y = v5;
-    v12.size.width = v6;
-    v12.size.height = v7;
+    *&v12.size.width = v6;
+    *&v12.size.height = v7;
     Width = CGRectGetWidth(v12);
     v13.origin.x = v4;
     v13.origin.y = v5;
-    v13.size.width = v6;
-    v13.size.height = v7;
+    *&v13.size.width = v6;
+    *&v13.size.height = v7;
     Height = CGRectGetHeight(v13);
     return [[_UICollectionLayoutFramesQueryResult alloc] initWithFrame:*(v3 + 8) pinningAlignment:v3[2] adjustedForPinning:v3[3] visibleRectDisplacement:v3[4] index:v3[5] zIndex:v3[6] resultKind:v8 item:v9 auxillaryKind:Width supplementaryEnrollmentIdentifier:Height, *(v3 + 9), v3[7]];
   }

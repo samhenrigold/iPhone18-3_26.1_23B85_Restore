@@ -74,13 +74,13 @@ void __52__ASTRequest_isEstimatedTimeRemainingFeatureEnabled__block_invoke()
 
 - (id)generatePayload
 {
-  v28[6] = *MEMORY[0x277D85DE8];
+  v27[6] = *MEMORY[0x277D85DE8];
   if (+[ASTRequest isEstimatedTimeRemainingFeatureEnabled])
   {
-    v27[0] = @"clientStatus";
+    v26[0] = @"clientStatus";
     v3 = [ASTRequest stringFromClientStatus:[(ASTRequest *)self clientStatus]];
-    v28[0] = v3;
-    v27[1] = @"currentTest";
+    v27[0] = v3;
+    v26[1] = @"currentTest";
     currentTest = [(ASTRequest *)self currentTest];
     null = currentTest;
     if (!currentTest)
@@ -88,8 +88,8 @@ void __52__ASTRequest_isEstimatedTimeRemainingFeatureEnabled__block_invoke()
       null = [MEMORY[0x277CBEB68] null];
     }
 
-    v28[1] = null;
-    v27[2] = @"progress";
+    v27[1] = null;
+    v26[2] = @"progress";
     progress = [(ASTRequest *)self progress];
     null2 = progress;
     if (!progress)
@@ -97,8 +97,8 @@ void __52__ASTRequest_isEstimatedTimeRemainingFeatureEnabled__block_invoke()
       null2 = [MEMORY[0x277CBEB68] null];
     }
 
-    v28[2] = null2;
-    v27[3] = @"estimatedTimeRemaining";
+    v27[2] = null2;
+    v26[3] = @"estimatedTimeRemaining";
     v8 = [(ASTRequest *)self estimatedTimeRemaining:null];
     null3 = v8;
     if (!v8)
@@ -106,8 +106,8 @@ void __52__ASTRequest_isEstimatedTimeRemainingFeatureEnabled__block_invoke()
       null3 = [MEMORY[0x277CBEB68] null];
     }
 
-    v28[3] = null3;
-    v27[4] = @"data";
+    v27[3] = null3;
+    v26[4] = @"data";
     data = [(ASTRequest *)self data];
     null4 = data;
     if (!data)
@@ -115,12 +115,12 @@ void __52__ASTRequest_isEstimatedTimeRemainingFeatureEnabled__block_invoke()
       null4 = [MEMORY[0x277CBEB68] null];
     }
 
-    v28[4] = null4;
-    v27[5] = @"status";
+    v27[4] = null4;
+    v26[5] = @"status";
     error = [(ASTRequest *)self error];
     dictionary = [error dictionary];
-    v28[5] = dictionary;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:6];
+    v27[5] = dictionary;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:6];
 
     if (!data)
     {
@@ -130,8 +130,8 @@ void __52__ASTRequest_isEstimatedTimeRemainingFeatureEnabled__block_invoke()
     {
     }
 
-    null5 = v23;
-    v15 = v24;
+    null5 = v22;
+    v15 = v23;
     if (!progress)
     {
 LABEL_25:
@@ -140,10 +140,10 @@ LABEL_25:
 
   else
   {
-    v25[0] = @"clientStatus";
+    v24[0] = @"clientStatus";
     v15 = [ASTRequest stringFromClientStatus:[(ASTRequest *)self clientStatus]];
-    v26[0] = v15;
-    v25[1] = @"currentTest";
+    v25[0] = v15;
+    v24[1] = @"currentTest";
     currentTest = [(ASTRequest *)self currentTest];
     null5 = currentTest;
     if (!currentTest)
@@ -151,8 +151,8 @@ LABEL_25:
       null5 = [MEMORY[0x277CBEB68] null];
     }
 
-    v26[1] = null5;
-    v25[2] = @"progress";
+    v25[1] = null5;
+    v24[2] = @"progress";
     progress = [(ASTRequest *)self progress];
     null2 = progress;
     if (!progress)
@@ -160,8 +160,8 @@ LABEL_25:
       null2 = [MEMORY[0x277CBEB68] null];
     }
 
-    v26[2] = null2;
-    v25[3] = @"data";
+    v25[2] = null2;
+    v24[3] = @"data";
     data2 = [(ASTRequest *)self data];
     null6 = data2;
     if (!data2)
@@ -169,12 +169,12 @@ LABEL_25:
       null6 = [MEMORY[0x277CBEB68] null];
     }
 
-    v26[3] = null6;
-    v25[4] = @"status";
+    v25[3] = null6;
+    v24[4] = @"status";
     error2 = [(ASTRequest *)self error];
     dictionary2 = [error2 dictionary];
-    v26[4] = dictionary2;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:5];
+    v25[4] = dictionary2;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
 
     if (!data2)
     {
@@ -189,8 +189,6 @@ LABEL_25:
   if (!currentTest)
   {
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

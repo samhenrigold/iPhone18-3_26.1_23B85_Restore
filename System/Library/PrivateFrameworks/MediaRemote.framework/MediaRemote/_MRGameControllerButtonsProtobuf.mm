@@ -502,7 +502,6 @@ LABEL_17:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    dPadX = self->_dPadX;
     PBDataWriterWriteFloatField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -522,7 +521,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dPadY = self->_dPadY;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -537,7 +535,6 @@ LABEL_4:
   }
 
 LABEL_22:
-  a = self->_a;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -552,7 +549,6 @@ LABEL_5:
   }
 
 LABEL_23:
-  b = self->_b;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -567,7 +563,6 @@ LABEL_6:
   }
 
 LABEL_24:
-  x = self->_x;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -582,7 +577,6 @@ LABEL_7:
   }
 
 LABEL_25:
-  y = self->_y;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -597,7 +591,6 @@ LABEL_8:
   }
 
 LABEL_26:
-  leftShoulder = self->_leftShoulder;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -612,7 +605,6 @@ LABEL_9:
   }
 
 LABEL_27:
-  rightShoulder = self->_rightShoulder;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -627,7 +619,6 @@ LABEL_10:
   }
 
 LABEL_28:
-  leftThumbstickX = self->_leftThumbstickX;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -642,7 +633,6 @@ LABEL_11:
   }
 
 LABEL_29:
-  leftThumbstickY = self->_leftThumbstickY;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -657,7 +647,6 @@ LABEL_12:
   }
 
 LABEL_30:
-  rightThumbstickX = self->_rightThumbstickX;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -672,7 +661,6 @@ LABEL_13:
   }
 
 LABEL_31:
-  rightThumbstickY = self->_rightThumbstickY;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -687,7 +675,6 @@ LABEL_14:
   }
 
 LABEL_32:
-  leftTrigger = self->_leftTrigger;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -702,12 +689,10 @@ LABEL_15:
   }
 
 LABEL_33:
-  rightTrigger = self->_rightTrigger;
   PBDataWriterWriteFloatField();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_16:
-    pause = self->_pause;
     PBDataWriterWriteFloatField();
   }
 

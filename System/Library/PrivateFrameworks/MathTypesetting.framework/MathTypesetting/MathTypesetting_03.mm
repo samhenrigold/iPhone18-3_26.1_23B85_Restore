@@ -31,45 +31,37 @@ void *std::__hash_table<std::__hash_value_type<objc_object  {objcproto15EQKitLay
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -107,79 +99,71 @@ void *std::__hash_table<std::__hash_value_type<objc_object  {objcproto15EQKitLay
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v5 == v10)
     {
-      v10 = result[1];
-      if (v5 == v10)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator}*,EQKitLayoutStretchedOperator>,std::__unordered_map_hasher<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator},EQKitLayoutStretchedOperator,std::hash<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator}>,std::equal_to<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator}>,true>,std::__unordered_map_equal<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator},EQKitLayoutStretchedOperator,std::equal_to,std::hash,true>,std::allocator<EQKitLayoutStretchedOperator>>::__emplace_unique_key_args<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator},objc_object  {objcproto15EQKitLayoutNode13EQKitOperator} const&,objc_object  {objcproto15EQKitLayoutNode13EQKitOperator}* const&>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator}*,EQKitLayoutStretchedOperator>,std::__unordered_map_hasher<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator},EQKitLayoutStretchedOperator,std::hash<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator}>,std::equal_to<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator}>,true>,std::__unordered_map_equal<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator},EQKitLayoutStretchedOperator,std::equal_to,std::hash,true>,std::allocator<EQKitLayoutStretchedOperator>>::__emplace_unique_key_args<objc_object  {objcproto15EQKitLayoutNode13EQKitOperator},objc_object  {objcproto15EQKitLayoutNode13EQKitOperator} const&,objc_object  {objcproto15EQKitLayoutNode13EQKitOperator}* const&>(void *a1, void *a2, void *a3, uint64_t a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -187,49 +171,48 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-void *std::deque<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void ()(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::push_back(void *result, void *a2)
+void std::deque<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void ()(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   v6 = ((v4 - v5) << 6) - 1;
@@ -241,29 +224,28 @@ void *std::deque<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}
   v7 = result[5] + result[4];
   if (v6 == v7)
   {
-    result = std::deque<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void ()(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5] + v3[4];
+    std::deque<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void ()(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
   *(*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF)) = *a2;
-  ++v3[5];
-  return result;
+  ++result[5];
 }
 
-void *std::deque<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void ()(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::__add_back_capacity(void *a1)
+void std::deque<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void ()(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -271,25 +253,25 @@ void *std::deque<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::emplace_back<void({block_pointer}&)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::emplace_back<void({block_pointer}&)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(a1, &v9);
 }
 
 void sub_258270BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -303,27 +285,26 @@ void sub_258270BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::emplace_back<void({block_pointer}&)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(void *result, void *a2)
+void std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::emplace_back<void({block_pointer}&)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -332,28 +313,26 @@ void *std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitL
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::emplace_front<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(const void **result, void *a2)
+void std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::emplace_front<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -366,52 +345,50 @@ const void **std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto1
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)> &>::emplace_back<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(void *result, void *a2)
+void std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)> &>::emplace_back<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -420,28 +397,26 @@ void *std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitL
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)> &>::emplace_front<void({block_pointer}&)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(const void **result, void *a2)
+void std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)> &>::emplace_front<void({block_pointer}&)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -454,34 +429,32 @@ const void **std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto1
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::push_back(void *result, void *a2)
+void std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   v6 = ((v4 - v5) << 6) - 1;
@@ -493,29 +466,28 @@ void *std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::push_back(void *re
   v7 = result[5] + result[4];
   if (v6 == v7)
   {
-    result = std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5] + v3[4];
+    std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
   *(*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF)) = *a2;
-  ++v3[5];
-  return result;
+  ++result[5];
 }
 
-void *std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::__add_back_capacity(void *a1)
+void std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -523,25 +495,25 @@ void *std::deque<objc_object  {objcproto15EQKitLayoutNode}*>::__add_back_capacit
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto15EQKitLayoutNode}*>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::emplace_back<void({block_pointer}&)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<void({block_pointer}*)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&),std::allocator<void({block_pointer})(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>>::emplace_back<void({block_pointer}&)(objc_object  {objcproto15EQKitLayoutNode}*,EQKit::Layout::Schemata const&)>(a1, &v9);
 }
 
 void sub_258271270(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -608,7 +580,7 @@ uint64_t std::__hash_table<std::__hash_value_type<objc_object  {objcproto15EQKit
   return v2;
 }
 
-EQKitLayoutElementaryStack *std::deque<EQKitLayoutElementaryStack>::push_back(void *a1, const EQKitLayoutElementaryStack *a2)
+void std::deque<EQKitLayoutElementaryStack>::push_back(unint64_t *a1, const EQKitLayoutElementaryStack *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -636,24 +608,23 @@ EQKitLayoutElementaryStack *std::deque<EQKitLayoutElementaryStack>::push_back(vo
     v8 = (*(v4 + 8 * (v7 / 0x18)) + 168 * (v7 % 0x18));
   }
 
-  result = EQKitLayoutElementaryStack::EQKitLayoutElementaryStack(v8, a2);
+  EQKitLayoutElementaryStack::EQKitLayoutElementaryStack(v8, a2);
   ++a1[5];
-  return result;
 }
 
-void *std::deque<EQKitLayoutElementaryStack>::__add_back_capacity(void *a1)
+void std::deque<EQKitLayoutElementaryStack>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x18;
   v3 = v1 - 24;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -661,25 +632,25 @@ void *std::deque<EQKitLayoutElementaryStack>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<EQKitLayoutContext *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<EQKitLayoutContext *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<EQKitLayoutContext *>::emplace_back<EQKitLayoutContext *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<EQKitLayoutContext *>::emplace_back<EQKitLayoutContext *&>(a1, &v9);
 }
 
 void sub_2582715A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -763,7 +734,7 @@ const void **EQKit::AutoCFType<CGPath const*>::~AutoCFType(const void **a1)
   return a1;
 }
 
-double std::deque<EQKitLayoutTable>::push_back(void *a1, uint64_t a2)
+double std::deque<EQKitLayoutTable>::push_back(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -805,19 +776,19 @@ double std::deque<EQKitLayoutTable>::push_back(void *a1, uint64_t a2)
   return result;
 }
 
-void *std::deque<EQKitLayoutTable>::__add_back_capacity(void *a1)
+void std::deque<EQKitLayoutTable>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2A;
   v3 = v1 - 42;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -825,25 +796,25 @@ void *std::deque<EQKitLayoutTable>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<EQKitLayoutContext *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<EQKitLayoutContext *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<EQKitLayoutContext *>::emplace_back<EQKitLayoutContext *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<EQKitLayoutContext *>::emplace_back<EQKitLayoutContext *&>(a1, &v9);
 }
 
 void sub_2582719C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -905,9 +876,8 @@ uint64_t std::deque<EQKitLayoutTable>::__maybe_remove_back_spare[abi:ne200100](v
   return v7 ^ 1u;
 }
 
-void *std::deque<unsigned long>::push_back(void *result, void *a2)
+void std::deque<unsigned long>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   v6 = ((v4 - v5) << 6) - 1;
@@ -919,29 +889,28 @@ void *std::deque<unsigned long>::push_back(void *result, void *a2)
   v7 = result[5] + result[4];
   if (v6 == v7)
   {
-    result = std::deque<unsigned long>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5] + v3[4];
+    std::deque<unsigned long>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
   *(*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF)) = *a2;
-  ++v3[5];
-  return result;
+  ++result[5];
 }
 
-void *std::deque<unsigned long>::__add_back_capacity(void *a1)
+void std::deque<unsigned long>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -949,25 +918,25 @@ void *std::deque<unsigned long>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v9);
 }
 
 void sub_258271D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -981,27 +950,26 @@ void sub_258271D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(void *result, void *a2)
+void std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1010,28 +978,26 @@ void *std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(void 
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<unsigned long *>::emplace_front<unsigned long *>(const void **result, void *a2)
+void std::__split_buffer<unsigned long *>::emplace_front<unsigned long *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1044,52 +1010,50 @@ const void **std::__split_buffer<unsigned long *>::emplace_front<unsigned long *
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<unsigned long *>::emplace_back<unsigned long *>(void *result, void *a2)
+void std::__split_buffer<unsigned long *>::emplace_back<unsigned long *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1098,28 +1062,26 @@ void *std::__split_buffer<unsigned long *>::emplace_back<unsigned long *>(void *
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<unsigned long *>::emplace_front<unsigned long *&>(const void **result, void *a2)
+void std::__split_buffer<unsigned long *>::emplace_front<unsigned long *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1132,29 +1094,28 @@ const void **std::__split_buffer<unsigned long *>::emplace_front<unsigned long *
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(uint64_t a1, unint64_t a2)
@@ -1167,7 +1128,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(uin
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-EQKitLayoutRow *std::deque<EQKitLayoutRow>::push_back(void *a1, EQKitLayoutRow *a2)
+void std::deque<EQKitLayoutRow>::push_back(unint64_t *a1, EQKitLayoutRow *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -1195,24 +1156,23 @@ EQKitLayoutRow *std::deque<EQKitLayoutRow>::push_back(void *a1, EQKitLayoutRow *
     v8 = (*(v4 + 8 * (v7 / 0x19)) + 160 * (v7 % 0x19));
   }
 
-  result = EQKitLayoutRow::EQKitLayoutRow(v8, a2);
+  EQKitLayoutRow::EQKitLayoutRow(v8, a2);
   ++a1[5];
-  return result;
 }
 
-void *std::deque<EQKitLayoutRow>::__add_back_capacity(void *a1)
+void std::deque<EQKitLayoutRow>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x19;
   v3 = v1 - 25;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1220,25 +1180,25 @@ void *std::deque<EQKitLayoutRow>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<EQKitLayoutContext *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<EQKitLayoutContext *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<EQKitLayoutContext *>::emplace_back<EQKitLayoutContext *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<EQKitLayoutContext *>::emplace_back<EQKitLayoutContext *&>(a1, &v9);
 }
 
 void sub_25827245C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1309,7 +1269,7 @@ void sub_258272ED0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _pathBoxForCompositeEdge(const EQKit::OpticalKern::Edge::Composite *a1, double a2)
+EQKitPathBox *_pathBoxForCompositeEdge(const EQKit::OpticalKern::Edge::Composite *a1, double a2)
 {
   v12 = *MEMORY[0x277D85DE8];
   v3 = EQKit::OpticalKern::Edge::Composite::newPathForEdge(a1);
@@ -1331,9 +1291,9 @@ uint64_t _pathBoxForCompositeEdge(const EQKit::OpticalKern::Edge::Composite *a1,
   return v8;
 }
 
-void sub_2582732C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char *__p, char *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_2582732C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char *__p, char *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
 {
-  MEMORY[0x259C7CB70](v20, 0x10C402FEFCB83);
+  MEMORY[0x259C7CB70](v20, 0x10C402FEFCB83, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     a15 = __p;
@@ -1345,7 +1305,7 @@ void sub_2582732C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<EQKit::OpticalKern::Spec::Entry>::resize(void *a1, unint64_t a2)
+void std::vector<EQKit::OpticalKern::Spec::Entry>::resize(EQKit::OpticalKern::Spec::Entry **a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = 0x8E38E38E38E38E39 * ((v3 - *a1) >> 3);
@@ -1369,35 +1329,35 @@ void std::vector<EQKit::OpticalKern::Spec::Entry>::resize(void *a1, unint64_t a2
   }
 }
 
-uint64_t std::vector<EQKit::OpticalKern::Spec::Entry>::__append(uint64_t result, unint64_t a2)
+EQKit::OpticalKern::Spec::Entry **std::vector<EQKit::OpticalKern::Spec::Entry>::__append(EQKit::OpticalKern::Spec::Entry **result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (0x8E38E38E38E38E39 * ((v5 - v4) >> 3) >= a2)
   {
     if (a2)
     {
-      v10 = v4 + 72 * a2;
+      v10 = (v4 + 72 * a2);
       v11 = MEMORY[0x277CBF348];
       do
       {
         *v4 = 0;
         *(v4 + 8) = *v11;
-        *(v4 + 24) = 0;
-        *(v4 + 32) = 0;
-        *(v4 + 40) = -1;
-        *(v4 + 56) = 0;
-        *(v4 + 64) = 0;
-        *(v4 + 48) = 0;
-        v4 += 72;
+        *(v4 + 3) = 0;
+        *(v4 + 4) = 0;
+        *(v4 + 20) = -1;
+        *(v4 + 7) = 0;
+        *(v4 + 8) = 0;
+        *(v4 + 6) = 0;
+        v4 = (v4 + 72);
       }
 
       while (v4 != v10);
       v4 = v10;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
@@ -1452,13 +1412,13 @@ uint64_t std::vector<EQKit::OpticalKern::Spec::Entry>::__append(uint64_t result,
 
     while (v14 != 72 * v6 + 72 * a2);
     *&v21 = v12 + 72 * a2;
-    v15 = *(result + 8);
+    v15 = result[1];
     v16 = (v12 + *result - v15);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EQKit::OpticalKern::Spec::Entry>,EQKit::OpticalKern::Spec::Entry*>(result, *result, v15, v16);
     v17 = *v3;
     *v3 = v16;
-    v18 = *(v3 + 16);
-    *(v3 + 8) = v21;
+    v18 = v3[2];
+    *(v3 + 1) = v21;
     *&v21 = v17;
     *(&v21 + 1) = v18;
     v19 = v17;
@@ -1469,9 +1429,9 @@ uint64_t std::vector<EQKit::OpticalKern::Spec::Entry>::__append(uint64_t result,
   return result;
 }
 
-void sub_2582735B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582735B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<EQKit::OpticalKern::Spec::Entry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1589,7 +1549,7 @@ void EQKitLayoutContext::EQKitLayoutContext(EQKitLayoutContext *this, const EQKi
   *(this + 8) = v7;
 }
 
-void EQKitLayoutContext::EQKitLayoutContext(uint64_t a1, EQKitLayoutContext *this, uint64_t a3, void *a4, uint64_t a5, char a6, int a7)
+void EQKitLayoutContext::EQKitLayoutContext(uint64_t a1, id *this, uint64_t a3, void *a4, uint64_t a5, char a6, int a7)
 {
   *a1 = &unk_28696A9D0;
   *(a1 + 8) = 0;
@@ -1611,7 +1571,7 @@ void EQKitLayoutContext::EQKitLayoutContext(uint64_t a1, EQKitLayoutContext *thi
   *(a1 + 112) = 0;
   v43 = 0;
   v44 = 1;
-  v15 = *(this + 77);
+  v15 = this[77];
   v45 = a4;
   v46 = 9;
   v16 = EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKit::ScriptLevel>>(v15, v15 + 296, &v45, &v43);
@@ -1627,28 +1587,28 @@ void EQKitLayoutContext::EQKitLayoutContext(uint64_t a1, EQKitLayoutContext *thi
     v18 = v17 + a5;
   }
 
-  v19 = *(this + 77);
+  v19 = this[77];
   v45 = a4;
   v46 = 42;
   EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>>(v19, v19 + 440, &v45, v13);
   LODWORD(v42[0]) = 1;
   v42[1] = 0;
-  v20 = *(this + 77);
+  v20 = this[77];
   v45 = a4;
   v46 = 43;
   if (EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>>(v20, v20 + 32, &v45, v42))
   {
-    v21 = (*(**(a1 + 88) + 64))(*(a1 + 88), 2);
-    if (*(a1 + 48) < v21)
+    v21.n128_f64[0] = (*(**(a1 + 88) + 64))(*(a1 + 88), 2);
+    if (*(a1 + 48) < v21.n128_f64[0])
     {
-      v21 = *(a1 + 48);
+      v21.n128_u64[0] = *(a1 + 48);
     }
 
     *(a1 + 64) = EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(v42, a3, v21);
   }
 
   v42[0] = 0;
-  v22 = *(this + 77);
+  v22 = this[77];
   v45 = a4;
   v46 = 44;
   v23 = EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>>(v22, v22 + 536, &v45, v42);
@@ -1677,7 +1637,7 @@ void EQKitLayoutContext::EQKitLayoutContext(uint64_t a1, EQKitLayoutContext *thi
     v26 = 0;
   }
 
-  v27 = *(this + 77);
+  v27 = this[77];
   v45 = a4;
   v46 = 17;
   v28 = EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Display::Enum>>(v27, v27 + 368, &v45, v42);
@@ -1890,7 +1850,7 @@ double EQKitLayoutContext::pComputeMathAxis(EQKitLayoutContext *this)
 
     v6 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"−" attributes:v4];
     v7 = CTLineCreateWithAttributedString(v6);
-    FakeContext = EQKitUtilGetFakeContext();
+    FakeContext = EQKitUtilGetFakeContext(v7, v8);
     ImageBounds = CTLineGetImageBounds(v7, FakeContext);
     x = ImageBounds.origin.x;
     y = ImageBounds.origin.y;
@@ -1898,16 +1858,16 @@ double EQKitLayoutContext::pComputeMathAxis(EQKitLayoutContext *this)
     height = ImageBounds.size.height;
     CFRelease(v7);
 
-    v15.origin.x = x;
-    v15.origin.y = y;
-    v15.size.width = width;
-    v15.size.height = height;
-    *(this + 17) = CGRectGetMidY(v15);
     v16.origin.x = x;
     v16.origin.y = y;
     v16.size.width = width;
     v16.size.height = height;
-    v3 = CGRectGetHeight(v16);
+    *(this + 17) = CGRectGetMidY(v16);
+    v17.origin.x = x;
+    v17.origin.y = y;
+    v17.size.width = width;
+    v17.size.height = height;
+    v3 = CGRectGetHeight(v17);
   }
 
   else
@@ -1963,7 +1923,7 @@ CGFloat EQKitLayoutContext::unitValue(const __CTFont **this, int a2)
   v5 = this[12];
   if (!v5)
   {
-    v5 = (*(*this[11] + 72))(this[11], this + 8);
+    v5 = (*(*this[11] + 72))(this[11], this + 1);
     this[12] = v5;
     if (!v5)
     {
@@ -2319,7 +2279,7 @@ EQKit::ILayout *EQKitLayoutElementaryStack::layout@<X0>(id *this@<X0>, EQKit::IL
     if (this[2] == 0x7FFFFFFFFFFFFFFFLL)
     {
       v31 = [[EQKitVBox alloc] initWithChildBoxes:this[6]];
-      v36[0] = 0;
+      LODWORD(v36[0]) = 0;
       v32 = *(*this + 77);
       v37 = EQKitLayoutManager::currentNode(*this);
       v38 = 2;
@@ -2357,7 +2317,7 @@ void sub_258274AC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t EQKitLayoutElementaryStack::collectRows(id *this)
+char *EQKitLayoutElementaryStack::collectRows(id *this)
 {
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
@@ -2433,7 +2393,7 @@ void EQKitLayoutElementaryStack::layoutForRow(void *a1@<X0>, void *a2@<X1>, uint
   EQKit::ILayout::ILayout(a5, &v21->super.super);
 }
 
-EQKit::ILayout *EQKitLayoutElementaryStack::layoutStackGroup@<X0>(void *a1@<X0>, void *a2@<X1>, EQKit::ILayout *a3@<X8>)
+EQKit::ILayout *EQKitLayoutElementaryStack::layoutStackGroup@<X0>(unint64_t *a1@<X0>, void *a2@<X1>, EQKit::ILayout *a3@<X8>)
 {
   v27 = *MEMORY[0x277D85DE8];
   v23 = 0;
@@ -2547,7 +2507,7 @@ EQKit::ILayout *EQKitLayoutElementaryStack::layoutStackRow@<X0>(EQKitLayoutManag
         v12 = *a1;
         if (v11)
         {
-          [v11 layoutSchemata];
+          objc_msgSend_layoutSchemata(v11);
         }
 
         else
@@ -2612,14 +2572,14 @@ LABEL_17:
   return EQKit::ILayout::ILayout(a3, 0);
 }
 
-void sub_2582752D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2582752D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   EQKit::ILayout::~ILayout(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t EQKitLayoutElementaryStack::addRow(void *a1, void *a2)
+char *EQKitLayoutElementaryStack::addRow(void *a1, void *a2)
 {
   v4 = a1[5];
   if (!v4)
@@ -2643,8 +2603,8 @@ uint64_t EQKitLayoutElementaryStack::addRow(void *a1, void *a2)
   a1[7] = v6;
   v7 = [a2 alignmentShift];
   result = [a2 columnCount];
-  v9 = result + v7;
-  if (a1[8] > result + v7)
+  v9 = &result[v7];
+  if (a1[8] > &result[v7])
   {
     v9 = a1[8];
   }
@@ -2802,7 +2762,7 @@ void EQKitLayoutElementaryStack::layoutStackCarries(EQKitLayoutManager **a1@<X0>
   }
 }
 
-void sub_258275864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54)
+void sub_258275864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54)
 {
   if (__p)
   {
@@ -2822,14 +2782,12 @@ void sub_258275864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy_(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -2967,7 +2925,7 @@ void sub_258275B08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EQKitTypes::Crossout::Enum>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<EQKitTypes::Crossout::Enum>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3016,18 +2974,18 @@ void std::vector<EQKitTypes::Crossout::Enum>::push_back[abi:ne200100](const void
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-uint64_t __copy_helper_block_e8_64c68_ZTSNSt3__16vectorIN10EQKitTypes8Crossout4EnumENS_9allocatorIS3_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_64c68_ZTSNSt3__16vectorIN10EQKitTypes8Crossout4EnumENS_9allocatorIS3_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  v2 = a1 + 64;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 64);
+  v2[2] = 0;
   return std::vector<EQKitTypes::Crossout::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Crossout::Enum*,EQKitTypes::Crossout::Enum*>(v2, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 2);
 }
 
@@ -3119,17 +3077,17 @@ double EQKitLayoutElementaryStack::baselineForRowAtIndex(id *this, unint64_t a2)
   return v6;
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_258276614(_Unwind_Exception *exception_object)
@@ -3193,7 +3151,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t std::vector<EQKitTypes::Crossout::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Crossout::Enum*,EQKitTypes::Crossout::Enum*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<EQKitTypes::Crossout::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Crossout::Enum*,EQKitTypes::Crossout::Enum*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3215,9 +3173,8 @@ void sub_258276760(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::deque<long>::push_back(void *result, void *a2)
+void std::deque<long>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   v6 = ((v4 - v5) << 6) - 1;
@@ -3229,29 +3186,28 @@ void *std::deque<long>::push_back(void *result, void *a2)
   v7 = result[5] + result[4];
   if (v6 == v7)
   {
-    result = std::deque<long>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5] + v3[4];
+    std::deque<long>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
   *(*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF)) = *a2;
-  ++v3[5];
-  return result;
+  ++result[5];
 }
 
-void *std::deque<long>::__add_back_capacity(void *a1)
+void std::deque<long>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -3259,25 +3215,25 @@ void *std::deque<long>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v9);
 }
 
 void sub_258276990(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -3861,13 +3817,13 @@ uint64_t EQKit::Layout::Schemata::nodeSchemata(EQKit::Layout::Schemata *this)
   }
 }
 
-uint64_t EQKit::Layout::Schemata::row@<X0>(EQKit::Layout::Schemata *this@<X0>, uint64_t a2@<X8>)
+uint64_t *EQKit::Layout::Schemata::row@<X0>(uint64_t *__return_ptr a1@<X8>, EQKit::Layout::Schemata *this@<X0>)
 {
-  *a2 = &unk_28696AA58;
-  *(a2 + 8) = 2;
-  *(a2 + 16) = 0;
+  *a1 = &unk_28696AA58;
+  *(a1 + 2) = 2;
+  a1[2] = 0;
   result = [(EQKit::Layout::Schemata *)this copy];
-  *(a2 + 24) = result;
+  a1[3] = result;
   return result;
 }
 
@@ -3977,29 +3933,29 @@ void EQKitLayoutRow::EQKitLayoutRow(EQKitLayoutRow *this, char a2)
   *(this + 156) = a2;
 }
 
-void sub_2582777BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582777BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v6 = *(v2 + 120);
-  if (v6)
+  va_start(va, a3);
+  v7 = *(v3 + 120);
+  if (v7)
   {
-    *(v2 + 128) = v6;
-    operator delete(v6);
-  }
-
-  v7 = *v4;
-  if (*v4)
-  {
-    *(v2 + 104) = v7;
+    *(v3 + 128) = v7;
     operator delete(v7);
   }
 
-  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy(v3, *(v2 + 80));
-  v8 = *(v2 + 32);
-  if (v8)
+  v8 = *v5;
+  if (*v5)
   {
-    *(v2 + 40) = v8;
+    *(v3 + 104) = v8;
     operator delete(v8);
+  }
+
+  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy(v4, *(v3 + 80));
+  v9 = *(v3 + 32);
+  if (v9)
+  {
+    *(v3 + 40) = v9;
+    operator delete(v9);
   }
 
   std::vector<EQKit::ILayout>::__destroy_vector::operator()[abi:ne200100](va);
@@ -4011,21 +3967,21 @@ void EQKitLayoutRow::EQKitLayoutRow(EQKitLayoutRow *this, const EQKitLayoutRow *
   *(this + 1) = 0;
   *(this + 2) = 0;
   *(this + 3) = 0;
-  std::vector<EQKit::ILayout>::__init_with_size[abi:ne200100]<EQKit::ILayout*,EQKit::ILayout*>(this + 8, *(a2 + 1), *(a2 + 2), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 2) - *(a2 + 1)) >> 3));
+  std::vector<EQKit::ILayout>::__init_with_size[abi:ne200100]<EQKit::ILayout*,EQKit::ILayout*>(this + 1, *(a2 + 1), *(a2 + 2), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 2) - *(a2 + 1)) >> 3));
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<EQKitLayoutRow::Kerning>::__init_with_size[abi:ne200100]<EQKitLayoutRow::Kerning*,EQKitLayoutRow::Kerning*>(this + 32, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
+  std::vector<EQKitLayoutRow::Kerning>::__init_with_size[abi:ne200100]<EQKitLayoutRow::Kerning*,EQKitLayoutRow::Kerning*>(this + 4, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
   *(this + 8) = *(a2 + 8);
   std::map<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>::map[abi:ne200100](this + 9, a2 + 72);
   *(this + 12) = 0;
   *(this + 13) = 0;
   *(this + 14) = 0;
-  std::vector<EQKitAlignmentGroup>::__init_with_size[abi:ne200100]<EQKitAlignmentGroup*,EQKitAlignmentGroup*>(this + 96, *(a2 + 12), *(a2 + 13), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 13) - *(a2 + 12)) >> 3));
+  std::vector<EQKitAlignmentGroup>::__init_with_size[abi:ne200100]<EQKitAlignmentGroup*,EQKitAlignmentGroup*>((this + 96), *(a2 + 12), *(a2 + 13), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 13) - *(a2 + 12)) >> 3));
   *(this + 15) = 0;
   *(this + 16) = 0;
   *(this + 17) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 120, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 15, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 3);
   *(this + 18) = *(a2 + 18);
   *(this + 38) = *(a2 + 38);
   *(this + 156) = *(a2 + 156);
@@ -4033,53 +3989,53 @@ void EQKitLayoutRow::EQKitLayoutRow(EQKitLayoutRow *this, const EQKitLayoutRow *
   *(this + 7) = [*(a2 + 7) mutableCopy];
 }
 
-void sub_25827793C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25827793C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v6 = *v4;
-  if (*v4)
+  va_start(va, a3);
+  v7 = *v5;
+  if (*v5)
   {
-    *(v2 + 104) = v6;
-    operator delete(v6);
+    *(v3 + 104) = v7;
+    operator delete(v7);
   }
 
-  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy(v2 + 72, *(v2 + 80));
-  v7 = *v3;
-  if (*v3)
+  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy(v3 + 72, *(v3 + 80));
+  v8 = *v4;
+  if (*v4)
   {
-    *(v2 + 40) = v7;
-    operator delete(v7);
+    *(v3 + 40) = v8;
+    operator delete(v8);
   }
 
   std::vector<EQKit::ILayout>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void EQKitLayoutRow::~EQKitLayoutRow(EQKitLayoutRow *this)
+void EQKitLayoutRow::~EQKitLayoutRow(id *this)
 {
-  v2 = *(this + 15);
+  v2 = this[15];
   if (v2)
   {
-    *(this + 16) = v2;
+    this[16] = v2;
     operator delete(v2);
   }
 
-  v3 = *(this + 12);
+  v3 = this[12];
   if (v3)
   {
-    *(this + 13) = v3;
+    this[13] = v3;
     operator delete(v3);
   }
 
-  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy(this + 72, *(this + 10));
-  v4 = *(this + 4);
+  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy((this + 9), this[10]);
+  v4 = this[4];
   if (v4)
   {
-    *(this + 5) = v4;
+    this[5] = v4;
     operator delete(v4);
   }
 
-  v5 = (this + 8);
+  v5 = this + 1;
   std::vector<EQKit::ILayout>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
@@ -4127,7 +4083,7 @@ LABEL_8:
   }
 
   v12 = *(a3 + 1);
-  v13 = (a3 + 16);
+  v13 = a3 + 16;
   if (v12 != v13)
   {
     v14 = (a1 + 80);
@@ -4157,11 +4113,11 @@ LABEL_8:
 LABEL_20:
         v21 = *(v12 + 8);
         EQKit::ILayoutOffset::ILayoutOffset(v22, v12 + 5);
-        std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(a1 + 72, &v21);
+        std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(a1 + 72, &v21, &v21);
         EQKit::ILayoutOffset::~ILayoutOffset(v22);
       }
 
-      v18 = v12[1];
+      v18 = *(v12 + 1);
       if (v18)
       {
         do
@@ -4177,7 +4133,7 @@ LABEL_20:
       {
         do
         {
-          v19 = v12[2];
+          v19 = *(v12 + 2);
           v20 = *v19 == v12;
           v12 = v19;
         }
@@ -4192,14 +4148,14 @@ LABEL_20:
   }
 }
 
-double EQKitLayoutRow::addChild(EQKitLayoutRow *this, const EQKitLayoutRow *a2)
+double EQKitLayoutRow::addChild(EQKitLayoutRow *this, const EQKit::ILayout **a2)
 {
   v4 = *(this + 2);
   v5 = *(this + 1);
-  std::vector<EQKit::ILayout>::__insert_with_size[abi:ne200100]<std::__wrap_iter<EQKit::ILayout const*>,std::__wrap_iter<EQKit::ILayout const*>>(this + 1, v4, *(a2 + 1), *(a2 + 2), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 2) - *(a2 + 1)) >> 3));
+  std::vector<EQKit::ILayout>::__insert_with_size[abi:ne200100]<std::__wrap_iter<EQKit::ILayout const*>,std::__wrap_iter<EQKit::ILayout const*>>(this + 1, v4, a2[1], a2[2], 0x6DB6DB6DB6DB6DB7 * ((a2[2] - a2[1]) >> 3));
   [*this addObjectsFromArray:*a2];
-  v6 = *(a2 + 9);
-  if (v6 != (a2 + 80))
+  v6 = a2[9];
+  if (v6 != (a2 + 10))
   {
     v7 = (this + 80);
     do
@@ -4228,7 +4184,7 @@ double EQKitLayoutRow::addChild(EQKitLayoutRow *this, const EQKitLayoutRow *a2)
 LABEL_10:
         LODWORD(v19) = *(v6 + 8);
         EQKit::ILayoutOffset::ILayoutOffset(v20, v6 + 5);
-        std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(this + 72, &v19);
+        std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(this + 72, &v19, &v19);
         EQKit::ILayoutOffset::~ILayoutOffset(v20);
       }
 
@@ -4259,18 +4215,19 @@ LABEL_10:
       v6 = v12;
     }
 
-    while (v12 != (a2 + 80));
+    while (v12 != (a2 + 10));
   }
 
-  std::vector<EQKitAlignmentGroup>::__insert_with_size[abi:ne200100]<std::__wrap_iter<EQKitAlignmentGroup const*>,std::__wrap_iter<EQKitAlignmentGroup const*>>(this + 12, *(this + 13), *(a2 + 12), *(a2 + 13), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 13) - *(a2 + 12)) >> 3));
-  v14 = *(a2 + 15);
-  v15 = *(a2 + 16);
+  std::vector<EQKitAlignmentGroup>::__insert_with_size[abi:ne200100]<std::__wrap_iter<EQKitAlignmentGroup const*>,std::__wrap_iter<EQKitAlignmentGroup const*>>(this + 12, *(this + 13), a2[12], a2[13], 0xAAAAAAAAAAAAAAABLL * ((a2[13] - a2[12]) >> 3));
+  v14 = a2[15];
+  v15 = a2[16];
   if (v14 != v15)
   {
     v16 = 0x6DB6DB6DB6DB6DB7 * ((v4 - v5) >> 3);
     do
     {
-      v17 = *v14++;
+      v17 = *v14;
+      v14 = (v14 + 8);
       v19 = v17 + v16;
       std::vector<unsigned long>::push_back[abi:ne200100](this + 15, &v19);
     }
@@ -4317,7 +4274,7 @@ void *EQKitLayoutRow::childNodeAtIndex(id *this, unint64_t a2)
   }
 }
 
-uint64_t EQKitLayoutRow::overallLayout@<X0>(EQKitLayoutRow *this@<X0>, uint64_t **a2@<X8>)
+uint64_t EQKitLayoutRow::overallLayout@<X0>(EQKitLayoutRow *this@<X0>, uint64_t *a2@<X8>)
 {
   EQKit::ILayout::ILayout(a2, 0);
   v4 = *(this + 1);
@@ -4479,20 +4436,20 @@ LABEL_14:
   }
 }
 
-void std::vector<EQKitLayoutRow::Kerning>::resize(void *a1, unint64_t a2)
+void std::vector<EQKitLayoutRow::Kerning>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<EQKitLayoutRow::Kerning>::__append(a1, a2 - v2);
+    std::vector<EQKitLayoutRow::Kerning>::__append(result, a2 - v2);
   }
 }
 
@@ -4510,27 +4467,27 @@ void EQKitLayoutRow::resolveLayouts(uint64_t a1, void *a2)
   a2[2] = v6;
 }
 
-void EQKitLayoutRow::beginAlignmentGroup(uint64_t a1, int a2)
+void EQKitLayoutRow::beginAlignmentGroup(void *a1, int a2)
 {
-  if (*(a1 + 8) == *(a1 + 16) || *(a1 + 120) != *(a1 + 128))
+  if (a1[1] == a1[2] || a1[15] != a1[16])
   {
     EQKitAlignmentGroup::EQKitAlignmentGroup(v5, a2);
-    v3 = *(a1 + 104);
-    if (v3 >= *(a1 + 112))
+    v3 = a1[13];
+    if (v3 >= a1[14])
     {
-      v4 = std::vector<EQKitAlignmentGroup>::__emplace_back_slow_path<EQKitAlignmentGroup>((a1 + 96), v5);
+      v4 = std::vector<EQKitAlignmentGroup>::__emplace_back_slow_path<EQKitAlignmentGroup>(a1 + 12, v5);
     }
 
     else
     {
-      EQKitAlignmentGroup::EQKitAlignmentGroup(*(a1 + 104), v5);
-      v4 = v3 + 24;
-      *(a1 + 104) = v3 + 24;
+      EQKitAlignmentGroup::EQKitAlignmentGroup(a1[13], v5);
+      v4 = (v3 + 24);
+      a1[13] = v3 + 24;
     }
 
-    *(a1 + 104) = v4;
-    v5[0] = 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *(a1 + 8)) >> 3);
-    std::vector<unsigned long>::push_back[abi:ne200100]((a1 + 120), v5);
+    a1[13] = v4;
+    v5[0] = 0x6DB6DB6DB6DB6DB7 * ((a1[2] - a1[1]) >> 3);
+    std::vector<unsigned long>::push_back[abi:ne200100](a1 + 15, v5);
   }
 }
 
@@ -4619,9 +4576,9 @@ void EQKitLayoutRow::buildAlignmentGroups(EQKitLayoutRow *this)
   }
 }
 
-void sub_25827859C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25827859C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   EQKit::ILayoutOffset::~ILayoutOffset(va);
   _Unwind_Resume(a1);
 }
@@ -4694,22 +4651,22 @@ void EQKitLayoutRow::overallLayoutWithAlignmentContext(EQKitLayoutRow *this@<X0>
     EQKit::ILayout::ILayout(v23, &v21->super.super);
     EQKit::ILayout::operator=(v22, v23);
     EQKit::ILayout::~ILayout(v23);
-    if ((v22 + 8) != (this + 72))
+    if (v22 + 8 != this + 72)
     {
-      std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *> *,long>>((v22 + 8), *(this + 9), this + 10);
+      std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *> *,long>>(v22 + 1, *(this + 9), this + 10);
     }
   }
 }
 
-void sub_258278870(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258278870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::ILayout::~ILayout(va);
-  EQKit::ILayout::~ILayout(v2);
+  EQKit::ILayout::~ILayout(v3);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<EQKitLayoutRow::Kerning>::__init_with_size[abi:ne200100]<EQKitLayoutRow::Kerning*,EQKitLayoutRow::Kerning*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<EQKitLayoutRow::Kerning>::__init_with_size[abi:ne200100]<EQKitLayoutRow::Kerning*,EQKitLayoutRow::Kerning*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4731,7 +4688,7 @@ void sub_258278924(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<EQKitAlignmentGroup>::__init_with_size[abi:ne200100]<EQKitAlignmentGroup*,EQKitAlignmentGroup*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+EQKitAlignmentGroup *std::vector<EQKitAlignmentGroup>::__init_with_size[abi:ne200100]<EQKitAlignmentGroup*,EQKitAlignmentGroup*>(EQKitAlignmentGroup *result, const EQKitAlignmentGroup *a2, const EQKitAlignmentGroup *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4753,7 +4710,7 @@ void sub_2582789B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EQKitAlignmentGroup>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<EQKitAlignmentGroup>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -4823,14 +4780,14 @@ uint64_t std::vector<EQKit::ILayout>::__emplace_back_slow_path<EQKit::ILayout co
   return v12;
 }
 
-void sub_258278BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_258278BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<EQKit::ILayout>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EQKit::ILayout>,EQKit::ILayout*>(int a1, EQKit::ILayout *a2, EQKit::ILayout *a3, EQKit::ILayout *this)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EQKit::ILayout>,EQKit::ILayout*>(int a1, id *a2, EQKit::ILayout *a3, EQKit::ILayout *this)
 {
   if (a2 != a3)
   {
@@ -4849,7 +4806,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EQKit:
     while (v6 != a3)
     {
       EQKit::ILayout::~ILayout(v6);
-      v6 = (v6 + 56);
+      v6 += 7;
     }
   }
 }
@@ -4889,7 +4846,7 @@ uint64_t std::__split_buffer<EQKit::ILayout>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-EQKit::ILayout *std::vector<EQKit::ILayout>::__insert_with_size[abi:ne200100]<std::__wrap_iter<EQKit::ILayout const*>,std::__wrap_iter<EQKit::ILayout const*>>(void *a1, uint64_t a2, const EQKit::ILayout *a3, EQKit::ILayout *a4, uint64_t a5)
+id *std::vector<EQKit::ILayout>::__insert_with_size[abi:ne200100]<std::__wrap_iter<EQKit::ILayout const*>,std::__wrap_iter<EQKit::ILayout const*>>(void *a1, id *a2, const EQKit::ILayout *a3, EQKit::ILayout *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -4903,7 +4860,7 @@ EQKit::ILayout *std::vector<EQKit::ILayout>::__insert_with_size[abi:ne200100]<st
       if (0x6DB6DB6DB6DB6DB7 * ((v10 - a2) >> 3) >= a5)
       {
         v19 = 56 * a5;
-        std::vector<EQKit::ILayout>::__move_range(a1, a2, a1[1], a2 + 56 * a5);
+        std::vector<EQKit::ILayout>::__move_range(a1, a2, a1[1], &a2[7 * a5]);
         v20 = (v7 + v19);
         v21 = v5;
         do
@@ -4922,7 +4879,7 @@ EQKit::ILayout *std::vector<EQKit::ILayout>::__insert_with_size[abi:ne200100]<st
         a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<EQKit::ILayout>,EQKit::ILayout const*,EQKit::ILayout const*,EQKit::ILayout*>(a1, (a3 + v16), a4, a1[1]);
         if (v16 >= 1)
         {
-          std::vector<EQKit::ILayout>::__move_range(a1, v5, v10, v5 + 56 * a5);
+          std::vector<EQKit::ILayout>::__move_range(a1, v5, v10, &v5[7 * a5]);
           v18 = v5;
           do
           {
@@ -5036,7 +4993,7 @@ uint64_t std::vector<EQKit::ILayout>::__move_range(uint64_t result, uint64_t a2,
   return result;
 }
 
-uint64_t std::vector<EQKit::ILayout>::__swap_out_circular_buffer(uint64_t a1, uint64_t a2, EQKit::ILayout *a3)
+uint64_t std::vector<EQKit::ILayout>::__swap_out_circular_buffer(uint64_t a1, uint64_t a2, id *a3)
 {
   v6 = *(a2 + 8);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EQKit::ILayout>,EQKit::ILayout*>(a1, a3, *(a1 + 8), *(a2 + 16));
@@ -5099,7 +5056,7 @@ void sub_2582790D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<EQKitAlignmentGroup>::__insert_with_size[abi:ne200100]<std::__wrap_iter<EQKitAlignmentGroup const*>,std::__wrap_iter<EQKitAlignmentGroup const*>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+const EQKitAlignmentGroup *std::vector<EQKitAlignmentGroup>::__insert_with_size[abi:ne200100]<std::__wrap_iter<EQKitAlignmentGroup const*>,std::__wrap_iter<EQKitAlignmentGroup const*>>(void *a1, const EQKitAlignmentGroup *a2, const EQKitAlignmentGroup *a3, const EQKitAlignmentGroup *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -5115,14 +5072,14 @@ uint64_t std::vector<EQKitAlignmentGroup>::__insert_with_size[abi:ne200100]<std:
         v26 = 3 * a5;
         std::vector<EQKitAlignmentGroup>::__move_range(a1, a2, a1[1], a2 + 24 * a5);
         v27 = 0;
-        v28 = v7 + 8 * v26;
+        v28 = (v7 + 8 * v26);
         do
         {
-          v29 = v27 + v5;
+          v29 = v5 + v27;
           v30 = *v7;
-          *(v29 + 16) = *(v7 + 16);
+          *(v29 + 2) = *(v7 + 2);
           *v29 = v30;
-          v7 += 24;
+          v7 = (v7 + 24);
           v27 += 24;
         }
 
@@ -5131,17 +5088,17 @@ uint64_t std::vector<EQKitAlignmentGroup>::__insert_with_size[abi:ne200100]<std:
 
       else
       {
-        v18 = v16 + a3;
+        v18 = (a3 + v16);
         v19 = a1[1];
-        if (v16 + a3 != a4)
+        if ((a3 + v16) != a4)
         {
           v19 = a1[1];
-          v20 = v16 + a3;
+          v20 = (a3 + v16);
           v21 = v19;
           do
           {
             EQKitAlignmentGroup::EQKitAlignmentGroup(v21, v20);
-            v20 += 24;
+            v20 = (v20 + 24);
             v21 = v22 + 24;
             v19 += 24;
           }
@@ -5156,11 +5113,11 @@ uint64_t std::vector<EQKitAlignmentGroup>::__insert_with_size[abi:ne200100]<std:
           v23 = 0;
           do
           {
-            v24 = v23 + v5;
+            v24 = v5 + v23;
             v25 = *v7;
-            *(v24 + 16) = *(v7 + 16);
+            *(v24 + 2) = *(v7 + 2);
             *v24 = v25;
-            v7 += 24;
+            v7 = (v7 + 24);
             v23 += 24;
           }
 
@@ -5212,7 +5169,7 @@ uint64_t std::vector<EQKitAlignmentGroup>::__insert_with_size[abi:ne200100]<std:
       {
         EQKitAlignmentGroup::EQKitAlignmentGroup(v31, v7);
         v31 += 24;
-        v7 += 24;
+        v7 = (v7 + 24);
         v33 -= 24;
       }
 
@@ -5287,9 +5244,9 @@ __n128 std::vector<EQKitAlignmentGroup>::__move_range(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-uint64_t std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t a1, void *a2, const EQKitAlignmentGroup *a3)
 {
-  v6 = a1[1];
+  v6 = *(a1 + 8);
   v8 = a2[1];
   v7 = a2[2];
   if (v6 == a3)
@@ -5304,18 +5261,18 @@ uint64_t std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t *
     do
     {
       EQKitAlignmentGroup::EQKitAlignmentGroup(v7, v9);
-      v9 += 24;
+      v9 = (v9 + 24);
       v7 = v10 + 24;
     }
 
     while (v9 != v6);
-    v11 = a1[1];
+    v11 = *(a1 + 8);
     v12 = a2[1];
     v7 = a2[2];
   }
 
   a2[2] = v7 + v11 - a3;
-  a1[1] = a3;
+  *(a1 + 8) = a3;
   v13 = *a1;
   v14 = v12 + *a1 - a3;
   if (*a1 != a3)
@@ -5324,7 +5281,7 @@ uint64_t std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t *
     do
     {
       EQKitAlignmentGroup::EQKitAlignmentGroup(v15, v13);
-      v13 += 24;
+      v13 = (v13 + 24);
       v15 = v16 + 24;
     }
 
@@ -5334,19 +5291,19 @@ uint64_t std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t *
 
   a2[1] = v14;
   *a1 = v14;
-  a1[1] = v13;
+  *(a1 + 8) = v13;
   a2[1] = v13;
-  v17 = a1[1];
-  a1[1] = a2[2];
+  v17 = *(a1 + 8);
+  *(a1 + 8) = a2[2];
   a2[2] = v17;
-  v18 = a1[2];
-  a1[2] = a2[3];
+  v18 = *(a1 + 16);
+  *(a1 + 16) = a2[3];
   a2[3] = v18;
   *a2 = a2[1];
   return v8;
 }
 
-uint64_t **std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *> *,long>>(uint64_t *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
@@ -5354,7 +5311,7 @@ uint64_t **std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayo
     v6 = *result;
     v7 = result[1];
     *result = (result + 1);
-    v7[2] = 0;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -5429,23 +5386,23 @@ uint64_t **std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayo
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_multi<std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset> const&>();
+    std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_multi<std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset> const&>(v5);
   }
 
   return result;
 }
 
-void sub_2582796E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582796E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -5475,7 +5432,7 @@ uint64_t std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayout
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -5528,10 +5485,10 @@ void *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOff
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](uint64_t a1)
+uint64_t *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](uint64_t *a1)
 {
-  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy(*a1, *(a1 + 16));
-  v2 = *(a1 + 8);
+  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy(*a1, a1[2]);
+  v2 = a1[1];
   if (v2)
   {
     v3 = *(v2 + 16);
@@ -5544,7 +5501,7 @@ uint64_t std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayout
       }
 
       while (v3);
-      *(a1 + 8) = v2;
+      a1[1] = v2;
     }
 
     std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::destroy(*a1, v2);
@@ -5565,7 +5522,7 @@ void std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffs
   }
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+id **std::unique_ptr<std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *>>>>::~unique_ptr[abi:ne200100](id **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5662,7 +5619,7 @@ void std::vector<EQKitLayoutRow::Kerning>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t std::vector<EQKitAlignmentGroup>::__emplace_back_slow_path<EQKitAlignmentGroup>(uint64_t *a1, uint64_t a2)
+const EQKitAlignmentGroup *std::vector<EQKitAlignmentGroup>::__emplace_back_slow_path<EQKitAlignmentGroup>(const EQKitAlignmentGroup **a1, const EQKitAlignmentGroup *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -5722,13 +5679,13 @@ void sub_258279C0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t *result, void *a2)
+const EQKitAlignmentGroup **std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(const EQKitAlignmentGroup **result, void *a2)
 {
   v3 = result;
   v4 = a2[1];
   v5 = *result;
   v6 = result[1];
-  v7 = v4 + *result - v6;
+  v7 = (v4 + *result - v6);
   if (v6 != *result)
   {
     result = (v4 + *result - v6);
@@ -5757,14 +5714,14 @@ uint64_t *std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t 
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::swap(uint64_t *result, uint64_t a2)
+uint64_t **std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::swap(uint64_t **result, uint64_t a2)
 {
   v2 = *result;
   *result = *a2;
   *a2 = v2;
   v5 = result[1];
   v4 = result[2];
-  v3 = result + 1;
+  v3 = (result + 1);
   *(result + 1) = *(a2 + 8);
   *(a2 + 8) = v5;
   *(a2 + 16) = v4;
@@ -5793,7 +5750,7 @@ void *std::map<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>::map[abi:ne20010
   return a1;
 }
 
-uint64_t std::map<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *> *,long>>>(uint64_t result, int *a2, int *a3)
+void *std::map<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__tree_node<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,void *> *,long>>>(void *result, int *a2, int *a3)
 {
   if (a2 != a3)
   {
@@ -5801,7 +5758,7 @@ uint64_t std::map<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>::insert[abi:n
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_hint_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset> const&>(v5, v5 + 1, v4 + 8);
+      result = std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_hint_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset> const&>(v5, (v5 + 8), v4 + 8, v4 + 8);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -5835,20 +5792,20 @@ uint64_t std::map<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>::insert[abi:n
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_hint_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_hint_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset> const&>(uint64_t **a1, uint64_t *a2, int *a3, _DWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__find_equal<EQKit::ILayoutOffset::Kind>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__find_equal<EQKit::ILayoutOffset::Kind>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__construct_node<std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__find_equal<EQKit::ILayoutOffset::Kind>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__find_equal<EQKit::ILayoutOffset::Kind>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -5875,7 +5832,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -5936,7 +5893,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -6015,7 +5972,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -6037,41 +5994,41 @@ LABEL_48:
   return a4;
 }
 
-uint64_t *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(uint64_t a1, int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__construct_node<std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6214,9 +6171,9 @@ void EQKitLayoutTable::resolveAlignmentGroups(EQKitLayoutTable *this, uint64_t a
   }
 }
 
-void sub_25827A3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25827A3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   EQKitLayoutTable::Properties::~Properties(va);
   _Unwind_Resume(a1);
 }
@@ -6290,7 +6247,7 @@ void EQKitLayoutTable::relationalOperatorOffset(EQKitLayoutTable *this@<X0>, EQK
   }
 }
 
-void sub_25827A5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_25827A5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   EQKit::ILayoutOffset::~ILayoutOffset(&a9);
   EQKit::ILayoutOffset::~ILayoutOffset(v9);
@@ -6695,7 +6652,7 @@ void sub_25827AE50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<EQKitLayoutTable::LayoutRow>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<EQKitLayoutTable::LayoutRow>::push_back[abi:ne200100](void *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -6713,19 +6670,19 @@ uint64_t std::vector<EQKitLayoutTable::LayoutRow>::push_back[abi:ne200100](uint6
   return result;
 }
 
-void std::vector<EQKitLayoutTable::LayoutCell>::resize(EQKitLayoutTable::LayoutCell *a1, unint64_t a2)
+void std::vector<EQKitLayoutTable::LayoutCell>::resize(EQKitLayoutTable::LayoutCell *result, unint64_t a2)
 {
-  v2 = 0xAF8AF8AF8AF8AF8BLL * ((*(a1 + 1) - *a1) >> 3);
+  v2 = 0xAF8AF8AF8AF8AF8BLL * ((*(result + 1) - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EQKitLayoutTable::LayoutCell>::__append(a1, v4);
+    std::vector<EQKitLayoutTable::LayoutCell>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    std::vector<EQKitLayoutTable::LayoutCell>::__base_destruct_at_end[abi:ne200100](a1, *a1 + 280 * a2);
+    std::vector<EQKitLayoutTable::LayoutCell>::__base_destruct_at_end[abi:ne200100](result, *result + 280 * a2);
   }
 }
 
@@ -6917,20 +6874,21 @@ LABEL_54:
       if (v29 < (v48 - *a4) >> 4)
       {
         v50 = EQKitLayoutManager::layoutContext(a1[1]);
-        v51 = (v49 + v28);
+        v52 = (v49 + v28);
         goto LABEL_63;
       }
 
       if (v48 != v49)
       {
         v50 = EQKitLayoutManager::layoutContext(a1[1]);
-        v51 = (v48 - 16);
+        v52 = (v48 - 16);
 LABEL_63:
-        v47 = EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(v51, v50, v47);
+        v51.n128_f64[0] = v47;
+        v47 = EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(v52, v50, v51);
       }
 
-      v52 = [[EQKitHSpace alloc] initWithWidth:v47];
-      [v27 addObject:v52];
+      v53 = [[EQKitHSpace alloc] initWithWidth:v47];
+      [v27 addObject:v53];
     }
 
     v28 += 16;
@@ -6939,16 +6897,17 @@ LABEL_63:
 
   if ([v27 count])
   {
-    v53 = [(EQKitCompoundBox *)[EQKitHBox alloc] initWithChildBoxes:v27];
-    EQKit::ILayout::ILayout(v56, &v53->super.super);
-    EQKit::ILayout::operator=(a5, v56);
-    EQKit::ILayout::~ILayout(v56);
+    v54 = [(EQKitCompoundBox *)[EQKitHBox alloc] initWithChildBoxes:v27];
+    EQKit::ILayout::ILayout(v57, &v54->super.super);
+    EQKit::ILayout::operator=(a5, v57);
+    EQKit::ILayout::~ILayout(v57);
   }
 }
 
-void sub_25827B3F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, EQKit::ILayout *a10, uint64_t a11, char a12)
+void sub_25827B3F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10, uint64_t a11, ...)
 {
-  EQKit::ILayout::~ILayout(&a12);
+  va_start(va, a11);
+  EQKit::ILayout::~ILayout(va);
   EQKit::ILayout::~ILayout(a10);
   _Unwind_Resume(a1);
 }
@@ -7064,12 +7023,12 @@ void EQKitLayoutTable::generateTableBox(EQKitLayoutTable *this@<X0>, EQKit::ILay
   v28 = [v38 count];
   v29 = *(this + 1);
   v30 = *(v29 + 77);
-  v39[0] = 0;
+  LODWORD(v39[0]) = 0;
   v40 = EQKitLayoutManager::currentNode(v29);
   LODWORD(v41) = 2;
   if ((EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Display::Enum>>(v30, v30 + 152, &v40, v39) & 1) == 0)
   {
-    v39[0] = 2;
+    LODWORD(v39[0]) = 2;
   }
 
   if (v28)
@@ -7080,19 +7039,19 @@ void EQKitLayoutTable::generateTableBox(EQKitLayoutTable *this@<X0>, EQKit::ILay
     [(EQKitBox *)v31 layoutDepth];
     v35 = v34;
 
-    if (v39[0] == 2)
+    if (LODWORD(v39[0]) == 2)
     {
       v36 = v6 + v35 + v33 * -0.5;
     }
 
-    else if (v39[0] == 1)
+    else if (LODWORD(v39[0]) == 1)
     {
       v36 = v35 - v33;
     }
 
-    else if ((v39[0] - 3) > 1)
+    else if ((LODWORD(v39[0]) - 3) > 1)
     {
-      if (v39[0] == 5)
+      if (LODWORD(v39[0]) == 5)
       {
         v36 = v35;
       }
@@ -7190,20 +7149,20 @@ void EQKitLayoutTable::layoutTable(uint64_t a1@<X0>, void *a2@<X1>, EQKit::ILayo
   }
 }
 
-void sub_25827BB1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25827BB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, id);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   EQKit::ILayout::~ILayout(va);
   EQKitLayoutTable::Properties::~Properties(va1);
-  EQKit::ILayout::~ILayout(v2);
+  EQKit::ILayout::~ILayout(v3);
   _Unwind_Resume(a1);
 }
 
@@ -7257,9 +7216,9 @@ uint64_t std::vector<EQKitLayoutTable::LayoutCell>::__emplace_back_slow_path<EQK
   return v12;
 }
 
-void sub_25827BC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25827BC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<EQKitLayoutTable::LayoutCell>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7273,7 +7232,7 @@ EQKitLayoutTable::LayoutCell *EQKitLayoutTable::LayoutCell::LayoutCell(EQKitLayo
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<EQKitTypes::VAlign::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::VAlign::Enum*,EQKitTypes::VAlign::Enum*>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
+  std::vector<EQKitTypes::VAlign::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::VAlign::Enum*,EQKitTypes::VAlign::Enum*>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
   *(this + 3) = *(a2 + 3);
   EQKitLayoutRow::EQKitLayoutRow((this + 64), (a2 + 64));
   EQKit::ILayout::ILayout((this + 224), (a2 + 224));
@@ -7282,12 +7241,12 @@ EQKitLayoutTable::LayoutCell *EQKitLayoutTable::LayoutCell::LayoutCell(EQKitLayo
 
 void sub_25827BD20(_Unwind_Exception *a1)
 {
-  EQKitLayoutRow::~EQKitLayoutRow((v1 + 64));
+  EQKitLayoutRow::~EQKitLayoutRow(v1 + 8);
   EQKitLayoutTable::Properties::~Properties(v1);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<EQKitTypes::Align::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Align::Enum*,EQKitTypes::Align::Enum*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<EQKitTypes::Align::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Align::Enum*,EQKitTypes::Align::Enum*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7309,7 +7268,7 @@ void sub_25827BDBC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<EQKitTypes::VAlign::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::VAlign::Enum*,EQKitTypes::VAlign::Enum*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<EQKitTypes::VAlign::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::VAlign::Enum*,EQKitTypes::VAlign::Enum*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7467,47 +7426,47 @@ EQKitLayoutTable::LayoutCell *EQKitLayoutTable::LayoutCell::LayoutCell(EQKitLayo
 
 void sub_25827C134(_Unwind_Exception *a1)
 {
-  EQKitLayoutRow::~EQKitLayoutRow((v1 + 64));
+  EQKitLayoutRow::~EQKitLayoutRow(v1 + 8);
   EQKitLayoutTable::Properties::~Properties(v1);
   _Unwind_Resume(a1);
 }
 
-void EQKitLayoutTable::LayoutCell::~LayoutCell(EQKitLayoutTable::LayoutCell *this)
+void EQKitLayoutTable::LayoutCell::~LayoutCell(id *this)
 {
-  EQKit::ILayout::~ILayout((this + 224));
-  EQKitLayoutRow::~EQKitLayoutRow((this + 64));
-  v2 = *(this + 3);
+  EQKit::ILayout::~ILayout(this + 28);
+  EQKitLayoutRow::~EQKitLayoutRow(this + 8);
+  v2 = this[3];
   if (v2)
   {
-    *(this + 4) = v2;
+    this[4] = v2;
     operator delete(v2);
   }
 
   v3 = *this;
   if (*this)
   {
-    *(this + 1) = v3;
+    this[1] = v3;
     operator delete(v3);
   }
 }
 
-uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__construct_one_at_end[abi:ne200100]<EQKitLayoutTable::LayoutRow const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<EQKitLayoutTable::LayoutRow>::__construct_one_at_end[abi:ne200100]<EQKitLayoutTable::LayoutRow const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = 0;
   v4[1] = 0;
   v4[2] = 0;
-  std::vector<EQKitTypes::Align::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Align::Enum*,EQKitTypes::Align::Enum*>(v4, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<EQKitTypes::Align::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Align::Enum*,EQKitTypes::Align::Enum*>(v4, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   v4[3] = 0;
   v4[4] = 0;
   v4[5] = 0;
-  std::vector<EQKitTypes::VAlign::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::VAlign::Enum*,EQKitTypes::VAlign::Enum*>((v4 + 3), a2[3], a2[4], (a2[4] - a2[3]) >> 2);
-  v5 = a2[6];
+  std::vector<EQKitTypes::VAlign::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::VAlign::Enum*,EQKitTypes::VAlign::Enum*>(v4 + 3, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
+  v5 = *(a2 + 48);
   v4[7] = 0;
   v4[6] = v5;
   v4[8] = 0;
   v4[9] = 0;
-  result = std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:ne200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>((v4 + 7), a2[7], a2[8], 0xAF8AF8AF8AF8AF8BLL * ((a2[8] - a2[7]) >> 3));
+  result = std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:ne200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>(v4 + 7, *(a2 + 56), *(a2 + 64), 0xAF8AF8AF8AF8AF8BLL * ((*(a2 + 64) - *(a2 + 56)) >> 3));
   *(a1 + 8) = v4 + 10;
   return result;
 }
@@ -7519,7 +7478,7 @@ void sub_25827C258(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__emplace_back_slow_path<EQKitLayoutTable::LayoutRow const&>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__emplace_back_slow_path<EQKitLayoutTable::LayoutRow const&>(void *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -7549,24 +7508,24 @@ uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__emplace_back_slow_path<EQKi
     std::__allocate_at_least[abi:ne200100]<std::allocator<EQKitLayoutTable::LayoutRow>>(a1, v6);
   }
 
-  v7 = 80 * v2;
+  v7 = (80 * v2);
   v15 = 0;
   v16 = v7;
   v17 = v7;
   *v7 = 0;
-  *(v7 + 8) = 0;
-  *(v7 + 16) = 0;
-  std::vector<EQKitTypes::Align::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Align::Enum*,EQKitTypes::Align::Enum*>(v7, *a2, a2[1], (a2[1] - *a2) >> 2);
-  *(v7 + 24) = 0;
-  *(v7 + 32) = 0;
-  *(v7 + 40) = 0;
-  std::vector<EQKitTypes::VAlign::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::VAlign::Enum*,EQKitTypes::VAlign::Enum*>(v7 + 24, a2[3], a2[4], (a2[4] - a2[3]) >> 2);
-  v8 = a2[6];
-  *(v7 + 56) = 0;
-  *(v7 + 48) = v8;
-  *(v7 + 64) = 0;
-  *(v7 + 72) = 0;
-  std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:ne200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>(v7 + 56, a2[7], a2[8], 0xAF8AF8AF8AF8AF8BLL * ((a2[8] - a2[7]) >> 3));
+  v7[1] = 0;
+  v7[2] = 0;
+  std::vector<EQKitTypes::Align::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::Align::Enum*,EQKitTypes::Align::Enum*>(v7, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
+  v7[3] = 0;
+  v7[4] = 0;
+  v7[5] = 0;
+  std::vector<EQKitTypes::VAlign::Enum>::__init_with_size[abi:ne200100]<EQKitTypes::VAlign::Enum*,EQKitTypes::VAlign::Enum*>(v7 + 3, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
+  v8 = *(a2 + 48);
+  v7[7] = 0;
+  v7[6] = v8;
+  v7[8] = 0;
+  v7[9] = 0;
+  std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:ne200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>(v7 + 7, *(a2 + 56), *(a2 + 64), 0xAF8AF8AF8AF8AF8BLL * ((*(a2 + 64) - *(a2 + 56)) >> 3));
   *&v17 = v17 + 80;
   v9 = a1[1];
   v10 = (v16 + *a1 - v9);
@@ -7584,14 +7543,15 @@ uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__emplace_back_slow_path<EQKi
   return v14;
 }
 
-void sub_25827C410(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_25827C410(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  EQKitLayoutTable::Properties::~Properties(v12);
-  std::__split_buffer<EQKitLayoutTable::LayoutRow>::~__split_buffer(&a12);
+  va_start(va, a11);
+  EQKitLayoutTable::Properties::~Properties(v11);
+  std::__split_buffer<EQKitLayoutTable::LayoutRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:ne200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:ne200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>(uint64_t *result, EQKitLayoutTable::LayoutCell *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7608,7 +7568,7 @@ void sub_25827C4B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<EQKitLayoutTable::LayoutCell>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<EQKitLayoutTable::LayoutCell>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xEA0EA0EA0EA0EBLL)
   {
@@ -7842,7 +7802,7 @@ EQKitLayoutTable::LayoutCell *std::vector<EQKitLayoutTable::LayoutCell>::__appen
       v5 = v10;
     }
 
-    *(v3 + 8) = v5;
+    *(v3 + 1) = v5;
   }
 
   else
@@ -7891,12 +7851,12 @@ EQKitLayoutTable::LayoutCell *std::vector<EQKitLayoutTable::LayoutCell>::__appen
 
     while (v13);
     *&v21 = v14;
-    v15 = *(v3 + 8);
+    v15 = *(v3 + 1);
     v16 = (v20 + *v3 - v15);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<EQKitLayoutTable::LayoutCell>,EQKitLayoutTable::LayoutCell*>(v3, *v3, v15, v16);
     v17 = *v3;
     *v3 = v16;
-    v18 = *(v3 + 16);
+    v18 = *(v3 + 2);
     *(v3 + 8) = v21;
     *&v21 = v17;
     *(&v21 + 1) = v18;
@@ -7908,9 +7868,9 @@ EQKitLayoutTable::LayoutCell *std::vector<EQKitLayoutTable::LayoutCell>::__appen
   return result;
 }
 
-void sub_25827CACC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25827CACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<EQKitLayoutTable::LayoutCell>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7978,7 +7938,7 @@ void sub_25827CBE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,EQKitLength<std::pair<EQKitTypes::Attributes::Enum const>>>>(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
+uint64_t EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,EQKitLength<std::pair<EQKitTypes::Attributes::Enum const>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v7 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Display::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Display::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Display::Enum>>::find<EQKitTypes::Attributes::Enum>(a2, a3);
   v8 = v7;
@@ -7992,7 +7952,7 @@ uint64_t EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_obje
     v9 = *(v7 + 48);
     v10 = *(v7 + 56);
 LABEL_4:
-    std::vector<EQKitLength>::__assign_with_size[abi:ne200100]<EQKitLength*,EQKitLength*>(a4, v9, v10, &v10[-v9] >> 4);
+    std::vector<EQKitLength>::__assign_with_size[abi:ne200100]<EQKitLength*,EQKitLength*>(a4, v9, v10, (v10 - v9) >> 4);
     return 1;
   }
 
@@ -8039,7 +7999,7 @@ LABEL_4:
   return result;
 }
 
-char *std::vector<EQKitLength>::__assign_with_size[abi:ne200100]<EQKitLength*,EQKitLength*>(char **a1, uint64_t a2, char *a3, unint64_t a4)
+char *std::vector<EQKitLength>::__assign_with_size[abi:ne200100]<EQKitLength*,EQKitLength*>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -8096,7 +8056,7 @@ char *std::vector<EQKitLength>::__assign_with_size[abi:ne200100]<EQKitLength*,EQ
 
   else
   {
-    v12 = (a2 + v11 - result);
+    v12 = a2 + v11 - result;
     if (v11 != result)
     {
       v13 = result;
@@ -8123,9 +8083,9 @@ char *std::vector<EQKitLength>::__assign_with_size[abi:ne200100]<EQKitLength*,EQ
       v16 = v11;
       do
       {
-        v17 = &v16[v15];
-        *v11 = *&v16[v15];
-        *(v11 + 1) = *&v16[v15 + 8];
+        v17 = v15 + v16;
+        *v11 = *(v15 + v16);
+        *(v11 + 8) = *(v15 + v16 + 8);
         v11 += 16;
         v16 += 16;
       }
@@ -8405,7 +8365,7 @@ double EQKit::ILayoutOffset::offsetInBox(EQKit::ILayoutOffset *this, EQKitBox *a
 
   if (a2)
   {
-    [(EQKitBox *)a2 transformFromDescendant:?];
+    objc_msgSend_transformFromDescendant_(a2);
     v3 = 0.0 * 0.0;
   }
 
@@ -8534,7 +8494,7 @@ void EQKit::ILayout::setOffsetOfKind(uint64_t a1, int a2, uint64_t a3)
   v5 = a2;
   v6 = *a3;
   v7 = *(a3 + 8);
-  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(a1 + 8, &v5);
+  std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(a1 + 8, &v5, &v5);
 }
 
 uint64_t *EQKit::ILayout::removeOffsetOfKind(uint64_t *result, int a2)
@@ -8599,7 +8559,7 @@ LABEL_10:
         v12 = *(v2 + 8);
         v13 = *(v2 + 5);
         v14 = *(v2 + 6);
-        std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(this + 8, &v12);
+        std::__tree<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::__map_value_compare<EQKit::ILayoutOffset::Kind,std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>,std::less<EQKit::ILayoutOffset::Kind>,true>,std::allocator<std::__value_type<EQKit::ILayoutOffset::Kind,EQKit::ILayoutOffset>>>::__emplace_unique_key_args<EQKit::ILayoutOffset::Kind,std::pair<EQKit::ILayoutOffset::Kind const,EQKit::ILayoutOffset>>(this + 8, &v12, &v12);
       }
 
       v9 = *(v2 + 1);
@@ -8899,7 +8859,7 @@ void EQKit::Font::CompositeStretch::defineCompositeStretch(CFStringRef name@<X0>
     v15 = v14;
     if (v12 != v13 && v14)
     {
-      MEMORY[0x28223BE20]((2 * (v12 - v13)), v14);
+      MEMORY[0x28223BE20](v14);
       v17 = (&v24 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
       if (CTFontGetGlyphsForCharacters(v15, v29, v17, v18))
       {
@@ -8999,7 +8959,7 @@ void sub_25827E438(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -9116,7 +9076,8 @@ void EQKitCache<EQKit::StemStretch::Key,std::shared_ptr<EQKit::StemStretch::Glyp
     else
     {
       v15 = **a1;
-      v13 = std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(a1 + 1, a2);
+      v17 = a2;
+      v13 = std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(a1 + 1, a2, &std::piecewise_construct, &v17, &v16);
       v14 = v13[7];
       v13[6] = 0;
       v13[7] = 0;
@@ -9349,44 +9310,44 @@ void sub_25827F09C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ___ZN5EQKit4Font14STIXCollectionC1EP12NSDictionaryRKNS_11Environment7VersionERK20EQKitCacheLRUCounter_block_invoke(uint64_t a1, uint64_t a2)
+void ___ZN5EQKit4Font14STIXCollectionC1EP12NSDictionaryRKNS_11Environment7VersionERK20EQKitCacheLRUCounter_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v2 = *(*(a1 + 32) + 328);
-  if (v2)
+  v3 = *(*(a1 + 32) + 328);
+  if (v3)
   {
-    v3 = *(a2 + 20);
+    v4 = *(a2 + 20);
     if (*a2)
     {
-      v4 = [*a2 UTF8String];
+      v5 = [*a2 UTF8String];
     }
 
     else
     {
-      v4 = "";
+      v5 = "";
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v5, v4);
-    v6[0] = v3;
-    v6[1] = 13;
-    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v6, v5);
+    v7[0] = v4;
+    v7[1] = 13;
+    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v5.__r_.__value_.__l.__data_, v5.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v5;
+      __p = v6;
     }
 
-    std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::find<EQKit::Font::CharacterProperty::Map::Key>(v2 + 48, v6);
+    std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::find<EQKit::Font::CharacterProperty::Map::Key>(v3 + 48, v7);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v5.__r_.__value_.__l.__data_);
+      operator delete(v6.__r_.__value_.__l.__data_);
     }
   }
 
@@ -9790,7 +9751,7 @@ uint64_t EQKitCache<EQKit::StemStretch::Key,std::shared_ptr<EQKit::StemStretch::
   return result;
 }
 
-void sub_25827F9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_25827F9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
 {
   a10 = &a15;
   std::vector<std::pair<EQKit::StemStretch::Key,unsigned long>>::__destroy_vector::operator()[abi:ne200100](&a10);

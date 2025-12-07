@@ -27,7 +27,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A2127F6C();
+  sub_1A2127F6C(selfCopy, v2);
 }
 
 - (void)updateContentSizeCategory
@@ -38,7 +38,7 @@
 
 - (id)pointerInteraction:(id)interaction regionForRequest:(id)request defaultRegion:(id)region
 {
-  sub_1A2115288(0, &qword_1EB088D28);
+  sub_1A2115288(0, &qword_1EB088D28, 0x1E69DCDC0);
   selfCopy = self;
   [(MediaControlsModuleRouteButton *)selfCopy bounds];
   v7 = sub_1A22E6AB8();

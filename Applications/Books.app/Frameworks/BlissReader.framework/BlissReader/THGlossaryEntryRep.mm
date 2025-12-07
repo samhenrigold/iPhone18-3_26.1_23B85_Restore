@@ -116,24 +116,26 @@
 
 - (id)stringForLabelControl:(id)control
 {
-  if ([objc_msgSend(control "layout")])
+  v4 = [objc_msgSend(control "layout")];
+  if (v4)
   {
-    if ([objc_msgSend(control "layout")] != &dword_0 + 1)
+    v4 = [objc_msgSend(control "layout")];
+    if (v4 != &dword_0 + 1)
     {
       return 0;
     }
 
-    v4 = @"Index";
+    v6 = @"Index";
   }
 
   else
   {
-    v4 = @"Related Glossary Terms";
+    v6 = @"Related Glossary Terms";
   }
 
-  v5 = THBundle();
+  v7 = THBundle(v4, v5);
 
-  return [v5 localizedStringForKey:v4 value:&stru_471858 table:0];
+  return [v7 localizedStringForKey:v6 value:&stru_471858 table:0];
 }
 
 - (id)fontNameForLabelControl:(id)control

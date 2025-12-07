@@ -26,13 +26,21 @@
 - (id)_numberValueForKey:(id)key defaultValue:(id)value;
 - (void)_setValueForKey:(id)key newValue:(id)value;
 - (void)resetSettings;
+- (void)setCollectAppInFocus:(BOOL)focus;
 - (void)setCollectAppInFocusNum:(id)num;
+- (void)setCollectLoggingAppLaunch:(BOOL)launch;
 - (void)setCollectLoggingAppLaunchNum:(id)num;
+- (void)setCollectLoggingHangs:(BOOL)hangs;
 - (void)setCollectLoggingHangsNum:(id)num;
+- (void)setCollectLoggingMetalFramePacing:(BOOL)pacing;
 - (void)setCollectLoggingMetalFramePacingNum:(id)num;
+- (void)setCollectLoggingPerfPowerMetrics:(BOOL)metrics;
 - (void)setCollectLoggingPerfPowerMetricsNum:(id)num;
+- (void)setCollectLoggingScrolling:(BOOL)scrolling;
 - (void)setCollectLoggingScrollingNum:(id)num;
+- (void)setCollectLoggingUserInteraction:(BOOL)interaction;
 - (void)setCollectLoggingUserInteractionNum:(id)num;
+- (void)setCollectMSS:(BOOL)s;
 - (void)setCollectMSSNum:(id)num;
 - (void)setCollectionLookbackInterval:(double)interval;
 - (void)setCollectionLookbackIntervalNum:(id)num;
@@ -57,8 +65,7 @@
   v7 = v6;
   if (v6)
   {
-    [v6 removeObjectForKey:@"CollectionConfiguration"];
-    v8 = sub_1000045A4();
+    v8 = sub_1000045A4([v6 removeObjectForKey:@"CollectionConfiguration"]);
     if (os_signpost_enabled(v8))
     {
       v9 = @"com.apple.PerformanceTrace.passive.config";
@@ -78,7 +85,7 @@ LABEL_10:
 
   else
   {
-    v8 = sub_100004560();
+    v8 = sub_100004560(0);
     if (os_signpost_enabled(v8))
     {
       v12 = @"com.apple.PerformanceTrace.passive.config";
@@ -170,39 +177,39 @@ LABEL_10:
   defaultsManager = [(PTPCMutablePassiveCollectionConfig *)self defaultsManager];
   v9 = [defaultsManager objectForKey:keyCopy];
 
-  v10 = sub_1000045A4();
-  v11 = os_signpost_enabled(v10);
+  v11 = sub_1000045A4(v10);
+  v12 = os_signpost_enabled(v11);
   if (v9)
   {
-    v12 = v9;
-    if (v11)
+    v13 = v9;
+    if (v12)
     {
-      v15 = 138543618;
-      v16 = keyCopy;
-      v17 = 2114;
-      v18 = v9;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LookingUpKey", "Returning value for key '%{public}@': %{public}@", &v15, 0x16u);
-      v12 = v9;
+      v16 = 138543618;
+      v17 = keyCopy;
+      v18 = 2114;
+      v19 = v9;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LookingUpKey", "Returning value for key '%{public}@': %{public}@", &v16, 0x16u);
+      v13 = v9;
     }
   }
 
   else
   {
-    v12 = valueCopy;
-    if (v11)
+    v13 = valueCopy;
+    if (v12)
     {
-      v15 = 138543618;
-      v16 = keyCopy;
-      v17 = 2114;
-      v18 = valueCopy;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LookingUpKey", "Returning default for key '%{public}@': %{public}@", &v15, 0x16u);
-      v12 = valueCopy;
+      v16 = 138543618;
+      v17 = keyCopy;
+      v18 = 2114;
+      v19 = valueCopy;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LookingUpKey", "Returning default for key '%{public}@': %{public}@", &v16, 0x16u);
+      v13 = valueCopy;
     }
   }
 
-  v13 = v12;
+  v14 = v13;
 
-  return v13;
+  return v14;
 }
 
 - (void)_setValueForKey:(id)key newValue:(id)value
@@ -214,51 +221,51 @@ LABEL_10:
 
   if (v9)
   {
-    v10 = sub_1000045A4();
-    if (os_signpost_enabled(v10))
+    v11 = sub_1000045A4(v10);
+    if (os_signpost_enabled(v11))
     {
       if (valueCopy)
       {
-        v11 = valueCopy;
+        v12 = valueCopy;
       }
 
       else
       {
-        v11 = @"nil";
+        v12 = @"nil";
       }
 
       localizedDescription = [v9 localizedDescription];
-      v13 = localizedDescription;
-      v14 = @"Unknown";
-      v17 = 138543874;
-      v18 = keyCopy;
+      v14 = localizedDescription;
+      v15 = @"Unknown";
+      v18 = 138543874;
+      v19 = keyCopy;
       if (localizedDescription)
       {
-        v14 = localizedDescription;
+        v15 = localizedDescription;
       }
 
-      v19 = 2114;
-      v20 = v11;
-      v21 = 2114;
-      v22 = v14;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollectionConfigurationUpdateFailed", "Failed to updated key '%{public}@' to '%{public}@' due to error: '%{public}@'", &v17, 0x20u);
+      v20 = 2114;
+      v21 = v12;
+      v22 = 2114;
+      v23 = v15;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollectionConfigurationUpdateFailed", "Failed to updated key '%{public}@' to '%{public}@' due to error: '%{public}@'", &v18, 0x20u);
     }
   }
 
-  v15 = sub_1000045A4();
-  if (os_signpost_enabled(v15))
+  v16 = sub_1000045A4(v10);
+  if (os_signpost_enabled(v16))
   {
-    v16 = @"nil";
+    v17 = @"nil";
     if (valueCopy)
     {
-      v16 = valueCopy;
+      v17 = valueCopy;
     }
 
-    v17 = 138543618;
-    v18 = keyCopy;
-    v19 = 2114;
-    v20 = v16;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollectionConfigurationUpdate", "Updated key '%{public}@' to %{public}@", &v17, 0x16u);
+    v18 = 138543618;
+    v19 = keyCopy;
+    v20 = 2114;
+    v21 = v17;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollectionConfigurationUpdate", "Updated key '%{public}@' to %{public}@", &v18, 0x16u);
   }
 }
 
@@ -309,6 +316,12 @@ LABEL_10:
   return bOOLValue;
 }
 
+- (void)setCollectMSS:(BOOL)s
+{
+  v4 = [NSNumber numberWithBool:s];
+  [(PTPCMutablePassiveCollectionConfig *)self setCollectMSSNum:v4];
+}
+
 - (NSNumber)collectAppInFocusNum
 {
   v11 = 0;
@@ -354,6 +367,12 @@ LABEL_10:
   bOOLValue = [collectAppInFocusNum BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setCollectAppInFocus:(BOOL)focus
+{
+  v4 = [NSNumber numberWithBool:focus];
+  [(PTPCMutablePassiveCollectionConfig *)self setCollectAppInFocusNum:v4];
 }
 
 - (NSNumber)collectLoggingUserInteractionNum
@@ -403,6 +422,12 @@ LABEL_10:
   return bOOLValue;
 }
 
+- (void)setCollectLoggingUserInteraction:(BOOL)interaction
+{
+  v4 = [NSNumber numberWithBool:interaction];
+  [(PTPCMutablePassiveCollectionConfig *)self setCollectLoggingUserInteractionNum:v4];
+}
+
 - (NSNumber)collectLoggingMetalFramePacingNum
 {
   v11 = 0;
@@ -448,6 +473,12 @@ LABEL_10:
   bOOLValue = [collectLoggingMetalFramePacingNum BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setCollectLoggingMetalFramePacing:(BOOL)pacing
+{
+  v4 = [NSNumber numberWithBool:pacing];
+  [(PTPCMutablePassiveCollectionConfig *)self setCollectLoggingMetalFramePacingNum:v4];
 }
 
 - (NSNumber)collectLoggingScrollingNum
@@ -497,6 +528,12 @@ LABEL_10:
   return bOOLValue;
 }
 
+- (void)setCollectLoggingScrolling:(BOOL)scrolling
+{
+  v4 = [NSNumber numberWithBool:scrolling];
+  [(PTPCMutablePassiveCollectionConfig *)self setCollectLoggingScrollingNum:v4];
+}
+
 - (NSNumber)collectLoggingPerfPowerMetricsNum
 {
   v11 = 0;
@@ -542,6 +579,12 @@ LABEL_10:
   bOOLValue = [collectLoggingPerfPowerMetricsNum BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setCollectLoggingPerfPowerMetrics:(BOOL)metrics
+{
+  v4 = [NSNumber numberWithBool:metrics];
+  [(PTPCMutablePassiveCollectionConfig *)self setCollectLoggingPerfPowerMetricsNum:v4];
 }
 
 - (NSNumber)collectLoggingAppLaunchNum
@@ -591,6 +634,12 @@ LABEL_10:
   return bOOLValue;
 }
 
+- (void)setCollectLoggingAppLaunch:(BOOL)launch
+{
+  v4 = [NSNumber numberWithBool:launch];
+  [(PTPCMutablePassiveCollectionConfig *)self setCollectLoggingAppLaunchNum:v4];
+}
+
 - (NSNumber)collectLoggingHangsNum
 {
   v11 = 0;
@@ -636,6 +685,12 @@ LABEL_10:
   bOOLValue = [collectLoggingHangsNum BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setCollectLoggingHangs:(BOOL)hangs
+{
+  v4 = [NSNumber numberWithBool:hangs];
+  [(PTPCMutablePassiveCollectionConfig *)self setCollectLoggingHangsNum:v4];
 }
 
 - (NSNumber)imitationRecordStartTimeSinceReferenceDate
@@ -740,28 +795,28 @@ LABEL_10:
 {
   numCopy = num;
   v5 = numCopy;
-  if (numCopy && ([numCopy doubleValue], v6 <= 0.0))
+  if (numCopy && (v6 = [numCopy doubleValue], v7 <= 0.0))
   {
-    v7 = sub_100004560();
-    if (os_signpost_enabled(v7))
+    v8 = sub_100004560(v6);
+    if (os_signpost_enabled(v8))
     {
       [v5 doubleValue];
       *buf = 134349056;
-      v12 = v8;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidLookbackInterval", "Cannot set lookback to %{public}f seconds", buf, 0xCu);
+      v13 = v9;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidLookbackInterval", "Cannot set lookback to %{public}f seconds", buf, 0xCu);
     }
   }
 
   else
   {
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100006AF4;
-    v9[3] = &unk_1000208F8;
-    v9[4] = self;
-    v10 = v5;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100006AF4;
+    v10[3] = &unk_1000208F8;
+    v10[4] = self;
+    v11 = v5;
     os_unfair_lock_lock(&self->_syncLock);
-    sub_100006AF4(v9);
+    sub_100006AF4(v10);
     os_unfair_lock_unlock(&self->_syncLock);
   }
 }

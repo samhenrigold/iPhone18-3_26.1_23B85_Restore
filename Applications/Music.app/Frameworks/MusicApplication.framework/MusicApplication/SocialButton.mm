@@ -55,7 +55,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   selfCopy = self;
-  sub_4ECFBC(x, y, width, height);
+  sub_4ECFBC(selfCopy, x, y, width, height);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

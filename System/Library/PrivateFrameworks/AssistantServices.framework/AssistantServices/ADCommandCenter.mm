@@ -280,6 +280,8 @@
 - (void)_remoteExecute_remoteDeviceExecuteSerializedCommand:(id)command onDeviceForAssistantId:(id)id allowFallbackOnAWDL:(BOOL)l executionContext:(id)context completion:(id)completion;
 - (void)_remoteExecute_remoteDeviceExecuteSerializedCommand:(id)command onPeer:(id)peer allowsRelay:(BOOL)relay allowFallbackOnAWDL:(BOOL)l executionContext:(id)context completion:(id)completion;
 - (void)_remoteExecute_remoteDeviceExecuteSerializedCommand:(id)command onSpecifiedDeviceTypes:(unint64_t)types preferredMessagingOption:(unint64_t)option allowFallbackOnAWDL:(BOOL)l executionContext:(id)context completion:(id)completion;
+- (void)_removeAllHandledCommandIds;
+- (void)_removeAllPostCommandHandlingBlocks;
 - (void)_removeAllSpeechCapturingContexts;
 - (void)_removeDelegate:(id)delegate;
 - (void)_removeExecutionDevicesForLocalRequestWithId:(id)id;
@@ -1131,6 +1133,20 @@
   }
 }
 
+- (void)_removeAllHandledCommandIds
+{
+  handledCommandIdsByRequestId = self->_handledCommandIdsByRequestId;
+  self->_handledCommandIdsByRequestId = 0;
+  _objc_release_x1(self, handledCommandIdsByRequestId);
+}
+
+- (void)_removeAllPostCommandHandlingBlocks
+{
+  postCommandHandlingBlockMap = self->_postCommandHandlingBlockMap;
+  self->_postCommandHandlingBlockMap = 0;
+  _objc_release_x1(self, postCommandHandlingBlockMap);
+}
+
 - (void)_sync_reset
 {
   [(ADSyncManager *)self->_syncManager reset];
@@ -1473,53 +1489,63 @@ LABEL_22:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-LABEL_12:
-    v8 = 0;
-    goto LABEL_13;
-  }
-
-  *buf = 0;
-  if (!sub_10012F770())
-  {
-    v2 = +[NSAssertionHandler currentHandler];
-    v10 = [NSString stringWithUTF8String:"void *USTFoundationLibrary(void)"];
-    [v2 handleFailureInFunction:v10 file:@"ADCommandCenter_UnifiedSiriTest.m" lineNumber:19 description:{@"%s", *buf}];
-
-    __break(1u);
-    free(v11);
-  }
-
-  v3 = sub_10012F840();
-
-  if (!v3)
-  {
     goto LABEL_12;
   }
 
-  v4 = qword_100590248;
+  *buf = 0;
+  if (sub_10012F770(buf))
+  {
+    v3 = *buf;
+    if (!*buf)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  else
+  {
+    v2 = +[NSAssertionHandler currentHandler];
+    v11 = [NSString stringWithUTF8String:"void *USTFoundationLibrary(void)"];
+    [v2 handleFailureInFunction:v11 file:@"ADCommandCenter_UnifiedSiriTest.m" lineNumber:19 description:{@"%s", *buf}];
+
+    __break(1u);
+  }
+
+  free(v3);
+LABEL_5:
+  v4 = sub_10012F840();
+
+  if (!v4)
+  {
+LABEL_12:
+    v9 = 0;
+    goto LABEL_13;
+  }
+
+  v5 = qword_100590248;
   if (!qword_100590248)
   {
-    v5 = objc_alloc_init(sub_10012F840());
-    v6 = qword_100590248;
-    qword_100590248 = v5;
+    v6 = objc_alloc_init(sub_10012F840());
+    v7 = qword_100590248;
+    qword_100590248 = v6;
 
-    v7 = AFSiriLogContextConnection;
+    v8 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
       *&buf[4] = "[ADCommandCenter(UnifiedSiriTest) _testAgent]";
       v13 = 2112;
       v14 = qword_100590248;
-      _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%s Created %@", buf, 0x16u);
+      _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%s Created %@", buf, 0x16u);
     }
 
-    v4 = qword_100590248;
+    v5 = qword_100590248;
   }
 
-  v8 = v4;
+  v9 = v5;
 LABEL_13:
 
-  return v8;
+  return v9;
 }
 
 - (id)_fetchComputedModeAndUpdateRequestDelegate
@@ -1793,8 +1819,8 @@ LABEL_7:
   }
 
   v2 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.airplay"];
-  v3 = [v2 objectForKey:@"persistentGroupUUID"];
-  v4 = [v2 objectForKey:@"tightSyncGroupUUID"];
+  v3 = objc_msgSend_objectForKey_(v2);
+  v4 = objc_msgSend_objectForKey_(v2);
   if (v3)
   {
     v5 = 4;
@@ -3104,17 +3130,23 @@ LABEL_9:
 - (void)_removeOutstandingSyncChunkId:(id)id
 {
   idCopy = id;
+  v5 = idCopy;
   if (idCopy)
   {
+    v7 = idCopy;
     [(NSMutableSet *)self->_outstandingSyncChunks removeObject:idCopy];
-    if (![(NSMutableSet *)self->_outstandingSyncChunks count])
+    idCopy = [(NSMutableSet *)self->_outstandingSyncChunks count];
+    v5 = v7;
+    if (!idCopy)
     {
       outstandingSyncChunks = self->_outstandingSyncChunks;
       self->_outstandingSyncChunks = 0;
+
+      v5 = v7;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(idCopy, v5);
 }
 
 - (void)_addOutstandingSyncChunkId:(id)id
@@ -3151,17 +3183,23 @@ LABEL_9:
 - (void)_removeOutstandingAnchorsRequestId:(id)id
 {
   idCopy = id;
+  v5 = idCopy;
   if (idCopy)
   {
+    v7 = idCopy;
     [(NSMutableSet *)self->_outstandingAnchorsRequests removeObject:idCopy];
-    if (![(NSMutableSet *)self->_outstandingAnchorsRequests count])
+    idCopy = [(NSMutableSet *)self->_outstandingAnchorsRequests count];
+    v5 = v7;
+    if (!idCopy)
     {
       outstandingAnchorsRequests = self->_outstandingAnchorsRequests;
       self->_outstandingAnchorsRequests = 0;
+
+      v5 = v7;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(idCopy, v5);
 }
 
 - (void)_addOutstandingAnchorsRequestId:(id)id
@@ -4758,43 +4796,47 @@ LABEL_8:
 - (BOOL)_isServerBoundCommand:(id)command
 {
   commandCopy = command;
-  v5 = [(NSMapTable *)self->_serverBoundCommandLookup objectForKey:objc_opt_class()];
-  v6 = v5;
-  if (v5)
+  serverBoundCommandLookup = self->_serverBoundCommandLookup;
+  objc_opt_class();
+  v6 = objc_msgSend_objectForKey_(serverBoundCommandLookup);
+  v7 = v6;
+  if (v6)
   {
-    LOBYTE(v7) = [v5 BOOLValue];
+    LOBYTE(v8) = [v6 BOOLValue];
   }
 
   else
   {
-    v7 = [commandCopy conformsToProtocol:&OBJC_PROTOCOL___SAServerBoundCommand];
-    serverBoundCommandLookup = self->_serverBoundCommandLookup;
-    v9 = [NSNumber numberWithBool:v7];
-    [(NSMapTable *)serverBoundCommandLookup setObject:v9 forKey:objc_opt_class()];
+    v8 = [commandCopy conformsToProtocol:&OBJC_PROTOCOL___SAServerBoundCommand];
+    v9 = self->_serverBoundCommandLookup;
+    v10 = [NSNumber numberWithBool:v8];
+    [(NSMapTable *)v9 setObject:v10 forKey:objc_opt_class()];
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)_isClientBoundCommand:(id)command
 {
   commandCopy = command;
-  v5 = [(NSMapTable *)self->_clientBoundCommandLookup objectForKey:objc_opt_class()];
-  v6 = v5;
-  if (v5)
+  clientBoundCommandLookup = self->_clientBoundCommandLookup;
+  objc_opt_class();
+  v6 = objc_msgSend_objectForKey_(clientBoundCommandLookup);
+  v7 = v6;
+  if (v6)
   {
-    LOBYTE(v7) = [v5 BOOLValue];
+    LOBYTE(v8) = [v6 BOOLValue];
   }
 
   else
   {
-    v7 = [commandCopy conformsToProtocol:&OBJC_PROTOCOL___SAClientBoundCommand];
-    clientBoundCommandLookup = self->_clientBoundCommandLookup;
-    v9 = [NSNumber numberWithBool:v7];
-    [(NSMapTable *)clientBoundCommandLookup setObject:v9 forKey:objc_opt_class()];
+    v8 = [commandCopy conformsToProtocol:&OBJC_PROTOCOL___SAClientBoundCommand];
+    v9 = self->_clientBoundCommandLookup;
+    v10 = [NSNumber numberWithBool:v8];
+    [(NSMapTable *)v9 setObject:v10 forKey:objc_opt_class()];
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_approximatePreviousTTSInterval:(id)interval
@@ -4965,7 +5007,7 @@ LABEL_18:
 {
   if (d)
   {
-    v4 = [(NSMutableDictionary *)self->_speechCapturingContextsBySessionUUID objectForKey:?];
+    v4 = objc_msgSend_objectForKey_(self->_speechCapturingContextsBySessionUUID, a2);
   }
 
   else
@@ -8720,7 +8762,7 @@ LABEL_10:
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, kAFSiriAndDictationHistoryDeletionRequestedDarwinNotification, 0, 0, 1u);
-  sub_1001E1E3C(0);
+  sub_1001E1E3C(0, 1);
 }
 
 - (void)_deleteSiriHistoryWithContext:(id)context withCompletion:(id)completion
@@ -9354,7 +9396,7 @@ LABEL_8:
   toCopy = to;
   if (fromCopy)
   {
-    v7 = [(NSMutableDictionary *)self->_firstChanceServices objectForKey:fromCopy];
+    v7 = objc_msgSend_objectForKey_(self->_firstChanceServices);
     v8 = v7;
     if (toCopy && v7)
     {
@@ -9369,7 +9411,7 @@ LABEL_8:
 {
   firstChanceServices = self->_firstChanceServices;
   refId = [command refId];
-  v5 = [(NSMutableDictionary *)firstChanceServices objectForKey:refId];
+  v5 = objc_msgSend_objectForKey_(firstChanceServices);
 
   return v5;
 }
@@ -12169,7 +12211,7 @@ LABEL_30:
       if (!os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
 LABEL_19:
-        v12 = +[AFAnalytics sharedAnalytics];
+        v12 = [AFAnalytics sharedAnalytics:*v26];
         firstObject = v12;
         v14 = 6011;
 LABEL_20:
@@ -12424,7 +12466,7 @@ LABEL_25:
   }
 
   (v39[2])(v39, self->_cachedConfidenceScoresFromRemote);
-  v42 = [v69[5] objectForKey:v37];
+  v42 = objc_msgSend_objectForKey_(v69[5]);
   if (v42)
   {
 
@@ -13460,21 +13502,21 @@ LABEL_39:
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-    v164 = 2112;
-    v165 = infoCopy;
-    v166 = 2112;
-    v167 = contextCopy;
+    v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+    v165 = 2112;
+    v166 = infoCopy;
+    v167 = 2112;
+    v168 = contextCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s info = %@, context = %@", buf, 0x20u);
   }
 
   [(ADCommandCenter *)self _sendContextAndRestrictionsForSpeechRequestWithInfo:infoCopy];
-  v152 = managerCopy;
+  v153 = managerCopy;
   if ([(NSString *)infoCopy isDictation])
   {
     dictationOptions = [managerCopy dictationOptions];
     transcriptionMode = [dictationOptions transcriptionMode];
-    v148 = transcriptionMode == 0;
+    v149 = transcriptionMode == 0;
     if (transcriptionMode)
     {
       if ([dictationOptions transcriptionMode] != 3)
@@ -13484,15 +13526,15 @@ LABEL_39:
         transcriptionMode2 = [dictationOptions transcriptionMode];
         if (transcriptionMode2 == 1)
         {
-          v65 = AFSiriLogContextDaemon;
+          v66 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-            _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "%s starting location dictation request", buf, 0xCu);
+            v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+            _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "%s starting location dictation request", buf, 0xCu);
           }
 
-          v55 = &SAStartStructuredDictationRequestStructuredDictationTypePLACEValue;
+          v56 = &SAStartStructuredDictationRequestStructuredDictationTypePLACEValue;
         }
 
         else
@@ -13504,18 +13546,18 @@ LABEL_44:
             goto LABEL_45;
           }
 
-          v54 = AFSiriLogContextDaemon;
+          v55 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-            _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_INFO, "%s starting person dictation request", buf, 0xCu);
+            v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "%s starting person dictation request", buf, 0xCu);
           }
 
-          v55 = &SAStartStructuredDictationRequestStructuredDictationTypePERSONValue;
+          v56 = &SAStartStructuredDictationRequestStructuredDictationTypePERSONValue;
         }
 
-        [v17 setStructuredDictationType:*v55];
+        [v17 setStructuredDictationType:*v56];
         goto LABEL_44;
       }
 
@@ -13531,15 +13573,15 @@ LABEL_44:
         firstObject = 0;
       }
 
-      v58 = objc_alloc_init(SASPronunciationContext);
+      v59 = objc_alloc_init(SASPronunciationContext);
       pronunciationContext = self->_pronunciationContext;
-      self->_pronunciationContext = v58;
+      self->_pronunciationContext = v59;
 
       [(SASPronunciationContext *)self->_pronunciationContext setTokenOffset:&off_100533BC0];
       [(SASPronunciationContext *)self->_pronunciationContext setDomainObjectPropertyIdentifier:@"PhonemeTranscription"];
-      v60 = self->_pronunciationContext;
+      v61 = self->_pronunciationContext;
       orthography = [dictationOptions orthography];
-      [(SASPronunciationContext *)v60 setOrthography:orthography];
+      [(SASPronunciationContext *)v61 setOrthography:orthography];
 
       [(SASPronunciationContext *)self->_pronunciationContext setLanguage:firstObject];
       v17 = objc_alloc_init(SASStartPronunciationRequest);
@@ -13562,51 +13604,51 @@ LABEL_44:
       localeIdentifier = [v38 localeIdentifier];
       [v17 setRegion:localeIdentifier];
 
-      [v17 setCensorSpeech:sub_100214D74()];
+      [v17 setCensorSpeech:sub_100214D74(v40)];
       applicationName = [v17 applicationName];
 
       if (!applicationName)
       {
-        v41 = +[NSBundle mainBundle];
-        bundleIdentifier = [v41 bundleIdentifier];
+        v42 = +[NSBundle mainBundle];
+        bundleIdentifier = [v42 bundleIdentifier];
         [v17 setApplicationName:bundleIdentifier];
       }
 
       applicationName2 = [v17 applicationName];
-      v44 = [applicationName2 isEqualToString:@"OnDeviceDictationAudioData"];
+      v45 = [applicationName2 isEqualToString:@"OnDeviceDictationAudioData"];
 
-      if (v44)
+      if (v45)
       {
         samplingInfo = [dictationOptions samplingInfo];
-        v46 = samplingInfo;
+        v47 = samplingInfo;
         if (samplingInfo)
         {
-          v47 = samplingInfo;
+          v48 = samplingInfo;
         }
 
         else
         {
-          v47 = &stru_10051F508;
+          v48 = &stru_10051F508;
         }
 
-        [v17 setSelectedText:v47];
+        [v17 setSelectedText:v48];
       }
 
       applicationVersion = [v17 applicationVersion];
 
       if (!applicationVersion)
       {
-        v49 = +[NSBundle mainBundle];
-        v50 = [v49 objectForInfoDictionaryKey:kCFBundleVersionKey];
-        [v17 setApplicationVersion:v50];
+        v50 = +[NSBundle mainBundle];
+        v51 = [v50 objectForInfoDictionaryKey:kCFBundleVersionKey];
+        [v17 setApplicationVersion:v51];
       }
 
       interactionId = [v17 interactionId];
 
       if (!interactionId)
       {
-        v52 = SiriCoreUUIDStringCreate();
-        [v17 setInteractionId:v52];
+        v53 = SiriCoreUUIDStringCreate();
+        [v17 setInteractionId:v53];
       }
     }
 
@@ -13625,10 +13667,10 @@ LABEL_44:
     [v17 setRefId:serverCommandId2];
 
     [v17 setContext:self->_pronunciationContext];
-    v148 = 0;
+    v149 = 0;
 LABEL_45:
-    v56 = 0;
     v57 = 0;
+    v58 = 0;
     goto LABEL_46;
   }
 
@@ -13695,22 +13737,22 @@ LABEL_45:
     v34 = v30;
   }
 
-  v148 = 0;
+  v149 = 0;
   v17 = v34;
-  v56 = v36;
-  v57 = v35;
+  v57 = v36;
+  v58 = v35;
   contextCopy = v37;
-  managerCopy = v152;
+  managerCopy = v153;
 LABEL_46:
-  v155 = v57;
+  v156 = v58;
   if (!self->_currentSpeechRequestOptions && ([(NSString *)infoCopy isDictation]& 1) == 0 && AFIsInternalInstall())
   {
-    v66 = +[SiriCoreSymptomsReporter sharedInstance];
-    v67 = +[NSProcessInfo processInfo];
-    processIdentifier = [v67 processIdentifier];
-    [v66 reportIssueForType:@"start_speech_request_without_speech_request_options" subType:0 context:0 processIdentifier:processIdentifier walkboutStatus:byte_100590548];
+    v67 = +[SiriCoreSymptomsReporter sharedInstance];
+    v68 = +[NSProcessInfo processInfo];
+    processIdentifier = [v68 processIdentifier];
+    [v67 reportIssueForType:@"start_speech_request_without_speech_request_options" subType:0 context:0 processIdentifier:processIdentifier walkboutStatus:byte_100590548];
 
-    v57 = v155;
+    v58 = v156;
   }
 
   [v17 ad_setAFSpeechRequestOptions:self->_currentSpeechRequestOptions];
@@ -13720,100 +13762,100 @@ LABEL_46:
 
   if (AFIsInternalInstall())
   {
-    v70 = [NSNumber numberWithBool:byte_100590548];
-    [v17 setIsCarryDevice:v70];
+    v71 = [NSNumber numberWithBool:byte_100590548];
+    [v17 setIsCarryDevice:v71];
   }
 
-  v71 = self->_motionManager;
-  motionActivity = [(ADMotionManager *)v71 motionActivity];
+  v72 = self->_motionManager;
+  motionActivity = [(ADMotionManager *)v72 motionActivity];
   [v17 setMotionActivity:motionActivity];
 
-  v154 = v71;
-  motionConfidence = [(ADMotionManager *)v71 motionConfidence];
+  v155 = v72;
+  motionConfidence = [(ADMotionManager *)v72 motionConfidence];
   [v17 setMotionConfidence:motionConfidence];
 
   [(ADCommandCenterClient *)self->_currentClient adInvalidateCurrentUserActivity];
-  v153 = v56;
-  if (v57)
+  v154 = v57;
+  if (v58)
   {
-    v74 = v57;
-    v75 = AFSiriLogContextDaemon;
+    v75 = v58;
+    v76 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-      v164 = 2112;
-      v165 = v74;
-      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_INFO, "%s Sending %@ instead of StartSpeechRequest since session supports understanding on device", buf, 0x16u);
+      v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+      v165 = 2112;
+      v166 = v75;
+      _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_INFO, "%s Sending %@ instead of StartSpeechRequest since session supports understanding on device", buf, 0x16u);
     }
   }
 
   else
   {
-    if (v56)
+    if (v57)
     {
-      v74 = v56;
-      v76 = AFSiriLogContextDaemon;
+      v75 = v57;
+      v77 = AFSiriLogContextDaemon;
       if (!os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         goto LABEL_61;
       }
 
-      v77 = v76;
-      origin = [(NSString *)v74 origin];
-      audioSource = [(NSString *)v74 audioSource];
+      v78 = v77;
+      origin = [(NSString *)v75 origin];
+      audioSource = [(NSString *)v75 audioSource];
       *buf = 136315906;
-      v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-      v164 = 2112;
-      v165 = v74;
-      v166 = 2112;
-      v167 = origin;
-      v168 = 2112;
-      v169 = audioSource;
-      v80 = "%s #AsrOnServer Sending %@ (origin = %@, source = %@)...instead of StartSpeechRequest since session supports understanding on device and ASR is on server.";
+      v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+      v165 = 2112;
+      v166 = v75;
+      v167 = 2112;
+      v168 = origin;
+      v169 = 2112;
+      v170 = audioSource;
+      v81 = "%s #AsrOnServer Sending %@ (origin = %@, source = %@)...instead of StartSpeechRequest since session supports understanding on device and ASR is on server.";
     }
 
     else
     {
-      v74 = v17;
-      v81 = AFSiriLogContextDaemon;
+      v75 = v17;
+      v82 = AFSiriLogContextDaemon;
       if (!os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         goto LABEL_61;
       }
 
-      v77 = v81;
-      origin = [(NSString *)v74 origin];
-      audioSource = [(NSString *)v74 audioSource];
+      v78 = v82;
+      origin = [(NSString *)v75 origin];
+      audioSource = [(NSString *)v75 audioSource];
       *buf = 136315906;
-      v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-      v164 = 2112;
-      v165 = v74;
-      v166 = 2112;
-      v167 = origin;
-      v168 = 2112;
-      v169 = audioSource;
-      v80 = "%s Sending %@ (origin = %@, source = %@)...";
+      v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+      v165 = 2112;
+      v166 = v75;
+      v167 = 2112;
+      v168 = origin;
+      v169 = 2112;
+      v170 = audioSource;
+      v81 = "%s Sending %@ (origin = %@, source = %@)...";
     }
 
-    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_INFO, v80, buf, 0x2Au);
+    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_INFO, v81, buf, 0x2Au);
 
-    v56 = v153;
-    v57 = v155;
+    v57 = v154;
+    v58 = v156;
   }
 
 LABEL_61:
   if ([(NSString *)infoCopy isDictation])
   {
-    v82 = AFSiriLogContextDaemon;
+    v83 = AFSiriLogContextDaemon;
     if (!os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_73;
     }
 
     *buf = 136315138;
-    v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-    v83 = "%s Not checking _areRequiredAssetsMissing since this is a Dictation request.";
+    v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+    v84 = "%s Not checking _areRequiredAssetsMissing since this is a Dictation request.";
     goto LABEL_64;
   }
 
@@ -13821,56 +13863,56 @@ LABEL_61:
   {
 LABEL_73:
     objc_opt_class();
-    v147 = infoCopy;
-    v149 = v17;
-    v150 = contextCopy;
-    v151 = v74;
+    v148 = infoCopy;
+    v150 = v17;
+    v151 = contextCopy;
+    v152 = v75;
     if ((objc_opt_isKindOfClass() & 1) != 0 && self->_siriUODSupported)
     {
       _fetchComputedModeAndUpdateRequestDelegate2 = [(ADCommandCenter *)self _fetchComputedModeAndUpdateRequestDelegate];
-      v90 = [(NSString *)infoCopy speechEvent]== 17;
-      v91 = [SMTRequestContextData alloc];
-      v157[0] = _NSConcreteStackBlock;
-      v157[1] = 3221225472;
-      v157[2] = sub_1001F7818;
-      v157[3] = &unk_1005161A8;
-      v92 = v17;
-      v158 = v92;
-      v146 = _fetchComputedModeAndUpdateRequestDelegate2;
-      v159 = v146;
+      v91 = [(NSString *)infoCopy speechEvent]== 17;
+      v92 = [SMTRequestContextData alloc];
+      v158[0] = _NSConcreteStackBlock;
+      v158[1] = 3221225472;
+      v158[2] = sub_1001F7818;
+      v158[3] = &unk_1005161A8;
+      v93 = v17;
+      v159 = v93;
+      v147 = _fetchComputedModeAndUpdateRequestDelegate2;
+      v160 = v147;
       selfCopy = self;
-      v161 = v90;
-      v93 = [v91 initWithBuilder:v157];
-      v94 = AFSiriLogContextDaemon;
+      v162 = v91;
+      v94 = [v92 initWithBuilder:v158];
+      v95 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEFAULT))
       {
-        v95 = v94;
-        userProfileMetadata = [v93 userProfileMetadata];
+        v96 = v95;
+        userProfileMetadata = [v94 userProfileMetadata];
         *buf = 136315394;
-        v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-        v164 = 2112;
-        v165 = userProfileMetadata;
-        _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "%s #shih updating SMTRequestContextData %@", buf, 0x16u);
+        v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+        v165 = 2112;
+        v166 = userProfileMetadata;
+        _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_DEFAULT, "%s #shih updating SMTRequestContextData %@", buf, 0x16u);
       }
 
       if ([(AFSpeechRequestOptions *)self->_currentSpeechRequestOptions isTest])
       {
         [(AFSpeechRequestOptions *)self->_currentSpeechRequestOptions testRequestOptions];
-        aceId4 = v97 = v74;
+        aceId4 = v98 = v75;
         _requestDispatcherService = [(ADCommandCenter *)self _requestDispatcherService];
         _account = [(ADCommandCenter *)self _account];
         assistantIdentifier = [_account assistantIdentifier];
-        aceId = [(NSString *)v97 aceId];
+        aceId = [(NSString *)v98 aceId];
         disableASR = [(AFSpeechRequestOptions *)self->_currentSpeechRequestOptions disableASR];
-        origin2 = [v92 origin];
+        origin2 = [v93 origin];
         _locationManager2 = [(ADCommandCenter *)self _locationManager];
         knownLocation = [_locationManager2 knownLocation];
         jitContext = [aceId4 jitContext];
         overrideModelPath = [aceId4 overrideModelPath];
-        [_requestDispatcherService startTestSpeechRequestWithAssistantId:assistantIdentifier requestId:aceId enableASR:disableASR ^ 1 inputOrigin:origin2 location:knownLocation jitContext:jitContext overrideModelPath:overrideModelPath requestContextData:v93];
+        [_requestDispatcherService startTestSpeechRequestWithAssistantId:assistantIdentifier requestId:aceId enableASR:disableASR ^ 1 inputOrigin:origin2 location:knownLocation jitContext:jitContext overrideModelPath:overrideModelPath requestContextData:v94];
 
         dynamicContextEmitter = self->_dynamicContextEmitter;
-        aceId2 = [(NSString *)v151 aceId];
+        aceId2 = [(NSString *)v152 aceId];
         [(ADDynamicContextEmitter *)dynamicContextEmitter emitForRequest:aceId2];
       }
 
@@ -13878,100 +13920,100 @@ LABEL_73:
       {
         _requestDispatcherService2 = [(ADCommandCenter *)self _requestDispatcherService];
         _requestDispatcherSessionConfiguration = [(ADCommandCenter *)self _requestDispatcherSessionConfiguration];
-        aceId3 = [(NSString *)v74 aceId];
-        [v92 origin];
-        v112 = v111 = v74;
+        aceId3 = [(NSString *)v75 aceId];
+        [v93 origin];
+        v113 = v112 = v75;
         _locationManager3 = [(ADCommandCenter *)self _locationManager];
         knownLocation2 = [_locationManager3 knownLocation];
-        [_requestDispatcherService2 startSpeechRequestWithConfiguration:_requestDispatcherSessionConfiguration requestId:aceId3 inputOrigin:v112 location:knownLocation2 asrOnServer:self->_siriHybridUODSupported requestContextData:v93];
+        [_requestDispatcherService2 startSpeechRequestWithConfiguration:_requestDispatcherSessionConfiguration requestId:aceId3 inputOrigin:v113 location:knownLocation2 asrOnServer:self->_siriHybridUODSupported requestContextData:v94];
 
-        v115 = self->_dynamicContextEmitter;
-        aceId4 = [(NSString *)v111 aceId];
-        [(ADDynamicContextEmitter *)v115 emitForRequest:aceId4];
+        v116 = self->_dynamicContextEmitter;
+        aceId4 = [(NSString *)v112 aceId];
+        [(ADDynamicContextEmitter *)v116 emitForRequest:aceId4];
       }
 
-      v17 = v149;
-      contextCopy = v150;
-      v56 = v153;
-      v57 = v155;
-      v74 = v151;
+      v17 = v150;
+      contextCopy = v151;
+      v57 = v154;
+      v58 = v156;
+      v75 = v152;
     }
 
-    [(ADCommandCenter *)self _sendRetryableRequestToServer:v74];
+    [(ADCommandCenter *)self _sendRetryableRequestToServer:v75];
     aceId5 = [v17 aceId];
-    if (v57)
+    if (v58)
     {
-      v117 = v57;
+      v118 = v58;
     }
 
-    else if (v56)
+    else if (v57)
     {
-      v117 = v56;
+      v118 = v57;
     }
 
     else
     {
-      v117 = v17;
+      v118 = v17;
     }
 
-    [(ADCommandCenter *)self _setCurrentRequestWithCommand:v117];
+    [(ADCommandCenter *)self _setCurrentRequestWithCommand:v118];
     [contextCopy updateStartSpeechId:aceId5];
     objc_storeStrong(&self->_startSpeechCommand, v17);
     if (self->_siriFullUODSupported)
     {
-      v118 = SiriCoreUUIDStringCreate();
+      v119 = SiriCoreUUIDStringCreate();
       speechRecognitionResultUUID = self->_speechRecognitionResultUUID;
-      self->_speechRecognitionResultUUID = v118;
+      self->_speechRecognitionResultUUID = v119;
     }
 
-    v120 = AFSiriLogContextDaemon;
+    v121 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
-      v121 = self->_speechRecognitionResultUUID;
+      v122 = self->_speechRecognitionResultUUID;
       *buf = 136315650;
-      v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-      v164 = 2112;
-      v165 = v121;
-      v166 = 2112;
-      v167 = aceId5;
-      _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_INFO, "%s StartSpeech resultUUID : %@ AceID : %@", buf, 0x20u);
+      v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+      v165 = 2112;
+      v166 = v122;
+      v167 = 2112;
+      v168 = aceId5;
+      _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_INFO, "%s StartSpeech resultUUID : %@ AceID : %@", buf, 0x20u);
     }
 
     currentRequestId = [(ADCommandCenterCurrentRequest *)self->_currentRequest currentRequestId];
-    v123 = +[ADDaemon processLaunchMachTime];
-    v124 = +[ADDaemon processLoadedMachTime];
+    v124 = +[ADDaemon processLaunchMachTime];
+    v125 = +[ADDaemon processLoadedMachTime];
     hasReceivedFirstRequest = self->_hasReceivedFirstRequest;
-    v126 = currentRequestId;
-    v127 = sub_1000105F4(v126);
-    if (v127)
+    v127 = currentRequestId;
+    v128 = sub_1000105F4(v127);
+    if (v128)
     {
-      v128 = objc_alloc_init(ORCHSchemaORCHClientEvent);
-      v129 = objc_alloc_init(ORCHSchemaORCHClientEventMetadata);
-      [v129 setRequestId:v127];
-      [v128 setEventMetadata:v129];
-      v130 = objc_alloc_init(ORCHSchemaORCHAssistantDaemonLaunchMetadataReported);
-      [v130 setAssistantDaemonSpawnTimestampInNs:v123];
-      [v130 setAssistantDaemonLoadedTimestampInNs:v124];
-      [v130 setIsFirstRequest:!hasReceivedFirstRequest];
-      [v128 setAssistantdLaunchMetadataReported:v130];
-      v131 = +[AssistantSiriAnalytics sharedStream];
-      [v131 emitMessage:v128];
+      v129 = objc_alloc_init(ORCHSchemaORCHClientEvent);
+      v130 = objc_alloc_init(ORCHSchemaORCHClientEventMetadata);
+      [v130 setRequestId:v128];
+      [v129 setEventMetadata:v130];
+      v131 = objc_alloc_init(ORCHSchemaORCHAssistantDaemonLaunchMetadataReported);
+      [v131 setAssistantDaemonSpawnTimestampInNs:v124];
+      [v131 setAssistantDaemonLoadedTimestampInNs:v125];
+      [v131 setIsFirstRequest:!hasReceivedFirstRequest];
+      [v129 setAssistantdLaunchMetadataReported:v131];
+      v132 = +[AssistantSiriAnalytics sharedStream];
+      [v132 emitMessage:v129];
     }
 
     else
     {
-      v132 = AFSiriLogContextDaemon;
+      v133 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v163 = "_EmitDaemonLaunchMetadataReportedForRequestId";
-        v164 = 2112;
-        v165 = v126;
-        _os_log_error_impl(&_mh_execute_header, v132, OS_LOG_TYPE_ERROR, "%s The requestId=%@ is malformed, unable to log SELF command", buf, 0x16u);
+        v164 = "_EmitDaemonLaunchMetadataReportedForRequestId";
+        v165 = 2112;
+        v166 = v127;
+        _os_log_error_impl(&_mh_execute_header, v133, OS_LOG_TYPE_ERROR, "%s The requestId=%@ is malformed, unable to log SELF command", buf, 0x16u);
       }
     }
 
-    v88 = v155;
+    v89 = v156;
 
     self->_hasReceivedFirstRequest = 1;
     self->_speechHasAcceptedResultCandidate = 0;
@@ -13980,114 +14022,114 @@ LABEL_73:
     self->_selectedResultCandidate = 0;
 
     *&self->_hasReceivedAtLeastOneResultCandidate = 0;
-    managerCopy = v152;
-    v17 = v149;
-    [v152 setContext:v149];
-    [v152 setIsDriving:{-[ADMotionManager isDriving](v154, "isDriving")}];
-    [(ADCommandCenter *)self _trySendingShowRequestHandlingStatusForAsrOnDevice:v155 != 0 startSpeechRequestId:aceId5];
-    contextCopy = v150;
-    if (v148)
+    managerCopy = v153;
+    v17 = v150;
+    [v153 setContext:v150];
+    [v153 setIsDriving:{-[ADMotionManager isDriving](v155, "isDriving")}];
+    [(ADCommandCenter *)self _trySendingShowRequestHandlingStatusForAsrOnDevice:v156 != 0 startSpeechRequestId:aceId5];
+    contextCopy = v151;
+    if (v149)
     {
-      v134 = _AFPreferencesMultilingualDictationTimeoutInMilliSeconds();
-      v135 = v134;
-      if (v134)
+      v135 = _AFPreferencesMultilingualDictationTimeoutInMilliSeconds();
+      v136 = v135;
+      if (v135)
       {
-        v136 = v134;
+        v137 = v135;
       }
 
       else
       {
-        v136 = &off_1005343D0;
+        v137 = &off_1005343D0;
       }
 
-      v137 = +[AFPreferences sharedPreferences];
-      isLanguageDetectorEnabledByServer = [v137 isLanguageDetectorEnabledByServer];
+      v138 = +[AFPreferences sharedPreferences];
+      isLanguageDetectorEnabledByServer = [v138 isLanguageDetectorEnabledByServer];
 
-      v139 = objc_alloc_init(SASGetMultilingualDictationConfig);
-      [v139 setMultilingualDisabled:isLanguageDetectorEnabledByServer ^ 1];
-      [v139 setMultilingualTimeoutInMillis:v136];
-      v156[0] = _NSConcreteStackBlock;
-      v156[1] = 3221225472;
-      v156[2] = sub_1001F7ABC;
-      v156[3] = &unk_10051B168;
-      v156[4] = self;
-      [(ADCommandCenter *)self _sendCommandToServer:v139 completion:v156];
+      v140 = objc_alloc_init(SASGetMultilingualDictationConfig);
+      [v140 setMultilingualDisabled:isLanguageDetectorEnabledByServer ^ 1];
+      [v140 setMultilingualTimeoutInMillis:v137];
+      v157[0] = _NSConcreteStackBlock;
+      v157[1] = 3221225472;
+      v157[2] = sub_1001F7ABC;
+      v157[3] = &unk_10051B168;
+      v157[4] = self;
+      [(ADCommandCenter *)self _sendCommandToServer:v140 completion:v157];
 
-      v88 = v155;
+      v89 = v156;
     }
 
-    v56 = v153;
-    v74 = v151;
+    v57 = v154;
+    v75 = v152;
     if (self->_isSmartLanguageSelectionActive)
     {
-      v140 = [aceId5 copy];
-      [v152 setEARLanguageDetectorSpeechRequestId:v140];
+      v141 = [aceId5 copy];
+      [v153 setEARLanguageDetectorSpeechRequestId:v141];
     }
 
     if (CSSiriSpeechRecordingGetUsesServerEndpointingFromRequestOptions())
     {
-      aceId6 = [v149 aceId];
+      aceId6 = [v150 aceId];
       [(ADCommandCenter *)self _sendEnableServerEndpointerCommandWithRefID:aceId6];
     }
 
     else
     {
-      v142 = AFSiriLogContextDaemon;
+      v143 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-        _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_INFO, "%s Skipped enable server endpointer command because ADSpeechCapturingGetUsesServerEndpointingFromRequestOptions == NO", buf, 0xCu);
+        v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+        _os_log_impl(&_mh_execute_header, v143, OS_LOG_TYPE_INFO, "%s Skipped enable server endpointer command because ADSpeechCapturingGetUsesServerEndpointingFromRequestOptions == NO", buf, 0xCu);
       }
     }
 
     [(ADCommandCenter *)self _sendLocationIfNeededForRequest];
     [(ADCommandCenter *)self _sendGizmoSharedDataIfNeeded];
 
-    infoCopy = v147;
+    infoCopy = v148;
     goto LABEL_106;
   }
 
-  v84 = AFSiriLogContextDaemon;
+  v85 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-    _os_log_debug_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEBUG, "%s _areRequiredAssetsMissing is true even when the device supports UOD", buf, 0xCu);
+    v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+    _os_log_debug_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEBUG, "%s _areRequiredAssetsMissing is true even when the device supports UOD", buf, 0xCu);
   }
 
   currentUodStatus = self->_currentUodStatus;
-  aceId7 = [(NSString *)v74 aceId];
+  aceId7 = [(NSString *)v75 aceId];
   sub_1001F75A8(self, currentUodStatus, aceId7);
 
   LODWORD(aceId7) = [(ADCommandCenter *)self _shouldImmediatelyDismissSiriDueToMissingRequiredAssets];
-  v82 = AFSiriLogContextDaemon;
-  v87 = os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG);
+  v83 = AFSiriLogContextDaemon;
+  v88 = os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG);
   if (!aceId7)
   {
-    v57 = v155;
-    if (v87)
+    v58 = v156;
+    if (v88)
     {
       *buf = 136315138;
-      v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-      v83 = "%s Not dismissing Siri request due to lack of assets.";
+      v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+      v84 = "%s Not dismissing Siri request due to lack of assets.";
 LABEL_64:
-      _os_log_debug_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEBUG, v83, buf, 0xCu);
+      _os_log_debug_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEBUG, v84, buf, 0xCu);
       goto LABEL_73;
     }
 
     goto LABEL_73;
   }
 
-  if (v87)
+  if (v88)
   {
     *buf = 136315138;
-    v163 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
-    _os_log_debug_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEBUG, "%s [_sendStartSpeechCommandWithSpeechManager] Dismissing Siri with reason AFDismissalAssetsNotReady", buf, 0xCu);
+    v164 = "[ADCommandCenter _sendStartSpeechCommandWithSpeechManager:info:context:]";
+    _os_log_debug_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEBUG, "%s [_sendStartSpeechCommandWithSpeechManager] Dismissing Siri with reason AFDismissalAssetsNotReady", buf, 0xCu);
   }
 
   [(ADCommandCenter *)self dismissAssistantWithReason:5];
-  v88 = v155;
+  v89 = v156;
 LABEL_106:
 }
 
@@ -16661,7 +16703,7 @@ LABEL_8:
       if (ad_languageModel)
       {
         speechRecognizedByLanguage = [recognizedCopy speechRecognizedByLanguage];
-        v21 = [speechRecognizedByLanguage objectForKey:ad_languageModel];
+        v21 = objc_msgSend_objectForKey_(speechRecognizedByLanguage);
 
         aceId = [(SASStartSpeech *)self->_startSpeechCommand aceId];
         [v21 setRefId:aceId];
@@ -19406,7 +19448,7 @@ LABEL_28:
       }
 
 LABEL_22:
-      if ([(ADCommandCenter *)self _hasOutstandingRequestId:requestID, *v33, *&v33[16]]|| [(ADCommandCenter *)self _hasRootExecutionContextForRequestID:requestID])
+      if ([(ADCommandCenter *)self _hasOutstandingRequestId:requestID, *v33, *&v33[8]]|| [(ADCommandCenter *)self _hasRootExecutionContextForRequestID:requestID])
       {
         goto LABEL_30;
       }
@@ -21453,8 +21495,8 @@ LABEL_10:
   idCopy = id;
   if (idCopy && requestId)
   {
-    v7 = [(NSMutableDictionary *)self->_postCommandHandlingBlockMap objectForKey:requestId];
-    v8 = [v7 objectForKey:idCopy];
+    v7 = objc_msgSend_objectForKey_(self->_postCommandHandlingBlockMap);
+    v8 = objc_msgSend_objectForKey_(v7);
     [v7 removeObjectForKey:idCopy];
     v16 = 0u;
     v17 = 0u;
@@ -21509,7 +21551,7 @@ LABEL_10:
 
       else
       {
-        v15 = [(NSMutableDictionary *)self->_postCommandHandlingBlockMap objectForKey:v11];
+        v15 = objc_msgSend_objectForKey_(self->_postCommandHandlingBlockMap);
         if (!v15)
         {
           v15 = objc_alloc_init(NSMutableDictionary);
@@ -21526,7 +21568,7 @@ LABEL_10:
           [(NSMutableDictionary *)postCommandHandlingBlockMap setObject:v15 forKey:v11];
         }
 
-        v19 = [v15 objectForKey:idCopy];
+        v19 = objc_msgSend_objectForKey_(v15);
         if (!v19)
         {
           v19 = objc_alloc_init(NSMutableArray);
@@ -21573,7 +21615,7 @@ LABEL_10:
   {
     if ([(ADCommandCenter *)self _hasOutstandingRequestId:idCopy]|| [(ADCommandCenter *)self _hasRootExecutionContextForRequestID:idCopy])
     {
-      v5 = [(NSMutableDictionary *)self->_handledCommandIdsByRequestId objectForKey:idCopy];
+      v5 = objc_msgSend_objectForKey_(self->_handledCommandIdsByRequestId);
       v6 = v5;
       if (v5)
       {
@@ -21634,7 +21676,7 @@ LABEL_11:
         handledCommandIdsByRequestId = self->_handledCommandIdsByRequestId;
       }
 
-      v12 = [(NSMutableDictionary *)handledCommandIdsByRequestId objectForKey:v8];
+      v12 = objc_msgSend_objectForKey_(handledCommandIdsByRequestId);
       if (!v12)
       {
         v12 = objc_alloc_init(NSMutableSet);
@@ -21688,15 +21730,16 @@ LABEL_11:
     v16 = v8;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      v11 = 0;
+      do
       {
         if (*v18 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        v13 = [(NSMutableDictionary *)self->_aceCompletionMap objectForKey:v12, v16, v17];
+        v12 = *(*(&v17 + 1) + 8 * v11);
+        v13 = objc_msgSend_objectForKey_(self->_aceCompletionMap, v16, v17);
         v14 = v13;
         if (v13)
         {
@@ -21713,8 +21756,11 @@ LABEL_11:
             }
           }
         }
+
+        v11 = v11 + 1;
       }
 
+      while (v9 != v11);
       v9 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
@@ -21740,7 +21786,7 @@ LABEL_11:
   refId = [commandCopy refId];
   if (refId)
   {
-    v7 = [(NSMutableDictionary *)self->_aceCompletionMap objectForKey:refId];
+    v7 = objc_msgSend_objectForKey_(self->_aceCompletionMap);
     v8 = v7;
     if (v7)
     {
@@ -21764,7 +21810,7 @@ LABEL_11:
 
 - (BOOL)_hasCompletionForCommandId:(id)id
 {
-  v3 = [(NSMutableDictionary *)self->_aceCompletionMap objectForKey:id];
+  v3 = objc_msgSend_objectForKey_(self->_aceCompletionMap, a2, id);
   v4 = v3 != 0;
 
   return v4;
@@ -21859,7 +21905,7 @@ LABEL_11:
         executionDevicesByExecutionID = self->_executionDevicesByExecutionID;
       }
 
-      v14 = [(NSMutableDictionary *)executionDevicesByExecutionID objectForKey:executionID];
+      v14 = objc_msgSend_objectForKey_(executionDevicesByExecutionID);
       if (!v14)
       {
         v14 = objc_alloc_init(NSMutableArray);
@@ -21957,7 +22003,7 @@ LABEL_23:
 
   if (executionID)
   {
-    v7 = [(NSMutableDictionary *)self->_remoteExecutionContextsByExecutionID objectForKey:executionID];
+    v7 = objc_msgSend_objectForKey_(self->_remoteExecutionContextsByExecutionID);
 
     if (v7)
     {
@@ -22116,7 +22162,7 @@ LABEL_11:
 {
   if (d)
   {
-    v4 = [(NSMutableDictionary *)self->_remoteExecutionContextsByExecutionID objectForKey:?];
+    v4 = objc_msgSend_objectForKey_(self->_remoteExecutionContextsByExecutionID, a2);
   }
 
   else
@@ -22140,7 +22186,7 @@ LABEL_11:
   dCopy = d;
   if (dCopy)
   {
-    v5 = [(NSMutableDictionary *)self->_rootExecutionContextsByRequestID objectForKey:dCopy];
+    v5 = objc_msgSend_objectForKey_(self->_rootExecutionContextsByRequestID);
     if (v5)
     {
       [(NSMutableDictionary *)self->_rootExecutionContextsByRequestID removeObjectForKey:dCopy];
@@ -22168,7 +22214,7 @@ LABEL_11:
   dCopy = d;
   if (dCopy)
   {
-    v5 = [(NSMutableDictionary *)self->_rootExecutionContextsByRequestID objectForKey:dCopy];
+    v5 = objc_msgSend_objectForKey_(self->_rootExecutionContextsByRequestID);
 
     if (!v5)
     {
@@ -22236,7 +22282,7 @@ LABEL_11:
 {
   if (d)
   {
-    v4 = [(NSMutableDictionary *)self->_rootExecutionContextsByRequestID objectForKey:?];
+    v4 = objc_msgSend_objectForKey_(self->_rootExecutionContextsByRequestID, a2);
   }
 
   else
@@ -25745,7 +25791,7 @@ LABEL_13:
 {
   completionCopy = completion;
   createCopy = create;
-  v7 = sub_100214B58();
+  v7 = sub_100214B58(createCopy);
   object = [createCopy object];
 
   [object setIdentifier:v7];
@@ -26201,7 +26247,7 @@ LABEL_9:
 
     v11 = +[ADMultiUserService sharedService];
     sharedUsersBySharedUserID = [v11 sharedUsersBySharedUserID];
-    v13 = [sharedUsersBySharedUserID objectForKey:userCopy];
+    v13 = objc_msgSend_objectForKey_(sharedUsersBySharedUserID);
 
     companionAssistantID = [v13 companionAssistantID];
     v9 = companionAssistantID == 0;
@@ -26859,7 +26905,7 @@ LABEL_32:
   {
     v21 = +[ADMultiUserService sharedService];
     sharedUsersBySharedUserID = [v21 sharedUsersBySharedUserID];
-    v20 = [sharedUsersBySharedUserID objectForKey:_selectedSharedUserID];
+    v20 = objc_msgSend_objectForKey_(sharedUsersBySharedUserID);
 
     v23 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))

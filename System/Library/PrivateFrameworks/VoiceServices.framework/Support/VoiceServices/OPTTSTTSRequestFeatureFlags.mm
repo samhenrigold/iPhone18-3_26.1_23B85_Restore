@@ -19,8 +19,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSTTSRequestFeatureFlags *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSTTSRequestFeatureFlags *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -94,7 +94,7 @@ flatbuffers::DetachedBuffer *__43__OPTTSTTSRequestFeatureFlags_flatbuffData__blo
       bytes2 = [(NSData *)v10->_data bytes];
       v14 = [(NSData *)v10->_data length];
       root = v10->_root;
-      if (root < bytes2 || root > bytes2 + v14)
+      if (root < bytes2 || root > v14 + bytes2)
       {
         goto LABEL_16;
       }

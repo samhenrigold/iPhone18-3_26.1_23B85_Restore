@@ -16,7 +16,9 @@
 - (void)setCollections:(id)collections forProperty:(id)property;
 - (void)setCollectionsNoQ:(id)q forProperty:(id)property;
 - (void)setGlobalItemCount:(unsigned int)count ForProperty:(id)property;
+- (void)setGlobalItemCountNoQ:(unsigned int)q ForProperty:(id)property;
 - (void)setItemCount:(unsigned int)count forProperty:(id)property;
+- (void)setItemCountNoQ:(unsigned int)q forProperty:(id)property;
 - (void)setItemNames:(id)names forRange:(_NSRange)range forProperty:(id)property;
 - (void)setItemNamesNoQ:(id)q forRange:(_NSRange)range forProperty:(id)property;
 @end
@@ -171,6 +173,15 @@
   return self;
 }
 
+- (void)setGlobalItemCountNoQ:(unsigned int)q ForProperty:(id)property
+{
+  v4 = *&q;
+  v5 = sub_100037904(property, &self->_itemCaches);
+  v6 = [NSNumber numberWithUnsignedInt:v4];
+
+  [v5 setGlobalCount:v6];
+}
+
 - (id)globalItemCountForPropertyNoQ:(id)q
 {
   v3 = sub_100037904(q, &self->_itemCaches);
@@ -236,6 +247,15 @@
   }
 
   __break(0x5510u);
+}
+
+- (void)setItemCountNoQ:(unsigned int)q forProperty:(id)property
+{
+  v4 = *&q;
+  v5 = sub_100037904(property, &self->_itemCaches);
+  v6 = [NSNumber numberWithUnsignedInt:v4];
+
+  [v5 setItemCount:v6];
 }
 
 - (void)setItemNamesNoQ:(id)q forRange:(_NSRange)range forProperty:(id)property

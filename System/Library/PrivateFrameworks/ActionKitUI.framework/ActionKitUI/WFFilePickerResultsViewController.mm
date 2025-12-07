@@ -6,6 +6,7 @@
 - (void)loadView;
 - (void)setFiles:(id)files;
 - (void)updateContentInset;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -40,6 +41,14 @@
   v3.receiver = self;
   v3.super_class = WFFilePickerResultsViewController;
   [(WFFilePickerResultsViewController *)&v3 viewWillLayoutSubviews];
+  [(WFFilePickerResultsViewController *)self updateContentInset];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WFFilePickerResultsViewController;
+  [(WFFilePickerResultsViewController *)&v4 viewWillAppear:appear];
   [(WFFilePickerResultsViewController *)self updateContentInset];
 }
 

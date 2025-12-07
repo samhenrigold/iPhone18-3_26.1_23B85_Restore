@@ -27,54 +27,54 @@
 
 - (_TtC17PasswordManagerUI39_PMPasswordAutoFillPocketViewController)initWithPersona:(int64_t)persona appID:(id)d credentialTypes:(int64_t)types promptString:(id)string promptStringWhenPasskeysAreAvailable:(id)available serviceNameHintStrings:(id)strings domainNameHintStrings:(id)hintStrings savedAccountStore:(id)self0 suggestedDomainForNewAccount:(id)self1 localizedHostAppNameForNewAccount:(id)self2 bundleIDForFallbackIconForNewAccount:(id)self3 autoFillQuirksManager:(id)self4 shouldShowAutoFillPasskeys:(BOOL)self5 currentWebFrameIdentifierForAutoFillPasskeys:(id)self6 connectedAppAuditToken:(id *)self7 isConnectedAppAWebBrowser:(BOOL)self8 initialSearchQuery:(id)self9 savedAccountToInitiallyShowDetailsFor:(id)for shouldAllowAddingNewPasswords:(BOOL)passwords bypassLockoutPolicy:(BOOL)policy authenticatedContext:(id)context savedAccountContext:(id)accountContext didSelectAccountHandler:(id)handler didSelectTextToInsertHandler:(id)insertHandler
 {
-  v75 = *&token->var0[2];
-  v76 = *token->var0;
-  v71 = *&token->var0[6];
-  v72 = *&token->var0[4];
-  v67 = _Block_copy(handler);
-  v68 = _Block_copy(insertHandler);
+  v76 = *&token->var0[2];
+  v77 = *token->var0;
+  v72 = *&token->var0[6];
+  v73 = *&token->var0[4];
+  v68 = _Block_copy(handler);
+  v69 = _Block_copy(insertHandler);
   v28 = sub_21CB855C4();
-  v73 = v29;
-  v74 = v28;
+  v74 = v29;
+  v75 = v28;
   if (string)
   {
     v30 = sub_21CB855C4();
-    v69 = v31;
-    v70 = v30;
+    v70 = v31;
+    v71 = v30;
   }
 
   else
   {
-    v69 = 0;
     v70 = 0;
+    v71 = 0;
   }
 
   if (available)
   {
     v32 = sub_21CB855C4();
-    v65 = v33;
-    v66 = v32;
+    v66 = v33;
+    v67 = v32;
   }
 
   else
   {
-    v65 = 0;
     v66 = 0;
+    v67 = 0;
   }
 
+  v65 = sub_21CB85824();
   v64 = sub_21CB85824();
-  v63 = sub_21CB85824();
   if (account)
   {
     v34 = sub_21CB855C4();
-    v60 = v35;
-    v61 = v34;
+    v61 = v35;
+    v62 = v34;
   }
 
   else
   {
-    v60 = 0;
     v61 = 0;
+    v62 = 0;
   }
 
   storeCopy = store;
@@ -89,15 +89,15 @@
   if (newAccountCopy)
   {
     v41 = sub_21CB855C4();
-    v55 = v42;
-    v56 = v41;
+    v56 = v42;
+    v57 = v41;
 
     if (forNewAccountCopy)
     {
 LABEL_12:
       v43 = sub_21CB855C4();
-      v53 = v44;
-      v54 = v43;
+      v54 = v44;
+      v55 = v43;
 
       goto LABEL_15;
     }
@@ -105,16 +105,16 @@ LABEL_12:
 
   else
   {
-    v55 = 0;
     v56 = 0;
+    v57 = 0;
     if (forNewAccountCopy)
     {
       goto LABEL_12;
     }
   }
 
-  v53 = 0;
   v54 = 0;
+  v55 = 0;
 LABEL_15:
   if (queryCopy)
   {
@@ -129,12 +129,14 @@ LABEL_15:
   }
 
   v48 = swift_allocObject();
-  *(v48 + 16) = v67;
+  *(v48 + 16) = v68;
   v49 = swift_allocObject();
-  *(v49 + 16) = v68;
-  *(&v52 + 1) = v60;
-  *&v52 = v61;
-  v50 = sub_21CB0165C(persona, v74, v73, types, v70, v69, v66, v65, v64, v63, storeCopy, v52, v56, v55, v54, v53, managerCopy, passkeys, fillPasskeysCopy, v76, v75, v72, v71, browser, v45, v47, forCopy, passwords, policy, contextCopy, accountContextCopy, sub_21CB03008, v48, sub_21CB03004, v49);
+  *(v49 + 16) = v69;
+  HIBYTE(v53) = policy;
+  LOBYTE(v53) = passwords;
+  *(&v52 + 1) = v61;
+  *&v52 = v62;
+  v50 = sub_21CB0165C(persona, v75, v74, types, v71, v70, v67, v66, v65, v64, storeCopy, v52, v57, v56, v55, v54, managerCopy, passkeys, fillPasskeysCopy, v77, v76, v73, v72, browser, v45, v47, forCopy, v53, contextCopy, accountContextCopy, sub_21CB03008, v48, sub_21CB03004, v49);
 
   return v50;
 }
@@ -278,23 +280,21 @@ LABEL_15:
 
 - (id)searchQuery
 {
-  v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC17PasswordManagerUI39_PMPasswordAutoFillPocketViewController_pickerModel);
-  swift_getKeyPath();
-  swift_getKeyPath();
+  swift_getKeyPath(byte_21CBC91F8, a2);
+  swift_getKeyPath(byte_21CBC9220);
   selfCopy = self;
 
   sub_21CB81DB4();
 
-  v5 = sub_21CB85584();
+  v4 = sub_21CB85584();
 
-  return v5;
+  return v4;
 }
 
 - (void)setSearchQuery:(id)query
 {
   v4 = sub_21CB855C4();
   v6 = v5;
-  v7 = *(&self->super.super.super.isa + OBJC_IVAR____TtC17PasswordManagerUI39_PMPasswordAutoFillPocketViewController_pickerModel);
   selfCopy = self;
 
   sub_21C7A6110(v4, v6);

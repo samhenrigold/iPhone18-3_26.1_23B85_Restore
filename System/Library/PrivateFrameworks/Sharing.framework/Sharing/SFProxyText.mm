@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (SFProxyText)initWithCoder:(id)coder;
 - (SFProxyText)initWithSlotIdentifier:(unsigned int)identifier;
+- (SFProxyText)initWithSlotIdentifier:(unsigned int)identifier slotTextHeight:(double)height;
 - (SFProxyText)initWithText:(id)text;
 - (id)description;
 - (unint64_t)hash;
@@ -66,6 +67,17 @@
   if (result)
   {
     result->_slotIdentifier = identifier;
+  }
+
+  return result;
+}
+
+- (SFProxyText)initWithSlotIdentifier:(unsigned int)identifier slotTextHeight:(double)height
+{
+  result = [(SFProxyText *)self initWithSlotIdentifier:*&identifier];
+  if (result)
+  {
+    result->_slotTextHeight = height;
   }
 
   return result;

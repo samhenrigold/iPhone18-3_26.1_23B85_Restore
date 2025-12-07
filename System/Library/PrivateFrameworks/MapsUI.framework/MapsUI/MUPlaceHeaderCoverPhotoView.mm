@@ -64,23 +64,22 @@
 
 void __40__MUPlaceHeaderCoverPhotoView_maskImage__block_invoke(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E6979380];
   v4 = a2;
   v5 = objc_alloc_init(v3);
   [v5 setBounds:{0.0, 0.0, *(a1 + 32), *(a1 + 40)}];
   v6 = [MEMORY[0x1E69DC888] clearColor];
-  v11[0] = [v6 CGColor];
+  v10[0] = [v6 CGColor];
   v7 = [MEMORY[0x1E69DC888] whiteColor];
-  v11[1] = [v7 CGColor];
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = [v7 CGColor];
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   [v5 setColors:v8];
 
   [v5 setLocations:&unk_1F450E2A8];
   v9 = [v4 CGContext];
 
   [v5 renderInContext:v9];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateTransform
@@ -147,96 +146,94 @@ LABEL_6:
 
 - (void)_setupConstraints
 {
-  v69[21] = *MEMORY[0x1E69E9840];
-  v44 = MEMORY[0x1E696ACD8];
+  v68[21] = *MEMORY[0x1E69E9840];
+  v43 = MEMORY[0x1E696ACD8];
   heightAnchor = [(MUPlaceHeaderCoverPhotoView *)self heightAnchor];
   widthAnchor = [(MUPlaceHeaderCoverPhotoView *)self widthAnchor];
-  v66 = [heightAnchor constraintEqualToAnchor:widthAnchor multiplier:self->_aspectRatio + self->_aspectRatio];
-  v69[0] = v66;
+  v65 = [heightAnchor constraintEqualToAnchor:widthAnchor multiplier:self->_aspectRatio + self->_aspectRatio];
+  v68[0] = v65;
   leadingAnchor = [(UIView *)self->_imageContainerView leadingAnchor];
   leadingAnchor2 = [(MUPlaceHeaderCoverPhotoView *)self leadingAnchor];
-  v63 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v69[1] = v63;
+  v62 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v68[1] = v62;
   trailingAnchor = [(UIView *)self->_imageContainerView trailingAnchor];
   trailingAnchor2 = [(MUPlaceHeaderCoverPhotoView *)self trailingAnchor];
-  v60 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v69[2] = v60;
+  v59 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v68[2] = v59;
   topAnchor = [(UIView *)self->_imageContainerView topAnchor];
   topAnchor2 = [(MUPlaceHeaderCoverPhotoView *)self topAnchor];
-  v57 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v69[3] = v57;
+  v56 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v68[3] = v56;
   bottomAnchor = [(UIView *)self->_imageContainerView bottomAnchor];
   bottomAnchor2 = [(MUPlaceHeaderCoverPhotoView *)self bottomAnchor];
-  v54 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v69[4] = v54;
+  v53 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v68[4] = v53;
   leadingAnchor3 = [(MUImageView *)self->_topImageView leadingAnchor];
   leadingAnchor4 = [(UIView *)self->_imageContainerView leadingAnchor];
-  v51 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v69[5] = v51;
+  v50 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v68[5] = v50;
   trailingAnchor3 = [(MUImageView *)self->_topImageView trailingAnchor];
   trailingAnchor4 = [(UIView *)self->_imageContainerView trailingAnchor];
-  v48 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v69[6] = v48;
+  v47 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v68[6] = v47;
   topAnchor3 = [(MUImageView *)self->_topImageView topAnchor];
   topAnchor4 = [(UIView *)self->_imageContainerView topAnchor];
-  v45 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v69[7] = v45;
+  v44 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+  v68[7] = v44;
   heightAnchor2 = [(MUImageView *)self->_topImageView heightAnchor];
   widthAnchor2 = [(MUPlaceHeaderCoverPhotoView *)self widthAnchor];
-  v41 = [heightAnchor2 constraintEqualToAnchor:widthAnchor2 multiplier:self->_aspectRatio];
-  v69[8] = v41;
+  v40 = [heightAnchor2 constraintEqualToAnchor:widthAnchor2 multiplier:self->_aspectRatio];
+  v68[8] = v40;
   leadingAnchor5 = [(MUImageView *)self->_mirroredImageView leadingAnchor];
   leadingAnchor6 = [(UIView *)self->_imageContainerView leadingAnchor];
-  v38 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v69[9] = v38;
+  v37 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+  v68[9] = v37;
   trailingAnchor5 = [(MUImageView *)self->_mirroredImageView trailingAnchor];
   trailingAnchor6 = [(UIView *)self->_imageContainerView trailingAnchor];
-  v35 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v69[10] = v35;
+  v34 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
+  v68[10] = v34;
   topAnchor5 = [(MUImageView *)self->_mirroredImageView topAnchor];
   bottomAnchor3 = [(MUImageView *)self->_topImageView bottomAnchor];
-  v32 = [topAnchor5 constraintEqualToAnchor:bottomAnchor3];
-  v69[11] = v32;
+  v31 = [topAnchor5 constraintEqualToAnchor:bottomAnchor3];
+  v68[11] = v31;
   heightAnchor3 = [(MUImageView *)self->_mirroredImageView heightAnchor];
   widthAnchor3 = [(MUPlaceHeaderCoverPhotoView *)self widthAnchor];
-  v29 = [heightAnchor3 constraintEqualToAnchor:widthAnchor3 multiplier:self->_aspectRatio];
-  v69[12] = v29;
+  v28 = [heightAnchor3 constraintEqualToAnchor:widthAnchor3 multiplier:self->_aspectRatio];
+  v68[12] = v28;
   leadingAnchor7 = [(UIView *)self->_mirroredImageClipView leadingAnchor];
   leadingAnchor8 = [(MUImageView *)self->_mirroredImageView leadingAnchor];
-  v26 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8];
-  v69[13] = v26;
+  v25 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8];
+  v68[13] = v25;
   trailingAnchor7 = [(UIView *)self->_mirroredImageClipView trailingAnchor];
   trailingAnchor8 = [(MUImageView *)self->_mirroredImageView trailingAnchor];
-  v23 = [trailingAnchor7 constraintEqualToAnchor:trailingAnchor8];
-  v69[14] = v23;
+  v22 = [trailingAnchor7 constraintEqualToAnchor:trailingAnchor8];
+  v68[14] = v22;
   topAnchor6 = [(UIView *)self->_mirroredImageClipView topAnchor];
   topAnchor7 = [(MUImageView *)self->_mirroredImageView topAnchor];
-  v20 = [topAnchor6 constraintEqualToAnchor:topAnchor7];
-  v69[15] = v20;
+  v19 = [topAnchor6 constraintEqualToAnchor:topAnchor7];
+  v68[15] = v19;
   heightAnchor4 = [(UIView *)self->_mirroredImageClipView heightAnchor];
   heightAnchor5 = [(MUImageView *)self->_mirroredImageView heightAnchor];
-  v17 = [heightAnchor4 constraintEqualToAnchor:heightAnchor5 multiplier:0.699999988];
-  v69[16] = v17;
+  v16 = [heightAnchor4 constraintEqualToAnchor:heightAnchor5 multiplier:0.699999988];
+  v68[16] = v16;
   leadingAnchor9 = [(MUBlurView *)self->_blurView leadingAnchor];
   leadingAnchor10 = [(UIView *)self->_imageContainerView leadingAnchor];
-  v14 = [leadingAnchor9 constraintEqualToAnchor:leadingAnchor10];
-  v69[17] = v14;
+  v13 = [leadingAnchor9 constraintEqualToAnchor:leadingAnchor10];
+  v68[17] = v13;
   trailingAnchor9 = [(MUBlurView *)self->_blurView trailingAnchor];
   trailingAnchor10 = [(UIView *)self->_imageContainerView trailingAnchor];
   v5 = [trailingAnchor9 constraintEqualToAnchor:trailingAnchor10];
-  v69[18] = v5;
+  v68[18] = v5;
   topAnchor8 = [(MUBlurView *)self->_blurView topAnchor];
   topAnchor9 = [(UIView *)self->_imageContainerView topAnchor];
   v8 = [topAnchor8 constraintEqualToAnchor:topAnchor9];
-  v69[19] = v8;
+  v68[19] = v8;
   bottomAnchor4 = [(MUBlurView *)self->_blurView bottomAnchor];
   bottomAnchor5 = [(UIView *)self->_imageContainerView bottomAnchor];
   v11 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
-  v69[20] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:21];
-  [v44 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v68[20] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:21];
+  [v43 activateConstraints:v12];
 }
 
 - (void)layoutSubviews
@@ -250,14 +247,14 @@ LABEL_6:
 
 - (MUPlaceHeaderCoverPhotoView)initWithAspectRatio:(double)ratio
 {
-  v36[2] = *MEMORY[0x1E69E9840];
-  v35.receiver = self;
-  v35.super_class = MUPlaceHeaderCoverPhotoView;
+  v35[2] = *MEMORY[0x1E69E9840];
+  v34.receiver = self;
+  v34.super_class = MUPlaceHeaderCoverPhotoView;
   v4 = *MEMORY[0x1E695F058];
   v5 = *(MEMORY[0x1E695F058] + 8);
   v6 = *(MEMORY[0x1E695F058] + 16);
   v7 = *(MEMORY[0x1E695F058] + 24);
-  v8 = [(MUPlaceHeaderCoverPhotoView *)&v35 initWithFrame:*MEMORY[0x1E695F058], v5, v6, v7];
+  v8 = [(MUPlaceHeaderCoverPhotoView *)&v34 initWithFrame:*MEMORY[0x1E695F058], v5, v6, v7];
   v9 = v8;
   if (v8)
   {
@@ -287,10 +284,10 @@ LABEL_6:
     v9->_mirroredImageView = v18;
 
     [(MUImageView *)v9->_mirroredImageView setTranslatesAutoresizingMaskIntoConstraints:0];
-    CGAffineTransformMakeScale(&v34, 1.0, -1.0);
+    CGAffineTransformMakeScale(&v33, 1.0, -1.0);
     v20 = v9->_mirroredImageView;
-    v33 = v34;
-    [(MUImageView *)v20 setTransform:&v33];
+    v32 = v33;
+    [(MUImageView *)v20 setTransform:&v32];
     [(UIView *)v9->_imageContainerView addSubview:v9->_mirroredImageView];
     v21 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v4, v5, v6, v7}];
     mirroredImageClipView = v9->_mirroredImageClipView;
@@ -306,10 +303,10 @@ LABEL_6:
     v9->_gradientLayer = v24;
 
     whiteColor = [MEMORY[0x1E69DC888] whiteColor];
-    v36[0] = [whiteColor CGColor];
+    v35[0] = [whiteColor CGColor];
     clearColor = [MEMORY[0x1E69DC888] clearColor];
-    v36[1] = [clearColor CGColor];
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+    v35[1] = [clearColor CGColor];
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
     [(CAGradientLayer *)v9->_gradientLayer setColors:v28];
 
     [(CAGradientLayer *)v9->_gradientLayer setLocations:&unk_1F450E290];
@@ -321,7 +318,6 @@ LABEL_6:
     [(MUPlaceHeaderCoverPhotoView *)v9 _setupConstraints];
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

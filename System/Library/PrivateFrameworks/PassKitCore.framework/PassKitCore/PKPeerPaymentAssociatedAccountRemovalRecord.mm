@@ -29,19 +29,19 @@
       goto LABEL_12;
     }
 
-    v11 = [(__CFString *)v8 isEqualToString:@"closed"];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if ((v11 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v12 = v9;
-      if (v12 == @"graduation" || (v13 = v12, v14 = [(__CFString *)v12 isEqualToString:@"graduation"], v13, (v14 & 1) != 0))
+      if (v12 == @"graduation" || (v13 = v12, v14 = objc_msgSend_isEqualToString_(v12), v13, (v14 & 1) != 0))
       {
         v10 = 1;
         goto LABEL_12;
       }
 
       v15 = v13;
-      if (v15 == @"deletedInvite" || (v16 = v15, v17 = [(__CFString *)v15 isEqualToString:@"deletedInvite"], v16, v17))
+      if (v15 == @"deletedInvite" || (v16 = v15, v17 = objc_msgSend_isEqualToString_(v15), v16, v17))
       {
         v10 = 2;
         goto LABEL_12;
@@ -157,9 +157,9 @@ LABEL_12:
       goto LABEL_15;
     }
 
-    v9 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v9)
+    if (!isEqualToString)
     {
       goto LABEL_15;
     }

@@ -1,4 +1,5 @@
 @interface TPSAnalyticsEventDesiredOutcomePerformed
++ (id)eventWithTipID:(id)d correlationID:(id)iD displayType:(id)type overrideHoldout:(BOOL)holdout lastDisplayedContext:(id)context lastHintDisplayedDate:(id)date desiredOutcomePerformedDate:(id)performedDate;
 - (TPSAnalyticsEventDesiredOutcomePerformed)initWithCoder:(id)coder;
 - (id)_initWithTipID:(id)d correlationID:(id)iD displayType:(id)type overrideHoldout:(BOOL)holdout context:(id)context lastHintDisplayedDate:(id)date desiredOutcomePerformedDate:(id)performedDate;
 - (id)mutableAnalyticsEventRepresentation;
@@ -7,6 +8,20 @@
 @end
 
 @implementation TPSAnalyticsEventDesiredOutcomePerformed
+
++ (id)eventWithTipID:(id)d correlationID:(id)iD displayType:(id)type overrideHoldout:(BOOL)holdout lastDisplayedContext:(id)context lastHintDisplayedDate:(id)date desiredOutcomePerformedDate:(id)performedDate
+{
+  holdoutCopy = holdout;
+  performedDateCopy = performedDate;
+  dateCopy = date;
+  contextCopy = context;
+  typeCopy = type;
+  iDCopy = iD;
+  dCopy = d;
+  v21 = [[TPSAnalyticsEventDesiredOutcomePerformed alloc] _initWithTipID:dCopy correlationID:iDCopy displayType:typeCopy overrideHoldout:holdoutCopy context:contextCopy lastHintDisplayedDate:dateCopy desiredOutcomePerformedDate:performedDateCopy];
+
+  return v21;
+}
 
 - (id)_initWithTipID:(id)d correlationID:(id)iD displayType:(id)type overrideHoldout:(BOOL)holdout context:(id)context lastHintDisplayedDate:(id)date desiredOutcomePerformedDate:(id)performedDate
 {

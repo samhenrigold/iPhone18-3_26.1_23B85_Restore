@@ -36,25 +36,24 @@
   handlerCopy = handler;
   isRechedulable = self->_isRechedulable;
   self->_isRechedulable = 0;
-  v21 = responseCopy;
+  v20 = responseCopy;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    conflictItemValuePayload = [v21 conflictItemValuePayload];
+    conflictItemValuePayload = [v20 conflictItemValuePayload];
 
     if (conflictItemValuePayload)
     {
-      clientItemPayloadPair = self->_clientItemPayloadPair;
-      v11 = objc_opt_class();
-      conflictItemKey = [v21 conflictItemKey];
-      conflictItemValuePayload2 = [v21 conflictItemValuePayload];
-      v14 = SBKKeyValuePayloadPairWithPreferredClass(v11, conflictItemKey, conflictItemValuePayload2);
+      v10 = objc_opt_class();
+      conflictItemKey = [v20 conflictItemKey];
+      conflictItemValuePayload2 = [v20 conflictItemValuePayload];
+      v13 = SBKKeyValuePayloadPairWithPreferredClass(v10, conflictItemKey, conflictItemValuePayload2);
 
-      v15 = [(SBKPushValueTransaction *)self _resolveConflictBetweenClientPayloadPair:self->_clientItemPayloadPair andServerPayloadPair:v14];
+      v14 = [(SBKPushValueTransaction *)self _resolveConflictBetweenClientPayloadPair:self->_clientItemPayloadPair andServerPayloadPair:v13];
       requestItemPayloadPair = self->_requestItemPayloadPair;
-      self->_requestItemPayloadPair = v15;
+      self->_requestItemPayloadPair = v14;
 
-      conflictItemVersionAnchor = [v21 conflictItemVersionAnchor];
+      conflictItemVersionAnchor = [v20 conflictItemVersionAnchor];
       requestItemVersionAnchor = self->_requestItemVersionAnchor;
       self->_requestItemVersionAnchor = conflictItemVersionAnchor;
 
@@ -62,10 +61,10 @@
       goto LABEL_6;
     }
 
-    self->_success = [v21 isSuccess];
+    self->_success = [v20 isSuccess];
     objc_storeStrong(&self->_resultItemPayloadPair, self->_requestItemPayloadPair);
     objc_storeStrong(&self->_resultItemVersionAnchor, self->_requestItemVersionAnchor);
-    domainVersion = [v21 domainVersion];
+    domainVersion = [v20 domainVersion];
     resultDomainVersion = self->_resultDomainVersion;
     self->_resultDomainVersion = domainVersion;
   }
@@ -87,7 +86,6 @@ LABEL_6:
 
 - (id)description
 {
-  clientItemPayloadPair = self->_clientItemPayloadPair;
   clientItemVersionAnchor = self->_clientItemVersionAnchor;
   if (!clientItemVersionAnchor)
   {
@@ -95,7 +93,6 @@ LABEL_6:
   }
 
   clientItemVersionAnchor = [MEMORY[0x277CCACA8] stringWithFormat:@"[client: payload-pair=%@, anchor=%@]", self->_clientItemPayloadPair, clientItemVersionAnchor];
-  resultItemPayloadPair = self->_resultItemPayloadPair;
   resultItemVersionAnchor = self->_resultItemVersionAnchor;
   if (!resultItemVersionAnchor)
   {
@@ -103,7 +100,6 @@ LABEL_6:
   }
 
   resultItemVersionAnchor = [MEMORY[0x277CCACA8] stringWithFormat:@"[result: payload-pair=%@, anchor=%@]", self->_resultItemPayloadPair, resultItemVersionAnchor];
-  requestItemPayloadPair = self->_requestItemPayloadPair;
   requestItemVersionAnchor = self->_requestItemVersionAnchor;
   if (!requestItemVersionAnchor)
   {
@@ -111,14 +107,14 @@ LABEL_6:
   }
 
   requestItemVersionAnchor = [MEMORY[0x277CCACA8] stringWithFormat:@"[request: payload-pair=%@, anchor=%@]", self->_requestItemPayloadPair, requestItemVersionAnchor];
-  v12 = MEMORY[0x277CCACA8];
-  v17.receiver = self;
-  v17.super_class = SBKPushValueTransaction;
-  v13 = [(SBKPushValueTransaction *)&v17 description];
+  v9 = MEMORY[0x277CCACA8];
+  v14.receiver = self;
+  v14.super_class = SBKPushValueTransaction;
+  v10 = [(SBKPushValueTransaction *)&v14 description];
   domain = [(SBKTransaction *)self domain];
-  v15 = [v12 stringWithFormat:@"%@ domain = %@, PUT: %@, %@, %@", v13, domain, clientItemVersionAnchor, requestItemVersionAnchor, resultItemVersionAnchor];
+  v12 = [v9 stringWithFormat:@"%@ domain = %@, PUT: %@, %@, %@", v10, domain, clientItemVersionAnchor, requestItemVersionAnchor, resultItemVersionAnchor];
 
-  return v15;
+  return v12;
 }
 
 - (SBKPushValueTransaction)initWithStoreBagContext:(id)context clientItemPayloadPair:(id)pair clientItemVersionAnchor:(id)anchor

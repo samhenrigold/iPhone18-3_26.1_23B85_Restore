@@ -164,29 +164,30 @@ LABEL_9:
 - (CIColor)initWithRed:(CGFloat)r green:(CGFloat)g blue:(CGFloat)b alpha:(CGFloat)a colorSpace:(CGColorSpaceRef)colorSpace
 {
   components[4] = *MEMORY[0x1E69E9840];
-  if (CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelRGB)
+  Model = CGColorSpaceGetModel(colorSpace);
+  if (Model == 1)
   {
     components[0] = r;
     components[1] = g;
     components[2] = b;
     components[3] = a;
-    v13 = CGColorCreate(colorSpace, components);
-    v14 = [(CIColor *)self initWithCGColor:v13];
-    CGColorRelease(v13);
+    v15 = CGColorCreate(colorSpace, components);
+    v16 = [(CIColor *)self initWithCGColor:v15];
+    CGColorRelease(v15);
   }
 
   else
   {
-    v15 = ci_logger_api();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = ci_logger_api(Model, v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [CIColor initWithRed:v15 green:? blue:? alpha:? colorSpace:?];
+      [CIColor initWithRed:v17 green:? blue:? alpha:? colorSpace:?];
     }
 
     return 0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (void)dealloc

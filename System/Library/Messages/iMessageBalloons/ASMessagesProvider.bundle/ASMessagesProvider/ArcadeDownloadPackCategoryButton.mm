@@ -16,17 +16,17 @@
 - (void)setSelected:(BOOL)selected
 {
   selectedCopy = selected;
-  v5.receiver = self;
-  v5.super_class = swift_getObjectType();
-  v4 = v5.receiver;
-  [(ArcadeDownloadPackCategoryButton *)&v5 setSelected:selectedCopy];
-  sub_83E4();
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  v5 = [(ArcadeDownloadPackCategoryButton *)&v7 setSelected:selectedCopy];
+  sub_83E4(v5, v6);
 }
 
 - (void)setEnabled:(BOOL)enabled
 {
   selfCopy = self;
-  sub_8570(enabled);
+  sub_8570(enabled, selfCopy);
 }
 
 - (CGSize)intrinsicContentSize
@@ -51,7 +51,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_8C00();
+  sub_8C00(selfCopy, v2);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -75,14 +75,14 @@
 - (void)didTap
 {
   ObjectType = swift_getObjectType();
-  v7.receiver = self;
-  v7.super_class = ObjectType;
+  v9.receiver = self;
+  v9.super_class = ObjectType;
   selfCopy = self;
-  isSelected = [(ArcadeDownloadPackCategoryButton *)&v7 isSelected];
-  v6.receiver = selfCopy;
-  v6.super_class = ObjectType;
-  [(ArcadeDownloadPackCategoryButton *)&v6 setSelected:isSelected ^ 1];
-  sub_83E4();
+  isSelected = [(ArcadeDownloadPackCategoryButton *)&v9 isSelected];
+  v8.receiver = selfCopy;
+  v8.super_class = ObjectType;
+  v6 = [(ArcadeDownloadPackCategoryButton *)&v8 setSelected:isSelected ^ 1];
+  sub_83E4(v6, v7);
   (*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider32ArcadeDownloadPackCategoryButton_action))(*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider32ArcadeDownloadPackCategoryButton_category));
 }
 
@@ -90,7 +90,7 @@
 {
   pressCopy = press;
   selfCopy = self;
-  sub_8F00(pressCopy);
+  sub_8F00(pressCopy, selfCopy);
 }
 
 - (void)didRelease:(id)release

@@ -41,7 +41,7 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
 
 - (ODISession)initWithServiceIdentifier:(id)identifier forDSIDType:(unint64_t)type andLocationBundleIdentifier:(id)bundleIdentifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   +[ODISession _initLogCategories];
@@ -49,13 +49,13 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v29 = "[ODISession initWithServiceIdentifier:forDSIDType:andLocationBundleIdentifier:]";
-    v30 = 2112;
+    v28 = "[ODISession initWithServiceIdentifier:forDSIDType:andLocationBundleIdentifier:]";
+    v29 = 2112;
     typeCopy3 = identifierCopy;
-    v32 = 2048;
+    v31 = 2048;
     typeCopy = type;
-    v34 = 2112;
-    v35 = bundleIdentifierCopy;
+    v33 = 2112;
+    v34 = bundleIdentifierCopy;
     _os_log_impl(&dword_246157000, v10, OS_LOG_TYPE_DEFAULT, "Call to %s | identifier: %@, dsidType: %lu, locationBundleID: %@", buf, 0x2Au);
   }
 
@@ -63,8 +63,8 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
   if (os_log_type_enabled(initLog, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v29 = identifierCopy;
-    v30 = 2048;
+    v28 = identifierCopy;
+    v29 = 2048;
     typeCopy3 = type;
     _os_log_impl(&dword_246157000, v11, OS_LOG_TYPE_INFO, "Initializing ODISession with identifier %@ for DSID of type %lu", buf, 0x16u);
   }
@@ -73,13 +73,13 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
   if (os_log_type_enabled(initLog, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v29 = bundleIdentifierCopy;
+    v28 = bundleIdentifierCopy;
     _os_log_impl(&dword_246157000, v12, OS_LOG_TYPE_INFO, "Initializing ODISession: Location bundle identifier: %@", buf, 0xCu);
   }
 
-  v27.receiver = self;
-  v27.super_class = ODISession;
-  v13 = [(ODISession *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = ODISession;
+  v13 = [(ODISession *)&v26 init];
   if (v13)
   {
     v14 = [[_TtC7CoreODI29ODIPartialAssessmentInitiator alloc] initWithProviderID:identifierCopy];
@@ -112,10 +112,10 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
         if (os_log_type_enabled(initLog, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
-          v29 = identifierCopy;
-          v30 = 2050;
+          v28 = identifierCopy;
+          v29 = 2050;
           typeCopy3 = type;
-          v32 = 2114;
+          v31 = 2114;
           typeCopy = bundleIdentifierCopy;
           _os_log_error_impl(&dword_246157000, v24, OS_LOG_TYPE_ERROR, "Internal session failed to init, returning nil. identifier: %{public}@, for DSID: %{public}lu, location bundle: %{public}@", buf, 0x20u);
         }
@@ -135,13 +135,12 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
     v23 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (ODISession)initWithServiceIdentifier:(id)identifier forDSIDType:(unint64_t)type andLocationBundle:(id)bundle
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   bundleCopy = bundle;
   +[ODISession _initLogCategories];
@@ -149,13 +148,13 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v31 = "[ODISession initWithServiceIdentifier:forDSIDType:andLocationBundle:]";
-    v32 = 2112;
+    v30 = "[ODISession initWithServiceIdentifier:forDSIDType:andLocationBundle:]";
+    v31 = 2112;
     typeCopy3 = identifierCopy;
-    v34 = 2048;
+    v33 = 2048;
     typeCopy = type;
-    v36 = 2112;
-    v37 = bundleCopy;
+    v35 = 2112;
+    v36 = bundleCopy;
     _os_log_impl(&dword_246157000, v10, OS_LOG_TYPE_DEFAULT, "Call to %s | identifier: %@, dsidType: %lu, locationBundle: %@", buf, 0x2Au);
   }
 
@@ -163,8 +162,8 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
   if (os_log_type_enabled(initLog, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v31 = identifierCopy;
-    v32 = 2048;
+    v30 = identifierCopy;
+    v31 = 2048;
     typeCopy3 = type;
     _os_log_impl(&dword_246157000, v11, OS_LOG_TYPE_INFO, "Initializing ODISession with bundle with identifier %@ for DSID of type %lu", buf, 0x16u);
   }
@@ -175,13 +174,13 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
     v13 = v12;
     bundleIdentifier = [bundleCopy bundleIdentifier];
     *buf = 138412290;
-    v31 = bundleIdentifier;
+    v30 = bundleIdentifier;
     _os_log_impl(&dword_246157000, v13, OS_LOG_TYPE_INFO, "Initializing ODISession: Location bundle identifier: %@", buf, 0xCu);
   }
 
-  v29.receiver = self;
-  v29.super_class = ODISession;
-  v15 = [(ODISession *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = ODISession;
+  v15 = [(ODISession *)&v28 init];
   if (v15)
   {
     v16 = [[_TtC7CoreODI29ODIPartialAssessmentInitiator alloc] initWithProviderID:identifierCopy];
@@ -214,10 +213,10 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
         if (os_log_type_enabled(initLog, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
-          v31 = identifierCopy;
-          v32 = 2050;
+          v30 = identifierCopy;
+          v31 = 2050;
           typeCopy3 = type;
-          v34 = 2114;
+          v33 = 2114;
           typeCopy = bundleCopy;
           _os_log_error_impl(&dword_246157000, v26, OS_LOG_TYPE_ERROR, "Internal session failed to init, returning nil. identifier: %{public}@, for DSID: %{public}lu, location bundle: %{public}@", buf, 0x20u);
         }
@@ -237,42 +236,40 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
     v25 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (ODISession)initWithServiceIdentifier:(id)identifier forDSIDType:(unint64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = apiLog;
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315650;
-    v13 = "[ODISession initWithServiceIdentifier:forDSIDType:]";
-    v14 = 2112;
-    v15 = identifierCopy;
-    v16 = 2048;
+    v11 = 136315650;
+    v12 = "[ODISession initWithServiceIdentifier:forDSIDType:]";
+    v13 = 2112;
+    v14 = identifierCopy;
+    v15 = 2048;
     typeCopy = type;
-    _os_log_impl(&dword_246157000, v7, OS_LOG_TYPE_DEFAULT, "Call to %s | identifier: %@, dsidType: %lu", &v12, 0x20u);
+    _os_log_impl(&dword_246157000, v7, OS_LOG_TYPE_DEFAULT, "Call to %s | identifier: %@, dsidType: %lu", &v11, 0x20u);
   }
 
   v8 = mlog;
   if (os_log_type_enabled(mlog, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_246157000, v8, OS_LOG_TYPE_INFO, "Called initWithServiceIdentifier", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_246157000, v8, OS_LOG_TYPE_INFO, "Called initWithServiceIdentifier", &v11, 2u);
   }
 
   v9 = [(ODISession *)self initWithServiceIdentifier:identifierCopy forDSIDType:type andLocationBundleIdentifier:0];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)initForTransaction
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   +[ODISession _initLogCategories];
   v3 = initLog;
   if (os_log_type_enabled(initLog, OS_LOG_TYPE_FAULT))
@@ -284,7 +281,7 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "[ODISession initForTransaction]";
+    v21 = "[ODISession initForTransaction]";
     _os_log_impl(&dword_246157000, v4, OS_LOG_TYPE_DEFAULT, "Call to %s", buf, 0xCu);
   }
 
@@ -295,9 +292,9 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
     _os_log_impl(&dword_246157000, v5, OS_LOG_TYPE_INFO, "Initializing ODISession for transaction mode", buf, 2u);
   }
 
-  v20.receiver = self;
-  v20.super_class = ODISession;
-  v6 = [(ODISession *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = ODISession;
+  v6 = [(ODISession *)&v19 init];
   if (v6)
   {
     v7 = [[_TtC7CoreODI29ODIPartialAssessmentInitiator alloc] initWithProviderID:@"com.apple.apc.sp.tier1"];
@@ -339,19 +336,18 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
     v16 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (NSString)availablePartialAssessment
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = apiLog;
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[ODISession availablePartialAssessment]";
-    _os_log_impl(&dword_246157000, v3, OS_LOG_TYPE_DEFAULT, "Call to %s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[ODISession availablePartialAssessment]";
+    _os_log_impl(&dword_246157000, v3, OS_LOG_TYPE_DEFAULT, "Call to %s", &v7, 0xCu);
   }
 
   selfCopy = self;
@@ -359,8 +355,6 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
   [(ODISessionInternal *)selfCopy->_internalSession provideFeedbackOnPartialAssessmentID:selfCopy->_partialAssessmentID];
   v5 = selfCopy->_availablePartialAssessment;
   objc_sync_exit(selfCopy);
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -379,16 +373,16 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
 
 - (void)updateWithAdditionalAttributes:(id)attributes
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   v5 = apiLog;
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[ODISession updateWithAdditionalAttributes:]";
-    v14 = 2112;
-    v15 = attributesCopy;
-    _os_log_impl(&dword_246157000, v5, OS_LOG_TYPE_DEFAULT, "Call to %s | attributes: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[ODISession updateWithAdditionalAttributes:]";
+    v13 = 2112;
+    v14 = attributesCopy;
+    _os_log_impl(&dword_246157000, v5, OS_LOG_TYPE_DEFAULT, "Call to %s | attributes: %@", &v11, 0x16u);
   }
 
   v6 = mlog;
@@ -397,85 +391,79 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
     v7 = v6;
     attributes = [attributesCopy attributes];
     allKeys = [attributes allKeys];
-    v12 = 138412290;
-    v13 = allKeys;
-    _os_log_impl(&dword_246157000, v7, OS_LOG_TYPE_INFO, "Updating with attributes - Keys: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = allKeys;
+    _os_log_impl(&dword_246157000, v7, OS_LOG_TYPE_INFO, "Updating with attributes - Keys: %@", &v11, 0xCu);
   }
 
   [(ODISessionInternal *)self->_internalSession updateWithAdditionalAttributes:attributesCopy];
   v10 = mlog;
   if (os_log_type_enabled(mlog, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_246157000, v10, OS_LOG_TYPE_INFO, "Update with attribute completed", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_246157000, v10, OS_LOG_TYPE_INFO, "Update with attribute completed", &v11, 2u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAssessment:(id)assessment
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   assessmentCopy = assessment;
   v5 = apiLog;
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[ODISession getAssessment:]";
-    _os_log_impl(&dword_246157000, v5, OS_LOG_TYPE_DEFAULT, "Call to %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[ODISession getAssessment:]";
+    _os_log_impl(&dword_246157000, v5, OS_LOG_TYPE_DEFAULT, "Call to %s", &v8, 0xCu);
   }
 
   v6 = mlog;
   if (os_log_type_enabled(mlog, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_246157000, v6, OS_LOG_TYPE_INFO, "Called getAssessment", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_246157000, v6, OS_LOG_TYPE_INFO, "Called getAssessment", &v8, 2u);
   }
 
   [(ODISessionInternal *)self->_internalSession getAssessment:assessmentCopy];
   v7 = mlog;
   if (os_log_type_enabled(mlog, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_246157000, v7, OS_LOG_TYPE_INFO, "GetAssessment completed", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_246157000, v7, OS_LOG_TYPE_INFO, "GetAssessment completed", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAssessmentForTransaction:(id)transaction
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v5 = apiLog;
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[ODISession getAssessmentForTransaction:]";
-    _os_log_impl(&dword_246157000, v5, OS_LOG_TYPE_DEFAULT, "Call to %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[ODISession getAssessmentForTransaction:]";
+    _os_log_impl(&dword_246157000, v5, OS_LOG_TYPE_DEFAULT, "Call to %s", &v8, 0xCu);
   }
 
   v6 = mlog;
   if (os_log_type_enabled(mlog, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_246157000, v6, OS_LOG_TYPE_INFO, "Called getAssessmentForTransaction", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_246157000, v6, OS_LOG_TYPE_INFO, "Called getAssessmentForTransaction", &v8, 2u);
   }
 
   [(ODISessionInternal *)self->_internalSession getAssessment:transactionCopy];
   v7 = mlog;
   if (os_log_type_enabled(mlog, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_246157000, v7, OS_LOG_TYPE_INFO, "GetAssessmentForTransaction completed", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_246157000, v7, OS_LOG_TYPE_INFO, "GetAssessmentForTransaction completed", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provideFeedbackOnPayloadOutcome:(unint64_t)outcome
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = apiLog;
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -496,19 +484,17 @@ uint64_t __32__ODISession__initLogCategories__block_invoke()
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v11 = __Block_byref_object_copy_;
-  v12 = __Block_byref_object_dispose_;
+  v10 = __Block_byref_object_copy_;
+  v11 = __Block_byref_object_dispose_;
   selfCopy = self;
   internalSession = selfCopy->_internalSession;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __46__ODISession_provideFeedbackOnPayloadOutcome___block_invoke;
-  v9[3] = &unk_278E9C098;
-  v9[4] = buf;
-  [(ODISessionInternal *)internalSession provideFeedbackOnPayloadOutcome:outcome feedbackRecorded:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __46__ODISession_provideFeedbackOnPayloadOutcome___block_invoke;
+  v8[3] = &unk_278E9C098;
+  v8[4] = buf;
+  [(ODISessionInternal *)internalSession provideFeedbackOnPayloadOutcome:outcome feedbackRecorded:v8];
   _Block_object_dispose(buf, 8);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ODISession_provideFeedbackOnPayloadOutcome___block_invoke(uint64_t a1)
@@ -527,12 +513,12 @@ void __46__ODISession_provideFeedbackOnPayloadOutcome___block_invoke(uint64_t a1
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = apiLog;
   if (os_log_type_enabled(apiLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[ODISession dealloc]";
+    v7 = "[ODISession dealloc]";
     _os_log_impl(&dword_246157000, v3, OS_LOG_TYPE_DEFAULT, "Call to %s", buf, 0xCu);
   }
 
@@ -544,10 +530,9 @@ void __46__ODISession_provideFeedbackOnPayloadOutcome___block_invoke(uint64_t a1
   }
 
   [(ODISessionInternal *)self->_internalSession validateForDeinit];
-  v6.receiver = self;
-  v6.super_class = ODISession;
-  [(ODISession *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = ODISession;
+  [(ODISession *)&v5 dealloc];
 }
 
 - (void)didChangeStateWith:(id)with assessmentID:(id)d
@@ -574,14 +559,6 @@ uint64_t __46__ODISession_didChangeStateWith_assessmentID___block_invoke(uint64_
   v3 = *(a1 + 32);
 
   return [v3 setPartialAssessmentID:v2];
-}
-
-- (void)initWithServiceIdentifier:forDSIDType:andLocationBundleIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_246157000, v0, v1, "Tried to init session with NULL identifier, returning nil. identifier: %{public}@, for DSID: %{public}lu, location bundle: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

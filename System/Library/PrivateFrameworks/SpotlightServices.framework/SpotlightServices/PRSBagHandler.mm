@@ -120,46 +120,46 @@ uint64_t __30__PRSBagHandler_sharedHandler__block_invoke(uint64_t a1)
 - (id)_base64CEPDataNoCopyFromFeatureData:(id)data
 {
   dataCopy = data;
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x2020000000;
-  v17 = -1;
-  v15[0] = 0;
-  v15[1] = v15;
-  v15[2] = 0x2020000000;
-  v15[3] = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3810000000;
-  v12 = "";
-  v13 = xmmword_1DA0D50E0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x2020000000;
+  v22 = -1;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v20[3] = 0;
   v14 = 0;
+  v15 = &v14;
+  v16 = 0x3810000000;
+  v17 = "";
+  v18 = xmmword_1DA0D50E0;
+  v19 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __53__PRSBagHandler__base64CEPDataNoCopyFromFeatureData___block_invoke;
   aBlock[3] = &unk_1E8595690;
-  aBlock[4] = v16;
-  aBlock[5] = &v9;
-  aBlock[6] = v15;
+  aBlock[4] = v21;
+  aBlock[5] = &v14;
+  aBlock[6] = v20;
   aBlock[7] = "qi_features";
   v4 = _Block_copy(aBlock);
-  [dataCopy bytes];
-  [dataCopy length];
-  if (json_parse() && *(v10 + 8) == 4 && (v5 = v10[5]) != 0)
+  bytes = [dataCopy bytes];
+  v6 = [dataCopy length];
+  if (json_parse(bytes, v6, 0, 0, v4, v7, v8, v9) && *(v15 + 8) == 4 && (v10 = v15[5]) != 0)
   {
-    v6 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v5 length:v10[6] freeWhenDone:0];
+    v11 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v10 length:v15[6] freeWhenDone:0];
   }
 
   else
   {
-    v6 = 0;
+    v11 = 0;
   }
 
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(v15, 8);
-  _Block_object_dispose(v16, 8);
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(v21, 8);
 
-  return v6;
+  return v11;
 }
 
 void *__53__PRSBagHandler__base64CEPDataNoCopyFromFeatureData___block_invoke(void *result, int a2, __int128 *a3, _BYTE *a4)
@@ -214,21 +214,20 @@ void *__53__PRSBagHandler__base64CEPDataNoCopyFromFeatureData___block_invoke(voi
 {
   featuresCopy = features;
   clientCopy = client;
-  v20[0] = 0;
-  v20[1] = v20;
-  v20[2] = 0x3810000000;
-  v20[3] = "";
-  v21 = xmmword_1DA0D50E0;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3810000000;
+  v23[3] = "";
+  v24 = xmmword_1DA0D50E0;
+  v25 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x2020000000;
   v22 = 0;
-  v18[0] = 0;
-  v18[1] = v18;
-  v18[2] = 0x2020000000;
-  v19 = 0;
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x2020000000;
-  v17 = -1;
-  v8 = *MEMORY[0x1E695E480];
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x2020000000;
+  v20 = -1;
   Mutable = _MDPlistContainerCreateMutable();
   _MDPlistContainerBeginContainer();
   _MDPlistContainerBeginDictionary();
@@ -236,57 +235,57 @@ void *__53__PRSBagHandler__base64CEPDataNoCopyFromFeatureData___block_invoke(voi
   aBlock[1] = 3221225472;
   aBlock[2] = __46__PRSBagHandler__processQIFeatures_forClient___block_invoke;
   aBlock[3] = &unk_1E8595690;
-  aBlock[4] = v16;
-  aBlock[5] = v18;
-  aBlock[6] = v20;
+  aBlock[4] = v19;
+  aBlock[5] = v21;
+  aBlock[6] = v23;
   aBlock[7] = Mutable;
-  v10 = _Block_copy(aBlock);
-  [featuresCopy bytes];
-  [featuresCopy length];
-  v11 = json_parse();
+  v9 = _Block_copy(aBlock);
+  bytes = [featuresCopy bytes];
+  v11 = [featuresCopy length];
+  LODWORD(bytes) = json_parse(bytes, v11, 0, 0, v9, v12, v13, v14);
   _MDPlistContainerEndDictionary();
   _MDPlistContainerEndContainer();
-  if (v11)
+  if (bytes)
   {
-    v12 = [[SSPlistDataReader alloc] initWithPlistContainer:Mutable];
+    v15 = [[SSPlistDataReader alloc] initWithPlistContainer:Mutable];
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
   CFRelease(Mutable);
-  if (v12)
+  if (v15)
   {
-    [(PRSBagHandler *)self setCep_server_values:v12];
-    v13 = PRSLogCategoryDefault();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    [(PRSBagHandler *)self setCep_server_values:v15];
+    v16 = PRSLogCategoryDefault();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_1D9F69000, v13, OS_LOG_TYPE_INFO, "Loaded qi features", v14, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_1D9F69000, v16, OS_LOG_TYPE_INFO, "Loaded qi features", v17, 2u);
     }
   }
 
   else
   {
-    v13 = PRSLogCategoryDefault();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = PRSLogCategoryDefault();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [PRSBagHandler _processQIFeatures:v13 forClient:?];
+      [PRSBagHandler _processQIFeatures:v16 forClient:?];
     }
   }
 
-  _Block_object_dispose(v16, 8);
-  _Block_object_dispose(v18, 8);
-  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v21, 8);
+  _Block_object_dispose(v23, 8);
 }
 
-void __46__PRSBagHandler__processQIFeatures_forClient___block_invoke(void *a1, int a2, uint64_t a3)
+void __46__PRSBagHandler__processQIFeatures_forClient___block_invoke(void *a1, int a2, int *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   bzero(__s1, 0x400uLL);
-  bzero(v29, 0x400uLL);
+  bzero(v26, 0x400uLL);
   if (a2 > 2)
   {
     if (a2 != 3)
@@ -297,51 +296,49 @@ void __46__PRSBagHandler__processQIFeatures_forClient___block_invoke(void *a1, i
         if (v8 == 1)
         {
           json_utf8_string(*(a1[6] + 8) + 32, __s1, 0x400uLL);
-          json_utf8_string(a3, v29, 0x400uLL);
+          json_utf8_string(a3, v26, 0x400uLL);
           if ((*a3 & 0xFFFFFFFE) == 6)
           {
-            v14 = 0;
-            v15 = MEMORY[0x1E69E9830];
+            v13 = 0;
+            v14 = MEMORY[0x1E69E9830];
             do
             {
-              v16 = __s1[v14];
-              if (!__s1[v14])
+              v15 = __s1[v13];
+              if (!__s1[v13])
               {
                 break;
               }
 
-              if ((v16 & 0x80) == 0 && (*(v15 + 4 * v16 + 60) & 0x8000) != 0)
+              if ((v15 & 0x80) == 0 && (*(v14 + 4 * v15 + 60) & 0x8000) != 0)
               {
-                __s1[v14] = __tolower(v16);
+                __s1[v13] = __tolower(v15);
               }
 
-              ++v14;
+              ++v13;
             }
 
-            while (v14 != 1024);
-            v17 = a1[7];
+            while (v13 != 1024);
             _MDPlistContainerAddCString();
-            v18 = a1[7];
-            atof(v29);
+            atof(v26);
             _MDPlistContainerAddDoubleValue();
           }
 
           else
           {
-            v19 = PRSLogCategoryDefault();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v16 = PRSLogCategoryDefault();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              v20 = *a3;
-              v21 = *(&sQIFetureKeys + *(*(a1[5] + 8) + 24));
-              v22[0] = 67109890;
-              v22[1] = v20;
-              v23 = 2080;
-              v24 = v21;
-              v25 = 2080;
-              v26 = __s1;
-              v27 = 2080;
-              v28 = v29;
-              _os_log_error_impl(&dword_1D9F69000, v19, OS_LOG_TYPE_ERROR, "## unexpected type:%d %s-%s value:%s", v22, 0x26u);
+              v17 = *a3;
+              v18 = *(&sQIFetureKeys + *(*(a1[5] + 8) + 24));
+              v19[0] = 67109890;
+              v19[1] = v17;
+              v20 = 2080;
+              v21 = v18;
+              v22 = 2080;
+              v23 = __s1;
+              v24 = 2080;
+              v25 = v26;
+              _os_log_error_impl(&dword_1D9F69000, v16, OS_LOG_TYPE_ERROR, "## unexpected type:%d %s-%s value:%s", v19, 0x26u);
             }
           }
         }
@@ -349,18 +346,18 @@ void __46__PRSBagHandler__processQIFeatures_forClient___block_invoke(void *a1, i
         else if (v8 == 2)
         {
           json_utf8_string(*(a1[6] + 8) + 32, __s1, 0x400uLL);
-          json_utf8_string(a3, v29, 0x400uLL);
+          json_utf8_string(a3, v26, 0x400uLL);
         }
       }
 
-      goto LABEL_19;
+      return;
     }
 
     v9 = *(a1[4] + 8);
     v10 = *(v9 + 24) - 1;
 LABEL_18:
     *(v9 + 24) = v10;
-    goto LABEL_19;
+    return;
   }
 
   if (a2 == 1)
@@ -375,10 +372,10 @@ LABEL_18:
     v6 = *(*(a1[4] + 8) + 24);
     if (v6 == 1)
     {
-      v12 = *(a1[6] + 8);
-      v13 = *a3;
-      *(v12 + 48) = *(a3 + 16);
-      *(v12 + 32) = v13;
+      v11 = *(a1[6] + 8);
+      v12 = *a3;
+      *(v11 + 48) = *(a3 + 2);
+      *(v11 + 32) = v12;
     }
 
     else if (!v6)
@@ -390,16 +387,13 @@ LABEL_18:
       {
         if (++v7 == 3)
         {
-          goto LABEL_19;
+          return;
         }
       }
 
       *(*(a1[5] + 8) + 24) = v7;
     }
   }
-
-LABEL_19:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parseCEPFromData:(id)data forClient:(id)client
@@ -499,9 +493,9 @@ LABEL_19:
 
 void __70__PRSBagHandler_fetchModifiedResourceFromSession_resource_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v7 = a2;
-  v37 = a3;
+  v36 = a3;
   v8 = a4;
   v9 = v8;
   if (!v7 || v8)
@@ -511,9 +505,9 @@ void __70__PRSBagHandler_fetchModifiedResourceFromSession_resource_completion___
     {
       v24 = *(a1 + 32);
       *buf = 138412546;
-      v43 = v24;
-      v44 = 2112;
-      v45 = v9;
+      v42 = v24;
+      v43 = 2112;
+      v44 = v9;
       _os_log_impl(&dword_1D9F69000, v23, OS_LOG_TYPE_INFO, "failed fetch resource:%@ err:%@", buf, 0x16u);
     }
 
@@ -522,7 +516,7 @@ void __70__PRSBagHandler_fetchModifiedResourceFromSession_resource_completion___
   }
 
   v10 = [*(a1 + 32) isEqualToString:*MEMORY[0x1E6998688]];
-  v11 = [v37 objectForKey:*MEMORY[0x1E696A350]];
+  v11 = [v36 objectForKey:*MEMORY[0x1E696A350]];
   [v11 timeIntervalSinceReferenceDate];
   v13 = v12;
 
@@ -558,24 +552,24 @@ void __70__PRSBagHandler_fetchModifiedResourceFromSession_resource_completion___
 LABEL_16:
       if (v18)
       {
-        v40[0] = @"last_modified";
+        v39[0] = @"last_modified";
         v29 = [MEMORY[0x1E696AD98] numberWithDouble:v13];
-        v40[1] = @"language";
-        v41[0] = v29;
+        v39[1] = @"language";
+        v40[0] = v29;
         v30 = [MEMORY[0x1E695DF58] currentLocale];
         v31 = [v30 languageCode];
-        v41[1] = v31;
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
+        v40[1] = v31;
+        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
 
         v16 = v32;
       }
 
       else
       {
-        v38 = @"last_modified";
+        v37 = @"last_modified";
         v33 = [MEMORY[0x1E696AD98] numberWithDouble:v13];
-        v39 = v33;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v38 = v33;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
 
         v18 = 0;
         v16 = v34;
@@ -617,8 +611,6 @@ LABEL_20:
 LABEL_21:
     (*(*(a1 + 48) + 16))();
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateFromSession:(id)session bag:(id)bag forClient:(id)client error:(id)error
@@ -646,7 +638,7 @@ LABEL_21:
 
 void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke(uint64_t a1)
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(a1 + 32) + 40), *(a1 + 40));
   v2 = [*(a1 + 40) enabledDomains];
   [*(a1 + 32) setEnabledDomains:v2];
@@ -714,8 +706,8 @@ void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke(ui
 
   else
   {
-    v53[0] = @"com.apple.application";
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+    v52[0] = @"com.apple.application";
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:1];
     [*(a1 + 32) setAnonymousMetadataUndesiredBundleIDs:v19];
   }
 
@@ -735,29 +727,29 @@ void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke(ui
   [*(a1 + 32) setSuggestionRankerModelParams:v21];
 
   *(*(a1 + 32) + 61) = [*(a1 + 40) isEnabled];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v22 = *(*(a1 + 32) + 32);
-  v23 = [v22 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v49;
+    v25 = *v48;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v49 != v25)
+        if (*v48 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        [*(*(&v48 + 1) + 8 * i) triggerQuery:{objc_msgSend(*(a1 + 32), "status") == 2}];
+        [*(*(&v47 + 1) + 8 * i) triggerQuery:{objc_msgSend(*(a1 + 32), "status") == 2}];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
     while (v24);
@@ -770,9 +762,9 @@ void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke(ui
   block[3] = &unk_1E85957A0;
   v28 = *(a1 + 56);
   v29 = *(a1 + 32);
-  v45 = v28;
-  v46 = v29;
-  v47 = *(a1 + 64);
+  v44 = v28;
+  v45 = v29;
+  v46 = *(a1 + 64);
   dispatch_async(v27, block);
 
   v30 = [*(a1 + 32) enabledDomains];
@@ -781,22 +773,20 @@ void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke(ui
   v32 = [*(a1 + 32) suggestionRankerModelParams];
   v33 = [v32 copy];
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_7;
-  v39[3] = &unk_1E85957C8;
-  v40 = *(a1 + 64);
-  v41 = v31;
-  v42 = *(a1 + 32);
-  v43 = v33;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_7;
+  v38[3] = &unk_1E85957C8;
+  v39 = *(a1 + 64);
+  v40 = v31;
+  v41 = *(a1 + 32);
+  v42 = v33;
   v34 = v33;
   v35 = v31;
-  dispatch_async(MEMORY[0x1E69E96A0], v39);
+  dispatch_async(MEMORY[0x1E69E96A0], v38);
   v36 = *(a1 + 32);
   v37 = *(v36 + 32);
   *(v36 + 32) = 0;
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_2(uint64_t a1)
@@ -847,24 +837,20 @@ void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_3(
 void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (v3)
+  if (v3 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v4 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
-    {
-      v5 = dispatch_get_global_queue(9, 0);
-      v7 = MEMORY[0x1E69E9820];
-      v8 = 3221225472;
-      v9 = __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_5;
-      v10 = &unk_1E8595728;
-      v11 = *(a1 + 32);
-      v12 = v3;
-      dispatch_async(v5, &v7);
-    }
+    v4 = dispatch_get_global_queue(9, 0);
+    v6 = MEMORY[0x1E69E9820];
+    v7 = 3221225472;
+    v8 = __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_5;
+    v9 = &unk_1E8595728;
+    v10 = *(a1 + 32);
+    v11 = v3;
+    dispatch_async(v4, &v6);
   }
 
-  v6 = [*(a1 + 40) resourceFetchQueue];
-  dispatch_resume(v6);
+  v5 = [*(a1 + 40) resourceFetchQueue];
+  dispatch_resume(v5);
 }
 
 void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_6(uint64_t a1)
@@ -886,20 +872,18 @@ void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_6(
 void __55__PRSBagHandler_updateFromSession_bag_forClient_error___block_invoke_7(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) sessionReceivedBagWithEnabledDomains:*(a1 + 40)];
   }
 
-  v4 = [*(a1 + 48) suggestionRankerModelParams];
-  if (v4)
+  v3 = [*(a1 + 48) suggestionRankerModelParams];
+  if (v3)
   {
-    v5 = v4;
-    v6 = *(a1 + 32);
-    v7 = objc_opt_respondsToSelector();
+    v4 = v3;
+    v5 = objc_opt_respondsToSelector();
 
-    if (v7)
+    if (v5)
     {
       [*(a1 + 32) sessionReceivedSuggestionsParameters:*(a1 + 56)];
     }

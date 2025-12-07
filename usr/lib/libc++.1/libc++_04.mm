@@ -1,207 +1,36 @@
-std::string *__cdecl std::to_string(std::string *__return_ptr retstr, uint64_t __val)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  p_src = &__src;
-  v5 = &v12;
-  if (__val < 0)
-  {
-    p_src = v11;
-    __src = 45;
-    __val = -__val;
-  }
-
-  if (&v12 - p_src > 19 || (v6 = (1233 * (64 - __clz(__val | 1))) >> 12, &v12 - p_src >= v6 - (std::__itoa::__pow10_64[v6] > __val) + 1))
-  {
-    if (HIDWORD(__val))
-    {
-      if (__val > 0x2540BE3FFLL)
-      {
-        p_src = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val / 0x2540BE400uLL);
-        __val %= 0x2540BE400uLL;
-      }
-
-      *p_src = std::__itoa::__digits_base_10[__val / 0x5F5E100uLL];
-      v7 = __val % 0x5F5E100uLL;
-      *(p_src + 1) = std::__itoa::__digits_base_10[v7 / 0xF4240uLL];
-      v7 %= 0xF4240u;
-      *(p_src + 2) = std::__itoa::__digits_base_10[v7 / 0x2710uLL];
-      v7 %= 0x2710u;
-      *(p_src + 3) = std::__itoa::__digits_base_10[v7 / 0x64u];
-      *(p_src + 4) = std::__itoa::__digits_base_10[v7 % 0x64u];
-      v5 = p_src + 10;
-    }
-
-    else
-    {
-      v5 = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val);
-    }
-  }
-
-  result = std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, &__src, v5, v5 - &__src);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-{
-  v12 = *MEMORY[0x1E69E9840];
-  p_src = &__src;
-  v5 = &v12;
-  if (__val < 0)
-  {
-    p_src = v11;
-    __src = 45;
-    __val = -__val;
-  }
-
-  if (&v12 - p_src > 19 || (v6 = (1233 * (64 - __clz(__val | 1))) >> 12, &v12 - p_src >= v6 - (std::__itoa::__pow10_64[v6] > __val) + 1))
-  {
-    if (HIDWORD(__val))
-    {
-      if (__val > 0x2540BE3FFLL)
-      {
-        p_src = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val / 0x2540BE400uLL);
-        __val %= 0x2540BE400uLL;
-      }
-
-      *p_src = std::__itoa::__digits_base_10[__val / 0x5F5E100uLL];
-      v7 = __val % 0x5F5E100uLL;
-      *(p_src + 1) = std::__itoa::__digits_base_10[v7 / 0xF4240uLL];
-      v7 %= 0xF4240u;
-      *(p_src + 2) = std::__itoa::__digits_base_10[v7 / 0x2710uLL];
-      v7 %= 0x2710u;
-      *(p_src + 3) = std::__itoa::__digits_base_10[v7 / 0x64u];
-      *(p_src + 4) = std::__itoa::__digits_base_10[v7 % 0x64u];
-      v5 = p_src + 10;
-    }
-
-    else
-    {
-      v5 = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val);
-    }
-  }
-
-  result = std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, &__src, v5, v5 - &__src);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-std::string *__cdecl std::to_string(std::string *__return_ptr retstr, unsigned int __val)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val);
-  result = std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, __src, v3, v3 - __src);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-std::string *__cdecl std::to_string(std::string *__return_ptr retstr, unint64_t __val)
-{
-  v2 = __val;
-  v10 = *MEMORY[0x1E69E9840];
-  if (HIDWORD(__val))
-  {
-    if (__val <= 0x2540BE3FFLL)
-    {
-      v5 = __src;
-    }
-
-    else
-    {
-      v5 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val / 0x2540BE400);
-      v2 %= 0x2540BE400uLL;
-    }
-
-    *v5 = std::__itoa::__digits_base_10[v2 / 0x5F5E100];
-    *(v5 + 1) = std::__itoa::__digits_base_10[v2 % 0x5F5E100 / 0xF4240];
-    v6 = v2 % 0x5F5E100 % 0xF4240;
-    *(v5 + 2) = std::__itoa::__digits_base_10[v6 / 0x2710uLL];
-    v6 %= 0x2710u;
-    *(v5 + 3) = std::__itoa::__digits_base_10[v6 / 0x64u];
-    *(v5 + 4) = std::__itoa::__digits_base_10[v6 % 0x64u];
-    v4 = v5 + 10;
-  }
-
-  else
-  {
-    v4 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val);
-  }
-
-  result = std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, __src, v4, v4 - __src);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-{
-  v2 = __val;
-  v10 = *MEMORY[0x1E69E9840];
-  if (HIDWORD(__val))
-  {
-    if (__val <= 0x2540BE3FFLL)
-    {
-      v5 = __src;
-    }
-
-    else
-    {
-      v5 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val / 0x2540BE400);
-      v2 %= 0x2540BE400uLL;
-    }
-
-    *v5 = std::__itoa::__digits_base_10[v2 / 0x5F5E100];
-    *(v5 + 1) = std::__itoa::__digits_base_10[v2 % 0x5F5E100 / 0xF4240];
-    v6 = v2 % 0x5F5E100 % 0xF4240;
-    *(v5 + 2) = std::__itoa::__digits_base_10[v6 / 0x2710uLL];
-    v6 %= 0x2710u;
-    *(v5 + 3) = std::__itoa::__digits_base_10[v6 / 0x64u];
-    *(v5 + 4) = std::__itoa::__digits_base_10[v6 % 0x64u];
-    v4 = v5 + 10;
-  }
-
-  else
-  {
-    v4 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val);
-  }
-
-  result = std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, __src, v4, v4 - __src);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, int __val)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = &v8;
+  v5 = &v10;
+  if (__val < 0)
+  {
+    v4 = &v9;
+    v8 = 45;
+    __val = -__val;
+  }
+
+  if (&v10 - v4 > 9 || (v6 = (1233 * (32 - __clz(__val | 1))) >> 12, &v10 - v4 >= (((__PAIR64__(v6, __val) - std::__itoa::__pow10_32[v6]) >> 32) + 1)))
+  {
+    v5 = std::__itoa::__base_10_u32[abi:ne200100](v4, __val);
+  }
+
+  return std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, &v8, v5, v5 - &v8);
+}
+
+std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, uint64_t __val)
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = &v9;
   v5 = &v11;
   if (__val < 0)
   {
-    v4 = &v10;
+    v4 = v10;
     v9 = 45;
     __val = -__val;
   }
 
-  if (&v11 - v4 > 9 || (v6 = (1233 * (32 - __clz(__val | 1))) >> 12, &v11 - v4 >= (((__PAIR64__(v6, __val) - std::__itoa::__pow10_32[v6]) >> 32) + 1)))
-  {
-    v5 = std::__itoa::__base_10_u32[abi:ne200100](v4, __val);
-  }
-
-  result = std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, &v9, v5, v5 - &v9);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, uint64_t __val)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = &v10;
-  v5 = &v12;
-  if (__val < 0)
-  {
-    v4 = v11;
-    v10 = 45;
-    __val = -__val;
-  }
-
-  if (&v12 - v4 > 19 || (v6 = (1233 * (64 - __clz(__val | 1))) >> 12, &v12 - v4 >= v6 - (std::__itoa::__pow10_64[v6] > __val) + 1))
+  if (&v11 - v4 > 19 || (v6 = (1233 * (64 - __clz(__val | 1))) >> 12, &v11 - v4 >= v6 - (std::__itoa::__pow10_64[v6] > __val) + 1))
   {
     if (HIDWORD(__val))
     {
@@ -228,23 +57,21 @@ std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, uint64_
     }
   }
 
-  result = std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, &v10, v5, v5 - &v10);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, &v9, v5, v5 - &v9);
 }
 
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = &v10;
-  v5 = &v12;
+  v11 = *MEMORY[0x1E69E9840];
+  v4 = &v9;
+  v5 = &v11;
   if (__val < 0)
   {
-    v4 = v11;
-    v10 = 45;
+    v4 = v10;
+    v9 = 45;
     __val = -__val;
   }
 
-  if (&v12 - v4 > 19 || (v6 = (1233 * (64 - __clz(__val | 1))) >> 12, &v12 - v4 >= v6 - (std::__itoa::__pow10_64[v6] > __val) + 1))
+  if (&v11 - v4 > 19 || (v6 = (1233 * (64 - __clz(__val | 1))) >> 12, &v11 - v4 >= v6 - (std::__itoa::__pow10_64[v6] > __val) + 1))
   {
     if (HIDWORD(__val))
     {
@@ -271,34 +98,30 @@ std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, uint64_
     }
   }
 
-  result = std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, &v10, v5, v5 - &v10);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, &v9, v5, v5 - &v9);
 }
 
 std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, unsigned int __val)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = std::__itoa::__base_10_u32[abi:ne200100](v6, __val);
-  result = std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, v6, v3, v3 - v6);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = std::__itoa::__base_10_u32[abi:ne200100](v5, __val);
+  return std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, v5, v3, v3 - v5);
 }
 
 std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, unint64_t __val)
 {
   v2 = __val;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (HIDWORD(__val))
   {
     if (__val <= 0x2540BE3FFLL)
     {
-      v5 = v9;
+      v5 = v8;
     }
 
     else
     {
-      v5 = std::__itoa::__base_10_u32[abi:ne200100](v9, __val / 0x2540BE400);
+      v5 = std::__itoa::__base_10_u32[abi:ne200100](v8, __val / 0x2540BE400);
       v2 %= 0x2540BE400uLL;
     }
 
@@ -314,27 +137,25 @@ std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, unint64
 
   else
   {
-    v4 = std::__itoa::__base_10_u32[abi:ne200100](v9, __val);
+    v4 = std::__itoa::__base_10_u32[abi:ne200100](v8, __val);
   }
 
-  result = std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, v9, v4, v4 - v9);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, v8, v4, v4 - v8);
 }
 
 {
   v2 = __val;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (HIDWORD(__val))
   {
     if (__val <= 0x2540BE3FFLL)
     {
-      v5 = v9;
+      v5 = v8;
     }
 
     else
     {
-      v5 = std::__itoa::__base_10_u32[abi:ne200100](v9, __val / 0x2540BE400);
+      v5 = std::__itoa::__base_10_u32[abi:ne200100](v8, __val / 0x2540BE400);
       v2 %= 0x2540BE400uLL;
     }
 
@@ -350,12 +171,10 @@ std::wstring *__cdecl std::to_wstring(std::wstring *__return_ptr retstr, unint64
 
   else
   {
-    v4 = std::__itoa::__base_10_u32[abi:ne200100](v9, __val);
+    v4 = std::__itoa::__base_10_u32[abi:ne200100](v8, __val);
   }
 
-  result = std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, v9, v4, v4 - v9);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::wstring::__init_with_size[abi:ne200100]<char *,char *>(retstr, v8, v4, v4 - v8);
 }
 
 std::string *__cdecl std::to_string(std::string *__return_ptr retstr, float __val)
@@ -398,11 +217,11 @@ LABEL_12:
   return result;
 }
 
-void sub_1922B3738(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1922B3738(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -410,8 +229,7 @@ void sub_1922B3738(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void std::anonymous namespace::initial_string<std::string>::operator()(std::string *a1@<X8>)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a1, 0x16uLL, 0);
 }
@@ -465,11 +283,11 @@ LABEL_11:
   return result;
 }
 
-void sub_1922B389C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1922B389C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -514,21 +332,21 @@ LABEL_11:
   return result;
 }
 
-void sub_1922B39A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1922B39A4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1922B3AB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1922B3AB0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, 4 * a12);
+    MEMORY[0x193B0CA40](a10, 4 * a12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -544,21 +362,21 @@ void sub_1922B3B44(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1922B3C48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1922B3C48(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, 4 * a12);
+    MEMORY[0x193B0CA40](a10, 4 * a12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1922B3D50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1922B3D50(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, 4 * a12);
+    MEMORY[0x193B0CA40](a10, 4 * a12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -616,7 +434,7 @@ int std::wstring_view::compare(const std::wstring_view *this, std::wstring_view 
   }
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -628,11 +446,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::anonymous namespace::throw_from_string_out_of_range(const void **a1)
@@ -687,11 +505,11 @@ void std::anonymous namespace::throw_from_string_out_of_range(const void **a1)
   std::__throw_out_of_range[abi:ne200100](v5);
 }
 
-void sub_1922B3F4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_1922B3F4C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -749,11 +567,11 @@ void std::anonymous namespace::throw_from_string_invalid_arg(const void **a1)
   std::__throw_invalid_argument[abi:ne200100](v5);
 }
 
-void sub_1922B401C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_1922B401C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -807,17 +625,15 @@ uint64_t std::wstring::__init_with_size[abi:ne200100]<char *,char *>(uint64_t re
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(uint64_t *a1)
+void OUTLINED_FUNCTION_0_1()
 {
-  v2 = *a1;
-  v3 = a1[2] & 0x7FFFFFFFFFFFFFFFLL;
 
   JUMPOUT(0x193B0CA40);
 }
 
 std::string *__cdecl std::__do_message::message(std::string *__return_ptr retstr, const std::__do_message *this, int __ev)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = *__error();
   v6 = __strerrbuf;
   v7 = strerror_r(__ev, __strerrbuf, 0x400uLL);
@@ -843,9 +659,7 @@ std::string *__cdecl std::__do_message::message(std::string *__return_ptr retstr
   }
 
   *__error() = v5;
-  result = std::string::basic_string[abi:ne200100]<0>(retstr, v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::string::basic_string[abi:ne200100]<0>(retstr, v6);
 }
 
 std::string *std::__generic_error_category::message@<X0>(const std::__do_message *this@<X0>, int a2@<W1>, std::string *a3@<X8>)
@@ -920,24 +734,24 @@ std::system_error *__cdecl std::system_error::system_error(std::system_error *th
   return this;
 }
 
-void sub_1922B4478(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_1922B4478(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
-    std::stoi(&a12);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::anonymous namespace::make_error_str@<Q0>(std::string *this@<X1>, unsigned int *a2@<X0>, uint64_t a3@<X8>)
+__n128 std::anonymous namespace::make_error_str@<Q0>(uint64_t *__return_ptr a1@<X8>, std::string *this@<X1>, uint64_t a3@<X0>)
 {
-  if (*a2)
+  if (*a3)
   {
     size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
     if ((size & 0x8000000000000000) != 0)
@@ -948,51 +762,50 @@ __n128 std::anonymous namespace::make_error_str@<Q0>(std::string *this@<X1>, uns
     if (size)
     {
       std::string::append(this, ": ", 2uLL);
-      v7 = *a2;
     }
 
-    (*(**(a2 + 1) + 48))(v11);
-    if (v12 >= 0)
+    (*(**(a3 + 8) + 48))(v10);
+    if (v11 >= 0)
     {
-      v8 = v11;
-    }
-
-    else
-    {
-      v8 = v11[0];
-    }
-
-    if (v12 >= 0)
-    {
-      v9 = HIBYTE(v12);
+      v7 = v10;
     }
 
     else
     {
-      v9 = v11[1];
+      v7 = v10[0];
     }
 
-    std::string::append(this, v8, v9);
-    if (SHIBYTE(v12) < 0)
+    if (v11 >= 0)
     {
-      MEMORY[0x193B0CA40](v11[0], v12 & 0x7FFFFFFFFFFFFFFFLL);
+      v8 = HIBYTE(v11);
+    }
+
+    else
+    {
+      v8 = v10[1];
+    }
+
+    std::string::append(this, v7, v8);
+    if (SHIBYTE(v11) < 0)
+    {
+      MEMORY[0x193B0CA40](v10[0], v11 & 0x7FFFFFFFFFFFFFFFLL);
     }
   }
 
   result = *&this->__r_.__value_.__l.__data_;
-  *a3 = *&this->__r_.__value_.__l.__data_;
-  *(a3 + 16) = *(&this->__r_.__value_.__l + 2);
+  *a1 = *&this->__r_.__value_.__l.__data_;
+  a1[2] = this->__r_.__value_.__r.__words[2];
   this->__r_.__value_.__l.__size_ = 0;
   this->__r_.__value_.__r.__words[2] = 0;
   this->__r_.__value_.__r.__words[0] = 0;
   return result;
 }
 
-void sub_1922B459C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1922B459C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
-    std::stoi(&a10);
+    std::stoi();
   }
 
   _Unwind_Resume(exception_object);
@@ -1017,16 +830,16 @@ std::system_error *__cdecl std::system_error::system_error(std::system_error *th
   return this;
 }
 
-void sub_1922B4668(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_1922B4668(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
-    std::stoi(&a12);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1057,11 +870,11 @@ std::system_error *__cdecl std::system_error::system_error(std::system_error *th
   return this;
 }
 
-void sub_1922B4768(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1922B4768(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
-    std::stoi(&a10);
+    std::stoi();
   }
 
   _Unwind_Resume(exception_object);
@@ -1097,16 +910,16 @@ std::system_error *__cdecl std::system_error::system_error(std::system_error *th
   return this;
 }
 
-void sub_1922B4864(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_1922B4864(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
   if (a19 < 0)
   {
-    std::stoi(&a14);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1133,26 +946,49 @@ std::system_error *__cdecl std::system_error::system_error(std::system_error *th
   return this;
 }
 
-void sub_1922B4964(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_1922B4964(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
   if (a19 < 0)
   {
-    std::stoi(&a14);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1922B4A68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+std::system_error *__cdecl std::system_error::system_error(std::system_error *this, int __ev, const std::error_category *__ecat)
+{
+  if (__ev)
+  {
+    (__ecat->message)(&v7, __ecat, *&__ev);
+  }
+
+  else
+  {
+    memset(&v7, 0, sizeof(v7));
+  }
+
+  std::runtime_error::runtime_error(this, &v7);
+  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
+  {
+    MEMORY[0x193B0CA40](v7.__r_.__value_.__r.__words[0], v7.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
+  }
+
+  this->__ec_.__val_ = __ev;
+  this->__ec_.__cat_ = __ecat;
+  return this;
+}
+
+void sub_1922B4A68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
-    std::stoi(&a10);
+    std::stoi();
   }
 
   _Unwind_Resume(exception_object);
@@ -1187,10 +1023,10 @@ void std::__system_error_category::~__system_error_category(std::error_category 
   JUMPOUT(0x193B0CA40);
 }
 
-void *std::valarray<unsigned long>::valarray(void *result, unint64_t a2)
+void *std::valarray<unsigned long>::valarray(void *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (a2)
   {
     if (!(a2 >> 61))
@@ -1201,12 +1037,12 @@ void *std::valarray<unsigned long>::valarray(void *result, unint64_t a2)
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 {
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (a2)
   {
     if (!(a2 >> 61))
@@ -1217,7 +1053,7 @@ void *std::valarray<unsigned long>::valarray(void *result, unint64_t a2)
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t *std::valarray<unsigned long>::~valarray(uint64_t *a1)
@@ -1257,15 +1093,15 @@ uint64_t *std::valarray<unsigned long>::~valarray(uint64_t *a1)
   return a1;
 }
 
-uint64_t std::valarray<unsigned long>::resize(uint64_t *a1, unint64_t a2)
+char *std::valarray<unsigned long>::resize(char **a1, unint64_t a2, uint64_t a3)
 {
   result = *a1;
-  v5 = a1[1];
+  v6 = a1[1];
   if (result)
   {
-    if (v5 != result)
+    if (v6 != result)
     {
-      a1[1] = v5 + ((result - v5 + 7) & 0xFFFFFFFFFFFFFFF8);
+      a1[1] = &v6[(result - v6 + 7) & 0xFFFFFFFFFFFFFFF8];
     }
 
     result = MEMORY[0x193B0CA40]();
@@ -1286,9 +1122,9 @@ uint64_t std::valarray<unsigned long>::resize(uint64_t *a1, unint64_t a2)
   return result;
 }
 
-uint64_t std::gslice::__init(std::gslice *this, uint64_t a2)
+char *std::gslice::__init(char **this, uint64_t a2)
 {
-  v4 = *(this + 1);
+  v4 = this[1];
   if (v4 != *this)
   {
     if (((v4 - *this) & 0x8000000000000000) == 0)
@@ -1299,9 +1135,9 @@ uint64_t std::gslice::__init(std::gslice *this, uint64_t a2)
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  result = std::valarray<unsigned long>::resize(this + 4, 0);
-  v6 = *(this + 4);
-  if (*(this + 5) != v6)
+  result = std::valarray<unsigned long>::resize(this + 4, 0, 0);
+  v6 = this[4];
+  if (this[5] != v6)
   {
     v7 = 0;
     *v6 = a2;
@@ -1329,29 +1165,30 @@ uint64_t std::gslice::__init(std::gslice *this, uint64_t a2)
           *v12 = v14;
           *(v12 + 8) = 0;
           v12 -= 8;
-          v15 = *(v9 + 8 * v13--);
+          v15 = *&v9[8 * v13--];
         }
 
         while (v14 >= v15);
         v11 = v10 - 1;
       }
 
-      v16 = *(this + 2);
+      v16 = this[2];
       v17 = v7 + 1;
-      v18 = *(v16 + 8 * v11) + v6[v7];
-      v6[++v7] = v18;
+      v18 = *&v16[8 * v11] + *&v6[8 * v7];
+      *&v6[8 * ++v7] = v18;
       v19 = -v10;
       if (v10)
       {
-        v20 = (v16 + 8 * v10);
+        v20 = &v16[8 * v10];
         v21 = (v8 + 8 * v10);
         do
         {
-          v23 = *v20++;
+          v23 = *v20;
+          v20 += 8;
           v22 = v23;
           v24 = *v21++;
           v18 -= (v24 - 1) * v22;
-          v6[v17] = v18;
+          *&v6[8 * v17] = v18;
           --v19;
         }
 
@@ -1632,19 +1469,19 @@ void std::notify_all_at_thread_exit(std::condition_variable *a1, std::unique_loc
   std::__thread_struct::notify_all_at_thread_exit(v6, a1, sig);
 }
 
-_BYTE *std::__future_error_category::message@<X0>(unsigned int a1@<W1>, _BYTE *a2@<X8>)
+void *std::__future_error_category::message@<X0>(unsigned int a1@<W1>, void *a2@<X8>)
 {
   if (a1 > 4)
   {
-    v3 = "unspecified future_errc value\n";
+    v2 = "unspecified future_errc value\n";
   }
 
   else
   {
-    v3 = off_1E73AD9A8[a1];
+    v2 = off_1E73AD9A8[a1];
   }
 
-  return std::string::basic_string[abi:ne200100]<0>(a2, v3);
+  return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
 const std::error_category *std::future_category(void)
@@ -2140,23 +1977,23 @@ void std::mutex::lock(std::mutex *this)
 
 std::recursive_mutex *__cdecl std::recursive_mutex::recursive_mutex(std::recursive_mutex *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = pthread_mutexattr_init(&v10);
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = pthread_mutexattr_init(&v9);
   if (v2)
   {
     std::__throw_system_error(v2, "recursive_mutex constructor failed");
   }
 
-  v3 = pthread_mutexattr_settype(&v10, 2);
+  v3 = pthread_mutexattr_settype(&v9, 2);
   if (v3)
   {
     __eva = v3;
-    pthread_mutexattr_destroy(&v10);
+    pthread_mutexattr_destroy(&v9);
     std::__throw_system_error(__eva, "recursive_mutex constructor failed");
   }
 
-  v4 = pthread_mutex_init(&this->__m_, &v10);
-  v5 = pthread_mutexattr_destroy(&v10);
+  v4 = pthread_mutex_init(&this->__m_, &v9);
+  v5 = pthread_mutexattr_destroy(&v9);
   if (v4)
   {
     std::__throw_system_error(v4, "recursive_mutex constructor failed");
@@ -2169,7 +2006,6 @@ std::recursive_mutex *__cdecl std::recursive_mutex::recursive_mutex(std::recursi
     std::__throw_system_error(__ev, "recursive_mutex constructor failed");
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -2949,6 +2785,23 @@ void std::ios_base::failure::~failure(std::ios_base::failure *this)
   JUMPOUT(0x193B0CA40);
 }
 
+void std::ios_base::__call_callbacks(std::ios_base *this, std::ios_base::event a2)
+{
+  event_size = this->__event_size_;
+  if (event_size)
+  {
+    v3 = *&a2;
+    v5 = event_size - 1;
+    do
+    {
+      (this->__fn_[v5])(v3, this, this->__index_[v5]);
+      --v5;
+    }
+
+    while (v5 != -1);
+  }
+}
+
 std::locale std::ios_base::imbue(std::ios_base *this, const std::locale *__loc)
 {
   std::locale::locale(v2, &this->__loc_);
@@ -3557,26 +3410,24 @@ const std::locale *std::streambuf::pubimbue@<X0>(std::locale *a1@<X0>, const std
 
 uint64_t std::streambuf::pubseekpos(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(a2 + 48);
-  v8[2] = *(a2 + 32);
-  v8[3] = v2;
-  v9 = *(a2 + 128);
+  v7[2] = *(a2 + 32);
+  v7[3] = v2;
+  v8 = *(a2 + 128);
   v3 = *(a2 + 112);
-  v8[6] = *(a2 + 96);
-  v8[7] = v3;
+  v7[6] = *(a2 + 96);
+  v7[7] = v3;
   v4 = *(a2 + 80);
-  v8[4] = *(a2 + 64);
-  v8[5] = v4;
+  v7[4] = *(a2 + 64);
+  v7[5] = v4;
   v5 = *(a2 + 16);
-  v8[0] = *a2;
-  v8[1] = v5;
-  result = (*(*a1 + 40))(a1, v8);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[0] = *a2;
+  v7[1] = v5;
+  return (*(*a1 + 40))(a1, v7);
 }
 
-uint64_t std::streambuf::in_avail(void *a1)
+unint64_t std::streambuf::in_avail(void *a1)
 {
   v1 = a1[3];
   v2 = a1[4];
@@ -4094,7 +3945,7 @@ void *std::ostream::flush(void *a1, uint64_t a2)
 
       v7[0] = 1;
       v5 = *(a1 + *(*a1 - 24) + 40);
-      if ((*(*v5 + 48))(v5) == -1)
+      if ((*(*v5 + 48))(v5, a2) == -1)
       {
         std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 1);
       }
@@ -4224,7 +4075,6 @@ void sub_1922B98B4(void *a1)
     v3 = 5;
   }
 
-  v4 = *v1;
   *(v1 + *(v2 - 24) + 32) |= v3;
   if ((*(v1 + *(v2 - 24) + 36) & 5) == 0)
   {
@@ -5478,7 +5328,7 @@ void sub_1922BC61C(void *a1)
 
 void std::istream::tellg(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *(a2 + 96) = 0u;
   *(a2 + 112) = 0u;
   *(a2 + 64) = 0u;
@@ -5488,27 +5338,25 @@ void std::istream::tellg(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   *a2 = 0u;
   *(a2 + 16) = 0u;
   *(a2 + 128) = -1;
-  std::istream::sentry::sentry(&v9, a1, 1);
-  if (v9)
+  std::istream::sentry::sentry(&v8, a1, 1);
+  if (v8)
   {
-    (*(**(a1 + *(*a1 - 24) + 40) + 32))(v10);
-    *(a2 + 128) = v11;
-    v4 = v10[7];
-    *(a2 + 96) = v10[6];
+    (*(**(a1 + *(*a1 - 24) + 40) + 32))(v9);
+    *(a2 + 128) = v10;
+    v4 = v9[7];
+    *(a2 + 96) = v9[6];
     *(a2 + 112) = v4;
-    v5 = v10[3];
-    *(a2 + 32) = v10[2];
+    v5 = v9[3];
+    *(a2 + 32) = v9[2];
     *(a2 + 48) = v5;
-    v6 = v10[5];
-    *(a2 + 64) = v10[4];
+    v6 = v9[5];
+    *(a2 + 64) = v9[4];
     *(a2 + 80) = v6;
-    v7 = v10[1];
-    *a2 = v10[0];
+    v7 = v9[1];
+    *a2 = v9[0];
     *(a2 + 16) = v7;
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1922BC7E0(_Unwind_Exception *exception_object, int a2)
@@ -5532,30 +5380,30 @@ void sub_1922BC7E0(_Unwind_Exception *exception_object, int a2)
 
 uint64_t *std::istream::seekg(uint64_t *a1, __int128 *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = (a1 + *(*a1 - 24));
   v5 = v4->__rdstate_ & 0xFFFFFFFD;
   std::ios_base::clear(v4, v5);
-  std::istream::sentry::sentry(&v14, a1, 1);
-  if (v14)
+  std::istream::sentry::sentry(&v13, a1, 1);
+  if (v13)
   {
     v6 = *(*a1 - 24);
     v7 = *a2;
-    v17 = a2[1];
-    v16 = v7;
+    v16 = a2[1];
+    v15 = v7;
     v8 = a2[5];
-    v20 = a2[4];
+    v19 = a2[4];
     v9 = a2[2];
-    v19 = a2[3];
-    v18 = v9;
+    v18 = a2[3];
+    v17 = v9;
     v10 = a2[6];
-    v23 = a2[7];
-    v22 = v10;
+    v22 = a2[7];
+    v21 = v10;
     v11 = *(a1 + v6 + 40);
-    v24 = *(a2 + 16);
-    v21 = v8;
-    (*(*v11 + 40))(v15);
-    if (v15[16] == -1)
+    v23 = *(a2 + 16);
+    v20 = v8;
+    (*(*v11 + 40))(v14);
+    if (v14[16] == -1)
     {
       v5 |= 4u;
     }
@@ -5563,7 +5411,6 @@ uint64_t *std::istream::seekg(uint64_t *a1, __int128 *a2)
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | v5);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -5588,15 +5435,15 @@ void sub_1922BC9F8(_Unwind_Exception *exception_object, int a2)
 
 uint64_t *std::istream::seekg(uint64_t *a1)
 {
-  v7[17] = *MEMORY[0x1E69E9840];
+  v6[17] = *MEMORY[0x1E69E9840];
   v2 = (a1 + *(*a1 - 24));
   v3 = v2->__rdstate_ & 0xFFFFFFFD;
   std::ios_base::clear(v2, v3);
-  std::istream::sentry::sentry(&v6, a1, 1);
-  if (v6)
+  std::istream::sentry::sentry(&v5, a1, 1);
+  if (v5)
   {
-    (*(**(a1 + *(*a1 - 24) + 40) + 32))(v7);
-    if (v7[16] == -1)
+    (*(**(a1 + *(*a1 - 24) + 40) + 32))(v6);
+    if (v6[16] == -1)
     {
       v3 |= 4u;
     }
@@ -5604,7 +5451,6 @@ uint64_t *std::istream::seekg(uint64_t *a1)
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | v3);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -5774,7 +5620,7 @@ void *std::ostream::__put_num[abi:ne200100]<BOOL>(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_1922BD2B8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BD2B8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -5835,7 +5681,7 @@ void *std::ostream::__put_num_integer_promote[abi:ne200100]<short>(void *a1, uin
   return a1;
 }
 
-void sub_1922BD4F0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BD4F0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -5884,7 +5730,7 @@ void *std::ostream::__put_num_integer_promote[abi:ne200100]<unsigned short>(void
   return a1;
 }
 
-void sub_1922BD704(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BD704(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -5945,7 +5791,7 @@ void *std::ostream::__put_num_integer_promote[abi:ne200100]<int>(void *a1, uint6
   return a1;
 }
 
-void sub_1922BD93C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BD93C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -5994,7 +5840,7 @@ void *std::ostream::__put_num_integer_promote[abi:ne200100]<unsigned int>(void *
   return a1;
 }
 
-void sub_1922BDB50(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BDB50(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -6042,7 +5888,7 @@ void *std::ostream::__put_num[abi:ne200100]<long>(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_1922BDD64(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BDD64(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -6090,7 +5936,7 @@ void *std::ostream::__put_num[abi:ne200100]<unsigned long>(void *a1, uint64_t a2
   return a1;
 }
 
-void sub_1922BDF78(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BDF78(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -6138,7 +5984,7 @@ void *std::ostream::__put_num[abi:ne200100]<long long>(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_1922BE18C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BE18C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -6186,7 +6032,7 @@ void *std::ostream::__put_num[abi:ne200100]<unsigned long long>(void *a1, uint64
   return a1;
 }
 
-void sub_1922BE3A0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BE3A0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -6234,7 +6080,7 @@ void *std::ostream::__put_num[abi:ne200100]<double>(void *a1, uint64_t a2, doubl
   return a1;
 }
 
-void sub_1922BE5C4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BE5C4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -6282,7 +6128,7 @@ void *std::ostream::__put_num[abi:ne200100]<long double>(void *a1, uint64_t a2, 
   return a1;
 }
 
-void sub_1922BE7E0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BE7E0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -6330,7 +6176,7 @@ void *std::ostream::__put_num[abi:ne200100]<void const*>(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_1922BE9F4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922BE9F4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::ostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -6339,7 +6185,7 @@ void sub_1922BE9F4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x1922BE9D8);
 }
 
-void *std::ostream::operator<<(void *a1, uint64_t a2)
+void *std::ostream::operator<<(void *a1, void *a2)
 {
   v15[0] = 0;
   v16 = a1;
@@ -6427,9 +6273,9 @@ void sub_1922BEC50(void *a1)
   JUMPOUT(0x1922BEAA8);
 }
 
-void sub_1922BEC84(uint64_t a1, uint64_t a2, ...)
+void sub_1922BEC84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a2);
+  va_start(va, a4);
   __cxa_end_catch();
   std::ostream::sentry::~sentry(va);
   JUMPOUT(0x1922BEC9CLL);
@@ -6550,11 +6396,11 @@ void *std::ostream::tellp@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void *std::ostream::seekp(void *a1, uint64_t a2)
+void *std::ostream::seekp(void *a1, __int128 *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v15[0] = 0;
-  v16 = a1;
+  v26 = *MEMORY[0x1E69E9840];
+  v14[0] = 0;
+  v15 = a1;
   v4 = *a1;
   v5 = a1 + *(*a1 - 24);
   if (!*(v5 + 8))
@@ -6566,42 +6412,49 @@ void *std::ostream::seekp(void *a1, uint64_t a2)
       v4 = *a1;
     }
 
-    v15[0] = 1;
+    v14[0] = 1;
   }
 
   v7 = a1 + *(v4 - 24);
   if ((v7[32] & 5) == 0)
   {
     v8 = *(v7 + 5);
-    v9 = *(a2 + 16);
-    v18 = *a2;
-    v19 = v9;
-    v10 = *(a2 + 48);
-    v20 = *(a2 + 32);
-    v21 = v10;
-    v26 = *(a2 + 128);
-    v11 = *(a2 + 112);
-    v24 = *(a2 + 96);
-    v25 = v11;
-    v12 = *(a2 + 80);
-    v22 = *(a2 + 64);
-    v23 = v12;
-    (*(*v8 + 40))(v17);
-    if (v17[16] == -1)
+    v9 = a2[1];
+    v17 = *a2;
+    v18 = v9;
+    v10 = a2[3];
+    v19 = a2[2];
+    v20 = v10;
+    v25 = *(a2 + 16);
+    v11 = a2[7];
+    v23 = a2[6];
+    v24 = v11;
+    v12 = a2[5];
+    v21 = a2[4];
+    v22 = v12;
+    (*(*v8 + 40))(v16);
+    if (v16[16] == -1)
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
     }
   }
 
-  std::ostream::sentry::~sentry(v15);
-  v13 = *MEMORY[0x1E69E9840];
+  std::ostream::sentry::~sentry(v14);
   return a1;
 }
 
+void sub_1922BF1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v11[17] = *MEMORY[0x1E69E9840];
-  v9[0] = 0;
-  v10 = a1;
+  va_start(va, a3);
+  std::ostream::sentry::~sentry(va);
+  _Unwind_Resume(a1);
+}
+
+void *std::ostream::seekp(void *a1, uint64_t a2)
+{
+  v10[17] = *MEMORY[0x1E69E9840];
+  v8[0] = 0;
+  v9 = a1;
   v3 = *a1;
   v4 = a1 + *(*a1 - 24);
   if (!*(v4 + 8))
@@ -6613,29 +6466,21 @@ void *std::ostream::seekp(void *a1, uint64_t a2)
       v3 = *a1;
     }
 
-    v9[0] = 1;
+    v8[0] = 1;
   }
 
   v6 = a1 + *(v3 - 24);
   if ((v6[32] & 5) == 0)
   {
-    (*(**(v6 + 5) + 32))(v11);
-    if (v11[16] == -1)
+    (*(**(v6 + 5) + 32))(v10);
+    if (v10[16] == -1)
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
     }
   }
 
-  std::ostream::sentry::~sentry(v9);
-  v7 = *MEMORY[0x1E69E9840];
+  std::ostream::sentry::~sentry(v8);
   return a1;
-}
-
-void sub_1922BF1AC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::ostream::sentry::~sentry(va);
-  _Unwind_Resume(a1);
 }
 
 uint64_t *std::iostream::basic_iostream(uint64_t *a1, uint64_t *a2, void *__sb)
@@ -6768,23 +6613,21 @@ const std::locale *std::wstreambuf::pubimbue@<X0>(std::locale *a1@<X0>, const st
 
 uint64_t std::wstreambuf::pubseekpos(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(a2 + 48);
-  v8[2] = *(a2 + 32);
-  v8[3] = v2;
-  v9 = *(a2 + 128);
+  v7[2] = *(a2 + 32);
+  v7[3] = v2;
+  v8 = *(a2 + 128);
   v3 = *(a2 + 112);
-  v8[6] = *(a2 + 96);
-  v8[7] = v3;
+  v7[6] = *(a2 + 96);
+  v7[7] = v3;
   v4 = *(a2 + 80);
-  v8[4] = *(a2 + 64);
-  v8[5] = v4;
+  v7[4] = *(a2 + 64);
+  v7[5] = v4;
   v5 = *(a2 + 16);
-  v8[0] = *a2;
-  v8[1] = v5;
-  result = (*(*a1 + 40))(a1, v8);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[0] = *a2;
+  v7[1] = v5;
+  return (*(*a1 + 40))(a1, v7);
 }
 
 uint64_t std::wstreambuf::in_avail(void *a1)
@@ -6867,14 +6710,14 @@ uint64_t std::wstreambuf::sputbackc(void *a1, uint64_t a2)
   v2 = a1[3];
   if (a1[2] == v2)
   {
-    return (*(*a1 + 88))();
+    return (*(*a1 + 88))(a1, a2);
   }
 
   v4 = *(v2 - 4);
   v3 = v2 - 4;
   if (v4 != a2)
   {
-    return (*(*a1 + 88))();
+    return (*(*a1 + 88))(a1, a2);
   }
 
   a1[3] = v3;
@@ -6899,7 +6742,7 @@ uint64_t std::wstreambuf::sputc(void *a1, uint64_t a2)
   v2 = a1[6];
   if (v2 == a1[7])
   {
-    return (*(*a1 + 104))();
+    return (*(*a1 + 104))(a1, a2);
   }
 
   *v2 = a2;
@@ -7288,7 +7131,7 @@ void *std::wostream::flush(void *a1, uint64_t a2)
 
       v7[0] = 1;
       v5 = *(a1 + *(*a1 - 24) + 40);
-      if ((*(*v5 + 48))(v5) == -1)
+      if ((*(*v5 + 48))(v5, a2) == -1)
       {
         std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 1);
       }
@@ -7419,7 +7262,6 @@ void sub_1922C0AB4(void *a1)
     v3 = 5;
   }
 
-  v4 = *v1;
   *(v1 + *(v2 - 24) + 32) |= v3;
   if ((*(v1 + *(v2 - 24) + 36) & 5) == 0)
   {
@@ -8654,7 +8496,7 @@ void sub_1922C3808(void *a1)
 
 void std::wistream::tellg(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *(a2 + 96) = 0u;
   *(a2 + 112) = 0u;
   *(a2 + 64) = 0u;
@@ -8664,27 +8506,25 @@ void std::wistream::tellg(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   *a2 = 0u;
   *(a2 + 16) = 0u;
   *(a2 + 128) = -1;
-  std::wistream::sentry::sentry(&v9, a1, 1);
-  if (v9)
+  std::wistream::sentry::sentry(&v8, a1, 1);
+  if (v8)
   {
-    (*(**(a1 + *(*a1 - 24) + 40) + 32))(v10);
-    *(a2 + 128) = v11;
-    v4 = v10[7];
-    *(a2 + 96) = v10[6];
+    (*(**(a1 + *(*a1 - 24) + 40) + 32))(v9);
+    *(a2 + 128) = v10;
+    v4 = v9[7];
+    *(a2 + 96) = v9[6];
     *(a2 + 112) = v4;
-    v5 = v10[3];
-    *(a2 + 32) = v10[2];
+    v5 = v9[3];
+    *(a2 + 32) = v9[2];
     *(a2 + 48) = v5;
-    v6 = v10[5];
-    *(a2 + 64) = v10[4];
+    v6 = v9[5];
+    *(a2 + 64) = v9[4];
     *(a2 + 80) = v6;
-    v7 = v10[1];
-    *a2 = v10[0];
+    v7 = v9[1];
+    *a2 = v9[0];
     *(a2 + 16) = v7;
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1922C39CC(_Unwind_Exception *exception_object, int a2)
@@ -8708,30 +8548,30 @@ void sub_1922C39CC(_Unwind_Exception *exception_object, int a2)
 
 uint64_t *std::wistream::seekg(uint64_t *a1, __int128 *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = (a1 + *(*a1 - 24));
   v5 = v4->__rdstate_ & 0xFFFFFFFD;
   std::ios_base::clear(v4, v5);
-  std::wistream::sentry::sentry(&v14, a1, 1);
-  if (v14)
+  std::wistream::sentry::sentry(&v13, a1, 1);
+  if (v13)
   {
     v6 = *(*a1 - 24);
     v7 = *a2;
-    v17 = a2[1];
-    v16 = v7;
+    v16 = a2[1];
+    v15 = v7;
     v8 = a2[5];
-    v20 = a2[4];
+    v19 = a2[4];
     v9 = a2[2];
-    v19 = a2[3];
-    v18 = v9;
+    v18 = a2[3];
+    v17 = v9;
     v10 = a2[6];
-    v23 = a2[7];
-    v22 = v10;
+    v22 = a2[7];
+    v21 = v10;
     v11 = *(a1 + v6 + 40);
-    v24 = *(a2 + 16);
-    v21 = v8;
-    (*(*v11 + 40))(v15);
-    if (v15[16] == -1)
+    v23 = *(a2 + 16);
+    v20 = v8;
+    (*(*v11 + 40))(v14);
+    if (v14[16] == -1)
     {
       v5 |= 4u;
     }
@@ -8739,7 +8579,6 @@ uint64_t *std::wistream::seekg(uint64_t *a1, __int128 *a2)
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | v5);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -8764,15 +8603,15 @@ void sub_1922C3BE4(_Unwind_Exception *exception_object, int a2)
 
 uint64_t *std::wistream::seekg(uint64_t *a1)
 {
-  v7[17] = *MEMORY[0x1E69E9840];
+  v6[17] = *MEMORY[0x1E69E9840];
   v2 = (a1 + *(*a1 - 24));
   v3 = v2->__rdstate_ & 0xFFFFFFFD;
   std::ios_base::clear(v2, v3);
-  std::wistream::sentry::sentry(&v6, a1, 1);
-  if (v6)
+  std::wistream::sentry::sentry(&v5, a1, 1);
+  if (v5)
   {
-    (*(**(a1 + *(*a1 - 24) + 40) + 32))(v7);
-    if (v7[16] == -1)
+    (*(**(a1 + *(*a1 - 24) + 40) + 32))(v6);
+    if (v6[16] == -1)
     {
       v3 |= 4u;
     }
@@ -8780,7 +8619,6 @@ uint64_t *std::wistream::seekg(uint64_t *a1)
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | v3);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -8950,7 +8788,7 @@ void *std::wostream::__put_num[abi:ne200100]<BOOL>(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_1922C44A4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C44A4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9011,7 +8849,7 @@ void *std::wostream::__put_num_integer_promote[abi:ne200100]<short>(void *a1, ui
   return a1;
 }
 
-void sub_1922C46DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C46DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9060,7 +8898,7 @@ void *std::wostream::__put_num_integer_promote[abi:ne200100]<unsigned short>(voi
   return a1;
 }
 
-void sub_1922C48F0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C48F0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9121,7 +8959,7 @@ void *std::wostream::__put_num_integer_promote[abi:ne200100]<int>(void *a1, uint
   return a1;
 }
 
-void sub_1922C4B28(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C4B28(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9170,7 +9008,7 @@ void *std::wostream::__put_num_integer_promote[abi:ne200100]<unsigned int>(void 
   return a1;
 }
 
-void sub_1922C4D3C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C4D3C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9218,7 +9056,7 @@ void *std::wostream::__put_num[abi:ne200100]<long>(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_1922C4F50(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C4F50(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9266,7 +9104,7 @@ void *std::wostream::__put_num[abi:ne200100]<unsigned long>(void *a1, uint64_t a
   return a1;
 }
 
-void sub_1922C5164(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C5164(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9314,7 +9152,7 @@ void *std::wostream::__put_num[abi:ne200100]<long long>(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_1922C5378(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C5378(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9362,7 +9200,7 @@ void *std::wostream::__put_num[abi:ne200100]<unsigned long long>(void *a1, uint6
   return a1;
 }
 
-void sub_1922C558C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C558C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9410,7 +9248,7 @@ void *std::wostream::__put_num[abi:ne200100]<double>(void *a1, uint64_t a2, doub
   return a1;
 }
 
-void sub_1922C57B0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C57B0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9458,7 +9296,7 @@ void *std::wostream::__put_num[abi:ne200100]<long double>(void *a1, uint64_t a2,
   return a1;
 }
 
-void sub_1922C59CC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C59CC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9506,7 +9344,7 @@ void *std::wostream::__put_num[abi:ne200100]<void const*>(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_1922C5BE0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1922C5BE0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
   std::wostream::sentry::~sentry(&a10);
   __cxa_begin_catch(a1);
@@ -9589,15 +9427,15 @@ void sub_1922C5E00(void *a1)
   JUMPOUT(0x1922C5C94);
 }
 
-void sub_1922C5E34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1922C5E34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a4);
+  va_start(va, a8);
   __cxa_end_catch();
   std::wostream::sentry::~sentry(va);
   JUMPOUT(0x1922C5E4CLL);
 }
 
-void **std::ostreambuf_iterator<wchar_t>::operator=[abi:ne200100](void **a1, int a2)
+void **std::ostreambuf_iterator<wchar_t>::operator=[abi:ne200100](void **a1, uint64_t a2)
 {
   v3 = *a1;
   if (v3)
@@ -9605,7 +9443,7 @@ void **std::ostreambuf_iterator<wchar_t>::operator=[abi:ne200100](void **a1, int
     v4 = v3[6];
     if (v4 == v3[7])
     {
-      a2 = (*(*v3 + 104))(v3);
+      LODWORD(a2) = (*(*v3 + 104))(v3, a2);
     }
 
     else
@@ -9630,7 +9468,6 @@ void *std::wostream::put(void *a1, uint64_t a2)
   v3 = a1 + *(*a1 - 24);
   if (!*(v3 + 8))
   {
-    v4 = a2;
     v5 = *(v3 + 17);
     if (v5)
     {
@@ -9639,7 +9476,7 @@ void *std::wostream::put(void *a1, uint64_t a2)
 
     v8[0] = 1;
     v7 = *(a1 + *(*a1 - 24) + 40);
-    std::ostreambuf_iterator<wchar_t>::operator=[abi:ne200100](&v7, v4);
+    std::ostreambuf_iterator<wchar_t>::operator=[abi:ne200100](&v7, a2);
     if (!v7)
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 1);
@@ -9714,11 +9551,11 @@ void *std::wostream::tellp@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void *std::wostream::seekp(void *a1, uint64_t a2)
+void *std::wostream::seekp(void *a1, __int128 *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v15[0] = 0;
-  v16 = a1;
+  v26 = *MEMORY[0x1E69E9840];
+  v14[0] = 0;
+  v15 = a1;
   v4 = *a1;
   v5 = a1 + *(*a1 - 24);
   if (!*(v5 + 8))
@@ -9730,42 +9567,49 @@ void *std::wostream::seekp(void *a1, uint64_t a2)
       v4 = *a1;
     }
 
-    v15[0] = 1;
+    v14[0] = 1;
   }
 
   v7 = a1 + *(v4 - 24);
   if ((v7[32] & 5) == 0)
   {
     v8 = *(v7 + 5);
-    v9 = *(a2 + 16);
-    v18 = *a2;
-    v19 = v9;
-    v10 = *(a2 + 48);
-    v20 = *(a2 + 32);
-    v21 = v10;
-    v26 = *(a2 + 128);
-    v11 = *(a2 + 112);
-    v24 = *(a2 + 96);
-    v25 = v11;
-    v12 = *(a2 + 80);
-    v22 = *(a2 + 64);
-    v23 = v12;
-    (*(*v8 + 40))(v17);
-    if (v17[16] == -1)
+    v9 = a2[1];
+    v17 = *a2;
+    v18 = v9;
+    v10 = a2[3];
+    v19 = a2[2];
+    v20 = v10;
+    v25 = *(a2 + 16);
+    v11 = a2[7];
+    v23 = a2[6];
+    v24 = v11;
+    v12 = a2[5];
+    v21 = a2[4];
+    v22 = v12;
+    (*(*v8 + 40))(v16);
+    if (v16[16] == -1)
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
     }
   }
 
-  std::wostream::sentry::~sentry(v15);
-  v13 = *MEMORY[0x1E69E9840];
+  std::wostream::sentry::~sentry(v14);
   return a1;
 }
 
+void sub_1922C6358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v11[17] = *MEMORY[0x1E69E9840];
-  v9[0] = 0;
-  v10 = a1;
+  va_start(va, a3);
+  std::wostream::sentry::~sentry(va);
+  _Unwind_Resume(a1);
+}
+
+void *std::wostream::seekp(void *a1, uint64_t a2)
+{
+  v10[17] = *MEMORY[0x1E69E9840];
+  v8[0] = 0;
+  v9 = a1;
   v3 = *a1;
   v4 = a1 + *(*a1 - 24);
   if (!*(v4 + 8))
@@ -9777,29 +9621,21 @@ void *std::wostream::seekp(void *a1, uint64_t a2)
       v3 = *a1;
     }
 
-    v9[0] = 1;
+    v8[0] = 1;
   }
 
   v6 = a1 + *(v3 - 24);
   if ((v6[32] & 5) == 0)
   {
-    (*(**(v6 + 5) + 32))(v11);
-    if (v11[16] == -1)
+    (*(**(v6 + 5) + 32))(v10);
+    if (v10[16] == -1)
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
     }
   }
 
-  std::wostream::sentry::~sentry(v9);
-  v7 = *MEMORY[0x1E69E9840];
+  std::wostream::sentry::~sentry(v8);
   return a1;
-}
-
-void sub_1922C6358(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::wostream::sentry::~sentry(va);
-  _Unwind_Resume(a1);
 }
 
 uint64_t std::stringbuf::basic_stringbuf(uint64_t a1, uint64_t a2)
@@ -9941,4 +9777,136 @@ void std::stringbuf::__move_init[abi:ne200100](uint64_t a1, uint64_t a2)
   std::locale::operator=((a1 + 8), &v22);
   std::locale::~locale(&v23);
   std::locale::~locale(&v22);
+}
+
+uint64_t std::stringbuf::operator=(uint64_t a1, uint64_t a2)
+{
+  v5 = (a2 + 64);
+  v4 = *(a2 + 64);
+  if (*(a2 + 87) >= 0)
+  {
+    v4 = a2 + 64;
+  }
+
+  v6 = *(a2 + 16);
+  if (v6)
+  {
+    v7 = v6 - v4;
+    v8 = *(a2 + 24) - v4;
+    v9 = *(a2 + 32) - v4;
+  }
+
+  else
+  {
+    v9 = -1;
+    v8 = -1;
+    v7 = -1;
+  }
+
+  v10 = *(a2 + 40);
+  if (v10)
+  {
+    v11 = v10 - v4;
+    v12 = *(a2 + 48) - v4;
+    v13 = *(a2 + 56) - v4;
+  }
+
+  else
+  {
+    v11 = -1;
+    v12 = -1;
+    v13 = -1;
+  }
+
+  v14 = *(a2 + 88);
+  v15 = v14 - v4;
+  if (v14)
+  {
+    v16 = v15;
+  }
+
+  else
+  {
+    v16 = -1;
+  }
+
+  v17 = (a1 + 64);
+  if (*(a1 + 87) < 0)
+  {
+    v27 = v11;
+    MEMORY[0x193B0CA40](*(a1 + 64), *(a1 + 80) & 0x7FFFFFFFFFFFFFFFLL);
+    v11 = v27;
+  }
+
+  v18 = *v5;
+  *(a1 + 80) = *(v5 + 2);
+  *v17 = v18;
+  *(a2 + 87) = 0;
+  *(a2 + 64) = 0;
+  if (*(a1 + 87) < 0)
+  {
+    v17 = *v17;
+  }
+
+  v19 = v17 + v7;
+  v20 = v17 + v8;
+  v21 = v17 + v9;
+  if (v7 == -1)
+  {
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+  }
+
+  *(a1 + 16) = v19;
+  *(a1 + 24) = v20;
+  *(a1 + 32) = v21;
+  if (v11 == -1)
+  {
+    v22 = 0;
+    v23 = 0;
+    *(a1 + 48) = 0;
+  }
+
+  else
+  {
+    v22 = v17 + v11;
+    v23 = v17 + v13;
+    *(a1 + 48) = v17 + v11 + v12;
+  }
+
+  *(a1 + 40) = v22;
+  *(a1 + 56) = v23;
+  v24 = v17 + v16;
+  if (v16 == -1)
+  {
+    v24 = 0;
+  }
+
+  *(a1 + 88) = v24;
+  *(a1 + 96) = *(a2 + 96);
+  if (*(a2 + 87) >= 0)
+  {
+    v25 = v5;
+  }
+
+  else
+  {
+    v25 = *(a2 + 64);
+  }
+
+  *(a2 + 16) = v25;
+  *(a2 + 24) = v25;
+  *(a2 + 32) = v25;
+  *(a2 + 40) = v25;
+  *(a2 + 48) = v25;
+  *(a2 + 56) = v25;
+  *(a2 + 88) = v25;
+  std::locale::locale(&v28, (a2 + 8));
+  (*(*a1 + 16))(a1, &v28);
+  std::locale::locale(&v29, (a1 + 8));
+  std::locale::operator=((a1 + 8), &v28);
+  std::locale::~locale(&v29);
+  std::locale::~locale(&v28);
+  return a1;
 }

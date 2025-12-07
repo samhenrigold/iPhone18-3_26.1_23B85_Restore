@@ -43,7 +43,7 @@
 
     else
     {
-      v13 = sub_100004778();
+      v13 = sub_100004778(v11);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_100475B14(v12, v13);
@@ -96,7 +96,7 @@ LABEL_9:
 
   if (v9)
   {
-    v12 = sub_100004778();
+    v12 = sub_100004778(v9);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100475B8C(v10, v12);

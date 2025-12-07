@@ -139,7 +139,8 @@
 
 - (int)_drainWithTimeout:(double)timeout
 {
-  if (CFRunLoopGetCurrent() == self->_runLoop)
+  Current = CFRunLoopGetCurrent();
+  if (Current == self->_runLoop)
   {
 
     return CFRunLoopRunInMode(@"com.apple.iBooks.TemplateUI", timeout, 1u);
@@ -147,13 +148,13 @@
 
   else
   {
-    v4 = TUIDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = TUIDefaultLog(Current);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_19BC7C(v4);
+      sub_19BC7C(v6);
     }
 
-    if (_TUIDeviceHasInternalInstall())
+    if (_TUIDeviceHasInternalInstall(v7, v8))
     {
       objc_exception_throw([[NSException alloc] initWithName:@"InvalidInvocation" reason:@"-drainWithTimeout should be called in main runloop only" userInfo:0]);
     }

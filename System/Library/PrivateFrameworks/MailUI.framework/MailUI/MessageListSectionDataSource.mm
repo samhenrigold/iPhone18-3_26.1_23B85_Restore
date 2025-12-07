@@ -3359,7 +3359,7 @@ BOOL __118__MessageListSectionDataSource__performDataSourceUpdateAnimated_cleanS
   return v6 != 0;
 }
 
-uint64_t __118__MessageListSectionDataSource__performDataSourceUpdateAnimated_cleanSnapshot_isLastUpdate_prepare_update_completion___block_invoke_3(uint64_t a1)
+void *__118__MessageListSectionDataSource__performDataSourceUpdateAnimated_cleanSnapshot_isLastUpdate_prepare_update_completion___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)

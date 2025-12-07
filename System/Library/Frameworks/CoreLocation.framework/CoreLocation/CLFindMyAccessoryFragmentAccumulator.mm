@@ -34,7 +34,7 @@
 {
   if (d)
   {
-    [(NSMutableDictionary *)self->_uuidToData removeObjectForKey:d];
+    objc_msgSend_removeObjectForKey_(self->_uuidToData, a2, d, v3);
   }
 
   return d != 0;
@@ -47,10 +47,11 @@
     return 0;
   }
 
-  result = [(NSMutableDictionary *)self->_uuidToData objectForKeyedSubscript:?];
+  result = objc_msgSend_objectForKeyedSubscript_(self->_uuidToData, a2, d, v3);
   if (result)
   {
-    if ([-[NSMutableDictionary objectForKeyedSubscript:](self->_uuidToData objectForKeyedSubscript:{d), "length"}] < self->_maxBytesPerUUID)
+    v9 = objc_msgSend_objectForKeyedSubscript_(self->_uuidToData, v7, d, v8);
+    if (objc_msgSend_length(v9, v10, v11, v12) < self->_maxBytesPerUUID)
     {
       return 1;
     }
@@ -80,35 +81,42 @@
   if (!v4)
   {
     dataCopy = data;
-    if (![(NSMutableDictionary *)self->_uuidToData objectForKeyedSubscript:d])
+    if (!objc_msgSend_objectForKeyedSubscript_(self->_uuidToData, a2, d, d))
     {
-      -[NSMutableDictionary setObject:forKeyedSubscript:](self->_uuidToData, "setObject:forKeyedSubscript:", [MEMORY[0x1E695DF88] data], d);
+      v12 = objc_msgSend_data(MEMORY[0x1E695DF88], v9, v10, v11);
+      objc_msgSend_setObject_forKeyedSubscript_(self->_uuidToData, v13, v12, d);
     }
 
-    if ([dataCopy length] >= self->_maxBytesPerUUID)
+    if (objc_msgSend_length(dataCopy, v9, v10, v11) >= self->_maxBytesPerUUID)
     {
-      dataCopy = [dataCopy subdataWithRange:{objc_msgSend(dataCopy, "length") - self->_maxBytesPerUUID}];
-      data = [MEMORY[0x1E695DF88] data];
+      v47 = objc_msgSend_length(dataCopy, v14, v15, v16);
+      dataCopy = objc_msgSend_subdataWithRange_(dataCopy, v48, v47 - self->_maxBytesPerUUID, self->_maxBytesPerUUID);
+      v45 = objc_msgSend_data(MEMORY[0x1E695DF88], v49, v50, v51);
     }
 
     else
     {
-      v9 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_uuidToData objectForKeyedSubscript:{d), "length"}];
-      v10 = [dataCopy length] + v9;
+      v17 = objc_msgSend_objectForKeyedSubscript_(self->_uuidToData, v14, d, v16);
+      v21 = objc_msgSend_length(v17, v18, v19, v20);
+      v28 = objc_msgSend_length(dataCopy, v22, v23, v24) + v21;
       maxBytesPerUUID = self->_maxBytesPerUUID;
-      if (v10 <= maxBytesPerUUID)
+      if (v28 <= maxBytesPerUUID)
       {
 LABEL_15:
-        [-[NSMutableDictionary objectForKeyedSubscript:](self->_uuidToData objectForKeyedSubscript:{d), "appendData:", dataCopy}];
+        v52 = objc_msgSend_objectForKeyedSubscript_(self->_uuidToData, v25, d, v27);
+        objc_msgSend_appendData_(v52, v53, dataCopy, v54);
         return v5;
       }
 
-      v12 = maxBytesPerUUID - [dataCopy length];
-      v13 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_uuidToData objectForKeyedSubscript:{d), "subdataWithRange:", objc_msgSend(-[NSMutableDictionary objectForKeyedSubscript:](self->_uuidToData, "objectForKeyedSubscript:", d), "length") - v12, v12}];
-      data = [MEMORY[0x1E695DF88] dataWithData:v13];
+      v30 = maxBytesPerUUID - objc_msgSend_length(dataCopy, v25, v26, v27);
+      v33 = objc_msgSend_objectForKeyedSubscript_(self->_uuidToData, v31, d, v32);
+      v36 = objc_msgSend_objectForKeyedSubscript_(self->_uuidToData, v34, d, v35);
+      v40 = objc_msgSend_length(v36, v37, v38, v39);
+      v42 = objc_msgSend_subdataWithRange_(v33, v41, v40 - v30, v30);
+      v45 = objc_msgSend_dataWithData_(MEMORY[0x1E695DF88], v43, v42, v44);
     }
 
-    [(NSMutableDictionary *)self->_uuidToData setObject:data forKeyedSubscript:d];
+    objc_msgSend_setObject_forKeyedSubscript_(self->_uuidToData, v46, v45, d);
     goto LABEL_15;
   }
 

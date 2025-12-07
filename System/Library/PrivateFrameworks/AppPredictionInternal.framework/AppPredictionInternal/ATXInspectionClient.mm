@@ -3,12 +3,12 @@
 
 @implementation ATXInspectionClient
 
-void __28___ATXInspectionClient_init__block_invoke()
+void __28___ATXInspectionClient_init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __28___ATXInspectionClient_init__block_invoke_cold_1(v0);
+    __28___ATXInspectionClient_init__block_invoke_cold_1(v1);
   }
 }
 

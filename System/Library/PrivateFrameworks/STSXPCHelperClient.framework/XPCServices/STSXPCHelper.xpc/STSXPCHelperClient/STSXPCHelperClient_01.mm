@@ -1,311 +1,3 @@
-NSObject *sub_100025ECC(uint64_t a1)
-{
-  v2 = objc_retainBlock(_nw_parameters_configure_protocol_disable);
-  secure_tcp = nw_parameters_create_secure_tcp(v2, _nw_parameters_configure_protocol_default_configuration);
-  nw_parameters_set_include_peer_to_peer(secure_tcp, 1);
-  nw_parameters_set_service_class(secure_tcp, nw_service_class_responsive_data);
-  v4 = nw_parameters_copy_default_protocol_stack(secure_tcp);
-  v5 = nw_protocol_stack_copy_transport_protocol(v4);
-  nw_tcp_options_set_enable_keepalive(v5, 1);
-  v6 = *(a1 + 32);
-  if (v6)
-  {
-    v7 = *(v6 + 72);
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  nw_tcp_options_set_connection_timeout(v5, v7);
-
-  return secure_tcp;
-}
-
-void sub_100025F84(uint64_t a1, int a2, void *a3)
-{
-  v5 = a3;
-  v6 = v5;
-  if (v5)
-  {
-    error_code = nw_error_get_error_code(v5);
-  }
-
-  else
-  {
-    error_code = 0;
-  }
-
-  *__error() = error_code;
-  v10 = *(a1 + 32);
-  if (v10)
-  {
-    WeakRetained = objc_loadWeakRetained((v10 + 16));
-  }
-
-  else
-  {
-    WeakRetained = 0;
-  }
-
-  if (a2 > 3)
-  {
-    if (a2 == 4)
-    {
-      v25 = sub_100024AE0();
-      if (os_signpost_enabled(v25))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkSocket_ConnectionFailed", &unk_10005485E, buf, 2u);
-      }
-
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _start_connection:]_block_invoke", 296, *(a1 + 32), @"connection failed", v26, v27, v28[0]);
-      nw_connection_cancel(*(a1 + 40));
-    }
-
-    else if (a2 == 5)
-    {
-      v19 = sub_100024AE0();
-      if (os_signpost_enabled(v19))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkSocket_ConnectionCancelled", &unk_10005485E, buf, 2u);
-      }
-
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _start_connection:]_block_invoke", 324, *(a1 + 32), @"connection cancelled", v20, v21, v28[0]);
-      v22 = *(a1 + 32);
-      if (!v22 || (*(v22 + 8) & 1) == 0)
-      {
-        sub_100014234(v22, 0);
-        if (objc_opt_respondsToSelector())
-        {
-          v23 = *(a1 + 32);
-          if (v23)
-          {
-            v16 = *(v23 + 48);
-          }
-
-          else
-          {
-            v16 = 0;
-          }
-
-          v28[0] = _NSConcreteStackBlock;
-          v28[1] = 3221225472;
-          v28[2] = sub_1000262E4;
-          v28[3] = &unk_100058CB0;
-          v24 = *(a1 + 48);
-          v28[4] = WeakRetained;
-          v28[5] = v24;
-          v18 = v28;
-          goto LABEL_25;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    if (a2 == 1)
-    {
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _start_connection:]_block_invoke", 287, *(a1 + 32), @"connection waiting", v8, v9, v28[0]);
-      goto LABEL_30;
-    }
-
-    if (a2 == 3)
-    {
-      v12 = sub_100024AE0();
-      if (os_signpost_enabled(v12))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkSocket_ConnectionReady", &unk_10005485E, buf, 2u);
-      }
-
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _start_connection:]_block_invoke", 307, *(a1 + 32), @"connection ready", v13, v14, v28[0]);
-      if (objc_opt_respondsToSelector())
-      {
-        v15 = *(a1 + 32);
-        if (v15)
-        {
-          v16 = *(v15 + 48);
-        }
-
-        else
-        {
-          v16 = 0;
-        }
-
-        v29[0] = _NSConcreteStackBlock;
-        v29[1] = 3221225472;
-        v29[2] = sub_1000262D8;
-        v29[3] = &unk_100058CB0;
-        v17 = *(a1 + 48);
-        v29[4] = WeakRetained;
-        v29[5] = v17;
-        v18 = v29;
-LABEL_25:
-        dispatch_async(v16, v18);
-      }
-    }
-  }
-
-LABEL_30:
-}
-
-void sub_1000262F0(uint64_t a1, int a2, void *a3)
-{
-  v5 = a3;
-  v6 = v5;
-  if (v5)
-  {
-    error_code = nw_error_get_error_code(v5);
-  }
-
-  else
-  {
-    error_code = 0;
-  }
-
-  *__error() = error_code;
-  if (a2 > 2)
-  {
-    if (a2 == 3)
-    {
-      v34 = *(a1 + 32);
-      v35 = __error();
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _create_and_start_listener:]_block_invoke", 380, v34, @"listener failed, errno=%d", v36, v37, *v35);
-      v38 = *(a1 + 32);
-      if (v38)
-      {
-        v39 = *(v38 + 64);
-        if (v39)
-        {
-          nw_listener_cancel(v39);
-        }
-      }
-    }
-
-    else if (a2 == 4)
-    {
-      v23 = *(a1 + 32);
-      v24 = __error();
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _create_and_start_listener:]_block_invoke", 411, v23, @"listener cancelled, errno=%d", v25, v26, *v24);
-      v27 = *(a1 + 32);
-      if (v27)
-      {
-        objc_storeStrong((v27 + 64), 0);
-      }
-
-      v28 = sub_100024AE0();
-      if (os_signpost_enabled(v28))
-      {
-        LOWORD(block[0]) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkSocket_ConnectionListenerCancelled", &unk_10005485E, block, 2u);
-      }
-
-      v29 = *(a1 + 32);
-      if (v29)
-      {
-        WeakRetained = objc_loadWeakRetained((v29 + 16));
-      }
-
-      else
-      {
-        WeakRetained = 0;
-      }
-
-      v31 = objc_opt_respondsToSelector();
-
-      if (v31)
-      {
-        v32 = *(a1 + 32);
-        if (v32)
-        {
-          v33 = *(v32 + 48);
-        }
-
-        else
-        {
-          v33 = 0;
-        }
-
-        v42[0] = _NSConcreteStackBlock;
-        v42[1] = 3221225472;
-        v42[2] = sub_100026794;
-        v42[3] = &unk_100058A08;
-        v42[4] = v32;
-        dispatch_async(v33, v42);
-      }
-    }
-  }
-
-  else if (a2 == 1)
-  {
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _create_and_start_listener:]_block_invoke", 371, *(a1 + 32), @"listener waiting", v8, v9, v41);
-  }
-
-  else if (a2 == 2)
-  {
-    v10 = *(a1 + 32);
-    if (v10)
-    {
-      v11 = *(v10 + 64);
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    port = nw_listener_get_port(v11);
-    v15 = *(a1 + 32);
-    if (v15)
-    {
-      v16 = v15[8];
-    }
-
-    else
-    {
-      v16 = 0;
-    }
-
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _create_and_start_listener:]_block_invoke", 389, v15, @"listener ready, listener=%@, activePort=%d", v12, v13, v16);
-    v17 = *(a1 + 32);
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_1000266C4;
-    v43[3] = &unk_1000592D8;
-    v43[4] = v17;
-    v44 = port;
-    v20 = v43;
-    if (v17)
-    {
-      if (*(v17 + 24))
-      {
-        sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSWifiHandoverSession _startWifiAwarePublisherWithPort:completion:]", 194, v17, @"Unsupported type=%lu", v18, v19, *(v17 + 24));
-        v21 = *(v17 + 48);
-        block[0] = _NSConcreteStackBlock;
-        block[1] = 3221225472;
-        block[2] = sub_100025DE4;
-        block[3] = &unk_100059288;
-        v46 = v20;
-        dispatch_async(v21, block);
-        v22 = v46;
-      }
-
-      else
-      {
-        v22 = *(v17 + 32);
-        v40 = [NSNumber numberWithUnsignedShort:port];
-        sub_100002BE4(v22, v40);
-
-        sub_100014244(*(v17 + 40), v22, v20);
-      }
-    }
-  }
-}
-
 void sub_1000266C4(uint64_t a1, void *a2)
 {
   v9 = a2;
@@ -473,7 +165,7 @@ void sub_100026AB0(void *a1, void *a2, void *a3, int a4, void *a5)
   }
 }
 
-id sub_100026CD8(id a1, void *a2, void *a3)
+id *sub_100026CD8(id *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -487,16 +179,16 @@ id sub_100026CD8(id a1, void *a2, void *a3)
       if (v5)
       {
         v7 = v5;
-        v8 = *(a1 + 8);
-        *(a1 + 8) = v7;
+        v8 = a1[8];
+        a1[8] = v7;
       }
 
       else
       {
         v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
         v9 = dispatch_queue_create("com.apple.STSXPCHelper.main", v8);
-        v10 = *(a1 + 8);
-        *(a1 + 8) = v9;
+        v10 = a1[8];
+        a1[8] = v9;
       }
 
       *(a1 + 9) = 0;
@@ -547,22 +239,21 @@ void sub_100027830(uint64_t a1, void *a2)
 
 void sub_100027928(void *a1)
 {
-  v2 = a1[4];
   (*(a1[6] + 16))();
-  v3 = a1[5];
-  if (v3)
+  v2 = a1[5];
+  if (v2)
   {
-    v4 = *(v3 + 32);
+    v3 = *(v2 + 32);
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v5 = a1[4];
+  v4 = a1[4];
 
-  sub_10000BB48(v4, 0, v5);
+  sub_10000BB48(v3, 0, v4);
 }
 
 void sub_100027988(uint64_t a1, void *a2, void *a3, void *a4)
@@ -2049,7 +1740,6 @@ LABEL_14:
 
 void sub_10002D9BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v19 = *(a1 + 48);
   sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSXPCHelper iso18013ReaderSendSessionData:status:callback:]_block_invoke", 968, *(a1 + 32), @"readerSend: %@, status=%@", a7, a8, *(a1 + 40));
   v9 = *(a1 + 32);
   if (v9)
@@ -2078,16 +1768,16 @@ void sub_10002D9BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v16 = v15;
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_10002DAF8;
-  v20[3] = &unk_1000594B8;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10002DAF8;
+  v19[3] = &unk_1000594B8;
   v17 = *(a1 + 48);
   v18 = *(a1 + 32);
-  v21 = v17;
-  v22 = v18;
-  v23 = *(a1 + 56);
-  sub_100007348(v14, v11, v12, v16, v20);
+  v20 = v17;
+  v21 = v18;
+  v22 = *(a1 + 56);
+  sub_100007348(v14, v11, v12, v16, v19);
 }
 
 void sub_10002DAF8(uint64_t a1, void *a2, void *a3)
@@ -2136,14 +1826,14 @@ LABEL_12:
 LABEL_13:
 }
 
-NSXPCInterface *sub_10002DD68()
+NSXPCInterface *sub_10002DD68(uint64_t a1)
 {
   objc_opt_self();
 
   return [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STSHelperProtocol];
 }
 
-NSXPCInterface *sub_10002DDA0()
+NSXPCInterface *sub_10002DDA0(uint64_t a1)
 {
   objc_opt_self();
 
@@ -2727,7 +2417,7 @@ id sub_10002FC5C(void *a1, void *a2, uint64_t a3)
     v27 = &v26;
     v28 = 0x2020000000;
     v29 = 0;
-    *(v6 + 1) = a3;
+    v6[1] = a3;
     v8 = [CBOR decodeFromData:v5];
     v9 = *(v7 + 12);
     *(v7 + 12) = v8;
@@ -2787,9 +2477,9 @@ LABEL_11:
   return v7;
 }
 
-void sub_10002FE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002FE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3082,10 +2772,11 @@ LABEL_59:
 LABEL_60:
 }
 
-void sub_100030704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_100030704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3175,7 +2866,7 @@ LABEL_17:
 LABEL_11:
 }
 
-id sub_1000309FC(void *a1, void *a2)
+void *sub_1000309FC(void *a1, void *a2)
 {
   v3 = a2;
   if (!a1)
@@ -3335,7 +3026,7 @@ id sub_100031370(void *a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6)
   return v6;
 }
 
-id sub_100031658(id a1, char a2, char a3, void *a4, void *a5, void *a6)
+void *sub_100031658(void *a1, char a2, char a3, void *a4, void *a5, void *a6)
 {
   v11 = a4;
   v12 = a5;
@@ -3469,102 +3160,102 @@ id sub_100031DB0(uint64_t a1, void *a2)
     {
       v28 = [CBOR cborWithUnsignedInteger:0];
       v29 = [CBOR cborWithUnsignedInteger:1];
-      v104 = [CBOR cborWithUnsignedInteger:2];
-      v102 = [CBOR cborWithUnsignedInteger:5];
-      v100 = [CBOR cborWithUnsignedInteger:6];
+      v101 = [CBOR cborWithUnsignedInteger:2];
+      v99 = [CBOR cborWithUnsignedInteger:5];
+      v97 = [CBOR cborWithUnsignedInteger:6];
       v30 = objc_alloc_init(NSMutableDictionary);
       v31 = *(v2 + 10);
       v32 = [CBOR cborWithUTF8String:v31];
-      v109 = v28;
+      v106 = v28;
       [v30 setObject:v32 forKeyedSubscript:v28];
 
       v33 = [NSData dataWithCOSEKey:*(v2 + 2)];
       v34 = *(v2 + 4);
       v35 = [v34 firstObject];
       v36 = +[CBOR cborWithInteger:](CBOR, "cborWithInteger:", [v35 integerValue]);
-      v125[0] = v36;
-      v99 = v33;
+      v122[0] = v36;
+      v96 = v33;
       v37 = [v33 cborEncodeToBstrCbor];
-      v125[1] = v37;
-      v38 = [NSArray arrayWithObjects:v125 count:2];
+      v122[1] = v37;
+      v38 = [NSArray arrayWithObjects:v122 count:2];
       v39 = [CBOR cborWithArray:v38];
-      v101 = v30;
-      v106 = v29;
+      v98 = v30;
+      v103 = v29;
       [v30 setObject:v39 forKeyedSubscript:v29];
 
       v40 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [*(v2 + 11) count]);
+      v118 = 0u;
+      v119 = 0u;
+      v120 = 0u;
       v121 = 0u;
-      v122 = 0u;
-      v123 = 0u;
-      v124 = 0u;
       v41 = *(v2 + 11);
-      v42 = [v41 countByEnumeratingWithState:&v121 objects:v120 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v118 objects:v117 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v122;
+        v44 = *v119;
         do
         {
           for (i = 0; i != v43; i = i + 1)
           {
-            if (*v122 != v44)
+            if (*v119 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v46 = [*(*(&v121 + 1) + 8 * i) encode];
+            v46 = [*(*(&v118 + 1) + 8 * i) encode];
             [v40 addObject:v46];
           }
 
-          v43 = [v41 countByEnumeratingWithState:&v121 objects:v120 count:16];
+          v43 = [v41 countByEnumeratingWithState:&v118 objects:v117 count:16];
         }
 
         while (v43);
       }
 
       v47 = [CBOR cborWithArray:v40];
-      v48 = v101;
-      v49 = v104;
-      [v101 setObject:v47 forKeyedSubscript:v104];
+      v48 = v98;
+      v49 = v101;
+      [v98 setObject:v47 forKeyedSubscript:v101];
 
       if ([*(v2 + 8) count])
       {
-        [v101 addEntriesFromDictionary:*(v2 + 8)];
+        [v98 addEntriesFromDictionary:*(v2 + 8)];
       }
 
-      v119[0] = v109;
-      v119[1] = v106;
-      v119[2] = v104;
-      v50 = [NSArray arrayWithObjects:v119 count:3];
+      v116[0] = v106;
+      v116[1] = v103;
+      v116[2] = v101;
+      v50 = [NSArray arrayWithObjects:v116 count:3];
       v51 = [v50 mutableCopy];
 
       if (*(v2 + 5))
       {
         v52 = objc_alloc_init(NSMutableArray);
-        v117 = 0u;
-        v118 = 0u;
+        v114 = 0u;
         v115 = 0u;
-        v116 = 0u;
+        v112 = 0u;
+        v113 = 0u;
         v53 = *(v2 + 5);
-        v54 = [v53 countByEnumeratingWithState:&v115 objects:&v111 count:16];
+        v54 = [v53 countByEnumeratingWithState:&v112 objects:&v108 count:16];
         if (v54)
         {
           v55 = v54;
-          v56 = *v116;
+          v56 = *v113;
           do
           {
             for (j = 0; j != v55; j = j + 1)
             {
-              if (*v116 != v56)
+              if (*v113 != v56)
               {
                 objc_enumerationMutation(v53);
               }
 
-              v58 = sub_10000B060(CBOR, *(*(&v115 + 1) + 8 * j));
+              v58 = sub_10000B060(CBOR, *(*(&v112 + 1) + 8 * j));
               [v52 addObject:v58];
             }
 
-            v55 = [v53 countByEnumeratingWithState:&v115 objects:&v111 count:16];
+            v55 = [v53 countByEnumeratingWithState:&v112 objects:&v108 count:16];
           }
 
           while (v55);
@@ -3572,20 +3263,20 @@ id sub_100031DB0(uint64_t a1, void *a2)
 
         v59 = [v52 copy];
         v60 = [CBOR cborWithArray:v59];
-        v48 = v101;
-        [v101 setObject:v60 forKeyedSubscript:v102];
+        v48 = v98;
+        [v98 setObject:v60 forKeyedSubscript:v99];
 
-        [v51 addObject:v102];
-        v49 = v104;
+        [v51 addObject:v99];
+        v49 = v101;
       }
 
       v61 = *(v2 + 6);
       if (v61)
       {
         v62 = sub_100032D38(CBOR, v61);
-        [v48 setObject:v62 forKeyedSubscript:v100];
+        [v48 setObject:v62 forKeyedSubscript:v97];
 
-        [v51 addObject:v100];
+        [v51 addObject:v97];
       }
 
       v63 = [CBOR cborWithDictionary:v48 keyOrderList:v51];
@@ -3619,34 +3310,34 @@ id sub_100031DB0(uint64_t a1, void *a2)
       v13 = objc_alloc_init(NSMutableDictionary);
       v14 = *(v2 + 10);
       v15 = [CBOR cborWithUTF8String:v14];
-      v108 = v11;
+      v105 = v11;
       [v13 setObject:v15 forKeyedSubscript:v11];
 
       v16 = objc_alloc_init(NSMutableArray);
-      v113 = 0u;
-      v114 = 0u;
+      v110 = 0u;
       v111 = 0u;
-      v112 = 0u;
+      v108 = 0u;
+      v109 = 0u;
       v17 = *(v2 + 4);
-      v18 = [v17 countByEnumeratingWithState:&v111 objects:v120 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v108 objects:v117 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v112;
+        v20 = *v109;
         do
         {
           for (k = 0; k != v19; k = k + 1)
           {
-            if (*v112 != v20)
+            if (*v109 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = +[CBOR cborWithInteger:](CBOR, "cborWithInteger:", [*(*(&v111 + 1) + 8 * k) integerValue]);
+            v22 = +[CBOR cborWithInteger:](CBOR, "cborWithInteger:", [*(*(&v108 + 1) + 8 * k) integerValue]);
             [v16 addObject:v22];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v111 objects:v120 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v108 objects:v117 count:16];
         }
 
         while (v19);
@@ -3660,9 +3351,9 @@ id sub_100031DB0(uint64_t a1, void *a2)
         [v13 addEntriesFromDictionary:*(v2 + 8)];
       }
 
-      *&v121 = v108;
-      *(&v121 + 1) = v12;
-      v24 = [NSArray arrayWithObjects:&v121 count:2];
+      *&v118 = v105;
+      *(&v118 + 1) = v12;
+      v24 = [NSArray arrayWithObjects:&v118 count:2];
       v25 = [CBOR cborWithDictionary:v13 keyOrderList:v24];
       v26 = *(v2 + 12);
       *(v2 + 12) = v25;
@@ -3677,7 +3368,7 @@ id sub_100031DB0(uint64_t a1, void *a2)
     }
 
 LABEL_45:
-    sub_100024938(OS_LOG_TYPE_ERROR, 0, "+[NSData(ISODeviceEngagement) dataWithISODeviceEngagement:]", 769, @"Only NFC, UnifiedAccess and QRCode device engagement are supported", v3, v4, v5, v98);
+    sub_100024938(OS_LOG_TYPE_ERROR, 0, "+[NSData(ISODeviceEngagement) dataWithISODeviceEngagement:]", 769, @"Only NFC, UnifiedAccess and QRCode device engagement are supported", v3, v4, v5, v95);
     v65 = 0;
     goto LABEL_64;
   }
@@ -3697,53 +3388,53 @@ LABEL_45:
   {
     v66 = [CBOR cborWithUnsignedInteger:0];
     v67 = [CBOR cborWithUnsignedInteger:1];
-    v110 = [CBOR cborWithUnsignedInteger:5];
-    v105 = [CBOR cborWithUnsignedInteger:6];
+    v107 = [CBOR cborWithUnsignedInteger:5];
+    v102 = [CBOR cborWithUnsignedInteger:6];
     v68 = objc_alloc_init(NSMutableDictionary);
     v69 = *(v2 + 10);
     v70 = [CBOR cborWithUTF8String:v69];
-    v107 = v66;
+    v104 = v66;
     [v68 setObject:v70 forKeyedSubscript:v66];
 
     v71 = [NSData dataWithCOSEKey:*(v2 + 2)];
     v72 = *(v2 + 4);
     v73 = [v72 firstObject];
     v74 = +[CBOR cborWithInteger:](CBOR, "cborWithInteger:", [v73 integerValue]);
-    *&v115 = v74;
-    v103 = v71;
+    *&v112 = v74;
+    v100 = v71;
     v75 = [v71 cborEncodeToBstrCbor];
-    *(&v115 + 1) = v75;
-    v76 = [NSArray arrayWithObjects:&v115 count:2];
+    *(&v112 + 1) = v75;
+    v76 = [NSArray arrayWithObjects:&v112 count:2];
     v77 = [CBOR cborWithArray:v76];
     [v68 setObject:v77 forKeyedSubscript:v67];
 
     if (*(v2 + 5))
     {
       v78 = objc_alloc_init(NSMutableArray);
-      v113 = 0u;
-      v114 = 0u;
+      v110 = 0u;
       v111 = 0u;
-      v112 = 0u;
+      v108 = 0u;
+      v109 = 0u;
       v79 = *(v2 + 5);
-      v80 = [v79 countByEnumeratingWithState:&v111 objects:v120 count:16];
+      v80 = [v79 countByEnumeratingWithState:&v108 objects:v117 count:16];
       if (v80)
       {
         v81 = v80;
-        v82 = *v112;
+        v82 = *v109;
         do
         {
           for (m = 0; m != v81; m = m + 1)
           {
-            if (*v112 != v82)
+            if (*v109 != v82)
             {
               objc_enumerationMutation(v79);
             }
 
-            v84 = sub_10000B060(CBOR, *(*(&v111 + 1) + 8 * m));
+            v84 = sub_10000B060(CBOR, *(*(&v108 + 1) + 8 * m));
             [v78 addObject:v84];
           }
 
-          v81 = [v79 countByEnumeratingWithState:&v111 objects:v120 count:16];
+          v81 = [v79 countByEnumeratingWithState:&v108 objects:v117 count:16];
         }
 
         while (v81);
@@ -3751,7 +3442,7 @@ LABEL_45:
 
       v85 = [v78 copy];
       v86 = [CBOR cborWithArray:v85];
-      [v68 setObject:v86 forKeyedSubscript:v110];
+      [v68 setObject:v86 forKeyedSubscript:v107];
     }
 
     v87 = *(v2 + 6);
@@ -3759,7 +3450,7 @@ LABEL_45:
     {
       v88 = v87;
       v89 = sub_100032D38(CBOR, v88);
-      [v68 setObject:v89 forKeyedSubscript:v105];
+      [v68 setObject:v89 forKeyedSubscript:v102];
     }
 
     if ([*(v2 + 8) count])
@@ -3767,11 +3458,11 @@ LABEL_45:
       [v68 addEntriesFromDictionary:*(v2 + 8)];
     }
 
-    *&v121 = v107;
-    *(&v121 + 1) = v67;
-    *&v122 = v110;
-    *(&v122 + 1) = v105;
-    v90 = [NSArray arrayWithObjects:&v121 count:4];
+    *&v118 = v104;
+    *(&v118 + 1) = v67;
+    *&v119 = v107;
+    *(&v119 + 1) = v102;
+    v90 = [NSArray arrayWithObjects:&v118 count:4];
     v91 = [CBOR cborWithDictionary:v68 keyOrderList:v90];
     v92 = *(v2 + 12);
     *(v2 + 12) = v91;
@@ -3790,7 +3481,7 @@ LABEL_61:
   v93 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
   if ([v93 BOOLForKey:@"LogDeviceEngagement"])
   {
-    sub_100024A04(OS_LOG_TYPE_DEFAULT, 0, "+[NSData(ISODeviceEngagement) dataWithISODeviceEngagement:]", 776, "[Type=%@] %@", v94, v95, v96, v27);
+    sub_100024A04(OS_LOG_TYPE_DEFAULT, 0, "+[NSData(ISODeviceEngagement) dataWithISODeviceEngagement:]", 776, "[Type=%@] %@", v27, v2);
   }
 
   v65 = [NSData dataWithCBOR:v8];
@@ -3904,7 +3595,6 @@ void *sub_1000359BC(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   if ((v9[9] & 1) == 0)
   {
     v10 = result;
-    v19 = result[5];
     sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013_3_Central invalidateAndUpdateStateSignal:reason:]_block_invoke", 629, v9, @"updateStateSignal=%d, status=%lu", a7, a8, *(result + 48));
     v11 = v10[4];
     if (*(v11 + 48))
@@ -3952,11 +3642,12 @@ void *sub_1000359BC(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   return result;
 }
 
-void sub_100035E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_100035E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 160), 8);
-  _Block_object_dispose((v35 - 128), 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 160), 8);
+  _Block_object_dispose((v34 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3989,7 +3680,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v13 = [*(a1 + 32) getCharacteristic:*(a1 + 40)];
+  v13 = [*(a1 + 32) getCharacteristic:{*(a1 + 40), a4}];
   v14 = *(*(a1 + 56) + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v13;
@@ -4062,9 +3753,9 @@ void sub_100036104(uint64_t a1)
   *(v1 + 72) = 0;
 }
 
-void sub_100036210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100036210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4092,13 +3783,8 @@ void sub_100036228(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_1000367F8(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 136);
-  (*(*(v2 + 104) + 16))();
-  v4 = objc_alloc_init(NSMutableData);
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 136);
-  *(v5 + 136) = v4;
+  (*(*(*(a1 + 32) + 104) + 16))();
+  *(*(a1 + 32) + 136) = objc_alloc_init(NSMutableData);
 
   return _objc_release_x1();
 }
@@ -4156,9 +3842,9 @@ LABEL_14:
     *a3 = [STSConnectionHandover selectWithAlternativeCarriers:&__NSArray0__struct error:0];
     if (a4)
     {
-      v140[0] = NSLocalizedDescriptionKey;
-      v141[0] = off_100069A98;
-      v31 = [NSDictionary dictionaryWithObjects:v141 forKeys:v140 count:1];
+      v138[0] = NSLocalizedDescriptionKey;
+      v139[0] = off_100069A98;
+      v31 = [NSDictionary dictionaryWithObjects:v139 forKeys:v138 count:1];
       v32 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:11 userInfo:v31];
 
       v33 = v32;
@@ -4180,10 +3866,10 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v115 = a4;
-  v116 = a2;
-  v117 = a3;
-  v130 = *(a1 + 16);
+  v113 = a4;
+  v114 = a2;
+  v115 = a3;
+  v128 = *(a1 + 16);
   v13 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
   v14 = [v13 stringForKey:@"DeviceEngagement"];
   v15 = [NSData STS_dataFromHexString:v14];
@@ -4193,7 +3879,7 @@ LABEL_14:
     sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler _generateDeviceEngagementRecord]", 956, a1, @"Device Engagement override: %@", v17, v18, v16);
   }
 
-  v119 = v8;
+  v117 = v8;
   if ((*(a1 + 16) & 0x20) != 0)
   {
     v19 = sub_100031D24([UnifiedAccessDeviceEngagement alloc], &off_10005F848);
@@ -4254,14 +3940,14 @@ LABEL_14:
   v38 = [NSData dataWithBytes:"mdoc" length:4];
   v39 = [[STSNDEFRecord alloc] initWithFormat:4 type:v37 identifier:v38 payload:*(a1 + 48)];
 
-  if ((v130 & 6) != 0)
+  if ((v128 & 6) != 0)
   {
     v40 = 1;
   }
 
   else
   {
-    v40 = v130 & 1;
+    v40 = v128 & 1;
   }
 
   if (v40)
@@ -4269,44 +3955,44 @@ LABEL_14:
     sub_100037C14(a1);
   }
 
-  v134 = 0u;
-  v135 = 0u;
   v132 = 0u;
   v133 = 0u;
-  v118 = v10;
+  v130 = 0u;
+  v131 = 0u;
+  v116 = v10;
   obj = [v10 alternativeCarriers];
-  v41 = [obj countByEnumeratingWithState:&v132 objects:v139 count:16];
-  v123 = a1;
-  v125 = v39;
+  v41 = [obj countByEnumeratingWithState:&v130 objects:v137 count:16];
+  v121 = a1;
+  v123 = v39;
   if (!v41)
   {
-    v124 = 0;
+    v122 = 0;
     LOBYTE(v43) = 0;
     LOBYTE(v44) = 0;
     v45 = 0;
-    v131 = 0;
+    v129 = 0;
     v46 = 0;
     goto LABEL_88;
   }
 
   v42 = v41;
-  v124 = 0;
+  v122 = 0;
   v43 = 0;
   v44 = 0;
   v45 = 0;
-  v131 = 0;
+  v129 = 0;
   v46 = 0;
-  v47 = *v133;
+  v47 = *v131;
   do
   {
     for (i = 0; i != v42; i = i + 1)
     {
-      if (*v133 != v47)
+      if (*v131 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      v49 = *(*(&v132 + 1) + 8 * i);
+      v49 = *(*(&v130 + 1) + 8 * i);
       v50 = [v49 type];
       if (v43)
       {
@@ -4339,11 +4025,11 @@ LABEL_14:
         v44 = v53;
       }
 
-      if ((v130 & 6) != 0 && !v46 && *(a1 + 96) == 1 && [v49 type] == 2)
+      if ((v128 & 6) != 0 && !v46 && *(a1 + 96) == 1 && [v49 type] == 2)
       {
-        v126 = v45;
+        v124 = v45;
         v54 = v49;
-        v128 = v39;
+        v126 = v39;
         v55 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
         if ([v55 BOOLForKey:@"ReaderBTDevEngagementRequestOverride"])
         {
@@ -4370,7 +4056,7 @@ LABEL_61:
 
           v64 = 0;
           v65 = 1;
-          v121 = 1;
+          v119 = 1;
         }
 
         else
@@ -4383,20 +4069,20 @@ LABEL_61:
             }
 
 LABEL_68:
-            a1 = v123;
-            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler _matchBTCapabilityWithRequest:deviceEngagementRecord:]", 794, v123, @"Invalid BLE role", v62, v63, v112);
+            a1 = v121;
+            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler _matchBTCapabilityWithRequest:deviceEngagementRecord:]", 794, v121, @"Invalid BLE role", v62, v63, v112);
             v46 = 0;
 LABEL_81:
-            v39 = v125;
+            v39 = v123;
 
             if (v46)
             {
               v78 = [v54 leAddr];
 
-              v124 = v78;
+              v122 = v78;
             }
 
-            v45 = v126;
+            v45 = v124;
             continue;
           }
 
@@ -4406,12 +4092,12 @@ LABEL_81:
           }
 
           v65 = 0;
-          v121 = 0;
+          v119 = 0;
           v64 = 1;
         }
 
         v66 = +[(ISO18013_3_Peripheral *)ReaderPeripheral];
-        v122 = v66;
+        v120 = v66;
         if (v65)
         {
           v69 = [v54 advertiseUUID];
@@ -4427,12 +4113,12 @@ LABEL_81:
             v71 = 0;
           }
 
-          v72 = v122;
-          a1 = v123;
+          v72 = v120;
+          a1 = v121;
           v73 = @"Central";
-          if (!(v122 | v71))
+          if (!(v120 | v71))
           {
-            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler _matchBTCapabilityWithRequest:deviceEngagementRecord:]", 806, v123, @"No valid advertise address nor UUID found", v67, v68, v112);
+            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler _matchBTCapabilityWithRequest:deviceEngagementRecord:]", 806, v121, @"No valid advertise address nor UUID found", v67, v68, v112);
             v46 = 0;
 LABEL_80:
 
@@ -4454,38 +4140,38 @@ LABEL_80:
           }
 
           v73 = @"Peripheral";
-          a1 = v123;
+          a1 = v121;
         }
 
-        v120 = v55;
+        v118 = v55;
         sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler _matchBTCapabilityWithRequest:deviceEngagementRecord:]", 814, a1, @"Role=%@, advertiseUUID: %@, advertiseAddress: %@", v67, v68, v73);
         v74 = [STSCHBluetoothAlternativeCarrier alloc];
         v75 = v72;
         v76 = v74;
-        if (v125)
+        if (v123)
         {
-          v141[0] = v128;
-          v77 = [NSArray arrayWithObjects:v141 count:1];
-          v46 = [(STSCHBluetoothAlternativeCarrier *)v76 initWithAddress:v75 advertiseUUID:v71 role:v121 powerState:1 auxiliaryRecords:v77];
+          v139[0] = v126;
+          v77 = [NSArray arrayWithObjects:v139 count:1];
+          v46 = [(STSCHBluetoothAlternativeCarrier *)v76 initWithAddress:v75 advertiseUUID:v71 role:v119 powerState:1 auxiliaryRecords:v77];
 
-          a1 = v123;
+          a1 = v121;
         }
 
         else
         {
-          v46 = [(STSCHBluetoothAlternativeCarrier *)v74 initWithAddress:v75 advertiseUUID:v71 role:v121 powerState:1 auxiliaryRecords:&__NSArray0__struct];
+          v46 = [(STSCHBluetoothAlternativeCarrier *)v74 initWithAddress:v75 advertiseUUID:v71 role:v119 powerState:1 auxiliaryRecords:&__NSArray0__struct];
         }
 
-        v55 = v120;
+        v55 = v118;
         goto LABEL_80;
       }
 
-      if ((v130 & 1) != 0 && !v131 && *(a1 + 88) == 1 && [v49 type] == 1)
+      if ((v128 & 1) != 0 && !v129 && *(a1 + 88) == 1 && [v49 type] == 1)
       {
-        v131 = sub_100037DD8(a1, v49, v39);
+        v129 = sub_100037DD8(a1, v49, v39);
       }
 
-      else if ((v130 & 0x20) != 0 && [v49 type] == 3)
+      else if ((v128 & 0x20) != 0 && [v49 type] == 3)
       {
         v59 = sub_100037FEC(a1, v49, v39);
 
@@ -4493,13 +4179,13 @@ LABEL_80:
       }
     }
 
-    v42 = [obj countByEnumeratingWithState:&v132 objects:v139 count:16];
+    v42 = [obj countByEnumeratingWithState:&v130 objects:v137 count:16];
   }
 
   while (v42);
 LABEL_88:
 
-  if ((v130 & 0x20) != 0)
+  if ((v128 & 0x20) != 0)
   {
     v80 = 0;
     v79 = v45;
@@ -4508,9 +4194,9 @@ LABEL_99:
     goto LABEL_100;
   }
 
-  if (v131)
+  if (v129)
   {
-    v79 = v131;
+    v79 = v129;
   }
 
   else
@@ -4518,7 +4204,7 @@ LABEL_99:
     v79 = v46;
   }
 
-  if (v131)
+  if (v129)
   {
     v80 = 0;
   }
@@ -4528,7 +4214,7 @@ LABEL_99:
     v80 = -1;
   }
 
-  if (v131 || v46)
+  if (v129 || v46)
   {
     goto LABEL_99;
   }
@@ -4538,31 +4224,31 @@ LABEL_99:
 LABEL_100:
   v82 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
   v83 = [v82 integerForKey:@"ACConfigOverride"];
-  v127 = v45;
+  v125 = v45;
   if (v83 == 1 && v46)
   {
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 166, v123, @"Forcing Ble config", v84, v85, v112);
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 166, v121, @"Forcing Ble config", v84, v85, v112);
     v86 = v46;
     goto LABEL_106;
   }
 
-  if (v83 != 2 || !v131)
+  if (v83 != 2 || !v129)
   {
     if (v81)
     {
       goto LABEL_107;
     }
 
-    v140[0] = NSLocalizedDescriptionKey;
-    v141[0] = off_100069A70;
-    v101 = [NSDictionary dictionaryWithObjects:v141 forKeys:v140 count:1];
+    v138[0] = NSLocalizedDescriptionKey;
+    v139[0] = off_100069A70;
+    v101 = [NSDictionary dictionaryWithObjects:v139 forKeys:v138 count:1];
     v102 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:6 userInfo:v101];
 
-    if ((v44 & 1) != 0 && sub_1000382E0() && *(v123 + 88) == 2)
+    if ((v44 & 1) != 0 && sub_1000382E0() && *(v121 + 88) == 2)
     {
-      v142 = NSLocalizedDescriptionKey;
-      v143 = off_100069B18;
-      v105 = [NSDictionary dictionaryWithObjects:&v143 forKeys:&v142 count:1];
+      v140 = NSLocalizedDescriptionKey;
+      v141 = off_100069B18;
+      v105 = [NSDictionary dictionaryWithObjects:&v141 forKeys:&v140 count:1];
       v106 = [NSError errorWithDomain:@"WifiDomain" code:3 userInfo:v105];
 
       v107 = @"Wifi specific error";
@@ -4570,59 +4256,57 @@ LABEL_100:
 
     else
     {
-      if ((v43 & 1) == 0 || *(v123 + 96) != 2)
+      if ((v43 & 1) == 0 || *(v121 + 96) != 2)
       {
         goto LABEL_131;
       }
 
-      v142 = NSLocalizedDescriptionKey;
-      v143 = STSBluetoothErrorDescriptions;
-      v108 = [NSDictionary dictionaryWithObjects:&v143 forKeys:&v142 count:1];
+      v140 = NSLocalizedDescriptionKey;
+      v141 = STSBluetoothErrorDescriptions;
+      v108 = [NSDictionary dictionaryWithObjects:&v141 forKeys:&v140 count:1];
       v106 = [NSError errorWithDomain:@"BluetoothDomain" code:0 userInfo:v108];
 
       v107 = @"Bluetooth specific error";
     }
 
-    v140[0] = NSLocalizedDescriptionKey;
-    v140[1] = NSUnderlyingErrorKey;
-    v141[0] = v107;
-    v141[1] = v106;
-    v109 = [NSDictionary dictionaryWithObjects:v141 forKeys:v140 count:2];
+    v138[0] = NSLocalizedDescriptionKey;
+    v138[1] = NSUnderlyingErrorKey;
+    v139[0] = v107;
+    v139[1] = v106;
+    v109 = [NSDictionary dictionaryWithObjects:v139 forKeys:v138 count:2];
     v110 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:12 userInfo:v109];
 
     v102 = v110;
 LABEL_131:
-    if (v115)
+    if (v113)
     {
       v111 = v102;
-      *v115 = v102;
+      *v113 = v102;
     }
 
-    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 183, v123, @"Unable to find a matching carrier, %@", v103, v104, v102);
+    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 183, v121, @"Unable to find a matching carrier, %@", v103, v104, v102);
 
     v81 = 0;
     v90 = &__NSArray0__struct;
     goto LABEL_108;
   }
 
-  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 169, v123, @"Forcing Wifi config", v84, v85, v112);
-  v86 = v131;
+  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 169, v121, @"Forcing Wifi config", v84, v85, v112);
+  v86 = v129;
 LABEL_106:
   v87 = v86;
 
   v81 = v87;
 LABEL_107:
-  v138 = v81;
-  v90 = [NSArray arrayWithObjects:&v138 count:1];
+  v136 = v81;
+  v90 = [NSArray arrayWithObjects:&v136 count:1];
 LABEL_108:
-  v113 = *(v123 + 88);
-  v114 = *(v123 + 96);
-  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 190, v123, @"Selected AC: %@, readerRequestedWifi=%d, readerRequestedBt=%d, wifiState=%lu, btState=%lu", v88, v89, v81);
+  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 190, v121, @"Selected AC: %@, readerRequestedWifi=%d, readerRequestedBt=%d, wifiState=%lu, btState=%lu", v88, v89, v81);
   v91 = [v82 stringForKey:@"HandoverSelectOverride"];
   v92 = [NSData STS_dataFromHexString:v91];
   if ([v92 length])
   {
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 195, v123, @"Handover select override: %@", v93, v94, v91);
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processHandoverRequestMessage:response:outError:]", 195, v121, @"Handover select override: %@", v93, v94, v91);
   }
 
   if (!v92)
@@ -4632,13 +4316,13 @@ LABEL_108:
 
   if (v80)
   {
-    [(STSCHBluetoothAlternativeCarrier *)v81 setLeAddr:v124];
+    [(STSCHBluetoothAlternativeCarrier *)v81 setLeAddr:v122];
   }
 
-  objc_storeStrong((v123 + 56), v116);
-  objc_storeStrong((v123 + 64), v92);
+  objc_storeStrong((v121 + 56), v114);
+  objc_storeStrong((v121 + 64), v92);
   v95 = v92;
-  *v117 = v92;
+  *v115 = v92;
   if (v43)
   {
     v96 = 2;
@@ -4649,17 +4333,17 @@ LABEL_108:
     v96 = 0;
   }
 
-  v136 = @"readerRequestedTransport";
+  v134 = @"readerRequestedTransport";
   v97 = [NSNumber numberWithUnsignedInteger:v96 & 0xFFFFFFFFFFFFFFFELL | v44 & 1];
-  v137 = v97;
-  v98 = [NSDictionary dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+  v135 = v97;
+  v98 = [NSDictionary dictionaryWithObjects:&v135 forKeys:&v134 count:1];
 
   v99 = +[STSAnalyticsLogger sharedCALogger];
   [v99 postISOHandoverEvent:v98 prepOnly:1];
 
   v34 = v81;
-  v10 = v118;
-  v8 = v119;
+  v10 = v116;
+  v8 = v117;
 LABEL_118:
 
 LABEL_119:
@@ -4689,7 +4373,7 @@ void sub_100037C14(void *a1)
       _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "WifiHWStateCheck", &unk_10005485E, buf, 2u);
     }
 
-    a1[11] = sub_10002156C();
+    a1[11] = sub_10002156C(STSWifiSession);
     v4 = sub_100024AE0();
     if (os_signpost_enabled(v4))
     {
@@ -4720,7 +4404,7 @@ LABEL_10:
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BleHWStateCheck", &unk_10005485E, v8, 2u);
   }
 
-  a1[12] = sub_10000F780();
+  a1[12] = sub_10000F780(STSBluetoothSession);
   v6 = sub_100024AE0();
   if (os_signpost_enabled(v6))
   {
@@ -4734,7 +4418,7 @@ STSCHWiFiAwareAlternativeCarrier *sub_100037DD8(void *a1, void *a2, void *a3)
   v5 = a3;
   v6 = a2;
   sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSConnectionHandoverHandler _matchWifiCapabilityWithSubscriber:deviceEngagementRecord:]", 890, a1, @"subscriber=%@", v7, v8, v6);
-  v9 = sub_100008DD4();
+  v9 = sub_100008DD4(ISOKey);
   v10 = [v6 securityInfo];
 
   v11 = sub_10000A72C(v9, v10, 1);
@@ -4748,7 +4432,7 @@ STSCHWiFiAwareAlternativeCarrier *sub_100037DD8(void *a1, void *a2, void *a3)
   v15 = [NSArray arrayWithObjects:&v23 count:1];
   [v11 setDhInfo:v15];
 
-  v16 = sub_100021610();
+  v16 = sub_100021610(STSWifiSession);
   v17 = [STSCHWiFiAwareAlternativeCarrier alloc];
   v18 = v17;
   if (v5)
@@ -4882,7 +4566,7 @@ LABEL_28:
   return v23;
 }
 
-uint64_t sub_1000382E0()
+id sub_1000382E0()
 {
   result = os_variant_has_internal_ui();
   if (result)
@@ -4896,7 +4580,7 @@ uint64_t sub_1000382E0()
   return result;
 }
 
-STSCHBluetoothAlternativeCarrier *sub_100038340(uint64_t a1, void *a2, void *a3, void *a4)
+STSCHBluetoothAlternativeCarrier *sub_100038340(id *a1, void *a2, void *a3, void *a4)
 {
   v8 = a2;
   if (!a1)
@@ -4906,14 +4590,14 @@ LABEL_87:
     goto LABEL_116;
   }
 
-  if ((*(a1 + 8) & 1) == 0)
+  if ((a1[1] & 1) == 0)
   {
     *a3 = [STSConnectionHandover selectWithAlternativeCarriers:&__NSArray0__struct error:0];
     if (a4)
     {
-      v154[0] = NSLocalizedDescriptionKey;
-      v155[0] = off_100069A50;
-      v80 = [NSDictionary dictionaryWithObjects:v155 forKeys:v154 count:1];
+      v152[0] = NSLocalizedDescriptionKey;
+      v153[0] = off_100069A50;
+      v80 = [NSDictionary dictionaryWithObjects:v153 forKeys:v152 count:1];
       v81 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:2 userInfo:v80];
 
       v82 = v81;
@@ -4925,22 +4609,22 @@ LABEL_87:
     goto LABEL_87;
   }
 
-  v127 = a4;
-  objc_storeStrong((a1 + 48), a2);
+  v125 = a4;
+  objc_storeStrong(a1 + 6, a2);
   v9 = sub_100031AAC(ISODeviceEngagementQRCode, v8);
   if (!v9)
   {
     *a3 = [STSConnectionHandover selectWithAlternativeCarriers:&__NSArray0__struct error:0];
-    if (v127)
+    if (v125)
     {
-      v154[0] = NSLocalizedDescriptionKey;
-      v155[0] = off_100069AD0;
-      v84 = [NSDictionary dictionaryWithObjects:v155 forKeys:v154 count:1];
+      v152[0] = NSLocalizedDescriptionKey;
+      v153[0] = off_100069AD0;
+      v84 = [NSDictionary dictionaryWithObjects:v153 forKeys:v152 count:1];
       v85 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:18 userInfo:v84];
 
       v86 = v85;
       v83 = 0;
-      *v127 = v85;
+      *v125 = v85;
     }
 
     else
@@ -4951,42 +4635,42 @@ LABEL_87:
     goto LABEL_115;
   }
 
-  v125 = a3;
-  v128 = v8;
-  v129 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
-  if ([v129 BOOLForKey:@"LogDeviceEngagement"])
+  v123 = a3;
+  v126 = v8;
+  v127 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
+  if ([v127 BOOLForKey:@"LogDeviceEngagement"])
   {
     sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processQRCodeHandoverRequestMessage:response:outError:]", 251, a1, @"[Type=QRCode] %@", v10, v11, v9);
   }
 
   v12 = [NSMutableArray alloc];
   v13 = v9[11];
-  v137 = [v12 initWithCapacity:{objc_msgSend(v13, "count")}];
+  v135 = [v12 initWithCapacity:{objc_msgSend(v13, "count")}];
 
-  v147 = 0u;
-  v148 = 0u;
   v145 = 0u;
   v146 = 0u;
-  v126 = v9;
+  v143 = 0u;
+  v144 = 0u;
+  v124 = v9;
   v14 = v9[11];
-  v15 = [v14 countByEnumeratingWithState:&v145 objects:v153 count:16];
-  v134 = a1;
+  v15 = [v14 countByEnumeratingWithState:&v143 objects:v151 count:16];
+  v132 = a1;
   if (v15)
   {
     v18 = v15;
-    v19 = *v146;
+    v19 = *v144;
     v20 = "[STSConnectionHandoverHandler processQRCodeHandoverRequestMessage:response:outError:]";
-    v135 = v14;
+    v133 = v14;
     do
     {
       for (i = 0; i != v18; i = i + 1)
       {
-        if (*v146 != v19)
+        if (*v144 != v19)
         {
           objc_enumerationMutation(v14);
         }
 
-        v22 = *(*(&v145 + 1) + 8 * i);
+        v22 = *(*(&v143 + 1) + 8 * i);
         if (v22)
         {
           v23 = v22[1];
@@ -5029,7 +4713,7 @@ LABEL_28:
                   v29 = 1;
                 }
 
-                v139 = v29;
+                v137 = v29;
                 v30 = &OBJC_IVAR___ISODeviceRetrievalMethodBLE__centralClientModeUUID;
                 if (!v28)
                 {
@@ -5044,13 +4728,13 @@ LABEL_28:
                 v35 = v25[6];
                 [v31 STS_reverseBytes];
                 v37 = v36 = v20;
-                v38 = [(STSCHBluetoothAlternativeCarrier *)v34 initWithAddress:v35 advertiseUUID:v37 role:v139 powerState:1 auxiliaryRecords:&__NSArray0__struct];
+                v38 = [(STSCHBluetoothAlternativeCarrier *)v34 initWithAddress:v35 advertiseUUID:v37 role:v137 powerState:1 auxiliaryRecords:&__NSArray0__struct];
 
                 v20 = v36;
-                a1 = v134;
-                [v137 addObject:v38];
+                a1 = v132;
+                [v135 addObject:v38];
 
-                v14 = v135;
+                v14 = v133;
               }
 
               break;
@@ -5058,21 +4742,21 @@ LABEL_28:
         }
       }
 
-      v18 = [v14 countByEnumeratingWithState:&v145 objects:v153 count:16];
+      v18 = [v14 countByEnumeratingWithState:&v143 objects:v151 count:16];
     }
 
     while (v18);
   }
 
-  v43 = v137;
-  v44 = sub_1000390EC(a1, v128);
+  v43 = v135;
+  v44 = sub_1000390EC(a1, v126);
   sub_1000154E4(a1, v44);
 
-  v45 = *(a1 + 16);
+  v45 = a1[2];
   v46 = v45 & 6;
-  v136 = v45;
+  v134 = v45;
   v47 = v45 & 1;
-  v140 = v47;
+  v138 = v47;
   if (v46)
   {
     LODWORD(v47) = 1;
@@ -5083,16 +4767,16 @@ LABEL_28:
     sub_100037C14(a1);
   }
 
-  v143 = 0u;
-  v144 = 0u;
   v141 = 0u;
   v142 = 0u;
+  v139 = 0u;
+  v140 = 0u;
   v48 = v43;
-  v49 = [v48 countByEnumeratingWithState:&v141 objects:v152 count:16];
-  v131 = v48;
+  v49 = [v48 countByEnumeratingWithState:&v139 objects:v150 count:16];
+  v129 = v48;
   if (!v49)
   {
-    v138 = 0;
+    v136 = 0;
     v79 = 0;
     v51 = 0;
     LOBYTE(v52) = 0;
@@ -5101,22 +4785,22 @@ LABEL_28:
   }
 
   v50 = v49;
-  v138 = 0;
-  v133 = 0;
+  v136 = 0;
+  v131 = 0;
   v51 = 0;
   v52 = 0;
   v53 = 0;
-  v54 = *v142;
+  v54 = *v140;
   do
   {
     for (j = 0; j != v50; j = j + 1)
     {
-      if (*v142 != v54)
+      if (*v140 != v54)
       {
         objc_enumerationMutation(v48);
       }
 
-      v56 = *(*(&v141 + 1) + 8 * j);
+      v56 = *(*(&v139 + 1) + 8 * j);
       v57 = [v56 type];
       if (v53)
       {
@@ -5149,20 +4833,20 @@ LABEL_28:
         v52 = v60;
       }
 
-      if (v46 && !v51 && *(a1 + 96) == 1 && [v56 type] == 2)
+      if (v46 && !v51 && a1[12] == 1 && [v56 type] == 2)
       {
         v61 = v56;
-        v132 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
-        if ([v132 BOOLForKey:@"ReaderBTDevEngagementRequestOverride"])
+        v130 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
+        if ([v130 BOOLForKey:@"ReaderBTDevEngagementRequestOverride"])
         {
-          sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler _matchQRCodeBTCapabilityWithRequest:deviceEngagementRecord:]", 837, v134, @"Reader BT device engagement override enable", v62, v63, v121);
+          sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler _matchQRCodeBTCapabilityWithRequest:deviceEngagementRecord:]", 837, v132, @"Reader BT device engagement override enable", v62, v63, v121);
           LOBYTE(v64) = 1;
           LOBYTE(v65) = 1;
         }
 
         else
         {
-          v67 = v134[2];
+          v67 = v132[2];
           v64 = (v67 >> 1) & 1;
           v65 = (v67 >> 2) & 1;
         }
@@ -5186,12 +4870,12 @@ LABEL_28:
           if (v68 != 1)
           {
 LABEL_78:
-            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler _matchQRCodeBTCapabilityWithRequest:deviceEngagementRecord:]", 858, v134, @"Invalid BLE role", v69, v70, v121);
+            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler _matchQRCodeBTCapabilityWithRequest:deviceEngagementRecord:]", 858, v132, @"Invalid BLE role", v69, v70, v121);
             v51 = 0;
 LABEL_81:
 
-            a1 = v134;
-            v48 = v131;
+            a1 = v132;
+            v48 = v129;
             continue;
           }
 
@@ -5202,10 +4886,10 @@ LABEL_75:
           }
 
           v76 = [v61 advertiseUUID];
-          v130 = 0;
+          v128 = 0;
           v77 = @"Peripheral";
 LABEL_77:
-          v78 = v134;
+          v78 = v132;
           goto LABEL_80;
         }
 
@@ -5223,46 +4907,46 @@ LABEL_77:
           if (v75)
           {
             v76 = v75;
-            v130 = 1;
+            v128 = 1;
             v77 = @"Central";
             goto LABEL_77;
           }
         }
 
-        v78 = v134;
-        sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler _matchQRCodeBTCapabilityWithRequest:deviceEngagementRecord:]", 870, v134, @"No valid advertise address nor UUID found", v73, v74, v121);
+        v78 = v132;
+        sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSConnectionHandoverHandler _matchQRCodeBTCapabilityWithRequest:deviceEngagementRecord:]", 870, v132, @"No valid advertise address nor UUID found", v73, v74, v121);
         v76 = 0;
-        v130 = 1;
+        v128 = 1;
         v77 = @"Central";
 LABEL_80:
         sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler _matchQRCodeBTCapabilityWithRequest:deviceEngagementRecord:]", 877, v78, @"Role=%@, advertiseUUID: %@, advertiseAddress: %@", v73, v74, v77);
-        v51 = [[STSCHBluetoothAlternativeCarrier alloc] initWithAddress:0 advertiseUUID:v76 role:v130 powerState:1 auxiliaryRecords:&__NSArray0__struct];
+        v51 = [[STSCHBluetoothAlternativeCarrier alloc] initWithAddress:0 advertiseUUID:v76 role:v128 powerState:1 auxiliaryRecords:&__NSArray0__struct];
 
         goto LABEL_81;
       }
 
-      if (v140 && !v138 && *(a1 + 88) == 1 && [v56 type] == 1)
+      if (v138 && !v136 && a1[11] == 1 && [v56 type] == 1)
       {
-        v138 = sub_100037DD8(a1, v56, 0);
+        v136 = sub_100037DD8(a1, v56, 0);
       }
 
-      else if ((v136 & 0x20) != 0 && [v56 type] == 3)
+      else if ((v134 & 0x20) != 0 && [v56 type] == 3)
       {
         v66 = sub_100037FEC(a1, v56, 0);
 
-        v133 = v66;
+        v131 = v66;
       }
     }
 
-    v50 = [v48 countByEnumeratingWithState:&v141 objects:v152 count:16];
+    v50 = [v48 countByEnumeratingWithState:&v139 objects:v150 count:16];
   }
 
   while (v50);
-  v79 = v133;
+  v79 = v131;
 LABEL_91:
 
   v87 = v79;
-  if ((v136 & 0x20) != 0 || (!v138 ? (v87 = v51) : (v87 = v138), v138 || v51))
+  if ((v134 & 0x20) != 0 || (!v136 ? (v87 = v51) : (v87 = v136), v136 || v51))
   {
     v88 = v87;
   }
@@ -5272,7 +4956,7 @@ LABEL_91:
     v88 = 0;
   }
 
-  v89 = [v129 integerForKey:@"ACConfigOverride"];
+  v89 = [v127 integerForKey:@"ACConfigOverride"];
   if (v89 == 1 && v51)
   {
     sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processQRCodeHandoverRequestMessage:response:outError:]", 367, a1, @"Forcing Ble config", v90, v91, v121);
@@ -5280,23 +4964,23 @@ LABEL_91:
     goto LABEL_105;
   }
 
-  if (v89 != 2 || !v138)
+  if (v89 != 2 || !v136)
   {
     if (v88)
     {
       goto LABEL_106;
     }
 
-    v154[0] = NSLocalizedDescriptionKey;
-    v155[0] = off_100069A70;
-    v110 = [NSDictionary dictionaryWithObjects:v155 forKeys:v154 count:1];
+    v152[0] = NSLocalizedDescriptionKey;
+    v153[0] = off_100069A70;
+    v110 = [NSDictionary dictionaryWithObjects:v153 forKeys:v152 count:1];
     v111 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:6 userInfo:v110];
 
-    if ((v52 & 1) != 0 && sub_1000382E0() && *(a1 + 88) == 2)
+    if ((v52 & 1) != 0 && sub_1000382E0() && a1[11] == 2)
     {
-      v156 = NSLocalizedDescriptionKey;
-      v157 = off_100069B18;
-      v114 = [NSDictionary dictionaryWithObjects:&v157 forKeys:&v156 count:1];
+      v154 = NSLocalizedDescriptionKey;
+      v155 = off_100069B18;
+      v114 = [NSDictionary dictionaryWithObjects:&v155 forKeys:&v154 count:1];
       v115 = [NSError errorWithDomain:@"WifiDomain" code:3 userInfo:v114];
 
       v116 = @"Wifi specific error";
@@ -5304,30 +4988,30 @@ LABEL_91:
 
     else
     {
-      if ((v53 & 1) == 0 || *(a1 + 96) != 2)
+      if ((v53 & 1) == 0 || a1[12] != 2)
       {
-        v119 = v127;
+        v119 = v125;
         v97 = v111;
         goto LABEL_130;
       }
 
-      v156 = NSLocalizedDescriptionKey;
-      v157 = STSBluetoothErrorDescriptions;
-      v117 = [NSDictionary dictionaryWithObjects:&v157 forKeys:&v156 count:1];
+      v154 = NSLocalizedDescriptionKey;
+      v155 = STSBluetoothErrorDescriptions;
+      v117 = [NSDictionary dictionaryWithObjects:&v155 forKeys:&v154 count:1];
       v115 = [NSError errorWithDomain:@"BluetoothDomain" code:0 userInfo:v117];
 
       v116 = @"Bluetooth specific error";
     }
 
-    v154[0] = NSLocalizedDescriptionKey;
-    v154[1] = NSUnderlyingErrorKey;
-    v155[0] = v116;
-    v155[1] = v115;
-    v118 = [NSDictionary dictionaryWithObjects:v155 forKeys:v154 count:2];
+    v152[0] = NSLocalizedDescriptionKey;
+    v152[1] = NSUnderlyingErrorKey;
+    v153[0] = v116;
+    v153[1] = v115;
+    v118 = [NSDictionary dictionaryWithObjects:v153 forKeys:v152 count:2];
     v97 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:12 userInfo:v118];
 
-    a1 = v134;
-    v119 = v127;
+    a1 = v132;
+    v119 = v125;
 LABEL_130:
     if (v119)
     {
@@ -5342,20 +5026,18 @@ LABEL_130:
   }
 
   sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processQRCodeHandoverRequestMessage:response:outError:]", 370, a1, @"Forcing Wifi config", v90, v91, v121);
-  v92 = v138;
+  v92 = v136;
 LABEL_105:
   v93 = v92;
 
   v88 = v93;
 LABEL_106:
-  v151 = v88;
-  v96 = [NSArray arrayWithObjects:&v151 count:1];
+  v149 = v88;
+  v96 = [NSArray arrayWithObjects:&v149 count:1];
   v97 = 0;
 LABEL_107:
-  v123 = *(a1 + 88);
-  v124 = *(a1 + 96);
   sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSConnectionHandoverHandler processQRCodeHandoverRequestMessage:response:outError:]", 391, a1, @"Selected AC: %@, readerRequestedWifi=%d, readerRequestedBt=%d, wifiState=%lu, btState=%lu", v94, v95, v88);
-  v98 = [v129 stringForKey:@"HandoverSelectOverride"];
+  v98 = [v127 stringForKey:@"HandoverSelectOverride"];
   [NSData STS_dataFromHexString:v98];
   v100 = v99 = a1;
   if ([v100 length])
@@ -5369,7 +5051,7 @@ LABEL_107:
   }
 
   v103 = v100;
-  *v125 = v100;
+  *v123 = v100;
   if (v53)
   {
     v104 = 2;
@@ -5380,18 +5062,18 @@ LABEL_107:
     v104 = 0;
   }
 
-  v149 = @"readerRequestedTransport";
+  v147 = @"readerRequestedTransport";
   v105 = [NSNumber numberWithUnsignedInteger:v104 & 0xFFFFFFFFFFFFFFFELL | v52 & 1];
-  v150 = v105;
-  [NSDictionary dictionaryWithObjects:&v150 forKeys:&v149 count:1];
+  v148 = v105;
+  [NSDictionary dictionaryWithObjects:&v148 forKeys:&v147 count:1];
   v107 = v106 = v96;
 
   v108 = +[STSAnalyticsLogger sharedCALogger];
   [v108 postISOHandoverEvent:v107 prepOnly:1];
 
   v83 = v88;
-  v8 = v128;
-  v9 = v126;
+  v8 = v126;
+  v9 = v124;
 LABEL_115:
 
 LABEL_116:
@@ -5421,49 +5103,48 @@ id sub_1000390EC(_BYTE *a1, void *a2)
   v12 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
   if ([v12 BOOLForKey:@"debug.log-crypto-params"] && os_variant_has_internal_ui())
   {
-    v28 = v12;
-    v30 = v7;
-    v31 = v4;
-    v32 = v3;
+    v22 = v12;
+    v24 = v7;
+    v25 = v4;
+    v26 = v3;
     v13 = [v11 length];
     v14 = [v11 bytes];
-    v29 = v11;
-    [v11 length];
-    sub_100024A04(OS_LOG_TYPE_INFO, 0, "[STSConnectionHandoverHandler _extractDeviceKeyFromDeviceEngagement:outError:]", 1083, "%s %lu bytes", v15, v16, v17, "deviceKey=");
+    v23 = v11;
+    sub_100024A04(OS_LOG_TYPE_INFO, 0, "-[STSConnectionHandoverHandler _extractDeviceKeyFromDeviceEngagement:outError:]", 1083, "%s %lu bytes", "deviceKey=", [v11 length]);
     if (v13)
     {
-      v18 = 0;
+      v15 = 0;
       do
       {
-        v19 = 0;
-        v20 = &v33[__sprintf_chk(v33, 0, 0x30uLL, "%04lX: ", v18)];
+        v16 = 0;
+        v17 = &v27[__sprintf_chk(v27, 0, 0x30uLL, "%04lX: ", v15)];
         do
         {
-          v21 = v19 + 1;
-          v22 = v19 + 1 + v18;
-          v23 = sprintf(v20, "0x%02X ", v14[v18 + v19]);
-          if (v19 > 6)
+          v18 = v16 + 1;
+          v19 = v16 + 1 + v15;
+          v20 = sprintf(v17, "0x%02X ", v14[v15 + v16]);
+          if (v16 > 6)
           {
             break;
           }
 
-          v20 += v23;
-          ++v19;
+          v17 += v20;
+          ++v16;
         }
 
-        while (v22 < v13);
-        sub_100024A04(OS_LOG_TYPE_INFO, 0, "[STSConnectionHandoverHandler _extractDeviceKeyFromDeviceEngagement:outError:]", 1083, "%s", v24, v25, v26, v33);
-        v18 += v21;
+        while (v19 < v13);
+        sub_100024A04(OS_LOG_TYPE_INFO, 0, "[STSConnectionHandoverHandler _extractDeviceKeyFromDeviceEngagement:outError:]", 1083, "%s", v27);
+        v15 += v18;
       }
 
-      while (v22 < v13);
+      while (v19 < v13);
     }
 
-    v4 = v31;
-    v3 = v32;
-    v11 = v29;
-    v7 = v30;
-    v12 = v28;
+    v4 = v25;
+    v3 = v26;
+    v11 = v23;
+    v7 = v24;
+    v12 = v22;
   }
 
   return v11;
@@ -5479,7 +5160,7 @@ id sub_100039394(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 
   v9 = a1;
   sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSConnectionHandoverHandler generateHandoverRequest:]", 418, a1, @"configuration=0x%lx", a7, a8, a1[2]);
-  v10 = sub_100008DD4();
+  v10 = sub_100008DD4(ISOKey);
   objc_storeStrong(v9 + 10, v10);
 
   v11 = v9[2];
@@ -5507,7 +5188,7 @@ id sub_100039394(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, 
     v24 = [NSArray arrayWithObjects:&v99 count:1];
     v25 = [(STSCHWiFiAwareSecurityInfo *)v23 initWithCipherSuites:&off_10005F818 dhInfo:v24 passphrase:0];
 
-    v26 = sub_100021610();
+    v26 = sub_100021610(STSWifiSession);
     v27 = [[STSCHWiFiAwareAlternativeCarrier alloc] initWithSecurityInfo:v25 discoveryChannelInfo:v26 powerState:1 auxiliaryRecords:&__NSArray0__struct];
     [v20 addObject:v27];
 
@@ -6360,14 +6041,14 @@ void sub_10003B8EC(double a1)
   }
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_10003B910(double a1)
+double sub_10003B910(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CoreIDCred.framework/CoreIDCred", 0);
   atomic_store(1u, &dword_100069B90);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_10003B9B4(double a1)
+double sub_10003B9B4(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CoreIDCredBuilder.framework/CoreIDCredBuilder", 0);
   atomic_store(1u, &dword_100069B94);

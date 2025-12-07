@@ -93,7 +93,7 @@
 
 - (void)_handleVisit:(id)visit
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   visitCopy = visit;
   v5 = objc_opt_new();
   departureDate = [visitCopy departureDate];
@@ -101,12 +101,12 @@
   v8 = v7;
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v43 = v5;
+  v42 = v5;
   if (v8 <= 0.0)
   {
-    v48 = @"CLVisit";
-    v49[0] = visitCopy;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+    v47 = @"CLVisit";
+    v48[0] = visitCopy;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
     [defaultCenter postNotificationName:@"DKLocationMonitorDidExitLOI" object:0 userInfo:v12];
 
     userContext = [MEMORY[0x277CFE318] userContext];
@@ -149,23 +149,23 @@
     {
     }
 
-    v28 = v43;
+    v28 = v42;
     if (userType)
     {
     }
 
-    source = [v43 source];
+    source = [v42 source];
     [source sendEvent:v27];
   }
 
   else
   {
-    v46 = @"CLVisit";
-    v47 = visitCopy;
-    _placeInference8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v45 = @"CLVisit";
+    v46 = visitCopy;
+    _placeInference8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
     [defaultCenter postNotificationName:@"DKLocationMonitorDidEnterLOI" object:0 userInfo:_placeInference8];
 
-    v38 = objc_alloc(MEMORY[0x277CF1AD0]);
+    v37 = objc_alloc(MEMORY[0x277CF1AD0]);
     _placeInference5 = [visitCopy _placeInference];
     userType2 = [_placeInference5 userType];
     if (userType2)
@@ -197,18 +197,18 @@
     _placeInference9 = [visitCopy _placeInference];
     _loiIdentifier2 = [_placeInference9 _loiIdentifier];
     uUIDString2 = [_loiIdentifier2 UUIDString];
-    v27 = [v38 initWithUserSpecificPlaceType:v11 placeType:v20 loiIdentifier:uUIDString2 starting:1];
+    v27 = [v37 initWithUserSpecificPlaceType:v11 placeType:v20 loiIdentifier:uUIDString2 starting:1];
 
     if (placeType2)
     {
     }
 
-    v28 = v43;
+    v28 = v42;
     if (userType2)
     {
     }
 
-    source2 = [v43 source];
+    source2 = [v42 source];
     [source2 sendEvent:v27];
 
     source = [(_DKLocationMonitor *)selfCopy2 _locationFromVisit:visitCopy];
@@ -216,7 +216,7 @@
     if (os_log_type_enabled(knowledgeChannel, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v45 = source;
+      v44 = source;
       _os_log_impl(&dword_22595A000, knowledgeChannel, OS_LOG_TYPE_INFO, "_DKLocationMonitor visit location %@", buf, 0xCu);
     }
 
@@ -225,24 +225,20 @@
       [(RTRoutineManager *)selfCopy2->_routineManager fetchLocationsOfInterestWithinDistance:source ofLocation:&__block_literal_global_14 withHandler:200.0];
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   knowledgeChannel = [MEMORY[0x277CFE0C8] knowledgeChannel];
   if (os_log_type_enabled(knowledgeChannel, OS_LOG_TYPE_INFO))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(authorizationCopy, "authorizationStatus")}];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_22595A000, knowledgeChannel, OS_LOG_TYPE_INFO, "_DKLocationMonitor Authorization status changed %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_22595A000, knowledgeChannel, OS_LOG_TYPE_INFO, "_DKLocationMonitor Authorization status changed %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didVisit:(id)visit

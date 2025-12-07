@@ -3,60 +3,60 @@
 
 @implementation PHAssetCollection
 
-void __57__PHAssetCollection_PhotosUICore__px_otherAlbumsSubtypes__block_invoke()
+void __57__PHAssetCollection_PhotosUICore__px_otherAlbumsSubtypes__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v0 = px_otherAlbumsSubtypes_subtypes;
+  v16 = *MEMORY[0x1E69E9840];
+  v1 = px_otherAlbumsSubtypes_subtypes;
   px_otherAlbumsSubtypes_subtypes = &unk_1F19117B8;
 
   if (_os_feature_enabled_impl())
   {
-    v1 = [&unk_1F19117D0 arrayByAddingObjectsFromArray:px_otherAlbumsSubtypes_subtypes];
-    v2 = px_otherAlbumsSubtypes_subtypes;
-    px_otherAlbumsSubtypes_subtypes = v1;
+    v2 = [&unk_1F19117D0 arrayByAddingObjectsFromArray:px_otherAlbumsSubtypes_subtypes];
+    v3 = px_otherAlbumsSubtypes_subtypes;
+    px_otherAlbumsSubtypes_subtypes = v2;
   }
 
-  v3 = [&unk_1F19117E8 arrayByAddingObjectsFromArray:px_otherAlbumsSubtypes_subtypes];
-  v4 = px_otherAlbumsSubtypes_subtypes;
-  px_otherAlbumsSubtypes_subtypes = v3;
+  v4 = [&unk_1F19117E8 arrayByAddingObjectsFromArray:px_otherAlbumsSubtypes_subtypes];
+  v5 = px_otherAlbumsSubtypes_subtypes;
+  px_otherAlbumsSubtypes_subtypes = v4;
 
-  v5 = +[PXCuratedLibrarySettings sharedInstance];
-  v6 = [v5 enableRecentlyEditedAlbum];
+  v6 = +[PXCuratedLibrarySettings sharedInstance];
+  v7 = [v6 enableRecentlyEditedAlbum];
 
-  if (v6)
+  if (v7)
   {
-    v7 = [&unk_1F1911800 arrayByAddingObjectsFromArray:px_otherAlbumsSubtypes_subtypes];
-    v8 = px_otherAlbumsSubtypes_subtypes;
-    px_otherAlbumsSubtypes_subtypes = v7;
+    v8 = [&unk_1F1911800 arrayByAddingObjectsFromArray:px_otherAlbumsSubtypes_subtypes];
+    v9 = px_otherAlbumsSubtypes_subtypes;
+    px_otherAlbumsSubtypes_subtypes = v8;
   }
 
-  v9 = PLUserSmartAlbumGetLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PLUserSmartAlbumGetLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2112;
-    v14 = px_otherAlbumsSubtypes_subtypes;
-    v10 = v12;
-    _os_log_impl(&dword_1A3C1C000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@> Other Albums Subtypes to Fetch: %@", &v11, 0x16u);
+    v12 = 138543618;
+    v13 = objc_opt_class();
+    v14 = 2112;
+    v15 = px_otherAlbumsSubtypes_subtypes;
+    v11 = v13;
+    _os_log_impl(&dword_1A3C1C000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> Other Albums Subtypes to Fetch: %@", &v12, 0x16u);
   }
 }
 
-void __65__PHAssetCollection_PhotosUICore__px_mediaTypeSmartAlbumSubtypes__block_invoke()
+void __65__PHAssetCollection_PhotosUICore__px_mediaTypeSmartAlbumSubtypes__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = px_mediaTypeSmartAlbumSubtypes_subtypes;
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = px_mediaTypeSmartAlbumSubtypes_subtypes;
   px_mediaTypeSmartAlbumSubtypes_subtypes = &unk_1F19117A0;
 
-  v1 = PLUserSmartAlbumGetLog();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v2 = PLUserSmartAlbumGetLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 138543618;
-    v4 = objc_opt_class();
-    v5 = 2112;
-    v6 = &unk_1F19117A0;
-    v2 = v4;
-    _os_log_impl(&dword_1A3C1C000, v1, OS_LOG_TYPE_DEFAULT, "<%{public}@> Media Smart Albums Subtypes to Fetch: %@", &v3, 0x16u);
+    v4 = 138543618;
+    v5 = objc_opt_class();
+    v6 = 2112;
+    v7 = &unk_1F19117A0;
+    v3 = v5;
+    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@> Media Smart Albums Subtypes to Fetch: %@", &v4, 0x16u);
   }
 }
 

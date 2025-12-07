@@ -34,11 +34,13 @@
   return v2;
 }
 
-uint64_t __50__TIInputModeController_sharedInputModeController__block_invoke()
+uint64_t __50__TIInputModeController_sharedInputModeController__block_invoke(uint64_t a1)
 {
-  sharedInputModeController_sharedInputModeController = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = sharedInputModeController_sharedInputModeController;
+  sharedInputModeController_sharedInputModeController = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (NSArray)supportedInputModeIdentifiers
@@ -897,20 +899,25 @@ uint64_t __67__TIInputModeController__inputModesForLocale_language_modeFetcher__
   v7 = v3;
   if (!*(a1 + 32) || (v5 = [v3 hasPrefix:?], v4 = v7, (v5 & 1) == 0))
   {
-    if (([*(a1 + 40) containsObject:v4] & 1) == 0)
+    v5 = [*(a1 + 40) containsObject:v4];
+    v4 = v7;
+    if ((v5 & 1) == 0)
     {
-      [*(a1 + 40) addObject:v7];
+      v5 = [*(a1 + 40) addObject:v7];
+      v4 = v7;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v5, v4);
 }
 
 uint64_t __67__TIInputModeController__inputModesForLocale_language_modeFetcher___block_invoke()
 {
-  _inputModesForLocale_language_modeFetcher__exceptionListToUseLanguageCode = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{@"en-GB/en_US", @"pt-PT/pt_BR", 0}];
+  v0 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{@"en-GB/en_US", @"pt-PT/pt_BR", 0}];
+  v1 = _inputModesForLocale_language_modeFetcher__exceptionListToUseLanguageCode;
+  _inputModesForLocale_language_modeFetcher__exceptionListToUseLanguageCode = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

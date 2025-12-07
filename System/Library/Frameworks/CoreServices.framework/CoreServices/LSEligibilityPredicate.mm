@@ -71,7 +71,7 @@ LABEL_6:
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  LaunchServices::EligibilityPredicateEvaluation::Predicate::to_string(&self->_predicate, __p);
+  LaunchServices::EligibilityPredicateEvaluation::Predicate::to_string(__p, &self->_predicate);
   if (v9 >= 0)
   {
     v5 = __p;

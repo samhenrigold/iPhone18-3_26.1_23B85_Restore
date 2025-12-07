@@ -31,7 +31,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10009C6EC();
+  sub_10009C6EC(selfCopy);
 }
 
 - (void)invalidate
@@ -40,7 +40,6 @@
   sub_10009C354();
   v3 = OBJC_IVAR____TtC5Media29RadioNowPlayingViewController_subscribers;
   swift_beginAccess();
-  v4 = *&selfCopy->CPUINowPlayingViewController_opaque[v3];
   *&selfCopy->CPUINowPlayingViewController_opaque[v3] = &_swiftEmptySetSingleton;
 }
 
@@ -188,7 +187,7 @@ LABEL_7:
   controllerCopy = controller;
   buttonCopy = button;
   selfCopy = self;
-  sub_1000A71F4();
+  sub_1000A71F4(buttonCopy);
 }
 
 - (id)customPlaybackControlButtonsForNowPlayingViewController:(id)controller

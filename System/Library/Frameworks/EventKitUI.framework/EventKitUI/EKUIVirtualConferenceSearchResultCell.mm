@@ -86,7 +86,7 @@ void __60__EKUIVirtualConferenceSearchResultCell_updateWithRoomType___block_invo
   dispatch_async(MEMORY[0x1E69E96A0], v10);
 }
 
-uint64_t __60__EKUIVirtualConferenceSearchResultCell_updateWithRoomType___block_invoke_3(uint64_t a1)
+void *__60__EKUIVirtualConferenceSearchResultCell_updateWithRoomType___block_invoke_3(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1024) isEqual:*(a1 + 40)];
   if (result)

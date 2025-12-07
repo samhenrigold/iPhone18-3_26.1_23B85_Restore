@@ -14,10 +14,10 @@
   optionsCopy = options;
   recipientCopy = recipient;
   swift_unknownObjectRetain();
-  v8 = sub_1BDA6E3D0(optionsCopy, recipientCopy);
+  v9 = sub_1BDA6E3D0(optionsCopy, recipientCopy, delegate);
 
   swift_unknownObjectRelease();
-  return v8;
+  return v9;
 }
 
 - (_TtC9PassKitUI43PKPassShareActivationOverviewViewController)initWithCoder:(id)coder

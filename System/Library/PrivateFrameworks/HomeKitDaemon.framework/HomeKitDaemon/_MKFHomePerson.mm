@@ -29,30 +29,30 @@
 
 - (id)photosPersonForPersonLink:(id)link
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   linkCopy = link;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   home = [(_MKFHomePerson *)self home];
   users = [home users];
 
-  v7 = [users countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [users countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(users);
         }
 
         v10 = MEMORY[0x277CD1CF8];
-        modelID = [*(*(&v18 + 1) + 8 * i) modelID];
+        modelID = [*(*(&v17 + 1) + 8 * i) modelID];
         v12 = [v10 personManagerUUIDFromUserUUID:modelID];
 
         personManagerUUID = [linkCopy personManagerUUID];
@@ -67,7 +67,7 @@
         }
       }
 
-      v7 = [users countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [users countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v7)
       {
         continue;
@@ -78,8 +78,6 @@
   }
 
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -111,14 +109,14 @@ LABEL_11:
   }
 
   [v5 setPersonLinks:v7];
-  v17 = [v5 copy];
+  v17 = objc_msgSend_copy(v5);
 
   return v17;
 }
 
 - (void)updateWithHMPerson:(id)person
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   personCopy = person;
   name = [(_MKFHomePerson *)self name];
   name2 = [personCopy name];
@@ -130,27 +128,27 @@ LABEL_11:
     [(_MKFHomePerson *)self setName:name3];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   personLinks = [personCopy personLinks];
-  v10 = [personLinks countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [personLinks countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(personLinks);
         }
 
-        v14 = [(_MKFHomePerson *)self photosPersonForPersonLink:*(*(&v16 + 1) + 8 * v13)];
+        v14 = [(_MKFHomePerson *)self photosPersonForPersonLink:*(*(&v15 + 1) + 8 * v13)];
         if (v14)
         {
           [(_MKFHomePerson *)self setLinkedPhotosPerson:v14];
@@ -160,13 +158,11 @@ LABEL_11:
       }
 
       while (v11 != v13);
-      v11 = [personLinks countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [personLinks countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

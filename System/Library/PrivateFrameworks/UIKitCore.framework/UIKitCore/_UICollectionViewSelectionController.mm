@@ -4,10 +4,10 @@
 - (id)_rebaseIndexPaths:(void *)paths withTranslator:;
 - (id)_updateCollapsedSelectedIndexPaths:(void *)paths withTransaction:;
 - (id)rebaseIndexPath:(void *)path withDiffableTransaction:;
+- (id)setAllowsMultipleSelection:(id *)result;
 - (uint64_t)rebaseItemsWithDiffableTransaction:(uint64_t)result;
-- (uint64_t)setAllowsMultipleSelection:(uint64_t)result;
 - (void)addDeselectionTransitionIndexPaths:(uint64_t)paths;
-- (void)rebaseItemsWithTranslator:(uint64_t)translator;
+- (void)rebaseItemsWithTranslator:(void *)translator;
 - (void)reset;
 @end
 
@@ -67,27 +67,27 @@
   }
 }
 
-- (void)rebaseItemsWithTranslator:(uint64_t)translator
+- (void)rebaseItemsWithTranslator:(void *)translator
 {
   if (translator)
   {
     v4 = [(_UICollectionViewSelectionController *)translator _rebaseIndexPaths:a2 withTranslator:?];
     v5 = [v4 mutableCopy];
-    v6 = *(translator + 8);
-    *(translator + 8) = v5;
+    v6 = translator[1];
+    translator[1] = v5;
 
     v7 = [(_UICollectionViewSelectionController *)translator _rebaseIndexPaths:a2 withTranslator:?];
     v8 = [v7 mutableCopy];
-    v9 = *(translator + 16);
-    *(translator + 16) = v8;
+    v9 = translator[2];
+    translator[2] = v8;
 
-    v10 = *(translator + 24);
+    v10 = translator[3];
     if (v10)
     {
       v13 = [(_UICollectionViewSelectionController *)translator _rebaseIndexPaths:v10 withTranslator:a2];
       v11 = [v13 mutableCopy];
-      v12 = *(translator + 24);
-      *(translator + 24) = v11;
+      v12 = translator[3];
+      translator[3] = v11;
     }
   }
 }
@@ -442,7 +442,7 @@ LABEL_23:
   return anyObject;
 }
 
-- (uint64_t)setAllowsMultipleSelection:(uint64_t)result
+- (id)setAllowsMultipleSelection:(id *)result
 {
   if (result)
   {
@@ -451,13 +451,13 @@ LABEL_23:
     v4 = *(result + 40);
     if (v4 != a2)
     {
-      result = [*(result + 8) count];
+      result = [result[1] count];
       *(v3 + 40) = v2;
       if (v4)
       {
         if ((v2 & 1) == 0 && result)
         {
-          v5 = *(v3 + 32);
+          v5 = v3[4];
 
           return [v5 removeAllObjects];
         }

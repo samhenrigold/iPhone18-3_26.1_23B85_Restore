@@ -146,10 +146,11 @@ BOOL AppleUserECMData::matchControlInterfaceWithInterfaceAssociationDescriptor(A
   return v6;
 }
 
-void sub_100000BF8(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100000BF8(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x1Cu);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0x1Cu);
 }
 
 void AppleUserECM::free(IOUserNetworkEthernet *this)
@@ -1075,8 +1076,10 @@ void AppleUserECM::handleRxPacketsAvailable(AppleUserECM *this)
   }
 }
 
-void AppleUserECM::RxComplete_Impl(AppleUserECM *this, OSAction *a2, unsigned int a3, unsigned int a4, const unsigned int *a5, int a6, const int *a7)
+void AppleUserECM::RxComplete_Impl(AppleUserECM *this, OSAction *a2, unsigned int a3, uint64_t a4, const unsigned int *a5, uint64_t a6, const int *a7)
 {
+  v8 = a5;
+  v9 = a4;
   memset(v34, 0, sizeof(v34));
   v11 = *(this + 9);
   v12 = *(v11 + 212);
@@ -1093,11 +1096,11 @@ void AppleUserECM::RxComplete_Impl(AppleUserECM *this, OSAction *a2, unsigned in
   if (*(v11 + 296) == 1)
   {
     v13 = 0;
-    if (a4)
+    if (v9)
     {
       v14 = a7;
-      v15 = a5;
-      v16 = a4;
+      v15 = v8;
+      v16 = v9;
       do
       {
         if (!*v14++)
@@ -1120,26 +1123,26 @@ void AppleUserECM::RxComplete_Impl(AppleUserECM *this, OSAction *a2, unsigned in
       while (v16);
     }
 
-    v18 = (*(**(v11 + 264) + 104))(*(v11 + 264), v34, v13);
-    if (a4)
+    v18 = (*(**(v11 + 264) + 104))(*(v11 + 264), v34, v13, a4, a5, a6);
+    if (v9)
     {
       v19 = 0;
-      v29 = a4;
-      v20 = a4;
+      v29 = v9;
+      v20 = v9;
       do
       {
-        if (*a5)
+        if (*v8)
         {
           v21 = *a7 || v19 >= v18;
           if (!v21)
           {
             (*(**(v34 + v19) + 232))(*(v34 + v19), 0);
-            (*(**(v34 + v19) + 216))(*(v34 + v19), *a5);
+            (*(**(v34 + v19) + 216))(*(v34 + v19), *v8);
             v22 = (*(**(v34 + v19) + 184))(*(v34 + v19));
             ++v19;
             v23 = *(*(this + 9) + 200) + 24 * v12;
-            memcpy(v22, *(v23 + 8), *a5);
-            (*(*this + 384))(this, *(v23 + 8), *a5);
+            memcpy(v22, *(v23 + 8), *v8);
+            (*(*this + 384))(this, *(v23 + 8), *v8);
           }
         }
 
@@ -1155,12 +1158,12 @@ void AppleUserECM::RxComplete_Impl(AppleUserECM *this, OSAction *a2, unsigned in
         }
 
         ++a7;
-        ++a5;
+        ++v8;
         --v20;
       }
 
       while (v20);
-      a4 = v29;
+      v9 = v29;
     }
 
     else
@@ -1169,7 +1172,7 @@ void AppleUserECM::RxComplete_Impl(AppleUserECM *this, OSAction *a2, unsigned in
     }
 
     *(v24 + 212) = v12;
-    *(*(this + 9) + 216) += a4;
+    *(*(this + 9) + 216) += v9;
     (*(**(*(this + 9) + 272) + 88))(*(*(this + 9) + 272), v34, v18);
     if (v18 >= v13)
     {
@@ -1179,8 +1182,8 @@ void AppleUserECM::RxComplete_Impl(AppleUserECM *this, OSAction *a2, unsigned in
 
   else
   {
-    *(v11 + 216) += a4;
-    *(*(this + 9) + 212) += a4;
+    *(v11 + 216) += v9;
+    *(*(this + 9) + 212) += v9;
     v25 = *(this + 9);
     v26 = *(v25 + 212);
     v27 = *(v25 + 232);
@@ -1796,9 +1799,10 @@ void sub_100004804()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136315650;
     sub_100000BE8();
     sub_100000BD8();
-    sub_100000BF8(&_mh_execute_header, &_os_log_default, v0, "[%s:%d] Assertion failed: %s.  driver disabled via boot-arg; aborting\n\n", v1, v2, v3, v4, 2u);
+    sub_100000BF8(&_mh_execute_header, &_os_log_default, v0, "[%s:%d] Assertion failed: %s.  driver disabled via boot-arg; aborting\n\n", v1, v2, v3, v4, v5);
   }
 
   sub_100000BC4();
@@ -1808,9 +1812,10 @@ void sub_1000048B4()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136315650;
     sub_100000BE8();
     sub_100000BD8();
-    sub_100000BF8(&_mh_execute_header, &_os_log_default, v0, "[%s:%d] Assertion failed: %s.  AppleUserECMData failed start. myInterfaceDescriptor == NULL\n\n", v1, v2, v3, v4, 2u);
+    sub_100000BF8(&_mh_execute_header, &_os_log_default, v0, "[%s:%d] Assertion failed: %s.  AppleUserECMData failed start. myInterfaceDescriptor == NULL\n\n", v1, v2, v3, v4, v5);
   }
 
   sub_100000BC4();
@@ -1820,9 +1825,10 @@ void sub_100004964()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136315650;
     sub_100000BE8();
     sub_100000BD8();
-    sub_100000BF8(&_mh_execute_header, &_os_log_default, v0, "[%s:%d] Assertion failed: %s.  AppleUserECMData failed start. configurationDescriptor == NULL\n\n", v1, v2, v3, v4, 2u);
+    sub_100000BF8(&_mh_execute_header, &_os_log_default, v0, "[%s:%d] Assertion failed: %s.  AppleUserECMData failed start. configurationDescriptor == NULL\n\n", v1, v2, v3, v4, v5);
   }
 
   sub_100000BC4();
@@ -1832,9 +1838,10 @@ void sub_100004A14()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136315650;
     sub_100000BE8();
     sub_100000BD8();
-    sub_100000BF8(&_mh_execute_header, &_os_log_default, v0, "[%s:%d] Assertion failed: %s.  AppleUserECMData failed start. interface == NULL\n\n", v1, v2, v3, v4, 2u);
+    sub_100000BF8(&_mh_execute_header, &_os_log_default, v0, "[%s:%d] Assertion failed: %s.  AppleUserECMData failed start. interface == NULL\n\n", v1, v2, v3, v4, v5);
   }
 
   sub_100000BC4();
@@ -1865,7 +1872,7 @@ uint64_t AppleUserECM::findDataInterface(AppleUserECM *this, IOUSBHostInterface 
   interface = 0;
   device = 0;
   ref = 0;
-  HIBYTE(v116) = -1;
+  HIBYTE(v103) = -1;
   v6 = *(this + 9);
   if (v6 && (*v6 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
@@ -1898,50 +1905,48 @@ uint64_t AppleUserECM::findDataInterface(AppleUserECM *this, IOUSBHostInterface 
           DataInterfaceWithInterfaceAssociationDescriptor = AppleUserECM::findDataInterfaceWithInterfaceAssociationDescriptor(v22, v23, v24, v25);
           if (DataInterfaceWithUnionFunctionalDescriptor || DataInterfaceWithInterfaceAssociationDescriptor)
           {
-            v13 = sub_100003370(DataInterfaceWithInterfaceAssociationDescriptor, v27, v28, v29, v30, v31, v32, v33, v106, v108, v110, v112, v113, v115, v116, ref, interface, device);
+            v13 = sub_100003370(DataInterfaceWithInterfaceAssociationDescriptor, v27, v28, v29, v30, v31, v32, v33, v93, v95, v97, v99, v100, v102, v103, ref, interface, device);
             if (!v13)
             {
-              v109 = a3;
-              v35 = interface;
+              v96 = a3;
               if (interface)
               {
                 *&v34 = 136315650;
-                *v114 = v34;
+                *v101 = v34;
                 *&v34 = 136315394;
-                *v111 = v34;
+                *v98 = v34;
                 while (1)
                 {
-                  v36 = sub_100003258(v35);
-                  v38 = (*(v37 + 64))(v36, v14);
-                  if (v38)
+                  sub_100003258();
+                  v36 = (*(v35 + 64))();
+                  if (v36)
                   {
-                    InterfaceDescriptor = v38;
-                    v47 = *(this + 9);
-                    if (v47)
+                    InterfaceDescriptor = v36;
+                    v45 = *(this + 9);
+                    if (v45)
                     {
-                      if ((*v47 & 8) == 0 || !sub_1000032BC() || (*buf = v111[0], v122 = "AppleUserECM", v123 = 2080, v124 = "findDataInterface", _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s::%s: ----------------------\n", buf, 0x16u), (v47 = *(this + 9)) != 0))
+                      if ((*v45 & 8) == 0 || !sub_1000032BC() || (*buf = v98[0], v109 = "AppleUserECM", v110 = 2080, v111 = "findDataInterface", _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s::%s: ----------------------\n", buf, 0x16u), (v45 = *(this + 9)) != 0))
                       {
-                        if ((*v47 & 8) == 0 || !sub_1000032BC() || (v48 = InterfaceDescriptor->bLength, v49 = sub_1000031A0(), _os_log_impl(v49, v50, v51, "%s::%s: bLength = 0x%x", v52, 0x1Cu), (v47 = *(this + 9)) != 0))
+                        if ((*v45 & 8) == 0 || !sub_1000032BC() || (v46 = sub_1000031A0(), _os_log_impl(v46, v47, v48, "%s::%s: bLength = 0x%x", v49, 0x1Cu), (v45 = *(this + 9)) != 0))
                         {
-                          if ((*v47 & 8) == 0 || !sub_1000032BC() || (v53 = InterfaceDescriptor->bDescriptorType, v54 = sub_1000031A0(), _os_log_impl(v54, v55, v56, "%s::%s: bDescriptorType = 0x%x", v57, 0x1Cu), (v47 = *(this + 9)) != 0))
+                          if ((*v45 & 8) == 0 || !sub_1000032BC() || (v50 = sub_1000031A0(), _os_log_impl(v50, v51, v52, "%s::%s: bDescriptorType = 0x%x", v53, 0x1Cu), (v45 = *(this + 9)) != 0))
                           {
-                            if ((*v47 & 8) == 0 || !sub_1000032BC() || (v58 = InterfaceDescriptor[1].bLength, v59 = sub_1000031A0(), _os_log_impl(v59, v60, v61, "%s::%s: bInterfaceNumber = 0x%x", v62, 0x1Cu), (v47 = *(this + 9)) != 0))
+                            if ((*v45 & 8) == 0 || !sub_1000032BC() || (v54 = sub_1000031A0(), _os_log_impl(v54, v55, v56, "%s::%s: bInterfaceNumber = 0x%x", v57, 0x1Cu), (v45 = *(this + 9)) != 0))
                             {
-                              if ((*v47 & 8) == 0 || !sub_1000032BC() || (v63 = InterfaceDescriptor[1].bDescriptorType, v64 = sub_1000031A0(), _os_log_impl(v64, v65, v66, "%s::%s: bAlternateSetting = 0x%x", v67, 0x1Cu), (v47 = *(this + 9)) != 0))
+                              if ((*v45 & 8) == 0 || !sub_1000032BC() || (v58 = sub_1000031A0(), _os_log_impl(v58, v59, v60, "%s::%s: bAlternateSetting = 0x%x", v61, 0x1Cu), (v45 = *(this + 9)) != 0))
                               {
-                                if ((*v47 & 8) == 0 || !sub_1000032BC() || (v68 = InterfaceDescriptor[2].bLength, v69 = sub_1000031A0(), _os_log_impl(v69, v70, v71, "%s::%s: bNumEndpoints = 0x%x", v72, 0x1Cu), (v47 = *(this + 9)) != 0))
+                                if ((*v45 & 8) == 0 || !sub_1000032BC() || (v62 = sub_1000031A0(), _os_log_impl(v62, v63, v64, "%s::%s: bNumEndpoints = 0x%x", v65, 0x1Cu), (v45 = *(this + 9)) != 0))
                                 {
-                                  if ((*v47 & 8) == 0 || !sub_1000032BC() || (v73 = InterfaceDescriptor[2].bDescriptorType, v74 = sub_1000031A0(), _os_log_impl(v74, v75, v76, "%s::%s: bInterfaceClass = 0x%x", v77, 0x1Cu), (v47 = *(this + 9)) != 0))
+                                  if ((*v45 & 8) == 0 || !sub_1000032BC() || (v66 = sub_1000031A0(), _os_log_impl(v66, v67, v68, "%s::%s: bInterfaceClass = 0x%x", v69, 0x1Cu), (v45 = *(this + 9)) != 0))
                                   {
-                                    if ((*v47 & 8) == 0 || !sub_1000032BC() || (v78 = InterfaceDescriptor[3].bLength, v79 = sub_1000031A0(), _os_log_impl(v79, v80, v81, "%s::%s: bInterfaceSubClass = 0x%x", v82, 0x1Cu), (v47 = *(this + 9)) != 0))
+                                    if ((*v45 & 8) == 0 || !sub_1000032BC() || (v70 = sub_1000031A0(), _os_log_impl(v70, v71, v72, "%s::%s: bInterfaceSubClass = 0x%x", v73, 0x1Cu), (v45 = *(this + 9)) != 0))
                                     {
-                                      if ((*v47 & 8) == 0 || !sub_1000032BC() || (bDescriptorType = InterfaceDescriptor[3].bDescriptorType, v84 = sub_1000031A0(), _os_log_impl(v84, v85, v86, "%s::%s: bInterfaceProtocol = 0x%x", v87, 0x1Cu), (v47 = *(this + 9)) != 0))
+                                      if ((*v45 & 8) == 0 || !sub_1000032BC() || (v74 = sub_1000031A0(), _os_log_impl(v74, v75, v76, "%s::%s: bInterfaceProtocol = 0x%x", v77, 0x1Cu), (v45 = *(this + 9)) != 0))
                                       {
-                                        if ((*v47 & 8) != 0 && sub_1000032BC())
+                                        if ((*v45 & 8) != 0 && sub_1000032BC())
                                         {
-                                          bLength = InterfaceDescriptor[4].bLength;
-                                          v89 = sub_1000031A0();
-                                          _os_log_impl(v89, v90, v91, "%s::%s: iInterface = 0x%x", v92, 0x1Cu);
+                                          v78 = sub_1000031A0();
+                                          _os_log_impl(v78, v79, v80, "%s::%s: iInterface = 0x%x", v81, 0x1Cu);
                                         }
                                       }
                                     }
@@ -1954,34 +1959,28 @@ uint64_t AppleUserECM::findDataInterface(AppleUserECM *this, IOUSBHostInterface 
                       }
                     }
 
-                    if (InterfaceDescriptor[2].bDescriptorType == 10 && !InterfaceDescriptor[3].bLength && !InterfaceDescriptor[3].bDescriptorType && InterfaceDescriptor[1].bLength == HIBYTE(v117))
+                    if (InterfaceDescriptor[2].bDescriptorType == 10 && !InterfaceDescriptor[3].bLength && !InterfaceDescriptor[3].bDescriptorType && InterfaceDescriptor[1].bLength == HIBYTE(v104))
                     {
                       break;
                     }
                   }
 
-                  v93 = interface;
+                  v82 = interface;
                   if (interface)
                   {
-                    v94 = sub_100003258(interface);
-                    v93 = (*(v95 + 16))(v94);
+                    sub_100003258();
+                    v82 = (*(v83 + 16))();
                     interface = 0;
                   }
 
-                  v13 = sub_100003370(v93, v39, v40, v41, v42, v43, v44, v45, v107, v109, v111[0], v111[1], v114[0], v114[1], v117, ref, interface, device);
-                  if (!v13)
+                  v13 = sub_100003370(v82, v37, v38, v39, v40, v41, v42, v43, v94, v96, v98[0], v98[1], v101[0], v101[1], v104, ref, interface, device);
+                  if (v13 || !interface)
                   {
-                    v35 = interface;
-                    if (interface)
-                    {
-                      continue;
-                    }
+                    goto LABEL_55;
                   }
-
-                  goto LABEL_55;
                 }
 
-                *v109 = interface;
+                *v96 = interface;
                 while (InterfaceDescriptor[2].bLength != 2)
                 {
                   InterfaceDescriptor = IOUSBGetNextInterfaceDescriptor(v14, InterfaceDescriptor);
@@ -1992,17 +1991,17 @@ uint64_t AppleUserECM::findDataInterface(AppleUserECM *this, IOUSBHostInterface 
                   }
                 }
 
-                v99 = *(this + 9);
-                if ((*v99 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+                v86 = *(this + 9);
+                if ((*v86 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
                   sub_10000331C();
                   sub_100003274();
-                  _os_log_impl(v100, v101, v102, v103, v104, v105);
-                  v99 = *(this + 9);
+                  _os_log_impl(v87, v88, v89, v90, v91, v92);
+                  v86 = *(this + 9);
                 }
 
                 v13 = 0;
-                v99[64] = InterfaceDescriptor[1].bDescriptorType;
+                v86[64] = InterfaceDescriptor[1].bDescriptorType;
               }
             }
 
@@ -2026,8 +2025,8 @@ LABEL_55:
 
   if (device)
   {
-    v96 = sub_100003258(device);
-    (*(v97 + 16))(v96);
+    sub_100003258();
+    (*(v84 + 16))();
     device = 0;
   }
 
@@ -2045,29 +2044,29 @@ uint64_t AppleUserECM::activate(AppleUserECM *this)
   USBPipe = AppleUserECM::findUSBPipe(this, *(*(this + 9) + 32), 0, 2, (*(this + 9) + 144), (*(this + 9) + 152));
   if (USBPipe)
   {
-    v44 = USBPipe;
+    v35 = USBPipe;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      return v44;
+      return v35;
     }
 
-    v59 = 136315650;
+    v50 = 136315650;
     sub_10000321C();
     sub_10000320C();
-    v60 = "status == kIOReturnSuccess";
+    v51 = "status == kIOReturnSuccess";
 LABEL_46:
     sub_10000324C();
-    _os_log_impl(v52, v53, v54, v55, v56, v57);
-    return v44;
+    _os_log_impl(v43, v44, v45, v46, v47, v48);
+    return v35;
   }
 
   v3 = IOUSBHostPipe::GetSpeed(*(*(this + 9) + 144), &speed, 0);
   if (v3)
   {
-    v44 = v3;
+    v35 = v3;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      return v44;
+      return v35;
     }
 
     goto LABEL_45;
@@ -2081,13 +2080,13 @@ LABEL_46:
       return 0;
     }
 
-    v59 = 136315650;
+    v50 = 136315650;
     sub_10000321C();
     sub_10000320C();
-    v60 = "speed > kIOUSBHostConnectionSpeedNone";
+    v51 = "speed > kIOUSBHostConnectionSpeedNone";
 LABEL_34:
     sub_10000324C();
-    _os_log_impl(v46, v47, v48, v49, v50, v51);
+    _os_log_impl(v37, v38, v39, v40, v41, v42);
     return 0;
   }
 
@@ -2103,7 +2102,7 @@ LABEL_34:
   *(*(this + 9) + 328) = v5[2];
   *(*(this + 9) + 332) = v5[3];
   *(*(this + 9) + 336) = *(*(this + 9) + 332) + *(*(this + 9) + 328);
-  *(*(this + 9) + 160) = AppleUserECM::allocateUSBPackets(this, *(*(this + 9) + 144), *(*(this + 9) + 184), 2048);
+  *(*(this + 9) + 160) = AppleUserECM::allocateUSBPackets(this, *(*(this + 9) + 144), *(*(this + 9) + 184));
   v6 = *(this + 9);
   if (!*(v6 + 160))
   {
@@ -2112,145 +2111,139 @@ LABEL_34:
       return 0;
     }
 
-    v59 = 136315650;
+    v50 = 136315650;
     sub_10000321C();
     sub_10000320C();
-    v60 = "ivars->usbTxPackets != NULL";
+    v51 = "ivars->usbTxPackets != NULL";
     goto LABEL_34;
   }
 
   *(v6 + 168) = *(v6 + 184);
-  v7 = *(this + 9);
-  v8 = sub_100003350();
-  ActionTxComplete = AppleUserECM::CreateActionTxComplete(v8, v9, v10);
+  v7 = sub_100003350();
+  ActionTxComplete = AppleUserECM::CreateActionTxComplete(v7, v8, v9);
   if (ActionTxComplete)
   {
     return ActionTxComplete;
   }
 
-  v12 = AppleUserECM::findUSBPipe(this, *(*(this + 9) + 32), 1, 2, (*(this + 9) + 192), 0);
-  if (v12)
+  v11 = AppleUserECM::findUSBPipe(this, *(*(this + 9) + 32), 1, 2, (*(this + 9) + 192), 0);
+  if (v11)
   {
-    v44 = v12;
+    v35 = v11;
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      return v44;
+      return v35;
     }
 
 LABEL_45:
-    v59 = 136315650;
+    v50 = 136315650;
     sub_10000321C();
     sub_10000320C();
-    v60 = "status == kIOReturnSuccess";
+    v51 = "status == kIOReturnSuccess";
     goto LABEL_46;
   }
 
-  *(*(this + 9) + 200) = AppleUserECM::allocateUSBPackets(this, *(*(this + 9) + 192), *(*(this + 9) + 232), 2048);
-  v13 = *(this + 9);
-  if (!*(v13 + 200))
+  *(*(this + 9) + 200) = AppleUserECM::allocateUSBPackets(this, *(*(this + 9) + 192), *(*(this + 9) + 232));
+  v12 = *(this + 9);
+  if (!*(v12 + 200))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v59 = 136315650;
+      v50 = 136315650;
       sub_10000321C();
       sub_10000320C();
-      v60 = "ivars->usbRxPackets != NULL";
+      v51 = "ivars->usbRxPackets != NULL";
       goto LABEL_34;
     }
 
     return 0;
   }
 
-  *(v13 + 216) = *(v13 + 232);
-  v14 = *(this + 9);
-  v15 = sub_100003350();
-  ActionTxComplete = AppleUserECM::CreateActionRxComplete(v15, v16, v17);
+  *(v12 + 216) = *(v12 + 232);
+  v13 = sub_100003350();
+  ActionTxComplete = AppleUserECM::CreateActionRxComplete(v13, v14, v15);
   if (!ActionTxComplete)
   {
-    v18 = AppleUserECM::findUSBPipe(this, *(*(this + 9) + 24), 1, 3, (*(this + 9) + 72), (*(this + 9) + 88));
-    if (v18)
+    v16 = AppleUserECM::findUSBPipe(this, *(*(this + 9) + 24), 1, 3, (*(this + 9) + 72), (*(this + 9) + 88));
+    if (v16)
     {
-      v44 = v18;
+      v35 = v16;
       if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        return v44;
+        return v35;
       }
     }
 
     else
     {
-      v19 = IOTimerDispatchSource::Create(*(*(this + 9) + 8), (*(this + 9) + 128));
-      if (v19)
+      v17 = IOTimerDispatchSource::Create(*(*(this + 9) + 8), (*(this + 9) + 128));
+      if (v17)
       {
-        v44 = v19;
+        v35 = v17;
         if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
-          return v44;
+          return v35;
         }
       }
 
       else
       {
-        v20 = *(this + 9);
-        v21 = sub_100003350();
-        TimerOccurred = AppleUserECM::CreateActionInterruptReadTimerOccurred(v21, v22, v23);
+        v18 = sub_100003350();
+        TimerOccurred = AppleUserECM::CreateActionInterruptReadTimerOccurred(v18, v19, v20);
         if (TimerOccurred)
         {
-          v44 = TimerOccurred;
+          v35 = TimerOccurred;
           if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
-            return v44;
+            return v35;
           }
         }
 
         else
         {
-          v25 = IOTimerDispatchSource::SetHandler(*(*(this + 9) + 128), *(*(this + 9) + 136), 0);
-          if (v25)
+          v22 = IOTimerDispatchSource::SetHandler(*(*(this + 9) + 128), *(*(this + 9) + 136), 0);
+          if (v22)
           {
-            v44 = v25;
+            v35 = v22;
             if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
-              return v44;
+              return v35;
             }
           }
 
           else
           {
-            v26 = *(this + 9);
-            v27 = *(v26 + 88);
-            v28 = sub_100003258(*(v26 + 24));
-            ActionTxComplete = (*(v29 + 88))(v28, 1);
+            sub_100003258();
+            ActionTxComplete = (*(v23 + 88))();
             if (ActionTxComplete)
             {
               return ActionTxComplete;
             }
 
-            ActionTxComplete = sub_100003334(*(*(this + 9) + 80), v30, v31, v32, IOVMPageSize, (*(this + 9) + 96), (*(this + 9) + 104));
+            ActionTxComplete = sub_100003334(*(*(this + 9) + 80), v24, v25, v26, IOVMPageSize, (*(this + 9) + 96), (*(this + 9) + 104));
             if (ActionTxComplete)
             {
               return ActionTxComplete;
             }
 
-            v33 = *(this + 9);
-            v34 = sub_100003350();
-            ActionTxComplete = AppleUserECM::CreateActionInterruptReadComplete(v34, v35, v36);
+            v27 = sub_100003350();
+            ActionTxComplete = AppleUserECM::CreateActionInterruptReadComplete(v27, v28, v29);
             if (ActionTxComplete)
             {
               return ActionTxComplete;
             }
 
-            v37 = sub_100003258(*(*(this + 9) + 24));
-            v40 = (*(v38 + 88))(v37, 3, 1024, v39 + 40);
-            if (!v40)
+            sub_100003258();
+            v31 = (*(v30 + 88))();
+            if (!v31)
             {
-              return sub_100003334(*(*(this + 9) + 40), v41, v42, v43, IOVMPageSize, (*(this + 9) + 48), (*(this + 9) + 56));
+              return sub_100003334(*(*(this + 9) + 40), v32, v33, v34, IOVMPageSize, (*(this + 9) + 48), (*(this + 9) + 56));
             }
 
-            v44 = v40;
+            v35 = v31;
             if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
-              return v44;
+              return v35;
             }
           }
         }
@@ -2265,7 +2258,7 @@ LABEL_45:
 
 uint64_t AppleUserECM::getFunctionalDescriptors(AppleUserECM *this)
 {
-  sub_1000032D4(this);
+  sub_1000032D4();
   if ((v3 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     sub_100003264();
@@ -2275,96 +2268,94 @@ uint64_t AppleUserECM::getFunctionalDescriptors(AppleUserECM *this)
   }
 
   v10 = 3758097136;
-  v11 = *(v1 + 24);
-  if (v11)
+  if (*(v1 + 24))
   {
-    v12 = sub_100003258(v11);
-    v14 = (*(v13 + 56))(v12);
-    if (v14)
+    sub_100003258();
+    v13 = (*(v11 + 56))(v12);
+    if (v13)
     {
-      v15 = v14;
-      v16 = sub_100003258(*(*(this + 9) + 24));
-      v18 = (*(v17 + 64))(v16, v15);
-      if (v18)
+      v14 = v13;
+      sub_100003258();
+      v17 = (*(v15 + 64))(v16);
+      if (v17)
       {
-        v19 = v18;
+        v18 = v17;
         *(*(this + 9) + 320) = 0;
-        AssociatedDescriptorWithType = IOUSBGetNextAssociatedDescriptorWithType(v15, v18, 0, 0x24u);
+        AssociatedDescriptorWithType = IOUSBGetNextAssociatedDescriptorWithType(v14, v17, 0, 0x24u);
         if (AssociatedDescriptorWithType)
         {
-          v21 = AssociatedDescriptorWithType;
-          while (v21->bLength <= 0xCu || v21[1].bLength != 15)
+          v20 = AssociatedDescriptorWithType;
+          while (v20->bLength <= 0xCu || v20[1].bLength != 15)
           {
-            v21 = IOUSBGetNextAssociatedDescriptorWithType(v15, v19, v21, 0x24u);
-            if (!v21)
+            v20 = IOUSBGetNextAssociatedDescriptorWithType(v14, v18, v20, 0x24u);
+            if (!v20)
             {
               goto LABEL_29;
             }
           }
 
-          v22 = v21[4];
-          v23 = *(this + 9);
-          if (*(v23 + 316) > v22)
+          v21 = v20[4];
+          v22 = *(this + 9);
+          if (*(v22 + 316) > v21)
           {
-            *(v23 + 316) = v22;
-            v23 = *(this + 9);
+            *(v22 + 316) = v21;
+            v22 = *(this + 9);
           }
 
-          *(v23 + 320) = v21[5];
-          bDescriptorType = v21[1].bDescriptorType;
-          v25 = sub_100003258(*(*(this + 9) + 24));
-          v27 = (*(v26 + 80))(v25);
-          if (v27)
+          *(v22 + 320) = v20[5];
+          sub_100003258();
+          v25 = (*(v23 + 80))(v24);
+          if (v25)
           {
-            if (v27->bLength < 3u)
+            if (v25->bLength < 3u)
             {
 LABEL_27:
               v10 = 0;
               goto LABEL_28;
             }
 
-            v28 = 0;
-            v29 = 0;
+            v26 = 0;
+            v27 = 0;
             while (1)
             {
-              v30 = v27->bString[v28];
-              v31 = v30 - 48;
-              if ((v30 - 48) >= 0xA)
+              v28 = v25->bString[v26];
+              v29 = v28 - 48;
+              if ((v28 - 48) >= 0xA)
               {
-                if ((v30 - 97) > 5)
+                if ((v28 - 97) > 5)
                 {
-                  if ((v30 - 65) > 5)
+                  if ((v28 - 65) > 5)
                   {
                     v10 = 3758096385;
 LABEL_28:
-                    IOUSBHostFreeDescriptor(v27);
+                    IOUSBHostFreeDescriptor(v25);
                     break;
                   }
 
-                  v31 = v30 - 55;
+                  v29 = v28 - 55;
                 }
 
                 else
                 {
-                  v31 = v30 - 87;
+                  v29 = v28 - 87;
                 }
               }
 
-              if ((v28 & 2) != 0)
+              if ((v26 & 2) != 0)
               {
-                v33 = *(this + 9) + v29++;
-                v32 = *(v33 + 308) | v31;
+                v31 = *(this + 9) + v27++;
+                v30 = *(v31 + 308) | v29;
               }
 
               else
               {
-                v32 = 16 * v31;
-                v33 = *(this + 9) + v29;
+                v30 = 16 * v29;
+                v31 = *(this + 9) + v27;
               }
 
-              *(v33 + 308) = v32;
-              v28 += 2;
-              if (v28 >= v27->bLength - 2)
+              *(v31 + 308) = v30;
+              v26 += 2;
+              if (v26 >= v25->bLength - 2)
               {
                 goto LABEL_27;
               }
@@ -2374,7 +2365,7 @@ LABEL_28:
       }
 
 LABEL_29:
-      IOUSBHostFreeDescriptor(v15);
+      IOUSBHostFreeDescriptor(v14);
     }
   }
 
@@ -2383,7 +2374,7 @@ LABEL_29:
 
 uint64_t AppleUserECM::readInterruptPipe(AppleUserECM *this)
 {
-  sub_1000032D4(this);
+  sub_1000032D4();
   if ((v3 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     sub_100003264();
@@ -2411,18 +2402,18 @@ uint64_t AppleUserECM::readInterruptPipe(AppleUserECM *this)
 
 uint64_t AppleUserECM::setMulticastAddresses(AppleUserECM *this, const ether_addr *__src, unsigned int a3)
 {
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2000000000;
-  v29 = -536870201;
-  v25 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2000000000;
+  v26 = -536870201;
+  v22 = 0;
   v6 = *(this + 9);
   if ((*v6 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 136315394;
-    v31 = "AppleUserECM";
-    v32 = 2080;
-    v33 = "setMulticastAddresses";
+    v27 = 136315394;
+    v28 = "AppleUserECM";
+    v29 = 2080;
+    v30 = "setMulticastAddresses";
     sub_100003274();
     _os_log_impl(v7, v8, v9, v10, v11, v12);
     v6 = *(this + 9);
@@ -2440,44 +2431,41 @@ uint64_t AppleUserECM::setMulticastAddresses(AppleUserECM *this, const ether_add
     if (*(v6 + 56) >= v13)
     {
       memcpy(*(v6 + 48), __src, 2 * ((3 * a3) & 0x7FFF));
-      v14 = *(this + 9);
-      v15 = *(v14 + 65);
-      v16 = *(v14 + 40);
-      v17 = sub_100003258(*(v14 + 24));
-      v19 = (*(v18 + 104))(v17, 33, 64, a3);
-      v20 = v27;
-      *(v27 + 6) = v19;
-      if (v25 != v13)
+      sub_100003258();
+      v16 = (*(v14 + 104))(v15);
+      v17 = v24;
+      *(v24 + 6) = v16;
+      if (v22 != v13)
       {
-        *(v20 + 6) = -536870198;
+        *(v17 + 6) = -536870198;
         goto LABEL_14;
       }
 
-      if (!v19)
+      if (!v16)
       {
         *(*(this + 9) + 324) |= 0x10u;
 LABEL_12:
-        v21 = *(*(this + 9) + 16);
+        v18 = *(*(this + 9) + 16);
         block[0] = _NSConcreteStackBlock;
         block[1] = 1107296256;
         block[2] = sub_100002700;
         block[3] = &unk_10000C348;
-        block[4] = &v26;
+        block[4] = &v23;
         block[5] = this;
-        IODispatchQueue::DispatchSync(v21, block);
+        IODispatchQueue::DispatchSync(v18, block);
       }
     }
   }
 
 LABEL_14:
-  v22 = *(v27 + 6);
-  _Block_object_dispose(&v26, 8);
-  return v22;
+  v19 = *(v24 + 6);
+  _Block_object_dispose(&v23, 8);
+  return v19;
 }
 
 uint64_t AppleUserECM::handleTxPacketsAvailable(AppleUserECM *this)
 {
-  bzero(v55, 0x200uLL);
+  bzero(v48, 0x200uLL);
   v2 = *(this + 9);
   v3 = *(v2 + 160);
   v4 = *(v2 + 172);
@@ -2485,109 +2473,106 @@ uint64_t AppleUserECM::handleTxPacketsAvailable(AppleUserECM *this)
   if ((*v2 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     dataBufferLengthArray = 136315394;
-    v52 = "AppleUserECM";
-    v53 = 2080;
-    v54 = "handleTxPacketsAvailable";
+    v45 = "AppleUserECM";
+    v46 = 2080;
+    v47 = "handleTxPacketsAvailable";
     sub_100003274();
     _os_log_impl(v5, v6, v7, v8, v9, v10);
-    v2 = *(this + 9);
   }
 
-  v11 = *(v2 + 168);
-  v12 = sub_100003258(*(v2 + 248));
-  result = (*(v13 + 104))(v12, v55);
+  sub_100003258();
+  result = (*(v11 + 104))();
   if (!result)
   {
     return result;
   }
 
-  v15 = 0;
-  v16 = 0;
-  v46 = result;
-  v17 = result - 1;
+  v13 = 0;
+  v14 = 0;
+  v15 = result - 1;
   while (1)
   {
-    v18 = sub_100003258(v55[v15]);
-    v20 = (*(v19 + 224))(v18);
-    v21 = sub_100003258(v55[v15]);
-    v23 = (*(v22 + 184))(v21);
-    v24 = sub_100003258(v55[v15]);
-    v26 = (*(v25 + 240))(v24);
-    memcpy(*(v3 + 24 * v4 + 8), (v23 + v26), v20);
-    *(&dataBufferLengthArray + v16) = v20;
-    v27 = *(this + 9);
-    if (!(v20 % *(v27 + 152)))
+    sub_100003258();
+    v17 = (*(v16 + 224))();
+    sub_100003258();
+    v19 = (*(v18 + 184))();
+    sub_100003258();
+    v21 = (*(v20 + 240))();
+    memcpy(*(v3 + 24 * v4 + 8), (v19 + v21), v17);
+    *(&dataBufferLengthArray + v14) = v17;
+    v22 = *(this + 9);
+    if (!(v17 % *(v22 + 152)))
     {
-      ++v16;
+      ++v14;
       ++v4;
-      *(&dataBufferLengthArray + v16) = 0;
+      *(&dataBufferLengthArray + v14) = 0;
     }
 
-    v28 = v17 == v15 || ++v16 >= 0xF;
-    if (!v28)
+    v23 = v15 == v13 || ++v14 >= 0xF;
+    if (!v23)
     {
-      v36 = *(v27 + 184);
-      if (v4 + 1 < v36)
+      v31 = *(v22 + 184);
+      if (v4 + 1 < v31)
       {
-        v36 = 0;
+        v31 = 0;
       }
 
-      v4 = v4 + 1 - v36;
+      v4 = v4 + 1 - v31;
       goto LABEL_22;
     }
 
     ioTransferAcceptedCount[0] = 0;
-    v29 = IOUSBHostPipe::AsyncIOBundled(*(v27 + 144), *(v27 + 172), v16, ioTransferAcceptedCount, &dataBufferLengthArray, v16, *(v27 + 176), 0, 0);
-    v30 = v29;
-    v31 = ioTransferAcceptedCount[0];
+    v24 = IOUSBHostPipe::AsyncIOBundled(*(v22 + 144), *(v22 + 172), v14, ioTransferAcceptedCount, &dataBufferLengthArray, v14, *(v22 + 176), 0, 0);
+    v25 = v24;
+    v26 = ioTransferAcceptedCount[0];
     *(*(this + 9) + 168) -= ioTransferAcceptedCount[0];
-    *(*(this + 9) + 172) += v31;
-    v32 = *(this + 9);
-    v33 = *(v32 + 172);
-    v34 = *(v32 + 184);
-    v28 = v33 >= v34;
-    v35 = v33 - v34;
-    if (v28)
+    *(*(this + 9) + 172) += v26;
+    v27 = *(this + 9);
+    v28 = *(v27 + 172);
+    v29 = *(v27 + 184);
+    v23 = v28 >= v29;
+    v30 = v28 - v29;
+    if (v23)
     {
-      *(v32 + 172) = v35;
+      *(v27 + 172) = v30;
     }
 
-    if (v29)
+    if (v24)
     {
       break;
     }
 
-    if (v17 == v15)
+    if (v15 == v13)
     {
       goto LABEL_27;
     }
 
-    v16 = 0;
+    v14 = 0;
     v4 = *(*(this + 9) + 172);
 LABEL_22:
-    ++v15;
+    ++v13;
   }
 
-  v37 = *(this + 9);
-  if (v37 && (*v37 & 2) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  v32 = *(this + 9);
+  if (v32 && (*v32 & 2) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     ioTransferAcceptedCount[1] = 136315650;
     sub_1000032E4();
-    v48 = "handleTxPacketsAvailable";
-    v49 = 1024;
-    v50 = v30;
+    v41 = "handleTxPacketsAvailable";
+    v42 = 1024;
+    v43 = v25;
     sub_10000324C();
-    _os_log_impl(v38, v39, v40, v41, v42, v43);
+    _os_log_impl(v33, v34, v35, v36, v37, v38);
   }
 
 LABEL_27:
-  v44 = sub_100003258(*(*(this + 9) + 256));
-  return (*(v45 + 88))(v44, v55, v46);
+  sub_100003258();
+  return (*(v39 + 88))();
 }
 
 void AppleUserECM::RxPacketsAvailable_Impl(AppleUserECM *this, OSAction *a2)
 {
-  sub_1000032D4(this);
+  sub_1000032D4();
   if ((v4 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     sub_100003264();
@@ -2607,7 +2592,6 @@ void AppleUserECM::TxComplete_Impl(AppleUserECM *this, OSAction *a2, unsigned in
   v9 = *(this + 9);
   if ((*v9 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(v9 + 168);
     sub_1000031E4();
     _os_log_impl(v10, v11, v12, v13, v14, v15);
     v9 = *(this + 9);
@@ -2625,28 +2609,27 @@ void AppleUserECM::InterruptReadComplete_Impl(AppleUserECM *this, OSAction *a2, 
   v7 = *(this + 9);
   if ((*v7 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v7[296];
     sub_100003298();
-    v65 = v9;
-    v66 = a3;
-    v67 = v9;
-    v68 = a4;
-    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s::%s: isEnabled %d, status 0x%x, actualByteCount %d\n", v62, 0x28u);
+    v63 = v8;
+    v64 = a3;
+    v65 = v8;
+    v66 = a4;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s::%s: isEnabled %d, status 0x%x, actualByteCount %d\n", v60, 0x28u);
     v7 = *(this + 9);
   }
 
   v7[120] = 0;
-  v10 = *(this + 9);
-  if (*(v10 + 296) == 1)
+  v9 = *(this + 9);
+  if (*(v9 + 296) == 1)
   {
     if (a3 == -536870186 || a3 == -536870165)
     {
-      if ((*v10 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      if ((*v9 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         sub_1000031F4();
         sub_10000323C();
 LABEL_34:
-        _os_log_impl(v12, v13, v14, v15, v16, v17);
+        _os_log_impl(v11, v12, v13, v14, v15, v16);
       }
     }
 
@@ -2656,121 +2639,120 @@ LABEL_34:
       {
         if (a4 >= 8)
         {
-          v18 = *(v10 + 96);
-          if (*(v18 + 1) == 42)
+          v17 = *(v9 + 96);
+          if (*(v17 + 1) == 42)
           {
-            if ((*v10 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+            if ((*v9 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
               sub_1000031F4();
               sub_10000323C();
-              _os_log_impl(v46, v47, v48, v49, v50, v51);
+              _os_log_impl(v44, v45, v46, v47, v48, v49);
             }
 
-            if (a4 >= 0x10 && *(v18 + 6) >= 8u)
+            if (a4 >= 0x10 && *(v17 + 6) >= 8u)
             {
-              v53 = *(v18 + 12);
-              if (*(v18 + 8) > v53)
+              v51 = *(v17 + 12);
+              if (*(v17 + 8) > v51)
               {
-                v53 = *(v18 + 8);
+                v51 = *(v17 + 8);
               }
 
-              v54 = 1048630;
-              v55 = 1048624;
-              v56 = 1048614;
-              if (v53 <= 0x98967F)
+              v52 = 1048630;
+              v53 = 1048624;
+              v54 = 1048614;
+              if (v51 <= 0x98967F)
               {
-                v57 = 34;
+                v55 = 34;
               }
 
               else
               {
-                v57 = 1048611;
+                v55 = 1048611;
               }
 
-              if (v53 <= 0x5F5E0FF)
-              {
-                v56 = v57;
-              }
-
-              if (v53 <= 0x3B9AC9FF)
-              {
-                v55 = v56;
-              }
-
-              if (v53 <= 0x9502F8FF)
+              if (v51 <= 0x5F5E0FF)
               {
                 v54 = v55;
               }
 
-              if (v53 == 705032704)
+              if (v51 <= 0x3B9AC9FF)
               {
-                v58 = 1048631;
+                v53 = v54;
+              }
+
+              if (v51 <= 0x9502F8FF)
+              {
+                v52 = v53;
+              }
+
+              if (v51 == 705032704)
+              {
+                v56 = 1048631;
               }
 
               else
               {
-                v58 = v54;
+                v56 = v52;
               }
 
-              v59 = *(this + 9);
-              if (v58 != *(v59 + 304))
+              v57 = *(this + 9);
+              if (v56 != *(v57 + 304))
               {
-                v60 = *(v59 + 300);
-                if (v60 == 1 || (v58 != 34 ? (v61 = v60 == 3) : (v61 = 0), v61))
+                v58 = *(v57 + 300);
+                if (v58 == 1 || (v56 != 34 ? (v59 = v58 == 3) : (v59 = 0), v59))
                 {
                   (*(*this + 128))(this);
-                  v59 = *(this + 9);
+                  v57 = *(this + 9);
                 }
 
-                *(v59 + 304) = v58;
+                *(v57 + 304) = v56;
               }
             }
           }
 
-          else if (!*(v18 + 1))
+          else if (!*(v17 + 1))
           {
-            if ((*v10 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+            if ((*v9 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
-              v19 = *(v18 + 2);
               sub_100003298();
               sub_1000031E4();
-              _os_log_impl(v20, v21, v22, v23, v24, v25);
-              v10 = *(this + 9);
+              _os_log_impl(v18, v19, v20, v21, v22, v23);
+              v9 = *(this + 9);
             }
 
-            v26 = *(v18 + 2);
-            v27 = *(v18 + 2) != 0;
-            if (*(v10 + 297) != v27)
+            v24 = *(v17 + 2);
+            v25 = *(v17 + 2) != 0;
+            if (*(v9 + 297) != v25)
             {
-              if ((*v10 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+              if ((*v9 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
               {
                 sub_1000031F4();
-                v63 = 1024;
-                v64 = v27;
+                v61 = 1024;
+                v62 = v25;
                 sub_1000031E4();
-                _os_log_impl(v28, v29, v30, v31, v32, v33);
-                v10 = *(this + 9);
+                _os_log_impl(v26, v27, v28, v29, v30, v31);
+                v9 = *(this + 9);
               }
 
-              if (v26)
+              if (v24)
               {
-                v34 = 3;
+                v32 = 3;
               }
 
               else
               {
-                v34 = 1;
+                v32 = 1;
               }
 
-              v35 = *(v10 + 304);
-              if (!v26 || v35 != 34)
+              v33 = *(v9 + 304);
+              if (!v24 || v33 != 34)
               {
-                (*(*this + 128))(this, v34, v35);
-                v10 = *(this + 9);
+                (*(*this + 128))(this, v32, v33);
+                v9 = *(this + 9);
               }
 
-              *(v10 + 300) = v34;
-              *(*(this + 9) + 297) = v27;
+              *(v9 + 300) = v32;
+              *(*(this + 9) + 297) = v25;
             }
           }
         }
@@ -2778,34 +2760,34 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      if ((*v10 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      if ((*v9 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         sub_1000031F4();
-        v63 = 1024;
-        v64 = a3;
+        v61 = 1024;
+        v62 = a3;
         sub_1000031E4();
         goto LABEL_34;
       }
     }
 
 LABEL_35:
-    v36 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-    v37 = IOTimerDispatchSource::WakeAtTime(*(*(this + 9) + 128), 0x88uLL, v36 + 100000000, 0, 0);
-    if (v37)
+    v34 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+    v35 = IOTimerDispatchSource::WakeAtTime(*(*(this + 9) + 128), 0x88uLL, v34 + 100000000, 0, 0);
+    if (v35)
     {
-      v38 = *(this + 9);
-      if (v38)
+      v36 = *(this + 9);
+      if (v36)
       {
-        if ((*v38 & 2) != 0)
+        if ((*v36 & 2) != 0)
         {
-          v39 = v37;
+          v37 = v35;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             sub_1000031F4();
-            v63 = 1024;
-            v64 = v39;
+            v61 = 1024;
+            v62 = v37;
             sub_1000031E4();
-            _os_log_impl(v40, v41, v42, v43, v44, v45);
+            _os_log_impl(v38, v39, v40, v41, v42, v43);
           }
         }
       }
@@ -2838,29 +2820,28 @@ uint64_t AppleUserECM::findUSBPipe(AppleUserECM *this, IOUSBHostInterface *a2, i
       {
         if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_1000032E4(), sub_100003274(), _os_log_impl(v25, v26, v27, v28, v29, v30), (v24 = *(this + 9)) != 0))
         {
-          if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (bLength = v23->bLength, sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v32, v33, v34, v35, v36, v37), (v24 = *(this + 9)) != 0))
+          if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v31, v32, v33, v34, v35, v36), (v24 = *(this + 9)) != 0))
           {
-            if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (bDescriptorType = v23->bDescriptorType, sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v39, v40, v41, v42, v43, v44), (v24 = *(this + 9)) != 0))
+            if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v37, v38, v39, v40, v41, v42), (v24 = *(this + 9)) != 0))
             {
-              if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (bInterfaceNumber = v23->bInterfaceNumber, sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v46, v47, v48, v49, v50, v51), (v24 = *(this + 9)) != 0))
+              if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v43, v44, v45, v46, v47, v48), (v24 = *(this + 9)) != 0))
               {
-                if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (bAlternateSetting = v23->bAlternateSetting, sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v53, v54, v55, v56, v57, v58), (v24 = *(this + 9)) != 0))
+                if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v49, v50, v51, v52, v53, v54), (v24 = *(this + 9)) != 0))
                 {
-                  if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (bNumEndpoints = v23->bNumEndpoints, sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v60, v61, v62, v63, v64, v65), (v24 = *(this + 9)) != 0))
+                  if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v55, v56, v57, v58, v59, v60), (v24 = *(this + 9)) != 0))
                   {
-                    if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (bInterfaceClass = v23->bInterfaceClass, sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v67, v68, v69, v70, v71, v72), (v24 = *(this + 9)) != 0))
+                    if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v61, v62, v63, v64, v65, v66), (v24 = *(this + 9)) != 0))
                     {
-                      if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (bInterfaceSubClass = v23->bInterfaceSubClass, sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v74, v75, v76, v77, v78, v79), (v24 = *(this + 9)) != 0))
+                      if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v67, v68, v69, v70, v71, v72), (v24 = *(this + 9)) != 0))
                       {
-                        if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (bInterfaceProtocol = v23->bInterfaceProtocol, sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v81, v82, v83, v84, v85, v86), (v24 = *(this + 9)) != 0))
+                        if ((*v24 & 8) == 0 || !os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (sub_10000322C(), sub_1000031D0(), sub_10000324C(), _os_log_impl(v73, v74, v75, v76, v77, v78), (v24 = *(this + 9)) != 0))
                         {
                           if ((*v24 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                           {
-                            iInterface = v23->iInterface;
                             sub_10000322C();
                             sub_1000031D0();
                             sub_10000324C();
-                            _os_log_impl(v88, v89, v90, v91, v92, v93);
+                            _os_log_impl(v79, v80, v81, v82, v83, v84);
                           }
                         }
                       }
@@ -2876,20 +2857,20 @@ uint64_t AppleUserECM::findUSBPipe(AppleUserECM *this, IOUSBHostInterface *a2, i
       EndpointDescriptor = IOUSBGetNextEndpointDescriptor(v21, v23, 0);
       if (EndpointDescriptor)
       {
-        v95 = EndpointDescriptor;
+        v86 = EndpointDescriptor;
         while (1)
         {
-          if ((v95->bmAttributes & 3) == a4)
+          if ((v86->bmAttributes & 3) == a4)
           {
-            bEndpointAddress = v95->bEndpointAddress;
+            bEndpointAddress = v86->bEndpointAddress;
             if (a3 << 7 == (bEndpointAddress & 0x80))
             {
               break;
             }
           }
 
-          v95 = IOUSBGetNextEndpointDescriptor(v21, v23, v95);
-          if (!v95)
+          v86 = IOUSBGetNextEndpointDescriptor(v21, v23, v86);
+          if (!v86)
           {
             goto LABEL_47;
           }
@@ -2897,7 +2878,7 @@ uint64_t AppleUserECM::findUSBPipe(AppleUserECM *this, IOUSBHostInterface *a2, i
 
         if (a6)
         {
-          *a6 = v95->wMaxPacketSize;
+          *a6 = v86->wMaxPacketSize;
         }
 
         v19 = IOUSBHostInterface::CopyPipe(a2, bEndpointAddress, pipe, 0);
@@ -2911,58 +2892,58 @@ LABEL_47:
   return v19;
 }
 
-uint64_t **AppleUserECM::allocateUSBPackets(AppleUserECM *this, IOUSBHostPipe *a2, unsigned int a3, uint64_t a4)
+char *AppleUserECM::allocateUSBPackets(AppleUserECM *this, IOUSBHostPipe *a2, unsigned int a3)
 {
-  v8 = *(this + 9);
-  if (v8 && (*v8 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  v6 = *(this + 9);
+  if (v6 && (*v6 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     sub_100003264();
     sub_10000323C();
-    _os_log_impl(v9, v10, v11, v12, v13, v14);
+    _os_log_impl(v7, v8, v9, v10, v11, v12);
   }
 
-  v15 = IOMallocZeroTyped();
-  if (!v15 || IOUSBHostPipe::CreateMemoryDescriptorRing(a2, a3, 0))
+  v13 = IOMallocZeroTyped();
+  if (!v13 || IOUSBHostPipe::CreateMemoryDescriptorRing(a2, a3, 0))
   {
 LABEL_15:
-    AppleUserECM::freeUSBPackets(this, v15, a3);
+    AppleUserECM::freeUSBPackets(this, v13, a3);
     return 0;
   }
 
   if (a3)
   {
-    v16 = 0;
-    for (i = v15; ; i += 3)
+    v14 = 0;
+    for (i = v13; ; i += 3)
     {
-      v18 = sub_100003258(*(*(this + 9) + 32));
-      if ((*(v19 + 88))(v18, 3, a4, i))
+      sub_100003258();
+      if ((*(v16 + 88))(v17))
       {
         break;
       }
 
       if (!*i)
       {
-        return v15;
+        return v13;
       }
 
-      if (sub_100003334(*i, v20, v21, v22, IOVMPageSize, i + 1, i + 2) || IOUSBHostPipe::SetMemoryDescriptor(a2, *i, v16, 0))
+      if (sub_100003334(*i, v18, v19, v20, IOVMPageSize, i + 1, i + 2) || IOUSBHostPipe::SetMemoryDescriptor(a2, *i, v14, 0))
       {
         break;
       }
 
-      if (a3 == ++v16)
+      if (a3 == ++v14)
       {
-        return v15;
+        return v13;
       }
     }
 
     goto LABEL_15;
   }
 
-  return v15;
+  return v13;
 }
 
-void AppleUserECM::freeUSBPackets(AppleUserECM *this, uint64_t **address, unsigned int a3)
+void AppleUserECM::freeUSBPackets(AppleUserECM *this, void *address, unsigned int a3)
 {
   v5 = *(this + 9);
   if (v5 && (*v5 & 8) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -2982,8 +2963,8 @@ void AppleUserECM::freeUSBPackets(AppleUserECM *this, uint64_t **address, unsign
       {
         if (*v13)
         {
-          v14 = sub_100003258(*v13);
-          (*(v15 + 16))(v14);
+          sub_100003258();
+          (*(v14 + 16))(v15);
           *v13 = 0;
         }
 

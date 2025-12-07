@@ -82,7 +82,7 @@
   return v5;
 }
 
-uint64_t __71__SBSwitcherSwipeUpGestureFloatingSwitcherModifier_handleGestureEvent___block_invoke(void *a1)
+void *__71__SBSwitcherSwipeUpGestureFloatingSwitcherModifier_handleGestureEvent___block_invoke(void *a1)
 {
   result = [*(a1[4] + 152) finalResponseForGestureEvent:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

@@ -114,22 +114,18 @@ void __46___DPDatabaseRecorder_recordStrings_metadata___block_invoke_33(uint64_t
 void __46___DPDatabaseRecorder_recordNumbers_metadata___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4_0();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_7(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_7(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __46___DPDatabaseRecorder_recordStrings_metadata___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_22622D000, v0, OS_LOG_TYPE_DEBUG, "%@ : was in the do-not-send list : not recording in DB", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22622D000, v0, OS_LOG_TYPE_DEBUG, "%@ : was in the do-not-send list : not recording in DB", v1, 0xCu);
 }
 
 @end

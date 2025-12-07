@@ -137,18 +137,16 @@
 
 void __38__MSSearch_newConnectionForInterface___block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696AA08];
-  v10[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696AA08];
+  v9[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"MSMailSearchErrorDomain" code:1500 userInfo:v5];
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _delegateDidFinishWithError:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __38__MSSearch_newConnectionForInterface___block_invoke_2(uint64_t a1)
@@ -238,17 +236,15 @@ LABEL_3:
 
 void __55__MSSearch__findMessageData_matchingCriterion_options___block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696AA08];
-  v10[0] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696AA08];
+  v9[0] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v5 errorWithDomain:@"MSMailSearchErrorDomain" code:1500 userInfo:v6];
   [v4 _delegateDidFinishWithError:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_delegateDidFinishWithError:(id)error

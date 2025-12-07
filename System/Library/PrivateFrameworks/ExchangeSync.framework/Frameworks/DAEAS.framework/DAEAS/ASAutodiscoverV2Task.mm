@@ -141,41 +141,41 @@
 
 - (void)finishWithError:(id)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (v5 == 79)
   {
     selfCopy = self;
-    v27 = errorCopy;
+    v26 = errorCopy;
     [(NSMutableDictionary *)self->_accountInfo objectForKeyedSubscript:@"WWW-Authenticate"];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v25 = v39 = 0u;
-    v6 = [v25 componentsSeparatedByString:{@", "}];
-    v7 = [v6 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v24 = v38 = 0u;
+    v6 = [v24 componentsSeparatedByString:{@", "}];
+    v7 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (!v7)
     {
-      v28 = 0;
+      v27 = 0;
       v9 = 0;
       goto LABEL_17;
     }
 
     v8 = v7;
-    v28 = 0;
+    v27 = 0;
     v9 = 0;
-    v10 = *v37;
+    v10 = *v36;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * i);
+        v12 = *(*(&v35 + 1) + 8 * i);
         whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
         v14 = [v12 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -200,49 +200,47 @@
           v16 = [v19 objectAtIndexedSubscript:1];
 
           v20 = [v16 stringByReplacingOccurrencesOfString:@"" withString:&stru_285D39BD0];
-          v18 = v28;
-          v28 = v20;
+          v18 = v27;
+          v27 = v20;
         }
 
 LABEL_12:
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (!v8)
       {
 LABEL_17:
 
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __40__ASAutodiscoverV2Task_finishWithError___block_invoke;
-        v32[3] = &unk_278FC7E48;
-        errorCopy = v27;
-        v32[4] = selfCopy;
-        v33 = v9;
-        v34 = v28;
-        v35 = v27;
-        v22 = v28;
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __40__ASAutodiscoverV2Task_finishWithError___block_invoke;
+        v31[3] = &unk_278FC7E48;
+        errorCopy = v26;
+        v31[4] = selfCopy;
+        v32 = v9;
+        v33 = v27;
+        v34 = v26;
+        v22 = v27;
         v23 = v9;
-        [(ASTask *)selfCopy finishWithError:v35 afterDelegateCallout:v32];
+        [(ASTask *)selfCopy finishWithError:v34 afterDelegateCallout:v31];
 
-        v21 = v25;
+        v21 = v24;
         goto LABEL_18;
       }
     }
   }
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __40__ASAutodiscoverV2Task_finishWithError___block_invoke_2;
-  v29[3] = &unk_278FC7B68;
-  v29[4] = self;
-  v31 = v5;
-  v30 = errorCopy;
-  [(ASTask *)self finishWithError:v30 afterDelegateCallout:v29];
-  v21 = v30;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __40__ASAutodiscoverV2Task_finishWithError___block_invoke_2;
+  v28[3] = &unk_278FC7B68;
+  v28[4] = self;
+  v30 = v5;
+  v29 = errorCopy;
+  [(ASTask *)self finishWithError:v29 afterDelegateCallout:v28];
+  v21 = v29;
 LABEL_18:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __40__ASAutodiscoverV2Task_finishWithError___block_invoke(void *a1)

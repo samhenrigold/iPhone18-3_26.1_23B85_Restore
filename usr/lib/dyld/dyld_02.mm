@@ -1,100 +1,3 @@
-uint64_t mach_msg_destroy_port(uint64_t name, int a2)
-{
-  if ((name - 1) > 0xFFFFFFFD)
-  {
-    return name;
-  }
-
-  v2 = name;
-  if (a2 > 19)
-  {
-    if (a2 == 20)
-    {
-      v8 = mach_task_self_;
-      if (_kernelrpc_mach_port_insert_right_trap(mach_task_self_, name, name, 0x14u) == 268435459)
-      {
-        LODWORD(v12) = 1;
-        HIDWORD(v12) = v2;
-        v13 = 0x14000000000000;
-        v14 = 0x100000000;
-        v15 = v2;
-        reply_port = mig_get_reply_port();
-        *&v11.msgh_bits = 0x3480001513;
-        *&v11.msgh_remote_port = __PAIR64__(reply_port, v8);
-        *&v11.msgh_voucher_port = 0xC8E00000000;
-        v10 = mach_msg2_internal(&v11, 0x200000003, 0x3480001513, __PAIR64__(reply_port, v8), 0xC8E00000000, ((reply_port << 32) | 1), &stru_20.segname[4], 0);
-        if ((v10 - 268435458) > 0xE || ((1 << (v10 - 2)) & 0x4003) == 0)
-        {
-          if (v10)
-          {
-            mig_dealloc_reply_port(v11.msgh_local_port);
-          }
-
-          else if (v11.msgh_id != 3314 || (v11.msgh_bits & 0x80000000) != 0 || v11.msgh_size != 36 || v11.msgh_remote_port || v13)
-          {
-            mach_msg_destroy(&v11);
-          }
-        }
-      }
-
-      v3 = mach_task_self_;
-      goto LABEL_37;
-    }
-
-    if (a2 == 21)
-    {
-      v4 = mach_task_self_;
-      v14 = 0;
-      v12 = 0x100000000;
-      v13 = name | 0x1500000000;
-      v5 = mig_get_reply_port();
-      *&v11.msgh_bits = 0x2800001513;
-      *&v11.msgh_remote_port = __PAIR64__(v5, v4);
-      *&v11.msgh_voucher_port = 0xC8F00000000;
-      v6 = mach_msg2_internal(&v11, 0x200000003, 0x2800001513, __PAIR64__(v5, v4), 0xC8F00000000, (v5 << 32), &stru_20.segname[8], 0);
-      if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
-      {
-        if (v6)
-        {
-          mig_dealloc_reply_port(v11.msgh_local_port);
-        }
-
-        else if (v11.msgh_id == 3315 && (v11.msgh_bits & 0x80000000) != 0 && v12 == 1 && v11.msgh_size == 40 && !v11.msgh_remote_port && !HIBYTE(HIDWORD(v13)))
-        {
-          v2 = HIDWORD(v12);
-        }
-
-        else
-        {
-          mach_msg_destroy(&v11);
-        }
-      }
-
-      return mach_port_deallocate(mach_task_self_, v2);
-    }
-  }
-
-  else
-  {
-    if ((a2 - 17) < 2)
-    {
-      v3 = mach_task_self_;
-LABEL_37:
-
-      return mach_port_deallocate(v3, v2);
-    }
-
-    if (a2 == 16)
-    {
-      v7 = mach_task_self_;
-
-      return mach_port_mod_refs(v7, v2, 1u, -1);
-    }
-  }
-
-  return name;
-}
-
 mach_port_t mig_get_reply_port(void)
 {
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
@@ -131,7 +34,7 @@ double dyld4::RuntimeLocks::RuntimeLocks(dyld4::RuntimeLocks *this)
   return result;
 }
 
-void (*dyld4::start(dyld4::KernelArgs *,void *,void *)::$_1::operator()(uint64_t a1))(dyld4 *this, int a2, const char *const *a3, const char *const *a4, const char *const *a5)
+void (*dyld4::start(dyld4::KernelArgs *,void *,void *)::$_1::operator()(uint64_t a1))(dyld4 *__hidden this, int, const char *const *, const char *const *, const char *const *)
 {
   lsl::Allocator::setBestFit(*a1, 1);
   v2 = lsl::Allocator::aligned_alloc(*a1, 0x10uLL, 0x2F0uLL);
@@ -199,7 +102,7 @@ dyld4::ProcessConfig::Process *dyld4::ProcessConfig::Process::Process(dyld4::Pro
   }
 
   *(this + 15) = &dword_0;
-  dyld4::ProcessConfig::Process::getMainPlatform(this, &v35);
+  dyld4::ProcessConfig::Process::getMainPlatform(&v35, this);
   *(this + 12) = v35;
   *(this + 26) = v36;
   *(this + 205) = 0;
@@ -457,7 +360,7 @@ uint64_t mach_o::PlatformInfo::yearForMajorVersion(uint64_t a1, unsigned int a2,
   return result;
 }
 
-vm_address_t *sandbox_operation_fixup(vm_address_t **a1)
+const char *sandbox_operation_fixup(const char **a1)
 {
   result = *a1;
   if (result)
@@ -465,7 +368,7 @@ vm_address_t *sandbox_operation_fixup(vm_address_t **a1)
     result = _platform_strcmp(result, "iokit-open");
     if (!result)
     {
-      result = sandbox_warn("sandbox operation %s is obsolete; replace with %s", v3, v4, v5, v6, v7, v8, v9, "iokit-open");
+      result = sandbox_warn("sandbox operation %s is obsolete; replace with %s", "iokit-open", "iokit-open-user-client");
       *a1 = "iokit-open-user-client";
     }
   }
@@ -751,7 +654,7 @@ dyld4::ProcessConfig::Security *dyld4::ProcessConfig::Security::Security(dyld4::
   return this;
 }
 
-void *dyld3::kdebug_trace_dyld_duration_start(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+void *dyld3::kdebug_trace_dyld_duration_start(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   v11 = a4;
   v13 = a2;
@@ -875,70 +778,70 @@ uint64_t lsl::Allocator::owned(lsl::Allocator *this, unint64_t a2, uint64_t a3)
 
 uint64_t dyld4::ExternallyViewableState::triggerNotifications(dyld4::ExternallyViewableState *this, uint64_t a2, uint64_t a3, const dyld_image_info *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
 {
-  v32 = 520552496;
+  LODWORD(v31) = 520552496;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v39 = 0;
-  dyld3::ScopedTimer::startTimer(&v32, a2, a3, a4, a5, a6, a7, a8);
+  v38 = 0;
+  dyld3::ScopedTimer::startTimer(&v31, a2, a3, a4, a5, a6, a7, a8);
   (*(*(this + 4) + 16))(a2, a3, a4);
-  v12 = dyld4::RemoteNotificationResponder::RemoteNotificationResponder(v31, *(*(this + 4) + 200));
+  v12 = dyld4::RemoteNotificationResponder::RemoteNotificationResponder(v30, *(*(this + 4) + 200));
   if (dyld4::RemoteNotificationResponder::active(v12))
   {
-    v13 = dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(v31, 0);
-    __chkstk_darwin(v13);
-    memset(v22, 0, sizeof(v22));
-    v14 = __stackAllocatorInternal(v22);
-    v27 = v14;
+    dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(v30, 0);
+    __chkstk_darwin();
+    memset(v21, 0, sizeof(v21));
+    v13 = __stackAllocatorInternal(v21);
+    v26 = v13;
+    v27 = 0;
     v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v23 = v14;
-    v24 = 0;
-    v15 = a3;
-    v26 = 0;
+    v22 = v13;
+    v23 = 0;
+    v14 = a3;
     v25 = 0;
-    lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(&v27, a3);
-    lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(&v23, a3);
+    v24 = 0;
+    lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(&v26, a3);
+    lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(&v22, a3);
     if (a3)
     {
       p_imageFilePath = &a4->imageFilePath;
       do
       {
-        lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(&v27, v29 + 1);
-        v17 = *(p_imageFilePath - 1);
-        v18 = v29++;
-        v28[v18] = v17;
-        lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(&v23, v25 + 1);
-        v19 = *p_imageFilePath;
+        lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(&v26, v28 + 1);
+        v16 = *(p_imageFilePath - 1);
+        v17 = v28++;
+        v27[v17] = v16;
+        lsl::Vector<dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>>::reserve(&v22, v24 + 1);
+        v18 = *p_imageFilePath;
         p_imageFilePath += 3;
-        v20 = v25++;
-        v24[v20] = v19;
-        --v15;
+        v19 = v24++;
+        v23[v19] = v18;
+        --v14;
       }
 
-      while (v15);
+      while (v14);
     }
 
-    dyld4::RemoteNotificationResponder::notifyMonitorOfImageListChanges(v31, a2 == 1, a3, v28, v24, *(this + 3));
-    if (v24)
+    dyld4::RemoteNotificationResponder::notifyMonitorOfImageListChanges(v30, a2 == 1, a3, v27, v23, *(this + 3));
+    if (v23)
     {
-      lsl::Vector<char const*>::resize(&v23, 0);
+      lsl::Vector<char const*>::resize(&v22, 0);
     }
 
-    if (v28)
+    if (v27)
     {
-      lsl::Vector<char const*>::resize(&v27, 0);
+      lsl::Vector<char const*>::resize(&v26, 0);
     }
 
-    lsl::Allocator::~Allocator(v14);
+    lsl::Allocator::~Allocator(v13);
   }
 
-  dyld4::RemoteNotificationResponder::~RemoteNotificationResponder(v31);
-  return dyld3::ScopedTimer::endTimer(&v32);
+  dyld4::RemoteNotificationResponder::~RemoteNotificationResponder(v30);
+  return dyld3::ScopedTimer::endTimer(&v31);
 }
 
 dyld4::ProcessConfig::Process *dyld4::ProcessConfig::Process::getMainFileID(const char ***this)
@@ -1034,7 +937,7 @@ uint64_t dyld4::ProcessConfig::Process::fileIDFromFileHexStrings(dyld4::ProcessC
   return result;
 }
 
-uint64_t anonymous namespace::quickSort<PropertyList::String **>(uint64_t result, uint64_t *a2)
+uint64_t *anonymous namespace::quickSort<PropertyList::String **>(uint64_t *result, uint64_t *a2)
 {
   if (result != a2)
   {
@@ -1055,8 +958,7 @@ uint64_t anonymous namespace::quickSort<PropertyList::String **>(uint64_t result
             break;
           }
 
-          v6 += 8;
-          if (v6 == v5)
+          if (++v6 == v5)
           {
             goto LABEL_13;
           }
@@ -1074,8 +976,7 @@ uint64_t anonymous namespace::quickSort<PropertyList::String **>(uint64_t result
         }
 
         while ((_platform_strcmp(*(*v5 + 16), v7) & 0x80000000) == 0);
-        *v6 = v9;
-        v6 += 8;
+        *v6++ = v9;
         *v5 = v8;
         if (v5 != v6)
         {
@@ -1110,8 +1011,7 @@ LABEL_13:
 
           do
           {
-            v10 -= 8;
-            if (v10 == v11)
+            if (--v10 == v11)
             {
               v10 = v11;
               goto LABEL_24;
@@ -1457,7 +1357,8 @@ char *anonymous namespace::quickSort<PropertyList::Integer **>(char *result, cha
             break;
           }
 
-          if (++v5 == v4)
+          v5 += 8;
+          if (v5 == v4)
           {
             goto LABEL_11;
           }
@@ -1465,7 +1366,8 @@ char *anonymous namespace::quickSort<PropertyList::Integer **>(char *result, cha
 
         do
         {
-          if (--v4 == v5)
+          v4 -= 8;
+          if (v4 == v5)
           {
             v4 = v5;
             goto LABEL_11;
@@ -1473,7 +1375,8 @@ char *anonymous namespace::quickSort<PropertyList::Integer **>(char *result, cha
         }
 
         while (*(*v4 + 16) >= v3);
-        *v5++ = *v4;
+        *v5 = *v4;
+        v5 += 8;
         *v4 = v6;
         if (v4 != v5)
         {
@@ -1500,7 +1403,8 @@ LABEL_11:
               break;
             }
 
-            if (++v9 == v7)
+            v9 += 8;
+            if (v9 == v7)
             {
               goto LABEL_22;
             }
@@ -1508,7 +1412,8 @@ LABEL_11:
 
           do
           {
-            if (--v7 == v9)
+            v7 -= 8;
+            if (v7 == v9)
             {
               v7 = v9;
               goto LABEL_22;
@@ -1517,9 +1422,9 @@ LABEL_11:
 
           while (v3 < *(*v7 + 16));
           *v9 = *v7;
-          v8 = v9 + 1;
+          v8 = v9 + 8;
           *v7 = v10;
-          if (v7 != v9 + 1)
+          if (v7 != v9 + 8)
           {
             continue;
           }
@@ -1527,7 +1432,7 @@ LABEL_11:
           break;
         }
 
-        v7 = v9 + 1;
+        v7 = v9 + 8;
       }
 
 LABEL_22:
@@ -1619,17 +1524,16 @@ uint64_t PropertyList::Array::emit(PropertyList::Array *this, int a2, ByteStream
 uint64_t dyld4::ExternallyViewableState::activateAtlas(dyld4::ExternallyViewableState *this, lsl::Allocator *a2, ByteStream *a3)
 {
   _X0 = *(a3 + 1);
-  v7 = *(a3 + 2);
-  v8 = *(this + 4);
-  _X20 = *(v8 + 304);
-  v10 = _X20;
+  v7 = *(this + 4);
+  _X20 = *(v7 + 304);
+  v9 = _X20;
   do
   {
-    _X5 = *(v8 + 312);
+    _X5 = *(v7 + 312);
     __asm { CASP            X4, X5, X0, X1, [X8] }
 
-    _ZF = _X4 == v10;
-    v10 = _X4;
+    _ZF = _X4 == v9;
+    v9 = _X4;
   }
 
   while (!_ZF);
@@ -1638,33 +1542,32 @@ uint64_t dyld4::ExternallyViewableState::activateAtlas(dyld4::ExternallyViewable
     goto LABEL_9;
   }
 
-  v18 = lsl::Allocator::size(_X20, v17);
-  v19 = *(a3 + 2);
-  if (v18 >= v19)
+  v17 = lsl::Allocator::size(_X20, v16);
+  v18 = *(a3 + 2);
+  if (v17 >= v18)
   {
     goto LABEL_11;
   }
 
-  if (!lsl::Allocator::realloc(a2, _X20, v19))
+  if (!lsl::Allocator::realloc(a2, _X20, v18))
   {
     lsl::Allocator::free(a2, _X20);
 LABEL_9:
     _X20 = lsl::Allocator::malloc(a2, *(a3 + 2));
   }
 
-  v19 = *(a3 + 2);
+  v18 = *(a3 + 2);
 LABEL_11:
-  if (v19)
+  if (v18)
   {
-    memmove(_X20, *(a3 + 1), v19);
-    v20 = *(a3 + 2);
+    memmove(_X20, *(a3 + 1), v18);
   }
 
-  v21 = *(this + 4);
-  result = *(v21 + 304);
+  v19 = *(this + 4);
+  result = *(v19 + 304);
   do
   {
-    _X3 = *(v21 + 312);
+    _X3 = *(v19 + 312);
     __asm { CASP            X2, X3, X20, X21, [X8] }
 
     _ZF = _X2 == result;
@@ -1848,16 +1751,16 @@ char *__cdecl strrchr(char *__s, int __c)
   return result;
 }
 
-uint64_t dyld4::ProcessConfig::Process::getMainPlatform@<X0>(dyld4::ProcessConfig::Process *this@<X0>, _DWORD *a2@<X8>)
+uint64_t *dyld4::ProcessConfig::Process::getMainPlatform@<X0>(uint64_t *__return_ptr a1@<X8>, dyld4::ProcessConfig::Process *this@<X0>)
 {
-  mach_o::Header::platformAndVersions(*(this + 1), &v24);
+  mach_o::Header::platformAndVersions(&v24, *(this + 1));
   v4 = v26;
   *(this + 16) = v27;
   v5 = v25;
   *(this + 18) = v4;
   v6 = v24;
-  *a2 = v24;
-  a2[2] = v5;
+  *a1 = v24;
+  *(a1 + 2) = v5;
   if (v6 != &mach_o::PlatformInfo_macOS::singleton || v5 != 0)
   {
     goto LABEL_24;
@@ -1889,8 +1792,8 @@ uint64_t dyld4::ProcessConfig::Process::getMainPlatform@<X0>(dyld4::ProcessConfi
     {
       v12 = &mach_o::Platform::iOS;
 LABEL_13:
-      *a2 = *v12;
-      a2[2] = *(v12 + 2);
+      *a1 = *v12;
+      *(a1 + 2) = *(v12 + 2);
     }
   }
 
@@ -1922,7 +1825,7 @@ LABEL_19:
 
   *(this + 18) = *v15;
 LABEL_24:
-  v17 = mach_o::Platform::basePlatform(a2, &v22);
+  v17 = mach_o::Platform::basePlatform(a1, &v22);
   v18 = v22;
   *(this + 10) = v22;
   v19 = v23;
@@ -2022,13 +1925,9 @@ const char *dyld4::ProcessConfig::Process::defaultTproStack(dyld4::ProcessConfig
   result = _simple_getenv(*(this + 22), "dyld_hw_tpro");
   if (result)
   {
-    mach_o::Header::platformAndVersions(*(this + 1), &v8);
-    v6 = 0;
-    v3 = v8;
-    v4 = v9;
-    v5 = v10;
-    mach_o::Policy::Policy(v7, &v6, &v3, 0, 0, 0, 0);
-    return mach_o::Policy::useProtectedStack(v7);
+    mach_o::Header::platformAndVersions(&v4, *(this + 1));
+    mach_o::Policy::Policy();
+    return mach_o::Policy::useProtectedStack(v3);
   }
 
   return result;
@@ -2074,7 +1973,7 @@ uint64_t mach_o::Policy::Policy(uint64_t a1, void *a2, uint64_t a3, int a4, char
   return a1;
 }
 
-uint64_t sandbox_check(int a1, vm_address_t *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t sandbox_check(int a1, const char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   v28 = a2;
   sandbox_operation_fixup(&v28);
@@ -2349,7 +2248,7 @@ LABEL_45:
 
 dyld4::ProcessConfig::DyldCache *dyld4::ProcessConfig::DyldCache::DyldCache(dyld4::ProcessConfig::DyldCache *this, dyld4::ProcessConfig::Process *a2, const dyld4::ProcessConfig::Security *a3, const dyld4::ProcessConfig::Logging *a4, dyld4::SyscallDelegate *a5, lsl::Allocator *a6, const dyld4::ProcessConfig *a7)
 {
-  v44 = a6;
+  v37 = a6;
   bzero(this + 8, 0x10uLL);
   *(this + 11) = 0;
   *(this + 12) = 0;
@@ -2358,7 +2257,7 @@ dyld4::ProcessConfig::DyldCache *dyld4::ProcessConfig::DyldCache::DyldCache(dyld
   *(this + 16) = 0;
   *(this + 38) = 0;
   v13 = *(a2 + 18);
-  dyld4::CacheFinder::CacheFinder(v64, a2, a4, a5);
+  dyld4::CacheFinder::CacheFinder(v57, a2, a4, a5);
   if (*(a2 + 50) == 1)
   {
     if (*(a3 + 1) == 1)
@@ -2380,27 +2279,27 @@ dyld4::ProcessConfig::DyldCache *dyld4::ProcessConfig::DyldCache::DyldCache(dyld
   }
 
   v15 = _simple_getenv(*(a2 + 21), "DYLD_SHARED_REGION");
-  v50 = v64[0];
+  v43 = v57[0];
   v16 = *(a2 + 53) >= 2 && !dyld4::SyscallDelegate::sandboxBlockedPageInLinking(a5);
   v17 = 0;
-  v60 = v16;
+  v53 = v16;
   if (*(a3 + 20) == 1 && v15)
   {
     v17 = _platform_strcmp(v15, "private") == 0;
   }
 
-  v51 = v17;
-  v53 = *(a4 + 1);
-  v52 = dyld4::PrebuiltLoader::hiddenFromFlat(a5);
-  v54 = 0;
-  v55 = *(a2 + 206);
-  v56 = _simple_getenv(*(a2 + 22), "dyld_hw_tpro_pagers") != 0;
-  v57 = v13 & 1;
-  v58 = v14;
-  v59 = *(a2 + 204);
-  v61 = *(a2 + 12);
-  v62 = *(a2 + 26);
-  v63 = a7;
+  v44 = v17;
+  v46 = *(a4 + 1);
+  v45 = dyld4::PrebuiltLoader::hiddenFromFlat(a5);
+  v47 = 0;
+  v48 = *(a2 + 206);
+  v49 = _simple_getenv(*(a2 + 22), "dyld_hw_tpro_pagers") != 0;
+  v50 = v13 & 1;
+  v51 = v14;
+  v52 = *(a2 + 204);
+  v54 = *(a2 + 12);
+  v55 = *(a2 + 26);
+  v56 = a7;
   *this = 0;
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -2417,23 +2316,23 @@ dyld4::ProcessConfig::DyldCache *dyld4::ProcessConfig::DyldCache::DyldCache(dyld
   *(this + 15) = 0;
   *(this + 13) = 0;
   *(this + 20) = 0;
-  v45 = 0;
-  v46 = 0;
-  v48 = 0;
-  v47 = 0;
-  bzero(&v49, 0x10uLL);
-  DyldCache = dyld4::SyscallDelegate::getDyldCache(a5, &v50, &v45, v19, v20, v21, v22, v23);
-  v32 = v45;
-  if (v45)
+  v38 = 0;
+  v39 = 0;
+  v41 = 0;
+  v40 = 0;
+  bzero(&v42, 0x10uLL);
+  DyldCache = dyld4::SyscallDelegate::getDyldCache(a5, &v43, &v38, v19, v20, v21, v22, v23);
+  v26 = v38;
+  if (v38)
   {
     *(this + 171) = *(a3 + 26);
-    *(this + 8) = v49;
-    *this = v32;
-    v33 = HIBYTE(v48);
-    *(this + 168) = HIBYTE(v48);
-    *(this + 169) = *(v32 + 221) & 1;
-    *(this + 172) = (*(a3 + 1) | v33 | *(a3 + 25)) & 1;
-    *(this + 3) = v46;
+    *(this + 8) = v42;
+    *this = v26;
+    v27 = HIBYTE(v41);
+    *(this + 168) = HIBYTE(v41);
+    *(this + 169) = *(*&v26 + 221) & 1;
+    *(this + 172) = (*(a3 + 1) | v27 | *(a3 + 25)) & 1;
+    *(this + 3) = v39;
     dyld4::ProcessConfig::DyldCache::setPlatformOSVersion(this, a2);
     *(this + 4) = DyldSharedCache::unslidLoadAddress(*this);
     *(this + 6) = DyldSharedCache::objcHeaderInfoRO(*this);
@@ -2444,32 +2343,32 @@ dyld4::ProcessConfig::DyldCache *dyld4::ProcessConfig::DyldCache::DyldCache(dyld
     *(this + 13) = DyldSharedCache::swiftOpt(*this);
     *(this + 41) = DyldSharedCache::imagesCount(*this);
     *(this + 14) = 0;
-    v34 = *(this + 6);
-    v35 = *this;
-    if (v34)
+    v28 = *(this + 6);
+    v29 = *this;
+    if (v28)
     {
-      *(this + 14) = v34 - v35 + *(this + 4);
+      *(this + 14) = v28 - v29 + *(this + 4);
     }
 
     *(this + 15) = 0;
-    v36 = DyldSharedCache::patchTable(v35);
-    v37 = *(*this + 152);
-    *(this + 16) = v36;
-    *(this + 17) = v37;
-    v38 = lsl::MemoryManager::memoryManager(v36);
-    lsl::MemoryManager::setDyldCacheAddr(v38, *this);
-    if ((v55 & 1) == 0)
+    v30 = DyldSharedCache::patchTable(v29);
+    v31 = *(*this + 152);
+    *(this + 16) = v30;
+    *(this + 17) = v31;
+    v32 = lsl::MemoryManager::memoryManager(v30);
+    lsl::MemoryManager::setDyldCacheAddr(v32, *this);
+    if ((v48 & 1) == 0)
     {
-      v39 = *this;
+      v33 = *this;
       *__s = _NSConcreteStackBlock;
-      v67 = 0x40000000;
-      v68 = ___ZNK5dyld413ProcessConfig9DyldCache21makeDataConstWritableERKNS0_7LoggingERKNS_15SyscallDelegateEb_block_invoke;
-      v69 = &__block_descriptor_tmp_82;
-      v70 = this;
-      v71 = a4;
-      v73 = 19;
-      v72 = a5;
-      DyldSharedCache::forEachCache(v39, __s);
+      v60 = 0x40000000;
+      v61 = ___ZNK5dyld413ProcessConfig9DyldCache21makeDataConstWritableERKNS0_7LoggingERKNS_15SyscallDelegateEb_block_invoke;
+      v62 = &__block_descriptor_tmp_82;
+      v63 = this;
+      v64 = a4;
+      v66 = 19;
+      v65 = a5;
+      DyldSharedCache::forEachCache(v33, __s);
     }
 
     if ((*(this + 168) & 1) == 0)
@@ -2477,48 +2376,47 @@ dyld4::ProcessConfig::DyldCache *dyld4::ProcessConfig::DyldCache::DyldCache(dyld
       *(this + 208) = 0;
     }
 
-    if (FileIdTuple::operator BOOL(&v49))
+    if (FileIdTuple::operator BOOL(&v42))
     {
-      DyldCache = FileIdTuple::getPath(&v49, __s);
+      DyldCache = FileIdTuple::getPath(&v42, __s);
       if (DyldCache)
       {
-        DyldCache = lsl::Allocator::strdup(v44, __s);
+        DyldCache = lsl::Allocator::strdup(v37, __s);
         *v18 = DyldCache;
       }
 
       goto LABEL_27;
     }
 
-    v43 = "dyld shared region dynamic config data was not set\n";
+    v36 = "dyld shared region dynamic config data was not set\n";
 LABEL_34:
-    dyld4::halt(v43, 0);
+    dyld4::halt(v36, 0);
   }
 
-  if (v48 == 1)
+  if (v41 == 1)
   {
-    DyldCache = dyld4::console("dyld cache '%s' not loaded: %s\n", v25, *v18, v47, v44);
+    DyldCache = dyld4::console("dyld cache '%s' not loaded: %s\n", v25, *v18, v40, v37);
   }
 
   if (v15)
   {
     DyldCache = _platform_strcmp(v15, "private");
-    if (!DyldCache && (v48 & 1) == 0)
+    if (!DyldCache && (v41 & 1) == 0)
     {
-      v43 = "dyld private shared cache could not be found\n";
+      v36 = "dyld private shared cache could not be found\n";
       goto LABEL_34;
     }
   }
 
 LABEL_27:
-  v40 = v65;
-  if (v65 != -1)
+  if (v58 != -1)
   {
-    DyldCache = dyld4::SyscallDelegate::getpath(a5, v65, __s);
+    DyldCache = dyld4::SyscallDelegate::getpath(a5, v58, __s);
     if (DyldCache)
     {
-      v41 = lsl::Allocator::strdup(v44, __s);
-      DyldCache = _platform_strlen(v41);
-      *(this + 11) = v41;
+      v34 = lsl::Allocator::strdup(v37, __s);
+      DyldCache = _platform_strlen(v34);
+      *(this + 11) = v34;
       *(this + 12) = DyldCache;
     }
   }
@@ -2528,7 +2426,7 @@ LABEL_27:
     dyld4::ProcessConfig::DyldCache::setupDyldCommPage(DyldCache, a2, a3, a5);
   }
 
-  dyld4::CacheFinder::~CacheFinder(v64, v40, v26, v27, v28, v29, v30, v31);
+  dyld4::CacheFinder::~CacheFinder(v57);
   return this;
 }
 
@@ -2706,40 +2604,40 @@ LABEL_35:
   return this;
 }
 
-uint64_t ignite(unsigned int *a1, _DWORD *a2)
+const char **ignite(uint64_t a1, _DWORD *a2)
 {
-  v192 = 0xFFFFFFFFLL;
-  memset(v191, 0, sizeof(v191));
-  LODWORD(v191[0]) = 1;
-  v190 = 0;
-  bzero(v189, 0x800uLL);
-  v188 = 2048;
-  v194 = 1;
-  v193 = 2;
+  v41 = 0xFFFFFFFFLL;
+  memset(v40, 0, sizeof(v40));
+  LODWORD(v40[0]) = 1;
+  v39 = 0;
+  bzero(v38, 0x800uLL);
+  v37 = 2048;
+  v43 = 1;
+  v42 = 2;
   if (getpid() == 1)
   {
-    v11 = _open_as(0x20000, &v194 + 1);
-    if (v11)
+    v4 = _open_as(0x20000, &v43 + 1);
+    if (v4)
     {
-      v160 = v11;
-      v161 = boot_get();
-      ignition_halt((*v161)[1], v160, (*v161)[2], "failed to reserve stdin descriptor: %s: %d", v162, v163, v164, v165, "/dev/null");
+      v26 = v4;
+      v27 = boot_get();
+      ignition_halt((*v27)[1], v26, (*v27)[2], "failed to reserve stdin descriptor: %s: %d");
     }
 
-    v12 = _open_as(131073, &v194);
-    if (v12)
+    v5 = _open_as(131073, &v43);
+    if (v5)
     {
-      v166 = v12;
-      v167 = boot_get();
-      ignition_halt((*v167)[1], v166, (*v167)[2], "failed to reserve stdout descriptor: %s: %d", v168, v169, v170, v171, "/dev/null");
+      v28 = v5;
+      v29 = boot_get();
+      ignition_halt((*v29)[1], v28, (*v29)[2], "failed to reserve stdout descriptor: %s: %d");
     }
 
-    v13 = _open_as(131074, &v193);
-    if (v13)
+    v6 = _open_as(131074, &v42);
+    if (v6)
     {
-      v172 = v13;
-      v173 = boot_get();
-      ignition_halt((*v173)[1], v172, (*v173)[2], "failed to reserve stderr descriptor: %s: %d", v174, v175, v176, v177, "/dev/null");
+      v30 = v6;
+      v31 = boot_get();
+      ignition_halt((*v31)[1], v30, (*v31)[2], "failed to reserve stderr descriptor: %s: %d");
     }
   }
 
@@ -2747,111 +2645,112 @@ uint64_t ignite(unsigned int *a1, _DWORD *a2)
   {
     if (*a1 != 1)
     {
-      dyld_halt("unsupported parameter struct version: 0x%x", v4, v5, v6, v7, v8, v9, v10, *a1);
+      dyld_halt("unsupported parameter struct version: 0x%x", *a1);
     }
 
-    HIDWORD(v192) = a1[9];
+    HIDWORD(v41) = *(a1 + 36);
   }
 
-  v14 = a1[1];
-  LODWORD(v191[0]) = 1;
-  DWORD1(v191[0]) = v14;
-  *(v191 + 8) = *(a1 + 2);
-  *(&v191[1] + 1) = *(a1 + 3);
-  LODWORD(v192) = a1[8];
-  log_init(v191);
-  dlog(-1, "%s\n", v15, v16, v17, v18, v19, v20, __darwin_version_string[0]);
-  v21 = sysctlbyname("kern.bootargs", v189, &v188, 0, 0);
-  v22 = __error();
-  if (v21 < 0)
+  v7 = *(a1 + 4);
+  LODWORD(v40[0]) = 1;
+  DWORD1(v40[0]) = v7;
+  *(v40 + 8) = *(a1 + 8);
+  *(&v40[1] + 1) = *(a1 + 24);
+  LODWORD(v41) = *(a1 + 32);
+  log_init(v40);
+  dlog(0xFFFFFFFFLL, "%s\n", __darwin_version_string[0]);
+  v8 = sysctlbyname("kern.bootargs", v38, &v37, 0, 0);
+  v9 = __error();
+  if (v8 < 0)
   {
-    if (!*v22)
+    if (!*v9)
     {
-      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v23, v24, v25, v26, v27, v28, v29, "ret");
+      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", "ret", v8);
     }
   }
 
   else
   {
-    *v22 = 0;
+    *v9 = 0;
   }
 
-  v37 = *__error();
-  if (v37 > 11)
+  v10 = *__error();
+  if (v10 > 11)
   {
-    if (v37 != 22)
+    if (v10 != 22)
     {
-      if (v37 != 12)
+      if (v10 != 12)
       {
         goto LABEL_32;
       }
 
-      v38 = getpid();
-      v187 = *__error();
-      dlog(-1, "libignition: %d: boot-arg buff not large enough: actual = %lu, expected >= %lu: %d\n", v39, v40, v41, v42, v43, v44, v38);
+      v11 = getpid();
+      v12 = v37;
+      v13 = __error();
+      dlog(0xFFFFFFFFLL, "libignition: %d: boot-arg buff not large enough: actual = %lu, expected >= %lu: %d\n", v11, v12, 2048, *v13);
     }
 
     goto LABEL_18;
   }
 
-  if ((v37 - 1) < 2)
+  if ((v10 - 1) < 2)
   {
 LABEL_18:
-    v189[0] = 0;
+    v38[0] = 0;
     goto LABEL_19;
   }
 
-  if (v37)
+  if (v10)
   {
 LABEL_32:
-    v178 = boot_get();
-    v179 = (*v178)[1];
-    v180 = (*v178)[2];
-    v181 = *__error();
-    v182 = __error();
-    ignition_halt(v179, v181, v180, "failed to read boot args: %d", v183, v184, v185, v186, *v182);
+    v32 = boot_get();
+    v33 = (*v32)[1];
+    v34 = (*v32)[2];
+    v35 = *__error();
+    v36 = __error();
+    ignition_halt(v33, v35, v34, "failed to read boot args: %d", *v36);
   }
 
 LABEL_19:
-  v45 = arguments_init(v189, v30, v31, v32, v33, v34, v35, v36);
-  v53 = arguments(v45, v46, v47, v48, v49, v50, v51, v52);
-  arguments_dump(v53);
-  v54 = configuration_init(v191, v189);
-  v62 = configuration(v54, v55, v56, v57, v58, v59, v60, v61);
-  configuration_dump(v62);
+  arguments_init(v38);
+  v14 = arguments();
+  arguments_dump(v14);
+  configuration_init(v40, v38);
+  v15 = configuration();
+  configuration_dump(v15);
   if (getpid() == 1)
   {
-    v63 = getpid();
-    dlog(-1, "libignition: %d: %s   :\n", v64, v65, v66, v67, v68, v69, v63);
-    v70 = getpid();
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v71, v72, v73, v74, v75, v76, v70);
-    v77 = getpid();
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v78, v79, v80, v81, v82, v83, v77);
-    v84 = getpid();
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v85, v86, v87, v88, v89, v90, v84);
-    v91 = getpid();
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v92, v93, v94, v95, v96, v97, v91);
+    v16 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %s   :\n", v16, "parameters       ");
+    v17 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v17, "version          ", LODWORD(v40[0]));
+    v18 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v18, "argc             ", SDWORD1(v40[0]));
+    v19 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v19, "log fd           ", v41);
+    v20 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v20, "platform         ", HIDWORD(v41));
   }
 
-  v98 = boot_select_spec(v62);
-  boot_dump_spec(v98);
-  v106 = boot_init(v98, v99, v100, v101, v102, v103, v104, v105);
-  v190 = v106;
-  v119 = boot_boot(v106, v107, v108, v109, v110, v111, v112, v113);
-  if (v119)
+  v21 = boot_select_spec(v15);
+  boot_dump_spec(v21);
+  v22 = boot_init(v21);
+  v39 = v22;
+  v23 = boot_boot(v22);
+  if (v23)
   {
-    v120 = getpid();
-    dlog(-1, "libignition: %d: ignition boot failed: %d\n", v121, v122, v123, v124, v125, v126, v120);
+    v24 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: ignition boot failed: %d\n", v24, v23);
   }
 
   else
   {
-    boot_set_payload(v106, &_boot_root_preboot, a2, v114, v115, v116, v117, v118);
-    boot_set_payload(v106, &_boot_root_dylib_cache, a2, v127, v128, v129, v130, v131);
-    boot_set_payload(v106, &_boot_root_xart, a2, v132, v133, v134, v135, v136);
-    boot_set_payload(v106, &_boot_root_cryptex_app, a2, v137, v138, v139, v140, v141);
-    boot_set_payload(v106, &_boot_root_cryptex_os, a2, v142, v143, v144, v145, v146);
-    boot_set_payload(v106, &_boot_root_preboot_groupdir, a2, v147, v148, v149, v150, v151);
+    boot_set_payload(v22, &_boot_root_preboot, a2);
+    boot_set_payload(v22, &_boot_root_dylib_cache, a2);
+    boot_set_payload(v22, &_boot_root_xart, a2);
+    boot_set_payload(v22, &_boot_root_cryptex_app, a2);
+    boot_set_payload(v22, &_boot_root_cryptex_os, a2);
+    boot_set_payload(v22, &_boot_root_preboot_groupdir, a2);
   }
 
   if (getpid() == 1)
@@ -2861,9 +2760,9 @@ LABEL_19:
     close(2);
   }
 
-  boot_destroy(&v190, v152, v153, v154, v155, v156, v157, v158);
+  boot_destroy(&v39);
   log_destroy();
-  return v119;
+  return v23;
 }
 
 uint64_t log_init(uint64_t a1)
@@ -2890,91 +2789,94 @@ int *__error(void)
   }
 }
 
-size_t arguments_init(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+size_t arguments_init(char *a1)
 {
-  v13 = 0;
-  memset(v12, 0, sizeof(v12));
+  v9 = 0;
+  v7 = 0u;
+  v8 = 0u;
+  v5 = 0u;
+  v6 = 0u;
   if (_args)
   {
-    dyld_halt("arguments already initialized", a2, a3, a4, a5, a6, a7, a8, *&v12[0]);
+    dyld_halt("arguments already initialized", v5, v6, v7, v8);
   }
 
-  if (dyld_parse_boot_arg_int(a1, "ignition_level", &v13))
+  if (dyld_parse_boot_arg_int(a1, "ignition_level", &v9))
   {
-    __args = v13;
+    __args = v9;
   }
 
-  if (dyld_parse_boot_arg_cstr(a1, "ignition_force_dylib_root", v12, 0x40uLL))
+  if (dyld_parse_boot_arg_cstr(a1, "ignition_force_dylib_root", &v5, 0x40uLL))
   {
-    if (_platform_strcmp(v12, "none"))
+    if (_platform_strcmp(&v5, "none"))
     {
-      if (_platform_strcmp(v12, "cryptex"))
+      if (_platform_strcmp(&v5, "cryptex"))
       {
-        if (_platform_strcmp(v12, "livefs"))
+        if (_platform_strcmp(&v5, "livefs"))
         {
-          if (_platform_strcmp(v12, "rootfs"))
+          if (_platform_strcmp(&v5, "rootfs"))
           {
             goto LABEL_14;
           }
 
-          v9 = 3;
+          v2 = 3;
         }
 
         else
         {
-          v9 = 2;
+          v2 = 2;
         }
       }
 
       else
       {
-        v9 = 1;
+        v2 = 1;
       }
     }
 
     else
     {
-      v9 = 0;
+      v2 = 0;
     }
 
-    qword_A8138 = v9;
+    qword_A8138 = v2;
   }
 
 LABEL_14:
-  if (!dyld_parse_boot_arg_cstr(a1, "ignition_live_app_graft", v12, 0x40uLL))
+  if (!dyld_parse_boot_arg_cstr(a1, "ignition_live_app_graft", &v5, 0x40uLL))
   {
     goto LABEL_22;
   }
 
-  if (_platform_strcmp(v12, "skip"))
+  if (_platform_strcmp(&v5, "skip"))
   {
-    if (_platform_strcmp(v12, "optional"))
+    if (_platform_strcmp(&v5, "optional"))
     {
-      if (_platform_strcmp(v12, "require"))
+      if (_platform_strcmp(&v5, "require"))
       {
         goto LABEL_22;
       }
 
-      v10 = 2;
+      v3 = 2;
     }
 
     else
     {
-      v10 = 1;
+      v3 = 1;
     }
   }
 
   else
   {
-    v10 = 0;
+    v3 = 0;
   }
 
-  qword_A8140 = v10;
+  qword_A8140 = v3;
 LABEL_22:
-  result = dyld_parse_boot_arg_cstr(a1, "ignition_halt_after", v12, 0x40uLL);
+  result = dyld_parse_boot_arg_cstr(a1, "ignition_halt_after", &v5, 0x40uLL);
   if (result)
   {
-    result = strlcpy(byte_A8150, v12, 0x40uLL);
+    result = strlcpy(byte_A8150, &v5, 0x40uLL);
     qword_A8148 = byte_A8150;
   }
 
@@ -2984,13 +2886,13 @@ LABEL_22:
 
 BOOL configuration_init(uint64_t a1, char *a2)
 {
-  v63 = 0;
-  v62 = 0u;
-  v61 = 0u;
-  v60 = 0u;
+  v33 = 0;
+  v32 = 0u;
+  v31 = 0u;
+  v30 = 0u;
   *__source = 0u;
-  bzero(v58, 0x400uLL);
-  ignition_test_BRA(1);
+  bzero(v28, 0x400uLL);
+  ignition_test_BRA();
   __config = a1;
   v4 = &loc_1B78;
   *(&__config + v4) = getpid() == 1;
@@ -3001,35 +2903,35 @@ BOOL configuration_init(uint64_t a1, char *a2)
     goto LABEL_60;
   }
 
-  v91 = 0;
-  v90 = 0u;
-  v89 = 0u;
-  v88 = 0u;
-  v87 = 0u;
-  v86 = 0u;
-  v85 = 0u;
-  v84 = 0u;
-  v83 = 0u;
-  v82 = 0u;
-  v81 = 0u;
-  v80 = 0u;
-  v79 = 0u;
-  v78 = 0u;
-  v77 = 0u;
-  v76 = 0u;
+  v61 = 0;
+  v60 = 0u;
+  v59 = 0u;
+  v58 = 0u;
+  v57 = 0u;
+  v56 = 0u;
+  v55 = 0u;
+  v54 = 0u;
+  v53 = 0u;
+  v52 = 0u;
+  v51 = 0u;
+  v50 = 0u;
+  v49 = 0u;
+  v48 = 0u;
+  v47 = 0u;
+  v46 = 0u;
   *__s1 = 0u;
-  v74 = 256;
-  v73 = -1431699456;
-  v72 = 0u;
-  v71 = 0u;
-  v70 = 0u;
-  v69 = 0u;
-  v68 = 0u;
-  v67 = 0u;
-  v66 = 0u;
-  v65 = 0u;
-  v64 = 132;
-  v5 = sysctlbyname("security.mac.img4.ignition_blob", &v65, &v64, 0, 0);
+  v44 = 256;
+  v43 = -1431699456;
+  v42 = 0u;
+  v41 = 0u;
+  v40 = 0u;
+  v39 = 0u;
+  v38 = 0u;
+  v37 = 0u;
+  v36 = 0u;
+  v35 = 0u;
+  v34 = 132;
+  v5 = sysctlbyname("security.mac.img4.ignition_blob", &v35, &v34, 0, 0);
   v6 = __error();
   if (v5 < 0)
   {
@@ -3044,43 +2946,42 @@ BOOL configuration_init(uint64_t a1, char *a2)
     *v6 = 0;
   }
 
-  v14 = *__error();
-  if (v14 == 2)
+  v7 = *__error();
+  if (v7 == 2)
   {
-    v15 = getpid();
-    dlog(-1, "libignition: %d: ignition blob not available\n", v16, v17, v18, v19, v20, v21, v15);
+    v8 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: ignition blob not available\n", v8);
   }
 
   else
   {
-    if (v14)
+    if (v7)
     {
-      v50 = *__error();
-      v57 = *__error();
-      v55 = "failed to query ignition blob: %d";
-      goto LABEL_83;
+      v24 = *__error();
+      __error();
+      ignition_halt(&dword_4 + 2, v24, 0x40uLL, "failed to query ignition blob: %d");
     }
 
-    xmmword_ADD78 = v71;
-    unk_ADD88 = v72;
-    dword_ADD98 = v73;
-    xmmword_ADD38 = v67;
-    unk_ADD48 = v68;
-    xmmword_ADD58 = v69;
-    unk_ADD68 = v70;
-    xmmword_ADD18 = v65;
-    unk_ADD28 = v66;
+    xmmword_ADD78 = v41;
+    unk_ADD88 = v42;
+    dword_ADD98 = v43;
+    xmmword_ADD38 = v37;
+    unk_ADD48 = v38;
+    xmmword_ADD58 = v39;
+    unk_ADD68 = v40;
+    xmmword_ADD18 = v35;
+    unk_ADD28 = v36;
     qword_ADDA0 = &xmmword_ADD18;
     qword_ADD08 = &unk_ADD2A;
   }
 
   __s1[0] = 0;
-  v74 = 256;
-  v22 = sysctlbyname("hw.osenvironment", __s1, &v74, 0, 0);
-  v23 = __error();
-  if (v22 < 0)
+  v44 = 256;
+  v5 = sysctlbyname("hw.osenvironment", __s1, &v44, 0, 0);
+  v9 = __error();
+  if (v5 < 0)
   {
-    if (!*v23)
+    if (!*v9)
     {
       goto LABEL_75;
     }
@@ -3088,25 +2989,24 @@ BOOL configuration_init(uint64_t a1, char *a2)
 
   else
   {
-    *v23 = 0;
+    *v9 = 0;
   }
 
-  v24 = *__error();
-  if ((v24 - 1) >= 2 && v24 != 22)
+  v10 = *__error();
+  if ((v10 - 1) >= 2 && v10 != 22)
   {
-    if (v24)
+    if (v10)
     {
-      v50 = *__error();
-      v57 = *__error();
-      v55 = "failed to read os environment: %d";
-      goto LABEL_83;
+      v27 = *__error();
+      __error();
+      ignition_halt(&dword_4 + 2, v27, 0x40uLL, "failed to read os environment: %d");
     }
 
     if (_platform_strcmp(__s1, &unk_91735))
     {
       strlcpy(algn_AC3C0, __s1, 0x40uLL);
       qword_AC388 = algn_AC3C0;
-      v25 = &qword_AC390;
+      v11 = &qword_AC390;
       if (_platform_strcmp(__s1, "kcgen"))
       {
         if (_platform_strcmp(__s1, "fvunlock"))
@@ -3122,45 +3022,45 @@ BOOL configuration_init(uint64_t a1, char *a2)
                   goto LABEL_28;
                 }
 
-                v25 = &qword_AC3B8;
+                v11 = &qword_AC3B8;
               }
 
               else
               {
-                v25 = &qword_AC3B0;
+                v11 = &qword_AC3B0;
               }
             }
 
             else
             {
-              v25 = &qword_AC3A8;
+              v11 = &qword_AC3A8;
             }
           }
 
           else
           {
-            v25 = &qword_AC3A0;
+            v11 = &qword_AC3A0;
           }
         }
 
         else
         {
-          v25 = &qword_AC398;
+          v11 = &qword_AC398;
         }
       }
 
-      *v25 = qword_AC388;
+      *v11 = qword_AC388;
     }
   }
 
 LABEL_28:
   __s1[0] = 0;
-  v74 = 256;
-  v26 = sysctlbyname("hw.target", __s1, &v74, 0, 0);
-  v27 = __error();
-  if (v26 < 0)
+  v44 = 256;
+  v5 = sysctlbyname("hw.target", __s1, &v44, 0, 0);
+  v12 = __error();
+  if (v5 < 0)
   {
-    if (!*v27)
+    if (!*v12)
     {
       goto LABEL_75;
     }
@@ -3168,122 +3068,116 @@ LABEL_28:
 
   else
   {
-    *v27 = 0;
+    *v12 = 0;
   }
 
-  v32 = *__error();
-  if (v32 != 2)
+  v13 = *__error();
+  if (v13 != 2)
   {
-    if (v32 == 1)
+    if (v13 == 1)
     {
-      v33 = "unknownap";
+      v14 = "unknownap";
       goto LABEL_39;
     }
 
-    if (v32)
+    if (v13)
     {
-      v50 = *__error();
-      v57 = *__error();
-      v55 = "failed to query hardware target: %d";
-      goto LABEL_83;
+      v25 = *__error();
+      __error();
+      ignition_halt(&dword_4 + 2, v25, 0x40uLL, "failed to query hardware target: %d");
     }
 
-    if (v74 >= 0x40)
+    if (v44 >= 0x40)
     {
-      ignition_halt(&dword_4 + 2, 0, 0x40uLL, "hardware target string too long: actual = %lu, expected < %lu", v28, v29, v30, v31, v74);
+      ignition_halt(&dword_4 + 2, 0, 0x40uLL, "hardware target string too long: actual = %lu, expected < %lu");
     }
 
-    if (v74 >= 2)
+    if (v44 >= 2)
     {
-      dyld_tolower_cstr(__s1, byte_ADDB0, v74);
+      dyld_tolower_cstr(__s1, byte_ADDB0, v44);
       goto LABEL_40;
     }
   }
 
-  v33 = "x86legacyap";
+  v14 = "x86legacyap";
 LABEL_39:
-  strlcpy(byte_ADDB0, v33, 0x40uLL);
+  strlcpy(byte_ADDB0, v14, 0x40uLL);
 LABEL_40:
   qword_ADDA8 = byte_ADDB0;
-  v34 = fsctl("/", 0x40084A6AuLL, &v91, 0);
-  v35 = __error();
-  if (v34 < 0)
+  v5 = fsctl("/", 0x40084A6AuLL, &v61, 0);
+  v15 = __error();
+  if ((v5 & 0x80000000) == 0)
   {
-    if (*v35)
-    {
-      goto LABEL_43;
-    }
+    *v15 = 0;
+    goto LABEL_43;
+  }
 
+  if (!*v15)
+  {
 LABEL_75:
-    dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v7, v8, v9, v10, v11, v12, v13, "ret");
+    dyld_halt("errno unset, wrong return value being checked?: %s = %lld", "ret", v5);
   }
 
-  *v35 = 0;
 LABEL_43:
-  v36 = *__error();
-  if (v36 != 25 && v36 != 1)
+  v16 = *__error();
+  if (v16 != 25 && v16 != 1)
   {
-    if (!v36)
+    if (v16)
     {
-      qword_AD478 = v91;
-      goto LABEL_47;
+      v26 = *__error();
+      __error();
+      ignition_halt(&dword_4 + 2, v26, 0x40uLL, "failed to query root device status: %d");
     }
 
-    v50 = *__error();
-    v57 = *__error();
-    v55 = "failed to query root device status: %d";
-LABEL_83:
-    ignition_halt(&dword_4 + 2, v50, 0x40uLL, v55, v51, v52, v53, v54, v57);
+    qword_AD478 = v61;
   }
 
-LABEL_47:
   if (statfs64("/", &stru_AD488))
   {
-    v50 = *__error();
-    v57 = *__error();
-    v55 = "statfs failed: %d";
-    goto LABEL_83;
+    v23 = *__error();
+    __error();
+    ignition_halt(&dword_4 + 2, v23, 0x40uLL, "statfs failed: %d");
   }
 
   qword_ADD00 = &stru_AD488;
-  v37 = *(a1 + 16);
-  if (v37)
+  v17 = *(a1 + 16);
+  if (v17)
   {
-    if (_simple_getenv(v37, "XPC_USERSPACE_REBOOTED"))
+    if (_simple_getenv(v17, "XPC_USERSPACE_REBOOTED"))
     {
       byte_ADDF2 = 1;
     }
 
-    v38 = _simple_getenv(*(a1 + 16), "XPC_USERSPACE_PIVOTEDROOT");
-    if (v38)
+    v18 = _simple_getenv(*(a1 + 16), "XPC_USERSPACE_PIVOTEDROOT");
+    if (v18)
     {
-      strlcpy(byte_AD070, v38, 0x400uLL);
+      strlcpy(byte_AD070, v18, 0x400uLL);
       qword_AD068 = byte_AD070;
     }
   }
 
-  v39 = *(a1 + 4);
-  if (v39 >= 1)
+  v19 = *(a1 + 4);
+  if (v19 >= 1)
   {
-    v40 = *(a1 + 8);
+    v20 = *(a1 + 8);
     do
     {
-      v41 = *v40;
-      if (**v40 == 45)
+      v21 = *v20;
+      if (**v20 == 45)
       {
-        v41 = *v40 + 1;
+        v21 = *v20 + 1;
       }
 
-      if (*v41 == 115)
+      if (*v21 == 115)
       {
         byte_ADDF1 = 1;
       }
 
-      ++v40;
-      --v39;
+      ++v20;
+      --v19;
     }
 
-    while (v39);
+    while (v19);
   }
 
 LABEL_60:
@@ -3297,32 +3191,32 @@ LABEL_60:
     }
   }
 
-  if (dyld_parse_boot_arg_cstr(a2, "arp0", v58, 0x400uLL))
+  if (dyld_parse_boot_arg_cstr(a2, "arp0", v28, 0x400uLL))
   {
-    strlcpy(byte_AC458, v58, 0x400uLL);
+    strlcpy(byte_AC458, v28, 0x400uLL);
     qword_AC450 = byte_AC458;
   }
 
-  if (dyld_parse_boot_arg_cstr(a2, "rp", v58, 0x400uLL))
+  if (dyld_parse_boot_arg_cstr(a2, "rp", v28, 0x400uLL))
   {
-    strlcpy(byte_AC860, v58, 0x400uLL);
+    strlcpy(byte_AC860, v28, 0x400uLL);
     qword_AC858 = byte_AC860;
   }
 
-  if (dyld_parse_boot_arg_cstr(a2, "rp0", v58, 0x400uLL))
+  if (dyld_parse_boot_arg_cstr(a2, "rp0", v28, 0x400uLL))
   {
-    strlcpy(byte_ACC68, v58, 0x400uLL);
+    strlcpy(byte_ACC68, v28, 0x400uLL);
     qword_ACC60 = byte_ACC68;
   }
 
-  if (dyld_parse_boot_arg_int(a2, "rootdmg-ramdisk", &v63))
+  if (dyld_parse_boot_arg_int(a2, "rootdmg-ramdisk", &v33))
   {
-    if (HIDWORD(v63))
+    if (HIDWORD(v33))
     {
-      dyld_halt("value not representable as uint32_t", v42, v43, v44, v45, v46, v47, v48, v56);
+      dyld_halt("value not representable as uint32_t");
     }
 
-    dword_AD470 = v63;
+    dword_AD470 = v33;
   }
 
   result = dyld_parse_boot_arg_int(a2, "restore", 0);
@@ -3338,73 +3232,67 @@ LABEL_60:
 
 int *closefd_optional(int *result, const char *a2)
 {
+  v2 = *result;
   if ((*result & 0x80000000) == 0)
   {
-    v3 = result;
+    v4 = result;
     result = close(*result);
     if (result)
     {
-      v4 = boot_get();
-      v5 = (*v4)[1];
-      v6 = (*v4)[2];
-      v7 = *__error();
-      v12 = *__error();
-      ignition_halt(v5, v7, v6, "failed to close %s [optional]: fd = %d: %d", v8, v9, v10, v11, a2);
+      v5 = boot_get();
+      v6 = (*v5)[1];
+      v7 = (*v5)[2];
+      v8 = *__error();
+      v9 = __error();
+      ignition_halt(v6, v8, v7, "failed to close %s [optional]: fd = %d: %d", a2, v2, *v9);
     }
 
-    *v3 = -1;
+    *v4 = -1;
   }
 
   return result;
 }
 
-uint64_t stage_fire(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t stage_fire(const char **a1, uint64_t a2)
 {
-  v10 = arguments(a1, a2, a3, a4, a5, a6, a7, a8);
-  if (*v10 >= *(a1 + 40))
+  v4 = arguments();
+  if (*v4 >= a1[5])
   {
-    v20 = getpid();
-    v52 = *a1;
-    v55 = *(a1 + 8);
-    dlog(-1, "libignition: %d: %12s: %s\n", v21, v22, v23, v24, v25, v26, v20);
-    v27 = (*(a1 + 48))(a1, v10, a2);
-    if (v27)
+    v6 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %12s: %s\n", v6, *a1, a1[1]);
+    v7 = (a1[6])(a1, v4, a2);
+    if (v7)
     {
-      v11 = v27;
-      v28 = getpid();
-      v53 = *a1;
-      dlog(-1, "libignition: %d: %12s: ignition failed: %d\n", v29, v30, v31, v32, v33, v34, v28);
+      v5 = v7;
+      getpid();
+      dlog(0xFFFFFFFFLL, "libignition: %d: %12s: ignition failed: %d\n");
     }
 
     else
     {
-      if ((*(a1 + 32) & 0x8000000000000000) == 0 && !(*(a1 + 56))(a1, a2))
+      if ((a1[4] & 0x8000000000000000) == 0 && !(a1[7])(a1, a2))
       {
-        dyld_halt("stage did not set payload: %s", v44, v45, v46, v47, v48, v49, v50, *a1);
+        dyld_halt("stage did not set payload: %s", *a1);
       }
 
-      v11 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v11 = ~(*(a1 + 32) >> 63) & 0x59;
-    v12 = getpid();
-    v13 = *v10;
-    v54 = *v10;
-    v56 = *(a1 + 40);
-    v51 = *a1;
-    dlog(-1, "libignition: %d: %12s: ignition level insufficient: actual = %llu, required >= %llu\n", v14, v15, v16, v17, v18, v19, v12);
+    v5 = ~(a1[4] >> 63) & 0x59;
+    getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %12s: ignition level insufficient: actual = %llu, required >= %llu\n");
   }
 
-  v35 = v10[3];
-  if (v35 && !_platform_strcmp(v35, *a1))
+  v8 = v4[3];
+  if (v8 && !_platform_strcmp(v8, *a1))
   {
-    dyld_halt("halting after %s ignition stage; if you did not intend to do this, clear the ignition_halt_after boot-arg", v36, v37, v38, v39, v40, v41, v42, *a1);
+    dyld_halt("halting after %s ignition stage; if you did not intend to do this, clear the ignition_halt_after boot-arg", *a1);
   }
 
-  return v11;
+  return v5;
 }
 
 uint64_t stage_next(void *a1)
@@ -3431,139 +3319,151 @@ int dup(int a1)
   return result;
 }
 
-uint64_t _graft_select_fire(uint64_t *a1, uint64_t a2, _DWORD *a3)
+uint64_t _graft_select_fire(const char **a1, uint64_t a2, unsigned int *a3)
 {
   v6 = a3[4];
   dylib_root = boot_get_dylib_root(a3);
-  bzero(&v78, 0x400uLL);
-  memset(&v77, 0, sizeof(v77));
+  bzero(&v24, 0x400uLL);
+  memset(&v23, 0, sizeof(v23));
   if (dylib_root < 0)
   {
-    v31 = getpid();
-    v70 = *a1;
-    dlog(-1, "libignition: %d: %12s: cryptex graft point not present; not using fallback\n", v32, v33, v34, v35, v36, v37, v31);
+    v10 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %12s: cryptex graft point not present; not using fallback\n", v10, *a1);
     return 0;
   }
 
-  ignition_get_shared_cache_directory(&v78, v8, v9, v10, v11, v12, v13, v14);
-  if (v79[0] == 47)
+  ignition_get_shared_cache_directory(&v24);
+  if (v25[0] == 47)
   {
-    dyld_halt("bogus shared cache path: %s", v15, v16, v17, v18, v19, v20, v21, &v78);
+    dyld_halt("bogus shared cache path: %s", &v24);
   }
 
-  v22 = fstatat64(dylib_root, v79, &v77, 0);
-  v23 = __error();
-  if (v22 < 0)
+  v8 = fstatat64(dylib_root, v25, &v23, 0);
+  v9 = __error();
+  if (v8 < 0)
   {
-    if (!*v23)
+    if (!*v9)
     {
-      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v24, v25, v26, v27, v28, v29, v30, "ret");
+      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", "ret", v8);
     }
   }
 
   else
   {
-    *v23 = 0;
+    *v9 = 0;
   }
 
-  v38 = *__error();
-  if (v38 != 2)
+  v11 = *__error();
+  if (v11 == 2)
   {
-    if (v38)
-    {
-      v46 = getpid();
-      v72 = *a1;
-      v75 = *__error();
-      v69 = v46;
-      v45 = "libignition: %d: %12s: failed to stat dylib cache directory: %d\n";
-      goto LABEL_13;
-    }
-
-    if ((v77.st_mode & 0xF000) == 0x4000)
-    {
-      v69 = getpid();
-      v71 = *a1;
-      v45 = "libignition: %d: %12s: dylib cache directory present; not overriding\n";
-LABEL_13:
-      v6 = -1;
-      dlog(-1, v45, v39, v40, v41, v42, v43, v44, v69);
-    }
+    v13 = "no dylib cache directory";
   }
 
-  v47 = *(a2 + 8);
-  if (v47 > 1)
+  else
   {
-    if (v47 == 2)
+    if (v11)
+    {
+      v14 = getpid();
+      v20 = *a1;
+      v21 = *__error();
+      v19 = v14;
+      v12 = "libignition: %d: %12s: failed to stat dylib cache directory: %d\n";
+    }
+
+    else
+    {
+      if ((v23.st_mode & 0xF000) != 0x4000)
+      {
+        v13 = "dylib cache path not a directory";
+        goto LABEL_15;
+      }
+
+      v19 = getpid();
+      v20 = *a1;
+      v12 = "libignition: %d: %12s: dylib cache directory present; not overriding\n";
+    }
+
+    v6 = -1;
+    dlog(0xFFFFFFFFLL, v12, v19, v20, v21);
+    v13 = &unk_91735;
+  }
+
+LABEL_15:
+  v15 = *(a2 + 8);
+  if (v15 > 1)
+  {
+    if (v15 == 2)
     {
       v6 = a3[12];
+      v13 = "boot-arg forced livefs fallback";
       if (v6 < 0)
       {
         return 0;
       }
 
-      goto LABEL_25;
+      goto LABEL_26;
     }
 
-    if (v47 == 3)
+    if (v15 == 3)
     {
       v6 = a3[4];
+      v13 = "boot-arg forced rootfs fallback";
       if (v6 < 0)
       {
         return 0;
       }
 
-      goto LABEL_25;
+      goto LABEL_26;
     }
   }
 
-  else if (v47)
+  else if (v15)
   {
-    if (v47 == 1)
+    if (v15 == 1)
     {
       v6 = a3[8];
+      v13 = "boot-arg forced cryptex fallback";
       if (v6 < 0)
       {
         return 0;
       }
 
-      goto LABEL_25;
+      goto LABEL_26;
     }
   }
 
   else
   {
-    v48 = getpid();
-    v73 = *a1;
-    dlog(-1, "libignition: %d: %12s: not forcing root fallback\n", v49, v50, v51, v52, v53, v54, v48);
+    v16 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %12s: not forcing root fallback\n", v16, *a1);
   }
 
   if ((v6 & 0x80000000) == 0)
   {
-LABEL_25:
-    v76 = -1;
-    v55 = getpid();
-    v74 = *a1;
-    dlog(-1, "libignition: %d: %12s: overriding os cryptex root: %s\n", v56, v57, v58, v59, v60, v61, v55);
-    v76 = dupfd(v6, "fallback root");
-    boot_set_dylib_root(a3, &v76, v62, v63, v64, v65, v66, v67);
+LABEL_26:
+    v22 = -1;
+    v17 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %12s: overriding os cryptex root: %s\n", v17, *a1, v13);
+    v22 = dupfd(v6, "fallback root");
+    boot_set_dylib_root(a3, &v22);
   }
 
   return 0;
 }
 
-char *ignition_get_shared_cache_directory(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *ignition_get_shared_cache_directory(char *a1)
 {
-  if (*(*configuration(a1, a2, a3, a4, a5, a6, a7, a8) + 36) == 10)
+  if (*(*configuration() + 36) == 10)
   {
-    v9 = "/System/DriverKit/System/Library/dyld/";
+    v2 = "/System/DriverKit/System/Library/dyld/";
   }
 
   else
   {
-    v9 = "/System/Library/Caches/com.apple.dyld/";
+    v2 = "/System/Library/Caches/com.apple.dyld/";
   }
 
-  strlcpy(a1, v9, 0x400uLL);
+  strlcpy(a1, v2, 0x400uLL);
   return a1;
 }
 
@@ -3667,12 +3567,12 @@ uint64_t realpathfd(int a1, uint64_t a2, const char *a3)
 {
   if (fcntl(a1, 50, a2) == -1)
   {
-    v6 = boot_get();
-    v7 = (*v6)[1];
-    v8 = (*v6)[2];
-    v9 = *__error();
-    v14 = *__error();
-    ignition_halt(v7, v9, v8, "failed to realpath %s: %d: %d", v10, v11, v12, v13, a3);
+    v7 = boot_get();
+    v8 = (*v7)[1];
+    v9 = (*v7)[2];
+    v10 = *__error();
+    v11 = __error();
+    ignition_halt(v8, v10, v9, "failed to realpath %s: %d: %d", a3, a1, *v11);
   }
 
   return a2;
@@ -3689,20 +3589,20 @@ int __fcntl(int a1, int a2, void *a3)
   return result;
 }
 
-const char *_dylib_cache_payload_check(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _dylib_cache_payload_check(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 32) & 0x8000000000000000) != 0)
   {
     return 0;
   }
 
-  v8 = *(a1 + 24);
-  if ((v8 & 0x8000000000000000) != 0)
+  v2 = *(a1 + 24);
+  if (v2 < 0)
   {
-    dyld_halt("invalid offset: %lld", a2, a3, a4, a5, a6, a7, a8, v8);
+    dyld_halt("invalid offset: %lld", v2);
   }
 
-  return &v8[a2];
+  return a2 + v2;
 }
 
 uint64_t ___ZNK6mach_o6Header33findFairPlayEncryptionLoadCommandEv_block_invoke(uint64_t result, _DWORD *a2, _BYTE *a3)
@@ -3771,103 +3671,103 @@ BOOL dyld_parse_boot_arg_cstr(char *a1, const char *a2, char *a3, size_t a4)
 {
   while (1)
   {
-    _platform_memset(v28, 170, 0x400uLL);
+    _platform_memset(&v21, 170, 0x400uLL);
     v8 = _platform_strchr(a1, 32);
     if (v8)
     {
-      v16 = v8;
-      v17 = v8 - a1;
-      if (v17 < 0)
+      v9 = v8;
+      v10 = v8 - a1;
+      if (v10 < 0)
       {
-        dyld_halt("value not representable as size_t", v9, v10, v11, v12, v13, v14, v15, v28[0]);
+        dyld_halt("value not representable as size_t");
       }
 
-      v18 = v16 + 1;
+      v11 = v9 + 1;
     }
 
     else
     {
-      v17 = _platform_strlen(a1);
-      v18 = 0;
+      v10 = _platform_strlen(a1);
+      v11 = 0;
     }
 
-    v19 = (v17 + 1) < 0x400;
-    if ((v17 + 1) > 0x3FF)
+    v12 = (v10 + 1) < 0x400;
+    if ((v10 + 1) > 0x3FF)
     {
       break;
     }
 
-    strlcpy(v28, a1, v17 + 1);
-    v20 = _platform_strchr(v28, 61);
-    if (v20)
+    strlcpy(&v21, a1, v10 + 1);
+    v13 = _platform_strchr(&v21, 61);
+    if (v13)
     {
-      *v20 = 0;
-      v22 = v20[1];
-      v21 = v20 + 1;
-      if (v22)
+      *v13 = 0;
+      v15 = v13[1];
+      v14 = v13 + 1;
+      if (v15)
       {
-        v23 = v21;
+        v16 = v14;
       }
 
       else
       {
-        v23 = 0;
+        v16 = 0;
       }
     }
 
     else
     {
-      v23 = 0;
+      v16 = 0;
     }
 
-    if (v23)
+    if (v16)
     {
-      v24 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v24 = LOBYTE(v28[0]) == 45;
+      v17 = v21 == 45;
     }
 
-    if (v24)
+    if (v17)
     {
-      v25 = v28 + 1;
+      v18 = v22;
     }
 
     else
     {
-      v25 = v28;
+      v18 = &v21;
     }
 
-    if (!_platform_strcmp(v25, a2))
+    if (!_platform_strcmp(v18, a2))
     {
       if (a3)
       {
-        if (v23)
+        if (v16)
         {
-          v26 = v23;
+          v19 = v16;
         }
 
         else
         {
-          v26 = &unk_91735;
+          v19 = &unk_91735;
         }
 
-        strlcpy(a3, v26, a4);
+        strlcpy(a3, v19, a4);
       }
 
-      return v19;
+      return v12;
     }
 
-    a1 = v18;
-    if (!v18)
+    a1 = v11;
+    if (!v11)
     {
       return 0;
     }
   }
 
-  return v19;
+  return v12;
 }
 
 BOOL dyld_parse_boot_arg_int(char *a1, const char *a2, unint64_t *a3)
@@ -4007,37 +3907,40 @@ char *__cdecl _platform_strchr(char *__s, int __c)
   return result;
 }
 
-ssize_t arguments_dump(uint64_t *a1)
+ssize_t arguments_dump(void *a1)
 {
   result = getpid();
   if (result <= 1)
   {
     v3 = getpid();
-    dlog(-1, "libignition: %d: %s   :\n", v4, v5, v6, v7, v8, v9, v3);
-    v10 = getpid();
-    v32 = *a1;
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v11, v12, v13, v14, v15, v16, v10);
-    v17 = getpid();
-    v33 = a1[1];
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v18, v19, v20, v21, v22, v23, v17);
-    v24 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %s   :\n", v3, "arguments        ");
+    v4 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v4, "ignition level   ", *a1);
+    v5 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v5, "force dylib root ", a1[1]);
+    v6 = getpid();
     if (a1[3])
     {
-      v31 = a1[3];
+      v7 = a1[3];
     }
 
-    return dlog(-1, "libignition: %d:   %s : %s\n", v25, v26, v27, v28, v29, v30, v24);
+    else
+    {
+      v7 = "n/a";
+    }
+
+    return dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v6, "halt after stage ", v7);
   }
 
   return result;
 }
 
-uint64_t arguments(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t arguments()
 {
   result = _args;
   if (!_args)
   {
-    dyld_halt("arguments not initialized", a2, a3, a4, a5, a6, a7, a8, v8);
+    dyld_halt("arguments not initialized", v0, v1);
   }
 
   return result;
@@ -4080,127 +3983,180 @@ LABEL_6:
 ssize_t configuration_dump(uint64_t a1)
 {
   result = getpid();
-  if (result <= 1)
+  if (result > 1)
   {
-    v3 = *(a1 + 6800);
-    if (v3)
-    {
-      v4 = *v3;
-    }
-
-    v5 = *(a1 + 6952);
-    if (v5)
-    {
-      v6 = *(v5 + 46);
-      if (_platform_strcmp((v5 + 50), &unk_91735))
-      {
-        v7 = *(a1 + 6952) + 50;
-      }
-    }
-
-    v8 = getpid();
-    dlog(-1, "libignition: %d: %s   :\n", v9, v10, v11, v12, v13, v14, v8);
-    v15 = getpid();
-    if (*(a1 + 8))
-    {
-      v22 = *(a1 + 8);
-    }
-
-    dlog(-1, "libignition: %d:   %s : %s\n", v16, v17, v18, v19, v20, v21, v15);
-    v23 = getpid();
-    if (*(a1 + 272))
-    {
-      v30 = *(a1 + 272);
-    }
-
-    dlog(-1, "libignition: %d:   %s : %s\n", v24, v25, v26, v27, v28, v29, v23);
-    v31 = getpid();
-    if (*(a1 + 392))
-    {
-      v38 = *(a1 + 392);
-    }
-
-    dlog(-1, "libignition: %d:   %s : %s\n", v32, v33, v34, v35, v36, v37, v31);
-    v39 = getpid();
-    if (*(a1 + 472))
-    {
-      v46 = *(a1 + 472);
-    }
-
-    dlog(-1, "libignition: %d:   %s : %s\n", v40, v41, v42, v43, v44, v45, v39);
-    v47 = getpid();
-    if (*(a1 + 1504))
-    {
-      v54 = *(a1 + 1504);
-    }
-
-    dlog(-1, "libignition: %d:   %s : %s\n", v48, v49, v50, v51, v52, v53, v47);
-    v55 = getpid();
-    if (*(a1 + 3568))
-    {
-      v62 = *(a1 + 3568);
-    }
-
-    dlog(-1, "libignition: %d:   %s : %s\n", v56, v57, v58, v59, v60, v61, v55);
-    v63 = getpid();
-    v148 = *(a1 + 4600);
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v64, v65, v66, v67, v68, v69, v63);
-    v70 = getpid();
-    v149 = *(a1 + 4604);
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v71, v72, v73, v74, v75, v76, v70);
-    v77 = getpid();
-    v150 = *(a1 + 4608);
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v78, v79, v80, v81, v82, v83, v77);
-    v84 = getpid();
-    v151 = *(a1 + 4616);
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v85, v86, v87, v88, v89, v90, v84);
-    v91 = getpid();
-    v152 = *(*(a1 + 6792) + 64);
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v92, v93, v94, v95, v96, v97, v91);
-    v98 = getpid();
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v99, v100, v101, v102, v103, v104, v98);
-    v105 = getpid();
-    if (*(a1 + 6960))
-    {
-      v112 = *(a1 + 6960);
-    }
-
-    dlog(-1, "libignition: %d:   %s : %s\n", v106, v107, v108, v109, v110, v111, v105);
-    v113 = getpid();
-    v153 = *(a1 + 7032);
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v114, v115, v116, v117, v118, v119, v113);
-    v120 = getpid();
-    v154 = *(a1 + 7033);
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v121, v122, v123, v124, v125, v126, v120);
-    v127 = getpid();
-    v155 = *(a1 + 7034);
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v128, v129, v130, v131, v132, v133, v127);
-    v134 = getpid();
-    dlog(-1, "libignition: %d:   %s : 0x%llx\n", v135, v136, v137, v138, v139, v140, v134);
-    v141 = getpid();
-    return dlog(-1, "libignition: %d:   %s : %s\n", v142, v143, v144, v145, v146, v147, v141);
+    return result;
   }
 
-  return result;
+  v3 = *(a1 + 6800);
+  if (v3)
+  {
+    v4 = *v3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = *(a1 + 6952);
+  if (!v5)
+  {
+    v6 = 0;
+    goto LABEL_9;
+  }
+
+  v6 = *(v5 + 46);
+  if (!_platform_strcmp((v5 + 50), &unk_91735))
+  {
+LABEL_9:
+    v7 = 0;
+    goto LABEL_10;
+  }
+
+  v7 = *(a1 + 6952) + 50;
+LABEL_10:
+  v8 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d: %s   :\n", v8, "configuration      ");
+  v9 = getpid();
+  if (*(a1 + 8))
+  {
+    v10 = *(a1 + 8);
+  }
+
+  else
+  {
+    v10 = "n/a";
+  }
+
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v9, "program            ", v10);
+  v11 = getpid();
+  if (*(a1 + 272))
+  {
+    v12 = *(a1 + 272);
+  }
+
+  else
+  {
+    v12 = "n/a";
+  }
+
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v11, "os environment     ", v12);
+  v13 = getpid();
+  if (*(a1 + 392))
+  {
+    v14 = *(a1 + 392);
+  }
+
+  else
+  {
+    v14 = "n/a";
+  }
+
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v13, "rd                 ", v14);
+  v15 = getpid();
+  if (*(a1 + 472))
+  {
+    v16 = *(a1 + 472);
+  }
+
+  else
+  {
+    v16 = "n/a";
+  }
+
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v15, "arp0               ", v16);
+  v17 = getpid();
+  if (*(a1 + 1504))
+  {
+    v18 = *(a1 + 1504);
+  }
+
+  else
+  {
+    v18 = "n/a";
+  }
+
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v17, "rp                 ", v18);
+  v19 = getpid();
+  if (*(a1 + 3568))
+  {
+    v20 = *(a1 + 3568);
+  }
+
+  else
+  {
+    v20 = "n/a";
+  }
+
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v19, "pivot src          ", v20);
+  v21 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v21, "root ramdisk       ", *(a1 + 4600));
+  v22 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v22, "restore            ", *(a1 + 4604));
+  v23 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v23, "root device info   ", *(a1 + 4608));
+  v24 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v24, "can haz debugger   ", *(a1 + 4616));
+  v25 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v25, "rootfs mount flags ", *(*(a1 + 6792) + 64));
+  v26 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v26, "ecid               ", v4);
+  v27 = getpid();
+  if (*(a1 + 6960))
+  {
+    v28 = *(a1 + 6960);
+  }
+
+  else
+  {
+    v28 = "n/a";
+  }
+
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v27, "hardware target    ", v28);
+  v29 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v29, "initproc           ", *(a1 + 7032));
+  v30 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v30, "single user        ", *(a1 + 7033));
+  v31 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v31, "userspace reboot   ", *(a1 + 7034));
+  v32 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v32, "secure boot level  ", v6);
+  v33 = getpid();
+  if (v7)
+  {
+    v34 = v7;
+  }
+
+  else
+  {
+    v34 = "n/a";
+  }
+
+  return dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v33, "os version         ", v34);
 }
 
-ssize_t boot_dump_spec(uint64_t *a1)
+ssize_t boot_dump_spec(uint64_t a1)
 {
   result = getpid();
   if (result == 1)
   {
     v3 = getpid();
-    dlog(-1, "libignition: %d: %s   :\n", v4, v5, v6, v7, v8, v9, v3);
-    v10 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %s   :\n", v3, "boot spec        ");
+    v4 = getpid();
     if (*a1)
     {
-      v17 = *a1;
+      v5 = *a1;
     }
 
-    dlog(-1, "libignition: %d:   %s : %s\n", v11, v12, v13, v14, v15, v16, v10);
-    v18 = getpid();
-    v25 = a1[11];
-    return dlog(-1, "libignition: %d:   %s : 0x%llx\n", v19, v20, v21, v22, v23, v24, v18);
+    else
+    {
+      v5 = "n/a";
+    }
+
+    dlog(0xFFFFFFFFLL, "libignition: %d:   %s : %s\n", v4, "name             ", v5);
+    v6 = getpid();
+    return dlog(0xFFFFFFFFLL, "libignition: %d:   %s : 0x%llx\n", v6, "stage count      ", *(a1 + 88));
   }
 
   return result;
@@ -4209,7 +4165,7 @@ ssize_t boot_dump_spec(uint64_t *a1)
 char **boot_select_spec(uint64_t a1)
 {
   v2 = a1 + 4096;
-  ignition_test_BRA(2);
+  ignition_test_BRA();
   if (*(v2 + 2936) != 1)
   {
     return &_boot_spec_post_initproc;
@@ -4253,50 +4209,50 @@ char **boot_select_spec(uint64_t a1)
   return result;
 }
 
-uint64_t configuration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t configuration()
 {
   result = _config;
   if (!_config)
   {
-    dyld_halt("configuration not initialized", a2, a3, a4, a5, a6, a7, a8, v8);
+    dyld_halt("configuration not initialized", v0, v1);
   }
 
   return result;
 }
 
-uint64_t boot_boot(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const char **boot_boot(void *a1)
 {
-  arguments(a1, a2, a3, a4, a5, a6, a7, a8);
-  v30[0] = *a1 + 24;
-  v30[1] = 0;
-  v31 = open("/", 537919488);
-  if (v31 < 0)
+  arguments();
+  v7[0] = *a1 + 24;
+  v7[1] = 0;
+  v8 = open("/", 537919488);
+  if (v8 < 0)
   {
-    v22 = *(__boot[0] + &dword_8);
-    v23 = *(__boot[0] + &dword_8 + 8);
-    v24 = *__error();
-    v29 = *__error();
-    ignition_halt(v22, v24, v23, "failed to open root directory: %s: %d", v25, v26, v27, v28, "/");
+    v3 = *(__boot[0] + &dword_8);
+    v4 = *(__boot[0] + &dword_8 + 8);
+    v5 = *__error();
+    v6 = __error();
+    ignition_halt(v3, v5, v4, "failed to open root directory: %s: %d", "/", *v6);
   }
 
-  boot_set_root(a1, &_boot_root_fs, &v31, v9, v10, v11, v12, v13);
-  result = stage_next(v30);
+  boot_set_root(a1, &_boot_root_fs, &v8);
+  result = stage_next(v7);
   if (!result)
   {
-    result = 0xFFFFFFFFLL;
+    LODWORD(result) = -1;
     goto LABEL_10;
   }
 
   while (1)
   {
     a1[1] = result;
-    result = stage_fire(result, a1, v16, v17, v18, v19, v20, v21);
+    result = stage_fire(result, a1);
     if (result)
     {
       break;
     }
 
-    result = stage_next(v30);
+    result = stage_next(v7);
     if (!result)
     {
       return result;
@@ -4306,23 +4262,23 @@ uint64_t boot_boot(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   if (result >= 0x6B)
   {
 LABEL_10:
-    dyld_halt("error not set to valid posix code: %d", v15, v16, v17, v18, v19, v20, v21, result);
+    dyld_halt("error not set to valid posix code: %d", result);
   }
 
   return result;
 }
 
-char ***boot_init(char **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char ***boot_init(char **a1)
 {
   for (i = 0; i != 9; ++i)
   {
-    v9 = *(__roots[i] + 2);
-    if (v9 < 0)
+    v2 = *(__roots[i] + 2);
+    if (v2 < 0)
     {
-      dyld_halt("invalid offset: %lld", a2, a3, a4, a5, a6, a7, a8, *(__roots[i] + 2));
+      dyld_halt("invalid offset: %lld", *(__roots[i] + 2));
     }
 
-    *(__boot + v9) = -1;
+    *(__boot + v2) = -1;
   }
 
   __boot[0] = a1;
@@ -4357,17 +4313,17 @@ int __open(const char *a1, int a2, void *a3)
   return result;
 }
 
-uint64_t boot_set_root(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t boot_set_root(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v8 = *(a2 + 16);
-  if (v8 < 0)
+  v3 = *(a2 + 16);
+  if (v3 < 0)
   {
-    dyld_halt("invalid offset: %lld", a2, a3, a4, a5, a6, a7, a8, *(a2 + 16));
+    dyld_halt("invalid offset: %lld", *(a2 + 16));
   }
 
-  closefd_optional((a1 + v8), "old root");
+  closefd_optional((a1 + v3), "old root");
   result = xferfd(a3);
-  *(a1 + v8) = result;
+  *(a1 + v3) = result;
   return result;
 }
 
@@ -4378,28 +4334,28 @@ uint64_t xferfd(_DWORD *a1)
   return v1;
 }
 
-uint64_t _hello_fire(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _hello_fire(const char **a1)
 {
-  v9 = configuration(a1, a2, a3, a4, a5, a6, a7, a8);
-  v10 = getpid();
-  v11 = *a1;
-  v19 = *(v9 + 8);
-  getpid();
-  dlog(-1, "libignition: %d: %12s: hello from %s.%d\n", v12, v13, v14, v15, v16, v17, v10);
+  v2 = configuration();
+  v3 = getpid();
+  v4 = *a1;
+  v5 = *(v2 + 8);
+  v6 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d: %12s: hello from %s.%d\n", v3, v4, v5, v6);
   return 0;
 }
 
-const char *_graft_fetch_fire(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t _graft_fetch_fire(const char **a1, uint64_t a2, uint64_t a3)
 {
-  v50 = -1;
+  v12 = -1;
   v5 = openat(*(a3 + 16), "System/Cryptexes/OS", 0x100000);
-  v51 = v5;
+  v13 = v5;
   v6 = __error();
   if (v5 < 0)
   {
     if (!*v6)
     {
-      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v7, v8, v9, v10, v11, v12, v13, "cnl");
+      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", "cnl", v5);
     }
   }
 
@@ -4408,38 +4364,36 @@ const char *_graft_fetch_fire(uint64_t *a1, uint64_t a2, uint64_t a3)
     *v6 = 0;
   }
 
-  v14 = *__error();
-  if (v14 == 2)
+  v7 = *__error();
+  if (v7 == 2)
   {
-    v20 = getpid();
-    v48 = *a1;
-    dlog(-1, "libignition: %d: %12s: no os cryptex available; continuing\n", v21, v22, v23, v24, v25, v26, v20);
+    v8 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %12s: no os cryptex available; continuing\n", v8, *a1);
     goto LABEL_8;
   }
 
-  if (!v14)
+  if (!v7)
   {
-    v50 = dupfd(v5, "os cryptex canonical directory");
+    v12 = dupfd(v5, "os cryptex canonical directory");
 LABEL_8:
-    boot_set_root(a3, &_boot_root_canonical_os, &v51, v15, v16, v17, v18, v19);
-    boot_set_root(a3, &_boot_root_cryptex_os, &v50, v27, v28, v29, v30, v31);
-    v32 = 0;
+    boot_set_root(a3, &_boot_root_canonical_os, &v13);
+    boot_set_root(a3, &_boot_root_cryptex_os, &v12);
+    v9 = 0;
     goto LABEL_10;
   }
 
-  v32 = *__error();
-  v33 = getpid();
-  v49 = *a1;
-  dlog(-1, "libignition: %d: %12s: failed to open os cryptex canonical directory: %d\n", v34, v35, v36, v37, v38, v39, v33);
+  v9 = *__error();
+  v10 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d: %12s: failed to open os cryptex canonical directory: %d\n", v10, *a1, v9);
 LABEL_10:
-  closefd_optional(&v51, "os cryptex canonical directory");
-  closefd_optional(&v50, "os cryptex canonical directory [dup]");
-  if (v32 >= 0x6B)
+  closefd_optional(&v13, "os cryptex canonical directory");
+  closefd_optional(&v12, "os cryptex canonical directory [dup]");
+  if (v9 >= 0x6B)
   {
-    dyld_halt("error not set to valid posix code: %d", v40, v41, v42, v43, v44, v45, v46, v32);
+    dyld_halt("error not set to valid posix code: %d", v9);
   }
 
-  return v32;
+  return v9;
 }
 
 int __openat(int a1, const char *a2, int a3)
@@ -4462,8 +4416,8 @@ uint64_t dupfd(int a1, const char *a2)
     v6 = (*v5)[1];
     v7 = (*v5)[2];
     v8 = *__error();
-    v13 = *__error();
-    ignition_halt(v6, v8, v7, "failed to dup %s: fd = %d: %d", v9, v10, v11, v12, a2);
+    v9 = __error();
+    ignition_halt(v6, v8, v7, "failed to dup %s: fd = %d: %d", a2, a1, *v9);
   }
 
   return result;
@@ -4499,11 +4453,11 @@ uint64_t _open_console()
   return v0;
 }
 
-ssize_t vdlog(int a1, char *a2, const char **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+ssize_t vdlog(int a1, char *a2, const char **a3)
 {
   if (!__g)
   {
-    dyld_halt("logging not yet initialized", a2, a3, a4, a5, a6, a7, a8, v12);
+    dyld_halt("logging not yet initialized", a2);
   }
 
   result = getpid();
@@ -4524,106 +4478,114 @@ ssize_t vdlog(int a1, char *a2, const char **a3, uint64_t a4, uint64_t a5, uint6
   return result;
 }
 
-uint64_t _dylib_cache_fire(uint64_t *a1, uint64_t *a2, uint64_t a3)
+int fstatat64(int a1, const char *a2, stat *a3, int a4)
+{
+  v9 = mac_syscall(SYS_fstatat64, *&a1, a2, a3, *&a4, v5, v6, v7, v8);
+  if (v4)
+  {
+    LODWORD(v9) = cerror_nocancel(v9);
+  }
+
+  return v9;
+}
+
+uint64_t _dylib_cache_fire(const char **a1, void *a2, uint64_t a3)
 {
   dylib_root = boot_get_dylib_root(a3);
-  bzero(&v79, 0x400uLL);
-  if (*a2 < 3 || dylib_root < 0)
+  bzero(&v18, 0x400uLL);
+  if (*a2 < 3uLL || dylib_root < 0)
   {
     dylib_root = *(a3 + 16);
-    v14 = 19;
+    v7 = 19;
+    v8 = "system volume";
   }
 
   else
   {
-    v14 = 85;
+    v7 = 85;
+    v8 = "cryptex";
   }
 
-  ignition_get_shared_cache_directory(&v79, v7, v8, v9, v10, v11, v12, v13);
-  if (v80[0] == 47)
+  ignition_get_shared_cache_directory(&v18);
+  if (v19[0] == 47)
   {
-    dyld_halt("bogus shared cache path: %s", v15, v16, v17, v18, v19, v20, v21, &v79);
+    dyld_halt("bogus shared cache path: %s", &v18);
   }
 
-  v22 = getpid();
-  v77 = *a2;
-  v73 = *a1;
-  dlog(-1, "libignition: %d: %12s: finding shared cache on %s: ignition level = %llu, search root fd = %d, subpath = %s\n", v23, v24, v25, v26, v27, v28, v22);
-  v29 = openat(dylib_root, v80, 0x100000);
-  v78 = v29;
-  v30 = __error();
-  if (v29 < 0)
+  v9 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d: %12s: finding shared cache on %s: ignition level = %llu, search root fd = %d, subpath = %s\n", v9, *a1, v8, *a2, dylib_root, v19);
+  v10 = openat(dylib_root, v19, 0x100000);
+  v17 = v10;
+  v11 = __error();
+  if (v10 < 0)
   {
-    if (!*v30)
+    if (!*v11)
     {
-      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", v31, v32, v33, v34, v35, v36, v37, "dycash");
+      dyld_halt("errno unset, wrong return value being checked?: %s = %lld", "dycash", v10);
     }
   }
 
   else
   {
-    *v30 = 0;
+    *v11 = 0;
   }
 
-  v38 = *__error();
-  if (v38 == 2)
+  v12 = *__error();
+  if (v12 == 2)
   {
-    v51 = getpid();
-    v75 = *a1;
-    dlog(-1, "libignition: %d: %12s: shared cache not found: root = %s, path = %s\n", v52, v53, v54, v55, v56, v57, v51);
+    v14 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %12s: shared cache not found: root = %s, path = %s\n", v14, *a1, v8, v19);
     goto LABEL_13;
   }
 
-  if (!v38)
+  if (!v12)
   {
-    realpathfd(v29, &v79, "dylib cache path");
-    v39 = getpid();
-    v74 = *a1;
-    dlog(-1, "libignition: %d: %12s: opened shared cache directory: %s\n", v40, v41, v42, v43, v44, v45, v39);
-    boot_set_root(a3, &_boot_root_dylib_cache, &v78, v46, v47, v48, v49, v50);
-    v14 = 0;
+    realpathfd(v10, &v18, "dylib cache path");
+    v13 = getpid();
+    dlog(0xFFFFFFFFLL, "libignition: %d: %12s: opened shared cache directory: %s\n", v13, *a1, &v18);
+    boot_set_root(a3, &_boot_root_dylib_cache, &v17);
+    v7 = 0;
 LABEL_13:
-    closefd_optional(&v78, "shared cache directory");
-    return v14;
+    closefd_optional(&v17, "shared cache directory");
+    return v7;
   }
 
-  v14 = *__error();
-  v58 = getpid();
-  v76 = *a1;
-  dlog(-1, "libignition: %d: %12s: failed to open shared cache: %s: %d\n", v59, v60, v61, v62, v63, v64, v58);
-  closefd_optional(&v78, "shared cache directory");
-  if (v14 >= 0x6B)
+  v7 = *__error();
+  v15 = getpid();
+  dlog(0xFFFFFFFFLL, "libignition: %d: %12s: failed to open shared cache: %s: %d\n", v15, *a1, v19, v7);
+  closefd_optional(&v17, "shared cache directory");
+  if (v7 >= 0x6B)
   {
-    dyld_halt("error not set to valid posix code: %d", v65, v66, v67, v68, v69, v70, v71, v14);
+    dyld_halt("error not set to valid posix code: %d", v7);
   }
 
-  return v14;
+  return v7;
 }
 
-uint64_t boot_set_payload(uint64_t result, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t boot_set_payload(uint64_t result, uint64_t a2, _DWORD *a3)
 {
   if (*a3 >= 6u)
   {
-    dyld_halt("unsupported payload version: actual = %u, expected <= %u", a2, a3, a4, a5, a6, a7, a8, *a3);
+    dyld_halt("unsupported payload version: actual = %u, expected <= %u", *a3, 5);
   }
 
   if (*a3 >= *(a2 + 8))
   {
-    v8 = *(a2 + 16);
-    if (v8 < 0)
+    v3 = *(a2 + 16);
+    if (v3 < 0)
     {
-      dyld_halt("invalid offset: %lld", a2, a3, a4, a5, a6, a7, a8, *(a2 + 16));
+      dyld_halt("invalid offset: %lld", *(a2 + 16));
     }
 
-    v9 = *(a2 + 24);
-    if (v9 < 0)
+    v4 = *(a2 + 24);
+    if (v4 < 0)
     {
-      dyld_halt("invalid offset: %lld", a2, a3, a4, a5, a6, a7, a8, *(a2 + 24));
+      dyld_halt("invalid offset: %lld", *(a2 + 24));
     }
 
-    v11 = dupfd_optional(*(result + v8), "boot root");
-    result = xferfd(&v11);
-    *(a3 + v9) = result;
+    v6 = dupfd_optional(*(result + v3), "boot root");
+    result = xferfd(&v6);
+    *(a3 + v4) = result;
   }
 
   return result;
@@ -4867,7 +4829,7 @@ uint64_t dyld4::APIs::_dyld_for_objc_header_opt_rw(dyld4::APIs *this)
   return v2;
 }
 
-uint64_t dyld4::Loader::getSectionLocations(dyld4::Loader *this)
+uint64_t dyld4::Loader::getSectionLocations(dyld4::Loader *this, uint64_t a2)
 {
   if (*this != 1815378276)
   {
@@ -4894,8 +4856,8 @@ uint64_t dyld4::APIs::_dyld_lookup_section_info(void *a1, mach_o::Header *a2, dy
     return 0;
   }
 
-  v19[49] = v4;
-  v19[50] = v5;
+  v17[49] = v4;
+  v17[50] = v5;
   if (this)
   {
     v11 = a1[1];
@@ -4910,31 +4872,26 @@ uint64_t dyld4::APIs::_dyld_lookup_section_info(void *a1, mach_o::Header *a2, dy
       }
     }
 
-    if (*this != 1815378276 || *dyld4::Loader::getSectionLocations(this) != 1)
+    if (*this != 1815378276 || *dyld4::Loader::getSectionLocations(this, a2) != 1)
     {
       return (*(*a1 + 888))(a1, a2, 0, a4);
     }
 
-    SectionLocations = dyld4::Loader::getSectionLocations(this);
-    v16 = *(SectionLocations + 8 * a4 + 8);
+    v16 = *(dyld4::Loader::getSectionLocations(this, v15) + 8 * a4 + 8);
     if (v16)
     {
-      v17 = (SectionLocations + 8 * a4);
-LABEL_17:
-      v18 = v17[22];
       return a2 + v16;
     }
   }
 
   else
   {
-    v19[0] = 1;
-    dyld4::JustInTimeLoader::parseSectionLocations(a2, v19);
-    v16 = v19[a4 + 1];
+    v17[0] = 1;
+    dyld4::JustInTimeLoader::parseSectionLocations(a2, v17);
+    v16 = v17[a4 + 1];
     if (v16)
     {
-      v17 = &v19[a4];
-      goto LABEL_17;
+      return a2 + v16;
     }
   }
 
@@ -5043,7 +5000,7 @@ LABEL_40:
 
       else
       {
-        return v28(v27);
+        return (v28)(v27);
       }
     }
 
@@ -5084,7 +5041,7 @@ LABEL_40:
 
       else
       {
-        result = v28(v27);
+        result = (v28)(v27);
       }
 
       if (!MEMORY[0xFFFFFC10C])
@@ -5117,7 +5074,7 @@ LABEL_40:
 
   else
   {
-    lsl::MemoryManager::lockGuard(v7, v35);
+    lsl::MemoryManager::lockGuard(v35, v7);
     v22 = *(v7 + 3);
     if (!v22)
     {
@@ -5139,7 +5096,7 @@ LABEL_40:
       v28(v27);
     }
 
-    lsl::MemoryManager::lockGuard(v7, v35);
+    lsl::MemoryManager::lockGuard(v35, v7);
     v23 = *(v7 + 3) - 1;
     *(v7 + 3) = v23;
     if (!v23)
@@ -5202,13 +5159,13 @@ uint64_t ___ZN5dyld44APIs35_dyld_register_for_bulk_image_loadsENS_16ReadOnlyCall
 uint64_t dyld4::ReadOnlyCallback<void (*)(unsigned int,mach_header const**,char const**)>::operator()<unsigned int &,mach_header const**,char const**>(lsl::MemoryManager *a1, unsigned int *a2, void *a3, void *a4)
 {
   v15 = lsl::MemoryManager::memoryManager(a1);
-  result = v15[6];
+  result = *(v15 + 6);
   if (result)
   {
     result = lsl::ProtectedStack::onStackInCurrentFrame(result, v8, v9, v10, v11, v12, v13, v14, v32[0]);
     if (result)
     {
-      v23 = v15[6];
+      v23 = *(v15 + 6);
       v32[1] = 0x40000000;
       v32[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld416ReadOnlyCallbackIPFvjPPK11mach_headerPPKcEEclIJRjS7_SA_EEEvDpOT_EUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeESM__block_invoke;
       v32[3] = &__block_descriptor_tmp_238;
@@ -5311,7 +5268,7 @@ uint64_t ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_bloc
 {
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v11 = (v9 + a2);
+  v11 = &v9[a2];
   if (*(*(v10 + 1) + 323) == 1)
   {
     v12 = dyld4::Loader::path(*(a1 + 32), v10);
@@ -5319,17 +5276,17 @@ uint64_t ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_bloc
     v9 = *(a1 + 40);
   }
 
-  v48 = v11;
-  v39 = 520552448;
-  v40 = v9;
-  v41 = 0;
-  v42 = v11;
+  v45 = v11;
+  LODWORD(v39[0]) = 520552448;
+  v39[1] = v9;
+  v39[2] = 0;
+  v39[3] = v11;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  started = dyld3::ScopedTimer::startTimer(&v39, a2, a3, a4, a5, a6, a7, a8);
+  started = dyld3::ScopedTimer::startTimer(v39, a2, a3, a4, a5, a6, a7, a8);
   v14 = *(a1 + 48);
   v22 = lsl::MemoryManager::memoryManager(started);
   result = *(v22 + 6);
@@ -5339,20 +5296,20 @@ uint64_t ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_bloc
     if (result)
     {
       v30 = *(v22 + 6);
-      v49[0] = _NSConcreteStackBlock;
-      v49[1] = 0x40000000;
-      v49[2] = ___ZN3lsl13MemoryManager26withReadOnlyMemoryInternalIZZNK5dyld46Loader25findAndRunAllInitializersERNS2_12RuntimeStateEEUb_E3__0EEvT__block_invoke;
-      v49[3] = &__block_descriptor_tmp_218;
-      v49[4] = &v48;
-      v49[5] = v14;
-      lsl::ProtectedStack::withNestedRegularStack(v30, v49, v24, v25, v26, v27, v28, v29, v38);
-      return dyld3::ScopedTimer::endTimer(&v39);
+      v46[0] = _NSConcreteStackBlock;
+      v46[1] = 0x40000000;
+      v46[2] = ___ZN3lsl13MemoryManager26withReadOnlyMemoryInternalIZZNK5dyld46Loader25findAndRunAllInitializersERNS2_12RuntimeStateEEUb_E3__0EEvT__block_invoke;
+      v46[3] = &__block_descriptor_tmp_218;
+      v46[4] = &v45;
+      v46[5] = v14;
+      lsl::ProtectedStack::withNestedRegularStack(v30, v46, v24, v25, v26, v27, v28, v29, v38);
+      return dyld3::ScopedTimer::endTimer(v39);
     }
   }
 
   if (*(v22 + 33) != 1)
   {
-    lsl::MemoryManager::lockGuard(v22, v49);
+    lsl::MemoryManager::lockGuard(v46, v22);
     v31 = *(v22 + 3) - 1;
     *(v22 + 3) = v31;
     if (!v31)
@@ -5360,9 +5317,9 @@ uint64_t ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_bloc
       lsl::MemoryManager::writeProtect(v22, 1);
     }
 
-    lsl::Lock::unlock(v49[0]);
+    lsl::Lock::unlock(v46[0]);
     (v11)(*(*(v14 + 1) + 168), *(*(v14 + 1) + 176), *(*(v14 + 1) + 184), *(*(v14 + 1) + 192), v14 + 120);
-    lsl::MemoryManager::lockGuard(v22, v49);
+    lsl::MemoryManager::lockGuard(v46, v22);
     v32 = *(v22 + 3);
     if (!v32)
     {
@@ -5371,8 +5328,8 @@ uint64_t ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_bloc
     }
 
     *(v22 + 3) = v32 + 1;
-    lsl::Lock::unlock(v49[0]);
-    return dyld3::ScopedTimer::endTimer(&v39);
+    lsl::Lock::unlock(v46[0]);
+    return dyld3::ScopedTimer::endTimer(v39);
   }
 
   if (MEMORY[0xFFFFFC10C] && (MEMORY[0xFFFFFC10C] & 0xFE) == 2)
@@ -5380,7 +5337,7 @@ uint64_t ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_bloc
     if ((_ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)) & 0x1000000000) == 0)
     {
       (v11)(*(*(v14 + 1) + 168), *(*(v14 + 1) + 176), *(*(v14 + 1) + 184), *(*(v14 + 1) + 192), v14 + 120);
-      return dyld3::ScopedTimer::endTimer(&v39);
+      return dyld3::ScopedTimer::endTimer(v39);
     }
 
     if (MEMORY[0xFFFFFC10C])
@@ -5412,7 +5369,7 @@ uint64_t ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_bloc
                   v36 = MEMORY[0xFFFFFC0D0];
                   if (v36 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
                   {
-                    return dyld3::ScopedTimer::endTimer(&v39);
+                    return dyld3::ScopedTimer::endTimer(v39);
                   }
                 }
               }
@@ -5427,81 +5384,68 @@ uint64_t ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_bloc
   return result;
 }
 
-uint64_t ___ZNK5dyld313MachOAnalyzer18forEachInitializerER11DiagnosticsRKNS0_15VMAddrConverterEU13block_pointerFvjEPKv_block_invoke_4(uint64_t result, uint64_t *a2, _BYTE *a3)
+uint64_t ___ZNK5dyld313MachOAnalyzer18forEachInitializerER11DiagnosticsRKNS0_15VMAddrConverterEU13block_pointerFvjEPKv_block_invoke_4(uint64_t result, uint64_t a2, _BYTE *a3)
 {
   if (*(a2 + 44) == 22)
   {
     v4 = result;
-    if ((a2[5] & 2) != 0)
+    if ((*(a2 + 40) & 2) != 0)
     {
-      v7 = a2[3];
-      v23 = a2[1];
-      v26 = *a2;
-      v20 = a2[2];
       result = Diagnostics::error(*(result + 56), "initializer offsets section %.*s/%.*s must be in read-only segment");
       goto LABEL_6;
     }
 
-    v5 = a2[8];
+    v5 = *(a2 + 64);
     if ((v5 & 3) != 0)
     {
-      v6 = a2[3];
-      v22 = a2[1];
-      v25 = *a2;
-      v19 = a2[2];
       result = Diagnostics::error(*(result + 56), "initializer offsets section %.*s/%.*s has bad size");
 LABEL_6:
       *a3 = 1;
       return result;
     }
 
-    v8 = a2[7];
-    if ((v8 & 3) != 0)
+    v6 = *(a2 + 56);
+    if ((v6 & 3) != 0)
     {
-      v9 = a2[3];
-      v24 = a2[1];
-      v27 = *a2;
-      v21 = a2[2];
       result = Diagnostics::error(*(result + 56), "initializer offsets section %.*s/%.*s is not 4-byte aligned");
       goto LABEL_6;
     }
 
     if (v5 >= 1)
     {
-      v10 = (*(result + 48) + v8);
-      v11 = (v10 + v5);
+      v7 = (*(result + 48) + v6);
+      v8 = (v7 + v5);
       while (1)
       {
-        v12 = *(*(v4 + 40) + 8);
-        v13 = *(v12 + 80);
-        if (!v13)
+        v9 = *(*(v4 + 40) + 8);
+        v10 = *(v9 + 80);
+        if (!v10)
         {
           break;
         }
 
-        v14 = *(v4 + 64) + *v10;
-        v15 = *(v12 + 64);
-        v16 = 24 * v13;
-        v17 = (v15 + 8);
-        while (*(v17 - 1) > v14 || *v17 <= v14)
+        v11 = *(v4 + 64) + *v7;
+        v12 = *(v9 + 64);
+        v13 = 24 * v10;
+        v14 = (v12 + 8);
+        while (*(v14 - 1) > v11 || *v14 <= v11)
         {
-          v17 += 3;
-          v16 -= 24;
-          if (!v16)
+          v14 += 3;
+          v13 -= 24;
+          if (!v13)
           {
             goto LABEL_20;
           }
         }
 
         result = (*(*(v4 + 32) + 16))();
-        if (++v10 >= v11)
+        if (++v7 >= v8)
         {
           return result;
         }
       }
 
 LABEL_20:
-      v18 = *v10;
       result = Diagnostics::error(*(v4 + 56), "initializer 0x%08X is not an offset to an executable segment");
       goto LABEL_6;
     }
@@ -5660,7 +5604,7 @@ void dyld4::PrebuiltLoaderSet::logDuplicateObjCClasses(dyld4::PrebuiltLoaderSet 
   }
 }
 
-void dyld3::MachOAnalyzer::forEachInitializer(mach_o::Error *a1, Diagnostics *a2, uint64_t a3, uint64_t a4)
+void dyld3::MachOAnalyzer::forEachInitializer(mach_o::Header *a1, Diagnostics *a2, uint64_t a3, uint64_t a4)
 {
   v15 = 0;
   v16 = &v15;
@@ -5739,7 +5683,7 @@ void dyld4::Loader::findAndRunAllInitializers(dyld4::Loader *this, dyld4::Runtim
 {
   Diagnostics::Diagnostics(v8);
   Address = dyld4::Loader::loadAddress(this, a2);
-  dyld3::MachOAnalyzer::makeVMAddrConverter(Address, 1, v7);
+  dyld3::MachOAnalyzer::makeVMAddrConverter(v7, Address, 1);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 0x40000000;
   v6[2] = ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_block_invoke;
@@ -5780,7 +5724,7 @@ void dyld4::ExternallyViewableState::setDyldState(dyld4::ExternallyViewableState
     __chkstk_darwin();
     memset(v4, 0, sizeof(v4));
     v3 = __stackAllocatorInternal(v4);
-    dyld4::ExternallyViewableState::generateAtlas(this, v3, v5);
+    dyld4::ExternallyViewableState::generateAtlas(v5, this, v3);
     dyld4::ExternallyViewableState::activateAtlas(this, *this, v5);
     if (v5[1])
     {
@@ -5791,222 +5735,216 @@ void dyld4::ExternallyViewableState::setDyldState(dyld4::ExternallyViewableState
   }
 }
 
-uint64_t dyld4::ExternallyViewableState::generateCompactInfo@<X0>(dyld4::ExternallyViewableState *this@<X0>, lsl::Allocator *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t dyld4::ExternallyViewableState::generateCompactInfo@<X0>(dyld4::ExternallyViewableState *this@<X0>, lsl::Allocator::Pool **a2@<X1>, uint64_t *a3@<X8>)
 {
-  v7 = dyld4::Atlas::ProcessSnapshot::ProcessSnapshot(v34, a2, (*(this + 1) + 592), 1);
-  dyld4::Atlas::ProcessSnapshot::setInitialImageCount(v7, 2);
-  dyld4::Atlas::ProcessSnapshot::setDyldState(v34, *(this + 16));
-  v8 = mach_o::Platform::value((*(*(this + 1) + 8) + 112));
-  dyld4::Atlas::ProcessSnapshot::setPlatform(v34, v8);
-  v9 = *(this + 1);
-  v10 = *(v9 + 8);
-  v11 = *(v10 + 368);
-  if (v11)
+  v6 = dyld4::Atlas::ProcessSnapshot::ProcessSnapshot(v33, a2, (*(this + 1) + 592), 1);
+  dyld4::Atlas::ProcessSnapshot::setInitialImageCount(v6, 2);
+  dyld4::Atlas::ProcessSnapshot::setDyldState(v33, *(this + 16));
+  v7 = mach_o::Platform::value((*(*(this + 1) + 8) + 112));
+  dyld4::Atlas::ProcessSnapshot::setPlatform(v33, v7);
+  v8 = *(this + 1);
+  v9 = *(v8 + 8);
+  v10 = *(v9 + 368);
+  if (v10)
   {
-    v12 = DyldSharedCache::dynamicRegion(*(v10 + 368));
-    v13 = DyldSharedCache::DynamicRegion::cachePath(v12);
-    dyld4::FileManager::fileRecordForPath((v9 + 592), a2, v13, v33);
-    v14 = dyld4::Atlas::ProcessSnapshot::identityMapper(v34);
-    dyld4::Atlas::SharedCache::SharedCache(&v23, a2, v33, v14, v11, 0);
-    dyld4::Atlas::ProcessSnapshot::addSharedCache(v34, &v23);
-    if (v30)
+    v11 = DyldSharedCache::dynamicRegion(*(v9 + 368));
+    v12 = DyldSharedCache::DynamicRegion::cachePath(v11);
+    dyld4::FileManager::fileRecordForPath(v32, (v8 + 592), a2, v12);
+    v13 = dyld4::Atlas::ProcessSnapshot::identityMapper(v33);
+    dyld4::Atlas::SharedCache::SharedCache(&v22, a2, v32, v13, v10, 0);
+    dyld4::Atlas::ProcessSnapshot::addSharedCache(v33, &v22);
+    if (v29)
     {
-      lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v30, v15);
+      lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v29, v14);
     }
 
-    if (v28 && v29 == 1)
+    if (v27 && v28 == 1)
     {
-      dyld4::Atlas::Mapper::unmap(v26, v28, v27);
+      dyld4::Atlas::Mapper::unmap(v25, v27, v26);
     }
 
-    dyld4::FileRecord::~FileRecord(v24);
-    dyld4::FileRecord::~FileRecord(v33);
+    dyld4::FileRecord::~FileRecord(v23);
+    dyld4::FileRecord::~FileRecord(v32);
   }
 
-  v16 = mach_o::Header::isMachO(&dword_0, 0x1CuLL);
-  if (dyld3::MachOFile::inDyldCache(v16))
+  v15 = mach_o::Header::isMachO(&dword_0, 0x1CuLL);
+  if (dyld3::MachOFile::inDyldCache(v15))
   {
-    dyld4::Atlas::ProcessSnapshot::addSharedCacheImage(v34, &dword_0);
+    dyld4::Atlas::ProcessSnapshot::addSharedCacheImage(v33, &dword_0);
   }
 
   else
   {
-    memset(v32, 0, sizeof(v32));
-    if ((mach_o::Header::getUuid(v16, v32) & 1) == 0)
+    memset(v31, 0, sizeof(v31));
+    if ((mach_o::Header::getUuid(v15, v31) & 1) == 0)
     {
-      dyld4::halt("dyld must have a UUID");
+      dyld4::halt("dyld must have a UUID", 0);
     }
 
-    v31 = *v32;
-    dyld4::FileManager::fileRecordForPath((*(this + 1) + 592), a2, *(*(*(this + 1) + 8) + 128), v33);
-    v17 = dyld4::Atlas::ProcessSnapshot::identityMapper(v34);
-    dyld4::Atlas::Image::Image(&v23, a2, v33, v17, &dword_0, &v31);
-    dyld4::Atlas::ProcessSnapshot::addImage(v34, &v23);
-    v18 = v28;
-    if (v28 && v29 == 1)
+    v30 = *v31;
+    dyld4::FileManager::fileRecordForPath(v32, (*(this + 1) + 592), a2, *(*(*(this + 1) + 8) + 128));
+    v16 = dyld4::Atlas::ProcessSnapshot::identityMapper(v33);
+    dyld4::Atlas::Image::Image(&v22, a2, v32, v16, &dword_0, &v30);
+    dyld4::Atlas::ProcessSnapshot::addImage(v33, &v22);
+    v17 = v27;
+    if (v27 && v28 == 1)
     {
-      dyld4::Atlas::Mapper::unmap(v26, v28, v27);
+      dyld4::Atlas::Mapper::unmap(v25, v27, v26);
     }
 
-    if (v25)
+    if (v24)
     {
-      lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v25, v18);
+      lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v24, v17);
     }
 
-    dyld4::FileRecord::~FileRecord(v24);
-    dyld4::FileRecord::~FileRecord(v33);
+    dyld4::FileRecord::~FileRecord(v23);
+    dyld4::FileRecord::~FileRecord(v32);
   }
 
-  dyld4::Atlas::ProcessSnapshot::addImages(v34, *(this + 1), *(this + 1) + 32);
-  dyld4::Atlas::ProcessSnapshot::serialize(v34, a3);
-  if (v39)
+  dyld4::Atlas::ProcessSnapshot::addImages(v33, *(this + 1), *(this + 1) + 32);
+  dyld4::Atlas::ProcessSnapshot::serialize(a3, v33);
+  if (v38)
   {
-    lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v39, v19);
+    lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v38, v18);
   }
 
-  lsl::UniquePtr<dyld4::Atlas::SharedCache>::~UniquePtr(&v38, v19);
-  if (v37)
+  lsl::UniquePtr<dyld4::Atlas::SharedCache>::~UniquePtr(&v37, v18);
+  if (v36)
   {
-    lsl::Bitmap::~Bitmap(v37, v20);
-    lsl::Allocator::freeObject(v37, v21);
+    lsl::Bitmap::~Bitmap(v36, v19);
+    lsl::Allocator::freeObject(v36, v20);
   }
 
-  result = v35;
-  if (v35)
+  result = v34;
+  if (v34)
   {
-    return lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::NodeCore<31u,15u>::deallocate(v35, v36);
+    return lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::NodeCore<31u,15u>::deallocate(v34, v35);
   }
 
   return result;
 }
 
-void dyld4::ExternallyViewableState::generateAtlas(const dyld4::RuntimeState **this@<X0>, lsl::Allocator *a2@<X1>, uint64_t a3@<X8>)
+void dyld4::ExternallyViewableState::generateAtlas(lsl::Allocator::Pool ***__return_ptr a1@<X8>, const dyld4::RuntimeState **this@<X0>, lsl::Allocator::Pool **a3@<X1>)
 {
-  v43 = a2;
+  v41 = a3;
+  v42 = 0;
+  v43 = 0;
   v44 = 0;
   v45 = 0;
-  v46 = 0;
-  v47 = 0;
-  AAREncoder::AAREncoder(v42, a2);
-  dyld4::ExternallyViewableState::generateCompactInfo(this, a2, &v39);
-  if (v41)
+  AAREncoder::AAREncoder(v40, a3);
+  dyld4::ExternallyViewableState::generateCompactInfo(this, a3, &v37);
+  if (v39)
   {
-    AAREncoder::addFile(v42, "process.cinfo", 0xDuLL, v40, v41);
+    AAREncoder::addFile(v40, "process.cinfo", 0xDuLL, v38, v39);
   }
 
-  PropertyList::PropertyList(v36, a2);
-  v5 = PropertyList::rootDictionary(v36);
+  PropertyList::PropertyList(v34, a3);
+  v5 = PropertyList::rootDictionary(v34);
   v6 = PropertyList::Dictionary::addObjectForKey<PropertyList::Array>(v5, "imgs", 4uLL);
   v7 = *(this[1] + 1);
   v8 = *(v7 + 368);
-  v29 = v5;
+  v27 = v5;
   v9 = dyld4::ExternallyViewableState::gatherAtlasProcessInfo(this, *(v7 + 16), v8, v5);
-  if (v8)
+  v10 = this[1];
+  v11 = *(v10 + 6);
+  if (v11)
   {
-    v10 = *(v8 + 18);
-    v28 = v8 + *(v8 + 17);
-  }
-
-  v11 = this[1];
-  v12 = *(v11 + 6);
-  if (v12)
-  {
-    v13 = *(v11 + 5);
-    v14 = 8 * v12;
-    v15 = v13;
+    v12 = *(v10 + 5);
+    v13 = 8 * v11;
+    v14 = v12;
     do
     {
-      v16 = *v15;
-      Address = dyld4::Loader::loadAddress(*v15, this[1]);
-      if (v9 && (*(v16 + 2) & 2) != 0)
+      v15 = *v14;
+      Address = dyld4::Loader::loadAddress(*v14, this[1]);
+      if (v9 && (*(v15 + 2) & 2) != 0)
       {
-        PropertyList::Bitmap::setBit(v9, *(v16 + 3) & 0x7FFF);
+        PropertyList::Bitmap::setBit(v9, *(v15 + 3) & 0x7FFF);
       }
 
       else
       {
-        v18 = dyld4::Loader::path(v16, this[1]);
-        if (v18)
+        v17 = dyld4::Loader::path(v15, this[1]);
+        if (v17)
         {
-          v19 = v18;
-          v20 = PropertyList::Array::addObject<PropertyList::Dictionary>(v6);
-          dyld4::ExternallyViewableState::atlasAddImage(v20, v20, Address, v19);
+          v18 = v17;
+          v19 = PropertyList::Array::addObject<PropertyList::Dictionary>(v6);
+          dyld4::ExternallyViewableState::atlasAddImage(v19, v19, Address, v18);
         }
       }
 
-      ++v15;
-      ++v13;
-      v14 -= 8;
+      ++v14;
+      ++v12;
+      v13 -= 8;
     }
 
-    while (v14);
+    while (v13);
   }
 
-  v21 = PropertyList::Array::addObject<PropertyList::Dictionary>(v6);
-  dyld4::ExternallyViewableState::atlasAddImage(v21, v21, &dword_0, *(*(this[1] + 1) + 128));
-  v22 = this[4];
-  v23 = *(v22 + 81);
-  if (v23)
+  v20 = PropertyList::Array::addObject<PropertyList::Dictionary>(v6);
+  dyld4::ExternallyViewableState::atlasAddImage(v20, v20, &dword_0, *(*(this[1] + 1) + 128));
+  v21 = this[4];
+  v22 = *(v21 + 81);
+  if (v22)
   {
-    v24 = *(v22 + 41);
-    v25 = PropertyList::Dictionary::addObjectForKey<PropertyList::Array>(v29, "aots", 4uLL);
-    v26 = &v24[7 * v23];
+    v23 = *(v21 + 41);
+    v24 = PropertyList::Dictionary::addObjectForKey<PropertyList::Array>(v27, "aots", 4uLL);
+    v25 = &v23[7 * v22];
     do
     {
-      v27 = PropertyList::Array::addObject<PropertyList::Dictionary>(v25);
-      v31 = *v24;
-      PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned long long>(v27, "xadr", 4uLL, &v31);
-      v31 = v24[1];
-      PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned long long>(v27, "aadr", 4uLL, &v31);
-      PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned long long>(v27, "asze", 4uLL, v24 + 2);
-      v31 = (v24 + 3);
-      v32 = &stru_20;
-      PropertyList::Dictionary::addObjectForKey<PropertyList::Data,std::span<std::byte,18446744073709551615ul> &>(v27, "ikey", 4uLL, &v31);
-      v24 += 7;
+      v26 = PropertyList::Array::addObject<PropertyList::Dictionary>(v24);
+      v29 = *v23;
+      PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned long long>(v26, "xadr", 4uLL, &v29);
+      v29 = v23[1];
+      PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned long long>(v26, "aadr", 4uLL, &v29);
+      PropertyList::Dictionary::addObjectForKey<PropertyList::Integer,unsigned long long>(v26, "asze", 4uLL, v23 + 2);
+      v29 = (v23 + 3);
+      v30 = &stru_20;
+      PropertyList::Dictionary::addObjectForKey<PropertyList::Data,std::span<std::byte,18446744073709551615ul> &>(v26, "ikey", 4uLL, &v29);
+      v23 += 7;
     }
 
-    while (v24 != v26);
+    while (v23 != v25);
   }
 
-  v31 = a2;
+  v29 = a3;
+  v30 = 0;
+  v31 = 0;
   v32 = 0;
   v33 = 0;
-  v34 = 0;
-  v35 = 0;
-  PropertyList::encode(v36, &v31);
-  AAREncoder::addFile(v42, "process.plist", 0xDuLL, v32, v33);
-  AAREncoder::encode(v42, &v43);
-  *a3 = a2;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 24) = 0;
-  *(a3 + 32) = 0;
-  lsl::Vector<std::byte>::insert<std::byte*>(a3, 0, v44, &v44[v45]);
-  if (v32)
+  PropertyList::encode(v34, &v29);
+  AAREncoder::addFile(v40, "process.plist", 0xDuLL, v30, v31);
+  AAREncoder::encode(v40, &v41);
+  *a1 = a3;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = 0;
+  *(a1 + 8) = 0;
+  lsl::Vector<std::byte>::insert<std::byte*>(a1, 0, v42, &v42[v43]);
+  if (v30)
   {
-    lsl::Vector<std::byte>::resize(&v31, 0);
+    lsl::Vector<std::byte>::resize(&v29, 0);
   }
 
-  v36[1] = &off_A41D0;
-  if (v38[1])
+  v34[1] = &off_A41D0;
+  if (v36[1])
   {
-    lsl::Vector<char const*>::resize(v38, 0);
+    lsl::Vector<char const*>::resize(v36, 0);
   }
 
-  if (v37[1])
+  if (v35[1])
   {
-    lsl::Vector<char const*>::resize(v37, 0);
+    lsl::Vector<char const*>::resize(v35, 0);
   }
 
-  if (v40)
+  if (v38)
   {
-    lsl::Vector<std::byte>::resize(&v39, 0);
+    lsl::Vector<std::byte>::resize(&v37, 0);
   }
 
-  AAREncoder::~AAREncoder(v42);
-  if (v44)
+  AAREncoder::~AAREncoder(v40);
+  if (v42)
   {
-    lsl::Vector<std::byte>::resize(&v43, 0);
+    lsl::Vector<std::byte>::resize(&v41, 0);
   }
 }
 
@@ -6031,7 +5969,7 @@ uint64_t dyld4::Atlas::ProcessSnapshot::addImages(uint64_t result, dyld4::Runtim
         v9 = *v5;
         v10 = lsl::Allocator::aligned_alloc(*v5, 8uLL, 0xC0uLL);
         v11 = dyld4::Atlas::Image::Image(v10, a2, v9, (v5 + 72), *v8);
-        lsl::OrderedSet<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>>::insert(v5 + 16, &v11, v12);
+        lsl::OrderedSet<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>>::insert((v5 + 16), &v11, v12);
         result = lsl::UniquePtr<dyld4::Atlas::Image>::~UniquePtr(&v11);
       }
 
@@ -6079,14 +6017,14 @@ uint64_t dyld4::Atlas::Image::Image(uint64_t a1, dyld4::RuntimeState *a2, lsl::A
   {
 LABEL_10:
     v15 = dyld4::Loader::path(this, a2);
-    dyld4::FileManager::fileRecordForPath((a2 + 592), a3, v15, v19);
+    dyld4::FileManager::fileRecordForPath(v19, (a2 + 592), a3, v15);
     dyld4::FileRecord::operator=(v9, v19);
     dyld4::FileRecord::~FileRecord(v19);
     return a1;
   }
 
   dyld4::Loader::fileID(this, v17);
-  dyld4::FileManager::fileRecordForFileID((a2 + 592), v17[0].i64, v19);
+  dyld4::FileManager::fileRecordForFileID(v19, (a2 + 592), v17);
   dyld4::FileRecord::operator=(v9, v19);
   dyld4::FileRecord::~FileRecord(v19);
   v12 = dyld4::FileRecord::volume(v9);
@@ -6112,7 +6050,7 @@ LABEL_10:
   return a1;
 }
 
-double dyld4::Loader::fileID@<D0>(dyld4::Loader *this@<X0>, int8x16_t *a2@<X8>)
+double dyld4::Loader::fileID@<D0>(dyld4::Loader *this@<X0>, int8x16_t *x8_0@<X8>)
 {
   if (*this != 1815378276)
   {
@@ -6122,13 +6060,13 @@ double dyld4::Loader::fileID@<D0>(dyld4::Loader *this@<X0>, int8x16_t *a2@<X8>)
   if (*(this + 2))
   {
 
-    return dyld4::PrebuiltLoader::fileID(this, a2);
+    return dyld4::PrebuiltLoader::fileID(this, x8_0);
   }
 
   else
   {
 
-    *&result = dyld4::JustInTimeLoader::fileID(this, a2).n128_u64[0];
+    *&result = dyld4::JustInTimeLoader::fileID(this, x8_0).n128_u64[0];
   }
 
   return result;
@@ -6138,23 +6076,23 @@ double dyld4::PrebuiltLoader::fileID@<D0>(dyld4::PrebuiltLoader *this@<X0>, int8
 {
   if (this && *(this + 21))
   {
-    v3 = this + *(this + 21);
-    v4 = *(v3 + 3);
-    v5 = v3[52];
-    v6 = vextq_s8(*(v3 + 8), *(v3 + 8), 8uLL);
-    *a2 = v6;
-    a2[1].i64[0] = v4;
-    a2[1].i8[8] = v5;
+    v2 = this + *(this + 21);
+    v3 = *(v2 + 3);
+    v4 = v2[52];
+    v5 = vextq_s8(*(v2 + 8), *(v2 + 8), 8uLL);
+    *a2 = v5;
+    a2[1].i64[0] = v3;
+    a2[1].i8[8] = v4;
   }
 
   else
   {
-    v6.i64[0] = 0;
+    v5.i64[0] = 0;
     *a2 = 0u;
     a2[1] = 0u;
   }
 
-  return *v6.i64;
+  return *v5.i64;
 }
 
 uint64_t dyld4::RuntimeState::notifyObjCInit(uint64_t this, const dyld4::Loader *a2)
@@ -6166,110 +6104,110 @@ uint64_t dyld4::RuntimeState::notifyObjCInit(uint64_t this, const dyld4::Loader 
     {
       Address = dyld4::Loader::loadAddress(a2, this);
       v5 = dyld4::Loader::path(a2, v2);
-      v38 = 520552480;
-      v39 = Address;
+      LODWORD(v39[0]) = 520552480;
+      v39[1] = Address;
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      dyld3::ScopedTimer::startTimer(&v38, v6, v7, v8, v9, v10, v11, v12);
+      dyld3::ScopedTimer::startTimer(v39, v6, v7, v8, v9, v10, v11, v12);
       if (*(v2[1] + 325) == 1)
       {
         dyld4::RuntimeState::log(v2, "objc-init-notifier called with mh=%p, path=%s\n", Address, v5);
       }
 
-      v37[0] = Address;
-      v37[1] = v5;
-      v37[2] = a2;
-      DoesObjCFixups = dyld4::Loader::dyldDoesObjCFixups(a2);
-      v37[3] = DoesObjCFixups;
-      v21 = lsl::MemoryManager::memoryManager(DoesObjCFixups);
-      this = *(v21 + 6);
+      v38[0] = Address;
+      v38[1] = v5;
+      v38[2] = a2;
+      DoesObjCFixups = dyld4::Loader::dyldDoesObjCFixups(a2, v13);
+      v38[3] = DoesObjCFixups;
+      v22 = lsl::MemoryManager::memoryManager(DoesObjCFixups);
+      this = *(v22 + 6);
       if (this)
       {
-        this = lsl::ProtectedStack::onStackInCurrentFrame(this, v14, v15, v16, v17, v18, v19, v20, v35);
+        this = lsl::ProtectedStack::onStackInCurrentFrame(this, v15, v16, v17, v18, v19, v20, v21, v36);
         if (this)
         {
-          v28 = *(v21 + 6);
+          v29 = *(v22 + 6);
           v46[0] = _NSConcreteStackBlock;
           v46[1] = 0x40000000;
           v46[2] = ___ZN3lsl13MemoryManager26withReadOnlyMemoryInternalIZN5dyld412RuntimeState14notifyObjCInitEPKNS2_6LoaderEE3__0EEvT__block_invoke;
           v46[3] = &__block_descriptor_tmp_209;
           v46[4] = v2;
-          v46[5] = v37;
-          lsl::ProtectedStack::withNestedRegularStack(v28, v46, v22, v23, v24, v25, v26, v27, v36);
-          return dyld3::ScopedTimer::endTimer(&v38);
+          v46[5] = v38;
+          lsl::ProtectedStack::withNestedRegularStack(v29, v46, v23, v24, v25, v26, v27, v28, v37);
+          return dyld3::ScopedTimer::endTimer(v39);
         }
       }
 
-      if (*(v21 + 33) != 1)
+      if (*(v22 + 33) != 1)
       {
-        lsl::MemoryManager::lockGuard(v21, v46);
-        v29 = *(v21 + 3) - 1;
-        *(v21 + 3) = v29;
-        if (!v29)
-        {
-          lsl::MemoryManager::writeProtect(v21, 1);
-        }
-
-        lsl::Lock::unlock(v46[0]);
-        v46[0] = v37;
-        dyld4::ReadOnlyCallback<void (*)(_dyld_objc_notify_mapped_info const*)>::operator()<_dyld_objc_notify_mapped_info*>((v2 + 88), v46);
-        lsl::MemoryManager::lockGuard(v21, v46);
-        v30 = *(v21 + 3);
+        lsl::MemoryManager::lockGuard(v46, v22);
+        v30 = *(v22 + 3) - 1;
+        *(v22 + 3) = v30;
         if (!v30)
         {
-          lsl::MemoryManager::writeProtect(v21, 0);
-          v30 = *(v21 + 3);
+          lsl::MemoryManager::writeProtect(v22, 1);
         }
 
-        *(v21 + 3) = v30 + 1;
         lsl::Lock::unlock(v46[0]);
-        return dyld3::ScopedTimer::endTimer(&v38);
+        v46[0] = v38;
+        dyld4::ReadOnlyCallback<void (*)(_dyld_objc_notify_mapped_info const*)>::operator()<_dyld_objc_notify_mapped_info*>((v2 + 88), v46);
+        lsl::MemoryManager::lockGuard(v46, v22);
+        v31 = *(v22 + 3);
+        if (!v31)
+        {
+          lsl::MemoryManager::writeProtect(v22, 0);
+          v31 = *(v22 + 3);
+        }
+
+        *(v22 + 3) = v31 + 1;
+        lsl::Lock::unlock(v46[0]);
+        return dyld3::ScopedTimer::endTimer(v39);
       }
 
       if (MEMORY[0xFFFFFC10C] && (MEMORY[0xFFFFFC10C] & 0xFE) == 2)
       {
         if ((_ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)) & 0x1000000000) == 0)
         {
-          v46[0] = v37;
+          v46[0] = v38;
           dyld4::ReadOnlyCallback<void (*)(_dyld_objc_notify_mapped_info const*)>::operator()<_dyld_objc_notify_mapped_info*>((v2 + 88), v46);
-          return dyld3::ScopedTimer::endTimer(&v38);
+          return dyld3::ScopedTimer::endTimer(v39);
         }
 
         if (MEMORY[0xFFFFFC10C])
         {
           if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
           {
-            v31 = MEMORY[0xFFFFFC10C];
+            v32 = MEMORY[0xFFFFFC10C];
             __dmb(0xAu);
-            if ((v31 & 0xFE) == 2)
+            if ((v32 & 0xFE) == 2)
             {
               this = MEMORY[0xFFFFFC0D8];
               _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D8]);
               __isb(0xFu);
-              v32 = MEMORY[0xFFFFFC0D8];
-              if (v32 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
+              v33 = MEMORY[0xFFFFFC0D8];
+              if (v33 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
               {
-                v46[0] = v37;
+                v46[0] = v38;
                 this = dyld4::ReadOnlyCallback<void (*)(_dyld_objc_notify_mapped_info const*)>::operator()<_dyld_objc_notify_mapped_info*>((v2 + 88), v46);
                 if (MEMORY[0xFFFFFC10C])
                 {
                   if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
                   {
-                    v33 = MEMORY[0xFFFFFC10C];
+                    v34 = MEMORY[0xFFFFFC10C];
                     __dmb(0xAu);
-                    if ((v33 & 0xFE) == 2)
+                    if ((v34 & 0xFE) == 2)
                     {
                       this = MEMORY[0xFFFFFC0D0];
                       _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D0]);
                       __isb(0xFu);
-                      v34 = MEMORY[0xFFFFFC0D0];
-                      if (v34 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
+                      v35 = MEMORY[0xFFFFFC0D0];
+                      if (v35 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
                       {
-                        return dyld3::ScopedTimer::endTimer(&v38);
+                        return dyld3::ScopedTimer::endTimer(v39);
                       }
                     }
                   }
@@ -6287,7 +6225,7 @@ uint64_t dyld4::RuntimeState::notifyObjCInit(uint64_t this, const dyld4::Loader 
   return this;
 }
 
-unint64_t dyld4::Loader::beginInitializers(dyld4::Loader *this, dyld4::RuntimeState *a2)
+uint64_t dyld4::Loader::beginInitializers(dyld4::Loader *this, dyld4::RuntimeState *a2)
 {
   if (*this != 1815378276)
   {
@@ -6374,13 +6312,13 @@ uint64_t dyld4::PrebuiltLoader::beginInitializers(dyld4::PrebuiltLoader *this, d
 uint64_t dyld4::ReadOnlyCallback<void (*)(_dyld_objc_notify_mapped_info const*)>::operator()<_dyld_objc_notify_mapped_info*>(lsl::MemoryManager *a1, void *a2)
 {
   v11 = lsl::MemoryManager::memoryManager(a1);
-  result = v11[6];
+  result = *(v11 + 6);
   if (result)
   {
     result = lsl::ProtectedStack::onStackInCurrentFrame(result, v4, v5, v6, v7, v8, v9, v10, v26[0]);
     if (result)
     {
-      v19 = v11[6];
+      v19 = *(v11 + 6);
       v26[1] = 0x40000000;
       v26[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld416ReadOnlyCallbackIPFvPK29_dyld_objc_notify_mapped_infoEEclIJPS4_EEEvDpOT_EUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeESI__block_invoke;
       v26[3] = &__block_descriptor_tmp_210;
@@ -6453,34 +6391,34 @@ LABEL_8:
   return v20(v21);
 }
 
-uint64_t dyld3::MachOAnalyzer::makeVMAddrConverter@<X0>(dyld3::MachOAnalyzer *this@<X0>, char a2@<W1>, uint64_t a3@<X8>)
+uint64_t *dyld3::MachOAnalyzer::makeVMAddrConverter@<X0>(uint64_t *__return_ptr a1@<X8>, dyld3::MachOAnalyzer *this@<X0>, char a3@<W1>)
 {
-  *a3 = mach_o::Header::preferredLoadAddress(this);
-  *(a3 + 8) = dyld3::MachOLoaded::getSlide(this);
+  *a1 = mach_o::Header::preferredLoadAddress(this);
+  a1[1] = dyld3::MachOLoaded::getSlide(this);
   result = dyld3::MachOFile::hasChainedFixups(this);
   if (result)
   {
     result = dyld3::MachOAnalyzer::chainedPointerFormat(this);
   }
 
-  *(a3 + 16) = result;
-  *(a3 + 18) = a2;
+  *(a1 + 8) = result;
+  *(a1 + 18) = a3;
   return result;
 }
 
-double ___ZNK5dyld313MachOAnalyzer18forEachInitializerER11DiagnosticsRKNS0_15VMAddrConverterEU13block_pointerFvjEPKv_block_invoke(uint64_t a1, uint64_t a2)
+double ___ZNK5dyld313MachOAnalyzer18forEachInitializerER11DiagnosticsRKNS0_15VMAddrConverterEU13block_pointerFvjEPKv_block_invoke(uint64_t result, uint64_t a2)
 {
   if ((*(a2 + 47) & 4) != 0)
   {
-    v2 = *(*(a1 + 32) + 8);
+    v2 = *(*(result + 32) + 8);
     v3 = *(a2 + 24) + *(a2 + 16);
     v5.n128_u64[0] = *(a2 + 16);
     v5.n128_u64[1] = v3;
     v6 = *(a2 + 36);
-    *&result = dyld3::OverflowSafeArray<dyld3::SegmentRanges::SegmentRange,4294967295ull>::push_back((v2 + 64), &v5).n128_u64[0];
+    *&v4 = dyld3::OverflowSafeArray<dyld3::SegmentRanges::SegmentRange,4294967295ull>::push_back((v2 + 64), &v5).n128_u64[0];
   }
 
-  return result;
+  return v4;
 }
 
 __n128 dyld3::OverflowSafeArray<dyld3::SegmentRanges::SegmentRange,4294967295ull>::push_back(vm_address_t *a1, __n128 *a2)
@@ -6592,39 +6530,31 @@ uint64_t dyld3::MachOFile::pointerSize(dyld3::MachOFile *this)
   }
 }
 
-uint64_t ___ZNK5dyld39MachOFile32forEachInitializerPointerSectionER11DiagnosticsU13block_pointerFvjjRbE_block_invoke(uint64_t result, uint64_t *a2, _BYTE *a3)
+uint64_t ___ZNK5dyld39MachOFile32forEachInitializerPointerSectionER11DiagnosticsU13block_pointerFvjjRbE_block_invoke(uint64_t result, uint64_t a2, _BYTE *a3)
 {
   if (*(a2 + 44) == 9)
   {
     v4 = *(result + 56);
-    if (a2[8] % v4)
+    if (*(a2 + 64) % v4)
     {
-      v5 = a2[3];
-      v13 = a2[1];
-      v15 = *a2;
-      v11 = a2[2];
       result = Diagnostics::error(*(result + 40), "initializer section %.*s/%.*s has bad size");
 LABEL_6:
       *a3 = 1;
       return result;
     }
 
-    v6 = a2[7];
-    if (v6 % v4)
+    v5 = *(a2 + 56);
+    if (v5 % v4)
     {
-      v7 = a2[3];
-      v14 = a2[1];
-      v16 = *a2;
-      v12 = a2[2];
       result = Diagnostics::error(*(result + 40), "initializer section %.*s/%.*s is not pointer aligned");
       goto LABEL_6;
     }
 
-    v8 = (v6 - *(result + 48));
-    v9 = *(*(result + 32) + 16);
-    v10 = *(result + 32);
+    v6 = (v5 - *(result + 48));
+    v7 = *(*(result + 32) + 16);
+    v8 = *(result + 32);
 
-    return v9(v10, v8);
+    return v7(v8, v6);
   }
 
   return result;
@@ -6752,7 +6682,7 @@ LABEL_31:
 
   else
   {
-    lsl::MemoryManager::lockGuard(v11, v31);
+    lsl::MemoryManager::lockGuard(v31, v11);
     v22 = *(v11 + 3);
     if (!v22)
     {
@@ -6763,7 +6693,7 @@ LABEL_31:
     *(v11 + 3) = v22 + 1;
     lsl::Lock::unlock(v31[0]);
     dyld4::Loader::runInitializersBottomUpPlusUpwardLinks(dyld4::RuntimeState &)const::$_0::operator()(&v33, v23, v24, v25, v26, v27, v28, v29);
-    lsl::MemoryManager::lockGuard(v11, v31);
+    lsl::MemoryManager::lockGuard(v31, v11);
     v30 = *(v11 + 3) - 1;
     *(v11 + 3) = v30;
     if (!v30)
@@ -6777,46 +6707,44 @@ LABEL_31:
 
 void dyld4::Loader::runInitializersBottomUpPlusUpwardLinks(dyld4::RuntimeState &)const::$_0::operator()(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(*a1 + 80) + *(*a1 + 48);
-  __chkstk_darwin(a1[1], *a1, a3, a4, a5, a6, a7, a8, v41[0]);
-  v44[0] = v41 - v11;
-  v44[1] = v10;
-  v45 = 0;
-  __chkstk_darwin(v12, v13, v14, v15, v16, v17, v18, v19, v41[0]);
-  v43[0] = v41 - ((v20 + 23) & 0xFFFFFFFFFFFFFFF0);
-  v43[1] = v21;
-  v43[2] = 0;
-  dyld4::Loader::runInitializersBottomUp(v22, v23, v44, v43);
-  v24 = *(*a1 + 80) + *(*a1 + 48);
-  __chkstk_darwin(v25, v26, v27, v28, v29, v30, v31, v32, v41[0]);
-  v41[0] = v41 - v34;
-  v41[1] = v33;
-  v42 = 0;
-  if (v45)
+  __chkstk_darwin(a1[1], *a1, a3, a4, a5, a6, a7, a8, v39[0]);
+  v42[0] = v39 - v10;
+  v42[1] = v9;
+  v43 = 0;
+  __chkstk_darwin(v11, v12, v13, v14, v15, v16, v17, v18, v39[0]);
+  v41[0] = v39 - ((v19 + 23) & 0xFFFFFFFFFFFFFFF0);
+  v41[1] = v20;
+  v41[2] = 0;
+  dyld4::Loader::runInitializersBottomUp(v21, v22, v42, v41);
+  __chkstk_darwin(v23, v24, v25, v26, v27, v28, v29, v30, v39[0]);
+  v39[0] = v39 - v32;
+  v39[1] = v31;
+  v40 = 0;
+  if (v43)
   {
-    v35 = v44[0];
-    v36 = 8 * v45;
+    v33 = v42[0];
+    v34 = 8 * v43;
     do
     {
-      v37 = *v35++;
-      dyld4::Loader::runInitializersBottomUp(v37, *a1, v41, v43);
-      v36 -= 8;
+      v35 = *v33++;
+      dyld4::Loader::runInitializersBottomUp(v35, *a1, v39, v41);
+      v34 -= 8;
     }
 
-    while (v36);
-    if (v42)
+    while (v34);
+    if (v40)
     {
-      v45 = 0;
-      v38 = v41[0];
-      v39 = 8 * v42;
+      v43 = 0;
+      v36 = v39[0];
+      v37 = 8 * v40;
       do
       {
-        v40 = *v38++;
-        dyld4::Loader::runInitializersBottomUp(v40, *a1, v44, v43);
-        v39 -= 8;
+        v38 = *v36++;
+        dyld4::Loader::runInitializersBottomUp(v38, *a1, v42, v41);
+        v37 -= 8;
       }
 
-      while (v39);
+      while (v37);
     }
   }
 }
@@ -6839,32 +6767,32 @@ void dyld4::Loader::runInitializersBottomUp(dyld4::Loader *a1, dyld4::RuntimeSta
   if (!v10)
   {
 LABEL_6:
-    v21 = a1;
-    dyld3::Array<dyld4::Loader const*>::push_back(a4, &v21);
+    v22 = a1;
+    dyld3::Array<dyld4::Loader const*>::push_back(a4, &v22);
 LABEL_8:
-    v13 = dyld4::Loader::dependentCount(a1);
-    if (v13)
+    v14 = dyld4::Loader::dependentCount(a1, v13);
+    if (v14)
     {
-      v14 = v13;
-      for (i = 0; i != v14; ++i)
+      v15 = v14;
+      for (i = 0; i != v15; ++i)
       {
-        v20 = 0;
-        v16 = dyld4::Loader::dependent(a1, a2, i, &v20);
-        v21 = v16;
-        if (v16)
+        v21 = 0;
+        v17 = dyld4::Loader::dependent(a1, a2, i, &v21);
+        v22 = v17;
+        if (v17)
         {
-          if ((v20 & 4) != 0)
+          if ((v21 & 4) != 0)
           {
-            v17 = a3[2];
-            if (v17)
+            v18 = a3[2];
+            if (v18)
             {
-              v18 = *a3;
-              v19 = 8 * v17;
-              while (*v18 != v16)
+              v19 = *a3;
+              v20 = 8 * v18;
+              while (*v19 != v17)
               {
-                ++v18;
-                v19 -= 8;
-                if (!v19)
+                ++v19;
+                v20 -= 8;
+                if (!v20)
                 {
                   goto LABEL_17;
                 }
@@ -6874,13 +6802,13 @@ LABEL_8:
             else
             {
 LABEL_17:
-              dyld3::Array<dyld4::Loader const*>::push_back(a3, &v21);
+              dyld3::Array<dyld4::Loader const*>::push_back(a3, &v22);
             }
           }
 
           else
           {
-            dyld4::Loader::runInitializersBottomUp();
+            dyld4::Loader::runInitializersBottomUp(v17, a2, a3, a4);
           }
         }
       }
@@ -7002,7 +6930,7 @@ uint64_t dyld4::PrebuiltLoader::dependent(_WORD *a1, dyld4::RuntimeState *a2, un
   return result;
 }
 
-uint64_t dyld4::Loader::dependentCount(dyld4::Loader *this)
+uint64_t dyld4::Loader::dependentCount(dyld4::Loader *this, uint64_t a2)
 {
   if (*this != 1815378276)
   {
@@ -7061,27 +6989,27 @@ BOOL dyld4::APIs::dyld_has_inserted_or_interposing_libraries(dyld4::APIs *this)
 void dyld4::APIs::dlopen_from(dyld4::RuntimeLocks **this, dyld4::Loader *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
 {
   v9 = a3;
-  v53 = a2;
-  v52 = a3;
-  v43 = 520617984;
-  v44 = 0;
-  v45 = a2;
-  v46 = a3;
+  v50 = a2;
+  v49 = a3;
+  LODWORD(v43[0]) = 520617984;
+  v43[1] = 0;
+  v43[2] = a2;
+  v43[3] = a3;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  dyld3::ScopedTimer::startTimer(&v43, a2, a3, a4, a5, a6, a7, a8);
+  dyld3::ScopedTimer::startTimer(v43, a2, a3, a4, a5, a6, a7, a8);
   if (*(this[1] + 324) == 1)
   {
     dyld4::RuntimeState::log(this, "dlopen(%s, 0x%08X)\n", a2, v9);
   }
 
   dyld4::APIs::clearErrorString(this);
-  v12 = v52;
-  v42 = BYTE1(v52) & 1;
-  if (!v53)
+  v12 = v49;
+  v42 = BYTE1(v49) & 1;
+  if (!v50)
   {
     goto LABEL_47;
   }
@@ -7089,33 +7017,33 @@ void dyld4::APIs::dlopen_from(dyld4::RuntimeLocks **this, dyld4::Loader *a2, uin
   v13 = this[119];
   if (v13)
   {
-    v58[0] = 0;
-    if (dyld4::ProcessConfig::DyldCache::indexOfPath(this[1] + 46, v53, v58))
+    v55[0] = 0;
+    if (dyld4::ProcessConfig::DyldCache::indexOfPath(this[1] + 46, v50, v55))
     {
-      if (*(v13 + 3) <= LOWORD(v58[0]))
+      if (*(v13 + 3) <= LOWORD(v55[0]))
       {
         dyld4::RuntimeState::findPrebuiltLoader();
       }
 
-      v14 = *(v13 + 4 * LOWORD(v58[0]) + *(v13 + 4));
+      v14 = *(v13 + 4 * LOWORD(v55[0]) + *(v13 + 4));
       if (dyld4::PrebuiltLoader::isInitialized((v13 + v14), this))
       {
         v16 = dyld4::handleFromLoader(v13 + v14, v42);
         if (*(this[1] + 324) == 1)
         {
-          v17 = dyld4::Loader::leafName(v53, v15);
+          v17 = dyld4::Loader::leafName(v50, v15);
           dyld4::RuntimeState::log(this, "      dlopen(%s) => %p\n", v17, v16);
         }
 
-        *(&v48 + 1) = v16;
-        *&v49 = 0;
+        *(&v45 + 1) = v16;
+        *&v46 = 0;
 LABEL_47:
-        dyld3::ScopedTimer::endTimer(&v43);
+        dyld3::ScopedTimer::endTimer(v43);
         return;
       }
     }
 
-    v12 = v52;
+    v12 = v49;
   }
 
   v18 = this[14];
@@ -7128,13 +7056,13 @@ LABEL_47:
   ImageContaining = dyld4::APIs::findImageContaining(this, a4);
   v39 = 0;
   v19 = lsl::MemoryManager::memoryManager(ImageContaining);
-  *&v54 = this;
-  *(&v54 + 1) = &ImageContaining;
-  *&v55 = &v52;
-  *(&v55 + 1) = &v39;
-  *&v56 = &v53;
-  *(&v56 + 1) = &v40;
-  v57 = &v42;
+  *&v51 = this;
+  *(&v51 + 1) = &ImageContaining;
+  *&v52 = &v49;
+  *(&v52 + 1) = &v39;
+  *&v53 = &v50;
+  *(&v53 + 1) = &v40;
+  v54 = &v42;
   v20 = *(v19 + 6);
   if (v20 && lsl::ProtectedStack::onStackInAnyFrameInThisThread(v20))
   {
@@ -7152,15 +7080,15 @@ LABEL_47:
           if (v28 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
           {
             v29 = *(v19 + 6);
-            *v58 = _NSConcreteStackBlock;
-            v59 = 0x40000000;
-            v60 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld44APIs11dlopen_fromEPKciPvE3__0EEvT__block_invoke;
-            v61 = &__block_descriptor_tmp_217;
+            *v55 = _NSConcreteStackBlock;
+            v56 = 0x40000000;
+            v57 = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld44APIs11dlopen_fromEPKciPvE3__0EEvT__block_invoke;
+            v58 = &__block_descriptor_tmp_217;
+            v59 = v51;
+            v60 = v52;
+            v61 = v53;
             v62 = v54;
-            v63 = v55;
-            v64 = v56;
-            v65 = v57;
-            lsl::ProtectedStack::withNestedProtectedStack(v29, v58, v21, v22, v23, v24, v25, v26, v38);
+            lsl::ProtectedStack::withNestedProtectedStack(v29, v55, v21, v22, v23, v24, v25, v26, v38);
             if (MEMORY[0xFFFFFC10C])
             {
               if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
@@ -7189,7 +7117,7 @@ LABEL_47:
   {
     if (*(v19 + 33) != 1)
     {
-      lsl::MemoryManager::lockGuard(v19, v58);
+      lsl::MemoryManager::lockGuard(v55, v19);
       v36 = *(v19 + 3);
       if (!v36)
       {
@@ -7198,9 +7126,9 @@ LABEL_47:
       }
 
       *(v19 + 3) = v36 + 1;
-      lsl::Lock::unlock(*v58);
-      dyld4::APIs::dlopen_from(char const*,int,void *)::$_0::operator()(&v54);
-      lsl::MemoryManager::lockGuard(v19, v58);
+      lsl::Lock::unlock(*v55);
+      dyld4::APIs::dlopen_from(char const*,int,void *)::$_0::operator()(&v51);
+      lsl::MemoryManager::lockGuard(v55, v19);
       v37 = *(v19 + 3) - 1;
       *(v19 + 3) = v37;
       if (!v37)
@@ -7208,7 +7136,7 @@ LABEL_47:
         lsl::MemoryManager::writeProtect(v19, 1);
       }
 
-      lsl::Lock::unlock(*v58);
+      lsl::Lock::unlock(*v55);
       goto LABEL_45;
     }
 
@@ -7216,7 +7144,7 @@ LABEL_47:
     {
       if ((_ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)) & 0x1000000000) != 0)
       {
-        dyld4::APIs::dlopen_from(char const*,int,void *)::$_0::operator()(&v54);
+        dyld4::APIs::dlopen_from(char const*,int,void *)::$_0::operator()(&v51);
         goto LABEL_45;
       }
 
@@ -7233,7 +7161,7 @@ LABEL_47:
             v33 = MEMORY[0xFFFFFC0D0];
             if (v33 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
             {
-              dyld4::APIs::dlopen_from(char const*,int,void *)::$_0::operator()(&v54);
+              dyld4::APIs::dlopen_from(char const*,int,void *)::$_0::operator()(&v51);
               if (MEMORY[0xFFFFFC10C])
               {
                 if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
@@ -7248,8 +7176,8 @@ LABEL_47:
                     if (v35 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
                     {
 LABEL_45:
-                      *(&v48 + 1) = v40;
-                      *&v49 = 0;
+                      *(&v45 + 1) = v40;
+                      *&v46 = 0;
                       if ((v12 & 0x10) == 0)
                       {
                         dyld4::RuntimeLocks::releaseDlopenLockInForkParent(v18);
@@ -7541,11 +7469,11 @@ LABEL_10:
       return 0;
     }
 
-    goto LABEL_34;
+    goto LABEL_33;
   }
 
   v21 = *(v19 + 368);
-  v31[0] = a3 - v21;
+  v30[0] = a3 - v21;
   v22 = 1;
   if (v6)
   {
@@ -7557,7 +7485,7 @@ LABEL_10:
         break;
       }
 
-      v31[v22] = &v23[-v21];
+      v30[v22] = &v23[-v21];
       ++v5;
       ++v22;
       if (!--v6)
@@ -7571,16 +7499,15 @@ LABEL_10:
       return 0;
     }
 
-    v28 = *v5;
-LABEL_34:
+LABEL_33:
     dyld4::RuntimeState::log(this, "_dyld_find_pointer_hash_table_entry() key %p not in shared cache\n");
     return 0;
   }
 
 LABEL_28:
-  v29 = v31;
-  v30 = v22;
-  Potential = SwiftHashTable::getPotentialTarget<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(v15, &v29);
+  v28 = v30;
+  v29 = v22;
+  Potential = SwiftHashTable::getPotentialTarget<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(v15, &v28, 0);
   v26 = 0;
   if (Potential != v15[4])
   {
@@ -7613,61 +7540,61 @@ uint64_t SwiftHashTable::hash<PointerHashTableBuilderKey>(uint64_t a1, objc **a2
   return v7 ^ *(a1 + 4 * *(a1 + ((v5 ^ v4) & *(a1 + 12)) + 1056) + 32);
 }
 
-uint64_t SwiftHashTable::getIndex<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(unsigned int *a1, objc **a2)
+uint64_t SwiftHashTable::getIndex<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(unsigned int *a1, objc **a2, uint64_t a3)
 {
-  v4 = SwiftHashTable::hash<PointerHashTableBuilderKey>(a1, a2);
-  if (*a1 <= v4)
+  v5 = SwiftHashTable::hash<PointerHashTableBuilderKey>(a1, a2);
+  if (*a1 <= v5)
   {
     dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
   }
 
-  v5 = v4;
-  v6 = *(a1 + a1[5] + v4 + 1056);
-  if (v6 != SwiftHashTable::checkbyte<PointerHashTableBuilderKey>(a1, a2))
+  v6 = v5;
+  v7 = *(a1 + a1[5] + v5 + 1056);
+  if (v7 != SwiftHashTable::checkbyte<PointerHashTableBuilderKey>(a1, a2))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v7 = *a1;
-  if (v7 <= v5)
+  v8 = *a1;
+  if (v8 <= v6)
   {
     dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
   }
 
-  v8 = *(&a1[v5 + 264] + a1[5] + v7);
-  if (v8 == -1)
+  v9 = *(&a1[v6 + 264] + a1[5] + v8);
+  if (v9 == -1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if (SwiftHashTable::equal<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(a1, (a1 + v8), a2))
+  if (SwiftHashTable::equal<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(a1, (a1 + v9), a2))
   {
-    return v5;
+    return v6;
   }
 
   return 0xFFFFFFFFLL;
 }
 
-uint64_t SwiftHashTable::getPotentialTarget<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(unsigned int *a1, objc **a2)
+uint64_t SwiftHashTable::getPotentialTarget<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(unsigned int *a1, objc **a2, uint64_t a3)
 {
-  v3 = SwiftHashTable::getIndex<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(a1, a2);
-  if (v3 == -1)
+  v4 = SwiftHashTable::getIndex<PointerHashTableBuilderKey,PointerHashTableOnDiskKey>(a1, a2, a3);
+  if (v4 == -1)
   {
-    v5 = a1 + 4;
+    v6 = a1 + 4;
   }
 
   else
   {
-    v4 = *a1;
-    if (v4 <= v3)
+    v5 = *a1;
+    if (v5 <= v4)
     {
       dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
     }
 
-    v5 = (&a1[v3 + 264] + a1[5] + v4);
+    v6 = (&a1[v4 + 264] + a1[5] + v5);
   }
 
-  return *v5;
+  return *v6;
 }
 
 void dyld4::ExternallyViewableState::notifyMonitorOfMainCalled(dyld4::ExternallyViewableState *this)
@@ -7799,7 +7726,7 @@ LABEL_17:
       v14 = 0;
       do
       {
-        v14 |= !dyld4::PrebuiltLoader::isValid((this + *(this + 4 * v13++ + *(this + 4))), a2);
+        v14 |= dyld4::PrebuiltLoader::isValid((this + *(this + 4 * v13++ + *(this + 4))), a2) ^ 1;
       }
 
       while (v13 < *(this + 3));
@@ -7839,9 +7766,9 @@ BOOL dyld4::PrebuiltLoader::recordedCdHashIs(dyld4::PrebuiltLoader *this, const 
   return result;
 }
 
-BOOL dyld4::PrebuiltLoader::isValid(dyld4::PrebuiltLoader *this, const dyld4::RuntimeState *a2)
+uint64_t dyld4::PrebuiltLoader::isValid(dyld4::PrebuiltLoader *this, const dyld4::RuntimeState *a2)
 {
-  v2 = __chkstk_darwin(this);
+  v2 = __chkstk_darwin();
   v4 = v2[3];
   v5 = v4;
   v6 = 960;
@@ -8243,7 +8170,6 @@ _WORD *dyld4::PrebuiltLoader::recursiveMarkBeingValidated(_WORD *this, const dyl
   v6 = v3 & 0x7FFF;
   if (!*(v5 + v6))
   {
-    v7 = a3;
     v9 = this;
     if (!a3 || (this[2] & 2) == 0)
     {
@@ -8263,7 +8189,7 @@ _WORD *dyld4::PrebuiltLoader::recursiveMarkBeingValidated(_WORD *this, const dyl
               dyld4::PrebuiltLoader::recursiveMarkBeingValidated();
             }
 
-            this = dyld4::PrebuiltLoader::recursiveMarkBeingValidated(this, a2, v7);
+            this = dyld4::PrebuiltLoader::recursiveMarkBeingValidated(this, a2, a3);
             v13 = v12[3];
             if (v13 >= 0)
             {
@@ -8573,7 +8499,7 @@ void dyld4::PrebuiltLoader::invalidateInIsolation(dyld4::PrebuiltLoader *this, c
 
         v32 = *(v15 + 112);
         v33 = *(v15 + 120);
-        dyld4::ProcessConfig::PathOverrides::forEachPathVariant(v15 + 592, v18, &v32, 0, 1, &v35, v34);
+        dyld4::ProcessConfig::PathOverrides::forEachPathVariant((v15 + 592), v18, &v32, 0, 1, &v35, v34);
         if (*(*(&v36 + 1) + 24) == 1)
         {
           if (*(*(a2 + 1) + 327) == 1)
@@ -8846,7 +8772,7 @@ void dyld4::RuntimeState::loadAppPrebuiltLoaderSet(dyld4::RuntimeState *this)
           **(this + 124) = *(*(this + 1) + 16);
           if (*(this + 122))
           {
-            v11 = 520552504;
+            LODWORD(v11) = 520552504;
             v12 = 0u;
             v13 = 0u;
             v14 = 0u;
@@ -8924,7 +8850,7 @@ const char *dyld4::RuntimeState::buildBootToken(uint64_t a1, uint64_t *a2)
   }
 
   v6 = 0;
-  v7 = (result + 1);
+  v7 = result + 1;
   v8 = 1;
   do
   {
@@ -9263,7 +9189,7 @@ void mach_o::Header::valid(mach_o::Header *this@<X0>, unint64_t a2@<X1>, mach_o:
 
   if (*this >> 1 == 2138504551)
   {
-    mach_o::Header::validStructureLoadCommands(this, a2, a3);
+    mach_o::Header::validStructureLoadCommands(a3, this, a2);
     if (!*a3)
     {
       mach_o::Error::~Error(a3);
@@ -9272,8 +9198,8 @@ void mach_o::Header::valid(mach_o::Header *this@<X0>, unint64_t a2@<X1>, mach_o:
       {
         mach_o::Error::~Error(a3);
         mach_o::Architecture::Architecture(&v7, this);
-        mach_o::Header::platformAndVersions(this, v6);
-        mach_o::Policy::Policy(v8, &v7, v6, *(this + 3), 0, 0, 0);
+        mach_o::Header::platformAndVersions(v6, this);
+        mach_o::Policy::Policy();
         mach_o::Header::validSemanticsUUID(this, v8, a3);
         if (!*a3)
         {
@@ -9371,7 +9297,7 @@ unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::__hash_len_33_to_64[ab
 
 uint64_t dyld4::Loader::validateFile(Diagnostics *a1, uint64_t a2, int a3, const char *a4, unsigned int *a5, uint64_t a6)
 {
-  if (dyld4::SyscallDelegate::fstat(*(a2 + 8), a3, &v29))
+  if (dyld4::SyscallDelegate::fstat(*(a2 + 8), a3, &v28))
   {
     v12 = *__error();
     if (v12 == 2)
@@ -9394,12 +9320,12 @@ uint64_t dyld4::Loader::validateFile(Diagnostics *a1, uint64_t a2, int a3, const
 
   if (*(a6 + 52) == 1)
   {
-    if (v29.st_ino == *(a6 + 16))
+    if (v28.st_ino == *(a6 + 16))
     {
-      if (v29.st_mtimespec.tv_sec == *(a6 + 24))
+      if (v28.st_mtimespec.tv_sec == *(a6 + 24))
       {
         result = *a6;
-        if (v29.st_size >= *a6)
+        if (v28.st_size >= *a6)
         {
           return result;
         }
@@ -9426,7 +9352,7 @@ uint64_t dyld4::Loader::validateFile(Diagnostics *a1, uint64_t a2, int a3, const
     return -1;
   }
 
-  v14 = dyld4::SyscallDelegate::mmap(*(a2 + 8), 0, v29.st_size, 1, 2, a3, 0);
+  v14 = dyld4::SyscallDelegate::mmap(*(a2 + 8), 0, v28.st_size, 1, 2, a3, 0);
   if (v14 == -1)
   {
     Diagnostics::error(a1, "could not mmap() '%s'");
@@ -9434,50 +9360,49 @@ uint64_t dyld4::Loader::validateFile(Diagnostics *a1, uint64_t a2, int a3, const
   }
 
   v15 = v14;
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   v16 = *(a2 + 8);
-  v23 = *(v16 + 112);
-  LODWORD(v24) = *(v16 + 120);
-  v21 = *(v16 + 289);
-  v17 = dyld3::MachOFile::compatibleSlice(a1, &v28, &v27, v14, v29.st_size, a4, &v23, 0, *(v16 + 208));
+  v22 = *(v16 + 112);
+  LODWORD(v23) = *(v16 + 120);
+  v17 = dyld3::MachOFile::compatibleSlice(a1, &v27, &v26, v14, v28.st_size, a4, &v22, 0, *(v16 + 208), *(v16 + 289));
   if (v17)
   {
     v18 = v17;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2000000000;
-    v26 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2000000000;
+    v25 = 0;
     v20 = *a5;
     v19 = a5[1];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 0x40000000;
-    v22[2] = ___ZN5dyld46Loader12validateFileER11DiagnosticsRKNS_12RuntimeStateEiPKcRKNS0_19CodeSignatureInFileERKNS0_18FileValidationInfoE_block_invoke;
-    v22[3] = &unk_A1500;
-    v22[4] = &v23;
-    v22[5] = a6;
-    dyld3::MachOFile::forEachCDHashOfCodeSignature(v17, (&v17->magic + v20), v19, v22);
-    if (*(v24 + 24) == 1)
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 0x40000000;
+    v21[2] = ___ZN5dyld46Loader12validateFileER11DiagnosticsRKNS_12RuntimeStateEiPKcRKNS0_19CodeSignatureInFileERKNS0_18FileValidationInfoE_block_invoke;
+    v21[3] = &unk_A1500;
+    v21[4] = &v22;
+    v21[5] = a6;
+    dyld3::MachOFile::forEachCDHashOfCodeSignature(v17, (&v17->magic + v20), v19, v21);
+    if (*(v23 + 24) == 1)
     {
-      v28 = v18 - v15;
+      v27 = v18 - v15;
     }
 
     else
     {
-      v28 = -1;
+      v27 = -1;
       Diagnostics::error(a1, "file cdHash not as expected '%s'", a4);
     }
 
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
   }
 
   else
   {
-    v28 = -1;
+    v27 = -1;
   }
 
   dyld4::SyscallDelegate::unmapFile(*(a2 + 8), v15, *a6);
-  return v28;
+  return v27;
 }
 
 BOOL dyld4::SyscallDelegate::getFileAttribute(int a1, char *path, char *name, uint64_t a4)
@@ -9535,7 +9460,7 @@ void dyld4::RuntimeState::notifyDebuggerLoad(const dyld4::RuntimeState *a1, uint
   memset(v25, 0, sizeof(v25));
   v20 = __stackAllocatorInternal(v25, 272);
   v4 = 40 * *(a2 + 8);
-  __chkstk_darwin(v20);
+  __chkstk_darwin();
   bzero(&v19 - ((v4 + 351) & 0xFFFFFFFFFFFFFFF0), v4 + 336);
   v19 = __stackAllocatorInternal((&v19 - ((v4 + 351) & 0xFFFFFFFFFFFFFFF0)), v4 + 336);
   v22 = v19;
@@ -9560,9 +9485,9 @@ void dyld4::RuntimeState::notifyDebuggerLoad(const dyld4::RuntimeState *a1, uint
 
         else
         {
-          dyld4::Loader::fileID(*v6, &v21);
-          v10 = v21.i64[1];
-          v9 = v21.i64[0];
+          dyld4::Loader::fileID(*v6, v21);
+          v10 = v21[0].i64[1];
+          v9 = v21[0].i64[0];
         }
 
         v11 = dyld4::Loader::path(v8, a1);
@@ -9590,8 +9515,8 @@ void dyld4::RuntimeState::notifyDebuggerLoad(const dyld4::RuntimeState *a1, uint
   {
     v17 = *(a1 + 77);
     v18 = *(a1 + 2);
-    v21 = v23;
-    dyld4::ExternallyViewableState::addImages(v17, v18, v20, &v21);
+    v21[0] = v23;
+    dyld4::ExternallyViewableState::addImages(v17, v18, v20, v21);
   }
 
   if (v23.i64[0])
@@ -9603,7 +9528,18 @@ void dyld4::RuntimeState::notifyDebuggerLoad(const dyld4::RuntimeState *a1, uint
   lsl::Allocator::~Allocator(v16);
 }
 
-void mach_o::Header::validStructureLoadCommands(mach_o::Header *this@<X0>, unint64_t a2@<X1>, mach_o::Error *a3@<X8>)
+int fstat64(int a1, stat *a2)
+{
+  v9 = mac_syscall(SYS_fstat64, *&a1, a2, v3, v4, v5, v6, v7, v8);
+  if (v2)
+  {
+    LODWORD(v9) = cerror_nocancel(v9);
+  }
+
+  return v9;
+}
+
+void mach_o::Header::validStructureLoadCommands(mach_o::Error *__return_ptr a1@<X8>, mach_o::Header *this@<X0>, unint64_t a3@<X1>)
 {
   if (*this == -17958193)
   {
@@ -9615,57 +9551,56 @@ void mach_o::Header::validStructureLoadCommands(mach_o::Header *this@<X0>, unint
     v4 = 28;
   }
 
-  if ((v4 + *(this + 5)) <= a2)
+  if ((v4 + *(this + 5)) <= a3)
   {
     v5 = *(this + 3);
     if (v5 > 0xC || ((1 << v5) & 0x1BE6) == 0)
     {
-      v7 = *(this + 3);
-      mach_o::Error::Error(a3, "unknown filetype %d");
+      mach_o::Error::Error(a1, "unknown filetype %d");
     }
 
     else
     {
-      v15[0] = 0;
-      v15[1] = v15;
-      v15[2] = 0x2000000000;
-      v16 = 1;
-      v9 = 0;
-      v10 = &v9;
-      v11 = 0x3002000000;
-      v12 = __Block_byref_object_copy__19;
-      v13 = __Block_byref_object_dispose__20;
-      v14 = 0;
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 0x40000000;
-      v8[2] = ___ZNK6mach_o6Header26validStructureLoadCommandsEy_block_invoke;
-      v8[3] = &unk_A4F80;
-      v8[4] = &v9;
-      v8[5] = v15;
-      mach_o::Header::forEachLoadCommand(this, v8, a3);
-      if (!*a3)
+      v14[0] = 0;
+      v14[1] = v14;
+      v14[2] = 0x2000000000;
+      v15 = 1;
+      v8 = 0;
+      v9 = &v8;
+      v10 = 0x3002000000;
+      v11 = __Block_byref_object_copy__19;
+      v12 = __Block_byref_object_dispose__20;
+      v13 = 0;
+      v7[0] = _NSConcreteStackBlock;
+      v7[1] = 0x40000000;
+      v7[2] = ___ZNK6mach_o6Header26validStructureLoadCommandsEy_block_invoke;
+      v7[3] = &unk_A4F80;
+      v7[4] = &v8;
+      v7[5] = v14;
+      mach_o::Header::forEachLoadCommand(this, v7, a1);
+      if (!*a1)
       {
-        mach_o::Error::~Error(a3);
-        if (v10[5])
+        mach_o::Error::~Error(a1);
+        if (v9[5])
         {
-          mach_o::Error::Error(a3, v10 + 5);
+          mach_o::Error::Error(a1, v9 + 5);
         }
 
         else
         {
-          *a3 = 0;
+          *a1 = 0;
         }
       }
 
-      _Block_object_dispose(&v9, 8);
-      mach_o::Error::~Error(&v14);
-      _Block_object_dispose(v15, 8);
+      _Block_object_dispose(&v8, 8);
+      mach_o::Error::~Error(&v13);
+      _Block_object_dispose(v14, 8);
     }
   }
 
   else
   {
-    mach_o::Error::Error(a3, "load commands length (%llu) exceeds length of file (%llu)");
+    mach_o::Error::Error(a1, "load commands length (%llu) exceeds length of file (%llu)");
   }
 }
 
@@ -9717,4 +9652,273 @@ uint64_t lsl::Vector<dyld4::ExternallyViewableState::ImageInfo>::reserveExact(ui
   }
 
   return result;
+}
+
+void ___ZNK6mach_o6Header26validStructureLoadCommandsEy_block_invoke(uint64_t a1, mach_o *this, _BYTE *a3, uint64_t a4)
+{
+  v6 = *this;
+  if (*this > -2147483597)
+  {
+    switch(v6)
+    {
+      case 1:
+        if (68 * *(this + 12) + 56 == *(this + 1))
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_SEGMENT size does not match number of sections", a3, a4);
+        goto LABEL_56;
+      case 2:
+        if (*(this + 1) == 24)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_SYMTAB size wrong", a3, a4);
+        goto LABEL_56;
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 14:
+      case 15:
+      case 16:
+      case 17:
+      case 18:
+      case 22:
+      case 23:
+      case 24:
+      case 26:
+      case 28:
+      case 29:
+      case 31:
+      case 32:
+      case 35:
+      case 39:
+      case 40:
+      case 41:
+      case 42:
+      case 43:
+      case 45:
+      case 46:
+      case 49:
+      case 51:
+      case 52:
+      case 53:
+        goto LABEL_26;
+      case 11:
+        if (*(this + 1) == 80)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_DYSYMTAB size wrong", a3, a4);
+        goto LABEL_56;
+      case 12:
+      case 13:
+      case 19:
+      case 20:
+      case 21:
+        goto LABEL_13;
+      case 25:
+        if (80 * *(this + 16) + 72 == *(this + 1))
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_SEGMENT_64 size does not match number of sections", a3, a4);
+        goto LABEL_56;
+      case 27:
+        if (*(this + 1) == 24)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_UUID size wrong", a3, a4);
+        goto LABEL_56;
+      case 30:
+        if (*(this + 1) == 16)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_SEGMENT_SPLIT_INFO size wrong", a3, a4);
+        goto LABEL_56;
+      case 33:
+        if (*(this + 1) == 20)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_ENCRYPTION_INFO size wrong", a3, a4);
+        goto LABEL_56;
+      case 34:
+        goto LABEL_19;
+      case 36:
+      case 37:
+      case 47:
+      case 48:
+        if (*(this + 1) == 16)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_VERSION_MIN_* size wrong", a3, a4);
+        goto LABEL_56;
+      case 38:
+        if (*(this + 1) == 16)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_FUNCTION_STARTS size wrong", a3, a4);
+        goto LABEL_56;
+      case 44:
+        if (*(this + 1) == 24)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_ENCRYPTION_INFO_64 size wrong", a3, a4);
+        goto LABEL_56;
+      case 50:
+        if (8 * *(this + 5) + 24 == *(this + 1))
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_BUILD_VERSION size wrong", a3, a4);
+        goto LABEL_56;
+      case 54:
+        if (*(this + 1) == 16)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_ATOM_INFO size wrong", a3, a4);
+        goto LABEL_56;
+      case 55:
+        if (*(this + 1) == 16)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_FUNCTION_VARIANTS size wrong", a3, a4);
+        goto LABEL_56;
+      case 56:
+        if (*(this + 1) == 16)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_FUNCTION_VARIANT_FIXUPS size wrong", a3, a4);
+        goto LABEL_56;
+      default:
+        if (v6 != -2147483596)
+        {
+          if (v6 != -2147483595)
+          {
+            goto LABEL_26;
+          }
+
+          v8 = *(this + 6);
+          goto LABEL_14;
+        }
+
+        if (*(this + 1) == 16)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_DYLD_CHAINED_FIXUPS size wrong", a3, a4);
+        break;
+    }
+
+    goto LABEL_56;
+  }
+
+  if (v6 <= -2147483615)
+  {
+    if (v6 == -2147483624 || v6 == -2147483620)
+    {
+LABEL_13:
+      v8 = *(this + 2);
+LABEL_14:
+      mach_o::stringOverflow(&v9, this, v8);
+      goto LABEL_56;
+    }
+
+    v7 = -2147483617;
+  }
+
+  else
+  {
+    if (v6 > -2147483609)
+    {
+      if (v6 == -2147483608)
+      {
+        if (*(this + 1) == 24)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_MAIN size wrong", a3, a4);
+        goto LABEL_56;
+      }
+
+      if (v6 == -2147483597)
+      {
+        if (*(this + 1) == 16)
+        {
+          goto LABEL_57;
+        }
+
+        mach_o::Error::Error(&v9, "load command #%d LC_DYLD_EXPORTS_TRIE size wrong", a3, a4);
+        goto LABEL_56;
+      }
+
+      goto LABEL_26;
+    }
+
+    if (v6 == -2147483614)
+    {
+LABEL_19:
+      if (*(this + 1) == 48)
+      {
+        goto LABEL_57;
+      }
+
+      mach_o::Error::Error(&v9, "load command #%d LC_DYLD_INFO_ONLY size wrong", a3, a4);
+      goto LABEL_56;
+    }
+
+    v7 = -2147483613;
+  }
+
+  if (v6 == v7)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_26:
+  if ((v6 & 0x80000000) == 0)
+  {
+    goto LABEL_57;
+  }
+
+  mach_o::Error::Error(&v9, "load command #%d unknown required load command 0x%08X", a3, a4);
+LABEL_56:
+  mach_o::Error::operator=((*(*(a1 + 32) + 8) + 40), &v9);
+  mach_o::Error::~Error(&v9);
+LABEL_57:
+  ++*(*(*(a1 + 40) + 8) + 24);
+  if (*(*(*(a1 + 32) + 8) + 40))
+  {
+    *a3 = 1;
+  }
 }

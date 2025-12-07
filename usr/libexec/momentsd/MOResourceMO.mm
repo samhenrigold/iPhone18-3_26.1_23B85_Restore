@@ -26,57 +26,61 @@
   if ([objectCopy type] == 2 && !v9)
   {
     data = [objectCopy data];
-    v34 = 0;
-    v11 = [MOResource getDictionaryForData:data error:&v34];
-    v12 = v34;
+    v35 = 0;
+    v11 = [MOResource getDictionaryForData:data error:&v35];
+    v12 = v35;
     v13 = [v11 mutableCopy];
 
     if (v13)
     {
       v14 = [v13 objectForKey:@"MOPhotoResourceLocalIdentifier"];
       v15 = v14;
-      if (v14 && [v14 length])
+      if (v14)
       {
-        v33 = v12;
-        v16 = get_system_photo_library();
-        v39 = v15;
-        v17 = [NSArray arrayWithObjects:&v39 count:1];
-        v18 = [v16 cloudIdentifierMappingsForLocalIdentifiers:v17];
-
-        allValues = [v18 allValues];
-        firstObject = [allValues firstObject];
-        cloudIdentifier = [firstObject cloudIdentifier];
-        stringValue = [cloudIdentifier stringValue];
-
-        if (stringValue && [stringValue length])
+        v16 = [v14 length];
+        if (v16)
         {
-          v23 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-          v12 = v33;
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v34 = v12;
+          v17 = get_system_photo_library(v16);
+          v40 = v15;
+          v18 = [NSArray arrayWithObjects:&v40 count:1];
+          v19 = [v17 cloudIdentifierMappingsForLocalIdentifiers:v18];
+
+          allValues = [v19 allValues];
+          firstObject = [allValues firstObject];
+          cloudIdentifier = [firstObject cloudIdentifier];
+          stringValue = [cloudIdentifier stringValue];
+
+          if (stringValue && [stringValue length])
           {
-            *buf = 138412546;
-            v36 = stringValue;
-            v37 = 2112;
-            v38 = v15;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "MOResourceMO: Found photo asset cloud identifier (%@) for local asset identifier (%@)", buf, 0x16u);
+            v24 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+            v12 = v34;
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412546;
+              v37 = stringValue;
+              v38 = 2112;
+              v39 = v15;
+              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "MOResourceMO: Found photo asset cloud identifier (%@) for local asset identifier (%@)", buf, 0x16u);
+            }
+
+            v25 = v8;
+            v8 = stringValue;
           }
 
-          v24 = v8;
-          v8 = stringValue;
-        }
-
-        else
-        {
-          v24 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-          v12 = v33;
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          else
           {
-            [MOResourceMO managedObjectWithObject:v15 inManagedObjectContext:v24];
+            v25 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+            v12 = v34;
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            {
+              [MOResourceMO managedObjectWithObject:v15 inManagedObjectContext:v25];
+            }
           }
-        }
 
 LABEL_20:
-        goto LABEL_21;
+          goto LABEL_21;
+        }
       }
     }
 
@@ -85,46 +89,46 @@ LABEL_20:
       v15 = 0;
     }
 
-    v18 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [MOResourceMO managedObjectWithObject:v18 inManagedObjectContext:?];
+      [MOResourceMO managedObjectWithObject:v19 inManagedObjectContext:?];
     }
 
     goto LABEL_20;
   }
 
 LABEL_21:
-  v25 = [[MOResourceMO alloc] initWithContext:contextCopy];
+  v26 = [[MOResourceMO alloc] initWithContext:contextCopy];
 
   identifier = [objectCopy identifier];
-  [(MOResourceMO *)v25 setIdentifier:identifier];
+  [(MOResourceMO *)v26 setIdentifier:identifier];
 
   [objectCopy value];
-  [(MOResourceMO *)v25 setValue:?];
+  [(MOResourceMO *)v26 setValue:?];
   name = [objectCopy name];
-  [(MOResourceMO *)v25 setName:name];
+  [(MOResourceMO *)v26 setName:name];
 
   assets = [objectCopy assets];
-  [(MOResourceMO *)v25 setAssets:assets];
+  [(MOResourceMO *)v26 setAssets:assets];
 
   data2 = [objectCopy data];
-  [(MOResourceMO *)v25 setData:data2];
+  [(MOResourceMO *)v26 setData:data2];
 
-  -[MOResourceMO setType:](v25, "setType:", [objectCopy type]);
+  -[MOResourceMO setType:](v26, "setType:", [objectCopy type]);
   [objectCopy priorityScore];
-  [(MOResourceMO *)v25 setPriorityScore:?];
+  [(MOResourceMO *)v26 setPriorityScore:?];
   photoCurationScore = [objectCopy photoCurationScore];
-  [(MOResourceMO *)v25 setPhotoCurationScore:photoCurationScore];
+  [(MOResourceMO *)v26 setPhotoCurationScore:photoCurationScore];
 
-  -[MOResourceMO setPhotoFaceCount:](v25, "setPhotoFaceCount:", [objectCopy photoFaceCount]);
-  -[MOResourceMO setPhotoAssetMediaType:](v25, "setPhotoAssetMediaType:", [objectCopy photoAssetMediaType]);
-  [(MOResourceMO *)v25 setPhotoAssetCloudIdentifier:v8];
-  -[MOResourceMO setSourceEventAccessType:](v25, "setSourceEventAccessType:", [objectCopy sourceEventAccessType]);
+  -[MOResourceMO setPhotoFaceCount:](v26, "setPhotoFaceCount:", [objectCopy photoFaceCount]);
+  -[MOResourceMO setPhotoAssetMediaType:](v26, "setPhotoAssetMediaType:", [objectCopy photoAssetMediaType]);
+  [(MOResourceMO *)v26 setPhotoAssetCloudIdentifier:v8];
+  -[MOResourceMO setSourceEventAccessType:](v26, "setSourceEventAccessType:", [objectCopy sourceEventAccessType]);
   sourceEventIdentifier = [objectCopy sourceEventIdentifier];
-  [(MOResourceMO *)v25 setSourceEventIdentifier:sourceEventIdentifier];
+  [(MOResourceMO *)v26 setSourceEventIdentifier:sourceEventIdentifier];
 
-  return v25;
+  return v26;
 }
 
 - (id)clonedObjectWithContext:(id)context

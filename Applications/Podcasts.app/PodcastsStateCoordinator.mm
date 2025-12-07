@@ -197,13 +197,14 @@
 
 - (id)currentPodcastStateDescriptionFrom:(id)from
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   selfCopy = self;
-  _s8Podcasts0A16StateCoordinatorC014currentPodcastB11Description4fromS2S_tF_0();
+  _s8Podcasts0A16StateCoordinatorC014currentPodcastB11Description4fromS2S_tF_0(v4, v6);
 
-  v5 = String._bridgeToObjectiveC()();
+  v8 = String._bridgeToObjectiveC()();
 
-  return v5;
+  return v8;
 }
 
 @end

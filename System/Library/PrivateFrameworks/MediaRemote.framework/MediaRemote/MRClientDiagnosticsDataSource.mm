@@ -46,57 +46,57 @@ void __49__MRClientDiagnosticsDataSource_sharedDataSource__block_invoke()
 
 - (NSString)diagnostic
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   v3 = objc_opt_new();
   [v3 appendFormat:@"Log History:\n\n"];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   selfCopy = self;
   v4 = [(MRClientDiagnosticsDataSource *)self map];
   allKeys = [v4 allKeys];
 
   obj = allKeys;
-  v22 = [allKeys countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v22)
+  v21 = [allKeys countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v21)
   {
-    v20 = *v28;
+    v19 = *v27;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v28 != v20)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v27 + 1) + 8 * i);
+        v7 = *(*(&v26 + 1) + 8 * i);
         [v3 appendFormat:@"Registered %@ Instances:\n\n", v7];
         v8 = [(MRClientDiagnosticsDataSource *)selfCopy map];
         v9 = [v8 objectForKeyedSubscript:v7];
 
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v24;
+          v13 = *v23;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v24 != v13)
+              if (*v23 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              diagnosticDescription = [*(*(&v23 + 1) + 8 * j) diagnosticDescription];
+              diagnosticDescription = [*(*(&v22 + 1) + 8 * j) diagnosticDescription];
               [v3 appendString:diagnosticDescription];
 
               v16 = [&stru_1F1513E38 stringByPaddingToLength:100 withString:@"-" startingAtIndex:0];
@@ -105,7 +105,7 @@ void __49__MRClientDiagnosticsDataSource_sharedDataSource__block_invoke()
               [v3 appendString:@"\n"];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v12);
@@ -114,14 +114,13 @@ void __49__MRClientDiagnosticsDataSource_sharedDataSource__block_invoke()
         [v3 appendString:@"\n"];
       }
 
-      v22 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v21 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v17 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

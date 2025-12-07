@@ -1,9 +1,18 @@
 @interface EDMessageDataLayoutManager
++ (id)messageDataDirectoryURLForGlobalMessageID:(int64_t)d basePath:(id)path purgeable:(BOOL)purgeable;
 + (id)messageDataDirectoryURLForGlobalMessageID:(int64_t)d rootMessageDataDirectory:(id)directory;
 + (id)rootMessageDataDirectoryForBasePath:(id)path purgeable:(BOOL)purgeable;
 @end
 
 @implementation EDMessageDataLayoutManager
+
++ (id)messageDataDirectoryURLForGlobalMessageID:(int64_t)d basePath:(id)path purgeable:(BOOL)purgeable
+{
+  v7 = [self rootMessageDataDirectoryForBasePath:path purgeable:purgeable];
+  v8 = [self messageDataDirectoryURLForGlobalMessageID:d rootMessageDataDirectory:v7];
+
+  return v8;
+}
 
 + (id)messageDataDirectoryURLForGlobalMessageID:(int64_t)d rootMessageDataDirectory:(id)directory
 {

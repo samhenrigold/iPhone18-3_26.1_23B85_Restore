@@ -147,7 +147,7 @@
 + (id)permanentInfoWithMachineID:(id)d modelID:(id)iD epoch:(unint64_t)epoch signingKeyPair:(id)pair encryptionKeyPair:(id)keyPair creationTime:(unint64_t)time peerIDHashAlgo:(int64_t)algo error:(id *)self0
 {
   errorCopy2 = error;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   keyPairCopy = keyPair;
@@ -157,10 +157,10 @@
 
   if (TPBecomeiProdOverride())
   {
-    v39 = 0;
+    v38 = 0;
     timeCopy = time;
-    v23 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^[^0-9 options:]*" error:{0, &v39}];
-    v24 = v39;
+    v23 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^[^0-9 options:]*" error:{0, &v38}];
+    v24 = v38;
     if (v23)
     {
       [v23 stringByReplacingMatchesInString:iDCopy options:0 range:0 withTemplate:{-[NSObject length](iDCopy, "length"), @"iProd"}];
@@ -173,7 +173,7 @@
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v41 = v24;
+        v40 = v24;
         _os_log_impl(&dword_26F78B000, v25, OS_LOG_TYPE_DEFAULT, "Failed to make regex; cannot change modelID: %{public}@", buf, 0xCu);
       }
     }
@@ -186,7 +186,7 @@
 
   v27 = objc_alloc_init(TPPBPeerPermanentInfo);
   [(TPPBPeerPermanentInfo *)v27 setMachineId:dCopy];
-  v38 = v26;
+  v37 = v26;
   [(TPPBPeerPermanentInfo *)v27 setModelId:v26];
   [(TPPBPeerPermanentInfo *)v27 setEpoch:epoch];
   spki = [publicKey spki];
@@ -204,15 +204,13 @@
   if (v33)
   {
     v34 = [TPPeerPermanentInfo peerIDForData:data sig:v33 peerIDHashAlgo:algo];
-    v35 = [[TPPeerPermanentInfo alloc] initWithMachineID:v31 modelID:v38 epoch:epoch signingPubKey:publicKey encryptionPubKey:publicKey2 creationTime:v32 data:data sig:v33 peerID:v34];
+    v35 = [[TPPeerPermanentInfo alloc] initWithMachineID:v31 modelID:v37 epoch:epoch signingPubKey:publicKey encryptionPubKey:publicKey2 creationTime:v32 data:data sig:v33 peerID:v34];
   }
 
   else
   {
     v35 = 0;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }

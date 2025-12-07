@@ -105,9 +105,9 @@ LABEL_8:
 
 - (void)layoutSubviews
 {
-  v22.receiver = self;
-  v22.super_class = NTKBigNumeralsAnalogBackgroundView;
-  [(NTKBigNumeralsAnalogBackgroundView *)&v22 layoutSubviews];
+  v21.receiver = self;
+  v21.super_class = NTKBigNumeralsAnalogBackgroundView;
+  [(NTKBigNumeralsAnalogBackgroundView *)&v21 layoutSubviews];
   [(NTKBigNumeralsTimeComponentLabel *)self->_hourLabel sizeToFit];
   [(NTKBigNumeralsAnalogBackgroundView *)self bounds];
   v4 = v3;
@@ -115,26 +115,25 @@ LABEL_8:
   v8 = v7;
   v10 = v9;
   [(NTKBigNumeralsTimeComponentLabel *)self->_hourLabel frame];
-  v23.origin.x = v4;
-  v23.origin.y = v6;
-  v23.size.width = v8;
-  v23.size.height = v10;
-  CGRectGetHeight(v23);
+  v22.origin.x = v4;
+  v22.origin.y = v6;
+  v22.size.width = v8;
+  v22.size.height = v10;
+  CGRectGetHeight(v22);
   [(NTKBigNumeralsTimeComponentLabel *)self->_hourLabel _lastLineBaseline:sub_2B50(v11];
-  device = self->_device;
   CLKRectCenteredXInRectForDevice();
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
   [(NTKBigNumeralsTimeComponentLabel *)self->_hourLabel setFrame:?];
   font = [(NTKBigNumeralsTimeComponentLabel *)self->_hourLabel font];
   [font ascender];
-  v21 = v20 + 2.0;
+  v20 = v19 + 2.0;
 
   +[CATransaction begin];
   [CATransaction setDisableActions:1];
-  [(CAGradientLayer *)self->_gradientLayer setFrame:v14, v16, v18, v21];
-  [(CALayer *)self->_labelColorLayer setFrame:v14, v16, v18, v21];
+  [(CAGradientLayer *)self->_gradientLayer setFrame:v13, v15, v17, v20];
+  [(CALayer *)self->_labelColorLayer setFrame:v13, v15, v17, v20];
   +[CATransaction commit];
 }
 

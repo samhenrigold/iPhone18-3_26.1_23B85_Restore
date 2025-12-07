@@ -28,25 +28,25 @@
       goto LABEL_5;
     }
 
-    objc_opt_class();
-    v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0");
+    v8 = objc_opt_class();
+    v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0", v8);
     accessToken = v6->_accessToken;
-    v6->_accessToken = v8;
+    v6->_accessToken = v9;
 
-    objc_opt_class();
-    v10 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1");
+    v11 = objc_opt_class();
+    v12 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1", v11);
     pageAccessToken = v6->_pageAccessToken;
-    v6->_pageAccessToken = v10;
+    v6->_pageAccessToken = v12;
 
-    objc_opt_class();
-    v12 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2");
+    v14 = objc_opt_class();
+    v15 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2", v14);
     pageIdentifier = v6->_pageIdentifier;
-    v6->_pageIdentifier = v12;
+    v6->_pageIdentifier = v15;
 
-    objc_opt_class();
-    v14 = SSXPCDictionaryCopyCFObjectWithClass(v5, "3");
+    v17 = objc_opt_class();
+    v18 = SSXPCDictionaryCopyCFObjectWithClass(v5, "3", v17);
     self = v6->_serviceIdentifier;
-    v6->_serviceIdentifier = v14;
+    v6->_serviceIdentifier = v18;
   }
 
   else

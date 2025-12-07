@@ -14,7 +14,7 @@
 
 - (void)dealloc
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_500EB0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_500EB0, &qword_418950);
   v4 = *(v3 - 8);
   v5 = __chkstk_darwin(v3);
   v7 = &v10 - v6;
@@ -22,7 +22,7 @@
   selfCopy = self;
   sub_3ED724();
   (*(v4 + 8))(v7, v3);
-  v9 = type metadata accessor for LibraryTabGroupManager();
+  v9 = type metadata accessor for LibraryTabGroupManager(0);
   v10.receiver = selfCopy;
   v10.super_class = v9;
   [(LibraryTabGroupManager *)&v10 dealloc];
@@ -75,7 +75,7 @@
 
 - (id)tabBarController:(id)controller displayedViewControllersForTab:(id)tab proposedViewControllers:(id)controllers
 {
-  sub_36174(0, &qword_502180);
+  sub_36174(0, &qword_502180, UIViewController_ptr);
   v8 = sub_3ED584();
   controllerCopy = controller;
   tabCopy = tab;
@@ -89,7 +89,7 @@
 
 - (void)tabBarController:(id)controller visibilityDidChangeForTabs:(id)tabs
 {
-  sub_36174(0, &qword_4EA748);
+  sub_36174(0, &qword_4EA748, UITab_ptr);
   v6 = sub_3ED584();
   controllerCopy = controller;
   selfCopy = self;

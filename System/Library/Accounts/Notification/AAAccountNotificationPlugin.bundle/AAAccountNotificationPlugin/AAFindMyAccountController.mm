@@ -10,7 +10,7 @@
 
 + (void)addFMFChildAccountToAppleAccount:(id)account
 {
-  v83 = *MEMORY[0x29EDCA608];
+  v82 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v9 = objc_msgSend_defaultStore(MEMORY[0x29EDB83C8], v5, v6, v7, v8);
   v13 = objc_msgSend_accountTypeWithAccountTypeIdentifier_(v9, v10, *MEMORY[0x29EDB8220], v11, v12);
@@ -22,14 +22,14 @@
   if (v27)
   {
     v32 = objc_msgSend__findOrphanedAccountForAccountType_forAppleAccount_withStore_(self, v28, v13, v27, v9);
-    v76 = v13;
+    v75 = v13;
     if (v32)
     {
       v33 = _AALogSystem();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v80 = v32;
+        v79 = v32;
         _os_log_impl(&dword_29C844000, v33, OS_LOG_TYPE_DEFAULT, "Looks like we found an orphaned find my friends account: %@", buf, 0xCu);
       }
 
@@ -41,7 +41,7 @@
     v39 = objc_msgSend_username(v27, v35, v36, v37, v38);
     objc_msgSend_setUsername_(v18, v40, v39, v41, v42);
 
-    v77 = accountCopy;
+    v76 = accountCopy;
     v47 = objc_msgSend_credential(accountCopy, v43, v44, v45, v46);
     v48 = *MEMORY[0x29EDB8310];
     v52 = objc_msgSend_credentialItemForKey_(v47, v49, *MEMORY[0x29EDB8310], v50, v51);
@@ -69,9 +69,9 @@
         }
 
         *buf = 138412546;
-        v80 = v62;
-        v81 = 2112;
-        v82 = v61;
+        v79 = v62;
+        v80 = 2112;
+        v81 = v61;
         _os_log_impl(&dword_29C844000, v60, OS_LOG_TYPE_DEFAULT, "Got FMF (%@) or app (%@) tokens, creating FMF child account", buf, 0x16u);
       }
 
@@ -81,9 +81,9 @@
       objc_msgSend_setCredential_(v18, v68, v63, v69, v70);
     }
 
-    v78 = 0;
-    v71 = objc_msgSend_saveVerifiedAccount_error_(v9, v57, v18, &v78, v58);
-    v72 = v78;
+    v77 = 0;
+    v71 = objc_msgSend_saveVerifiedAccount_error_(v9, v57, v18, &v77, v58);
+    v72 = v77;
     v73 = _AALogSystem();
     if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
     {
@@ -94,14 +94,14 @@
       }
 
       *buf = 138412546;
-      v80 = v74;
-      v81 = 2112;
-      v82 = v72;
+      v79 = v74;
+      v80 = 2112;
+      v81 = v72;
       _os_log_impl(&dword_29C844000, v73, OS_LOG_TYPE_DEFAULT, "FMF child account added successfully (%@) with error: %@", buf, 0x16u);
     }
 
-    v13 = v76;
-    accountCopy = v77;
+    v13 = v75;
+    accountCopy = v76;
   }
 
   else
@@ -112,13 +112,11 @@
       sub_29C84ED58(accountCopy, v32);
     }
   }
-
-  v75 = *MEMORY[0x29EDCA608];
 }
 
 + (void)updateFMFChildAccountForAppleAccount:(id)account
 {
-  v74 = *MEMORY[0x29EDCA608];
+  v73 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v8 = objc_msgSend_credential(accountCopy, v4, v5, v6, v7);
   v9 = *MEMORY[0x29EDB8310];
@@ -133,7 +131,7 @@
   v40 = objc_msgSend_credentialItemForKey_(v32, v37, v14, v38, v39);
   if (!objc_msgSend_isEqualToString_(v36, v41, v13, v42, v43) || (objc_msgSend_isEqualToString_(v40, v44, v18, v46, v47) & 1) == 0)
   {
-    v68 = v40;
+    v67 = v40;
     if (objc_msgSend_isAuthenticated(accountCopy, v44, v45, v46, v47))
     {
       objc_msgSend_setAuthenticated_(v27, v48, 1, v49, v50);
@@ -159,9 +157,9 @@
       }
 
       *buf = 138412546;
-      v71 = v53;
-      v72 = 2112;
-      v73 = v52;
+      v70 = v53;
+      v71 = 2112;
+      v72 = v52;
       _os_log_impl(&dword_29C844000, v51, OS_LOG_TYPE_DEFAULT, "Updating FMF account's FMF (%@) and app (%@) tokens", buf, 0x16u);
     }
 
@@ -188,12 +186,12 @@
 
     objc_msgSend_setCredentialItem_forKey_(v32, v54, v13, v9, v55);
 LABEL_17:
-    v67 = v8;
+    v66 = v8;
     v58 = v36;
     v59 = objc_msgSend_defaultStore(MEMORY[0x29EDB83C8], v54, v56, v57, v55);
-    v69 = 0;
-    v62 = objc_msgSend_saveVerifiedAccount_error_(v59, v60, v27, &v69, v61);
-    v63 = v69;
+    v68 = 0;
+    v62 = objc_msgSend_saveVerifiedAccount_error_(v59, v60, v27, &v68, v61);
+    v63 = v68;
     v64 = _AALogSystem();
     if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
@@ -204,19 +202,17 @@ LABEL_17:
       }
 
       *buf = 138412546;
-      v71 = v65;
-      v72 = 2112;
-      v73 = v63;
+      v70 = v65;
+      v71 = 2112;
+      v72 = v63;
       _os_log_impl(&dword_29C844000, v64, OS_LOG_TYPE_DEFAULT, "FMF child account updated successfully (%@) with error: %@", buf, 0x16u);
     }
 
     v36 = v58;
-    v8 = v67;
+    v8 = v66;
 LABEL_22:
-    v40 = v68;
+    v40 = v67;
   }
-
-  v66 = *MEMORY[0x29EDCA608];
 }
 
 + (id)_findOrphanedAccountForAccountType:(id)type forAppleAccount:(id)account withStore:(id)store
@@ -240,7 +236,7 @@ LABEL_22:
 
 + (void)addDeviceLocatorChildAccountToAppleAccount:(id)account
 {
-  v113 = *MEMORY[0x29EDCA608];
+  v112 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v9 = objc_msgSend_defaultStore(MEMORY[0x29EDB83C8], v5, v6, v7, v8);
   v13 = objc_msgSend_accountTypeWithAccountTypeIdentifier_(v9, v10, *MEMORY[0x29EDB8208], v11, v12);
@@ -252,8 +248,8 @@ LABEL_22:
   if (v27)
   {
     v29 = objc_msgSend__findOrphanedAccountForAccountType_forAppleAccount_withStore_(self, v28, v13, v27, v9);
-    v105 = v29;
-    v106 = v13;
+    v104 = v29;
+    v105 = v13;
     if (v29)
     {
       v33 = v29;
@@ -261,7 +257,7 @@ LABEL_22:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v110 = v33;
+        v109 = v33;
         _os_log_impl(&dword_29C844000, v34, OS_LOG_TYPE_DEFAULT, "Looks like we found an orphaned device locator account: %@", buf, 0xCu);
       }
 
@@ -292,7 +288,7 @@ LABEL_22:
     v63 = objc_msgSend_credentialItemForKey_(v48, v54, *MEMORY[0x29EDB8320], v55, v56);
     v64 = _AALogSystem();
     v65 = os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT);
-    v102 = v63;
+    v101 = v63;
     if (v63)
     {
       if (v65)
@@ -314,10 +310,10 @@ LABEL_22:
     }
 
     v72 = *MEMORY[0x29EDB83A8];
-    v73 = objc_msgSend_credentialItemForKey_(v48, v68, *MEMORY[0x29EDB83A8], v69, v70, v102);
+    v73 = objc_msgSend_credentialItemForKey_(v48, v68, *MEMORY[0x29EDB83A8], v69, v70, v101);
     v74 = _AALogSystem();
     v75 = os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT);
-    v107 = accountCopy;
+    v106 = accountCopy;
     if (v73)
     {
       if (v75)
@@ -342,7 +338,7 @@ LABEL_22:
     v82 = objc_msgSend_credentialItemForKey_(v48, v78, *MEMORY[0x29EDB8318], v79, v80);
     v83 = _AALogSystem();
     v84 = os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT);
-    v104 = v57;
+    v103 = v57;
     if (v82)
     {
       if (v84)
@@ -364,14 +360,14 @@ LABEL_22:
     }
 
     objc_msgSend_setCredential_(v18, v87, v49, v88, v89);
-    if (objc_msgSend_isAuthenticated(v107, v90, v91, v92, v93))
+    if (objc_msgSend_isAuthenticated(v106, v90, v91, v92, v93))
     {
       objc_msgSend_setAuthenticated_(v18, v94, 1, v95, v96);
     }
 
-    v108 = 0;
-    v97 = objc_msgSend_saveVerifiedAccount_error_(v9, v94, v18, &v108, v96);
-    v98 = v108;
+    v107 = 0;
+    v97 = objc_msgSend_saveVerifiedAccount_error_(v9, v94, v18, &v107, v96);
+    v98 = v107;
     v99 = _AALogSystem();
     if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
     {
@@ -382,15 +378,15 @@ LABEL_22:
       }
 
       *buf = 138412546;
-      v110 = v100;
-      v111 = 2112;
-      v112 = v98;
+      v109 = v100;
+      v110 = 2112;
+      v111 = v98;
       _os_log_impl(&dword_29C844000, v99, OS_LOG_TYPE_DEFAULT, "Device locator child account added successfully (%@) with error: %@", buf, 0x16u);
     }
 
-    v13 = v106;
-    accountCopy = v107;
-    v71 = v105;
+    v13 = v105;
+    accountCopy = v106;
+    v71 = v104;
   }
 
   else
@@ -401,36 +397,34 @@ LABEL_22:
       sub_29C84ED58(accountCopy, v71);
     }
   }
-
-  v101 = *MEMORY[0x29EDCA608];
 }
 
 + (void)updateDeviceLocatorChildAccountForAppleAccount:(id)account
 {
-  v100 = *MEMORY[0x29EDCA608];
+  v99 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v7 = objc_msgSend_childAccountsWithAccountTypeIdentifier_(accountCopy, v4, *MEMORY[0x29EDB8208], v5, v6);
   v12 = objc_msgSend_firstObject(v7, v8, v9, v10, v11);
 
-  v87 = accountCopy;
+  v86 = accountCopy;
   v17 = objc_msgSend_credential(accountCopy, v13, v14, v15, v16);
   v18 = *MEMORY[0x29EDB8328];
   v22 = objc_msgSend_credentialItemForKey_(v17, v19, *MEMORY[0x29EDB8328], v20, v21);
   v23 = *MEMORY[0x29EDB8318];
   v27 = objc_msgSend_credentialItemForKey_(v17, v24, *MEMORY[0x29EDB8318], v25, v26);
   v28 = *MEMORY[0x29EDB8320];
-  v88 = objc_msgSend_credentialItemForKey_(v17, v29, *MEMORY[0x29EDB8320], v30, v31);
+  v87 = objc_msgSend_credentialItemForKey_(v17, v29, *MEMORY[0x29EDB8320], v30, v31);
   v32 = *MEMORY[0x29EDB83A8];
   v36 = objc_msgSend_credentialItemForKey_(v17, v33, *MEMORY[0x29EDB83A8], v34, v35);
   v41 = objc_msgSend_credential(v12, v37, v38, v39, v40);
   v45 = objc_msgSend_credentialItemForKey_(v41, v42, v18, v43, v44);
-  v86 = objc_msgSend_credentialItemForKey_(v41, v46, v23, v47, v48);
-  v85 = objc_msgSend_credentialItemForKey_(v41, v49, v28, v50, v51);
-  v84 = objc_msgSend_credentialItemForKey_(v41, v52, v32, v53, v54);
-  if (!objc_msgSend_isEqualToString_(v45, v55, v22, v56, v57) || !objc_msgSend_isEqualToString_(v86, v58, v27, v60, v61) || !objc_msgSend_isEqualToString_(v85, v58, v88, v60, v61) || (objc_msgSend_isEqualToString_(v84, v58, v36, v60, v61) & 1) == 0)
+  v85 = objc_msgSend_credentialItemForKey_(v41, v46, v23, v47, v48);
+  v84 = objc_msgSend_credentialItemForKey_(v41, v49, v28, v50, v51);
+  v83 = objc_msgSend_credentialItemForKey_(v41, v52, v32, v53, v54);
+  if (!objc_msgSend_isEqualToString_(v45, v55, v22, v56, v57) || !objc_msgSend_isEqualToString_(v85, v58, v27, v60, v61) || !objc_msgSend_isEqualToString_(v84, v58, v87, v60, v61) || (objc_msgSend_isEqualToString_(v83, v58, v36, v60, v61) & 1) == 0)
   {
-    v83 = v45;
-    if (objc_msgSend_isAuthenticated(v87, v58, v59, v60, v61))
+    v82 = v45;
+    if (objc_msgSend_isAuthenticated(v86, v58, v59, v60, v61))
     {
       objc_msgSend_setAuthenticated_(v12, v62, 1, v63, v64);
     }
@@ -450,7 +444,7 @@ LABEL_22:
       }
 
       *buf = 138413314;
-      v91 = v12;
+      v90 = v12;
       if (v27)
       {
         v68 = @"YES";
@@ -461,9 +455,9 @@ LABEL_22:
         v68 = @"NO";
       }
 
-      v92 = 2112;
-      v93 = v67;
-      if (v88)
+      v91 = 2112;
+      v92 = v67;
+      if (v87)
       {
         v69 = @"YES";
       }
@@ -473,17 +467,17 @@ LABEL_22:
         v69 = @"NO";
       }
 
-      v94 = 2112;
-      v95 = v68;
+      v93 = 2112;
+      v94 = v68;
       if (!v36)
       {
         v66 = @"NO";
       }
 
-      v96 = 2112;
-      v97 = v69;
-      v98 = 2112;
-      v99 = v66;
+      v95 = 2112;
+      v96 = v69;
+      v97 = 2112;
+      v98 = v66;
       _os_log_impl(&dword_29C844000, v65, OS_LOG_TYPE_DEFAULT, "Updating device locator account (%@) tokens FMIP (%@), app (%@), Siri (%@), and SearchParty (%@) tokens", buf, 0x34u);
     }
 
@@ -499,10 +493,10 @@ LABEL_22:
       v73 = 1;
     }
 
-    v74 = v88;
-    if (v88)
+    v74 = v87;
+    if (v87)
     {
-      objc_msgSend_setCredentialItem_forKey_(v41, v70, v88, v28, v72);
+      objc_msgSend_setCredentialItem_forKey_(v41, v70, v87, v28, v72);
       if (!v36)
       {
         goto LABEL_29;
@@ -525,9 +519,9 @@ LABEL_22:
 
 LABEL_29:
       v75 = objc_msgSend_defaultStore(MEMORY[0x29EDB83C8], v70, v74, v71, v72);
-      v89 = 0;
-      v78 = objc_msgSend_saveVerifiedAccount_error_(v75, v76, v12, &v89, v77);
-      v79 = v89;
+      v88 = 0;
+      v78 = objc_msgSend_saveVerifiedAccount_error_(v75, v76, v12, &v88, v77);
+      v79 = v88;
       v80 = _AALogSystem();
       if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
       {
@@ -538,14 +532,14 @@ LABEL_29:
         }
 
         *buf = 138412546;
-        v91 = v81;
-        v92 = 2112;
-        v93 = v79;
+        v90 = v81;
+        v91 = 2112;
+        v92 = v79;
         _os_log_impl(&dword_29C844000, v80, OS_LOG_TYPE_DEFAULT, "Device locator child account updated successfully (%@) with error: %@", buf, 0x16u);
       }
 
 LABEL_34:
-      v45 = v83;
+      v45 = v82;
 
       goto LABEL_35;
     }
@@ -555,8 +549,6 @@ LABEL_34:
   }
 
 LABEL_35:
-
-  v82 = *MEMORY[0x29EDCA608];
 }
 
 @end

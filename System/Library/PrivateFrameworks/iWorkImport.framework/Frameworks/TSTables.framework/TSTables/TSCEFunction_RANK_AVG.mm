@@ -8,15 +8,15 @@
 {
   v8 = **arguments;
   v9 = *(*arguments + 8);
-  v49 = 0;
-  v11 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v9, v10, context, spec, 1, 0, &v49);
-  v12 = v49;
+  v42 = 0;
+  v11 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v9, v10, context, spec, 1, 0, &v42);
+  v12 = v42;
   if (v12)
   {
-    v16 = v12;
-    v17 = objc_msgSend_raiseErrorOrConvert_(context, v13, v12, v14, v15);
+    v15 = v12;
+    v16 = objc_msgSend_raiseErrorOrConvert_(context, v13, v12, v14);
 LABEL_9:
-    v29 = v17;
+    v26 = v16;
     goto LABEL_10;
   }
 
@@ -25,63 +25,63 @@ LABEL_9:
     goto LABEL_6;
   }
 
-  v18 = *(*arguments + 16);
-  if (objc_msgSend_isTokenOrEmptyArg(v18, v19, v20, v21, v22))
+  v17 = *(*arguments + 16);
+  if (objc_msgSend_isTokenOrEmptyArg(v17, v18, v19, v20))
   {
 
 LABEL_6:
-    v24 = 1;
+    v22 = 1;
     goto LABEL_7;
   }
 
-  v48 = 0;
-  v34 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v18, v23, context, spec, 2, &v48);
-  v16 = v48;
-  if (!v16)
+  v41 = 0;
+  v30 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v17, v21, context, spec, 2, &v41);
+  v15 = v41;
+  if (!v15)
   {
-    v39 = objc_msgSend_zero(TSCENumberValue, v35, v36, v37, v38);
-    v47 = 0;
-    v24 = objc_msgSend_eq_outError_(v34, v40, v39, &v47, v41);
-    v16 = v47;
+    v34 = objc_msgSend_zero(TSCENumberValue, v31, v32, v33);
+    v40 = 0;
+    v22 = objc_msgSend_eq_outError_(v30, v35, v34, &v40);
+    v15 = v40;
 
-    if (v16)
+    if (v15)
     {
-      v17 = objc_msgSend_raiseErrorOrConvert_(context, v13, v16, v42, v43);
+      v16 = objc_msgSend_raiseErrorOrConvert_(context, v13, v15, v36);
       goto LABEL_9;
     }
 
 LABEL_7:
-    v46 = 0;
-    objc_msgSend_computeRankWithVector_functionSpec_vector_numberToRankValue_rankDescending_returnAverage_outError_(TSCEFunction_RANK, v13, context, spec, v11, v8, v24, 1, &v46);
-    v25 = v46;
-    if (!v25)
+    v39 = 0;
+    objc_msgSend_computeRankWithVector_functionSpec_vector_numberToRankValue_rankDescending_returnAverage_outError_(TSCEFunction_RANK, v13, context, spec, v11, v8, v22, 1, &v39);
+    v23 = v39;
+    if (!v23)
     {
       TSUDecimal::operator=();
       if (v8)
       {
-        objc_msgSend_formatWithContext_(v8, v31, context, v32, v33);
+        objc_msgSend_formatWithContext_(v8, v28, context, v29);
       }
 
       else
       {
-        memset(v44, 0, sizeof(v44));
+        memset(v37, 0, sizeof(v37));
       }
 
-      v29 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v31, v45, v44, v33);
-      v16 = 0;
+      v26 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v28, v38, v37);
+      v15 = 0;
       goto LABEL_10;
     }
 
-    v16 = v25;
-    v17 = objc_msgSend_raiseErrorOrConvert_(context, v26, v25, v27, v28);
+    v15 = v23;
+    v16 = objc_msgSend_raiseErrorOrConvert_(context, v24, v23, v25);
     goto LABEL_9;
   }
 
-  v29 = objc_msgSend_raiseErrorOrConvert_(context, v35, v16, v37, v38);
+  v26 = objc_msgSend_raiseErrorOrConvert_(context, v31, v15, v33);
 
 LABEL_10:
 
-  return v29;
+  return v26;
 }
 
 @end

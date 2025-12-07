@@ -27,7 +27,7 @@
 - (WTSettingsDestination)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SettingsDestination();
+  v3.super_class = type metadata accessor for SettingsDestination(self, a2);
   return [(WTSettingsDestination *)&v3 init];
 }
 

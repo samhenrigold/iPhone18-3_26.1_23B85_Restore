@@ -593,8 +593,8 @@ LABEL_9:
   v61[1] = *MEMORY[0x1E69E9840];
   switcherCopy = switcher;
   keyCopy = key;
-  geometry = [switcherCopy geometry];
-  [geometry setDetachedVariants:1];
+  v8 = objc_msgSend_geometry(switcherCopy);
+  [v8 setDetachedVariants:1];
 
   renderConfig = [(UIKBRenderFactory *)self renderConfig];
   lightKeyboard = [renderConfig lightKeyboard];
@@ -702,8 +702,8 @@ LABEL_12:
 
   if (displayType2 != 4)
   {
-    geometry2 = [switcherCopy geometry];
-    [geometry2 displayFrame];
+    v44 = objc_msgSend_geometry(switcherCopy);
+    [v44 displayFrame];
     v68.origin.x = x;
     v68.origin.y = y;
     v68.size.width = width;
@@ -723,7 +723,7 @@ LABEL_12:
     v50 = v67.origin.y;
     v51 = v67.size.width;
     v52 = v67.size.height;
-    renderConfig5 = [switcherCopy geometry];
+    renderConfig5 = objc_msgSend_geometry(switcherCopy);
     [renderConfig5 setDisplayFrame:{v49, v50, v51, v52}];
 LABEL_23:
   }
@@ -733,13 +733,13 @@ LABEL_23:
   v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
   [switcherCopy setVariantGeometries:v54];
 
-  geometry3 = [switcherCopy geometry];
-  [geometry3 setPopupBias:40];
+  v55 = objc_msgSend_geometry(switcherCopy);
+  [v55 setPopupBias:40];
 
   [(UIKBRenderFactory10Key *)self keyCornerRadius];
   v57 = v56;
-  geometry4 = [switcherCopy geometry];
-  [geometry4 setRoundRectRadius:v57];
+  v58 = objc_msgSend_geometry(switcherCopy);
+  [v58 setRoundRectRadius:v57];
 }
 
 - (id)_traitsForKey:(id)key onKeyplane:(id)keyplane
@@ -751,14 +751,14 @@ LABEL_23:
   v368.super_class = UIKBRenderFactory10Key;
   v8 = [(UIKBRenderFactory *)&v368 _traitsForKey:keyCopy onKeyplane:keyplaneCopy];
   [v8 setBlendForm:{-[UIKBRenderFactory enabledBlendForm](self, "enabledBlendForm")}];
-  geometry = [v8 geometry];
-  [geometry paddedFrame];
+  v9 = objc_msgSend_geometry(v8);
+  [v9 paddedFrame];
   v11 = v10;
   v13 = v12;
   v15 = v14;
   v17 = v16;
-  geometry2 = [v8 geometry];
-  [geometry2 setDisplayFrame:{v11, v13, v15, v17}];
+  v18 = objc_msgSend_geometry(v8);
+  [v18 setDisplayFrame:{v11, v13, v15, v17}];
 
   renderConfig = [(UIKBRenderFactory *)self renderConfig];
   [v8 setUsesDarkAppearance:{objc_msgSend(renderConfig, "lightKeyboard") ^ 1}];
@@ -766,16 +766,16 @@ LABEL_23:
   if ([keyCopy clipCorners])
   {
     clipCorners = [keyCopy clipCorners];
-    geometry3 = [v8 geometry];
-    [geometry3 setRoundRectCorners:clipCorners];
+    v21 = objc_msgSend_geometry(v8);
+    [v21 setRoundRectCorners:clipCorners];
 
-    geometry4 = [v8 geometry];
-    [geometry4 setRoundRectRadius:10.0];
+    v22 = objc_msgSend_geometry(v8);
+    [v22 setRoundRectRadius:10.0];
   }
 
-  geometry5 = [v8 geometry];
+  v23 = objc_msgSend_geometry(v8);
   [(UIKBRenderFactory10Key *)self topEdgeAdjustmentInsets];
-  [geometry5 adjustToTopWithInsets:?];
+  [v23 adjustToTopWithInsets:?];
 
   v363 = keyplaneCopy;
   if ([(UIKBRenderFactory10Key *)self useRoundCorner]&& [(UIKBRenderFactory10Key *)self roundCornersForKey:keyCopy onKeyplane:keyplaneCopy]== -1)
@@ -785,8 +785,8 @@ LABEL_23:
 
   else
   {
-    geometry6 = [v8 geometry];
-    v360 = [(UIKBRenderFactory10Key *)self edgesAdjustedForTranslucentGapsForGeometry:geometry6 key:keyCopy onKeyplane:keyplaneCopy];
+    v24 = objc_msgSend_geometry(v8);
+    v360 = [(UIKBRenderFactory10Key *)self edgesAdjustedForTranslucentGapsForGeometry:v24 key:keyCopy onKeyplane:keyplaneCopy];
   }
 
   displayType = [keyCopy displayType];
@@ -1247,14 +1247,14 @@ LABEL_144:
           goto LABEL_60;
         }
 
-        symbolStyle15 = [v8 geometry];
+        symbolStyle15 = objc_msgSend_geometry(v8);
         [symbolStyle15 displayFrame];
         v276 = v275;
         v278 = v277 + 0.0;
         v280 = v279 + -0.5;
         v282 = v281 + 0.5;
-        geometry7 = [v8 geometry];
-        [geometry7 setDisplayFrame:{v278, v280, v276, v282}];
+        symbolStyle32 = objc_msgSend_geometry(v8);
+        [symbolStyle32 setDisplayFrame:{v278, v280, v276, v282}];
         goto LABEL_240;
       }
 
@@ -1279,8 +1279,8 @@ LABEL_236:
           v316 = v301;
         }
 
-        geometry7 = [v8 symbolStyle];
-        [geometry7 setFontSize:v316];
+        symbolStyle32 = [v8 symbolStyle];
+        [symbolStyle32 setFontSize:v316];
         goto LABEL_240;
       }
 
@@ -1312,14 +1312,14 @@ LABEL_236:
           v323 = 22.0;
         }
 
-        symbolStyle32 = [v8 symbolStyle];
-        [symbolStyle32 setFontSize:v323];
-
         symbolStyle33 = [v8 symbolStyle];
-        symbolStyle15 = symbolStyle33;
+        [symbolStyle33 setFontSize:v323];
+
+        symbolStyle34 = [v8 symbolStyle];
+        symbolStyle15 = symbolStyle34;
         v326 = 1.0;
 LABEL_255:
-        [symbolStyle33 setKerning:v326];
+        [symbolStyle34 setKerning:v326];
         goto LABEL_212;
       }
 
@@ -1339,11 +1339,11 @@ LABEL_255:
           v330 = 16.0;
         }
 
-        symbolStyle34 = [v8 symbolStyle];
-        [symbolStyle34 setFontSize:v330];
+        symbolStyle35 = [v8 symbolStyle];
+        [symbolStyle35 setFontSize:v330];
 
-        symbolStyle33 = [v8 symbolStyle];
-        symbolStyle15 = symbolStyle33;
+        symbolStyle34 = [v8 symbolStyle];
+        symbolStyle15 = symbolStyle34;
         v326 = -1.0;
         goto LABEL_255;
       }
@@ -1352,8 +1352,8 @@ LABEL_255:
       {
         if (((1 << displayType) & 0x44C04) != 0)
         {
-          symbolStyle35 = [v8 symbolStyle];
-          [symbolStyle35 setKerning:0.0];
+          symbolStyle36 = [v8 symbolStyle];
+          [symbolStyle36 setKerning:0.0];
 
           renderingContext14 = [(UIKBRenderFactory *)self renderingContext];
           if ([renderingContext14 isColorAdaptiveNonLinearCarplayKeyboard])
@@ -1366,22 +1366,22 @@ LABEL_255:
             v334 = 16.0;
           }
 
-          symbolStyle36 = [v8 symbolStyle];
-          [symbolStyle36 setFontSize:v334];
-
           symbolStyle37 = [v8 symbolStyle];
-          [symbolStyle37 setUsesSymbolImage:1];
+          [symbolStyle37 setFontSize:v334];
+
+          symbolStyle38 = [v8 symbolStyle];
+          [symbolStyle38 setUsesSymbolImage:1];
 
           displayString4 = [keyCopy displayString];
-          LODWORD(symbolStyle36) = [displayString4 hasSuffix:@"ABC"];
+          LODWORD(symbolStyle37) = [displayString4 hasSuffix:@"ABC"];
 
-          if (symbolStyle36)
+          if (symbolStyle37)
           {
             [(UIKBRenderFactory10Key *)self abcKeyTextOffset];
             v339 = v338;
             v341 = v340;
-            symbolStyle38 = [v8 symbolStyle];
-            [symbolStyle38 setTextOffset:{v339, v341}];
+            symbolStyle39 = [v8 symbolStyle];
+            [symbolStyle39 setTextOffset:{v339, v341}];
           }
 
           displayString2 = [keyCopy name];
@@ -1413,14 +1413,14 @@ LABEL_267:
           }
 
           lightTextFontName3 = [(UIKBRenderFactory10Key *)self lightTextFontName];
-          symbolStyle39 = [v8 symbolStyle];
-          [symbolStyle39 setFontName:lightTextFontName3];
+          symbolStyle40 = [v8 symbolStyle];
+          [symbolStyle40 setFontName:lightTextFontName3];
 
           lightTextFontFallbackName3 = [(UIKBRenderFactory10Key *)self lightTextFontFallbackName];
 LABEL_285:
           symbolStyle15 = lightTextFontFallbackName3;
-          geometry7 = [v8 symbolStyle];
-          [geometry7 setKeycapsFallback:symbolStyle15];
+          symbolStyle32 = [v8 symbolStyle];
+          [symbolStyle32 setKeycapsFallback:symbolStyle15];
 LABEL_240:
 
           goto LABEL_212;
@@ -1447,8 +1447,8 @@ LABEL_240:
             v346 = 28.0;
           }
 
-          symbolStyle40 = [v8 symbolStyle];
-          [symbolStyle40 setFontSize:v346];
+          symbolStyle41 = [v8 symbolStyle];
+          [symbolStyle41 setFontSize:v346];
 
           [(UIKBRenderFactory *)self scale];
           if (v348 == 2.0)
@@ -1478,8 +1478,8 @@ LABEL_240:
       }
 
       v351 = -[UIKBRenderFactory10Key _preferredScriptFontForRendering:](self, "_preferredScriptFontForRendering:", ([keyplaneCopy visualStyling] >> 16));
-      symbolStyle41 = [v8 symbolStyle];
-      [symbolStyle41 setFontName:v351];
+      symbolStyle42 = [v8 symbolStyle];
+      [symbolStyle42 setFontName:v351];
 
       lightTextFontFallbackName3 = -[UIKBRenderFactory10Key _preferredScriptFontForRendering:](self, "_preferredScriptFontForRendering:", ([keyplaneCopy visualStyling] >> 16));
       goto LABEL_285;
@@ -1498,8 +1498,8 @@ LABEL_240:
 LABEL_227:
       [(UIKBRenderFactory10Key *)self capitalAbcSymbolSize];
       v304 = v303;
-      symbolStyle42 = [v8 symbolStyle];
-      [symbolStyle42 setFontSize:v304];
+      symbolStyle43 = [v8 symbolStyle];
+      [symbolStyle43 setFontSize:v304];
       goto LABEL_228;
     }
 
@@ -1520,8 +1520,8 @@ LABEL_227:
     }
 
 LABEL_214:
-    symbolStyle42 = [(UIKBRenderFactory *)self renderingContext];
-    if ([symbolStyle42 isColorAdaptiveNonLinearCarplayKeyboard])
+    symbolStyle43 = [(UIKBRenderFactory *)self renderingContext];
+    if ([symbolStyle43 isColorAdaptiveNonLinearCarplayKeyboard])
     {
       v292 = 14.0;
     }
@@ -1531,8 +1531,8 @@ LABEL_214:
       v292 = 16.0;
     }
 
-    symbolStyle43 = [v8 symbolStyle];
-    [symbolStyle43 setFontSize:v292];
+    symbolStyle44 = [v8 symbolStyle];
+    [symbolStyle44 setFontSize:v292];
 
 LABEL_228:
     name13 = [keyCopy name];
@@ -1565,23 +1565,23 @@ LABEL_59:
     }
 
     lightKeycapsFontName4 = [(UIKBRenderFactory10Key *)self lightKeycapsFontName];
-    symbolStyle44 = [v8 symbolStyle];
-    [symbolStyle44 setFontName:lightKeycapsFontName4];
+    symbolStyle45 = [v8 symbolStyle];
+    [symbolStyle45 setFontName:lightKeycapsFontName4];
 
     lightKeycapsFontFallbackName4 = [(UIKBRenderFactory10Key *)self lightKeycapsFontFallbackName];
-    symbolStyle45 = [v8 symbolStyle];
-    [symbolStyle45 setKeycapsFallback:lightKeycapsFontFallbackName4];
+    symbolStyle46 = [v8 symbolStyle];
+    [symbolStyle46 setKeycapsFallback:lightKeycapsFontFallbackName4];
 
     goto LABEL_232;
   }
 
   lightKeycapsFontName5 = [(UIKBRenderFactory10Key *)self lightKeycapsFontName];
-  symbolStyle46 = [v8 symbolStyle];
-  [symbolStyle46 setFontName:lightKeycapsFontName5];
+  symbolStyle47 = [v8 symbolStyle];
+  [symbolStyle47 setFontName:lightKeycapsFontName5];
 
   lightKeycapsFontFallbackName5 = [(UIKBRenderFactory10Key *)self lightKeycapsFontFallbackName];
-  symbolStyle47 = [v8 symbolStyle];
-  [symbolStyle47 setKeycapsFallback:lightKeycapsFontFallbackName5];
+  symbolStyle48 = [v8 symbolStyle];
+  [symbolStyle48 setKeycapsFallback:lightKeycapsFontFallbackName5];
 
   lightKeycapsFontName6 = [(UIKBRenderFactory10Key *)self lightKeycapsFontName];
   [v39 setFontName:lightKeycapsFontName6];
@@ -1643,11 +1643,11 @@ LABEL_65:
     v109 = @"UIKBColorBlack";
   }
 
-  symbolStyle48 = [v8 symbolStyle];
-  [symbolStyle48 setTextColor:v109];
-
   symbolStyle49 = [v8 symbolStyle];
-  textColor = [symbolStyle49 textColor];
+  [symbolStyle49 setTextColor:v109];
+
+  symbolStyle50 = [v8 symbolStyle];
+  textColor = [symbolStyle50 textColor];
   v362 = firstObject;
   [firstObject setTextColor:textColor];
 
@@ -1707,8 +1707,8 @@ LABEL_65:
 
   if ([keyCopy state] == 1)
   {
-    symbolStyle50 = [v8 symbolStyle];
-    [symbolStyle50 setTextOpacity:0.35];
+    symbolStyle51 = [v8 symbolStyle];
+    [symbolStyle51 setTextOpacity:0.35];
   }
 
   if (v113 && ([keyCopy state] & 0x10) == 0)
@@ -1746,11 +1746,11 @@ LABEL_65:
 
     if ((v113 & 2) != 0)
     {
-      geometry8 = [v8 geometry];
-      [geometry8 frame];
+      v132 = objc_msgSend_geometry(v8);
+      [v132 frame];
       v134 = v133;
-      geometry9 = [v8 geometry];
-      [geometry9 paddedFrame];
+      v135 = objc_msgSend_geometry(v8);
+      [v135 paddedFrame];
       v128 = v134 - v136;
     }
 
@@ -1773,8 +1773,8 @@ LABEL_65:
 
     if (controlKeyDividerColorName2)
     {
-      symbolStyle51 = [v8 symbolStyle];
-      [symbolStyle51 setTextColor:@"UIKBColorWhite"];
+      symbolStyle52 = [v8 symbolStyle];
+      [symbolStyle52 setTextColor:@"UIKBColorWhite"];
 LABEL_108:
     }
   }
@@ -1788,8 +1788,8 @@ LABEL_108:
 
       if (colorAdaptiveBackground)
       {
-        symbolStyle51 = [(UIKBRenderFactory *)self renderConfig];
-        lightKeyboard2 = [symbolStyle51 lightKeyboard];
+        symbolStyle52 = [(UIKBRenderFactory *)self renderConfig];
+        lightKeyboard2 = [symbolStyle52 lightKeyboard];
         v146 = UIKBColorBlack_Alpha25;
         if (!lightKeyboard2)
         {
@@ -1814,50 +1814,50 @@ LABEL_108:
 
   if ([keyCopy state] == 16)
   {
-    symbolStyle52 = [v8 symbolStyle];
-    v184 = [symbolStyle52 copy];
+    symbolStyle53 = [v8 symbolStyle];
+    v184 = [symbolStyle53 copy];
     v151 = [UIKBRenderTraits traitsWithSymbolStyle:v184];
 
-    symbolStyle53 = [v8 symbolStyle];
-    textColor2 = [symbolStyle53 textColor];
-    symbolStyle54 = [v151 symbolStyle];
-    [symbolStyle54 setTextColor:textColor2];
-
+    symbolStyle54 = [v8 symbolStyle];
+    textColor2 = [symbolStyle54 textColor];
     symbolStyle55 = [v151 symbolStyle];
-    [symbolStyle55 setFontSize:26.0];
+    [symbolStyle55 setTextColor:textColor2];
+
+    symbolStyle56 = [v151 symbolStyle];
+    [symbolStyle56 setFontSize:26.0];
 
     v189 = *MEMORY[0x1E695EFF8];
     v190 = *(MEMORY[0x1E695EFF8] + 8);
-    symbolStyle56 = [v151 symbolStyle];
-    [symbolStyle56 setTextOffset:{v189, v190}];
+    symbolStyle57 = [v151 symbolStyle];
+    [symbolStyle57 setTextOffset:{v189, v190}];
 
     [v8 setVariantTraits:v151];
-    symbolStyle57 = [v151 symbolStyle];
-    v193 = [symbolStyle57 copy];
+    symbolStyle58 = [v151 symbolStyle];
+    v193 = [symbolStyle58 copy];
     v166 = [UIKBRenderTraits traitsWithSymbolStyle:v193];
 
     v194 = [UIKBGradient gradientWithFlatColor:@"UIKBColorKeyBlueKeyBackground"];
     [v166 setLayeredForegroundGradient:v194];
 
-    symbolStyle58 = [v166 symbolStyle];
-    [symbolStyle58 setTextColor:@"UIKBColorWhite"];
+    symbolStyle59 = [v166 symbolStyle];
+    [symbolStyle59 setTextColor:@"UIKBColorWhite"];
 
     [v8 setHighlightedVariantTraits:v166];
-    geometry10 = [v8 geometry];
-    [geometry10 setRoundRectCorners:0];
+    v196 = objc_msgSend_geometry(v8);
+    [v196 setRoundRectCorners:0];
 
-    geometry11 = [v8 geometry];
+    v197 = objc_msgSend_geometry(v8);
     [(UIKBRenderFactory *)self scale];
-    [UIKBRenderFactory10Key populateFlickGuide:v8 forKey:keyCopy from:geometry11 scale:?];
+    [UIKBRenderFactory10Key populateFlickGuide:v8 forKey:keyCopy from:v197 scale:?];
 
     flickDirection = [keyCopy flickDirection];
-    geometry12 = [v8 geometry];
-    [geometry12 setFlickDirection:flickDirection];
+    v199 = objc_msgSend_geometry(v8);
+    [v199 setFlickDirection:flickDirection];
 
     renderConfig10 = [(UIKBRenderFactory *)self renderConfig];
-    LOBYTE(geometry12) = [renderConfig10 colorAdaptiveBackground];
+    LOBYTE(v199) = [renderConfig10 colorAdaptiveBackground];
 
-    if ((geometry12 & 1) == 0)
+    if ((v199 & 1) == 0)
     {
       v201 = [UIKBShadowEffect effectWithColor:@"UIKBColorBlack_Alpha40" offset:0.0 insets:4.0 weight:1.0, 1.0, 1.0, 1.0, 15.0];
       [v8 addRenderEffect:v201];
@@ -1917,26 +1917,26 @@ LABEL_148:
 LABEL_112:
   if ([keyCopy state] == 20)
   {
-    symbolStyle59 = [v8 symbolStyle];
-    v150 = [symbolStyle59 copy];
+    symbolStyle60 = [v8 symbolStyle];
+    v150 = [symbolStyle60 copy];
     v151 = [UIKBRenderTraits traitsWithSymbolStyle:v150];
 
     defaultKeyBackgroundColorName = [(UIKBRenderFactory *)self defaultKeyBackgroundColorName];
     v153 = [UIKBGradient gradientWithFlatColor:defaultKeyBackgroundColorName];
     [v151 setBackgroundGradient:v153];
 
-    symbolStyle60 = [v151 symbolStyle];
-    [symbolStyle60 setFontSize:30.0];
+    symbolStyle61 = [v151 symbolStyle];
+    [symbolStyle61 setFontSize:30.0];
 
     v155 = *MEMORY[0x1E695EFF8];
     v156 = *(MEMORY[0x1E695EFF8] + 8);
-    symbolStyle61 = [v151 symbolStyle];
-    [symbolStyle61 setTextOffset:{v155, v156}];
+    symbolStyle62 = [v151 symbolStyle];
+    [symbolStyle62 setTextOffset:{v155, v156}];
 
-    symbolStyle62 = [v8 symbolStyle];
-    textColor3 = [symbolStyle62 textColor];
-    symbolStyle63 = [v151 symbolStyle];
-    [symbolStyle63 setTextColor:textColor3];
+    symbolStyle63 = [v8 symbolStyle];
+    textColor3 = [symbolStyle63 textColor];
+    symbolStyle64 = [v151 symbolStyle];
+    [symbolStyle64 setTextColor:textColor3];
 
     renderConfig14 = [(UIKBRenderFactory *)self renderConfig];
     LOBYTE(textColor3) = [renderConfig14 colorAdaptiveBackground];
@@ -1950,16 +1950,16 @@ LABEL_112:
       [v151 addRenderEffect:v163];
     }
 
-    geometry13 = [v8 geometry];
+    v164 = objc_msgSend_geometry(v8);
     flickDirection2 = [keyCopy flickDirection];
     [(UIKBRenderFactory *)self scale];
-    v166 = [geometry13 copyForFlickDirection:flickDirection2 scale:?];
+    v166 = [v164 copyForFlickDirection:flickDirection2 scale:?];
 
-    geometry14 = [v8 geometry];
-    [geometry14 paddedFrame];
+    v167 = objc_msgSend_geometry(v8);
+    [v167 paddedFrame];
     MidX = CGRectGetMidX(v371);
-    geometry15 = [v8 geometry];
-    [geometry15 paddedFrame];
+    v169 = objc_msgSend_geometry(v8);
+    [v169 paddedFrame];
     [v166 setPopupSource:{MidX, CGRectGetMidY(v372)}];
 
     [v166 displayFrame];
@@ -1974,17 +1974,17 @@ LABEL_112:
     v173 = v172;
     v175 = v174;
     v177 = v176;
-    geometry16 = [v8 geometry];
-    [geometry16 setDisplayFrame:{v171, v173, v175, v177}];
+    v178 = objc_msgSend_geometry(v8);
+    [v178 setDisplayFrame:{v171, v173, v175, v177}];
 
     flickDirection3 = [keyCopy flickDirection];
-    geometry17 = [v8 geometry];
-    [geometry17 setFlickDirection:flickDirection3];
+    v180 = objc_msgSend_geometry(v8);
+    [v180 setFlickDirection:flickDirection3];
 
     [v151 setBlurBlending:1];
     renderConfig15 = [(UIKBRenderFactory *)self renderConfig];
     animatedBackground2 = [renderConfig15 animatedBackground];
-    if (animatedBackground2 & 1) != 0 || (-[UIKBRenderFactory renderConfig](self, "renderConfig"), geometry17 = objc_claimAutoreleasedReturnValue(), ([geometry17 colorAdaptiveBackground]))
+    if (animatedBackground2 & 1) != 0 || (-[UIKBRenderFactory renderConfig](self, "renderConfig"), v180 = objc_claimAutoreleasedReturnValue(), ([v180 colorAdaptiveBackground]))
     {
       [v8 setBlendForm:{-[UIKBRenderFactory enabledBlendForm](self, "enabledBlendForm")}];
       if (animatedBackground2)
@@ -2135,19 +2135,19 @@ LABEL_174:
 LABEL_175:
   }
 
-  symbolStyle64 = [v8 symbolStyle];
-  usesSymbolImage = [symbolStyle64 usesSymbolImage];
+  symbolStyle65 = [v8 symbolStyle];
+  usesSymbolImage = [symbolStyle65 usesSymbolImage];
 
   if (usesSymbolImage)
   {
     [(UIKBRenderFactory10Key *)self symbolImageControlKeyFontSize];
     v252 = v251;
-    symbolStyle65 = [v8 symbolStyle];
-    [symbolStyle65 setFontSizeForSymbolImage:v252];
+    symbolStyle66 = [v8 symbolStyle];
+    [symbolStyle66 setFontSizeForSymbolImage:v252];
 
     v254 = *off_1E70ECD18;
-    symbolStyle66 = [v8 symbolStyle];
-    [symbolStyle66 setFontWeightForSymbolImage:v254];
+    symbolStyle67 = [v8 symbolStyle];
+    [symbolStyle67 setFontWeightForSymbolImage:v254];
   }
 
   v256 = v8;
@@ -2366,8 +2366,8 @@ LABEL_175:
   v32 = v41.origin.y;
   v33 = v41.size.width;
   v34 = v41.size.height;
-  geometry = [guideCopy geometry];
-  [geometry setDisplayFrame:{v31, v32, v33, v34}];
+  v35 = objc_msgSend_geometry(guideCopy);
+  [v35 setDisplayFrame:{v31, v32, v33, v34}];
 }
 
 @end

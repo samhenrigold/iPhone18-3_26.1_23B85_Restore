@@ -55,13 +55,7 @@
   defaultAppRecord = [(DDOpenMapsAction *)self defaultAppRecord];
   localizedName = [defaultAppRecord localizedName];
 
-  if (![localizedName length])
-  {
-    goto LABEL_5;
-  }
-
-  url = self->super._url;
-  if (!url || (-[NSURL scheme](url, "scheme"), v6 = objc_claimAutoreleasedReturnValue(), [v6 lowercaseString], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"geo-navigation"), v7, v6, v8))
+  if ([localizedName length] && ((url = self->super._url) == 0 || (-[NSURL scheme](url, "scheme"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "lowercaseString"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"geo-navigation"), v7, v6, v8)))
   {
     v9 = MEMORY[0x277CCACA8];
     v10 = DDLocalizedString(@"Open in %@");
@@ -70,7 +64,6 @@
 
   else
   {
-LABEL_5:
     v11 = DDLocalizedString(@"Show on Map");
   }
 

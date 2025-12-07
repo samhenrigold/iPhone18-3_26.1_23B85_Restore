@@ -6,6 +6,7 @@
 - (id)diAttachParamsWithURL:(id)l shadowURLs:(id)ls error:(id *)error;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)setMountParams:(id)params;
+- (void)setReadOnly:(BOOL)only;
 - (void)setupDIAttachParams:(id)params;
 @end
 
@@ -30,6 +31,14 @@
   }
 
   return v7;
+}
+
+- (void)setReadOnly:(BOOL)only
+{
+  onlyCopy = only;
+  self->_readOnly = only;
+  mountParams = [(SKDiskImageAttachParams *)self mountParams];
+  [mountParams setReadOnly:onlyCopy];
 }
 
 - (void)setMountParams:(id)params

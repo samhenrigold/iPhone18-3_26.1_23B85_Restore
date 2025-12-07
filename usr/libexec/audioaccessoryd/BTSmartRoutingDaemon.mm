@@ -30,10 +30,14 @@
 - (BOOL)_isWxPaired:(id)paired;
 - (BOOL)_lastConnectIsWatchCheck:(id)check;
 - (BOOL)_shouldDelayRouteToSpeaker:(id)speaker;
+- (BOOL)_showPreemptiveBannerIfNeeded:(id)needed inEarState:(BOOL)state audioState:(int64_t)audioState wxAddress:(id)address;
+- (BOOL)_smartRoutingShowBanner:(int)banner withDevice:(id)device andDeviceAddress:(id)address andProductID:(unsigned int)d andCentralContentItemTxt:(id)txt andTimeout:(double)timeout andDeviceType:(unsigned int)type;
 - (BOOL)_supportsPhoneWatchTipi:(unsigned int)tipi;
+- (BOOL)_supportsSR:(id)r andProductID:(unsigned int)d;
 - (BOOL)_supportsTipi:(id)tipi;
 - (BOOL)_tipiHealingHijackTimerStart:(id)start withScore:(int)score;
 - (BOOL)_verifyWxConnectedRouted:(id)routed;
+- (BOOL)allowHijackWithAudioScore:(unsigned int)score hijackRoute:(id)route hijackDeniedReason:(id *)reason;
 - (BOOL)isInAnyTipi;
 - (BTSmartRoutingDaemon)init;
 - (double)_lowestBatteryInfoForCBDevice:(id)device;
@@ -59,6 +63,7 @@
 - (id)_nearbyHRMDeviceEligibleToConnectTo;
 - (id)_nearbyHRMEnabledDevice;
 - (id)_nearbyMacAddressTranslate:(id)translate;
+- (id)_productColorAssetLookup:(unsigned int)lookup andAddress:(id)address;
 - (id)_queryLocalAudioCategory;
 - (id)_routedHRMEnabledDevice;
 - (id)_selectHRMCapableDeviceFromDiscoveredDevices;
@@ -106,7 +111,7 @@
 - (void)_dataRelayRemoveRequestedDataTypesForServer:(id)server;
 - (void)_determineHRMCapabilityOfDevice:(id)device;
 - (void)_disconnectOtherTipiDevice:(id)device;
-- (void)_disconnectReason:(id)reason reason:(unint64_t)a4;
+- (void)_disconnectReason:(id)reason reason:(unint64_t)smartRoutingDisconnectReason;
 - (void)_dismissAnyPairingBanner;
 - (void)_evaluateNearbyDevice;
 - (void)_evaluateNearbyHRMDevice:(id)device;
@@ -137,6 +142,7 @@
 - (void)_handleWorkoutSessionStart;
 - (void)_handleWorkoutSessionStop;
 - (void)_hijackBackoffReset:(id)reset withReason:(id)reason;
+- (void)_hijackBlockingModeChangedFromClient:(id)client mode:(BOOL)mode completion:(id)completion;
 - (void)_iPhoneScreenOnPowerEvent;
 - (void)_initializeConnectionToDevice:(id)device;
 - (void)_logConnectionBackoffReason:(id)reason wxAddress:(id)address;
@@ -145,7 +151,9 @@
 - (void)_logPreemptiveBannerEvalError:(id)error;
 - (void)_mediaRouteDiscoveryStarted;
 - (void)_mediaRouteDiscoveryStopped;
+- (void)_mediaRouteHijackResponse:(int)response wxAddress:(id)address andAudioResponseID:(id)d andAllowedToHijack:(BOOL)hijack withReason:(id)reason;
 - (void)_mediaRouteHijackResponseHandlerFor:(id)for allowedToHijack:(BOOL)hijack withReason:(id)reason;
+- (void)_mediaRouteHijackWithAudioScore:(int)score wxAddress:(id)address andAudioResponseID:(id)d;
 - (void)_mediaRouteMonitorActiveAudioRouteChanged:(id)changed;
 - (void)_mediaRouteMonitorActivityLevelUpdate:(id)update;
 - (void)_mediaRouteMonitorEnsureStarted;
@@ -171,6 +179,8 @@
 - (void)_pipeEnsureStopped;
 - (void)_postNotification:(const char *)notification;
 - (void)_powerLogSmartIncomingConnection;
+- (void)_powerLogSmartRoutingScanStarted:(unsigned __int8)started;
+- (void)_powerLogSmartRoutingScanStopped:(unsigned __int8)stopped;
 - (void)_powerMonitorEnsureStarted;
 - (void)_powerMonitorEnsureStopped;
 - (void)_powerMonitorScreenLockChanged;
@@ -183,6 +193,7 @@
 - (void)_recordStemClickToResponseDelay;
 - (void)_relayConduitMessageEnsureStarted;
 - (void)_relayConduitMessageReceived:(id)received andSourceDevice:(id)device messageType:(unsigned __int8)type messageData:(id)data;
+- (void)_relayConduitMessageSend:(unsigned __int8)send withOptions:(id)options andWxAddress:(id)address andOtherAddress:(id)otherAddress;
 - (void)_relayConduitMessageStartTimer:(id)timer withOptions:(id)options;
 - (void)_removeTiPiState:(id)state;
 - (void)_resetInUserBannerShown;
@@ -207,7 +218,10 @@
 - (void)_setManualRouteFlag:(id)flag withManualRoute:(BOOL)route;
 - (void)_setOtherTipiDeviceBTAddress:(id)address andName:(id)name sourceVersion:(id)version withResult:(id)result;
 - (void)_setOwnership:(id)ownership withHijackRequest:(id)request withOwnership:(BOOL)withOwnership;
+- (void)_setPhase1ConnectConfig:(id)config andType:(int)type;
 - (void)_setPipeMessageStats:(unint64_t)stats;
+- (void)_setTipiAndRoutedStateFlags:(unsigned int)flags forAddress:(id)address;
+- (void)_setTipiAndRoutedStateFlags:(unsigned int)flags forDevice:(id)device;
 - (void)_setTipiElectionReceivedLePipe:(id)pipe;
 - (void)_setTipiElectionType:(BOOL)type withDevice:(id)device;
 - (void)_setTotalCountIDSDevices:(id)devices;
@@ -255,6 +269,7 @@
 - (void)_submitManualConnectionMetric:(id)metric;
 - (void)_submitManualRouteDetectionMetric:(id)metric;
 - (void)_submitMetric:(id)metric;
+- (void)_submitMetricNearby:(unsigned int)nearby;
 - (void)_submitMetricTipiHealingforDevice:(id)device withDuration:(double)duration andLegacy:(BOOL)legacy;
 - (void)_submitNearbyDeviceMetric:(unsigned int)metric;
 - (void)_submitNonSRConnectionMetric:(id)metric;
@@ -277,6 +292,7 @@
 - (void)_triggerTipiTableUpdate:(id)update;
 - (void)_update;
 - (void)_updateAccessoryID:(id)d connectionDeviceAddresses:(id)addresses completion:(id)completion;
+- (void)_updateAudioRoute:(int)route withUUID:(id)d;
 - (void)_updateLocalAudioCategory:(id)category;
 - (void)_updateNearbyDeviceState:(id)state withAddress:(id)address withEasyPairing:(BOOL)pairing withState:(int)withState;
 - (void)_updateNowPlayingInfoForConnectedWx:(id)wx withLastPlayedTarget:(unsigned __int8)target andHeadsetAddress:(id)address;
@@ -285,8 +301,10 @@
 - (void)_updateOtherTipiDevicewithAudioCategory:(id)category otherAddress:(id)address otherName:(id)name otherVersion:(id)version;
 - (void)_updateRoutingActionForManuallyRoute;
 - (void)_updateSRDiscoveredDeviceForBluetoothStateChanged:(int64_t)changed;
+- (void)_updateSRDiscoveredDeviceForCBDeviceChanged:(id)changed connectionStatus:(unsigned __int8)status;
 - (void)_updateSRDiscoveredDeviceForCBDiscoveryChanged;
 - (void)_updateSRDiscoveredDeviceForNearbyWxChanged:(id)changed isNearby:(BOOL)nearby;
+- (void)_updateSRDiscoveredDeviceForPairStateChange:(id)change isPaired:(BOOL)paired;
 - (void)_updateUSBDeviceForBluetoothStateChange:(int64_t)change;
 - (void)_updateUSBDeviceForPairStateChange:(id)change paired:(BOOL)paired;
 - (void)_watchHintingRecovery;
@@ -625,40 +643,48 @@ LABEL_83:
 {
   if (self->_tuCallCenter)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E8B0C();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E8B0C(self, a2, v2);
+      }
     }
 
-    tuCallCenter = self->_tuCallCenter;
-    self->_tuCallCenter = 0;
+    tuCallCenter = selfCopy->_tuCallCenter;
+    selfCopy->_tuCallCenter = 0;
 
-    v4 = +[NSNotificationCenter defaultCenter];
-    [v4 removeObserver:self name:TUCallCenterCallStatusChangedNotification object:0];
-    [v4 removeObserver:self name:TUCallCenterVideoCallStatusChangedNotification object:0];
+    v5 = +[NSNotificationCenter defaultCenter];
+    [v5 removeObserver:selfCopy name:TUCallCenterCallStatusChangedNotification object:0];
+    [v5 removeObserver:selfCopy name:TUCallCenterVideoCallStatusChangedNotification object:0];
   }
 }
 
 - (void)_activityMonitorEnsureStopped
 {
+  selfCopy = self;
   if (self->_activityLevelNotifyToken != -1)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E651C();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E651C(self, a2, v2);
+      }
     }
 
-    self->_activityLevel = 0;
-    [(BTSmartRoutingDaemon *)self _nearbyInfoSetAudioRoutingScore];
-    activityLevelNotifyToken = self->_activityLevelNotifyToken;
+    selfCopy->_activityLevel = 0;
+    [(BTSmartRoutingDaemon *)selfCopy _nearbyInfoSetAudioRoutingScore];
+    activityLevelNotifyToken = selfCopy->_activityLevelNotifyToken;
     if (activityLevelNotifyToken != -1)
     {
       notify_cancel(activityLevelNotifyToken);
-      self->_activityLevelNotifyToken = -1;
+      selfCopy->_activityLevelNotifyToken = -1;
     }
   }
 
-  [(BTSmartRoutingDaemon *)self _smartRoutingControllerEnsureStopped];
+  [(BTSmartRoutingDaemon *)selfCopy _smartRoutingControllerEnsureStopped];
 }
 
 - (void)_smartRoutingControllerEnsureStopped
@@ -681,29 +707,36 @@ LABEL_83:
 
 - (void)_evaluatorEnsureStopped
 {
-  if (self->_evaluatorCoalescer && dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (self->_evaluatorCoalescer)
   {
-    sub_1001E4648();
+    if (dword_1002F6778 <= 30)
+    {
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E4648(self, a2, v2);
+      }
+    }
   }
 
-  [(CUCoalescer *)self->_evaluatorCoalescer invalidate];
-  evaluatorCoalescer = self->_evaluatorCoalescer;
-  self->_evaluatorCoalescer = 0;
+  [(CUCoalescer *)selfCopy->_evaluatorCoalescer invalidate];
+  evaluatorCoalescer = selfCopy->_evaluatorCoalescer;
+  selfCopy->_evaluatorCoalescer = 0;
 
-  connectDevice = self->_connectDevice;
-  self->_connectDevice = 0;
+  connectDevice = selfCopy->_connectDevice;
+  selfCopy->_connectDevice = 0;
 
-  [(CBConnection *)self->_connectSession invalidate];
-  connectSession = self->_connectSession;
-  self->_connectSession = 0;
+  [(CBConnection *)selfCopy->_connectSession invalidate];
+  connectSession = selfCopy->_connectSession;
+  selfCopy->_connectSession = 0;
 
-  smartRoutingLowerScanRateTimer = self->_smartRoutingLowerScanRateTimer;
+  smartRoutingLowerScanRateTimer = selfCopy->_smartRoutingLowerScanRateTimer;
   if (smartRoutingLowerScanRateTimer)
   {
-    v8 = smartRoutingLowerScanRateTimer;
-    dispatch_source_cancel(v8);
-    v7 = self->_smartRoutingLowerScanRateTimer;
-    self->_smartRoutingLowerScanRateTimer = 0;
+    v9 = smartRoutingLowerScanRateTimer;
+    dispatch_source_cancel(v9);
+    v8 = selfCopy->_smartRoutingLowerScanRateTimer;
+    selfCopy->_smartRoutingLowerScanRateTimer = 0;
   }
 }
 
@@ -711,48 +744,52 @@ LABEL_83:
 {
   if (!self->_connectedDiscovery)
   {
-    v13[5] = v5;
-    v13[6] = v4;
-    v13[11] = v2;
-    v13[12] = v3;
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v14[5] = v6;
+    v14[6] = v5;
+    v14[11] = v3;
+    v14[12] = v4;
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E6554();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E6554(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(CBDiscovery);
-    connectedDiscovery = self->_connectedDiscovery;
-    self->_connectedDiscovery = v7;
-    v9 = v7;
+    v8 = objc_alloc_init(CBDiscovery);
+    connectedDiscovery = selfCopy->_connectedDiscovery;
+    selfCopy->_connectedDiscovery = v8;
+    v10 = v8;
 
-    [(CBDiscovery *)v9 setDispatchQueue:self->_dispatchQueue];
-    [(CBDiscovery *)v9 setLabel:@"SmartRouting"];
-    [(CBDiscovery *)v9 setDiscoveryFlags:[(CBDiscovery *)v9 discoveryFlags]| 0x80000200000];
+    [(CBDiscovery *)v10 setDispatchQueue:selfCopy->_dispatchQueue];
+    [(CBDiscovery *)v10 setLabel:@"SmartRouting"];
+    [(CBDiscovery *)v10 setDiscoveryFlags:[(CBDiscovery *)v10 discoveryFlags]| 0x80000200000];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10004D9B8;
+    v14[3] = &unk_1002B6858;
+    v14[4] = selfCopy;
+    [(CBDiscovery *)v10 setDeviceFoundHandler:v14];
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
-    v13[2] = sub_10004D9B8;
-    v13[3] = &unk_1002B6858;
-    v13[4] = self;
-    [(CBDiscovery *)v9 setDeviceFoundHandler:v13];
+    v13[2] = sub_10004D9C4;
+    v13[3] = &unk_1002B6880;
+    v13[4] = selfCopy;
+    [(CBDiscovery *)v10 setBluetoothStateChangedHandler:v13];
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = sub_10004D9C4;
-    v12[3] = &unk_1002B6880;
-    v12[4] = self;
-    [(CBDiscovery *)v9 setBluetoothStateChangedHandler:v12];
+    v12[2] = sub_10004DAF0;
+    v12[3] = &unk_1002B6858;
+    v12[4] = selfCopy;
+    [(CBDiscovery *)v10 setDeviceLostHandler:v12];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_10004DAF0;
-    v11[3] = &unk_1002B6858;
-    v11[4] = self;
-    [(CBDiscovery *)v9 setDeviceLostHandler:v11];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10004DAFC;
-    v10[3] = &unk_1002B68A8;
-    v10[4] = self;
-    v10[5] = v9;
-    [(CBDiscovery *)v9 activateWithCompletion:v10];
+    v11[2] = sub_10004DAFC;
+    v11[3] = &unk_1002B68A8;
+    v11[4] = selfCopy;
+    v11[5] = v10;
+    [(CBDiscovery *)v10 activateWithCompletion:v11];
   }
 }
 
@@ -781,18 +818,22 @@ LABEL_83:
 {
   if (self->_mediaRouteMonitorObservingActiveAudioRoute)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E6B4C();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E6B4C(self, a2, v2);
+      }
     }
 
-    self->_mediaRouteMonitorObservingActiveAudioRoute = 0;
-    self->_activityLevelMediaPlaying = 0;
-    v4 = +[NSNotificationCenter defaultCenter];
-    [v4 removeObserver:self name:kMRMediaRemotePickableRoutesDidChangeNotification object:0];
-    [v4 removeObserver:self name:AVSystemController_SomeSessionIsPlayingDidChangeNotification object:0];
-    [v4 removeObserver:self name:AVSystemController_ServerConnectionDiedNotification object:0];
-    [v4 removeObserver:self name:@"MRAVOutputContextOutputDevicesDidChangeNotification" object:MRAVOutputContextGetSharedSystemAudioContext()];
+    selfCopy->_mediaRouteMonitorObservingActiveAudioRoute = 0;
+    selfCopy->_activityLevelMediaPlaying = 0;
+    v5 = +[NSNotificationCenter defaultCenter];
+    [v5 removeObserver:selfCopy name:kMRMediaRemotePickableRoutesDidChangeNotification object:0];
+    [v5 removeObserver:selfCopy name:AVSystemController_SomeSessionIsPlayingDidChangeNotification object:0];
+    [v5 removeObserver:selfCopy name:AVSystemController_ServerConnectionDiedNotification object:0];
+    [v5 removeObserver:selfCopy name:@"MRAVOutputContextOutputDevicesDidChangeNotification" object:MRAVOutputContextGetSharedSystemAudioContext()];
   }
 }
 
@@ -800,10 +841,13 @@ LABEL_83:
 {
   if (self->_nearbyInfoDiscovery)
   {
-    [(BTSmartRoutingDaemon *)self _powerLogSmartRoutingScanStopped:16];
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v3 = [(BTSmartRoutingDaemon *)self _powerLogSmartRoutingScanStopped:16];
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E7274();
+      if (dword_1002F6778 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001E7274(v3, v4, v5);
+      }
     }
 
     [(SFDeviceDiscovery *)self->_nearbyInfoDiscovery invalidate];
@@ -819,9 +863,9 @@ LABEL_83:
     tipiHealingTimer = self->_tipiHealingTimer;
     if (tipiHealingTimer)
     {
-      v5 = tipiHealingTimer;
-      dispatch_source_cancel(v5);
-      v6 = self->_tipiHealingTimer;
+      v8 = tipiHealingTimer;
+      dispatch_source_cancel(v8);
+      v9 = self->_tipiHealingTimer;
       self->_tipiHealingTimer = 0;
     }
 
@@ -830,9 +874,9 @@ LABEL_83:
       nearbyInfoDevicesTriangleRecoveryTimer = self->_nearbyInfoDevicesTriangleRecoveryTimer;
       if (nearbyInfoDevicesTriangleRecoveryTimer)
       {
-        v8 = nearbyInfoDevicesTriangleRecoveryTimer;
-        dispatch_source_cancel(v8);
-        v9 = self->_nearbyInfoDevicesTriangleRecoveryTimer;
+        v11 = nearbyInfoDevicesTriangleRecoveryTimer;
+        dispatch_source_cancel(v11);
+        v12 = self->_nearbyInfoDevicesTriangleRecoveryTimer;
         self->_nearbyInfoDevicesTriangleRecoveryTimer = 0;
       }
     }
@@ -840,44 +884,44 @@ LABEL_83:
     prefSmartRoutingForcedDisconnectionStartTimer = self->_prefSmartRoutingForcedDisconnectionStartTimer;
     if (prefSmartRoutingForcedDisconnectionStartTimer)
     {
-      v11 = prefSmartRoutingForcedDisconnectionStartTimer;
-      dispatch_source_cancel(v11);
-      v12 = self->_prefSmartRoutingForcedDisconnectionStartTimer;
+      v14 = prefSmartRoutingForcedDisconnectionStartTimer;
+      dispatch_source_cancel(v14);
+      v15 = self->_prefSmartRoutingForcedDisconnectionStartTimer;
       self->_prefSmartRoutingForcedDisconnectionStartTimer = 0;
     }
 
     nearbyInfoDevices = self->_nearbyInfoDevices;
     if (nearbyInfoDevices)
     {
-      v22 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
+      v24 = 0u;
       allValues = [(NSMutableDictionary *)nearbyInfoDevices allValues];
-      v15 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
-      if (v15)
+      v18 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v18)
       {
-        v16 = v15;
-        v17 = *v21;
+        v19 = v18;
+        v20 = *v24;
         do
         {
-          for (i = 0; i != v16; i = i + 1)
+          for (i = 0; i != v19; i = i + 1)
           {
-            if (*v21 != v17)
+            if (*v24 != v20)
             {
               objc_enumerationMutation(allValues);
             }
 
-            [(BTSmartRoutingDaemon *)self _nearbyInfoDeviceLost:*(*(&v20 + 1) + 8 * i)];
+            [(BTSmartRoutingDaemon *)self _nearbyInfoDeviceLost:*(*(&v23 + 1) + 8 * i)];
           }
 
-          v16 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v19 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
-        while (v16);
+        while (v19);
       }
 
-      v19 = self->_nearbyInfoDevices;
+      v22 = self->_nearbyInfoDevices;
       self->_nearbyInfoDevices = 0;
     }
   }
@@ -887,101 +931,109 @@ LABEL_83:
 {
   if (!self->_pairedDiscovery)
   {
-    v12[6] = v5;
-    v12[7] = v4;
-    v12[12] = v2;
-    v12[13] = v3;
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v13[6] = v6;
+    v13[7] = v5;
+    v13[12] = v3;
+    v13[13] = v4;
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E760C();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E760C(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(CBDiscovery);
-    pairedDiscovery = self->_pairedDiscovery;
-    self->_pairedDiscovery = v7;
-    v9 = v7;
+    v8 = objc_alloc_init(CBDiscovery);
+    pairedDiscovery = selfCopy->_pairedDiscovery;
+    selfCopy->_pairedDiscovery = v8;
+    v10 = v8;
 
-    [(CBDiscovery *)v9 setDispatchQueue:self->_dispatchQueue];
-    [(CBDiscovery *)v9 setLabel:@"SmartRouting"];
-    [(CBDiscovery *)v9 setDiscoveryFlags:[(CBDiscovery *)v9 discoveryFlags]| 0x80000800000];
+    [(CBDiscovery *)v10 setDispatchQueue:selfCopy->_dispatchQueue];
+    [(CBDiscovery *)v10 setLabel:@"SmartRouting"];
+    [(CBDiscovery *)v10 setDiscoveryFlags:[(CBDiscovery *)v10 discoveryFlags]| 0x80000800000];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000536D0;
+    v13[3] = &unk_1002B6DA8;
+    v13[4] = selfCopy;
+    v13[5] = v10;
+    [(CBDiscovery *)v10 setDeviceFoundHandler:v13];
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = sub_1000536D0;
+    v12[2] = sub_10005378C;
     v12[3] = &unk_1002B6DA8;
-    v12[4] = self;
-    v12[5] = v9;
-    [(CBDiscovery *)v9 setDeviceFoundHandler:v12];
+    v12[4] = selfCopy;
+    v12[5] = v10;
+    [(CBDiscovery *)v10 setDeviceLostHandler:v12];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_10005378C;
-    v11[3] = &unk_1002B6DA8;
-    v11[4] = self;
-    v11[5] = v9;
-    [(CBDiscovery *)v9 setDeviceLostHandler:v11];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100053848;
-    v10[3] = &unk_1002B68A8;
-    v10[4] = self;
-    v10[5] = v9;
-    [(CBDiscovery *)v9 activateWithCompletion:v10];
+    v11[2] = sub_100053848;
+    v11[3] = &unk_1002B68A8;
+    v11[4] = selfCopy;
+    v11[5] = v10;
+    [(CBDiscovery *)v10 activateWithCompletion:v11];
   }
 }
 
 - (void)_powerMonitorEnsureStarted
 {
+  selfCopy = self;
   if (!self->_powerMonitor)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E7744();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E7744(self, a2, v2);
+      }
     }
 
-    v3 = objc_alloc_init(CUSystemMonitor);
-    powerMonitor = self->_powerMonitor;
-    self->_powerMonitor = v3;
-    v5 = v3;
+    v4 = objc_alloc_init(CUSystemMonitor);
+    powerMonitor = selfCopy->_powerMonitor;
+    selfCopy->_powerMonitor = v4;
+    v6 = v4;
 
-    [(CUSystemMonitor *)v5 setDispatchQueue:self->_dispatchQueue];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100053B38;
-    v11[3] = &unk_1002B6D18;
-    v11[4] = v5;
-    v11[5] = self;
-    v6 = objc_retainBlock(v11);
-    [(CUSystemMonitor *)v5 setScreenOnChangedHandler:v6];
-    [(CUSystemMonitor *)v5 setScreenLockedChangedHandler:v6];
-    [(CUSystemMonitor *)v5 setScreenStateChangedHandler:v6];
-    [(CUSystemMonitor *)v5 setFirstUnlockHandler:v6];
-    [(CUSystemMonitor *)v5 setPrimaryAppleIDChangedHandler:v6];
-    [(CUSystemMonitor *)v5 setScreenLockedChangedHandler:v6];
-    [(CUSystemMonitor *)v5 activateWithCompletion:v6];
+    [(CUSystemMonitor *)v6 setDispatchQueue:selfCopy->_dispatchQueue];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100053B38;
+    v12[3] = &unk_1002B6D18;
+    v12[4] = v6;
+    v12[5] = selfCopy;
+    v7 = objc_retainBlock(v12);
+    [(CUSystemMonitor *)v6 setScreenOnChangedHandler:v7];
+    [(CUSystemMonitor *)v6 setScreenLockedChangedHandler:v7];
+    [(CUSystemMonitor *)v6 setScreenStateChangedHandler:v7];
+    [(CUSystemMonitor *)v6 setFirstUnlockHandler:v7];
+    [(CUSystemMonitor *)v6 setPrimaryAppleIDChangedHandler:v7];
+    [(CUSystemMonitor *)v6 setScreenLockedChangedHandler:v7];
+    [(CUSystemMonitor *)v6 activateWithCompletion:v7];
   }
 
-  if (!self->_sleepWakeMonitor)
+  if (!selfCopy->_sleepWakeMonitor)
   {
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
       sub_1001E7760();
     }
 
-    v7 = objc_alloc_init(CUSleepWakeMonitor);
-    sleepWakeMonitor = self->_sleepWakeMonitor;
-    self->_sleepWakeMonitor = v7;
-    v9 = v7;
+    v8 = objc_alloc_init(CUSleepWakeMonitor);
+    sleepWakeMonitor = selfCopy->_sleepWakeMonitor;
+    selfCopy->_sleepWakeMonitor = v8;
+    v10 = v8;
 
-    [(CUSleepWakeMonitor *)v9 setDispatchQueue:self->_dispatchQueue];
-    [(CUSleepWakeMonitor *)v9 setLabel:@"SmartRouting"];
-    self->_sleeping = 0;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100003A18;
-    v10[3] = &unk_1002B84A0;
-    v10[4] = v9;
-    v10[5] = self;
-    [(CUSleepWakeMonitor *)v9 setSleepWakeHandler:v10];
-    [(CUSleepWakeMonitor *)v9 activateWithCompletion:0];
+    [(CUSleepWakeMonitor *)v10 setDispatchQueue:selfCopy->_dispatchQueue];
+    [(CUSleepWakeMonitor *)v10 setLabel:@"SmartRouting"];
+    selfCopy->_sleeping = 0;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100003A18;
+    v11[3] = &unk_1002B84A0;
+    v11[4] = v10;
+    v11[5] = selfCopy;
+    [(CUSleepWakeMonitor *)v10 setSleepWakeHandler:v11];
+    [(CUSleepWakeMonitor *)v10 activateWithCompletion:0];
   }
 }
 
@@ -989,16 +1041,21 @@ LABEL_83:
 {
   if (self->_wxDiscovery)
   {
-    if (self->_wxWorkoutDiscoveryTimer)
+    wxWorkoutDiscoveryTimer = self->_wxWorkoutDiscoveryTimer;
+    v5 = dword_1002F6778;
+    if (wxWorkoutDiscoveryTimer)
     {
-      sub_1001E85A0(dword_1002F6778);
+      sub_1001E85A0(dword_1002F6778, a2, v2);
     }
 
     else
     {
-      if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6778 <= 30)
       {
-        sub_1001E85F8();
+        if (dword_1002F6778 != -1 || (v5 = _LogCategory_Initialize(), v5))
+        {
+          sub_1001E85F8(v5, a2, v2);
+        }
       }
 
       [(BTSmartRoutingDaemon *)self _powerLogSmartRoutingScanStopped:7];
@@ -1009,35 +1066,35 @@ LABEL_83:
       wxDevices = self->_wxDevices;
       if (wxDevices)
       {
-        v13 = 0u;
+        v16 = 0u;
+        v17 = 0u;
         v14 = 0u;
-        v11 = 0u;
-        v12 = 0u;
+        v15 = 0u;
         allValues = [(NSMutableDictionary *)wxDevices allValues];
-        v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
-        if (v6)
+        v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+        if (v9)
         {
-          v7 = v6;
-          v8 = *v12;
+          v10 = v9;
+          v11 = *v15;
           do
           {
-            for (i = 0; i != v7; i = i + 1)
+            for (i = 0; i != v10; i = i + 1)
             {
-              if (*v12 != v8)
+              if (*v15 != v11)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              [(BTSmartRoutingDaemon *)self _wxDeviceLost:*(*(&v11 + 1) + 8 * i)];
+              [(BTSmartRoutingDaemon *)self _wxDeviceLost:*(*(&v14 + 1) + 8 * i)];
             }
 
-            v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+            v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
           }
 
-          while (v7);
+          while (v10);
         }
 
-        v10 = self->_wxDevices;
+        v13 = self->_wxDevices;
         self->_wxDevices = 0;
       }
     }
@@ -1048,49 +1105,53 @@ LABEL_83:
 {
   if (self->_wxDiscoveryWatchRecovery)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E8630();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E8630(self, a2, v2);
+      }
     }
 
-    [(BTSmartRoutingDaemon *)self _powerLogSmartRoutingScanStopped:7];
-    [(CUBLEScanner *)self->_wxDiscoveryWatchRecovery invalidate];
-    wxDiscoveryWatchRecovery = self->_wxDiscoveryWatchRecovery;
-    self->_wxDiscoveryWatchRecovery = 0;
+    [(BTSmartRoutingDaemon *)selfCopy _powerLogSmartRoutingScanStopped:7];
+    [(CUBLEScanner *)selfCopy->_wxDiscoveryWatchRecovery invalidate];
+    wxDiscoveryWatchRecovery = selfCopy->_wxDiscoveryWatchRecovery;
+    selfCopy->_wxDiscoveryWatchRecovery = 0;
 
-    watchWxDevices = self->_watchWxDevices;
+    watchWxDevices = selfCopy->_watchWxDevices;
     if (watchWxDevices)
     {
-      v13 = 0u;
       v14 = 0u;
-      v11 = 0u;
+      v15 = 0u;
       v12 = 0u;
+      v13 = 0u;
       allValues = [(NSMutableDictionary *)watchWxDevices allValues];
-      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
-      if (v6)
+      v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v7)
       {
-        v7 = v6;
-        v8 = *v12;
+        v8 = v7;
+        v9 = *v13;
         do
         {
-          for (i = 0; i != v7; i = i + 1)
+          for (i = 0; i != v8; i = i + 1)
           {
-            if (*v12 != v8)
+            if (*v13 != v9)
             {
               objc_enumerationMutation(allValues);
             }
 
-            [(BTSmartRoutingDaemon *)self _wxDiscoveryWatchRecoveryLostDevice:*(*(&v11 + 1) + 8 * i)];
+            [(BTSmartRoutingDaemon *)selfCopy _wxDiscoveryWatchRecoveryLostDevice:*(*(&v12 + 1) + 8 * i)];
           }
 
-          v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
-        while (v7);
+        while (v8);
       }
 
-      v10 = self->_watchWxDevices;
-      self->_watchWxDevices = 0;
+      v11 = selfCopy->_watchWxDevices;
+      selfCopy->_watchWxDevices = 0;
     }
   }
 }
@@ -1399,16 +1460,16 @@ LABEL_83:
 
 - (id)_descriptionWithLevel:(int)level
 {
-  v113 = 0;
-  v114 = &v113;
-  v115 = 0x3032000000;
-  v116 = sub_100003918;
-  v117 = sub_100003838;
-  v118 = 0;
+  v92 = 0;
+  v93 = &v92;
+  v94 = 0x3032000000;
+  v95 = sub_100003918;
+  v96 = sub_100003838;
+  v97 = 0;
   v4 = objc_alloc_init(NSDateFormatter);
   [v4 setDateFormat:@"yyyy-MM-dd"];
-  v90 = self->_myAddress;
-  obj = v114[5];
+  v69 = self->_myAddress;
+  obj = v93[5];
   activityLevel = self->_activityLevel;
   if (activityLevel > 0xE)
   {
@@ -1452,12 +1513,12 @@ LABEL_83:
   }
 
   sleepWakeState = self->_sleepWakeState;
-  v79 = v4;
-  location = (v114 + 5);
-  v88 = v8;
-  v89 = v6;
-  v86 = v10;
-  v87 = v9;
+  v58 = v4;
+  location = (v93 + 5);
+  v67 = v8;
+  v68 = v6;
+  v65 = v10;
+  v66 = v9;
   if (sleepWakeState > 29)
   {
     if (sleepWakeState == 30)
@@ -1505,7 +1566,7 @@ LABEL_24:
   }
 
 LABEL_27:
-  v84 = v12;
+  v63 = v12;
   activeCallCount = [(CUSystemMonitor *)self->_callMonitor activeCallCount];
   activityLevelMediaPlaying = self->_activityLevelMediaPlaying;
   isBTRoute = self->_isBTRoute;
@@ -1515,11 +1576,20 @@ LABEL_27:
   isHSA2Account = self->_isHSA2Account;
   ringerState = self->_ringerState;
   prefSmartRoutingBlockHijackWindowinSeconds = self->_prefSmartRoutingBlockHijackWindowinSeconds;
-  v81 = prefSmartRoutingBlockHijackWindowinSeconds;
   totalCloudDeviceCount = self->_totalCloudDeviceCount;
   isFirstConnectionAfterSREnable = [(SRSourceDevice *)self->_sourceDevice isFirstConnectionAfterSREnable];
-  v21 = isFirstConnectionAfterSREnable;
+  v20 = isFirstConnectionAfterSREnable;
   if (ringerState)
+  {
+    v21 = "yes";
+  }
+
+  else
+  {
+    v21 = "no";
+  }
+
+  if (isHSA2Account)
   {
     v22 = "yes";
   }
@@ -1529,7 +1599,7 @@ LABEL_27:
     v22 = "no";
   }
 
-  if (isHSA2Account)
+  if (pairedDeviceSupportsSmartRouting)
   {
     v23 = "yes";
   }
@@ -1539,7 +1609,7 @@ LABEL_27:
     v23 = "no";
   }
 
-  if (pairedDeviceSupportsSmartRouting)
+  if (isBuiltInReceiverRoute)
   {
     v24 = "yes";
   }
@@ -1549,7 +1619,7 @@ LABEL_27:
     v24 = "no";
   }
 
-  if (isBuiltInReceiverRoute)
+  if (isSpeakerRoute)
   {
     v25 = "yes";
   }
@@ -1559,7 +1629,7 @@ LABEL_27:
     v25 = "no";
   }
 
-  if (isSpeakerRoute)
+  if (isBTRoute)
   {
     v26 = "yes";
   }
@@ -1569,7 +1639,7 @@ LABEL_27:
     v26 = "no";
   }
 
-  if (isBTRoute)
+  if (activityLevelMediaPlaying)
   {
     v27 = "yes";
   }
@@ -1579,177 +1649,145 @@ LABEL_27:
     v27 = "no";
   }
 
-  if (activityLevelMediaPlaying)
-  {
-    v28 = "yes";
-  }
-
-  else
+  if (activeCallCount <= 0)
   {
     v28 = "no";
   }
 
-  if (activeCallCount <= 0)
-  {
-    v29 = "no";
-  }
-
   else
   {
-    v29 = "yes";
+    v28 = "yes";
   }
 
-  v78 = isFirstConnectionAfterSREnable;
-  v77 = v22;
-  v76 = v23;
-  v74 = v25;
-  v75 = v24;
-  v72 = v27;
-  v73 = v26;
-  v70 = v29;
-  v71 = v28;
-  v59 = v90;
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "-- BTSmartRouting: Addr %@ AcLv %s, Score %s, Phase3 %s, Sleeping %s (%s), Call %s StreamPlayback %s isRouteBT %s isRouteSpeaker %s isRouteInBandReceiver %s PairedDeviceSRFlagFound %s isHSA2Enabled %s TotaliCloudDevicesFound %d RingerState %s BlockHijackWindowinSeconds %llu isFirstConnectionAfterSREnable %@ last SR active Date %@--\n", v69, v68, v67, v66, v65, v63, v28, v27, v26, v25, v24, v23, v22, totalCloudDeviceCount, v21, prefSmartRoutingBlockHijackWindowinSeconds, isFirstConnectionAfterSREnable, @"n/a");
   objc_storeStrong(location, obj);
 
-  v30 = self->_uiSmartRoutingBanner;
-  v31 = v30;
-  if (v30)
+  v29 = self->_uiSmartRoutingBanner;
+  v30 = v29;
+  if (v29)
   {
-    v32 = (v114 + 5);
-    v111 = v114[5];
-    v59 = v30;
-    NSAppendPrintF();
-    objc_storeStrong(v32, v111);
+    v31 = (v93 + 5);
+    v90 = v93[5];
+    NSAppendPrintF(&v90, "Banner: Routing: %@\n", v29);
+    objc_storeStrong(v31, v90);
   }
 
-  v33 = self->_uiNoteSessionSmartRouting;
-  v34 = v33;
-  if (v33)
+  v32 = self->_uiNoteSessionSmartRouting;
+  v33 = v32;
+  if (v32)
   {
-    v35 = (v114 + 5);
-    v110 = v114[5];
-    v59 = v33;
-    NSAppendPrintF();
-    objc_storeStrong(v35, v110);
+    v34 = (v93 + 5);
+    v89 = v93[5];
+    NSAppendPrintF(&v89, "UINote: Routing: %@\n", v32);
+    objc_storeStrong(v34, v89);
   }
 
-  v36 = (v114 + 5);
-  v109 = v114[5];
-  NSAppendPrintF();
-  objc_storeStrong(v36, v109);
-  v37 = (v114 + 5);
-  v108 = v114[5];
-  v60 = [(NSMutableDictionary *)self->_connectedDevices count:v59];
-  connectedDiscovery = self->_connectedDiscovery;
-  NSAppendPrintF();
-  objc_storeStrong(v37, v108);
+  v35 = (v93 + 5);
+  v88 = v93[5];
+  NSAppendPrintF(&v88, "\n");
+  objc_storeStrong(v35, v88);
+  v36 = (v93 + 5);
+  v87 = v93[5];
+  NSAppendPrintF(&v87, "Connected: %d, %@\n", [(NSMutableDictionary *)self->_connectedDevices count], self->_connectedDiscovery);
+  objc_storeStrong(v36, v87);
   connectedDevices = self->_connectedDevices;
-  v107[0] = _NSConcreteStackBlock;
-  v107[1] = 3221225472;
-  v107[2] = sub_10003E72C;
-  v107[3] = &unk_1002B7DA0;
-  v107[4] = &v113;
-  [(NSMutableDictionary *)connectedDevices enumerateKeysAndObjectsUsingBlock:v107, v60, connectedDiscovery];
-  v39 = (v114 + 5);
-  v106 = v114[5];
-  NSAppendPrintF();
-  objc_storeStrong(v39, v106);
-  v40 = (v114 + 5);
-  v105 = v114[5];
+  v86[0] = _NSConcreteStackBlock;
+  v86[1] = 3221225472;
+  v86[2] = sub_10003E72C;
+  v86[3] = &unk_1002B7DA0;
+  v86[4] = &v92;
+  [(NSMutableDictionary *)connectedDevices enumerateKeysAndObjectsUsingBlock:v86];
+  v38 = (v93 + 5);
+  v85 = v93[5];
+  NSAppendPrintF(&v85, "\n");
+  objc_storeStrong(v38, v85);
+  v39 = (v93 + 5);
+  v84 = v93[5];
   discoveredDevices = [(CBDiscovery *)self->_pairedDiscovery discoveredDevices];
-  v61 = [discoveredDevices count];
-  pairedDiscovery = self->_pairedDiscovery;
-  NSAppendPrintF();
-  objc_storeStrong(v40, v105);
+  NSAppendPrintF(&v84, "Paired: %d, %@\n", [discoveredDevices count], self->_pairedDiscovery);
+  objc_storeStrong(v39, v84);
 
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v42 = [(CBDiscovery *)self->_pairedDiscovery discoveredDevices:v61];
-  v43 = [v42 countByEnumeratingWithState:&v101 objects:v119 count:16];
-  if (v43)
+  v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  discoveredDevices2 = [(CBDiscovery *)self->_pairedDiscovery discoveredDevices];
+  v42 = [discoveredDevices2 countByEnumeratingWithState:&v80 objects:v98 count:16];
+  if (v42)
   {
-    v44 = *v102;
+    v43 = *v81;
     do
     {
-      for (i = 0; i != v43; i = i + 1)
+      for (i = 0; i != v42; i = i + 1)
       {
-        if (*v102 != v44)
+        if (*v81 != v43)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(discoveredDevices2);
         }
 
-        v46 = *(*(&v101 + 1) + 8 * i);
-        v47 = (v114 + 5);
-        v100 = v114[5];
-        v62 = v46;
-        NSAppendPrintF();
-        objc_storeStrong(v47, v100);
+        v45 = *(*(&v80 + 1) + 8 * i);
+        v46 = (v93 + 5);
+        v79 = v93[5];
+        NSAppendPrintF(&v79, "    %@\n", v45);
+        objc_storeStrong(v46, v79);
       }
 
-      v43 = [v42 countByEnumeratingWithState:&v101 objects:v119 count:{16, v62}];
+      v42 = [discoveredDevices2 countByEnumeratingWithState:&v80 objects:v98 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
 
-  v48 = (v114 + 5);
-  v99 = v114[5];
-  NSAppendPrintF();
-  objc_storeStrong(v48, v99);
-  v49 = (v114 + 5);
-  v98 = v114[5];
-  v63 = [(NSMutableDictionary *)self->_nearbyInfoDevices count];
-  nearbyInfoDiscovery = self->_nearbyInfoDiscovery;
-  NSAppendPrintF();
-  objc_storeStrong(v49, v98);
+  v47 = (v93 + 5);
+  v78 = v93[5];
+  NSAppendPrintF(&v78, "\n");
+  objc_storeStrong(v47, v78);
+  v48 = (v93 + 5);
+  v77 = v93[5];
+  NSAppendPrintF(&v77, "NearbyInfo: %d, %@\n", [(NSMutableDictionary *)self->_nearbyInfoDevices count], self->_nearbyInfoDiscovery);
+  objc_storeStrong(v48, v77);
   nearbyInfoDevices = self->_nearbyInfoDevices;
-  v97[0] = _NSConcreteStackBlock;
-  v97[1] = 3221225472;
-  v97[2] = sub_10003E77C;
-  v97[3] = &unk_1002B7DC8;
-  v97[4] = &v113;
-  [(NSMutableDictionary *)nearbyInfoDevices enumerateKeysAndObjectsUsingBlock:v97, v63, nearbyInfoDiscovery];
-  v51 = (v114 + 5);
-  v96 = v114[5];
-  NSAppendPrintF();
-  objc_storeStrong(v51, v96);
-  v52 = (v114 + 5);
-  v95 = v114[5];
-  v64 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap count];
-  NSAppendPrintF();
-  objc_storeStrong(v52, v95);
+  v76[0] = _NSConcreteStackBlock;
+  v76[1] = 3221225472;
+  v76[2] = sub_10003E77C;
+  v76[3] = &unk_1002B7DC8;
+  v76[4] = &v92;
+  [(NSMutableDictionary *)nearbyInfoDevices enumerateKeysAndObjectsUsingBlock:v76];
+  v50 = (v93 + 5);
+  v75 = v93[5];
+  NSAppendPrintF(&v75, "\n");
+  objc_storeStrong(v50, v75);
+  v51 = (v93 + 5);
+  v74 = v93[5];
+  NSAppendPrintF(&v74, "-- SmartRouting Devices: %d, --\n", [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap count]);
+  objc_storeStrong(v51, v74);
   smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-  v94[0] = _NSConcreteStackBlock;
-  v94[1] = 3221225472;
-  v94[2] = sub_10003E7E4;
-  v94[3] = &unk_1002B7DF0;
-  v94[4] = &v113;
-  [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v94, v64];
-  v54 = (v114 + 5);
-  v93 = v114[5];
-  v65 = [(NSMutableDictionary *)self->_wxDevices count];
-  wxDiscovery = self->_wxDiscovery;
-  NSAppendPrintF();
-  objc_storeStrong(v54, v93);
+  v73[0] = _NSConcreteStackBlock;
+  v73[1] = 3221225472;
+  v73[2] = sub_10003E7E4;
+  v73[3] = &unk_1002B7DF0;
+  v73[4] = &v92;
+  [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v73];
+  v53 = (v93 + 5);
+  v72 = v93[5];
+  NSAppendPrintF(&v72, "Wx: %d, %@\n", [(NSMutableDictionary *)self->_wxDevices count], self->_wxDiscovery);
+  objc_storeStrong(v53, v72);
   wxDevices = self->_wxDevices;
-  v92[0] = _NSConcreteStackBlock;
-  v92[1] = 3221225472;
-  v92[2] = sub_10003EB44;
-  v92[3] = &unk_1002B7DC8;
-  v92[4] = &v113;
-  [(NSMutableDictionary *)wxDevices enumerateKeysAndObjectsUsingBlock:v92, v65, wxDiscovery];
-  v56 = (v114 + 5);
-  v91 = v114[5];
-  NSAppendPrintF();
-  objc_storeStrong(v56, v91);
-  v57 = v114[5];
+  v71[0] = _NSConcreteStackBlock;
+  v71[1] = 3221225472;
+  v71[2] = sub_10003EB44;
+  v71[3] = &unk_1002B7DC8;
+  v71[4] = &v92;
+  [(NSMutableDictionary *)wxDevices enumerateKeysAndObjectsUsingBlock:v71];
+  v55 = (v93 + 5);
+  v70 = v93[5];
+  NSAppendPrintF(&v70, "\n");
+  objc_storeStrong(v55, v70);
+  v56 = v93[5];
 
-  _Block_object_dispose(&v113, 8);
+  _Block_object_dispose(&v92, 8);
 
-  return v57;
+  return v56;
 }
 
 - (void)activate
@@ -1788,7 +1826,7 @@ LABEL_27:
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E3440(&self->_aaDeviceManagerDaemon);
+    sub_1001E3440();
   }
 
   v13 = +[SRConnectionManager sharedSRConnectionManager];
@@ -1979,7 +2017,7 @@ LABEL_27:
 
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E3860(p_myAddress);
+      sub_1001E3860();
     }
   }
 
@@ -2048,14 +2086,13 @@ LABEL_27:
       if (dword_1002F6778 != -1)
       {
 LABEL_26:
-        *&v9 = COERCE_DOUBLE("no");
+        v9 = "no";
         if (v7)
         {
-          *&v9 = COERCE_DOUBLE("yes");
+          v9 = "yes";
         }
 
-        v59 = *&v9;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _prefsChanged]", 30, "Sending smartRoutingCapable %s", v9);
         goto LABEL_30;
       }
 
@@ -2068,10 +2105,10 @@ LABEL_26:
 
 LABEL_30:
     v10 = +[CloudXPCService sharedInstance];
-    v61 = @"srCapable";
+    v59 = @"srCapable";
     v11 = [NSNumber numberWithBool:self->_smartRoutingCapable];
-    v62 = v11;
-    v12 = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+    v60 = v11;
+    v12 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
     [v10 sendCloudKitMsg:@"smartRoutingCapable" args:v12];
   }
 
@@ -2113,9 +2150,7 @@ LABEL_30:
         prefSmartRoutingBlockHijackWindowinSeconds = self->_prefSmartRoutingBlockHijackWindowinSeconds;
       }
 
-      v60 = Int64;
-      v59 = *&prefSmartRoutingBlockHijackWindowinSeconds;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _prefsChanged]", 30, "SmartRoutingHijackBlocking: %d -> %d", prefSmartRoutingBlockHijackWindowinSeconds, LODWORD(Int64));
     }
 
 LABEL_46:
@@ -2172,9 +2207,7 @@ LABEL_46:
         prefSmartRoutingForcedDisconnectionStartSeconds = self->_prefSmartRoutingForcedDisconnectionStartSeconds;
       }
 
-      v59 = prefSmartRoutingForcedDisconnectionStartSeconds;
-      v60 = v22;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _prefsChanged]", 30, "forceDisconnectStartSeconds: %f -> %f", prefSmartRoutingForcedDisconnectionStartSeconds, v22);
     }
 
 LABEL_67:
@@ -2189,11 +2222,11 @@ LABEL_67:
 
   else
   {
-    *&v26 = NAN;
+    v26 = -60;
   }
 
-  *&v27 = self->_forcedDisconnectionRSSI;
-  if (v26 != *&v27)
+  forcedDisconnectionRSSI = self->_forcedDisconnectionRSSI;
+  if (v26 != forcedDisconnectionRSSI)
   {
     if (dword_1002F6778 <= 30)
     {
@@ -2204,12 +2237,10 @@ LABEL_67:
           goto LABEL_82;
         }
 
-        *&v27 = self->_forcedDisconnectionRSSI;
+        LODWORD(forcedDisconnectionRSSI) = self->_forcedDisconnectionRSSI;
       }
 
-      v59 = v27;
-      v60 = *&v26;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _prefsChanged]", 30, "SmartRoutingForcedDisconnectionRSSI: %d -> %lld", forcedDisconnectionRSSI, v26);
     }
 
 LABEL_82:
@@ -2314,25 +2345,23 @@ LABEL_82:
       if (dword_1002F6778 != -1)
       {
 LABEL_126:
-        *&v39 = COERCE_DOUBLE("no");
+        v39 = "no";
         if (prefSmartRoutingPreemptiveConnectedBanner)
         {
-          *&v40 = COERCE_DOUBLE("yes");
+          v40 = "yes";
         }
 
         else
         {
-          *&v40 = COERCE_DOUBLE("no");
+          v40 = "no";
         }
 
         if (v38)
         {
-          *&v39 = COERCE_DOUBLE("yes");
+          v39 = "yes";
         }
 
-        v59 = *&v40;
-        v60 = *&v39;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _prefsChanged]", 30, "Preemptive Connected Banner: %s -> %s", v40, v39);
         goto LABEL_133;
       }
 
@@ -2380,7 +2409,7 @@ LABEL_133:
     self->_prefSmartRoutingForcedHijackv2 = v43;
   }
 
-  *&v44 = COERCE_DOUBLE(CFPrefs_GetInt64());
+  v44 = CFPrefs_GetInt64();
   prefSmartRoutingWatchTriangleMagnet = self->_prefSmartRoutingWatchTriangleMagnet;
   if (v44 != prefSmartRoutingWatchTriangleMagnet)
   {
@@ -2396,9 +2425,7 @@ LABEL_133:
         prefSmartRoutingWatchTriangleMagnet = self->_prefSmartRoutingWatchTriangleMagnet;
       }
 
-      v59 = *&prefSmartRoutingWatchTriangleMagnet;
-      v60 = *&v44;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _prefsChanged]", 30, "Watch triangle with Magnet: %d -> %d", prefSmartRoutingWatchTriangleMagnet, v44);
     }
 
 LABEL_160:
@@ -2425,9 +2452,7 @@ LABEL_160:
       prefConnectionDelaySeconds = self->_prefConnectionDelaySeconds;
     }
 
-    v59 = prefConnectionDelaySeconds;
-    v60 = v47;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _prefsChanged]", 30, "ConnectionDelaySeconds: %.0f -> %.0f", prefConnectionDelaySeconds, v47);
   }
 
 LABEL_166:
@@ -2467,7 +2492,7 @@ LABEL_167:
     self->_prefSmartRoutingInUseBanner = v52;
   }
 
-  *&v53 = COERCE_DOUBLE(CFPrefs_GetInt64());
+  v53 = CFPrefs_GetInt64();
   prefSmartRoutingInUseBannerTimeout = self->_prefSmartRoutingInUseBannerTimeout;
   if (v53 != prefSmartRoutingInUseBannerTimeout)
   {
@@ -2483,9 +2508,7 @@ LABEL_167:
         prefSmartRoutingInUseBannerTimeout = self->_prefSmartRoutingInUseBannerTimeout;
       }
 
-      v59 = *&prefSmartRoutingInUseBannerTimeout;
-      v60 = *&v53;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _prefsChanged]", 30, "In-Use banner timeout: %d -> %d", prefSmartRoutingInUseBannerTimeout, v53);
     }
 
 LABEL_187:
@@ -2526,17 +2549,21 @@ LABEL_187:
     self->_prefSmartRoutingNowPlayingTemporaryOverride = v58;
   }
 
-  [(BTSmartRoutingDaemon *)self _update:*&v59];
+  [(BTSmartRoutingDaemon *)self _update];
 }
 
 - (void)_sigTermReceived
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E41BC();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E41BC(self, a2, v2);
+    }
   }
 
-  [(BTSmartRoutingDaemon *)self _stopAudioStateSnapshotTimer:1];
+  [(BTSmartRoutingDaemon *)selfCopy _stopAudioStateSnapshotTimer:1];
 
   xpc_transaction_exit_clean();
 }
@@ -2574,7 +2601,7 @@ LABEL_187:
   errorCopy = error;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E4230();
+    sub_1001E4230(errorCopy);
   }
 
   v6 = [NSError alloc];
@@ -2635,7 +2662,7 @@ LABEL_6:
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E4370(headphoneCopy);
+    sub_1001E4370(headphoneCopy, btAddress);
   }
 
   nearbyWxDevice2 = [headphoneCopy nearbyWxDevice];
@@ -2686,38 +2713,36 @@ LABEL_6:
   [v14 setPeerDevice:v11];
   [v14 setDispatchQueue:self->_dispatchQueue];
   [v14 setConnectTimeoutSeconds:20.0];
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x3032000000;
-  v32[3] = sub_100003918;
-  v32[4] = sub_100003838;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = sub_100003918;
+  v35[4] = sub_100003838;
   identifier2 = [v21 identifier];
   v23 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
   objc_storeStrong(&self->_connectDispatchTimer, v23);
-  handler[0] = _NSConcreteStackBlock;
-  handler[1] = 3221225472;
-  handler[2] = sub_100042084;
-  handler[3] = &unk_1002B7E90;
-  handler[4] = v14;
-  handler[5] = self;
+  handler = _NSConcreteStackBlock;
+  v27 = 3221225472;
+  v28 = sub_100042084;
+  v29 = &unk_1002B7E90;
+  v30 = v14;
+  selfCopy = self;
   v24 = btAddress;
-  v29 = v24;
-  v31 = v32;
+  v32 = v24;
+  v34 = v35;
   v25 = v18;
-  v30 = v25;
-  dispatch_source_set_event_handler(v23, handler);
-  prefConnectionDelaySeconds = self->_prefConnectionDelaySeconds;
+  v33 = v25;
+  dispatch_source_set_event_handler(v23, &handler);
   CUDispatchTimerSet();
   dispatch_activate(v23);
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v27 = self->_prefConnectionDelaySeconds;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectToHeadphone:]", 30, "Connection Fired in %ll{dur}", self->_prefConnectionDelaySeconds, handler, v27, v28, v29, v30, selfCopy, v32);
   }
 
   self->_prefSpeakRouteConnection = 1;
 
-  _Block_object_dispose(v32, 8);
+  _Block_object_dispose(v35, 8);
 }
 
 - (void)_initializeConnectionToDevice:(id)device
@@ -2827,9 +2852,16 @@ LABEL_6:
 
     v19 = [(BTSmartRoutingDaemon *)self _inEarNearbyCheck:btAddress];
     v20 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
-    if ([(BTSmartRoutingDaemon *)self _showPreemptiveBannerIfNeeded:v20 inEarState:v19 audioState:audioState wxAddress:btAddress]&& dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v21 = [(BTSmartRoutingDaemon *)self _showPreemptiveBannerIfNeeded:v20 inEarState:v19 audioState:audioState wxAddress:btAddress];
+    if (v21)
     {
-      sub_1001E4610();
+      if (dword_1002F6778 <= 30)
+      {
+        if (dword_1002F6778 != -1 || (v21 = _LogCategory_Initialize(), v21))
+        {
+          sub_1001E4610(v21, v22, v23);
+        }
+      }
     }
   }
 }
@@ -2838,31 +2870,35 @@ LABEL_6:
 {
   if (!self->_evaluatorCoalescer)
   {
-    v10[6] = v5;
-    v10[7] = v4;
-    v10[12] = v2;
-    v10[13] = v3;
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v11[6] = v6;
+    v11[7] = v5;
+    v11[12] = v3;
+    v11[13] = v4;
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E462C();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E462C(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(CUCoalescer);
-    evaluatorCoalescer = self->_evaluatorCoalescer;
-    self->_evaluatorCoalescer = v7;
-    v9 = v7;
+    v8 = objc_alloc_init(CUCoalescer);
+    evaluatorCoalescer = selfCopy->_evaluatorCoalescer;
+    selfCopy->_evaluatorCoalescer = v8;
+    v10 = v8;
 
-    [(CUCoalescer *)v9 setDispatchQueue:self->_dispatchQueue];
-    [(CUCoalescer *)v9 setMinDelay:0.05];
-    [(CUCoalescer *)v9 setMaxDelay:0.1];
-    [(CUCoalescer *)v9 setLeeway:0.05];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100042D08;
-    v10[3] = &unk_1002B6D18;
-    v10[4] = v9;
-    v10[5] = self;
-    [(CUCoalescer *)v9 setActionHandler:v10];
+    [(CUCoalescer *)v10 setDispatchQueue:selfCopy->_dispatchQueue];
+    [(CUCoalescer *)v10 setMinDelay:0.05];
+    [(CUCoalescer *)v10 setMaxDelay:0.1];
+    [(CUCoalescer *)v10 setLeeway:0.05];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100042D08;
+    v11[3] = &unk_1002B6D18;
+    v11[4] = v10;
+    v11[5] = selfCopy;
+    [(CUCoalescer *)v10 setActionHandler:v11];
   }
 }
 
@@ -2870,7 +2906,7 @@ LABEL_6:
 {
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E4664();
+    sub_1001E4664(self);
   }
 
   bluetoothState = [(CBDiscovery *)self->_connectedDiscovery bluetoothState];
@@ -3097,12 +3133,16 @@ LABEL_6:
     if (self->_connectTicks)
     {
       mach_absolute_time();
-      connectTicks = self->_connectTicks;
-      if (UpTicksToSeconds() <= 0x1DF)
+      v6 = UpTicksToSeconds();
+      if (v6 <= 0x1DF)
       {
-        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        if (dword_1002F6778 <= 30)
         {
-          sub_1001E477C();
+          v45 = v6;
+          if (dword_1002F6778 != -1 || _LogCategory_Initialize())
+          {
+            sub_1001E477C(v45);
+          }
         }
 
         v44 = @"Too soon since last connection";
@@ -3127,12 +3167,12 @@ LABEL_6:
     [(NSMutableDictionary *)v7 enumerateKeysAndObjectsUsingBlock:v51];
     if (self->_connected3rdPartyDevice && dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRun]", 30, "Evaluator: already connected to 3rd party device, allowing SR device to connect");
     }
 
     if (v53[5] && dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRun]", 30, "Evaluator: already connected to SR device, allowing another SR connection.");
     }
 
     if ([(CUSystemMonitor *)self->_callMonitor connectedCallCount]>= 1 && GestaltGetDeviceClass() == 1)
@@ -3142,25 +3182,24 @@ LABEL_6:
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
           callFlags = [(CUSystemMonitor *)self->_callMonitor callFlags];
-          v46 = "FTaudio";
+          v47 = "FTaudio";
           if (callFlags == 1)
           {
-            v46 = "telephony call";
+            v47 = "telephony call";
           }
 
-          v50 = v46;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRun]", 30, "Evaluator: skip, current route not builtInReceiver or speakeroniPhone during %s", v47);
         }
 
         callFlags2 = [(CUSystemMonitor *)self->_callMonitor callFlags];
-        v48 = @"FTaudio";
+        v49 = @"FTaudio";
         if (callFlags2 == 1)
         {
-          v48 = @"telephony call";
+          v49 = @"telephony call";
         }
 
-        v49 = [NSString stringWithFormat:@"current route not builtInReceiver or speakeroniPhone during %@", v48];
-        [(BTSmartRoutingDaemon *)self _logEvalError:v49];
+        v50 = [NSString stringWithFormat:@"current route not builtInReceiver or speakeroniPhone during %@", v49];
+        [(BTSmartRoutingDaemon *)self _logEvalError:v50];
       }
 
       else
@@ -3172,7 +3211,7 @@ LABEL_6:
 
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRun]", 30, "Evaluator: skip, current route not speaker during FT Video");
         }
 
         [(BTSmartRoutingDaemon *)self _logEvalError:@"Current route not speaker during FT Video"];
@@ -3204,116 +3243,124 @@ LABEL_74:
 - (void)_evaluatorRunInUseBanner:(id)banner
 {
   bannerCopy = banner;
-  v74 = bannerCopy;
+  v7 = bannerCopy;
+  v77 = bannerCopy;
   if (!bannerCopy)
   {
     bannerCopy = [(BTSmartRoutingDaemon *)self _getActiveNearbyWxAdress];
+    v7 = bannerCopy;
   }
 
   if (self->_prefSmartRoutingInUseBanner)
   {
-    if (bannerCopy)
+    if (v7)
     {
       if (!self->_effectiveScreenLocked)
       {
-        v5 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:bannerCopy];
-        inUseBannerBackoffReason = [v5 inUseBannerBackoffReason];
+        v8 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v7];
+        inUseBannerBackoffReason = [v8 inUseBannerBackoffReason];
 
         if (inUseBannerBackoffReason)
         {
-          sub_1001E4888(v5);
+          sub_1001E4888(v8);
           goto LABEL_95;
         }
 
-        if ([v5 inUseBannerShown])
+        inUseBannerShown = [v8 inUseBannerShown];
+        if (inUseBannerShown)
         {
-          sub_1001E4B10();
+          sub_1001E4B10(inUseBannerShown, v11, v12);
           goto LABEL_95;
         }
 
-        if ([v5 connectionState])
+        connectionState = [v8 connectionState];
+        if (connectionState)
         {
-          sub_1001E4930();
+          sub_1001E4930(connectionState, v14, v15);
           goto LABEL_95;
         }
 
-        if (![v5 nearbyConnectedSourceCount])
+        nearbyConnectedSourceCount = [v8 nearbyConnectedSourceCount];
+        if (!nearbyConnectedSourceCount)
         {
-          sub_1001E4AB0();
+          sub_1001E4AB0(nearbyConnectedSourceCount, v17, v18);
           goto LABEL_95;
         }
 
-        if ([v5 nearbyIsMeLastRoute])
+        nearbyIsMeLastRoute = [v8 nearbyIsMeLastRoute];
+        if (nearbyIsMeLastRoute)
         {
-          sub_1001E4A50();
+          sub_1001E4A50(nearbyIsMeLastRoute, v20, v21);
           goto LABEL_95;
         }
 
-        if (![(BTSmartRoutingDaemon *)self _supportsTipi:bannerCopy])
+        v22 = [(BTSmartRoutingDaemon *)self _supportsTipi:v7];
+        if ((v22 & 1) == 0)
         {
-          sub_1001E4990();
+          sub_1001E4990(v22, v23, v24);
           goto LABEL_95;
         }
 
-        if ([v5 isUSBPlugIn])
+        isUSBPlugIn = [v8 isUSBPlugIn];
+        if (isUSBPlugIn)
         {
-          sub_1001E49F0();
+          sub_1001E49F0(isUSBPlugIn, v26, v27);
           goto LABEL_95;
         }
 
-        nearbyPrevInEar = [v5 nearbyPrevInEar];
-        nearbyInEar = [v5 nearbyInEar];
-        nearbyLastRouteHost = [v5 nearbyLastRouteHost];
+        nearbyPrevInEar = [v8 nearbyPrevInEar];
+        nearbyInEar = [v8 nearbyInEar];
+        nearbyLastRouteHost = [v8 nearbyLastRouteHost];
         if (nearbyLastRouteHost)
         {
-          v9 = [(BTSmartRoutingDaemon *)self _isDevicePairedCheck:nearbyLastRouteHost];
+          v30 = [(BTSmartRoutingDaemon *)self _isDevicePairedCheck:nearbyLastRouteHost];
         }
 
         else
         {
-          v9 = 0;
+          v30 = 0;
         }
 
-        nearbyiCloudSignIn = [v5 nearbyiCloudSignIn];
-        nearbyName = [v5 nearbyName];
-        nearbyProductID = [v5 nearbyProductID];
-        nearbyOutOfCaseTime = [v5 nearbyOutOfCaseTime];
-        v67 = nearbyiCloudSignIn;
-        v68 = v9;
-        v12 = v9 | nearbyiCloudSignIn;
+        nearbyiCloudSignIn = [v8 nearbyiCloudSignIn];
+        nearbyName = [v8 nearbyName];
+        nearbyProductID = [v8 nearbyProductID];
+        v73 = objc_msgSend_nearbyOutOfCaseTime(v8);
+        v70 = nearbyiCloudSignIn;
+        v71 = v30;
+        v33 = v30 | nearbyiCloudSignIn;
         mach_absolute_time();
         [(SRSourceDevice *)self->_sourceDevice callStartTicks];
         UpTicksToSecondsF();
-        v14 = v13;
+        v35 = v34;
         mach_absolute_time();
-        [v5 nearbyUSBPluggedInTick];
-        v15 = UpTicksToSeconds();
+        [v8 nearbyUSBPluggedInTick];
+        v36 = UpTicksToSeconds();
         mach_absolute_time();
-        v16 = [(NSMutableDictionary *)self->_disconnectTicksMap objectForKeyedSubscript:bannerCopy];
-        [v16 unsignedLongLongValue];
-        v17 = UpTicksToSeconds();
+        v37 = [(NSMutableDictionary *)self->_disconnectTicksMap objectForKeyedSubscript:v7];
+        [v37 unsignedLongLongValue];
+        v38 = UpTicksToSeconds();
 
-        nearbyUSBPluggedIn = [v5 nearbyUSBPluggedIn];
-        v69 = v15;
-        v21 = v15 > 7 || v17 > 7 || nearbyUSBPluggedIn != 1;
-        v73 = v21;
+        nearbyUSBPluggedIn = [v8 nearbyUSBPluggedIn];
+        v72 = v36;
+        v42 = v36 > 7 || v38 > 7 || nearbyUSBPluggedIn != 1;
+        v76 = v42;
         callMap = [(SRSourceDevice *)self->_sourceDevice callMap];
-        v23 = [callMap count];
+        v44 = [callMap count];
 
-        if ((v12 & 1) != 0 || [v5 nearbyStreamState] || nearbyInEar != 1)
+        if ((v33 & 1) != 0 || [v8 nearbyStreamState] || nearbyInEar != 1)
         {
-          v24 = nearbyProductID;
-          v26 = nearbyProductID != 8223 || nearbyInEar != 1;
-          if (!v26 && !v73 && v23)
+          v45 = nearbyProductID;
+          v47 = nearbyProductID != 8223 || nearbyInEar != 1;
+          if (!v47 && !v76 && v44)
           {
-            v27 = @"B515cUSBConnected-call";
+            v48 = @"B515cUSBConnected-call";
 LABEL_53:
-            v72 = v27;
-            v28 = 1;
+            v75 = v48;
+            v49 = 1;
             goto LABEL_54;
           }
 
-          if ((v12 & (v23 == 0)) != 0)
+          if ((v33 & (v44 == 0)) != 0)
           {
 LABEL_94:
 
@@ -3321,196 +3368,178 @@ LABEL_95:
             goto LABEL_96;
           }
 
-          v28 = 0;
-          v72 = 0;
+          v49 = 0;
+          v75 = 0;
 LABEL_54:
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            v66 = [(BTSmartRoutingDaemon *)self _getWxChipVersion:v24];
-            if (v28)
+            v69 = [(BTSmartRoutingDaemon *)self _getWxChipVersion:v45];
+            if (v49)
             {
-              v30 = "yes";
+              v51 = "yes";
             }
 
             else
             {
-              v30 = "no";
+              v51 = "no";
             }
 
-            v64 = v30;
+            v67 = v51;
             bannerTrigger = [(SRStats *)self->_stats bannerTrigger];
             if (nearbyInEar > 7)
             {
-              v31 = "?";
+              v52 = "?";
             }
 
             else
             {
-              v31 = off_1002B8E70[nearbyInEar];
+              v52 = off_1002B8E70[nearbyInEar];
             }
 
-            v63 = v31;
+            v66 = v52;
             if (nearbyPrevInEar > 7)
             {
-              v32 = "?";
+              v53 = "?";
             }
 
             else
             {
-              v32 = off_1002B8E70[nearbyPrevInEar];
+              v53 = off_1002B8E70[nearbyPrevInEar];
             }
 
-            nearbyStreamState = [v5 nearbyStreamState];
+            nearbyStreamState = [v8 nearbyStreamState];
             if (nearbyStreamState > 3)
             {
-              v34 = "?";
+              v55 = "?";
             }
 
             else
             {
-              v34 = off_1002B8ED0[nearbyStreamState];
+              v55 = off_1002B8ED0[nearbyStreamState];
             }
 
-            if (v12)
+            if (v33)
             {
-              v35 = "no";
+              v56 = "no";
             }
 
             else
             {
-              v35 = "yes";
+              v56 = "yes";
             }
 
-            if (v68)
+            if (v71)
             {
-              v36 = "yes";
+              v57 = "yes";
             }
 
             else
             {
-              v36 = "no";
+              v57 = "no";
             }
 
-            if (v67)
+            if (v70)
             {
-              v37 = "yes";
+              v58 = "yes";
             }
 
             else
             {
-              v37 = "no";
+              v58 = "no";
             }
 
-            if ((nearbyOutOfCaseTime & 0xFC) != 0)
+            if ((v73 & 0xFC) != 0)
             {
-              v38 = "?";
+              v59 = "?";
             }
 
             else
             {
-              v38 = off_1002B90D8[nearbyOutOfCaseTime & 3];
+              v59 = off_1002B90D8[v73 & 3];
             }
 
-            if (v73)
+            if (v76)
             {
-              v39 = "no";
+              v60 = "no";
             }
 
             else
             {
-              v39 = "yes";
+              v60 = "yes";
             }
 
-            if (v23)
+            if (v44)
             {
-              v40 = "yes";
+              v61 = "yes";
             }
 
             else
             {
-              v40 = "no";
+              v61 = "no";
             }
 
-            v61 = v39;
-            v62 = v40;
-            v60 = v69;
-            v59 = v14;
-            v57 = v38;
-            prefSmartRoutingInUseBannerTimeout = self->_prefSmartRoutingInUseBannerTimeout;
-            v56 = v37;
-            v24 = nearbyProductID;
-            v55 = nearbyProductID;
-            v53 = v36;
-            v54 = nearbyName;
-            v51 = v34;
-            v52 = v35;
-            v49 = v63;
-            v50 = v32;
-            v47 = v64;
-            v48 = bannerTrigger;
-            v45 = v66;
-            v46 = bannerCopy;
-            LogPrintF();
+            v45 = nearbyProductID;
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunInUseBanner:]", 30, "Evaluator: InUseBanner, wx %@ addr %@ shouldShow %s trigger %@ inEarSt %s prevInEarSt %s streamState %s isLastHost3rdParty %s isLastHostPaired %s name %@ productID %u iCloudSignedIn %s outOfCaseTime %s timeout %d callStart %.2fs secondsSinceNearbyUSBPlugInUpdate %llu nbUSBConnected %s call %s", v69, v7, v67, bannerTrigger, v66, v53, v55, v56, v57, nearbyName, nearbyProductID, v58, v59, self->_prefSmartRoutingInUseBannerTimeout, *&v35, v72, v60, v61);
 
-            if ((v28 & 1) == 0)
+            if ((v49 & 1) == 0)
             {
               goto LABEL_94;
             }
           }
 
-          else if (!v28)
+          else if (!v49)
           {
             goto LABEL_94;
           }
 
-          if ([(__CFString *)v72 isEqualToString:@"B515cUSBConnected-call", v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, prefSmartRoutingInUseBannerTimeout, *&v59, v60, v61, v62])
+          if ([(__CFString *)v75 isEqualToString:@"B515cUSBConnected-call"])
           {
-            nearbyLastRouteHost2 = [v5 nearbyLastRouteHost];
-            v42 = [(BTSmartRoutingDaemon *)self _getIDSDeviceFromWxLastConnectedHost:nearbyLastRouteHost2];
+            nearbyLastRouteHost2 = [v8 nearbyLastRouteHost];
+            v63 = [(BTSmartRoutingDaemon *)self _getIDSDeviceFromWxLastConnectedHost:nearbyLastRouteHost2];
 
-            modelIdentifier = [v42 modelIdentifier];
-            v44 = [(BTSmartRoutingDaemon *)self _sourceModelNameFromModelIdentifier:modelIdentifier];
+            modelIdentifier = [v63 modelIdentifier];
+            v65 = [(BTSmartRoutingDaemon *)self _sourceModelNameFromModelIdentifier:modelIdentifier];
           }
 
           else
           {
-            v44 = 0;
+            v65 = 0;
           }
 
-          [(BTSmartRoutingDaemon *)self _smartRoutingShowBanner:3 withDevice:nearbyName andDeviceAddress:bannerCopy andProductID:v24 andCentralContentItemTxt:v44 andTimeout:0 andDeviceType:20.0];
-          [v5 _setInUseBannerShown:1];
-          [(SRStats *)self->_stats setBannerTrigger:v72];
+          [(BTSmartRoutingDaemon *)self _smartRoutingShowBanner:3 withDevice:nearbyName andDeviceAddress:v7 andProductID:v45 andCentralContentItemTxt:v65 andTimeout:0 andDeviceType:20.0];
+          [v8 _setInUseBannerShown:1];
+          [(SRStats *)self->_stats setBannerTrigger:v75];
 
           goto LABEL_94;
         }
 
-        v28 = 0;
-        v72 = 0;
-        v24 = nearbyProductID;
-        v29 = nearbyProductID - 8202;
+        v49 = 0;
+        v75 = 0;
+        v45 = nearbyProductID;
+        v50 = nearbyProductID - 8202;
         if ((nearbyProductID - 8202) <= 0x25)
         {
-          if (((1 << v29) & 0x200020033FLL) != 0)
+          if (((1 << v50) & 0x200020033FLL) != 0)
           {
             if (nearbyPrevInEar != 2)
             {
-              v72 = 0;
-              v28 = 0;
+              v75 = 0;
+              v49 = 0;
               goto LABEL_48;
             }
           }
 
           else
           {
-            if (((1 << v29) & 0x645A8400) == 0)
+            if (((1 << v50) & 0x645A8400) == 0)
             {
               goto LABEL_48;
             }
 
-            if (self->_prefSmartRoutingInUseBannerTimeout <= nearbyOutOfCaseTime)
+            if (self->_prefSmartRoutingInUseBannerTimeout <= v73)
             {
-              v28 = 0;
-              v72 = 0;
+              v49 = 0;
+              v75 = 0;
               if (nearbyProductID != 8223 || nearbyPrevInEar != 2)
               {
                 goto LABEL_48;
@@ -3518,32 +3547,32 @@ LABEL_54:
             }
           }
 
-          v28 = 1;
-          v72 = @"3rdPartyHeadset-Unlock";
+          v49 = 1;
+          v75 = @"3rdPartyHeadset-Unlock";
         }
 
 LABEL_48:
-        if (v29 <= 0x25 && (((1 << v29) & 0x200020033FLL) != 0 || ((1 << v29) & 0x645A8400) != 0) && v14 < 1.5)
+        if (v50 <= 0x25 && (((1 << v50) & 0x200020033FLL) != 0 || ((1 << v50) & 0x645A8400) != 0) && v35 < 1.5)
         {
-          v27 = @"3rdPartyHeadset-PhoneCall";
+          v48 = @"3rdPartyHeadset-PhoneCall";
           goto LABEL_53;
         }
 
         goto LABEL_54;
       }
 
-      sub_1001E4B70();
+      sub_1001E4B70(bannerCopy, v5, v6);
     }
 
     else
     {
-      sub_1001E4BD0();
+      sub_1001E4BD0(bannerCopy, v5, v6);
     }
   }
 
   else
   {
-    sub_1001E4828();
+    sub_1001E4828(bannerCopy, v5, v6);
   }
 
 LABEL_96:
@@ -3553,108 +3582,111 @@ LABEL_96:
 {
   electionCopy = election;
   mapCopy = map;
-  if (score > 1 || self->_playbackStart || [(NSNumber *)self->_localDeviceAudioCategory intValue]> 300)
+  v12 = mapCopy;
+  if (score > 1 || self->_playbackStart || (mapCopy = [(NSNumber *)self->_localDeviceAudioCategory intValue], mapCopy > 300))
   {
     if (self->_tipiElectionInProgress && !self->_callConnected && !self->_playbackStart)
     {
-      if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6778 <= 30)
       {
-        sub_1001E4C4C();
+        if (dword_1002F6778 != -1 || (mapCopy = _LogCategory_Initialize(), mapCopy))
+        {
+          sub_1001E4C4C(mapCopy, v10, v11);
+        }
       }
 
-      v10 = @"Tipi election already in progress back off";
+      v13 = @"Tipi election already in progress back off";
       goto LABEL_36;
     }
 
     self->_tipiElectionThroughLEPipe = 0;
-    v64[0] = 0;
-    v64[1] = v64;
-    v64[2] = 0x2020000000;
-    v65 = 0;
-    v62[0] = 0;
-    v62[1] = v62;
-    v62[2] = 0x3032000000;
-    v62[3] = sub_100003918;
-    v62[4] = sub_100003838;
-    v63 = 0;
-    v60[0] = _NSConcreteStackBlock;
-    v60[1] = 3221225472;
-    v60[2] = sub_1000446C8;
-    v60[3] = &unk_1002B7F08;
+    v65[0] = 0;
+    v65[1] = v65;
+    v65[2] = 0x2020000000;
+    v66 = 0;
+    v63[0] = 0;
+    v63[1] = v63;
+    v63[2] = 0x3032000000;
+    v63[3] = sub_100003918;
+    v63[4] = sub_100003838;
+    v64 = 0;
+    v61[0] = _NSConcreteStackBlock;
+    v61[1] = 3221225472;
+    v61[2] = sub_1000446C8;
+    v61[3] = &unk_1002B7F08;
     scoreCopy = score;
-    v60[4] = v64;
-    v60[5] = v62;
-    [mapCopy enumerateKeysAndObjectsUsingBlock:v60];
+    v61[4] = v65;
+    v61[5] = v63;
+    [v12 enumerateKeysAndObjectsUsingBlock:v61];
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x3032000000;
+    v58 = sub_100003918;
+    v59 = sub_100003838;
+    v60 = 0;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2020000000;
     v54 = 0;
-    v55 = &v54;
-    v56 = 0x3032000000;
-    v57 = sub_100003918;
-    v58 = sub_100003838;
-    v59 = 0;
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x2020000000;
-    v53 = 0;
-    v48[0] = _NSConcreteStackBlock;
-    v48[1] = 3221225472;
-    v48[2] = sub_100044828;
-    v48[3] = &unk_1002B7F58;
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_100044828;
+    v49[3] = &unk_1002B7F58;
     scoreCopy2 = score;
-    v48[4] = self;
-    v48[5] = &v54;
-    v48[6] = v64;
-    v48[7] = &v50;
-    [electionCopy enumerateKeysAndObjectsUsingBlock:v48];
-    v11 = v55;
-    if (v55[5] && self->_tipiElectionPhase1)
+    v49[4] = self;
+    v49[5] = &v55;
+    v49[6] = v65;
+    v49[7] = &v51;
+    [electionCopy enumerateKeysAndObjectsUsingBlock:v49];
+    v14 = v56;
+    if (v56[5] && self->_tipiElectionPhase1)
     {
-      *(v51 + 24) = 1;
+      *(v52 + 24) = 1;
     }
 
     self->_tipiElectionPhase1 = 0;
-    v12 = v11[5];
-    if (!v12)
+    v15 = v14[5];
+    if (!v15)
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 30, "Evaluator: skip, no eligible headset.");
       }
 
       self->_callConnected = 0;
       self->_playbackStart = 0;
       [(BTSmartRoutingDaemon *)self _logEvalError:@"No eligible headset"];
-      goto LABEL_87;
+      goto LABEL_88;
     }
 
     if (self->_eligibleHeadsetTicks)
     {
       mach_absolute_time();
-      eligibleHeadsetTicks = self->_eligibleHeadsetTicks;
-      if (UpTicksToSeconds() < 0x78)
+      v16 = UpTicksToSeconds();
+      if (v16 < 0x78)
       {
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 30, "Evaluator: skip tipi selection, too soon, %ll{dur} remaining", 120 - v16);
         }
 
-        goto LABEL_87;
+        goto LABEL_88;
       }
 
-      v12 = v55[5];
+      v15 = v56[5];
     }
 
-    bleDevice = [v12 bleDevice];
+    bleDevice = [v15 bleDevice];
     bluetoothAddress = [bleDevice bluetoothAddress];
 
     if ([bluetoothAddress length] == 6)
     {
-      bytes = [bluetoothAddress bytes];
-      v16 = NSPrintF();
+      v19 = NSPrintF("%.6a", COERCE_DOUBLE([bluetoothAddress bytes]));
     }
 
     else
     {
-      v16 = 0;
+      v19 = 0;
     }
 
     phase1ConnectConfig = self->_phase1ConnectConfig;
@@ -3674,73 +3706,69 @@ LABEL_96:
       type = [(SRConnectConfig *)self->_phase1ConnectConfig type];
       if (type > 0xA)
       {
-        v20 = "?";
+        v23 = "?";
       }
 
       else
       {
-        v20 = off_1002B8FD0[type];
+        v23 = off_1002B8FD0[type];
       }
 
-      bytes = address;
-      v46 = v20;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 30, "Evaluator: Phase1Config Wx %@ type %s", address, v23);
     }
 
 LABEL_43:
-    v21 = v55[5];
+    v24 = v56[5];
     if (self->_tipiElectionThroughLEPipe)
     {
-      if (v21)
+      if (v24)
       {
         if (!self->_phase1ConnectConfig)
         {
           idsIdentifier = [(SFDevice *)self->_lePipeDevice idsIdentifier];
-          if (v16)
+          if (v19)
           {
-            v23 = [(NSMutableDictionary *)self->_smartRoutingBackOffMap objectForKeyedSubscript:v16];
-            v24 = [v23 containsString:idsIdentifier];
+            v26 = [(NSMutableDictionary *)self->_smartRoutingBackOffMap objectForKeyedSubscript:v19];
+            v27 = [v26 containsString:idsIdentifier];
 
-            if (!v24)
+            if (v27)
+            {
+              if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+              {
+                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 30, "Evaluator: skip headset connected to source that disabled SR");
+              }
+            }
+
+            else
             {
               self->_tipiElectionInProgress = 1;
               if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
               {
-                bytes = v55[5];
-                LogPrintF();
+                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 30, "Evaluator: Tipi election won with headset %@", v56[5]);
               }
 
-              objc_storeStrong(&self->_eligibleHeadset, v55[5]);
-              LOBYTE(bytes) = 1;
-              [(BTSmartRoutingDaemon *)self _smartRoutingAddWxMapDevice:self->_eligibleHeadset routingAction:3 otherAddress:0 otherName:0 otherSourceVersion:0 isRoutingInitialized:1 newWx:bytes];
+              objc_storeStrong(&self->_eligibleHeadset, v56[5]);
+              LOBYTE(v47) = 1;
+              [(BTSmartRoutingDaemon *)self _smartRoutingAddWxMapDevice:self->_eligibleHeadset routingAction:3 otherAddress:0 otherName:0 otherSourceVersion:0 isRoutingInitialized:1 newWx:v47];
               [(SRStats *)self->_stats setPipeStartTime:mach_absolute_time()];
               smartRoutingPipe = self->_smartRoutingPipe;
-              v47[0] = _NSConcreteStackBlock;
-              v47[1] = 3221225472;
-              v47[2] = sub_100046308;
-              v47[3] = &unk_1002B7F80;
-              v47[4] = self;
-              v47[5] = v16;
-              v47[6] = &v54;
-              [(SRLEPipe *)smartRoutingPipe pipeSendRouteRequestToSFDevice:idsIdentifier andWxHeadset:v16 newPipe:1 connectionResult:0 completion:v47];
-              goto LABEL_97;
-            }
-
-            if (dword_1002F6778 > 30 || dword_1002F6778 == -1 && !_LogCategory_Initialize())
-            {
-LABEL_97:
-
-              goto LABEL_86;
+              v48[0] = _NSConcreteStackBlock;
+              v48[1] = 3221225472;
+              v48[2] = sub_100046308;
+              v48[3] = &unk_1002B7F80;
+              v48[4] = self;
+              v48[5] = v19;
+              v48[6] = &v55;
+              [(SRLEPipe *)smartRoutingPipe pipeSendRouteRequestToSFDevice:idsIdentifier andWxHeadset:v19 newPipe:1 connectionResult:0 completion:v48];
             }
           }
 
-          else if (dword_1002F6778 > 90 || dword_1002F6778 == -1 && !_LogCategory_Initialize())
+          else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            goto LABEL_97;
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 90, "Evaluator: Unable to get address from eligible headset");
           }
 
-          LogPrintF();
-          goto LABEL_97;
+          goto LABEL_87;
         }
 
 LABEL_52:
@@ -3753,80 +3781,79 @@ LABEL_52:
               goto LABEL_56;
             }
 
-            v21 = v55[5];
+            v24 = v56[5];
           }
 
-          bytes = v21;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 30, "Evaluator: Phase 1, Tipi election won with headset %@", v24);
         }
 
 LABEL_56:
-        [(SRStats *)self->_stats setPipeStartTime:0, bytes, v46];
-        objc_storeStrong(&self->_eligibleHeadset, v55[5]);
+        [(SRStats *)self->_stats setPipeStartTime:0];
+        objc_storeStrong(&self->_eligibleHeadset, v56[5]);
         self->_tipiElectionInProgress = 1;
         _isOnDemandConnectInProgress = [(BTSmartRoutingDaemon *)self _isOnDemandConnectInProgress];
         if (_isOnDemandConnectInProgress)
         {
           [(SRLEPipe *)self->_smartRoutingPipe invalidate];
-          v26 = 2;
+          v29 = 2;
         }
 
         else
         {
-          v26 = 3;
+          v29 = 3;
         }
 
-        LOBYTE(v45) = 1;
-        [(BTSmartRoutingDaemon *)self _smartRoutingAddWxMapDevice:self->_eligibleHeadset routingAction:v26 otherAddress:0 otherName:0 otherSourceVersion:0 isRoutingInitialized:_isOnDemandConnectInProgress newWx:v45];
+        LOBYTE(v47) = 1;
+        [(BTSmartRoutingDaemon *)self _smartRoutingAddWxMapDevice:self->_eligibleHeadset routingAction:v29 otherAddress:0 otherName:0 otherSourceVersion:0 isRoutingInitialized:_isOnDemandConnectInProgress newWx:v47];
         if (self->_forcedConnection)
         {
-          if (v16)
+          if (v19)
           {
-            v27 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v16];
+            v30 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v19];
 
-            if (v27)
+            if (v30)
             {
               if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 30, "Backing off from Tipi healing due to ongoing FD!");
               }
 
-              v28 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v16];
-              [v28 setTipiHealingBackoff:1];
+              v31 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v19];
+              [v31 setTipiHealingBackoff:1];
             }
           }
         }
 
         if (self->_prefSmartRoutingPreemptiveConnectedBanner)
         {
-          v29 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v16];
-          if (v29)
+          v32 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v19];
+          if (v32)
           {
-            v30 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v16];
-            deviceName = [v30 deviceName];
+            v33 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v19];
+            deviceName = [v33 deviceName];
 
             if (!deviceName)
             {
-              v32 = +[CloudXPCService sharedInstance];
-              deviceManager = [v32 deviceManager];
-              v34 = [deviceManager fetchDeviceSyncWithAddress:v16];
-              nickname = [v34 nickname];
-              v36 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v16];
-              [v36 setDeviceName:nickname];
+              v35 = +[CloudXPCService sharedInstance];
+              deviceManager = [v35 deviceManager];
+              v37 = [deviceManager fetchDeviceSyncWithAddress:v19];
+              nickname = [v37 nickname];
+              v39 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v19];
+              [v39 setDeviceName:nickname];
             }
           }
 
-          identifier = [v55[5] identifier];
+          identifier = [v56[5] identifier];
           uUIDString = [identifier UUIDString];
 
-          v39 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
-          audioState = [v39 audioState];
-
-          v41 = [(BTSmartRoutingDaemon *)self _inEarNearbyCheck:v16];
           v42 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
-          if ([(BTSmartRoutingDaemon *)self _showPreemptiveBannerIfNeeded:v42 inEarState:v41 audioState:audioState wxAddress:v16]&& dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+          audioState = [v42 audioState];
+
+          v44 = [(BTSmartRoutingDaemon *)self _inEarNearbyCheck:v19];
+          v45 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
+          if ([(BTSmartRoutingDaemon *)self _showPreemptiveBannerIfNeeded:v45 inEarState:v44 audioState:audioState wxAddress:v19]&& dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _evaluatorRunTipiElection:nearbyInfoDevicesMap:localScore:]", 30, "Smart Routing posting preemptive connected banner!");
           }
         }
 
@@ -3834,31 +3861,34 @@ LABEL_56:
       }
     }
 
-    else if (v21)
+    else if (v24)
     {
       goto LABEL_52;
     }
 
-LABEL_86:
-
 LABEL_87:
-    _Block_object_dispose(&v50, 8);
-    _Block_object_dispose(&v54, 8);
 
-    _Block_object_dispose(v62, 8);
-    _Block_object_dispose(v64, 8);
-    goto LABEL_88;
-  }
-
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
-  {
-    sub_1001E4C30();
-  }
-
-  v10 = @"Tipi score below low";
-LABEL_36:
-  [(BTSmartRoutingDaemon *)self _logEvalError:v10];
 LABEL_88:
+    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(&v55, 8);
+
+    _Block_object_dispose(v63, 8);
+    _Block_object_dispose(v65, 8);
+    goto LABEL_89;
+  }
+
+  if (dword_1002F6778 <= 30)
+  {
+    if (dword_1002F6778 != -1 || (mapCopy = _LogCategory_Initialize(), mapCopy))
+    {
+      sub_1001E4C30(mapCopy, v10, v11);
+    }
+  }
+
+  v13 = @"Tipi score below low";
+LABEL_36:
+  [(BTSmartRoutingDaemon *)self _logEvalError:v13];
+LABEL_89:
 }
 
 - (void)_evaluateTemporaryOverride:(id)override
@@ -3894,98 +3924,96 @@ LABEL_88:
   bleDevice = [deviceCopy bleDevice];
   bluetoothAddress = [bleDevice bluetoothAddress];
 
-  if ([bluetoothAddress length] == 6 && (v58 = objc_msgSend(bluetoothAddress, "bytes"), NSPrintF(), (v21 = objc_claimAutoreleasedReturnValue()) != 0))
+  v21 = [bluetoothAddress length];
+  if (v21 == 6 && (NSPrintF("%.6a", COERCE_DOUBLE([bluetoothAddress bytes])), (v21 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v22 = v21;
-    v69 = initializedCopy;
+    v24 = v21;
+    v66 = initializedCopy;
     actionCopy = action;
     bleDevice2 = [deviceCopy bleDevice];
     advertisementFields = [bleDevice2 advertisementFields];
     Int64Ranged = CFDictionaryGetInt64Ranged();
 
-    if ([(BTSmartRoutingDaemon *)self _supportsSR:v22 andProductID:Int64Ranged])
+    if ([(BTSmartRoutingDaemon *)self _supportsSR:v24 andProductID:Int64Ranged])
     {
-      v26 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v22];
+      v28 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v24];
 
-      if (!v26 || wx)
+      if (!v28 || wx)
       {
-        v28 = actionCopy;
+        v30 = actionCopy;
         if (wx)
         {
-          v29 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v22];
+          v31 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v24];
 
-          if (v29)
+          if (v31)
           {
             if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
             {
-              sub_1001E55FC();
+              sub_1001E55FC(v24);
             }
 
-            [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap setObject:0 forKeyedSubscript:v22];
+            [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap setObject:0 forKeyedSubscript:v24];
           }
         }
 
         identifier = [deviceCopy identifier];
         uUIDString = [identifier UUIDString];
 
-        v68 = uUIDString;
-        v32 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
-        isInEar = [v32 isInEar];
+        v65 = uUIDString;
+        v34 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
+        isInEar = [v34 isInEar];
 
         if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
           if (actionCopy > 5)
           {
-            v34 = "?";
+            v36 = "?";
           }
 
           else
           {
-            v34 = off_1002B90F8[actionCopy];
+            v36 = off_1002B90F8[actionCopy];
           }
 
-          v35 = "no";
-          if (v69)
+          v37 = "no";
+          if (v66)
           {
-            v36 = "yes";
+            v38 = "yes";
           }
 
           else
           {
-            v36 = "no";
+            v38 = "no";
           }
 
           if (wx)
           {
-            v37 = "yes";
+            v39 = "yes";
           }
 
           else
           {
-            v37 = "no";
+            v39 = "no";
           }
 
           if (isInEar)
           {
-            v35 = "yes";
+            v37 = "yes";
           }
 
-          v61 = addressCopy;
-          v62 = nameCopy;
-          v59 = v22;
-          v60 = v34;
-          v64 = v37;
-          v65 = v35;
-          v63 = v36;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAddWxMapDevice:routingAction:otherAddress:otherName:otherSourceVersion:isRoutingInitialized:newWx:]", 50, "Creating SR WX device %@ with action %s otherAddress %@ otherName %@ routingInitialized %s newWx %s inEar %s, Tipi connection!", v24, v36, addressCopy, nameCopy, v38, v39, v37);
         }
 
-        v67 = isInEar;
-        if ([(NSString *)self->_budSwapAddress isEqualToString:v22, v59, v60, v61, v62, v63, v64, v65])
+        v64 = isInEar;
+        v40 = [(NSString *)self->_budSwapAddress isEqualToString:v24];
+        if (v40)
         {
-          if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+          if (dword_1002F6778 <= 50)
           {
-            sub_1001E563C();
+            if (dword_1002F6778 != -1 || (v40 = _LogCategory_Initialize(), v40))
+            {
+              sub_1001E563C(v40, v41, v42);
+            }
           }
 
           if (self->_hfpBudswapDetected)
@@ -3993,46 +4021,46 @@ LABEL_88:
             self->_hfpBudswapDetected = 0;
           }
 
-          v66 = versionCopy;
-          v38 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v22];
-          if (!v38)
+          v63 = versionCopy;
+          v43 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v24];
+          if (!v43)
           {
-            v38 = objc_alloc_init(SRBudswapDevice);
+            v43 = objc_alloc_init(SRBudswapDevice);
           }
 
-          [(SRBudswapDevice *)v38 setReconnectionState:1];
-          otherTipiDeviceBTAddress = [(SRBudswapDevice *)v38 otherTipiDeviceBTAddress];
+          [(SRBudswapDevice *)v43 setReconnectionState:1];
+          otherTipiDeviceBTAddress = [(SRBudswapDevice *)v43 otherTipiDeviceBTAddress];
 
           if (otherTipiDeviceBTAddress)
           {
-            otherTipiDeviceBTAddress2 = [(SRBudswapDevice *)v38 otherTipiDeviceBTAddress];
-            otherTipiDeviceBTName = [(SRBudswapDevice *)v38 otherTipiDeviceBTName];
-            otherTipiDeviceVersion = [(SRBudswapDevice *)v38 otherTipiDeviceVersion];
-            [(BTSmartRoutingDaemon *)self _updateOtherTipiDevicewithAudioCategory:v22 otherAddress:otherTipiDeviceBTAddress2 otherName:otherTipiDeviceBTName otherVersion:otherTipiDeviceVersion];
+            otherTipiDeviceBTAddress2 = [(SRBudswapDevice *)v43 otherTipiDeviceBTAddress];
+            otherTipiDeviceBTName = [(SRBudswapDevice *)v43 otherTipiDeviceBTName];
+            otherTipiDeviceVersion = [(SRBudswapDevice *)v43 otherTipiDeviceVersion];
+            [(BTSmartRoutingDaemon *)self _updateOtherTipiDevicewithAudioCategory:v24 otherAddress:otherTipiDeviceBTAddress2 otherName:otherTipiDeviceBTName otherVersion:otherTipiDeviceVersion];
           }
 
           budSwapAddress = self->_budSwapAddress;
           self->_budSwapAddress = 0;
 
-          [(NSMutableDictionary *)self->_srBudswapDeviceMap setObject:v38 forKeyedSubscript:v22];
+          [(NSMutableDictionary *)self->_srBudswapDeviceMap setObject:v43 forKeyedSubscript:v24];
           budSwapTimer = self->_budSwapTimer;
           if (budSwapTimer)
           {
-            v45 = budSwapTimer;
-            dispatch_source_cancel(v45);
-            v46 = self->_budSwapTimer;
+            v50 = budSwapTimer;
+            dispatch_source_cancel(v50);
+            v51 = self->_budSwapTimer;
             self->_budSwapTimer = 0;
           }
 
-          v28 = actionCopy;
-          versionCopy = v66;
+          v30 = actionCopy;
+          versionCopy = v63;
         }
 
-        [(SRWxDevice *)v18 setDeviceAddress:v22];
+        [(SRWxDevice *)v18 setDeviceAddress:v24];
         [(SRWxDevice *)v18 setDeviceVersion:0];
         [(SRWxDevice *)v18 setOtherTipiAudioCategory:0];
         [(SRWxDevice *)v18 setHijackBackoffTicks:0];
-        [(SRWxDevice *)v18 setRouted:v28 == 1];
+        [(SRWxDevice *)v18 setRouted:v30 == 1];
         [(SRWxDevice *)v18 setConnected:0];
         name = [deviceCopy name];
         [(SRWxDevice *)v18 setDeviceName:name];
@@ -4049,44 +4077,44 @@ LABEL_88:
         advertisementFields2 = [bleDevice3 advertisementFields];
         [(SRWxDevice *)v18 setProductID:CFDictionaryGetInt64Ranged()];
 
-        [(SRWxDevice *)v18 setInEar:v67];
+        [(SRWxDevice *)v18 setInEar:v64];
         [(SRWxDevice *)v18 setIsTipiHealingV2Eligible:0];
-        [(SRWxDevice *)v18 setIsRoutingActionInitialized:v69];
+        [(SRWxDevice *)v18 setIsRoutingActionInitialized:v66];
         [(SRWxDevice *)v18 setTipitableUpdated:0];
-        [(SRWxDevice *)v18 setRoutingAction:v28];
+        [(SRWxDevice *)v18 setRoutingAction:v30];
         [(SRWxDevice *)v18 setOtherTipiDeviceInfo:addressCopy andName:nameCopy andVersion:versionCopy];
         [(BTSmartRoutingDaemon *)self _lowestBatteryInfoForSFDevice:deviceCopy];
         [(SRWxDevice *)v18 setLowestBudBatteryInfo:?];
-        if (v67)
+        if (v64)
         {
-          v54 = 1;
+          v59 = 1;
         }
 
         else
         {
-          v54 = 3;
+          v59 = 3;
         }
 
-        [(SRWxDevice *)v18 setRoutingUI:v54];
+        [(SRWxDevice *)v18 setRoutingUI:v59];
         smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
         if (!smartRoutingWxDeviceMap)
         {
-          v56 = objc_alloc_init(NSMutableDictionary);
-          v57 = self->_smartRoutingWxDeviceMap;
-          self->_smartRoutingWxDeviceMap = v56;
+          v61 = objc_alloc_init(NSMutableDictionary);
+          v62 = self->_smartRoutingWxDeviceMap;
+          self->_smartRoutingWxDeviceMap = v61;
 
           smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
         }
 
-        [(NSMutableDictionary *)smartRoutingWxDeviceMap setObject:v18 forKeyedSubscript:v22];
+        [(NSMutableDictionary *)smartRoutingWxDeviceMap setObject:v18 forKeyedSubscript:v24];
         self->_autoRoutingTicks = mach_absolute_time();
-        v27 = v68;
+        v29 = v65;
       }
 
       else
       {
-        v27 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v22];
-        [v27 setOtherTipiDeviceInfo:addressCopy andName:nameCopy andVersion:versionCopy];
+        v29 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v24];
+        [v29 setOtherTipiDeviceInfo:addressCopy andName:nameCopy andVersion:versionCopy];
       }
 
       if ([(SRWxDevice *)v18 routingAction]== 2)
@@ -4103,18 +4131,21 @@ LABEL_88:
     else
     {
       sub_1001E5588();
-      v22 = v72;
+      v24 = v69;
     }
   }
 
   else
   {
-    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 90)
     {
-      sub_1001E5658();
+      if (dword_1002F6778 != -1 || (v21 = _LogCategory_Initialize(), v21))
+      {
+        sub_1001E5658(v21, v22, v23);
+      }
     }
 
-    v22 = 0;
+    v24 = 0;
   }
 }
 
@@ -4131,55 +4162,54 @@ LABEL_88:
   btAddressData = [deviceCopy btAddressData];
   v8 = CUPrintNSDataAddress();
 
-  if (-[BTSmartRoutingDaemon _supportsSR:andProductID:](self, "_supportsSR:andProductID:", v8, [deviceCopy productID]))
+  v9 = -[BTSmartRoutingDaemon _supportsSR:andProductID:](self, "_supportsSR:andProductID:", v8, [deviceCopy productID]);
+  if (v9)
   {
     if (v8)
     {
-      v9 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v8];
+      v12 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v8];
 
-      if (!v9)
+      if (!v12)
       {
         audioDestination = [(SRSourceDevice *)self->_sourceDevice audioDestination];
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          v45 = v8;
-          v47 = audioDestination;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAddWxMapDeviceFromConnectedDevice:]", 30, "Creating SR WX device with address %@ from CONNECTED event. Current audio route %@", v8, audioDestination);
         }
 
         self->_smartRoutingDisconnectReason = 0;
-        v54 = 0;
-        v55 = &v54;
-        v56 = 0x2020000000;
-        v57 = 0;
-        v11 = objc_alloc_init(SRWxDevice);
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x2020000000;
+        v52 = 0;
+        v14 = objc_alloc_init(SRWxDevice);
         if ([(NSString *)self->_budSwapAddress isEqualToString:v8])
         {
-          *(v55 + 24) = 1;
+          *(v50 + 24) = 1;
           if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAddWxMapDeviceFromConnectedDevice:]", 50, "Marking the reconnection state as isConnected - _srBudswapDeviceMap");
           }
 
-          v12 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v8, v45, v47];
-          if (!v12)
+          v15 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v8];
+          if (!v15)
           {
-            v12 = objc_alloc_init(SRBudswapDevice);
+            v15 = objc_alloc_init(SRBudswapDevice);
           }
 
-          [(SRBudswapDevice *)v12 setReconnectionState:1];
+          [(SRBudswapDevice *)v15 setReconnectionState:1];
           if (self->_hfpBudswapDetected)
           {
             self->_hfpBudswapDetected = 0;
           }
 
-          otherTipiDeviceBTAddress = [(SRBudswapDevice *)v12 otherTipiDeviceBTAddress];
+          otherTipiDeviceBTAddress = [(SRBudswapDevice *)v15 otherTipiDeviceBTAddress];
 
           if (otherTipiDeviceBTAddress)
           {
-            otherTipiDeviceBTAddress2 = [(SRBudswapDevice *)v12 otherTipiDeviceBTAddress];
-            otherTipiDeviceBTName = [(SRBudswapDevice *)v12 otherTipiDeviceBTName];
-            otherTipiDeviceVersion = [(SRBudswapDevice *)v12 otherTipiDeviceVersion];
+            otherTipiDeviceBTAddress2 = [(SRBudswapDevice *)v15 otherTipiDeviceBTAddress];
+            otherTipiDeviceBTName = [(SRBudswapDevice *)v15 otherTipiDeviceBTName];
+            otherTipiDeviceVersion = [(SRBudswapDevice *)v15 otherTipiDeviceVersion];
             [(BTSmartRoutingDaemon *)self _updateOtherTipiDevicewithAudioCategory:v8 otherAddress:otherTipiDeviceBTAddress2 otherName:otherTipiDeviceBTName otherVersion:otherTipiDeviceVersion];
           }
 
@@ -4189,167 +4219,159 @@ LABEL_88:
           budSwapTimer = self->_budSwapTimer;
           if (budSwapTimer)
           {
-            v19 = budSwapTimer;
-            dispatch_source_cancel(v19);
-            v20 = self->_budSwapTimer;
+            v22 = budSwapTimer;
+            dispatch_source_cancel(v22);
+            v23 = self->_budSwapTimer;
             self->_budSwapTimer = 0;
           }
 
-          [(NSMutableDictionary *)self->_srBudswapDeviceMap setObject:v12 forKeyedSubscript:v8];
+          [(NSMutableDictionary *)self->_srBudswapDeviceMap setObject:v15 forKeyedSubscript:v8];
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAddWxMapDeviceFromConnectedDevice:]", 30, "SmartRouting budswap re-connection, set routing appropriately");
           }
         }
 
         if ([(NSMutableDictionary *)self->_smartRoutingWxDeviceMap count])
         {
-          v21 = self->_smartRoutingWxDeviceMap;
-          v53[0] = _NSConcreteStackBlock;
-          v53[1] = 3221225472;
-          v53[2] = sub_100047754;
-          v53[3] = &unk_1002B7DF0;
-          v53[4] = &v54;
-          [(NSMutableDictionary *)v21 enumerateKeysAndObjectsUsingBlock:v53];
+          v24 = self->_smartRoutingWxDeviceMap;
+          v48[0] = _NSConcreteStackBlock;
+          v48[1] = 3221225472;
+          v48[2] = sub_100047754;
+          v48[3] = &unk_1002B7DF0;
+          v48[4] = &v49;
+          [(NSMutableDictionary *)v24 enumerateKeysAndObjectsUsingBlock:v48];
         }
 
-        v22 = -[BTSmartRoutingDaemon _bluetoothProductIDNoEarDetect:](self, "_bluetoothProductIDNoEarDetect:", [deviceCopy productID]) || objc_msgSend(deviceCopy, "primaryPlacement") == 1 || objc_msgSend(deviceCopy, "secondaryPlacement") == 1;
-        [(SRWxDevice *)v11 setDeviceAddress:v8];
-        [(SRWxDevice *)v11 setDeviceVersion:0];
-        [(SRWxDevice *)v11 setHijackBackoffTicks:0];
-        [(SRWxDevice *)v11 setConnected:1];
+        v25 = -[BTSmartRoutingDaemon _bluetoothProductIDNoEarDetect:](self, "_bluetoothProductIDNoEarDetect:", [deviceCopy productID]) || objc_msgSend(deviceCopy, "primaryPlacement") == 1 || objc_msgSend(deviceCopy, "secondaryPlacement") == 1;
+        [(SRWxDevice *)v14 setDeviceAddress:v8];
+        [(SRWxDevice *)v14 setDeviceVersion:0];
+        [(SRWxDevice *)v14 setHijackBackoffTicks:0];
+        [(SRWxDevice *)v14 setConnected:1];
         name = [deviceCopy name];
-        [(SRWxDevice *)v11 setDeviceName:name];
+        [(SRWxDevice *)v14 setDeviceName:name];
 
         identifier = [deviceCopy identifier];
-        [(SRWxDevice *)v11 setConduitDeviceID:identifier];
+        [(SRWxDevice *)v14 setConduitDeviceID:identifier];
 
-        -[SRWxDevice setProductID:](v11, "setProductID:", [deviceCopy productID]);
+        -[SRWxDevice setProductID:](v14, "setProductID:", [deviceCopy productID]);
         identifier2 = [deviceCopy identifier];
-        [(SRWxDevice *)v11 setIdentifier:identifier2];
+        [(SRWxDevice *)v14 setIdentifier:identifier2];
 
-        [(SRWxDevice *)v11 setInEar:v22];
-        -[SRWxDevice setInEarDisabled:](v11, "setInEarDisabled:", [deviceCopy primaryPlacement] == 7);
-        [(SRWxDevice *)v11 setIsTipiHealingV2Eligible:0];
-        [(SRWxDevice *)v11 setOtherTipiAudioCategory:0];
+        [(SRWxDevice *)v14 setInEar:v25];
+        -[SRWxDevice setInEarDisabled:](v14, "setInEarDisabled:", [deviceCopy primaryPlacement] == 7);
+        [(SRWxDevice *)v14 setIsTipiHealingV2Eligible:0];
+        [(SRWxDevice *)v14 setOtherTipiAudioCategory:0];
         [(BTSmartRoutingDaemon *)self _lowestBatteryInfoForCBDevice:deviceCopy];
-        [(SRWxDevice *)v11 setLowestBudBatteryInfo:?];
-        [(SRWxDevice *)v11 setIsRoutingActionInitialized:[(NSString *)self->_budSwapAddress isEqualToString:v8]];
-        [(SRWxDevice *)v11 setTipitableUpdated:0];
-        v26 = [deviceCopy audioStreamState] >= 2 && -[NSNumber intValue](self->_localDeviceAudioCategory, "intValue") < 101;
-        v27 = [(NSString *)self->_triangleRecoveryInitiatedAddress isEqualToString:v8];
-        v28 = *(v55 + 24);
+        [(SRWxDevice *)v14 setLowestBudBatteryInfo:?];
+        [(SRWxDevice *)v14 setIsRoutingActionInitialized:[(NSString *)self->_budSwapAddress isEqualToString:v8]];
+        [(SRWxDevice *)v14 setTipitableUpdated:0];
+        v29 = [deviceCopy audioStreamState] >= 2 && -[NSNumber intValue](self->_localDeviceAudioCategory, "intValue") < 101;
+        v30 = [(NSString *)self->_triangleRecoveryInitiatedAddress isEqualToString:v8];
+        v31 = *(v50 + 24);
         deviceFlags = [deviceCopy deviceFlags];
-        v30 = deviceFlags;
-        if ((v28 | (v26 | v27)))
+        v33 = deviceFlags;
+        if ((v31 | (v29 | v30)))
         {
-          v31 = 3;
+          v34 = 3;
         }
 
         else
         {
-          v31 = 2;
+          v34 = 2;
         }
 
         if ((*&deviceFlags & 0x400000) != 0)
         {
-          v32 = 1;
+          v35 = 1;
         }
 
         else
         {
-          v32 = v31;
+          v35 = v34;
         }
 
-        [(SRWxDevice *)v11 setRoutingAction:v32];
-        if (v22)
+        [(SRWxDevice *)v14 setRoutingAction:v35];
+        if (v25)
         {
-          v33 = 1;
+          v36 = 1;
         }
 
         else
         {
-          v33 = 3;
+          v36 = 3;
         }
 
-        [(SRWxDevice *)v11 setRoutingUI:v33];
-        [(SRWxDevice *)v11 setOtherTipiDeviceInfo:0 andName:0 andVersion:0];
-        [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap setObject:v11 forKeyedSubscript:v8];
+        [(SRWxDevice *)v14 setRoutingUI:v36];
+        [(SRWxDevice *)v14 setOtherTipiDeviceInfo:0 andName:0 andVersion:0];
+        [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap setObject:v14 forKeyedSubscript:v8];
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          routingAction = [(SRWxDevice *)v11 routingAction];
+          routingAction = [(SRWxDevice *)v14 routingAction];
           if (routingAction > 5)
           {
-            v35 = "?";
+            v38 = "?";
           }
 
           else
           {
-            v35 = off_1002B90F8[routingAction];
+            v38 = off_1002B90F8[routingAction];
           }
 
-          v36 = "yes";
-          if (*(v55 + 24))
+          v39 = "yes";
+          if (*(v50 + 24))
           {
-            v37 = "yes";
+            v40 = "yes";
           }
 
           else
           {
-            v37 = "no";
+            v40 = "no";
           }
 
-          if (v26)
+          if (v29)
           {
-            v38 = "yes";
+            v41 = "yes";
           }
 
           else
           {
-            v38 = "no";
+            v41 = "no";
           }
 
-          if ((*&v30 & 0x400000) != 0)
+          if ((*&v33 & 0x400000) != 0)
           {
-            v39 = "yes";
+            v42 = "yes";
           }
 
           else
+          {
+            v42 = "no";
+          }
+
+          if (!v30)
           {
             v39 = "no";
           }
 
-          if (!v27)
-          {
-            v36 = "no";
-          }
-
-          v51 = v36;
-          localDeviceAudioCategory = self->_localDeviceAudioCategory;
-          v49 = "no";
-          v50 = v39;
-          v47 = v37;
-          v48 = v38;
-          v46 = v35;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAddWxMapDeviceFromConnectedDevice:]", 30, "Setting RoutingAction %s isTiPiDevice %s isStreamingFromOtherSource %s isBudswap %s manual %s isTriangleRecoveryInitiatedAddress %s localAudio %@", v38, v40, v41, "no", v42, v39, self->_localDeviceAudioCategory);
         }
 
         self->_autoRoutingTicks = mach_absolute_time();
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          v40 = [(SRWxDevice *)v11 routingAction:v46];
-          if (v40 > 5)
+          routingAction2 = [(SRWxDevice *)v14 routingAction];
+          if (routingAction2 > 5)
           {
-            v41 = "?";
+            v44 = "?";
           }
 
           else
           {
-            v41 = off_1002B90F8[v40];
+            v44 = off_1002B90F8[routingAction2];
           }
 
-          v46 = v41;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAddWxMapDeviceFromConnectedDevice:]", 30, "Current device route decision is %s", v44);
         }
 
         if (self->_prefSmartRoutingEnabledPhase3 && !self->_tipiElectionInProgress && [(BTSmartRoutingDaemon *)self _aacpConnectedCheck:deviceCopy])
@@ -4357,41 +4379,194 @@ LABEL_88:
           [(BTSmartRoutingDaemon *)self _tipiHealingAttempt];
         }
 
-        if ([(NSMutableArray *)self->_smartRoutingManualDisconnectionList containsObject:v8, v46])
+        if ([(NSMutableArray *)self->_smartRoutingManualDisconnectionList containsObject:v8])
         {
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAddWxMapDeviceFromConnectedDevice:]", 30, "Remove Wx from manual disconnect list");
           }
 
           [(NSMutableArray *)self->_smartRoutingManualDisconnectionList removeObject:v8];
         }
 
-        v42 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v8];
-        [v42 setIsManualDisconnectLastTime:0];
-        routingAction2 = [(SRWxDevice *)v11 routingAction];
-        v44 = 144;
-        if (routingAction2 == 2)
+        v45 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v8];
+        [v45 setIsManualDisconnectLastTime:0];
+        routingAction3 = [(SRWxDevice *)v14 routingAction];
+        v47 = 144;
+        if (routingAction3 == 2)
         {
-          v44 = 128;
+          v47 = 128;
         }
 
-        ++*(&self->super.isa + v44);
+        ++*(&self->super.isa + v47);
 
-        _Block_object_dispose(&v54, 8);
+        _Block_object_dispose(&v49, 8);
       }
     }
 
-    else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    else if (dword_1002F6778 <= 90)
     {
-      sub_1001E56D4();
+      if (dword_1002F6778 != -1 || (v9 = _LogCategory_Initialize(), v9))
+      {
+        sub_1001E56D4(v9, v10, v11);
+      }
     }
   }
 
   else
   {
-    sub_1001E5674();
+    sub_1001E5674(v9, v10, v11);
   }
+}
+
+- (BOOL)_smartRoutingShowBanner:(int)banner withDevice:(id)device andDeviceAddress:(id)address andProductID:(unsigned int)d andCentralContentItemTxt:(id)txt andTimeout:(double)timeout andDeviceType:(unsigned int)type
+{
+  v12 = *&d;
+  deviceCopy = device;
+  addressCopy = address;
+  txtCopy = txt;
+  v19 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:addressCopy];
+  v20 = [(BTSmartRoutingDaemon *)self _inEarConnectedCheck:addressCopy];
+  if ([(BTSmartRoutingDaemon *)self _bluetoothProductIDNoEarDetect:v12])
+  {
+    v20 = 1;
+  }
+
+  else if (![v19 primaryPlacement] && !objc_msgSend(v19, "secondaryPlacement"))
+  {
+    v20 = [(BTSmartRoutingDaemon *)self _inEarNearbyCheck:addressCopy];
+  }
+
+  if (![(CUSystemMonitor *)self->_powerMonitor screenActive]|| self->_systemUIProxCardPresent || ((v20 ^ 1) & 1) != 0 || self->_effectiveScreenLocked)
+  {
+    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001E57A4(&self->_powerMonitor, self, v20);
+    }
+
+    if ([(CUSystemMonitor *)self->_powerMonitor screenActive])
+    {
+      v21 = !self->_effectiveScreenLocked;
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+  }
+
+  else
+  {
+    if (type)
+    {
+      v22 = @"Speaker";
+      if (type == 20)
+      {
+        v22 = @"Headset";
+      }
+
+      v23 = v22;
+    }
+
+    else
+    {
+      if (v12 == 8228)
+      {
+        v24 = 8212;
+      }
+
+      else
+      {
+        v24 = v12;
+      }
+
+      if ((v24 & 0xFFFFFFFD) == 0x2019 || v24 == 8222 || v24 == 8224)
+      {
+        v27 = 8217;
+      }
+
+      else
+      {
+        v27 = v24;
+      }
+
+      v23 = [(BTSmartRoutingDaemon *)self _productColorAssetLookup:v27 andAddress:addressCopy];
+    }
+
+    v28 = v23;
+    v29 = [(BTSmartRoutingDaemon *)self _lowestBatteryForDeviceWithAddress:addressCopy];
+    v30 = v29;
+    if (v29)
+    {
+      [v29 level];
+      v32 = v31;
+    }
+
+    else
+    {
+      v32 = 0.0;
+    }
+
+    v33 = objc_alloc_init(BTBannerUISession);
+    objc_storeStrong(&self->_uiSmartRoutingBanner, v33);
+    if (deviceCopy)
+    {
+      v34 = deviceCopy;
+    }
+
+    else
+    {
+      v34 = &stru_1002C1358;
+    }
+
+    [v33 setCenterContentText:v34];
+    [v33 setCenterContentItemsText:txtCopy];
+    [v33 setDispatchQueue:self->_dispatchQueue];
+    [v33 setLeadingAccessoryImageName:v28];
+    [v33 setTimeoutSeconds:timeout];
+    [v33 setBatteryLevelInfo:v32];
+    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001E5730(banner, v33);
+    }
+
+    if ((banner - 3) <= 2)
+    {
+      [v33 setTrailingAccessoryText:*(&off_1002B8AF0 + (banner - 3))];
+    }
+
+    v35 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:addressCopy];
+    if ([v35 isUSBPlugIn])
+    {
+      [v33 setBannerType:4];
+    }
+
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    bannerCopy = banner;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_100047BF4;
+    v37[3] = &unk_1002B8010;
+    v37[4] = v33;
+    v37[5] = self;
+    bannerCopy2 = banner;
+    v39 = &v41;
+    v38 = addressCopy;
+    [v33 setActionHandler:v37];
+    if (*(v42 + 6) == 1)
+    {
+      [(BTSmartRoutingDaemon *)self _setConnectedBannerTick:mach_absolute_time()];
+    }
+
+    [v33 activate];
+
+    _Block_object_dispose(&v41, 8);
+    v21 = 1;
+  }
+
+  return v21;
 }
 
 - (id)_lowestBatteryForDeviceWithAddress:(id)address
@@ -4462,7 +4637,7 @@ LABEL_88:
       {
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001E593C();
+          sub_1001E593C(v16);
         }
 
         v24 = v16;
@@ -4483,7 +4658,7 @@ LABEL_88:
       {
         if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001E597C();
+          sub_1001E597C(v8);
         }
 
         v29 = 0;
@@ -4496,7 +4671,7 @@ LABEL_88:
         v34 = [v32 initWithLevel:objc_msgSend(v30 productID:"productID") state:1 type:{4, v33}];
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001E59BC();
+          sub_1001E59BC(v34);
         }
 
         v29 = v34;
@@ -4510,7 +4685,7 @@ LABEL_88:
     v28 = [v26 initWithLevel:objc_msgSend(v5 productID:"productID") state:1 type:{4, v27}];
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E59FC();
+      sub_1001E59FC(v28);
     }
 
     v24 = v28;
@@ -4537,8 +4712,7 @@ LABEL_39:
 
   if ([bluetoothAddress length] == 6)
   {
-    bytes = [bluetoothAddress bytes];
-    v7 = NSPrintF();
+    v7 = NSPrintF("%.6a", COERCE_DOUBLE([bluetoothAddress bytes]));
   }
 
   else
@@ -4553,7 +4727,7 @@ LABEL_39:
   [(BTSmartRoutingDaemon *)self _isOnDemandConnectInProgress];
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E5B44(self);
+    sub_1001E5B44();
   }
 
   connectDevice = self->_connectDevice;
@@ -4598,84 +4772,90 @@ LABEL_39:
 
     if (v19 >= 1.2)
     {
-      if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6778 <= 30)
       {
-        sub_1001E5BEC();
+        if (dword_1002F6778 != -1 || (v20 = _LogCategory_Initialize(), v20))
+        {
+          sub_1001E5BEC(v20, v21, v22);
+        }
       }
 
       idsIdentifier = [(SFDevice *)self->_lePipeDevice idsIdentifier];
       if (self->_prefSmartRoutingConnectionManager)
       {
-        v25 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v7];
-        nearbyLEPipeSourceDevice = [v25 nearbyLEPipeSourceDevice];
+        v31 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v7];
+        nearbyLEPipeSourceDevice = [v31 nearbyLEPipeSourceDevice];
         idsIdentifier2 = [nearbyLEPipeSourceDevice idsIdentifier];
 
         idsIdentifier = idsIdentifier2;
       }
 
       smartRoutingPipe = self->_smartRoutingPipe;
-      v54[0] = _NSConcreteStackBlock;
-      v54[1] = 3221225472;
-      v54[2] = sub_100048EE4;
-      v54[3] = &unk_1002B68A8;
-      v54[4] = self;
-      v54[5] = v7;
-      [(SRLEPipe *)smartRoutingPipe pipeSendRouteRequestToSFDevice:idsIdentifier andWxHeadset:v7 newPipe:0 connectionResult:@"connectionResultSuccess" completion:v54];
+      v59[0] = _NSConcreteStackBlock;
+      v59[1] = 3221225472;
+      v59[2] = sub_100048EE4;
+      v59[3] = &unk_1002B68A8;
+      v59[4] = self;
+      v59[5] = v7;
+      [(SRLEPipe *)smartRoutingPipe pipeSendRouteRequestToSFDevice:idsIdentifier andWxHeadset:v7 newPipe:0 connectionResult:@"connectionResultSuccess" completion:v59];
     }
 
-    else if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    else if (dword_1002F6778 <= 30)
     {
-      sub_1001E5C08();
+      if (dword_1002F6778 != -1 || (v20 = _LogCategory_Initialize(), v20))
+      {
+        sub_1001E5C08(v20, v21, v22);
+      }
     }
 
     if (v7)
     {
-      v29 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v7];
+      v35 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v7];
 
-      if (v29)
+      if (v35)
       {
-        v30 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v7];
-        [v30 setConnected:1];
+        v36 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v7];
+        [v36 setConnected:1];
       }
 
-      v31 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v7];
-      if (v31)
+      v37 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v7];
+      if (v37)
       {
-        v32 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v7];
-        if ([v32 primaryPlacement] == 1)
+        v38 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v7];
+        if ([v38 primaryPlacement] == 1)
         {
-          v33 = 1;
+          v39 = 1;
         }
 
         else
         {
-          v39 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v7];
-          v33 = [v39 secondaryPlacement] == 1;
+          v45 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v7];
+          v39 = [v45 secondaryPlacement] == 1;
         }
       }
 
       else
       {
-        v33 = 0;
+        v39 = 0;
       }
 
-      v40 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v7];
-      if ([v40 routingAction] == 3)
+      v46 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v7];
+      if ([v46 routingAction] == 3)
       {
-        v41 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v7];
-        [v41 reconnectionState];
+        v47 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v7];
+        [v47 reconnectionState];
       }
     }
 
     else
     {
-      v33 = 0;
+      v39 = 0;
     }
 
     identifier = [(SFDevice *)self->_eligibleHeadset identifier];
     uUIDString = [identifier UUIDString];
 
-    if (!v33)
+    if (!v39)
     {
       goto LABEL_65;
     }
@@ -4683,16 +4863,16 @@ LABEL_39:
     name = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v7];
     if ([name routingAction] == 1)
     {
-      v45 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v7];
-      reconnectionState = [v45 reconnectionState];
+      v51 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v7];
+      reconnectionState = [v51 reconnectionState];
 
       if (reconnectionState == 1)
       {
         goto LABEL_65;
       }
 
-      v47 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
-      preemptiveBannerShown = [v47 preemptiveBannerShown];
+      v53 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
+      preemptiveBannerShown = [v53 preemptiveBannerShown];
 
       if (preemptiveBannerShown)
       {
@@ -4705,13 +4885,13 @@ LABEL_39:
 
 LABEL_65:
     smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-    v53[0] = _NSConcreteStackBlock;
-    v53[1] = 3221225472;
-    v53[2] = sub_100049028;
-    v53[3] = &unk_1002B7FA8;
-    v53[4] = v7;
-    v53[5] = self;
-    [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v53];
+    v58[0] = _NSConcreteStackBlock;
+    v58[1] = 3221225472;
+    v58[2] = sub_100049028;
+    v58[3] = &unk_1002B7FA8;
+    v58[4] = v7;
+    v58[5] = self;
+    [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v58];
 
     goto LABEL_66;
   }
@@ -4724,41 +4904,47 @@ LABEL_65:
 
   if (self->_prefSmartRoutingEnabledPhase3 && self->_tipiElectionInProgress)
   {
-    v20 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v7];
-    otherTipiDeviceVersion2 = [v20 otherTipiDeviceVersion];
+    v23 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v7];
+    otherTipiDeviceVersion2 = [v23 otherTipiDeviceVersion];
     [otherTipiDeviceVersion2 doubleValue];
-    v23 = v22;
+    v26 = v25;
 
-    if (v23 >= 1.2)
+    if (v26 >= 1.2)
     {
-      if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6778 <= 30)
       {
-        sub_1001E5BB4();
+        if (dword_1002F6778 != -1 || (v27 = _LogCategory_Initialize(), v27))
+        {
+          sub_1001E5BB4(v27, v28, v29);
+        }
       }
 
       idsIdentifier3 = [(SFDevice *)self->_lePipeDevice idsIdentifier];
       if (self->_prefSmartRoutingConnectionManager)
       {
-        v35 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v7];
-        nearbyLEPipeSourceDevice2 = [v35 nearbyLEPipeSourceDevice];
+        v41 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v7];
+        nearbyLEPipeSourceDevice2 = [v41 nearbyLEPipeSourceDevice];
         idsIdentifier4 = [nearbyLEPipeSourceDevice2 idsIdentifier];
 
         idsIdentifier3 = idsIdentifier4;
       }
 
-      v38 = self->_smartRoutingPipe;
-      v55[0] = _NSConcreteStackBlock;
-      v55[1] = 3221225472;
-      v55[2] = sub_100048DD8;
-      v55[3] = &unk_1002B68A8;
-      v55[4] = self;
-      v55[5] = v7;
-      [(SRLEPipe *)v38 pipeSendRouteRequestToSFDevice:idsIdentifier3 andWxHeadset:v7 newPipe:0 connectionResult:@"connectionResultError" completion:v55];
+      v44 = self->_smartRoutingPipe;
+      v60[0] = _NSConcreteStackBlock;
+      v60[1] = 3221225472;
+      v60[2] = sub_100048DD8;
+      v60[3] = &unk_1002B68A8;
+      v60[4] = self;
+      v60[5] = v7;
+      [(SRLEPipe *)v44 pipeSendRouteRequestToSFDevice:idsIdentifier3 andWxHeadset:v7 newPipe:0 connectionResult:@"connectionResultError" completion:v60];
     }
 
-    else if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    else if (dword_1002F6778 <= 30)
     {
-      sub_1001E5BD0();
+      if (dword_1002F6778 != -1 || (v27 = _LogCategory_Initialize(), v27))
+      {
+        sub_1001E5BD0(v27, v28, v29);
+      }
     }
 
     [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.PreemptivePortDisconnected"];
@@ -4792,39 +4978,35 @@ LABEL_70:
   bleDevice = [headsetCopy bleDevice];
   bluetoothAddress = [bleDevice bluetoothAddress];
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_100003918;
-  v44 = sub_100003838;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_100003918;
+  v38 = sub_100003838;
   v8 = [bluetoothAddress length];
   v9 = 0;
   if (v8 == 6)
   {
-    bytes = [bluetoothAddress bytes];
-    v9 = NSPrintF();
+    v9 = NSPrintF("%.6a", COERCE_DOUBLE([bluetoothAddress bytes]));
   }
 
-  v45 = v9;
+  v39 = v9;
   identifier = [headsetCopy identifier];
   uUIDString = [identifier UUIDString];
 
   mach_absolute_time();
-  v12 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:v41[5]];
+  v12 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:v35[5]];
   [v12 lastWxAdvTicks];
   v13 = UpTicksToMilliseconds();
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v32 = headsetCopy;
-    v33 = v13;
-    v30 = v41[5];
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingConnectToEligibleHeadset:]", 30, "Evaluator: connect start: %@, %@, last wx adv is seen %llums", v35[5], headsetCopy, v13);
   }
 
   objc_storeStrong(&self->_connectDevice, headset);
   v14 = objc_alloc_init(CBDevice);
-  [v14 setIdentifier:v41[5]];
+  [v14 setIdentifier:v35[5]];
   v15 = mach_absolute_time();
   v16 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
   [v16 setLastConnectionTicks:v15];
@@ -4840,8 +5022,8 @@ LABEL_70:
     [(SRSourceDevice *)self->_sourceDevice setEvalWxMap:v19];
   }
 
-  v20 = [(SRSourceDevice *)self->_sourceDevice evalWxMap:v30];
-  v21 = [v20 objectForKeyedSubscript:v41[5]];
+  evalWxMap2 = [(SRSourceDevice *)self->_sourceDevice evalWxMap];
+  v21 = [evalWxMap2 objectForKeyedSubscript:v35[5]];
 
   if (!v21)
   {
@@ -4851,10 +5033,10 @@ LABEL_70:
   v22 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
   -[SRWxInfo setLastConnectTicks:](v21, "setLastConnectTicks:", [v22 lastConnectionTicks]);
 
-  evalWxMap2 = [(SRSourceDevice *)self->_sourceDevice evalWxMap];
-  [evalWxMap2 setObject:v21 forKeyedSubscript:v41[5]];
+  evalWxMap3 = [(SRSourceDevice *)self->_sourceDevice evalWxMap];
+  [evalWxMap3 setObject:v21 forKeyedSubscript:v35[5]];
 
-  v24 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v41[5]];
+  v24 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v35[5]];
   otherTipiDeviceBTAddress = [v24 otherTipiDeviceBTAddress];
 
   if (otherTipiDeviceBTAddress)
@@ -4866,11 +5048,11 @@ LABEL_70:
   [v17 setPeerDevice:v14];
   [v17 setDispatchQueue:self->_dispatchQueue];
   [v17 setConnectTimeoutSeconds:20.0];
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x3032000000;
-  v38[3] = sub_100003918;
-  v38[4] = sub_100003838;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = sub_100003918;
+  v32[4] = sub_100003838;
   identifier2 = [v24 identifier];
   v26 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
   objc_storeStrong(&self->_connectDispatchTimer, v26);
@@ -4880,24 +5062,22 @@ LABEL_70:
   handler[3] = &unk_1002B80A0;
   handler[4] = v17;
   handler[5] = self;
-  v36 = &v40;
-  v37 = v38;
+  v30 = &v34;
+  v31 = v32;
   v27 = v21;
-  v35 = v27;
+  v29 = v27;
   dispatch_source_set_event_handler(v26, handler);
-  prefConnectionDelaySeconds = self->_prefConnectionDelaySeconds;
   CUDispatchTimerSet();
   dispatch_activate(v26);
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v31 = self->_prefConnectionDelaySeconds;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingConnectToEligibleHeadset:]", 30, "Connection Fired in %ll{dur}", self->_prefConnectionDelaySeconds);
   }
 
   self->_prefSpeakRouteConnection = 1;
 
-  _Block_object_dispose(v38, 8);
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(v32, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 - (void)_respondRoutingRequest:(id)request withResponseHandler:(id)handler wxAddress:(id)address
@@ -4905,6 +5085,7 @@ LABEL_70:
   requestCopy = request;
   handlerCopy = handler;
   addressCopy = address;
+  v12 = addressCopy;
   if (handlerCopy)
   {
     if (requestCopy)
@@ -4916,23 +5097,23 @@ LABEL_70:
 
       [(BTSmartRoutingDaemon *)self _tipiHealingHijackTimerReset];
       handlerCopy[2](handlerCopy, requestCopy);
-      if (addressCopy)
+      if (v12)
       {
-        v10 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
-        [v10 setAudioRoutingResponse:0];
-        [v10 setAudioRoutingClientID:0];
+        v13 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v12];
+        [v13 setAudioRoutingResponse:0];
+        [v13 setAudioRoutingClientID:0];
       }
     }
 
     else
     {
-      sub_1001E5D90(dword_1002F6778);
+      sub_1001E5D90(dword_1002F6778, 0, v11);
     }
   }
 
   else
   {
-    sub_1001E5DE8();
+    sub_1001E5DE8(addressCopy, v10, v11);
   }
 }
 
@@ -4952,6 +5133,44 @@ LABEL_70:
   v11 = completionCopy;
   v12 = clientCopy;
   dispatch_async(dispatchQueue, v13);
+}
+
+- (void)_hijackBlockingModeChangedFromClient:(id)client mode:(BOOL)mode completion:(id)completion
+{
+  modeCopy = mode;
+  clientCopy = client;
+  completionCopy = completion;
+  if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  {
+    sub_1001E5E48(clientCopy);
+  }
+
+  appBundleID = [clientCopy appBundleID];
+
+  if (appBundleID)
+  {
+    sourceDevice = self->_sourceDevice;
+    appBundleID2 = [clientCopy appBundleID];
+    [(SRSourceDevice *)sourceDevice updateHijackBlockingClientWithBundleID:appBundleID2 mode:modeCopy];
+
+    completionCopy[2](completionCopy, 0);
+    [(BTSmartRoutingDaemon *)self _sendAudioCategoryToAllTipiDevices];
+  }
+
+  else
+  {
+    if (dword_1002F6778 <= 50)
+    {
+      if (dword_1002F6778 != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_1001E5EC8(v10, v11, v12);
+      }
+    }
+
+    v15 = [NSError alloc];
+    v16 = [v15 initWithDomain:off_1002F6770 code:1 userInfo:0];
+    (completionCopy)[2](completionCopy, v16);
+  }
 }
 
 - (void)smartRoutingAudioRoutingRequest:(id)request withResponseHandler:(id)handler
@@ -4975,41 +5194,41 @@ LABEL_70:
 {
   requestCopy = request;
   handlerCopy = handler;
-  v52 = objc_alloc_init(BTAudioRoutingResponse);
-  v84 = 0;
-  v85 = &v84;
-  v86 = 0x2020000000;
-  v87 = 0;
+  v46 = objc_alloc_init(BTAudioRoutingResponse);
   v78 = 0;
   v79 = &v78;
-  v80 = 0x3032000000;
-  v81 = sub_100003918;
-  v82 = sub_100003838;
+  v80 = 0x2020000000;
+  v81 = 0;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = sub_100003918;
+  v76 = sub_100003838;
   deviceAddress = [requestCopy deviceAddress];
-  v76[0] = 0;
-  v76[1] = v76;
-  v76[2] = 0x3032000000;
-  v76[3] = sub_100003918;
-  v76[4] = sub_100003838;
-  v77 = 0;
-  v74[0] = 0;
-  v74[1] = v74;
-  v74[2] = 0x3032000000;
-  v74[3] = sub_100003918;
-  v74[4] = sub_100003838;
-  v75 = 0;
-  v72[0] = 0;
-  v72[1] = v72;
-  v72[2] = 0x3032000000;
-  v72[3] = sub_100003918;
-  v72[4] = sub_100003838;
-  v73 = 0;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = sub_100003918;
-  v70 = sub_100003838;
-  v50 = requestCopy;
+  v70[0] = 0;
+  v70[1] = v70;
+  v70[2] = 0x3032000000;
+  v70[3] = sub_100003918;
+  v70[4] = sub_100003838;
+  v71 = 0;
+  v68[0] = 0;
+  v68[1] = v68;
+  v68[2] = 0x3032000000;
+  v68[3] = sub_100003918;
+  v68[4] = sub_100003838;
+  v69 = 0;
+  v66[0] = 0;
+  v66[1] = v66;
+  v66[2] = 0x3032000000;
+  v66[3] = sub_100003918;
+  v66[4] = sub_100003838;
+  v67 = 0;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = sub_100003918;
+  v64 = sub_100003838;
+  v44 = requestCopy;
   options = [requestCopy options];
   CFStringGetTypeID();
   TypedValue = CFDictionaryGetTypedValue();
@@ -5019,62 +5238,56 @@ LABEL_70:
     v8 = TypedValue;
   }
 
-  v71 = v8;
+  v65 = v8;
 
   if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
     deviceAddress2 = [requestCopy deviceAddress];
-    audioScore = [v50 audioScore];
-    [v50 flags];
+    audioScore = [v44 audioScore];
+    [v44 flags];
     v11 = CUPrintFlags32();
-    appBundleID = [v50 appBundleID];
-    clientID = [v50 clientID];
+    appBundleID = [v44 appBundleID];
+    clientID = [v44 clientID];
     v14 = @"NULL";
     if (appBundleID)
     {
       v14 = appBundleID;
     }
 
-    v46 = clientID;
-    v47 = v67[5];
-    v44 = v11;
-    v45 = v14;
-    v41 = deviceAddress2;
-    v43 = audioScore;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAudioRoutingRequest:withResponseHandler:]", 50, "Routing request Wx %@ score %d flag %@ app %@ CID 0x%X category %@", deviceAddress2, audioScore, v11, v14, clientID, v61[5]);
   }
 
-  if (([v50 flags] & 0x10) != 0)
+  if (([v44 flags] & 0x10) != 0)
   {
-    [v52 setAction:5];
-    [v52 setReason:@"Connecting"];
-    [v52 setClientID:{objc_msgSend(v50, "clientID")}];
+    [v46 setAction:5];
+    [v46 setReason:@"Connecting"];
+    [v46 setClientID:{objc_msgSend(v44, "clientID")}];
     smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-    v65[0] = _NSConcreteStackBlock;
-    v65[1] = 3221225472;
-    v65[2] = sub_10004A834;
-    v65[3] = &unk_1002B7DF0;
-    v65[4] = &v78;
-    [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v65];
-    v18 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v79[5]];
+    v59[0] = _NSConcreteStackBlock;
+    v59[1] = 3221225472;
+    v59[2] = sub_10004A834;
+    v59[3] = &unk_1002B7DF0;
+    v59[4] = &v72;
+    [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v59];
+    v18 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v73[5]];
     identifier = [v18 identifier];
 
-    [v52 setDeviceAddress:v79[5]];
+    [v46 setDeviceAddress:v73[5]];
     v20 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
     if ([v20 productID])
     {
       v21 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
-      v48 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"BTHeadphones76,%u", [v21 productID]);
+      v42 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"BTHeadphones76,%u", [v21 productID]);
     }
 
     else
     {
-      v48 = &stru_1002C1358;
+      v42 = &stru_1002C1358;
     }
 
-    v89[0] = v48;
-    v88[0] = @"RouteModel";
-    v88[1] = @"RouteName";
+    v83[0] = v42;
+    v82[0] = @"RouteModel";
+    v82[1] = @"RouteName";
     v27 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
     name = [v27 name];
     v29 = name;
@@ -5084,8 +5297,8 @@ LABEL_70:
       v30 = name;
     }
 
-    v89[1] = v30;
-    v88[2] = @"RouteUID";
+    v83[1] = v30;
+    v82[2] = @"RouteUID";
     v31 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
     address = [v31 address];
     v33 = address;
@@ -5099,135 +5312,114 @@ LABEL_70:
       v34 = &stru_1002C1358;
     }
 
-    v89[2] = v34;
-    v88[3] = @"BatteryLeft";
+    v83[2] = v34;
+    v82[3] = @"BatteryLeft";
     v35 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
     [v35 batteryLeft];
     v36 = [NSNumber numberWithDouble:?];
-    v89[3] = v36;
-    v88[4] = @"BatteryRight";
+    v83[3] = v36;
+    v82[4] = @"BatteryRight";
     v37 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
     [v37 batteryRight];
     v38 = [NSNumber numberWithDouble:?];
-    v89[4] = v38;
-    v39 = [NSDictionary dictionaryWithObjects:v89 forKeys:v88 count:5];
-    [v52 setWxInfo:v39];
+    v83[4] = v38;
+    v39 = [NSDictionary dictionaryWithObjects:v83 forKeys:v82 count:5];
+    [v46 setWxInfo:v39];
 
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      wxInfo = [v52 wxInfo];
-      LogPrintF();
+      wxInfo = [v46 wxInfo];
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAudioRoutingRequest:withResponseHandler:]", 30, "[Preemptive] nearby wx info %@", wxInfo);
     }
 
-    [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v52 withResponseHandler:handlerCopy wxAddress:v79[5], wxInfo];
-    *(v85 + 24) = 1;
+    [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v46 withResponseHandler:handlerCopy wxAddress:v73[5]];
+    *(v79 + 24) = 1;
   }
 
-  else
+  else if (v73[5] || (v15 = self->_smartRoutingWxDeviceMap, v58[0] = _NSConcreteStackBlock, v58[1] = 3221225472, v58[2] = sub_10004A86C, v58[3] = &unk_1002B80C8, v58[4] = self, v58[5] = &v72, v58[6] = v70, v58[7] = v68, v58[8] = v66, [(NSMutableDictionary *)v15 enumerateKeysAndObjectsUsingBlock:v58], v73[5]))
   {
-    if (v79[5])
+    if (_os_feature_enabled_impl())
     {
-      goto LABEL_46;
-    }
-
-    v15 = self->_smartRoutingWxDeviceMap;
-    v64[0] = _NSConcreteStackBlock;
-    v64[1] = 3221225472;
-    v64[2] = sub_10004A86C;
-    v64[3] = &unk_1002B80C8;
-    v64[4] = self;
-    v64[5] = &v78;
-    v64[6] = v76;
-    v64[7] = v74;
-    v64[8] = v72;
-    [(NSMutableDictionary *)v15 enumerateKeysAndObjectsUsingBlock:v64];
-    if (v79[5])
-    {
-LABEL_46:
-      if (_os_feature_enabled_impl())
-      {
-        v16 = ([v50 flags] >> 5) & 1;
-      }
-
-      else
-      {
-        LOBYTE(v16) = 0;
-      }
-
-      v22 = self->_smartRoutingWxDeviceMap;
-      v53[0] = _NSConcreteStackBlock;
-      v53[1] = 3221225472;
-      v53[2] = sub_10004A9B0;
-      v53[3] = &unk_1002B80F0;
-      v58 = &v78;
-      v23 = v50;
-      v54 = v23;
-      selfCopy = self;
-      v56 = v52;
-      v24 = handlerCopy;
-      v57 = v24;
-      v59 = &v84;
-      v60 = &v66;
-      v61 = v72;
-      v62 = v76;
-      v63 = v16;
-      [(NSMutableDictionary *)v22 enumerateKeysAndObjectsUsingBlock:v53];
-      if ((v85[3] & 1) == 0)
-      {
-        budSwapAddress = self->_budSwapAddress;
-        deviceAddress3 = [v23 deviceAddress];
-        LODWORD(budSwapAddress) = [(NSString *)budSwapAddress isEqualToString:deviceAddress3];
-
-        if (budSwapAddress)
-        {
-          if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
-          {
-            wxInfo = self->_budSwapAddress;
-            LogPrintF();
-          }
-
-          [v52 setAction:{3, wxInfo}];
-          [v52 setDeviceAddress:0];
-          v40 = @"Budswap reconnect will happen soon";
-        }
-
-        else
-        {
-          if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF();
-          }
-
-          [v52 setAction:2];
-          [v52 setDeviceAddress:0];
-          v40 = @"Not tipi device";
-        }
-
-        [v52 setReason:v40];
-        [v52 setClientID:{objc_msgSend(v23, "clientID")}];
-        [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v52 withResponseHandler:v24 wxAddress:v79[5]];
-      }
+      v16 = ([v44 flags] >> 5) & 1;
     }
 
     else
     {
-      [v52 setAction:3];
-      [v52 setDeviceAddress:0];
-      [v52 setReason:{@"Tipi device, do not route, not inEar and/or inEar is not disabled."}];
-      [v52 setClientID:{objc_msgSend(v50, "clientID")}];
-      [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v52 withResponseHandler:handlerCopy wxAddress:v79[5]];
+      LOBYTE(v16) = 0;
+    }
+
+    v22 = self->_smartRoutingWxDeviceMap;
+    v47[0] = _NSConcreteStackBlock;
+    v47[1] = 3221225472;
+    v47[2] = sub_10004A9B0;
+    v47[3] = &unk_1002B80F0;
+    v52 = &v72;
+    v23 = v44;
+    v48 = v23;
+    selfCopy = self;
+    v50 = v46;
+    v24 = handlerCopy;
+    v51 = v24;
+    v53 = &v78;
+    v54 = &v60;
+    v55 = v66;
+    v56 = v70;
+    v57 = v16;
+    [(NSMutableDictionary *)v22 enumerateKeysAndObjectsUsingBlock:v47];
+    if ((v79[3] & 1) == 0)
+    {
+      budSwapAddress = self->_budSwapAddress;
+      deviceAddress3 = [v23 deviceAddress];
+      LODWORD(budSwapAddress) = [(NSString *)budSwapAddress isEqualToString:deviceAddress3];
+
+      if (budSwapAddress)
+      {
+        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAudioRoutingRequest:withResponseHandler:]", 30, "Hijack: Budswap reconnect in progress. Respond DontRoute before Wx connected. Budswap Wx %@", self->_budSwapAddress);
+        }
+
+        [v46 setAction:3];
+        [v46 setDeviceAddress:0];
+        v41 = @"Budswap reconnect will happen soon";
+      }
+
+      else
+      {
+        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _smartRoutingAudioRoutingRequest:withResponseHandler:]", 30, "Hijack: respond MX to route if we don't find any SR Wx");
+        }
+
+        [v46 setAction:2];
+        [v46 setDeviceAddress:0];
+        v41 = @"Not tipi device";
+      }
+
+      [v46 setReason:v41];
+      [v46 setClientID:{objc_msgSend(v23, "clientID")}];
+      [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v46 withResponseHandler:v24 wxAddress:v73[5]];
     }
   }
 
-  _Block_object_dispose(&v66, 8);
+  else
+  {
+    [v46 setAction:3];
+    [v46 setDeviceAddress:0];
+    [v46 setReason:{@"Tipi device, do not route, not inEar and/or inEar is not disabled."}];
+    [v46 setClientID:{objc_msgSend(v44, "clientID")}];
+    [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v46 withResponseHandler:handlerCopy wxAddress:v73[5]];
+  }
 
-  _Block_object_dispose(v72, 8);
-  _Block_object_dispose(v74, 8);
+  _Block_object_dispose(&v60, 8);
 
-  _Block_object_dispose(v76, 8);
+  _Block_object_dispose(v66, 8);
+  _Block_object_dispose(v68, 8);
+
+  _Block_object_dispose(v70, 8);
+  _Block_object_dispose(&v72, 8);
+
   _Block_object_dispose(&v78, 8);
-
-  _Block_object_dispose(&v84, 8);
 }
 
 - (void)_submitNearbyDeviceMetric:(unsigned int)metric
@@ -5524,7 +5716,7 @@ LABEL_46:
       {
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001E62B8();
+          sub_1001E62B8(activityCopy);
         }
 
         v38 = &stru_1002C1358;
@@ -5651,8 +5843,14 @@ LABEL_32:
   }
 
   v5 = 0;
-  while (!CFArrayGetValueAtIndex(self->_mediaRemoteOutputDevices, v5))
+  while (1)
   {
+    ValueAtIndex = CFArrayGetValueAtIndex(self->_mediaRemoteOutputDevices, v5);
+    if (ValueAtIndex)
+    {
+      break;
+    }
+
 LABEL_6:
     if (++v5 >= [(__CFArray *)self->_mediaRemoteOutputDevices count])
     {
@@ -5660,8 +5858,9 @@ LABEL_6:
     }
   }
 
-  v6 = MRAVOutputDeviceCopyUniqueIdentifier();
-  if (![routeCopy containsString:v6])
+  v7 = ValueAtIndex;
+  v8 = MRAVOutputDeviceCopyUniqueIdentifier();
+  if (![routeCopy containsString:v8])
   {
 
     goto LABEL_6;
@@ -5669,13 +5868,12 @@ LABEL_6:
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E62F8();
+    sub_1001E62F8(v7);
   }
 
   self->_routeChangeInProgress = 1;
   MRAVOutputContextGetSharedAudioPresentationContext();
-  dispatchQueue = self->_dispatchQueue;
-  v8 = routeCopy;
+  v9 = routeCopy;
   MRAVOutputContextAddOutputDevice();
 
 LABEL_12:
@@ -5704,8 +5902,14 @@ LABEL_12:
   }
 
   v5 = 0;
-  while (!CFArrayGetValueAtIndex(self->_mediaRemoteOutputDevices, v5))
+  while (1)
   {
+    ValueAtIndex = CFArrayGetValueAtIndex(self->_mediaRemoteOutputDevices, v5);
+    if (ValueAtIndex)
+    {
+      break;
+    }
+
 LABEL_6:
     if (++v5 >= [(__CFArray *)self->_mediaRemoteOutputDevices count])
     {
@@ -5713,8 +5917,9 @@ LABEL_6:
     }
   }
 
-  v6 = MRAVOutputDeviceCopyUniqueIdentifier();
-  if (![routeCopy containsString:v6])
+  v7 = ValueAtIndex;
+  v8 = MRAVOutputDeviceCopyUniqueIdentifier();
+  if (![routeCopy containsString:v8])
   {
 
     goto LABEL_6;
@@ -5722,13 +5927,12 @@ LABEL_6:
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E6338();
+    sub_1001E6338(v7);
   }
 
   self->_routeChangeInProgress = 1;
   MRAVOutputContextGetSharedAudioPresentationContext();
-  dispatchQueue = self->_dispatchQueue;
-  v8 = routeCopy;
+  v9 = routeCopy;
   MRAVOutputContextSetOutputDevice();
 
 LABEL_12:
@@ -5741,7 +5945,7 @@ LABEL_12:
   {
     if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E6378();
+      sub_1001E6378(completed);
     }
   }
 
@@ -5749,7 +5953,7 @@ LABEL_12:
   {
     if (dword_1002F6778 <= 40 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E63B8();
+      sub_1001E63B8(dCopy);
     }
 
     if (self->_proactiveRoutingInProgress)
@@ -5831,24 +6035,28 @@ LABEL_12:
   p_activityLevelNotifyToken = &self->_activityLevelNotifyToken;
   if (self->_activityLevelNotifyToken == -1)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E6470();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E6470(self, a2, v2);
+      }
     }
 
-    dispatchQueue = self->_dispatchQueue;
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10004D684;
-    v6[3] = &unk_1002B6DF0;
-    v6[4] = self;
-    notify_register_dispatch("com.apple.sharing.activity-level-changed", p_activityLevelNotifyToken, dispatchQueue, v6);
-    activityLevelNotifyToken = self->_activityLevelNotifyToken;
+    dispatchQueue = selfCopy->_dispatchQueue;
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10004D684;
+    v7[3] = &unk_1002B6DF0;
+    v7[4] = selfCopy;
+    notify_register_dispatch("com.apple.sharing.activity-level-changed", p_activityLevelNotifyToken, dispatchQueue, v7);
+    activityLevelNotifyToken = selfCopy->_activityLevelNotifyToken;
     state64 = 0;
     notify_get_state(activityLevelNotifyToken, &state64);
-    self->_activityLevel = state64;
-    [(BTSmartRoutingDaemon *)self _nearbyInfoActivityChanged];
-    [(BTSmartRoutingDaemon *)self _nearbyInfoSetAudioRoutingScore];
+    selfCopy->_activityLevel = state64;
+    [(BTSmartRoutingDaemon *)selfCopy _nearbyInfoActivityChanged];
+    [(BTSmartRoutingDaemon *)selfCopy _nearbyInfoSetAudioRoutingScore];
   }
 }
 
@@ -5880,14 +6088,18 @@ LABEL_12:
 {
   if (self->_connectedDiscovery)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E66F4();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E66F4(self, a2, v2);
+      }
     }
 
-    [(CBDiscovery *)self->_connectedDiscovery invalidate];
-    connectedDiscovery = self->_connectedDiscovery;
-    self->_connectedDiscovery = 0;
+    [(CBDiscovery *)selfCopy->_connectedDiscovery invalidate];
+    connectedDiscovery = selfCopy->_connectedDiscovery;
+    selfCopy->_connectedDiscovery = 0;
   }
 }
 
@@ -5976,31 +6188,35 @@ LABEL_18:
 {
   if (!self->_dataRelayClientMonitorStarted)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E6848();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E6848(self, a2, v2);
+      }
     }
 
-    v3 = objc_alloc_init(DRClientManager);
-    dataRelayClientMonitor = self->_dataRelayClientMonitor;
-    self->_dataRelayClientMonitor = v3;
-    v5 = v3;
+    v4 = objc_alloc_init(DRClientManager);
+    dataRelayClientMonitor = selfCopy->_dataRelayClientMonitor;
+    selfCopy->_dataRelayClientMonitor = v4;
+    v6 = v4;
 
-    self->_dataRelayClientMonitorStarted = 1;
+    selfCopy->_dataRelayClientMonitorStarted = 1;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10004E19C;
+    v10[3] = &unk_1002B8240;
+    v10[4] = selfCopy;
+    v7 = objc_retainBlock(v10);
     v9[0] = _NSConcreteStackBlock;
     v9[1] = 3221225472;
-    v9[2] = sub_10004E19C;
+    v9[2] = sub_10004E52C;
     v9[3] = &unk_1002B8240;
-    v9[4] = self;
-    v6 = objc_retainBlock(v9);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10004E52C;
-    v8[3] = &unk_1002B8240;
-    v8[4] = self;
-    v7 = objc_retainBlock(v8);
-    [(DRClientManager *)self->_dataRelayClientMonitor setServerFoundHandler:v6];
-    [(DRClientManager *)self->_dataRelayClientMonitor setServerLostHandler:v7];
+    v9[4] = selfCopy;
+    v8 = objc_retainBlock(v9);
+    [(DRClientManager *)selfCopy->_dataRelayClientMonitor setServerFoundHandler:v7];
+    [(DRClientManager *)selfCopy->_dataRelayClientMonitor setServerLostHandler:v8];
   }
 }
 
@@ -6036,22 +6252,26 @@ LABEL_18:
 {
   if (!self->_discoverySession)
   {
-    block[7] = v2;
-    block[8] = v3;
+    block[7] = v3;
+    block[8] = v4;
+    selfCopy = self;
     if (!self->_discoverySessionInitializing)
     {
-      if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6778 <= 30)
       {
-        sub_1001E6AF8();
+        if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          sub_1001E6AF8(self, a2, v2);
+        }
       }
 
-      self->_discoverySessionInitializing = 1;
-      dispatchQueueAVSys = self->_dispatchQueueAVSys;
+      selfCopy->_discoverySessionInitializing = 1;
+      dispatchQueueAVSys = selfCopy->_dispatchQueueAVSys;
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10004EC40;
       block[3] = &unk_1002B6880;
-      block[4] = self;
+      block[4] = selfCopy;
       dispatch_async(dispatchQueueAVSys, block);
     }
   }
@@ -6059,72 +6279,80 @@ LABEL_18:
 
 - (void)_mediaRouteDiscoveryStopped
 {
+  selfCopy = self;
   discoverySessionToken = self->_discoverySessionToken;
   self->_discoverySessionToken = 0;
   discoverySession = self->_discoverySession;
   self->_discoverySession = 0;
   if (discoverySession)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E6B14();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E6B14(self, a2, v2);
+      }
     }
 
-    dispatchQueueAVSys = self->_dispatchQueueAVSys;
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10004EF14;
-    v7[3] = &unk_1002B8340;
-    v7[4] = discoverySession;
-    v7[5] = discoverySessionToken;
-    dispatch_async(dispatchQueueAVSys, v7);
+    dispatchQueueAVSys = selfCopy->_dispatchQueueAVSys;
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10004EF14;
+    v8[3] = &unk_1002B8340;
+    v8[4] = discoverySession;
+    v8[5] = discoverySessionToken;
+    dispatch_async(dispatchQueueAVSys, v8);
   }
 
-  mediaRemoteOutputDevices = self->_mediaRemoteOutputDevices;
+  mediaRemoteOutputDevices = selfCopy->_mediaRemoteOutputDevices;
   if (mediaRemoteOutputDevices)
   {
     CFRelease(mediaRemoteOutputDevices);
   }
 
-  self->_mediaRemoteOutputDevices = 0;
+  selfCopy->_mediaRemoteOutputDevices = 0;
 }
 
 - (void)_mediaRouteMonitorEnsureStarted
 {
   if (!self->_mediaRouteMonitorObservingActiveAudioRoute)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E6B30();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E6B30(self, a2, v2);
+      }
     }
 
-    if (self->_prefSmartRoutingEnabledPhase3)
+    if (selfCopy->_prefSmartRoutingEnabledPhase3)
     {
-      self->_mediaRouteMonitorObservingActiveAudioRoute = 1;
-      v3 = +[AVSystemController sharedAVSystemController];
-      v4 = +[NSNotificationCenter defaultCenter];
-      v5 = [NSArray arrayWithObjects:AVSystemController_SomeSessionIsPlayingDidChangeNotification, AVSystemController_NowPlayingAppIsPlayingDidChangeNotification, AVSystemController_CallIsActiveDidChangeNotification, AVSystemController_HighestArbitrationPriorityForTipiDidChangeNotification, 0];
-      [v3 setAttribute:v5 forKey:AVSystemController_SubscribeToNotificationsAttribute error:0];
-      [v4 removeObserver:self name:AVSystemController_SomeSessionIsPlayingDidChangeNotification object:v3];
-      [v4 removeObserver:self name:AVSystemController_ServerConnectionDiedNotification object:v3];
-      [v4 removeObserver:self name:AVSystemController_NowPlayingAppIsPlayingDidChangeNotification object:v3];
-      [v4 removeObserver:self name:AVSystemController_CallIsActiveDidChangeNotification object:v3];
-      [v4 removeObserver:self name:AVSystemController_HighestArbitrationPriorityForTipiDidChangeNotification object:v3];
-      [v4 removeObserver:self name:@"CdSignalAudioInterruptedChanged" object:0];
-      [v4 addObserver:self selector:"_mediaRouteMonitorActivityLevelUpdate:" name:AVSystemController_SomeSessionIsPlayingDidChangeNotification object:v3];
-      [v4 addObserver:self selector:"_handleMediaServerConnectionDied:" name:AVSystemController_ServerConnectionDiedNotification object:v3];
-      [v4 addObserver:self selector:"_handleMediaPlayStateChange:" name:AVSystemController_NowPlayingAppIsPlayingDidChangeNotification object:v3];
-      [v4 addObserver:self selector:"_handleCallStateChange:" name:AVSystemController_CallIsActiveDidChangeNotification object:v3];
-      [v4 addObserver:self selector:"_handleHighestAudioCategoryChange:" name:AVSystemController_HighestArbitrationPriorityForTipiDidChangeNotification object:v3];
-      [v4 addObserver:self selector:"_handleMediaPauseStateChanged" name:@"CdSignalAudioInterruptedChanged" object:0];
-      _queryLocalAudioCategory = [(BTSmartRoutingDaemon *)self _queryLocalAudioCategory];
-      [(BTSmartRoutingDaemon *)self _updateLocalAudioCategory:_queryLocalAudioCategory];
-      dispatchQueueAVSys = self->_dispatchQueueAVSys;
+      selfCopy->_mediaRouteMonitorObservingActiveAudioRoute = 1;
+      v4 = +[AVSystemController sharedAVSystemController];
+      v5 = +[NSNotificationCenter defaultCenter];
+      v6 = [NSArray arrayWithObjects:AVSystemController_SomeSessionIsPlayingDidChangeNotification, AVSystemController_NowPlayingAppIsPlayingDidChangeNotification, AVSystemController_CallIsActiveDidChangeNotification, AVSystemController_HighestArbitrationPriorityForTipiDidChangeNotification, 0];
+      [v4 setAttribute:v6 forKey:AVSystemController_SubscribeToNotificationsAttribute error:0];
+      [v5 removeObserver:selfCopy name:AVSystemController_SomeSessionIsPlayingDidChangeNotification object:v4];
+      [v5 removeObserver:selfCopy name:AVSystemController_ServerConnectionDiedNotification object:v4];
+      [v5 removeObserver:selfCopy name:AVSystemController_NowPlayingAppIsPlayingDidChangeNotification object:v4];
+      [v5 removeObserver:selfCopy name:AVSystemController_CallIsActiveDidChangeNotification object:v4];
+      [v5 removeObserver:selfCopy name:AVSystemController_HighestArbitrationPriorityForTipiDidChangeNotification object:v4];
+      [v5 removeObserver:selfCopy name:@"CdSignalAudioInterruptedChanged" object:0];
+      [v5 addObserver:selfCopy selector:"_mediaRouteMonitorActivityLevelUpdate:" name:AVSystemController_SomeSessionIsPlayingDidChangeNotification object:v4];
+      [v5 addObserver:selfCopy selector:"_handleMediaServerConnectionDied:" name:AVSystemController_ServerConnectionDiedNotification object:v4];
+      [v5 addObserver:selfCopy selector:"_handleMediaPlayStateChange:" name:AVSystemController_NowPlayingAppIsPlayingDidChangeNotification object:v4];
+      [v5 addObserver:selfCopy selector:"_handleCallStateChange:" name:AVSystemController_CallIsActiveDidChangeNotification object:v4];
+      [v5 addObserver:selfCopy selector:"_handleHighestAudioCategoryChange:" name:AVSystemController_HighestArbitrationPriorityForTipiDidChangeNotification object:v4];
+      [v5 addObserver:selfCopy selector:"_handleMediaPauseStateChanged" name:@"CdSignalAudioInterruptedChanged" object:0];
+      _queryLocalAudioCategory = [(BTSmartRoutingDaemon *)selfCopy _queryLocalAudioCategory];
+      [(BTSmartRoutingDaemon *)selfCopy _updateLocalAudioCategory:_queryLocalAudioCategory];
+      dispatchQueueAVSys = selfCopy->_dispatchQueueAVSys;
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10004F250;
       block[3] = &unk_1002B6880;
-      block[4] = self;
+      block[4] = selfCopy;
       dispatch_async(dispatchQueueAVSys, block);
     }
   }
@@ -6143,38 +6371,42 @@ LABEL_18:
 
 - (void)_mediaRouteMonitorSpeakRoute
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E6ED0();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E6ED0(self, a2, v2);
+    }
   }
 
-  v3 = [NSBundle bundleWithPath:@"/System/Library/UserNotifications/Bundles/com.apple.BTUserNotifications.bundle"];
-  if (!v3)
+  v4 = [NSBundle bundleWithPath:@"/System/Library/UserNotifications/Bundles/com.apple.BTUserNotifications.bundle"];
+  if (!v4)
   {
-    v5 = GestaltCopyAnswer();
+    v6 = GestaltCopyAnswer();
     goto LABEL_8;
   }
 
-  v4 = CULocalizedStringEx();
-  v5 = GestaltCopyAnswer();
-  if (!v4)
+  v5 = CULocalizedStringEx();
+  v6 = GestaltCopyAnswer();
+  if (!v5)
   {
 LABEL_8:
-    v6 = @"?";
+    v7 = @"?";
     goto LABEL_9;
   }
 
-  v6 = [NSString stringWithFormat:v4, v5];
+  v7 = [NSString stringWithFormat:v5, v6];
 
 LABEL_9:
-  v7 = objc_alloc_init(CUVoiceSession);
-  [v7 setDispatchQueue:self->_dispatchQueue];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100050408;
-  v8[3] = &unk_1002B6A38;
-  v8[4] = v7;
-  [v7 speakText:v6 flags:0 completion:v8];
+  v8 = objc_alloc_init(CUVoiceSession);
+  [v8 setDispatchQueue:selfCopy->_dispatchQueue];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100050408;
+  v9[3] = &unk_1002B6A38;
+  v9[4] = v8;
+  [v8 speakText:v7 flags:0 completion:v9];
 }
 
 - (void)_mediaRouteMonitorActivityLevelUpdate:(id)update
@@ -6195,14 +6427,18 @@ LABEL_9:
   reasonCopy = reason;
   v9 = objc_alloc_init(BTAudioRoutingResponse);
   v10 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:forCopy];
+  v13 = v10;
   if (hijackCopy)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E6FA0();
+      if (dword_1002F6778 != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_1001E6FA0(v10, v11, v12);
+      }
     }
 
-    v11 = 1;
+    v14 = 1;
     [v9 setAction:1];
     [v9 setDeviceAddress:forCopy];
     [v9 setReason:@"Tipi device hijack was successful"];
@@ -6211,110 +6447,430 @@ LABEL_9:
 
   else
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E6F84();
+      if (dword_1002F6778 != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_1001E6F84(v10, v11, v12);
+      }
     }
 
-    v12 = 3;
+    v15 = 3;
     [v9 setAction:3];
     [v9 setDeviceAddress:0];
     [v9 setReason:reasonCopy];
     reason = [v9 reason];
-    v14 = [reason isEqualToString:@"Backoff"];
+    v17 = [reason isEqualToString:@"Backoff"];
 
-    if (v14)
+    if (v17)
     {
-      v12 = 4;
+      v15 = 4;
       [v9 setAction:4];
     }
 
     reason2 = [v9 reason];
-    v16 = [reason2 isEqualToString:@"Ambiguity"];
+    v19 = [reason2 isEqualToString:@"Ambiguity"];
 
-    if (v16)
+    if (v19)
     {
-      v11 = 2;
+      v14 = 2;
     }
 
     else
     {
-      v11 = v12;
+      v14 = v15;
     }
   }
 
-  [v9 setClientID:{objc_msgSend(v10, "audioRoutingClientID")}];
-  audioRoutingResponse = [v10 audioRoutingResponse];
+  [v9 setClientID:{objc_msgSend(v13, "audioRoutingClientID")}];
+  audioRoutingResponse = [v13 audioRoutingResponse];
 
   if (audioRoutingResponse)
   {
-    audioRoutingResponse2 = [v10 audioRoutingResponse];
+    audioRoutingResponse2 = [v13 audioRoutingResponse];
     [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v9 withResponseHandler:audioRoutingResponse2 wxAddress:forCopy];
   }
 
   if (hijackCopy)
   {
-    otherTipiDeviceBTAddress = [v10 otherTipiDeviceBTAddress];
+    otherTipiDeviceBTAddress = [v13 otherTipiDeviceBTAddress];
 
     if (otherTipiDeviceBTAddress)
     {
-      v20 = objc_alloc_init(NSMutableDictionary);
-      [v20 setObject:&__kCFBooleanTrue forKey:@"audioRoutingSetOwnershipToFalse"];
-      [v20 setObject:@"Hijackv2" forKey:@"reason"];
-      v21 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v10 otherTipiAudioCategory]);
-      [v20 setObject:v21 forKey:@"localscore"];
+      v23 = objc_alloc_init(NSMutableDictionary);
+      [v23 setObject:&__kCFBooleanTrue forKey:@"audioRoutingSetOwnershipToFalse"];
+      [v23 setObject:@"Hijackv2" forKey:@"reason"];
+      v24 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v13 otherTipiAudioCategory]);
+      [v23 setObject:v24 forKey:@"localscore"];
 
-      v22 = [NSNumber numberWithInt:[(SRStats *)self->_stats hijackScore]];
-      [v20 setObject:v22 forKey:@"audioRoutingScore"];
+      v25 = [NSNumber numberWithInt:[(SRStats *)self->_stats hijackScore]];
+      [v23 setObject:v25 forKey:@"audioRoutingScore"];
 
-      v23 = [NSNumber numberWithInt:[(SRStats *)self->_stats hijackScore]];
-      [v20 setObject:v23 forKey:@"remotescore"];
+      v26 = [NSNumber numberWithInt:[(SRStats *)self->_stats hijackScore]];
+      [v23 setObject:v26 forKey:@"remotescore"];
 
-      if ([v10 otherTipiAudioCategory] >= 0xC9)
+      if ([v13 otherTipiAudioCategory] >= 0xC9)
       {
-        [v20 setObject:&__kCFBooleanTrue forKey:@"SmartRoutingKeyShowNearbyUI"];
+        [v23 setObject:&__kCFBooleanTrue forKey:@"SmartRoutingKeyShowNearbyUI"];
       }
 
-      otherTipiDeviceBTAddress2 = [v10 otherTipiDeviceBTAddress];
-      [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v20 andWxAddress:forCopy andOtherAddress:otherTipiDeviceBTAddress2];
+      otherTipiDeviceBTAddress2 = [v13 otherTipiDeviceBTAddress];
+      [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v23 andWxAddress:forCopy andOtherAddress:otherTipiDeviceBTAddress2];
     }
 
     mach_absolute_time();
-    showBannerConnectedLastTicks = self->_showBannerConnectedLastTicks;
-    v26 = UpTicksToSeconds();
+    v28 = UpTicksToSeconds();
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E6FBC(v10);
+      sub_1001E6FBC(v13, v28);
     }
 
-    if (([v10 routed] & 1) != 0 || self->_showBannerConnectedLastTicks && self->_secondsBetweenConnectBanner > v26)
+    if (([v13 routed] & 1) != 0 || self->_showBannerConnectedLastTicks && self->_secondsBetweenConnectBanner > v28)
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001E7020();
+        sub_1001E7020(v13, v28);
       }
     }
 
     else
     {
-      deviceName = [v10 deviceName];
-      deviceAddress = [v10 deviceAddress];
-      v29 = deviceAddress;
+      deviceName = [v13 deviceName];
+      deviceAddress = [v13 deviceAddress];
+      v31 = deviceAddress;
       if (deviceAddress)
       {
-        v30 = deviceAddress;
+        v32 = deviceAddress;
       }
 
       else
       {
-        v30 = @"?";
+        v32 = @"?";
       }
 
-      -[BTSmartRoutingDaemon _smartRoutingShowBanner:withDevice:andDeviceAddress:andProductID:andCentralContentItemTxt:andTimeout:andDeviceType:](self, "_smartRoutingShowBanner:withDevice:andDeviceAddress:andProductID:andCentralContentItemTxt:andTimeout:andDeviceType:", 1, deviceName, v30, [v10 productID], @"Connected", 0, 4.0);
+      -[BTSmartRoutingDaemon _smartRoutingShowBanner:withDevice:andDeviceAddress:andProductID:andCentralContentItemTxt:andTimeout:andDeviceType:](self, "_smartRoutingShowBanner:withDevice:andDeviceAddress:andProductID:andCentralContentItemTxt:andTimeout:andDeviceType:", 1, deviceName, v32, [v13 productID], @"Connected", 0, 4.0);
     }
   }
 
-  [(BTSmartRoutingDaemon *)self _startHijackMetricSubmission:v11 wxAddress:forCopy version:@"V2"];
+  [(BTSmartRoutingDaemon *)self _startHijackMetricSubmission:v14 wxAddress:forCopy version:@"V2"];
+}
+
+- (void)_mediaRouteHijackResponse:(int)response wxAddress:(id)address andAudioResponseID:(id)d andAllowedToHijack:(BOOL)hijack withReason:(id)reason
+{
+  hijackCopy = hijack;
+  v10 = *&response;
+  addressCopy = address;
+  dCopy = d;
+  reasonCopy = reason;
+  v14 = objc_alloc_init(NSMutableDictionary);
+  [v14 setObject:dCopy forKey:@"audioRoutingRequestID"];
+  [v14 setObject:self->_localDeviceAudioCategory forKey:@"remotescore"];
+  if (hijackCopy)
+  {
+    if (self->_audioScoreOtherTipiDevice != v10)
+    {
+      self->_audioScoreOtherTipiDevice = v10;
+    }
+
+    if (dword_1002F6778 <= 30)
+    {
+      audioScoreOtherTipiDevice = v10;
+      if (dword_1002F6778 != -1)
+      {
+LABEL_6:
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackResponse:wxAddress:andAudioResponseID:andAllowedToHijack:withReason:]", 30, "Allowed hijacking for address %@, now set ownership to false with score %u", addressCopy, audioScoreOtherTipiDevice);
+        goto LABEL_11;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        audioScoreOtherTipiDevice = self->_audioScoreOtherTipiDevice;
+        goto LABEL_6;
+      }
+    }
+
+LABEL_11:
+    self->_autoRoutingTicks = mach_absolute_time();
+    v16 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+    deviceVersion = [v16 deviceVersion];
+
+    v18 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+    otherTipiDeviceVersion = [v18 otherTipiDeviceVersion];
+    [otherTipiDeviceVersion doubleValue];
+    v47 = deviceVersion;
+    v21 = v20 < 1.2 || [@"3E725" compare:deviceVersion options:64] == 1;
+    p_smartRoutingWxDeviceMap = &self->_smartRoutingWxDeviceMap;
+
+    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001E7098(v21, &self->_smartRoutingWxDeviceMap, addressCopy, v47);
+      if (!v21)
+      {
+LABEL_19:
+        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        {
+          sub_1001E713C(addressCopy);
+        }
+
+        v23 = [NSNumber numberWithInt:1];
+        [v14 setObject:v23 forKey:@"audioRoutingHijackAnswer"];
+
+        if (self->_score > 3 || [(CUSystemMonitor *)self->_callMonitor activeCallCount]>= 1)
+        {
+          v24 = [(NSMutableDictionary *)*p_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+          routed = [v24 routed];
+
+          if (routed)
+          {
+            v26 = [(NSMutableDictionary *)*p_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+            otherTipiDeviceIsWatch = [v26 otherTipiDeviceIsWatch];
+
+            if ((otherTipiDeviceIsWatch & 1) == 0)
+            {
+              trailingAccessoryText = [(BTBannerUISession *)self->_uiSmartRoutingBanner trailingAccessoryText];
+              v29 = [trailingAccessoryText containsString:@"Reverse"];
+
+              if ((v29 & 1) == 0)
+              {
+                v46 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+                deviceName = [v46 deviceName];
+                v45 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+                deviceAddress = [v45 deviceAddress];
+                v44 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+                productID = [v44 productID];
+                v30 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+                otherTipiDeviceBTName = [v30 otherTipiDeviceBTName];
+                v32 = [NSString stringWithFormat:@"%@", otherTipiDeviceBTName];
+                [(BTSmartRoutingDaemon *)self _smartRoutingShowBanner:5 withDevice:deviceName andDeviceAddress:deviceAddress andProductID:productID andCentralContentItemTxt:v32 andTimeout:0 andDeviceType:20.0];
+              }
+            }
+          }
+        }
+
+        [(BTSmartRoutingDaemon *)self _setManualRouteFlag:addressCopy withManualRoute:0];
+        v33 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+        routed2 = [v33 routed];
+
+        if (routed2)
+        {
+          [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v14 andWxAddress:addressCopy andOtherAddress:0];
+          [(SRStats *)self->_stats setHijackAwayRemoteScore:v10];
+          [(SRStats *)self->_stats setHijackAwayLocalScore:[(NSNumber *)self->_localDeviceAudioCategory intValue]];
+          falseRouteCheckReason = [(SRStats *)self->_stats falseRouteCheckReason];
+
+          if (!falseRouteCheckReason)
+          {
+            [(SRStats *)self->_stats setFalseRouteCheckReason:@"Hijacked_Away"];
+          }
+
+          [(BTSmartRoutingDaemon *)self submitRouteActivityMetric:addressCopy activity:@"Hijack_Away"];
+          [(BTSmartRoutingDaemon *)self _startRouteCheckTimer:addressCopy andType:8];
+          v36 = v47;
+        }
+
+        else
+        {
+          v37 = [(NSMutableDictionary *)*p_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+          routed3 = [v37 routed];
+
+          v36 = v47;
+          if ((routed3 & 1) == 0)
+          {
+            [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v14 andWxAddress:addressCopy andOtherAddress:0];
+          }
+        }
+
+        goto LABEL_40;
+      }
+    }
+
+    else if (!v21)
+    {
+      goto LABEL_19;
+    }
+
+    [(BTSmartRoutingDaemon *)self _setOwnership:addressCopy withHijackRequest:dCopy withOwnership:0];
+    goto LABEL_19;
+  }
+
+  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackResponse:wxAddress:andAudioResponseID:andAllowedToHijack:withReason:]", 30, "Hijacking is not allowed with address %@ with reason %@", addressCopy, reasonCopy);
+  }
+
+  if ([reasonCopy isEqual:@"LowerPriority"])
+  {
+    v39 = [NSNumber numberWithInt:3];
+    [v14 setObject:v39 forKey:@"audioRoutingHijackAnswer"];
+
+    [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v14 andWxAddress:addressCopy andOtherAddress:0];
+  }
+
+  if ([reasonCopy isEqual:@"AmbiguousPriority"])
+  {
+    v40 = [NSNumber numberWithInt:2];
+    [v14 setObject:v40 forKey:@"audioRoutingHijackAnswer"];
+
+    [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v14 andWxAddress:addressCopy andOtherAddress:0];
+  }
+
+LABEL_40:
+}
+
+- (void)_mediaRouteHijackWithAudioScore:(int)score wxAddress:(id)address andAudioResponseID:(id)d
+{
+  v6 = *&score;
+  addressCopy = address;
+  dCopy = d;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = sub_100003918;
+  v35[4] = sub_100003838;
+  v36 = 0;
+  if (!dCopy)
+  {
+    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:]", 90, "No valid audioResponseID found");
+    }
+
+    v12 = objc_alloc_init(NSMutableDictionary);
+    [v12 setObject:0 forKey:@"audioRoutingRequestID"];
+    v13 = [NSNumber numberWithInt:3];
+    [v12 setObject:v13 forKey:@"audioRoutingHijackAnswer"];
+
+    [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v12 andWxAddress:addressCopy andOtherAddress:0];
+    goto LABEL_28;
+  }
+
+  if (!addressCopy)
+  {
+    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:]", 90, "No valid Wx address passed for hijacking request");
+    }
+
+    v12 = objc_alloc_init(NSMutableDictionary);
+    [v12 setObject:dCopy forKey:@"audioRoutingRequestID"];
+    v19 = [NSNumber numberWithInt:3];
+    [v12 setObject:v19 forKey:@"audioRoutingHijackAnswer"];
+
+    [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v12 andWxAddress:0 andOtherAddress:0];
+LABEL_28:
+
+    goto LABEL_47;
+  }
+
+  v10 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+  otherTipiDeviceBTAddress = [v10 otherTipiDeviceBTAddress];
+
+  if (otherTipiDeviceBTAddress)
+  {
+    if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:]", 50, "Received request to hijack audio for Wx %@ audioID %@ and audioScore %u", addressCopy, dCopy, v6);
+    }
+
+    v33[0] = 0;
+    v33[1] = v33;
+    v33[2] = 0x2020000000;
+    v34 = 0;
+    if (!self->_prefSmartRoutingBlockHijackWindowinSeconds)
+    {
+      goto LABEL_45;
+    }
+
+    v14 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+    if ([v14 hijackBackoffTicks])
+    {
+      hijackBackOffInitiator = self->_hijackBackOffInitiator;
+
+      if (!hijackBackOffInitiator)
+      {
+LABEL_45:
+        dispatchQueueAVSys = self->_dispatchQueueAVSys;
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_100051828;
+        block[3] = &unk_1002B8400;
+        v30 = v33;
+        v32 = v6;
+        v31 = v35;
+        v27 = addressCopy;
+        selfCopy = self;
+        v29 = dCopy;
+        dispatch_async(dispatchQueueAVSys, block);
+
+        v14 = v27;
+LABEL_46:
+
+        _Block_object_dispose(v33, 8);
+        goto LABEL_47;
+      }
+
+      v16 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+      v17 = -[BTSmartRoutingDaemon _checkTickswithinWindow:withWindow:](self, "_checkTickswithinWindow:withWindow:", [v16 hijackBackoffTicks], self->_prefSmartRoutingBlockHijackWindowinSeconds);
+
+      v14 = objc_alloc_init(NSMutableDictionary);
+      if (v17 >= 1)
+      {
+        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        {
+          v18 = UpTicksToSeconds();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:]", 30, "###Hijackblocking: Hijack request from remote, device %@ hijack block with %ll{dur} remaining with ticks %lld", addressCopy, v18, v17);
+        }
+
+        v22 = [NSNumber numberWithUnsignedLongLong:v17];
+        [v14 setObject:v22 forKey:@"hijackBackoffTicks"];
+        [v14 setObject:dCopy forKey:@"audioRoutingRequestID"];
+        v23 = [NSNumber numberWithInt:4];
+        [v14 setObject:v23 forKey:@"audioRoutingHijackAnswer"];
+
+        [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v14 andWxAddress:addressCopy andOtherAddress:0];
+        goto LABEL_46;
+      }
+
+      if (v17 + SecondsToUpTicks())
+      {
+        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        {
+          SecondsToUpTicks();
+          v20 = UpTicksToSeconds();
+          v21 = SecondsToUpTicks();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:]", 30, "###Hijackblocking: Tick has exhausted but timer has not fired yet. Tick expires less than 1s, remaining %ll{dur}, ticks %lld", v20, v21 + v17);
+        }
+
+        [v14 setObject:dCopy forKey:@"audioRoutingRequestID"];
+        v24 = [NSNumber numberWithInt:4];
+        [v14 setObject:v24 forKey:@"audioRoutingHijackAnswer"];
+
+        [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v14 andWxAddress:addressCopy andOtherAddress:0];
+        goto LABEL_46;
+      }
+
+      [(BTSmartRoutingDaemon *)self _hijackBackoffReset:addressCopy withReason:@"tickerExhausted"];
+      if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:]", 90, "###Hijackblocking: Tick has exhausted but timer has not fired yet. Tick expires more than 1s. Cancel hijackblocking");
+      }
+    }
+
+    goto LABEL_45;
+  }
+
+  if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:]", 90, "Wrong state please file radar under 'Smart Routing|All'. We are not in Tipi with Wx address %@", addressCopy);
+  }
+
+  if (!self->_tipiElectionInProgress)
+  {
+    [(BTSmartRoutingDaemon *)self _tipiHealingAttempt];
+  }
+
+LABEL_47:
+  _Block_object_dispose(v35, 8);
 }
 
 - (void)_updateRoutingActionForManuallyRoute
@@ -6332,76 +6888,79 @@ LABEL_9:
 {
   if (!self->_nearbyInfoDiscovery)
   {
-    v17[6] = v5;
-    v17[7] = v4;
-    v17[14] = v2;
-    v17[15] = v3;
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v17[6] = v6;
+    v17[7] = v5;
+    v17[14] = v3;
+    v17[15] = v4;
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E71FC();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E71FC(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(SFDeviceDiscovery);
-    nearbyInfoDiscovery = self->_nearbyInfoDiscovery;
-    self->_nearbyInfoDiscovery = v7;
+    v8 = objc_alloc_init(SFDeviceDiscovery);
+    nearbyInfoDiscovery = selfCopy->_nearbyInfoDiscovery;
+    selfCopy->_nearbyInfoDiscovery = v8;
 
-    [(SFDeviceDiscovery *)v7 setChangeFlags:9];
-    [(SFDeviceDiscovery *)v7 setDiscoveryFlags:33];
-    [(SFDeviceDiscovery *)v7 setDispatchQueue:self->_dispatchQueue];
-    [(SFDeviceDiscovery *)v7 setPurpose:@"SmartRouting"];
-    [(SFDeviceDiscovery *)v7 setScanRate:20];
-    [(SFDeviceDiscovery *)v7 setRssiThreshold:-75];
-    if (self->_prefSmartRoutingEnabledPhase3 && GestaltGetDeviceClass() != 6)
+    [(SFDeviceDiscovery *)v8 setChangeFlags:9];
+    [(SFDeviceDiscovery *)v8 setDiscoveryFlags:33];
+    [(SFDeviceDiscovery *)v8 setDispatchQueue:selfCopy->_dispatchQueue];
+    [(SFDeviceDiscovery *)v8 setPurpose:@"SmartRouting"];
+    [(SFDeviceDiscovery *)v8 setScanRate:20];
+    [(SFDeviceDiscovery *)v8 setRssiThreshold:-75];
+    if (selfCopy->_prefSmartRoutingEnabledPhase3 && GestaltGetDeviceClass() != 6)
     {
-      [(SFDeviceDiscovery *)v7 setOverrideScreenOff:1];
+      [(SFDeviceDiscovery *)v8 setOverrideScreenOff:1];
     }
 
-    [(BTSmartRoutingDaemon *)self _powerLogSmartRoutingScanStarted:16];
+    [(BTSmartRoutingDaemon *)selfCopy _powerLogSmartRoutingScanStarted:16];
     v17[0] = _NSConcreteStackBlock;
     v17[1] = 3221225472;
     v17[2] = sub_100051E98;
     v17[3] = &unk_1002B8428;
-    v17[4] = self;
-    v17[5] = v7;
-    [(SFDeviceDiscovery *)v7 setDeviceFoundHandler:v17];
+    v17[4] = selfCopy;
+    v17[5] = v8;
+    [(SFDeviceDiscovery *)v8 setDeviceFoundHandler:v17];
     v16[0] = _NSConcreteStackBlock;
     v16[1] = 3221225472;
     v16[2] = sub_100051EBC;
     v16[3] = &unk_1002B8428;
-    v16[4] = self;
-    v16[5] = v7;
-    [(SFDeviceDiscovery *)v7 setDeviceLostHandler:v16];
+    v16[4] = selfCopy;
+    v16[5] = v8;
+    [(SFDeviceDiscovery *)v8 setDeviceLostHandler:v16];
     v15[0] = _NSConcreteStackBlock;
     v15[1] = 3221225472;
     v15[2] = sub_100051EE0;
     v15[3] = &unk_1002B8450;
-    v15[4] = self;
-    v15[5] = v7;
-    [(SFDeviceDiscovery *)v7 setDeviceChangedHandler:v15];
+    v15[4] = selfCopy;
+    v15[5] = v8;
+    [(SFDeviceDiscovery *)v8 setDeviceChangedHandler:v15];
     v14[0] = _NSConcreteStackBlock;
     v14[1] = 3221225472;
     v14[2] = sub_100051F04;
     v14[3] = &unk_1002B68A8;
-    v14[4] = self;
-    v14[5] = v7;
-    [(SFDeviceDiscovery *)v7 activateWithCompletion:v14];
-    self->_prefSmartRoutingForcedDisconnectionTicks = mach_absolute_time();
-    v9 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-    prefSmartRoutingForcedDisconnectionStartTimer = self->_prefSmartRoutingForcedDisconnectionStartTimer;
-    self->_prefSmartRoutingForcedDisconnectionStartTimer = v9;
-    v11 = v9;
+    v14[4] = selfCopy;
+    v14[5] = v8;
+    [(SFDeviceDiscovery *)v8 activateWithCompletion:v14];
+    selfCopy->_prefSmartRoutingForcedDisconnectionTicks = mach_absolute_time();
+    v10 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, selfCopy->_dispatchQueue);
+    prefSmartRoutingForcedDisconnectionStartTimer = selfCopy->_prefSmartRoutingForcedDisconnectionStartTimer;
+    selfCopy->_prefSmartRoutingForcedDisconnectionStartTimer = v10;
+    v12 = v10;
 
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
     v13[2] = sub_100051FAC;
     v13[3] = &unk_1002B6D18;
-    v13[4] = v11;
-    v13[5] = self;
-    dispatch_source_set_event_handler(v11, v13);
-    v12 = self->_prefSmartRoutingForcedDisconnectionStartSeconds + 1.0;
+    v13[4] = v12;
+    v13[5] = selfCopy;
+    dispatch_source_set_event_handler(v12, v13);
     CUDispatchTimerSet();
-    dispatch_activate(v11);
-    [(BTSmartRoutingDaemon *)self _nearbyInfoSetAudioRoutingScore];
+    dispatch_activate(v12);
+    [(BTSmartRoutingDaemon *)selfCopy _nearbyInfoSetAudioRoutingScore];
   }
 }
 
@@ -6425,7 +6984,7 @@ LABEL_9:
   {
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E7290();
+      sub_1001E7290(model);
     }
 
     v4 = 0;
@@ -6436,24 +6995,28 @@ LABEL_9:
 
 - (void)_cancelStemClickTransaction
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E72D0();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E72D0(self, a2, v2);
+    }
   }
 
-  stemClickTransactionTimer = self->_stemClickTransactionTimer;
+  stemClickTransactionTimer = selfCopy->_stemClickTransactionTimer;
   if (stemClickTransactionTimer)
   {
-    v4 = stemClickTransactionTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_stemClickTransactionTimer;
-    self->_stemClickTransactionTimer = 0;
+    v5 = stemClickTransactionTimer;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_stemClickTransactionTimer;
+    selfCopy->_stemClickTransactionTimer = 0;
   }
 
-  _getCurrentRoute = [(BTSmartRoutingDaemon *)self _getCurrentRoute];
+  _getCurrentRoute = [(BTSmartRoutingDaemon *)selfCopy _getCurrentRoute];
   if ([_getCurrentRoute isEqualToString:@"Bluetooth"])
   {
-    _getCurrentBTRouteAddress = [(BTSmartRoutingDaemon *)self _getCurrentBTRouteAddress];
+    _getCurrentBTRouteAddress = [(BTSmartRoutingDaemon *)selfCopy _getCurrentBTRouteAddress];
   }
 
   else
@@ -6461,23 +7024,27 @@ LABEL_9:
     _getCurrentBTRouteAddress = 0;
   }
 
-  [(BTSmartRoutingDaemon *)self _submitStemGestureMetric:_getCurrentBTRouteAddress];
+  [(BTSmartRoutingDaemon *)selfCopy _submitStemGestureMetric:_getCurrentBTRouteAddress];
 }
 
 - (void)_cancelStemClickResumeTimer
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E72EC();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E72EC(self, a2, v2);
+    }
   }
 
-  stemClickResumeTimer = self->_stemClickResumeTimer;
+  stemClickResumeTimer = selfCopy->_stemClickResumeTimer;
   if (stemClickResumeTimer)
   {
-    v5 = stemClickResumeTimer;
-    dispatch_source_cancel(v5);
-    v4 = self->_stemClickResumeTimer;
-    self->_stemClickResumeTimer = 0;
+    v6 = stemClickResumeTimer;
+    dispatch_source_cancel(v6);
+    v5 = selfCopy->_stemClickResumeTimer;
+    selfCopy->_stemClickResumeTimer = 0;
   }
 }
 
@@ -6522,24 +7089,32 @@ LABEL_9:
 
 - (void)_resetStemClickTransaction
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E7368();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E7368(self, a2, v2);
+    }
   }
 
-  [(BTSmartRoutingDaemon *)self _cancelStemClickTransaction];
+  [(BTSmartRoutingDaemon *)selfCopy _cancelStemClickTransaction];
 
-  [(BTSmartRoutingDaemon *)self _startStemClickTransaction];
+  [(BTSmartRoutingDaemon *)selfCopy _startStemClickTransaction];
 }
 
 - (void)_startStemClickTransaction
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E7384();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E7384(self, a2, v2);
+    }
   }
 
-  [(BTSmartRoutingDaemon *)self _startStemClickTransactionTimer];
+  [(BTSmartRoutingDaemon *)selfCopy _startStemClickTransactionTimer];
 }
 
 - (void)_startStemClickTransactionTimer
@@ -6574,22 +7149,22 @@ LABEL_9:
 
 - (void)_checkTriangleRecovery
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   nearbyInfoDevices = self->_nearbyInfoDevices;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_100052964;
-  v17[3] = &unk_1002B7DC8;
-  v17[4] = &v18;
-  [(NSMutableDictionary *)nearbyInfoDevices enumerateKeysAndObjectsUsingBlock:v17];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100052964;
+  v12[3] = &unk_1002B7DC8;
+  v12[4] = &v13;
+  [(NSMutableDictionary *)nearbyInfoDevices enumerateKeysAndObjectsUsingBlock:v12];
   isInAnyTipi = [(BTSmartRoutingDaemon *)self isInAnyTipi];
   _isAnyUSBAudioDevicePluggedIn = [(BTSmartRoutingDaemon *)self _isAnyUSBAudioDevicePluggedIn];
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v6 = *(v19 + 24);
+    v6 = *(v14 + 24);
     magnetConnected = [(SRSourceDevice *)self->_sourceDevice magnetConnected];
     v8 = "no";
     if (v6)
@@ -6627,17 +7202,12 @@ LABEL_9:
       v8 = "yes";
     }
 
-    prefSmartRoutingWatchTriangleMagnet = self->_prefSmartRoutingWatchTriangleMagnet;
-    v16 = v8;
-    v13 = v10;
-    v14 = v11;
-    v12 = v9;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _checkTriangleRecovery]", 30, "TriangleRecovery: SrDeviceNearby %s magnet %s inAnyTipi %s timeout %d isAnyUSBPluggedIn %s", v9, v10, v11, self->_prefSmartRoutingWatchTriangleMagnet, v8);
   }
 
-  if (((*(v19 + 24) | isInAnyTipi) & 1) != 0 || _isAnyUSBAudioDevicePluggedIn & 1 | ![(SRSourceDevice *)self->_sourceDevice magnetConnected])
+  if (((*(v14 + 24) | isInAnyTipi) & 1) != 0 || _isAnyUSBAudioDevicePluggedIn & 1 | ![(SRSourceDevice *)self->_sourceDevice magnetConnected])
   {
-    [(BTSmartRoutingDaemon *)self _cancelTriangleRecoveryTimer:v12];
+    [(BTSmartRoutingDaemon *)self _cancelTriangleRecoveryTimer];
   }
 
   else
@@ -6645,55 +7215,63 @@ LABEL_9:
     [(BTSmartRoutingDaemon *)self _nearbyDeviceInfoTriangleRecoveryTimer];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v13, 8);
 }
 
 - (void)_cancelTriangleRecoveryTimer
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E7400();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E7400(self, a2, v2);
+    }
   }
 
-  nearbyInfoDevicesTriangleRecoveryTimer = self->_nearbyInfoDevicesTriangleRecoveryTimer;
+  nearbyInfoDevicesTriangleRecoveryTimer = selfCopy->_nearbyInfoDevicesTriangleRecoveryTimer;
   if (nearbyInfoDevicesTriangleRecoveryTimer)
   {
-    v5 = nearbyInfoDevicesTriangleRecoveryTimer;
-    dispatch_source_cancel(v5);
-    v4 = self->_nearbyInfoDevicesTriangleRecoveryTimer;
-    self->_nearbyInfoDevicesTriangleRecoveryTimer = 0;
+    v6 = nearbyInfoDevicesTriangleRecoveryTimer;
+    dispatch_source_cancel(v6);
+    v5 = selfCopy->_nearbyInfoDevicesTriangleRecoveryTimer;
+    selfCopy->_nearbyInfoDevicesTriangleRecoveryTimer = 0;
   }
 }
 
 - (void)_connectToHeadphoneWithAddress:(id)address
 {
   addressCopy = address;
+  v7 = addressCopy;
   if (addressCopy)
   {
-    v5 = objc_alloc_init(CBDevice);
-    [v5 setIdentifier:addressCopy];
-    v6 = objc_alloc_init(CBConnection);
-    [v6 setPeerDevice:v5];
-    [v6 setDispatchQueue:self->_dispatchQueue];
-    [v6 setConnectionFlags:2];
-    [v6 setServiceFlags:0xFFFFFFFFLL];
+    v8 = objc_alloc_init(CBDevice);
+    [v8 setIdentifier:v7];
+    v9 = objc_alloc_init(CBConnection);
+    [v9 setPeerDevice:v8];
+    [v9 setDispatchQueue:self->_dispatchQueue];
+    [v9 setConnectionFlags:2];
+    [v9 setServiceFlags:0xFFFFFFFFLL];
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E741C();
+      sub_1001E741C(v7);
     }
 
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100052C84;
-    v7[3] = &unk_1002B68A8;
-    v8 = addressCopy;
-    v9 = v6;
-    [v6 activateWithCompletion:v7];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100052C84;
+    v10[3] = &unk_1002B68A8;
+    v11 = v7;
+    v12 = v9;
+    [v9 activateWithCompletion:v10];
   }
 
-  else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F6778 <= 90)
   {
-    sub_1001E745C();
+    if (dword_1002F6778 != -1 || (addressCopy = _LogCategory_Initialize(), addressCopy))
+    {
+      sub_1001E745C(addressCopy, v5, v6);
+    }
   }
 }
 
@@ -6728,10 +7306,10 @@ LABEL_9:
 - (void)_nearbyInfoActivityChanged
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
     score = self->_score;
@@ -6745,16 +7323,12 @@ LABEL_9:
       v4 = off_1002B8F50[score];
     }
 
-    v33 = self->_score;
-    v35 = v4;
-    activityLevel = self->_activityLevel;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoActivityChanged]", 30, "NearbyInfoActivityChanged: AL %d, current score is %d (%s)", self->_activityLevel, self->_score, v4);
   }
 
   if (self->_activityLevelTicks)
   {
     mach_absolute_time();
-    activityLevelTicks = self->_activityLevelTicks;
     activityLevelDeltaInSeconds = self->_activityLevelDeltaInSeconds + UpTicksToSeconds();
     self->_activityLevelDeltaInSeconds = activityLevelDeltaInSeconds;
     if (dword_1002F6778 <= 30)
@@ -6762,9 +7336,7 @@ LABEL_9:
       if (dword_1002F6778 != -1)
       {
 LABEL_12:
-        activityLevel = activityLevelDeltaInSeconds;
-        v33 = self->_activityLevel;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoActivityChanged]", 30, "NearbyInfoActivityChanged: activity evaluation ALDS %ll{dur}, AL %d", activityLevelDeltaInSeconds, self->_activityLevel);
         goto LABEL_14;
       }
 
@@ -6777,28 +7349,28 @@ LABEL_12:
   }
 
 LABEL_14:
-  v7 = self->_activityLevel;
-  if (v7 <= 9)
+  activityLevel = self->_activityLevel;
+  if (activityLevel <= 9)
   {
-    if (v7 == 3)
+    if (activityLevel == 3)
     {
       if (self->_activityLevelMediaPlaying)
       {
-        v14 = 4;
+        v13 = 4;
 LABEL_43:
-        *(v40 + 6) = v14;
+        *(v33 + 6) = v13;
         goto LABEL_44;
       }
 
-      v15 = self->_activityLevelDeltaInSeconds;
-      if (v15 <= 0x19)
+      v14 = self->_activityLevelDeltaInSeconds;
+      if (v14 <= 0x19)
       {
-        if (v15 != 25)
+        if (v14 != 25)
         {
           goto LABEL_44;
         }
 
-        *(v40 + 6) = 2;
+        *(v33 + 6) = 2;
         if (!self->_activityLevelTicks)
         {
           self->_activityLevelTicks = mach_absolute_time();
@@ -6807,31 +7379,31 @@ LABEL_43:
         activityLevelDelayTimer = self->_activityLevelDelayTimer;
         if (activityLevelDelayTimer)
         {
-          v26 = activityLevelDelayTimer;
-          dispatch_source_cancel(v26);
-          v27 = self->_activityLevelDelayTimer;
+          v25 = activityLevelDelayTimer;
+          dispatch_source_cancel(v25);
+          v26 = self->_activityLevelDelayTimer;
           self->_activityLevelDelayTimer = 0;
         }
 
-        v13 = 25;
+        v12 = 25;
         goto LABEL_71;
       }
 
 LABEL_42:
-      v14 = 1;
+      v13 = 1;
       goto LABEL_43;
     }
 
-    if (v7 != 7)
+    if (activityLevel != 7)
     {
       goto LABEL_44;
     }
 
 LABEL_28:
-    v9 = self->_activityLevelDeltaInSeconds;
-    if (v9 <= 0x1DF && self->_screenActive)
+    v8 = self->_activityLevelDeltaInSeconds;
+    if (v8 <= 0x1DF && self->_screenActive)
     {
-      if (v9 != 25 && v9)
+      if (v8 != 25 && v8)
       {
         goto LABEL_44;
       }
@@ -6841,55 +7413,55 @@ LABEL_28:
         self->_activityLevelTicks = mach_absolute_time();
       }
 
-      *(v40 + 6) = 2;
-      v10 = self->_activityLevelDelayTimer;
-      if (v10)
+      *(v33 + 6) = 2;
+      v9 = self->_activityLevelDelayTimer;
+      if (v9)
       {
-        v11 = v10;
-        dispatch_source_cancel(v11);
-        v12 = self->_activityLevelDelayTimer;
+        v10 = v9;
+        dispatch_source_cancel(v10);
+        v11 = self->_activityLevelDelayTimer;
         self->_activityLevelDelayTimer = 0;
       }
 
       if (self->_screenActive)
       {
-        v13 = 480;
+        v12 = 480;
       }
 
       else
       {
-        v13 = 25;
+        v12 = 25;
       }
 
 LABEL_71:
-      [(BTSmartRoutingDaemon *)self _nearbyInfoActivityDelayCheck:v13, activityLevel, v33, v35];
+      [(BTSmartRoutingDaemon *)self _nearbyInfoActivityDelayCheck:v12];
       goto LABEL_44;
     }
 
     goto LABEL_42;
   }
 
-  if (v7 == 10)
+  if (activityLevel == 10)
   {
     goto LABEL_28;
   }
 
-  if (v7 == 11 || v7 == 14)
+  if (activityLevel == 11 || activityLevel == 14)
   {
     self->_activityLevelDeltaInSeconds = 25;
     self->_activityLevelTicks = 0;
     if (self->_activityCriticalTimer)
     {
-      v8 = 7;
+      v7 = 7;
     }
 
     else
     {
-      v8 = 6;
+      v7 = 6;
     }
 
-    *(v40 + 6) = v8;
-    if ([(SFDeviceDiscovery *)self->_nearbyInfoDiscovery scanRate:activityLevel]!= 40)
+    *(v33 + 6) = v7;
+    if ([(SFDeviceDiscovery *)self->_nearbyInfoDiscovery scanRate]!= 40)
     {
       [(SFDeviceDiscovery *)self->_nearbyInfoDiscovery setScanRate:40];
     }
@@ -6903,70 +7475,66 @@ LABEL_71:
   }
 
 LABEL_44:
-  v16 = self->_activityLevelMediaPlaying || [(CUSystemMonitor *)self->_callMonitor activeCallCount]> 0;
+  v15 = self->_activityLevelMediaPlaying || [(CUSystemMonitor *)self->_callMonitor activeCallCount]> 0;
   smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-  v37[0] = _NSConcreteStackBlock;
-  v37[1] = 3221225472;
-  v37[2] = sub_100053400;
-  v37[3] = &unk_1002B8478;
-  v38 = v16;
-  v37[4] = self;
-  v37[5] = &v39;
-  [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v37, activityLevel, v33];
-  v18 = *(v40 + 6);
-  if (v18)
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100053400;
+  v30[3] = &unk_1002B8478;
+  v31 = v15;
+  v30[4] = self;
+  v30[5] = &v32;
+  [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v30];
+  v17 = *(v33 + 6);
+  if (v17)
   {
-    v19 = self->_score;
-    if (v18 != v19)
+    v18 = self->_score;
+    if (v17 != v18)
     {
       if (dword_1002F6778 <= 30)
       {
-        if (dword_1002F6778 != -1 || (v21 = _LogCategory_Initialize(), v19 = self->_score, v21))
+        if (dword_1002F6778 != -1 || (v20 = _LogCategory_Initialize(), v18 = self->_score, v20))
         {
-          if (v19 > 0xF)
+          if (v18 > 0xF)
           {
-            v20 = "?";
+            v19 = "?";
           }
 
           else
           {
-            v20 = off_1002B8F50[v19];
+            v19 = off_1002B8F50[v18];
           }
 
-          v22 = *(v40 + 6);
-          if (v22 > 0xF)
+          v21 = *(v33 + 6);
+          if (v21 > 0xF)
           {
-            v23 = "?";
+            v22 = "?";
           }
 
           else
           {
-            v23 = off_1002B8F50[v22];
+            v22 = off_1002B8F50[v21];
           }
 
-          v35 = *(v40 + 6);
-          v36 = v23;
-          v32 = v19;
-          v34 = v20;
-          LogPrintF();
-          v19 = self->_score;
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoActivityChanged]", 30, "NearbyInfoActivityChanged: audio routing score has changed %d (%s) -> %d (%s)\n", v18, v19, *(v33 + 6), v22);
+          v18 = self->_score;
         }
       }
 
-      self->_score = *(v40 + 6);
-      [(BTSmartRoutingDaemon *)self _nearbyInfoSetAudioRoutingScore:v32];
-      v24 = +[SRConnectionManager sharedSRConnectionManager];
-      [v24 tipiScoreChanged:*(v40 + 6)];
+      self->_score = *(v33 + 6);
+      [(BTSmartRoutingDaemon *)self _nearbyInfoSetAudioRoutingScore];
+      v23 = +[SRConnectionManager sharedSRConnectionManager];
+      [v23 tipiScoreChanged:*(v33 + 6)];
 
       [(CUCoalescer *)self->_evaluatorCoalescer trigger];
       if (self->_prefProactiveOwnershipArbitration)
       {
-        [(BTSmartRoutingDaemon *)self _notifyOtherTipiDeviceTipiScoreChanged:v19 andNewScore:self->_score];
-        if (*(v40 + 6) == 1 && !self->_cdDeviceIdentifier)
+        [(BTSmartRoutingDaemon *)self _notifyOtherTipiDeviceTipiScoreChanged:v18 andNewScore:self->_score];
+        if (*(v33 + 6) == 1 && !self->_cdDeviceIdentifier)
         {
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoActivityChanged]", 30, "ProactiveRouting: Start idle tick");
           }
 
           if (self->_overrideMessageSent)
@@ -6978,9 +7546,9 @@ LABEL_44:
           highActivityLevelTimer = self->_highActivityLevelTimer;
           if (highActivityLevelTimer)
           {
-            v29 = highActivityLevelTimer;
-            dispatch_source_cancel(v29);
-            v30 = self->_highActivityLevelTimer;
+            v28 = highActivityLevelTimer;
+            dispatch_source_cancel(v28);
+            v29 = self->_highActivityLevelTimer;
             self->_highActivityLevelTimer = 0;
           }
         }
@@ -6993,7 +7561,7 @@ LABEL_44:
     }
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v32, 8);
 }
 
 - (void)_nearbyInfoActivityCriticalStart
@@ -7038,46 +7606,50 @@ LABEL_44:
 {
   if (self->_pairedDiscovery)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E76E8();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E76E8(self, a2, v2);
+      }
     }
 
-    [(CBDiscovery *)self->_pairedDiscovery invalidate];
-    pairedDiscovery = self->_pairedDiscovery;
-    self->_pairedDiscovery = 0;
+    [(CBDiscovery *)selfCopy->_pairedDiscovery invalidate];
+    pairedDiscovery = selfCopy->_pairedDiscovery;
+    selfCopy->_pairedDiscovery = 0;
   }
 }
 
 - (void)_nearbyInfoActivityDelayCheck:(unint64_t)check
 {
-  v4 = dispatch_time(0, 1000000000 * check);
+  v5 = dispatch_time(0, 1000000000 * check);
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E7704();
+    sub_1001E7704(check);
   }
 
   activityLevelDelayTimer = self->_activityLevelDelayTimer;
   if (activityLevelDelayTimer)
   {
 
-    dispatch_source_set_timer(activityLevelDelayTimer, v4, 0xFFFFFFFFFFFFFFFFLL, 0);
+    dispatch_source_set_timer(activityLevelDelayTimer, v5, 0xFFFFFFFFFFFFFFFFLL, 0);
   }
 
   else
   {
-    v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-    v7 = self->_activityLevelDelayTimer;
-    self->_activityLevelDelayTimer = v6;
-
+    v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
     v8 = self->_activityLevelDelayTimer;
+    self->_activityLevelDelayTimer = v7;
+
+    v9 = self->_activityLevelDelayTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100053AD4;
     handler[3] = &unk_1002B6880;
     handler[4] = self;
-    dispatch_source_set_event_handler(v8, handler);
-    dispatch_source_set_timer(self->_activityLevelDelayTimer, v4, 0xFFFFFFFFFFFFFFFFLL, 0);
+    dispatch_source_set_event_handler(v9, handler);
+    dispatch_source_set_timer(self->_activityLevelDelayTimer, v5, 0xFFFFFFFFFFFFFFFFLL, 0);
     dispatch_resume(self->_activityLevelDelayTimer);
   }
 }
@@ -7099,36 +7671,40 @@ LABEL_44:
 
 - (void)_powerMonitorEnsureStopped
 {
+  selfCopy = self;
   if (self->_powerMonitor)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E78C8();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E78C8(self, a2, v2);
+      }
     }
 
-    [(CUSystemMonitor *)self->_powerMonitor invalidate];
-    powerMonitor = self->_powerMonitor;
-    self->_powerMonitor = 0;
+    [(CUSystemMonitor *)selfCopy->_powerMonitor invalidate];
+    powerMonitor = selfCopy->_powerMonitor;
+    selfCopy->_powerMonitor = 0;
   }
 
-  screenLockedLingerTimer = self->_screenLockedLingerTimer;
+  screenLockedLingerTimer = selfCopy->_screenLockedLingerTimer;
   if (screenLockedLingerTimer)
   {
-    v5 = screenLockedLingerTimer;
-    dispatch_source_cancel(v5);
-    v6 = self->_screenLockedLingerTimer;
-    self->_screenLockedLingerTimer = 0;
+    v6 = screenLockedLingerTimer;
+    dispatch_source_cancel(v6);
+    v7 = selfCopy->_screenLockedLingerTimer;
+    selfCopy->_screenLockedLingerTimer = 0;
   }
 
-  sleepWakeMonitor = self->_sleepWakeMonitor;
+  sleepWakeMonitor = selfCopy->_sleepWakeMonitor;
   if (sleepWakeMonitor)
   {
     [(CUSleepWakeMonitor *)sleepWakeMonitor invalidate];
-    v8 = self->_sleepWakeMonitor;
-    self->_sleepWakeMonitor = 0;
+    v9 = selfCopy->_sleepWakeMonitor;
+    selfCopy->_sleepWakeMonitor = 0;
 
-    self->_sleeping = 0;
-    self->_sleepWakeState = 0;
+    selfCopy->_sleeping = 0;
+    selfCopy->_sleepWakeState = 0;
   }
 }
 
@@ -7136,6 +7712,7 @@ LABEL_44:
 {
   if (self->_powerMonitor)
   {
+    selfCopy = self;
     screenLockedLingerTimer = self->_screenLockedLingerTimer;
     if (self->_effectiveScreenLocked)
     {
@@ -7146,19 +7723,19 @@ LABEL_44:
           sub_1001E7900();
         }
 
-        v4 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-        v5 = self->_screenLockedLingerTimer;
-        self->_screenLockedLingerTimer = v4;
-        v6 = v4;
+        v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, selfCopy->_dispatchQueue);
+        v6 = selfCopy->_screenLockedLingerTimer;
+        selfCopy->_screenLockedLingerTimer = v5;
+        v7 = v5;
 
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 3221225472;
         handler[2] = sub_100054044;
         handler[3] = &unk_1002B6880;
-        handler[4] = self;
-        dispatch_source_set_event_handler(v6, handler);
+        handler[4] = selfCopy;
+        dispatch_source_set_event_handler(v7, handler);
         CUDispatchTimerSet();
-        dispatch_activate(v6);
+        dispatch_activate(v7);
 LABEL_16:
       }
     }
@@ -7167,32 +7744,32 @@ LABEL_16:
     {
       if (dword_1002F6778 >= 31)
       {
-        v6 = screenLockedLingerTimer;
+        v7 = screenLockedLingerTimer;
       }
 
       else
       {
-        if (dword_1002F6778 != -1 || _LogCategory_Initialize())
+        if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
         {
-          sub_1001E78E4();
+          sub_1001E78E4(self, a2, v2);
         }
 
-        v6 = self->_screenLockedLingerTimer;
-        if (!v6)
+        v7 = selfCopy->_screenLockedLingerTimer;
+        if (!v7)
         {
           goto LABEL_17;
         }
       }
 
-      dispatch_source_cancel(v6);
-      v7 = self->_screenLockedLingerTimer;
-      self->_screenLockedLingerTimer = 0;
+      dispatch_source_cancel(v7);
+      v8 = selfCopy->_screenLockedLingerTimer;
+      selfCopy->_screenLockedLingerTimer = 0;
 
       goto LABEL_16;
     }
 
 LABEL_17:
-    [(BTSmartRoutingDaemon *)self _update];
+    [(BTSmartRoutingDaemon *)selfCopy _update];
   }
 }
 
@@ -7243,6 +7820,71 @@ LABEL_17:
   }
 }
 
+- (void)_relayConduitMessageSend:(unsigned __int8)send withOptions:(id)options andWxAddress:(id)address andOtherAddress:(id)otherAddress
+{
+  sendCopy = send;
+  optionsCopy = options;
+  addressCopy = address;
+  otherAddressCopy = otherAddress;
+  v15 = otherAddressCopy;
+  if (self->_smartRoutingController)
+  {
+    v36 = 0;
+    Data = OPACKEncoderCreateData();
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = sub_100003918;
+    v34 = sub_100003838;
+    v35 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = sub_100003918;
+    v28 = sub_100003838;
+    v29 = 0;
+    smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100054F60;
+    v18[3] = &unk_1002B84F0;
+    v19 = addressCopy;
+    v22 = &v24;
+    v23 = &v30;
+    v20 = v15;
+    v21 = optionsCopy;
+    [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v18];
+    if (v25[5])
+    {
+      if (v31[5])
+      {
+        [CBController sendRelayMessageType:"sendRelayMessageType:messageData:conduitDevice:destinationDevice:completionHandler:" messageData:sendCopy conduitDevice:Data destinationDevice:? completionHandler:?];
+      }
+
+      else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _relayConduitMessageSend:withOptions:andWxAddress:andOtherAddress:]", 90, "Other tipi device address not found");
+      }
+    }
+
+    else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _relayConduitMessageSend:withOptions:andWxAddress:andOtherAddress:]", 90, "Wx headset not found not able to relay the message");
+    }
+
+    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v30, 8);
+  }
+
+  else if (dword_1002F6778 <= 30)
+  {
+    if (dword_1002F6778 != -1 || (otherAddressCopy = _LogCategory_Initialize(), otherAddressCopy))
+    {
+      sub_1001E7C38(otherAddressCopy, v13, v14);
+    }
+  }
+}
+
 - (void)_relayConduitMessageReceived:(id)received andSourceDevice:(id)device messageType:(unsigned __int8)type messageData:(id)data
 {
   typeCopy = type;
@@ -7251,7 +7893,7 @@ LABEL_17:
   dataCopy = data;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E7D38();
+    sub_1001E7D38(dataCopy);
   }
 
   btAddressData = [receivedCopy btAddressData];
@@ -7264,8 +7906,8 @@ LABEL_17:
     {
       if (typeCopy == 1)
       {
-        v14 = OPACKDecodeData();
-        if (!v14)
+        v17 = OPACKDecodeData();
+        if (!v17)
         {
 LABEL_54:
 
@@ -7274,37 +7916,37 @@ LABEL_54:
 
         if (dword_1002F6778 <= 40 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001E7D94();
+          sub_1001E7D94(v17);
         }
 
-        v15 = [v14 objectForKey:@"audioRoutingHijackRequest"];
-        v16 = v15 == 0;
+        v18 = [v17 objectForKey:@"audioRoutingHijackRequest"];
+        v19 = v18 == 0;
 
-        if (!v16)
+        if (!v19)
         {
-          v17 = [v14 objectForKey:@"audioRoutingScore"];
-          v18 = [v14 objectForKey:@"audioRoutingRequestID"];
+          v20 = [v17 objectForKey:@"audioRoutingScore"];
+          v21 = [v17 objectForKey:@"audioRoutingRequestID"];
           if (dword_1002F6778 <= 40 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001E7DD4(self, v13, v17);
+            sub_1001E7DD4(self, v13, v20);
           }
 
-          -[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:](self, "_mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:", [v17 intValue], v13, v18);
+          -[BTSmartRoutingDaemon _mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:](self, "_mediaRouteHijackWithAudioScore:wxAddress:andAudioResponseID:", [v20 intValue], v13, v21);
 
           goto LABEL_47;
         }
 
-        v19 = [v14 objectForKey:@"audioRoutingHijackAnswer"];
-        v20 = v19 == 0;
+        v22 = [v17 objectForKey:@"audioRoutingHijackAnswer"];
+        v23 = v22 == 0;
 
-        if (!v20)
+        if (!v23)
         {
           if (dword_1002F6778 <= 40 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
             sub_1001E7E58();
           }
 
-          v82 = [v14 objectForKeyedSubscript:@"remotescore"];
+          v82 = [v17 objectForKeyedSubscript:@"remotescore"];
           [(SRStats *)self->_stats setHijackActiveRemoteScore:0xFFFFFFFFLL];
           if (v82)
           {
@@ -7312,44 +7954,43 @@ LABEL_54:
           }
 
           [(BTSmartRoutingDaemon *)self _setHighPriorityTag:v13 withHighPriority:0];
-          v25 = [v14 objectForKey:@"audioRoutingRequestID"];
+          v28 = [v17 objectForKey:@"audioRoutingRequestID"];
           smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
           v100[0] = _NSConcreteStackBlock;
           v100[1] = 3221225472;
           v100[2] = sub_100056090;
           v100[3] = &unk_1002B8538;
           v101 = v13;
-          v102 = v25;
-          v103 = v14;
+          v102 = v28;
+          v103 = v17;
           selfCopy = self;
           [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v100];
 
           goto LABEL_47;
         }
 
-        v21 = [v14 objectForKey:@"callState"];
-        v22 = v21 == 0;
+        v24 = [v17 objectForKey:@"callState"];
+        v25 = v24 == 0;
 
-        if (!v22)
+        if (!v25)
         {
 LABEL_47:
-          v27 = [v14 objectForKey:@"hijackBackoffTicks"];
-          v28 = v27 == 0;
+          v30 = [v17 objectForKey:@"hijackBackoffTicks"];
+          v31 = v30 == 0;
 
-          if (!v28)
+          if (!v31)
           {
-            v29 = [v14 objectForKey:@"hijackBackoffTicks"];
-            v30 = v29;
-            if (self->_prefSmartRoutingBlockHijackWindowinSeconds && v29)
+            v32 = [v17 objectForKey:@"hijackBackoffTicks"];
+            v33 = v32;
+            if (self->_prefSmartRoutingBlockHijackWindowinSeconds && v32)
             {
-              if ([v29 unsignedLongLongValue])
+              if ([v32 unsignedLongLongValue])
               {
-                unsignedLongLongValue = [v30 unsignedLongLongValue];
-                v31 = mach_absolute_time();
-                prefSmartRoutingBlockHijackWindowinSeconds = self->_prefSmartRoutingBlockHijackWindowinSeconds;
-                v33 = SecondsToUpTicks();
-                v34 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
-                [v34 setHijackBackoffTicks:&unsignedLongLongValue[v31 - v33]];
+                unsignedLongLongValue = [v33 unsignedLongLongValue];
+                v34 = mach_absolute_time();
+                v35 = SecondsToUpTicks();
+                v36 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
+                [v36 setHijackBackoffTicks:&unsignedLongLongValue[v34 - v35]];
 
                 if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
                 {
@@ -7364,8 +8005,8 @@ LABEL_47:
                   sub_1001E7F7C();
                 }
 
-                v35 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
-                hijackBackoffTicks = [v35 hijackBackoffTicks];
+                v37 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
+                hijackBackoffTicks = [v37 hijackBackoffTicks];
 
                 if (hijackBackoffTicks)
                 {
@@ -7378,19 +8019,19 @@ LABEL_47:
           goto LABEL_54;
         }
 
-        v23 = [v14 objectForKey:@"audioRoutingSetOwnershipToFalse"];
-        v24 = v23 == 0;
+        v26 = [v17 objectForKey:@"audioRoutingSetOwnershipToFalse"];
+        v27 = v26 == 0;
 
-        if (!v24)
+        if (!v27)
         {
-          [(BTSmartRoutingDaemon *)self _receivedRelinquishOwnership:v14 wxAddress:v13];
+          [(BTSmartRoutingDaemon *)self _receivedRelinquishOwnership:v17 wxAddress:v13];
           goto LABEL_47;
         }
 
-        v37 = [v14 objectForKey:@"tipiHealingAttempt"];
-        v38 = v37 == 0;
+        v39 = [v17 objectForKey:@"tipiHealingAttempt"];
+        v40 = v39 == 0;
 
-        if (!v38)
+        if (!v40)
         {
           CFStringGetTypeID();
           v75 = CFDictionaryGetTypedValue();
@@ -7398,9 +8039,7 @@ LABEL_47:
           v74 = CFDictionaryGetTypedValue();
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            v72 = v75;
-            v73 = v74;
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _relayConduitMessageReceived:andSourceDevice:messageType:messageData:]", 30, "Tipi healing attempt from remote side, send an ACK. otherSideHasRoute %@ allowPreferOnMac %@", v75, v74);
           }
 
           CFStringGetTypeID();
@@ -7408,58 +8047,58 @@ LABEL_47:
           CFStringGetTypeID();
           v78 = CFDictionaryGetTypedValue();
           v80 = NSDictionaryGetNSNumber();
-          v44 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
-          [v44 setOtherTipiDeviceInfo:v84 andName:v78 andVersion:v80];
+          v46 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
+          [v46 setOtherTipiDeviceInfo:v84 andName:v78 andVersion:v80];
 
-          v45 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
-          [v45 setIsRoutingActionInitialized:1];
+          v47 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
+          [v47 setIsRoutingActionInitialized:1];
 
           if (self->_activityLevelMediaPlaying || [(CUSystemMonitor *)self->_callMonitor activeCallCount]> 0)
           {
-            v46 = 1;
+            v48 = 1;
           }
 
           else
           {
-            v46 = [(NSString *)self->_cdDeviceIdentifier isEqualToString:v13];
+            v48 = [(NSString *)self->_cdDeviceIdentifier isEqualToString:v13];
           }
 
           v106[0] = @"tipiHealingAck";
-          v47 = [(BTSmartRoutingDaemon *)self _myBluetoothAddressString:v72];
-          v48 = v47;
-          v49 = &stru_1002C1358;
-          if (v47)
+          _myBluetoothAddressString = [(BTSmartRoutingDaemon *)self _myBluetoothAddressString];
+          v50 = _myBluetoothAddressString;
+          v51 = &stru_1002C1358;
+          if (_myBluetoothAddressString)
           {
-            v49 = v47;
+            v51 = _myBluetoothAddressString;
           }
 
           myModel = self->_myModel;
-          v107[0] = v49;
+          v107[0] = v51;
           v107[1] = myModel;
           v106[1] = @"tipiHealingName";
           v106[2] = @"version";
           v106[3] = @"tipiHealingStreaming";
-          v51 = @"NO";
-          if (v46)
+          v53 = @"NO";
+          if (v48)
           {
-            v51 = @"YES";
+            v53 = @"YES";
           }
 
           v107[2] = &off_1002CB618;
-          v107[3] = v51;
+          v107[3] = v53;
           v77 = [NSDictionary dictionaryWithObjects:v107 forKeys:v106 count:4];
 
           [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v77 andWxAddress:v13 andOtherAddress:0];
           self->_tipiElectionInProgress = 0;
-          v52 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
-          otherTipiDeviceBTAddress = [v52 otherTipiDeviceBTAddress];
+          v54 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
+          otherTipiDeviceBTAddress = [v54 otherTipiDeviceBTAddress];
 
           [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:v13 withAddress:otherTipiDeviceBTAddress withEasyPairing:0 withState:1];
           v96 = 0;
           v97 = &v96;
           v98 = 0x2020000000;
           v99 = 0;
-          v53 = self->_smartRoutingWxDeviceMap;
+          v55 = self->_smartRoutingWxDeviceMap;
           v91[0] = _NSConcreteStackBlock;
           v91[1] = 3221225472;
           v91[2] = sub_100056520;
@@ -7467,8 +8106,8 @@ LABEL_47:
           v92 = v13;
           selfCopy2 = self;
           v94 = &v96;
-          v95 = v46 & 1;
-          [(NSMutableDictionary *)v53 enumerateKeysAndObjectsUsingBlock:v91];
+          v95 = v48 & 1;
+          [(NSMutableDictionary *)v55 enumerateKeysAndObjectsUsingBlock:v91];
           if (*(v97 + 24) == 1)
           {
             [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.AudioRoutingChanged"];
@@ -7478,23 +8117,23 @@ LABEL_47:
           goto LABEL_47;
         }
 
-        v39 = [v14 objectForKey:@"tipiHealingAck"];
-        if (!v39 || (-[NSMutableDictionary objectForKeyedSubscript:](self->_smartRoutingWxDeviceMap, "objectForKeyedSubscript:", v13), v40 = objc_claimAutoreleasedReturnValue(), v41 = [v40 isTipiHealingV2Eligible], v40, v39, (v41 & 1) != 0))
+        v41 = [v17 objectForKey:@"tipiHealingAck"];
+        if (!v41 || (-[NSMutableDictionary objectForKeyedSubscript:](self->_smartRoutingWxDeviceMap, "objectForKeyedSubscript:", v13), v42 = objc_claimAutoreleasedReturnValue(), v43 = [v42 isTipiHealingV2Eligible], v42, v41, (v43 & 1) != 0))
         {
-          v42 = [v14 objectForKey:@"nearbyAudioScore"];
-          v43 = v42 == 0;
+          v44 = [v17 objectForKey:@"nearbyAudioScore"];
+          v45 = v44 == 0;
 
-          if (v43)
+          if (v45)
           {
-            v56 = [v14 objectForKey:@"otherDeviceAudioCategory"];
-            v57 = v56 == 0;
+            v58 = [v17 objectForKey:@"otherDeviceAudioCategory"];
+            v59 = v58 == 0;
 
-            if (v57)
+            if (v59)
             {
-              v58 = [v14 objectForKey:@"disableSmartRouting"];
-              v59 = v58 == 0;
+              v60 = [v17 objectForKey:@"disableSmartRouting"];
+              v61 = v60 == 0;
 
-              if (!v59)
+              if (!v61)
               {
                 if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
                 {
@@ -7507,54 +8146,54 @@ LABEL_47:
 
             else
             {
-              [(BTSmartRoutingDaemon *)self _receivedAudioCategory:v13 withOptions:v14];
+              [(BTSmartRoutingDaemon *)self _receivedAudioCategory:v13 withOptions:v17];
             }
           }
 
           else
           {
-            [(BTSmartRoutingDaemon *)self _otherTipiDeviceTipiScoreChanged:v13 withOptions:v14];
+            [(BTSmartRoutingDaemon *)self _otherTipiDeviceTipiScoreChanged:v13 withOptions:v17];
           }
 
           goto LABEL_47;
         }
 
-        v54 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
+        v56 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v13];
         CFStringGetTypeID();
-        v55 = CFDictionaryGetTypedValue();
+        v57 = CFDictionaryGetTypedValue();
         CFStringGetTypeID();
         v81 = CFDictionaryGetTypedValue();
         v85 = NSDictionaryGetNSNumber();
-        [v54 setOtherTipiDeviceInfo:v55 andName:v81 andVersion:v85];
+        [v56 setOtherTipiDeviceInfo:v57 andName:v81 andVersion:v85];
         CFStringGetTypeID();
         v79 = CFDictionaryGetTypedValue();
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001E7E8C();
+          sub_1001E7E8C(v79);
         }
 
-        [v54 setIsRoutingActionInitialized:1];
-        v60 = [(NSMutableDictionary *)self->_smartRoutingWxStatsMap objectForKeyedSubscript:v13];
+        [v56 setIsRoutingActionInitialized:1];
+        v62 = [(NSMutableDictionary *)self->_smartRoutingWxStatsMap objectForKeyedSubscript:v13];
 
-        if (v60)
+        if (v62)
         {
           mach_absolute_time();
-          v61 = [(NSMutableDictionary *)self->_smartRoutingWxStatsMap objectForKeyedSubscript:v13];
-          [v61 thV2Ticks];
+          v63 = [(NSMutableDictionary *)self->_smartRoutingWxStatsMap objectForKeyedSubscript:v13];
+          [v63 thV2Ticks];
           UpTicksToSecondsF();
-          v63 = v62;
+          v65 = v64;
 
-          [(BTSmartRoutingDaemon *)self _submitMetricTipiHealingforDevice:v54 withDuration:1 andLegacy:v63];
+          [(BTSmartRoutingDaemon *)self _submitMetricTipiHealingforDevice:v56 withDuration:1 andLegacy:v65];
         }
 
         self->_tipiElectionInProgress = 0;
-        [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:v13 withAddress:v55 withEasyPairing:0 withState:1];
+        [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:v13 withAddress:v57 withEasyPairing:0 withState:1];
         tipiHealingTimer = self->_tipiHealingTimer;
         if (tipiHealingTimer)
         {
-          v65 = tipiHealingTimer;
-          dispatch_source_cancel(v65);
-          v66 = self->_tipiHealingTimer;
+          v67 = tipiHealingTimer;
+          dispatch_source_cancel(v67);
+          v68 = self->_tipiHealingTimer;
           self->_tipiHealingTimer = 0;
         }
 
@@ -7562,27 +8201,27 @@ LABEL_47:
         v97 = &v96;
         v98 = 0x2020000000;
         v99 = 0;
-        otherTipiDeviceVersion = [v54 otherTipiDeviceVersion];
+        otherTipiDeviceVersion = [v56 otherTipiDeviceVersion];
         [otherTipiDeviceVersion doubleValue];
-        if (v68 < 1.2)
+        if (v70 < 1.2)
         {
         }
 
         else
         {
-          otherTipiDeviceVersion2 = [v54 otherTipiDeviceVersion];
-          v70 = otherTipiDeviceVersion2 == 0;
+          otherTipiDeviceVersion2 = [v56 otherTipiDeviceVersion];
+          v72 = otherTipiDeviceVersion2 == 0;
 
-          if (!v70)
+          if (!v72)
           {
-            if (-[BTSmartRoutingDaemon _isManualConnection:](self, "_isManualConnection:", v13) && ([v54 ignoreManualConnect] & 1) == 0)
+            if (-[BTSmartRoutingDaemon _isManualConnection:](self, "_isManualConnection:", v13) && ([v56 ignoreManualConnect] & 1) == 0)
             {
               if (dword_1002F6778 <= 40 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _relayConduitMessageReceived:andSourceDevice:messageType:messageData:]", 40, "Manually connected, route to iOS!");
               }
 
-              [v54 setRoutingAction:1];
+              [v56 setRoutingAction:1];
               [(BTSmartRoutingDaemon *)self _setOwnership:v13 withHijackRequest:0 withOwnership:1];
               [(BTSmartRoutingDaemon *)self _sendIntendedRouteInfoUpdateToWx:receivedCopy withIntendedRoutingStatus:1];
             }
@@ -7591,10 +8230,10 @@ LABEL_47:
             {
               if (dword_1002F6778 <= 40 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _relayConduitMessageReceived:andSourceDevice:messageType:messageData:]", 40, "Tipi 1.2 new healing behavior... iOS we shouldn't route, set ownership to false");
               }
 
-              [v54 setRoutingAction:3];
+              [v56 setRoutingAction:3];
               [(BTSmartRoutingDaemon *)self _setOwnership:v13 withHijackRequest:0 withOwnership:0];
             }
 
@@ -7610,10 +8249,10 @@ LABEL_123:
 
         if (dword_1002F6778 <= 40 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _relayConduitMessageReceived:andSourceDevice:messageType:messageData:]", 40, "Tipi healing legacy behavior");
         }
 
-        v71 = self->_smartRoutingWxDeviceMap;
+        v73 = self->_smartRoutingWxDeviceMap;
         v87[0] = _NSConcreteStackBlock;
         v87[1] = 3221225472;
         v87[2] = sub_10005679C;
@@ -7621,7 +8260,7 @@ LABEL_123:
         v88 = v13;
         selfCopy3 = self;
         v90 = &v96;
-        [(NSMutableDictionary *)v71 enumerateKeysAndObjectsUsingBlock:v87];
+        [(NSMutableDictionary *)v73 enumerateKeysAndObjectsUsingBlock:v87];
 
         if ((v97[3] & 1) == 0)
         {
@@ -7631,21 +8270,30 @@ LABEL_123:
         goto LABEL_122;
       }
 
-      if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6778 <= 90)
       {
-        sub_1001E7FB0();
+        if (dword_1002F6778 != -1 || (v14 = _LogCategory_Initialize(), v14))
+        {
+          sub_1001E7FB0(v14, v15, v16);
+        }
       }
     }
 
-    else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    else if (dword_1002F6778 <= 90)
     {
-      sub_1001E7D78();
+      if (dword_1002F6778 != -1 || (v14 = _LogCategory_Initialize(), v14))
+      {
+        sub_1001E7D78(v14, v15, v16);
+      }
     }
   }
 
-  else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F6778 <= 90)
   {
-    sub_1001E7FCC();
+    if (dword_1002F6778 != -1 || (v14 = _LogCategory_Initialize(), v14))
+    {
+      sub_1001E7FCC(v14, v15, v16);
+    }
   }
 
 LABEL_55:
@@ -7726,32 +8374,45 @@ LABEL_55:
         v12 = off_1002B8BB0[withState];
       }
 
-      v17 = stateCopy;
-      v18 = v11;
-      v16 = v12;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateNearbyDeviceState:withAddress:withEasyPairing:withState:]", 30, "NearbyDevice State updated to %s with Wx address %@ and nearbyAddress %@", v12, stateCopy, v11);
     }
 
-    v13 = objc_alloc_init(CBDevice);
-    [v13 setIdentifier:stateCopy];
-    v14 = objc_alloc_init(CBDevice);
-    [v14 setIdentifier:v11];
+    v15 = objc_alloc_init(CBDevice);
+    [v15 setIdentifier:stateCopy];
+    v16 = objc_alloc_init(CBDevice);
+    [v16 setIdentifier:v11];
     if (pairingCopy)
     {
-      v15 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v15 = 16;
+      v17 = 16;
     }
 
-    [(CBController *)self->_smartRoutingController modifyDevice:v13 peerSourceDevice:v14 peerSourceState:withState requestFlags:v15 completionHandler:&stru_1002B85A8, v16, v17, v18];
+    [(CBController *)self->_smartRoutingController modifyDevice:v15 peerSourceDevice:v16 peerSourceState:withState requestFlags:v17 completionHandler:&stru_1002B85A8];
   }
 
   else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v13 = &stru_1002C1358;
+    if (stateCopy)
+    {
+      v14 = stateCopy;
+    }
+
+    else
+    {
+      v14 = &stru_1002C1358;
+    }
+
+    if (v11)
+    {
+      v13 = v11;
+    }
+
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateNearbyDeviceState:withAddress:withEasyPairing:withState:]", 90, "NearbyDevice State update failed wxAddress %@ nearbyAddress %@", v14, v13);
   }
 }
 
@@ -7759,23 +8420,27 @@ LABEL_55:
 {
   if (!self->_systemUIMonitor)
   {
-    v8[7] = v2;
-    v8[8] = v3;
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v9[7] = v3;
+    v9[8] = v4;
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E83A0();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E83A0(self, a2, v2);
+      }
     }
 
-    v5 = +[FBSDisplayLayoutMonitorConfiguration configurationForDefaultMainDisplayMonitor];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100002EF0;
-    v8[3] = &unk_1002B7B90;
-    v8[4] = self;
-    [v5 setTransitionHandler:v8];
-    v6 = [FBSDisplayLayoutMonitor monitorWithConfiguration:v5];
-    systemUIMonitor = self->_systemUIMonitor;
-    self->_systemUIMonitor = v6;
+    v6 = +[FBSDisplayLayoutMonitorConfiguration configurationForDefaultMainDisplayMonitor];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100002EF0;
+    v9[3] = &unk_1002B7B90;
+    v9[4] = selfCopy;
+    [v6 setTransitionHandler:v9];
+    v7 = [FBSDisplayLayoutMonitor monitorWithConfiguration:v6];
+    systemUIMonitor = selfCopy->_systemUIMonitor;
+    selfCopy->_systemUIMonitor = v7;
   }
 }
 
@@ -7783,14 +8448,18 @@ LABEL_55:
 {
   if (self->_systemUIMonitor)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E8414();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E8414(self, a2, v2);
+      }
     }
 
-    [(FBSDisplayLayoutMonitor *)self->_systemUIMonitor invalidate];
-    systemUIMonitor = self->_systemUIMonitor;
-    self->_systemUIMonitor = 0;
+    [(FBSDisplayLayoutMonitor *)selfCopy->_systemUIMonitor invalidate];
+    systemUIMonitor = selfCopy->_systemUIMonitor;
+    selfCopy->_systemUIMonitor = 0;
   }
 }
 
@@ -7818,7 +8487,7 @@ LABEL_55:
 {
   workoutObserver = self->_workoutObserver;
   self->_workoutObserver = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, workoutObserver);
 }
 
 - (void)_wxDiscoveryEnsureStarted
@@ -7829,8 +8498,8 @@ LABEL_55:
   {
     if (self->_prefSmartRoutingEnabledPhase3)
     {
-      v4 = GestaltGetDeviceClass() != 6;
-      if (v4 == [(SFDeviceDiscovery *)self->_wxDiscovery overrideScreenOff])
+      v6 = GestaltGetDeviceClass() != 6;
+      if (v6 == [(SFDeviceDiscovery *)self->_wxDiscovery overrideScreenOff])
       {
         return;
       }
@@ -7838,77 +8507,80 @@ LABEL_55:
 
     else
     {
-      if (([(SFDeviceDiscovery *)wxDiscovery overrideScreenOff]& 1) == 0)
+      if (([wxDiscovery overrideScreenOff] & 1) == 0)
       {
         return;
       }
 
-      v4 = 0;
+      v6 = 0;
     }
 
-    v8 = self->_wxDiscovery;
+    v10 = self->_wxDiscovery;
 
-    [(SFDeviceDiscovery *)v8 setOverrideScreenOff:v4];
+    [(SFDeviceDiscovery *)v10 setOverrideScreenOff:v6];
   }
 
   else
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E8544();
+      if (dword_1002F6778 != -1 || (wxDiscovery = _LogCategory_Initialize(), wxDiscovery))
+      {
+        sub_1001E8544(wxDiscovery, v3, v4);
+      }
     }
 
-    v5 = objc_alloc_init(SFDeviceDiscovery);
-    [v5 setChangeFlags:9];
-    [v5 setDiscoveryFlags:2];
-    [v5 setDispatchQueue:self->_dispatchQueue];
-    [v5 setPurpose:@"SmartRouting"];
-    [v5 setScanRate:20];
+    v7 = objc_alloc_init(SFDeviceDiscovery);
+    [v7 setChangeFlags:9];
+    [v7 setDiscoveryFlags:2];
+    [v7 setDispatchQueue:self->_dispatchQueue];
+    [v7 setPurpose:@"SmartRouting"];
+    [v7 setScanRate:20];
     if (self->_prefSmartRoutingEnabledPhase3)
     {
-      [v5 setOverrideScreenOff:1];
+      [v7 setOverrideScreenOff:1];
     }
 
-    v6 = self->_wxDiscovery;
-    self->_wxDiscovery = v5;
-    v7 = v5;
+    v8 = self->_wxDiscovery;
+    self->_wxDiscovery = v7;
+    v9 = v7;
 
     [(BTSmartRoutingDaemon *)self _powerLogSmartRoutingScanStarted:7];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000577A4;
+    v15[3] = &unk_1002B8428;
+    v15[4] = self;
+    v15[5] = v9;
+    [v9 setDeviceFoundHandler:v15];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000577C8;
+    v14[3] = &unk_1002B8428;
+    v14[4] = self;
+    v14[5] = v9;
+    [v9 setDeviceLostHandler:v14];
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
-    v13[2] = sub_1000577A4;
-    v13[3] = &unk_1002B8428;
+    v13[2] = sub_1000577EC;
+    v13[3] = &unk_1002B8450;
     v13[4] = self;
-    v13[5] = v7;
-    [v7 setDeviceFoundHandler:v13];
+    v13[5] = v9;
+    [v9 setDeviceChangedHandler:v13];
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = sub_1000577C8;
-    v12[3] = &unk_1002B8428;
+    v12[2] = sub_100057810;
+    v12[3] = &unk_1002B6D18;
     v12[4] = self;
-    v12[5] = v7;
-    [v7 setDeviceLostHandler:v12];
+    v12[5] = v9;
+    [v9 setInvalidationHandler:v12];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_1000577EC;
-    v11[3] = &unk_1002B8450;
+    v11[2] = sub_10005782C;
+    v11[3] = &unk_1002B68A8;
     v11[4] = self;
-    v11[5] = v7;
-    [v7 setDeviceChangedHandler:v11];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100057810;
-    v10[3] = &unk_1002B6D18;
-    v10[4] = self;
-    v10[5] = v7;
-    [v7 setInvalidationHandler:v10];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_10005782C;
-    v9[3] = &unk_1002B68A8;
-    v9[4] = self;
-    v9[5] = v7;
-    [v7 activateWithCompletion:v9];
+    v11[5] = v9;
+    [v9 activateWithCompletion:v11];
   }
 }
 
@@ -7916,46 +8588,50 @@ LABEL_55:
 {
   if (!self->_wxDiscoveryWatchRecovery)
   {
-    v12[5] = v5;
-    v12[6] = v4;
-    v12[11] = v2;
-    v12[12] = v3;
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v13[5] = v6;
+    v13[6] = v5;
+    v13[11] = v3;
+    v13[12] = v4;
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E8614();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E8614(self, a2, v2);
+      }
     }
 
-    [(BTSmartRoutingDaemon *)self _powerLogSmartRoutingScanStarted:7];
-    v7 = objc_alloc_init(CUBLEScanner);
-    wxDiscoveryWatchRecovery = self->_wxDiscoveryWatchRecovery;
-    self->_wxDiscoveryWatchRecovery = v7;
-    v9 = v7;
+    [(BTSmartRoutingDaemon *)selfCopy _powerLogSmartRoutingScanStarted:7];
+    v8 = objc_alloc_init(CUBLEScanner);
+    wxDiscoveryWatchRecovery = selfCopy->_wxDiscoveryWatchRecovery;
+    selfCopy->_wxDiscoveryWatchRecovery = v8;
+    v10 = v8;
 
-    [(CUBLEScanner *)v9 setChangeFlags:16];
-    [(CUBLEScanner *)v9 setScanFlags:16];
-    [(CUBLEScanner *)v9 setDispatchQueue:self->_dispatchQueue];
-    [(CUBLEScanner *)v9 setLabel:@"SmartRouting"];
-    [(CUBLEScanner *)v9 setScanRate:50];
+    [(CUBLEScanner *)v10 setChangeFlags:16];
+    [(CUBLEScanner *)v10 setScanFlags:16];
+    [(CUBLEScanner *)v10 setDispatchQueue:selfCopy->_dispatchQueue];
+    [(CUBLEScanner *)v10 setLabel:@"SmartRouting"];
+    [(CUBLEScanner *)v10 setScanRate:50];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100057AAC;
+    v13[3] = &unk_1002B85F8;
+    v13[4] = selfCopy;
+    [(CUBLEScanner *)v10 setDeviceFoundHandler:v13];
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = sub_100057AAC;
+    v12[2] = sub_100057AB8;
     v12[3] = &unk_1002B85F8;
-    v12[4] = self;
-    [(CUBLEScanner *)v9 setDeviceFoundHandler:v12];
+    v12[4] = selfCopy;
+    [(CUBLEScanner *)v10 setDeviceLostHandler:v12];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_100057AB8;
-    v11[3] = &unk_1002B85F8;
-    v11[4] = self;
-    [(CUBLEScanner *)v9 setDeviceLostHandler:v11];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100057AC4;
-    v10[3] = &unk_1002B6D18;
-    v10[4] = v9;
-    v10[5] = self;
-    [(CUBLEScanner *)v9 setInvalidationHandler:v10];
-    [(CUBLEScanner *)v9 activate];
+    v11[2] = sub_100057AC4;
+    v11[3] = &unk_1002B6D18;
+    v11[4] = v10;
+    v11[5] = selfCopy;
+    [(CUBLEScanner *)v10 setInvalidationHandler:v11];
+    [(CUBLEScanner *)v10 activate];
   }
 }
 
@@ -7963,7 +8639,7 @@ LABEL_55:
 {
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E864C();
+    sub_1001E864C(tick);
   }
 
   self->_showBannerConnectedLastTicks = tick;
@@ -8077,18 +8753,18 @@ LABEL_11:
   changeCopy = change;
   if (self->_prefSmartRoutingUSBAudioDevice)
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3032000000;
-    v20 = sub_100003918;
-    v21 = sub_100003838;
-    v22 = 0;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000582E4;
-    v16[3] = &unk_1002B6C00;
-    v16[4] = &v17;
-    v7 = objc_retainBlock(v16);
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = sub_100003918;
+    v25 = sub_100003838;
+    v26 = 0;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000582E4;
+    v20[3] = &unk_1002B6C00;
+    v20[4] = &v21;
+    v7 = objc_retainBlock(v20);
     btAddressData = [changeCopy btAddressData];
     v9 = CUPrintNSDataAddress();
 
@@ -8100,19 +8776,45 @@ LABEL_11:
         v11 = pairedCopy & ~[v10 isPaired];
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          [v10 isUSBPlugIn];
-          LogPrintF();
+          isUSBPlugIn = [v10 isUSBPlugIn];
+          v13 = "no";
+          if (pairedCopy)
+          {
+            v14 = "yes";
+          }
+
+          else
+          {
+            v14 = "no";
+          }
+
+          if (isUSBPlugIn)
+          {
+            v15 = "yes";
+          }
+
+          else
+          {
+            v15 = "no";
+          }
+
+          if (v11)
+          {
+            v13 = "yes";
+          }
+
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateUSBDeviceForPairStateChange:paired:]", 30, "USBDevice: Pair state change %@ paired %s usbPlugin %s newPair %s", v9, v14, v15, v13);
         }
 
         if (pairedCopy)
         {
           if (v11)
           {
-            v12 = +[AudioDeviceManager sharedAudioDeviceManager];
-            [v12 usbDeviceDisableAirPlaneMode:v9];
+            v16 = +[AudioDeviceManager sharedAudioDeviceManager];
+            [v16 usbDeviceDisableAirPlaneMode:v9];
 
-            v13 = +[AudioDeviceManager sharedAudioDeviceManager];
-            [v13 usbDeviceHideDevice:v9];
+            v17 = +[AudioDeviceManager sharedAudioDeviceManager];
+            [v17 usbDeviceHideDevice:v9];
 
             [(BTSmartRoutingDaemon *)self _evaluatorRunForUSBDevice:v9 trigger:4];
           }
@@ -8120,23 +8822,23 @@ LABEL_11:
 
         else
         {
-          v14 = +[AudioDeviceManager sharedAudioDeviceManager];
-          [v14 usbDeviceEnableAirPlaneMode:v9];
+          v18 = +[AudioDeviceManager sharedAudioDeviceManager];
+          [v18 usbDeviceEnableAirPlaneMode:v9];
 
-          v15 = +[AudioDeviceManager sharedAudioDeviceManager];
-          [v15 usbDeviceUnHideDevice:v9];
+          v19 = +[AudioDeviceManager sharedAudioDeviceManager];
+          [v19 usbDeviceUnHideDevice:v9];
         }
       }
     }
 
     else
     {
-      v10 = v18[5];
-      v18[5] = @"btAddress is null";
+      v10 = v22[5];
+      v22[5] = @"btAddress is null";
     }
 
     (v7[2])(v7);
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v21, 8);
   }
 }
 
@@ -8144,29 +8846,29 @@ LABEL_11:
 {
   if (self->_prefSmartRoutingUSBAudioDevice && [(SRSourceDevice *)self->_sourceDevice bluetoothStatePrev]!= change)
   {
-    v18 = 0u;
-    v19 = 0u;
     v16 = 0u;
     v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     _getAllUSBAudioDeviceBtAddresses = [(BTSmartRoutingDaemon *)self _getAllUSBAudioDeviceBtAddresses];
-    v6 = [_getAllUSBAudioDeviceBtAddresses countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [_getAllUSBAudioDeviceBtAddresses countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (!v6)
     {
       goto LABEL_22;
     }
 
     v7 = v6;
-    v8 = *v17;
+    v8 = *v15;
     while (1)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v17 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(_getAllUSBAudioDeviceBtAddresses);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
           v11 = "?";
@@ -8175,9 +8877,7 @@ LABEL_11:
             v11 = off_1002B8BF8[change];
           }
 
-          v14 = v11;
-          v15 = v10;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateUSBDeviceForBluetoothStateChange:]", 30, "USBDevice: Bluetooth state change %s usbDevice %@", v11, v10);
         }
 
         switch(change)
@@ -8191,7 +8891,7 @@ LABEL_11:
             }
 
 LABEL_19:
-            v12 = [AudioDeviceManager sharedAudioDeviceManager:v14];
+            v12 = +[AudioDeviceManager sharedAudioDeviceManager];
             [v12 usbDeviceEnableAirPlaneMode:v10];
 
             v13 = +[AudioDeviceManager sharedAudioDeviceManager];
@@ -8204,7 +8904,7 @@ LABEL_19:
         }
       }
 
-      v7 = [_getAllUSBAudioDeviceBtAddresses countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [_getAllUSBAudioDeviceBtAddresses countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (!v7)
       {
 LABEL_22:
@@ -8250,7 +8950,7 @@ LABEL_22:
   {
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E8714(trigger);
+      sub_1001E8714(trigger, deviceCopy);
     }
 
     v24 = 0;
@@ -8417,25 +9117,26 @@ LABEL_25:
     return;
   }
 
+  selfCopy = self;
   if (dword_1002F6778 >= 31)
   {
-    v4 = pairingTimer;
+    v5 = pairingTimer;
 LABEL_8:
-    v6 = v4;
-    dispatch_source_cancel(v4);
-    v5 = self->_pairingTimer;
-    self->_pairingTimer = 0;
+    v7 = v5;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_pairingTimer;
+    selfCopy->_pairingTimer = 0;
 
     return;
   }
 
-  if (dword_1002F6778 != -1 || _LogCategory_Initialize())
+  if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
   {
-    sub_1001E8774();
+    sub_1001E8774(self, a2, v2);
   }
 
-  v4 = self->_pairingTimer;
-  if (v4)
+  v5 = selfCopy->_pairingTimer;
+  if (v5)
   {
     goto LABEL_8;
   }
@@ -8445,48 +9146,57 @@ LABEL_8:
 {
   initiateCopy = initiate;
   deviceCopy = device;
-  v7 = deviceCopy;
+  v9 = deviceCopy;
   if (self->_prefSmartRoutingUSBAudioDevice)
   {
     if (deviceCopy)
     {
-      v8 = +[AudioDeviceManager sharedAudioDeviceManager];
-      [v8 usbDeviceDisableAirPlaneMode:v7];
+      v10 = +[AudioDeviceManager sharedAudioDeviceManager];
+      [v10 usbDeviceDisableAirPlaneMode:v9];
 
-      v9 = +[AudioDeviceManager sharedAudioDeviceManager];
-      [v9 usbDeviceHideDevice:v7];
+      v11 = +[AudioDeviceManager sharedAudioDeviceManager];
+      [v11 usbDeviceHideDevice:v9];
 
-      v10 = objc_alloc_init(CBDevice);
-      [v10 setIdentifier:v7];
-      v11 = objc_alloc_init(CBConnection);
-      [v11 setPeerDevice:v10];
-      [v11 setDispatchQueue:self->_dispatchQueue];
-      [v11 setConnectionFlags:2];
+      v12 = objc_alloc_init(CBDevice);
+      [v12 setIdentifier:v9];
+      v13 = objc_alloc_init(CBConnection);
+      [v13 setPeerDevice:v12];
+      [v13 setDispatchQueue:self->_dispatchQueue];
+      [v13 setConnectionFlags:2];
       if (initiateCopy)
       {
-        [v11 setConnectionFlags:{objc_msgSend(v11, "connectionFlags") | 0x30}];
+        [v13 setConnectionFlags:{objc_msgSend(v13, "connectionFlags") | 0x30}];
       }
 
-      [v11 setServiceFlags:0xFFFFFFFFLL];
+      [v13 setServiceFlags:0xFFFFFFFFLL];
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        v14 = "no";
+        if (initiateCopy)
+        {
+          v14 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectToUSBDevice:isUserInitiate:]", 30, "Evaluator: connect start USBDevice %@ isPairing %s", v9, v14);
       }
 
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_1000594D0;
-      v12[3] = &unk_1002B8648;
-      v13 = v7;
-      v14 = v11;
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_1000594D0;
+      v15[3] = &unk_1002B8648;
+      v16 = v9;
+      v17 = v13;
       selfCopy = self;
-      v16 = initiateCopy;
-      [v11 activateWithCompletion:v12];
+      v19 = initiateCopy;
+      [v13 activateWithCompletion:v15];
     }
 
-    else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    else if (dword_1002F6778 <= 90)
     {
-      sub_1001E8790();
+      if (dword_1002F6778 != -1 || (deviceCopy = _LogCategory_Initialize(), deviceCopy))
+      {
+        sub_1001E8790(deviceCopy, v7, v8);
+      }
     }
   }
 }
@@ -8689,13 +9399,7 @@ LABEL_8:
   v13 = UpTicksToSeconds();
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v27 = v9;
-    v28 = v13;
-    v25 = v12;
-    v26 = v10;
-    v23 = versionCopy;
-    v24 = v11;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _startHijackMetricSubmission:wxAddress:version:]", 30, "HijackStats: Version %@ lastMediaSubmission %us lastCallSubmission %us lastAmbientSubmission %us lastsInputSubmission %us lastPredictiveRoute %us", versionCopy, v11, v12, v10, v9, v13);
   }
 
   if (v13 >= 3)
@@ -8710,7 +9414,7 @@ LABEL_8:
       [(SRStats *)self->_stats setHijackInputTick:mach_absolute_time()];
     }
 
-    if ([(SRStats *)self->_stats hijackScore:v23]== 201)
+    if ([(SRStats *)self->_stats hijackScore]== 201)
     {
       if (v10 < 3)
       {
@@ -8813,23 +9517,27 @@ LABEL_31:
 
 - (void)_statsEnsureStarted
 {
+  selfCopy = self;
   if (!self->_stats)
   {
-    v3 = objc_alloc_init(SRStats);
-    stats = self->_stats;
-    self->_stats = v3;
+    v4 = objc_alloc_init(SRStats);
+    stats = selfCopy->_stats;
+    selfCopy->_stats = v4;
   }
 
-  if (!self->_smartRoutingWxStatsMap)
+  if (!selfCopy->_smartRoutingWxStatsMap)
   {
-    v5 = objc_alloc_init(NSMutableDictionary);
-    smartRoutingWxStatsMap = self->_smartRoutingWxStatsMap;
-    self->_smartRoutingWxStatsMap = v5;
+    v6 = objc_alloc_init(NSMutableDictionary);
+    smartRoutingWxStatsMap = selfCopy->_smartRoutingWxStatsMap;
+    selfCopy->_smartRoutingWxStatsMap = v6;
   }
 
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E87C8();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E87C8(self, a2, v2);
+    }
   }
 }
 
@@ -9062,7 +9770,7 @@ LABEL_31:
 {
   metricCopy = metric;
   errorCopy = error;
-  v87 = metricCopy;
+  v89 = metricCopy;
   if (metricCopy)
   {
     score = self->_score;
@@ -9076,7 +9784,7 @@ LABEL_31:
       v8 = off_1002B8F50[score];
     }
 
-    v82 = [NSString stringWithUTF8String:v8];
+    v84 = [NSString stringWithUTF8String:v8];
     audioScoreOtherTipiDevice = self->_audioScoreOtherTipiDevice;
     if (audioScoreOtherTipiDevice > 0xF)
     {
@@ -9088,10 +9796,10 @@ LABEL_31:
       v10 = off_1002B8F50[audioScoreOtherTipiDevice];
     }
 
-    v79 = [NSString stringWithUTF8String:v10];
-    v86 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:metricCopy];
-    identifier = [v86 identifier];
-    routingAction = [v86 routingAction];
+    v81 = [NSString stringWithUTF8String:v10];
+    v88 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:metricCopy];
+    identifier = [v88 identifier];
+    routingAction = [v88 routingAction];
     if (routingAction > 5)
     {
       v12 = "?";
@@ -9102,13 +9810,13 @@ LABEL_31:
       v12 = off_1002B90F8[routingAction];
     }
 
-    v75 = [NSString stringWithUTF8String:v12];
+    v77 = [NSString stringWithUTF8String:v12];
     mach_absolute_time();
     v13 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
     [v13 lastConnectionTicks];
     v14 = UpTicksToMilliseconds();
 
-    otherTipiDeviceBTName = [v86 otherTipiDeviceBTName];
+    otherTipiDeviceBTName = [v88 otherTipiDeviceBTName];
     v16 = otherTipiDeviceBTName;
     if (otherTipiDeviceBTName)
     {
@@ -9120,7 +9828,7 @@ LABEL_31:
       v17 = @"NA";
     }
 
-    v76 = v17;
+    v78 = v17;
 
     v18 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
     preemptiveBannerShown = [v18 preemptiveBannerShown];
@@ -9128,11 +9836,10 @@ LABEL_31:
     if (preemptiveBannerShown)
     {
       mach_absolute_time();
-      preemptiveBannerShownTicks = self->_preemptiveBannerShownTicks;
-      v21 = UpTicksToMilliseconds();
-      if (v21 >> 5 >= 0x271)
+      v20 = UpTicksToMilliseconds();
+      if (v20 >> 5 >= 0x271)
       {
-        v21 = UpTicksToMilliseconds();
+        v20 = UpTicksToMilliseconds();
       }
 
       *&self->_preemptiveBannerBlockedTicks = 0u;
@@ -9144,78 +9851,84 @@ LABEL_31:
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    v66 = CUPrintNSError();
+    v68 = CUPrintNSError();
     _getCurrentRoute = [(BTSmartRoutingDaemon *)self _getCurrentRoute];
-    v22 = [(BTSmartRoutingDaemon *)self _getWxFWVersion:v87];
-    v23 = v22;
-    if (v22)
+    v21 = [(BTSmartRoutingDaemon *)self _getWxFWVersion:v89];
+    v22 = v21;
+    if (v21)
     {
-      v24 = v22;
+      v23 = v21;
     }
 
     else
     {
-      v24 = &stru_1002C1358;
+      v23 = &stru_1002C1358;
     }
 
-    v65 = v24;
+    v67 = v23;
 
     onDemandCategory = [(SRStats *)self->_stats onDemandCategory];
-    v26 = onDemandCategory;
+    v25 = onDemandCategory;
     if (onDemandCategory)
     {
-      v27 = onDemandCategory;
+      v26 = onDemandCategory;
     }
 
     else
     {
-      v27 = @"NA";
+      v26 = @"NA";
     }
 
-    v78 = v27;
+    v80 = v26;
 
     if ([(SRStats *)self->_stats pipeStartTime])
     {
       mach_absolute_time();
       [(SRStats *)self->_stats pipeStartTime];
-      v62 = UpTicksToMilliseconds();
+      v64 = UpTicksToMilliseconds();
     }
 
     else
     {
-      v62 = 0;
+      v64 = 0;
     }
 
     firstPipeMessageRTT = [(SRStats *)self->_stats firstPipeMessageRTT];
-    v58 = [(BTSmartRoutingDaemon *)self _inEarNearbyCheck:v87];
+    v60 = [(BTSmartRoutingDaemon *)self _inEarNearbyCheck:v89];
     _isOnDemandConnectInProgress = [(BTSmartRoutingDaemon *)self _isOnDemandConnectInProgress];
     _isConnectionTipiv2 = [(BTSmartRoutingDaemon *)self _isConnectionTipiv2];
-    v84 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v87];
-    tipiConnectType = [v84 tipiConnectType];
+    v86 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v89];
+    tipiConnectType = [v86 tipiConnectType];
     if (tipiConnectType > 0xA)
     {
-      v31 = "?";
+      v30 = "?";
     }
 
     else
     {
-      v31 = off_1002B8FD0[tipiConnectType];
+      v30 = off_1002B8FD0[tipiConnectType];
     }
 
-    v71 = [NSString stringWithUTF8String:v31];
-    v83 = [(BTSmartRoutingDaemon *)self _inCaseLidClosed:v87];
+    v73 = [NSString stringWithUTF8String:v30];
+    v85 = [(BTSmartRoutingDaemon *)self _inCaseLidClosed:v89];
+    v31 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
+    preemptiveBannerShown2 = [v31 preemptiveBannerShown];
+
     v32 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
-    preemptiveBannerShown2 = [v32 preemptiveBannerShown];
+    sourceCount = [v32 sourceCount];
 
-    v33 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
-    sourceCount = [v33 sourceCount];
-
-    if (v83 && dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (v85)
     {
-      sub_1001E87E4();
+      if (dword_1002F6778 <= 90)
+      {
+        if (dword_1002F6778 != -1 || (v33 = _LogCategory_Initialize(), v33))
+        {
+          sub_1001E87E4(v33, v34, v35);
+        }
+      }
     }
 
     if (_isConnectionTipiv2)
@@ -9224,192 +9937,192 @@ LABEL_31:
       self->_phase1ConnectConfig = 0;
     }
 
-    if (v84)
+    if (v86)
     {
-      isUSBPlugIn = [v84 isUSBPlugIn];
-      v36 = &off_1002CB6F0;
+      isUSBPlugIn = [v86 isUSBPlugIn];
+      v38 = &off_1002CB6F0;
       if (isUSBPlugIn)
       {
-        v36 = &off_1002CB6D8;
+        v38 = &off_1002CB6D8;
       }
     }
 
     else
     {
-      v36 = &off_1002CB6A8;
+      v38 = &off_1002CB6A8;
     }
 
-    v69 = v36;
-    v90 = 0;
-    v91 = &v90;
-    v92 = 0x2020000000;
-    v93 = 0;
+    v71 = v38;
+    v92 = 0;
+    v93 = &v92;
+    v94 = 0x2020000000;
+    v95 = 0;
     nearbyInfoDevices = self->_nearbyInfoDevices;
-    v89[0] = _NSConcreteStackBlock;
-    v89[1] = 3221225472;
-    v89[2] = sub_10005AFDC;
-    v89[3] = &unk_1002B7DC8;
-    v89[4] = &v90;
-    [(NSMutableDictionary *)nearbyInfoDevices enumerateKeysAndObjectsUsingBlock:v89];
-    v38 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
+    v91[0] = _NSConcreteStackBlock;
+    v91[1] = 3221225472;
+    v91[2] = sub_10005AFDC;
+    v91[3] = &unk_1002B7DC8;
+    v91[4] = &v92;
+    [(NSMutableDictionary *)nearbyInfoDevices enumerateKeysAndObjectsUsingBlock:v91];
+    v40 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
 
-    if (v38)
+    if (v40)
     {
-      v39 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
-      audioState = [v39 audioState];
+      v41 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
+      audioState = [v41 audioState];
       if (audioState > 3)
       {
-        v41 = "?";
+        v43 = "?";
       }
 
       else
       {
-        v41 = off_1002B8ED0[audioState];
+        v43 = off_1002B8ED0[audioState];
       }
 
-      v61 = [NSString stringWithUTF8String:v41];
+      v63 = [NSString stringWithUTF8String:v43];
 
-      v42 = v14;
+      v44 = v14;
     }
 
     else
     {
-      v42 = v14;
-      v61 = @"Unknown";
+      v44 = v14;
+      v63 = @"Unknown";
     }
 
-    if ([v84 nearbyUSBPluggedIn] == 1)
+    if ([v86 nearbyUSBPluggedIn] == 1)
     {
-      v43 = &off_1002CB6D8;
+      v45 = &off_1002CB6D8;
     }
 
     else
     {
-      v43 = &off_1002CB6A8;
+      v45 = &off_1002CB6A8;
     }
 
-    v94[0] = @"audioScore";
-    v94[1] = @"disconnectionReason";
-    v95[0] = v82;
-    v95[1] = v43;
-    v94[2] = @"firstPipeMessageRTT";
-    v81 = [NSNumber numberWithUnsignedLongLong:firstPipeMessageRTT];
-    v95[2] = v81;
-    v94[3] = @"forceConnect";
-    v80 = [NSNumber numberWithBool:self->_forcedConnection];
-    v95[3] = v80;
-    v94[4] = @"localAudioScore";
+    v96[0] = @"audioScore";
+    v96[1] = @"disconnectionReason";
+    v97[0] = v84;
+    v97[1] = v45;
+    v96[2] = @"firstPipeMessageRTT";
+    v83 = [NSNumber numberWithUnsignedLongLong:firstPipeMessageRTT];
+    v97[2] = v83;
+    v96[3] = @"forceConnect";
+    v82 = [NSNumber numberWithBool:self->_forcedConnection];
+    v97[3] = v82;
+    v96[4] = @"localAudioScore";
     localAudioScore = [(SRStats *)self->_stats localAudioScore];
-    v74 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [localAudioScore intValue]);
-    v95[4] = v74;
-    v94[5] = @"nearbyDeviceCount";
-    v73 = [NSNumber numberWithUnsignedInt:*(v91 + 6)];
-    v95[5] = v73;
-    v94[6] = @"nearbyWxCount";
-    v70 = [NSNumber numberWithUnsignedInteger:[(NSMutableDictionary *)self->_wxDevices count]];
-    v95[6] = v70;
-    v95[7] = v78;
-    v94[7] = @"onDemandCategory";
-    v94[8] = @"onDemandConnect";
-    v68 = [NSNumber numberWithBool:_isOnDemandConnectInProgress];
-    v95[8] = v68;
-    v94[9] = @"setupSupportsTipiv2";
-    v64 = [NSNumber numberWithBool:[(SRStats *)self->_stats setupSupportsTipiv2]];
-    v95[9] = v64;
-    v95[10] = v79;
-    v94[10] = @"peerAudioScore";
-    v94[11] = @"peerModel";
-    v95[11] = v76;
-    v94[12] = @"pipeToConnectionCompleteTime";
-    v63 = [NSNumber numberWithUnsignedLongLong:v62];
-    v95[12] = v63;
-    v94[13] = @"preemptiveBannerFailureReason";
+    v76 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [localAudioScore intValue]);
+    v97[4] = v76;
+    v96[5] = @"nearbyDeviceCount";
+    v75 = [NSNumber numberWithUnsignedInt:*(v93 + 6)];
+    v97[5] = v75;
+    v96[6] = @"nearbyWxCount";
+    v72 = [NSNumber numberWithUnsignedInteger:[(NSMutableDictionary *)self->_wxDevices count]];
+    v97[6] = v72;
+    v97[7] = v80;
+    v96[7] = @"onDemandCategory";
+    v96[8] = @"onDemandConnect";
+    v70 = [NSNumber numberWithBool:_isOnDemandConnectInProgress];
+    v97[8] = v70;
+    v96[9] = @"setupSupportsTipiv2";
+    v66 = [NSNumber numberWithBool:[(SRStats *)self->_stats setupSupportsTipiv2]];
+    v97[9] = v66;
+    v97[10] = v81;
+    v96[10] = @"peerAudioScore";
+    v96[11] = @"peerModel";
+    v97[11] = v78;
+    v96[12] = @"pipeToConnectionCompleteTime";
+    v65 = [NSNumber numberWithUnsignedLongLong:v64];
+    v97[12] = v65;
+    v96[13] = @"preemptiveBannerFailureReason";
     evalPreemptiveBannerResult = [(SRSourceDevice *)self->_sourceDevice evalPreemptiveBannerResult];
-    v45 = evalPreemptiveBannerResult;
+    v47 = evalPreemptiveBannerResult;
     if (evalPreemptiveBannerResult)
     {
-      v46 = evalPreemptiveBannerResult;
+      v48 = evalPreemptiveBannerResult;
     }
 
     else
     {
-      v46 = &stru_1002C1358;
+      v48 = &stru_1002C1358;
     }
 
     if (preemptiveBannerShown2)
     {
-      v47 = @"Yes";
+      v49 = @"Yes";
     }
 
     else
     {
-      v47 = @"No";
+      v49 = @"No";
     }
 
-    v95[13] = v46;
-    v95[14] = v47;
-    v94[14] = @"preemptiveBannerShown";
-    v94[15] = @"preemptiveBannerTime";
-    if (v21)
+    v97[13] = v48;
+    v97[14] = v49;
+    v96[14] = @"preemptiveBannerShown";
+    v96[15] = @"preemptiveBannerTime";
+    if (v20)
     {
-      v48 = [NSNumber numberWithUnsignedLongLong:v21];
+      v50 = [NSNumber numberWithUnsignedLongLong:v20];
     }
 
     else
     {
-      v48 = @"Not initialized";
+      v50 = @"Not initialized";
     }
 
-    v60 = v48;
-    v95[15] = v48;
-    v95[16] = v75;
-    v94[16] = @"routingAction";
-    v94[17] = @"systemAudioRoute";
-    v95[17] = _getCurrentRoute;
-    v94[18] = @"tipiConnect";
-    otherTipiDeviceBTAddress = [v86 otherTipiDeviceBTAddress];
+    v62 = v50;
+    v97[15] = v50;
+    v97[16] = v77;
+    v96[16] = @"routingAction";
+    v96[17] = @"systemAudioRoute";
+    v97[17] = _getCurrentRoute;
+    v96[18] = @"tipiConnect";
+    otherTipiDeviceBTAddress = [v88 otherTipiDeviceBTAddress];
     if (otherTipiDeviceBTAddress)
     {
-      v50 = @"Yes";
+      v52 = @"Yes";
     }
 
     else
     {
-      v50 = @"No";
+      v52 = @"No";
     }
 
-    v95[18] = v50;
-    v95[19] = v71;
-    v94[19] = @"tipiConnectType";
-    v94[20] = @"usbState";
-    v95[20] = v69;
-    v94[21] = @"wxConnectTime";
-    v51 = [NSNumber numberWithUnsignedLongLong:v42];
-    v95[21] = v51;
-    v94[22] = @"wxProductID";
-    v52 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v86 productID]);
-    v95[22] = v52;
-    v95[23] = v66;
-    v94[23] = @"wxConnectResult";
-    v94[24] = @"wxConnectResult2";
-    v95[24] = v66;
-    v95[25] = v65;
-    v94[25] = @"wxBuildVersion";
-    v94[26] = @"wxInEar";
-    v53 = [NSNumber numberWithBool:v58];
-    v95[26] = v53;
-    v94[27] = @"wxInCasewithLidClosed";
-    v54 = [NSNumber numberWithBool:v83];
-    v95[27] = v54;
-    v94[28] = @"wxSourceCount";
-    v55 = [NSNumber numberWithUnsignedChar:sourceCount];
-    v94[29] = @"wxStreamState";
-    v95[28] = v55;
-    v95[29] = v61;
-    v56 = [NSDictionary dictionaryWithObjects:v95 forKeys:v94 count:30];
+    v97[18] = v52;
+    v97[19] = v73;
+    v96[19] = @"tipiConnectType";
+    v96[20] = @"usbState";
+    v97[20] = v71;
+    v96[21] = @"wxConnectTime";
+    v53 = [NSNumber numberWithUnsignedLongLong:v44];
+    v97[21] = v53;
+    v96[22] = @"wxProductID";
+    v54 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v88 productID]);
+    v97[22] = v54;
+    v97[23] = v68;
+    v96[23] = @"wxConnectResult";
+    v96[24] = @"wxConnectResult2";
+    v97[24] = v68;
+    v97[25] = v67;
+    v96[25] = @"wxBuildVersion";
+    v96[26] = @"wxInEar";
+    v55 = [NSNumber numberWithBool:v60];
+    v97[26] = v55;
+    v96[27] = @"wxInCasewithLidClosed";
+    v56 = [NSNumber numberWithBool:v85];
+    v97[27] = v56;
+    v96[28] = @"wxSourceCount";
+    v57 = [NSNumber numberWithUnsignedChar:sourceCount];
+    v96[29] = @"wxStreamState";
+    v97[28] = v57;
+    v97[29] = v63;
+    v58 = [NSDictionary dictionaryWithObjects:v97 forKeys:v96 count:30];
     CUMetricsLogEx();
 
-    if (v21)
+    if (v20)
     {
     }
 
@@ -9418,7 +10131,7 @@ LABEL_31:
       [(SRStats *)self->_stats setOnDemandCategory:0];
     }
 
-    _Block_object_dispose(&v90, 8);
+    _Block_object_dispose(&v92, 8);
   }
 }
 
@@ -9469,194 +10182,181 @@ LABEL_31:
 - (void)_submitRouteCheckMetric:(id)metric andType:(int)type
 {
   metricCopy = metric;
+  v9 = metricCopy;
   if (metricCopy)
   {
-    v85 = [(BTSmartRoutingDaemon *)self _getWxProductID:metricCopy];
+    v88 = [(BTSmartRoutingDaemon *)self _getWxProductID:metricCopy];
     audioRoute = [(SRSourceDevice *)self->_sourceDevice audioRoute];
     if (audioRoute > 4)
     {
-      v8 = "?";
+      v11 = "?";
     }
 
     else
     {
-      v8 = off_1002B9148[audioRoute];
+      v11 = off_1002B9148[audioRoute];
     }
 
-    v99 = [NSString stringWithUTF8String:v8];
-    v9 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:metricCopy];
+    v102 = [NSString stringWithUTF8String:v11];
+    v12 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v9];
 
     onDemandCategory = [(SRStats *)self->_stats onDemandCategory];
-    v11 = onDemandCategory;
+    v14 = onDemandCategory;
     if (onDemandCategory)
     {
-      v12 = onDemandCategory;
+      v15 = onDemandCategory;
     }
 
     else
     {
-      v12 = @"NA";
+      v15 = @"NA";
     }
 
-    v13 = v12;
+    v16 = v15;
 
-    v14 = [(BTSmartRoutingDaemon *)self _getWxFWVersion:metricCopy];
-    v15 = v14;
-    v16 = &stru_1002C1358;
-    if (v14)
+    v17 = [(BTSmartRoutingDaemon *)self _getWxFWVersion:v9];
+    v18 = v17;
+    v19 = &stru_1002C1358;
+    if (v17)
     {
-      v16 = v14;
+      v19 = v17;
     }
 
-    v98 = v16;
+    v101 = v19;
 
-    v17 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:metricCopy];
+    v20 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v9];
     intValue = [(NSNumber *)self->_localDeviceAudioCategory intValue];
     if (type > 0xE)
     {
-      v18 = "?";
+      v21 = "?";
     }
 
     else
     {
-      v18 = off_1002B9028[type];
+      v21 = off_1002B9028[type];
     }
 
-    v97 = [NSString stringWithUTF8String:v18];
-    otherTipiDeviceBTName = [v17 otherTipiDeviceBTName];
-    v20 = otherTipiDeviceBTName;
+    v100 = [NSString stringWithUTF8String:v21];
+    otherTipiDeviceBTName = [v20 otherTipiDeviceBTName];
+    v23 = otherTipiDeviceBTName;
     if (otherTipiDeviceBTName)
     {
-      v21 = otherTipiDeviceBTName;
+      v24 = otherTipiDeviceBTName;
     }
 
     else
     {
-      v21 = @"NA";
+      v24 = @"NA";
     }
 
-    v101 = v21;
+    v104 = v24;
 
     bluetoothState = [(SRSourceDevice *)self->_sourceDevice bluetoothState];
     if (bluetoothState > 0xA)
     {
-      v23 = "?";
+      v26 = "?";
     }
 
     else
     {
-      v23 = off_1002B8BF8[bluetoothState];
+      v26 = off_1002B8BF8[bluetoothState];
     }
 
-    v96 = [NSString stringWithUTF8String:v23];
-    v24 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:metricCopy];
-    v84 = v24;
-    if (v24)
+    v99 = [NSString stringWithUTF8String:v26];
+    v27 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v9];
+    v87 = v27;
+    if (v27)
     {
-      audioStreamState = [v24 audioStreamState];
+      audioStreamState = [v27 audioStreamState];
       if (audioStreamState > 3)
       {
-        v26 = "?";
+        v29 = "?";
       }
 
       else
       {
-        v26 = off_1002B9128[audioStreamState];
+        v29 = off_1002B9128[audioStreamState];
       }
 
-      v95 = [NSString stringWithUTF8String:v26];
+      v98 = [NSString stringWithUTF8String:v29];
     }
 
     else
     {
-      v95 = @"NA";
+      v98 = @"NA";
     }
 
     falseRouteCheckReason = [(SRStats *)self->_stats falseRouteCheckReason];
     hijackVersion = [(SRStats *)self->_stats hijackVersion];
-    v28 = hijackVersion;
+    v31 = hijackVersion;
     if (hijackVersion)
     {
-      v29 = hijackVersion;
+      v32 = hijackVersion;
     }
 
     else
     {
-      v29 = @"NA";
+      v32 = @"NA";
     }
 
-    v30 = v29;
+    v33 = v32;
 
     hijackAnswer = [(SRStats *)self->_stats hijackAnswer];
-    v32 = hijackAnswer;
+    v35 = hijackAnswer;
     if (hijackAnswer)
     {
-      v33 = hijackAnswer;
+      v36 = hijackAnswer;
     }
 
     else
     {
-      v33 = @"NA";
+      v36 = @"NA";
     }
 
-    v94 = v33;
+    v97 = v36;
 
-    v34 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:metricCopy];
-    v100 = v17;
-    v83 = v34;
-    if (v9 && v17)
+    v37 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v9];
+    v103 = v20;
+    v86 = v37;
+    if (v12 && v20)
     {
-      inEar = [v17 inEar];
+      inEar = [v20 inEar];
     }
 
     else
     {
-      if (v9)
+      if (v12)
       {
-        v93 = @"NA";
+        v96 = @"NA";
         goto LABEL_44;
       }
 
-      inEar = [v34 nearbyInEar] == 1;
+      inEar = [v37 nearbyInEar] == 1;
     }
 
-    v36 = @"NO";
+    v39 = @"NO";
     if (inEar)
     {
-      v36 = @"YES";
+      v39 = @"YES";
     }
 
-    v93 = v36;
+    v96 = v39;
 LABEL_44:
-    v37 = 0;
+    v40 = 0;
     hijackScore = 0;
-    v89 = metricCopy;
+    v92 = v9;
     if (type > 11)
     {
       if (type == 13)
       {
 
-        v40 = objc_alloc_init(NSMutableDictionary);
+        v43 = objc_alloc_init(NSMutableDictionary);
         bannerAction = [(SRStats *)self->_stats bannerAction];
-        v42 = v30;
-        v43 = bannerAction;
+        v45 = v33;
+        v46 = bannerAction;
         if (bannerAction)
         {
-          v44 = bannerAction;
-        }
-
-        else
-        {
-          v44 = @"NA";
-        }
-
-        [v40 setObject:v44 forKeyedSubscript:@"BannerAction"];
-
-        bannerTrigger = [(SRStats *)self->_stats bannerTrigger];
-        v46 = bannerTrigger;
-        if (bannerTrigger)
-        {
-          v47 = bannerTrigger;
+          v47 = bannerAction;
         }
 
         else
@@ -9664,29 +10364,29 @@ LABEL_44:
           v47 = @"NA";
         }
 
-        [v40 setObject:v47 forKeyedSubscript:@"BannerTrigger"];
+        [v43 setObject:v47 forKeyedSubscript:@"BannerAction"];
 
-        v48 = [(BTSmartRoutingDaemon *)self _getJsonStringFromDictionary:v40];
-
-        bannerTrigger2 = [(SRStats *)self->_stats bannerTrigger];
-        v50 = bannerTrigger2;
-        if (bannerTrigger2)
+        bannerTrigger = [(SRStats *)self->_stats bannerTrigger];
+        v49 = bannerTrigger;
+        if (bannerTrigger)
         {
-          v51 = bannerTrigger2;
+          v50 = bannerTrigger;
         }
 
         else
         {
-          v51 = @"NA";
+          v50 = @"NA";
         }
 
-        v92 = v51;
+        [v43 setObject:v50 forKeyedSubscript:@"BannerTrigger"];
 
-        bannerAction2 = [(SRStats *)self->_stats bannerAction];
-        v53 = bannerAction2;
-        if (bannerAction2)
+        v51 = [(BTSmartRoutingDaemon *)self _getJsonStringFromDictionary:v43];
+
+        bannerTrigger2 = [(SRStats *)self->_stats bannerTrigger];
+        v53 = bannerTrigger2;
+        if (bannerTrigger2)
         {
-          v54 = bannerAction2;
+          v54 = bannerTrigger2;
         }
 
         else
@@ -9694,34 +10394,48 @@ LABEL_44:
           v54 = @"NA";
         }
 
-        v91 = v54;
+        v95 = v54;
+
+        bannerAction2 = [(SRStats *)self->_stats bannerAction];
+        v56 = bannerAction2;
+        if (bannerAction2)
+        {
+          v57 = bannerAction2;
+        }
+
+        else
+        {
+          v57 = @"NA";
+        }
+
+        v94 = v57;
 
         hijackScore = 0;
-        v37 = 0;
-        v101 = @"NA";
-        falseRouteCheckReason = v48;
-        v30 = v42;
+        v40 = 0;
+        v104 = @"NA";
+        falseRouteCheckReason = v51;
+        v33 = v45;
         goto LABEL_71;
       }
 
       if (type == 12)
       {
-        if (v100 && [v100 otherTipiDeviceIdleTick])
+        if (v103 && [v103 otherTipiDeviceIdleTick])
         {
           mach_absolute_time();
-          [v100 otherTipiDeviceIdleTick];
+          [v103 otherTipiDeviceIdleTick];
           hijackScore = 0;
-          v37 = UpTicksToSeconds() - 25;
+          v40 = UpTicksToSeconds() - 25;
         }
 
         else
         {
           hijackScore = 0;
-          v37 = 0;
+          v40 = 0;
         }
 
-        v91 = @"NA";
-        v92 = @"NA";
+        v94 = @"NA";
+        v95 = @"NA";
         goto LABEL_71;
       }
     }
@@ -9731,64 +10445,47 @@ LABEL_44:
       if ((type - 5) < 2)
       {
         hijackScore = [(SRStats *)self->_stats hijackScore];
-        v37 = 0;
+        v40 = 0;
 LABEL_54:
-        v91 = @"NA";
-        v92 = @"NA";
+        v94 = @"NA";
+        v95 = @"NA";
 LABEL_71:
         typeCopy = type;
-        if ([(__CFString *)v94 isEqualToString:@"Backoff"])
+        if ([(__CFString *)v97 isEqualToString:@"Backoff"])
         {
 
-          v90 = @"All";
+          v93 = @"All";
         }
 
         else
         {
-          v90 = v30;
+          v93 = v33;
         }
 
-        v103[0] = @"ActivePlayingApp";
+        v106[0] = @"ActivePlayingApp";
         activePlayingApp = [(SRSourceDevice *)self->_sourceDevice activePlayingApp];
-        v82 = activePlayingApp;
+        v85 = activePlayingApp;
         if (activePlayingApp)
         {
-          v56 = activePlayingApp;
+          v59 = activePlayingApp;
         }
 
         else
         {
-          v56 = @"NA";
+          v59 = @"NA";
         }
 
-        v104[0] = v56;
-        v104[1] = v91;
-        v103[1] = @"BannerAction";
-        v103[2] = @"BluetoothState";
-        v104[2] = v96;
-        v103[3] = @"HijackAnswer";
+        v107[0] = v59;
+        v107[1] = v94;
+        v106[1] = @"BannerAction";
+        v106[2] = @"BluetoothState";
+        v107[2] = v99;
+        v106[3] = @"HijackAnswer";
         hijackAnswer2 = [(SRStats *)self->_stats hijackAnswer];
-        v81 = hijackAnswer2;
+        v84 = hijackAnswer2;
         if (hijackAnswer2)
         {
-          v58 = hijackAnswer2;
-        }
-
-        else
-        {
-          v58 = @"NA";
-        }
-
-        v104[3] = v58;
-        v103[4] = @"HijackScore";
-        v80 = [NSNumber numberWithInt:hijackScore];
-        v104[4] = v80;
-        v103[5] = @"HijackVersion";
-        hijackVersion2 = [(SRStats *)self->_stats hijackVersion];
-        v60 = hijackVersion2;
-        if (hijackVersion2)
-        {
-          v61 = hijackVersion2;
+          v61 = hijackAnswer2;
         }
 
         else
@@ -9796,49 +10493,52 @@ LABEL_71:
           v61 = @"NA";
         }
 
-        v104[5] = v61;
-        v104[6] = v93;
-        v103[6] = @"InEar";
-        v103[7] = @"IsConnected";
-        v79 = [NSNumber numberWithBool:v9 != 0];
-        v104[7] = v79;
-        v103[8] = @"IsPlaying";
-        v78 = [NSNumber numberWithBool:intValue > 100];
-        v104[8] = v78;
-        v103[9] = @"LocalAudioCategory";
-        v62 = [NSNumber numberWithInt:[(NSNumber *)self->_localDeviceAudioCategory intValue]];
-        v104[9] = v62;
-        v104[10] = v13;
-        v88 = v13;
-        v103[10] = @"OnDemandCategory";
-        v103[11] = @"OtherTipiDevice";
-        v104[11] = v101;
-        v103[12] = @"OtherTipiDeviceIdleTime";
-        v63 = [NSNumber numberWithUnsignedLongLong:v37];
-        v104[12] = v63;
-        v103[13] = @"OtherTipiAudioCategory";
-        v64 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v100 otherTipiAudioCategory]);
-        v104[13] = v64;
-        v103[14] = @"OtherTipiDevicePlayingApp";
-        otherTipiDevicePlayingApp = [v100 otherTipiDevicePlayingApp];
-        v66 = otherTipiDevicePlayingApp;
-        if (otherTipiDevicePlayingApp)
+        v107[3] = v61;
+        v106[4] = @"HijackScore";
+        v83 = [NSNumber numberWithInt:hijackScore];
+        v107[4] = v83;
+        v106[5] = @"HijackVersion";
+        hijackVersion2 = [(SRStats *)self->_stats hijackVersion];
+        v63 = hijackVersion2;
+        if (hijackVersion2)
         {
-          v67 = otherTipiDevicePlayingApp;
+          v64 = hijackVersion2;
         }
 
         else
         {
-          v67 = @"NA";
+          v64 = @"NA";
         }
 
-        v104[14] = v67;
-        v103[15] = @"ProactiveRoutingTrigger";
-        proactiveRoutingTrigger = [(SRStats *)self->_stats proactiveRoutingTrigger];
-        v69 = proactiveRoutingTrigger;
-        if (proactiveRoutingTrigger)
+        v107[5] = v64;
+        v107[6] = v96;
+        v106[6] = @"InEar";
+        v106[7] = @"IsConnected";
+        v82 = [NSNumber numberWithBool:v12 != 0];
+        v107[7] = v82;
+        v106[8] = @"IsPlaying";
+        v81 = [NSNumber numberWithBool:intValue > 100];
+        v107[8] = v81;
+        v106[9] = @"LocalAudioCategory";
+        v65 = [NSNumber numberWithInt:[(NSNumber *)self->_localDeviceAudioCategory intValue]];
+        v107[9] = v65;
+        v107[10] = v16;
+        v91 = v16;
+        v106[10] = @"OnDemandCategory";
+        v106[11] = @"OtherTipiDevice";
+        v107[11] = v104;
+        v106[12] = @"OtherTipiDeviceIdleTime";
+        v66 = [NSNumber numberWithUnsignedLongLong:v40];
+        v107[12] = v66;
+        v106[13] = @"OtherTipiAudioCategory";
+        v67 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v103 otherTipiAudioCategory]);
+        v107[13] = v67;
+        v106[14] = @"OtherTipiDevicePlayingApp";
+        otherTipiDevicePlayingApp = [v103 otherTipiDevicePlayingApp];
+        v69 = otherTipiDevicePlayingApp;
+        if (otherTipiDevicePlayingApp)
         {
-          v70 = proactiveRoutingTrigger;
+          v70 = otherTipiDevicePlayingApp;
         }
 
         else
@@ -9846,49 +10546,63 @@ LABEL_71:
           v70 = @"NA";
         }
 
-        v104[15] = v70;
-        v103[16] = @"ProactiveRoutingWxRSSI";
-        v71 = [NSNumber numberWithInt:[(SRStats *)self->_stats proactiveRoutingWxRSSI]];
-        v72 = v71;
-        v73 = falseRouteCheckReason;
-        if (!falseRouteCheckReason)
+        v107[14] = v70;
+        v106[15] = @"ProactiveRoutingTrigger";
+        proactiveRoutingTrigger = [(SRStats *)self->_stats proactiveRoutingTrigger];
+        v72 = proactiveRoutingTrigger;
+        if (proactiveRoutingTrigger)
+        {
+          v73 = proactiveRoutingTrigger;
+        }
+
+        else
         {
           v73 = @"NA";
         }
 
-        v104[16] = v71;
-        v104[17] = v73;
-        v103[17] = @"Reason";
-        v103[18] = @"Route";
-        v104[18] = v99;
-        v104[19] = v92;
-        v103[19] = @"Trigger";
-        v103[20] = @"Type";
-        v104[20] = v97;
-        v104[21] = v98;
-        v103[21] = @"WxBuildVersion";
-        v103[22] = @"WxProductID";
-        v74 = [NSNumber numberWithUnsignedInt:v85];
-        v103[23] = @"WxStreamState";
-        v104[22] = v74;
-        v104[23] = v95;
-        v75 = [NSDictionary dictionaryWithObjects:v104 forKeys:v103 count:24];
+        v107[15] = v73;
+        v106[16] = @"ProactiveRoutingWxRSSI";
+        v74 = [NSNumber numberWithInt:[(SRStats *)self->_stats proactiveRoutingWxRSSI]];
+        v75 = v74;
+        v76 = falseRouteCheckReason;
+        if (!falseRouteCheckReason)
+        {
+          v76 = @"NA";
+        }
+
+        v107[16] = v74;
+        v107[17] = v76;
+        v106[17] = @"Reason";
+        v106[18] = @"Route";
+        v107[18] = v102;
+        v107[19] = v95;
+        v106[19] = @"Trigger";
+        v106[20] = @"Type";
+        v107[20] = v100;
+        v107[21] = v101;
+        v106[21] = @"WxBuildVersion";
+        v106[22] = @"WxProductID";
+        v77 = [NSNumber numberWithUnsignedInt:v88];
+        v106[23] = @"WxStreamState";
+        v107[22] = v77;
+        v107[23] = v98;
+        v78 = [NSDictionary dictionaryWithObjects:v107 forKeys:v106 count:24];
         CUMetricsLogEx();
 
         [(SRStats *)self->_stats setProactiveRoutingTrigger:&stru_1002C1358];
         if (typeCopy == 6)
         {
           [(SRStats *)self->_stats setHijackAnswer:0];
-          metricCopy = v89;
-          v76 = v90;
-          v77 = v83;
+          v9 = v92;
+          v79 = v93;
+          v80 = v86;
         }
 
         else
         {
-          metricCopy = v89;
-          v76 = v90;
-          v77 = v83;
+          v9 = v92;
+          v79 = v93;
+          v80 = v86;
           if (typeCopy == 10)
           {
             [(SRStats *)self->_stats setOnDemandCategory:0];
@@ -9903,20 +10617,23 @@ LABEL_71:
         reverseRouteReason = [(SRStats *)self->_stats reverseRouteReason];
 
         hijackScore = 0;
-        v37 = 0;
+        v40 = 0;
         falseRouteCheckReason = reverseRouteReason;
         goto LABEL_54;
       }
     }
 
-    v91 = @"NA";
-    v92 = @"NA";
+    v94 = @"NA";
+    v95 = @"NA";
     goto LABEL_71;
   }
 
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E8800();
+    if (dword_1002F6778 != -1 || (metricCopy = _LogCategory_Initialize(), metricCopy))
+    {
+      sub_1001E8800(metricCopy, v7, v8);
+    }
   }
 
 LABEL_96:
@@ -10257,37 +10974,84 @@ LABEL_96:
   }
 }
 
-- (void)_cancelInUseBannerForCallTimer
+- (void)_updateSRDiscoveredDeviceForPairStateChange:(id)change isPaired:(BOOL)paired
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  pairedCopy = paired;
+  changeCopy = change;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_100003918;
+  v17 = sub_100003838;
+  v18 = 0;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10005C8FC;
+  v12[3] = &unk_1002B6C00;
+  v12[4] = &v13;
+  v7 = objc_retainBlock(v12);
+  btAddressData = [changeCopy btAddressData];
+  v9 = CUPrintNSDataAddress();
+
+  if (v9)
   {
-    sub_1001E8920();
+    v10 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v9];
+    v11 = v10;
+    if (v10)
+    {
+      [v10 setIsPaired:pairedCopy];
+    }
   }
 
-  inUseBannerTimer = self->_inUseBannerTimer;
+  else
+  {
+    v11 = v14[5];
+    v14[5] = @"btAddress is null";
+  }
+
+  (v7[2])(v7);
+  _Block_object_dispose(&v13, 8);
+}
+
+- (void)_cancelInUseBannerForCallTimer
+{
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
+  {
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E8920(self, a2, v2);
+    }
+  }
+
+  inUseBannerTimer = selfCopy->_inUseBannerTimer;
   if (inUseBannerTimer)
   {
-    v5 = inUseBannerTimer;
-    dispatch_source_cancel(v5);
-    v4 = self->_inUseBannerTimer;
-    self->_inUseBannerTimer = 0;
+    v6 = inUseBannerTimer;
+    dispatch_source_cancel(v6);
+    v5 = selfCopy->_inUseBannerTimer;
+    selfCopy->_inUseBannerTimer = 0;
   }
 }
 
 - (void)_cancelRingtoneTimer
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E893C();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001E893C(self, a2, v2);
+    }
   }
 
-  ringtoneTimer = self->_ringtoneTimer;
+  ringtoneTimer = selfCopy->_ringtoneTimer;
   if (ringtoneTimer)
   {
-    v5 = ringtoneTimer;
-    dispatch_source_cancel(v5);
-    v4 = self->_ringtoneTimer;
-    self->_ringtoneTimer = 0;
+    v6 = ringtoneTimer;
+    dispatch_source_cancel(v6);
+    v5 = selfCopy->_ringtoneTimer;
+    selfCopy->_ringtoneTimer = 0;
   }
 }
 
@@ -10359,20 +11123,24 @@ LABEL_96:
 {
   if (!self->_tuCallCenter)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E8AF0();
+      if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001E8AF0(self, a2, v2);
+      }
     }
 
-    v4 = +[TUCallCenter sharedInstance];
-    tuCallCenter = self->_tuCallCenter;
-    self->_tuCallCenter = v4;
-
-    v6 = +[NSNotificationCenter defaultCenter];
-    [v6 addObserver:self selector:"_handleTUCallStateChange:" name:TUCallCenterCallStatusChangedNotification object:0];
+    v5 = +[TUCallCenter sharedInstance];
+    tuCallCenter = selfCopy->_tuCallCenter;
+    selfCopy->_tuCallCenter = v5;
 
     v7 = +[NSNotificationCenter defaultCenter];
-    [v7 addObserver:self selector:"_handleTUCallStateChange:" name:TUCallCenterVideoCallStatusChangedNotification object:0];
+    [v7 addObserver:selfCopy selector:"_handleTUCallStateChange:" name:TUCallCenterCallStatusChangedNotification object:0];
+
+    v8 = +[NSNotificationCenter defaultCenter];
+    [v8 addObserver:selfCopy selector:"_handleTUCallStateChange:" name:TUCallCenterVideoCallStatusChangedNotification object:0];
   }
 }
 
@@ -10381,14 +11149,14 @@ LABEL_96:
   addressCopy = address;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E8B28();
+    sub_1001E8B28(addressCopy);
   }
 
   v4 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:addressCopy];
   v5 = v4;
   if (!v4)
   {
-    sub_1001E8C44();
+    sub_1001E8C44(addressCopy);
     goto LABEL_37;
   }
 
@@ -10397,7 +11165,7 @@ LABEL_96:
     v6 = [(AADeviceManagerDaemon *)self->_aaDeviceManagerDaemon deviceWithBluetoothAddress:addressCopy];
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E8BA8();
+      sub_1001E8BA8(v6);
     }
 
     goto LABEL_19;
@@ -10406,7 +11174,7 @@ LABEL_96:
   identifier = [v5 identifier];
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E8B68();
+    sub_1001E8B68(identifier);
     if (identifier)
     {
       goto LABEL_14;
@@ -10591,39 +11359,38 @@ LABEL_23:
 - (void)_anyPairedDeviceSupportsSmartRouting
 {
   v3 = GestaltGetDeviceClass() == 1 || GestaltGetDeviceClass() == 6;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   discoveredDevices = [(CBDiscovery *)self->_pairedDiscovery discoveredDevices];
-  v5 = [discoveredDevices countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v5 = [discoveredDevices countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v53;
+    v8 = *v52;
     v9 = "%.6a";
-    v50 = discoveredDevices;
+    v49 = discoveredDevices;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v53 != v8)
+        if (*v52 != v8)
         {
           objc_enumerationMutation(discoveredDevices);
         }
 
-        v11 = *(*(&v52 + 1) + 8 * i);
+        v11 = *(*(&v51 + 1) + 8 * i);
         if (([v11 deviceFlags] & 0x10) != 0 || v3 && -[BTSmartRoutingDaemon _supportsPhoneWatchTipi:](self, "_supportsPhoneWatchTipi:", objc_msgSend(v11, "productID")))
         {
           btAddressData = [v11 btAddressData];
           if ([btAddressData length] == 6)
           {
-            bytes = [btAddressData bytes];
-            v13 = NSPrintF();
+            v13 = NSPrintF(v9, [btAddressData bytes]);
             if (v13)
             {
-              v14 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v13, bytes];
+              v14 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v13];
               if (v14)
               {
                 v15 = v14;
@@ -10640,7 +11407,7 @@ LABEL_23:
 
                 v9 = v17;
                 v3 = v16;
-                discoveredDevices = v50;
+                discoveredDevices = v49;
               }
             }
           }
@@ -10654,7 +11421,7 @@ LABEL_23:
         }
       }
 
-      v6 = [discoveredDevices countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v6 = [discoveredDevices countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
     while (v6);
@@ -10680,12 +11447,12 @@ LABEL_23:
     if ((v7 & 1) == 0)
     {
       smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-      v51[0] = _NSConcreteStackBlock;
-      v51[1] = 3221225472;
-      v51[2] = sub_10005E6F4;
-      v51[3] = &unk_1002B8168;
-      v51[4] = self;
-      [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v51];
+      v50[0] = _NSConcreteStackBlock;
+      v50[1] = 3221225472;
+      v50[2] = sub_10005E6F4;
+      v50[3] = &unk_1002B8168;
+      v50[4] = self;
+      [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v50];
       uiSmartRoutingBanner = self->_uiSmartRoutingBanner;
       if (uiSmartRoutingBanner)
       {
@@ -10810,6 +11577,250 @@ LABEL_23:
 
     [(BTSmartRoutingDaemon *)self _prefsChanged];
   }
+}
+
+- (BOOL)allowHijackWithAudioScore:(unsigned int)score hijackRoute:(id)route hijackDeniedReason:(id *)reason
+{
+  v6 = *&score;
+  routeCopy = route;
+  v9 = &dword_1002F6000;
+  if (v6 <= 0xC7)
+  {
+    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001E8DC4();
+    }
+
+    LOBYTE(v10) = 0;
+    goto LABEL_79;
+  }
+
+  v11 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:routeCopy];
+  audioStreamState = [v11 audioStreamState];
+
+  v13 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:routeCopy];
+  otherTipiAudioCategory = [v13 otherTipiAudioCategory];
+  [(SRStats *)self->_stats setHijackActiveRemoteScore:otherTipiAudioCategory];
+  otherTipiDeviceIsWatch = [v13 otherTipiDeviceIsWatch];
+  if (!routeCopy)
+  {
+    v10 = 0;
+    v19 = @"WxAddress is NULL";
+    goto LABEL_67;
+  }
+
+  v10 = otherTipiDeviceIsWatch;
+  v16 = audioStreamState;
+  v17 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:routeCopy];
+  otherTipiDeviceBTAddress = [v17 otherTipiDeviceBTAddress];
+
+  if (!otherTipiDeviceBTAddress)
+  {
+    v10 = 0;
+    *reason = @"Other Tipi device does not exist";
+    LODWORD(audioStreamState) = v16;
+    goto LABEL_54;
+  }
+
+  LODWORD(audioStreamState) = v16;
+  if (v6 != 401)
+  {
+    if (otherTipiAudioCategory)
+    {
+      v10 = otherTipiAudioCategory <= v6;
+      if (otherTipiAudioCategory > v6)
+      {
+        v20 = [NSString stringWithFormat:@"Rejected, Remote Category %u > Local Category %u, audio streaming state %d", otherTipiAudioCategory, v6, v16];
+        *reason = v20;
+      }
+
+      else
+      {
+        *reason = @"Allowed";
+      }
+
+      DeviceClass = [v13 otherTipiDeviceMajorBuildVersion];
+      if (self->_prefSmartRoutingPrioritizedCall)
+      {
+        v24 = DeviceClass;
+        DeviceClass = GestaltGetDeviceClass();
+        v25 = 0;
+        if (v6 == 501 && DeviceClass == 1)
+        {
+          callMap = [(SRSourceDevice *)self->_sourceDevice callMap];
+          if ([callMap count])
+          {
+            otherTipiDeviceBTName = [v13 otherTipiDeviceBTName];
+            v26 = [otherTipiDeviceBTName isEqualToString:@"Mac"];
+            if (v24 > 14)
+            {
+              v25 = v26;
+            }
+
+            else
+            {
+              v25 = 0;
+            }
+          }
+
+          else
+          {
+            v25 = 0;
+          }
+        }
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+
+      if (dword_1002F6778 <= 30)
+      {
+        if (dword_1002F6778 != -1 || (DeviceClass = _LogCategory_Initialize(), DeviceClass))
+        {
+          v28 = "no";
+          if (v25)
+          {
+            v28 = "yes";
+          }
+
+          v43 = v28;
+          callMap2 = [(SRSourceDevice *)self->_sourceDevice callMap];
+          v41 = [callMap2 count];
+          otherTipiDeviceBTName2 = [v13 otherTipiDeviceBTName];
+          otherTipiDeviceMajorBuildVersion = [v13 otherTipiDeviceMajorBuildVersion];
+          otherTipiDeviceMinorBuildVersion = [v13 otherTipiDeviceMinorBuildVersion];
+          v31 = "no";
+          if (self->_prefSmartRoutingPrioritizedCall)
+          {
+            v31 = "yes";
+          }
+
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon allowHijackWithAudioScore:hijackRoute:hijackDeniedReason:]", 30, "[Hijackv2] local %u vs remote %u isPhoneCallHijack %s CallCount %d otherTipi %@ %d.%d prioritizedCall %s", v6, otherTipiAudioCategory, v43, v41, otherTipiDeviceBTName2, otherTipiDeviceMajorBuildVersion, otherTipiDeviceMinorBuildVersion, v31);
+        }
+      }
+
+      v34 = v6 != 501 || otherTipiAudioCategory != 501 || otherTipiAudioCategory > v6;
+      if (((v34 | v25) & 1) == 0)
+      {
+        DeviceClass = [NSString stringWithUTF8String:"Ambiguity"];
+        v10 = 0;
+        *reason = DeviceClass;
+      }
+
+      LODWORD(audioStreamState) = v16;
+      if ((v25 & 1) == 0)
+      {
+        if (v16 == 3)
+        {
+          v9 = &dword_1002F6000;
+          switch(otherTipiAudioCategory)
+          {
+            case 0x79:
+              goto LABEL_68;
+            case 0x1F5:
+              goto LABEL_68;
+            case 0x321:
+              goto LABEL_68;
+          }
+
+          DeviceClass = [(SRSourceDevice *)self->_sourceDevice incomingCallRingtone];
+          if (DeviceClass)
+          {
+            goto LABEL_68;
+          }
+        }
+
+        else
+        {
+          v9 = &dword_1002F6000;
+          if (audioStreamState != 2 || otherTipiAudioCategory != 501)
+          {
+            goto LABEL_68;
+          }
+        }
+
+        v35 = v9[478];
+        if (v35 <= 30)
+        {
+          if (v35 != -1 || (DeviceClass = _LogCategory_Initialize(), DeviceClass))
+          {
+            sub_1001E8DA8(DeviceClass, v22, v23);
+          }
+        }
+
+LABEL_66:
+        v10 = 0;
+        v19 = @"Fall back to legacy hijack";
+        goto LABEL_67;
+      }
+    }
+
+    else
+    {
+      v10 = 0;
+      *reason = @"Fall back to legacy hijack";
+    }
+
+LABEL_54:
+    v9 = &dword_1002F6000;
+    goto LABEL_68;
+  }
+
+  v9 = &dword_1002F6000;
+  if (v10)
+  {
+    if (otherTipiAudioCategory)
+    {
+      if (otherTipiAudioCategory > 0x190)
+      {
+        v27 = [NSString stringWithFormat:@"Rejected, Remote Category %u >= Local Category %u", otherTipiAudioCategory, 401];
+        *reason = v27;
+
+        v10 = 0;
+      }
+
+      else
+      {
+        *reason = @"Allowed";
+        v10 = 1;
+      }
+
+      goto LABEL_68;
+    }
+
+    goto LABEL_66;
+  }
+
+  v19 = @"3rd Party ringtone shall not hijack non-watch tipi device";
+LABEL_67:
+  *reason = v19;
+LABEL_68:
+  v36 = v9[478];
+  if (v36 <= 30 && (v36 != -1 || _LogCategory_Initialize()))
+  {
+    v37 = "no";
+    if (v10)
+    {
+      v37 = "yes";
+    }
+
+    if (audioStreamState > 3)
+    {
+      v38 = "?";
+    }
+
+    else
+    {
+      v38 = off_1002B9128[audioStreamState];
+    }
+
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon allowHijackWithAudioScore:hijackRoute:hijackDeniedReason:]", 30, "[Hijackv2] Allow hijack=%s, Local audio category=%u, Remote audio category=%u, wx stream state=%s, Deny reason=%@", v37, v6, otherTipiAudioCategory, v38, *reason);
+  }
+
+LABEL_79:
+  return v10;
 }
 
 - (id)_bluetoothProductIDToLocalizationString:(unsigned int)string withActionButton:(BOOL)button
@@ -10972,7 +11983,7 @@ LABEL_7:
   {
     if (dword_1002F6778 != -1 || (getActivePairedDevice = _LogCategory_Initialize(), v7 = v9, getActivePairedDevice))
     {
-      getActivePairedDevice = sub_1001E8E90(self);
+      getActivePairedDevice = sub_1001E8E90();
       v7 = v9;
     }
   }
@@ -10993,7 +12004,7 @@ LABEL_7:
 
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E8EE4();
+      sub_1001E8EE4(v6);
     }
 
     [(BTSmartRoutingDaemon *)self _updateAccessoryID:v7 connectionDeviceAddresses:v6 completion:&stru_1002B86F8];
@@ -11015,24 +12026,24 @@ LABEL_7:
   dispatch_async(dispatchQueue, block);
 }
 
-- (void)_disconnectReason:(id)reason reason:(unint64_t)a4
+- (void)_disconnectReason:(id)reason reason:(unint64_t)smartRoutingDisconnectReason
 {
   reasonCopy = reason;
   v7 = reasonCopy;
-  self->_smartRoutingDisconnectReason = a4;
+  self->_smartRoutingDisconnectReason = smartRoutingDisconnectReason;
   if (dword_1002F6778 <= 30)
   {
-    v9 = reasonCopy;
+    v8 = reasonCopy;
     if (dword_1002F6778 != -1)
     {
 LABEL_3:
-      reasonCopy = LogPrintF();
-      v7 = v9;
+      reasonCopy = LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _disconnectReason:reason:]", 30, "Smart Routing disconnect reason %llu", smartRoutingDisconnectReason);
+      v7 = v8;
       goto LABEL_5;
     }
 
     reasonCopy = _LogCategory_Initialize();
-    v7 = v9;
+    v7 = v8;
     if (reasonCopy)
     {
       smartRoutingDisconnectReason = self->_smartRoutingDisconnectReason;
@@ -11124,7 +12135,7 @@ LABEL_5:
     v12 = [v7 valueForProperty:NRDevicePropertyMarketingProductName];
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _isMagnetConnectedDeviceforTipiHealingCheck:]", 30, "TipiTableEvent: current magnet paired device is %@ %@ (%@) %@ %@, the other tipi address is (%@)", v9, v10, v8, v11, v12, checkCopy);
     }
 
     if (v8)
@@ -11167,7 +12178,7 @@ LABEL_5:
         {
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _isMagnetConnectedDeviceforConnectionCheck:]", 30, "Evaluator: comparing phone - watch addresses, Wx: %@, Addr: %@ ", checkCopy, v8);
           }
 
           LOBYTE(bytes) = 1;
@@ -11330,7 +12341,7 @@ LABEL_14:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001E91F8();
+        sub_1001E91F8(bitCopy);
       }
 
       v9 = 0;
@@ -11525,7 +12536,7 @@ LABEL_22:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001E92D0();
+        sub_1001E92D0(nearbyCopy);
       }
 
       rssi = 0;
@@ -11570,39 +12581,39 @@ LABEL_22:
 - (unsigned)_getWxColorCode:(id)code
 {
   codeCopy = code;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = -1;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = -1;
   wxDevices = self->_wxDevices;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_100060D64;
-  v17[3] = &unk_1002B87A8;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100060D64;
+  v16[3] = &unk_1002B87A8;
   v6 = codeCopy;
-  v18 = v6;
-  v19 = &v20;
-  [(NSMutableDictionary *)wxDevices enumerateKeysAndObjectsUsingBlock:v17];
-  v7 = v21;
-  if (*(v21 + 24) == 255)
+  v17 = v6;
+  v18 = &v19;
+  [(NSMutableDictionary *)wxDevices enumerateKeysAndObjectsUsingBlock:v16];
+  v7 = v20;
+  if (*(v20 + 24) == 255)
   {
     connectedDevices = self->_connectedDevices;
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100060EDC;
-    v14[3] = &unk_1002B7EE0;
-    v15 = v6;
-    v16 = &v20;
-    [(NSMutableDictionary *)connectedDevices enumerateKeysAndObjectsUsingBlock:v14];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100060EDC;
+    v13[3] = &unk_1002B7EE0;
+    v14 = v6;
+    v15 = &v19;
+    [(NSMutableDictionary *)connectedDevices enumerateKeysAndObjectsUsingBlock:v13];
 
-    v7 = v21;
+    v7 = v20;
   }
 
   if (self->_prefSmartRoutingUSBAudioDevice && *(v7 + 24) == 255)
   {
     v9 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v6];
     usbcColorCode = [v9 usbcColorCode];
-    *(v21 + 24) = usbcColorCode;
+    *(v20 + 24) = usbcColorCode;
     if (dword_1002F6778 <= 50)
     {
       if (dword_1002F6778 == -1)
@@ -11612,20 +12623,20 @@ LABEL_22:
           goto LABEL_9;
         }
 
-        v13 = *(v21 + 24);
+        usbcColorCode = *(v20 + 24);
       }
 
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _getWxColorCode:]", 50, "Found color %d from usbc ColorCode", usbcColorCode);
     }
 
 LABEL_9:
 
-    v7 = v21;
+    v7 = v20;
   }
 
   v11 = *(v7 + 24);
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
   return v11;
 }
 
@@ -11688,7 +12699,7 @@ LABEL_9:
                   firmwareVersion2 = [v15 firmwareVersion];
                   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
                   {
-                    LogPrintF();
+                    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _getWxFWVersion:]", 30, "Airpods fw version is %@, pairing record %@", firmwareVersion2, v15, v21);
                   }
 
                   goto LABEL_22;
@@ -11773,7 +12784,8 @@ LABEL_14:
 
 - (void)_handleTipiScoreUpdate:(int)update
 {
-  if (self->_score == update)
+  score = self->_score;
+  if (score == update)
   {
     return;
   }
@@ -11790,7 +12802,7 @@ LABEL_14:
       score = self->_score;
     }
 
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _handleTipiScoreUpdate:]", 30, "Tipi score changed from %d -> %d ", score, update);
   }
 
 LABEL_6:
@@ -12086,7 +13098,7 @@ LABEL_19:
       {
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _takeOwnershipFromWatchForDevice:]", 30, "TakeOwnershipFromWatchForDevice: Taking the route");
         }
 
         self->_proactiveRoutingInProgress = 1;
@@ -12138,14 +13150,10 @@ LABEL_12:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
-        [v5 setProactiveRoutingBackoff:{1, checkCopy, _getCurrentRoute}];
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _handleProactiveRoutingRouteCheck:]", 30, "ProactiveRouting: Backoff proactive routing for %@ current route %@", checkCopy, _getCurrentRoute);
       }
 
-      else
-      {
-        [v5 setProactiveRoutingBackoff:{1, v6, v7}];
-      }
+      [v5 setProactiveRoutingBackoff:1];
     }
   }
 }
@@ -12167,50 +13175,61 @@ LABEL_12:
       v10 = [(BTSmartRoutingDaemon *)self _isOtherTipiDeviceBeforeTrain:otherTipiDeviceBTAddress withIOS:16 withMacOS:13 withWatchOS:0 otherTipiDeviceIsWatch:0];
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001E9740(v5);
+        sub_1001E9740(v5, bOOLValue, v10, otherTipiDeviceBTAddress);
       }
 
-      if ([v5 otherTipiDeviceIsWatch])
+      otherTipiDeviceIsWatch = [v5 otherTipiDeviceIsWatch];
+      if (otherTipiDeviceIsWatch)
       {
-        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        if (dword_1002F6778 <= 30)
         {
-          sub_1001E97E8();
+          if (dword_1002F6778 != -1 || (otherTipiDeviceIsWatch = _LogCategory_Initialize(), otherTipiDeviceIsWatch))
+          {
+            sub_1001E97E8(otherTipiDeviceIsWatch, v12, v13);
+          }
         }
-      }
-
-      else if ([v5 routed] & 1 | ((bOOLValue & 1) == 0) | v10 & 1)
-      {
-        [(BTSmartRoutingDaemon *)self _disconnectOtherTipiDevice:disabledCopy];
       }
 
       else
       {
-        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        routed = [v5 routed];
+        if (routed & 1 | ((bOOLValue & 1) == 0) | v10 & 1)
         {
-          sub_1001E97CC();
+          [(BTSmartRoutingDaemon *)self _disconnectOtherTipiDevice:disabledCopy];
         }
 
-        v15 = @"disableSmartRouting";
-        v16 = _myBluetoothAddressString;
-        v11 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-        otherTipiDeviceBTAddress2 = [v5 otherTipiDeviceBTAddress];
-        [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v11 andWxAddress:disabledCopy andOtherAddress:otherTipiDeviceBTAddress2];
-
-        isFirstConnectionAfterSREnable = [(SRSourceDevice *)self->_sourceDevice isFirstConnectionAfterSREnable];
-
-        if (!isFirstConnectionAfterSREnable)
+        else
         {
-          v14 = objc_alloc_init(NSMutableDictionary);
-          [(SRSourceDevice *)self->_sourceDevice setIsFirstConnectionAfterSREnable:v14];
-        }
+          if (dword_1002F6778 <= 30)
+          {
+            if (dword_1002F6778 != -1 || (routed = _LogCategory_Initialize(), routed))
+            {
+              sub_1001E97CC(routed, v15, v16);
+            }
+          }
 
-        [(BTSmartRoutingDaemon *)self _setIsFirstConnentionAfterSREnable:1 forDevice:disabledCopy];
+          v21 = @"disableSmartRouting";
+          v22 = _myBluetoothAddressString;
+          v17 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+          otherTipiDeviceBTAddress2 = [v5 otherTipiDeviceBTAddress];
+          [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v17 andWxAddress:disabledCopy andOtherAddress:otherTipiDeviceBTAddress2];
+
+          isFirstConnectionAfterSREnable = [(SRSourceDevice *)self->_sourceDevice isFirstConnectionAfterSREnable];
+
+          if (!isFirstConnectionAfterSREnable)
+          {
+            v20 = objc_alloc_init(NSMutableDictionary);
+            [(SRSourceDevice *)self->_sourceDevice setIsFirstConnectionAfterSREnable:v20];
+          }
+
+          [(BTSmartRoutingDaemon *)self _setIsFirstConnentionAfterSREnable:1 forDevice:disabledCopy];
+        }
       }
     }
 
     else if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001E9804();
+      sub_1001E9804(disabledCopy);
     }
   }
 }
@@ -12243,73 +13262,76 @@ LABEL_12:
 - (void)_handleWorkoutSessionStart
 {
   [(BTSmartRoutingDaemon *)self _handleHRMSessionChanged:1];
-  if (GestaltGetDeviceClass() == 1 || GestaltGetDeviceClass() == 3)
+  if (GestaltGetDeviceClass() == 1 || (DeviceClass = GestaltGetDeviceClass(), DeviceClass == 3))
   {
     [(BTSmartRoutingDaemon *)self _routedHRMEnabledDevice];
     if (objc_claimAutoreleasedReturnValue())
     {
       sub_1001E9914();
-      v6 = v18;
+      v11 = v23;
       goto LABEL_33;
     }
 
     _hrmEnabledDeviceEligibleToRoute = [(BTSmartRoutingDaemon *)self _hrmEnabledDeviceEligibleToRoute];
     if (!_hrmEnabledDeviceEligibleToRoute)
     {
-      if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6778 <= 30)
       {
-        sub_1001E9A40();
+        if (dword_1002F6778 != -1 || (_hrmEnabledDeviceEligibleToRoute = _LogCategory_Initialize(), _hrmEnabledDeviceEligibleToRoute))
+        {
+          sub_1001E9A40(_hrmEnabledDeviceEligibleToRoute, v7, v8);
+        }
       }
 
       [(BTSmartRoutingDaemon *)self _handleDataRelayStartForWorkout];
-      v6 = 0;
+      v11 = 0;
       goto LABEL_33;
     }
 
-    v4 = _hrmEnabledDeviceEligibleToRoute;
-    v16 = _hrmEnabledDeviceEligibleToRoute;
+    v9 = _hrmEnabledDeviceEligibleToRoute;
+    v21 = _hrmEnabledDeviceEligibleToRoute;
     if (dword_1002F6778 <= 30)
     {
-      if (dword_1002F6778 != -1 || (v5 = _LogCategory_Initialize(), v4 = v16, v5))
+      if (dword_1002F6778 != -1 || (v10 = _LogCategory_Initialize(), v9 = v21, v10))
       {
-        sub_1001E9988(v4);
-        v4 = v16;
+        sub_1001E9988(v9);
+        v9 = v21;
       }
     }
 
-    if ([v4 otherTipiDeviceIsWatch])
+    if ([v9 otherTipiDeviceIsWatch])
     {
-      [(BTSmartRoutingDaemon *)self _takeOwnershipFromWatchForDevice:v17];
+      [(BTSmartRoutingDaemon *)self _takeOwnershipFromWatchForDevice:v22];
     }
 
     else
     {
-      [(BTSmartRoutingDaemon *)self _proactivelyTakeOwnershipOfDevice:v17];
+      [(BTSmartRoutingDaemon *)self _proactivelyTakeOwnershipOfDevice:v22];
     }
 
-    deviceAddress = [v17 deviceAddress];
-    v8 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:deviceAddress];
+    deviceAddress = [v22 deviceAddress];
+    v13 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:deviceAddress];
     activeHRMDevice = [(SRSourceDevice *)self->_sourceDevice activeHRMDevice];
     identifier = [activeHRMDevice identifier];
-    identifier2 = [v8 identifier];
-    v12 = identifier;
-    v13 = identifier2;
-    v14 = v13;
-    if (v12 == v13)
+    identifier2 = [v13 identifier];
+    v17 = identifier;
+    v18 = identifier2;
+    v19 = v18;
+    if (v17 == v18)
     {
     }
 
     else
     {
-      if ((v12 != 0) == (v13 == 0))
+      if ((v17 != 0) == (v18 == 0))
       {
       }
 
       else
       {
-        v15 = [v12 isEqual:v13];
+        v20 = [v17 isEqual:v18];
 
-        if (v15)
+        if (v20)
         {
           goto LABEL_32;
         }
@@ -12317,24 +13339,27 @@ LABEL_12:
 
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001E99E4(v8);
+        sub_1001E99E4(v13);
       }
 
-      [(SRSourceDevice *)self->_sourceDevice setActiveHRMDevice:v8];
+      [(SRSourceDevice *)self->_sourceDevice setActiveHRMDevice:v13];
       activeHRMDevice = [(AADeviceManagerDaemon *)self->_aaDeviceManagerDaemon deviceWithBluetoothAddress:deviceAddress];
       [(AAServicesDaemon *)self->_aaServicesDaemon reportActiveHRMDeviceUpdated:activeHRMDevice withSREnabled:[(BTSmartRoutingDaemon *)self isSREnabled]];
     }
 
 LABEL_32:
-    v6 = v17;
+    v11 = v22;
 LABEL_33:
 
     return;
   }
 
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001E98F8();
+    if (dword_1002F6778 != -1 || (DeviceClass = _LogCategory_Initialize(), DeviceClass))
+    {
+      sub_1001E98F8(DeviceClass, v4, v5);
+    }
   }
 
   [(BTSmartRoutingDaemon *)self _startWxDiscoveryForWorkout];
@@ -12355,12 +13380,10 @@ LABEL_33:
   reasonCopy = reason;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v11 = resetCopy;
-    v12 = reasonCopy;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _hijackBackoffReset:withReason:]", 30, "Hijackblocking: Reset hijackBackOffTimer for wx %@ with reason %@", resetCopy, reasonCopy);
   }
 
-  [(BTSmartRoutingDaemon *)self _submitHijackBlockMetric:resetCopy withReason:reasonCopy, v11, v12];
+  [(BTSmartRoutingDaemon *)self _submitHijackBlockMetric:resetCopy withReason:reasonCopy];
   hijackBackOffTimer = self->_hijackBackOffTimer;
   if (hijackBackOffTimer)
   {
@@ -12424,7 +13447,7 @@ LABEL_33:
         v22 = off_1002B8F50[score];
       }
 
-      v47 = v22;
+      v38 = v22;
       if (tipiScore > 0xF)
       {
         v24 = "?";
@@ -12435,8 +13458,8 @@ LABEL_33:
         v24 = off_1002B8F50[tipiScore];
       }
 
-      v46 = v24;
-      v49 = hostCopy;
+      v37 = v24;
+      v40 = hostCopy;
       tipiScoreCopy = tipiScore;
       if (deviceScore > 0xF)
       {
@@ -12448,7 +13471,7 @@ LABEL_33:
         v25 = off_1002B8F50[deviceScore];
       }
 
-      v45 = v25;
+      v36 = v25;
       isFirstConnectionAfterSREnable = [(SRSourceDevice *)self->_sourceDevice isFirstConnectionAfterSREnable];
       v27 = [isFirstConnectionAfterSREnable objectForKeyedSubscript:address];
       if (connectCopy)
@@ -12472,18 +13495,9 @@ LABEL_33:
         v30 = off_1002B8ED0[audioState];
       }
 
-      v43 = v28;
-      v44 = v30;
-      v41 = v45;
-      v42 = v27;
-      v39 = v47;
-      v40 = v46;
-      v37 = addressCopy;
-      v38 = v2Copy;
-      v36 = address;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _isEligibleForTipiV2:firstDeviceTipiScore:secondDeviceTipiScore:currentDeviceScore:sourceDeviceCount:isOnDemandConnect:address:lastConnectedHost:]", 30, "Evaluator: Evaluating Tipi2.0 eligibility: address %@, identifier %@, fwVersion %@, tipiScore1 %s, tipiScore2 %s, inScore %s, first connection after SR enable %@, connectForCallA2DP %s, wx streaming state %s", address, addressCopy, v2Copy, v38, v37, v36, v27, v28, v30);
 
-      hostCopy = v49;
+      hostCopy = v40;
       tipiScore = tipiScoreCopy;
       if (connectCopy)
       {
@@ -12497,8 +13511,8 @@ LABEL_33:
     }
 
     tipiScoreCopy2 = tipiScore;
-    v32 = [(SRSourceDevice *)self->_sourceDevice isFirstConnectionAfterSREnable:v36];
-    v33 = [v32 objectForKey:address];
+    isFirstConnectionAfterSREnable2 = [(SRSourceDevice *)self->_sourceDevice isFirstConnectionAfterSREnable];
+    v33 = [isFirstConnectionAfterSREnable2 objectForKey:address];
 
     if (!v33)
     {
@@ -12532,7 +13546,7 @@ LABEL_33:
 
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001E9A5C(self);
+        sub_1001E9A5C();
       }
     }
 
@@ -12545,7 +13559,7 @@ LABEL_39:
 
   if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001E9AB4();
+    sub_1001E9AB4(addressCopy);
   }
 
   v23 = 0;
@@ -12673,40 +13687,40 @@ LABEL_12:
 
   if (v6)
   {
-    v7 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:checkCopy];
-    if (-[BTSmartRoutingDaemon _bluetoothProductIDNoEarDetect:](self, "_bluetoothProductIDNoEarDetect:", [v7 productID]))
+    v10 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:checkCopy];
+    if (-[BTSmartRoutingDaemon _bluetoothProductIDNoEarDetect:](self, "_bluetoothProductIDNoEarDetect:", [v10 productID]))
     {
-      v8 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v9 = [(NSMutableDictionary *)*p_connectedDevices objectForKeyedSubscript:checkCopy];
-      if ([v9 primaryPlacement] == 1)
+      v12 = [(NSMutableDictionary *)*p_connectedDevices objectForKeyedSubscript:checkCopy];
+      if ([v12 primaryPlacement] == 1)
       {
-        v8 = 1;
+        v11 = 1;
       }
 
       else
       {
-        v10 = [(NSMutableDictionary *)*p_connectedDevices objectForKeyedSubscript:checkCopy];
-        if ([v10 secondaryPlacement] == 1)
+        v13 = [(NSMutableDictionary *)*p_connectedDevices objectForKeyedSubscript:checkCopy];
+        if ([v13 secondaryPlacement] == 1)
         {
-          v8 = 1;
+          v11 = 1;
         }
 
         else
         {
-          v11 = [(NSMutableDictionary *)*p_connectedDevices objectForKeyedSubscript:checkCopy];
-          if ([v11 primaryPlacement] == 7)
+          v14 = [(NSMutableDictionary *)*p_connectedDevices objectForKeyedSubscript:checkCopy];
+          if ([v14 primaryPlacement] == 7)
           {
-            v8 = 1;
+            v11 = 1;
           }
 
           else
           {
-            v12 = [(NSMutableDictionary *)*p_connectedDevices objectForKeyedSubscript:checkCopy];
-            v8 = [v12 secondaryPlacement] == 7;
+            v15 = [(NSMutableDictionary *)*p_connectedDevices objectForKeyedSubscript:checkCopy];
+            v11 = [v15 secondaryPlacement] == 7;
           }
         }
       }
@@ -12720,48 +13734,51 @@ LABEL_12:
 
   else
   {
-    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 90)
     {
-      sub_1001E9CF4();
+      if (dword_1002F6778 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_1001E9CF4(v7, v8, v9);
+      }
     }
 
-    v8 = 0;
+    v11 = 0;
   }
 
-  return v8;
+  return v11;
 }
 
 - (BOOL)_inEarNearbyCheck:(id)check
 {
   checkCopy = check;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
   v21 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   wxDevices = self->_wxDevices;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100064784;
-  v9[3] = &unk_1002B87D0;
+  v9 = _NSConcreteStackBlock;
+  v10 = 3221225472;
+  v11 = sub_100064784;
+  v12 = &unk_1002B87D0;
   v6 = checkCopy;
-  v10 = v6;
+  v13 = v6;
   selfCopy = self;
-  v12 = &v18;
-  v13 = &v14;
-  [(NSMutableDictionary *)wxDevices enumerateKeysAndObjectsUsingBlock:v9];
-  if ((v15[3] & 1) == 0 && dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  v15 = &v21;
+  v16 = &v17;
+  [(NSMutableDictionary *)wxDevices enumerateKeysAndObjectsUsingBlock:&v9];
+  if ((v18[3] & 1) == 0 && dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _inEarNearbyCheck:]", 90, "SmartRouting have not found nearby Wx device, assume routing is NO", v9, v10, v11, v12);
   }
 
-  v7 = *(v19 + 24);
+  v7 = *(v22 + 24);
 
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v7;
 }
@@ -12943,38 +13960,41 @@ LABEL_12:
     if (dword_1002F6778 > 30)
     {
       v7 = 1;
-      goto LABEL_17;
-    }
-
-    if (dword_1002F6778 == -1)
-    {
-      v7 = 1;
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_17;
-      }
     }
 
     else
     {
-      v7 = 1;
+      if (dword_1002F6778 == -1)
+      {
+        v7 = 1;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_18;
+        }
+      }
+
+      else
+      {
+        v7 = 1;
+      }
+
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _isInEarDetectionDisabled:]", 30, "Device %@ IED disabled", disabledCopy);
     }
+  }
+
+  else if (dword_1002F6778 > 30)
+  {
+    v7 = 0;
   }
 
   else
   {
-    if (dword_1002F6778 > 30)
-    {
-      v7 = 0;
-      goto LABEL_17;
-    }
-
     if (dword_1002F6778 == -1)
     {
       v7 = 0;
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_17;
+        goto LABEL_18;
       }
     }
 
@@ -12982,10 +14002,11 @@ LABEL_12:
     {
       v7 = 0;
     }
+
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _isInEarDetectionDisabled:]", 30, "Device %@ IED enabled", disabledCopy);
   }
 
-  LogPrintF();
-LABEL_17:
+LABEL_18:
 
   return v7;
 }
@@ -13010,40 +14031,48 @@ LABEL_17:
 - (BOOL)_isMyAddress:(id)address
 {
   addressCopy = address;
+  v7 = addressCopy;
   if (addressCopy)
   {
     _myBluetoothAddressString = [(BTSmartRoutingDaemon *)self _myBluetoothAddressString];
     [_myBluetoothAddressString UTF8String];
-    v6 = NSDataWithHex();
-    if ([v6 length] == 6)
+    v9 = NSDataWithHex();
+    v10 = [v9 length];
+    if (v10 == 6)
     {
-      bytes = [v6 bytes];
-      bytes2 = [addressCopy bytes];
-      v10 = *bytes2 == *(bytes + 3) && *(bytes2 + 2) == bytes[5];
+      bytes = [v9 bytes];
+      bytes2 = [v7 bytes];
+      v16 = *bytes2 == *(bytes + 3) && *(bytes2 + 2) == bytes[5];
     }
 
     else
     {
-      if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6778 <= 90)
       {
-        sub_1001E9F68();
+        if (dword_1002F6778 != -1 || (v10 = _LogCategory_Initialize(), v10))
+        {
+          sub_1001E9F68(v10, v11, v12);
+        }
       }
 
-      v10 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001E9F84();
+      if (dword_1002F6778 != -1 || (addressCopy = _LogCategory_Initialize(), addressCopy))
+      {
+        sub_1001E9F84(addressCopy, v5, v6);
+      }
     }
 
-    v10 = 0;
+    v16 = 0;
   }
 
-  return v10;
+  return v16;
 }
 
 - (BOOL)_isOtherTipiDeviceBeforeTrain:(id)train withIOS:(unsigned int)s withMacOS:(unsigned int)oS withWatchOS:(unsigned int)watchOS otherTipiDeviceIsWatch:(BOOL)watch
@@ -13098,9 +14127,12 @@ LABEL_26:
   LOBYTE(v24) = getActivePairedDevice != 0;
   if (!getActivePairedDevice)
   {
-    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 90)
     {
-      sub_1001E9FA0();
+      if (dword_1002F6778 != -1 || (v26 = _LogCategory_Initialize(), v26))
+      {
+        sub_1001E9FA0(v26, v27, v28);
+      }
     }
 
     goto LABEL_10;
@@ -13109,28 +14141,28 @@ LABEL_26:
   productName = [getActivePairedDevice productName];
   if ([productName isEqualToString:@"iPhone OS"])
   {
-    [getActivePairedDevice operatingSystemVersion];
-    v27 = v31 < s;
+    objc_msgSend_operatingSystemVersion(getActivePairedDevice);
+    v30 = v34 < s;
   }
 
   else
   {
-    v27 = 0;
+    v30 = 0;
   }
 
   modelIdentifier = [getActivePairedDevice modelIdentifier];
   if ([modelIdentifier containsString:@"Mac"])
   {
-    [getActivePairedDevice operatingSystemVersion];
-    v29 = v30 < oS;
+    objc_msgSend_operatingSystemVersion(getActivePairedDevice);
+    v32 = v33 < oS;
   }
 
   else
   {
-    v29 = 0;
+    v32 = 0;
   }
 
-  if (!v27 && !v29)
+  if (!v30 && !v32)
   {
 
     goto LABEL_26;
@@ -13145,17 +14177,21 @@ LABEL_11:
 - (BOOL)_isUSBPluggedIn:(id)in
 {
   inCopy = in;
+  v7 = inCopy;
   if (inCopy)
   {
-    v5 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:inCopy];
-    isUSBPlugIn = [v5 isUSBPlugIn];
+    v8 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:inCopy];
+    isUSBPlugIn = [v8 isUSBPlugIn];
   }
 
   else
   {
-    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 90)
     {
-      sub_1001E9FBC();
+      if (dword_1002F6778 != -1 || (inCopy = _LogCategory_Initialize(), inCopy))
+      {
+        sub_1001E9FBC(inCopy, v5, v6);
+      }
     }
 
     isUSBPlugIn = 0;
@@ -13177,97 +14213,84 @@ LABEL_11:
 
   if (v4)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001EA050();
+      if (dword_1002F6778 != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        sub_1001EA050(v5, v6, v7);
+      }
     }
 
     goto LABEL_33;
   }
 
   centerContentItemsText = [(BTBannerUISession *)self->_uiSmartRoutingBanner centerContentItemsText];
-  v6 = [centerContentItemsText isEqualToString:@"Connected"];
+  v9 = [centerContentItemsText isEqualToString:@"Connected"];
 
-  if (!v6)
+  if (!v9)
   {
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3032000000;
+    v42 = sub_100003918;
+    v43 = sub_100003838;
+    v44 = 0;
     v33 = 0;
     v34 = &v33;
     v35 = 0x3032000000;
     v36 = sub_100003918;
     v37 = sub_100003838;
     v38 = 0;
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = sub_100003918;
-    v31 = sub_100003838;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     v32 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
-    v26 = 0;
     smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100065F48;
-    v22[3] = &unk_1002B7E18;
-    v22[4] = self;
-    v22[5] = &v33;
-    [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v22];
-    if (!v34[5])
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100065F48;
+    v28[3] = &unk_1002B7E18;
+    v28[4] = self;
+    v28[5] = &v39;
+    [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v28];
+    if (!v40[5] || (-[NSMutableDictionary objectForKeyedSubscript:](self->_smartRoutingWxDeviceMap, "objectForKeyedSubscript:"), v14 = objc_claimAutoreleasedReturnValue(), [v14 deviceName], v15 = objc_claimAutoreleasedReturnValue(), v16 = v34[5], v34[5] = v15, v16, v14, -[NSMutableDictionary objectForKeyedSubscript:](self->_smartRoutingWxDeviceMap, "objectForKeyedSubscript:", v40[5]), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "productID"), *(v30 + 6) = v18, v17, (v19 = v40[5]) == 0))
     {
-      goto LABEL_41;
-    }
-
-    v8 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:?];
-    deviceName = [v8 deviceName];
-    v10 = v28[5];
-    v28[5] = deviceName;
-
-    v11 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v34[5]];
-    productID = [v11 productID];
-    *(v24 + 6) = productID;
-
-    v13 = v34[5];
-    if (!v13)
-    {
-LABEL_41:
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _iPhoneScreenOnPowerEvent]", 30, "No inEar SR device");
       }
 
       connectedDevices = self->_connectedDevices;
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_100066098;
-      v21[3] = &unk_1002B8820;
-      v21[4] = self;
-      v21[5] = &v33;
-      v21[6] = &v27;
-      v21[7] = &v23;
-      [(NSMutableDictionary *)connectedDevices enumerateKeysAndObjectsUsingBlock:v21];
-      v13 = v34[5];
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_100066098;
+      v27[3] = &unk_1002B8820;
+      v27[4] = self;
+      v27[5] = &v39;
+      v27[6] = &v33;
+      v27[7] = &v29;
+      [(NSMutableDictionary *)connectedDevices enumerateKeysAndObjectsUsingBlock:v27];
+      v19 = v40[5];
     }
 
-    v15 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v13];
-    if (v15)
+    v21 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v19];
+    if (v21)
     {
-      v16 = 1;
+      v22 = 1;
     }
 
     else
     {
-      v16 = [(BTSmartRoutingDaemon *)self _isEligibleForPreemptiveBannerUponUnlock:v34[5]];
+      v22 = [(BTSmartRoutingDaemon *)self _isEligibleForPreemptiveBannerUponUnlock:v40[5]];
     }
 
-    if (!v34[5] || !v16)
+    if (!v40[5] || !v22)
     {
       goto LABEL_32;
     }
 
-    v17 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:?];
-    if ([v17 hijackBackoffTicks])
+    v23 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:?];
+    if ([v23 hijackBackoffTicks])
     {
       isBTRoute = self->_isBTRoute;
 
@@ -13282,26 +14305,29 @@ LABEL_41:
     }
 
     dispatchQueueAVSys = self->_dispatchQueueAVSys;
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_1000661E4;
-    v20[3] = &unk_1002B8848;
-    v20[4] = self;
-    v20[5] = &v33;
-    v20[6] = &v27;
-    v20[7] = &v23;
-    dispatch_async(dispatchQueueAVSys, v20);
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1000661E4;
+    v26[3] = &unk_1002B8848;
+    v26[4] = self;
+    v26[5] = &v39;
+    v26[6] = &v33;
+    v26[7] = &v29;
+    dispatch_async(dispatchQueueAVSys, v26);
 LABEL_32:
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v27, 8);
-
+    _Block_object_dispose(&v29, 8);
     _Block_object_dispose(&v33, 8);
+
+    _Block_object_dispose(&v39, 8);
     goto LABEL_33;
   }
 
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001EA034();
+    if (dword_1002F6778 != -1 || (v10 = _LogCategory_Initialize(), v10))
+    {
+      sub_1001EA034(v10, v11, v12);
+    }
   }
 
 LABEL_33:
@@ -13394,7 +14420,7 @@ LABEL_33:
   {
     if (dword_1002F6778 != -1 || (v5 = _LogCategory_Initialize(), errorCopy = v6, v5))
     {
-      sub_1001EA1A4();
+      sub_1001EA1A4(errorCopy);
       errorCopy = v6;
     }
   }
@@ -13448,7 +14474,7 @@ LABEL_33:
       v7 = v6;
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EA2A4();
+        sub_1001EA2A4(v7);
       }
     }
 
@@ -13484,7 +14510,7 @@ LABEL_33:
       }
 
 LABEL_24:
-      sub_1001EA224();
+      sub_1001EA224(v7);
       goto LABEL_32;
     }
   }
@@ -13500,7 +14526,7 @@ LABEL_24:
     }
 
 LABEL_13:
-    sub_1001EA264();
+    sub_1001EA264(v7);
     goto LABEL_32;
   }
 
@@ -13568,7 +14594,7 @@ LABEL_32:
         {
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001EA2E4(v10);
+            sub_1001EA2E4(v10, v12);
           }
 
           v8 = v12;
@@ -13599,41 +14625,46 @@ LABEL_32:
   prefSmartRoutingWatchTriangleMagnet = self->_prefSmartRoutingWatchTriangleMagnet;
   if (prefSmartRoutingWatchTriangleMagnet)
   {
-    v5 = dispatch_time(0x8000000000000000, 1000000000 * prefSmartRoutingWatchTriangleMagnet);
+    v3 = dispatch_time(0x8000000000000000, 1000000000 * prefSmartRoutingWatchTriangleMagnet);
+    v7 = v3;
   }
 
   else
   {
-    v5 = v3;
+    v7 = v3;
+    LODWORD(prefSmartRoutingWatchTriangleMagnet) = 120;
   }
 
   if (self->_nearbyInfoDevicesTriangleRecoveryTimer)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001EA35C();
+      if (dword_1002F6778 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001EA35C(v3, v4, v5);
+      }
     }
   }
 
   else
   {
-    v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+    v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
     nearbyInfoDevicesTriangleRecoveryTimer = self->_nearbyInfoDevicesTriangleRecoveryTimer;
-    self->_nearbyInfoDevicesTriangleRecoveryTimer = v6;
+    self->_nearbyInfoDevicesTriangleRecoveryTimer = v8;
 
-    v8 = self->_nearbyInfoDevicesTriangleRecoveryTimer;
+    v10 = self->_nearbyInfoDevicesTriangleRecoveryTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100066F54;
     handler[3] = &unk_1002B6880;
     handler[4] = self;
-    dispatch_source_set_event_handler(v8, handler);
+    dispatch_source_set_event_handler(v10, handler);
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EA378();
+      sub_1001EA378(prefSmartRoutingWatchTriangleMagnet);
     }
 
-    dispatch_source_set_timer(self->_nearbyInfoDevicesTriangleRecoveryTimer, v5, 0xFFFFFFFFFFFFFFFFLL, 0);
+    dispatch_source_set_timer(self->_nearbyInfoDevicesTriangleRecoveryTimer, v7, 0xFFFFFFFFFFFFFFFFLL, 0);
     dispatch_resume(self->_nearbyInfoDevicesTriangleRecoveryTimer);
   }
 }
@@ -13684,26 +14715,26 @@ LABEL_32:
 - (id)_nearbyMacAddressTranslate:(id)translate
 {
   translateCopy = translate;
-  v4 = translateCopy;
+  v6 = translateCopy;
   if (translateCopy)
   {
-    v5 = translateCopy;
-    v6 = +[CBIDSManager sharedInstance];
-    v7 = [v6 publicAddressForIDSDevice:v5];
+    v7 = translateCopy;
+    v8 = +[CBIDSManager sharedInstance];
+    v9 = [v8 publicAddressForIDSDevice:v7];
 
-    if (v7)
+    if (v9)
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EA47C();
+        sub_1001EA47C(v9);
       }
 
-      [v7 UTF8String];
-      v8 = NSDataWithHex();
-      v9 = v8;
-      if (v8)
+      [v9 UTF8String];
+      v10 = NSDataWithHex();
+      v11 = v10;
+      if (v10)
       {
-        v10 = v8;
+        v12 = v10;
       }
 
       else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
@@ -13716,24 +14747,27 @@ LABEL_32:
     {
       if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EA4FC();
+        sub_1001EA4FC(v7);
       }
 
-      v9 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 90)
     {
-      sub_1001EA53C();
+      if (dword_1002F6778 != -1 || (translateCopy = _LogCategory_Initialize(), translateCopy))
+      {
+        sub_1001EA53C(translateCopy, v4, v5);
+      }
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
-  return v9;
+  return v11;
 }
 
 - (int)_nearbyDeviceType:(id)type
@@ -13808,7 +14842,7 @@ LABEL_9:
   optionsCopy = options;
   if (self->_prefProactiveOwnershipArbitration)
   {
-    v22 = optionsCopy;
+    v23 = optionsCopy;
     v7 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:changed];
     v8 = NSDictionaryGetNSNumber();
     intValue = [v8 intValue];
@@ -13816,7 +14850,7 @@ LABEL_9:
     otherTipiDeviceAudioScore = [v7 otherTipiDeviceAudioScore];
     CFStringGetTypeID();
     v11 = CFDictionaryGetTypedValue();
-    v12 = [v22 objectForKey:@"newTipi"];
+    v12 = [v23 objectForKey:@"newTipi"];
 
     otherTipiDeviceBTAddress = [v7 otherTipiDeviceBTAddress];
 
@@ -13824,7 +14858,7 @@ LABEL_9:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EA558(otherTipiDeviceAudioScore, intValue);
+        sub_1001EA558(otherTipiDeviceAudioScore, intValue, v12 == 0, v11);
       }
 
       [v7 setOtherTipiDeviceAudioScore:intValue];
@@ -13833,15 +14867,15 @@ LABEL_9:
         if (otherTipiDeviceAudioScore != 1)
         {
           v14 = NSDictionaryGetNSNumber();
-          [v14 intValue];
+          intValue2 = [v14 intValue];
 
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001EA650(v7, self);
+            sub_1001EA650(v7, self, intValue2);
           }
 
-          v15 = mach_absolute_time();
-          [v7 setOtherTipiDeviceIdleTick:v15 - SecondsToUpTicks()];
+          v16 = mach_absolute_time();
+          [v7 setOtherTipiDeviceIdleTick:v16 - SecondsToUpTicks()];
           if (v12)
           {
             [(BTSmartRoutingDaemon *)self _startHighActivityLevelTimer:1];
@@ -13860,18 +14894,18 @@ LABEL_9:
         highActivityLevelTimer = self->_highActivityLevelTimer;
         if (highActivityLevelTimer)
         {
-          v17 = highActivityLevelTimer;
-          dispatch_source_cancel(v17);
-          v18 = self->_highActivityLevelTimer;
+          v18 = highActivityLevelTimer;
+          dispatch_source_cancel(v18);
+          v19 = self->_highActivityLevelTimer;
           self->_highActivityLevelTimer = 0;
         }
 
         temporaryOverrideTimer = self->_temporaryOverrideTimer;
         if (temporaryOverrideTimer)
         {
-          v20 = temporaryOverrideTimer;
-          dispatch_source_cancel(v20);
-          v21 = self->_temporaryOverrideTimer;
+          v21 = temporaryOverrideTimer;
+          dispatch_source_cancel(v21);
+          v22 = self->_temporaryOverrideTimer;
           self->_temporaryOverrideTimer = 0;
         }
       }
@@ -13879,10 +14913,10 @@ LABEL_9:
 
     else if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EA6E8();
+      sub_1001EA6E8(v11);
     }
 
-    optionsCopy = v22;
+    optionsCopy = v23;
   }
 }
 
@@ -13890,10 +14924,50 @@ LABEL_9:
 {
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EA728();
+    sub_1001EA728(notification);
   }
 
   notify_post(notification);
+}
+
+- (void)_powerLogSmartRoutingScanStarted:(unsigned __int8)started
+{
+  if (self->_prefSmartRoutingEnabledPhase3)
+  {
+    startedCopy = started;
+    Current = CFAbsoluteTimeGetCurrent();
+    v9[0] = @"ScanStart";
+    v8[0] = @"kEventType";
+    v8[1] = @"kScanType";
+    v5 = [NSNumber numberWithUnsignedChar:startedCopy];
+    v9[1] = v5;
+    v8[2] = @"timestamp";
+    v6 = [NSNumber numberWithDouble:Current];
+    v9[2] = v6;
+    v7 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:3];
+
+    PLLogRegisteredEvent();
+  }
+}
+
+- (void)_powerLogSmartRoutingScanStopped:(unsigned __int8)stopped
+{
+  if (self->_prefSmartRoutingEnabledPhase3)
+  {
+    stoppedCopy = stopped;
+    Current = CFAbsoluteTimeGetCurrent();
+    v9[0] = @"ScanStop";
+    v8[0] = @"kEventType";
+    v8[1] = @"kScanType";
+    v5 = [NSNumber numberWithUnsignedChar:stoppedCopy];
+    v9[1] = v5;
+    v8[2] = @"timestamp";
+    v6 = [NSNumber numberWithDouble:Current];
+    v9[2] = v6;
+    v7 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:3];
+
+    PLLogRegisteredEvent();
+  }
 }
 
 - (void)_powerLogSmartIncomingConnection
@@ -14026,26 +15100,26 @@ LABEL_9:
 - (void)_proactivelyTakeOwnershipOfDevice:(id)device
 {
   deviceCopy = device;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_100003918;
+  v30 = sub_100003838;
   v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_100003918;
-  v35 = sub_100003838;
-  v36 = 0;
   deviceAddress = [deviceCopy deviceAddress];
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100068644;
-  v30[3] = &unk_1002B8870;
-  v30[5] = self;
-  v30[6] = &v31;
-  v30[4] = deviceAddress;
-  v6 = objc_retainBlock(v30);
-  v29 = v6;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100068644;
+  v25[3] = &unk_1002B8870;
+  v25[5] = self;
+  v25[6] = &v26;
+  v25[4] = deviceAddress;
+  v6 = objc_retainBlock(v25);
+  v24 = v6;
   v7 = [[NSString alloc] initWithFormat:@"Already has ownership: %@", deviceAddress];
   if ([deviceCopy hasOwnership])
   {
-    v21 = v32;
+    v21 = v27;
     v22 = v7;
 LABEL_30:
     v7 = v22;
@@ -14058,8 +15132,8 @@ LABEL_30:
 
   if (!otherTipiDeviceBTAddress)
   {
-    identifier = v32[5];
-    v32[5] = @"Not in Tipi";
+    identifier = v27[5];
+    v27[5] = @"Not in Tipi";
     goto LABEL_26;
   }
 
@@ -14068,7 +15142,7 @@ LABEL_30:
 
   if (otherTipiAudioCategory >= 0x65)
   {
-    v21 = v32;
+    v21 = v27;
     v22 = v10;
     goto LABEL_30;
   }
@@ -14079,7 +15153,7 @@ LABEL_30:
   mach_absolute_time();
   [deviceCopy otherTipiDeviceIdleTick];
   v14 = UpTicksToSeconds();
-  v28 = v10;
+  v23 = v10;
   if (identifier)
   {
     v15 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier];
@@ -14106,12 +15180,7 @@ LABEL_30:
       v19 = off_1002B9128[audioStreamState];
     }
 
-    rssi = [v12 rssi];
-    v27 = v13;
-    v24 = v19;
-    v25 = v14;
-    v23 = deviceAddress;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "-[BTSmartRoutingDaemon _proactivelyTakeOwnershipOfDevice:]", 30, "ProactiveRouting: Wx %@ StreamState %s otherTipiDeviceIdle %llus, wxRssiConnected %d wxRssiNearby %d ", deviceAddress, v19, v14, [v12 rssi], v13);
   }
 
   if ([v12 audioStreamState] != 1)
@@ -14124,7 +15193,7 @@ LABEL_30:
 LABEL_20:
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _proactivelyTakeOwnershipOfDevice:]", 30, "ProactiveRouting: Taking the route");
     }
 
     self->_proactiveRoutingInProgress = 1;
@@ -14144,12 +15213,51 @@ LABEL_20:
 
 LABEL_25:
 
-  v7 = v28;
-  v6 = v29;
+  v7 = v23;
+  v6 = v24;
 LABEL_26:
 
   (v6[2])(v6);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v26, 8);
+}
+
+- (id)_productColorAssetLookup:(unsigned int)lookup andAddress:(id)address
+{
+  v4 = *&lookup;
+  addressCopy = address;
+  wxAssetCache = self->_wxAssetCache;
+  if (!wxAssetCache)
+  {
+    v8 = objc_alloc_init(NSMutableDictionary);
+    v9 = self->_wxAssetCache;
+    self->_wxAssetCache = v8;
+
+    wxAssetCache = self->_wxAssetCache;
+  }
+
+  v10 = [(NSMutableDictionary *)wxAssetCache objectForKeyedSubscript:addressCopy];
+  if (v10)
+  {
+    v11 = v10;
+    if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _productColorAssetLookup:andAddress:]", 50, "%@ banner asset found in cache %@", addressCopy, v11);
+    }
+  }
+
+  else
+  {
+    v11 = [AAAssetHelper bluetoothProductIDToAsset:v4 withColor:[(BTSmartRoutingDaemon *)self _getWxColorCode:addressCopy] isCase:0];
+    [(NSMutableDictionary *)self->_wxAssetCache setObject:v11 forKeyedSubscript:addressCopy];
+    if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _productColorAssetLookup:andAddress:]", 50, "%@ new banner asset, caching it now %@", addressCopy, v11);
+    }
+  }
+
+  v12 = v11;
+
+  return v12;
 }
 
 - (id)_queryLocalAudioCategory
@@ -14159,7 +15267,7 @@ LABEL_26:
   v4 = [v3 objectForKeyedSubscript:AVSystemController_HighestArbitrationPriorityForTipi_AudioScore];
   if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EA850();
+    sub_1001EA850(v4);
   }
 
   return v4;
@@ -14170,29 +15278,34 @@ LABEL_26:
   ownershipCopy = ownership;
   addressCopy = address;
   v7 = [ownershipCopy objectForKeyedSubscript:@"reason"];
-  v8 = &dword_1002F6000;
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  v10 = v7;
+  v11 = &dword_1002F6000;
+  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || (v7 = _LogCategory_Initialize(), v7)))
   {
-    sub_1001EA890();
+    v7 = sub_1001EA890(v10);
     if (addressCopy)
     {
 LABEL_5:
-      v9 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
-      if (!v9)
+      v12 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+      v15 = v12;
+      if (!v12)
       {
-        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        if (dword_1002F6778 <= 30)
         {
-          sub_1001EA908();
+          if (dword_1002F6778 != -1 || (v12 = _LogCategory_Initialize(), v12))
+          {
+            sub_1001EA908(v12, v13, v14);
+          }
         }
 
         goto LABEL_85;
       }
 
-      v10 = [ownershipCopy objectForKey:@"audioRoutingScore"];
+      v16 = [ownershipCopy objectForKey:@"audioRoutingScore"];
       audioScoreOtherTipiDevice = self->_audioScoreOtherTipiDevice;
-      if (audioScoreOtherTipiDevice != [v10 intValue])
+      if (audioScoreOtherTipiDevice != [v16 intValue])
       {
-        self->_audioScoreOtherTipiDevice = [v10 intValue];
+        self->_audioScoreOtherTipiDevice = [v16 intValue];
       }
 
       identifier = [ownershipCopy objectForKey:@"localscore"];
@@ -14200,129 +15313,128 @@ LABEL_5:
 
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        v14 = "yes";
+        v20 = "yes";
         if (!self->_activityLevelMediaPlaying)
         {
           if ([(CUSystemMonitor *)self->_callMonitor activeCallCount]<= 0)
           {
-            v14 = "no";
+            v20 = "no";
           }
 
           else
           {
-            v14 = "yes";
+            v20 = "yes";
           }
         }
 
         score = self->_score;
-        v58 = v10;
+        v61 = v16;
         if (score > 0xF)
         {
-          v16 = "?";
+          v22 = "?";
         }
 
         else
         {
-          v16 = off_1002B8F50[score];
+          v22 = off_1002B8F50[score];
         }
 
-        v17 = self->_audioScoreOtherTipiDevice;
-        if ([v9 routed])
+        v23 = self->_audioScoreOtherTipiDevice;
+        if ([v15 routed])
         {
-          v18 = "yes";
+          v24 = "yes";
         }
 
         else
         {
-          v18 = "no";
+          v24 = "no";
         }
 
         identifier = [(CUUserNotificationSession *)self->_uiNoteSessionSmartRouting identifier];
-        v56 = v18;
-        v57 = identifier;
-        v54 = v16;
-        v55 = v17;
-        v51 = intValue;
-        v53 = v14;
-        v49 = v7;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _receivedRelinquishOwnership:wxAddress:]", 30, "ReceivedOwnershipLost: Reason %@ hijackedScoreFromRemote %u activeAudio %s localTipiScore %s OtherTipiDeviceScore %u wxRouteState %s bannerType %@", v10, intValue, v20, v22, v23, v24, identifier);
 
-        v10 = v58;
-        v8 = &dword_1002F6000;
+        v16 = v61;
+        v11 = &dword_1002F6000;
       }
 
-      [(BTSmartRoutingDaemon *)self _setOwnership:addressCopy withHijackRequest:0 withOwnership:0, v49, v51, v53, v54, v55, v56, v57];
+      [(BTSmartRoutingDaemon *)self _setOwnership:addressCopy withHijackRequest:0 withOwnership:0];
       phoneOwnershipTimer = self->_phoneOwnershipTimer;
       if (phoneOwnershipTimer)
       {
         intValue = phoneOwnershipTimer;
         dispatch_source_cancel(intValue);
-        v20 = self->_phoneOwnershipTimer;
+        v26 = self->_phoneOwnershipTimer;
         self->_phoneOwnershipTimer = 0;
       }
 
-      if (![v9 routed])
+      if (![v15 routed])
       {
 LABEL_53:
         uiNoteSessionSmartRouting = self->_uiNoteSessionSmartRouting;
         if (uiNoteSessionSmartRouting)
         {
           identifier2 = [(CUUserNotificationSession *)uiNoteSessionSmartRouting identifier];
-          v33 = [identifier2 isEqualToString:@"ReverseRoute"];
+          v39 = [identifier2 isEqualToString:@"ReverseRoute"];
 
-          if ([v7 isEqualToString:@"AutoResume"])
+          v40 = [v10 isEqualToString:@"AutoResume"];
+          if (v40)
           {
-            if (v33)
+            if (v39)
             {
               goto LABEL_84;
             }
 
 LABEL_58:
-            v34 = v10;
-            v35 = v8[478];
-            if (v35 <= 30 && (v35 != -1 || _LogCategory_Initialize()))
+            v43 = v16;
+            v44 = v11[478];
+            if (v44 <= 30)
             {
-              sub_1001EA8EC();
+              if (v44 != -1 || (v40 = _LogCategory_Initialize(), v40))
+              {
+                sub_1001EA8EC(v40, v41, v42);
+              }
             }
 
-            deviceName = [v9 deviceName];
-            deviceAddress = [v9 deviceAddress];
-            productID = [v9 productID];
-            otherTipiDeviceBTName = [v9 otherTipiDeviceBTName];
-            v40 = [NSString stringWithFormat:@"%@", otherTipiDeviceBTName];
-            [(BTSmartRoutingDaemon *)self _smartRoutingShowBanner:5 withDevice:deviceName andDeviceAddress:deviceAddress andProductID:productID andCentralContentItemTxt:v40 andTimeout:0 andDeviceType:20.0];
+            deviceName = [v15 deviceName];
+            deviceAddress = [v15 deviceAddress];
+            productID = [v15 productID];
+            otherTipiDeviceBTName = [v15 otherTipiDeviceBTName];
+            v49 = [NSString stringWithFormat:@"%@", otherTipiDeviceBTName];
+            [(BTSmartRoutingDaemon *)self _smartRoutingShowBanner:5 withDevice:deviceName andDeviceAddress:deviceAddress andProductID:productID andCentralContentItemTxt:v49 andTimeout:0 andDeviceType:20.0];
 
-            v10 = v34;
+            v16 = v43;
             goto LABEL_84;
           }
         }
 
-        else if ([v7 isEqualToString:@"AutoResume"])
+        else
         {
-          goto LABEL_58;
+          v40 = [v10 isEqualToString:@"AutoResume"];
+          if (v40)
+          {
+            goto LABEL_58;
+          }
         }
 
-        if ([v7 isEqualToString:@"Hijackv2"])
+        if ([v10 isEqualToString:@"Hijackv2"])
         {
-          v41 = [ownershipCopy objectForKeyedSubscript:@"localscore"];
-          v42 = v8[478];
-          if (v42 <= 30 && (v42 != -1 || _LogCategory_Initialize()))
+          v50 = [ownershipCopy objectForKeyedSubscript:@"localscore"];
+          v51 = v11[478];
+          if (v51 <= 30 && (v51 != -1 || _LogCategory_Initialize()))
           {
-            v50 = v41;
-            v52 = v10;
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _receivedRelinquishOwnership:wxAddress:]", 30, "ReceivedOwnershipLost: Hijackv2 localScore %@ remoteHijackScore %@", v50, v16);
           }
 
-          [(SRStats *)self->_stats setHijackAwayLocalScore:0xFFFFFFFFLL, v50, v52];
+          [(SRStats *)self->_stats setHijackAwayLocalScore:0xFFFFFFFFLL];
           [(SRStats *)self->_stats setHijackAwayRemoteScore:0xFFFFFFFFLL];
-          if (v41)
+          if (v50)
           {
-            -[SRStats setHijackAwayLocalScore:](self->_stats, "setHijackAwayLocalScore:", [v41 intValue]);
+            -[SRStats setHijackAwayLocalScore:](self->_stats, "setHijackAwayLocalScore:", [v50 intValue]);
           }
 
-          if (v10)
+          if (v16)
           {
-            -[SRStats setHijackAwayRemoteScore:](self->_stats, "setHijackAwayRemoteScore:", [v10 intValue]);
+            -[SRStats setHijackAwayRemoteScore:](self->_stats, "setHijackAwayRemoteScore:", [v16 intValue]);
           }
 
           [(BTSmartRoutingDaemon *)self submitRouteActivityMetric:addressCopy activity:@"Hijack_Away"];
@@ -14338,10 +15450,10 @@ LABEL_58:
           goto LABEL_84;
         }
 
-        if ([v7 isEqualToString:@"ManualRoute"])
+        if ([v10 isEqualToString:@"ManualRoute"])
         {
           [(BTSmartRoutingDaemon *)self submitRouteActivityMetric:addressCopy activity:@"Remote_Manual_Route"];
-          [v9 setOtherTipiManuallyRouteTicks:mach_absolute_time()];
+          [v15 setOtherTipiManuallyRouteTicks:mach_absolute_time()];
           falseRouteCheckReason2 = [(SRStats *)self->_stats falseRouteCheckReason];
 
           if (falseRouteCheckReason2)
@@ -14353,23 +15465,27 @@ LABEL_85:
           }
 
           stats = self->_stats;
-          v45 = @"Remote_Manual_Route";
+          v54 = @"Remote_Manual_Route";
         }
 
         else
         {
-          if (![v7 isEqualToString:@"ReverseBannerTapped"])
+          v55 = [v10 isEqualToString:@"ReverseBannerTapped"];
+          if (!v55)
           {
             goto LABEL_84;
           }
 
-          v46 = v8[478];
-          if (v46 <= 30 && (v46 != -1 || _LogCategory_Initialize()))
+          v58 = v11[478];
+          if (v58 <= 30)
           {
-            sub_1001EA8D0();
+            if (v58 != -1 || (v55 = _LogCategory_Initialize(), v55))
+            {
+              sub_1001EA8D0(v55, v56, v57);
+            }
           }
 
-          [v9 setHijackBackoffTicks:mach_absolute_time()];
+          [v15 setHijackBackoffTicks:mach_absolute_time()];
           self->_hijackBackOffInitiator = 0;
           [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.AudioRoutingChanged"];
           falseRouteCheckReason3 = [(SRStats *)self->_stats falseRouteCheckReason];
@@ -14380,96 +15496,96 @@ LABEL_85:
           }
 
           stats = self->_stats;
-          v45 = @"Remote_reverse_banner_tapped";
+          v54 = @"Remote_reverse_banner_tapped";
         }
 
-        [(SRStats *)stats setFalseRouteCheckReason:v45];
+        [(SRStats *)stats setFalseRouteCheckReason:v54];
         goto LABEL_84;
       }
 
-      v21 = self->_audioScoreOtherTipiDevice;
-      if (v21 <= 0)
+      v27 = self->_audioScoreOtherTipiDevice;
+      if (v27 <= 0)
       {
-        v23 = [ownershipCopy objectForKey:@"audioRoutingShowReverseUI"];
-        if (v23)
+        v29 = [ownershipCopy objectForKey:@"audioRoutingShowReverseUI"];
+        if (v29)
         {
-          intValue = v23;
-          v22 = 0;
+          intValue = v29;
+          v28 = 0;
         }
 
         else
         {
-          v24 = [ownershipCopy objectForKey:@"SmartRoutingKeyShowNearbyUI"];
-          if (!v24)
+          v30 = [ownershipCopy objectForKey:@"SmartRoutingKeyShowNearbyUI"];
+          if (!v30)
           {
             goto LABEL_52;
           }
 
-          identifier = v24;
+          identifier = v30;
           intValue = 0;
-          v22 = 1;
+          v28 = 1;
         }
       }
 
       else
       {
-        v22 = 0;
+        v28 = 0;
       }
 
       if (self->_score <= 3 && [(CUSystemMonitor *)self->_callMonitor activeCallCount]< 1)
       {
-        v25 = 0;
-        if (v22)
+        v31 = 0;
+        if (v28)
         {
 LABEL_44:
 
-          if (v21 >= 1)
+          if (v27 >= 1)
           {
             goto LABEL_45;
           }
 
 LABEL_49:
 
-          if (v25)
+          if (v31)
           {
             goto LABEL_50;
           }
 
 LABEL_52:
-          [v9 setRouted:0];
-          [v9 setRoutingAction:3];
+          [v15 setRouted:0];
+          [v15 setRoutingAction:3];
           [(BTSmartRoutingDaemon *)self _setManualRouteFlag:addressCopy withManualRoute:0];
-          v8 = &dword_1002F6000;
+          v11 = &dword_1002F6000;
           goto LABEL_53;
         }
       }
 
       else
       {
-        v25 = [v10 intValue] != 200;
-        if (v22)
+        v31 = [v16 intValue] != 200;
+        if (v28)
         {
           goto LABEL_44;
         }
       }
 
-      if (v21 > 0)
+      if (v27 > 0)
       {
 LABEL_45:
-        if (!v25)
+        if (!v31)
         {
           goto LABEL_52;
         }
 
 LABEL_50:
-        if (([v9 otherTipiDeviceIsWatch] & 1) == 0)
+        if (([v15 otherTipiDeviceIsWatch] & 1) == 0)
         {
-          deviceName2 = [v9 deviceName];
-          deviceAddress2 = [v9 deviceAddress];
-          productID2 = [v9 productID];
-          otherTipiDeviceBTName2 = [v9 otherTipiDeviceBTName];
-          v30 = [NSString stringWithFormat:@"%@", otherTipiDeviceBTName2];
-          [(BTSmartRoutingDaemon *)self _smartRoutingShowBanner:5 withDevice:deviceName2 andDeviceAddress:deviceAddress2 andProductID:productID2 andCentralContentItemTxt:v30 andTimeout:0 andDeviceType:20.0];
+          deviceName2 = [v15 deviceName];
+          deviceAddress2 = [v15 deviceAddress];
+          productID2 = [v15 productID];
+          otherTipiDeviceBTName2 = [v15 otherTipiDeviceBTName];
+          v36 = [NSString stringWithFormat:@"%@", otherTipiDeviceBTName2];
+          [(BTSmartRoutingDaemon *)self _smartRoutingShowBanner:5 withDevice:deviceName2 andDeviceAddress:deviceAddress2 andProductID:productID2 andCentralContentItemTxt:v36 andTimeout:0 andDeviceType:20.0];
         }
 
         goto LABEL_52;
@@ -14484,9 +15600,12 @@ LABEL_50:
     goto LABEL_5;
   }
 
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001EA924();
+    if (dword_1002F6778 != -1 || (v7 = _LogCategory_Initialize(), v7))
+    {
+      sub_1001EA924(v7, v8, v9);
+    }
   }
 
 LABEL_86:
@@ -14495,56 +15614,57 @@ LABEL_86:
 - (void)_removeTiPiState:(id)state
 {
   stateCopy = state;
-  v17 = stateCopy;
+  v6 = stateCopy;
+  v18 = stateCopy;
   if (dword_1002F6778 <= 30)
   {
-    if (dword_1002F6778 != -1 || (v5 = _LogCategory_Initialize(), stateCopy = v17, v5))
+    if (dword_1002F6778 != -1 || (stateCopy = _LogCategory_Initialize(), v6 = v18, stateCopy))
     {
-      sub_1001EA940();
-      stateCopy = v17;
+      sub_1001EA940(stateCopy, v6, v5);
+      v6 = v18;
     }
   }
 
-  v6 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:stateCopy];
-  audioRoutingResponse = [v6 audioRoutingResponse];
+  v7 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v6];
+  audioRoutingResponse = [v7 audioRoutingResponse];
 
   if (audioRoutingResponse)
   {
-    v8 = objc_alloc_init(BTAudioRoutingResponse);
-    [v8 setAction:1];
-    [v8 setDeviceAddress:v17];
-    [v8 setReason:@"Tipi device should be routed"];
-    [v8 setClientID:{objc_msgSend(v6, "audioRoutingClientID")}];
-    audioRoutingResponse2 = [v6 audioRoutingResponse];
-    [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v8 withResponseHandler:audioRoutingResponse2 wxAddress:v17];
+    v9 = objc_alloc_init(BTAudioRoutingResponse);
+    [v9 setAction:1];
+    [v9 setDeviceAddress:v18];
+    [v9 setReason:@"Tipi device should be routed"];
+    [v9 setClientID:{objc_msgSend(v7, "audioRoutingClientID")}];
+    audioRoutingResponse2 = [v7 audioRoutingResponse];
+    [(BTSmartRoutingDaemon *)self _respondRoutingRequest:v9 withResponseHandler:audioRoutingResponse2 wxAddress:v18];
   }
 
-  if ([v6 isHRMCapable])
+  if ([v7 isHRMCapable])
   {
-    [(BTSmartRoutingDaemon *)self dataRelayRemoveAvailableDataTypesWithDevice:v6];
+    [(BTSmartRoutingDaemon *)self dataRelayRemoveAvailableDataTypesWithDevice:v7];
   }
 
-  [v6 setOtherTipiDeviceInfo:0 andName:0 andVersion:0];
-  [v6 setOtherTipiIDSIdentifier:0];
-  [v6 setOtherTipiAudioCategory:0];
-  [v6 setOtherTipiDeviceIsStreamingAudio:0];
-  [v6 setOtherTipiDeviceIsWatch:0];
-  [v6 setOtherTipiDeviceDRCompatible:0];
+  [v7 setOtherTipiDeviceInfo:0 andName:0 andVersion:0];
+  [v7 setOtherTipiIDSIdentifier:0];
+  [v7 setOtherTipiAudioCategory:0];
+  [v7 setOtherTipiDeviceIsStreamingAudio:0];
+  [v7 setOtherTipiDeviceIsWatch:0];
+  [v7 setOtherTipiDeviceDRCompatible:0];
   phoneOwnershipTimer = self->_phoneOwnershipTimer;
   if (phoneOwnershipTimer)
   {
-    v11 = phoneOwnershipTimer;
-    dispatch_source_cancel(v11);
-    v12 = self->_phoneOwnershipTimer;
+    v12 = phoneOwnershipTimer;
+    dispatch_source_cancel(v12);
+    v13 = self->_phoneOwnershipTimer;
     self->_phoneOwnershipTimer = 0;
   }
 
   temporaryOverrideTimer = self->_temporaryOverrideTimer;
   if (temporaryOverrideTimer)
   {
-    v14 = temporaryOverrideTimer;
-    dispatch_source_cancel(v14);
-    v15 = self->_temporaryOverrideTimer;
+    v15 = temporaryOverrideTimer;
+    dispatch_source_cancel(v15);
+    v16 = self->_temporaryOverrideTimer;
     self->_temporaryOverrideTimer = 0;
   }
 
@@ -14552,21 +15672,21 @@ LABEL_86:
   {
     if (self->_pairedCompanionDeviceSupportsSmartRouting)
     {
-      v16 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v16 = 2;
+      v17 = 2;
     }
 
-    [v6 setRoutingAction:v16];
+    [v7 setRoutingAction:v17];
     [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.AudioRoutingChanged"];
   }
 
   if ([(NSMutableDictionary *)self->_smartRoutingWxDeviceMap count]== 1)
   {
-    [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:v17 withAddress:&stru_1002C1358 withEasyPairing:0 withState:3];
+    [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:v18 withAddress:&stru_1002C1358 withEasyPairing:0 withState:3];
   }
 }
 
@@ -14614,9 +15734,7 @@ LABEL_86:
       v10 = "yes";
     }
 
-    v18 = ownershipCopy;
-    v19 = v10;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _setOwnership:withHijackRequest:withOwnership:]", 30, "Setting ownership for Wx %@ %s", ownershipCopy, v10);
   }
 
   v11 = objc_alloc_init(CBDeviceSettings);
@@ -14631,52 +15749,52 @@ LABEL_86:
     v13 = 1;
   }
 
-  [v11 setRelinquishAudioRoute:{v13, v18, v19}];
+  [v11 setRelinquishAudioRoute:v13];
   v14 = objc_alloc_init(CBDevice);
   [v14 setIdentifier:ownershipCopy];
   smartRoutingController = self->_smartRoutingController;
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000699E0;
-  v20[3] = &unk_1002B6D60;
-  v21 = requestCopy;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000699E0;
+  v18[3] = &unk_1002B6D60;
+  v19 = requestCopy;
   selfCopy = self;
-  v23 = ownershipCopy;
+  v21 = ownershipCopy;
   v16 = ownershipCopy;
   v17 = requestCopy;
-  [(CBController *)smartRoutingController modifyDevice:v14 settings:v12 completion:v20];
+  [(CBController *)smartRoutingController modifyDevice:v14 settings:v12 completion:v18];
 }
 
 - (void)_sendAudioCategory:(id)category withAudioCategory:(id)audioCategory
 {
   categoryCopy = category;
   audioCategoryCopy = audioCategory;
-  v8 = audioCategoryCopy;
+  v10 = audioCategoryCopy;
   if (audioCategoryCopy)
   {
-    v9 = audioCategoryCopy;
-    v10 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:categoryCopy];
-    otherTipiDeviceIsWatch = [v10 otherTipiDeviceIsWatch];
+    v11 = audioCategoryCopy;
+    v12 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:categoryCopy];
+    otherTipiDeviceIsWatch = [v12 otherTipiDeviceIsWatch];
 
-    intValue = [v9 intValue];
+    intValue = [v11 intValue];
     if ([(SRSourceDevice *)self->_sourceDevice incomingCallRingtone])
     {
       intValue2 = [(NSNumber *)self->_localDeviceAudioCategory intValue];
       if (![(BTSmartRoutingDaemon *)self _isInHijackBlockingMode])
       {
-        v14 = intValue2 > 500;
+        v16 = intValue2 > 500;
         if (intValue == 401)
         {
-          v14 = otherTipiDeviceIsWatch;
+          v16 = otherTipiDeviceIsWatch;
         }
 
-        if (v14)
+        if (v16)
         {
           goto LABEL_17;
         }
 
 LABEL_15:
-        v15 = &off_1002CB750;
+        v17 = &off_1002CB750;
         goto LABEL_16;
       }
     }
@@ -14688,58 +15806,68 @@ LABEL_15:
 LABEL_17:
         if (self->_activityLevelMediaPlaying)
         {
-          v16 = @"YES";
+          v18 = @"YES";
         }
 
         else
         {
-          v16 = @"YES";
+          v18 = @"YES";
           if ([(CUSystemMonitor *)self->_callMonitor activeCallCount]<= 0 && !self->_cdDeviceIdentifier)
           {
-            v16 = @"NO";
+            v18 = @"NO";
           }
         }
 
         _myBluetoothAddressString = [(BTSmartRoutingDaemon *)self _myBluetoothAddressString];
-        v18 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:categoryCopy];
-        otherTipiDeviceBTAddress = [v18 otherTipiDeviceBTAddress];
+        v20 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:categoryCopy];
+        otherTipiDeviceBTAddress = [v20 otherTipiDeviceBTAddress];
 
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          v25 = otherTipiDeviceBTAddress;
-          integerValue = [v9 integerValue];
-          v24 = categoryCopy;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "-[BTSmartRoutingDaemon _sendAudioCategory:withAudioCategory:]", 30, "[Hijackv2] Send audio category through relay message via %@ to device %@ with score %d", categoryCopy, otherTipiDeviceBTAddress, [v11 integerValue]);
         }
 
-        v20 = [(SRSourceDevice *)self->_sourceDevice activePlayingApp:v24];
-        v21 = v20;
-        v22 = @"NA";
-        if (v20)
+        v27[0] = @"btAddress";
+        v27[1] = @"btName";
+        myModel = self->_myModel;
+        v28[0] = _myBluetoothAddressString;
+        v28[1] = myModel;
+        v27[2] = @"hostStreamingState";
+        v27[3] = @"otherDeviceAudioCategory";
+        v28[2] = v18;
+        v28[3] = v11;
+        v27[4] = @"playingApp";
+        activePlayingApp = [(SRSourceDevice *)self->_sourceDevice activePlayingApp];
+        v24 = activePlayingApp;
+        v25 = @"NA";
+        if (activePlayingApp)
         {
-          v22 = v20;
+          v25 = activePlayingApp;
         }
 
-        v28[4] = v22;
-        v23 = [NSDictionary dictionaryWithObjects:v28 forKeys:&v27 count:5];
+        v28[4] = v25;
+        v26 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:5];
 
-        [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v23 andWxAddress:categoryCopy andOtherAddress:otherTipiDeviceBTAddress];
+        [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v26 andWxAddress:categoryCopy andOtherAddress:otherTipiDeviceBTAddress];
         goto LABEL_29;
       }
 
       goto LABEL_15;
     }
 
-    v15 = &off_1002CB738;
+    v17 = &off_1002CB738;
 LABEL_16:
 
-    v9 = v15;
+    v11 = v17;
     goto LABEL_17;
   }
 
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001EAA90();
+    if (dword_1002F6778 != -1 || (audioCategoryCopy = _LogCategory_Initialize(), audioCategoryCopy))
+    {
+      sub_1001EAA90(audioCategoryCopy, v8, v9);
+    }
   }
 
 LABEL_29:
@@ -14760,58 +15888,65 @@ LABEL_29:
 {
   requestCopy = request;
   addressCopy = address;
+  v10 = addressCopy;
   if (self->_tipiElectionInProgress)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001EAAC8();
+      if (dword_1002F6778 != -1 || (addressCopy = _LogCategory_Initialize(), addressCopy))
+      {
+        sub_1001EAAC8(addressCopy, v8, v9);
+      }
     }
   }
 
   else
   {
     self->_tipiElectionInProgress = 1;
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001EAAAC();
+      if (dword_1002F6778 != -1 || (addressCopy = _LogCategory_Initialize(), addressCopy))
+      {
+        sub_1001EAAAC(addressCopy, v8, v9);
+      }
     }
 
-    [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:requestCopy withAddress:addressCopy withEasyPairing:0 withState:1];
-    v8 = @"YES";
+    [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:requestCopy withAddress:v10 withEasyPairing:0 withState:1];
+    v11 = @"YES";
     if (!self->_activityLevelMediaPlaying)
     {
       if ([(CUSystemMonitor *)self->_callMonitor activeCallCount]<= 0)
       {
-        v8 = @"NO";
+        v11 = @"NO";
       }
 
       else
       {
-        v8 = @"YES";
+        v11 = @"YES";
       }
     }
 
     _myBluetoothAddressString = [(BTSmartRoutingDaemon *)self _myBluetoothAddressString];
-    v14[0] = @"tipiHealingAttempt";
-    v14[1] = @"tipiHealingName";
+    v17[0] = @"tipiHealingAttempt";
+    v17[1] = @"tipiHealingName";
     myModel = self->_myModel;
-    v15[0] = _myBluetoothAddressString;
-    v15[1] = myModel;
-    v14[2] = @"version";
-    v14[3] = @"tipiHealingStreaming";
-    v15[2] = &off_1002CB618;
-    v15[3] = v8;
-    v14[4] = @"tipiHealingPreferMac";
-    v11 = [(BTSmartRoutingDaemon *)self _isManualConnection:requestCopy];
-    v12 = @"Don't route for manual connection";
-    if (!v11)
+    v18[0] = _myBluetoothAddressString;
+    v18[1] = myModel;
+    v17[2] = @"version";
+    v17[3] = @"tipiHealingStreaming";
+    v18[2] = &off_1002CB618;
+    v18[3] = v11;
+    v17[4] = @"tipiHealingPreferMac";
+    v14 = [(BTSmartRoutingDaemon *)self _isManualConnection:requestCopy];
+    v15 = @"Don't route for manual connection";
+    if (!v14)
     {
-      v12 = @"YES";
+      v15 = @"YES";
     }
 
-    v15[4] = v12;
-    v13 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:5];
-    [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v13 andWxAddress:requestCopy andOtherAddress:addressCopy];
+    v18[4] = v15;
+    v16 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:5];
+    [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:v16 andWxAddress:requestCopy andOtherAddress:v10];
     [(BTSmartRoutingDaemon *)self _tipiHealingStartTimer:requestCopy];
   }
 }
@@ -14832,28 +15967,27 @@ LABEL_29:
   if (self->_startIdleTicks)
   {
     mach_absolute_time();
-    startIdleTicks = self->_startIdleTicks;
-    v6 = UpTicksToSeconds();
+    v5 = UpTicksToSeconds();
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EAAE4();
+      sub_1001EAAE4(v5);
     }
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10006A294;
-  v8[3] = &unk_1002B88C0;
-  v8[4] = self;
-  v8[5] = v6;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10006A294;
+  v7[3] = &unk_1002B88C0;
+  v7[4] = self;
+  v7[5] = v5;
   changedCopy = changed;
-  [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v8];
+  [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v7];
 }
 
 - (void)_sendIntendedRouteInfoUpdateToWx:(id)wx withIntendedRoutingStatus:(BOOL)status
@@ -14884,18 +16018,18 @@ LABEL_29:
 {
   if (self->_isActiveHRMSession)
   {
-    sub_1001EAC7C();
+    sub_1001EAC7C(self, a2, v2);
   }
 
   else
   {
     srDiscoveredDeviceMap = self->_srDiscoveredDeviceMap;
-    v3[0] = _NSConcreteStackBlock;
-    v3[1] = 3221225472;
-    v3[2] = sub_10006A670;
-    v3[3] = &unk_1002B8368;
-    v3[4] = self;
-    [(NSMutableDictionary *)srDiscoveredDeviceMap enumerateKeysAndObjectsUsingBlock:v3];
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 3221225472;
+    v4[2] = sub_10006A670;
+    v4[3] = &unk_1002B8368;
+    v4[4] = self;
+    [(NSMutableDictionary *)srDiscoveredDeviceMap enumerateKeysAndObjectsUsingBlock:v4];
   }
 }
 
@@ -14993,7 +16127,7 @@ LABEL_29:
 
   else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EAE0C();
+    sub_1001EAE0C(addressCopy);
   }
 }
 
@@ -15009,9 +16143,7 @@ LABEL_29:
       v6 = "yes";
     }
 
-    v11 = propertyCopy;
-    v12 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _setIsHiddenProperty:withIsHidden:]", 30, "Setting isHidden for Wx %@ %s", propertyCopy, v6);
   }
 
   v7 = objc_alloc_init(CBDeviceSettings);
@@ -15026,7 +16158,7 @@ LABEL_29:
     v9 = 2;
   }
 
-  [v7 setAudioRouteHidden:{v9, v11, v12}];
+  [v7 setAudioRouteHidden:v9];
   v10 = objc_alloc_init(CBDevice);
   [v10 setIdentifier:propertyCopy];
   [(CBController *)self->_smartRoutingController modifyDevice:v10 settings:v8 completion:&stru_1002B88E0];
@@ -15106,11 +16238,10 @@ LABEL_6:
 
       if ([bluetoothAddress length] == 6)
       {
-        bytes = [bluetoothAddress bytes];
-        v16 = NSPrintF();
+        v16 = NSPrintF("%.6a", COERCE_DOUBLE([bluetoothAddress bytes]));
         if (v16)
         {
-          v17 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v16, bytes];
+          v17 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v16];
           if (v17)
           {
           }
@@ -15119,7 +16250,7 @@ LABEL_6:
           {
             if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
             {
-              sub_1001EAF5C();
+              sub_1001EAF5C(v16);
             }
 
             [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap setObject:0 forKeyedSubscript:v16];
@@ -15139,6 +16270,57 @@ LABEL_6:
       [BTSmartRoutingDaemon _smartRoutingAddWxMapDevice:"_smartRoutingAddWxMapDevice:routingAction:otherAddress:otherName:otherSourceVersion:isRoutingInitialized:newWx:" routingAction:v18 otherAddress:? otherName:? otherSourceVersion:? isRoutingInitialized:? newWx:?];
       [(BTSmartRoutingDaemon *)self _smartRoutingConnectToEligibleHeadset:self->_eligibleHeadset];
     }
+  }
+}
+
+- (void)_setPhase1ConnectConfig:(id)config andType:(int)type
+{
+  v4 = *&type;
+  configCopy = config;
+  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  {
+    sub_1001EAF9C(v4, configCopy);
+  }
+
+  phase1ConnectConfig = self->_phase1ConnectConfig;
+  if (!phase1ConnectConfig)
+  {
+    v7 = objc_alloc_init(SRConnectConfig);
+    v8 = self->_phase1ConnectConfig;
+    self->_phase1ConnectConfig = v7;
+
+    phase1ConnectConfig = self->_phase1ConnectConfig;
+  }
+
+  [(SRConnectConfig *)phase1ConnectConfig setAddress:configCopy];
+  [(SRConnectConfig *)self->_phase1ConnectConfig setType:v4];
+}
+
+- (void)_setTipiAndRoutedStateFlags:(unsigned int)flags forDevice:(id)device
+{
+  v4 = *&flags;
+  deviceCopy = device;
+  identifier = [deviceCopy identifier];
+  [deviceCopy setTipiAndRoutedState:v4];
+
+  [(AADeviceManagerDaemon *)self->_aaDeviceManagerDaemon smartRoutingStateUpdated:v4 ForDeviceIdentifier:identifier];
+}
+
+- (void)_setTipiAndRoutedStateFlags:(unsigned int)flags forAddress:(id)address
+{
+  v4 = *&flags;
+  addressCopy = address;
+  v6 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:?];
+  v7 = v6;
+  if (v6)
+  {
+    identifier = [v6 identifier];
+    [(AADeviceManagerDaemon *)self->_aaDeviceManagerDaemon smartRoutingStateUpdated:v4 ForDeviceIdentifier:identifier];
+  }
+
+  else
+  {
+    sub_1001EAFFC(addressCopy);
   }
 }
 
@@ -15214,7 +16396,7 @@ LABEL_14:
   objc_storeStrong(&self->_tipiElectionReceivedLePipe, v4);
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB17C(&self->_tipiElectionReceivedLePipe);
+    sub_1001EB17C();
   }
 }
 
@@ -15232,6 +16414,64 @@ LABEL_14:
   dispatch_async(dispatchQueue, v7);
 }
 
+- (BOOL)_showPreemptiveBannerIfNeeded:(id)needed inEarState:(BOOL)state audioState:(int64_t)audioState wxAddress:(id)address
+{
+  stateCopy = state;
+  neededCopy = needed;
+  addressCopy = address;
+  if (!self->_prefSmartRoutingPreemptiveConnectedBanner || !-[BTSmartRoutingDaemon _isEligibleForPreemptiveBanner:firstPreemptiveBanner:inEarState:srDeviceCount:audioState:inAddress:](self, "_isEligibleForPreemptiveBanner:firstPreemptiveBanner:inEarState:srDeviceCount:audioState:inAddress:", [neededCopy preemptiveBannerShown], objc_msgSend(neededCopy, "firstPreemptiveBannerShown"), stateCopy, -[NSMutableDictionary count](self->_smartRoutingWxDeviceMap, "count"), audioState, addressCopy))
+  {
+    v17 = 0;
+    goto LABEL_10;
+  }
+
+  v12 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+  deviceName = [v12 deviceName];
+  if (addressCopy)
+  {
+    v14 = addressCopy;
+  }
+
+  else
+  {
+    v14 = @"?";
+  }
+
+  v15 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:addressCopy];
+  v16 = -[BTSmartRoutingDaemon _smartRoutingShowBanner:withDevice:andDeviceAddress:andProductID:andCentralContentItemTxt:andTimeout:andDeviceType:](self, "_smartRoutingShowBanner:withDevice:andDeviceAddress:andProductID:andCentralContentItemTxt:andTimeout:andDeviceType:", 1, deviceName, v14, [v15 productID], @"Connected", 0, 4.0);
+
+  if (!self->_preemptiveBannerBlockedTicks)
+  {
+    [(SRStats *)self->_stats setLocalAudioScore:self->_localDeviceAudioCategory];
+    self->_preemptiveBannerShownTicks = mach_absolute_time();
+    self->_preemptiveBannerConnectionInProgress = 1;
+    [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.PreemptivePortChanged"];
+    if (v16)
+    {
+      goto LABEL_8;
+    }
+
+LABEL_12:
+    v17 = 0;
+    self->_preemptiveBannerBlockedTicks = mach_absolute_time();
+    goto LABEL_10;
+  }
+
+  if (!v16)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_8:
+  self->_preemptiveBannerBlockedTicks = 0;
+  v17 = 1;
+  [neededCopy setPreemptiveBannerShown:1];
+  [neededCopy setFirstPreemptiveBannerShown:1];
+LABEL_10:
+
+  return v17;
+}
+
 - (void)_showLowBatteryBannerForWorkoutIfNeededForDevice:(id)device
 {
   deviceCopy = device;
@@ -15241,7 +16481,7 @@ LABEL_14:
   v23 = 0;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _showLowBatteryBannerForWorkoutIfNeededForDevice:]", 30, "Checking if we need to show a banner for the workout device");
   }
 
   v14 = 0;
@@ -15265,7 +16505,7 @@ LABEL_14:
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
       btAddress = [v15[5] btAddress];
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _showLowBatteryBannerForWorkoutIfNeededForDevice:]", 30, "Low battery banner for %@ has been shown already", btAddress);
     }
   }
 
@@ -15287,18 +16527,22 @@ LABEL_14:
 
 - (void)_showSplitterBlockingAlert
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001EB1BC();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EB1BC(self, a2, v2);
+    }
   }
 
-  v3 = objc_alloc_init(AAUIAlert);
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 3221225472;
-  v4[2] = sub_10006BD90;
-  v4[3] = &unk_1002B6A38;
-  v4[4] = self;
-  [(AAUIAlert *)v3 deliverAlertWithHeaderKey:0 messageKey:@"SPLITTER_BLOCKING_BODY_FORMAT" defaultButtonKey:@"OK" alternativeButtonKey:0 andCompletion:v4];
+  v4 = objc_alloc_init(AAUIAlert);
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_10006BD90;
+  v5[3] = &unk_1002B6A38;
+  v5[4] = selfCopy;
+  [(AAUIAlert *)v4 deliverAlertWithHeaderKey:0 messageKey:@"SPLITTER_BLOCKING_BODY_FORMAT" defaultButtonKey:@"OK" alternativeButtonKey:0 andCompletion:v5];
 }
 
 - (void)_smartRoutingModeCheck:(id)check
@@ -15309,7 +16553,7 @@ LABEL_14:
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB1F4(checkCopy);
+    sub_1001EB1F4(checkCopy, v5);
   }
 
   v6 = [(NSMutableDictionary *)self->_connectedDevicesSrModeCache objectForKeyedSubscript:v5];
@@ -15326,7 +16570,7 @@ LABEL_14:
         {
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001EB2A4();
+            sub_1001EB2A4(v5);
           }
 
           [(SRModeDevice *)v7 setMode:1];
@@ -15341,7 +16585,7 @@ LABEL_14:
         {
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001EB264();
+            sub_1001EB264(v5);
           }
 
           [(SRModeDevice *)v7 setMode:2];
@@ -15381,95 +16625,98 @@ LABEL_14:
 
 - (void)_startIdleActivityScoreTimer:(unint64_t)timer
 {
+  timerCopy = timer;
   idleActivityScoreTimer = self->_idleActivityScoreTimer;
   if (idleActivityScoreTimer)
   {
-    v5 = idleActivityScoreTimer;
-    dispatch_source_cancel(v5);
-    v6 = self->_idleActivityScoreTimer;
+    v6 = idleActivityScoreTimer;
+    dispatch_source_cancel(v6);
+    v7 = self->_idleActivityScoreTimer;
     self->_idleActivityScoreTimer = 0;
   }
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB2E4();
+    sub_1001EB2E4(timerCopy);
   }
 
-  v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-  v8 = self->_idleActivityScoreTimer;
-  self->_idleActivityScoreTimer = v7;
-  v9 = v7;
+  v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v9 = self->_idleActivityScoreTimer;
+  self->_idleActivityScoreTimer = v8;
+  v10 = v8;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10006C210;
   handler[3] = &unk_1002B6880;
   handler[4] = self;
-  dispatch_source_set_event_handler(v9, handler);
+  dispatch_source_set_event_handler(v10, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v9);
+  dispatch_activate(v10);
 }
 
 - (void)_startIncomingCallHijackTimer:(unint64_t)timer
 {
+  timerCopy = timer;
   incomingCallHijackTimer = self->_incomingCallHijackTimer;
   if (incomingCallHijackTimer)
   {
-    v5 = incomingCallHijackTimer;
-    dispatch_source_cancel(v5);
-    v6 = self->_incomingCallHijackTimer;
+    v6 = incomingCallHijackTimer;
+    dispatch_source_cancel(v6);
+    v7 = self->_incomingCallHijackTimer;
     self->_incomingCallHijackTimer = 0;
   }
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB340();
+    sub_1001EB340(timerCopy);
   }
 
-  v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-  v8 = self->_incomingCallHijackTimer;
-  self->_incomingCallHijackTimer = v7;
-  v9 = v7;
+  v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v9 = self->_incomingCallHijackTimer;
+  self->_incomingCallHijackTimer = v8;
+  v10 = v8;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10006C3F4;
   handler[3] = &unk_1002B6880;
   handler[4] = self;
-  dispatch_source_set_event_handler(v9, handler);
+  dispatch_source_set_event_handler(v10, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v9);
+  dispatch_activate(v10);
 }
 
 - (void)_startNowPlayingTemporaryOverrideTimer:(unint64_t)timer
 {
+  timerCopy = timer;
   temporaryOverrideTimer = self->_temporaryOverrideTimer;
   if (temporaryOverrideTimer)
   {
-    v5 = temporaryOverrideTimer;
-    dispatch_source_cancel(v5);
-    v6 = self->_temporaryOverrideTimer;
+    v6 = temporaryOverrideTimer;
+    dispatch_source_cancel(v6);
+    v7 = self->_temporaryOverrideTimer;
     self->_temporaryOverrideTimer = 0;
   }
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB39C();
+    sub_1001EB39C(timerCopy);
   }
 
-  v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-  v8 = self->_temporaryOverrideTimer;
-  self->_temporaryOverrideTimer = v7;
-  v9 = v7;
+  v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v9 = self->_temporaryOverrideTimer;
+  self->_temporaryOverrideTimer = v8;
+  v10 = v8;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10006C5CC;
   handler[3] = &unk_1002B6880;
   handler[4] = self;
-  dispatch_source_set_event_handler(v9, handler);
+  dispatch_source_set_event_handler(v10, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v9);
+  dispatch_activate(v10);
 }
 
 - (void)_startHighActivityLevelTimer:(unint64_t)timer
@@ -15477,7 +16724,7 @@ LABEL_14:
   _getInEarSrWxDevice = [(BTSmartRoutingDaemon *)self _getInEarSrWxDevice];
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB3F8();
+    sub_1001EB3F8(_getInEarSrWxDevice);
   }
 
   if ([_getInEarSrWxDevice proactiveRoutingBackoff])
@@ -15494,7 +16741,7 @@ LABEL_14:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EB480();
+        sub_1001EB480(timer);
       }
 
       v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
@@ -15522,46 +16769,48 @@ LABEL_14:
 
 - (void)_startEffectiveUnlockedAfterBootTimer:(unint64_t)timer
 {
+  timerCopy = timer;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB538();
+    sub_1001EB538(timerCopy);
   }
 
-  v4 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
   effectiveUnlockedAfterBootTimer = self->_effectiveUnlockedAfterBootTimer;
-  self->_effectiveUnlockedAfterBootTimer = v4;
-  v6 = v4;
+  self->_effectiveUnlockedAfterBootTimer = v5;
+  v7 = v5;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10006CA44;
   handler[3] = &unk_1002B6880;
   handler[4] = self;
-  dispatch_source_set_event_handler(v6, handler);
+  dispatch_source_set_event_handler(v7, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v6);
+  dispatch_activate(v7);
 }
 
 - (void)_startPhoneOwnershipTimer:(unint64_t)timer
 {
+  timerCopy = timer;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB594();
+    sub_1001EB594(timerCopy);
   }
 
-  v4 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
   phoneOwnershipTimer = self->_phoneOwnershipTimer;
-  self->_phoneOwnershipTimer = v4;
-  v6 = v4;
+  self->_phoneOwnershipTimer = v5;
+  v7 = v5;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10006CBDC;
   handler[3] = &unk_1002B6880;
   handler[4] = self;
-  dispatch_source_set_event_handler(v6, handler);
+  dispatch_source_set_event_handler(v7, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v6);
+  dispatch_activate(v7);
 }
 
 - (void)_startAudioStateSnapshotTimer
@@ -15618,7 +16867,7 @@ LABEL_14:
   timerCopy = timer;
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB650(self);
+    sub_1001EB650(self, timerCopy);
   }
 
   if ([(NSMutableDictionary *)self->_wxDevices count])
@@ -15644,7 +16893,7 @@ LABEL_14:
 
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EB6A8(&self->_wxDevices);
+      sub_1001EB6A8(&self->_wxDevices, timerCopy);
     }
   }
 }
@@ -15733,6 +16982,7 @@ LABEL_14:
 {
   timerCopy = timer;
   v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v8 = 0.0;
   if (type > 7)
   {
     if (type <= 9)
@@ -15805,6 +17055,7 @@ LABEL_14:
       falseRouteCheckHijackAwayTimer = [(SRStats *)self->_stats routeCheckHijackTimer];
       [(SRStats *)self->_stats setRouteCheckHijackTimer:v7];
 LABEL_23:
+      v8 = 5.0;
       if (!falseRouteCheckHijackAwayTimer)
       {
         goto LABEL_29;
@@ -15820,6 +17071,7 @@ LABEL_23:
 LABEL_26:
   [(SRStats *)self->_stats setFalseRouteCheckReason:0];
 LABEL_27:
+  v8 = 25.0;
   if (falseRouteCheckHijackAwayTimer)
   {
 LABEL_28:
@@ -15829,7 +17081,7 @@ LABEL_28:
 LABEL_29:
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB700(type, self);
+    sub_1001EB700(type, self, timerCopy, v8);
   }
 
   handler[0] = _NSConcreteStackBlock;
@@ -15838,8 +17090,8 @@ LABEL_29:
   handler[3] = &unk_1002B7208;
   typeCopy = type;
   handler[4] = self;
-  v13 = timerCopy;
-  v11 = timerCopy;
+  v14 = timerCopy;
+  v12 = timerCopy;
   dispatch_source_set_event_handler(v7, handler);
   CUDispatchTimerSet();
   dispatch_activate(v7);
@@ -15849,108 +17101,92 @@ LABEL_29:
 {
   healingCopy = healing;
   connectCopy = connect;
+  v9 = connectCopy;
   if (!connectCopy)
   {
-    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 90)
     {
-      sub_1001EB7A4();
+      if (dword_1002F6778 != -1 || (connectCopy = _LogCategory_Initialize(), connectCopy))
+      {
+        sub_1001EB7A4(connectCopy, v7, v8);
+      }
     }
 
     goto LABEL_51;
   }
 
-  if ([(BTSmartRoutingDaemon *)self _isMyAddress:connectCopy])
+  v10 = [(BTSmartRoutingDaemon *)self _isMyAddress:connectCopy];
+  if (v10)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001EB788();
+      if (dword_1002F6778 != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_1001EB788(v10, v11, v12);
+      }
     }
 
     goto LABEL_51;
   }
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = sub_100003918;
-  v47 = sub_100003838;
   v48 = 0;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = sub_100003918;
+  v52 = sub_100003838;
+  v53 = 0;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   selfCopy = self;
   discoveredDevices = [(CBDiscovery *)self->_pairedDiscovery discoveredDevices];
-  v8 = [discoveredDevices countByEnumeratingWithState:&v39 objects:v49 count:16];
-  if (!v8)
+  v14 = [discoveredDevices countByEnumeratingWithState:&v44 objects:v54 count:16];
+  if (!v14)
   {
     goto LABEL_47;
   }
 
-  v9 = *v40;
+  v15 = *v45;
   obj = discoveredDevices;
   while (2)
   {
-    for (i = 0; i != v8; i = i + 1)
+    for (i = 0; i != v14; i = i + 1)
     {
-      if (*v40 != v9)
+      if (*v45 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v39 + 1) + 8 * i);
+      v17 = *(*(&v44 + 1) + 8 * i);
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        [v11 idsDeviceID];
-        v31 = v30 = v11;
-        LogPrintF();
+        idsDeviceID = [v17 idsDeviceID];
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _startTipiHealing:withLastConnect:]", 30, "Evaluator: Tipi healing PD %@ idsId %@", v17, idsDeviceID);
       }
 
-      btAddressData = [v11 btAddressData];
-      v13 = btAddressData;
+      btAddressData = [v17 btAddressData];
+      v20 = btAddressData;
       bytes = [btAddressData bytes];
-      v15 = CUPrintNSDataAddress();
-      idsDeviceID = [v11 idsDeviceID];
-      v17 = [(BTSmartRoutingDaemon *)selfCopy _nearbyMacAddressTranslate:idsDeviceID];
+      v22 = CUPrintNSDataAddress();
+      idsDeviceID2 = [v17 idsDeviceID];
+      v24 = [(BTSmartRoutingDaemon *)selfCopy _nearbyMacAddressTranslate:idsDeviceID2];
 
-      v18 = v17;
-      bytes2 = [v17 bytes];
-      v20 = CUPrintNSDataAddress();
+      v25 = v24;
+      bytes2 = [v24 bytes];
+      v27 = CUPrintNSDataAddress();
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        v31 = v15;
-        v32 = v20;
-        v30 = connectCopy;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _startTipiHealing:withLastConnect:]", 30, "Evaluator: Tipi healing comparing, Wx lastConnect: %@, PdAddr %@ transAddr %@", v9, v22, v27);
       }
 
-      if (btAddressData)
+      if (btAddressData && ((v28 = v9, v29 = [v9 bytes], *v29 == *(bytes + 3)) ? (v30 = *(v29 + 2) == bytes[5]) : (v30 = 0), v31 = v22, v30) || v24 && ((v32 = v9, v33 = objc_msgSend(v9, "bytes"), *v33 == *(bytes2 + 3)) ? (v34 = *(v33 + 2) == bytes2[5]) : (v34 = 0), v31 = v27, v34))
       {
-        v21 = connectCopy;
-        bytes3 = [connectCopy bytes];
-        v23 = *bytes3 == *(bytes + 3) && *(bytes3 + 2) == bytes[5];
-        v24 = v15;
-        if (v23)
-        {
-          goto LABEL_33;
-        }
+        objc_storeStrong(v49 + 5, v31);
       }
 
-      if (v17)
-      {
-        v25 = connectCopy;
-        bytes4 = [connectCopy bytes];
-        v27 = *bytes4 == *(bytes2 + 3) && *(bytes4 + 2) == bytes2[5];
-        v24 = v20;
-        if (v27)
-        {
-LABEL_33:
-          objc_storeStrong(v44 + 5, v24);
-        }
-      }
-
-      v28 = v44[5];
-      if (v28)
+      v35 = v49[5];
+      if (v35)
       {
         if (dword_1002F6778 <= 30)
         {
@@ -15961,11 +17197,10 @@ LABEL_33:
               goto LABEL_46;
             }
 
-            v28 = v44[5];
+            v35 = v49[5];
           }
 
-          v30 = v28;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _startTipiHealing:withLastConnect:]", 30, "Evaluator: Tipi healing found via PD %@", v35);
         }
 
 LABEL_46:
@@ -15976,8 +17211,8 @@ LABEL_46:
     }
 
     discoveredDevices = obj;
-    v8 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
-    if (v8)
+    v14 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+    if (v14)
     {
       continue;
     }
@@ -15987,33 +17222,17 @@ LABEL_46:
 
 LABEL_47:
 
-  if (v44[5])
+  if (v49[5] || (nearbyInfoDevices = selfCopy->_nearbyInfoDevices, v41[0] = _NSConcreteStackBlock, v41[1] = 3221225472, v41[2] = sub_10006DC5C, v41[3] = &unk_1002B89A0, v41[4] = selfCopy, v37 = v9, v42 = v37, v43 = &v48, [(NSMutableDictionary *)nearbyInfoDevices enumerateKeysAndObjectsUsingBlock:v41], v42, v49[5]))
   {
-    goto LABEL_49;
-  }
-
-  nearbyInfoDevices = selfCopy->_nearbyInfoDevices;
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_10006DC5C;
-  v36[3] = &unk_1002B89A0;
-  v36[4] = selfCopy;
-  v37 = connectCopy;
-  v38 = &v43;
-  [(NSMutableDictionary *)nearbyInfoDevices enumerateKeysAndObjectsUsingBlock:v36];
-
-  if (v44[5])
-  {
-LABEL_49:
-    [(BTSmartRoutingDaemon *)selfCopy _sendTipiHealingRequest:healingCopy andOtherTipiAddress:v30];
+    [(BTSmartRoutingDaemon *)selfCopy _sendTipiHealingRequest:healingCopy andOtherTipiAddress:?];
   }
 
   else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _startTipiHealing:withLastConnect:]", 90, "Evaluator: Tipi healing address not found for %@", v37);
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v48, 8);
 
 LABEL_51:
 }
@@ -16027,59 +17246,68 @@ LABEL_51:
       sub_1001EB8C4(self);
     }
 
-    else if (self->_isBTRoute)
-    {
-      sub_1001EB968(dword_1002F6778);
-    }
-
     else
     {
-      if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      isBTRoute = self->_isBTRoute;
+      v5 = dword_1002F6778;
+      if (isBTRoute)
       {
-        sub_1001EB94C();
+        sub_1001EB968(dword_1002F6778, a2, v2);
       }
 
-      [(BTSmartRoutingDaemon *)self _wxDiscoveryEnsureStarted];
+      else
+      {
+        if (dword_1002F6778 <= 30)
+        {
+          if (dword_1002F6778 != -1 || (v5 = _LogCategory_Initialize(), v5))
+          {
+            sub_1001EB94C(v5, a2, v2);
+          }
+        }
 
-      [(BTSmartRoutingDaemon *)self _startWxDiscoveryForWorkoutTimer:60];
+        [(BTSmartRoutingDaemon *)self _wxDiscoveryEnsureStarted];
+
+        [(BTSmartRoutingDaemon *)self _startWxDiscoveryForWorkoutTimer:60];
+      }
     }
   }
 
   else
   {
-    sub_1001EB864();
+    sub_1001EB864(self, a2, v2);
   }
 }
 
 - (void)_startWxDiscoveryForWorkoutTimer:(unint64_t)timer
 {
+  timerCopy = timer;
   wxWorkoutDiscoveryTimer = self->_wxWorkoutDiscoveryTimer;
   if (wxWorkoutDiscoveryTimer)
   {
-    v5 = wxWorkoutDiscoveryTimer;
-    dispatch_source_cancel(v5);
-    v6 = self->_wxWorkoutDiscoveryTimer;
+    v6 = wxWorkoutDiscoveryTimer;
+    dispatch_source_cancel(v6);
+    v7 = self->_wxWorkoutDiscoveryTimer;
     self->_wxWorkoutDiscoveryTimer = 0;
   }
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EB9C0();
+    sub_1001EB9C0(timerCopy);
   }
 
-  v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-  v8 = self->_wxWorkoutDiscoveryTimer;
-  self->_wxWorkoutDiscoveryTimer = v7;
-  v9 = v7;
+  v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v9 = self->_wxWorkoutDiscoveryTimer;
+  self->_wxWorkoutDiscoveryTimer = v8;
+  v10 = v8;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10006E140;
   handler[3] = &unk_1002B6880;
   handler[4] = self;
-  dispatch_source_set_event_handler(v9, handler);
+  dispatch_source_set_event_handler(v10, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v9);
+  dispatch_activate(v10);
 }
 
 - (void)_submitMetric:(id)metric
@@ -16255,6 +17483,34 @@ LABEL_51:
   *p_fakeHfpSessionCount = 0;
 }
 
+- (void)_submitMetricNearby:(unsigned int)nearby
+{
+  nearByStats = self->_nearByStats;
+  if (nearByStats)
+  {
+    v5 = *&nearby;
+    v11[0] = @"noNB";
+    v6 = [NSNumber numberWithUnsignedInt:[(SRNearbyStats *)nearByStats noNearbyDeviceFoundCount]];
+    v12[0] = v6;
+    v11[1] = @"nbTp";
+    v7 = [NSNumber numberWithUnsignedInt:[(SRNearbyStats *)self->_nearByStats nearbyDeviceNoTipiScoreCount]];
+    v12[1] = v7;
+    v11[2] = @"wxPD";
+    v8 = [NSNumber numberWithUnsignedInt:v5];
+    v12[2] = v8;
+    v11[3] = @"FDBT";
+    v9 = [NSNumber numberWithUnsignedInt:[(SRNearbyStats *)self->_nearByStats SRConnectedSetCount]];
+    v12[3] = v9;
+    v10 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:4];
+    CUMetricsLogEx();
+
+    [(SRNearbyStats *)self->_nearByStats setNoNearbyDeviceFoundCount:0];
+    [(SRNearbyStats *)self->_nearByStats setNearbyDeviceNoTipiScoreCount:0];
+    [(SRNearbyStats *)self->_nearByStats setSRConnectedSetCount:0];
+    [(SRNearbyStats *)self->_nearByStats setMinRSSIHeadset:0];
+  }
+}
+
 - (void)_submitMetricTipiHealingforDevice:(id)device withDuration:(double)duration andLegacy:(BOOL)legacy
 {
   legacyCopy = legacy;
@@ -16291,12 +17547,10 @@ LABEL_51:
       v20 = "no";
     }
 
-    v29 = v18;
-    v31 = v20;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _submitMetricTipiHealingforDevice:withDuration:andLegacy:]", 90, "### Tipi healing duration %@ is larger than 10s, isV2 %s", v18, v20);
   }
 
-  callConnected = [(SRStats *)self->_stats mediaPlaying:v29]|| [(SRStats *)self->_stats callConnected];
+  callConnected = [(SRStats *)self->_stats mediaPlaying]|| [(SRStats *)self->_stats callConnected];
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
     v22 = "yes";
@@ -16315,33 +17569,30 @@ LABEL_51:
       v22 = "no";
     }
 
-    v32 = v23;
-    v33 = v22;
-    v30 = v18;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _submitMetricTipiHealingforDevice:withDuration:andLegacy:]", 30, "Submit TiPiHealing stats, duration: %@s, TH V2: %s, audio playing: %s", v18, v23, v22);
   }
 
-  v35[0] = @"Thv2";
-  v24 = [NSNumber numberWithInt:!legacyCopy, v30, v32, v33];
-  v36[0] = v24;
-  v36[1] = v18;
-  v35[1] = @"duration";
-  v35[2] = @"durationMS";
-  v36[2] = v19;
-  v35[3] = @"isPlaying";
+  v30[0] = @"Thv2";
+  v24 = [NSNumber numberWithInt:!legacyCopy];
+  v31[0] = v24;
+  v31[1] = v18;
+  v30[1] = @"duration";
+  v30[2] = @"durationMS";
+  v31[2] = v19;
+  v30[3] = @"isPlaying";
   v25 = [NSNumber numberWithInt:callConnected];
-  v36[3] = v25;
-  v36[4] = v16;
-  v35[4] = @"otherTiPiDevice";
-  v35[5] = @"tipiV2Eligible";
+  v31[3] = v25;
+  v31[4] = v16;
+  v30[4] = @"otherTiPiDevice";
+  v30[5] = @"tipiV2Eligible";
   v26 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [deviceCopy isTipiHealingV2Eligible]);
-  v36[5] = v26;
-  v36[6] = v12;
-  v35[6] = @"wxBuildVersion";
-  v35[7] = @"wxPD";
+  v31[5] = v26;
+  v31[6] = v12;
+  v30[6] = @"wxBuildVersion";
+  v30[7] = @"wxPD";
   v27 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [deviceCopy productID]);
-  v36[7] = v27;
-  v28 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:8];
+  v31[7] = v27;
+  v28 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:8];
   CUMetricsLogEx();
 }
 
@@ -16361,27 +17612,33 @@ LABEL_51:
   v9 = v8;
 
   mach_absolute_time();
-  hijackAcceptedTime = self->_hijackAcceptedTime;
-  v11 = UpTicksToSeconds();
-  if ([_getCurrentRoute containsString:@"Speaker"] && dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  v10 = UpTicksToSeconds();
+  v11 = [_getCurrentRoute containsString:@"Speaker"];
+  if (v11)
   {
-    sub_1001EBA1C();
+    if (dword_1002F6778 <= 30)
+    {
+      if (dword_1002F6778 != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        sub_1001EBA1C(v11, v12, v13);
+      }
+    }
   }
 
-  v17[0] = _getCurrentRoute;
-  v16[0] = @"route";
-  v16[1] = @"srCapable";
-  v12 = [NSNumber numberWithBool:self->_prefSmartRoutingEnabledPhase3];
-  v17[1] = v12;
-  v16[2] = @"wxProductID";
-  v13 = [NSNumber numberWithUnsignedInt:v5];
-  v17[2] = v13;
-  v16[3] = @"timeSinceLastHijack";
-  v14 = [NSNumber numberWithUnsignedLongLong:v11];
-  v16[4] = @"wxFWVersion";
-  v17[3] = v14;
-  v17[4] = v9;
-  v15 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:5];
+  v19[0] = _getCurrentRoute;
+  v18[0] = @"route";
+  v18[1] = @"srCapable";
+  v14 = [NSNumber numberWithBool:self->_prefSmartRoutingEnabledPhase3];
+  v19[1] = v14;
+  v18[2] = @"wxProductID";
+  v15 = [NSNumber numberWithUnsignedInt:v5];
+  v19[2] = v15;
+  v18[3] = @"timeSinceLastHijack";
+  v16 = [NSNumber numberWithUnsignedLongLong:v10];
+  v18[4] = @"wxFWVersion";
+  v19[3] = v16;
+  v19[4] = v9;
+  v17 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:5];
 
   CUMetricsLogEx();
 }
@@ -16405,16 +17662,34 @@ LABEL_51:
   _getCurrentRoute = [(BTSmartRoutingDaemon *)self _getCurrentRoute];
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v13 = 5;
-    v14 = _getCurrentRoute;
-    v12 = v7;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _submitRouteChangeDetectionMetric:andAnswer:]", 30, "Route check after hijack %@ for %ds current route %@", v7, 5, _getCurrentRoute);
   }
 
-  v10 = [NSNumber numberWithUnsignedInt:v8, v12, v13, v14, @"hijackAnswer", @"route", @"wxProductID", v7, _getCurrentRoute];
-  v16[2] = v10;
-  v11 = [NSDictionary dictionaryWithObjects:v16 forKeys:&v15 count:3];
+  v12[0] = @"hijackAnswer";
+  v12[1] = @"route";
+  v13[0] = v7;
+  v13[1] = _getCurrentRoute;
+  v12[2] = @"wxProductID";
+  v10 = [NSNumber numberWithUnsignedInt:v8];
+  v13[2] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:3];
   CUMetricsLogEx();
+}
+
+- (BOOL)_supportsSR:(id)r andProductID:(unsigned int)d
+{
+  v4 = *&d;
+  if ([(BTSmartRoutingDaemon *)self _supportsTipi:r])
+  {
+    return 1;
+  }
+
+  if (GestaltGetDeviceClass() != 1 && GestaltGetDeviceClass() != 6)
+  {
+    return 0;
+  }
+
+  return [(BTSmartRoutingDaemon *)self _supportsPhoneWatchTipi:v4];
 }
 
 - (BOOL)_supportsTipi:(id)tipi
@@ -16496,12 +17771,15 @@ LABEL_51:
 {
   typeCopy = type;
   deviceCopy = device;
-  v11 = deviceCopy;
+  v12 = deviceCopy;
   if (typeCopy)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001EBA54();
+      if (dword_1002F6778 != -1 || (deviceCopy = _LogCategory_Initialize(), deviceCopy))
+      {
+        sub_1001EBA54(deviceCopy, v7, v8);
+      }
     }
 
     self->_tipiElectionThroughLEPipe = 0;
@@ -16511,20 +17789,20 @@ LABEL_51:
 
   else
   {
-    v8 = deviceCopy;
+    v10 = deviceCopy;
     if (dword_1002F6778 <= 30)
     {
-      if (dword_1002F6778 != -1 || (v9 = _LogCategory_Initialize(), v8 = v11, v9))
+      if (dword_1002F6778 != -1 || (deviceCopy = _LogCategory_Initialize(), v10 = v12, deviceCopy))
       {
-        sub_1001EBA38();
-        v8 = v11;
+        sub_1001EBA38(deviceCopy, v10, v8);
+        v10 = v12;
       }
     }
 
     self->_tipiElectionThroughLEPipe = 1;
-    v10 = v8;
+    v11 = v10;
     lePipeDevice = self->_lePipeDevice;
-    self->_lePipeDevice = v10;
+    self->_lePipeDevice = v11;
   }
 }
 
@@ -16541,26 +17819,30 @@ LABEL_51:
 
 - (void)_systemStatePushRequired
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001EBA70();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EBA70(self, a2, v2);
+    }
   }
 
-  [(AAServicesDaemon *)self->_aaServicesDaemon reportSiriHijackElgibilityUpdated:[(SRSourceDevice *)self->_sourceDevice isSystemEligibleForSiriHijack]];
-  activeHRMDevice = [(SRSourceDevice *)self->_sourceDevice activeHRMDevice];
-  if (activeHRMDevice && (specificHRMDeviceChosenForFitnessPlus = self->_specificHRMDeviceChosenForFitnessPlus, activeHRMDevice, specificHRMDeviceChosenForFitnessPlus))
+  [(AAServicesDaemon *)selfCopy->_aaServicesDaemon reportSiriHijackElgibilityUpdated:[(SRSourceDevice *)selfCopy->_sourceDevice isSystemEligibleForSiriHijack]];
+  activeHRMDevice = [(SRSourceDevice *)selfCopy->_sourceDevice activeHRMDevice];
+  if (activeHRMDevice && (specificHRMDeviceChosenForFitnessPlus = selfCopy->_specificHRMDeviceChosenForFitnessPlus, activeHRMDevice, specificHRMDeviceChosenForFitnessPlus))
   {
-    activeHRMDevice2 = [(SRSourceDevice *)self->_sourceDevice activeHRMDevice];
+    activeHRMDevice2 = [(SRSourceDevice *)selfCopy->_sourceDevice activeHRMDevice];
     identifier = [activeHRMDevice2 identifier];
 
-    v6 = [(AAPairedDeviceDaemon *)self->_aaPairedDeviceDaemon deviceWithIdentifier:identifier];
-    [(AAServicesDaemon *)self->_aaServicesDaemon reportActiveHRMDeviceUpdated:v6 withSREnabled:1];
+    v7 = [(AAPairedDeviceDaemon *)selfCopy->_aaPairedDeviceDaemon deviceWithIdentifier:identifier];
+    [(AAServicesDaemon *)selfCopy->_aaServicesDaemon reportActiveHRMDeviceUpdated:v7 withSREnabled:1];
   }
 
   else
   {
 
-    [(BTSmartRoutingDaemon *)self activeHRMDeviceUpdateWithPushRequired:1];
+    [(BTSmartRoutingDaemon *)selfCopy activeHRMDeviceUpdateWithPushRequired:1];
   }
 }
 
@@ -16636,68 +17918,71 @@ LABEL_51:
 
 - (void)_tipiHealingAttempt
 {
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100003918;
+  v18 = sub_100003838;
+  v19 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100003918;
+  v12 = sub_100003838;
   v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_100003918;
-  v17 = sub_100003838;
-  v18 = 0;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = sub_100003918;
-  v11 = sub_100003838;
-  v12 = 0;
   smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_10006FB8C;
-  v6[3] = &unk_1002B89C8;
-  v6[4] = self;
-  v6[5] = &v7;
-  v6[6] = &v13;
-  [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v6];
-  if (v8[5])
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10006FB8C;
+  v7[3] = &unk_1002B89C8;
+  v7[4] = self;
+  v7[5] = &v8;
+  v7[6] = &v14;
+  [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v7];
+  if (v9[5])
   {
-    if (v14[5])
+    if (v15[5])
     {
       if ([(BTSmartRoutingDaemon *)self _lastConnectIsWatchCheck:?])
       {
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-LABEL_13:
-          LogPrintF();
+          v4 = "Evaluator: Skip tipi healing, lastConnected device address is Watch";
+LABEL_14:
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipiHealingAttempt]", 30, v4);
         }
       }
 
       else
       {
-        v4 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v8[5]];
-        tipiHealingBackoff = [v4 tipiHealingBackoff];
+        v5 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v9[5]];
+        tipiHealingBackoff = [v5 tipiHealingBackoff];
 
-        if (!tipiHealingBackoff)
+        if (tipiHealingBackoff)
         {
-          [(BTSmartRoutingDaemon *)self _startTipiHealing:v8[5] withLastConnect:v14[5]];
-          goto LABEL_20;
+          if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+          {
+            v4 = "Tipi healing backoff for ongoing FD";
+            goto LABEL_14;
+          }
         }
 
-        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        else
         {
-          goto LABEL_13;
+          [(BTSmartRoutingDaemon *)self _startTipiHealing:v9[5] withLastConnect:v15[5]];
         }
       }
     }
 
     else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_13;
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipiHealingAttempt]", 90, "Unable to heal Tipi, lastConnected device address is not valid.");
     }
   }
 
-LABEL_20:
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
 - (void)_tipiHealing:(id)healing withDevice:(id)device
@@ -16734,10 +18019,7 @@ LABEL_20:
       [(BTSmartRoutingDaemon *)self _updateOtherTipiDevicewithAudioCategory:healingCopy otherAddress:deviceCopy otherName:v15 otherVersion:&off_1002CB618];
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        v45 = v15;
-        v46 = &off_1002CB618;
-        v44 = deviceCopy;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipiHealing:withDevice:]", 30, "TipiTableEvent: the other device is magnet paired device; Tipi healing attempt succeeded! Booyaaa!!! update the other tipi address %@, name %@, TiPi Version %@", deviceCopy, v15, &off_1002CB618);
       }
 
       if (GestaltGetDeviceClass() == 1)
@@ -16745,7 +18027,7 @@ LABEL_20:
         [v9 setOtherTipiDeviceIsWatch:1];
       }
 
-      [v9 setOtherTipiIDSIdentifier:{@"RPDestinationIdentifierPairedCompanion", v44, v45, v46}];
+      [v9 setOtherTipiIDSIdentifier:@"RPDestinationIdentifierPairedCompanion"];
       [(BTSmartRoutingDaemon *)self _tipihHealingV2Handling:healingCopy];
 
       goto LABEL_77;
@@ -16764,8 +18046,8 @@ LABEL_78:
     productName = [getActivePairedDevice productName];
     if ([productName isEqualToString:@"iPhone OS"])
     {
-      [getActivePairedDevice operatingSystemVersion];
-      if (v60 <= 15)
+      objc_msgSend_operatingSystemVersion(getActivePairedDevice);
+      if (v53 <= 15)
       {
 
         goto LABEL_22;
@@ -16775,9 +18057,9 @@ LABEL_78:
     modelIdentifier = [getActivePairedDevice modelIdentifier];
     if ([modelIdentifier containsString:@"Mac"])
     {
-      [getActivePairedDevice operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(getActivePairedDevice);
 
-      if (v59 <= 12)
+      if (v52 <= 12)
       {
 LABEL_22:
         [v9 setIsTipiHealingV2Eligible:0];
@@ -16860,7 +18142,7 @@ LABEL_58:
       }
 
       modelIdentifier5 = [getActivePairedDevice modelIdentifier];
-      v51 = [modelIdentifier5 containsString:@"Mac"];
+      v44 = [modelIdentifier5 containsString:@"Mac"];
 
       v34 = +[CBIDSManager sharedInstance];
       v35 = [v34 idsDeviceForBTAddress:deviceCopy];
@@ -16869,8 +18151,8 @@ LABEL_58:
       productName3 = [getActivePairedDevice productName];
       if ([productName3 isEqualToString:@"iPhone OS"])
       {
-        [getActivePairedDevice operatingSystemVersion];
-        if (v58 >= 17)
+        objc_msgSend_operatingSystemVersion(getActivePairedDevice);
+        if (v51 >= 17)
         {
 
           v37 = &dword_1002F6000;
@@ -16883,10 +18165,10 @@ LABEL_67:
       modelIdentifier6 = [getActivePairedDevice modelIdentifier];
       if ([modelIdentifier6 containsString:@"Mac"])
       {
-        [getActivePairedDevice operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(getActivePairedDevice);
 
         v37 = &dword_1002F6000;
-        if (v57 >= 14)
+        if (v50 >= 14)
         {
           goto LABEL_67;
         }
@@ -16904,36 +18186,29 @@ LABEL_67:
 LABEL_70:
       [(BTSmartRoutingDaemon *)self _updateOtherTipiDevicewithAudioCategory:healingCopy otherAddress:deviceCopy otherName:v12 otherVersion:v39];
       [v9 setOtherTipiDeviceDRCompatible:{-[BTSmartRoutingDaemon _isOtherTipiDeviceBeforeTrain:withIOS:withMacOS:withWatchOS:otherTipiDeviceIsWatch:](self, "_isOtherTipiDeviceBeforeTrain:withIOS:withMacOS:withWatchOS:otherTipiDeviceIsWatch:", deviceCopy, 19, 16, 0, 0) ^ 1}];
-      [getActivePairedDevice operatingSystemVersion];
-      [getActivePairedDevice operatingSystemVersion];
-      [v9 setOtherTipiDeviceBuildVersion:v56 andMinorBuildVersion:v55];
+      objc_msgSend_operatingSystemVersion(getActivePairedDevice);
+      objc_msgSend_operatingSystemVersion(getActivePairedDevice);
+      [v9 setOtherTipiDeviceBuildVersion:v49 andMinorBuildVersion:v48];
       v40 = uniqueID;
       [v9 setOtherTipiIDSIdentifier:uniqueID];
       v41 = v37[478];
       if (v41 <= 30 && (v41 != -1 || _LogCategory_Initialize()))
       {
         productName4 = [getActivePairedDevice productName];
-        [getActivePairedDevice operatingSystemVersion];
-        [getActivePairedDevice operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(getActivePairedDevice);
+        objc_msgSend_operatingSystemVersion(getActivePairedDevice);
         v43 = "no";
-        if (v51)
+        if (v44)
         {
           v43 = "yes";
         }
 
-        v49 = v53;
-        v50 = v43;
-        v47 = productName4;
-        v48 = v54;
-        v45 = v12;
-        v46 = v39;
-        v44 = deviceCopy;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipiHealing:withDevice:]", 30, "TipiTableEvent: Tipi healing attempt succeeded! Booyaaa!!! update the other tipi address %@, name %@, TiPi Version %@, model %@ build %d.%d, otherIsMac %s", deviceCopy, v12, v39, productName4, v47, v46, v43);
 
         v40 = uniqueID;
       }
 
-      [(BTSmartRoutingDaemon *)self _tipihHealingV2Handling:healingCopy, v44, v45, v46, v47, v48, v49, v50];
+      [(BTSmartRoutingDaemon *)self _tipihHealingV2Handling:healingCopy];
 
 LABEL_77:
       goto LABEL_78;
@@ -16970,7 +18245,7 @@ LABEL_57:
   [v9 setIsTipiHealingV2Eligible:0];
   if (dword_1002F6778 <= 60 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EBC84();
+    sub_1001EBC84(v8);
   }
 
   [(BTSmartRoutingDaemon *)self _tipiHealingAttempt];
@@ -16985,12 +18260,12 @@ LABEL_79:
   v6 = [(BTSmartRoutingDaemon *)self _getWxFWVersion:handlingCopy];
   if (self->_activityLevelMediaPlaying || [(CUSystemMonitor *)self->_callMonitor activeCallCount]> 0)
   {
-    v66 = 1;
+    v60 = 1;
   }
 
   else
   {
-    v66 = [(NSString *)self->_cdDeviceIdentifier isEqualToString:handlingCopy];
+    v60 = [(NSString *)self->_cdDeviceIdentifier isEqualToString:handlingCopy];
   }
 
   identifier = [v5 identifier];
@@ -17002,7 +18277,7 @@ LABEL_79:
   v11 = "no";
   if (v10)
   {
-    if ([v9 nearbyOutOfCaseTime])
+    if (objc_msgSend_nearbyOutOfCaseTime(v9))
     {
       v11 = "no";
     }
@@ -17013,7 +18288,7 @@ LABEL_79:
     }
   }
 
-  v64 = v11;
+  v58 = v11;
   userConnectedState = [v9 userConnectedState];
   v12 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:handlingCopy];
   if ([v12 audioStreamState])
@@ -17029,15 +18304,15 @@ LABEL_79:
       v14 = "yes";
     }
 
-    v63 = v14;
+    v57 = v14;
   }
 
   else
   {
-    v63 = "yes";
+    v57 = "yes";
   }
 
-  if (-[BTSmartRoutingDaemon _isMyAddress:](self, "_isMyAddress:", zeroSourceLastRouteHost) && ![v9 nearbyOutOfCaseTime])
+  if ([(BTSmartRoutingDaemon *)self _isMyAddress:zeroSourceLastRouteHost]&& !objc_msgSend_nearbyOutOfCaseTime(v9))
   {
     v15 = [v5 otherTipiDeviceLastPlay] ^ 1;
   }
@@ -17049,8 +18324,8 @@ LABEL_79:
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v61 = zeroSourceLastRouteHost;
-    v62 = v6;
+    v55 = zeroSourceLastRouteHost;
+    v56 = v6;
     if (self->_isBTRoute)
     {
       v16 = "yes";
@@ -17061,7 +18336,7 @@ LABEL_79:
       v16 = "no";
     }
 
-    if (v66)
+    if (v60)
     {
       v17 = "yes";
     }
@@ -17071,8 +18346,8 @@ LABEL_79:
       v17 = "no";
     }
 
-    v59 = v17;
-    v60 = v16;
+    v53 = v17;
+    v54 = v16;
     if ([v5 lastPlay])
     {
       v18 = "yes";
@@ -17083,7 +18358,7 @@ LABEL_79:
       v18 = "no";
     }
 
-    v58 = v18;
+    v52 = v18;
     if ([v5 otherTipiDeviceLastPlay])
     {
       v19 = "yes";
@@ -17094,7 +18369,7 @@ LABEL_79:
       v19 = "no";
     }
 
-    v57 = v19;
+    v51 = v19;
     v20 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:handlingCopy];
     if (v20)
     {
@@ -17116,15 +18391,15 @@ LABEL_79:
       v22 = "no";
     }
 
-    nearbyOutOfCaseTime = [v9 nearbyOutOfCaseTime];
-    if (nearbyOutOfCaseTime > 3)
+    v23 = objc_msgSend_nearbyOutOfCaseTime(v9);
+    if (v23 > 3)
     {
       v24 = "?";
     }
 
     else
     {
-      v24 = off_1002B90D8[nearbyOutOfCaseTime];
+      v24 = off_1002B90D8[v23];
     }
 
     if (v15)
@@ -17137,25 +18412,15 @@ LABEL_79:
       v25 = "no";
     }
 
-    v53 = v21;
-    v54 = v22;
-    v51 = v57;
-    v52 = v63;
-    v49 = v64;
-    v50 = v58;
-    v45 = v60;
-    v47 = v59;
-    v55 = v24;
-    v56 = v25;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipihHealingV2Handling:]", 30, "TipiTableEvent: isBTRoute %s streaming %s isLastRoute %s isLastPlay %s otherLastPlay %s audioState %s budswap %s UserConnected %s outofCaseTime %s isLastRoutedBeforeOutOfCase %s", v54, v53, v58, v52, v51, v57, v21, v22, v24, v25);
 
-    zeroSourceLastRouteHost = v61;
-    v6 = v62;
+    zeroSourceLastRouteHost = v55;
+    v6 = v56;
   }
 
-  if ((self->_isBTRoute & v66 | v15) & 1) != 0 || self->_callConnected || ((self->_splitterStateOn | userConnectedState))
+  if ((self->_isBTRoute & v60 | v15) & 1) != 0 || self->_callConnected || ((self->_splitterStateOn | userConnectedState))
   {
-    [v5 setRoutingAction:{1, v45, v47, v49, v50, v51, v52, v53, v54, v55, v56}];
+    [v5 setRoutingAction:1];
     if (userConnectedState)
     {
       v26 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:handlingCopy];
@@ -17168,13 +18433,13 @@ LABEL_79:
     [v5 setRoutingAction:3];
   }
 
-  [v5 setIsTipiHealingV2Eligible:{1, v45, v47}];
+  v27 = [v5 setIsTipiHealingV2Eligible:1];
   nearbyInfoDevicesTriangleRecoveryTimer = self->_nearbyInfoDevicesTriangleRecoveryTimer;
   if (nearbyInfoDevicesTriangleRecoveryTimer)
   {
-    v28 = nearbyInfoDevicesTriangleRecoveryTimer;
-    dispatch_source_cancel(v28);
-    v29 = self->_nearbyInfoDevicesTriangleRecoveryTimer;
+    v31 = nearbyInfoDevicesTriangleRecoveryTimer;
+    dispatch_source_cancel(v31);
+    v32 = self->_nearbyInfoDevicesTriangleRecoveryTimer;
     self->_nearbyInfoDevicesTriangleRecoveryTimer = 0;
   }
 
@@ -17183,25 +18448,25 @@ LABEL_79:
   {
     if (dword_1002F6778 >= 31)
     {
-      v31 = tipiHealingTimer;
+      v34 = tipiHealingTimer;
     }
 
     else
     {
-      if (dword_1002F6778 != -1 || _LogCategory_Initialize())
+      if (dword_1002F6778 != -1 || (v27 = _LogCategory_Initialize(), v27))
       {
-        sub_1001EBCCC();
+        sub_1001EBCCC(v27, v28, v29);
       }
 
-      v31 = self->_tipiHealingTimer;
-      if (!v31)
+      v34 = self->_tipiHealingTimer;
+      if (!v34)
       {
         goto LABEL_64;
       }
     }
 
-    dispatch_source_cancel(v31);
-    v32 = self->_tipiHealingTimer;
+    dispatch_source_cancel(v34);
+    v35 = self->_tipiHealingTimer;
     self->_tipiHealingTimer = 0;
 
 LABEL_64:
@@ -17210,70 +18475,75 @@ LABEL_64:
 
   [(BTSmartRoutingDaemon *)self _notifyOtherTipiDeviceTipiScoreChanged:0 andNewScore:0];
   [v5 setIsRoutingActionInitialized:1];
-  if (self->_tipiHealingHijackTimer && ![(BTSmartRoutingDaemon *)self _deviceSupportsHijackV2:v6 withDevice:v5])
+  if (self->_tipiHealingHijackTimer)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v36 = [(BTSmartRoutingDaemon *)self _deviceSupportsHijackV2:v6 withDevice:v5];
+    if ((v36 & 1) == 0)
     {
-      sub_1001EBCE8();
-    }
+      if (dword_1002F6778 <= 30)
+      {
+        if (dword_1002F6778 != -1 || (v36 = _LogCategory_Initialize(), v36))
+        {
+          sub_1001EBCE8(v36, v37, v38);
+        }
+      }
 
-    [(BTSmartRoutingDaemon *)self _tipiHealingCompleteCheckTimerForDevice:v5];
+      [(BTSmartRoutingDaemon *)self _tipiHealingCompleteCheckTimerForDevice:v5];
+    }
   }
 
   if (([v5 tipitableUpdated] & 1) == 0)
   {
-    v33 = zeroSourceLastRouteHost;
+    v39 = zeroSourceLastRouteHost;
     _myBluetoothAddressString = [(BTSmartRoutingDaemon *)self _myBluetoothAddressString];
     otherTipiDeviceBTAddress = [v5 otherTipiDeviceBTAddress];
     if ([v5 routingAction] == 1)
     {
-      v73 = _myBluetoothAddressString;
-      v36 = &v73;
-      v37 = otherTipiDeviceBTAddress;
+      v67 = _myBluetoothAddressString;
+      v42 = &v67;
+      v43 = otherTipiDeviceBTAddress;
     }
 
     else
     {
-      v72 = otherTipiDeviceBTAddress;
-      v36 = &v72;
-      v37 = _myBluetoothAddressString;
+      v66 = otherTipiDeviceBTAddress;
+      v42 = &v66;
+      v43 = _myBluetoothAddressString;
     }
 
-    v36[1] = v37;
-    v38 = [NSArray arrayWithObjects:"arrayWithObjects:count:" count:?];
-    v39 = [(BTSmartRoutingDaemon *)self _verifyWxConnectedBTAddress:handlingCopy withVersion:&off_1002CB6F0];
+    v42[1] = v43;
+    v44 = [NSArray arrayWithObjects:"arrayWithObjects:count:" count:?];
+    v45 = [(BTSmartRoutingDaemon *)self _verifyWxConnectedBTAddress:handlingCopy withVersion:&off_1002CB6F0];
     if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      v46 = handlingCopy;
-      v48 = v38;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipihHealingV2Handling:]", 90, "TipiTableEvent: update wx Tipi table for Wx %@, addresses %@", handlingCopy, v44);
     }
 
-    v68[0] = _NSConcreteStackBlock;
-    v68[1] = 3221225472;
-    v68[2] = sub_100070CB0;
-    v68[3] = &unk_1002B6D60;
-    v69 = handlingCopy;
-    v70 = v38;
-    v71 = v5;
-    [(BTSmartRoutingDaemon *)self _updateAccessoryID:v39 connectionDeviceAddresses:v38 completion:v68];
+    v62[0] = _NSConcreteStackBlock;
+    v62[1] = 3221225472;
+    v62[2] = sub_100070CB0;
+    v62[3] = &unk_1002B6D60;
+    v63 = handlingCopy;
+    v64 = v44;
+    v65 = v5;
+    [(BTSmartRoutingDaemon *)self _updateAccessoryID:v45 connectionDeviceAddresses:v44 completion:v62];
 
-    zeroSourceLastRouteHost = v33;
+    zeroSourceLastRouteHost = v39;
   }
 
-  v40 = [(NSMutableDictionary *)self->_smartRoutingWxStatsMap objectForKeyedSubscript:handlingCopy, v46, v48];
+  v46 = [(NSMutableDictionary *)self->_smartRoutingWxStatsMap objectForKeyedSubscript:handlingCopy];
 
-  if (v40)
+  if (v46)
   {
     mach_absolute_time();
     [(NSMutableDictionary *)self->_smartRoutingWxStatsMap objectForKeyedSubscript:handlingCopy];
-    v42 = v41 = zeroSourceLastRouteHost;
-    [v42 thV2Ticks];
+    v48 = v47 = zeroSourceLastRouteHost;
+    [v48 thV2Ticks];
     UpTicksToSecondsF();
-    v44 = v43;
+    v50 = v49;
 
-    zeroSourceLastRouteHost = v41;
-    [(BTSmartRoutingDaemon *)self _submitMetricTipiHealingforDevice:v5 withDuration:0 andLegacy:v44];
+    zeroSourceLastRouteHost = v47;
+    [(BTSmartRoutingDaemon *)self _submitMetricTipiHealingforDevice:v5 withDuration:0 andLegacy:v50];
   }
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
@@ -17313,14 +18583,14 @@ LABEL_64:
 - (void)_triggerTipiTableUpdate:(id)update
 {
   updateCopy = update;
-  v5 = updateCopy;
+  v6 = updateCopy;
   if (updateCopy)
   {
     v8 = updateCopy;
-    v6 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:?];
+    v7 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:?];
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EBDCC(self, v6);
+      sub_1001EBDCC(self, v7);
     }
 
     [(AAController *)self->_aaController sendGetTipiTableMessageToDestinationIdentifier:v8 completionHandler:&stru_1002B89E8];
@@ -17331,11 +18601,11 @@ LABEL_64:
   if (dword_1002F6778 <= 90)
   {
     v8 = 0;
-    if (dword_1002F6778 != -1 || (v7 = _LogCategory_Initialize(), v5 = 0, v7))
+    if (dword_1002F6778 != -1 || (updateCopy = _LogCategory_Initialize(), v6 = 0, updateCopy))
     {
-      sub_1001EBE34();
+      sub_1001EBE34(updateCopy, v5, v6);
 LABEL_6:
-      v5 = v8;
+      v6 = v8;
     }
   }
 }
@@ -17361,14 +18631,18 @@ LABEL_6:
 {
   startCopy = start;
   v8 = self->_tipiHealingHijackTimer;
+  v11 = v8;
   if (v8)
   {
-    if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6778 <= 30)
     {
-      sub_1001EBE90();
+      if (dword_1002F6778 != -1 || (v8 = _LogCategory_Initialize(), v8))
+      {
+        sub_1001EBE90(v8, v9, v10);
+      }
     }
 
-    v9 = v8;
+    v12 = v11;
   }
 
   else
@@ -17378,9 +18652,9 @@ LABEL_6:
       sub_1001EBEAC();
     }
 
-    v9 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+    v12 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
     tipiHealingHijackTimer = self->_tipiHealingHijackTimer;
-    self->_tipiHealingHijackTimer = v9;
+    self->_tipiHealingHijackTimer = v12;
 
     objc_storeStrong(&self->_tipiHealingHijackTimerAddress, start);
     handler[0] = _NSConcreteStackBlock;
@@ -17388,38 +18662,43 @@ LABEL_6:
     handler[2] = sub_10007122C;
     handler[3] = &unk_1002B7208;
     handler[4] = self;
-    v13 = startCopy;
+    v16 = startCopy;
     scoreCopy = score;
-    dispatch_source_set_event_handler(v9, handler);
+    dispatch_source_set_event_handler(v12, handler);
     CUDispatchTimerSet();
-    dispatch_activate(v9);
+    dispatch_activate(v12);
   }
 
-  return v8 == 0;
+  return v11 == 0;
 }
 
 - (void)_tipiHealingHijackTimerReset
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001EBF0C();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EBF0C(self, a2, v2);
+    }
   }
 
-  tipiHealingHijackTimer = self->_tipiHealingHijackTimer;
+  tipiHealingHijackTimer = selfCopy->_tipiHealingHijackTimer;
   if (tipiHealingHijackTimer)
   {
-    v4 = tipiHealingHijackTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_tipiHealingHijackTimer;
-    self->_tipiHealingHijackTimer = 0;
+    v5 = tipiHealingHijackTimer;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_tipiHealingHijackTimer;
+    selfCopy->_tipiHealingHijackTimer = 0;
   }
 
-  tipiHealingHijackTimerAddress = self->_tipiHealingHijackTimerAddress;
-  self->_tipiHealingHijackTimerAddress = 0;
+  tipiHealingHijackTimerAddress = selfCopy->_tipiHealingHijackTimerAddress;
+  selfCopy->_tipiHealingHijackTimerAddress = 0;
 }
 
 - (BOOL)_arbitrationTimeout:(id)timeout withScore:(int)score
 {
+  v4 = *&score;
   connectedDevices = self->_connectedDevices;
   timeoutCopy = timeout;
   v8 = [(NSMutableDictionary *)connectedDevices objectForKeyedSubscript:timeoutCopy];
@@ -17444,19 +18723,30 @@ LABEL_6:
 
   else
   {
-    v12 = v10 <= score;
+    v12 = v10 <= v4;
   }
 
   v13 = v12;
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    if (audioStreamState <= 3)
+    v14 = @"DontRoute";
+    if (v13)
     {
-      v14 = off_1002B9128[audioStreamState];
+      v14 = @"Route";
     }
 
-    LogPrintF();
+    if (audioStreamState > 3)
+    {
+      v15 = "?";
+    }
+
+    else
+    {
+      v15 = off_1002B9128[audioStreamState];
+    }
+
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _arbitrationTimeout:withScore:]", 30, "Arbitration timeout: Decision is %@, remote category %d, local category %d wxStreamState %s", v14, v10, v4, v15);
   }
 
   return v13;
@@ -17466,9 +18756,39 @@ LABEL_6:
 {
   [(SRStats *)self->_stats setFirstPipeMessageRTT:stats];
   [(SRStats *)self->_stats firstPipeMessageRTT];
-  if (UpTicksToSeconds() >= 4 && dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  v4 = UpTicksToSeconds();
+  if (v4 >= 4 && dword_1002F6778 <= 90)
   {
-    sub_1001EBF28();
+    if (dword_1002F6778 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1001EBF28(v4, v5, v6);
+    }
+  }
+}
+
+- (void)_updateAudioRoute:(int)route withUUID:(id)d
+{
+  v4 = *&route;
+  dCopy = d;
+  if (v4)
+  {
+    p_sourceDevice = &self->_sourceDevice;
+    if (-[SRSourceDevice audioRoute](self->_sourceDevice, "audioRoute") != v4 || (-[SRSourceDevice audioDestination](*p_sourceDevice, "audioDestination"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isEqualToString:dCopy], v7, (v8 & 1) == 0))
+    {
+      if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+      {
+        sub_1001EBF44(&self->_sourceDevice, v4, dCopy);
+      }
+
+      [(SRSourceDevice *)*p_sourceDevice setAudioRoute:v4];
+      [(SRSourceDevice *)*p_sourceDevice setAudioDestination:dCopy];
+    }
+  }
+
+  if (self->_prefSmartRoutingConnectionManager)
+  {
+    v9 = +[SRConnectionManager sharedSRConnectionManager];
+    [v9 audioRouteChanged:v4];
   }
 }
 
@@ -17476,33 +18796,40 @@ LABEL_6:
 {
   categoryCopy = category;
   v6 = categoryCopy;
-  if (self->_prefSmartRoutingPreemptiveConnectedBanner && [(NSNumber *)categoryCopy intValue]>= 301 && [(NSNumber *)self->_localDeviceAudioCategory intValue]== 100 && ![(NSMutableDictionary *)self->_smartRoutingWxDeviceMap count])
+  if (self->_prefSmartRoutingPreemptiveConnectedBanner && [(NSNumber *)categoryCopy intValue]>= 301 && [(NSNumber *)self->_localDeviceAudioCategory intValue]== 100)
   {
-    if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+    v7 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap count];
+    if (!v7)
     {
-      sub_1001EBFE4();
-    }
+      if (dword_1002F6778 <= 90)
+      {
+        if (dword_1002F6778 != -1 || (v7 = _LogCategory_Initialize(), v7))
+        {
+          sub_1001EBFE4(v7, v8, v9);
+        }
+      }
 
-    objc_storeStrong(&self->_localDeviceAudioCategory, category);
-    if (self->_prefSmartRoutingConnectionManager)
-    {
-      dispatchQueue = self->_dispatchQueue;
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_100071910;
-      block[3] = &unk_1002B6880;
-      block[4] = self;
-      dispatch_async(dispatchQueue, block);
-    }
+      objc_storeStrong(&self->_localDeviceAudioCategory, category);
+      if (self->_prefSmartRoutingConnectionManager)
+      {
+        dispatchQueue = self->_dispatchQueue;
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_100071910;
+        block[3] = &unk_1002B6880;
+        block[4] = self;
+        dispatch_async(dispatchQueue, block);
+      }
 
-    else
-    {
-      [(BTSmartRoutingDaemon *)self _evaluatorRun];
-    }
+      else
+      {
+        [(BTSmartRoutingDaemon *)self _evaluatorRun];
+      }
 
-    if (self->_preemptiveBannerConnectionInProgress)
-    {
-      [(SRStats *)self->_stats setLocalAudioScore:self->_localDeviceAudioCategory];
+      if (self->_preemptiveBannerConnectionInProgress)
+      {
+        [(SRStats *)self->_stats setLocalAudioScore:self->_localDeviceAudioCategory];
+      }
     }
   }
 
@@ -17527,16 +18854,16 @@ LABEL_18:
         }
 
         smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_100071918;
-        v14[3] = &unk_1002B7FA8;
-        v14[4] = self;
-        v11 = v6;
-        v15 = v11;
-        [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v14];
-        v12 = +[SRConnectionManager sharedSRConnectionManager];
-        [v12 localAudioCategoryChanged:v11];
+        v19[0] = _NSConcreteStackBlock;
+        v19[1] = 3221225472;
+        v19[2] = sub_100071918;
+        v19[3] = &unk_1002B7FA8;
+        v19[4] = self;
+        v17 = v6;
+        v20 = v17;
+        [(NSMutableDictionary *)smartRoutingWxDeviceMap enumerateKeysAndObjectsUsingBlock:v19];
+        v18 = +[SRConnectionManager sharedSRConnectionManager];
+        [v18 localAudioCategoryChanged:v17];
 
         goto LABEL_22;
       }
@@ -17544,10 +18871,10 @@ LABEL_18:
       localDeviceAudioCategory = *p_localDeviceAudioCategory;
     }
 
-    [(NSNumber *)localDeviceAudioCategory intValue];
-    [(NSNumber *)v6 intValue];
+    intValue = [(NSNumber *)localDeviceAudioCategory intValue];
+    intValue2 = [(NSNumber *)v6 intValue];
     activePlayingApp = [(SRSourceDevice *)self->_sourceDevice activePlayingApp];
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateLocalAudioCategory:]", 90, "Updating local audio category %d -> %d app %@", intValue, intValue2, activePlayingApp);
 
     goto LABEL_18;
   }
@@ -17614,9 +18941,9 @@ LABEL_22:
       getActivePairedDevice = v17;
       if (v17)
       {
-        [v17 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v17);
         v18 = v24;
-        [getActivePairedDevice operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(getActivePairedDevice);
         v19 = v22;
       }
 
@@ -17648,13 +18975,13 @@ LABEL_22:
   nameCopy = name;
   versionCopy = version;
   v15 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:deviceCopy];
-  v16 = v15;
+  v18 = v15;
   if (v15)
   {
     if (result)
     {
       [v15 setRoutingAction:2];
-      [v16 setOtherTipiDeviceInfo:0 andName:0 andVersion:0];
+      [v18 setOtherTipiDeviceInfo:0 andName:0 andVersion:0];
       [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:deviceCopy withAddress:&stru_1002C1358 withEasyPairing:0 withState:3];
     }
 
@@ -17662,29 +18989,28 @@ LABEL_22:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        v21 = nameCopy;
-        v22 = versionCopy;
-        v19 = deviceCopy;
-        v20 = addressCopy;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateOtherTipiDevice:otherAddress:otherName:otherVersion:withResult:]", 30, "Smart Routing updating device %@ with otherAddress %@ otherName %@ otherVersion %@", deviceCopy, addressCopy, nameCopy, versionCopy);
       }
 
-      v17 = addressCopy;
-      [v16 setRoutingAction:1];
-      [v16 setOtherTipiDeviceInfo:v17 andName:nameCopy andVersion:versionCopy];
-      [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:deviceCopy withAddress:v17 withEasyPairing:0 withState:1];
+      v19 = addressCopy;
+      [v18 setRoutingAction:1];
+      [v18 setOtherTipiDeviceInfo:v19 andName:nameCopy andVersion:versionCopy];
+      [(BTSmartRoutingDaemon *)self _updateNearbyDeviceState:deviceCopy withAddress:v19 withEasyPairing:0 withState:1];
 
-      v18 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:deviceCopy];
-      [v18 setOtherTipiAudioCategory:0];
-      [v18 setOtherTipiDeviceIsStreamingAudio:0];
+      v20 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:deviceCopy];
+      [v20 setOtherTipiAudioCategory:0];
+      [v20 setOtherTipiDeviceIsStreamingAudio:0];
     }
 
-    [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.AudioRoutingChanged", v19, v20, v21, v22];
+    [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.AudioRoutingChanged"];
   }
 
-  else if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F6778 <= 90)
   {
-    sub_1001EC000();
+    if (dword_1002F6778 != -1 || (v15 = _LogCategory_Initialize(), v15))
+    {
+      sub_1001EC000(v15, v16, v17);
+    }
   }
 }
 
@@ -17738,7 +19064,7 @@ LABEL_22:
   {
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EC01C();
+      sub_1001EC01C(addressCopy);
     }
 
     v20 = 0;
@@ -17746,28 +19072,28 @@ LABEL_22:
 
   else
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     discoveredDevices = [(CBDiscovery *)self->_pairedDiscovery discoveredDevices];
-    v10 = [discoveredDevices countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [discoveredDevices countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
       selfCopy = self;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         v13 = 0;
         do
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(discoveredDevices);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * v13);
+          v14 = *(*(&v24 + 1) + 8 * v13);
           btAddressData = [v14 btAddressData];
           if ([btAddressData length] != 6)
           {
@@ -17778,8 +19104,7 @@ LABEL_14:
             goto LABEL_15;
           }
 
-          bytes = [btAddressData bytes];
-          v16 = NSPrintF();
+          v16 = NSPrintF("%.6a", COERCE_DOUBLE([btAddressData bytes]));
           [versionCopy doubleValue];
           if (v17 < 1.1)
           {
@@ -17815,7 +19140,7 @@ LABEL_27:
           v20 = v19;
           if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001EC05C();
+            sub_1001EC05C(addressCopy);
           }
 
 LABEL_28:
@@ -17829,7 +19154,7 @@ LABEL_15:
         }
 
         while (v11 != v13);
-        v21 = [discoveredDevices countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v21 = [discoveredDevices countByEnumeratingWithState:&v24 objects:v28 count:16];
         v11 = v21;
       }
 
@@ -17897,9 +19222,12 @@ LABEL_33:
 
 - (void)_watchMediaControl
 {
-  if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F6778 <= 30)
   {
-    sub_1001EC1B8();
+    if (dword_1002F6778 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EC1B8(self, a2, v2);
+    }
   }
 }
 
@@ -17974,8 +19302,7 @@ LABEL_310:
     {
       if (v17 ^ v18 | v16 && (v19 != -1 || _LogCategory_Initialize()))
       {
-        v190 = foundCopy;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Connected device updated: %@", foundCopy);
       }
     }
 
@@ -17983,8 +19310,7 @@ LABEL_310:
     {
       if (v17 ^ v18 | v16 && (v19 != -1 || _LogCategory_Initialize()))
       {
-        v190 = foundCopy;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "First connected device found %@", foundCopy);
       }
 
       if (!self->_firstConnectedTime)
@@ -18007,7 +19333,7 @@ LABEL_310:
         firstStemClick = self->_firstStemClick;
       }
 
-      [(NSMutableDictionary *)firstStemClick setObject:&__kCFBooleanFalse forKeyedSubscript:v5, v190];
+      [(NSMutableDictionary *)firstStemClick setObject:&__kCFBooleanFalse forKeyedSubscript:v5];
       firstStemClickTime = self->_firstStemClickTime;
       if (!firstStemClickTime)
       {
@@ -18037,8 +19363,7 @@ LABEL_310:
           {
             if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
             {
-              v190 = v30;
-              LogPrintF();
+              LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Update routing action for regular phase 1 fw %@", v30);
             }
 
             if (self->_pairedCompanionDeviceSupportsSmartRouting)
@@ -18051,7 +19376,7 @@ LABEL_310:
               v32 = 2;
             }
 
-            [v29 setRoutingAction:{v32, v190}];
+            [v29 setRoutingAction:v32];
             [v29 setIsRoutingActionInitialized:1];
             [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.AudioRoutingChanged"];
           }
@@ -18087,7 +19412,7 @@ LABEL_310:
         sub_100004F54();
         if (v17 ^ v18 | v16 && (v38 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Connected device BT_UI_INITIATED_CONNECTION_REQUEST");
         }
 
         [sub_100072F04() _submitManualConnectionMetric:?];
@@ -18140,8 +19465,7 @@ LABEL_59:
           sub_100004F54();
           if (v17 ^ v18 | v16 && (v46 != -1 || _LogCategory_Initialize()))
           {
-            v191 = v45;
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "_connectedDeviceFound, hijackblocking is active. It has started for %llus and ownership is not owned", v45);
           }
 
           if (v45 >= 5)
@@ -18177,7 +19501,7 @@ LABEL_59:
     v51 = [sub_100072F70() objectForKeyedSubscript:?];
     if (v51)
     {
-      v217 = 0;
+      v208 = 0;
     }
 
     else
@@ -18185,12 +19509,12 @@ LABEL_59:
       v52 = [sub_100072ED0() objectForKeyedSubscript:?];
       if (v52)
       {
-        v217 = 0;
+        v208 = 0;
       }
 
       else
       {
-        v217 = ([foundCopy deviceFlags] & 0x40000) == 0;
+        v208 = ([foundCopy deviceFlags] & 0x40000) == 0;
       }
     }
 
@@ -18240,7 +19564,7 @@ LABEL_59:
 LABEL_93:
         v65 = [sub_100072F70() objectForKeyedSubscript:?];
 
-        v214 = v13;
+        v205 = v13;
         if (v65)
         {
           v66 = [(NSMutableDictionary *)self->_connectedDevicesInEarCache objectForKeyedSubscript:v5];
@@ -18260,7 +19584,7 @@ LABEL_93:
           {
 LABEL_98:
             connectDevice = self->_connectDevice;
-            v215 = v50;
+            v206 = v50;
             if (connectDevice && self->_connectSession)
             {
               bleDevice = [(SFDevice *)connectDevice bleDevice];
@@ -18268,8 +19592,7 @@ LABEL_98:
 
               if ([bluetoothAddress length] == 6)
               {
-                bytes = [bluetoothAddress bytes];
-                v73 = NSPrintF();
+                v73 = NSPrintF("%.6a", COERCE_DOUBLE([bluetoothAddress bytes]));
               }
 
               else
@@ -18277,13 +19600,13 @@ LABEL_98:
                 v73 = 0;
               }
 
-              if ([v5 isEqual:{v73, bytes}] && (objc_msgSend(foundCopy, "connectedServices") & 0x80000) != 0)
+              if ([v5 isEqual:v73] && (objc_msgSend(foundCopy, "connectedServices") & 0x80000) != 0)
               {
-                v207 = v65;
+                v198 = v65;
                 sub_100004F54();
                 if (v17 ^ v18 | v16 && (v74 != -1 || _LogCategory_Initialize()))
                 {
-                  LogPrintF();
+                  LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Finished connection setup");
                 }
 
                 v75 = name;
@@ -18309,179 +19632,174 @@ LABEL_98:
                 }
 
                 name = v75;
-                v50 = v215;
-                v65 = v207;
+                v50 = v206;
+                v65 = v198;
               }
             }
 
             if (!v50)
             {
 LABEL_169:
-              v116 = [sub_100072ED0() objectForKeyedSubscript:?];
+              v118 = [sub_100072ED0() objectForKeyedSubscript:?];
               [sub_100072F98() _smartRoutingModeCheck:?];
-              v117 = [sub_100072F70() objectForKeyedSubscript:?];
+              v119 = [sub_100072F70() objectForKeyedSubscript:?];
 
-              if (v117 || !v116)
+              if (v119 || !v118)
               {
-                v122 = [sub_100072F70() objectForKeyedSubscript:?];
-                if (v122)
+                v124 = [sub_100072F70() objectForKeyedSubscript:?];
+                if (v124)
                 {
                 }
 
                 else
                 {
-                  v123 = [foundCopy productID] - 8194;
-                  if (v123 < 0x2E)
+                  v125 = [foundCopy productID] - 8194;
+                  if (v125 < 0x2E)
                   {
-                    v124 = 0x207C7BB7FF9BuLL >> v123;
+                    v126 = 0x207C7BB7FF9BuLL >> v125;
 LABEL_197:
-                    [(NSMutableDictionary *)self->_connectedDevices setObject:foundCopy forKeyedSubscript:v5, bytes];
-                    v134 = [sub_100072F04() _inEarConnectedCheck:?];
+                    [(NSMutableDictionary *)self->_connectedDevices setObject:foundCopy forKeyedSubscript:v5];
+                    v136 = [sub_100072F04() _inEarConnectedCheck:?];
                     if (![foundCopy primaryPlacement] && !objc_msgSend(foundCopy, "secondaryPlacement"))
                     {
-                      v134 = [sub_100072F04() _inEarNearbyCheck:?];
+                      v136 = [sub_100072F04() _inEarNearbyCheck:?];
                     }
 
-                    if (v124)
+                    if (v126)
                     {
                       [(BTSmartRoutingDaemon *)self _sendTipiScoreUpdateToWx];
                     }
 
                     _isOnDemandConnectInProgress = [(BTSmartRoutingDaemon *)self _isOnDemandConnectInProgress];
-                    v136 = _isOnDemandConnectInProgress;
+                    v138 = _isOnDemandConnectInProgress;
                     forcedConnection = self->_forcedConnection;
                     if (!forcedConnection && !_isOnDemandConnectInProgress)
                     {
 LABEL_218:
-                      v213 = v124;
-                      if (!((v65 == 0 || !self->_prefSmartRoutingPreemptiveConnectedBanner) | v134 & 1))
+                      v204 = v126;
+                      if (!((v65 == 0 || !self->_prefSmartRoutingPreemptiveConnectedBanner) | v136 & 1))
                       {
-                        [v116 setFirstBannerShown:1];
-                        v142 = [sub_100073138() objectForKeyedSubscript:?];
-                        preemptiveBannerShown2 = [v142 preemptiveBannerShown];
+                        [v118 setFirstBannerShown:1];
+                        v144 = [sub_100073138() objectForKeyedSubscript:?];
+                        preemptiveBannerShown2 = [v144 preemptiveBannerShown];
 
                         if (preemptiveBannerShown2)
                         {
-                          v144 = [sub_100073138() objectForKeyedSubscript:?];
-                          [v144 setPreemptiveBannerShown:0];
+                          v146 = [sub_100073138() objectForKeyedSubscript:?];
+                          [v146 setPreemptiveBannerShown:0];
                         }
                       }
 
-                      v145 = bOOLValue;
-                      if (!(v134 & 1 | !v217))
+                      v147 = bOOLValue;
+                      if (!(v136 & 1 | !v208))
                       {
                         sub_100004F54();
                         if (!(v17 ^ v18 | v16))
                         {
 LABEL_250:
-                          if (v145 != v134)
+                          if (v147 != v136)
                           {
                             sub_100004F54();
-                            if (v17 ^ v18 | v16 && (v159 != -1 || _LogCategory_Initialize()))
+                            if (v17 ^ v18 | v16 && (v161 != -1 || _LogCategory_Initialize()))
                             {
-                              if (v145)
+                              if (v147)
                               {
-                                v160 = "yes";
+                                v162 = "yes";
                               }
 
                               else
                               {
-                                v160 = "no";
+                                v162 = "no";
                               }
 
-                              if (v134)
+                              if (v136)
                               {
-                                v161 = "yes";
+                                v163 = "yes";
                               }
 
                               else
                               {
-                                v161 = "no";
+                                v163 = "no";
                               }
 
                               audioStreamState = [foundCopy audioStreamState];
                               if (audioStreamState > 3)
                               {
-                                v163 = "?";
+                                v165 = "?";
                               }
 
                               else
                               {
-                                v163 = off_1002B9128[audioStreamState];
+                                v165 = off_1002B9128[audioStreamState];
                               }
 
-                              v164 = "yes";
+                              v166 = "yes";
                               if (!self->_activityLevelMediaPlaying)
                               {
-                                v164 = "no";
+                                v166 = "no";
                               }
 
-                              v196 = v164;
-                              deviceFlags3 = "no";
-                              v194 = v161;
-                              v195 = v163;
-                              v193 = v160;
-                              LogPrintF();
+                              LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "InEarStateChanged %s -> %s WxStream %s activityLevelMediaPlaying %s isHidden %s", v162, v163, v165, v166, "no");
                             }
 
-                            if (v65 && ((v134 ^ 1) & 1) == 0)
+                            if (v65 && ((v136 ^ 1) & 1) == 0)
                             {
-                              if ([v116 otherTipiDeviceIsWatch] && objc_msgSend(v116, "otherTipiAudioCategory") == 100 && !self->_phoneOwnershipTimer && (objc_msgSend(v116, "routed") & 1) == 0)
+                              if ([v118 otherTipiDeviceIsWatch] && objc_msgSend(v118, "otherTipiAudioCategory") == 100 && !self->_phoneOwnershipTimer && (objc_msgSend(v118, "routed") & 1) == 0)
                               {
                                 [(BTSmartRoutingDaemon *)self _startPhoneOwnershipTimer:10];
                               }
 
-                              identifier4 = [v116 identifier];
-                              if ([v116 firstBannerShown])
+                              identifier4 = [v118 identifier];
+                              if ([v118 firstBannerShown])
                               {
-                                v166 = [sub_10007305C() objectForKeyedSubscript:?];
-                                v167 = [v166 preemptiveBannerShown] ^ 1;
+                                v168 = [sub_10007305C() objectForKeyedSubscript:?];
+                                v169 = [v168 preemptiveBannerShown] ^ 1;
                               }
 
                               else
                               {
-                                v167 = 0;
+                                v169 = 0;
                               }
 
-                              [v116 setFirstBannerShown:v167];
+                              [v118 setFirstBannerShown:v169];
                               [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.AudioRoutingChanged"];
                             }
                           }
 
-                          v193 = [NSNumber numberWithBool:v134, v193];
-                          [(NSMutableDictionary *)self->_connectedDevicesInEarCache setObject:v193 forKeyedSubscript:v5];
+                          v170 = [NSNumber numberWithBool:v136];
+                          [(NSMutableDictionary *)self->_connectedDevicesInEarCache setObject:v170 forKeyedSubscript:v5];
 
-                          [v116 setInEar:v134];
-                          if (!(v215 & 1 | ((v213 & 1) == 0)))
+                          [v118 setInEar:v136];
+                          if (!(v206 & 1 | ((v204 & 1) == 0)))
                           {
                             sub_100004F54();
-                            if (v17 ^ v18 | v16 && (v169 != -1 || _LogCategory_Initialize()))
+                            if (v17 ^ v18 | v16 && (v171 != -1 || _LogCategory_Initialize()))
                             {
-                              LogPrintF();
+                              LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Showing banner for SR disabled device");
                             }
 
                             name2 = [foundCopy name];
                             productID = [foundCopy productID];
-                            sub_100073010(productID, v172, v173, v174, v175, productID, @"Connected");
+                            sub_100073010(productID, v174, v175, v176, v177, productID, @"Connected");
                           }
 
-                          if (!self->_uiSmartRoutingBanner && ([v116 firstBannerShown] & v134) == 1 && !self->_tipiElectionInProgress)
+                          if (!self->_uiSmartRoutingBanner && ([v118 firstBannerShown] & v136) == 1 && !self->_tipiElectionInProgress)
                           {
-                            identifier5 = [v116 identifier];
-                            v177 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier5];
-                            preemptiveBannerShown3 = [v177 preemptiveBannerShown];
+                            identifier5 = [v118 identifier];
+                            v179 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:identifier5];
+                            preemptiveBannerShown3 = [v179 preemptiveBannerShown];
 
                             if ((preemptiveBannerShown3 & 1) == 0)
                             {
                               if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
                               {
-                                LogPrintF();
+                                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Posting first banner upon inEar");
                               }
 
-                              [v116 setFirstBannerShown:0];
+                              [v118 setFirstBannerShown:0];
                               name3 = [foundCopy name];
                               productID2 = [foundCopy productID];
-                              sub_100073010(productID2, v181, v182, v183, v184, productID2, @"Connected");
+                              sub_100073010(productID2, v183, v184, v185, v186, productID2, @"Connected");
                             }
                           }
 
@@ -18490,25 +19808,25 @@ LABEL_250:
                             [(BTSmartRoutingDaemon *)self _mediaRouteDiscoveryStarted];
                           }
 
-                          v185 = [sub_100072ED0() objectForKeyedSubscript:?];
-                          if (v185)
+                          v187 = [sub_100072ED0() objectForKeyedSubscript:?];
+                          if (v187)
                           {
-                            v186 = v185;
-                            v187 = [sub_100072ED0() objectForKeyedSubscript:?];
-                            otherTipiDeviceBTAddress2 = [v187 otherTipiDeviceBTAddress];
+                            v188 = v187;
+                            v189 = [sub_100072ED0() objectForKeyedSubscript:?];
+                            otherTipiDeviceBTAddress2 = [v189 otherTipiDeviceBTAddress];
                             if (otherTipiDeviceBTAddress2 || self->_tipiElectionInProgress || ([sub_100072F98() _aacpConnectedCheck:?] & 1) == 0)
                             {
                             }
 
                             else
                             {
-                              v189 = self->_forcedConnection;
+                              v191 = self->_forcedConnection;
 
-                              if (!v189)
+                              if (!v191)
                               {
                                 if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
                                 {
-                                  LogPrintF();
+                                  LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Trying to do tipi healings from connected events");
                                 }
 
                                 [(BTSmartRoutingDaemon *)self _tipiHealingAttempt];
@@ -18527,106 +19845,96 @@ LABEL_250:
                           goto LABEL_310;
                         }
 
-                        if (v146 != -1 || _LogCategory_Initialize())
+                        if (v148 != -1 || _LogCategory_Initialize())
                         {
-                          LogPrintF();
+                          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Incoming connection is out of ear");
                         }
                       }
 
                       sub_100004F54();
-                      if (v17 ^ v18 | v16 && (v147 != -1 || _LogCategory_Initialize()))
+                      if (v17 ^ v18 | v16 && (v149 != -1 || _LogCategory_Initialize()))
                       {
-                        v148 = "no";
+                        v150 = "no";
                         if (bOOLValue)
                         {
-                          v149 = "yes";
+                          v151 = "yes";
                         }
 
                         else
                         {
-                          v149 = "no";
+                          v151 = "no";
                         }
 
-                        if (v134)
+                        if (v136)
+                        {
+                          v152 = "yes";
+                        }
+
+                        else
+                        {
+                          v152 = "no";
+                        }
+
+                        v196 = v152;
+                        v197 = v151;
+                        if (v65)
                         {
                           v150 = "yes";
                         }
 
-                        else
-                        {
-                          v150 = "no";
-                        }
-
-                        v205 = v150;
-                        v206 = v149;
-                        if (v65)
-                        {
-                          v148 = "yes";
-                        }
-
-                        v204 = v148;
-                        routingAction = [v116 routingAction];
-                        v208 = v65;
-                        v210 = name;
+                        v195 = v150;
+                        routingAction = [v118 routingAction];
+                        v199 = v65;
+                        v201 = name;
                         if (routingAction > 5)
                         {
-                          v152 = "?";
+                          v154 = "?";
                         }
 
                         else
                         {
-                          v152 = off_1002B90F8[routingAction];
+                          v154 = off_1002B90F8[routingAction];
                         }
 
-                        v203 = v152;
-                        if ([v116 routed])
+                        v194 = v154;
+                        if ([v118 routed])
                         {
-                          v153 = "yes";
+                          v155 = "yes";
                         }
 
                         else
                         {
-                          v153 = "no";
+                          v155 = "no";
                         }
 
-                        otherTipiDeviceBTAddress3 = [v116 otherTipiDeviceBTAddress];
-                        otherTipiDeviceVersion = [v116 otherTipiDeviceVersion];
-                        otherTipiDeviceBTName = [v116 otherTipiDeviceBTName];
-                        v157 = otherTipiDeviceBTName;
-                        if (v217)
+                        otherTipiDeviceBTAddress3 = [v118 otherTipiDeviceBTAddress];
+                        otherTipiDeviceVersion = [v118 otherTipiDeviceVersion];
+                        otherTipiDeviceBTName = [v118 otherTipiDeviceBTName];
+                        v159 = otherTipiDeviceBTName;
+                        if (v208)
                         {
-                          v158 = "yes";
+                          v160 = "yes";
                         }
 
                         else
                         {
-                          v158 = "no";
+                          v160 = "no";
                         }
 
-                        v201 = otherTipiDeviceBTName;
-                        v202 = v158;
-                        v199 = otherTipiDeviceBTAddress3;
-                        v200 = otherTipiDeviceVersion;
-                        deviceFlags3 = v203;
-                        v198 = v153;
-                        v195 = v205;
-                        v196 = v204;
-                        v193 = v5;
-                        v194 = v206;
-                        LogPrintF();
+                        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "SmartRouting posting device %@ inEar state originalInEarState %s, newInEarState %s, previous connected %s, routing Action %s, Route %s otherTipiDeviceAddress %@ otherTipiVersion %@ otherTipiDeviceName %@ incomingConn %s", v5, v197, v196, v195, v194, v155, otherTipiDeviceBTAddress3, otherTipiDeviceVersion, otherTipiDeviceBTName, v160);
 
-                        name = v210;
-                        v65 = v208;
-                        v145 = bOOLValue;
+                        name = v201;
+                        v65 = v199;
+                        v147 = bOOLValue;
                       }
 
                       goto LABEL_250;
                     }
 
-                    v138 = v15[478];
-                    if (v138 <= 30)
+                    v140 = v15[478];
+                    if (v140 <= 30)
                     {
-                      if (v138 == -1)
+                      if (v140 == -1)
                       {
                         if (!_LogCategory_Initialize())
                         {
@@ -18636,25 +19944,23 @@ LABEL_250:
                         forcedConnection = self->_forcedConnection;
                       }
 
-                      v139 = "no";
+                      v141 = "no";
                       if (forcedConnection)
                       {
-                        v140 = "yes";
+                        v142 = "yes";
                       }
 
                       else
                       {
-                        v140 = "no";
+                        v142 = "no";
                       }
 
-                      if (v136)
+                      if (v138)
                       {
-                        v139 = "yes";
+                        v141 = "yes";
                       }
 
-                      v193 = v140;
-                      v194 = v139;
-                      LogPrintF();
+                      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Update Tipi table to disconnect other Tipi device. FD %s, OnDemand %s", v142, v141);
                     }
 
 LABEL_213:
@@ -18683,46 +19989,45 @@ LABEL_217:
 
               else
               {
-                if ([v116 routingAction])
+                if ([v118 routingAction])
                 {
                   sub_100004F54();
-                  if (v17 ^ v18 | v16 && (v118 != -1 || _LogCategory_Initialize()))
+                  if (v17 ^ v18 | v16 && (v120 != -1 || _LogCategory_Initialize()))
                   {
-                    deviceFlags3 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v5, bytes, v194, v195, v196, deviceFlags3];
-                    reconnectionState = [deviceFlags3 reconnectionState];
-                    v121 = "Connected";
+                    v121 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v5];
+                    reconnectionState = [v121 reconnectionState];
+                    v123 = "Connected";
                     if (reconnectionState != 1)
                     {
-                      v121 = "?";
+                      v123 = "?";
                     }
 
                     if (!reconnectionState)
                     {
-                      v121 = "Not connected";
+                      v123 = "Not connected";
                     }
 
-                    bytes = v121;
-                    LogPrintF();
+                    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Smart Routing posting first banner! Budswap state: %s", v123);
                   }
 
-                  v125 = [sub_100073138() objectForKeyedSubscript:?];
-                  if ([v125 preemptiveBannerShown])
+                  v127 = [sub_100073138() objectForKeyedSubscript:?];
+                  if ([v127 preemptiveBannerShown])
                   {
                   }
 
                   else
                   {
-                    v126 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v5];
-                    v127 = v65;
-                    v128 = name;
-                    reconnectionState2 = [v126 reconnectionState];
+                    v128 = [(NSMutableDictionary *)self->_srBudswapDeviceMap objectForKeyedSubscript:v5];
+                    v129 = v65;
+                    v130 = name;
+                    reconnectionState2 = [v128 reconnectionState];
 
                     v16 = reconnectionState2 == 1;
-                    name = v128;
-                    v65 = v127;
+                    name = v130;
+                    v65 = v129;
                     if (!v16)
                     {
-                      [v116 setFirstBannerShown:1];
+                      [v118 setFirstBannerShown:1];
                     }
                   }
                 }
@@ -18733,8 +20038,8 @@ LABEL_217:
 
                 if (workoutActive2)
                 {
-                  v132 = [sub_100073044() objectForKeyedSubscript:?];
-                  if ([v116 isHRMCapable])
+                  v134 = [sub_100073044() objectForKeyedSubscript:?];
+                  if ([v118 isHRMCapable])
                   {
                     score = 7;
                   }
@@ -18744,7 +20049,7 @@ LABEL_217:
                     score = self->_score;
                   }
 
-                  [(BTSmartRoutingDaemon *)self _constructAndSendTipiScoreMessageToWx:v132 withScore:score];
+                  [(BTSmartRoutingDaemon *)self _constructAndSendTipiScoreMessageToWx:v134 withScore:score];
                 }
 
                 if (_os_feature_enabled_impl())
@@ -18753,14 +20058,14 @@ LABEL_217:
                 }
               }
 
-              LOBYTE(v124) = 0;
+              LOBYTE(v126) = 0;
               goto LABEL_197;
             }
 
-            v211 = identifier;
+            v202 = identifier;
             v81 = [sub_100072ED0() objectForKeyedSubscript:?];
             deviceName = [v81 deviceName];
-            v209 = name;
+            v200 = name;
             v83 = [deviceName isEqualToString:name];
 
             if ((v83 & 1) == 0)
@@ -18770,41 +20075,40 @@ LABEL_217:
               {
                 v85 = [sub_100072ED0() objectForKeyedSubscript:?];
                 deviceName2 = [v85 deviceName];
-                [foundCopy name];
-                v194 = bytes = deviceName2;
-                LogPrintF();
+                name4 = [foundCopy name];
+                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "SmartRouting updating device name from %@ to %@", deviceName2, name4);
               }
 
-              name4 = [foundCopy name];
-              v88 = [sub_100072ED0() objectForKeyedSubscript:?];
-              [v88 setDeviceName:name4];
+              name5 = [foundCopy name];
+              v89 = [sub_100072ED0() objectForKeyedSubscript:?];
+              [v89 setDeviceName:name5];
             }
 
-            v89 = [sub_100072ED0() objectForKeyedSubscript:?];
-            deviceVersion = [v89 deviceVersion];
+            v90 = [sub_100072ED0() objectForKeyedSubscript:?];
+            deviceVersion = [v90 deviceVersion];
 
             if (!deviceVersion && (objc_opt_respondsToSelector() & 1) != 0)
             {
               sub_100004F54();
-              if (v17 ^ v18 | v16 && (v91 != -1 || _LogCategory_Initialize()))
+              if (v17 ^ v18 | v16 && (v92 != -1 || _LogCategory_Initialize()))
               {
-                bytes = [foundCopy firmwareVersion];
-                LogPrintF();
+                firmwareVersion = [foundCopy firmwareVersion];
+                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "SmartRouting updating device version to %@ ", firmwareVersion);
               }
 
-              firmwareVersion = [foundCopy firmwareVersion];
-              v93 = [sub_100072ED0() objectForKeyedSubscript:?];
-              [v93 setDeviceVersion:firmwareVersion];
+              firmwareVersion2 = [foundCopy firmwareVersion];
+              v95 = [sub_100072ED0() objectForKeyedSubscript:?];
+              [v95 setDeviceVersion:firmwareVersion2];
             }
 
             deviceFlags2 = [foundCopy deviceFlags];
-            v95 = [sub_100072ED0() objectForKeyedSubscript:?];
-            if (([v95 manualRouteChangeInProgress] & 1) != 0 || (deviceFlags2 & 0x400000) == 0)
+            v97 = [sub_100072ED0() objectForKeyedSubscript:?];
+            if (([v97 manualRouteChangeInProgress] & 1) != 0 || (deviceFlags2 & 0x400000) == 0)
             {
 
-              v97 = 0;
-              v98 = 0;
               v99 = 0;
+              v100 = 0;
+              v101 = 0;
               if ((deviceFlags2 & 0x400000) == 0)
               {
                 goto LABEL_138;
@@ -18813,85 +20117,82 @@ LABEL_217:
 
             else
             {
-              v96 = [sub_100072ED0() objectForKeyedSubscript:?];
-              v97 = [v96 manuallyRouted] ^ 1;
+              v98 = [sub_100072ED0() objectForKeyedSubscript:?];
+              v99 = [v98 manuallyRouted] ^ 1;
             }
 
-            v99 = [sub_100072F98() _isInEarToOutOfEar:?];
-            v98 = v97;
+            v101 = [sub_100072F98() _isInEarToOutOfEar:?];
+            v100 = v99;
 LABEL_138:
             sub_100004F54();
-            if (v17 ^ v18 | v16 && (v100 != -1 || _LogCategory_Initialize()))
+            if (v17 ^ v18 | v16 && (v102 != -1 || _LogCategory_Initialize()))
             {
-              v101 = "no";
-              v102 = v65;
               v103 = "no";
+              v104 = v65;
+              v105 = "no";
               if ((deviceFlags2 & 0x400000) != 0)
-              {
-                v101 = "yes";
-              }
-
-              v212 = v101;
-              if (v98)
-              {
-                v104 = "yes";
-              }
-
-              else
-              {
-                v104 = "no";
-              }
-
-              v105 = [sub_100072ED0() objectForKeyedSubscript:?];
-              if ([v105 manualRouteChangeInProgress])
               {
                 v103 = "yes";
               }
 
-              v196 = v103;
-              deviceFlags3 = [foundCopy deviceFlags];
-              v65 = v102;
-              v195 = v104;
+              v203 = v103;
+              if (v100)
+              {
+                v106 = "yes";
+              }
+
+              else
+              {
+                v106 = "no";
+              }
+
+              v107 = [sub_100072ED0() objectForKeyedSubscript:?];
+              if ([v107 manualRouteChangeInProgress])
+              {
+                v105 = "yes";
+              }
+
+              v193 = v105;
+              v65 = v104;
+              v192 = v106;
               v15 = &dword_1002F6000;
-              bytes = v5;
-              v194 = v212;
-              LogPrintF();
+              LogPrintF(&dword_1002F6778, "-[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "SmartRouting headset %@ manuallyRouted %s firstManualRoute %s manualRouteChangeInProgress %s %llu", v5, v203, v192, v193, [foundCopy deviceFlags]);
             }
 
-            name = v209;
-            identifier = v211;
-            if (v98)
+            name = v200;
+            identifier = v202;
+            if (v100)
             {
               [sub_100072F98() _sendIntendedRouteInfoUpdateToWx:? withIntendedRoutingStatus:?];
               [(BTSmartRoutingDaemon *)self _updateRoutingActionForManuallyRoute];
               [sub_100072F04() _startManualRouteChangeDetectionTimer:?];
               if (self->_prefSmartRoutingBlockHijackWindowinSeconds)
               {
-                v106 = [sub_100072ED0() objectForKeyedSubscript:?];
-                hijackBackoffTicks = [v106 hijackBackoffTicks];
+                v108 = [sub_100072ED0() objectForKeyedSubscript:?];
+                hijackBackoffTicks = [v108 hijackBackoffTicks];
 
                 if (hijackBackoffTicks)
                 {
                   sub_100004F54();
-                  if (v17 ^ v18 | v16 && (v108 != -1 || _LogCategory_Initialize()))
+                  if (v17 ^ v18 | v16 && (v110 != -1 || _LogCategory_Initialize()))
                   {
-                    LogPrintF();
+                    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Hijackblocking: Clear Block ticks due to manual routing");
                   }
 
                   [sub_100072F04() _hijackBackoffReset:? withReason:?];
-                  v109 = [sub_100072ED0() objectForKeyedSubscript:?];
-                  otherTipiDeviceBTAddress4 = [v109 otherTipiDeviceBTAddress];
+                  v111 = [sub_100072ED0() objectForKeyedSubscript:?];
+                  otherTipiDeviceBTAddress4 = [v111 otherTipiDeviceBTAddress];
                   [(BTSmartRoutingDaemon *)self _relayConduitMessageSend:1 withOptions:&off_1002CBCE8 andWxAddress:v5 andOtherAddress:otherTipiDeviceBTAddress4];
                 }
               }
             }
 
-            if (v99)
+            if (v101)
             {
               sub_100004F54();
-              if (v17 ^ v18 | v16 && (v111 != -1 || _LogCategory_Initialize()))
+              if (v17 ^ v18 | v16 && (v113 != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceFound:]", 30, "Resetting manaully route flag for out of ear");
               }
 
               [sub_100072F04() _setManualRouteFlag:? withManualRoute:?];
@@ -18899,18 +20200,18 @@ LABEL_138:
 
             else
             {
-              v112 = [sub_100072ED0() objectForKeyedSubscript:?];
-              [v112 setManuallyRouted:(deviceFlags2 >> 22) & 1];
+              v114 = [sub_100072ED0() objectForKeyedSubscript:?];
+              [v114 setManuallyRouted:(deviceFlags2 >> 22) & 1];
 
               if ((deviceFlags2 & 0x400000) == 0)
               {
-                v113 = [sub_100072ED0() objectForKeyedSubscript:?];
-                manualRouteChangeInProgress = [v113 manualRouteChangeInProgress];
+                v115 = [sub_100072ED0() objectForKeyedSubscript:?];
+                manualRouteChangeInProgress = [v115 manualRouteChangeInProgress];
 
                 if (manualRouteChangeInProgress)
                 {
-                  v115 = [sub_100072ED0() objectForKeyedSubscript:?];
-                  [v115 setManualRouteChangeInProgress:0];
+                  v117 = [sub_100072ED0() objectForKeyedSubscript:?];
+                  [v117 setManualRouteChangeInProgress:0];
                 }
               }
             }
@@ -18954,9 +20255,7 @@ LABEL_311:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        smartRoutingDisconnectReason = self->_smartRoutingDisconnectReason;
-        v30 = lostCopy;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _connectedDeviceLost:]", 30, "Connected device lost: disconnectReason %llu, device %@", self->_smartRoutingDisconnectReason, lostCopy);
       }
 
       sub_100073098(self->_connectedDevices, v9);
@@ -18978,7 +20277,7 @@ LABEL_311:
           [(BTSmartRoutingDaemon *)self _setDisconnectTick:mach_absolute_time() forWxAddress:v5];
         }
 
-        v14 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v5, smartRoutingDisconnectReason, v30];
+        v14 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKey:v5];
         [(BTSmartRoutingDaemon *)self dataRelayRemoveAvailableDataTypesWithDevice:v14];
         uiSmartRoutingBanner = self->_uiSmartRoutingBanner;
         if (uiSmartRoutingBanner)
@@ -19044,7 +20343,7 @@ LABEL_311:
         [(SRSourceDevice *)self->_sourceDevice setShouldStayOnVirtual:0];
       }
 
-      if (![(NSMutableDictionary *)self->_connectedDevices count:smartRoutingDisconnectReason]&& !self->_tipiElectionInProgress)
+      if (![(NSMutableDictionary *)self->_connectedDevices count]&& !self->_tipiElectionInProgress)
       {
         [(BTSmartRoutingDaemon *)self _mediaRouteDiscoveryStopped];
         smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
@@ -19076,8 +20375,7 @@ LABEL_311:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        v9 = lastDRHostIDSIdentifier;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon dataRelayAddAvailableDataTypesWithDiscoveredDevice:]", 30, "Adding available data types with discovered device for server %@", lastDRHostIDSIdentifier);
       }
 
       btAddress = [deviceCopy btAddress];
@@ -19108,8 +20406,7 @@ LABEL_311:
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    v9 = lastDRHostIDSIdentifier;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon dataRelayRemoveAvailableDataTypesWithDiscoveredDevice:]", 30, "Removing available data types with discovered device for server %@", lastDRHostIDSIdentifier);
   }
 
   btAddress = [deviceCopy btAddress];
@@ -19139,11 +20436,10 @@ LABEL_311:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        v12 = otherTipiIDSIdentifier;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon dataRelayAddAvailableDataTypesWithDevice:]", 30, "Adding available data types for server %@", otherTipiIDSIdentifier);
       }
 
-      [deviceCopy setDataRelayServerPublished:{1, v12}];
+      [deviceCopy setDataRelayServerPublished:1];
       deviceAddress2 = [deviceCopy deviceAddress];
       uTF8String = [deviceAddress2 UTF8String];
 
@@ -19171,7 +20467,7 @@ LABEL_311:
 
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon dataRelayRemoveAvailableDataTypesWithDevice:]", 30, "Removing available data types for server %@", otherTipiIDSIdentifier);
   }
 
   [sub_100072FA4() setDataRelayServerPublished:?];
@@ -19201,9 +20497,7 @@ LABEL_311:
 
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      v18 = v9;
-      v19 = v7;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _handleStemClickGestureReceived:]", 30, "Stem click gesture notification received, wx %@ cmd %@", v9, v7);
     }
 
     if (v9)
@@ -19275,62 +20569,54 @@ LABEL_311:
 {
   sub_10007317C();
   v4 = v3;
-  v21 = v5;
-  identifier = [v21 identifier];
+  v18 = v5;
+  identifier = [v18 identifier];
   uUIDString = [identifier UUIDString];
 
   if (!uUIDString)
   {
-    goto LABEL_37;
+    goto LABEL_34;
   }
 
-  audioRoutingScore = [v21 audioRoutingScore];
-  v9 = [*(v4 + 1552) objectForKeyedSubscript:uUIDString];
+  [v18 audioRoutingScore];
+  v8 = [*(v4 + 1552) objectForKeyedSubscript:uUIDString];
 
-  if (v9)
+  if (v8)
   {
     if (dword_1002F6778 > 30 || dword_1002F6778 == -1 && !_LogCategory_Initialize())
     {
-      goto LABEL_17;
+      goto LABEL_14;
     }
 
-    name = [v21 name];
-    if (audioRoutingScore <= 0xF)
-    {
-      v11 = off_1002B8F50[audioRoutingScore];
-    }
+    name = [v18 name];
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoDeviceFound:]", 30, "NearbySourceDevice updated: ID %@, Name '%@', audio score %d (%s)");
   }
 
   else
   {
     if (dword_1002F6778 > 30 || dword_1002F6778 == -1 && !_LogCategory_Initialize())
     {
-      goto LABEL_17;
+      goto LABEL_14;
     }
 
-    name = [v21 name];
-    if (audioRoutingScore <= 0xF)
-    {
-      v12 = off_1002B8F50[audioRoutingScore];
-    }
+    name = [v18 name];
+    LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoDeviceFound:]", 30, "NearbySourceDevice found: ID %@, Name '%@', audio score %d (%s)");
   }
 
-  LogPrintF();
-
-LABEL_17:
-  if ([v4 _isSmartRoutingCapableDevice:v21])
+LABEL_14:
+  if ([v4 _isSmartRoutingCapableDevice:v18])
   {
-    v13 = *(v4 + 1552);
-    if (!v13)
+    v10 = *(v4 + 1552);
+    if (!v10)
     {
-      v14 = objc_alloc_init(NSMutableDictionary);
-      v15 = *(v4 + 1552);
-      *(v4 + 1552) = v14;
+      v11 = objc_alloc_init(NSMutableDictionary);
+      v12 = *(v4 + 1552);
+      *(v4 + 1552) = v11;
 
-      v13 = *(v4 + 1552);
+      v10 = *(v4 + 1552);
     }
 
-    [v13 setObject:v21 forKeyedSubscript:uUIDString];
+    [v10 setObject:v18 forKeyedSubscript:uUIDString];
   }
 
   if (GestaltGetDeviceClass() == 1)
@@ -19344,7 +20630,7 @@ LABEL_17:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoDeviceFound:]", 30, "Smart Routing starting timer for legacy triangle recovery.");
       }
 
       [v4 _nearbyDeviceInfoTriangleRecoveryTimer];
@@ -19354,22 +20640,22 @@ LABEL_17:
     {
       if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoDeviceFound:]", 30, "Smart Routing cancelling legacy triangle recovery.");
       }
 
-      v16 = *(v4 + 640);
-      if (v16)
+      v13 = *(v4 + 640);
+      if (v13)
       {
-        v17 = v16;
-        dispatch_source_cancel(v17);
-        v18 = *(v4 + 640);
+        v14 = v13;
+        dispatch_source_cancel(v14);
+        v15 = *(v4 + 640);
         *(v4 + 640) = 0;
       }
     }
   }
 
   [*(v4 + 416) trigger];
-LABEL_37:
+LABEL_34:
 
   sub_100073168();
 }
@@ -19388,7 +20674,7 @@ LABEL_37:
     {
       idsIdentifier = [v16 idsIdentifier];
       name = [v16 name];
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoDeviceLost:]", 30, "NearbySourceDevice lost: ID %@, IDS %@, Name '%@'");
     }
 
     sub_100073098(*(v4 + 1552), v8);
@@ -19403,7 +20689,7 @@ LABEL_37:
       {
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoDeviceLost:]", 30, "Smart Routing starting timer for legacy triangle recovery.");
         }
 
         [v4 _nearbyDeviceInfoTriangleRecoveryTimer];
@@ -19413,7 +20699,7 @@ LABEL_37:
       {
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyInfoDeviceLost:]", 30, "Smart Routing cancelling legacy triangle recovery.");
         }
 
         v10 = *(v4 + 640);
@@ -19441,8 +20727,7 @@ LABEL_37:
     {
       [(SRWorkoutObserver *)self->_workoutObserver workoutActive];
       sub_100072F38();
-      v8 = v3;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _workoutStateChanged]", 30, "Workout state changed handler called, Workout active %s", v3);
     }
 
     if ([(SRWorkoutObserver *)self->_workoutObserver workoutActive])
@@ -19457,24 +20742,24 @@ LABEL_37:
       }
 
       dataRelayAvailableServerSet = self->_dataRelayAvailableServerSet;
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_1000572C4;
-      v10[3] = &unk_1002B85D0;
-      v10[4] = self;
-      [(NSMutableDictionary *)dataRelayAvailableServerSet enumerateKeysAndObjectsUsingBlock:v10];
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_1000572C4;
+      v9[3] = &unk_1002B85D0;
+      v9[4] = self;
+      [(NSMutableDictionary *)dataRelayAvailableServerSet enumerateKeysAndObjectsUsingBlock:v9];
     }
 
     else
     {
       [(BTSmartRoutingDaemon *)self _handleWorkoutSessionStop];
       v7 = self->_dataRelayAvailableServerSet;
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_100057420;
-      v9[3] = &unk_1002B85D0;
-      v9[4] = self;
-      [(NSMutableDictionary *)v7 enumerateKeysAndObjectsUsingBlock:v9];
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_100057420;
+      v8[3] = &unk_1002B85D0;
+      v8[4] = self;
+      [(NSMutableDictionary *)v7 enumerateKeysAndObjectsUsingBlock:v8];
     }
   }
 }
@@ -19496,173 +20781,161 @@ LABEL_37:
 
     bleDevice = [foundCopy bleDevice];
     advertisementFields = [bleDevice advertisementFields];
-    if (!CFDictionaryGetInt64())
+    Int64 = CFDictionaryGetInt64();
+    if (!Int64)
     {
-      goto LABEL_176;
+      goto LABEL_177;
     }
 
-    v132 = sub_100072EA4();
-    v125 = sub_100072EA4();
+    v123 = sub_100072EA4(Int64, @"hsStatus");
+    v116 = sub_100072EA4(v123, @"pid");
     sub_100073000();
-    v10 = CFDictionaryGetCFDataOfLength();
-    v130 = uUIDString;
-    v128 = v10;
-    v129 = bleDevice;
-    if (v10)
+    v11 = CFDictionaryGetCFDataOfLength();
+    v121 = uUIDString;
+    v119 = v11;
+    v120 = bleDevice;
+    if (v11)
     {
-      bytes = [v10 bytes];
-      v11 = NSPrintF();
+      v12 = NSPrintF("%.6a", COERCE_DOUBLE([v11 bytes]));
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    v127 = sub_100072EA4();
-    v12 = sub_100072F44();
+    v118 = sub_100072EA4(v11, @"asCount");
+    v13 = sub_100072F44(v118, @"aState");
     sub_100072F88();
-    v131 = CFDictionaryGetCFDataOfLength();
-    v13 = sub_100072E64();
-    v14 = sub_100072E64();
-    v15 = sub_100072E64();
-    v16 = sub_100072E64();
+    v122 = CFDictionaryGetCFDataOfLength();
+    v14 = sub_100072E64(v122, @"srAudioRoutingScore1");
+    v15 = v14;
+    v16 = sub_100072E64(v14, @"srAudioRoutingScore2");
+    v17 = v16;
+    v18 = sub_100072E64(v16, @"audioIdleTime");
+    v19 = v18;
+    v20 = sub_100072E64(v18, @"budsOutofCaseTime");
     sub_100072EF8();
-    Int64 = CFDictionaryGetInt64();
+    v21 = CFDictionaryGetInt64();
     sub_100072EF8();
-    v18 = CFDictionaryGetInt64();
-    v124 = v12;
+    v22 = CFDictionaryGetInt64();
+    v115 = v13;
     if (dword_1002F6778 <= 30)
     {
-      v19 = v18;
+      v23 = v22;
       if (dword_1002F6778 != -1 || _LogCategory_Initialize())
       {
         bleDevice2 = [foundCopy bleDevice];
-        v21 = @"Primary";
-        if ((v132 & 0x100) == 0)
+        v25 = @"Primary";
+        if ((v123 & 0x100) == 0)
         {
-          v21 = @"Secondary";
+          v25 = @"Secondary";
         }
 
-        v22 = @"Right";
-        if ((v132 & 0x80) != 0)
+        v26 = @"Right";
+        if ((v123 & 0x80) != 0)
         {
-          v22 = @"Left";
+          v26 = @"Left";
         }
 
-        if (v124 > 3)
+        if (v115 > 3)
         {
-          v23 = "?";
-        }
-
-        else
-        {
-          v23 = off_1002B8ED0[v124];
-        }
-
-        if ((v13 & 0xF0) != 0)
-        {
-          v24 = "?";
+          v27 = "?";
         }
 
         else
         {
-          v24 = off_1002B8F50[v13 & 0xF];
+          v27 = off_1002B8ED0[v115];
         }
 
-        if ((v14 & 0xF0) != 0)
+        if ((v15 & 0xF0) != 0)
         {
-          v25 = "?";
+          v28 = "?";
         }
 
         else
         {
-          v25 = off_1002B8F50[v14 & 0xF];
+          v28 = off_1002B8F50[v15 & 0xF];
         }
 
-        if ((v16 & 0xFC) != 0)
+        if ((v17 & 0xF0) != 0)
         {
-          v26 = "?";
+          v29 = "?";
         }
 
         else
         {
-          v26 = off_1002B90D8[v16 & 3];
+          v29 = off_1002B8F50[v17 & 0xF];
         }
 
-        v27 = @"YES";
-        if (!Int64)
+        if ((v20 & 0xFC) != 0)
         {
-          v27 = @"NO";
+          v30 = "?";
         }
 
-        v28 = "yes";
-        if (!v19)
+        else
         {
-          v28 = "no";
+          v30 = off_1002B90D8[v20 & 3];
         }
 
-        v118 = v25;
-        v119 = v15;
-        v117 = v24;
-        v115 = v23;
-        v116 = v131;
-        v113 = v22;
-        v114 = v127;
-        v112 = v21;
-        bytes = bleDevice2;
-        v110 = v132;
-        v121 = v27;
-        v122 = v28;
-        v120 = v26;
-        LogPrintF();
+        v31 = @"YES";
+        if (!v21)
+        {
+          v31 = @"NO";
+        }
+
+        v32 = "yes";
+        if (!v23)
+        {
+          v32 = "no";
+        }
+
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Wx Device found/updated: %@, headphone Status 0x%0X, bud is %@/%@, source device count: %u audio state: %s lastConnect: %@, tipiScore1: %s, tipiScore2: %s, idle time: %d, outofCaseTime %s, icloud Signed in %@ usb %s", bleDevice2, v123, v25, v26, v118, v27, v122, v28, v29, v19, v30, v31, v32);
       }
     }
 
-    if ((v132 & 0x24) != 0)
+    if ((v123 & 0x24) != 0)
     {
-      v29 = 1;
+      v33 = 1;
     }
 
     else
     {
-      v29 = [(BTSmartRoutingDaemon *)self _bluetoothProductIDNoEarDetect:v125];
+      v33 = [(BTSmartRoutingDaemon *)self _bluetoothProductIDNoEarDetect:v116];
     }
 
-    uUIDString = v130;
-    v30 = &dword_1002F6000;
-    v122 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:v130, bytes, v110, v112, v113, v114, v115, v116, v117, v118, v119, v120, v121, v122];
-    isInEar = [v122 isInEar];
+    uUIDString = v121;
+    v34 = &dword_1002F6000;
+    v35 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:v121];
+    isInEar = [v35 isInEar];
 
     [(BTSmartRoutingDaemon *)self _nearbyWxChanged:foundCopy];
     [(BTSmartRoutingDaemon *)self _updateSRDiscoveredDeviceForNearbyWxChanged:foundCopy isNearby:1];
-    if (v11)
+    if (v12)
     {
-      v33 = [sub_100072F10() objectForKeyedSubscript:?];
+      v37 = [sub_100072F10() objectForKeyedSubscript:?];
 
-      if (v33)
+      if (v37)
       {
         [(BTSmartRoutingDaemon *)self _lowestBatteryInfoForSFDevice:foundCopy];
-        v35 = v34;
+        v39 = v38;
         sub_10007308C();
-        if (v38 ^ v39 | v37 && (v36 != -1 || _LogCategory_Initialize()))
+        if (v42 ^ v43 | v41 && (v40 != -1 || _LogCategory_Initialize()))
         {
-          v111 = v35;
-          otherTipiDeviceBTAddress3 = v11;
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "_wxDeviceFound, Adding battery info to SR map, Address %@ batteryLevel: %f", v12, *&v39);
         }
 
-        v40 = [sub_100072F10() objectForKeyedSubscript:?];
-        [v40 setLowestBudBatteryInfo:v35];
+        v44 = [sub_100072F10() objectForKeyedSubscript:?];
+        [v44 setLowestBudBatteryInfo:v39];
       }
     }
 
-    v41 = [sub_100005AA4() objectForKeyedSubscript:?];
-    v42 = v41;
-    if (!v11 || !v41)
+    v45 = [sub_100005AA4() objectForKeyedSubscript:?];
+    v46 = v45;
+    if (!v12 || !v45)
     {
 
-      if (!v11)
+      if (!v12)
       {
         goto LABEL_72;
       }
@@ -19670,22 +20943,22 @@ LABEL_37:
       goto LABEL_61;
     }
 
-    v43 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v11];
-    if (v43)
+    v47 = [(NSMutableDictionary *)self->_connectedDevices objectForKeyedSubscript:v12];
+    if (v47)
     {
-      v44 = v43;
-      v45 = [sub_100072F10() objectForKeyedSubscript:?];
-      if (v45 && (sub_100073144(), v37))
+      v48 = v47;
+      v49 = [sub_100072F10() objectForKeyedSubscript:?];
+      if (v49 && (sub_100073144(), v41))
       {
         [sub_100072F10() objectForKeyedSubscript:?];
-        v46 = isInEar;
-        v48 = v47 = v29;
-        tipiHealingBackoff = [v48 tipiHealingBackoff];
+        v50 = isInEar;
+        v52 = v51 = v33;
+        tipiHealingBackoff = [v52 tipiHealingBackoff];
 
-        v29 = v47;
-        isInEar = v46;
-        uUIDString = v130;
-        v30 = &dword_1002F6000;
+        v33 = v51;
+        isInEar = v50;
+        uUIDString = v121;
+        v34 = &dword_1002F6000;
 
         if (!tipiHealingBackoff)
         {
@@ -19693,13 +20966,13 @@ LABEL_37:
         }
 
         sub_10007308C();
-        if (v38 ^ v39 | v37 && (v49 != -1 || _LogCategory_Initialize()))
+        if (v42 ^ v43 | v41 && (v53 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "_wxDeviceFound, resetting Tipi Backoff flag here!");
         }
 
-        v42 = [sub_100072F10() objectForKeyedSubscript:?];
-        [v42 setTipiHealingBackoff:0];
+        v46 = [sub_100072F10() objectForKeyedSubscript:?];
+        [v46 setTipiHealingBackoff:0];
       }
 
       else
@@ -19708,24 +20981,24 @@ LABEL_37:
     }
 
 LABEL_61:
-    v50 = [sub_100072F10() objectForKeyedSubscript:?];
-    if (v50)
+    v54 = [sub_100072F10() objectForKeyedSubscript:?];
+    if (v54)
     {
-      v51 = v50;
-      v52 = [sub_100072F10() objectForKeyedSubscript:?];
-      if ([v52 hijackBackoffTicks])
+      v55 = v54;
+      v56 = [sub_100072F10() objectForKeyedSubscript:?];
+      if ([v56 hijackBackoffTicks])
       {
         hijackBackOffInitiator = self->_hijackBackOffInitiator;
 
         if (!hijackBackOffInitiator)
         {
           sub_100073144();
-          if (!(!v37 & v54))
+          if (!(!v41 & v58))
           {
             sub_10007308C();
-            if (v38 ^ v39 | v37 && (v55 != -1 || _LogCategory_Initialize()))
+            if (v42 ^ v43 | v41 && (v59 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF();
+              LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "_wxDeviceFound, hijackblocking resetting hijackBackoffTicks");
             }
 
             [sub_100073050() _hijackBackoffReset:? withReason:?];
@@ -19739,97 +21012,97 @@ LABEL_61:
     }
 
 LABEL_72:
-    if ((v132 & 1) == 0 && ![(BTSmartRoutingDaemon *)self _bluetoothProductIDNoUTP:v125])
+    if ((v123 & 1) == 0 && ![(BTSmartRoutingDaemon *)self _bluetoothProductIDNoUTP:v116])
     {
-      v59 = [sub_100005AA4() objectForKeyedSubscript:?];
+      v63 = [sub_100005AA4() objectForKeyedSubscript:?];
 
-      v60 = v30[478];
-      if (v59)
+      v64 = v34[478];
+      if (v63)
       {
-        v61 = v29;
-        if (v60 <= 30 && (v60 != -1 || _LogCategory_Initialize()))
+        v65 = v33;
+        if (v64 <= 30 && (v64 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Smart Routing, one bud scenario check on already known device.");
         }
 
-        v69 = [sub_100005AA4() objectForKeyedSubscript:?];
-        bleDevice3 = [v69 bleDevice];
+        v74 = [sub_100005AA4() objectForKeyedSubscript:?];
+        bleDevice3 = [v74 bleDevice];
         advertisementFields2 = [bleDevice3 advertisementFields];
-        v72 = sub_100072EDC();
+        v77 = sub_100072EDC(advertisementFields2, @"hsStatus");
 
-        if ((v72 & 0x100) != 0 && (v132 & 0x100) == 0)
+        if ((v77 & 0x100) != 0 && (v123 & 0x100) == 0)
         {
           sub_100072FD4();
-          if (v38 ^ v39 | v37 && (v73 != -1 || _LogCategory_Initialize()))
+          if (v42 ^ v43 | v41 && (v78 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Smart Routing, No UTP detected for both primary / secondary buds, back off.");
           }
 
-          bleDevice = v129;
-          goto LABEL_175;
+          bleDevice = v120;
+          goto LABEL_176;
         }
 
         sub_1000730B0();
         [(CUCoalescer *)self->_evaluatorCoalescer trigger];
 
-        v29 = v61;
+        v33 = v65;
       }
 
       else
       {
-        if (v60 <= 30 && (v60 != -1 || _LogCategory_Initialize()))
+        if (v64 <= 30 && (v64 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Smart Routing, one bud Wx device.");
         }
 
         sub_1000730B0();
         [(CUCoalescer *)self->_evaluatorCoalescer trigger];
       }
 
-LABEL_159:
-      v94 = [sub_100072F10() objectForKeyedSubscript:?];
-      if (v94)
+LABEL_160:
+      v99 = [sub_100072F10() objectForKeyedSubscript:?];
+      if (v99)
       {
-        v95 = v94;
-        v96 = [sub_100072F10() objectForKeyedSubscript:?];
-        deviceName = [v96 deviceName];
+        v100 = v99;
+        v101 = [sub_100072F10() objectForKeyedSubscript:?];
+        deviceName = [v101 deviceName];
 
         if (!deviceName)
         {
-          v134 = +[CloudXPCService sharedInstance];
-          deviceManager = [v134 deviceManager];
-          v99 = [deviceManager fetchDeviceSyncWithAddress:v11];
-          [v99 nickname];
-          v100 = isInEar;
-          v102 = v101 = v29;
-          v103 = [sub_100072F10() objectForKeyedSubscript:?];
-          [v103 setDeviceName:v102];
+          v125 = +[CloudXPCService sharedInstance];
+          deviceManager = [v125 deviceManager];
+          v104 = [deviceManager fetchDeviceSyncWithAddress:v12];
+          [v104 nickname];
+          v105 = isInEar;
+          v107 = v106 = v33;
+          v108 = [sub_100072F10() objectForKeyedSubscript:?];
+          [v108 setDeviceName:v107];
 
-          v29 = v101;
-          isInEar = v100;
-          uUIDString = v130;
+          v33 = v106;
+          isInEar = v105;
+          uUIDString = v121;
         }
       }
 
-      bleDevice = v129;
+      bleDevice = v120;
       if (self->_prefSmartRoutingPreemptiveConnectedBanner)
       {
-        v104 = [sub_100072F10() objectForKeyedSubscript:?];
+        v109 = [sub_100072F10() objectForKeyedSubscript:?];
 
-        if (v104)
+        if (v109)
         {
-          v105 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
-          v106 = v105;
-          if (((isInEar ^ 1) & v29) != 0 && ([v105 preemptiveBannerShown] & 1) == 0 && (objc_msgSend(v106, "firstPreemptiveBannerShown") & 1) == 0)
+          v110 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
+          v111 = v110;
+          if (((isInEar ^ 1) & v33) != 0 && ([v110 preemptiveBannerShown] & 1) == 0 && (objc_msgSend(v111, "firstPreemptiveBannerShown") & 1) == 0)
           {
-            if ([(BTSmartRoutingDaemon *)self _showPreemptiveBannerIfNeeded:v106 inEarState:1 audioState:v124 wxAddress:v11])
+            if ([(BTSmartRoutingDaemon *)self _showPreemptiveBannerIfNeeded:v111 inEarState:1 audioState:v115 wxAddress:v12])
             {
               sub_10007308C();
-              if (v38 ^ v39 | v37)
+              if (v42 ^ v43 | v41)
               {
-                if (v107 != -1 || _LogCategory_Initialize())
+                if (v112 != -1 || _LogCategory_Initialize())
                 {
-                  LogPrintF();
+                  LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Smart Routing posting preemptive connected banner upon first inEar event!");
                 }
               }
             }
@@ -19839,27 +21112,27 @@ LABEL_159:
 
       [sub_100073050() _evaluatorRunInUseBanner:?];
       [(BTSmartRoutingDaemon *)self _startAudioStateSnapshotTimer];
-LABEL_175:
-
 LABEL_176:
-      goto LABEL_177;
+
+LABEL_177:
+      goto LABEL_178;
     }
 
-    v56 = [sub_100005AA4() objectForKeyedSubscript:?];
+    v60 = [sub_100005AA4() objectForKeyedSubscript:?];
 
-    if (!v56)
+    if (!v60)
     {
-LABEL_153:
+LABEL_154:
       sub_1000730B0();
       [(CUCoalescer *)self->_evaluatorCoalescer trigger];
-      if (v11)
+      if (v12)
       {
-        v89 = [sub_100072F10() objectForKeyedSubscript:?];
-        if (v89)
+        v94 = [sub_100072F10() objectForKeyedSubscript:?];
+        if (v94)
         {
-          v90 = v89;
-          v91 = [sub_100072F10() objectForKeyedSubscript:?];
-          otherTipiDeviceBTAddress = [v91 otherTipiDeviceBTAddress];
+          v95 = v94;
+          v96 = [sub_100072F10() objectForKeyedSubscript:?];
+          otherTipiDeviceBTAddress = [v96 otherTipiDeviceBTAddress];
           if (otherTipiDeviceBTAddress)
           {
           }
@@ -19876,175 +21149,172 @@ LABEL_153:
         }
       }
 
-      goto LABEL_159;
+      goto LABEL_160;
     }
 
-    v126 = v29;
-    v57 = isInEar;
+    v117 = v33;
+    v61 = isInEar;
     sub_10007308C();
-    if (v38 ^ v39 | v37 && (v58 != -1 || _LogCategory_Initialize()))
+    if (v42 ^ v43 | v41 && (v62 != -1 || _LogCategory_Initialize()))
     {
-      otherTipiDeviceBTAddress3 = v132;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Smart Routing headset status %u", v123);
     }
 
-    v62 = [sub_100005AA4() objectForKeyedSubscript:?];
-    if (!v11)
+    v66 = [sub_100005AA4() objectForKeyedSubscript:?];
+    if (!v12)
     {
-      goto LABEL_152;
+      goto LABEL_153;
     }
 
-    v63 = [sub_100072F10() objectForKeyedSubscript:?];
-    if (!v63)
+    v67 = [sub_100072F10() objectForKeyedSubscript:?];
+    if (!v67)
     {
-      goto LABEL_152;
+      goto LABEL_153;
     }
 
-    v64 = v63;
-    v65 = [sub_100072F10() objectForKeyedSubscript:?];
-    otherTipiDeviceBTAddress2 = [v65 otherTipiDeviceBTAddress];
+    v68 = v67;
+    v69 = [sub_100072F10() objectForKeyedSubscript:?];
+    otherTipiDeviceBTAddress2 = [v69 otherTipiDeviceBTAddress];
 
     if (!otherTipiDeviceBTAddress2)
     {
-      goto LABEL_152;
+      goto LABEL_153;
     }
 
     sub_100072FD4();
-    if (v38 ^ v39 | v37 && (v67 != -1 || _LogCategory_Initialize()))
+    if (v42 ^ v43 | v41 && (v71 != -1 || _LogCategory_Initialize()))
     {
-      v68 = [sub_100072F10() objectForKeyedSubscript:?];
-      otherTipiDeviceBTAddress3 = [v68 otherTipiDeviceBTAddress];
-      LogPrintF();
+      v72 = [sub_100072F10() objectForKeyedSubscript:?];
+      otherTipiDeviceBTAddress3 = [v72 otherTipiDeviceBTAddress];
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Smart Routing headset in Tipi with %@", otherTipiDeviceBTAddress3);
     }
 
-    bleDevice4 = [v62 bleDevice];
+    bleDevice4 = [v66 bleDevice];
     advertisementFields3 = [bleDevice4 advertisementFields];
-    v76 = sub_100072EDC();
+    v81 = sub_100072EDC(advertisementFields3, @"hsStatus");
 
-    if (((v76 ^ v132) & 0x100) != 0)
+    if (((v81 ^ v123) & 0x100) != 0)
     {
-      if (((v76 ^ v132) & 0x80) != 0)
+      if (((v81 ^ v123) & 0x80) != 0)
       {
         goto LABEL_134;
       }
 
       sub_100072FD4();
-      if (!(v38 ^ v39 | v37))
+      if (v42 ^ v43 | v41)
       {
-        goto LABEL_131;
-      }
-
-      if (v78 != -1 || _LogCategory_Initialize())
-      {
-        LogPrintF();
-      }
-
-      sub_100072FD4();
-      if (!(v38 ^ v39 | v37) || v80 == -1 && !_LogCategory_Initialize())
-      {
-LABEL_131:
-        self->_hfpBudswapDetected = 1;
-        if (!self->_budSwapAddress)
+        if (v83 != -1 || _LogCategory_Initialize())
         {
-          v81 = [sub_100072F10() objectForKeyedSubscript:?];
-
-          if (!v81)
-          {
-            v82 = objc_alloc_init(SRBudswapDevice);
-            [(SRBudswapDevice *)v82 setReconnectionState:0];
-            [(NSMutableDictionary *)self->_srBudswapDeviceMap setObject:v82 forKeyedSubscript:v11];
-            objc_storeStrong(&self->_budSwapAddress, v11);
-            [sub_100073050() _budSwapDetectionStartTimer:?];
-          }
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Smart Routing, A2DP / HFP budswap detected from placement...");
         }
 
-LABEL_134:
-        if (self->_tipiSetupTicks)
+        sub_100072FD4();
+        if (v42 ^ v43 | v41 && (v85 != -1 || _LogCategory_Initialize()))
         {
-          mach_absolute_time();
-          tipiSetupTicks = self->_tipiSetupTicks;
-          UpTicksToMilliseconds();
-          sub_100073144();
-          if (v37 && (v84 > 0x2710 || !self->_tipiSetupTicks))
-          {
-            goto LABEL_142;
-          }
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Saving budswap info since we are in Tipi", v113);
         }
-
-        else
-        {
-          sub_100073144();
-          if (v37)
-          {
-LABEL_142:
-            v85 = isInEar;
-            sub_100072F88();
-            v86 = CFDictionaryGetCFDataOfLength();
-            if (v86)
-            {
-              _myBluetoothAddressString = [(BTSmartRoutingDaemon *)self _myBluetoothAddressString];
-              [_myBluetoothAddressString UTF8String];
-              sub_100072E50();
-              v88 = NSDataWithHex();
-              if ([v88 length] == 6)
-              {
-                bytes2 = [v88 bytes];
-                if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF();
-                }
-
-                if (!memcmp([v86 bytes], bytes2 + 3, 3uLL))
-                {
-                  [sub_100073050() _removeTiPiState:?];
-                }
-              }
-            }
-
-            self->_tipiSetupTicks = 0;
-
-            v57 = v85;
-          }
-        }
-
-LABEL_152:
-
-        isInEar = v57;
-        v29 = v126;
-        goto LABEL_153;
       }
     }
 
     else
     {
-      if (((v76 ^ v132) & 0x80) == 0)
+      if (((v81 ^ v123) & 0x80) == 0)
       {
         goto LABEL_134;
       }
 
       sub_100072FD4();
-      if (!(v38 ^ v39 | v37))
+      if (v42 ^ v43 | v41)
       {
-        goto LABEL_131;
-      }
+        if (v82 != -1 || _LogCategory_Initialize())
+        {
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Smart Routing, A2DP / HFP budswap detected from primary...");
+        }
 
-      if (v77 != -1 || _LogCategory_Initialize())
-      {
-        LogPrintF();
-      }
-
-      sub_100072FD4();
-      if (!(v38 ^ v39 | v37) || v79 == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_131;
+        sub_100072FD4();
+        if (v42 ^ v43 | v41 && (v84 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Saving budswap info since we are in Tipi %@", v12);
+        }
       }
     }
 
-    LogPrintF();
-    goto LABEL_131;
+    self->_hfpBudswapDetected = 1;
+    if (!self->_budSwapAddress)
+    {
+      v86 = [sub_100072F10() objectForKeyedSubscript:?];
+
+      if (!v86)
+      {
+        v87 = objc_alloc_init(SRBudswapDevice);
+        [(SRBudswapDevice *)v87 setReconnectionState:0];
+        [(NSMutableDictionary *)self->_srBudswapDeviceMap setObject:v87 forKeyedSubscript:v12];
+        objc_storeStrong(&self->_budSwapAddress, v12);
+        [sub_100073050() _budSwapDetectionStartTimer:?];
+      }
+    }
+
+LABEL_134:
+    if (self->_tipiSetupTicks)
+    {
+      mach_absolute_time();
+      UpTicksToMilliseconds();
+      sub_100073144();
+      if (v41)
+      {
+        v89 = v88;
+        if (v88 > 0x2710 || !self->_tipiSetupTicks)
+        {
+          goto LABEL_143;
+        }
+      }
+    }
+
+    else
+    {
+      sub_100073144();
+      if (v41)
+      {
+        v89 = 0;
+LABEL_143:
+        v90 = isInEar;
+        sub_100072F88();
+        v91 = CFDictionaryGetCFDataOfLength();
+        if (v91)
+        {
+          _myBluetoothAddressString = [(BTSmartRoutingDaemon *)self _myBluetoothAddressString];
+          [_myBluetoothAddressString UTF8String];
+          sub_100072E50();
+          v93 = NSDataWithHex();
+          if ([v93 length] == 6)
+          {
+            bytes = [v93 bytes];
+            if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceFound:]", 30, "Evaluator: One source detected Wx: %@, myAddress: %@. mSecondsSinceTipiConnectSetup %llu", v91, v93, v89);
+            }
+
+            if (!memcmp([v91 bytes], bytes + 3, 3uLL))
+            {
+              [sub_100073050() _removeTiPiState:?];
+            }
+          }
+        }
+
+        self->_tipiSetupTicks = 0;
+
+        v61 = v90;
+      }
+    }
+
+LABEL_153:
+
+    isInEar = v61;
+    v33 = v117;
+    goto LABEL_154;
   }
 
-LABEL_177:
+LABEL_178:
 }
 
 - (void)_wxDeviceLost:(id)lost
@@ -20061,12 +21331,12 @@ LABEL_177:
     {
       bleDevice = [v17 bleDevice];
       name = [bleDevice name];
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDeviceLost:]", 30, "Wx Device lost: %@ %@");
     }
 
     bleDevice2 = [v17 bleDevice];
     advertisementFields = [bleDevice2 advertisementFields];
-    v12 = sub_100072EDC();
+    v12 = sub_100072EDC(advertisementFields, @"pid");
 
     if (![v4[186] count])
     {
@@ -20091,8 +21361,7 @@ LABEL_177:
   {
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      v16 = deviceCopy;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDiscoveryWatchRecoveryFoundDevice:]", 30, "Wx watch recovery device found/updated: %@", deviceCopy);
     }
 
     watchWxDevices = self->_watchWxDevices;
@@ -20105,17 +21374,16 @@ LABEL_177:
       watchWxDevices = self->_watchWxDevices;
     }
 
-    [(NSMutableDictionary *)watchWxDevices setObject:deviceCopy forKeyedSubscript:identifier, v16];
+    [(NSMutableDictionary *)watchWxDevices setObject:deviceCopy forKeyedSubscript:identifier];
     [(CUCoalescer *)self->_evaluatorCoalescer trigger];
     addressData = [deviceCopy addressData];
     v9 = addressData;
     if (addressData)
     {
-      bytes = [addressData bytes];
-      v10 = NSPrintF();
+      v10 = NSPrintF("%.6a", COERCE_DOUBLE([addressData bytes]));
       if (v10)
       {
-        v11 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v10, bytes];
+        v11 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v10];
         if (v11)
         {
           v12 = v11;
@@ -20158,7 +21426,7 @@ LABEL_177:
   {
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _wxDiscoveryWatchRecoveryLostDevice:]", 30, "Wx watch recovery device lost: %@", deviceCopy);
     }
 
     sub_100073098(self->_watchWxDevices, v4);
@@ -20199,6 +21467,81 @@ LABEL_177:
   }
 }
 
+- (void)_updateSRDiscoveredDeviceForCBDeviceChanged:(id)changed connectionStatus:(unsigned __int8)status
+{
+  statusCopy = status;
+  changedCopy = changed;
+  if (self->_prefSmartRoutingInUseBanner)
+  {
+    v12 = changedCopy;
+    btAddressData = [changedCopy btAddressData];
+    v8 = CUPrintNSDataAddress();
+
+    if (v8)
+    {
+      v9 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v8];
+      if (!v9)
+      {
+        v9 = objc_alloc_init(SRDiscoveredDevice);
+        [(NSMutableDictionary *)self->_srDiscoveredDeviceMap setObject:v9 forKeyedSubscript:v8];
+      }
+
+      [sub_100072F04() _setBtAddress:?];
+      connectionState = [(SRDiscoveredDevice *)v9 connectionState];
+      [(SRDiscoveredDevice *)v9 _setConnectionState:statusCopy];
+      v11 = [sub_100072FC8() _inEarConnectedCheck:?];
+      if (![v12 primaryPlacement] && !objc_msgSend(v12, "secondaryPlacement"))
+      {
+        v11 = [sub_100072FC8() _inEarNearbyCheck:?];
+      }
+
+      [(SRDiscoveredDevice *)v9 setInEar:v11];
+      [v12 identifier];
+      objc_claimAutoreleasedReturnValue();
+      [sub_100072FF0() setIdentifier:?];
+
+      -[SRDiscoveredDevice setAacpDeviceFlags:](v9, "setAacpDeviceFlags:", [v12 deviceFlags]);
+      [(SRDiscoveredDevice *)v9 setAacpInEarState:[(BTSmartRoutingDaemon *)self _getInEarStateFromCbDevice:v12]];
+      [sub_100072FC8() _getWxFWVersion:?];
+      objc_claimAutoreleasedReturnValue();
+      [sub_100072FF0() setFwVersion:?];
+
+      -[SRDiscoveredDevice setIsSRCapable:](v9, "setIsSRCapable:", [sub_100072FC8() _supportsTipi:?]);
+      [(AADeviceManagerDaemon *)self->_aaDeviceManagerDaemon deviceWithBluetoothAddress:v8];
+      objc_claimAutoreleasedReturnValue();
+      [sub_100072FF0() _setAADevice:?];
+      if (statusCopy)
+      {
+        if (statusCopy == 2)
+        {
+          [sub_100072FA4() setIsPairingInProgress:?];
+          [sub_100072FA4() setPrevFailedTipiConnectType:?];
+          [(BTSmartRoutingDaemon *)self _determineHRMCapabilityOfDevice:v9];
+          if (connectionState != 2)
+          {
+            [(BTSmartRoutingDaemon *)self _sendTipiScoreUpdateToWx];
+          }
+        }
+      }
+
+      else
+      {
+        if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateSRDiscoveredDeviceForCBDeviceChanged:connectionStatus:]", 30, "SRDiscoveredDevice: Clearing Wx %@ state for disconnection", v8);
+        }
+
+        [sub_100072FA4() _setRouteToWxAfterUnhide:?];
+        [sub_100072FA4() setLowBatteryBannerShownInWorkoutContext:?];
+        [sub_100072FA4() setTipiConnectType:?];
+        [sub_100072FA4() setAacpInEarState:?];
+      }
+    }
+
+    changedCopy = v12;
+  }
+}
+
 - (void)_updateSRDiscoveredDeviceForNearbyWxChanged:(id)changed isNearby:(BOOL)nearby
 {
   nearbyCopy = nearby;
@@ -20209,7 +21552,7 @@ LABEL_177:
     identifier = [changedCopy identifier];
     uUIDString = [identifier UUIDString];
 
-    v95 = uUIDString;
+    v87 = uUIDString;
     if (!uUIDString)
     {
 LABEL_107:
@@ -20231,94 +21574,71 @@ LABEL_106:
       goto LABEL_107;
     }
 
-    bytes = [v11 bytes];
-    v13 = NSPrintF();
+    v13 = NSPrintF("%.6a", COERCE_DOUBLE([v11 bytes]));
     if (!v13)
     {
       goto LABEL_106;
     }
 
     sub_100072EF8();
-    if (!CFDictionaryGetInt64() || sub_100072EA4() != 1)
+    Int64 = CFDictionaryGetInt64();
+    if (!Int64)
     {
       goto LABEL_106;
     }
 
-    v85 = v12;
-    v14 = sub_100072F44();
+    v15 = sub_100072EA4(Int64, @"subType");
+    if (v15 != 1)
+    {
+      goto LABEL_106;
+    }
+
+    v77 = v12;
+    v16 = sub_100072F44(v15, @"aState");
     bleDevice2 = [v6 bleDevice];
     advertisementFields2 = [bleDevice2 advertisementFields];
-    v17 = sub_100072EDC();
+    v19 = sub_100072EDC(advertisementFields2, @"pid");
 
     sub_100072EF8();
-    Int64 = CFDictionaryGetInt64();
+    v80 = CFDictionaryGetInt64();
     CFStringGetTypeID();
-    v91 = CFDictionaryGetTypedValue();
+    v83 = CFDictionaryGetTypedValue();
     sub_100072F88();
-    v92 = CFDictionaryGetCFDataOfLength();
+    v84 = CFDictionaryGetCFDataOfLength();
     bleDevice3 = [v6 bleDevice];
     advertisementFields3 = [bleDevice3 advertisementFields];
-    v20 = sub_100072EDC();
+    v22 = sub_100072EDC(advertisementFields3, @"hsStatus");
 
-    v94 = v13;
-    if ((v20 & 0x24) != 0)
+    v86 = v13;
+    if ((v22 & 0x24) != 0)
     {
-      v89 = 1;
+      v81 = 1;
     }
 
     else
     {
-      v89 = [(BTSmartRoutingDaemon *)self _bluetoothProductIDNoEarDetect:v17];
+      v23 = [(BTSmartRoutingDaemon *)self _bluetoothProductIDNoEarDetect:v19];
+      v81 = v23;
     }
 
-    sub_100072E64();
-    sub_100072EA4();
-    v21 = sub_100072F44();
+    v72 = sub_100072E64(v23, @"budsOutofCaseTime");
+    v73 = sub_100072EA4(v72, @"asCount");
+    v24 = sub_100072F44(v73, @"aState");
     bleDevice4 = [v6 bleDevice];
     rssi = [bleDevice4 rssi];
 
     sub_100072EF8();
-    v81 = CFDictionaryGetInt64();
+    v70 = CFDictionaryGetInt64();
     sub_100072EF8();
-    v83 = CFDictionaryGetInt64();
-    sub_100072E64();
-    sub_100072E64();
+    v74 = CFDictionaryGetInt64();
+    v75 = sub_100072E64(v74, @"srAudioRoutingScore1");
+    sub_100072E64(v75, @"srAudioRoutingScore2");
     sub_100072EF8();
-    v23 = CFDictionaryGetInt64();
+    v26 = CFDictionaryGetInt64();
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      v24 = "no";
+      v27 = "no";
       if (nearbyCopy)
-      {
-        v25 = "yes";
-      }
-
-      else
-      {
-        v25 = "no";
-      }
-
-      if (v14 > 3)
-      {
-        v26 = "?";
-      }
-
-      else
-      {
-        v26 = off_1002B8ED0[v14];
-      }
-
-      if (Int64)
-      {
-        v27 = "yes";
-      }
-
-      else
-      {
-        v27 = "no";
-      }
-
-      if (v89)
       {
         v28 = "yes";
       }
@@ -20328,17 +21648,17 @@ LABEL_106:
         v28 = "no";
       }
 
-      if ((v20 & 4) != 0)
+      if (v16 > 3)
       {
-        v29 = "yes";
+        v29 = "?";
       }
 
       else
       {
-        v29 = "no";
+        v29 = off_1002B8ED0[v16];
       }
 
-      if ((v20 & 0x20) != 0)
+      if (v80)
       {
         v30 = "yes";
       }
@@ -20348,131 +21668,149 @@ LABEL_106:
         v30 = "no";
       }
 
-      if (v23)
+      if (v81)
       {
-        v24 = "yes";
+        v31 = "yes";
       }
 
-      v72 = v17;
-      v73 = "yes";
-      v70 = v25;
-      v71 = v26;
-      v69 = v91;
-      v67 = v13;
-      v78 = v30;
-      v79 = v24;
-      v76 = v28;
-      v77 = v29;
-      v74 = v27;
-      v75 = v92;
-      LogPrintF();
+      else
+      {
+        v31 = "no";
+      }
+
+      if ((v22 & 4) != 0)
+      {
+        v32 = "yes";
+      }
+
+      else
+      {
+        v32 = "no";
+      }
+
+      if ((v22 & 0x20) != 0)
+      {
+        v33 = "yes";
+      }
+
+      else
+      {
+        v33 = "no";
+      }
+
+      if (v26)
+      {
+        v27 = "yes";
+      }
+
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateSRDiscoveredDeviceForNearbyWxChanged:isNearby:]", 30, "SRDiscoveredDevice: Nearby Wx changed addr %@ name %@ found %s streamState %s productID %u paired %s iCloudSignedIn %s lastConnect %@ inEar %s priBudInEar %s secBudInEar %s usb %s", v13, v83, v28, v29, v19, "yes", v30, v84, v31, v32, v33, v27);
     }
 
-    v82 = v14;
-    v31 = v17;
-    v86 = v23;
-    v32 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v94, v67, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79];
-    if (!v32)
+    v71 = v16;
+    v34 = v19;
+    v78 = v26;
+    v35 = [(NSMutableDictionary *)self->_srDiscoveredDeviceMap objectForKeyedSubscript:v86];
+    if (!v35)
     {
-      v32 = objc_alloc_init(SRDiscoveredDevice);
+      v35 = objc_alloc_init(SRDiscoveredDevice);
     }
 
-    v80 = v21;
-    [(NSMutableDictionary *)self->_srDiscoveredDeviceMap setObject:v32 forKeyedSubscript:v94];
-    v33 = [(AANearbyDeviceManagerDaemon *)self->_aaNearbyDeviceManagerDaemon deviceWithBluetoothAddress:v94];
-    aaNearbyDevice = [(SRDiscoveredDevice *)v32 aaNearbyDevice];
-    v35 = v33;
-    v36 = v35;
-    if (aaNearbyDevice == v35)
+    v69 = v24;
+    [(NSMutableDictionary *)self->_srDiscoveredDeviceMap setObject:v35 forKeyedSubscript:v86];
+    v36 = [(AANearbyDeviceManagerDaemon *)self->_aaNearbyDeviceManagerDaemon deviceWithBluetoothAddress:v86];
+    aaNearbyDevice = [(SRDiscoveredDevice *)v35 aaNearbyDevice];
+    v38 = v36;
+    v39 = v38;
+    if (aaNearbyDevice == v38)
     {
 
       goto LABEL_45;
     }
 
-    if ((v35 == 0) != (aaNearbyDevice != 0))
+    if ((v38 == 0) != (aaNearbyDevice != 0))
     {
-      v37 = [aaNearbyDevice isEqual:v35];
+      v40 = [aaNearbyDevice isEqual:v38];
 
-      if (v37)
+      if (v40)
       {
 LABEL_45:
-        v90 = v6;
-        v87 = v36;
-        if (!v36)
+        v82 = v6;
+        v79 = v39;
+        if (!v39)
         {
-          v38 = [(AAPairedDeviceDaemon *)self->_aaPairedDeviceDaemon deviceWithIdentifier:v95];
-          [(SRDiscoveredDevice *)v32 _setAADevice:v38];
+          v41 = [(AAPairedDeviceDaemon *)self->_aaPairedDeviceDaemon deviceWithIdentifier:v87];
+          [(SRDiscoveredDevice *)v35 _setAADevice:v41];
         }
 
-        v39 = v81 != 0;
-        [(SRDiscoveredDevice *)v32 _setBtAddress:v94];
-        [(SRDiscoveredDevice *)v32 _setIsNearby:nearbyCopy];
-        [(SRDiscoveredDevice *)v32 _setNearbyiCloudSignIn:Int64 != 0];
-        [(SRDiscoveredDevice *)v32 _setNearbyForceDisconnect:v39];
-        [(SRDiscoveredDevice *)v32 _setNearbyName:v91];
-        [(SRDiscoveredDevice *)v32 _setNearbyPaired:1];
-        [(SRDiscoveredDevice *)v32 _setNearbyProductID:v31];
-        [(SRDiscoveredDevice *)v32 _setNearbyWxDevice:v6];
-        [(SRDiscoveredDevice *)v32 _setNearbyLastRouteHost:v92];
-        [(SRDiscoveredDevice *)v32 _setNearbyPrevInEar:[(SRDiscoveredDevice *)v32 nearbyInEar]];
-        if (v89)
+        v42 = v70 != 0;
+        [(SRDiscoveredDevice *)v35 _setBtAddress:v86];
+        [(SRDiscoveredDevice *)v35 _setIsNearby:nearbyCopy];
+        [(SRDiscoveredDevice *)v35 _setNearbyiCloudSignIn:v80 != 0];
+        [(SRDiscoveredDevice *)v35 _setNearbyForceDisconnect:v42];
+        [(SRDiscoveredDevice *)v35 _setNearbyName:v83];
+        [(SRDiscoveredDevice *)v35 _setNearbyPaired:1];
+        [(SRDiscoveredDevice *)v35 _setNearbyProductID:v34];
+        [(SRDiscoveredDevice *)v35 _setNearbyWxDevice:v6];
+        [(SRDiscoveredDevice *)v35 _setNearbyLastRouteHost:v84];
+        [(SRDiscoveredDevice *)v35 _setNearbyPrevInEar:[(SRDiscoveredDevice *)v35 nearbyInEar]];
+        if (v81)
         {
-          v40 = 1;
+          v43 = 1;
         }
 
         else
         {
-          v40 = 2;
+          v43 = 2;
         }
 
-        [(SRDiscoveredDevice *)v32 setNearbyInEar:v40];
+        [(SRDiscoveredDevice *)v35 setNearbyInEar:v43];
         [sub_100073150() _setNearbyOutOfCaseTime:?];
-        [(SRDiscoveredDevice *)v32 _setNearbyStreamState:v82];
+        [(SRDiscoveredDevice *)v35 _setNearbyStreamState:v71];
         [sub_100073150() _setNearbyConnectedSourceCount:?];
-        [(SRDiscoveredDevice *)v32 setNearbyIsMeLastRoute:[(BTSmartRoutingDaemon *)self _isMyAddress:v92]];
-        v41 = [(BTSmartRoutingDaemon *)self _getWxFWVersion:v94];
-        [(SRDiscoveredDevice *)v32 setFwVersion:v41];
+        [(SRDiscoveredDevice *)v35 setNearbyIsMeLastRoute:[(BTSmartRoutingDaemon *)self _isMyAddress:v84]];
+        v44 = [(BTSmartRoutingDaemon *)self _getWxFWVersion:v86];
+        [(SRDiscoveredDevice *)v35 setFwVersion:v44];
 
-        [(SRDiscoveredDevice *)v32 setIdentifier:v95];
-        [(SRDiscoveredDevice *)v32 setIsSRCapable:[(BTSmartRoutingDaemon *)self _supportsTipi:v94]];
-        [(SRDiscoveredDevice *)v32 setNearbyAirplaneMode:(v20 >> 3) & 1];
-        [(SRDiscoveredDevice *)v32 setNearbyAudioState:v80];
-        [(SRDiscoveredDevice *)v32 setNearbyBLErssi:rssi];
-        [(SRDiscoveredDevice *)v32 setNearbyForceDisconnectBit:v39];
-        v42 = (v20 & 2) == 0 || v83 == 0;
-        if (v42)
+        [(SRDiscoveredDevice *)v35 setIdentifier:v87];
+        [(SRDiscoveredDevice *)v35 setIsSRCapable:[(BTSmartRoutingDaemon *)self _supportsTipi:v86]];
+        [(SRDiscoveredDevice *)v35 setNearbyAirplaneMode:(v22 >> 3) & 1];
+        [(SRDiscoveredDevice *)v35 setNearbyAudioState:v69];
+        [(SRDiscoveredDevice *)v35 setNearbyBLErssi:rssi];
+        [(SRDiscoveredDevice *)v35 setNearbyForceDisconnectBit:v42];
+        v45 = (v22 & 2) == 0 || v74 == 0;
+        if (v45)
         {
-          v43 = 0;
+          v46 = 0;
         }
 
         else
         {
-          v43 = (v20 >> 4) & 1;
+          v46 = (v22 >> 4) & 1;
         }
 
-        [(SRDiscoveredDevice *)v32 setNearbyInCase:v43];
-        [(SRDiscoveredDevice *)v32 setNearbySubtype:1];
+        [(SRDiscoveredDevice *)v35 setNearbyInCase:v46];
+        [(SRDiscoveredDevice *)v35 setNearbySubtype:1];
         [sub_100073150() setNearbyTipiScore1:?];
         [sub_100073150() setNearbyTipiScore2:?];
-        [(SRDiscoveredDevice *)v32 setNearbyUpdateTick:mach_absolute_time()];
-        v44 = [(AAPairedDeviceDaemon *)self->_aaPairedDeviceDaemon deviceWithIdentifier:v95];
-        heartRateMonitorCapability = [v44 heartRateMonitorCapability];
-        healthKitDataWriteAllowed = [v44 healthKitDataWriteAllowed];
-        v47 = healthKitDataWriteAllowed == 1;
-        aaDevice = [(SRDiscoveredDevice *)v32 aaDevice];
+        [(SRDiscoveredDevice *)v35 setNearbyUpdateTick:mach_absolute_time()];
+        v47 = [(AAPairedDeviceDaemon *)self->_aaPairedDeviceDaemon deviceWithIdentifier:v87];
+        heartRateMonitorCapability = [v47 heartRateMonitorCapability];
+        healthKitDataWriteAllowed = [v47 healthKitDataWriteAllowed];
+        v50 = healthKitDataWriteAllowed == 1;
+        aaDevice = [(SRDiscoveredDevice *)v35 aaDevice];
         productID = [aaDevice productID];
 
         if (productID == 8221)
         {
-          heartRateMonitorEnabled = [v44 heartRateMonitorEnabled];
-          v47 = healthKitDataWriteAllowed == 1 && heartRateMonitorEnabled == 1;
+          heartRateMonitorEnabled = [v47 heartRateMonitorEnabled];
+          v50 = healthKitDataWriteAllowed == 1 && heartRateMonitorEnabled == 1;
         }
 
-        v42 = heartRateMonitorCapability == 2;
-        v53 = v86;
-        v52 = v87;
-        v13 = v94;
-        if (!v42 || !v47)
+        v45 = heartRateMonitorCapability == 2;
+        v56 = v78;
+        v55 = v79;
+        v13 = v86;
+        if (!v45 || !v50)
         {
           goto LABEL_90;
         }
@@ -20481,24 +21819,24 @@ LABEL_45:
         {
 LABEL_105:
 
-          v6 = v90;
-          v12 = v85;
+          v6 = v82;
+          v12 = v77;
           goto LABEL_106;
         }
 
-        v54 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v94];
-        v55 = v54;
-        if (v54)
+        v57 = [(NSMutableDictionary *)self->_smartRoutingWxDeviceMap objectForKeyedSubscript:v86];
+        v58 = v57;
+        if (v57)
         {
-          [v54 checkDataRelayServerPublishEligibility];
+          [v57 checkDataRelayServerPublishEligibility];
         }
 
-        if ([(SRDiscoveredDevice *)v32 nearbyTipiScore1]== 10)
+        if ([(SRDiscoveredDevice *)v35 nearbyTipiScore1]== 10)
         {
-          if (!v89)
+          if (!v81)
           {
 LABEL_72:
-            lastDRHostIDSIdentifier = [(SRDiscoveredDevice *)v32 lastDRHostIDSIdentifier];
+            lastDRHostIDSIdentifier = [(SRDiscoveredDevice *)v35 lastDRHostIDSIdentifier];
 
             if (lastDRHostIDSIdentifier)
             {
@@ -20513,22 +21851,22 @@ LABEL_72:
 LABEL_89:
 
 LABEL_90:
-            if ([(SRDiscoveredDevice *)v32 nearbyUSBPluggedIn]== 2 && v53)
+            if ([(SRDiscoveredDevice *)v35 nearbyUSBPluggedIn]== 2 && v56)
             {
-              [(SRDiscoveredDevice *)v32 setNearbyUSBPluggedInTick:mach_absolute_time()];
+              [(SRDiscoveredDevice *)v35 setNearbyUSBPluggedInTick:mach_absolute_time()];
             }
 
-            if (v53)
+            if (v56)
             {
-              v64 = 1;
+              v67 = 1;
             }
 
             else
             {
-              v64 = 2;
+              v67 = 2;
             }
 
-            [(SRDiscoveredDevice *)v32 setNearbyUSBPluggedIn:v64];
+            [(SRDiscoveredDevice *)v35 setNearbyUSBPluggedIn:v67];
             if (!nearbyCopy)
             {
               [sub_100073038() _setNearbyPrevInEar:?];
@@ -20538,7 +21876,7 @@ LABEL_90:
               [sub_1000730CC() setNearbyUpdateTick:?];
               [sub_100073038() setNearbyInEar:?];
               [sub_100073038() setPrevFailedTipiConnectType:?];
-              lastDRHostIDSIdentifier2 = [(SRDiscoveredDevice *)v32 lastDRHostIDSIdentifier];
+              lastDRHostIDSIdentifier2 = [(SRDiscoveredDevice *)v35 lastDRHostIDSIdentifier];
 
               if (lastDRHostIDSIdentifier2)
               {
@@ -20555,45 +21893,44 @@ LABEL_90:
           }
         }
 
-        else if ((([(SRDiscoveredDevice *)v32 nearbyTipiScore1]== 12) & v89) == 0)
+        else if ((([(SRDiscoveredDevice *)v35 nearbyTipiScore1]== 12) & v81) == 0)
         {
           goto LABEL_72;
         }
 
         if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
         {
-          v68 = "yes";
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateSRDiscoveredDeviceForNearbyWxChanged:isNearby:]", 30, "Eligible for DR from nearby ATV isAllowedFromPairedDevice %s", "yes");
         }
 
-        v57 = [(BTSmartRoutingDaemon *)self _getIDSDeviceFromWxLastConnectedHost:v92, v68];
-        v58 = v57;
-        if (!v57 || ([v57 operatingSystemVersion], v96 <= 18))
+        v60 = [(BTSmartRoutingDaemon *)self _getIDSDeviceFromWxLastConnectedHost:v84];
+        v61 = v60;
+        if (!v60 || (objc_msgSend_operatingSystemVersion(v60), v88 <= 18))
         {
           if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _updateSRDiscoveredDeviceForNearbyWxChanged:isNearby:]", 90, "ATV is not DR compatible");
           }
 
-          v52 = v87;
+          v55 = v79;
           goto LABEL_105;
         }
 
-        lastDRHostIDSIdentifier3 = [(SRDiscoveredDevice *)v32 lastDRHostIDSIdentifier];
-        uniqueID = [v58 uniqueID];
-        v61 = [lastDRHostIDSIdentifier3 isEqualToString:uniqueID];
+        lastDRHostIDSIdentifier3 = [(SRDiscoveredDevice *)v35 lastDRHostIDSIdentifier];
+        uniqueID = [v61 uniqueID];
+        v64 = [lastDRHostIDSIdentifier3 isEqualToString:uniqueID];
 
-        if ((v61 & 1) == 0)
+        if ((v64 & 1) == 0)
         {
-          lastDRHostIDSIdentifier4 = [(SRDiscoveredDevice *)v32 lastDRHostIDSIdentifier];
+          lastDRHostIDSIdentifier4 = [(SRDiscoveredDevice *)v35 lastDRHostIDSIdentifier];
 
           if (lastDRHostIDSIdentifier4)
           {
             [sub_10007312C() dataRelayRemoveAvailableDataTypesWithDiscoveredDevice:?];
           }
 
-          uniqueID2 = [v58 uniqueID];
-          [(SRDiscoveredDevice *)v32 setLastDRHostIDSIdentifier:uniqueID2];
+          uniqueID2 = [v61 uniqueID];
+          [(SRDiscoveredDevice *)v35 setLastDRHostIDSIdentifier:uniqueID2];
 
           [sub_10007312C() dataRelayAddAvailableDataTypesWithDiscoveredDevice:?];
         }
@@ -20603,9 +21940,9 @@ LABEL_90:
           [(SRSourceDevice *)self->_sourceDevice setDRServerIsATV:1];
         }
 
-        v53 = v86;
-        v52 = v87;
-        v13 = v94;
+        v56 = v78;
+        v55 = v79;
+        v13 = v86;
         goto LABEL_89;
       }
     }
@@ -20614,7 +21951,7 @@ LABEL_90:
     {
     }
 
-    [(SRDiscoveredDevice *)v32 _setAANearbyDevice:v36];
+    [(SRDiscoveredDevice *)v35 _setAANearbyDevice:v39];
     goto LABEL_45;
   }
 
@@ -20631,59 +21968,58 @@ LABEL_108:
   if (isKindOfClass)
   {
     object2 = [changeCopy object];
-    v11[0] = 0;
-    v11[1] = v11;
-    v11[2] = 0x3032000000;
-    v11[3] = sub_100003918;
-    v11[4] = sub_100003838;
-    v12 = [[SRCall alloc] initWithCall:object2];
-    dispatchQueue = self->_dispatchQueue;
+    v10[0] = 0;
+    v10[1] = v10;
+    v10[2] = 0x3032000000;
+    v10[3] = sub_100003918;
+    v10[4] = sub_100003838;
+    v11 = [[SRCall alloc] initWithCall:object2];
     sub_100072E30();
-    v10[1] = 3221225472;
-    v10[2] = sub_10005CAE4;
-    v10[3] = &unk_1002B6ED8;
-    v10[4] = self;
-    v10[5] = v11;
-    dispatch_async(v9, v10);
-    _Block_object_dispose(v11, 8);
+    v9[1] = 3221225472;
+    v9[2] = sub_10005CAE4;
+    v9[3] = &unk_1002B6ED8;
+    v9[4] = self;
+    v9[5] = v10;
+    dispatch_async(v8, v9);
+    _Block_object_dispose(v10, 8);
   }
 }
 
 - (BOOL)_isEligibleForPreemptiveBannerUponUnlock:(id)unlock
 {
   unlockCopy = unlock;
-  if (unlockCopy && self->_prefSmartRoutingPreemptiveConnectedBanner && (mach_absolute_time(), preemptiveBannerBlockedTicks = self->_preemptiveBannerBlockedTicks, UpTicksToSecondsF(), v6 < 2.0))
+  if (unlockCopy && self->_prefSmartRoutingPreemptiveConnectedBanner && (mach_absolute_time(), UpTicksToSecondsF(), v5 < 2.0))
   {
-    v7 = [sub_100073044() objectForKeyedSubscript:?];
-    v8 = v7;
-    if (v7)
+    v6 = [sub_100073044() objectForKeyedSubscript:?];
+    v7 = v6;
+    if (v6)
     {
-      nearbyWxDevice = [v7 nearbyWxDevice];
+      nearbyWxDevice = [v6 nearbyWxDevice];
       identifier = [nearbyWxDevice identifier];
       uUIDString = [identifier UUIDString];
 
-      v12 = [sub_10007305C() objectForKeyedSubscript:?];
-      audioState = [v12 audioState];
+      v11 = [sub_10007305C() objectForKeyedSubscript:?];
+      audioState = [v11 audioState];
 
-      v14 = [sub_100072F04() _inEarNearbyCheck:?];
-      v15 = [sub_10007305C() objectForKeyedSubscript:?];
-      preemptiveBannerShown = [v15 preemptiveBannerShown];
-      v17 = [sub_10007305C() objectForKeyedSubscript:?];
-      v18 = -[BTSmartRoutingDaemon _isEligibleForPreemptiveBanner:firstPreemptiveBanner:inEarState:srDeviceCount:audioState:inAddress:](self, "_isEligibleForPreemptiveBanner:firstPreemptiveBanner:inEarState:srDeviceCount:audioState:inAddress:", preemptiveBannerShown, [v17 firstPreemptiveBannerShown], v14, -[NSMutableDictionary count](self->_smartRoutingWxDeviceMap, "count"), audioState, unlockCopy);
+      v13 = [sub_100072F04() _inEarNearbyCheck:?];
+      v14 = [sub_10007305C() objectForKeyedSubscript:?];
+      preemptiveBannerShown = [v14 preemptiveBannerShown];
+      v16 = [sub_10007305C() objectForKeyedSubscript:?];
+      v17 = -[BTSmartRoutingDaemon _isEligibleForPreemptiveBanner:firstPreemptiveBanner:inEarState:srDeviceCount:audioState:inAddress:](self, "_isEligibleForPreemptiveBanner:firstPreemptiveBanner:inEarState:srDeviceCount:audioState:inAddress:", preemptiveBannerShown, [v16 firstPreemptiveBannerShown], v13, -[NSMutableDictionary count](self->_smartRoutingWxDeviceMap, "count"), audioState, unlockCopy);
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  return v18;
+  return v17;
 }
 
 - (BOOL)_inCaseLidClosed:(id)closed
@@ -20710,7 +22046,7 @@ LABEL_108:
 
     if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _inCaseLidClosed:]", 30, "_inCaseLidClose: device %@ prox status shows buds in case: %s, lid status: %s");
     }
   }
 
@@ -20735,186 +22071,249 @@ LABEL_108:
 
     bleDevice = [changedCopy bleDevice];
     advertisementFields = [bleDevice advertisementFields];
-    v11 = sub_100072EDC();
+    v11 = sub_100072EDC(advertisementFields, @"hsStatus");
 
     bleDevice2 = [changedCopy bleDevice];
     advertisementFields2 = [bleDevice2 advertisementFields];
-    v14 = sub_100072EDC();
+    v14 = sub_100072EDC(advertisementFields2, @"pid");
 
     bleDevice3 = [changedCopy bleDevice];
     advertisementFields3 = [bleDevice3 advertisementFields];
 
-    v17 = sub_100072EA4();
+    v18 = sub_100072EA4(v17, @"asCount");
     sub_100072F88();
-    v18 = CFDictionaryGetCFDataOfLength();
-    sub_100073000();
     v19 = CFDictionaryGetCFDataOfLength();
-    v51 = v18;
-    v47 = v19;
-    if (v19)
+    sub_100073000();
+    v20 = CFDictionaryGetCFDataOfLength();
+    v68 = v19;
+    v64 = v20;
+    if (v20)
     {
-      bytes = [v19 bytes];
-      v20 = NSPrintF();
+      v20 = NSPrintF("%.6a", COERCE_DOUBLE([v20 bytes]));
+      v21 = v20;
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
-    v21 = sub_100072F44();
+    v22 = sub_100072F44(v20, @"aState");
     sub_100072EF8();
     Int64 = CFDictionaryGetInt64();
-    v41 = sub_100072EA4();
-    v46 = v14;
+    v23 = sub_100072EA4(Int64, @"lc");
+    v55 = v23;
+    v61 = v14;
     if ((v11 & 0x24) != 0)
     {
-      v45 = 1;
+      v59 = 1;
     }
 
     else
     {
-      v45 = [(BTSmartRoutingDaemon *)self _bluetoothProductIDNoEarDetect:v14];
+      v23 = [(BTSmartRoutingDaemon *)self _bluetoothProductIDNoEarDetect:v14];
+      v59 = v23;
     }
 
-    v43 = sub_100072E64();
-    v42 = sub_100072E64();
+    v57 = sub_100072E64(v23, @"audioIdleTime");
+    v56 = sub_100072E64(v57, @"budsOutofCaseTime");
     sub_100072EF8();
-    v22 = CFDictionaryGetInt64();
+    v24 = CFDictionaryGetInt64();
     CFStringGetTypeID();
     TypedValue = CFDictionaryGetTypedValue();
-    v24 = &stru_1002C1358;
+    v26 = &stru_1002C1358;
     if (TypedValue)
     {
-      v24 = TypedValue;
+      v26 = TypedValue;
     }
 
-    v49 = uUIDString;
-    v50 = v24;
-    v25 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
-    if (!v25)
+    v66 = uUIDString;
+    v67 = v26;
+    v27 = [(NSMutableDictionary *)self->_nearbyWxDeviceMap objectForKeyedSubscript:uUIDString];
+    if (!v27)
     {
-      v25 = objc_alloc_init(SRNearbyWxDevice);
+      v27 = objc_alloc_init(SRNearbyWxDevice);
     }
 
     selfCopy = self;
-    v48 = v20;
-    [(SRNearbyWxDevice *)v25 setAddress:v20, bytes];
-    [(SRNearbyWxDevice *)v25 setAudioState:v21];
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v54 = changedCopy;
+    v65 = v21;
+    [(SRNearbyWxDevice *)v27 setAddress:v21];
+    [(SRNearbyWxDevice *)v27 setAudioState:v22];
+    v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v71 = changedCopy;
     batteryInfo = [changedCopy batteryInfo];
-    v27 = [batteryInfo countByEnumeratingWithState:&v55 objects:v59 count:16];
-    if (v27)
+    v29 = [batteryInfo countByEnumeratingWithState:&v72 objects:v76 count:16];
+    if (v29)
     {
-      v28 = v27;
-      v29 = *v56;
+      v30 = v29;
+      v31 = *v73;
       do
       {
-        for (i = 0; i != v28; i = i + 1)
+        for (i = 0; i != v30; i = i + 1)
         {
-          if (*v56 != v29)
+          if (*v73 != v31)
           {
             objc_enumerationMutation(batteryInfo);
           }
 
-          v31 = *(*(&v55 + 1) + 8 * i);
-          if ([v31 batteryType] == 2)
+          v33 = *(*(&v72 + 1) + 8 * i);
+          if ([v33 batteryType] == 2)
           {
-            [v31 batteryLevel];
-            [(SRNearbyWxDevice *)v25 setBatteryLeft:?];
+            [v33 batteryLevel];
+            [(SRNearbyWxDevice *)v27 setBatteryLeft:?];
           }
 
-          if ([v31 batteryType] == 3)
+          if ([v33 batteryType] == 3)
           {
-            [v31 batteryLevel];
-            [(SRNearbyWxDevice *)v25 setBatteryRight:?];
+            [v33 batteryLevel];
+            [(SRNearbyWxDevice *)v27 setBatteryRight:?];
           }
 
-          if ([v31 batteryType] == 4)
+          if ([v33 batteryType] == 4)
           {
-            [v31 batteryLevel];
-            [(SRNearbyWxDevice *)v25 setBatteryMain:?];
+            [v33 batteryLevel];
+            [(SRNearbyWxDevice *)v27 setBatteryMain:?];
           }
         }
 
-        v28 = [batteryInfo countByEnumeratingWithState:&v55 objects:v59 count:16];
+        v30 = [batteryInfo countByEnumeratingWithState:&v72 objects:v76 count:16];
       }
 
-      while (v28);
+      while (v30);
     }
 
-    [(BTSmartRoutingDaemon *)selfCopy _lowestBatteryInfoForSFDevice:v54];
-    [(SRNearbyWxDevice *)v25 setLowestBudBatteryInfo:?];
-    [(SRNearbyWxDevice *)v25 setPaired:Int64 != 0];
-    [(SRNearbyWxDevice *)v25 setProductID:v46];
-    [(SRNearbyWxDevice *)v25 setSourceCount:v17];
-    v32 = v51;
-    [(SRNearbyWxDevice *)v25 setLastConnectHost:v51];
-    [(SRNearbyWxDevice *)v25 setLidClosed:v41 == 1];
-    [(SRNearbyWxDevice *)v25 setPrimaryInEar:(v11 >> 2) & 1];
-    [(SRNearbyWxDevice *)v25 setSecondaryInEar:(v11 >> 5) & 1];
-    [(SRNearbyWxDevice *)v25 setPrimaryInCase:(v11 >> 1) & 1];
-    [(SRNearbyWxDevice *)v25 setSecondaryInCase:(v11 >> 4) & 1];
-    [(SRNearbyWxDevice *)v25 setIsInEar:v45];
-    [(SRNearbyWxDevice *)v25 setIsUTPConnected:v11 & 1];
-    [(SRNearbyWxDevice *)v25 setIdleTime:v43];
-    [(SRNearbyWxDevice *)v25 setOutOfCaseTime:v42];
-    [(SRNearbyWxDevice *)v25 setIcloudSignedIn:v22 != 0];
-    v33 = v50;
-    [(SRNearbyWxDevice *)v25 setName:v50];
-    [(SRNearbyWxDevice *)v25 setLastWxAdvTicks:mach_absolute_time()];
-    if (v17 == 1)
+    [(BTSmartRoutingDaemon *)selfCopy _lowestBatteryInfoForSFDevice:v71];
+    [(SRNearbyWxDevice *)v27 setLowestBudBatteryInfo:?];
+    [(SRNearbyWxDevice *)v27 setPaired:Int64 != 0];
+    [(SRNearbyWxDevice *)v27 setProductID:v61];
+    [(SRNearbyWxDevice *)v27 setSourceCount:v18];
+    v34 = v68;
+    [(SRNearbyWxDevice *)v27 setLastConnectHost:v68];
+    [(SRNearbyWxDevice *)v27 setLidClosed:v55 == 1];
+    [(SRNearbyWxDevice *)v27 setPrimaryInEar:(v11 >> 2) & 1];
+    [(SRNearbyWxDevice *)v27 setSecondaryInEar:(v11 >> 5) & 1];
+    [(SRNearbyWxDevice *)v27 setPrimaryInCase:(v11 >> 1) & 1];
+    [(SRNearbyWxDevice *)v27 setSecondaryInCase:(v11 >> 4) & 1];
+    [(SRNearbyWxDevice *)v27 setIsInEar:v59];
+    [(SRNearbyWxDevice *)v27 setIsUTPConnected:v11 & 1];
+    [(SRNearbyWxDevice *)v27 setIdleTime:v57];
+    [(SRNearbyWxDevice *)v27 setOutOfCaseTime:v56];
+    [(SRNearbyWxDevice *)v27 setIcloudSignedIn:v24 != 0];
+    v35 = v67;
+    [(SRNearbyWxDevice *)v27 setName:v67];
+    [(SRNearbyWxDevice *)v27 setLastWxAdvTicks:mach_absolute_time()];
+    if (v18 == 1)
     {
-      [(SRNearbyWxDevice *)v25 setOneSourceLastRouteHost:v51];
-      v34 = v48;
-      uUIDString = v49;
+      [(SRNearbyWxDevice *)v27 setOneSourceLastRouteHost:v68];
+      v36 = v65;
+      uUIDString = v66;
     }
 
     else
     {
-      v34 = v48;
-      uUIDString = v49;
-      if (!v17)
+      v36 = v65;
+      uUIDString = v66;
+      if (!v18)
       {
-        [(SRNearbyWxDevice *)v25 setZeroSourceLastRouteHost:v51];
+        [(SRNearbyWxDevice *)v27 setZeroSourceLastRouteHost:v68];
       }
     }
 
-    [(NSMutableDictionary *)selfCopy->_nearbyWxDeviceMap setObject:v25 forKeyedSubscript:uUIDString];
-    changedCopy = v54;
+    [(NSMutableDictionary *)selfCopy->_nearbyWxDeviceMap setObject:v27 forKeyedSubscript:uUIDString];
+    changedCopy = v71;
     if (dword_1002F6778 <= 50 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      address = [(SRNearbyWxDevice *)v25 address];
-      [(SRNearbyWxDevice *)v25 isUTPConnected];
-      [(SRNearbyWxDevice *)v25 sourceCount];
-      audioState = [(SRNearbyWxDevice *)v25 audioState];
-      if (audioState <= 3)
+      address = [(SRNearbyWxDevice *)v27 address];
+      v37 = "yes";
+      if ([(SRNearbyWxDevice *)v27 isUTPConnected])
       {
-        v36 = off_1002B8ED0[audioState];
+        v38 = "yes";
       }
 
-      lastConnectHost = [(SRNearbyWxDevice *)v25 lastConnectHost];
-      zeroSourceLastRouteHost = [(SRNearbyWxDevice *)v25 zeroSourceLastRouteHost];
-      oneSourceLastRouteHost = [(SRNearbyWxDevice *)v25 oneSourceLastRouteHost];
-      [(SRNearbyWxDevice *)v25 lidClosed];
-      [(SRNearbyWxDevice *)v25 primaryInEar];
-      [(SRNearbyWxDevice *)v25 secondaryInEar];
-      [(SRNearbyWxDevice *)v25 primaryInCase];
-      [(SRNearbyWxDevice *)v25 secondaryInCase];
-      [(SRNearbyWxDevice *)v25 batteryLeft];
-      [(SRNearbyWxDevice *)v25 batteryRight];
-      [(SRNearbyWxDevice *)v25 batteryMain];
-      uUIDString = v49;
-      v33 = v50;
-      LogPrintF();
+      else
+      {
+        v38 = "no";
+      }
 
-      changedCopy = v54;
-      v32 = v51;
-      v34 = v48;
+      v63 = v38;
+      sourceCount = [(SRNearbyWxDevice *)v27 sourceCount];
+      audioState = [(SRNearbyWxDevice *)v27 audioState];
+      if (audioState > 3)
+      {
+        v40 = "?";
+      }
+
+      else
+      {
+        v40 = off_1002B8ED0[audioState];
+      }
+
+      v60 = v40;
+      lastConnectHost = [(SRNearbyWxDevice *)v27 lastConnectHost];
+      zeroSourceLastRouteHost = [(SRNearbyWxDevice *)v27 zeroSourceLastRouteHost];
+      oneSourceLastRouteHost = [(SRNearbyWxDevice *)v27 oneSourceLastRouteHost];
+      if ([(SRNearbyWxDevice *)v27 lidClosed])
+      {
+        v43 = "yes";
+      }
+
+      else
+      {
+        v43 = "no";
+      }
+
+      if ([(SRNearbyWxDevice *)v27 primaryInEar])
+      {
+        v44 = "yes";
+      }
+
+      else
+      {
+        v44 = "no";
+      }
+
+      if ([(SRNearbyWxDevice *)v27 secondaryInEar])
+      {
+        v45 = "yes";
+      }
+
+      else
+      {
+        v45 = "no";
+      }
+
+      if ([(SRNearbyWxDevice *)v27 primaryInCase])
+      {
+        v46 = "yes";
+      }
+
+      else
+      {
+        v46 = "no";
+      }
+
+      if (![(SRNearbyWxDevice *)v27 secondaryInCase])
+      {
+        v37 = "no";
+      }
+
+      [(SRNearbyWxDevice *)v27 batteryLeft];
+      v48 = v47;
+      [(SRNearbyWxDevice *)v27 batteryRight];
+      v50 = v49;
+      [(SRNearbyWxDevice *)v27 batteryMain];
+      v52 = v44;
+      v53 = v45;
+      uUIDString = v66;
+      v35 = v67;
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _nearbyWxChanged:]", 50, "Nearby Wx device %@ changed, name %@, addr %@, UTP %s, sourceCount %u, audioState %s, lastRoute %@, zeroLastRoute %@, oneLastRoute %@, lidClosed %s, primaryInEar %s, secondaryInEar %s, primaryInCase %s, secondaryInCase %s, battery Left %f, battery right %f, battery main %f", v66, v67, address, v63, sourceCount, v60, lastConnectHost, zeroSourceLastRouteHost, oneSourceLastRouteHost, v43, v52, v53, v46, v37, v48, v50, v51);
+
+      changedCopy = v71;
+      v34 = v68;
+      v36 = v65;
     }
   }
 }
@@ -20929,7 +22328,7 @@ LABEL_108:
   unsignedIntValue = [v10 unsignedIntValue];
 
   v12 = [optionsCopy objectForKey:@"btAddress"];
-  v35 = [optionsCopy objectForKey:@"btName"];
+  v32 = [optionsCopy objectForKey:@"btName"];
   v13 = [optionsCopy objectForKey:@"playingApp"];
   v14 = [optionsCopy objectForKey:@"hostStreamingState"];
 
@@ -20948,8 +22347,7 @@ LABEL_108:
       if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
       {
         otherTipiDeviceBTAddress2 = [v9 otherTipiDeviceBTAddress];
-        v32 = v12;
-        LogPrintF();
+        LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _receivedAudioCategory:withOptions:]", 90, "Host device address does not match, current cached host address %@, the other device address %@; Updated the Tipi info!", otherTipiDeviceBTAddress2, v12);
       }
 
       [sub_100072FC8() _updateOtherTipiDevicewithAudioCategory:? otherAddress:? otherName:? otherVersion:?];
@@ -20963,34 +22361,33 @@ LABEL_108:
     goto LABEL_12;
   }
 
-  v19 = 0;
+  v20 = 0;
   if (![v9 otherTipiAudioCategory] && unsignedIntValue >= 0x12D)
   {
     if ([v9 routingAction] == 1)
     {
 LABEL_12:
-      v19 = 0;
+      v20 = 0;
       goto LABEL_13;
     }
 
     [v9 setOtherTipiAudioCategory:unsignedIntValue];
     integerValue = [(NSNumber *)self->_localDeviceAudioCategory integerValue];
-    v36 = 0;
-    v28 = [(BTSmartRoutingDaemon *)self allowHijackWithAudioScore:integerValue hijackRoute:categoryCopy hijackDeniedReason:&v36];
-    v19 = v36;
+    v33 = 0;
+    v29 = [(BTSmartRoutingDaemon *)self allowHijackWithAudioScore:integerValue hijackRoute:categoryCopy hijackDeniedReason:&v33];
+    v20 = v33;
     if (dword_1002F6778 <= 90 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
     {
-      v29 = "no";
-      if (v28)
+      v30 = "no";
+      if (v29)
       {
-        v29 = "yes";
+        v30 = "yes";
       }
 
-      otherTipiDeviceBTAddress2 = v29;
-      LogPrintF();
+      LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _receivedAudioCategory:withOptions:]", 90, "[HijackV2]: Arbitrate again while receiving audio score of other Tipi device for the first time. ShouldHijack %s", v30);
     }
 
-    if (v28)
+    if (v29)
     {
       [v9 setRoutingAction:1];
       [(BTSmartRoutingDaemon *)self _postNotification:"com.apple.BluetoothServices.AudioRoutingChanged"];
@@ -20998,14 +22395,12 @@ LABEL_12:
   }
 
 LABEL_13:
-  [v9 setOtherTipiAudioCategory:{unsignedIntValue, otherTipiDeviceBTAddress2, v32}];
+  [v9 setOtherTipiAudioCategory:unsignedIntValue];
   [v9 setOtherTipiDevicePlayingApp:v13];
   [(BTSmartRoutingDaemon *)self _tipiHealingCompleteCheckTimerForDevice:v9];
   if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
   {
-    otherTipiAudioCategory = [v9 otherTipiAudioCategory];
-    v33 = v12;
-    LogPrintF();
+    LogPrintF(&dword_1002F6778, "-[BTSmartRoutingDaemon _receivedAudioCategory:withOptions:]", 30, "[Hijackv2] Received audio category %u from tipi device %@ through relay message", [v9 otherTipiAudioCategory], v12);
   }
 
   otherTipiDeviceIsWatch = [v9 otherTipiDeviceIsWatch];
@@ -21029,16 +22424,16 @@ LABEL_13:
 
   if ([v9 otherTipiAudioCategory] == 100)
   {
-    v22 = v15;
+    v23 = v15;
   }
 
   else
   {
-    v22 = 1;
+    v23 = 1;
   }
 
   phoneOwnershipTimer = self->_phoneOwnershipTimer;
-  if (v22)
+  if (v23)
   {
     if (!phoneOwnershipTimer)
     {
@@ -21053,12 +22448,12 @@ LABEL_13:
 LABEL_29:
     if ((([v9 otherTipiAudioCategory] < 0x65) & ~v15) == 0)
     {
-      v24 = self->_phoneOwnershipTimer;
-      if (v24)
+      v25 = self->_phoneOwnershipTimer;
+      if (v25)
       {
-        v25 = v24;
-        dispatch_source_cancel(v25);
-        v26 = self->_phoneOwnershipTimer;
+        v26 = v25;
+        dispatch_source_cancel(v26);
+        v27 = self->_phoneOwnershipTimer;
         self->_phoneOwnershipTimer = 0;
       }
     }
@@ -21090,6 +22485,8 @@ LABEL_39:
       {
         return;
       }
+
+      v6 = "Temporary override timer not running";
     }
 
     else
@@ -21105,13 +22502,12 @@ LABEL_39:
         {
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _sendNowPlayingTemporaryOverrideIfNeeded:]", 30, "Temp Override status has changed -> cancelling stem click transaction timer");
           }
 
           [(BTSmartRoutingDaemon *)self _cancelStemClickTransaction];
         }
 
-        smartRoutingWxDeviceMap = self->_smartRoutingWxDeviceMap;
         sub_100072E30();
         v7[1] = 3221225472;
         v7[2] = sub_1001E2F0C;
@@ -21120,7 +22516,7 @@ LABEL_39:
         v8 = neededCopy;
         v9 = 5;
         v10 = neededCopy;
-        [v6 enumerateKeysAndObjectsUsingBlock:v7];
+        [v5 enumerateKeysAndObjectsUsingBlock:v7];
         return;
       }
 
@@ -21128,15 +22524,22 @@ LABEL_39:
       {
         return;
       }
+
+      v6 = "Screen is locked, device is not active. Skip override";
     }
   }
 
-  else if (dword_1002F6778 > 90 || dword_1002F6778 == -1 && !_LogCategory_Initialize())
+  else
   {
-    return;
+    if (dword_1002F6778 > 90 || dword_1002F6778 == -1 && !_LogCategory_Initialize())
+    {
+      return;
+    }
+
+    v6 = "Temporary override message only available on iPhone platform";
   }
 
-  LogPrintF();
+  LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _sendNowPlayingTemporaryOverrideIfNeeded:]", 90, v6);
 }
 
 - (void)_tipiHealingCompleteCheckTimerForDevice:(id)device
@@ -21146,56 +22549,55 @@ LABEL_39:
   if (self->_tipiHealingHijackTimer)
   {
     tipiHealingHijackTimerAddress = self->_tipiHealingHijackTimerAddress;
-    v15 = deviceCopy;
+    v14 = deviceCopy;
     deviceAddress = [deviceCopy deviceAddress];
 
     if (tipiHealingHijackTimerAddress == deviceAddress)
     {
-      deviceCopy = [v15 audioRoutingRequest];
+      deviceCopy = [v14 audioRoutingRequest];
       if (deviceCopy)
       {
         v8 = deviceCopy;
-        audioRoutingResponse = [v15 audioRoutingResponse];
+        audioRoutingResponse = [v14 audioRoutingResponse];
 
         if (audioRoutingResponse)
         {
           [(BTSmartRoutingDaemon *)self _tipiHealingHijackTimerReset];
           if (dword_1002F6778 <= 30 && (dword_1002F6778 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipiHealingCompleteCheckTimerForDevice:]", 30, "Tipi healing complete when hijack timer was running, service pending MX routing request");
           }
 
-          audioRoutingRequest = [v15 audioRoutingRequest];
-          audioRoutingResponse2 = [v15 audioRoutingResponse];
+          audioRoutingRequest = [v14 audioRoutingRequest];
+          audioRoutingResponse2 = [v14 audioRoutingResponse];
           [sub_100072FBC() _smartRoutingAudioRoutingRequest:? withResponseHandler:?];
 
           goto LABEL_13;
         }
       }
 
-      v5 = v15;
+      v5 = v14;
       if (dword_1002F6778 <= 90)
       {
-        if (dword_1002F6778 != -1 || (deviceCopy = _LogCategory_Initialize(), v5 = v15, deviceCopy))
+        if (dword_1002F6778 != -1 || (deviceCopy = _LogCategory_Initialize(), v5 = v14, deviceCopy))
         {
-          v13 = self->_tipiHealingHijackTimerAddress;
-          deviceCopy = LogPrintF();
+          deviceCopy = LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipiHealingCompleteCheckTimerForDevice:]", 90, "Device tipi healing was completed for %@ with tipi healing timer, but no routing request found for device", self->_tipiHealingHijackTimerAddress);
 LABEL_13:
-          v5 = v15;
+          v5 = v14;
         }
       }
     }
 
     else
     {
-      v5 = v15;
+      v5 = v14;
       if (dword_1002F6778 <= 30)
       {
-        if (dword_1002F6778 != -1 || (deviceCopy = _LogCategory_Initialize(), v5 = v15, deviceCopy))
+        if (dword_1002F6778 != -1 || (deviceCopy = _LogCategory_Initialize(), v5 = v14, deviceCopy))
         {
           v12 = self->_tipiHealingHijackTimerAddress;
           deviceAddress2 = [v5 deviceAddress];
-          LogPrintF();
+          LogPrintF(&dword_1002F6778, "[BTSmartRoutingDaemon _tipiHealingCompleteCheckTimerForDevice:]", 30, "Tipi Healing timer(for address: %@) does not match device tipi healing was completed for: %@", v12, deviceAddress2);
 
           goto LABEL_13;
         }

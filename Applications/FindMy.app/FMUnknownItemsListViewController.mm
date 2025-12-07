@@ -24,18 +24,19 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1004E7470(appear);
+  sub_1004E7470(appearCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for FMUnknownItemsListViewController();
-  v4 = v5.receiver;
-  [(FMUnknownItemsListViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_1002393B0();
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for FMUnknownItemsListViewController();
+  v4 = v8.receiver;
+  v5 = [(FMUnknownItemsListViewController *)&v8 viewDidDisappear:disappearCopy];
+  sub_1002393B0(v5, v6, v7);
 }
 
 - (void)viewDidLayoutSubviews

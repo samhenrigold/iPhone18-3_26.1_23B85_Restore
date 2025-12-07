@@ -22,13 +22,14 @@
 
 - (_TtC5UIKit26_UILatencyEmitterViewEntry)init
 {
-  v2 = self + OBJC_IVAR____TtC5UIKit26_UILatencyEmitterViewEntry_duration;
-  *v2 = 0x4000000000000000;
-  v2[8] = 0;
+  v3 = self + OBJC_IVAR____TtC5UIKit26_UILatencyEmitterViewEntry_duration;
+  *v3 = 0x4000000000000000;
+  v3[8] = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC5UIKit26_UILatencyEmitterViewEntry__cachedLatencyView) = 0;
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for _UILatencyEmitterViewEntry();
-  return [(_UILatencyEmitterViewEntry *)&v4 init];
+  v4 = type metadata accessor for _UILatencyEmitterViewEntry();
+  v7.receiver = self;
+  v7.super_class = v5;
+  return [(_UILatencyEmitterViewEntry *)&v7 init];
 }
 
 @end

@@ -16,7 +16,7 @@
   v7 = [(DSDeviceContext *)&v38 init];
   if (!v7)
   {
-    v36 = DSLogObjectForCategory_DSDeviceContext();
+    v36 = DSLogObjectForCategory_DSDeviceContext(0);
     if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_55;
@@ -27,9 +27,10 @@
     goto LABEL_54;
   }
 
-  if (MEMORY[0x24C1EF810](objectCopy) != MEMORY[0x277D86468])
+  v8 = MEMORY[0x24C1EF810](objectCopy);
+  if (v8 != MEMORY[0x277D86468])
   {
-    v36 = DSLogObjectForCategory_DSDeviceContext();
+    v36 = DSLogObjectForCategory_DSDeviceContext(v8);
     if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_55;
@@ -40,55 +41,55 @@
     goto LABEL_54;
   }
 
-  v8 = xpc_dictionary_get_BOOL(objectCopy, "kDSDevCtxIsMe");
+  v9 = xpc_dictionary_get_BOOL(objectCopy, "kDSDevCtxIsMe");
   if (onceTokenDSDeviceContext != -1)
   {
     [DSDeviceContext initWithXPCObject:error:];
   }
 
-  v9 = logObjDSDeviceContext;
+  v10 = logObjDSDeviceContext;
   if (os_log_type_enabled(logObjDSDeviceContext, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = "NO";
-    if (v8)
+    v11 = "NO";
+    if (v9)
     {
-      v10 = "YES";
+      v11 = "YES";
     }
 
     *buf = 136315138;
-    v40 = v10;
-    _os_log_impl(&dword_249027000, v9, OS_LOG_TYPE_DEFAULT, "Is self device: %s", buf, 0xCu);
+    v40 = v11;
+    _os_log_impl(&dword_249027000, v10, OS_LOG_TYPE_DEFAULT, "Is self device: %s", buf, 0xCu);
   }
 
-  v7->_isMe = v8;
+  v7->_isMe = v9;
   string = xpc_dictionary_get_string(objectCopy, "kDSDevCtxDevID");
   if (string)
   {
-    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
+    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
     identifier = v7->_identifier;
-    v7->_identifier = v12;
+    v7->_identifier = v13;
 
     if (onceTokenDSDeviceContext != -1)
     {
       [DSDeviceContext initWithXPCObject:error:];
     }
 
-    v14 = logObjDSDeviceContext;
+    v15 = logObjDSDeviceContext;
     if (os_log_type_enabled(logObjDSDeviceContext, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = v7->_identifier;
-      v16 = v14;
-      uTF8String = [(NSString *)v15 UTF8String];
+      v16 = v7->_identifier;
+      v17 = v15;
+      uTF8String = [(NSString *)v16 UTF8String];
       *buf = 136315138;
       v40 = uTF8String;
-      _os_log_impl(&dword_249027000, v16, OS_LOG_TYPE_DEFAULT, "Identifier : %s", buf, 0xCu);
+      _os_log_impl(&dword_249027000, v17, OS_LOG_TYPE_DEFAULT, "Identifier : %s", buf, 0xCu);
     }
   }
 
   uint64 = xpc_dictionary_get_uint64(objectCopy, "kDSCoordStatus");
   if (uint64 >= 0x100)
   {
-    v36 = DSLogObjectForCategory_DSDeviceContext();
+    v36 = DSLogObjectForCategory_DSDeviceContext(uint64);
     if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_55;
@@ -99,35 +100,35 @@
     goto LABEL_54;
   }
 
-  v19 = uint64;
+  v20 = uint64;
   if (onceTokenDSDeviceContext != -1)
   {
     [DSDeviceContext initWithXPCObject:error:];
   }
 
-  v20 = logObjDSDeviceContext;
+  v21 = logObjDSDeviceContext;
   if (os_log_type_enabled(logObjDSDeviceContext, OS_LOG_TYPE_DEFAULT))
   {
-    if (v19 > 5)
+    if (v20 > 5)
     {
-      v21 = "?";
+      v22 = "?";
     }
 
     else
     {
-      v21 = off_278F85B50[v19];
+      v22 = off_278F85B50[v20];
     }
 
     *buf = 136315138;
-    v40 = v21;
-    _os_log_impl(&dword_249027000, v20, OS_LOG_TYPE_DEFAULT, "Coordination status %s", buf, 0xCu);
+    v40 = v22;
+    _os_log_impl(&dword_249027000, v21, OS_LOG_TYPE_DEFAULT, "Coordination status %s", buf, 0xCu);
   }
 
-  v7->_coordinationStatus = v19;
-  v22 = xpc_dictionary_get_uint64(objectCopy, "kDSVehicleState");
-  if (v22 >= 0x100)
+  v7->_coordinationStatus = v20;
+  v23 = xpc_dictionary_get_uint64(objectCopy, "kDSVehicleState");
+  if (v23 >= 0x100)
   {
-    v36 = DSLogObjectForCategory_DSDeviceContext();
+    v36 = DSLogObjectForCategory_DSDeviceContext(v23);
     if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_55;
@@ -138,35 +139,35 @@
     goto LABEL_54;
   }
 
-  v23 = v22;
+  v24 = v23;
   if (onceTokenDSDeviceContext != -1)
   {
     [DSDeviceContext initWithXPCObject:error:];
   }
 
-  v24 = logObjDSDeviceContext;
+  v25 = logObjDSDeviceContext;
   if (os_log_type_enabled(logObjDSDeviceContext, OS_LOG_TYPE_DEFAULT))
   {
-    if (v23 > 2)
+    if (v24 > 2)
     {
-      v25 = "?";
+      v26 = "?";
     }
 
     else
     {
-      v25 = off_278F85B38[v23];
+      v26 = off_278F85B38[v24];
     }
 
     *buf = 136315138;
-    v40 = v25;
-    _os_log_impl(&dword_249027000, v24, OS_LOG_TYPE_DEFAULT, "Vehicle state %s", buf, 0xCu);
+    v40 = v26;
+    _os_log_impl(&dword_249027000, v25, OS_LOG_TYPE_DEFAULT, "Vehicle state %s", buf, 0xCu);
   }
 
-  v7->_vehicleState = v23;
-  v26 = xpc_dictionary_get_uint64(objectCopy, "kDSVehicleConfidence");
-  if (v26 >= 0x100)
+  v7->_vehicleState = v24;
+  v27 = xpc_dictionary_get_uint64(objectCopy, "kDSVehicleConfidence");
+  if (v27 >= 0x100)
   {
-    v36 = DSLogObjectForCategory_DSDeviceContext();
+    v36 = DSLogObjectForCategory_DSDeviceContext(v27);
     if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_55;
@@ -177,25 +178,25 @@
     goto LABEL_54;
   }
 
-  v27 = v26;
+  v28 = v27;
   if (onceTokenDSDeviceContext != -1)
   {
     [DSDeviceContext initWithXPCObject:error:];
   }
 
-  v28 = logObjDSDeviceContext;
+  v29 = logObjDSDeviceContext;
   if (os_log_type_enabled(logObjDSDeviceContext, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v40 = v27;
-    _os_log_impl(&dword_249027000, v28, OS_LOG_TYPE_DEFAULT, "Vehicle confidence: %llu", buf, 0xCu);
+    v40 = v28;
+    _os_log_impl(&dword_249027000, v29, OS_LOG_TYPE_DEFAULT, "Vehicle confidence: %llu", buf, 0xCu);
   }
 
-  v7->_vehicleConfidence = v27;
-  v29 = xpc_dictionary_get_uint64(objectCopy, "kDSTiebreaker");
-  if (v29 >= 0x100)
+  v7->_vehicleConfidence = v28;
+  v30 = xpc_dictionary_get_uint64(objectCopy, "kDSTiebreaker");
+  if (v30 >= 0x100)
   {
-    v36 = DSLogObjectForCategory_DSDeviceContext();
+    v36 = DSLogObjectForCategory_DSDeviceContext(v30);
     if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_55;
@@ -207,43 +208,42 @@ LABEL_54:
     _os_log_impl(&dword_249027000, v36, OS_LOG_TYPE_ERROR, v37, buf, 2u);
 LABEL_55:
 
-    v33 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
+    v34 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
     if (error)
     {
-      v33 = v33;
-      v32 = 0;
-      *error = v33;
+      v34 = v34;
+      v33 = 0;
+      *error = v34;
     }
 
     else
     {
-      v32 = 0;
+      v33 = 0;
     }
 
     goto LABEL_41;
   }
 
-  v30 = v29;
+  v31 = v30;
   if (onceTokenDSDeviceContext != -1)
   {
     [DSDeviceContext initWithXPCObject:error:];
   }
 
-  v31 = logObjDSDeviceContext;
+  v32 = logObjDSDeviceContext;
   if (os_log_type_enabled(logObjDSDeviceContext, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v40 = v30;
-    _os_log_impl(&dword_249027000, v31, OS_LOG_TYPE_DEFAULT, "Tie breaker: %llu", buf, 0xCu);
+    v40 = v31;
+    _os_log_impl(&dword_249027000, v32, OS_LOG_TYPE_DEFAULT, "Tie breaker: %llu", buf, 0xCu);
   }
 
-  v7->_tiebreaker = v30;
-  v32 = v7;
-  v33 = 0;
+  v7->_tiebreaker = v31;
+  v33 = v7;
+  v34 = 0;
 LABEL_41:
 
-  v34 = *MEMORY[0x277D85DE8];
-  return v32;
+  return v33;
 }
 
 - (void)encodeSelf:(id)self
@@ -389,7 +389,7 @@ LABEL_28:
 
 - (void)updateWithCBDevice:(id)device
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v6 = deviceCopy;
   self->_changedFlag = 0;
@@ -441,13 +441,13 @@ LABEL_28:
         }
 
         v16 = off_278F85B38[v10];
-        v44 = 136315650;
-        v45 = uTF8String;
-        v46 = 2080;
-        *v47 = v15;
-        *&v47[8] = 2080;
-        v48 = v16;
-        _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_DEFAULT, "Device ID %s : Vehicle State updated from %s to %s", &v44, 0x20u);
+        v43 = 136315650;
+        v44 = uTF8String;
+        v45 = 2080;
+        *v46 = v15;
+        *&v46[8] = 2080;
+        v47 = v16;
+        _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_DEFAULT, "Device ID %s : Vehicle State updated from %s to %s", &v43, 0x20u);
       }
 
       self->_vehicleState = v10;
@@ -556,13 +556,13 @@ LABEL_41:
                 v25 = "highest";
               }
 
-              v44 = 136315650;
-              v45 = uTF8String2;
-              v46 = 2080;
-              *v47 = v24;
-              *&v47[8] = 2080;
-              v48 = v25;
-              _os_log_impl(&dword_249027000, v20, OS_LOG_TYPE_DEFAULT, "Device ID %s : Vehicle Confidence updated from %s to %s", &v44, 0x20u);
+              v43 = 136315650;
+              v44 = uTF8String2;
+              v45 = 2080;
+              *v46 = v24;
+              *&v46[8] = 2080;
+              v47 = v25;
+              _os_log_impl(&dword_249027000, v20, OS_LOG_TYPE_DEFAULT, "Device ID %s : Vehicle Confidence updated from %s to %s", &v43, 0x20u);
 
               goto LABEL_51;
           }
@@ -641,13 +641,13 @@ LABEL_56:
         }
 
         v35 = off_278F85B50[v29];
-        v44 = 136315650;
-        v45 = uTF8String3;
-        v46 = 2080;
-        *v47 = v34;
-        *&v47[8] = 2080;
-        v48 = v35;
-        _os_log_impl(&dword_249027000, v30, OS_LOG_TYPE_DEFAULT, "Device ID %s : Kappa Coordination Status updated from %s to %s", &v44, 0x20u);
+        v43 = 136315650;
+        v44 = uTF8String3;
+        v45 = 2080;
+        *v46 = v34;
+        *&v46[8] = 2080;
+        v47 = v35;
+        _os_log_impl(&dword_249027000, v30, OS_LOG_TYPE_DEFAULT, "Device ID %s : Kappa Coordination Status updated from %s to %s", &v43, 0x20u);
       }
 
       self->_coordinationStatus = v29;
@@ -670,13 +670,13 @@ LABEL_56:
         identifier4 = [(CBDevice *)v6 identifier];
         uTF8String4 = [identifier4 UTF8String];
         tiebreaker = self->_tiebreaker;
-        v44 = 136315650;
-        v45 = uTF8String4;
-        v46 = 1024;
-        *v47 = tiebreaker;
-        *&v47[4] = 1024;
-        *&v47[6] = v37;
-        _os_log_impl(&dword_249027000, v39, OS_LOG_TYPE_DEFAULT, "Device ID %s : Kappa tie breaker updated from %d to %d", &v44, 0x18u);
+        v43 = 136315650;
+        v44 = uTF8String4;
+        v45 = 1024;
+        *v46 = tiebreaker;
+        *&v46[4] = 1024;
+        *&v46[6] = v37;
+        _os_log_impl(&dword_249027000, v39, OS_LOG_TYPE_DEFAULT, "Device ID %s : Kappa tie breaker updated from %d to %d", &v43, 0x18u);
       }
 
       self->_tiebreaker = v37;
@@ -700,13 +700,11 @@ LABEL_56:
 
   objc_storeStrong(&self->_bleDevice, device);
 LABEL_88:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initWithCBDevice:(void *)a1 error:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v4 = DSLogObjectForCategory_DSDeviceContext();
+  v4 = DSLogObjectForCategory_DSDeviceContext(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *v6 = 0;

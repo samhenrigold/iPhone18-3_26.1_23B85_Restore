@@ -40,26 +40,32 @@ void sub_100000F5C(id a1, _lockdown_connection *a2, __CFDictionary *a3)
   lockdown_disconnect();
 }
 
-void sub_1000022E0(uint64_t *a1, const void *a2)
+void sub_10000229C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  if (!*(a1 + 4))
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1000022E0(uint64_t a1, const void *a2)
+{
+  if (!*(a1 + 16))
   {
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (Mutable)
     {
-      v5 = Mutable;
+      v4 = Mutable;
       if (a2)
       {
         CFDictionarySetValue(Mutable, @"Error", a2);
       }
 
-      v6 = *a1;
       if (lockdown_send_message() && (!qword_1000107C0 || *(qword_1000107C0 + 44) >= 3))
       {
         MOLogWrite();
       }
 
-      CFRelease(v5);
+      CFRelease(v4);
     }
 
     else if (!qword_1000107C0 || *(qword_1000107C0 + 44) >= 3)
@@ -70,20 +76,19 @@ void sub_1000022E0(uint64_t *a1, const void *a2)
   }
 }
 
-uint64_t sub_100002424(const __CFDictionary *a1, uint64_t *a2)
+uint64_t sub_100002424(const __CFDictionary *a1, uint64_t a2)
 {
   if (a1)
   {
     if (CFDictionaryContainsKey(a1, @"Error"))
     {
-      *(a2 + 4) = 1;
+      *(a2 + 16) = 1;
       goto LABEL_5;
     }
 
     if (a2)
     {
 LABEL_5:
-      v3 = *a2;
       result = lockdown_send_message();
       if (!result)
       {
@@ -112,19 +117,16 @@ intptr_t sub_1000024C8(uint64_t a1, uint64_t a2, uint64_t a3)
   return dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_1000024E4(uint64_t *a1)
+void sub_1000024E4(void *a1)
 {
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (Mutable)
   {
     v3 = Mutable;
     CFDictionarySetValue(Mutable, @"Status", @"Complete");
-    if (!a1 || (v4 = *a1, lockdown_send_message()))
+    if ((!a1 || lockdown_send_message()) && (!qword_1000107C0 || *(qword_1000107C0 + 44) >= 3))
     {
-      if (!qword_1000107C0 || *(qword_1000107C0 + 44) >= 3)
-      {
-        MOLogWrite();
-      }
+      MOLogWrite();
     }
 
     CFRelease(v3);
@@ -663,37 +665,36 @@ id sub_100003388(void *a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v4 = v3;
-      v5 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
       if (!v5)
       {
 
 LABEL_25:
-        v11 = v4;
+        v10 = v4;
         goto LABEL_26;
       }
 
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       v8 = 1;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
           v8 &= objc_opt_isKindOfClass();
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v6);
@@ -711,7 +712,7 @@ LABEL_25:
     if (qword_1000107C0 && *(qword_1000107C0 + 44) < 3)
     {
 LABEL_23:
-      v12 = 0;
+      v11 = 0;
       goto LABEL_27;
     }
 
@@ -731,16 +732,16 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v18 = v1;
-  v11 = [NSArray arrayWithObjects:&v18 count:1];
+  v17 = v1;
+  v10 = [NSArray arrayWithObjects:&v17 count:1];
 LABEL_26:
-  v12 = v11;
+  v11 = v10;
 LABEL_27:
 
-  return v12;
+  return v11;
 }
 
-id sub_1000035C0(void *a1, void *a2)
+NSMutableDictionary *sub_1000035C0(void *a1, void *a2)
 {
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
@@ -786,11 +787,11 @@ uint64_t sub_100003684(void *a1, void (*a2)(void *, uint64_t), uint64_t a3, void
   return 1;
 }
 
-void sub_1000037C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000037C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1815,17 +1816,17 @@ void sub_1000054A4(id a1)
 
 void sub_100005534(uint64_t a1, void *a2, void *a3)
 {
-  v24 = a2;
+  v21 = a2;
   v5 = a3;
   v6 = *(a1 + 24);
   if (v6)
   {
-    v7 = v6(v24);
+    v7 = v6(v21);
     v8 = v7;
     v9 = 0;
     if (!v7)
     {
-      goto LABEL_18;
+      goto LABEL_17;
     }
 
     goto LABEL_3;
@@ -1838,33 +1839,31 @@ void sub_100005534(uint64_t a1, void *a2, void *a3)
   {
     if (qword_1000107C0 && *(qword_1000107C0 + 44) < 3)
     {
-      goto LABEL_17;
+      goto LABEL_16;
     }
 
-    v23 = *(a1 + 8);
-    goto LABEL_16;
+LABEL_15:
+    MOLogWrite();
+LABEL_16:
+    v9 = 0;
+    goto LABEL_17;
   }
 
-  v12 = [v24 methodSignatureForSelector:v11];
+  v12 = [v21 methodSignatureForSelector:v11];
   if (!v12)
   {
     if (qword_1000107C0 && *(qword_1000107C0 + 44) < 3)
     {
-      goto LABEL_17;
+      goto LABEL_16;
     }
 
-    v21 = *(a1 + 8);
-LABEL_16:
-    MOLogWrite();
-LABEL_17:
-    v9 = 0;
-    goto LABEL_18;
+    goto LABEL_15;
   }
 
   v13 = v12;
   v14 = [NSInvocation invocationWithMethodSignature:v12];
   [v14 setSelector:v11];
-  [v14 invokeWithTarget:v24];
+  [v14 invokeWithTarget:v21];
   v9 = malloc_type_malloc([v13 methodReturnLength], 0x1A3B06E9uLL);
   [v14 getReturnValue:v9];
   v15 = *(a1 + 16);
@@ -1892,11 +1891,10 @@ LABEL_17:
     {
       if (!qword_1000107C0 || *(qword_1000107C0 + 44) >= 3)
       {
-        v22 = *(a1 + 8);
         MOLogWrite();
       }
 
-      goto LABEL_18;
+      goto LABEL_17;
     }
 
     v7 = *v9;
@@ -1909,7 +1907,7 @@ LABEL_3:
     [v5 setObject:v7 forKey:**a1];
   }
 
-LABEL_18:
+LABEL_17:
   free(v9);
 }
 

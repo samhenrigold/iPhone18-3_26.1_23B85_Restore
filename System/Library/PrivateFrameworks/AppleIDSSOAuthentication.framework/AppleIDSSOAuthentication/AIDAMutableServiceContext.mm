@@ -11,7 +11,7 @@
   resultsCopy = results;
   objc_storeStrong(&self->super._authenticationResults, results);
   v6 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x1E698DBE8]];
-  v7 = _AIDALogSystem();
+  v7 = _AIDALogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v6)
   {
@@ -90,11 +90,10 @@
 
 - (void)setAuthenticationResults:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DEB1B000, a2, OS_LOG_TYPE_DEBUG, "AIDAMutableServiceContext extracted time series from auth results: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DEB1B000, a2, OS_LOG_TYPE_DEBUG, "AIDAMutableServiceContext extracted time series from auth results: %@", &v2, 0xCu);
 }
 
 @end

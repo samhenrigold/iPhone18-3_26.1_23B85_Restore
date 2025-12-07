@@ -100,12 +100,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    canCreateContacts = self->_canCreateContacts;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -124,15 +123,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  canDeleteContacts = self->_canDeleteContacts;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    canCreateGrouops = self->_canCreateGrouops;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
@@ -230,7 +227,6 @@ LABEL_4:
       goto LABEL_24;
     }
 
-    v6 = equalCopy[8];
     if (self->_canCreateContacts)
     {
       if ((equalCopy[8] & 1) == 0)
@@ -267,7 +263,6 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v7 = equalCopy[10];
   if (self->_canDeleteContacts)
   {
     if ((equalCopy[10] & 1) == 0)

@@ -33,9 +33,9 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a2, a3, "%@ deallocated", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a2, a3, "%@ deallocated", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)handleAppleAccountDeleteForAccount:(id)account completion:(id)completion
@@ -101,7 +101,7 @@ uint64_t __68__AADaemonController_handleAppleAccountDeleteForAccount_completion_
 void __68__AADaemonController_handleAppleAccountDeleteForAccount_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__AADaemonController_handleAppleAccountDeleteForAccount_completion___block_invoke_2_cold_1();
@@ -205,23 +205,22 @@ uint64_t __68__AADaemonController_fetchCachedLoginResponseForAccount_completion_
   aBlock[3] = &unk_1E7C9BA60;
   aBlock[4] = self;
   v5 = completionCopy;
-  v22 = v5;
+  v21 = v5;
   v6 = _Block_copy(aBlock);
   remoteService = self->_remoteService;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __53__AADaemonController_urlConfigurationWithCompletion___block_invoke_70;
-  v19[3] = &unk_1E7C9B078;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __53__AADaemonController_urlConfigurationWithCompletion___block_invoke_70;
+  v18[3] = &unk_1E7C9B078;
   v8 = v6;
-  v20 = v8;
-  v9 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v19];
-  v10 = _AALogSystem();
+  v19 = v8;
+  v9 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v18];
+  v10 = _AALogSystem(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [(AADaemonController *)v10 urlConfigurationWithCompletion:v11, v12, v13, v14, v15, v16, v17];
   }
 
-  v18 = self->_remoteService;
   if (objc_opt_respondsToSelector())
   {
     [(AAFXPCSession *)self->_remoteService activate];
@@ -236,10 +235,11 @@ void __53__AADaemonController_urlConfigurationWithCompletion___block_invoke(uint
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (*(a1 + 40))
   {
-    v10 = _AALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _AALogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = 136315906;
       v13 = "[AADaemonController urlConfigurationWithCompletion:]_block_invoke";
@@ -248,20 +248,18 @@ void __53__AADaemonController_urlConfigurationWithCompletion___block_invoke(uint
       v16 = 2112;
       v17 = v8;
       v18 = 2112;
-      v19 = v9;
-      _os_log_debug_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEBUG, "%s configuration: %@, response: %@, error: %@", &v12, 0x2Au);
+      v19 = v10;
+      _os_log_debug_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEBUG, "%s configuration: %@, response: %@, error: %@", &v12, 0x2Au);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AADaemonController_urlConfigurationWithCompletion___block_invoke_70(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __53__AADaemonController_urlConfigurationWithCompletion___block_invoke_70_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -312,7 +310,7 @@ uint64_t __55__AADaemonController_removeProtoAccountWithCompletion___block_invok
 void __55__AADaemonController_removeProtoAccountWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __55__AADaemonController_removeProtoAccountWithCompletion___block_invoke_2_cold_1();
@@ -363,7 +361,7 @@ uint64_t __69__AADaemonController_removeChildOrTeenConnectFollowUpWithCompletion
 void __69__AADaemonController_removeChildOrTeenConnectFollowUpWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__AADaemonController_removeChildOrTeenConnectFollowUpWithCompletion___block_invoke_2_cold_1();
@@ -374,69 +372,67 @@ void __69__AADaemonController_removeChildOrTeenConnectFollowUpWithCompletion___b
 
 - (void)startAppleIDAvailabilityHealthCheckWithCompletion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x3032000000;
-  v31[3] = __Block_byref_object_copy__4;
-  v31[4] = __Block_byref_object_dispose__4;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x3032000000;
+  v33[3] = __Block_byref_object_copy__4;
+  v33[4] = __Block_byref_object_dispose__4;
   selfCopy = self;
-  v32 = selfCopy;
+  v34 = selfCopy;
   v6 = _os_activity_create(&dword_1B6F6A000, "appleidavailability-appleaccount/start-appleid-availability-health-check", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  v7 = _AASignpostLogSystem();
-  v8 = _AASignpostCreate(v7);
-  v10 = v9;
+  v8 = _AASignpostLogSystem(v7);
+  v9 = _AASignpostCreate(v8);
+  v11 = v10;
 
-  v11 = _AASignpostLogSystem();
-  v12 = v11;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v13 = _AASignpostLogSystem(v12);
+  v14 = v13;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v8, "AppleIDAvailabilityHealthCheck", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v9, "AppleIDAvailabilityHealthCheck", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v13 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v16 = _AASignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v34 = v8;
-    _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: AppleIDAvailabilityHealthCheck  enableTelemetry=YES ", buf, 0xCu);
+    v36 = v9;
+    _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: AppleIDAvailabilityHealthCheck  enableTelemetry=YES ", buf, 0xCu);
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
-  v27 = v31;
-  v28 = v8;
-  v29 = v10;
-  v14 = completionCopy;
-  v26 = v14;
-  v15 = _Block_copy(aBlock);
+  v29 = v33;
+  v30 = v9;
+  v31 = v11;
+  v17 = completionCopy;
+  v28 = v17;
+  v18 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_73;
+  v25[3] = &unk_1E7C9B078;
+  v20 = v18;
+  v26 = v20;
+  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
-  v23[2] = __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_73;
+  v23[2] = __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_74;
   v23[3] = &unk_1E7C9B078;
-  v17 = v15;
-  v24 = v17;
-  v18 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_74;
-  v21[3] = &unk_1E7C9B078;
-  v19 = v17;
-  v22 = v19;
-  [v18 startAppleIDAvailabilityHealthCheckWithCompletion:v21];
+  v22 = v20;
+  v24 = v22;
+  [v21 startAppleIDAvailabilityHealthCheckWithCompletion:v23];
 
   os_activity_scope_leave(&state);
-  _Block_object_dispose(v31, 8);
-
-  v20 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v33, 8);
 }
 
 void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke(void *a1, void *a2)
@@ -448,7 +444,7 @@ void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion_
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -459,35 +455,33 @@ void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion_
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "AppleIDAvailabilityHealthCheck", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
     v18 = 134218496;
-    v19 = v13;
+    v19 = v14;
     v20 = 2048;
-    v21 = v12;
+    v21 = v13;
     v22 = 1026;
-    v23 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: AppleIDAvailabilityHealthCheck  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 0x1Cu);
+    v23 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: AppleIDAvailabilityHealthCheck  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 0x1Cu);
   }
 
-  v16 = a1[4];
-  if (v16)
+  v17 = a1[4];
+  if (v17)
   {
-    (*(v16 + 16))(v16, v3);
+    (*(v17 + 16))(v17, v3);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_73(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_73_cold_1();
@@ -499,12 +493,13 @@ void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion_
 void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_74(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _AALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _AALogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_74_cold_1(v3, v4);
+      __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_74_cold_1(v4, v5);
     }
   }
 
@@ -513,12 +508,12 @@ void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion_
 
 - (void)configureRemoteInterface:(id)interface
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   interfaceCopy = interface;
-  v19[0] = objc_opt_class();
-  v19[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = objc_opt_class();
+  v18[1] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v6 = [v3 setWithArray:v5];
 
   [interfaceCopy setClasses:v6 forSelector:sel_handleAppleAccountDeleteForAccount_completion_ argumentIndex:0 ofReply:1];
@@ -526,18 +521,17 @@ void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion_
   [interfaceCopy setClasses:v7 forSelector:sel_removeProtoAccountWithCompletion_ argumentIndex:0 ofReply:1];
 
   v8 = MEMORY[0x1E695DFD8];
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
   v17 = objc_opt_class();
-  v18 = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:7];
-  v10 = [v8 setWithArray:{v9, v12, v13, v14, v15, v16, v17}];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:7];
+  v10 = [v8 setWithArray:{v9, v11, v12, v13, v14, v15, v16}];
 
   [interfaceCopy setClasses:v10 forSelector:sel_urlConfigurationWithCompletion_ argumentIndex:0 ofReply:1];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAppleAccountDeleteForAccount:completion:.cold.1()
@@ -558,10 +552,9 @@ void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion_
 
 void __68__AADaemonController_handleAppleAccountDeleteForAccount_completion___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)cacheLoginResponse:forAccount:completion:.cold.1()
@@ -590,49 +583,45 @@ void __68__AADaemonController_handleAppleAccountDeleteForAccount_completion___bl
 
 - (void)urlConfigurationWithCompletion:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initiating url configuration fetch...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AADaemonController urlConfigurationWithCompletion:]";
+  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initiating url configuration fetch...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __53__AADaemonController_urlConfigurationWithCompletion___block_invoke_70_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Failed to create proxy...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AADaemonController urlConfigurationWithCompletion:]_block_invoke";
+  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Failed to create proxy...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __55__AADaemonController_removeProtoAccountWithCompletion___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __69__AADaemonController_removeChildOrTeenConnectFollowUpWithCompletion___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_73_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __72__AADaemonController_startAppleIDAvailabilityHealthCheckWithCompletion___block_invoke_74_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Apple ID Availability health check failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Apple ID Availability health check failed: %@", &v2, 0xCu);
 }
 
 @end

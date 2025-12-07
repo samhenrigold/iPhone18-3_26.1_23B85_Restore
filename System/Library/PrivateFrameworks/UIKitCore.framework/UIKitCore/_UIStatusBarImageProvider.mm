@@ -122,7 +122,7 @@ LABEL_22:
 {
   namedCopy = named;
   attributesCopy = attributes;
-  if ([namedCopy isEqualToString:@"Large_Bolt"])
+  if (objc_msgSend_isEqualToString_(namedCopy))
   {
     effectiveLayoutDirection = [attributesCopy effectiveLayoutDirection];
     if (effectiveLayoutDirection == 1)
@@ -151,7 +151,7 @@ LABEL_22:
   else
   {
     v9 = 0.0;
-    if ([namedCopy isEqualToString:@"Split_SOS"])
+    if (objc_msgSend_isEqualToString_(namedCopy))
     {
       v10 = -0.666666667;
     }

@@ -928,10 +928,10 @@ void __68__PKExpressPassInformation_criteriaForPaymentApplicationIdentifier___bl
     goto LABEL_9;
   }
 
-  v12 = [v9 isEqualToString:v10];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
   v13 = v17;
-  if (v12)
+  if (isEqualToString)
   {
 LABEL_7:
     v14 = [v17 selectionCriteria];

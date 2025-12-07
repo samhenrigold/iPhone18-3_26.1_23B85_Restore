@@ -148,60 +148,60 @@ LABEL_3:
 {
   jobCopy = job;
   uuidCopy = uuid;
+  v8 = uuidCopy;
   if (uuidCopy)
   {
-    v8 = rbs_general_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = rbs_general_log(uuidCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [RBSDextProcessIdentity initWithDecodeFromJob:uuidCopy uuid:v8];
+      [RBSDextProcessIdentity initWithDecodeFromJob:v8 uuid:v9];
     }
   }
 
   string = xpc_dictionary_get_string(jobCopy, "DSER");
   if (string)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = xpc_dictionary_get_string(jobCopy, "DLAB");
-  if (v11)
+  v12 = xpc_dictionary_get_string(jobCopy, "DLAB");
+  if (v12)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v13 = xpc_dictionary_get_string(jobCopy, "EAI");
-  if (v13)
+  v14 = xpc_dictionary_get_string(jobCopy, "EAI");
+  if (v14)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v13];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v14];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v15 = [(RBSDextProcessIdentity *)self _initDextWithServerName:v10 label:v12 containingAppBundleID:v14];
+  v16 = [(RBSDextProcessIdentity *)self _initDextWithServerName:v11 label:v13 containingAppBundleID:v15];
 
-  return v15;
+  return v16;
 }
 
 - (void)initWithDecodeFromJob:(uint64_t)a1 uuid:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "There is no reason an dext identity should have a UUID: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "There is no reason an dext identity should have a UUID: %@", &v2, 0xCu);
 }
 
 @end

@@ -31,7 +31,7 @@
 
 - (void)_updateViewModelsWithDeclarations:(id)declarations
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   declarationsCopy = declarations;
   pluginSectionViewModels = [(RMUIPluginViewModelProvider *)self pluginSectionViewModels];
   [pluginSectionViewModels removeAllObjects];
@@ -40,75 +40,75 @@
   [pluginViewModels removeAllObjects];
 
   v7 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v8 = declarationsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v42;
+    v11 = *v41;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v42 != v11)
+        if (*v41 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(RMUIPluginViewModelProvider *)self _modelForDeclarationInfo:*(*(&v41 + 1) + 8 * i)];
+        v13 = [(RMUIPluginViewModelProvider *)self _modelForDeclarationInfo:*(*(&v40 + 1) + 8 * i)];
         [(RMUIPluginViewModelProvider *)self _addModel:v13 toSection:v7];
         pluginViewModels2 = [(RMUIPluginViewModelProvider *)self pluginViewModels];
         [pluginViewModels2 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v10);
   }
 
-  v35 = v8;
+  v34 = v8;
 
   v15 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"declarationType" ascending:1];
   v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"title" ascending:1 selector:sel_localizedCaseInsensitiveCompare_];
   v17 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"declarationIdentifier" ascending:1];
-  v33 = v16;
-  v34 = v15;
-  v46[0] = v15;
-  v46[1] = v16;
-  v32 = v17;
-  v46[2] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
+  v32 = v16;
+  v33 = v15;
+  v45[0] = v15;
+  v45[1] = v16;
+  v31 = v17;
+  v45[2] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
   pluginViewModels3 = [(RMUIPluginViewModelProvider *)self pluginViewModels];
   [pluginViewModels3 sortUsingDescriptors:v18];
 
   allKeys = [v7 allKeys];
   v21 = [allKeys sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = v21;
-  v22 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v22 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v38;
+    v24 = *v37;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v38 != v24)
+        if (*v37 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v37 + 1) + 8 * j);
+        v26 = *(*(&v36 + 1) + 8 * j);
         v27 = [v7 objectForKeyedSubscript:v26];
         v28 = [v27 sortedArrayUsingDescriptors:v18];
         v29 = [RMUIPluginSectionViewModel newPluginSectionViewModelWithHeading:v26 viewModels:v28];
@@ -117,18 +117,16 @@
         [pluginSectionViewModels2 addObject:v29];
       }
 
-      v23 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v23 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v23);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_modelForDeclarationInfo:(id)info
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = objc_opt_new();
   label = [infoCopy label];
@@ -157,29 +155,29 @@
   details = [infoCopy details];
   if (details)
   {
-    v28 = v5;
+    v27 = v5;
     v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(details, "count")}];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v27 = details;
+    v26 = details;
     v15 = details;
-    v16 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v30;
+      v18 = *v29;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v30 != v18)
+          if (*v29 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v29 + 1) + 8 * i);
+          v20 = *(*(&v28 + 1) + 8 * i);
           if ([v20 count] == 2)
           {
             v21 = [RMUIKeyValueDetailViewModel alloc];
@@ -195,25 +193,23 @@
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v34 = v20;
+              v33 = v20;
               _os_log_error_impl(&dword_261E8A000, v22, OS_LOG_TYPE_ERROR, "Cannot load details for non-tuple: %@", buf, 0xCu);
             }
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v28 objects:v34 count:16];
       }
 
       while (v17);
     }
 
-    v5 = v28;
-    [v28 setDetailViewModels:v14];
+    v5 = v27;
+    [v27 setDetailViewModels:v14];
 
-    details = v27;
+    details = v26;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -309,41 +305,41 @@ uint64_t __82__RMUIPluginViewModelProvider_loadPluginsFromConfigurationsWithComp
 
 void __82__RMUIPluginViewModelProvider_loadPluginsFromConfigurationsWithCompletionHandler___block_invoke_87(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[RMUILog pluginViewModelProvider];
   v8 = v7;
   if (v5)
   {
-    v29 = v6;
+    v28 = v6;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __82__RMUIPluginViewModelProvider_loadPluginsFromConfigurationsWithCompletionHandler___block_invoke_87_cold_1(v5, v8);
     }
 
-    v33 = objc_opt_new();
+    v32 = objc_opt_new();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v30 = v5;
+    v29 = v5;
     obj = v5;
-    v35 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
-    if (v35)
+    v34 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+    if (v34)
     {
-      v34 = *v37;
-      v32 = a1;
+      v33 = *v36;
+      v31 = a1;
       do
       {
-        for (i = 0; i != v35; ++i)
+        for (i = 0; i != v34; ++i)
         {
-          if (*v37 != v34)
+          if (*v36 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v36 + 1) + 8 * i);
+          v10 = *(*(&v35 + 1) + 8 * i);
           v11 = [v10 declarationIdentifier];
           v12 = [*(a1 + 32) filterDeclarationIdentifiers];
           if (v12 && (v13 = v12, [*(a1 + 32) filterDeclarationIdentifiers], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "containsObject:", v11), v14, v13, (v15 & 1) == 0))
@@ -352,7 +348,7 @@ void __82__RMUIPluginViewModelProvider_loadPluginsFromConfigurationsWithCompleti
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v41 = v11;
+              v40 = v11;
               _os_log_debug_impl(&dword_261E8A000, v23, OS_LOG_TYPE_DEBUG, "Ignoring configuration: %@", buf, 0xCu);
             }
           }
@@ -376,20 +372,20 @@ void __82__RMUIPluginViewModelProvider_loadPluginsFromConfigurationsWithCompleti
             v27 = [v26 hiddenDetails];
             [v23 setHiddenDetails:v27];
 
-            a1 = v32;
-            [v33 addObject:v23];
+            a1 = v31;
+            [v32 addObject:v23];
           }
         }
 
-        v35 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v34 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
-      while (v35);
+      while (v34);
     }
 
     (*(*(a1 + 40) + 16))();
-    v6 = v29;
-    v5 = v30;
+    v6 = v28;
+    v5 = v29;
   }
 
   else
@@ -401,8 +397,6 @@ void __82__RMUIPluginViewModelProvider_loadPluginsFromConfigurationsWithCompleti
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (signed)_symbolForDeclarationType:(id)type
@@ -476,20 +470,18 @@ void __62__RMUIPluginViewModelProvider__sectionNameForDeclarationType___block_in
 
 void __82__RMUIPluginViewModelProvider_loadPluginsFromConfigurationsWithCompletionHandler___block_invoke_87_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_debug_impl(&dword_261E8A000, a2, OS_LOG_TYPE_DEBUG, "Found configuration properties: %lu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_debug_impl(&dword_261E8A000, a2, OS_LOG_TYPE_DEBUG, "Found configuration properties: %lu", &v3, 0xCu);
 }
 
 void __82__RMUIPluginViewModelProvider_loadPluginsFromConfigurationsWithCompletionHandler___block_invoke_87_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_261E8A000, a2, OS_LOG_TYPE_ERROR, "Failed to find plugin properties: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_261E8A000, a2, OS_LOG_TYPE_ERROR, "Failed to find plugin properties: %{public}@", &v2, 0xCu);
 }
 
 @end

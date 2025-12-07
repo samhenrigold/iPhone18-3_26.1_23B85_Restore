@@ -131,37 +131,36 @@ void __51__WFNotificationAction_runAsynchronouslyWithInput___block_invoke(uint64
 
 - (void)getNotificationAttachmentsWithInput:(id)input completionHandler:(id)handler
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   inputCopy = input;
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v26[2] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v25[2] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
   v8 = MEMORY[0x277CFC2A0];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __78__WFNotificationAction_getNotificationAttachmentsWithInput_completionHandler___block_invoke;
-  v21[3] = &unk_278C1EE80;
-  v22 = handlerCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __78__WFNotificationAction_getNotificationAttachmentsWithInput_completionHandler___block_invoke;
+  v20[3] = &unk_278C1EE80;
+  v21 = handlerCopy;
   v9 = handlerCopy;
-  v10 = [v8 requestForCoercingToContentClasses:v7 completionHandler:v21];
+  v10 = [v8 requestForCoercingToContentClasses:v7 completionHandler:v20];
   v11 = MEMORY[0x277CBEB70];
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = [v11 orderedSetWithObjects:{v12, v13, objc_opt_class(), 0}];
   v15 = MEMORY[0x277CFC298];
   v16 = *MEMORY[0x277CFC600];
-  v23 = v14;
-  v24 = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-  v25 = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v22 = v14;
+  v23 = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v24 = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
   v19 = [v15 optionsWithDictionary:v18];
   [v10 setOptions:v19];
 
   [inputCopy performCoercion:v10];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __78__WFNotificationAction_getNotificationAttachmentsWithInput_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -203,17 +202,17 @@ void __78__WFNotificationAction_getNotificationAttachmentsWithInput_completionHa
 
 void __78__WFNotificationAction_getNotificationAttachmentsWithInput_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a4;
   v7 = [v5 preferredFileType];
   if ([v7 conformsToUTType:*MEMORY[0x277CE1DB0]])
   {
     v8 = *MEMORY[0x277CE1D88];
-    v14[0] = *MEMORY[0x277CE1DC0];
-    v14[1] = v8;
-    v14[2] = *MEMORY[0x277CE1E10];
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+    v13[0] = *MEMORY[0x277CE1DC0];
+    v13[1] = v8;
+    v13[2] = *MEMORY[0x277CE1E10];
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
     if (([v7 conformsToUTTypes:v9] & 1) == 0)
     {
       v10 = MEMORY[0x277D79F68];
@@ -225,8 +224,6 @@ void __78__WFNotificationAction_getNotificationAttachmentsWithInput_completionHa
   }
 
   [v5 getFileRepresentations:v6 forType:v7];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __78__WFNotificationAction_getNotificationAttachmentsWithInput_completionHandler___block_invoke_4(uint64_t a1, void *a2)

@@ -6,16 +6,16 @@
 
 - (id)_init
 {
-  v6.receiver = self;
-  v6.super_class = IMNotifyAnywayChatItem;
-  v2 = [(IMChatItem *)&v6 _initWithItem:0];
-  v4 = v2;
+  v5.receiver = self;
+  v5.super_class = IMNotifyAnywayChatItem;
+  v2 = [(IMChatItem *)&v5 _initWithItem:0];
+  v3 = v2;
   if (v2)
   {
-    objc_msgSend__setGUID_(v2, v3, @"na:");
+    [v2 _setGUID:@"na:"];
   }
 
-  return v4;
+  return v3;
 }
 
 @end

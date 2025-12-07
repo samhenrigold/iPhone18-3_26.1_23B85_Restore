@@ -12,16 +12,17 @@ void __75__NRPairedDeviceRegistry_BoundedWait__blt_boundedWaitForActivePairedDev
   block[2] = __75__NRPairedDeviceRegistry_BoundedWait__blt_boundedWaitForActivePairedDevice__block_invoke_2;
   block[3] = &unk_278D31428;
   v2 = v0;
-  v7 = v2;
+  v8 = v2;
   dispatch_async(v1, block);
   v3 = dispatch_time(0, 120000000000);
-  if (dispatch_semaphore_wait(v2, v3))
+  v4 = dispatch_semaphore_wait(v2, v3);
+  if (v4)
   {
-    v4 = blt_general_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = blt_general_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_FAULT, "Timed out calling [NRPairedDeviceRegistry waitForActivePairedDevice].", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_FAULT, "Timed out calling [NRPairedDeviceRegistry waitForActivePairedDevice].", v6, 2u);
     }
   }
 }

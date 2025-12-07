@@ -14,11 +14,9 @@
 
 + (id)_defaultAdditionalFigRepresentationObjects
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = [MEMORY[0x1E696AEC0] stringWithString:*MEMORY[0x1E6972418]];
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = [MEMORY[0x1E696AEC0] stringWithString:*MEMORY[0x1E6972418]];
+  return [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
 }
 
 + (id)volumeRampWithStartVolume:(float)volume endVolume:(float)endVolume timeRange:(id *)range rampMode:(int64_t)mode
@@ -66,7 +64,7 @@
 
 - (id)_additionalFigRepresentationObjects
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   rampMode = [(AVRoutingScheduledVolumeRamp *)self rampMode];
   v3 = MEMORY[0x1E6972410];
   if (rampMode != 1)
@@ -74,10 +72,8 @@
     v3 = MEMORY[0x1E6972418];
   }
 
-  v6[0] = [MEMORY[0x1E696AEC0] stringWithString:*v3];
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[0] = [MEMORY[0x1E696AEC0] stringWithString:*v3];
+  return [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 }
 
 - (id)_makeRampWithTruncatedTimeRange:(id *)range endValue:(float)value

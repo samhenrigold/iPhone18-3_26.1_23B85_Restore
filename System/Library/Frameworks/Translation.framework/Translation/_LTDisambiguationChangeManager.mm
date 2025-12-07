@@ -62,47 +62,47 @@
 
 - (BOOL)restoreChangesToResult:(id)result
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v15 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
   sentences = [result sentences];
-  v5 = [sentences countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = [sentences countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(sentences);
         }
 
-        v7 += [*(*(&v15 + 1) + 8 * i) _restoreChanges:self];
+        v7 += [*(*(&v16 + 1) + 8 * i) _restoreChanges:self];
       }
 
-      v6 = [sentences countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [sentences countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v6);
 
     if (v7)
     {
-      v10 = _LTOSLogDisambiguation();
-      v11 = 1;
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = _LTOSLogDisambiguation(v10, v11);
+      v13 = 1;
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v20 = v7;
-        _os_log_impl(&dword_23AAF5000, v10, OS_LOG_TYPE_INFO, "Restored changes to %zu sentences in result", buf, 0xCu);
+        v21 = v7;
+        _os_log_impl(&dword_23AAF5000, v12, OS_LOG_TYPE_INFO, "Restored changes to %zu sentences in result", buf, 0xCu);
       }
 
-      goto LABEL_15;
+      return v13;
     }
   }
 
@@ -110,16 +110,13 @@
   {
   }
 
-  v12 = _LTOSLogDisambiguation();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = _LTOSLogDisambiguation(v10, v11);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    [_LTDisambiguationChangeManager restoreChangesToResult:v12];
+    [_LTDisambiguationChangeManager restoreChangesToResult:v14];
   }
 
-  v11 = 0;
-LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 0;
 }
 
 - (BOOL)hasAnyChangeOfType:(unint64_t)type

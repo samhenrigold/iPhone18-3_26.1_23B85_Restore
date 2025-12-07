@@ -54,7 +54,7 @@
 
     else
     {
-      v10 = [v9 copy];
+      v10 = objc_msgSend_copy(v9);
     }
 
     _Block_object_dispose(&v18, 8);
@@ -128,7 +128,7 @@ void __68__HMDCoreDataTransformerHAPPairingIdentitySet_valueFromOPACK_error___bl
 
   else
   {
-    v8 = [v7 copy];
+    v8 = objc_msgSend_copy(v7);
   }
 
   _Block_object_dispose(&v14, 8);

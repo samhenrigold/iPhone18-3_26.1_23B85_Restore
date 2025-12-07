@@ -1,13 +1,13 @@
-id MAPSGetCameraLog()
+id MAPSGetCameraLog(uint64_t a1)
 {
   if (qword_10C90 != -1)
   {
     sub_686C();
   }
 
-  v1 = qword_10C88;
+  v2 = qword_10C88;
 
-  return v1;
+  return v2;
 }
 
 void sub_13CC(id a1)
@@ -17,16 +17,16 @@ void sub_13CC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCollectionsLog()
+id MAPSGetCollectionsLog(uint64_t a1)
 {
   if (qword_10CA0 != -1)
   {
     sub_6880();
   }
 
-  v1 = qword_10C98;
+  v2 = qword_10C98;
 
-  return v1;
+  return v2;
 }
 
 void sub_1454(id a1)
@@ -36,16 +36,16 @@ void sub_1454(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetContainerVCLog()
+id MAPSGetContainerVCLog(uint64_t a1)
 {
   if (qword_10CB0 != -1)
   {
     sub_6894();
   }
 
-  v1 = qword_10CA8;
+  v2 = qword_10CA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_14DC(id a1)
@@ -55,16 +55,16 @@ void sub_14DC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCuratedCollectionsLog()
+id MAPSGetCuratedCollectionsLog(uint64_t a1)
 {
   if (qword_10CC0 != -1)
   {
     sub_68A8();
   }
 
-  v1 = qword_10CB8;
+  v2 = qword_10CB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1564(id a1)
@@ -74,16 +74,16 @@ void sub_1564(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetEVOnboardingLog()
+id MAPSGetEVOnboardingLog(uint64_t a1)
 {
   if (qword_10CD0 != -1)
   {
     sub_68BC();
   }
 
-  v1 = qword_10CC8;
+  v2 = qword_10CC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_15EC(id a1)
@@ -93,16 +93,16 @@ void sub_15EC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetLightLevelProvidingLog()
+id MAPSGetLightLevelProvidingLog(uint64_t a1)
 {
   if (qword_10CE0 != -1)
   {
     sub_68D0();
   }
 
-  v1 = qword_10CD8;
+  v2 = qword_10CD8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1674(id a1)
@@ -112,16 +112,16 @@ void sub_1674(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapModeLog()
+id MAPSGetMapModeLog(uint64_t a1)
 {
   if (qword_10CF0 != -1)
   {
     sub_68E4();
   }
 
-  v1 = qword_10CE8;
+  v2 = qword_10CE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_16FC(id a1)
@@ -131,16 +131,16 @@ void sub_16FC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsActivityLog()
+id MAPSGetMapsActivityLog(uint64_t a1)
 {
   if (qword_10D00 != -1)
   {
     sub_68F8();
   }
 
-  v1 = qword_10CF8;
+  v2 = qword_10CF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1784(id a1)
@@ -150,16 +150,16 @@ void sub_1784(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsAssertLog()
+id MAPSGetMapsAssertLog(uint64_t a1)
 {
   if (qword_10D10 != -1)
   {
     sub_690C();
   }
 
-  v1 = qword_10D08;
+  v2 = qword_10D08;
 
-  return v1;
+  return v2;
 }
 
 void sub_180C(id a1)
@@ -169,16 +169,16 @@ void sub_180C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsChromeLog()
+id MAPSGetMapsChromeLog(uint64_t a1)
 {
   if (qword_10D20 != -1)
   {
     sub_6920();
   }
 
-  v1 = qword_10D18;
+  v2 = qword_10D18;
 
-  return v1;
+  return v2;
 }
 
 void sub_1894(id a1)
@@ -188,16 +188,16 @@ void sub_1894(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsDefaultLog()
+id MAPSGetMapsDefaultLog(uint64_t a1)
 {
   if (qword_10D30 != -1)
   {
     sub_6934();
   }
 
-  v1 = qword_10D28;
+  v2 = qword_10D28;
 
-  return v1;
+  return v2;
 }
 
 void sub_191C(id a1)
@@ -207,16 +207,16 @@ void sub_191C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsLaunchLog()
+id MAPSGetMapsLaunchLog(uint64_t a1)
 {
   if (qword_10D40 != -1)
   {
     sub_6948();
   }
 
-  v1 = qword_10D38;
+  v2 = qword_10D38;
 
-  return v1;
+  return v2;
 }
 
 void sub_19A4(id a1)
@@ -226,16 +226,16 @@ void sub_19A4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsNotificationsLog()
+id MAPSGetMapsNotificationsLog(uint64_t a1)
 {
   if (qword_10D50 != -1)
   {
     sub_695C();
   }
 
-  v1 = qword_10D48;
+  v2 = qword_10D48;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A2C(id a1)
@@ -245,16 +245,16 @@ void sub_1A2C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsPerformanceLog()
+id MAPSGetMapsPerformanceLog(uint64_t a1)
 {
   if (qword_10D60 != -1)
   {
     sub_6970();
   }
 
-  v1 = qword_10D58;
+  v2 = qword_10D58;
 
-  return v1;
+  return v2;
 }
 
 void sub_1AB4(id a1)
@@ -264,16 +264,16 @@ void sub_1AB4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetLookAroundLog()
+id MAPSGetLookAroundLog(uint64_t a1)
 {
   if (qword_10D70 != -1)
   {
     sub_6984();
   }
 
-  v1 = qword_10D68;
+  v2 = qword_10D68;
 
-  return v1;
+  return v2;
 }
 
 void sub_1B3C(id a1)
@@ -283,16 +283,16 @@ void sub_1B3C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNavigationLog()
+id MAPSGetNavigationLog(uint64_t a1)
 {
   if (qword_10D80 != -1)
   {
     sub_6998();
   }
 
-  v1 = qword_10D78;
+  v2 = qword_10D78;
 
-  return v1;
+  return v2;
 }
 
 void sub_1BC4(id a1)
@@ -302,16 +302,16 @@ void sub_1BC4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNavigationBannersLog()
+id MAPSGetNavigationBannersLog(uint64_t a1)
 {
   if (qword_10D90 != -1)
   {
     sub_69AC();
   }
 
-  v1 = qword_10D88;
+  v2 = qword_10D88;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C4C(id a1)
@@ -321,16 +321,16 @@ void sub_1C4C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNearbyTransitLog()
+id MAPSGetNearbyTransitLog(uint64_t a1)
 {
   if (qword_10DA0 != -1)
   {
     sub_69C0();
   }
 
-  v1 = qword_10D98;
+  v2 = qword_10D98;
 
-  return v1;
+  return v2;
 }
 
 void sub_1CD4(id a1)
@@ -340,16 +340,16 @@ void sub_1CD4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetOfflineLog()
+id MAPSGetOfflineLog(uint64_t a1)
 {
   if (qword_10DB0 != -1)
   {
     sub_69D4();
   }
 
-  v1 = qword_10DA8;
+  v2 = qword_10DA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1D5C(id a1)
@@ -359,16 +359,16 @@ void sub_1D5C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPlaceCardLog()
+id MAPSGetPlaceCardLog(uint64_t a1)
 {
   if (qword_10DC0 != -1)
   {
     sub_69E8();
   }
 
-  v1 = qword_10DB8;
+  v2 = qword_10DB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1DE4(id a1)
@@ -378,16 +378,16 @@ void sub_1DE4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPPTLog()
+id MAPSGetPPTLog(uint64_t a1)
 {
   if (qword_10DD0 != -1)
   {
     sub_69FC();
   }
 
-  v1 = qword_10DC8;
+  v2 = qword_10DC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1E6C(id a1)
@@ -397,16 +397,16 @@ void sub_1E6C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPreferencesSyncLog()
+id MAPSGetPreferencesSyncLog(uint64_t a1)
 {
   if (qword_10DE0 != -1)
   {
     sub_6A10();
   }
 
-  v1 = qword_10DD8;
+  v2 = qword_10DD8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1EF4(id a1)
@@ -416,16 +416,16 @@ void sub_1EF4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPrintLog()
+id MAPSGetPrintLog(uint64_t a1)
 {
   if (qword_10DF0 != -1)
   {
     sub_6A24();
   }
 
-  v1 = qword_10DE8;
+  v2 = qword_10DE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1F7C(id a1)
@@ -435,16 +435,16 @@ void sub_1F7C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPLayoutLog()
+id MAPSGetRAPLayoutLog(uint64_t a1)
 {
   if (qword_10E00 != -1)
   {
     sub_6A38();
   }
 
-  v1 = qword_10DF8;
+  v2 = qword_10DF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2004(id a1)
@@ -454,16 +454,16 @@ void sub_2004(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPNavigationLog()
+id MAPSGetRAPNavigationLog(uint64_t a1)
 {
   if (qword_10E10 != -1)
   {
     sub_6A4C();
   }
 
-  v1 = qword_10E08;
+  v2 = qword_10E08;
 
-  return v1;
+  return v2;
 }
 
 void sub_208C(id a1)
@@ -473,16 +473,16 @@ void sub_208C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPSubmissionLog()
+id MAPSGetRAPSubmissionLog(uint64_t a1)
 {
   if (qword_10E20 != -1)
   {
     sub_6A60();
   }
 
-  v1 = qword_10E18;
+  v2 = qword_10E18;
 
-  return v1;
+  return v2;
 }
 
 void sub_2114(id a1)
@@ -492,16 +492,16 @@ void sub_2114(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRecentsLog()
+id MAPSGetRecentsLog(uint64_t a1)
 {
   if (qword_10E30 != -1)
   {
     sub_6A74();
   }
 
-  v1 = qword_10E28;
+  v2 = qword_10E28;
 
-  return v1;
+  return v2;
 }
 
 void sub_219C(id a1)
@@ -511,16 +511,16 @@ void sub_219C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRouteCreationLog()
+id MAPSGetRouteCreationLog(uint64_t a1)
 {
   if (qword_10E40 != -1)
   {
     sub_6A88();
   }
 
-  v1 = qword_10E38;
+  v2 = qword_10E38;
 
-  return v1;
+  return v2;
 }
 
 void sub_2224(id a1)
@@ -530,16 +530,16 @@ void sub_2224(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRoutePlanningLog()
+id MAPSGetRoutePlanningLog(uint64_t a1)
 {
   if (qword_10E50 != -1)
   {
     sub_6A9C();
   }
 
-  v1 = qword_10E48;
+  v2 = qword_10E48;
 
-  return v1;
+  return v2;
 }
 
 void sub_22AC(id a1)
@@ -549,16 +549,16 @@ void sub_22AC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRoutePlanningFeatureDiscoveryLog()
+id MAPSGetRoutePlanningFeatureDiscoveryLog(uint64_t a1)
 {
   if (qword_10E60 != -1)
   {
     sub_6AB0();
   }
 
-  v1 = qword_10E58;
+  v2 = qword_10E58;
 
-  return v1;
+  return v2;
 }
 
 void sub_2334(id a1)
@@ -568,16 +568,16 @@ void sub_2334(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchACLog()
+id MAPSGetSearchACLog(uint64_t a1)
 {
   if (qword_10E70 != -1)
   {
     sub_6AC4();
   }
 
-  v1 = qword_10E68;
+  v2 = qword_10E68;
 
-  return v1;
+  return v2;
 }
 
 void sub_23BC(id a1)
@@ -587,16 +587,16 @@ void sub_23BC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchACFindMyLog()
+id MAPSGetSearchACFindMyLog(uint64_t a1)
 {
   if (qword_10E80 != -1)
   {
     sub_6AD8();
   }
 
-  v1 = qword_10E78;
+  v2 = qword_10E78;
 
-  return v1;
+  return v2;
 }
 
 void sub_2444(id a1)
@@ -606,16 +606,16 @@ void sub_2444(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchHomeLog()
+id MAPSGetSearchHomeLog(uint64_t a1)
 {
   if (qword_10E90 != -1)
   {
     sub_6AEC();
   }
 
-  v1 = qword_10E88;
+  v2 = qword_10E88;
 
-  return v1;
+  return v2;
 }
 
 void sub_24CC(id a1)
@@ -625,16 +625,16 @@ void sub_24CC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSharedTripLog()
+id MAPSGetSharedTripLog(uint64_t a1)
 {
   if (qword_10EA0 != -1)
   {
     sub_6B00();
   }
 
-  v1 = qword_10E98;
+  v2 = qword_10E98;
 
-  return v1;
+  return v2;
 }
 
 void sub_2554(id a1)
@@ -644,16 +644,16 @@ void sub_2554(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSharingLog()
+id MAPSGetSharingLog(uint64_t a1)
 {
   if (qword_10EB0 != -1)
   {
     sub_6B14();
   }
 
-  v1 = qword_10EA8;
+  v2 = qword_10EA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_25DC(id a1)
@@ -663,16 +663,16 @@ void sub_25DC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetShortcutsLog()
+id MAPSGetShortcutsLog(uint64_t a1)
 {
   if (qword_10EC0 != -1)
   {
     sub_6B28();
   }
 
-  v1 = qword_10EB8;
+  v2 = qword_10EB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2664(id a1)
@@ -682,16 +682,16 @@ void sub_2664(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTileStateCaptureLog()
+id MAPSGetTileStateCaptureLog(uint64_t a1)
 {
   if (qword_10ED0 != -1)
   {
     sub_6B3C();
   }
 
-  v1 = qword_10EC8;
+  v2 = qword_10EC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_26EC(id a1)
@@ -701,16 +701,16 @@ void sub_26EC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTransitLog()
+id MAPSGetTransitLog(uint64_t a1)
 {
   if (qword_10EE0 != -1)
   {
     sub_6B50();
   }
 
-  v1 = qword_10ED8;
+  v2 = qword_10ED8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2774(id a1)
@@ -720,16 +720,16 @@ void sub_2774(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTransitPayLog()
+id MAPSGetTransitPayLog(uint64_t a1)
 {
   if (qword_10EF0 != -1)
   {
     sub_6B64();
   }
 
-  v1 = qword_10EE8;
+  v2 = qword_10EE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_27FC(id a1)
@@ -739,16 +739,16 @@ void sub_27FC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTransitSchedulesLog()
+id MAPSGetTransitSchedulesLog(uint64_t a1)
 {
   if (qword_10F00 != -1)
   {
     sub_6B78();
   }
 
-  v1 = qword_10EF8;
+  v2 = qword_10EF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2884(id a1)
@@ -758,16 +758,16 @@ void sub_2884(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUserProfileLog()
+id MAPSGetUserProfileLog(uint64_t a1)
 {
   if (qword_10F10 != -1)
   {
     sub_6B8C();
   }
 
-  v1 = qword_10F08;
+  v2 = qword_10F08;
 
-  return v1;
+  return v2;
 }
 
 void sub_290C(id a1)
@@ -777,16 +777,16 @@ void sub_290C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetVehicleDisambiguatorLog()
+id MAPSGetVehicleDisambiguatorLog(uint64_t a1)
 {
   if (qword_10F20 != -1)
   {
     sub_6BA0();
   }
 
-  v1 = qword_10F18;
+  v2 = qword_10F18;
 
-  return v1;
+  return v2;
 }
 
 void sub_2994(id a1)
@@ -796,16 +796,16 @@ void sub_2994(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetVirtualGarageLog()
+id MAPSGetVirtualGarageLog(uint64_t a1)
 {
   if (qword_10F30 != -1)
   {
     sub_6BB4();
   }
 
-  v1 = qword_10F28;
+  v2 = qword_10F28;
 
-  return v1;
+  return v2;
 }
 
 void sub_2A1C(id a1)
@@ -815,16 +815,16 @@ void sub_2A1C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetWeatherLog()
+id MAPSGetWeatherLog(uint64_t a1)
 {
   if (qword_10F40 != -1)
   {
     sub_6BC8();
   }
 
-  v1 = qword_10F38;
+  v2 = qword_10F38;
 
-  return v1;
+  return v2;
 }
 
 void sub_2AA4(id a1)
@@ -834,16 +834,16 @@ void sub_2AA4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetXPCLog()
+id MAPSGetXPCLog(uint64_t a1)
 {
   if (qword_10F50 != -1)
   {
     sub_6BDC();
   }
 
-  v1 = qword_10F48;
+  v2 = qword_10F48;
 
-  return v1;
+  return v2;
 }
 
 void sub_2B2C(id a1)
@@ -853,16 +853,16 @@ void sub_2B2C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCBAAUtilitiesLog()
+id MAPSGetUGCBAAUtilitiesLog(uint64_t a1)
 {
   if (qword_10F60 != -1)
   {
     sub_6BF0();
   }
 
-  v1 = qword_10F58;
+  v2 = qword_10F58;
 
-  return v1;
+  return v2;
 }
 
 void sub_2BB4(id a1)
@@ -872,16 +872,16 @@ void sub_2BB4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetIncidentsReportingLog()
+id MAPSGetIncidentsReportingLog(uint64_t a1)
 {
   if (qword_10F70 != -1)
   {
     sub_6C04();
   }
 
-  v1 = qword_10F68;
+  v2 = qword_10F68;
 
-  return v1;
+  return v2;
 }
 
 void sub_2C3C(id a1)
@@ -891,16 +891,16 @@ void sub_2C3C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetWatermarkingLog()
+id MAPSGetWatermarkingLog(uint64_t a1)
 {
   if (qword_10F80 != -1)
   {
     sub_6C18();
   }
 
-  v1 = qword_10F78;
+  v2 = qword_10F78;
 
-  return v1;
+  return v2;
 }
 
 void sub_2CC4(id a1)
@@ -910,16 +910,16 @@ void sub_2CC4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetWaypointRequestLog()
+id MAPSGetWaypointRequestLog(uint64_t a1)
 {
   if (qword_10F90 != -1)
   {
     sub_6C2C();
   }
 
-  v1 = qword_10F88;
+  v2 = qword_10F88;
 
-  return v1;
+  return v2;
 }
 
 void sub_2D4C(id a1)
@@ -929,16 +929,16 @@ void sub_2D4C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetWebBundleLog()
+id MAPSGetWebBundleLog(uint64_t a1)
 {
   if (qword_10FA0 != -1)
   {
     sub_6C40();
   }
 
-  v1 = qword_10F98;
+  v2 = qword_10F98;
 
-  return v1;
+  return v2;
 }
 
 void sub_2DD4(id a1)
@@ -948,16 +948,16 @@ void sub_2DD4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPRecordsManagerLog()
+id MAPSGetRAPRecordsManagerLog(uint64_t a1)
 {
   if (qword_10FB0 != -1)
   {
     sub_6C54();
   }
 
-  v1 = qword_10FA8;
+  v2 = qword_10FA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2E5C(id a1)
@@ -967,16 +967,16 @@ void sub_2E5C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCPhotoAttributionLog()
+id MAPSGetUGCPhotoAttributionLog(uint64_t a1)
 {
   if (qword_10FC0 != -1)
   {
     sub_6C68();
   }
 
-  v1 = qword_10FB8;
+  v2 = qword_10FB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2EE4(id a1)
@@ -986,16 +986,16 @@ void sub_2EE4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchResultsImpressionsLog()
+id MAPSGetSearchResultsImpressionsLog(uint64_t a1)
 {
   if (qword_10FD0 != -1)
   {
     sub_6C7C();
   }
 
-  v1 = qword_10FC8;
+  v2 = qword_10FC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2F6C(id a1)
@@ -1005,16 +1005,16 @@ void sub_2F6C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchRedoLog()
+id MAPSGetSearchRedoLog(uint64_t a1)
 {
   if (qword_10FE0 != -1)
   {
     sub_6C90();
   }
 
-  v1 = qword_10FD8;
+  v2 = qword_10FD8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2FF4(id a1)
@@ -1024,16 +1024,16 @@ void sub_2FF4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetStaleTimeBug_105865770Log()
+id MAPSGetStaleTimeBug_105865770Log(uint64_t a1)
 {
   if (qword_10FF0 != -1)
   {
     sub_6CA4();
   }
 
-  v1 = qword_10FE8;
+  v2 = qword_10FE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_307C(id a1)
@@ -1043,16 +1043,16 @@ void sub_307C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCustomPOIsControllerLog()
+id MAPSGetCustomPOIsControllerLog(uint64_t a1)
 {
   if (qword_11000 != -1)
   {
     sub_6CB8();
   }
 
-  v1 = qword_10FF8;
+  v2 = qword_10FF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3104(id a1)
@@ -1062,16 +1062,16 @@ void sub_3104(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPOSIXSignalsLog()
+id MAPSGetPOSIXSignalsLog(uint64_t a1)
 {
   if (qword_11010 != -1)
   {
     sub_6CCC();
   }
 
-  v1 = qword_11008;
+  v2 = qword_11008;
 
-  return v1;
+  return v2;
 }
 
 void sub_318C(id a1)
@@ -1081,16 +1081,16 @@ void sub_318C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCoalescingSchedulerLog()
+id MAPSGetCoalescingSchedulerLog(uint64_t a1)
 {
   if (qword_11020 != -1)
   {
     sub_6CE0();
   }
 
-  v1 = qword_11018;
+  v2 = qword_11018;
 
-  return v1;
+  return v2;
 }
 
 void sub_3214(id a1)
@@ -1100,16 +1100,16 @@ void sub_3214(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetDeviceConnectionLog()
+id MAPSGetDeviceConnectionLog(uint64_t a1)
 {
   if (qword_11030 != -1)
   {
     sub_6CF4();
   }
 
-  v1 = qword_11028;
+  v2 = qword_11028;
 
-  return v1;
+  return v2;
 }
 
 void sub_329C(id a1)
@@ -1119,16 +1119,16 @@ void sub_329C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetDictationLog()
+id MAPSGetDictationLog(uint64_t a1)
 {
   if (qword_11040 != -1)
   {
     sub_6D08();
   }
 
-  v1 = qword_11038;
+  v2 = qword_11038;
 
-  return v1;
+  return v2;
 }
 
 void sub_3324(id a1)
@@ -1138,16 +1138,16 @@ void sub_3324(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetElevationGraphLog()
+id MAPSGetElevationGraphLog(uint64_t a1)
 {
   if (qword_11050 != -1)
   {
     sub_6D1C();
   }
 
-  v1 = qword_11048;
+  v2 = qword_11048;
 
-  return v1;
+  return v2;
 }
 
 void sub_33AC(id a1)
@@ -1157,16 +1157,16 @@ void sub_33AC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetIncidentReportingLog()
+id MAPSGetIncidentReportingLog(uint64_t a1)
 {
   if (qword_11060 != -1)
   {
     sub_6D30();
   }
 
-  v1 = qword_11058;
+  v2 = qword_11058;
 
-  return v1;
+  return v2;
 }
 
 void sub_3434(id a1)
@@ -1176,16 +1176,16 @@ void sub_3434(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetLightLevelLog()
+id MAPSGetLightLevelLog(uint64_t a1)
 {
   if (qword_11070 != -1)
   {
     sub_6D44();
   }
 
-  v1 = qword_11068;
+  v2 = qword_11068;
 
-  return v1;
+  return v2;
 }
 
 void sub_34BC(id a1)
@@ -1195,16 +1195,16 @@ void sub_34BC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapRegionLog()
+id MAPSGetMapRegionLog(uint64_t a1)
 {
   if (qword_11080 != -1)
   {
     sub_6D58();
   }
 
-  v1 = qword_11078;
+  v2 = qword_11078;
 
-  return v1;
+  return v2;
 }
 
 void sub_3544(id a1)
@@ -1214,16 +1214,16 @@ void sub_3544(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNavigationSimulationPromptLog()
+id MAPSGetNavigationSimulationPromptLog(uint64_t a1)
 {
   if (qword_11090 != -1)
   {
     sub_6D6C();
   }
 
-  v1 = qword_11088;
+  v2 = qword_11088;
 
-  return v1;
+  return v2;
 }
 
 void sub_35CC(id a1)
@@ -1233,16 +1233,16 @@ void sub_35CC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNavIndicatorsLog()
+id MAPSGetNavIndicatorsLog(uint64_t a1)
 {
   if (qword_110A0 != -1)
   {
     sub_6D80();
   }
 
-  v1 = qword_11098;
+  v2 = qword_11098;
 
-  return v1;
+  return v2;
 }
 
 void sub_3654(id a1)
@@ -1252,16 +1252,16 @@ void sub_3654(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetProactiveTrayLog()
+id MAPSGetProactiveTrayLog(uint64_t a1)
 {
   if (qword_110B0 != -1)
   {
     sub_6D94();
   }
 
-  v1 = qword_110A8;
+  v2 = qword_110A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_36DC(id a1)
@@ -1271,16 +1271,16 @@ void sub_36DC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPPresenterLog()
+id MAPSGetRAPPresenterLog(uint64_t a1)
 {
   if (qword_110C0 != -1)
   {
     sub_6DA8();
   }
 
-  v1 = qword_110B8;
+  v2 = qword_110B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3764(id a1)
@@ -1290,16 +1290,16 @@ void sub_3764(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRoutePlanningOutlineLog()
+id MAPSGetRoutePlanningOutlineLog(uint64_t a1)
 {
   if (qword_110D0 != -1)
   {
     sub_6DBC();
   }
 
-  v1 = qword_110C8;
+  v2 = qword_110C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_37EC(id a1)
@@ -1309,16 +1309,16 @@ void sub_37EC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetStatusIndicatorLog()
+id MAPSGetStatusIndicatorLog(uint64_t a1)
 {
   if (qword_110E0 != -1)
   {
     sub_6DD0();
   }
 
-  v1 = qword_110D8;
+  v2 = qword_110D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3874(id a1)
@@ -1328,16 +1328,16 @@ void sub_3874(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTransitNavigationLog()
+id MAPSGetTransitNavigationLog(uint64_t a1)
 {
   if (qword_110F0 != -1)
   {
     sub_6DE4();
   }
 
-  v1 = qword_110E8;
+  v2 = qword_110E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_38FC(id a1)
@@ -1347,16 +1347,16 @@ void sub_38FC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTurnAlertsLog()
+id MAPSGetTurnAlertsLog(uint64_t a1)
 {
   if (qword_11100 != -1)
   {
     sub_6DF8();
   }
 
-  v1 = qword_110F8;
+  v2 = qword_110F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3984(id a1)
@@ -1366,16 +1366,16 @@ void sub_3984(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCCallToActionViewProviderLog()
+id MAPSGetUGCCallToActionViewProviderLog(uint64_t a1)
 {
   if (qword_11110 != -1)
   {
     sub_6E0C();
   }
 
-  v1 = qword_11108;
+  v2 = qword_11108;
 
-  return v1;
+  return v2;
 }
 
 void sub_3A0C(id a1)
@@ -1385,16 +1385,16 @@ void sub_3A0C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCPhotoDownloadManagerLog()
+id MAPSGetUGCPhotoDownloadManagerLog(uint64_t a1)
 {
   if (qword_11120 != -1)
   {
     sub_6E20();
   }
 
-  v1 = qword_11118;
+  v2 = qword_11118;
 
-  return v1;
+  return v2;
 }
 
 void sub_3A94(id a1)
@@ -1404,16 +1404,16 @@ void sub_3A94(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCReviewedPlacesManagerLog()
+id MAPSGetUGCReviewedPlacesManagerLog(uint64_t a1)
 {
   if (qword_11130 != -1)
   {
     sub_6E34();
   }
 
-  v1 = qword_11128;
+  v2 = qword_11128;
 
-  return v1;
+  return v2;
 }
 
 void sub_3B1C(id a1)
@@ -1423,16 +1423,16 @@ void sub_3B1C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCPhotoViewerDataProviderLog()
+id MAPSGetUGCPhotoViewerDataProviderLog(uint64_t a1)
 {
   if (qword_11140 != -1)
   {
     sub_6E48();
   }
 
-  v1 = qword_11138;
+  v2 = qword_11138;
 
-  return v1;
+  return v2;
 }
 
 void sub_3BA4(id a1)
@@ -1442,16 +1442,16 @@ void sub_3BA4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarBlurViewLog()
+id MAPSGetCarBlurViewLog(uint64_t a1)
 {
   if (qword_11150 != -1)
   {
     sub_6E5C();
   }
 
-  v1 = qword_11148;
+  v2 = qword_11148;
 
-  return v1;
+  return v2;
 }
 
 void sub_3C2C(id a1)
@@ -1461,16 +1461,16 @@ void sub_3C2C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarCardsLog()
+id MAPSGetCarCardsLog(uint64_t a1)
 {
   if (qword_11160 != -1)
   {
     sub_6E70();
   }
 
-  v1 = qword_11158;
+  v2 = qword_11158;
 
-  return v1;
+  return v2;
 }
 
 void sub_3CB4(id a1)
@@ -1480,16 +1480,16 @@ void sub_3CB4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarClusterSuggestionLog()
+id MAPSGetCarClusterSuggestionLog(uint64_t a1)
 {
   if (qword_11170 != -1)
   {
     sub_6E84();
   }
 
-  v1 = qword_11168;
+  v2 = qword_11168;
 
-  return v1;
+  return v2;
 }
 
 void sub_3D3C(id a1)
@@ -1499,16 +1499,16 @@ void sub_3D3C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarCompressionLog()
+id MAPSGetCarCompressionLog(uint64_t a1)
 {
   if (qword_11180 != -1)
   {
     sub_6E98();
   }
 
-  v1 = qword_11178;
+  v2 = qword_11178;
 
-  return v1;
+  return v2;
 }
 
 void sub_3DC4(id a1)
@@ -1518,16 +1518,16 @@ void sub_3DC4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarFocusLog()
+id MAPSGetCarFocusLog(uint64_t a1)
 {
   if (qword_11190 != -1)
   {
     sub_6EAC();
   }
 
-  v1 = qword_11188;
+  v2 = qword_11188;
 
-  return v1;
+  return v2;
 }
 
 void sub_3E4C(id a1)
@@ -1537,16 +1537,16 @@ void sub_3E4C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarInstrumentClusterLog()
+id MAPSGetCarInstrumentClusterLog(uint64_t a1)
 {
   if (qword_111A0 != -1)
   {
     sub_6EC0();
   }
 
-  v1 = qword_11198;
+  v2 = qword_11198;
 
-  return v1;
+  return v2;
 }
 
 void sub_3ED4(id a1)
@@ -1556,16 +1556,16 @@ void sub_3ED4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarGuidanceLog()
+id MAPSGetCarGuidanceLog(uint64_t a1)
 {
   if (qword_111B0 != -1)
   {
     sub_6ED4();
   }
 
-  v1 = qword_111A8;
+  v2 = qword_111A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3F5C(id a1)
@@ -1575,16 +1575,16 @@ void sub_3F5C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarMapWidgetLog()
+id MAPSGetCarMapWidgetLog(uint64_t a1)
 {
   if (qword_111C0 != -1)
   {
     sub_6EE8();
   }
 
-  v1 = qword_111B8;
+  v2 = qword_111B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3FE4(id a1)
@@ -1594,16 +1594,16 @@ void sub_3FE4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarPlayLog()
+id MAPSGetCarPlayLog(uint64_t a1)
 {
   if (qword_111D0 != -1)
   {
     sub_6EFC();
   }
 
-  v1 = qword_111C8;
+  v2 = qword_111C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_406C(id a1)
@@ -1613,16 +1613,16 @@ void sub_406C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarRouteGeniusLog()
+id MAPSGetCarRouteGeniusLog(uint64_t a1)
 {
   if (qword_111E0 != -1)
   {
     sub_6F10();
   }
 
-  v1 = qword_111D8;
+  v2 = qword_111D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_40F4(id a1)
@@ -1632,16 +1632,16 @@ void sub_40F4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarSessionControllerLog()
+id MAPSGetCarSessionControllerLog(uint64_t a1)
 {
   if (qword_111F0 != -1)
   {
     sub_6F24();
   }
 
-  v1 = qword_111E8;
+  v2 = qword_111E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_417C(id a1)
@@ -1651,16 +1651,16 @@ void sub_417C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarSmallWidgetLog()
+id MAPSGetCarSmallWidgetLog(uint64_t a1)
 {
   if (qword_11200 != -1)
   {
     sub_6F38();
   }
 
-  v1 = qword_111F8;
+  v2 = qword_111F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4204(id a1)
@@ -1670,16 +1670,16 @@ void sub_4204(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCompanionControllerLog()
+id MAPSGetCompanionControllerLog(uint64_t a1)
 {
   if (qword_11210 != -1)
   {
     sub_6F4C();
   }
 
-  v1 = qword_11208;
+  v2 = qword_11208;
 
-  return v1;
+  return v2;
 }
 
 void sub_428C(id a1)
@@ -1689,16 +1689,16 @@ void sub_428C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetHydrateGeoMapItemLog()
+id MAPSGetHydrateGeoMapItemLog(uint64_t a1)
 {
   if (qword_11220 != -1)
   {
     sub_6F60();
   }
 
-  v1 = qword_11218;
+  v2 = qword_11218;
 
-  return v1;
+  return v2;
 }
 
 void sub_4314(id a1)
@@ -1708,16 +1708,16 @@ void sub_4314(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetIdleTimerLog()
+id MAPSGetIdleTimerLog(uint64_t a1)
 {
   if (qword_11230 != -1)
   {
     sub_6F74();
   }
 
-  v1 = qword_11228;
+  v2 = qword_11228;
 
-  return v1;
+  return v2;
 }
 
 void sub_439C(id a1)
@@ -1727,16 +1727,16 @@ void sub_439C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPedestrianARLog()
+id MAPSGetPedestrianARLog(uint64_t a1)
 {
   if (qword_11240 != -1)
   {
     sub_6F88();
   }
 
-  v1 = qword_11238;
+  v2 = qword_11238;
 
-  return v1;
+  return v2;
 }
 
 void sub_4424(id a1)
@@ -1746,16 +1746,16 @@ void sub_4424(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPuckTrackingLog()
+id MAPSGetPuckTrackingLog(uint64_t a1)
 {
   if (qword_11250 != -1)
   {
     sub_6F9C();
   }
 
-  v1 = qword_11248;
+  v2 = qword_11248;
 
-  return v1;
+  return v2;
 }
 
 void sub_44AC(id a1)
@@ -1765,23 +1765,23 @@ void sub_44AC(id a1)
   _objc_release_x1();
 }
 
-id sub_47FC()
+id sub_47FC(uint64_t a1)
 {
   if (qword_11260 != -1)
   {
     sub_6FB0();
   }
 
-  v1 = qword_11258;
+  v2 = qword_11258;
 
-  return v1;
+  return v2;
 }
 
 void sub_4840(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_47FC();
+  v7 = sub_47FC(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = @"actively sharing";
@@ -1812,7 +1812,7 @@ void sub_4948(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_47FC();
+  v7 = sub_47FC(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = 134217984;
@@ -1834,7 +1834,7 @@ void sub_50FC(uint64_t a1, void *a2, void *a3, void *a4)
   v7 = a3;
   v8 = a4;
   v9 = a2;
-  v10 = sub_47FC();
+  v10 = sub_47FC(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1882,28 +1882,32 @@ void sub_5264(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
     v13 = *v23;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      v14 = 0;
+      do
       {
         if (*v23 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v16 = sub_47FC();
+        v15 = *(*(&v22 + 1) + 8 * v14);
+        v16 = sub_47FC(v11);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
           _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "- Removing participant from Favorite (if exists)", buf, 2u);
         }
 
-        [v15 _ds_stopSharingWithParticipant:*(a1 + 32)];
+        v11 = [v15 _ds_stopSharingWithParticipant:*(a1 + 32)];
+        v14 = v14 + 1;
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      while (v12 != v14);
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = v11;
     }
 
-    while (v12);
+    while (v11);
   }
 
   v20 = 0;
@@ -1920,7 +1924,7 @@ void sub_5264(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 void sub_542C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_47FC();
+  v4 = sub_47FC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -1935,7 +1939,7 @@ void sub_5630(id a1, MSPSharedTripService *a2, NSMutableArray *a3, OS_dispatch_g
   v6 = a3;
   v7 = a4;
   v8 = a2;
-  v9 = sub_47FC();
+  v9 = sub_47FC(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1968,32 +1972,32 @@ void sub_5740(uint64_t a1, uint64_t a2)
 void sub_5784(id a1, NSArray *a2, _TtC8MapsSync13MapsSyncStore *a3, NSMutableArray *a4, OS_dispatch_group *a5)
 {
   v8 = a2;
-  v28 = a3;
-  v27 = a4;
+  v27 = a3;
+  v26 = a4;
   group = a5;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v32;
+    v11 = *v31;
     v12 = &dword_0;
-    v29 = *v32;
+    v28 = *v31;
     do
     {
       v13 = 0;
       do
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v31 + 1) + 8 * v13);
-        v15 = sub_47FC();
+        v14 = *(*(&v30 + 1) + 8 * v13);
+        v15 = sub_47FC(v9);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           v16 = v14;
@@ -2016,7 +2020,7 @@ void sub_5784(id a1, NSArray *a2, _TtC8MapsSync13MapsSyncStore *a3, NSMutableArr
 
               v8 = v20;
               v12 = v19;
-              v11 = v29;
+              v11 = v28;
             }
 
             else
@@ -2024,7 +2028,7 @@ void sub_5784(id a1, NSArray *a2, _TtC8MapsSync13MapsSyncStore *a3, NSMutableArr
 
               v8 = v20;
               v12 = v19;
-              v11 = v29;
+              v11 = v28;
 LABEL_12:
               v23 = [NSString stringWithFormat:@"%@<%p>", v18, v16];
             }
@@ -2036,28 +2040,28 @@ LABEL_12:
           }
 
           *buf = 138543362;
-          v36 = v23;
+          v35 = v23;
           _os_log_impl(v12, v15, OS_LOG_TYPE_INFO, "- Removing all sharing from Favorite %{public}@", buf, 0xCu);
         }
 
-        [v14 _ds_stopSharing];
+        v9 = [v14 _ds_stopSharing];
         v13 = v13 + 1;
       }
 
       while (v10 != v13);
-      v24 = [(NSArray *)v8 countByEnumeratingWithState:&v31 objects:v37 count:16];
-      v10 = v24;
+      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v10 = v9;
     }
 
-    while (v24);
+    while (v9);
   }
 
-  v30 = 0;
-  [(_TtC8MapsSync13MapsSyncStore *)v28 saveWithObjects:v8 error:&v30];
-  v25 = v30;
-  if (v25)
+  v29 = 0;
+  [(_TtC8MapsSync13MapsSyncStore *)v27 saveWithObjects:v8 error:&v29];
+  v24 = v29;
+  if (v24)
   {
-    [(NSMutableArray *)v27 addObject:v25];
+    [(NSMutableArray *)v26 addObject:v24];
   }
 
   dispatch_group_leave(group);
@@ -2066,7 +2070,7 @@ LABEL_12:
 void sub_5A4C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_47FC();
+  v4 = sub_47FC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -2080,7 +2084,7 @@ void sub_5C14(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
-  v8 = sub_47FC();
+  v8 = sub_47FC(v7);
   v9 = v8;
   if (v7)
   {
@@ -2132,37 +2136,38 @@ void sub_5EDC(uint64_t a1, void *a2, void *a3)
   if (v6)
   {
     v7 = v6;
-    v8 = sub_47FC();
+    v8 = sub_47FC(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138543362;
-      v18 = v7;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Error getting trip service: %{public}@", &v17, 0xCu);
+      v19 = 138543362;
+      v20 = v7;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Error getting trip service: %{public}@", &v19, 0xCu);
     }
 
     v9 = [*(a1 + 32) _shouldReportSharedTripServiceError:v7];
-    v10 = sub_47FC();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
-    if (v9)
+    v10 = v9;
+    v11 = sub_47FC(v9);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+    if (v10)
     {
-      if (v11)
+      if (v12)
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Will report error, active sharing status cannot be determined", &v17, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Will report error, active sharing status cannot be determined", &v19, 2u);
       }
     }
 
     else
     {
-      if (v11)
+      if (v12)
       {
-        v16 = [v7 code];
-        v17 = 134217984;
-        v18 = v16;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Will not report error, sharing is unlikely to be active based on error code %ld", &v17, 0xCu);
+        v18 = [v7 code];
+        v19 = 134217984;
+        v20 = v18;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Will not report error, sharing is unlikely to be active based on error code %ld", &v19, 0xCu);
       }
 
-      v10 = v7;
+      v11 = v7;
       v7 = 0;
     }
 
@@ -2171,24 +2176,24 @@ void sub_5EDC(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v12 = [v5 receivers];
-    v13 = [v12 count];
+    v13 = [v5 receivers];
+    v14 = [v13 count];
 
-    v14 = sub_47FC();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
-    if (v13)
+    v16 = sub_47FC(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+    if (v14)
     {
-      if (v15)
+      if (v17)
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "Trip-sharing is active, will add service as resource", &v17, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "Trip-sharing is active, will add service as resource", &v19, 2u);
       }
     }
 
-    else if (v15)
+    else if (v17)
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "Trip-sharing is not active", &v17, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "Trip-sharing is not active", &v19, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -2199,7 +2204,7 @@ void sub_62B4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_47FC();
+  v7 = sub_47FC(v6);
   v8 = v7;
   if (v6)
   {
@@ -2230,13 +2235,11 @@ LABEL_6:
 
 void sub_6604(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v7 = a2;
   v5 = a3;
   v6 = v5;
-  if (v9)
+  if (v7)
   {
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -2263,14 +2266,9 @@ void sub_6690(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v6 = *(a1 + 48);
-    v5 = *(a1 + 56);
-    v7 = *(v6 + 8);
-    v8 = *(*(a1 + 56) + 16);
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
+    v5 = *(*(a1 + 56) + 16);
 
-    v8();
+    v5();
   }
 }
 

@@ -279,13 +279,13 @@ uint64_t __48__PXCuratedLibraryStatistics_summaryDescription__block_invoke_9(uin
   return v13();
 }
 
-uint64_t __48__PXCuratedLibraryStatistics_summaryDescription__block_invoke_8(uint64_t result, uint64_t a2)
+id *__48__PXCuratedLibraryStatistics_summaryDescription__block_invoke_8(id *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    result = [*(result + 32) numberOfAssetsWithPlaybackStyle:v2[8] displayProminence:v2[9] autoPlaybackEligibility:a2];
-    *(*(v2[5] + 8) + 24) += result;
+    result = [result[4] numberOfAssetsWithPlaybackStyle:v2[8] displayProminence:v2[9] autoPlaybackEligibility:a2];
+    *(*(v2[5] + 1) + 24) += result;
     v3 = v2[9];
     if (v3 == 1)
     {
@@ -299,11 +299,11 @@ uint64_t __48__PXCuratedLibraryStatistics_summaryDescription__block_invoke_8(uin
         return result;
       }
 
-      *(*(v2[6] + 8) + 24) += result;
+      *(*(v2[6] + 1) + 24) += result;
       v4 = 7;
     }
 
-    *(*(v2[v4] + 8) + 24) += result;
+    *(*(v2[v4] + 1) + 24) += result;
   }
 
   return result;

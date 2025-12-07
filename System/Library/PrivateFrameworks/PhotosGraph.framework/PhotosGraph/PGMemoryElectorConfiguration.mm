@@ -10,58 +10,57 @@
 
 + (id)defaultConfigurationDictionarySource
 {
-  v12[21] = *MEMORY[0x277D85DE8];
-  v11[0] = @"localDate";
+  v11[21] = *MEMORY[0x277D85DE8];
+  v10[0] = @"localDate";
   currentLocalDate = [MEMORY[0x277D27690] currentLocalDate];
-  v12[0] = currentLocalDate;
-  v11[1] = @"timeZone";
+  v11[0] = currentLocalDate;
+  v10[1] = @"timeZone";
   systemTimeZone = [MEMORY[0x277CBEBB0] systemTimeZone];
-  v12[1] = systemTimeZone;
-  v12[2] = MEMORY[0x277CBEC38];
-  v11[2] = @"shouldPersist";
-  v11[3] = @"pendingState";
-  v12[3] = &unk_284484290;
-  v12[4] = &unk_2844842A8;
-  v11[4] = @"maximumTargetNumberOfMemories";
-  v11[5] = @"minimumTargetNumberOfMemories";
+  v11[1] = systemTimeZone;
+  v11[2] = MEMORY[0x277CBEC38];
+  v10[2] = @"shouldPersist";
+  v10[3] = @"pendingState";
+  v11[3] = &unk_284484290;
+  v11[4] = &unk_2844842A8;
+  v10[4] = @"maximumTargetNumberOfMemories";
+  v10[5] = @"minimumTargetNumberOfMemories";
   v4 = MEMORY[0x277CBEC28];
-  v12[5] = &unk_2844842C0;
-  v12[6] = MEMORY[0x277CBEC28];
-  v11[6] = @"useMaximumTargetNumberOfMemories";
-  v11[7] = @"maximumNumberOfMemoriesWithGuestAssets";
-  v12[7] = &unk_2844842D8;
-  v12[8] = &unk_2844871B8;
-  v11[8] = @"maximumRatioOfGuestAssets";
-  v11[9] = @"numberOfDaysToLookInPast";
-  v12[9] = &unk_2844842F0;
-  v12[10] = &unk_284484308;
-  v11[10] = @"numberOfDaysToLookInFuture";
-  v11[11] = @"numberOfDaysToFocusOnNewMemoryTypes";
-  v12[11] = &unk_284484320;
-  v12[12] = &unk_284484338;
-  v11[12] = @"minimumNumberOfDaysBeforeTimeDecay";
-  v11[13] = @"minimumNumberOfCuratedAssets";
+  v11[5] = &unk_2844842C0;
+  v11[6] = MEMORY[0x277CBEC28];
+  v10[6] = @"useMaximumTargetNumberOfMemories";
+  v10[7] = @"maximumNumberOfMemoriesWithGuestAssets";
+  v11[7] = &unk_2844842D8;
+  v11[8] = &unk_2844871B8;
+  v10[8] = @"maximumRatioOfGuestAssets";
+  v10[9] = @"numberOfDaysToLookInPast";
+  v11[9] = &unk_2844842F0;
+  v11[10] = &unk_284484308;
+  v10[10] = @"numberOfDaysToLookInFuture";
+  v10[11] = @"numberOfDaysToFocusOnNewMemoryTypes";
+  v11[11] = &unk_284484320;
+  v11[12] = &unk_284484338;
+  v10[12] = @"minimumNumberOfDaysBeforeTimeDecay";
+  v10[13] = @"minimumNumberOfCuratedAssets";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:13];
-  v12[13] = v5;
-  v12[14] = MEMORY[0x277CBEBF8];
-  v11[14] = @"collidableSuggestions";
-  v11[15] = @"skipEnrichment";
-  v11[16] = @"requestedMemoryCategory";
-  v11[17] = @"requestedTriggerType";
-  v12[15] = v4;
-  v12[16] = &unk_284484350;
-  v12[17] = &unk_284484350;
-  v12[18] = &stru_2843F5C58;
-  v11[18] = @"requestedUniqueMemoryIdentifier";
-  v11[19] = @"moodHistory";
-  v12[19] = MEMORY[0x277CBEBF8];
-  v11[20] = @"allowGuestAsset";
+  v11[13] = v5;
+  v11[14] = MEMORY[0x277CBEBF8];
+  v10[14] = @"collidableSuggestions";
+  v10[15] = @"skipEnrichment";
+  v10[16] = @"requestedMemoryCategory";
+  v10[17] = @"requestedTriggerType";
+  v11[15] = v4;
+  v11[16] = &unk_284484350;
+  v11[17] = &unk_284484350;
+  v11[18] = &stru_2843F5C58;
+  v10[18] = @"requestedUniqueMemoryIdentifier";
+  v10[19] = @"moodHistory";
+  v11[19] = MEMORY[0x277CBEBF8];
+  v10[20] = @"allowGuestAsset";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:1];
-  v12[20] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:21];
+  v11[20] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:21];
 
   v8 = [[PGDictionaryConfigurationSource alloc] initWithDictionary:v7];
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -157,13 +156,12 @@
 
 - (PGMemoryElectorConfiguration)init
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   defaultConfigurationDictionarySource = [objc_opt_class() defaultConfigurationDictionarySource];
-  v8[0] = defaultConfigurationDictionarySource;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = defaultConfigurationDictionarySource;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [(PGConfiguration *)self initWithSources:v4 version:1.0];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

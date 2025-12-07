@@ -80,27 +80,27 @@ LABEL_8:
 void __41__WBSBundleTestResults_endTest_inBundle___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 16) safari_mapObjectsUsingBlock:&__block_literal_global_8];
-  v17 = 0;
-  v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:v2 format:200 options:0 error:&v17];
-  v4 = v17;
-  v5 = v4;
+  v20 = 0;
+  v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:v2 format:200 options:0 error:&v20];
+  v4 = v20;
+  v6 = v4;
   if (v3)
   {
-    v6 = v4 == 0;
+    v7 = v4 == 0;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if (v6)
+  if (v7)
   {
     goto LABEL_7;
   }
 
-  v7 = WBS_LOG_CHANNEL_PREFIXTest();
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = WBS_LOG_CHANNEL_PREFIXTest(v4, v5);
+  if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     if (v3)
     {
@@ -108,34 +108,34 @@ void __41__WBSBundleTestResults_endTest_inBundle___block_invoke(uint64_t a1)
     }
 
 LABEL_13:
-    v14 = v5;
+    v15 = v6;
     goto LABEL_11;
   }
 
-  __41__WBSBundleTestResults_endTest_inBundle___block_invoke_cold_1(v5, v7);
+  __41__WBSBundleTestResults_endTest_inBundle___block_invoke_cold_1(v6, v8);
   if (!v3)
   {
     goto LABEL_13;
   }
 
 LABEL_7:
-  v8 = *(*(a1 + 32) + 24);
-  v9 = MEMORY[0x1E696AEC0];
-  v10 = [*(a1 + 40) identifier];
-  v11 = [*(a1 + 48) identifier];
-  v12 = [v9 stringWithFormat:@"%@_%@.plist", v10, v11];
-  v13 = [v8 URLByAppendingPathComponent:v12];
+  v9 = *(*(a1 + 32) + 24);
+  v10 = MEMORY[0x1E696AEC0];
+  v11 = [*(a1 + 40) identifier];
+  v12 = [*(a1 + 48) identifier];
+  v13 = [v10 stringWithFormat:@"%@_%@.plist", v11, v12];
+  v14 = [v9 URLByAppendingPathComponent:v13];
 
-  v16 = v5;
-  LOBYTE(v10) = [v3 writeToURL:v13 options:0 error:&v16];
-  v14 = v16;
+  v19 = v6;
+  LOBYTE(v11) = [v3 writeToURL:v14 options:0 error:&v19];
+  v15 = v19;
 
-  if ((v10 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXTest();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXTest(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __41__WBSBundleTestResults_endTest_inBundle___block_invoke_cold_2(v14, v15);
+      __41__WBSBundleTestResults_endTest_inBundle___block_invoke_cold_2(v15, v18);
     }
   }
 

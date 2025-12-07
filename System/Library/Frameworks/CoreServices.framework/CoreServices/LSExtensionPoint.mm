@@ -55,32 +55,33 @@
     unsignedLongLongValue = 0;
   }
 
-  v16 = 0;
-  v10 = [(LSExtensionPointRecord *)v8 initWithIdentifier:identifierCopy platform:unsignedLongLongValue parentAppRecord:0 error:&v16];
-  v11 = v16;
+  v17 = 0;
+  v10 = [(LSExtensionPointRecord *)v8 initWithIdentifier:identifierCopy platform:unsignedLongLongValue parentAppRecord:0 error:&v17];
+  v11 = v17;
+  v12 = v11;
   if (v10)
   {
-    v12 = [[self alloc] _initWithRecord:v10 resolveAndDetach:1];
-    v13 = _LSDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v13 = [[self alloc] _initWithRecord:v10 resolveAndDetach:1];
+    v14 = _LSDefaultLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [(LSExtensionPoint *)v12 extensionPointForIdentifier:identifierCopy platform:v13];
+      [(LSExtensionPoint *)v13 extensionPointForIdentifier:identifierCopy platform:v14];
     }
   }
 
   else
   {
-    v13 = _LSDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _LSDefaultLog(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(LSExtensionPoint *)identifierCopy extensionPointForIdentifier:v11 platform:v13];
+      [(LSExtensionPoint *)identifierCopy extensionPointForIdentifier:v12 platform:v14];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  v14 = v12;
-  return v12;
+  v15 = v13;
+  return v13;
 }
 
 - (id)_initWithRecord:(id)record resolveAndDetach:(BOOL)detach
@@ -168,24 +169,22 @@
 
 + (void)extensionPointForIdentifier:(os_log_t)log platform:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Found LSExtensionPoint %@ for identifier %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Found LSExtensionPoint %@ for identifier %{public}@", &v3, 0x16u);
 }
 
 + (void)extensionPointForIdentifier:(os_log_t)log platform:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Failed to find extension point for identifier %{public}@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Failed to find extension point for identifier %{public}@: %@", &v3, 0x16u);
 }
 
 @end

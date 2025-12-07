@@ -23,54 +23,47 @@
 {
   if (self->super._state == 255)
   {
-    nrUUID = self->super._nrUUID;
-    v5 = _NRCopyLogObjectForNRUUID();
-    v6 = 1;
+    v4 = _NRCopyLogObjectForNRUUID();
+    v5 = 1;
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = self->super._nrUUID;
-      v9 = _NRCopyLogObjectForNRUUID();
+      v7 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v7, 1, "%s%.30s:%-4d %@: Already cancelled. Ignoring 'resume'", ", "[NRLinkWiFi resume]"", 1361, copyDescription);
     }
   }
 
   else
   {
-    v22.receiver = self;
-    v22.super_class = NRLinkWiFi;
-    if ([(NRLink *)&v22 resume])
+    v15.receiver = self;
+    v15.super_class = NRLinkWiFi;
+    if ([(NRLink *)&v15 resume])
     {
       companionProxyAgent = self->super._companionProxyAgent;
       if (companionProxyAgent)
       {
-        if (sub_100070DD8(companionProxyAgent, self))
+        if (sub_100070DD8(&companionProxyAgent->super.isa, self))
         {
           [(NRLink *)self reportEvent:12002];
         }
 
         else
         {
-          v10 = self->super._nrUUID;
-          v11 = _NRCopyLogObjectForNRUUID();
-          v12 = _NRLogIsLevelEnabled();
+          v9 = _NRCopyLogObjectForNRUUID();
+          v10 = _NRLogIsLevelEnabled();
 
-          if (v12)
+          if (v10)
           {
-            v13 = self->super._nrUUID;
-            v14 = _NRCopyLogObjectForNRUUID();
-            v19 = 1372;
+            v11 = _NRCopyLogObjectForNRUUID();
             copyDescription2 = [(NRLink *)self copyDescription];
-            v17 = "";
-            v18 = "[NRLinkWiFi resume]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v11, 16, "%s%.30s:%-4d %@: failed to register companion agent", ", "[NRLinkWiFi resume]"", 1372, copyDescription2);
           }
         }
       }
 
-      [(NRLink *)self changeStateTo:8 details:@"(resume)", v17, v18, v19, copyDescription2];
+      [(NRLink *)self changeStateTo:8 details:@"(resume)"];
       [(NRLink *)self setInterfaceRank];
       linkDelegate = [(NRLink *)self linkDelegate];
       [linkDelegate linkIsReady:self];
@@ -84,14 +77,14 @@
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)suspend
 {
-  v20.receiver = self;
-  v20.super_class = NRLinkWiFi;
-  [(NRLink *)&v20 suspend];
+  v13.receiver = self;
+  v13.super_class = NRLinkWiFi;
+  [(NRLink *)&v13 suspend];
   if (self->super._state != 255)
   {
     [(NRLink *)self changeStateTo:9 details:@"(suspend)"];
@@ -105,39 +98,32 @@
 
       else
       {
-        nrUUID = self->super._nrUUID;
-        v10 = _NRCopyLogObjectForNRUUID();
+        v8 = _NRCopyLogObjectForNRUUID();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v12 = self->super._nrUUID;
-          v13 = _NRCopyLogObjectForNRUUID();
-          v17 = 1345;
+          v10 = _NRCopyLogObjectForNRUUID();
           copyDescription = [(NRLink *)self copyDescription];
-          v15 = "";
-          v16 = "[NRLinkWiFi suspend]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(v10, 16, "%s%.30s:%-4d %@: failed to unregister companion agent", ", "[NRLinkWiFi suspend]"", 1345, copyDescription);
         }
       }
     }
 
-    [(NRLink *)self setInterfaceRank:v15];
+    [(NRLink *)self setInterfaceRank];
     linkDelegate = [(NRLink *)self linkDelegate];
     [linkDelegate linkIsSuspended:self];
     goto LABEL_10;
   }
 
-  v4 = self->super._nrUUID;
-  v5 = _NRCopyLogObjectForNRUUID();
-  v6 = _NRLogIsLevelEnabled();
+  v4 = _NRCopyLogObjectForNRUUID();
+  v5 = _NRLogIsLevelEnabled();
 
-  if (v6)
+  if (v5)
   {
-    v7 = self->super._nrUUID;
     linkDelegate = _NRCopyLogObjectForNRUUID();
     copyDescription2 = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(linkDelegate, 1, "%s%.30s:%-4d %@: Already cancelled. Ignoring 'suspend'", ", "[NRLinkWiFi suspend]"", 1337, copyDescription2);
 
 LABEL_10:
   }
@@ -178,7 +164,7 @@ LABEL_10:
       if (IsLevelEnabled)
       {
         v16 = sub_100040008();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v16, 17, "NEIKEv2PrivateNotify init %u %@ failed", 50702, dataCopy);
       }
     }
   }
@@ -191,7 +177,7 @@ LABEL_10:
     if (v12)
     {
       v13 = sub_100040008();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v13, 17, "%s called with null data", "[NRLinkWiFi sendControlData:]");
     }
 
     v6 = 0;
@@ -212,163 +198,165 @@ LABEL_10:
   v20 = responseBlockCopy;
   if (!listenerCopy)
   {
-    v54 = sub_100040008();
+    v51 = sub_100040008();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
     {
-      goto LABEL_58;
+      goto LABEL_59;
     }
 
-LABEL_50:
-    v64 = sub_100040008();
-    _NRLogWithArgs();
+    v53 = sub_100040008();
+    _NRLogWithArgs(v53, 17, "%s called with null listener");
+LABEL_51:
 
-    goto LABEL_58;
+    goto LABEL_59;
   }
 
   if (!sessionCopy2)
+  {
+    v54 = sub_100040008();
+    v55 = _NRLogIsLevelEnabled();
+
+    if (!v55)
+    {
+      goto LABEL_59;
+    }
+
+    v53 = sub_100040008();
+    _NRLogWithArgs(v53, 17, "%s called with null session");
+    goto LABEL_51;
+  }
+
+  if (!configCopy)
   {
     v56 = sub_100040008();
     v57 = _NRLogIsLevelEnabled();
 
     if (!v57)
     {
-      goto LABEL_58;
+      goto LABEL_59;
     }
 
-    goto LABEL_50;
+    v53 = sub_100040008();
+    _NRLogWithArgs(v53, 17, "%s called with null sessionConfig");
+    goto LABEL_51;
   }
 
-  if (!configCopy)
+  if (!blockCopy)
   {
     v58 = sub_100040008();
     v59 = _NRLogIsLevelEnabled();
 
     if (!v59)
     {
-      goto LABEL_58;
+      goto LABEL_59;
     }
 
-    goto LABEL_50;
-  }
-
-  if (!blockCopy)
-  {
-    v60 = sub_100040008();
-    v61 = _NRLogIsLevelEnabled();
-
-    if (!v61)
-    {
-      goto LABEL_58;
-    }
-
-    goto LABEL_50;
+    v53 = sub_100040008();
+    _NRLogWithArgs(v53, 17, "%s called with null validateAuthBlock");
+    goto LABEL_51;
   }
 
   if (responseBlockCopy)
   {
-    nrUUID = self->super._nrUUID;
-    v22 = _NRCopyLogObjectForNRUUID();
-    v23 = _NRLogIsLevelEnabled();
+    v21 = _NRCopyLogObjectForNRUUID();
+    v22 = _NRLogIsLevelEnabled();
 
-    if (v23)
+    if (v22)
     {
-      v24 = self->super._nrUUID;
-      v25 = _NRCopyLogObjectForNRUUID();
+      v23 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v23, 0, "%s%.30s:%-4d %@: Got config request for listener %@ session %@ sessionConfig %@ childConfig %@", ", "[NRLinkWiFi requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 1110, copyDescription, listenerCopy, sessionCopy2, configCopy, childConfigCopy);
     }
 
     remoteEndpoint = [sessionCopy2 remoteEndpoint];
     [(NRLink *)self setRemoteOuterEndpoint:remoteEndpoint];
 
     state = self->super._state;
-    v77 = configCopy;
+    v72 = configCopy;
     if (state == 255)
     {
-      goto LABEL_55;
+      goto LABEL_56;
     }
 
     localIdentifier = [configCopy localIdentifier];
-    v76 = childConfigCopy;
+    v71 = childConfigCopy;
     if (qword_1002292F8 != -1)
     {
       dispatch_once(&qword_1002292F8, &stru_1001FC578);
     }
 
-    v29 = qword_1002292F0;
-    v30 = [localIdentifier isEqual:v29];
+    v28 = qword_1002292F0;
+    v29 = [localIdentifier isEqual:v28];
 
-    if (!v30)
+    if (!v29)
     {
-      v32 = self->super._nrUUID;
-      v33 = _NRCopyLogObjectForNRUUID();
-      v34 = _NRLogIsLevelEnabled();
+      v31 = _NRCopyLogObjectForNRUUID();
+      v32 = _NRLogIsLevelEnabled();
 
-      if (v34)
+      if (v32)
       {
-        v35 = self->super._nrUUID;
-        v36 = _NRCopyLogObjectForNRUUID();
+        v33 = _NRCopyLogObjectForNRUUID();
         copyDescription2 = [(NRLink *)self copyDescription];
         localIdentifier2 = [configCopy localIdentifier];
-        _NRLogWithArgs();
+        _NRLogWithArgs(v33, 16, "%s%.30s:%-4d %@: Unrecognized identifier %@", ", "[NRLinkWiFi requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 1171, copyDescription2, localIdentifier2);
       }
 
-      v31 = 0;
-      v38 = 0;
-      childConfigCopy = v76;
-      goto LABEL_56;
+      v30 = 0;
+      v36 = 0;
+      childConfigCopy = v71;
+      goto LABEL_57;
     }
 
-    childConfigCopy = v76;
-    if (v76)
+    childConfigCopy = v71;
+    if (v71)
     {
-      v31 = sub_100146D34(1, 0);
-      [v31 setMode:2];
-      [v31 setReplayWindowSize:4];
+      v30 = sub_100146D34(1, 0);
+      [v30 setMode:2];
+      [v30 setReplayWindowSize:4];
     }
 
     else
     {
       if ([(NRLink *)self hasCompanionDatapath])
       {
-LABEL_54:
-        [(NRLink *)self reportEvent:3024 detailsFormat:@"ClassC %@", sessionCopy2];
 LABEL_55:
-        v31 = 0;
-        v38 = 0;
-        goto LABEL_56;
+        [(NRLink *)self reportEvent:3024 detailsFormat:@"ClassC %@", sessionCopy2];
+LABEL_56:
+        v30 = 0;
+        v36 = 0;
+        goto LABEL_57;
       }
 
-      v31 = 0;
+      v30 = 0;
     }
 
+    v37 = *(&self->_symptomsNOIManager + 7);
+    if (v37)
+    {
+      ++v37[9];
+    }
+
+    v38 = nr_absolute_time();
     v39 = *(&self->_symptomsNOIManager + 7);
     if (v39)
     {
-      ++v39[9];
-    }
-
-    v40 = nr_absolute_time();
-    v41 = *(&self->_symptomsNOIManager + 7);
-    if (v41)
-    {
-      *(v41 + 40) = v40;
+      *(v39 + 40) = v38;
     }
 
     childConfigCopy = [(NRLink *)self nrUUID];
-    v42 = sub_100163A30(NRDLocalDevice, childConfigCopy);
+    v40 = sub_100163A30(NRDLocalDevice, childConfigCopy);
 
-    if (v42)
+    if (v40)
     {
-      v38 = sub_100147400(0, v42, 3);
-      v43 = objc_alloc_init(NSMutableArray);
-      v74 = listenerCopy;
-      if (sub_100147B98(v42))
+      v36 = sub_100147400(0, v40, 3);
+      v41 = objc_alloc_init(NSMutableArray);
+      v69 = listenerCopy;
+      if (sub_100147B98(v40))
       {
-        v44 = v42[18];
-        hasCompanionDatapath = [v44 hasCompanionDatapath];
+        v42 = v40[18];
+        hasCompanionDatapath = [v42 hasCompanionDatapath];
 
         if (hasCompanionDatapath)
         {
@@ -380,31 +368,31 @@ LABEL_55:
           localOuterEndpoint = [(NRLink *)self localOuterEndpoint];
         }
 
-        v47 = sub_100147C1C(v42, localOuterEndpoint);
-        if (v47)
+        v45 = sub_100147C1C(v40, localOuterEndpoint);
+        if (v45)
         {
-          [v43 addObject:v47];
+          [v41 addObject:v45];
         }
 
-        listenerCopy = v74;
+        listenerCopy = v69;
       }
 
-      v48 = sub_1000409E8(self);
-      if (v48)
+      v46 = sub_1000409E8(self);
+      if (v46)
       {
-        [v43 addObject:v48];
+        [v41 addObject:v46];
       }
 
-      if ([v43 count])
+      if ([v41 count])
       {
-        [v38 setCustomIKEAuthPrivateNotifies:v43];
+        [v36 setCustomIKEAuthPrivateNotifies:v41];
       }
 
-      if (blockCopy[2](blockCopy, v38))
+      if (blockCopy[2](blockCopy, v36))
       {
-        v78.receiver = self;
-        v78.super_class = NRLinkWiFi;
-        [(NRLink *)&v78 invalidateIKESessionForClass:3];
+        v73.receiver = self;
+        v73.super_class = NRLinkWiFi;
+        [(NRLink *)&v73 invalidateIKESessionForClass:3];
         [(NRLink *)self setIkeClassDEstablished:0];
         self->super._peerAvailabilityCheckInProgress = 0;
         [(NRLink *)self invalidateIKESession:&self->_ikeListener + 7];
@@ -414,27 +402,25 @@ LABEL_55:
 
         if ([(NRLink *)self setupVirtualInterface])
         {
-          (v20)[2](v20, v38, v31, [(NRLink *)self virtualInterface]);
-          listenerCopy = v74;
-          childConfigCopy = v76;
-LABEL_57:
+          (v20)[2](v20, v36, v30, [(NRLink *)self virtualInterface]);
+          listenerCopy = v69;
+          childConfigCopy = v71;
+LABEL_58:
 
-          configCopy = v77;
-          goto LABEL_58;
+          configCopy = v72;
+          goto LABEL_59;
         }
 
-        v49 = self->super._nrUUID;
-        v50 = _NRCopyLogObjectForNRUUID();
-        v51 = _NRLogIsLevelEnabled();
+        v47 = _NRCopyLogObjectForNRUUID();
+        v48 = _NRLogIsLevelEnabled();
 
-        listenerCopy = v74;
-        childConfigCopy = v76;
-        if (v51)
+        listenerCopy = v69;
+        childConfigCopy = v71;
+        if (v48)
         {
-          v52 = self->super._nrUUID;
-          v53 = _NRCopyLogObjectForNRUUID();
+          v49 = _NRCopyLogObjectForNRUUID();
           copyDescription3 = [(NRLink *)self copyDescription];
-          _NRLogWithArgs();
+          _NRLogWithArgs(v49, 17, "%@: Failed to setup virtual interface", copyDescription3);
         }
       }
 
@@ -442,61 +428,61 @@ LABEL_57:
       {
         [(NRLink *)self reportEvent:3021 detailsFormat:@"ClassC %@", sessionCopy2];
 
-        childConfigCopy = v76;
+        childConfigCopy = v71;
       }
 
-LABEL_56:
+LABEL_57:
       v20[2](v20, 0, 0, 0);
-      goto LABEL_57;
+      goto LABEL_58;
     }
 
-    v65 = sub_100040008();
-    v66 = _NRLogIsLevelEnabled();
+    v62 = sub_100040008();
+    v63 = _NRLogIsLevelEnabled();
 
-    if (v66)
+    if (v63)
     {
-      v67 = sub_100040008();
-      _NRLogWithArgs();
+      v64 = sub_100040008();
+      _NRLogWithArgs(v64, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLinkWiFi requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 1136);
     }
 
-    _os_log_pack_size();
-    sessionCopy2 = &v73 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-    v68 = *__error();
-    v69 = _os_log_pack_fill();
-    *v69 = 136446210;
-    *(v69 + 4) = "[NRLinkWiFi requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]";
+    v65 = _os_log_pack_size();
+    sessionCopy2 = &v68 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v66 = __error();
+    v67 = _os_log_pack_fill(sessionCopy2, v65, *v66, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+    *v67 = 136446210;
+    *(v67 + 4) = "[NRLinkWiFi requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]";
     sub_100040008();
     _NRLogAbortWithPack();
-    goto LABEL_54;
+    goto LABEL_55;
   }
 
-  v62 = sub_100040008();
-  v63 = _NRLogIsLevelEnabled();
+  v60 = sub_100040008();
+  v61 = _NRLogIsLevelEnabled();
 
-  if (v63)
+  if (v61)
   {
-    goto LABEL_50;
+    v53 = sub_100040008();
+    _NRLogWithArgs(v53, 17, "%s called with null responseBlock");
+    goto LABEL_51;
   }
 
-LABEL_58:
+LABEL_59:
 }
 
 - (void)checkPeerAvailabilityWithForceAggressive:(BOOL)aggressive
 {
   aggressiveCopy = aggressive;
   peerAvailabilityCheckInProgress = [(NRLink *)self peerAvailabilityCheckInProgress];
-  nrUUID = self->super._nrUUID;
-  v7 = _NRCopyLogObjectForNRUUID();
+  v6 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (peerAvailabilityCheckInProgress)
   {
     if (IsLevelEnabled)
     {
-      v9 = self->super._nrUUID;
-      v19 = _NRCopyLogObjectForNRUUID();
+      v16 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v16, 0, "%s%.30s:%-4d %@: peer availability check already in progress, ignoring request", ", "[NRLinkWiFi checkPeerAvailabilityWithForceAggressive:]"", 733, copyDescription);
     }
   }
 
@@ -504,45 +490,44 @@ LABEL_58:
   {
     if (IsLevelEnabled)
     {
-      v10 = self->super._nrUUID;
-      v11 = _NRCopyLogObjectForNRUUID();
+      v9 = _NRCopyLogObjectForNRUUID();
       copyDescription2 = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v9, 0, "%s%.30s:%-4d %@: peer availability check requested (aggresive: %d)", ", "[NRLinkWiFi checkPeerAvailabilityWithForceAggressive:]"", 736, copyDescription2, aggressiveCopy);
     }
 
     self->super._peerAvailabilityCheckInProgress = 1;
     objc_initWeak(&location, self);
-    v12 = *(&self->_ikeListener + 7);
+    v11 = *(&self->_ikeListener + 7);
     queue = [(NRLink *)self queue];
-    v14 = !aggressiveCopy;
+    v13 = !aggressiveCopy;
     if (aggressiveCopy)
     {
-      v15 = 1000;
+      v14 = 1000;
     }
 
     else
     {
-      v15 = 3000;
+      v14 = 3000;
     }
 
-    if (v14)
+    if (v13)
     {
-      v16 = 3;
+      v15 = 3;
     }
 
     else
     {
-      v16 = 5;
+      v15 = 5;
     }
 
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100043BC8;
-    v20[3] = &unk_1001FC018;
-    objc_copyWeak(&v21, &location);
-    [v12 sendKeepaliveWithRetries:v16 retryIntervalInMilliseconds:v15 callbackQueue:queue callback:v20];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100043BC8;
+    v17[3] = &unk_1001FC018;
+    objc_copyWeak(&v18, &location);
+    [v11 sendKeepaliveWithRetries:v15 retryIntervalInMilliseconds:v14 callbackQueue:queue callback:v17];
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 }
@@ -551,16 +536,14 @@ LABEL_58:
 {
   if ([(NRLink *)self state]!= 255)
   {
-    nrUUID = self->super._nrUUID;
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = self->super._nrUUID;
-      v8 = _NRCopyLogObjectForNRUUID();
+      v6 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v6, 0, "%s%.30s:%-4d %@: re-submitting live-link monitor preferences", ", "[NRLinkWiFi didStopTrackingAllNOIs:]"", 723, copyDescription);
     }
 
     sub_100043E38(self);
@@ -571,42 +554,35 @@ LABEL_58:
 
 - (void)didStartTrackingNOI:(id)i
 {
-  nrUUID = self->super._nrUUID;
-  v5 = _NRCopyLogObjectForNRUUID();
+  v4 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    v7 = self->super._nrUUID;
-    v8 = _NRCopyLogObjectForNRUUID();
-    v35 = 711;
+    v6 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    v31 = "";
-    v33 = "[NRLinkWiFi didStartTrackingNOI:]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(v6, 0, "%s%.30s:%-4d %@: submitting live-link monitor preferences", ", "[NRLinkWiFi didStartTrackingNOI:]"", 711, copyDescription);
   }
 
-  v9 = nr_absolute_time();
-  v10 = *(&self->_symptomsNOIManager + 7);
-  if (v10)
+  v8 = nr_absolute_time();
+  v9 = *(&self->_symptomsNOIManager + 7);
+  if (v9)
   {
-    *(v10 + 120) = v9;
+    *(v9 + 120) = v8;
   }
 
   if (*(&self->_symptomsAdvisoryCounter + 3) == -1)
   {
     if (!&_symptom_new)
     {
-      v12 = self->super._nrUUID;
-      v13 = _NRCopyLogObjectForNRUUID();
-      v14 = _NRLogIsLevelEnabled();
+      v11 = _NRCopyLogObjectForNRUUID();
+      v12 = _NRLogIsLevelEnabled();
 
-      if (v14)
+      if (v12)
       {
-        v15 = self->super._nrUUID;
-        v39 = _NRCopyLogObjectForNRUUID();
+        v28 = _NRCopyLogObjectForNRUUID();
         copyDescription2 = [(NRLink *)self copyDescription];
-        _NRLogWithArgs();
+        _NRLogWithArgs(v28, 16, "%s%.30s:%-4d %@: SymptomReporterFramework not present, skipping.", ", "[NRLinkWiFi startSymptomsMonitor]"", 606, copyDescription2);
       }
 
       return;
@@ -631,7 +607,9 @@ LABEL_58:
           dispatch_once(&qword_100228F90, &stru_1001FAA30);
         }
 
-        _NRLogWithArgs();
+        v14 = qword_100228F88;
+
+        _NRLogWithArgs(v14, 17, "symptom_new failed");
       }
 
       return;
@@ -648,22 +626,20 @@ LABEL_58:
       localInterfaceName = [(NRLink *)self localInterfaceName];
     }
 
-    v16 = localInterfaceName;
+    v15 = localInterfaceName;
     [localInterfaceName length];
-    [v16 UTF8String];
+    [v15 UTF8String];
     symptom_set_additional_qualifier();
     if (symptom_send())
     {
-      v17 = self->super._nrUUID;
-      v18 = _NRCopyLogObjectForNRUUID();
-      v19 = _NRLogIsLevelEnabled();
+      v16 = _NRCopyLogObjectForNRUUID();
+      v17 = _NRLogIsLevelEnabled();
 
-      if (v19)
+      if (v17)
       {
-        v20 = self->super._nrUUID;
-        v21 = _NRCopyLogObjectForNRUUID();
+        v18 = _NRCopyLogObjectForNRUUID();
         copyDescription3 = [(NRLink *)self copyDescription];
-        _NRLogWithArgs();
+        _NRLogWithArgs(v18, 17, "%@: failed to send symptom to start link monitoring", copyDescription3);
       }
 
       goto LABEL_41;
@@ -675,20 +651,20 @@ LABEL_58:
     handler[1] = 3221225472;
     handler[2] = sub_1000446AC;
     handler[3] = &unk_1001FD278;
-    objc_copyWeak(&v41, &location);
-    v23 = notify_register_dispatch("com.apple.symptoms.liveLinkHasAdvice", (&self->_symptomsAdvisoryCounter + 3), queue, handler);
+    objc_copyWeak(&v30, &location);
+    v21 = notify_register_dispatch("com.apple.symptoms.liveLinkHasAdvice", (&self->_symptomsAdvisoryCounter + 3), queue, handler);
 
-    if (v23 || *(&self->_symptomsAdvisoryCounter + 3) == -1)
+    if (v21 || *(&self->_symptomsAdvisoryCounter + 3) == -1)
     {
       if (qword_100228F90 != -1)
       {
         dispatch_once(&qword_100228F90, &stru_1001FAA30);
       }
 
-      v24 = qword_100228F88;
-      v25 = _NRLogIsLevelEnabled();
+      v22 = qword_100228F88;
+      v23 = _NRLogIsLevelEnabled();
 
-      if ((v25 & 1) == 0)
+      if ((v23 & 1) == 0)
       {
         goto LABEL_40;
       }
@@ -698,31 +674,28 @@ LABEL_58:
         dispatch_once(&qword_100228F90, &stru_1001FAA30);
       }
 
-      v26 = qword_100228F88;
-      v34 = *(&self->_symptomsAdvisoryCounter + 3);
-      _NRLogWithArgs();
+      v24 = qword_100228F88;
+      _NRLogWithArgs(v24, 17, "notify_register_dispatch (status: %u, token: %d) failed", v21, *(&self->_symptomsAdvisoryCounter + 3));
     }
 
     else
     {
-      v27 = self->super._nrUUID;
-      v28 = _NRCopyLogObjectForNRUUID();
-      v29 = _NRLogIsLevelEnabled();
+      v25 = _NRCopyLogObjectForNRUUID();
+      v26 = _NRLogIsLevelEnabled();
 
-      if (!v29)
+      if (!v26)
       {
 LABEL_40:
-        objc_destroyWeak(&v41);
+        objc_destroyWeak(&v30);
         objc_destroyWeak(&location);
 LABEL_41:
 
         return;
       }
 
-      v30 = self->super._nrUUID;
-      v26 = _NRCopyLogObjectForNRUUID();
+      v24 = _NRCopyLogObjectForNRUUID();
       copyDescription4 = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v24, 0, "%s%.30s:%-4d %@: successfully sent symptom to start link monitoring on interface: %@", ", "[NRLinkWiFi startSymptomsMonitor]"", 662, copyDescription4, v15);
     }
 
     goto LABEL_40;
@@ -734,125 +707,112 @@ LABEL_41:
   reasonCopy = reason;
   if (reasonCopy)
   {
-    v50 = &v52;
-    v5 = [[NSString alloc] initWithFormat:reasonCopy arguments:&v52];
+    v37 = &v39;
+    v5 = [[NSString alloc] initWithFormat:reasonCopy arguments:&v39];
     v6 = [(NRLink *)self changeStateTo:255 details:v5];
-    nrUUID = self->super._nrUUID;
-    v8 = _NRCopyLogObjectForNRUUID();
+    v7 = _NRCopyLogObjectForNRUUID();
     if (v6)
     {
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v10 = self->super._nrUUID;
-        v11 = _NRCopyLogObjectForNRUUID();
+        v9 = _NRCopyLogObjectForNRUUID();
         copyDescription = [(NRLink *)self copyDescription];
-        v42 = v5;
-        v38 = 393;
-        v34 = "";
-        v36 = "[NRLinkWiFi cancelWithReason:]";
-        _NRLogWithArgs();
+        _NRLogWithArgs(v9, 16, "%s%.30s:%-4d %@: Cancelling due to %@, dumping last status:", ", "[NRLinkWiFi cancelWithReason:]"", 393, copyDescription, v5);
       }
 
-      v45 = v5;
-      v44 = [(NRLinkWiFi *)self copyStatusString:v34];
-      copyDescription3 = [v44 componentsSeparatedByString:@"\n"];
-      v46 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v13 = [copyDescription3 countByEnumeratingWithState:&v46 objects:v51 count:16];
-      if (v13)
+      v32 = v5;
+      copyStatusString = [(NRLinkWiFi *)self copyStatusString];
+      copyDescription3 = [copyStatusString componentsSeparatedByString:@"\n"];
+      v33 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v12 = [copyDescription3 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      if (v12)
       {
-        v14 = v13;
-        v15 = *v47;
+        v13 = v12;
+        v14 = *v34;
         do
         {
-          for (i = 0; i != v14; i = i + 1)
+          for (i = 0; i != v13; i = i + 1)
           {
-            if (*v47 != v15)
+            if (*v34 != v14)
             {
               objc_enumerationMutation(copyDescription3);
             }
 
-            v17 = *(*(&v46 + 1) + 8 * i);
-            v18 = self->super._nrUUID;
-            v19 = _NRCopyLogObjectForNRUUID();
-            v20 = _NRLogIsLevelEnabled();
+            v16 = *(*(&v33 + 1) + 8 * i);
+            v17 = _NRCopyLogObjectForNRUUID();
+            v18 = _NRLogIsLevelEnabled();
 
-            if (v20)
+            if (v18)
             {
-              v21 = self->super._nrUUID;
-              v22 = _NRCopyLogObjectForNRUUID();
+              v19 = _NRCopyLogObjectForNRUUID();
               copyDescription2 = [(NRLink *)self copyDescription];
-              v43 = v17;
-              v39 = 397;
-              v35 = "";
-              v37 = "[NRLinkWiFi cancelWithReason:]";
-              _NRLogWithArgs();
+              _NRLogWithArgs(v19, 16, "%s%.30s:%-4d %@: %@", ", "[NRLinkWiFi cancelWithReason:]"", 397, copyDescription2, v16);
             }
           }
 
-          v14 = [copyDescription3 countByEnumeratingWithState:&v46 objects:v51 count:16];
+          v13 = [copyDescription3 countByEnumeratingWithState:&v33 objects:v38 count:16];
         }
 
-        while (v14);
+        while (v13);
       }
 
-      v26 = [(NRLink *)self linkDelegate:v35];
-      [v26 linkIsUnavailable:self];
+      linkDelegate = [(NRLink *)self linkDelegate];
+      [linkDelegate linkIsUnavailable:self];
 
       [(NRLinkWiFi *)self invalidateLink];
-      v27 = *(&self->_symptomsNOIManager + 7);
-      if (v27)
+      v24 = *(&self->_symptomsNOIManager + 7);
+      if (v24)
       {
-        *(v27 + 136) = *(&self->_ikeRetryCounter + 3);
+        *(v24 + 136) = *(&self->_ikeRetryCounter + 3);
       }
 
       [(NRLink *)self linkTotalReadyTimeInSec];
-      v29 = *(&self->_symptomsNOIManager + 7);
-      v5 = v45;
-      if (v29)
+      v26 = *(&self->_symptomsNOIManager + 7);
+      v5 = v32;
+      if (v26)
       {
-        *(v29 + 24) = v28;
-        v30 = *(&self->_symptomsNOIManager + 7);
+        *(v26 + 24) = v25;
+        v27 = *(&self->_symptomsNOIManager + 7);
       }
 
       else
       {
-        v30 = 0;
+        v27 = 0;
       }
 
-      v25 = v44;
-      [v30 submit];
+      v22 = copyStatusString;
+      [v27 submit];
       goto LABEL_21;
     }
 
-    v23 = _NRLogIsLevelEnabled();
+    v21 = _NRLogIsLevelEnabled();
 
-    if (v23)
+    if (v21)
     {
-      v24 = self->super._nrUUID;
-      v25 = _NRCopyLogObjectForNRUUID();
+      v22 = _NRCopyLogObjectForNRUUID();
       copyDescription3 = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v22, 0, "%s%.30s:%-4d %@: link already cancelled", ", "[NRLinkWiFi cancelWithReason:]"", 389, copyDescription3);
 LABEL_21:
     }
   }
 
   else
   {
-    v32 = sub_100040008();
-    v33 = _NRLogIsLevelEnabled();
+    v29 = sub_100040008();
+    v30 = _NRLogIsLevelEnabled();
 
-    if (!v33)
+    if (!v30)
     {
       goto LABEL_23;
     }
 
     v5 = sub_100040008();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v5, 17, "%s called with null reasonFormat", "[NRLinkWiFi cancelWithReason:]");
   }
 
 LABEL_23:
@@ -884,8 +844,7 @@ LABEL_23:
 
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v7 = _NRCopyLogObjectForNRUUID();
+    v6 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -893,7 +852,10 @@ LABEL_23:
       return 0;
     }
 
-    goto LABEL_5;
+    v8 = _NRCopyLogObjectForNRUUID();
+    copyDescription = [(NRLink *)self copyDescription];
+    _NRLogWithArgs(v8, 1, "%s%.30s:%-4d %@: Ignoring start request as link is cancelled", ", "[NRLinkWiFi start]"", 294, copyDescription);
+    goto LABEL_6;
   }
 
   if ([(NRLink *)self state]== 8)
@@ -926,9 +888,9 @@ LABEL_23:
         return 0;
       }
 
-      v13 = sub_100163A30(NRDLocalDevice, self->super._nrUUID);
-      v10 = v13;
-      if (v13 && (*(v13 + 49) & 0x20) != 0 || [(NRLink *)self ikev2Role])
+      v11 = sub_100163A30(NRDLocalDevice, self->super._nrUUID);
+      v8 = v11;
+      if (v11 && (*(v11 + 49) & 0x20) != 0 || [(NRLink *)self ikev2Role])
       {
       }
 
@@ -937,10 +899,10 @@ LABEL_23:
         peerToken = [(NRLink *)self peerToken];
         if (!peerToken)
         {
-          goto LABEL_6;
+          goto LABEL_7;
         }
 
-        v30 = peerToken;
+        v27 = peerToken;
         localToken = [(NRLink *)self localToken];
 
         if (!localToken)
@@ -957,94 +919,88 @@ LABEL_23:
     {
       if ([(NRLink *)self state]== 1)
       {
-        v15 = sub_100163A30(NRDLocalDevice, self->super._nrUUID);
-        v16 = v15;
-        if (v15)
+        v13 = sub_100163A30(NRDLocalDevice, self->super._nrUUID);
+        v14 = v13;
+        if (v13)
         {
-          v17 = *(v15 + 48);
-          if ((v17 & 8) != 0)
+          v15 = *(v13 + 48);
+          if ((v15 & 8) != 0)
           {
-            v22 = *(&self->_symptomsNOIManager + 7);
-            if (v22)
+            v20 = *(&self->_symptomsNOIManager + 7);
+            if (v20)
             {
-              *(v22 + 16) = 1;
+              *(v20 + 16) = 1;
             }
 
             if (![(NRLinkWiFi *)self initializeExternalDeviceLink])
             {
-              v23 = self->super._nrUUID;
-              v24 = _NRCopyLogObjectForNRUUID();
-              v25 = _NRLogIsLevelEnabled();
+              v21 = _NRCopyLogObjectForNRUUID();
+              v22 = _NRLogIsLevelEnabled();
 
-              if (v25)
+              if (v22)
               {
-                v26 = self->super._nrUUID;
-                v27 = _NRCopyLogObjectForNRUUID();
-                copyDescription = [(NRLink *)self copyDescription];
-                _NRLogWithArgs();
+                v23 = _NRCopyLogObjectForNRUUID();
+                copyDescription2 = [(NRLink *)self copyDescription];
+                _NRLogWithArgs(v23, 17, "%@: failed to setup external device link", copyDescription2);
               }
 
-              v28 = 0;
-              goto LABEL_38;
+              v25 = 0;
+              goto LABEL_39;
             }
 
-LABEL_35:
+LABEL_36:
             if ([(NRLink *)self subtype]== 102)
             {
               sub_100045628(self);
             }
 
-            v28 = 1;
-LABEL_38:
+            v25 = 1;
+LABEL_39:
 
-            return v28;
+            return v25;
           }
 
-          if ((v17 & 0x2000) != 0)
+          if ((v15 & 0x2000) != 0)
           {
             sub_10004530C(self);
-            goto LABEL_35;
+            goto LABEL_36;
           }
         }
 
         sub_100045068(self);
-        goto LABEL_35;
+        goto LABEL_36;
       }
 
-      v18 = self->super._nrUUID;
-      v19 = _NRCopyLogObjectForNRUUID();
-      v20 = _NRLogIsLevelEnabled();
+      v16 = _NRCopyLogObjectForNRUUID();
+      v17 = _NRLogIsLevelEnabled();
 
-      if (v20)
+      if (v17)
       {
-        v21 = self->super._nrUUID;
-        v10 = _NRCopyLogObjectForNRUUID();
-        copyDescription2 = [(NRLink *)self copyDescription];
-        v37 = sub_1001415A0([(NRLink *)self state]);
-        _NRLogWithArgs();
+        v8 = _NRCopyLogObjectForNRUUID();
+        copyDescription3 = [(NRLink *)self copyDescription];
+        v19 = sub_1001415A0([(NRLink *)self state]);
+        _NRLogWithArgs(v8, 17, "%@: Cannot start link in state %@", copyDescription3, v19);
 
-        goto LABEL_6;
+        goto LABEL_7;
       }
 
       return 0;
     }
 
-    v32 = self->super._nrUUID;
-    v33 = _NRCopyLogObjectForNRUUID();
-    v34 = _NRLogIsLevelEnabled();
+    v29 = _NRCopyLogObjectForNRUUID();
+    v30 = _NRLogIsLevelEnabled();
 
-    if (!v34)
+    if (!v30)
     {
       return 0;
     }
 
-LABEL_5:
-    v9 = self->super._nrUUID;
-    v10 = _NRCopyLogObjectForNRUUID();
-    copyDescription3 = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
-
+    v8 = _NRCopyLogObjectForNRUUID();
+    copyDescription = [(NRLink *)self copyDescription];
+    _NRLogWithArgs(v8, 17, "%@: Cannot start Wi-Fi link without wifiInterfaceName", copyDescription);
 LABEL_6:
+
+LABEL_7:
     return 0;
   }
 
@@ -1068,16 +1024,14 @@ LABEL_6:
 {
   if (self->super._state == 255)
   {
-    nrUUID = self->super._nrUUID;
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = self->super._nrUUID;
-      v9 = _NRCopyLogObjectForNRUUID();
+      v7 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v7, 1, "%s%.30s:%-4d %@: Already cancelled. Ignoring 'refreshCompanionProxyAgent'", ", "[NRLinkWiFi refreshCompanionProxyAgent]"", 202, copyDescription);
     }
   }
 
@@ -1091,14 +1045,14 @@ LABEL_6:
 
 - (void)invalidateLink
 {
-  v24.receiver = self;
-  v24.super_class = NRLinkWiFi;
-  [(NRLink *)&v24 invalidateLink];
+  v19.receiver = self;
+  v19.super_class = NRLinkWiFi;
+  [(NRLink *)&v19 invalidateLink];
   if (self)
   {
-    v25.receiver = self;
-    v25.super_class = NRLinkWiFi;
-    [(NRLink *)&v25 invalidateIKESessionForClass:3];
+    v20.receiver = self;
+    v20.super_class = NRLinkWiFi;
+    [(NRLink *)&v20 invalidateIKESessionForClass:3];
     [(NRLink *)self setIkeClassDEstablished:0];
     self->super._peerAvailabilityCheckInProgress = 0;
     [(NRLink *)self invalidateIKESession:&self->_ikeListener + 7];
@@ -1117,29 +1071,24 @@ LABEL_6:
       v6 = *(&self->_randomUUIDForWiFiAssertion + 7);
       *(&self->_randomUUIDForWiFiAssertion + 7) = 0;
 
-      nrUUID = self->super._nrUUID;
-      v8 = _NRCopyLogObjectForNRUUID();
+      v7 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v10 = self->super._nrUUID;
-        v11 = _NRCopyLogObjectForNRUUID();
-        v22 = 495;
+        v9 = _NRCopyLogObjectForNRUUID();
         copyDescription = [(NRLink *)self copyDescription];
-        v20 = "";
-        v21 = "[NRLinkWiFi stopAWDLBrowser]";
-        _NRLogWithArgs();
+        _NRLogWithArgs(v9, 0, "%s%.30s:%-4d %@: stopped AWDL browser", ", "[NRLinkWiFi stopAWDLBrowser]"", 495, copyDescription);
       }
     }
 
     sub_100043E38(self);
-    v12 = *(&self->_ikeSessionClassC + 7);
-    if (v12)
+    v11 = *(&self->_ikeSessionClassC + 7);
+    if (v11)
     {
-      [v12 setDelegate:0];
+      [v11 setDelegate:0];
       [*(&self->_ikeSessionClassC + 7) destroy];
-      v13 = *(&self->_ikeSessionClassC + 7);
+      v12 = *(&self->_ikeSessionClassC + 7);
       *(&self->_ikeSessionClassC + 7) = 0;
     }
   }
@@ -1149,7 +1098,7 @@ LABEL_6:
     sub_100043E38(0);
   }
 
-  if ([(NRLink *)self virtualInterface:v20])
+  if ([(NRLink *)self virtualInterface])
   {
     [(NRLink *)self virtualInterface];
     NEVirtualInterfaceSetRankNever();
@@ -1163,7 +1112,7 @@ LABEL_6:
   {
     sub_100070270(companionProxyAgent);
     [(NRLink *)self reportEvent:12003];
-    v15 = self->super._companionProxyAgent;
+    v14 = self->super._companionProxyAgent;
     self->super._companionProxyAgent = 0;
   }
 
@@ -1173,20 +1122,20 @@ LABEL_6:
     dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
   }
 
-  v16 = qword_1002290B8;
-  v17 = v16;
-  if (v16)
+  v15 = qword_1002290B8;
+  v16 = v15;
+  if (v15)
   {
-    v18 = *(v16 + 6);
+    v17 = *(v15 + 6);
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v19 = v18;
-  sub_10017EDB4(v19, 0, *(&self->_linkAnalytics + 7));
+  v18 = v17;
+  sub_10017EDB4(v18, 0, *(&self->_linkAnalytics + 7));
 
   *(&self->_ikeRetryCounter + 3) = 0;
   *(&self->_ikeRetryBackoffScheduled + 2) = 0;
@@ -1330,82 +1279,92 @@ LABEL_6:
     v32 = sub_100040008();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
-    if (IsLevelEnabled)
+    if (!IsLevelEnabled)
     {
-      goto LABEL_21;
+      goto LABEL_26;
     }
 
-    goto LABEL_25;
+    v34 = sub_100040008();
+    _NRLogWithArgs(v34, 17, "%s called with null queue");
+LABEL_22:
+
+    selfCopy = 0;
+    goto LABEL_9;
   }
 
   if (!delegateCopy)
   {
-    v34 = sub_100040008();
-    v35 = _NRLogIsLevelEnabled();
+    v35 = sub_100040008();
+    v36 = _NRLogIsLevelEnabled();
 
-    if (v35)
+    if (!v36)
     {
-      goto LABEL_21;
+      goto LABEL_26;
     }
 
-    goto LABEL_25;
+    v34 = sub_100040008();
+    _NRLogWithArgs(v34, 17, "%s called with null linkDelegate");
+    goto LABEL_22;
   }
 
   if (!dCopy)
   {
-    v36 = sub_100040008();
-    v37 = _NRLogIsLevelEnabled();
+    v37 = sub_100040008();
+    v38 = _NRLogIsLevelEnabled();
 
-    if (v37)
+    if (!v38)
     {
-      goto LABEL_21;
+      goto LABEL_26;
     }
 
-    goto LABEL_25;
+    v34 = sub_100040008();
+    _NRLogWithArgs(v34, 17, "%s called with null nrUUID");
+    goto LABEL_22;
   }
 
   if ((_NRIsUUIDNonZero() & 1) == 0)
   {
-    v38 = sub_100040008();
-    v39 = _NRLogIsLevelEnabled();
+    v39 = sub_100040008();
+    v40 = _NRLogIsLevelEnabled();
 
-    if (v39)
+    if (!v40)
     {
-      goto LABEL_21;
+      goto LABEL_26;
     }
 
-    goto LABEL_25;
+    v34 = sub_100040008();
+    _NRLogWithArgs(v34, 17, "called with all-zero nrUUID");
+    goto LABEL_22;
   }
 
   if (!nameCopy)
   {
-    v40 = sub_100040008();
-    v41 = _NRLogIsLevelEnabled();
+    v41 = sub_100040008();
+    v42 = _NRLogIsLevelEnabled();
 
-    if (v41)
+    if (!v42)
     {
-      goto LABEL_21;
+      goto LABEL_26;
     }
 
-    goto LABEL_25;
+    v34 = sub_100040008();
+    _NRLogWithArgs(v34, 17, "%s called with null wifiInterfaceName");
+    goto LABEL_22;
   }
 
   if (!endpointCopy)
   {
-    v42 = sub_100040008();
-    v43 = _NRLogIsLevelEnabled();
+    v43 = sub_100040008();
+    v44 = _NRLogIsLevelEnabled();
 
-    if (v43)
+    if (v44)
     {
-LABEL_21:
-      v44 = sub_100040008();
-      _NRLogWithArgs();
-
-      selfCopy = 0;
-      goto LABEL_9;
+      v34 = sub_100040008();
+      _NRLogWithArgs(v34, 17, "%s called with null localOuterEndpoint");
+      goto LABEL_22;
     }
 
-LABEL_25:
+LABEL_26:
     selfCopy = 0;
     goto LABEL_9;
   }
@@ -1421,11 +1380,11 @@ LABEL_25:
     if (v46)
     {
       v47 = sub_100040008();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v47, 17, "[NRLink initLinkWithQueue:] failed");
     }
 
     self = 0;
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   v23 = v22;

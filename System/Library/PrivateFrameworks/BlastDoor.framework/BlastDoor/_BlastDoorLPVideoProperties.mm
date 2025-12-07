@@ -23,11 +23,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v11.receiver = self;
-  v11.super_class = _BlastDoorLPVideoProperties;
-  v5 = [(_BlastDoorLPVideoProperties *)&v11 isEqual:equalCopy];
+  v10.receiver = self;
+  v10.super_class = _BlastDoorLPVideoProperties;
+  v5 = [(_BlastDoorLPVideoProperties *)&v10 isEqual:equalCopy];
   if (!v5)
   {
     objc_opt_class();
@@ -46,7 +46,6 @@
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

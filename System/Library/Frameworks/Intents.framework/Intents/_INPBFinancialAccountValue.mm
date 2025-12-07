@@ -1,6 +1,7 @@
 @interface _INPBFinancialAccountValue
 - (BOOL)isEqual:(id)equal;
 - (_INPBFinancialAccountValue)initWithCoder:(id)coder;
+- (id)accountTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAccountType:(id)type;
@@ -337,13 +338,11 @@ LABEL_37:
 
   if (accountNumber)
   {
-    accountNumber = self->_accountNumber;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBFinancialAccountValue *)self hasAccountType])
   {
-    accountType = self->_accountType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -373,13 +372,13 @@ LABEL_37:
 
   valueMetadata = [(_INPBFinancialAccountValue *)self valueMetadata];
 
-  v16 = toCopy;
+  v14 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBFinancialAccountValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v16 = toCopy;
+    v14 = toCopy;
   }
 }
 
@@ -424,6 +423,21 @@ LABEL_37:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)accountTypeAsString:(int)string
+{
+  if ((string - 1) >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283228[string - 1];
   }
 
   return v4;

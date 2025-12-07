@@ -122,10 +122,9 @@ uint64_t __59__HDSFileTransfer_waitForFilesWithTargetId_withCompletion___block_i
     __59__HDSFileTransfer_waitForFilesWithTargetId_withCompletion___block_invoke_2_cold_1();
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 void __59__HDSFileTransfer_waitForFilesWithTargetId_withCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -278,10 +277,9 @@ uint64_t __70__HDSFileTransfer_beginSysDropFileTransfer_pathToFile_withCompletio
     __70__HDSFileTransfer_beginSysDropFileTransfer_pathToFile_withCompletion___block_invoke_3_cold_1();
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 void __70__HDSFileTransfer_beginSysDropFileTransfer_pathToFile_withCompletion___block_invoke_4(uint64_t a1, void *a2)
@@ -399,10 +397,9 @@ uint64_t __75__HDSFileTransfer_sideloadFilesForTargetId_pathToDirectory_withComp
     __75__HDSFileTransfer_sideloadFilesForTargetId_pathToDirectory_withCompletion___block_invoke_2_cold_1();
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 void __75__HDSFileTransfer_sideloadFilesForTargetId_pathToDirectory_withCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -440,7 +437,7 @@ void __75__HDSFileTransfer_sideloadFilesForTargetId_pathToDirectory_withCompleti
 
 void __75__HDSFileTransfer_sideloadFilesForTargetId_pathToDirectory_withCompletion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -451,39 +448,39 @@ void __75__HDSFileTransfer_sideloadFilesForTargetId_pathToDirectory_withCompleti
 
     if (gLogCategory_HDSFileTransfer != -1 || _LogCategory_Initialize())
     {
-      v12 = *(a1 + 32);
-      v13 = v3;
+      v11 = *(a1 + 32);
+      v12 = v3;
       LogPrintF();
     }
   }
 
   if (gLogCategory_HDSFileTransfer <= 30 && (gLogCategory_HDSFileTransfer != -1 || _LogCategory_Initialize()))
   {
-    __75__HDSFileTransfer_sideloadFilesForTargetId_pathToDirectory_withCompletion___block_invoke_4_cold_1(a1);
+    __75__HDSFileTransfer_sideloadFilesForTargetId_pathToDirectory_withCompletion___block_invoke_4_cold_1();
   }
 
 LABEL_9:
-  [*(a1 + 40) setObject:@"COMPLETED" forKey:{*(a1 + 32), v12, v13}];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  [*(a1 + 40) setObject:@"COMPLETED" forKey:{*(a1 + 32), v11, v12}];
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(a1 + 40) valueForKey:*(*(&v14 + 1) + 8 * i)];
+        v9 = [*(a1 + 40) valueForKey:*(*(&v13 + 1) + 8 * i)];
         v10 = [v9 isEqualToString:@"PENDING"];
 
         if (v10)
@@ -493,7 +490,7 @@ LABEL_9:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -505,8 +502,6 @@ LABEL_9:
 
   [_fileTransferSession finish];
 LABEL_19:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate:(id)invalidate

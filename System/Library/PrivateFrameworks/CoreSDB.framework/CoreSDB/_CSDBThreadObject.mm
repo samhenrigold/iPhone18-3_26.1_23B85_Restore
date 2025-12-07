@@ -1,4 +1,5 @@
 @interface _CSDBThreadObject
+- (BOOL)isCurrentThreadOtherwiseAssert:(BOOL)assert;
 - (_CSDBThreadObject)initWithIdentifier:(id)identifier qosClass:(unsigned __int16)class;
 - (void)dealloc;
 - (void)performBlock:(id)block;
@@ -103,6 +104,56 @@
 
     MEMORY[0x2821F9670](self, sel_performBlock_, block);
   }
+}
+
+- (BOOL)isCurrentThreadOtherwiseAssert:(BOOL)assert
+{
+  assertCopy = assert;
+  v4 = objc_msgSend_UTF8String(self->_queueContext, a2, assert);
+  specific = dispatch_get_specific(v4);
+  if (specific)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = !assertCopy;
+  }
+
+  if (!v6)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_24789E000, v9, OS_LOG_TYPE_INFO, "**************************************************************************", buf, 2u);
+      }
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v10 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      {
+        *v12 = 0;
+        _os_log_impl(&dword_24789E000, v10, OS_LOG_TYPE_INFO, "****** Database access off the database thread, please file a radar ******", v12, 2u);
+      }
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v11 = OSLogHandleForIMFoundationCategory();
+      sub_2478ADAA0(v11);
+      abort();
+    }
+
+    abort();
+  }
+
+  return specific != 0;
 }
 
 @end

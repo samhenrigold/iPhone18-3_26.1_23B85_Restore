@@ -8,7 +8,7 @@
 {
   v2 = MEMORY[0x277CCACA8];
   languageCode = [self languageCode];
-  v3 = [languageCode stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+  v3 = [languageCode stringByReplacingOccurrencesOfString:? withString:?];
   type = [self type];
   lowercaseString = [type lowercaseString];
   gender = [self gender];
@@ -17,7 +17,7 @@
   quality = [self quality];
   lowercaseString3 = [quality lowercaseString];
   contentVersion = [self contentVersion];
-  v12 = [v2 stringWithFormat:@"%@:%@:%@:%@:%@:%@", v3, lowercaseString, lowercaseString2, name, lowercaseString3, contentVersion];
+  v12 = [v2 stringWithFormat:v3, lowercaseString, lowercaseString2, name, lowercaseString3, contentVersion];
 
   return v12;
 }

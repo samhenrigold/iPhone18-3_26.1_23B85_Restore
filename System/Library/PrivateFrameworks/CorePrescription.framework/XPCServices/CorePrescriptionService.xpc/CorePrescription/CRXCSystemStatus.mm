@@ -11,12 +11,10 @@
 
 - (NSString)hardwareModel
 {
-  v2 = *(self + OBJC_IVAR___CRXCSystemStatus_hardwareModel);
-  v3 = *(self + OBJC_IVAR___CRXCSystemStatus_hardwareModel + 8);
 
-  v4 = sub_100081288();
+  v2 = sub_100081288();
 
-  return v4;
+  return v2;
 }
 
 - (BOOL)isEqual:(id)equal

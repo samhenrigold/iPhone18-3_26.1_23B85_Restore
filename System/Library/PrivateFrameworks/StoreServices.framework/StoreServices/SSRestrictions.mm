@@ -202,7 +202,7 @@ LABEL_15:
 
 + (BOOL)_calculateIsRestrictionsPasscodeSet
 {
-  v2 = SSVPreferencesFramework();
+  v2 = SSVPreferencesFramework(self, a2);
   v3 = SSVWeakLinkedClassForString(&cfstr_Psrestrictions.isa, v2);
 
   return [v3 settingEnabled];

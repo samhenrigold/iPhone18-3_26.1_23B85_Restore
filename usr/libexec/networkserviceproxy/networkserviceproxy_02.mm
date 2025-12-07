@@ -1,3 +1,91 @@
+void sub_1000490D8(void *a1, void *a2, void *a3, void *a4)
+{
+  v7 = a2;
+  v8 = a4;
+  if (v8)
+  {
+    v9 = nplog_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = [v8 localizedDescription];
+      v11 = a1[4];
+      *buf = 138543618;
+      v26 = v10;
+      v27 = 2112;
+      v28 = v11;
+      v12 = "Fetching proxy configuration resulted in error: %{public}@ with url: %@";
+      v13 = v9;
+      v14 = 22;
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+    v15 = [a3 statusCode];
+    v16 = v15;
+    if (v7 && v15 == 200)
+    {
+      v24 = 0;
+      v17 = [NSJSONSerialization JSONObjectWithData:v7 options:0 error:&v24];
+      v9 = v24;
+      v18 = *(a1[6] + 8);
+      v19 = *(v18 + 40);
+      *(v18 + 40) = v17;
+
+      if (!*(*(a1[6] + 8) + 40))
+      {
+        v20 = nplog_obj();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          v23 = a1[4];
+          *buf = 138412546;
+          v26 = v9;
+          v27 = 2112;
+          v28 = v23;
+          _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Fetching proxy configuration resulted in malformed JSON object: %@ with url: %@", buf, 0x16u);
+        }
+      }
+
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        v10 = nplog_obj();
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_13;
+        }
+
+        v22 = a1[4];
+        *buf = 138412290;
+        v26 = v22;
+        v12 = "Fetching proxy configuration resulted in JSON object that is not a dictionary with url: %@";
+        v13 = v10;
+        v14 = 12;
+LABEL_4:
+        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
+LABEL_13:
+      }
+    }
+
+    else
+    {
+      v9 = nplog_obj();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        v21 = a1[4];
+        *buf = 134218242;
+        v26 = v16;
+        v27 = 2112;
+        v28 = v21;
+        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Fetching proxy configuration resulted in unexpected response: %ld with url: %@", buf, 0x16u);
+      }
+    }
+  }
+
+  (*(a1[5] + 16))();
+}
+
 void sub_10004939C(void *a1, void *a2, void *a3)
 {
   v34 = a2;
@@ -923,7 +1011,7 @@ uint64_t sub_10004BC9C(uint64_t a1, void *a2)
   {
     if (v3)
     {
-      v5 = sub_100053E68();
+      v5 = sub_100053E68(NSPServer);
       v7 = sub_100074784(v5, v6);
 
       v8 = *(a1 + 48);
@@ -1060,7 +1148,7 @@ uint64_t sub_10004C128(uint64_t a1)
   v1 = a1;
   if (a1)
   {
-    v2 = sub_100053E68();
+    v2 = sub_100053E68(NSPServer);
     v4 = sub_100074784(v2, v3);
 
     v5 = *(v1 + 32);
@@ -1509,11 +1597,12 @@ LABEL_32:
 LABEL_36:
 }
 
-void sub_10004D008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_10004D008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  objc_destroyWeak((v23 + 40));
+  va_start(va, a22);
+  objc_destroyWeak((v22 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1764,21 +1853,21 @@ LABEL_46:
 LABEL_39:
 }
 
-void sub_10004D8DC()
+void sub_10004D8DC(uint64_t a1)
 {
   objc_opt_self();
-  v0 = nplog_obj();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = nplog_obj();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "remove userevent agent data", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "remove userevent agent data", v4, 2u);
   }
 
-  v1 = +[NEFileHandleMaintainer sharedMaintainer];
-  [v1 setAuxiliaryData:@"NIL" forKey:@"NSPServerODoHAuxilaryData"];
-
   v2 = +[NEFileHandleMaintainer sharedMaintainer];
-  [v2 commit];
+  [v2 setAuxiliaryData:@"NIL" forKey:@"NSPServerODoHAuxilaryData"];
+
+  v3 = +[NEFileHandleMaintainer sharedMaintainer];
+  [v3 commit];
 }
 
 void sub_10004E11C(uint64_t a1, void *a2)
@@ -1798,19 +1887,23 @@ void sub_10004E11C(uint64_t a1, void *a2)
 
 void sub_1000539B8(id a1)
 {
-  qword_100129790 = [NSString stringWithUTF8String:nw_resolver_config_get_private_dns_agent_type()];
+  v1 = [NSString stringWithUTF8String:nw_resolver_config_get_private_dns_agent_type()];
+  v2 = qword_100129790;
+  qword_100129790 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100053E20(id a1)
 {
-  qword_1001297A0 = [NSString stringWithUTF8String:nw_resolver_config_get_system_private_dns_agent_type()];
+  v1 = [NSString stringWithUTF8String:nw_resolver_config_get_system_private_dns_agent_type()];
+  v2 = qword_1001297A0;
+  qword_1001297A0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-id sub_100053E68()
+id sub_100053E68(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1001297C8 != -1)
@@ -1818,9 +1911,9 @@ id sub_100053E68()
     dispatch_once(&qword_1001297C8, &stru_100109E38);
   }
 
-  v0 = qword_1001297C0;
+  v1 = qword_1001297C0;
 
-  return v0;
+  return v1;
 }
 
 void sub_100053EC0(id a1)
@@ -1835,142 +1928,142 @@ void sub_100053EC0(id a1)
   }
 }
 
-void *sub_100053F08()
+void *sub_100053F08(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_100053E68();
-  v1 = v0;
-  if (v0)
+  v1 = sub_100053E68(NSPServer);
+  v2 = v1;
+  if (v1)
   {
-    v2 = *(v0 + 400);
+    v3 = *(v1 + 400);
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  v3 = v2;
+  v4 = v3;
 
-  return v2;
+  return v3;
 }
 
-void *sub_100053F5C()
+void *sub_100053F5C(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_100053E68();
-  v1 = v0;
-  if (v0)
+  v1 = sub_100053E68(NSPServer);
+  v2 = v1;
+  if (v1)
   {
-    v2 = *(v0 + 408);
+    v3 = *(v1 + 408);
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  v3 = v2;
+  v4 = v3;
 
-  return v2;
+  return v3;
 }
 
-void *sub_100053FB0()
+void *sub_100053FB0(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_100053E68();
-  v1 = v0;
-  if (v0)
+  v1 = sub_100053E68(NSPServer);
+  v2 = v1;
+  if (v1)
   {
-    v2 = *(v0 + 416);
+    v3 = *(v1 + 416);
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  v3 = v2;
+  v4 = v3;
 
-  return v2;
+  return v3;
 }
 
-void *sub_100054004()
+void *sub_100054004(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_100053E68();
-  v1 = v0;
-  if (v0)
+  v1 = sub_100053E68(NSPServer);
+  v2 = v1;
+  if (v1)
   {
-    v2 = *(v0 + 424);
+    v3 = *(v1 + 424);
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  v3 = v2;
+  v4 = v3;
 
-  return v2;
+  return v3;
 }
 
-void *sub_100054058()
+void *sub_100054058(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_100053E68();
-  v1 = v0;
-  if (v0)
+  v1 = sub_100053E68(NSPServer);
+  v2 = v1;
+  if (v1)
   {
-    v2 = *(v0 + 432);
+    v3 = *(v1 + 432);
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  v3 = v2;
+  v4 = v3;
 
-  return v2;
+  return v3;
 }
 
-void *sub_1000540AC()
+void *sub_1000540AC(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_100053E68();
-  v1 = v0;
-  if (v0)
+  v1 = sub_100053E68(NSPServer);
+  v2 = v1;
+  if (v1)
   {
-    v2 = *(v0 + 440);
+    v3 = *(v1 + 440);
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  v3 = v2;
+  v4 = v3;
 
-  return v2;
+  return v3;
 }
 
-uint64_t sub_100054100()
+id sub_100054100(uint64_t a1)
 {
   objc_opt_self();
   result = os_variant_allows_internal_security_policies();
   if (result)
   {
-    v1 = sub_100053E68();
-    v2 = v1;
-    if (v1)
+    v2 = sub_100053E68(NSPServer);
+    v3 = v2;
+    if (v2)
     {
-      v1 = v1[6];
+      v2 = v2[6];
     }
 
-    v3 = [v1 ignorePlatformBinary];
+    v4 = [v2 ignorePlatformBinary];
 
-    return v3;
+    return v4;
   }
 
   return result;
@@ -1999,7 +2092,7 @@ void sub_10005415C(uint64_t a1, void *a2)
     switch(int64)
     {
       case 1:
-        v7 = sub_100053F08();
+        v7 = sub_100053F08(NSPServer);
         if (v7)
         {
           goto LABEL_20;
@@ -2007,7 +2100,7 @@ void sub_10005415C(uint64_t a1, void *a2)
 
         break;
       case 2:
-        v7 = sub_100053F5C();
+        v7 = sub_100053F5C(NSPServer);
         if (v7)
         {
           goto LABEL_20;
@@ -2015,7 +2108,7 @@ void sub_10005415C(uint64_t a1, void *a2)
 
         break;
       case 3:
-        v7 = sub_100053FB0();
+        v7 = sub_100053FB0(NSPServer);
         if (!v7)
         {
           break;
@@ -2033,7 +2126,7 @@ LABEL_25:
 
   if (int64 == 4)
   {
-    v7 = sub_100054004();
+    v7 = sub_100054004(NSPServer);
     if (v7)
     {
       goto LABEL_20;
@@ -2049,7 +2142,7 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v7 = sub_1000540AC();
+    v7 = sub_1000540AC(NSPServer);
     if (!v7)
     {
       goto LABEL_25;
@@ -2058,7 +2151,7 @@ LABEL_25:
     goto LABEL_20;
   }
 
-  v7 = sub_100054058();
+  v7 = sub_100054058(NSPServer);
   if (!v7)
   {
     goto LABEL_25;
@@ -8410,12 +8503,12 @@ void sub_100060A08(id *a1, void *a2)
   }
 }
 
-void sub_100060C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100060C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  objc_destroyWeak((v9 + 48));
+  va_start(va, a16);
+  objc_destroyWeak((v16 + 48));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v10 - 80));
+  objc_destroyWeak((v17 - 80));
   _Unwind_Resume(a1);
 }
 
@@ -9038,29 +9131,5 @@ LABEL_24:
     }
 
 LABEL_18:
-  }
-}
-
-void sub_1000622A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1000622CC(uint64_t a1)
-{
-  v2 = nplog_obj();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Received first unlock notification.", v4, 2u);
-  }
-
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    CFPreferencesFlushCaches();
-    sub_100061F54(WeakRetained);
   }
 }

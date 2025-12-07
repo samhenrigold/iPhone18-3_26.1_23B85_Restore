@@ -129,7 +129,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void Agglomerate::set<TokenBasicItem>(uint64_t a1, __int128 *a2)
+void Agglomerate::set<TokenBasicItem>(uint64_t **a1, __int128 *a2)
 {
   v8 = &v14;
   if (!v3)
@@ -318,10 +318,10 @@ void std::vector<std::shared_ptr<Agglomerate>>::push_back[abi:ne200100](uint64_t
   *(a1 + 8) = v6;
 }
 
-uint64_t DetectSSMLImpl::is_ssml(uint64_t a1, uint64_t *a2)
+uint64_t DetectSSMLImpl::is_ssml(uint64_t a1, void **a2)
 {
   v4 = *(a2 + 23);
-  if ((v4 & 0x80u) == 0)
+  if (v4 >= 0)
   {
     v5 = a2;
   }
@@ -331,12 +331,12 @@ uint64_t DetectSSMLImpl::is_ssml(uint64_t a1, uint64_t *a2)
     v5 = *a2;
   }
 
-  if ((v4 & 0x80u) != 0)
+  if (v4 < 0)
   {
     v4 = a2[1];
   }
 
-  result = std::regex_search[abi:ne200100]<std::__wrap_iter<char const*>,char,std::regex_traits<char>>(v5, &v5[v4], a1 + 8);
+  result = std::regex_search[abi:ne200100]<std::__wrap_iter<char const*>,char,std::regex_traits<char>>(v5, &v4[v5], a1 + 8);
   if (result)
   {
     v34 = a1;
@@ -367,16 +367,16 @@ uint64_t DetectSSMLImpl::is_ssml(uint64_t a1, uint64_t *a2)
     }
 
 LABEL_13:
-    v15 = v14 - v7;
-    if ((v14 - v7) < 6)
+    v15 = &v14[-v7];
+    if (&v14[-v7] < 6)
     {
       return 0;
     }
 
     else
     {
-      v16 = v13 + v14;
-      v17 = &v7[v13];
+      v16 = &v14[v13];
+      v17 = v13 + v7;
       while (1)
       {
         result = memchr(v17, 60, v15 - 5);
@@ -394,7 +394,7 @@ LABEL_13:
             v20 = v18 - v13;
             if (v20 != -1)
             {
-              v7 = (v20 + 6);
+              v7 = v20 + 6;
               if (v10)
               {
                 v21 = v12;
@@ -415,13 +415,13 @@ LABEL_13:
                 v22 = v9;
               }
 
-              if (std::regex_search[abi:ne200100]<std::__wrap_iter<char const*>,char,std::regex_traits<char>>(v21 + v7, v21 + v22, v34 + 136))
+              if (std::regex_search[abi:ne200100]<std::__wrap_iter<char const*>,char,std::regex_traits<char>>(v21 + v7, &v22[v21], v34 + 136))
               {
                 return 1;
               }
 
               v23 = *(a2 + 23);
-              if ((v23 & 0x80u) == 0)
+              if (v23 >= 0)
               {
                 v24 = a2;
               }
@@ -431,19 +431,19 @@ LABEL_13:
                 v24 = *a2;
               }
 
-              if ((v23 & 0x80u) != 0)
+              if (v23 < 0)
               {
                 v23 = a2[1];
               }
 
               v25 = v7;
-              if (std::regex_search[abi:ne200100]<std::__wrap_iter<char const*>,char,std::regex_traits<char>>(v24 + v7, v24 + v23, v34 + 72))
+              if (std::regex_search[abi:ne200100]<std::__wrap_iter<char const*>,char,std::regex_traits<char>>(v24 + v7, &v23[v24], v34 + 72))
               {
 LABEL_37:
                 v9 = *(a2 + 23);
                 v12 = *a2;
                 v11 = a2[1];
-                if ((v9 & 0x80u) == 0)
+                if (v9 >= 0)
                 {
                   v26 = a2;
                 }
@@ -453,7 +453,7 @@ LABEL_37:
                   v26 = *a2;
                 }
 
-                if ((v9 & 0x80u) == 0)
+                if (v9 >= 0)
                 {
                   v27 = *(a2 + 23);
                 }
@@ -463,11 +463,11 @@ LABEL_37:
                   v27 = a2[1];
                 }
 
-                v28 = v27 - v25;
+                v28 = &v27[-v25];
                 if (v27 >= v25 && v28 >= 7)
                 {
-                  v29 = v26 + v27;
-                  v30 = &v25[v26];
+                  v29 = &v27[v26];
+                  v30 = v26 + v25;
                   do
                   {
                     v31 = memchr(v30, 60, v28 - 6);
@@ -483,7 +483,7 @@ LABEL_37:
                         break;
                       }
 
-                      v25 = (v31 - v26);
+                      v25 = v31 - v26;
                       if (v31 - v26 == -1)
                       {
                         break;
@@ -515,9 +515,9 @@ LABEL_37:
               }
 
               result = 0;
-              v10 = (v9 & 0x80u) != 0;
-              v13 = ((v9 & 0x80u) == 0 ? a2 : v12);
-              v14 = (v9 & 0x80u) == 0 ? v9 : v11;
+              v10 = v9 < 0;
+              v13 = v9 >= 0 ? a2 : v12;
+              v14 = v9 >= 0 ? v9 : v11;
               if (v14 >= v7)
               {
                 goto LABEL_13;
@@ -529,7 +529,7 @@ LABEL_37:
         }
 
         v17 = (result + 1);
-        v15 = v16 - (v18 + 1);
+        v15 = &v16[-v18 - 1];
         if (v15 < 6)
         {
           return 0;
@@ -551,7 +551,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::sub_match<char c
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -818,7 +818,7 @@ void std::vector<std::pair<unsigned long,char const*>>::__append(std::vector<std
   }
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -876,7 +876,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -910,7 +910,7 @@ uint64_t std::regex_search[abi:ne200100]<std::__wrap_iter<char const*>,char,std:
     v4 = __dst[1];
   }
 
-  v6 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a3, v5, &v5[v4], &__p, 64);
+  v6 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a3, v5, &v5[v4], &__p, 0x40u);
   if (__p.__matches_.__begin_)
   {
     __p.__matches_.__end_ = __p.__matches_.__begin_;
@@ -940,7 +940,7 @@ void sub_1C2FBA4A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -984,7 +984,7 @@ LABEL_19:
       do
       {
         std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0);
+        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0);
         begin = this->__matches_.__begin_;
         end = this->__matches_.__end_;
         if (v13)
@@ -1000,7 +1000,7 @@ LABEL_19:
 
     v12 = &this->__unmatched_;
     std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0))
+    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0))
     {
       begin = this->__matches_.__begin_;
       end = this->__matches_.__end_;
@@ -1135,10 +1135,10 @@ void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_matc
   }
 }
 
-uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(a1, a2);
   }
@@ -1170,25 +1170,25 @@ uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, u
     result = v3 + 96;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
   if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
   {
     v6 = 0x2AAAAAAAAAAAAAALL;
   }
@@ -1231,14 +1231,14 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   *(v7 + 85) = *(a2 + 85);
   *(v7 + 80) = v9;
   *&v18 = 96 * v2 + 96;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 96 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__state<char>>,std::__state<char>*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -1247,9 +1247,9 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   return v15;
 }
 
-void sub_1C2FBAA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C2FBAA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::__state<char>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1314,29 +1314,29 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<st
     v7 = a2;
     do
     {
-      v8 = *(v7 + 1);
+      v8 = *(v7 + 16);
       *a4 = *v7;
       *(a4 + 16) = v8;
       *(a4 + 40) = 0;
       *(a4 + 48) = 0;
       *(a4 + 32) = 0;
-      *(a4 + 32) = *(v7 + 2);
-      *(a4 + 48) = v7[6];
-      v7[4] = 0;
-      v7[5] = 0;
-      v7[6] = 0;
+      *(a4 + 32) = *(v7 + 32);
+      *(a4 + 48) = *(v7 + 48);
+      *(v7 + 32) = 0;
+      *(v7 + 40) = 0;
+      *(v7 + 48) = 0;
       *(a4 + 56) = 0;
       *(a4 + 64) = 0;
       *(a4 + 72) = 0;
-      *(a4 + 56) = *(v7 + 7);
-      *(a4 + 72) = v7[9];
-      v7[7] = 0;
-      v7[8] = 0;
-      v7[9] = 0;
-      v9 = v7[10];
+      *(a4 + 56) = *(v7 + 56);
+      *(a4 + 72) = *(v7 + 72);
+      *(v7 + 56) = 0;
+      *(v7 + 64) = 0;
+      *(v7 + 72) = 0;
+      v9 = *(v7 + 80);
       *(a4 + 85) = *(v7 + 85);
       *(a4 + 80) = v9;
-      v7 += 12;
+      v7 += 96;
       a4 += 96;
     }
 
@@ -1448,20 +1448,20 @@ uint64_t std::vector<std::tuple<std::string,std::vector<std::pair<unsigned long,
   return result;
 }
 
-void sub_1C2FBADD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C2FBADD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::tuple<std::string,std::vector<std::pair<unsigned long,std::string>>,unsigned long,std::bitset<3ul>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__split_buffer<std::__state<char>>::clear[abi:ne200100](void *a1)
+void std::__split_buffer<std::__state<char>>::clear[abi:ne200100](void *result)
 {
-  v2 = a1[1];
-  for (i = a1[2]; i != v2; i = a1[2])
+  v2 = result[1];
+  for (i = result[2]; i != v2; i = result[2])
   {
-    v4 = a1[4];
-    a1[2] = i - 96;
+    v4 = result[4];
+    result[2] = i - 96;
     std::allocator<std::__state<char>>::destroy[abi:ne200100](v4, (i - 96));
   }
 }
@@ -1494,7 +1494,7 @@ void std::allocator<std::__state<char>>::destroy[abi:ne200100](uint64_t a1, void
   }
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2479,7 +2479,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-std::string *std::deque<std::tuple<std::string,std::vector<std::pair<unsigned long,std::string>>,unsigned long,std::bitset<3ul>>>::push_back(void *a1, __int128 *a2)
+std::string *std::deque<std::tuple<std::string,std::vector<std::pair<unsigned long,std::string>>,unsigned long,std::bitset<3ul>>>::push_back(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2523,7 +2523,7 @@ std::string *std::deque<std::tuple<std::string,std::vector<std::pair<unsigned lo
 
     a1[4] = v9;
     v17 = *v4;
-    a1[1] = v4 + 8;
+    a1[1] = (v4 + 1);
     std::__split_buffer<std::shared_ptr<Agglomerate> *,std::allocator<std::shared_ptr<Agglomerate> *>>::emplace_back<std::shared_ptr<Agglomerate> *&>(a1, &v17);
     v4 = a1[1];
     v5 = a1[2];
@@ -2537,7 +2537,7 @@ std::string *std::deque<std::tuple<std::string,std::vector<std::pair<unsigned lo
   else
   {
     v14 = a1[5] + a1[4];
-    v15 = (*&v4[(v14 >> 3) & 0x1FFFFFFFFFFFFFF8] + ((v14 & 0x3F) << 6));
+    v15 = (*(v4 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + ((v14 & 0x3F) << 6));
   }
 
   result = std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul>,std::string,std::vector<std::pair<unsigned long,std::string>>,unsigned long,std::bitset<3ul>>::__tuple_impl(v15, a2);
@@ -2556,7 +2556,7 @@ void sub_1C2FBC0B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::pair<unsigned long,std::string>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,std::string>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -2641,9 +2641,9 @@ void UTFString::to_utf8(std::string *a1, const UChar *a2, int32_t a3)
   v6 = std::string::basic_string[abi:ne200100](a1, 3 * a3, 0);
   pErrorCode = U_ZERO_ERROR;
   v7 = *(v6 + 2);
-  if (v6[23] >= 0)
+  if (*(v6 + 23) >= 0)
   {
-    v8 = v6[23];
+    v8 = *(v6 + 23);
   }
 
   else
@@ -2671,76 +2671,77 @@ void BreaksNNImpl::apply_ICU_sent_break(BreaksNNImpl *this)
   status = U_ZERO_ERROR;
   v2 = this + 608;
   v3 = *(this + 83);
-  v4 = *(this + 86);
+  v4 = v3 & 6;
+  v5 = v4 != 2;
+  v6 = *(this + 86);
   if (v3)
   {
-    if (v4)
+    if (v6)
     {
-      utext_close(v4);
+      utext_close(v6);
       *(this + 86) = 0;
     }
 
     *(this + 84) = 0;
-    BreaksNNImpl::recover_markers(&v39, this, v2, this + 79);
-    v24 = (*(*this + 72))(this);
-    if (v24)
+    BreaksNNImpl::recover_markers(&v35, this, v2, this + 79);
+    v21 = (*(*this + 72))(this);
+    v22 = *(this + 85);
+    if (v21)
     {
-      v25 = *(v24 + 8) + *(this + 85);
+      v22 += *(v21 + 8);
     }
 
-    BreaksNNImpl::create_token_per_chunk(this, &v39);
-    v26 = *(this + 82);
-    if ((SHIBYTE(v39.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+    BreaksNNImpl::create_token_per_chunk(this, &v35, v22, v4 != 2);
+    v23 = *(this + 82);
+    if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
     {
-      v32 = v39.__r_.__value_.__r.__words[0];
-      *(this + 85) += v39.__r_.__value_.__l.__size_ + v26;
+      v29 = v35.__r_.__value_.__r.__words[0];
+      *(this + 85) += v35.__r_.__value_.__l.__size_ + v23;
 LABEL_64:
-      operator delete(v32);
+      operator delete(v29);
       return;
     }
 
-    v27 = v26 + SHIBYTE(v39.__r_.__value_.__r.__words[2]) + *(this + 85);
+    v24 = v23 + SHIBYTE(v35.__r_.__value_.__r.__words[2]) + *(this + 85);
     goto LABEL_39;
   }
 
-  if (!v4)
+  if (!v6)
   {
-    v5 = *(this + 631);
-    if (v5 < 0)
+    v7 = *(this + 631);
+    if (v7 < 0)
     {
       v2 = *(this + 76);
-      v5 = *(this + 77);
+      v7 = *(this + 77);
     }
 
-    *(this + 86) = utext_openUTF8(0, v2, v5, &status);
+    *(this + 86) = utext_openUTF8(0, v2, v7, &status);
     *(this + 84) = 0;
-    v6 = *(this + 59);
     ubrk_setUText();
-    v7 = *(this + 59);
     ubrk_first();
   }
 
-  v8 = *(this + 59);
-  v9 = ubrk_next();
-  if (v9 == -1)
+  v8 = ubrk_next();
+  if (v8 == -1)
   {
     utext_close(*(this + 86));
     *(this + 86) = 0;
-    memset(&v39, 0, sizeof(v39));
-    BreaksNNImpl::recover_markers(&__p, this, &v39, this + 79);
-    v28 = (*(*this + 72))(this);
-    if (v28)
+    memset(&v35, 0, sizeof(v35));
+    BreaksNNImpl::recover_markers(&__p, this, &v35, this + 79);
+    v25 = (*(*this + 72))(this);
+    v26 = *(this + 85);
+    if (v25)
     {
-      v29 = *(v28 + 8) + *(this + 85);
+      v26 += *(v25 + 8);
     }
 
-    BreaksNNImpl::create_token_per_chunk(this, &__p);
-    v30 = *(this + 82);
-    v31 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    if (v30)
+    BreaksNNImpl::create_token_per_chunk(this, &__p, v26, v4 != 2);
+    v27 = *(this + 82);
+    v28 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    if (v27)
     {
-      *(this + 85) += v30;
-      if ((v31 & 0x80) == 0)
+      *(this + 85) += v27;
+      if ((v28 & 0x80) == 0)
       {
         return;
       }
@@ -2752,124 +2753,126 @@ LABEL_64:
     {
       *(this + 85) += __p.__r_.__value_.__l.__size_;
 LABEL_63:
-      v32 = __p.__r_.__value_.__r.__words[0];
+      v29 = __p.__r_.__value_.__r.__words[0];
       goto LABEL_64;
     }
 
-    v27 = *(this + 85) + HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v24 = *(this + 85) + HIBYTE(__p.__r_.__value_.__r.__words[2]);
 LABEL_39:
-    *(this + 85) = v27;
+    *(this + 85) = v24;
     return;
   }
 
-  LODWORD(v10) = v9;
-  v11 = *(this + 62);
-  if (!v11)
+  LODWORD(v9) = v8;
+  v10 = *(this + 62);
+  if (!v10)
   {
     goto LABEL_11;
   }
 
   do
   {
-    UTFRegex::set_text(v11, *(this + 86), 0);
-    LODWORD(v39.__r_.__value_.__l.__data_) = 0;
-    if (!uregex_lookingAt(*v11, v10, &v39))
+    UTFRegex::set_text(v10, *(this + 86), 0);
+    LODWORD(v35.__r_.__value_.__l.__data_) = 0;
+    if (!uregex_lookingAt(*v10, v9, &v35))
     {
       break;
     }
 
-    v12 = *(this + 59);
-    LODWORD(v10) = ubrk_next();
-    v11 = *(this + 62);
+    LODWORD(v9) = ubrk_next();
+    v10 = *(this + 62);
   }
 
-  while (v11);
-  if (v10 == -1)
+  while (v10);
+  if (v9 == -1)
   {
-    v10 = *(this + 631);
-    if (v10 < 0)
+    v9 = *(this + 631);
+    if (v9 < 0)
     {
-      v10 = *(this + 77);
+      v9 = *(this + 77);
     }
   }
 
   else
   {
 LABEL_11:
-    v10 = v10;
+    v9 = v9;
   }
 
-  v13 = utext_nativeLength(*(this + 86));
-  std::basic_string<char16_t>::basic_string[abi:ne200100](&v39, v13 + 1);
-  if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v11 = utext_nativeLength(*(this + 86));
+  std::basic_string<char16_t>::basic_string[abi:ne200100](&v35, v11 + 1);
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v14 = &v39;
-  }
-
-  else
-  {
-    v14 = v39.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v15 = HIBYTE(v39.__r_.__value_.__r.__words[2]);
+    v12 = &v35;
   }
 
   else
   {
-    v15 = v39.__r_.__value_.__r.__words[1];
+    v12 = v35.__r_.__value_.__r.__words[0];
   }
 
-  v16 = utext_extract(*(this + 86), *(this + 84), v10, v14, v15, &status);
-  std::basic_string<char16_t>::resize(&v39, v16, v17);
-  if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v18 = &v39;
-  }
-
-  else
-  {
-    v18 = v39.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v19 = HIBYTE(v39.__r_.__value_.__r.__words[2]);
+    v13 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v19 = v39.__r_.__value_.__r.__words[1];
+    v13 = v35.__r_.__value_.__r.__words[1];
   }
 
-  UTFString::to_utf8(&__p, v18, v19);
-  BreaksNNImpl::recover_markers(&v37, this, &__p, this + 79);
-  v20 = *(this + 631);
-  if (v20 < 0)
+  v14 = utext_extract(*(this + 86), *(this + 84), v9, v12, v13, &status);
+  std::basic_string<char16_t>::resize(&v35, v14, v15);
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = *(this + 77);
+    v16 = &v35;
   }
 
-  if (v10 != v20)
+  else
   {
-    v33 = (*(*this + 72))(this);
-    v34 = *(this + 85);
-    if (!v33)
+    v16 = v35.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v17 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v17 = v35.__r_.__value_.__r.__words[1];
+  }
+
+  UTFString::to_utf8(&__p, v16, v17);
+  BreaksNNImpl::recover_markers(&v33, this, &__p, this + 79);
+  v18 = *(this + 631);
+  if (v18 < 0)
+  {
+    v18 = *(this + 77);
+  }
+
+  if (v9 != v18)
+  {
+    v30 = (*(*this + 72))(this);
+    v31 = *(this + 85);
+    v5 = 1;
+    if (!v30)
     {
-      goto LABEL_48;
+LABEL_48:
+      BreaksNNImpl::create_token_per_chunk(this, &v33, v31, v5);
+      goto LABEL_49;
     }
 
 LABEL_47:
-    v35 = *(v33 + 8) + v34;
+    v31 += *(v30 + 8);
     goto LABEL_48;
   }
 
   if (*(this + 513) != 1)
   {
-    v33 = (*(*this + 72))(this);
-    v34 = *(this + 85);
-    if (!v33)
+    v30 = (*(*this + 72))(this);
+    v31 = *(this + 85);
+    if (!v30)
     {
       goto LABEL_48;
     }
@@ -2877,32 +2880,30 @@ LABEL_47:
     goto LABEL_47;
   }
 
-  v21 = *(this + 59);
-  if (ubrk_getRuleStatus() && *(this + 82) != 8)
+  if (!ubrk_getRuleStatus() || *(this + 82) == 8)
   {
-    goto LABEL_49;
+    v19 = (*(*this + 72))(this);
+    v20 = *(this + 85);
+    if (v19)
+    {
+      v20 += *(v19 + 8);
+    }
+
+    BreaksNNImpl::create_token_per_chunk(this, &v33, v20, v4 != 2);
   }
 
-  v22 = (*(*this + 72))(this);
-  if (v22)
-  {
-    v23 = *(v22 + 8) + *(this + 85);
-  }
-
-LABEL_48:
-  BreaksNNImpl::create_token_per_chunk(this, &v37);
 LABEL_49:
-  *(this + 84) = v10;
-  if ((SHIBYTE(v37.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  *(this + 84) = v9;
+  if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    v36 = v37.__r_.__value_.__r.__words[0];
-    *(this + 85) += v37.__r_.__value_.__l.__size_;
-    operator delete(v36);
+    v32 = v33.__r_.__value_.__r.__words[0];
+    *(this + 85) += v33.__r_.__value_.__l.__size_;
+    operator delete(v32);
   }
 
   else
   {
-    *(this + 85) += SHIBYTE(v37.__r_.__value_.__r.__words[2]);
+    *(this + 85) += SHIBYTE(v33.__r_.__value_.__r.__words[2]);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2910,9 +2911,9 @@ LABEL_49:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    v32 = v39.__r_.__value_.__r.__words[0];
+    v29 = v35.__r_.__value_.__r.__words[0];
     goto LABEL_64;
   }
 }
@@ -3352,7 +3353,7 @@ void sub_1C2FBCE08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, uint64_t *a2, unint64_t a3)
+void *std::string::basic_string[abi:ne200100](void *__dst, uint64_t *a2, unint64_t a3)
 {
   v3 = a2;
   v5 = *(a2 + 23);
@@ -3384,17 +3385,17 @@ LABEL_13:
     operator new();
   }
 
-  __dst[23] = v6;
+  *(__dst + 23) = v6;
   if (v5 != a3)
   {
     memmove(__dst, v3 + a3, v6);
   }
 
-  __dst[v6] = 0;
+  *(__dst + v6) = 0;
   return __dst;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3406,13 +3407,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
@@ -3444,11 +3445,11 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std:
   return a3;
 }
 
-void BreaksNNImpl::create_token_per_chunk(int a1, std::string *__str)
+void BreaksNNImpl::create_token_per_chunk(uint64_t a1, std::string *__str, uint64_t a3, char a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v2 = SHIBYTE(__str->__r_.__value_.__r.__words[2]);
-  if (v2 >= 0)
+  v26 = *MEMORY[0x1E69E9840];
+  v4 = SHIBYTE(__str->__r_.__value_.__r.__words[2]);
+  if (v4 >= 0)
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
   }
@@ -3461,155 +3462,153 @@ void BreaksNNImpl::create_token_per_chunk(int a1, std::string *__str)
   if (size)
   {
     memset(&__p, 0, sizeof(__p));
-    if (v2 >= 0)
+    if (v4 >= 0)
     {
-      v5 = __str;
+      v7 = __str;
     }
 
     else
     {
-      v5 = __str->__r_.__value_.__r.__words[0];
+      v7 = __str->__r_.__value_.__r.__words[0];
     }
 
-    v6 = 0;
-    v21[0] = v5;
-    v21[1] = (size << 32);
+    v8 = 0;
+    v22[0] = v7;
+    v22[1] = (size << 32);
     if (size)
     {
-      v7 = 0;
+      v9 = 0;
       do
       {
-        v8 = UTFString::codepoint_iterator<std::string>::operator*(v21);
-        if (!u_isUWhiteSpace(v8))
+        v10 = UTFString::codepoint_iterator<std::string>::operator*(v22);
+        if (!u_isUWhiteSpace(v10))
         {
           goto LABEL_21;
         }
 
-        v9 = v5->__r_.__value_.__s.__data_[v7];
-        v10 = v9 - 194;
-        if (v9 <= 0xEF)
+        v11 = v7->__r_.__value_.__s.__data_[v9];
+        v12 = v11 - 194;
+        if (v11 <= 0xEF)
         {
-          v11 = 2;
+          v13 = 2;
         }
 
         else
         {
-          v11 = 3;
+          v13 = 3;
         }
 
-        if (v9 <= 0xDF)
+        if (v11 <= 0xDF)
         {
-          v12 = v11;
+          v14 = v13;
         }
 
         else
         {
-          v12 = v11 + 1;
+          v14 = v13 + 1;
         }
 
-        if (v10 >= 0x33)
+        if (v12 >= 0x33)
         {
-          v12 = 1;
+          v14 = 1;
         }
 
-        v7 += v12;
-        LODWORD(v21[1]) = v7;
+        v9 += v14;
+        LODWORD(v22[1]) = v9;
       }
 
-      while (v7 != size);
-      v7 = size;
+      while (v9 != size);
+      v9 = size;
 LABEL_21:
-      v13 = v7;
-      if (size == v7)
+      v15 = v9;
+      if (size == v9)
       {
         MEMORY[0x1C692A640](&__p, "");
         goto LABEL_44;
       }
 
-      v6 = v21[1];
+      v8 = v22[1];
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    v21[0] = v5;
-    HIDWORD(v21[1]) = size;
-    v14 = size - 1;
-    LODWORD(v21[1]) = size - 1;
-    if (v5->__r_.__value_.__s.__data_[v14] <= -65)
+    v22[0] = v7;
+    HIDWORD(v22[1]) = size;
+    v16 = size - 1;
+    LODWORD(v22[1]) = size - 1;
+    if (v7->__r_.__value_.__s.__data_[v16] <= -65)
     {
-      LODWORD(v14) = utf8_back1SafeBody(v5, 0, size - 1);
-      LODWORD(v21[1]) = v14;
+      LODWORD(v16) = utf8_back1SafeBody(v7, 0, size - 1);
+      LODWORD(v22[1]) = v16;
     }
 
-    if (v14 != v6)
+    if (v16 != v8)
     {
       do
       {
-        v15 = UTFString::codepoint_iterator<std::string>::operator*(v21);
-        if (!u_isUWhiteSpace(v15))
+        v17 = UTFString::codepoint_iterator<std::string>::operator*(v22);
+        if (!u_isUWhiteSpace(v17))
         {
           goto LABEL_33;
         }
 
-        v14 = v14 - 1;
-        LODWORD(v21[1]) = v14;
-        if (v5->__r_.__value_.__s.__data_[v14] <= -65)
+        v16 = v16 - 1;
+        LODWORD(v22[1]) = v16;
+        if (v7->__r_.__value_.__s.__data_[v16] <= -65)
         {
-          LODWORD(v14) = utf8_back1SafeBody(v5, 0, v14);
-          LODWORD(v21[1]) = v14;
+          LODWORD(v16) = utf8_back1SafeBody(v7, 0, v16);
+          LODWORD(v22[1]) = v16;
         }
       }
 
-      while (v14 != v6);
-      LODWORD(v14) = v6;
+      while (v16 != v8);
+      LODWORD(v16) = v8;
     }
 
 LABEL_33:
-    v16 = v5->__r_.__value_.__s.__data_[v14];
-    v17 = v16 - 194;
-    if (v16 <= 0xEF)
+    v18 = v7->__r_.__value_.__s.__data_[v16];
+    v19 = v18 - 194;
+    if (v18 <= 0xEF)
     {
-      v18 = 2;
+      v20 = 2;
     }
 
     else
     {
-      v18 = 3;
+      v20 = 3;
     }
 
-    if (v16 <= 0xDF)
+    if (v18 <= 0xDF)
     {
-      v19 = v18;
+      v21 = v20;
     }
 
     else
     {
-      v19 = v18 + 1;
+      v21 = v20 + 1;
     }
 
-    if (v17 >= 0x33)
+    if (v19 >= 0x33)
     {
-      v19 = 1;
+      v21 = 1;
     }
 
-    std::string::basic_string(&v22, __str, v13, size - (v13 + size - v14 - v19), &v23);
+    std::string::basic_string(&v23, __str, v15, size - (v15 + size - v16 - v21), &v24);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    __p = v22;
+    __p = v23;
 LABEL_44:
     operator new();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1C2FBD55C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_1C2FBD55C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   TokenBasicItem::~TokenBasicItem(&a15);
   std::__shared_weak_count::__release_shared[abi:ne200100](v30);
@@ -3713,11 +3712,10 @@ uint64_t UTFString::codepoint_iterator<std::string>::operator*(uint64_t *a1)
   return result;
 }
 
-void FrontendNNModule::get_input_from_tokens(uint64_t **a1, void *a2, int a3)
+void FrontendNNModule::get_input_from_tokens(std::string *a1, void *a2, int a3)
 {
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
   v3 = a2[44];
   v4 = a2[45];
   if (v4 == v3)
@@ -3870,13 +3868,13 @@ LABEL_36:
       *&v50.__r_.__value_.__l.__data_ = v28;
     }
 
-    v29 = *(v16 + 23);
-    if (v29 < 0)
+    size = HIBYTE(v16->__r_.__value_.__r.__words[2]);
+    if ((size & 0x80u) != 0)
     {
-      v29 = v16[1];
+      size = v16->__r_.__value_.__l.__size_;
     }
 
-    if (v29)
+    if (size)
     {
       v30 = *(v21 + 8);
       v31 = *(v21 + 16);
@@ -3994,15 +3992,15 @@ LABEL_76:
 
     if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v51.__r_.__value_.__r.__words[2]);
+      v45 = HIBYTE(v51.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v51.__r_.__value_.__l.__size_;
+      v45 = v51.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(v16, v44, size);
+    std::string::append(v16, v44, v45);
     if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v51.__r_.__value_.__l.__data_);
@@ -4084,19 +4082,16 @@ void std::vector<std::pair<std::string,std::vector<std::shared_ptr<Agglomerate>>
     v11 = 48 * v7;
     *v11 = *a2;
     *(v11 + 16) = *(a2 + 2);
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v12 = *(a2 + 24);
     *(v11 + 40) = *(a2 + 5);
-    *(a2 + 2) = 0;
-    *(a2 + 3) = 0;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
-    v6 = 48 * v7 + 48;
+    a2[1] = 0uLL;
+    a2[2] = 0uLL;
+    v6 = (48 * v7 + 48);
     v13 = *a1;
     v14 = a1[1] - *a1;
     *(v11 + 24) = v12;
-    v15 = 48 * v7 - v14;
+    v15 = (48 * v7 - v14);
     memcpy((v11 - v14), v13, v14);
     *a1 = v15;
     a1[1] = v6;
@@ -4112,24 +4107,22 @@ void std::vector<std::pair<std::string,std::vector<std::shared_ptr<Agglomerate>>
     v5 = *a2;
     *(v3 + 2) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     *(v3 + 3) = 0;
     *(v3 + 4) = 0;
     *(v3 + 5) = 0;
     *(v3 + 24) = *(a2 + 24);
     *(v3 + 5) = *(a2 + 5);
-    *(a2 + 3) = 0;
-    *(a2 + 4) = 0;
+    *(a2 + 24) = 0uLL;
     *(a2 + 5) = 0;
-    v6 = (v3 + 48);
+    v6 = v3 + 48;
   }
 
   a1[1] = v6;
 }
 
-std::string *std::pair<std::string,std::vector<std::shared_ptr<Agglomerate>>>::pair[abi:ne200100]<std::string&,std::vector<std::shared_ptr<Agglomerate>>&,0>(std::string *this, __int128 *a2, uint64_t *a3)
+std::string *std::pair<std::string,std::vector<std::shared_ptr<Agglomerate>>>::pair[abi:ne200100]<std::string&,std::vector<std::shared_ptr<Agglomerate>>&,0>(std::string *this, __int128 *a2, void **a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -4160,7 +4153,7 @@ void sub_1C2FBDD58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<Agglomerate>>::__init_with_size[abi:ne200100]<std::shared_ptr<Agglomerate>*,std::shared_ptr<Agglomerate>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<Agglomerate>>::__init_with_size[abi:ne200100]<std::shared_ptr<Agglomerate>*,std::shared_ptr<Agglomerate>*>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4170,7 +4163,7 @@ uint64_t std::vector<std::shared_ptr<Agglomerate>>::__init_with_size[abi:ne20010
   return result;
 }
 
-void std::vector<std::shared_ptr<Agglomerate>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<Agglomerate>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4215,8 +4208,7 @@ void Censor::global_plaintext(std::string *a1, uint64_t a2)
 
   else
   {
-    *&a1->__r_.__value_.__l.__data_ = *a2;
-    a1->__r_.__value_.__r.__words[2] = *(a2 + 16);
+    *a1 = *a2;
   }
 }
 
@@ -4281,7 +4273,7 @@ void std::deque<std::shared_ptr<Agglomerate>>::pop_front(void *a1)
   std::deque<std::shared_ptr<Agglomerate>>::__maybe_remove_front_spare[abi:ne200100](a1);
 }
 
-uint64_t std::basic_string<char16_t>::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+void *std::basic_string<char16_t>::basic_string[abi:ne200100](void *a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4303,12 +4295,12 @@ uint64_t std::basic_string<char16_t>::basic_string[abi:ne200100](uint64_t result
     std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v2);
   }
 
-  *(result + 23) = a2;
+  *(a1 + 23) = a2;
   if (a2)
   {
     v3 = 0;
     v4 = vdupq_n_s64(a2 - 1);
-    v5 = (result + 8);
+    v5 = a1 + 1;
     do
     {
       v6 = vdupq_n_s64(v3);
@@ -4353,24 +4345,24 @@ uint64_t std::basic_string<char16_t>::basic_string[abi:ne200100](uint64_t result
     while (((a2 + 7) & 0x7FFFFFFFFFFFFFF8) != v3);
   }
 
-  *(result + 2 * a2) = 0;
-  return result;
+  *(a1 + a2) = 0;
+  return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<Observer>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<Observer>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<Observer>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<Observer>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<Observer>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<Observer>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, _OWORD **a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void AudioResamplingModule::process_data(uint64_t a1, uint64_t *a2)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v10 = *(*v4 + 8);
   v9 = *(*v4 + 16);
   if (v9)
@@ -4397,9 +4389,9 @@ void AudioResamplingModule::process_data(uint64_t a1, uint64_t *a2)
 
   v11 = *a2;
   {
-    *&v67 = 0;
+    *&v65 = 0;
     memset(buf, 0, sizeof(buf));
-    std::vector<RateMarker>::__init_with_size[abi:ne200100]<RateMarker*,RateMarker*>(buf, *v12, v12[1], (v12[1] - *v12) >> 3);
+    std::vector<RateMarker>::__init_with_size[abi:ne200100]<RateMarker*,RateMarker*>(buf, *v12, *(v12 + 8), (*(v12 + 8) - *v12) >> 3);
     v13 = *buf;
     if (*&buf[8] != *buf)
     {
@@ -4434,7 +4426,7 @@ LABEL_13:
 
   Diagnostics::log(7, "Prepending silence of %lu samples.", v15, (*(a1 + 336) - *(a1 + 328)) >> 2);
   v17 = (v10 + 56);
-  std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(v10 + 56, *(v10 + 56), *(a1 + 328), *(a1 + 336), (*(a1 + 336) - *(a1 + 328)) >> 2);
+  std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>((v10 + 56), *(v10 + 56), *(a1 + 328), *(a1 + 336), (*(a1 + 336) - *(a1 + 328)) >> 2);
   *(a1 + 336) = *(a1 + 328);
   v19 = *(v10 + 56);
   v18 = *(v10 + 64);
@@ -4482,93 +4474,92 @@ LABEL_13:
   v27 = *(v10 + 64);
   if (v19 != v27)
   {
-    v28 = *(v10 + 64);
     v27 = v19;
     *(v10 + 64) = v19;
   }
 
-  v29 = *(a1 + 296) * *(a1 + 320) / 0x3E8uLL - *(a1 + 312);
-  v30 = v29 & ~(v29 >> 63);
-  if (v30 >= (v19 - v26) >> 2)
+  v28 = *(a1 + 296) * *(a1 + 320) / 0x3E8uLL - *(a1 + 312);
+  v29 = v28 & ~(v28 >> 63);
+  if (v29 >= (v19 - v26) >> 2)
   {
-    v31 = (v19 - v26) >> 2;
+    v30 = (v19 - v26) >> 2;
   }
 
   else
   {
-    v31 = v30;
+    v30 = v29;
   }
 
-  if (v31)
+  if (v30)
   {
-    v32 = Resampler::make_some_noise(std::vector<float> &,unsigned long,unsigned long)::rnd;
+    v31 = Resampler::make_some_noise(std::vector<float> &,unsigned long,unsigned long)::rnd;
     do
     {
-      v32 = 1664525 * v32 + 1013904223;
-      *v26++ = (~(3 * (v32 / 3)) + v32);
-      --v31;
+      v31 = 1664525 * v31 + 1013904223;
+      *v26++ = (~(3 * (v31 / 3)) + v31);
+      --v30;
     }
 
-    while (v31);
-    Resampler::make_some_noise(std::vector<float> &,unsigned long,unsigned long)::rnd = v32;
+    while (v30);
+    Resampler::make_some_noise(std::vector<float> &,unsigned long,unsigned long)::rnd = v31;
     v26 = *v17;
   }
 
-  v33 = *(a1 + 272);
-  v34 = *(v10 + 1);
+  v32 = *(a1 + 272);
+  v33 = *(v10 + 1);
   memset(buf, 0, sizeof(buf));
-  *&v67 = 0;
+  *&v65 = 0;
   std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(buf, v26, v27, (v27 - v26) >> 2);
-  v65[2] = 0;
-  v65[0] = *buf;
-  v65[1] = ((*&buf[8] - *buf) >> 2);
-  kaldi::VectorBase<float>::Scale(v65);
+  v63[2] = 0;
+  v63[0] = *buf;
+  v63[1] = ((*&buf[8] - *buf) >> 2);
+  kaldi::VectorBase<float>::Scale(v63, 0.000030518);
   __src = 0;
-  v63 = 0;
-  v64 = 0;
-  kaldi::LinearResample::Resample(v33, v65, v34, &__src, v35);
-  kaldi::VectorBase<float>::Scale(&__src);
-  std::vector<float>::vector[abi:ne200100](__dst, v63);
-  if (v63)
+  v61 = 0;
+  v62 = 0;
+  kaldi::LinearResample::Resample(v32, v63, v33, &__src, v34);
+  kaldi::VectorBase<float>::Scale(&__src, 32768.0);
+  std::vector<float>::vector[abi:ne200100](__dst, v61);
+  if (v61)
   {
-    memmove(__dst[0], __src, 4 * v63);
+    memmove(__dst[0], __src, 4 * v61);
   }
 
-  v36 = __dst[0];
-  v37 = __dst[1];
+  v35 = __dst[0];
+  v36 = __dst[1];
   if (__dst[0] != __dst[1])
   {
-    v38 = (v33 + 112);
-    v39 = (v33 + 116);
+    v37 = (v32 + 112);
+    v38 = (v32 + 116);
     do
     {
-      v40 = *v36;
-      v41 = *v39;
-      if (*v36 < *v38 || v40 > v41)
+      v39 = *v35;
+      v40 = *v38;
+      if (*v35 < *v37 || v39 > v40)
       {
-        if (v40 <= v41)
+        if (v39 <= v40)
         {
-          v43 = v36;
+          v42 = v35;
         }
 
         else
         {
-          v40 = *v39;
-          v43 = (v33 + 116);
+          v39 = *v38;
+          v42 = (v32 + 116);
         }
 
-        if (v40 < *v38)
+        if (v39 < *v37)
         {
-          v43 = (v33 + 112);
+          v42 = (v32 + 112);
         }
 
-        *v36 = *v43;
+        *v35 = *v42;
       }
 
-      ++v36;
+      ++v35;
     }
 
-    while (v36 != v37);
+    while (v35 != v36);
   }
 
   kaldi::Vector<float>::Destroy(&__src);
@@ -4578,102 +4569,100 @@ LABEL_13:
     operator delete(*buf);
   }
 
-  v44 = *v17;
+  v43 = *v17;
   if (*v17)
   {
-    *(v10 + 64) = v44;
-    operator delete(v44);
+    *(v10 + 64) = v43;
+    operator delete(v43);
     *v17 = 0;
     *(v10 + 64) = 0;
     *(v10 + 72) = 0;
   }
 
   *(v10 + 56) = *__dst;
-  *(v10 + 72) = v61;
-  v45 = *(a1 + 176);
-  v59[0] = *(a1 + 168);
-  v59[1] = v45;
-  if (v45)
+  *(v10 + 72) = v59;
+  v44 = *(a1 + 176);
+  v57[0] = *(a1 + 168);
+  v57[1] = v44;
+  if (v44)
   {
-    atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  OverlappingPrompt::overlap_if_available(v59, v10 + 56);
-  if (v45)
+  OverlappingPrompt::overlap_if_available(v57, v10 + 56);
+  if (v44)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
   }
 
   *(a1 + 312) += (*(v10 + 64) - *(v10 + 56)) >> 2;
-  v46 = *a2;
+  v45 = *a2;
   {
-    v48 = *(*v47 + 8);
-    v49 = *(*v47 + 16);
-    if (v49)
+    v47 = *(*v46 + 8);
+    v48 = *(*v46 + 16);
+    if (v48)
     {
-      atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v50 = v48[1];
-    if (*v48 != v50)
+    v49 = v47[1];
+    if (*v47 != v49)
     {
-      v51 = *v48 + 32;
+      v50 = *v47 + 32;
       do
       {
-        v52 = *(v51 - 16);
-        *buf = *(v51 - 32);
-        v67 = v52;
-        if (*(v51 + 23) < 0)
+        v51 = *(v50 - 16);
+        *buf = *(v50 - 32);
+        v65 = v51;
+        if (*(v50 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *v51, *(v51 + 8));
+          std::string::__init_copy_ctor_external(&__p, *v50, *(v50 + 8));
         }
 
         else
         {
-          v53 = *v51;
-          __p.__r_.__value_.__r.__words[2] = *(v51 + 16);
-          *&__p.__r_.__value_.__l.__data_ = v53;
+          v52 = *v50;
+          __p.__r_.__value_.__r.__words[2] = *(v50 + 16);
+          *&__p.__r_.__value_.__l.__data_ = v52;
         }
 
-        *(&v67 + 1) = (*(a1 + 288) * *(&v67 + 1));
+        *(&v65 + 1) = (*(a1 + 288) * *(&v65 + 1));
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        v54 = v51 - 32;
-        v51 += 56;
+        v53 = v50 - 32;
+        v50 += 56;
       }
 
-      while (v54 + 56 != v50);
+      while (v53 + 56 != v49);
     }
 
-    if (v49)
+    if (v48)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v49);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v48);
     }
   }
 
-  v55 = a2[1];
-  v57 = *a2;
-  v58 = v55;
-  if (v55)
+  v54 = a2[1];
+  v55 = *a2;
+  v56 = v54;
+  if (v54)
   {
-    atomic_fetch_add_explicit(&v55->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*a1 + 72))(a1, &v57);
-  if (v58)
+  (*(*a1 + 72))(a1, &v55);
+  if (v56)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v58);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
   }
 
   if (v9)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C2FBE978(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26)
@@ -4804,42 +4793,39 @@ LABEL_31:
   v20->__r_.__value_.__s.__data_[0] = 0;
 }
 
-void *std::deque<std::shared_ptr<Agglomerate>>::push_back(void *result, __int128 *a2)
+void std::deque<std::shared_ptr<Agglomerate>>::push_back(unint64_t *result, __int128 *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = 32 * (v5 - v6) - 1;
+    v6 = 32 * (v4 - v5) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<std::shared_ptr<Agglomerate>>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v8 + v3[4];
+    std::deque<std::shared_ptr<Agglomerate>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = v7 + result[4];
   }
 
-  v10 = *a2;
-  *(*(v6 + ((v9 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v9) = *a2;
-  if (*(&v10 + 1))
+  v9 = *a2;
+  *(*(v5 + ((v8 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v8) = *a2;
+  if (*(&v9 + 1))
   {
-    atomic_fetch_add_explicit((*(&v10 + 1) + 8), 1uLL, memory_order_relaxed);
-    v8 = v3[5];
+    atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
+    v7 = result[5];
   }
 
-  v3[5] = v8 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
 uint64_t FrontendNNModule::get_current_basic_item(FrontendNNModule *this)
@@ -4938,7 +4924,7 @@ void Mil2BnnsWaveRNNSubscaleInference::inference(uint64_t a1, uint64_t *a2, uint
   }
 
   v93.__begin_ = &v101;
-  v83 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v10 + 144), &v101.__r_.__value_.__l.__data_)[5];
+  v83 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v10 + 144), &v101, &std::piecewise_construct, &v93, &v91)[5];
   if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v101.__r_.__value_.__l.__data_);
@@ -4968,7 +4954,7 @@ void Mil2BnnsWaveRNNSubscaleInference::inference(uint64_t a1, uint64_t *a2, uint
   }
 
   v93.__begin_ = &v100;
-  v82 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v13 + 144), &v100.__r_.__value_.__l.__data_)[5];
+  v82 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v13 + 144), &v100, &std::piecewise_construct, &v93, &v91)[5];
   if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v100.__r_.__value_.__l.__data_);
@@ -4998,7 +4984,7 @@ void Mil2BnnsWaveRNNSubscaleInference::inference(uint64_t a1, uint64_t *a2, uint
   }
 
   v93.__begin_ = &v99;
-  v81 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v16 + 144), &v99.__r_.__value_.__l.__data_)[5];
+  v81 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v16 + 144), &v99, &std::piecewise_construct, &v93, &v91)[5];
   if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v99.__r_.__value_.__l.__data_);
@@ -5028,7 +5014,7 @@ void Mil2BnnsWaveRNNSubscaleInference::inference(uint64_t a1, uint64_t *a2, uint
   }
 
   v93.__begin_ = &v98;
-  v86 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v19 + 144), &v98.__r_.__value_.__l.__data_)[5];
+  v86 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v19 + 144), &v98, &std::piecewise_construct, &v93, &v91)[5];
   if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v98.__r_.__value_.__l.__data_);
@@ -5058,7 +5044,7 @@ void Mil2BnnsWaveRNNSubscaleInference::inference(uint64_t a1, uint64_t *a2, uint
   }
 
   v93.__begin_ = &v97;
-  v24 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v22 + 144), &v97.__r_.__value_.__l.__data_)[5];
+  v24 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v22 + 144), &v97, &std::piecewise_construct, &v93, &v91)[5];
   if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v97.__r_.__value_.__l.__data_);
@@ -5088,7 +5074,7 @@ void Mil2BnnsWaveRNNSubscaleInference::inference(uint64_t a1, uint64_t *a2, uint
   }
 
   v93.__begin_ = &v96;
-  v28 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v26 + 144), &v96.__r_.__value_.__l.__data_)[5];
+  v28 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v26 + 144), &v96, &std::piecewise_construct, &v93, &v91)[5];
   if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v96.__r_.__value_.__l.__data_);
@@ -5118,7 +5104,7 @@ void Mil2BnnsWaveRNNSubscaleInference::inference(uint64_t a1, uint64_t *a2, uint
   }
 
   v93.__begin_ = &v95;
-  v32 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v30 + 144), &v95.__r_.__value_.__l.__data_)[5];
+  v32 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v30 + 144), &v95, &std::piecewise_construct, &v93, &v91)[5];
   if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v95.__r_.__value_.__l.__data_);
@@ -5149,7 +5135,7 @@ void Mil2BnnsWaveRNNSubscaleInference::inference(uint64_t a1, uint64_t *a2, uint
   }
 
   v93.__begin_ = &v94;
-  v36 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v34 + 144), &v94.__r_.__value_.__l.__data_)[5];
+  v36 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v34 + 144), &v94, &std::piecewise_construct, &v93, &v91)[5];
   if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v94.__r_.__value_.__l.__data_);
@@ -5394,7 +5380,7 @@ _DWORD *WaveformRateChangerImpl::reset(WaveformRateChangerImpl *this, int16x4_t 
   return result;
 }
 
-_DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+_DWORD *std::vector<float>::assign(uint64_t *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
   v6 = a1[2];
   result = *a1;
@@ -5536,7 +5522,7 @@ void kaldi::LinearResample::Reset(kaldi::LinearResample *this, uint64_t a2, uint
   kaldi::Vector<float>::Resize(this + 11, 0, 0, a4, a5);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5549,36 +5535,15 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
-}
-
-void FRNFA::replace(uint64_t a1, uint64_t *a2)
-{
-  v2 = *(a2 + 23);
-  if (v2 < 0)
-  {
-    v3 = *a2;
-  }
-
-  if (v2 >= 0)
-  {
-    v4 = *(a2 + 23);
-  }
-
-  else
-  {
-    v4 = a2[1];
-  }
-
-  operator new();
 }
 
 void sub_1C2FC0404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
@@ -5616,25 +5581,25 @@ uint64_t boost::basic_string_ref<char,std::char_traits<char>>::at(uint64_t a1, u
   return a1 + a3;
 }
 
-uint64_t FRCode::match_step(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, unint64_t a6, int a7, int a8, int a9, char a10)
+uint64_t FRCode::match_step(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, unint64_t a6, int a7, int a8, unsigned int a9, char a10)
 {
   v11 = *a3;
   if (a3[1] != *a3)
   {
     v12 = a6;
     v14 = 0;
-    v80 = 0;
+    v78 = 0;
     v15 = a8 == 0;
     v16 = a8;
-    v73 = a8 - 1;
+    v71 = a8 - 1;
     v17 = a8 + 1;
-    v78 = a8;
+    v76 = a8;
     if (a6 == a8)
     {
       v15 = 1;
     }
 
-    v74 = v15;
+    v72 = v15;
     if (a6 <= a8)
     {
       v18 = 1;
@@ -5645,9 +5610,9 @@ uint64_t FRCode::match_step(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, u
       v18 = a10;
     }
 
-    v82 = v18;
-    v19 = a6 <= a8 || (a9 - 7) < 0xFFFFFFFB;
-    v75 = a10 | v19;
+    v80 = v18;
+    v19 = a6 <= a8 || a9 - 7 < 0xFFFFFFFB;
+    v73 = a10 | v19;
     while (2)
     {
       v20 = (v11 + 196 * v14);
@@ -5659,44 +5624,44 @@ uint64_t FRCode::match_step(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, u
         case 4:
         case 5:
           v23 = v21 + 1;
-          goto LABEL_70;
+          goto LABEL_68;
         case 1:
-          v38 = v20[25];
-          v39 = v20[26];
-          v40 = (v20 + 25);
-          v41 = *(v40 - 96);
-          v42 = *(v40 - 92);
-          v44 = *a2;
-          v43 = *(a2 + 8);
-          if (v43)
+          v36 = v20[25];
+          v37 = v20[26];
+          v38 = v20 + 25;
+          v39 = *(v38 - 24);
+          v40 = *(v38 - 23);
+          v42 = *a2;
+          v41 = *(a2 + 8);
+          if (v41)
           {
-            atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v45 = v39 + a7 - v42;
-          v46 = a8 - v38 + v41;
-          v47 = *v44;
+          v43 = v37 + a7 - v40;
+          v44 = a8 - v36 + v39;
+          v45 = *v42;
           while (2)
           {
-            if (v47 == v44[1])
+            if (v45 == v42[1])
             {
               memset(&__p[3] + 8, 0, 24);
               memset(__p + 8, 0, 48);
-              LODWORD(__p[0]) = v39 + a7 - v42;
-              v60 = boost::basic_string_ref<char,std::char_traits<char>>::substr(a5, a6, v45);
-              std::string::__init_with_size[abi:ne200100]<char const*,char const*>(&__dst, v60, &v60[v61], v61);
+              LODWORD(__p[0]) = v37 + a7 - v40;
+              v58 = boost::basic_string_ref<char,std::char_traits<char>>::substr(a5, a6, v43);
+              std::string::__init_with_size[abi:ne200100]<char const*,char const*>(&__dst, v58, &v58[v59], v59);
               *(__p + 8) = __dst;
-              FRCode::get_replacement(&__dst, a1, a5, a6, v40 - 96, v40);
-              v62 = a1[3];
+              FRCode::get_replacement(&__dst, a1, a5, a6, (v38 - 24));
+              v60 = a1[3];
               *&__p[2] = __dst;
-              std::string::basic_string[abi:ne200100]<0>(&__dst, v62);
+              std::string::basic_string[abi:ne200100]<0>(&__dst, v60);
               if (SHIBYTE(__p[4]) < 0)
               {
                 operator delete(*(&__p[3] + 1));
               }
 
               *(&__p[3] + 8) = __dst;
-              std::vector<FRReplaceInst>::push_back[abi:ne200100](v44, __p);
+              std::vector<FRReplaceInst>::push_back[abi:ne200100](v42, __p);
               if (SHIBYTE(__p[4]) < 0)
               {
                 operator delete(*(&__p[3] + 1));
@@ -5715,143 +5680,143 @@ uint64_t FRCode::match_step(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, u
 
             else
             {
-              if (*v47 != v45)
+              if (*v45 != v43)
               {
-                v47 += 80;
+                v45 += 80;
                 continue;
               }
 
-              v65 = *(v47 + 31);
-              if (v65 < 0)
+              v63 = *(v45 + 31);
+              if (v63 < 0)
               {
-                v65 = *(v47 + 16);
+                v63 = *(v45 + 16);
               }
 
-              if (v65 + v45 < v46)
+              if (v63 + v43 < v44)
               {
-                v66 = boost::basic_string_ref<char,std::char_traits<char>>::substr(a5, a6, v45);
-                std::string::__init_with_size[abi:ne200100]<char const*,char const*>(__p, v66, &v66[v67], v67);
-                if (*(v47 + 31) < 0)
+                v64 = boost::basic_string_ref<char,std::char_traits<char>>::substr(a5, a6, v43);
+                std::string::__init_with_size[abi:ne200100]<char const*,char const*>(__p, v64, &v64[v65], v65);
+                if (*(v45 + 31) < 0)
                 {
-                  operator delete(*(v47 + 8));
+                  operator delete(*(v45 + 8));
                 }
 
-                v68 = __p[0];
-                *(v47 + 24) = *&__p[1];
-                *(v47 + 8) = v68;
-                FRCode::get_replacement(__p, a1, a5, a6, v40 - 96, v40);
-                if (*(v47 + 55) < 0)
+                v66 = __p[0];
+                *(v45 + 24) = *&__p[1];
+                *(v45 + 8) = v66;
+                FRCode::get_replacement(__p, a1, a5, a6, (v38 - 24));
+                if (*(v45 + 55) < 0)
                 {
-                  operator delete(*(v47 + 32));
+                  operator delete(*(v45 + 32));
                 }
 
-                *(v47 + 32) = *__p;
+                *(v45 + 32) = *__p;
               }
             }
 
             break;
           }
 
-          if (v43)
+          if (v41)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v41);
           }
 
-          v80 = 1;
+          v78 = 1;
           v12 = a6;
-          v16 = v78;
-          goto LABEL_100;
+          v16 = v76;
+          goto LABEL_98;
         case 2:
-          v32 = v20 + 1;
-          v48 = v22[1];
-          if (!v20[v48 + 1])
+          v30 = v20 + 1;
+          v46 = v22[1];
+          if (!v20[v46 + 1])
           {
-            *(v32 + v48) = v17;
+            *(v30 + v46) = v17;
           }
 
           v23 = v21 + 1;
-          goto LABEL_71;
+          goto LABEL_69;
         case 3:
-          v33 = (v20 + 25);
+          v31 = (v20 + 25);
           v20[v22[1] + 25] = v17;
           v23 = v21 + 1;
-          goto LABEL_46;
+          goto LABEL_44;
         case 6:
           FRCode::add_state(a3, v22[1], v20 + 1, (v20 + 25));
           v23 = v22[2];
-          goto LABEL_70;
+          goto LABEL_68;
         case 7:
-          v49 = v22[1];
-          if (v49 >= v22[2] + v49)
+          v47 = v22[1];
+          if (v47 >= v22[2] + v47)
           {
-            goto LABEL_100;
+            goto LABEL_98;
           }
 
-          v50 = 8 * v49;
+          v48 = 8 * v47;
           do
           {
-            FRCode::add_state(a3, *(a1[10] + v50) + *v20, v20 + 1, (v20 + 25));
-            ++v49;
-            v50 += 8;
+            FRCode::add_state(a3, *(a1[10] + v48) + *v20, v20 + 1, (v20 + 25));
+            ++v47;
+            v48 += 8;
           }
 
-          while (v22[2] + v22[1] > v49);
-          goto LABEL_63;
+          while (v22[2] + v22[1] > v47);
+          goto LABEL_61;
         case 8:
           v23 = v22[1];
-LABEL_70:
-          v32 = v20 + 1;
-LABEL_71:
-          v33 = (v20 + 25);
-          goto LABEL_72;
+LABEL_68:
+          v30 = v20 + 1;
+LABEL_69:
+          v31 = (v20 + 25);
+          goto LABEL_70;
         case 9:
-          if (v82)
+          if (v80)
           {
-            goto LABEL_100;
+            goto LABEL_98;
           }
 
-          v36 = a1[15];
-          v37 = *boost::basic_string_ref<char,std::char_traits<char>>::at(a5, v12, v16);
-          if ((v36 & 8) != 0)
+          v34 = a1[15];
+          v35 = *boost::basic_string_ref<char,std::char_traits<char>>::at(a5, v12, v16);
+          if ((v34 & 8) != 0)
           {
-            v69 = v22[1];
-            if (v69 != case_folding[v37] && v69 != case_folding[v37 + 256])
+            v67 = v22[1];
+            if (v67 != case_folding[v35] && v67 != case_folding[v35 + 256])
             {
-              goto LABEL_100;
+              goto LABEL_98;
             }
           }
 
-          else if (v22[1] != v37)
+          else if (v22[1] != v35)
           {
-            goto LABEL_100;
+            goto LABEL_98;
           }
 
-          v33 = (v20 + 25);
+          v31 = (v20 + 25);
           v23 = *v20 + 1;
-          v32 = v20 + 1;
+          v30 = v20 + 1;
+LABEL_96:
+          v57 = a4;
+LABEL_71:
+          FRCode::add_state(v57, v23, v30, v31);
 LABEL_98:
-          v59 = a4;
-LABEL_73:
-          FRCode::add_state(v59, v23, v32, v33);
-LABEL_100:
           ++v14;
           v11 = *a3;
           if (0x7D6343EB1A1F58D1 * ((a3[1] - *a3) >> 2) <= v14)
           {
-            goto LABEL_103;
+            goto LABEL_101;
           }
 
           continue;
         case 0xA:
-          if ((v75 & 1) == 0)
+          if ((v73 & 1) == 0)
           {
-            v51 = boost::basic_string_ref<char,std::char_traits<char>>::substr(a5, v12, v16);
-            low = FRCode::get_low(v51, v52);
-            v54 = v12;
-            v55 = low;
-            v56 = boost::basic_string_ref<char,std::char_traits<char>>::substr(a5, v54, v16);
-            high = FRCode::get_high(v56, v57);
-            if (v55 == v22[1])
+            v49 = boost::basic_string_ref<char,std::char_traits<char>>::substr(a5, v12, v16);
+            low = FRCode::get_low(v49, v50);
+            v52 = v12;
+            v53 = low;
+            v54 = boost::basic_string_ref<char,std::char_traits<char>>::substr(a5, v52, v16);
+            high = FRCode::get_high(v54, v55);
+            if (v53 == v22[1])
             {
               if (high == v22[2])
               {
@@ -5859,48 +5824,48 @@ LABEL_100:
               }
 
               v12 = a6;
-              v16 = v78;
+              v16 = v76;
             }
 
             else
             {
               v12 = a6;
-              v16 = v78;
+              v16 = v76;
             }
           }
 
-          goto LABEL_100;
+          goto LABEL_98;
         case 0xB:
-          v34 = v22[1];
-          if (!(v34 | a8))
+          v32 = v22[1];
+          if (!(v32 | a8))
           {
             FRCode::add_state(a3, v21 + 1, v20 + 1, (v20 + 25));
-            v34 = v22[1];
+            v32 = v22[1];
           }
 
-          if (v34 == 1 && v12 == v16)
+          if (v32 == 1 && v12 == v16)
           {
             FRCode::add_state(a3, *v20 + 1, v20 + 1, (v20 + 25));
-            v34 = v22[1];
+            v32 = v22[1];
           }
 
-          if (v34 != 2 || !v74 && *boost::basic_string_ref<char,std::char_traits<char>>::at(a5, v12, v73) != 32 && *boost::basic_string_ref<char,std::char_traits<char>>::at(a5, v12, v16) != 32)
+          if (v32 != 2 || !v72 && *boost::basic_string_ref<char,std::char_traits<char>>::at(a5, v12, v71) != 32 && *boost::basic_string_ref<char,std::char_traits<char>>::at(a5, v12, v16) != 32)
           {
-            goto LABEL_100;
+            goto LABEL_98;
           }
 
-          v33 = (v20 + 25);
+          v31 = (v20 + 25);
           v23 = *v20 + 1;
-LABEL_46:
-          v32 = v20 + 1;
-LABEL_72:
-          v59 = a3;
-          goto LABEL_73;
+LABEL_44:
+          v30 = v20 + 1;
+LABEL_70:
+          v57 = a3;
+          goto LABEL_71;
         case 0xC:
         case 0xD:
-          if (v82)
+          if (v80)
           {
-            goto LABEL_100;
+            goto LABEL_98;
           }
 
           v24 = v22[1];
@@ -5930,13 +5895,6 @@ LABEL_72:
             }
 
             UTFString::to_utf16(__p, p_dst, size);
-            v30 = __p;
-            if (SBYTE7(__p[1]) < 0)
-            {
-              v30 = *&__p[0];
-            }
-
-            v31 = *v30;
             if (SBYTE7(__p[1]) < 0)
             {
               operator delete(*&__p[0]);
@@ -5952,49 +5910,49 @@ LABEL_72:
               FRCode::add_state(a4, *v20 + 1, v20 + 1, (v20 + 25));
             }
 
-LABEL_63:
+LABEL_61:
             v12 = a6;
           }
 
           else
           {
-            v63 = a1[6] + 40 * v24;
-            v64 = boost::basic_string_ref<char,std::char_traits<char>>::at(a5, v12, v16);
-            if ((*(v63 + 32) == 1) != ((*(v63 + ((*v64 >> 3) & 0x18)) >> *v64) & 1))
+            v61 = a1[6] + 40 * v24;
+            v62 = boost::basic_string_ref<char,std::char_traits<char>>::at(a5, v12, v16);
+            if ((*(v61 + 32) == 1) != ((*(v61 + ((*v62 >> 3) & 0x18)) >> *v62) & 1))
             {
               FRCode::add_state(a4, *v20 + 1, v20 + 1, (v20 + 25));
             }
           }
 
-          goto LABEL_100;
+          goto LABEL_98;
         case 0xE:
           if (a10)
           {
-            goto LABEL_100;
+            goto LABEL_98;
           }
 
           v23 = v21 + 1;
-          v32 = v20 + 1;
-          v33 = (v20 + 25);
-          goto LABEL_98;
+          v30 = v20 + 1;
+          v31 = (v20 + 25);
+          goto LABEL_96;
         default:
-          goto LABEL_100;
+          goto LABEL_98;
       }
     }
   }
 
-  v80 = 0;
-LABEL_103:
+  v78 = 0;
+LABEL_101:
   *a3 = *a4;
   *a4 = v11;
-  v70 = a3[1];
+  v68 = a3[1];
   a3[1] = a4[1];
-  a4[1] = v70;
-  v71 = a3[2];
+  a4[1] = v68;
+  v69 = a3[2];
   a3[2] = a4[2];
   a4[1] = *a4;
-  a4[2] = v71;
-  return v80 & 1;
+  a4[2] = v69;
+  return v78 & 1;
 }
 
 void sub_1C2FC0CC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
@@ -6027,7 +5985,7 @@ void UTFString::to_utf16(std::basic_string<char16_t> *this, const char *a2, unin
   v3 = a3;
   v6 = std::basic_string<char16_t>::basic_string[abi:ne200100](this, a3);
   *pErrorCode = 0;
-  v7 = *(v6 + 8);
+  v7 = *(v6 + 2);
   if (*(v6 + 23) >= 0)
   {
     v8 = *(v6 + 23);
@@ -6053,7 +6011,7 @@ void sub_1C2FC0E80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<char,std::vector<int>>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::vector<int>>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::vector<int>>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::vector<int>>>>::find<char>(void *a1, unsigned __int8 a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<char,std::vector<int>>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::vector<int>>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::vector<int>>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::vector<int>>>>::find<char>(void *a1, char a2)
 {
   v2 = a1[1];
   if (!v2)
@@ -6246,10 +6204,10 @@ LABEL_5:
 
 void *boost::io::ostream_put<char,std::char_traits<char>>(void *a1, uint64_t a2, unint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v19 = a1;
-  MEMORY[0x1C692A8E0](v18, a1);
-  if (v18[0] != 1)
+  v20 = *MEMORY[0x1E69E9840];
+  v18 = a1;
+  MEMORY[0x1C692A8E0](v17, a1);
+  if (v17[0] != 1)
   {
     goto LABEL_15;
   }
@@ -6277,16 +6235,16 @@ void *boost::io::ostream_put<char,std::char_traits<char>>(void *a1, uint64_t a2,
       if (v11 == -1)
       {
         std::ios_base::getloc((a1 + *(*a1 - 24)));
-        v12 = std::locale::use_facet(&v20, MEMORY[0x1E69E5318]);
+        v12 = std::locale::use_facet(&v19, MEMORY[0x1E69E5318]);
         v11 = (v12->__vftable[2].~facet_0)(v12, 32);
-        std::locale::~locale(&v20);
+        std::locale::~locale(&v19);
         *(v10 + 36) = v11;
       }
 
-      v20.__locale_ = (0x101010101010101 * v11);
+      v19.__locale_ = (0x101010101010101 * v11);
       if (v9 >= 9)
       {
-        while ((*(*v7 + 96))(v7, &v20, 8) == 8)
+        while ((*(*v7 + 96))(v7, &v19, 8) == 8)
         {
           v9 -= 8;
           if (v9 <= 8)
@@ -6299,12 +6257,12 @@ void *boost::io::ostream_put<char,std::char_traits<char>>(void *a1, uint64_t a2,
       }
 
 LABEL_10:
-      if ((*(*v7 + 96))(v7, &v20, v9) != v9)
+      if ((*(*v7 + 96))(v7, &v19, v9) != v9)
       {
 LABEL_23:
-        MEMORY[0x1C692A8F0](v18);
+        MEMORY[0x1C692A8F0](v17);
         std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 1);
-        goto LABEL_24;
+        return a1;
       }
 
       goto LABEL_14;
@@ -6314,16 +6272,16 @@ LABEL_23:
     if (v14 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
-      v15 = std::locale::use_facet(&v20, MEMORY[0x1E69E5318]);
+      v15 = std::locale::use_facet(&v19, MEMORY[0x1E69E5318]);
       v14 = (v15->__vftable[2].~facet_0)(v15, 32);
-      std::locale::~locale(&v20);
+      std::locale::~locale(&v19);
       *(v6 + 36) = v14;
     }
 
-    v20.__locale_ = (0x101010101010101 * v14);
+    v19.__locale_ = (0x101010101010101 * v14);
     if (v9 >= 9)
     {
-      while ((*(*v7 + 96))(v7, &v20, 8) == 8)
+      while ((*(*v7 + 96))(v7, &v19, 8) == 8)
       {
         v9 -= 8;
         if (v9 <= 8)
@@ -6336,7 +6294,7 @@ LABEL_23:
     }
 
 LABEL_21:
-    if ((*(*v7 + 96))(v7, &v20, v9) != v9)
+    if ((*(*v7 + 96))(v7, &v19, v9) != v9)
     {
       goto LABEL_23;
     }
@@ -6352,13 +6310,11 @@ LABEL_21:
 LABEL_14:
   *(a1 + *(*a1 - 24) + 24) = 0;
 LABEL_15:
-  MEMORY[0x1C692A8F0](v18);
-LABEL_24:
-  v16 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1C692A8F0](v17);
   return a1;
 }
 
-void sub_1C2FC1504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, std::locale a13)
+void sub_1C2FC1504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::locale a13)
 {
   std::locale::~locale(&a13);
   MEMORY[0x1C692A8F0](&a10);
@@ -6366,15 +6322,12 @@ void sub_1C2FC1504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<FRCode::State>::reserve(void *result, unint64_t a2)
+void std::vector<FRCode::State>::reserve(void *a1, unint64_t a2)
 {
-  if (0x7D6343EB1A1F58D1 * ((result[2] - *result) >> 2) < a2)
+  if (0x7D6343EB1A1F58D1 * ((a1[2] - *a1) >> 2) < a2)
   {
-    v2 = result[1] - *result;
     std::__allocate_at_least[abi:ne200100]<std::allocator<FRCode::State>>(a2);
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<FRCode::State>>(unint64_t a1)
@@ -6548,7 +6501,7 @@ void std::stringbuf::__init_buf_ptrs[abi:ne200100](uint64_t a1)
   }
 }
 
-void std::vector<FRReplaceInst>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+void std::vector<FRReplaceInst>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v3 = a1[2];
@@ -6613,9 +6566,9 @@ void std::vector<FRReplaceInst>::push_back[abi:ne200100](uint64_t *a1, uint64_t 
   a1[1] = v5;
 }
 
-void sub_1C2FC1CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C2FC1CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<FRReplaceInst>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6750,7 +6703,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<FRRepl
   }
 }
 
-uint64_t kaldi::nnet1::SelfAttention::PropagateFnc(uint64_t *a1, _DWORD *a2, int *a3, uint64_t a4, const char *a5)
+uint64_t kaldi::nnet1::SelfAttention::PropagateFnc(uint64_t *a1, unsigned int *a2, unsigned int *a3, uint64_t a4, const char *a5)
 {
   v5 = a2[5];
   v6 = *(a1 + 12);
@@ -6807,13 +6760,13 @@ uint64_t kaldi::nnet1::SelfAttention::PropagateFnc(uint64_t *a1, _DWORD *a2, int
   }
 
   v26 = v17 + 48 * a4;
-  kaldi::CuMatrix<float>::CuMatrix(v62, *(a1 + 12), (a2[5] * v24 / v6 + *(v26 + 16)), 0, 0, 0);
+  kaldi::CuMatrix<float>::CuMatrix(v62, *(a1 + 12), ((a2[5] * v24) / v6 + *(v26 + 16)), 0, 0, 0);
   kaldi::CuSubMatrix<float>::CuSubMatrix(&v59, v62, 0, v64, 0, *(v26 + 16));
   kaldi::CuMatrixBase<float>::CopyFromMat<float>(&v59, v26, 111, v27, v28);
   v59 = &unk_1F42BFE90;
   v60 = 0u;
   v61 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&v59);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   if (v6 >= 1)
   {
     v29 = 0;
@@ -6874,31 +6827,31 @@ uint64_t kaldi::nnet1::SelfAttention::PropagateFnc(uint64_t *a1, _DWORD *a2, int
       v41 = &unk_1F42BFE90;
       v42 = 0u;
       v43 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v41);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v44 = &unk_1F42BFE90;
       v45 = 0u;
       v46 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v44);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v47 = &unk_1F42BFE90;
       v48 = 0u;
       v49 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v47);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v50 = &unk_1F42BFE90;
       v51 = 0u;
       v52 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v50);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v53 = &unk_1F42BFE90;
       v54 = 0u;
       v55 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v53);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v56 = &unk_1F42BFE90;
       v57 = 0u;
       v58 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v56);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v59 = &unk_1F42BFE90;
       v60 = 0u;
       v61 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v59);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       ++v30;
       --v29;
     }
@@ -6911,123 +6864,124 @@ uint64_t kaldi::nnet1::SelfAttention::PropagateFnc(uint64_t *a1, _DWORD *a2, int
   return kaldi::CuMatrix<float>::~CuMatrix(v62);
 }
 
-void sub_1C2FC2620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1C2FC2620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
-  a40 = &unk_1F42BFE90;
-  *(v45 + 8) = 0u;
-  *(v45 + 24) = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a40);
-  kaldi::CuMatrix<float>::~CuMatrix(&a45);
+  va_start(va, a44);
+  *(v44 + 8) = 0u;
+  *(v44 + 24) = 0u;
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::CuMatrix<float>::~CuMatrix(va);
   _Unwind_Resume(a1);
 }
 
-unsigned int *kaldi::nnet1::ScaledDotAttention::SetKeyValueStates(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void kaldi::nnet1::ScaledDotAttention::SetKeyValueStates(int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a2 + 20);
   if (v6 != *(a3 + 20))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v39, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 64);
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "Mismatch in number of key and value pairs in ScaledDotAttention, got ", 69);
-    v22 = MEMORY[0x1C692A960](v21, *(a2 + 20));
-    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, " keys and ", 10);
-    v24 = MEMORY[0x1C692A960](v23, *(a3 + 20));
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v24, " values");
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v38, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 64);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "Mismatch in number of key and value pairs in ScaledDotAttention, got ", 69);
+    v21 = MEMORY[0x1C692A960](v20, *(a2 + 20));
+    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, " keys and ", 10);
+    v23 = MEMORY[0x1C692A960](v22, *(a3 + 20));
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v23, " values");
     goto LABEL_27;
   }
 
-  v9 = *(a1 + 120);
+  v9 = *(a1 + 15);
   v10 = *(a2 + 16);
   if (v9)
   {
     if (v10 != *(v9 + 8))
     {
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v39, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 78);
-      v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "Mismatch of key matrix input in ScaledDotAttention, expected ", 61);
-      v26 = MEMORY[0x1C692A960](v25, *(*(a1 + 120) + 8));
-      v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, ", but got ", 10);
-      MEMORY[0x1C692A960](v27, *(a2 + 16));
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v38, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 78);
+      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "Mismatch of key matrix input in ScaledDotAttention, expected ", 61);
+      v25 = MEMORY[0x1C692A960](v24, *(*(a1 + 15) + 8));
+      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ", but got ", 10);
+      MEMORY[0x1C692A960](v26, *(a2 + 16));
       goto LABEL_27;
     }
 
-    kaldi::CuMatrix<float>::Resize(a1 + 8, v6, *(v9 + 12), 0, 0);
-    (*(**(a1 + 120) + 112))(*(a1 + 120), a2, a1 + 8, a4);
+    kaldi::CuMatrix<float>::Resize((a1 + 2), v6, *(v9 + 12), 0, 0);
+    (*(**(a1 + 15) + 112))(*(a1 + 15), a2, a1 + 1, a4);
   }
 
   else
   {
-    if (v10 != *(*(a1 + 112) + 12))
+    if (v10 != *(*(a1 + 14) + 12))
     {
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v39, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 70);
-      v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "Mismatch of key matrix input in ScaledDotAttention, expected ", 61);
-      v32 = MEMORY[0x1C692A960](v31, *(*(a1 + 112) + 12));
-      v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, ", but got ", 10);
-      MEMORY[0x1C692A960](v33, *(a2 + 16));
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v38, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 70);
+      v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "Mismatch of key matrix input in ScaledDotAttention, expected ", 61);
+      v31 = MEMORY[0x1C692A960](v30, *(*(a1 + 14) + 12));
+      v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, ", but got ", 10);
+      MEMORY[0x1C692A960](v32, *(a2 + 16));
       goto LABEL_27;
     }
 
-    kaldi::CuMatrix<float>::Resize(a1 + 8, v6, v10, 0, 0);
-    kaldi::CuMatrixBase<float>::CopyFromMat<float>((a1 + 8), a2, 111, v11, v12);
+    kaldi::CuMatrix<float>::Resize((a1 + 2), v6, v10, 0, 0);
+    kaldi::CuMatrixBase<float>::CopyFromMat<float>(a1 + 2, a2, 111, v11, v12);
   }
 
-  v13 = *(a1 + 128);
+  v13 = *(a1 + 16);
   if (v13)
   {
     if (*(a3 + 16) == *(v13 + 8))
     {
-      kaldi::CuMatrix<float>::Resize(a1 + 56, *(a3 + 20), *(v13 + 12), 0, 0);
-      v14 = *(**(a1 + 128) + 112);
+      kaldi::CuMatrix<float>::Resize((a1 + 14), *(a3 + 20), *(v13 + 12), 0, 0);
+      v14 = *(**(a1 + 16) + 112);
 
-      return v14();
+      v14();
+      return;
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v39, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 97);
-    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "Mismatch of value matrix input in ScaledDotAttention, expected ", 63);
-    v29 = MEMORY[0x1C692A960](v28, *(*(a1 + 128) + 8));
-    v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ", but got ", 10);
-    MEMORY[0x1C692A960](v30, *(a3 + 16));
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v38, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 97);
+    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "Mismatch of value matrix input in ScaledDotAttention, expected ", 63);
+    v28 = MEMORY[0x1C692A960](v27, *(*(a1 + 16) + 8));
+    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ", but got ", 10);
+    MEMORY[0x1C692A960](v29, *(a3 + 16));
 LABEL_27:
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v39);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v38);
   }
 
-  v16 = *(a1 + 136);
-  v17 = *(a3 + 16);
-  if (v16)
+  v15 = *(a1 + 17);
+  v16 = *(a3 + 16);
+  if (v15)
   {
-    v18 = *(v16 + 8);
+    v17 = *(v15 + 8);
   }
 
   else
   {
-    v18 = *(a1 + *(*a1 - 40) + 12);
+    v17 = *(a1 + *(*a1 - 40) + 12);
   }
 
-  if (v17 != v18)
+  if (v16 != v17)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v39, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 89);
-    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "Mismatch of value matrix input in ScaledDotAttention, expected ", 63);
-    v35 = *(a1 + 136);
-    if (v35)
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v38, "SetKeyValueStates", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-attention-component.cc", 89);
+    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "Mismatch of value matrix input in ScaledDotAttention, expected ", 63);
+    v34 = *(a1 + 17);
+    if (v34)
     {
-      v36 = (v35 + 8);
+      v35 = (v34 + 8);
     }
 
     else
     {
-      v36 = (a1 + *(*a1 - 40) + 12);
+      v35 = (a1 + *(*a1 - 40) + 12);
     }
 
-    v37 = MEMORY[0x1C692A960](v34, *v36);
-    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, ", but got ", 10);
-    MEMORY[0x1C692A960](v38, *(a3 + 16));
+    v36 = MEMORY[0x1C692A960](v33, *v35);
+    v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, ", but got ", 10);
+    MEMORY[0x1C692A960](v37, *(a3 + 16));
     goto LABEL_27;
   }
 
-  kaldi::CuMatrix<float>::Resize(a1 + 56, *(a3 + 20), v17, 0, 0);
+  kaldi::CuMatrix<float>::Resize((a1 + 14), *(a3 + 20), v16, 0, 0);
 
-  return kaldi::CuMatrixBase<float>::CopyFromMat<float>((a1 + 56), a3, 111, v19, v20);
+  kaldi::CuMatrixBase<float>::CopyFromMat<float>(a1 + 14, a3, 111, v18, v19);
 }
 
-void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, const char *a5)
+void kaldi::CuMatrix<float>::Resize(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   if (a4 >= 4)
   {
@@ -7039,7 +6993,7 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
     v9 = a4;
     if (a5)
     {
-      v10 = *(a1 + 24) != a3;
+      v10 = *(result + 24) != a3;
     }
 
     else
@@ -7049,7 +7003,7 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
 
     if (a4 == 3)
     {
-      if (*(a1 + 20) == a2 && ((*(a1 + 16) == a3) & ~v10) != 0)
+      if (*(result + 20) == a2 && ((*(result + 16) == a3) & ~v10) != 0)
       {
         return;
       }
@@ -7057,7 +7011,7 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
       v9 = 0;
     }
 
-    v11 = *(a1 + 24);
+    v11 = *(result + 24);
     if (v11 < 1)
     {
       v12 = 0;
@@ -7065,7 +7019,7 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
 
     else
     {
-      v12 = *(a1 + 28) / v11;
+      v12 = *(result + 28) / v11;
     }
 
     if (v11 < a3)
@@ -7083,71 +7037,70 @@ void kaldi::CuMatrix<float>::Resize(uint64_t a1, uint64_t a2, uint64_t a3, unsig
 LABEL_19:
       if (v9 == 2)
       {
-        v14 = *(a1 + 16);
-        v13 = *(a1 + 20);
+        v13 = *(result + 20);
         if (v13 >= a2)
         {
-          v15 = a2;
+          v14 = a2;
         }
 
         else
         {
-          v15 = v13;
+          v14 = v13;
         }
 
-        if (v14 >= a3)
+        if (*(result + 16) >= a3)
         {
-          v16 = a3;
+          v15 = a3;
         }
 
         else
         {
-          v16 = v14;
+          v15 = *(result + 16);
         }
 
-        kaldi::Matrix<float>::Matrix(&v27, a2, a3, 0, a5);
-        kaldi::SubMatrix<float>::SubMatrix(v26, &v27, 0, v15, 0, v16);
-        kaldi::CuSubMatrix<float>::CuSubMatrix(&v24, a1, 0, v15, 0, v16);
-        kaldi::MatrixBase<float>::CopyFromMat<float>(v26, &v25, 111, v17, v18);
-        kaldi::CuMatrixBase<float>::~CuMatrixBase(v26);
+        kaldi::Matrix<float>::Matrix(&v26, a2, a3, 0, a5);
+        kaldi::SubMatrix<float>::SubMatrix(v25, &v26, 0, v14);
+        kaldi::CuSubMatrix<float>::CuSubMatrix(&v23, result, 0, v14, 0, v15);
+        kaldi::MatrixBase<float>::CopyFromMat<float>(v25, v24, 111, v16, v17);
+        kaldi::CuMatrixBase<float>::~CuMatrixBase();
       }
 
       else
       {
-        v20 = (a1 + 8);
-        v19 = *(a1 + 8);
-        if (v19 && (*(a1 + 40) & 1) == 0)
+        v19 = (result + 8);
+        v18 = *(result + 8);
+        if (v18 && (*(result + 40) & 1) == 0)
         {
-          free(v19);
+          free(v18);
         }
 
-        *v20 = 0;
-        *(a1 + 16) = 0;
-        *(a1 + 24) = 0;
-        kaldi::Matrix<float>::Matrix(&v27, a2, a3, v9, a5);
+        *v19 = 0;
+        *(result + 16) = 0;
+        *(result + 24) = 0;
+        kaldi::Matrix<float>::Matrix(&v26, a2, a3, v9, a5);
       }
 
+      v20 = v26;
+      v26 = *(result + 8);
+      *(result + 8) = v20;
       v21 = v27;
-      v27 = *(a1 + 8);
-      *(a1 + 8) = v21;
-      v22 = v28;
-      v28 = *(a1 + 16);
-      *(a1 + 16) = v22;
-      LOBYTE(v21) = v29;
-      v29 = *(a1 + 40);
-      *(a1 + 40) = v21;
-      kaldi::Matrix<float>::~Matrix(&v27);
+      v27 = *(result + 16);
+      *(result + 16) = v21;
+      LOBYTE(v20) = v28;
+      v28 = *(result + 40);
+      *(result + 40) = v20;
+      kaldi::Matrix<float>::~Matrix(&v26);
     }
 
     else
     {
-      *(a1 + 16) = a3;
-      *(a1 + 20) = a2;
+      *(result + 16) = a3;
+      *(result + 20) = a2;
       if (!v9)
       {
-        v23 = a1 + 8;
+        v22 = result + 8;
 
-        kaldi::MatrixBase<float>::SetZero(v23);
+        kaldi::MatrixBase<float>::SetZero(v22);
       }
     }
   }
@@ -7159,100 +7112,93 @@ LABEL_19:
       kaldi::KaldiAssertFailure_("Resize", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 0x50, "rows == 0 && cols == 0", a5);
     }
 
-    *(a1 + 16) = 0;
+    *(result + 16) = 0;
   }
 }
 
-void sub_1C2FC2E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C2FC2E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(va);
-  kaldi::Matrix<float>::~Matrix(va1);
+  va_start(va, a15);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-unsigned int *kaldi::CuMatrixBase<float>::CopyFromMat<float>(unsigned int *result, uint64_t a2, int a3, uint64_t a4, const char *a5)
+int *kaldi::CuMatrixBase<float>::CopyFromMat<float>(int *result, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   if (*(a2 + 20))
   {
-    return kaldi::MatrixBase<float>::CopyFromMat<float>(result + 2, a2 + 8, a3, a4, a5);
+    return kaldi::MatrixBase<float>::CopyFromMat<float>(result + 2, (a2 + 8), a3, a4, a5);
   }
 
   return result;
 }
 
-unsigned int *kaldi::MatrixBase<float>::CopyFromMat<float>(unsigned int *result, uint64_t a2, int a3, uint64_t a4, const char *a5)
+int *kaldi::MatrixBase<float>::CopyFromMat<float>(int *result, int *a2, int a3, uint64_t a4, const char *a5)
 {
   if (a2 != result)
   {
     v6 = result;
-    v7 = *(a2 + 12);
     if (a3 == 111)
     {
-      v8 = result[3];
-      if (v8 != v7 || result[2] != *(a2 + 8))
+      if (*(result + 1) != *(a2 + 1))
       {
         kaldi::KaldiAssertFailure_("CopyFromMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/matrix/kaldi-matrix.cc", 0x34D, "num_rows_ == M.NumRows() && num_cols_ == M.NumCols()", a5);
       }
 
-      if (v8 >= 1)
+      if (result[3] >= 1)
       {
-        v9 = 0;
+        v7 = 0;
         do
         {
-          kaldi::MatrixBase<float>::Row(v6, v9, a5, v25);
-          kaldi::MatrixBase<float>::Row(a2, v9, v10, v24);
-          result = kaldi::VectorBase<float>::CopyFromVec(v25, v24, v11, v12, v13);
-          ++v9;
+          kaldi::MatrixBase<float>::Row(v6, v7, a5, v23);
+          kaldi::MatrixBase<float>::Row(a2, v7, v8, v22);
+          result = kaldi::VectorBase<float>::CopyFromVec(v23, v22, v9, v10, v11);
+          ++v7;
         }
 
-        while (v9 < *(v6 + 12));
+        while (v7 < *(v6 + 12));
       }
     }
 
     else
     {
-      v14 = result[2];
-      if (v14 != v7 || (v15 = result[3], v15 != *(a2 + 8)))
+      v12 = result[2];
+      if (v12 != a2[3] || (v13 = result[3], v13 != a2[2]))
       {
         kaldi::KaldiAssertFailure_("CopyFromMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/matrix/kaldi-matrix.cc", 0x350, "num_cols_ == M.NumRows() && num_rows_ == M.NumCols()", a5);
       }
 
-      if (v15 >= 1)
+      if (v13 >= 1)
       {
-        v16 = 0;
-        v17 = *result;
-        v18 = *a2;
-        v19 = 4 * result[4];
-        v20 = 4 * *(a2 + 16);
+        v14 = 0;
+        v15 = *result;
+        v16 = *a2;
+        v17 = 4 * result[4];
+        v18 = 4 * a2[4];
         do
         {
-          v21 = v14;
-          v22 = v18;
-          v23 = v17;
-          if (v14 >= 1)
+          v19 = v12;
+          v20 = v16;
+          v21 = v15;
+          if (v12 >= 1)
           {
             do
             {
-              *v23++ = *v22;
-              v22 = (v22 + v20);
-              --v21;
+              *v21++ = *v20;
+              v20 = (v20 + v18);
+              --v19;
             }
 
-            while (v21);
+            while (v19);
           }
 
+          ++v14;
+          v15 = (v15 + v17);
           ++v16;
-          v17 = (v17 + v19);
-          ++v18;
         }
 
-        while (v16 != v15);
+        while (v14 != v13);
       }
     }
   }
@@ -7260,14 +7206,14 @@ unsigned int *kaldi::MatrixBase<float>::CopyFromMat<float>(unsigned int *result,
   return result;
 }
 
-uint64_t kaldi::CuMatrixBase<float>::ApplySoftMaxPerRow(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+uint64_t kaldi::CuMatrixBase<float>::ApplySoftMaxPerRow(int *a1, int *a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  if (a1[5] != *(a2 + 20) || a1[4] != *(a2 + 16))
+  if (a1[5] != a2[5] || a1[4] != a2[4])
   {
     kaldi::KaldiAssertFailure_("ApplySoftMaxPerRow", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/cudamatrix/cu-matrix.cc", 0x563, "SameDim(*this, src)", a5);
   }
 
-  kaldi::MatrixBase<float>::CopyFromMat<float>(a1 + 2, a2 + 8, 111, a4, a5);
+  kaldi::MatrixBase<float>::CopyFromMat<float>(a1 + 2, a2 + 2, 111, a4, a5);
   result = kaldi::MatrixBase<float>::NumRows((a1 + 2));
   if (result >= 1)
   {
@@ -7302,10 +7248,11 @@ uint64_t kaldi::nnet1::ScaledDotAttention::ClearKeyValueStates(kaldi::nnet1::Sca
   return kaldi::CuMatrix<float>::~CuMatrix(&v7);
 }
 
-void sub_1C2FC319C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C2FC319C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   kaldi::CuMatrix<float>::~CuMatrix(&a9);
-  kaldi::CuMatrix<float>::~CuMatrix(&a15);
+  kaldi::CuMatrix<float>::~CuMatrix(va);
   _Unwind_Resume(a1);
 }
 
@@ -7376,7 +7323,7 @@ uint64_t kaldi::nnet1::Nnet::InputDim(kaldi::nnet1::Nnet *this, uint64_t a2, uin
   return *(**this + 8);
 }
 
-unsigned int *kaldi::nnet1::SelfAttention::SetHistoryState(uint64_t *a1, uint64_t a2, int a3)
+int *kaldi::nnet1::SelfAttention::SetHistoryState(uint64_t *a1, uint64_t a2, int a3)
 {
   (*(*a1 + 160))(a1);
   if (a3)
@@ -7410,7 +7357,7 @@ uint64_t kaldi::CuSubMatrix<float>::CuSubMatrix(uint64_t result, uint64_t a2, in
   return result;
 }
 
-void *std::vector<kaldi::CuMatrix<float>>::resize(void *result, unint64_t a2)
+unint64_t *std::vector<kaldi::CuMatrix<float>>::resize(unint64_t *result, unint64_t a2)
 {
   v2 = result;
   v3 = result[1];
@@ -7512,7 +7459,7 @@ void kaldi::nnet1::Nnet::Feedforward(void *a1, uint64_t a2, uint64_t a3, unsigne
 
   if (v12)
   {
-    kaldi::CuMatrix<float>::Resize(a3, *(a2 + 20), *(a2 + 16), 1u, 0);
+    kaldi::CuMatrix<float>::Resize(a3, *(a2 + 20), *(a2 + 16), 1, 0);
 
     kaldi::CuMatrixBase<float>::CopyFromMat<float>(a3, a2, 111, v13, v14);
   }
@@ -7563,48 +7510,48 @@ void kaldi::nnet1::Nnet::Feedforward(void *a1, uint64_t a2, uint64_t a3, unsigne
   }
 }
 
-uint64_t kaldi::nnet1::Component::Propagate(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void kaldi::nnet1::Component::Propagate(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1[2] != *(a2 + 16))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v20, "Propagate", "../engine/common/libquasar/libkaldi/src/nnet/nnet-component.h", 678);
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "Non-matching dims! ", 19);
-    v12 = (*(*a1 + 24))(a1);
-    kaldi::nnet1::Component::TypeToMarker(v12, &v19);
-    if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v19, "Propagate", "../engine/common/libquasar/libkaldi/src/nnet/nnet-component.h", 678);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Non-matching dims! ", 19);
+    v11 = (*(*a1 + 24))(a1);
+    kaldi::nnet1::Component::TypeToMarker(v11, &v18);
+    if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v13 = &v19;
+      v12 = &v18;
     }
 
     else
     {
-      v13 = v19.__r_.__value_.__r.__words[0];
+      v12 = v18.__r_.__value_.__r.__words[0];
     }
 
-    if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v19.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v18.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v19.__r_.__value_.__l.__size_;
+      size = v18.__r_.__value_.__l.__size_;
     }
 
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v13, size);
-    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " input-dim : ", 13);
-    v17 = MEMORY[0x1C692A960](v16, a1[2]);
-    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " data : ", 8);
-    MEMORY[0x1C692A960](v18, *(a2 + 16));
-    std::string::~string(&v19);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v20);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v12, size);
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " input-dim : ", 13);
+    v16 = MEMORY[0x1C692A960](v15, a1[2]);
+    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " data : ", 8);
+    MEMORY[0x1C692A960](v17, *(a2 + 16));
+    std::string::~string(&v18);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v19);
   }
 
   v8 = (*(*a1 + 56))(a1, *(a2 + 20));
   kaldi::CuMatrix<float>::Resize(a3, v8, a1[3], 0, 0);
   v9 = *(*a1 + 112);
 
-  return v9(a1, a2, a3, a4);
+  v9(a1, a2, a3, a4);
 }
 
 void *kaldi::nnet1::LayerNorm::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
@@ -7615,11 +7562,11 @@ void *kaldi::nnet1::LayerNorm::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a
   }
 
   v8 = *(a2 + 20);
-  v48 = 0;
+  v50 = 0;
+  v51 = 0;
+  v48 = &unk_1F42BFF70;
   v49 = 0;
-  v46 = &unk_1F42BFF70;
-  v47 = 0;
-  kaldi::CuVector<float>::Resize(&v46, v8, 0, a4, a5);
+  kaldi::CuVector<float>::Resize(&v48, v8, 0, a4, a5);
   if (*(a2 + 20) >= 1)
   {
     v11 = 0;
@@ -7628,62 +7575,64 @@ void *kaldi::nnet1::LayerNorm::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a
       v12 = *(a2 + 8) + 4 * *(a2 + 24) * v11;
       v13 = *(a2 + 16);
       v14 = *(a2 + 32);
-      v42 = &unk_1F42BFF30;
-      v43 = v12;
-      v45 = v14;
-      v44 = v13;
-      v15 = kaldi::CuVectorBase<float>::Sum(&v42);
-      *(v47 + 4 * v11++) = *&v15 / v44;
+      v44 = &unk_1F42BFF30;
+      v45 = v12;
+      v47 = v14;
+      v46 = v13;
+      v15 = kaldi::CuVectorBase<float>::Sum(&v44);
+      *(v49 + 4 * v11++) = *&v15 / v46;
     }
 
     while (v11 < *(a2 + 20));
   }
 
   kaldi::CuMatrixBase<float>::CopyFromMat<float>(a3, a2, 111, v9, v10);
-  kaldi::CuMatrixBase<float>::AddVecToCols(a3, &v46, v16, v17, v18, -1.0, 1.0);
-  v19 = *(a2 + 20);
-  v44 = 0;
+  v16.n128_u32[0] = -1.0;
+  kaldi::CuMatrixBase<float>::AddVecToCols(a3, &v48, v16, 1.0, v17, v18, v19);
+  v20 = *(a2 + 20);
+  v46 = 0;
+  v47 = 0;
+  v44 = &unk_1F42BFF70;
   v45 = 0;
-  v42 = &unk_1F42BFF70;
-  v43 = 0;
-  kaldi::CuVector<float>::Resize(&v42, v19, 0, v20, v21);
+  kaldi::CuVector<float>::Resize(&v44, v20, 0, v21, v22);
   if (*(a2 + 20) >= 1)
   {
-    v25 = 0;
+    v26 = 0;
     do
     {
-      if (v25 >= *(a3 + 20))
+      if (v26 >= *(a3 + 20))
       {
-        kaldi::KaldiAssertFailure_("Row", "../engine/common/libquasar/libkaldi/src/cudamatrix/cu-matrix.h", 0x22A, "static_cast<UnsignedMatrixIndexT>(i) < static_cast<UnsignedMatrixIndexT>(num_rows_)", v24);
+        kaldi::KaldiAssertFailure_("Row", "../engine/common/libquasar/libkaldi/src/cudamatrix/cu-matrix.h", 0x22A, "static_cast<UnsignedMatrixIndexT>(i) < static_cast<UnsignedMatrixIndexT>(num_rows_)", v25);
       }
 
-      v26 = *(a3 + 16);
-      v27 = *(a3 + 32);
-      v41[1] = *(a3 + 8) + 4 * *(a3 + 24) * v25;
-      v41[0] = &unk_1F42BFF30;
-      v41[2] = v26;
-      v41[3] = v27;
-      kaldi::CuVector<float>::CuVector(v39, v41);
-      kaldi::CuVectorBase<float>::MulElements(v39, v41, v28, v29, v30);
-      v31 = kaldi::CuVectorBase<float>::Sum(v39);
-      *(v43 + 4 * v25) = 1.0 / (*(a1 + 48) + sqrtf(*&v31 / (v40 - *(a1 + 52))));
-      kaldi::CuVector<float>::~CuVector(v39);
-      ++v25;
+      v27 = *(a3 + 16);
+      v28 = *(a3 + 32);
+      v43[1] = *(a3 + 8) + 4 * *(a3 + 24) * v26;
+      v43[0] = &unk_1F42BFF30;
+      v43[2] = v27;
+      v43[3] = v28;
+      kaldi::CuVector<float>::CuVector(v41, v43);
+      kaldi::CuVectorBase<float>::MulElements(v41, v43, v29, v30, v31);
+      v32 = kaldi::CuVectorBase<float>::Sum(v41);
+      *(v45 + 4 * v26) = 1.0 / (*(a1 + 48) + sqrtf(*&v32 / (v42 - *(a1 + 52))));
+      kaldi::CuVector<float>::~CuVector(v41);
+      ++v26;
     }
 
-    while (v25 < *(a2 + 20));
+    while (v26 < *(a2 + 20));
   }
 
-  kaldi::CuMatrixBase<float>::MulRowsVec(a3, &v42, v22, v23, v24);
-  kaldi::CuMatrixBase<float>::MulColsVec(a3, a1 + 56, v32, v33, v34);
-  kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 88, v35, v36, v37, 1.0, 1.0);
-  kaldi::CuVector<float>::~CuVector(&v42);
-  return kaldi::CuVector<float>::~CuVector(&v46);
+  kaldi::CuMatrixBase<float>::MulRowsVec(a3, &v44, v23, v24, v25);
+  kaldi::CuMatrixBase<float>::MulColsVec(a3, a1 + 56, v33, v34, v35);
+  v36.n128_u32[0] = 1.0;
+  kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 88, v36, 1.0, v37, v38, v39);
+  kaldi::CuVector<float>::~CuVector(&v44);
+  return kaldi::CuVector<float>::~CuVector(&v48);
 }
 
-void sub_1C2FC3CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C2FC3CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   kaldi::CuVector<float>::~CuVector(va);
   _Unwind_Resume(a1);
 }
@@ -7697,7 +7646,7 @@ uint64_t kaldi::Matrix<float>::Matrix(uint64_t a1, uint64_t a2, uint64_t a3, int
   return a1;
 }
 
-uint64_t kaldi::CuMatrix<float>::CuMatrix(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, const char *a6)
+uint64_t kaldi::CuMatrix<float>::CuMatrix(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -7709,41 +7658,40 @@ uint64_t kaldi::CuMatrix<float>::CuMatrix(uint64_t a1, uint64_t a2, uint64_t a3,
   return a1;
 }
 
-uint64_t *kaldi::nnet1::QuantizedAffineTransform<signed char>::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3)
+void kaldi::nnet1::QuantizedAffineTransform<signed char>::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   kaldi::CuMatrixBase<float>::AddMatMat<signed char>(a3, a2, 111, (a1 + 48), 0x70, 1.0, 0.0);
+  v8.n128_u32[0] = 1.0;
 
-  return kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 96, v5, v6, v7, 1.0, 1.0);
+  kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 96, v8, 1.0, v5, v6, v7);
 }
 
-uint64_t kaldi::MatrixBase<float>::Scale(uint64_t result, float a2)
+uint64_t *kaldi::MatrixBase<float>::Scale(uint64_t *result, float a2)
 {
   if (a2 != 1.0)
   {
     v2 = result;
-    v3 = *(result + 12);
+    v3 = *(result + 3);
     if (v3)
     {
-      if (*(result + 8) == *(result + 16))
+      if (*(result + 2) == *(result + 4))
       {
-        v4 = *result;
 
         return cblas_sscal_NEWLAPACK_ILP64();
       }
 
       else if (v3 >= 1)
       {
-        v5 = 0;
-        v6 = *result;
+        v4 = 0;
+        v5 = *result;
         do
         {
-          v7 = v2[2];
           result = cblas_sscal_NEWLAPACK_ILP64();
-          ++v5;
-          v6 += 4 * v2[4];
+          ++v4;
+          v5 += 4 * *(v2 + 16);
         }
 
-        while (v5 < v2[3]);
+        while (v4 < *(v2 + 12));
       }
     }
   }
@@ -7810,11 +7758,11 @@ uint64_t kaldi::nnet1::SelfAttention::HistoryStateSize(kaldi::nnet1::SelfAttenti
   return (*v5 + v3);
 }
 
-uint64_t kaldi::CuSubMatrix<float>::CuSubMatrix(uint64_t result, uint64_t a2, uint64_t a3)
+void kaldi::CuSubMatrix<float>::CuSubMatrix(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *(result + 24) = 0u;
-  *(result + 8) = 0u;
-  *result = &unk_1F42BFE90;
+  *(a1 + 24) = 0u;
+  *(a1 + 8) = 0u;
+  *a1 = &unk_1F42BFE90;
   v5 = *(a2 + 16);
   v6 = v5 / a3;
   if (v5 % a3)
@@ -7827,27 +7775,26 @@ uint64_t kaldi::CuSubMatrix<float>::CuSubMatrix(uint64_t result, uint64_t a2, ui
     kaldi::KaldiErrorMessage::~KaldiErrorMessage(v10);
   }
 
-  *(result + 8) = *(a2 + 8);
-  *(result + 16) = v6;
-  *(result + 20) = a3;
-  *(result + 24) = v6;
-  *(result + 28) = v5;
-  *(result + 32) = *(a2 + 24);
-  return result;
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = v6;
+  *(a1 + 20) = a3;
+  *(a1 + 24) = v6;
+  *(a1 + 28) = v5;
+  *(a1 + 32) = *(a2 + 24);
 }
 
-uint64_t kaldi::QuantizedMatrixBase<signed char>::AddMatMat(uint64_t a1, uint64_t a2, void **a3, uint64_t a4, const char *a5, float a6)
+uint64_t kaldi::QuantizedMatrixBase<signed char>::AddMatMat(uint64_t a1, uint64_t a2, void **a3, float a4, uint64_t a5, const char *a6)
 {
   v27 = 0;
   v28 = kaldi::kaldi_memalign_free;
   v30 = 0;
   v29 = 0;
   v31 = 0;
-  kaldi::QuantizedMatrixBase<signed char>::PrepareMatMat(a1, a2, &v27, a4, a5);
+  kaldi::QuantizedMatrixBase<signed char>::PrepareMatMat(a1, a2, &v27, a5, a6);
   v9 = kaldi::MatrixBase<float>::NumRows(a3);
   v10 = kaldi::MatrixBase<float>::NumCols(a3);
   v11 = 1.0 / (*(a1 + 12) * *&v29);
-  if (a6 == 0.0)
+  if (a4 == 0.0)
   {
     v12 = *(a1 + 40);
     v13 = v27;
@@ -7868,7 +7815,7 @@ uint64_t kaldi::QuantizedMatrixBase<signed char>::AddMatMat(uint64_t a1, uint64_
     v21 = v26[0];
     v22 = kaldi::MatrixBase<float>::Stride(v26);
     BNNSFilterApplyBatch(v17, v18, v19, v20, v21, v22);
-    kaldi::MatrixBase<float>::AddMat(a3, v26, 111, v11, a6, v23, v24);
+    kaldi::MatrixBase<float>::AddMat(a3, v26, 111, v11, a4, v23, v24);
     kaldi::Matrix<float>::~Matrix(v26);
   }
 
@@ -7882,11 +7829,11 @@ uint64_t kaldi::QuantizedMatrixBase<signed char>::AddMatMat(uint64_t a1, uint64_
   return result;
 }
 
-void sub_1C2FC4240(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void (*a15)(void))
+void sub_1C2FC4240(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void (*a15)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (a14)
   {
-    a15();
+    a15(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7950,7 +7897,7 @@ uint64_t kaldi::QuantizedMatrixBase<signed char>::PrepareMatMat(float *a1, uint6
   }
 
   v21 = *(a1 + 1);
-  if (*(a3 + 20) != LODWORD(v19) || *(a3 + 24) != v21 || *(a3 + 32) != v20)
+  if (*(a3 + 20) != v19 || *(a3 + 24) != v21 || *(a3 + 32) != v20)
   {
     *(a3 + 20) = v19;
     *(a3 + 24) = v21;
@@ -7970,15 +7917,15 @@ void std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 48;
-      v7 = v4 - 48;
-      v8 = v4 - 48;
+      v6 = v4 - 6;
+      v7 = v4 - 6;
+      v8 = v4 - 6;
       do
       {
         v9 = *v8;
-        v8 -= 48;
+        v8 -= 6;
         (*(v9 + 16))(v7);
-        v6 -= 48;
+        v6 -= 6;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -8099,7 +8046,7 @@ void MarkupImpl::generate_tokens(MarkupImpl *this)
   }
 }
 
-void sub_1C2FC474C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
+void sub_1C2FC474C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
 {
   if (a16)
   {
@@ -8118,51 +8065,50 @@ void sub_1C2FC474C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void PronounceNNImpl::generate_tokens(PronounceNNImpl *this)
 {
-  v107 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 497);
-  (*(*this + 64))(&v100);
-  if (*v100 == v100[1])
+  v105 = *MEMORY[0x1E69E9840];
+  (*(*this + 64))(&v98);
+  if (*v98 == v98[1])
   {
     *(this + 8) = 1;
   }
 
   else
   {
-    v3 = 0x1EC07B000uLL;
+    v2 = 0x1EC07B000uLL;
     if (Diagnostics_GetLogObject(void)::onceToken != -1)
     {
       dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
     }
 
-    v4 = 0x1EC07B000uLL;
-    v5 = Diagnostics_GetLogObject(void)::__profile_log_default;
+    v3 = 0x1EC07B000uLL;
+    v4 = Diagnostics_GetLogObject(void)::__profile_log_default;
     if (os_log_type_enabled(Diagnostics_GetLogObject(void)::__profile_log_default, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-      _os_log_impl(&dword_1C2F95000, v5, OS_LOG_TYPE_DEFAULT, "G2P started", &buf, 2u);
+      _os_log_impl(&dword_1C2F95000, v4, OS_LOG_TYPE_DEFAULT, "G2P started", &buf, 2u);
     }
 
-    Diagnostics::log(5, "G2P started", v6);
+    Diagnostics::log(5, "G2P started", v5);
     kdebug_trace();
-    v93.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-    v8 = *v100;
-    v7 = v100[1];
-    if (*v100 != v7)
+    v91.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+    v7 = *v98;
+    v6 = v98[1];
+    if (*v98 != v6)
     {
       while (1)
       {
-        if (*(v8 + 23) < 0)
+        if (*(v7 + 23) < 0)
         {
-          v10 = *(v8 + 1);
-          if (v10)
+          v9 = *(v7 + 1);
+          if (v9)
           {
-            std::string::__init_copy_ctor_external(&v98, *v8, v10);
+            std::string::__init_copy_ctor_external(&v96, *v7, v9);
 LABEL_12:
-            UTFString::lstrip(&v98);
-            UTFString::rstrip(&v98);
-            __p = v98;
-            memset(&v98, 0, sizeof(v98));
-            v11 = *(this + 65);
+            UTFString::lstrip(&v96);
+            UTFString::rstrip(&v96);
+            __p = v96;
+            memset(&v96, 0, sizeof(v96));
+            v10 = *(this + 65);
             LODWORD(buf.__r_.__value_.__l.__data_) = 0;
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
@@ -8184,36 +8130,36 @@ LABEL_12:
               size = __p.__r_.__value_.__l.__size_;
             }
 
-            v14 = utext_openUTF8(0, p_p, size, &buf);
+            v13 = utext_openUTF8(0, p_p, size, &buf);
             if (SLODWORD(buf.__r_.__value_.__l.__data_) <= 0)
             {
-              v15 = v14;
+              v14 = v13;
             }
 
             else
             {
-              v15 = 0;
+              v14 = 0;
             }
 
-            UTFRegex::set_text(v11, v15, 1);
+            UTFRegex::set_text(v10, v14, 1);
             LODWORD(buf.__r_.__value_.__l.__data_) = 0;
-            v16 = uregex_matches(*v11, 0, &buf);
-            v17 = *(v3 + 3528);
-            if (v16)
+            v15 = uregex_matches(*v10, 0, &buf);
+            v16 = *(v2 + 3528);
+            if (v15)
             {
-              if (v17 != -1)
+              if (v16 != -1)
               {
                 dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
               }
 
-              v18 = *(v4 + 3536);
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+              v17 = *(v3 + 3536);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
               {
                 Censor::global_plaintext(&buf, &__p);
-                v19 = (buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &buf : buf.__r_.__value_.__r.__words[0];
-                *v103 = 136315138;
-                v104 = v19;
-                _os_log_impl(&dword_1C2F95000, v18, OS_LOG_TYPE_DEBUG, "Remove isolated punctuation chunk: %s", v103, 0xCu);
+                v18 = (buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &buf : buf.__r_.__value_.__r.__words[0];
+                *v101 = 136315138;
+                v102 = v18;
+                _os_log_impl(&dword_1C2F95000, v17, OS_LOG_TYPE_DEBUG, "Remove isolated punctuation chunk: %s", v101, 0xCu);
                 if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(buf.__r_.__value_.__l.__data_);
@@ -8231,56 +8177,56 @@ LABEL_12:
                 p_buf = buf.__r_.__value_.__r.__words[0];
               }
 
-              Diagnostics::log(7, "Remove isolated punctuation chunk: %s", v20, p_buf);
+              Diagnostics::log(7, "Remove isolated punctuation chunk: %s", v19, p_buf);
               if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(buf.__r_.__value_.__l.__data_);
               }
 
-              v22 = *(v8 + 4);
-              v24 = *(v22 - 16);
-              v23 = *(v22 - 8);
-              *&v97 = v24;
-              *(&v97 + 1) = v23;
-              if (v23)
+              v21 = *(v7 + 4);
+              v23 = *(v21 - 16);
+              v22 = *(v21 - 8);
+              *&v95 = v23;
+              *(&v95 + 1) = v22;
+              if (v22)
               {
-                atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              if (v24)
+              if (v23)
               {
-                if (v24 + 8 == v25)
+                if (v23 + 1 == v24)
                 {
-                  v26 = 0;
+                  v25 = 0;
                 }
 
                 else
                 {
-                  v26 = *(v25 + 40) + 8;
+                  v25 = *(v24 + 40) + 8;
                 }
 
-                v54 = *(v26 + 47);
-                if ((v54 & 0x8000000000000000) != 0)
+                v53 = *(v25 + 47);
+                if ((v53 & 0x8000000000000000) != 0)
                 {
-                  v54 = *(v26 + 32);
+                  v53 = *(v25 + 32);
                 }
 
-                if (v54 >= 2)
+                if (v53 >= 2)
                 {
-                  MEMORY[0x1C692A640](v26 + 24, ".");
-                  v24 = v97;
-                  Agglomerate::set<TokenBasicItem>(v97, v26);
+                  MEMORY[0x1C692A640](v25 + 24, ".");
+                  v23 = v95;
+                  Agglomerate::set<TokenBasicItem>(v95, v25);
                 }
 
-                v106 = 0u;
+                v104 = 0u;
                 *&buf.__r_.__value_.__r.__words[1] = 0u;
-                v55 = (*(*this + 88))(this);
-                FrontendNNModule::update_phrasing_item(this, &buf, 1, v55);
-                Agglomerate::set<TokenPhrasingItem>(v24, &buf);
-                std::deque<std::shared_ptr<Agglomerate>>::push_back(this + 4, &v97);
-                if (*(&v106 + 1))
+                v54 = (*(*this + 88))(this);
+                FrontendNNModule::update_phrasing_item(this, &buf, 1, v54);
+                Agglomerate::set<TokenPhrasingItem>(v23, &buf);
+                std::deque<std::shared_ptr<Agglomerate>>::push_back(this + 4, &v95);
+                if (*(&v104 + 1))
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](*(&v106 + 1));
+                  std::__shared_weak_count::__release_shared[abi:ne200100](*(&v104 + 1));
                 }
 
                 if (buf.__r_.__value_.__r.__words[2])
@@ -8288,50 +8234,50 @@ LABEL_12:
                   std::__shared_weak_count::__release_shared[abi:ne200100](buf.__r_.__value_.__r.__words[2]);
                 }
 
-                v23 = *(&v97 + 1);
+                v22 = *(&v95 + 1);
               }
 
-              if (v23)
+              if (v22)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v22);
               }
 
-              v39 = 0;
-              v49 = 5;
+              v38 = 0;
+              v48 = 5;
               goto LABEL_91;
             }
 
-            if (v17 != -1)
+            if (v16 != -1)
             {
               dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
             }
 
-            v36 = *(v4 + 3536);
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v35 = *(v3 + 3536);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
               LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-              _os_log_impl(&dword_1C2F95000, v36, OS_LOG_TYPE_DEFAULT, "G2P model inference started", &buf, 2u);
+              _os_log_impl(&dword_1C2F95000, v35, OS_LOG_TYPE_DEFAULT, "G2P model inference started", &buf, 2u);
             }
 
-            Diagnostics::log(5, "G2P model inference started", v37);
-            (*(*this + 128))(&buf, this, v8);
-            v39 = buf.__r_.__value_.__l.__size_;
-            v38 = buf.__r_.__value_.__r.__words[0];
-            if (!buf.__r_.__value_.__r.__words[0] || *(v8 + 3) == *(v8 + 4))
+            Diagnostics::log(5, "G2P model inference started", v36);
+            (*(*this + 128))(&buf, this, v7);
+            v38 = buf.__r_.__value_.__l.__size_;
+            v37 = buf.__r_.__value_.__r.__words[0];
+            if (!buf.__r_.__value_.__r.__words[0] || *(v7 + 3) == *(v7 + 4))
             {
-              if (*(v3 + 3528) != -1)
+              if (*(v2 + 3528) != -1)
               {
                 dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
               }
 
-              v45 = *(v4 + 3536);
-              v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
-              v48 = "G2P model inference bypass";
-              if (v46)
+              v44 = *(v3 + 3536);
+              v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT);
+              v47 = "G2P model inference bypass";
+              if (v45)
               {
                 LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-                _os_log_impl(&dword_1C2F95000, v45, OS_LOG_TYPE_DEFAULT, "G2P model inference bypass", &buf, 2u);
-                v48 = "G2P model inference bypass";
+                _os_log_impl(&dword_1C2F95000, v44, OS_LOG_TYPE_DEFAULT, "G2P model inference bypass", &buf, 2u);
+                v47 = "G2P model inference bypass";
               }
             }
 
@@ -8344,102 +8290,102 @@ LABEL_12:
                   *(*buf.__r_.__value_.__l.__data_ + 24) = -1;
                 }
 
-                if (*(v3 + 3528) != -1)
+                if (*(v2 + 3528) != -1)
                 {
                   dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
                 }
 
-                v40 = *(v4 + 3536);
-                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+                v39 = *(v3 + 3536);
+                if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
                 {
                   LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-                  _os_log_impl(&dword_1C2F95000, v40, OS_LOG_TYPE_DEFAULT, "G2P output reconstruction started", &buf, 2u);
+                  _os_log_impl(&dword_1C2F95000, v39, OS_LOG_TYPE_DEFAULT, "G2P output reconstruction started", &buf, 2u);
                 }
 
-                Diagnostics::log(5, "G2P output reconstruction started", v41);
-                v42 = *(v8 + 4);
-                if (*(v8 + 3) == v42)
+                Diagnostics::log(5, "G2P output reconstruction started", v40);
+                v41 = *(v7 + 4);
+                if (*(v7 + 3) == v41)
                 {
-                  v44 = 1;
-                }
-
-                else
-                {
-                  v43 = *(v42 - 16);
-                }
-
-                if (*(v8 + 23) < 0)
-                {
-                  std::string::__init_copy_ctor_external(&v96, *v8, *(v8 + 1));
+                  v43 = 1;
                 }
 
                 else
                 {
-                  v73 = *v8;
-                  v96.__r_.__value_.__r.__words[2] = *(v8 + 2);
-                  *&v96.__r_.__value_.__l.__data_ = v73;
+                  v42 = *(v41 - 16);
                 }
 
-                v94 = v38;
-                v95 = v39;
-                if (v39)
+                if (*(v7 + 23) < 0)
                 {
-                  atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+                  std::string::__init_copy_ctor_external(&v94, *v7, *(v7 + 1));
                 }
 
-                v74 = (*(*this + 184))(this, &v96, &v94, *(this + 498), v44 & *(this + 497));
-                if (v95)
+                else
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+                  v72 = *v7;
+                  v94.__r_.__value_.__r.__words[2] = *(v7 + 2);
+                  *&v94.__r_.__value_.__l.__data_ = v72;
                 }
 
-                if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+                v92 = v37;
+                v93 = v38;
+                if (v38)
                 {
-                  operator delete(v96.__r_.__value_.__l.__data_);
-                  if (v74)
+                  atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+                }
+
+                v73 = (*(*this + 184))(this, &v94, &v92, *(this + 498), v43 & *(this + 497));
+                if (v93)
+                {
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v93);
+                }
+
+                if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
+                {
+                  operator delete(v94.__r_.__value_.__l.__data_);
+                  if (v73)
                   {
                     goto LABEL_150;
                   }
                 }
 
-                else if (v74)
+                else if (v73)
                 {
 LABEL_150:
-                  v49 = 0;
+                  v48 = 0;
                   goto LABEL_91;
                 }
 
-                if (*(v3 + 3528) != -1)
+                if (*(v2 + 3528) != -1)
                 {
                   dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
                 }
 
-                v75 = *(v4 + 3536);
-                if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+                v74 = *(v3 + 3536);
+                if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
                 {
                   LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-                  _os_log_impl(&dword_1C2F95000, v75, OS_LOG_TYPE_DEFAULT, "Remove chunking failed, retry G2P inference!", &buf, 2u);
+                  _os_log_impl(&dword_1C2F95000, v74, OS_LOG_TYPE_DEFAULT, "Remove chunking failed, retry G2P inference!", &buf, 2u);
                 }
 
-                Diagnostics::log(5, "Remove chunking failed, retry G2P inference!", v76);
-                v49 = 4;
+                Diagnostics::log(5, "Remove chunking failed, retry G2P inference!", v75);
+                v48 = 4;
 LABEL_91:
                 if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(__p.__r_.__value_.__l.__data_);
-                  if (v39)
+                  if (v38)
                   {
 LABEL_93:
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
                   }
                 }
 
-                else if (v39)
+                else if (v38)
                 {
                   goto LABEL_93;
                 }
 
-                if (v49 && v49 != 5)
+                if (v48 && v48 != 5)
                 {
                   goto LABEL_173;
                 }
@@ -8447,120 +8393,120 @@ LABEL_93:
                 goto LABEL_134;
               }
 
-              if (*(v3 + 3528) != -1)
+              if (*(v2 + 3528) != -1)
               {
                 dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
               }
 
-              v71 = *(v4 + 3536);
-              v72 = os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT);
-              v48 = "G2P model inference got empty result!";
-              if (v72)
+              v70 = *(v3 + 3536);
+              v71 = os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT);
+              v47 = "G2P model inference got empty result!";
+              if (v71)
               {
                 LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-                _os_log_impl(&dword_1C2F95000, v71, OS_LOG_TYPE_DEFAULT, "G2P model inference got empty result!", &buf, 2u);
-                v48 = "G2P model inference got empty result!";
+                _os_log_impl(&dword_1C2F95000, v70, OS_LOG_TYPE_DEFAULT, "G2P model inference got empty result!", &buf, 2u);
+                v47 = "G2P model inference got empty result!";
               }
             }
 
-            v49 = 5;
-            Diagnostics::log(5, v48, v47);
+            v48 = 5;
+            Diagnostics::log(5, v47, v46);
             goto LABEL_91;
           }
         }
 
-        else if (*(v8 + 23))
+        else if (*(v7 + 23))
         {
-          v9 = *v8;
-          v98.__r_.__value_.__r.__words[2] = *(v8 + 2);
-          *&v98.__r_.__value_.__l.__data_ = v9;
+          v8 = *v7;
+          v96.__r_.__value_.__r.__words[2] = *(v7 + 2);
+          *&v96.__r_.__value_.__l.__data_ = v8;
           goto LABEL_12;
         }
 
-        v27 = *(v8 + 4);
-        v29 = *(v27 - 16);
-        v28 = *(v27 - 8);
-        *&v99 = v29;
-        *(&v99 + 1) = v28;
-        if (v28)
+        v26 = *(v7 + 4);
+        v28 = *(v26 - 16);
+        v27 = *(v26 - 8);
+        *&v97 = v28;
+        *(&v97 + 1) = v27;
+        if (v27)
         {
-          atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v31 = v29 + 8;
-        if (v29 + 8 == v30)
+        v30 = v28 + 1;
+        if (v28 + 1 == v29)
         {
-          v32 = 0;
+          v31 = 0;
           goto LABEL_105;
         }
 
-        v32 = 0;
-        v33 = *(*(v30 + 40) + 8);
-        if (v33 > 1835102826)
+        v31 = 0;
+        v32 = *(*(v29 + 40) + 8);
+        if (v32 > 1835102826)
         {
-          v34 = v33 == 1886547312;
-          v35 = 1835102827;
+          v33 = v32 == 1886547312;
+          v34 = 1835102827;
         }
 
         else
         {
-          v34 = v33 == 1635083369;
-          v35 = 1651664235;
+          v33 = v32 == 1635083369;
+          v34 = 1651664235;
         }
 
-        if (v34 || v33 == v35)
+        if (v33 || v32 == v34)
         {
           break;
         }
 
 LABEL_105:
-        if (v28)
+        if (v27)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v27);
         }
 
-        if (v32)
+        if (v31)
         {
           goto LABEL_134;
         }
 
-        v56 = *(v8 + 4);
-        v58 = *(v56 - 16);
-        v57 = *(v56 - 8);
-        if (v57)
+        v55 = *(v7 + 4);
+        v57 = *(v55 - 16);
+        v56 = *(v55 - 8);
+        if (v56)
         {
-          atomic_fetch_add_explicit(&v57->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v60 = v58 + 8;
-        if (v58 + 8 == v59)
+        v59 = v57 + 8;
+        if (v57 + 8 == v58)
         {
-          if (*(v3 + 3528) != -1)
+          if (*(v2 + 3528) != -1)
           {
             dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
           }
 
-          v67 = *(v4 + 3536);
-          if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+          v66 = *(v3 + 3536);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
           {
             LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&dword_1C2F95000, v67, OS_LOG_TYPE_ERROR, "#PronounceNNImpl - Phonetic: basic is needed", &buf, 2u);
+            _os_log_impl(&dword_1C2F95000, v66, OS_LOG_TYPE_ERROR, "#PronounceNNImpl - Phonetic: basic is needed", &buf, 2u);
           }
 
-          v69 = "#PronounceNNImpl - Phonetic: basic is needed";
+          v68 = "#PronounceNNImpl - Phonetic: basic is needed";
         }
 
         else
         {
-          v61 = *(v59 + 40);
-          if (v60 == v62)
+          v60 = *(v58 + 40);
+          if (v59 == v61)
           {
             memset(&buf, 0, sizeof(buf));
-            (*(*this + 192))(this, v61 + 8, &buf, 1);
+            (*(*this + 192))(this, v60 + 8, &buf, 1);
             if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(buf.__r_.__value_.__l.__data_);
-              if (!v57)
+              if (!v56)
               {
                 goto LABEL_134;
               }
@@ -8571,47 +8517,47 @@ LABEL_105:
             goto LABEL_132;
           }
 
-          if (*(v61 + 8) == 1885892462)
+          if (*(v60 + 8) == 1885892462)
           {
-            v63 = v3;
-            v64 = *(v62 + 40);
-            FrontendNNModule::handle_phonetic_token(&buf, this, *(v61 + 56), v64 + 8);
-            v65 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
+            v62 = v2;
+            v63 = *(v61 + 40);
+            FrontendNNModule::handle_phonetic_token(&buf, this, *(v60 + 56), v63 + 8);
+            v64 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
             if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v65 = buf.__r_.__value_.__l.__size_;
+              v64 = buf.__r_.__value_.__l.__size_;
             }
 
-            if (v65)
+            if (v64)
             {
-              if (*(v64 + 31) < 0)
+              if (*(v63 + 31) < 0)
               {
-                std::string::__init_copy_ctor_external(&__p, *(v64 + 8), *(v64 + 16));
+                std::string::__init_copy_ctor_external(&__p, *(v63 + 8), *(v63 + 16));
               }
 
               else
               {
-                v66 = *(v64 + 8);
-                __p.__r_.__value_.__r.__words[2] = *(v64 + 24);
-                *&__p.__r_.__value_.__l.__data_ = v66;
+                v65 = *(v63 + 8);
+                __p.__r_.__value_.__r.__words[2] = *(v63 + 24);
+                *&__p.__r_.__value_.__l.__data_ = v65;
               }
 
-              (*(*this + 192))(this, v61 + 8, &__p, 0);
+              (*(*this + 192))(this, v60 + 8, &__p, 0);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              (*(*this + 176))(this, &buf, v61 + 8, *(this + 498));
+              (*(*this + 176))(this, &buf, v60 + 8, *(this + 498));
               {
-                v77 = *(this + 9);
-                if (v77)
+                v76 = *(this + 9);
+                if (v76)
                 {
-                  v78 = *(*(*(this + 5) + (((v77 + *(this + 8) - 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v77 + *(this + 64) - 1));
-                  v80 = v78 + 8 == v79 ? 0 : *(v79 + 40) + 8;
-                  if (v60 != v81 && *(*(v81 + 40) + 8) == 1)
+                  v77 = *(*(*(this + 5) + (((v76 + *(this + 8) - 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v76 + *(this + 64) - 1));
+                  v79 = v77 + 8 == v78 ? 0 : *(v78 + 40) + 8;
+                  if (v59 != v80 && *(*(v80 + 40) + 8) == 1)
                   {
-                    *(v80 + 1) = 1;
+                    *(v79 + 1) = 1;
                   }
                 }
               }
@@ -8622,79 +8568,79 @@ LABEL_105:
               operator delete(buf.__r_.__value_.__l.__data_);
             }
 
-            v3 = v63;
-            v4 = 0x1EC07B000;
-            if (!v57)
+            v2 = v62;
+            v3 = 0x1EC07B000;
+            if (!v56)
             {
               goto LABEL_134;
             }
 
 LABEL_133:
-            std::__shared_weak_count::__release_shared[abi:ne200100](v57);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v56);
             goto LABEL_134;
           }
 
-          if (*(v3 + 3528) != -1)
+          if (*(v2 + 3528) != -1)
           {
             dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
           }
 
-          v70 = *(v4 + 3536);
-          if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+          v69 = *(v3 + 3536);
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
           {
             LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&dword_1C2F95000, v70, OS_LOG_TYPE_ERROR, "#PronounceNNImpl - Phonetic: kind of basic item isn't PHONETIC_TOKEN", &buf, 2u);
+            _os_log_impl(&dword_1C2F95000, v69, OS_LOG_TYPE_ERROR, "#PronounceNNImpl - Phonetic: kind of basic item isn't PHONETIC_TOKEN", &buf, 2u);
           }
 
-          v69 = "#PronounceNNImpl - Phonetic: kind of basic item isn't PHONETIC_TOKEN";
+          v68 = "#PronounceNNImpl - Phonetic: kind of basic item isn't PHONETIC_TOKEN";
         }
 
-        Diagnostics::log(3, v69, v68);
+        Diagnostics::log(3, v68, v67);
 LABEL_132:
-        if (v57)
+        if (v56)
         {
           goto LABEL_133;
         }
 
 LABEL_134:
-        v8 += 3;
-        if (v8 == v7)
+        v7 += 3;
+        if (v7 == v6)
         {
           goto LABEL_173;
         }
       }
 
-      v106 = 0u;
+      v104 = 0u;
       *&buf.__r_.__value_.__r.__words[1] = 0u;
-      if (v33 != 1651664235)
+      if (v32 != 1651664235)
       {
         goto LABEL_77;
       }
 
-      if (v31 == v51 || *(*(v51 + 40) + 12) > 8)
+      if (v30 == v50 || *(*(v50 + 40) + 12) > 8)
       {
         FrontendNNModule::update_phrasing_item(this, &buf, 1, 1);
         goto LABEL_100;
       }
 
-      if (v31 == v52)
+      if (v30 == v51)
       {
 LABEL_77:
-        v53 = (*(*this + 88))(this);
-        FrontendNNModule::update_phrasing_item(this, &buf, 1, v53);
+        v52 = (*(*this + 88))(this);
+        FrontendNNModule::update_phrasing_item(this, &buf, 1, v52);
       }
 
       else
       {
-        FrontendNNModule::update_phrasing_item(this, &buf, 1, *(*(v52 + 40) + 8));
+        FrontendNNModule::update_phrasing_item(this, &buf, 1, *(*(v51 + 40) + 8));
       }
 
 LABEL_100:
-      Agglomerate::set<TokenPhrasingItem>(v29, &buf);
-      std::deque<std::shared_ptr<Agglomerate>>::push_back(this + 4, &v99);
-      if (*(&v106 + 1))
+      Agglomerate::set<TokenPhrasingItem>(v28, &buf);
+      std::deque<std::shared_ptr<Agglomerate>>::push_back(this + 4, &v97);
+      if (*(&v104 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v106 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v104 + 1));
       }
 
       if (buf.__r_.__value_.__r.__words[2])
@@ -8702,7 +8648,7 @@ LABEL_100:
         std::__shared_weak_count::__release_shared[abi:ne200100](buf.__r_.__value_.__r.__words[2]);
       }
 
-      v32 = 1;
+      v31 = 1;
       goto LABEL_105;
     }
 
@@ -8710,46 +8656,44 @@ LABEL_173:
     PronounceNNImpl::postfix_alignment(this);
     rep = std::chrono::steady_clock::now().__d_.__rep_;
     kdebug_trace();
-    v83 = rep - v93.__d_.__rep_;
-    if (*(v3 + 3528) != -1)
+    v82 = rep - v91.__d_.__rep_;
+    if (*(v2 + 3528) != -1)
     {
       dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
     }
 
-    v84 = (v83 * 0x431BDE82D7B634DBLL) >> 64;
-    v85 = *(v4 + 3536);
-    if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+    v83 = (v82 * 0x431BDE82D7B634DBLL) >> 64;
+    v84 = *(v3 + 3536);
+    if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-      _os_log_impl(&dword_1C2F95000, v85, OS_LOG_TYPE_DEFAULT, "G2P ended", &buf, 2u);
+      _os_log_impl(&dword_1C2F95000, v84, OS_LOG_TYPE_DEFAULT, "G2P ended", &buf, 2u);
     }
 
-    Diagnostics::log(5, "G2P ended", v86);
-    if (*(v3 + 3528) != -1)
+    Diagnostics::log(5, "G2P ended", v85);
+    if (*(v2 + 3528) != -1)
     {
       dispatch_once(&Diagnostics_GetLogObject(void)::onceToken, &__block_literal_global_9064);
     }
 
-    v87 = *(v4 + 3536);
-    v88 = os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT);
-    v90 = ((v84 >> 18) + (v84 >> 63));
-    v91 = v90 / 1000.0;
-    if (v88)
+    v86 = *(v3 + 3536);
+    v87 = os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT);
+    v89 = ((v83 >> 18) + (v83 >> 63));
+    v90 = v89 / 1000.0;
+    if (v87)
     {
       LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
-      *(buf.__r_.__value_.__r.__words + 4) = v90 / 1000.0;
-      _os_log_impl(&dword_1C2F95000, v87, OS_LOG_TYPE_DEFAULT, "G2P latency: %.3f s", &buf, 0xCu);
+      *(buf.__r_.__value_.__r.__words + 4) = v89 / 1000.0;
+      _os_log_impl(&dword_1C2F95000, v86, OS_LOG_TYPE_DEFAULT, "G2P latency: %.3f s", &buf, 0xCu);
     }
 
-    Diagnostics::log(5, "G2P latency: %.3f s", v89, *&v91);
+    Diagnostics::log(5, "G2P latency: %.3f s", v88, *&v90);
   }
 
-  if (v101)
+  if (v99)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v101);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v99);
   }
-
-  v92 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C2FC5604(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, std::__shared_weak_count *a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40)
@@ -8774,7 +8718,7 @@ void sub_1C2FC5604(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ExtractFeaturesImpl::extract_sentence_text(ExtractFeaturesImpl *this)
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   *(this + 59) = 0;
   if (*(this + 271) < 0)
   {
@@ -8800,21 +8744,21 @@ void ExtractFeaturesImpl::extract_sentence_text(ExtractFeaturesImpl *this)
     *(this + 319) = 0;
   }
 
+  v84 = 0;
   v85 = 0;
   v86 = 0;
-  v87 = 0;
   (*(***(this + 13) + 40))(&buf);
-  std::vector<PhonemeRepresentation::Word>::push_back[abi:ne200100](&v85, &buf);
-  v82 = (this + 296);
+  std::vector<PhonemeRepresentation::Word>::push_back[abi:ne200100](&v84, &buf);
+  v81 = (this + 296);
   __p.__r_.__value_.__r.__words[0] = &buf;
   std::vector<PhonemeRepresentation::Syllable>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v83 = 0;
+  v82 = 0;
   v2 = 0;
-  v79 = 0;
+  v78 = 0;
   v3 = 0;
   v4 = (this + 472);
-  v80 = 0;
-  v81 = 1000000000;
+  v79 = 0;
+  v80 = 1000000000;
   while (1)
   {
     v5 = v3;
@@ -8870,12 +8814,12 @@ LABEL_14:
         atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      if (v83)
+      if (v82)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v83);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v82);
       }
 
-      v83 = v12;
+      v82 = v12;
     }
 
     v13 = *(this + 61);
@@ -8891,21 +8835,21 @@ LABEL_14:
     if (v15 + 8 == v16 || v18)
     {
       v19 = *(v13 + 8);
-      v20 = v81;
-      if (v19 < v81)
+      v20 = v80;
+      if (v19 < v80)
       {
         v20 = *(v13 + 8);
       }
 
       v21 = v18 + v19;
-      v22 = v80;
-      if (v80 <= v21)
+      v22 = v79;
+      if (v79 <= v21)
       {
         v22 = v21;
       }
 
-      v80 = v22;
-      v81 = v20;
+      v79 = v22;
+      v80 = v20;
     }
 
     if (v14 <= 1886547311)
@@ -8946,7 +8890,7 @@ LABEL_38:
       {
 LABEL_70:
         *&buf.__r_.__value_.__r.__words[1] = 0uLL;
-        v90 = 0;
+        v89 = 0;
         if ((v24 & 0x80) == 0)
         {
           goto LABEL_47;
@@ -8962,10 +8906,10 @@ LABEL_70:
     }
 
     *&buf.__r_.__value_.__r.__words[1] = 0uLL;
-    v90 = 0;
-    if (!v79 && v14 != 1886809699)
+    v89 = 0;
+    if (!v78 && v14 != 1886809699)
     {
-      std::string::push_back(v82, 32);
+      std::string::push_back(v81, 32);
       v24 = *(this + 319);
     }
 
@@ -9006,7 +8950,7 @@ LABEL_47:
         v31 = *(v26 + 8);
       }
 
-      std::string::append(v82, v30, v31);
+      std::string::append(v81, v30, v31);
     }
 
     v32 = *v4;
@@ -9024,7 +8968,7 @@ LABEL_47:
         v36 = *(v34 + 55);
       }
 
-      v79 = v36 != 0;
+      v78 = v36 != 0;
       if (v36)
       {
         if (v35 >= 0)
@@ -9047,7 +8991,7 @@ LABEL_47:
           v43 = *(v34 + 40);
         }
 
-        std::string::append(v82, v42, v43);
+        std::string::append(v81, v42, v43);
       }
 
       if ((*(this + 271) & 0x8000000000000000) != 0)
@@ -9096,12 +9040,12 @@ LABEL_86:
       goto LABEL_93;
     }
 
-    v79 = 0;
+    v78 = 0;
 LABEL_93:
     v47 = *v4;
     if (v47 + 8 != v48)
     {
-      std::vector<PhonemeRepresentation::Word>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PhonemeRepresentation::Word const*>,std::__wrap_iter<PhonemeRepresentation::Word const*>>(&v85, v86, *(*(v48 + 40) + 8), *(*(v48 + 40) + 16), 0xAAAAAAAAAAAAAAABLL * ((*(*(v48 + 40) + 16) - *(*(v48 + 40) + 8)) >> 3));
+      std::vector<PhonemeRepresentation::Word>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PhonemeRepresentation::Word const*>,std::__wrap_iter<PhonemeRepresentation::Word const*>>(&v84, v85, *(*(v48 + 40) + 8), *(*(v48 + 40) + 16), 0xAAAAAAAAAAAAAAABLL * ((*(*(v48 + 40) + 16) - *(*(v48 + 40) + 8)) >> 3));
       v47 = *v4;
     }
 
@@ -9111,7 +9055,7 @@ LABEL_93:
       if (*(v50 + 8) == 1)
       {
         (*(***(this + 13) + 40))(&buf);
-        std::vector<PhonemeRepresentation::Word>::push_back[abi:ne200100](&v85, &buf);
+        std::vector<PhonemeRepresentation::Word>::push_back[abi:ne200100](&v84, &buf);
         __p.__r_.__value_.__r.__words[0] = &buf;
         std::vector<PhonemeRepresentation::Syllable>::__destroy_vector::operator()[abi:ne200100](&__p);
       }
@@ -9133,24 +9077,24 @@ LABEL_93:
 
     v38 = *(v37 + 40);
     *&buf.__r_.__value_.__r.__words[1] = 0uLL;
-    v90 = 0;
+    v89 = 0;
     v39 = *(this + 319);
     if (*(this + 319) < 0)
     {
       if (*(this + 38))
       {
 LABEL_63:
-        std::string::push_back(v82, 32);
+        std::string::push_back(v81, 32);
         v39 = *(this + 319);
         if ((v39 & 0x80) == 0)
         {
 LABEL_102:
           buf.__r_.__value_.__r.__words[0] = v39;
           Agglomerate::set<TokenExtractionItem>(*v4, &buf);
-          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v88, 60, (v38 + 40));
-          std::string::push_back(&v88, 62);
-          __p = v88;
-          memset(&v88, 0, sizeof(v88));
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v87, 60, (v38 + 40));
+          std::string::push_back(&v87, 62);
+          __p = v87;
+          memset(&v87, 0, sizeof(v87));
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
             p_p = &__p;
@@ -9171,15 +9115,15 @@ LABEL_102:
             size = __p.__r_.__value_.__l.__size_;
           }
 
-          std::string::append(v82, p_p, size);
+          std::string::append(v81, p_p, size);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v88.__r_.__value_.__l.__data_);
+            operator delete(v87.__r_.__value_.__l.__data_);
           }
 
           goto LABEL_93;
@@ -9219,7 +9163,7 @@ LABEL_64:
   if (*(v41 + 8) != 0.0)
   {
     (*(***(this + 13) + 40))(&buf);
-    std::vector<PhonemeRepresentation::Word>::push_back[abi:ne200100](&v85, &buf);
+    std::vector<PhonemeRepresentation::Word>::push_back[abi:ne200100](&v84, &buf);
     __p.__r_.__value_.__r.__words[0] = &buf;
     std::vector<PhonemeRepresentation::Syllable>::__destroy_vector::operator()[abi:ne200100](&__p);
     goto LABEL_93;
@@ -9231,7 +9175,7 @@ LABEL_64:
   }
 
   (*(***(this + 13) + 40))(&buf);
-  std::vector<PhonemeRepresentation::Word>::push_back[abi:ne200100](&v85, &buf);
+  std::vector<PhonemeRepresentation::Word>::push_back[abi:ne200100](&v84, &buf);
   __p.__r_.__value_.__r.__words[0] = &buf;
   std::vector<PhonemeRepresentation::Syllable>::__destroy_vector::operator()[abi:ne200100](&__p);
 LABEL_114:
@@ -9247,7 +9191,7 @@ LABEL_114:
     *(this + 207) = 0;
   }
 
-  v53 = v81;
+  v53 = v80;
   if (v2)
   {
     std::string::operator=((this + 208), v2);
@@ -9256,7 +9200,7 @@ LABEL_114:
   v54 = (this + 184);
   if (v3)
   {
-    if (v81 < v80)
+    if (v80 < v79)
     {
       v55 = *(v2 + 23);
       if ((v55 & 0x8000000000000000) != 0)
@@ -9264,9 +9208,9 @@ LABEL_114:
         v55 = *(v2 + 8);
       }
 
-      if (v80 <= v55)
+      if (v79 <= v55)
       {
-        v55 = v80;
+        v55 = v79;
       }
 
       else
@@ -9282,11 +9226,11 @@ LABEL_114:
           Censor::global_plaintext(&__p, v2);
           v57 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
           LODWORD(buf.__r_.__value_.__l.__data_) = 134218498;
-          *(buf.__r_.__value_.__r.__words + 4) = v81;
+          *(buf.__r_.__value_.__r.__words + 4) = v80;
           WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
-          *(&buf.__r_.__value_.__r.__words[1] + 6) = v80;
+          *(&buf.__r_.__value_.__r.__words[1] + 6) = v79;
           HIWORD(buf.__r_.__value_.__r.__words[2]) = 2080;
-          v90 = v57;
+          v89 = v57;
           _os_log_impl(&dword_1C2F95000, v56, OS_LOG_TYPE_ERROR, "Invalid sentence range: [%zu, %zu) in text '%s'", &buf, 0x20u);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
@@ -9305,13 +9249,13 @@ LABEL_114:
           p_buf = buf.__r_.__value_.__r.__words[0];
         }
 
-        Diagnostics::log(3, "Invalid sentence range: [%zu, %zu) in text '%s'", v58, v81, v80, p_buf);
+        Diagnostics::log(3, "Invalid sentence range: [%zu, %zu) in text '%s'", v58, v80, v79, p_buf);
         if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(buf.__r_.__value_.__l.__data_);
         }
 
-        if (v55 < v81)
+        if (v55 < v80)
         {
           v53 = v55;
         }
@@ -9384,7 +9328,7 @@ LABEL_114:
             v64 = "\\r";
             goto LABEL_164;
           case 0x5Cu:
-            v64 = "\\\";
+            v64 = "\\\"";
             goto LABEL_164;
           case 0x1Bu:
             v64 = "\\e";
@@ -9408,13 +9352,13 @@ LABEL_165:
 
     *v65 = *&__p.__r_.__value_.__l.__data_;
     *(this + 45) = *(&__p.__r_.__value_.__l + 2);
-    UTFString::remove_invalid_utf8_codes(&__p, v82);
+    UTFString::remove_invalid_utf8_codes(&__p, v81);
     if (*(this + 319) < 0)
     {
-      operator delete(v82->__r_.__value_.__l.__data_);
+      operator delete(v81->__r_.__value_.__l.__data_);
     }
 
-    *&v82->__r_.__value_.__l.__data_ = *&__p.__r_.__value_.__l.__data_;
+    *&v81->__r_.__value_.__l.__data_ = *&__p.__r_.__value_.__l.__data_;
     *(this + 39) = *(&__p.__r_.__value_.__l + 2);
     if (Diagnostics_GetLogObject(void)::onceToken != -1)
     {
@@ -9426,8 +9370,8 @@ LABEL_165:
     {
       Censor::global_plaintext(&__p, &buf);
       v67 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-      LODWORD(v88.__r_.__value_.__l.__data_) = 136315138;
-      *(v88.__r_.__value_.__r.__words + 4) = v67;
+      LODWORD(v87.__r_.__value_.__l.__data_) = 136315138;
+      *(v87.__r_.__value_.__r.__words + 4) = v67;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -9458,17 +9402,17 @@ LABEL_165:
     v70 = Diagnostics_GetLogObject(void)::__profile_log_default;
     if (os_log_type_enabled(Diagnostics_GetLogObject(void)::__profile_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      Censor::global_plaintext(&__p, v82);
+      Censor::global_plaintext(&__p, v81);
       v71 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-      LODWORD(v88.__r_.__value_.__l.__data_) = 136315138;
-      *(v88.__r_.__value_.__r.__words + 4) = v71;
+      LODWORD(v87.__r_.__value_.__l.__data_) = 136315138;
+      *(v87.__r_.__value_.__r.__words + 4) = v71;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
     }
 
-    Censor::global_plaintext(&__p, v82);
+    Censor::global_plaintext(&__p, v81);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v73 = &__p;
@@ -9494,9 +9438,9 @@ LABEL_165:
     {
       Censor::global_plaintext(&__p, v65);
       v75 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-      LODWORD(v88.__r_.__value_.__l.__data_) = 136315138;
-      *(v88.__r_.__value_.__r.__words + 4) = v75;
-      _os_log_impl(&dword_1C2F95000, v74, OS_LOG_TYPE_DEFAULT, "Phonemes : %s", &v88, 0xCu);
+      LODWORD(v87.__r_.__value_.__l.__data_) = 136315138;
+      *(v87.__r_.__value_.__r.__words + 4) = v75;
+      _os_log_impl(&dword_1C2F95000, v74, OS_LOG_TYPE_DEFAULT, "Phonemes : %s", &v87, 0xCu);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -9526,14 +9470,13 @@ LABEL_165:
     }
   }
 
-  if (v83)
+  if (v82)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v83);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v82);
   }
 
-  buf.__r_.__value_.__r.__words[0] = &v85;
+  buf.__r_.__value_.__r.__words[0] = &v84;
   std::vector<PhonemeRepresentation::Word>::__destroy_vector::operator()[abi:ne200100](&buf);
-  v78 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C2FC6420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
@@ -9549,14 +9492,13 @@ void sub_1C2FC6420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::nnet1::ParallelComponent::PropagateFnc(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+void kaldi::nnet1::ParallelComponent::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v27 = a4;
-  v5 = *(result + 184);
-  v28 = *(result + 192);
+  v5 = *(a1 + 184);
+  v28 = *(a1 + 192);
   if (v5 != v28)
   {
-    v8 = result;
     v9 = 0;
     v10 = 0;
     v11 = *(a3 + 32);
@@ -9572,7 +9514,7 @@ uint64_t kaldi::nnet1::ParallelComponent::PropagateFnc(uint64_t result, uint64_t
       v30 = 0;
       v29[0] = &unk_1F42BFED8;
       v29[4] = v11;
-      if (v8[178] == 1)
+      if (*(a1 + 178) == 1)
       {
         kaldi::nnet1::Nnet::Feedforward(v5, &v34, v29, 0xFFFFFFFF, 0);
       }
@@ -9582,14 +9524,14 @@ uint64_t kaldi::nnet1::ParallelComponent::PropagateFnc(uint64_t result, uint64_t
         kaldi::nnet1::Nnet::Propagate<kaldi::CuSubMatrix<float>>(v5, &v34, v29, v27, v18);
       }
 
-      if (v8[176] == 1)
+      if (*(a1 + 176) == 1)
       {
         v9 = (kaldi::nnet1::Nnet::InputDim(v5, v19, v20, v21, v22) + v9);
       }
 
-      if (v8[177] == 1)
+      if (*(a1 + 177) == 1)
       {
-        kaldi::CuMatrixBase<float>::AddMat(&v31, v29, 111, v21, v22, 1.0, 1.0);
+        kaldi::CuMatrixBase<float>::AddMat(&v31, v29, 111, 1.0, 1.0, v21, v22);
       }
 
       else
@@ -9602,130 +9544,127 @@ uint64_t kaldi::nnet1::ParallelComponent::PropagateFnc(uint64_t result, uint64_t
       v31 = &unk_1F42BFE90;
       v32 = 0u;
       v33 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v31);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v34 = &unk_1F42BFE90;
       v35 = 0u;
       v36 = 0u;
-      result = kaldi::CuMatrixBase<float>::~CuMatrixBase(&v34);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v5 = (v5 + 376);
     }
 
     while (v5 != v28);
   }
-
-  return result;
 }
 
-void sub_1C2FC6738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22)
+void sub_1C2FC6738(_Unwind_Exception *a1)
 {
-  a22 = &unk_1F42BFE90;
-  *(v22 + 8) = 0u;
-  *(v22 + 24) = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a22);
+  *(v1 + 8) = 0u;
+  *(v1 + 24) = 0u;
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::MatrixBase<float>::AddMat(uint64_t result, uint64_t *a2, int a3, float a4, float a5, uint64_t a6, const char *a7)
+uint64_t *kaldi::MatrixBase<float>::AddMat(uint64_t *result, uint64_t *a2, int a3, float a4, float a5, uint64_t a6, const char *a7)
 {
   v8 = result;
   if (a2 == result)
   {
     if (a3 == 111)
     {
-      v20 = a4 + a5;
+      v19 = a4 + a5;
 
-      return kaldi::MatrixBase<float>::Scale(result, v20);
+      return kaldi::MatrixBase<float>::Scale(result, v19);
     }
 
     else
     {
-      v25 = *(result + 12);
-      if (v25 != *(result + 8))
+      v23 = *(result + 3);
+      if (v23 != *(result + 2))
       {
         kaldi::KaldiAssertFailure_("AddMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/matrix/kaldi-matrix.cc", 0x1C0, "num_rows_ == num_cols_ && AddMat: adding to self (transposed): not symmetric.", a7);
       }
 
-      v26 = *result;
+      v24 = *result;
       if (a4 == 1.0 && a5 == 1.0)
       {
-        if (v25 >= 1)
+        if (v23 >= 1)
         {
-          v37 = 0;
-          v38 = *(result + 16);
-          v39 = 4 * v38;
-          v40 = *result;
-          v41 = *result;
+          v35 = 0;
+          v36 = *(result + 4);
+          v37 = 4 * v36;
+          v38 = *result;
+          v39 = *result;
           do
           {
-            if (v37)
+            if (v35)
             {
-              v42 = 0;
-              v43 = v37 * v38;
-              v44 = v41;
+              v40 = 0;
+              v41 = v35 * v36;
+              v42 = v39;
               do
               {
-                v45 = v40[v42] + *v44;
-                *v44 = v45;
-                v40[v42++] = v45;
-                v44 = (v44 + v39);
+                v43 = *(v38 + 4 * v40) + *v42;
+                *v42 = v43;
+                *(v38 + 4 * v40++) = v43;
+                v42 = (v42 + v37);
               }
 
-              while (v37 != v42);
+              while (v35 != v40);
             }
 
             else
             {
-              v43 = 0;
+              v41 = 0;
             }
 
-            v26[v43 + v37] = v26[v43 + v37] + v26[v43 + v37];
-            ++v37;
-            ++v41;
-            v40 = (v40 + v39);
+            *(v24 + 4 * v41 + 4 * v35) = *(v24 + 4 * v41 + 4 * v35) + *(v24 + 4 * v41 + 4 * v35);
+            ++v35;
+            v39 += 4;
+            v38 += v37;
           }
 
-          while (v37 != v25);
+          while (v35 != v23);
         }
       }
 
-      else if (v25 >= 1)
+      else if (v23 >= 1)
       {
-        v28 = 0;
-        v29 = *(result + 16);
-        v30 = 4 * v29;
-        v31 = *result;
-        v32 = *result;
+        v26 = 0;
+        v27 = *(result + 4);
+        v28 = 4 * v27;
+        v29 = *result;
+        v30 = *result;
         do
         {
-          if (v28)
+          if (v26)
           {
-            v33 = 0;
-            v34 = v28 * v29;
-            v35 = v32;
+            v31 = 0;
+            v32 = v26 * v27;
+            v33 = v30;
             do
             {
-              v36 = v31[v33];
-              v31[v33] = (v36 * a5) + (a4 * *v35);
-              *v35 = (*v35 * a5) + (a4 * v36);
-              ++v33;
-              v35 = (v35 + v30);
+              v34 = *(v29 + 4 * v31);
+              *(v29 + 4 * v31) = (v34 * a5) + (a4 * *v33);
+              *v33 = (*v33 * a5) + (a4 * v34);
+              ++v31;
+              v33 = (v33 + v28);
             }
 
-            while (v28 != v33);
+            while (v26 != v31);
           }
 
           else
           {
-            v34 = 0;
+            v32 = 0;
           }
 
-          v26[v34 + v28] = (a4 + a5) * v26[v34 + v28];
-          ++v28;
-          ++v32;
-          v31 = (v31 + v30);
+          *(v24 + 4 * v32 + 4 * v26) = (a4 + a5) * *(v24 + 4 * v32 + 4 * v26);
+          ++v26;
+          v30 += 4;
+          v29 += v28;
         }
 
-        while (v28 != v25);
+        while (v26 != v23);
       }
     }
   }
@@ -9740,12 +9679,12 @@ uint64_t kaldi::MatrixBase<float>::AddMat(uint64_t result, uint64_t *a2, int a3,
     v10 = *(a2 + 4);
     v11 = *a2;
     v12 = *v8;
-    v13 = *(v8 + 12);
-    v14 = *(v8 + 16);
+    v13 = *(v8 + 3);
+    v14 = *(v8 + 4);
     if (a3 == 111)
     {
       v15 = *(a2 + 3);
-      if (v15 != v13 || *(a2 + 2) != *(v8 + 8))
+      if (v15 != v13 || *(a2 + 2) != *(v8 + 2))
       {
         kaldi::KaldiAssertFailure_("AddMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/matrix/kaldi-matrix.cc", 0x1DC, "A.num_rows_ == num_rows_ && A.num_cols_ == num_cols_", a7);
       }
@@ -9757,39 +9696,37 @@ uint64_t kaldi::MatrixBase<float>::AddMat(uint64_t result, uint64_t *a2, int a3,
         v18 = 4 * v10;
         do
         {
-          v19 = *(v8 + 8);
           result = cblas_saxpy_NEWLAPACK_ILP64();
           ++v16;
           v12 += v17;
           v11 += v18;
         }
 
-        while (v16 < *(v8 + 12));
+        while (v16 < *(v8 + 3));
       }
     }
 
     else
     {
-      v21 = *(a2 + 2);
-      if (v21 != v13 || *(a2 + 3) != *(v8 + 8))
+      v20 = *(a2 + 2);
+      if (v20 != v13 || *(a2 + 3) != *(v8 + 2))
       {
         kaldi::KaldiAssertFailure_("AddMat", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/matrix/kaldi-matrix.cc", 0x1E2, "A.num_cols_ == num_rows_ && A.num_rows_ == num_cols_", a7);
       }
 
-      if (v21 >= 1)
+      if (v20 >= 1)
       {
-        v22 = 0;
-        v23 = 4 * v14;
+        v21 = 0;
+        v22 = 4 * v14;
         do
         {
-          v24 = *(v8 + 8);
           result = cblas_saxpy_NEWLAPACK_ILP64();
-          ++v22;
+          ++v21;
           v11 += 4;
-          v12 += v23;
+          v12 += v22;
         }
 
-        while (v22 < *(v8 + 12));
+        while (v21 < *(v8 + 3));
       }
     }
   }

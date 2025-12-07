@@ -9,6 +9,7 @@
 + (id)combineScoreFromPSR:(id)r fromSAT:(id)t withCombinedWt:(float)wt;
 + (id)concatenateDonationId:(id)id triggerPhraseId:(unint64_t)phraseId;
 + (id)convertSchemaTypeWithLocale:(id)locale;
++ (id)createAVAudioPCMBufferWithNSData:(id)data audioFormat:(unint64_t)format sampleRate:(float)rate numOfChannel:(unsigned int)channel isInterleaved:(BOOL)interleaved;
 + (id)createDirectoryIfDoesNotExist:(id)exist;
 + (id)deviceCategoryStringRepresentationForCategoryType:(unint64_t)type;
 + (id)generateEnrollmentId;
@@ -59,7 +60,7 @@
 
 + (id)getEmbeddingFileName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   assetHash = [nameCopy assetHash];
   assetVersion = [nameCopy assetVersion];
@@ -79,16 +80,16 @@
     }
 
     *buf = 136315650;
-    v17 = "+[SSRUtils getEmbeddingFileName:]";
-    v18 = 2112;
-    v19 = v8;
+    v16 = "+[SSRUtils getEmbeddingFileName:]";
+    v17 = 2112;
+    v18 = v8;
     if (assetVersion)
     {
       v7 = assetVersion;
     }
 
-    v20 = 2112;
-    v21 = v7;
+    v19 = 2112;
+    v20 = v7;
     _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s asset hash is %@, asset version is %@", buf, 0x20u);
   }
 
@@ -109,8 +110,6 @@
   v12 = v11;
 
   v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v10, v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -169,6 +168,24 @@
   return v8;
 }
 
++ (id)createAVAudioPCMBufferWithNSData:(id)data audioFormat:(unint64_t)format sampleRate:(float)rate numOfChannel:(unsigned int)channel isInterleaved:(BOOL)interleaved
+{
+  interleavedCopy = interleaved;
+  v8 = *&channel;
+  v11 = MEMORY[0x277CB83A0];
+  dataCopy = data;
+  v13 = [[v11 alloc] initWithCommonFormat:format sampleRate:v8 channels:interleavedCopy interleaved:rate];
+  v14 = [objc_alloc(MEMORY[0x277CB83C0]) initWithPCMFormat:v13 frameCapacity:objc_msgSend(dataCopy, "length") >> 1];
+  memcpy(*([v14 mutableAudioBufferList] + 16), objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"));
+  LODWORD(format) = [dataCopy length];
+  *([v14 mutableAudioBufferList] + 12) = format;
+  LODWORD(format) = [dataCopy length];
+
+  [v14 setFrameLength:format >> 1];
+
+  return v14;
+}
+
 + (id)generateEnrollmentId
 {
   uUID = [MEMORY[0x277CCAD78] UUID];
@@ -202,7 +219,7 @@
 
 + (id)combineScoreFromPSR:(id)r fromSAT:(id)t withCombinedWt:(float)wt
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   rCopy = r;
   tCopy = t;
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -230,96 +247,94 @@ LABEL_7:
   if (rCopy && tCopy)
   {
     [v9 addEntriesFromDictionary:tCopy];
-    v38 = v10;
+    v37 = v10;
     [v10 addEntriesFromDictionary:rCopy];
-    v16 = [rCopy objectForKeyedSubscript:@"spIdKnownUserPSRScores"];
-    v37 = tCopy;
-    v17 = [tCopy objectForKeyedSubscript:@"spIdKnownUserSATScores"];
-    v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v15 = [rCopy objectForKeyedSubscript:@"spIdKnownUserPSRScores"];
+    v36 = tCopy;
+    v16 = [tCopy objectForKeyedSubscript:@"spIdKnownUserSATScores"];
+    v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v19 = v16;
-    v20 = [v19 countByEnumeratingWithState:&v39 objects:v49 count:16];
-    if (v20)
+    v18 = v15;
+    v19 = [v18 countByEnumeratingWithState:&v38 objects:v48 count:16];
+    if (v19)
     {
-      v21 = v20;
-      v22 = *v40;
-      v23 = MEMORY[0x277D01970];
+      v20 = v19;
+      v21 = *v39;
+      v22 = MEMORY[0x277D01970];
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v40 != v22)
+          if (*v39 != v21)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v18);
           }
 
-          v25 = *(*(&v39 + 1) + 8 * i);
-          v26 = [v17 objectForKeyedSubscript:v25];
+          v24 = *(*(&v38 + 1) + 8 * i);
+          v25 = [v16 objectForKeyedSubscript:v24];
 
-          if (v26)
+          if (v25)
           {
-            v27 = [v17 objectForKeyedSubscript:v25];
-            [v27 floatValue];
-            v29 = v28;
+            v26 = [v16 objectForKeyedSubscript:v24];
+            [v26 floatValue];
+            v28 = v27;
 
-            v30 = [v19 objectForKeyedSubscript:v25];
-            [v30 floatValue];
-            v32 = v31;
+            v29 = [v18 objectForKeyedSubscript:v24];
+            [v29 floatValue];
+            v31 = v30;
 
-            *&v33 = (v32 * wt) + ((1.0 - wt) * v29);
-            v34 = [MEMORY[0x277CCABB0] numberWithFloat:v33];
-            [v18 setObject:v34 forKey:v25];
+            *&v32 = (v31 * wt) + ((1.0 - wt) * v28);
+            v33 = [MEMORY[0x277CCABB0] numberWithFloat:v32];
+            [v17 setObject:v33 forKey:v24];
           }
 
           else
           {
-            v35 = *v23;
-            if (os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
+            v34 = *v22;
+            if (os_log_type_enabled(*v22, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v44 = "+[SSRUtils combineScoreFromPSR:fromSAT:withCombinedWt:]";
-              v45 = 2114;
-              v46 = v25;
-              v47 = 2114;
-              v48 = v17;
-              _os_log_error_impl(&dword_225E12000, v35, OS_LOG_TYPE_ERROR, "%s ERR: Scores for profileId %{public}@ not present in %{public}@ - Skipping", buf, 0x20u);
+              v43 = "+[SSRUtils combineScoreFromPSR:fromSAT:withCombinedWt:]";
+              v44 = 2114;
+              v45 = v24;
+              v46 = 2114;
+              v47 = v16;
+              _os_log_error_impl(&dword_225E12000, v34, OS_LOG_TYPE_ERROR, "%s ERR: Scores for profileId %{public}@ not present in %{public}@ - Skipping", buf, 0x20u);
             }
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v38 objects:v48 count:16];
       }
 
-      while (v21);
+      while (v20);
     }
 
-    v36 = [v18 copy];
-    v10 = v38;
-    [v38 setObject:v36 forKeyedSubscript:@"spIdKnownUserScores"];
+    v35 = [v17 copy];
+    v10 = v37;
+    [v37 setObject:v35 forKeyedSubscript:@"spIdKnownUserScores"];
 
-    tCopy = v37;
+    tCopy = v36;
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)moveContentsOfSrcDirectory:(id)directory toDestDirectory:(id)destDirectory
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   destDirectoryCopy = destDirectory;
   v7 = 0x277CCA000uLL;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v42 = 0;
-  v9 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v42];
-  v10 = v42;
+  v41 = 0;
+  v9 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v41];
+  v10 = v41;
 
   if (v10)
   {
@@ -331,9 +346,9 @@ LABEL_8:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v45 = "+[SSRUtils moveContentsOfSrcDirectory:toDestDirectory:]";
-      v46 = 2114;
-      v47 = obj;
+      v44 = "+[SSRUtils moveContentsOfSrcDirectory:toDestDirectory:]";
+      v45 = 2114;
+      v46 = obj;
       _os_log_error_impl(&dword_225E12000, v13, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
     }
 
@@ -344,39 +359,39 @@ LABEL_8:
   else
   {
     v16 = [SSRUtils createDirectoryIfDoesNotExist:destDirectoryCopy];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     obj = v9;
-    v17 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v17 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v36 = destDirectoryCopy;
-      v34 = v9;
+      v35 = destDirectoryCopy;
+      v33 = v9;
       v14 = 0;
-      v19 = *v39;
+      v19 = *v38;
       do
       {
         v20 = 0;
         v21 = v14;
         do
         {
-          if (*v39 != v19)
+          if (*v38 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v38 + 1) + 8 * v20);
+          v22 = *(*(&v37 + 1) + 8 * v20);
           v23 = directoryCopy;
           v24 = [directoryCopy stringByAppendingPathComponent:v22];
-          v25 = [v36 stringByAppendingPathComponent:v22];
+          v25 = [v35 stringByAppendingPathComponent:v22];
           v26 = v7;
           defaultManager2 = [*(v7 + 2560) defaultManager];
-          v37 = v21;
-          [defaultManager2 moveItemAtPath:v24 toPath:v25 error:&v37];
-          v14 = v37;
+          v36 = v21;
+          [defaultManager2 moveItemAtPath:v24 toPath:v25 error:&v36];
+          v14 = v36;
 
           if (v14)
           {
@@ -388,9 +403,9 @@ LABEL_8:
             if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v45 = "+[SSRUtils moveContentsOfSrcDirectory:toDestDirectory:]";
-              v46 = 2114;
-              v47 = v30;
+              v44 = "+[SSRUtils moveContentsOfSrcDirectory:toDestDirectory:]";
+              v45 = 2114;
+              v46 = v30;
               _os_log_error_impl(&dword_225E12000, v31, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
             }
           }
@@ -402,13 +417,13 @@ LABEL_8:
         }
 
         while (v18 != v20);
-        v18 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v18 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v18);
       v15 = 0;
-      v9 = v34;
-      destDirectoryCopy = v36;
+      v9 = v33;
+      destDirectoryCopy = v35;
     }
 
     else
@@ -418,25 +433,23 @@ LABEL_8:
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (id)removeItemAtPath:(id)path
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v13 = 0;
+  v12 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v5 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v13];
+  v5 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v12];
 
   if (v5)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v12 = 0;
-    v7 = [defaultManager2 removeItemAtPath:pathCopy error:&v12];
-    v8 = v12;
+    v11 = 0;
+    v7 = [defaultManager2 removeItemAtPath:pathCopy error:&v11];
+    v8 = v11;
 
     if ((v7 & 1) == 0)
     {
@@ -444,11 +457,11 @@ LABEL_8:
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v15 = "+[SSRUtils removeItemAtPath:]";
-        v16 = 2114;
-        v17 = pathCopy;
-        v18 = 2114;
-        v19 = v8;
+        v14 = "+[SSRUtils removeItemAtPath:]";
+        v15 = 2114;
+        v16 = pathCopy;
+        v17 = 2114;
+        v18 = v8;
         _os_log_error_impl(&dword_225E12000, v9, OS_LOG_TYPE_ERROR, "%s ERR: Failed to delete %{public}@ with error %{public}@", buf, 0x20u);
       }
     }
@@ -459,23 +472,21 @@ LABEL_8:
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)_getUtterancesFromDirectory:(id)directory
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   if (directoryCopy)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v21[0] = *MEMORY[0x277CBE8E8];
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-    v14 = 0;
-    v6 = [defaultManager contentsOfDirectoryAtURL:directoryCopy includingPropertiesForKeys:v5 options:0 error:&v14];
-    v7 = v14;
+    v20[0] = *MEMORY[0x277CBE8E8];
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v13 = 0;
+    v6 = [defaultManager contentsOfDirectoryAtURL:directoryCopy includingPropertiesForKeys:v5 options:0 error:&v13];
+    v7 = v13;
 
     if (v7)
     {
@@ -483,11 +494,11 @@ LABEL_8:
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v16 = "+[SSRUtils _getUtterancesFromDirectory:]";
-        v17 = 2114;
-        v18 = directoryCopy;
-        v19 = 2114;
-        v20 = v7;
+        v15 = "+[SSRUtils _getUtterancesFromDirectory:]";
+        v16 = 2114;
+        v17 = directoryCopy;
+        v18 = 2114;
+        v19 = v7;
         _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s ERR: Fetching contents of %{public}@ failed with error - %{public}@", buf, 0x20u);
       }
     }
@@ -502,14 +513,12 @@ LABEL_8:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v16 = "+[SSRUtils _getUtterancesFromDirectory:]";
+      v15 = "+[SSRUtils _getUtterancesFromDirectory:]";
       _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s satAudioDirectory is nil - Bailing out", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -594,7 +603,7 @@ uint64_t __57__SSRUtils_getImplicitEnrollmentUtterancesFromDirectory___block_inv
 
 uint64_t __57__SSRUtils_getImplicitEnrollmentUtterancesFromDirectory___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [a2 URLByDeletingPathExtension];
   v3 = [v2 URLByAppendingPathExtension:@"json"];
 
@@ -607,11 +616,11 @@ uint64_t __57__SSRUtils_getImplicitEnrollmentUtterancesFromDirectory___block_inv
     v8 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "+[SSRUtils getImplicitEnrollmentUtterancesFromDirectory:]_block_invoke";
-      v13 = 2114;
-      v14 = v3;
-      _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s metaVersionFile %{public}@ doesnt exist - Skipping", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "+[SSRUtils getImplicitEnrollmentUtterancesFromDirectory:]_block_invoke";
+      v12 = 2114;
+      v13 = v3;
+      _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s metaVersionFile %{public}@ doesnt exist - Skipping", &v10, 0x16u);
     }
 
     goto LABEL_6;
@@ -627,7 +636,6 @@ LABEL_6:
   v7 = 1;
 LABEL_7:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -684,7 +692,7 @@ void __69__SSRUtils_getEnrollmentUtterancesCountFromDirectory_withCountBlock___b
 
 uint64_t __63__SSRUtils_getExplicitMarkedEnrollmentUtterancesFromDirectory___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [a2 URLByDeletingPathExtension];
   v3 = [v2 URLByAppendingPathExtension:@"json"];
 
@@ -700,11 +708,11 @@ uint64_t __63__SSRUtils_getExplicitMarkedEnrollmentUtterancesFromDirectory___blo
     {
       v10 = v9;
       v11 = [v3 lastPathComponent];
-      v14 = 136315394;
-      v15 = "+[SSRUtils getExplicitMarkedEnrollmentUtterancesFromDirectory:]_block_invoke";
-      v16 = 2114;
-      v17 = v11;
-      _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s metaVersionFile %{public}@ doesnt exist - Skipping", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "+[SSRUtils getExplicitMarkedEnrollmentUtterancesFromDirectory:]_block_invoke";
+      v15 = 2114;
+      v16 = v11;
+      _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s metaVersionFile %{public}@ doesnt exist - Skipping", &v13, 0x16u);
     }
 
     goto LABEL_6;
@@ -720,86 +728,83 @@ LABEL_6:
   v8 = 1;
 LABEL_7:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (id)getExplicitEnrollmentUtterancesFromDirectory:(id)directory
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v5 = [self _getUtterancesFromDirectory:directoryCopy];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__4803;
-  v33 = __Block_byref_object_dispose__4804;
-  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__4803;
+  v32 = __Block_byref_object_dispose__4804;
+  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (CSIsCommunalDevice())
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__4803;
-    v26 = __Block_byref_object_dispose__4804;
-    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy__4803;
-    v20 = __Block_byref_object_dispose__4804;
-    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_invoke_2;
-    v15[3] = &unk_278578810;
-    v15[4] = &v22;
-    v15[5] = &v16;
-    [v5 enumerateObjectsUsingBlock:v15];
-    [v30[5] addObjectsFromArray:v17[5]];
-    if ([v23[5] count] && objc_msgSend(v30[5], "count") <= 4)
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__4803;
+    v25 = __Block_byref_object_dispose__4804;
+    v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy__4803;
+    v19 = __Block_byref_object_dispose__4804;
+    v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_invoke_2;
+    v14[3] = &unk_278578810;
+    v14[4] = &v21;
+    v14[5] = &v15;
+    [v5 enumerateObjectsUsingBlock:v14];
+    [v29[5] addObjectsFromArray:v16[5]];
+    if ([v22[5] count] && objc_msgSend(v29[5], "count") <= 4)
     {
       v6 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [v23[5] count];
+        v7 = [v22[5] count];
         *buf = 136315394;
-        v36 = "+[SSRUtils getExplicitEnrollmentUtterancesFromDirectory:]";
-        v37 = 1026;
-        v38 = v7;
+        v35 = "+[SSRUtils getExplicitEnrollmentUtterancesFromDirectory:]";
+        v36 = 1026;
+        v37 = v7;
         _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Found %{public}d ambiguous explicit utterances", buf, 0x12u);
       }
 
-      v8 = [v23[5] sortedArrayUsingComparator:&__block_literal_global_403];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_invoke_2_404;
-      v14[3] = &unk_2785787E8;
-      v14[4] = &v29;
-      [v8 enumerateObjectsUsingBlock:v14];
+      v8 = [v22[5] sortedArrayUsingComparator:&__block_literal_global_403];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_invoke_2_404;
+      v13[3] = &unk_2785787E8;
+      v13[4] = &v28;
+      [v8 enumerateObjectsUsingBlock:v13];
     }
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v15, 8);
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
   }
 
   else
   {
     v9 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_393];
     v10 = [v5 filteredArrayUsingPredicate:v9];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_invoke_398;
-    v28[3] = &unk_2785787E8;
-    v28[4] = &v29;
-    [v10 enumerateObjectsUsingBlock:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_invoke_398;
+    v27[3] = &unk_2785787E8;
+    v27[4] = &v28;
+    [v10 enumerateObjectsUsingBlock:v27];
   }
 
-  v11 = v30[5];
-  _Block_object_dispose(&v29, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = v29[5];
+  _Block_object_dispose(&v28, 8);
 
   return v11;
 }
@@ -931,7 +936,7 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
 
 uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [a2 URLByDeletingPathExtension];
   v3 = [v2 URLByAppendingPathExtension:@"json"];
 
@@ -951,23 +956,22 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
     {
       v9 = v8;
       v10 = [v3 lastPathComponent];
-      v13 = 136315394;
-      v14 = "+[SSRUtils getExplicitEnrollmentUtterancesFromDirectory:]_block_invoke";
-      v15 = 2114;
-      v16 = v10;
-      _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s metaVersionFile %{public}@ doesnt exist", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "+[SSRUtils getExplicitEnrollmentUtterancesFromDirectory:]_block_invoke";
+      v14 = 2114;
+      v15 = v10;
+      _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s metaVersionFile %{public}@ doesnt exist", &v12, 0x16u);
     }
 
     v7 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (id)getEnrollmentUtterancesFromDirectory:(id)directory
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   if (directoryCopy)
   {
@@ -981,15 +985,13 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
     v8 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "+[SSRUtils getEnrollmentUtterancesFromDirectory:]";
-      _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s satAudioDirectory is nil - Bailing out", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "+[SSRUtils getEnrollmentUtterancesFromDirectory:]";
+      _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s satAudioDirectory is nil - Bailing out", &v10, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -997,13 +999,13 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
 + (void)segmentVoiceTriggerFromAudioFile:(id)file withVTEventInfo:(id)info withStorePayloadPortion:(BOOL)portion withCompletion:(id)completion
 {
   portionCopy = portion;
-  v90[1] = *MEMORY[0x277D85DE8];
+  v89[1] = *MEMORY[0x277D85DE8];
   fileCopy = file;
   infoCopy = info;
   completionCopy = completion;
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v51 = [uUIDString stringByAppendingString:@".wav"];
+  v50 = [uUIDString stringByAppendingString:@".wav"];
 
   uUID2 = [MEMORY[0x277CCAD78] UUID];
   uUIDString2 = [uUID2 UUIDString];
@@ -1012,23 +1014,23 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
   uRLByDeletingLastPathComponent = [fileCopy URLByDeletingLastPathComponent];
   path = [uRLByDeletingLastPathComponent path];
 
-  v17 = [path stringByAppendingPathComponent:v51];
+  v17 = [path stringByAppendingPathComponent:v50];
   if (v17)
   {
     v18 = objc_alloc(MEMORY[0x277D01830]);
     v19 = [MEMORY[0x277CBEBC0] URLWithString:v17];
-    [MEMORY[0x277D01748] lpcmInt16ASBD];
-    [MEMORY[0x277D01748] lpcmInt16ASBD];
-    v20 = [v18 initWithURL:v19 inputFormat:buf outputFormat:v80];
+    objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+    objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+    v20 = [v18 initWithURL:v19 inputFormat:buf outputFormat:v79];
 
     if (portionCopy)
     {
       v21 = [path stringByAppendingPathComponent:v14];
       v22 = objc_alloc(MEMORY[0x277D01830]);
       v23 = [MEMORY[0x277CBEBC0] URLWithString:v21];
-      [MEMORY[0x277D01748] lpcmInt16ASBD];
-      [MEMORY[0x277D01748] lpcmInt16ASBD];
-      v24 = [v22 initWithURL:v23 inputFormat:buf outputFormat:v80];
+      objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+      objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+      v24 = [v22 initWithURL:v23 inputFormat:buf outputFormat:v79];
     }
 
     else
@@ -1039,10 +1041,6 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
 
     if (v20 | v24)
     {
-      v80[0] = 0;
-      v80[1] = v80;
-      v80[2] = 0x2020000000;
-      v80[3] = 0xFFFFFFFFLL;
       v79[0] = 0;
       v79[1] = v79;
       v79[2] = 0x2020000000;
@@ -1054,7 +1052,7 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
       v77[0] = 0;
       v77[1] = v77;
       v77[2] = 0x2020000000;
-      v77[3] = 0;
+      v77[3] = 0xFFFFFFFFLL;
       v76[0] = 0;
       v76[1] = v76;
       v76[2] = 0x2020000000;
@@ -1071,10 +1069,14 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
       v73[1] = v73;
       v73[2] = 0x2020000000;
       v73[3] = 0;
-      v69 = 0;
-      v70 = &v69;
-      v71 = 0x2020000000;
-      v72 = 0;
+      v72[0] = 0;
+      v72[1] = v72;
+      v72[2] = 0x2020000000;
+      v72[3] = 0;
+      v68 = 0;
+      v69 = &v68;
+      v70 = 0x2020000000;
+      v71 = 0;
       v29 = *MEMORY[0x277D01E80];
       v30 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D01E80]];
 
@@ -1082,25 +1084,25 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
       {
         v31 = [infoCopy objectForKeyedSubscript:v29];
         integerValue = [v31 integerValue];
-        v70[3] = integerValue;
+        v69[3] = integerValue;
 
         v33 = *MEMORY[0x277D01970];
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v48 = v14;
-          v34 = v70[3];
+          v47 = v14;
+          v34 = v69[3];
           v35 = [infoCopy objectForKeyedSubscript:v29];
           integerValue2 = [v35 integerValue];
           [MEMORY[0x277D016E0] inputRecordingSampleRate];
           *buf = 136315650;
-          v84 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]";
-          v85 = 2048;
-          v86 = v34;
-          v87 = 2048;
-          v88 = (integerValue2 / v37);
+          v83 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]";
+          v84 = 2048;
+          v85 = v34;
+          v86 = 2048;
+          v87 = (integerValue2 / v37);
           _os_log_impl(&dword_225E12000, v33, OS_LOG_TYPE_DEFAULT, "%s Setting payloadstartSample %lu for trigger duration of %fsecs", buf, 0x20u);
 
-          v14 = v48;
+          v14 = v47;
         }
       }
 
@@ -1108,53 +1110,54 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
       {
         [MEMORY[0x277D016E0] inputRecordingSampleRate];
         v41 = v14;
-        v43 = v70;
-        v70[3] = vcvtd_n_u64_f64(v42, 2uLL);
+        v43 = v69;
+        v69[3] = vcvtd_n_u64_f64(v42, 2uLL);
         v33 = *MEMORY[0x277D01970];
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          v45 = v43[3];
-          v49 = [infoCopy objectForKeyedSubscript:v29];
-          integerValue3 = [v49 integerValue];
+          v44 = v43[3];
+          v48 = [infoCopy objectForKeyedSubscript:v29];
+          integerValue3 = [v48 integerValue];
           [MEMORY[0x277D016E0] inputRecordingSampleRate];
           *buf = 136315650;
-          v84 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]";
-          v85 = 2048;
-          v86 = v45;
-          v87 = 2048;
-          v88 = (integerValue3 / v47);
+          v83 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]";
+          v84 = 2048;
+          v85 = v44;
+          v86 = 2048;
+          v87 = (integerValue3 / v46);
           _os_log_error_impl(&dword_225E12000, v33, OS_LOG_TYPE_ERROR, "%s ERR: Setting max payloadstartSample %lu for trigger duration of %fsecs", buf, 0x20u);
         }
 
         v14 = v41;
       }
 
-      [MEMORY[0x277D01748] lpcmInt16ASBD];
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStorePayloadPortion_withCompletion___block_invoke;
-      v53[3] = &unk_2785787A0;
-      v54 = fileCopy;
-      v59 = completionCopy;
-      v55 = v17;
+      objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStorePayloadPortion_withCompletion___block_invoke;
+      v52[3] = &unk_2785787A0;
+      v53 = fileCopy;
+      v58 = completionCopy;
+      v54 = v17;
       v21 = v21;
-      v56 = v21;
-      v60 = v80;
-      v61 = v76;
-      v62 = v79;
-      v63 = v75;
-      v64 = v78;
-      v65 = v74;
-      v66 = v77;
-      v67 = v73;
+      v55 = v21;
+      v59 = v79;
+      v60 = v75;
+      v61 = v78;
+      v62 = v74;
+      v63 = v77;
+      v64 = v73;
+      v65 = v76;
+      v66 = v72;
       v27 = v20;
-      v57 = v27;
+      v56 = v27;
       v28 = v24;
-      v58 = v28;
-      v68 = &v69;
-      [SSRUtils streamAudioFromFileUrl:v54 audioStreamBasicDescriptor:buf samplesPerStreamChunk:640 audioDataAvailableHandler:v53];
+      v57 = v28;
+      v67 = &v68;
+      [SSRUtils streamAudioFromFileUrl:v53 audioStreamBasicDescriptor:buf samplesPerStreamChunk:640 audioDataAvailableHandler:v52];
 
-      _Block_object_dispose(&v69, 8);
+      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(v72, 8);
       _Block_object_dispose(v73, 8);
       _Block_object_dispose(v74, 8);
       _Block_object_dispose(v75, 8);
@@ -1162,7 +1165,6 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
       _Block_object_dispose(v77, 8);
       _Block_object_dispose(v78, 8);
       _Block_object_dispose(v79, 8);
-      _Block_object_dispose(v80, 8);
     }
 
     else
@@ -1172,9 +1174,9 @@ uint64_t __57__SSRUtils_getExplicitEnrollmentUtterancesFromDirectory___block_inv
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v84 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]";
-        v85 = 2114;
-        v86 = v27;
+        v83 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]";
+        v84 = 2114;
+        v85 = v27;
         _os_log_error_impl(&dword_225E12000, v38, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
         if (!completionCopy)
         {
@@ -1190,9 +1192,9 @@ LABEL_20:
       }
 
       v39 = MEMORY[0x277CCA9B8];
-      v81 = *MEMORY[0x277CCA450];
-      v82 = v27;
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+      v80 = *MEMORY[0x277CCA450];
+      v81 = v27;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
       v40 = [v39 errorWithDomain:@"com.apple.speakerrecognition" code:744 userInfo:v28];
       (*(completionCopy + 2))(completionCopy, v40, 0, 0);
     }
@@ -1207,9 +1209,9 @@ LABEL_19:
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v84 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]";
-    v85 = 2114;
-    v86 = v21;
+    v83 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]";
+    v84 = 2114;
+    v85 = v21;
     _os_log_error_impl(&dword_225E12000, v25, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
     if (!completionCopy)
     {
@@ -1223,22 +1225,20 @@ LABEL_19:
   {
 LABEL_6:
     v26 = MEMORY[0x277CCA9B8];
-    v89 = *MEMORY[0x277CCA450];
-    v90[0] = v21;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+    v88 = *MEMORY[0x277CCA450];
+    v89[0] = v21;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:&v88 count:1];
     v28 = [v26 errorWithDomain:@"com.apple.speakerrecognition" code:715 userInfo:v27];
     (*(completionCopy + 2))(completionCopy, v28, 0, 0);
     goto LABEL_19;
   }
 
 LABEL_21:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStorePayloadPortion_withCompletion___block_invoke(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   v7 = a4;
   if (v7)
   {
@@ -1248,9 +1248,9 @@ void __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStoreP
     {
       v10 = *(a1 + 32);
       *buf = 136315394;
-      v49 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
-      v50 = 2112;
-      v51 = v10;
+      v48 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
+      v49 = 2112;
+      v50 = v10;
       _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s Failed to read file: %@", buf, 0x16u);
     }
 
@@ -1259,9 +1259,9 @@ void __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStoreP
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v49 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
-      v50 = 2112;
-      v51 = v11;
+      v48 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
+      v49 = 2112;
+      v50 = v11;
       _os_log_error_impl(&dword_225E12000, v12, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
     }
 
@@ -1276,9 +1276,9 @@ void __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStoreP
         {
           v15 = *(a1 + 40);
           *buf = 136315394;
-          v49 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
-          v50 = 2114;
-          v51 = v15;
+          v48 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
+          v49 = 2114;
+          v50 = v15;
           _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s Deleted file %{public}@", buf, 0x16u);
         }
       }
@@ -1292,18 +1292,18 @@ void __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStoreP
         {
           v18 = *(a1 + 48);
           *buf = 136315394;
-          v49 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
-          v50 = 2114;
-          v51 = v18;
+          v48 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
+          v49 = 2114;
+          v50 = v18;
           _os_log_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEFAULT, "%s Deleted file %{public}@", buf, 0x16u);
         }
       }
 
       v19 = *(a1 + 72);
       v20 = MEMORY[0x277CCA9B8];
-      v58 = *MEMORY[0x277CCA450];
-      v59[0] = v11;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+      v57 = *MEMORY[0x277CCA450];
+      v58[0] = v11;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
       v22 = [v20 errorWithDomain:@"com.apple.speakerrecognition" code:716 userInfo:v21];
       (*(v19 + 16))(v19, v22, 0, 0);
     }
@@ -1315,8 +1315,8 @@ void __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStoreP
   {
     v11 = [MEMORY[0x277CBEA90] dataWithBytes:*(a2 + 16) length:*(a2 + 12)];
     v40 = [v11 length];
-    [MEMORY[0x277D01748] lpcmInt16ASBD];
-    v41 = v40 / v47;
+    objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+    v41 = v40 / v46;
     *(*(*(a1 + 88) + 8) + 24) += v41;
     if (*(a1 + 56))
     {
@@ -1363,15 +1363,15 @@ void __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStoreP
     v34 = *(*(*(a1 + 112) + 8) + 24);
     v35 = *(*(*(a1 + 128) + 8) + 24);
     *buf = 136316162;
-    v49 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
-    v50 = 2048;
-    v51 = v32;
-    v52 = 2048;
-    v53 = v33;
-    v54 = 2048;
-    v55 = v34;
-    v56 = 2048;
-    v57 = v35;
+    v48 = "+[SSRUtils segmentVoiceTriggerFromAudioFile:withVTEventInfo:withStorePayloadPortion:withCompletion:]_block_invoke";
+    v49 = 2048;
+    v50 = v32;
+    v51 = 2048;
+    v52 = v33;
+    v53 = 2048;
+    v54 = v34;
+    v55 = 2048;
+    v56 = v35;
     _os_log_impl(&dword_225E12000, v31, OS_LOG_TYPE_DEFAULT, "%s EOF: utteranceLength: %lums, tdlength: %lums tdtiLength: %lums tdtiDiscardedLength: %lums", buf, 0x34u);
   }
 
@@ -1404,13 +1404,11 @@ void __100__SSRUtils_segmentVoiceTriggerFromAudioFile_withVTEventInfo_withStoreP
 
 LABEL_32:
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logSpeakerRecognitionGradingMetadataAtFilepath:(id)filepath withScoreInfo:(id)info
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   filepathCopy = filepath;
   infoCopy = info;
   v7 = infoCopy;
@@ -1418,9 +1416,9 @@ LABEL_32:
   {
     if (infoCopy)
     {
-      v18 = 0;
-      v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:infoCopy options:1 error:&v18];
-      v9 = v18;
+      v17 = 0;
+      v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:infoCopy options:1 error:&v17];
+      v9 = v17;
       if (v9)
       {
         v10 = *MEMORY[0x277D015C8];
@@ -1432,9 +1430,9 @@ LABEL_16:
         }
 
         *buf = 136315394;
-        v20 = "+[SSRUtils logSpeakerRecognitionGradingMetadataAtFilepath:withScoreInfo:]";
-        v21 = 2112;
-        v22 = v9;
+        v19 = "+[SSRUtils logSpeakerRecognitionGradingMetadataAtFilepath:withScoreInfo:]";
+        v20 = 2112;
+        v21 = v9;
         v11 = "%s Error creating uttMetaJsonData: %@";
         v12 = v10;
         v13 = 22;
@@ -1455,7 +1453,7 @@ LABEL_16:
         }
 
         *buf = 136315138;
-        v20 = "+[SSRUtils logSpeakerRecognitionGradingMetadataAtFilepath:withScoreInfo:]";
+        v19 = "+[SSRUtils logSpeakerRecognitionGradingMetadataAtFilepath:withScoreInfo:]";
         v11 = "%s Failed to create UttMeta...";
         v12 = v16;
         v13 = 12;
@@ -1469,7 +1467,7 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v20 = "+[SSRUtils logSpeakerRecognitionGradingMetadataAtFilepath:withScoreInfo:]";
+      v19 = "+[SSRUtils logSpeakerRecognitionGradingMetadataAtFilepath:withScoreInfo:]";
       v15 = "%s scoreCard is nil!";
       goto LABEL_11;
     }
@@ -1481,7 +1479,7 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v20 = "+[SSRUtils logSpeakerRecognitionGradingMetadataAtFilepath:withScoreInfo:]";
+      v19 = "+[SSRUtils logSpeakerRecognitionGradingMetadataAtFilepath:withScoreInfo:]";
       v15 = "%s uttMetaPath is nil!";
 LABEL_11:
       _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
@@ -1489,13 +1487,11 @@ LABEL_11:
   }
 
 LABEL_17:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getVoiceProfileForSiriProfileId:(id)id forLanguageCode:(id)code
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   idCopy = id;
   codeCopy = code;
   v7 = +[SSRVoiceProfileStore sharedInstance];
@@ -1504,12 +1500,12 @@ LABEL_17:
   {
     if ([v8 count] >= 2)
     {
-      v20 = *MEMORY[0x277D01970];
+      v19 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v28 = "+[SSRUtils getVoiceProfileForSiriProfileId:forLanguageCode:]";
-        _os_log_error_impl(&dword_225E12000, v20, OS_LOG_TYPE_ERROR, "%s ERR: Seeing more than one voice profiles for Siri App Domain", buf, 0xCu);
+        v27 = "+[SSRUtils getVoiceProfileForSiriProfileId:forLanguageCode:]";
+        _os_log_error_impl(&dword_225E12000, v19, OS_LOG_TYPE_ERROR, "%s ERR: Seeing more than one voice profiles for Siri App Domain", buf, 0xCu);
       }
     }
 
@@ -1518,29 +1514,29 @@ LABEL_17:
 
   else
   {
-    v21 = codeCopy;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v20 = codeCopy;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
           if (idCopy)
           {
-            v14 = *(*(&v22 + 1) + 8 * i);
+            v14 = *(*(&v21 + 1) + 8 * i);
             siriProfileId = [v14 siriProfileId];
             v16 = [siriProfileId isEqualToString:idCopy];
 
@@ -1553,7 +1549,7 @@ LABEL_17:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v11)
         {
           continue;
@@ -1565,17 +1561,15 @@ LABEL_17:
 
     v17 = 0;
 LABEL_13:
-    codeCopy = v21;
+    codeCopy = v20;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 + (id)getVoiceProfilesForSiriProfileId:(id)id
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v4 = +[SSRVoiceProfileStore sharedInstance];
   v5 = [v4 userVoiceProfilesForAppDomain:@"com.apple.siri"];
@@ -1599,27 +1593,27 @@ LABEL_6:
     }
   }
 
-  v19 = v4;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v18 = v4;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         siriProfileId = [v14 siriProfileId];
         v16 = [siriProfileId isEqualToString:idCopy];
 
@@ -1629,7 +1623,7 @@ LABEL_6:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -1645,25 +1639,23 @@ LABEL_6:
     v8 = 0;
   }
 
-  v4 = v19;
+  v4 = v18;
 LABEL_20:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (void)getHomeUserIdForVoiceProfile:(id)profile withCompletion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   completionCopy = completion;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__4803;
-  v38 = __Block_byref_object_dispose__4804;
-  v39 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__4803;
+  v37 = __Block_byref_object_dispose__4804;
+  v38 = 0;
   v7 = objc_alloc_init(MEMORY[0x277D01710]);
   v8 = objc_alloc_init(MEMORY[0x277CEF310]);
   v9 = MEMORY[0x277D01970];
@@ -1672,48 +1664,48 @@ LABEL_20:
   {
     siriProfileId = [profileCopy siriProfileId];
     *buf = 136315394;
-    v43 = "+[SSRUtils getHomeUserIdForVoiceProfile:withCompletion:]";
-    v44 = 2114;
-    v45 = siriProfileId;
+    v42 = "+[SSRUtils getHomeUserIdForVoiceProfile:withCompletion:]";
+    v43 = 2114;
+    v44 = siriProfileId;
     _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s Fetching homeUserId for siriProfileId %{public}@", buf, 0x16u);
   }
 
   [v7 enter];
   siriProfileId2 = [profileCopy siriProfileId];
-  v25 = MEMORY[0x277D85DD0];
-  v26 = 3221225472;
-  v27 = __56__SSRUtils_getHomeUserIdForVoiceProfile_withCompletion___block_invoke;
-  v28 = &unk_278578778;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __56__SSRUtils_getHomeUserIdForVoiceProfile_withCompletion___block_invoke;
+  v27 = &unk_278578778;
   v13 = v8;
-  v29 = v13;
-  v33 = &v34;
+  v28 = v13;
+  v32 = &v33;
   v14 = profileCopy;
-  v30 = v14;
+  v29 = v14;
   v15 = v7;
-  v31 = v15;
+  v30 = v15;
   v16 = completionCopy;
-  v32 = v16;
-  [v13 getHomeUserIdForSharedUserId:siriProfileId2 completion:&v25];
+  v31 = v16;
+  [v13 getHomeUserIdForSharedUserId:siriProfileId2 completion:&v24];
 
   if ([v15 waitWithTimeout:{dispatch_time(0, 100000000)}])
   {
     v17 = MEMORY[0x277CCACA8];
     siriProfileId3 = [v14 siriProfileId];
-    v19 = [v17 stringWithFormat:@"homeUserId query for siriProfileId %@ timedout !", siriProfileId3, v25, v26, v27, v28, v29, v30, v31];
+    v19 = [v17 stringWithFormat:@"homeUserId query for siriProfileId %@ timedout !", siriProfileId3, v24, v25, v26, v27, v28, v29, v30];
 
     v20 = MEMORY[0x277CCA9B8];
-    v40 = *MEMORY[0x277CCA450];
-    v41 = v19;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v39 = *MEMORY[0x277CCA450];
+    v40 = v19;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
     v22 = [v20 errorWithDomain:@"com.apple.speakerrecognition" code:749 userInfo:v21];
 
     v23 = *v9;
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v43 = "+[SSRUtils getHomeUserIdForVoiceProfile:withCompletion:]";
-      v44 = 2112;
-      v45 = v19;
+      v42 = "+[SSRUtils getHomeUserIdForVoiceProfile:withCompletion:]";
+      v43 = 2112;
+      v44 = v19;
       _os_log_error_impl(&dword_225E12000, v23, OS_LOG_TYPE_ERROR, "%s ERR: %@", buf, 0x16u);
       if (!v16)
       {
@@ -1728,19 +1720,18 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    (*(v16 + 2))(v16, v35[5], v22);
+    (*(v16 + 2))(v16, v34[5], v22);
     goto LABEL_7;
   }
 
 LABEL_8:
 
-  _Block_object_dispose(&v34, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
 }
 
 void __56__SSRUtils_getHomeUserIdForVoiceProfile_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = *(a1 + 32);
@@ -1755,13 +1746,13 @@ void __56__SSRUtils_getHomeUserIdForVoiceProfile_withCompletion___block_invoke(u
     v10 = *(a1 + 40);
     v11 = v9;
     v12 = [v10 siriProfileId];
-    v18 = 136315651;
-    v19 = "+[SSRUtils getHomeUserIdForVoiceProfile:withCompletion:]_block_invoke";
-    v20 = 2114;
-    v21 = v12;
-    v22 = 2113;
-    v23 = v7;
-    _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s ERR: Home User Id erred %{public}@ for Siri Profile Id %{private}@", &v18, 0x20u);
+    v17 = 136315651;
+    v18 = "+[SSRUtils getHomeUserIdForVoiceProfile:withCompletion:]_block_invoke";
+    v19 = 2114;
+    v20 = v12;
+    v21 = 2113;
+    v22 = v7;
+    _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s ERR: Home User Id erred %{public}@ for Siri Profile Id %{private}@", &v17, 0x20u);
   }
 
   else
@@ -1777,13 +1768,13 @@ void __56__SSRUtils_getHomeUserIdForVoiceProfile_withCompletion___block_invoke(u
     v11 = v13;
     v12 = [v14 siriProfileId];
     v15 = *(*(*(a1 + 64) + 8) + 40);
-    v18 = 136315650;
-    v19 = "+[SSRUtils getHomeUserIdForVoiceProfile:withCompletion:]_block_invoke";
-    v20 = 2114;
-    v21 = v12;
-    v22 = 2114;
-    v23 = v15;
-    _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s siriProfileId %{public}@ maps to homeUserId %{public}@", &v18, 0x20u);
+    v17 = 136315650;
+    v18 = "+[SSRUtils getHomeUserIdForVoiceProfile:withCompletion:]_block_invoke";
+    v19 = 2114;
+    v20 = v12;
+    v21 = 2114;
+    v22 = v15;
+    _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s siriProfileId %{public}@ maps to homeUserId %{public}@", &v17, 0x20u);
   }
 
 LABEL_7:
@@ -1793,20 +1784,18 @@ LABEL_7:
   {
     (*(v16 + 16))(v16, *(*(*(a1 + 64) + 8) + 40), v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getContentsOfDirectory:(id)directory
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v23[0] = *MEMORY[0x277CBE8E8];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-  v16 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtURL:directoryCopy includingPropertiesForKeys:v5 options:0 error:&v16];
-  v7 = v16;
+  v22[0] = *MEMORY[0x277CBE8E8];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v15 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtURL:directoryCopy includingPropertiesForKeys:v5 options:0 error:&v15];
+  v7 = v15;
 
   if (v7)
   {
@@ -1819,48 +1808,46 @@ LABEL_3:
     }
 
     *buf = 136315650;
-    v18 = "+[SSRUtils getContentsOfDirectory:]";
-    v19 = 2112;
-    v20 = directoryCopy;
-    v21 = 2112;
-    v22 = v7;
-    v13 = "%s Error reading directory at %@: err: %@";
-    v14 = v8;
-    v15 = 32;
+    v17 = "+[SSRUtils getContentsOfDirectory:]";
+    v18 = 2112;
+    v19 = directoryCopy;
+    v20 = 2112;
+    v21 = v7;
+    v12 = "%s Error reading directory at %@: err: %@";
+    v13 = v8;
+    v14 = 32;
 LABEL_12:
-    _os_log_error_impl(&dword_225E12000, v14, OS_LOG_TYPE_ERROR, v13, buf, v15);
+    _os_log_error_impl(&dword_225E12000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
     goto LABEL_3;
   }
 
   if (![v6 count])
   {
-    v12 = *MEMORY[0x277D01970];
+    v11 = *MEMORY[0x277D01970];
     if (!os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_3;
     }
 
     *buf = 136315394;
-    v18 = "+[SSRUtils getContentsOfDirectory:]";
-    v19 = 2112;
-    v20 = directoryCopy;
-    v13 = "%s %@ is empty";
-    v14 = v12;
-    v15 = 22;
+    v17 = "+[SSRUtils getContentsOfDirectory:]";
+    v18 = 2112;
+    v19 = directoryCopy;
+    v12 = "%s %@ is empty";
+    v13 = v11;
+    v14 = 22;
     goto LABEL_12;
   }
 
   v9 = v6;
 LABEL_6:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (void)dumpFilesInDirectory:(id)directory
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   if (!directoryCopy)
   {
@@ -1871,7 +1858,7 @@ LABEL_6:
     }
 
     *buf = 136315138;
-    v27 = "+[SSRUtils dumpFilesInDirectory:]";
+    v26 = "+[SSRUtils dumpFilesInDirectory:]";
     v17 = "%s ERR: Directory is nil - Bailing out";
     v18 = v16;
     v19 = 12;
@@ -1892,9 +1879,9 @@ LABEL_18:
     }
 
     *buf = 136315394;
-    v27 = "+[SSRUtils dumpFilesInDirectory:]";
-    v28 = 2114;
-    v29 = directoryCopy;
+    v26 = "+[SSRUtils dumpFilesInDirectory:]";
+    v27 = 2114;
+    v28 = directoryCopy;
     v17 = "%s ERR: %{public}@ doesnt exist - Bailing out";
     v18 = v20;
     v19 = 22;
@@ -1904,22 +1891,22 @@ LABEL_18:
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
   v7 = [defaultManager2 enumeratorAtPath:directoryCopy];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     v12 = MEMORY[0x277D01970];
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
@@ -1927,39 +1914,38 @@ LABEL_18:
         v14 = *v12;
         if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = *(*(&v22 + 1) + 8 * i);
+          v15 = *(*(&v21 + 1) + 8 * i);
           *buf = 136315650;
-          v27 = "+[SSRUtils dumpFilesInDirectory:]";
-          v28 = 2114;
-          v29 = directoryCopy;
-          v30 = 2114;
-          v31 = v15;
+          v26 = "+[SSRUtils dumpFilesInDirectory:]";
+          v27 = 2114;
+          v28 = directoryCopy;
+          v29 = 2114;
+          v30 = v15;
           _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s Dump content of %{public}@ - %{public}@", buf, 0x20u);
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v10);
   }
 
 LABEL_16:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)getNumberOfAudioFilesInDirectory:(id)directory
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v12 = 0;
-  v5 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v12];
-  v6 = v12;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v11 = 0;
+  v5 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v11];
+  v6 = v11;
 
   if (v6)
   {
@@ -1967,29 +1953,28 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v18 = "+[SSRUtils getNumberOfAudioFilesInDirectory:]";
-      v19 = 2114;
-      v20 = directoryCopy;
-      v21 = 2114;
-      v22 = v6;
+      v17 = "+[SSRUtils getNumberOfAudioFilesInDirectory:]";
+      v18 = 2114;
+      v19 = directoryCopy;
+      v20 = 2114;
+      v21 = v6;
       _os_log_error_impl(&dword_225E12000, v7, OS_LOG_TYPE_ERROR, "%s ERR: fetching contents of %{public}@ failed with error %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __45__SSRUtils_getNumberOfAudioFilesInDirectory___block_invoke;
-    v11[3] = &unk_278578750;
-    v11[4] = &v13;
-    [v5 enumerateObjectsUsingBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __45__SSRUtils_getNumberOfAudioFilesInDirectory___block_invoke;
+    v10[3] = &unk_278578750;
+    v10[4] = &v12;
+    [v5 enumerateObjectsUsingBlock:v10];
   }
 
-  v8 = v14[3];
+  v8 = v13[3];
 
-  _Block_object_dispose(&v13, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
   return v8;
 }
 
@@ -2014,16 +1999,16 @@ void __45__SSRUtils_getNumberOfAudioFilesInDirectory___block_invoke(uint64_t a1,
 
 + (BOOL)isCurrentDeviceCompatibleWithVoiceProfileAt:(id)at
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   atCopy = at;
   deviceProductType = [MEMORY[0x277D018F8] deviceProductType];
   if (deviceProductType)
   {
     v5 = [SSRUtils deviceCategoryForDeviceProductType:deviceProductType];
-    v62 = 0;
+    v61 = 0;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v7 = [atCopy stringByAppendingPathComponent:@"audio"];
-    if ([defaultManager fileExistsAtPath:v7 isDirectory:&v62] && v62 == 1)
+    if ([defaultManager fileExistsAtPath:v7 isDirectory:&v61] && v61 == 1)
     {
       v8 = [MEMORY[0x277CBEBC0] URLWithString:v7];
       if (!v8)
@@ -2032,9 +2017,9 @@ void __45__SSRUtils_getNumberOfAudioFilesInDirectory___block_invoke(uint64_t a1,
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-          v65 = 2114;
-          v66 = v7;
+          v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+          v64 = 2114;
+          v65 = v7;
           _os_log_error_impl(&dword_225E12000, v15, OS_LOG_TYPE_ERROR, "%s Malformed audio-dir URL for string <%{public}@>:url", buf, 0x16u);
         }
 
@@ -2042,9 +2027,9 @@ void __45__SSRUtils_getNumberOfAudioFilesInDirectory___block_invoke(uint64_t a1,
       }
 
       v9 = v8;
-      v61 = 0;
-      v10 = [defaultManager contentsOfDirectoryAtURL:v8 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v61];
-      v11 = v61;
+      v60 = 0;
+      v10 = [defaultManager contentsOfDirectoryAtURL:v8 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v60];
+      v11 = v60;
       if (v11)
       {
         v12 = v11;
@@ -2052,9 +2037,9 @@ void __45__SSRUtils_getNumberOfAudioFilesInDirectory___block_invoke(uint64_t a1,
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-          v65 = 2114;
-          v66 = v12;
+          v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+          v64 = 2114;
+          v65 = v12;
           _os_log_error_impl(&dword_225E12000, v13, OS_LOG_TYPE_ERROR, "%s ERR: reading contents of audioDir: %{public}@", buf, 0x16u);
         }
 
@@ -2067,45 +2052,45 @@ LABEL_56:
 
       v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"pathExtension='json'"];
       v17 = [v10 filteredArrayUsingPredicate:v16];
-      v53 = v7;
-      v54 = defaultManager;
-      v51 = v10;
-      v52 = v9;
-      v50 = v17;
+      v52 = v7;
+      v53 = defaultManager;
+      v50 = v10;
+      v51 = v9;
+      v49 = v17;
       if ([v17 count])
       {
-        v49 = v16;
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
+        v48 = v16;
         v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         obj = v17;
-        v18 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
+        v18 = [obj countByEnumeratingWithState:&v56 objects:v72 count:16];
         if (v18)
         {
           v19 = v18;
-          v47 = v5;
-          v48 = atCopy;
+          v46 = v5;
+          v47 = atCopy;
           v20 = 0;
-          v21 = *v58;
+          v21 = *v57;
           v9 = MEMORY[0x277D01970];
           while (2)
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v58 != v21)
+              if (*v57 != v21)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v23 = *(*(&v57 + 1) + 8 * i);
-              v24 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:{v23, v47}];
+              v23 = *(*(&v56 + 1) + 8 * i);
+              v24 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:{v23, v46}];
               if (v24)
               {
                 v25 = v24;
-                v56 = v20;
-                v26 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v24 options:0 error:&v56];
-                v27 = v56;
+                v55 = v20;
+                v26 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v24 options:0 error:&v55];
+                v27 = v55;
 
                 if (v27)
                 {
@@ -2113,9 +2098,9 @@ LABEL_56:
                   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315394;
-                    v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-                    v65 = 2114;
-                    v66 = v23;
+                    v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+                    v64 = 2114;
+                    v65 = v23;
                     _os_log_impl(&dword_225E12000, v28, OS_LOG_TYPE_DEFAULT, "%s Error reading metaDict at path: %{public}@", buf, 0x16u);
                   }
 
@@ -2129,9 +2114,9 @@ LABEL_56:
                   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315394;
-                    v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-                    v65 = 2114;
-                    v66 = v30;
+                    v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+                    v64 = 2114;
+                    v65 = v30;
                     _os_log_impl(&dword_225E12000, v31, OS_LOG_TYPE_DEFAULT, "%s metaProductType: %{public}@", buf, 0x16u);
                   }
 
@@ -2142,19 +2127,19 @@ LABEL_56:
                     if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
                     {
                       v37 = v36;
-                      v9 = v47;
-                      v38 = [SSRUtils deviceCategoryStringRepresentationForCategoryType:v47];
+                      v9 = v46;
+                      v38 = [SSRUtils deviceCategoryStringRepresentationForCategoryType:v46];
                       v39 = [SSRUtils deviceCategoryStringRepresentationForCategoryType:v35];
                       *buf = 136316162;
-                      v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-                      v65 = 2114;
-                      v66 = deviceProductType;
-                      v67 = 2114;
-                      v68 = v38;
-                      v69 = 2114;
-                      v70 = v30;
-                      v71 = 2114;
-                      v72 = v39;
+                      v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+                      v64 = 2114;
+                      v65 = deviceProductType;
+                      v66 = 2114;
+                      v67 = v38;
+                      v68 = 2114;
+                      v69 = v30;
+                      v70 = 2114;
+                      v71 = v39;
                       _os_log_impl(&dword_225E12000, v37, OS_LOG_TYPE_DEFAULT, "%s vtprofile: currDevice=[%{public}@:%{public}@] ; vpDirDevice=[%{public}@:%{public}@]", buf, 0x34u);
 
                       v36 = *MEMORY[0x277D01970];
@@ -2162,10 +2147,10 @@ LABEL_56:
 
                     else
                     {
-                      v9 = v47;
+                      v9 = v46;
                     }
 
-                    atCopy = v48;
+                    atCopy = v47;
                     v40 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
                     LOBYTE(v9) = v9 == v35;
                     if (v9)
@@ -2173,7 +2158,7 @@ LABEL_56:
                       if (v40)
                       {
                         *buf = 136315138;
-                        v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+                        v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
                         v41 = "%s VoiceProfile MATCH";
                         goto LABEL_49;
                       }
@@ -2182,7 +2167,7 @@ LABEL_56:
                     else if (v40)
                     {
                       *buf = 136315138;
-                      v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+                      v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
                       v41 = "%s VoiceProfile MIS-MATCH";
 LABEL_49:
                       _os_log_impl(&dword_225E12000, v36, OS_LOG_TYPE_DEFAULT, v41, buf, 0xCu);
@@ -2197,7 +2182,7 @@ LABEL_49:
                   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315138;
-                    v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+                    v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
                     _os_log_impl(&dword_225E12000, v32, OS_LOG_TYPE_DEFAULT, "%s Could not find productType in VT-Meta file, trying next one", buf, 0xCu);
                   }
 
@@ -2211,15 +2196,15 @@ LABEL_49:
                 if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315394;
-                  v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-                  v65 = 2114;
-                  v66 = v23;
+                  v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+                  v64 = 2114;
+                  v65 = v23;
                   _os_log_impl(&dword_225E12000, v29, OS_LOG_TYPE_DEFAULT, "%s Unexpected: empty JSON data for file: %{public}@", buf, 0x16u);
                 }
               }
             }
 
-            v19 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
+            v19 = [obj countByEnumeratingWithState:&v56 objects:v72 count:16];
             if (v19)
             {
               continue;
@@ -2229,7 +2214,7 @@ LABEL_49:
           }
 
           v33 = 1;
-          atCopy = v48;
+          atCopy = v47;
         }
 
         else
@@ -2240,7 +2225,7 @@ LABEL_49:
 
 LABEL_51:
 
-        v16 = v49;
+        v16 = v48;
       }
 
       else
@@ -2248,15 +2233,15 @@ LABEL_51:
         v34 = *MEMORY[0x277D01970];
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
         {
-          v45 = v34;
-          v46 = [v17 count];
+          v44 = v34;
+          v45 = [v17 count];
           *buf = 136315650;
-          v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-          v65 = 2114;
-          v66 = v9;
-          v67 = 2050;
-          v68 = v46;
-          _os_log_error_impl(&dword_225E12000, v45, OS_LOG_TYPE_ERROR, "%s No jsonFiles found in %{public}@: jsonFiles.count=%{public}lu", buf, 0x20u);
+          v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+          v64 = 2114;
+          v65 = v9;
+          v66 = 2050;
+          v67 = v45;
+          _os_log_error_impl(&dword_225E12000, v44, OS_LOG_TYPE_ERROR, "%s No jsonFiles found in %{public}@: jsonFiles.count=%{public}lu", buf, 0x20u);
         }
 
         v20 = 0;
@@ -2264,8 +2249,8 @@ LABEL_51:
         LOBYTE(v9) = 0;
       }
 
-      v7 = v53;
-      defaultManager = v54;
+      v7 = v52;
+      defaultManager = v53;
       if (!v33)
       {
         goto LABEL_56;
@@ -2276,9 +2261,9 @@ LABEL_51:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-      v65 = 2114;
-      v66 = deviceProductType;
+      v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+      v64 = 2114;
+      v65 = deviceProductType;
       _os_log_impl(&dword_225E12000, v42, OS_LOG_TYPE_DEFAULT, "%s No compatible VT profile found for CurrDevice: %{public}@", buf, 0x16u);
     }
 
@@ -2289,22 +2274,21 @@ LABEL_51:
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v64 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
-    v65 = 2114;
-    v66 = 0;
+    v63 = "+[SSRUtils isCurrentDeviceCompatibleWithVoiceProfileAt:]";
+    v64 = 2114;
+    v65 = 0;
     _os_log_error_impl(&dword_225E12000, v14, OS_LOG_TYPE_ERROR, "%s ERR: Unknown device. returning false: %{public}@", buf, 0x16u);
   }
 
   LOBYTE(v9) = 0;
 LABEL_57:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
 + (BOOL)isCurrentDeviceCompatibleWithNewerVoiceProfileAt:(id)at
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D018F8];
   atCopy = at;
   deviceProductType = [v3 deviceProductType];
@@ -2315,15 +2299,15 @@ LABEL_57:
     v10 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315394;
-      v23 = "+[SSRUtils isCurrentDeviceCompatibleWithNewerVoiceProfileAt:]";
-      v24 = 2114;
-      v25 = 0;
+      v21 = 136315394;
+      v22 = "+[SSRUtils isCurrentDeviceCompatibleWithNewerVoiceProfileAt:]";
+      v23 = 2114;
+      v24 = 0;
       v11 = "%s ERR: Unknown device. returning false: %{public}@";
       v12 = v10;
       v13 = 22;
 LABEL_9:
-      _os_log_error_impl(&dword_225E12000, v12, OS_LOG_TYPE_ERROR, v11, &v22, v13);
+      _os_log_error_impl(&dword_225E12000, v12, OS_LOG_TYPE_ERROR, v11, &v21, v13);
     }
 
 LABEL_12:
@@ -2336,8 +2320,8 @@ LABEL_12:
     v14 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315138;
-      v23 = "+[SSRUtils isCurrentDeviceCompatibleWithNewerVoiceProfileAt:]";
+      v21 = 136315138;
+      v22 = "+[SSRUtils isCurrentDeviceCompatibleWithNewerVoiceProfileAt:]";
       v11 = "%s ERR: satLanguagePath is nil. returning false";
       v12 = v14;
       v13 = 12;
@@ -2358,13 +2342,13 @@ LABEL_12:
       v17 = v16;
       v18 = [SSRUtils deviceCategoryStringRepresentationForCategoryType:v7];
       v19 = [SSRUtils deviceCategoryStringRepresentationForCategoryType:v15];
-      v22 = 136315650;
-      v23 = "+[SSRUtils isCurrentDeviceCompatibleWithNewerVoiceProfileAt:]";
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v19;
-      _os_log_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEFAULT, "%s Voice Profile Mismatch - CurrentDeviceCategory %@ VoiceProfileCategory %@", &v22, 0x20u);
+      v21 = 136315650;
+      v22 = "+[SSRUtils isCurrentDeviceCompatibleWithNewerVoiceProfileAt:]";
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v19;
+      _os_log_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEFAULT, "%s Voice Profile Mismatch - CurrentDeviceCategory %@ VoiceProfileCategory %@", &v21, 0x20u);
     }
 
     goto LABEL_12;
@@ -2373,13 +2357,12 @@ LABEL_12:
   v9 = 1;
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (unint64_t)getCurrentDeviceCategoryType
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   deviceProductType = [MEMORY[0x277D018F8] deviceProductType];
   if (deviceProductType)
   {
@@ -2391,23 +2374,22 @@ LABEL_13:
     v4 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "+[SSRUtils getCurrentDeviceCategoryType]";
-      v9 = 2114;
-      v10 = 0;
-      _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s ERR: Unknown device: %{public}@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "+[SSRUtils getCurrentDeviceCategoryType]";
+      v8 = 2114;
+      v9 = 0;
+      _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s ERR: Unknown device: %{public}@", &v6, 0x16u);
     }
 
     v3 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 + (unint64_t)deviceCategoryFromString:(id)string
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy caseInsensitiveCompare:@"kCSDeviceCategory_Unknown"])
   {
@@ -2444,24 +2426,23 @@ LABEL_13:
     v4 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "+[SSRUtils deviceCategoryFromString:]";
-      v10 = 2112;
-      v11 = stringCopy;
-      _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s %@ didn't match to any device category name. Returning unknown", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "+[SSRUtils deviceCategoryFromString:]";
+      v9 = 2112;
+      v10 = stringCopy;
+      _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s %@ didn't match to any device category name. Returning unknown", &v7, 0x16u);
     }
   }
 
   v5 = 0;
 LABEL_15:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (unint64_t)deviceCategoryForDeviceProductType:(id)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v4 = typeCopy;
   if (deviceCategoryForDeviceProductType__onceToken == -1)
@@ -2504,11 +2485,11 @@ LABEL_15:
     v6 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "+[SSRUtils deviceCategoryForDeviceProductType:]";
-      v11 = 2112;
-      v12 = v4;
-      _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Unknown Device category for deviceProduceType: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "+[SSRUtils deviceCategoryForDeviceProductType:]";
+      v10 = 2112;
+      v11 = v4;
+      _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Unknown Device category for deviceProduceType: %@", &v8, 0x16u);
     }
 
 LABEL_16:
@@ -2519,7 +2500,6 @@ LABEL_16:
   v5 = 1;
 LABEL_17:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2576,18 +2556,18 @@ uint64_t __47__SSRUtils_deviceCategoryForDeviceProductType___block_invoke()
 
 + (id)readJsonFileAtPath:(id)path
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = defaultManager;
-  v21 = 0;
+  v20 = 0;
   if (!pathCopy)
   {
     v8 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v23 = "+[SSRUtils readJsonFileAtPath:]";
+      v22 = "+[SSRUtils readJsonFileAtPath:]";
       v7 = "%s ERR: filePath passed as nil - Bailing out";
       v9 = v8;
       v10 = 12;
@@ -2599,15 +2579,15 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if (![defaultManager fileExistsAtPath:pathCopy isDirectory:&v21])
+  if (![defaultManager fileExistsAtPath:pathCopy isDirectory:&v20])
   {
     v6 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v23 = "+[SSRUtils readJsonFileAtPath:]";
-      v24 = 2112;
-      v25 = pathCopy;
+      v22 = "+[SSRUtils readJsonFileAtPath:]";
+      v23 = 2112;
+      v24 = pathCopy;
       v7 = "%s ERR: file do not exist - %@";
       goto LABEL_10;
     }
@@ -2617,15 +2597,15 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (v21)
+  if (v20)
   {
     v6 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v23 = "+[SSRUtils readJsonFileAtPath:]";
-      v24 = 2112;
-      v25 = pathCopy;
+      v22 = "+[SSRUtils readJsonFileAtPath:]";
+      v23 = 2112;
+      v24 = pathCopy;
       v7 = "%s ERR: %@ is a directory";
 LABEL_10:
       v9 = v6;
@@ -2636,53 +2616,52 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  v14 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy];
-  if (!v14)
+  v13 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy];
+  if (!v13)
   {
-    v18 = *MEMORY[0x277D01970];
+    v17 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "+[SSRUtils readJsonFileAtPath:]";
-      v24 = 2112;
-      v25 = pathCopy;
-      _os_log_error_impl(&dword_225E12000, v18, OS_LOG_TYPE_ERROR, "%s Unable to read data from file: %@", buf, 0x16u);
+      v22 = "+[SSRUtils readJsonFileAtPath:]";
+      v23 = 2112;
+      v24 = pathCopy;
+      _os_log_error_impl(&dword_225E12000, v17, OS_LOG_TYPE_ERROR, "%s Unable to read data from file: %@", buf, 0x16u);
     }
 
     goto LABEL_12;
   }
 
-  v15 = v14;
-  v20 = 0;
-  v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v14 options:0 error:&v20];
-  v16 = v20;
-  v17 = v16;
-  if (!v11 || v16)
+  v14 = v13;
+  v19 = 0;
+  v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v13 options:0 error:&v19];
+  v15 = v19;
+  v16 = v15;
+  if (!v11 || v15)
   {
-    v19 = *MEMORY[0x277D015C8];
+    v18 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v23 = "+[SSRUtils readJsonFileAtPath:]";
-      v24 = 2112;
-      v25 = pathCopy;
-      v26 = 2112;
-      v27 = v17;
-      _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s ERR: Could not read existing %@ file: err: %@", buf, 0x20u);
+      v22 = "+[SSRUtils readJsonFileAtPath:]";
+      v23 = 2112;
+      v24 = pathCopy;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_impl(&dword_225E12000, v18, OS_LOG_TYPE_DEFAULT, "%s ERR: Could not read existing %@ file: err: %@", buf, 0x20u);
     }
 
     goto LABEL_12;
   }
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (BOOL)isSpeakerRecognitionSupportedInLocale:(id)locale
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   v4 = +[SSRAssetManager sharedManager];
   v5 = [v4 installedAssetOfType:3 forLanguage:localeCopy];
@@ -2698,21 +2677,20 @@ LABEL_13:
     v11 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315394;
-      v15 = "+[SSRUtils isSpeakerRecognitionSupportedInLocale:]";
-      v16 = 2114;
-      v17 = localeCopy;
-      _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s VoiceId not supported in language %{public}@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "+[SSRUtils isSpeakerRecognitionSupportedInLocale:]";
+      v15 = 2114;
+      v16 = localeCopy;
+      _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s VoiceId not supported in language %{public}@", &v13, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (void)streamAudioFromFileUrl:(id)url audioStreamBasicDescriptor:(AudioStreamBasicDescription *)descriptor samplesPerStreamChunk:(unint64_t)chunk audioDataAvailableHandler:(id)handler
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   urlCopy = url;
   handlerCopy = handler;
   v11 = descriptor->mBitsPerChannel * chunk * descriptor->mChannelsPerFrame;
@@ -2727,31 +2705,31 @@ LABEL_13:
   {
     NSLog(&cfstr_Audiofileopenu.isa, urlCopy);
     v13 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
+    v34 = *MEMORY[0x277CCA450];
     urlCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"AudioFileOpenURL failed: %@", urlCopy];
-    v36[0] = urlCopy;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v35[0] = urlCopy;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v16 = [v13 errorWithDomain:@"EARTests" code:1001 userInfo:v15];
 
     v17 = handlerCopy[2];
-    v29 = ioData;
-    v17(handlerCopy, &v29, 1, v16);
+    v28 = ioData;
+    v17(handlerCopy, &v28, 1, v16);
   }
 
   else if (ExtAudioFileWrapAudioFileID(outAudioFile, 0, &outExtAudioFile))
   {
     NSLog(&cfstr_Extaudiofilewr.isa, urlCopy);
     v18 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA450];
+    v32 = *MEMORY[0x277CCA450];
     urlCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExtAudioFileWrapAudioFileID failed: %@", urlCopy];
-    v34 = urlCopy2;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v33 = urlCopy2;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
     v21 = [v18 errorWithDomain:@"EARTests" code:1002 userInfo:v20];
 
     AudioFileClose(outAudioFile);
     v22 = handlerCopy[2];
-    v29 = ioData;
-    v22(handlerCopy, &v29, 1, v21);
+    v28 = ioData;
+    v22(handlerCopy, &v28, 1, v21);
   }
 
   else
@@ -2773,20 +2751,18 @@ LABEL_13:
       }
 
       v25 = handlerCopy[2];
-      v29 = ioData;
-      v25(handlerCopy, &v29, 0, 0);
+      v28 = ioData;
+      v25(handlerCopy, &v28, 0, 0);
     }
 
     NSLog(&cfstr_EofNumBytesRea.isa, i);
 LABEL_11:
     v26 = handlerCopy[2];
-    v29 = ioData;
-    v26(handlerCopy, &v29, 1, 0);
+    v28 = ioData;
+    v26(handlerCopy, &v28, 1, 0);
     ExtAudioFileDispose(outExtAudioFile);
     AudioFileClose(outAudioFile);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getVoiceEnrollmentDownloadBaseDir
@@ -2830,15 +2806,15 @@ LABEL_11:
 
 + (void)cleanupOrphanedVoiceIdGradingFiles
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   ssrAudioLogsDir = [self ssrAudioLogsDir];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:ssrAudioLogsDir];
-  v38[0] = *MEMORY[0x277CBE8E8];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
-  v30 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:v5 options:0 error:&v30];
-  v7 = v30;
+  v37[0] = *MEMORY[0x277CBE8E8];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+  v29 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:v5 options:0 error:&v29];
+  v7 = v29;
 
   if (v7)
   {
@@ -2861,41 +2837,41 @@ LABEL_11:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v33 = "+[SSRUtils cleanupOrphanedVoiceIdGradingFiles]";
-      v34 = 2114;
-      v35 = ssrAudioLogsDir;
-      v36 = 2114;
-      v37 = v7;
+      v32 = "+[SSRUtils cleanupOrphanedVoiceIdGradingFiles]";
+      v33 = 2114;
+      v34 = ssrAudioLogsDir;
+      v35 = 2114;
+      v36 = v7;
       _os_log_error_impl(&dword_225E12000, v21, OS_LOG_TYPE_ERROR, "%s ERR: reading contents of gradingDir: %{public}@ with error %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v24 = defaultManager;
-    v25 = ssrAudioLogsDir;
+    v23 = defaultManager;
+    v24 = ssrAudioLogsDir;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v23 = v6;
+    v22 = v6;
     v11 = v6;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v26;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v26 + 1) + 8 * i);
+          v16 = *(*(&v25 + 1) + 8 * i);
           absoluteString = [v16 absoluteString];
           lastPathComponent = [absoluteString lastPathComponent];
           stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
@@ -2913,51 +2889,47 @@ LABEL_11:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v13);
     }
 
     [dictionary enumerateKeysAndObjectsUsingBlock:&__block_literal_global_4846];
-    defaultManager = v24;
-    ssrAudioLogsDir = v25;
-    v6 = v23;
+    defaultManager = v23;
+    ssrAudioLogsDir = v24;
+    v6 = v22;
   }
 
 LABEL_19:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "+[SSRUtils cleanupOrphanedVoiceIdGradingFiles]_block_invoke";
-    v10 = 2114;
-    v11 = v3;
-    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_INFO, "%s Deleting orphaned grading file %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[SSRUtils cleanupOrphanedVoiceIdGradingFiles]_block_invoke";
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_INFO, "%s Deleting orphaned grading file %{public}@", &v7, 0x16u);
   }
 
   v5 = [v3 path];
   v6 = [SSRUtils removeItemAtPath:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)ssrAudioLogsCountWithinPrivacyLimit
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = +[SSRUtils ssrAudioLogsDir];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v15 = 0;
-  v4 = [defaultManager contentsOfDirectoryAtPath:v2 error:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [defaultManager contentsOfDirectoryAtPath:v2 error:&v14];
+  v5 = v14;
 
   if (v4)
   {
@@ -2974,11 +2946,11 @@ void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1
         v11 = v10;
         v12 = [v7 count];
         *buf = 136315650;
-        v17 = "+[SSRUtils ssrAudioLogsCountWithinPrivacyLimit]";
-        v18 = 2048;
-        v19 = v12;
-        v20 = 1024;
-        v21 = 100;
+        v16 = "+[SSRUtils ssrAudioLogsCountWithinPrivacyLimit]";
+        v17 = 2048;
+        v18 = v12;
+        v19 = 1024;
+        v20 = 100;
         _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s Exceeded privacy limit for grading utterances : %ld (%d)", buf, 0x1Cu);
       }
     }
@@ -2989,7 +2961,6 @@ void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3003,18 +2974,18 @@ void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1
 
 + (id)createDirectoryIfDoesNotExist:(id)exist
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   existCopy = exist;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = defaultManager;
-  v19 = 0;
+  v18 = 0;
   if (existCopy)
   {
-    v6 = [defaultManager fileExistsAtPath:existCopy isDirectory:&v19];
+    v6 = [defaultManager fileExistsAtPath:existCopy isDirectory:&v18];
     v7 = MEMORY[0x277D015C8];
     if (v6)
     {
-      if (v19)
+      if (v18)
       {
         v8 = 0;
         goto LABEL_18;
@@ -3024,9 +2995,9 @@ void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1
       if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v21 = "+[SSRUtils createDirectoryIfDoesNotExist:]";
-        v22 = 2112;
-        v23 = existCopy;
+        v20 = "+[SSRUtils createDirectoryIfDoesNotExist:]";
+        v21 = 2112;
+        v22 = existCopy;
         _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s Directory with same name exists, this will be removed: %@", buf, 0x16u);
       }
 
@@ -3037,15 +3008,15 @@ void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v21 = "+[SSRUtils createDirectoryIfDoesNotExist:]";
-      v22 = 2112;
-      v23 = existCopy;
+      v20 = "+[SSRUtils createDirectoryIfDoesNotExist:]";
+      v21 = 2112;
+      v22 = existCopy;
       _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s Creating Directory : %@", buf, 0x16u);
     }
 
-    v18 = 0;
-    [v5 createDirectoryAtPath:existCopy withIntermediateDirectories:1 attributes:0 error:&v18];
-    v8 = v18;
+    v17 = 0;
+    [v5 createDirectoryAtPath:existCopy withIntermediateDirectories:1 attributes:0 error:&v17];
+    v8 = v17;
     if (v8)
     {
       v12 = *v7;
@@ -3054,9 +3025,9 @@ void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1
         v13 = v12;
         localizedDescription = [v8 localizedDescription];
         *buf = 136315394;
-        v21 = "+[SSRUtils createDirectoryIfDoesNotExist:]";
-        v22 = 2112;
-        v23 = localizedDescription;
+        v20 = "+[SSRUtils createDirectoryIfDoesNotExist:]";
+        v21 = 2112;
+        v22 = localizedDescription;
         _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Creating Directory failed : %@", buf, 0x16u);
       }
 
@@ -3070,7 +3041,7 @@ void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "+[SSRUtils createDirectoryIfDoesNotExist:]";
+      v20 = "+[SSRUtils createDirectoryIfDoesNotExist:]";
       _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s path is nil - Bailing out", buf, 0xCu);
     }
 
@@ -3078,8 +3049,6 @@ void __46__SSRUtils_cleanupOrphanedVoiceIdGradingFiles__block_invoke(uint64_t a1
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -3098,7 +3067,7 @@ LABEL_18:
 
 + (id)satConfigFileNameForCSSpIdType:(unint64_t)type forModelType:(unint64_t)modelType forAssetType:(unint64_t)assetType
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (CSIsCommunalDevice())
   {
     if (type - 1 < 5)
@@ -3113,9 +3082,9 @@ LABEL_18:
       goto LABEL_16;
     }
 
-    v13 = 136315394;
-    v14 = "+[SSRUtils satConfigFileNameForCSSpIdType:forModelType:forAssetType:]";
-    v15 = 2048;
+    v12 = 136315394;
+    v13 = "+[SSRUtils satConfigFileNameForCSSpIdType:forModelType:forAssetType:]";
+    v14 = 2048;
     typeCopy2 = type;
     v9 = "%s ERR: Unknown CSSpIdType: %lu";
     goto LABEL_21;
@@ -3140,13 +3109,13 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v13 = 136315394;
-    v14 = "+[SSRUtils satConfigFileNameForCSSpIdType:forModelType:forAssetType:]";
-    v15 = 2048;
+    v12 = 136315394;
+    v13 = "+[SSRUtils satConfigFileNameForCSSpIdType:forModelType:forAssetType:]";
+    v14 = 2048;
     typeCopy2 = type;
     v9 = "%s Unknown CSSpIdType: %lu";
 LABEL_21:
-    _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, v9, &v13, 0x16u);
+    _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, v9, &v12, 0x16u);
     goto LABEL_16;
   }
 
@@ -3158,14 +3127,13 @@ LABEL_21:
 
   v7 = v10;
 LABEL_17:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)psrConfigFileNameForCSSpIdType:(unint64_t)type
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (type > 3)
   {
     if (type == 4)
@@ -3180,14 +3148,14 @@ LABEL_8:
     if (type != 5)
     {
 LABEL_15:
-      v10 = *MEMORY[0x277D01970];
+      v9 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
-        v11 = 136315394;
-        v12 = "+[SSRUtils psrConfigFileNameForCSSpIdType:]";
-        v13 = 2048;
+        v10 = 136315394;
+        v11 = "+[SSRUtils psrConfigFileNameForCSSpIdType:]";
+        v12 = 2048;
         typeCopy = type;
-        _os_log_error_impl(&dword_225E12000, v10, OS_LOG_TYPE_ERROR, "%s ERR: Unknown CSSpIdType: %lu", &v11, 0x16u);
+        _os_log_error_impl(&dword_225E12000, v9, OS_LOG_TYPE_ERROR, "%s ERR: Unknown CSSpIdType: %lu", &v10, 0x16u);
       }
 
       v7 = 0;
@@ -3216,14 +3184,13 @@ LABEL_9:
 
   v7 = v5;
 LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)satConfigFileNameForCSSpIdType:(unint64_t)type
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (type == 5)
   {
     v6 = CSIsCommunalDevice();
@@ -3253,16 +3220,15 @@ LABEL_8:
   v8 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v11 = 136315394;
-    v12 = "+[SSRUtils satConfigFileNameForCSSpIdType:]";
-    v13 = 2048;
+    v10 = 136315394;
+    v11 = "+[SSRUtils satConfigFileNameForCSSpIdType:]";
+    v12 = 2048;
     typeCopy = type;
-    _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s ERR: Unknown CSSpIdType: %lu", &v11, 0x16u);
+    _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s ERR: Unknown CSSpIdType: %lu", &v10, 0x16u);
   }
 
   v7 = 0;
 LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3309,7 +3275,7 @@ LABEL_12:
 
 + (unint64_t)spIdTypeForString:(id)string
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy isEqualToString:@"td"])
   {
@@ -3341,17 +3307,16 @@ LABEL_12:
     v5 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "+[SSRUtils spIdTypeForString:]";
-      v10 = 2112;
-      v11 = stringCopy;
-      _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Unknown CSSpIdType string: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "+[SSRUtils spIdTypeForString:]";
+      v9 = 2112;
+      v10 = stringCopy;
+      _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Unknown CSSpIdType string: %@", &v7, 0x16u);
     }
 
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

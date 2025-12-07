@@ -1165,7 +1165,7 @@ LABEL_6:
 
 - (void)_loadHeaderView
 {
-  v50[4] = *MEMORY[0x277D85DE8];
+  v53[4] = *MEMORY[0x277D85DE8];
   if (self->_header || self->_subHeader || self->_headerTitle || [(RUIElement *)self hasImage])
   {
     tableView = [(RUITableView *)self tableView];
@@ -1179,10 +1179,10 @@ LABEL_6:
 
       if (v7 && ([v7 conformsToProtocol:&unk_282D84FE8] & 1) == 0)
       {
-        v19 = *MEMORY[0x277CBF3A0];
-        v20 = *(MEMORY[0x277CBF3A0] + 8);
+        v22 = *MEMORY[0x277CBF3A0];
+        v23 = *(MEMORY[0x277CBF3A0] + 8);
         [(RUITableView *)self _tableHeaderSizeForHeader:v7];
-        [v7 setFrame:{v19, v20, v21, v22}];
+        [v7 setFrame:{v22, v23, v24, v25}];
         [(UITableView *)self->_tableView setTableHeaderView:v7];
       }
 
@@ -1192,33 +1192,34 @@ LABEL_6:
         page = [(RUITableView *)self page];
         showsTitlesAsHeaderViews = [page showsTitlesAsHeaderViews];
 
-        v48 = v7;
+        v51 = v7;
         if (showsTitlesAsHeaderViews)
         {
-          if (_isInternalInstall())
+          isInternalInstall = _isInternalInstall(v11, v12);
+          if (isInternalInstall)
           {
-            v11 = _RUILoggingFacility();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v14 = _RUILoggingFacility(isInternalInstall);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "Attempting modern header", buf, 2u);
+              _os_log_impl(&dword_21B93D000, v14, OS_LOG_TYPE_DEFAULT, "Attempting modern header", buf, 2u);
             }
           }
 
           if ([(RUIElement *)self hasImage])
           {
-            v12 = objc_alloc_init(MEMORY[0x277D755B8]);
-            v13 = [[RUIModernHeaderView alloc] initWithTitle:self->_headerTitle detailText:self->_subHeaderTitle icon:v12];
+            v15 = objc_alloc_init(MEMORY[0x277D755B8]);
+            v16 = [[RUIModernHeaderView alloc] initWithTitle:self->_headerTitle detailText:self->_subHeaderTitle icon:v15];
 
-            v8 = v12;
+            v8 = v15;
           }
 
           else
           {
-            v13 = [[RUIModernHeaderView alloc] initWithTitle:self->_headerTitle detailText:self->_subHeaderTitle icon:0];
+            v16 = [[RUIModernHeaderView alloc] initWithTitle:self->_headerTitle detailText:self->_subHeaderTitle icon:0];
           }
 
-          [(RUIModernHeaderView *)v13 setTranslatesAutoresizingMaskIntoConstraints:0];
+          [(RUIModernHeaderView *)v16 setTranslatesAutoresizingMaskIntoConstraints:0];
         }
 
         else
@@ -1245,51 +1246,51 @@ LABEL_6:
           headerLabelTextColor = [style4 headerLabelTextColor];
           [(RUIHeaderView *)v8 setHeaderColor:headerLabelTextColor];
 
-          v13 = v8;
+          v16 = v8;
         }
 
-        [(RUIHeaderElement *)self->_header configureView:v13];
-        [(RUISubHeaderElement *)self->_subHeader configureView:v13];
-        v23 = objc_alloc_init(RUIReadableContentContainer);
-        [(RUIReadableContentContainer *)v23 setPreservesSuperviewLayoutMargins:1];
-        v24 = objc_loadWeakRetained(&self->_objectModel);
-        style5 = [v24 style];
+        [(RUIHeaderElement *)self->_header configureView:v16];
+        [(RUISubHeaderElement *)self->_subHeader configureView:v16];
+        v26 = objc_alloc_init(RUIReadableContentContainer);
+        [(RUIReadableContentContainer *)v26 setPreservesSuperviewLayoutMargins:1];
+        v27 = objc_loadWeakRetained(&self->_objectModel);
+        style5 = [v27 style];
         [style5 headerContainerSideMargin];
-        v27 = v26;
-        v28 = objc_loadWeakRetained(&self->_objectModel);
-        style6 = [v28 style];
+        v30 = v29;
+        v31 = objc_loadWeakRetained(&self->_objectModel);
+        style6 = [v31 style];
         [style6 headerContainerSideMargin];
-        [(RUIReadableContentContainer *)v23 setDirectionalLayoutMargins:0.0, v27, 0.0, v30];
+        [(RUIReadableContentContainer *)v26 setDirectionalLayoutMargins:0.0, v30, 0.0, v33];
 
-        [(RUIReadableContentContainer *)v23 addSubview:v13];
-        [(UITableView *)self->_tableView setTableHeaderView:v23];
-        v41 = MEMORY[0x277CCAAD0];
-        topAnchor = [(RUIReadableContentContainer *)v23 topAnchor];
-        topAnchor2 = [(RUIModernHeaderView *)v13 topAnchor];
-        v45 = [topAnchor constraintEqualToAnchor:topAnchor2];
-        v50[0] = v45;
-        bottomAnchor = [(RUIReadableContentContainer *)v23 bottomAnchor];
-        bottomAnchor2 = [(RUIModernHeaderView *)v13 bottomAnchor];
-        v42 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-        v50[1] = v42;
-        readableContentGuide = [(RUIReadableContentContainer *)v23 readableContentGuide];
+        [(RUIReadableContentContainer *)v26 addSubview:v16];
+        [(UITableView *)self->_tableView setTableHeaderView:v26];
+        v44 = MEMORY[0x277CCAAD0];
+        topAnchor = [(RUIReadableContentContainer *)v26 topAnchor];
+        topAnchor2 = [(RUIModernHeaderView *)v16 topAnchor];
+        v48 = [topAnchor constraintEqualToAnchor:topAnchor2];
+        v53[0] = v48;
+        bottomAnchor = [(RUIReadableContentContainer *)v26 bottomAnchor];
+        bottomAnchor2 = [(RUIModernHeaderView *)v16 bottomAnchor];
+        v45 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+        v53[1] = v45;
+        readableContentGuide = [(RUIReadableContentContainer *)v26 readableContentGuide];
         leadingAnchor = [readableContentGuide leadingAnchor];
-        leadingAnchor2 = [(RUIModernHeaderView *)v13 leadingAnchor];
-        v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-        v50[2] = v32;
-        readableContentGuide2 = [(RUIReadableContentContainer *)v23 readableContentGuide];
+        leadingAnchor2 = [(RUIModernHeaderView *)v16 leadingAnchor];
+        v35 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+        v53[2] = v35;
+        readableContentGuide2 = [(RUIReadableContentContainer *)v26 readableContentGuide];
         trailingAnchor = [readableContentGuide2 trailingAnchor];
-        trailingAnchor2 = [(RUIModernHeaderView *)v13 trailingAnchor];
-        v36 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-        v50[3] = v36;
-        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:4];
-        [v41 activateConstraints:v37];
+        trailingAnchor2 = [(RUIModernHeaderView *)v16 trailingAnchor];
+        v39 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+        v53[3] = v39;
+        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:4];
+        [v44 activateConstraints:v40];
 
         headerView = self->_headerView;
-        self->_headerView = v13;
+        self->_headerView = v16;
 
         [(RUIElement *)self loadImage];
-        v7 = v48;
+        v7 = v51;
       }
     }
   }
@@ -1419,14 +1420,14 @@ LABEL_6:
   [v21 performWithoutAnimation:v23];
 }
 
-uint64_t __31__RUITableView_viewWillAppear___block_invoke(uint64_t result)
+void *__31__RUITableView_viewWillAppear___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    [*(*(result + 40) + 80) beginUpdates];
-    [*(*(v1 + 40) + 80) layoutIfNeeded];
-    v2 = *(*(v1 + 40) + 80);
+    [*(result[5] + 80) beginUpdates];
+    [*(v1[5] + 80) layoutIfNeeded];
+    v2 = *(v1[5] + 80);
 
     return [v2 endUpdates];
   }
@@ -1476,14 +1477,14 @@ uint64_t __31__RUITableView_viewWillAppear___block_invoke(uint64_t result)
   [(UITableView *)self->_tableView flashScrollIndicators:v16];
 }
 
-uint64_t __30__RUITableView_viewDidAppear___block_invoke_2(uint64_t result)
+void *__30__RUITableView_viewDidAppear___block_invoke_2(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    [*(*(result + 40) + 80) beginUpdates];
-    [*(*(v1 + 40) + 80) layoutIfNeeded];
-    v2 = *(*(v1 + 40) + 80);
+    [*(result[5] + 80) beginUpdates];
+    [*(v1[5] + 80) layoutIfNeeded];
+    v2 = *(v1[5] + 80);
 
     return [v2 endUpdates];
   }
@@ -3498,7 +3499,7 @@ void __74__RUITableView_tableView_contextMenuConfigurationForRowAtIndexPath_poin
 
   else
   {
-    v6 = _RUILoggingFacility();
+    v6 = _RUILoggingFacility(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [RUITableView tableView:v6 performAction:? forRowAtIndexPath:? withSender:?];

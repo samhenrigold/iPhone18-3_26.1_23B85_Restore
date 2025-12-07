@@ -128,33 +128,34 @@
   v28 = geometry;
   [geometry position];
   v30 = v29;
-  v36 = 0u;
   v37 = 0u;
-  v35 = 0u;
+  v38 = 0u;
+  v36 = 0u;
   [v28 center];
   if (v28)
   {
-    [v28 transformBasedOnPoint:TSDAddPoints(v16 centeredAtPoint:{v18, v30)}];
+    v31 = TSDAddPoints(v16, v18, v30);
+    objc_msgSend_transformBasedOnPoint_centeredAtPoint_(v28, v31);
   }
 
   else
   {
-    v36 = 0u;
     v37 = 0u;
-    v35 = 0u;
+    v38 = 0u;
+    v36 = 0u;
   }
 
-  v31 = [TSDLayoutGeometry alloc];
-  v34[0] = v35;
-  v34[1] = v36;
-  v34[2] = v37;
-  v32 = [(TSDLayoutGeometry *)v31 initWithSize:v34 transform:v20, v22];
+  v32 = [TSDLayoutGeometry alloc];
+  v35[0] = v36;
+  v35[1] = v37;
+  v35[2] = v38;
+  v33 = [(TSDLayoutGeometry *)v32 initWithSize:v35 transform:v20, v22];
   if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    return [v4 adjustLayoutGeometry:v32 forLayout:self];
+    return [v4 adjustLayoutGeometry:v33 forLayout:self];
   }
 
-  return v32;
+  return v33;
 }
 
 - (CGAffineTransform)affineTransformForTightPathBounds
@@ -170,7 +171,7 @@
   {
     v13 = TSDAddPoints(v6, v8, v11);
 
-    return [infoGeometry transformBasedOnPoint:v13 centeredAtPoint:?];
+    return objc_msgSend_transformBasedOnPoint_centeredAtPoint_(infoGeometry, v13);
   }
 
   else
@@ -279,7 +280,7 @@ LABEL_3:
     imageLayout = [(TSDMaskLayout *)self imageLayout];
     if (imageLayout)
     {
-      [(TSDImageLayout *)imageLayout layoutToMaskTransform];
+      objc_msgSend_layoutToMaskTransform(imageLayout);
     }
 
     else
@@ -347,8 +348,8 @@ LABEL_3:
     if (imageLayout)
     {
       v6 = imageLayout;
-      [(TSDImageLayout *)imageLayout layoutToMaskTransform];
-      [(TSDLayout *)v6 originalTransformForProvidingGuides];
+      objc_msgSend_layoutToMaskTransform(imageLayout);
+      objc_msgSend_originalTransformForProvidingGuides(v6);
     }
 
     else
@@ -378,7 +379,7 @@ LABEL_3:
     parent = [(TSDAbstractLayout *)self parent];
     if (parent)
     {
-      [(TSDAbstractLayout *)parent transformInRoot];
+      objc_msgSend_transformInRoot(parent);
     }
 
     else
@@ -420,7 +421,7 @@ LABEL_3:
     v6 = [-[TSDImageLayout imageInfo](-[TSDMaskLayout imageLayout](self "imageLayout")];
     if (v6)
     {
-      [v6 transform];
+      objc_msgSend_transform(v6);
     }
 
     else
@@ -445,7 +446,7 @@ LABEL_3:
     geometry = [(TSDInfo *)[(TSDLayout *)self info] geometry];
     if (geometry)
     {
-      [geometry fullTransform];
+      objc_msgSend_fullTransform(geometry);
     }
 
     else
@@ -468,7 +469,7 @@ LABEL_3:
     originalImageGeometry = [(TSDImageLayout *)[(TSDMaskLayout *)self imageLayout] originalImageGeometry];
     if (originalImageGeometry)
     {
-      [originalImageGeometry transform];
+      objc_msgSend_transform(originalImageGeometry);
     }
 
     else
@@ -533,20 +534,12 @@ LABEL_3:
   result = [(TSDMaskLayout *)self imageLayout];
   if (result)
   {
-    v7 = *&a4->c;
-    v8[0] = *&a4->a;
-    v8[1] = v7;
-    v8[2] = *&a4->tx;
-    return [(CGAffineTransform *)result layoutTransformInInfoSpace:v8];
+    return objc_msgSend_layoutTransformInInfoSpace_(result, *&a4->a, *&a4->b, *&a4->c, *&a4->d, *&a4->tx, *&a4->ty);
   }
 
-  else
-  {
-    *&retstr->c = 0u;
-    *&retstr->tx = 0u;
-    *&retstr->a = 0u;
-  }
-
+  *&retstr->c = 0u;
+  *&retstr->tx = 0u;
+  *&retstr->a = 0u;
   return result;
 }
 
@@ -565,7 +558,7 @@ LABEL_3:
   imageGeometry = [(TSDImageLayout *)imageLayout imageGeometry];
   if (imageGeometry)
   {
-    [imageGeometry transform];
+    objc_msgSend_transform(imageGeometry);
   }
 
   else

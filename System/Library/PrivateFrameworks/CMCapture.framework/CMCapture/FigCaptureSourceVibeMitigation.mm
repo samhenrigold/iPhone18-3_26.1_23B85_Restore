@@ -1,11 +1,11 @@
 @interface FigCaptureSourceVibeMitigation
 + (void)initialize;
 - (FigCaptureSourceVibeMitigation)initWithFigCaptureSourceBackings:(id)backings;
-- (uint64_t)_setupStateMachine;
 - (uint64_t)_startMitigation;
 - (void)_cancelCurrentTimer;
 - (void)_handleVibeNotification:(uint64_t)notification userInfo:;
 - (void)_registerNotifications;
+- (void)_setupStateMachine;
 - (void)_setupTimerWithDuration:(uint64_t)duration;
 - (void)_stopMitigation;
 - (void)dealloc;
@@ -165,63 +165,63 @@ uint64_t __52__FigCaptureSourceVibeMitigation__setupStateMachine__block_invoke(u
   return [v7 transitionToState:v6];
 }
 
-void __67__FigCaptureSourceVibeMitigation__handleVibeNotification_userInfo___block_invoke(uint64_t a1)
+void __67__FigCaptureSourceVibeMitigation__handleVibeNotification_userInfo___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if ([*(a1 + 32) isEqualToString:@"HapticActuatorProtectionModeNotification_MinimalProtection"])
+  if (objc_msgSend_isEqualToString_(*(a1 + 32), a2, @"HapticActuatorProtectionModeNotification_MinimalProtection"))
   {
-    v2 = [*(*(a1 + 40) + 64) currentState];
-    v3 = *(*(a1 + 40) + 64);
-    if (v2 == 1)
+    v3 = [*(*(a1 + 40) + 64) currentState];
+    v4 = *(*(a1 + 40) + 64);
+    if (v3 == 1)
     {
-      v4 = 2;
+      v5 = 2;
     }
 
     else
     {
-      if ([v3 currentState] != 8)
+      if ([v4 currentState] != 8)
       {
         return;
       }
 
-      v3 = *(*(a1 + 40) + 64);
-      v4 = 4;
+      v4 = *(*(a1 + 40) + 64);
+      v5 = 4;
     }
 
     goto LABEL_9;
   }
 
-  if ([*(a1 + 32) isEqualToString:@"HapticActuatorProtectionModeNotification_DefaultProtection"])
+  if (objc_msgSend_isEqualToString_(*(a1 + 32)))
   {
     if ([*(*(a1 + 40) + 64) currentState] != 4)
     {
       return;
     }
 
-    v3 = *(*(a1 + 40) + 64);
-    v4 = 8;
+    v4 = *(*(a1 + 40) + 64);
+    v5 = 8;
 LABEL_9:
 
-    [v3 transitionToState:v4];
+    [v4 transitionToState:v5];
     return;
   }
 
-  if ([*(a1 + 32) isEqualToString:@"HapticSequenceNotification_SequenceWillStart"])
+  if (objc_msgSend_isEqualToString_(*(a1 + 32)))
   {
     if ([*(a1 + 48) objectForKeyedSubscript:@"SequenceDuration"])
     {
       if ([*(*(a1 + 40) + 64) currentState] == 4)
       {
         [objc_msgSend(*(a1 + 48) objectForKeyedSubscript:{@"SequenceDuration", "floatValue"}];
-        if (v5 <= 0x257)
+        if (v6 <= 0x257)
         {
-          __67__FigCaptureSourceVibeMitigation__handleVibeNotification_userInfo___block_invoke_cold_1(v5, (a1 + 40));
+          __67__FigCaptureSourceVibeMitigation__handleVibeNotification_userInfo___block_invoke_cold_1(v6, (a1 + 40));
         }
       }
     }
   }
 }
 
-uint64_t __50__FigCaptureSourceVibeMitigation__startMitigation__block_invoke(uint64_t a1, uint64_t a2, char a3)
+void *__50__FigCaptureSourceVibeMitigation__startMitigation__block_invoke(uint64_t a1, uint64_t a2, char a3)
 {
   result = [*(*(a1 + 32) + 64) currentState];
   if (result == 4 && (a3 & 1) == 0)
@@ -242,29 +242,29 @@ uint64_t __50__FigCaptureSourceVibeMitigation__startMitigation__block_invoke(uin
   return result;
 }
 
-- (uint64_t)_setupStateMachine
+- (void)_setupStateMachine
 {
   if (result)
   {
     v1 = result;
     v2 = [[FigStateMachine alloc] initWithLabel:@"FigCaptureSourceVibeMitigationStateMachine" stateCount:4 initialState:1 owner:result];
-    *(v1 + 64) = v2;
+    *(v1 + 8) = v2;
     [(FigStateMachine *)v2 setPerformsAtomicStateTransitions:0];
-    [*(v1 + 64) setLabel:@"Idle" forState:1];
-    [*(v1 + 64) setLabel:@"Activating" forState:2];
-    [*(v1 + 64) setLabel:@"Active" forState:4];
-    [*(v1 + 64) setLabel:@"Deactivating" forState:8];
-    v3 = *(v1 + 64);
+    [*(v1 + 8) setLabel:@"Idle" forState:1];
+    [*(v1 + 8) setLabel:@"Activating" forState:2];
+    [*(v1 + 8) setLabel:@"Active" forState:4];
+    [*(v1 + 8) setLabel:@"Deactivating" forState:8];
+    v3 = *(v1 + 8);
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __52__FigCaptureSourceVibeMitigation__setupStateMachine__block_invoke;
     v6[3] = &unk_1E798FD10;
     v6[4] = v1;
     [v3 whenTransitioningFromState:1 toState:2 callHandler:v6];
-    [*(v1 + 64) whenTransitioningFromState:4 toState:8 callHandler:&__block_literal_global_6];
-    [*(v1 + 64) whenTransitioningFromState:8 toState:1 callHandler:&__block_literal_global_29];
-    [*(v1 + 64) whenTransitioningFromState:4 toState:1 callHandler:&__block_literal_global_31];
-    v4 = *(v1 + 64);
+    [*(v1 + 8) whenTransitioningFromState:4 toState:8 callHandler:&__block_literal_global_6];
+    [*(v1 + 8) whenTransitioningFromState:8 toState:1 callHandler:&__block_literal_global_29];
+    [*(v1 + 8) whenTransitioningFromState:4 toState:1 callHandler:&__block_literal_global_31];
+    v4 = *(v1 + 8);
     v5[0] = MEMORY[0x1E69E9820];
     v5[1] = 3221225472;
     v5[2] = __52__FigCaptureSourceVibeMitigation__setupStateMachine__block_invoke_5;
@@ -334,7 +334,7 @@ uint64_t __50__FigCaptureSourceVibeMitigation__startMitigation__block_invoke(uin
 
 LABEL_9:
         OUTLINED_FUNCTION_2_9();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
         return v65[0];
       }
 
@@ -495,20 +495,20 @@ LABEL_29:
     {
       if ((*(self + 76) & 1) == 0)
       {
-        v11 = OUTLINED_FUNCTION_16_8(v2, v3, v4, v5, v6, v7, v8, v9, v47, v49, v51, v53, v54, v56, v58, v60, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109);
+        v11 = OUTLINED_FUNCTION_16_8(v2, v3, v4, v5, v6, v7, v8, v9, v59, v61, v63, v65, v66, v68, v70, v72, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119);
         if (v11)
         {
           v13 = v11;
           v14 = MEMORY[0];
-          v64 = *off_1E798C270;
+          v76 = *off_1E798C270;
           *&v12 = 136315394;
-          *v59 = v12;
+          *v71 = v12;
           *&v12 = 136315650;
-          *v52 = v12;
+          *v64 = v12;
           do
           {
             v15 = 0;
-            v57 = v13;
+            v69 = v13;
             do
             {
               if (MEMORY[0] != v14)
@@ -523,16 +523,16 @@ LABEL_29:
                 {
                   OUTLINED_FUNCTION_3_10();
                   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                  OUTLINED_FUNCTION_15_2(os_log_and_send_and_compose_flags_and_os_log_type, v18, v19, v20, v21, v22, v23, v24, v48, v50, v52[0], v52[1], v55, v57, v59[0], v59[1], v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, type, SBYTE2(type), BYTE3(type), SHIDWORD(type));
+                  OUTLINED_FUNCTION_15_2(os_log_and_send_and_compose_flags_and_os_log_type, v18, v19, v20, v21, v22, v23, v24, v60, v62, v64[0], v64[1], v67, v69, v71[0], v71[1], v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, type, SBYTE2(type), BYTE3(type), SHIDWORD(type));
                   OUTLINED_FUNCTION_29();
                   [v16 portType];
-                  LODWORD(v66) = v59[0];
+                  LODWORD(v78) = v71[0];
                   OUTLINED_FUNCTION_6_8();
                   OUTLINED_FUNCTION_0_16();
                   OUTLINED_FUNCTION_12_5();
                   _os_log_send_and_compose_impl();
-                  OUTLINED_FUNCTION_5_15();
-                  OUTLINED_FUNCTION_11_6();
+                  v35 = OUTLINED_FUNCTION_5_15();
+                  OUTLINED_FUNCTION_11_6(v35, 1, v36, v37, v38);
                 }
 
                 v25 = [v16 setVibeMitigationEnabled:0];
@@ -543,7 +543,7 @@ LABEL_29:
                 v25 = [objc_msgSend(*(8 * v15) "supportedProperties")];
                 if (v25)
                 {
-                  v25 = [v16 setProperty:v64 value:MEMORY[0x1E695E110]];
+                  v25 = [v16 setProperty:v76 value:MEMORY[0x1E695E110]];
                   if (v25)
                   {
                     v33 = v25;
@@ -552,31 +552,31 @@ LABEL_29:
                     os_log_type_enabled(v34, BYTE3(type));
                     OUTLINED_FUNCTION_29();
                     [v16 portType];
-                    LODWORD(v66) = v52[0];
+                    LODWORD(v78) = v64[0];
                     OUTLINED_FUNCTION_6_8();
-                    HIWORD(v70) = 1024;
-                    LODWORD(v72) = v33;
+                    HIWORD(v82) = 1024;
+                    LODWORD(v84) = v33;
                     OUTLINED_FUNCTION_0_16();
                     _os_log_send_and_compose_impl();
-                    OUTLINED_FUNCTION_5_15();
-                    v25 = OUTLINED_FUNCTION_11_6();
-                    v13 = v57;
+                    v47 = OUTLINED_FUNCTION_5_15();
+                    v25 = OUTLINED_FUNCTION_11_6(v47, 0, v48, v49, v50);
+                    v13 = v69;
                   }
 
                   else if (dword_1ED844010)
                   {
                     OUTLINED_FUNCTION_3_10();
-                    v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                    OUTLINED_FUNCTION_15_2(v35, v36, v37, v38, v39, v40, v41, v42, v48, v50, v52[0], v52[1], v55, v57, v59[0], v59[1], v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, type, SBYTE2(type), BYTE3(type), SHIDWORD(type));
+                    v39 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                    OUTLINED_FUNCTION_15_2(v39, v40, v41, v42, v43, v44, v45, v46, v60, v62, v64[0], v64[1], v67, v69, v71[0], v71[1], v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, type, SBYTE2(type), BYTE3(type), SHIDWORD(type));
                     OUTLINED_FUNCTION_29();
                     [v16 portType];
-                    LODWORD(v66) = v59[0];
+                    LODWORD(v78) = v71[0];
                     OUTLINED_FUNCTION_6_8();
                     OUTLINED_FUNCTION_0_16();
                     OUTLINED_FUNCTION_12_5();
                     _os_log_send_and_compose_impl();
-                    OUTLINED_FUNCTION_5_15();
-                    v25 = OUTLINED_FUNCTION_11_6();
+                    v51 = OUTLINED_FUNCTION_5_15();
+                    v25 = OUTLINED_FUNCTION_11_6(v51, 1, v52, v53, v54);
                   }
                 }
               }
@@ -585,26 +585,26 @@ LABEL_29:
             }
 
             while (v13 != v15);
-            v13 = OUTLINED_FUNCTION_16_8(v25, v26, v27, v28, v29, v30, v31, v32, v48, v50, v52[0], v52[1], v55, v57, v59[0], v59[1], v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, type, v110);
+            v13 = OUTLINED_FUNCTION_16_8(v25, v26, v27, v28, v29, v30, v31, v32, v60, v62, v64[0], v64[1], v67, v69, v71[0], v71[1], v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, type);
           }
 
           while (v13);
         }
       }
 
-      v43 = +[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor];
-      OUTLINED_FUNCTION_13_7(v43, v44);
-      v45 = *(self + 40);
-      if (v45)
+      v55 = +[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor];
+      OUTLINED_FUNCTION_13_7(v55, v56);
+      v57 = *(self + 40);
+      if (v57)
       {
-        CFRelease(v45);
+        CFRelease(v57);
         *(self + 40) = 0;
       }
 
-      v46 = *(self + 48);
-      if (v46)
+      v58 = *(self + 48);
+      if (v58)
       {
-        CFRelease(v46);
+        CFRelease(v58);
         *(self + 48) = 0;
       }
 
@@ -615,7 +615,7 @@ LABEL_29:
     else
     {
       OUTLINED_FUNCTION_2_9();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
   }
 }

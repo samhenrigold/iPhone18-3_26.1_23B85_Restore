@@ -1,6 +1,7 @@
 @interface MCProvisioningProfileJanitor
 + (id)sharedJanitor;
 - (MCProvisioningProfileJanitor)init;
+- (void)didEnrollInMDMWithPasscodeContext:(id)context duringMigration:(BOOL)migration;
 - (void)didUnenrollFromMDM;
 - (void)syncMCTrustedCodeSigningIdentities:(id)identities;
 - (void)updateMISTrustAndValidateApps:(id)apps validateManagedApps:(BOOL)managedApps completion:(id)completion;
@@ -115,6 +116,14 @@ LABEL_7:
       goto LABEL_7;
     }
   }
+}
+
+- (void)didEnrollInMDMWithPasscodeContext:(id)context duringMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  contextCopy = context;
+  profileTrust = [(MCProvisioningProfileJanitor *)self profileTrust];
+  [profileTrust didEnrollInMDMWithPasscodeContext:contextCopy duringMigration:migrationCopy];
 }
 
 - (void)didUnenrollFromMDM

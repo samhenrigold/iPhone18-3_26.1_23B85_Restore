@@ -787,22 +787,22 @@ void __70__MLMediaLibraryResourcesServiceClient_libraryContainerPathWithError___
   return v4;
 }
 
-void __53__MLMediaLibraryResourcesServiceClient_sharedService__block_invoke()
+void __53__MLMediaLibraryResourcesServiceClient_sharedService__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = os_log_create("com.apple.amp.medialibrary", "MultiUser");
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v8 = *MEMORY[0x277D85DE8];
+  v1 = os_log_create("com.apple.amp.medialibrary", "MultiUser");
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138543362;
-    v6 = objc_opt_class();
-    _os_log_impl(&dword_22D2FA000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ - Initializing the shared service:", &v5, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    _os_log_impl(&dword_22D2FA000, v1, OS_LOG_TYPE_DEBUG, "%{public}@ - Initializing the shared service:", &v6, 0xCu);
   }
 
-  v1 = [MLMediaLibraryResourcesServiceClient alloc];
-  v2 = +[ML3MusicLibraryAccountChangeObserverProxy sharedProxy];
-  v3 = [(MLMediaLibraryResourcesServiceClient *)v1 _initWithAccountChangeObserver:v2];
-  v4 = sharedService___sharedService;
-  sharedService___sharedService = v3;
+  v2 = [MLMediaLibraryResourcesServiceClient alloc];
+  v3 = +[ML3MusicLibraryAccountChangeObserverProxy sharedProxy];
+  v4 = [(MLMediaLibraryResourcesServiceClient *)v2 _initWithAccountChangeObserver:v3];
+  v5 = sharedService___sharedService;
+  sharedService___sharedService = v4;
 }
 
 @end

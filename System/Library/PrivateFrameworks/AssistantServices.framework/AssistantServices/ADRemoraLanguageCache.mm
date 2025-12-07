@@ -12,14 +12,14 @@
   dCopy = d;
   if (changeCopy && dCopy)
   {
-    v7 = [(NSMutableDictionary *)self->_uuidToLanguageMap objectForKey:dCopy];
+    v7 = objc_msgSend_objectForKey_(self->_uuidToLanguageMap);
     if (v7)
     {
-      v8 = [(NSMutableDictionary *)self->_languageToUUIDMap objectForKey:v7];
+      v8 = objc_msgSend_objectForKey_(self->_languageToUUIDMap);
       [v8 removeObject:dCopy];
     }
 
-    v9 = [(NSMutableDictionary *)self->_languageToUUIDMap objectForKey:changeCopy];
+    v9 = objc_msgSend_objectForKey_(self->_languageToUUIDMap);
     if (!v9)
     {
       v9 = objc_alloc_init(NSMutableSet);

@@ -33,7 +33,7 @@
 {
   addCopy = add;
   toCopy = to;
-  v7 = static WritingDirectionsCounts.add(_:_:)(addCopy, toCopy);
+  v7 = static WritingDirectionsCounts.add(_:_:)();
 
   return v7;
 }

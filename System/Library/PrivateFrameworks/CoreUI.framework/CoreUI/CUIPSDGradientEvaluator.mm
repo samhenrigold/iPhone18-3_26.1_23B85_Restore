@@ -932,16 +932,16 @@ LABEL_78:
 {
   if ((self[1].super.isa & 0xF) == 0)
   {
-    v10 = "WARNING: [CUIPSDGradientEvaluator customizeForDistance:] sent to evaluator that has no edge pixels. The message is a no-op.";
+    v4 = "WARNING: [CUIPSDGradientEvaluator customizeForDistance:] sent to evaluator that has no edge pixels. The message is a no-op.";
     goto LABEL_5;
   }
 
   if (distance == 0.0)
   {
-    v10 = "WARNING: [CUIPSDGradientEvaluator customizeForDistance:] sent to evaluator with zero distance. The message is a no-op.";
+    v4 = "WARNING: [CUIPSDGradientEvaluator customizeForDistance:] sent to evaluator with zero distance. The message is a no-op.";
 LABEL_5:
 
-    _CUILog(1, v10, v3, v4, v5, v6, v7, v8, v16);
+    _CUILog(1, v4);
     return;
   }
 
@@ -968,10 +968,10 @@ LABEL_5:
 
     if ((isa & 8) != 0)
     {
-      v13 = [(NSArray *)self->opacityStops objectAtIndex:[(NSArray *)self->opacityStops count]- 2];
-      v14 = 1.0 - fmin(1.0 / distance, 0.15);
+      v7 = [(NSArray *)self->opacityStops objectAtIndex:[(NSArray *)self->opacityStops count]- 2];
+      v8 = 1.0 - fmin(1.0 / distance, 0.15);
 
-      [v13 setLocation:v14];
+      [v7 setLocation:v8];
     }
   }
 }

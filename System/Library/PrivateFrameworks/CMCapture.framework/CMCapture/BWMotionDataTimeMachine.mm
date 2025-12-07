@@ -232,7 +232,7 @@ LABEL_7:
   v4 = serialNumber - number;
   if (serialNumber < number)
   {
-    [BWMotionDataTimeMachine copyMotionDataForStartingSerialNumber:endingSerialNumber:];
+    [BWMotionDataTimeMachine copyMotionDataForStartingSerialNumber:a2 endingSerialNumber:?];
     return 0;
   }
 
@@ -327,27 +327,27 @@ LABEL_6:
   else
   {
     v15 = [v6 initWithCapacity:0];
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
     v16 = *(buffer + 16);
-    v7 = OUTLINED_FUNCTION_0_75(v15, v17, v18, v19, v20, v21, v22, v23, v54.value, *&v54.timescale, v54.epoch, v55.value, *&v55.timescale, v55.epoch, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, *(&v72 + 1), v73, *(&v73 + 1), v74, *(&v74 + 1), v75, *(&v75 + 1), v76);
+    v7 = OUTLINED_FUNCTION_0_75(v15, v17, v18, v19, v20, v21, v22, v23, v54.value, *&v54.timescale, v54.epoch, v55.value, *&v55.timescale, v55.epoch, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, *(&v72 + 1), v73, *(&v73 + 1), v74, *(&v74 + 1), v75, *(&v75 + 1));
     if (v7)
     {
       v24 = v7;
-      v25 = *v78;
+      v25 = *v77;
       do
       {
         v26 = 0;
         do
         {
-          if (*v78 != v25)
+          if (*v77 != v25)
           {
             objc_enumerationMutation(v16);
           }
 
-          v27 = *(*(&v77 + 1) + 8 * v26);
+          v27 = *(*(&v76 + 1) + 8 * v26);
           v28 = [v4 objectForKeyedSubscript:v27];
           if (v28)
           {
@@ -358,7 +358,7 @@ LABEL_6:
         }
 
         while (v24 != v26);
-        v7 = OUTLINED_FUNCTION_0_75(v28, v29, v30, v31, v32, v33, v34, v35, v54.value, *&v54.timescale, v54.epoch, v55.value, *&v55.timescale, v55.epoch, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, *(&v72 + 1), v73, *(&v73 + 1), v74, *(&v74 + 1), v75, *(&v75 + 1), v76);
+        v7 = OUTLINED_FUNCTION_0_75(v28, v29, v30, v31, v32, v33, v34, v35, v54.value, *&v54.timescale, v54.epoch, v55.value, *&v55.timescale, v55.epoch, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, *(&v72 + 1), v73, *(&v73 + 1), v74, *(&v74 + 1), v75, *(&v75 + 1));
         v24 = v7;
       }
 
@@ -371,7 +371,7 @@ LABEL_6:
   v72 = 0u;
   v73 = 0u;
   v36 = *(buffer + 24);
-  v37 = OUTLINED_FUNCTION_1_84(v7, v8, v9, v10, v11, v12, v13, v14, v54.value, *&v54.timescale, v54.epoch, v55.value, *&v55.timescale, v55.epoch, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, 0);
+  v37 = OUTLINED_FUNCTION_1_84(v7, v8, v9, v10, v11, v12, v13, v14, v54.value, *&v54.timescale, v54.epoch, v55.value, *&v55.timescale, v55.epoch, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71);
   if (v37)
   {
     v38 = v37;
@@ -393,7 +393,7 @@ LABEL_6:
         }
       }
 
-      v38 = OUTLINED_FUNCTION_1_84(v42, v43, v44, v45, v46, v47, v48, v49, v54.value, *&v54.timescale, v54.epoch, v55.value, *&v55.timescale, v55.epoch, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72);
+      v38 = OUTLINED_FUNCTION_1_84(v42, v43, v44, v45, v46, v47, v48, v49, v54.value, *&v54.timescale, v54.epoch, v55.value, *&v55.timescale, v55.epoch, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71);
     }
 
     while (v38);

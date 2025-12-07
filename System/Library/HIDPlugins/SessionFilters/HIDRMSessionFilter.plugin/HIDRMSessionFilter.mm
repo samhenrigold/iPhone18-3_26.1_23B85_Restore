@@ -5,7 +5,7 @@ Swift::Int sub_1030()
   return sub_1A64();
 }
 
-Swift::Int sub_109C()
+Swift::Int sub_109C(uint64_t a1)
 {
   sub_1A44();
   sub_1A54(0);
@@ -30,60 +30,56 @@ double HIDRMSessionFilter.property(forKey:)@<D0>(_OWORD *a1@<X8>)
 
 char *HIDRMSessionFilter.init(session:)(void *a1)
 {
-  v3 = OBJC_IVAR___HIDRMSessionFilter_manager;
   *&v1[OBJC_IVAR___HIDRMSessionFilter_manager] = 0;
-  v20[3] = &type metadata for AppleHIDRM;
-  v20[4] = sub_1674();
-  v4 = sub_19C4();
-  sub_16C8(v20);
-  if (v4)
+  v17[3] = &type metadata for AppleHIDRM;
+  v17[4] = sub_1674();
+  v3 = sub_19C4();
+  sub_16C8(v17);
+  if (v3)
   {
-    v19.receiver = v1;
-    v19.super_class = type metadata accessor for HIDRMSessionFilter();
-    v5 = objc_msgSendSuper2(&v19, "init");
-    v6 = qword_84F0;
-    v7 = v5;
-    if (v6 != -1)
+    v16.receiver = v1;
+    v16.super_class = type metadata accessor for HIDRMSessionFilter();
+    v4 = objc_msgSendSuper2(&v16, "init");
+    v5 = qword_84F0;
+    v6 = v4;
+    if (v5 != -1)
     {
       swift_once();
     }
 
-    v8 = sub_19F4();
-    sub_1738(v8, qword_8680);
-    v9 = a1;
-    v10 = sub_19D4();
-    v11 = sub_1A24();
+    v7 = sub_19F4();
+    sub_1738(v7, qword_8680);
+    v8 = a1;
+    v9 = sub_19D4();
+    v10 = sub_1A24();
 
-    if (os_log_type_enabled(v10, v11))
+    if (os_log_type_enabled(v9, v10))
     {
+      v11 = swift_slowAlloc();
       v12 = swift_slowAlloc();
-      v13 = swift_slowAlloc();
-      *v12 = 138412290;
-      *(v12 + 4) = v9;
-      *v13 = v9;
-      v14 = v9;
-      _os_log_impl(&dword_0, v10, v11, "%@ init", v12, 0xCu);
-      sub_1900(v13, &qword_83F0, &unk_1E10);
+      *v11 = 138412290;
+      *(v11 + 4) = v8;
+      *v12 = v8;
+      v13 = v8;
+      _os_log_impl(&dword_0, v9, v10, "%@ init", v11, 0xCu);
+      sub_1900(v12, &qword_83F0, &unk_1E10);
     }
 
     sub_1A14();
-    v15 = sub_1A04();
+    v14 = sub_1A04();
 
-    v16 = *&v7[OBJC_IVAR___HIDRMSessionFilter_manager];
-    *&v7[OBJC_IVAR___HIDRMSessionFilter_manager] = v15;
+    *&v6[OBJC_IVAR___HIDRMSessionFilter_manager] = v14;
   }
 
   else
   {
-
-    v17 = *&v1[v3];
 
     type metadata accessor for HIDRMSessionFilter();
     swift_deallocPartialClassInstance();
     return 0;
   }
 
-  return v7;
+  return v6;
 }
 
 id HIDRMSessionFilter.__allocating_init()()
@@ -93,11 +89,11 @@ id HIDRMSessionFilter.__allocating_init()()
   return [v1 init];
 }
 
-id HIDRMSessionFilter.__deallocating_deinit()
+id HIDRMSessionFilter.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for HIDRMSessionFilter();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for HIDRMSessionFilter();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void _s18HIDRMSessionFilterAAC8activateyyF_0()
@@ -131,15 +127,17 @@ unint64_t sub_1674()
   return result;
 }
 
-uint64_t sub_16C8(uint64_t *a1)
+uint64_t sub_16C8(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_1738(uint64_t a1, uint64_t a2)
@@ -157,7 +155,6 @@ uint64_t sub_1770(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -295,14 +292,11 @@ uint64_t sub_1900(uint64_t a1, uint64_t *a2, uint64_t *a3)
 
 uint64_t *sub_1960(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

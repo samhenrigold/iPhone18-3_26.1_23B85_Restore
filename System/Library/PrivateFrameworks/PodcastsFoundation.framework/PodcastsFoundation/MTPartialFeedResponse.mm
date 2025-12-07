@@ -12,15 +12,13 @@
 {
   selfCopy = self;
   sub_1D9001E64();
-  v4 = OBJC_IVAR____TtC18PodcastsFoundation16BaseFeedResponse_parsedCache;
   swift_beginAccess();
-  v5 = *(&selfCopy->super.super.isa + v4);
 
-  sub_1D8F61420(v6);
+  sub_1D8F61420(v4);
 
-  v7 = sub_1D91785DC();
+  v5 = sub_1D91785DC();
 
-  return v7;
+  return v5;
 }
 
 - (id)itemInSection:(int64_t)section row:(int64_t)row
@@ -34,19 +32,19 @@
 - (unint64_t)numberOfItemsInSection:(unint64_t)section
 {
   selfCopy = self;
-  v5 = sub_1D9017BE0(section);
+  sub_1D9017BE0(section);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (unint64_t)numberOfSections
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR____TtC18PodcastsFoundation16BaseFeedResponse_request);
   type metadata accessor for PartialFeedRequest();
-  v3 = swift_dynamicCastClassUnconditional();
-  v4 = OBJC_IVAR___MTPartialFeedRequest_sections;
+  v2 = swift_dynamicCastClassUnconditional();
+  v3 = OBJC_IVAR___MTPartialFeedRequest_sections;
   swift_beginAccess();
-  return *(*(v3 + v4) + 16);
+  return *(*(v2 + v3) + 16);
 }
 
 - (id)sectionAtIndex:(unint64_t)index
@@ -63,15 +61,14 @@
   v12 = &v10[OBJC_IVAR___MTGenericDataSourceSection_storedTitle];
   *v12 = v6;
   v12[1] = v8;
-  v18.receiver = v10;
-  v18.super_class = v9;
-  v13 = [(BaseFeedResponse *)&v18 init];
+  v17.receiver = v10;
+  v17.super_class = v9;
+  v13 = [(BaseFeedResponse *)&v17 init];
   v14 = swift_allocObject();
   *(v14 + 16) = selfCopy;
   *(v14 + 24) = index;
-  v15 = (v13 + OBJC_IVAR___MTGenericDataSourceSection_shouldIncludeSeeAllBlock);
+  v15 = (&v13->super.super.isa + OBJC_IVAR___MTGenericDataSourceSection_shouldIncludeSeeAllBlock);
   swift_beginAccess();
-  v16 = v15[1];
   *v15 = sub_1D9018E10;
   v15[1] = v14;
 

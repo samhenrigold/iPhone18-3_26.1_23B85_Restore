@@ -10,9 +10,14 @@
 - (void)_triggerTapEvent:(id)event;
 - (void)_updateStateForContentMode:(int64_t)mode;
 - (void)ambientPosterViewController:(id)controller relinquishExtensionInstanceIdentifier:(id)identifier;
+- (void)ambientPosterViewController:(id)controller setChromeVisibility:(BOOL)visibility withAnimationSettings:(id)settings animationFence:(id)fence;
 - (void)setAppearanceTransitionCoordinator:(id)coordinator;
 - (void)setContentMode:(int64_t)mode;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation AMUIPosterViewController
@@ -28,29 +33,27 @@
     appearanceTransitionCoordinator = self->_appearanceTransitionCoordinator;
     self->_appearanceTransitionCoordinator = v5;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v5, appearanceTransitionCoordinator);
   }
 }
 
 - (void)setAppearanceTransitionCoordinator:(id)coordinator
 {
   coordinatorCopy = coordinator;
-  appearanceTransitionCoordinator = self->_appearanceTransitionCoordinator;
-  v10 = coordinatorCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_appearanceTransitionCoordinator, coordinator);
-    v7 = self->_appearanceTransitionCoordinator;
-    if (!v7)
+    appearanceTransitionCoordinator = self->_appearanceTransitionCoordinator;
+    if (!appearanceTransitionCoordinator)
     {
-      v8 = objc_alloc_init(AMUIPosterAppearanceTransitionCoordinator);
-      v9 = self->_appearanceTransitionCoordinator;
-      self->_appearanceTransitionCoordinator = v8;
-
+      v6 = objc_alloc_init(AMUIPosterAppearanceTransitionCoordinator);
       v7 = self->_appearanceTransitionCoordinator;
+      self->_appearanceTransitionCoordinator = v6;
+
+      appearanceTransitionCoordinator = self->_appearanceTransitionCoordinator;
     }
 
-    [(AMUIPosterAppearanceTransitionCoordinator *)v7 setPosterViewController:self progress:self->_appearanceTransitionProgress];
+    [(AMUIPosterAppearanceTransitionCoordinator *)appearanceTransitionCoordinator setPosterViewController:self progress:self->_appearanceTransitionProgress];
   }
 }
 
@@ -81,6 +84,39 @@
 
   [(UIGestureRecognizer *)self->_tapGestureRecognizer setName:@"AmbientTap"];
   [(UIView *)self->_touchBlockingView addGestureRecognizer:self->_tapGestureRecognizer];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMUIPosterViewController;
+  [(AMUIPosterViewController *)&v4 viewWillAppear:appear];
+  [(AMUIPosterViewController *)self _evaluateAuthenticationWithConfiguration:self->_configuration];
+  [(PRUISAmbientPosterViewController *)self->_posterViewController setVisibility:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMUIPosterViewController;
+  [(AMUIPosterViewController *)&v4 viewDidAppear:appear];
+  [(PRUISAmbientPosterViewController *)self->_posterViewController setVisibility:2];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = AMUIPosterViewController;
+  [(AMUIPosterViewController *)&v4 viewWillDisappear:disappear];
+  [(PRUISAmbientPosterViewController *)self->_posterViewController setVisibility:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = AMUIPosterViewController;
+  [(AMUIPosterViewController *)&v4 viewDidDisappear:disappear];
+  [(PRUISAmbientPosterViewController *)self->_posterViewController setVisibility:0];
 }
 
 - (BOOL)updatePosterConfiguration:(id)configuration withAnimationSettings:(id)settings
@@ -203,6 +239,15 @@ void __76__AMUIPosterViewController_updatePosterConfiguration_withAnimationSetti
   return [PRUISAmbientPosterViewControllerClass suggestedInstanceIdentifiers];
 }
 
+- (void)ambientPosterViewController:(id)controller setChromeVisibility:(BOOL)visibility withAnimationSettings:(id)settings animationFence:(id)fence
+{
+  visibilityCopy = visibility;
+  fenceCopy = fence;
+  settingsCopy = settings;
+  delegate = [(AMUIPosterViewController *)self delegate];
+  [delegate posterViewController:self setChromeVisibility:visibilityCopy withAnimationSettings:settingsCopy animationFence:fenceCopy];
+}
+
 - (id)ambientPosterViewControllerRequestExtensionInstanceIdentifier:(id)identifier
 {
   delegate = [(AMUIPosterViewController *)self delegate];
@@ -266,40 +311,40 @@ void __47__AMUIPosterViewController__snapshotController__block_invoke()
 {
   v0 = [getPRUISAmbientPosterViewControllerClass() defaultSnapshotCacheURL];
   v1 = [MEMORY[0x277CCAA00] defaultManager];
-  v9 = 0;
-  v2 = [v1 createDirectoryAtURL:v0 withIntermediateDirectories:1 attributes:0 error:&v9];
-  v3 = v9;
+  v10 = 0;
+  v2 = [v1 createDirectoryAtURL:v0 withIntermediateDirectories:1 attributes:0 error:&v10];
+  v3 = v10;
 
   if ((v2 & 1) == 0)
   {
-    v4 = AMUILogSwitcher();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = AMUILogSwitcher(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __47__AMUIPosterViewController__snapshotController__block_invoke_cold_1();
     }
   }
 
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2050000000;
-  v5 = getPRUISPosterSnapshotControllerClass_softClass;
-  v14 = getPRUISPosterSnapshotControllerClass_softClass;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2050000000;
+  v6 = getPRUISPosterSnapshotControllerClass_softClass;
+  v15 = getPRUISPosterSnapshotControllerClass_softClass;
   if (!getPRUISPosterSnapshotControllerClass_softClass)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __getPRUISPosterSnapshotControllerClass_block_invoke;
-    v10[3] = &unk_278C75E70;
-    v10[4] = &v11;
-    __getPRUISPosterSnapshotControllerClass_block_invoke(v10);
-    v5 = v12[3];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __getPRUISPosterSnapshotControllerClass_block_invoke;
+    v11[3] = &unk_278C75E70;
+    v11[4] = &v12;
+    __getPRUISPosterSnapshotControllerClass_block_invoke(v11);
+    v6 = v13[3];
   }
 
-  v6 = v5;
-  _Block_object_dispose(&v11, 8);
-  v7 = [[v5 alloc] initWithCacheURL:v0];
-  v8 = _snapshotController___sharedSnapshotController;
-  _snapshotController___sharedSnapshotController = v7;
+  v7 = v6;
+  _Block_object_dispose(&v12, 8);
+  v8 = [[v6 alloc] initWithCacheURL:v0];
+  v9 = _snapshotController___sharedSnapshotController;
+  _snapshotController___sharedSnapshotController = v8;
 }
 
 - (void)_updateStateForContentMode:(int64_t)mode
@@ -337,45 +382,44 @@ void __47__AMUIPosterViewController__snapshotController__block_invoke()
   v18 = 0;
   v5 = [configurationCopy pr_loadAmbientConfigurationWithError:&v18];
   v6 = v18;
+  v7 = v6;
   if (v5)
   {
     delegate = [(AMUIPosterViewController *)self delegate];
-    v8 = [delegate posterViewControllerIsAuthenticated:self];
-    v9 = [delegate posterViewControllerHasInlineAuthenticated:self];
+    v9 = [delegate posterViewControllerIsAuthenticated:self];
+    v10 = [delegate posterViewControllerHasInlineAuthenticated:self];
     needsAuthentication = [v5 needsAuthentication];
-    if (!v8 && !v9 && needsAuthentication)
+    if (!v9 && !v10 && needsAuthentication)
     {
-      v11 = AMUILogSwitcher();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = AMUILogSwitcher(needsAuthentication);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = MEMORY[0x245CAD1C0](v8);
         v13 = MEMORY[0x245CAD1C0](v9);
-        v14 = MEMORY[0x245CAD1C0](1);
+        v14 = MEMORY[0x245CAD1C0](v10);
+        v15 = MEMORY[0x245CAD1C0](1);
         *buf = 138543874;
-        v20 = v12;
+        v20 = v13;
         v21 = 2114;
-        v22 = v13;
+        v22 = v14;
         v23 = 2114;
-        v24 = v14;
-        _os_log_impl(&dword_23F38B000, v11, OS_LOG_TYPE_DEFAULT, "Poster configuration requesting in-line authentication... isAuthenticated: %{public}@, hasInlineAuthenticated: %{public}@, configurationNeedsAuthentication: %{public}@", buf, 0x20u);
+        v24 = v15;
+        _os_log_impl(&dword_23F38B000, v12, OS_LOG_TYPE_DEFAULT, "Poster configuration requesting in-line authentication... isAuthenticated: %{public}@, hasInlineAuthenticated: %{public}@, configurationNeedsAuthentication: %{public}@", buf, 0x20u);
       }
 
       providerBundleIdentifier = [configurationCopy providerBundleIdentifier];
-      v16 = [(AMUIPosterViewController *)self _posterExtensionDisplayNameWithBundleIdentifier:providerBundleIdentifier];
-      [delegate posterViewController:self didRequestInlineAuthenticationWithUnlockDestination:v16];
+      v17 = [(AMUIPosterViewController *)self _posterExtensionDisplayNameWithBundleIdentifier:providerBundleIdentifier];
+      [delegate posterViewController:self didRequestInlineAuthenticationWithUnlockDestination:v17];
     }
   }
 
   else
   {
-    delegate = AMUILogSwitcher();
+    delegate = AMUILogSwitcher(v6);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_ERROR))
     {
       [AMUIPosterViewController _evaluateAuthenticationWithConfiguration:];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_posterExtensionDisplayNameWithBundleIdentifier:(id)identifier
@@ -394,22 +438,6 @@ void __47__AMUIPosterViewController__snapshotController__block_invoke()
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __47__AMUIPosterViewController__snapshotController__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_23F38B000, v0, v1, "Failed to create cache directory at URL %{public}@. Error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_evaluateAuthenticationWithConfiguration:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_23F38B000, v0, v1, "Failed to load ambient configuration from configuration %@ with error %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

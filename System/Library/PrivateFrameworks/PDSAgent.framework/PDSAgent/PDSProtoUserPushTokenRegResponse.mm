@@ -54,7 +54,6 @@
   }
 
   PBDataWriterWriteSubmessage();
-  status = self->_status;
   PBDataWriterWriteInt32Field();
   if (self->_message)
   {

@@ -35,7 +35,7 @@ uint64_t __32__CIFilterClassCategories_cache__block_invoke()
 
 + (id)classCategoriesForClass:(Class)class
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   cache = [self cache];
   v5 = objc_opt_class();
   if (![(objc_class *)class isSubclassOfClass:v5])
@@ -48,59 +48,60 @@ uint64_t __32__CIFilterClassCategories_cache__block_invoke()
     return MEMORY[0x1E695E0F0];
   }
 
-  v6 = [cache objectForKey:class];
-  if (!v6)
+  v7 = [cache objectForKey:class];
+  if (!v7)
   {
-    v7 = [getCustomAttributes(class) valueForKey:@"CIAttributeFilterCategories"];
-    if (v7)
+    v8 = [(NSMutableDictionary *)getCustomAttributes(class valueForKey:"valueForKey:", @"CIAttributeFilterCategories"];
+    if (v8)
     {
-      v8 = v7;
+      v10 = v8;
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v6 = [MEMORY[0x1E695DEC8] arrayWithArray:v8];
-        if (v6)
+        v7 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
+        if (v7)
         {
 LABEL_16:
-          if (((classIsBuiltinFilter(class) & 1) != 0 || classIsSystemFilter(class)) && (([v6 containsObject:@"CICategoryGeometryAdjustment"] & 1) != 0 || (objc_msgSend(v6, "containsObject:", @"CICategoryDistortionEffect") & 1) != 0 || (objc_msgSend(v6, "containsObject:", @"CICategoryTransition") & 1) != 0 || (objc_msgSend(v6, "containsObject:", @"CICategoryBlur") & 1) != 0 || (objc_msgSend(v6, "containsObject:", @"CICategorySharpen") & 1) != 0 || objc_msgSend(v6, "containsObject:", @"CICategoryTileEffect")))
+          if (((classIsBuiltinFilter(class, v9) & 1) != 0 || classIsSystemFilter(class, v15)) && (([v7 containsObject:@"CICategoryGeometryAdjustment"] & 1) != 0 || (objc_msgSend(v7, "containsObject:", @"CICategoryDistortionEffect") & 1) != 0 || (objc_msgSend(v7, "containsObject:", @"CICategoryTransition") & 1) != 0 || (objc_msgSend(v7, "containsObject:", @"CICategoryBlur") & 1) != 0 || (objc_msgSend(v7, "containsObject:", @"CICategorySharpen") & 1) != 0 || objc_msgSend(v7, "containsObject:", @"CICategoryTileEffect")))
           {
-            v6 = [v6 arrayByAddingObject:@"CICategoryHighDynamicRange"];
+            v7 = [v7 arrayByAddingObject:@"CICategoryHighDynamicRange"];
           }
 
-          [cache setObject:v6 forKey:class];
-          return v6;
+          [cache setObject:v7 forKey:class];
+          return v7;
         }
       }
 
       else
       {
-        v9 = ci_logger_api();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v13 = ci_logger_api(isKindOfClass, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           *buf = 136446466;
-          v13 = "+[CIFilterClassCategories classCategoriesForClass:]";
-          v14 = 2114;
-          v15 = [(objc_class *)class description];
-          _os_log_impl(&dword_19CC36000, v9, OS_LOG_TYPE_INFO, "%{public}s kCIAttributeFilterCategories for class %{public}@ is not an array", buf, 0x16u);
+          v19 = "+[CIFilterClassCategories classCategoriesForClass:]";
+          v20 = 2114;
+          v21 = [(objc_class *)class description];
+          _os_log_impl(&dword_19CC36000, v13, OS_LOG_TYPE_INFO, "%{public}s kCIAttributeFilterCategories for class %{public}@ is not an array", buf, 0x16u);
         }
       }
     }
 
-    if ((classIsBuiltinFilter(class) & 1) != 0 || classIsSystemFilter(class))
+    if ((classIsBuiltinFilter(class, v9) & 1) != 0 || classIsSystemFilter(class, v14))
     {
-      v11 = @"CICategoryApplePrivate";
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+      v17 = @"CICategoryApplePrivate";
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     }
 
     else
     {
-      v6 = MEMORY[0x1E695E0F0];
+      v7 = MEMORY[0x1E695E0F0];
     }
 
     goto LABEL_16;
   }
 
-  return v6;
+  return v7;
 }
 
 @end

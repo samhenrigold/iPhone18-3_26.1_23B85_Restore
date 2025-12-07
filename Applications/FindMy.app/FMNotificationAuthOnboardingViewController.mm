@@ -43,14 +43,14 @@
 
 - (NSArray)keyCommands
 {
-  sub_10007EBC0(&qword_1006AFC30);
+  sub_10007EBC0(&qword_1006AFC30, &unk_1005523E0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1005528C0;
   v3 = String._bridgeToObjectiveC()();
   v4 = [objc_opt_self() keyCommandWithInput:v3 modifierFlags:0 action:"returnPressed"];
 
   *(v2 + 32) = v4;
-  sub_10000905C(0, &unk_1006B50D0);
+  sub_10000905C(0, &unk_1006B50D0, UIKeyCommand_ptr);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

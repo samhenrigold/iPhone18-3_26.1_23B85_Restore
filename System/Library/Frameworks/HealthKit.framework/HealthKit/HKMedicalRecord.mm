@@ -89,41 +89,43 @@
 
 uint64_t __166__HKMedicalRecord__newMedicalRecordWithType_note_enteredInError_modifiedDate_originIdentifier_locale_extractionVersion_device_metadata_sortDate_country_state_config___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = a2;
+  v18 = a2;
   v3 = [*(a1 + 32) copy];
-  v4 = v17[14];
-  v17[14] = v3;
+  v4 = v18[14];
+  v18[14] = v3;
 
-  *(v17 + 104) = *(a1 + 104);
+  *(v18 + 104) = *(a1 + 104);
   v5 = [*(a1 + 40) copy];
-  v6 = v17[15];
-  v17[15] = v5;
+  v6 = v18[15];
+  v18[15] = v5;
 
   v7 = [*(a1 + 48) copy];
-  v8 = v17[16];
-  v17[16] = v7;
+  v8 = v18[16];
+  v18[16] = v7;
 
   v9 = [*(a1 + 56) copy];
-  v10 = v17[17];
-  v17[17] = v9;
+  v10 = v18[17];
+  v18[17] = v9;
 
-  v17[18] = *(a1 + 88);
+  v18[18] = *(a1 + 88);
   v11 = [*(a1 + 64) copy];
-  v12 = v17[19];
-  v17[19] = v11;
+  v12 = v18[19];
+  v18[19] = v11;
 
   v13 = [*(a1 + 72) copy];
-  v14 = v17[20];
-  v17[20] = v13;
+  v14 = v18[20];
+  v18[20] = v13;
 
-  v17[21] = *(a1 + 96);
-  v15 = *(a1 + 80);
-  if (v15)
+  v15 = v18;
+  v18[21] = *(a1 + 96);
+  v16 = *(a1 + 80);
+  if (v16)
   {
-    (*(v15 + 16))(v15, v17);
+    v16 = (*(v16 + 16))(v16, v18);
+    v15 = v18;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v16, v15);
 }
 
 - (unint64_t)medicalRecordOriginType
@@ -383,7 +385,7 @@ LABEL_30:
   note = self->_note;
   self->_note = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, note);
 }
 
 - (void)_setModifiedDate:(id)date
@@ -392,7 +394,7 @@ LABEL_30:
   modifiedDate = self->_modifiedDate;
   self->_modifiedDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, modifiedDate);
 }
 
 - (void)_setOriginIdentifier:(id)identifier
@@ -401,7 +403,7 @@ LABEL_30:
   originIdentifier = self->_originIdentifier;
   self->_originIdentifier = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, originIdentifier);
 }
 
 - (void)_setLocale:(id)locale
@@ -410,7 +412,7 @@ LABEL_30:
   locale = self->_locale;
   self->_locale = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, locale);
 }
 
 - (void)_setSortDate:(id)date
@@ -419,7 +421,7 @@ LABEL_30:
   sortDate = self->_sortDate;
   self->_sortDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, sortDate);
 }
 
 - (void)_setPrimaryConcept:(id)concept
@@ -427,11 +429,11 @@ LABEL_30:
   conceptCopy = concept;
   if (!conceptCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKMedicalRecord _setPrimaryConcept:v5];
+      [(HKMedicalRecord *)v6 _setPrimaryConcept:?];
     }
   }
 
@@ -445,7 +447,7 @@ LABEL_30:
   country = self->_country;
   self->_country = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, country);
 }
 
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration
@@ -573,27 +575,25 @@ LABEL_14:
 
 + (id)indexableConceptKeyPaths
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"primaryConcept";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"primaryConcept";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 + (id)cachedConceptRelationshipKeyPaths
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"primaryConcept.groupByConcept";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"primaryConcept.groupByConcept";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy isEqualToString:@"primaryConcept"])
   {
@@ -601,8 +601,8 @@ LABEL_14:
     v8 = [HKMedicalCodingCollection collectionWithCodings:medicalRecordCodings];
 
     v9 = [HKIndexableObject indexableObjectWithObject:v8];
-    v13[0] = v9;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v9;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   }
 
   else
@@ -610,8 +610,6 @@ LABEL_14:
     [HKConceptIndexUtilities assignError:error forInvalidKeyPath:pathCopy inClass:objc_opt_class()];
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -648,17 +646,15 @@ LABEL_7:
   return v10;
 }
 
-- (void)_setPrimaryConcept:(void *)a1 .cold.1(void *a1)
+- (void)_setPrimaryConcept:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   v5 = 138412290;
-  v6 = v3;
-  _os_log_fault_impl(&dword_19197B000, v1, OS_LOG_TYPE_FAULT, "Tried to set a nil primaryConcept in class %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = v4;
+  _os_log_fault_impl(&dword_19197B000, v2, OS_LOG_TYPE_FAULT, "Tried to set a nil primaryConcept in class %@", &v5, 0xCu);
 }
 
 @end

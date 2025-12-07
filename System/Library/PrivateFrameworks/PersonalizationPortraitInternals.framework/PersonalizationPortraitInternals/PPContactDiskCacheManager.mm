@@ -21,7 +21,7 @@
 
 void __50__PPContactDiskCacheManager_mutateCacheWithBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 path];
   v5 = [v4 stringByAppendingPathComponent:@"state"];
@@ -31,9 +31,9 @@ void __50__PPContactDiskCacheManager_mutateCacheWithBlock___block_invoke(uint64_
 
   (*(*(a1 + 32) + 16))();
   v7 = [MEMORY[0x277CCAA00] defaultManager];
-  v11 = 0;
-  LOBYTE(v6) = [v7 removeItemAtPath:v5 error:&v11];
-  v8 = v11;
+  v10 = 0;
+  LOBYTE(v6) = [v7 removeItemAtPath:v5 error:&v10];
+  v8 = v10;
 
   if ((v6 & 1) == 0)
   {
@@ -41,14 +41,12 @@ void __50__PPContactDiskCacheManager_mutateCacheWithBlock___block_invoke(uint64_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v8;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v8;
       _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPContactDiskCacheManager: failed to remove state file: %@ error: %@", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessCacheWithBlock:(id)block
@@ -109,7 +107,7 @@ void __50__PPContactDiskCacheManager_accessCacheWithBlock___block_invoke(uint64_
 
 void __42__PPContactDiskCacheManager_initWithPath___block_invoke_2(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*(a1 + 32)];
   v5 = *(*(a1 + 48) + 8);
@@ -118,9 +116,9 @@ void __42__PPContactDiskCacheManager_initWithPath___block_invoke_2(uint64_t a1, 
 
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v49.receiver = *(a1 + 40);
-    v49.super_class = PPContactDiskCacheManager;
-    v7 = objc_msgSendSuper2(&v49, sel_init);
+    v48.receiver = *(a1 + 40);
+    v48.super_class = PPContactDiskCacheManager;
+    v7 = objc_msgSendSuper2(&v48, sel_init);
     v8 = *(*(a1 + 48) + 8);
     v9 = *(v8 + 40);
     *(v8 + 40) = v7;
@@ -158,14 +156,14 @@ void __42__PPContactDiskCacheManager_initWithPath___block_invoke_2(uint64_t a1, 
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v51 = v11;
+          v50 = v11;
           _os_log_impl(&dword_23224A000, v22, OS_LOG_TYPE_INFO, "PPContactDiskCacheManager: creating new cache at %@", buf, 0xCu);
         }
 
         v23 = [MEMORY[0x277CCAA00] defaultManager];
-        v48 = 0;
-        v24 = [v23 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v48];
-        v20 = v48;
+        v47 = 0;
+        v24 = [v23 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v47];
+        v20 = v47;
 
         if ((v24 & 1) == 0)
         {
@@ -173,7 +171,7 @@ void __42__PPContactDiskCacheManager_initWithPath___block_invoke_2(uint64_t a1, 
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v51 = v20;
+            v50 = v20;
             _os_log_error_impl(&dword_23224A000, v25, OS_LOG_TYPE_ERROR, "PPContactDiskCacheManager: failed to create cache directory: %@", buf, 0xCu);
           }
         }
@@ -242,9 +240,9 @@ void __42__PPContactDiskCacheManager_initWithPath___block_invoke_2(uint64_t a1, 
         }
 
         v34 = [MEMORY[0x277CCAA00] defaultManager];
-        v47 = 0;
-        v35 = [v34 removeItemAtPath:v30 error:&v47];
-        v36 = v47;
+        v46 = 0;
+        v35 = [v34 removeItemAtPath:v30 error:&v46];
+        v36 = v46;
 
         if ((v35 & 1) == 0)
         {
@@ -252,7 +250,7 @@ void __42__PPContactDiskCacheManager_initWithPath___block_invoke_2(uint64_t a1, 
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v51 = v36;
+            v50 = v36;
             _os_log_error_impl(&dword_23224A000, v37, OS_LOG_TYPE_ERROR, "PPContactDiskCacheManager: failed to remove state file after deleting interrupted cache: %@", buf, 0xCu);
           }
         }
@@ -267,8 +265,6 @@ void __42__PPContactDiskCacheManager_initWithPath___block_invoke_2(uint64_t a1, 
 LABEL_37:
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __42__PPContactDiskCacheManager_initWithPath___block_invoke()

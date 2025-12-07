@@ -88,7 +88,7 @@ void __95__CLKComplicationTemplateGraphicCornerTextImage__enumerateFullColorImag
   qword_27DE919F0 = v3;
   [v5 setNewestAllowedSizeClass:&unk_284A34128];
   [v5 scaledValue:20.0];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1167 = v4;
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1167[0] = v4;
 }
 
 @end

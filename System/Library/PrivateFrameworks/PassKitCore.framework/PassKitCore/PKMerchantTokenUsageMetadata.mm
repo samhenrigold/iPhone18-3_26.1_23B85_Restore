@@ -33,7 +33,7 @@ LABEL_23:
         v10 = v9;
         objc_storeStrong(&v5->_maximumExpirationDate, v9);
         v11 = [dictionaryCopy PKStringForKey:@"ciphersuite"];
-        if ([v11 isEqualToString:@"HPKE_AUTH_P384_SHA384_AES_GCM_256"])
+        if (objc_msgSend_isEqualToString_(v11))
         {
           objc_storeStrong(&v5->_ciphersuite, v11);
           v12 = [dictionaryCopy PKStringForKey:@"merchantTokenPublicKeyHash"];

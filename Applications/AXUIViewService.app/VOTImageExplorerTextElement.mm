@@ -4,6 +4,7 @@
 - (CGRect)_accessibilityBoundsForRange:(_NSRange)range;
 - (CGRect)accessibilityFrame;
 - (NSString)description;
+- (VOTImageExplorerTextElement)initWithImageView:(id)view forTextFeature:(id)feature withParentTextFeature:(id)textFeature hasFlippedYAxis:(BOOL)axis;
 - (_NSRange)accessibilityColumnRange;
 - (_NSRange)accessibilityRowRange;
 - (id)accessibilityLabel;
@@ -11,6 +12,18 @@
 @end
 
 @implementation VOTImageExplorerTextElement
+
+- (VOTImageExplorerTextElement)initWithImageView:(id)view forTextFeature:(id)feature withParentTextFeature:(id)textFeature hasFlippedYAxis:(BOOL)axis
+{
+  axisCopy = axis;
+  v12.receiver = self;
+  v12.super_class = VOTImageExplorerTextElement;
+  textFeatureCopy = textFeature;
+  v10 = [(VOTImageExplorerElement *)&v12 initWithImageView:view forFeature:feature hasFlippedYAxis:axisCopy];
+  objc_storeWeak(&v10->_parentTextFeature, textFeatureCopy);
+
+  return v10;
+}
 
 - (NSString)description
 {

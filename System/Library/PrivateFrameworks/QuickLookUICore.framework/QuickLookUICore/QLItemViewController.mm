@@ -29,6 +29,7 @@
 - (void)performFirstTimeAppearanceActionsIfNeeded:(unint64_t)needed;
 - (void)prepareForInvalidationWithCompletionHandler:(id)handler;
 - (void)savePreviewEditedCopyWithCompletionHandler:(id)handler;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setContentFrame:(CGRect)frame;
 - (void)showSaveEditsProgressIndicatorAfterDelay;
 - (void)updateInterfaceAfterSavingEdits;
@@ -38,6 +39,18 @@
 @end
 
 @implementation QLItemViewController
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = self->_appearance;
+  self->_appearance = appearanceCopy;
+  v9 = appearanceCopy;
+  appearanceCopy2 = appearance;
+
+  [(QLItemViewController *)self updateScrollViewContentOffset:animatedCopy withPreviousAppearance:appearanceCopy2];
+}
 
 - (void)setContentFrame:(CGRect)frame
 {
@@ -270,7 +283,7 @@ LABEL_22:
 LABEL_29:
 }
 
-uint64_t __77__QLItemViewController_updateScrollViewContentOffset_withPreviousAppearance___block_invoke(uint64_t a1)
+void *__77__QLItemViewController_updateScrollViewContentOffset_withPreviousAppearance___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
@@ -368,7 +381,7 @@ uint64_t __77__QLItemViewController_updateScrollViewContentOffset_withPreviousAp
 
 void __92__QLItemViewController_loadPreviewControllerIfNeededWithContents_context_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setIsLoaded:v3 == 0];
@@ -392,11 +405,11 @@ void __92__QLItemViewController_loadPreviewControllerIfNeededWithContents_contex
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = *(a1 + 32);
-      v13 = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_ERROR, "Error while attempting to load preview controller for context '%@': %@ #ItemViewController", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_ERROR, "Error while attempting to load preview controller for context '%@': %@ #ItemViewController", &v12, 0x16u);
     }
   }
 
@@ -405,47 +418,44 @@ void __92__QLItemViewController_loadPreviewControllerIfNeededWithContents_contex
 
   v11 = objc_loadWeakRetained((a1 + 40));
   [v11 performCompletionBlocksWithError:v3];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performCompletionBlocksWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_completionBlocks;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v9) + 16))(*(*(&v11 + 1) + 8 * v9));
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(NSMutableArray *)self->_completionBlocks removeAllObjects];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canToggleFullScreen
@@ -645,7 +655,7 @@ void __60__QLItemViewController__scrollScrollViewByPercentualOffset___block_invo
 
 - (id)dragInteraction:(id)interaction itemsForBeginningSession:(id)session
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if ([(QLItemViewController *)self draggableViewShouldStartDragSession:session])
   {
     context = [(QLItemViewController *)self context];
@@ -670,16 +680,14 @@ void __60__QLItemViewController__scrollScrollViewByPercentualOffset___block_invo
     [newItemProvider setSuggestedName:previewTitle];
 
     v18 = [objc_alloc(MEMORY[0x277D75470]) initWithItemProvider:newItemProvider];
-    v21[0] = v18;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = v18;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   }
 
   else
   {
     v12 = MEMORY[0x277CBEBF8];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -983,9 +991,9 @@ LABEL_15:
   QLRunInMainThread(v2);
 }
 
-uint64_t __64__QLItemViewController_showSaveEditsProgressIndicatorAfterDelay__block_invoke(uint64_t a1, double a2)
+uint64_t __64__QLItemViewController_showSaveEditsProgressIndicatorAfterDelay__block_invoke(void *a1, double a2)
 {
-  if (*(*(a1 + 32) + 1080))
+  if (*(a1[4] + 1080))
   {
     v3 = MEMORY[0x277D43EF8];
     v4 = *MEMORY[0x277D43EF8];
@@ -1001,40 +1009,40 @@ uint64_t __64__QLItemViewController_showSaveEditsProgressIndicatorAfterDelay__bl
       _os_log_impl(&dword_261653000, v4, OS_LOG_TYPE_FAULT, "_saveEditProgressView should be nil when showSaveEditsProgressIndicatorAfterDelay is called. #Media", v21, 2u);
     }
 
-    [*(a1 + 32) hideSaveEditProgressIndicator];
+    [a1[4] hideSaveEditProgressIndicator];
   }
 
   gotLoadHelper_x8__OBJC_CLASS___PUProgressIndicatorView(a2);
   v6 = [objc_alloc(*(v5 + 64)) initWithStyle:0];
-  v7 = *(a1 + 32);
+  v7 = a1[4];
   v8 = *(v7 + 1080);
   *(v7 + 1080) = v6;
 
-  v9 = [*(a1 + 32) editProgressIndicatorMessage];
-  [*(*(a1 + 32) + 1080) setLocalizedMessage:v9];
+  v9 = [a1[4] editProgressIndicatorMessage];
+  [*(a1[4] + 1080) setLocalizedMessage:v9];
 
-  [*(*(a1 + 32) + 1080) setShowsBackground:1];
-  [*(*(a1 + 32) + 1080) setDeterminate:0];
-  [*(*(a1 + 32) + 1080) setTranslatesAutoresizingMaskIntoConstraints:0];
-  v10 = [*(a1 + 32) view];
-  [v10 addSubview:*(*(a1 + 32) + 1080)];
+  [*(a1[4] + 1080) setShowsBackground:1];
+  [*(a1[4] + 1080) setDeterminate:0];
+  [*(a1[4] + 1080) setTranslatesAutoresizingMaskIntoConstraints:0];
+  v10 = [a1[4] view];
+  [v10 addSubview:*(a1[4] + 1080)];
 
-  v11 = [*(a1 + 32) view];
+  v11 = [a1[4] view];
   v12 = MEMORY[0x277CCAAD0];
-  v13 = [*(a1 + 32) view];
-  v14 = [v12 constraintWithItem:v13 attribute:9 relatedBy:0 toItem:*(*(a1 + 32) + 1080) attribute:9 multiplier:1.0 constant:0.0];
+  v13 = [a1[4] view];
+  v14 = [v12 constraintWithItem:v13 attribute:9 relatedBy:0 toItem:*(a1[4] + 1080) attribute:9 multiplier:1.0 constant:0.0];
   [v11 addConstraint:v14];
 
-  v15 = [*(a1 + 32) view];
+  v15 = [a1[4] view];
   v16 = MEMORY[0x277CCAAD0];
-  v17 = [*(a1 + 32) view];
-  v18 = [v16 constraintWithItem:v17 attribute:10 relatedBy:0 toItem:*(*(a1 + 32) + 1080) attribute:10 multiplier:1.0 constant:0.0];
+  v17 = [a1[4] view];
+  v18 = [v16 constraintWithItem:v17 attribute:10 relatedBy:0 toItem:*(a1[4] + 1080) attribute:10 multiplier:1.0 constant:0.0];
   [v15 addConstraint:v18];
 
-  v19 = [*(a1 + 32) view];
-  [v19 bringSubviewToFront:*(*(a1 + 32) + 1080)];
+  v19 = [a1[4] view];
+  [v19 bringSubviewToFront:*(a1[4] + 1080)];
 
-  return [*(*(a1 + 32) + 1080) beginShowingProgressWithDelay:1 animated:0.6];
+  return [*(a1[4] + 1080) beginShowingProgressWithDelay:1 animated:0.6];
 }
 
 - (void)hideSaveEditProgressIndicator

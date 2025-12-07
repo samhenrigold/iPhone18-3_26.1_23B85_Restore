@@ -1,5 +1,5 @@
 @interface _UICollectionPreferredSize
-+ (double)preferredSizeForOriginalSize:(double)size fittingSize:(uint64_t)fittingSize layoutSize:(void *)layoutSize;
++ (double)preferredSizeForOriginalSize:(double)size fittingSize:(double)fittingSize layoutSize:(double)layoutSize;
 - (double)fittingSize;
 - (double)preferredSizeForOriginalSize:(double)size layoutSize:(double)layoutSize;
 - (id)description;
@@ -21,21 +21,21 @@
   }
 }
 
-+ (double)preferredSizeForOriginalSize:(double)size fittingSize:(uint64_t)fittingSize layoutSize:(void *)layoutSize
++ (double)preferredSizeForOriginalSize:(double)size fittingSize:(double)fittingSize layoutSize:(double)layoutSize
 {
   objc_opt_self();
-  widthDimension = [layoutSize widthDimension];
+  widthDimension = [a2 widthDimension];
   isEstimated = [widthDimension isEstimated];
 
   if (!isEstimated)
   {
-    size = self;
+    layoutSize = size;
   }
 
-  heightDimension = [layoutSize heightDimension];
+  heightDimension = [a2 heightDimension];
   [heightDimension isEstimated];
 
-  return size;
+  return layoutSize;
 }
 
 - (id)initWithOriginalSize:(void *)size fittingSize:(double)fittingSize layoutSize:(double)layoutSize additionalData:(double)data
@@ -67,7 +67,7 @@
 {
   if (self)
   {
-    return [(_UICollectionPreferredSize *)size preferredSizeForOriginalSize:layoutSize fittingSize:*(self + 24) layoutSize:_UICollectionPreferredSize, a2];
+    return [_UICollectionPreferredSize preferredSizeForOriginalSize:a2 fittingSize:size layoutSize:layoutSize, *(self + 24)];
   }
 
   else

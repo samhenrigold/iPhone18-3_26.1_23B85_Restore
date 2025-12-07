@@ -7,7 +7,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for MediaControlsModulePreviewView();
+  v3.super_class = type metadata accessor for MediaControlsModulePreviewView(self, a2);
   v2 = v3.receiver;
   [(MediaControlsModulePreviewView *)&v3 layoutSubviews];
   [v2 bounds];

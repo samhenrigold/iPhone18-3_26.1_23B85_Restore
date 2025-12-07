@@ -1247,7 +1247,7 @@ void __31__WFMeasure_doULThroughputTest__block_invoke_2(uint64_t a1, void *a2, v
 
 - (BOOL)doPing:(id)ping count:(int64_t)count timeout:(int64_t)timeout size:(int64_t)size class:(int64_t)class minRTT:(int64_t *)t maxRTT:(int64_t *)tT successCount:(int64_t *)self0
 {
-  v41[3] = *MEMORY[0x277D85DE8];
+  v40[3] = *MEMORY[0x277D85DE8];
   pingCopy = ping;
   if (!pingCopy)
   {
@@ -1283,30 +1283,30 @@ LABEL_29:
 
   tCopy = t;
   v13 = 0;
-  v35 = *MEMORY[0x277CBAD10];
-  v36 = *MEMORY[0x277CBAD18];
-  v33 = *MEMORY[0x277CBAD20];
-  v34 = *MEMORY[0x277CBAD08];
+  v34 = *MEMORY[0x277CBAD10];
+  v35 = *MEMORY[0x277CBAD18];
+  v32 = *MEMORY[0x277CBAD20];
+  v33 = *MEMORY[0x277CBAD08];
   v14 = 0xFFFFFFFF80000000;
   v15 = 0x7FFFFFFFLL;
   countCopy = count;
   do
   {
-    v40[0] = v36;
+    v39[0] = v35;
     v16 = [MEMORY[0x277CCABB0] numberWithInteger:timeout];
-    v41[0] = v16;
-    v41[1] = &unk_2848B9A88;
-    v40[1] = v35;
-    v40[2] = v34;
+    v40[0] = v16;
+    v40[1] = &unk_2848B9A88;
+    v39[1] = v34;
+    v39[2] = v33;
     v17 = [MEMORY[0x277CCABB0] numberWithInteger:size];
-    v41[2] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
+    v40[2] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
 
     v19 = [v18 mutableCopy];
     if (class)
     {
       v20 = [MEMORY[0x277CCABB0] numberWithInteger:class];
-      [v19 setObject:v20 forKeyedSubscript:v33];
+      [v19 setObject:v20 forKeyedSubscript:v32];
     }
 
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -1354,7 +1354,6 @@ LABEL_29:
   v28 = 1;
 LABEL_23:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -1419,99 +1418,99 @@ LABEL_23:
 
 void __30__WFMeasure_dispatchPingTest___block_invoke(uint64_t a1)
 {
-  v93 = *MEMORY[0x277D85DE8];
-  v90 = 0;
-  v89 = 0;
-  v85 = 0;
-  v86 = &v85;
-  v87 = 0x2020000000;
+  v91 = *MEMORY[0x277D85DE8];
   v88 = 0;
+  v87 = 0;
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x2020000000;
+  v86 = 0;
+  v79 = 0u;
+  v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
-  v84 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v81 objects:v92 count:16];
+  v2 = [obj countByEnumeratingWithState:&v79 objects:v90 count:16];
   if (v2)
   {
     v3 = 0;
     v4 = 0;
-    v54 = *v82;
-    v55 = v2;
-    v61 = 0x7FFFFFFFLL;
-    v62 = 0xFFFFFFFF80000000;
+    v53 = *v80;
+    v54 = v2;
+    v60 = 0x7FFFFFFFLL;
+    v61 = 0xFFFFFFFF80000000;
     while (1)
     {
-      for (i = 0; i != v55; ++i)
+      for (i = 0; i != v54; ++i)
       {
-        if (*v82 != v54)
+        if (*v80 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v60 = *(*(&v81 + 1) + 8 * i);
+        v59 = *(*(&v79 + 1) + 8 * i);
+        v75 = 0u;
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
-        v79 = 0u;
-        v80 = 0u;
-        v57 = *(a1 + 40);
-        v5 = [v57 countByEnumeratingWithState:&v77 objects:v91 count:16];
+        v56 = *(a1 + 40);
+        v5 = [v56 countByEnumeratingWithState:&v75 objects:v89 count:16];
         if (!v5)
         {
           goto LABEL_83;
         }
 
-        v59 = *v78;
+        v58 = *v76;
         while (2)
         {
           v6 = 0;
-          v58 = v5;
+          v57 = v5;
           do
           {
-            if (*v78 != v59)
+            if (*v76 != v58)
             {
-              objc_enumerationMutation(v57);
+              objc_enumerationMutation(v56);
             }
 
-            v7 = *(*(&v77 + 1) + 8 * v6);
+            v7 = *(*(&v75 + 1) + 8 * v6);
             v8 = *(a1 + 48);
             v9 = *(a1 + 56);
             v10 = *(a1 + 64);
             v11 = *(a1 + 72);
-            v12 = [v60 integerValue];
+            v12 = [v59 integerValue];
             v13 = [v7 integerValue];
-            v14 = [v8 doPing:v9 count:v10 timeout:v11 size:v12 class:v13 minRTT:&v90 maxRTT:&v89 successCount:v86 + 3];
+            v14 = [v8 doPing:v9 count:v10 timeout:v11 size:v12 class:v13 minRTT:&v88 maxRTT:&v87 successCount:v84 + 3];
             if (MGGetBoolAnswer() && *(a1 + 80) == 4)
             {
               v15 = *(a1 + 48);
-              v76[0] = MEMORY[0x277D85DD0];
-              v76[1] = 3221225472;
-              v76[2] = __30__WFMeasure_dispatchPingTest___block_invoke_2;
-              v76[3] = &unk_2789C7628;
-              v76[4] = &v85;
-              [v15 getLazyNSNumberPreference:@"local_dns_result" exists:v76];
+              v74[0] = MEMORY[0x277D85DD0];
+              v74[1] = 3221225472;
+              v74[2] = __30__WFMeasure_dispatchPingTest___block_invoke_2;
+              v74[3] = &unk_2789C7628;
+              v74[4] = &v83;
+              [v15 getLazyNSNumberPreference:@"local_dns_result" exists:v74];
             }
 
             if (MGGetBoolAnswer() && *(a1 + 80) == 8)
             {
               v16 = *(a1 + 48);
-              v75[0] = MEMORY[0x277D85DD0];
-              v75[1] = 3221225472;
-              v75[2] = __30__WFMeasure_dispatchPingTest___block_invoke_3;
-              v75[3] = &unk_2789C7628;
-              v75[4] = &v85;
-              [v16 getLazyNSNumberPreference:@"public_dns_result" exists:v75];
+              v73[0] = MEMORY[0x277D85DD0];
+              v73[1] = 3221225472;
+              v73[2] = __30__WFMeasure_dispatchPingTest___block_invoke_3;
+              v73[3] = &unk_2789C7628;
+              v73[4] = &v83;
+              [v16 getLazyNSNumberPreference:@"public_dns_result" exists:v73];
             }
 
             if (MGGetBoolAnswer() && *(a1 + 80) == 2)
             {
               v17 = *(a1 + 48);
-              v74[0] = MEMORY[0x277D85DD0];
-              v74[1] = 3221225472;
-              v74[2] = __30__WFMeasure_dispatchPingTest___block_invoke_4;
-              v74[3] = &unk_2789C7628;
-              v74[4] = &v85;
-              [v17 getLazyNSNumberPreference:@"gateway_result" exists:v74];
+              v72[0] = MEMORY[0x277D85DD0];
+              v72[1] = 3221225472;
+              v72[2] = __30__WFMeasure_dispatchPingTest___block_invoke_4;
+              v72[3] = &unk_2789C7628;
+              v72[4] = &v83;
+              [v17 getLazyNSNumberPreference:@"gateway_result" exists:v72];
             }
 
             if (MGGetBoolAnswer())
@@ -1520,35 +1519,35 @@ void __30__WFMeasure_dispatchPingTest___block_invoke(uint64_t a1)
               if (v18 <= 8 && ((1 << v18) & 0x114) != 0)
               {
                 v19 = *(a1 + 48);
-                v73[0] = MEMORY[0x277D85DD0];
-                v73[1] = 3221225472;
-                v73[2] = __30__WFMeasure_dispatchPingTest___block_invoke_5;
-                v73[3] = &unk_2789C76C8;
-                v73[4] = v7;
-                v73[5] = &v85;
-                [v19 getLazyNSNumberPreference:@"fail_pings_ac" exists:v73];
+                v71[0] = MEMORY[0x277D85DD0];
+                v71[1] = 3221225472;
+                v71[2] = __30__WFMeasure_dispatchPingTest___block_invoke_5;
+                v71[3] = &unk_2789C76C8;
+                v71[4] = v7;
+                v71[5] = &v83;
+                [v19 getLazyNSNumberPreference:@"fail_pings_ac" exists:v71];
               }
             }
 
-            v20 = v86[3];
-            if (v61 >= v90)
+            v20 = v84[3];
+            if (v60 >= v88)
             {
-              v21 = v90;
+              v21 = v88;
             }
 
             else
             {
-              v21 = v61;
+              v21 = v60;
             }
 
-            v22 = v62;
-            if (v62 <= v89)
+            v22 = v61;
+            if (v61 <= v87)
             {
-              v22 = v89;
+              v22 = v87;
             }
 
-            v61 = v21;
-            v62 = v22;
+            v60 = v21;
+            v61 = v22;
             if (v14)
             {
               v23 = [v7 integerValue];
@@ -1556,7 +1555,7 @@ void __30__WFMeasure_dispatchPingTest___block_invoke(uint64_t a1)
               {
                 if (v23 == 700)
                 {
-                  v33 = [v60 integerValue];
+                  v33 = [v59 integerValue];
                   v34 = *(a1 + 48);
                   if (v33 == 300)
                   {
@@ -1570,20 +1569,20 @@ void __30__WFMeasure_dispatchPingTest___block_invoke(uint64_t a1)
                     [v35 setTrafficClassVIAttemptedLarge:{*(a1 + 64) + objc_msgSend(v35, "trafficClassVIAttemptedLarge")}];
                   }
 
-                  if (v86[3] >= 1)
+                  if (v84[3] >= 1)
                   {
-                    v43 = [v60 integerValue];
+                    v43 = [v59 integerValue];
                     v44 = *(a1 + 48);
                     if (v43 == 300)
                     {
                       v38 = [v44 result];
-                      [v38 setTrafficClassVISucceededSmall:{v86[3] + objc_msgSend(v38, "trafficClassVISucceededSmall")}];
+                      [v38 setTrafficClassVISucceededSmall:{v84[3] + objc_msgSend(v38, "trafficClassVISucceededSmall")}];
                     }
 
                     else
                     {
                       v38 = [v44 result];
-                      [v38 setTrafficClassVISucceededLarge:{v86[3] + objc_msgSend(v38, "trafficClassVISucceededLarge")}];
+                      [v38 setTrafficClassVISucceededLarge:{v84[3] + objc_msgSend(v38, "trafficClassVISucceededLarge")}];
                     }
 
                     goto LABEL_63;
@@ -1592,7 +1591,7 @@ void __30__WFMeasure_dispatchPingTest___block_invoke(uint64_t a1)
 
                 else if (v23 == 800)
                 {
-                  v27 = [v60 integerValue];
+                  v27 = [v59 integerValue];
                   v28 = *(a1 + 48);
                   if (v27 == 300)
                   {
@@ -1606,20 +1605,20 @@ void __30__WFMeasure_dispatchPingTest___block_invoke(uint64_t a1)
                     [v29 setTrafficClassVOAttemptedLarge:{*(a1 + 64) + objc_msgSend(v29, "trafficClassVOAttemptedLarge")}];
                   }
 
-                  if (v86[3] >= 1)
+                  if (v84[3] >= 1)
                   {
-                    v39 = [v60 integerValue];
+                    v39 = [v59 integerValue];
                     v40 = *(a1 + 48);
                     if (v39 == 300)
                     {
                       v38 = [v40 result];
-                      [v38 setTrafficClassVOSucceededSmall:{v86[3] + objc_msgSend(v38, "trafficClassVOSucceededSmall")}];
+                      [v38 setTrafficClassVOSucceededSmall:{v84[3] + objc_msgSend(v38, "trafficClassVOSucceededSmall")}];
                     }
 
                     else
                     {
                       v38 = [v40 result];
-                      [v38 setTrafficClassVOSucceededLarge:{v86[3] + objc_msgSend(v38, "trafficClassVOSucceededLarge")}];
+                      [v38 setTrafficClassVOSucceededLarge:{v84[3] + objc_msgSend(v38, "trafficClassVOSucceededLarge")}];
                     }
 
                     goto LABEL_63;
@@ -1631,7 +1630,7 @@ void __30__WFMeasure_dispatchPingTest___block_invoke(uint64_t a1)
               {
                 if (v23 == 200)
                 {
-                  v24 = [v60 integerValue];
+                  v24 = [v59 integerValue];
                   v25 = *(a1 + 48);
                   if (v24 == 300)
                   {
@@ -1645,20 +1644,20 @@ void __30__WFMeasure_dispatchPingTest___block_invoke(uint64_t a1)
                     [v26 setTrafficClassBKAttemptedLarge:{*(a1 + 64) + objc_msgSend(v26, "trafficClassBKAttemptedLarge")}];
                   }
 
-                  if (v86[3] >= 1)
+                  if (v84[3] >= 1)
                   {
-                    v36 = [v60 integerValue];
+                    v36 = [v59 integerValue];
                     v37 = *(a1 + 48);
                     if (v36 == 300)
                     {
                       v38 = [v37 result];
-                      [v38 setTrafficClassBKSucceededSmall:{v86[3] + objc_msgSend(v38, "trafficClassBKSucceededSmall")}];
+                      [v38 setTrafficClassBKSucceededSmall:{v84[3] + objc_msgSend(v38, "trafficClassBKSucceededSmall")}];
                     }
 
                     else
                     {
                       v38 = [v37 result];
-                      [v38 setTrafficClassBKSucceededLarge:{v86[3] + objc_msgSend(v38, "trafficClassBKSucceededLarge")}];
+                      [v38 setTrafficClassBKSucceededLarge:{v84[3] + objc_msgSend(v38, "trafficClassBKSucceededLarge")}];
                     }
 
 LABEL_63:
@@ -1668,7 +1667,7 @@ LABEL_63:
 
               else
               {
-                v30 = [v60 integerValue];
+                v30 = [v59 integerValue];
                 v31 = *(a1 + 48);
                 if (v30 == 300)
                 {
@@ -1682,20 +1681,20 @@ LABEL_63:
                   [v32 setTrafficClassBEAttemptedLarge:{*(a1 + 64) + objc_msgSend(v32, "trafficClassBEAttemptedLarge")}];
                 }
 
-                if (v86[3] >= 1)
+                if (v84[3] >= 1)
                 {
-                  v41 = [v60 integerValue];
+                  v41 = [v59 integerValue];
                   v42 = *(a1 + 48);
                   if (v41 == 300)
                   {
                     v38 = [v42 result];
-                    [v38 setTrafficClassBESucceededSmall:{v86[3] + objc_msgSend(v38, "trafficClassBESucceededSmall")}];
+                    [v38 setTrafficClassBESucceededSmall:{v84[3] + objc_msgSend(v38, "trafficClassBESucceededSmall")}];
                   }
 
                   else
                   {
                     v38 = [v42 result];
-                    [v38 setTrafficClassBESucceededLarge:{v86[3] + objc_msgSend(v38, "trafficClassBESucceededLarge")}];
+                    [v38 setTrafficClassBESucceededLarge:{v84[3] + objc_msgSend(v38, "trafficClassBESucceededLarge")}];
                   }
 
                   goto LABEL_63;
@@ -1704,7 +1703,7 @@ LABEL_63:
             }
 
             v45 = *(a1 + 48);
-            if (v45[13] == 1 && !v86[3])
+            if (v45[13] == 1 && !v84[3])
             {
               v46 = [v45 result];
               [v46 setSeenSpecificAcFailure:1];
@@ -1742,7 +1741,7 @@ LABEL_75:
                   NSLog(&cfstr_SPingingLocald.isa, "[WFMeasure dispatchPingTest:]_block_invoke");
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
                   {
-                    __30__WFMeasure_dispatchPingTest___block_invoke_cold_1(&buf, v72);
+                    __30__WFMeasure_dispatchPingTest___block_invoke_cold_1(buf, &buf[1]);
                   }
                 }
               }
@@ -1753,8 +1752,8 @@ LABEL_75:
             ++v6;
           }
 
-          while (v58 != v6);
-          v5 = [v57 countByEnumeratingWithState:&v77 objects:v91 count:16];
+          while (v57 != v6);
+          v5 = [v56 countByEnumeratingWithState:&v75 objects:v89 count:16];
           if (v5)
           {
             continue;
@@ -1766,8 +1765,8 @@ LABEL_75:
 LABEL_83:
       }
 
-      v55 = [obj countByEnumeratingWithState:&v81 objects:v92 count:16];
-      if (!v55)
+      v54 = [obj countByEnumeratingWithState:&v79 objects:v90 count:16];
+      if (!v54)
       {
         goto LABEL_87;
       }
@@ -1776,8 +1775,8 @@ LABEL_83:
 
   v3 = 0;
   v4 = 0;
-  v61 = 0x7FFFFFFFLL;
-  v62 = 0xFFFFFFFF80000000;
+  v60 = 0x7FFFFFFFLL;
+  v61 = 0xFFFFFFFF80000000;
 LABEL_87:
 
   v49 = [*(a1 + 48) internalQueue];
@@ -1785,19 +1784,18 @@ LABEL_87:
   block[1] = 3221225472;
   block[2] = __30__WFMeasure_dispatchPingTest___block_invoke_417;
   block[3] = &unk_2789C76F0;
-  v66 = v3;
-  v67 = v4;
+  v65 = v3;
+  v66 = v4;
   v50 = *(a1 + 56);
+  v67 = v60;
   v68 = v61;
-  v69 = v62;
-  v70 = *(a1 + 80);
+  v69 = *(a1 + 80);
   v51 = *(a1 + 48);
-  v64 = v50;
-  v65 = v51;
+  v63 = v50;
+  v64 = v51;
   dispatch_sync(v49, block);
 
-  _Block_object_dispose(&v85, 8);
-  v52 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v83, 8);
 }
 
 void __30__WFMeasure_dispatchPingTest___block_invoke_2(uint64_t a1, void *a2)
@@ -2055,59 +2053,58 @@ void __29__WFMeasure_dispatchDNSTest___block_invoke(uint64_t a1)
 
 void __29__WFMeasure_dispatchDNSTest___block_invoke_2(uint64_t a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = *(a1 + 48);
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = *(a1 + 48);
   if (MGGetBoolAnswer())
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __29__WFMeasure_dispatchDNSTest___block_invoke_3;
-    v12[3] = &unk_2789C76C8;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __29__WFMeasure_dispatchDNSTest___block_invoke_3;
+    v11[3] = &unk_2789C76C8;
     v2 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    v14 = &v15;
-    [v2 getLazyNSNumberPreference:@"resolve_apple_result" exists:v12];
+    v12 = *(a1 + 40);
+    v13 = &v14;
+    [v2 getLazyNSNumberPreference:@"resolve_apple_result" exists:v11];
   }
 
-  v3 = *(a1 + 40);
-  if (*(v16 + 24))
+  if (*(v15 + 24))
   {
-    v4 = @"YES";
+    v3 = @"YES";
   }
 
   else
   {
-    v4 = @"NO";
+    v3 = @"NO";
   }
 
-  NSLog(&cfstr_SLqmWifiDnsTes.isa, "[WFMeasure dispatchDNSTest:]_block_invoke_2", *(a1 + 40), v4);
-  v5 = *(v16 + 24);
+  NSLog(&cfstr_SLqmWifiDnsTes.isa, "[WFMeasure dispatchDNSTest:]_block_invoke_2", *(a1 + 40), v3);
+  v4 = *(v15 + 24);
+  v5 = [*(a1 + 32) result];
+  [v5 setDnsSuccess:v4];
+
   v6 = [*(a1 + 32) result];
-  [v6 setDnsSuccess:v5];
+  [v6 setDnsResultsValid:1];
 
-  v7 = [*(a1 + 32) result];
-  [v7 setDnsResultsValid:1];
-
-  v8 = +[WiFiPolicyNetworkActivityTracing sharedNetworkActivityTracing];
-  v9 = v8;
-  if (*(v16 + 24))
+  v7 = +[WiFiPolicyNetworkActivityTracing sharedNetworkActivityTracing];
+  v8 = v7;
+  if (*(v15 + 24))
   {
-    v10 = 2;
+    v9 = 2;
   }
 
   else
   {
-    v10 = 3;
+    v9 = 3;
   }
 
-  [v8 networkActivityStop:7 withReason:v10 withClientMetric:0 withClientDict:0 andError:0];
+  [v7 networkActivityStop:7 withReason:v9 withClientMetric:0 withClientDict:0 andError:0];
 
-  v11 = [*(a1 + 32) dispatchGroup];
-  dispatch_group_leave(v11);
+  v10 = [*(a1 + 32) dispatchGroup];
+  dispatch_group_leave(v10);
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
 void __29__WFMeasure_dispatchDNSTest___block_invoke_3(uint64_t a1, void *a2)

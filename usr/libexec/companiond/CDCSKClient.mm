@@ -73,7 +73,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_100025C1C(v7);
+  sub_100025C1C(v7, v8);
 }
 
 - (_TtC10companiond11CDCSKClient)initWithBluetoothDevice:(id)device discoveryType:(int)type

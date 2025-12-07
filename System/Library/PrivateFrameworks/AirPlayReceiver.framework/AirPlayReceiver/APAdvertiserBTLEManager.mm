@@ -49,8 +49,8 @@
 
 - (int)showDebugWithDataBuffer:(id *)buffer verbose:(BOOL)verbose
 {
-  v30 = *MEMORY[0x277D85DE8];
-  memset(v29, 0, sizeof(v29));
+  v19 = *MEMORY[0x277D85DE8];
+  memset(v18, 0, sizeof(v18));
   if ([(APAdvertiserBTLEManager *)self isEnabled:buffer])
   {
     v6 = "yes";
@@ -61,26 +61,11 @@
     v6 = "no";
   }
 
-  v16 = v6;
-  DataBuffer_AppendF();
-  v28 = 0;
-  v7 = [(APAdvertiserBTLEManager *)self supportsSolo:&v28, v16];
-  DataBuffer_AppendF();
-  if (self->_btleMode)
-  {
-    v8 = "presence";
-  }
-
-  else
-  {
-    v8 = "none";
-  }
-
-  v17 = v8;
-  DataBuffer_AppendF();
-  v18 = [APAdvertiserBTLEManager stringForBTLEState:[(APAdvertiserBTLEManager *)self btleManagerState]];
-  DataBuffer_AppendF();
-  if ([(APAdvertiserBTLEManager *)self isAdvertising])
+  DataBuffer_AppendF(buffer, "BTLE: enabled=%s", v6);
+  v17 = 0;
+  v7 = [(APAdvertiserBTLEManager *)self supportsSolo:&v17];
+  v8 = v7;
+  if (v17)
   {
     v9 = "yes";
   }
@@ -90,35 +75,54 @@
     v9 = "no";
   }
 
-  v19 = v9;
-  DataBuffer_AppendF();
-  if ([(APAdvertiserBTLEManager *)self isScanning])
+  if (v7)
   {
-    v10 = "yes";
+    v9 = "uninitialized";
+  }
+
+  DataBuffer_AppendF(buffer, " soloSupported=%s", v9);
+  if (self->_btleMode)
+  {
+    v10 = "presence";
   }
 
   else
   {
-    v10 = "no";
+    v10 = "none";
   }
 
-  v20 = v10;
-  DataBuffer_AppendF();
+  DataBuffer_AppendF(buffer, " mode=%s", v10);
+  DataBuffer_AppendF(buffer, " coreBluetoothState=%@", [APAdvertiserBTLEManager stringForBTLEState:[(APAdvertiserBTLEManager *)self btleManagerState]]);
+  if ([(APAdvertiserBTLEManager *)self isAdvertising])
+  {
+    v11 = "yes";
+  }
+
+  else
+  {
+    v11 = "no";
+  }
+
+  DataBuffer_AppendF(buffer, " advertising=%s", v11);
+  if ([(APAdvertiserBTLEManager *)self isScanning])
+  {
+    v12 = "yes";
+  }
+
+  else
+  {
+    v12 = "no";
+  }
+
+  DataBuffer_AppendF(buffer, " scanning=%s", v12);
   if ([(APAdvertiserBTLEManager *)self btleAdvertiser])
   {
     [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser] airplayTargetIPv4];
     IPv4AddressToCString();
-    airplayTargetFlags = [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser] airplayTargetFlags];
-    airplayTargetConfigSeed = [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser] airplayTargetConfigSeed];
-    v25 = v29;
-    airplayTargetPort = [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser] airplayTargetPort];
-    v22 = &unk_23EAA1C34;
-    v24 = airplayTargetConfigSeed;
-    v21 = airplayTargetFlags;
-    DataBuffer_AppendF();
+    DataBuffer_AppendF(buffer, " data=<flags=%#{flags} config=%u IPv4=%-15s Port=%-5hu>", [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser] airplayTargetFlags], &unk_23EAA1C34, [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser] airplayTargetConfigSeed], v18, [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser] airplayTargetPort]);
   }
 
-  if ([(APAdvertiserBTLEManager *)self soloDevices:v21])
+  if ([(APAdvertiserBTLEManager *)self soloDevices])
   {
     v13 = [(NSMutableDictionary *)[(APAdvertiserBTLEManager *)self soloDevices] count];
   }
@@ -128,29 +132,27 @@
     v13 = 0;
   }
 
-  soloDeviceFlags = [(APAdvertiserBTLEManager *)self soloDeviceFlags];
-  DataBuffer_AppendF();
+  DataBuffer_AppendF(buffer, " sourceBeaconsNearby=%d: combined flags=%#{flags}", v13, [(APAdvertiserBTLEManager *)self soloDeviceFlags], &unk_23EAA1CCA);
   if (v13)
   {
-    DataBuffer_AppendF();
-    v14 = [(APAdvertiserBTLEManager *)self soloDevices:v13];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __59__APAdvertiserBTLEManager_showDebugWithDataBuffer_verbose___block_invoke;
-    v27[3] = &__block_descriptor_40_e35_v32__0__NSString_8__NSNumber_16_B24l;
-    v27[4] = buffer;
-    [(NSMutableDictionary *)v14 enumerateKeysAndObjectsUsingBlock:v27];
+    DataBuffer_AppendF(buffer, "\n Detected BTLE Source Presence beacons:");
+    soloDevices = [(APAdvertiserBTLEManager *)self soloDevices];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __59__APAdvertiserBTLEManager_showDebugWithDataBuffer_verbose___block_invoke;
+    v16[3] = &__block_descriptor_40_e35_v32__0__NSString_8__NSNumber_16_B24l;
+    v16[4] = buffer;
+    [(NSMutableDictionary *)soloDevices enumerateKeysAndObjectsUsingBlock:v16];
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)removeLostDeviceWithIdentifier:(id)identifier
 {
   if (gLogCategory_APAdvertiserBTLEManager <= 40 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    identifierCopy = identifier;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager removeLostDeviceWithIdentifier:]", 33554472, "Device removed: %@\n", identifier);
   }
 
   [(NSMutableDictionary *)[(APAdvertiserBTLEManager *)self soloDevices] removeObjectForKey:identifier];
@@ -174,8 +176,7 @@
     {
       if (gLogCategory_APAdvertiserBTLEManager <= 40 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
       {
-        [device identifier];
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "-[APAdvertiserBTLEManager handleLostDevice:withGoodbye:]", 33554472, "Device lost: %@\n", [device identifier]);
       }
 
       -[NSMutableDictionary setObject:forKeyedSubscript:](-[APAdvertiserBTLEManager pendingLostLegacyDevices](self, "pendingLostLegacyDevices"), "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{dispatch_time(0, 15000000000)}], objc_msgSend(device, "identifier"));
@@ -191,20 +192,12 @@
   {
     if (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize())
     {
-      identifier = [device identifier];
-      airplaySourceFlags = [device airplaySourceFlags];
-      deviceFlags = [device deviceFlags];
-      v11 = &unk_23EAA1D26;
-      v8 = airplaySourceFlags;
-      v9 = &unk_23EAA1CCA;
-      v7 = identifier;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "-[APAdvertiserBTLEManager handleFoundDevice:]", 33554472, "Device found: %@ AirPlaySourceFlags: %#{flags} DeviceFlags: %#ll{flags}\n", [device identifier], objc_msgSend(device, "airplaySourceFlags"), &unk_23EAA1CCA, objc_msgSend(device, "deviceFlags"), &unk_23EAA1D26);
     }
 
     if (gLogCategory_APAdvertiserBTLEManager <= 40 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      [device identifier];
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "-[APAdvertiserBTLEManager handleFoundDevice:]", 33554472, "BTLE found Solo capable device with UUID %@.\n", [device identifier]);
     }
   }
 
@@ -281,7 +274,7 @@ LABEL_16:
   _Block_object_dispose(&v12, 8);
 }
 
-uint64_t __78__APAdvertiserBTLEManager_computeNearbyDeviceTypesAndDispatchEventIfNecessary__block_invoke(uint64_t a1)
+uint64_t __78__APAdvertiserBTLEManager_computeNearbyDeviceTypesAndDispatchEventIfNecessary__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CFGetInt64Ranged();
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -317,7 +310,7 @@ uint64_t __78__APAdvertiserBTLEManager_computeNearbyDeviceTypesAndDispatchEventI
   }
 }
 
-unint64_t __47__APAdvertiserBTLEManager_removeExpiredDevices__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__47__APAdvertiserBTLEManager_removeExpiredDevices__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 unsignedLongLongValue];
   if (result <= *(a1 + 48))
@@ -393,7 +386,7 @@ LABEL_8:
   _Block_object_dispose(&v12, 8);
 }
 
-unint64_t __54__APAdvertiserBTLEManager_updateLostLegacyDeviceTimer__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__54__APAdvertiserBTLEManager_updateLostLegacyDeviceTimer__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 unsignedLongLongValue];
   v5 = *(*(a1 + 32) + 8);
@@ -464,7 +457,7 @@ void __41__APAdvertiserBTLEManager_dispatchEvent___block_invoke(uint64_t a1)
   {
     if ([(APAdvertiserBTLEManager *)self isScanning]&& gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager stopScanningWithSeed:]", 33554482, "Stopping AirPlaySource scanning.\n");
     }
 
     [(CBDiscovery *)[(APAdvertiserBTLEManager *)self btleDiscoverer] invalidate];
@@ -496,7 +489,7 @@ void __41__APAdvertiserBTLEManager_dispatchEvent___block_invoke(uint64_t a1)
       [(APAdvertiserBTLEManager *)self setIsScanning:1];
       if (gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startScanning]", 33554482, "BTLE discoverer begin activation\n");
       }
 
       selfCopy = self;
@@ -527,19 +520,15 @@ void __40__APAdvertiserBTLEManager_startScanning__block_invoke(uint64_t a1, uint
   {
     if (gLogCategory_APAdvertiserBTLEManager <= 90 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
-      [*(a1 + 32) stopScanningWithSeed:{*(a1 + 40), a2}];
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startScanning]_block_invoke", 33554522, "### BTLE discoverer activation failed: %@\n", a2);
     }
 
-    else
-    {
-      [*(a1 + 32) stopScanningWithSeed:{*(a1 + 40), v5}];
-    }
+    [*(a1 + 32) stopScanningWithSeed:*(a1 + 40)];
   }
 
   else if (gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startScanning]_block_invoke", 33554482, "BTLE discoverer activation complete. Started AirPlaySource scanning.\n");
   }
 
   v4 = *(a1 + 32);
@@ -558,12 +547,10 @@ void __40__APAdvertiserBTLEManager_startScanning__block_invoke(uint64_t a1, uint
   {
     if ([(APAdvertiserBTLEManager *)self isAdvertising]&& gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      selfCopy = self;
-      btleAdvertiser = [(APAdvertiserBTLEManager *)self btleAdvertiser];
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager stopAdvertisingWithSeed:]", 33554482, "[%{ptr}] Stopping AirPlayTarget advertiser [%{ptr}].", self, [(APAdvertiserBTLEManager *)self btleAdvertiser]);
     }
 
-    [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser:selfCopy] invalidate];
+    [(CBAdvertiser *)[(APAdvertiserBTLEManager *)self btleAdvertiser] invalidate];
 
     [(APAdvertiserBTLEManager *)self setBtleAdvertiser:0];
 
@@ -588,8 +575,7 @@ void __40__APAdvertiserBTLEManager_startScanning__block_invoke(uint64_t a1, uint
       [(APAdvertiserBTLEManager *)self setIsAdvertising:1];
       if (gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
       {
-        [(APAdvertiserBTLEManager *)self btleAdvertiser];
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startAdvertising]", 33554482, "[%{ptr}] BTLE advertiser [%{ptr}] begin activation\n", self, [(APAdvertiserBTLEManager *)self btleAdvertiser]);
       }
 
       selfCopy = self;
@@ -630,39 +616,34 @@ void __43__APAdvertiserBTLEManager_startAdvertising__block_invoke(uint64_t a1, u
   {
     if (gLogCategory_APAdvertiserBTLEManager <= 90 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      v8 = *(a1 + 40);
-      v6 = *(a1 + 32);
-      LogPrintF();
-      [*(a1 + 32) stopAdvertisingWithSeed:{*(a1 + 48), v6, v8, a2}];
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startAdvertising]_block_invoke", 33554522, "### [%{ptr}] BTLE advertiser [%{ptr}] activation failed: %@\n", *(a1 + 32), *(a1 + 40), a2);
     }
 
-    else
-    {
-      [*(a1 + 32) stopAdvertisingWithSeed:{*(a1 + 48), v5, v7, v9}];
-    }
+    [*(a1 + 32) stopAdvertisingWithSeed:*(a1 + 48)];
   }
 
   else if (gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startAdvertising]_block_invoke", 33554482, "[%{ptr}] BTLE advertiser [%{ptr}] activation complete. Started AirPlayTarget advertising.\n", *(a1 + 32), *(a1 + 40));
   }
 
   v4 = *(a1 + 32);
 }
 
-uint64_t __43__APAdvertiserBTLEManager_startAdvertising__block_invoke_2()
+uint64_t __43__APAdvertiserBTLEManager_startAdvertising__block_invoke_2(uint64_t result)
 {
   if (gLogCategory_APAdvertiserBTLEManager <= 50)
   {
+    v1 = result;
     if (gLogCategory_APAdvertiserBTLEManager != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startAdvertising]_block_invoke_2", 33554482, "[%{ptr}] BTLE advertiser [%{ptr}] invalidated.", *(v1 + 32), *(v1 + 40));
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startAdvertising]_block_invoke_2", 33554482, "[%{ptr}] BTLE advertiser [%{ptr}] invalidated.", *(v1 + 32), *(v1 + 40));
     }
   }
 
@@ -689,7 +670,7 @@ uint64_t __43__APAdvertiserBTLEManager_startAdvertising__block_invoke_2()
   {
     if (gLogCategory_APAdvertiserBTLEManager <= 40 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startMonitoringForNetworkChanges]", 33554472, "[%{ptr}] Starting monitoring for network changes", self);
     }
 
     v3 = objc_alloc_init(MEMORY[0x277D028B0]);
@@ -720,27 +701,25 @@ uint64_t __43__APAdvertiserBTLEManager_startAdvertising__block_invoke_2()
   }
 }
 
-uint64_t __59__APAdvertiserBTLEManager_startMonitoringForNetworkChanges__block_invoke(uint64_t a1)
+uint64_t __59__APAdvertiserBTLEManager_startMonitoringForNetworkChanges__block_invoke(uint64_t a1, const char *a2)
 {
-  v16 = 0;
-  v17 = 0;
-  LODWORD(v19) = 0;
-  v18 = 0;
-  v2 = *(a1 + 32);
-  if (v2 && ([v2 primaryIPv4Addr], v3 = *(a1 + 32), v12 = 0, v13 = 0, LODWORD(v15) = 0, v14 = 0, v3))
+  memset(v13, 0, sizeof(v13));
+  v14 = 0;
+  v3 = *(a1 + 32);
+  if (v3 && (objc_msgSend_primaryIPv4Addr(v3, a2), v4 = *(a1 + 32), v9 = 0, v10 = 0, v12 = 0, v11 = 0, v4))
   {
-    [v3 primaryIPv6Addr];
+    objc_msgSend_primaryIPv6Addr(v4);
   }
 
   else
   {
+    v9 = 0;
+    v10 = 0;
     v12 = 0;
-    v13 = 0;
-    LODWORD(v15) = 0;
-    v14 = 0;
+    v11 = 0;
   }
 
-  v4 = gLogCategory_APAdvertiserBTLEManager;
+  v5 = gLogCategory_APAdvertiserBTLEManager;
   if (gLogCategory_APAdvertiserBTLEManager <= 40)
   {
     if (gLogCategory_APAdvertiserBTLEManager == -1)
@@ -750,43 +729,40 @@ uint64_t __59__APAdvertiserBTLEManager_startMonitoringForNetworkChanges__block_i
         return [*(a1 + 40) handlePrimaryIPChanged];
       }
 
-      v4 = gLogCategory_APAdvertiserBTLEManager;
+      v5 = gLogCategory_APAdvertiserBTLEManager;
     }
 
-    v5 = *(a1 + 40);
-    if (v4 > 30)
+    v6 = *(a1 + 40);
+    if (v5 > 30)
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = v4 == -1 && _LogCategory_Initialize() == 0;
+      v7 = v5 == -1 && _LogCategory_Initialize() == 0;
     }
 
-    v10 = v6;
-    v11 = &v12;
-    v8 = v5;
-    v9 = &v16;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startMonitoringForNetworkChanges]_block_invoke", 33554472, "[%{ptr}] Primary IP changed. IPv4: %##a%?{end}, IPv6: %##a\n", v6, v13, v7, &v9);
   }
 
   return [*(a1 + 40) handlePrimaryIPChanged];
 }
 
-uint64_t __59__APAdvertiserBTLEManager_startMonitoringForNetworkChanges__block_invoke_2()
+uint64_t __59__APAdvertiserBTLEManager_startMonitoringForNetworkChanges__block_invoke_2(uint64_t result)
 {
   if (gLogCategory_APAdvertiserBTLEManager <= 40)
   {
+    v1 = result;
     if (gLogCategory_APAdvertiserBTLEManager != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startMonitoringForNetworkChanges]_block_invoke_2", 33554472, "[%{ptr}] Stopped monitoring network changes", *(v1 + 32));
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startMonitoringForNetworkChanges]_block_invoke_2", 33554472, "[%{ptr}] Stopped monitoring network changes", *(v1 + 32));
     }
   }
 
@@ -797,14 +773,14 @@ uint64_t __59__APAdvertiserBTLEManager_startMonitoringForNetworkChanges__block_i
 {
   if (gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    IsAppleInternalBuild();
-    [*(a1 + 40) controlFlags];
-    LogPrintF();
+    v2 = *(a1 + 32);
+    v3 = IsAppleInternalBuild() == 0;
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "-[APAdvertiserBTLEManager startMonitoringForNetworkChanges]_block_invoke_3", 33554482, "[%{ptr}] Started monitoring network changes%?{end} with controlFlags:%#{flags}", v2, v3, [*(a1 + 40) controlFlags], &unk_23EAA1C99);
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(a1 + 32);
 
-  return [v2 handlePrimaryIPChanged];
+  return [v4 handlePrimaryIPChanged];
 }
 
 - (void)cleanupEventHandlerState
@@ -892,7 +868,6 @@ LABEL_12:
   accessControlType = self->_accessControlType;
   if (accessControlType != type)
   {
-    v4 = *&type;
     if (gLogCategory_APAdvertiserBTLEManager <= 50)
     {
       if (gLogCategory_APAdvertiserBTLEManager == -1)
@@ -905,14 +880,12 @@ LABEL_12:
         accessControlType = self->_accessControlType;
       }
 
-      v7 = accessControlType;
-      v8 = v4;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager setAccessControlType:]", 33554482, "Setting BTLE access control type %d -> %d\n", accessControlType, type);
     }
 
 LABEL_6:
-    self->_accessControlType = v4;
-    [(APAdvertiserBTLEManager *)self stopScanning:v7];
+    self->_accessControlType = type;
+    [(APAdvertiserBTLEManager *)self stopScanning];
     [(APAdvertiserBTLEManager *)self update];
   }
 
@@ -937,14 +910,12 @@ LABEL_6:
         receiverPort = self->_receiverPort;
       }
 
-      v7 = receiverPort;
-      v8 = portCopy;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager setReceiverPort:]", 33554482, "Setting BTLE listening port %hu -> %hu\n", receiverPort, portCopy);
     }
 
 LABEL_6:
     self->_receiverPort = portCopy;
-    [(APAdvertiserBTLEManager *)self restartAdvertisingIfNecessary:v7];
+    [(APAdvertiserBTLEManager *)self restartAdvertisingIfNecessary];
   }
 
   return 0;
@@ -982,9 +953,7 @@ LABEL_5:
           v6 = "YES";
         }
 
-        v9 = v7;
-        v10 = v6;
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager setRequireAltBrowser:]", 33554472, "Setting BTLE advertising requireAltBrowser %s -> %s\n", v7, v6);
         goto LABEL_12;
       }
 
@@ -997,7 +966,7 @@ LABEL_5:
 
 LABEL_12:
     self->_requireAltBrowser = browserCopy;
-    [(APAdvertiserBTLEManager *)self update:v9];
+    [(APAdvertiserBTLEManager *)self update];
     return 0;
   }
 
@@ -1035,9 +1004,7 @@ LABEL_4:
         v6 = "YES";
       }
 
-      v10 = v7;
-      v11 = v6;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager setIsP2PAllowed:]", 33554482, "Setting BTLE advertising p2pAllowed %s -> %s\n", v7, v6);
       goto LABEL_11;
     }
 
@@ -1050,13 +1017,13 @@ LABEL_4:
 
 LABEL_11:
   self->_isP2PAllowed = allowedCopy;
-  v8 = [(APAdvertiserBTLEManager *)self update:v10];
-  if (v8)
+  update = [(APAdvertiserBTLEManager *)self update];
+  if (update)
   {
     APSLogErrorAt();
   }
 
-  return v8;
+  return update;
 }
 
 - (int)setBTLEMode:(unsigned __int16)mode
@@ -1069,9 +1036,7 @@ LABEL_11:
 
   if (gLogCategory_APAdvertiserBTLEManager <= 40 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    [APAdvertiserBTLEManager stringForBTLEMode:?];
-    [APAdvertiserBTLEManager stringForBTLEMode:modeCopy];
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager setBTLEMode:]", 33554472, "Setting BTLE advertising mode %@ -> %@\n", [APAdvertiserBTLEManager stringForBTLEMode:?], [APAdvertiserBTLEManager stringForBTLEMode:modeCopy]);
   }
 
   if (modeCopy == 1)
@@ -1089,7 +1054,7 @@ LABEL_11:
     start = -72313;
     if (gLogCategory_APAdvertiserBTLEManager <= 90 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager setBTLEMode:]", 33554522, "Unrecognized btle advertiser mode %d.\n", modeCopy);
     }
   }
 
@@ -1137,7 +1102,7 @@ LABEL_11:
     {
       if (gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager shouldScanForSourceWithScreenOff]", 33554482, "Forcing source scanning with screen off to %s based on prefs\n", "on");
       }
 
       LOBYTE(v2) = 1;
@@ -1201,13 +1166,11 @@ LABEL_11:
           v7 = "no";
         }
 
-        v9 = v8;
-        v10 = v7;
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager updateSupportsSoloAndForceReadFromPrefs:]", 33554472, "P2P solo: %s -> %s\n", v8, v7);
       }
 
       self->_p2pSolo = v6;
-      [(APAdvertiserBTLEManager *)self update:v9];
+      [(APAdvertiserBTLEManager *)self update];
       result = 0;
     }
 
@@ -1266,13 +1229,10 @@ LABEL_11:
       v3 = "no";
     }
 
-    btleMode = self->_btleMode;
-    v7 = [APAdvertiserBTLEManager stringForBTLEState:[(APAdvertiserBTLEManager *)self btleManagerState]];
-    v5 = v3;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager update]", 33554452, "BTLE manager update: isEnabled: %s mode: %d state: %@.\n", v3, self->_btleMode, [APAdvertiserBTLEManager stringForBTLEState:[(APAdvertiserBTLEManager *)self btleManagerState]]);
   }
 
-  if (![(APAdvertiserBTLEManager *)self isEnabled:v5]|| !self->_btleMode)
+  if (![(APAdvertiserBTLEManager *)self isEnabled]|| !self->_btleMode)
   {
     if ([(APAdvertiserBTLEManager *)self isAdvertising])
     {
@@ -1311,7 +1271,7 @@ LABEL_17:
   if (gLogCategory_APAdvertiserBTLEManager <= 40 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager handleP2PSoloQueryTimerCancelled]", 33554472, "Query P2P Solo timer cancelled.\n");
   }
 }
 
@@ -1377,7 +1337,7 @@ LABEL_17:
 
   if (gLogCategory_APAdvertiserBTLEManager != -1 || (result = _LogCategory_Initialize()) != 0)
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager startP2PSoloQueryTimer]", 33554472, "Query P2P Solo timer started.\n");
     return 0;
   }
 
@@ -1388,7 +1348,7 @@ LABEL_17:
 {
   if (gLogCategory_APAdvertiserBTLEManager <= 40 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager stop]", 33554472, "[%{ptr}] BTLE manager stop.", self);
   }
 
   if (!self->_btleMode)
@@ -1425,8 +1385,7 @@ LABEL_11:
   {
     if (gLogCategory_APAdvertiserBTLEManager <= 40 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      selfCopy = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager start]", 33554472, "[%{ptr}] BTLE manager start", self);
     }
 
     self->_btleMode = 1;
@@ -1439,7 +1398,7 @@ LABEL_11:
 
 - (id)createBTLEDiscoverer
 {
-  v12 = -75;
+  v10 = -75;
   v3 = objc_alloc_init(MEMORY[0x277CBE030]);
   if (v3)
   {
@@ -1459,31 +1418,29 @@ LABEL_11:
 
     if (gLogCategory_APAdvertiserBTLEManager <= 30 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      v7 = v12;
-      v8 = v4;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager createBTLEDiscoverer]", 33554462, "RSSI hint: %lld from prefs: %s\n", v10, v4);
     }
 
-    [v3 setBleRSSIThresholdHint:{v12, v7, v8}];
+    [v3 setBleRSSIThresholdHint:v10];
     selfCopy = self;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __47__APAdvertiserBTLEManager_createBTLEDiscoverer__block_invoke;
-    v11[3] = &unk_278C609E0;
-    v11[4] = selfCopy;
-    [v3 setDeviceFoundHandler:v11];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __47__APAdvertiserBTLEManager_createBTLEDiscoverer__block_invoke_2;
-    v10[3] = &unk_278C609E0;
-    v10[4] = selfCopy;
-    [v3 setDeviceLostHandler:v10];
     v9[0] = MEMORY[0x277D85DD0];
     v9[1] = 3221225472;
-    v9[2] = __47__APAdvertiserBTLEManager_createBTLEDiscoverer__block_invoke_3;
-    v9[3] = &unk_278C608C8;
+    v9[2] = __47__APAdvertiserBTLEManager_createBTLEDiscoverer__block_invoke;
+    v9[3] = &unk_278C609E0;
     v9[4] = selfCopy;
-    [v3 setInvalidationHandler:v9];
+    [v3 setDeviceFoundHandler:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __47__APAdvertiserBTLEManager_createBTLEDiscoverer__block_invoke_2;
+    v8[3] = &unk_278C609E0;
+    v8[4] = selfCopy;
+    [v3 setDeviceLostHandler:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __47__APAdvertiserBTLEManager_createBTLEDiscoverer__block_invoke_3;
+    v7[3] = &unk_278C608C8;
+    v7[4] = selfCopy;
+    [v3 setInvalidationHandler:v7];
   }
 
   else
@@ -1533,15 +1490,17 @@ uint64_t __47__APAdvertiserBTLEManager_createBTLEDiscoverer__block_invoke(uint64
   netInterfaceMonitor = [(APAdvertiserBTLEManager *)self netInterfaceMonitor];
   if (netInterfaceMonitor)
   {
-    [(CUNetInterfaceMonitor *)netInterfaceMonitor primaryIPv4Addr];
+    objc_msgSend_primaryIPv4Addr(netInterfaceMonitor);
   }
 
   else
   {
-    v7 = 0uLL;
+    memset(v7, 0, 28);
   }
 
-  if (BYTE1(v7) != 2)
+  v8[0] = v7[0];
+  *(v8 + 12) = *(v7 + 12);
+  if (BYTE1(v7[0]) != 2)
   {
 LABEL_18:
     [v3 invalidate];
@@ -1549,7 +1508,7 @@ LABEL_18:
     return 0;
   }
 
-  [v3 setAirplayTargetIPv4:bswap32(DWORD1(v7))];
+  [v3 setAirplayTargetIPv4:bswap32(DWORD1(v8[0]))];
   if (self->_receiverPort)
   {
     [v3 setAirplayTargetPort:?];
@@ -1564,10 +1523,7 @@ LABEL_18:
 
   if (gLogCategory_APAdvertiserBTLEManager <= 50 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    [v3 airplayTargetFlags];
-    [v3 airplayTargetConfigSeed];
-    [v3 airplayTargetPort];
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "-[APAdvertiserBTLEManager createBTLEAdvertiser]", 33554482, "[%{ptr}] BTLE server [%{ptr}] flags=%#{flags} config=%d IPv4=%##a port=%hu\n", self, v3, [v3 airplayTargetFlags], &unk_23EAA1C34, objc_msgSend(v3, "airplayTargetConfigSeed"), v8, objc_msgSend(v3, "airplayTargetPort"));
   }
 
   return v3;
@@ -1703,7 +1659,7 @@ LABEL_10:
   {
     if (gLogCategory_APAdvertiserBTLEManager <= 90 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "[APAdvertiserBTLEManager initWithEventContext:]", 33554522, "Failed to initialize BTLE manager.\n");
     }
 
     selfCopy = 0;
@@ -1727,6 +1683,7 @@ uint64_t __48__APAdvertiserBTLEManager_initWithEventContext___block_invoke_2(uin
 
 + (id)stringForBTLEState:(int64_t)state
 {
+  stateCopy = state;
   if (state < 6)
   {
     return off_278C60B30[state];
@@ -1734,7 +1691,7 @@ uint64_t __48__APAdvertiserBTLEManager_initWithEventContext___block_invoke_2(uin
 
   if (gLogCategory_APAdvertiserBTLEManager <= 60 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "+[APAdvertiserBTLEManager stringForBTLEState:]", 33554492, "Unknown BTLE state %d.\n", stateCopy);
   }
 
   return @"unknown";
@@ -1747,6 +1704,7 @@ uint64_t __48__APAdvertiserBTLEManager_initWithEventContext___block_invoke_2(uin
     return @"None";
   }
 
+  modeCopy = mode;
   if (mode == 1)
   {
     return @"Discoverable";
@@ -1754,7 +1712,7 @@ uint64_t __48__APAdvertiserBTLEManager_initWithEventContext___block_invoke_2(uin
 
   if (gLogCategory_APAdvertiserBTLEManager <= 60 && (gLogCategory_APAdvertiserBTLEManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAdvertiserBTLEManager, "+[APAdvertiserBTLEManager stringForBTLEMode:]", 33554492, "Unknown BTLE mode %d.\n", modeCopy);
   }
 
   return @"Unknown ";

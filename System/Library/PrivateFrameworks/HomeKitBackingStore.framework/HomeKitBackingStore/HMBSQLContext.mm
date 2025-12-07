@@ -30,7 +30,7 @@
 
 - (void)memoryMonitor:(id)monitor didReceiveMemoryEvent:(int64_t)event
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   monitorCopy = monitor;
   os_unfair_lock_lock_with_options();
   v6 = objc_autoreleasePoolPush();
@@ -39,39 +39,35 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Clearing cache after receiving memory pressure notification", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Clearing cache after receiving memory pressure notification", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMBSQLContext *)selfCopy _clearPreparedStatementsCache];
   os_unfair_lock_unlock(&self->_lock);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = [MEMORY[0x277CCAE60] valueWithPointer:{-[HMBSQLContext connection](self, "connection")}];
   v5 = [v3 initWithName:@"Context" value:v4];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   v7 = [(HMBSQLContext *)self url];
   v8 = [v6 initWithName:@"URL" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (BOOL)fetchSQLite3One:(sqlite3_stmt *)one error:(id *)error block:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (error && *error)
   {
@@ -82,11 +78,11 @@
     {
       v12 = HMFGetLogIdentifier();
       v13 = *error;
-      v25 = 138543618;
-      v26 = v12;
-      v27 = 2112;
-      v28 = v13;
-      _os_log_impl(&dword_22AD27000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring fetch due to previous error: %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v12;
+      v26 = 2112;
+      v27 = v13;
+      _os_log_impl(&dword_22AD27000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring fetch due to previous error: %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -144,10 +140,10 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v23 = sqlite3_step(one);
-  if (v23 != 101)
+  v22 = sqlite3_step(one);
+  if (v22 != 101)
   {
-    if (v23 == 100)
+    if (v22 == 100)
     {
       sqlite3_reset(one);
       if (error)
@@ -159,7 +155,7 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    if (v23)
+    if (v22)
     {
       if (error)
       {
@@ -171,22 +167,21 @@ LABEL_6:
     }
   }
 
-  v24 = sqlite3_reset(one);
-  v14 = v24 == 0;
-  if (v24 && error)
+  v23 = sqlite3_reset(one);
+  v14 = v23 == 0;
+  if (v23 && error)
   {
     goto LABEL_18;
   }
 
 LABEL_20:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)fetchSQLite3:(sqlite3_stmt *)lite3 limit:(unint64_t)limit error:(id *)error block:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (error && *error)
   {
@@ -197,11 +192,11 @@ LABEL_20:
     {
       v14 = HMFGetLogIdentifier();
       v15 = *error;
-      v24 = 138543618;
-      v25 = v14;
-      v26 = 2112;
-      v27 = v15;
-      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring fetch due to previous error: %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v14;
+      v25 = 2112;
+      v26 = v15;
+      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring fetch due to previous error: %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -211,7 +206,7 @@ LABEL_27:
 
   else
   {
-    LOBYTE(v24) = 0;
+    LOBYTE(v23) = 0;
     while (1)
     {
       v16 = sqlite3_step(lite3);
@@ -222,7 +217,7 @@ LABEL_27:
 
       if (limit == -1)
       {
-        if (v24)
+        if (v23)
         {
           goto LABEL_20;
         }
@@ -232,7 +227,7 @@ LABEL_27:
 
       else
       {
-        if (!limit || (v24 & 1) != 0)
+        if (!limit || (v23 & 1) != 0)
         {
           goto LABEL_20;
         }
@@ -240,7 +235,7 @@ LABEL_27:
         --limit;
       }
 
-      v17 = blockCopy[2](blockCopy, lite3, &v24);
+      v17 = blockCopy[2](blockCopy, lite3, &v23);
       if (v17)
       {
         v18 = v17;
@@ -281,7 +276,6 @@ LABEL_20:
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -345,7 +339,7 @@ LABEL_7:
 
 - (BOOL)runSQLite3:(const char *)lite3 error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!error || !*error)
   {
     if (sqlite3_exec(self->_connection, lite3, 0, 0, 0))
@@ -357,13 +351,13 @@ LABEL_7:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v16 = 138543874;
-        v17 = v12;
-        v18 = 2080;
+        v15 = 138543874;
+        v16 = v12;
+        v17 = 2080;
         lite3Copy = lite3;
-        v20 = 2112;
-        v21 = v8;
-        _os_log_impl(&dword_22AD27000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to run SQL statement %s: %@", &v16, 0x20u);
+        v19 = 2112;
+        v20 = v8;
+        _os_log_impl(&dword_22AD27000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to run SQL statement %s: %@", &v15, 0x20u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -387,13 +381,10 @@ LABEL_7:
 LABEL_9:
     v7 = v8 == 0;
 
-    goto LABEL_10;
+    return v7;
   }
 
-  v7 = 0;
-LABEL_10:
-  v14 = *MEMORY[0x277D85DE8];
-  return v7;
+  return 0;
 }
 
 - (id)execSQLite3:(sqlite3_stmt *)lite3
@@ -407,7 +398,7 @@ LABEL_10:
 
 - (id)runSQLite3:(const char *)lite3
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = __removeExtraWhitespace(lite3);
   if (sqlite3_exec(self->_connection, [v5 UTF8String], 0, 0, 0))
   {
@@ -418,13 +409,13 @@ LABEL_10:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543874;
-      v14 = v10;
-      v15 = 2080;
+      v12 = 138543874;
+      v13 = v10;
+      v14 = 2080;
       lite3Copy = lite3;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to run SQL statement %s: %@", &v13, 0x20u);
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to run SQL statement %s: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -434,8 +425,6 @@ LABEL_10:
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -586,10 +575,10 @@ id __22__HMBSQLContext_begin__block_invoke(int a1, sqlite3_stmt *a2)
 
 - (int64_t)migrateFromSchemaVersion:(int64_t)version error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  error = [(HMBSQLContext *)self prepareWithError:&v14, error];
-  v6 = v14;
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  error = [(HMBSQLContext *)self prepareWithError:&v13, error];
+  v6 = v13;
   if (error)
   {
     hmbIsSQLiteDatabaseCorruptedError = 3;
@@ -604,9 +593,9 @@ id __22__HMBSQLContext_begin__block_invoke(int a1, sqlite3_stmt *a2)
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v6;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare tables after migration: %@", buf, 0x16u);
     }
 
@@ -614,13 +603,12 @@ id __22__HMBSQLContext_begin__block_invoke(int a1, sqlite3_stmt *a2)
     hmbIsSQLiteDatabaseCorruptedError = [v6 hmbIsSQLiteDatabaseCorruptedError];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return hmbIsSQLiteDatabaseCorruptedError;
 }
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = [(HMBSQLContext *)self runSQLite3:"PRAGMA foreign_keys = ON"];;
   if (!v5)
   {
@@ -639,11 +627,11 @@ id __22__HMBSQLContext_begin__block_invoke(int a1, sqlite3_stmt *a2)
 
       v18 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v26 = v18;
-      v27 = 2048;
-      v28 = 512;
-      v29 = 2114;
-      v30 = v6;
+      v25 = v18;
+      v26 = 2048;
+      v27 = 512;
+      v28 = 2114;
+      v29 = v6;
       v19 = "%{public}@Failed to set sqlite cache size to %ld: %{public}@";
       v20 = v17;
       v21 = 32;
@@ -685,9 +673,9 @@ LABEL_14:
 
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v18;
-      v27 = 2112;
-      v28 = v6;
+      v25 = v18;
+      v26 = 2112;
+      v27 = v6;
       v19 = "%{public}@Failed integrity check %@";
       v20 = v17;
       v21 = 22;
@@ -706,9 +694,9 @@ LABEL_14:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v26 = v10;
-    v27 = 2114;
-    v28 = v6;
+    v25 = v10;
+    v26 = 2114;
+    v27 = v6;
     _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to turn on foreign key enforcement: %{public}@", buf, 0x16u);
   }
 
@@ -727,16 +715,15 @@ LABEL_14:
 
 LABEL_19:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)initializeNewlyCreatedDatabaseWithError:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v5 = [(HMBSQLContext *)self prepareWithError:&v14];
-  v6 = v14;
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v5 = [(HMBSQLContext *)self prepareWithError:&v13];
+  v6 = v13;
   if (!v5)
   {
     v7 = objc_autoreleasePoolPush();
@@ -746,9 +733,9 @@ LABEL_19:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v6;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare context during newly created database initialization: %@", buf, 0x16u);
     }
 
@@ -760,24 +747,23 @@ LABEL_19:
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)finalize
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = selfCopy;
-    _os_log_impl(&dword_22AD27000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Finalizing %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = selfCopy;
+    _os_log_impl(&dword_22AD27000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Finalizing %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -792,44 +778,41 @@ LABEL_19:
   [memoryMonitor removeObserver:selfCopy];
 
   [(HMBSQLContext *)selfCopy _clearPreparedStatementsCache];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearPreparedStatementsCache
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   evictAllStatements = [(HMBPreparedStatementsCache *)self->_preparedStatementsCache evictAllStatements];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [evictAllStatements countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [evictAllStatements countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(evictAllStatements);
         }
 
-        sqlite3_finalize(*(*(&v9 + 1) + 8 * v7++));
+        sqlite3_finalize(*(*(&v8 + 1) + 8 * v7++));
       }
 
       while (v5 != v7);
-      v5 = [evictAllStatements countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [evictAllStatements countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_performBlockWithContextManagedStatementForString:(const char *)string block:(id)block
@@ -857,7 +840,7 @@ LABEL_19:
 
 - (sqlite3_stmt)_statementForString:(const char *)string error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   if (self->_finalized)
   {
@@ -868,12 +851,12 @@ LABEL_19:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v10;
+      v22 = v10;
       _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@requested to prepare SQL statement when the context has already been marked finalized", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
-    v11 = 0;
+    return 0;
   }
 
   else
@@ -887,9 +870,9 @@ LABEL_19:
         sqlite3_finalize([(HMBPreparedStatementsCache *)self->_preparedStatementsCache evictLeastRecentlyUsedStatement]);
       }
 
-      v21 = 0;
-      v11 = prepareSQLite3([(HMBSQLContext *)self connection], string, &v21);
-      v13 = v21;
+      v20 = 0;
+      v11 = prepareSQLite3([(HMBSQLContext *)self connection], string, &v20);
+      v13 = v20;
       if (v11)
       {
         [(HMBPreparedStatementsCache *)self->_preparedStatementsCache setStatement:v11 forString:v12];
@@ -904,9 +887,9 @@ LABEL_19:
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v23 = v17;
-          v24 = 2112;
-          v25 = v13;
+          v22 = v17;
+          v23 = 2112;
+          v24 = v13;
           _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_ERROR, "%{public}@unable to prepare SQL statement: %@", buf, 0x16u);
         }
 
@@ -926,7 +909,6 @@ LABEL_19:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1010,12 +992,11 @@ LABEL_19:
 
 uint64_t __28__HMBSQLContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21;
-  logCategory__hmf_once_v21 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21;
+  logCategory__hmf_once_v21 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

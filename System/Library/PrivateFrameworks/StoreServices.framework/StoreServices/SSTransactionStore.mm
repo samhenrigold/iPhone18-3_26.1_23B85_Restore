@@ -48,11 +48,11 @@
   return v2;
 }
 
-void __34__SSTransactionStore_defaultStore__block_invoke()
+void __34__SSTransactionStore_defaultStore__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = defaultStore_transactionStore;
-  defaultStore_transactionStore = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = defaultStore_transactionStore;
+  defaultStore_transactionStore = v1;
 }
 
 - (void)takeKeepAliveWithTransactionID:(id)d
@@ -71,7 +71,7 @@ void __34__SSTransactionStore_defaultStore__block_invoke()
 
 void __53__SSTransactionStore_takeKeepAliveWithTransactionID___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 8) addObject:*(a1 + 40)];
   v2 = [*(*(a1 + 32) + 8) countForObject:*(a1 + 40)];
   v3 = +[SSLogConfig sharedStoreServicesConfig];
@@ -108,17 +108,16 @@ void __53__SSTransactionStore_takeKeepAliveWithTransactionID___block_invoke(uint
     if (v20)
     {
       v21 = *(a1 + 40);
-      v30 = 138543362;
-      v31 = v21;
-      LODWORD(v29) = 12;
-      v22 = _os_log_send_and_compose_impl();
+      v29 = 138543362;
+      v30 = v21;
+      v22 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_1D48BA000, v19, 1, "[TransactionStore] Joined transaction: %{public}@", &v29, 12);
 
       if (!v22)
       {
         goto LABEL_27;
       }
 
-      v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v30, v29}];
+      v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
       free(v22);
       SSFileLog(v4, @"%@", v23, v24, v25, v26, v27, v28, v19);
     }
@@ -159,14 +158,13 @@ void __53__SSTransactionStore_takeKeepAliveWithTransactionID___block_invoke(uint
   }
 
   v9 = *(a1 + 40);
-  v30 = 138543362;
-  v31 = v9;
-  LODWORD(v29) = 12;
-  v10 = _os_log_send_and_compose_impl();
+  v29 = 138543362;
+  v30 = v9;
+  v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v7, 1, "[TransactionStore] Started transaction: %{public}@", &v29, 12);
 
   if (v10)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v30, v29}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog(v4, @"%@", v11, v12, v13, v14, v15, v16, v7);
 LABEL_13:
@@ -195,7 +193,7 @@ LABEL_27:
 
 void __56__SSTransactionStore_releaseKeepAliveWithTransactionID___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 8) removeObject:*(a1 + 40)];
   v2 = [*(*(a1 + 32) + 8) countForObject:*(a1 + 40)];
   v3 = +[SSLogConfig sharedStoreServicesConfig];
@@ -232,10 +230,9 @@ void __56__SSTransactionStore_releaseKeepAliveWithTransactionID___block_invoke(u
     if (v8)
     {
       v9 = *(a1 + 40);
-      v30 = 138543362;
-      v31 = v9;
-      LODWORD(v29) = 12;
-      v10 = _os_log_send_and_compose_impl();
+      v29 = 138543362;
+      v30 = v9;
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v7, 1, "[TransactionStore] Left transaction: %{public}@", &v29, 12);
 
       if (!v10)
       {
@@ -244,7 +241,7 @@ LABEL_14:
         return;
       }
 
-      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v30, v29}];
+      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog(v4, @"%@", v11, v12, v13, v14, v15, v16, v7);
     }
@@ -285,14 +282,13 @@ LABEL_14:
   }
 
   v21 = *(a1 + 40);
-  v30 = 138543362;
-  v31 = v21;
-  LODWORD(v29) = 12;
-  v22 = _os_log_send_and_compose_impl();
+  v29 = 138543362;
+  v30 = v21;
+  v22 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_1D48BA000, v19, 1, "[TransactionStore] Ended transaction: %{public}@", &v29, 12);
 
   if (v22)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v30, v29}];
+    v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
     free(v22);
     SSFileLog(v4, @"%@", v23, v24, v25, v26, v27, v28, v19);
 LABEL_26:

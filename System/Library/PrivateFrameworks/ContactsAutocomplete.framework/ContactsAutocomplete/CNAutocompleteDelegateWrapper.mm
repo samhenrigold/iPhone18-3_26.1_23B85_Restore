@@ -109,7 +109,7 @@
 
 - (void)_autocompleteFetch:(id)fetch distributeReceivedResults:(id)results
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fetchCopy = fetch;
   resultsCopy = results;
   responsePreparer = [(CNAutocompleteDelegateWrapper *)self responsePreparer];
@@ -120,16 +120,16 @@
   [userSession didReceiveResults:v9 forRequest:fetchRequest];
 
   v12 = [v9 count];
-  delegate = CNALoggingContextDebug();
+  delegate = CNALoggingContextDebug(v12);
   v14 = os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT);
   if (v12)
   {
     if (v14)
     {
       v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(resultsCopy, "count")}];
-      v17 = 138412290;
-      v18 = v15;
-      _os_log_impl(&dword_2155FE000, delegate, OS_LOG_TYPE_DEFAULT, "About to tell our delegate about %@ results", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v15;
+      _os_log_impl(&dword_2155FE000, delegate, OS_LOG_TYPE_DEFAULT, "About to tell our delegate about %@ results", &v16, 0xCu);
     }
 
     delegate = [(CNAutocompleteDelegateWrapper *)self delegate];
@@ -138,11 +138,9 @@
 
   else if (v14)
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&dword_2155FE000, delegate, OS_LOG_TYPE_DEFAULT, "No results to return to delegate", &v17, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_2155FE000, delegate, OS_LOG_TYPE_DEFAULT, "No results to return to delegate", &v16, 2u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)autocompleteFetch:(id)fetch didReceiveResults:(id)results
@@ -163,29 +161,27 @@
 
 - (void)autocompleteFetch:(id)fetch didFailWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fetchCopy = fetch;
   errorCopy = error;
-  v8 = CNALoggingContextDebug();
+  v8 = CNALoggingContextDebug(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = errorCopy;
+    v15 = errorCopy;
     _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "About to tell our delegate about error %@", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __68__CNAutocompleteDelegateWrapper_autocompleteFetch_didFailWithError___block_invoke;
-  v12[3] = &unk_2781C4048;
-  v12[4] = self;
-  v13 = fetchCopy;
-  v14 = errorCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __68__CNAutocompleteDelegateWrapper_autocompleteFetch_didFailWithError___block_invoke;
+  v11[3] = &unk_2781C4048;
+  v11[4] = self;
+  v12 = fetchCopy;
+  v13 = errorCopy;
   v9 = errorCopy;
   v10 = fetchCopy;
-  [(CNAutocompleteDelegateWrapper *)self queueMessageToDelegate:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(CNAutocompleteDelegateWrapper *)self queueMessageToDelegate:v11];
 }
 
 void __68__CNAutocompleteDelegateWrapper_autocompleteFetch_didFailWithError___block_invoke(uint64_t a1)

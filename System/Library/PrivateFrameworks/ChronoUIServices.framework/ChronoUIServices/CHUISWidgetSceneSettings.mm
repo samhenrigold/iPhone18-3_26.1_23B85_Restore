@@ -219,7 +219,7 @@
 
 - (NSArray)supportedRenderSchemes
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   otherSettings = [(FBSSettings *)self otherSettings];
   v3 = [otherSettings objectForSetting:88914];
   v4 = objc_opt_class();
@@ -247,29 +247,29 @@
   if (v7)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     value = [v7 value];
-    v10 = [value countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [value countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(value);
           }
 
-          v13 = [*(*(&v16 + 1) + 8 * i) copy];
+          v13 = [*(*(&v15 + 1) + 8 * i) copy];
           [v8 addObject:v13];
         }
 
-        v10 = [value countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [value countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -280,8 +280,6 @@
   {
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

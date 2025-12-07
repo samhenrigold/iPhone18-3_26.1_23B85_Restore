@@ -2,6 +2,7 @@
 - (float)score;
 - (id)asTwoPhaseIterator;
 - (id)getChildren;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)freq;
 - (int)nextDoc;
@@ -114,6 +115,41 @@ LABEL_8:
   }
 
   while (result == v6);
+  return result;
+}
+
+- (int)advanceWithInt:(int)int
+{
+  v3 = *&int;
+  JreStrongAssign(&self->topScorers_, 0);
+  subScorers = self->subScorers_;
+  if (!subScorers)
+  {
+LABEL_7:
+    JreThrowNullPointerException();
+  }
+
+  v6 = [(OrgApacheLuceneSearchDisiPriorityQueue *)subScorers top];
+  do
+  {
+    v7 = *(v6 + 1);
+    if (!v7)
+    {
+      goto LABEL_7;
+    }
+
+    v6[6] = [v7 advanceWithInt:v3];
+    updateTop = [(OrgApacheLuceneSearchDisiPriorityQueue *)self->subScorers_ updateTop];
+    if (!updateTop)
+    {
+      goto LABEL_7;
+    }
+
+    v6 = updateTop;
+    result = updateTop[6];
+  }
+
+  while (result < v3);
   return result;
 }
 

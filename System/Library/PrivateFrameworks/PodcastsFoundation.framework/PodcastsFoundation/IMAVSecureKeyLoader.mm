@@ -8,10 +8,13 @@
 - (void)contentKeySession:(id)session didProvideContentKeyRequest:(id)request;
 - (void)contentKeySession:(id)session didProvidePersistableContentKeyRequest:(id)request;
 - (void)contentKeySession:(id)session didProvideRenewingContentKeyRequest:(id)request;
+- (void)finishContentKeyRequest:(id)request forOfflineRenewal:(BOOL)renewal withResponse:(id)response;
 - (void)invalidateAndCancel;
 - (void)requestKeyResponseFromContentKeyRequest:(id)request requestType:(int64_t)type completion:(id)completion;
 - (void)securelyInvalidateOfflineDataForRequests:(id)requests completion:(id)completion;
 - (void)sendStopRequestForStreamingLicenseIfNecessary;
+- (void)startKeyLoadingProcessWithKeyIdentifier:(id)identifier contentAdamId:(id)id isRenewal:(BOOL)renewal completion:(id)completion;
+- (void)startKeyLoadingProcessWithKeyRequestData:(id)data isRenewal:(BOOL)renewal completion:(id)completion;
 - (void)timeoutKeyRequest;
 @end
 
@@ -73,14 +76,136 @@
 
 uint64_t __77__IMAVSecureKeyLoader_initWithRecipient_useCase_account_urlProtocolDelegate___block_invoke()
 {
-  __pendingStopNonceRequestAdamIds = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v1 = __pendingStopNonceRequestAdamIds;
+  __pendingStopNonceRequestAdamIds = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
+}
+
+- (void)startKeyLoadingProcessWithKeyRequestData:(id)data isRenewal:(BOOL)renewal completion:(id)completion
+{
+  renewalCopy = renewal;
+  completionCopy = completion;
+  dataCopy = data;
+  keyIdentifier = [dataCopy keyIdentifier];
+  contentAdamId = [dataCopy contentAdamId];
+
+  [(IMAVSecureKeyLoader *)self startKeyLoadingProcessWithKeyIdentifier:keyIdentifier contentAdamId:contentAdamId isRenewal:renewalCopy completion:completionCopy];
+}
+
+- (void)startKeyLoadingProcessWithKeyIdentifier:(id)identifier contentAdamId:(id)id isRenewal:(BOOL)renewal completion:(id)completion
+{
+  renewalCopy = renewal;
+  v38 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  idCopy = id;
+  completionCopy = completion;
+  v14 = _MTLogCategoryDRM();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v33 = identifierCopy;
+    v34 = 2112;
+    v35 = idCopy;
+    _os_log_impl(&dword_1D8CEC000, v14, OS_LOG_TYPE_DEFAULT, "[Key Loading Process] for key: %@, content adam id: %@.", buf, 0x16u);
+  }
+
+  contentAdamId = [(IMAVSecureKeyLoader *)self contentAdamId];
+  if (contentAdamId)
+  {
+    contentAdamId2 = [(IMAVSecureKeyLoader *)self contentAdamId];
+    if (([contentAdamId2 isEqualToString:idCopy] & 1) == 0)
+    {
+
+LABEL_9:
+      v17 = _MTLogCategoryDRM();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        contentAdamId3 = [(IMAVSecureKeyLoader *)self contentAdamId];
+        *buf = 138412802;
+        v33 = identifierCopy;
+        v34 = 2112;
+        v35 = idCopy;
+        v36 = 2112;
+        v37 = contentAdamId3;
+        _os_log_impl(&dword_1D8CEC000, v17, OS_LOG_TYPE_ERROR, "[Key Loading Process] Fail to start key: %@, content adam id: %@. Another request is in progress for content adam id: %@.", buf, 0x20u);
+      }
+
+      v19 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMAVSecureKeyLoaderErrorDomain" code:-383006 userInfo:0];
+      if (completionCopy)
+      {
+        completionCopy[2](completionCopy, v19);
+      }
+
+      v20 = _MTLogCategoryDRM();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      {
+        [IMAVSecureKeyLoader startKeyLoadingProcessWithKeyIdentifier:v20 contentAdamId:? isRenewal:? completion:?];
+      }
+
+      goto LABEL_21;
+    }
+  }
+
+  pendingCompletion = [(IMAVSecureKeyLoader *)self pendingCompletion];
+
+  if (contentAdamId)
+  {
+  }
+
+  if (pendingCompletion)
+  {
+    goto LABEL_9;
+  }
+
+  [(IMAVSecureKeyLoader *)self setContentAdamId:idCopy];
+  [(IMAVSecureKeyLoader *)self setIsRenewal:renewalCopy];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __98__IMAVSecureKeyLoader_startKeyLoadingProcessWithKeyIdentifier_contentAdamId_isRenewal_completion___block_invoke;
+  block[3] = &unk_1E8568E28;
+  block[4] = self;
+  dispatch_async(MEMORY[0x1E69E96A0], block);
+  recipient = [(IMAVSecureKeyLoader *)self recipient];
+
+  if (recipient)
+  {
+    v22 = _MTLogCategoryDRM();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      recipient2 = [(IMAVSecureKeyLoader *)self recipient];
+      contentAdamId4 = [(IMAVSecureKeyLoader *)self contentAdamId];
+      *buf = 138412802;
+      v33 = recipient2;
+      v34 = 2112;
+      v35 = identifierCopy;
+      v36 = 2112;
+      v37 = contentAdamId4;
+      _os_log_impl(&dword_1D8CEC000, v22, OS_LOG_TYPE_DEFAULT, "[Key Loading Process] Add recipient %@ key: %@, content adam id: %@.", buf, 0x20u);
+    }
+
+    contentKeySession = [(IMAVSecureKeyLoader *)self contentKeySession];
+    recipient3 = [(IMAVSecureKeyLoader *)self recipient];
+    [contentKeySession addContentKeyRecipient:recipient3];
+  }
+
+  keyLoaderQueue = [(IMAVSecureKeyLoader *)self keyLoaderQueue];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __98__IMAVSecureKeyLoader_startKeyLoadingProcessWithKeyIdentifier_contentAdamId_isRenewal_completion___block_invoke_53;
+  v28[3] = &unk_1E8568FF8;
+  v28[4] = self;
+  v30 = completionCopy;
+  v29 = identifierCopy;
+  dispatch_async(keyLoaderQueue, v28);
+
+LABEL_21:
 }
 
 void __98__IMAVSecureKeyLoader_startKeyLoadingProcessWithKeyIdentifier_contentAdamId_isRenewal_completion___block_invoke_53(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setPendingCompletion:*(a1 + 48)];
   if ([*(a1 + 40) length])
   {
@@ -90,9 +215,9 @@ void __98__IMAVSecureKeyLoader_startKeyLoadingProcessWithKeyIdentifier_contentAd
       v3 = *(a1 + 40);
       v4 = [*(a1 + 32) contentAdamId];
       *buf = 138412546;
-      v9 = v3;
-      v10 = 2112;
-      v11 = v4;
+      v8 = v3;
+      v9 = 2112;
+      v10 = v4;
       _os_log_impl(&dword_1D8CEC000, v2, OS_LOG_TYPE_DEFAULT, "[Key Loading Process] Pre-loading key: %@, content adam id: %@.", buf, 0x16u);
     }
 
@@ -106,7 +231,6 @@ void __98__IMAVSecureKeyLoader_startKeyLoadingProcessWithKeyIdentifier_contentAd
   block[3] = &unk_1E8568E28;
   block[4] = *(a1 + 32);
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendStopRequestForStreamingLicenseIfNecessary
@@ -125,7 +249,7 @@ void __98__IMAVSecureKeyLoader_startKeyLoadingProcessWithKeyIdentifier_contentAd
 
 void __68__IMAVSecureKeyLoader_sendStopRequestForStreamingLicenseIfNecessary__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) contentKeySession];
   v3 = [*(a1 + 32) recipient];
   [v2 removeContentKeyRecipient:v3];
@@ -136,7 +260,7 @@ void __68__IMAVSecureKeyLoader_sendStopRequestForStreamingLicenseIfNecessary__bl
     v5 = [*(a1 + 32) recipient];
     v6 = [v5 URL];
     *buf = 138412290;
-    v20 = v6;
+    v19 = v6;
     _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_ERROR, "Removing content key recipient for URL: %@", buf, 0xCu);
   }
 
@@ -152,15 +276,15 @@ void __68__IMAVSecureKeyLoader_sendStopRequestForStreamingLicenseIfNecessary__bl
       v11 = [v10 copyWith:2];
 
       v12 = [*(a1 + 32) secureKeyRequestHandler];
-      v18 = v11;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+      v17 = v11;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
       v14 = [*(a1 + 32) account];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __68__IMAVSecureKeyLoader_sendStopRequestForStreamingLicenseIfNecessary__block_invoke_56;
-      v17[3] = &unk_1E8569020;
-      v17[4] = *(a1 + 32);
-      [v12 loadKeyDataFor:v13 account:v14 completion:v17];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __68__IMAVSecureKeyLoader_sendStopRequestForStreamingLicenseIfNecessary__block_invoke_56;
+      v16[3] = &unk_1E8569020;
+      v16[4] = *(a1 + 32);
+      [v12 loadKeyDataFor:v13 account:v14 completion:v16];
 
 LABEL_8:
       goto LABEL_9;
@@ -174,22 +298,20 @@ LABEL_8:
     v13 = [v12 URL];
     v15 = [*(a1 + 32) contentAdamId];
     *buf = 138412546;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v15;
+    v19 = v13;
+    v20 = 2112;
+    v21 = v15;
     _os_log_impl(&dword_1D8CEC000, v11, OS_LOG_TYPE_ERROR, "Failed to send stop request because a start request was never made. URL: %@ Content ID %@", buf, 0x16u);
 
     goto LABEL_8;
   }
 
 LABEL_9:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __68__IMAVSecureKeyLoader_sendStopRequestForStreamingLicenseIfNecessary__block_invoke_56(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = [a2 firstObject];
   v4 = [v3 error];
 
@@ -201,15 +323,13 @@ void __68__IMAVSecureKeyLoader_sendStopRequestForStreamingLicenseIfNecessary__bl
       v6 = [*(a1 + 32) recipient];
       v7 = [v6 URL];
       v8 = [*(a1 + 32) contentAdamId];
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_ERROR, "Stop request failed with error %@ for Content ID %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_ERROR, "Stop request failed with error %@ for Content ID %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)securelyInvalidateOfflineDataForRequests:(id)requests completion:(id)completion
@@ -237,7 +357,7 @@ void __68__IMAVSecureKeyLoader_sendStopRequestForStreamingLicenseIfNecessary__bl
 void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
   v3 = dispatch_group_create();
   v4 = [*(v1 + 32) count];
@@ -246,13 +366,13 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
     v6 = v4;
     v7 = 0;
     *&v5 = 138412290;
-    v37 = v5;
-    v39 = v2;
-    v40 = v1;
-    v38 = v3;
+    v36 = v5;
+    v38 = v2;
+    v39 = v1;
+    v37 = v3;
     do
     {
-      v43 = v6;
+      v42 = v6;
       if (v6 >= 0xA)
       {
         v8 = 10;
@@ -263,33 +383,33 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
         v8 = v6;
       }
 
-      v44 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(v1 + 32), "count")}];
-      v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v41 = v8;
-      v42 = v7;
+      v43 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(v1 + 32), "count")}];
+      v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v40 = v8;
+      v41 = v7;
       v9 = [*(v1 + 32) subarrayWithRange:{v7, v8}];
       dispatch_group_enter(v3);
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       obj = v9;
-      v10 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v10 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v53;
+        v12 = *v52;
         do
         {
           v13 = 0;
           do
           {
-            if (*v53 != v12)
+            if (*v52 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v52 + 1) + 8 * v13);
+            v14 = *(*(&v51 + 1) + 8 * v13);
             v15 = [MTContentKeyRequest alloc];
             v16 = [v14 keyIdentifier];
             v17 = [v14 contentAdamId];
@@ -306,7 +426,7 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
               {
                 v23 = [v14 keyData];
                 v24 = [v14 contentAdamId];
-                [v44 setObject:v23 forKeyedSubscript:v24];
+                [v43 setObject:v23 forKeyedSubscript:v24];
               }
             }
 
@@ -316,7 +436,7 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
 
             if ((v25 & 1) == 0)
             {
-              [v45 addObject:v19];
+              [v44 addObject:v19];
               v27 = __pendingStopNonceRequestAdamIds;
               v28 = [(MTContentKeyRequest *)v19 adamId];
               [v27 addObject:v28];
@@ -326,7 +446,7 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
           }
 
           while (v11 != v13);
-          v11 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+          v11 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
         }
 
         while (v11);
@@ -335,34 +455,34 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
       v29 = _MTLogCategoryDRM();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v37;
-        v57 = __pendingStopNonceRequestAdamIds;
+        *buf = v36;
+        v56 = __pendingStopNonceRequestAdamIds;
         _os_log_impl(&dword_1D8CEC000, v29, OS_LOG_TYPE_DEFAULT, "Pending stop nonce requests: %@", buf, 0xCu);
       }
 
-      v1 = v40;
-      v30 = [*(v40 + 40) secureKeyRequestHandler];
-      v31 = [*(v40 + 40) account];
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v47[2] = __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_63;
-      v47[3] = &unk_1E85690C0;
-      v47[4] = *(v40 + 40);
-      v48 = v45;
-      v2 = v39;
-      v49 = v39;
-      v50 = v44;
-      v3 = v38;
-      v51 = v38;
-      v32 = v44;
-      v33 = v45;
-      [v30 loadKeyDataFor:v33 account:v31 completion:v47];
+      v1 = v39;
+      v30 = [*(v39 + 40) secureKeyRequestHandler];
+      v31 = [*(v39 + 40) account];
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 3221225472;
+      v46[2] = __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_63;
+      v46[3] = &unk_1E85690C0;
+      v46[4] = *(v39 + 40);
+      v47 = v44;
+      v2 = v38;
+      v48 = v38;
+      v49 = v43;
+      v3 = v37;
+      v50 = v37;
+      v32 = v43;
+      v33 = v44;
+      [v30 loadKeyDataFor:v33 account:v31 completion:v46];
 
-      v6 = v43 - v41;
-      v7 = v41 + v42;
+      v6 = v42 - v40;
+      v7 = v40 + v41;
     }
 
-    while (v43 != v41);
+    while (v42 != v40);
   }
 
   v34 = dispatch_time(0, 60000000000);
@@ -372,8 +492,6 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
   {
     (*(v35 + 16))(v35, v2);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_63(id *a1, void *a2)
@@ -398,64 +516,64 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
 
 void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_2(uint64_t a1)
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v65 objects:v76 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v64 objects:v75 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v66;
+    v4 = *v65;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v66 != v4)
+        if (*v65 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
         v6 = __pendingStopNonceRequestAdamIds;
-        v7 = [*(*(&v65 + 1) + 8 * i) adamId];
+        v7 = [*(*(&v64 + 1) + 8 * i) adamId];
         [v6 removeObject:v7];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v65 objects:v76 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v64 objects:v75 count:16];
     }
 
     while (v3);
   }
 
-  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
   group = dispatch_group_create();
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   v8 = a1;
   v9 = *(a1 + 40);
-  v10 = [v9 countByEnumeratingWithState:&v61 objects:v75 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v60 objects:v74 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v62;
-    v49 = *MEMORY[0x1E69873A8];
+    v13 = *v61;
+    v48 = *MEMORY[0x1E69873A8];
     *&v11 = 138412546;
-    v47 = v11;
-    v50 = *v62;
+    v46 = v11;
+    v49 = *v61;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v62 != v13)
+        if (*v61 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v61 + 1) + 8 * j);
+        v15 = *(*(&v60 + 1) + 8 * j);
         v16 = [v15 error];
 
         if (v16)
@@ -492,10 +610,10 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
               v29 = [v28 base64EncodedStringWithOptions:0];
               v30 = [v15 request];
               v31 = [v30 adamId];
-              *buf = v47;
-              v72 = v29;
-              v73 = 2112;
-              v74 = v31;
+              *buf = v46;
+              v71 = v29;
+              v72 = 2112;
+              v73 = v31;
               _os_log_impl(&dword_1D8CEC000, v27, OS_LOG_TYPE_DEFAULT, "Stop request sending nonce data %@ for adam id %@", buf, 0x16u);
 
               v8 = a1;
@@ -504,10 +622,10 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
             v32 = [v15 keyData];
             if (v32)
             {
-              v69 = v49;
+              v68 = v48;
               v33 = [v15 keyData];
-              v70 = v33;
-              v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+              v69 = v33;
+              v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
             }
 
             else
@@ -517,18 +635,18 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
 
             dispatch_group_enter(group);
             v39 = [*(v8 + 64) contentKeySession];
-            v57[0] = MEMORY[0x1E69E9820];
-            v57[1] = 3221225472;
-            v57[2] = __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_65;
-            v57[3] = &unk_1E8569048;
-            v57[4] = v15;
-            v58 = *(v8 + 48);
-            v59 = group;
-            v60 = v52;
-            [v39 invalidatePersistableContentKey:v20 options:v21 completionHandler:v57];
+            v56[0] = MEMORY[0x1E69E9820];
+            v56[1] = 3221225472;
+            v56[2] = __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_65;
+            v56[3] = &unk_1E8569048;
+            v56[4] = v15;
+            v57 = *(v8 + 48);
+            v58 = group;
+            v59 = v51;
+            [v39 invalidatePersistableContentKey:v20 options:v21 completionHandler:v56];
 
             v9 = v26;
-            v13 = v50;
+            v13 = v49;
           }
 
           else
@@ -548,7 +666,7 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
         }
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v61 objects:v75 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v60 objects:v74 count:16];
     }
 
     while (v12);
@@ -558,19 +676,17 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
   dispatch_group_wait(group, v40);
   v41 = [*(v8 + 64) secureKeyRequestHandler];
   v42 = [*(v8 + 64) account];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_2_67;
-  v53[3] = &unk_1E8569070;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_2_67;
+  v52[3] = &unk_1E8569070;
   v43 = *(v8 + 48);
   v44 = *(v8 + 64);
   v45 = *(v8 + 72);
-  v54 = v43;
-  v55 = v44;
-  v56 = v45;
-  [v41 loadKeyDataFor:v52 account:v42 completion:v53];
-
-  v46 = *MEMORY[0x1E69E9840];
+  v53 = v43;
+  v54 = v44;
+  v55 = v45;
+  [v41 loadKeyDataFor:v51 account:v42 completion:v52];
 }
 
 void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_65(uint64_t a1, void *a2, void *a3)
@@ -612,29 +728,29 @@ void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completi
 
 void __75__IMAVSecureKeyLoader_securelyInvalidateOfflineDataForRequests_completion___block_invoke_2_67(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v27;
+    v7 = *v26;
     *&v5 = 138412546;
-    v25 = v5;
+    v24 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         v10 = [v9 error];
         if (!v10)
         {
@@ -673,39 +789,37 @@ LABEL_12:
           v21 = [v20 localizedDescription];
           v22 = [v9 request];
           v23 = [v22 adamId];
-          *buf = v25;
-          v31 = v21;
-          v32 = 2112;
-          v33 = v23;
+          *buf = v24;
+          v30 = v21;
+          v31 = 2112;
+          v32 = v23;
           _os_log_impl(&dword_1D8CEC000, v19, OS_LOG_TYPE_ERROR, "Stop request failed with error %@ for adam id %@", buf, 0x16u);
         }
 
 LABEL_13:
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v6);
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateAndCancel
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = _MTLogCategoryDRM();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     recipient = [(IMAVSecureKeyLoader *)self recipient];
     v5 = [recipient URL];
     absoluteString = [v5 absoluteString];
-    v10 = 138412290;
-    v11 = absoluteString;
-    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_DEFAULT, "Invalidate and cancel for %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = absoluteString;
+    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_DEFAULT, "Invalidate and cancel for %@", &v9, 0xCu);
   }
 
   contentKeySession = [(IMAVSecureKeyLoader *)self contentKeySession];
@@ -713,12 +827,11 @@ LABEL_13:
   [contentKeySession removeContentKeyRecipient:recipient2];
 
   [(IMAVSecureKeyLoader *)self setContentKeySession:0];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestKeyResponseFromContentKeyRequest:(id)request requestType:(int64_t)type completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   identifier = [requestCopy identifier];
@@ -732,8 +845,8 @@ LABEL_13:
     {
       identifier2 = [requestCopy identifier];
       *buf = 138412546;
-      v26 = identifier2;
-      v27 = 2048;
+      v25 = identifier2;
+      v26 = 2048;
       typeCopy3 = type;
       _os_log_impl(&dword_1D8CEC000, v13, OS_LOG_TYPE_DEFAULT, "[Request Key Response] for %@. Request type %ld", buf, 0x16u);
     }
@@ -748,14 +861,14 @@ LABEL_13:
     block[1] = 3221225472;
     block[2] = __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke;
     block[3] = &unk_1E8569200;
-    v20 = requestCopy;
+    v19 = requestCopy;
     selfCopy = self;
     typeCopy2 = type;
-    v23 = completionCopy;
-    v22 = identifier;
+    v22 = completionCopy;
+    v21 = identifier;
     dispatch_async(keyLoaderQueue, block);
 
-    v16 = v20;
+    v16 = v19;
   }
 
   else
@@ -764,8 +877,8 @@ LABEL_13:
     {
       identifier3 = [requestCopy identifier];
       *buf = 138412546;
-      v26 = identifier3;
-      v27 = 2048;
+      v25 = identifier3;
+      v26 = 2048;
       typeCopy3 = type;
       _os_log_impl(&dword_1D8CEC000, v13, OS_LOG_TYPE_ERROR, "[Request Key Response] Failed for %@. Request type %ld. ContentKeySession is nil.", buf, 0x16u);
     }
@@ -773,13 +886,11 @@ LABEL_13:
     v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMAVSecureKeyLoaderErrorDomain" code:-383006 userInfo:0];
     [(IMAVSecureKeyLoader *)self cleanupAfterContentKeyRequestWithError:v16];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) identifier];
   v3 = [v2 dataUsingEncoding:4];
 
@@ -791,33 +902,33 @@ void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestTy
 
   if ([*(a1 + 40) _isOfflineAsset] && !objc_msgSend(*(a1 + 40), "useCase"))
   {
-    v18 = _MTLogCategoryDRM();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = _MTLogCategoryDRM();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [*(a1 + 32) identifier];
-      v20 = [*(a1 + 40) contentAdamId];
+      v18 = [*(a1 + 32) identifier];
+      v19 = [*(a1 + 40) contentAdamId];
       *buf = 138412546;
-      v33 = v19;
-      v34 = 2112;
-      v35 = v20;
-      _os_log_impl(&dword_1D8CEC000, v18, OS_LOG_TYPE_DEFAULT, "[Request Key Response] offline key %@ content adam id %@", buf, 0x16u);
+      v32 = v18;
+      v33 = 2112;
+      v34 = v19;
+      _os_log_impl(&dword_1D8CEC000, v17, OS_LOG_TYPE_DEFAULT, "[Request Key Response] offline key %@ content adam id %@", buf, 0x16u);
     }
 
-    v21 = [*(a1 + 40) secureKeyRequestStorage];
-    v22 = [v21 retrieveKeyDataFor:v8];
+    v20 = [*(a1 + 40) secureKeyRequestStorage];
+    v21 = [v20 retrieveKeyDataFor:v8];
 
-    if (v22)
+    if (v21)
     {
       (*(*(a1 + 56) + 16))();
 
       goto LABEL_11;
     }
 
-    v23 = _MTLogCategoryDRM();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = _MTLogCategoryDRM();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D8CEC000, v23, OS_LOG_TYPE_DEFAULT, "[Request Key Response] offline key should be local, but is missing. This will be reported, but we will attempt to recover.", buf, 2u);
+      _os_log_impl(&dword_1D8CEC000, v22, OS_LOG_TYPE_DEFAULT, "[Request Key Response] offline key should be local, but is missing. This will be reported, but we will attempt to recover.", buf, 2u);
     }
 
     +[_TtC18PodcastsFoundation19PFBugReporterBridge reportMissingFairPlayOfflineKey];
@@ -841,24 +952,23 @@ void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestTy
   }
 
   v14 = [*(a1 + 40) secureKeyRequestHandler];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_70;
-  v24[3] = &unk_1E85691D8;
-  v24[4] = *(a1 + 40);
-  v25 = v3;
-  v26 = *(a1 + 32);
-  v27 = v8;
-  v29 = *(a1 + 56);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_70;
+  v23[3] = &unk_1E85691D8;
+  v23[4] = *(a1 + 40);
+  v24 = v3;
+  v25 = *(a1 + 32);
+  v26 = v8;
+  v28 = *(a1 + 56);
   v15 = *(a1 + 48);
   v16 = *(a1 + 64);
-  v28 = v15;
-  v30 = v16;
-  v31 = v4;
-  [v14 loadCertificateDataWithCompletion:v24];
+  v27 = v15;
+  v29 = v16;
+  v30 = v4;
+  [v14 loadCertificateDataWithCompletion:v23];
 
 LABEL_11:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_70(uint64_t a1, void *a2)
@@ -891,30 +1001,30 @@ void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestTy
 
 void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_2(uint64_t a1)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) keyData];
   v3 = [*(a1 + 32) error];
   if (v2 && *(a1 + 40))
   {
     if ([*(a1 + 48) status] != 5 && objc_msgSend(*(a1 + 48), "status") != 4)
     {
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 48);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_3;
-      v18[3] = &unk_1E8569188;
-      v17 = *(a1 + 56);
-      v14 = v17.i64[0];
-      v19 = vextq_s8(v17, v17, 8uLL);
-      v22 = *(a1 + 80);
-      v15 = *(a1 + 72);
-      v16 = *(a1 + 88);
-      v20 = v15;
-      v23 = v16;
-      v21 = *(a1 + 48);
-      v24 = *(a1 + 96);
-      [v13 makeStreamingContentKeyRequestDataForApp:v2 contentIdentifier:v12 options:0 completionHandler:v18];
+      v11 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_3;
+      v17[3] = &unk_1E8569188;
+      v16 = *(a1 + 56);
+      v13 = v16.i64[0];
+      v18 = vextq_s8(v16, v16, 8uLL);
+      v21 = *(a1 + 80);
+      v14 = *(a1 + 72);
+      v15 = *(a1 + 88);
+      v19 = v14;
+      v22 = v15;
+      v20 = *(a1 + 48);
+      v23 = *(a1 + 96);
+      [v12 makeStreamingContentKeyRequestDataForApp:v2 contentIdentifier:v11 options:0 completionHandler:v17];
 
       goto LABEL_12;
     }
@@ -923,10 +1033,10 @@ void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestTy
 
     if (v4)
     {
-      v25 = *MEMORY[0x1E696AA08];
+      v24 = *MEMORY[0x1E696AA08];
       v5 = [*(a1 + 48) error];
-      v26[0] = v5;
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v25[0] = v5;
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     }
 
     v6 = MEMORY[0x1E696ABC0];
@@ -951,7 +1061,6 @@ void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestTy
   (*(*(a1 + 80) + 16))();
 
 LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -981,30 +1090,29 @@ void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestTy
 
 void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_4(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v15 = [[MTContentKeyResponse alloc] initWithRequest:*(a1 + 40) error:*(a1 + 32)];
+    v13 = [[MTContentKeyResponse alloc] initWithRequest:*(a1 + 40) error:*(a1 + 32)];
     (*(*(a1 + 80) + 16))();
-    v2 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     [*(a1 + 40) setRequestData:*(a1 + 48)];
-    v3 = _MTLogCategoryDRM();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v2 = _MTLogCategoryDRM();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 56);
-      v5 = [*(a1 + 40) adamId];
-      v6 = *(a1 + 88);
+      v3 = *(a1 + 56);
+      v4 = [*(a1 + 40) adamId];
+      v5 = *(a1 + 88);
       *buf = 138412802;
+      v21 = v3;
+      v22 = 2112;
       v23 = v4;
-      v24 = 2112;
+      v24 = 2048;
       v25 = v5;
-      v26 = 2048;
-      v27 = v6;
-      _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_DEFAULT, "[Request Key Response] Loading key request data from network for %@ adam id %@. Request type %ld", buf, 0x20u);
+      _os_log_impl(&dword_1D8CEC000, v2, OS_LOG_TYPE_DEFAULT, "[Request Key Response] Loading key request data from network for %@ adam id %@. Request type %ld", buf, 0x20u);
     }
 
     if (*(a1 + 88) != 2)
@@ -1013,27 +1121,25 @@ void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestTy
       [*(a1 + 64) setSavedRequestDataToUseForStopping:*(a1 + 48)];
     }
 
-    v7 = [*(a1 + 64) secureKeyRequestHandler];
-    v21 = *(a1 + 40);
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
-    v9 = [*(a1 + 64) account];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_72;
-    v17[3] = &unk_1E8569138;
-    v16 = *(a1 + 64);
-    v10 = *(a1 + 80);
-    v11 = *(a1 + 72);
-    v20 = *(a1 + 96);
-    *&v12 = *(a1 + 56);
+    v6 = [*(a1 + 64) secureKeyRequestHandler];
+    v19 = *(a1 + 40);
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+    v8 = [*(a1 + 64) account];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_72;
+    v15[3] = &unk_1E8569138;
+    v14 = *(a1 + 64);
+    v9 = *(a1 + 80);
+    v10 = *(a1 + 72);
+    v18 = *(a1 + 96);
+    *&v11 = *(a1 + 56);
+    *(&v11 + 1) = v9;
+    *&v12 = v14;
     *(&v12 + 1) = v10;
-    *&v13 = v16;
-    *(&v13 + 1) = v11;
-    v18 = v13;
-    v19 = v12;
-    [v7 loadKeyDataFor:v8 account:v9 completion:v17];
-
-    v14 = *MEMORY[0x1E69E9840];
+    v16 = v12;
+    v17 = v11;
+    [v6 loadKeyDataFor:v7 account:v8 completion:v15];
   }
 }
 
@@ -1062,26 +1168,25 @@ void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestTy
 
 void __86__IMAVSecureKeyLoader_requestKeyResponseFromContentKeyRequest_requestType_completion___block_invoke_2_73(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) firstObject];
   v3 = [v2 error];
 
   if (!v3)
   {
     v4 = [v2 keyData];
-    v5 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = *(a1 + 40);
-      v7 = [v2 keyData];
-      v15 = 0;
-      v8 = [v6 persistableContentKeyFromKeyVendorResponse:v7 options:0 error:&v15];
-      v9 = v15;
+      v5 = *(a1 + 40);
+      v6 = [v2 keyData];
+      v13 = 0;
+      v7 = [v5 persistableContentKeyFromKeyVendorResponse:v6 options:0 error:&v13];
+      v8 = v13;
 
-      if (v9)
+      if (v8)
       {
-        [v2 setError:v9];
+        [v2 setError:v8];
         (*(*(a1 + 64) + 16))();
 
 LABEL_13:
@@ -1091,24 +1196,24 @@ LABEL_13:
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    [v2 setKeyData:v8];
+    [v2 setKeyData:v7];
     if (*(a1 + 72) == 1)
     {
-      v10 = [*(a1 + 48) secureKeyRequestStorage];
-      v11 = [v10 saveKeyDataFor:v2];
+      v9 = [*(a1 + 48) secureKeyRequestStorage];
+      v10 = [v9 saveKeyDataFor:v2];
 
-      if ((v11 & 1) == 0)
+      if ((v10 & 1) == 0)
       {
-        v12 = _MTLogCategoryDRM();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v11 = _MTLogCategoryDRM();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          v13 = *(a1 + 56);
+          v12 = *(a1 + 56);
           *buf = 138412290;
-          v17 = v13;
-          _os_log_impl(&dword_1D8CEC000, v12, OS_LOG_TYPE_ERROR, "[Request Key Response] Failed to save offline keyData for %@", buf, 0xCu);
+          v15 = v12;
+          _os_log_impl(&dword_1D8CEC000, v11, OS_LOG_TYPE_ERROR, "[Request Key Response] Failed to save offline keyData for %@", buf, 0xCu);
         }
       }
     }
@@ -1119,8 +1224,6 @@ LABEL_13:
 
   (*(*(a1 + 64) + 16))();
 LABEL_14:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)timeoutKeyRequest
@@ -1134,22 +1237,70 @@ LABEL_14:
   dispatch_async(keyLoaderQueue, block);
 }
 
-void __40__IMAVSecureKeyLoader_timeoutKeyRequest__block_invoke(uint64_t a1)
+void __40__IMAVSecureKeyLoader_timeoutKeyRequest__block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x1E69E9840];
-  v2 = _MTLogCategoryDRM();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _MTLogCategoryDRM();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = [*(a1 + 32) contentAdamId];
+    v4 = [*(a1 + 32) contentAdamId];
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1D8CEC000, v2, OS_LOG_TYPE_ERROR, "Content key request timeout for content id %@", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_1D8CEC000, v3, OS_LOG_TYPE_ERROR, "Content key request timeout for content id %@", &v6, 0xCu);
   }
 
-  v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMAVSecureKeyLoaderErrorDomain" code:-383002 userInfo:0];
-  [*(a1 + 32) cleanupAfterContentKeyRequestForOfflineRenewal:objc_msgSend(*(a1 + 32) withError:{"isRenewal"), v4}];
+  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMAVSecureKeyLoaderErrorDomain" code:-383002 userInfo:0];
+  [*(a1 + 32) cleanupAfterContentKeyRequestForOfflineRenewal:objc_msgSend(*(a1 + 32) withError:{"isRenewal"), v5}];
+}
 
-  v5 = *MEMORY[0x1E69E9840];
+- (void)finishContentKeyRequest:(id)request forOfflineRenewal:(BOOL)renewal withResponse:(id)response
+{
+  renewalCopy = renewal;
+  v28 = *MEMORY[0x1E69E9840];
+  requestCopy = request;
+  responseCopy = response;
+  v10 = _MTLogCategoryDRM();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    identifier = [requestCopy identifier];
+    contentAdamId = [(IMAVSecureKeyLoader *)self contentAdamId];
+    error = [responseCopy error];
+    *buf = 138412802;
+    v23 = identifier;
+    v24 = 2112;
+    v25 = contentAdamId;
+    v26 = 2112;
+    v27 = error;
+    _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_DEFAULT, "Finished content key request for identifier %@ for content id %@ with error %@", buf, 0x20u);
+  }
+
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __78__IMAVSecureKeyLoader_finishContentKeyRequest_forOfflineRenewal_withResponse___block_invoke;
+  block[3] = &unk_1E8568E28;
+  block[4] = self;
+  dispatch_async(MEMORY[0x1E69E96A0], block);
+  error2 = [responseCopy error];
+  v15 = error2 == 0;
+
+  if (v15)
+  {
+    v17 = MEMORY[0x1E6987F68];
+    keyData = [responseCopy keyData];
+    renewalDate = [responseCopy renewalDate];
+    error3 = [v17 contentKeyResponseWithFairPlayStreamingKeyResponseData:keyData renewalDate:renewalDate];
+
+    [requestCopy processContentKeyResponse:error3];
+  }
+
+  else
+  {
+    error3 = [responseCopy error];
+    [requestCopy processContentKeyResponseError:error3];
+  }
+
+  error4 = [responseCopy error];
+  [(IMAVSecureKeyLoader *)self cleanupAfterContentKeyRequestForOfflineRenewal:renewalCopy withError:error4];
 }
 
 - (void)cleanupAfterContentKeyRequestForOfflineRenewal:(BOOL)renewal withError:(id)error
@@ -1189,7 +1340,7 @@ void __40__IMAVSecureKeyLoader_timeoutKeyRequest__block_invoke(uint64_t a1)
 
 - (void)contentKeySession:(id)session didProvideContentKeyRequest:(id)request
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v6 = _MTLogCategoryDRM();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1205,13 +1356,13 @@ void __40__IMAVSecureKeyLoader_timeoutKeyRequest__block_invoke(uint64_t a1)
     {
       identifier = [requestCopy identifier];
       *buf = 138412290;
-      v19 = identifier;
+      v18 = identifier;
       _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "Offline key: received initial request, now waiting for offline request for %@", buf, 0xCu);
     }
 
-    v17 = 0;
-    v9 = [requestCopy respondByRequestingPersistableContentKeyRequestAndReturnError:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [requestCopy respondByRequestingPersistableContentKeyRequestAndReturnError:&v16];
+    v10 = v16;
     if ((v9 & 1) == 0)
     {
       v11 = _MTLogCategoryDRM();
@@ -1220,11 +1371,11 @@ void __40__IMAVSecureKeyLoader_timeoutKeyRequest__block_invoke(uint64_t a1)
         identifier2 = [requestCopy identifier];
         contentAdamId = [(IMAVSecureKeyLoader *)self contentAdamId];
         *buf = 138412802;
-        v19 = identifier2;
-        v20 = 2112;
-        v21 = contentAdamId;
-        v22 = 2112;
-        v23 = v10;
+        v18 = identifier2;
+        v19 = 2112;
+        v20 = contentAdamId;
+        v21 = 2112;
+        v22 = v10;
         _os_log_impl(&dword_1D8CEC000, v11, OS_LOG_TYPE_DEFAULT, "Offline key: offline request failed for %@ episode %@ with error %@", buf, 0x20u);
       }
 
@@ -1234,70 +1385,64 @@ void __40__IMAVSecureKeyLoader_timeoutKeyRequest__block_invoke(uint64_t a1)
 
   else
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __69__IMAVSecureKeyLoader_contentKeySession_didProvideContentKeyRequest___block_invoke;
-    v15[3] = &unk_1E8569250;
-    v15[4] = self;
-    v16 = requestCopy;
-    [(IMAVSecureKeyLoader *)self requestKeyResponseFromContentKeyRequest:v16 requestType:0 completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __69__IMAVSecureKeyLoader_contentKeySession_didProvideContentKeyRequest___block_invoke;
+    v14[3] = &unk_1E8569250;
+    v14[4] = self;
+    v15 = requestCopy;
+    [(IMAVSecureKeyLoader *)self requestKeyResponseFromContentKeyRequest:v15 requestType:0 completion:v14];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contentKeySession:(id)session didProvideRenewingContentKeyRequest:(id)request
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v6 = _MTLogCategoryDRM();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [requestCopy identifier];
     *buf = 138412290;
-    v13 = identifier;
+    v12 = identifier;
     _os_log_impl(&dword_1D8CEC000, v6, OS_LOG_TYPE_DEFAULT, "Received content key request for renewal for %@.", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __77__IMAVSecureKeyLoader_contentKeySession_didProvideRenewingContentKeyRequest___block_invoke;
-  v10[3] = &unk_1E8569250;
-  v10[4] = self;
-  v11 = requestCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __77__IMAVSecureKeyLoader_contentKeySession_didProvideRenewingContentKeyRequest___block_invoke;
+  v9[3] = &unk_1E8569250;
+  v9[4] = self;
+  v10 = requestCopy;
   v8 = requestCopy;
-  [(IMAVSecureKeyLoader *)self requestKeyResponseFromContentKeyRequest:v8 requestType:1 completion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(IMAVSecureKeyLoader *)self requestKeyResponseFromContentKeyRequest:v8 requestType:1 completion:v9];
 }
 
 - (void)contentKeySession:(id)session didProvidePersistableContentKeyRequest:(id)request
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v6 = _MTLogCategoryDRM();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [requestCopy identifier];
     *buf = 138412546;
-    v15 = identifier;
-    v16 = 1024;
+    v14 = identifier;
+    v15 = 1024;
     isRenewal = [(IMAVSecureKeyLoader *)self isRenewal];
     _os_log_impl(&dword_1D8CEC000, v6, OS_LOG_TYPE_DEFAULT, "Received content key request for persistable key for %@. renewal? %d", buf, 0x12u);
   }
 
   isRenewal2 = [(IMAVSecureKeyLoader *)self isRenewal];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __80__IMAVSecureKeyLoader_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke;
-  v12[3] = &unk_1E8569250;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __80__IMAVSecureKeyLoader_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke;
+  v11[3] = &unk_1E8569250;
   v9 = isRenewal2;
-  v12[4] = self;
-  v13 = requestCopy;
+  v11[4] = self;
+  v12 = requestCopy;
   v10 = requestCopy;
-  [(IMAVSecureKeyLoader *)self requestKeyResponseFromContentKeyRequest:v10 requestType:v9 completion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(IMAVSecureKeyLoader *)self requestKeyResponseFromContentKeyRequest:v10 requestType:v9 completion:v11];
 }
 
 void __80__IMAVSecureKeyLoader_contentKeySession_didProvidePersistableContentKeyRequest___block_invoke(uint64_t a1, void *a2)
@@ -1310,34 +1455,32 @@ void __80__IMAVSecureKeyLoader_contentKeySession_didProvidePersistableContentKey
 
 - (void)contentKeySession:(id)session contentKeyRequestDidSucceed:(id)succeed
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   succeedCopy = succeed;
   v5 = _MTLogCategoryDRM();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [succeedCopy identifier];
-    v8 = 138412290;
-    v9 = identifier;
-    _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEFAULT, "🔑 Content key request succeeded for %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = identifier;
+    _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_DEFAULT, "🔑 Content key request succeeded for %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contentKeySession:(id)session contentKeyRequest:(id)request didFailWithError:(id)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   errorCopy = error;
   v9 = _MTLogCategoryDRM();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     identifier = [requestCopy identifier];
-    v15 = 138412546;
-    v16 = identifier;
-    v17 = 2112;
-    v18 = errorCopy;
-    _os_log_impl(&dword_1D8CEC000, v9, OS_LOG_TYPE_ERROR, "🔑🚨 Content key request failed for %@ with error: %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = identifier;
+    v16 = 2112;
+    v17 = errorCopy;
+    _os_log_impl(&dword_1D8CEC000, v9, OS_LOG_TYPE_ERROR, "🔑🚨 Content key request failed for %@ with error: %@", &v14, 0x16u);
   }
 
   delegate = [(IMAVSecureKeyLoader *)self delegate];
@@ -1348,8 +1491,6 @@ void __80__IMAVSecureKeyLoader_contentKeySession_didProvidePersistableContentKey
     delegate2 = [(IMAVSecureKeyLoader *)self delegate];
     [delegate2 contentKeyRequestDidFailWithError:errorCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (IMAVSecureKeyLoaderDelegate)delegate

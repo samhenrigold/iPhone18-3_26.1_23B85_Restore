@@ -38,9 +38,9 @@
     v6 = 0;
   }
 
-  v10 = &type metadata for Feature.GSEUI;
-  v11 = sub_1E16F9590();
-  v9[0] = v6;
+  v9[3] = &type metadata for Feature.GSEUI;
+  v9[4] = sub_1E16F9590();
+  LOBYTE(v9[0]) = v6;
   v7 = sub_1E1AF056C();
   __swift_destroy_boxed_opaque_existential_1(v9);
 

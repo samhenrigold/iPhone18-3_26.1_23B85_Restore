@@ -67,64 +67,70 @@
     v7 = v12;
   }
 
-  if (MapsWalkPreferencesCurrentCountrySupportsAvoidStairs())
+  v13 = MapsWalkPreferencesCurrentCountrySupportsAvoidStairs();
+  if (v13)
   {
-    v13 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v14 = [v13 localizedStringForKey:@"Avoid Stairs Switch Label [Settings]" value:@"localized string not found" table:0];
-    v15 = [PSSpecifier preferenceSpecifierNamed:v14 target:self set:"_setAvoidStairs:specifier:" get:"_avoidStairs:" detail:0 cell:6 edit:0];
+    v15 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v16 = [v15 localizedStringForKey:@"Avoid Stairs Switch Label [Settings]" value:@"localized string not found" table:0];
+    v17 = [PSSpecifier preferenceSpecifierNamed:v16 target:self set:"_setAvoidStairs:specifier:" get:"_avoidStairs:" detail:0 cell:6 edit:0];
 
-    [v15 setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
-    [v15 setProperty:@"MapsDefaultWalkingAvoidStairsKey" forKey:PSDefaultsKey];
-    [v3 addObject:v15];
-    v7 = v15;
+    [v17 setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
+    [v17 setProperty:@"MapsDefaultWalkingAvoidStairsKey" forKey:PSDefaultsKey];
+    v13 = [v3 addObject:v17];
+    v7 = v17;
   }
 
-  if (_isPedestrianARModeSupported() && MapsFeature_IsEnabled_PedestrianAR())
+  isPedestrianARModeSupported = _isPedestrianARModeSupported(v13, v14);
+  if (isPedestrianARModeSupported)
   {
-    v16 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v17 = [v16 localizedStringForKey:@"Directions In The Real World Section Title [Settings]" value:@"localized string not found" table:0];
-    v18 = [PSSpecifier preferenceSpecifierNamed:v17 target:0 set:0 get:0 detail:0 cell:0 edit:0];
+    isPedestrianARModeSupported = MapsFeature_IsEnabled_PedestrianAR();
+    if (isPedestrianARModeSupported)
+    {
+      v20 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+      v21 = [v20 localizedStringForKey:@"Directions In The Real World Section Title [Settings]" value:@"localized string not found" table:0];
+      v22 = [PSSpecifier preferenceSpecifierNamed:v21 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
-    [v18 setProperty:v20 forKey:PSFooterCellClassGroupKey];
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      [v22 setProperty:v24 forKey:PSFooterCellClassGroupKey];
 
-    [v3 addObject:v18];
-    v21 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v22 = [v21 localizedStringForKey:@"Directions In The Real World Raise to View Switch Label [Settings]" value:@"localized string not found" table:0];
-    v23 = [PSSpecifier preferenceSpecifierNamed:v22 target:self set:"setRaiseToStartPedestrianAR:specifier:" get:"raiseToStartPedestrianAR:" detail:0 cell:6 edit:0];
+      [v3 addObject:v22];
+      v25 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+      v26 = [v25 localizedStringForKey:@"Directions In The Real World Raise to View Switch Label [Settings]" value:@"localized string not found" table:0];
+      v27 = [PSSpecifier preferenceSpecifierNamed:v26 target:self set:"setRaiseToStartPedestrianAR:specifier:" get:"raiseToStartPedestrianAR:" detail:0 cell:6 edit:0];
 
-    [v23 setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
-    [v23 setProperty:@"MapsEnablePedestrianARRaiseToStart" forKey:PSDefaultsKey];
-    [v3 addObject:v23];
+      [v27 setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
+      [v27 setProperty:@"MapsEnablePedestrianARRaiseToStart" forKey:PSDefaultsKey];
+      [v3 addObject:v27];
 
-    v7 = v23;
+      v7 = v27;
+    }
   }
 
-  if (_currentDeviceSupportsVIO() && GEOConfigGetBOOL())
+  if (_currentDeviceSupportsVIO(isPedestrianARModeSupported, v19) && GEOConfigGetBOOL())
   {
-    v24 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v25 = [v24 localizedStringForKey:@"Optical Heading Section Title [Settings]" value:@"localized string not found" table:0];
-    v26 = [PSSpecifier preferenceSpecifierNamed:v25 target:0 set:0 get:0 detail:0 cell:0 edit:0];
+    v28 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v29 = [v28 localizedStringForKey:@"Optical Heading Section Title [Settings]" value:@"localized string not found" table:0];
+    v30 = [PSSpecifier preferenceSpecifierNamed:v29 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-    v27 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v28 = [v27 localizedStringForKey:@"Optical Heading Section Footer [Settings]" value:@"localized string not found" table:0];
-    [v26 setProperty:v28 forKey:PSFooterTextGroupKey];
+    v31 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v32 = [v31 localizedStringForKey:@"Optical Heading Section Footer [Settings]" value:@"localized string not found" table:0];
+    [v30 setProperty:v32 forKey:PSFooterTextGroupKey];
 
-    [v3 addObject:v26];
-    v29 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-    v30 = [v29 localizedStringForKey:@"Optical Heading Switch Label [Settings]" value:@"localized string not found" table:0];
-    v31 = [PSSpecifier preferenceSpecifierNamed:v30 target:self set:"setOpticalHeading:specifier:" get:"opticalHeading:" detail:0 cell:6 edit:0];
+    [v3 addObject:v30];
+    v33 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+    v34 = [v33 localizedStringForKey:@"Optical Heading Switch Label [Settings]" value:@"localized string not found" table:0];
+    v35 = [PSSpecifier preferenceSpecifierNamed:v34 target:self set:"setOpticalHeading:specifier:" get:"opticalHeading:" detail:0 cell:6 edit:0];
 
-    [v31 setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
-    [v31 setProperty:@"MapsWalkingEnableImageBasedHeading" forKey:PSDefaultsKey];
-    [v3 addObject:v31];
+    [v35 setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
+    [v35 setProperty:@"MapsWalkingEnableImageBasedHeading" forKey:PSDefaultsKey];
+    [v3 addObject:v35];
 
-    v7 = v31;
+    v7 = v35;
   }
 
-  v32 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
-  v33 = [v32 localizedStringForKey:@"Walking" value:@"localized string not found" table:0];
+  v36 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
+  v37 = [v36 localizedStringForKey:@"Walking" value:@"localized string not found" table:0];
 
   [(MapsSettingsWalkingController *)self setSpecifiers:v3];
 

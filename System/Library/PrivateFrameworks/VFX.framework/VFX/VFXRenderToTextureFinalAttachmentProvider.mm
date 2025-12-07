@@ -10,23 +10,23 @@
 
 - (VFXRenderToTextureFinalAttachmentProvider)initWithTexture:(id)texture
 {
-  v31.receiver = self;
-  v31.super_class = VFXRenderToTextureFinalAttachmentProvider;
-  v4 = [(VFXRenderToTextureFinalAttachmentProvider *)&v31 init];
+  v23.receiver = self;
+  v23.super_class = VFXRenderToTextureFinalAttachmentProvider;
+  v4 = [(VFXRenderToTextureFinalAttachmentProvider *)&v23 init];
   if (v4)
   {
     textureCopy = texture;
     v4->_texture = textureCopy;
     v4->_finalAttachementIdentifier = RGResourceIdentifierFinalColor(textureCopy);
     v4->_drawableDescriptor = objc_alloc_init(VFXTextureAttachmentDescriptor);
-    v9 = objc_msgSend_width(v4->_texture, v6, v7, v8);
-    objc_msgSend_setWidth_(v4->_drawableDescriptor, v10, v9, v11);
-    v15 = objc_msgSend_height(v4->_texture, v12, v13, v14);
-    objc_msgSend_setHeight_(v4->_drawableDescriptor, v16, v15, v17);
-    v21 = objc_msgSend_pixelFormat(v4->_texture, v18, v19, v20);
-    objc_msgSend_setPixelFormat_(v4->_drawableDescriptor, v22, v21, v23);
-    v27 = objc_msgSend_arrayLength(v4->_texture, v24, v25, v26);
-    objc_msgSend_setArrayLength_(v4->_drawableDescriptor, v28, v27, v29);
+    v8 = objc_msgSend_width(v4->_texture, v6, v7);
+    objc_msgSend_setWidth_(v4->_drawableDescriptor, v9, v8);
+    v12 = objc_msgSend_height(v4->_texture, v10, v11);
+    objc_msgSend_setHeight_(v4->_drawableDescriptor, v13, v12);
+    v16 = objc_msgSend_pixelFormat(v4->_texture, v14, v15);
+    objc_msgSend_setPixelFormat_(v4->_drawableDescriptor, v17, v16);
+    v20 = objc_msgSend_arrayLength(v4->_texture, v18, v19);
+    objc_msgSend_setArrayLength_(v4->_drawableDescriptor, v21, v20);
   }
 
   return v4;
@@ -40,17 +40,17 @@
     return 0;
   }
 
-  v8 = objc_msgSend_finalColorDescriptor(self, v5, v6, v7);
-  v13 = objc_msgSend_finalColorDescriptor(equal, v9, v10, v11);
+  v7 = objc_msgSend_finalColorDescriptor(self, v5, v6);
+  v11 = objc_msgSend_finalColorDescriptor(equal, v8, v9);
 
-  return objc_msgSend_isEqual_(v8, v12, v13, v14);
+  return objc_msgSend_isEqual_(v7, v10, v11);
 }
 
 - (unint64_t)hash
 {
-  v4 = objc_msgSend_finalColorDescriptor(self, a2, v2, v3);
+  v3 = objc_msgSend_finalColorDescriptor(self, a2, v2);
 
-  return objc_msgSend_hash(v4, v5, v6, v7);
+  return objc_msgSend_hash(v3, v4, v5);
 }
 
 - (void)dealloc

@@ -419,13 +419,13 @@ LABEL_21:
         case 6uLL:
           v15 = 124;
 LABEL_38:
-          [GEOAPPortal captureUserAction:45 target:v15 value:0, *v27];
+          [GEOAPPortal captureUserAction:45 target:v15 value:0, *v27, *&v27[8]];
           break;
       }
     }
   }
 
-  [(NavTrayHeaderView *)self _updateContentAndReloadStackView:0, *v27];
+  [(NavTrayHeaderView *)self _updateContentAndReloadStackView:0, *v27, *&v27[8]];
   [(NavTrayHeaderView *)self _updateLayout];
 }
 

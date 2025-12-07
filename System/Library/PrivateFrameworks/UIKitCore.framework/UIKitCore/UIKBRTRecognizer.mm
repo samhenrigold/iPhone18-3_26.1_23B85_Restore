@@ -3,7 +3,7 @@
 
 @implementation UIKBRTRecognizer
 
-uint64_t __26___UIKBRTRecognizer_reset__block_invoke(uint64_t a1)
+BOOL __26___UIKBRTRecognizer_reset__block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v14 = 0u;
@@ -155,7 +155,7 @@ void __48___UIKBRTRecognizer__doBeginTouchWithTouchInfo___block_invoke_4(uint64_
 LABEL_11:
 }
 
-uint64_t __83___UIKBRTRecognizer_updateIgnoredTouchesForTouchInfo_whenTouchInfo_changesStateTo___block_invoke(uint64_t a1)
+void *__83___UIKBRTRecognizer_updateIgnoredTouchesForTouchInfo_whenTouchInfo_changesStateTo___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 104) containsObject:*(a1 + 40)];
   if (result)
@@ -175,7 +175,7 @@ uint64_t __83___UIKBRTRecognizer_updateIgnoredTouchesForTouchInfo_whenTouchInfo_
   return result;
 }
 
-uint64_t __42___UIKBRTRecognizer_addedToActiveTouches___block_invoke(void *a1)
+void *__42___UIKBRTRecognizer_addedToActiveTouches___block_invoke(void *a1)
 {
   result = [*(a1[4] + 88) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result ^ 1;
@@ -190,7 +190,7 @@ uint64_t __42___UIKBRTRecognizer_addedToActiveTouches___block_invoke(void *a1)
   return result;
 }
 
-uint64_t __46___UIKBRTRecognizer_removedFromActiveTouches___block_invoke(void *a1)
+void *__46___UIKBRTRecognizer_removedFromActiveTouches___block_invoke(void *a1)
 {
   result = [*(a1[4] + 88) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -535,7 +535,7 @@ void __37___UIKBRTRecognizer_makeTouchActive___block_invoke(uint64_t a1, void *a
   }
 }
 
-uint64_t __56___UIKBRTRecognizer_makeTouchIgnored_force_withMessage___block_invoke(uint64_t a1)
+void *__56___UIKBRTRecognizer_makeTouchIgnored_force_withMessage___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 104) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)

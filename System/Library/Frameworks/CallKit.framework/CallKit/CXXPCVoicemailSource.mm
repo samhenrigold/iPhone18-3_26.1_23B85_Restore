@@ -35,7 +35,7 @@
     bundleURL = v6->_bundleURL;
     v6->_bundleURL = v14;
 
-    if (v6->_applicationIdentifier && [(CXXPCVoicemailSource *)v6 isPermittedToUsePrivateAPI])
+    if (v6->_applicationIdentifier && (v16 = [(CXXPCVoicemailSource *)v6 isPermittedToUsePrivateAPI], v16))
     {
       objc_storeStrong(&v6->_connection, connection);
       [(NSXPCConnection *)v6->_connection setExportedObject:v6];
@@ -58,29 +58,28 @@
       v34[3] = &unk_1E7C06E50;
       objc_copyWeak(&v35, &location);
       [(NSXPCConnection *)v6->_connection setInvalidationHandler:v34];
-      [(NSXPCConnection *)v6->_connection resume];
-      v18 = CXDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = CXDefaultLog([(NSXPCConnection *)v6->_connection resume]);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = objc_opt_class();
-        v20 = v6->_applicationIdentifier;
-        v21 = v6->_bundleIdentifier;
-        v22 = v6->_bundleURL;
-        v23 = v6->_capabilities;
+        v20 = objc_opt_class();
+        v21 = v6->_applicationIdentifier;
+        v22 = v6->_bundleIdentifier;
+        v23 = v6->_bundleURL;
+        v24 = v6->_capabilities;
         *buf = 138413570;
-        v41 = v19;
+        v41 = v20;
         v42 = 2112;
-        v43 = v20;
+        v43 = v21;
         v44 = 2112;
-        v45 = v21;
+        v45 = v22;
         v46 = 2112;
-        v47 = v22;
+        v47 = v23;
         v48 = 2112;
-        v49 = v23;
+        v49 = v24;
         v50 = 2112;
         v51 = connectionCopy;
-        v24 = v19;
-        _os_log_impl(&dword_1B47F3000, v18, OS_LOG_TYPE_DEFAULT, "Created %@ with applicationIdentifier: %@ bundleIdentifier: %@ bundleURL: %@ capabilities: %@ connection: %@", buf, 0x3Eu);
+        v25 = v20;
+        _os_log_impl(&dword_1B47F3000, v19, OS_LOG_TYPE_DEFAULT, "Created %@ with applicationIdentifier: %@ bundleIdentifier: %@ bundleURL: %@ capabilities: %@ connection: %@", buf, 0x3Eu);
       }
 
       objc_destroyWeak(&v35);
@@ -90,8 +89,8 @@
 
     else
     {
-      v25 = CXDefaultLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = CXDefaultLog(v16);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v28 = objc_opt_class();
         v29 = v6->_applicationIdentifier;
@@ -111,14 +110,13 @@
         v50 = 2112;
         v51 = connectionCopy;
         v33 = v28;
-        _os_log_error_impl(&dword_1B47F3000, v25, OS_LOG_TYPE_ERROR, "Denying creation of %@ with applicationIdentifier: %@ bundleIdentifier: %@ bundleURL: %@ capabilities: %@ connection: %@", buf, 0x3Eu);
+        _os_log_error_impl(&dword_1B47F3000, v26, OS_LOG_TYPE_ERROR, "Denying creation of %@ with applicationIdentifier: %@ bundleIdentifier: %@ bundleURL: %@ capabilities: %@ connection: %@", buf, 0x3Eu);
       }
 
       v6 = 0;
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -137,20 +135,18 @@ void __43__CXXPCVoicemailSource_initWithConnection___block_invoke(uint64_t a1)
 
 void __43__CXXPCVoicemailSource_initWithConnection___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for XPC voicemail source %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for XPC voicemail source %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) connection];
   [v4 invalidate];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __43__CXXPCVoicemailSource_initWithConnection___block_invoke_3(uint64_t a1)
@@ -168,21 +164,19 @@ void __43__CXXPCVoicemailSource_initWithConnection___block_invoke_3(uint64_t a1)
 
 void __43__CXXPCVoicemailSource_initWithConnection___block_invoke_2_4(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for XPC voicemail source %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for XPC voicemail source %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) setConnection:0];
   v4 = [*(a1 + 32) delegate];
   [v4 voicemailSourceInvalidated:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

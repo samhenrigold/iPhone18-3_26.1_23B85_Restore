@@ -449,7 +449,7 @@ LABEL_17:
       v5 = 0;
       do
       {
-        [(StabilizeParams *)self timeForFrame:v5];
+        objc_msgSend_timeForFrame_(self);
         v6 = self->mFrameTimeArray.__begin_ + v4;
         *(v6 + 2) = v9;
         *v6 = v8;

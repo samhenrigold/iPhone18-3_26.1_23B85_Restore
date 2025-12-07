@@ -1,6 +1,6 @@
-void sub_247C162FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_247C162FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -29,14 +29,14 @@ id getRCPSyntheticEventStreamClass()
   return v1;
 }
 
-void sub_247C16508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C16508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t RecapLibraryCore()
+uint64_t RecapLibraryCore(uint64_t a1)
 {
   if (!RecapLibraryCore_frameworkLibrary)
   {
@@ -46,7 +46,7 @@ uint64_t RecapLibraryCore()
   return RecapLibraryCore_frameworkLibrary;
 }
 
-uint64_t __RecapLibraryCore_block_invoke()
+uint64_t __RecapLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   RecapLibraryCore_frameworkLibrary = result;
@@ -69,10 +69,19 @@ Class __getRCPPlayerPlaybackOptionsClass_block_invoke(uint64_t a1)
 
 void RecapLibrary()
 {
-  if (!RecapLibraryCore())
+  v2 = 0;
+  v0 = RecapLibraryCore(&v2);
+  v1 = v2;
+  if (!v0)
   {
-    v0 = abort_report_np();
-    free(v0);
+    abort_report_np("%s", v2);
+    goto LABEL_5;
+  }
+
+  if (v2)
+  {
+LABEL_5:
+    free(v1);
   }
 }
 
@@ -104,14 +113,14 @@ Class __getRCPSyntheticEventStreamClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_247C16CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C16CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t RecapLibraryCore_0()
+uint64_t RecapLibraryCore_0(uint64_t a1)
 {
   if (!RecapLibraryCore_frameworkLibrary_0)
   {
@@ -121,7 +130,7 @@ uint64_t RecapLibraryCore_0()
   return RecapLibraryCore_frameworkLibrary_0;
 }
 
-uint64_t __RecapLibraryCore_block_invoke_0()
+uint64_t __RecapLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   RecapLibraryCore_frameworkLibrary_0 = result;
@@ -130,12 +139,24 @@ uint64_t __RecapLibraryCore_block_invoke_0()
 
 Class __getRCPSyntheticEventStreamClass_block_invoke_0(uint64_t a1)
 {
-  if (!RecapLibraryCore_0())
+  v5 = 0;
+  v2 = RecapLibraryCore_0(&v5);
+  v3 = v5;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v5)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    abort_report_np("%s", v5);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("RCPSyntheticEventStream");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
@@ -393,31 +414,31 @@ double CRNCGPointAdvanceInDirectionByAmount(uint64_t a1, double result, double a
   return result;
 }
 
-uint64_t RecapLibraryCore_1()
+uint64_t RecapLibraryCore_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = RecapLibraryCore_frameworkLibrary_1;
-  v5 = RecapLibraryCore_frameworkLibrary_1;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = RecapLibraryCore_frameworkLibrary_1;
+  v6 = RecapLibraryCore_frameworkLibrary_1;
   if (!RecapLibraryCore_frameworkLibrary_1)
   {
-    v6 = xmmword_278EDC598;
-    v7 = *off_278EDC5A8;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    RecapLibraryCore_frameworkLibrary_1 = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_278EDC598;
+    v8 = *off_278EDC5A8;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    RecapLibraryCore_frameworkLibrary_1 = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_247C18620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C18620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -432,11 +453,19 @@ uint64_t __RecapLibraryCore_block_invoke_1(uint64_t a1)
 
 uint64_t RecapLibrary_0()
 {
-  v0 = RecapLibraryCore_1();
+  v3 = 0;
+  v0 = RecapLibraryCore_1(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -466,9 +495,9 @@ id getRCPInlinePlayerClass()
   return v1;
 }
 
-void sub_247C187F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C187F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -511,9 +540,9 @@ id getRCPEventStreamClass()
   return v1;
 }
 
-void sub_247C1892C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C1892C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -556,9 +585,9 @@ id getRCPSyntheticEventStreamClass_0()
   return v1;
 }
 
-void sub_247C18A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C18A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -601,9 +630,9 @@ id getRCPPlayerPlaybackOptionsClass()
   return v1;
 }
 
-void sub_247C18B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C18B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -646,9 +675,9 @@ id getRCPEventSenderPropertiesClass()
   return v1;
 }
 
-void sub_247C18CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C18CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -667,14 +696,14 @@ Class __getRCPEventSenderPropertiesClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_247C1924C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C1924C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t RecapLibraryCore_2()
+uint64_t RecapLibraryCore_2(uint64_t a1)
 {
   if (!RecapLibraryCore_frameworkLibrary_2)
   {
@@ -684,7 +713,7 @@ uint64_t RecapLibraryCore_2()
   return RecapLibraryCore_frameworkLibrary_2;
 }
 
-uint64_t __RecapLibraryCore_block_invoke_2()
+uint64_t __RecapLibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   RecapLibraryCore_frameworkLibrary_2 = result;
@@ -693,12 +722,24 @@ uint64_t __RecapLibraryCore_block_invoke_2()
 
 Class __getRCPSyntheticEventStreamClass_block_invoke_2(uint64_t a1)
 {
-  if (!RecapLibraryCore_2())
+  v5 = 0;
+  v2 = RecapLibraryCore_2(&v5);
+  v3 = v5;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v5)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    abort_report_np("%s", v5);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("RCPSyntheticEventStream");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
@@ -710,14 +751,14 @@ Class __getRCPSyntheticEventStreamClass_block_invoke_2(uint64_t a1)
   return result;
 }
 
-void sub_247C196E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C196E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t RecapLibraryCore_3()
+uint64_t RecapLibraryCore_3(uint64_t a1)
 {
   if (!RecapLibraryCore_frameworkLibrary_3)
   {
@@ -727,7 +768,7 @@ uint64_t RecapLibraryCore_3()
   return RecapLibraryCore_frameworkLibrary_3;
 }
 
-uint64_t __RecapLibraryCore_block_invoke_3()
+uint64_t __RecapLibraryCore_block_invoke_3(uint64_t a1)
 {
   result = _sl_dlopen();
   RecapLibraryCore_frameworkLibrary_3 = result;
@@ -736,12 +777,24 @@ uint64_t __RecapLibraryCore_block_invoke_3()
 
 Class __getRCPSyntheticEventStreamClass_block_invoke_3(uint64_t a1)
 {
-  if (!RecapLibraryCore_3())
+  v5 = 0;
+  v2 = RecapLibraryCore_3(&v5);
+  v3 = v5;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v5)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    abort_report_np("%s", v5);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("RCPSyntheticEventStream");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
@@ -753,14 +806,14 @@ Class __getRCPSyntheticEventStreamClass_block_invoke_3(uint64_t a1)
   return result;
 }
 
-void sub_247C19F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247C19F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t RecapLibraryCore_4()
+uint64_t RecapLibraryCore_4(uint64_t a1)
 {
   if (!RecapLibraryCore_frameworkLibrary_4)
   {
@@ -770,7 +823,7 @@ uint64_t RecapLibraryCore_4()
   return RecapLibraryCore_frameworkLibrary_4;
 }
 
-uint64_t __RecapLibraryCore_block_invoke_4()
+uint64_t __RecapLibraryCore_block_invoke_4(uint64_t a1)
 {
   result = _sl_dlopen();
   RecapLibraryCore_frameworkLibrary_4 = result;
@@ -779,12 +832,24 @@ uint64_t __RecapLibraryCore_block_invoke_4()
 
 Class __getRCPSyntheticEventStreamClass_block_invoke_4(uint64_t a1)
 {
-  if (!RecapLibraryCore_4())
+  v5 = 0;
+  v2 = RecapLibraryCore_4(&v5);
+  v3 = v5;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v5)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    abort_report_np("%s", v5);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("RCPSyntheticEventStream");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))

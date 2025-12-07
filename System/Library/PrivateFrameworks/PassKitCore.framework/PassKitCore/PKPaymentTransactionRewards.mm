@@ -296,7 +296,7 @@ uint64_t __54__PKPaymentTransactionRewards_promotionalRewardsItems__block_invoke
   return v16;
 }
 
-uint64_t __59__PKPaymentTransactionRewards_enhancedMerchantRewardsItems__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
+uint64_t __59__PKPaymentTransactionRewards_enhancedMerchantRewardsItems__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v6 = a2;
   v7 = a4;

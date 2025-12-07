@@ -45,7 +45,7 @@
     if (v14)
     {
       v15 = [infoCopy objectForKeyedSubscript:v13];
-      [(MapsExternalAccessoryState *)self setYear:v15];
+      objc_msgSend_setYear_(self);
     }
 
     v16 = EAVehicleInfoMapsDisplayNameKey;
@@ -222,7 +222,7 @@ LABEL_30:
   v10[7] = unk_1016581F8;
   do
   {
-    if (!(v7)(v6, *&v10[v4], *(&v10[v4] + 1)))
+    if (!v7(v6, *&v10[v4], *(&v10[v4] + 1)))
     {
       break;
     }

@@ -4,13 +4,13 @@ void sub_1000011D8(uint64_t a1, xpc_object_t object)
   {
     if (object == &_xpc_error_connection_invalid)
     {
-      v14 = qword_100033218;
+      v13 = qword_100033218;
       if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
       {
         pid = xpc_connection_get_pid(*(a1 + 32));
-        *v19 = 67109120;
-        *&v19[4] = pid;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Client disconnected: %d", v19, 8u);
+        *v18 = 67109120;
+        *&v18[4] = pid;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Client disconnected: %d", v18, 8u);
       }
 
       sub_100004D10();
@@ -18,11 +18,11 @@ void sub_1000011D8(uint64_t a1, xpc_object_t object)
 
     else if (object == &_xpc_error_termination_imminent)
     {
-      v16 = qword_100033218;
+      v15 = qword_100033218;
       if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
       {
-        *v19 = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Termination imminent!", v19, 2u);
+        *v18 = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Termination imminent!", v18, 2u);
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -40,52 +40,51 @@ void sub_1000011D8(uint64_t a1, xpc_object_t object)
 
   else
   {
-    *v19 = 0u;
-    v20 = 0u;
-    v5 = *(a1 + 32);
+    *v18 = 0u;
+    v19 = 0u;
     v4 = (a1 + 32);
     xpc_connection_get_audit_token();
-    v6 = objc_alloc_init(NSAutoreleasePool);
-    v7 = _CFXPCCreateCFObjectFromXPCObject();
-    v8 = qword_100033218;
+    v5 = objc_alloc_init(NSAutoreleasePool);
+    v6 = _CFXPCCreateCFObjectFromXPCObject();
+    v7 = qword_100033218;
     if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
     {
-      v9 = xpc_connection_get_pid(*v4);
+      v8 = xpc_connection_get_pid(*v4);
       *buf = 67109378;
-      *&buf[4] = v9;
+      *&buf[4] = v8;
       *&buf[8] = 2112;
-      *&buf[10] = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Client %d issued command: %@", buf, 0x12u);
+      *&buf[10] = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Client %d issued command: %@", buf, 0x12u);
     }
 
-    v10 = [qword_1000330E0 shouldAllowTimeTool];
-    *buf = *v19;
-    *&buf[16] = v20;
-    v11 = sub_1000014EC(v7, buf, v10);
-    v12 = qword_100033218;
-    if (v11)
+    v9 = [qword_1000330E0 shouldAllowTimeTool];
+    *buf = *v18;
+    *&buf[16] = v19;
+    v10 = sub_1000014EC(v6, buf, v9);
+    v11 = qword_100033218;
+    if (v10)
     {
       if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEBUG))
       {
-        sub_10001269C(v12);
+        sub_10001269C(v11);
       }
 
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_100001EE8;
-      v17[3] = &unk_1000287C8;
-      v13 = *v4;
-      v17[4] = object;
-      v17[5] = v13;
-      [qword_1000330D8 executeCommand:v7 withHandler:v17];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_100001EE8;
+      v16[3] = &unk_1000287C8;
+      v12 = *v4;
+      v16[4] = object;
+      v16[5] = v12;
+      [qword_1000330D8 executeCommand:v6 withHandler:v16];
     }
 
     else if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_FAULT))
     {
-      sub_10001260C(v4, v12);
+      sub_10001260C(v4, v11);
     }
 
-    [v6 drain];
+    [v5 drain];
   }
 }
 
@@ -417,7 +416,7 @@ NSDictionary *sub_100001E10(void *a1)
   return v2;
 }
 
-double sub_100001EB0()
+double sub_100001EB0(uint64_t a1, uint64_t a2)
 {
   if (qword_100033128 != -1)
   {
@@ -427,7 +426,7 @@ double sub_100001EB0()
   return *&qword_100033120;
 }
 
-void sub_100001EE8(uint64_t a1)
+void sub_100001EE8(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEBUG))
   {
@@ -435,19 +434,19 @@ void sub_100001EE8(uint64_t a1)
   }
 
   reply = xpc_dictionary_create_reply(*(a1 + 32));
-  v3 = _CFXPCCreateXPCObjectFromCFObject();
+  v4 = _CFXPCCreateXPCObjectFromCFObject();
   applier[0] = _NSConcreteStackBlock;
   applier[1] = 3221225472;
   applier[2] = sub_10000230C;
   applier[3] = &unk_1000287A0;
   applier[4] = reply;
-  xpc_dictionary_apply(v3, applier);
-  xpc_release(v3);
-  v4 = xpc_copy_description(reply);
+  xpc_dictionary_apply(v4, applier);
+  xpc_release(v4);
+  v5 = xpc_copy_description(reply);
   if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEBUG))
   {
     sub_100012810();
-    if (!v4)
+    if (!v5)
     {
       goto LABEL_6;
     }
@@ -455,10 +454,10 @@ void sub_100001EE8(uint64_t a1)
     goto LABEL_5;
   }
 
-  if (v4)
+  if (v5)
   {
 LABEL_5:
-    free(v4);
+    free(v5);
   }
 
 LABEL_6:
@@ -484,10 +483,11 @@ BOOL sub_1000021FC()
   return os_log_type_enabled(v0, OS_LOG_TYPE_INFO);
 }
 
-void sub_100002214(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002214(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100002280(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -502,27 +502,28 @@ BOOL sub_10000234C()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-id sub_100002364(uint64_t a1, uint64_t a2, ...)
+id sub_100002364(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
 
-  return [v2 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
-id sub_1000023C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+id sub_1000023C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
 
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 BOOL sub_1000023E4()
@@ -537,69 +538,69 @@ BOOL sub_10000240C()
   return os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT);
 }
 
-void *sub_100002698(uint64_t a1, uint64_t a2)
+void *sub_100002698(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v3 = *(a1 + 24);
-    v4 = sub_100002364(a1, a2);
-    if (v4)
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v5 = *(a1 + 24);
+    v6 = sub_100002364(a1, a2, a3, a4);
+    if (v6)
     {
-      v5 = v4;
-      v6 = *v15;
+      v7 = v6;
+      v8 = *v19;
       do
       {
-        v7 = 0;
+        v9 = 0;
         do
         {
-          if (*v15 != v6)
+          if (*v19 != v8)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v5);
           }
 
-          v8 = *(*(&v14 + 1) + 8 * v7);
+          v10 = *(*(&v18 + 1) + 8 * v9);
           objc_opt_self();
-          if (([v8 hasPrefix:@"NITZ"] & 1) != 0 || objc_msgSend(v8, "hasPrefix:", @"CDMA"))
+          if (([v10 hasPrefix:@"NITZ"] & 1) != 0 || objc_msgSend(v10, "hasPrefix:", @"CDMA"))
           {
-            v9 = [*(a1 + 16) containsObject:v8];
-            if (v9)
+            v11 = [*(a1 + 16) containsObject:v10];
+            if (v11)
             {
-              v9 = [*(a1 + 8) objectForKeyedSubscript:v8];
-              if (v9)
+              v11 = [*(a1 + 8) objectForKeyedSubscript:v10];
+              if (v11)
               {
-                return v8;
+                return v10;
               }
             }
           }
 
           else
           {
-            v9 = [*(a1 + 16) containsObject:v8];
-            if (v9)
+            v11 = [*(a1 + 16) containsObject:v10];
+            if (v11)
             {
-              return v8;
+              return v10;
             }
           }
 
-          v7 = v7 + 1;
+          v9 = v9 + 1;
         }
 
-        while (v5 != v7);
-        v5 = sub_100002364(v9, v10);
+        while (v7 != v9);
+        v7 = sub_100002364(v11, v12, v13, v14);
       }
 
-      while (v5);
+      while (v7);
     }
 
-    v11 = qword_100033220;
+    v15 = qword_100033220;
     if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "TZ,starved", v13, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "TZ,starved", v17, 2u);
     }
   }
 
@@ -812,19 +813,18 @@ void sub_100003244(uint64_t a1)
   if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219008;
-    v30 = v12;
-    v31 = 2048;
-    v32 = v3;
-    v33 = 2048;
-    v34 = v5;
-    v35 = 2048;
-    v36 = v8;
-    v37 = 2048;
-    v38 = v10;
+    v29 = v12;
+    v30 = 2048;
+    v31 = v3;
+    v32 = 2048;
+    v33 = v5;
+    v34 = 2048;
+    v35 = v8;
+    v36 = 2048;
+    v37 = v10;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "cmd,checkActiveTimeSourceRequired,rtc_s,%f,bb_want_unc_s,%f,want_unc_s,%f,bb_want_rtc_s,%f,want_rtc_s,%f", buf, 0x34u);
   }
 
-  v28 = *(a1 + 32);
   AnalyticsSendEventLazy();
   [*(*(a1 + 32) + 8) sendStateAnalytics];
   if (([*(*(a1 + 32) + 56) isAutomaticTimeZoneEnabled] & 1) == 0)
@@ -920,7 +920,7 @@ LABEL_24:
   if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v30 = v25;
+    v29 = v25;
     _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Scheduling proactive time check after %f seconds", buf, 0xCu);
   }
 
@@ -995,7 +995,7 @@ uint64_t sub_100003B58(uint64_t a1)
   if ((byte_100033118 & 1) == 0)
   {
     mach_get_times();
-    return -sub_100006324(0);
+    return -sub_100006324(0, v3);
   }
 
   if (a1 < 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -1003,17 +1003,17 @@ uint64_t sub_100003B58(uint64_t a1)
     sub_100012C3C();
   }
 
-  v5 = a1 / 1000;
+  v6 = a1 / 1000;
   if (qword_100033198 != -1)
   {
     sub_100012CB8();
   }
 
-  v6 = 0;
-  v4 = 8;
+  v7 = 0;
+  v5 = 8;
   if ((a1 + 999) >= 0x7CF)
   {
-    v2 = &v5;
+    v2 = &v6;
   }
 
   else
@@ -1021,7 +1021,7 @@ uint64_t sub_100003B58(uint64_t a1)
     v2 = 0;
   }
 
-  if (sysctl(&unk_100033188, qword_100033190, &v6, &v4, v2, 8 * ((a1 + 999) > 0x7CE)))
+  if (sysctl(&unk_100033188, qword_100033190, &v7, &v5, v2, 8 * ((a1 + 999) > 0x7CE)))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -1031,9 +1031,9 @@ uint64_t sub_100003B58(uint64_t a1)
 
   else
   {
-    if (v4 == 8)
+    if (v5 == 8)
     {
-      return 1000 * v6;
+      return 1000 * v7;
     }
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -1073,9 +1073,9 @@ void sub_100004D78(_xpc_connection_s *a1)
   _Block_object_dispose(v3, 8);
 }
 
-void sub_100004E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1309,9 +1309,9 @@ void sub_1000052EC(uint64_t a1)
   _Block_object_dispose(&buf, 8);
 }
 
-void sub_100005674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100005674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1540,7 +1540,7 @@ void sub_100005D30(id a1)
   qword_100033100 = [NSDictionary dictionaryWithObjects:v2 forKeys:v1 count:24];
 }
 
-uint64_t sub_100005F84()
+uint64_t sub_100005F84(uint64_t a1, uint64_t a2)
 {
   if (qword_100033110 != -1)
   {
@@ -1577,7 +1577,7 @@ void sub_100006030(id a1)
   }
 }
 
-double sub_100006110()
+double sub_100006110(uint64_t a1, uint64_t a2)
 {
   if (qword_100033110 != -1)
   {
@@ -1586,18 +1586,18 @@ double sub_100006110()
 
   if (byte_100033118)
   {
-    v4 = 0;
+    v6 = 0;
     if ((byte_100033130 & 1) == 0)
     {
       if (sysctlnametomib("kern.monotonicclock_usecs", dword_100033134, &dword_100032DC8))
       {
-        v0 = -1.0;
+        v2 = -1.0;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           sub_100012A64();
         }
 
-        return v0;
+        return v2;
       }
 
       if (qword_100033128 != -1)
@@ -1610,24 +1610,24 @@ double sub_100006110()
       byte_100033130 = 1;
     }
 
-    v3 = 8;
-    if (!sysctl(dword_100033134, dword_100032DC8, &v4, &v3, 0, 0))
+    v5 = 8;
+    if (!sysctl(dword_100033134, dword_100032DC8, &v6, &v5, 0, 0))
     {
-      return v4 / *&qword_100033160 + *&qword_100033158;
+      return v6 / *&qword_100033160 + *&qword_100033158;
     }
 
-    v0 = -1.0;
+    v2 = -1.0;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_100012AA8();
     }
 
-    return v0;
+    return v2;
   }
 
-  v1 = mach_continuous_time();
+  v3 = mach_continuous_time();
 
-  return TMConvertTicksToSeconds(v1);
+  return TMConvertTicksToSeconds(v3);
 }
 
 void sub_100006294(id a1)
@@ -1651,13 +1651,13 @@ void sub_100006294(id a1)
   *&qword_100033180 = *&qword_100033120 * 0.5;
 }
 
-unint64_t sub_100006324(unint64_t a1)
+unint64_t sub_100006324(unint64_t a1, double a2)
 {
-  v2 = dword_1000331A0;
+  v3 = dword_1000331A0;
   if (!dword_1000331A0)
   {
     sub_100006674(&dword_1000331A0, &dword_1000331A4);
-    v2 = dword_1000331A0;
+    v3 = dword_1000331A0;
     if (!dword_1000331A0)
     {
       sub_100012E2C();
@@ -1669,12 +1669,12 @@ unint64_t sub_100006324(unint64_t a1)
     }
   }
 
-  if (is_mul_ok(v2, a1))
+  if (is_mul_ok(v3, a1))
   {
-    v3 = v2 * a1 / dword_1000331A4;
-    if ((v3 & 0x8000000000000000) != 0)
+    v4 = v3 * a1 / dword_1000331A4;
+    if ((v4 & 0x8000000000000000) != 0)
     {
-      panic("TMConvertTicksToNanoTime not possible due to signed overflow");
+      panic("TMConvertTicksToNanoTime not possible due to signed overflow", a2);
     }
   }
 
@@ -1682,15 +1682,15 @@ unint64_t sub_100006324(unint64_t a1)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Overflow during TMConvertTicksToNanoTime conversion, falling back to reciprocal ratio", v5, 2u);
-      v2 = dword_1000331A0;
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Overflow during TMConvertTicksToNanoTime conversion, falling back to reciprocal ratio", v6, 2u);
+      v3 = dword_1000331A0;
     }
 
-    return a1 / (dword_1000331A4 / v2);
+    return a1 / (dword_1000331A4 / v3);
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_100006420(id a1)
@@ -1882,55 +1882,55 @@ id sub_10000702C(uint64_t a1)
   return [*(a1 + 32) checkActiveTimeSourceRequired];
 }
 
-BOOL sub_1000071F4(long double a1, double a2, double a3)
+BOOL sub_1000071F4(uint64_t a1, long double a2, double a3, double a4)
 {
   objc_opt_self();
-  memset(&v14, 0, sizeof(v14));
-  if (a1 >= 9223372040.0)
+  memset(&v15, 0, sizeof(v15));
+  if (a2 >= 9223372040.0)
   {
     sub_100015FAC();
   }
 
-  if (a1 <= -9223372040.0)
+  if (a2 <= -9223372040.0)
   {
     sub_100016020();
   }
 
   __y = 0.0;
-  v6 = modf(a1, &__y);
-  v7 = llround(v6 * 1000000000.0) + 1000000000 * __y;
-  v14.offset = v7;
-  v14.status = 129;
-  if (a2 == 1.0)
+  v7 = modf(a2, &__y);
+  v8 = llround(v7 * 1000000000.0) + 1000000000 * __y;
+  v15.offset = v8;
+  v15.status = 129;
+  if (a3 == 1.0)
   {
-    v8 = 0;
-    v9 = 8213;
+    v9 = 0;
+    v10 = 8213;
   }
 
   else
   {
-    v8 = vcvtd_n_s64_f64((a2 + -1.0) * 1000000.0, 0x10uLL);
-    v14.freq = v8;
-    v9 = 8215;
+    v9 = vcvtd_n_s64_f64((a3 + -1.0) * 1000000.0, 0x10uLL);
+    v15.freq = v9;
+    v10 = 8215;
   }
 
-  v14.modes = v9;
-  v14.maxerror = (a3 * 1000000.0);
-  v10 = qword_100033220;
+  v15.modes = v10;
+  v15.maxerror = (a4 * 1000000.0);
+  v11 = qword_100033220;
   if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
   {
-    __y = COERCE_DOUBLE(__PAIR64__(v9, 67109888));
-    v16 = 2048;
-    offset = v7;
-    v18 = 2048;
-    freq = v8;
-    v20 = 2048;
-    maxerror = (a3 * 1000000.0);
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "cmd,ntp_adjtime:in,modes,%x,offset_us,%ld,freq_scaled,%ld,maxerror_us,%ld", &__y, 0x26u);
+    __y = COERCE_DOUBLE(__PAIR64__(v10, 67109888));
+    v17 = 2048;
+    offset = v8;
+    v19 = 2048;
+    freq = v9;
+    v21 = 2048;
+    maxerror = (a4 * 1000000.0);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "cmd,ntp_adjtime:in,modes,%x,offset_us,%ld,freq_scaled,%ld,maxerror_us,%ld", &__y, 0x26u);
   }
 
-  v11 = ntp_adjtime(&v14);
-  if (v11)
+  v12 = ntp_adjtime(&v15);
+  if (v12)
   {
     if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_ERROR))
     {
@@ -1940,21 +1940,21 @@ BOOL sub_1000071F4(long double a1, double a2, double a3)
 
   else
   {
-    v12 = qword_100033220;
+    v13 = qword_100033220;
     if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
     {
-      __y = COERCE_DOUBLE(__PAIR64__(v14.modes, 67109888));
-      v16 = 2048;
-      offset = v14.offset;
-      v18 = 2048;
-      freq = v14.freq;
-      v20 = 2048;
-      maxerror = v14.maxerror;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "cmd,ntp_adjtime:out,modes,%x,offset_us,%ld,freq_scaled,%ld,maxerror_us,%ld", &__y, 0x26u);
+      __y = COERCE_DOUBLE(__PAIR64__(v15.modes, 67109888));
+      v17 = 2048;
+      offset = v15.offset;
+      v19 = 2048;
+      freq = v15.freq;
+      v21 = 2048;
+      maxerror = v15.maxerror;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "cmd,ntp_adjtime:out,modes,%x,offset_us,%ld,freq_scaled,%ld,maxerror_us,%ld", &__y, 0x26u);
     }
   }
 
-  return v11 == 0;
+  return v12 == 0;
 }
 
 void sub_100007478(id *a1, int a2)
@@ -2094,33 +2094,33 @@ void sub_1000076EC(uint64_t a1, long double a2, double a3)
       [*v6 sf];
       v27 = v26;
       [*v6 utcUnc_s];
-      if (sub_1000071F4(v21, v27, v28))
+      if (sub_1000071F4(TMDaemonCore, v21, v27, v28))
       {
         v53 = v24;
         v29 = 1;
         [*(a1 + 40) setSystemTimeSet:1];
-        v60 = 0u;
         v58 = 0u;
-        v59 = 0u;
+        v56 = 0u;
         v57 = 0u;
+        v55 = 0u;
         v30 = *(*(a1 + 40) + 48);
-        v31 = [v30 countByEnumeratingWithState:&v57 objects:v81 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v55 objects:v79 count:16];
         if (v31)
         {
           v32 = v31;
           v51 = v19;
           v52 = v18;
-          v33 = *v58;
+          v33 = *v56;
           do
           {
             for (i = 0; i != v32; i = i + 1)
             {
-              if (*v58 != v33)
+              if (*v56 != v33)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v35 = *(*(&v57 + 1) + 8 * i);
+              v35 = *(*(&v55 + 1) + 8 * i);
               if (objc_opt_respondsToSelector())
               {
                 [*(a1 + 32) utcUnc_s];
@@ -2128,7 +2128,7 @@ void sub_1000076EC(uint64_t a1, long double a2, double a3)
               }
             }
 
-            v32 = [v30 countByEnumeratingWithState:&v57 objects:v81 count:16];
+            v32 = [v30 countByEnumeratingWithState:&v55 objects:v79 count:16];
           }
 
           while (v32);
@@ -2153,29 +2153,27 @@ LABEL_46:
 
           *__y = 138414594;
           *&__y[4] = @"apply";
-          v63 = 2112;
-          v64 = v42;
+          v61 = 2112;
+          v62 = v42;
+          v63 = 2048;
+          v64 = v54;
           v65 = 2048;
-          v66 = v54;
+          v66 = v16;
           v67 = 2048;
-          v68 = v16;
+          v68 = v8;
           v69 = 2048;
-          v70 = v8;
+          v70 = v40;
           v71 = 2048;
-          v72 = v40;
+          v72 = v43;
           v73 = 2048;
-          v74 = v43;
-          v75 = 2048;
-          v76 = v21;
-          v77 = 1024;
-          v78 = v29;
-          v79 = 2048;
-          v80 = v44;
+          v74 = v21;
+          v75 = 1024;
+          v76 = v29;
+          v77 = 2048;
+          v78 = v44;
           _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "cmd,%@,src,%@,rtc_s,%.9f,rtc_unc_s,%.9f,t_s,%.9f,unc_s,%.9f,mach,%llu,adjust,%.9f,success,%d,after_m,%llu", __y, 0x62u);
         }
 
-        v55 = *(a1 + 72);
-        v56 = *(a1 + 80);
         AnalyticsSendEventLazy();
         v45 = sub_100003B58(v19 + 1000000000 * v18);
         v46 = qword_100033220;
@@ -2184,12 +2182,12 @@ LABEL_46:
           v47 = sub_100003B58(0);
           *__y = 134218752;
           *&__y[4] = v19 + 1000000000 * v18;
+          v61 = 2048;
+          v62 = v45;
           v63 = 2048;
-          v64 = v45;
-          v65 = 2048;
-          v66 = *&v47;
-          v67 = 1024;
-          LODWORD(v68) = v45 > 0;
+          v64 = *&v47;
+          v65 = 1024;
+          LODWORD(v66) = v45 > 0;
           _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "cmd,rtc_offset,set,%lld,was,%lld,now,%lld,success,%d", __y, 0x26u);
           if ((v53 & 1) == 0)
           {
@@ -2283,7 +2281,7 @@ LABEL_42:
   }
 
 LABEL_27:
-  sub_100007478(*(a1 + 40), (*(a1 + 88) - 1));
+  sub_100007478(*(a1 + 40), *(a1 + 88) - 1);
 LABEL_28:
 }
 
@@ -2375,7 +2373,7 @@ void sub_100008394(uint64_t a1, double a2, double a3)
     {
       if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_ERROR))
       {
-        sub_100016408(a1);
+        sub_100016408();
       }
 
       v4 = qword_100033220;
@@ -2393,25 +2391,24 @@ void sub_100008394(uint64_t a1, double a2, double a3)
         v14 = [objc_msgSend(*(a1 + 40) objectForKeyedSubscript:{@"TMMachTime", "unsignedLongLongValue"}];
         v15 = [*(a1 + 40) objectForKeyedSubscript:@"TMCommand"];
         *buf = 138414082;
-        v18 = @"DROP";
-        v19 = 2112;
-        v20 = v5;
-        v21 = 2048;
-        v22 = v7;
-        v23 = 2048;
-        v24 = v9;
-        v25 = 2048;
-        v26 = v11;
-        v27 = 2048;
-        v28 = v13;
-        v29 = 2048;
-        v30 = v14;
-        v31 = 2112;
-        v32 = v15;
+        v17 = @"DROP";
+        v18 = 2112;
+        v19 = v5;
+        v20 = 2048;
+        v21 = v7;
+        v22 = 2048;
+        v23 = v9;
+        v24 = 2048;
+        v25 = v11;
+        v26 = 2048;
+        v27 = v13;
+        v28 = 2048;
+        v29 = v14;
+        v30 = 2112;
+        v31 = v15;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "cmd,%@,src,%@,rtc_s,%.9f,rtc_unc_s,%.9f,t_s,%.9f,unc_s,%.9f,mach,%llu,cmd,%@", buf, 0x52u);
       }
 
-      v16 = *(a1 + 40);
       AnalyticsSendEventLazy();
     }
   }
@@ -2466,9 +2463,9 @@ NSDictionary *sub_1000088D0(uint64_t a1)
   return [NSDictionary dictionaryWithObjects:v4 forKeys:v3 count:3];
 }
 
-void sub_1000089D8(void *a1, void *a2, uint64_t a3)
+void sub_1000089D8(void *result, void *a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
     v6 = qword_100033218;
     if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
@@ -2497,7 +2494,7 @@ void sub_1000089D8(void *a1, void *a2, uint64_t a3)
     v25 = &unk_100028B80;
     v26 = a2;
     AnalyticsSendEventLazy();
-    if ([a1 isSystemTimeZoneSet])
+    if ([result isSystemTimeZoneSet])
     {
       sub_1000165C8();
     }
@@ -2549,9 +2546,9 @@ void sub_1000089D8(void *a1, void *a2, uint64_t a3)
       block[6] = v18;
       block[7] = v20;
       block[8] = buf;
-      block[4] = a1;
+      block[4] = result;
       block[5] = v17;
-      dispatch_after(v12, [a1 workloop], block);
+      dispatch_after(v12, [result workloop], block);
       v13 = CFNotificationCenterGetDarwinNotifyCenter();
       CFNotificationCenterPostNotification(v13, @"AutomaticTimeZoneUpdateNeeded", 0, 0, 1u);
       sub_10001665C(v18, v20, buf);
@@ -2705,10 +2702,10 @@ void sub_100009728(uint64_t a1)
     v8 = [*(a1 + 32) objectForKey:@"TMSource"];
     *buf = 138412802;
     *&buf[4] = v5;
-    v28 = 2048;
-    v29 = v7;
-    v30 = 2112;
-    v31 = v8;
+    v27 = 2048;
+    v28 = v7;
+    v29 = 2112;
+    v30 = v8;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Received time %@±%.2f from %@\n", buf, 0x20u);
   }
 
@@ -2727,22 +2724,21 @@ void sub_100009728(uint64_t a1)
     v19 = [objc_msgSend(*(a1 + 32) objectForKeyedSubscript:{@"TMMachTime", "unsignedLongLongValue"}];
     *buf = 138413826;
     *&buf[4] = @"T";
-    v28 = 2112;
-    v29 = v10;
-    v30 = 2048;
-    v31 = v12;
-    v32 = 2048;
-    v33 = v14;
-    v34 = 2048;
-    v35 = v16;
-    v36 = 2048;
-    v37 = v18;
-    v38 = 2048;
-    v39 = v19;
+    v27 = 2112;
+    v28 = v10;
+    v29 = 2048;
+    v30 = v12;
+    v31 = 2048;
+    v32 = v14;
+    v33 = 2048;
+    v34 = v16;
+    v35 = 2048;
+    v36 = v18;
+    v37 = 2048;
+    v38 = v19;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "cmd,%@,src,%@,rtc_s,%.9f,rtc_unc_s,%.9f,t_s,%.9f,unc_s,%.9f,mach,%llu", buf, 0x48u);
   }
 
-  v26 = *(a1 + 32);
   AnalyticsSendEventLazy();
   if (sub_100006480(v3))
   {
@@ -2928,13 +2924,12 @@ void sub_10000A80C(void *a1)
     return;
   }
 
-  v2 = *(*(a1[7] + 8) + 24);
   if (*(*(a1[6] + 8) + 24) == 1)
   {
     if ((*(*(a1[7] + 8) + 24) & 1) == 0)
     {
 LABEL_9:
-      v3 = 0;
+      v2 = 0;
       goto LABEL_10;
     }
 
@@ -2952,21 +2947,21 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v3 = 1;
+  v2 = 1;
 LABEL_10:
-  (*(a1[4] + 16))(a1[4], [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:v3] forKey:@"TMSetupSuccessful"]);
-  v4 = qword_100033218;
+  (*(a1[4] + 16))(a1[4], [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:v2] forKey:@"TMSetupSuccessful"]);
+  v3 = qword_100033218;
   if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = "failed";
-    if (v3)
+    v4 = "failed";
+    if (v2)
     {
-      v5 = "succeeded";
+      v4 = "succeeded";
     }
 
-    v6 = 136315138;
-    v7 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "TMSetupTimeZone: %s.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "TMSetupTimeZone: %s.", &v5, 0xCu);
   }
 
   *(*(a1[5] + 8) + 24) = 1;
@@ -3081,10 +3076,11 @@ void sub_10000B170(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint8_t *
   _os_log_fault_impl(a1, v5, OS_LOG_TYPE_FAULT, a4, a5, 2u);
 }
 
-id sub_10000B1AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+id sub_10000B1AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
 
-  return [v19 countByEnumeratingWithState:&a9 objects:&a19 count:16];
+  return [v18 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 BOOL sub_10000B1CC()
@@ -3191,25 +3187,26 @@ void sub_10000BAFC(uint64_t (*a1)(void), NSObject *a2)
   }
 }
 
-uint64_t sub_10000BBA4(uint64_t a1, uint64_t a2, int a3, intptr_t a4)
+uint64_t sub_10000BBA4(uint64_t a1, uint64_t a2, uint64_t a3, intptr_t a4)
 {
+  v5 = a3;
   v6 = qword_100033218;
   if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000172E8(a3, v6);
+    sub_1000172E8(v5, v6);
   }
 
   v7 = qword_100033220;
   if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v12 = a3 & 0xFFF;
+    v12 = v5 & 0xFFF;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "cmd,PmCallback,msg,0x%03x", buf, 8u);
   }
 
   result = AnalyticsSendEventLazy();
-  HIDWORD(v10) = a3 + 536870288;
-  LODWORD(v10) = a3 + 536870288;
+  HIDWORD(v10) = v5 + 536870288;
+  LODWORD(v10) = v5 + 536870288;
   v9 = v10 >> 4;
   if (v9 == 11)
   {
@@ -3615,7 +3612,7 @@ unint64_t sub_10000D660()
   v4.tv_nsec = 0;
   clock_gettime(_CLOCK_UPTIME_RAW, &v4);
   v4.tv_sec += 2208988800;
-  v0 = sntp_datestamp_from_timespec(v4.tv_sec);
+  v0 = sntp_datestamp_from_timespec(v4.tv_sec, v4.tv_nsec);
   v2 = sntp_timestamp_from_datestamp(v0, v1);
   return (dword_100033210 + v2) | ((dword_100033214 + HIDWORD(v2)) << 32);
 }
@@ -4156,7 +4153,7 @@ uint64_t sntp_print_datestamp(int a1, const char *a2, uint64_t *a3)
 uint64_t sntp_print_header(int a1, unsigned __int8 *a2)
 {
   v6 = *(a2 + 3);
-  v4 = (a2 + 12);
+  v4 = a2 + 12;
   v5 = v6;
   if (*(v4 - 11) > 1u)
   {
@@ -4426,7 +4423,7 @@ unint64_t sntp_server_respond@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t 
   return result;
 }
 
-uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3@<W0>, __int128 *a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
+uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, uint64_t a3@<X0>, __int128 *a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
 {
   *(a6 + 48) = 0u;
   *(a6 + 64) = 0u;
@@ -4438,6 +4435,7 @@ uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3
     sub_1000121E8();
   }
 
+  v10 = a3;
   v23 = 0uLL;
   v24 = 0uLL;
   v22 = 0uLL;
@@ -4478,7 +4476,7 @@ uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3
       v15 = 0;
     }
 
-    if (sendto(a3, v20, 0x30uLL, 0, a1, v15) != 48)
+    if (sendto(v10, v20, 0x30uLL, 0, a1, v15) != 48)
     {
       *a6 = 5;
     }
@@ -4716,39 +4714,13 @@ LABEL_10:
   if (v21)
   {
     v22 = v21;
-    if (!a6)
-    {
-      goto LABEL_29;
-    }
-
-    v30 = 0;
-    v31 = 0;
-    memset(v27, 0, 28);
-    if (ai_family == 2)
-    {
-      v30 = 2063598080;
-      v31 = 0;
-      v23 = &v30;
-      v24 = 16;
-    }
-
-    else
-    {
-      memset(&v27[0].sa_data[2], 0, 24);
-      *&v27[0].sa_data[6] = in6addr_any;
-      *&v27[0].sa_len = 2063605276;
-      v23 = v27;
-      v24 = 28;
-    }
-
-    if (bind(v21, v23, v24))
+    if (a6 && ((v30 = 0, v31 = 0, memset(v27, 0, 28), ai_family != 2) ? (memset(&v27[0].sa_data[2], 0, 24), *&v27[0].sa_data[6] = in6addr_any, *&v27[0].sa_len = 2063605276, v23 = v27, v24 = 28) : (v30 = 2063598080, v31 = 0, v23 = &v30, v24 = 16), bind(v21, v23, v24)))
     {
       v25 = 3;
     }
 
     else
     {
-LABEL_29:
       if (!connect(v22, ai_addr, ai_addrlen))
       {
         sntp_client_exchange(v22, a4, a5, a7);
@@ -4781,6 +4753,20 @@ LABEL_33:
   freeaddrinfo(v28);
 }
 
+void sub_10001231C(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100002214(&_mh_execute_header, a2, a3, "unable to delete cache: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000124E4(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100002214(&_mh_execute_header, a2, a3, "Failed to cache state with error %@!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10001260C(xpc_connection_t *a1, NSObject *a2)
 {
   pid = xpc_connection_get_pid(*a1);
@@ -4798,32 +4784,32 @@ void sub_10001269C(NSObject *a1)
 
 void sub_1000129D0()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   sub_10000223C();
   sub_100002430();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void sub_100012AA8()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   sub_10000223C();
   sub_100002430();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void sub_100012CE0()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   sub_10000223C();
   sub_100002430();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void *sub_100012EC8(void *result)
@@ -4832,11 +4818,11 @@ void *sub_100012EC8(void *result)
   {
     v1 = result;
     [result[16] emptyPath:@"/var/db/timed/com.apple.timed.plist"];
-    [v1[2] reset];
-    [v1[3] reset];
-    if (v1[14] <= 9uLL)
+    [*(v1 + 16) reset];
+    [*(v1 + 24) reset];
+    if (*(v1 + 112) <= 9uLL)
     {
-      v1[14] = 0;
+      *(v1 + 112) = 0;
     }
 
     return sub_100012F48(v1, "timeWasReset:", @"softReset", v2, v3, v4, v5, v6);
@@ -4850,7 +4836,7 @@ void *sub_100012F48(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   if (result)
   {
     v10 = result[6];
-    result = sub_1000023C4(result, a2, a3, a4, a5, a6, a7, a8, 0, 0, 0, 0, 0, 0, 0, 0, v31, v33);
+    result = sub_1000023C4(result, a2, a3, a4, a5, a6, a7, a8, 0, 0, 0, 0, 0, 0, 0, 0, v31);
     if (result)
     {
       v11 = result;
@@ -4876,7 +4862,7 @@ void *sub_100012F48(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
         }
 
         while (v11 != v13);
-        result = sub_1000023C4(v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v32, v34);
+        result = sub_1000023C4(v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v32);
         v11 = result;
       }
 
@@ -5051,14 +5037,14 @@ void *sub_10001358C(void *result)
   return result;
 }
 
-void *sub_1000135E4(void *a1, const char *a2)
+void *sub_1000135E4(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 isAutomaticTimeEnabled];
+    return [result isAutomaticTimeEnabled];
   }
 
-  return a1;
+  return result;
 }
 
 BOOL sub_1000135F0(_BOOL8 result, uint64_t a2, long double a3)
@@ -5153,14 +5139,14 @@ id sub_10001383C(id result)
   return result;
 }
 
-void *sub_10001389C(void *a1, const char *a2)
+void *sub_10001389C(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 isAutomaticTimeZoneEnabled];
+    return [result isAutomaticTimeZoneEnabled];
   }
 
-  return a1;
+  return result;
 }
 
 id *sub_1000138A8(id *result)
@@ -5508,40 +5494,40 @@ LABEL_17:
 
   if ([v6 isEqualToString:@"TMConfirmTimeZone"])
   {
-    v37 = sub_1000023B8();
-    sub_1000151EC(v37);
+    v36 = sub_1000023B8();
+    sub_1000151EC(v36);
     goto LABEL_42;
   }
 
   if ([v6 isEqualToString:@"TMGetBAFinderTime"])
   {
     v10 = sub_100001E10(a1);
-    v38 = qword_100033218;
+    v37 = qword_100033218;
     if (!sub_1000021FC())
     {
       goto LABEL_18;
     }
 
     *buf = 138412290;
-    v92 = v10;
-    v39 = "Returning BA finder time to client: %@";
+    v91 = v10;
+    v38 = "Returning BA finder time to client: %@";
     goto LABEL_61;
   }
 
   if ([v6 isEqualToString:@"TMGetReferenceTime"])
   {
     v10 = sub_100001E10(a1);
-    v38 = qword_100033218;
+    v37 = qword_100033218;
     if (!sub_1000021FC())
     {
       goto LABEL_18;
     }
 
     *buf = 138412290;
-    v92 = v10;
-    v39 = "Returning reference time to client: %@";
+    v91 = v10;
+    v38 = "Returning reference time to client: %@";
 LABEL_61:
-    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, v39, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, v38, buf, 0xCu);
 LABEL_18:
     if (!v10)
     {
@@ -5575,10 +5561,10 @@ LABEL_19:
 
   if ([v6 isEqualToString:@"TMGetRTCResetCount"])
   {
-    v107 = @"TMRTCResetCount";
-    v108 = [NSNumber numberWithUnsignedInt:[(NSDictionary *)a1 rtcResetCount]];
-    v22 = &v108;
-    v23 = &v107;
+    v106 = @"TMRTCResetCount";
+    v107 = [NSNumber numberWithUnsignedInt:[(NSDictionary *)a1 rtcResetCount]];
+    v22 = &v107;
+    v23 = &v106;
 LABEL_38:
     v9 = [NSDictionary dictionaryWithObjects:v22 forKeys:v23 count:1];
     goto LABEL_17;
@@ -5592,15 +5578,15 @@ LABEL_38:
 
   if ([v6 isEqualToString:@"TMProvideBBTime"])
   {
-    v44 = sub_1000023B8();
-    sub_1000153A8(v44, v45);
+    v43 = sub_1000023B8();
+    sub_1000153A8(v43, v44);
     goto LABEL_42;
   }
 
   if ([v6 isEqualToString:@"TMProvideCellularTimeZone"])
   {
-    v46 = sub_1000021F0();
-    sub_100012F48(v46, v47, v48, v49, v50, v51, v52, v53);
+    v45 = sub_1000021F0();
+    sub_100012F48(v45, v46, v47, v48, v49, v50, v51, v52);
     goto LABEL_42;
   }
 
@@ -5609,7 +5595,7 @@ LABEL_38:
     sub_1000023B8();
     sub_10000232C();
 
-    sub_10001566C(v71, v72, v73);
+    sub_10001566C(v70, v71, v72);
   }
 
   else
@@ -5625,26 +5611,25 @@ LABEL_38:
 
     if ([v6 isEqualToString:@"TMFetchNTP"])
     {
-      v34 = a1[4].super.isa;
       sub_10000232C();
 
-      [v35 fetchTime];
+      [v34 fetchTime];
       return;
     }
 
     if ([v6 isEqualToString:@"TMGetComputedTimeZone"])
     {
-      v40 = [-[NSDictionary computedTimeZone](a1 "computedTimeZone")];
-      if (!v40)
+      v39 = [-[NSDictionary computedTimeZone](a1 "computedTimeZone")];
+      if (!v39)
       {
         v10 = &__NSDictionary0__struct;
         goto LABEL_19;
       }
 
-      v105 = @"TMTimeZone";
-      v106 = v40;
-      v22 = &v106;
-      v23 = &v105;
+      v104 = @"TMTimeZone";
+      v105 = v39;
+      v22 = &v105;
+      v23 = &v104;
       goto LABEL_38;
     }
 
@@ -5653,7 +5638,7 @@ LABEL_38:
       sub_1000023B8();
       sub_10000232C();
 
-      sub_100008DE0(v41, v42);
+      sub_100008DE0(v40, v41);
       return;
     }
 
@@ -5661,23 +5646,23 @@ LABEL_38:
     {
       if (![v6 isEqualToString:@"TMResetTimeZone"])
       {
-        v54 = [v6 isEqualToString:@"TMSystemWillWake"];
-        v55 = qword_100033218;
-        if (v54)
+        v53 = [v6 isEqualToString:@"TMSystemWillWake"];
+        v54 = qword_100033218;
+        if (v53)
         {
           if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            sub_100002988(&_mh_execute_header, v55, v56, "System will wake", buf);
+            sub_100002988(&_mh_execute_header, v54, v55, "System will wake", buf);
           }
 
-          v57 = a1[2].super.isa;
+          v56 = a1[2].super.isa;
           [(objc_class *)a1[7].super.isa RTCWakeUncertainty];
-          [(objc_class *)v57 inflateHistoricalDataBy:?];
+          [(objc_class *)v56 inflateHistoricalDataBy:?];
           if ([(objc_class *)a1[7].super.isa shouldCorrectOnWake]&& [(objc_class *)a1[7].super.isa shouldFetchOnWake]&& os_log_type_enabled(qword_100033218, OS_LOG_TYPE_FAULT))
           {
             *buf = 0;
-            sub_10000B170(&_mh_execute_header, v58, v59, "Both CorrectOnWake and FetchOnWake are enabled. This is probably a misconfiguration, but I'll do it anyways.", buf);
+            sub_10000B170(&_mh_execute_header, v57, v58, "Both CorrectOnWake and FetchOnWake are enabled. This is probably a misconfiguration, but I'll do it anyways.", buf);
           }
 
           if ([(objc_class *)a1[7].super.isa shouldCorrectOnWake])
@@ -5687,42 +5672,42 @@ LABEL_38:
 
           if ([(objc_class *)a1[7].super.isa shouldFetchOnWake])
           {
-            v61 = (clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) / 0x3B9ACA00);
-            v62 = *&qword_100032DD0;
-            if (*&qword_100032DD0 > v61 && os_log_type_enabled(qword_100033218, OS_LOG_TYPE_FAULT))
+            v60 = (clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) / 0x3B9ACA00);
+            v61 = *&qword_100032DD0;
+            if (*&qword_100032DD0 > v60 && os_log_type_enabled(qword_100033218, OS_LOG_TYPE_FAULT))
             {
               *buf = 0;
-              sub_10000B170(&_mh_execute_header, v63, v64, "CLOCK_MONOTONIC_RAW has stepped backward since last NTP fetch", buf);
-              v62 = *&qword_100032DD0;
+              sub_10000B170(&_mh_execute_header, v62, v63, "CLOCK_MONOTONIC_RAW has stepped backward since last NTP fetch", buf);
+              v61 = *&qword_100032DD0;
             }
 
-            v65 = v62 > 0.0 && v62 < v61;
-            if (v65 && (v60 = v61 - v62, v61 - v62 < 900.0))
+            v64 = v61 > 0.0 && v61 < v60;
+            if (v64 && (v59 = v60 - v61, v60 - v61 < 900.0))
             {
               if (sub_100002914())
               {
                 *buf = 134218240;
-                v92 = *&v62;
-                v93 = 2048;
-                v94 = v61;
+                v91 = *&v61;
+                v92 = 2048;
+                v93 = v60;
                 sub_10000292C();
-                _os_log_impl(v66, v67, v68, v69, v70, 0x16u);
+                _os_log_impl(v65, v66, v67, v68, v69, 0x16u);
               }
             }
 
             else
             {
-              qword_100032DD0 = *&v61;
+              qword_100032DD0 = *&v60;
               [(objc_class *)a1[4].super.isa fetchTime];
             }
           }
 
-          v87 = [(NSDictionary *)a1 clock];
-          v88 = mach_absolute_time();
+          v86 = [(NSDictionary *)a1 clock];
+          v87 = mach_absolute_time();
           [(NSDictionary *)a1 workloop];
           sub_100002254();
           sub_1000022A8();
-          [v87 montonicTimeForMachTime:v88 toQueue:? withCompletionHandler:?];
+          [v86 montonicTimeForMachTime:v87 toQueue:? withCompletionHandler:?];
         }
 
         else
@@ -5730,38 +5715,38 @@ LABEL_38:
           if (sub_10000B1CC())
           {
             *buf = 138412290;
-            v92 = a2;
-            sub_10000B140(&_mh_execute_header, v55, v75, "Received unknown command: %@\n", buf);
+            v91 = a2;
+            sub_10000B140(&_mh_execute_header, v54, v74, "Received unknown command: %@\n", buf);
           }
 
-          v76 = qword_100033220;
+          v75 = qword_100033220;
           if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
           {
-            v77 = [(__CFString *)a2 objectForKeyedSubscript:@"TMSource"];
+            v76 = [(__CFString *)a2 objectForKeyedSubscript:@"TMSource"];
             [-[__CFString objectForKeyedSubscript:](a2 objectForKeyedSubscript:{@"TMRtcTime", "doubleValue"}];
-            v79 = v78;
+            v78 = v77;
             [-[__CFString objectForKeyedSubscript:](a2 objectForKeyedSubscript:{@"TMRTCConversionTimeError", "doubleValue"}];
-            v81 = v80;
+            v80 = v79;
             [-[__CFString objectForKeyedSubscript:](a2 objectForKeyedSubscript:{@"TMCurrentTime", "doubleValue"}];
-            v83 = v82;
+            v82 = v81;
             [-[__CFString objectForKeyedSubscript:](a2 objectForKeyedSubscript:{@"TMTimeError", "doubleValue"}];
-            v85 = v84;
-            v86 = [-[__CFString objectForKeyedSubscript:](a2 objectForKeyedSubscript:{@"TMMachTime", "unsignedLongLongValue"}];
+            v84 = v83;
+            v85 = [-[__CFString objectForKeyedSubscript:](a2 objectForKeyedSubscript:{@"TMMachTime", "unsignedLongLongValue"}];
             *buf = 138413826;
-            v92 = @"unknown";
-            v93 = 2112;
-            v94 = *&v77;
-            v95 = 2048;
-            v96 = v79;
-            v97 = 2048;
-            v98 = v81;
-            v99 = 2048;
-            v100 = v83;
-            v101 = 2048;
-            v102 = v85;
-            v103 = 2048;
-            v104 = v86;
-            _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "cmd,%@,src,%@,rtc_s,%.9f,rtc_unc_s,%.9f,t_s,%.9f,unc_s,%.9f,mach,%llu", buf, 0x48u);
+            v91 = @"unknown";
+            v92 = 2112;
+            v93 = *&v76;
+            v94 = 2048;
+            v95 = v78;
+            v96 = 2048;
+            v97 = v80;
+            v98 = 2048;
+            v99 = v82;
+            v100 = 2048;
+            v101 = v84;
+            v102 = 2048;
+            v103 = v85;
+            _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "cmd,%@,src,%@,rtc_s,%.9f,rtc_unc_s,%.9f,t_s,%.9f,unc_s,%.9f,mach,%llu", buf, 0x48u);
           }
         }
 
@@ -5774,7 +5759,7 @@ LABEL_38:
 
     sub_10000232C();
 
-    sub_100012EC8(v89);
+    sub_100012EC8(v88);
   }
 }
 
@@ -5843,7 +5828,7 @@ LABEL_14:
 
       *buf = 134218240;
       tv_sec = v52.tv_sec;
-      v56 = 1024;
+      v55 = 1024;
       tv_usec = v52.tv_usec;
       sub_100002274();
       v27 = 18;
@@ -5851,7 +5836,7 @@ LABEL_14:
     }
 
     v29 = a1[6];
-    v30 = sub_10000B1AC(v18, v19, v20, v21, v22, v23, v24, v25, 0, 0, 0, 0, 0, 0, 0, 0, v52.tv_sec, *&v52.tv_usec, v53);
+    v30 = sub_10000B1AC(v18, v19, v20, v21, v22, v23, v24, v25, 0, 0, 0, 0, 0, 0, 0, 0, v52.tv_sec, *&v52.tv_usec);
     if (v30)
     {
       v31 = v30;
@@ -5877,7 +5862,7 @@ LABEL_14:
         }
 
         while (v31 != v33);
-        v31 = sub_10000B1AC(v35, v36, v37, v38, v39, v40, v41, v42, v44, v45, v46, v47, v48, v49, v50, v51, v52.tv_sec, *&v52.tv_usec, v53);
+        v31 = sub_10000B1AC(v35, v36, v37, v38, v39, v40, v41, v42, v44, v45, v46, v47, v48, v49, v50, v51, v52.tv_sec, *&v52.tv_usec);
       }
 
       while (v31);
@@ -6056,7 +6041,7 @@ id *sub_1000153A8(id *result, void *a2)
   return result;
 }
 
-id sub_10001566C(id result, void *a2, void *a3)
+id *sub_10001566C(id *result, void *a2, void *a3)
 {
   if (result)
   {
@@ -6101,7 +6086,7 @@ id sub_10001566C(id result, void *a2, void *a3)
   return result;
 }
 
-id sub_100015844(id result, void *aBlock)
+id *sub_100015844(id *result, void *aBlock)
 {
   if (result)
   {
@@ -6109,10 +6094,10 @@ id sub_100015844(id result, void *aBlock)
     if (aBlock)
     {
       v3 = _Block_copy(aBlock);
-      [*(v2 + 72) addObject:v3];
+      [v2[9] addObject:v3];
     }
 
-    v4 = *(v2 + 32);
+    v4 = v2[4];
 
     return [v4 fetchTime];
   }
@@ -6195,13 +6180,6 @@ void sub_100016184()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000161C0(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100002430();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 uint64_t sub_1000162AC(uint64_t a1, IOPMAssertionID *a2, char a3)
 {
   sub_10000B164();
@@ -6226,13 +6204,6 @@ void sub_100016304(id *a1, double a2)
     v12 = "should not set system time";
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not setting system time to %@ from %s because %s\n", &v7, 0x20u);
   }
-}
-
-void sub_100016408(uint64_t a1)
-{
-  v6 = *(a1 + 40);
-  sub_100002430();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_100016480(uint64_t a1, double a2, double a3)
@@ -6343,21 +6314,20 @@ id sub_1000169D4(id result)
     sub_10000245C();
     if (sub_10000240C())
     {
-      v9 = 138412290;
-      v10 = v2;
-      sub_100002280(&_mh_execute_header, v3, v4, "%@", &v9);
+      v8 = 138412290;
+      v9 = v2;
+      sub_100002280(&_mh_execute_header, v3, v4, "%@", &v8);
     }
 
     if (sub_10000240C())
     {
-      v9 = 138412290;
-      v10 = v1;
-      sub_100002280(&_mh_execute_header, v5, v6, "TZ,fetch,src,%@", &v9);
+      v8 = 138412290;
+      v9 = v1;
+      sub_100002280(&_mh_execute_header, v5, v6, "TZ,fetch,src,%@", &v8);
     }
 
-    v7 = *(v2 + 40);
     sub_1000029A0();
-    return [v8 timeZoneManager:? shouldFetch:?];
+    return [v7 timeZoneManager:? shouldFetch:?];
   }
 
   return result;
@@ -6373,85 +6343,85 @@ void sub_100016AB4(id *a1, id *a2)
   if (sub_10000240C())
   {
     *buf = 138412290;
-    v18 = a1;
+    v19 = a1;
     sub_100002280(&_mh_execute_header, v4, v5, "%@", buf);
   }
 
   if (sub_10000240C())
   {
     *buf = 138412290;
-    v18 = a2;
+    v19 = a2;
     sub_100002280(&_mh_execute_header, v6, v7, "TZ,recompute,src,%@", buf);
   }
 
-  v8 = sub_100002698(a1, v6);
-  v9 = [a1[1] objectForKeyedSubscript:a2];
-  if (!v9)
+  v9 = sub_100002698(a1, v6, v7, v8);
+  v10 = [a1[1] objectForKeyedSubscript:a2];
+  if (!v10)
   {
     [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:"recomputeDueToSource:" file:a1 lineNumber:@"TMTimeZoneManager.m" description:39, @"Cannot recompute based on source %@, when there is no recorded input for it.", a2];
   }
 
-  if ([v8 isEqualToString:a2])
+  if ([v9 isEqualToString:a2])
   {
-    [a1 setCurrentTimeZone:v9];
-    v10 = qword_100033220;
+    [a1 setCurrentTimeZone:v10];
+    v11 = qword_100033220;
     if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [v9 olsonName];
+      v12 = [v10 olsonName];
       *buf = 138412290;
-      v18 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "TZ,computed,result,%@", buf, 0xCu);
+      v19 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "TZ,computed,result,%@", buf, 0xCu);
     }
 
-    [a1[5] timeZoneManager:a1 didComputeResult:v9];
+    [a1[5] timeZoneManager:a1 didComputeResult:v10];
     return;
   }
 
-  if ([v9 hasSameOlsonNameAs:{objc_msgSend(a1[1], "objectForKeyedSubscript:", v8)}])
+  if ([v10 hasSameOlsonNameAs:{objc_msgSend(a1[1], "objectForKeyedSubscript:", v9)}])
   {
     return;
   }
 
-  if (v8 && [a1[1] objectForKeyedSubscript:v8])
+  if (v9 && [a1[1] objectForKeyedSubscript:v9])
   {
     AnalyticsSendEventLazy();
   }
 
-  if (sub_10000B29C(TMTimeZoneManager, a2, v8))
+  if (sub_10000B29C(TMTimeZoneManager, a2, v9))
   {
-    v12 = qword_100033220;
+    v13 = qword_100033220;
     if (!os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
     {
       return;
     }
 
     *buf = 138412546;
-    v18 = a2;
-    v19 = 2112;
-    v20 = v8;
-    v13 = "not recomputing because %@ and %@ come from same technology";
-    v14 = v12;
-    v15 = 22;
+    v19 = a2;
+    v20 = 2112;
+    v21 = v9;
+    v14 = "not recomputing because %@ and %@ come from same technology";
+    v15 = v13;
+    v16 = 22;
     goto LABEL_22;
   }
 
-  if (![v8 isEqualToString:@"LocationBorder"])
+  if (![v9 isEqualToString:@"LocationBorder"])
   {
     [a1 setCurrentTimeZone:0];
     sub_1000169D4(a1);
     return;
   }
 
-  v16 = qword_100033220;
+  v17 = qword_100033220;
   if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v8;
-    v13 = "not recomputing because %@ source is not fetchable";
-    v14 = v16;
-    v15 = 12;
+    v19 = v9;
+    v14 = "not recomputing because %@ source is not fetchable";
+    v15 = v17;
+    v16 = 12;
 LABEL_22:
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
   }
 }
 
@@ -6467,7 +6437,7 @@ id sub_100017014(id *a1, uint64_t a2, id *a3)
 {
   [*a1 addObject:a2];
   [a3[1] setObject:0 forKeyedSubscript:a2];
-  result = [sub_100002698(a3 v5)];
+  result = [sub_100002698(a3 v5];
   if (result)
   {
     return sub_1000169D4(a3);
@@ -6487,25 +6457,25 @@ id sub_100017078()
 void sub_1000170D4(uint64_t a1, uint64_t a2, id *a3)
 {
   sub_10000245C();
-  v8 = [v3 isEqualToString:{sub_100002698(v6, v7)}];
+  v10 = [v3 isEqualToString:{sub_100002698(v6, v7, v8, v9)}];
   [*a3 removeObject:v3];
-  if (v8)
+  if (v10)
   {
-    v10 = sub_100002698(v4, v9);
-    if (sub_10000B29C(TMTimeZoneManager, v3, v10))
+    v14 = sub_100002698(v4, v11, v12, v13);
+    if (sub_10000B29C(TMTimeZoneManager, v3, v14))
     {
-      v11 = qword_100033220;
+      v15 = qword_100033220;
       if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412546;
-        v13 = v10;
-        v14 = 2112;
-        v15 = v3;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "not fetching %@ due to same technology as %@", &v12, 0x16u);
+        v16 = 138412546;
+        v17 = v14;
+        v18 = 2112;
+        v19 = v3;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "not fetching %@ due to same technology as %@", &v16, 0x16u);
       }
     }
 
-    else if (v10)
+    else if (v14)
     {
       sub_1000169D4(v4);
     }
@@ -6600,7 +6570,7 @@ dispatch_queue_t *sub_100017814(dispatch_queue_t *result)
       [v2 setFetchingTime:1];
       [objc_msgSend(v2 "clock")];
       [v2 setLastFetchAttempt:?];
-      v58 = [objc_msgSend(v2 "clock")];
+      v56 = [objc_msgSend(v2 "clock")];
       v3 = qword_100033218;
       if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
       {
@@ -6608,7 +6578,7 @@ dispatch_queue_t *sub_100017814(dispatch_queue_t *result)
         sub_100002988(&_mh_execute_header, v3, v4, "Fetching NTP time.", buf);
       }
 
-      v68 = xmmword_10001D220;
+      v66 = xmmword_10001D220;
       AssertionID = 0;
       v5 = IOPMAssertionCreateWithDescription(@"NoIdleSleepAssertion", @"com.apple.timed.ntp", 0, 0, 0, 110.0, @"TimeoutActionTurnOff", &AssertionID);
       if (!v5)
@@ -6620,9 +6590,9 @@ dispatch_queue_t *sub_100017814(dispatch_queue_t *result)
       if (sub_10000234C())
       {
         *buf = 67109120;
-        *v70 = v6;
+        *v68 = v6;
         sub_100002274();
-        _os_log_error_impl(v51, v52, v53, v54, v55, 8u);
+        _os_log_error_impl(v49, v50, v51, v52, v53, 8u);
       }
 
       if (([v2[9] shouldPowerAssertionsBeOptional] & 1) == 0)
@@ -6633,27 +6603,27 @@ dispatch_queue_t *sub_100017814(dispatch_queue_t *result)
       else
       {
 LABEL_9:
-        v61 = [v2[9] NTPUseServicePort];
-        v57 = [objc_msgSend(v2[9] "NTPServerAddress")];
-        v60 = [objc_msgSend(v2[9] "NTPServerPort")];
+        v59 = [v2[9] NTPUseServicePort];
+        v55 = [objc_msgSend(v2[9] "NTPServerAddress")];
+        v58 = [objc_msgSend(v2[9] "NTPServerPort")];
         v7 = malloc_type_calloc(3uLL, 0x50uLL, 0x10000404247E4FDuLL);
         v8 = 0;
-        v56 = v2;
+        v54 = v2;
         while (1)
         {
           dword_100033210 = arc4random();
           dword_100033214 = arc4random();
           memset(__src, 0, sizeof(__src));
-          sntp_client_unicast(v57, v8, v60, &v68, sub_10000D660, v61, __src);
+          sntp_client_unicast(v55, v8, v58, &v66, sub_10000D660, v59, __src);
           if (LODWORD(__src[0]) && sub_10000234C())
           {
             v30 = *__error();
             v31 = __error();
             v32 = strerror(*v31);
             *buf = 67109378;
-            *v70 = v30;
-            *&v70[4] = 2080;
-            *&v70[6] = v32;
+            *v68 = v30;
+            *&v68[4] = 2080;
+            *&v68[6] = v32;
             sub_100002274();
             _os_log_error_impl(v33, v34, v35, "errno is %d %s", v36, 0x12u);
           }
@@ -6669,43 +6639,43 @@ LABEL_9:
           v14 = sntp_calc_mean(__src);
           v16 = sntp_datestamp_to_timeval(v14, v15);
           v18 = v17;
-          v59 = v1 & 0xFFFFFFFF00000000 | HIDWORD(__src[2]);
+          v57 = v1 & 0xFFFFFFFF00000000 | HIDWORD(__src[2]);
           v19 = sntp_timestamp_from_shortstamp(SHIDWORD(__src[2]));
           v20 = sntp_timestamp_to_datestamp(v19);
           v22 = sntp_datestamp_to_double(v20, v21);
-          sntp_exchange_ntop(v84, 0x2Eu, __src);
-          [NSString stringWithUTF8String:v84];
+          sntp_exchange_ntop(v82, 0x2Eu, __src);
+          [NSString stringWithUTF8String:v82];
           v23 = qword_100033220;
           if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67112448;
-            *v70 = __src[0];
+            *v68 = __src[0];
+            *&v68[4] = 1024;
+            *&v68[6] = DWORD1(__src[0]);
+            *&v68[10] = 1024;
+            *&v68[12] = DWORD2(__src[0]);
+            *&v68[16] = 1024;
+            *&v68[18] = HIDWORD(__src[0]);
+            LOWORD(v69) = 1024;
+            *(&v69 + 2) = __src[1];
+            HIWORD(v69) = 1024;
+            *v70 = DWORD1(__src[1]);
             *&v70[4] = 1024;
-            *&v70[6] = DWORD1(__src[0]);
-            *&v70[10] = 1024;
-            *&v70[12] = DWORD2(__src[0]);
-            *&v70[16] = 1024;
-            *&v70[18] = HIDWORD(__src[0]);
-            LOWORD(v71) = 1024;
-            *(&v71 + 2) = __src[1];
-            HIWORD(v71) = 1024;
-            *v72 = DWORD1(__src[1]);
+            *&v70[6] = DWORD2(__src[1]);
+            v71 = 1024;
+            *v72 = HIDWORD(__src[1]);
             *&v72[4] = 1024;
-            *&v72[6] = DWORD2(__src[1]);
-            v73 = 1024;
-            *v74 = HIDWORD(__src[1]);
+            *&v72[6] = __src[2];
+            LOWORD(v73) = 1024;
+            *(&v73 + 2) = BYTE4(__src[2]) >> 6;
+            HIWORD(v73) = 1024;
+            *v74 = WORD4(__src[2]);
             *&v74[4] = 1024;
-            *&v74[6] = __src[2];
-            LOWORD(v75) = 1024;
-            *(&v75 + 2) = BYTE4(__src[2]) >> 6;
-            HIWORD(v75) = 1024;
-            *v76 = WORD4(__src[2]);
-            *&v76[4] = 1024;
-            *v77 = WORD5(__src[2]);
-            *&v77[4] = 1024;
-            *&v77[6] = WORD6(__src[2]);
-            v78 = 1024;
-            v79 = HIWORD(__src[2]);
+            *v75 = WORD5(__src[2]);
+            *&v75[4] = 1024;
+            *&v75[6] = WORD6(__src[2]);
+            v76 = 1024;
+            v77 = HIWORD(__src[2]);
             _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "cmd,ntpPacket,result,%d,t1,%x.%x,t2,%x.%x,t3,%x.%x,t4,%x.%x,leap,%02x,delay,%02hx.%02hx,dispersion,%02hx.%02hx,", buf, 0x56u);
             v23 = qword_100033220;
           }
@@ -6714,36 +6684,36 @@ LABEL_9:
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67111938;
-            *v70 = v8;
-            *&v70[4] = 1024;
-            *&v70[6] = __src[0];
-            *&v70[10] = 2048;
-            *&v70[12] = v9;
-            *&v70[20] = 2048;
-            v71 = v24;
-            *v72 = 2048;
-            *&v72[2] = v18;
-            v73 = 2048;
-            *v74 = v13;
-            *&v74[8] = 2048;
-            v75 = v22;
-            *v76 = 1024;
-            *&v76[2] = 1;
-            *v77 = 2080;
-            *&v77[2] = v84;
+            *v68 = v8;
+            *&v68[4] = 1024;
+            *&v68[6] = __src[0];
+            *&v68[10] = 2048;
+            *&v68[12] = v9;
+            *&v68[20] = 2048;
+            v69 = v24;
+            *v70 = 2048;
+            *&v70[2] = v18;
+            v71 = 2048;
+            *v72 = v13;
+            *&v72[8] = 2048;
+            v73 = v22;
+            *v74 = 1024;
+            *&v74[2] = 1;
+            *v75 = 2080;
+            *&v75[2] = v82;
+            v76 = 1024;
+            v77 = v58;
             v78 = 1024;
-            v79 = v60;
+            v79 = v10 ^ 1;
             v80 = 1024;
-            v81 = v10 ^ 1;
-            v82 = 1024;
-            v83 = v61;
+            v81 = v59;
             _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "cmd,fetchTime,num,%d,result,%d,mach,%llu,tv_sec,%lld,tv_usec,%lld,delay,%lf,dispersion,%lf,more,%d,ip,%s,port,%d,slept,%d,use_service_port,%d", buf, 0x62u);
           }
 
-          memcpy(v62, __src, sizeof(v62));
-          v63 = v60;
-          v64 = v10 ^ 1;
-          v65 = v61;
+          memcpy(v60, __src, sizeof(v60));
+          v61 = v58;
+          v62 = v10 ^ 1;
+          v63 = v59;
           AnalyticsSendEventLazy();
           if ((v10 & 1) == 0)
           {
@@ -6751,19 +6721,19 @@ LABEL_9:
           }
 
           memcpy(v7, __src, 0x50uLL);
-          v2 = v56;
-          v1 = v59;
+          v2 = v54;
+          v1 = v57;
           if (LODWORD(__src[0]) > 0xA || ((1 << SLOBYTE(__src[0])) & 0x507) == 0)
           {
-            v25 = *(v56 + 96);
-            *(v56 + 96) = v25 + 1;
-            if (v25 >= [*(v56 + 72) NTPServicePortMaxRetries])
+            v25 = *(v54 + 96);
+            *(v54 + 96) = v25 + 1;
+            if (v25 >= [*(v54 + 72) NTPServicePortMaxRetries])
             {
               v26 = qword_100033218;
               if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
               {
-                v27 = *(v56 + 96);
-                v28 = [*(v56 + 72) NTPUseServicePort];
+                v27 = *(v54 + 96);
+                v28 = [*(v54 + 72) NTPUseServicePort];
                 *buf = 134218242;
                 v29 = "high";
                 if (v28)
@@ -6771,14 +6741,14 @@ LABEL_9:
                   v29 = "low";
                 }
 
-                *v70 = v27;
-                *&v70[8] = 2080;
-                *&v70[10] = v29;
+                *v68 = v27;
+                *&v68[8] = 2080;
+                *&v68[10] = v29;
                 _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "NTP failed %lld times, switching off of %s source port.", buf, 0x16u);
               }
 
-              *(v56 + 96) = 0;
-              [*(v56 + 72) setNTPUseServicePort:{objc_msgSend(*(v56 + 72), "NTPUseServicePort") ^ 1}];
+              *(v54 + 96) = 0;
+              [*(v54 + 72) setNTPUseServicePort:{objc_msgSend(*(v54 + 72), "NTPUseServicePort") ^ 1}];
             }
           }
 
@@ -6786,37 +6756,34 @@ LABEL_9:
           v7 += 80;
           if (v8 == 3)
           {
-            goto LABEL_28;
+            return [objc_msgSend(v2 "clock")];
           }
         }
 
-        v2 = v56;
+        v2 = v54;
         if (sub_10000234C())
         {
           *buf = 0;
           sub_100002274();
-          _os_log_error_impl(v39, v40, v41, v42, v43, 2u);
+          _os_log_error_impl(v37, v38, v39, v40, v41, 2u);
         }
 
-        [v56 setFetchingTime:0];
-        v44 = IOPMAssertionRelease(AssertionID);
-        if (v44)
+        [v54 setFetchingTime:0];
+        v42 = IOPMAssertionRelease(AssertionID);
+        if (v42)
         {
-          v45 = v44;
+          v43 = v42;
           if (sub_10000234C())
           {
             *buf = 67109120;
-            *v70 = v45;
+            *v68 = v43;
             sub_100002274();
-            _os_log_error_impl(v46, v47, v48, v49, v50, 8u);
+            _os_log_error_impl(v44, v45, v46, v47, v48, 8u);
           }
         }
 
-        sub_100018054(v56);
-LABEL_28:
-        v37 = [v2 clock];
-        v38 = v2[3];
-        return [v37 montonicTimeForMachTime:? toQueue:? withCompletionHandler:?];
+        sub_100018054(v54);
+        return [objc_msgSend(v2 "clock")];
       }
     }
   }
@@ -6952,7 +6919,7 @@ id *sub_10001864C(id *result)
     if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v1;
+      v36 = v1;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Migrating old coupled value (%@)\n", buf, 0xCu);
     }
 
@@ -6964,7 +6931,7 @@ id *sub_10001864C(id *result)
       if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = v5;
+        v36 = v5;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Time zone key present (%@), not migrating\n", buf, 0xCu);
       }
 
@@ -6984,7 +6951,7 @@ LABEL_9:
         if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v23 = v6;
+          v36 = v6;
           _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Time key present (%@), not migrating\n", buf, 0xCu);
         }
 
@@ -6998,9 +6965,9 @@ LABEL_13:
     [v2[1] synchronize];
   }
 
-  v21[0] = &__kCFBooleanTrue;
-  v21[1] = -[NSObject numberWithInt:](v1, "numberWithInt:", [sub_10000229C() isAppleTV] ^ 1);
-  v20[2] = @"NtpSchedulingInterval";
+  v24[0] = &__kCFBooleanTrue;
+  v24[1] = -[NSObject numberWithInt:](v1, "numberWithInt:", [sub_10000229C() isAppleTV] ^ 1);
+  v23[2] = @"NtpSchedulingInterval";
   v8 = [sub_10000229C() isAppleTV];
   v9 = 900.0;
   if (v8)
@@ -7008,8 +6975,8 @@ LABEL_13:
     v9 = 10.0;
   }
 
-  v21[2] = [v1 numberWithDouble:v9];
-  v20[3] = @"NtpBurstRetryAttempts";
+  v24[2] = [v1 numberWithDouble:v9];
+  v23[3] = @"NtpBurstRetryAttempts";
   if ([sub_10000229C() isAppleTV])
   {
     v10 = 0;
@@ -7020,10 +6987,10 @@ LABEL_13:
     v10 = 3;
   }
 
-  v21[3] = [v1 numberWithInt:v10];
-  v21[4] = &off_10002C0C0;
-  v20[4] = @"NtpBurstRetryInterval";
-  v20[5] = @"NtpUnsetSchedulingInterval";
+  v24[3] = [v1 numberWithInt:v10];
+  v24[4] = &off_10002C0C0;
+  v23[4] = @"NtpBurstRetryInterval";
+  v23[5] = @"NtpUnsetSchedulingInterval";
   v11 = [sub_10000229C() isAppleTV];
   v12 = 300.0;
   if (v11)
@@ -7031,65 +6998,65 @@ LABEL_13:
     v12 = 10.0;
   }
 
-  v21[5] = [v1 numberWithDouble:v12];
-  v21[6] = &__kCFBooleanTrue;
-  v20[6] = @"NtpUseServicePort";
-  v20[7] = @"NtpServicePortMaxRetries";
-  v21[7] = &off_10002C658;
-  v21[8] = @"123";
-  v20[8] = @"NtpTimeServerPort";
-  v20[9] = @"FetchTimeOnWake";
-  v21[9] = -[NSObject numberWithBool:](v1, "numberWithBool:", [sub_10000229C() isMac]);
-  v20[10] = @"UseFilesystemTimestamp";
-  v21[10] = [NSNumber numberWithBool:sub_100005F84()];
-  v21[11] = &off_10002C0B0;
-  v20[11] = @"SettimeofdayThreshold";
-  v20[12] = @"TimeProvider";
-  v21[12] = @"Filtered";
-  v20[13] = @"RTCWakeUncertainty";
-  v13 = sub_100005F84();
-  v14 = 0.5;
-  if (v13)
+  v24[5] = [v1 numberWithDouble:v12];
+  v24[6] = &__kCFBooleanTrue;
+  v23[6] = @"NtpUseServicePort";
+  v23[7] = @"NtpServicePortMaxRetries";
+  v24[7] = &off_10002C658;
+  v24[8] = @"123";
+  v23[8] = @"NtpTimeServerPort";
+  v23[9] = @"FetchTimeOnWake";
+  v25 = -[NSObject numberWithBool:](v1, "numberWithBool:", [sub_10000229C() isMac]);
+  v23[10] = @"UseFilesystemTimestamp";
+  v26 = [NSNumber numberWithBool:sub_100005F84(v25, v13)];
+  v27 = &off_10002C0B0;
+  v23[11] = @"SettimeofdayThreshold";
+  v23[12] = @"TimeProvider";
+  v28 = @"Filtered";
+  v23[13] = @"RTCWakeUncertainty";
+  v15 = sub_100005F84(v26, v14);
+  v16 = 0.5;
+  if (v15)
   {
-    v14 = 0.0;
+    v16 = 0.0;
   }
 
-  v21[13] = [NSNumber numberWithDouble:v14];
-  v20[14] = @"CommandHistorySize";
+  v29 = [NSNumber numberWithDouble:v16];
+  v23[14] = @"CommandHistorySize";
   if (os_variant_has_internal_diagnostics())
   {
-    v15 = 1500;
+    v17 = 1500;
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
-  v21[14] = [NSNumber numberWithInt:v15];
-  v20[15] = @"RTCMachSyncInterval";
-  v21[15] = [NSNumber numberWithDouble:sub_100001EB0() * 5.0];
-  v20[16] = @"RTCFrequencyTolerance";
-  v16 = [sub_10000229C() isWatch];
-  v17 = 0.00003;
-  if (v16)
+  v30 = [NSNumber numberWithInt:v17];
+  v23[15] = @"RTCMachSyncInterval";
+  v31 = [NSNumber numberWithDouble:sub_100001EB0(v30, v18) * 5.0];
+  v23[16] = @"RTCFrequencyTolerance";
+  v19 = [sub_10000229C() isWatch];
+  v20 = 0.00003;
+  if (v19)
   {
-    v17 = 0.000008;
+    v20 = 0.000008;
   }
 
-  v21[16] = [NSNumber numberWithDouble:v17];
-  v20[17] = @"RTCFrequencyNoiseDensity";
-  v18 = [sub_10000229C() isWatch];
-  v19 = 2.78e-14;
-  if (v18)
+  v32 = [NSNumber numberWithDouble:v20];
+  v23[17] = @"RTCFrequencyNoiseDensity";
+  v21 = [sub_10000229C() isWatch];
+  v22 = 2.78e-14;
+  if (v21)
   {
-    v19 = 2.78e-16;
+    v22 = 2.78e-16;
   }
 
-  v20[18] = @"MAAssetRetryInterval";
-  v21[17] = [NSNumber numberWithDouble:v19];
-  v21[18] = &off_10002C670;
-  [v2[1] registerDefaults:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v21, v20, 19)}];
+  v23[18] = @"MAAssetRetryInterval";
+  v33 = [NSNumber numberWithDouble:v22];
+  v34 = &off_10002C670;
+  [v2[1] registerDefaults:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v24, v23, 19)}];
   return [v2 setAccurateThresholds:{objc_msgSend(v2, "shouldUseAccurateThresholdsByDefault")}];
 }
 
@@ -7220,9 +7187,9 @@ void *sub_100018EA0(void *result, void *a2)
     v3 = result;
     result[9] = 0;
     [a2 rtc_s];
-    *(v3 + 1) = v4;
+    v3[1] = v4;
     [a2 utc_s];
-    *(v3 + 2) = v5;
+    v3[2] = v5;
     [a2 utcUnc_s];
     v7 = v6;
     [a2 utcUnc_s];
@@ -7230,22 +7197,22 @@ void *sub_100018EA0(void *result, void *a2)
     v9 = *(v3 + 12);
     if (v9 < 0.00001)
     {
-      *(v3 + 3) = 0x3FF0000000000000;
+      v3[3] = 0x3FF0000000000000;
     }
 
     *(v3 + 7) = v9 * v9;
-    *(v3 + 8) = 0;
+    v3[8] = 0;
     *(v3 + 120) = 1;
     *(v3 + 26) = 1;
     [v3 setLastInputSource:{objc_msgSend(a2, "source")}];
     v10 = qword_100033220;
     if (os_log_type_enabled(qword_100033220, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(v3 + 16);
-      v12 = *(v3 + 1);
-      v13 = *(v3 + 2);
+      v11 = v3[16];
+      v12 = v3[1];
+      v13 = v3[2];
       v14 = sqrt(*(v3 + 6));
-      v15 = *(v3 + 3);
+      v15 = v3[3];
       v16 = sqrt(*(v3 + 7));
       v17 = sqrt(*(v3 + 8));
       v18 = log10(*(v3 + 11));
@@ -7256,8 +7223,8 @@ void *sub_100018EA0(void *result, void *a2)
       [a2 utcUnc_s];
       v24 = v23;
       v25 = [a2 source];
-      v26 = *(v3 + 2);
-      v27 = *(v3 + 3);
+      v26 = v3[2];
+      v27 = v3[3];
       v28 = *(v3 + 7);
       v29 = sqrt(*(v3 + 6));
       v30 = *(v3 + 26);

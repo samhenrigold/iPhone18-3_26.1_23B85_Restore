@@ -855,64 +855,63 @@ void __63__MOBundleQualityManager__applyQualityChecksForBundle_handler___block_i
   dispatch_group_leave(*(a1 + 40));
 }
 
-void __63__MOBundleQualityManager__applyQualityChecksForBundle_handler___block_invoke_137(uint64_t a1)
+void __63__MOBundleQualityManager__applyQualityChecksForBundle_handler___block_invoke_137(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  v3 = [*(a1 + 32) metaDataForRank];
+  v3 = objc_opt_new();
+  v4 = [*(a1 + 32) metaDataForRank];
 
-  if (v3)
+  if (v4)
   {
-    v4 = [*(a1 + 32) metaDataForRank];
-    v5 = [v4 mutableCopy];
+    v5 = [*(a1 + 32) metaDataForRank];
+    v6 = [v5 mutableCopy];
 
-    v2 = v5;
+    v3 = v6;
   }
 
-  v6 = [NSNumber numberWithUnsignedInteger:*(*(*(a1 + 56) + 8) + 24)];
-  [v2 setObject:v6 forKey:@"SensitiveLocation"];
+  v7 = [NSNumber numberWithUnsignedInteger:*(*(*(a1 + 56) + 8) + 24)];
+  [v3 setObject:v7 forKey:@"SensitiveLocation"];
 
-  v7 = [NSNumber numberWithUnsignedInteger:*(*(*(a1 + 64) + 8) + 24)];
-  [v2 setObject:v7 forKey:@"UninterestingLocation"];
+  v8 = [NSNumber numberWithUnsignedInteger:*(*(*(a1 + 64) + 8) + 24)];
+  [v3 setObject:v8 forKey:@"UninterestingLocation"];
 
-  v8 = [NSNumber numberWithUnsignedInteger:*(*(*(a1 + 72) + 8) + 24)];
-  [v2 setObject:v8 forKey:@"InterestingLocation"];
+  v9 = [NSNumber numberWithUnsignedInteger:*(*(*(a1 + 72) + 8) + 24)];
+  [v3 setObject:v9 forKey:@"InterestingLocation"];
 
-  v9 = *(*(*(a1 + 64) + 8) + 24);
-  if (v9 == 1 || v9 == 6)
+  v10 = *(*(*(a1 + 64) + 8) + 24);
+  if (v10 == 1 || v10 == 6)
   {
-    v11 = &off_10036E840;
+    v12 = &off_10036E840;
 LABEL_9:
-    [v2 setObject:v11 forKey:@"PoiCategory"];
+    [v3 setObject:v12 forKey:@"PoiCategory"];
     goto LABEL_10;
   }
 
   v16 = *(*(*(a1 + 72) + 8) + 24);
-  v11 = &off_10036E850;
+  v12 = &off_10036E850;
   if (v16 == 6 || v16 == 1)
   {
     goto LABEL_9;
   }
 
 LABEL_10:
-  [*(a1 + 32) setMetaDataForRank:v2];
+  [*(a1 + 32) setMetaDataForRank:v3];
   if ([*(a1 + 40) _isSingleBundleSensitive:*(a1 + 32)])
   {
     [*(a1 + 32) setIsSensitive:1];
   }
 
-  v12 = _mo_log_facility_get_os_log(&MOLogFacilityBundleQuality);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = _mo_log_facility_get_os_log(&MOLogFacilityBundleQuality);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v13 = [*(a1 + 32) isSensitive];
-    v14 = *(a1 + 32);
+    v14 = [*(a1 + 32) isSensitive];
+    v15 = *(a1 + 32);
     v17[0] = 67109378;
-    v17[1] = v13;
+    v17[1] = v14;
     v18 = 2112;
-    v19 = v14;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "sensitivity: %d for bundle: %@", v17, 0x12u);
+    v19 = v15;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "sensitivity: %d for bundle: %@", v17, 0x12u);
   }
 
-  v15 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -1093,15 +1092,14 @@ uint64_t __64__MOBundleQualityManager__applyQualityChecksForBundles_handler___bl
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(*(*(a1 + 48) + 8) + 40) count];
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "applyQualityChecksForBundles, output bundles count,  %lu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "applyQualityChecksForBundles, output bundles count,  %lu", &v6, 0xCu);
   }
 
   v4 = [*(a1 + 32) cachedBundles];
   [v4 removeAllObjects];
 
-  v5 = *(*(*(a1 + 48) + 8) + 40);
   return (*(*(a1 + 40) + 16))();
 }
 

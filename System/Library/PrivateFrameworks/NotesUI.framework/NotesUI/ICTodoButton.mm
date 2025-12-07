@@ -546,67 +546,67 @@ LABEL_17:
   }
 }
 
-void __69__ICTodoButton_PlatformSpecificResponsibility__updateImagesAnimated___block_invoke(uint64_t a1)
+void __69__ICTodoButton_PlatformSpecificResponsibility__updateImagesAnimated___block_invoke(uint64_t a1, uint64_t a2)
 {
   IsTextKit2Enabled = ICInternalSettingsIsTextKit2Enabled();
-  v3 = *(a1 + 32);
+  v4 = *(a1 + 32);
   if (IsTextKit2Enabled)
   {
-    v17 = [v3 configuration];
-    [v17 setImage:*(a1 + 40)];
+    v18 = [v4 configuration];
+    [v18 setImage:*(a1 + 40)];
     if (_UISolariumEnabled())
     {
       if (*(a1 + 48))
       {
-        v4 = MEMORY[0x1E69DCFD8];
-        v5 = MEMORY[0x1E6982288];
-        v6 = [MEMORY[0x1E6982288] transition];
-        v7 = [v5 magicTransitionWithFallback:v6];
-        v8 = [v4 transitionWithContentTransition:v7];
-        [v17 setSymbolContentTransition:v8];
+        v5 = MEMORY[0x1E69DCFD8];
+        v6 = MEMORY[0x1E6982288];
+        v7 = [MEMORY[0x1E6982288] transition];
+        v8 = [v6 magicTransitionWithFallback:v7];
+        v9 = [v5 transitionWithContentTransition:v8];
+        [v18 setSymbolContentTransition:v9];
       }
 
       else
       {
-        [v17 setSymbolContentTransition:0];
+        [v18 setSymbolContentTransition:0];
       }
     }
 
-    v11 = [*(a1 + 32) overrideTintColor];
-    v12 = v11;
-    if (v11)
+    v12 = [*(a1 + 32) overrideTintColor];
+    v13 = v12;
+    if (v12)
     {
-      v13 = v11;
+      v14 = v12;
     }
 
     else
     {
-      v13 = [*(a1 + 32) tintColor];
-    }
-
-    v9 = v13;
-
-    if (*(a1 + 48) == 1)
-    {
-      v14 = v9;
-    }
-
-    else
-    {
-      v14 = [MEMORY[0x1E69DC888] ICGrayTodoButtonColor];
+      v14 = [*(a1 + 32) tintColor];
     }
 
     v10 = v14;
-    v15 = [*(a1 + 32) highlightColor];
-    v16 = [v10 ic_colorBlendedWithColor:v15];
-    [v17 setBaseForegroundColor:v16];
 
-    [*(a1 + 32) setConfiguration:v17];
+    if (*(a1 + 48) == 1)
+    {
+      v15 = v10;
+    }
+
+    else
+    {
+      v15 = [MEMORY[0x1E69DC888] ICGrayTodoButtonColor];
+    }
+
+    v11 = v15;
+    v16 = [*(a1 + 32) highlightColor];
+    v17 = [v11 ic_colorBlendedWithColor:v16];
+    [v18 setBaseForegroundColor:v17];
+
+    [*(a1 + 32) setConfiguration:v18];
   }
 
   else
   {
-    [v3 setImage:*(a1 + 40) forState:0];
+    [v4 setImage:*(a1 + 40) forState:0];
     if (*(a1 + 48))
     {
       [MEMORY[0x1E69DC888] ICControlAccentColor];
@@ -616,10 +616,10 @@ void __69__ICTodoButton_PlatformSpecificResponsibility__updateImagesAnimated___b
     {
       [MEMORY[0x1E69DC888] ICGrayTodoButtonColor];
     }
-    v17 = ;
-    v9 = [*(a1 + 32) highlightColor];
-    v10 = [v17 ic_colorBlendedWithColor:v9];
-    [*(a1 + 32) setTintColor:v10];
+    v18 = ;
+    v10 = [*(a1 + 32) highlightColor];
+    v11 = [v18 ic_colorBlendedWithColor:v10];
+    [*(a1 + 32) setTintColor:v11];
   }
 }
 

@@ -6,6 +6,7 @@
 - (unint64_t)accessibilityTraits;
 - (void)delete:(id)delete;
 - (void)layoutSubviews;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation FavoriteColorWellCell
@@ -17,10 +18,20 @@
   return [(FavoriteColorWellCell *)&v3 isSelected];
 }
 
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for FavoriteColorWellCell();
+  v4 = v5.receiver;
+  [(FavoriteColorWellCell *)&v5 setSelected:selectedCopy];
+  [v4 setNeedsLayout];
+}
+
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10003A494();
+  sub_10003A494(selfCopy);
 }
 
 - (CGRect)editMenuInteraction:(id)interaction targetRectForConfiguration:(id)configuration
@@ -45,20 +56,21 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v11, 0, sizeof(v11));
     selfCopy2 = self;
   }
 
   v7 = static Selector.== infix(_:_:)();
-  sub_1000386E0(v10);
+  sub_1000386E0(v11);
   if (v7)
   {
     v8 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ColorPickerUIService21FavoriteColorWellCell_onDelete);
-    sub_10003AC28(v8);
+    v9 = *&self->color[OBJC_IVAR____TtC20ColorPickerUIService21FavoriteColorWellCell_onDelete];
+    sub_10003AC28(v8, v9);
 
     if (v8)
     {
-      sub_10000C134(v8);
+      sub_10000C134(v8, v9);
       return 1;
     }
   }
@@ -92,7 +104,7 @@
     v7 = *&self->color[OBJC_IVAR____TtC20ColorPickerUIService21FavoriteColorWellCell_onDelete];
 
     v6(v8);
-    sub_10000C134(v6);
+    sub_10000C134(v6, v7);
   }
 
   sub_1000386E0(v9);

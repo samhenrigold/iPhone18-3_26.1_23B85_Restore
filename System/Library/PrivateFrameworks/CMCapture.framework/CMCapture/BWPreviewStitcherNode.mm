@@ -13,12 +13,15 @@
 - (_BYTE)_updateOverCaptureStatusWithWiderCameraSampleBuffer:(const void *)buffer narrowerCameraSampleBuffer:;
 - (_DWORD)_setOverCaptureStatus:(_DWORD *)result;
 - (__CFString)_displayStringForPortType:(__CFString *)result;
+- (char)_rectangularFeatheredImageWithNarrowerCameraImage:(uint64_t)image widerCameraImage:(int)cameraImage narrowerCameraClipRect:(int)rect zoomingIn:(void *)in progress:(CGFloat)progress rampCameraTransition:(CGFloat)transition narrowerCameraEdgeExpansionRamp:(CGFloat)ramp;
+- (char)_updateShiftCorrectionsAsyncFromComputedShift:(void *)shift byRegisteringWiderCamera:(uint64_t)camera narrowerCamera:(double)narrowerCamera macroTransitionType:(double)type;
 - (double)_computeBravoWiderToNarrowerCameraShiftFromWiderCameraSampleBuffer:(uint64_t)buffer narrowerCameraSampleBuffer:;
 - (double)_scaleFactorAppliedForPixelBuffer:(void *)buffer usedSourceRect:(double)result primaryCaptureRectAspectRatio:(double)ratio metadata:(double)metadata;
 - (double)_wideBaseZoomFactorWithOverride;
 - (double)_wideBaseZoomFactorWithOverrideLocked;
 - (double)primaryCameraAspectRatio;
 - (double)trueVideoTransitionPercentComplete;
+- (id)_updateInputRequirements;
 - (id)focusingDescription;
 - (id)overCaptureStatusString;
 - (id)previewRegistrationType;
@@ -28,23 +31,20 @@
 - (opaqueCMSampleBuffer)trueVideoTransitionReferenceSampleBuffer;
 - (uint64_t)_applyBrightnessCompensationToImage:(void *)image referenceImage:(double)referenceImage bounds:(double)bounds compensationLevel:(double)level;
 - (uint64_t)_cameraDisplayTransitionFrameCountForCameraFallbackChange:(float)change currentFrameRate:;
-- (uint64_t)_compensateForMissingFOVUsingPixelBuffer:(__CVBuffer *)buffer sourceRect:(int)rect destinationContainingRect:(int)containingRect destinationInsetRect:(int)insetRect outputPixelBuffer:(int)pixelBuffer;
 - (uint64_t)_featheredImageWithNarrowerCameraImage:(uint64_t)image widerCameraImage:(int)cameraImage narrowerCameraClipRect:(int)rect widerCameraClipRect:(int)clipRect zoomingIn:(int)in progress:(void *)progress featherEdges:(double)edges rampCameraTransition:(double)self0 renderEnhancedFeathering:(CGFloat)self1 narrowerCameraEdgeExpansionRamp:(CGFloat)self2 qsubToQsumEdgeOpacityRamp:(double)self3 qsubToQsumEdgeOpacityRampFromProgress:(double)self4;
 - (uint64_t)_primaryCameraPortType;
-- (uint64_t)_rectangularFeatheredImageWithNarrowerCameraImage:(uint64_t)image widerCameraImage:(int)cameraImage narrowerCameraClipRect:(int)rect zoomingIn:(void *)in progress:(CGFloat)progress rampCameraTransition:(CGFloat)transition narrowerCameraEdgeExpansionRamp:(CGFloat)ramp;
-- (uint64_t)_renderCameraTransitionRampToPixelBuffer:(__CVBuffer *)buffer bounds:(__CVBuffer *)bounds withWiderCameraPixelBuffer:(int)pixelBuffer narrowerCameraPixelBuffer:(int)cameraPixelBuffer zoomingIn:(int)in progress:(int)progress narrowerCameraBounds:(double)cameraBounds narrowerCameraShift:(double)self0 featherEdges:(double)self1 rampCameraTransition:(double)self2 renderEnhancedFeathering:(float)self3 narrowerCameraEdgeExpansionRamp:(double)self4 qsubToQsumEdgeOpacityRamp:(double)self5 qsubToQsumEdgeOpacityRampFromProgress:(double)self6 renderBrightnessCompensation:(double)self7;
-- (uint64_t)_renderHDRPixelBufferToSDR:(uint64_t)r toOutputPixelBuffer:(float)buffer progress:;
-- (uint64_t)_transferPixelBuffer:(CVPixelBufferRef)pixelBuffer rect:(int)rect intoPixelBuffer:(_OWORD *)buffer rect:(int)a6 isFinalOutput:(int)output withInputShift:(int)shift scale:(uint64_t)scale inputSourceRectOut:(uint64_t)self0;
-- (uint64_t)_updateInputRequirements;
-- (uint64_t)_updateShiftCorrectionsAsyncFromComputedShift:(void *)shift byRegisteringWiderCamera:(uint64_t)camera narrowerCamera:(double)narrowerCamera macroTransitionType:(double)type;
 - (unint64_t)_scaleCameraTransitionFrameCount:(int)count forCameraFallbackFromWideToTele:(double)tele recenteringShiftOffset:(double)offset recenteringStrength:(float)strength registrationShiftOffset:(double)shiftOffset;
+- (unsigned)_renderCameraTransitionRampToPixelBuffer:(__CVBuffer *)buffer bounds:(__CVBuffer *)bounds withWiderCameraPixelBuffer:(int)pixelBuffer narrowerCameraPixelBuffer:(int)cameraPixelBuffer zoomingIn:(int)in progress:(int)progress narrowerCameraBounds:(double)cameraBounds narrowerCameraShift:(double)self0 featherEdges:(double)self1 rampCameraTransition:(double)self2 renderEnhancedFeathering:(float)self3 narrowerCameraEdgeExpansionRamp:(double)self4 qsubToQsumEdgeOpacityRamp:(double)self5 qsubToQsumEdgeOpacityRampFromProgress:(double)self6 renderBrightnessCompensation:(double)self7;
 - (void)_callDelegateWithAppliedWiderCameraShift:(CVPixelBufferRef)shift narrowerCameraShift:(int)cameraShift widerCameraScaleFactor:(int)factor narrowerCameraScaleFactor:(int)scaleFactor widerCameraPixelBuffer:(int)buffer narrowerCameraPixelBuffer:(int)pixelBuffer widerCameraNondisruptiveSwitchingZoomFactor:(uint64_t)zoomFactor narrowerCameraNondisruptiveSwitchingZoomFactor:(uint64_t)self0 widerCameraPortType:narrowerCameraPortType:inSuperWideMacroMode:widerCameraShiftAtBaseZoom:;
+- (void)_compensateForMissingFOVUsingPixelBuffer:(__CVBuffer *)buffer sourceRect:(int)rect destinationContainingRect:(int)containingRect destinationInsetRect:(int)insetRect outputPixelBuffer:(int)pixelBuffer;
 - (void)_coreImageMetalLibraryURL;
 - (void)_getInputRect:(uint64_t)rect outputRect:(uint64_t)outputRect inputShiftAppliedInOutputRect:(uint64_t)inOutputRect toTransferPixelBuffer:(uint64_t)buffer rect:(uint64_t)a7 intoPixelBufferDimensions:(uint64_t)dimensions rect:(double)a9 withInputShift:(double)self0 shiftOutsideBoundingRectAllowed:(double)self1 ignoreBounds:(double)self2 scale:(double)self3 forFinalOutput:(double)self4;
 - (void)_initCameraTransitionCIContextWithColorManagementEnabled:(void *)enabled;
 - (void)_preheatCIRenderingAsync;
 - (void)_releaseResources;
+- (void)_renderHDRPixelBufferToSDR:(uint64_t)r toOutputPixelBuffer:(float)buffer progress:;
 - (void)_restitchAndEmitLastInputForAspectAndCenterChange;
+- (void)_transferPixelBuffer:(CVPixelBufferRef)pixelBuffer rect:(int)rect intoPixelBuffer:(_OWORD *)buffer rect:(int)a6 isFinalOutput:(int)output withInputShift:(int)shift scale:(uint64_t)scale inputSourceRectOut:(uint64_t)self0;
 - (void)_updateAndGetWiderCameraRegionShifts:(double *)shifts teleShift:(int)shift widerCameraIsSuperWide:(int)wide forComputedShift:(double)computedShift registrationEnabled:(double)enabled currentFrameRate:(float)rate;
 - (void)_updateUprightExifOrientationOnSampleBufferIfNeeded:(uint64_t)needed;
 - (void)_updateZoomStatusFromWiderCameraSampleBuffer:narrowerCameraSampleBuffer:;
@@ -68,16 +68,16 @@
 
 @implementation BWPreviewStitcherNode
 
-- (uint64_t)_updateInputRequirements
+- (id)_updateInputRequirements
 {
   if (result)
   {
     v1 = result;
-    formatRequirements = [*(result + 8) formatRequirements];
+    formatRequirements = [result[1] formatRequirements];
     v3 = [MEMORY[0x1E695DF70] arrayWithArray:&unk_1F2248328];
     FigCaptureSupportedPixelFormatsForCompressionType(1, 1, 1, 0);
     [OUTLINED_FUNCTION_8() addObjectsFromArray:?];
-    FigCaptureSupportedPixelFormatsForCompressionType(4, 1, 1, *(v1 + 196));
+    FigCaptureSupportedPixelFormatsForCompressionType(4, 1, 1, *(v1 + 49));
     [OUTLINED_FUNCTION_8() addObjectsFromArray:?];
 
     return [formatRequirements setSupportedPixelFormats:v3];
@@ -347,43 +347,43 @@
 - (BWPreviewStitcherNode)initWithCameraInfoByPortType:(id)type sensorBinningFactor:(id)factor inputBuffersHaveHorizontalOverscanOnly:(BOOL)only registrationType:(int)registrationType registrationMetalCommandQueue:(id)queue excludeStaticComponentFromAlignmentShifts:(BOOL)shifts propagateDepth:(BOOL)depth propagateStyles:(BOOL)self0 smartFramingZoomFactorsByFieldOfView:(id)self1 sensorOrientationByPortType:(id)self2 singleCameraOverCaptureEnabled:(BOOL)self3 parallaxMitigationBasedOnZoomFactorEnabled:(BOOL)self4 zoomPIPOverlayEnabled:(BOOL)self5 zoomPIPMinimumUIZoomFactor:(float)self6 zoomPIPSingleStreamModeEnabled:(BOOL)self7 preallocateOutputBufferPool:(BOOL)self8 primaryCaptureRectCenterYPixelOffsetEnabled:(BOOL)self9 propagatePrimaryPreviewSource:(BOOL)source
 {
   shiftsCopy = shifts;
-  v74.receiver = self;
-  v74.super_class = BWPreviewStitcherNode;
-  v27 = [(BWNode *)&v74 init];
+  v77.receiver = self;
+  v77.super_class = BWPreviewStitcherNode;
+  v27 = [(BWNode *)&v77 init];
   v28 = v27;
   if (!v27)
   {
     return v28;
   }
 
-  v72 = shiftsCopy;
+  v75 = shiftsCopy;
   LOBYTE(v27->_lastInputPTS.epoch) = type != 0;
   v27->_additionalZoomFactorSpring = objc_alloc_init(MEMORY[0x1E695DF90]);
   v30 = [[BWNodeInput alloc] initWithMediaType:1986618469 node:v28];
-  v71 = objc_alloc_init(BWVideoFormatRequirements);
-  [(BWNodeInputMediaConfiguration *)[(BWNodeInput *)v30 primaryMediaConfiguration] setFormatRequirements:v71];
+  v74 = objc_alloc_init(BWVideoFormatRequirements);
+  [(BWNodeInputMediaConfiguration *)[(BWNodeInput *)v30 primaryMediaConfiguration] setFormatRequirements:v74];
   [(BWNodeInputMediaConfiguration *)[(BWNodeInput *)v30 primaryMediaConfiguration] setRetainedBufferCount:1];
-  *(v28 + 1676) = overlayEnabled;
-  *(v28 + 1680) = zoomFactor;
-  *(v28 + 1677) = modeEnabled;
-  *(v28 + 1678) = modeEnabled;
-  v31 = *(v28 + 1224);
-  if (v31 & 1) != 0 || (*(v28 + 1676))
+  LOBYTE(v28->_borderStretchScaleFactor) = overlayEnabled;
+  v28->_borderStretchNextNarrowerBaseZoomFactorMultiplier = zoomFactor;
+  BYTE1(v28->_borderStretchScaleFactor) = modeEnabled;
+  BYTE2(v28->_borderStretchScaleFactor) = modeEnabled;
+  epoch_low = LOBYTE(v28->_lastInputPTS.epoch);
+  if (epoch_low & 1) != 0 || (LOBYTE(v28->_borderStretchScaleFactor))
   {
-    v32 = *(v28 + 1676) & 1 | ((v31 & 1) == 0) ? 2 : 0;
-    [(BWNodeInputMediaConfiguration *)[(BWNodeInput *)v30 primaryMediaConfiguration] setIndefinitelyHeldBufferCount:v32 | v31];
-    if ((*(v28 + 1224) & 1) != 0 || *(v28 + 1676) == 1 && (*(v28 + 1677) & 1) == 0)
+    v32 = LOBYTE(v28->_borderStretchScaleFactor) & 1 | ((epoch_low & 1) == 0) ? 2 : 0;
+    [(BWNodeInputMediaConfiguration *)[(BWNodeInput *)v30 primaryMediaConfiguration] setIndefinitelyHeldBufferCount:v32 | epoch_low];
+    if ((v28->_lastInputPTS.epoch & 1) != 0 || LOBYTE(v28->_borderStretchScaleFactor) == 1 && (BYTE1(v28->_borderStretchScaleFactor) & 1) == 0)
     {
       v33 = objc_alloc_init(BWNodeInputMediaConfiguration);
-      [(BWNodeInputMediaConfiguration *)v33 setFormatRequirements:v71];
+      [(BWNodeInputMediaConfiguration *)v33 setFormatRequirements:v74];
       [(BWNodeInputMediaConfiguration *)v33 setPassthroughMode:0];
       [(BWNodeInputMediaConfiguration *)v33 setRetainedBufferCount:1];
-      [(BWNodeInputMediaConfiguration *)v33 setIndefinitelyHeldBufferCount:v31];
+      [(BWNodeInputMediaConfiguration *)v33 setIndefinitelyHeldBufferCount:epoch_low];
       [(BWNodeInput *)v30 setMediaConfiguration:v33 forAttachedMediaKey:@"SynchronizedSlaveFrame"];
     }
   }
 
-  *(v28 + 1687) = depth;
+  *(&v28->_zoomPIPUseNarrowerCamera + 1) = depth;
   if (depth)
   {
     v34 = objc_alloc_init(BWNodeInputMediaConfiguration);
@@ -393,7 +393,7 @@
     [(BWNodeInput *)v30 setMediaConfiguration:v34 forAttachedMediaKey:@"Depth"];
   }
 
-  *(v28 + 1688) = styles;
+  LOBYTE(v28->_zoomPIPMinimumUIZoomFactor) = styles;
   if (styles)
   {
     v35 = objc_alloc_init(BWNodeInputMediaConfiguration);
@@ -413,31 +413,31 @@
   [(BWNodeInputMediaConfiguration *)v37 setPassthroughMode:0];
   [(BWNodeInputMediaConfiguration *)v37 setRetainedBufferCount:1];
   [(BWNodeInput *)v30 setUnspecifiedAttachedMediaConfiguration:v37];
-  [v28 addInput:v30];
+  [(BWNode *)v28 addInput:v30];
 
-  [(BWPreviewStitcherNode *)v28 _updateInputRequirements];
+  [(BWPreviewStitcherNode *)&v28->super.super.isa _updateInputRequirements];
   v38 = [[BWNodeOutput alloc] initWithMediaType:1986618469 node:v28];
   [(BWNodeOutputMediaConfiguration *)[(BWNodeOutput *)v38 primaryMediaConfiguration] setFormatRequirements:objc_alloc_init(BWVideoFormatRequirements)];
   [(BWNodeOutput *)v38 setPoolPreallocationEnabled:pool];
-  *(v28 + 1686) = source;
+  v28->_zoomPIPUseNarrowerCamera = source;
   if (source)
   {
     v39 = objc_alloc_init(BWNodeOutputMediaConfiguration);
     [(BWNodeOutputMediaConfiguration *)v39 setPassthroughMode:1];
-    v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BWNodeInput index](v30, "index")}];
-    -[BWNodeOutputMediaConfiguration setIndexesOfInputsWhichDrivesThisOutput:](v39, "setIndexesOfInputsWhichDrivesThisOutput:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1]);
+    v76 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BWNodeInput index](v30, "index")}];
+    -[BWNodeOutputMediaConfiguration setIndexesOfInputsWhichDrivesThisOutput:](v39, "setIndexesOfInputsWhichDrivesThisOutput:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1]);
     [(BWNodeOutputMediaConfiguration *)v39 setAttachedMediaKeyOfInputWhichDrivesThisOutput:@"PrimaryFormat"];
     [(BWNodeOutput *)v38 setMediaConfiguration:v39 forAttachedMediaKey:0x1F21AAAD0];
   }
 
-  [v28 addOutput:v38];
+  [(BWNode *)v28 addOutput:v38];
 
-  *(v28 + 144) = 0;
+  v28->_primaryCaptureRectYInset = 0.0;
   __asm { FMOV            V0.2D, #0.5 }
 
-  *(v28 + 160) = _Q0;
-  *(v28 + 348) = 1065353216;
-  *(v28 + 352) = 1;
+  v28->_primaryCaptureRectCenter = _Q0;
+  v28->_shiftSmoothingFactor = 1.0;
+  v28->_applyShift = 1;
   v45 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
   if (!type)
   {
@@ -448,17 +448,17 @@
   v47 = v46;
   if (v46)
   {
-    *(v28 + 217) = 1;
+    v28->_haveSuperWideCamera = 1;
     [objc_msgSend(v46 objectForKeyedSubscript:{*off_1E7989E50), "floatValue"}];
-    *(v28 + 220) = v48;
+    v28->_superWideBaseZoomFactor = v48;
     [objc_msgSend(v47 objectForKeyedSubscript:{*off_1E7989E58), "floatValue"}];
-    *(v28 + 232) = v49;
-    *(v28 + 296) = [v47 objectForKeyedSubscript:*off_1E7989F00];
-    *(v28 + 304) = 1065353216;
-    v50 = *(v28 + 296) != 0;
-    *(v28 + 1744) = v50;
-    *(v28 + 1149) = v50;
-    *(v28 + 308) = 0;
+    v28->_superWideCorrectedBaseZoomFactor = v49;
+    v28->_superWideNondisruptiveSwitchingZoomFactors = [v47 objectForKeyedSubscript:*off_1E7989F00];
+    v28->_superWideNondisruptiveSwitchingScaleFactor = 1.0;
+    v50 = v28->_superWideNondisruptiveSwitchingZoomFactors != 0;
+    LOBYTE(v28->_narrowerCameraFoVFillsOverCapture.name) = v50;
+    BYTE1(v28->_zoomInFeatheringOuterRadiusExpanded) = v50;
+    v28->_superWideNondisruptiveSwitchingWaitsForSuperWideFallback = 0;
   }
 
   v51 = [type objectForKeyedSubscript:*off_1E798A0C0];
@@ -466,38 +466,39 @@
   {
     v52 = v51;
     [objc_msgSend(v51 objectForKeyedSubscript:{*off_1E7989E50), "floatValue"}];
-    *(v28 + 224) = v53;
-    *(v28 + 280) = [v52 objectForKeyedSubscript:*off_1E7989F00];
-    *(v28 + 288) = 1065353216;
-    *(v28 + 292) = 1065353216;
+    v28->_wideBaseZoomFactor = v53;
+    v54 = [v52 objectForKeyedSubscript:*off_1E7989F00];
+    v28->_wideNondisruptiveSwitchingZoomFactors = v54;
+    v28->_wideNondisruptiveSwitchingScaleFactor = 1.0;
+    v28->_lastWideNondisruptiveSwitchingScaleFactor = 1.0;
     if (v47)
     {
-      *(v28 + 236) = *(v28 + 224);
-      if ([&unk_1F22482F8 containsObject:FigCaptureGetModelSpecificName()])
+      v28->_wideBaseZoomFactorOverride = v28->_wideBaseZoomFactor;
+      if ([&unk_1F22482F8 containsObject:{FigCaptureGetModelSpecificName(v54, v55)}])
       {
-        *(v28 + 240) = 1;
-        if ((*(v28 + 1744) & 1) == 0)
+        v28->_wideBaseZoomFactorDynamicOverrideEnabled = 1;
+        if ((v28->_narrowerCameraFoVFillsOverCapture.name & 1) == 0)
         {
-          v54 = *(v28 + 236) * 1.03916449;
-          *(v28 + 252) = v54;
-          *(v28 + 256) = 1166331904;
-          *(v28 + 260) = 1167001600;
-          v55 = 1.0;
-          v56 = &OBJC_IVAR___BWPreviewStitcherNode__dynamicWideBaseZoomFactorSmoothingFactor;
+          v56 = v28->_wideBaseZoomFactorOverride * 1.03916449;
+          v28->_wideBaseZoomFactorOverrideMacro = v56;
+          v28->_widePinholeFocalLengthInfinity = 4250.0;
+          v28->_widePinholeFocalLengthMacro = 4577.0;
+          v57 = 1.0;
+          v58 = &OBJC_IVAR___BWPreviewStitcherNode__dynamicWideBaseZoomFactorSmoothingFactor;
 LABEL_28:
-          *(v28 + *v56) = v55;
+          *(&v28->super.super.isa + *v58) = v57;
           goto LABEL_29;
         }
 
 LABEL_27:
-        v55 = *(v28 + 236) * 1.03;
-        v56 = &OBJC_IVAR___BWPreviewStitcherNode__wideBaseZoomFactorOverrideMacro;
+        v57 = v28->_wideBaseZoomFactorOverride * 1.03;
+        v58 = &OBJC_IVAR___BWPreviewStitcherNode__wideBaseZoomFactorOverrideMacro;
         goto LABEL_28;
       }
 
-      v57 = *(v28 + 1744);
-      *(v28 + 240) = v57;
-      if (v57)
+      name = v28->_narrowerCameraFoVFillsOverCapture.name;
+      v28->_wideBaseZoomFactorDynamicOverrideEnabled = name;
+      if (name)
       {
         goto LABEL_27;
       }
@@ -505,71 +506,71 @@ LABEL_27:
   }
 
 LABEL_29:
-  v58 = [type objectForKeyedSubscript:*off_1E798A0D8];
+  v60 = [type objectForKeyedSubscript:*off_1E798A0D8];
   v45 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
-  if (v58)
+  if (v60)
   {
-    v59 = v58;
-    *(v28 + 218) = 1;
-    [objc_msgSend(v58 objectForKeyedSubscript:{*off_1E7989E50), "floatValue"}];
-    *(v28 + 228) = v60;
-    if (v60 <= 0.0)
+    v61 = v60;
+    v28->_haveTeleCamera = 1;
+    v62 = [objc_msgSend(v60 objectForKeyedSubscript:{*off_1E7989E50), "floatValue"}];
+    v28->_teleBaseZoomFactor = v63;
+    if (v63 <= 0.0)
     {
-      [BWPreviewStitcherNode initWithCameraInfoByPortType:sensorBinningFactor:inputBuffersHaveHorizontalOverscanOnly:registrationType:registrationMetalCommandQueue:excludeStaticComponentFromAlignmentShifts:propagateDepth:propagateStyles:smartFramingZoomFactorsByFieldOfView:sensorOrientationByPortType:singleCameraOverCaptureEnabled:parallaxMitigationBasedOnZoomFactorEnabled:zoomPIPOverlayEnabled:zoomPIPMinimumUIZoomFactor:zoomPIPSingleStreamModeEnabled:preallocateOutputBufferPool:primaryCaptureRectCenterYPixelOffsetEnabled:propagatePrimaryPreviewSource:];
+      [BWPreviewStitcherNode initWithCameraInfoByPortType:v62 sensorBinningFactor:? inputBuffersHaveHorizontalOverscanOnly:? registrationType:? registrationMetalCommandQueue:? excludeStaticComponentFromAlignmentShifts:? propagateDepth:? propagateStyles:? smartFramingZoomFactorsByFieldOfView:? sensorOrientationByPortType:? singleCameraOverCaptureEnabled:? parallaxMitigationBasedOnZoomFactorEnabled:? zoomPIPOverlayEnabled:? zoomPIPMinimumUIZoomFactor:? zoomPIPSingleStreamModeEnabled:? preallocateOutputBufferPool:? primaryCaptureRectCenterYPixelOffsetEnabled:? propagatePrimaryPreviewSource:?];
       goto LABEL_62;
     }
 
-    *(v28 + 312) = [v59 objectForKeyedSubscript:*off_1E7989F00];
-    *(v28 + 320) = 1065353216;
-    *(v28 + 324) = 1065353216;
-    *(v28 + 336) = 0;
+    v28->_teleNondisruptiveSwitchingZoomFactors = [v61 objectForKeyedSubscript:*off_1E7989F00];
+    v28->_teleNondisruptiveSwitchingScaleFactor = 1.0;
+    v28->_lastTeleNondisruptiveSwitchingScaleFactor = 1.0;
+    v28->_teleBaseZoomFactorOverride = 0.0;
   }
 
-  *(v28 + 340) = factor;
+  v28->_sensorBinningFactor = factor;
   if (factor.var0 < 1 || *&factor <= 0)
   {
     [BWPreviewStitcherNode initWithCameraInfoByPortType:sensorBinningFactor:inputBuffersHaveHorizontalOverscanOnly:registrationType:registrationMetalCommandQueue:excludeStaticComponentFromAlignmentShifts:propagateDepth:propagateStyles:smartFramingZoomFactorsByFieldOfView:sensorOrientationByPortType:singleCameraOverCaptureEnabled:parallaxMitigationBasedOnZoomFactorEnabled:zoomPIPOverlayEnabled:zoomPIPMinimumUIZoomFactor:zoomPIPSingleStreamModeEnabled:preallocateOutputBufferPool:primaryCaptureRectCenterYPixelOffsetEnabled:propagatePrimaryPreviewSource:];
     goto LABEL_62;
   }
 
-  *(v28 + 268) = only;
-  *(v28 + 272) = 1084227584;
+  v28->_inputBuffersHaveHorizontalOverscanOnly = only;
+  v28->_dynamicCameraScaleMSRMarginPercentage = 5.0;
 LABEL_35:
-  *(v28 + 1872) = view != 0;
+  LOBYTE(v28->_restitchingQueue) = view != 0;
   if (view)
   {
-    *(v28 + 1904) = view;
+    *&v28->_smartFramingConfiguredFieldOfView = view;
     if (portType)
     {
-      *(v28 + 1912) = portType;
+      v28->_smartFramingZoomFactorsByFieldOfView = portType;
     }
   }
 
-  *(v28 + 1921) = 1;
-  *(v28 + 1920) = 1;
-  *(v28 + 1922) = enabled;
-  if (enabled && (*(v28 + 1872) & 1) == 0)
+  BYTE1(v28->_sensorOrientationByPortType) = 1;
+  LOBYTE(v28->_sensorOrientationByPortType) = 1;
+  BYTE2(v28->_sensorOrientationByPortType) = enabled;
+  if (enabled && (v28->_restitchingQueue & 1) == 0)
   {
     [BWPreviewStitcherNode initWithCameraInfoByPortType:sensorBinningFactor:inputBuffersHaveHorizontalOverscanOnly:registrationType:registrationMetalCommandQueue:excludeStaticComponentFromAlignmentShifts:propagateDepth:propagateStyles:smartFramingZoomFactorsByFieldOfView:sensorOrientationByPortType:singleCameraOverCaptureEnabled:parallaxMitigationBasedOnZoomFactorEnabled:zoomPIPOverlayEnabled:zoomPIPMinimumUIZoomFactor:zoomPIPSingleStreamModeEnabled:preallocateOutputBufferPool:primaryCaptureRectCenterYPixelOffsetEnabled:propagatePrimaryPreviewSource:];
     goto LABEL_62;
   }
 
-  *(v28 + 476) = 0;
-  if (type && (*(v28 + 1224) & 1) != 0)
+  v28->_configurationLock._os_unfair_lock_opaque = 0;
+  if (type && (v28->_lastInputPTS.epoch & 1) != 0)
   {
-    *(v28 + 492) = registrationType;
-    v61 = [[BWPreviewRegistration alloc] initWithCameraInfoByPortType:type sensorBinningFactor:factor registrationType:*(v28 + 492) metalCommandQueue:queue excludeStaticComponentFromAlignmentShifts:v72];
-    *(v28 + 504) = v61;
-    if (v61)
+    v28->_registrationType = registrationType;
+    v64 = [[BWPreviewRegistration alloc] initWithCameraInfoByPortType:type sensorBinningFactor:factor registrationType:v28->_registrationType metalCommandQueue:queue excludeStaticComponentFromAlignmentShifts:v75];
+    v28->_registration = v64;
+    if (v64)
     {
-      *(v28 + 496) = v72;
-      *(v28 + 482) = 1;
-      *(v28 + 516) = 0;
-      *(v28 + 856) = 22;
-      *(v28 + 860) = 21;
-      *(v28 + 864) = 1;
-      *(v28 + 514) = 0;
-      *(v28 + 872) = 0;
+      v28->_excludeStaticComponentFromAlignmentShiftsEnabled = v75;
+      v28->_registrationEnabled = 1;
+      v28->_shiftCorrectionsUpdateLock._os_unfair_lock_opaque = 0;
+      v28->_registrationFrameSkipCount = 22;
+      v28->_registrationUpdateRampFrameCount = 21;
+      v28->_registerFirstFrame = 1;
+      v28->_firstRegistrationIsSynchronous = 0;
+      v28->_registrationTranslationOverride = 0;
       goto LABEL_44;
     }
 
@@ -580,114 +581,114 @@ LABEL_62:
   }
 
 LABEL_44:
-  *(v28 + 880) = 0;
-  *(v28 + 904) = 0;
-  *(v28 + 905) = 0;
-  *(v28 + 184) = 0;
-  *(v28 + 188) = 0;
-  *(v28 + 192) = offsetEnabled;
-  *(v28 + 1040) = 1;
-  *(v28 + 1048) = FigDispatchQueueCreateWithPriority();
-  *(v28 + 1092) = 1;
-  *(v28 + 1096) = 1064514355;
-  *(v28 + 1100) = 1008981770;
-  *(v28 + 1104) = 1068708659;
-  *(v28 + 1108) = 1057803469;
-  *(v28 + 1112) = 1073322394;
-  *(v28 + 1116) = 1069547520;
-  *(v28 + 1120) = 1045220557;
-  *(v28 + 1124) = 1070050836;
-  *(v28 + 1128) = 1064682127;
-  *(v28 + 1132) = 1066192077;
-  *(v28 + 1136) = 1070805811;
-  *(v28 + 1140) = 1068708659;
-  *(v28 + 1144) = 1073322394;
-  *(v28 + 1150) = FigCapturePlatformIdentifier() > 8;
-  *(v28 + 1152) = 50;
-  *(v28 + 1156) = 10;
-  *(v28 + 1160) = 10;
-  *(v28 + 1164) = 50;
-  *(v28 + 1168) = 1;
-  *(v28 + 1172) = 1063675494;
-  *(v28 + 1176) = 5;
-  *(v28 + 1180) = 7;
-  *(v28 + 1184) = 1;
-  *(v28 + 1185) = FigCapturePlatformIdentifier() > 8;
-  *(v28 + 1188) = 1036831949;
-  v62 = objc_alloc_init(BWSpringSimulation);
-  *(v28 + 1272) = v62;
-  [(BWSpringSimulation *)v62 resetWithInput:1.0 initialOutput:1.0 initialVelocity:0.0];
-  *(v28 + 1240) = 1065353216;
-  *(v28 + 1244) = 0;
-  BWSmartCameraSceneInitialize(v28 + 1312, 1, 4, 1, "Wide Focus Distance Far Enough", 41.0, 6.0, 0.25);
-  *(v28 + 1313) = 1;
-  if (*(v28 + 1224))
+  v28->_primaryCameraAspectRatio = 0.0;
+  v28->_displaysWidestCameraOnly = 0;
+  v28->_displaysPrimaryCameraOnly = 0;
+  v28->_primaryCaptureRectCenterXPixelOffsetFudge = 0;
+  v28->_primaryCaptureRectCenterYPixelOffsetFudge = 0;
+  v28->_primaryCaptureRectCenterYPixelOffsetEnabled = offsetEnabled;
+  v28->_frameRateBasedRampsEnabled = 1;
+  v28->_ciPreheatingQueue = FigDispatchQueueCreateWithPriority();
+  WORD2(v28->_firstFramePTS.epoch) = 1;
+  *&v28->_edgeFeatheringEnabled = 1064514355;
+  v28->_edgeFeatheringAspectCompensation = 0.01;
+  v28->_zoomInFeatheringInnerRadiusStart = 1.4;
+  v28->_zoomInFeatheringInnerRadiusEnd = 0.55;
+  v28->_zoomInFeatheringOuterRadiusStart = 1.95;
+  v28->_zoomInFeatheringOuterRadiusEnd = 1.5;
+  v28->_zoomOutFeatheringInnerRadiusStart = 0.2;
+  v28->_zoomOutFeatheringInnerRadiusEnd = 1.56;
+  v28->_zoomOutFeatheringOuterRadiusStart = 0.96;
+  v28->_zoomOutFeatheringOuterRadiusEnd = 1.1;
+  v28->_zoomInFeatheringInnerRadiusInterim = 1.65;
+  v28->_zoomInFeatheringOuterRadiusInterim = 1.4;
+  v28->_zoomInFeatheringInnerRadiusExpanded = 1.95;
+  BYTE2(v28->_zoomInFeatheringOuterRadiusExpanded) = FigCapturePlatformIdentifier() > 8;
+  *&v28->_featherEdgesForCameraTransitionRamp = 50;
+  v28->_cameraTransitionEdgeFeatheringZoomInStartSigma = 10;
+  v28->_cameraTransitionEdgeFeatheringZoomInEndSigma = 10;
+  v28->_cameraTransitionEdgeFeatheringZoomOutStartSigma = 50;
+  v28->_cameraTransitionEdgeFeatheringZoomOutEndSigma = 1;
+  v28->_cameraTransitionEdgeFeatheringBorderInsetFactor = 1063675494;
+  LODWORD(v28->_cameraTransitionEdgeFeatheringZoomInTeleEdgeExpansionStartFrameFill) = 5;
+  v28->_cameraTransitionEdgeFeatheringZoomInTeleEdgeExpansionFrameDuration = 7;
+  LOBYTE(v28->_cameraTransitionEdgeFeatheringZoomOutQsubToQsumEdgeOpacityRampFrameDuration) = 1;
+  BYTE1(v28->_cameraTransitionEdgeFeatheringZoomOutQsubToQsumEdgeOpacityRampFrameDuration) = FigCapturePlatformIdentifier() > 8;
+  *&v28->_cameraTransitionBorderEdgeFeatheringEnabled = 1036831949;
+  v65 = objc_alloc_init(BWSpringSimulation);
+  v28->_additionalZoomFactorSpringStartPTS.epoch = v65;
+  [(BWSpringSimulation *)v65 resetWithInput:1.0 initialOutput:1.0 initialVelocity:0.0];
+  LODWORD(v28->_lastRenderTime) = 1065353216;
+  HIDWORD(v28->_lastRenderTime) = 0;
+  BWSmartCameraSceneInitialize(&v28->_waitsForFencedUpdateBeforeFirstEmit, 1, 4, 1, "Wide Focus Distance Far Enough", 41.0, 6.0, 0.25);
+  v28->_waitingForFencedUpdateBeforeFirstEmit = 1;
+  if (LOBYTE(v28->_lastInputPTS.epoch))
   {
-    v63 = 4;
+    v66 = 4;
   }
 
   else
   {
-    v63 = 0;
+    v66 = 0;
   }
 
-  *(v28 + 1308) = v63;
-  *(v28 + 1352) = 1;
-  *(v28 + 1355) = 1;
-  *(v28 + 1356) = 1;
-  BWSmartCameraSceneInitialize(v28 + 1360, 1, 4, 1, "Wider Camera FoV Fills Over Capture", 20.0, 16.0, 0.75);
-  *(v28 + 1361) = 1;
-  BWSmartCameraSceneUpdateResetTemporalHysteresisAndFiltering((v28 + 1360));
-  *(v28 + 1404) = 1;
-  *(v28 + 1408) = 1;
-  BWSmartCameraSceneInitialize(v28 + 1416, 1, 10, 7, "Wide Focus Distance Far Enough To Use Tele", 61.0, 6.0, 0.2);
-  *(v28 + 1417) = 1;
-  *(v28 + 1464) = [[BWRamp alloc] initWithName:@"WideFallbackShiftRamp"];
-  *(v28 + 1490) = v72;
-  *(v28 + 1640) = [[BWFencedAnimationQueue alloc] initWithQueueSize:1];
-  BWSmartCameraSceneInitialize(v28 + 1496, 1, 3, 0, "Wide Focus Distance Far Enough To Use Wide", 16.0, 2.0, 0.8);
-  *(v28 + 1497) = 1;
-  *(v28 + 1536) = [[BWRamp alloc] initWithName:@"SuperWideFallbackShiftRamp"];
-  *(v28 + 1568) = 1050253722;
-  *(v28 + 1577) = 1;
-  *(v28 + 1574) = 1;
-  *(v28 + 1624) = 1;
-  *(v28 + 1628) = 1028443341;
-  *(v28 + 1632) = 0;
-  BWSmartCameraSceneInitialize(v28 + 1584, 1, 4, 2, "Super Wide Focus Distance Far Enough For Registration", 7.5, 1.5, 0.5);
-  v64 = 0;
-  *(v28 + 1585) = 1;
-  *(v28 + 1652) = 30;
-  if (*(v28 + 1224) == 1)
+  HIDWORD(v28->_trueVideoCaptureAdditionalZoomFactor) = v66;
+  LOBYTE(v28->_wideFocusDistanceFarEnoughForStitching.name) = 1;
+  BYTE3(v28->_wideFocusDistanceFarEnoughForStitching.name) = 1;
+  BYTE4(v28->_wideFocusDistanceFarEnoughForStitching.name) = 1;
+  BWSmartCameraSceneInitialize(&v28->_hideSuperWideOverCaptureWhenTooClose, 1, 4, 1, "Wider Camera FoV Fills Over Capture", 20.0, 16.0, 0.75);
+  v28->_superWideOccludedByWide = 1;
+  BWSmartCameraSceneUpdateResetTemporalHysteresisAndFiltering(&v28->_hideSuperWideOverCaptureWhenTooClose);
+  BYTE4(v28->_widerCameraFoVFillsOverCapture.name) = 1;
+  LODWORD(v28->_uiZoomFactor) = 1;
+  BWSmartCameraSceneInitialize(&v28->_wideFallbackMode, 1, 10, 7, "Wide Focus Distance Far Enough To Use Tele", 61.0, 6.0, 0.2);
+  BYTE1(v28->_wideFallbackMode) = 1;
+  *&v28->_wideFocusingOneShot = [[BWRamp alloc] initWithName:@"WideFallbackShiftRamp"];
+  BYTE2(v28->_wideFallbackRecenteringShiftOffset.y) = v75;
+  *&v28->_superMacroEdgeFeatheringShowBlurMask = [[BWFencedAnimationQueue alloc] initWithQueueSize:1];
+  BWSmartCameraSceneInitialize(&v28->_wantWideFallbackDueToTeleAEAF, 1, 3, 0, "Wide Focus Distance Far Enough To Use Wide", 16.0, 2.0, 0.8);
+  v28->_wideFallbackShiftRampTargetValueIsWide = 1;
+  v28->_wideFocusDistanceFarEnoughToUseWide.name = [[BWRamp alloc] initWithName:@"SuperWideFallbackShiftRamp"];
+  LODWORD(v28->_superWideFallbackRecenteringShiftOffset.y) = 1050253722;
+  BYTE1(v28->_superWideFallbackRecenteringStrength) = 1;
+  BYTE6(v28->_superWideFallbackRecenteringShiftOffset.y) = 1;
+  LOWORD(v28->_superWideFocusDistanceFarEnoughForRegistration.name) = 1;
+  HIDWORD(v28->_superWideFocusDistanceFarEnoughForRegistration.name) = 1028443341;
+  v28->_superMacroCameraTransitionRampOnFullPrimaryRectEnabled = 0;
+  BWSmartCameraSceneInitialize(&v28->_inSuperMacroRange, 1, 4, 2, "Super Wide Focus Distance Far Enough For Registration", 7.5, 1.5, 0.5);
+  v67 = 0;
+  v28->_superMacroRangeRegistrationTuningEnabled = 1;
+  HIDWORD(v28->_fencedAnimationQueue) = 30;
+  if (LOBYTE(v28->_lastInputPTS.epoch) == 1)
   {
-    v64 = *(v28 + 280) != 0;
+    v67 = v28->_wideNondisruptiveSwitchingZoomFactors != 0;
   }
 
-  *(v28 + 1656) = v64;
-  *(v28 + 1660) = 1098907648;
-  v65 = *(v28 + 280);
-  v66 = 0.0;
-  if (v65)
+  v28->_momentMovieRecordingRecenteringEnabled = v67;
+  v28->_momentMovieRecordingRecenteringShiftRampFrameCount = 1098907648;
+  wideNondisruptiveSwitchingZoomFactors = v28->_wideNondisruptiveSwitchingZoomFactors;
+  v69 = 0.0;
+  if (wideNondisruptiveSwitchingZoomFactors)
   {
-    v67 = *(v28 + 228);
-    [objc_msgSend(v65 lastObject];
-    v66 = v67 / v68;
+    teleBaseZoomFactor = v28->_teleBaseZoomFactor;
+    [-[NSArray lastObject](wideNondisruptiveSwitchingZoomFactors lastObject];
+    v69 = teleBaseZoomFactor / v71;
   }
 
-  v70 = v66 < 2.0 && v66 > 0.0;
-  *(v28 + 1664) = *(v28 + 1224) & v70;
-  *(v28 + 1668) = 1067198710;
-  *(v28 + 1672) = 1069547520;
-  *(v28 + 328) = *(v28 + 280) != 0;
-  *(v28 + 329) = *(v28 + v45[330]) != 0;
-  *(v28 + 1685) = FigCapturePlatformIdentifier() > 8;
-  *(v28 + 1696) = factorEnabled;
-  BWSmartCameraSceneInitialize(v28 + 1704, 1, 16, 0, "Narrower Camera FoV Fills Over Capture", 0.99, 0.0, 0.9);
-  *(v28 + 1705) = 1;
-  *(v28 + 1776) = 1;
-  [v28 setSupportsLiveReconfiguration:1];
-  *(v28 + 1956) = 1;
-  *(v28 + 1960) = 4;
+  v73 = v69 < 2.0 && v69 > 0.0;
+  v28->_borderBlurEnabled = v28->_lastInputPTS.epoch & v73;
+  v28->_borderBlurStrength = 1.22;
+  *&v28->_borderStretchEnabled = 1069547520;
+  v28->_wideNondisruptiveSwitchingCroppedFrameEnabled = v28->_wideNondisruptiveSwitchingZoomFactors != 0;
+  v28->_teleNondisruptiveSwitchingCroppedFrameEnabled = *(&v28->super.super.isa + v45[330]) != 0;
+  v28->_zoomPIPSingleStreamModeEnabled = FigCapturePlatformIdentifier() > 8;
+  v28->_propagateStyles = factorEnabled;
+  BWSmartCameraSceneInitialize(&v28->_parallaxMitigationBasedOnZoomFactorEnabled, 1, 16, 0, "Narrower Camera FoV Fills Over Capture", 0.99, 0.0, 0.9);
+  *(&v28->_parallaxMitigationBasedOnZoomFactorEnabled + 1) = 1;
+  LOBYTE(v28->_trueVideoTransitionPercentComplete) = 1;
+  [(BWNode *)v28 setSupportsLiveReconfiguration:1];
+  LOBYTE(v28->_lastStitchedBufferPTS.flags) = 1;
+  LODWORD(v28->_lastStitchedBufferPTS.epoch) = 4;
   return v28;
 }
 
@@ -1339,7 +1340,7 @@ LABEL_147:
   if (self->_maxLossyCompressionLevel != level)
   {
     self->_maxLossyCompressionLevel = level;
-    [(BWPreviewStitcherNode *)self _updateInputRequirements];
+    [(BWPreviewStitcherNode *)&self->super.super.isa _updateInputRequirements];
   }
 }
 
@@ -1545,15 +1546,15 @@ LABEL_147:
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
-  v148 = 0;
-  v149 = 0;
+  v155 = 0;
+  v156 = 0;
   if (self->_superMacroEdgeFeatheringBlurEnabled)
   {
     [(BWPreviewRegistration *)self->_registration waitForRegistrationToComplete:buffer];
   }
 
-  memset(&v147, 0, sizeof(v147));
-  CMSampleBufferGetPresentationTimeStamp(&v147, buffer);
+  memset(&v154, 0, sizeof(v154));
+  CMSampleBufferGetPresentationTimeStamp(&v154, buffer);
   v6 = CMGetAttachment(buffer, @"UIZoomFactor", 0);
   if (v6)
   {
@@ -1574,7 +1575,7 @@ LABEL_147:
     goto LABEL_71;
   }
 
-  time = v147;
+  time = v154;
   time2 = *&self->_lastSampleBuffer;
   if ((CMTimeCompare(&time, &time2) & 0x80000000) == 0)
   {
@@ -1597,7 +1598,7 @@ LABEL_71:
     v8 = *&self->_cameraTransitionBrightnessCompensationInsetPercentage;
     time.value = 0;
     BWCMSampleBufferCreateCopyIncludingMetadata(buffer, &time);
-    *&v134.origin.x = v8;
+    *&v141.origin.x = v8;
     if (v8 == buffer)
     {
       if (!time.value)
@@ -1625,7 +1626,7 @@ LABEL_71:
         CFRelease(v9);
       }
 
-      *&self->_lastSampleBuffer = v147;
+      *&self->_lastSampleBuffer = v154;
       bufferCopy = buffer;
     }
 
@@ -1635,7 +1636,7 @@ LABEL_71:
     }
 
     os_unfair_lock_unlock(&self->_configurationLock);
-    if (*&v134.origin.x != buffer)
+    if (*&v141.origin.x != buffer)
     {
       if ((self->_lastInputPTS.epoch & 0x100) != 0 || self->_trueVideoHDRtoSDRBlendRamp || BYTE4(self->_narrowerCameraFoVFillsOverCapture.name) == 1)
       {
@@ -1691,7 +1692,7 @@ LABEL_56:
             v18 = 0;
             BYTE1(self->_lastInputPTS.epoch) = 0;
 LABEL_57:
-            if (v147.flags)
+            if (v154.flags)
             {
               v21 = &self->_havePreheatedCI + 4;
               if (self->_firstFramePTS.timescale)
@@ -1699,7 +1700,7 @@ LABEL_57:
                 if (!self->_havePreheatedCI)
                 {
                   memset(&time, 0, sizeof(time));
-                  time2 = v147;
+                  time2 = v154;
                   *&rhs.value = *v21;
                   rhs.epoch = *&self->_firstFramePTS.flags;
                   CMTimeSubtract(&time, &time2, &rhs);
@@ -1714,8 +1715,8 @@ LABEL_57:
 
               else
               {
-                *v21 = *&v147.value;
-                *&self->_firstFramePTS.flags = v147.epoch;
+                *v21 = *&v154.value;
+                *&self->_firstFramePTS.flags = v154.epoch;
                 [(BWPreviewStitcherDelegate *)self->_delegate previewStitcherReadyForPrimaryCaptureRectUpdates:self];
               }
             }
@@ -1740,66 +1741,66 @@ LABEL_57:
 
             if (*(&self->_zoomPIPUseNarrowerCamera + 1) && (AttachedMedia = BWSampleBufferGetAttachedMedia(bufferCopy, @"Depth")) != 0)
             {
-              v131 = CFRetain(AttachedMedia);
+              v138 = CFRetain(AttachedMedia);
             }
 
             else
             {
-              v131 = 0;
+              v138 = 0;
             }
 
             zoomPIPMinimumUIZoomFactor_low = LOBYTE(self->_zoomPIPMinimumUIZoomFactor);
             if ((self->_lastInputPTS.epoch & 1) != 0 || LOBYTE(self->_borderStretchScaleFactor) == 1)
             {
-              BWOverCaptureSampleBufferUnpackAndRetain(bufferCopy, zoomPIPMinimumUIZoomFactor_low ^ 1, &v149, &v148, 0, 0);
-              if (v148)
+              v26 = BWOverCaptureSampleBufferUnpackAndRetain(bufferCopy, zoomPIPMinimumUIZoomFactor_low ^ 1u, &v156, &v155, 0, 0);
+              if (v155)
               {
 LABEL_78:
                 if (LOBYTE(self->_zoomPIPMinimumUIZoomFactor) == 1)
                 {
-                  v26 = v148;
-                  if (psn_attachedMediaKeysToPropagateForStyles_onceToken != -1)
-                  {
-                    [BWPreviewStitcherNode renderSampleBuffer:forInput:];
-                  }
-
-                  BWSampleBufferFilterWithAllowedAttachedMedia(v26, psn_attachedMediaKeysToPropagateForStyles_propagatingKeysForStyles);
-                  v27 = v149;
+                  v27 = v155;
                   if (psn_attachedMediaKeysToPropagateForStyles_onceToken != -1)
                   {
                     [BWPreviewStitcherNode renderSampleBuffer:forInput:];
                   }
 
                   BWSampleBufferFilterWithAllowedAttachedMedia(v27, psn_attachedMediaKeysToPropagateForStyles_propagatingKeysForStyles);
+                  v28 = v156;
+                  if (psn_attachedMediaKeysToPropagateForStyles_onceToken != -1)
+                  {
+                    [BWPreviewStitcherNode renderSampleBuffer:forInput:];
+                  }
+
+                  BWSampleBufferFilterWithAllowedAttachedMedia(v28, psn_attachedMediaKeysToPropagateForStyles_propagatingKeysForStyles);
                 }
 
                 if (*(&self->_zoomPIPUseNarrowerCamera + 1))
                 {
-                  if ([CMGetAttachment(v148 @"DepthDisabled"])
+                  if ([CMGetAttachment(v155 @"DepthDisabled"])
                   {
-                    v122 = 1;
+                    v129 = 1;
                   }
 
                   else
                   {
-                    v122 = [CMGetAttachment(v149 @"DepthDisabled"];
+                    v129 = [CMGetAttachment(v156 @"DepthDisabled"];
                   }
                 }
 
                 else
                 {
-                  v122 = 0;
+                  v129 = 0;
                 }
 
-                v31 = *MEMORY[0x1E695EFF8];
-                v30 = *(MEMORY[0x1E695EFF8] + 8);
-                v132 = [(BWPreviewStitcherNode *)self _copySampleBufferToAttachForZoomPIPFromWiderCameraSampleBuffer:v149 narrowerCameraSampleBuffer:v148];
-                cf = [(BWPreviewStitcherNode *)self copySampleBufferToAttachForPropagatePrimaryPreviewSourceFromWiderCameraSampleBuffer:v32 narrowerCameraSampleBuffer:v148];
+                v32 = *MEMORY[0x1E695EFF8];
+                v31 = *(MEMORY[0x1E695EFF8] + 8);
+                v139 = [(BWPreviewStitcherNode *)self _copySampleBufferToAttachForZoomPIPFromWiderCameraSampleBuffer:v156 narrowerCameraSampleBuffer:v155];
+                cf = [(BWPreviewStitcherNode *)self copySampleBufferToAttachForPropagatePrimaryPreviewSourceFromWiderCameraSampleBuffer:v33 narrowerCameraSampleBuffer:v155];
                 epoch = self->_lastInputPTS.epoch;
-                if (LOBYTE(self->_borderStretchScaleFactor) == 1 && (self->_lastInputPTS.epoch & 1) == 0 && v149)
+                if (LOBYTE(self->_borderStretchScaleFactor) == 1 && (self->_lastInputPTS.epoch & 1) == 0 && v156)
                 {
-                  CFRelease(v149);
-                  v149 = 0;
+                  CFRelease(v156);
+                  v156 = 0;
                   epoch = self->_lastInputPTS.epoch;
                 }
 
@@ -1810,161 +1811,162 @@ LABEL_78:
                     [(BWPreviewStitcherDelegate *)self->_delegate previewStitcher:self overCaptureStatusDidChange:HIDWORD(self->_trueVideoCaptureAdditionalZoomFactor)];
                   }
 
-                  v35 = *off_1E798A3C8;
-                  v37 = CMGetAttachment(v148, *off_1E798A3C8, 0);
+                  v36 = *off_1E798A3C8;
+                  v38 = CMGetAttachment(v155, *off_1E798A3C8, 0);
 
-                  v38 = *off_1E798B540;
-                  v124 = 0;
-                  self->_lastNarrowerCameraPortType = [v37 objectForKeyedSubscript:*off_1E798B540];
-                  v36 = v38;
+                  v39 = *off_1E798B540;
+                  v131 = 0;
+                  self->_lastNarrowerCameraPortType = [v38 objectForKeyedSubscript:*off_1E798B540];
+                  v37 = v39;
                   goto LABEL_104;
                 }
 
                 [BWPreviewStitcherNode _updateZoomStatusFromWiderCameraSampleBuffer:narrowerCameraSampleBuffer:];
-                v124 = v34;
-                v35 = *off_1E798A3C8;
-                if (!v149)
+                v131 = v35;
+                v36 = *off_1E798A3C8;
+                if (!v156)
                 {
-                  v36 = *off_1E798B540;
+                  v37 = *off_1E798B540;
 LABEL_104:
-                  v39 = v30;
                   v40 = v31;
+                  v41 = v32;
                   goto LABEL_111;
                 }
 
-                v41 = CMGetAttachment(v149, *off_1E798A3C8, 0);
-                v129 = CMGetAttachment(v148, v35, 0);
-                v42 = *off_1E798B730;
-                dictionary = [v41 objectForKeyedSubscript:*off_1E798B730];
+                v42 = CMGetAttachment(v156, *off_1E798A3C8, 0);
+                v136 = CMGetAttachment(v155, v36, 0);
+                v43 = *off_1E798B730;
+                dictionary = [v42 objectForKeyedSubscript:*off_1E798B730];
                 if (!dictionary)
                 {
                   dictionary = [MEMORY[0x1E695DF90] dictionary];
-                  [v41 setObject:dictionary forKeyedSubscript:v42];
+                  [v42 setObject:dictionary forKeyedSubscript:v43];
                 }
 
-                v125 = *off_1E798B540;
-                v44 = [v129 objectForKeyedSubscript:?];
-                if (v44)
+                v132 = *off_1E798B540;
+                v45 = [v136 objectForKeyedSubscript:?];
+                if (v45)
                 {
-                  v45 = v44;
-                  if (![dictionary objectForKeyedSubscript:v44])
+                  v46 = v45;
+                  if (![dictionary objectForKeyedSubscript:v45])
                   {
                     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-                    [dictionary2 setObject:objc_msgSend(v129 forKeyedSubscript:{"objectForKeyedSubscript:"), *off_1E798B3C0}];
-                    [dictionary2 setObject:objc_msgSend(v129 forKeyedSubscript:{"objectForKeyedSubscript:"), *off_1E798B3C8}];
-                    [dictionary setObject:dictionary2 forKeyedSubscript:v45];
+                    [dictionary2 setObject:objc_msgSend(v136 forKeyedSubscript:{"objectForKeyedSubscript:"), *off_1E798B3C0}];
+                    [dictionary2 setObject:objc_msgSend(v136 forKeyedSubscript:{"objectForKeyedSubscript:"), *off_1E798B3C8}];
+                    [dictionary setObject:dictionary2 forKeyedSubscript:v46];
                   }
 
-                  v40 = [(BWPreviewStitcherNode *)self _computeBravoWiderToNarrowerCameraShiftFromWiderCameraSampleBuffer:v149 narrowerCameraSampleBuffer:v148];
-                  v39 = v47;
-                  v36 = v125;
+                  v41 = [(BWPreviewStitcherNode *)self _computeBravoWiderToNarrowerCameraShiftFromWiderCameraSampleBuffer:v156 narrowerCameraSampleBuffer:v155];
+                  v40 = v48;
+                  v37 = v132;
 LABEL_111:
-                  v130 = [objc_msgSend(CMGetAttachment(v149 v35];
+                  v49 = [CMGetAttachment(v156 v36];
+                  isEqualToString = objc_msgSend_isEqualToString_(v49);
                   registrationEnabled = self->_registrationEnabled;
-                  if (v149)
+                  if (v156)
                   {
-                    v49 = v149;
+                    v51 = v156;
                   }
 
                   else
                   {
-                    v49 = v148;
+                    v51 = v155;
                   }
 
-                  v50 = [objc_msgSend(CMGetAttachment(v49 v35];
-                  if (self->_deviceIsStationary != v50)
+                  v52 = [objc_msgSend(CMGetAttachment(v51 v36];
+                  if (self->_deviceIsStationary != v52)
                   {
                     if (BYTE1(self->_superWideFallbackRecenteringStrength) == 1)
                     {
-                      v51 = LOBYTE(self->_superWideFallbackRecenteringStrength) ^ 1;
+                      v53 = LOBYTE(self->_superWideFallbackRecenteringStrength) ^ 1;
                     }
 
                     else
                     {
-                      v51 = 1;
+                      v53 = 1;
                     }
 
-                    self->_pendingRegistrationAfterDeviceBecomesStationary = v50 & v51;
-                    self->_deviceIsStationary = v50;
+                    self->_pendingRegistrationAfterDeviceBecomesStationary = v52 & v53;
+                    self->_deviceIsStationary = v52;
                   }
 
-                  v52 = CMGetAttachment(v148, v35, 0);
-                  v126 = v36;
-                  v53 = [v52 objectForKeyedSubscript:v36];
+                  v54 = CMGetAttachment(v155, v36, 0);
+                  v133 = v37;
+                  v55 = [v54 objectForKeyedSubscript:v37];
                   if (LOBYTE(self->_lastInputPTS.epoch) == 1 && self->_excludeStaticComponentFromAlignmentShiftsEnabled)
                   {
-                    v54 = v53;
-                    time = v147;
+                    v56 = v55;
+                    time = v154;
                     time2 = *(&self->_havePreheatedCI + 4);
                     if (!CMTimeCompare(&time, &time2))
                     {
-                      if ([v54 isEqualToString:*off_1E798A0C0])
+                      if (objc_msgSend_isEqualToString_(v56))
                       {
-                        ImageBuffer = CMSampleBufferGetImageBuffer(v148);
-                        v56 = psn_pixelBufferDimensions(ImageBuffer);
-                        [(BWPreviewRegistration *)self->_registration computeApproximateCorrectionForWiderCamera:v148 narrowerCameraPortType:*off_1E798A0D8 narrowerPixelBufferDimensions:v56 widerToNarrowerCameraScale:((self->_teleBaseZoomFactor * self->_teleNondisruptiveSwitchingScaleFactor) / (self->_wideBaseZoomFactor * self->_wideNondisruptiveSwitchingScaleFactor))];
-                        v58 = v57;
+                        ImageBuffer = CMSampleBufferGetImageBuffer(v155);
+                        v58 = psn_pixelBufferDimensions(ImageBuffer);
+                        [(BWPreviewRegistration *)self->_registration computeApproximateCorrectionForWiderCamera:v155 narrowerCameraPortType:*off_1E798A0D8 narrowerPixelBufferDimensions:v58 widerToNarrowerCameraScale:((self->_teleBaseZoomFactor * self->_teleNondisruptiveSwitchingScaleFactor) / (self->_wideBaseZoomFactor * self->_wideNondisruptiveSwitchingScaleFactor))];
                         v60 = v59;
-                        [objc_msgSend(v52 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
-                        if (v61 != 0.0)
+                        v62 = v61;
+                        [objc_msgSend(v54 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
+                        if (v63 != 0.0)
                         {
-                          v62 = v61;
-                          v58 = v58 / v62;
-                          v60 = v60 / v62;
+                          v64 = v63;
+                          v60 = v60 / v64;
+                          v62 = v62 / v64;
                         }
 
                         os_unfair_lock_lock(&self->_shiftCorrectionsUpdateLock);
                         p_valueIsUpdated = &self->_wideToTeleShiftCorrections[0].valueIsUpdated;
-                        v64 = 3;
+                        v66 = 3;
                         do
                         {
-                          *(p_valueIsUpdated - 2) = v58;
-                          *(p_valueIsUpdated - 1) = v60;
+                          *(p_valueIsUpdated - 2) = v60;
+                          *(p_valueIsUpdated - 1) = v62;
                           *p_valueIsUpdated = 1;
                           p_valueIsUpdated += 56;
-                          --v64;
+                          --v66;
                         }
 
-                        while (v64);
+                        while (v66);
                         *&self->_wideFallbackShiftRamp = self->_wideToTeleShiftCorrections[2].updatedValue;
                         os_unfair_lock_unlock(&self->_shiftCorrectionsUpdateLock);
                       }
                     }
                   }
 
-                  key = v35;
-                  v127 = v18;
-                  v128 = bufferCopy;
+                  key = v36;
+                  v134 = v18;
+                  v135 = bufferCopy;
                   if (LOBYTE(self->_lastInputPTS.epoch) == 1 && registrationEnabled)
                   {
-                    if (v149)
+                    if (v156)
                     {
-                      v66 = v148 == 0;
+                      v68 = v155 == 0;
                     }
 
                     else
                     {
-                      v66 = 1;
+                      v68 = 1;
                     }
 
-                    registrationEnabled = !v66;
+                    registrationEnabled = !v68;
                   }
 
                   if (LOBYTE(self->_lastInputPTS.epoch))
                   {
-                    v67 = !registrationEnabled;
+                    v69 = !registrationEnabled;
                   }
 
                   else
                   {
-                    v67 = 1;
+                    v69 = 1;
                   }
 
-                  if (!v67 && (!self->_lastRegistrationEnabled || *&v134.origin.x != buffer))
+                  if (!v69 && (!self->_lastRegistrationEnabled || *&v141.origin.x != buffer))
                   {
-                    if (v124 & 1 | ![(BWPreviewStitcherNode *)self _currentlyZoomingOrSwitchingCameras])
+                    if (v131 & 1 | ![(BWPreviewStitcherNode *)self _currentlyZoomingOrSwitchingCameras])
                     {
-                      if (!v149)
+                      if (!v156)
                       {
                         goto LABEL_203;
                       }
@@ -1974,31 +1976,31 @@ LABEL_111:
                     {
                       if (self->_lastRegisteredFrameCaptureID)
                       {
-                        v70 = 1;
+                        v72 = 1;
                       }
 
                       else
                       {
-                        v70 = v149 == 0;
+                        v72 = v156 == 0;
                       }
 
-                      if (v70)
+                      if (v72)
                       {
                         goto LABEL_203;
                       }
                     }
 
-                    v71 = [objc_msgSend(v52 objectForKeyedSubscript:{*off_1E798B708), "intValue"}];
-                    v72 = v71;
+                    v73 = [objc_msgSend(v54 objectForKeyedSubscript:{*off_1E798B708), "intValue"}];
+                    v74 = v73;
                     registrationFrameSkipCount = self->_registrationFrameSkipCount;
                     lastRegisteredFrameCaptureID = self->_lastRegisteredFrameCaptureID;
-                    v75 = v71 - lastRegisteredFrameCaptureID;
-                    if (v75 < 0)
+                    v77 = v73 - lastRegisteredFrameCaptureID;
+                    if (v77 < 0)
                     {
-                      v75 = lastRegisteredFrameCaptureID - v71;
+                      v77 = lastRegisteredFrameCaptureID - v73;
                     }
 
-                    if (v124)
+                    if (v131)
                     {
                       registrationFrameSkipCount /= 4;
                     }
@@ -2008,45 +2010,45 @@ LABEL_111:
                       registrationFrameSkipCount = (registrationFrameSkipCount * 1.5);
                     }
 
-                    if (v75 >= registrationFrameSkipCount || self->_registerFirstFrame && !lastRegisteredFrameCaptureID || self->_pendingRegistrationAfterDeviceBecomesStationary)
+                    if (v77 >= registrationFrameSkipCount || self->_registerFirstFrame && !lastRegisteredFrameCaptureID || self->_pendingRegistrationAfterDeviceBecomesStationary)
                     {
-                      if (v130)
+                      if (isEqualToString)
                       {
-                        LODWORD(v134.origin.x) = 0;
-                        v76 = BYTE4(self->_superWideFallbackRecenteringShiftOffset.y);
+                        LODWORD(v141.origin.x) = 0;
+                        v78 = BYTE4(self->_superWideFallbackRecenteringShiftOffset.y);
                       }
 
                       else
                       {
-                        v76 = 0;
-                        LODWORD(v134.origin.x) = LOBYTE(self->_wideFallbackRecenteringShiftOffset.y);
+                        v78 = 0;
+                        LODWORD(v141.origin.x) = LOBYTE(self->_wideFallbackRecenteringShiftOffset.y);
                       }
 
-                      if (v149)
+                      if (v156)
                       {
-                        v77 = v149;
+                        v79 = v156;
                       }
 
                       else
                       {
-                        v77 = v148;
+                        v79 = v155;
                       }
 
-                      v78 = CMGetAttachment(v77, @"TotalZoomFactor", 0);
-                      v79 = 1.0;
-                      if (v78)
+                      v80 = CMGetAttachment(v79, @"TotalZoomFactor", 0);
+                      v81 = 1.0;
+                      if (v80)
                       {
-                        [v78 floatValue];
-                        v79 = v80;
+                        [v80 floatValue];
+                        v81 = v82;
                       }
 
-                      if (!(v76 & 1 | ((v130 & 1) == 0)))
+                      if (!(v78 & 1 | ((isEqualToString & 1) == 0)))
                       {
-                        v76 = [self->_wideFocusDistanceFarEnoughToUseWide.name isRamping] && (self->_superWideFallbackShiftRamp & 1) == 0 && self->_haveSuperWideCamera && self->_haveTeleCamera && v79 >= self->_teleBaseZoomFactor;
+                        v78 = [self->_wideFocusDistanceFarEnoughToUseWide.name isRamping] && (self->_superWideFallbackShiftRamp & 1) == 0 && self->_haveSuperWideCamera && self->_haveTeleCamera && v81 >= self->_teleBaseZoomFactor;
                       }
 
-                      v81 = self->_deviceIsStationary && !self->_pendingRegistrationAfterDeviceBecomesStationary;
-                      if (v130)
+                      v83 = self->_deviceIsStationary && !self->_pendingRegistrationAfterDeviceBecomesStationary;
+                      if (isEqualToString)
                       {
                         superMacroRangeRegistrationTuningEnabled = self->_superMacroRangeRegistrationTuningEnabled;
                         if (!superMacroRangeRegistrationTuningEnabled)
@@ -2067,36 +2069,36 @@ LABEL_111:
                           {
                             if (BYTE4(self->_superWideFallbackRecenteringShiftOffset.y))
                             {
-                              v83 = 1;
+                              v85 = 1;
                             }
 
                             else
                             {
-                              v83 = 2;
+                              v85 = 2;
                             }
 
 LABEL_202:
-                            self->_lastRegisteredFrameCaptureID = v72;
+                            self->_lastRegisteredFrameCaptureID = v74;
                             self->_pendingRegistrationAfterDeviceBecomesStationary = 0;
-                            [(BWPreviewStitcherNode *)self _updateShiftCorrectionsAsyncFromComputedShift:v149 byRegisteringWiderCamera:v148 narrowerCamera:v83 macroTransitionType:v40, v39];
+                            [(BWPreviewStitcherNode *)self _updateShiftCorrectionsAsyncFromComputedShift:v156 byRegisteringWiderCamera:v155 narrowerCamera:v85 macroTransitionType:v41, v40];
                             goto LABEL_203;
                           }
 
 LABEL_198:
-                          if (BYTE1(self->_superWideFallbackRecenteringStrength) == 1 && (LOBYTE(self->_superWideFallbackRecenteringStrength) & v130 & 1) != 0)
+                          if (BYTE1(self->_superWideFallbackRecenteringStrength) == 1 && (LOBYTE(self->_superWideFallbackRecenteringStrength) & isEqualToString & 1) != 0)
                           {
-                            v83 = BYTE4(self->_superWideFallbackRecenteringShiftOffset.y) ^ 1u;
+                            v85 = BYTE4(self->_superWideFallbackRecenteringShiftOffset.y) ^ 1u;
                           }
 
                           else
                           {
-                            v83 = 0;
+                            v85 = 0;
                           }
 
                           goto LABEL_202;
                         }
 
-                        v84 = !superMacroRangeRegistrationTuningEnabled;
+                        v86 = !superMacroRangeRegistrationTuningEnabled;
                       }
 
                       else
@@ -2106,10 +2108,10 @@ LABEL_198:
                           goto LABEL_198;
                         }
 
-                        v84 = 0;
+                        v86 = 0;
                       }
 
-                      if (((LODWORD(v134.origin.x) | v76 | v81) & 1) == 0 && !v84)
+                      if (((LODWORD(v141.origin.x) | v78 | v83) & 1) == 0 && !v86)
                       {
                         goto LABEL_198;
                       }
@@ -2117,24 +2119,24 @@ LABEL_198:
                   }
 
 LABEL_203:
-                  v143[0] = *MEMORY[0x1E695EFF8];
-                  v143[1] = v143[0];
-                  v143[2] = v143[0];
-                  v134.origin = v143[0];
-                  v142 = v143[0];
-                  [objc_msgSend(v52 objectForKeyedSubscript:{*off_1E798B210), "floatValue"}];
-                  v86 = v85;
-                  [(BWPreviewStitcherNode *)self _updateAndGetWiderCameraRegionShifts:v143 teleShift:v142.f64 widerCameraIsSuperWide:v130 forComputedShift:registrationEnabled registrationEnabled:v40 currentFrameRate:v39, v85];
+                  v150[0] = *MEMORY[0x1E695EFF8];
+                  v150[1] = v150[0];
+                  v150[2] = v150[0];
+                  v141.origin = v150[0];
+                  v149 = v150[0];
+                  [objc_msgSend(v54 objectForKeyedSubscript:{*off_1E798B210), "floatValue"}];
+                  v88 = v87;
+                  [(BWPreviewStitcherNode *)self _updateAndGetWiderCameraRegionShifts:v150 teleShift:v149.f64 widerCameraIsSuperWide:isEqualToString forComputedShift:registrationEnabled registrationEnabled:v41 currentFrameRate:v40, v87];
                   if ((self->_lastInputPTS.epoch & 1) != 0 || BYTE2(self->_sensorOrientationByPortType) == 1)
                   {
-                    [(BWPreviewStitcherNode *)self _updateOverCaptureStatusWithWiderCameraSampleBuffer:v149 narrowerCameraSampleBuffer:v148];
+                    [(BWPreviewStitcherNode *)self _updateOverCaptureStatusWithWiderCameraSampleBuffer:v156 narrowerCameraSampleBuffer:v155];
                   }
 
-                  v29 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
+                  v30 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
                   emitSampleBufferSemaphore = self->_emitSampleBufferSemaphore;
-                  v28 = emitSampleBufferSemaphore != 0;
-                  bufferCopy = v128;
-                  v18 = v127;
+                  v29 = emitSampleBufferSemaphore != 0;
+                  bufferCopy = v135;
+                  v18 = v134;
                   if (emitSampleBufferSemaphore)
                   {
                     if ([(BWNodeConnection *)[(BWNodeOutput *)self->super._output connection] suspended]&& ![(BWNodeConnection *)[(BWNodeOutput *)self->super._output connection] bypassed])
@@ -2142,79 +2144,79 @@ LABEL_203:
                       goto LABEL_212;
                     }
 
-                    v88 = 0;
-                    if (v86 > 0.0 && !self->_lastFrameDroppedByBackpressure)
+                    v90 = 0;
+                    if (v88 > 0.0 && !self->_lastFrameDroppedByBackpressure)
                     {
-                      v88 = dispatch_time(0, (1000000000.0 / (v86 + v86)));
+                      v90 = dispatch_time(0, (1000000000.0 / (v88 + v88)));
                     }
 
-                    v89 = dispatch_semaphore_wait(self->_emitSampleBufferSemaphore, v88);
-                    self->_lastFrameDroppedByBackpressure = v89 != 0;
-                    if (v89)
+                    v91 = dispatch_semaphore_wait(self->_emitSampleBufferSemaphore, v90);
+                    self->_lastFrameDroppedByBackpressure = v91 != 0;
+                    if (v91)
                     {
 LABEL_212:
-                      v28 = 0;
+                      v29 = 0;
                       goto LABEL_213;
                     }
                   }
 
-                  v140 = 0u;
-                  v141 = 0u;
-                  v138 = 0u;
-                  v139 = 0;
-                  v136 = 0u;
-                  v137 = 0u;
-                  origin = v134.origin;
-                  v95 = [(BWPreviewStitcherNode *)self _newStitchedSampleBufferFromWiderCamera:v149 narrowerCamera:v148 widerCameraRegionsShifts:v143 teleShift:&v140 primaryCaptureRectOut:&v138 primaryCaptureRectBeforeCroppingOut:&origin.x centerWiderCameraShiftOut:&v136 currentFrameRate:v142.f64[0] inputCropRectOut:v142.f64[1], v86];
-                  if (!v95)
+                  v147 = 0u;
+                  v148 = 0u;
+                  v145 = 0u;
+                  v146 = 0;
+                  v143 = 0u;
+                  v144 = 0u;
+                  origin = v141.origin;
+                  v97 = [(BWPreviewStitcherNode *)self _newStitchedSampleBufferFromWiderCamera:v156 narrowerCamera:v155 widerCameraRegionsShifts:v150 teleShift:&v147 primaryCaptureRectOut:&v145 primaryCaptureRectBeforeCroppingOut:&origin.x centerWiderCameraShiftOut:&v143 currentFrameRate:v149.f64[0] inputCropRectOut:v149.f64[1], v88];
+                  if (!v97)
                   {
 LABEL_213:
-                    v90 = 0;
-                    if (!v28 && *(&self->super.super.isa + v29[452]))
+                    v92 = 0;
+                    if (!v29 && *(&self->super.super.isa + v30[452]))
                     {
-                      *&v134.size.height = *(&self->super.super.isa + v29[452]);
-                      v90 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v134.size.height count:1];
+                      *&v141.size.height = *(&self->super.super.isa + v30[452]);
+                      v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v141.size.height count:1];
                     }
 
                     CMSampleBufferGetPresentationTimeStamp(&time, bufferCopy);
-                    [(BWNodeOutput *)self->super._output emitDroppedSample:[BWDroppedSample newDroppedSampleWithReason:0x1F219BF70 pts:&time backPressureSemaphoresToIgnore:v90]];
-                    v91 = 0;
+                    [(BWNodeOutput *)self->super._output emitDroppedSample:[BWDroppedSample newDroppedSampleWithReason:0x1F219BF70 pts:&time backPressureSemaphoresToIgnore:v92]];
+                    v93 = 0;
                     transitionReferenceSampleBuffer = 0;
-                    v93 = 1;
+                    v95 = 1;
 LABEL_217:
                     if (bufferCopy)
                     {
-                      v94 = v18;
+                      v96 = v18;
                     }
 
                     else
                     {
-                      v94 = 0;
+                      v96 = 0;
                     }
 
-                    if (v94 == 1)
+                    if (v96 == 1)
                     {
                       CFRelease(bufferCopy);
                     }
 
-                    if (v149)
+                    if (v156)
                     {
-                      CFRelease(v149);
+                      CFRelease(v156);
                     }
 
-                    if (v148)
+                    if (v155)
                     {
-                      CFRelease(v148);
+                      CFRelease(v155);
                     }
 
-                    if (v132)
+                    if (v139)
                     {
-                      CFRelease(v132);
+                      CFRelease(v139);
                     }
 
-                    if (v131)
+                    if (v138)
                     {
-                      CFRelease(v131);
+                      CFRelease(v138);
                     }
 
                     if (transitionReferenceSampleBuffer)
@@ -2229,30 +2231,32 @@ LABEL_217:
 
                     if (*v7 == 1)
                     {
-                      [CMGetAttachment(v91 @"CAContextFencePortGenerationID"];
+                      [CMGetAttachment(v93 @"CAContextFencePortGenerationID"];
                       kdebug_trace();
                     }
 
-                    if ((v93 & 1) == 0)
+                    if ((v95 & 1) == 0)
                     {
-                      CFRelease(v91);
+                      CFRelease(v93);
                     }
 
                     return;
                   }
 
-                  v91 = v95;
-                  if (LOBYTE(self->_borderStretchScaleFactor) == 1 && v132)
+                  v93 = v97;
+                  if (LOBYTE(self->_borderStretchScaleFactor) == 1 && v139)
                   {
-                    v96 = CMGetAttachment(v149, key, 0);
-                    v97 = CMGetAttachment(v132, key, 0);
+                    v98 = CMGetAttachment(v156, key, 0);
+                    v99 = CMGetAttachment(v139, key, 0);
                     x = origin.x;
-                    if (origin.x != v31 || (x = origin.y, origin.y != v30))
+                    if (origin.x != v32 || (x = origin.y, origin.y != v31))
                     {
-                      if ([objc_msgSend(v96 objectForKeyedSubscript:{v126, x), "isEqualToString:", objc_msgSend(v97, "objectForKeyedSubscript:", v126)}])
+                      v101 = [v98 objectForKeyedSubscript:{v133, x}];
+                      [v99 objectForKeyedSubscript:v133];
+                      if (objc_msgSend_isEqualToString_(v101))
                       {
                         DictionaryRepresentation = CGPointCreateDictionaryRepresentation(origin);
-                        CMSetAttachment(v132, @"NarrowerCameraPreviewAlignmentShift", DictionaryRepresentation, 1u);
+                        CMSetAttachment(v139, @"NarrowerCameraPreviewAlignmentShift", DictionaryRepresentation, 1u);
                         if (DictionaryRepresentation)
                         {
                           CFRelease(DictionaryRepresentation);
@@ -2260,145 +2264,145 @@ LABEL_217:
                       }
                     }
 
-                    BWSampleBufferSetAttachedMedia(v91, 0x1F21AAEB0, v132);
+                    BWSampleBufferSetAttachedMedia(v93, 0x1F21AAEB0, v139);
                   }
 
-                  v100 = off_1E798A440;
+                  v103 = off_1E798A440;
                   if (self->_zoomPIPUseNarrowerCamera)
                   {
                     if (cf)
                     {
-                      psn_attachCropRectToSampleBuffer(cf, *off_1E798A398, *&v136, *(&v136 + 1), *&v137, *(&v137 + 1));
-                      psn_attachCropRectToSampleBuffer(cf, *off_1E798A360, *&v136, *(&v136 + 1), *&v137, *(&v137 + 1));
+                      psn_attachCropRectToSampleBuffer(cf, *off_1E798A398, *&v143, *(&v143 + 1), *&v144, *(&v144 + 1));
+                      psn_attachCropRectToSampleBuffer(cf, *off_1E798A360, *&v143, *(&v143 + 1), *&v144, *(&v144 + 1));
                       CMSetAttachment(cf, @"RotationDegrees", [MEMORY[0x1E696AD98] numberWithInt:self->_rotationDegrees], 1u);
-                      BWSampleBufferSetAttachedMedia(v91, 0x1F21AAAD0, cf);
+                      BWSampleBufferSetAttachedMedia(v93, 0x1F21AAAD0, cf);
                       if (LOBYTE(self->_restitchingQueue) == 1)
                       {
-                        v101 = CMSampleBufferGetImageBuffer(cf);
-                        CVPixelBufferGetWidth(v101);
-                        CVPixelBufferGetHeight(v101);
-                        FigCaptureDenormalizeCropRect(*&v136, *(&v136 + 1), *&v137, *(&v137 + 1));
-                        v104 = FigCaptureMetadataUtilitiesSizeIsInLandscapeOrientation(v102, v103);
-                        CMSetAttachment(v91, *off_1E798A440, [MEMORY[0x1E696AD98] numberWithBool:v104], 1u);
+                        v104 = CMSampleBufferGetImageBuffer(cf);
+                        Width = CVPixelBufferGetWidth(v104);
+                        Height = CVPixelBufferGetHeight(v104);
+                        FigCaptureDenormalizeCropRect(Width | (Height << 32), *&v143, *(&v143 + 1), *&v144, *(&v144 + 1));
+                        v109 = FigCaptureMetadataUtilitiesSizeIsInLandscapeOrientation(v107, v108);
+                        CMSetAttachment(v93, *off_1E798A440, [MEMORY[0x1E696AD98] numberWithBool:v109], 1u);
                       }
                     }
                   }
 
-                  if (v131)
+                  if (v138)
                   {
-                    BWSampleBufferSetAttachedMedia(v91, @"Depth", v131);
+                    BWSampleBufferSetAttachedMedia(v93, @"Depth", v138);
                   }
 
-                  if (*(&self->_zoomPIPUseNarrowerCamera + 1) && ((v122 & 1) != 0 || BYTE4(self->_superWideFallbackRecenteringShiftOffset.y) == 1))
+                  if (*(&self->_zoomPIPUseNarrowerCamera + 1) && ((v129 & 1) != 0 || BYTE4(self->_superWideFallbackRecenteringShiftOffset.y) == 1))
                   {
-                    CMSetAttachment(v91, @"DepthDisabled", MEMORY[0x1E695E118], 1u);
+                    CMSetAttachment(v93, @"DepthDisabled", MEMORY[0x1E695E118], 1u);
                   }
 
                   if (LOBYTE(self->_zoomPIPMinimumUIZoomFactor) != 1)
                   {
                     transitionReferenceSampleBuffer = 0;
 LABEL_272:
-                    v107 = v140;
-                    v108 = v141;
-                    v109 = v138;
-                    *&v134.origin.x = v138;
-                    v110 = v139;
-                    v111 = CMSampleBufferGetImageBuffer(v91);
-                    CVPixelBufferGetWidth(v111);
-                    CVPixelBufferGetHeight(v111);
-                    FigCaptureMetadataUtilitiesNormalizeCropRect(*&v107, *(&v107 + 1), *&v108, *(&v108 + 1));
-                    v112 = CGRectCreateDictionaryRepresentation(v151);
-                    CMSetAttachment(v91, *off_1E798A430, v112, 1u);
-                    if (v112)
+                    v112 = v147;
+                    v113 = v148;
+                    v114 = v145;
+                    *&v141.origin.x = v145;
+                    v115 = v146;
+                    v116 = CMSampleBufferGetImageBuffer(v93);
+                    v117 = CVPixelBufferGetWidth(v116);
+                    v118 = CVPixelBufferGetHeight(v116);
+                    FigCaptureMetadataUtilitiesNormalizeCropRect(*&v112, *(&v112 + 1), *&v113, *(&v113 + 1), v117, v118);
+                    v119 = CGRectCreateDictionaryRepresentation(v158);
+                    CMSetAttachment(v93, *off_1E798A430, v119, 1u);
+                    if (v119)
                     {
-                      CFRelease(v112);
+                      CFRelease(v119);
                     }
 
-                    v152.origin.x = v134.origin.x;
-                    v152.origin.y = *(&v109 + 1);
-                    v152.size = v110;
-                    v113 = CGRectCreateDictionaryRepresentation(v152);
-                    CMSetAttachment(v91, *off_1E798A438, v113, 1u);
-                    if (v113)
+                    v159.origin.x = v141.origin.x;
+                    v159.origin.y = *(&v114 + 1);
+                    v159.size = v115;
+                    v120 = CGRectCreateDictionaryRepresentation(v159);
+                    CMSetAttachment(v93, *off_1E798A438, v120, 1u);
+                    if (v120)
                     {
-                      CFRelease(v113);
+                      CFRelease(v120);
                     }
 
                     if ((BYTE1(self->_zoomPIPMinimumUIZoomFactor) & 1) == 0)
                     {
                       if ((BYTE3(self->_blackFilledBorderRectsBySurfaceID) & 1) == 0 && BYTE2(self->_narrowerCameraFoVFillsOverCapture.name) == 1)
                       {
-                        CMSetAttachment(v91, @"SmartStyleApplyWithIdentityCoefficients", MEMORY[0x1E695E118], 1u);
+                        CMSetAttachment(v93, @"SmartStyleApplyWithIdentityCoefficients", MEMORY[0x1E695E118], 1u);
                       }
 
                       if (BYTE2(self->_blackFilledBorderRectsBySurfaceID) == 1 && (BYTE3(self->_blackFilledBorderRectsBySurfaceID) & 1) == 0)
                       {
                         if ((BYTE2(self->_zoomPIPMinimumUIZoomFactor) & 1) == 0)
                         {
-                          time = v147;
-                          v114 = CMTimeGetSeconds(&time) + 0.3;
-                          *&self->_previewTapRegistered = v114;
+                          time = v154;
+                          v121 = CMTimeGetSeconds(&time) + 0.3;
+                          *&self->_previewTapRegistered = v121;
                           BYTE2(self->_zoomPIPMinimumUIZoomFactor) = 1;
                         }
 
-                        time = v147;
-                        v18 = v127;
+                        time = v154;
+                        v18 = v134;
                         if (CMTimeGetSeconds(&time) < *&self->_previewTapRegistered)
                         {
-                          CMSetAttachment(v91, @"SmartStyleApplyWithIdentityCoefficients", MEMORY[0x1E695E118], 1u);
+                          CMSetAttachment(v93, @"SmartStyleApplyWithIdentityCoefficients", MEMORY[0x1E695E118], 1u);
                         }
                       }
                     }
 
-                    v115 = CMGetAttachment(v91, key, 0);
-                    v116 = [CMGetAttachment(v91 *v100];
+                    v122 = CMGetAttachment(v93, key, 0);
+                    v123 = [CMGetAttachment(v93 *v103];
                     smartFramingFieldOfViewTransitionNotifyAppliedZoomFactors = self->_smartFramingFieldOfViewTransitionNotifyAppliedZoomFactors;
-                    self->_smartFramingFieldOfViewTransitionNotifyAppliedZoomFactors = v116;
-                    if ((self->_lastStitchedBufferPTS.flags & 1) != 0 && (v118 = v116, time = v147, time2 = *&self->_singleCameraOverCaptureRemainingFramesUntilStopOverCaptureRendering, !CMTimeCompare(&time, &time2)) && smartFramingFieldOfViewTransitionNotifyAppliedZoomFactors == v118 && (epoch_high = HIDWORD(self->_lastStitchedBufferPTS.epoch), epoch_high <= LODWORD(self->_lastStitchedBufferPTS.epoch)))
+                    self->_smartFramingFieldOfViewTransitionNotifyAppliedZoomFactors = v123;
+                    if ((self->_lastStitchedBufferPTS.flags & 1) != 0 && (v125 = v123, time = v154, time2 = *&self->_singleCameraOverCaptureRemainingFramesUntilStopOverCaptureRendering, !CMTimeCompare(&time, &time2)) && smartFramingFieldOfViewTransitionNotifyAppliedZoomFactors == v125 && (epoch_high = HIDWORD(self->_lastStitchedBufferPTS.epoch), epoch_high <= LODWORD(self->_lastStitchedBufferPTS.epoch)))
                     {
-                      v120 = 0;
+                      v127 = 0;
                       HIDWORD(self->_lastStitchedBufferPTS.epoch) = epoch_high + 1;
-                      v121 = 1;
+                      v128 = 1;
                     }
 
                     else
                     {
-                      v121 = 0;
-                      v120 = 0;
+                      v128 = 0;
+                      v127 = 0;
                       HIDWORD(self->_lastStitchedBufferPTS.epoch) = 0;
                       if (BYTE1(self->_restitchingQueue) == 1)
                       {
-                        v121 = 0;
-                        v120 = LODWORD(self->_smartFramingTransitionPercentComplete) == 4;
+                        v128 = 0;
+                        v127 = LODWORD(self->_smartFramingTransitionPercentComplete) == 4;
                       }
                     }
 
-                    [v115 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", v121), *off_1E798A660}];
-                    [v115 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", v120), *off_1E798A838}];
-                    *&self->_singleCameraOverCaptureRemainingFramesUntilStopOverCaptureRendering = v147;
-                    [(BWNodeOutput *)self->super._output emitSampleBuffer:v91];
-                    v93 = 0;
+                    [v122 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", v128), *off_1E798A660}];
+                    [v122 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", v127), *off_1E798A838}];
+                    *&self->_singleCameraOverCaptureRemainingFramesUntilStopOverCaptureRendering = v154;
+                    [(BWNodeOutput *)self->super._output emitSampleBuffer:v93];
+                    v95 = 0;
                     v7 = MEMORY[0x1E695FF58];
-                    bufferCopy = v128;
+                    bufferCopy = v135;
                     goto LABEL_217;
                   }
 
                   transitionReferenceSampleBuffer = self->_transitionReferenceSampleBuffer;
                   if (transitionReferenceSampleBuffer)
                   {
-                    v105 = 8;
+                    v110 = 8;
                   }
 
                   else
                   {
-                    v105 = 18;
+                    v110 = 18;
                   }
 
                   if (BYTE1(self->_zoomPIPMinimumUIZoomFactor) == 1 && transitionReferenceSampleBuffer)
                   {
                     CFRetain(self->_transitionReferenceSampleBuffer);
                     ++LODWORD(self->_transitionReferenceLearnedCoefficientsSampleBuffer);
-                    v18 = v127;
+                    v18 = v134;
                     if ((BYTE1(self->_zoomPIPMinimumUIZoomFactor) & 1) == 0)
                     {
                       goto LABEL_271;
@@ -2408,21 +2412,21 @@ LABEL_272:
                   else
                   {
                     transitionReferenceSampleBuffer = 0;
-                    v18 = v127;
+                    v18 = v134;
                     if (!BYTE1(self->_zoomPIPMinimumUIZoomFactor))
                     {
 LABEL_271:
-                      psn_attachCropRectToSampleBuffer(v91, *off_1E798A398, *&v136, *(&v136 + 1), *&v137, *(&v137 + 1));
-                      CMSetAttachment(v91, @"PreviewStitcherPrimaryCameraTransitionInProgress", [MEMORY[0x1E696AD98] numberWithInt:self->_cameraTransitionRamp != 0], 1u);
-                      v100 = off_1E798A440;
+                      psn_attachCropRectToSampleBuffer(v93, *off_1E798A398, *&v143, *(&v143 + 1), *&v144, *(&v144 + 1));
+                      CMSetAttachment(v93, @"PreviewStitcherPrimaryCameraTransitionInProgress", [MEMORY[0x1E696AD98] numberWithInt:self->_cameraTransitionRamp != 0], 1u);
+                      v103 = off_1E798A440;
                       goto LABEL_272;
                     }
                   }
 
-                  v106 = self->_transitionReferenceSampleBuffer;
-                  if (v106 && SLODWORD(self->_transitionReferenceLearnedCoefficientsSampleBuffer) >= v105)
+                  v111 = self->_transitionReferenceSampleBuffer;
+                  if (v111 && SLODWORD(self->_transitionReferenceLearnedCoefficientsSampleBuffer) >= v110)
                   {
-                    CFRelease(v106);
+                    CFRelease(v111);
                     self->_transitionReferenceSampleBuffer = 0;
                   }
 
@@ -2430,26 +2434,26 @@ LABEL_271:
                 }
 
                 [BWPreviewStitcherNode renderSampleBuffer:forInput:];
-                v28 = 0;
+                v29 = 0;
 LABEL_92:
-                v29 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
+                v30 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
                 goto LABEL_213;
               }
 
-              [BWPreviewStitcherNode renderSampleBuffer:forInput:];
+              [BWPreviewStitcherNode renderSampleBuffer:v26 forInput:?];
             }
 
             else
             {
               if (bufferCopy)
               {
-                v69 = CFRetain(bufferCopy);
-                v148 = v69;
-                if (v69)
+                v71 = CFRetain(bufferCopy);
+                v155 = v71;
+                if (v71)
                 {
                   if ((zoomPIPMinimumUIZoomFactor_low & 1) == 0)
                   {
-                    BWSampleBufferRemoveAllAttachedMedia(v69);
+                    BWSampleBufferRemoveAllAttachedMedia(v71);
                   }
 
                   goto LABEL_78;
@@ -2458,14 +2462,14 @@ LABEL_92:
 
               else
               {
-                v148 = 0;
+                v155 = 0;
               }
 
               [BWPreviewStitcherNode renderSampleBuffer:forInput:];
             }
 
-            v28 = 0;
-            v132 = 0;
+            v29 = 0;
+            v139 = 0;
             cf = 0;
             goto LABEL_92;
           }
@@ -2718,17 +2722,17 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
 {
   if (result)
   {
-    if ([a2 isEqualToString:*off_1E798A0D0])
+    if (objc_msgSend_isEqualToString_(a2, a2, *off_1E798A0D0))
     {
       return @"SuperWide";
     }
 
-    else if ([a2 isEqualToString:*off_1E798A0C0])
+    else if (objc_msgSend_isEqualToString_(a2))
     {
       return @"Wide";
     }
 
-    else if ([a2 isEqualToString:*off_1E798A0D8])
+    else if (objc_msgSend_isEqualToString_(a2))
     {
       return @"Tele";
     }
@@ -2789,7 +2793,7 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
     v14 = *off_1E798B540;
     v15 = [v13 objectForKeyedSubscript:*off_1E798B540];
     v16 = OUTLINED_FUNCTION_22(a2);
-    v17 = [v15 isEqualToString:*off_1E798A0C0] ? v13 : v16;
+    v17 = objc_msgSend_isEqualToString_(v15) ? v13 : v16;
     [objc_msgSend(v17 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
     v19 = v18;
     v20 = *(v3 + 420);
@@ -2798,15 +2802,16 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
       return 0;
     }
 
-    if ((*(v3 + 1684) | [objc_msgSend(OUTLINED_FUNCTION_22(v6) objectForKeyedSubscript:{v14), "isEqualToString:", *off_1E798A0D0}]))
+    v22 = [OUTLINED_FUNCTION_22(v6) objectForKeyedSubscript:v14];
+    if ((*(v3 + 1684) | objc_msgSend_isEqualToString_(v22)))
     {
       v6 = 0;
     }
 
-    v22 = OUTLINED_FUNCTION_69();
-    v25 = [CMGetAttachment(v22 v23] & 0xFFFFFFFE;
-    v26 = !v6 || v25 == 2;
-    if (!v26 && (v27 = OUTLINED_FUNCTION_69(), [CMGetAttachment(v27 v28] <= 2) && (v19 == 2.0 ? (v30 = v19 == 0.0) : (v30 = 1), v30 ? (v31 = 0) : (v31 = 1), (*(v3 + 1678) & 1) != 0 || (v31 & 1) != 0))
+    v23 = OUTLINED_FUNCTION_69();
+    v26 = [CMGetAttachment(v23 v24] & 0xFFFFFFFE;
+    v27 = !v6 || v26 == 2;
+    if (!v27 && (v28 = OUTLINED_FUNCTION_69(), [CMGetAttachment(v28 v29] <= 2) && (v19 == 2.0 ? (v31 = v19 == 0.0) : (v31 = 1), v31 ? (v32 = 0) : (v32 = 1), (*(v3 + 1678) & 1) != 0 || (v32 & 1) != 0))
     {
       BWCMSampleBufferCreateCopyIncludingMetadata(v6, &sampleBufferOut);
       BWSampleBufferRemoveAllAttachedMedia(sampleBufferOut);
@@ -2859,10 +2864,10 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
   v10 = *off_1E798B540;
   [v9 objectForKeyedSubscript:*off_1E798B540];
   v11 = OUTLINED_FUNCTION_111();
-  v139 = OUTLINED_FUNCTION_71_0(v11);
-  v12 = [v139 objectForKeyedSubscript:v10];
-  v135 = *off_1E798A0D8;
-  v13 = [v0 isEqualToString:?];
+  v146 = OUTLINED_FUNCTION_71_0(v11);
+  v12 = [v146 objectForKeyedSubscript:v10];
+  v141 = *off_1E798A0D8;
+  isEqualToString = objc_msgSend_isEqualToString_(v0);
   OUTLINED_FUNCTION_117();
   v15 = *(v8 + v14);
   v16 = 0.0;
@@ -2892,12 +2897,13 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
   }
 
   v23 = *off_1E798A0C0;
-  v24 = [v0 isEqualToString:*off_1E798A0C0];
-  v134 = v23;
-  v132 = [v12 isEqualToString:v23];
-  v136 = *off_1E798A0D0;
-  v137 = v0;
-  v25 = [v0 isEqualToString:?];
+  v24 = objc_msgSend_isEqualToString_(v0);
+  v142 = v12;
+  v140 = v23;
+  v138 = objc_msgSend_isEqualToString_(v12);
+  v143 = *off_1E798A0D0;
+  v144 = v0;
+  v25 = objc_msgSend_isEqualToString_(v0);
   *(v8 + 330) = 0;
   if (v24)
   {
@@ -2906,7 +2912,7 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
 
   else
   {
-    v26 = v139;
+    v26 = v146;
   }
 
   v27 = *off_1E798B508;
@@ -2945,7 +2951,7 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
 
   if (v24)
   {
-    v33 = v139;
+    v33 = v146;
   }
 
   else
@@ -2960,7 +2966,7 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
   }
 
   *(v8 + 304) = v34;
-  if (v13)
+  if (isEqualToString)
   {
     v35 = v9;
   }
@@ -2982,7 +2988,7 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
   v39 = target;
   if (v37 != v38)
   {
-    if (v13 && (v37 > 1.0 ? (v40 = v38 == 1.0) : (v40 = 0), v40 && (*(v8 + 329) & 1) != 0 && [v9 objectForKeyedSubscript:*off_1E798B7A0]))
+    if (isEqualToString && (v37 > 1.0 ? (v40 = v38 == 1.0) : (v40 = 0), v40 && (*(v8 + 329) & 1) != 0 && [v9 objectForKeyedSubscript:*off_1E798B7A0]))
     {
       OUTLINED_FUNCTION_21_4(330);
     }
@@ -3003,7 +3009,7 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
   if (*(v8 + 240) != 1)
   {
     *(v8 + 244) = 0;
-    v44 = v137;
+    v44 = v144;
     goto LABEL_89;
   }
 
@@ -3014,7 +3020,7 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
     {
       v42 = *(v8 + 252);
       v43 = *(v8 + 952);
-      v44 = v137;
+      v44 = v144;
       if (v43)
       {
         [v43 currentValue];
@@ -3038,7 +3044,7 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
 
     else
     {
-      v44 = v137;
+      v44 = v144;
     }
 
     v60 = OUTLINED_FUNCTION_83();
@@ -3046,8 +3052,8 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
     goto LABEL_80;
   }
 
-  v44 = v137;
-  if ((v24 | v132))
+  v44 = v144;
+  if ((v24 | v138))
   {
     [objc_msgSend(v26 objectForKeyedSubscript:{*off_1E798B530), "floatValue"}];
     v46 = v45;
@@ -3057,14 +3063,11 @@ void __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_
     v50 = *(v8 + 260);
     if (v50 <= v49)
     {
-      v133 = *(v8 + 252);
-      v131 = *(v8 + 256);
+      HIDWORD(v135) = *(v8 + 256);
       fig_log_get_emitter();
-      v130 = v5;
-      LODWORD(v129) = 0;
-      FigDebugAssert3();
-      v49 = v131;
-      v47 = v133;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v135, v5, v137, v140, v141, v12);
+      v49 = v136;
+      v47 = v139;
     }
 
     if (v50 >= v46)
@@ -3106,7 +3109,7 @@ LABEL_82:
   v62 = OUTLINED_FUNCTION_83();
   os_unfair_lock_lock(v62);
   v63 = 0.0;
-  if (v13)
+  if (isEqualToString)
   {
     v64 = *(v8 + 952);
     if (v64)
@@ -3139,8 +3142,8 @@ LABEL_89:
     }
   }
 
-  v67 = v66;
-  if (!v6 || (v68 = OUTLINED_FUNCTION_97_1(), v39) || v68) && (!v39 || (v69 = [v67 isEqualToString:v12], v6) || (v69))
+  v68 = v66;
+  if (!v6 || (v69 = OUTLINED_FUNCTION_97_1(v66, v67), v39) || v69) && (!v39 || (v70 = objc_msgSend_isEqualToString_(v68), v6) || (v70))
   {
     OUTLINED_FUNCTION_33();
     if (!v31)
@@ -3148,7 +3151,8 @@ LABEL_89:
       goto LABEL_112;
     }
 
-    if ([v67 isEqualToString:v136])
+    v73 = objc_msgSend_isEqualToString_(v68);
+    if (v73)
     {
       if (!v6)
       {
@@ -3158,21 +3162,21 @@ LABEL_89:
 
     else
     {
-      v72 = [v67 isEqualToString:v135];
-      if (!v6 || (v72 & 1) == 0)
+      v73 = objc_msgSend_isEqualToString_(v68);
+      if (!v6 || (v73 & 1) == 0)
       {
         goto LABEL_112;
       }
     }
 
-    v73 = OUTLINED_FUNCTION_97_1();
+    v75 = OUTLINED_FUNCTION_97_1(v73, v74);
     if (v39)
     {
-      if (!v73)
+      if (!v75)
       {
-        v74 = [v67 isEqualToString:v12];
-        v71 = v134;
-        if ((v74 & 1) == 0)
+        v76 = objc_msgSend_isEqualToString_(v68);
+        v72 = v140;
+        if ((v76 & 1) == 0)
         {
           goto LABEL_100;
         }
@@ -3182,18 +3186,18 @@ LABEL_89:
 
   else
   {
-    v70 = [v44 isEqualToString:{v136, v129, v130}];
-    v71 = v12;
+    v71 = objc_msgSend_isEqualToString_(v44);
+    v72 = v142;
     if (v6)
     {
-      v71 = v44;
+      v72 = v44;
     }
 
-    if ((v70 & 1) == 0)
+    if ((v71 & 1) == 0)
     {
 LABEL_100:
-      v67 = v71;
-      if (!v71)
+      v68 = v72;
+      if (!v72)
       {
         goto LABEL_115;
       }
@@ -3201,120 +3205,121 @@ LABEL_100:
   }
 
 LABEL_112:
-  if (([v67 isEqualToString:{*(v8 + 920), v129}] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v68) & 1) == 0)
   {
 
-    *(v8 + 920) = v67;
-    OUTLINED_FUNCTION_97_1();
+    v77 = v68;
+    *(v8 + 920) = v77;
+    OUTLINED_FUNCTION_97_1(v77, v78);
   }
 
 LABEL_115:
-  v75 = OUTLINED_FUNCTION_22(v6);
-  if (v75 || (v75 = OUTLINED_FUNCTION_22(v39)) != 0)
+  v79 = OUTLINED_FUNCTION_22(v6);
+  if (v79 || (v79 = OUTLINED_FUNCTION_22(v39)) != 0)
   {
-    v76 = v75;
-    if (([v75 isEqualToString:{*(v8 + 928), v129}] & 1) == 0)
+    v80 = v79;
+    if ((objc_msgSend_isEqualToString_(v79) & 1) == 0)
     {
 
-      *(v8 + 928) = v76;
+      *(v8 + 928) = v80;
     }
   }
 
   if (*(v8 + 200) == 1)
   {
-    v77 = [*(v8 + 928) isEqual:v136] && v21 >= *(v8 + 224);
-    if (*(v8 + 1576) != v77)
+    v81 = [*(v8 + 928) isEqual:v143] && v21 >= *(v8 + 224);
+    if (*(v8 + 1576) != v81)
     {
-      *(v8 + 1576) = v77;
-      if (v13 & 1) == 0 && v77 && (*(v8 + 1577))
+      *(v8 + 1576) = v81;
+      if (isEqualToString & 1) == 0 && v81 && (*(v8 + 1577))
       {
         *(v8 + 484) = 0;
       }
     }
   }
 
-  if (v13)
+  if (isEqualToString)
   {
-    v78 = *off_1E798B320;
+    v82 = *off_1E798B320;
     if ((*(v8 + 1417) & 1) == 0 && [objc_msgSend(v9 objectForKeyedSubscript:{*off_1E798B320), "intValue"}] == 1)
     {
       goto LABEL_134;
     }
 
-    v79 = v139;
+    v83 = v146;
   }
 
   else
   {
-    v78 = *off_1E798B320;
-    v79 = v9;
+    v82 = *off_1E798B320;
+    v83 = v9;
   }
 
-  psn_updateFocusDistanceBasedScene(v8 + 1416, v79);
-  psn_updateFocusDistanceBasedScene(v8 + 1496, v79);
+  psn_updateFocusDistanceBasedScene(v8 + 1416, v83);
+  psn_updateFocusDistanceBasedScene(v8 + 1496, v83);
 LABEL_134:
-  if (v13)
+  if (isEqualToString)
   {
-    v80 = v139;
+    v84 = v146;
   }
 
   else
   {
-    v80 = v9;
+    v84 = v9;
   }
 
-  *(v8 + 1456) = [objc_msgSend(v80 objectForKeyedSubscript:{v78, v129), "intValue"}] == 1;
-  if (v13)
+  *(v8 + 1456) = [objc_msgSend(v84 objectForKeyedSubscript:{v82), "intValue"}] == 1;
+  if (isEqualToString)
   {
-    *(v8 + 1457) = [objc_msgSend(v9 objectForKeyedSubscript:{v78), "intValue"}] == 1;
+    *(v8 + 1457) = [objc_msgSend(v9 objectForKeyedSubscript:{v82), "intValue"}] == 1;
   }
 
   else
   {
     OUTLINED_FUNCTION_33();
-    if (v31 && [objc_msgSend(v139 objectForKeyedSubscript:{v78), "intValue"}] != 1)
+    if (v31 && [objc_msgSend(v146 objectForKeyedSubscript:{v82), "intValue"}] != 1)
     {
-      psn_updateFocusDistanceBasedScene(v8 + 1584, v139);
+      psn_updateFocusDistanceBasedScene(v8 + 1584, v146);
     }
   }
 
-  v81 = OUTLINED_FUNCTION_71_0(v6);
-  if (!v81)
+  v85 = OUTLINED_FUNCTION_71_0(v6);
+  if (!v85)
   {
-    v81 = OUTLINED_FUNCTION_71_0(v39);
+    v85 = OUTLINED_FUNCTION_71_0(v39);
   }
 
-  [v81 floatValue];
-  v83 = v82;
-  v84 = 1488;
-  v85 = *(v8 + 1488);
-  v86 = *(v8 + 1408);
-  if (!v86)
+  [v85 floatValue];
+  v87 = v86;
+  v88 = 1488;
+  v89 = *(v8 + 1488);
+  v90 = *(v8 + 1408);
+  if (!v90)
   {
     *(v8 + 1488) = 0;
     goto LABEL_169;
   }
 
-  v87 = *(v8 + 228);
-  if (v21 < v87 && v83 != v87)
+  v91 = *(v8 + 228);
+  if (v21 < v91 && v87 != v91)
   {
     if (*(v8 + 217) == 1)
     {
-      v90 = *(v8 + 218);
+      v94 = *(v8 + 218);
     }
 
     else
     {
-      v90 = 0;
+      v94 = 0;
     }
 
-    if (v86 == 1 || (v90 & 1) != 0)
+    if (v90 == 1 || (v94 & 1) != 0)
     {
-      v91 = 1;
+      v95 = 1;
       goto LABEL_164;
     }
 
-    if (v86 != 2)
+    if (v90 != 2)
     {
       goto LABEL_169;
     }
@@ -3322,20 +3327,20 @@ LABEL_134:
 LABEL_162:
     OUTLINED_FUNCTION_44_3();
 LABEL_164:
-    *(v8 + v84) = v91;
+    *(v8 + v88) = v95;
     goto LABEL_169;
   }
 
-  if (v86 == 2)
+  if (v90 == 2)
   {
     goto LABEL_162;
   }
 
-  if (v86 == 1)
+  if (v90 == 1)
   {
-    if ([*(v8 + 920) isEqualToString:v134])
+    if (objc_msgSend_isEqualToString_(*(v8 + 920)))
     {
-      v89 = 1;
+      v93 = 1;
     }
 
     else
@@ -3343,29 +3348,29 @@ LABEL_164:
       OUTLINED_FUNCTION_33();
       if (v31)
       {
-        v89 = [*(v8 + 920) isEqualToString:v136];
+        v93 = objc_msgSend_isEqualToString_(*(v8 + 920));
       }
 
       else
       {
-        v89 = 0;
+        v93 = 0;
       }
     }
 
-    *(v8 + 1488) = v89;
+    *(v8 + 1488) = v93;
   }
 
 LABEL_169:
-  if (*(v8 + 1488) == v85)
+  if (*(v8 + 1488) == v89)
   {
-    if (v13)
+    if (isEqualToString)
     {
-      v92 = v85 != *(v8 + 1489);
+      v96 = v89 != *(v8 + 1489);
     }
 
     else
     {
-      v92 = 0;
+      v96 = 0;
     }
   }
 
@@ -3377,61 +3382,61 @@ LABEL_169:
       *(v8 + 1491) = (*(v8 + 1492) & 0xFFFFFFFD) == 0;
     }
 
-    v92 = 1;
+    v96 = 1;
   }
 
   [*(v8 + 1464) updateRampForNextIteration];
-  v93 = OUTLINED_FUNCTION_71_0(v6);
-  if (v93 || (v93 = OUTLINED_FUNCTION_71_0(v39)) != 0)
+  v97 = OUTLINED_FUNCTION_71_0(v6);
+  if (v97 || (v97 = OUTLINED_FUNCTION_71_0(v39)) != 0)
   {
-    *(v8 + 1492) = [v93 intValue];
+    *(v8 + 1492) = [v97 intValue];
   }
 
   OUTLINED_FUNCTION_33();
   if (v31)
   {
-    v94 = *(v8 + 1572);
-    if (v86)
+    v98 = *(v8 + 1572);
+    if (v90)
     {
-      if (v86 == 2)
+      if (v90 == 2)
       {
         OUTLINED_FUNCTION_44_3();
-        *(v8 + v99) = v100;
+        *(v8 + v103) = v104;
       }
 
-      else if (v86 == 1)
+      else if (v90 == 1)
       {
-        if ((v95 = *(v8 + 224), v21 >= v95) && *(v8 + 1492) || v83 == v95)
+        if ((v99 = *(v8 + 224), v21 >= v99) && *(v8 + 1492) || v87 == v99)
         {
-          *(v8 + 1572) = [*(v8 + 920) isEqualToString:v136];
-          if ((v13 & 1) == 0)
+          *(v8 + 1572) = objc_msgSend_isEqualToString_(*(v8 + 920));
+          if ((isEqualToString & 1) == 0)
           {
-            if (v94)
+            if (v98)
             {
               OUTLINED_FUNCTION_35_3();
               if (v55 ^ v59 | v31)
               {
-                v96 = 0;
+                v100 = 0;
               }
 
               else
               {
-                v96 = 1;
+                v100 = 1;
               }
 
-              *(v8 + 1572) |= v96;
-              v97 = [CMGetAttachment(target @"NondisruptiveSwitchOverInProgress"];
-              if (v83 == 0.0)
+              *(v8 + 1572) |= v100;
+              v101 = [CMGetAttachment(target @"NondisruptiveSwitchOverInProgress"];
+              if (v87 == 0.0)
               {
-                v98 = v97;
+                v102 = v101;
               }
 
               else
               {
-                v98 = 0;
+                v102 = 0;
               }
 
-              *(v8 + 1572) |= v98;
+              *(v8 + 1572) |= v102;
             }
           }
         }
@@ -3443,17 +3448,17 @@ LABEL_169:
       *(v8 + 1572) = 0;
     }
 
-    if (*(v8 + 1572) == v94)
+    if (*(v8 + 1572) == v98)
     {
-      if (v13)
+      if (isEqualToString)
       {
-        v140 = 0;
+        v147 = 0;
 LABEL_208:
         [*(v8 + 1536) updateRampForNextIteration];
         goto LABEL_209;
       }
 
-      v101 = v94 != *(v8 + 1544);
+      v105 = v98 != *(v8 + 1544);
     }
 
     else
@@ -3464,37 +3469,37 @@ LABEL_208:
         *(v8 + 1575) = *(v8 + 1492) == 2;
       }
 
-      v101 = 1;
+      v105 = 1;
     }
 
-    v140 = v101;
+    v147 = v105;
     goto LABEL_208;
   }
 
-  v140 = 0;
+  v147 = 0;
 LABEL_209:
-  v102 = v92;
+  v106 = v96;
   [(BWPreviewStitcherNode *)v8 _primaryCameraPortType];
-  v103 = *(v8 + 936);
-  if (!v137 || ([v137 isEqualToString:*(v8 + 936)] & 1) != 0)
+  v107 = *(v8 + 936);
+  if (!v144 || (objc_msgSend_isEqualToString_(v144) & 1) != 0)
   {
-    v104 = 0;
-    v105 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
+    v108 = 0;
+    v109 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
     goto LABEL_222;
   }
 
-  v105 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
-  if ([v137 isEqualToString:v135] && (*(v8 + 906) != 1 || *(v8 + 952)))
+  v109 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
+  if (objc_msgSend_isEqualToString_(v144) && (*(v8 + 906) != 1 || *(v8 + 952)))
   {
     OUTLINED_FUNCTION_21_4(906);
 
     *(v8 + 952) = 0;
-    v106 = &OBJC_IVAR___BWPreviewStitcherNode__cameraTransitionRampForSuperMacroFallback;
+    v110 = &OBJC_IVAR___BWPreviewStitcherNode__cameraTransitionRampForSuperMacroFallback;
   }
 
   else
   {
-    if (![v137 isEqualToString:v134] || (*(v8 + 906) & 1) == 0 && !*(v8 + 952))
+    if (!objc_msgSend_isEqualToString_(v144) || (*(v8 + 906) & 1) == 0 && !*(v8 + 952))
     {
       goto LABEL_221;
     }
@@ -3503,72 +3508,72 @@ LABEL_209:
 
     *(v8 + 952) = 0;
     *(v8 + 1000) = 0;
-    v106 = &OBJC_IVAR___BWPreviewStitcherNode__teleFocusingOneShot;
+    v110 = &OBJC_IVAR___BWPreviewStitcherNode__teleFocusingOneShot;
   }
 
-  *(v8 + *v106) = 0;
+  *(v8 + *v110) = 0;
 LABEL_221:
   *(v8 + 912) = 0;
   *(v8 + 484) = 0;
 
-  *(v8 + 936) = v137;
-  *(v8 + 944) = v13;
+  *(v8 + 936) = v144;
+  *(v8 + 944) = isEqualToString;
   *(v8 + 1573) = *(v8 + 1572);
-  v104 = 1;
+  v108 = 1;
 LABEL_222:
-  v107 = *(v8 + v105[443]);
-  if (v107)
+  v111 = *(v8 + v109[443]);
+  if (v111)
   {
-    isRampingUp = [v107 isRampingUp];
-    if ((v13 & 1) == 0)
+    isRampingUp = [v111 isRampingUp];
+    if ((isEqualToString & 1) == 0)
     {
       if (isRampingUp)
       {
-        if (v21 < v15 && v21 > v83)
+        if (v21 < v15 && v21 > v87)
         {
 
-          *(v8 + v105[443]) = 0;
+          *(v8 + v109[443]) = 0;
           *(v8 + 1000) = 0;
         }
       }
     }
   }
 
-  if ((v104 | (v83 == 0.0) & ~[(BWPreviewStitcherNode *)v8 _currentlyZoomingOrSwitchingCameras]) == 1)
+  if ((v108 | (v87 == 0.0) & ~[(BWPreviewStitcherNode *)v8 _currentlyZoomingOrSwitchingCameras]) == 1)
   {
     if (v21 >= v15)
     {
-      v111 = &OBJC_IVAR___BWPreviewStitcherNode__wantSuperWideFallback;
-      if (v13)
+      v115 = &OBJC_IVAR___BWPreviewStitcherNode__wantSuperWideFallback;
+      if (isEqualToString)
       {
-        v111 = &OBJC_IVAR___BWPreviewStitcherNode__wantWideFallbackDueToTeleAEAF;
+        v115 = &OBJC_IVAR___BWPreviewStitcherNode__wantWideFallbackDueToTeleAEAF;
       }
 
-      v110 = *(v8 + *v111);
+      v114 = *(v8 + *v115);
     }
 
     else
     {
-      v110 = 1;
+      v114 = 1;
     }
 
-    *(v8 + 907) = v110 & 1;
+    *(v8 + 907) = v114 & 1;
     if (!target && *(v8 + 907) == 1)
     {
       *(v8 + 907) = 0;
     }
 
-    if (!v103)
+    if (!v107)
     {
-      v112 = *(v8 + 907);
-      if (*(v8 + 906) != v112)
+      v116 = *(v8 + 907);
+      if (*(v8 + 906) != v116)
       {
-        *(v8 + 906) = v112;
+        *(v8 + 906) = v116;
       }
     }
   }
 
-  if (!v13)
+  if (!isEqualToString)
   {
     if (*(v8 + 288) != 2.0)
     {
@@ -3585,115 +3590,116 @@ LABEL_222:
       }
     }
 
-    v114 = &OBJC_IVAR___BWPreviewStitcherNode__wideNondisruptiveSwitchingZoomFactors;
+    v118 = &OBJC_IVAR___BWPreviewStitcherNode__wideNondisruptiveSwitchingZoomFactors;
 LABEL_247:
-    [objc_msgSend(*(v8 + *v114) "firstObject")];
-    v116 = v21 < v115;
+    [objc_msgSend(*(v8 + *v118) "firstObject")];
+    v120 = v21 < v119;
     goto LABEL_256;
   }
 
   OUTLINED_FUNCTION_35_3();
-  if (!(v55 ^ v59 | v113) || v113 && (*(v8 + 330) & 1) != 0)
+  if (!(v55 ^ v59 | v117) || v117 && (*(v8 + 330) & 1) != 0)
   {
-    v114 = &OBJC_IVAR___BWPreviewStitcherNode__teleNondisruptiveSwitchingZoomFactors;
+    v118 = &OBJC_IVAR___BWPreviewStitcherNode__teleNondisruptiveSwitchingZoomFactors;
     goto LABEL_247;
   }
 
 LABEL_255:
-  v116 = 0;
+  v120 = 0;
 LABEL_256:
-  *(v8 + 331) = v116;
-  v117 = *(v8 + 912);
-  v118 = v117 == 0.0;
-  if (v83 == 0.0)
+  *(v8 + 331) = v120;
+  v121 = *(v8 + 912);
+  v122 = v121 == 0.0;
+  if (v87 == 0.0)
   {
-    v118 = 0;
+    v122 = 0;
   }
 
-  v119 = v21;
-  if (v118 || v117 != 0.0 && (v119 = 0.0, v83 == 0.0))
+  v123 = v21;
+  if (v122 || v121 != 0.0 && (v123 = 0.0, v87 == 0.0))
   {
-    *(v8 + 916) = v119;
+    *(v8 + 916) = v123;
   }
 
-  *(v8 + 912) = v83;
-  if (v83 > 0.0 && (v83 == v15 || v83 == v16))
+  *(v8 + 912) = v87;
+  if (v87 > 0.0 && (v87 == v15 || v87 == v16))
   {
-    v121 = *(v8 + 912);
-    if (v121 == 0.0 || vabds_f32(1.0, *(v8 + 916) / v121) < 0.1)
+    v125 = *(v8 + 912);
+    if (v125 == 0.0 || vabds_f32(1.0, *(v8 + 916) / v125) < 0.1)
     {
-      if (!v102)
+      if (!v106)
       {
         goto LABEL_278;
       }
 
       if ((*(v8 + 1490) & 1) == 0)
       {
-        [(BWPreviewStitcherNode *)v8 _primaryCameraPortType];
-        v124 = target;
+        _primaryCameraPortType = [(BWPreviewStitcherNode *)v8 _primaryCameraPortType];
+        v128 = target;
         goto LABEL_279;
       }
     }
 
     if (v21 >= 1.07)
     {
-      v123 = &OBJC_IVAR___BWPreviewStitcherNode__wantSuperWideFallback;
-      if (v13)
+      v127 = &OBJC_IVAR___BWPreviewStitcherNode__wantSuperWideFallback;
+      if (isEqualToString)
       {
-        v123 = &OBJC_IVAR___BWPreviewStitcherNode__wantWideFallbackDueToTeleAEAF;
+        v127 = &OBJC_IVAR___BWPreviewStitcherNode__wantWideFallbackDueToTeleAEAF;
       }
 
-      v122 = *(v8 + *v123);
+      v126 = *(v8 + *v127);
     }
 
     else
     {
-      v122 = 1;
+      v126 = 1;
     }
 
-    *(v8 + 907) = v122 & 1;
+    *(v8 + 907) = v126 & 1;
   }
 
 LABEL_278:
-  v124 = target;
-  [(BWPreviewStitcherNode *)v8 _primaryCameraPortType];
-  if (!v102 && !v140)
+  v128 = target;
+  _primaryCameraPortType = [(BWPreviewStitcherNode *)v8 _primaryCameraPortType];
+  if (!v106 && !v147)
   {
 LABEL_280:
-    OUTLINED_FUNCTION_97_1();
+    OUTLINED_FUNCTION_97_1(_primaryCameraPortType, v130);
     goto LABEL_282;
   }
 
 LABEL_279:
-  if (OUTLINED_FUNCTION_97_1())
+  _primaryCameraPortType = OUTLINED_FUNCTION_97_1(_primaryCameraPortType, v130);
+  if (_primaryCameraPortType)
   {
     goto LABEL_280;
   }
 
   *(v8 + 484) = 0;
 LABEL_282:
-  v125 = CMGetAttachment(v124, @"UIZoomFactor", 0);
-  if (v125)
+  v131 = CMGetAttachment(v128, @"UIZoomFactor", 0);
+  if (v131)
   {
-    [v125 floatValue];
-    v127 = v126;
+    [v131 floatValue];
+    v133 = v132;
   }
 
   else
   {
-    v127 = 1.0;
+    v133 = 1.0;
   }
 
-  v128 = *(v8 + 1400);
-  if (v127 != v128)
+  v134 = *(v8 + 1400);
+  if (v133 != v134)
   {
-    if (v128 != 0.0)
+    if (v134 != 0.0)
     {
       BWSmartCameraSceneUpdateResetTemporalHysteresisAndFiltering((v8 + 1360));
       BWSmartCameraSceneUpdateResetTemporalHysteresisAndFiltering((v8 + 1704));
     }
 
-    *(v8 + 1400) = v127;
+    *(v8 + 1400) = v133;
   }
 
 LABEL_289:
@@ -3708,8 +3714,8 @@ LABEL_289:
   }
 
   v6 = CMGetAttachment(target, *off_1E798A3C8, 0);
-  v7 = [objc_msgSend(v6 objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0D0}];
-  if (v7)
+  isEqualToString = objc_msgSend_isEqualToString_([v6 objectForKeyedSubscript:*off_1E798B540]);
+  if (isEqualToString)
   {
     _wideBaseZoomFactorWithOverrideLocked = [(BWPreviewStitcherNode *)self _wideBaseZoomFactorWithOverrideLocked];
     v11 = &OBJC_IVAR___BWPreviewStitcherNode__superWideNondisruptiveSwitchingScaleFactor;
@@ -3774,7 +3780,7 @@ LABEL_289:
     v22 = 1;
   }
 
-  if ((v7 & v18 & v22) == 1)
+  if ((isEqualToString & v18 & v22) == 1)
   {
     v16 = *(self + 360);
     v15 = *(self + 368);
@@ -3792,16 +3798,16 @@ LABEL_289:
   return *v25;
 }
 
-- (uint64_t)_updateShiftCorrectionsAsyncFromComputedShift:(void *)shift byRegisteringWiderCamera:(uint64_t)camera narrowerCamera:(double)narrowerCamera macroTransitionType:(double)type
+- (char)_updateShiftCorrectionsAsyncFromComputedShift:(void *)shift byRegisteringWiderCamera:(uint64_t)camera narrowerCamera:(double)narrowerCamera macroTransitionType:(double)type
 {
   if (result)
   {
     v11 = result;
     v12 = *off_1E798A3C8;
     v13 = CMGetAttachment(target, *off_1E798A3C8, 0);
-    v14 = [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0D0}];
-    v15 = v14;
-    if (v14)
+    isEqualToString = objc_msgSend_isEqualToString_([v13 objectForKeyedSubscript:*off_1E798B540]);
+    v15 = isEqualToString;
+    if (isEqualToString)
     {
       _wideBaseZoomFactorWithOverrideLocked = [(BWPreviewStitcherNode *)v11 _wideBaseZoomFactorWithOverrideLocked];
       v18 = *&_wideBaseZoomFactorWithOverrideLocked;
@@ -3809,10 +3815,10 @@ LABEL_289:
 
     else
     {
-      v16 = *(v11 + 336);
+      v16 = *(v11 + 84);
       if (v16 <= 0.0)
       {
-        v16 = *(v11 + 228);
+        v16 = *(v11 + 57);
         v17 = &OBJC_IVAR___BWPreviewStitcherNode__teleNondisruptiveSwitchingScaleFactor;
       }
 
@@ -3821,15 +3827,15 @@ LABEL_289:
         v17 = &OBJC_IVAR___BWPreviewStitcherNode__wideBaseZoomFactor;
       }
 
-      v18 = (v16 * *(v11 + *v17)) / (*(v11 + 224) * *(v11 + 288));
+      v18 = (v16 * *&v11[*v17]) / (*(v11 + 56) * *(v11 + 72));
     }
 
     [objc_msgSend(v13 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
     v20 = v19;
     v21 = [objc_msgSend(CMGetAttachment(shift v12];
-    if (*(v11 + 1417) == 1)
+    if (v11[1417] == 1)
     {
-      v22 = *(v11 + 1313) ^ 1;
+      v22 = v11[1313] ^ 1;
     }
 
     else
@@ -3838,7 +3844,7 @@ LABEL_289:
     }
 
     v23 = v18;
-    if ((*(v11 + 512) & 1) == 0)
+    if ((v11[512] & 1) == 0)
     {
       memset(&v30, 0, sizeof(v30));
       CMSampleBufferGetPresentationTimeStamp(&v30, shift);
@@ -3849,11 +3855,11 @@ LABEL_289:
         kdebug_trace();
       }
 
-      [*(v11 + 504) allocateResourcesAsynchronouslyWithVideoFormat:objc_msgSend(*(v11 + 8), "videoFormat")];
-      *(v11 + 512) = 1;
+      [*(v11 + 63) allocateResourcesAsynchronouslyWithVideoFormat:objc_msgSend(*(v11 + 1), "videoFormat")];
+      v11[512] = 1;
     }
 
-    v24 = *(v11 + 504);
+    v24 = *(v11 + 63);
     v26[0] = MEMORY[0x1E69E9820];
     v26[1] = 3221225472;
     v26[2] = __131__BWPreviewStitcherNode__updateShiftCorrectionsAsyncFromComputedShift_byRegisteringWiderCamera_narrowerCamera_macroTransitionType___block_invoke;
@@ -4900,10 +4906,10 @@ LABEL_234:
 
     v13 = v11;
     OUTLINED_FUNCTION_33();
-    if (!v25)
+    if (!v26)
     {
       OUTLINED_FUNCTION_33();
-      if (v25)
+      if (v26)
       {
         if (*(v3 + 226) || *(v3 + 227))
         {
@@ -4918,28 +4924,28 @@ LABEL_234:
         else
         {
           [objc_msgSend(*(v3 + 238) objectForKeyedSubscript:{BWSmartFramingSceneMonitorFieldOfViewKeyFromType(*(v3 + 474))), "doubleValue"}];
-          v36 = v35;
-          v37 = *(v3 + 474);
-          v38 = v37 == 1 && (v3[1873] & 1) == 0 && *(v3 + 472) <= 1u && vabdd_f64(v13, v35) < 0.005;
-          v39 = *(v3 + 472) == 1 || v13 - v35 > 0.005 && v37 == 2;
+          v37 = v36;
+          v38 = *(v3 + 474);
+          v39 = v38 == 1 && (v3[1873] & 1) == 0 && *(v3 + 472) <= 1u && vabdd_f64(v13, v36) < 0.005;
+          v40 = *(v3 + 472) == 1 || v13 - v36 > 0.005 && v38 == 2;
           [objc_msgSend(*(v3 + 238) objectForKeyedSubscript:{@"FieldOfViewPortrait", "doubleValue"}];
-          if (vabdd_f64(v13, v41) >= 0.005)
+          if (vabdd_f64(v13, v42) >= 0.005)
           {
-            v43 = 0;
+            v44 = 0;
           }
 
           else
           {
-            v42 = *(v3 + 110);
-            v43 = v42 == 1.0;
-            if (v42 != *(v3 + 222))
+            v43 = *(v3 + 110);
+            v44 = v43 == 1.0;
+            if (v43 != *(v3 + 222))
             {
-              v43 = 0;
+              v44 = 0;
             }
           }
 
-          v45 = v13 - v36 > 0.005 && (v44 = *(v3 + 110), v44 == *(v3 + 222)) && v44 == 1.0;
-          if (v38 || v43 || v39 || v45)
+          v46 = v13 - v37 > 0.005 && (v45 = *(v3 + 110), v45 == *(v3 + 222)) && v45 == 1.0;
+          if (v39 || v44 || v40 || v46)
           {
             v4 = 1;
           }
@@ -4960,8 +4966,9 @@ LABEL_234:
     }
 
     v14 = *off_1E798A3C8;
-    v15 = [objc_msgSend(CMGetAttachment(a2 *off_1E798A3C8];
-    if (v15)
+    v15 = [CMGetAttachment(a2 *off_1E798A3C8];
+    isEqualToString = objc_msgSend_isEqualToString_(v15);
+    if (isEqualToString)
     {
       bufferCopy = buffer;
     }
@@ -4971,33 +4978,33 @@ LABEL_234:
       bufferCopy = a2;
     }
 
-    v17 = CMGetAttachment(bufferCopy, v14, 0);
-    psn_updateFocusDistanceBasedScene((v3 + 1312), v17);
-    v18 = v3[1356];
-    if (!v15)
+    v18 = CMGetAttachment(bufferCopy, v14, 0);
+    psn_updateFocusDistanceBasedScene((v3 + 1312), v18);
+    v19 = v3[1356];
+    if (!isEqualToString)
     {
-      v24 = 1;
+      v25 = 1;
       if ((v3[217] & 1) == 0 && v3[1356])
       {
         if (v13 >= 1.7 || *(v3 + 228) == *(v3 + 57))
         {
-          v24 = 1;
+          v25 = 1;
         }
 
         else
         {
-          v24 = 2;
+          v25 = 2;
         }
       }
 
       goto LABEL_55;
     }
 
-    v19 = v3[1352];
-    v20 = *(v3 + 56);
-    v21 = *(v3 + 228);
-    v22 = v21 == v20 && v21 != 0.0;
-    if (v22 || v11 >= v20)
+    v20 = v3[1352];
+    v21 = *(v3 + 56);
+    v22 = *(v3 + 228);
+    v23 = v22 == v21 && v22 != 0.0;
+    if (v23 || v11 >= v21)
     {
       if ((v3[1353] & 1) == 0)
       {
@@ -5007,26 +5014,26 @@ LABEL_234:
         }
 
         OUTLINED_FUNCTION_123_0();
-        if (((v29 | v28) & 1) == 0)
+        if (((v30 | v29) & 1) == 0)
         {
 LABEL_66:
-          v24 = 2;
+          v25 = 2;
 LABEL_55:
-          v31 = OUTLINED_FUNCTION_69();
-          v34 = [CMGetAttachment(v31 v32];
-          if (v34 == 1 || (OUTLINED_FUNCTION_33(), v25) && (v3[513] & 1) == 0)
+          v32 = OUTLINED_FUNCTION_69();
+          v35 = [CMGetAttachment(v32 v33];
+          if (v35 == 1 || (OUTLINED_FUNCTION_33(), v26) && (v3[513] & 1) == 0)
           {
-            v24 = 4;
+            v25 = 4;
           }
 
-          if ((((v34 & 0xFFFFFFFE) == 2) & v3[1404]) != 0)
+          if ((((v35 & 0xFFFFFFFE) == 2) & v3[1404]) != 0)
           {
             v4 = 5;
           }
 
           else
           {
-            v4 = v24;
+            v4 = v25;
           }
 
           goto LABEL_63;
@@ -5034,17 +5041,17 @@ LABEL_55:
 
         if (*(v3 + 37))
         {
-          if (v3[*(v27 + 2072)])
+          if (v3[*(v28 + 2072)])
           {
-            v24 = 2;
+            v25 = 2;
           }
 
           else
           {
-            v24 = 1;
+            v25 = 1;
           }
 
-          if ((v3[*(v27 + 2072)] & 1) != 0 || !v19)
+          if ((v3[*(v28 + 2072)] & 1) != 0 || !v20)
           {
             goto LABEL_55;
           }
@@ -5053,16 +5060,16 @@ LABEL_55:
         else
         {
 LABEL_49:
-          if (!v19)
+          if (!v20)
           {
             goto LABEL_54;
           }
         }
 
         OUTLINED_FUNCTION_123_0();
-        if (v30 != 1 || (OUTLINED_FUNCTION_33(), v25))
+        if (v31 != 1 || (OUTLINED_FUNCTION_33(), v26))
         {
-          v24 = 3;
+          v25 = 3;
           goto LABEL_55;
         }
       }
@@ -5075,16 +5082,16 @@ LABEL_49:
         OUTLINED_FUNCTION_44_3();
       }
 
-      if ((v18 & 1) == 0 && (v19 & 1) == 0 || (OUTLINED_FUNCTION_123_0(), v23 == 1))
+      if ((v19 & 1) == 0 && (v20 & 1) == 0 || (OUTLINED_FUNCTION_123_0(), v24 == 1))
       {
-        if (v19)
+        if (v20)
         {
-          v24 = 3;
+          v25 = 3;
         }
 
         else
         {
-          v24 = 1;
+          v25 = 1;
         }
 
         goto LABEL_55;
@@ -5094,7 +5101,7 @@ LABEL_49:
     }
 
 LABEL_54:
-    v24 = 1;
+    v25 = 1;
     goto LABEL_55;
   }
 
@@ -5106,7 +5113,7 @@ LABEL_63:
 
 - (CMSampleBufferRef)_newStitchedSampleBufferFromWiderCamera:(opaqueCMSampleBuffer *)camera narrowerCamera:(float64x2_t *)narrowerCamera widerCameraRegionsShifts:(double *)shifts teleShift:(double *)shift primaryCaptureRectOut:(double *)out primaryCaptureRectBeforeCroppingOut:(void *)croppingOut centerWiderCameraShiftOut:(float64_t)shiftOut currentFrameRate:(float64_t)self0 inputCropRectOut:(float)self1
 {
-  *&v1535 = rectOut;
+  *&v1576 = rectOut;
   if (!result)
   {
     return result;
@@ -5139,11 +5146,11 @@ LABEL_63:
   }
 
   ImageBuffer = CMSampleBufferGetImageBuffer(camera);
-  v18 = [objc_msgSend(*(v16 + 16) "livePixelBufferPool")];
-  v1736.i32[0] = CVPixelBufferGetWidth(v18);
-  v1736.i32[1] = CVPixelBufferGetHeight(v18);
-  FigCaptureSwapVideoDimensionsFor90Or270Rotation(&v1736, *(v16 + 136));
-  v1735 = 0;
+  v18 = [objc_msgSend(*(v16 + 2) "livePixelBufferPool")];
+  v1777.i32[0] = CVPixelBufferGetWidth(v18);
+  v1777.i32[1] = CVPixelBufferGetHeight(v18);
+  FigCaptureSwapVideoDimensionsFor90Or270Rotation(&v1777, *(v16 + 34));
+  v1776 = 0;
   v19 = CMGetAttachment(cameraCopy, @"TotalZoomFactor", 0);
   if (v19)
   {
@@ -5157,39 +5164,39 @@ LABEL_63:
   }
 
   v22 = *off_1E798A3C8;
-  v1722 = OUTLINED_FUNCTION_71_0(camera);
-  v1700 = 0;
+  v1763 = OUTLINED_FUNCTION_71_0(camera);
+  v1741 = 0;
   if (v72)
   {
-    v1700 = OUTLINED_FUNCTION_71_0(a2);
+    v1741 = OUTLINED_FUNCTION_71_0(a2);
   }
 
   if (v18 && ImageBuffer)
   {
-    v1572 = v22;
-    v1504 = *&v11;
-    v1721 = ImageBuffer;
+    v1613 = v22;
+    v1545 = v11;
+    v1762 = ImageBuffer;
     outCopy = out;
-    v1609 = v18;
-    LODWORD(v1667) = *(v16 + 1685);
-    v23 = [objc_msgSend(v1722 objectForKeyedSubscript:{*off_1E798A8A8), "intValue"}];
-    os_unfair_lock_lock((v16 + 476));
+    v1650 = v18;
+    LODWORD(v1708) = *(v16 + 1685);
+    v23 = [objc_msgSend(v1763 objectForKeyedSubscript:{*off_1E798A8A8), "intValue"}];
+    os_unfair_lock_lock(v16 + 119);
     v24 = objc_autoreleasePoolPush();
-    dequeueFencedAnimation = [*(v16 + 1640) dequeueFencedAnimation];
+    dequeueFencedAnimation = [*(v16 + 205) dequeueFencedAnimation];
     cameraCopy2 = camera;
     if (dequeueFencedAnimation)
     {
       v26 = dequeueFencedAnimation;
       [dequeueFencedAnimation primaryCaptureAspectRatio];
-      v1701 = v27;
+      v1742 = v27;
       primaryCaptureRectCenterXPixelOffset = [v26 primaryCaptureRectCenterXPixelOffset];
       primaryCaptureRectCenterYPixelOffset = [v26 primaryCaptureRectCenterYPixelOffset];
-      *(v16 + 896) = [v26 fencePortSendRight];
+      *(v16 + 112) = [v26 fencePortSendRight];
       fencePortGenerationCount = [v26 fencePortGenerationCount];
       if (*MEMORY[0x1E695FF58] == 1)
       {
-        [*(v16 + 1640) count];
-        [*(v16 + 896) port];
+        [*(v16 + 205) count];
+        [*(v16 + 112) port];
         kdebug_trace();
       }
     }
@@ -5197,16 +5204,16 @@ LABEL_63:
     else
     {
       fencePortGenerationCount = 0;
-      v1701 = *(v16 + 880);
-      primaryCaptureRectCenterXPixelOffset = *(v16 + 176);
-      primaryCaptureRectCenterYPixelOffset = *(v16 + 180);
+      v1742 = *(v16 + 110);
+      primaryCaptureRectCenterXPixelOffset = *(v16 + 44);
+      primaryCaptureRectCenterYPixelOffset = *(v16 + 45);
     }
 
     objc_autoreleasePoolPop(v24);
-    value = *(v16 + 896);
-    *(v16 + 896) = 0;
-    v1644 = *(v16 + 184);
-    v1673 = *(v16 + 188);
+    value = *(v16 + 112);
+    *(v16 + 112) = 0;
+    v1685 = *(v16 + 46);
+    v1714 = *(v16 + 47);
     if ([OUTLINED_FUNCTION_110() isCompleted])
     {
       goto LABEL_33;
@@ -5215,15 +5222,15 @@ LABEL_63:
     if ((*(v16 + 1260) & 1) == 0)
     {
       CMSampleBufferGetPresentationTimeStamp(propertyValueOut, camera);
-      *(v16 + 1248) = *&propertyValueOut[0].a;
-      *(v16 + 1264) = propertyValueOut[0].c;
+      *(v16 + 78) = *&propertyValueOut[0].a;
+      *(v16 + 158) = *&propertyValueOut[0].c;
     }
 
     memset(propertyValueOut, 0, 24);
     CMSampleBufferGetPresentationTimeStamp(propertyValueOut, camera);
     *lhs = *&propertyValueOut[0].a;
     *&lhs[16] = propertyValueOut[0].c;
-    rhs = *(v16 + 1248);
+    rhs = *(v16 + 52);
     CMTimeSubtract(&time, lhs, &rhs);
     Seconds = CMTimeGetSeconds(&time);
     v29 = FigCaptureRoundFloatToMultipleOf(1, Seconds * 60.0);
@@ -5241,10 +5248,10 @@ LABEL_63:
       while (v32);
     }
 
-    if (*(v16 + 1244) <= 0.0)
+    if (*(v16 + 311) <= 0.0)
     {
 LABEL_33:
-      v35 = *(v16 + 1240);
+      v35 = *(v16 + 310);
     }
 
     else
@@ -5261,43 +5268,43 @@ LABEL_33:
         v34 = 0.0;
       }
 
-      v35 = *(v16 + 1244) + ((*(v16 + 1240) - *(v16 + 1244)) * v34);
+      v35 = *(v16 + 311) + ((*(v16 + 310) - *(v16 + 311)) * v34);
     }
 
-    v1661 = v35;
+    v1702 = v35;
     v36 = *(v16 + 1648);
     v37 = *(v16 + 1748);
-    v38 = *(v16 + 1296);
+    v38 = *(v16 + 162);
     if (*(v16 + 1872) == 1)
     {
-      if (v23 != *(v16 + 1896))
+      if (v23 != *(v16 + 474))
       {
-        *(v16 + 1896) = v23;
+        *(v16 + 474) = v23;
         if ((*(v16 + 1873) & 1) == 0)
         {
-          v39 = *(v16 + 1888);
+          v39 = *(v16 + 472);
           if (v39 == v23 || !v39)
           {
-            *(v16 + 1892) = v39;
-            *(v16 + 1888) = 0;
+            *(v16 + 473) = v39;
+            *(v16 + 472) = 0;
           }
         }
       }
 
-      v40 = *(v16 + 1888);
-      v41 = *(v16 + 1892);
+      v40 = *(v16 + 472);
+      v41 = *(v16 + 473);
       if (!v41)
       {
-        v41 = *(v16 + 1896);
+        v41 = *(v16 + 474);
       }
 
       v42 = *(v16 + 1874);
       if (v40 && v41 && v40 != v41)
       {
-        [objc_msgSend(*(v16 + 1904) objectForKeyedSubscript:{BWSmartFramingSceneMonitorFieldOfViewKeyFromType(*(v16 + 1888))), "doubleValue"}];
+        [objc_msgSend(*(v16 + 238) objectForKeyedSubscript:{BWSmartFramingSceneMonitorFieldOfViewKeyFromType(*(v16 + 472))), "doubleValue"}];
         v44 = v43;
-        [objc_msgSend(*(v16 + 1904) objectForKeyedSubscript:{BWSmartFramingSceneMonitorFieldOfViewKeyFromType(v41)), "doubleValue"}];
-        v46 = *(v16 + 1880);
+        [objc_msgSend(*(v16 + 238) objectForKeyedSubscript:{BWSmartFramingSceneMonitorFieldOfViewKeyFromType(v41)), "doubleValue"}];
+        v46 = *(v16 + 235);
         if (v45 <= v44)
         {
           v47 = v44;
@@ -5327,7 +5334,7 @@ LABEL_33:
           v48 = 0.0;
         }
 
-        v1661 = (v49 + ((v50 - v49) * v48)) / v21;
+        v1702 = (v49 + ((v50 - v49) * v48)) / v21;
       }
 
       v51 = v42 ^ 1;
@@ -5340,22 +5347,22 @@ LABEL_33:
       v51 = 1;
     }
 
-    v1601 = v51;
-    os_unfair_lock_unlock((v16 + 476));
+    v1642 = v51;
+    os_unfair_lock_unlock(v16 + 119);
     v52 = MEMORY[0x1E695EFF8];
     if (v36)
     {
       OUTLINED_FUNCTION_18_7();
       if (_ZF)
       {
-        _ZF = *(v16 + 1552) == v52->x && *(v16 + 1560) == v52->y;
+        _ZF = *(v16 + 194) == v52->x && *(v16 + 195) == v52->y;
         if (!_ZF)
         {
           v56 = *v52;
-          *(v16 + 1552) = *v52;
-          v55 = *(v16 + 1652);
-          LODWORD(v56.x) = v1535;
-          if (*&v1535 > 0.0)
+          *(v16 + 97) = *v52;
+          v55 = *(v16 + 413);
+          LODWORD(v56.x) = v1576;
+          if (*&v1576 > 0.0)
           {
             OUTLINED_FUNCTION_18_7();
             if (_ZF)
@@ -5367,7 +5374,7 @@ LABEL_33:
             }
           }
 
-          v60 = *(v16 + 1568);
+          v60 = *(v16 + 392);
           v61 = v53;
           if ([*(v16 + v53[405]) isRamping])
           {
@@ -5418,25 +5425,25 @@ LABEL_33:
     }
 
 LABEL_79:
-    v1620 = *off_1E798B540;
-    v73 = [v1722 objectForKeyedSubscript:?];
-    v1675 = [v73 isEqualToString:*off_1E798A0D8];
-    v1650 = v73;
-    v1623 = v38;
-    if (v1675)
+    v1661 = *off_1E798B540;
+    v73 = [v1763 objectForKeyedSubscript:?];
+    isEqualToString = objc_msgSend_isEqualToString_(v73);
+    v1691 = v73;
+    v1664 = v38;
+    if (isEqualToString)
     {
-      v74 = *(v16 + 228);
-      v1694 = v74 * *(v16 + 320);
+      v74 = *(v16 + 57);
+      v1735 = v74 * *(v16 + 80);
       v75 = &OBJC_IVAR___BWPreviewStitcherNode__wideBaseZoomFactor;
-      if (*(v16 + 336) > 0.0)
+      if (*(v16 + 84) > 0.0)
       {
-        v76 = *(v16 + 336);
+        v76 = *(v16 + 84);
       }
 
       else
       {
         v75 = &OBJC_IVAR___BWPreviewStitcherNode__teleNondisruptiveSwitchingScaleFactor;
-        v76 = *(v16 + 228);
+        v76 = *(v16 + 57);
       }
 
       v77 = v76 * *(v16 + *v75);
@@ -5445,27 +5452,26 @@ LABEL_79:
 
     else
     {
-      if (![v73 isEqualToString:*off_1E798A0C0])
+      if (!objc_msgSend_isEqualToString_(v73))
       {
         v77 = 1.0;
         v80 = 0;
-        LODWORD(v1528) = 1;
+        LODWORD(v1569) = 1;
         v74 = 1.0;
-        v1694 = 1.0;
+        v1735 = 1.0;
 LABEL_90:
-        v82 = [v1700 objectForKeyedSubscript:v1620];
+        v82 = [v1741 objectForKeyedSubscript:v1661];
         if (a2 | v82)
         {
           v83 = v82;
-          v84 = *off_1E798A0C0;
+          v84 = objc_msgSend_isEqualToString_(v82);
         }
 
         else
         {
           v85 = *off_1E798A0D0;
-          v86 = [v1650 isEqualToString:*off_1E798A0D0];
-          v84 = *off_1E798A0C0;
-          if (v1675)
+          v86 = objc_msgSend_isEqualToString_(v1691);
+          if (isEqualToString)
           {
             v87 = *off_1E798A0C0;
           }
@@ -5478,31 +5484,33 @@ LABEL_90:
           if (v86)
           {
             v83 = 0;
+            v84 = objc_msgSend_isEqualToString_(0);
           }
 
           else
           {
             v83 = v87;
+            v84 = objc_msgSend_isEqualToString_(v87);
           }
         }
 
-        if ([v83 isEqualToString:v84])
+        if (v84)
         {
-          v88 = *(v16 + 224) * *(v16 + 288);
+          v88 = *(v16 + 56) * *(v16 + 72);
 LABEL_108:
-          LODWORD(v1532) = 1.0;
-          v1604 = v88;
+          LODWORD(v1573) = 1.0;
+          v1645 = v88;
           goto LABEL_109;
         }
 
-        if (![v83 isEqualToString:*off_1E798A0D0] || (OUTLINED_FUNCTION_18_7(), !_ZF))
+        if (!objc_msgSend_isEqualToString_(v83) || (OUTLINED_FUNCTION_18_7(), !_ZF))
         {
           v88 = v74 * 0.5;
           goto LABEL_108;
         }
 
-        v89 = *(v16 + 220);
-        v90 = *(v16 + 304);
+        v89 = *(v16 + 55);
+        v90 = *(v16 + 76);
         v91 = CMGetAttachment(a2, @"ZoomFactorLowerBoundAfterGDCAndFocus", 0);
         LODWORD(v92) = 1.0;
         if (v91)
@@ -5510,18 +5518,18 @@ LABEL_108:
           [v91 floatValue];
         }
 
-        v93 = *(v16 + 304);
-        v1604 = v89 * v90;
+        v93 = *(v16 + 76);
+        v1645 = v89 * v90;
         if ((*&v92 * v93) <= 1.0)
         {
-          v518 = *(v16 + 232);
-          LODWORD(v1532) = 1.0;
-          if (v518 <= 0.0 || v518 == *(v16 + 220))
+          v528 = *(v16 + 58);
+          LODWORD(v1573) = 1.0;
+          if (v528 <= 0.0 || v528 == *(v16 + 55))
           {
 LABEL_109:
             OUTLINED_FUNCTION_18_7();
-            v1589 = v83;
-            LODWORD(v1541) = v80;
+            v1630 = v83;
+            LODWORD(v1582) = v80;
             if (_ZF)
             {
               v97 = *(v16 + 905);
@@ -5532,10 +5540,10 @@ LABEL_109:
               v97 = 1;
             }
 
-            v1610 = v97;
-            v1651 = *(v16 + 906);
-            *v1573 = *(v16 + 800);
-            if (v1675)
+            v1651 = v97;
+            v1692 = *(v16 + 906);
+            *v1614 = *(v16 + 50);
+            if (isEqualToString)
             {
               v98 = &OBJC_IVAR___BWPreviewStitcherNode__wideNondisruptiveSwitchingScaleFactor;
             }
@@ -5546,16 +5554,16 @@ LABEL_109:
             }
 
             v99 = *(v16 + *v98);
-            v1653 = vmulq_n_f64(*narrowerCamera, v99);
-            v1657 = vmulq_n_f64(narrowerCamera[1], v99);
+            v1694 = vmulq_n_f64(*narrowerCamera, v99);
+            v1698 = vmulq_n_f64(narrowerCamera[1], v99);
             v100 = narrowerCamera[2].f64[0] * v99;
             v101 = narrowerCamera[2].f64[1] * v99;
-            v1617 = *(v16 + 288);
+            v1658 = *(v16 + 72);
             x = v52->x;
             y = v52->y;
-            v1637 = vmulq_n_f64(*(v16 + 1552), *(v16 + 304));
-            v1668 = vmulq_n_f64(*(v16 + 1472), v1617);
-            HIDWORD(v1532) = v96;
+            v1678 = vmulq_n_f64(*(v16 + 97), *(v16 + 76));
+            v1709 = vmulq_n_f64(*(v16 + 92), v1658);
+            HIDWORD(v1573) = v96;
             if (v95)
             {
               OUTLINED_FUNCTION_117();
@@ -5600,9 +5608,9 @@ LABEL_109:
               OUTLINED_FUNCTION_18_7();
               if (_ZF)
               {
-                v1716 = v118;
-                v119 = [v1650 isEqualToString:*off_1E798A0D0];
-                v118 = v1716;
+                v1757 = v118;
+                v119 = objc_msgSend_isEqualToString_(v1691);
+                v118 = v1757;
                 if (v119)
                 {
                   v117 = 0.0;
@@ -5626,37 +5634,37 @@ LABEL_109:
                 v120 = x;
               }
 
-              v1715 = v120;
-              v1653 = vmulq_n_f64(v1653, v118);
-              v1657 = vmulq_n_f64(v1657, v118);
+              v1756 = v120;
+              v1694 = vmulq_n_f64(v1694, v118);
+              v1698 = vmulq_n_f64(v1698, v118);
               v100 = v100 * v118;
               v101 = v101 * v118;
               if (v112)
               {
-                v123 = v1668;
-                v124 = v1668.f64[0] == x;
-                v125 = v1668.f64[1];
+                v123 = v1709;
+                v124 = v1709.f64[0] == x;
+                v125 = v1709.f64[1];
               }
 
               else
               {
-                v123 = v1637;
-                v124 = v1637.f64[0] == x;
-                v125 = v1637.f64[1];
+                v123 = v1678;
+                v124 = v1678.f64[0] == x;
+                v125 = v1678.f64[1];
               }
 
               if (!v124 || v125 != y)
               {
                 *dictb = v123;
                 [v106 currentValue];
-                v1615 = v127;
+                v1656 = v127;
                 [v106 currentValue];
-                v129 = vmulq_f64(*dictb, vmulq_n_f64(vcvtq_f64_f32(__PAIR64__(v128, v1615)), rect2a));
-                v1653 = vaddq_f64(v1653, v129);
-                v1657 = vaddq_f64(v1657, v129);
+                v129 = vmulq_f64(*dictb, vmulq_n_f64(vcvtq_f64_f32(__PAIR64__(v128, v1656)), rect2a));
+                v1694 = vaddq_f64(v1694, v129);
+                v1698 = vaddq_f64(v1698, v129);
                 v100 = v100 + v129.f64[0];
                 v101 = v101 + v129.f64[1];
-                v1715 = v1715 + v129.f64[0];
+                v1756 = v1756 + v129.f64[0];
                 v122 = v122 + v129.f64[1];
               }
 
@@ -5666,92 +5674,92 @@ LABEL_109:
             else
             {
               rect2 = v52->y;
-              v1715 = v52->x;
-              v112 = v1675;
+              v1756 = v52->x;
+              v112 = isEqualToString;
             }
 
             memset(&recta, 0, sizeof(recta));
-            recta.origin.x = psn_pixelBufferRect(v1721);
+            recta.origin.x = psn_pixelBufferRect(v1762);
             recta.origin.y = v130;
             recta.size.width = v131;
             recta.size.height = v132;
-            v1516 = *off_1E798B7A0;
-            CGRectMakeWithDictionaryRepresentation([v1722 objectForKeyedSubscript:?], &recta);
+            v1557 = *off_1E798B7A0;
+            CGRectMakeWithDictionaryRepresentation([v1763 objectForKeyedSubscript:?], &recta);
             r2 = *&ymmword_1AD046EE0[16];
             r2_16 = *ymmword_1AD046EE0;
-            v1732 = *ymmword_1AD046EE0;
-            v1616 = *off_1E798A5C8;
-            CGRectMakeWithDictionaryRepresentation([v1722 objectForKeyedSubscript:?], &v1732);
-            if (v1661 > 0.0)
+            v1773 = *ymmword_1AD046EE0;
+            v1657 = *off_1E798A5C8;
+            CGRectMakeWithDictionaryRepresentation([v1763 objectForKeyedSubscript:?], &v1773);
+            if (v1702 > 0.0)
             {
               v133 = OUTLINED_FUNCTION_124_0();
-              v1732.origin.x = FigCaptureMetadataUtilitiesScaleRect2D(v133, v135, v136, v137, v134 / v1661);
-              v1732.origin.y = v138;
-              v1732.size.width = v139;
-              v1732.size.height = v140;
+              v1773.origin.x = FigCaptureMetadataUtilitiesScaleRect2D(v133, v135, v136, v137, v134 / v1702);
+              v1773.origin.y = v138;
+              v1773.size.width = v139;
+              v1773.size.height = v140;
             }
 
-            v1585 = v1661;
-            *v1731 = 0u;
-            v1730 = 0u;
-            CVPixelBufferGetWidth(v1721);
-            CVPixelBufferGetHeight(v1721);
-            v141 = OUTLINED_FUNCTION_124_0();
-            FigCaptureMetadataUtilitiesDenormalizeCropRect(v141, v142, v143, v144);
-            OUTLINED_FUNCTION_4_25(v145, v146, v147, v148);
-            v149 = CMGetAttachment(cameraCopy2, *off_1E798A428, 0);
-            *v1520 = *v52;
+            v1626 = v1702;
+            *v1772 = 0u;
+            v1771 = 0u;
+            Width = CVPixelBufferGetWidth(v1762);
+            CVPixelBufferGetHeight(v1762);
+            v142 = OUTLINED_FUNCTION_124_0();
+            FigCaptureMetadataUtilitiesDenormalizeCropRect(v142, v143, v144, v145, Width, v146);
+            OUTLINED_FUNCTION_4_25(v147, v148, v149, v150);
+            v151 = CMGetAttachment(cameraCopy2, *off_1E798A428, 0);
+            *v1561 = *v52;
             point = *v52;
-            v1671 = v21;
-            v1607 = y;
-            v1608 = x;
-            *(&v1535 + 1) = v74;
-            *&v1545 = v77;
-            dict = v149;
-            *&v1605 = v101;
-            *&v1606 = v100;
-            if (!v149 || (CGPointMakeWithDictionaryRepresentation(v149, &point), (v1651 & 1) != 0))
+            v1712 = v21;
+            v1648 = y;
+            v1649 = x;
+            *(&v1576 + 1) = v74;
+            *&v1586 = v77;
+            dict = v151;
+            *&v1646 = v101;
+            *&v1647 = v100;
+            if (!v151 || (CGPointMakeWithDictionaryRepresentation(v151, &point), (v1692 & 1) != 0))
             {
 LABEL_166:
               OUTLINED_FUNCTION_45_4();
-              if (v169 != 1)
+              if (v171 != 1)
               {
-                v172 = 0;
-                v173 = v1715 - point.x;
-                v174 = rect2 - point.y;
-                v175 = 1.0;
-                v1619 = v100;
-                v1618 = v101;
-                v176 = v1694;
+                v174 = 0;
+                v175 = v1756 - point.x;
+                v176 = rect2 - point.y;
+                v177 = 1.0;
+                v1660 = v100;
+                v1659 = v101;
+                v178 = v1735;
                 goto LABEL_203;
               }
 
-              v170 = *(v16 + 228);
-              if (v170 <= 0.0)
+              v172 = *(v16 + 57);
+              if (v172 <= 0.0)
               {
-                v171 = 1;
+                v173 = 1;
               }
 
               else
               {
-                v171 = v112;
+                v173 = v112;
               }
 
-              if (v171)
+              if (v173)
               {
-                v170 = v74 + v74;
+                v172 = v74 + v74;
               }
 
               else
               {
-                v177 = *(v16 + 280);
-                if (v177)
+                v179 = *(v16 + 35);
+                if (v179)
                 {
-                  [objc_msgSend(v177 "firstObject")];
+                  [objc_msgSend(v179 "firstObject")];
                   OUTLINED_FUNCTION_45_4();
-                  v179 = 1.0;
-                  v176 = v1694;
-                  if ((v180 & 1) == 0)
+                  v181 = 1.0;
+                  v178 = v1735;
+                  if ((v182 & 1) == 0)
                   {
                     goto LABEL_178;
                   }
@@ -5760,209 +5768,209 @@ LABEL_166:
                 }
               }
 
-              v178 = v74;
-              v176 = v1694;
+              v180 = v74;
+              v178 = v1735;
 LABEL_177:
-              v179 = (v1604 / v77);
+              v181 = (v1645 / v77);
 LABEL_178:
-              v1598 = v179;
-              v181.f64[0] = shiftOut;
-              v181.f64[1] = rate;
-              if (v170 >= v21)
+              v1639 = v181;
+              v183.f64[0] = shiftOut;
+              v183.f64[1] = rate;
+              if (v172 >= v21)
               {
-                v182 = v21;
+                v184 = v21;
               }
 
               else
               {
-                v182 = v170;
+                v184 = v172;
               }
 
-              if (v182 < v178)
+              if (v184 < v180)
               {
-                v182 = v178;
+                v184 = v180;
               }
 
-              v183 = (((v182 - v178) / (v170 - v178)) + 0.0) * 1.57079633;
-              if (fabs(v183) <= 1.57079633)
+              v185 = (((v184 - v180) / (v172 - v180)) + 0.0) * 1.57079633;
+              if (fabs(v185) <= 1.57079633)
               {
-                v1706 = v181;
-                v185 = sin(v183);
-                v181 = v1706;
-                v184 = v185;
+                v1747 = v183;
+                v187 = sin(v185);
+                v183 = v1747;
+                v186 = v187;
               }
 
               else
               {
-                v184 = -1.0;
-                if (v183 >= 0.0)
+                v186 = -1.0;
+                if (v185 >= 0.0)
                 {
-                  v184 = 1.0;
+                  v186 = 1.0;
                 }
               }
 
-              v186 = vmulq_n_f64(v181, v1617);
+              v188 = vmulq_n_f64(v183, v1658);
               if (v112)
               {
-                v187 = v1598;
-                v188 = vmulq_n_f64(vmulq_n_f64(v186, v184), v1598);
-                if (v1637.f64[0] == x && v1637.f64[1] == y)
+                v189 = v1639;
+                v190 = vmulq_n_f64(vmulq_n_f64(v188, v186), v1639);
+                if (v1678.f64[0] == x && v1678.f64[1] == y)
                 {
                   goto LABEL_200;
                 }
 
-                *v1631 = v188;
+                *v1672 = v190;
                 _wideBaseZoomFactorWithOverride = [(BWPreviewStitcherNode *)v16 _wideBaseZoomFactorWithOverride];
-                v1669 = (*&_wideBaseZoomFactorWithOverride / *(v16 + 220));
-                [*(v16 + 1536) currentValue];
-                v1707 = v191;
-                [*(v16 + 1536) currentValue];
-                v192 = *v1631;
-                v193 = vsubq_f64(vmulq_n_f64(v1637, v1669), vmulq_n_f64(*v1573, v1669));
-                v187 = v1598;
-                v195 = vcvtq_f64_f32(__PAIR64__(v194, v1707));
+                v1710 = (*&_wideBaseZoomFactorWithOverride / *(v16 + 55));
+                [*(v16 + 192) currentValue];
+                v1748 = v193;
+                [*(v16 + 192) currentValue];
+                v194 = *v1672;
+                v195 = vsubq_f64(vmulq_n_f64(v1678, v1710), vmulq_n_f64(*v1614, v1710));
+                v189 = v1639;
+                v197 = vcvtq_f64_f32(__PAIR64__(v196, v1748));
               }
 
               else
               {
-                v1708 = v184;
-                *v1638 = v186;
-                [*(v16 + 1464) currentValue];
-                v197 = OUTLINED_FUNCTION_46_3(v196);
-                v187 = v1598;
-                v188 = vmulq_n_f64(vmulq_n_f64(*v1638, v198 * v197), v1598);
-                if (v1668.f64[0] == x && v1668.f64[1] == y)
+                v1749 = v186;
+                v1679 = v188;
+                [*(v16 + 183) currentValue];
+                v199 = OUTLINED_FUNCTION_46_3(v198);
+                v189 = v1639;
+                v190 = vmulq_n_f64(vmulq_n_f64(v1679, v200 * v199), v1639);
+                if (v1709.f64[0] == x && v1709.f64[1] == y)
                 {
                   goto LABEL_200;
                 }
 
-                *v1632 = v188;
-                [*(v16 + 1464) currentValue];
-                v1639 = v200;
-                [*(v16 + 1464) currentValue];
-                v192 = *v1632;
-                v187 = v1598;
-                v195 = vmulq_n_f64(vmulq_n_f64(vcvtq_f64_f32(__PAIR64__(v201, v1639)), v1708), v1598);
-                v193 = v1668;
+                *v1673 = v190;
+                [*(v16 + 183) currentValue];
+                v1680 = v202;
+                [*(v16 + 183) currentValue];
+                v194 = *v1673;
+                v189 = v1639;
+                v197 = vmulq_n_f64(vmulq_n_f64(vcvtq_f64_f32(__PAIR64__(v203, v1680)), v1749), v1639);
+                v195 = v1709;
               }
 
-              v188 = vaddq_f64(v192, vmulq_f64(v193, v195));
+              v190 = vaddq_f64(v194, vmulq_f64(v195, v197));
 LABEL_200:
-              v202 = vmlsq_lane_f64(v188, point, v187, 0);
-              v1653 = vaddq_f64(v1653, v202);
-              v1657 = vaddq_f64(v1657, v202);
-              v1619 = v100 + v202.f64[0];
-              v1618 = v101 + v202.f64[1];
+              v204 = vmlsq_lane_f64(v190, point, v189, 0);
+              v1694 = vaddq_f64(v1694, v204);
+              v1698 = vaddq_f64(v1698, v204);
+              v1660 = v100 + v204.f64[0];
+              v1659 = v101 + v204.f64[1];
               OUTLINED_FUNCTION_45_4();
-              if (v205)
+              if (v207)
               {
-                v175 = (v77 / v1604);
-                v172 = 1;
+                v177 = (v77 / v1645);
+                v174 = 1;
               }
 
               else
               {
-                v172 = 0;
-                v173 = v173 - v203;
-                v174 = v174 - v204;
-                v175 = 1.0;
+                v174 = 0;
+                v175 = v175 - v205;
+                v176 = v176 - v206;
+                v177 = 1.0;
               }
 
 LABEL_203:
-              v206 = MEMORY[0x1E695F058];
-              v207 = v1701;
-              v1640 = v173;
-              v1633 = v174;
+              v208 = MEMORY[0x1E695F058];
+              v209 = v1742;
+              v1681 = v175;
+              v1674 = v176;
               if (*(v16 + 1744) == 1)
               {
-                if ([v1650 isEqualToString:*off_1E798A0D0])
+                if (objc_msgSend_isEqualToString_(v1691))
                 {
-                  v175 = 1.0;
+                  v177 = 1.0;
                 }
 
                 OUTLINED_FUNCTION_45_4();
               }
 
-              *v1567 = v206[1];
-              v1569 = *v206;
-              v1728.origin = *v206;
-              v1728.size = *v1567;
-              v208 = *v1731 / *&v1731[1];
-              v1600 = v208;
-              if (v207 <= 0.0)
+              *v1608 = v208[1];
+              v1610 = *v208;
+              v1769.origin = *v208;
+              v1769.size = *v1608;
+              v210 = *v1772 / *&v1772[1];
+              v1641 = v210;
+              if (v209 <= 0.0)
               {
-                *&v209 = *v1731 / *&v1731[1];
+                *&v211 = *v1772 / *&v1772[1];
               }
 
               else
               {
-                *&v209 = v1701;
+                *&v211 = v1742;
               }
 
-              if (v172)
+              if (v174)
               {
-                if (v176 != *&v1545)
+                if (v178 != *&v1586)
                 {
-                  v210 = OUTLINED_FUNCTION_47_5();
-                  v215 = FigCaptureMetadataUtilitiesScaleRect2D(v210, v211, v212, v213, v214);
-                  OUTLINED_FUNCTION_4_25(v215, v216, v217, v218);
+                  v212 = OUTLINED_FUNCTION_47_5();
+                  v217 = FigCaptureMetadataUtilitiesScaleRect2D(v212, v213, v214, v215, v216);
+                  OUTLINED_FUNCTION_4_25(v217, v218, v219, v220);
                 }
 
                 if (v112)
                 {
                   [(BWPreviewStitcherNode *)v16 _wideBaseZoomFactorWithOverride];
-                  v644 = OUTLINED_FUNCTION_47_5();
-                  v649 = FigCaptureMetadataUtilitiesScaleRect2D(v644, v645, v646, v647, v648);
-                  OUTLINED_FUNCTION_4_25(v649, v650, v651, v652);
+                  v657 = OUTLINED_FUNCTION_47_5();
+                  v662 = FigCaptureMetadataUtilitiesScaleRect2D(v657, v658, v659, v660, v661);
+                  OUTLINED_FUNCTION_4_25(v662, v663, v664, v665);
                 }
               }
 
-              v1702 = v21;
-              v219 = off_1E798A6F0;
-              v220 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
-              v1670 = *&v209;
-              rect2b = v175;
+              v1743 = v21;
+              v221 = off_1E798A6F0;
+              v222 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
+              v1711 = *&v211;
+              rect2b = v177;
               if ((v37 & 1) == 0)
               {
                 OUTLINED_FUNCTION_18_7();
                 if (!_ZF)
                 {
                   OUTLINED_FUNCTION_18_7();
-                  if (v229 && v40 && v41 && v40 != v41)
+                  if (v231 && v40 && v41 && v40 != v41)
                   {
-                    LODWORD(v231) = *(v16 + *(v230 + 1856));
-                    if (v207 == 1.0 && *&v231 == v207)
+                    LODWORD(v233) = *(v16 + *(v232 + 1856));
+                    if (v209 == 1.0 && *&v233 == v209)
                     {
-                      [objc_msgSend(*(v16 + 1912) objectForKeyedSubscript:{v1650, v231), "floatValue"}];
-                      IsSensorMountedInPortraitOrientation = FigCaptureSourceIsSensorMountedInPortraitOrientation(v551);
-                      v553 = BWSmartFramingSceneMonitorAspectRatioFromFieldOfView(*(v16 + 1896), IsSensorMountedInPortraitOrientation);
-                      v554 = BWAspectRatioValueFromAspectRatio(v553);
-                      FigCaptureMetadataUtilitiesRectWithAspectRatioInsideDimensions(recta.size.width, recta.size.height, v554);
-                      v557 = FigCaptureMetadataUtilitiesRectWithAspectRatioInsideDimensions(v555, v556, *&v209);
-                      OUTLINED_FUNCTION_4_25(v557, v558, v559, v560);
-                      v562 = recta.origin.x;
-                      v561 = recta.origin.y;
-                      width = recta.size.width;
+                      [objc_msgSend(*(v16 + 239) objectForKeyedSubscript:{v1691, v233), "floatValue"}];
+                      IsSensorMountedInPortraitOrientation = FigCaptureSourceIsSensorMountedInPortraitOrientation(v561);
+                      v563 = BWSmartFramingSceneMonitorAspectRatioFromFieldOfView(*(v16 + 474), IsSensorMountedInPortraitOrientation);
+                      v564 = BWAspectRatioValueFromAspectRatio(v563);
+                      FigCaptureMetadataUtilitiesRectWithAspectRatioInsideDimensions(recta.size.width, recta.size.height, v564);
+                      v567 = FigCaptureMetadataUtilitiesRectWithAspectRatioInsideDimensions(v565, v566, *&v211);
+                      OUTLINED_FUNCTION_4_25(v567, v568, v569, v570);
+                      v572 = recta.origin.x;
+                      v571 = recta.origin.y;
+                      v574 = recta.size.width;
                       height = recta.size.height;
-                      FigCaptureMetadataUtilitiesScaleRect2D(v565, v566, v567, v568, 1.0 / (v1702 * v1585));
-                      v222 = v1721;
+                      FigCaptureMetadataUtilitiesScaleRect2D(v575, v576, v577, v578, 1.0 / (v1743 * v1626));
+                      v224 = v1762;
                       OUTLINED_FUNCTION_85_1();
-                      v224 = cameraCopy2;
+                      v226 = cameraCopy2;
                     }
 
                     else
                     {
-                      v233 = FigCaptureMetadataUtilitiesRectWithAspectRatioInsideDimensions(recta.size.width, recta.size.height, *&v209);
-                      OUTLINED_FUNCTION_4_25(v233, v234, v235, v236);
-                      [v1722 objectForKeyedSubscript:*off_1E798A6F0];
-                      v222 = v1721;
+                      v235 = FigCaptureMetadataUtilitiesRectWithAspectRatioInsideDimensions(recta.size.width, recta.size.height, *&v211);
+                      OUTLINED_FUNCTION_4_25(v235, v236, v237, v238);
+                      [v1763 objectForKeyedSubscript:*off_1E798A6F0];
+                      v224 = v1762;
                       if (*(v16 + 1921))
                       {
-                        CVPixelBufferGetWidth(v1721);
-                        CVPixelBufferGetHeight(v1721);
-                        v237 = OUTLINED_FUNCTION_0_29();
-                        v241 = OUTLINED_FUNCTION_96_0(v237, v238, v239, v240);
-                        OUTLINED_FUNCTION_4_25(v241, v242, v243, v244);
+                        CVPixelBufferGetWidth(v1762);
+                        CVPixelBufferGetHeight(v1762);
+                        v239.n128_f64[0] = OUTLINED_FUNCTION_0_29();
+                        v247 = OUTLINED_FUNCTION_96_0(v239, v240, v241, v242, v243, v244, v245, v246);
+                        OUTLINED_FUNCTION_4_25(v247, v248, v249, v250);
                       }
 
                       else
@@ -5971,623 +5979,623 @@ LABEL_203:
                       }
 
                       OUTLINED_FUNCTION_85_1();
-                      v224 = cameraCopy2;
-                      v562 = recta.origin.x;
-                      v561 = recta.origin.y;
-                      width = recta.size.width;
+                      v226 = cameraCopy2;
+                      v572 = recta.origin.x;
+                      v571 = recta.origin.y;
+                      v574 = recta.size.width;
                       height = recta.size.height;
-                      FigCaptureMetadataUtilitiesScaleRect2D(v635, v636, v637, v638, 1.0 / (v1702 * v1585));
+                      FigCaptureMetadataUtilitiesScaleRect2D(v648, v649, v650, v651, 1.0 / (v1743 * v1626));
                     }
 
-                    v639 = OUTLINED_FUNCTION_100_0(width - v569);
-                    OUTLINED_FUNCTION_4_25(v562 + v639, v561 + (height - v640) * v641, v642, v640);
-                    v245 = 1.0;
+                    v652 = OUTLINED_FUNCTION_100_0(v574 - v579);
+                    OUTLINED_FUNCTION_4_25(v572 + v652, v571 + (height - v653) * v654, v655, v653);
+                    v251 = 1.0;
                     if (*(v16 + 1920) == 1)
                     {
-                      [*(v16 + 464) previewStitcherSmartFramingFieldOfViewTransitionAppliedZoomFactor:v16 zoomFactor:v1702 * v1585];
+                      [*(v16 + 58) previewStitcherSmartFramingFieldOfViewTransitionAppliedZoomFactor:v16 zoomFactor:v1743 * v1626];
                     }
 
                     goto LABEL_284;
                   }
 
-                  v245 = 1.0;
-                  if (v207 > 0.0)
+                  v251 = 1.0;
+                  if (v209 > 0.0)
                   {
-                    v246 = OUTLINED_FUNCTION_47_5();
-                    v250 = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v246, v247, v248, v249, v207);
-                    OUTLINED_FUNCTION_4_25(v250, v251, v252, v253);
+                    v252 = OUTLINED_FUNCTION_47_5();
+                    v256 = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v252, v253, v254, v255, v209);
+                    OUTLINED_FUNCTION_4_25(v256, v257, v258, v259);
                   }
 
-                  v222 = v1721;
+                  v224 = v1762;
                   OUTLINED_FUNCTION_85_1();
-                  v254 = primaryCaptureRectCenterYPixelOffset;
-                  v255 = v1673;
-                  v224 = cameraCopy2;
+                  v260 = primaryCaptureRectCenterYPixelOffset;
+                  v261 = v1714;
+                  v226 = cameraCopy2;
 LABEL_306:
-                  v363 = v255 + v254;
-                  v364 = OUTLINED_FUNCTION_0_29();
-                  if (LODWORD(v1667))
+                  v373 = v261 + v260;
+                  v374.n128_f64[0] = OUTLINED_FUNCTION_0_29();
+                  if (LODWORD(v1708))
                   {
-                    v368 = psn_rectBoundedByRect(v364, v365, v366, v367, recta.origin.x, recta.origin.y, recta.size.width, recta.size.height);
+                    v378 = psn_rectBoundedByRect(v374.n128_f64[0], v375, v376, v377, recta.origin.x, recta.origin.y, recta.size.width, recta.size.height);
                   }
 
                   else
                   {
-                    v368 = psn_conformRectForMSR420vfBoundedByRect(0, v364, v365, v366, v367, recta.origin.x, recta.origin.y, recta.size.width, recta.size.height);
+                    v378 = psn_conformRectForMSR420vfBoundedByRect(0, v374, v375, v376, v377, recta.origin.x, recta.origin.y, recta.size.width, recta.size.height);
                   }
 
-                  v1593 = v1644 + primaryCaptureRectCenterXPixelOffset;
-                  OUTLINED_FUNCTION_4_25(v368, v369, v370, v371);
-                  v1779.origin.x = OUTLINED_FUNCTION_58_4();
-                  v1780 = CGRectInset(v1779, v372, v372);
-                  v373 = v1780.origin.y;
-                  v374 = v1780.size.width;
-                  v1625 = v245;
-                  if (v245 > 1.0)
+                  v1634 = v1685 + primaryCaptureRectCenterXPixelOffset;
+                  OUTLINED_FUNCTION_4_25(v378, v379, v380, v381);
+                  v1820.origin.x = OUTLINED_FUNCTION_58_4();
+                  v1821 = CGRectInset(v1820, v382, v382);
+                  v383 = v1821.origin.y;
+                  v384 = v1821.size.width;
+                  v1666 = v251;
+                  if (v251 > 1.0)
                   {
                     OUTLINED_FUNCTION_18_7();
                     if (_ZF)
                     {
-                      v1780.origin.x = FigCaptureMetadataUtilitiesScaleRect2D(v1780.origin.x, v373, v374, v1780.size.height, (v375 / v245));
-                      v373 = v376;
-                      v374 = v377;
+                      v1821.origin.x = FigCaptureMetadataUtilitiesScaleRect2D(v1821.origin.x, v383, v384, v1821.size.height, (v385 / v251));
+                      v383 = v386;
+                      v384 = v387;
                     }
                   }
 
-                  v1576 = v1593;
-                  if (v1593)
+                  v1617 = v1634;
+                  if (v1634)
                   {
-                    v378 = v1780.origin.x + v1593;
+                    v388 = v1821.origin.x + v1634;
                   }
 
                   else
                   {
-                    v378 = v1780.origin.x;
+                    v388 = v1821.origin.x;
                   }
 
-                  if (v363)
+                  if (v373)
                   {
                     OUTLINED_FUNCTION_18_7();
                     if (_ZF)
                     {
-                      v373 = v373 + v363;
+                      v383 = v383 + v373;
                     }
                   }
 
-                  v1711 = v1780.size.height;
-                  v379 = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v378, v373, v374, v1780.size.height, *&v209);
-                  OUTLINED_FUNCTION_23_3(v379, v380, v381, v382);
-                  if (v363)
+                  v1752 = v1821.size.height;
+                  v389 = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v388, v383, v384, v1821.size.height, *&v211);
+                  OUTLINED_FUNCTION_23_3(v389, v390, v391, v392);
+                  if (v373)
                   {
                     OUTLINED_FUNCTION_18_7();
                     if (_ZF)
                     {
-                      v373 = v373 - v363;
+                      v383 = v383 - v373;
                     }
                   }
 
-                  v1718 = v373;
-                  v384 = OUTLINED_FUNCTION_41_3((v16 + 416), v383);
-                  v388 = v386;
-                  v389 = v387;
+                  v1759 = v383;
+                  v394 = OUTLINED_FUNCTION_41_3(v16 + 26, v393);
+                  v398 = v396;
+                  v399 = v397;
                   if (shifts)
                   {
-                    *shifts = v384;
-                    shifts[1] = v385;
-                    shifts[2] = v386;
-                    shifts[3] = v387;
+                    *shifts = v394;
+                    shifts[1] = v395;
+                    shifts[2] = v396;
+                    shifts[3] = v397;
                   }
 
-                  v1684 = v385;
-                  v1686 = v384;
+                  v1725 = v395;
+                  v1727 = v394;
                   if (shift)
                   {
-                    v390 = v1600;
-                    v391 = *&v209;
-                    if (*&v209 <= v1600)
+                    v400 = v1641;
+                    v401 = *&v211;
+                    if (*&v211 <= v1641)
                     {
-                      v393 = 1.0;
-                      v392 = v390 / v391;
+                      v403 = 1.0;
+                      v402 = v400 / v401;
                     }
 
                     else
                     {
-                      v392 = 1.0;
-                      v393 = v391 / v390;
+                      v402 = 1.0;
+                      v403 = v401 / v400;
                     }
 
-                    *shift = (1.0 - v392) * 0.5;
-                    shift[1] = (1.0 - v393) * 0.5;
-                    shift[2] = v392;
-                    shift[3] = v393;
+                    *shift = (1.0 - v402) * 0.5;
+                    shift[1] = (1.0 - v403) * 0.5;
+                    shift[2] = v402;
+                    shift[3] = v403;
                   }
 
-                  LODWORD(v1507) = v363;
+                  LODWORD(v1548) = v373;
                   OUTLINED_FUNCTION_18_7();
                   if (_ZF)
                   {
-                    v394 = OUTLINED_FUNCTION_126();
-                    v1781.origin.x = psn_conformRectForMSR420vfBoundedByRect(1, v394, v395, v388, v389, v394, v395, v388, v389);
-                    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v1781);
-                    VTSessionSetProperty(*(v16 + 400), *MEMORY[0x1E6983D90], DictionaryRepresentation);
+                    v404.n128_f64[0] = OUTLINED_FUNCTION_126();
+                    v1822.origin.x = psn_conformRectForMSR420vfBoundedByRect(1, v404, v405, v398, v399, v404.n128_f64[0], v405, v398, v399);
+                    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v1822);
+                    VTSessionSetProperty(*(v16 + 50), *MEMORY[0x1E6983D90], DictionaryRepresentation);
                     if (DictionaryRepresentation)
                     {
                       CFRelease(DictionaryRepresentation);
                     }
                   }
 
-                  v1674 = v389;
-                  v397 = 1.0;
+                  v1715 = v399;
+                  v407 = 1.0;
                   if (*(v16 + 330) == 1)
                   {
-                    v398 = recta.size.width;
-                    v399 = v398 / CVPixelBufferGetWidth(v222);
-                    v400 = recta.size.height;
-                    if (v399 >= v400 / CVPixelBufferGetHeight(v222))
+                    v408 = recta.size.width;
+                    v409 = v408 / CVPixelBufferGetWidth(v224);
+                    v410 = recta.size.height;
+                    if (v409 >= v410 / CVPixelBufferGetHeight(v224))
                     {
-                      v401 = recta.size.height;
-                      v402 = CVPixelBufferGetHeight(v222);
+                      v411 = recta.size.height;
+                      v412 = CVPixelBufferGetHeight(v224);
                     }
 
                     else
                     {
-                      v401 = recta.size.width;
-                      v402 = CVPixelBufferGetWidth(v222);
+                      v411 = recta.size.width;
+                      v412 = CVPixelBufferGetWidth(v224);
                     }
 
-                    v397 = v401 / v402;
+                    v407 = v411 / v412;
                   }
 
-                  _NF = v21 < v176 || v21 < (v176 / v397);
+                  _NF = v21 < v178 || v21 < (v178 / v407);
                   if (_NF)
                   {
-                    v404 = OUTLINED_FUNCTION_8_18();
-                    acpr_conformRectForMSR420vf(v404, v405, v406, v407);
-                    v409.f64[1] = v408;
-                    v410 = vaddvq_f64(vdivq_f64(v409, vaddq_f64(*v1731, *v1731)));
-                    if (v397 != 1.0)
+                    v414 = OUTLINED_FUNCTION_8_18();
+                    acpr_conformRectForMSR420vf(v414, v415, v416, v417);
+                    v419.f64[1] = v418;
+                    v420 = vaddvq_f64(vdivq_f64(v419, vaddq_f64(*v1772, *v1772)));
+                    if (v407 != 1.0)
                     {
-                      v410 = v410 * v397;
+                      v420 = v420 * v407;
                     }
 
-                    v1703 = v410;
-                    v1782 = v1728;
-                    *&v416 = CGRectInset(v1728, (1.0 - v1782.origin.y) * v1728.size.width * 0.5, (1.0 - v1782.origin.y) * v1728.size.height * 0.5);
+                    v1744 = v420;
+                    v1823 = v1769;
+                    *&v426 = CGRectInset(v1769, (1.0 - v1823.origin.y) * v1769.size.width * 0.5, (1.0 - v1823.origin.y) * v1769.size.height * 0.5);
                   }
 
                   else
                   {
-                    v411 = OUTLINED_FUNCTION_8_18();
-                    v416 = psn_smallestBoundingRectAlignedToMultipleOf(v412, 0, v411, v413, v414, v415);
-                    v1703 = 0.0;
+                    v421 = OUTLINED_FUNCTION_8_18();
+                    v426 = psn_smallestBoundingRectAlignedToMultipleOf(v422, 0, v421, v423, v424, v425);
+                    v1744 = 0.0;
                   }
 
-                  v420 = v378 - v1576;
-                  OUTLINED_FUNCTION_23_3(v416, v417, v418, v419);
-                  v421 = [objc_msgSend(*(v16 + 16) "videoFormat")];
-                  v1645 = v388;
-                  if (FigCapturePixelFormatIsTenBit(v421))
+                  v430 = v388 - v1617;
+                  OUTLINED_FUNCTION_23_3(v426, v427, v428, v429);
+                  v431 = [objc_msgSend(*(v16 + 2) "videoFormat")];
+                  v1686 = v398;
+                  if (FigCapturePixelFormatIsTenBit(v431))
                   {
                     *&propertyValueOut[0].a = 0x200000002;
-                    if (FigCapturePixelFormatIsTenBitPacked(v421))
+                    if (FigCapturePixelFormatIsTenBitPacked(v431))
                     {
                       *&propertyValueOut[0].a = 0x200000006;
                     }
 
-                    else if (FigCapturePixelFormatGetCompressionType(v421))
+                    else if (FigCapturePixelFormatGetCompressionType(v431))
                     {
-                      *&propertyValueOut[0].a = FigCapturePixelFormatTileAlignment(v421);
+                      *&propertyValueOut[0].a = FigCapturePixelFormatTileAlignment(v431);
                     }
 
-                    FigCaptureSwapVideoDimensionsFor90Or270Rotation(propertyValueOut, *(v16 + 136));
+                    FigCaptureSwapVideoDimensionsFor90Or270Rotation(propertyValueOut, *(v16 + 34));
                     OUTLINED_FUNCTION_8_18();
                     a_high = HIDWORD(propertyValueOut[0].a);
                     a_low = LODWORD(propertyValueOut[0].a);
-                    v462 = v1736.i32[0];
-                    v461 = v1736.i32[1];
+                    v472 = v1777.i32[0];
+                    v471 = v1777.i32[1];
                     OUTLINED_FUNCTION_40_4();
-                    v469 = psn_rectBoundedByRect(v463, v464, v465, v466, v467, v468, v374, v1711);
-                    v471 = v470;
-                    v473 = v472;
-                    v1681 = v474;
-                    v475 = v469 + 0.001;
-                    v476 = FigCaptureFloorFloatToMultipleOf(a_low, v475);
-                    v477 = v471 + 0.001;
-                    v478 = FigCaptureFloorFloatToMultipleOf(a_high, v477);
-                    v479 = v469 + v473 + -0.001;
-                    v480 = FigCaptureCeilFloatToMultipleOf(a_low, v479);
-                    v481 = v471 + *&v1681 + -0.001;
-                    v482 = FigCaptureCeilFloatToMultipleOf(a_high, v481);
-                    v1785.origin.x = v420;
-                    v1785.origin.y = v1718;
-                    v1785.size.width = v374;
-                    v1785.size.height = v1711;
-                    MinX = CGRectGetMinX(v1785);
-                    v483 = a_low;
-                    v1786.origin.x = v420;
-                    v1786.origin.y = v1718;
-                    v1786.size.width = v374;
-                    v1786.size.height = v1711;
-                    MinY = CGRectGetMinY(v1786);
-                    v485 = v462;
-                    if (v480 <= v462)
+                    v479 = psn_rectBoundedByRect(v473, v474, v475, v476, v477, v478, v384, v1752);
+                    v481 = v480;
+                    v483 = v482;
+                    v1722 = v484;
+                    v485 = v479 + 0.001;
+                    v486 = FigCaptureFloorFloatToMultipleOf(a_low, v485);
+                    v487 = v481 + 0.001;
+                    v488 = FigCaptureFloorFloatToMultipleOf(a_high, v487);
+                    v489 = v479 + v483 + -0.001;
+                    v490 = FigCaptureCeilFloatToMultipleOf(a_low, v489);
+                    v491 = v481 + *&v1722 + -0.001;
+                    v492 = FigCaptureCeilFloatToMultipleOf(a_high, v491);
+                    v1826.origin.x = v430;
+                    v1826.origin.y = v1759;
+                    v1826.size.width = v384;
+                    v1826.size.height = v1752;
+                    MinX = CGRectGetMinX(v1826);
+                    v493 = a_low;
+                    v1827.origin.x = v430;
+                    v1827.origin.y = v1759;
+                    v1827.size.width = v384;
+                    v1827.size.height = v1752;
+                    MinY = CGRectGetMinY(v1827);
+                    v495 = v472;
+                    if (v490 <= v472)
                     {
-                      v1787.origin.x = OUTLINED_FUNCTION_116_1();
-                      if (CGRectGetMaxX(v1787) >= v480)
+                      v1828.origin.x = OUTLINED_FUNCTION_116_1();
+                      if (CGRectGetMaxX(v1828) >= v490)
                       {
-                        v485 = v480;
+                        v495 = v490;
                       }
 
                       else
                       {
-                        v485 = v480 - v483;
+                        v495 = v490 - v493;
                       }
                     }
 
-                    v388 = a_high;
-                    v512 = v461;
-                    v303 = v482 <= v461;
-                    v222 = v1721;
-                    v444 = a2;
-                    LODWORD(v220) = v1675;
-                    if (v303)
+                    v398 = a_high;
+                    v522 = v471;
+                    v313 = v492 <= v471;
+                    v224 = v1762;
+                    v454 = a2;
+                    LODWORD(v222) = isEqualToString;
+                    if (v313)
                     {
-                      v1792.origin.x = OUTLINED_FUNCTION_116_1();
-                      if (CGRectGetMaxY(v1792) >= v482)
+                      v1833.origin.x = OUTLINED_FUNCTION_116_1();
+                      if (CGRectGetMaxY(v1833) >= v492)
                       {
-                        v512 = v482;
+                        v522 = v492;
                       }
 
                       else
                       {
-                        v512 = v482 - v388;
+                        v522 = v492 - v398;
                       }
                     }
 
-                    if (MinY <= v478)
+                    if (MinY <= v488)
                     {
-                      v513 = -0.0;
+                      v523 = -0.0;
                     }
 
                     else
                     {
-                      v513 = a_high;
+                      v523 = a_high;
                     }
 
-                    v514 = v476;
-                    v443 = v513 + v478;
-                    if (MinX <= v476)
+                    v524 = v486;
+                    v453 = v523 + v488;
+                    if (MinX <= v486)
                     {
-                      v515 = -0.0;
+                      v525 = -0.0;
                     }
 
                     else
                     {
-                      v515 = v483;
+                      v525 = v493;
                     }
 
-                    v440 = v515 + v514;
-                    v441 = v485 - (v515 + v514);
-                    v442 = v512 - v443;
-                    v1728.origin.x = v515 + v514;
-                    v1728.origin.y = v443;
-                    v1728.size.width = v441;
-                    v1728.size.height = v512 - v443;
-                    if (v1625 > 1.0)
+                    v450 = v525 + v524;
+                    v451 = v495 - (v525 + v524);
+                    v452 = v522 - v453;
+                    v1769.origin.x = v525 + v524;
+                    v1769.origin.y = v453;
+                    v1769.size.width = v451;
+                    v1769.size.height = v522 - v453;
+                    if (v1666 > 1.0)
                     {
-                      v21 = v1671;
-                      *&v209 = v1670;
-                      v176 = v1694;
-                      v445 = rect2b;
-                      if ((*(v16 + 1291) & 1) != 0 && (v1736.i32[0] % SLODWORD(propertyValueOut[0].a) || v1736.i32[1] % SHIDWORD(propertyValueOut[0].a)))
+                      v21 = v1712;
+                      *&v211 = v1711;
+                      v178 = v1735;
+                      v455 = rect2b;
+                      if ((*(v16 + 1291) & 1) != 0 && (v1777.i32[0] % SLODWORD(propertyValueOut[0].a) || v1777.i32[1] % SHIDWORD(propertyValueOut[0].a)))
                       {
-                        v516 = v1736.i32[0];
-                        v517 = v440 == 0.0 || v440 + v441 == v516;
-                        if (!v517 && (*(v16 + 416) < 0.0 || *(v16 + 424) < 0.0))
+                        v526 = v1777.i32[0];
+                        v527 = v450 == 0.0 || v450 + v451 == v526;
+                        if (!v527 && (*(v16 + 52) < 0.0 || *(v16 + 53) < 0.0))
                         {
-                          v440 = v440 + (v1736.i32[0] % SLODWORD(propertyValueOut[0].a));
-                          v1728.origin.x = v440;
-                          if (v441 + v440 > v516)
+                          v450 = v450 + (v1777.i32[0] % SLODWORD(propertyValueOut[0].a));
+                          v1769.origin.x = v450;
+                          if (v451 + v450 > v526)
                           {
-                            v441 = v441 - SLODWORD(propertyValueOut[0].a);
-                            v1728.size.width = v441;
+                            v451 = v451 - SLODWORD(propertyValueOut[0].a);
+                            v1769.size.width = v451;
                           }
                         }
 
-                        if (v443 != 0.0 && v443 + v442 != v1736.i32[1] && (*(v16 + 432) < 0.0 || *(v16 + 440) < 0.0))
+                        if (v453 != 0.0 && v453 + v452 != v1777.i32[1] && (*(v16 + 54) < 0.0 || *(v16 + 55) < 0.0))
                         {
-                          v443 = v443 + (v1736.i32[1] % SHIDWORD(propertyValueOut[0].a));
-                          v1728.origin.y = v443;
-                          if (v442 + v443 > v1736.i32[1])
+                          v453 = v453 + (v1777.i32[1] % SHIDWORD(propertyValueOut[0].a));
+                          v1769.origin.y = v453;
+                          if (v452 + v453 > v1777.i32[1])
                           {
-                            v442 = v442 - SHIDWORD(propertyValueOut[0].a);
-                            v1728.size.height = v442;
+                            v452 = v452 - SHIDWORD(propertyValueOut[0].a);
+                            v1769.size.height = v452;
                           }
                         }
                       }
 
 LABEL_353:
-                      v1548 = v440;
-                      v1551 = v443;
-                      v447 = v1607;
-                      v446 = v1608;
-                      v448 = v1640 == v1608 && v1633 == v1607;
-                      v1555 = v442;
-                      v1562 = v441;
-                      v449 = v442;
-                      v450 = v441;
-                      v1584 = v1633 * v445;
-                      v1588 = v1640 * v445;
-                      if (!v448)
+                      v1589 = v450;
+                      v1592 = v453;
+                      v457 = v1648;
+                      v456 = v1649;
+                      v458 = v1681 == v1649 && v1674 == v1648;
+                      *&v1596 = v452;
+                      *&v1603 = v451;
+                      v459 = v452;
+                      v460 = v451;
+                      v1625 = v1674 * v455;
+                      v1629 = v1681 * v455;
+                      if (!v458)
                       {
-                        v570 = v441 / (*v1731 + *v1731) + v442 / (*&v1731[1] + *&v1731[1]);
-                        HIDWORD(v388) = HIDWORD(recta.size.width);
-                        *&propertyValueOut[0].a = *v1520;
+                        v580 = v451 / (*v1772 + *v1772) + v452 / (*&v1772[1] + *&v1772[1]);
+                        HIDWORD(v398) = HIDWORD(recta.size.width);
+                        *&propertyValueOut[0].a = *v1561;
                         OUTLINED_FUNCTION_45_4();
-                        v574 = v573;
-                        v575 = v572;
-                        if ((v571 & 1) == 0)
+                        v584 = v583;
+                        v585 = v582;
+                        if ((v581 & 1) == 0)
                         {
-                          v574 = v573;
-                          v575 = v572;
+                          v584 = v583;
+                          v585 = v582;
                           if (*(v16 + 1696) == 1)
                           {
-                            CVPixelBufferGetWidth(v222);
-                            CVPixelBufferGetHeight(v222);
-                            v576 = OUTLINED_FUNCTION_0_29();
-                            FigCaptureMetadataUtilitiesNormalizeCropRect(v576, v577, v578, v579);
-                            v581 = v580;
-                            v209 = (1.0 - v583) * 0.5;
-                            v575 = v1588 - (v584 - (1.0 - v582) * 0.5) * CVPixelBufferGetWidth(v222);
-                            v585 = v581 - v209;
-                            *&v209 = v1670;
-                            v574 = v1584 - v585 * CVPixelBufferGetHeight(v222);
-                            v445 = rect2b;
+                            v586 = CVPixelBufferGetWidth(v224);
+                            CVPixelBufferGetHeight(v224);
+                            v587 = OUTLINED_FUNCTION_0_29();
+                            FigCaptureMetadataUtilitiesNormalizeCropRect(v587, v588, v589, v590, v586, v591);
+                            v593 = v592;
+                            v211 = (1.0 - v595) * 0.5;
+                            v585 = v1629 - (v596 - (1.0 - v594) * 0.5) * CVPixelBufferGetWidth(v224);
+                            v597 = v593 - v211;
+                            *&v211 = v1711;
+                            v584 = v1625 - v597 * CVPixelBufferGetHeight(v224);
+                            v455 = rect2b;
                           }
                         }
 
-                        v586 = v570;
-                        v1436 = v586;
-                        v1425 = v574;
-                        v587 = OUTLINED_FUNCTION_3();
-                        [(BWPreviewStitcherNode *)v16 _getInputRect:v588 outputRect:v589 inputShiftAppliedInOutputRect:v590 toTransferPixelBuffer:v222 rect:v591 intoPixelBufferDimensions:0 rect:v219 withInputShift:v587 shiftOutsideBoundingRectAllowed:v592 ignoreBounds:v593 scale:v594 forFinalOutput:v1548, v1551, v595, v596, v575, v1425, v1436, 0];
-                        v446 = propertyValueOut[0].a / v445;
-                        v450 = v1728.size.width;
-                        v449 = v1728.size.height;
-                        v447 = propertyValueOut[0].b / v445;
-                        v21 = v1671;
-                        v176 = v1694;
+                        v598 = v580;
+                        v1477 = v598;
+                        v1466 = v584;
+                        v599 = OUTLINED_FUNCTION_3();
+                        [(BWPreviewStitcherNode *)v16 _getInputRect:v600 outputRect:v601 inputShiftAppliedInOutputRect:v602 toTransferPixelBuffer:v224 rect:v603 intoPixelBufferDimensions:0 rect:v221 withInputShift:v599 shiftOutsideBoundingRectAllowed:v604 ignoreBounds:v605 scale:v606 forFinalOutput:v1589, v1592, v607, v608, v585, v1466, v1477, 0];
+                        v456 = propertyValueOut[0].a / v455;
+                        v460 = v1769.size.width;
+                        v459 = v1769.size.height;
+                        v457 = propertyValueOut[0].b / v455;
+                        v21 = v1712;
+                        v178 = v1735;
                       }
 
-                      *&v1513 = v447;
-                      *v1520 = v446;
-                      v451 = v450 / *v1731;
-                      v452 = v449 / *&v1731[1];
+                      *&v1554 = v457;
+                      *v1561 = v456;
+                      v461 = v460 / *v1772;
+                      v462 = v459 / *&v1772[1];
                       if (FigCapturePlatformIdentifier() <= 11)
                       {
-                        v453 = 4.0;
+                        v463 = 4.0;
                       }
 
                       else
                       {
-                        v453 = 8.0;
+                        v463 = 8.0;
                       }
 
                       OUTLINED_FUNCTION_18_7();
                       if (_ZF)
                       {
-                        v453 = v453 / ((*(v16 + 272) / 100.0 + 1.0) * (v176 / v1604));
+                        v463 = v463 / ((*(v16 + 68) / 100.0 + 1.0) * (v178 / v1645));
                       }
 
-                      v1603 = *MEMORY[0x1E695F050];
-                      if (v451 <= v453 && v452 <= v453)
+                      v1644 = *MEMORY[0x1E695F050];
+                      if (v461 <= v463 && v462 <= v463)
                       {
-                        v458 = 1.0;
+                        v468 = 1.0;
                       }
 
                       else
                       {
-                        v1783.origin.x = OUTLINED_FUNCTION_8_18();
-                        v456 = CGRectGetWidth(v1783) / v453;
-                        v1712 = v452;
-                        if (LODWORD(v1667))
+                        v1824.origin.x = OUTLINED_FUNCTION_8_18();
+                        v466 = CGRectGetWidth(v1824) / v463;
+                        v1753 = v462;
+                        if (LODWORD(v1708))
                         {
-                          v1784.origin.x = OUTLINED_FUNCTION_8_18();
-                          v457 = CGRectGetHeight(v1784) / v453;
+                          v1825.origin.x = OUTLINED_FUNCTION_8_18();
+                          v467 = CGRectGetHeight(v1825) / v463;
                         }
 
                         else
                         {
-                          v486 = v456;
-                          v456 = FigCaptureCeilFloatToMultipleOf(2, v486);
-                          v1788.origin.x = OUTLINED_FUNCTION_8_18();
-                          v487 = CGRectGetHeight(v1788) / v453;
-                          v457 = FigCaptureCeilFloatToMultipleOf(2, v487);
+                          v496 = v466;
+                          v466 = FigCaptureCeilFloatToMultipleOf(2, v496);
+                          v1829.origin.x = OUTLINED_FUNCTION_8_18();
+                          v497 = CGRectGetHeight(v1829) / v463;
+                          v467 = FigCaptureCeilFloatToMultipleOf(2, v497);
                         }
 
-                        HIDWORD(v388) = HIDWORD(v1731[0]);
-                        v488 = *&v1731[1];
+                        HIDWORD(v398) = HIDWORD(v1772[0]);
+                        v498 = *&v1772[1];
                         OUTLINED_FUNCTION_28_3();
-                        v1789.size.height = v488;
-                        v489 = CGRectGetMidX(v1789) - v456 * 0.5;
-                        v1790.origin.x = OUTLINED_FUNCTION_0_29();
-                        MidY = CGRectGetMidY(v1790);
-                        v1730.f64[0] = v489;
-                        v1730.f64[1] = MidY - v457 * 0.5;
-                        *v1731 = v456;
-                        *&v1731[1] = v457;
-                        psn_rectBoundedByRect(v489, v1730.f64[1], v456, v457, recta.origin.x, recta.origin.y, recta.size.width, recta.size.height);
+                        v1830.size.height = v498;
+                        v499 = CGRectGetMidX(v1830) - v466 * 0.5;
+                        v1831.origin.x = OUTLINED_FUNCTION_0_29();
+                        MidY = CGRectGetMidY(v1831);
+                        v1771.f64[0] = v499;
+                        v1771.f64[1] = MidY - v467 * 0.5;
+                        *v1772 = v466;
+                        *&v1772[1] = v467;
+                        psn_rectBoundedByRect(v499, v1771.f64[1], v466, v467, recta.origin.x, recta.origin.y, recta.size.width, recta.size.height);
                         OUTLINED_FUNCTION_26_2();
                         OUTLINED_FUNCTION_0_29();
                         OUTLINED_FUNCTION_48();
-                        if (!CGRectEqualToRect(v1791, v1846))
+                        if (!CGRectEqualToRect(v1832, v1887))
                         {
                           OUTLINED_FUNCTION_45_4();
-                          if ((v491 & 1) == 0)
+                          if ((v501 & 1) == 0)
                           {
-                            v1730.f64[0] = v456;
-                            v1730.f64[1] = v457;
-                            *v1731 = v489;
-                            v1731[1] = 0.5;
+                            v1771.f64[0] = v466;
+                            v1771.f64[1] = v467;
+                            *v1772 = v499;
+                            v1772[1] = 0.5;
                             OUTLINED_FUNCTION_28_3();
                             OUTLINED_FUNCTION_48();
-                            v1603 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v492, v493, v494, v495, v496, v497, v498);
+                            v1644 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v502, v503, v504, v505, v506, v507, v508);
                           }
                         }
 
-                        if ((LOBYTE(v1667) & 1) == 0)
+                        if ((LOBYTE(v1708) & 1) == 0)
                         {
-                          v499 = OUTLINED_FUNCTION_0_29();
-                          v503 = acpr_conformRectForMSR420vf(v499, v500, v501, v502);
-                          OUTLINED_FUNCTION_4_25(v503, v504, v505, v506);
+                          v509 = OUTLINED_FUNCTION_0_29();
+                          v513 = acpr_conformRectForMSR420vf(v509, v510, v511, v512);
+                          OUTLINED_FUNCTION_4_25(v513, v514, v515, v516);
                         }
 
-                        v458 = OUTLINED_FUNCTION_100_0(v451 + v1712) / v453;
+                        v468 = OUTLINED_FUNCTION_100_0(v461 + v1753) / v463;
                         OUTLINED_FUNCTION_45_4();
-                        v21 = v1671;
-                        *&v209 = v1670;
-                        v176 = v1694;
+                        v21 = v1712;
+                        *&v211 = v1711;
+                        v178 = v1735;
                       }
 
-                      v507 = 0;
-                      *&v1682 = v458;
-                      if ((v454 & 1) != 0 && !v219 && v21 > v176)
+                      v517 = 0;
+                      *&v1723 = v468;
+                      if ((v464 & 1) != 0 && !v221 && v21 > v178)
                       {
-                        if (([*(v16 + 952) isRamping] & 1) == 0 && *(v16 + 906) == objc_msgSend(v16, "displaysWidestCameraOnly"))
+                        if (([*(v16 + 119) isRamping] & 1) == 0 && *(v16 + 906) == -[opaqueCMSampleBuffer displaysWidestCameraOnly](v16, "displaysWidestCameraOnly"))
                         {
-                          v1719 = OUTLINED_FUNCTION_57_3();
-                          v509 = v508;
-                          v1713 = v510;
-                          rect2c = v511;
+                          v1760 = OUTLINED_FUNCTION_57_3();
+                          v519 = v518;
+                          v1754 = v520;
+                          rect2c = v521;
                           OUTLINED_FUNCTION_18_7();
                           if (_ZF)
                           {
-                            HIDWORD(v388) = HIDWORD(recta.origin.y);
+                            HIDWORD(v398) = HIDWORD(recta.origin.y);
                           }
 
                           else
                           {
-                            psn_pixelBufferRect(v222);
+                            psn_pixelBufferRect(v224);
                             OUTLINED_FUNCTION_21_5();
                           }
 
-                          v520 = OUTLINED_FUNCTION_0_29();
-                          v525 = FigCaptureMetadataUtilitiesScaleRect2D(v520, v522, v523, v524, v521 / v458);
-                          v529 = v526;
-                          if (!LODWORD(v1667))
+                          v530 = OUTLINED_FUNCTION_0_29();
+                          v535 = FigCaptureMetadataUtilitiesScaleRect2D(v530, v532, v533, v534, v531 / v468);
+                          v539 = v536;
+                          if (!LODWORD(v1708))
                           {
-                            v525 = acpr_conformRectForMSR420vf(v525, v526, v527, v528);
-                            v529 = v530;
+                            v535 = acpr_conformRectForMSR420vf(v535, v536, v537, v538);
+                            v539 = v540;
                           }
 
-                          *&v1648 = v525;
-                          v1641 = v529;
-                          v1634 = v527;
-                          if (v458 <= 1.0)
+                          *&v1689 = v535;
+                          v1682 = v539;
+                          v1675 = v537;
+                          if (v468 <= 1.0)
                           {
                             OUTLINED_FUNCTION_25_3();
                           }
 
                           OUTLINED_FUNCTION_32_2();
-                          FigCaptureMetadataUtilitiesRectNormalizedToRect(v531, v532, v533, v534, v535, v536, v537);
+                          FigCaptureMetadataUtilitiesRectNormalizedToRect(v541, v542, v543, v544, v545, v546, v547);
                           OUTLINED_FUNCTION_21_5();
-                          v1847.origin.x = v1719;
-                          v1847.origin.y = v509;
-                          v1847.size.width = v1713;
-                          v1847.size.height = rect2c;
-                          v538 = CGRectContainsRect(v1793, v1847);
+                          v1888.origin.x = v1760;
+                          v1888.origin.y = v519;
+                          v1888.size.width = v1754;
+                          v1888.size.height = rect2c;
+                          v548 = CGRectContainsRect(v1834, v1888);
                           if (dict)
                           {
                             OUTLINED_FUNCTION_73();
                             OUTLINED_FUNCTION_121();
-                            v1795 = CGRectIntersection(v1794, v1848);
-                            v539 = v1795.size.width * v1795.size.height / (v1713 * rect2c);
-                            if ((v538 & 1) == 0)
+                            v1836 = CGRectIntersection(v1835, v1889);
+                            v549 = v1836.size.width * v1836.size.height / (v1754 * rect2c);
+                            if ((v548 & 1) == 0)
                             {
-                              if (v539 >= 0.99)
+                              if (v549 >= 0.99)
                               {
-                                v597 = v539 * 0.95;
-                                v539 = v597;
+                                v609 = v549 * 0.95;
+                                v549 = v609;
                               }
 
-                              BWSmartCameraSceneUpdateWithConfidence(v16 + 1704, v539);
-                              v507 = 0;
-                              v444 = a2;
-                              v21 = v1671;
-                              *&v209 = v1670;
+                              BWSmartCameraSceneUpdateWithConfidence(v16 + 1704, v549);
+                              v517 = 0;
+                              v454 = a2;
+                              v21 = v1712;
+                              *&v211 = v1711;
                               goto LABEL_449;
                             }
 
-                            BWSmartCameraSceneUpdateWithConfidence(v16 + 1704, v539);
-                            v538 = *(v16 + 1705);
+                            BWSmartCameraSceneUpdateWithConfidence(v16 + 1704, v549);
+                            v548 = *(v16 + 1705);
                           }
 
-                          if ((v538 & (*&v1541 > 0.0) & v1528) == 1)
+                          if ((v548 & (*&v1582 > 0.0) & v1569) == 1)
                           {
-                            v540 = psn_pixelBufferRect(v222);
-                            v544 = FigCaptureMetadataUtilitiesScaleRect2D(v540, v541, v542, v543, (1.0 / (*&v1541 / *(&v1535 + 1))));
-                            v548 = *&v1648;
-                            v549 = v1641;
-                            v550 = v1634;
-                            if (v458 <= 1.0)
+                            v550 = psn_pixelBufferRect(v224);
+                            v554 = FigCaptureMetadataUtilitiesScaleRect2D(v550, v551, v552, v553, (1.0 / (*&v1582 / *(&v1576 + 1))));
+                            v558 = *&v1689;
+                            v559 = v1682;
+                            v560 = v1675;
+                            if (v468 <= 1.0)
                             {
                               OUTLINED_FUNCTION_25_3();
                             }
 
-                            v1796.origin.x = FigCaptureMetadataUtilitiesRectNormalizedToRect(v544, v545, v546, v547, v548, v549, v550);
-                            v1849.origin.x = v1719;
-                            v1849.origin.y = v509;
-                            v1849.size.width = v1713;
-                            v1849.size.height = rect2c;
-                            if (!CGRectContainsRect(v1796, v1849))
+                            v1837.origin.x = FigCaptureMetadataUtilitiesRectNormalizedToRect(v554, v555, v556, v557, v558, v559, v560);
+                            v1890.origin.x = v1760;
+                            v1890.origin.y = v519;
+                            v1890.size.width = v1754;
+                            v1890.size.height = rect2c;
+                            if (!CGRectContainsRect(v1837, v1890))
                             {
                               goto LABEL_437;
                             }
                           }
 
-                          else if ((v538 & 1) == 0)
+                          else if ((v548 & 1) == 0)
                           {
 LABEL_437:
-                            v507 = 0;
+                            v517 = 0;
 LABEL_445:
-                            v444 = a2;
-                            v21 = v1671;
-                            *&v209 = v1670;
+                            v454 = a2;
+                            v21 = v1712;
+                            *&v211 = v1711;
 LABEL_449:
-                            v176 = v1694;
+                            v178 = v1735;
                             goto LABEL_450;
                           }
 
-                          v507 = *(v16 + 1024) == 0;
+                          v517 = *(v16 + 128) == 0;
                           goto LABEL_445;
                         }
 
-                        v507 = 0;
+                        v517 = 0;
                       }
 
 LABEL_450:
-                      v1695 = v176;
-                      v598 = v21;
-                      if (!v444 && (*(v16 + 1224) & 1) != 0)
+                      v1736 = v178;
+                      v610 = v21;
+                      if (!v454 && (*(v16 + 1224) & 1) != 0)
                       {
-                        v507 = *(v16 + 1308) != 4;
-                        v599 = *(v16 + 952);
-                        if (v599)
+                        v517 = *(v16 + 327) != 4;
+                        v611 = *(v16 + 119);
+                        if (v611)
                         {
 
-                          *(v16 + 952) = 0;
+                          *(v16 + 119) = 0;
                           *(v16 + 1000) = 0;
                         }
 
                         goto LABEL_482;
                       }
 
-                      if (!v444 || v220 == 1)
+                      if (!v454 || v222 == 1)
                       {
                         goto LABEL_482;
                       }
 
-                      if (*(v16 + 1353) == v507)
+                      if (*(v16 + 1353) == v517)
                       {
                         if (*(v16 + 1354) == 1 && ((*(v16 + 1313) & 1) != 0 || *(v16 + 907) == 1))
                         {
@@ -6597,9 +6605,9 @@ LABEL_450:
                         goto LABEL_467;
                       }
 
-                      if (v507)
+                      if (v517)
                       {
-                        v600 = 0;
+                        v612 = 0;
                       }
 
                       else
@@ -6607,88 +6615,88 @@ LABEL_450:
                         if (*(v16 + 1313))
                         {
 LABEL_466:
-                          *(v16 + 1353) = v507;
+                          *(v16 + 1353) = v517;
 LABEL_467:
-                          v601 = *(v16 + 912);
-                          v602 = *(v16 + 1355);
+                          v613 = *(v16 + 228);
+                          v614 = *(v16 + 1355);
                           if (*(v16 + 482) == 1 && (OUTLINED_FUNCTION_18_7(), _ZF))
                           {
-                            v603 = [v1589 isEqualToString:*off_1E798A0D0];
-                            v604 = *(v16 + 484);
-                            if (v604)
+                            v615 = objc_msgSend_isEqualToString_(v1630);
+                            v616 = *(v16 + 121);
+                            if (v616)
                             {
-                              v605 = &OBJC_IVAR___BWPreviewStitcherNode__wideToTeleShiftCorrections;
-                              if (v603)
+                              v617 = &OBJC_IVAR___BWPreviewStitcherNode__wideToTeleShiftCorrections;
+                              if (v615)
                               {
-                                v605 = &OBJC_IVAR___BWPreviewStitcherNode__superWideToWideShiftCorrections;
+                                v617 = &OBJC_IVAR___BWPreviewStitcherNode__superWideToWideShiftCorrections;
                               }
 
-                              LOBYTE(v604) = *(v16 + *v605 + 148) >= v604;
+                              LOBYTE(v616) = *(v16 + *v617 + 148) >= v616;
                             }
                           }
 
                           else
                           {
-                            LOBYTE(v604) = 1;
+                            LOBYTE(v616) = 1;
                           }
 
-                          if (v1728.size.height >= v1736.i32[1] && (v219 & 1) == 0 && (!(v1610 & 1 | ((*(v16 + 1354) & 1) == 0)) && v601 != *(&v1532 + 1) && v602 || !(v604 & 1 | ((*(v16 + 1573) & 1) == 0))))
+                          if (v1769.size.height >= v1777.i32[1] && (v221 & 1) == 0 && (!(v1651 & 1 | ((*(v16 + 1354) & 1) == 0)) && v613 != *(&v1573 + 1) && v614 || !(v616 & 1 | ((*(v16 + 1573) & 1) == 0))))
                           {
-                            v606 = *(v16 + 1024) == 0;
-                            v507 |= v606;
-                            v1610 |= v606;
+                            v618 = *(v16 + 128) == 0;
+                            v517 |= v618;
+                            v1651 |= v618;
                           }
 
 LABEL_482:
-                          v607 = vaddvq_f64(vdivq_f64(v1728.size, vaddq_f64(*v1731, *v1731)));
-                          if (v1703 > 0.0 && v219)
+                          v619 = vaddvq_f64(vdivq_f64(v1769.size, vaddq_f64(*v1772, *v1772)));
+                          if (v1744 > 0.0 && v221)
                           {
-                            v607 = v1703 * (v598 / v1695);
+                            v619 = v1744 * (v610 / v1736);
                           }
 
-                          *&v608 = COERCE_DOUBLE(&time);
-                          v609 = v206->x;
-                          d = v206[1].y;
-                          v610 = v206[1].x;
-                          b = v206->y;
-                          v611 = v206->x;
-                          *&v1626 = d;
+                          *&v620 = COERCE_DOUBLE(&time);
+                          v621 = v208->x;
+                          d = v208[1].y;
+                          v622 = v208[1].x;
+                          b = v208->y;
+                          v623 = v208->x;
+                          *&v1667 = d;
                           rect2d = d;
-                          dicta = v610;
-                          v1720 = v610;
-                          v1649 = b;
-                          v1714 = b;
-                          v1704 = v206->x;
-                          v18 = v1609;
+                          dicta = v622;
+                          v1761 = v622;
+                          v1690 = b;
+                          v1755 = b;
+                          v1745 = v208->x;
+                          v18 = v1650;
                           if (!pixelBuffer)
                           {
 LABEL_488:
-                            if (v219)
+                            if (v221)
                             {
 LABEL_489:
                               OUTLINED_FUNCTION_20_4();
-                              v620 = v598;
+                              v634 = v610;
                               goto LABEL_718;
                             }
 
 LABEL_562:
-                            v1697 = v610;
-                            *&v1543 = v609;
-                            if (v507)
+                            v1738 = v622;
+                            *&v1584 = v621;
+                            if (v517)
                             {
 
-                              *(v16 + 1024) = 0;
-                              v611 = recta.origin.x;
-                              v609 = recta.origin.y;
-                              v906 = recta.size.width;
-                              v610 = recta.size.height;
+                              *(v16 + 128) = 0;
+                              v623 = recta.origin.x;
+                              v621 = recta.origin.y;
+                              v935 = recta.size.width;
+                              v622 = recta.size.height;
                               propertyValueOut[0].a = recta.origin.x;
                               propertyValueOut[0].b = recta.origin.y;
                               *&propertyValueOut[0].c = recta.size;
-                              v907 = v1588;
-                              if (v1593)
+                              v936 = v1629;
+                              if (v1634)
                               {
-                                v907 = v1588 + v1576 / v607;
+                                v936 = v1629 + v1617 / v619;
                               }
 
                               OUTLINED_FUNCTION_18_7();
@@ -6697,123 +6705,123 @@ LABEL_562:
                                 OUTLINED_FUNCTION_35_3();
                                 if (!(_NF ^ _VF | _ZF))
                                 {
-                                  if ([v1650 isEqualToString:*off_1E798A0D0])
+                                  if (objc_msgSend_isEqualToString_(v1691))
                                   {
-                                    v1667 = FigCaptureMetadataUtilitiesNormalizedSensorCenterOffsetInValidBufferRect(v224);
-                                    v909 = v908;
-                                    v910 = CVPixelBufferGetWidth(v222);
-                                    CVPixelBufferGetHeight(v222);
-                                    v907 = v907 - FigCaptureMetadataUtilitiesDenormalizePoint(v1667, v909, v910);
+                                    v1708 = FigCaptureMetadataUtilitiesNormalizedSensorCenterOffsetInValidBufferRect(v226);
+                                    v938 = v937;
+                                    v939 = CVPixelBufferGetWidth(v224);
+                                    CVPixelBufferGetHeight(v224);
+                                    v936 = v936 - FigCaptureMetadataUtilitiesDenormalizePoint(v1708, v938, v939);
                                   }
                                 }
                               }
 
-                              *&v1140 = v607;
-                              v1444 = v1140;
+                              *&v1174 = v619;
+                              v1485 = v1174;
                               OUTLINED_FUNCTION_55_2();
-                              v1432 = v1141;
+                              v1473 = v1175;
                               OUTLINED_FUNCTION_3();
                               OUTLINED_FUNCTION_87();
-                              [(BWPreviewStitcherNode *)v1142 _transferPixelBuffer:v1143 rect:v1144 intoPixelBuffer:v1145 rect:v1146 isFinalOutput:v1147 withInputShift:v1148 scale:v1149 inputSourceRectOut:*&v907, v1432, v1444];
+                              [(BWPreviewStitcherNode *)v1176 _transferPixelBuffer:v1177 rect:v1178 intoPixelBuffer:v1179 rect:v1180 isFinalOutput:v1181 withInputShift:v1182 scale:v1183 inputSourceRectOut:*&v936, v1473, v1485];
                               OUTLINED_FUNCTION_2_3();
                               OUTLINED_FUNCTION_82_0();
-                              if (!OUTLINED_FUNCTION_17_6(v1158, v1159, v1160, v1150, v1151, v1152, v1153, v1154, v1155, v1156, v1157, v1422, v1433, v1445, v1447, v1452, v1457, v1462, v1468, v1474, v1481, v1484, v1488, v1493, v1498, v1504, v1507, v1513, v1516, v1520[0], v1520[1], v1525, v1528, *&v1532, v1535, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1543))
+                              if (!OUTLINED_FUNCTION_17_6(v1192, v1193, v1194, v1184, v1185, v1186, v1187, v1188, v1189, v1190, v1191, v1464, v1474, v1486, v1488, v1493, v1498, v1503, v1509, v1515, v1522, v1525, v1529, v1534, v1539, v1545, v1548, v1554, v1557, v1561[0], v1561[1], v1566, v1569, *&v1573, v1576, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1584))
                               {
-                                v1161 = OUTLINED_FUNCTION_3();
-                                OUTLINED_FUNCTION_133_1(v1161, v1162, v1163, v1164, v1704, v1714);
+                                v1195 = OUTLINED_FUNCTION_3();
+                                OUTLINED_FUNCTION_133_1(v1195, v1196, v1197, v1198, v1745, v1755);
                                 OUTLINED_FUNCTION_2_3();
                               }
 
-                              v620 = v1671;
+                              v634 = v1712;
                               OUTLINED_FUNCTION_20_4();
-                              v1730 = *&propertyValueOut[0].a;
-                              *v1731 = *&propertyValueOut[0].c;
-                              rect2d = v610;
-                              v1720 = v906;
-                              v1714 = v609;
-                              v1704 = v611;
+                              v1771 = *&propertyValueOut[0].a;
+                              *v1772 = *&propertyValueOut[0].c;
+                              rect2d = v622;
+                              v1761 = v935;
+                              v1755 = v621;
+                              v1745 = v623;
                               OUTLINED_FUNCTION_49_2();
-                              *&v209 = v1670;
+                              *&v211 = v1711;
 LABEL_718:
                               OUTLINED_FUNCTION_18_7();
-                              v1613 = *&v611;
-                              if (_ZF && (OUTLINED_FUNCTION_18_7(), _ZF) && ([objc_msgSend(*(v16 + 280) "firstObject")], v620 >= v1165) && v620 < *(v16 + 228))
+                              v1654 = *&v623;
+                              if (_ZF && (OUTLINED_FUNCTION_18_7(), _ZF) && ([objc_msgSend(*(v16 + 35) "firstObject")], v634 >= v1199) && v634 < *(v16 + 57))
                               {
-                                v1166 = v1649;
-                                if ((v507 & 1) == 0)
+                                v1200 = v1690;
+                                if ((v517 & 1) == 0)
                                 {
                                   [(BWPreviewStitcherNode *)v16 _initCameraTransitionCIContextWithColorManagementEnabled:?];
-                                  psn_blurPixelBufferBorder(*(v16 + 984), v18, v1704, v1714, v1720, rect2d, *(v16 + 1660));
-                                  v1865.origin.x = v609;
-                                  v1672 = v1167;
-                                  v1169 = v1168;
-                                  v1171 = v1170;
-                                  v1829.origin.x = v1704;
-                                  v1829.origin.y = v1714;
-                                  v1829.size.width = v1720;
-                                  v1829.size.height = rect2d;
-                                  v1865.origin.y = v1649;
-                                  v1172 = v1865.origin.x;
-                                  v1865.size.width = dicta;
-                                  *&v1865.size.height = v1626;
-                                  if (CGRectEqualToRect(v1829, v1865))
+                                  psn_blurPixelBufferBorder(*(v16 + 123), v18, v1745, v1755, v1761, rect2d, *(v16 + 415));
+                                  v1906.origin.x = v621;
+                                  v1713 = v1201;
+                                  v1203 = v1202;
+                                  v1205 = v1204;
+                                  v1870.origin.x = v1745;
+                                  v1870.origin.y = v1755;
+                                  v1870.size.width = v1761;
+                                  v1870.size.height = rect2d;
+                                  v1906.origin.y = v1690;
+                                  v1206 = v1906.origin.x;
+                                  v1906.size.width = dicta;
+                                  *&v1906.size.height = v1667;
+                                  if (CGRectEqualToRect(v1870, v1906))
                                   {
-                                    rect2d = v1171;
-                                    v1720 = v1169;
-                                    OUTLINED_FUNCTION_72_0(*&v1672);
+                                    rect2d = v1205;
+                                    v1761 = v1203;
+                                    OUTLINED_FUNCTION_72_0(*&v1713);
                                   }
 
                                   else
                                   {
                                     OUTLINED_FUNCTION_39_3();
-                                    v1868.origin.x = v1704;
-                                    v1868.origin.y = v1714;
-                                    v1868.size.width = v1720;
-                                    v1868.size.height = rect2d;
-                                    v1842 = CGRectUnion(v1841, v1868);
-                                    OUTLINED_FUNCTION_6_20(v1842.origin.x, v1842.origin.y, v1842.size.width, v1842.size.height);
+                                    v1909.origin.x = v1745;
+                                    v1909.origin.y = v1755;
+                                    v1909.size.width = v1761;
+                                    v1909.size.height = rect2d;
+                                    v1883 = CGRectUnion(v1882, v1909);
+                                    OUTLINED_FUNCTION_6_20(v1883.origin.x, v1883.origin.y, v1883.size.width, v1883.size.height);
                                   }
 
-                                  v609 = v1172;
-                                  v1166 = v1649;
-                                  *&v209 = v1670;
+                                  v621 = v1206;
+                                  v1200 = v1690;
+                                  *&v211 = v1711;
                                 }
                               }
 
                               else
                               {
-                                v1166 = v1649;
+                                v1200 = v1690;
                               }
 
-                              v1173 = *(v16 + 1280);
-                              if (v1173 && (v1174 = *(v16 + 1288), (IOSurface = CVPixelBufferGetIOSurface(v18)) != 0))
+                              v1207 = *(v16 + 160);
+                              if (v1207 && (v1208 = *(v16 + 1288), (IOSurface = CVPixelBufferGetIOSurface(v18)) != 0))
                               {
                                 ID = IOSurfaceGetID(IOSurface);
-                                *&propertyValueOut[0].a = v1569;
-                                *&propertyValueOut[0].c = *v1567;
-                                if ((v1174 & 1) == 0)
+                                *&propertyValueOut[0].a = v1610;
+                                *&propertyValueOut[0].c = *v1608;
+                                if ((v1208 & 1) == 0)
                                 {
                                   [MEMORY[0x1E696AD98] numberWithUnsignedInt:ID];
-                                  v1177 = [OUTLINED_FUNCTION_4() objectForKeyedSubscript:?];
-                                  CGRectMakeWithDictionaryRepresentation(v1177, propertyValueOut);
+                                  v1211 = [OUTLINED_FUNCTION_4() objectForKeyedSubscript:?];
+                                  CGRectMakeWithDictionaryRepresentation(v1211, propertyValueOut);
                                 }
 
-                                v1830.origin.x = OUTLINED_FUNCTION_24_4();
-                                v1866.origin.x = v609;
-                                v1866.origin.y = v1166;
-                                v1866.size.width = dicta;
-                                *&v1866.size.height = v1626;
-                                if (CGRectEqualToRect(v1830, v1866) || (v1831.origin.x = OUTLINED_FUNCTION_52_3(), v1831.size.height = rect2d, !CGRectContainsRect(v1831, v1867)))
+                                v1871.origin.x = OUTLINED_FUNCTION_24_4();
+                                v1907.origin.x = v621;
+                                v1907.origin.y = v1200;
+                                v1907.size.width = dicta;
+                                *&v1907.size.height = v1667;
+                                if (CGRectEqualToRect(v1871, v1907) || (v1872.origin.x = OUTLINED_FUNCTION_52_3(), v1872.size.height = rect2d, !CGRectContainsRect(v1872, v1908)))
                                 {
                                   OUTLINED_FUNCTION_52_3();
                                   VTFillPixelBufferBorderWithBlack();
                                 }
 
-                                v1832.origin.x = OUTLINED_FUNCTION_52_3();
-                                v1832.size.height = rect2d;
-                                v1178 = CGRectCreateDictionaryRepresentation(v1832);
-                                [v1173 setObject:CFAutorelease(v1178) forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", ID)}];
-                                v222 = v1721;
+                                v1873.origin.x = OUTLINED_FUNCTION_52_3();
+                                v1873.size.height = rect2d;
+                                v1212 = CGRectCreateDictionaryRepresentation(v1873);
+                                [v1207 setObject:CFAutorelease(v1212) forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", ID)}];
+                                v224 = v1762;
                               }
 
                               else
@@ -6821,80 +6829,81 @@ LABEL_718:
                                 VTFillPixelBufferBorderWithBlack();
                               }
 
-                              if (v219)
+                              if (v221)
                               {
-                                v1179 = a2;
+                                v1213 = a2;
                               }
 
                               else
                               {
-                                v1179 = cameraCopy2;
+                                v1213 = cameraCopy2;
                               }
 
-                              if (!BWCMSampleBufferCreateCopyWithNewPixelBuffer(v1179, v18, (v16 + 408), &v1735))
+                              v1135 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(v1213, v18, v16 + 51, &v1776);
+                              if (!v1135)
                               {
-                                if (v219)
+                                if (v221)
                                 {
-                                  v1180 = pixelBuffer;
+                                  v1214 = pixelBuffer;
                                 }
 
                                 else
                                 {
-                                  v1180 = v222;
+                                  v1214 = v224;
                                 }
 
-                                v1181 = OUTLINED_FUNCTION_71_0(v1180);
-                                OUTLINED_FUNCTION_129_0(v1181);
-                                [(BWPreviewStitcherNode *)v16 _scaleFactorAppliedForPixelBuffer:v1700 usedSourceRect:v611 primaryCaptureRectAspectRatio:b metadata:v610, d, *&v209];
-                                v1182 = OUTLINED_FUNCTION_0_29();
-                                [(BWPreviewStitcherNode *)v16 _scaleFactorAppliedForPixelBuffer:v222 usedSourceRect:v1722 primaryCaptureRectAspectRatio:v1182 metadata:v1183, v1184, v1185, *&v209];
-                                v1186 = *off_1E798B508;
-                                [objc_msgSend(v1722 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
-                                [objc_msgSend(v1700 objectForKeyedSubscript:{v1186), "floatValue"}];
+                                v1215 = OUTLINED_FUNCTION_71_0(v1214);
+                                OUTLINED_FUNCTION_129_0(v1215);
+                                [(BWPreviewStitcherNode *)v16 _scaleFactorAppliedForPixelBuffer:v1741 usedSourceRect:v623 primaryCaptureRectAspectRatio:b metadata:v622, d, *&v211];
+                                v1216 = OUTLINED_FUNCTION_0_29();
+                                [(BWPreviewStitcherNode *)v16 _scaleFactorAppliedForPixelBuffer:v224 usedSourceRect:v1763 primaryCaptureRectAspectRatio:v1216 metadata:v1217, v1218, v1219, *&v211];
+                                v1220 = *off_1E798B508;
+                                [objc_msgSend(v1763 objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
+                                [objc_msgSend(v1741 objectForKeyedSubscript:{v1220), "floatValue"}];
                                 OUTLINED_FUNCTION_18_7();
                                 if (_ZF)
                                 {
                                   OUTLINED_FUNCTION_18_7();
-                                  if (_ZF && (OUTLINED_FUNCTION_18_7(), _ZF) && ([*(v16 + 952) isRamping] & 1) == 0)
+                                  if (_ZF && (OUTLINED_FUNCTION_18_7(), _ZF) && ([*(v16 + 119) isRamping] & 1) == 0)
                                   {
                                     OUTLINED_FUNCTION_18_7();
                                     if (_ZF)
                                     {
-                                      v1189 = [*(v16 + 1536) isRamping] ^ 1;
+                                      v1223 = [*(v16 + 192) isRamping] ^ 1;
                                     }
 
                                     else
                                     {
-                                      v1189 = 1;
+                                      v1223 = 1;
                                     }
                                   }
 
                                   else
                                   {
-                                    v1189 = 0;
+                                    v1223 = 0;
                                   }
                                 }
 
                                 else
                                 {
-                                  v1189 = 0;
+                                  v1223 = 0;
                                 }
 
-                                [BWPreviewStitcherNode _callDelegateWithAppliedWiderCameraShift:v16 narrowerCameraShift:pixelBuffer widerCameraScaleFactor:v222 narrowerCameraScaleFactor:v1589 widerCameraPixelBuffer:v1650 narrowerCameraPixelBuffer:v1189 widerCameraNondisruptiveSwitchingZoomFactor:v1187 narrowerCameraNondisruptiveSwitchingZoomFactor:v1188 widerCameraPortType:v1606 narrowerCameraPortType:v1605 inSuperWideMacroMode:? widerCameraShiftAtBaseZoom:?];
-                                OUTLINED_FUNCTION_71_0(v1735);
-                                if (*&v1682 <= 1.0 && (v1833.origin.x = OUTLINED_FUNCTION_13_11(), CGRectIsNull(v1833)))
+                                [BWPreviewStitcherNode _callDelegateWithAppliedWiderCameraShift:v16 narrowerCameraShift:pixelBuffer widerCameraScaleFactor:v224 narrowerCameraScaleFactor:v1630 widerCameraPixelBuffer:v1691 narrowerCameraPixelBuffer:v1223 widerCameraNondisruptiveSwitchingZoomFactor:v1221 narrowerCameraNondisruptiveSwitchingZoomFactor:v1222 widerCameraPortType:v1647 narrowerCameraPortType:v1646 inSuperWideMacroMode:? widerCameraShiftAtBaseZoom:?];
+                                OUTLINED_FUNCTION_71_0(v1776);
+                                if (*&v1723 <= 1.0 && (v1874.origin.x = OUTLINED_FUNCTION_13_11(), CGRectIsNull(v1874)))
                                 {
                                   [OUTLINED_FUNCTION_69() setObject:? forKeyedSubscript:?];
-                                  v1190 = v1674;
+                                  v1224 = v1715;
                                 }
 
                                 else
                                 {
-                                  v1834.origin.x = OUTLINED_FUNCTION_13_11();
-                                  if (CGRectIsNull(v1834))
+                                  v1875.origin.x = OUTLINED_FUNCTION_13_11();
+                                  if (CGRectIsNull(v1875))
                                   {
-                                    v1191 = OUTLINED_FUNCTION_126();
-                                    v1194 = FigCaptureMetadataUtilitiesScaleRect2D(v1191, v1192, v1645, v1674, v1193);
+                                    v1225 = OUTLINED_FUNCTION_126();
+                                    v1228 = FigCaptureMetadataUtilitiesScaleRect2D(v1225, v1226, v1686, v1715, v1227);
                                   }
 
                                   else
@@ -6903,94 +6912,94 @@ LABEL_718:
                                     OUTLINED_FUNCTION_2_29(v16 + 416);
                                     CGAffineTransformInvert(propertyValueOut, &time);
                                     OUTLINED_FUNCTION_10_13();
-                                    v1835.origin.x = OUTLINED_FUNCTION_126();
-                                    v1835.size.width = v1645;
-                                    v1835.size.height = v1674;
-                                    CGRectApplyAffineTransform(v1835, v1196);
+                                    v1876.origin.x = OUTLINED_FUNCTION_126();
+                                    v1876.size.width = v1686;
+                                    v1876.size.height = v1715;
+                                    CGRectApplyAffineTransform(v1876, v1230);
                                     OUTLINED_FUNCTION_8_3();
-                                    v1197 = OUTLINED_FUNCTION_13_11();
-                                    v1836.origin.x = FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1197, v1198, v1199, v1200, v1201, v1202, v1203);
-                                    v1204 = *(v16 + 432);
-                                    *&time.a = *(v16 + 416);
-                                    *&time.c = v1204;
-                                    *&time.tx = *(v16 + 448);
-                                    *&v1194 = CGRectApplyAffineTransform(v1836, &time);
+                                    v1231 = OUTLINED_FUNCTION_13_11();
+                                    v1877.origin.x = FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1231, v1232, v1233, v1234, v1235, v1236, v1237);
+                                    v1238 = *(v16 + 27);
+                                    *&time.a = *(v16 + 26);
+                                    *&time.c = v1238;
+                                    *&time.tx = *(v16 + 28);
+                                    *&v1228 = CGRectApplyAffineTransform(v1877, &time);
                                   }
 
-                                  OUTLINED_FUNCTION_90(v1194, v1195);
+                                  OUTLINED_FUNCTION_90(v1228, v1229);
                                   psn_pixelBufferRect(v18);
                                   OUTLINED_FUNCTION_26_2();
-                                  v1209 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v1205, v1206, v1207, v1208, v1686, v1684, v1645);
-                                  FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1209, v1210, v1211, v1212, *&v1722, *&v1721, *&v1603);
+                                  v1243 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v1239, v1240, v1241, v1242, v1727, v1725, v1686);
+                                  FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1243, v1244, v1245, v1246, *&v1763, *&v1762, *&v1644);
                                   OUTLINED_FUNCTION_48();
-                                  FigCaptureMetadataUtilitiesRectNormalizedToRect(v1213, v1214, v1215, v1216, v1217, v1218, v1219);
+                                  FigCaptureMetadataUtilitiesRectNormalizedToRect(v1247, v1248, v1249, v1250, v1251, v1252, v1253);
                                   FigCFDictionarySetCGRect();
-                                  *&v209 = v1670;
-                                  v1190 = *&v1682;
+                                  *&v211 = v1711;
+                                  v1224 = *&v1723;
                                 }
 
-                                v1837.origin.x = v1704;
-                                v1837.origin.y = v1714;
-                                v1837.size.width = v1720;
-                                v1837.size.height = rect2d;
-                                if (!CGRectIsEmpty(v1837))
+                                v1878.origin.x = v1745;
+                                v1878.origin.y = v1755;
+                                v1878.size.width = v1761;
+                                v1878.size.height = rect2d;
+                                if (!CGRectIsEmpty(v1878))
                                 {
-                                  v1220 = CVPixelBufferGetWidth(v18);
+                                  v1254 = CVPixelBufferGetWidth(v18);
                                   CVPixelBufferGetHeight(v18);
                                   OUTLINED_FUNCTION_55_2();
                                   OUTLINED_FUNCTION_37_5();
-                                  v1221 = v1220;
-                                  v1190 = v1674;
-                                  v1838.origin.x = FigCaptureMetadataUtilitiesClampRectToBoundingRect(v1222, v1223, v1224, v1225, v1226, v1227, v1221, v1228);
-                                  v1229 = CGRectCreateDictionaryRepresentation(v1838);
-                                  CMSetAttachment(v1735, @"OverCaptureStitchedValidBufferRect", v1229, 1u);
-                                  if (v1229)
+                                  v1255 = v1254;
+                                  v1224 = v1715;
+                                  v1879.origin.x = FigCaptureMetadataUtilitiesClampRectToBoundingRect(v1256, v1257, v1258, v1259, v1260, v1261, v1255, v1262);
+                                  v1263 = CGRectCreateDictionaryRepresentation(v1879);
+                                  CMSetAttachment(v1776, @"OverCaptureStitchedValidBufferRect", v1263, 1u);
+                                  if (v1263)
                                   {
-                                    CFRelease(v1229);
+                                    CFRelease(v1263);
                                   }
                                 }
 
                                 if (value)
                                 {
-                                  CMSetAttachment(v1735, @"CAContextFencePortSendRight", value, 1u);
+                                  CMSetAttachment(v1776, @"CAContextFencePortSendRight", value, 1u);
                                 }
 
                                 if (fencePortGenerationCount >= 1)
                                 {
                                   [MEMORY[0x1E696AD98] numberWithLongLong:fencePortGenerationCount];
-                                  v1230 = OUTLINED_FUNCTION_4();
-                                  CMSetAttachment(v1230, @"CAContextFencePortGenerationID", v1231, 1u);
+                                  v1264 = OUTLINED_FUNCTION_4();
+                                  CMSetAttachment(v1264, @"CAContextFencePortGenerationID", v1265, 1u);
                                 }
 
-                                if (*&v209 != *(v16 + 888))
+                                if (*&v211 != *(v16 + 222))
                                 {
-                                  *(v16 + 888) = LODWORD(v209);
+                                  *(v16 + 222) = LODWORD(v211);
                                 }
 
                                 OUTLINED_FUNCTION_18_7();
                                 if (_ZF)
                                 {
                                   propertyValueOut[0].a = 0.0;
-                                  VTSessionCopyProperty(*(v16 + 400), *MEMORY[0x1E6983D88], *MEMORY[0x1E695E480], propertyValueOut);
-                                  v1232 = [*&propertyValueOut[0].a copy];
-                                  CMSetAttachment(v1735, *off_1E798A520, v1232, 1u);
+                                  VTSessionCopyProperty(*(v16 + 50), *MEMORY[0x1E6983D88], *MEMORY[0x1E695E480], propertyValueOut);
+                                  v1266 = [*&propertyValueOut[0].a copy];
+                                  CMSetAttachment(v1776, *off_1E798A520, v1266, 1u);
                                 }
 
                                 if (pixelBuffer)
                                 {
                                   [MEMORY[0x1E696AD98] numberWithBool:1];
-                                  v1233 = OUTLINED_FUNCTION_4();
-                                  CMSetAttachment(v1233, @"IsOverCaptureFrame", v1234, 1u);
+                                  v1267 = OUTLINED_FUNCTION_4();
+                                  CMSetAttachment(v1267, @"IsOverCaptureFrame", v1268, 1u);
                                 }
 
-                                if (*(v16 + 136))
+                                if (*(v16 + 34))
                                 {
                                   OUTLINED_FUNCTION_129_0([MEMORY[0x1E696AD98] numberWithInt:?]);
                                 }
 
                                 if (*(v16 + 140))
                                 {
-                                  v1235 = kBWNodeBufferAttachmentKey_MirroredHorizontal;
+                                  v1269 = kBWNodeBufferAttachmentKey_MirroredHorizontal;
                                 }
 
                                 else
@@ -7001,118 +7010,118 @@ LABEL_718:
                                     goto LABEL_780;
                                   }
 
-                                  v1235 = kBWNodeBufferAttachmentKey_MirroredVertical;
+                                  v1269 = kBWNodeBufferAttachmentKey_MirroredVertical;
                                 }
 
-                                CMSetAttachment(v18, *v1235, MEMORY[0x1E695E118], 1u);
+                                CMSetAttachment(v18, *v1269, MEMORY[0x1E695E118], 1u);
 LABEL_780:
-                                [(BWPreviewStitcherNode *)v16 _updateUprightExifOrientationOnSampleBufferIfNeeded:v1735];
+                                [(BWPreviewStitcherNode *)v16 _updateUprightExifOrientationOnSampleBufferIfNeeded:v1776];
                                 OUTLINED_FUNCTION_77_1();
                                 OUTLINED_FUNCTION_2_29(v16 + 416);
                                 CGAffineTransformInvert(propertyValueOut, &time);
                                 OUTLINED_FUNCTION_10_13();
-                                v1839.origin.x = v1686;
-                                v1839.origin.y = v1684;
-                                v1839.size.width = v1645;
-                                v1839.size.height = v1190;
-                                CGRectApplyAffineTransform(v1839, v1236);
+                                v1880.origin.x = v1727;
+                                v1880.origin.y = v1725;
+                                v1880.size.width = v1686;
+                                v1880.size.height = v1224;
+                                CGRectApplyAffineTransform(v1880, v1270);
                                 OUTLINED_FUNCTION_2_3();
                                 OUTLINED_FUNCTION_10_13();
-                                v1840.origin.x = v1704;
-                                v1840.origin.y = v1714;
-                                v1840.size.width = v1720;
-                                v1840.size.height = rect2d;
-                                CGRectApplyAffineTransform(v1840, v1237);
+                                v1881.origin.x = v1745;
+                                v1881.origin.y = v1755;
+                                v1881.size.width = v1761;
+                                v1881.size.height = rect2d;
+                                CGRectApplyAffineTransform(v1881, v1271);
                                 OUTLINED_FUNCTION_8_3();
-                                v1238 = OUTLINED_FUNCTION_3();
-                                v1245 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v1238, v1239, v1240, v1241, v1242, v1243, v1244);
-                                if (v219)
+                                v1272 = OUTLINED_FUNCTION_3();
+                                v1279 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v1272, v1273, v1274, v1275, v1276, v1277, v1278);
+                                if (v221)
                                 {
-                                  FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1245, v1246, v1247, v1248, *&v1613, b, v610);
+                                  FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1279, v1280, v1281, v1282, *&v1654, b, v622);
                                   OUTLINED_FUNCTION_2_3();
                                 }
 
                                 else
                                 {
-                                  if (v507)
+                                  if (v517)
                                   {
                                     OUTLINED_FUNCTION_25_3();
-                                    FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1249, v1250, v1251, v1252, v1253, v1254, v1255);
+                                    FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1283, v1284, v1285, v1286, v1287, v1288, v1289);
                                     OUTLINED_FUNCTION_2_3();
                                   }
 
-                                  pixelBuffer = v222;
+                                  pixelBuffer = v224;
                                 }
 
                                 if (croppingOutCopy)
                                 {
-                                  CVPixelBufferGetWidth(pixelBuffer);
+                                  v1290 = CVPixelBufferGetWidth(pixelBuffer);
                                   CVPixelBufferGetHeight(pixelBuffer);
-                                  v1256 = OUTLINED_FUNCTION_3();
-                                  FigCaptureMetadataUtilitiesNormalizeCropRect(v1256, v1257, v1258, v1259);
-                                  *croppingOutCopy = v1260;
-                                  croppingOutCopy[1] = v1261;
-                                  croppingOutCopy[2] = v1262;
-                                  croppingOutCopy[3] = v1263;
+                                  v1291 = OUTLINED_FUNCTION_3();
+                                  FigCaptureMetadataUtilitiesNormalizeCropRect(v1291, v1292, v1293, v1294, v1290, v1295);
+                                  *croppingOutCopy = v1296;
+                                  croppingOutCopy[1] = v1297;
+                                  croppingOutCopy[2] = v1298;
+                                  croppingOutCopy[3] = v1299;
                                 }
 
                                 LOBYTE(time.a) = 0;
-                                ptn_rotationDegreesAndMirroringFromLiveConfiguration(*(v16 + 136), *(v16 + 140), *(v16 + 141), &time);
+                                ptn_rotationDegreesAndMirroringFromLiveConfiguration(*(v16 + 34), *(v16 + 140), *(v16 + 141), &time);
                                 OUTLINED_FUNCTION_3();
                                 OUTLINED_FUNCTION_105();
-                                BWUpdateCameraIntrinsicsMatrixOnSampleBuffer(v1264, v1265, v1266, v1267, v1268, v1269, v1270, v1271, v1272, v1273, v1274, v1674);
-                                v1275 = OUTLINED_FUNCTION_3();
-                                FigCaptureMetadataUtilitiesScaleRect2D(v1275, v1276, v1277, v1278, v1279);
+                                BWUpdateCameraIntrinsicsMatrixOnSampleBuffer(v1300, v1301, v1302, v1303, v1304, v1305, v1306, v1307, v1308, v1309, v1310, v1715);
+                                v1311 = OUTLINED_FUNCTION_3();
+                                FigCaptureMetadataUtilitiesScaleRect2D(v1311, v1312, v1313, v1314, v1315);
                                 OUTLINED_FUNCTION_2_3();
-                                CVPixelBufferGetWidth(v222);
-                                CVPixelBufferGetHeight(v222);
+                                CVPixelBufferGetWidth(v224);
+                                CVPixelBufferGetHeight(v224);
                                 OUTLINED_FUNCTION_3();
                                 OUTLINED_FUNCTION_105();
-                                BWUpdateTrackedFacesMetadataOnSampleBuffer(v1280, v1284, v1285, v1286, v1287, v1288, v1289, v1290, v1674, v1281, v1282, v1283);
+                                BWUpdateTrackedFacesMetadataOnSampleBuffer(v1316, v1317, v1318, v1319, v1320, v1321, v1322, v1323, v1324, v1325, v1326, v1715);
                                 if (outCopy)
                                 {
-                                  *outCopy = v1619;
-                                  outCopy[1] = v1618;
+                                  *outCopy = v1660;
+                                  outCopy[1] = v1659;
                                 }
 
                                 OUTLINED_FUNCTION_18_7();
-                                v925 = v1667;
-                                if (_ZF && v1735)
+                                v955 = v1708;
+                                if (_ZF && v1776)
                                 {
-                                  v1291 = CVBufferCopyAttachment(v18, *MEMORY[0x1E6965D88], 0);
-                                  if (v1291)
+                                  v1327 = CVBufferCopyAttachment(v18, *MEMORY[0x1E6965D88], 0);
+                                  if (v1327)
                                   {
-                                    v1292 = CFAutorelease(v1291);
+                                    v1328 = CFAutorelease(v1327);
                                   }
 
                                   else
                                   {
-                                    v1292 = 0;
+                                    v1328 = 0;
                                   }
 
-                                  v1293 = CVBufferCopyAttachment(v18, *MEMORY[0x1E6965F30], 0);
-                                  if (v1293)
+                                  v1329 = CVBufferCopyAttachment(v18, *MEMORY[0x1E6965F30], 0);
+                                  if (v1329)
                                   {
-                                    v1293 = CFAutorelease(v1293);
+                                    v1329 = CFAutorelease(v1329);
                                   }
 
-                                  if (([v1293 isEqualToString:*MEMORY[0x1E6965F48]] & 1) == 0 && ((objc_msgSend(v1292, "isEqualToString:", *MEMORY[0x1E6965DD0]) & 1) != 0 || objc_msgSend(v1292, "isEqualToString:", *MEMORY[0x1E6965DB8])))
+                                  if ((objc_msgSend_isEqualToString_(v1329) & 1) == 0 && ((objc_msgSend_isEqualToString_(v1328) & 1) != 0 || objc_msgSend_isEqualToString_(v1328)))
                                   {
                                     *lhs = 0;
                                     LOBYTE(rhs.value) = 0;
                                     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                                    v1295 = *lhs;
+                                    v1331 = *lhs;
                                     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, rhs.value))
                                     {
-                                      v1296 = v1295;
+                                      v1332 = v1331;
                                     }
 
                                     else
                                     {
-                                      v1296 = v1295 & 0xFFFFFFFE;
+                                      v1332 = v1331 & 0xFFFFFFFE;
                                     }
 
-                                    if (v1296)
+                                    if (v1332)
                                     {
                                       LODWORD(time.a) = 136315138;
                                       *(&time.a + 4) = "[BWPreviewStitcherNode _newStitchedSampleBufferFromWiderCamera:narrowerCamera:widerCameraRegionsShifts:teleShift:primaryCaptureRectOut:primaryCaptureRectBeforeCroppingOut:centerWiderCameraShiftOut:currentFrameRate:inputCropRectOut:]";
@@ -7120,10 +7129,10 @@ LABEL_780:
                                     }
 
                                     fig_log_call_emit_and_clean_up_after_send_and_compose();
-                                    if (v1735)
+                                    if (v1776)
                                     {
-                                      CFRelease(v1735);
-                                      v1735 = 0;
+                                      CFRelease(v1776);
+                                      v1776 = 0;
                                     }
                                   }
                                 }
@@ -7137,51 +7146,51 @@ LABEL_780:
                             OUTLINED_FUNCTION_18_7();
                             if (_ZF && (*(v16 + 1000) & 1) != 0)
                             {
-                              v828 = 1;
+                              v841 = 1;
                             }
 
                             else
                             {
-                              v828 = 0;
-                              v1548 = v1728.origin.x;
-                              v1551 = v1728.origin.y;
-                              v1555 = v1728.size.height;
-                              v1562 = v1728.size.width;
+                              v841 = 0;
+                              v1589 = v1769.origin.x;
+                              v1592 = v1769.origin.y;
+                              v1596 = *&v1769.size.height;
+                              v1603 = *&v1769.size.width;
                             }
 
-                            v829 = OUTLINED_FUNCTION_0_29();
-                            v834 = OUTLINED_FUNCTION_134(v829, v830, v831, v832);
-                            v836 = v835;
-                            v838 = v837;
-                            if (!LODWORD(v1667))
+                            v842.n128_f64[0] = OUTLINED_FUNCTION_0_29();
+                            v849 = OUTLINED_FUNCTION_134(v842, v843, v844, v845, v846, v847);
+                            v851 = v850;
+                            v853 = v852;
+                            if (!LODWORD(v1708))
                             {
-                              v839 = OUTLINED_FUNCTION_22_3();
-                              v834 = acpr_conformRectForMSR420vf(v839, v840, v841, v842);
-                              v836 = v843;
-                              v838 = v844;
+                              v854 = OUTLINED_FUNCTION_22_3();
+                              v849 = acpr_conformRectForMSR420vf(v854, v855, v856, v857);
+                              v851 = v858;
+                              v853 = v859;
                             }
 
-                            v1658 = v833;
-                            *&v1529 = v607;
+                            v1699 = v848;
+                            *&v1570 = v619;
                             OUTLINED_FUNCTION_18_7();
-                            v845 = !_ZF || v458 <= 1.0;
-                            v846 = 0;
-                            if (!v845)
+                            v860 = !_ZF || v468 <= 1.0;
+                            v861 = 0;
+                            if (!v860)
                             {
-                              v609 = OUTLINED_FUNCTION_57_3();
-                              v388 = v847;
-                              v849 = v848;
-                              v851 = v850;
-                              v852 = OUTLINED_FUNCTION_0_29();
-                              v1809.origin.x = FigCaptureMetadataUtilitiesRectNormalizedToRect(v852, v853, v854, v855, v834, v836, v838);
-                              v1857.origin.x = v609;
-                              v1857.origin.y = v388;
-                              v1857.size.width = v849;
-                              v1857.size.height = v851;
-                              v856 = CGRectContainsRect(v1809, v1857);
-                              if (!v856 || (OUTLINED_FUNCTION_25_3(), !CGRectContainsRect(v1810, v1858)))
+                              v621 = OUTLINED_FUNCTION_57_3();
+                              v398 = v862;
+                              v864 = v863;
+                              v866 = v865;
+                              v867 = OUTLINED_FUNCTION_0_29();
+                              v1850.origin.x = FigCaptureMetadataUtilitiesRectNormalizedToRect(v867, v868, v869, v870, v849, v851, v853);
+                              v1898.origin.x = v621;
+                              v1898.origin.y = v398;
+                              v1898.size.width = v864;
+                              v1898.size.height = v866;
+                              v871 = CGRectContainsRect(v1850, v1898);
+                              if (!v871 || (OUTLINED_FUNCTION_25_3(), !CGRectContainsRect(v1851, v1899)))
                               {
-                                v846 = 1;
+                                v861 = 1;
                               }
                             }
 
@@ -7189,42 +7198,50 @@ LABEL_780:
                             OUTLINED_FUNCTION_2_29(v16 + 416);
                             CGAffineTransformInvert(propertyValueOut, &time);
                             OUTLINED_FUNCTION_10_13();
-                            v1811.origin.x = OUTLINED_FUNCTION_126();
-                            v1811.size.width = v1645;
-                            v1811.size.height = v1674;
-                            CGRectApplyAffineTransform(v1811, v857);
+                            v1852.origin.x = OUTLINED_FUNCTION_126();
+                            v1852.size.width = v1686;
+                            v1852.size.height = v1715;
+                            CGRectApplyAffineTransform(v1852, v872);
                             OUTLINED_FUNCTION_118();
-                            if (v846)
+                            v878.n128_u64[0] = *&v1769.origin.x;
+                            if (v861)
                             {
-                              v858 = OUTLINED_FUNCTION_134(v1728.origin.x, v1728.origin.y, v1728.size.width, v1728.size.height);
-                              *&r2 = acpr_conformRectForMSR420vf(v858, v859, v860, v861);
-                              v1501 = v862;
-                              v1656 = v863;
-                              *&r2_16 = v864;
-                              v865 = OUTLINED_FUNCTION_134(v1548, v1551, v1562, v1555);
-                              v1548 = acpr_conformRectForMSR420vf(v865, v866, v867, v868);
-                              v1551 = v869;
-                              v1555 = v871;
-                              v1562 = v870;
-                              v872 = OUTLINED_FUNCTION_109();
-                              v876 = OUTLINED_FUNCTION_134(v872, v873, v874, v875);
-                              acpr_conformRectForMSR420vf(v876, v877, v878, v879);
+                              v873.n128_u64[0] = *&v1769.origin.y;
+                              v874.n128_u64[0] = *&v1769.size.width;
+                              v875.n128_u64[0] = *&v1769.size.height;
+                              v879 = OUTLINED_FUNCTION_134(v878, v873, v874, v875, v876, v877);
+                              *&r2 = acpr_conformRectForMSR420vf(v879, v880, v881, v882);
+                              v1542 = v883;
+                              v1697 = v884;
+                              *&r2_16 = v885;
+                              v886.n128_f64[0] = v1589;
+                              v887.n128_f64[0] = v1592;
+                              v889.n128_u64[0] = v1596;
+                              v888.n128_u64[0] = v1603;
+                              v892 = OUTLINED_FUNCTION_134(v886, v887, v888, v889, v890, v891);
+                              v1589 = acpr_conformRectForMSR420vf(v892, v893, v894, v895);
+                              v1592 = v896;
+                              v1596 = v898;
+                              v1603 = v897;
+                              v899.n128_f64[0] = OUTLINED_FUNCTION_109();
+                              v905 = OUTLINED_FUNCTION_134(v899, v900, v901, v902, v903, v904);
+                              acpr_conformRectForMSR420vf(v905, v906, v907, v908);
                               OUTLINED_FUNCTION_118();
                             }
 
                             else
                             {
-                              *&r2 = v1728.origin.x;
-                              v1501 = v1728.origin.y;
-                              v1656 = v1728.size.width;
-                              *&r2_16 = v1728.size.height;
-                              v834 = v1730.f64[0];
-                              v838 = *v1731;
-                              v1658 = *&v1731[1];
+                              *&r2 = v1769.origin.x;
+                              v1542 = v1769.origin.y;
+                              v1697 = v1769.size.width;
+                              *&r2_16 = v1769.size.height;
+                              v849 = v1771.f64[0];
+                              v853 = *v1772;
+                              v1699 = *&v1772[1];
                             }
 
-                            v880 = (*(v16 + 331) & 1) != 0 || *(v16 + 1024) || *(v16 + 1008) != 0;
-                            if (*(v16 + 952))
+                            v909 = (*(v16 + 331) & 1) != 0 || *(v16 + 128) || *(v16 + 126) != 0;
+                            if (*(v16 + 119))
                             {
                               if (pixelBuffer)
                               {
@@ -7236,750 +7253,802 @@ LABEL_780:
                             {
                               if (pixelBuffer)
                               {
-                                v881 = v880;
+                                v910 = v909;
                               }
 
                               else
                               {
-                                v881 = 0;
+                                v910 = 0;
                               }
 
-                              if (*(v16 + 1150) && v881)
+                              if (*(v16 + 1150) && v910)
                               {
 LABEL_627:
-                                v911 = v880 & *(v16 + 1150);
+                                v940 = v909 & *(v16 + 1150);
                                 if (*(v16 + 1000))
                                 {
-                                  v912 = v911;
+                                  v941 = v940;
                                 }
 
                                 else
                                 {
-                                  v912 = *(v16 + 1150);
+                                  v941 = *(v16 + 1150);
                                 }
 
-                                v913 = OUTLINED_FUNCTION_109();
-                                v1816.origin.x = psn_smallestBoundingRectAlignedToMultipleOf(1, 1, v913, v914, v915, v916);
-                                *&v1860.origin.x = r2;
-                                v1860.origin.y = v1501;
-                                v1860.size.width = v1656;
-                                *&v1860.size.height = r2_16;
-                                v1817 = CGRectUnion(v1816, v1860);
-                                v917 = v1817.size.width;
-                                v918 = v1817.size.height;
-                                v1594 = *&v1543;
-                                v1577 = v1649;
-                                v919 = v1562;
-                                v1621 = v1555;
-                                LODWORD(v1535) = v912;
-                                if (v912 == 1)
+                                v942 = OUTLINED_FUNCTION_109();
+                                v1857.origin.x = psn_smallestBoundingRectAlignedToMultipleOf(1, 1, v942, v943, v944, v945);
+                                *&v1901.origin.x = r2;
+                                v1901.origin.y = v1542;
+                                v1901.size.width = v1697;
+                                *&v1901.size.height = r2_16;
+                                v1858 = CGRectUnion(v1857, v1901);
+                                v946 = v1858.size.width;
+                                v947 = v1858.size.height;
+                                v1635 = *&v1584;
+                                v1618 = v1690;
+                                v948 = *&v1603;
+                                v1662 = *&v1596;
+                                LODWORD(v1576) = v941;
+                                if (v941 == 1)
                                 {
-                                  v1594 = *&r2 - v1817.origin.x;
-                                  v1577 = v1501 - v1817.origin.y;
-                                  v919 = v1817.size.width;
-                                  v1621 = v1817.size.height;
+                                  v1635 = *&r2 - v1858.origin.x;
+                                  v1618 = v1542 - v1858.origin.y;
+                                  v948 = v1858.size.width;
+                                  v1662 = v1858.size.height;
                                 }
 
-                                v1518 = v1817.origin.y;
-                                v1509 = v1817.origin.x;
+                                v1559 = v1858.origin.y;
+                                v1550 = v1858.origin.x;
                                 [(BWPreviewStitcherNode *)v16 _waitForCIPreheatingToFinish];
-                                *&v608 = COERCE_DOUBLE([(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer]);
+                                *&v620 = COERCE_DOUBLE([(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer]);
                                 newPixelBuffer = [(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer];
-                                v224 = newPixelBuffer;
-                                v1667 = *&v608;
-                                if (*&v608 == 0.0)
+                                v226 = newPixelBuffer;
+                                v1708 = *&v620;
+                                if (*&v620 == 0.0)
                                 {
                                   fig_log_get_emitter();
                                   OUTLINED_FUNCTION_1_35();
-                                  FigDebugAssert3();
-                                  v925 = 0.0;
-                                  v18 = v1609;
+                                  LODWORD(v1455) = 0;
+                                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1455, v1465, v1476, v1488, v1493, v1498, v1503, v1509);
+                                  v955 = 0.0;
+                                  v18 = v1650;
                                   goto LABEL_808;
                                 }
 
-                                if (!newPixelBuffer || (*&v1491 = v918, v1496 = v917, v1698 = v919, OUTLINED_FUNCTION_101(), OUTLINED_FUNCTION_22_3(), v921 = v1656, v922 = *&r2_16, *&v608 = COERCE_DOUBLE(&OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled), VTPixelRotationSessionRotateSubImage()))
+                                if (newPixelBuffer)
                                 {
-                                  fig_log_get_emitter();
-                                  OUTLINED_FUNCTION_1_35();
-                                  FigDebugAssert3();
-                                  *&v608 = 0.0;
-                                  v18 = v1609;
-                                  goto LABEL_911;
-                                }
-
-                                v1818.origin.x = v1548;
-                                v1818.origin.y = v1551;
-                                v1818.size.height = v1555;
-                                v1818.size.width = v1562;
-                                *&v1861.origin.x = r2;
-                                v1861.origin.y = v1501;
-                                v1861.size.width = v1656;
-                                *&v1861.size.height = r2_16;
-                                if (CGRectEqualToRect(v1818, v1861) || (v1819.origin.x = v1548, v1819.origin.y = v1551, v1819.size.height = v1555, v1819.size.width = v1562, *&v1862.origin.x = r2, v1862.origin.y = v1501, v1862.size.width = v1656, *&v1862.size.height = r2_16, !CGRectContainsRect(v1819, v1862)))
-                                {
-                                  v923 = v1619 - *v1520;
-                                  v924 = v1618 - *&v1513;
-                                }
-
-                                else
-                                {
-                                  v1607 = v1501 - v1551;
-                                  v1608 = *&r2 - v1548;
-                                  v923 = v1619;
-                                  v924 = v1618;
-                                }
-
-                                v957 = *&v1529 * (*&v1545 / v1604);
-                                psn_pixelBufferRect(pixelBuffer);
-                                v958 = OUTLINED_FUNCTION_54_3();
-                                v967 = psn_widerCameraBoundingRect(v958, v959, v960, v961, v962, v963, v964, v965, v966);
-                                OUTLINED_FUNCTION_42_3(v967, v968, v969, v970);
-                                if (v1535)
-                                {
-                                  v1821.origin.x = v1548;
-                                  v1821.origin.y = v1551;
-                                  v1663 = *&v1529 * (*&v1545 / v1604);
-                                  v1821.size.width = v1562;
-                                  v1821.size.height = v1555;
-                                  MidX = CGRectGetMidX(v1821);
-                                  v1822.origin.x = v1509;
-                                  v1822.origin.y = v1518;
-                                  v1822.size.width = v1496;
-                                  v1822.size.height = v918;
-                                  v975 = MidX - CGRectGetMidX(v1822);
-                                  v976 = v957;
-                                  *&r2 = v975 / v957;
-                                  v921 = v1656;
-                                  v922 = *&r2_16;
-                                  OUTLINED_FUNCTION_92_0();
-                                  v977 = CGRectGetMidY(v1823);
-                                  v1824.origin.x = v1509;
-                                  v1824.origin.y = v1518;
-                                  v1824.size.width = v1496;
-                                  v1824.size.height = v918;
-                                  v978 = v977 - CGRectGetMidY(v1824);
-                                  v957 = v1663;
-                                  v923 = v923 + *&r2;
-                                  v924 = v924 + v978 / v976;
-                                }
-
-                                v979 = v1698;
-                                [(BWPreviewStitcherNode *)v16 _transferPixelBuffer:v224 rect:0 intoPixelBuffer:&time rect:v971 isFinalOutput:v972 withInputShift:v973 scale:*&v923 inputSourceRectOut:*&v924, SLODWORD(v957)];
-                                if (v1535)
-                                {
-                                  OUTLINED_FUNCTION_76_0();
-                                  v1621 = v980;
-                                }
-
-                                a = time.a;
-                                if (v846)
-                                {
-                                  OUTLINED_FUNCTION_75_0();
-                                  a = FigCaptureMetadataUtilitiesScaleRect2D(a, v982, v983, v984, *&v1682);
-                                  b = v985;
-                                  c = v986;
-                                  d = v987;
-                                }
-
-                                else
-                                {
-                                  b = time.b;
-                                  c = time.c;
-                                  d = time.d;
-                                }
-
-                                v988 = *(v16 + 1808);
-                                v222 = v1721;
-                                if (v988)
-                                {
-
-                                  *(v16 + 1808) = 0;
-                                  v989 = *(v16 + 1784);
-                                  if (v989)
+                                  v1532 = *&v947;
+                                  v1537 = v946;
+                                  v1739 = v948;
+                                  OUTLINED_FUNCTION_101();
+                                  OUTLINED_FUNCTION_22_3();
+                                  v950 = v1697;
+                                  v951 = *&r2_16;
+                                  v952 = VTPixelRotationSessionRotateSubImage();
+                                  *&v620 = COERCE_DOUBLE(&OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled);
+                                  if (!v952)
                                   {
-                                    CFRelease(v989);
-                                    *(v16 + 1784) = 0;
-                                  }
-                                }
+                                    v1859.origin.x = v1589;
+                                    v1859.origin.y = v1592;
+                                    *&v1859.size.height = v1596;
+                                    *&v1859.size.width = v1603;
+                                    *&v1902.origin.x = r2;
+                                    v1902.origin.y = v1542;
+                                    v1902.size.width = v1697;
+                                    *&v1902.size.height = r2_16;
+                                    if (CGRectEqualToRect(v1859, v1902) || (v1860.origin.x = v1589, v1860.origin.y = v1592, *&v1860.size.height = v1596, *&v1860.size.width = v1603, *&v1903.origin.x = r2, v1903.origin.y = v1542, v1903.size.width = v1697, *&v1903.size.height = r2_16, !CGRectContainsRect(v1860, v1903)))
+                                    {
+                                      v953 = v1660 - *v1561;
+                                      v954 = v1659 - *&v1554;
+                                    }
 
-                                if (*(v16 + 952) || (OUTLINED_FUNCTION_18_7(), _ZF))
-                                {
+                                    else
+                                    {
+                                      v1648 = v1542 - v1592;
+                                      v1649 = *&r2 - v1589;
+                                      v953 = v1660;
+                                      v954 = v1659;
+                                    }
 
-                                  *(v16 + 1024) = 0;
-                                }
+                                    v990 = *&v1570 * (*&v1586 / v1645);
+                                    psn_pixelBufferRect(pixelBuffer);
+                                    v991 = OUTLINED_FUNCTION_54_3();
+                                    v1000 = psn_widerCameraBoundingRect(v991, v992, v993, v994, v995, v996, v997, v998, v999);
+                                    OUTLINED_FUNCTION_42_3(v1000, v1001, v1002, v1003);
+                                    if (v1576)
+                                    {
+                                      v1862.origin.x = v1589;
+                                      v1862.origin.y = v1592;
+                                      v1704 = *&v1570 * (*&v1586 / v1645);
+                                      *&v1862.size.width = v1603;
+                                      *&v1862.size.height = v1596;
+                                      MidX = CGRectGetMidX(v1862);
+                                      v1863.origin.x = v1550;
+                                      v1863.origin.y = v1559;
+                                      v1863.size.width = v1537;
+                                      v1863.size.height = v947;
+                                      v1008 = MidX - CGRectGetMidX(v1863);
+                                      v1009 = v990;
+                                      *&r2 = v1008 / v990;
+                                      v950 = v1697;
+                                      v951 = *&r2_16;
+                                      OUTLINED_FUNCTION_92_0();
+                                      v1010 = CGRectGetMidY(v1864);
+                                      v1865.origin.x = v1550;
+                                      v1865.origin.y = v1559;
+                                      v1865.size.width = v1537;
+                                      v1865.size.height = v947;
+                                      v1011 = v1010 - CGRectGetMidY(v1865);
+                                      v990 = v1704;
+                                      v953 = v953 + *&r2;
+                                      v954 = v954 + v1011 / v1009;
+                                    }
 
-                                if (!v1535)
-                                {
-                                  goto LABEL_839;
-                                }
+                                    v1012 = v1739;
+                                    [(BWPreviewStitcherNode *)v16 _transferPixelBuffer:v226 rect:0 intoPixelBuffer:&time rect:v1004 isFinalOutput:v1005 withInputShift:v1006 scale:*&v953 inputSourceRectOut:*&v954, SLODWORD(v990)];
+                                    if (v1576)
+                                    {
+                                      OUTLINED_FUNCTION_76_0();
+                                      v1662 = v1013;
+                                    }
 
-                                v990 = *(v16 + 1008);
-                                *&v608 = COERCE_DOUBLE(&OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled);
-                                if (v990)
-                                {
-                                  if (*(v16 + 1016) != v1675)
-                                  {
+                                    a = time.a;
+                                    if (v861)
+                                    {
+                                      OUTLINED_FUNCTION_75_0();
+                                      a = FigCaptureMetadataUtilitiesScaleRect2D(a, v1015, v1016, v1017, *&v1723);
+                                      b = v1018;
+                                      c = v1019;
+                                      d = v1020;
+                                    }
+
+                                    else
+                                    {
+                                      b = time.b;
+                                      c = time.c;
+                                      d = time.d;
+                                    }
+
+                                    v1021 = *(v16 + 226);
+                                    v224 = v1762;
+                                    if (v1021)
+                                    {
+
+                                      *(v16 + 226) = 0;
+                                      v1022 = *(v16 + 223);
+                                      if (v1022)
+                                      {
+                                        CFRelease(v1022);
+                                        *(v16 + 223) = 0;
+                                      }
+                                    }
+
+                                    if (*(v16 + 119) || (OUTLINED_FUNCTION_18_7(), _ZF))
+                                    {
+
+                                      *(v16 + 128) = 0;
+                                    }
+
+                                    if (!v1576)
+                                    {
+                                      goto LABEL_839;
+                                    }
+
+                                    v1023 = *(v16 + 126);
+                                    *&v620 = COERCE_DOUBLE(&OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled);
+                                    if (v1023)
+                                    {
+                                      if (*(v16 + 1016) != isEqualToString)
+                                      {
 LABEL_674:
 
-                                    *(v16 + 1008) = 0;
-                                    goto LABEL_833;
-                                  }
+                                        *(v16 + 126) = 0;
+                                        goto LABEL_833;
+                                      }
 
-                                  if (([OUTLINED_FUNCTION_70_0() isRamping] & 1) != 0 && (objc_msgSend(OUTLINED_FUNCTION_70_0(), "isRampingUp") & 1) == 0)
-                                  {
-                                    v990 = *(v16 + 1008);
-                                    goto LABEL_674;
-                                  }
-                                }
+                                      if (([OUTLINED_FUNCTION_70_0() isRamping] & 1) != 0 && (objc_msgSend(OUTLINED_FUNCTION_70_0(), "isRampingUp") & 1) == 0)
+                                      {
+                                        v1023 = *(v16 + 126);
+                                        goto LABEL_674;
+                                      }
+                                    }
 
 LABEL_833:
-                                if (!*(v16 + 1008))
-                                {
-                                  if ([*(v16 + 952) isRampingUp])
-                                  {
+                                    if (!*(v16 + 126))
+                                    {
+                                      if ([*(v16 + 119) isRampingUp])
+                                      {
+                                        OUTLINED_FUNCTION_18_7();
+                                        if (_ZF)
+                                        {
+                                          v1352 = v950 / v1012;
+                                          if (*(v16 + 293) < v1352)
+                                          {
+                                            v1353 = [[BWRamp alloc] initWithName:@"NarrowerCameraEdgeExpansionRamp"];
+                                            *(v16 + 126) = v1353;
+                                            LODWORD(v1354) = 1.0;
+                                            [(BWRamp *)v1353 startRampFrom:*(v16 + 294) to:0 iterations:0.0 shape:v1354];
+                                            *(v16 + 1016) = isEqualToString;
+                                          }
+                                        }
+                                      }
+                                    }
+
+LABEL_839:
+                                    *&v1655 = a;
+                                    [OUTLINED_FUNCTION_70_0() updateRampForNextIteration];
+                                    v1355 = OUTLINED_FUNCTION_70_0();
+                                    if (v1355)
+                                    {
+                                      isRampingUp = [v1355 isRampingUp];
+                                      [OUTLINED_FUNCTION_70_0() currentValue];
+                                      if (isRampingUp)
+                                      {
+                                        v1356 = v1358;
+                                      }
+
+                                      else
+                                      {
+                                        v1356 = 1.0 - v1358;
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                      v1356 = 1.0;
+                                      if (v1576 && ((*(v16 + 331) & 1) != 0 || *(v16 + 128)))
+                                      {
+                                        OUTLINED_FUNCTION_117();
+                                        [objc_msgSend(*(v16 + v1359) "firstObject")];
+                                        isRampingUp = 0;
+                                        v1361 = v1712;
+                                        if (v1360 < v1712)
+                                        {
+                                          v1361 = v1360;
+                                        }
+
+                                        if (v1361 < *(&v1576 + 1))
+                                        {
+                                          v1361 = *(&v1576 + 1);
+                                        }
+
+                                        v1356 = 1.0 - (((v1361 - *(&v1576 + 1)) / (v1360 - *(&v1576 + 1))) + 0.0);
+                                      }
+
+                                      else
+                                      {
+                                        isRampingUp = 1;
+                                      }
+                                    }
+
+                                    [(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer];
+                                    OUTLINED_FUNCTION_130();
+                                    *(v16 + *(v1576 + 0x6F4)) = 0;
+                                    v1521 = *(v16 + 1185);
+                                    v1519 = *(v16 + 258);
+                                    v1507 = *(v16 + 126);
+                                    v1513 = *(v16 + 128);
+                                    v1362 = OUTLINED_FUNCTION_36_4();
+                                    [(BWPreviewStitcherNode *)v1363 _renderCameraTransitionRampToPixelBuffer:v1364 bounds:v226 withWiderCameraPixelBuffer:*&v1708 narrowerCameraPixelBuffer:isRampingUp zoomingIn:v1365 progress:v1366 narrowerCameraBounds:v1576 narrowerCameraShift:v1362 featherEdges:v1367 rampCameraTransition:v1012 renderEnhancedFeathering:v1662 narrowerCameraEdgeExpansionRamp:v1356 qsubToQsumEdgeOpacityRamp:v1368 qsubToQsumEdgeOpacityRampFromProgress:v1369 renderBrightnessCompensation:v1370, v1635, v1618, v950, v951, v1649, v1648, v1507, v1513, v1519, v1521];
+                                    *(v16 + 1064) = 1;
+                                    v1371 = OUTLINED_FUNCTION_70_0();
+                                    if (v1371)
+                                    {
+                                      if (([v1371 isRamping] & 1) == 0)
+                                      {
+                                        [*(v16 + 119) currentValue];
+                                        OUTLINED_FUNCTION_35_3();
+                                        if (_ZF)
+                                        {
+                                          if (!v841 || ![*(v16 + 192) isRamping] || (OUTLINED_FUNCTION_18_7(), _ZF))
+                                          {
+
+                                            *(v16 + 119) = 0;
+                                            *(v16 + 1000) = 0;
+                                          }
+                                        }
+                                      }
+                                    }
+
+                                    v1372 = *(v16 + 126);
+                                    v18 = v1650;
+                                    if (v1372)
+                                    {
+                                      if ([v1372 isRamping])
+                                      {
+                                        [*(v16 + 126) updateRampForNextIteration];
+                                      }
+
+                                      else if (!*(v16 + 119))
+                                      {
+
+                                        *(v16 + 126) = 0;
+                                      }
+                                    }
+
+                                    v1373 = *(v16 + 128);
+                                    if (v1373)
+                                    {
+                                      isRamping = [v1373 isRamping];
+                                      v1375 = *(v16 + 128);
+                                      if (isRamping)
+                                      {
+                                        [v1375 updateRampForNextIteration];
+                                      }
+
+                                      else
+                                      {
+
+                                        *(v16 + 128) = 0;
+                                      }
+                                    }
+
                                     OUTLINED_FUNCTION_18_7();
                                     if (_ZF)
                                     {
-                                      v1316 = v921 / v979;
-                                      if (*(v16 + 1172) < v1316)
+                                      OUTLINED_FUNCTION_18_7();
+                                      if (_ZF)
                                       {
-                                        v1317 = [[BWRamp alloc] initWithName:@"NarrowerCameraEdgeExpansionRamp"];
-                                        *(v16 + 1008) = v1317;
-                                        LODWORD(v1318) = 1.0;
-                                        [(BWRamp *)v1317 startRampFrom:*(v16 + 1176) to:0 iterations:0.0 shape:v1318];
-                                        *(v16 + 1016) = v1675;
+                                        v1376 = [[BWRamp alloc] initWithName:@"QsubToQsumEdgeOpacityRamp"];
+                                        *(v16 + 128) = v1376;
+                                        LODWORD(v1377) = 1.0;
+                                        [(BWRamp *)v1376 startRampFrom:*(v16 + 295) to:2 iterations:0.0 shape:v1377];
+                                        *(v16 + 258) = v1356;
+                                        [*(v16 + 128) updateRampForNextIteration];
                                       }
                                     }
-                                  }
-                                }
 
-LABEL_839:
-                                *&v1614 = a;
-                                [OUTLINED_FUNCTION_70_0() updateRampForNextIteration];
-                                v1319 = OUTLINED_FUNCTION_70_0();
-                                if (v1319)
-                                {
-                                  isRampingUp = [v1319 isRampingUp];
-                                  [OUTLINED_FUNCTION_70_0() currentValue];
-                                  if (isRampingUp)
-                                  {
-                                    v1320 = v1322;
-                                  }
-
-                                  else
-                                  {
-                                    v1320 = 1.0 - v1322;
-                                  }
-                                }
-
-                                else
-                                {
-                                  v1320 = 1.0;
-                                  if (v1535 && ((*(v16 + 331) & 1) != 0 || *(v16 + 1024)))
-                                  {
-                                    OUTLINED_FUNCTION_117();
-                                    [objc_msgSend(*(v16 + v1323) "firstObject")];
-                                    isRampingUp = 0;
-                                    v1325 = v1671;
-                                    if (v1324 < v1671)
+                                    OUTLINED_FUNCTION_2_29(v16 + 416);
+                                    if (v1576)
                                     {
-                                      v1325 = v1324;
+                                      v1378 = v1550;
+                                      v1379 = v1559;
+                                      v1381 = v1532;
+                                      v1380 = v1537;
                                     }
 
-                                    if (v1325 < *(&v1535 + 1))
+                                    else
                                     {
-                                      v1325 = *(&v1535 + 1);
+                                      v1378 = v1589;
+                                      v1379 = v1592;
+                                      v1381 = v1596;
+                                      v1380 = *&v1603;
                                     }
 
-                                    v1320 = 1.0 - (((v1325 - *(&v1535 + 1)) / (v1324 - *(&v1535 + 1))) + 0.0);
-                                  }
-
-                                  else
-                                  {
-                                    isRampingUp = 1;
-                                  }
-                                }
-
-                                [(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer];
-                                OUTLINED_FUNCTION_130();
-                                *(v16 + *(v1535 + 0x6F4)) = 0;
-                                v1480 = *(v16 + 1185);
-                                v1478 = *(v16 + 1032);
-                                v1466 = *(v16 + 1008);
-                                v1472 = *(v16 + 1024);
-                                v1326 = OUTLINED_FUNCTION_36_4();
-                                [(BWPreviewStitcherNode *)v1327 _renderCameraTransitionRampToPixelBuffer:v1328 bounds:v224 withWiderCameraPixelBuffer:*&v1667 narrowerCameraPixelBuffer:isRampingUp zoomingIn:v1329 progress:v1330 narrowerCameraBounds:v1535 narrowerCameraShift:v1326 featherEdges:v1331 rampCameraTransition:v979 renderEnhancedFeathering:v1621 narrowerCameraEdgeExpansionRamp:v1320 qsubToQsumEdgeOpacityRamp:v1332 qsubToQsumEdgeOpacityRampFromProgress:v1333 renderBrightnessCompensation:v1334, v1594, v1577, v921, v922, v1608, v1607, v1466, v1472, v1478, v1480];
-                                *(v16 + 1064) = 1;
-                                v1335 = OUTLINED_FUNCTION_70_0();
-                                if (v1335)
-                                {
-                                  if (([v1335 isRamping] & 1) == 0)
-                                  {
-                                    [*(v16 + 952) currentValue];
-                                    OUTLINED_FUNCTION_35_3();
-                                    if (_ZF)
+                                    v1884 = CGRectApplyAffineTransform(*&v1378, &time);
+                                    v1382 = v1884.size.width;
+                                    v1383 = v1884.size.height;
+                                    LODWORD(v221) = v1692;
+                                    OUTLINED_FUNCTION_36_4();
+                                    v1720 = v1384;
+                                    v1386 = v1385;
+                                    v1135 = VTPixelRotationSessionRotateSubImage();
+                                    if (v1135)
                                     {
-                                      if (!v828 || ![*(v16 + 1536) isRamping] || (OUTLINED_FUNCTION_18_7(), _ZF))
-                                      {
-
-                                        *(v16 + 952) = 0;
-                                        *(v16 + 1000) = 0;
-                                      }
-                                    }
-                                  }
-                                }
-
-                                v1336 = *(v16 + 1008);
-                                v18 = v1609;
-                                if (v1336)
-                                {
-                                  if ([v1336 isRamping])
-                                  {
-                                    [*(v16 + 1008) updateRampForNextIteration];
-                                  }
-
-                                  else if (!*(v16 + 952))
-                                  {
-
-                                    *(v16 + 1008) = 0;
-                                  }
-                                }
-
-                                v1337 = *(v16 + 1024);
-                                if (v1337)
-                                {
-                                  isRamping = [v1337 isRamping];
-                                  v1339 = *(v16 + 1024);
-                                  if (isRamping)
-                                  {
-                                    [v1339 updateRampForNextIteration];
-                                  }
-
-                                  else
-                                  {
-
-                                    *(v16 + 1024) = 0;
-                                  }
-                                }
-
-                                OUTLINED_FUNCTION_18_7();
-                                if (_ZF)
-                                {
-                                  OUTLINED_FUNCTION_18_7();
-                                  if (_ZF)
-                                  {
-                                    v1340 = [[BWRamp alloc] initWithName:@"QsubToQsumEdgeOpacityRamp"];
-                                    *(v16 + 1024) = v1340;
-                                    LODWORD(v1341) = 1.0;
-                                    [(BWRamp *)v1340 startRampFrom:*(v16 + 1180) to:2 iterations:0.0 shape:v1341];
-                                    *(v16 + 1032) = v1320;
-                                    [*(v16 + 1024) updateRampForNextIteration];
-                                  }
-                                }
-
-                                OUTLINED_FUNCTION_2_29(v16 + 416);
-                                if (v1535)
-                                {
-                                  v1342 = v1509;
-                                  v1343 = v1518;
-                                  v1345 = *&v1491;
-                                  v1344 = v1496;
-                                }
-
-                                else
-                                {
-                                  v1342 = v1548;
-                                  v1343 = v1551;
-                                  v1345 = v1555;
-                                  v1344 = v1562;
-                                }
-
-                                v1843 = CGRectApplyAffineTransform(*&v1342, &time);
-                                v1346 = v1843.size.width;
-                                v1347 = v1843.size.height;
-                                LODWORD(v219) = v1651;
-                                OUTLINED_FUNCTION_36_4();
-                                v1679 = v1348;
-                                v1350 = v1349;
-                                if (VTPixelRotationSessionRotateSubImage())
-                                {
 LABEL_910:
+                                      v1449 = v1135;
+                                      fig_log_get_emitter();
+                                      OUTLINED_FUNCTION_1_35();
+                                      LODWORD(v1455) = v1449;
+                                      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1455);
+LABEL_911:
+                                      v955 = v1708;
+                                      goto LABEL_808;
+                                    }
+
+                                    OUTLINED_FUNCTION_43_3();
+                                    OUTLINED_FUNCTION_82_0();
+                                    v622 = c;
+                                    if (OUTLINED_FUNCTION_17_6(v1395, v1396, v1397, v1387, v1388, v1389, v1390, v1391, v1392, v1393, v1394, v1455, v1475, v1487, v1492, v1497, v1502, v1508, v1514, v1520, v1522, v1525, v1532, *&v1537, *&v1542, v1545, *&v1550, v1554, *&v1559, v1561[0], v1561[1], v1566, v1570, *&v1573, v1576, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1584))
+                                    {
+                                      rect2d = v1383;
+                                      v1761 = v1382;
+                                      v1755 = v1386;
+                                      v1745 = *&v1720;
+                                    }
+
+                                    else
+                                    {
+                                      OUTLINED_FUNCTION_40_4();
+                                      v1404 = OUTLINED_FUNCTION_133_1(v1398, v1399, v1400, v1401, v1402, v1403);
+                                      OUTLINED_FUNCTION_6_20(v1404, v1405, v1406, v1407);
+                                    }
+
+                                    v933 = &unk_1F224A7D0;
+                                    v634 = v1712;
+                                    v623 = *&v1655;
+                                    goto LABEL_883;
+                                  }
+
+                                  v1451 = v952;
                                   fig_log_get_emitter();
                                   OUTLINED_FUNCTION_1_35();
-                                  FigDebugAssert3();
-LABEL_911:
-                                  v925 = v1667;
-                                  goto LABEL_808;
-                                }
-
-                                OUTLINED_FUNCTION_43_3();
-                                OUTLINED_FUNCTION_82_0();
-                                v610 = c;
-                                if (OUTLINED_FUNCTION_17_6(v1359, v1360, v1361, v1351, v1352, v1353, v1354, v1355, v1356, v1357, v1358, v1423, v1434, v1446, v1451, v1456, v1461, v1467, v1473, v1479, v1481, v1484, v1491, *&v1496, *&v1501, v1504, *&v1509, v1513, *&v1518, v1520[0], v1520[1], v1525, v1529, *&v1532, v1535, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1543))
-                                {
-                                  rect2d = v1347;
-                                  v1720 = v1346;
-                                  v1714 = v1350;
-                                  v1704 = *&v1679;
+                                  LODWORD(v1455) = v1451;
+                                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1455);
                                 }
 
                                 else
                                 {
-                                  OUTLINED_FUNCTION_40_4();
-                                  v1368 = OUTLINED_FUNCTION_133_1(v1362, v1363, v1364, v1365, v1366, v1367);
-                                  OUTLINED_FUNCTION_6_20(v1368, v1369, v1370, v1371);
+                                  fig_log_get_emitter();
+                                  OUTLINED_FUNCTION_1_35();
+                                  LODWORD(v1455) = 0;
+                                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1455);
                                 }
 
-                                v904 = &unk_1F224A7D0;
-                                v620 = v1671;
-                                v611 = *&v1614;
-                                goto LABEL_883;
-                              }
-                            }
-
-                            if (*(v16 + 1808))
-                            {
-                              [(BWPreviewStitcherNode *)v16 _waitForCIPreheatingToFinish];
-                              v925 = COERCE_DOUBLE([(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer]);
-                              newPixelBuffer2 = [(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer];
-                              v224 = newPixelBuffer2;
-                              v18 = v1609;
-                              if (v925 == 0.0 || !newPixelBuffer2 || (OUTLINED_FUNCTION_101(), OUTLINED_FUNCTION_22_3(), VTPixelRotationSessionRotateSubImage()))
-                              {
-                                fig_log_get_emitter();
-                                OUTLINED_FUNCTION_1_35();
-                                FigDebugAssert3();
-                                *&v608 = 0.0;
-                                goto LABEL_808;
-                              }
-
-                              v1667 = v925;
-                              *lhs = 0;
-                              BWCMSampleBufferCreateCopyIncludingMetadata(*(v16 + 1784), lhs);
-                              rhs.value = 0;
-                              cf = 0;
-                              BWOverCaptureSampleBufferUnpackAndRetain(*lhs, 1, &rhs, &cf, 0, 0);
-                              if (*lhs)
-                              {
-                                CFRelease(*lhs);
-                              }
-
-                              v927 = cf;
-                              [CMGetAttachment(rhs.value v1572];
-                              v928 = OUTLINED_FUNCTION_8();
-                              v1622 = v929;
-                              if ([v928 isEqual:?])
-                              {
-                                v930 = rhs.value;
-                              }
-
-                              else
-                              {
-                                v930 = v927;
-                              }
-
-                              v931 = CMSampleBufferGetImageBuffer(v930);
-                              v932 = *off_1E798B7B0;
-                              v933 = [v1722 objectForKeyedSubscript:*off_1E798B7B0];
-                              if (v933)
-                              {
-                                [v933 floatValue];
-                              }
-
-                              v1006 = *off_1E798B508;
-                              v1007 = [v1722 objectForKeyedSubscript:*off_1E798B508];
-                              if (v1007)
-                              {
-                                [v1007 floatValue];
-                              }
-
-                              *&v608 = COERCE_DOUBLE(CMGetAttachment(v930, v1572, 0));
-                              v1008 = [v608 objectForKeyedSubscript:v932];
-                              if (v1008)
-                              {
-                                [v1008 floatValue];
-                              }
-
-                              v1009 = [v608 objectForKeyedSubscript:v1006];
-                              v1010 = v1009;
-                              if (v1009)
-                              {
-                                [v1009 floatValue];
-                              }
-
-                              psn_pixelBufferRect(v1721);
-                              v1011 = OUTLINED_FUNCTION_22_3();
-                              FigCaptureMetadataUtilitiesScaleRect2D(v1011, v1012, v1013, v1658, v1014);
-                              OUTLINED_FUNCTION_21_5();
-                              v1015 = psn_pixelBufferRect(v931);
-                              v1676 = v1016;
-                              v1018 = v1017;
-                              v1020 = v1019;
-                              OUTLINED_FUNCTION_32_2();
-                              FigCaptureMetadataUtilitiesScaleRect2D(v1021, v1022, v1023, v1024, v1025);
-                              v1027 = v1026;
-                              v1028 = v1015 + OUTLINED_FUNCTION_100_0(v1018 - v1026);
-                              v1031 = *&v1676 + (v1020 - v1029) * v1030;
-                              [v1010 floatValue];
-                              OUTLINED_FUNCTION_35_3();
-                              if (_NF ^ _VF | _ZF)
-                              {
-                                v18 = v1609;
-                                v1039 = *&v1543;
-                                v1032 = v1649;
-                                v1033 = *&r2_16;
-                              }
-
-                              else
-                              {
-                                v18 = v1609;
-                                v1032 = v1649;
-                                v1033 = *&r2_16;
-                                if ([v1622 isEqualToString:*off_1E798A0D0])
-                                {
-                                  v1034 = FigCaptureMetadataUtilitiesNormalizedSensorCenterOffsetInValidBufferRect(v930);
-                                  v1036 = v1035;
-                                  v1037 = psn_pixelBufferDimensions(v931);
-                                  v1028 = v1028 + FigCaptureMetadataUtilitiesDenormalizePoint(v1034, v1036, v1037);
-                                  v1031 = v1031 + v1038;
-                                }
-
-                                v1039 = *&v1543;
-                              }
-
-                              v222 = v1721;
-                              if (v1028 < 0.0 || v1031 < 0.0)
-                              {
-                                v1040 = 1.0;
-                                if (v1028 < 0.0)
-                                {
-                                  v1040 = (v1027 + v1028 * 2.0) / v1027;
-                                }
-
-                                v1041 = OUTLINED_FUNCTION_114();
-                                v1028 = FigCaptureMetadataUtilitiesScaleRect2D(v1041, v1042, v1043, v1044, v1040);
-                                v1031 = v1045;
-                                v1027 = v1046;
-                                v1677 = FigCaptureMetadataUtilitiesScaleRect2D(*&v1543, v1032, v1656, v1033, v1040);
-                                v1664 = v1047;
-                                v1659 = v1048;
-                              }
-
-                              else
-                              {
-                                v1677 = v1039;
-                                v1664 = *&v1032;
-                                v1659 = v1656;
-                              }
-
-                              memset(&time, 0, 32);
-                              v1049 = psn_pixelBufferRect(v931);
-                              OUTLINED_FUNCTION_42_3(v1049, v1050, v1051, v1052);
-                              CGRectMakeWithDictionaryRepresentation([v608 objectForKeyedSubscript:v1516], &time);
-                              v1053 = OUTLINED_FUNCTION_114();
-                              v1061 = psn_rectBoundedByRect(v1053, v1054, v1055, v1056, v1057, v1058, v1059, v1060);
-                              v1065 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v1061, v1062, v1063, v1064, v1028, v1031, v1027);
-                              FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1065, v1066, v1067, v1068, v1677, *&v1664, v1659);
-                              OUTLINED_FUNCTION_8_3();
-                              OUTLINED_FUNCTION_101();
-                              v1069 = VTPixelRotationSessionRotateSubImage();
-                              if (rhs.value)
-                              {
-                                CFRelease(rhs.value);
-                              }
-
-                              LODWORD(v219) = v1651;
-                              v609 = *&v1543;
-                              if (cf)
-                              {
-                                CFRelease(cf);
-                              }
-
-                              if (v1069)
-                              {
-                                fig_log_get_emitter();
-                                OUTLINED_FUNCTION_1_35();
-                                FigDebugAssert3();
-                                *&v608 = 0.0;
+                                *&v620 = 0.0;
+                                v18 = v1650;
                                 goto LABEL_911;
                               }
+                            }
 
-                              [OUTLINED_FUNCTION_59_1() currentValue];
-                              v1071 = v1070;
-                              [OUTLINED_FUNCTION_59_1() updateRampForNextIteration];
-                              if (llroundf(*&v1535) <= 59 && (*(v16 + 1225) & 1) == 0 && v1071 != 1.0)
+                            if (*(v16 + 226))
+                            {
+                              [(BWPreviewStitcherNode *)v16 _waitForCIPreheatingToFinish];
+                              v955 = COERCE_DOUBLE([(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer]);
+                              newPixelBuffer2 = [(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer];
+                              v226 = newPixelBuffer2;
+                              v18 = v1650;
+                              if (v955 == 0.0 || !newPixelBuffer2)
                               {
-                                [OUTLINED_FUNCTION_59_1() updateRampForNextIteration];
-                              }
-
-                              [OUTLINED_FUNCTION_59_1() currentValue];
-                              [(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer];
-                              OUTLINED_FUNCTION_130();
-                              *(v16 + *(v1069 + 1780)) = 0;
-                              v611 = v1649;
-                              OUTLINED_FUNCTION_37_5();
-                              OUTLINED_FUNCTION_112_1();
-                              [(BWPreviewStitcherNode *)v1072 _renderCameraTransitionRampToPixelBuffer:v1073 bounds:v1074 withWiderCameraPixelBuffer:v1075 narrowerCameraPixelBuffer:v1076 zoomingIn:v1077 progress:v1078 narrowerCameraBounds:v1079 narrowerCameraShift:v1080 featherEdges:v1081 rampCameraTransition:v1082 renderEnhancedFeathering:v1083 narrowerCameraEdgeExpansionRamp:v1084 qsubToQsumEdgeOpacityRamp:v1085 qsubToQsumEdgeOpacityRampFromProgress:v1086 renderBrightnessCompensation:v1087, *&v1543, v1649, v1656, *&r2_16, v1608, v1607, 0, 0, 0.0, 0];
-                              *(v16 + 1064) = 1;
-                              *&v1088 = OUTLINED_FUNCTION_2_29(v16 + 416).n128_u64[0];
-                              OUTLINED_FUNCTION_74(v1088, v1089, v1090, v1091, v1092, v1093, v1094, v1095, v1419, v1429, v1441, v1450, v1455, v1460, v1465, v1471, v1477, *&v1481, *&v1484, *&v1488, *&v1493, v1501, *&v1504, *&v1507, *&v1513, *&v1516, *v1520, *&v1520[1], *&v1525, *&v1529, v1532, *&v1535, *&r2);
-                              OUTLINED_FUNCTION_37_5();
-                              CGRectApplyAffineTransform(v1825, v1096);
-                              OUTLINED_FUNCTION_8_3();
-                              OUTLINED_FUNCTION_37_5();
-                              v1678 = v1097;
-                              v1665 = v1098;
-                              v1660 = v1099;
-                              v1101 = v1100;
-                              if (VTPixelRotationSessionRotateSubImage())
-                              {
-                                goto LABEL_910;
-                              }
-
-                              v610 = v1704;
-                              OUTLINED_FUNCTION_82_0();
-                              OUTLINED_FUNCTION_40_4();
-                              v1863.size.width = dicta;
-                              *&v1863.size.height = v1626;
-                              if (CGRectEqualToRect(v1826, v1863))
-                              {
-                                rect2d = v1101;
-                                v1720 = v1660;
-                                OUTLINED_FUNCTION_72_0(*&v1665);
+                                fig_log_get_emitter();
+                                OUTLINED_FUNCTION_1_35();
+                                LODWORD(v1455) = 0;
+                                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1455);
                               }
 
                               else
                               {
-                                v1102 = OUTLINED_FUNCTION_133_1(*&v1678, *&v1665, v1660, v1101, v1704, v1714);
-                                OUTLINED_FUNCTION_6_20(v1102, v1103, v1104, v1105);
-                              }
-
-                              *&v209 = v1670;
-                              v620 = v1671;
-                              v1106 = OUTLINED_FUNCTION_108_0();
-                              BWPropagatePixelBufferDolbyVisionRPUData(v1106, v1107);
-                              v1108 = OUTLINED_FUNCTION_108_0();
-                              BWPropagatePixelBufferAmbientViewingEnvironment(v1108, v1109);
-                              v1110 = MEMORY[0x1E696AD98];
-                              [OUTLINED_FUNCTION_59_1() currentValue];
-                              *&v1112 = 1.0 - v1111;
-                              v904 = [v1110 numberWithFloat:v1112];
-                              [OUTLINED_FUNCTION_59_1() isRamping];
-                              OUTLINED_FUNCTION_49_2();
-                              if ((v1113 & 1) == 0)
-                              {
-                                [OUTLINED_FUNCTION_59_1() currentValue];
-                                if (v1114 == 0.0)
+                                OUTLINED_FUNCTION_101();
+                                OUTLINED_FUNCTION_22_3();
+                                v957 = VTPixelRotationSessionRotateSubImage();
+                                if (!v957)
                                 {
-
-                                  *(v16 + 1808) = 0;
-                                  v1115 = *(v16 + 1784);
-                                  if (v1115)
+                                  v1708 = v955;
+                                  *lhs = 0;
+                                  BWCMSampleBufferCreateCopyIncludingMetadata(*(v16 + 223), lhs);
+                                  rhs.value = 0;
+                                  cf = 0;
+                                  BWOverCaptureSampleBufferUnpackAndRetain(*lhs, 1, &rhs, &cf, 0, 0);
+                                  if (*lhs)
                                   {
-                                    CFRelease(v1115);
-                                    *(v16 + 1784) = 0;
+                                    CFRelease(*lhs);
                                   }
+
+                                  v958 = cf;
+                                  [CMGetAttachment(rhs.value v1613];
+                                  v959 = OUTLINED_FUNCTION_8();
+                                  v1663 = v960;
+                                  if ([v959 isEqual:?])
+                                  {
+                                    v961 = rhs.value;
+                                  }
+
+                                  else
+                                  {
+                                    v961 = v958;
+                                  }
+
+                                  v962 = CMSampleBufferGetImageBuffer(v961);
+                                  v963 = *off_1E798B7B0;
+                                  v964 = [v1763 objectForKeyedSubscript:*off_1E798B7B0];
+                                  if (v964)
+                                  {
+                                    [v964 floatValue];
+                                  }
+
+                                  v1039 = *off_1E798B508;
+                                  v1040 = [v1763 objectForKeyedSubscript:*off_1E798B508];
+                                  if (v1040)
+                                  {
+                                    [v1040 floatValue];
+                                  }
+
+                                  *&v620 = COERCE_DOUBLE(CMGetAttachment(v961, v1613, 0));
+                                  v1041 = [v620 objectForKeyedSubscript:v963];
+                                  if (v1041)
+                                  {
+                                    [v1041 floatValue];
+                                  }
+
+                                  v1042 = [v620 objectForKeyedSubscript:v1039];
+                                  v1043 = v1042;
+                                  if (v1042)
+                                  {
+                                    [v1042 floatValue];
+                                  }
+
+                                  psn_pixelBufferRect(v1762);
+                                  v1044 = OUTLINED_FUNCTION_22_3();
+                                  FigCaptureMetadataUtilitiesScaleRect2D(v1044, v1045, v1046, v1699, v1047);
+                                  OUTLINED_FUNCTION_21_5();
+                                  v1048 = psn_pixelBufferRect(v962);
+                                  v1717 = v1049;
+                                  v1051 = v1050;
+                                  v1053 = v1052;
+                                  OUTLINED_FUNCTION_32_2();
+                                  FigCaptureMetadataUtilitiesScaleRect2D(v1054, v1055, v1056, v1057, v1058);
+                                  v1060 = v1059;
+                                  v1061 = v1048 + OUTLINED_FUNCTION_100_0(v1051 - v1059);
+                                  v1064 = *&v1717 + (v1053 - v1062) * v1063;
+                                  [v1043 floatValue];
+                                  OUTLINED_FUNCTION_35_3();
+                                  if (_NF ^ _VF | _ZF)
+                                  {
+                                    v18 = v1650;
+                                    v1072 = *&v1584;
+                                    v1065 = v1690;
+                                    v1066 = *&r2_16;
+                                  }
+
+                                  else
+                                  {
+                                    v18 = v1650;
+                                    v1065 = v1690;
+                                    v1066 = *&r2_16;
+                                    if (objc_msgSend_isEqualToString_(v1663))
+                                    {
+                                      v1067 = FigCaptureMetadataUtilitiesNormalizedSensorCenterOffsetInValidBufferRect(v961);
+                                      v1069 = v1068;
+                                      v1070 = psn_pixelBufferDimensions(v962);
+                                      v1061 = v1061 + FigCaptureMetadataUtilitiesDenormalizePoint(v1067, v1069, v1070);
+                                      v1064 = v1064 + v1071;
+                                    }
+
+                                    v1072 = *&v1584;
+                                  }
+
+                                  v224 = v1762;
+                                  if (v1061 < 0.0 || v1064 < 0.0)
+                                  {
+                                    v1073 = 1.0;
+                                    if (v1061 < 0.0)
+                                    {
+                                      v1073 = (v1060 + v1061 * 2.0) / v1060;
+                                    }
+
+                                    v1074 = OUTLINED_FUNCTION_114();
+                                    v1061 = FigCaptureMetadataUtilitiesScaleRect2D(v1074, v1075, v1076, v1077, v1073);
+                                    v1064 = v1078;
+                                    v1060 = v1079;
+                                    v1718 = FigCaptureMetadataUtilitiesScaleRect2D(*&v1584, v1065, v1697, v1066, v1073);
+                                    v1705 = v1080;
+                                    v1700 = v1081;
+                                  }
+
+                                  else
+                                  {
+                                    v1718 = v1072;
+                                    v1705 = *&v1065;
+                                    v1700 = v1697;
+                                  }
+
+                                  memset(&time, 0, 32);
+                                  v1082 = psn_pixelBufferRect(v962);
+                                  OUTLINED_FUNCTION_42_3(v1082, v1083, v1084, v1085);
+                                  CGRectMakeWithDictionaryRepresentation([v620 objectForKeyedSubscript:v1557], &time);
+                                  v1086 = OUTLINED_FUNCTION_114();
+                                  v1094 = psn_rectBoundedByRect(v1086, v1087, v1088, v1089, v1090, v1091, v1092, v1093);
+                                  v1098 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v1094, v1095, v1096, v1097, v1061, v1064, v1060);
+                                  FigCaptureMetadataUtilitiesRectDenormalizedToRect(v1098, v1099, v1100, v1101, v1718, *&v1705, v1700);
+                                  OUTLINED_FUNCTION_8_3();
+                                  OUTLINED_FUNCTION_101();
+                                  v1102 = VTPixelRotationSessionRotateSubImage();
+                                  if (rhs.value)
+                                  {
+                                    CFRelease(rhs.value);
+                                  }
+
+                                  LODWORD(v221) = v1692;
+                                  v621 = *&v1584;
+                                  if (cf)
+                                  {
+                                    CFRelease(cf);
+                                  }
+
+                                  if (v1102)
+                                  {
+                                    fig_log_get_emitter();
+                                    OUTLINED_FUNCTION_1_35();
+                                    LODWORD(v1455) = v1102;
+                                    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1455, v1465, v1476, v1488, v1493, v1498, v1503, v1509);
+                                    *&v620 = 0.0;
+                                    goto LABEL_911;
+                                  }
+
+                                  [OUTLINED_FUNCTION_59_1() currentValue];
+                                  v1104 = v1103;
+                                  [OUTLINED_FUNCTION_59_1() updateRampForNextIteration];
+                                  if (llroundf(*&v1576) <= 59 && (*(v16 + 1225) & 1) == 0 && v1104 != 1.0)
+                                  {
+                                    [OUTLINED_FUNCTION_59_1() updateRampForNextIteration];
+                                  }
+
+                                  [OUTLINED_FUNCTION_59_1() currentValue];
+                                  [(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer];
+                                  OUTLINED_FUNCTION_130();
+                                  *(v16 + *(v1102 + 1780)) = 0;
+                                  v623 = v1690;
+                                  OUTLINED_FUNCTION_37_5();
+                                  OUTLINED_FUNCTION_112_1();
+                                  [(BWPreviewStitcherNode *)v1105 _renderCameraTransitionRampToPixelBuffer:v1106 bounds:v1107 withWiderCameraPixelBuffer:v1108 narrowerCameraPixelBuffer:v1109 zoomingIn:v1110 progress:v1111 narrowerCameraBounds:v1112 narrowerCameraShift:v1113 featherEdges:v1114 rampCameraTransition:v1115 renderEnhancedFeathering:v1116 narrowerCameraEdgeExpansionRamp:v1117 qsubToQsumEdgeOpacityRamp:v1118 qsubToQsumEdgeOpacityRampFromProgress:v1119 renderBrightnessCompensation:v1120, *&v1584, v1690, v1697, *&r2_16, v1649, v1648, 0, 0, 0.0, 0];
+                                  *(v16 + 1064) = 1;
+                                  *&v1121 = OUTLINED_FUNCTION_2_29(v16 + 416).n128_u64[0];
+                                  OUTLINED_FUNCTION_74(v1121, v1122, v1123, v1124, v1125, v1126, v1127, v1128, v1461, v1470, v1482, v1491, v1496, v1501, v1506, v1512, v1518, *&v1522, *&v1525, *&v1529, *&v1534, v1542, *&v1545, *&v1548, *&v1554, *&v1557, *v1561, *&v1561[1], *&v1566, *&v1570, v1573, *&v1576, *&r2);
+                                  OUTLINED_FUNCTION_37_5();
+                                  CGRectApplyAffineTransform(v1866, v1129);
+                                  OUTLINED_FUNCTION_8_3();
+                                  OUTLINED_FUNCTION_37_5();
+                                  v1719 = v1130;
+                                  v1706 = v1131;
+                                  v1701 = v1132;
+                                  v1134 = v1133;
+                                  v1135 = VTPixelRotationSessionRotateSubImage();
+                                  if (v1135)
+                                  {
+                                    goto LABEL_910;
+                                  }
+
+                                  v622 = v1745;
+                                  OUTLINED_FUNCTION_82_0();
+                                  OUTLINED_FUNCTION_40_4();
+                                  v1904.size.width = dicta;
+                                  *&v1904.size.height = v1667;
+                                  if (CGRectEqualToRect(v1867, v1904))
+                                  {
+                                    rect2d = v1134;
+                                    v1761 = v1701;
+                                    OUTLINED_FUNCTION_72_0(*&v1706);
+                                  }
+
+                                  else
+                                  {
+                                    v1136 = OUTLINED_FUNCTION_133_1(*&v1719, *&v1706, v1701, v1134, v1745, v1755);
+                                    OUTLINED_FUNCTION_6_20(v1136, v1137, v1138, v1139);
+                                  }
+
+                                  *&v211 = v1711;
+                                  v634 = v1712;
+                                  v1140 = OUTLINED_FUNCTION_108_0();
+                                  BWPropagatePixelBufferDolbyVisionRPUData(v1140, v1141);
+                                  v1142 = OUTLINED_FUNCTION_108_0();
+                                  BWPropagatePixelBufferAmbientViewingEnvironment(v1142, v1143);
+                                  v1144 = MEMORY[0x1E696AD98];
+                                  [OUTLINED_FUNCTION_59_1() currentValue];
+                                  *&v1146 = 1.0 - v1145;
+                                  v933 = [v1144 numberWithFloat:v1146];
+                                  [OUTLINED_FUNCTION_59_1() isRamping];
+                                  OUTLINED_FUNCTION_49_2();
+                                  if ((v1147 & 1) == 0)
+                                  {
+                                    [OUTLINED_FUNCTION_59_1() currentValue];
+                                    if (v1148 == 0.0)
+                                    {
+
+                                      *(v16 + 226) = 0;
+                                      v1149 = *(v16 + 223);
+                                      if (v1149)
+                                      {
+                                        CFRelease(v1149);
+                                        *(v16 + 223) = 0;
+                                      }
+                                    }
+                                  }
+
+                                  goto LABEL_614;
                                 }
+
+                                v1452 = v957;
+                                fig_log_get_emitter();
+                                OUTLINED_FUNCTION_1_35();
+                                LODWORD(v1455) = v1452;
+                                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1455);
                               }
 
-                              goto LABEL_614;
+                              *&v620 = 0.0;
+                              goto LABEL_808;
                             }
 
-                            v18 = v1609;
-                            v222 = v1721;
-                            v620 = v1671;
-                            if (*(v16 + 1816))
+                            v18 = v1650;
+                            v224 = v1762;
+                            v634 = v1712;
+                            if (*(v16 + 227))
                             {
                               [(BWPreviewStitcherNode *)v16 _waitForCIPreheatingToFinish];
-                              [*(v16 + 1816) updateRampForNextIteration];
-                              [*(v16 + 1816) currentValue];
-                              LODWORD(v388) = v934;
-                              *&v935 = COERCE_DOUBLE([(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer]);
-                              *&v608 = COERCE_DOUBLE([(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer]);
+                              [*(v16 + 227) updateRampForNextIteration];
+                              [*(v16 + 227) currentValue];
+                              LODWORD(v398) = v965;
+                              *&v966 = COERCE_DOUBLE([(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer]);
+                              *&v620 = COERCE_DOUBLE([(int32x2_t *)[(BWPreviewStitcherNode *)v16 _cameraTransitionPool] newPixelBuffer]);
 
-                              *(v16 + 968) = 0;
+                              *(v16 + 121) = 0;
                               OUTLINED_FUNCTION_101();
                               OUTLINED_FUNCTION_55_2();
                               OUTLINED_FUNCTION_22_3();
-                              if (VTPixelRotationSessionRotateSubImage())
+                              v967 = VTPixelRotationSessionRotateSubImage();
+                              if (v967)
                               {
+                                v1453 = v967;
                                 fig_log_get_emitter();
                                 OUTLINED_FUNCTION_1_35();
-                                FigDebugAssert3();
-                                v224 = 0;
-                                v925 = *&v935;
+                                LODWORD(v1455) = v1453;
+                                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1455, v1465, v1476, v1488, v1493, v1498, v1503, v1509);
+                                v226 = 0;
+                                v955 = *&v966;
                                 goto LABEL_808;
                               }
 
-                              v1667 = *&v935;
-                              [(BWPreviewStitcherNode *)v16 _renderHDRPixelBufferToSDR:v935 toOutputPixelBuffer:v608 progress:*&v388];
-                              *&v936 = OUTLINED_FUNCTION_2_29(v16 + 416).n128_u64[0];
-                              OUTLINED_FUNCTION_74(v936, v937, v938, v939, v940, v941, v942, v943, *&v1413, *&v1424, *&v1435, *&v1447, *&v1452, *&v1457, *&v1462, *&v1468, *&v1474, *&v1481, *&v1484, *&v1488, *&v1493, v1501, *&v1504, *&v1507, *&v1513, *&v1516, *v1520, *&v1520[1], *&v1525, *&v1529, v1532, *&v1535, *&r2);
+                              v1708 = *&v966;
+                              [(BWPreviewStitcherNode *)v16 _renderHDRPixelBufferToSDR:v966 toOutputPixelBuffer:v620 progress:*&v398];
+                              *&v968 = OUTLINED_FUNCTION_2_29(v16 + 416).n128_u64[0];
+                              OUTLINED_FUNCTION_74(v968, v969, v970, v971, v972, v973, v974, v975, *&v1455, *&v1465, *&v1476, *&v1488, *&v1493, *&v1498, *&v1503, *&v1509, *&v1515, *&v1522, *&v1525, *&v1529, *&v1534, v1542, *&v1545, *&v1548, *&v1554, *&v1557, *v1561, *&v1561[1], *&v1566, *&v1570, v1573, *&v1576, *&r2);
                               OUTLINED_FUNCTION_92_0();
-                              CGRectApplyAffineTransform(v1820, v944);
+                              CGRectApplyAffineTransform(v1861, v976);
                               OUTLINED_FUNCTION_21_5();
                               OUTLINED_FUNCTION_58_4();
                               OUTLINED_FUNCTION_92_0();
-                              v1662 = v945;
+                              v1703 = v977;
                               OUTLINED_FUNCTION_121();
-                              LODWORD(v219) = v1651;
-                              if (VTPixelRotationSessionRotateSubImage())
+                              v978 = VTPixelRotationSessionRotateSubImage();
+                              LODWORD(v221) = v1692;
+                              if (v978)
                               {
+                                v1454 = v978;
                                 fig_log_get_emitter();
                                 OUTLINED_FUNCTION_1_35();
-                                FigDebugAssert3();
-                                v224 = 0;
+                                LODWORD(v1460) = v1454;
+                                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1460, v1469, v1481, v1490, v1495, v1500, v1505, v1511);
+                                v226 = 0;
                                 goto LABEL_911;
                               }
 
                               OUTLINED_FUNCTION_43_3();
                               OUTLINED_FUNCTION_82_0();
-                              if (OUTLINED_FUNCTION_17_6(v954, v955, v956, v946, v947, v948, v949, v950, v951, v952, v953, v1418, v1428, v1440, v1449, v1454, v1459, v1464, v1470, v1476, v1483, v1487, v1492, v1497, v1503, v1506, v1510, v1515, v1519, v1522, v1524, v1527, v1531, v1534, v1537, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1543))
+                              if (OUTLINED_FUNCTION_17_6(v987, v988, v989, v979, v980, v981, v982, v983, v984, v985, v986, v1460, v1469, v1481, v1490, v1495, v1500, v1505, v1511, v1517, v1524, v1528, v1533, v1538, v1544, v1547, v1551, v1556, v1560, v1563, v1565, v1568, v1572, v1575, v1578, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1584))
                               {
-                                rect2d = *&v1682;
-                                v1720 = v834;
-                                v1714 = v388;
-                                v1704 = *&v1662;
+                                rect2d = *&v1723;
+                                v1761 = v849;
+                                v1755 = v398;
+                                v1745 = *&v1703;
                               }
 
                               else
                               {
                                 OUTLINED_FUNCTION_32_2();
                                 OUTLINED_FUNCTION_40_4();
-                                v997 = OUTLINED_FUNCTION_133_1(v991, v992, v993, v994, v995, v996);
-                                OUTLINED_FUNCTION_6_20(v997, v998, v999, v1000);
+                                v1030 = OUTLINED_FUNCTION_133_1(v1024, v1025, v1026, v1027, v1028, v1029);
+                                OUTLINED_FUNCTION_6_20(v1030, v1031, v1032, v1033);
                               }
 
-                              v1001 = OUTLINED_FUNCTION_108_0();
-                              BWPropagatePixelBufferDolbyVisionRPUData(v1001, v1002);
-                              v1003 = OUTLINED_FUNCTION_108_0();
-                              BWPropagatePixelBufferAmbientViewingEnvironment(v1003, v1004);
-                              LODWORD(v1005) = LODWORD(v388);
-                              v904 = [MEMORY[0x1E696AD98] numberWithFloat:v1005];
-                              v224 = 0;
-                              v610 = v1697;
+                              v1034 = OUTLINED_FUNCTION_108_0();
+                              BWPropagatePixelBufferDolbyVisionRPUData(v1034, v1035);
+                              v1036 = OUTLINED_FUNCTION_108_0();
+                              BWPropagatePixelBufferAmbientViewingEnvironment(v1036, v1037);
+                              LODWORD(v1038) = LODWORD(v398);
+                              v933 = [MEMORY[0x1E696AD98] numberWithFloat:v1038];
+                              v226 = 0;
+                              v622 = v1738;
 LABEL_883:
-                              v609 = *&v1544;
-                              *&v209 = v1670;
+                              v621 = *&v1585;
+                              *&v211 = v1711;
                               goto LABEL_614;
                             }
 
                             OUTLINED_FUNCTION_18_7();
-                            LODWORD(v219) = v1651;
-                            v611 = *&v1529;
+                            LODWORD(v221) = v1692;
+                            v623 = *&v1570;
                             if (!_ZF)
                             {
                               goto LABEL_608;
                             }
 
-                            if ([CMGetAttachment(v224 *off_1E798D4E0] < 3)
+                            if ([CMGetAttachment(v226 *off_1E798D4E0] < 3)
                             {
                               if (!*(v16 + 1923))
                               {
                                 goto LABEL_603;
                               }
 
-                              v882 = 0;
+                              v911 = 0;
                               *(v16 + 1923) = 0;
                             }
 
@@ -7991,61 +8060,61 @@ LABEL_883:
                               }
 
                               *(v16 + 1923) = 1;
-                              v882 = (BWOverCaptureRenderDurationInSecondsAfterThermalMitigationStart() * *&v1535);
+                              v911 = (BWOverCaptureRenderDurationInSecondsAfterThermalMitigationStart() * *&v1576);
                             }
 
-                            *(v16 + 1924) = v882;
+                            *(v16 + 481) = v911;
 LABEL_603:
                             OUTLINED_FUNCTION_18_7();
                             if (_ZF)
                             {
-                              v883 = *(v16 + 1924);
-                              _VF = __OFSUB__(v883, 1);
-                              v884 = v883 - 1;
-                              if (v884 < 0 != _VF)
+                              v912 = *(v16 + 481);
+                              _VF = __OFSUB__(v912, 1);
+                              v913 = v912 - 1;
+                              if (v913 < 0 != _VF)
                               {
                                 goto LABEL_608;
                               }
 
-                              *(v16 + 1924) = v884;
+                              *(v16 + 481) = v913;
                             }
 
-                            if (v1671 != 1.0)
+                            if (v1712 != 1.0)
                             {
-                              *&v209 = v1670;
-                              *&v1116 = *&v1529;
-                              v1442 = v1116;
+                              *&v211 = v1711;
+                              *&v1150 = *&v1570;
+                              v1483 = v1150;
                               OUTLINED_FUNCTION_55_2();
-                              v1420 = v1117;
-                              v1430 = v1118;
+                              v1462 = v1151;
+                              v1471 = v1152;
                               OUTLINED_FUNCTION_87();
-                              [(BWPreviewStitcherNode *)v1119 _transferPixelBuffer:v1120 rect:v1121 intoPixelBuffer:v1122 rect:0 isFinalOutput:v1123 withInputShift:v1124 scale:v1125 inputSourceRectOut:v1420, v1430, v1442];
-                              v1666 = v1126;
-                              v1128 = v1127;
-                              v610 = v1129;
-                              v1130 = OUTLINED_FUNCTION_43_3();
-                              if (OUTLINED_FUNCTION_17_6(v1130, v1139, v1720, v1131, v1132, v1133, v1134, v1135, v1136, v1137, v1138, v1421, v1431, v1443, v1447, v1452, v1457, v1462, v1468, v1474, v1481, v1484, v1488, v1493, *&v1501, v1504, v1507, v1513, v1516, v1520[0], v1520[1], v1525, v1529, *&v1532, v1535, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1543))
+                              [(BWPreviewStitcherNode *)v1153 _transferPixelBuffer:v1154 rect:v1155 intoPixelBuffer:v1156 rect:0 isFinalOutput:v1157 withInputShift:v1158 scale:v1159 inputSourceRectOut:v1462, v1471, v1483];
+                              v1707 = v1160;
+                              v1162 = v1161;
+                              v622 = v1163;
+                              v1164 = OUTLINED_FUNCTION_43_3();
+                              if (OUTLINED_FUNCTION_17_6(v1164, v1173, v1761, v1165, v1166, v1167, v1168, v1169, v1170, v1171, v1172, v1463, v1472, v1484, v1488, v1493, v1498, v1503, v1509, v1515, v1522, v1525, v1529, v1534, *&v1542, v1545, v1548, v1554, v1557, v1561[0], v1561[1], v1566, v1570, *&v1573, v1576, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1584))
                               {
                                 OUTLINED_FUNCTION_20_4();
-                                rect2d = v610;
-                                v1720 = v1128;
-                                OUTLINED_FUNCTION_72_0(*&v1666);
+                                rect2d = v622;
+                                v1761 = v1162;
+                                OUTLINED_FUNCTION_72_0(*&v1707);
                               }
 
                               else
                               {
                                 OUTLINED_FUNCTION_40_4();
-                                v1864.size.width = v1720;
-                                v1864.size.height = v838;
-                                v1828 = CGRectUnion(v1827, v1864);
-                                OUTLINED_FUNCTION_6_20(v1828.origin.x, v1828.origin.y, v1828.size.width, v1828.size.height);
+                                v1905.size.width = v1761;
+                                v1905.size.height = v853;
+                                v1869 = CGRectUnion(v1868, v1905);
+                                OUTLINED_FUNCTION_6_20(v1869.origin.x, v1869.origin.y, v1869.size.width, v1869.size.height);
                                 OUTLINED_FUNCTION_20_4();
                               }
 
-                              v904 = &unk_1F224A7D0;
+                              v933 = &unk_1F224A7D0;
 LABEL_613:
                               OUTLINED_FUNCTION_49_2();
-                              v620 = v1671;
+                              v634 = v1712;
 LABEL_614:
                               OUTLINED_FUNCTION_18_7();
                               if (_ZF)
@@ -8053,9 +8122,9 @@ LABEL_614:
                                 OUTLINED_FUNCTION_18_7();
                                 if (_ZF)
                                 {
-                                  CMSetAttachment(v18, @"AmbientViewingEnvironmentStrength", v904, 1u);
-                                  v905 = CVPixelBufferGetIOSurface(v18);
-                                  BWUtilitiesApplyAVEStrength(v905, v904);
+                                  CMSetAttachment(v18, @"AmbientViewingEnvironmentStrength", v933, 1u);
+                                  v934 = CVPixelBufferGetIOSurface(v18);
+                                  BWUtilitiesApplyAVEStrength(v934, v933);
                                 }
                               }
 
@@ -8063,441 +8132,443 @@ LABEL_614:
                             }
 
 LABEL_608:
-                            *&v885 = OUTLINED_FUNCTION_2_29(v16 + 416).n128_u64[0];
-                            v1812.origin.x = OUTLINED_FUNCTION_74(v885, v886, v887, v888, v889, v890, v891, v892, *&v1413, *&v1424, *&v1435, *&v1447, *&v1452, *&v1457, *&v1462, *&v1468, *&v1474, *&v1481, *&v1484, *&v1488, *&v1493, v1501, *&v1504, *&v1507, *&v1513, *&v1516, *v1520, *&v1520[1], *&v1525, *&v1529, v1532, *&v1535, *&r2);
-                            v1812.size.width = v1656;
-                            *&v1812.size.height = r2_16;
-                            v1813 = CGRectApplyAffineTransform(v1812, v893);
-                            v611 = v1813.origin.x;
-                            v609 = v1813.origin.y;
-                            v894 = v1813.size.width;
-                            v895 = v1813.size.height;
+                            *&v914 = OUTLINED_FUNCTION_2_29(v16 + 416).n128_u64[0];
+                            v1853.origin.x = OUTLINED_FUNCTION_74(v914, v915, v916, v917, v918, v919, v920, v921, *&v1455, *&v1465, *&v1476, *&v1488, *&v1493, *&v1498, *&v1503, *&v1509, *&v1515, *&v1522, *&v1525, *&v1529, *&v1534, v1542, *&v1545, *&v1548, *&v1554, *&v1557, *v1561, *&v1561[1], *&v1566, *&v1570, v1573, *&v1576, *&r2);
+                            v1853.size.width = v1697;
+                            *&v1853.size.height = r2_16;
+                            v1854 = CGRectApplyAffineTransform(v1853, v922);
+                            v623 = v1854.origin.x;
+                            v621 = v1854.origin.y;
+                            v923 = v1854.size.width;
+                            v924 = v1854.size.height;
                             OUTLINED_FUNCTION_22_3();
-                            v896 = VTPixelRotationSessionRotateSubImage();
-                            if (v896)
+                            v925 = VTPixelRotationSessionRotateSubImage();
+                            if (v925)
                             {
+                              v1450 = v925;
                               fig_log_get_emitter();
                               OUTLINED_FUNCTION_1_35();
-                              FigDebugAssert3();
-                              *&v608 = 0.0;
-                              v224 = 0;
-                              v925 = 0.0;
+                              LODWORD(v1459) = v1450;
+                              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1459, v1468, v1480, v1489, v1494, v1499, v1504, v1510);
+                              *&v620 = 0.0;
+                              v226 = 0;
+                              v955 = 0.0;
                               goto LABEL_808;
                             }
 
-                            v610 = v1714;
-                            if (OUTLINED_FUNCTION_19_7(v1704, v1714, v1720, rect2d, v896, v897, v898, v899, v900, v901, v902, v903, v1417, v1427, v1439, v1448, v1453, v1458, v1463, v1469, v1475, v1482, v1486, v1490, v1495, v1502, v1505, v1508, v1514, v1517, v1521, v1523, v1526, v1530, v1533, v1536, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1543))
+                            v622 = v1755;
+                            if (OUTLINED_FUNCTION_19_7(v1745, v1755, v1761, rect2d, v925, v926, v927, v928, v929, v930, v931, v932, v1459, v1468, v1480, v1489, v1494, v1499, v1504, v1510, v1516, v1523, v1527, v1531, v1536, v1543, v1546, v1549, v1555, v1558, v1562, v1564, v1567, v1571, v1574, v1577, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1584))
                             {
                               OUTLINED_FUNCTION_20_4();
-                              rect2d = v895;
-                              v1720 = v894;
-                              v1714 = v609;
-                              v1704 = v611;
+                              rect2d = v924;
+                              v1761 = v923;
+                              v1755 = v621;
+                              v1745 = v623;
                             }
 
                             else
                             {
                               OUTLINED_FUNCTION_28_3();
-                              v1814.size.height = v895;
-                              v1859.origin.x = v1704;
-                              v1859.origin.y = v1714;
-                              v1859.size.width = v1720;
-                              v1859.size.height = rect2d;
-                              v1815 = CGRectUnion(v1814, v1859);
-                              OUTLINED_FUNCTION_6_20(v1815.origin.x, v1815.origin.y, v1815.size.width, v1815.size.height);
+                              v1855.size.height = v924;
+                              v1900.origin.x = v1745;
+                              v1900.origin.y = v1755;
+                              v1900.size.width = v1761;
+                              v1900.size.height = rect2d;
+                              v1856 = CGRectUnion(v1855, v1900);
+                              OUTLINED_FUNCTION_6_20(v1856.origin.x, v1856.origin.y, v1856.size.width, v1856.size.height);
                               OUTLINED_FUNCTION_20_4();
                             }
 
-                            v904 = &unk_1F224A7D0;
-                            *&v209 = v1670;
+                            v933 = &unk_1F224A7D0;
+                            *&v211 = v1711;
                             goto LABEL_613;
                           }
 
                           *&propertyValueOut[0].a = r2_16;
                           *&propertyValueOut[0].c = r2;
-                          CGRectMakeWithDictionaryRepresentation([v1700 objectForKeyedSubscript:v1616], propertyValueOut);
-                          CVPixelBufferGetWidth(pixelBuffer);
+                          CGRectMakeWithDictionaryRepresentation([v1741 objectForKeyedSubscript:v1657], propertyValueOut);
+                          v624 = CVPixelBufferGetWidth(pixelBuffer);
                           CVPixelBufferGetHeight(pixelBuffer);
-                          v612 = OUTLINED_FUNCTION_24_4();
-                          FigCaptureMetadataUtilitiesDenormalizeCropRect(v612, v613, v614, v615);
-                          v611 = v616;
-                          b = v617;
-                          v610 = v618;
-                          d = v619;
-                          if ((v1610 | v507))
+                          v625 = OUTLINED_FUNCTION_24_4();
+                          FigCaptureMetadataUtilitiesDenormalizeCropRect(v625, v626, v627, v628, v624, v629);
+                          v623 = v630;
+                          b = v631;
+                          v622 = v632;
+                          d = v633;
+                          if ((v1651 | v517))
                           {
-                            rect2d = *&v1626;
-                            v1720 = dicta;
-                            v1714 = v1649;
-                            v1704 = v609;
+                            rect2d = *&v1667;
+                            v1761 = dicta;
+                            v1755 = v1690;
+                            v1745 = v621;
                             goto LABEL_488;
                           }
 
-                          *&v1611 = v616;
-                          v621 = v607 * (*&v1545 / v1604);
-                          v622 = *(v16 + 228) * *(v16 + 1672);
+                          *&v1652 = v630;
+                          v635 = v619 * (*&v1586 / v1645);
+                          v636 = *(v16 + 57) * *(v16 + 418);
                           OUTLINED_FUNCTION_18_7();
-                          if (_ZF && (OUTLINED_FUNCTION_18_7(), _ZF) && (([objc_msgSend(*(v16 + 280) "firstObject")], v598 > v623) ? (v624 = v598 < v622) : (v624 = 0), v624))
+                          if (_ZF && (OUTLINED_FUNCTION_18_7(), _ZF) && (([objc_msgSend(*(v16 + 35) "firstObject")], v610 > v637) ? (v638 = v610 < v636) : (v638 = 0), v638))
                           {
-                            v1805.origin.x = v1548;
-                            v1805.origin.y = v1551;
-                            v1805.size.height = v1555;
-                            v1805.size.width = v1562;
-                            v625 = CGRectGetMaxX(v1805) < v1736.i32[0];
+                            v1846.origin.x = v1589;
+                            v1846.origin.y = v1592;
+                            *&v1846.size.height = v1596;
+                            *&v1846.size.width = v1603;
+                            v639 = CGRectGetMaxX(v1846) < v1777.i32[0];
                           }
 
                           else
                           {
-                            v625 = 0;
+                            v639 = 0;
                           }
 
-                          *&r2 = v622;
-                          *&v1528 = v607;
-                          *&v626 = v621;
-                          *&v1542 = v609;
-                          LODWORD(r2_16) = v626;
-                          if (v219)
+                          *&r2 = v636;
+                          *&v1569 = v619;
+                          *&v640 = v635;
+                          *&v1583 = v621;
+                          LODWORD(r2_16) = v640;
+                          if (v221)
                           {
-                            v627 = v1619;
-                            if (v1593)
+                            v641 = v1660;
+                            if (v1634)
                             {
-                              v627 = v1619 + (v1593 / *&v626);
+                              v641 = v1660 + (v1634 / *&v640);
                             }
 
-                            if (v625)
+                            if (v639)
                             {
-                              v627 = v627 + (v1736.i32[0] - (v1728.origin.x + v1728.size.width - v1736.i32[0] + v1736.i32[0] + 2.0)) * 0.5 / *&v626;
+                              v641 = v641 + (v1777.i32[0] - (v1769.origin.x + v1769.size.width - v1777.i32[0] + v1777.i32[0] + 2.0)) * 0.5 / *&v640;
                             }
 
                             OUTLINED_FUNCTION_18_7();
-                            if (_ZF && (OUTLINED_FUNCTION_35_3(), !(_NF ^ _VF | _ZF)) && [v1589 isEqualToString:*v628])
+                            if (_ZF && (OUTLINED_FUNCTION_35_3(), !(_NF ^ _VF | _ZF)) && objc_msgSend_isEqualToString_(v1630))
                             {
-                              v629 = FigCaptureMetadataUtilitiesNormalizedSensorCenterOffsetInValidBufferRect(a2);
-                              v631 = v630;
-                              v632 = CVPixelBufferGetWidth(pixelBuffer);
-                              *&v608 = COERCE_DOUBLE(&time);
+                              v642 = FigCaptureMetadataUtilitiesNormalizedSensorCenterOffsetInValidBufferRect(a2);
+                              v644 = v643;
+                              v645 = CVPixelBufferGetWidth(pixelBuffer);
+                              *&v620 = COERCE_DOUBLE(&time);
                               CVPixelBufferGetHeight(pixelBuffer);
-                              v627 = v627 - FigCaptureMetadataUtilitiesDenormalizePoint(v629, v631, v632);
-                              v634 = v1618 - v633;
+                              v641 = v641 - FigCaptureMetadataUtilitiesDenormalizePoint(v642, v644, v645);
+                              v647 = v1659 - v646;
                             }
 
                             else
                             {
-                              v634 = v1618;
+                              v647 = v1659;
                             }
 
-                            v683 = psn_pixelBufferRect(pixelBuffer);
-                            psn_widerCameraBoundingRect(*(v16 + 268), v683, v684, v685, v686, *(&v1532 + 1) / *(v16 + 304), v1671, v1661, *&v1532);
+                            v696 = psn_pixelBufferRect(pixelBuffer);
+                            psn_widerCameraBoundingRect(*(v16 + 268), v696, v697, v698, v699, *(&v1573 + 1) / *(v16 + 76), v1712, v1702, *&v1573);
                             OUTLINED_FUNCTION_18_7();
-                            v1654 = v688;
-                            v1643 = v690;
-                            v1636 = v687;
-                            *&v1612 = v689;
-                            if (_ZF && ((*&v687 = v1671 / v1695, *(v16 + 304) > 1.0) ? (v692 = *&v687 < 1.0) : (v692 = 0), v692))
+                            v1695 = v701;
+                            v1684 = v703;
+                            v1677 = v700;
+                            *&v1653 = v702;
+                            if (_ZF && ((*&v700 = v1712 / v1736, *(v16 + 76) > 1.0) ? (v705 = *&v700 < 1.0) : (v705 = 0), v705))
                             {
-                              v785 = *&v687;
-                              *&time.a = v1569;
-                              *&time.c = *v1567;
-                              *lhs = v1569;
-                              *&lhs[16] = *v1567;
+                              v798 = *&v700;
+                              *&time.a = v1610;
+                              *&time.c = *v1608;
+                              *lhs = v1610;
+                              *&lhs[16] = *v1608;
                               OUTLINED_FUNCTION_55_2();
                               OUTLINED_FUNCTION_112_1();
-                              [(BWPreviewStitcherNode *)v786 _getInputRect:v787 outputRect:v788 inputShiftAppliedInOutputRect:v789 toTransferPixelBuffer:v790 rect:v791 intoPixelBufferDimensions:v792 rect:v793 withInputShift:v794 shiftOutsideBoundingRectAllowed:v795 ignoreBounds:v796 scale:v797 forFinalOutput:v798, v799, v800, v801, v627, v634, *&v626, 1u];
-                              *lhs = OUTLINED_FUNCTION_41_3((v16 + 416), *lhs);
-                              *&lhs[8] = v802;
-                              *&lhs[16] = v803;
-                              *&lhs[24] = v804;
-                              v805 = FigCaptureMetadataUtilitiesScaleRect2D(*lhs, v802, v803, v804, 1.0 / v785);
-                              v807 = v806;
-                              v388 = v808;
-                              v209 = v809;
+                              [(BWPreviewStitcherNode *)v799 _getInputRect:v800 outputRect:v801 inputShiftAppliedInOutputRect:v802 toTransferPixelBuffer:v803 rect:v804 intoPixelBufferDimensions:v805 rect:v806 withInputShift:v807 shiftOutsideBoundingRectAllowed:v808 ignoreBounds:v809 scale:v810 forFinalOutput:v811, v812, v813, v814, v641, v647, *&v640, 1u];
+                              *lhs = OUTLINED_FUNCTION_41_3(v16 + 26, *lhs);
+                              *&lhs[8] = v815;
+                              *&lhs[16] = v816;
+                              *&lhs[24] = v817;
+                              v818 = FigCaptureMetadataUtilitiesScaleRect2D(*lhs, v815, v816, v817, 1.0 / v798);
+                              v820 = v819;
+                              v398 = v821;
+                              v211 = v822;
                               OUTLINED_FUNCTION_75_0();
-                              [(BWPreviewStitcherNode *)v16 _compensateForMissingFOVUsingPixelBuffer:v1609 sourceRect:v810 destinationContainingRect:v811 destinationInsetRect:v812 outputPixelBuffer:v813, v814, v815, v816, v817, v818, v805, v807, v388, v209, *lhs, *&lhs[8], *&lhs[16], *&lhs[24]];
-                              v609 = *&v1542;
+                              [(BWPreviewStitcherNode *)v16 _compensateForMissingFOVUsingPixelBuffer:v1650 sourceRect:v823 destinationContainingRect:v824 destinationInsetRect:v825 outputPixelBuffer:v826, v827, v828, v829, v830, v831, v818, v820, v398, v211, *lhs, *&lhs[8], *&lhs[16], *&lhs[24]];
+                              v621 = *&v1583;
                               OUTLINED_FUNCTION_27_2();
-                              if (CGRectEqualToRect(v1806, v1855))
+                              if (CGRectEqualToRect(v1847, v1896))
                               {
-                                v1720 = v388;
-                                rect2d = v209;
-                                v1704 = v805;
-                                v1714 = v807;
+                                v1761 = v398;
+                                rect2d = v211;
+                                v1745 = v818;
+                                v1755 = v820;
                               }
 
                               else
                               {
                                 OUTLINED_FUNCTION_27_2();
-                                v1808 = CGRectUnion(v1807, v1856);
-                                OUTLINED_FUNCTION_6_20(v1808.origin.x, v1808.origin.y, v1808.size.width, v1808.size.height);
+                                v1849 = CGRectUnion(v1848, v1897);
+                                OUTLINED_FUNCTION_6_20(v1849.origin.x, v1849.origin.y, v1849.size.width, v1849.size.height);
                               }
 
-                              v598 = v1671;
-                              v611 = time.a;
-                              v819 = OUTLINED_FUNCTION_56_1(time.a - v1636, time.b - v1654);
-                              v1696 = v821;
-                              v822 = OUTLINED_FUNCTION_56_1(v819, v820 + *&v1612 - (v611 + v821));
-                              d = v824;
-                              v826 = OUTLINED_FUNCTION_14_7(v822, v823 + v1643 - (v825 + v824));
+                              v610 = v1712;
+                              v623 = time.a;
+                              v832 = OUTLINED_FUNCTION_56_1(time.a - v1677, time.b - v1695);
+                              v1737 = v834;
+                              v835 = OUTLINED_FUNCTION_56_1(v832, v833 + *&v1653 - (v623 + v834));
+                              d = v837;
+                              v839 = OUTLINED_FUNCTION_14_7(v835, v836 + v1684 - (v838 + v837));
                               if (_NF)
                               {
-                                v774 = v827;
+                                v787 = v840;
                               }
 
                               else
                               {
-                                v774 = v826;
+                                v787 = v839;
                               }
                             }
 
                             else
                             {
-                              propertyValueOut[0].a = v691;
-                              OUTLINED_FUNCTION_78_1(v687, v688, v689, v690);
+                              propertyValueOut[0].a = v704;
+                              OUTLINED_FUNCTION_78_1(v700, v701, v702, v703);
                               OUTLINED_FUNCTION_55_2();
                               OUTLINED_FUNCTION_87();
-                              [(BWPreviewStitcherNode *)v693 _transferPixelBuffer:v694 rect:v695 intoPixelBuffer:v696 rect:v697 isFinalOutput:v698 withInputShift:v699 scale:v700 inputSourceRectOut:*&v627, *&v634, v626];
-                              v209 = v701;
-                              v703 = v702;
-                              v705 = v704;
-                              v388 = v706;
-                              v609 = *&v1542;
+                              [(BWPreviewStitcherNode *)v706 _transferPixelBuffer:v707 rect:v708 intoPixelBuffer:v709 rect:v710 isFinalOutput:v711 withInputShift:v712 scale:v713 inputSourceRectOut:*&v641, *&v647, v640];
+                              v211 = v714;
+                              v716 = v715;
+                              v718 = v717;
+                              v398 = v719;
+                              v621 = *&v1583;
                               OUTLINED_FUNCTION_27_2();
-                              if (CGRectEqualToRect(v1798, v1851))
+                              if (CGRectEqualToRect(v1839, v1892))
                               {
-                                v1720 = v705;
-                                rect2d = v388;
-                                v1704 = v209;
-                                v1714 = v703;
+                                v1761 = v718;
+                                rect2d = v398;
+                                v1745 = v211;
+                                v1755 = v716;
                               }
 
                               else
                               {
                                 OUTLINED_FUNCTION_27_2();
-                                v1804 = CGRectUnion(v1803, v1854);
-                                OUTLINED_FUNCTION_6_20(v1804.origin.x, v1804.origin.y, v1804.size.width, v1804.size.height);
+                                v1845 = CGRectUnion(v1844, v1895);
+                                OUTLINED_FUNCTION_6_20(v1845.origin.x, v1845.origin.y, v1845.size.width, v1845.size.height);
                               }
 
-                              v598 = v1671;
-                              v611 = propertyValueOut[0].a;
-                              v776 = OUTLINED_FUNCTION_56_1(propertyValueOut[0].a - v1636, propertyValueOut[0].b - v1654);
-                              v1696 = v778;
-                              v779 = OUTLINED_FUNCTION_56_1(v776, v777 + *&v1612 - (v611 + v778));
-                              d = v781;
-                              v783 = OUTLINED_FUNCTION_14_7(v779, v780 + v1643 - (v782 + v781));
+                              v610 = v1712;
+                              v623 = propertyValueOut[0].a;
+                              v789 = OUTLINED_FUNCTION_56_1(propertyValueOut[0].a - v1677, propertyValueOut[0].b - v1695);
+                              v1737 = v791;
+                              v792 = OUTLINED_FUNCTION_56_1(v789, v790 + *&v1653 - (v623 + v791));
+                              d = v794;
+                              v796 = OUTLINED_FUNCTION_14_7(v792, v793 + v1684 - (v795 + v794));
                               if (_NF)
                               {
-                                v774 = v784;
+                                v787 = v797;
                               }
 
                               else
                               {
-                                v774 = v783;
+                                v787 = v796;
                               }
                             }
                           }
 
                           else
                           {
-                            v1696 = v610;
-                            v653 = psn_pixelBufferRect(pixelBuffer);
-                            v1714 = v1661;
-                            propertyValueOut[0].a = psn_widerCameraBoundingRect(*(v16 + 268), v653, v654, v655, v656, *(&v1532 + 1), v598, v1661, *&v1532);
-                            OUTLINED_FUNCTION_78_1(propertyValueOut[0].a, v657, v658, v659);
-                            v1720 = *&v626;
-                            *&v1437 = v621;
-                            *&v1414 = v1653.f64[0] + (vcvtd_n_f64_s32(v1736.u32[0], 1uLL) + v1576 + 2.0) * 0.5 / *&v626 - 2.0 / *&v626;
+                            v1737 = v622;
+                            v666 = psn_pixelBufferRect(pixelBuffer);
+                            v1755 = v1702;
+                            propertyValueOut[0].a = psn_widerCameraBoundingRect(*(v16 + 268), v666, v667, v668, v669, *(&v1573 + 1), v610, v1702, *&v1573);
+                            OUTLINED_FUNCTION_78_1(propertyValueOut[0].a, v670, v671, v672);
+                            v1761 = *&v640;
+                            *&v1478 = v635;
+                            *&v1456 = v1694.f64[0] + (vcvtd_n_f64_s32(v1777.u32[0], 1uLL) + v1617 + 2.0) * 0.5 / *&v640 - 2.0 / *&v640;
                             OUTLINED_FUNCTION_55_2();
-                            v1653.f64[0] = v660;
-                            v1704 = v661;
-                            v1499 = v662;
-                            rect2d = v663;
+                            v1694.f64[0] = v673;
+                            v1745 = v674;
+                            v1540 = v675;
+                            rect2d = v676;
                             OUTLINED_FUNCTION_87();
-                            [(BWPreviewStitcherNode *)v664 _transferPixelBuffer:v665 rect:v666 intoPixelBuffer:v667 rect:v668 isFinalOutput:v669 withInputShift:v670 scale:v671 inputSourceRectOut:v1414, *&v1653.f64[1], v1437];
-                            v673 = v672;
-                            v675 = v674;
-                            v677 = v676;
-                            v679 = v678;
+                            [(BWPreviewStitcherNode *)v677 _transferPixelBuffer:v678 rect:v679 intoPixelBuffer:v680 rect:v681 isFinalOutput:v682 withInputShift:v683 scale:v684 inputSourceRectOut:v1456, *&v1694.f64[1], v1478];
+                            v686 = v685;
+                            v688 = v687;
+                            v690 = v689;
+                            v692 = v691;
                             OUTLINED_FUNCTION_122_0();
-                            if (CGRectEqualToRect(v1797, v1850))
+                            if (CGRectEqualToRect(v1838, v1891))
                             {
-                              v680 = v679;
-                              v681 = v677;
-                              v682 = v673;
+                              v693 = v692;
+                              v694 = v690;
+                              v695 = v686;
                             }
 
                             else
                             {
                               OUTLINED_FUNCTION_120();
                               OUTLINED_FUNCTION_122_0();
-                              v1800 = CGRectUnion(v1799, v1852);
-                              v682 = v1800.origin.x;
-                              v675 = v1800.origin.y;
-                              v681 = v1800.size.width;
-                              v680 = v1800.size.height;
+                              v1841 = CGRectUnion(v1840, v1893);
+                              v695 = v1841.origin.x;
+                              v688 = v1841.origin.y;
+                              v694 = v1841.size.width;
+                              v693 = v1841.size.height;
                             }
 
-                            v707 = OUTLINED_FUNCTION_24_4();
-                            v711 = v707 - v1653.f64[0];
-                            if (v707 - v1653.f64[0] >= v708 - v1704)
+                            v720 = OUTLINED_FUNCTION_24_4();
+                            v724 = v720 - v1694.f64[0];
+                            if (v720 - v1694.f64[0] >= v721 - v1745)
                             {
-                              v711 = v708 - v1704;
+                              v724 = v721 - v1745;
                             }
 
-                            v712 = OUTLINED_FUNCTION_106(v707, v708, v709, v710, v711, v1653.f64[0] + *&v1499);
-                            v716 = OUTLINED_FUNCTION_14_7(v712, v713 + rect2d - (v714 + v715));
+                            v725 = OUTLINED_FUNCTION_106(v720, v721, v722, v723, v724, v1694.f64[0] + *&v1540);
+                            v729 = OUTLINED_FUNCTION_14_7(v725, v726 + rect2d - (v727 + v728));
                             if (_NF)
                             {
-                              v716 = v717;
+                              v729 = v730;
                             }
 
-                            v1655 = v716;
+                            v1696 = v729;
                             psn_pixelBufferRect(pixelBuffer);
-                            v718 = OUTLINED_FUNCTION_54_3();
-                            propertyValueOut[0].a = psn_widerCameraBoundingRect(v718, v719, v720, v721, v722, v723, v724, v1714, v725);
-                            OUTLINED_FUNCTION_78_1(propertyValueOut[0].a, v726, v727, v728);
-                            v733 = v1736.i32[0] - (vcvtd_n_f64_s32(v1736.u32[0], 1uLL) + v1576);
-                            v734 = v675;
-                            v209 = v681;
-                            v735 = v680;
-                            if (v625)
+                            v731 = OUTLINED_FUNCTION_54_3();
+                            propertyValueOut[0].a = psn_widerCameraBoundingRect(v731, v732, v733, v734, v735, v736, v737, v1755, v738);
+                            OUTLINED_FUNCTION_78_1(propertyValueOut[0].a, v739, v740, v741);
+                            v746 = v1777.i32[0] - (vcvtd_n_f64_s32(v1777.u32[0], 1uLL) + v1617);
+                            v747 = v688;
+                            v211 = v694;
+                            v748 = v693;
+                            if (v639)
                             {
-                              v733 = v733 + v1728.origin.x + v1728.size.width - v1736.i32[0] + 2.0;
+                              v746 = v746 + v1769.origin.x + v1769.size.width - v1777.i32[0] + 2.0;
                             }
 
-                            *&v1415 = v1657.f64[0] + v733 * -0.5 / v1720;
-                            v1485 = v732;
-                            v1489 = v729;
-                            v1494 = v730;
-                            v1500 = v731;
+                            *&v1457 = v1698.f64[0] + v746 * -0.5 / v1761;
+                            v1526 = v745;
+                            v1530 = v742;
+                            v1535 = v743;
+                            v1541 = v744;
                             OUTLINED_FUNCTION_87();
-                            [(BWPreviewStitcherNode *)v736 _transferPixelBuffer:v737 rect:v738 intoPixelBuffer:v739 rect:v740 isFinalOutput:v741 withInputShift:v742 scale:v743 inputSourceRectOut:v1415, *&v1657.f64[1], r2_16];
-                            v388 = v744;
-                            v746 = v745;
-                            v748 = v747;
-                            v750 = v749;
-                            v751 = OUTLINED_FUNCTION_52_3();
-                            if (OUTLINED_FUNCTION_19_7(v751, v760, v761, v735, v752, v753, v754, v755, v756, v757, v758, v759, v1416, v1426, v1438, v1447, v1452, v1457, v1462, v1468, v1474, v1481, v1485, v1489, v1494, v1500, v1504, v1507, v1513, v1516, v1520[0], v1520[1], v1525, v1528, *&v1532, v1535, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1542))
+                            [(BWPreviewStitcherNode *)v749 _transferPixelBuffer:v750 rect:v751 intoPixelBuffer:v752 rect:v753 isFinalOutput:v754 withInputShift:v755 scale:v756 inputSourceRectOut:v1457, *&v1698.f64[1], r2_16];
+                            v398 = v757;
+                            v759 = v758;
+                            v761 = v760;
+                            v763 = v762;
+                            v764 = OUTLINED_FUNCTION_52_3();
+                            if (OUTLINED_FUNCTION_19_7(v764, v773, v774, v748, v765, v766, v767, v768, v769, v770, v771, v772, v1458, v1467, v1479, v1488, v1493, v1498, v1503, v1509, v1515, v1522, v1526, v1530, v1535, v1541, v1545, v1548, v1554, v1557, v1561[0], v1561[1], v1566, v1569, *&v1573, v1576, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1583))
                             {
-                              v1720 = v748;
-                              rect2d = v750;
-                              v1704 = v388;
-                              v1714 = v746;
+                              v1761 = v761;
+                              rect2d = v763;
+                              v1745 = v398;
+                              v1755 = v759;
                             }
 
                             else
                             {
-                              v1801.origin.x = v388;
-                              v1801.origin.y = v746;
-                              v1801.size.width = v748;
-                              v1801.size.height = v750;
-                              v1853.origin.x = v682;
-                              v1853.origin.y = v734;
-                              v1853.size.width = v209;
-                              v1853.size.height = v735;
-                              v1802 = CGRectUnion(v1801, v1853);
-                              OUTLINED_FUNCTION_6_20(v1802.origin.x, v1802.origin.y, v1802.size.width, v1802.size.height);
+                              v1842.origin.x = v398;
+                              v1842.origin.y = v759;
+                              v1842.size.width = v761;
+                              v1842.size.height = v763;
+                              v1894.origin.x = v695;
+                              v1894.origin.y = v747;
+                              v1894.size.width = v211;
+                              v1894.size.height = v748;
+                              v1843 = CGRectUnion(v1842, v1894);
+                              OUTLINED_FUNCTION_6_20(v1843.origin.x, v1843.origin.y, v1843.size.width, v1843.size.height);
                             }
 
-                            v611 = *&v1611;
-                            v762 = OUTLINED_FUNCTION_24_4();
-                            v766 = v762 - *&v1488;
-                            if (v762 - *&v1488 >= v763 - *&v1498)
+                            v623 = *&v1652;
+                            v775 = OUTLINED_FUNCTION_24_4();
+                            v779 = v775 - *&v1529;
+                            if (v775 - *&v1529 >= v776 - *&v1539)
                             {
-                              v766 = v763 - *&v1498;
+                              v779 = v776 - *&v1539;
                             }
 
-                            v767 = OUTLINED_FUNCTION_106(v762, v763, v764, v765, v766, *&v1488 + *&v1484);
-                            v771 = OUTLINED_FUNCTION_14_7(v767, v768 + *&v1493 - (v769 + v770));
+                            v780 = OUTLINED_FUNCTION_106(v775, v776, v777, v778, v779, *&v1529 + *&v1525);
+                            v784 = OUTLINED_FUNCTION_14_7(v780, v781 + *&v1534 - (v782 + v783));
                             if (_NF)
                             {
-                              v771 = v772;
+                              v784 = v785;
                             }
 
-                            if (v1655 >= v771)
+                            if (v1696 >= v784)
                             {
-                              v774 = v771;
+                              v787 = v784;
                             }
 
                             else
                             {
-                              v774 = v1655;
+                              v787 = v1696;
                             }
 
-                            v598 = v1671;
-                            v609 = *&v1542;
-                            v775 = v773;
+                            v610 = v1712;
+                            v621 = *&v1583;
+                            v788 = v786;
                           }
 
-                          *&v209 = v1670;
-                          b = v775;
-                          if (!v625)
+                          *&v211 = v1711;
+                          b = v788;
+                          if (!v639)
                           {
-                            v610 = v1696;
+                            v622 = v1737;
                             goto LABEL_561;
                           }
 
-                          if (v219)
+                          if (v221)
                           {
-                            v1297 = v1619;
+                            v1333 = v1660;
                           }
 
                           else
                           {
-                            v1297 = v1657.f64[0];
+                            v1333 = v1698.f64[0];
                           }
 
-                          if (v219)
+                          if (v221)
                           {
-                            v1298 = v1618;
+                            v1334 = v1659;
                           }
 
                           else
                           {
-                            v1298 = v1657.f64[1];
+                            v1334 = v1698.f64[1];
                           }
 
-                          v1299 = v1728.origin.x;
-                          v1300 = v1728.size.width;
-                          v1301 = v1736.i32[1];
-                          if (*&v1682 > 1.0)
+                          v1335 = v1769.origin.x;
+                          v1336 = v1769.size.width;
+                          v1337 = v1777.i32[1];
+                          if (*&v1723 > 1.0)
                           {
-                            v1299 = FigCaptureMetadataUtilitiesScaleRect2D(v1728.origin.x, v1728.origin.y, v1728.size.width, v1728.size.height, 1.0 / *&v1682);
+                            v1335 = FigCaptureMetadataUtilitiesScaleRect2D(v1769.origin.x, v1769.origin.y, v1769.size.width, v1769.size.height, 1.0 / *&v1723);
                           }
 
-                          v1302 = v1299 + v1300;
-                          v610 = v1736.i32[0] - (v1299 + v1300);
-                          v388 = v1301;
+                          v1338 = v1335 + v1336;
+                          v622 = v1777.i32[0] - (v1335 + v1336);
+                          v398 = v1337;
                           psn_pixelBufferRect(pixelBuffer);
-                          v1303 = OUTLINED_FUNCTION_54_3();
-                          v1312 = psn_widerCameraBoundingRect(v1303, v1304, v1305, v1306, v1307, v1308, v1309, v1310, v1311);
-                          OUTLINED_FUNCTION_42_3(v1312, v1313, v1314, v1315);
-                          if (v1593)
+                          v1339 = OUTLINED_FUNCTION_54_3();
+                          v1348 = psn_widerCameraBoundingRect(v1339, v1340, v1341, v1342, v1343, v1344, v1345, v1346, v1347);
+                          OUTLINED_FUNCTION_42_3(v1348, v1349, v1350, v1351);
+                          if (v1634)
                           {
-                            v1297 = v1297 + (v1593 / *&r2_16);
+                            v1333 = v1333 + (v1634 / *&r2_16);
                           }
 
                           OUTLINED_FUNCTION_112_1();
-                          [(BWPreviewStitcherNode *)v1372 _getInputRect:v1373 outputRect:v1374 inputShiftAppliedInOutputRect:v1375 toTransferPixelBuffer:v1376 rect:v1377 intoPixelBufferDimensions:v1378 rect:v1379 withInputShift:v1380 shiftOutsideBoundingRectAllowed:v1381 ignoreBounds:v1382 scale:v1383 forFinalOutput:v1384, v1385, v1386, v1387, v1297 + v1302 * -0.5 / *&r2_16, v1298, *&r2_16, 1u];
-                          v1388 = v610 / (time.c * *&r2_16);
-                          v1389 = *(v16 + 228);
-                          if (v1671 >= v1389)
+                          [(BWPreviewStitcherNode *)v1408 _getInputRect:v1409 outputRect:v1410 inputShiftAppliedInOutputRect:v1411 toTransferPixelBuffer:v1412 rect:v1413 intoPixelBufferDimensions:v1414 rect:v1415 withInputShift:v1416 shiftOutsideBoundingRectAllowed:v1417 ignoreBounds:v1418 scale:v1419 forFinalOutput:v1420, v1421, v1422, v1423, v1333 + v1338 * -0.5 / *&r2_16, v1334, *&r2_16, 1u];
+                          v1424 = v622 / (time.c * *&r2_16);
+                          v1425 = *(v16 + 57);
+                          if (v1712 >= v1425)
                           {
-                            if (*&r2 >= v1671)
+                            if (*&r2 >= v1712)
                             {
-                              v1395 = v1671;
+                              v1431 = v1712;
                             }
 
                             else
                             {
-                              v1395 = *&r2;
+                              v1431 = *&r2;
                             }
 
-                            if (v1395 < v1389)
+                            if (v1431 < v1425)
                             {
-                              v1395 = *(v16 + 228);
+                              v1431 = *(v16 + 57);
                             }
 
-                            v1393 = *(v16 + 1668) + ((1.0 - *(v16 + 1668)) * ((v1395 - v1389) / (*&r2 - v1389)));
-                            if (v1393 <= v1388)
+                            v1429 = *(v16 + 417) + ((1.0 - *(v16 + 417)) * ((v1431 - v1425) / (*&r2 - v1425)));
+                            if (v1429 <= v1424)
                             {
                               goto LABEL_900;
                             }
@@ -8505,86 +8576,86 @@ LABEL_608:
 
                           else
                           {
-                            [objc_msgSend(*(v16 + 280) "firstObject")];
-                            v1391 = *(v16 + 228);
-                            if (v1391 >= v1671)
+                            [objc_msgSend(*(v16 + 35) "firstObject")];
+                            v1427 = *(v16 + 57);
+                            if (v1427 >= v1712)
                             {
-                              v1392 = v1671;
+                              v1428 = v1712;
                             }
 
                             else
                             {
-                              v1392 = *(v16 + 228);
+                              v1428 = *(v16 + 57);
                             }
 
-                            if (v1392 < v1390)
+                            if (v1428 < v1426)
                             {
-                              v1392 = v1390;
+                              v1428 = v1426;
                             }
 
-                            v1393 = ((*(v16 + 1668) + -1.0) * ((v1392 - v1390) / (v1391 - v1390))) + 1.0;
-                            if (v1393 <= v1388)
+                            v1429 = ((*(v16 + 417) + -1.0) * ((v1428 - v1426) / (v1427 - v1426))) + 1.0;
+                            if (v1429 <= v1424)
                             {
-                              v1394 = time.c * *&r2_16 * v1393;
-                              v610 = FigCaptureRoundFloatToMultipleOf(2, v1394);
+                              v1430 = time.c * *&r2_16 * v1429;
+                              v622 = FigCaptureRoundFloatToMultipleOf(2, v1430);
                               goto LABEL_900;
                             }
                           }
 
-                          v1396 = v610 / (v1393 * *&r2_16);
-                          time.c = FigCaptureRoundFloatToMultipleOf(2, v1396);
+                          v1432 = v622 / (v1429 * *&r2_16);
+                          time.c = FigCaptureRoundFloatToMultipleOf(2, v1432);
 LABEL_900:
-                          psn_conformRectForMSR420vfBoundedByDimensions(v1302, 0.0, v610, v388, *&v1736, 1);
-                          v1398 = OUTLINED_FUNCTION_41_3((v16 + 416), v1397);
-                          if (v1400 <= 0.0 || (v611 = v1401, v1401 <= 0.0))
+                          psn_conformRectForMSR420vfBoundedByDimensions(v1338, 0.0, v622, v398, *&v1777, 1);
+                          v1434 = OUTLINED_FUNCTION_41_3(v16 + 26, v1433);
+                          if (v1436 <= 0.0 || (v623 = v1437, v1437 <= 0.0))
                           {
-                            v598 = v1671;
-                            v611 = rect2d;
-                            v609 = v1720;
+                            v610 = v1712;
+                            v623 = rect2d;
+                            v621 = v1761;
                           }
 
                           else
                           {
-                            v388 = v1398;
-                            v610 = v1399;
-                            v609 = v1400;
-                            v598 = v1671;
+                            v398 = v1434;
+                            v622 = v1435;
+                            v621 = v1436;
+                            v610 = v1712;
                             OUTLINED_FUNCTION_75_0();
                             VTPixelRotationSessionRotateSubImage();
                             OUTLINED_FUNCTION_82_0();
-                            if (OUTLINED_FUNCTION_19_7(v1410, v1411, v1412, rect2d, v1402, v1403, v1404, v1405, v1406, v1407, v1408, v1409, v1413, v1424, v1435, v1447, v1452, v1457, v1462, v1468, v1474, v1481, v1484, v1488, v1493, v1498, v1504, v1507, v1513, v1516, v1520[0], v1520[1], v1525, v1528, *&v1532, v1535, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1542))
+                            if (OUTLINED_FUNCTION_19_7(v1446, v1447, v1448, rect2d, v1438, v1439, v1440, v1441, v1442, v1443, v1444, v1445, v1455, v1465, v1476, v1488, v1493, v1498, v1503, v1509, v1515, v1522, v1525, v1529, v1534, v1539, v1545, v1548, v1554, v1557, v1561[0], v1561[1], v1566, v1569, *&v1573, v1576, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1583))
                             {
-                              v1714 = v610;
-                              v1704 = v388;
+                              v1755 = v622;
+                              v1745 = v398;
                             }
 
                             else
                             {
-                              v1844.origin.x = OUTLINED_FUNCTION_36_4();
-                              v1844.size.width = v609;
-                              v1844.size.height = v611;
-                              v1869.origin.x = v1704;
-                              v1869.origin.y = v1714;
-                              v1869.size.width = v209;
-                              v1869.size.height = rect2d;
-                              v1845 = CGRectUnion(v1844, v1869);
-                              v1704 = v1845.origin.x;
-                              v1714 = v1845.origin.y;
-                              v609 = v1845.size.width;
-                              v611 = v1845.size.height;
+                              v1885.origin.x = OUTLINED_FUNCTION_36_4();
+                              v1885.size.width = v621;
+                              v1885.size.height = v623;
+                              v1910.origin.x = v1745;
+                              v1910.origin.y = v1755;
+                              v1910.size.width = v211;
+                              v1910.size.height = rect2d;
+                              v1886 = CGRectUnion(v1885, v1910);
+                              v1745 = v1886.origin.x;
+                              v1755 = v1886.origin.y;
+                              v621 = v1886.size.width;
+                              v623 = v1886.size.height;
                             }
 
-                            *&v209 = v1670;
+                            *&v211 = v1711;
                           }
 
-                          rect2d = v611;
-                          v1720 = v609;
+                          rect2d = v623;
+                          v1761 = v621;
                           OUTLINED_FUNCTION_49_2();
 LABEL_561:
-                          BWSmartCameraSceneUpdateWithConfidence(v16 + 1360, v774 * *&r2_16);
-                          v458 = *&v1682;
-                          v607 = *&v1528;
-                          if (v219)
+                          BWSmartCameraSceneUpdateWithConfidence(v16 + 1360, v787 * *&r2_16);
+                          v468 = *&v1723;
+                          v619 = *&v1569;
+                          if (v221)
                           {
                             goto LABEL_489;
                           }
@@ -8592,141 +8663,141 @@ LABEL_561:
                           goto LABEL_562;
                         }
 
-                        v600 = 1;
+                        v612 = 1;
                       }
 
-                      *(v16 + 1354) = v600;
+                      *(v16 + 1354) = v612;
                       goto LABEL_466;
                     }
 
-                    v21 = v1671;
-                    *&v209 = v1670;
-                    v176 = v1694;
+                    v21 = v1712;
+                    *&v211 = v1711;
+                    v178 = v1735;
                   }
 
                   else
                   {
-                    v422 = OUTLINED_FUNCTION_8_18();
-                    v426 = psn_smallestBoundingRectAlignedToMultipleOf(2, 0, v422, v423, v424, v425);
-                    OUTLINED_FUNCTION_23_3(v426, v427, v428, v429);
-                    OUTLINED_FUNCTION_40_4();
-                    v436 = psn_conformRectForMSR420vfBoundedByRect(1, v430, v431, v432, v433, v434, v435, v374, v1711);
+                    v432 = OUTLINED_FUNCTION_8_18();
+                    v436 = psn_smallestBoundingRectAlignedToMultipleOf(2, 0, v432, v433, v434, v435);
                     OUTLINED_FUNCTION_23_3(v436, v437, v438, v439);
-                    v444 = a2;
+                    OUTLINED_FUNCTION_40_4();
+                    v446 = psn_conformRectForMSR420vfBoundedByRect(1, v440, v441, v442, v443, v444, v445, v384, v1752);
+                    OUTLINED_FUNCTION_23_3(v446, v447, v448, v449);
+                    v454 = a2;
                   }
 
-                  v445 = rect2b;
+                  v455 = rect2b;
                   goto LABEL_353;
                 }
               }
 
-              v221 = [v1722 objectForKeyedSubscript:v1620];
+              v223 = [v1763 objectForKeyedSubscript:v1661];
               if (*(v16 + 1291))
               {
-                v222 = v1721;
-                v223 = *&v1623;
-                v224 = cameraCopy2;
+                v224 = v1762;
+                v225 = *&v1664;
+                v226 = cameraCopy2;
               }
 
               else
               {
-                v225 = v221;
-                v222 = v1721;
-                v223 = *&v1623;
-                v224 = cameraCopy2;
-                if (([v221 isEqual:*off_1E798A0E0] & 1) != 0 || objc_msgSend(v225, "isEqual:", *off_1E798A0F8))
+                v227 = v223;
+                v224 = v1762;
+                v225 = *&v1664;
+                v226 = cameraCopy2;
+                if (([v223 isEqual:*off_1E798A0E0] & 1) != 0 || objc_msgSend(v227, "isEqual:", *off_1E798A0F8))
                 {
-                  v226 = CMGetAttachment(cameraCopy2, @"TotalZoomFactor", 0);
-                  if (v226)
+                  v228 = CMGetAttachment(cameraCopy2, @"TotalZoomFactor", 0);
+                  if (v228)
                   {
-                    [v226 floatValue];
-                    v228 = v227;
+                    [v228 floatValue];
+                    v230 = v229;
                   }
 
                   else
                   {
-                    v228 = 1.0;
+                    v230 = 1.0;
                   }
 
-                  v223 = *&v1623 / v228;
+                  v225 = *&v1664 / v230;
                 }
               }
 
-              v256 = 1.0;
+              v262 = 1.0;
               if (*(v16 + 1291) == 1)
               {
-                v256 = 1.0 / v223;
-                v223 = 1.0;
+                v262 = 1.0 / v225;
+                v225 = 1.0;
               }
 
-              v257 = *(v16 + 1760);
-              if (fabs(v257 + -1.77777778) < 0.001 || fabs(v257 + -0.5625) < 0.001)
+              v263 = *(v16 + 220);
+              if (fabs(v263 + -1.77777778) < 0.001 || fabs(v263 + -0.5625) < 0.001)
               {
-                v260 = OUTLINED_FUNCTION_84_0();
-                if (v260 && [v260 isRamping])
+                v266 = OUTLINED_FUNCTION_84_0();
+                if (v266 && [v266 isRamping])
                 {
                   [OUTLINED_FUNCTION_84_0() currentValue];
-                  if (v261 > 1.0)
+                  if (v267 > 1.0)
                   {
-                    v261 = 1.0;
+                    v267 = 1.0;
                   }
 
-                  if (v261 < 0.0)
+                  if (v267 < 0.0)
                   {
-                    v261 = 0.0;
+                    v267 = 0.0;
                   }
 
-                  v262 = v223;
-                  v1661 = v256 + ((v262 - v256) * v261);
+                  v268 = v225;
+                  v1702 = v262 + ((v268 - v262) * v267);
                   isRampingUp2 = [OUTLINED_FUNCTION_84_0() isRampingUp];
                   [OUTLINED_FUNCTION_84_0() updateRampForNextIteration];
                   if (isRampingUp2 && ([OUTLINED_FUNCTION_84_0() isRamping] & 1) == 0)
                   {
 
-                    *(v16 + 1824) = 0;
+                    *(v16 + 228) = 0;
                   }
                 }
               }
 
               else
               {
-                if (*&v209 <= 1.0)
+                if (*&v211 <= 1.0)
                 {
-                  v258 = 1.0 / *&v209;
+                  v264 = 1.0 / *&v211;
                 }
 
                 else
                 {
-                  v258 = *&v209;
+                  v264 = *&v211;
                 }
 
-                if (v258 > 1.7778)
+                if (v264 > 1.7778)
                 {
-                  v258 = 1.7778;
+                  v264 = 1.7778;
                 }
 
-                if (v258 < 1.3333)
+                if (v264 < 1.3333)
                 {
-                  v258 = 1.3333;
+                  v264 = 1.3333;
                 }
 
-                v259 = v223;
-                v1661 = v256 + ((v259 - v256) * ((v258 + -1.3333) / 0.44444));
+                v265 = v225;
+                v1702 = v262 + ((v265 - v262) * ((v264 + -1.3333) / 0.44444));
               }
 
-              v264 = *(v16 + 1291);
-              if (((v264 | v1601) & 1) == 0)
+              v270 = *(v16 + 1291);
+              if (((v270 | v1642) & 1) == 0)
               {
-                v291 = FigCaptureMetadataUtilitiesRectWithAspectRatioInsideDimensions(recta.size.width, recta.size.height, *&v209);
-                OUTLINED_FUNCTION_4_25(v291, v292, v293, v294);
-                [v1722 objectForKeyedSubscript:*off_1E798A6F0];
+                v297 = FigCaptureMetadataUtilitiesRectWithAspectRatioInsideDimensions(recta.size.width, recta.size.height, *&v211);
+                OUTLINED_FUNCTION_4_25(v297, v298, v299, v300);
+                [v1763 objectForKeyedSubscript:*off_1E798A6F0];
                 if (*(v16 + 1921))
                 {
-                  CVPixelBufferGetWidth(v222);
-                  CVPixelBufferGetHeight(v222);
-                  v295 = OUTLINED_FUNCTION_0_29();
-                  v299 = OUTLINED_FUNCTION_96_0(v295, v296, v297, v298);
-                  OUTLINED_FUNCTION_4_25(v299, v300, v301, v302);
+                  CVPixelBufferGetWidth(v224);
+                  CVPixelBufferGetHeight(v224);
+                  v301.n128_f64[0] = OUTLINED_FUNCTION_0_29();
+                  v309 = OUTLINED_FUNCTION_96_0(v301, v302, v303, v304, v305, v306, v307, v308);
+                  OUTLINED_FUNCTION_4_25(v309, v310, v311, v312);
                 }
 
                 else
@@ -8737,335 +8808,335 @@ LABEL_561:
                 OUTLINED_FUNCTION_85_1();
                 size = recta.size;
                 origin = recta.origin;
-                FigCaptureMetadataUtilitiesScaleRect2D(v314, v315, v316, v317, 1.0 / (v1702 * v1661));
-                *&v319.f64[0] = v318;
-                *&v319.f64[1] = v320;
+                FigCaptureMetadataUtilitiesScaleRect2D(v324, v325, v326, v327, 1.0 / (v1743 * v1702));
+                *&v329.f64[0] = v328;
+                *&v329.f64[1] = v330;
                 __asm { FMOV            V1.2D, #0.5 }
 
-                v1730 = vaddq_f64(origin, vmulq_f64(vsubq_f64(size, v319), _Q1));
-                v1731[0] = v318;
-                v1731[1] = v320;
-                v245 = 1.0;
+                v1771 = vaddq_f64(origin, vmulq_f64(vsubq_f64(size, v329), _Q1));
+                v1772[0] = v328;
+                v1772[1] = v330;
+                v251 = 1.0;
 LABEL_284:
-                v254 = primaryCaptureRectCenterYPixelOffset;
-                v255 = v1673;
+                v260 = primaryCaptureRectCenterYPixelOffset;
+                v261 = v1714;
                 goto LABEL_306;
               }
 
-              v265 = OUTLINED_FUNCTION_0_29();
-              v271 = recta.origin.x;
-              v270 = recta.origin.y;
-              v272 = recta.size.width;
-              v273 = recta.size.height;
-              v274 = recta.size.height / v268;
-              if (recta.size.width / v267 < recta.size.height / v268)
+              v271 = OUTLINED_FUNCTION_0_29();
+              v277 = recta.origin.x;
+              v276 = recta.origin.y;
+              v278 = recta.size.width;
+              v279 = recta.size.height;
+              v280 = recta.size.height / v274;
+              if (recta.size.width / v273 < recta.size.height / v274)
               {
-                v274 = recta.size.width / v267;
+                v280 = recta.size.width / v273;
               }
 
-              v275 = v269;
-              v1511 = *&v275;
-              if (v274 > v275)
+              v281 = v275;
+              v1552 = *&v281;
+              if (v280 > v281)
               {
-                v274 = v275;
+                v280 = v281;
               }
 
-              v1546 = *&v268;
-              v1549 = *&v267;
-              FigCaptureMetadataUtilitiesScaleRect2D(v265, v266, v267, v268, v274);
-              v1709 = v277;
-              v279 = v278;
-              v280 = v278 / v276;
-              v281 = *&v209;
-              v282 = v280;
-              if (*&v209 <= 1.0)
+              v1587 = *&v274;
+              v1590 = *&v273;
+              FigCaptureMetadataUtilitiesScaleRect2D(v271, v272, v273, v274, v280);
+              v1750 = v283;
+              v285 = v284;
+              v286 = v284 / v282;
+              v287 = *&v211;
+              v288 = v286;
+              if (*&v211 <= 1.0)
               {
-                v287 = v279 * v281 / v282;
-                v303 = *&v209 < v280 || v287 <= v272;
-                v1582 = v276;
-                v219 = v1651;
-                LODWORD(v220) = v1675;
-                v288 = v272;
-                v290 = v276;
-                if (!v303)
+                v293 = v285 * v287 / v288;
+                v313 = *&v211 < v286 || v293 <= v278;
+                v1623 = v282;
+                v221 = v1692;
+                LODWORD(v222) = isEqualToString;
+                v294 = v278;
+                v296 = v282;
+                if (!v313)
                 {
-                  v287 = v288;
-                  v1582 = v288 / v281;
+                  v293 = v294;
+                  v1623 = v294 / v287;
                 }
               }
 
               else
               {
-                v283 = *&v209 <= v280;
-                v284 = v276 * v282 / v281;
-                v285 = v284 > v273;
-                v286 = v273 * v281;
-                if (v283 && v285)
+                v289 = *&v211 <= v286;
+                v290 = v282 * v288 / v287;
+                v291 = v290 > v279;
+                v292 = v279 * v287;
+                if (v289 && v291)
                 {
-                  v284 = v273;
+                  v290 = v279;
                 }
 
-                v1582 = v284;
-                if (v283 && v285)
+                v1623 = v290;
+                if (v289 && v291)
                 {
-                  v287 = v286;
+                  v293 = v292;
                 }
 
                 else
                 {
-                  v287 = v279;
+                  v293 = v285;
                 }
 
                 OUTLINED_FUNCTION_85_1();
-                v288 = v272;
-                v290 = v289;
+                v294 = v278;
+                v296 = v295;
               }
 
-              *&v1602 = v288;
-              v1761.origin.x = OUTLINED_FUNCTION_30_1();
-              v1761.size.height = v273;
-              v1559 = CGRectGetMinX(v1761);
-              v1762.origin.x = OUTLINED_FUNCTION_30_1();
-              v1762.size.height = v273;
-              v304 = CGRectGetMaxX(v1762) - v287;
-              v1599 = v270;
+              *&v1643 = v294;
+              v1802.origin.x = OUTLINED_FUNCTION_30_1();
+              v1802.size.height = v279;
+              v1600 = CGRectGetMinX(v1802);
+              v1803.origin.x = OUTLINED_FUNCTION_30_1();
+              v1803.size.height = v279;
+              v314 = CGRectGetMaxX(v1803) - v293;
+              v1640 = v276;
               OUTLINED_FUNCTION_102();
-              *&v1586 = v271;
-              v305 = v1709;
+              *&v1627 = v277;
+              v315 = v1750;
               OUTLINED_FUNCTION_37_5();
-              v306 = CGRectGetMidX(v1763) - v287 * 0.5;
-              v1624 = *&v273;
-              if (v304 >= v306)
+              v316 = CGRectGetMidX(v1804) - v293 * 0.5;
+              v1665 = *&v279;
+              if (v314 >= v316)
               {
                 OUTLINED_FUNCTION_37_5();
-                v313 = CGRectGetMidX(v1765) - v287 * 0.5;
-                v305 = *&v1586;
-                v304 = *&v1602;
+                v323 = CGRectGetMidX(v1806) - v293 * 0.5;
+                v315 = *&v1627;
+                v314 = *&v1643;
               }
 
               else
               {
-                v1764.origin.x = OUTLINED_FUNCTION_63_0(v306, 0.5, v307, v308, v309, v310, v311, v312, *&v1413, *&v1424, *&v1435, *&v1447, *&v1452, *&v1457, *&v1462, *&v1468, *&v1474, *&v1481, *&v1484, *&v1488, *&v1493, *&v1498, v11, *&v1507, *&v1511, *&v1516, *v1520, *&v1520[1], *&v1525, *&v1528, v1532, *&v1535, 1.0, 1.0, 0.0, 0.0, *&v1540, *&v1541, v1545, *&v1546, *&v1549, *&v1552, v1559, *&fencePortGenerationCount, *&outCopy, *&croppingOutCopy, *v1567, *&v1567[1], v1569.x, v1569.y, *&v1570, *&v1572, *v1573, *&v1573[1], *&v1579, v1582, *&v1586);
-                v1764.size.height = v273;
-                v313 = CGRectGetMaxX(v1764) - v287;
+                v1805.origin.x = OUTLINED_FUNCTION_63_0(v316, 0.5, v317, v318, v319, v320, v321, v322, *&v1455, *&v1465, *&v1476, *&v1488, *&v1493, *&v1498, *&v1503, *&v1509, *&v1515, *&v1522, *&v1525, *&v1529, *&v1534, *&v1539, *&v11, *&v1548, *&v1552, *&v1557, *v1561, *&v1561[1], *&v1566, *&v1569, v1573, *&v1576, 1.0, 1.0, 0.0, 0.0, *&v1581, *&v1582, v1586, *&v1587, *&v1590, *&v1593, v1600, *&fencePortGenerationCount, *&outCopy, *&croppingOutCopy, *v1608, *&v1608[1], v1610.x, v1610.y, *&v1611, *&v1613, *v1614, *&v1614[1], *&v1620, v1623, *&v1627);
+                v1805.size.height = v279;
+                v323 = CGRectGetMaxX(v1805) - v293;
               }
 
-              *v1573 = v287;
-              if (v1559 <= v313)
+              *v1614 = v293;
+              if (v1600 <= v323)
               {
-                v1767.origin.x = v305;
-                v1767.origin.y = v270;
-                v1767.size.width = v304;
-                v323 = v273;
-                v1767.size.height = v273;
-                v325 = CGRectGetMaxX(v1767) - v287;
-                v1768.origin.x = OUTLINED_FUNCTION_102();
-                v305 = v1709;
-                v1768.origin.y = v1709;
-                v1768.size.width = v279;
-                v1768.size.height = v290;
-                v326 = CGRectGetMidX(v1768) - v287 * 0.5;
-                if (v325 >= v326)
+                v1808.origin.x = v315;
+                v1808.origin.y = v276;
+                v1808.size.width = v314;
+                v333 = v279;
+                v1808.size.height = v279;
+                v335 = CGRectGetMaxX(v1808) - v293;
+                v1809.origin.x = OUTLINED_FUNCTION_102();
+                v315 = v1750;
+                v1809.origin.y = v1750;
+                v1809.size.width = v285;
+                v1809.size.height = v296;
+                v336 = CGRectGetMidX(v1809) - v293 * 0.5;
+                if (v335 >= v336)
                 {
-                  v1770.origin.x = OUTLINED_FUNCTION_50_2();
-                  v1770.size.height = v290;
-                  v1560 = CGRectGetMidX(v1770) - v287 * 0.5;
-                  v305 = *&v1586;
+                  v1811.origin.x = OUTLINED_FUNCTION_50_2();
+                  v1811.size.height = v296;
+                  v1601 = CGRectGetMidX(v1811) - v293 * 0.5;
+                  v315 = *&v1627;
                   goto LABEL_292;
                 }
 
-                v1769.origin.x = OUTLINED_FUNCTION_63_0(v326, v327, v328, v329, v330, v331, v332, v333, *&v1413, *&v1424, *&v1435, *&v1447, *&v1452, *&v1457, *&v1462, *&v1468, *&v1474, *&v1481, *&v1484, *&v1488, *&v1493, *&v1498, *&v1504, *&v1507, *&v1511, *&v1516, *v1520, *&v1520[1], *&v1525, *&v1528, v1532, *&v1535, *&r2, *(&r2 + 1), *&r2_16, *(&r2_16 + 1), *&v1540, *&v1541, v1545, *&v1546, *&v1549, *&v1552, v1559, *&fencePortGenerationCount, *&outCopy, *&croppingOutCopy, *v1567, *&v1567[1], v1569.x, v1569.y, *&v1570, *&v1572, v287, *&v1573[1], *&v1579, v1582, *&v1586);
-                v1769.size.height = v273;
-                v324 = CGRectGetMaxX(v1769) - v287;
+                v1810.origin.x = OUTLINED_FUNCTION_63_0(v336, v337, v338, v339, v340, v341, v342, v343, *&v1455, *&v1465, *&v1476, *&v1488, *&v1493, *&v1498, *&v1503, *&v1509, *&v1515, *&v1522, *&v1525, *&v1529, *&v1534, *&v1539, *&v1545, *&v1548, *&v1552, *&v1557, *v1561, *&v1561[1], *&v1566, *&v1569, v1573, *&v1576, *&r2, *(&r2 + 1), *&r2_16, *(&r2_16 + 1), *&v1581, *&v1582, v1586, *&v1587, *&v1590, *&v1593, v1600, *&fencePortGenerationCount, *&outCopy, *&croppingOutCopy, *v1608, *&v1608[1], v1610.x, v1610.y, *&v1611, *&v1613, v293, *&v1614[1], *&v1620, v1623, *&v1627);
+                v1810.size.height = v279;
+                v334 = CGRectGetMaxX(v1810) - v293;
               }
 
               else
               {
-                v1766.origin.x = OUTLINED_FUNCTION_30_1();
-                v323 = v273;
-                v1766.size.height = v273;
-                v324 = CGRectGetMinX(v1766);
+                v1807.origin.x = OUTLINED_FUNCTION_30_1();
+                v333 = v279;
+                v1807.size.height = v279;
+                v334 = CGRectGetMinX(v1807);
               }
 
-              v1560 = v324;
+              v1601 = v334;
 LABEL_292:
-              v1771.origin.x = OUTLINED_FUNCTION_30_1();
-              v1771.size.height = v323;
-              v1553 = CGRectGetMinY(v1771);
-              v1772.origin.x = OUTLINED_FUNCTION_30_1();
-              v1772.size.height = v323;
-              v334 = v1582;
-              v335 = CGRectGetMaxY(v1772) - v1582;
-              v336 = OUTLINED_FUNCTION_102();
-              if (v335 >= OUTLINED_FUNCTION_95_1(v336, v337, v338, v339, v340, v341, v342, v343, v344, v1413, v1424, v1435, v1447, v1452, v1457, v1462, v1468, v1474, v1481, v1484, v1488, v1493, v1498, v1504, v1507, v1511, v1516, v1520[0], v1520[1], v1525, v1528, *&v1532, v1535, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1541, *&v1545, v1546, v1549, v1553, *&v1560, fencePortGenerationCount, outCopy, croppingOutCopy, v1567[0], v1567[1], *&v1569.x, *&v1569.y, v1570, v1572, v1573[0], v1573[1], v1579, *&v1582, v1586, v1589, *&v290, *&v279) - v334 * 0.5)
+              v1812.origin.x = OUTLINED_FUNCTION_30_1();
+              v1812.size.height = v333;
+              v1594 = CGRectGetMinY(v1812);
+              v1813.origin.x = OUTLINED_FUNCTION_30_1();
+              v1813.size.height = v333;
+              v344 = v1623;
+              v345 = CGRectGetMaxY(v1813) - v1623;
+              v346 = OUTLINED_FUNCTION_102();
+              if (v345 >= OUTLINED_FUNCTION_95_1(v346, v347, v348, v349, v350, v351, v352, v353, v354, v1455, v1465, v1476, v1488, v1493, v1498, v1503, v1509, v1515, v1522, v1525, v1529, v1534, v1539, v1545, v1548, v1552, v1557, v1561[0], v1561[1], v1566, v1569, *&v1573, v1576, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1582, *&v1586, v1587, v1590, v1594, *&v1601, fencePortGenerationCount, outCopy, croppingOutCopy, v1608[0], v1608[1], *&v1610.x, *&v1610.y, v1611, v1613, v1614[0], v1614[1], v1620, *&v1623, v1627, v1630, *&v296, *&v285) - v344 * 0.5)
               {
-                v1774.origin.x = OUTLINED_FUNCTION_50_2();
-                v1774.size.height = v287;
-                v347 = CGRectGetMidY(v1774) - v334 * 0.5;
-                v345 = v270;
-                v346 = *&v1602;
+                v1815.origin.x = OUTLINED_FUNCTION_50_2();
+                v1815.size.height = v293;
+                v357 = CGRectGetMidY(v1815) - v344 * 0.5;
+                v355 = v276;
+                v356 = *&v1643;
               }
 
               else
               {
-                v1773.origin.x = v305;
-                v345 = v270;
-                v1773.origin.y = v270;
-                v346 = *&v1602;
-                *&v1773.size.width = v1602;
-                *&v1773.size.height = v1624;
-                v347 = CGRectGetMaxY(v1773) - v334;
+                v1814.origin.x = v315;
+                v355 = v276;
+                v1814.origin.y = v276;
+                v356 = *&v1643;
+                *&v1814.size.width = v1643;
+                *&v1814.size.height = v1665;
+                v357 = CGRectGetMaxY(v1814) - v344;
               }
 
-              v348 = v334;
-              if (*&v1554 <= v347)
+              v358 = v344;
+              if (*&v1595 <= v357)
               {
-                v1776.origin.x = v305;
-                v351 = v334 * 0.5;
-                v1776.origin.y = v345;
-                v1776.size.width = v346;
-                *&v1776.size.height = v1624;
-                v352 = CGRectGetMaxY(v1776) - v348;
-                v353 = OUTLINED_FUNCTION_102();
-                if (v352 >= OUTLINED_FUNCTION_95_1(v353, v354, v355, v356, v357, v358, v359, v360, v361, v1413, v1424, v1435, v1447, v1452, v1457, v1462, v1468, v1474, v1481, v1484, v1488, v1493, v1498, v1504, v1507, v1512, v1516, v1520[0], v1520[1], v1525, v1528, *&v1532, v1535, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1540, v1541, *&v1545, v1547, v1550, v1554, v1561, fencePortGenerationCount, outCopy, croppingOutCopy, v1567[0], v1567[1], *&v1569.x, *&v1569.y, v1571, v1572, v1574, v1578, v1580, v1583, v1587, v1589, v1592, key) - v351)
+                v1817.origin.x = v315;
+                v361 = v344 * 0.5;
+                v1817.origin.y = v355;
+                v1817.size.width = v356;
+                *&v1817.size.height = v1665;
+                v362 = CGRectGetMaxY(v1817) - v358;
+                v363 = OUTLINED_FUNCTION_102();
+                if (v362 >= OUTLINED_FUNCTION_95_1(v363, v364, v365, v366, v367, v368, v369, v370, v371, v1455, v1465, v1476, v1488, v1493, v1498, v1503, v1509, v1515, v1522, v1525, v1529, v1534, v1539, v1545, v1548, v1553, v1557, v1561[0], v1561[1], v1566, v1569, *&v1573, v1576, r2, *(&r2 + 1), r2_16, *(&r2_16 + 1), v1581, v1582, *&v1586, v1588, v1591, v1595, v1602, fencePortGenerationCount, outCopy, croppingOutCopy, v1608[0], v1608[1], *&v1610.x, *&v1610.y, v1612, v1613, v1615, v1619, v1621, v1624, v1628, v1630, v1633, key) - v361)
                 {
-                  v1778.origin.x = OUTLINED_FUNCTION_50_2();
-                  v1778.size.height = v345;
-                  v349 = CGRectGetMidY(v1778) - v351;
+                  v1819.origin.x = OUTLINED_FUNCTION_50_2();
+                  v1819.size.height = v355;
+                  v359 = CGRectGetMidY(v1819) - v361;
                 }
 
                 else
                 {
-                  v1777.origin.x = v305;
-                  v1777.origin.y = v1599;
-                  *&v1777.size.width = v1602;
-                  *&v1777.size.height = v1624;
-                  v349 = CGRectGetMaxY(v1777) - v348;
+                  v1818.origin.x = v315;
+                  v1818.origin.y = v1640;
+                  *&v1818.size.width = v1643;
+                  *&v1818.size.height = v1665;
+                  v359 = CGRectGetMaxY(v1818) - v358;
                 }
 
-                v21 = v1671;
-                v176 = v1694;
-                v350 = v1575;
+                v21 = v1712;
+                v178 = v1735;
+                v360 = v1616;
               }
 
               else
               {
-                v1775.origin.x = v305;
-                v1775.origin.y = v345;
-                v1775.size.width = v346;
-                *&v1775.size.height = v1624;
-                v349 = CGRectGetMinY(v1775);
-                v21 = v1671;
-                v176 = v1694;
-                v350 = *&v1574;
+                v1816.origin.x = v315;
+                v1816.origin.y = v355;
+                v1816.size.width = v356;
+                *&v1816.size.height = v1665;
+                v359 = CGRectGetMinY(v1816);
+                v21 = v1712;
+                v178 = v1735;
+                v360 = *&v1615;
               }
 
-              v245 = 1.0;
-              *&v209 = v1670;
-              v254 = primaryCaptureRectCenterYPixelOffset;
-              v255 = v1673;
-              if (v264)
+              v251 = 1.0;
+              *&v211 = v1711;
+              v260 = primaryCaptureRectCenterYPixelOffset;
+              v261 = v1714;
+              if (v270)
               {
-                v362 = v348 / *&v1547;
-                if (v1670 >= 1.0)
+                v372 = v358 / *&v1588;
+                if (v1711 >= 1.0)
                 {
-                  v362 = v350 / *&v1550;
+                  v372 = v360 / *&v1591;
                 }
 
-                v245 = *&v1512 / v362;
+                v251 = *&v1553 / v372;
               }
 
-              *&v1730.f64[0] = v1561;
-              v1730.f64[1] = v349;
-              *v1731 = v350;
-              *&v1731[1] = v348;
+              *&v1771.f64[0] = v1602;
+              v1771.f64[1] = v359;
+              *v1772 = v360;
+              *&v1772[1] = v358;
               goto LABEL_306;
             }
 
-            v1596 = point.x;
-            v1568 = point.y;
-            v150 = v1730;
-            v151 = *v1731;
-            v152 = *&v1731[1];
-            v153 = recta.origin.x;
-            v154 = recta.size.width;
-            v155 = recta.size.height;
+            v1637 = point.x;
+            v1609 = point.y;
+            v152 = v1771;
+            v153 = *v1772;
+            v154 = *&v1772[1];
+            v155 = recta.origin.x;
+            v156 = recta.size.width;
+            v157 = recta.size.height;
             OUTLINED_FUNCTION_31_4();
-            v1590 = CGRectGetMinX(v1737);
-            v1738.origin.x = OUTLINED_FUNCTION_15_9();
-            v1738.size.height = v152;
-            v1556 = v1590 - CGRectGetMinX(v1738);
-            v1581 = v153;
+            v1631 = CGRectGetMinX(v1778);
+            v1779.origin.x = OUTLINED_FUNCTION_15_9();
+            v1779.size.height = v154;
+            v1597 = v1631 - CGRectGetMinX(v1779);
+            v1622 = v155;
             OUTLINED_FUNCTION_31_4();
-            MaxX = CGRectGetMaxX(v1739);
-            v1740.origin.x = OUTLINED_FUNCTION_15_9();
-            v1591 = v152;
-            v1740.size.height = v152;
-            _NF = MaxX - CGRectGetMaxX(v1740) < v1596;
-            v157 = v1596;
+            MaxX = CGRectGetMaxX(v1780);
+            v1781.origin.x = OUTLINED_FUNCTION_15_9();
+            v1632 = v154;
+            v1781.size.height = v154;
+            _NF = MaxX - CGRectGetMaxX(v1781) < v1637;
+            v159 = v1637;
             if (_NF)
             {
               OUTLINED_FUNCTION_31_4();
-              v152 = CGRectGetMaxX(v1741);
-              v1742.origin.x = OUTLINED_FUNCTION_15_9();
-              v1742.size.height = v1591;
-              v157 = v152 - CGRectGetMaxX(v1742);
+              v154 = CGRectGetMaxX(v1782);
+              v1783.origin.x = OUTLINED_FUNCTION_15_9();
+              v1783.size.height = v1632;
+              v159 = v154 - CGRectGetMaxX(v1783);
             }
 
-            v1566 = v151;
-            if (v1556 <= v157)
+            v1607 = v153;
+            if (v1597 <= v159)
             {
               OUTLINED_FUNCTION_31_4();
-              v1557 = CGRectGetMaxX(v1745);
+              v1598 = CGRectGetMaxX(v1786);
               OUTLINED_FUNCTION_15_9();
               OUTLINED_FUNCTION_67();
-              if (v1557 - CGRectGetMaxX(v1746) >= v1596)
+              if (v1598 - CGRectGetMaxX(v1787) >= v1637)
               {
 LABEL_158:
-                v1749.origin.x = OUTLINED_FUNCTION_93();
-                v1749.size.width = v150.f64[0];
-                v1749.size.height = v155;
-                v160 = CGRectGetMinY(v1749);
-                v1552 = *&MaxX;
+                v1790.origin.x = OUTLINED_FUNCTION_93();
+                v1790.size.width = v152.f64[0];
+                v1790.size.height = v157;
+                v162 = CGRectGetMinY(v1790);
+                v1593 = *&MaxX;
                 OUTLINED_FUNCTION_92_0();
-                v1558 = v160 - CGRectGetMinY(v1750);
-                v1751.origin.x = OUTLINED_FUNCTION_93();
-                v1751.size.width = v150.f64[0];
-                v1751.size.height = v155;
-                MaxY = CGRectGetMaxY(v1751);
+                v1599 = v162 - CGRectGetMinY(v1791);
+                v1792.origin.x = OUTLINED_FUNCTION_93();
+                v1792.size.width = v152.f64[0];
+                v1792.size.height = v157;
+                MaxY = CGRectGetMaxY(v1792);
                 OUTLINED_FUNCTION_34_3();
                 OUTLINED_FUNCTION_92_0();
-                _NF = MaxY - CGRectGetMaxY(v1752) < v1568;
-                v162 = v1568;
+                _NF = MaxY - CGRectGetMaxY(v1793) < v1609;
+                v164 = v1609;
                 if (_NF)
                 {
                   OUTLINED_FUNCTION_93();
                   OUTLINED_FUNCTION_39_3();
-                  v163 = CGRectGetMaxY(v1753);
-                  v1754.origin.x = OUTLINED_FUNCTION_34_3();
-                  v1754.size.width = v1566;
-                  v1754.size.height = v1591;
-                  v162 = v163 - CGRectGetMaxY(v1754);
+                  v165 = CGRectGetMaxY(v1794);
+                  v1795.origin.x = OUTLINED_FUNCTION_34_3();
+                  v1795.size.width = v1607;
+                  v1795.size.height = v1632;
+                  v164 = v165 - CGRectGetMaxY(v1795);
                 }
 
-                if (v1558 <= v162)
+                if (v1599 <= v164)
                 {
                   OUTLINED_FUNCTION_93();
                   OUTLINED_FUNCTION_39_3();
-                  v166 = CGRectGetMaxY(v1757);
-                  v1758.origin.x = OUTLINED_FUNCTION_34_3();
-                  v1758.size.width = v1566;
-                  v1758.size.height = v1591;
-                  v167 = CGRectGetMaxY(v1758);
-                  v165 = v1568;
-                  if (v166 - v167 < v1568)
+                  v168 = CGRectGetMaxY(v1798);
+                  v1799.origin.x = OUTLINED_FUNCTION_34_3();
+                  v1799.size.width = v1607;
+                  v1799.size.height = v1632;
+                  v169 = CGRectGetMaxY(v1799);
+                  v167 = v1609;
+                  if (v168 - v169 < v1609)
                   {
                     OUTLINED_FUNCTION_39_3();
-                    v168 = CGRectGetMaxY(v1759);
-                    v1760.origin.x = OUTLINED_FUNCTION_34_3();
-                    v1760.size.width = v1566;
-                    v1760.size.height = v1591;
-                    v165 = v168 - CGRectGetMaxY(v1760);
+                    v170 = CGRectGetMaxY(v1800);
+                    v1801.origin.x = OUTLINED_FUNCTION_34_3();
+                    v1801.size.width = v1607;
+                    v1801.size.height = v1632;
+                    v167 = v170 - CGRectGetMaxY(v1801);
                   }
                 }
 
@@ -9073,49 +9144,49 @@ LABEL_158:
                 {
                   OUTLINED_FUNCTION_93();
                   OUTLINED_FUNCTION_39_3();
-                  v164 = CGRectGetMinY(v1755);
-                  v1756.origin.x = OUTLINED_FUNCTION_34_3();
-                  v1756.size.width = v1566;
-                  v1756.size.height = v1591;
-                  v165 = v164 - CGRectGetMinY(v1756);
+                  v166 = CGRectGetMinY(v1796);
+                  v1797.origin.x = OUTLINED_FUNCTION_34_3();
+                  v1797.size.width = v1607;
+                  v1797.size.height = v1632;
+                  v167 = v166 - CGRectGetMinY(v1797);
                 }
 
-                point.x = v1596;
-                point.y = v165;
-                v101 = *&v1605;
-                v100 = *&v1606;
-                x = v1608;
-                v74 = *(&v1535 + 1);
-                v77 = *&v1545;
+                point.x = v1637;
+                point.y = v167;
+                v101 = *&v1646;
+                v100 = *&v1647;
+                x = v1649;
+                v74 = *(&v1576 + 1);
+                v77 = *&v1586;
                 goto LABEL_166;
               }
 
-              v1747.origin.x = v1581;
-              v1747.origin.y = MaxX;
-              v1747.size.width = v150.f64[0];
-              v1747.size.height = v155;
-              v159 = CGRectGetMaxX(v1747);
-              v1748.origin.x = v150.f64[1];
-              v1748.origin.y = v152;
-              v1748.size.width = v151;
-              v1748.size.height = v154;
-              v158 = v159 - CGRectGetMaxX(v1748);
+              v1788.origin.x = v1622;
+              v1788.origin.y = MaxX;
+              v1788.size.width = v152.f64[0];
+              v1788.size.height = v157;
+              v161 = CGRectGetMaxX(v1788);
+              v1789.origin.x = v152.f64[1];
+              v1789.origin.y = v154;
+              v1789.size.width = v153;
+              v1789.size.height = v156;
+              v160 = v161 - CGRectGetMaxX(v1789);
             }
 
             else
             {
               OUTLINED_FUNCTION_31_4();
-              v1597 = CGRectGetMinX(v1743);
+              v1638 = CGRectGetMinX(v1784);
               OUTLINED_FUNCTION_15_9();
               OUTLINED_FUNCTION_67();
-              v158 = v1597 - CGRectGetMinX(v1744);
+              v160 = v1638 - CGRectGetMinX(v1785);
             }
 
-            v1596 = v158;
+            v1637 = v160;
             goto LABEL_158;
           }
 
-          v94 = v1604 / (v93 * v518);
+          v94 = v1645 / (v93 * v528);
         }
 
         else
@@ -9123,12 +9194,12 @@ LABEL_158:
           v94 = (v89 * v90) / (*&v92 * v93);
         }
 
-        *&v1532 = v94;
+        *&v1573 = v94;
         goto LABEL_109;
       }
 
-      v74 = *(v16 + 224);
-      v1694 = v74 * *(v16 + 288);
+      v74 = *(v16 + 56);
+      v1735 = v74 * *(v16 + 72);
       _wideBaseZoomFactorWithOverride2 = [(BWPreviewStitcherNode *)v16 _wideBaseZoomFactorWithOverride];
       v77 = *&_wideBaseZoomFactorWithOverride2;
       v78 = &OBJC_IVAR___BWPreviewStitcherNode__wideNondisruptiveSwitchingZoomFactors;
@@ -9138,15 +9209,15 @@ LABEL_158:
     v80 = v79;
     OUTLINED_FUNCTION_35_3();
     v81 = _ZF;
-    LODWORD(v1528) = v81;
+    LODWORD(v1569) = v81;
     goto LABEL_90;
   }
 
   fig_log_get_emitter();
-  FigDebugAssert3();
-  *&v608 = 0.0;
-  v224 = 0;
-  v925 = 0.0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v11, v1476, v1488, v1493, v1498, v1503, v1509);
+  *&v620 = 0.0;
+  v226 = 0;
+  v955 = 0.0;
   value = 0;
 LABEL_808:
   if (v18)
@@ -9154,22 +9225,22 @@ LABEL_808:
     CFRelease(v18);
   }
 
-  if (v925 != 0.0)
+  if (v955 != 0.0)
   {
-    CFRelease(*&v925);
+    CFRelease(*&v955);
   }
 
-  if (v224)
+  if (v226)
   {
-    CFRelease(v224);
+    CFRelease(v226);
   }
 
-  if (*&v608 != 0.0)
+  if (*&v620 != 0.0)
   {
-    CFRelease(v608);
+    CFRelease(v620);
   }
 
-  return v1735;
+  return v1776;
 }
 
 - (void)_waitForCIPreheatingToFinish
@@ -9189,228 +9260,228 @@ LABEL_808:
 - (void)_getInputRect:(uint64_t)rect outputRect:(uint64_t)outputRect inputShiftAppliedInOutputRect:(uint64_t)inOutputRect toTransferPixelBuffer:(uint64_t)buffer rect:(uint64_t)a7 intoPixelBufferDimensions:(uint64_t)dimensions rect:(double)a9 withInputShift:(double)self0 shiftOutsideBoundingRectAllowed:(double)self1 ignoreBounds:(double)self2 scale:(double)self3 forFinalOutput:(double)self4
 {
   OUTLINED_FUNCTION_135();
-  v105 = v27;
-  if (!v12)
+  v114 = v35;
+  if (!v20)
   {
 LABEL_48:
     OUTLINED_FUNCTION_68();
     return;
   }
 
-  v28 = v16;
-  if (v16)
+  v36 = v24;
+  if (v24)
   {
-    v29 = v19;
-    v30 = v18;
-    v31 = v17;
-    v32 = v15;
-    v33 = v14;
-    v34 = v26;
-    v35 = v25;
-    v36 = v13;
-    v37 = v24;
-    v38 = *(v12 + 1685);
-    v99 = v20;
-    v100 = v21;
-    v101 = v22;
-    rect = v23;
-    FigCaptureMetadataUtilitiesScaleRect2D(v20, v21, v22, v23, a19);
-    v40 = v39;
-    v42 = v41;
-    v45 = v105 + OUTLINED_FUNCTION_100_0(v35 - v39) + a17 * a19;
-    v98 = a19;
-    v46 = v37 + (v34 - v43) * v44 + a18 * a19;
-    rect_24 = v34;
-    if (v29)
+    v37 = v27;
+    v38 = v26;
+    v39 = v25;
+    v40 = v23;
+    v41 = v22;
+    v42 = v34;
+    v43 = v33;
+    v44 = v21;
+    v45 = v32;
+    v46 = *(v20 + 1685);
+    v108 = v28;
+    v109 = v29;
+    v110 = v30;
+    rect = v31;
+    FigCaptureMetadataUtilitiesScaleRect2D(v28, v29, v30, v31, a19);
+    v48 = v47;
+    v50 = v49;
+    v53 = v114 + OUTLINED_FUNCTION_100_0(v43 - v47) + a17 * a19;
+    v107 = a19;
+    v54 = v45 + (v42 - v51) * v52 + a18 * a19;
+    rect_24 = v42;
+    if (v37)
     {
-      v47 = v42;
-      v48 = v40;
-      v49 = v46;
-      v50 = v45;
+      v55 = v50;
+      v56 = v48;
+      v57 = v54;
+      v58 = v53;
     }
 
     else
     {
       OUTLINED_FUNCTION_121();
-      v107 = CGRectIntersection(v106, v112);
-      if (v30)
+      v116 = CGRectIntersection(v115, v121);
+      if (v38)
       {
-        psn_conformRectForMSR420vfBoundedByDimensions(v107.origin.x, v107.origin.y, v107.size.width, v107.size.height, v31, a20);
+        psn_conformRectForMSR420vfBoundedByDimensions(v116.origin.x, v116.origin.y, v116.size.width, v116.size.height, v39, a20);
       }
 
       else
       {
         OUTLINED_FUNCTION_121();
-        v51 = psn_conformRectForMSR420vfBoundedByRect(1, v55, v56, v57, v58, v59, v60, v61, v62);
+        v59 = psn_conformRectForMSR420vfBoundedByRect(1, v63, v64, v65, v66, v67, v68, v69, v70);
       }
 
-      v50 = v51;
-      v49 = v52;
-      v48 = v53;
-      v47 = v54;
+      v58 = v59;
+      v57 = v60;
+      v56 = v61;
+      v55 = v62;
     }
 
-    v63 = v99 + v101 * ((v50 - v45) / v40);
-    v64 = v100 + rect * ((v49 - v46) / v42);
-    v65 = v101 * (v48 / v40);
-    v66 = rect * (v47 / v42);
-    if (v29)
+    v71 = v108 + v110 * ((v58 - v53) / v48);
+    v72 = v109 + rect * ((v57 - v54) / v50);
+    v73 = v110 * (v56 / v48);
+    v74 = rect * (v55 / v50);
+    if (v37)
     {
-      if ((v38 & 1) == 0)
+      if ((v46 & 1) == 0)
       {
-        v67 = OUTLINED_FUNCTION_51_2();
-        acpr_conformRectForMSR420vf(v67, v68, v69, v70);
+        v75 = OUTLINED_FUNCTION_51_2();
+        acpr_conformRectForMSR420vf(v75, v76, v77, v78);
         OUTLINED_FUNCTION_119();
       }
 
       goto LABEL_42;
     }
 
-    v71 = v50;
-    if (v30)
+    v79 = v58;
+    if (v38)
     {
-      CVPixelBufferGetWidth(v28);
-      v72 = OUTLINED_FUNCTION_111();
-      Height = CVPixelBufferGetHeight(v72);
-      if (v38)
+      CVPixelBufferGetWidth(v36);
+      v80 = OUTLINED_FUNCTION_111();
+      Height = CVPixelBufferGetHeight(v80);
+      if (v46)
       {
-        if (v65 <= v30)
+        if (v73 <= v38)
         {
-          v74 = v65;
+          v82 = v73;
         }
 
         else
         {
-          v74 = v30;
+          v82 = v38;
         }
 
-        if (v74 >= 0.0)
+        if (v82 >= 0.0)
         {
-          v65 = v74;
-        }
-
-        else
-        {
-          v65 = 0.0;
-        }
-
-        v75 = Height;
-        if (v66 <= Height)
-        {
-          v76 = v66;
+          v73 = v82;
         }
 
         else
         {
-          v76 = Height;
+          v73 = 0.0;
         }
 
-        if (v76 >= 0.0)
+        v83 = Height;
+        if (v74 <= Height)
         {
-          v66 = v76;
-        }
-
-        else
-        {
-          v66 = 0.0;
-        }
-
-        v77 = v30 - v65;
-        if (v77 >= v63)
-        {
-          v77 = v63;
-        }
-
-        if (v77 >= 0.0)
-        {
-          v63 = v77;
+          v84 = v74;
         }
 
         else
         {
-          v63 = 0.0;
+          v84 = Height;
         }
 
-        v78 = v75 - v66;
-        if (v75 - v66 >= v64)
+        if (v84 >= 0.0)
         {
-          v78 = v64;
-        }
-
-        if (v78 >= 0.0)
-        {
-          v64 = v78;
+          v74 = v84;
         }
 
         else
         {
-          v64 = 0.0;
+          v74 = 0.0;
+        }
+
+        v85 = v38 - v73;
+        if (v85 >= v71)
+        {
+          v85 = v71;
+        }
+
+        if (v85 >= 0.0)
+        {
+          v71 = v85;
+        }
+
+        else
+        {
+          v71 = 0.0;
+        }
+
+        v86 = v83 - v74;
+        if (v83 - v74 >= v72)
+        {
+          v86 = v72;
+        }
+
+        if (v86 >= 0.0)
+        {
+          v72 = v86;
+        }
+
+        else
+        {
+          v72 = 0.0;
         }
 
         goto LABEL_41;
       }
 
-      v87 = v30 | (Height << 32);
-      v88 = OUTLINED_FUNCTION_51_2();
-      psn_conformRectForMSR420vfBoundedByDimensions(v88, v89, v90, v91, v87, 0);
+      v95 = v38 | (Height << 32);
+      v96 = OUTLINED_FUNCTION_51_2();
+      psn_conformRectForMSR420vfBoundedByDimensions(v96, v97, v98, v99, v95, 0);
     }
 
     else
     {
-      v79 = OUTLINED_FUNCTION_51_2();
-      if (v38)
+      v87.n128_f64[0] = OUTLINED_FUNCTION_51_2();
+      if (v46)
       {
-        psn_rectBoundedByRect(v79, v80, v81, v82, v83, v84, v85, v86);
+        psn_rectBoundedByRect(v87.n128_f64[0], v88, v89, v90, v91, v92, v93, v94);
       }
 
       else
       {
-        psn_conformRectForMSR420vfBoundedByRect(0, v79, v80, v81, v82, v83, v84, v85, v86);
+        psn_conformRectForMSR420vfBoundedByRect(0, v87, v88, v89, v90, v91, v92, v93, v94);
       }
     }
 
     OUTLINED_FUNCTION_119();
 LABEL_41:
-    v50 = v71;
+    v58 = v79;
 LABEL_42:
-    if (v36)
+    if (v44)
     {
-      *v36 = v63;
-      v36[1] = v64;
-      v36[2] = v65;
-      v36[3] = v66;
+      *v44 = v71;
+      v44[1] = v72;
+      v44[2] = v73;
+      v44[3] = v74;
     }
 
-    if (v33)
+    if (v41)
     {
-      *v33 = v50;
-      v33[1] = v49;
-      v33[2] = v48;
-      v33[3] = v47;
+      *v41 = v58;
+      v41[1] = v57;
+      v41[2] = v56;
+      v41[3] = v55;
     }
 
-    if (v32)
+    if (v40)
     {
-      v108.origin.x = v50;
-      v108.origin.y = v49;
-      v108.size.width = v48;
-      v108.size.height = v47;
-      recta = v50;
-      MidX = CGRectGetMidX(v108);
-      v109.origin.x = OUTLINED_FUNCTION_15_9();
-      v109.size.height = rect_24;
-      v93 = CGRectGetMidX(v109);
-      v110.size.height = v47;
-      v94 = MidX - v93;
-      v110.origin.x = recta;
-      v110.origin.y = v49;
-      v110.size.width = v48;
-      MidY = CGRectGetMidY(v110);
-      v111.origin.x = OUTLINED_FUNCTION_15_9();
-      v111.size.height = rect_24;
-      v96 = CGRectGetMidY(v111);
-      *v32 = v94 / v98;
-      v32[1] = (MidY - v96) / v98;
+      v117.origin.x = v58;
+      v117.origin.y = v57;
+      v117.size.width = v56;
+      v117.size.height = v55;
+      recta = v58;
+      MidX = CGRectGetMidX(v117);
+      v118.origin.x = OUTLINED_FUNCTION_15_9();
+      v118.size.height = rect_24;
+      v101 = CGRectGetMidX(v118);
+      v119.size.height = v55;
+      v102 = MidX - v101;
+      v119.origin.x = recta;
+      v119.origin.y = v57;
+      v119.size.width = v56;
+      MidY = CGRectGetMidY(v119);
+      v120.origin.x = OUTLINED_FUNCTION_15_9();
+      v120.size.height = rect_24;
+      v104 = CGRectGetMidY(v120);
+      *v40 = v102 / v107;
+      v40[1] = (MidY - v104) / v107;
     }
 
     goto LABEL_48;
@@ -9419,64 +9490,65 @@ LABEL_42:
   fig_log_get_emitter();
   OUTLINED_FUNCTION_68();
 
-  FigDebugAssert3();
+  FigDebugAssert3(v105);
 }
 
-- (uint64_t)_transferPixelBuffer:(CVPixelBufferRef)pixelBuffer rect:(int)rect intoPixelBuffer:(_OWORD *)buffer rect:(int)a6 isFinalOutput:(int)output withInputShift:(int)shift scale:(uint64_t)scale inputSourceRectOut:(uint64_t)self0
+- (void)_transferPixelBuffer:(CVPixelBufferRef)pixelBuffer rect:(int)rect intoPixelBuffer:(_OWORD *)buffer rect:(int)a6 isFinalOutput:(int)output withInputShift:(int)shift scale:(uint64_t)scale inputSourceRectOut:(uint64_t)self0
 {
-  if (result)
+  if (self)
   {
-    v14 = result;
-    v15 = *(MEMORY[0x1E695F058] + 16);
-    v42 = *MEMORY[0x1E695F058];
-    v43 = v15;
-    v40 = v42;
-    v41 = v15;
-    v39.i32[0] = CVPixelBufferGetWidth(pixelBuffer);
-    v39.i32[1] = CVPixelBufferGetHeight(pixelBuffer);
+    v16 = *(MEMORY[0x1E695F058] + 16);
+    v50 = *MEMORY[0x1E695F058];
+    v51 = v16;
+    v44 = v16;
+    v45 = v50;
+    v48 = v50;
+    v49 = v16;
+    v47.i32[0] = CVPixelBufferGetWidth(pixelBuffer);
+    v47.i32[1] = CVPixelBufferGetHeight(pixelBuffer);
     if (rect)
     {
-      FigCaptureSwapVideoDimensionsFor90Or270Rotation(&v39, *(v14 + 136));
+      FigCaptureSwapVideoDimensionsFor90Or270Rotation(&v47, *(self + 136));
     }
 
     OUTLINED_FUNCTION_112_1();
-    [(BWPreviewStitcherNode *)v16 _getInputRect:v17 outputRect:v18 inputShiftAppliedInOutputRect:v19 toTransferPixelBuffer:v20 rect:v21 intoPixelBufferDimensions:v22 rect:v23 withInputShift:v24 shiftOutsideBoundingRectAllowed:v25 ignoreBounds:v26 scale:v27 forFinalOutput:v28, v29, v30, v31, *&scale, *&out, *&a11, rect];
+    [(BWPreviewStitcherNode *)v17 _getInputRect:v18 outputRect:v19 inputShiftAppliedInOutputRect:v20 toTransferPixelBuffer:v21 rect:v22 intoPixelBufferDimensions:v23 rect:v24 withInputShift:v25 shiftOutsideBoundingRectAllowed:v26 ignoreBounds:v27 scale:v28 forFinalOutput:v29, v30, v31, v32, *&scale, *&out, *&a11, rect];
     if (buffer)
     {
-      v32 = v41;
-      *buffer = v40;
-      buffer[1] = v32;
+      v33 = v49;
+      *buffer = v48;
+      buffer[1] = v33;
     }
 
     if (rect)
     {
-      v44.origin.y = *(&v42 + 1);
-      v44.size = v43;
-      v33 = *(v14 + 432);
-      *&v38.a = *(v14 + 416);
-      *&v38.c = v33;
-      *&v38.tx = *(v14 + 448);
-      *&v44.origin.x = v42;
-      CGRectApplyAffineTransform(v44, &v38);
+      v52.origin.y = *(&v50 + 1);
+      v52.size = v51;
+      v34 = *(self + 432);
+      *&v46.a = *(self + 416);
+      *&v46.c = v34;
+      *&v46.tx = *(self + 448);
+      *&v52.origin.x = v50;
+      CGRectApplyAffineTransform(v52, &v46);
       OUTLINED_FUNCTION_8_3();
-      *&v42 = v34;
-      *(&v42 + 1) = v35;
-      v43.width = v36;
-      v43.height = v37;
+      *&v50 = v35;
+      *(&v50 + 1) = v36;
+      v51.width = v37;
+      v51.height = v38;
     }
 
-    result = VTPixelRotationSessionRotateSubImage();
-    if (result)
+    v39 = VTPixelRotationSessionRotateSubImage();
+    if (v39)
     {
+      v40 = v39;
       fig_log_get_emitter();
-      return FigDebugAssert3();
+      LODWORD(v41) = v40;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, v11, v42, v43, LODWORD(v44.width), *&v44.height, v45, DWORD2(v45));
     }
   }
-
-  return result;
 }
 
-- (uint64_t)_compensateForMissingFOVUsingPixelBuffer:(__CVBuffer *)buffer sourceRect:(int)rect destinationContainingRect:(int)containingRect destinationInsetRect:(int)insetRect outputPixelBuffer:(int)pixelBuffer
+- (void)_compensateForMissingFOVUsingPixelBuffer:(__CVBuffer *)buffer sourceRect:(int)rect destinationContainingRect:(int)containingRect destinationInsetRect:(int)insetRect outputPixelBuffer:(int)pixelBuffer
 {
   if (result)
   {
@@ -9485,18 +9557,18 @@ LABEL_42:
     v29 = CVPixelBufferGetHeight(pixelBuffer) - (a10 + a12);
     CVPixelBufferGetWidth(buffer);
     CVPixelBufferGetHeight(buffer);
-    v226 = *MEMORY[0x1E695F9C0];
-    v227 = MEMORY[0x1E695E118];
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v227 forKeys:&v226 count:1];
+    v229 = *MEMORY[0x1E695F9C0];
+    v230 = MEMORY[0x1E695E118];
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v230 forKeys:&v229 count:1];
     v31 = [objc_msgSend(MEMORY[0x1E695F658] imageWithCVPixelBuffer:pixelBuffer options:{v30), "imageByCroppingToRect:", a9, v29, a11, a12}];
-    v166 = *(MEMORY[0x1E695EFD0] + 16);
-    v176 = *MEMORY[0x1E695EFD0];
-    *&v224.a = *MEMORY[0x1E695EFD0];
-    *&v224.c = v166;
-    v154 = *(MEMORY[0x1E695EFD0] + 32);
-    *&v224.tx = v154;
-    CGAffineTransformRotate(&v225, &v224, -1.57079633);
-    v32 = [v31 imageByApplyingTransform:&v225];
+    v169 = *(MEMORY[0x1E695EFD0] + 16);
+    v179 = *MEMORY[0x1E695EFD0];
+    *&v227.a = *MEMORY[0x1E695EFD0];
+    *&v227.c = v169;
+    v157 = *(MEMORY[0x1E695EFD0] + 32);
+    *&v227.tx = v157;
+    CGAffineTransformRotate(&v228, &v227, -1.57079633);
+    v32 = [v31 imageByApplyingTransform:&v228];
     [v32 extent];
     v33 = [v32 imageByCroppingToRect:?];
     [v33 extent];
@@ -9513,71 +9585,71 @@ LABEL_42:
       v38 = v35;
     }
 
-    *&v225.a = v176;
-    *&v225.c = v166;
-    *&v225.tx = v154;
+    *&v228.a = v179;
+    *&v228.c = v169;
+    *&v228.tx = v157;
     [v33 extent];
-    v39 = -CGRectGetMidX(v228);
+    v39 = -CGRectGetMidX(v231);
     [v33 extent];
-    MidY = CGRectGetMidY(v229);
-    Translation = CGAffineTransformMakeTranslation(&v224, v39, -MidY);
-    OUTLINED_FUNCTION_128_1(Translation, v42, v43, v44, v45, v46, v47, v48, v154, v126, v133, *&a15, *&a13, v154.n128_i64[0], v154.n128_i64[1], v166, *(&v166 + 1), v176, *(&v176 + 1), v186, v193, v198, v205, v210, v217, *&t1.a, *&t1.b, *&t1.c, *&t1.d, *&t1.tx, *&t1.ty, v176, *(&v176 + 1), v166, *(&v166 + 1), v49, *&t2.tx);
+    MidY = CGRectGetMidY(v232);
+    Translation = CGAffineTransformMakeTranslation(&v227, v39, -MidY);
+    OUTLINED_FUNCTION_128_1(Translation, v42, v43, v44, v45, v46, v47, v48, v157, v49, v129, v136, *&a15, *&a13, v157.n128_i64[0], v157.n128_i64[1], v169, *(&v169 + 1), v179, *(&v179 + 1), v189, v196, v201, v208, v213, v220, *&t1.a, *&t1.b, *&t1.c, *&t1.d, *&t1.tx, *&t1.ty, v179, *(&v179 + 1), v169, *(&v169 + 1), v50, *&t2.tx);
     Scale = CGAffineTransformMakeScale(&t2, v38, v38);
-    v58 = OUTLINED_FUNCTION_12_11(Scale, v51, v52, v53, v54, v55, v56, v57, v127, v134, v141, v148, v155, v161, v167, v171, v177, v181, v187, v194, v199, v206, v211, v218, *&t1.a, *&t1.c, *&t1.tx, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v224.a);
+    v59 = OUTLINED_FUNCTION_12_11(Scale, v52, v53, v54, v55, v56, v57, v58, v130, v137, v144, v151, v158, v164, v170, v174, v180, v184, v190, v197, v202, v209, v214, v221, *&t1.a, *&t1.c, *&t1.tx, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v227.a);
     [v33 extent];
-    MidX = CGRectGetMidX(v230);
+    MidX = CGRectGetMidX(v233);
     [v33 extent];
-    v68 = CGRectGetMidY(v231);
-    v69 = CGAffineTransformMakeTranslation(&t2, MidX, v68);
-    v77 = OUTLINED_FUNCTION_12_11(v69, v70, v71, v72, v73, v74, v75, v76, v129, v136, v143, v150, v157, v163, v169, v173, v179, v183, v189, v196, v201, v208, v213, v220, *&t1.a, *&t1.c, *&t1.tx, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v224.a);
-    v86 = [v33 imageByApplyingTransform:{OUTLINED_FUNCTION_60_3(v77, v78, v79, v80, v81, v82, v83, v84, v130, v137, v144, v151, v158, v164, v170, v174, v180, v184, v190, v197, v202, v209, v214, v221, *&t1.a, *&t1.b, *&t1.c, *&t1.d, *&t1.tx, *&t1.ty, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v224.a, *&v224.c, v85).n128_f64[0]}];
+    v70 = CGRectGetMidY(v234);
+    v71 = CGAffineTransformMakeTranslation(&t2, MidX, v70);
+    v79 = OUTLINED_FUNCTION_12_11(v71, v72, v73, v74, v75, v76, v77, v78, v132, v139, v146, v153, v160, v166, v172, v176, v182, v186, v192, v199, v204, v211, v216, v223, *&t1.a, *&t1.c, *&t1.tx, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v227.a);
+    v89 = [v33 imageByApplyingTransform:{OUTLINED_FUNCTION_60_3(v79, v80, v81, v82, v83, v84, v85, v86, v87, v133, v140, v147, v154, v161, v167, v173, v177, v183, v187, v193, v200, v205, v212, v217, v224, *&t1.a, *&t1.b, *&t1.c, *&t1.d, *&t1.tx, *&t1.ty, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v227.a, *&v227.c, v88).n128_f64[0]}];
     [v33 extent];
-    v88 = *&v145 / v87;
+    v91 = *&v148 / v90;
     [v33 extent];
-    v90 = a16 / v89;
-    if (v88 <= v90)
+    v93 = a16 / v92;
+    if (v91 <= v93)
     {
-      v88 = a16 / v89;
+      v91 = a16 / v92;
     }
 
-    *&v224.a = *&v159[32];
-    *&v224.c = *&v159[16];
-    *&v224.tx = *v159;
+    *&v227.a = *&v162[32];
+    *&v227.c = *&v162[16];
+    *&v227.tx = *v162;
     [v33 extent];
-    v91 = -CGRectGetMidX(v232);
+    v94 = -CGRectGetMidX(v235);
     [v33 extent];
-    v92 = CGRectGetMidY(v233);
-    CGAffineTransformMakeTranslation(&t2, v91, -v92);
-    *&t1.a = *&v159[32];
-    *&t1.c = *&v159[16];
-    *&t1.tx = *v159;
-    CGAffineTransformConcat(&v224, &t1, &t2);
-    v93 = CGAffineTransformMakeScale(&t1, v88, v88);
-    OUTLINED_FUNCTION_65(v93, v94, v95, v96, v97, v98, v99, v100, v131, v138, v145, v152, *v159, *&v159[8], *&v159[24], *&v159[40], v191, v203, v215, *&t1.a, *&t1.b, *&t1.c, *&t1.d, *&t1.tx, *&t1.ty, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v224.a, *&v224.c, *&v224.tx);
-    v224 = t2;
+    v95 = CGRectGetMidY(v236);
+    CGAffineTransformMakeTranslation(&t2, v94, -v95);
+    *&t1.a = *&v162[32];
+    *&t1.c = *&v162[16];
+    *&t1.tx = *v162;
+    CGAffineTransformConcat(&v227, &t1, &t2);
+    v96 = CGAffineTransformMakeScale(&t1, v91, v91);
+    OUTLINED_FUNCTION_65(v96, v97, v98, v99, v100, v101, v102, v103, v134, v141, v148, v155, *v162, *&v162[8], *&v162[24], *&v162[40], v194, v206, v218, *&t1.a, *&t1.b, *&t1.c, *&t1.d, *&t1.tx, *&t1.ty, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v227.a, *&v227.c, *&v227.tx);
+    v227 = t2;
     [v33 extent];
-    v101 = CGRectGetMidX(v234);
+    v104 = CGRectGetMidX(v237);
     [v33 extent];
-    v102 = CGRectGetMidY(v235);
-    v103 = CGAffineTransformMakeTranslation(&t1, v101, v102);
-    OUTLINED_FUNCTION_65(v103, v104, v105, v106, v107, v108, v109, v110, v132, v139, v146, v153, v160, v165, v175, v185, v192, v204, v216, *&t1.a, *&t1.b, *&t1.c, *&t1.d, *&t1.tx, *&t1.ty, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v224.a, *&v224.c, *&v224.tx);
-    v224 = t2;
-    v111 = [v33 imageByApplyingTransform:&t2];
-    [v86 imageByCompositingOverImage:v111];
+    v105 = CGRectGetMidY(v238);
+    v106 = CGAffineTransformMakeTranslation(&t1, v104, v105);
+    OUTLINED_FUNCTION_65(v106, v107, v108, v109, v110, v111, v112, v113, v135, v142, v149, v156, v163, v168, v178, v188, v195, v207, v219, *&t1.a, *&t1.b, *&t1.c, *&t1.d, *&t1.tx, *&t1.ty, *&t2.a, *&t2.b, *&t2.c, *&t2.d, *&t2.tx, *&t2.ty, *&v227.a, *&v227.c, *&v227.tx);
+    v227 = t2;
+    v114 = [v33 imageByApplyingTransform:&t2];
+    [v89 imageByCompositingOverImage:v114];
     [OUTLINED_FUNCTION_111() extent];
     OUTLINED_FUNCTION_76_0();
-    [v111 extent];
+    [v114 extent];
     OUTLINED_FUNCTION_8_3();
-    v112 = OUTLINED_FUNCTION_13_11();
-    v121 = psn_imageWithBlurredEdges(v113, 0, v112, v114, v115, v116, v117, v118, v119, v120, 0.0, 0.5);
+    v115 = OUTLINED_FUNCTION_13_11();
+    v124 = psn_imageWithBlurredEdges(v116, 0, v115, v117, v118, v119, v120, v121, v122, v123, 0.0, 0.5);
     colorSpace = [v33 colorSpace];
-    v123 = [objc_alloc(MEMORY[0x1E695F678]) initWithPixelBuffer:buffer];
-    [v123 setColorSpace:colorSpace];
-    v124 = *(v28 + 984);
+    v126 = [objc_alloc(MEMORY[0x1E695F678]) initWithPixelBuffer:buffer];
+    [v126 setColorSpace:colorSpace];
+    v127 = v28[123];
     [v20 extent];
-    v125 = [v124 startTaskToRender:v121 fromRect:v123 toDestination:0 atPoint:? error:?];
+    v128 = [v127 startTaskToRender:v124 fromRect:v126 toDestination:0 atPoint:? error:?];
     t2.a = 0.0;
-    return [v125 waitUntilCompletedAndReturnError:&t2];
+    return [v128 waitUntilCompletedAndReturnError:&t2];
   }
 
   return result;
@@ -9628,49 +9700,49 @@ LABEL_42:
   return result;
 }
 
-- (uint64_t)_renderCameraTransitionRampToPixelBuffer:(__CVBuffer *)buffer bounds:(__CVBuffer *)bounds withWiderCameraPixelBuffer:(int)pixelBuffer narrowerCameraPixelBuffer:(int)cameraPixelBuffer zoomingIn:(int)in progress:(int)progress narrowerCameraBounds:(double)cameraBounds narrowerCameraShift:(double)self0 featherEdges:(double)self1 rampCameraTransition:(double)self2 renderEnhancedFeathering:(float)self3 narrowerCameraEdgeExpansionRamp:(double)self4 qsubToQsumEdgeOpacityRamp:(double)self5 qsubToQsumEdgeOpacityRampFromProgress:(double)self6 renderBrightnessCompensation:(double)self7
+- (unsigned)_renderCameraTransitionRampToPixelBuffer:(__CVBuffer *)buffer bounds:(__CVBuffer *)bounds withWiderCameraPixelBuffer:(int)pixelBuffer narrowerCameraPixelBuffer:(int)cameraPixelBuffer zoomingIn:(int)in progress:(int)progress narrowerCameraBounds:(double)cameraBounds narrowerCameraShift:(double)self0 featherEdges:(double)self1 rampCameraTransition:(double)self2 renderEnhancedFeathering:(float)self3 narrowerCameraEdgeExpansionRamp:(double)self4 qsubToQsumEdgeOpacityRamp:(double)self5 qsubToQsumEdgeOpacityRampFromProgress:(double)self6 renderBrightnessCompensation:(double)self7
 {
   if (result)
   {
-    v29 = result;
+    v32 = result;
     [(BWPreviewStitcherNode *)result _initCameraTransitionCIContextWithColorManagementEnabled:?];
-    v71 = *MEMORY[0x1E695F9C0];
-    v72 = MEMORY[0x1E695E118];
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-    featheringCopy = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:buffer options:v30];
-    v32 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:bounds options:v30];
-    colorSpace = [v32 colorSpace];
+    v74 = *MEMORY[0x1E695F9C0];
+    v75 = MEMORY[0x1E695E118];
+    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+    featheringCopy = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:buffer options:v33];
+    v35 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:bounds options:v33];
+    colorSpace = [v35 colorSpace];
     transitionCopy = transition;
-    v34 = CVPixelBufferGetHeight(buffer) - transition;
+    v37 = CVPixelBufferGetHeight(buffer) - transition;
     Height = CVPixelBufferGetHeight(bounds);
-    v36 = v34 - shift;
+    v39 = v37 - shift;
     if (progress)
     {
-      v37 = Height - a20 - a18;
+      v40 = Height - a20 - a18;
     }
 
     else
     {
-      v37 = Height - a20;
+      v40 = Height - a20;
     }
 
     if (progress)
     {
-      v38 = v36;
+      v41 = v39;
     }
 
     else
     {
-      v38 = v34;
+      v41 = v37;
     }
 
-    v39 = [v32 imageByCroppingToRect:{compensation, v37, a19, a20}];
-    CGAffineTransformMakeTranslation(&v70, a21, -a22);
-    v40 = [v39 imageByApplyingTransform:&v70];
+    v42 = [v35 imageByCroppingToRect:{compensation, v40, a19, a20}];
+    CGAffineTransformMakeTranslation(&v73, a21, -a22);
+    v43 = [v42 imageByApplyingTransform:&v73];
     if (a26)
     {
-      LODWORD(v41) = 1.0;
-      *&v42 = feathering;
+      LODWORD(v44) = 1.0;
+      *&v45 = feathering;
       if (in)
       {
         featheringCopy = feathering;
@@ -9681,19 +9753,19 @@ LABEL_42:
         featheringCopy = 1.0;
       }
 
-      if ((pixelBuffer & 1) != 0 || (*(v29 + 331) & 1) != 0 || *(v29 + 1024))
+      if ((pixelBuffer & 1) != 0 || (v32[331] & 1) != 0 || *(v32 + 128))
       {
-        featheringCopy = [(BWPreviewStitcherNode *)v29 _applyBrightnessCompensationToImage:featheringCopy referenceImage:v40 bounds:v41 compensationLevel:v42, v43, v44, featheringCopy];
+        featheringCopy = [(BWPreviewStitcherNode *)v32 _applyBrightnessCompensationToImage:featheringCopy referenceImage:v43 bounds:v44 compensationLevel:v45, v46, v47, featheringCopy];
       }
 
       else
       {
-        [(BWPreviewStitcherNode *)v29 _applyBrightnessCompensationToImage:v40 referenceImage:featheringCopy bounds:v41 compensationLevel:v42, v43, v44, featheringCopy];
+        [(BWPreviewStitcherNode *)v32 _applyBrightnessCompensationToImage:v43 referenceImage:featheringCopy bounds:v44 compensationLevel:v45, v46, v47, featheringCopy];
       }
     }
 
     OUTLINED_FUNCTION_33();
-    if (v46)
+    if (v49)
     {
       [MEMORY[0x1E695F610] redColor];
       [OUTLINED_FUNCTION_4() imageWithColor:?];
@@ -9702,19 +9774,19 @@ LABEL_42:
     if (progress)
     {
       cameraPixelBufferCopy2 = cameraPixelBuffer;
-      v48 = a19;
+      v51 = a19;
       if ((in & ~cameraPixelBuffer & 1) == 0)
       {
-        v49 = transitionCopy;
+        v52 = transitionCopy;
         if (transitionCopy > a20)
         {
           OUTLINED_FUNCTION_33();
-          if (v46)
+          if (v49)
           {
-            v50 = OUTLINED_FUNCTION_36_4();
-            [(BWPreviewStitcherNode *)v51 _rectangularFeatheredImageWithNarrowerCameraImage:v52 widerCameraImage:v53 narrowerCameraClipRect:pixelBuffer zoomingIn:0 progress:a23 rampCameraTransition:v50 narrowerCameraEdgeExpansionRamp:v54, a19, a20, feathering];
-            v55 = OUTLINED_FUNCTION_36_4();
-            [v56 imageByCroppingToRect:v55];
+            v53 = OUTLINED_FUNCTION_36_4();
+            [(BWPreviewStitcherNode *)v54 _rectangularFeatheredImageWithNarrowerCameraImage:v55 widerCameraImage:v56 narrowerCameraClipRect:pixelBuffer zoomingIn:0 progress:a23 rampCameraTransition:v53 narrowerCameraEdgeExpansionRamp:v57, a19, a20, feathering];
+            v58 = OUTLINED_FUNCTION_36_4();
+            [v59 imageByCroppingToRect:v58];
           }
         }
 
@@ -9725,23 +9797,23 @@ LABEL_42:
     else
     {
       cameraPixelBufferCopy2 = cameraPixelBuffer;
-      v48 = a19;
+      v51 = a19;
     }
 
-    v49 = transitionCopy;
+    v52 = transitionCopy;
 LABEL_28:
-    v57 = OUTLINED_FUNCTION_36_4();
-    v61 = [(BWPreviewStitcherNode *)v58 _featheredImageWithNarrowerCameraImage:v59 widerCameraImage:featheringCopy narrowerCameraClipRect:pixelBuffer widerCameraClipRect:cameraPixelBufferCopy2 zoomingIn:in progress:progress featherEdges:a23 rampCameraTransition:v57 renderEnhancedFeathering:v60 narrowerCameraEdgeExpansionRamp:v48 qsubToQsumEdgeOpacityRamp:a20 qsubToQsumEdgeOpacityRampFromProgress:cameraBounds, v38, edges, v49, feathering, a24, a25];
-    v62 = [objc_alloc(MEMORY[0x1E695F678]) initWithPixelBuffer:a2];
-    [v62 setColorSpace:colorSpace];
-    v70.a = 0.0;
-    return [objc_msgSend(*(v29 + 984) startTaskToRender:v61 fromRect:v62 toDestination:0 atPoint:cameraBounds error:{v38, edges, v49, cameraBounds, v38), "waitUntilCompletedAndReturnError:", &v70}];
+    v60 = OUTLINED_FUNCTION_36_4();
+    v64 = [(BWPreviewStitcherNode *)v61 _featheredImageWithNarrowerCameraImage:v62 widerCameraImage:featheringCopy narrowerCameraClipRect:pixelBuffer widerCameraClipRect:cameraPixelBufferCopy2 zoomingIn:in progress:progress featherEdges:a23 rampCameraTransition:v60 renderEnhancedFeathering:v63 narrowerCameraEdgeExpansionRamp:v51 qsubToQsumEdgeOpacityRamp:a20 qsubToQsumEdgeOpacityRampFromProgress:cameraBounds, v41, edges, v52, feathering, a24, a25];
+    v65 = [objc_alloc(MEMORY[0x1E695F678]) initWithPixelBuffer:a2];
+    [v65 setColorSpace:colorSpace];
+    v73.a = 0.0;
+    return [objc_msgSend(*(v32 + 123) startTaskToRender:v64 fromRect:v65 toDestination:0 atPoint:cameraBounds error:{v41, edges, v52, cameraBounds, v41), "waitUntilCompletedAndReturnError:", &v73}];
   }
 
   return result;
 }
 
-- (uint64_t)_renderHDRPixelBufferToSDR:(uint64_t)r toOutputPixelBuffer:(float)buffer progress:
+- (void)_renderHDRPixelBufferToSDR:(uint64_t)r toOutputPixelBuffer:(float)buffer progress:
 {
   if (result)
   {
@@ -9797,7 +9869,7 @@ LABEL_28:
     v7 = enabled[231];
     if (!v7)
     {
-      v7 = OUTLINED_FUNCTION_132_0();
+      v7 = OUTLINED_FUNCTION_132_0("com.apple.coremedia.previewsink.metal-completion-queue");
       enabled[231] = v7;
     }
 
@@ -9805,7 +9877,7 @@ LABEL_28:
     v8 = enabled[232];
     if (!v8)
     {
-      v8 = OUTLINED_FUNCTION_132_0();
+      v8 = OUTLINED_FUNCTION_132_0("com.apple.coremedia.previewsink.metal-submission-queue");
       enabled[232] = v8;
     }
 
@@ -9823,24 +9895,24 @@ LABEL_28:
 
   if (a2)
   {
-    v15 = *ymmword_1AD046EE0;
-    CGRectMakeWithDictionaryRepresentation([buffer objectForKeyedSubscript:*off_1E798A5C8], &v15);
-    CVPixelBufferGetWidth(a2);
-    CVPixelBufferGetHeight(a2);
-    FigCaptureMetadataUtilitiesDenormalizeCropRect(v15.origin.x, v15.origin.y, v15.size.width, v15.size.height);
+    v17 = *ymmword_1AD046EE0;
+    CGRectMakeWithDictionaryRepresentation([buffer objectForKeyedSubscript:*off_1E798A5C8], &v17);
+    Width = CVPixelBufferGetWidth(a2);
+    Height = CVPixelBufferGetHeight(a2);
+    FigCaptureMetadataUtilitiesDenormalizeCropRect(v17.origin.x, v17.origin.y, v17.size.width, v17.size.height, Width, Height);
     result = 1.0;
-    if (v11 / v12 < a8)
+    if (v13 / v14 < a8)
     {
-      result = a8 / (v11 / v12);
+      result = a8 / (v13 / v14);
     }
 
-    v13 = a7 * result;
-    v14 = vabdd_f64(a7 * result, v12);
+    v15 = a7 * result;
+    v16 = vabdd_f64(a7 * result, v14);
     LODWORD(result) = 1.0;
-    if (v14 > 2.0)
+    if (v16 > 2.0)
     {
-      result = v13 / v12;
-      *&result = v13 / v12;
+      result = v15 / v14;
+      *&result = v15 / v14;
     }
   }
 
@@ -10035,7 +10107,7 @@ LABEL_29:
 
   v34 = v29 + ((v30 - v29) * v33);
 LABEL_34:
-  v168 = v34;
+  v170 = v34;
   if (clipRect)
   {
     v45 = 1.0 - a17;
@@ -10069,14 +10141,14 @@ LABEL_34:
   }
 
   radialGradientFilter = [MEMORY[0x1E695F648] radialGradientFilter];
-  v231.origin.x = OUTLINED_FUNCTION_120();
-  v231.size.width = feathering;
-  v231.size.height = ramp;
-  MidX = CGRectGetMidX(v231);
-  v232.origin.x = OUTLINED_FUNCTION_120();
-  v232.size.width = feathering;
-  v232.size.height = ramp;
-  [radialGradientFilter setCenter:{MidX, CGRectGetMidY(v232)}];
+  v233.origin.x = OUTLINED_FUNCTION_120();
+  v233.size.width = feathering;
+  v233.size.height = ramp;
+  MidX = CGRectGetMidX(v233);
+  v234.origin.x = OUTLINED_FUNCTION_120();
+  v234.size.width = feathering;
+  v234.size.height = ramp;
+  [radialGradientFilter setCenter:{MidX, CGRectGetMidY(v234)}];
   if (feathering >= ramp)
   {
     featheringCopy = ramp;
@@ -10090,7 +10162,7 @@ LABEL_34:
   v52 = featheringCopy * v32 * 0.5;
   *&v52 = v52;
   [radialGradientFilter setRadius0:v52];
-  v53 = featheringCopy * v168 * 0.5;
+  v53 = featheringCopy * v170 * 0.5;
   *&v53 = v53;
   [radialGradientFilter setRadius1:v53];
   v54 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1B0]);
@@ -10102,43 +10174,43 @@ LABEL_34:
   CGColorSpaceRelease(v54);
   v56 = fmax(feathering / featheringCopy * 0.949999988, 1.0);
   v57 = fmax(ramp / featheringCopy * 0.949999988, 1.0);
-  v159 = *(MEMORY[0x1E695EFD0] + 16);
-  v228 = *MEMORY[0x1E695EFD0];
-  v169 = v228;
-  v229 = v159;
-  v230 = *(MEMORY[0x1E695EFD0] + 32);
-  v150 = v230;
+  v161 = *(MEMORY[0x1E695EFD0] + 16);
+  v230 = *MEMORY[0x1E695EFD0];
+  v171 = v230;
+  v231 = v161;
+  v232 = *(MEMORY[0x1E695EFD0] + 32);
+  v152 = v232;
   [radialGradientFilter center];
   v59 = -v58;
   [radialGradientFilter center];
-  Translation = CGAffineTransformMakeTranslation(&v227, v59, -v60);
-  OUTLINED_FUNCTION_128_1(Translation, v62, v63, v64, v65, v66, v67, v68, v150, v116, v121, *&opacityRamp, *&fromProgress, *&a15, *&a16, v150.n128_i64[0], v150.n128_i64[1], v159, *(&v159 + 1), v169, *(&v169 + 1), *&feathering, *&ramp, *&transition, *&edges, v202, v207, v210, v215, v218, v223, v169, *(&v169 + 1), v159, *(&v159 + 1), v69, *&v226.tx);
-  Scale = CGAffineTransformMakeScale(&v226, v56, v57);
-  v78 = OUTLINED_FUNCTION_12_11(Scale, v71, v72, v73, v74, v75, v76, v77, v117, v122, v127, v133, v139, v145, v151, v155, v160, v164, v170, v174, v179, v185, v191, v197, v203, v211, v219, *&v226.a, *&v226.b, *&v226.c, *&v226.d, *&v226.tx, *&v226.ty, *&v227.a);
+  Translation = CGAffineTransformMakeTranslation(&v229, v59, -v60);
+  OUTLINED_FUNCTION_128_1(Translation, v62, v63, v64, v65, v66, v67, v68, v152, v69, v118, v123, *&opacityRamp, *&fromProgress, *&a15, *&a16, v152.n128_i64[0], v152.n128_i64[1], v161, *(&v161 + 1), v171.n128_i64[0], v171.n128_i64[1], *&feathering, *&ramp, *&transition, *&edges, v204, v209, v212, v217, v220, v225, v171.n128_i64[0], v171.n128_i64[1], v161, *(&v161 + 1), v171, *&v228.tx);
+  Scale = CGAffineTransformMakeScale(&v228, v56, v57);
+  v78 = OUTLINED_FUNCTION_12_11(Scale, v71, v72, v73, v74, v75, v76, v77, v119, v124, v129, v135, v141, v147, v153, v157, v162, v166, v172, v176, v181, v187, v193, v199, v205, v213, v221, *&v228.a, *&v228.b, *&v228.c, *&v228.d, *&v228.tx, *&v228.ty, *&v229.a);
   [radialGradientFilter center];
-  v88 = v87;
+  v89 = v88;
   [radialGradientFilter center];
-  v90 = CGAffineTransformMakeTranslation(&v226, v88, v89);
-  v98 = OUTLINED_FUNCTION_12_11(v90, v91, v92, v93, v94, v95, v96, v97, v119, v124, v129, v135, v141, v147, v153, v157, v162, v166, v172, v176, v181, v187, v193, v199, v205, v213, v221, *&v226.a, *&v226.b, *&v226.c, *&v226.d, *&v226.tx, *&v226.ty, *&v227.a);
-  [outputImage imageByApplyingTransform:{OUTLINED_FUNCTION_60_3(v98, v99, v100, v101, v102, v103, v104, v105, v120, v125, v130, v136, v142, v148, v154, v158, v163, v167, v173, v177, v182, v188, v194, v200, v206, v209, v214, v217, v222, v225, *&v226.a, *&v226.b, *&v226.c, *&v226.d, *&v226.tx, *&v226.ty, *&v227.a, *&v227.c, v106).n128_f64[0]}];
-  v107 = OUTLINED_FUNCTION_120();
-  v109 = [v108 imageByCroppingToRect:v107];
+  v91 = CGAffineTransformMakeTranslation(&v228, v89, v90);
+  v99 = OUTLINED_FUNCTION_12_11(v91, v92, v93, v94, v95, v96, v97, v98, v121, v126, v131, v137, v143, v149, v155, v159, v164, v168, v174, v178, v183, v189, v195, v201, v207, v215, v223, *&v228.a, *&v228.b, *&v228.c, *&v228.d, *&v228.tx, *&v228.ty, *&v229.a);
+  [outputImage imageByApplyingTransform:{OUTLINED_FUNCTION_60_3(v99, v100, v101, v102, v103, v104, v105, v106, v107, v122, v127, v132, v138, v144, v150, v156, v160, v165, v169, v175, v179, v184, v190, v196, v202, v208, v211, v216, v219, v224, v227, *&v228.a, *&v228.b, *&v228.c, *&v228.d, *&v228.tx, *&v228.ty, *&v229.a, *&v229.c, v108).n128_f64[0]}];
+  v109 = OUTLINED_FUNCTION_120();
+  v111 = [v110 imageByCroppingToRect:v109];
   blendWithMaskFilter = [MEMORY[0x1E695F648] blendWithMaskFilter];
   [blendWithMaskFilter setInputImage:a2];
-  [blendWithMaskFilter setMaskImage:v109];
+  [blendWithMaskFilter setMaskImage:v111];
   [blendWithMaskFilter setBackgroundImage:image];
   outputImage2 = [blendWithMaskFilter outputImage];
   OUTLINED_FUNCTION_33();
-  if (v112)
+  if (v114)
   {
     OUTLINED_FUNCTION_33();
-    if (v112)
+    if (v114)
     {
       if ((*(self + 1572) & 1) == 0)
       {
-        v113 = *(self + 1628);
+        v115 = *(self + 1628);
         [*(self + 1536) currentValue];
-        return psn_imageWithBlurredEdges(outputImage2, *(self + 1632), v201, v195, v183, v189, v131, v137, v143, v149, v113, v114);
+        return psn_imageWithBlurredEdges(outputImage2, *(self + 1632), v203, v197, v185, v191, v133, v139, v145, v151, v115, v116);
       }
     }
   }
@@ -10150,13 +10222,13 @@ LABEL_34:
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     result = result[124];
     if (!result)
     {
       objc_opt_class();
       result = [objc_msgSend(OUTLINED_FUNCTION_4() "bundleForClass:{"URLForResource:withExtension:", @"BWPreviewStitcherNode.ci", @"metallib"}")];
-      v1[124] = result;
+      v2[124] = result;
     }
   }
 
@@ -10170,6 +10242,7 @@ LABEL_34:
     return 0;
   }
 
+  v10 = a2;
   _coreImageMetalLibraryURL = [(BWPreviewStitcherNode *)self _coreImageMetalLibraryURL];
   v42 = 0;
   [MEMORY[0x1E695F618] cachedKernelWithFunctionName:@"TwoY" fromMetalLibrary:_coreImageMetalLibraryURL error:&v42];
@@ -10183,7 +10256,7 @@ LABEL_34:
       {
         memset(&v41, 0, sizeof(v41));
         CGAffineTransformMakeScale(&v41, 0.25, 0.25);
-        v13 = [a2 imageByApplyingTransform:OUTLINED_FUNCTION_88().n128_f64[0] highQualityDownsample:?];
+        v13 = [v10 imageByApplyingTransform:OUTLINED_FUNCTION_88().n128_f64[0] highQualityDownsample:?];
         v14 = [image imageByApplyingTransform:OUTLINED_FUNCTION_88().n128_f64[0] highQualityDownsample:?];
         [v13 extent];
         OUTLINED_FUNCTION_21_5();
@@ -10230,9 +10303,9 @@ LABEL_34:
         OUTLINED_FUNCTION_8();
         v30 = OUTLINED_FUNCTION_13_11();
         v32 = [objc_msgSend(v31 applyWithExtent:v30) arguments:"imageByClampingToExtent"];
-        [a2 extent];
+        [v10 extent];
         OUTLINED_FUNCTION_21_5();
-        v36[0] = a2;
+        v36[0] = v10;
         v36[1] = v32;
         *&v33 = a8;
         v36[2] = [MEMORY[0x1E696AD98] numberWithFloat:v33];
@@ -10244,10 +10317,10 @@ LABEL_34:
     }
   }
 
-  return a2;
+  return v10;
 }
 
-- (uint64_t)_rectangularFeatheredImageWithNarrowerCameraImage:(uint64_t)image widerCameraImage:(int)cameraImage narrowerCameraClipRect:(int)rect zoomingIn:(void *)in progress:(CGFloat)progress rampCameraTransition:(CGFloat)transition narrowerCameraEdgeExpansionRamp:(CGFloat)ramp
+- (char)_rectangularFeatheredImageWithNarrowerCameraImage:(uint64_t)image widerCameraImage:(int)cameraImage narrowerCameraClipRect:(int)rect zoomingIn:(void *)in progress:(CGFloat)progress rampCameraTransition:(CGFloat)transition narrowerCameraEdgeExpansionRamp:(CGFloat)ramp
 {
   if (result)
   {
@@ -10279,15 +10352,15 @@ LABEL_34:
       v23 = &OBJC_IVAR___BWPreviewStitcherNode__cameraTransitionEdgeFeatheringZoomOutEndSigma;
     }
 
-    v24 = *(result + *v22);
-    v25 = v24 + ((*(result + *v23) - v24) * v21);
+    v24 = *&result[*v22];
+    v25 = v24 + ((*&result[*v23] - v24) * v21);
     if (in)
     {
       [in currentValue];
       v25 = OUTLINED_FUNCTION_46_3(v26) * v25;
     }
 
-    v27 = v25 * *(v20 + 1168);
+    v27 = v25 * *(v20 + 292);
     v28 = 1.0 - a11;
     if (cameraImage)
     {
@@ -10593,55 +10666,6 @@ LABEL_34:
   }
 
   return result;
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:inputBuffersHaveHorizontalOverscanOnly:registrationType:registrationMetalCommandQueue:excludeStaticComponentFromAlignmentShifts:propagateDepth:propagateStyles:smartFramingZoomFactorsByFieldOfView:sensorOrientationByPortType:singleCameraOverCaptureEnabled:parallaxMitigationBasedOnZoomFactorEnabled:zoomPIPOverlayEnabled:zoomPIPMinimumUIZoomFactor:zoomPIPSingleStreamModeEnabled:preallocateOutputBufferPool:primaryCaptureRectCenterYPixelOffsetEnabled:propagatePrimaryPreviewSource:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:inputBuffersHaveHorizontalOverscanOnly:registrationType:registrationMetalCommandQueue:excludeStaticComponentFromAlignmentShifts:propagateDepth:propagateStyles:smartFramingZoomFactorsByFieldOfView:sensorOrientationByPortType:singleCameraOverCaptureEnabled:parallaxMitigationBasedOnZoomFactorEnabled:zoomPIPOverlayEnabled:zoomPIPMinimumUIZoomFactor:zoomPIPSingleStreamModeEnabled:preallocateOutputBufferPool:primaryCaptureRectCenterYPixelOffsetEnabled:propagatePrimaryPreviewSource:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:inputBuffersHaveHorizontalOverscanOnly:registrationType:registrationMetalCommandQueue:excludeStaticComponentFromAlignmentShifts:propagateDepth:propagateStyles:smartFramingZoomFactorsByFieldOfView:sensorOrientationByPortType:singleCameraOverCaptureEnabled:parallaxMitigationBasedOnZoomFactorEnabled:zoomPIPOverlayEnabled:zoomPIPMinimumUIZoomFactor:zoomPIPSingleStreamModeEnabled:preallocateOutputBufferPool:primaryCaptureRectCenterYPixelOffsetEnabled:propagatePrimaryPreviewSource:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:inputBuffersHaveHorizontalOverscanOnly:registrationType:registrationMetalCommandQueue:excludeStaticComponentFromAlignmentShifts:propagateDepth:propagateStyles:smartFramingZoomFactorsByFieldOfView:sensorOrientationByPortType:singleCameraOverCaptureEnabled:parallaxMitigationBasedOnZoomFactorEnabled:zoomPIPOverlayEnabled:zoomPIPMinimumUIZoomFactor:zoomPIPSingleStreamModeEnabled:preallocateOutputBufferPool:primaryCaptureRectCenterYPixelOffsetEnabled:propagatePrimaryPreviewSource:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

@@ -58,20 +58,21 @@ LABEL_4:
 + (BOOL)getMotionShiftFromOpticalCenters:(CGPoint *)centers opticalCenterArrayLen:(unint64_t)len opticalCenterMotionShifts:(double *)shifts
 {
   lenCopy = len;
-  v11[1] = *MEMORY[0x277D85DE8];
-  v6 = (v11 - ((4 * len + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12[1] = *MEMORY[0x277D85DE8];
+  v6 = v12 - ((8 * len + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = (v12 - ((4 * len + 15) & 0xFFFFFFFFFFFFFFF0));
   if (len)
   {
     for (i = 0; i != len; ++i)
     {
-      *(&v11[i] - ((8 * len + 15) & 0xFFFFFFFFFFFFFFF0)) = vcvt_f32_f64(centers[i]);
+      *&v6[8 * i] = vcvt_f32_f64(centers[i]);
     }
 
-    getOpticalCenterMvShift();
+    getOpticalCenterMvShift(v6);
     do
     {
-      v9 = *v6++;
-      *shifts++ = v9;
+      v10 = *v7++;
+      *shifts++ = v10;
       --lenCopy;
     }
 
@@ -80,7 +81,7 @@ LABEL_4:
 
   else
   {
-    getOpticalCenterMvShift();
+    getOpticalCenterMvShift(v6);
   }
 
   return 1;

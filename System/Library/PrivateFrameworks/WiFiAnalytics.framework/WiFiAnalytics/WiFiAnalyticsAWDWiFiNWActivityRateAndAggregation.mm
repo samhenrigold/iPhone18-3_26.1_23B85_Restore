@@ -313,15 +313,14 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v32 = toCopy;
+  v19 = toCopy;
   if (self->_rxVHTSuccess.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_rxVHTSuccess.list[v5];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
+      toCopy = v19;
       ++v5;
     }
 
@@ -330,171 +329,159 @@
 
   if (self->_txVHTSuccess.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_txVHTSuccess.list[v7];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v7;
+      toCopy = v19;
+      ++v6;
     }
 
-    while (v7 < self->_txVHTSuccess.count);
+    while (v6 < self->_txVHTSuccess.count);
   }
 
   if (self->_rxMCSSuccess.count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = self->_rxMCSSuccess.list[v9];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v9;
+      toCopy = v19;
+      ++v7;
     }
 
-    while (v9 < self->_rxMCSSuccess.count);
+    while (v7 < self->_rxMCSSuccess.count);
   }
 
   if (self->_txMCSSuccess.count)
   {
-    v11 = 0;
+    v8 = 0;
     do
     {
-      v12 = self->_txMCSSuccess.list[v11];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v11;
+      toCopy = v19;
+      ++v8;
     }
 
-    while (v11 < self->_txMCSSuccess.count);
+    while (v8 < self->_txMCSSuccess.count);
   }
 
   if (self->_ampduAGGs.count)
   {
-    v13 = 0;
+    v9 = 0;
     do
     {
-      v14 = self->_ampduAGGs.list[v13];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v13;
+      toCopy = v19;
+      ++v9;
     }
 
-    while (v13 < self->_ampduAGGs.count);
+    while (v9 < self->_ampduAGGs.count);
   }
 
   if (self->_rxHESuccess.count)
   {
-    v15 = 0;
+    v10 = 0;
     do
     {
-      v16 = self->_rxHESuccess.list[v15];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v15;
+      toCopy = v19;
+      ++v10;
     }
 
-    while (v15 < self->_rxHESuccess.count);
+    while (v10 < self->_rxHESuccess.count);
   }
 
   if (self->_txHESuccess.count)
   {
-    v17 = 0;
+    v11 = 0;
     do
     {
-      v18 = self->_txHESuccess.list[v17];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v17;
+      toCopy = v19;
+      ++v11;
     }
 
-    while (v17 < self->_txHESuccess.count);
+    while (v11 < self->_txHESuccess.count);
   }
 
   if (self->_rxampduSUs.count)
   {
-    v19 = 0;
+    v12 = 0;
     do
     {
-      v20 = self->_rxampduSUs.list[v19];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v19;
+      toCopy = v19;
+      ++v12;
     }
 
-    while (v19 < self->_rxampduSUs.count);
+    while (v12 < self->_rxampduSUs.count);
   }
 
   if (self->_txampduSUs.count)
   {
-    v21 = 0;
+    v13 = 0;
     do
     {
-      v22 = self->_txampduSUs.list[v21];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v21;
+      toCopy = v19;
+      ++v13;
     }
 
-    while (v21 < self->_txampduSUs.count);
+    while (v13 < self->_txampduSUs.count);
   }
 
   if (self->_rxampduOFDMAs.count)
   {
-    v23 = 0;
+    v14 = 0;
     do
     {
-      v24 = self->_rxampduOFDMAs.list[v23];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v23;
+      toCopy = v19;
+      ++v14;
     }
 
-    while (v23 < self->_rxampduOFDMAs.count);
+    while (v14 < self->_rxampduOFDMAs.count);
   }
 
   if (self->_txampduOFDMAs.count)
   {
-    v25 = 0;
+    v15 = 0;
     do
     {
-      v26 = self->_txampduOFDMAs.list[v25];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v25;
+      toCopy = v19;
+      ++v15;
     }
 
-    while (v25 < self->_txampduOFDMAs.count);
+    while (v15 < self->_txampduOFDMAs.count);
   }
 
   if (self->_rxampduMUMIMOs.count)
   {
-    v27 = 0;
+    v16 = 0;
     do
     {
-      v28 = self->_rxampduMUMIMOs.list[v27];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v27;
+      toCopy = v19;
+      ++v16;
     }
 
-    while (v27 < self->_rxampduMUMIMOs.count);
+    while (v16 < self->_rxampduMUMIMOs.count);
   }
 
   p_txampduMUMIMOs = &self->_txampduMUMIMOs;
   if (p_txampduMUMIMOs->count)
   {
-    v30 = 0;
+    v18 = 0;
     do
     {
-      v31 = p_txampduMUMIMOs->list[v30];
       PBDataWriterWriteUint64Field();
-      toCopy = v32;
-      ++v30;
+      toCopy = v19;
+      ++v18;
     }
 
-    while (v30 < p_txampduMUMIMOs->count);
+    while (v18 < p_txampduMUMIMOs->count);
   }
 }
 

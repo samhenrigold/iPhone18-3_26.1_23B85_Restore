@@ -12,6 +12,7 @@
 - (void)setActiveState:(id)state forSpecifier:(id)specifier save:(BOOL)save;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CCSComplicationController
@@ -62,6 +63,15 @@
   v2.receiver = self;
   v2.super_class = CCSComplicationController;
   [(CCSComplicationController *)&v2 viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CCSComplicationController;
+  [(CCSComplicationController *)&v5 viewWillAppear:appear];
+  table = [(CCSComplicationController *)self table];
+  [table setEditing:0];
 }
 
 - (id)_iconForSpecifier:(id)specifier

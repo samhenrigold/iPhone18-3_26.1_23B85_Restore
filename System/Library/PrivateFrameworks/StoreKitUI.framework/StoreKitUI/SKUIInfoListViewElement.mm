@@ -23,7 +23,7 @@
   if (v11)
   {
     v12 = [elementCopy getAttribute:@"type"];
-    v11->_infoListType = [v12 isEqualToString:@"titleAbove"];
+    v11->_infoListType = objc_msgSend_isEqualToString_(v12);
   }
 
   return v11;

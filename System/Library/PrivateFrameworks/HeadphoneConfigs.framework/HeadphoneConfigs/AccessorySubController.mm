@@ -31,9 +31,9 @@
 - (id)specifiers
 {
   v3 = MEMORY[0x277CBEB18];
-  v39.receiver = self;
-  v39.super_class = AccessorySubController;
-  specifiers = [(PSListItemsController *)&v39 specifiers];
+  v38.receiver = self;
+  v38.super_class = AccessorySubController;
+  specifiers = [(PSListItemsController *)&v38 specifiers];
   v5 = [v3 arrayWithArray:specifiers];
 
   v6 = *MEMORY[0x277D3FD20];
@@ -42,21 +42,20 @@
   currentDevice = self->_currentDevice;
   self->_currentDevice = v8;
 
-  v10 = self->_currentDevice;
-  if (objc_opt_respondsToSelector())
+  v10 = objc_opt_respondsToSelector();
+  if (v10)
   {
     classicDevice = [(BluetoothDeviceProtocol *)self->_currentDevice classicDevice];
   }
 
   else
   {
-    v12 = sharedBluetoothSettingsLogComponent();
+    v12 = sharedBluetoothSettingsLogComponent(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(AccessorySubController *)&self->_currentDevice specifiers];
     }
 
-    v13 = self->_currentDevice;
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
       [AccessorySubController specifiers];
@@ -65,136 +64,136 @@
     classicDevice = self->_currentDevice;
   }
 
-  v14 = classicDevice;
-  v15 = MEMORY[0x277D3FAD8];
-  v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v17 = [v16 localizedStringForKey:&stru_286339F58 value:&stru_286339F58 table:@"DeviceConfig"];
-  v18 = [v15 preferenceSpecifierNamed:v17 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v13 = classicDevice;
+  v14 = MEMORY[0x277D3FAD8];
+  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v16 = [v15 localizedStringForKey:&stru_286339F58 value:&stru_286339F58 table:@"DeviceConfig"];
+  v17 = [v14 preferenceSpecifierNamed:v16 target:self set:0 get:0 detail:0 cell:0 edit:0];
 
-  v38 = 0;
-  [(BluetoothDeviceProtocol *)v14 clickHoldMode:&v38 + 4 rightAction:&v38];
+  v37 = 0;
+  [(BluetoothDeviceProtocol *)v13 clickHoldMode:&v37 + 4 rightAction:&v37];
   identifier = [*(&self->super.super.super.super.super.super.isa + v6) identifier];
-  LODWORD(v17) = [identifier isEqualToString:@"LEFT_ID"];
+  LODWORD(v16) = [identifier isEqualToString:@"LEFT_ID"];
 
-  v20 = MEMORY[0x277D3FF88];
-  if (v17)
+  v19 = MEMORY[0x277D3FF88];
+  if (v16)
   {
-    if (HIDWORD(v38) == 7)
+    if (HIDWORD(v37) == 7)
     {
-      [(BluetoothDeviceProtocol *)v14 setClickHoldMode:7 rightMode:6];
-      v21 = @"FOOTER_VOLUME_UP_RIGHT_BUD";
+      [(BluetoothDeviceProtocol *)v13 setClickHoldMode:7 rightMode:6];
+      v20 = @"FOOTER_VOLUME_UP_RIGHT_BUD";
     }
 
     else
     {
-      if (HIDWORD(v38) != 6)
+      if (HIDWORD(v37) != 6)
       {
         goto LABEL_18;
       }
 
-      [(BluetoothDeviceProtocol *)v14 setClickHoldMode:6 rightMode:7];
-      v21 = @"FOOTER_VOLUME_DOWN_RIGHT_BUD";
+      [(BluetoothDeviceProtocol *)v13 setClickHoldMode:6 rightMode:7];
+      v20 = @"FOOTER_VOLUME_DOWN_RIGHT_BUD";
     }
   }
 
   else
   {
     identifier2 = [*(&self->super.super.super.super.super.super.isa + v6) identifier];
-    v23 = [identifier2 isEqualToString:@"RIGHT_ID"];
+    v22 = [identifier2 isEqualToString:@"RIGHT_ID"];
 
-    if (!v23)
+    if (!v22)
     {
       goto LABEL_18;
     }
 
-    if (v38 == 7)
+    if (v37 == 7)
     {
-      [(BluetoothDeviceProtocol *)v14 setClickHoldMode:6 rightMode:7];
-      v21 = @"FOOTER_VOLUME_UP_LEFT_BUD";
+      [(BluetoothDeviceProtocol *)v13 setClickHoldMode:6 rightMode:7];
+      v20 = @"FOOTER_VOLUME_UP_LEFT_BUD";
     }
 
     else
     {
-      if (v38 != 6)
+      if (v37 != 6)
       {
         goto LABEL_18;
       }
 
-      [(BluetoothDeviceProtocol *)v14 setClickHoldMode:7 rightMode:6];
-      v21 = @"FOOTER_VOLUME_DOWN_LEFT_BUD";
+      [(BluetoothDeviceProtocol *)v13 setClickHoldMode:7 rightMode:6];
+      v20 = @"FOOTER_VOLUME_DOWN_LEFT_BUD";
     }
   }
 
-  v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v25 = [v24 localizedStringForKey:v21 value:&stru_286339F58 table:@"DeviceConfig-B494"];
-  [v18 setProperty:v25 forKey:*v20];
+  v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v24 = [v23 localizedStringForKey:v20 value:&stru_286339F58 table:@"DeviceConfig-B494"];
+  [v17 setProperty:v24 forKey:*v19];
 
 LABEL_18:
   identifier3 = [*(&self->super.super.super.super.super.super.isa + v6) identifier];
-  v27 = [identifier3 isEqualToString:@"LEFT_ID"];
+  v26 = [identifier3 isEqualToString:@"LEFT_ID"];
 
-  if (v27)
+  if (v26)
   {
-    if (HIDWORD(v38) == 7)
+    if (HIDWORD(v37) == 7)
     {
-      [(BluetoothDeviceProtocol *)v14 setClickHoldMode:7 rightMode:6];
-      v28 = @"FOOTER_VOLUME_UP_RIGHT_BUD";
+      [(BluetoothDeviceProtocol *)v13 setClickHoldMode:7 rightMode:6];
+      v27 = @"FOOTER_VOLUME_UP_RIGHT_BUD";
     }
 
     else
     {
-      if (HIDWORD(v38) != 6)
+      if (HIDWORD(v37) != 6)
       {
         goto LABEL_29;
       }
 
-      [(BluetoothDeviceProtocol *)v14 setClickHoldMode:6 rightMode:7];
-      v28 = @"FOOTER_VOLUME_DOWN_RIGHT_BUD";
+      [(BluetoothDeviceProtocol *)v13 setClickHoldMode:6 rightMode:7];
+      v27 = @"FOOTER_VOLUME_DOWN_RIGHT_BUD";
     }
   }
 
   else
   {
     identifier4 = [*(&self->super.super.super.super.super.super.isa + v6) identifier];
-    v30 = [identifier4 isEqualToString:@"RIGHT_ID"];
+    v29 = [identifier4 isEqualToString:@"RIGHT_ID"];
 
-    if (!v30)
+    if (!v29)
     {
       goto LABEL_29;
     }
 
-    if (v38 == 7)
+    if (v37 == 7)
     {
-      [(BluetoothDeviceProtocol *)v14 setClickHoldMode:6 rightMode:7];
-      v28 = @"FOOTER_VOLUME_UP_LEFT_BUD";
+      [(BluetoothDeviceProtocol *)v13 setClickHoldMode:6 rightMode:7];
+      v27 = @"FOOTER_VOLUME_UP_LEFT_BUD";
     }
 
     else
     {
-      if (v38 != 6)
+      if (v37 != 6)
       {
         goto LABEL_29;
       }
 
-      [(BluetoothDeviceProtocol *)v14 setClickHoldMode:7 rightMode:6];
-      v28 = @"FOOTER_VOLUME_DOWN_LEFT_BUD";
+      [(BluetoothDeviceProtocol *)v13 setClickHoldMode:7 rightMode:6];
+      v27 = @"FOOTER_VOLUME_DOWN_LEFT_BUD";
     }
   }
 
-  v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v32 = [v31 localizedStringForKey:v28 value:&stru_286339F58 table:@"DeviceConfig-B494b"];
-  [v18 setProperty:v32 forKey:*v20];
+  v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v31 = [v30 localizedStringForKey:v27 value:&stru_286339F58 table:@"DeviceConfig-B494b"];
+  [v17 setProperty:v31 forKey:*v19];
 
 LABEL_29:
-  [v5 addObject:v18];
-  v33 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
-  v34 = *MEMORY[0x277D3FC48];
-  v35 = *(&self->super.super.super.super.super.super.isa + v34);
-  *(&self->super.super.super.super.super.super.isa + v34) = v33;
+  [v5 addObject:v17];
+  v32 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
+  v33 = *MEMORY[0x277D3FC48];
+  v34 = *(&self->super.super.super.super.super.super.isa + v33);
+  *(&self->super.super.super.super.super.super.isa + v33) = v32;
 
-  v36 = *(&self->super.super.super.super.super.super.isa + v34);
+  v35 = *(&self->super.super.super.super.super.super.isa + v33);
 
-  return v36;
+  return v35;
 }
 
 - (void)listItemSelected:(id)selected
@@ -211,15 +210,12 @@ LABEL_29:
 
 - (void)specifiers
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = *self;
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_251143000, a2, OS_LOG_TYPE_ERROR, " AccessorySubController does not respond to classicDevice, currentDevice is %@", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_251143000, a2, OS_LOG_TYPE_ERROR, " AccessorySubController does not respond to classicDevice, currentDevice is %@", &v5, 0xCu);
 }
 
 @end

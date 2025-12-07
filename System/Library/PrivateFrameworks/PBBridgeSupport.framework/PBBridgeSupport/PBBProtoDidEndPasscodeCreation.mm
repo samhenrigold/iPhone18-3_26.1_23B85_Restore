@@ -41,12 +41,9 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  success = self->_success;
-  v7 = toCopy;
   PBDataWriterWriteBOOLField();
   if (*&self->_has)
   {
-    isLong = self->_isLong;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -82,7 +79,6 @@
     goto LABEL_8;
   }
 
-  v5 = equalCopy[9];
   if (self->_success)
   {
     if ((equalCopy[9] & 1) == 0)
@@ -96,7 +92,7 @@
     goto LABEL_8;
   }
 
-  v6 = (equalCopy[12] & 1) == 0;
+  v5 = (equalCopy[12] & 1) == 0;
   if (*&self->_has)
   {
     if (equalCopy[12])
@@ -114,17 +110,17 @@
         goto LABEL_8;
       }
 
-      v6 = 1;
+      v5 = 1;
       goto LABEL_9;
     }
 
 LABEL_8:
-    v6 = 0;
+    v5 = 0;
   }
 
 LABEL_9:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

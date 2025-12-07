@@ -930,7 +930,7 @@ void __72__SiriUISnippetManager_disambiguationItemForListItem_disambiguationKey_
     {
       if (v9 == v5 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        __72__SiriUISnippetManager_disambiguationItemForListItem_disambiguationKey___block_invoke_cold_1(a1);
+        __72__SiriUISnippetManager_disambiguationItemForListItem_disambiguationKey___block_invoke_cold_1(a1, v5);
       }
     }
 
@@ -1104,10 +1104,10 @@ void __56__SiriUISnippetManager_snippetViewControllerForSnippet___block_invoke_c
   [v1 handleFailureInMethod:v2 object:? file:? lineNumber:? description:?];
 }
 
-void __72__SiriUISnippetManager_disambiguationItemForListItem_disambiguationKey___block_invoke_cold_1(uint64_t a1)
+void __72__SiriUISnippetManager_disambiguationItemForListItem_disambiguationKey___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCA890] currentHandler];
-  [v2 handleFailureInMethod:*(a1 + 72) object:*(a1 + 56) file:@"SiriUISnippetManager.m" lineNumber:335 description:{@"Plugin factory %@ must return an new allocated instance of id SiriUIDisambiguationItem from disambiguationItemForListItem:disambiguationKey:", objc_opt_class()}];
+  v3 = [MEMORY[0x277CCA890] currentHandler];
+  [v3 handleFailureInMethod:*(a1 + 72) object:*(a1 + 56) file:@"SiriUISnippetManager.m" lineNumber:335 description:{@"Plugin factory %@ must return an new allocated instance of id SiriUIDisambiguationItem from disambiguationItemForListItem:disambiguationKey:", objc_opt_class()}];
 }
 
 void __72__SiriUISnippetManager_disambiguationItemForListItem_disambiguationKey___block_invoke_cold_2(void *a1, uint64_t a2, uint64_t a3)

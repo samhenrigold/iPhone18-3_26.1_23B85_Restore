@@ -40,9 +40,11 @@
 
 uint64_t __47__WLKStoredConfigurationManager_sharedInstance__block_invoke()
 {
-  sharedInstance_sInstance = objc_alloc_init(WLKStoredConfigurationManager);
+  v0 = objc_alloc_init(WLKStoredConfigurationManager);
+  v1 = sharedInstance_sInstance;
+  sharedInstance_sInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)dealloc
@@ -57,13 +59,13 @@ uint64_t __47__WLKStoredConfigurationManager_sharedInstance__block_invoke()
 
 - (void)_invalidateWithReason:(id)reason
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v5 = WLKSystemLogObject();
+  v5 = WLKSystemLogObject(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = reasonCopy;
+    v8 = reasonCopy;
     _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKStoredConfigurationManager - Invalidating for reason: %@", buf, 0xCu);
   }
 
@@ -73,15 +75,13 @@ uint64_t __47__WLKStoredConfigurationManager_sharedInstance__block_invoke()
   block[3] = &unk_279E5EE08;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateConfiguration:(id)configuration
 {
   v20 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v5 = WLKSystemLogObject();
+  v5 = WLKSystemLogObject(configurationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -113,7 +113,7 @@ uint64_t __47__WLKStoredConfigurationManager_sharedInstance__block_invoke()
   v13[2] = __54__WLKStoredConfigurationManager__updateConfiguration___block_invoke;
   v13[3] = &unk_279E5E788;
   v13[4] = buf;
-  [requiredRequestKeyValuePairsDictionary enumerateKeysAndObjectsUsingBlock:v13];
+  v11 = [requiredRequestKeyValuePairsDictionary enumerateKeysAndObjectsUsingBlock:v13];
   if (v15[24])
   {
     if (requiredRequestKeyValuePairsDictionary)
@@ -129,18 +129,16 @@ uint64_t __47__WLKStoredConfigurationManager_sharedInstance__block_invoke()
 
   else
   {
-    v11 = WLKSystemLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = WLKSystemLogObject(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *v18 = 138412290;
       v19 = requiredRequestKeyValuePairsDictionary;
-      _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKStoredConfigurationManager - Unsupported type in rrkvp %@. Will not persist.", v18, 0xCu);
+      _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKStoredConfigurationManager - Unsupported type in rrkvp %@. Will not persist.", v18, 0xCu);
     }
   }
 
   _Block_object_dispose(buf, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WLKStoredConfigurationManager__updateConfiguration___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -149,26 +147,25 @@ void __54__WLKStoredConfigurationManager__updateConfiguration___block_invoke(uin
   v7 = a2;
   v8 = a3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = WLKSystemLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = WLKSystemLogObject(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = objc_opt_class();
-      v11 = v10;
+      v11 = objc_opt_class();
+      v12 = v11;
       v14 = 138412546;
-      v15 = v10;
+      v15 = v11;
       v16 = 2112;
       v17 = objc_opt_class();
-      v12 = v17;
-      _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKStoredConfigurationManager - Unsupported type in rrkvp key:%@ obj:%@", &v14, 0x16u);
+      v13 = v17;
+      _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKStoredConfigurationManager - Unsupported type in rrkvp key:%@ obj:%@", &v14, 0x16u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
     *a4 = 1;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setStoredConfiguration:(id)configuration
@@ -200,27 +197,27 @@ void __54__WLKStoredConfigurationManager__updateConfiguration___block_invoke(uin
     {
     }
 
-    v10 = WLKSystemLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = WLKSystemLogObject(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 138412546;
       v18 = v8;
       v19 = 2112;
       v20 = v6;
-      _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKStoredConfigurationManager - Stored config did change. Posting notification from:%@ to:%@", &v17, 0x16u);
+      _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKStoredConfigurationManager - Stored config did change. Posting notification from:%@ to:%@", &v17, 0x16u);
     }
 
-    v11 = getpid();
-    notify_set_state(0, v11);
+    v12 = getpid();
+    notify_set_state(0, v12);
     notify_post("com.apple.WatchListKit.WLKStoredConfigurationDidChangeDispatchNotification");
     if (v6)
     {
       [v4 setObject:v6 forKey:@"storedConfig"];
-      v12 = MEMORY[0x277CCABB0];
+      v13 = MEMORY[0x277CCABB0];
       date = [MEMORY[0x277CBEAA8] date];
       [date timeIntervalSince1970];
-      v15 = [v12 numberWithDouble:floor(v14)];
-      [v4 setObject:v15 forKey:@"storedConfigTimestamp"];
+      v16 = [v13 numberWithDouble:floor(v15)];
+      [v4 setObject:v16 forKey:@"storedConfigTimestamp"];
     }
 
     else
@@ -231,8 +228,6 @@ void __54__WLKStoredConfigurationManager__updateConfiguration___block_invoke(uin
   }
 
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (WLKStoredConfiguration)storedConfiguration

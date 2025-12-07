@@ -143,8 +143,7 @@ LABEL_11:
   [(VMRoundButton *)self setActualBackgroundColor:v7];
 
   [(VMRoundButton *)self setActualTintColor:v5];
-  [(VMRoundButton *)self setImage:v6 forState:0];
-  v8 = PHDefaultLog();
+  v8 = PHDefaultLog([(VMRoundButton *)self setImage:v6 forState:0]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;

@@ -364,7 +364,7 @@ uint64_t __54__PKHowToUseWalletManager_latestCardForLotIdentifier___block_invoke
   v6 = v5;
   if (v4 == v5)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -381,16 +381,16 @@ uint64_t __54__PKHowToUseWalletManager_latestCardForLotIdentifier___block_invoke
 
     if (v7)
     {
-      v8 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v8 = [v4 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 uint64_t __54__PKHowToUseWalletManager_latestCardForLotIdentifier___block_invoke_4(uint64_t a1, void *a2)
@@ -402,7 +402,7 @@ uint64_t __54__PKHowToUseWalletManager_latestCardForLotIdentifier___block_invoke
   v6 = v5;
   if (v4 == v5)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -419,16 +419,16 @@ uint64_t __54__PKHowToUseWalletManager_latestCardForLotIdentifier___block_invoke
 
     if (v7)
     {
-      v8 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v8 = [v4 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)_hiddenCardsPassingTest:(id)test

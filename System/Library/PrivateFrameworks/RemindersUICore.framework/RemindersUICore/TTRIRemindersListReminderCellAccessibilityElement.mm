@@ -157,7 +157,7 @@ LABEL_7:
       swift_unknownObjectRelease();
       if (_accessibilityInternalTextLinks)
       {
-        sub_21D0D8CF0(0, &unk_27CE5F130);
+        sub_21D0D8CF0(0, &unk_27CE5F130, 0x277D74008);
         sub_21DBFA5EC();
 
         selfCopy = _accessibilityInternalTextLinks;
@@ -170,7 +170,7 @@ LABEL_7:
     }
   }
 
-  sub_21D0D8CF0(0, &unk_27CE5F130);
+  sub_21D0D8CF0(0, &unk_27CE5F130, 0x277D74008);
   v6 = sub_21DBFA5DC();
 
   return v6;

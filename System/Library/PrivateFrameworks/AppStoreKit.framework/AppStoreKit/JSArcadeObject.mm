@@ -10,7 +10,7 @@
 
 - (id)getMarketingItemFromMarketingItems:(id)items
 {
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   itemsCopy = items;
   v5 = sub_1E1AF6D4C();
   v6 = sub_1E1AF6D5C();
@@ -20,7 +20,7 @@
 
 - (id)getMarketingItemWithTimeout:(id)timeout :(id)a4
 {
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   timeoutCopy = timeout;
   v7 = a4;
   v8 = sub_1E1AF6D4C();
@@ -31,7 +31,7 @@
 
 - (id)getRecentlyPlayedGamesWithTimeout:(id)timeout
 {
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   timeoutCopy = timeout;
   selfCopy = self;
   v7 = sub_1E1AF6D4C();

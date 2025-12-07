@@ -62,7 +62,7 @@
   [defaultCenter removeObserver_];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for AudioAttachmentEditorCoordinator();
+  v6.super_class = type metadata accessor for AudioAttachmentEditorCoordinator(0);
   [(ICAudioAttachmentEditorCoordinator *)&v6 dealloc];
 }
 
@@ -136,7 +136,7 @@
 
 - (void)presentSharingViewForAttachment:(id)attachment fromSourceView:(id)view
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0, &qword_2154BED90);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v19 - v8;
   v10 = sub_2154A202C();
@@ -174,7 +174,7 @@
 
 - (void)presentExportViewForAttachment:(id)attachment
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0, &qword_2154BED90);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - v6;
   v8 = sub_2154A202C();
@@ -204,7 +204,7 @@
   swift_unknownObjectRetain();
   sub_2154A2BCC();
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_0Tm(&v3);
+  __swift_destroy_boxed_opaque_existential_0Tm(v3);
 }
 
 - (void)playFromBeginning:(id)beginning
@@ -220,7 +220,7 @@
   selfCopy = self;
   objectID = [forCopy objectID];
   swift_beginAccess();
-  sub_2153EED00(&v8, objectID, &qword_2811995F0, 0x277CBE448, &unk_27CA5C6F0, &unk_2154BE710);
+  sub_2153EED00(&v8, objectID, &qword_2811995F0, 0x277CBE448, &unk_27CA5C6F0, &qword_2154BE710);
   v7 = v8;
   swift_endAccess();
 
@@ -273,7 +273,7 @@
 {
   forCopy = for;
   selfCopy = self;
-  AudioAttachmentEditorCoordinator.presentReportAConcern(for:withPositiveFeedback:)(forCopy, feedback);
+  AudioAttachmentEditorCoordinator.presentReportAConcern(for:withPositiveFeedback:)(forCopy, feedback, v7);
 }
 
 - (void)delete:(id)delete

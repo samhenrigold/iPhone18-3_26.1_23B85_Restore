@@ -92,53 +92,53 @@
 
 - (id)_createHoursConstraints
 {
-  v34[6] = *MEMORY[0x1E69E9840];
+  v33[6] = *MEMORY[0x1E69E9840];
   isStacked = [(MUDayRowView *)self isStacked];
   leadingAnchor = [(MULabelViewProtocol *)self->_dayLabel leadingAnchor];
   leadingAnchor2 = [(MUDayRowView *)self leadingAnchor];
-  v32 = leadingAnchor;
+  v31 = leadingAnchor;
   v5 = [leadingAnchor constraintEqualToAnchor:?];
-  v30 = v5;
+  v29 = v5;
   if (isStacked)
   {
-    v34[0] = v5;
+    v33[0] = v5;
     bottomAnchor = [(MULabelViewProtocol *)self->_dayLabel bottomAnchor];
     p_hoursLabel = &self->_hoursLabel;
     topAnchor = [(MULabelViewProtocol *)self->_hoursLabel topAnchor];
-    v29 = bottomAnchor;
-    v27 = [bottomAnchor constraintEqualToAnchor:-2.0 constant:?];
-    v34[1] = v27;
+    v28 = bottomAnchor;
+    v26 = [bottomAnchor constraintEqualToAnchor:-2.0 constant:?];
+    v33[1] = v26;
     trailingAnchor = [(MULabelViewProtocol *)self->_dayLabel trailingAnchor];
     trailingAnchor2 = [(MULabelViewProtocol *)self->_hoursLabel trailingAnchor];
-    v26 = trailingAnchor;
-    v24 = [trailingAnchor constraintEqualToAnchor:?];
-    v34[2] = v24;
+    v25 = trailingAnchor;
+    v23 = [trailingAnchor constraintEqualToAnchor:?];
+    v33[2] = v23;
     leadingAnchor3 = [(MULabelViewProtocol *)self->_hoursLabel leadingAnchor];
     leadingAnchor4 = [(MUDayRowView *)self leadingAnchor];
     v11 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v34[3] = v11;
-    v12 = v34;
+    v33[3] = v11;
+    v12 = v33;
   }
 
   else
   {
-    v33[0] = v5;
+    v32[0] = v5;
     bottomAnchor2 = [(MULabelViewProtocol *)self->_dayLabel bottomAnchor];
     topAnchor = [(MUDayRowView *)self bottomAnchor];
-    v29 = bottomAnchor2;
-    v27 = [bottomAnchor2 constraintLessThanOrEqualToAnchor:-2.0 constant:?];
-    v33[1] = v27;
+    v28 = bottomAnchor2;
+    v26 = [bottomAnchor2 constraintLessThanOrEqualToAnchor:-2.0 constant:?];
+    v32[1] = v26;
     trailingAnchor3 = [(MULabelViewProtocol *)self->_dayLabel trailingAnchor];
     p_hoursLabel = &self->_hoursLabel;
     trailingAnchor2 = [(MULabelViewProtocol *)self->_hoursLabel leadingAnchor];
-    v26 = trailingAnchor3;
-    v24 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:?];
-    v33[2] = v24;
+    v25 = trailingAnchor3;
+    v23 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:?];
+    v32[2] = v23;
     leadingAnchor3 = [(MULabelViewProtocol *)self->_hoursLabel topAnchor];
     leadingAnchor4 = [(MULabelViewProtocol *)self->_dayLabel topAnchor];
     v11 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v33[3] = v11;
-    v12 = v33;
+    v32[3] = v11;
+    v12 = v32;
   }
 
   trailingAnchor4 = [(MULabelViewProtocol *)*p_hoursLabel trailingAnchor];
@@ -151,14 +151,12 @@
   v12[5] = v20;
   v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:6];
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 - (void)_setupConstraints
 {
-  v29[4] = *MEMORY[0x1E69E9840];
+  v28[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   labelHeaderString = [(MUDayRowViewModel *)self->_viewModel labelHeaderString];
   v5 = [labelHeaderString length];
@@ -167,26 +165,26 @@
   {
     leadingAnchor = [(MULabelViewProtocol *)self->_headerLabel leadingAnchor];
     leadingAnchor2 = [(MUDayRowView *)self leadingAnchor];
-    v23 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v29[0] = v23;
+    v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v28[0] = v22;
     trailingAnchor = [(MULabelViewProtocol *)self->_headerLabel trailingAnchor];
     trailingAnchor2 = [(MUDayRowView *)self trailingAnchor];
-    v24 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
-    v29[1] = v24;
+    v23 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
+    v28[1] = v23;
     topAnchor = [(MULabelViewProtocol *)self->_headerLabel topAnchor];
     topAnchor2 = [(MUDayRowView *)self topAnchor];
     v9 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v29[2] = v9;
+    v28[2] = v9;
     bottomAnchor = [(MULabelViewProtocol *)self->_headerLabel bottomAnchor];
     topAnchor3 = [(MULabelViewProtocol *)self->_dayLabel topAnchor];
     v12 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:-2.0];
-    v29[3] = v12;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:4];
+    v28[3] = v12;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:4];
     v14 = v13 = v3;
     [v13 addObjectsFromArray:v14];
 
     v3 = v13;
-    v15 = v23;
+    v15 = v22;
 
     topAnchor5 = leadingAnchor2;
     topAnchor4 = leadingAnchor;
@@ -197,8 +195,8 @@
     topAnchor4 = [(MULabelViewProtocol *)self->_dayLabel topAnchor];
     topAnchor5 = [(MUDayRowView *)self topAnchor];
     v15 = [topAnchor4 constraintEqualToAnchor:topAnchor5 constant:2.0];
-    v28 = v15;
-    trailingAnchor = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+    v27 = v15;
+    trailingAnchor = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
     [v3 addObjectsFromArray:trailingAnchor];
   }
 
@@ -210,13 +208,11 @@
   v20 = MEMORY[0x1E696ACD8];
   v21 = [v3 copy];
   [v20 activateConstraints:v21];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupSubviews
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   labelHeaderString = [(MUDayRowViewModel *)self->_viewModel labelHeaderString];
   v4 = [labelHeaderString length];
 
@@ -260,11 +256,9 @@
   [(MULabelViewProtocol *)self->_hoursLabel setAccessibilityIdentifier:@"DayRowHoursLabel"];
   [(MUDayRowView *)self addSubview:self->_hoursLabel];
   v14 = objc_opt_self();
-  v18[0] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   v16 = [(MUDayRowView *)self registerForTraitChanges:v15 withAction:sel__updateFonts];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (MUDayRowView)initWithViewModel:(id)model
@@ -288,13 +282,13 @@
 
 + (id)_hoursMonospacedFont
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E69DB900];
-  v11[0] = *MEMORY[0x1E69DB908];
-  v11[1] = v2;
-  v12[0] = &unk_1F450DEB0;
-  v12[1] = &unk_1F450DEC8;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[0] = *MEMORY[0x1E69DB908];
+  v10[1] = v2;
+  v11[0] = &unk_1F450DEB0;
+  v11[1] = &unk_1F450DEC8;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v4 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
   fontDescriptor = [v4 fontDescriptor];
   v6 = [fontDescriptor fontDescriptorByAddingAttributes:v3];
@@ -302,8 +296,6 @@
   v7 = MEMORY[0x1E69DB878];
   [v6 pointSize];
   v8 = [v7 fontWithDescriptor:v6 size:?];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

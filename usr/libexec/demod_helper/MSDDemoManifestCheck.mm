@@ -50,9 +50,9 @@
 
 - (MSDDemoManifestCheck)init
 {
-  v12.receiver = self;
-  v12.super_class = MSDDemoManifestCheck;
-  v2 = [(MSDDemoManifestCheck *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = MSDDemoManifestCheck;
+  v2 = [(MSDDemoManifestCheck *)&v13 init];
   v3 = v2;
   if (!v2)
   {
@@ -73,19 +73,19 @@
 
   if ((load & 1) == 0)
   {
-    sub_100029E24();
+    sub_100029E24(v9);
 LABEL_5:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_6;
   }
 
-  v9 = objc_opt_new();
-  [(MSDDemoManifestCheck *)v3 setBlocklistedItems:v9];
+  v10 = objc_opt_new();
+  [(MSDDemoManifestCheck *)v3 setBlocklistedItems:v10];
 
-  v10 = v3;
+  v11 = v3;
 LABEL_6:
 
-  return v10;
+  return v11;
 }
 
 - (MSDDemoManifestCheck)initWithWhiteListChecker:(id)checker andCheckType:(id)type
@@ -139,17 +139,17 @@ LABEL_6:
   signatureCopy = signature;
   keysCopy = keys;
   optionsCopy = options;
-  v92 = objc_alloc_init(NSMutableDictionary);
+  v100 = objc_alloc_init(NSMutableDictionary);
   error = 0;
-  v9 = sub_100021268();
+  v9 = sub_100021268(v100);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v117 = "[MSDDemoManifestCheck verifyManifestSignature:forDataSectionKeys:withOptions:]";
+    v125 = "[MSDDemoManifestCheck verifyManifestSignature:forDataSectionKeys:withOptions:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: Verifying a separate component manifest.", buf, 0xCu);
   }
 
-  v84 = [optionsCopy objectForKey:@"RigorousTestingOverride"];
+  v92 = [optionsCopy objectForKey:@"RigorousTestingOverride"];
   v10 = [optionsCopy objectForKey:@"ExcludeBlocklistItem"];
   allowedISTSignedComponents = [(MSDDemoManifestCheck *)self allowedISTSignedComponents];
 
@@ -167,57 +167,57 @@ LABEL_6:
   cf = v16;
   if (v16)
   {
-    v88 = CFBooleanGetValue(v16) == 0;
+    v96 = CFBooleanGetValue(v16) == 0;
   }
 
   else
   {
-    v88 = 0;
+    v96 = 0;
   }
 
   v17 = [signatureCopy objectForKey:@"Certificates"];
-  v81 = v17;
+  v89 = v17;
   if (!v17)
   {
-    sub_10002A23C();
-    v34 = 0;
+    sub_10002A23C(0);
+    v36 = 0;
     v21 = 0;
-    v95 = 0;
-    v45 = 0;
-    v40 = 0;
+    v103 = 0;
+    v47 = 0;
+    v42 = 0;
 LABEL_97:
     if (cf)
     {
       CFRelease(cf);
     }
 
-    v71 = 0;
+    v79 = 0;
     goto LABEL_107;
   }
 
   selfCopy = self;
-  v79 = v15;
-  v82 = optionsCopy;
-  v83 = v10;
-  v112 = 0u;
-  v113 = 0u;
-  v110 = 0u;
-  v111 = 0u;
+  v87 = v15;
+  v90 = optionsCopy;
+  v91 = v10;
+  v120 = 0u;
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v110 objects:v127 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v118 objects:v135 count:16];
   if (!v19)
   {
     v21 = 0;
     v22 = 0;
-    v97 = 0;
+    v105 = 0;
     goto LABEL_31;
   }
 
   v20 = v19;
   v21 = 0;
   v22 = 0;
-  v97 = 0;
-  v93 = *v111;
+  v105 = 0;
+  v101 = *v119;
   while (2)
   {
     v23 = 0;
@@ -225,12 +225,12 @@ LABEL_97:
     v25 = v22;
     do
     {
-      if (*v111 != v93)
+      if (*v119 != v101)
       {
         objc_enumerationMutation(v18);
       }
 
-      v26 = *(*(&v110 + 1) + 8 * v23);
+      v26 = *(*(&v118 + 1) + 8 * v23);
       v27 = [v18 objectForKey:v26];
       v22 = [v27 objectForKey:@"TypeOfSignature"];
 
@@ -238,9 +238,9 @@ LABEL_97:
 
       if (!v22)
       {
-        v58 = sub_100021268();
-        v95 = 0;
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+        v64 = sub_100021268(isKindOfClass);
+        v103 = 0;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
           sub_10002A000();
         }
@@ -248,11 +248,11 @@ LABEL_97:
         goto LABEL_92;
       }
 
-      if (!v21 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      if (!v21 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
       {
-        v58 = sub_100021268();
-        v95 = v22;
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+        v64 = sub_100021268(isKindOfClass);
+        v103 = v22;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
           sub_100029F80();
         }
@@ -262,9 +262,9 @@ LABEL_97:
 
       if (![v21 count])
       {
-        v58 = sub_100021268();
-        v95 = v22;
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+        v64 = sub_100021268(0);
+        v103 = v22;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
           sub_100029F00();
         }
@@ -274,9 +274,10 @@ LABEL_97:
 
       if ([v22 isEqualToString:@"UAT"])
       {
-        v28 = [(MSDDemoManifestCheck *)selfCopy createPublicKeyForDevelopmentSigning:v21];
-        v29 = @"Skip";
-        if (!v28)
+        v29 = [(MSDDemoManifestCheck *)selfCopy createPublicKeyForDevelopmentSigning:v21];
+        v30 = v29;
+        v31 = @"Skip";
+        if (!v29)
         {
           goto LABEL_90;
         }
@@ -284,65 +285,66 @@ LABEL_97:
         goto LABEL_26;
       }
 
-      v30 = [(MSDDemoManifestCheck *)selfCopy createPublicKeyForStrongSigning:v21];
-      if (!v30)
+      v32 = [(MSDDemoManifestCheck *)selfCopy createPublicKeyForStrongSigning:v21];
+      if (!v32)
       {
-        v28 = [(MSDDemoManifestCheck *)selfCopy createPublicKeyAppleISTSigning:v21];
-        v29 = @"AppleISTCertCheck";
-        if (v28)
+        v29 = [(MSDDemoManifestCheck *)selfCopy createPublicKeyAppleISTSigning:v21];
+        v30 = v29;
+        v31 = @"AppleISTCertCheck";
+        if (v29)
         {
 LABEL_26:
-          v31 = v21;
+          v33 = v21;
           goto LABEL_27;
         }
 
 LABEL_90:
-        v97 = v29;
-        v58 = sub_100021268();
-        v95 = v22;
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+        v105 = v31;
+        v64 = sub_100021268(v29);
+        v103 = v22;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
           sub_100029E80();
         }
 
 LABEL_92:
-        v15 = v79;
+        v15 = v87;
 
-        v34 = 0;
-        v45 = 0;
-        v40 = v97;
-        optionsCopy = v82;
+        v36 = 0;
+        v47 = 0;
+        v42 = v105;
+        optionsCopy = v90;
         goto LABEL_97;
       }
 
-      v28 = v30;
-      v31 = v21;
-      v32 = [(MSDDemoManifestCheck *)selfCopy isManualSigning:v21];
-      v29 = @"Skip";
-      if (!v32)
+      v30 = v32;
+      v33 = v21;
+      v34 = [(MSDDemoManifestCheck *)selfCopy isManualSigning:v21];
+      v31 = @"Skip";
+      if (!v34)
       {
-        v29 = @"Default";
+        v31 = @"Default";
       }
 
 LABEL_27:
-      v125[0] = @"publicKey";
-      v125[1] = @"TypeOfSignature";
-      v126[0] = v28;
-      v126[1] = v22;
-      v125[2] = @"RigorousCheckType";
-      v97 = v29;
-      v126[2] = v29;
-      v33 = [NSDictionary dictionaryWithObjects:v126 forKeys:v125 count:3];
-      [v92 setObject:v33 forKeyedSubscript:v26];
+      v133[0] = @"publicKey";
+      v133[1] = @"TypeOfSignature";
+      v134[0] = v30;
+      v134[1] = v22;
+      v133[2] = @"RigorousCheckType";
+      v105 = v31;
+      v134[2] = v31;
+      v35 = [NSDictionary dictionaryWithObjects:v134 forKeys:v133 count:3];
+      [v100 setObject:v35 forKeyedSubscript:v26];
 
       v23 = v23 + 1;
-      v24 = v31;
+      v24 = v33;
       v25 = v22;
     }
 
     while (v20 != v23);
-    v20 = [v18 countByEnumeratingWithState:&v110 objects:v127 count:16];
-    v21 = v31;
+    v20 = [v18 countByEnumeratingWithState:&v118 objects:v135 count:16];
+    v21 = v33;
     if (v20)
     {
       continue;
@@ -352,71 +354,71 @@ LABEL_27:
   }
 
 LABEL_31:
-  v95 = v22;
+  v103 = v22;
 
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
-  v107 = 0u;
+  v116 = 0u;
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
   obj = keysCopy;
-  v73 = [obj countByEnumeratingWithState:&v106 objects:v124 count:16];
-  v34 = 0;
-  v35 = 0;
+  v81 = [obj countByEnumeratingWithState:&v114 objects:v132 count:16];
   v36 = 0;
-  if (v73)
+  v37 = 0;
+  v38 = 0;
+  if (v81)
   {
-    v74 = *v107;
-    v75 = v21;
+    v82 = *v115;
+    v83 = v21;
     do
     {
-      v37 = 0;
+      v39 = 0;
       do
       {
-        if (*v107 != v74)
+        if (*v115 != v82)
         {
           objc_enumerationMutation(obj);
         }
 
-        v94 = v34;
-        v77 = v37;
-        v38 = *(*(&v106 + 1) + 8 * v37);
-        v102 = 0u;
-        v103 = 0u;
-        v104 = 0u;
-        v105 = 0u;
-        v91 = v38;
-        v86 = [signatureCopy objectForKey:?];
-        v89 = [v86 countByEnumeratingWithState:&v102 objects:v123 count:16];
-        if (!v89)
+        v102 = v36;
+        v85 = v39;
+        v40 = *(*(&v114 + 1) + 8 * v39);
+        v110 = 0u;
+        v111 = 0u;
+        v112 = 0u;
+        v113 = 0u;
+        v99 = v40;
+        v94 = [signatureCopy objectForKey:?];
+        v97 = [v94 countByEnumeratingWithState:&v110 objects:v131 count:16];
+        if (!v97)
         {
           goto LABEL_50;
         }
 
-        v87 = *v103;
+        v95 = *v111;
         while (2)
         {
-          for (i = 0; i != v89; i = i + 1)
+          for (i = 0; i != v97; i = i + 1)
           {
-            v40 = v97;
-            v41 = v35;
-            v42 = v95;
-            if (*v103 != v87)
+            v42 = v105;
+            v43 = v37;
+            v44 = v103;
+            if (*v111 != v95)
             {
-              objc_enumerationMutation(v86);
+              objc_enumerationMutation(v94);
             }
 
-            v43 = *(*(&v102 + 1) + 8 * i);
-            v44 = [signatureCopy objectForKey:v91];
-            v45 = [v44 objectForKey:v43];
+            v45 = *(*(&v110 + 1) + 8 * i);
+            v46 = [signatureCopy objectForKey:v99];
+            v47 = [v46 objectForKey:v45];
 
-            v46 = [v45 objectForKey:@"Certificate"];
-            v47 = [v92 objectForKey:v46];
-            v48 = v47;
-            if (!v47)
+            v48 = [v47 objectForKey:@"Certificate"];
+            v49 = [v100 objectForKey:v48];
+            v50 = v49;
+            if (!v49)
             {
-              v69 = sub_100021268();
-              v34 = v94;
-              if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+              v77 = sub_100021268(0);
+              v36 = v102;
+              if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
               {
                 sub_10002A168();
               }
@@ -424,14 +426,15 @@ LABEL_31:
               goto LABEL_96;
             }
 
-            v49 = [v47 objectForKey:@"TypeOfSignature"];
+            v51 = [v49 objectForKey:@"TypeOfSignature"];
 
-            v95 = v49;
-            v34 = v94;
-            if (((v88 | [v49 isEqualToString:@"UAT"] ^ 1) & 1) == 0)
+            v103 = v51;
+            v52 = [v51 isEqualToString:@"UAT"];
+            v36 = v102;
+            if (((v96 | v52 ^ 1) & 1) == 0)
             {
-              v69 = sub_100021268();
-              if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+              v77 = sub_100021268(v52);
+              if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
               {
                 sub_10002A078();
               }
@@ -439,81 +442,81 @@ LABEL_31:
               goto LABEL_95;
             }
 
-            v50 = [(MSDDemoManifestCheck *)selfCopy getComponentData:v45];
+            v53 = [(MSDDemoManifestCheck *)selfCopy getComponentData:v47];
 
-            if (!v50)
+            if (!v53)
             {
-              v69 = sub_100021268();
-              if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+              v77 = sub_100021268(v54);
+              if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
               {
                 sub_10002A0F8();
               }
 
-              v34 = 0;
+              v36 = 0;
 LABEL_95:
-              v42 = v95;
+              v44 = v103;
 LABEL_96:
-              optionsCopy = v82;
-              v10 = v83;
-              v15 = v79;
+              optionsCopy = v90;
+              v10 = v91;
+              v15 = v87;
 
-              v95 = v42;
-              v21 = v75;
+              v103 = v44;
+              v21 = v83;
               goto LABEL_97;
             }
 
-            v51 = [v48 objectForKey:@"publicKey"];
-            v94 = v50;
-            v52 = sub_1000061E4(kCFAllocatorDefault, v43, v50);
-            v53 = [v45 objectForKey:@"Signature"];
-            LODWORD(v51) = SecKeyVerifySignature(v51, kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA1, [NSData dataWithBytes:v52 length:20], v53, &error);
-            free(v52);
-            if (!v51)
+            v55 = [v50 objectForKey:@"publicKey"];
+            v102 = v53;
+            v56 = sub_1000061E4(kCFAllocatorDefault, v45, v53);
+            v57 = [v47 objectForKey:@"Signature"];
+            LODWORD(v55) = SecKeyVerifySignature(v55, kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA1, [NSData dataWithBytes:v56 length:20], v57, &error);
+            free(v56);
+            if (!v55)
             {
-              v35 = v45;
-              v70 = sub_100021268();
-              optionsCopy = v82;
-              v15 = v79;
-              if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+              v37 = v47;
+              v78 = sub_100021268(v58);
+              optionsCopy = v90;
+              v15 = v87;
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315906;
-                v117 = "[MSDDemoManifestCheck verifyManifestSignature:forDataSectionKeys:withOptions:]";
-                v118 = 2114;
-                *v119 = v43;
-                *&v119[8] = 2114;
-                v120 = v91;
-                v121 = 2114;
-                v122 = error;
-                _os_log_error_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "%s: signature verification failed for %{public}@ in section %{public}@. Error: %{public}@", buf, 0x2Au);
+                v125 = "[MSDDemoManifestCheck verifyManifestSignature:forDataSectionKeys:withOptions:]";
+                v126 = 2114;
+                *v127 = v45;
+                *&v127[8] = 2114;
+                v128 = v99;
+                v129 = 2114;
+                v130 = error;
+                _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "%s: signature verification failed for %{public}@ in section %{public}@. Error: %{public}@", buf, 0x2Au);
               }
 
               goto LABEL_85;
             }
 
-            v40 = [v48 objectForKey:@"RigorousCheckType"];
+            v42 = [v50 objectForKey:@"RigorousCheckType"];
 
-            v35 = v45;
-            [v45 setObject:v40 forKey:@"RigorousCheckType"];
-            v54 = [(__CFString *)v40 isEqualToString:@"Skip"];
-            v97 = v40;
-            if (-[__CFString isEqualToString:](v40, "isEqualToString:", @"AppleISTCertCheck") && [v91 isEqualToString:@"Apps"] && !-[MSDDemoManifestCheck validateISTSignedApp:manifest:](selfCopy, "validateISTSignedApp:manifest:", v43, signatureCopy))
+            v37 = v47;
+            [v47 setObject:v42 forKey:@"RigorousCheckType"];
+            v59 = [(__CFString *)v42 isEqualToString:@"Skip"];
+            v105 = v42;
+            if (-[__CFString isEqualToString:](v42, "isEqualToString:", @"AppleISTCertCheck") && [v99 isEqualToString:@"Apps"] && !-[MSDDemoManifestCheck validateISTSignedApp:manifest:](selfCopy, "validateISTSignedApp:manifest:", v45, signatureCopy))
             {
-              optionsCopy = v82;
-              v15 = v79;
+              optionsCopy = v90;
+              v15 = v87;
 LABEL_85:
-              v34 = v94;
+              v36 = v102;
 
-              v10 = v83;
-              v21 = v75;
-              v45 = v35;
+              v10 = v91;
+              v21 = v83;
+              v47 = v37;
               goto LABEL_97;
             }
 
-            v36 |= v54 ^ 1;
+            v38 |= v59 ^ 1;
           }
 
-          v89 = [v86 countByEnumeratingWithState:&v102 objects:v123 count:16];
-          if (v89)
+          v97 = [v94 countByEnumeratingWithState:&v110 objects:v131 count:16];
+          if (v97)
           {
             continue;
           }
@@ -523,23 +526,24 @@ LABEL_85:
 
 LABEL_50:
 
-        v21 = v75;
-        v37 = v77 + 1;
-        v34 = v94;
+        v21 = v83;
+        v39 = v85 + 1;
+        v36 = v102;
       }
 
-      while ((v77 + 1) != v73);
-      v73 = [obj countByEnumeratingWithState:&v106 objects:v124 count:16];
+      while ((v85 + 1) != v81);
+      v81 = [obj countByEnumeratingWithState:&v114 objects:v132 count:16];
     }
 
-    while (v73);
+    while (v81);
   }
 
-  v15 = v79;
-  if (!os_variant_has_internal_content() || !v84 || (v36 & 1) == [v84 BOOLValue])
+  has_internal_content = os_variant_has_internal_content();
+  v15 = v87;
+  if (!has_internal_content || !v92 || (has_internal_content = [v92 BOOLValue], (v38 & 1) == has_internal_content))
   {
-    v45 = v35;
-    if ((v36 & 1) == 0)
+    v47 = v37;
+    if ((v38 & 1) == 0)
     {
       goto LABEL_58;
     }
@@ -547,46 +551,48 @@ LABEL_50:
     goto LABEL_64;
   }
 
-  v45 = v35;
-  v55 = sub_100021268();
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+  v47 = v37;
+  v61 = sub_100021268(has_internal_content);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
   {
-    bOOLValue = [v84 BOOLValue];
+    bOOLValue = [v92 BOOLValue];
     *buf = 136315650;
-    v117 = "[MSDDemoManifestCheck verifyManifestSignature:forDataSectionKeys:withOptions:]";
-    v118 = 1024;
-    *v119 = v36 & 1;
-    *&v119[4] = 1024;
-    *&v119[6] = bOOLValue;
-    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%s: Overriding rigorous testing from %{BOOL}d to %{BOOL}d", buf, 0x18u);
+    v125 = "[MSDDemoManifestCheck verifyManifestSignature:forDataSectionKeys:withOptions:]";
+    v126 = 1024;
+    *v127 = v38 & 1;
+    *&v127[4] = 1024;
+    *&v127[6] = bOOLValue;
+    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%s: Overriding rigorous testing from %{BOOL}d to %{BOOL}d", buf, 0x18u);
   }
 
-  if ([v84 BOOLValue])
+  has_internal_content = [v92 BOOLValue];
+  if (has_internal_content)
   {
 LABEL_64:
-    optionsCopy = v82;
-    v10 = v83;
-    if ([(MSDDemoManifestCheck *)selfCopy secureManifestCheckForSegmentedManifest:signatureCopy options:v82])
+    optionsCopy = v90;
+    v65 = [(MSDDemoManifestCheck *)selfCopy secureManifestCheckForSegmentedManifest:signatureCopy options:v90];
+    v10 = v91;
+    if (v65)
     {
       goto LABEL_65;
     }
 
-    sub_10002A1E0();
-    v40 = v97;
+    sub_10002A1E0(v65);
+    v42 = v105;
     goto LABEL_97;
   }
 
 LABEL_58:
-  v57 = sub_100021268();
-  v10 = v83;
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+  v63 = sub_100021268(has_internal_content);
+  v10 = v91;
+  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v117 = "[MSDDemoManifestCheck verifyManifestSignature:forDataSectionKeys:withOptions:]";
-    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%s: Skipping rigorous manifest testing.", buf, 0xCu);
+    v125 = "[MSDDemoManifestCheck verifyManifestSignature:forDataSectionKeys:withOptions:]";
+    _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "%s: Skipping rigorous manifest testing.", buf, 0xCu);
   }
 
-  optionsCopy = v82;
+  optionsCopy = v90;
 LABEL_65:
   if (![v10 BOOLValue])
   {
@@ -594,62 +600,62 @@ LABEL_65:
   }
 
   blocklistedItems = [(MSDDemoManifestCheck *)selfCopy blocklistedItems];
-  v60 = [blocklistedItems count];
+  v67 = [blocklistedItems count];
 
-  if (!v60)
+  if (!v67)
   {
-    v61 = sub_100021268();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+    v69 = sub_100021268(v68);
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "No items blocklisted, skip blocklist item exclusion", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "No items blocklisted, skip blocklist item exclusion", buf, 2u);
     }
 
     goto LABEL_102;
   }
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
-  v99 = 0u;
-  v61 = signatureCopy;
-  v62 = [v61 countByEnumeratingWithState:&v98 objects:v115 count:16];
-  if (!v62)
+  v108 = 0u;
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
+  v69 = signatureCopy;
+  v70 = [v69 countByEnumeratingWithState:&v106 objects:v123 count:16];
+  if (!v70)
   {
 LABEL_102:
-    v10 = v83;
+    v10 = v91;
     goto LABEL_103;
   }
 
-  v63 = v62;
-  v64 = v34;
-  v76 = v21;
-  v65 = *v99;
+  v71 = v70;
+  v72 = v36;
+  v84 = v21;
+  v73 = *v107;
   do
   {
-    for (j = 0; j != v63; j = j + 1)
+    for (j = 0; j != v71; j = j + 1)
     {
-      if (*v99 != v65)
+      if (*v107 != v73)
       {
-        objc_enumerationMutation(v61);
+        objc_enumerationMutation(v69);
       }
 
-      v67 = *(*(&v98 + 1) + 8 * j);
-      v68 = [v61 objectForKey:v67 ofType:objc_opt_class()];
-      if (v68)
+      v75 = *(*(&v106 + 1) + 8 * j);
+      v76 = [v69 objectForKey:v75 ofType:objc_opt_class()];
+      if (v76)
       {
-        [(MSDDemoManifestCheck *)selfCopy removeBlocklistedItemFromSection:v68 withName:v67];
+        [(MSDDemoManifestCheck *)selfCopy removeBlocklistedItemFromSection:v76 withName:v75];
       }
     }
 
-    v63 = [v61 countByEnumeratingWithState:&v98 objects:v115 count:16];
+    v71 = [v69 countByEnumeratingWithState:&v106 objects:v123 count:16];
   }
 
-  while (v63);
-  optionsCopy = v82;
-  v10 = v83;
-  v21 = v76;
-  v34 = v64;
+  while (v71);
+  optionsCopy = v90;
+  v10 = v91;
+  v21 = v84;
+  v36 = v72;
 LABEL_103:
 
 LABEL_104:
@@ -658,11 +664,11 @@ LABEL_104:
     CFRelease(cf);
   }
 
-  v71 = signatureCopy;
-  v40 = v97;
+  v79 = signatureCopy;
+  v42 = v105;
 LABEL_107:
 
-  return v71;
+  return v79;
 }
 
 - (BOOL)checkFileForEntitlements:(id)entitlements forCorrespondingManifestEntry:(id)entry
@@ -682,7 +688,7 @@ LABEL_107:
     {
       sub_10002A298();
 LABEL_27:
-      v27 = v39;
+      v28 = v40;
       goto LABEL_11;
     }
 
@@ -691,11 +697,11 @@ LABEL_27:
 
     if (v14)
     {
-      v36 = v10;
-      v37 = v9;
-      v38 = entitlementsCopy;
-      v35 = [v9 objectForKey:@"Identifier"];
-      rangeValue = [v35 rangeValue];
+      v37 = v10;
+      v38 = v9;
+      v39 = entitlementsCopy;
+      v36 = [v9 objectForKey:@"Identifier"];
+      rangeValue = [v36 rangeValue];
       v17 = v16;
       getInstallationOrder = [(MSDDemoManifestCheck *)self getInstallationOrder];
       v19 = rangeValue + v17 - 1;
@@ -723,13 +729,13 @@ LABEL_27:
           }
         }
 
-        v32 = [v22 objectForKey:@"RigorousCheckType"];
-        v33 = [v32 isEqualToString:@"Skip"];
+        v33 = [v22 objectForKey:@"RigorousCheckType"];
+        v34 = [v33 isEqualToString:@"Skip"];
 
-        v9 = v37;
-        entitlementsCopy = v38;
-        v10 = v36;
-        if (v33)
+        v9 = v38;
+        entitlementsCopy = v39;
+        v10 = v37;
+        if (v34)
         {
           goto LABEL_21;
         }
@@ -738,41 +744,41 @@ LABEL_20:
         if (MISValidateSignatureAndCopyInfo())
         {
 LABEL_21:
-          v28 = 1;
+          v29 = 1;
           goto LABEL_22;
         }
 
-        sub_10002A3E8();
+        sub_10002A3E8(&v40);
         goto LABEL_27;
       }
 
 LABEL_8:
 
-      v9 = v37;
-      entitlementsCopy = v38;
-      v10 = v36;
+      v9 = v38;
+      entitlementsCopy = v39;
+      v10 = v37;
     }
 
-    else if (([v10 isEqualToString:@"ExtensionData"] & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"AppData") & 1) != 0 || objc_msgSend(v10, "isEqualToString:", @"GroupData"))
+    else if (([v10 isEqualToString:@"ExtensionData"] & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"AppData") & 1) != 0 || (v27 = objc_msgSend(v10, "isEqualToString:", @"GroupData"), v27))
     {
-      v27 = [v9 objectForKey:@"Identifier"];
-      v29 = [v12 objectForKey:v27];
+      v28 = [v9 objectForKey:@"Identifier"];
+      v30 = [v12 objectForKey:v28];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         sub_10002A33C();
 LABEL_11:
 
-        v28 = 0;
+        v29 = 0;
 LABEL_22:
 
         goto LABEL_23;
       }
 
-      v30 = [v29 objectForKey:@"RigorousCheckType"];
-      v31 = [v30 isEqualToString:@"Skip"];
+      v31 = [v30 objectForKey:@"RigorousCheckType"];
+      v32 = [v31 isEqualToString:@"Skip"];
 
-      if (v31)
+      if (v32)
       {
         goto LABEL_21;
       }
@@ -780,8 +786,8 @@ LABEL_22:
       goto LABEL_20;
     }
 
-    v27 = sub_100021268();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = sub_100021268(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_10002A490();
     }
@@ -789,17 +795,17 @@ LABEL_22:
     goto LABEL_11;
   }
 
-  v28 = 1;
+  v29 = 1;
 LABEL_23:
 
-  return v28;
+  return v29;
 }
 
 - (__SecKey)createPublicKeyForStrongSigning:(id)signing
 {
   signingCopy = signing;
   MobileStoreSigner = SecPolicyCreateMobileStoreSigner();
-  v6 = sub_100021268();
+  v6 = sub_100021268(MobileStoreSigner);
   v7 = v6;
   if (MobileStoreSigner)
   {
@@ -824,7 +830,7 @@ LABEL_23:
 - (__SecKey)createPublicKeyForDevelopmentSigning:(id)signing
 {
   signingCopy = signing;
-  v5 = sub_100021268();
+  v5 = sub_100021268(signingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -846,7 +852,7 @@ LABEL_23:
 
   else
   {
-    sub_10002A594();
+    sub_10002A594(0);
     v6 = 0;
   }
 
@@ -859,27 +865,27 @@ LABEL_23:
   anchorsCopy = anchors;
   trust[0] = 0;
   result = kSecTrustResultInvalid;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = sub_10000DBB4;
-  v20 = sub_10000DBC4;
-  v21 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_10000DBB4;
+  v23 = sub_10000DBC4;
+  v24 = 0;
   v9 = [NSMutableArray arrayWithCapacity:0];
-  v10 = v17[5];
-  v17[5] = v9;
+  v10 = v20[5];
+  v20[5] = v9;
 
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10000DBCC;
-  v15[3] = &unk_100050DC8;
-  v15[4] = &v16;
-  [keyCopy enumerateObjectsUsingBlock:v15];
-  v11 = v17[5];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_10000DBCC;
+  v18[3] = &unk_100050DC8;
+  v18[4] = &v19;
+  [keyCopy enumerateObjectsUsingBlock:v18];
+  v11 = v20[5];
   if (!v11)
   {
 LABEL_14:
-    v12 = 0;
+    v15 = 0;
     if (!policy)
     {
       goto LABEL_16;
@@ -888,29 +894,35 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (SecTrustCreateWithCertificates(v11, policy, trust))
+  v12 = SecTrustCreateWithCertificates(v11, policy, trust);
+  if (v12)
   {
-    sub_100021268();
+    sub_100021268(v12);
     objc_claimAutoreleasedReturnValue();
     sub_10002A630();
 LABEL_23:
-    v13 = trust[1];
+    v16 = trust[1];
 LABEL_13:
 
     goto LABEL_14;
   }
 
-  if (anchorsCopy && SecTrustSetAnchorCertificates(trust[0], anchorsCopy))
+  if (anchorsCopy)
   {
-    sub_100021268();
-    objc_claimAutoreleasedReturnValue();
-    sub_10002A6CC();
-    goto LABEL_23;
+    v13 = SecTrustSetAnchorCertificates(trust[0], anchorsCopy);
+    if (v13)
+    {
+      sub_100021268(v13);
+      objc_claimAutoreleasedReturnValue();
+      sub_10002A6CC();
+      goto LABEL_23;
+    }
   }
 
-  if (SecTrustEvaluate(trust[0], &result))
+  v14 = SecTrustEvaluate(trust[0], &result);
+  if (v14)
   {
-    sub_100021268();
+    sub_100021268(v14);
     objc_claimAutoreleasedReturnValue();
     sub_10002A768();
     goto LABEL_23;
@@ -918,19 +930,19 @@ LABEL_13:
 
   if (result != kSecTrustResultProceed && result != kSecTrustResultUnspecified)
   {
-    v13 = sub_100021268();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = sub_100021268(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_10002A894(&result);
+      sub_10002A894();
     }
 
     goto LABEL_13;
   }
 
-  v12 = SecTrustCopyPublicKey(trust[0]);
-  if (!v12)
+  v15 = SecTrustCopyPublicKey(trust[0]);
+  if (!v15)
   {
-    sub_100021268();
+    sub_100021268(0);
     objc_claimAutoreleasedReturnValue();
     sub_10002A804();
     goto LABEL_23;
@@ -949,16 +961,16 @@ LABEL_16:
     trust[0] = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v19, 8);
 
-  return v12;
+  return v15;
 }
 
 - (BOOL)verifySignature:(id)signature forData:(id)data withKey:(__SecKey *)key
 {
   dataCopy = data;
   signatureCopy = signature;
-  v9 = sub_100021268();
+  v9 = sub_100021268(signatureCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_10002A9D8(v9);
@@ -985,11 +997,12 @@ LABEL_16:
 - (BOOL)isManualSigning:(id)signing
 {
   commonName = 0;
-  v3 = [signing objectAtIndexedSubscript:0];
-  if (!v3 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = [signing objectAtIndexedSubscript:0];
+  v4 = isKindOfClass;
+  if (!isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = sub_100021268();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100021268(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10002AB58();
     }
@@ -997,50 +1010,51 @@ LABEL_16:
     goto LABEL_12;
   }
 
-  v4 = SecCertificateCreateWithData(kCFAllocatorDefault, v3);
-  if (!v4)
+  v5 = SecCertificateCreateWithData(kCFAllocatorDefault, v4);
+  if (!v5)
   {
-    v9 = sub_100021268();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100021268(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10002AAD8();
     }
 
 LABEL_12:
 
-    v6 = 0;
+    v7 = 0;
     goto LABEL_13;
   }
 
-  v5 = v4;
-  SecCertificateCopyCommonName(v4, &commonName);
-  CFRelease(v5);
-  v6 = commonName;
-  if ([(__CFString *)commonName isEqualToString:@"Demo Content Signing"])
+  v6 = v5;
+  SecCertificateCopyCommonName(v5, &commonName);
+  CFRelease(v6);
+  v7 = commonName;
+  v8 = [(__CFString *)commonName isEqualToString:@"Demo Content Signing"];
+  if (v8)
   {
-    v7 = sub_100021268();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100021268(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "A certificate for manual signing is used.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "A certificate for manual signing is used.", buf, 2u);
     }
 
-    v8 = 1;
+    v10 = 1;
     goto LABEL_16;
   }
 
 LABEL_13:
-  v7 = sub_100021268();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100021268(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "A certificate for non-manual signing is used.", v11, 2u);
+    *v13 = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "A certificate for non-manual signing is used.", v13, 2u);
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_16:
 
-  return v8;
+  return v10;
 }
 
 - (BOOL)validateISTSignedApp:(id)app manifest:(id)manifest
@@ -1056,29 +1070,30 @@ LABEL_16:
 
   v11 = [v8 objectForKey:@"Dependencies"];
   v12 = v11;
-  if (!v11 || [v11 count] == 1 && (objc_msgSend(v12, "objectForKey:", @"ProvisioningProfiles"), v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
+  if (!v11 || (v13 = [v11 count], v13 == 1) && (objc_msgSend(v12, "objectForKey:", @"ProvisioningProfiles"), v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
   {
-    v14 = 1;
+    v15 = 1;
   }
 
   else
   {
-    sub_10002ABD8();
-    v14 = 0;
+    sub_10002ABD8(v13);
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)secureManifestCheckForSegmentedManifest:(id)manifest options:(id)options
 {
   manifestCopy = manifest;
   optionsCopy = options;
+  v8 = optionsCopy;
   if (!manifestCopy)
   {
-    sub_10002ACD0();
+    sub_10002ACD0(optionsCopy);
 LABEL_9:
-    v11 = 0;
+    v13 = 0;
     goto LABEL_6;
   }
 
@@ -1086,38 +1101,39 @@ LABEL_9:
 
   if (!allowedISTSignedComponents)
   {
-    v9 = [(MSDDemoManifestCheck *)self getAllowedISTSignedComponents:manifestCopy];
-    [(MSDDemoManifestCheck *)self setAllowedISTSignedComponents:v9];
+    v10 = [(MSDDemoManifestCheck *)self getAllowedISTSignedComponents:manifestCopy];
+    [(MSDDemoManifestCheck *)self setAllowedISTSignedComponents:v10];
   }
 
   [(MSDDemoManifestCheck *)self setSegmentedManifestWithRigorousFlag:manifestCopy];
-  v10 = [manifestCopy objectForKey:@"Version"];
-  -[MSDDemoManifestCheck setManifestVersion:](self, "setManifestVersion:", [v10 unsignedIntValue]);
+  v11 = [manifestCopy objectForKey:@"Version"];
+  -[MSDDemoManifestCheck setManifestVersion:](self, "setManifestVersion:", [v11 unsignedIntValue]);
 
-  if (![(MSDDemoManifestCheck *)self runSecurityCheck:optionsCopy])
+  v12 = [(MSDDemoManifestCheck *)self runSecurityCheck:v8];
+  if ((v12 & 1) == 0)
   {
-    sub_10002AC34();
+    sub_10002AC34(v12);
     goto LABEL_9;
   }
 
   [(MSDDemoManifestCheck *)self registerEntitlementNotificationHandler];
-  v11 = 1;
+  v13 = 1;
 LABEL_6:
 
-  return v11;
+  return v13;
 }
 
 - (BOOL)runSecurityCheck:(id)check
 {
   checkCopy = check;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   getSecurityCheckSectionNames = [(MSDDemoManifestCheck *)self getSecurityCheckSectionNames];
   getappIconLayoutBackupName = [(MSDDemoManifestCheck *)self getappIconLayoutBackupName];
   getBackupSectionName = [(MSDDemoManifestCheck *)self getBackupSectionName];
-  v8 = sub_100021268();
+  v8 = sub_100021268(getBackupSectionName);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1125,45 +1141,45 @@ LABEL_6:
   }
 
   segmentedManifestWithRigorousFlag = [(MSDDemoManifestCheck *)self segmentedManifestWithRigorousFlag];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_10000E39C;
-  v17[3] = &unk_100050E18;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_10000E39C;
+  v18[3] = &unk_100050E18;
   v10 = getSecurityCheckSectionNames;
-  v18 = v10;
+  v19 = v10;
   selfCopy = self;
-  v23 = &v24;
+  v24 = &v25;
   v11 = checkCopy;
-  v20 = v11;
+  v21 = v11;
   v12 = getappIconLayoutBackupName;
-  v21 = v12;
+  v22 = v12;
   v13 = getBackupSectionName;
-  v22 = v13;
-  [segmentedManifestWithRigorousFlag enumerateKeysAndObjectsUsingBlock:v17];
+  v23 = v13;
+  [segmentedManifestWithRigorousFlag enumerateKeysAndObjectsUsingBlock:v18];
 
-  if (v25[3])
+  if (v26[3])
   {
-    v14 = sub_100021268();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100021268(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[MSDDemoManifestCheck runSecurityCheck:]";
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s:Cleared all checks for manifest. Approving future installations", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s:Cleared all checks for manifest. Approving future installations", buf, 0xCu);
     }
   }
 
   else
   {
-    sub_100021268();
+    sub_100021268(v14);
     objc_claimAutoreleasedReturnValue();
     sub_10002AD6C();
-    v14 = *buf;
+    v15 = *buf;
   }
 
-  v15 = *(v25 + 24);
-  _Block_object_dispose(&v24, 8);
+  v16 = *(v26 + 24);
+  _Block_object_dispose(&v25, 8);
 
-  return v15 & 1;
+  return v16 & 1;
 }
 
 - (BOOL)runSecurityChecksForSection:(id)section dataType:(id)type componentName:(id)name options:(id)options
@@ -1214,16 +1230,17 @@ LABEL_14:
 
 LABEL_10:
 LABEL_11:
-      v11 = 0;
+      v12 = 0;
       goto LABEL_12;
     }
   }
 
   else
   {
-    if (![componentCopy isEqualToString:@"display"])
+    v10 = [componentCopy isEqualToString:@"display"];
+    if (!v10)
     {
-      v7 = sub_100021268();
+      v7 = sub_100021268(v10);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10002AF08();
@@ -1233,19 +1250,19 @@ LABEL_11:
     }
 
     v7 = [sectionCopy objectForKey:@"Data"];
-    v10 = [v7 objectForKey:@"HDR"];
+    v11 = [v7 objectForKey:@"HDR"];
 
-    if (!v10)
+    if (!v11)
     {
       sub_10002AF78();
       goto LABEL_11;
     }
   }
 
-  v11 = 1;
+  v12 = 1;
 LABEL_12:
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)runFileSecurityChecksForSection:(id)section dataType:(id)type options:(id)options
@@ -1257,7 +1274,7 @@ LABEL_12:
   v12 = +[MSDPlatform sharedInstance];
   LODWORD(type) = [v12 macOS];
 
-  v77 = typeCopy;
+  v82 = typeCopy;
   if (type)
   {
     v13 = [sectionCopy objectForKey:@"Data"];
@@ -1275,27 +1292,27 @@ LABEL_12:
     {
       sub_10002B3B4(v16);
 LABEL_64:
-      v33 = 0;
+      v34 = 0;
       goto LABEL_70;
     }
 
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
-    v102 = 0u;
+    v108 = 0u;
+    v109 = 0u;
+    v106 = 0u;
+    v107 = 0u;
     v15 = v15;
-    v23 = [v15 countByEnumeratingWithState:&v101 objects:v108 count:16];
+    v23 = [v15 countByEnumeratingWithState:&v106 objects:v113 count:16];
     if (v23)
     {
       v24 = v23;
-      v87 = v16;
-      v71 = optionsCopy;
-      v73 = sectionCopy;
-      v69 = v11;
+      v92 = v16;
+      v76 = optionsCopy;
+      v78 = sectionCopy;
+      v74 = v11;
       v25 = 0;
       v26 = 0;
       v27 = 0;
-      v28 = *v102;
+      v28 = *v107;
       while (2)
       {
         v29 = 0;
@@ -1303,12 +1320,12 @@ LABEL_64:
         v31 = v27;
         do
         {
-          if (*v102 != v28)
+          if (*v107 != v28)
           {
             objc_enumerationMutation(v15);
           }
 
-          v32 = *(*(&v101 + 1) + 8 * v29);
+          v32 = *(*(&v106 + 1) + 8 * v29);
 
           v25 = [v15 objectForKey:v32];
 
@@ -1316,19 +1333,19 @@ LABEL_64:
 
           if (!v27)
           {
-            v66 = v32;
-            v67 = sub_100021268();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+            v71 = v32;
+            v72 = sub_100021268(v33);
+            if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
             {
               sub_10002B344();
             }
 
-            v33 = 0;
-            typeCopy = v77;
-            v11 = v69;
-            optionsCopy = v71;
-            sectionCopy = v73;
-            v15 = v66;
+            v34 = 0;
+            typeCopy = v82;
+            v11 = v74;
+            optionsCopy = v76;
+            sectionCopy = v78;
+            v15 = v71;
             goto LABEL_70;
           }
 
@@ -1340,7 +1357,7 @@ LABEL_64:
 
         while (v24 != v29);
         v26 = v32;
-        v24 = [v15 countByEnumeratingWithState:&v101 objects:v108 count:16];
+        v24 = [v15 countByEnumeratingWithState:&v106 objects:v113 count:16];
         if (v24)
         {
           continue;
@@ -1349,22 +1366,22 @@ LABEL_64:
         break;
       }
 
-      typeCopy = v77;
-      v11 = v69;
-      optionsCopy = v71;
-      sectionCopy = v73;
-      v16 = v87;
+      typeCopy = v82;
+      v11 = v74;
+      optionsCopy = v76;
+      sectionCopy = v78;
+      v16 = v92;
     }
 
-    v33 = 1;
+    v34 = 1;
     goto LABEL_70;
   }
 
-  v76 = [NSSet setWithArray:&off_100056538];
+  v81 = [NSSet setWithArray:&off_100056538];
   getBackupSectionName = [(MSDDemoManifestCheck *)self getBackupSectionName];
   v19 = [(MSDDemoManifestCheck *)self getManifestData:sectionCopy];
 
-  v75 = getBackupSectionName;
+  v80 = getBackupSectionName;
   selfCopy = self;
   if ([typeCopy isEqualToString:getBackupSectionName])
   {
@@ -1380,59 +1397,59 @@ LABEL_64:
     else if (v21)
     {
       sub_10002B16C();
-      v33 = 0;
-      v15 = v76;
+      v34 = 0;
+      v15 = v81;
       sectionCopy = v19;
       goto LABEL_70;
     }
   }
 
-  v70 = v11;
-  v72 = optionsCopy;
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
-  v98 = 0u;
+  v75 = v11;
+  v77 = optionsCopy;
+  v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   sectionCopy = v19;
-  v80 = [sectionCopy countByEnumeratingWithState:&v97 objects:v107 count:16];
-  v34 = 0;
+  v85 = [sectionCopy countByEnumeratingWithState:&v102 objects:v112 count:16];
   v35 = 0;
+  v36 = 0;
   v15 = 0;
-  if (!v80)
+  if (!v85)
   {
-    v37 = v75;
-    v36 = v76;
+    v38 = v80;
+    v37 = v81;
     goto LABEL_66;
   }
 
-  v79 = *v98;
-  v37 = v75;
-  v36 = v76;
-  v74 = sectionCopy;
+  v84 = *v103;
+  v38 = v80;
+  v37 = v81;
+  v79 = sectionCopy;
   while (2)
   {
-    v38 = 0;
-    v39 = v15;
+    v39 = 0;
+    v40 = v15;
     do
     {
-      if (*v98 != v79)
+      if (*v103 != v84)
       {
-        v40 = v38;
+        v41 = v39;
         objc_enumerationMutation(sectionCopy);
-        v38 = v40;
+        v39 = v41;
       }
 
-      v81 = v38;
-      v41 = *(*(&v97 + 1) + 8 * v38);
+      v86 = v39;
+      v42 = *(*(&v102 + 1) + 8 * v39);
       context = objc_autoreleasePoolPush();
-      v88 = v41;
-      v84 = [sectionCopy objectForKey:v41];
-      v15 = [v84 valueForKey:@"MSDManifestFileAttributes"];
+      v93 = v42;
+      v89 = [sectionCopy objectForKey:v42];
+      v15 = [v89 valueForKey:@"MSDManifestFileAttributes"];
 
       if (!v15)
       {
-        v65 = sub_100021268();
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v70 = sub_100021268(v43);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           sub_10002B344();
         }
@@ -1440,102 +1457,106 @@ LABEL_64:
         goto LABEL_63;
       }
 
-      v42 = [v36 containsObject:typeCopy];
-      v43 = [v15 valueForKey:@"NSFileType"];
+      v44 = [v37 containsObject:typeCopy];
+      v45 = [v15 valueForKey:@"NSFileType"];
 
-      v83 = v43;
-      v44 = [v43 isEqualToString:@"NSFileTypeRegular"];
-      if (v42)
+      v88 = v45;
+      v46 = [v45 isEqualToString:@"NSFileTypeRegular"];
+      if (v44)
       {
-        if ((v44 & 1) != 0 || ([v43 isEqualToString:@"NSFileTypeDirectory"]) && !-[MSDDemoManifestCheck isValidDataContainerFile:](selfCopy, "isValidDataContainerFile:", v88, v70, v72))
+        if (v46 & 1) != 0 || ([v45 isEqualToString:@"NSFileTypeDirectory"])
         {
-          goto LABEL_61;
+          v47 = [(MSDDemoManifestCheck *)selfCopy isValidDataContainerFile:v93, v75, v77];
+          if ((v47 & 1) == 0)
+          {
+            goto LABEL_61;
+          }
         }
       }
 
-      else if ((v44 & 1) == 0 && ([v43 isEqualToString:@"NSFileTypeDirectory"] & 1) == 0)
+      else if ((v46 & 1) == 0 && ([v45 isEqualToString:@"NSFileTypeDirectory"] & 1) == 0)
       {
-        v78 = v15;
-        v45 = [v84 valueForKey:@"MSDManifestSymbolicLinkTargetFile"];
+        v83 = v15;
+        v48 = [v89 valueForKey:@"MSDManifestSymbolicLinkTargetFile"];
 
-        v95 = 0u;
-        v96 = 0u;
-        v93 = 0u;
-        v94 = 0u;
-        v46 = selfCopy;
+        v100 = 0u;
+        v101 = 0u;
+        v98 = 0u;
+        v99 = 0u;
+        v49 = selfCopy;
         allowedSymLinks = [(MSDDemoManifestCheck *)selfCopy allowedSymLinks];
-        v48 = [allowedSymLinks countByEnumeratingWithState:&v93 objects:v106 count:16];
-        if (!v48)
+        v51 = [allowedSymLinks countByEnumeratingWithState:&v98 objects:v111 count:16];
+        if (!v51)
         {
 
-          v34 = v45;
-          v15 = v78;
+          v35 = v48;
+          v15 = v83;
 LABEL_61:
-          v65 = sub_100021268();
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+          v70 = sub_100021268(v47);
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
           {
-            v35 = v83;
+            v36 = v88;
             sub_10002B1DC();
             goto LABEL_63;
           }
 
 LABEL_62:
-          v35 = v83;
+          v36 = v88;
 LABEL_63:
-          v11 = v70;
-          optionsCopy = v72;
+          v11 = v75;
+          optionsCopy = v77;
 
           objc_autoreleasePoolPop(context);
           goto LABEL_64;
         }
 
-        v49 = v48;
-        v85 = 0;
-        v50 = *v94;
-        v51 = v88;
+        v52 = v51;
+        v90 = 0;
+        v53 = *v99;
+        v54 = v93;
         do
         {
-          for (i = 0; i != v49; i = i + 1)
+          for (i = 0; i != v52; i = i + 1)
           {
-            if (*v94 != v50)
+            if (*v99 != v53)
             {
               objc_enumerationMutation(allowedSymLinks);
             }
 
-            v53 = *(*(&v93 + 1) + 8 * i);
-            if ([v51 rangeOfString:{v53, v70, v72}] != 0x7FFFFFFFFFFFFFFFLL)
+            v56 = *(*(&v98 + 1) + 8 * i);
+            if ([v54 rangeOfString:{v56, v75, v77}] != 0x7FFFFFFFFFFFFFFFLL)
             {
-              allowedSymLinks2 = [(MSDDemoManifestCheck *)v46 allowedSymLinks];
-              v55 = [allowedSymLinks2 objectForKey:v53];
+              allowedSymLinks2 = [(MSDDemoManifestCheck *)v49 allowedSymLinks];
+              v58 = [allowedSymLinks2 objectForKey:v56];
 
-              v91 = 0u;
-              v92 = 0u;
-              v89 = 0u;
-              v90 = 0u;
-              v56 = v55;
-              v57 = [v56 countByEnumeratingWithState:&v89 objects:v105 count:16];
-              if (v57)
+              v96 = 0u;
+              v97 = 0u;
+              v94 = 0u;
+              v95 = 0u;
+              v59 = v58;
+              v60 = [v59 countByEnumeratingWithState:&v94 objects:v110 count:16];
+              if (v60)
               {
-                v58 = v57;
-                v59 = *v90;
+                v61 = v60;
+                v62 = *v95;
                 while (2)
                 {
-                  for (j = 0; j != v58; j = j + 1)
+                  for (j = 0; j != v61; j = j + 1)
                   {
-                    if (*v90 != v59)
+                    if (*v95 != v62)
                     {
-                      objc_enumerationMutation(v56);
+                      objc_enumerationMutation(v59);
                     }
 
-                    if ([v45 rangeOfString:*(*(&v89 + 1) + 8 * j)] != 0x7FFFFFFFFFFFFFFFLL)
+                    if ([v48 rangeOfString:*(*(&v94 + 1) + 8 * j)] != 0x7FFFFFFFFFFFFFFFLL)
                     {
-                      v85 = 1;
+                      v90 = 1;
                       goto LABEL_49;
                     }
                   }
 
-                  v58 = [v56 countByEnumeratingWithState:&v89 objects:v105 count:16];
-                  if (v58)
+                  v61 = [v59 countByEnumeratingWithState:&v94 objects:v110 count:16];
+                  if (v61)
                   {
                     continue;
                   }
@@ -1544,36 +1565,36 @@ LABEL_63:
                 }
 
 LABEL_49:
-                v46 = selfCopy;
-                v51 = v88;
+                v49 = selfCopy;
+                v54 = v93;
               }
             }
           }
 
-          v49 = [allowedSymLinks countByEnumeratingWithState:&v93 objects:v106 count:16];
+          v52 = [allowedSymLinks countByEnumeratingWithState:&v98 objects:v111 count:16];
         }
 
-        while (v49);
+        while (v52);
 
-        v34 = v45;
-        typeCopy = v77;
-        v15 = v78;
-        sectionCopy = v74;
-        v37 = v75;
-        v36 = v76;
-        if ((v85 & 1) == 0)
+        v35 = v48;
+        typeCopy = v82;
+        v15 = v83;
+        sectionCopy = v79;
+        v38 = v80;
+        v37 = v81;
+        if ((v90 & 1) == 0)
         {
           goto LABEL_61;
         }
       }
 
-      v61 = [v15 valueForKey:{@"NSFilePosixPermissions", v70, v72}];
-      longValue = [v61 longValue];
+      v64 = [v15 valueForKey:{@"NSFilePosixPermissions", v75, v77}];
+      longValue = [v64 longValue];
 
       if ((longValue & 0xC00) != 0)
       {
-        v65 = sub_100021268();
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v70 = sub_100021268(v66);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           sub_10002B258();
         }
@@ -1581,15 +1602,15 @@ LABEL_49:
         goto LABEL_62;
       }
 
-      if ([typeCopy isEqualToString:v37])
+      if ([typeCopy isEqualToString:v38])
       {
         whitelistChecker3 = [(MSDDemoManifestCheck *)selfCopy whitelistChecker];
-        v64 = [whitelistChecker3 handleSystemContainerFiles:v88 withMetadata:v84];
+        v68 = [whitelistChecker3 handleSystemContainerFiles:v93 withMetadata:v89];
 
-        if ((v64 & 1) == 0)
+        if ((v68 & 1) == 0)
         {
-          v65 = sub_100021268();
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+          v70 = sub_100021268(v69);
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
           {
             sub_10002B2D4();
           }
@@ -1599,15 +1620,15 @@ LABEL_49:
       }
 
       objc_autoreleasePoolPop(context);
-      v38 = v81 + 1;
-      v35 = v83;
-      v39 = v15;
+      v39 = v86 + 1;
+      v36 = v88;
+      v40 = v15;
     }
 
-    while ((v81 + 1) != v80);
-    v35 = v83;
-    v80 = [sectionCopy countByEnumeratingWithState:&v97 objects:v107 count:16];
-    if (v80)
+    while ((v86 + 1) != v85);
+    v36 = v88;
+    v85 = [sectionCopy countByEnumeratingWithState:&v102 objects:v112 count:16];
+    if (v85)
     {
       continue;
     }
@@ -1617,12 +1638,12 @@ LABEL_49:
 
 LABEL_66:
 
-  v33 = 1;
-  v11 = v70;
-  optionsCopy = v72;
+  v34 = 1;
+  v11 = v75;
+  optionsCopy = v77;
 LABEL_70:
 
-  return v33;
+  return v34;
 }
 
 - (BOOL)runAppLayoutSecurityCheck:(id)check
@@ -1633,13 +1654,13 @@ LABEL_70:
   v7 = +[MSDPlatform sharedInstance];
   macOS = [v7 macOS];
 
-  v61 = v5;
-  v62 = v6;
+  v72 = v5;
+  v73 = v6;
   if (macOS)
   {
     [v5 addObject:&off_100056760];
     [v6 addObject:@"staff"];
-    v63 = [NSSet setWithArray:&off_100056550];
+    v74 = [NSSet setWithArray:&off_100056550];
     goto LABEL_11;
   }
 
@@ -1682,317 +1703,328 @@ LABEL_70:
 
   v16 = [NSSet setWithArray:v11];
 LABEL_10:
-  v63 = v16;
+  v74 = v16;
 LABEL_11:
   v17 = [(MSDDemoManifestCheck *)self getManifestData:checkCopy];
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v65 objects:v73 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v76 objects:v84 count:16];
   if (v19)
   {
     v21 = v19;
-    v22 = &archive_entry_free_ptr;
-    v64 = *v66;
+    v75 = *v77;
     *&v20 = 134218242;
-    v58 = v20;
-    v59 = v18;
+    v69 = v20;
+    v70 = v18;
     do
     {
-      v23 = 0;
-      v60 = v21;
+      v22 = 0;
+      v71 = v21;
       do
       {
-        if (*v66 != v64)
+        if (*v77 != v75)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v65 + 1) + 8 * v23);
-        v25 = [v18 objectForKey:{v24, v58}];
-        if (!v25 || (v26 = v22[371], objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+        v23 = *(*(&v76 + 1) + 8 * v22);
+        v24 = [v18 objectForKey:{v23, v69}];
+        if (!v24 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           sub_10002B4CC();
 LABEL_105:
-          v31 = 6;
+          v30 = 6;
           goto LABEL_95;
         }
 
-        v27 = [v25 objectForKey:@"MSDManifestSymbolicLinkTargetFile"];
-        if (v27)
+        v25 = [v24 objectForKey:@"MSDManifestSymbolicLinkTargetFile"];
+        if (v25)
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0 || ([v27 isEqualToString:&stru_1000519D0] & 1) == 0)
+          if ((objc_opt_isKindOfClass() & 1) == 0 || ([v25 isEqualToString:&stru_1000519D0] & 1) == 0)
           {
-            sub_10002B418(v24, v27, v25);
+            sub_10002B418(v23, v25, v24);
             goto LABEL_105;
           }
         }
 
-        v28 = [v25 objectForKey:@"MSDManifestFileAttributes"];
-        if (v28)
+        isKindOfClass = [v24 objectForKey:@"MSDManifestFileAttributes"];
+        v27 = isKindOfClass;
+        if (isKindOfClass)
         {
-          v29 = v22[371];
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
-            v30 = [v28 objectForKey:@"NSFileType"];
-            if (v30 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v28 = [v27 objectForKey:@"NSFileType"];
+            v29 = v28;
+            if (v28 && (objc_opt_class(), v28 = objc_opt_isKindOfClass(), (v28 & 1) != 0))
             {
-              if (([v30 isEqualToString:@"NSFileTypeDirectory"]& 1) != 0)
+              if (([v29 isEqualToString:@"NSFileTypeDirectory"]& 1) != 0)
               {
-                v31 = 3;
+                v30 = 3;
                 goto LABEL_48;
               }
 
-              if (([v30 isEqualToString:@"NSFileTypeRegular"]& 1) != 0)
+              v31 = [v29 isEqualToString:@"NSFileTypeRegular"];
+              if (v31)
               {
-                if ([v63 containsObject:v24])
+                v32 = [v74 containsObject:v23];
+                if (v32)
                 {
-                  v32 = [v28 objectForKey:NSFileOwnerAccountID];
-                  if (v32 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                  v33 = [v27 objectForKey:NSFileOwnerAccountID];
+                  v34 = v33;
+                  if (v33 && (objc_opt_class(), v33 = objc_opt_isKindOfClass(), (v33 & 1) != 0))
                   {
-                    if ([v32 integerValue]== 501)
+                    integerValue = [v34 integerValue];
+                    if (integerValue == 501)
                     {
-                      v33 = [v28 objectForKey:NSFileGroupOwnerAccountID];
+                      v36 = [v27 objectForKey:NSFileGroupOwnerAccountID];
 
-                      if (v33 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                      if (v36 && (objc_opt_class(), v37 = objc_opt_isKindOfClass(), (v37 & 1) != 0))
                       {
-                        if ([v5 containsObject:v33])
+                        v38 = [v5 containsObject:v36];
+                        if (v38)
                         {
-                          v34 = [v28 objectForKey:NSFileOwnerAccountName];
-                          if (v34 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                          v39 = [v27 objectForKey:NSFileOwnerAccountName];
+                          v40 = v39;
+                          if (v39 && (objc_opt_class(), v39 = objc_opt_isKindOfClass(), (v39 & 1) != 0))
                           {
-                            if (([v34 isEqualToString:@"mobile"]& 1) != 0)
+                            v41 = [v40 isEqualToString:@"mobile"];
+                            if (v41)
                             {
-                              v35 = [v28 objectForKey:NSFileGroupOwnerAccountName];
+                              v42 = [v27 objectForKey:NSFileGroupOwnerAccountName];
 
-                              if (v35 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                              if (v42 && (objc_opt_class(), v43 = objc_opt_isKindOfClass(), (v43 & 1) != 0))
                               {
-                                v21 = v60;
-                                if ([v62 containsObject:v35])
+                                v44 = [v73 containsObject:v42];
+                                v21 = v71;
+                                if (v44)
                                 {
-                                  v36 = [v28 objectForKey:NSFilePosixPermissions];
-                                  if (v36 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                                  v45 = [v27 objectForKey:NSFilePosixPermissions];
+                                  v46 = v45;
+                                  if (v45 && (objc_opt_class(), v45 = objc_opt_isKindOfClass(), (v45 & 1) != 0))
                                   {
-                                    if (([v36 integerValue]& 0xC00) == 0)
+                                    integerValue2 = [v46 integerValue];
+                                    if ((integerValue2 & 0xC00) == 0)
                                     {
-                                      v31 = 1;
+                                      v30 = 1;
                                       goto LABEL_45;
                                     }
 
-                                    v49 = sub_100021268();
-                                    if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+                                    v60 = sub_100021268(integerValue2);
+                                    if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
                                     {
 LABEL_79:
 
-                                      v31 = 6;
+                                      v30 = 6;
 LABEL_80:
-                                      v21 = v60;
+                                      v21 = v71;
 LABEL_45:
 
 LABEL_46:
-                                      v5 = v61;
+                                      v5 = v72;
 LABEL_47:
 
-                                      v18 = v59;
+                                      v18 = v70;
                                       goto LABEL_48;
                                     }
 
                                     *buf = 138543362;
-                                    v70 = v24;
-                                    v50 = v49;
-                                    v51 = "IS&T signed component contains setuid item: %{public}@";
+                                    v81 = v23;
+                                    v61 = v60;
+                                    v62 = "IS&T signed component contains setuid item: %{public}@";
                                   }
 
                                   else
                                   {
-                                    v49 = sub_100021268();
-                                    if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+                                    v60 = sub_100021268(v45);
+                                    if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
                                     {
                                       goto LABEL_79;
                                     }
 
                                     *buf = 138543362;
-                                    v70 = v24;
-                                    v50 = v49;
-                                    v51 = "IS&T signed component in wrong format (permission) for %{public}@";
+                                    v81 = v23;
+                                    v61 = v60;
+                                    v62 = "IS&T signed component in wrong format (permission) for %{public}@";
                                   }
 
-                                  _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, v51, buf, 0xCu);
+                                  _os_log_error_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, v62, buf, 0xCu);
                                   goto LABEL_79;
                                 }
 
-                                v36 = sub_100021268();
-                                if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                                v46 = sub_100021268(v44);
+                                if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                                 {
 LABEL_77:
-                                  v31 = 6;
+                                  v30 = 6;
                                   goto LABEL_45;
                                 }
 
                                 *buf = 138543618;
-                                v70 = v62;
-                                v71 = 2114;
-                                v72 = v24;
-                                v46 = v36;
-                                v47 = "IS&T signed component can only contain %{public}@ owned file - %{public}@";
-                                v48 = 22;
+                                v81 = v73;
+                                v82 = 2114;
+                                v83 = v23;
+                                v57 = v46;
+                                v58 = "IS&T signed component can only contain %{public}@ owned file - %{public}@";
+                                v59 = 22;
                               }
 
                               else
                               {
-                                v36 = sub_100021268();
-                                v21 = v60;
-                                if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                                v46 = sub_100021268(v43);
+                                v21 = v71;
+                                if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                                 {
                                   goto LABEL_77;
                                 }
 
                                 *buf = 138543362;
-                                v70 = v24;
-                                v46 = v36;
-                                v47 = "IS&T signed component in wrong format (onwer name) for %{public}@";
-                                v48 = 12;
+                                v81 = v23;
+                                v57 = v46;
+                                v58 = "IS&T signed component in wrong format (onwer name) for %{public}@";
+                                v59 = 12;
                               }
 
-                              _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, v47, buf, v48);
+                              _os_log_error_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, v58, buf, v59);
                               goto LABEL_77;
                             }
 
-                            v36 = sub_100021268();
-                            if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                            v46 = sub_100021268(v41);
+                            if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                             {
 LABEL_75:
-                              v31 = 6;
-                              v35 = v34;
+                              v30 = 6;
+                              v42 = v40;
                               goto LABEL_80;
                             }
 
                             *buf = 138543618;
-                            v70 = @"mobile";
-                            v71 = 2114;
-                            v72 = v24;
-                            v43 = v36;
-                            v44 = "IS&T signed component can only contain %{public}@ owned file - %{public}@";
-                            v45 = 22;
+                            v81 = @"mobile";
+                            v82 = 2114;
+                            v83 = v23;
+                            v54 = v46;
+                            v55 = "IS&T signed component can only contain %{public}@ owned file - %{public}@";
+                            v56 = 22;
                           }
 
                           else
                           {
-                            v36 = sub_100021268();
-                            if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                            v46 = sub_100021268(v39);
+                            if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                             {
                               goto LABEL_75;
                             }
 
                             *buf = 138543362;
-                            v70 = v24;
-                            v43 = v36;
-                            v44 = "IS&T signed component in wrong format (owner name) for %{public}@";
-                            v45 = 12;
+                            v81 = v23;
+                            v54 = v46;
+                            v55 = "IS&T signed component in wrong format (owner name) for %{public}@";
+                            v56 = 12;
                           }
 
-                          _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, v44, buf, v45);
+                          _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, v55, buf, v56);
                           goto LABEL_75;
                         }
 
-                        v35 = sub_100021268();
-                        if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                        v42 = sub_100021268(v38);
+                        if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                         {
 LABEL_73:
-                          v31 = 6;
+                          v30 = 6;
                           goto LABEL_46;
                         }
 
                         *buf = 138543618;
-                        v70 = v61;
-                        v71 = 2114;
-                        v72 = v24;
-                        v40 = v35;
-                        v41 = "IS&T signed component can only contain %{public}@ owned file - %{public}@";
-                        v42 = 22;
+                        v81 = v72;
+                        v82 = 2114;
+                        v83 = v23;
+                        v51 = v42;
+                        v52 = "IS&T signed component can only contain %{public}@ owned file - %{public}@";
+                        v53 = 22;
                       }
 
                       else
                       {
-                        v35 = sub_100021268();
-                        if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                        v42 = sub_100021268(v37);
+                        if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                         {
                           goto LABEL_73;
                         }
 
                         *buf = 138543362;
-                        v70 = v24;
-                        v40 = v35;
-                        v41 = "IS&T signed component in wrong format (owner ID) for %{public}@";
-                        v42 = 12;
+                        v81 = v23;
+                        v51 = v42;
+                        v52 = "IS&T signed component in wrong format (owner ID) for %{public}@";
+                        v53 = 12;
                       }
 
-                      _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, v41, buf, v42);
+                      _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, v52, buf, v53);
                       goto LABEL_73;
                     }
 
-                    v35 = sub_100021268();
-                    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                    v42 = sub_100021268(integerValue);
+                    if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                     {
 LABEL_71:
-                      v31 = 6;
-                      v33 = v32;
+                      v30 = 6;
+                      v36 = v34;
                       goto LABEL_46;
                     }
 
-                    *buf = v58;
-                    v70 = 501;
-                    v71 = 2114;
-                    v72 = v24;
-                    v37 = v35;
-                    v38 = "IS&T signed component can only contain %ld owned file - %{public}@";
-                    v39 = 22;
+                    *buf = v69;
+                    v81 = 501;
+                    v82 = 2114;
+                    v83 = v23;
+                    v48 = v42;
+                    v49 = "IS&T signed component can only contain %ld owned file - %{public}@";
+                    v50 = 22;
                   }
 
                   else
                   {
-                    v35 = sub_100021268();
-                    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                    v42 = sub_100021268(v33);
+                    if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_71;
                     }
 
                     *buf = 138543362;
-                    v70 = v24;
-                    v37 = v35;
-                    v38 = "IS&T signed component in wrong format (owner ID) for %{public}@";
-                    v39 = 12;
+                    v81 = v23;
+                    v48 = v42;
+                    v49 = "IS&T signed component in wrong format (owner ID) for %{public}@";
+                    v50 = 12;
                   }
 
-                  _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, v38, buf, v39);
+                  _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, v49, buf, v50);
                   goto LABEL_71;
                 }
 
-                v33 = sub_100021268();
-                if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                v36 = sub_100021268(v32);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
-                  v70 = v24;
-                  v52 = v33;
-                  v53 = "%{public}@ is not allowed in IS&T signed component.";
+                  v81 = v23;
+                  v63 = v36;
+                  v64 = "%{public}@ is not allowed in IS&T signed component.";
                   goto LABEL_82;
                 }
               }
 
               else
               {
-                v33 = sub_100021268();
-                if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                v36 = sub_100021268(v31);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
-                  v70 = v24;
-                  v52 = v33;
-                  v53 = "IS&T signed component can only contain regular files - %{public}@";
+                  v81 = v23;
+                  v63 = v36;
+                  v64 = "IS&T signed component can only contain regular files - %{public}@";
                   goto LABEL_82;
                 }
               }
@@ -2000,67 +2032,66 @@ LABEL_71:
 
             else
             {
-              v33 = sub_100021268();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+              v36 = sub_100021268(v28);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v70 = v24;
-                v52 = v33;
-                v53 = "IS&T signed component in wrong format (file type) for %{public}@";
+                v81 = v23;
+                v63 = v36;
+                v64 = "IS&T signed component in wrong format (file type) for %{public}@";
 LABEL_82:
-                _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, v53, buf, 0xCu);
+                _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, v64, buf, 0xCu);
               }
             }
 
-            v31 = 6;
+            v30 = 6;
             goto LABEL_47;
           }
         }
 
-        v30 = sub_100021268();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v29 = sub_100021268(isKindOfClass);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v70 = v24;
-          _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "IS&T signed component in wrong format (no file attributes) for %{public}@", buf, 0xCu);
+          v81 = v23;
+          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "IS&T signed component in wrong format (no file attributes) for %{public}@", buf, 0xCu);
         }
 
-        v31 = 6;
+        v30 = 6;
 LABEL_48:
 
-        if (v31 != 3)
+        if (v30 != 3)
         {
           goto LABEL_95;
         }
 
-        v23 = v23 + 1;
-        v22 = &archive_entry_free_ptr;
+        v22 = v22 + 1;
       }
 
-      while (v21 != v23);
-      v54 = [v18 countByEnumeratingWithState:&v65 objects:v73 count:16];
-      v21 = v54;
+      while (v21 != v22);
+      v65 = [v18 countByEnumeratingWithState:&v76 objects:v84 count:16];
+      v21 = v65;
     }
 
-    while (v54);
+    while (v65);
   }
 
-  v31 = 0;
+  v30 = 0;
 LABEL_95:
 
-  if (v31)
+  if (v30)
   {
-    v55 = v31 == 6;
+    v66 = v30 == 6;
   }
 
   else
   {
-    v55 = 1;
+    v66 = 1;
   }
 
-  v56 = !v55;
+  v67 = !v66;
 
-  return v56;
+  return v67;
 }
 
 - (void)registerEntitlementNotificationHandler
@@ -2241,8 +2272,8 @@ LABEL_95:
         {
           if (!v7)
           {
-            v14 = sub_100021268();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v15 = sub_100021268(v10);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               sub_10002B570();
             }
@@ -2250,41 +2281,41 @@ LABEL_95:
             goto LABEL_12;
           }
 
-          v10 = -1;
+          v11 = -1;
         }
 
         else
         {
-          v11 = [v5 objectAtIndexedSubscript:v6];
-          v12 = [v11 isEqualToString:@"."];
+          v12 = [v5 objectAtIndexedSubscript:v6];
+          v13 = [v12 isEqualToString:@"."];
 
-          v10 = v12 ^ 1;
+          v11 = v13 ^ 1;
         }
 
-        v7 += v10;
+        v7 += v11;
         ++v6;
       }
 
       while ([v5 count] > v6);
     }
 
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v14 = sub_100021268();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100021268(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10002B5E0();
     }
 
 LABEL_12:
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)getAllowedSymLinks
@@ -2483,164 +2514,165 @@ LABEL_5:
 {
   sectionCopy = section;
   nameCopy = name;
+  v56 = 0u;
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v8 = [sectionCopy countByEnumeratingWithState:&v58 objects:v71 count:16];
+  v8 = [sectionCopy countByEnumeratingWithState:&v56 objects:v69 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v59;
-    v11 = &archive_entry_free_ptr;
+    v10 = *v57;
     selfCopy = self;
-    v38 = sectionCopy;
-    v35 = *v59;
-    v36 = nameCopy;
+    v36 = sectionCopy;
+    v33 = *v57;
+    v34 = nameCopy;
     do
     {
-      v12 = 0;
-      v39 = v9;
+      v11 = 0;
+      v37 = v9;
       do
       {
-        if (*v59 != v10)
+        if (*v57 != v10)
         {
           objc_enumerationMutation(sectionCopy);
         }
 
-        v13 = v11[377];
-        v43 = *(*(&v58 + 1) + 8 * v12);
-        v14 = [sectionCopy objectForKey:v43 ofType:objc_opt_class()];
-        if (v14)
+        v41 = *(*(&v56 + 1) + 8 * v11);
+        v12 = [sectionCopy objectForKey:v41 ofType:objc_opt_class()];
+        if (v12)
         {
-          v15 = [(MSDDemoManifestCheck *)self getComponentData:v14];
-          if (v15)
+          v13 = [(MSDDemoManifestCheck *)self getComponentData:v12];
+          if (v13)
           {
-            v16 = [(MSDDemoManifestCheck *)self getManifestData:v15];
-            if (v16)
+            v14 = [(MSDDemoManifestCheck *)self getManifestData:v13];
+            if (v14)
             {
-              v40 = v15;
-              v41 = v14;
-              v42 = v12;
-              v17 = objc_opt_new();
+              v38 = v13;
+              v39 = v12;
+              v40 = v11;
+              v15 = objc_opt_new();
+              v52 = 0u;
+              v53 = 0u;
               v54 = 0u;
               v55 = 0u;
-              v56 = 0u;
-              v57 = 0u;
               obj = [(MSDDemoManifestCheck *)self blocklistedItems];
-              v18 = [obj countByEnumeratingWithState:&v54 objects:v70 count:16];
-              if (v18)
+              v16 = [obj countByEnumeratingWithState:&v52 objects:v68 count:16];
+              if (v16)
               {
-                v19 = v18;
-                v45 = *v55;
+                v17 = v16;
+                v43 = *v53;
                 do
                 {
-                  for (i = 0; i != v19; i = i + 1)
+                  for (i = 0; i != v17; i = i + 1)
                   {
-                    if (*v55 != v45)
+                    if (*v53 != v43)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v21 = *(*(&v54 + 1) + 8 * i);
+                    v19 = *(*(&v52 + 1) + 8 * i);
+                    v48 = 0u;
+                    v49 = 0u;
                     v50 = 0u;
                     v51 = 0u;
-                    v52 = 0u;
-                    v53 = 0u;
-                    v22 = v16;
-                    v23 = [v22 countByEnumeratingWithState:&v50 objects:v69 count:16];
-                    if (v23)
+                    v20 = v14;
+                    v21 = [v20 countByEnumeratingWithState:&v48 objects:v67 count:16];
+                    if (v21)
                     {
-                      v24 = v23;
-                      v25 = *v51;
+                      v22 = v21;
+                      v23 = *v49;
                       do
                       {
-                        for (j = 0; j != v24; j = j + 1)
+                        for (j = 0; j != v22; j = j + 1)
                         {
-                          if (*v51 != v25)
+                          if (*v49 != v23)
                           {
-                            objc_enumerationMutation(v22);
+                            objc_enumerationMutation(v20);
                           }
 
-                          v27 = *(*(&v50 + 1) + 8 * j);
-                          if (([v27 isEqualToString:{v21, v35}] & 1) != 0 || objc_msgSend(v27, "hasPrefix:", v21))
+                          v25 = *(*(&v48 + 1) + 8 * j);
+                          if (([v25 isEqualToString:{v19, v33}] & 1) != 0 || objc_msgSend(v25, "hasPrefix:", v19))
                           {
-                            [v17 addObject:v27];
+                            [v15 addObject:v25];
                           }
                         }
 
-                        v24 = [v22 countByEnumeratingWithState:&v50 objects:v69 count:16];
+                        v22 = [v20 countByEnumeratingWithState:&v48 objects:v67 count:16];
                       }
 
-                      while (v24);
+                      while (v22);
                     }
                   }
 
-                  v19 = [obj countByEnumeratingWithState:&v54 objects:v70 count:16];
+                  v17 = [obj countByEnumeratingWithState:&v52 objects:v68 count:16];
                 }
 
-                while (v19);
+                while (v17);
               }
 
-              v48 = 0u;
-              v49 = 0u;
               v46 = 0u;
               v47 = 0u;
-              v28 = v17;
-              v29 = [v28 countByEnumeratingWithState:&v46 objects:v68 count:16];
-              nameCopy = v36;
-              if (v29)
+              v44 = 0u;
+              v45 = 0u;
+              v26 = v15;
+              v27 = [v26 countByEnumeratingWithState:&v44 objects:v66 count:16];
+              nameCopy = v34;
+              if (v27)
               {
-                v30 = v29;
-                v31 = *v47;
+                v28 = v27;
+                v29 = *v45;
                 do
                 {
-                  for (k = 0; k != v30; k = k + 1)
+                  v30 = 0;
+                  do
                   {
-                    if (*v47 != v31)
+                    if (*v45 != v29)
                     {
-                      objc_enumerationMutation(v28);
+                      objc_enumerationMutation(v26);
                     }
 
-                    v33 = *(*(&v46 + 1) + 8 * k);
-                    v34 = sub_100021268();
-                    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                    v31 = *(*(&v44 + 1) + 8 * v30);
+                    v32 = sub_100021268(v27);
+                    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138543874;
-                      v63 = v33;
+                      v61 = v31;
+                      v62 = 2114;
+                      v63 = v34;
                       v64 = 2114;
-                      v65 = v36;
-                      v66 = 2114;
-                      v67 = v43;
-                      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Excluding %{public}@ from section: %{public}@ component:%{public}@", buf, 0x20u);
+                      v65 = v41;
+                      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Excluding %{public}@ from section: %{public}@ component:%{public}@", buf, 0x20u);
                     }
 
-                    [v16 removeObjectForKey:v33];
+                    v27 = [v14 removeObjectForKey:v31];
+                    v30 = v30 + 1;
                   }
 
-                  v30 = [v28 countByEnumeratingWithState:&v46 objects:v68 count:16];
+                  while (v28 != v30);
+                  v27 = [v26 countByEnumeratingWithState:&v44 objects:v66 count:16];
+                  v28 = v27;
                 }
 
-                while (v30);
+                while (v27);
               }
 
               self = selfCopy;
-              sectionCopy = v38;
-              v10 = v35;
-              v11 = &archive_entry_free_ptr;
-              v9 = v39;
-              v15 = v40;
-              v14 = v41;
-              v12 = v42;
+              sectionCopy = v36;
+              v10 = v33;
+              v9 = v37;
+              v13 = v38;
+              v12 = v39;
+              v11 = v40;
             }
           }
         }
 
-        v12 = v12 + 1;
+        v11 = v11 + 1;
       }
 
-      while (v12 != v9);
-      v9 = [sectionCopy countByEnumeratingWithState:&v58 objects:v71 count:16];
+      while (v11 != v9);
+      v9 = [sectionCopy countByEnumeratingWithState:&v56 objects:v69 count:16];
     }
 
     while (v9);
@@ -2651,7 +2683,7 @@ LABEL_5:
 {
   signingCopy = signing;
   commonName = 0;
-  v6 = sub_100021268();
+  v6 = sub_100021268(signingCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2661,14 +2693,14 @@ LABEL_5:
   DemoDigitalCatalogSigning = SecPolicyCreateDemoDigitalCatalogSigning();
   if (!DemoDigitalCatalogSigning)
   {
-    v27 = sub_100021268();
-    if (sub_10001124C(v27))
+    v32 = sub_100021268(0);
+    if (sub_10001124C(v32))
     {
       *buf = 136315138;
-      v53 = "[MSDDemoManifestCheck createPublicKeyAppleISTSigning:]";
+      v58 = "[MSDDemoManifestCheck createPublicKeyAppleISTSigning:]";
       sub_10000C334();
 LABEL_38:
-      _os_log_error_impl(v28, v29, v30, v31, v32, v33);
+      _os_log_error_impl(v33, v34, v35, v36, v37, v38);
       goto LABEL_23;
     }
 
@@ -2676,10 +2708,11 @@ LABEL_38:
   }
 
   v8 = DemoDigitalCatalogSigning;
-  if ([signingCopy count] != 2)
+  v9 = [signingCopy count];
+  if (v9 != 2)
   {
-    v34 = sub_100021268();
-    if (sub_10001124C(v34))
+    v39 = sub_100021268(v9);
+    if (sub_10001124C(v39))
     {
       *buf = 0;
 LABEL_37:
@@ -2688,29 +2721,29 @@ LABEL_37:
     }
 
 LABEL_23:
-    v14 = 0;
+    v16 = 0;
     goto LABEL_35;
   }
 
-  v9 = [signingCopy objectAtIndex:0];
+  v10 = [signingCopy objectAtIndex:0];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if ((isKindOfClass & 1) == 0)
   {
-    v14 = 0;
+    v16 = 0;
     goto LABEL_21;
   }
 
   v3 = [signingCopy objectAtIndex:0];
   bytes = [(__CFString *)v3 bytes];
-  v12 = [signingCopy objectAtIndex:0];
-  v13 = CFDataCreate(kCFAllocatorDefault, bytes, [v12 length]);
+  v13 = [signingCopy objectAtIndex:0];
+  v14 = CFDataCreate(kCFAllocatorDefault, bytes, [v13 length]);
 
-  if (!v13)
+  if (!v14)
   {
-    v35 = sub_100021268();
-    if (!sub_10001124C(v35))
+    v40 = sub_100021268(v15);
+    if (!sub_10001124C(v40))
     {
       goto LABEL_23;
     }
@@ -2719,50 +2752,50 @@ LABEL_23:
     goto LABEL_37;
   }
 
-  SecCertificateCreateWithData(kCFAllocatorDefault, v13);
-  v14 = SecCertificateCopyOrganizationalUnit();
-  v3 = [(__CFString *)v14 objectAtIndex:0];
-  v15 = [(__CFString *)v3 isEqualToString:@"1.2.840.113635.100.6.60"];
-
-  if ((v15 & 1) == 0)
-  {
-    v36 = sub_100021268();
-    if (sub_10001124C(v36))
-    {
-      *buf = 138543362;
-      v53 = v14;
-      sub_10000C334();
-LABEL_28:
-      _os_log_error_impl(v37, v38, v39, v40, v41, v42);
-    }
-
-LABEL_35:
-    v24 = 0;
-    v25 = 0;
-    goto LABEL_14;
-  }
-
-  v16 = [signingCopy objectAtIndex:1];
-  objc_opt_class();
-  v17 = objc_opt_isKindOfClass();
+  SecCertificateCreateWithData(kCFAllocatorDefault, v14);
+  v16 = SecCertificateCopyOrganizationalUnit();
+  v3 = [(__CFString *)v16 objectAtIndex:0];
+  v17 = [(__CFString *)v3 isEqualToString:@"1.2.840.113635.100.6.60"];
 
   if ((v17 & 1) == 0)
   {
+    v41 = sub_100021268(v18);
+    if (sub_10001124C(v41))
+    {
+      *buf = 138543362;
+      v58 = v16;
+      sub_10000C334();
+LABEL_28:
+      _os_log_error_impl(v42, v43, v44, v45, v46, v47);
+    }
+
+LABEL_35:
+    v29 = 0;
+    v30 = 0;
+    goto LABEL_14;
+  }
+
+  v19 = [signingCopy objectAtIndex:1];
+  objc_opt_class();
+  v20 = objc_opt_isKindOfClass();
+
+  if ((v20 & 1) == 0)
+  {
 LABEL_21:
-    v24 = 0;
-    v25 = 0;
+    v29 = 0;
+    v30 = 0;
     goto LABEL_15;
   }
 
-  v18 = [signingCopy objectAtIndex:1];
-  bytes2 = [v18 bytes];
-  v20 = [signingCopy objectAtIndex:1];
-  v3 = CFDataCreate(kCFAllocatorDefault, bytes2, [v20 length]);
+  v21 = [signingCopy objectAtIndex:1];
+  bytes2 = [v21 bytes];
+  v23 = [signingCopy objectAtIndex:1];
+  v3 = CFDataCreate(kCFAllocatorDefault, bytes2, [v23 length]);
 
   if (!v3)
   {
-    v43 = sub_100021268();
-    if (sub_10001124C(v43))
+    v48 = sub_100021268(v24);
+    if (sub_10001124C(v48))
     {
       *buf = 0;
       sub_100011224();
@@ -2772,16 +2805,17 @@ LABEL_21:
     goto LABEL_35;
   }
 
-  v21 = SecCertificateCreateWithData(kCFAllocatorDefault, v3);
-  SecCertificateCopyCommonName(v21, &commonName);
+  v25 = SecCertificateCreateWithData(kCFAllocatorDefault, v3);
+  SecCertificateCopyCommonName(v25, &commonName);
   v3 = commonName;
-  if (([(__CFString *)v3 isEqualToString:@"DemoUnit CA"]& 1) == 0)
+  v26 = [(__CFString *)v3 isEqualToString:@"DemoUnit CA"];
+  if ((v26 & 1) == 0)
   {
-    v44 = sub_100021268();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v49 = sub_100021268(v26);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v53 = commonName;
+      v58 = commonName;
       goto LABEL_40;
     }
 
@@ -2790,43 +2824,43 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v22 = CFDataCreate(kCFAllocatorDefault, byte_10005BAF8, dword_10005BE80);
-  if (!v22)
+  v27 = CFDataCreate(kCFAllocatorDefault, byte_10005BAF8, dword_10005BE80);
+  if (!v27)
   {
-    v44 = sub_100021268();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v49 = sub_100021268(0);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v53 = "[MSDDemoManifestCheck createPublicKeyAppleISTSigning:]";
+      v58 = "[MSDDemoManifestCheck createPublicKeyAppleISTSigning:]";
       goto LABEL_40;
     }
 
     goto LABEL_34;
   }
 
-  v23 = SecCertificateCreateWithData(kCFAllocatorDefault, v22);
-  if (!v23)
+  v28 = SecCertificateCreateWithData(kCFAllocatorDefault, v27);
+  if (!v28)
   {
-    v44 = sub_100021268();
-    if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v49 = sub_100021268(0);
+    if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_34;
     }
 
     *buf = 136315138;
-    v53 = "[MSDDemoManifestCheck createPublicKeyAppleISTSigning:]";
+    v58 = "[MSDDemoManifestCheck createPublicKeyAppleISTSigning:]";
 LABEL_40:
     sub_10000C334();
-    _os_log_error_impl(v45, v46, v47, v48, v49, v50);
+    _os_log_error_impl(v50, v51, v52, v53, v54, v55);
     goto LABEL_34;
   }
 
-  v24 = [NSArray arrayWithObjects:v23, 0];
-  v25 = [(MSDDemoManifestCheck *)self createPublicKey:signingCopy usingPolicy:v8 anchors:v24];
+  v29 = [NSArray arrayWithObjects:v28, 0];
+  v30 = [(MSDDemoManifestCheck *)self createPublicKey:signingCopy usingPolicy:v8 anchors:v29];
 LABEL_14:
 
 LABEL_15:
-  return v25;
+  return v30;
 }
 
 @end

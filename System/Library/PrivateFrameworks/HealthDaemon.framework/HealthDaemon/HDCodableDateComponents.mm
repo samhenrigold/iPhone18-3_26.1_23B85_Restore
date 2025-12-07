@@ -464,12 +464,11 @@ LABEL_16:
 {
   toCopy = to;
   has = self->_has;
-  v20 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    era = self->_era;
     PBDataWriterWriteInt64Field();
-    toCopy = v20;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x1000) == 0)
     {
@@ -488,9 +487,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  year = self->_year;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -504,9 +502,8 @@ LABEL_4:
   }
 
 LABEL_25:
-  month = self->_month;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -520,9 +517,8 @@ LABEL_5:
   }
 
 LABEL_26:
-  day = self->_day;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -536,9 +532,8 @@ LABEL_6:
   }
 
 LABEL_27:
-  hour = self->_hour;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -552,9 +547,8 @@ LABEL_7:
   }
 
 LABEL_28:
-  minute = self->_minute;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -568,9 +562,8 @@ LABEL_8:
   }
 
 LABEL_29:
-  second = self->_second;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x400) == 0)
   {
@@ -584,9 +577,8 @@ LABEL_9:
   }
 
 LABEL_30:
-  weekday = self->_weekday;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x800) == 0)
   {
@@ -600,9 +592,8 @@ LABEL_10:
   }
 
 LABEL_31:
-  weekdayOrdinal = self->_weekdayOrdinal;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -616,9 +607,8 @@ LABEL_11:
   }
 
 LABEL_32:
-  quarter = self->_quarter;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -632,9 +622,8 @@ LABEL_12:
   }
 
 LABEL_33:
-  weekOfMonth = self->_weekOfMonth;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -648,9 +637,8 @@ LABEL_13:
   }
 
 LABEL_34:
-  weekOfYear = self->_weekOfYear;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x2000) == 0)
   {
@@ -664,28 +652,26 @@ LABEL_14:
   }
 
 LABEL_35:
-  yearForWeekOfYear = self->_yearForWeekOfYear;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v6;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_15:
-    nanosecond = self->_nanosecond;
     PBDataWriterWriteInt64Field();
-    toCopy = v20;
+    toCopy = v6;
   }
 
 LABEL_16:
   if (self->_calendar)
   {
     PBDataWriterWriteStringField();
-    toCopy = v20;
+    toCopy = v6;
   }
 
   if (self->_timeZone)
   {
     PBDataWriterWriteStringField();
-    toCopy = v20;
+    toCopy = v6;
   }
 }
 

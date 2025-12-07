@@ -22,7 +22,7 @@
   v63 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   handlerCopy = handler;
-  v28 = RPTLogTestRunning();
+  v28 = RPTLogTestRunning(handlerCopy);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     v64.origin.x = x;
@@ -238,7 +238,7 @@ uint64_t __51__RPTOscillationScrollTestParameters_composerBlock__block_invoke(ui
   v10 = point.x;
   v36 = *MEMORY[0x277D85DE8];
   composerCopy = composer;
-  v13 = RPTLogTestRunning();
+  v13 = RPTLogTestRunning(composerCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v37.x = v10;

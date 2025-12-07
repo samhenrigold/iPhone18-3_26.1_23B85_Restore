@@ -12,8 +12,10 @@
 - (id)dataForZipEntry:(id)entry inDataToWrite:(id)write;
 - (id)filenameForData:(id)data preferredFilename:(id)filename;
 - (id)linkOrCopyData:(id)data fromURL:(id)l fromTemporaryLocation:(BOOL)location decryptionInfo:(id)info preferredFilename:(id)filename error:(id *)error;
+- (id)newComponentWriteChannelWithPackageLocator:(id)locator compressionAlgorithm:(int64_t)algorithm storeOutsideObjectArchive:(BOOL)archive;
 - (id)newCompressionComponentWriteChannelWithComponentWriteChannel:(id)channel compressionAlgorithm:(int64_t)algorithm;
 - (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate;
+- (id)newRawComponentWriteChannelWithPackageLocator:(id)locator storeOutsideObjectArchive:(BOOL)archive;
 - (id)newRawDataWriteChannelForRelativePath:(id)path originalLastModificationDate:(id)date originalSize:(unint64_t)size originalCRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate;
 - (id)packageEntryInfoForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive packageURL:(id)l;
 - (id)writtenPackageWithURL:(id)l;
@@ -120,31 +122,31 @@ LABEL_11:
   supportPackageCopy = supportPackage;
   delegateCopy = delegate;
   progressCopy = progress;
-  v89 = lCopy;
+  v88 = lCopy;
   errorCopy3 = error;
   if (objc_msgSend_isFileURL(lCopy, v24, v25))
   {
-    v78 = propertiesCopy;
-    v94.receiver = self;
-    v94.super_class = TSPPackageWriter;
-    v30 = [(TSPPackageWriter *)&v94 init];
+    v77 = propertiesCopy;
+    v93.receiver = self;
+    v93.super_class = TSPPackageWriter;
+    v30 = [(TSPPackageWriter *)&v93 init];
     if (!v30)
     {
-      v68 = 0;
+      v67 = 0;
       if (!error)
       {
 LABEL_30:
         selfCopy = v30;
 
-        v67 = selfCopy;
-        propertiesCopy = v78;
+        v66 = selfCopy;
+        propertiesCopy = v77;
         goto LABEL_31;
       }
 
 LABEL_28:
       if (!v30)
       {
-        *errorCopy3 = objc_msgSend_tsp_ensureSaveErrorWithError_(MEMORY[0x277CCA9B8], v28, v68);
+        *errorCopy3 = objc_msgSend_tsp_ensureSaveErrorWithError_(MEMORY[0x277CCA9B8], v28, v67);
       }
 
       goto LABEL_30;
@@ -174,41 +176,40 @@ LABEL_28:
 
     v30->_updateType = type;
     objc_storeStrong(&v30->_progress, progress);
-    v44 = v30->_writtenPackage;
-    v45 = objc_opt_class();
-    v47 = objc_msgSend_zipArchiveURLFromPackageURL_(v45, v46, lCopy);
-    v49 = v47;
+    v44 = objc_opt_class();
+    v46 = objc_msgSend_zipArchiveURLFromPackageURL_(v44, v45, lCopy);
+    v48 = v46;
     if (!mode)
     {
       goto LABEL_20;
     }
 
-    v93 = 0;
-    v50 = objc_msgSend_checkResourceIsReachableAndReturnError_(v47, v48, &v93);
-    v52 = v93;
-    if (v50)
+    v92 = 0;
+    v49 = objc_msgSend_checkResourceIsReachableAndReturnError_(v46, v47, &v92);
+    v51 = v92;
+    if (v49)
     {
-      v92 = v52;
-      v53 = objc_msgSend_zipArchiveFromURL_options_error_(MEMORY[0x277D81380], v51, v49, 0, &v92);
-      v54 = v92;
+      v91 = v51;
+      v52 = objc_msgSend_zipArchiveFromURL_options_error_(MEMORY[0x277D81380], v50, v48, 0, &v91);
+      v53 = v91;
 
-      if (v53)
+      if (v52)
       {
-        v55 = objc_alloc(MEMORY[0x277D81388]);
-        v91 = 0;
-        v56 = &v91;
-        v58 = objc_msgSend_initWithZipFileArchive_error_(v55, v57, v53, &v91);
+        v54 = objc_alloc(MEMORY[0x277D81388]);
+        v90 = 0;
+        v55 = &v90;
+        v57 = objc_msgSend_initWithZipFileArchive_error_(v54, v56, v52, &v90);
         goto LABEL_22;
       }
 
-      if (v54)
+      if (v53)
       {
         if (UnsafePointer != -1)
         {
           sub_276BD6718();
         }
 
-        v52 = v54;
+        v51 = v53;
         goto LABEL_21;
       }
 
@@ -216,31 +217,31 @@ LABEL_28:
       {
         sub_276BD6740();
 LABEL_20:
-        v52 = 0;
+        v51 = 0;
         goto LABEL_21;
       }
 
-      v52 = 0;
+      v51 = 0;
     }
 
 LABEL_21:
-    v70 = objc_alloc(MEMORY[0x277D81388]);
-    v90 = 0;
-    v56 = &v90;
-    v58 = objc_msgSend_initWithURL_error_(v70, v71, v49, &v90);
-    v53 = 0;
-    v54 = v52;
+    v69 = objc_alloc(MEMORY[0x277D81388]);
+    v89 = 0;
+    v55 = &v89;
+    v57 = objc_msgSend_initWithURL_error_(v69, v70, v48, &v89);
+    v52 = 0;
+    v53 = v51;
 LABEL_22:
-    v68 = *v56;
+    v67 = *v55;
     zipArchiveWriter = v30->_zipArchiveWriter;
-    v30->_zipArchiveWriter = v58;
+    v30->_zipArchiveWriter = v57;
 
     if (v30->_zipArchiveWriter)
     {
-      v73 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v74 = dispatch_queue_create("TSPPackageWriter.Error", v73);
+      v72 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v73 = dispatch_queue_create("TSPPackageWriter.Error", v72);
       errorQueue = v30->_errorQueue;
-      v30->_errorQueue = v74;
+      v30->_errorQueue = v73;
 
       v30->_isOpened = 1;
       errorCopy3 = error;
@@ -265,36 +266,36 @@ LABEL_22:
     goto LABEL_28;
   }
 
-  v59 = MEMORY[0x277D81150];
-  v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "[TSPPackageWriter initWithURL:documentTargetURL:relativeURLForExternalData:packageIdentifier:documentProperties:documentMetadata:fileFormatVersion:updateType:cloneMode:documentSaveValidationPolicy:encryptionKey:originalDocumentPackage:originalSupportPackage:fileCoordinatorDelegate:progress:error:]", progress, policy, metadata, package);
-  v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriter.mm");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v63, v60, v62, 156, 0, "Don't support writing to non-file URLs");
+  v58 = MEMORY[0x277D81150];
+  v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "[TSPPackageWriter initWithURL:documentTargetURL:relativeURLForExternalData:packageIdentifier:documentProperties:documentMetadata:fileFormatVersion:updateType:cloneMode:documentSaveValidationPolicy:encryptionKey:originalDocumentPackage:originalSupportPackage:fileCoordinatorDelegate:progress:error:]", progress, policy, metadata, package);
+  v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriter.mm");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v62, v59, v61, 156, 0, "Don't support writing to non-file URLs");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v64, v65);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64);
   if (error)
   {
-    objc_msgSend_tsp_saveDocumentErrorWithUserInfo_(MEMORY[0x277CCA9B8], v66, 0);
-    *error = v67 = 0;
+    objc_msgSend_tsp_saveDocumentErrorWithUserInfo_(MEMORY[0x277CCA9B8], v65, 0);
+    *error = v66 = 0;
   }
 
   else
   {
-    v67 = 0;
+    v66 = 0;
   }
 
   selfCopy = self;
 LABEL_31:
 
-  return v67;
+  return v66;
 }
 
 - (void)dealloc
 {
   if (self->_isOpened)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Didn't close", a2, "[TSPPackageWriter dealloc]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriter.mm", 229);
     v2 = MEMORY[0x277D81150];
-    v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSPPackageWriter dealloc]", "[TSPPackageWriter dealloc]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriter.mm", 229);
+    v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSPPackageWriter dealloc]");
     v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriter.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v7, v4, v6, 229, 1, "Didn't close");
 
@@ -445,6 +446,70 @@ LABEL_14:
   }
 
   return v7;
+}
+
+- (id)newComponentWriteChannelWithPackageLocator:(id)locator compressionAlgorithm:(int64_t)algorithm storeOutsideObjectArchive:(BOOL)archive
+{
+  archiveCopy = archive;
+  locatorCopy = locator;
+  objc_msgSend_closeCurrentChannel(self, v9, v10);
+  v13 = objc_msgSend_newRawComponentWriteChannelWithPackageLocator_storeOutsideObjectArchive_(self, v11, locatorCopy, archiveCopy);
+  if (v13 && (!self->_encryptionKey || (v14 = [TSPCryptoComponentWriteChannel alloc], v16 = objc_msgSend_initWithWriteChannel_encryptionInfo_(v14, v15, v13, self->_encryptionKey), v13, (v13 = v16) != 0)))
+  {
+    v17 = objc_msgSend_newCompressionComponentWriteChannelWithComponentWriteChannel_compressionAlgorithm_(self, v12, v13, algorithm);
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  componentWriteChannel = self->_componentWriteChannel;
+  self->_componentWriteChannel = v17;
+  v19 = v17;
+
+  v20 = self->_componentWriteChannel;
+  return v20;
+}
+
+- (id)newRawComponentWriteChannelWithPackageLocator:(id)locator storeOutsideObjectArchive:(BOOL)archive
+{
+  archiveCopy = archive;
+  locatorCopy = locator;
+  if (!locatorCopy)
+  {
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSPPackageWriter newRawComponentWriteChannelWithPackageLocator:storeOutsideObjectArchive:]");
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriter.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 330, 0, "invalid nil value for '%{public}s'", "packageLocator");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+  }
+
+  if (archiveCopy)
+  {
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSPPackageWriter newRawComponentWriteChannelWithPackageLocator:storeOutsideObjectArchive:]");
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriter.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v20, v17, v19, 331, 0, "Components outside the object archive are not supported");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22);
+  }
+
+  v23 = objc_msgSend_originalPackage(self, v6, v7);
+  v25 = objc_msgSend_packageEntryInfoForComponentLocator_isStoredOutsideObjectArchive_(v23, v24, locatorCopy, archiveCopy);
+
+  v28 = objc_msgSend_componentZipArchiveWriter(self, v26, v27);
+  v30 = objc_msgSend_objectArchiveEntryPathForPackageLocator_(TSPPackage, v29, locatorCopy);
+  v33 = objc_msgSend_lastModificationDate(v25, v31, v32);
+  v36 = objc_msgSend_encodedLength(v25, v34, v35);
+  v39 = objc_msgSend_CRC(v25, v37, v38);
+  objc_msgSend_beginEntryWithName_force32BitSize_lastModificationDate_size_CRC_forceCalculatingSizeAndCRCForPreservingLastModificationDate_(v28, v40, v30, 1, v33, v36, v39, 1);
+
+  v41 = [TSPPackageWriterComponentWriteChannel alloc];
+  v43 = objc_msgSend_initWithArchiveWriter_(v41, v42, v28);
+
+  return v43;
 }
 
 - (void)copyComponent:(id)component locator:(id)locator completion:(id)completion
@@ -1455,29 +1520,28 @@ LABEL_26:
 - (id)writtenPackageWithURL:(id)l
 {
   lCopy = l;
-  writtenPackage = self->_writtenPackage;
-  v6 = objc_opt_class();
-  v7 = objc_alloc(MEMORY[0x277D81380]);
-  v10 = objc_msgSend_zipArchiveWriter(self, v8, v9);
-  v12 = objc_msgSend_zipArchiveURLFromPackageURL_(v6, v11, lCopy);
-  v15 = objc_msgSend_zipArchiveOptions(v6, v13, v14);
-  v25 = 0;
-  v17 = objc_msgSend_initWithWriter_forReadingFromURL_options_error_(v7, v16, v10, v12, v15, &v25);
-  v18 = v25;
+  v5 = objc_opt_class();
+  v6 = objc_alloc(MEMORY[0x277D81380]);
+  v9 = objc_msgSend_zipArchiveWriter(self, v7, v8);
+  v11 = objc_msgSend_zipArchiveURLFromPackageURL_(v5, v10, lCopy);
+  v14 = objc_msgSend_zipArchiveOptions(v5, v12, v13);
+  v24 = 0;
+  v16 = objc_msgSend_initWithWriter_forReadingFromURL_options_error_(v6, v15, v9, v11, v14, &v24);
+  v17 = v24;
 
-  if (!v17 && UnsafePointer != -1)
+  if (!v16 && UnsafePointer != -1)
   {
     sub_276BD681C();
   }
 
-  v19 = self->_writtenPackage;
+  writtenPackage = self->_writtenPackage;
   WeakRetained = objc_loadWeakRetained(&self->_fileCoordinatorDelegate);
-  objc_msgSend_setZipArchive_fileCoordinatorDelegate_(v19, v21, v17, WeakRetained);
+  objc_msgSend_setZipArchive_fileCoordinatorDelegate_(writtenPackage, v20, v16, WeakRetained);
 
-  v22 = self->_writtenPackage;
-  v23 = v22;
+  v21 = self->_writtenPackage;
+  v22 = v21;
 
-  return v22;
+  return v21;
 }
 
 - (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate

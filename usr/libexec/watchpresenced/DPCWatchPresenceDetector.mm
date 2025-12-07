@@ -24,9 +24,9 @@
 - (void)monitorRSSIPresence;
 - (void)resetAll;
 - (void)resetBT;
-- (void)resetWatchMonitors;
 - (void)runDiscoveryMode;
 - (void)sendWatchWristStateEvent:(int64_t)event;
+- (void)setEnabledStreamingMode:(BOOL)mode;
 - (void)start;
 - (void)stop;
 - (void)watchConnectivityChanges;
@@ -368,13 +368,6 @@ LABEL_17:
 
   detectedNewWatchStatusEventBlock = [(DPCWatchPresenceDetector *)self detectedNewWatchStatusEventBlock];
   [(DPCBasePolicy *)self->_policy setDetectedNewWatchStatusEventBlock:detectedNewWatchStatusEventBlock];
-}
-
-- (void)resetWatchMonitors
-{
-  nrMonitor = self->_nrMonitor;
-  self->_nrMonitor = 0;
-  _objc_release_x1();
 }
 
 - (void)checkAndStartRSSIDetection
@@ -980,6 +973,28 @@ LABEL_6:
     }
 
     [(DPCBasePolicy *)self->_policy onWatchConnectivityChange:[(NRDeviceMonitor *)self->_nrMonitor isNearby]];
+  }
+}
+
+- (void)setEnabledStreamingMode:(BOOL)mode
+{
+  modeCopy = mode;
+  stateMachine = [(DPCWatchPresenceDetector *)self stateMachine];
+  [stateMachine setIsInRSSIStreamingMode:modeCopy];
+
+  [(DPCWatchPresenceDetector *)self disableRSSIStatisticsDetection];
+  stateMachine2 = [(DPCWatchPresenceDetector *)self stateMachine];
+  LODWORD(stateMachine) = [stateMachine2 isInRSSIStreamingMode];
+
+  if (stateMachine)
+  {
+    manager = self->_manager;
+    watch = self->_watch;
+    v12 = +[DPCDefaults sharedInstance];
+    v9 = [v12 NSNumberForDefault:@"DPCDefaultsThresholdDMIN"];
+    v10 = +[DPCDefaults sharedInstance];
+    v11 = [v10 NSNumberForDefault:@"DPCDefaultsThresholdDDiscovery"];
+    [(DPCWatchPresenceDetector *)self changeRSSIStatisticsDetection:watch manager:manager closer:v9 further:v11 maskDecision:1];
   }
 }
 

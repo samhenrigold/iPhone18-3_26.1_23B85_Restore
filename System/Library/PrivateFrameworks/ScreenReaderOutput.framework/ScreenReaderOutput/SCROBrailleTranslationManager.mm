@@ -9,6 +9,7 @@
 - (id)serviceIdentifier;
 - (id)textForPrintBraille:(id)braille language:(id)language mode:(unint64_t)mode locations:(id *)locations;
 - (void)loadTranslatorWithServiceIdentifier:(id)identifier forUnitTesting:(BOOL)testing input:(BOOL)input;
+- (void)loadTranslatorWithServiceIdentifier:(id)identifier input:(BOOL)input;
 - (void)setDefaultLanguage:(id)language;
 @end
 
@@ -93,6 +94,26 @@ uint64_t __47__SCROBrailleTranslationManager_serviceManager__block_invoke()
   return v2;
 }
 
+- (void)loadTranslatorWithServiceIdentifier:(id)identifier input:(BOOL)input
+{
+  inputCopy = input;
+  v6 = loadTranslatorWithServiceIdentifier_input__onceToken;
+  identifierCopy = identifier;
+  v9 = identifierCopy;
+  if (v6 == -1)
+  {
+    v8 = identifierCopy;
+  }
+
+  else
+  {
+    [SCROBrailleTranslationManager loadTranslatorWithServiceIdentifier:input:];
+    v8 = v9;
+  }
+
+  [(SCROBrailleTranslationManager *)self loadTranslatorWithServiceIdentifier:v8 forUnitTesting:loadTranslatorWithServiceIdentifier_input__isXcTest input:inputCopy];
+}
+
 void __75__SCROBrailleTranslationManager_loadTranslatorWithServiceIdentifier_input___block_invoke()
 {
   v1 = [MEMORY[0x277CCAC38] processInfo];
@@ -125,28 +146,26 @@ void __90__SCROBrailleTranslationManager_loadTranslatorWithServiceIdentifier_for
 
   if ((v4 & 1) == 0)
   {
-    v5 = _SCROD_BRAILLE_LOG();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _SCROD_BRAILLE_LOG(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = "";
+      v7 = *(a1 + 40);
+      v8 = "";
       if (*(a1 + 48))
       {
-        v7 = "(UNIT TESTING)";
+        v8 = "(UNIT TESTING)";
       }
 
       v10 = 138412546;
-      v11 = v6;
+      v11 = v7;
       v12 = 2080;
-      v13 = v7;
-      _os_log_impl(&dword_26490B000, v5, OS_LOG_TYPE_DEFAULT, "Loading service with identifier: %@ %s", &v10, 0x16u);
+      v13 = v8;
+      _os_log_impl(&dword_26490B000, v6, OS_LOG_TYPE_DEFAULT, "Loading service with identifier: %@ %s", &v10, 0x16u);
     }
 
-    v8 = [MEMORY[0x277CF3370] serviceForIdentifier:*(a1 + 40) input:*(a1 + 49) loopback:*(a1 + 48)];
-    [*(a1 + 32) setTranslationService:v8];
+    v9 = [MEMORY[0x277CF3370] serviceForIdentifier:*(a1 + 40) input:*(a1 + 49) loopback:*(a1 + 48)];
+    [*(a1 + 32) setTranslationService:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)defaultLanguage
@@ -196,18 +215,19 @@ void __52__SCROBrailleTranslationManager_setDefaultLanguage___block_invoke(uint6
     v5 = [v2 initWithServiceIdentifier:v4 tableIdentifier:*(a1 + 40)];
 
     *(*(a1 + 32) + 9) = [v5 supportsTranslationMode8Dot];
-    *(*(a1 + 32) + 8) = [v5 supportsTranslationModeContracted];
-    v6 = _SCROD_BRAILLE_LOG();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v6 = [v5 supportsTranslationModeContracted];
+    *(*(a1 + 32) + 8) = v6;
+    v7 = _SCROD_BRAILLE_LOG(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __52__SCROBrailleTranslationManager_setDefaultLanguage___block_invoke_cold_1(v5, v6);
+      __52__SCROBrailleTranslationManager_setDefaultLanguage___block_invoke_cold_1(v5, v7);
     }
   }
 
-  v7 = [*(a1 + 40) copy];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 16);
-  *(v8 + 16) = v7;
+  v8 = [*(a1 + 40) copy];
+  v9 = *(a1 + 32);
+  v10 = *(v9 + 16);
+  *(v9 + 16) = v8;
 }
 
 - (id)serviceIdentifier
@@ -225,18 +245,18 @@ void __52__SCROBrailleTranslationManager_setDefaultLanguage___block_invoke(uint6
   textCopy = text;
   languageCopy = language;
   rangesCopy = ranges;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__1;
+  v49 = __Block_byref_object_dispose__1;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__1;
+  v43 = __Block_byref_object_dispose__1;
   v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__1;
-  v48 = __Block_byref_object_dispose__1;
-  v49 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__1;
-  v42 = __Block_byref_object_dispose__1;
-  v43 = 0;
   v15 = dispatch_group_create();
   dispatch_group_enter(v15);
   queue = [(SCROBrailleTranslationManager *)self queue];
@@ -245,26 +265,27 @@ void __52__SCROBrailleTranslationManager_setDefaultLanguage___block_invoke(uint6
   block[2] = __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke;
   block[3] = &unk_279B746D8;
   v17 = languageCopy;
-  v28 = v17;
+  v29 = v17;
   selfCopy = self;
   v18 = rangesCopy;
-  v30 = v18;
+  v31 = v18;
   modeCopy = mode;
-  v36 = location;
-  v37 = length;
+  v37 = location;
+  v38 = length;
   v19 = textCopy;
-  v31 = v19;
-  v33 = &v44;
-  v34 = &v38;
+  v32 = v19;
+  v34 = &v45;
+  v35 = &v39;
   v20 = v15;
-  v32 = v20;
+  v33 = v20;
   dispatch_async(queue, block);
 
   v21 = dispatch_time(0, 5000000000);
-  if (dispatch_group_wait(v20, v21))
+  v22 = dispatch_group_wait(v20, v21);
+  if (v22)
   {
-    v22 = _SCROD_BRAILLE_LOG();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _SCROD_BRAILLE_LOG(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [SCROBrailleTranslationManager printBrailleForText:language:mode:textPositionsRange:locations:textFormattingRanges:];
     }
@@ -272,43 +293,42 @@ void __52__SCROBrailleTranslationManager_setDefaultLanguage___block_invoke(uint6
 
   if (locations)
   {
-    *locations = v39[5];
+    *locations = v40[5];
   }
 
-  v23 = v45[5];
+  v24 = v46[5];
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
 
-  return v23;
+  return v24;
 }
 
 void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke(uint64_t a1)
 {
-  v3 = (a1 + 32);
   v2 = *(a1 + 32);
   if (!v2)
   {
     v2 = *(*(a1 + 40) + 16);
   }
 
-  v4 = v2;
-  v5 = _SCROD_BRAILLE_LOG();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v3 = v2;
+  v4 = _SCROD_BRAILLE_LOG(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_cold_1(a1, v3);
+    __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_cold_1();
   }
 
-  v6 = [objc_alloc(MEMORY[0x277CF3368]) initWithLanguage:v4 mode:*(a1 + 88) partial:0 useTechnicalTable:objc_msgSend(*(a1 + 40) textPositionsRange:"alwaysUsesNemethCodeForTechnicalText") textFormattingRanges:{*(a1 + 96), *(a1 + 104), *(a1 + 48)}];
-  v7 = [*(a1 + 40) translationService];
+  v5 = [objc_alloc(MEMORY[0x277CF3368]) initWithLanguage:v3 mode:*(a1 + 88) partial:0 useTechnicalTable:objc_msgSend(*(a1 + 40) textPositionsRange:"alwaysUsesNemethCodeForTechnicalText") textFormattingRanges:{*(a1 + 96), *(a1 + 104), *(a1 + 48)}];
+  v6 = [*(a1 + 40) translationService];
 
-  v8 = _SCROD_BRAILLE_LOG();
+  v8 = _SCROD_BRAILLE_LOG(v7);
   v9 = v8;
-  if (v7)
+  if (v6)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_cold_2(a1);
+      __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_cold_2();
     }
 
     v10 = [*(a1 + 40) translationService];
@@ -324,7 +344,7 @@ void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_text
     v15 = *(a1 + 64);
     v14 = v15;
     v18 = v15;
-    [v10 brailleForText:v12 parameters:v6 withReply:v16];
+    [v10 brailleForText:v12 parameters:v5 withReply:v16];
   }
 
   else
@@ -340,20 +360,20 @@ void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_text
 
 void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_35(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _SCROD_BRAILLE_LOG();
+  v7 = _SCROD_BRAILLE_LOG(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(a1 + 32);
-    v16 = 138740483;
-    v17 = v15;
-    v18 = 2117;
-    v19 = v5;
-    v20 = 2117;
-    v21 = v6;
-    _os_log_debug_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEBUG, "Translated text:'%{sensitive}@' -> braille:'%{sensitive}@' locations:%{sensitive}@", &v16, 0x20u);
+    v14 = *(a1 + 32);
+    v15 = 138740483;
+    v16 = v14;
+    v17 = 2117;
+    v18 = v5;
+    v19 = 2117;
+    v20 = v6;
+    _os_log_debug_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEBUG, "Translated text:'%{sensitive}@' -> braille:'%{sensitive}@' locations:%{sensitive}@", &v15, 0x20u);
   }
 
   v8 = *(*(a1 + 48) + 8);
@@ -367,50 +387,50 @@ void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_text
   v13 = v6;
 
   dispatch_group_leave(*(a1 + 40));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)textForPrintBraille:(id)braille language:(id)language mode:(unint64_t)mode locations:(id *)locations
 {
   brailleCopy = braille;
   languageCopy = language;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__1;
+  v41 = __Block_byref_object_dispose__1;
+  v42 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__1;
+  v35 = __Block_byref_object_dispose__1;
   v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__1;
-  v40 = __Block_byref_object_dispose__1;
-  v41 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__1;
-  v34 = __Block_byref_object_dispose__1;
-  v35 = 0;
   v12 = dispatch_group_create();
   dispatch_group_enter(v12);
   queue = [(SCROBrailleTranslationManager *)self queue];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke;
-  v21[3] = &unk_279B74700;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke;
+  v22[3] = &unk_279B74700;
   v14 = languageCopy;
-  v22 = v14;
+  v23 = v14;
   selfCopy = self;
   locationsCopy = locations;
   v15 = brailleCopy;
-  v24 = v15;
-  v26 = &v36;
-  v27 = &v30;
+  v25 = v15;
+  v27 = &v37;
+  v28 = &v31;
   modeCopy = mode;
   v16 = v12;
-  v25 = v16;
-  dispatch_async(queue, v21);
+  v26 = v16;
+  dispatch_async(queue, v22);
 
   v17 = dispatch_time(0, 5000000000);
-  if (dispatch_group_wait(v16, v17))
+  v18 = dispatch_group_wait(v16, v17);
+  if (v18)
   {
-    v18 = _SCROD_BRAILLE_LOG();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = _SCROD_BRAILLE_LOG(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [SCROBrailleTranslationManager textForPrintBraille:language:mode:locations:];
     }
@@ -418,15 +438,15 @@ void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_text
 
   if (locations)
   {
-    *locations = v31[5];
+    *locations = v32[5];
   }
 
-  v19 = v37[5];
+  v20 = v38[5];
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
 
-  return v19;
+  return v20;
 }
 
 void __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke(uint64_t a1)
@@ -453,34 +473,34 @@ void __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locat
   v6 = [objc_alloc(MEMORY[0x277CF3368]) initWithLanguage:v3 mode:*(a1 + 88) partial:0 useTechnicalTable:objc_msgSend(*(a1 + 40) textPositionsRange:"alwaysUsesNemethCodeForTechnicalText") textFormattingRanges:{v5, v4, 0}];
   v7 = [*(a1 + 40) translationService];
 
-  v8 = _SCROD_BRAILLE_LOG();
-  v9 = v8;
+  v9 = _SCROD_BRAILLE_LOG(v8);
+  v10 = v9;
   if (v7)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke_cold_1(a1);
+      __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke_cold_1();
     }
 
-    v10 = [*(a1 + 40) translationService];
-    v11 = *(a1 + 48);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke_37;
-    v16[3] = &unk_279B746B0;
-    v12 = v11;
-    v13 = *(a1 + 72);
-    v17 = v12;
-    v19 = v13;
-    v15 = *(a1 + 56);
-    v14 = v15;
-    v18 = v15;
-    [v10 textForBraille:v12 parameters:v6 withReply:v16];
+    v11 = [*(a1 + 40) translationService];
+    v12 = *(a1 + 48);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke_37;
+    v17[3] = &unk_279B746B0;
+    v13 = v12;
+    v14 = *(a1 + 72);
+    v18 = v13;
+    v20 = v14;
+    v16 = *(a1 + 56);
+    v15 = v16;
+    v19 = v16;
+    [v11 textForBraille:v13 parameters:v6 withReply:v17];
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke_cold_2();
     }
@@ -491,20 +511,20 @@ void __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locat
 
 void __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke_37(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _SCROD_BRAILLE_LOG();
+  v7 = _SCROD_BRAILLE_LOG(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(a1 + 32);
-    v16 = 138412802;
-    v17 = v15;
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_debug_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEBUG, "Translated braille:'%@' -> text:'%@' locations:%@", &v16, 0x20u);
+    v14 = *(a1 + 32);
+    v15 = 138412802;
+    v16 = v14;
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_debug_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEBUG, "Translated braille:'%@' -> text:'%@' locations:%@", &v15, 0x20u);
   }
 
   v8 = *(*(a1 + 48) + 8);
@@ -518,7 +538,6 @@ void __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locat
   v13 = v6;
 
   dispatch_group_leave(*(a1 + 40));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)primaryTableSupportsRoundTripping
@@ -540,40 +559,40 @@ void __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locat
   return v3;
 }
 
-uint64_t __66__SCROBrailleTranslationManager_primaryTableSupportsRoundTripping__block_invoke(uint64_t a1)
+void *__66__SCROBrailleTranslationManager_primaryTableSupportsRoundTripping__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  result = [&unk_287652428 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  result = [&unk_287652428 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (result)
   {
     v3 = result;
-    v4 = *v8;
+    v4 = *v7;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(&unk_287652428);
         }
 
-        result = [*(*(a1 + 32) + 16) isEqualToString:*(*(&v7 + 1) + 8 * v5)];
+        result = [*(*(a1 + 32) + 16) isEqualToString:*(*(&v6 + 1) + 8 * v5)];
         if (result)
         {
           *(*(*(a1 + 40) + 8) + 24) = 0;
-          goto LABEL_11;
+          return result;
         }
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
-      result = [&unk_287652428 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      result = [&unk_287652428 countByEnumeratingWithState:&v6 objects:v10 count:16];
       v3 = result;
       if (result)
       {
@@ -584,66 +603,36 @@ uint64_t __66__SCROBrailleTranslationManager_primaryTableSupportsRoundTripping__
     }
   }
 
-LABEL_11:
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __52__SCROBrailleTranslationManager_setDefaultLanguage___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_26490B000, a2, OS_LOG_TYPE_DEBUG, "Set new default language table: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_26490B000, a2, OS_LOG_TYPE_DEBUG, "Set new default language table: %@", &v2, 0xCu);
 }
 
-- (void)printBrailleForText:language:mode:textPositionsRange:locations:textFormattingRanges:.cold.1()
+void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 48);
-  v3 = *(*(a1 + 40) + 16);
-  v4 = *a2;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_cold_2(uint64_t a1)
+void __117__SCROBrailleTranslationManager_printBrailleForText_language_mode_textPositionsRange_locations_textFormattingRanges___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)textForPrintBraille:language:mode:locations:.cold.1()
+void __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __77__SCROBrailleTranslationManager_textForPrintBraille_language_mode_locations___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 48);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

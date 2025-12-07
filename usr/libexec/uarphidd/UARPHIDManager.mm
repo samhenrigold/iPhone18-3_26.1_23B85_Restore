@@ -1,6 +1,7 @@
 @interface UARPHIDManager
 - (BOOL)ensureDatabaseExists;
 - (BOOL)loadMappingDatabase;
+- (BOOL)startService:(unsigned int)service;
 - (UARPHIDManager)initWithTempFolder:(id)folder transportReleasePolicy:(int64_t)policy;
 - (id)checkDatabaseForKnownVendorID:(id)d productID:(id)iD serialNumber:(id)number;
 - (id)knownDevices;
@@ -106,6 +107,135 @@
     [(UARPHIDManager *)self handleServiceMatching:object];
     IOObjectRelease(object);
   }
+}
+
+- (BOOL)startService:(unsigned int)service
+{
+  v3 = *&service;
+  properties = 0;
+  if (!IORegistryEntryCreateCFProperties(service, &properties, kCFAllocatorDefault, 0))
+  {
+    if (!properties)
+    {
+      log = self->_log;
+      if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+      {
+        sub_100004DC8(log, v24, v25, v26, v27, v28, v29, v30);
+      }
+
+      return 0;
+    }
+
+    v34 = CFDictionaryGetValue(properties, @"VendorID");
+    unsignedShortValue = [(UARPHIDDevice *)v34 unsignedShortValue];
+    v33 = CFDictionaryGetValue(properties, @"ProductID");
+    unsignedShortValue2 = [v33 unsignedShortValue];
+    v8 = CFDictionaryGetValue(properties, @"SerialNumber");
+    CFRelease(properties);
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v9 = self->_ignoredDeviceClassesInternal;
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v35 objects:v48 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v36;
+      while (2)
+      {
+        for (i = 0; i != v11; i = i + 1)
+        {
+          if (*v36 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v35 + 1) + 8 * i);
+          if ([v14 vendorID] == unsignedShortValue && objc_msgSend(v14, "productID") == unsignedShortValue2)
+          {
+            startHIDDevice = 0;
+            v16 = v33;
+            v15 = v34;
+            goto LABEL_29;
+          }
+        }
+
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v35 objects:v48 count:16];
+        if (v11)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v16 = v33;
+    v15 = v34;
+    v9 = [(UARPHIDManager *)self checkDatabaseForKnownVendorID:v34 productID:v33 serialNumber:v8];
+    if (!v9)
+    {
+      v31 = self->_log;
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      {
+        *buf = 136315906;
+        v41 = "[UARPHIDManager startService:]";
+        v42 = 2112;
+        v43 = v34;
+        v44 = 2112;
+        v45 = v33;
+        v46 = 2112;
+        v47 = v8;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "%s: Failed to create a database entry for <VID = %@>, <PID = %@>, <Serial Number = %@>", buf, 0x2Au);
+      }
+
+      startHIDDevice = 0;
+      goto LABEL_29;
+    }
+
+    v17 = [UARPHIDDevice alloc];
+    uuid = [(NSMutableArray *)v9 uuid];
+    v19 = [(UARPHIDDevice *)v17 initWithService:v3 hidManager:self uuid:uuid];
+
+    [(NSMutableArray *)self->_devices addObject:v19];
+    startHIDDevice = [(UARPHIDDevice *)v19 startHIDDevice];
+    v20 = self->_log;
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+    if (startHIDDevice)
+    {
+      if (v21)
+      {
+        *buf = 136315394;
+        v41 = "[UARPHIDManager startService:]";
+        v42 = 2112;
+        v43 = v19;
+        v22 = "%s: Started UARP HID Device %@";
+LABEL_27:
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, v22, buf, 0x16u);
+      }
+    }
+
+    else if (v21)
+    {
+      *buf = 136315394;
+      v41 = "[UARPHIDManager startService:]";
+      v42 = 2112;
+      v43 = v19;
+      v22 = "%s: Failed to start UARP HID Device %@";
+      goto LABEL_27;
+    }
+
+LABEL_29:
+    return startHIDDevice;
+  }
+
+  if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+  {
+    sub_100004D4C();
+  }
+
+  return 0;
 }
 
 - (void)handleServiceMatching:(unsigned int)matching
@@ -251,7 +381,7 @@
       {
         v15 = *p_uuidDatabaseURL;
         v16 = v14;
-        path = [v15 path];
+        path = [(NSURL *)v15 path];
         *buf = 138412290;
         v22 = path;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Assume no entries in HID UUID Database at %@", buf, 0xCu);
@@ -304,12 +434,12 @@
     goto LABEL_7;
   }
 
-  path2 = [*p_uuidDatabaseURL path];
+  path2 = [(NSURL *)*p_uuidDatabaseURL path];
   v14 = [v10 fileExistsAtPath:path2];
 
   if ((v14 & 1) == 0)
   {
-    path3 = [*p_uuidDatabaseURL path];
+    path3 = [(NSURL *)*p_uuidDatabaseURL path];
     v16 = [v10 createFileAtPath:path3 contents:0 attributes:0];
 
     if ((v16 & 1) == 0)

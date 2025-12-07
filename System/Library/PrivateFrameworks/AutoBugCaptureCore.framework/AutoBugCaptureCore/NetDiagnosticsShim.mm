@@ -15,12 +15,12 @@
 
 - (NetDiagnosticsShim)initWithTaskName:(id)name queue:(id)queue
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   queueCopy = queue;
-  v26.receiver = self;
-  v26.super_class = NetDiagnosticsShim;
-  v9 = [(NetDiagnosticsShim *)&v26 init];
+  v30.receiver = self;
+  v30.super_class = NetDiagnosticsShim;
+  v9 = [(NetDiagnosticsShim *)&v30 init];
   v10 = v9;
   if (!v9)
   {
@@ -30,25 +30,25 @@
   objc_storeStrong(&v9->_taskName, name);
   if (!queueCopy)
   {
-    v13 = symptomsLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = symptomsLogHandle(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Passing in a nil queue to NetDiagnosticsShim is NOT recommended!!!", buf, 2u);
+      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_ERROR, "Passing in a nil queue to NetDiagnosticsShim is NOT recommended!!!", buf, 2u);
     }
 
     nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.symptoms.%@.netdiag.msg.queue", nameCopy];
     nameCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.symptoms.%@.netdiag.msg.queue", nameCopy];
-    v15 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
-    v16 = dispatch_queue_create([nameCopy UTF8String], v15);
+    v18 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
+    v19 = dispatch_queue_create([nameCopy UTF8String], v18);
     netDiagMsgQueue = v10->_netDiagMsgQueue;
-    v10->_netDiagMsgQueue = v16;
+    v10->_netDiagMsgQueue = v19;
 
     if (v10->_netDiagMsgQueue)
     {
-      v18 = dispatch_queue_create([nameCopy2 UTF8String], v15);
+      v22 = dispatch_queue_create([nameCopy2 UTF8String], v18);
       netDiagConnQueue = v10->_netDiagConnQueue;
-      v10->_netDiagConnQueue = v18;
+      v10->_netDiagConnQueue = v22;
 
       if (v10->_netDiagConnQueue)
       {
@@ -57,22 +57,22 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      v20 = symptomsLogHandle();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v25 = symptomsLogHandle(v24);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_21;
       }
 
       uTF8String = [nameCopy2 UTF8String];
       *buf = 136315138;
-      v28 = uTF8String;
-      v22 = "Couldn't create _netDiagConnQueue %s";
+      v32 = uTF8String;
+      v27 = "Couldn't create _netDiagConnQueue %s";
     }
 
     else
     {
-      v20 = symptomsLogHandle();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v25 = symptomsLogHandle(v21);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
 LABEL_21:
 
@@ -81,22 +81,22 @@ LABEL_21:
 
       uTF8String2 = [nameCopy UTF8String];
       *buf = 136315138;
-      v28 = uTF8String2;
-      v22 = "Couldn't create _netDiagMsgQueue for %s";
+      v32 = uTF8String2;
+      v27 = "Couldn't create _netDiagMsgQueue for %s";
     }
 
-    _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_ERROR, v22, buf, 0xCu);
+    _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_ERROR, v27, buf, 0xCu);
     goto LABEL_21;
   }
 
   objc_storeStrong(&v10->_netDiagMsgQueue, queue);
   if (!v10->_netDiagMsgQueue)
   {
-    nameCopy2 = symptomsLogHandle();
+    nameCopy2 = symptomsLogHandle(v12);
     if (os_log_type_enabled(nameCopy2, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v12 = "require non-nil _netDiagMsgQueue";
+      v15 = "require non-nil _netDiagMsgQueue";
       goto LABEL_14;
     }
 
@@ -110,13 +110,13 @@ LABEL_22:
   objc_storeStrong(&v10->_netDiagConnQueue, queue);
   if (!v10->_netDiagConnQueue)
   {
-    nameCopy2 = symptomsLogHandle();
+    nameCopy2 = symptomsLogHandle(v13);
     if (os_log_type_enabled(nameCopy2, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v12 = "require non-nil _netDiagConnQueue";
+      v15 = "require non-nil _netDiagConnQueue";
 LABEL_14:
-      _os_log_impl(&dword_241804000, nameCopy2, OS_LOG_TYPE_ERROR, v12, buf, 2u);
+      _os_log_impl(&dword_241804000, nameCopy2, OS_LOG_TYPE_ERROR, v15, buf, 2u);
       goto LABEL_15;
     }
 
@@ -125,13 +125,12 @@ LABEL_14:
 
 LABEL_24:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)connectToNetDiagnosticsd
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_netDiagServiceConnection)
   {
     if (self->_netDiagMsgQueue)
@@ -139,14 +138,14 @@ LABEL_24:
       netDiagConnQueue = self->_netDiagConnQueue;
       if (netDiagConnQueue)
       {
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __46__NetDiagnosticsShim_connectToNetDiagnosticsd__block_invoke;
-        v12[3] = &unk_278CEFE88;
-        v12[4] = self;
-        v5 = [(NetDiagnosticsShim *)self _connectionForServiceNamed:kNetDiagXPCService[0] queue:netDiagConnQueue connectionInvalidHandler:v12];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __46__NetDiagnosticsShim_connectToNetDiagnosticsd__block_invoke;
+        v13[3] = &unk_278CEFE88;
+        v13[4] = self;
+        v4 = [(NetDiagnosticsShim *)self _connectionForServiceNamed:kNetDiagXPCService[0] queue:netDiagConnQueue connectionInvalidHandler:v13];
         netDiagServiceConnection = self->_netDiagServiceConnection;
-        self->_netDiagServiceConnection = v5;
+        self->_netDiagServiceConnection = v4;
 
         if (self->_netDiagServiceConnection)
         {
@@ -157,39 +156,43 @@ LABEL_24:
           if (self->_netDiagNotificationListener)
           {
             [(NetDiagnosticsShim *)self sendNotificationListener];
-            goto LABEL_2;
+            return;
           }
 
-          v9 = symptomsLogHandle();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v10 = symptomsLogHandle(v9);
+          if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            taskName = [(NetDiagnosticsShim *)self taskName];
-            *buf = 138412290;
-            v14 = taskName;
-            v11 = "Can't create a listener for notifications for %@";
-            goto LABEL_12;
+            goto LABEL_13;
           }
+
+          taskName = [(NetDiagnosticsShim *)self taskName];
+          *buf = 138412290;
+          v15 = taskName;
+          v12 = "Can't create a listener for notifications for %@";
         }
 
         else
         {
-          v9 = symptomsLogHandle();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v10 = symptomsLogHandle(v6);
+          if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            taskName = [(NetDiagnosticsShim *)self taskName];
-            *buf = 138412290;
-            v14 = taskName;
-            v11 = "Can't connect to XPC service for %@";
-LABEL_12:
-            _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
+LABEL_13:
+
+            return;
           }
+
+          taskName = [(NetDiagnosticsShim *)self taskName];
+          *buf = 138412290;
+          v15 = taskName;
+          v12 = "Can't connect to XPC service for %@";
         }
+
+        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, v12, buf, 0xCu);
+
+        goto LABEL_13;
       }
     }
   }
-
-LABEL_2:
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NetDiagnosticsShim_connectToNetDiagnosticsd__block_invoke(uint64_t a1)
@@ -209,14 +212,14 @@ void __46__NetDiagnosticsShim_connectToNetDiagnosticsd__block_invoke(uint64_t a1
 
 - (void)invalidateConnections
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = symptomsLogHandle();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = symptomsLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     taskName = [(NetDiagnosticsShim *)self taskName];
-    v12 = 138412290;
-    v13 = taskName;
-    _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_INFO, "Invalidating connections (%@)", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = taskName;
+    _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_INFO, "Invalidating connections (%@)", &v11, 0xCu);
   }
 
   netDiagServiceConnection = self->_netDiagServiceConnection;
@@ -242,8 +245,6 @@ void __46__NetDiagnosticsShim_connectToNetDiagnosticsd__block_invoke(uint64_t a1
     v10 = self->_netDiagNotificationListener;
     self->_netDiagNotificationListener = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)startNetDiagnosticTaskWithOptions:(id)options reply:(id)reply
@@ -400,12 +401,12 @@ void __46__NetDiagnosticsShim_connectToNetDiagnosticsd__block_invoke(uint64_t a1
 
 void __62__NetDiagnosticsShim_startNetDiagnosticTaskWithOptions_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x245CF1660]();
   if (v4 == MEMORY[0x277D86480])
   {
-    v6 = symptomsLogHandle();
+    v6 = symptomsLogHandle(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -417,10 +418,10 @@ void __62__NetDiagnosticsShim_startNetDiagnosticTaskWithOptions_reply___block_in
     {
       v8 = MEMORY[0x277CCA9B8];
       v9 = *MEMORY[0x277CCA5B8];
-      v15 = @"error";
+      v14 = @"error";
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"An XPC error occurred while processing task: %@. (kNetDiagCmdTaskRun failure)", *(a1 + 32)];
-      v16[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v12 = [v8 errorWithDomain:v9 code:5 userInfo:v11];
       (*(v7 + 16))(v7, 0, v12);
     }
@@ -431,8 +432,6 @@ void __62__NetDiagnosticsShim_startNetDiagnosticTaskWithOptions_reply___block_in
     v5 = _CFXPCCreateCFObjectFromXPCObject();
     (*(*(a1 + 40) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)stopNetDiagnosticTaskWithReply:(id)reply
@@ -461,12 +460,12 @@ void __62__NetDiagnosticsShim_startNetDiagnosticTaskWithOptions_reply___block_in
 
 void __53__NetDiagnosticsShim_stopNetDiagnosticTaskWithReply___block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x245CF1660]();
   if (v4 == MEMORY[0x277D86480])
   {
-    v6 = symptomsLogHandle();
+    v6 = symptomsLogHandle(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -478,10 +477,10 @@ void __53__NetDiagnosticsShim_stopNetDiagnosticTaskWithReply___block_invoke(uint
     {
       v8 = MEMORY[0x277CCA9B8];
       v9 = *MEMORY[0x277CCA5B8];
-      v15 = @"error";
+      v14 = @"error";
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Stopping %@ failed!", *(*(a1 + 32) + 56)];
-      v16[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v12 = [v8 errorWithDomain:v9 code:5 userInfo:v11];
       (*(v7 + 16))(v7, 0, v12);
     }
@@ -492,8 +491,6 @@ void __53__NetDiagnosticsShim_stopNetDiagnosticTaskWithReply___block_invoke(uint
     v5 = _CFXPCCreateCFObjectFromXPCObject();
     (*(*(a1 + 40) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)netDiagnosticTaskStatusWithReply:(id)reply
@@ -541,12 +538,12 @@ void __53__NetDiagnosticsShim_stopNetDiagnosticTaskWithReply___block_invoke(uint
 
 void __55__NetDiagnosticsShim_netDiagnosticTaskStatusWithReply___block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x245CF1660]();
   if (v4 == MEMORY[0x277D86480])
   {
-    v6 = symptomsLogHandle();
+    v6 = symptomsLogHandle(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -558,10 +555,10 @@ void __55__NetDiagnosticsShim_netDiagnosticTaskStatusWithReply___block_invoke(ui
     {
       v8 = MEMORY[0x277CCA9B8];
       v9 = *MEMORY[0x277CCA5B8];
-      v15 = @"error";
+      v14 = @"error";
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Stopping %@ failed!", *(*(a1 + 32) + 56)];
-      v16[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v12 = [v8 errorWithDomain:v9 code:5 userInfo:v11];
       (*(v7 + 16))(v7, 0, v12);
     }
@@ -572,8 +569,6 @@ void __55__NetDiagnosticsShim_netDiagnosticTaskStatusWithReply___block_invoke(ui
     v5 = _CFXPCCreateCFObjectFromXPCObject();
     (*(*(a1 + 40) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createNotificationListener
@@ -594,7 +589,7 @@ void __55__NetDiagnosticsShim_netDiagnosticTaskStatusWithReply___block_invoke(ui
 
   else
   {
-    v6 = symptomsLogHandle();
+    v6 = symptomsLogHandle(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -607,7 +602,7 @@ void __55__NetDiagnosticsShim_netDiagnosticTaskStatusWithReply___block_invoke(ui
 
 void __48__NetDiagnosticsShim_createNotificationListener__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = MEMORY[0x245CF1660]();
   v6 = MEMORY[0x245CF15A0](v4);
@@ -620,7 +615,7 @@ void __48__NetDiagnosticsShim_createNotificationListener__block_invoke(uint64_t 
   {
     if (v4 == MEMORY[0x277D86420])
     {
-      v7 = symptomsLogHandle();
+      v7 = symptomsLogHandle(v6);
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_18;
@@ -628,7 +623,7 @@ void __48__NetDiagnosticsShim_createNotificationListener__block_invoke(uint64_t 
 
       v8 = [*(a1 + 32) taskName];
       *buf = 138412290;
-      v21 = v8;
+      v20 = v8;
       v9 = "received XPC_ERROR_TERMINATION_IMMINENT for %@";
     }
 
@@ -639,7 +634,7 @@ void __48__NetDiagnosticsShim_createNotificationListener__block_invoke(uint64_t 
         goto LABEL_19;
       }
 
-      v7 = symptomsLogHandle();
+      v7 = symptomsLogHandle(v6);
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_18;
@@ -647,7 +642,7 @@ void __48__NetDiagnosticsShim_createNotificationListener__block_invoke(uint64_t 
 
       v8 = [*(a1 + 32) taskName];
       *buf = 138412290;
-      v21 = v8;
+      v20 = v8;
       v9 = "progress connection is closed for %@";
     }
 
@@ -658,12 +653,12 @@ void __48__NetDiagnosticsShim_createNotificationListener__block_invoke(uint64_t 
 
   if (v5 != MEMORY[0x277D86450])
   {
-    v7 = symptomsLogHandle();
+    v7 = symptomsLogHandle(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = [*(a1 + 32) taskName];
       *buf = 138412290;
-      v21 = v8;
+      v20 = v8;
       v9 = "unknown xpc_type_t for %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_INFO;
@@ -700,13 +695,11 @@ LABEL_18:
   xpc_connection_set_event_handler(v17, handler);
   xpc_connection_resume(*(*(a1 + 32) + 24));
 LABEL_19:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __48__NetDiagnosticsShim_createNotificationListener__block_invoke_64(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x245CF1660]();
   if (v4 == MEMORY[0x277D86468])
@@ -719,12 +712,12 @@ void __48__NetDiagnosticsShim_createNotificationListener__block_invoke_64(uint64
       if (v11)
       {
         v12 = v11;
-        v13 = symptomsLogHandle();
+        v13 = symptomsLogHandle(v11);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v15 = 136315138;
-          v16 = v12;
-          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "task_name seems to be NULL. dict: %s", &v15, 0xCu);
+          v14 = 136315138;
+          v15 = v12;
+          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "task_name seems to be NULL. dict: %s", &v14, 0xCu);
         }
 
         free(v12);
@@ -750,11 +743,11 @@ LABEL_21:
 
   if (v4 != MEMORY[0x277D86480])
   {
-    v5 = symptomsLogHandle();
+    v5 = symptomsLogHandle(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "unknown message type", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "unknown message type", &v14, 2u);
     }
 
     goto LABEL_22;
@@ -764,12 +757,12 @@ LABEL_21:
   {
     if (v3 == MEMORY[0x277D863F0])
     {
-      v5 = symptomsLogHandle();
+      v5 = symptomsLogHandle(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         v9 = [*(a1 + 32) taskName];
-        v15 = 138412290;
-        v16 = v9;
+        v14 = 138412290;
+        v15 = v9;
         v10 = "Interrupted connection to XPC service (%@)";
         goto LABEL_20;
       }
@@ -781,15 +774,15 @@ LABEL_22:
 
     if (v3 == MEMORY[0x277D863F8])
     {
-      v5 = symptomsLogHandle();
+      v5 = symptomsLogHandle(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         v9 = [*(a1 + 32) taskName];
-        v15 = 138412290;
-        v16 = v9;
+        v14 = 138412290;
+        v15 = v9;
         v10 = "Connection Invalid error for XPC service (%@)";
 LABEL_20:
-        _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, v10, &v15, 0xCu);
+        _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, v10, &v14, 0xCu);
         goto LABEL_21;
       }
 
@@ -798,8 +791,6 @@ LABEL_20:
   }
 
 LABEL_23:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendNotificationListener
@@ -815,7 +806,7 @@ LABEL_23:
 
   else
   {
-    v5 = symptomsLogHandle();
+    v5 = symptomsLogHandle(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *v6 = 0;
@@ -826,7 +817,7 @@ LABEL_23:
 
 uint64_t __46__NetDiagnosticsShim_sendNotificationListener__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = MEMORY[0x245CF15A0](a3);
+  v3 = MEMORY[0x245CF15A0](a3, a2);
   if (v3)
   {
     free(v3);
@@ -837,7 +828,7 @@ uint64_t __46__NetDiagnosticsShim_sendNotificationListener__block_invoke_2(uint6
 
 - (id)_connectionForServiceNamed:(const char *)named queue:(id)queue connectionInvalidHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   mach_service = xpc_connection_create_mach_service(named, queue, 2uLL);
   if (mach_service)
@@ -848,7 +839,7 @@ uint64_t __46__NetDiagnosticsShim_sendNotificationListener__block_invoke_2(uint6
     handler[3] = &unk_278CF1518;
     handler[4] = self;
     namedCopy = named;
-    v15 = handlerCopy;
+    v14 = handlerCopy;
     xpc_connection_set_event_handler(mach_service, handler);
     xpc_connection_resume(mach_service);
     v10 = mach_service;
@@ -856,7 +847,7 @@ uint64_t __46__NetDiagnosticsShim_sendNotificationListener__block_invoke_2(uint6
 
   else
   {
-    v11 = symptomsLogHandle();
+    v11 = symptomsLogHandle(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
@@ -864,8 +855,6 @@ uint64_t __46__NetDiagnosticsShim_sendNotificationListener__block_invoke_2(uint6
       _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "Can't connect to XPC service: %s", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return mach_service;
 }
@@ -884,106 +873,105 @@ void __80__NetDiagnosticsShim__connectionForServiceNamed_queue_connectionInvalid
 
   if (v4 != MEMORY[0x277D86480])
   {
-    v6 = MEMORY[0x277D86468];
-    v7 = symptomsLogHandle();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
-    if (v4 == v6)
+    v7 = MEMORY[0x277D86468];
+    v8 = symptomsLogHandle(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+    if (v4 == v7)
     {
-      if (v8)
+      if (v9)
       {
         LOWORD(v22) = 0;
-        _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Received XPC_TYPE_DICTIONARY", &v22, 2u);
+        _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Received XPC_TYPE_DICTIONARY", &v22, 2u);
       }
 
       goto LABEL_17;
     }
 
-    if (!v8)
+    if (!v9)
     {
 LABEL_17:
 
-      goto LABEL_18;
+      return;
     }
 
-    v9 = *(a1 + 48);
-    v10 = [*(a1 + 32) taskName];
+    v10 = *(a1 + 48);
+    v11 = [*(a1 + 32) taskName];
     v22 = 136315394;
-    v23 = v9;
+    v23 = v10;
     v24 = 2112;
-    v25 = v10;
-    v11 = "Received unexpected event for XPC service %s (%@)";
-    v12 = v7;
-    v13 = OS_LOG_TYPE_INFO;
+    v25 = v11;
+    v12 = "Received unexpected event for XPC service %s (%@)";
+    v13 = v8;
+    v14 = OS_LOG_TYPE_INFO;
 LABEL_7:
-    _os_log_impl(&dword_241804000, v12, v13, v11, &v22, 0x16u);
+    _os_log_impl(&dword_241804000, v13, v14, v12, &v22, 0x16u);
 
     goto LABEL_17;
   }
 
-  if (*(*(a1 + 32) + 8))
+  if (!*(*(a1 + 32) + 8))
   {
-    if (v3 == MEMORY[0x277D863F0])
-    {
-      v7 = symptomsLogHandle();
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_17;
-      }
-
-      v17 = *(a1 + 48);
-      v10 = [*(a1 + 32) taskName];
-      v22 = 136315394;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v10;
-      v11 = "Interrupted connection to XPC service %s (%@)";
-      v12 = v7;
-      v13 = OS_LOG_TYPE_DEBUG;
-      goto LABEL_7;
-    }
-
-    v14 = MEMORY[0x277D863F8];
-    v15 = symptomsLogHandle();
-    v7 = v15;
-    if (v3 != v14)
-    {
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_17;
-      }
-
-      v16 = *(a1 + 48);
-      v10 = [*(a1 + 32) taskName];
-      v22 = 136315394;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v10;
-      v11 = "Unexpected error for XPC service %s (%@)";
-      v12 = v7;
-      v13 = OS_LOG_TYPE_ERROR;
-      goto LABEL_7;
-    }
-
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-    {
-      v19 = *(a1 + 48);
-      v20 = [*(a1 + 32) taskName];
-      v22 = 136315394;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v20;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Connection Invalid error for XPC service %s (%@)", &v22, 0x16u);
-    }
-
-    v21 = *(a1 + 40);
-    if (v21)
-    {
-      (*(v21 + 16))();
-    }
+    return;
   }
 
-LABEL_18:
-  v18 = *MEMORY[0x277D85DE8];
+  if (v3 == MEMORY[0x277D863F0])
+  {
+    v8 = symptomsLogHandle(v6);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_17;
+    }
+
+    v18 = *(a1 + 48);
+    v11 = [*(a1 + 32) taskName];
+    v22 = 136315394;
+    v23 = v18;
+    v24 = 2112;
+    v25 = v11;
+    v12 = "Interrupted connection to XPC service %s (%@)";
+    v13 = v8;
+    v14 = OS_LOG_TYPE_DEBUG;
+    goto LABEL_7;
+  }
+
+  v15 = MEMORY[0x277D863F8];
+  v16 = symptomsLogHandle(v6);
+  v8 = v16;
+  if (v3 != v15)
+  {
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_17;
+    }
+
+    v17 = *(a1 + 48);
+    v11 = [*(a1 + 32) taskName];
+    v22 = 136315394;
+    v23 = v17;
+    v24 = 2112;
+    v25 = v11;
+    v12 = "Unexpected error for XPC service %s (%@)";
+    v13 = v8;
+    v14 = OS_LOG_TYPE_ERROR;
+    goto LABEL_7;
+  }
+
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    v19 = *(a1 + 48);
+    v20 = [*(a1 + 32) taskName];
+    v22 = 136315394;
+    v23 = v19;
+    v24 = 2112;
+    v25 = v20;
+    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, "Connection Invalid error for XPC service %s (%@)", &v22, 0x16u);
+  }
+
+  v21 = *(a1 + 40);
+  if (v21)
+  {
+    (*(v21 + 16))();
+  }
 }
 
 @end

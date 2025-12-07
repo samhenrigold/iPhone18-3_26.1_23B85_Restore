@@ -64,18 +64,18 @@
     searchManager = self->_searchManager;
     if (!searchManager)
     {
-      v7 = SUUIContactsAutocompleteUIFramework();
-      v8 = [objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Cnautocomplete.isa v7))];
-      v9 = self->_searchManager;
-      self->_searchManager = v8;
+      v8 = SUUIContactsAutocompleteUIFramework(0, v6);
+      v9 = [objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Cnautocomplete.isa v8))];
+      v10 = self->_searchManager;
+      self->_searchManager = v9;
 
       [(CNAutocompleteSearchManager *)self->_searchManager setSearchTypes:3];
       searchManager = self->_searchManager;
     }
 
-    v10 = [(CNAutocompleteSearchManager *)searchManager searchForText:textCopy withAutocompleteFetchContext:0 consumer:self];
+    v11 = [(CNAutocompleteSearchManager *)searchManager searchForText:textCopy withAutocompleteFetchContext:0 consumer:self];
     searchTaskIdentifier = self->_searchTaskIdentifier;
-    self->_searchTaskIdentifier = v10;
+    self->_searchTaskIdentifier = v11;
   }
 
   else

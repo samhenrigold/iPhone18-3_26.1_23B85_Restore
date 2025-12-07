@@ -127,7 +127,7 @@ LABEL_8:
 
 - (BOOL)_updateAutoAuthenticationViewModel:(id)model withTemplate:(id)template
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   templateCopy = template;
   v7 = templateCopy;
@@ -151,28 +151,28 @@ LABEL_8:
 
   [MEMORY[0x277CBEAD8] raise:*v8 format:@"The templateElement parameter must not be nil."];
 LABEL_3:
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v41 = v7;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v40 = v7;
   children = [v7 children];
-  v10 = [children countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v10 = [children countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v46;
+    v12 = *v45;
     v13 = *v8;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v46 != v12)
+        if (*v45 != v12)
         {
           objc_enumerationMutation(children);
         }
 
-        v15 = *(*(&v45 + 1) + 8 * i);
+        v15 = *(*(&v44 + 1) + 8 * i);
         vs_elementType = [v15 vs_elementType];
         if (vs_elementType == 138)
         {
@@ -228,7 +228,7 @@ LABEL_3:
         }
       }
 
-      v11 = [children countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v11 = [children countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
     while (v11);
@@ -240,26 +240,25 @@ LABEL_3:
 
   v29 = objc_opt_class();
   v30 = NSStringFromClass(v29);
-  v50 = @"title";
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
-  v44.receiver = self;
-  v44.super_class = VSAutoAuthenticationAppDocumentController;
-  v32 = [(VSAppDocumentController *)&v44 _getSupportedButtonTextsforTemplate:v30 andElementKeys:v31 supportedCount:1];
+  v49 = @"title";
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+  v43.receiver = self;
+  v43.super_class = VSAutoAuthenticationAppDocumentController;
+  v32 = [(VSAppDocumentController *)&v43 _getSupportedButtonTextsforTemplate:v30 andElementKeys:v31 supportedCount:1];
   firstObject2 = [v32 firstObject];
 
   v34 = objc_opt_class();
   v35 = NSStringFromClass(v34);
-  v49 = @"text";
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
-  v43.receiver = self;
-  v43.super_class = VSAutoAuthenticationAppDocumentController;
-  v37 = [(VSAppDocumentController *)&v43 _getSupportedButtonTextsforTemplate:v35 andElementKeys:v36 supportedCount:1];
+  v48 = @"text";
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+  v42.receiver = self;
+  v42.super_class = VSAutoAuthenticationAppDocumentController;
+  v37 = [(VSAppDocumentController *)&v42 _getSupportedButtonTextsforTemplate:v35 andElementKeys:v36 supportedCount:1];
   firstObject3 = [v37 firstObject];
 
   [modelCopy setManualSignInTitle:firstObject2];
   [modelCopy setManualSignInButtonText:firstObject3];
 
-  v39 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

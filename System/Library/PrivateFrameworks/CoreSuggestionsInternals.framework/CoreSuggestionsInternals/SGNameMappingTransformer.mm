@@ -1,5 +1,6 @@
 @interface SGNameMappingTransformer
 + (id)instanceForNameDetector;
++ (id)withFullNameMapping:(id)mapping firstNameMapping:(id)nameMapping lastNameMapping:(id)lastNameMapping minimumConfidence:(int)confidence confidenceMapper:(id)mapper tokenToIgnore:(id)ignore andPossessive:(id)possessive;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToNameMappingTransformer:(id)transformer;
 - (SGNameMappingTransformer)initWithNameMappings:(id)mappings minimumConfidence:(int)confidence confidenceMapper:(id)mapper tokenToIgnore:(id)ignore forNameDetector:(BOOL)detector;
@@ -104,14 +105,14 @@ LABEL_13:
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   nameMappings = self->_nameMappings;
-  v11[1] = @"MINIMUM_CONFIDENCE";
-  v12[0] = nameMappings;
-  v11[0] = @"NAME_MAPPINGS";
+  v10[1] = @"MINIMUM_CONFIDENCE";
+  v11[0] = nameMappings;
+  v10[0] = @"NAME_MAPPINGS";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:self->_minimumConfidence];
-  v12[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v7 = [v6 mutableCopy];
 
   tokenToIgnore = self->_tokenToIgnore;
@@ -120,14 +121,12 @@ LABEL_13:
     [v7 setObject:tokenToIgnore forKeyedSubscript:@"TOKEN_TO_IGNORE"];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)transform:(id)transform
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   transformCopy = transform;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -135,34 +134,34 @@ LABEL_13:
     __assert_rtn("[SGNameMappingTransformer transform:]", "SGNameMappingTransformer.m", 195, "[input isKindOfClass:[NSArray class]]");
   }
 
-  v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(transformCopy, "count")}];
-  v54 = objc_opt_new();
+  v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(transformCopy)];
+  v53 = objc_opt_new();
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   obj = transformCopy;
-  v7 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v7 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
   if (v7)
   {
     v8 = v7;
-    v53 = a2;
+    v52 = a2;
     v9 = 0;
     v10 = 0;
-    v11 = *v64;
-    v56 = *v64;
+    v11 = *v63;
+    v55 = *v63;
     while (1)
     {
       v12 = 0;
-      v57 = v8;
+      v56 = v8;
       do
       {
-        if (*v64 != v11)
+        if (*v63 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v63 + 1) + 8 * v12);
+        v13 = *(*(&v62 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
         if ([v13 isEqualToString:self->_tokenToIgnore])
         {
@@ -174,12 +173,12 @@ LABEL_13:
 
         else
         {
-          v62 = 0;
-          v15 = [(SGNameMappingTransformer *)self nameMappingForToken:v13 withConfidence:&v62];
+          v61 = 0;
+          v15 = [(SGNameMappingTransformer *)self nameMappingForToken:v13 withConfidence:&v61];
           if (v15)
           {
             v16 = v15;
-            if (v62 >= self->_minimumConfidence)
+            if (v61 >= self->_minimumConfidence)
             {
               if (v15 == @"FIRST")
               {
@@ -230,7 +229,7 @@ LABEL_13:
               else if (v15 == @"POSSESSIVE")
               {
                 currentHandler = [MEMORY[0x277CCA890] currentHandler];
-                [currentHandler handleFailureInMethod:v53 object:self file:@"SGNameMappingTransformer.m" lineNumber:245 description:@"Shouldn't be NameMappingPossessive"];
+                [currentHandler handleFailureInMethod:v52 object:self file:@"SGNameMappingTransformer.m" lineNumber:245 description:@"Shouldn't be NameMappingPossessive"];
 
                 v24 = 1;
                 v16 = @"POSSESSIVE";
@@ -241,50 +240,50 @@ LABEL_13:
                 v24 = 1;
               }
 
-              v31 = [(NSDictionary *)self->_nameMappings objectForKeyedSubscript:v16, v53];
+              v31 = [(NSDictionary *)self->_nameMappings objectForKeyedSubscript:v16, v52];
               if (!v31)
               {
                 __assert_rtn("[SGNameMappingTransformer transform:]", "SGNameMappingTransformer.m", 249, "feature");
               }
 
               v32 = v31;
-              v55 = v10;
+              v54 = v10;
               if (v24)
               {
                 range = [v13 range];
-                v35 = [SGTokenString stringWithString:v32 range:range confidence:v34, v62];
+                v35 = [SGTokenString stringWithString:v32 range:range confidence:v34, v61];
                 [v6 addObject:v35];
 
-                v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "count") - 1}];
-                [v54 addObject:v36];
+                v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:objc_msgSend_count(v6) - 1];
+                [v53 addObject:v36];
               }
 
               else
               {
-                v37 = v62;
-                if (v62 <= v9)
+                v37 = v61;
+                if (v61 <= v9)
                 {
                   v37 = v9;
                 }
 
-                v62 = v37 + 1;
+                v61 = v37 + 1;
                 lastObject = [v6 lastObject];
                 range2 = [lastObject range];
                 v40 = v6;
                 v42 = v41;
-                v71.location = [v13 range];
-                v71.length = v43;
-                v70.location = range2;
-                v70.length = v42;
+                v70.location = [v13 range];
+                v70.length = v43;
+                v69.location = range2;
+                v69.length = v42;
                 v6 = v40;
-                v44 = NSUnionRange(v70, v71);
-                v36 = [SGTokenString stringWithString:v32 range:v44.location confidence:v44.length, v62];
+                v44 = NSUnionRange(v69, v70);
+                v36 = [SGTokenString stringWithString:v32 range:v44.location confidence:v44.length, v61];
 
-                [v40 setObject:v36 atIndexedSubscript:{objc_msgSend(v40, "count") - 1}];
+                [v40 setObject:v36 atIndexedSubscript:objc_msgSend_count(v40) - 1];
               }
 
               v10 = v16;
-              v9 = v62;
+              v9 = v61;
 
               goto LABEL_46;
             }
@@ -310,8 +309,8 @@ LABEL_13:
 
                   v10 = @"POSSESSIVE";
 LABEL_46:
-                  v11 = v56;
-                  v8 = v57;
+                  v11 = v55;
+                  v8 = v56;
                   goto LABEL_47;
                 }
               }
@@ -328,7 +327,7 @@ LABEL_46:
             goto LABEL_46;
           }
 
-          v11 = v56;
+          v11 = v55;
           if ([v13 hasPrefix:@"SG_"])
           {
             [v6 addObject:v13];
@@ -342,7 +341,7 @@ LABEL_46:
           }
 
           v10 = 0;
-          v8 = v57;
+          v8 = v56;
         }
 
 LABEL_47:
@@ -351,7 +350,7 @@ LABEL_47:
       }
 
       while (v8 != v12);
-      v46 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v46 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
       v8 = v46;
       if (!v46)
       {
@@ -366,24 +365,22 @@ LABEL_53:
   if (self->_forNameDetector)
   {
     v47 = v6;
-    v48 = v54;
+    v48 = v53;
   }
 
   else
   {
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __38__SGNameMappingTransformer_transform___block_invoke;
-    v59[3] = &unk_27894C550;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __38__SGNameMappingTransformer_transform___block_invoke;
+    v58[3] = &unk_27894C550;
     v49 = v6;
-    v60 = v49;
+    v59 = v49;
     selfCopy = self;
-    v48 = v54;
-    [v54 enumerateObjectsUsingBlock:v59];
+    v48 = v53;
+    [v53 enumerateObjectsUsingBlock:v58];
     v50 = v49;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -636,24 +633,50 @@ LABEL_35:
   return v23;
 }
 
++ (id)withFullNameMapping:(id)mapping firstNameMapping:(id)nameMapping lastNameMapping:(id)lastNameMapping minimumConfidence:(int)confidence confidenceMapper:(id)mapper tokenToIgnore:(id)ignore andPossessive:(id)possessive
+{
+  v11 = *&confidence;
+  v26[5] = *MEMORY[0x277D85DE8];
+  possessiveCopy = possessive;
+  ignoreCopy = ignore;
+  mapperCopy = mapper;
+  lastNameMappingCopy = lastNameMapping;
+  nameMappingCopy = nameMapping;
+  mappingCopy = mapping;
+  v21 = [SGNameMappingTransformer alloc];
+  v25[0] = @"FULL";
+  v25[1] = @"FIRST";
+  v26[0] = mappingCopy;
+  v26[1] = nameMappingCopy;
+  v25[2] = @"LAST";
+  v25[3] = @"UNDEFINED";
+  v26[2] = lastNameMappingCopy;
+  v26[3] = mappingCopy;
+  v25[4] = @"POSSESSIVE";
+  v26[4] = possessiveCopy;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:5];
+
+  v23 = [(SGNameMappingTransformer *)v21 initWithNameMappings:v22 minimumConfidence:v11 confidenceMapper:mapperCopy tokenToIgnore:ignoreCopy forNameDetector:0];
+
+  return v23;
+}
+
 + (id)instanceForNameDetector
 {
-  v8[5] = *MEMORY[0x277D85DE8];
+  v7[5] = *MEMORY[0x277D85DE8];
   v2 = [SGNameMappingTransformer alloc];
-  v7[0] = @"FULL";
-  v7[1] = @"FIRST";
-  v8[0] = @"SG_FEATURE_FULLNAME";
-  v8[1] = @"SG_FEATURE_FIRSTNAME";
-  v7[2] = @"LAST";
-  v7[3] = @"UNDEFINED";
-  v8[2] = @"SG_FEATURE_LASTNAME";
-  v8[3] = @"SG_FEATURE_FULLNAME";
-  v7[4] = @"POSSESSIVE";
-  v8[4] = @"SG_POSSESSIVE";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:5];
+  v6[0] = @"FULL";
+  v6[1] = @"FIRST";
+  v7[0] = @"SG_FEATURE_FULLNAME";
+  v7[1] = @"SG_FEATURE_FIRSTNAME";
+  v6[2] = @"LAST";
+  v6[3] = @"UNDEFINED";
+  v7[2] = @"SG_FEATURE_LASTNAME";
+  v7[3] = @"SG_FEATURE_FULLNAME";
+  v6[4] = @"POSSESSIVE";
+  v7[4] = @"SG_POSSESSIVE";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:5];
   v4 = [(SGNameMappingTransformer *)v2 initWithNameMappings:v3 minimumConfidence:10 confidenceMapper:0 tokenToIgnore:0 forNameDetector:1];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -1,3 +1,973 @@
+char *gen_samplers(__GLIContextRec *a1, uint64_t a2, unsigned int *a3)
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v12 > 1)
+  {
+    handle_opengl_thread_conflict(v11);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    v17 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v17, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v11 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v15 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v15 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v11);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v18 = *(*(v11 + 24) + 6400);
+
+  return v18(a1, a2, a3);
+}
+
+char *delete_samplers(__GLIContextRec *a1, uint64_t a2, const unsigned int *a3)
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v12 > 1)
+  {
+    handle_opengl_thread_conflict(v11);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    v17 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v17, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v11 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v15 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v15 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v11);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v18 = *(*(v11 + 24) + 6408);
+
+  return v18(a1, a2, a3);
+}
+
+char *bind_sampler(__GLIContextRec *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v12 > 1)
+  {
+    handle_opengl_thread_conflict(v11);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    v17 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v17, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v11 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v15 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v15 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v11);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v18 = *(*(v11 + 24) + 6424);
+
+  return v18(a1, a2, a3);
+}
+
+char *sampler_parameteri(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v8 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v8)
+  {
+    goto LABEL_9;
+  }
+
+  v9 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v10 = *(v8 + 32);
+    v11 = v10 >= a1;
+    v12 = v10 < a1;
+    if (v11)
+    {
+      v9 = v8;
+    }
+
+    v8 = *(v8 + 8 * v12);
+  }
+
+  while (v8);
+  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
+  {
+LABEL_9:
+    v9 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v13 = *(v9 + 40);
+  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v14 > 1)
+  {
+    handle_opengl_thread_conflict(v13);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    v19 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v19, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v13 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v17 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v17 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v13);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v20 = *(*(v13 + 24) + 6432);
+
+  return v20(a1, a2, a3, a4);
+}
+
+char *sampler_parameteriv(__GLIContextRec *a1, uint64_t a2, uint64_t a3, const int *a4)
+{
+  v8 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v8)
+  {
+    goto LABEL_9;
+  }
+
+  v9 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v10 = *(v8 + 32);
+    v11 = v10 >= a1;
+    v12 = v10 < a1;
+    if (v11)
+    {
+      v9 = v8;
+    }
+
+    v8 = *(v8 + 8 * v12);
+  }
+
+  while (v8);
+  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
+  {
+LABEL_9:
+    v9 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v13 = *(v9 + 40);
+  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v14 > 1)
+  {
+    handle_opengl_thread_conflict(v13);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    v19 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v19, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v13 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v17 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v17 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v13);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v20 = *(*(v13 + 24) + 6440);
+
+  return v20(a1, a2, a3, a4);
+}
+
+char *sampler_parameterf(__GLIContextRec *a1, uint64_t a2, uint64_t a3, float a4)
+{
+  v8 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v8)
+  {
+    goto LABEL_9;
+  }
+
+  v9 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v10 = *(v8 + 32);
+    v11 = v10 >= a1;
+    v12 = v10 < a1;
+    if (v11)
+    {
+      v9 = v8;
+    }
+
+    v8 = *(v8 + 8 * v12);
+  }
+
+  while (v8);
+  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
+  {
+LABEL_9:
+    v9 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v13 = *(v9 + 40);
+  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v14 > 1)
+  {
+    handle_opengl_thread_conflict(v13);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    v19 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v19, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v13 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v17 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v17 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v13);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v21 = *(*(v13 + 24) + 6448);
+  v20.n128_f32[0] = a4;
+
+  return v21(a1, a2, a3, v20);
+}
+
+char *sampler_parameterfv(__GLIContextRec *a1, uint64_t a2, uint64_t a3, const float *a4)
+{
+  v8 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v8)
+  {
+    goto LABEL_9;
+  }
+
+  v9 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v10 = *(v8 + 32);
+    v11 = v10 >= a1;
+    v12 = v10 < a1;
+    if (v11)
+    {
+      v9 = v8;
+    }
+
+    v8 = *(v8 + 8 * v12);
+  }
+
+  while (v8);
+  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
+  {
+LABEL_9:
+    v9 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v13 = *(v9 + 40);
+  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v14 > 1)
+  {
+    handle_opengl_thread_conflict(v13);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    v19 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v19, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v13 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v17 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v17 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v13);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v20 = *(*(v13 + 24) + 6456);
+
+  return v20(a1, a2, a3, a4);
+}
+
+char *get_sampler_parameteriv(__GLIContextRec *a1, uint64_t a2, uint64_t a3, int *a4)
+{
+  v8 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v8)
+  {
+    goto LABEL_9;
+  }
+
+  v9 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v10 = *(v8 + 32);
+    v11 = v10 >= a1;
+    v12 = v10 < a1;
+    if (v11)
+    {
+      v9 = v8;
+    }
+
+    v8 = *(v8 + 8 * v12);
+  }
+
+  while (v8);
+  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
+  {
+LABEL_9:
+    v9 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v13 = *(v9 + 40);
+  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v14 > 1)
+  {
+    handle_opengl_thread_conflict(v13);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    v19 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v19, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v13 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v17 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v17 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v13);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v20 = *(*(v13 + 24) + 6480);
+
+  return v20(a1, a2, a3, a4);
+}
+
+char *get_sampler_parameterfv(__GLIContextRec *a1, uint64_t a2, uint64_t a3, float *a4)
+{
+  v8 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v8)
+  {
+    goto LABEL_9;
+  }
+
+  v9 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v10 = *(v8 + 32);
+    v11 = v10 >= a1;
+    v12 = v10 < a1;
+    if (v11)
+    {
+      v9 = v8;
+    }
+
+    v8 = *(v8 + 8 * v12);
+  }
+
+  while (v8);
+  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
+  {
+LABEL_9:
+    v9 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v13 = *(v9 + 40);
+  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v14 > 1)
+  {
+    handle_opengl_thread_conflict(v13);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    v19 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v19, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v13 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v17 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v17 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v13);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v20 = *(*(v13 + 24) + 6488);
+
+  return v20(a1, a2, a3, a4);
+}
+
+char *label_object_EXT(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+{
+  v10 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v10)
+  {
+    goto LABEL_9;
+  }
+
+  v11 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v12 = *(v10 + 32);
+    v13 = v12 >= a1;
+    v14 = v12 < a1;
+    if (v13)
+    {
+      v11 = v10;
+    }
+
+    v10 = *(v10 + 8 * v14);
+  }
+
+  while (v10);
+  if (v11 == ContextInfo::activeCtxInfoMap + 8 || *(v11 + 32) > a1)
+  {
+LABEL_9:
+    v11 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v15 = *(v11 + 40);
+  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v16 > 1)
+  {
+    handle_opengl_thread_conflict(v15);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    v20 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v20, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v15 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      if (a2 == 35656)
+      {
+        result = wrapper_cache_shader_label(v15, a3);
+      }
+
+      add = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      if (gCheckGLErrors == 1 && (add - 1) >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v15);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v21 = *(*(v15 + 24) + 6512);
+
+  return v21(a1, a2, a3, a4, a5);
+}
+
+char *get_object_label_EXT(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, char *a6)
+{
+  v12 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v12)
+  {
+    goto LABEL_9;
+  }
+
+  v13 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v14 = *(v12 + 32);
+    v15 = v14 >= a1;
+    v16 = v14 < a1;
+    if (v15)
+    {
+      v13 = v12;
+    }
+
+    v12 = *(v12 + 8 * v16);
+  }
+
+  while (v12);
+  if (v13 == ContextInfo::activeCtxInfoMap + 8 || *(v13 + 32) > a1)
+  {
+LABEL_9:
+    v13 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v17 = *(v13 + 40);
+  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v18 > 1)
+  {
+    handle_opengl_thread_conflict(v17);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+    v23 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v23, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v17 + 4838) = 1;
+    result = [DYGetGLGuestAppClient() state];
+    if (result != &dword_0 + 1 || (result = [DYGetGLGuestAppClient() triggerCaptureOnNextGLCommand], !result))
+    {
+      v21 = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF) - 1;
+      if (gCheckGLErrors == 1 && v21 >= 1)
+      {
+
+        return handle_opengl_thread_conflict(v17);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v24 = *(*(v17 + 24) + 6520);
+
+  return v24(a1, a2, a3, a4, a5, a6);
+}
+
+char *insert_event_marker_EXT(__GLIContextRec *a1, uint64_t a2, char *a3)
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v12 > 1)
+  {
+    handle_opengl_thread_conflict(v11);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    v17 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v17, 0, do_nothing);
+    v18 = *(*(v11 + 24) + 6528);
+
+    return v18(a1, a2, a3);
+  }
+
+  else
+  {
+    result = wrapper_handle_marker_event(v11, a2, a3);
+    v15 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+    if (gCheckGLErrors == 1 && v15 >= 1)
+    {
+
+      return handle_opengl_thread_conflict(v11);
+    }
+  }
+
+  return result;
+}
+
+uint64_t use_program_stages(__GLIContextRec *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v8 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v8)
+  {
+    goto LABEL_9;
+  }
+
+  v9 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v10 = *(v8 + 32);
+    v11 = v10 >= a1;
+    v12 = v10 < a1;
+    if (v11)
+    {
+      v9 = v8;
+    }
+
+    v8 = *(v8 + 8 * v12);
+  }
+
+  while (v8);
+  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
+  {
+LABEL_9:
+    v9 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v13 = *(v9 + 40);
+  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v14 > 1)
+  {
+    handle_opengl_thread_conflict(v13);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    v18 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v18, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v13 + 4838) = 1;
+    if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+    {
+      query_pipeline_programs(v13, a2, v20);
+      result = check_errors(v13);
+      if ((gCheckGLErrors & 1) == 0)
+      {
+        result = check_errors(v13);
+      }
+
+      if (a3 && !*(v13 + 3404))
+      {
+        result = wrapper_cache_pipeline_use_stages(v13, a2, a3, a4, v20, 0);
+      }
+
+      add = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+      if (gCheckGLErrors == 1 && (add - 1) >= 1)
+      {
+        return handle_opengl_thread_conflict(v13);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v19 = *(*(v13 + 24) + 6552);
+
+  return v19(a1, a2, a3, a4);
+}
+
+uint64_t active_shader_program(__GLIContextRec *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors == 1 && v12 > 1)
+  {
+    handle_opengl_thread_conflict(v11);
+  }
+
+  if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+  {
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    v16 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v16, 0, do_nothing);
+  }
+
+  else
+  {
+    *(v11 + 4838) = 1;
+    if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+    {
+      query_pipeline_programs(v11, a2, v18);
+      result = check_errors(v11);
+      if ((gCheckGLErrors & 1) == 0)
+      {
+        result = check_errors(v11);
+      }
+
+      if (!*(v11 + 3404))
+      {
+        result = wrapper_cache_pipeline_active_shader_program(v11, a2, a3, v18);
+      }
+
+      add = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+      if (gCheckGLErrors == 1 && (add - 1) >= 1)
+      {
+        return handle_opengl_thread_conflict(v11);
+      }
+
+      return result;
+    }
+
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+  }
+
+  v17 = *(*(v11 + 24) + 6560);
+
+  return v17(a1, a2, a3);
+}
+
 uint64_t create_shader_programv(__GLIContextRec *a1, uint64_t a2, uint64_t a3, const char *const *a4)
 {
   v8 = *(ContextInfo::activeCtxInfoMap + 8);
@@ -8415,7 +9385,7 @@ BOOL OUTLINED_FUNCTION_6_1()
   return check_errors(v0);
 }
 
-int64x2_t *OUTLINED_FUNCTION_13_1(uint64_t a1, unsigned int a2, int a3)
+int64x2_t *OUTLINED_FUNCTION_13_1(uint64_t a1, int a2, int a3)
 {
 
   return GLDrawCommandStatistics::update((v3 + 32 * a2 + 3960), a2, a3, 1u);
@@ -8459,16 +9429,16 @@ void SharegroupInfo::SharegroupInfo(SharegroupInfo *this, EAGLSharegroup *a2)
   *(this + 92) = 0;
   v3 = 35648;
   v4 = &v3;
-  *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int volatile>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int volatile>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(this + 29, &v3) + 5) = kDYReservedGLNameGLSLObjectStart;
+  *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int volatile>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int volatile>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(this + 58, &v3, &std::piecewise_construct, &v4) + 5) = kDYReservedGLNameGLSLObjectStart;
   v3 = 35407;
   v4 = &v3;
-  *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int volatile>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int volatile>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v2, &v3) + 5) = kDYReservedGLNameGLSLProgramPipelineStart;
+  *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int volatile>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int volatile>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v2, &v3, &std::piecewise_construct, &v4) + 5) = kDYReservedGLNameGLSLProgramPipelineStart;
   v3 = 5890;
   v4 = &v3;
-  *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int volatile>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int volatile>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v2, &v3) + 5) = kDYReservedGLNameTextureStart;
+  *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int volatile>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int volatile>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v2, &v3, &std::piecewise_construct, &v4) + 5) = kDYReservedGLNameTextureStart;
 }
 
-void sub_1DCB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_1DCB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10)
 {
   std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::destroy(v17, *v10);
   std::unordered_map<unsigned int,BOOL>::~unordered_map[abi:ne200100](v16);
@@ -8502,8 +9472,8 @@ void SharegroupInfo::~SharegroupInfo(SharegroupInfo *this)
   std::unordered_map<unsigned int,BOOL>::~unordered_map[abi:ne200100](this + 232);
   std::unordered_map<unsigned int,BOOL>::~unordered_map[abi:ne200100](this + 192);
   std::unordered_map<unsigned int,BOOL>::~unordered_map[abi:ne200100](this + 152);
-  std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>>>::~__hash_table(this + 104);
-  std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>>>::~__hash_table(this + 64);
+  std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>>>::~__hash_table(this + 13);
+  std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>>>::~__hash_table(this + 8);
   std::unordered_map<unsigned int,BOOL>::~unordered_map[abi:ne200100](this + 16);
 }
 
@@ -8586,7 +9556,7 @@ void ContextInfo::ContextInfo(uint64_t a1, EAGLContext *a2, int a3, char a4)
   ValueAtIndex = CFArrayGetValueAtIndex(v14, *(a1 + 56));
   if (![ValueAtIndex extensions])
   {
-    v18 = "renderer_info.extensions";
+    v17 = "renderer_info.extensions";
     goto LABEL_31;
   }
 
@@ -8646,8 +9616,6 @@ LABEL_22:
         *(v10 + 775) = 257;
       }
 
-      v19 = *(a1 + 32);
-      v17 = *(a1 + 3456);
       GPUTools::GL::EnumerateTextureTargets();
       query_texture_unit_limits(a1, (a1 + 3432));
       if (*(a1 + 3456) == 1 || ((*(*(a1 + 32) + 832))(*(a1 + 16), 34921, v9 + 3332), *(v9 + 833) < 0x21u))
@@ -8672,9 +9640,9 @@ LABEL_22:
         operator new();
       }
 
-      v18 = "max_vertex_attribs <= DY_VA_CACHE_MAX_GENERIC";
+      v17 = "max_vertex_attribs <= DY_VA_CACHE_MAX_GENERIC";
 LABEL_31:
-      __assert_rtn("ContextInfo::ContextInfo(glctx_t, DYOpenGLAPI, BOOL)", &unk_204462, 0, v18);
+      __assert_rtn("ContextInfo::ContextInfo(glctx_t, DYOpenGLAPI, BOOL)", &unk_204462, 0, v17);
     }
 
     v10[748] = 0;
@@ -8788,11 +9756,8 @@ GPUTools::GL::Context *GPUTools::GL::Context::Context(GPUTools::GL::Context *thi
 {
   *this = a2;
   *(this + 1) = [(EAGLContext *)a2 sharegroup];
-  v3 = *this;
   *(this + 2) = GLIContextFromEAGLContext();
-  v4 = *this;
   *(this + 3) = GLCFrontDispatch();
-  v5 = *this;
   *(this + 4) = GLCBackDispatch();
   return this;
 }
@@ -8986,946 +9951,8 @@ LABEL_9:
   if ((*(this + 4840) & 1) == 0)
   {
     v16 = [DYGetGLGuestAppClient() globalSyncQueue];
-    ContextInfo::~ContextInfo(&block, this, v16);
+    ContextInfo::~ContextInfo(block, this, v16);
   }
 
   ContextInfo::~ContextInfo(v2, this);
-}
-
-void *___ZN11ContextInfoD2Ev_block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  result = [DYGetGLGuestAppClient() state];
-  if (result == (&dword_0 + 3))
-  {
-    result = [DYGetGLGuestAppClient() activeCaptureState];
-    v3 = result;
-    v4 = *(v1 + 3496);
-    if (v4)
-    {
-      v5 = OBJC_IVAR___DYCaptureState__dispatchQueueLabelMap;
-      do
-      {
-        result = std::__hash_table<std::__hash_value_type<void const*,std::string>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::string>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::string>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::string>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,std::string> const&>((v3 + v5), v4 + 2);
-        v4 = *v4;
-      }
-
-      while (v4);
-    }
-
-    v6 = *(v1 + 3536);
-    if (v6)
-    {
-      v7 = OBJC_IVAR___DYCaptureState__threadLabelMap;
-      do
-      {
-        result = std::__hash_table<std::__hash_value_type<unsigned long long,std::string>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::string>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::string>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,std::string> const&>((v3 + v7), v6 + 2);
-        v6 = *v6;
-      }
-
-      while (v6);
-    }
-  }
-
-  return result;
-}
-
-void StringBuffer::reserve(void **this, size_t __size)
-{
-  if (__size)
-  {
-    if (this[1] < __size)
-    {
-      v4 = reallocf(*this, __size);
-      *v4 = 0;
-      *this = v4;
-      this[1] = __size;
-    }
-  }
-
-  else
-  {
-    v5 = *this;
-    if (*this)
-    {
-      free(v5);
-    }
-
-    *this = 0;
-    this[1] = 0;
-  }
-}
-
-void StringBuffer::~StringBuffer(void **this)
-{
-  v1 = *this;
-  if (v1)
-  {
-    free(v1);
-  }
-}
-
-void ObjectNameArray::ObjectNameArray(ObjectNameArray *this, unint64_t a2)
-{
-  *(this + 5) = a2;
-  if (a2 >= 9)
-  {
-    operator new[]();
-  }
-
-  *(this + 4) = this;
-}
-
-void ObjectNameArray::~ObjectNameArray(ObjectNameArray *this)
-{
-  v2 = *(this + 4);
-  if (v2 != this && v2 != 0)
-  {
-    operator delete[]();
-  }
-}
-
-void sub_1DDCB4(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 24);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v4 = *(v1 + 8);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void ProgramShaderInfo::ProgramShaderInfo(ProgramShaderInfo *this, int a2, const ShaderInfo *a3)
-{
-  *this = a2;
-  v3 = *(a3 + 1);
-  *(this + 1) = *a3;
-  *(this + 2) = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = *(a3 + 3);
-  *(this + 3) = *(a3 + 2);
-  *(this + 4) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v5 = *(a3 + 5);
-  *(this + 5) = *(a3 + 4);
-  *(this + 6) = v5;
-  if (v5)
-  {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-  }
-}
-
-void ProgramXfb::ProgramXfb(ProgramXfb *this)
-{
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  *(this + 32) = 0;
-  *(this + 3) = 0;
-}
-
-void std::vector<std::string>::clear[abi:ne200100](void ***a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  while (v3 != v2)
-  {
-    v4 = *(v3 - 1);
-    v3 -= 3;
-    if (v4 < 0)
-    {
-      operator delete(*v3);
-    }
-  }
-
-  a1[1] = v2;
-}
-
-uint64_t ProgramXfb::update(void ***this, ContextInfo *a2, uint64_t a3)
-{
-  std::vector<std::string>::clear[abi:ne200100](this + 1);
-  *(this + 32) = 0;
-  v7 = *(a2 + 4);
-  GPUTools::GL::EnumerateProgramTransformFeedbackVaryings();
-  result = (*(v7 + 5264))(*(a2 + 2), a3, 35967, this);
-  *(this + 32) = 1;
-  return result;
-}
-
-uint64_t ___ZN10ProgramXfb6updateER11ContextInfoj_block_invoke(uint64_t a1, const char **a2)
-{
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 16);
-  if (v3 >= *(v2 + 24))
-  {
-    result = std::vector<std::string>::__emplace_back_slow_path<char * const&>(v2 + 8, a2);
-  }
-
-  else
-  {
-    std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char * const&,0>(v2 + 8, *(v2 + 16), a2);
-    result = v3 + 24;
-    *(v2 + 16) = v3 + 24;
-  }
-
-  *(v2 + 16) = result;
-  return result;
-}
-
-void ProgramPipelineInfo::ProgramPipelineInfo(ProgramPipelineInfo *this)
-{
-  *(this + 14) = 0;
-  *(this + 5) = 0u;
-  *(this + 6) = 0u;
-  *(this + 3) = 0u;
-  *(this + 4) = 0u;
-  *(this + 1) = 0u;
-  *(this + 2) = 0u;
-  *this = 0u;
-  operator new();
-}
-
-void sub_1DDF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
-{
-  a10 = v10 + 12;
-  std::vector<ProgramShaderInfo>::__destroy_vector::operator()[abi:ne200100](&a10);
-  a10 = v10 + 9;
-  std::vector<ProgramShaderInfo>::__destroy_vector::operator()[abi:ne200100](&a10);
-  a10 = v10 + 6;
-  std::vector<ProgramShaderInfo>::__destroy_vector::operator()[abi:ne200100](&a10);
-  a10 = v10 + 3;
-  std::vector<ProgramShaderInfo>::__destroy_vector::operator()[abi:ne200100](&a10);
-  a10 = v10;
-  std::vector<ProgramShaderInfo>::__destroy_vector::operator()[abi:ne200100](&a10);
-  _Unwind_Resume(a1);
-}
-
-void sub_1DE114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
-{
-  std::unordered_map<unsigned int,BOOL>::~unordered_map[abi:ne200100](v11);
-  a10 = v10 + 37;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
-  ProgramPipelineInfo::~ProgramPipelineInfo((v10 + 18));
-  ProgramPipelineInfo::~ProgramPipelineInfo(v10);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ___ZL17swap_ctx_info_mapPNSt3__13mapIP15__GLIContextRecP11ContextInfoNS_4lessIS2_EENS_9allocatorINS_4pairIKS2_S4_EEEEEE_block_invoke(uint64_t result)
-{
-  v1 = *(result + 32);
-  if (v1)
-  {
-    std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::destroy(*(result + 32), *(v1 + 8));
-
-    operator delete();
-  }
-
-  return result;
-}
-
-void std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::destroy(uint64_t a1, void *a2)
-{
-  if (a2)
-  {
-    std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::destroy(a1, a2[1]);
-
-    operator delete(a2);
-  }
-}
-
-void std::vector<ProgramShaderInfo>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v2 = *a1;
-  if (*v2)
-  {
-    std::vector<ProgramShaderInfo>::__base_destruct_at_end[abi:ne200100](v2, *v2);
-    v3 = **a1;
-
-    operator delete(v3);
-  }
-}
-
-void std::vector<ProgramShaderInfo>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  for (i = *(a1 + 8); i != a2; i -= 56)
-  {
-    v5 = *(i - 8);
-    if (v5)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-    }
-
-    v6 = *(i - 24);
-    if (v6)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-    }
-
-    v7 = *(i - 40);
-    if (v7)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-    }
-  }
-
-  *(a1 + 8) = a2;
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<ShaderInfo>>>>::__deallocate_node(int a1, void *__p)
-{
-  if (__p)
-  {
-    v2 = __p;
-    do
-    {
-      v3 = *v2;
-      v4 = v2[4];
-      if (v4)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-      }
-
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak_count *a1)
-{
-  if (!atomic_fetch_add(&a1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (a1->__on_zero_shared)(a1);
-
-    std::__shared_weak_count::__release_weak(a1);
-  }
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,unsigned int volatile>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int volatile>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (*&v3 <= v2)
-    {
-      v5 = v2 % v3.i32[0];
-    }
-  }
-
-  else
-  {
-    v5 = (v3.i32[0] - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (*(v7 + 4) != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned int,unsigned int volatile>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int volatile>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int volatile>>>::__rehash<true>(uint64_t a1, size_t __n)
-{
-  if (__n == 1)
-  {
-    prime = 2;
-  }
-
-  else
-  {
-    prime = __n;
-    if ((__n & (__n - 1)) != 0)
-    {
-      prime = std::__next_prime(__n);
-    }
-  }
-
-  v4 = *(a1 + 8);
-  if (prime > *&v4)
-  {
-    goto LABEL_6;
-  }
-
-  if (prime < *&v4)
-  {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
-    if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
-    {
-      v5 = std::__next_prime(v5);
-    }
-
-    else
-    {
-      v7 = 1 << -__clz(v5 - 1);
-      if (v5 >= 2)
-      {
-        v5 = v7;
-      }
-    }
-
-    if (prime <= v5)
-    {
-      prime = v5;
-    }
-
-    if (prime < *&v4)
-    {
-LABEL_6:
-
-      std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__do_rehash<true>(a1, prime);
-    }
-  }
-}
-
-void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v2 = *a1;
-  if (*v2)
-  {
-    std::vector<std::string>::clear[abi:ne200100](v2);
-    v3 = **a1;
-
-    operator delete(v3);
-  }
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<void const*,std::string>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::string>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::string>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::string>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<void const*,std::string>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::string>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::string>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::string>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::vector<std::function<void ()(ContextInfo *)>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = v2;
-    if (v4 != v2)
-    {
-      do
-      {
-        v4 = std::__function::__value_func<void ()(ContextInfo *)>::~__value_func[abi:ne200100](v4 - 32);
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(ContextInfo *)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void *std::__hash_table<std::__hash_value_type<EAGLSharegroup *,SharegroupInfo *>,std::__unordered_map_hasher<EAGLSharegroup *,std::__hash_value_type<EAGLSharegroup *,SharegroupInfo *>,std::hash<EAGLSharegroup *>,std::equal_to<EAGLSharegroup *>,true>,std::__unordered_map_equal<EAGLSharegroup *,std::__hash_value_type<EAGLSharegroup *,SharegroupInfo *>,std::equal_to<EAGLSharegroup *>,std::hash<EAGLSharegroup *>,true>,std::allocator<std::__hash_value_type<EAGLSharegroup *,SharegroupInfo *>>>::find<EAGLSharegroup *>(void *a1, void *a2)
-{
-  v2 = a1[1];
-  if (!*&v2)
-  {
-    return 0;
-  }
-
-  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
-  v6 = vcnt_s8(v2);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = v5;
-    if (v5 >= *&v2)
-    {
-      v7 = v5 % *&v2;
-    }
-  }
-
-  else
-  {
-    v7 = v5 & (*&v2 - 1);
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8)
-  {
-    return 0;
-  }
-
-  result = *v8;
-  if (*v8)
-  {
-    do
-    {
-      v10 = result[1];
-      if (v10 == v5)
-      {
-        if (result[2] == *a2)
-        {
-          return result;
-        }
-      }
-
-      else
-      {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
-      }
-
-      result = *result;
-    }
-
-    while (result);
-  }
-
-  return result;
-}
-
-void *std::__hash_table<std::__hash_value_type<EAGLSharegroup *,SharegroupInfo *>,std::__unordered_map_hasher<EAGLSharegroup *,std::__hash_value_type<EAGLSharegroup *,SharegroupInfo *>,std::hash<EAGLSharegroup *>,std::equal_to<EAGLSharegroup *>,true>,std::__unordered_map_equal<EAGLSharegroup *,std::__hash_value_type<EAGLSharegroup *,SharegroupInfo *>,std::equal_to<EAGLSharegroup *>,std::hash<EAGLSharegroup *>,true>,std::allocator<std::__hash_value_type<EAGLSharegroup *,SharegroupInfo *>>>::__emplace_unique_key_args<EAGLSharegroup *,std::pair<EAGLSharegroup * const,SharegroupInfo *>>(void *a1, void *a2)
-{
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
-  {
-    goto LABEL_18;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
-    {
-      v7 = v4 % *&v5;
-    }
-  }
-
-  else
-  {
-    v7 = v4 & (*&v5 - 1);
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v10 = v9[1];
-    if (v10 == v4)
-    {
-      break;
-    }
-
-    if (v6.u32[0] > 1uLL)
-    {
-      if (v10 >= *&v5)
-      {
-        v10 %= *&v5;
-      }
-    }
-
-    else
-    {
-      v10 &= *&v5 - 1;
-    }
-
-    if (v10 != v7)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v9 = *v9;
-    if (!v9)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v9[2] != *a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v9;
-}
-
-void *std::map<__GLIContextRec *,ContextInfo *>::map[abi:ne200100](void *a1, uint64_t a2)
-{
-  a1[2] = 0;
-  a1[1] = 0;
-  *a1 = a1 + 1;
-  std::map<__GLIContextRec *,ContextInfo *>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__tree_node<std::__value_type<__GLIContextRec *,ContextInfo *>,void *> *,long>>>(a1, *a2, (a2 + 8));
-  return a1;
-}
-
-uint64_t std::map<__GLIContextRec *,ContextInfo *>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__tree_node<std::__value_type<__GLIContextRec *,ContextInfo *>,void *> *,long>>>(uint64_t result, void *a2, void *a3)
-{
-  if (a2 != a3)
-  {
-    v4 = a2;
-    v5 = result;
-    do
-    {
-      result = std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::__emplace_hint_unique_key_args<__GLIContextRec *,std::pair<__GLIContextRec * const,ContextInfo *> const&>(v5, v5 + 1, v4 + 4);
-      v6 = v4[1];
-      if (v6)
-      {
-        do
-        {
-          v7 = v6;
-          v6 = *v6;
-        }
-
-        while (v6);
-      }
-
-      else
-      {
-        do
-        {
-          v7 = v4[2];
-          v8 = *v7 == v4;
-          v4 = v7;
-        }
-
-        while (!v8);
-      }
-
-      v4 = v7;
-    }
-
-    while (v7 != a3);
-  }
-
-  return result;
-}
-
-uint64_t std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::__emplace_hint_unique_key_args<__GLIContextRec *,std::pair<__GLIContextRec * const,ContextInfo *> const&>(void *a1, void *a2, unint64_t *a3)
-{
-  v3 = *std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::__find_equal<__GLIContextRec *>(a1, a2, &v6, &v5, a3);
-  if (!v3)
-  {
-    operator new();
-  }
-
-  return v3;
-}
-
-void *std::__tree<std::__value_type<__GLIContextRec *,ContextInfo *>,std::__map_value_compare<__GLIContextRec *,std::__value_type<__GLIContextRec *,ContextInfo *>,std::less<__GLIContextRec *>,true>,std::allocator<std::__value_type<__GLIContextRec *,ContextInfo *>>>::__find_equal<__GLIContextRec *>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
-{
-  v5 = a1 + 1;
-  if (a1 + 1 == a2 || (v6 = *a5, v7 = a2[4], *a5 < v7))
-  {
-    v8 = *a2;
-    if (*a1 == a2)
-    {
-      v10 = a2;
-LABEL_17:
-      if (v8)
-      {
-        *a3 = v10;
-        return v10 + 1;
-      }
-
-      else
-      {
-        *a3 = a2;
-        return a2;
-      }
-    }
-
-    if (v8)
-    {
-      v9 = *a2;
-      do
-      {
-        v10 = v9;
-        v9 = v9[1];
-      }
-
-      while (v9);
-    }
-
-    else
-    {
-      v13 = a2;
-      do
-      {
-        v10 = v13[2];
-        v14 = *v10 == v13;
-        v13 = v10;
-      }
-
-      while (v14);
-    }
-
-    v15 = *a5;
-    if (v10[4] < *a5)
-    {
-      goto LABEL_17;
-    }
-
-    v16 = *v5;
-    if (*v5)
-    {
-      do
-      {
-        while (1)
-        {
-          v17 = v16;
-          v18 = v16[4];
-          if (v15 >= v18)
-          {
-            break;
-          }
-
-          v16 = *v17;
-          v5 = v17;
-          if (!*v17)
-          {
-            goto LABEL_29;
-          }
-        }
-
-        if (v18 >= v15)
-        {
-          break;
-        }
-
-        v5 = v17 + 1;
-        v16 = v17[1];
-      }
-
-      while (v16);
-    }
-
-    else
-    {
-      v17 = a1 + 1;
-    }
-
-LABEL_29:
-    *a3 = v17;
-    return v5;
-  }
-
-  if (v7 >= v6)
-  {
-    *a3 = a2;
-    *a4 = a2;
-    return a4;
-  }
-
-  v11 = a2[1];
-  if (v11)
-  {
-    v12 = a2[1];
-    do
-    {
-      a4 = v12;
-      v12 = *v12;
-    }
-
-    while (v12);
-  }
-
-  else
-  {
-    v19 = a2;
-    do
-    {
-      a4 = v19[2];
-      v14 = *a4 == v19;
-      v19 = a4;
-    }
-
-    while (!v14);
-  }
-
-  if (a4 != v5 && v6 >= a4[4])
-  {
-    v20 = *v5;
-    if (*v5)
-    {
-      do
-      {
-        while (1)
-        {
-          v21 = v20;
-          v22 = v20[4];
-          if (v6 >= v22)
-          {
-            break;
-          }
-
-          v20 = *v21;
-          v5 = v21;
-          if (!*v21)
-          {
-            goto LABEL_48;
-          }
-        }
-
-        if (v22 >= v6)
-        {
-          break;
-        }
-
-        v5 = v21 + 1;
-        v20 = v21[1];
-      }
-
-      while (v20);
-    }
-
-    else
-    {
-      v21 = a1 + 1;
-    }
-
-LABEL_48:
-    *a3 = v21;
-    return v5;
-  }
-
-  if (v11)
-  {
-    *a3 = a4;
-  }
-
-  else
-  {
-    *a3 = a2;
-    return a2 + 1;
-  }
-
-  return a4;
 }

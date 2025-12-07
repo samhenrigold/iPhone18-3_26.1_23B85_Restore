@@ -1,6 +1,6 @@
 @interface PKPassBannerTrailingView
 - (CGSize)sizeThatFits:(CGSize)fits;
-- (uint64_t)_initWithStyle:(void *)style configuration:;
+- (id)_initWithStyle:(void *)style configuration:;
 - (void)_updateImage;
 - (void)layoutSubviews;
 - (void)traitCollectionDidChange:(id)change;
@@ -8,7 +8,7 @@
 
 @implementation PKPassBannerTrailingView
 
-- (uint64_t)_initWithStyle:(void *)style configuration:
+- (id)_initWithStyle:(void *)style configuration:
 {
   styleCopy = style;
   if (self)
@@ -19,9 +19,9 @@
     self = v7;
     if (v7)
     {
-      *(v7 + 51) = a2;
+      v7[51] = a2;
       objc_storeStrong(v7 + 52, style);
-      v8 = *(self + 416);
+      v8 = self[52];
       if (!v8)
       {
 LABEL_10:
@@ -29,7 +29,7 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      if (*(v8 + 8))
+      if (v8[1])
       {
         __break(1u);
       }
@@ -42,16 +42,16 @@ LABEL_10:
 
       v9 = 0;
 LABEL_7:
-      objc_storeStrong((self + 432), v9);
+      objc_storeStrong(self + 54, v9);
       v10 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:0];
-      v11 = *(self + 440);
-      *(self + 440) = v10;
+      v11 = self[55];
+      self[55] = v10;
 
-      [self addSubview:*(self + 440)];
-      v12 = *(self + 440);
-      if (*(self + 432))
+      [self addSubview:self[55]];
+      v12 = self[55];
+      if (self[54])
       {
-        [*(self + 440) setTintColor:?];
+        [self[55] setTintColor:?];
       }
 
       else
@@ -143,24 +143,32 @@ LABEL_11:
   {
     if (!image)
     {
-      v5 = 1.0;
-      v6 = 1.0;
-      goto LABEL_8;
+      v9 = 1.0;
+      v10 = 1.0;
+      goto LABEL_9;
     }
+
+    [(UIImage *)image pkui_alignmentSize:fits.width];
+    v6 = v5 * 0.5;
+    v8 = v7 * 0.5;
   }
 
-  else if (!image)
+  else
   {
-    v5 = *MEMORY[0x1E695F060];
-    v6 = *(MEMORY[0x1E695F060] + 8);
-    goto LABEL_8;
+    if (!image)
+    {
+      v9 = *MEMORY[0x1E695F060];
+      v10 = *(MEMORY[0x1E695F060] + 8);
+      goto LABEL_9;
+    }
+
+    [(UIImage *)image pkui_alignmentSize:fits.width];
   }
 
-  [(UIImage *)image pkui_alignmentSize:fits.width];
-  PKSizeRoundToPixel();
-LABEL_8:
-  result.height = v6;
-  result.width = v5;
+  PKSizeRoundToPixel(v6, v8);
+LABEL_9:
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -180,7 +188,7 @@ LABEL_8:
     image = self->_image;
     if (image)
     {
-      [(UIImage *)image pkui_alignmentSizeThatFits:v4.n128_f64[0], v5.n128_f64[0]];
+      objc_msgSend_pkui_alignmentSizeThatFits_(image, v4.n128_f64[0], v5.n128_f64[0]);
     }
 
     v11.n128_f64[0] = v7 + (v9 - 0.0) * 0.5 + 0.0;

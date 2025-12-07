@@ -417,7 +417,7 @@ LABEL_2:
 
         v104 = self->_originalTextRange;
         selectedTextRange3 = [_textInput selectedTextRange];
-        v106 = [(UITextRange *)v104 isEqual:selectedTextRange3];
+        isEqual = objc_msgSend_isEqual_(v104);
 
         selectedTextRange4 = [_textInput selectedTextRange];
         isEmpty2 = [selectedTextRange4 isEmpty];
@@ -427,7 +427,7 @@ LABEL_2:
           [assistantDelegate setSelectionHighlightMode:0];
         }
 
-        else if (v106)
+        else if (isEqual)
         {
           _editMenuAssistant2 = [assistantDelegate _editMenuAssistant];
           [_editMenuAssistant2 showSelectionCommands];
@@ -441,7 +441,7 @@ LABEL_2:
 
         [assistantDelegate updateDisplayedSelection];
         [selection caretRect];
-        if (v106)
+        if (isEqual)
         {
           v115 = v111;
           v116 = v112;

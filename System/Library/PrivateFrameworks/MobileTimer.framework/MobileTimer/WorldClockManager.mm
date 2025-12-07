@@ -65,7 +65,7 @@ void __34__WorldClockManager_sharedManager__block_invoke()
 
 - (void)loadCities
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lastModified = [(WorldClockPreferences *)self->_defaults lastModified];
   [(WorldClockManager *)self setLastModified:lastModified];
 
@@ -88,11 +88,11 @@ void __34__WorldClockManager_sharedManager__block_invoke()
   v9 = MTLogForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543618;
+    v16 = 138543618;
     selfCopy = self;
-    v19 = 1024;
-    v20 = cityDataNeedsUpdate;
-    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ loading cities, needs city data update: %d", &v17, 0x12u);
+    v18 = 1024;
+    v19 = cityDataNeedsUpdate;
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ loading cities, needs city data update: %d", &v16, 0x12u);
   }
 
   if ([(NSMutableArray *)self->_cities count])
@@ -141,8 +141,6 @@ void __34__WorldClockManager_sharedManager__block_invoke()
     self->_dirty = 0;
     [(WorldClockPreferences *)self->_defaults cityDataUpdated];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)updateALDataWithCity:(id)city
@@ -290,7 +288,7 @@ LABEL_7:
 
 - (void)addDefaultCitiesIfNeeded
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (![(WorldClockPreferences *)self->_defaults defaultCitiesAdded])
   {
     mEMORY[0x1E698B670] = [MEMORY[0x1E698B670] sharedManager];
@@ -308,36 +306,36 @@ LABEL_7:
     }
 
     CFRelease(v4);
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = defaultCitiesShownInWorldClock;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         v12 = 0;
         do
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * v12);
+          v13 = *(*(&v16 + 1) + 8 * v12);
           v14 = [WorldClockCity alloc];
-          v15 = [(WorldClockCity *)v14 initWithALCity:v13, v17];
+          v15 = [(WorldClockCity *)v14 initWithALCity:v13, v16];
           [(NSMutableArray *)self->_cities addObject:v15];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -346,52 +344,49 @@ LABEL_7:
     [(WorldClockPreferences *)self->_defaults setDefaultCitiesAdded:1];
     [(WorldClockManager *)self saveCities];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pushCityPropertiesToPreferences
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DF70]);
   cities = [(WorldClockManager *)self cities];
   v5 = [v3 initWithCapacity:{objc_msgSend(cities, "count")}];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   cities2 = [(WorldClockManager *)self cities];
-  v7 = [cities2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [cities2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(cities2);
         }
 
-        properties = [*(*(&v13 + 1) + 8 * v10) properties];
+        properties = [*(*(&v12 + 1) + 8 * v10) properties];
         [v5 addObject:properties];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [cities2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [cities2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(WorldClockPreferences *)self->_defaults setCities:v5];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fixUpCityProperties:(id)properties
@@ -439,27 +434,27 @@ LABEL_7:
 
 - (id)cityWithIdUrl:(id)url
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   urlCopy = url;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_cities;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         idUrl = [v9 idUrl];
         v11 = [urlCopy isEqual:idUrl];
 
@@ -470,7 +465,7 @@ LABEL_7:
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -481,8 +476,6 @@ LABEL_7:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -523,7 +516,7 @@ LABEL_11:
 
 - (void)_notifyNano
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v4 = [standardUserDefaults BOOLForKey:@"PerformanceTestingEnabled"];
 
@@ -542,10 +535,10 @@ LABEL_11:
     }
 
     v7 = CFAbsoluteTimeGetCurrent() + *MEMORY[0x1E695E468];
-    v20 = @"timestamp";
+    v19 = @"timestamp";
     v8 = [MEMORY[0x1E696AD98] numberWithDouble:v7];
-    v21[0] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v20[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     [v6 setObject:v9 forKeyedSubscript:@"citySent"];
 
     [v5 setObject:v6 forKeyedSubscript:@"cityAddTest"];
@@ -562,28 +555,26 @@ LABEL_11:
     dispatch_once(&_notifyNano_onceToken, block);
   }
 
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2050000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2050000000;
   v10 = getNPSManagerClass_softClass;
-  v19 = getNPSManagerClass_softClass;
+  v18 = getNPSManagerClass_softClass;
   if (!getNPSManagerClass_softClass)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __getNPSManagerClass_block_invoke;
-    v15[3] = &unk_1E7B0C600;
-    v15[4] = &v16;
-    __getNPSManagerClass_block_invoke(v15);
-    v10 = v17[3];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __getNPSManagerClass_block_invoke;
+    v14[3] = &unk_1E7B0C600;
+    v14[4] = &v15;
+    __getNPSManagerClass_block_invoke(v14);
+    v10 = v16[3];
   }
 
   v11 = v10;
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   v12 = objc_opt_new();
   [v12 synchronizeUserDefaultsDomain:@"com.apple.mobiletimer" keys:_notifyNano_keys];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __32__WorldClockManager__notifyNano__block_invoke(uint64_t a1)
@@ -597,96 +588,94 @@ void __32__WorldClockManager__notifyNano__block_invoke(uint64_t a1)
 
 - (id)citiesMatchingIdentifiers:(id)identifiers
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   mEMORY[0x1E698B670] = [MEMORY[0x1E698B670] sharedManager];
   v5 = [mEMORY[0x1E698B670] citiesWithIdentifiers:identifiersCopy];
   v6 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [WorldClockCity alloc];
-        v14 = [(WorldClockCity *)v13 initWithALCity:v12, v18];
+        v14 = [(WorldClockCity *)v13 initWithALCity:v12, v17];
         if (v14)
         {
           [v6 addObject:v14];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
   v15 = [v6 copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)citiesMatchingName:(id)name
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   mEMORY[0x1E698B670] = [MEMORY[0x1E698B670] sharedManager];
   v5 = [mEMORY[0x1E698B670] citiesMatchingName:nameCopy];
 
   v6 = [v5 sortedArrayUsingComparator:&__block_literal_global_39];
   v7 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [WorldClockCity alloc];
-        v15 = [(WorldClockCity *)v14 initWithALCity:v13, v19];
+        v15 = [(WorldClockCity *)v14 initWithALCity:v13, v18];
         if (v15)
         {
           [v7 addObject:v15];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
   v16 = [v7 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -716,31 +705,31 @@ uint64_t __40__WorldClockManager_citiesMatchingName___block_invoke(uint64_t a1, 
 
 - (id)closestCityToLocation:(id)location matchingTimeZone:(id)zone requireTimeZoneEquivalence:(BOOL)equivalence
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   zoneCopy = zone;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = [(WorldClockManager *)self allCities];
-  v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v34;
+    v11 = *v33;
     v12 = 0.0;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v34 != v11)
+        if (*v33 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v33 + 1) + 8 * i);
+        v14 = *(*(&v32 + 1) + 8 * i);
         v15 = MEMORY[0x1E695DFE8];
         timeZone = [v14 timeZone];
         v17 = [v15 timeZoneWithName:timeZone];
@@ -765,7 +754,7 @@ uint64_t __40__WorldClockManager_citiesMatchingName___block_invoke(uint64_t a1, 
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v9);
@@ -775,8 +764,6 @@ uint64_t __40__WorldClockManager_citiesMatchingName___block_invoke(uint64_t a1, 
   {
     v10 = 0;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

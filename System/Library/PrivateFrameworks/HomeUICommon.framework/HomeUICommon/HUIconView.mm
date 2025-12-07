@@ -10,8 +10,11 @@
 - (void)layoutSubviews;
 - (void)reclaimIconIfPossible;
 - (void)renounceIconIfPossible;
+- (void)setDisableContinuousAnimation:(BOOL)animation;
 - (void)setDisplayContext:(unint64_t)context;
 - (void)setIconSize:(unint64_t)size;
+- (void)setVibrancyEffect:(id)effect animated:(BOOL)animated;
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated;
 @end
 
 @implementation HUIconView
@@ -44,6 +47,130 @@
   contentView = [effectView contentView];
 
   return contentView;
+}
+
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  descriptorCopy = descriptor;
+  currentIconContentView = [(HUIconView *)self currentIconContentView];
+  if (descriptorCopy)
+  {
+    [currentIconContentView setHidden:0];
+
+    currentIconContentView2 = [(HUIconView *)self currentIconContentView];
+    v10 = objc_opt_class();
+
+    v11 = [HUIconContentView iconContentViewClassForIconDescriptor:descriptorCopy];
+    if (v10 != v11)
+    {
+      currentIconContentView3 = [(HUIconView *)self currentIconContentView];
+      [currentIconContentView3 removeFromSuperview];
+
+      currentIconContentView4 = [(HUIconView *)self currentIconContentView];
+
+      if (currentIconContentView4)
+      {
+        v14 = [HUIconContentViewReuseQueue globalReuseQueueForContentViewClass:v10];
+        currentIconContentView5 = [(HUIconView *)self currentIconContentView];
+        [v14 reapContentView:currentIconContentView5];
+      }
+
+      if (v11)
+      {
+        v16 = [HUIconContentViewReuseQueue globalReuseQueueForContentViewClass:v11];
+        dequeueContentView = [v16 dequeueContentView];
+        [(HUIconView *)self setCurrentIconContentView:dequeueContentView];
+
+        [(HUIconView *)self bounds];
+        v19 = v18;
+        v21 = v20;
+        v23 = v22;
+        v25 = v24;
+        currentIconContentView6 = [(HUIconView *)self currentIconContentView];
+        [currentIconContentView6 setFrame:{v19, v21, v23, v25}];
+
+        currentIconContentView7 = [(HUIconView *)self currentIconContentView];
+        [currentIconContentView7 setDelegate:self];
+
+        displayContext = [(HUIconView *)self displayContext];
+        currentIconContentView8 = [(HUIconView *)self currentIconContentView];
+        [currentIconContentView8 setDisplayContext:displayContext];
+
+        disableContinuousAnimation = [(HUIconView *)self disableContinuousAnimation];
+        currentIconContentView9 = [(HUIconView *)self currentIconContentView];
+        [currentIconContentView9 setDisableContinuousAnimation:disableContinuousAnimation];
+
+        iconSize = [(HUIconView *)self iconSize];
+        currentIconContentView10 = [(HUIconView *)self currentIconContentView];
+        [currentIconContentView10 setIconSize:iconSize];
+
+        contentContainerView = [(HUIconView *)self contentContainerView];
+        currentIconContentView11 = [(HUIconView *)self currentIconContentView];
+        [contentContainerView addSubview:currentIconContentView11];
+
+        [(HUIconView *)self invalidateIntrinsicContentSize];
+        [(HUIconView *)self setNeedsLayout];
+      }
+
+      else
+      {
+        [(HUIconView *)self setCurrentIconContentView:0];
+      }
+    }
+
+    currentIconContentView12 = [(HUIconView *)self currentIconContentView];
+    [currentIconContentView12 updateWithIconDescriptor:descriptorCopy displayStyle:style animated:animatedCopy];
+
+    objc_opt_class();
+    currentIconContentView13 = [(HUIconView *)self currentIconContentView];
+    if (objc_opt_isKindOfClass())
+    {
+      v38 = currentIconContentView13;
+    }
+
+    else
+    {
+      v38 = 0;
+    }
+
+    currentIconContentView = v38;
+
+    if (currentIconContentView)
+    {
+      [currentIconContentView setIconContentMode:{-[HUIconView contentMode](self, "contentMode")}];
+    }
+
+    objc_opt_class();
+    currentIconContentView14 = [(HUIconView *)self currentIconContentView];
+    if (objc_opt_isKindOfClass())
+    {
+      v40 = currentIconContentView14;
+    }
+
+    else
+    {
+      v40 = 0;
+    }
+
+    v41 = v40;
+
+    [v41 setUseAssetMarginSize:{-[HUIconView useIntrinsicContentSizeFromAsset](self, "useIntrinsicContentSizeFromAsset") ^ 1}];
+    displayStyle = self->_displayStyle;
+    self->_displayStyle = style;
+    if (v10 != v11 || displayStyle != style)
+    {
+      [(HUIconView *)self _updateVisualEffectStateForVibrancyEffectChange:0];
+    }
+
+    [(HUIconView *)self invalidateIntrinsicContentSize];
+    [(HUIconView *)self setNeedsLayout];
+  }
+
+  else
+  {
+    [currentIconContentView setHidden:1];
+  }
 }
 
 - (void)renounceIconIfPossible
@@ -165,6 +292,17 @@ uint64_t __28__HUIconView_layoutSubviews__block_invoke(uint64_t a1)
   return result;
 }
 
+- (void)setVibrancyEffect:(id)effect animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  effectCopy = effect;
+  if (([(UIVisualEffect *)self->_vibrancyEffect isEqual:?]& 1) == 0)
+  {
+    objc_storeStrong(&self->_vibrancyEffect, effect);
+    [(HUIconView *)self _updateVisualEffectStateForVibrancyEffectChange:1 animated:animatedCopy];
+  }
+}
+
 - (UIVisualEffect)vibrancyEffect
 {
   vibrancyEffect = self->_vibrancyEffect;
@@ -193,7 +331,7 @@ uint64_t __28__HUIconView_layoutSubviews__block_invoke(uint64_t a1)
 {
   animatedCopy = animated;
   changeCopy = change;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   vibrancyEffect = [(HUIconView *)self vibrancyEffect];
   currentIconContentView = [(HUIconView *)self currentIconContentView];
   [currentIconContentView setVibrancyEffect:vibrancyEffect];
@@ -204,7 +342,7 @@ uint64_t __28__HUIconView_layoutSubviews__block_invoke(uint64_t a1)
   displayStyle = [(HUIconView *)self displayStyle];
   effectView = [(HUIconView *)self effectView];
   v13 = effectView;
-  v29 = displayStyle == 2;
+  v28 = displayStyle == 2;
   if (displayStyle == 2 && wantsManagedVibrancyEffect)
   {
     effect = [effectView effect];
@@ -216,13 +354,13 @@ uint64_t __28__HUIconView_layoutSubviews__block_invoke(uint64_t a1)
         v15 = MEMORY[0x277D75D18];
         [(HUIconView *)self vibrancyEffectAnimationDuration];
         v17 = v16;
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __71__HUIconView__updateVisualEffectStateForVibrancyEffectChange_animated___block_invoke;
-        v37[3] = &unk_27977D4F8;
-        v37[4] = self;
-        v38 = vibrancyEffect;
-        [v15 animateWithDuration:v37 animations:v17];
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __71__HUIconView__updateVisualEffectStateForVibrancyEffectChange_animated___block_invoke;
+        v36[3] = &unk_27977D4F8;
+        v36[4] = self;
+        v37 = vibrancyEffect;
+        [v15 animateWithDuration:v36 animations:v17];
       }
 
       else
@@ -238,18 +376,18 @@ uint64_t __28__HUIconView_layoutSubviews__block_invoke(uint64_t a1)
     [effectView setEffect:0];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   currentIconContentView3 = [(HUIconView *)self currentIconContentView];
   managedVisualEffectViews = [currentIconContentView3 managedVisualEffectViews];
 
-  v20 = [managedVisualEffectViews countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v20 = [managedVisualEffectViews countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v34;
+    v22 = *v33;
     if (displayStyle == 2)
     {
       v23 = vibrancyEffect;
@@ -264,23 +402,23 @@ uint64_t __28__HUIconView_layoutSubviews__block_invoke(uint64_t a1)
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(managedVisualEffectViews);
         }
 
-        v25 = *(*(&v33 + 1) + 8 * i);
+        v25 = *(*(&v32 + 1) + 8 * i);
         if (animatedCopy)
         {
           v26 = MEMORY[0x277D75D18];
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __71__HUIconView__updateVisualEffectStateForVibrancyEffectChange_animated___block_invoke_2;
-          v30[3] = &unk_27977D520;
-          v30[4] = v25;
-          v32 = v29;
-          v31 = vibrancyEffect;
-          [v26 animateWithDuration:v30 animations:0.25];
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __71__HUIconView__updateVisualEffectStateForVibrancyEffectChange_animated___block_invoke_2;
+          v29[3] = &unk_27977D520;
+          v29[4] = v25;
+          v31 = v28;
+          v30 = vibrancyEffect;
+          [v26 animateWithDuration:v29 animations:0.25];
         }
 
         else
@@ -289,13 +427,11 @@ uint64_t __28__HUIconView_layoutSubviews__block_invoke(uint64_t a1)
         }
       }
 
-      v21 = [managedVisualEffectViews countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v21 = [managedVisualEffectViews countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v21);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HUIconView__updateVisualEffectStateForVibrancyEffectChange_animated___block_invoke(uint64_t a1)
@@ -340,6 +476,14 @@ uint64_t __71__HUIconView__updateVisualEffectStateForVibrancyEffectChange_animat
   iconDescriptor = [currentIconContentView iconDescriptor];
 
   return iconDescriptor;
+}
+
+- (void)setDisableContinuousAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  self->_disableContinuousAnimation = animation;
+  currentIconContentView = [(HUIconView *)self currentIconContentView];
+  [currentIconContentView setDisableContinuousAnimation:animationCopy];
 }
 
 - (void)setIconSize:(unint64_t)size

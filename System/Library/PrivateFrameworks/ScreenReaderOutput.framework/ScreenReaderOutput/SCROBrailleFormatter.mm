@@ -1,6 +1,7 @@
 @interface SCROBrailleFormatter
 + (void)resetEditingManager;
 - (BOOL)hasPlaceholderText;
+- (SCROBrailleFormatter)initWithOutputContractionMode:(int)mode inputContractionMode:(int)contractionMode outputShowEightDot:(BOOL)dot inputShowEightDot:(BOOL)eightDot showDotsSevenAndEight:(BOOL)eight;
 - (SCROBrailleFormatter)initWithOutputTableIdentifier:(id)identifier inputTableIdentifier:(id)tableIdentifier showDotsSevenAndEight:(BOOL)eight;
 - (_NSRange)_brailleRangeForTextRange:(_NSRange)range textPositions:(id)positions brailleLength:(unint64_t)length;
 - (_NSRange)rangeOfBrailleCellRepresentingCharacterAtIndex:(unint64_t)index;
@@ -23,6 +24,7 @@
 - (void)requestSpeech:(id)speech language:(id)language;
 - (void)scriptSelectionDidChange:(_NSRange)change;
 - (void)setBrailleLineOffset:(id)offset stringLineOffset:(int64_t)lineOffset;
+- (void)translate:(BOOL)translate;
 @end
 
 @implementation SCROBrailleFormatter
@@ -67,6 +69,21 @@
   }
 
   return v12;
+}
+
+- (SCROBrailleFormatter)initWithOutputContractionMode:(int)mode inputContractionMode:(int)contractionMode outputShowEightDot:(BOOL)dot inputShowEightDot:(BOOL)eightDot showDotsSevenAndEight:(BOOL)eight
+{
+  if (mode)
+  {
+    v7 = @"com.apple.scrod.braille.table.duxbury.eng-xueb_g1";
+  }
+
+  else
+  {
+    v7 = @"com.apple.scrod.braille.table.duxbury.eng-xueb_g2";
+  }
+
+  return [(SCROBrailleFormatter *)self initWithOutputTableIdentifier:v7 inputTableIdentifier:v7 showDotsSevenAndEight:eight, eightDot];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -404,6 +421,12 @@ LABEL_9:
   return v3;
 }
 
+- (void)translate:(BOOL)translate
+{
+  mEMORY[0x277CF3318] = [MEMORY[0x277CF3318] sharedModel];
+  [mEMORY[0x277CF3318] forceTranslate];
+}
+
 - (id)printBrailleForText:(id)text language:(id)language mode:(unint64_t)mode textPositionsRange:(_NSRange)range locations:(id *)locations textFormattingRanges:(id)ranges
 {
   length = range.length;
@@ -459,7 +482,7 @@ LABEL_9:
 {
   length = selection.length;
   location = selection.location;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   optionsCopy = options;
   modifiersCopy = modifiers;
@@ -470,37 +493,35 @@ LABEL_9:
   outputDelegatesLock2 = [(SCROBrailleFormatter *)self outputDelegatesLock];
   [outputDelegatesLock2 unlock];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v24;
+    v20 = *v23;
     do
     {
       v21 = 0;
       do
       {
-        if (*v24 != v20)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        [*(*(&v23 + 1) + 8 * v21++) brailleDisplayStringDidChange:changeCopy brailleSelection:location brailleUIOptions:length modifiers:{optionsCopy, modifiersCopy, v23}];
+        [*(*(&v22 + 1) + 8 * v21++) brailleDisplayStringDidChange:changeCopy brailleSelection:location brailleUIOptions:length modifiers:{optionsCopy, modifiersCopy, v22}];
       }
 
       while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v19);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_firstOutputDelegate

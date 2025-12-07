@@ -323,40 +323,38 @@ void sub_1380(__CFSocket *a1)
 
 void HandleJetsamEvent()
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = sub_1948;
-  v13 = sub_1958;
-  v14 = 0;
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x3032000000;
-  v6 = sub_1948;
-  v7 = sub_1958;
-  v8 = 0;
-  v2[0] = _NSConcreteStackBlock;
-  v2[1] = 3221225472;
-  v2[2] = sub_1700;
-  v2[3] = &unk_4288;
-  v2[4] = &v9;
-  v2[5] = &v3;
-  dispatch_sync(qword_45C8, v2);
-  v0 = v4[5];
-  v1 = v10[5];
+  v3[0] = 0;
+  v3[1] = v3;
+  v3[2] = 0x3032000000;
+  v3[3] = sub_1948;
+  v3[4] = sub_1958;
+  v4 = 0;
+  v1[0] = 0;
+  v1[1] = v1;
+  v1[2] = 0x3032000000;
+  v1[3] = sub_1948;
+  v1[4] = sub_1958;
+  v2 = 0;
+  v0[0] = _NSConcreteStackBlock;
+  v0[1] = 3221225472;
+  v0[2] = sub_1700;
+  v0[3] = &unk_4288;
+  v0[4] = v3;
+  v0[5] = v1;
+  dispatch_sync(qword_45C8, v0);
   WriteJetsamMemoryReport();
   CleanPidSet(qword_45D0);
   CleanPidSet(qword_45D8);
-  _Block_object_dispose(&v3, 8);
+  _Block_object_dispose(v1, 8);
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(v3, 8);
 }
 
-void sub_16DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_16DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -367,10 +365,7 @@ uint64_t sub_1700(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = [qword_45D8 copy];
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(*(a1 + 40) + 8) + 40) = [qword_45D8 copy];
 
   return _objc_release_x1();
 }

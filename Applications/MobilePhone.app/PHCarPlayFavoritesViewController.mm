@@ -234,23 +234,23 @@ LABEL_6:
 - (void)programmaticallySelectRowAtIndexPath:(id)path
 {
   pathCopy = path;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(pathCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = pathCopy;
+    v14 = pathCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
   v6 = -[PHCarPlayFavoritesViewController favoritesEntryAtIndex:](self, "favoritesEntryAtIndex:", [pathCopy row]);
-  v7 = PHDefaultLog();
+  v7 = PHDefaultLog(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
     if (v8)
     {
       *buf = 138412290;
-      v13 = v6;
+      v14 = v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Retrieving an audio favorite for favorite (%@).", buf, 0xCu);
     }
 
@@ -258,18 +258,18 @@ LABEL_6:
 
     if (v9)
     {
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = __73__PHCarPlayFavoritesViewController_programmaticallySelectRowAtIndexPath___block_invoke;
-      v10[3] = &unk_100285568;
-      v11 = v9;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = __73__PHCarPlayFavoritesViewController_programmaticallySelectRowAtIndexPath___block_invoke;
+      v11[3] = &unk_100285568;
+      v12 = v9;
       v7 = v9;
-      [v7 performActionWithCompletion:v10];
+      [v7 performActionWithCompletion:v11];
     }
 
     else
     {
-      v7 = PHDefaultLog();
+      v7 = PHDefaultLog(v10);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [PHCarPlayFavoritesViewController programmaticallySelectRowAtIndexPath:v7];
@@ -280,7 +280,7 @@ LABEL_6:
   else if (v8)
   {
     *buf = 138412290;
-    v13 = pathCopy;
+    v14 = pathCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not retrieve a favorite at index path (%@).", buf, 0xCu);
   }
 }
@@ -288,12 +288,13 @@ LABEL_6:
 void __73__PHCarPlayFavoritesViewController_programmaticallySelectRowAtIndexPath___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PHDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __73__PHCarPlayFavoritesViewController_programmaticallySelectRowAtIndexPath___block_invoke_cold_1(a1, v3, v4);
+      __73__PHCarPlayFavoritesViewController_programmaticallySelectRowAtIndexPath___block_invoke_cold_1(a1, v4, v5);
     }
   }
 }

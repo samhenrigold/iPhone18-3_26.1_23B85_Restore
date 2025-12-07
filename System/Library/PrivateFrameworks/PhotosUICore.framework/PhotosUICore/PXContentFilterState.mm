@@ -720,7 +720,7 @@ LABEL_79:
   return v46;
 }
 
-void __44__PXContentFilterState_predicateForUseCase___block_invoke(uint64_t a1, uint64_t a2)
+void __44__PXContentFilterState_predicateForUseCase___block_invoke(uint64_t a1, void *a2)
 {
   if ([*(*(a1 + 32) + 8) dataSourceType] == 6)
   {

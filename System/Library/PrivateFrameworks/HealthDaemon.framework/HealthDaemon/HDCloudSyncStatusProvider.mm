@@ -128,30 +128,28 @@ void __59__HDCloudSyncStatusProvider_fetchSyncStatusWithCompletion___block_invok
   }
 }
 
-void __59__HDCloudSyncStatusProvider_fetchSyncStatusWithCompletion___block_invoke_299(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void __59__HDCloudSyncStatusProvider_fetchSyncStatusWithCompletion___block_invoke_299(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
-  v8 = objc_alloc_init(HDCloudSyncStatus);
-  [(HDCloudSyncStatus *)v8 setLastSuccessfulPullDate:*(*(*(a1 + 40) + 8) + 40)];
-  [(HDCloudSyncStatus *)v8 setLastSuccessfulPushDate:*(*(*(a1 + 48) + 8) + 40)];
-  [(HDCloudSyncStatus *)v8 setLastSuccessfulLitePushDate:*(*(*(a1 + 56) + 8) + 40)];
-  v6 = *(a1 + 72);
-  v7 = *(*(*(a1 + 64) + 8) + 24);
-  (*(*(a1 + 32) + 16))();
+  v6 = objc_alloc_init(HDCloudSyncStatus);
+  [(HDCloudSyncStatus *)v6 setLastSuccessfulPullDate:*(*(a1[5] + 8) + 40)];
+  [(HDCloudSyncStatus *)v6 setLastSuccessfulPushDate:*(*(a1[6] + 8) + 40)];
+  [(HDCloudSyncStatus *)v6 setLastSuccessfulLitePushDate:*(*(a1[7] + 8) + 40)];
+  (*(a1[4] + 16))();
 }
 
 void __59__HDCloudSyncStatusProvider_fetchSyncStatusWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v18 = a3;
+  v17 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     *buf = 138543362;
-    v28 = v7;
+    v27 = v7;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Fetching cloud sync status for all profiles.", buf, 0xCu);
   }
 
@@ -160,48 +158,46 @@ void __59__HDCloudSyncStatusProvider_fetchSyncStatusWithCompletion___block_invok
   v10 = [v9 profileManager];
 
   v11 = [v10 allProfileIdentifiers];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       v15 = 0;
       do
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * v15);
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __59__HDCloudSyncStatusProvider_fetchSyncStatusWithCompletion___block_invoke_301;
-        v19[3] = &unk_278623D28;
-        v19[4] = *(a1 + 32);
-        v19[5] = v16;
-        v20 = *(a1 + 40);
-        v21 = *(a1 + 56);
-        [v5 addTask:{v19, v18}];
+        v16 = *(*(&v21 + 1) + 8 * v15);
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __59__HDCloudSyncStatusProvider_fetchSyncStatusWithCompletion___block_invoke_301;
+        v18[3] = &unk_278623D28;
+        v18[4] = *(a1 + 32);
+        v18[5] = v16;
+        v19 = *(a1 + 40);
+        v20 = *(a1 + 56);
+        [v5 addTask:{v18, v17}];
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
   }
 
-  (*(v18 + 2))(v18, 0, 0);
-
-  v17 = *MEMORY[0x277D85DE8];
+  (*(v17 + 2))(v17, 0, 0);
 }
 
 void __59__HDCloudSyncStatusProvider_fetchSyncStatusWithCompletion___block_invoke_301(void *a1, uint64_t a2, void *a3)
@@ -319,14 +315,14 @@ LABEL_20:
 
 void __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke(uint64_t a1)
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) syncStatus];
   if (+[HDCloudSyncTapToRadar isTapToRadarAllowed])
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-    v121 = 0;
-    v4 = [WeakRetained canPerformCloudSyncWithError:&v121];
-    v5 = v121;
+    v120 = 0;
+    v4 = [WeakRetained canPerformCloudSyncWithError:&v120];
+    v5 = v120;
     if (v4)
     {
       v6 = [*(a1 + 32) _shouldPerformLastSyncDateCheckInternalSetting];
@@ -334,21 +330,21 @@ void __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke(uint64_t a1
       if (v6)
       {
         v7 = *(a1 + 32);
-        v120 = 0;
-        v8 = [v7 _lastLongTimeWithoutSuccessfulCloudSyncReportDateKeyWithError:&v120];
-        v9 = v120;
+        v119 = 0;
+        v8 = [v7 _lastLongTimeWithoutSuccessfulCloudSyncReportDateKeyWithError:&v119];
+        v9 = v119;
         if (!v8)
         {
           _HKInitializeLogging();
-          v23 = *MEMORY[0x277CCC328];
+          v22 = *MEMORY[0x277CCC328];
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
-            v24 = *(a1 + 32);
+            v23 = *(a1 + 32);
             *buf = 138543618;
-            v123 = v24;
-            v124 = 2114;
-            v125 = *&v9;
-            _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Unable to get create lastLongTimeWithoutSuccessfulCloudSyncReportDateKey: %{public}@", buf, 0x16u);
+            v122 = v23;
+            v123 = 2114;
+            v124 = *&v9;
+            _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Unable to get create lastLongTimeWithoutSuccessfulCloudSyncReportDateKey: %{public}@", buf, 0x16u);
           }
 
           goto LABEL_65;
@@ -360,31 +356,31 @@ void __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke(uint64_t a1
 
         if (!v12)
         {
-          v25 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-          [v25 hk_removeObjectsForKeysWithPrefix:@"HDLastLongTimeWithoutSuccessfulCloudSyncReportDate"];
+          v24 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+          [v24 hk_removeObjectsForKeysWithPrefix:@"HDLastLongTimeWithoutSuccessfulCloudSyncReportDate"];
 
           _HKInitializeLogging();
-          v26 = *MEMORY[0x277CCC328];
+          v25 = *MEMORY[0x277CCC328];
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
           {
-            v27 = *(a1 + 32);
-            v28 = v26;
+            v26 = *(a1 + 32);
+            v27 = v25;
             HKDiagnosticStringFromDate();
-            v29 = v10;
-            v31 = v30 = v8;
+            v28 = v10;
+            v30 = v29 = v8;
             *buf = 138543618;
-            v123 = v27;
+            v122 = v26;
             v12 = 0;
-            v124 = 2114;
-            v125 = *&v31;
-            _os_log_impl(&dword_228986000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@: lastCloudSyncReportDate has never been set, set to %{public}@", buf, 0x16u);
+            v123 = 2114;
+            v124 = *&v30;
+            _os_log_impl(&dword_228986000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: lastCloudSyncReportDate has never been set, set to %{public}@", buf, 0x16u);
 
-            v8 = v30;
-            v10 = v29;
+            v8 = v29;
+            v10 = v28;
           }
 
-          v32 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-          [v32 setObject:v10 forKey:v8];
+          v31 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+          [v31 setObject:v10 forKey:v8];
 
           goto LABEL_64;
         }
@@ -399,11 +395,11 @@ void __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke(uint64_t a1
           {
             v16 = *(a1 + 32);
             *buf = 138543874;
-            v123 = v16;
-            v124 = 2048;
-            v125 = v14;
-            v126 = 2048;
-            v127 = 0x4142750000000000;
+            v122 = v16;
+            v123 = 2048;
+            v124 = v14;
+            v125 = 2048;
+            v126 = 0x4142750000000000;
             v17 = "%{public}@: skip last sync date check, timeSinceLastCloudSyncReportDate (%f) < (%f)";
             v18 = v15;
             v19 = 32;
@@ -415,23 +411,23 @@ LABEL_27:
           goto LABEL_64;
         }
 
-        v111 = v12;
+        v110 = v12;
         os_unfair_lock_lock((*(a1 + 32) + 40));
-        v33 = *(a1 + 32);
-        v34 = *(v33 + 44);
-        os_unfair_lock_unlock((v33 + 40));
-        if ((v34 & 1) == 0)
+        v32 = *(a1 + 32);
+        v33 = *(v32 + 44);
+        os_unfair_lock_unlock((v32 + 40));
+        if ((v33 & 1) == 0)
         {
           _HKInitializeLogging();
-          v44 = *MEMORY[0x277CCC328];
-          v12 = v111;
+          v43 = *MEMORY[0x277CCC328];
+          v12 = v110;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
           {
-            v45 = *(a1 + 32);
+            v44 = *(a1 + 32);
             *buf = 138543362;
-            v123 = v45;
+            v122 = v44;
             v17 = "%{public}@: skip last sync date check, cached sync dates haven't been updated yet";
-            v18 = v44;
+            v18 = v43;
             v19 = 12;
             goto LABEL_27;
           }
@@ -442,83 +438,83 @@ LABEL_65:
           goto LABEL_14;
         }
 
-        v110 = v10;
-        v108 = v8;
-        v35 = objc_loadWeakRetained((*(a1 + 32) + 8));
-        v36 = [v35 daemon];
-        v37 = [v36 primaryProfile];
-        v119 = 0;
-        v38 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity retrieveDatabaseIdentifierCreationDateFromProfile:v37 error:&v119];
-        v109 = v119;
+        v109 = v10;
+        v107 = v8;
+        v34 = objc_loadWeakRetained((*(a1 + 32) + 8));
+        v35 = [v34 daemon];
+        v36 = [v35 primaryProfile];
+        v118 = 0;
+        v37 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity retrieveDatabaseIdentifierCreationDateFromProfile:v36 error:&v118];
+        v108 = v118;
 
-        if (!v38)
+        if (!v37)
         {
           _HKInitializeLogging();
-          v46 = *MEMORY[0x277CCC328];
-          v8 = v108;
-          v10 = v110;
-          v12 = v111;
+          v45 = *MEMORY[0x277CCC328];
+          v8 = v107;
+          v10 = v109;
+          v12 = v110;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
-            v47 = *(a1 + 32);
+            v46 = *(a1 + 32);
             *buf = 138543618;
-            v123 = v47;
-            v124 = 2114;
-            v125 = *&v109;
-            _os_log_error_impl(&dword_228986000, v46, OS_LOG_TYPE_ERROR, "%{public}@: unable to determine age of database, necessary for last sync date check %{public}@", buf, 0x16u);
+            v122 = v46;
+            v123 = 2114;
+            v124 = *&v108;
+            _os_log_error_impl(&dword_228986000, v45, OS_LOG_TYPE_ERROR, "%{public}@: unable to determine age of database, necessary for last sync date check %{public}@", buf, 0x16u);
           }
 
           goto LABEL_63;
         }
 
-        v10 = v110;
-        [v110 timeIntervalSinceDate:v38];
-        v12 = v111;
-        if (v39 < 2419200.0)
+        v10 = v109;
+        [v109 timeIntervalSinceDate:v37];
+        v12 = v110;
+        if (v38 < 2419200.0)
         {
-          v40 = v39;
+          v39 = v38;
           _HKInitializeLogging();
-          v41 = *MEMORY[0x277CCC328];
-          v8 = v108;
+          v40 = *MEMORY[0x277CCC328];
+          v8 = v107;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
           {
-            v42 = *(a1 + 32);
+            v41 = *(a1 + 32);
             *buf = 138543874;
-            v123 = v42;
-            v124 = 2048;
-            v125 = v40;
-            v126 = 2048;
-            v127 = 0x4142750000000000;
-            v43 = "%{public}@: skip last sync date check, timeSinceDatabaseCreation (%f) < (%f)";
+            v122 = v41;
+            v123 = 2048;
+            v124 = v39;
+            v125 = 2048;
+            v126 = 0x4142750000000000;
+            v42 = "%{public}@: skip last sync date check, timeSinceDatabaseCreation (%f) < (%f)";
 LABEL_33:
-            _os_log_impl(&dword_228986000, v41, OS_LOG_TYPE_DEFAULT, v43, buf, 0x20u);
+            _os_log_impl(&dword_228986000, v40, OS_LOG_TYPE_DEFAULT, v42, buf, 0x20u);
             goto LABEL_63;
           }
 
           goto LABEL_63;
         }
 
-        v48 = objc_loadWeakRetained((*(a1 + 32) + 8));
-        v49 = [v48 periodicActivityScheduler];
-        v50 = [v49 periodicActivityErrorCount];
+        v47 = objc_loadWeakRetained((*(a1 + 32) + 8));
+        v48 = [v47 periodicActivityScheduler];
+        v49 = [v48 periodicActivityErrorCount];
 
-        if (v50 <= 27)
+        if (v49 <= 27)
         {
-          v51 = v50;
+          v50 = v49;
           _HKInitializeLogging();
-          v41 = *MEMORY[0x277CCC328];
-          v8 = v108;
-          v10 = v110;
+          v40 = *MEMORY[0x277CCC328];
+          v8 = v107;
+          v10 = v109;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
           {
-            v52 = *(a1 + 32);
+            v51 = *(a1 + 32);
             *buf = 138543874;
-            v123 = v52;
-            v124 = 2048;
-            v125 = *&v51;
-            v126 = 2048;
-            v127 = 28;
-            v43 = "%{public}@: skip last sync date check, periodicSyncErrorCount (%ld) < (%ld)";
+            v122 = v51;
+            v123 = 2048;
+            v124 = *&v50;
+            v125 = 2048;
+            v126 = 28;
+            v42 = "%{public}@: skip last sync date check, periodicSyncErrorCount (%ld) < (%ld)";
             goto LABEL_33;
           }
 
@@ -527,202 +523,202 @@ LABEL_63:
           goto LABEL_64;
         }
 
-        v105 = v38;
-        v53 = objc_loadWeakRetained((*(a1 + 32) + 8));
-        v54 = [v53 daemon];
-        v55 = [v54 primaryProfile];
-        v118 = 0;
-        v107 = [HDCloudSyncStoreEntity persistedMostRecentLastSyncDateForProfile:v55 error:&v118];
-        v56 = v118;
+        v104 = v37;
+        v52 = objc_loadWeakRetained((*(a1 + 32) + 8));
+        v53 = [v52 daemon];
+        v54 = [v53 primaryProfile];
+        v117 = 0;
+        v106 = [HDCloudSyncStoreEntity persistedMostRecentLastSyncDateForProfile:v54 error:&v117];
+        v55 = v117;
 
-        if (v56)
+        if (v55)
         {
           _HKInitializeLogging();
-          v57 = *MEMORY[0x277CCC328];
-          v106 = v56;
+          v56 = *MEMORY[0x277CCC328];
+          v105 = v55;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
           {
-            v58 = *(a1 + 32);
+            v57 = *(a1 + 32);
             *buf = 138543618;
-            v123 = v58;
-            v124 = 2114;
-            v125 = *&v56;
-            _os_log_impl(&dword_228986000, v57, OS_LOG_TYPE_DEFAULT, "%{public}@: Could not get most recent successful push %{public}@", buf, 0x16u);
+            v122 = v57;
+            v123 = 2114;
+            v124 = *&v55;
+            _os_log_impl(&dword_228986000, v56, OS_LOG_TYPE_DEFAULT, "%{public}@: Could not get most recent successful push %{public}@", buf, 0x16u);
           }
 
-          v8 = v108;
-          v10 = v110;
-          v12 = v111;
-          v38 = v105;
+          v8 = v107;
+          v10 = v109;
+          v12 = v110;
+          v37 = v104;
           goto LABEL_62;
         }
 
-        v59 = objc_loadWeakRetained((*(a1 + 32) + 8));
-        v60 = [v59 daemon];
-        v61 = [v60 primaryProfile];
-        v117 = 0;
-        v104 = HDMostRecentSuccessfulPullDateForProfile(v61, &v117);
-        v62 = v117;
+        v58 = objc_loadWeakRetained((*(a1 + 32) + 8));
+        v59 = [v58 daemon];
+        v60 = [v59 primaryProfile];
+        v116 = 0;
+        v103 = HDMostRecentSuccessfulPullDateForProfile(v60, &v116);
+        v61 = v116;
 
-        v106 = v62;
-        if (v62)
+        v105 = v61;
+        if (v61)
         {
           _HKInitializeLogging();
-          v63 = *MEMORY[0x277CCC328];
-          v8 = v108;
-          v10 = v110;
-          v12 = v111;
-          v38 = v105;
+          v62 = *MEMORY[0x277CCC328];
+          v8 = v107;
+          v10 = v109;
+          v12 = v110;
+          v37 = v104;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
           {
-            v64 = *(a1 + 32);
+            v63 = *(a1 + 32);
             *buf = 138543618;
-            v123 = v64;
-            v124 = 2114;
-            v125 = *&v106;
-            v65 = "%{public}@: Could not get most recent successful pull %{public}@";
-            v66 = v63;
-            v67 = 22;
+            v122 = v63;
+            v123 = 2114;
+            v124 = *&v105;
+            v64 = "%{public}@: Could not get most recent successful pull %{public}@";
+            v65 = v62;
+            v66 = 22;
 LABEL_51:
-            _os_log_impl(&dword_228986000, v66, OS_LOG_TYPE_DEFAULT, v65, buf, v67);
+            _os_log_impl(&dword_228986000, v65, OS_LOG_TYPE_DEFAULT, v64, buf, v66);
           }
         }
 
         else
         {
-          v8 = v108;
-          v38 = v105;
-          if (v107)
+          v8 = v107;
+          v37 = v104;
+          if (v106)
           {
-            [v110 timeIntervalSinceDate:?];
-            v69 = v68;
+            [v109 timeIntervalSinceDate:?];
+            v68 = v67;
           }
 
           else
           {
-            v70 = [MEMORY[0x277CBEAA8] distantPast];
-            [v110 timeIntervalSinceDate:v70];
-            v69 = v71;
+            v69 = [MEMORY[0x277CBEAA8] distantPast];
+            [v109 timeIntervalSinceDate:v69];
+            v68 = v70;
           }
 
-          if (v104)
+          if (v103)
           {
-            v10 = v110;
-            [v110 timeIntervalSinceDate:?];
-            v73 = v72;
+            v10 = v109;
+            [v109 timeIntervalSinceDate:?];
+            v72 = v71;
           }
 
           else
           {
-            v74 = [MEMORY[0x277CBEAA8] distantPast];
-            [v110 timeIntervalSinceDate:v74];
-            v73 = v75;
+            v73 = [MEMORY[0x277CBEAA8] distantPast];
+            [v109 timeIntervalSinceDate:v73];
+            v72 = v74;
 
-            v10 = v110;
+            v10 = v109;
           }
 
-          v12 = v111;
-          if (v69 >= 2419200.0 || v73 >= 2419200.0)
+          v12 = v110;
+          if (v68 >= 2419200.0 || v72 >= 2419200.0)
           {
             os_unfair_lock_lock((*(a1 + 32) + 40));
-            v103 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            if (v69 >= 2419200.0)
+            v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            if (v68 >= 2419200.0)
             {
-              v78 = MEMORY[0x277CCACA8];
-              v79 = [v2 lastSuccessfulPushDate];
-              v80 = HKDiagnosticStringFromDate();
-              v81 = [v78 stringWithFormat:@"push: %@", v80];
-              [v103 addObject:v81];
+              v77 = MEMORY[0x277CCACA8];
+              v78 = [v2 lastSuccessfulPushDate];
+              v79 = HKDiagnosticStringFromDate();
+              v80 = [v77 stringWithFormat:@"push: %@", v79];
+              [v102 addObject:v80];
 
-              v82 = [v2 lastSuccessfulPushDate];
+              v81 = [v2 lastSuccessfulPushDate];
 
-              if (v82)
+              if (v81)
               {
-                v83 = [MEMORY[0x277CCACA8] stringWithFormat:@"%0.1f seconds ago", *&v69];
-                [v103 addObject:v83];
+                v82 = [MEMORY[0x277CCACA8] stringWithFormat:@"%0.1f seconds ago", *&v68];
+                [v102 addObject:v82];
               }
             }
 
-            if (v73 >= 2419200.0)
+            if (v72 >= 2419200.0)
             {
-              v84 = MEMORY[0x277CCACA8];
-              v85 = [v2 lastSuccessfulPullDate];
-              v86 = HKDiagnosticStringFromDate();
-              v87 = [v84 stringWithFormat:@"pull: %@", v86];
-              [v103 addObject:v87];
+              v83 = MEMORY[0x277CCACA8];
+              v84 = [v2 lastSuccessfulPullDate];
+              v85 = HKDiagnosticStringFromDate();
+              v86 = [v83 stringWithFormat:@"pull: %@", v85];
+              [v102 addObject:v86];
 
-              v88 = [v2 lastSuccessfulPullDate];
+              v87 = [v2 lastSuccessfulPullDate];
 
-              if (v88)
+              if (v87)
               {
-                v89 = [MEMORY[0x277CCACA8] stringWithFormat:@"%0.1f seconds ago", *&v73];
-                [v103 addObject:v89];
+                v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"%0.1f seconds ago", *&v72];
+                [v102 addObject:v88];
               }
             }
 
             os_unfair_lock_unlock((*(a1 + 32) + 40));
-            v90 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-            v91 = [v90 stringArrayForKey:@"HDLongTimeWithoutSuccessfulCloudSyncPeriodicSyncErrorStrings"];
+            v89 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+            v90 = [v89 stringArrayForKey:@"HDLongTimeWithoutSuccessfulCloudSyncPeriodicSyncErrorStrings"];
 
-            v92 = objc_loadWeakRetained((*(a1 + 32) + 8));
-            v93 = [v92 accountProvider];
-            v94 = [v93 getPersistedAccountInfo];
+            v91 = objc_loadWeakRetained((*(a1 + 32) + 8));
+            v92 = [v91 accountProvider];
+            v93 = [v92 getPersistedAccountInfo];
 
-            v95 = MEMORY[0x277CCACA8];
-            v96 = [v103 componentsJoinedByString:{@", "}];
-            v102 = v91;
-            v97 = [v91 componentsJoinedByString:@"\n"];
-            v98 = [v95 stringWithFormat:@"Date of last successful Health data sync (%@) was too long ago and periodic sync has failed (%ld) times, pop the alert!\nPlease file a radar\nAccount Info: (%@)\nRecent Periodic Sync Errors: %@", v96, v50, v94, v97];
+            v94 = MEMORY[0x277CCACA8];
+            v95 = [v102 componentsJoinedByString:{@", "}];
+            v101 = v90;
+            v96 = [v90 componentsJoinedByString:@"\n"];
+            v97 = [v94 stringWithFormat:@"Date of last successful Health data sync (%@) was too long ago and periodic sync has failed (%ld) times, pop the alert!\nPlease file a radar\nAccount Info: (%@)\nRecent Periodic Sync Errors: %@", v95, v49, v93, v96];
 
             _HKInitializeLogging();
-            v99 = *MEMORY[0x277CCC328];
+            v98 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              v101 = *(a1 + 32);
+              v100 = *(a1 + 32);
               *buf = 138543618;
-              v123 = v101;
-              v124 = 2114;
-              v125 = *&v98;
-              _os_log_error_impl(&dword_228986000, v99, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@", buf, 0x16u);
+              v122 = v100;
+              v123 = 2114;
+              v124 = *&v97;
+              _os_log_error_impl(&dword_228986000, v98, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@", buf, 0x16u);
             }
 
-            v115[0] = MEMORY[0x277D85DD0];
-            v115[1] = 3221225472;
-            v115[2] = __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke_336;
-            v115[3] = &unk_278613968;
-            v116 = v98;
-            v112[0] = MEMORY[0x277D85DD0];
-            v112[1] = 3221225472;
-            v112[2] = __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke_3;
-            v112[3] = &unk_278619460;
-            v113 = v110;
-            v8 = v108;
-            v114 = v108;
-            v100 = v98;
-            [HDCloudSyncTapToRadar showTapToRadarRequestWithTitle:@"Health Not Cloud Syncing" message:@"It has been a long time since your Health data has fully synced to iCloud. Please file a radar with Tap-to-Radar." proceed:v115 disable:&__block_literal_global_135 completion:v112];
+            v114[0] = MEMORY[0x277D85DD0];
+            v114[1] = 3221225472;
+            v114[2] = __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke_336;
+            v114[3] = &unk_278613968;
+            v115 = v97;
+            v111[0] = MEMORY[0x277D85DD0];
+            v111[1] = 3221225472;
+            v111[2] = __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke_3;
+            v111[3] = &unk_278619460;
+            v112 = v109;
+            v8 = v107;
+            v113 = v107;
+            v99 = v97;
+            [HDCloudSyncTapToRadar showTapToRadarRequestWithTitle:@"Health Not Cloud Syncing" message:@"It has been a long time since your Health data has fully synced to iCloud. Please file a radar with Tap-to-Radar." proceed:v114 disable:&__block_literal_global_135 completion:v111];
 
-            v10 = v110;
-            v12 = v111;
-            v38 = v105;
+            v10 = v109;
+            v12 = v110;
+            v37 = v104;
             goto LABEL_61;
           }
 
           _HKInitializeLogging();
-          v76 = *MEMORY[0x277CCC328];
+          v75 = *MEMORY[0x277CCC328];
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
           {
-            v77 = *(a1 + 32);
+            v76 = *(a1 + 32);
             *buf = 138544130;
-            v123 = v77;
-            v124 = 2048;
-            v125 = v69;
-            v126 = 2048;
-            v127 = *&v73;
-            v128 = 2048;
-            v129 = 0x4142750000000000;
-            v65 = "%{public}@: skip last sync date check, time since last successful sync push (%f) and pull (%f) are less than (%f)";
-            v66 = v76;
-            v67 = 42;
+            v122 = v76;
+            v123 = 2048;
+            v124 = v68;
+            v125 = 2048;
+            v126 = *&v72;
+            v127 = 2048;
+            v128 = 0x4142750000000000;
+            v64 = "%{public}@: skip last sync date check, time since last successful sync push (%f) and pull (%f) are less than (%f)";
+            v65 = v75;
+            v66 = 42;
             goto LABEL_51;
           }
         }
@@ -750,15 +746,13 @@ LABEL_62:
   {
     v21 = *(a1 + 32);
     *buf = 138543362;
-    v123 = v21;
+    v122 = v21;
     _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: check for last sync date is disabled", buf, 0xCu);
   }
 
   v9 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [v9 hk_removeObjectsForKeysWithPrefix:@"HDLastLongTimeWithoutSuccessfulCloudSyncReportDate"];
 LABEL_14:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke_2()
@@ -805,32 +799,32 @@ void __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke_3(uint64_t 
 
 - (void)setDataUploadRequestStatus:(int64_t)status profileType:(int64_t)type
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_coordinator);
   daemon = [WeakRetained daemon];
   profileManager = [daemon profileManager];
   allProfileIdentifiers = [profileManager allProfileIdentifiers];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v10 = allProfileIdentifiers;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         if ([v15 type] == type)
         {
           v16 = objc_loadWeakRetained(&self->_coordinator);
@@ -843,13 +837,11 @@ void __46__HDCloudSyncStatusProvider_checkLastSyncDate__block_invoke_3(uint64_t 
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lastLongTimeWithoutSuccessfulCloudSyncReportDateKeyWithError:(id *)error
@@ -980,15 +972,15 @@ void __69__HDCloudSyncStatusProvider_updateCachedLastSyncDatesWithCompletion___b
   os_unfair_lock_lock(&self->_lock);
   v3 = objc_alloc_init(HDCloudSyncStatus);
   lastSuccessfulPullDate = [(HDCloudSyncStatus *)self->_lock_cloudSyncStatus lastSuccessfulPullDate];
-  v5 = [lastSuccessfulPullDate copy];
+  v5 = objc_msgSend_copy(lastSuccessfulPullDate);
   [(HDCloudSyncStatus *)v3 setLastSuccessfulPullDate:v5];
 
   lastSuccessfulPushDate = [(HDCloudSyncStatus *)self->_lock_cloudSyncStatus lastSuccessfulPushDate];
-  v7 = [lastSuccessfulPushDate copy];
+  v7 = objc_msgSend_copy(lastSuccessfulPushDate);
   [(HDCloudSyncStatus *)v3 setLastSuccessfulPushDate:v7];
 
   lastSuccessfulLitePushDate = [(HDCloudSyncStatus *)self->_lock_cloudSyncStatus lastSuccessfulLitePushDate];
-  v9 = [lastSuccessfulLitePushDate copy];
+  v9 = objc_msgSend_copy(lastSuccessfulLitePushDate);
   [(HDCloudSyncStatus *)v3 setLastSuccessfulLitePushDate:v9];
 
   os_unfair_lock_unlock(&self->_lock);

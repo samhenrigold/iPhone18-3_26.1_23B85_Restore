@@ -63,7 +63,7 @@
 
 + (id)objectFromEncryptedData:(id)data outCertificate:(__SecCertificate *)certificate outError:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   cf = 0;
   v8 = MEMORY[0x1E695DF88];
   dataCopy = data;
@@ -76,7 +76,7 @@
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v31) = v11;
+      LODWORD(v30) = v11;
       _os_log_impl(&dword_1A795B000, v12, OS_LOG_TYPE_ERROR, "Decryption failed (CMS error): %d", buf, 8u);
     }
 
@@ -112,9 +112,9 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v28 = 0;
-  v20 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:data options:2 format:0 error:&v28];
-  v21 = v28;
+  v27 = 0;
+  v20 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:data options:2 format:0 error:&v27];
+  v21 = v27;
   v22 = v21;
   v15 = 0;
   if (!v20)
@@ -125,7 +125,7 @@ LABEL_13:
       v24 = v23;
       mCVerboseDescription = [v22 MCVerboseDescription];
       *buf = 138543362;
-      v31 = mCVerboseDescription;
+      v30 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v24, OS_LOG_TYPE_ERROR, "Decryption failed (profile data error): %{public}@", buf, 0xCu);
     }
 
@@ -163,8 +163,6 @@ LABEL_14:
     v19 = v20;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
@@ -187,16 +185,16 @@ LABEL_14:
 
 + (id)createAndStoreNewActivationLockBypassCodeAndHash
 {
-  v17 = *MEMORY[0x1E69E9840];
-  [MCCrypto createNewActivationLockBypassCodeOutCode:v16 outRawBytes:v15 outHash:v14];
-  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v16 length:31 encoding:1 freeWhenDone:0];
-  v3 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v14 length:32 freeWhenDone:0];
+  v16 = *MEMORY[0x1E69E9840];
+  [MCCrypto createNewActivationLockBypassCodeOutCode:v15 outRawBytes:v14 outHash:v13];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v15 length:31 encoding:1 freeWhenDone:0];
+  v3 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v13 length:32 freeWhenDone:0];
   v4 = [MCCrypto storeActivationLockBypassCode:v2 hash:v3];
 
-  memset(v16, 0, sizeof(v16));
-  v15[0] = 0;
-  v15[1] = 0;
-  memset(v14, 0, sizeof(v14));
+  memset(v15, 0, sizeof(v15));
+  v14[0] = 0;
+  v14[1] = 0;
+  memset(v13, 0, sizeof(v13));
   v5 = _MCLogObjects;
   if (v4)
   {
@@ -205,8 +203,8 @@ LABEL_14:
       goto LABEL_7;
     }
 
-    v12 = 138543362;
-    v13 = v4;
+    v11 = 138543362;
+    v12 = v4;
     v6 = "Could not store activation lock bypass code. Error: %{public}@";
     v7 = v5;
     v8 = OS_LOG_TYPE_ERROR;
@@ -220,16 +218,15 @@ LABEL_14:
       goto LABEL_7;
     }
 
-    LOWORD(v12) = 0;
+    LOWORD(v11) = 0;
     v6 = "Successfully created and stored new activation lock bypass code.";
     v7 = v5;
     v8 = OS_LOG_TYPE_INFO;
     v9 = 2;
   }
 
-  _os_log_impl(&dword_1A795B000, v7, v8, v6, &v12, v9);
+  _os_log_impl(&dword_1A795B000, v7, v8, v6, &v11, v9);
 LABEL_7:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -237,7 +234,6 @@ LABEL_7:
 + (void)createNewActivationLockBypassCodeOutCode:(char *)code outRawBytes:(char *)bytes outHash:(char *)hash
 {
   bytesCopy = bytes;
-  v14 = *MEMORY[0x1E69E9840];
   arc4random_buf(bytes, 0x10uLL);
   pbkdf2();
   v7 = 0;
@@ -293,7 +289,6 @@ LABEL_7:
 
   *code = createNewActivationLockBypassCodeOutCode_outRawBytes_outHash__kSymbols[*bytesCopy & 7];
   code[1] = 0;
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)storeActivationLockBypassCode:(id)code hash:(id)hash
@@ -302,22 +297,8 @@ LABEL_7:
   hashCopy = hash;
   v7 = [codeCopy length];
   v8 = MEMORY[0x1E697ABE8];
-  if (v7)
+  if (v7 && (v9 = *MEMORY[0x1E697ABE8], v16 = 0, LOWORD(v14) = 1, +[MCKeychain setString:forService:account:label:description:access:group:useSystemKeychain:sysBound:outError:](MCKeychain, "setString:forService:account:label:description:access:group:useSystemKeychain:sysBound:outError:", codeCopy, @"com.apple.managedconfiguration.alescrow", @"escrowCode", 0, 0, v9, @"apple", v14, &v16), (v10 = v16) != 0) || [hashCopy length] && (v11 = *v8, v15 = 0, LOWORD(v14) = 1, +[MCKeychain setData:forService:account:label:description:access:group:useSystemKeychain:sysBound:outError:](MCKeychain, "setData:forService:account:label:description:access:group:useSystemKeychain:sysBound:outError:", hashCopy, @"com.apple.managedconfiguration.alescrow", @"escrowHash", 0, 0, v11, @"apple", v14, &v15), (v10 = v15) != 0))
   {
-    v9 = *MEMORY[0x1E697ABE8];
-    v16 = 0;
-    LOWORD(v14) = 1;
-    [MCKeychain setString:codeCopy forService:@"com.apple.managedconfiguration.alescrow" account:@"escrowCode" label:0 description:0 access:v9 group:@"apple" useSystemKeychain:v14 sysBound:&v16 outError:?];
-    v10 = v16;
-    if (v10)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  if ([hashCopy length] && (v11 = *v8, v15 = 0, LOWORD(v14) = 1, +[MCKeychain setData:forService:account:label:description:access:group:useSystemKeychain:sysBound:outError:](MCKeychain, "setData:forService:account:label:description:access:group:useSystemKeychain:sysBound:outError:", hashCopy, @"com.apple.managedconfiguration.alescrow", @"escrowHash", 0, 0, v11, @"apple", v14, &v15), (v10 = v15) != 0))
-  {
-LABEL_5:
     v12 = v10;
   }
 

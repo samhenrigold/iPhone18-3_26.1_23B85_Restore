@@ -207,8 +207,6 @@
     MEMORY[0x277D82BD8](v14);
     MEMORY[0x277D82BD8](heightAnchor4);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -447,7 +445,6 @@
   [(AKAuthorizationButton *)selfCopy->_authorizationButton addTarget:selfCopy action:v58, v12];
   objc_storeStrong(&v57, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_delegate_validateReadyForAuthorization
@@ -626,7 +623,6 @@ void __80__AKAuthorizationSubPaneConfirmButton__authorizationWithPasscodeButtonS
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_disableBioView
@@ -679,8 +675,6 @@ void __80__AKAuthorizationSubPaneConfirmButton__authorizationWithPasscodeButtonS
     [(AKAuthorizationSubPaneConfirmButton *)selfCopy setBioView:?];
     objc_storeStrong(v17, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)bioAuthFailWithAlertString:(id)string
@@ -979,7 +973,6 @@ void __80__AKAuthorizationSubPaneConfirmButton__authorizationWithPasscodeButtonS
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_enableLAUIAuthMechanism
@@ -1042,7 +1035,6 @@ void __63__AKAuthorizationSubPaneConfirmButton__enableLAUIAuthMechanism__block_i
   }
 
   objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_spaceWithConstant:(double)constant
@@ -1179,7 +1171,6 @@ void __63__AKAuthorizationSubPaneConfirmButton__enableLAUIAuthMechanism__block_i
   MEMORY[0x277D82BD8](widthAnchor);
   MEMORY[0x277D82BD8](bioView4);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupAlertImageWithConstraints:(id)constraints
@@ -1234,7 +1225,6 @@ void __63__AKAuthorizationSubPaneConfirmButton__enableLAUIAuthMechanism__block_i
   MEMORY[0x277D82BD8](heightAnchor);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLabelWithTitle:(id)title
@@ -1332,7 +1322,6 @@ void __63__AKAuthorizationSubPaneConfirmButton__enableLAUIAuthMechanism__block_i
   objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)processAuthenticationSuccessWithCompletionHandler:(id)handler
@@ -1403,7 +1392,6 @@ double __89__AKAuthorizationSubPaneConfirmButton_processAuthenticationSuccessWit
   objc_storeStrong(&v11, 0);
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __85__AKAuthorizationSubPaneConfirmButton__checkIfPasscodeFallbackAllowedWithCompletion___block_invoke(NSObject *a1, void *a2, void *a3)
@@ -1430,7 +1418,6 @@ void __85__AKAuthorizationSubPaneConfirmButton__checkIfPasscodeFallbackAllowedWi
 
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleBiometricAuthFailureWithError:(id)error forContext:(id)context
@@ -1508,14 +1495,13 @@ void __85__AKAuthorizationSubPaneConfirmButton__checkIfPasscodeFallbackAllowedWi
 
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
-uint64_t __87__AKAuthorizationSubPaneConfirmButton__handleBiometricAuthFailureWithError_forContext___block_invoke(uint64_t result, char a2)
+id *__87__AKAuthorizationSubPaneConfirmButton__handleBiometricAuthFailureWithError_forContext___block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 1)
   {
-    return [*(result + 32) _switchToPasscode];
+    return [result[4] _switchToPasscode];
   }
 
   return result;
@@ -1583,11 +1569,16 @@ uint64_t __87__AKAuthorizationSubPaneConfirmButton__handleBiometricAuthFailureWi
 
 void __77__AKAuthorizationSubPaneConfirmButton_finishProcessingWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v18[2] = a1;
-  v18[1] = a1;
-  v18[0] = MEMORY[0x277D82BE0](*(*(a1 + 32) + 40));
-  v17 = MEMORY[0x223DB6C90](*(*(a1 + 32) + 32));
-  if (v18[0] || v17)
+  v19 = a1;
+  v18 = a1;
+  *(&v17 + 1) = MEMORY[0x277D82BE0](*(*(a1 + 32) + 40));
+  *&v17 = MEMORY[0x223DB6C90](*(*(a1 + 32) + 32));
+  if (v17 == 0)
+  {
+    (*(*(a1 + 40) + 16))();
+  }
+
+  else
   {
     v2 = *(a1 + 32);
     v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -1595,10 +1586,10 @@ void __77__AKAuthorizationSubPaneConfirmButton_finishProcessingWithCompletionHan
     [v2 _updateLabelWithTitle:?];
     MEMORY[0x277D82BD8](v3);
     MEMORY[0x277D82BD8](v4);
-    [*(a1 + 32) _waitForTimeInterval:v18[0] withGroup:1.0];
-    (*(v17 + 2))();
+    [*(a1 + 32) _waitForTimeInterval:*(&v17 + 1) withGroup:1.0];
+    (*(v17 + 16))();
     objc_initWeak(&location, *(a1 + 32));
-    group = v18[0];
+    group = *(&v17 + 1);
     v5 = MEMORY[0x277D85CD0];
     v1 = MEMORY[0x277D85CD0];
     queue = v5;
@@ -1616,13 +1607,8 @@ void __77__AKAuthorizationSubPaneConfirmButton_finishProcessingWithCompletionHan
     objc_destroyWeak(&location);
   }
 
-  else
-  {
-    (*(*(a1 + 40) + 16))();
-  }
-
   objc_storeStrong(&v17, 0);
-  objc_storeStrong(v18, 0);
+  objc_storeStrong(&v17 + 1, 0);
 }
 
 uint64_t __77__AKAuthorizationSubPaneConfirmButton_finishProcessingWithCompletionHandler___block_invoke_2(uint64_t a1)
@@ -1842,7 +1828,6 @@ uint64_t __56__AKAuthorizationSubPaneConfirmButton__switchToPasscode__block_invo
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __67__AKAuthorizationSubPaneConfirmButton__performPasscodeValidations___block_invoke(NSObject *a1, void *a2, void *a3)
@@ -1865,7 +1850,6 @@ void __67__AKAuthorizationSubPaneConfirmButton__performPasscodeValidations___blo
   (*(a1[4].isa + 2))(a1[4].isa, location[0] != 0);
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)switchToAccountCreation

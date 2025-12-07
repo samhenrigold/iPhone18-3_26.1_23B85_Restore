@@ -89,11 +89,11 @@ LABEL_20:
         }
       }
 
-      glpTypeIdentifierNodeGetName(v9);
-      v13 = v12;
+      Name = glpTypeIdentifierNodeGetName(v9);
+      v14 = v13;
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v20);
-      glpLogMessage(InfoLog, 0, &v20, "Non-subroutine type '%.*s' in subroutine type list", v15, v16, v17, v18, v13);
+      glpASTNodeGetLocation(v2, &v17);
+      glpLogMessage(InfoLog, 0, &v17, "Non-subroutine type '%.*s' in subroutine type list", v14, Name);
       return glpSAFailed();
     }
 
@@ -148,50 +148,52 @@ uint64_t glpSAGlobalTypeQualifier(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
   QualifierList = glpGlobalTypeQualifierNodeGetQualifierList(a2);
-  v22 = 0;
-  v23 = 0;
   v21 = 0;
-  if (!glpParseQualifiers(a1, 2, QualifierList, 0, &v23, &v22, &v21))
+  v22 = 0;
+  v20 = 0;
+  if (!glpParseQualifiers(a1, 2, QualifierList, 0, &v22, &v21, &v20))
   {
     return glpSAFailed();
   }
 
-  if (v22)
+  if (v21)
   {
     NameTable = glpCompilerGetNameTable(a1);
     if (!glpNameTableGetCurrentFunction(NameTable))
     {
       TopLevelNode = glpCompilerGetTopLevelNode(a1);
-      GlobalTypeQualifier = glpTopLevelNodeGetGlobalTypeQualifier(TopLevelNode, v23);
+      GlobalTypeQualifier = glpTopLevelNodeGetGlobalTypeQualifier(TopLevelNode, v22);
       if (GlobalTypeQualifier)
       {
-        v14 = GlobalTypeQualifier;
-        Allocator = glpCompilerGetAllocator(a1);
-        Layout = glpGlobalTypeQualifierNodeGetLayout(v14);
-        v17 = glpCopyLayoutObject(Allocator, Layout);
-        v18 = glpCompilerGetAllocator(a1);
-        glpASTNodeGetLocation(v2, &v20);
-        if (!glpLayoutObjectAppendMany(v18, a1, &v20, v17, v22))
+        v11 = GlobalTypeQualifier;
+        glpCompilerGetAllocator();
+        v13 = v12;
+        Layout = glpGlobalTypeQualifierNodeGetLayout(v11);
+        v15 = glpCopyLayoutObject(v13, Layout);
+        glpCompilerGetAllocator();
+        v17 = v16;
+        glpASTNodeGetLocation(v2, &v19);
+        if (!glpLayoutObjectAppendMany(v17, a1, &v19, v15, v21))
         {
           return glpSAFailed();
         }
 
         v2 = 0;
-        v22 = v17;
+        v21 = v15;
       }
 
       else
       {
         PrimitiveType = glpGetPrimitiveType(0);
         glpASTNodeSetSaType(v2, PrimitiveType);
-        glpASTNodeSetSaFlags(v2, v23);
+        glpASTNodeSetSaFlags(v2, v22);
         glpGlobalTypeQualifierNodeSetQualifierList(v2, 0);
-        v17 = v22;
-        v14 = v2;
+        v15 = v21;
+        v11 = v2;
       }
 
-      glpGlobalTypeQualifierNodeSetLayout(v14, v17);
-      if (glpCompilerApplyImplictRulesForGlobalTypeQualifier(a1, v14))
+      glpGlobalTypeQualifierNodeSetLayout(v11, v15);
+      if (glpCompilerApplyImplictRulesForGlobalTypeQualifier(a1, v11))
       {
         return v2;
       }
@@ -201,8 +203,8 @@ uint64_t glpSAGlobalTypeQualifier(uint64_t a1, uint64_t a2)
   }
 
   InfoLog = glpCompilerGetInfoLog(a1);
-  glpASTNodeGetLocation(v2, &v20);
-  glpLogMessage(InfoLog, 0, &v20, "Invalid non-global or non-layout type-qualifier", v7, v8, v9, v10, v20.n128_i8[0]);
+  *&v7 = glpASTNodeGetLocation(v2, &v19).n128_u64[0];
+  glpLogMessage(InfoLog, 0, &v19, "Invalid non-global or non-layout type-qualifier", v7);
   return glpSAFailed();
 }
 
@@ -259,12 +261,12 @@ uint64_t glpSAExpressionStatement(uint64_t a1, uint64_t a2)
         else
         {
           v13 = glpASTNodeGetSaType(v8);
-          Allocator = glpCompilerGetAllocator(a1);
-          glpTypeHumanReadableDescription(v13, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, Allocator);
-          v16 = v15;
+          glpCompilerGetAllocator();
+          v15 = glpTypeHumanReadableDescription(v13, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v14);
+          v17 = v16;
           InfoLog = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v2, &v22);
-          glpLogMessage(InfoLog, 0, &v22, "Expression of type '%.*s' - precision can not be inferred and no default precision available", v18, v19, v20, v21, v16);
+          glpASTNodeGetLocation(v2, &v19);
+          glpLogMessage(InfoLog, 0, &v19, "Expression of type '%.*s' - precision can not be inferred and no default precision available", v17, v15);
           return glpSAFailed();
         }
       }
@@ -429,8 +431,8 @@ uint64_t glpSAIfStatement(uint64_t a1, uint64_t a2)
     else
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v22);
-      glpLogMessage(InfoLog, 0, &v22, "Condition must be of type BOOL", v17, v18, v19, v20, v21);
+      *&v17 = glpASTNodeGetLocation(v2, &v18).n128_u64[0];
+      glpLogMessage(InfoLog, 0, &v18, "Condition must be of type BOOL", v17);
       return glpSAFailed();
     }
 
@@ -488,21 +490,22 @@ uint64_t glpSASwitchStatement(uint64_t a1, uint64_t a2)
   if (glpTypeGetKind(SaType) || glpPrimitiveTypeGetPrimitiveType(SaType) != 5 && glpPrimitiveTypeGetPrimitiveType(SaType) != 36)
   {
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(v2, &v65);
-    v15 = "Switch expression must be of type int or uint";
+    v11 = glpASTNodeGetLocation(v2, &v66).n128_u64[0];
+    v12 = "Switch expression must be of type int or uint";
     goto LABEL_4;
   }
 
   if (glpPrimitiveTypeGetPrimitiveType(SaType) != 5)
   {
-    Allocator = glpCompilerGetAllocator(a1);
-    glpASTNodeGetLocation(v8, &v65);
+    glpCompilerGetAllocator();
+    v16 = v15;
+    glpASTNodeGetLocation(v8, &v66);
     PrimitiveType = glpGetPrimitiveType(5u);
     SaFlags = glpASTNodeGetSaFlags(v8);
-    glpMakeTypeConversionNode(Allocator, &v65, PrimitiveType, SaFlags & 0x1F);
-    v22 = v21;
-    glpUnaryOperatorNodeSetExpr(v21, v8);
-    v8 = glpSANode(a1, v22);
+    glpMakeTypeConversionNode(v16, &v66, PrimitiveType, SaFlags & 0x1F);
+    v20 = v19;
+    glpUnaryOperatorNodeSetExpr(v19, v8);
+    v8 = glpSANode(a1, v20);
     if (v8 == -1)
     {
       return glpSAFailed();
@@ -512,189 +515,191 @@ uint64_t glpSASwitchStatement(uint64_t a1, uint64_t a2)
   glpSwitchStatementNodeSetExpr(v2, v8);
   if (!glpCompilerDoesTypeRequirePrecision(a1, SaType))
   {
-    v23 = 0;
+    v21 = 0;
     goto LABEL_20;
   }
 
-  v23 = glpASTNodeGetSaFlags(v8) & 0x1F;
-  if (!v23)
+  v21 = glpASTNodeGetSaFlags(v8) & 0x1F;
+  if (!v21)
   {
     DefaultPrecisionForType = glpGetDefaultPrecisionForType(a1, SaType);
     if (DefaultPrecisionForType)
     {
-      v23 = DefaultPrecisionForType;
+      v21 = DefaultPrecisionForType;
       glpPushdownPrecision(a1, v8, DefaultPrecisionForType);
       goto LABEL_20;
     }
 
-    v54 = glpCompilerGetAllocator(a1);
-    glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v54);
+    glpCompilerGetAllocator();
+    v54 = glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v53);
     v56 = v55;
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(v2, &v65);
+    v11 = glpASTNodeGetLocation(v2, &v66).n128_u64[0];
     v58 = v56;
-    v15 = "Switch condition of type '%.*s' - precision can not be inferred and no default precision available";
+    v59 = v54;
+    v12 = "Switch condition of type '%.*s' - precision can not be inferred and no default precision available";
 LABEL_4:
-    v16 = InfoLog;
+    v13 = InfoLog;
     goto LABEL_5;
   }
 
 LABEL_20:
   Body = glpSwitchStatementNodeGetBody(v2);
-  v26 = glpCompilerGetAllocator(a1);
-  IntHash = glpMakeIntHash(v26);
+  glpCompilerGetAllocator();
+  IntHash = glpMakeIntHash(v24);
   if (glpBlockNodeGetStatementCount(Body))
   {
-    v59 = v23;
-    v60 = IntHash;
+    v60 = v21;
+    v61 = IntHash;
+    v26 = 0;
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v30 = 0;
     while (1)
     {
-      Statement = glpBlockNodeGetStatement(Body, v29);
+      Statement = glpBlockNodeGetStatement(Body, v27);
       Kind = glpASTNodeGetKind(Statement);
       if (Kind == 70)
       {
         ConstValue = glpCaseStatementNodeGetConstValue(Statement);
-        v35 = glpSANode(a1, ConstValue);
-        if (v35 == -1)
+        v33 = glpSANode(a1, ConstValue);
+        if (v33 == -1)
         {
           return glpSAFailed();
         }
 
-        v36 = v35;
-        v37 = glpCompilerGetNameTable(a1);
-        if (glpNameTableGetGLSLVersion(v37) == 6)
+        v34 = v33;
+        v35 = glpCompilerGetNameTable(a1);
+        if (glpNameTableGetGLSLVersion(v35) == 6)
         {
-          v38 = glpASTNodeGetSaType(v36);
-          if (!glpTypesEqual(SaType, v38))
+          v36 = glpASTNodeGetSaType(v34);
+          if (!glpTypesEqual(SaType, v36))
           {
-            v53 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(Statement, &v65);
-            v15 = "Type of 'case' expressions must match type of 'switch' expression";
+            v52 = glpCompilerGetInfoLog(a1);
+            v11 = glpASTNodeGetLocation(Statement, &v66).n128_u64[0];
+            v12 = "Type of 'case' expressions must match type of 'switch' expression";
             goto LABEL_50;
           }
         }
 
-        v39 = glpCompilerGetAllocator(a1);
-        glpASTNodeGetLocation(v36, &v65);
-        v40 = glpGetPrimitiveType(5u);
-        glpMakeTypeConversionNode(v39, &v65, v40, v59);
-        v42 = v41;
-        glpUnaryOperatorNodeSetExpr(v41, v36);
-        v43 = glpSANode(a1, v42);
-        if (v43 == -1)
+        glpCompilerGetAllocator();
+        v38 = v37;
+        glpASTNodeGetLocation(v34, &v66);
+        v39 = glpGetPrimitiveType(5u);
+        glpMakeTypeConversionNode(v38, &v66, v39, v60);
+        v41 = v40;
+        glpUnaryOperatorNodeSetExpr(v40, v34);
+        v42 = glpSANode(a1, v41);
+        if (v42 == -1)
         {
           return glpSAFailed();
         }
 
-        v44 = v43;
-        glpCaseStatementNodeSetConstValue(Statement, v43);
-        if (!glpIsConstantNode(v44))
+        v43 = v42;
+        glpCaseStatementNodeSetConstValue(Statement, v42);
+        if (!glpIsConstantNode(v43))
         {
-          v53 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(Statement, &v65);
-          v15 = "Value of 'case' expression must be constant";
+          v52 = glpCompilerGetInfoLog(a1);
+          v11 = glpASTNodeGetLocation(Statement, &v66).n128_u64[0];
+          v12 = "Value of 'case' expression must be constant";
           goto LABEL_50;
         }
 
-        v45 = *glpConstantNodeGetValue(v44);
-        v46 = glpIntHashGet(v60, v45);
-        if (v46)
+        v44 = *glpConstantNodeGetValue(v43);
+        v45 = glpIntHashGet(v61, v44);
+        if (v45)
         {
-          v57 = v46;
-          v53 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(Statement, &v65);
-          glpASTNodeGetLocation(v57, &v61);
-          v58 = v62;
-          v15 = "Duplicate case value found.  Previous occurrence on line %d";
+          v57 = v45;
+          v52 = glpCompilerGetInfoLog(a1);
+          glpASTNodeGetLocation(Statement, &v66);
+          v11 = glpASTNodeGetLocation(v57, &v62).n128_u64[0];
+          v58 = v63;
+          v12 = "Duplicate case value found.  Previous occurrence on line %d";
           goto LABEL_50;
         }
 
-        glpIntHashPut(v60, v45, Statement, v47);
+        glpIntHashPut(v61, v44, Statement, v46);
         glpCaseStatementNodeSetIsStray(Statement, 0);
-        v33 = 0;
+        v31 = 0;
       }
 
       else
       {
         if (Kind == 71)
         {
-          if (v30)
+          if (v28)
           {
-            v53 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(Statement, &v65);
-            glpASTNodeGetLocation(v30, &v63);
-            v58 = v64;
-            v15 = "Multiple default statements in switch see line %d";
+            v52 = glpCompilerGetInfoLog(a1);
+            glpASTNodeGetLocation(Statement, &v66);
+            v11 = glpASTNodeGetLocation(v28, &v64).n128_u64[0];
+            v58 = v65;
+            v12 = "Multiple default statements in switch see line %d";
             goto LABEL_50;
           }
 
           glpDefaultStatementNodeSetIsStray(Statement, 0);
-          v33 = 0;
+          v31 = 0;
           goto LABEL_36;
         }
 
-        if ((v28 & 1) == 0)
+        if ((v26 & 1) == 0)
         {
-          v53 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(Statement, &v65);
-          v15 = "First statement in switch is not case/default";
+          v52 = glpCompilerGetInfoLog(a1);
+          v11 = glpASTNodeGetLocation(Statement, &v66).n128_u64[0];
+          v12 = "First statement in switch is not case/default";
           goto LABEL_50;
         }
 
-        v33 = 1;
+        v31 = 1;
       }
 
-      Statement = v30;
+      Statement = v28;
 LABEL_36:
-      ++v29;
-      v28 = 1;
-      v30 = Statement;
-      if (v29 >= glpBlockNodeGetStatementCount(Body))
+      ++v27;
+      v26 = 1;
+      v28 = Statement;
+      if (v27 >= glpBlockNodeGetStatementCount(Body))
       {
-        IntHash = v60;
-        if (v33)
+        IntHash = v61;
+        if (v31)
         {
           break;
         }
 
-        v53 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(Body, &v65);
-        v15 = "Expected statement after final 'case'/'default'";
+        v52 = glpCompilerGetInfoLog(a1);
+        v11 = glpASTNodeGetLocation(Body, &v66).n128_u64[0];
+        v12 = "Expected statement after final 'case'/'default'";
 LABEL_50:
-        v16 = v53;
+        v13 = v52;
 LABEL_5:
-        glpLogMessage(v16, 0, &v65, v15, v11, v12, v13, v14, v58);
+        glpLogMessage(v13, 0, &v66, v12, *&v11, v58, v59);
         return glpSAFailed();
       }
     }
   }
 
   glpDestroyIntHash(IntHash);
-  v48 = glpSwitchStatementNodeGetExpr(v2);
-  v49 = glpSANode(a1, v48);
-  if (v49 != -1)
+  v47 = glpSwitchStatementNodeGetExpr(v2);
+  v48 = glpSANode(a1, v47);
+  if (v48 != -1)
   {
-    glpSwitchStatementNodeSetExpr(v2, v49);
+    glpSwitchStatementNodeSetExpr(v2, v48);
   }
 
-  v50 = glpSwitchStatementNodeGetBody(v2);
-  v51 = glpSANode(a1, v50);
-  if (v51 == -1)
-  {
-    return glpSAFailed();
-  }
-
-  glpSwitchStatementNodeSetBody(v2, v51);
-  if (v49 == -1)
+  v49 = glpSwitchStatementNodeGetBody(v2);
+  v50 = glpSANode(a1, v49);
+  if (v50 == -1)
   {
     return glpSAFailed();
   }
 
-  v52 = glpGetPrimitiveType(0);
-  glpASTNodeSetSaType(v2, v52);
+  glpSwitchStatementNodeSetBody(v2, v50);
+  if (v48 == -1)
+  {
+    return glpSAFailed();
+  }
+
+  v51 = glpGetPrimitiveType(0);
+  glpASTNodeSetSaType(v2, v51);
   --*(CurrentFunction + 124);
   return v2;
 }
@@ -717,8 +722,8 @@ uint64_t glpSACaseStatement(uint64_t a1, uint64_t a2)
     if (glpCaseStatementNodeGetIsStray(v2))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v14);
-      glpLogMessage(InfoLog, 0, &v14, "case disallowed outside switch body", v7, v8, v9, v10, v13);
+      *&v7 = glpASTNodeGetLocation(v2, &v10).n128_u64[0];
+      glpLogMessage(InfoLog, 0, &v10, "case disallowed outside switch body", v7);
       return glpSAFailed();
     }
 
@@ -739,8 +744,8 @@ uint64_t glpSADefaultStatement(uint64_t a1, uint64_t a2)
   if (glpDefaultStatementNodeGetIsStray(v2))
   {
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(v2, &v12);
-    glpLogMessage(InfoLog, 0, &v12, "default disallowed outside switch body", v5, v6, v7, v8, v11);
+    *&v5 = glpASTNodeGetLocation(v2, &v8).n128_u64[0];
+    glpLogMessage(InfoLog, 0, &v8, "default disallowed outside switch body", v5);
     return glpSAFailed();
   }
 
@@ -758,8 +763,7 @@ uint64_t glpSABreakStatement(uint64_t a1, uint64_t a2)
   v2 = a2;
   glpSAStatement(a2);
   NameTable = glpCompilerGetNameTable(a1);
-  CurrentFunction = glpNameTableGetCurrentFunction(NameTable);
-  if (*(CurrentFunction + 124) || *(CurrentFunction + 120))
+  if (*(glpNameTableGetCurrentFunction(NameTable) + 120))
   {
     PrimitiveType = glpGetPrimitiveType(0);
     glpASTNodeSetSaType(v2, PrimitiveType);
@@ -768,8 +772,8 @@ uint64_t glpSABreakStatement(uint64_t a1, uint64_t a2)
   else
   {
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(v2, &v14);
-    glpLogMessage(InfoLog, 0, &v14, "break disallowed outside switch/loop body", v9, v10, v11, v12, v13);
+    *&v8 = glpASTNodeGetLocation(v2, &v9).n128_u64[0];
+    glpLogMessage(InfoLog, 0, &v9, "break disallowed outside switch/loop body", v8);
     return glpSAFailed();
   }
 
@@ -790,8 +794,8 @@ uint64_t glpSAContinueStatement(uint64_t a1, uint64_t a2)
   else
   {
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(v2, &v13);
-    glpLogMessage(InfoLog, 0, &v13, "continue disallowed outside loop body", v7, v8, v9, v10, v12);
+    *&v7 = glpASTNodeGetLocation(v2, &v9).n128_u64[0];
+    glpLogMessage(InfoLog, 0, &v9, "continue disallowed outside loop body", v7);
     return glpSAFailed();
   }
 
@@ -812,8 +816,8 @@ uint64_t glpSADiscardStatement(uint64_t a1, uint64_t a2)
   else
   {
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(v2, &v13);
-    glpLogMessage(InfoLog, 0, &v13, "'discard' is only meaningful in the fragment shader.", v7, v8, v9, v10, v12);
+    *&v7 = glpASTNodeGetLocation(v2, &v9).n128_u64[0];
+    glpLogMessage(InfoLog, 0, &v9, "'discard' is only meaningful in the fragment shader.", v7);
     return glpSAFailed();
   }
 
@@ -847,12 +851,8 @@ uint64_t glpSAReturnStatement(uint64_t a1, uint64_t a2)
     if ((*(CurrentFunction + 9) & 0x20) != 0 && *(CurrentFunction + 112))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v40);
-      v36 = *(v12 + 32);
-      v37 = *(v12 + 24);
-      v18 = "Inline function '%.*s' can only have 1 return";
-LABEL_11:
-      glpLogMessage(InfoLog, 0, &v40, v18, v14, v15, v16, v17, v36);
+      *&v14 = glpASTNodeGetLocation(v2, &v36).n128_u64[0];
+      glpLogMessage(InfoLog, 0, &v36, "Inline function '%.*s' can only have 1 return", v14);
       return glpSAFailed();
     }
 
@@ -862,18 +862,18 @@ LABEL_11:
     {
       ImplicitConversionPolicy = glpCompilerGetImplicitConversionPolicy(a1);
       PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v9);
-      v23 = glpPrimitiveTypeGetPrimitiveType(ReturnType);
-      if (!glpCanConvert(PrimitiveType, v23, ImplicitConversionPolicy))
+      v19 = glpPrimitiveTypeGetPrimitiveType(ReturnType);
+      if (!glpCanConvert(PrimitiveType, v19, ImplicitConversionPolicy))
       {
-        InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v40);
-        v18 = "Expression in 'return' statement must match return type of function (and no available implicit conversion)";
-        goto LABEL_11;
+        v33 = glpCompilerGetInfoLog(a1);
+        glpASTNodeGetLocation(v2, &v36);
+        glpLogMessage(v33, 0, &v36, "Expression in 'return' statement must match return type of function (and no available implicit conversion)");
+        return glpSAFailed();
       }
 
-      v24 = glpReturnStatementNodeGetExpr(v2);
-      v25 = glpConvert(a1, v24, ReturnType, 0);
-      glpReturnStatementNodeSetExpr(v2, v25);
+      v20 = glpReturnStatementNodeGetExpr(v2);
+      v21 = glpConvert(a1, v20, ReturnType, 0);
+      glpReturnStatementNodeSetExpr(v2, v21);
     }
 
     glpASTNodeSetSaType(v2, v9);
@@ -883,30 +883,31 @@ LABEL_11:
       return v2;
     }
 
-    v40 = 0uLL;
-    v41 = 0;
-    glpASTNodeGetLocation(v2, &v40);
-    v26 = *(glpReturnStatementNodeGetExtra(v2) + 72);
-    v38 = v40;
-    v39 = v41;
-    LValueForVariableObject = glpMakeLValueForVariableObject(a1, &v38, v26);
-    Allocator = glpCompilerGetAllocator(a1);
-    v38 = v40;
-    v39 = v41;
-    glpMakeCommaExprNode(Allocator, &v38, 0);
-    v30 = v29;
-    v31 = glpCompilerGetAllocator(a1);
-    v32 = glpReturnStatementNodeGetExpr(v2);
-    v38 = v40;
-    v39 = v41;
-    AssignFragment = glpMakeAssignFragment(a1, &v38, LValueForVariableObject, v32);
-    glpCommaExprNodeAddExpr(v31, v30, AssignFragment);
-    v34 = glpCompilerGetAllocator(a1);
-    glpCommaExprNodeAddExpr(v34, v30, v2);
+    v36 = 0uLL;
+    v37 = 0;
+    glpASTNodeGetLocation(v2, &v36);
+    v22 = *(glpReturnStatementNodeGetExtra(v2) + 72);
+    v34 = v36;
+    v35 = v37;
+    LValueForVariableObject = glpMakeLValueForVariableObject(a1, &v34, v22);
+    glpCompilerGetAllocator();
+    v34 = v36;
+    v35 = v37;
+    glpMakeCommaExprNode(v24, &v34, 0);
+    v26 = v25;
+    glpCompilerGetAllocator();
+    v28 = v27;
+    v29 = glpReturnStatementNodeGetExpr(v2);
+    v34 = v36;
+    v35 = v37;
+    AssignFragment = glpMakeAssignFragment(a1, &v34, LValueForVariableObject, v29);
+    glpCommaExprNodeAddExpr(v28, v26, AssignFragment);
+    glpCompilerGetAllocator();
+    glpCommaExprNodeAddExpr(v31, v26, v2);
     glpReturnStatementNodeSetExpr(v2, 0);
-    v35 = glpGetPrimitiveType(0);
-    glpASTNodeSetSaType(v2, v35);
-    return glpSANode(a1, v30);
+    v32 = glpGetPrimitiveType(0);
+    glpASTNodeSetSaType(v2, v32);
+    return glpSANode(a1, v26);
   }
 
   return glpSAFailed();
@@ -956,10 +957,10 @@ LABEL_8:
     if (glpNameTableGetLanguage(v15) == 1 && !glpCheckBarrier(a2))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      v23[0] = "-1";
-      v23[1] = 0xEDA00000002;
-      v23[2] = 0xFFFFFFFFLL;
-      glpLogMessage(InfoLog, 0, v23, "You can't call barrier() outside main, within control flow, or after a return statement.", v17, v18, v19, v20, v22);
+      v18[0] = "-1";
+      v18[1] = 0xEDA00000002;
+      v18[2] = 0xFFFFFFFFLL;
+      glpLogMessage(InfoLog, 0, v18, "You can't call barrier() outside main, within control flow, or after a return statement.");
       return glpSAFailed();
     }
 
@@ -1184,10 +1185,10 @@ uint64_t glpSACall(uint64_t a1, uint64_t a2)
   return glpSAFailed();
 }
 
-uint64_t __glpSAUndeterminedCall_block_invoke(uint64_t result, int a2, uint64_t a3, uint64_t a4, _DWORD *a5)
+void *__glpSAUndeterminedCall_block_invoke(void *result, int a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
   v8 = result;
-  if (a2 == 4 || a2 == 7 || (result = glpNameTableGetGLSLVersion(*(result + 48)), result != 1) && (result = glpCompilerGetIOSVersion(v8[7]), result >= 9))
+  if (a2 == 4 || a2 == 7 || (result = glpNameTableGetGLSLVersion(result[6]), result != 1) && (result = glpCompilerGetIOSVersion(v8[7]), result >= 9))
   {
     *(*(v8[4] + 8) + 24) = a2;
     *(*(v8[5] + 8) + 24) = a3;
@@ -1223,19 +1224,19 @@ uint64_t glpSAIncrementOperator(uint64_t a1, uint64_t a2)
     if (glpTypeGetKind(SaType))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v16);
-      v11 = "Pre- or post- -increment or -decrement of nonprimitive type";
+      *&v7 = glpASTNodeGetLocation(v2, &v17).n128_u64[0];
+      glpLogMessage(InfoLog, 0, &v17, "Pre- or post- -increment or -decrement of nonprimitive type", v7);
     }
 
     else
     {
-      v13 = glpASTNodeGetSaType(Expr);
-      PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v13);
+      v9 = glpASTNodeGetSaType(Expr);
+      PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v9);
       if (glpPrimitiveTypeGetCategory(PrimitiveType) - 1 >= 3)
       {
-        InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v16);
-        v11 = "Pre- or post- -increment or -decrement of nonscalar nonvector nonmatrix type";
+        v13 = glpCompilerGetInfoLog(a1);
+        *&v14 = glpASTNodeGetLocation(v2, &v17).n128_u64[0];
+        glpLogMessage(v13, 0, &v17, "Pre- or post- -increment or -decrement of nonscalar nonvector nonmatrix type", v14);
       }
 
       else if (glpIsLValueNode(Expr))
@@ -1245,20 +1246,19 @@ uint64_t glpSAIncrementOperator(uint64_t a1, uint64_t a2)
           return v2;
         }
 
-        InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v16);
-        v11 = "Pre- or post- -increment or -decrement of read-only variable";
+        v11 = glpCompilerGetInfoLog(a1);
+        *&v12 = glpASTNodeGetLocation(v2, &v17).n128_u64[0];
+        glpLogMessage(v11, 0, &v17, "Pre- or post- -increment or -decrement of read-only variable", v12);
       }
 
       else
       {
-        InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v16);
-        v11 = "Pre- or post- -increment or -decrement of non-lvalue";
+        v15 = glpCompilerGetInfoLog(a1);
+        *&v16 = glpASTNodeGetLocation(v2, &v17).n128_u64[0];
+        glpLogMessage(v15, 0, &v17, "Pre- or post- -increment or -decrement of non-lvalue", v16);
       }
     }
 
-    glpLogMessage(InfoLog, 0, &v16, v11, v7, v8, v9, v10, v15);
     return glpSAFailed();
   }
 
@@ -1389,10 +1389,10 @@ uint64_t __glpSAFunctionPrototype_block_invoke(uint64_t result, int a2, uint64_t
   return result;
 }
 
-uint64_t __glpSAFunctionPrototype_block_invoke_2(uint64_t result, int a2, uint64_t a3, int a4, _DWORD *a5)
+void *__glpSAFunctionPrototype_block_invoke_2(void *result, int a2, uint64_t a3, int a4, _DWORD *a5)
 {
   v9 = result;
-  if (a2 == 4 || (result = glpNameTableGetGLSLVersion(*(result + 56)), result != 1))
+  if (a2 == 4 || (result = glpNameTableGetGLSLVersion(result[7]), result != 1))
   {
     *(*(v9[4] + 8) + 24) = a2;
     *(*(v9[5] + 8) + 24) = a3;
@@ -1418,10 +1418,10 @@ uint64_t __glpSAFunctionPrototype_block_invoke_4(uint64_t result, uint64_t a2, u
   return result;
 }
 
-uint64_t __glpSAVariableDeclaration_block_invoke(uint64_t result, int a2, uint64_t a3, int a4, _DWORD *a5)
+void *__glpSAVariableDeclaration_block_invoke(void *result, int a2, uint64_t a3, int a4, _DWORD *a5)
 {
   v9 = result;
-  if (!a2 || a2 == 6 || (result = glpNameTableGetGLSLVersion(*(result + 56)), result != 1))
+  if (!a2 || a2 == 6 || (result = glpNameTableGetGLSLVersion(result[7]), result != 1))
   {
     *(*(v9[4] + 8) + 24) = a2;
     *(*(v9[5] + 8) + 24) = a3;
@@ -1551,76 +1551,74 @@ char *glpSetFilename(uint64_t a1, char *__s)
 
 char *glpSetFileNumber(uint64_t a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v20 = *MEMORY[0x277D85DE8];
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  v7 = 0u;
+  v11 = 0u;
   v8 = 0u;
-  *__s = 0u;
+  v9 = 0u;
   v6 = 0u;
+  v7 = 0u;
+  *__s = 0u;
+  v5 = 0u;
   snprintf_l(__s, 0x100uLL, 0, "%d", a2);
-  result = glpSetFilename(a1, __s);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return glpSetFilename(a1, __s);
 }
 
-uint64_t yylex(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t yylex(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a1;
-  if (!*(a3 + 80))
+  if (!*(a3 + 20))
   {
-    *(a3 + 80) = 1;
-    if (!*(a3 + 84))
+    *(a3 + 20) = 1;
+    if (!*(a3 + 21))
     {
-      *(a3 + 84) = 1;
+      *(a3 + 21) = 1;
     }
 
-    if (!*(a3 + 8))
+    if (!a3[1])
     {
-      *(a3 + 8) = *MEMORY[0x277D85E00];
+      a3[1] = *MEMORY[0x277D85E00];
     }
 
-    if (!*(a3 + 16))
+    if (!a3[2])
     {
-      *(a3 + 16) = *MEMORY[0x277D85E08];
+      a3[2] = *MEMORY[0x277D85E08];
     }
 
-    v5 = *(a3 + 40);
-    if (!v5 || (v6 = *(a3 + 24), (v7 = *(v5 + 8 * v6)) == 0))
+    v5 = a3[5];
+    if (!v5 || (v6 = a3[3], (v7 = *(v5 + 8 * v6)) == 0))
     {
       yyensure_buffer_stack(a3);
-      buffer = yy_create_buffer(*(a3 + 8), 0x4000, a3);
+      buffer = yy_create_buffer(a3[1], 0x4000, a3);
       v4 = a1;
-      v6 = *(a3 + 24);
-      *(*(a3 + 40) + 8 * v6) = buffer;
-      v5 = *(a3 + 40);
+      v6 = a3[3];
+      *(a3[5] + 8 * v6) = buffer;
+      v5 = a3[5];
       v7 = *(v5 + 8 * v6);
     }
 
-    *(a3 + 56) = *(v7 + 32);
+    a3[7] = *(v7 + 32);
     v10 = *(v7 + 16);
-    *(a3 + 72) = v10;
-    *(a3 + 136) = v10;
-    *(a3 + 8) = **(v5 + 8 * v6);
+    a3[9] = v10;
+    a3[17] = v10;
+    a3[1] = **(v5 + 8 * v6);
     *(a3 + 48) = *v10;
   }
 
-  v11 = (a3 + 72);
-  v12 = (a3 + 120);
+  v11 = a3 + 9;
+  v12 = a3 + 15;
 LABEL_13:
-  v13 = *(a3 + 72);
+  v13 = a3[9];
   *v13 = *(a3 + 48);
-  v14 = *(a3 + 84);
+  v14 = *(a3 + 21);
   v15 = v13;
   do
   {
@@ -1628,8 +1626,8 @@ LABEL_14:
     v16 = yy_ec[*v15];
     if (yy_accept[v14])
     {
-      *(a3 + 112) = v14;
-      *(a3 + 120) = v15;
+      *(a3 + 28) = v14;
+      a3[15] = v15;
     }
 
     v17 = v14;
@@ -1657,16 +1655,16 @@ LABEL_14:
   while (v14 != 875);
   while (1)
   {
-    previous_state = *(a3 + 112);
+    previous_state = *(a3 + 28);
     v20 = v12;
 LABEL_22:
     v21 = *v20;
     v22 = yy_accept[previous_state];
-    *(a3 + 136) = v13;
-    *(a3 + 64) = v21 - v13;
+    a3[17] = v13;
+    a3[8] = v21 - v13;
     *(a3 + 48) = *v21;
     *v21 = 0;
-    *(a3 + 72) = v21;
+    a3[9] = v21;
 LABEL_23:
     switch(v22)
     {
@@ -1839,7 +1837,7 @@ LABEL_23:
       case 169:
       case 181:
       case 190:
-        v47 = *a3;
+        v46 = *a3;
         goto LABEL_52;
       case 9:
         *(v4 + 8) = *(*a3 + 344);
@@ -1870,20 +1868,20 @@ LABEL_23:
         *(*a3 + 20) = 1;
         return 273;
       case 16:
-        v58 = *(*a3 + 40);
+        v57 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
-        if (v58 <= 5)
+        if (v57 <= 5)
         {
           goto LABEL_47;
         }
 
         return 342;
       case 18:
-        v56 = *(*a3 + 40);
+        v55 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
-        if (v56 <= 5)
+        if (v55 <= 5)
         {
           goto LABEL_47;
         }
@@ -1898,10 +1896,10 @@ LABEL_23:
         *(v4 + 16) = *(*a3 + 340);
         return 264;
       case 23:
-        v57 = *(*a3 + 40);
+        v56 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
-        if (v57 <= 5)
+        if (v56 <= 5)
         {
           goto LABEL_47;
         }
@@ -1920,13 +1918,13 @@ LABEL_23:
         *(v4 + 16) = *(*a3 + 340);
         return 266;
       case 48:
-        v47 = *a3;
+        v46 = *a3;
         if (*(*a3 + 40) < 6u)
         {
           goto LABEL_52;
         }
 
-        *(v4 + 8) = *(v47 + 344);
+        *(v4 + 8) = *(v46 + 344);
         *(v4 + 16) = *(*a3 + 340);
         return 339;
       case 49:
@@ -1964,11 +1962,11 @@ LABEL_23:
         *(v4 + 16) = *(*a3 + 340);
         return 289;
       case 88:
-        v95 = *(*a3 + 40);
+        v84 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v95 < 6)
+        if (v84 < 6)
         {
           goto LABEL_48;
         }
@@ -1976,11 +1974,11 @@ LABEL_23:
         *(v39 + 20) = 1;
         return 322;
       case 89:
-        v86 = *(*a3 + 40);
+        v75 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v86 < 6)
+        if (v75 < 6)
         {
           goto LABEL_48;
         }
@@ -1988,11 +1986,11 @@ LABEL_23:
         *(v39 + 20) = 1;
         return 327;
       case 93:
-        v90 = *(*a3 + 40);
+        v79 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v90 < 6)
+        if (v79 < 6)
         {
           goto LABEL_48;
         }
@@ -2000,11 +1998,11 @@ LABEL_23:
         *(v39 + 20) = 1;
         return 323;
       case 95:
-        v91 = *(*a3 + 40);
+        v80 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v91 < 6)
+        if (v80 < 6)
         {
           goto LABEL_48;
         }
@@ -2046,11 +2044,11 @@ LABEL_23:
         v39 = *a3;
         goto LABEL_230;
       case 104:
-        v92 = *(*a3 + 40);
+        v81 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v92 < 6)
+        if (v81 < 6)
         {
           goto LABEL_48;
         }
@@ -2059,11 +2057,11 @@ LABEL_230:
         *(v39 + 20) = 1;
         return 280;
       case 105:
-        v98 = *(*a3 + 40);
+        v87 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v98 < 6)
+        if (v87 < 6)
         {
           goto LABEL_48;
         }
@@ -2071,11 +2069,11 @@ LABEL_230:
         *(v39 + 20) = 1;
         return 281;
       case 106:
-        v73 = *(*a3 + 40);
+        v68 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v73 < 6)
+        if (v68 < 6)
         {
           goto LABEL_48;
         }
@@ -2088,11 +2086,11 @@ LABEL_230:
         v39 = *a3;
         goto LABEL_211;
       case 108:
-        v59 = *(*a3 + 40);
+        v58 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v59 < 6)
+        if (v58 < 6)
         {
           goto LABEL_48;
         }
@@ -2100,11 +2098,11 @@ LABEL_230:
         *(v39 + 20) = 1;
         return 283;
       case 109:
-        v103 = *(*a3 + 40);
+        v91 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v103 < 6)
+        if (v91 < 6)
         {
           goto LABEL_48;
         }
@@ -2113,11 +2111,11 @@ LABEL_211:
         *(v39 + 20) = 1;
         return 284;
       case 110:
-        v94 = *(*a3 + 40);
+        v83 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v94 < 6)
+        if (v83 < 6)
         {
           goto LABEL_48;
         }
@@ -2130,11 +2128,11 @@ LABEL_211:
         v39 = *a3;
         goto LABEL_157;
       case 112:
-        v70 = *(*a3 + 40);
+        v65 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v70 < 6)
+        if (v65 < 6)
         {
           goto LABEL_48;
         }
@@ -2142,11 +2140,11 @@ LABEL_211:
         *(v39 + 20) = 1;
         return 286;
       case 113:
-        v107 = *(*a3 + 40);
+        v95 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v107 < 6)
+        if (v95 < 6)
         {
           goto LABEL_48;
         }
@@ -2154,11 +2152,11 @@ LABEL_211:
         *(v39 + 20) = 1;
         return 287;
       case 114:
-        v93 = *(*a3 + 40);
+        v82 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v93 < 6)
+        if (v82 < 6)
         {
           goto LABEL_48;
         }
@@ -2175,13 +2173,13 @@ LABEL_157:
         *(v4 + 16) = *(*a3 + 340);
         return 292;
       case 121:
-        v47 = *a3;
+        v46 = *a3;
         if (*(*a3 + 40) < 6u)
         {
           goto LABEL_52;
         }
 
-        v38 = *(v47 + 344);
+        v38 = *(v46 + 344);
         goto LABEL_46;
       case 125:
         *(v4 + 8) = *(*a3 + 344);
@@ -2207,11 +2205,11 @@ LABEL_157:
         *(*a3 + 20) = 1;
         return 300;
       case 134:
-        v106 = *(*a3 + 40);
+        v94 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v106 < 6)
+        if (v94 < 6)
         {
           goto LABEL_48;
         }
@@ -2219,11 +2217,11 @@ LABEL_157:
         *(v39 + 20) = 1;
         return 317;
       case 135:
-        v96 = *(*a3 + 40);
+        v85 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v96 < 6)
+        if (v85 < 6)
         {
           goto LABEL_48;
         }
@@ -2251,11 +2249,11 @@ LABEL_157:
         *(*a3 + 20) = 1;
         return 302;
       case 147:
-        v85 = *(*a3 + 40);
+        v74 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v85 < 6)
+        if (v74 < 6)
         {
           goto LABEL_48;
         }
@@ -2267,27 +2265,27 @@ LABEL_157:
         *(v4 + 16) = *(*a3 + 340);
         return 296;
       case 155:
-        v47 = *a3;
+        v46 = *a3;
         if (*(*a3 + 40) < 6u)
         {
 LABEL_52:
-          glpPaReservedWord(v47);
+          glpPaReservedWord(v46);
           return 0;
         }
 
         else
         {
-          *(v4 + 8) = *(v47 + 344);
+          *(v4 + 8) = *(v46 + 344);
           *(v4 + 16) = *(*a3 + 340);
           return 341;
         }
 
       case 166:
-        v60 = *(*a3 + 40);
+        v59 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v60 < 6)
+        if (v59 < 6)
         {
           goto LABEL_48;
         }
@@ -2299,11 +2297,11 @@ LABEL_52:
         *(v4 + 16) = *(*a3 + 340);
         return 294;
       case 172:
-        v69 = *(*a3 + 40);
+        v64 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v69 < 6)
+        if (v64 < 6)
         {
           goto LABEL_48;
         }
@@ -2311,11 +2309,11 @@ LABEL_52:
         *(v39 + 20) = 1;
         return 330;
       case 173:
-        v105 = *(*a3 + 40);
+        v93 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v105 < 6)
+        if (v93 < 6)
         {
           goto LABEL_48;
         }
@@ -2323,11 +2321,11 @@ LABEL_52:
         *(v39 + 20) = 1;
         return 335;
       case 177:
-        v104 = *(*a3 + 40);
+        v92 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v104 < 6)
+        if (v92 < 6)
         {
           goto LABEL_48;
         }
@@ -2335,11 +2333,11 @@ LABEL_52:
         *(v39 + 20) = 1;
         return 331;
       case 179:
-        v89 = *(*a3 + 40);
+        v78 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v89 < 6)
+        if (v78 < 6)
         {
           goto LABEL_48;
         }
@@ -2347,11 +2345,11 @@ LABEL_52:
         *(v39 + 20) = 1;
         return 332;
       case 182:
-        v88 = *(*a3 + 40);
+        v77 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v88 < 6)
+        if (v77 < 6)
         {
           goto LABEL_48;
         }
@@ -2359,11 +2357,11 @@ LABEL_52:
         *(v39 + 20) = 1;
         return 312;
       case 183:
-        v97 = *(*a3 + 40);
+        v86 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v97 < 6)
+        if (v86 < 6)
         {
           goto LABEL_48;
         }
@@ -2371,11 +2369,11 @@ LABEL_52:
         *(v39 + 20) = 1;
         return 313;
       case 184:
-        v87 = *(*a3 + 40);
+        v76 = *(*a3 + 40);
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
         v39 = *a3;
-        if (v87 < 6)
+        if (v76 < 6)
         {
           goto LABEL_48;
         }
@@ -2422,13 +2420,13 @@ LABEL_178:
       case 194:
       case 195:
       case 197:
-        v50 = *(a3 + 136);
-        v51 = v4;
-        v52 = v50[strlen(v50) - 1] & 0xDF;
-        *v51 = strtoul_l(v50, 0, 0, 0);
-        *(v51 + 8) = *(*a3 + 344);
-        *(v51 + 16) = *(*a3 + 340);
-        if (v52 == 85)
+        v49 = a3[17];
+        v50 = v4;
+        v51 = v49[strlen(v49) - 1] & 0xDF;
+        *v50 = strtoul_l(v49, 0, 0, 0);
+        *(v50 + 8) = *(*a3 + 344);
+        *(v50 + 16) = *(*a3 + 340);
+        if (v51 == 85)
         {
           return 337;
         }
@@ -2440,27 +2438,27 @@ LABEL_178:
 
       case 196:
         InfoLog = glpCompilerGetInfoLog(*(*a3 + 784));
-        v62 = *a3;
+        v61 = *a3;
         StringZ = glpMakeStringZ(*(*a3 + 344));
-        glpMakeSourceLocation(StringZ, v64, *(v62 + 340), v113);
-        glpLogMessage(InfoLog, 0, v113, "'%s' : Invalid Octal number. ", v65, v66, v67, v68, *(a3 + 136));
+        glpMakeSourceLocation(StringZ, v63, *(v61 + 340), v101);
+        glpLogMessage(InfoLog, 0, v101, "'%s' : Invalid Octal number. ", a3[17]);
         glpParseRecover(*a3);
         return 0;
       case 198:
       case 199:
       case 200:
-        v48 = v4;
-        *v4 = strtof_l(*(a3 + 136), 0, 0);
-        *(v48 + 8) = *(*a3 + 344);
-        *(v48 + 16) = *(*a3 + 340);
+        v47 = v4;
+        *v4 = strtof_l(a3[17], 0, 0);
+        *(v47 + 8) = *(*a3 + 344);
+        *(v47 + 16) = *(*a3 + 340);
         return 379;
       case 201:
       case 202:
       case 203:
-        v49 = v4;
-        *v4 = strtod_l(*(a3 + 136), 0, 0);
-        *(v49 + 8) = *(*a3 + 344);
-        *(v49 + 16) = *(*a3 + 340);
+        v48 = v4;
+        *v4 = strtod_l(a3[17], 0, 0);
+        *(v48 + 8) = *(*a3 + 344);
+        *(v48 + 16) = *(*a3 + 340);
         return 354;
       case 204:
         v37 = *a3;
@@ -2479,14 +2477,14 @@ LABEL_47:
 LABEL_48:
         v40 = *(v39 + 784);
         v41 = v4;
-        v42 = strlen(*(a3 + 136));
-        v43 = glpCompilerPoolAlloc(v40);
-        *v41 = v43;
-        strcpy(v43, *(a3 + 136));
-        v44 = *a3;
-        v45 = *v41;
+        strlen(a3[17]);
+        v42 = glpCompilerPoolAlloc(v40);
+        *v41 = v42;
+        strcpy(v42, a3[17]);
+        v43 = *a3;
+        v44 = *v41;
 
-        return glpPaIdentOrType(v44, v45);
+        return glpPaIdentOrType(v43, v44);
       case 206:
         *(v4 + 8) = *(*a3 + 344);
         *(v4 + 16) = *(*a3 + 340);
@@ -2646,153 +2644,153 @@ LABEL_48:
       case 245:
         v35 = v4;
         v36 = v11;
-        v112 = v12;
+        v100 = v12;
         glpPaParseComment(*a3, (v4 + 16));
         goto LABEL_43;
       case 246:
-        v102 = *a3;
-        *(v102 + 20) = 0;
-        *(v4 + 8) = *(v102 + 344);
+        v90 = *a3;
+        *(v90 + 20) = 0;
+        *(v4 + 8) = *(v90 + 344);
         *(v4 + 16) = *(*a3 + 340);
         return 414;
       case 247:
-        v71 = *a3;
-        *(v71 + 20) = 0;
-        *(v4 + 8) = *(v71 + 344);
+        v66 = *a3;
+        *(v66 + 20) = 0;
+        *(v4 + 8) = *(v66 + 344);
         *(v4 + 16) = *(*a3 + 340);
         return 408;
       case 248:
-        v72 = *a3;
-        *(v72 + 20) = 0;
-        *(v4 + 8) = *(v72 + 344);
+        v67 = *a3;
+        *(v67 + 20) = 0;
+        *(v4 + 8) = *(v67 + 344);
         *(v4 + 16) = *(*a3 + 340);
         return 413;
       case 249:
-        v84 = *a3;
-        *(v84 + 20) = 0;
-        *(v84 + 4) = 1;
-        *(v4 + 8) = *(v84 + 344);
+        v73 = *a3;
+        *(v73 + 20) = 0;
+        *(v73 + 4) = 1;
+        *(v4 + 8) = *(v73 + 344);
         *(v4 + 16) = *(*a3 + 340);
         return 404;
       case 250:
-        v75 = *a3;
-        *(v75 + 20) = 0;
-        *(v75 + 4) = 0;
-        *(v4 + 8) = *(v75 + 344);
+        v70 = *a3;
+        *(v70 + 20) = 0;
+        *(v70 + 4) = 0;
+        *(v4 + 8) = *(v70 + 344);
         *(v4 + 16) = *(*a3 + 340);
         return 405;
       case 251:
-        v74 = *a3;
+        v69 = *a3;
         if (*(*a3 + 4))
         {
-          *(v74 + 20) = 0;
+          *(v69 + 20) = 0;
         }
 
-        *(v4 + 8) = *(v74 + 344);
+        *(v4 + 8) = *(v69 + 344);
         *(v4 + 16) = *(*a3 + 340);
         return 411;
       case 252:
-        *(a3 + 84) = 3;
+        *(a3 + 21) = 3;
         return 410;
       case 253:
-        *(a3 + 84) = 1;
-        v99 = v4;
-        v100 = strlen(*(a3 + 136));
-        v101 = glpCompilerPoolAlloc(*(*a3 + 784));
-        *v99 = v101;
-        strcpy(v101, *(a3 + 136));
-        *(v99 + 8) = *(*a3 + 344);
-        *(v99 + 16) = *(*a3 + 340);
+        *(a3 + 21) = 1;
+        v88 = v4;
+        strlen(a3[17]);
+        v89 = glpCompilerPoolAlloc(*(*a3 + 784));
+        *v88 = v89;
+        strcpy(v89, a3[17]);
+        *(v88 + 8) = *(*a3 + 344);
+        *(v88 + 16) = *(*a3 + 340);
         return 382;
       case 256:
-        v76 = glpCompilerGetInfoLog(*(*a3 + 784));
-        StringBuffer = glpLogGetStringBuffer(v76);
-        glpStringBufferAppendFormat(StringBuffer, "FLEX: Unknown char %s\n", v78, v79, v80, v81, v82, v83, *(a3 + 136));
+        v71 = glpCompilerGetInfoLog(*(*a3 + 784));
+        StringBuffer = glpLogGetStringBuffer(v71);
+        glpStringBufferAppendFormat(StringBuffer, "FLEX: Unknown char %s\n", a3[17]);
         return 0;
       case 257:
         v35 = v4;
         v36 = v11;
-        v112 = v12;
-        fwrite(*(a3 + 136), *(a3 + 64), 1uLL, *(a3 + 16));
+        v100 = v12;
+        fwrite(a3[17], a3[8], 1uLL, a3[2]);
 LABEL_43:
-        v12 = v112;
+        v12 = v100;
         v11 = v36;
         v4 = v35;
         goto LABEL_13;
       case 258:
-        v23 = *(a3 + 136);
+        v23 = a3[17];
         *v21 = *(a3 + 48);
-        v24 = *(a3 + 40);
-        v25 = *(a3 + 24);
+        v24 = a3[5];
+        v25 = a3[3];
         v26 = *(v24 + 8 * v25);
         if (*(v26 + 64))
         {
-          v27 = *(a3 + 56);
+          v27 = a3[7];
         }
 
         else
         {
           v27 = *(v26 + 32);
-          *(a3 + 56) = v27;
-          *v26 = *(a3 + 8);
+          a3[7] = v27;
+          *v26 = a3[1];
           v26 = *(v24 + 8 * v25);
           *(v26 + 64) = 1;
         }
 
-        v110 = v4;
-        v111 = v12;
-        v109 = v11;
+        v98 = v4;
+        v99 = v12;
+        v97 = v11;
         if (*v11 > (*(v26 + 8) + v27))
         {
-          v108 = v23;
+          v96 = v23;
           next_buffer = yy_get_next_buffer(a3);
           if (next_buffer == 1)
           {
-            *(a3 + 88) = 0;
-            *(a3 + 72) = *(a3 + 136);
-            v22 = (*(a3 + 84) - 1) / 2 + 259;
-            v11 = v109;
-            v4 = v110;
-            v12 = v111;
+            *(a3 + 22) = 0;
+            a3[9] = a3[17];
+            v22 = (*(a3 + 21) - 1) / 2 + 259;
+            v11 = v97;
+            v4 = v98;
+            v12 = v99;
             goto LABEL_23;
           }
 
           if (next_buffer == 2)
           {
-            *(a3 + 72) = *(*(*(a3 + 40) + 8 * *(a3 + 24)) + 8) + *(a3 + 56);
+            a3[9] = *(*(a3[5] + 8 * a3[3]) + 8) + a3[7];
             previous_state = yy_get_previous_state(a3);
-            v13 = *(a3 + 136);
-            v11 = v109;
-            v4 = v110;
-            v20 = v109;
-            v12 = v111;
+            v13 = a3[17];
+            v11 = v97;
+            v4 = v98;
+            v20 = v97;
+            v12 = v99;
             goto LABEL_22;
           }
 
-          *(a3 + 72) = *(a3 + 136) + ~v108 + v21;
+          a3[9] = a3[17] + ~v96 + v21;
           v14 = yy_get_previous_state(a3);
-          v15 = *(a3 + 72);
-          v13 = *(a3 + 136);
-          v11 = v109;
-          v4 = v110;
-          v12 = v111;
+          v15 = a3[9];
+          v13 = a3[17];
+          v11 = v97;
+          v4 = v98;
+          v12 = v99;
           goto LABEL_14;
         }
 
-        *(a3 + 72) = *(a3 + 136) + ~v23 + v21;
+        a3[9] = a3[17] + ~v23 + v21;
         v29 = yy_get_previous_state(a3);
         if (yy_accept[v29])
         {
-          v30 = *(a3 + 72);
-          *(a3 + 112) = v29;
-          *(a3 + 120) = v30;
+          v30 = a3[9];
+          *(a3 + 28) = v29;
+          a3[15] = v30;
         }
 
         v31 = v29;
         v32 = yy_base[v29] + 1;
-        v11 = v109;
-        v4 = v110;
-        v12 = v111;
+        v11 = v97;
+        v4 = v98;
+        v12 = v99;
         if (v29 != yy_chk[v32])
         {
           do
@@ -2806,32 +2804,32 @@ LABEL_43:
         }
 
         v34 = yy_nxt[v32];
-        v13 = *(a3 + 136);
+        v13 = a3[17];
         if (yy_nxt[v32] && v34 != 875)
         {
           v14 = v34;
-          v15 = (*v109 + 1);
-          *v109 = v15;
+          v15 = (*v97 + 1);
+          *v97 = v15;
           goto LABEL_14;
         }
 
         break;
       case 259:
       case 260:
-        v53 = *a3;
+        v52 = *a3;
         *(*a3 + 16) = 1;
-        v54 = *(a3 + 40);
-        if (v54)
+        v53 = a3[5];
+        if (v53)
         {
-          v55 = *(v54 + 8 * *(a3 + 24));
+          v54 = *(v53 + 8 * a3[3]);
         }
 
         else
         {
-          v55 = 0;
+          v54 = 0;
         }
 
-        yy_delete_buffer(v55, *(v53 + 24));
+        yy_delete_buffer(v54, *(v52 + 24));
         return 0;
       default:
         glpLexerFatalError();
@@ -2884,7 +2882,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t yy_create_buffer(uint64_t a1, int a2, uint64_t a3)
+_DWORD *yy_create_buffer(uint64_t a1, int a2, uint64_t a3)
 {
   v6 = malloc_type_malloc(0x48uLL, 0xCA0EF1E7uLL);
   if (!v6 || (v7 = v6, v6[6] = a2, (v8 = malloc_type_malloc(a2 + 2, 0xCA0EF1E7uLL)) == 0))
@@ -2960,8 +2958,8 @@ uint64_t glpPaReservedWord(uint64_t a1)
     v8 = 0;
   }
 
-  glpMakeSourceLocation(v4, v8 | v5, *(a1 + 340), v14);
-  glpLogMessage(InfoLog, 0, v14, "'%s' : Reserved word. ", v9, v10, v11, v12, *(v2 + 136));
+  glpMakeSourceLocation(v4, v8 | v5, *(a1 + 340), v10);
+  glpLogMessage(InfoLog, 0, v10, "'%s' : Reserved word. ", *(v2 + 136));
   return glpParseRecover(a1);
 }
 
@@ -3445,15 +3443,15 @@ uint64_t yylex_init(uint64_t *a1)
     v3 = v2;
     result = 0;
     *a1 = v3;
-    v3[18] = 0;
-    *(v3 + 7) = 0u;
-    *(v3 + 8) = 0u;
-    *(v3 + 5) = 0u;
-    *(v3 + 6) = 0u;
-    *(v3 + 3) = 0u;
-    *(v3 + 4) = 0u;
-    *(v3 + 1) = 0u;
-    *(v3 + 2) = 0u;
+    *(v3 + 144) = 0;
+    *(v3 + 112) = 0u;
+    *(v3 + 128) = 0u;
+    *(v3 + 80) = 0u;
+    *(v3 + 96) = 0u;
+    *(v3 + 48) = 0u;
+    *(v3 + 64) = 0u;
+    *(v3 + 16) = 0u;
+    *(v3 + 32) = 0u;
     *v3 = 0u;
     v5 = *a1;
     *(v5 + 92) = 0;
@@ -3496,19 +3494,19 @@ uint64_t yylex_destroy(uint64_t a1)
   return 0;
 }
 
-uint64_t glpPaParseStrings(uint64_t a1, uint64_t *a2, int *a3, int a4, int a5)
+uint64_t glpPaParseStrings(uint64_t a1, uint64_t *a2, int *a3, unsigned int a4, int a5)
 {
   ScanFromString(a1 + 40, *a2);
   if (a4)
   {
-    v26 = 0;
+    v22 = 0;
     if (a4 < 1)
     {
 LABEL_6:
       if (!a3)
       {
-        v26 = strlen(*a2);
-        a3 = &v26;
+        v22 = strlen(*a2);
+        a3 = &v22;
       }
 
       yyrestart(0, *(a1 + 24));
@@ -3584,8 +3582,8 @@ LABEL_6:
         v19 = 0;
       }
 
-      glpMakeSourceLocation(v15, v19 | v16, *(a1 + 340), v25);
-      glpLogMessage(InfoLog, 0, v25, "'' : NULL shader source string ", v21, v22, v23, v24, v25[0]);
+      glpMakeSourceLocation(v15, v19 | v16, *(a1 + 340), v21);
+      glpLogMessage(InfoLog, 0, v21, "'' : NULL shader source string ");
       glpParseRecover(a1);
     }
   }
@@ -3593,7 +3591,7 @@ LABEL_6:
   return 1;
 }
 
-void yyerror(uint64_t a1, uint64_t a2, char a3)
+void yyerror(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 16))
   {
@@ -3603,64 +3601,63 @@ void yyerror(uint64_t a1, uint64_t a2, char a3)
     }
 
     InfoLog = glpCompilerGetInfoLog(*(a2 + 784));
-    v6 = *(a2 + 344);
-    v7 = strlen(v6);
-    if (v7)
+    v4 = *(a2 + 344);
+    v5 = strlen(v4);
+    if (v5)
     {
-      v8 = v7;
-      LODWORD(v9) = v7;
+      v6 = v5;
+      LODWORD(v7) = v5;
       do
       {
-        v9 = (32 * v9 + (v9 >> 2) + v6[v8 - 1]) ^ v9;
-        v8 += ~(v7 >> 5);
+        v7 = (32 * v7 + (v7 >> 2) + v4[v6 - 1]) ^ v7;
+        v6 += ~(v5 >> 5);
       }
 
-      while (v8 > v7 >> 5);
-      v10 = v9 << 32;
+      while (v6 > v5 >> 5);
+      v8 = v7 << 32;
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
     }
 
-    glpMakeSourceLocation(v6, v10 | v7, *(a2 + 340), v26);
-    glpLogMessage(InfoLog, 0, v26, "'premature EOF' : syntax error %s", v22, v23, v24, v25, a3);
+    glpMakeSourceLocation(v4, v8 | v5, *(a2 + 340), v15);
+    glpLogMessage(InfoLog, 0, v15, "'premature EOF' : syntax error %s");
   }
 
   else
   {
-    v11 = *(a2 + 24);
-    v12 = glpCompilerGetInfoLog(*(a2 + 784));
-    v13 = *(a2 + 344);
-    v14 = strlen(v13);
-    if (v14)
+    v9 = glpCompilerGetInfoLog(*(a2 + 784));
+    v10 = *(a2 + 344);
+    v11 = strlen(v10);
+    if (v11)
     {
-      v15 = v14;
-      LODWORD(v16) = v14;
+      v12 = v11;
+      LODWORD(v13) = v11;
       do
       {
-        v16 = (32 * v16 + (v16 >> 2) + v13[v15 - 1]) ^ v16;
-        v15 += ~(v14 >> 5);
+        v13 = (32 * v13 + (v13 >> 2) + v10[v12 - 1]) ^ v13;
+        v12 += ~(v11 >> 5);
       }
 
-      while (v15 > v14 >> 5);
-      v17 = v16 << 32;
+      while (v12 > v11 >> 5);
+      v14 = v13 << 32;
     }
 
     else
     {
-      v17 = 0;
+      v14 = 0;
     }
 
-    glpMakeSourceLocation(v13, v17 | v14, *(a2 + 340), v26);
-    glpLogMessage(v12, 0, v26, "'%s' : syntax error: %s", v18, v19, v20, v21, *(v11 + 136));
+    glpMakeSourceLocation(v10, v14 | v11, *(a2 + 340), v15);
+    glpLogMessage(v9, 0, v15, "'%s' : syntax error: %s");
   }
 
   glpParseRecover(a2);
 }
 
-uint64_t **glpCPPWarningToInfoLog(uint64_t a1, char a2)
+double glpCPPWarningToInfoLog(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   InfoLog = glpCompilerGetInfoLog(*(v3 + 784));
@@ -3685,11 +3682,11 @@ uint64_t **glpCPPWarningToInfoLog(uint64_t a1, char a2)
     v9 = 0;
   }
 
-  glpMakeSourceLocation(v5, v9 | v6, *(v3 + 340), v15);
-  return glpLogMessage(InfoLog, 1u, v15, "%s", v10, v11, v12, v13, a2);
+  glpMakeSourceLocation(v5, v9 | v6, *(v3 + 340), v11);
+  return glpLogMessage(InfoLog, 1, v11, "%s", a2);
 }
 
-uint64_t glpCPPShInfoLogMsg(uint64_t a1, char a2)
+uint64_t glpCPPShInfoLogMsg(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   InfoLog = glpCompilerGetInfoLog(*(v3 + 784));
@@ -3714,12 +3711,12 @@ uint64_t glpCPPShInfoLogMsg(uint64_t a1, char a2)
     v9 = 0;
   }
 
-  glpMakeSourceLocation(v5, v9 | v6, *(v3 + 340), v15);
-  glpLogMessage(InfoLog, 0, v15, "'' :  %s", v10, v11, v12, v13, a2);
+  glpMakeSourceLocation(v5, v9 | v6, *(v3 + 340), v11);
+  glpLogMessage(InfoLog, 0, v11, "'' :  %s", a2);
   return glpParseRecover(v3);
 }
 
-uint64_t glpCPPErrorToInfoLog(uint64_t a1, char a2)
+uint64_t glpCPPErrorToInfoLog(uint64_t a1, const char *a2)
 {
   v3 = *(a1 + 32);
   InfoLog = glpCompilerGetInfoLog(*(v3 + 784));
@@ -3744,8 +3741,8 @@ uint64_t glpCPPErrorToInfoLog(uint64_t a1, char a2)
     v9 = 0;
   }
 
-  glpMakeSourceLocation(v5, v9 | v6, *(v3 + 340), v15);
-  glpLogMessage(InfoLog, 0, v15, "'' : syntax error: %s", v10, v11, v12, v13, a2);
+  glpMakeSourceLocation(v5, v9 | v6, *(v3 + 340), v11);
+  glpLogMessage(InfoLog, 0, v11, "'' : syntax error: %s", a2);
   return glpParseRecover(v3);
 }
 
@@ -3903,7 +3900,7 @@ LABEL_17:
   return glpCompilerForceAllOutputsToBeInvariant(v18);
 }
 
-uint64_t glpStoreErrMsg(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t glpStoreErrMsg(uint64_t a1, const char *a2)
 {
   StringBuffer = *(a1 + 312);
   if (!StringBuffer)
@@ -3912,7 +3909,7 @@ uint64_t glpStoreErrMsg(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t
     *(a1 + 312) = StringBuffer;
   }
 
-  return glpStringBufferAppendFormat(StringBuffer, " %s", a3, a4, a5, a6, a7, a8, a2);
+  return glpStringBufferAppendFormat(StringBuffer, " %s", a2);
 }
 
 uint64_t glpResetErrMsg(uint64_t a1)
@@ -3922,7 +3919,7 @@ uint64_t glpResetErrMsg(uint64_t a1)
   return result;
 }
 
-uint64_t glpUpdateExtensionBehavior(uint64_t a1, char *a2, char *__s1)
+void glpUpdateExtensionBehavior(uint64_t a1, char *a2, char *__s1)
 {
   v6 = strcmp(__s1, "require");
   if (!v6)
@@ -3970,8 +3967,8 @@ uint64_t glpUpdateExtensionBehavior(uint64_t a1, char *a2, char *__s1)
       v12 = 0;
     }
 
-    glpMakeSourceLocation(v8, v12 | v9, *(a1 + 340), v44);
-    glpLogMessage(InfoLog, 0, v44, "'' :  behavior '%s' is not supported", v15, v16, v17, v18, __s1);
+    glpMakeSourceLocation(v8, v12 | v9, *(a1 + 340), v31);
+    glpLogMessage(InfoLog, 0, v31, "'' :  behavior '%s' is not supported", __s1);
     glpParseRecover(a1);
   }
 
@@ -3982,19 +3979,18 @@ LABEL_15:
   {
     if (v14)
     {
-      return glpCPPShInfoLogMsg(a1 + 40, "extension 'all' cannot have 'require' or 'enable' behavior");
+      glpCPPShInfoLogMsg(a1 + 40, "extension 'all' cannot have 'require' or 'enable' behavior");
     }
 
     else
     {
       for (i = 0; i != 38; ++i)
       {
-        result = glpExtensionAllowed(*(a1 + 784), i);
-        if (result)
+        if (glpExtensionAllowed(*(a1 + 784), i))
         {
           *(a1 + 616 + 4 * i) = v13;
           NameTable = glpCompilerGetNameTable(*(a1 + 784));
-          result = glpNameTableSetGLSLExtensionBehavior(NameTable, i, v13);
+          glpNameTableSetGLSLExtensionBehavior(NameTable, i, v13);
         }
       }
     }
@@ -4002,80 +3998,77 @@ LABEL_15:
 
   else
   {
-    v19 = glpExtensionFromString(a2);
-    if (v19 == 38 || (v20 = v19, !glpExtensionAllowed(*(a1 + 784), v19)))
+    v15 = glpExtensionFromString(a2);
+    if (v15 == 38 || (v16 = v15, !glpExtensionAllowed(*(a1 + 784), v15)))
     {
-      v23 = glpCompilerGetInfoLog(*(a1 + 784));
+      v18 = glpCompilerGetInfoLog(*(a1 + 784));
       if (v6)
       {
-        v24 = *(a1 + 344);
-        v25 = strlen(v24);
-        if (v25)
+        v19 = *(a1 + 344);
+        v20 = strlen(v19);
+        if (v20)
         {
-          v26 = v25;
-          LODWORD(v27) = v25;
+          v21 = v20;
+          LODWORD(v22) = v20;
           do
           {
-            v27 = (32 * v27 + (v27 >> 2) + v24[v26 - 1]) ^ v27;
-            v26 += ~(v25 >> 5);
+            v22 = (32 * v22 + (v22 >> 2) + v19[v21 - 1]) ^ v22;
+            v21 += ~(v20 >> 5);
           }
 
-          while (v26 > v25 >> 5);
-          v28 = v27 << 32;
+          while (v21 > v20 >> 5);
+          v23 = v22 << 32;
         }
 
         else
         {
-          v28 = 0;
+          v23 = 0;
         }
 
-        glpMakeSourceLocation(v24, v28 | v25, *(a1 + 340), v44);
-        return glpLogMessage(v23, 1u, v44, "extension '%s' is not supported", v36, v37, v38, v39, a2);
+        glpMakeSourceLocation(v19, v23 | v20, *(a1 + 340), v31);
+        glpLogMessage(v18, 1, v31, "extension '%s' is not supported", a2);
       }
 
       else
       {
-        v31 = *(a1 + 344);
-        v32 = strlen(v31);
-        if (v32)
+        v26 = *(a1 + 344);
+        v27 = strlen(v26);
+        if (v27)
         {
-          v33 = v32;
-          LODWORD(v34) = v32;
+          v28 = v27;
+          LODWORD(v29) = v27;
           do
           {
-            v34 = (32 * v34 + (v34 >> 2) + v31[v33 - 1]) ^ v34;
-            v33 += ~(v32 >> 5);
+            v29 = (32 * v29 + (v29 >> 2) + v26[v28 - 1]) ^ v29;
+            v28 += ~(v27 >> 5);
           }
 
-          while (v33 > v32 >> 5);
-          v35 = v34 << 32;
+          while (v28 > v27 >> 5);
+          v30 = v29 << 32;
         }
 
         else
         {
-          v35 = 0;
+          v30 = 0;
         }
 
-        glpMakeSourceLocation(v31, v35 | v32, *(a1 + 340), v44);
-        glpLogMessage(v23, 0, v44, "'' :  extension '%s' is not supported", v40, v41, v42, v43, a2);
-        return glpParseRecover(a1);
+        glpMakeSourceLocation(v26, v30 | v27, *(a1 + 340), v31);
+        glpLogMessage(v18, 0, v31, "'' :  extension '%s' is not supported", a2);
+        glpParseRecover(a1);
       }
     }
 
     else
     {
-      *(a1 + 4 * v20 + 616) = v13;
-      v21 = glpCompilerGetNameTable(*(a1 + 784));
-      return glpNameTableSetGLSLExtensionBehavior(v21, v20, v13);
+      *(a1 + 4 * v16 + 616) = v13;
+      v17 = glpCompilerGetNameTable(*(a1 + 784));
+      glpNameTableSetGLSLExtensionBehavior(v17, v16, v13);
     }
   }
-
-  return result;
 }
 
 uint64_t glpParseContextSetGLSLVersion(uint64_t a1, int a2)
 {
-  v2 = a2;
   v4 = glpGLSLVersionFromInt(a2);
   if (v4 == 10 || (v5 = v4, !glpGLSLVersionAllowed(*(a1 + 784), v4)))
   {
@@ -4101,8 +4094,8 @@ uint64_t glpParseContextSetGLSLVersion(uint64_t a1, int a2)
       v13 = 0;
     }
 
-    glpMakeSourceLocation(v9, v13 | v10, *(a1 + 340), v18);
-    glpLogMessage(InfoLog, 0, v18, "'' :  version '%d' is not supported", v14, v15, v16, v17, v2);
+    glpMakeSourceLocation(v9, v13 | v10, *(a1 + 340), v14);
+    glpLogMessage(InfoLog, 0, v14, "'' :  version '%d' is not supported", a2);
     return glpParseRecover(a1);
   }
 
@@ -4143,8 +4136,8 @@ uint64_t glpParseContextValidateGLSLVersion(uint64_t a1)
       v8 = 0;
     }
 
-    glpMakeSourceLocation(v4, v8 | v5, *(a1 + 340), v14);
-    glpLogMessage(InfoLog, 0, v14, "'' :  #version required and missing.", v9, v10, v11, v12, v13);
+    glpMakeSourceLocation(v4, v8 | v5, *(a1 + 340), v9);
+    glpLogMessage(InfoLog, 0, v9, "'' :  #version required and missing.");
     return glpParseRecover(a1);
   }
 
@@ -4158,7 +4151,7 @@ uint64_t glpLexerNew(uint64_t a1)
   return result;
 }
 
-uint64_t yyparse(void *a1)
+uint64_t yyparse(uint64_t a1)
 {
   bzero(v79, 0x218uLL);
   v83 = 0uLL;
@@ -4197,7 +4190,7 @@ uint64_t yyparse(void *a1)
   v5 = setjmp(v86);
   if (v5 == 2)
   {
-    yyerror(&v85, a1, "memory exhausted");
+    yyerror(&v85, a1);
     v5 = 2;
     goto LABEL_13;
   }
@@ -4265,7 +4258,7 @@ LABEL_10:
       v19 = HIDWORD(v82);
       if (HIDWORD(v82) == -2)
       {
-        v20 = yylex(&v83, &v85, a1[3]);
+        v20 = yylex(&v83, &v85, *(a1 + 24));
         v19 = v20;
         HIDWORD(v82) = v20;
         if (v20 < 1)
@@ -4497,7 +4490,7 @@ LABEL_90:
           if (!LODWORD(v79[0]))
           {
 LABEL_91:
-            yyerror(&v85, a1, "syntax error");
+            yyerror(&v85, a1);
             LODWORD(v82) = v82 + 1;
             goto LABEL_93;
           }
@@ -4518,7 +4511,7 @@ LABEL_94:
                 *(*v92 + 56) = *(&v85 + 1);
               }
 
-              v50 = yylex(&v83, &v85, a1[3]);
+              v50 = yylex(&v83, &v85, *(a1 + 24));
               v49 = v50;
               HIDWORD(v82) = v50;
               if (v50 < 1)
@@ -4832,9 +4825,10 @@ LABEL_142:
   return v10;
 }
 
-uint64_t yyglrReduce(void *a1, uint64_t a2, int a3, int a4, void *a5)
+uint64_t yyglrReduce(void *a1, uint64_t a2, uint64_t a3, int a4, void *a5)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v6 = a3;
+  v52 = *MEMORY[0x277D85DE8];
   v9 = a1[63];
   v10 = v9[a2];
   v11 = *(v10 + 16);
@@ -4869,12 +4863,12 @@ uint64_t yyglrReduce(void *a1, uint64_t a2, int a3, int a4, void *a5)
     v19 = (v17 + yypgoto[v18]);
     if (v19 >> 1 <= 0x81A && v17 == yycheck[v19])
     {
-      v20 = &yytable + 2 * v19;
+      v20 = &yytable[v19];
     }
 
     else
     {
-      v20 = &yydefgoto + 2 * v18;
+      v20 = (&yydefgoto + 2 * v18);
     }
 
     v33 = *v20;
@@ -4894,17 +4888,17 @@ uint64_t yyglrReduce(void *a1, uint64_t a2, int a3, int a4, void *a5)
               v39 = *(v36 + 8);
               if (*(v36 + 4) == v33 && v39 == v15)
               {
-                yyaddDeferredAction(a1, a2, v36, v10, a3);
-                v45 = a1[63];
-                v46 = *(v45 + 8 * a2);
-                if (v46)
+                yyaddDeferredAction(a1, a2, v36, v10, v6);
+                v44 = a1[63];
+                v45 = *(v44 + 8 * a2);
+                if (v45)
                 {
-                  a1[62] = v46;
+                  a1[62] = v45;
                 }
 
                 result = 0;
-                *(v45 + 8 * a2) = 0;
-                goto LABEL_58;
+                *(v44 + 8 * a2) = 0;
+                return result;
               }
 
               v41 = v39 == v15 || v39 == v12;
@@ -4931,18 +4925,18 @@ uint64_t yyglrReduce(void *a1, uint64_t a2, int a3, int a4, void *a5)
     *(v42 + 16) = v11;
     *(v42 + 24) = 0;
     *(a1[63] + 8 * a2) = v42;
-    yyaddDeferredAction(a1, a2, v42, v10, a3);
-    goto LABEL_57;
+    yyaddDeferredAction(a1, a2, v42, v10, v6);
+    return 0;
   }
 
-  v48 = 0uLL;
-  v49 = 0;
   v47 = 0uLL;
+  v48 = 0;
+  v46 = 0uLL;
   v13 = yyr2[a3];
   if (v12)
   {
-    bzero(v50, 0x288uLL);
-    v52 = v10;
+    bzero(v49, 0x288uLL);
+    v51 = v10;
     if (v13)
     {
       v14 = v13;
@@ -4964,7 +4958,7 @@ LABEL_62:
       abort();
     }
 
-    v51[3] = *(v10 + 48);
+    v50[3] = *(v10 + 48);
 LABEL_21:
     if (v12 > v10)
     {
@@ -4972,7 +4966,7 @@ LABEL_21:
     }
 
     v9[a2] = v10;
-    v21 = v51;
+    v21 = v50;
   }
 
   else
@@ -4990,20 +4984,20 @@ LABEL_21:
     *v9 = v22 - 72;
   }
 
-  result = yyuserAction(a3, v13, v21, &v48, &v47, a1, a5);
+  result = yyuserAction(v6, v13, v21, &v47, &v46, a1, a5);
   if (!result)
   {
     v25 = *(*(a1[63] + 8 * a2) + 4);
-    v26 = yyr1[a3] - 177;
+    v26 = yyr1[v6] - 177;
     v27 = (v25 + yypgoto[v26]);
     if (v27 >> 1 <= 0x81A && v25 == yycheck[v27])
     {
-      v28 = &yytable + 2 * v27;
+      v28 = &yytable[v27];
     }
 
     else
     {
-      v28 = &yydefgoto + 2 * v26;
+      v28 = (&yydefgoto + 2 * v26);
     }
 
     v29 = *v28;
@@ -5016,9 +5010,9 @@ LABEL_21:
     *(v30 + 1) = 1;
     *(v30 + 8) = *(a1[63] + 8 * a2);
     *(v30 + 16) = v11;
-    v32 = v47;
-    *(v30 + 24) = v48;
-    *(v30 + 40) = v49;
+    v32 = v46;
+    *(v30 + 24) = v47;
+    *(v30 + 40) = v48;
     *(v30 + 48) = v32;
     *(a1[63] + 8 * a2) = v30;
     if (a1[60] <= 1uLL)
@@ -5026,16 +5020,13 @@ LABEL_21:
       yyexpandGLRStack(a1);
     }
 
-LABEL_57:
-    result = 0;
+    return 0;
   }
 
-LABEL_58:
-  v44 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t yyprocessOneStack(uint64_t a1, uint64_t a2, void *a3)
+uint64_t yyprocessOneStack(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 504);
   v4 = *(v3 + 8 * a2);
@@ -5101,7 +5092,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v11 = yylex(a1 + 232, a1 + 256, a3[3]);
+  v11 = yylex(a1 + 232, a1 + 256, *(a3 + 24));
   *(a1 + 228) = v11;
   if (v11 < 1)
   {
@@ -5230,7 +5221,7 @@ void yyFail(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    yyerror(a2, a3, a4);
+    yyerror(a2, a3);
   }
 
   longjmp((a1 + 272), 1);
@@ -5495,10 +5486,10 @@ void yyaddDeferredAction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int
   }
 }
 
-uint64_t yyuserAction(int a1, int a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint64_t a6, void *a7)
+uint64_t yyuserAction(int a1, unsigned int a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint64_t a6, void *a7)
 {
   v11 = *(a6 + 488);
-  v1072[0] = 1;
+  v1307[0] = 1;
   if (a2)
   {
     if (a2 >= 1 && v11)
@@ -5511,7 +5502,7 @@ uint64_t yyuserAction(int a1, int a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uin
       {
         if (!*(v12 + 1))
         {
-LABEL_374:
+LABEL_372:
           abort();
         }
 
@@ -5526,8 +5517,8 @@ LABEL_374:
         v14 -= 72;
       }
 
-      while (v15 > 1 - a2);
-      v1072[0] = 1 - a2;
+      while (v15 > (1 - a2));
+      v1307[0] = 1 - a2;
     }
 
     else
@@ -5565,15 +5556,16 @@ LABEL_374:
   switch(a1)
   {
     case 2:
-      Allocator = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
+      glpCompilerGetAllocator();
+      v1246 = v1245;
+      yyfill(a3, v1307, 0, v11 == 0);
       StringZ_0 = glpMakeStringZ_0(*(a3 + 32));
-      v1021 = v1020;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(StringZ_0, v1021, *(a3 + 40), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v1022 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeVariableIdentifierNode(Allocator, &v1068, v1022, v1023);
+      v1249 = v1248;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(StringZ_0, v1249, *(a3 + 40), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1250 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeVariableIdentifierNode(v1246, &v1303, v1250, v1251);
       goto LABEL_333;
     case 3:
     case 10:
@@ -5634,58 +5626,64 @@ LABEL_374:
     case 315:
       goto LABEL_12;
     case 4:
-      v97 = 5;
-      goto LABEL_350;
+      v112 = 5;
+      goto LABEL_349;
     case 5:
-      v97 = 36;
-      goto LABEL_350;
+      v112 = 36;
+      goto LABEL_349;
     case 6:
       PrimitiveType = glpGetPrimitiveType(1u);
-      v110 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v439 = glpMakeStringZ_0(*(a3 + 32));
-      v441 = v440;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v439, v441, *(a3 + 40), &v1068);
-      v114 = a7[98];
-      v115 = glpCompilerGetAllocator(v114);
-      yyfill(a3, v1072, 0, v11 == 0);
-      *&v121 = *(a3 + 24);
+      glpCompilerGetAllocator();
+      v128 = v528;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v529 = glpMakeStringZ_0(*(a3 + 32));
+      v531 = v530;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v529, v531, *(a3 + 40), &v1303);
+      v132 = a7[98];
+      glpCompilerGetAllocator();
+      v134 = v532;
+      yyfill(a3, v1307, 0, v11 == 0);
+      *&v140 = *(a3 + 24);
       goto LABEL_165;
     case 7:
-      v97 = 9;
-LABEL_350:
-      PrimitiveType = glpGetPrimitiveType(v97);
-      v110 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v1009 = glpMakeStringZ_0(*(a3 + 32));
-      v1011 = v1010;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v1009, v1011, *(a3 + 40), &v1068);
-      v114 = a7[98];
-      v1012 = glpCompilerGetAllocator(v114);
-      yyfill(a3, v1072, 0, v11 == 0);
-      MutableValue = glpMakeMutableValue(v1012, PrimitiveType, 1, v1013, v1014, v1015, v1016, v1017, *(a3 + 24));
-      goto LABEL_351;
+      v112 = 9;
+LABEL_349:
+      PrimitiveType = glpGetPrimitiveType(v112);
+      glpCompilerGetAllocator();
+      v128 = v1234;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1235 = glpMakeStringZ_0(*(a3 + 32));
+      v1237 = v1236;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1235, v1237, *(a3 + 40), &v1303);
+      v132 = a7[98];
+      glpCompilerGetAllocator();
+      v1239 = v1238;
+      yyfill(a3, v1307, 0, v11 == 0);
+      MutableValue = glpMakeMutableValue(v1239, PrimitiveType, 1, v1240, v1241, v1242, v1243, v1244, *(a3 + 24));
+      goto LABEL_350;
     case 8:
       PrimitiveType = glpGetPrimitiveType(0x3Eu);
-      v110 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v111 = glpMakeStringZ_0(*(a3 + 32));
-      v113 = v112;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v111, v113, *(a3 + 40), &v1068);
-      v114 = a7[98];
-      v115 = glpCompilerGetAllocator(v114);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v121 = *(a3 + 24);
+      glpCompilerGetAllocator();
+      v128 = v127;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v129 = glpMakeStringZ_0(*(a3 + 32));
+      v131 = v130;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v129, v131, *(a3 + 40), &v1303);
+      v132 = a7[98];
+      glpCompilerGetAllocator();
+      v134 = v133;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v140 = *(a3 + 24);
 LABEL_165:
-      MutableValue = glpMakeMutableValue(v115, PrimitiveType, 1, v116, v117, v118, v119, v120, v121);
-LABEL_351:
-      v615 = glpCompilerRemapValue(v114, PrimitiveType, MutableValue);
-      v616 = v110;
-      v617 = PrimitiveType;
-      goto LABEL_352;
+      MutableValue = glpMakeMutableValue(v134, PrimitiveType, 1, v135, v136, v137, v138, v139, v140);
+LABEL_350:
+      v744 = glpCompilerRemapValue(v132, PrimitiveType, MutableValue);
+      v745 = v128;
+      v746 = PrimitiveType;
+      goto LABEL_351;
     case 9:
     case 19:
     case 20:
@@ -5699,294 +5697,324 @@ LABEL_351:
     case 283:
       goto LABEL_121;
     case 11:
-      v392 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 192), &v1068);
-      glpMakeArrayAccessNode(v392, &v1068);
-      v394 = v393;
-      *a4 = v393;
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpArrayAccessNodeSetArray(v394, *(a3 - 192));
-      v395 = *a4;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpArrayAccessNodeSetElement(v395, *(a3 - 48));
+      glpCompilerGetAllocator();
+      v471 = v470;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 192), &v1303);
+      glpMakeArrayAccessNode(v471, &v1303);
+      v473 = v472;
+      *a4 = v472;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpArrayAccessNodeSetArray(v473, *(a3 - 192));
+      v474 = *a4;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpArrayAccessNodeSetElement(v474, *(a3 - 48));
       return 0;
     case 13:
-      v57 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v58 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeFieldAccessNode(v57, &v1068, v58, v59);
-      v61 = v60;
-      *a4 = v60;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpFieldAccessNodeSetStructure(v61, *(a3 - 120));
+      glpCompilerGetAllocator();
+      v65 = v64;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v66 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeFieldAccessNode(v65, &v1303, v66, v67);
+      v69 = v68;
+      *a4 = v68;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpFieldAccessNodeSetStructure(v69, *(a3 - 120));
       return 0;
     case 14:
-      v1002 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakePostincrementNode(v1002, &v1068);
+      glpCompilerGetAllocator();
+      v1223 = v1222;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakePostincrementNode(v1223, &v1303);
       goto LABEL_341;
     case 15:
-      v50 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakePostdecrementNode(v50, &v1068);
+      glpCompilerGetAllocator();
+      v53 = v52;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakePostdecrementNode(v53, &v1303);
 LABEL_341:
-      v633 = v51;
-      *a4 = v51;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v634 = *(a3 - 48);
+      v765 = v54;
+      *a4 = v54;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v766 = *(a3 - 48);
       goto LABEL_342;
     case 23:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v84 = *(a3 - 48);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v97 = *(a3 - 48);
       goto LABEL_284;
     case 24:
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v84 = *(a3 - 120);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v97 = *(a3 - 120);
 LABEL_284:
-      *a4 = v84;
-      v867 = glpCompilerGetAllocator(a7[98]);
-      v868 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpCallNodeAddArg(v867, v868, *(a3 + 24));
+      *a4 = v97;
+      glpCompilerGetAllocator();
+      v1054 = v1053;
+      v1055 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpCallNodeAddArg(v1054, v1055, *(a3 + 24));
       return 0;
     case 26:
-      goto LABEL_346;
+      goto LABEL_345;
     case 27:
       if (glpCompilerGetIOSVersion(a7[98]) >= 9)
       {
-        v246 = "Constructor calls may not have precision";
-        goto LABEL_371;
+        goto LABEL_369;
       }
 
-LABEL_346:
-      v1004 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      glpMakeConstructorCallNode(v1004, &v1068);
-      v1006 = v1005;
-      *a4 = v1005;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpConstructorCallNodeSetType(v1006, *(a3 + 24));
+LABEL_345:
+      glpCompilerGetAllocator();
+      v1227 = v1226;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      glpMakeConstructorCallNode(v1227, &v1303);
+      v1229 = v1228;
+      *a4 = v1228;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpConstructorCallNodeSetType(v1229, *(a3 + 24));
       return 0;
     case 28:
-      v847 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      glpMakeUndeterminedCallNode(v847, &v1068);
-      v849 = v848;
-      *a4 = v848;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpUndeterminedCallNodeSetCallee(v849, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v1028 = v1027;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      glpMakeUndeterminedCallNode(v1028, &v1303);
+      v1030 = v1029;
+      *a4 = v1029;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpUndeterminedCallNodeSetCallee(v1030, *(a3 + 24));
       return 0;
     case 30:
-      v44 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v45 = glpMakeStringZ_0(*(a3 - 40));
-      v47 = v46;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v45, v47, *(a3 - 32), &v1068);
-      glpMakePreincrementNode(v44, &v1068);
+      glpCompilerGetAllocator();
+      v46 = v45;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v47 = glpMakeStringZ_0(*(a3 - 40));
+      v49 = v48;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v47, v49, *(a3 - 32), &v1303);
+      glpMakePreincrementNode(v46, &v1303);
       goto LABEL_217;
     case 31:
-      v629 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v630 = glpMakeStringZ_0(*(a3 - 40));
-      v632 = v631;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v630, v632, *(a3 - 32), &v1068);
-      glpMakePredecrementNode(v629, &v1068);
+      glpCompilerGetAllocator();
+      v761 = v760;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v762 = glpMakeStringZ_0(*(a3 - 40));
+      v764 = v763;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v762, v764, *(a3 - 32), &v1303);
+      glpMakePredecrementNode(v761, &v1303);
       goto LABEL_217;
     case 32:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v68 = *(a3 - 48);
-      v69 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      Location = glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      v48 = v68(v69, &v1068, Location);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v77 = *(a3 - 48);
+      glpCompilerGetAllocator();
+      v79 = v78;
+      yyfill(a3, v1307, 0, v11 == 0);
+      Location = glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      v50 = v77(v79, &v1303, Location);
 LABEL_217:
-      v633 = v48;
-      *a4 = v48;
-      yyfill(a3, v1072, 0, v11 == 0);
-      v634 = *(a3 + 24);
+      v765 = v50;
+      *a4 = v50;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v766 = *(a3 + 24);
 LABEL_342:
-      glpUnaryOperatorNodeSetExpr(v633, v634);
+      glpUnaryOperatorNodeSetExpr(v765, v766);
       return 0;
     case 33:
       result = 0;
-      v49 = glpMakeUnaryPlusNode;
+      v51 = glpMakeUnaryPlusNode;
       goto LABEL_338;
     case 34:
       result = 0;
-      v49 = glpMakeNegateNode;
+      v51 = glpMakeNegateNode;
       goto LABEL_338;
     case 35:
       result = 0;
-      v49 = glpMakeLogicalNotNode;
+      v51 = glpMakeLogicalNotNode;
       goto LABEL_338;
     case 36:
       result = 0;
-      v49 = glpMakeBitwiseNotNode;
+      v51 = glpMakeBitwiseNotNode;
       goto LABEL_338;
     case 38:
-      v930 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeMultiplyNode(v930, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1133 = v1132;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeMultiplyNode(v1133, &v1303);
+      goto LABEL_357;
     case 39:
-      v157 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeDivideNode(v157, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v184 = v183;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeDivideNode(v184, &v1303);
+      goto LABEL_357;
     case 40:
-      v995 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeModuloNode(v995, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1212 = v1211;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeModuloNode(v1212, &v1303);
+      goto LABEL_357;
     case 42:
-      v1001 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeAddNode(v1001, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1221 = v1220;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeAddNode(v1221, &v1303);
+      goto LABEL_357;
     case 43:
-      v1008 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeSubtractNode(v1008, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1233 = v1232;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeSubtractNode(v1233, &v1303);
+      goto LABEL_357;
     case 45:
-      v929 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeShiftLeftNode(v929, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1131 = v1130;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeShiftLeftNode(v1131, &v1303);
+      goto LABEL_357;
     case 46:
-      v1000 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeShiftRightNode(v1000, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1219 = v1218;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeShiftRightNode(v1219, &v1303);
+      goto LABEL_357;
     case 48:
-      v52 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeLessNode(v52, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v56 = v55;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeLessNode(v56, &v1303);
+      goto LABEL_357;
     case 49:
-      v54 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeGreaterNode(v54, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v59 = v58;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeGreaterNode(v59, &v1303);
+      goto LABEL_357;
     case 50:
-      v920 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeLessEqualNode(v920, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1118 = v1117;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeLessEqualNode(v1118, &v1303);
+      goto LABEL_357;
     case 51:
-      v55 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeGreaterEqualNode(v55, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v61 = v60;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeGreaterEqualNode(v61, &v1303);
+      goto LABEL_357;
     case 53:
-      v1007 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeEqualNode(v1007, &v1068, 1);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1231 = v1230;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeEqualNode(v1231, &v1303, 1);
+      goto LABEL_357;
     case 54:
-      v429 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeNotEqualNode(v429, &v1068, 1);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v516 = v515;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeNotEqualNode(v516, &v1303, 1);
+      goto LABEL_357;
     case 56:
-      v949 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeBitwiseAndNode(v949, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1156 = v1155;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeBitwiseAndNode(v1156, &v1303);
+      goto LABEL_357;
     case 58:
-      v56 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeBitwiseXorNode(v56, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v63 = v62;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeBitwiseXorNode(v63, &v1303);
+      goto LABEL_357;
     case 60:
-      v555 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeBitwiseOrNode(v555, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v672 = v671;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeBitwiseOrNode(v672, &v1303);
+      goto LABEL_357;
     case 62:
-      v635 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeLogicalAndNode(v635, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v768 = v767;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeLogicalAndNode(v768, &v1303);
+      goto LABEL_357;
     case 64:
-      v499 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeLogicalXorNode(v499, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v603 = v602;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeLogicalXorNode(v603, &v1303);
+      goto LABEL_357;
     case 66:
-      v1003 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      MultiplyNode = glpMakeLogicalOrNode(v1003, &v1068);
-      goto LABEL_358;
+      glpCompilerGetAllocator();
+      v1225 = v1224;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      MultiplyNode = glpMakeLogicalOrNode(v1225, &v1303);
+      goto LABEL_357;
     case 68:
-      v230 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 264), &v1068);
-      glpMakeIfExprNode(v230, &v1068);
-      v232 = v231;
-      *a4 = v231;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpIfExprNodeSetCondition(v232, *(a3 - 264));
-      v233 = *a4;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpIfExprNodeSetIfExpr(v233, *(a3 - 120));
-      v234 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpIfExprNodeSetElseExpr(v234, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v275 = v274;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 264), &v1303);
+      glpMakeIfExprNode(v275, &v1303);
+      v277 = v276;
+      *a4 = v276;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpIfExprNodeSetCondition(v277, *(a3 - 264));
+      v278 = *a4;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpIfExprNodeSetIfExpr(v278, *(a3 - 120));
+      v279 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpIfExprNodeSetElseExpr(v279, *(a3 + 24));
       return 0;
     case 70:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v306 = *(a3 - 48);
-      v307 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      if (v306)
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v366 = *(a3 - 48);
+      glpCompilerGetAllocator();
+      v368 = v367;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      if (v366)
       {
-        yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-        MultiplyNode = glpMakeOpAssignNode(v307, &v1068, *(a3 - 48));
+        yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+        MultiplyNode = glpMakeOpAssignNode(v368, &v1303, *(a3 - 48));
       }
 
       else
       {
-        MultiplyNode = glpMakeAssignNode(v307, &v1068, 1);
+        MultiplyNode = glpMakeAssignNode(v368, &v1303, 1);
       }
 
-LABEL_358:
-      v1034 = MultiplyNode;
+LABEL_357:
+      v1264 = MultiplyNode;
       *a4 = MultiplyNode;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpBinaryOperatorNodeSetLhs(v1034, *(a3 - 120));
-      v1035 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpBinaryOperatorNodeSetRhs(v1035, *(a3 + 24));
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpBinaryOperatorNodeSetLhs(v1264, *(a3 - 120));
+      v1265 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpBinaryOperatorNodeSetRhs(v1265, *(a3 + 24));
       return 0;
     case 71:
     case 286:
@@ -5995,231 +6023,242 @@ LABEL_358:
       return result;
     case 72:
       result = 0;
-      v49 = glpMakeMultiplyNode;
+      v51 = glpMakeMultiplyNode;
       goto LABEL_338;
     case 73:
       result = 0;
-      v49 = glpMakeDivideNode;
+      v51 = glpMakeDivideNode;
       goto LABEL_338;
     case 74:
       result = 0;
-      v49 = glpMakeModuloNode;
+      v51 = glpMakeModuloNode;
       goto LABEL_338;
     case 75:
       result = 0;
-      v49 = glpMakeAddNode;
+      v51 = glpMakeAddNode;
       goto LABEL_338;
     case 76:
       result = 0;
-      v49 = glpMakeSubtractNode;
+      v51 = glpMakeSubtractNode;
       goto LABEL_338;
     case 77:
       result = 0;
-      v49 = glpMakeShiftLeftNode;
+      v51 = glpMakeShiftLeftNode;
       goto LABEL_338;
     case 78:
       result = 0;
-      v49 = glpMakeShiftRightNode;
+      v51 = glpMakeShiftRightNode;
       goto LABEL_338;
     case 79:
       result = 0;
-      v49 = glpMakeBitwiseAndNode;
+      v51 = glpMakeBitwiseAndNode;
       goto LABEL_338;
     case 80:
       result = 0;
-      v49 = glpMakeBitwiseXorNode;
+      v51 = glpMakeBitwiseXorNode;
       goto LABEL_338;
     case 81:
       result = 0;
-      v49 = glpMakeBitwiseOrNode;
+      v51 = glpMakeBitwiseOrNode;
 LABEL_338:
-      *a4 = v49;
+      *a4 = v51;
       return result;
     case 83:
-      v312 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      glpMakeCommaExprNode(v312, &v1068, 1);
-      *a4 = v313;
-      v314 = glpCompilerGetAllocator(a7[98]);
-      v315 = *a4;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpCommaExprNodeAddExpr(v314, v315, *(a3 - 120));
-      v316 = glpCompilerGetAllocator(a7[98]);
-      v317 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpCommaExprNodeAddExpr(v316, v317, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v375 = v374;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      glpMakeCommaExprNode(v375, &v1303, 1);
+      *a4 = v376;
+      glpCompilerGetAllocator();
+      v378 = v377;
+      v379 = *a4;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpCommaExprNodeAddExpr(v378, v379, *(a3 - 120));
+      glpCompilerGetAllocator();
+      v381 = v380;
+      v382 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpCommaExprNodeAddExpr(v381, v382, *(a3 + 24));
       return 0;
     case 87:
-      v636 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v637 = glpMakeStringZ_0(*(a3 - 184));
-      v639 = v638;
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpMakeSourceLocation(v637, v639, *(a3 - 176), &v1068);
-      glpMakePrecisionDeclarationNode(v636, &v1068);
-      v641 = v640;
-      *a4 = v640;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpPrecisionDeclarationNodeSetQualifier(v641, *(a3 - 120));
-      v642 = *a4;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpPrecisionDeclarationNodeSetType(v642, *(a3 - 48));
+      glpCompilerGetAllocator();
+      v770 = v769;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v771 = glpMakeStringZ_0(*(a3 - 184));
+      v773 = v772;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpMakeSourceLocation(v771, v773, *(a3 - 176), &v1303);
+      glpMakePrecisionDeclarationNode(v770, &v1303);
+      v775 = v774;
+      *a4 = v774;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpPrecisionDeclarationNodeSetQualifier(v775, *(a3 - 120));
+      v776 = *a4;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpPrecisionDeclarationNodeSetType(v776, *(a3 - 48));
       return 0;
     case 88:
-      v958 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967291, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 336), &v1068);
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      v959 = glpMakeStringZ_0(*(a3 - 264));
-      glpMakeInterfaceBlockNode(v958, &v1068, v959, v960, "<<BUG: printing instance name of interface block without an instance name>>", 0xDFA3F2CD0000004BLL, 0, 0, 0);
-      v962 = v961;
-      *a4 = v961;
-      yyfill(a3, v1072, 4294967291, v11 == 0);
-      glpInterfaceBlockNodeSetQualifiers(v962, *(a3 - 336));
-      v732 = glpCompilerGetAllocator(a7[98]);
-      v733 = *a4;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v734 = *(a3 - 120);
-      goto LABEL_355;
+      glpCompilerGetAllocator();
+      v1167 = v1166;
+      yyfill(a3, v1307, 4294967291, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 336), &v1303);
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      v1168 = glpMakeStringZ_0(*(a3 - 264));
+      glpMakeInterfaceBlockNode(v1167, &v1303, v1168, v1169, "<<BUG: printing instance name of interface block without an instance name>>", 0xDFA3F2CD0000004BLL, 0, 0, 0);
+      v1171 = v1170;
+      *a4 = v1170;
+      yyfill(a3, v1307, 4294967291, v11 == 0);
+      glpInterfaceBlockNodeSetQualifiers(v1171, *(a3 - 336));
+      glpCompilerGetAllocator();
+      v886 = v1172;
+      v887 = *a4;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v888 = *(a3 - 120);
+      goto LABEL_354;
     case 89:
       NameTable = glpCompilerGetNameTable(a7[98]);
       if (glpNameTableGetGLSLVersion(NameTable) <= 4)
       {
-        goto LABEL_81;
+        goto LABEL_369;
       }
 
-      v1024 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967290, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 408), &v1068);
-      yyfill(a3, v1072, 4294967291, v11 == 0);
-      v1025 = glpMakeStringZ_0(*(a3 - 336));
-      v1027 = v1026;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v1028 = glpMakeStringZ_0(*(a3 - 48));
-      glpMakeInterfaceBlockNode(v1024, &v1068, v1025, v1027, v1028, v1029, 1, 0, 0);
-      v1031 = v1030;
-      *a4 = v1030;
-      yyfill(a3, v1072, 4294967290, v11 == 0);
-      glpInterfaceBlockNodeSetQualifiers(v1031, *(a3 - 408));
-      v732 = glpCompilerGetAllocator(a7[98]);
-      v733 = *a4;
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v734 = *(a3 - 192);
-      goto LABEL_355;
+      glpCompilerGetAllocator();
+      v1253 = v1252;
+      yyfill(a3, v1307, 4294967290, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 408), &v1303);
+      yyfill(a3, v1307, 4294967291, v11 == 0);
+      v1254 = glpMakeStringZ_0(*(a3 - 336));
+      v1256 = v1255;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v1257 = glpMakeStringZ_0(*(a3 - 48));
+      glpMakeInterfaceBlockNode(v1253, &v1303, v1254, v1256, v1257, v1258, 1, 0, 0);
+      v1260 = v1259;
+      *a4 = v1259;
+      yyfill(a3, v1307, 4294967290, v11 == 0);
+      glpInterfaceBlockNodeSetQualifiers(v1260, *(a3 - 408));
+      glpCompilerGetAllocator();
+      v886 = v1261;
+      v887 = *a4;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v888 = *(a3 - 192);
+      goto LABEL_354;
     case 90:
-      v235 = glpCompilerGetNameTable(a7[98]);
-      if (glpNameTableGetGLSLVersion(v235) <= 4)
+      v280 = glpCompilerGetNameTable(a7[98]);
+      if (glpNameTableGetGLSLVersion(v280) <= 4)
       {
-LABEL_81:
-        v246 = "Uniform blocks may not have identifiers in GLSL 140";
-        goto LABEL_371;
+        goto LABEL_369;
       }
 
-      v236 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967289, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 480), &v1068);
-      yyfill(a3, v1072, 4294967290, v11 == 0);
-      v237 = glpMakeStringZ_0(*(a3 - 408));
-      v239 = v238;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v240 = glpMakeStringZ_0(*(a3 - 120));
-      glpMakeInterfaceBlockNode(v236, &v1068, v237, v239, v240, v241, 1, 1, 0);
-      v243 = v242;
-      *a4 = v242;
-      yyfill(a3, v1072, 4294967289, v11 == 0);
-      glpInterfaceBlockNodeSetQualifiers(v243, *(a3 - 480));
-      v244 = glpCompilerGetAllocator(a7[98]);
-      v245 = *a4;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      addFields(v244, v245, *(a3 - 264));
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
+      glpCompilerGetAllocator();
+      v282 = v281;
+      yyfill(a3, v1307, 4294967289, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 480), &v1303);
+      yyfill(a3, v1307, 4294967290, v11 == 0);
+      v283 = glpMakeStringZ_0(*(a3 - 408));
+      v285 = v284;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v286 = glpMakeStringZ_0(*(a3 - 120));
+      glpMakeInterfaceBlockNode(v282, &v1303, v283, v285, v286, v287, 1, 1, 0);
+      v289 = v288;
+      *a4 = v288;
+      yyfill(a3, v1307, 4294967289, v11 == 0);
+      glpInterfaceBlockNodeSetQualifiers(v289, *(a3 - 480));
+      glpCompilerGetAllocator();
+      v291 = v290;
+      v292 = *a4;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      addFields(v291, v292, *(a3 - 264));
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
       if (glpArrayTypeNodeGetElementType(*(a3 - 48)))
       {
-        v246 = "Interface blocks may not be multidimensional arrays";
-        goto LABEL_371;
+        goto LABEL_369;
       }
 
-      v1053 = *a4;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
+      v1288 = *a4;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
       Dimension = glpArrayTypeNodeGetDimension(*(a3 - 48));
-      glpInterfaceBlockNodeSetDimension(v1053, Dimension);
+      glpInterfaceBlockNodeSetDimension(v1288, Dimension);
       return 0;
     case 91:
-      v81 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakeGlobalTypeQualifierNode(v81, &v1068, 0);
-      v83 = v82;
-      *a4 = v82;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpGlobalTypeQualifierNodeSetQualifierList(v83, *(a3 - 48));
+      glpCompilerGetAllocator();
+      v94 = v93;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakeGlobalTypeQualifierNode(v94, &v1303, 0);
+      v96 = v95;
+      *a4 = v95;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpGlobalTypeQualifierNodeSetQualifierList(v96, *(a3 - 48));
       return 0;
     case 92:
-      v73 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v74 = glpMakeStringZ_0(*(a3 - 40));
-      v76 = v75;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v74, v76, *(a3 - 32), &v1068);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v77 = glpMakeStringZ_0(*(a3 - 48));
-      glpMakeQualifiedDeclarationNode(v73, &v1068, v77, v78);
-      v80 = v79;
-      *a4 = v79;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpQualifiedDeclarationNodeSetQualifiers(v80, *(a3 - 120));
+      glpCompilerGetAllocator();
+      v85 = v84;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v86 = glpMakeStringZ_0(*(a3 - 40));
+      v88 = v87;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v86, v88, *(a3 - 32), &v1303);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v89 = glpMakeStringZ_0(*(a3 - 48));
+      glpMakeQualifiedDeclarationNode(v85, &v1303, v89, v90);
+      v92 = v91;
+      *a4 = v91;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpQualifiedDeclarationNodeSetQualifiers(v92, *(a3 - 120));
       return 0;
     case 93:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
       *a4 = *(a3 - 48);
-      v975 = glpCompilerGetAllocator(a7[98]);
-      v976 = *a4;
-      v977 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v978 = glpMakeStringZ_0(*(a3 - 112));
-      v980 = v979;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpMakeSourceLocation(v978, v980, *(a3 - 104), &v1068);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v981 = glpMakeStringZ_0(*(a3 - 120));
-      glpMakeQualifiedDeclarationNode(v977, &v1068, v981, v982);
-      glpQualifiedDeclarationGroupNodeInsertDeclaration(v975, v976, v983, 0);
+      glpCompilerGetAllocator();
+      v1189 = v1188;
+      v1190 = *a4;
+      glpCompilerGetAllocator();
+      v1192 = v1191;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v1193 = glpMakeStringZ_0(*(a3 - 112));
+      v1195 = v1194;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v1193, v1195, *(a3 - 104), &v1303);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v1196 = glpMakeStringZ_0(*(a3 - 120));
+      glpMakeQualifiedDeclarationNode(v1192, &v1303, v1196, v1197);
+      glpQualifiedDeclarationGroupNodeInsertDeclaration(v1189, v1190, v1198, 0);
       result = glpQualifiedDeclarationGroupNodeGetDeclarationCount(*a4);
       if (!result)
       {
         return result;
       }
 
-      v984 = result;
-      for (i = 0; i != v984; ++i)
+      v1199 = result;
+      for (i = 0; i != v1199; ++i)
       {
         Declaration = glpQualifiedDeclarationGroupNodeGetDeclaration(*a4, i);
-        if (v11 && v1072[0] >= -2)
+        if (v11 && v1307[0] >= -2)
         {
-          v987 = *(a3 + 72 * v1072[0] + 8);
-          v988 = v1072[0] + 1;
-          v989 = a3 - 71 + 72 * v1072[0];
+          v1202 = *(a3 + 72 * v1307[0] + 8);
+          v1203 = v1307[0] + 1;
+          v1204 = a3 - 71 + 72 * v1307[0];
           do
           {
-            if (!*(v987 + 1))
+            if (!*(v1202 + 1))
             {
-              goto LABEL_374;
+              goto LABEL_372;
             }
 
-            *v989 = 1;
-            v990 = *(v987 + 24);
-            *(v989 + 39) = *(v987 + 40);
-            *(v989 + 23) = v990;
-            *(v989 + 47) = *(v987 + 48);
-            v987 = *(v987 + 8);
-            *(v989 + 7) = v987;
-            --v988;
-            v989 -= 72;
+            *v1204 = 1;
+            v1205 = *(v1202 + 24);
+            *(v1204 + 39) = *(v1202 + 40);
+            *(v1204 + 23) = v1205;
+            *(v1204 + 47) = *(v1202 + 48);
+            v1202 = *(v1202 + 8);
+            *(v1204 + 7) = v1202;
+            --v1203;
+            v1204 -= 72;
           }
 
-          while (v988 > -2);
-          v1072[0] = -3;
+          while (v1203 > -2);
+          v1307[0] = -3;
         }
 
         glpQualifiedDeclarationNodeSetQualifiers(Declaration, *(a3 - 192));
@@ -6228,50 +6267,54 @@ LABEL_81:
 
       return result;
     case 94:
-      v85 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      v86 = glpMakeStringZ_0(*(a3 - 256));
-      v88 = v87;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpMakeSourceLocation(v86, v88, *(a3 - 248), &v1068);
-      glpMakeAvailabilityDeclarationNode(v85, &v1068);
-      v90 = v89;
-      *a4 = v89;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpAvailabilityDeclarationNodeSetExpr(v90, *(a3 - 120));
+      glpCompilerGetAllocator();
+      v99 = v98;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      v100 = glpMakeStringZ_0(*(a3 - 256));
+      v102 = v101;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpMakeSourceLocation(v100, v102, *(a3 - 248), &v1303);
+      glpMakeAvailabilityDeclarationNode(v99, &v1303);
+      v104 = v103;
+      *a4 = v103;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpAvailabilityDeclarationNodeSetExpr(v104, *(a3 - 120));
       return 0;
     case 95:
-      v790 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v791 = glpMakeStringZ_0(*(a3 + 32));
-      v793 = v792;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v791, v793, *(a3 + 40), &v1068);
-      glpMakeQualifiedDeclarationGroupNode(v790, &v1068);
-      *a4 = v794;
+      glpCompilerGetAllocator();
+      v958 = v957;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v959 = glpMakeStringZ_0(*(a3 + 32));
+      v961 = v960;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v959, v961, *(a3 + 40), &v1303);
+      glpMakeQualifiedDeclarationGroupNode(v958, &v1303);
+      *a4 = v962;
       goto LABEL_261;
     case 96:
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       *a4 = *(a3 - 120);
 LABEL_261:
-      v795 = glpCompilerGetAllocator(a7[98]);
-      v796 = *a4;
-      v797 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v798 = glpMakeStringZ_0(*(a3 + 32));
-      v800 = v799;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v798, v800, *(a3 + 40), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v801 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeQualifiedDeclarationNode(v797, &v1068, v801, v802);
-      glpQualifiedDeclarationGroupNodeAddDeclaration(v795, v796, v803);
+      glpCompilerGetAllocator();
+      v964 = v963;
+      v965 = *a4;
+      glpCompilerGetAllocator();
+      v967 = v966;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v968 = glpMakeStringZ_0(*(a3 + 32));
+      v970 = v969;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v968, v970, *(a3 + 40), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v971 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeQualifiedDeclarationNode(v967, &v1303, v971, v972);
+      glpQualifiedDeclarationGroupNodeAddDeclaration(v964, v965, v973);
       return 0;
     case 97:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v443 = *(a3 - 48);
-      *a4 = v443;
-      ReturnType = glpFunctionPrototypeNodeGetReturnType(v443);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v534 = *(a3 - 48);
+      *a4 = v534;
+      ReturnType = glpFunctionPrototypeNodeGetReturnType(v534);
       result = glpIsQualifiedTypeNode(ReturnType);
       if (!result)
       {
@@ -6279,225 +6322,239 @@ LABEL_261:
       }
 
       Qualifiers = glpQualifiedTypeNodeGetQualifiers(ReturnType);
-      v1071[0] = MEMORY[0x277D85DD0];
-      v1071[1] = 0x40000000;
-      v1071[2] = __yyuserAction_block_invoke;
-      v1071[3] = &__block_descriptor_tmp_15;
-      v1071[4] = a7;
-      v1071[5] = v443;
-      iterateQualifiers(Qualifiers, v1071);
+      v1306[0] = MEMORY[0x277D85DD0];
+      v1306[1] = 0x40000000;
+      v1306[2] = __yyuserAction_block_invoke;
+      v1306[3] = &__block_descriptor_tmp_15;
+      v1306[4] = a7;
+      v1306[5] = v534;
+      iterateQualifiers(Qualifiers, v1306);
       return 0;
     case 100:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v98 = *(a3 - 48);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v113 = *(a3 - 48);
       goto LABEL_272;
     case 101:
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v98 = *(a3 - 120);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v113 = *(a3 - 120);
 LABEL_272:
-      *a4 = v98;
-      v837 = glpCompilerGetAllocator(a7[98]);
-      v838 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpFunctionPrototypeNodeAddParameter(v837, v838, *(a3 + 24));
+      *a4 = v113;
+      glpCompilerGetAllocator();
+      v1015 = v1014;
+      v1016 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpFunctionPrototypeNodeAddParameter(v1015, v1016, *(a3 + 24));
       return 0;
     case 102:
-      v826 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v827 = glpMakeStringZ_0(*(a3 - 48));
-      glpMakeFunctionPrototypeNode(v826, &v1068, v827, v828);
-      *a4 = v829;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      glpCompilerGetAllocator();
+      v1002 = v1001;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v1003 = glpMakeStringZ_0(*(a3 - 48));
+      glpMakeFunctionPrototypeNode(v1002, &v1303, v1003, v1004);
+      *a4 = v1005;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       IsQualifiedTypeNode = glpIsQualifiedTypeNode(*(a3 - 120));
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       Type = *(a3 - 120);
       if (IsQualifiedTypeNode)
       {
         Type = glpQualifiedTypeNodeGetType(*(a3 - 120));
       }
 
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       if (glpIsQualifiedTypeNode(*(a3 - 120)))
       {
-        yyfill(a3, v1072, 4294967294, v11 == 0);
-        v832 = glpQualifiedTypeNodeGetQualifiers(*(a3 - 120));
+        yyfill(a3, v1307, 4294967294, v11 == 0);
+        v1008 = glpQualifiedTypeNodeGetQualifiers(*(a3 - 120));
       }
 
       else
       {
-        v832 = 0;
+        v1008 = 0;
       }
 
-      v1068.n128_u64[0] = 0;
-      v1068.n128_u64[1] = &v1068;
-      v1069 = 0x2000000000;
-      v1070 = 0;
-      v1066 = 0;
-      v1067[0] = MEMORY[0x277D85DD0];
-      v1067[1] = 0x40000000;
-      v1067[2] = __yyuserAction_block_invoke_2;
-      v1067[3] = &unk_278B4C660;
-      v1067[4] = &v1068;
-      v1067[5] = a7;
-      v1067[6] = Type;
-      v1063 = 0;
-      v1064 = &v1063;
-      v1065 = 0x2000000000;
-      v1058[0] = MEMORY[0x277D85DD0];
-      v1058[1] = 0x40000000;
-      v1059 = __yyuserAction_block_invoke_3;
-      v1060 = &unk_278B4C688;
-      v1061 = &v1063;
-      v1062 = a7;
-      v1057[0] = MEMORY[0x277D85DD0];
-      v1057[1] = 0x40000000;
-      v1057[2] = __yyuserAction_block_invoke_4;
-      v1057[3] = &unk_278B4C6B0;
-      v1057[4] = v1067;
-      v1057[5] = v1058;
-      iterateQualifiers(v832, v1057);
-      v1036 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1056);
-      glpMakeQualifiedTypeNode(v1036, &v1056);
-      v1038 = v1037;
-      glpQualifiedTypeNodeSetType(v1037, Type);
-      glpQualifiedTypeNodeSetQualifiers(v1038, *(v1068.n128_u64[1] + 24));
-      glpFunctionPrototypeNodeSetReturnType(*a4, v1038);
+      v1303.n128_u64[0] = 0;
+      v1303.n128_u64[1] = &v1303;
+      v1304 = 0x2000000000;
+      v1305 = 0;
+      v1301 = 0;
+      v1302[0] = MEMORY[0x277D85DD0];
+      v1302[1] = 0x40000000;
+      v1302[2] = __yyuserAction_block_invoke_2;
+      v1302[3] = &unk_278B4C660;
+      v1302[4] = &v1303;
+      v1302[5] = a7;
+      v1302[6] = Type;
+      v1298 = 0;
+      v1299 = &v1298;
+      v1300 = 0x2000000000;
+      v1293[0] = MEMORY[0x277D85DD0];
+      v1293[1] = 0x40000000;
+      v1294 = __yyuserAction_block_invoke_3;
+      v1295 = &unk_278B4C688;
+      v1296 = &v1298;
+      v1297 = a7;
+      v1292[0] = MEMORY[0x277D85DD0];
+      v1292[1] = 0x40000000;
+      v1292[2] = __yyuserAction_block_invoke_4;
+      v1292[3] = &unk_278B4C6B0;
+      v1292[4] = v1302;
+      v1292[5] = v1293;
+      iterateQualifiers(v1008, v1292);
+      glpCompilerGetAllocator();
+      v1267 = v1266;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1291);
+      glpMakeQualifiedTypeNode(v1267, &v1291);
+      v1269 = v1268;
+      glpQualifiedTypeNodeSetType(v1268, Type);
+      glpQualifiedTypeNodeSetQualifiers(v1269, *(v1303.n128_u64[1] + 24));
+      glpFunctionPrototypeNodeSetReturnType(*a4, v1269);
       if (!glpIsPrimitiveTypeNode(Type) || glpPrimitiveTypeNodeGetType(Type))
       {
-        v1039 = glpCompilerGetAllocator(a7[98]);
-        yyfill(a3, v1072, 4294967294, v11 == 0);
-        glpASTNodeGetLocation(*(a3 - 120), &v1056);
-        KeywordQualifierNode = glpMakeKeywordQualifierNode(v1039, &v1056, 14);
-        (v1059)(v1058, v1041, KeywordQualifierNode);
-        qsort_b(*(v1064[3] + 8), *(v1064[3] + 4), 8uLL, &__block_literal_global_5);
-        v1042 = glpCompilerGetAllocator(a7[98]);
-        glpASTNodeGetLocation(Type, &v1056);
-        glpMakeQualifierListNode(v1042, &v1056);
-        v1044 = v1043;
-        if (*(v1064[3] + 4))
+        glpCompilerGetAllocator();
+        v1271 = v1270;
+        yyfill(a3, v1307, 4294967294, v11 == 0);
+        glpASTNodeGetLocation(*(a3 - 120), &v1291);
+        KeywordQualifierNode = glpMakeKeywordQualifierNode(v1271, &v1291, 14);
+        (v1294)(v1293, v1273, KeywordQualifierNode);
+        qsort_b(*(v1299[3] + 8), *(v1299[3] + 4), 8uLL, &__block_literal_global_5);
+        glpCompilerGetAllocator();
+        v1275 = v1274;
+        glpASTNodeGetLocation(Type, &v1291);
+        glpMakeQualifierListNode(v1275, &v1291);
+        v1277 = v1276;
+        if (*(v1299[3] + 4))
         {
-          v1045 = 0;
+          v1278 = 0;
           do
           {
-            v1046 = glpCompilerGetAllocator(a7[98]);
-            glpQualifierListNodeAddQualifier(v1046, v1044, *(*(v1064[3] + 8) + 8 * v1045++));
+            glpCompilerGetAllocator();
+            glpQualifierListNodeAddQualifier(v1279, v1277, *(*(v1299[3] + 8) + 8 * v1278++));
           }
 
-          while (v1045 < *(v1064[3] + 4));
+          while (v1278 < *(v1299[3] + 4));
         }
 
-        v1047 = glpCompilerGetAllocator(a7[98]);
-        yyfill(a3, v1072, 4294967294, v11 == 0);
-        glpASTNodeGetLocation(*(a3 - 120), &v1056);
-        glpMakeQualifiedTypeNode(v1047, &v1056);
-        v1049 = v1048;
-        glpQualifiedTypeNodeSetType(v1048, Type);
-        glpQualifiedTypeNodeSetQualifiers(v1049, v1044);
-        v1050 = glpCompilerGetAllocator(a7[98]);
-        yyfill(a3, v1072, 4294967294, v11 == 0);
-        glpASTNodeGetLocation(*(a3 - 120), &v1056);
-        glpMakeParameterDeclarationNode(v1050, &v1056, "$return_value", 0xE306948F0000000DLL);
-        v1052 = v1051;
-        glpParameterDeclarationNodeSetType(v1051, v1049);
-        glpFunctionPrototypeNodeSetReturnOutParam(*a4, v1052);
+        glpCompilerGetAllocator();
+        v1281 = v1280;
+        yyfill(a3, v1307, 4294967294, v11 == 0);
+        glpASTNodeGetLocation(*(a3 - 120), &v1291);
+        glpMakeQualifiedTypeNode(v1281, &v1291);
+        v1283 = v1282;
+        glpQualifiedTypeNodeSetType(v1282, Type);
+        glpQualifiedTypeNodeSetQualifiers(v1283, v1277);
+        glpCompilerGetAllocator();
+        v1285 = v1284;
+        yyfill(a3, v1307, 4294967294, v11 == 0);
+        glpASTNodeGetLocation(*(a3 - 120), &v1291);
+        glpMakeParameterDeclarationNode(v1285, &v1291, "$return_value", 0xE306948F0000000DLL);
+        v1287 = v1286;
+        glpParameterDeclarationNodeSetType(v1286, v1283);
+        glpFunctionPrototypeNodeSetReturnOutParam(*a4, v1287);
       }
 
-      _Block_object_dispose(&v1063, 8);
-      _Block_object_dispose(&v1068, 8);
+      _Block_object_dispose(&v1298, 8);
+      _Block_object_dispose(&v1303, 8);
       return 0;
     case 103:
-      v905 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v906 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeParameterDeclarationNode(v905, &v1068, v906, v907);
-      v866 = v908;
-      *a4 = v908;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v505 = *(a3 - 48);
+      glpCompilerGetAllocator();
+      v1100 = v1099;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1101 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeParameterDeclarationNode(v1100, &v1303, v1101, v1102);
+      v1052 = v1103;
+      *a4 = v1103;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v611 = *(a3 - 48);
       goto LABEL_296;
     case 104:
-      v877 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v878 = glpMakeStringZ_0(*(a3 - 48));
-      glpMakeParameterDeclarationNode(v877, &v1068, v878, v879);
-      v881 = v880;
-      *a4 = v880;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v882 = *(a3 - 120);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v883 = *(a3 + 24);
-      arrayify(v882, v883);
-      v504 = v881;
-      v505 = v883;
+      glpCompilerGetAllocator();
+      v1067 = v1066;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v1068 = glpMakeStringZ_0(*(a3 - 48));
+      glpMakeParameterDeclarationNode(v1067, &v1303, v1068, v1069);
+      v1071 = v1070;
+      *a4 = v1070;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v1072 = *(a3 - 120);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1073 = *(a3 + 24);
+      arrayify(v1072, v1073);
+      v610 = v1071;
+      v611 = v1073;
       goto LABEL_297;
     case 105:
-      yyfill(a3, v1072, 0, v11 == 0);
+      yyfill(a3, v1307, 0, v11 == 0);
       *a4 = *(a3 + 24);
-      v753 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakeQualifiedTypeNode(v753, &v1068);
-      v755 = v754;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpQualifiedTypeNodeSetQualifiers(v755, *(a3 - 48));
-      v756 = glpParameterDeclarationNodeGetType(*a4);
-      glpQualifiedTypeNodeSetType(v755, v756);
-      v504 = *a4;
-      v505 = v755;
+      glpCompilerGetAllocator();
+      v911 = v910;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakeQualifiedTypeNode(v911, &v1303);
+      v913 = v912;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpQualifiedTypeNodeSetQualifiers(v913, *(a3 - 48));
+      v914 = glpParameterDeclarationNodeGetType(*a4);
+      glpQualifiedTypeNodeSetType(v913, v914);
+      v610 = *a4;
+      v611 = v913;
       goto LABEL_297;
     case 107:
-      v500 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakeQualifiedTypeNode(v500, &v1068);
-      v502 = v501;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpQualifiedTypeNodeSetType(v502, *(a3 + 24));
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpQualifiedTypeNodeSetQualifiers(v502, *(a3 - 48));
-      v503 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakeParameterDeclarationNode(v503, &v1068, "<<unnamed>>", 0x725D7890000000BLL);
-      *a4 = v504;
-      v505 = v502;
+      glpCompilerGetAllocator();
+      v605 = v604;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakeQualifiedTypeNode(v605, &v1303);
+      v607 = v606;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpQualifiedTypeNodeSetType(v607, *(a3 + 24));
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpQualifiedTypeNodeSetQualifiers(v607, *(a3 - 48));
+      glpCompilerGetAllocator();
+      v609 = v608;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakeParameterDeclarationNode(v609, &v1303, "<<unnamed>>", 0x725D7890000000BLL);
+      *a4 = v610;
+      v611 = v607;
       goto LABEL_297;
     case 108:
-      v864 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      glpMakeParameterDeclarationNode(v864, &v1068, "<<unnamed>>", 0x725D7890000000BLL);
-      v866 = v865;
-      *a4 = v865;
-      yyfill(a3, v1072, 0, v11 == 0);
-      v505 = *(a3 + 24);
+      glpCompilerGetAllocator();
+      v1050 = v1049;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      glpMakeParameterDeclarationNode(v1050, &v1303, "<<unnamed>>", 0x725D7890000000BLL);
+      v1052 = v1051;
+      *a4 = v1051;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v611 = *(a3 + 24);
 LABEL_296:
-      v504 = v866;
+      v610 = v1052;
 LABEL_297:
-      glpParameterDeclarationNodeSetType(v504, v505);
+      glpParameterDeclarationNodeSetType(v610, v611);
       return 0;
     case 110:
-      v858 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      glpMakeVariableDeclarationGroupNode(v858, &v1068);
-      v860 = v859;
-      *a4 = v859;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpVariableDeclarationGroupNodeSetBaseType(v860, *(a3 + 32));
-      yyfill(a3, v1072, 0, v11 == 0);
+      glpCompilerGetAllocator();
+      v1042 = v1041;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      glpMakeVariableDeclarationGroupNode(v1042, &v1303);
+      v1044 = v1043;
+      *a4 = v1043;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpVariableDeclarationGroupNodeSetBaseType(v1044, *(a3 + 32));
+      yyfill(a3, v1307, 0, v11 == 0);
       Kind = glpASTNodeGetKind(*(a3 + 24));
       if (Kind > 0x38)
       {
-        goto LABEL_374;
+        goto LABEL_372;
       }
 
       if (((1 << Kind) & 0x170000000000004) != 0)
@@ -6507,1988 +6564,2167 @@ LABEL_297:
 
       if (Kind != 46)
       {
-        goto LABEL_374;
+        goto LABEL_372;
       }
 
-      v862 = glpCompilerGetAllocator(a7[98]);
-      v863 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpVariableDeclarationGroupNodeAddDeclaration(v862, v863, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v1047 = v1046;
+      v1048 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpVariableDeclarationGroupNodeAddDeclaration(v1047, v1048, *(a3 + 24));
       return 0;
     case 111:
-      v99 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v100 = glpMakeStringZ_0(*(a3 + 32));
-      v102 = v101;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v100, v102, *(a3 + 40), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v103 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeVariableDeclarationNode(v99, &v1068, v103, v104, 1);
-      v106 = v105;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      glpCompilerGetAllocator();
+      v115 = v114;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v116 = glpMakeStringZ_0(*(a3 + 32));
+      v118 = v117;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v116, v118, *(a3 + 40), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v119 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeVariableDeclarationNode(v115, &v1303, v119, v120, 1);
+      v122 = v121;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       BaseType = glpVariableDeclarationGroupNodeGetBaseType(*(a3 - 120));
-      glpVariableDeclarationNodeSetType(v106, BaseType);
-      v108 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpVariableDeclarationGroupNodeAddDeclaration(v108, *(a3 - 120), v106);
+      glpVariableDeclarationNodeSetType(v122, BaseType);
+      glpCompilerGetAllocator();
+      v125 = v124;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpVariableDeclarationGroupNodeAddDeclaration(v125, *(a3 - 120), v122);
       goto LABEL_56;
     case 112:
-      v938 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v939 = glpMakeStringZ_0(*(a3 - 40));
-      v941 = v940;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v939, v941, *(a3 - 32), &v1068);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v942 = glpMakeStringZ_0(*(a3 - 48));
-      glpMakeVariableDeclarationNode(v938, &v1068, v942, v943, 1);
-      v945 = v944;
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v946 = glpVariableDeclarationGroupNodeGetBaseType(*(a3 - 192));
-      yyfill(a3, v1072, 0, v11 == 0);
-      v947 = *(a3 + 24);
-      arrayify(v946, v947);
-      glpVariableDeclarationNodeSetType(v945, v947);
-      v948 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpVariableDeclarationGroupNodeAddDeclaration(v948, *(a3 - 192), v945);
+      glpCompilerGetAllocator();
+      v1143 = v1142;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v1144 = glpMakeStringZ_0(*(a3 - 40));
+      v1146 = v1145;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v1144, v1146, *(a3 - 32), &v1303);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v1147 = glpMakeStringZ_0(*(a3 - 48));
+      glpMakeVariableDeclarationNode(v1143, &v1303, v1147, v1148, 1);
+      v1150 = v1149;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v1151 = glpVariableDeclarationGroupNodeGetBaseType(*(a3 - 192));
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1152 = *(a3 + 24);
+      arrayify(v1151, v1152);
+      glpVariableDeclarationNodeSetType(v1150, v1152);
+      glpCompilerGetAllocator();
+      v1154 = v1153;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpVariableDeclarationGroupNodeAddDeclaration(v1154, *(a3 - 192), v1150);
       goto LABEL_308;
     case 113:
-      v909 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v910 = glpMakeStringZ_0(*(a3 - 184));
-      v912 = v911;
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpMakeSourceLocation(v910, v912, *(a3 - 176), &v1068);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v913 = glpMakeStringZ_0(*(a3 - 192));
-      glpMakeVariableDeclarationNode(v909, &v1068, v913, v914, 1);
-      v916 = v915;
-      yyfill(a3, v1072, 4294967291, v11 == 0);
-      v130 = (a3 - 336);
-      v917 = glpVariableDeclarationGroupNodeGetBaseType(*(a3 - 336));
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v918 = *(a3 - 120);
-      arrayify(v917, v918);
-      glpVariableDeclarationNodeSetType(v916, v918);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpVariableDeclarationNodeSetInitializer(v916, *(a3 + 24));
-      v919 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967291, v11 == 0);
-      glpVariableDeclarationGroupNodeAddDeclaration(v919, *(a3 - 336), v916);
-      v133 = a3;
-      v134 = 4294967291;
+      glpCompilerGetAllocator();
+      v1105 = v1104;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v1106 = glpMakeStringZ_0(*(a3 - 184));
+      v1108 = v1107;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpMakeSourceLocation(v1106, v1108, *(a3 - 176), &v1303);
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v1109 = glpMakeStringZ_0(*(a3 - 192));
+      glpMakeVariableDeclarationNode(v1105, &v1303, v1109, v1110, 1);
+      v1112 = v1111;
+      yyfill(a3, v1307, 4294967291, v11 == 0);
+      v150 = (a3 - 336);
+      v1113 = glpVariableDeclarationGroupNodeGetBaseType(*(a3 - 336));
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v1114 = *(a3 - 120);
+      arrayify(v1113, v1114);
+      glpVariableDeclarationNodeSetType(v1112, v1114);
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpVariableDeclarationNodeSetInitializer(v1112, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v1116 = v1115;
+      yyfill(a3, v1307, 4294967291, v11 == 0);
+      glpVariableDeclarationGroupNodeAddDeclaration(v1116, *(a3 - 336), v1112);
+      v154 = a3;
+      v155 = 4294967291;
       goto LABEL_299;
     case 114:
-      v122 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v123 = glpMakeStringZ_0(*(a3 - 112));
-      v125 = v124;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpMakeSourceLocation(v123, v125, *(a3 - 104), &v1068);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v126 = glpMakeStringZ_0(*(a3 - 120));
-      glpMakeVariableDeclarationNode(v122, &v1068, v126, v127, 1);
-      v129 = v128;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      v130 = (a3 - 264);
-      v131 = glpVariableDeclarationGroupNodeGetBaseType(*(a3 - 264));
-      glpVariableDeclarationNodeSetType(v129, v131);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpVariableDeclarationNodeSetInitializer(v129, *(a3 + 24));
-      v132 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpVariableDeclarationGroupNodeAddDeclaration(v132, *(a3 - 264), v129);
-      v133 = a3;
-      v134 = 4294967292;
+      glpCompilerGetAllocator();
+      v142 = v141;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v143 = glpMakeStringZ_0(*(a3 - 112));
+      v145 = v144;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v143, v145, *(a3 - 104), &v1303);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v146 = glpMakeStringZ_0(*(a3 - 120));
+      glpMakeVariableDeclarationNode(v142, &v1303, v146, v147, 1);
+      v149 = v148;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      v150 = (a3 - 264);
+      v151 = glpVariableDeclarationGroupNodeGetBaseType(*(a3 - 264));
+      glpVariableDeclarationNodeSetType(v149, v151);
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpVariableDeclarationNodeSetInitializer(v149, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v153 = v152;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpVariableDeclarationGroupNodeAddDeclaration(v153, *(a3 - 264), v149);
+      v154 = a3;
+      v155 = 4294967292;
 LABEL_299:
-      yyfill(v133, v1072, v134, v11 == 0);
+      yyfill(v154, v1307, v155, v11 == 0);
       result = 0;
-      v24 = *v130;
+      v24 = *v150;
       goto LABEL_334;
     case 115:
-      yyfill(a3, v1072, 0, v11 == 0);
-      v293 = *(a3 + 24);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v350 = *(a3 + 24);
       goto LABEL_211;
     case 116:
-      v62 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v63 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeVariableDeclarationNode(v62, &v1068, v63, v64, 1);
-      v66 = v65;
-      *a4 = v65;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpVariableDeclarationNodeSetType(v66, *(a3 - 48));
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
+      glpCompilerGetAllocator();
+      v71 = v70;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v72 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeVariableDeclarationNode(v71, &v1303, v72, v73, 1);
+      v75 = v74;
+      *a4 = v74;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpVariableDeclarationNodeSetType(v75, *(a3 - 48));
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
       result = 0;
-      v67 = *(a3 - 48);
+      v76 = *(a3 - 48);
       goto LABEL_311;
     case 117:
-      v931 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 120), &v1068);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v932 = glpMakeStringZ_0(*(a3 - 48));
-      glpMakeVariableDeclarationNode(v931, &v1068, v932, v933, 1);
-      v935 = v934;
-      *a4 = v934;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v936 = *(a3 - 120);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v937 = *(a3 + 24);
-      arrayify(v936, v937);
-      glpVariableDeclarationNodeSetType(v935, v937);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      glpCompilerGetAllocator();
+      v1135 = v1134;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 120), &v1303);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v1136 = glpMakeStringZ_0(*(a3 - 48));
+      glpMakeVariableDeclarationNode(v1135, &v1303, v1136, v1137, 1);
+      v1139 = v1138;
+      *a4 = v1138;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v1140 = *(a3 - 120);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1141 = *(a3 + 24);
+      arrayify(v1140, v1141);
+      glpVariableDeclarationNodeSetType(v1139, v1141);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       result = 0;
-      v67 = *(a3 - 120);
+      v76 = *(a3 - 120);
       goto LABEL_311;
     case 118:
-      v950 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 264), &v1068);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v951 = glpMakeStringZ_0(*(a3 - 192));
-      glpMakeVariableDeclarationNode(v950, &v1068, v951, v952, 1);
-      v954 = v953;
-      *a4 = v953;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      v955 = *(a3 - 264);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v956 = *(a3 - 120);
-      arrayify(v955, v956);
-      glpVariableDeclarationNodeSetType(v954, v956);
-      v957 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpVariableDeclarationNodeSetInitializer(v957, *(a3 + 24));
-      yyfill(a3, v1072, 4294967292, v11 == 0);
+      glpCompilerGetAllocator();
+      v1158 = v1157;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 264), &v1303);
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v1159 = glpMakeStringZ_0(*(a3 - 192));
+      glpMakeVariableDeclarationNode(v1158, &v1303, v1159, v1160, 1);
+      v1162 = v1161;
+      *a4 = v1161;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      v1163 = *(a3 - 264);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v1164 = *(a3 - 120);
+      arrayify(v1163, v1164);
+      glpVariableDeclarationNodeSetType(v1162, v1164);
+      v1165 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpVariableDeclarationNodeSetInitializer(v1165, *(a3 + 24));
+      yyfill(a3, v1307, 4294967292, v11 == 0);
       result = 0;
-      v67 = *(a3 - 264);
+      v76 = *(a3 - 264);
       goto LABEL_311;
     case 119:
-      v184 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 192), &v1068);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v185 = glpMakeStringZ_0(*(a3 - 120));
-      glpMakeVariableDeclarationNode(v184, &v1068, v185, v186, 1);
-      v188 = v187;
-      *a4 = v187;
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpVariableDeclarationNodeSetType(v188, *(a3 - 192));
-      v189 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpVariableDeclarationNodeSetInitializer(v189, *(a3 + 24));
-      yyfill(a3, v1072, 4294967293, v11 == 0);
+      glpCompilerGetAllocator();
+      v218 = v217;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 192), &v1303);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v219 = glpMakeStringZ_0(*(a3 - 120));
+      glpMakeVariableDeclarationNode(v218, &v1303, v219, v220, 1);
+      v222 = v221;
+      *a4 = v221;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpVariableDeclarationNodeSetType(v222, *(a3 - 192));
+      v223 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpVariableDeclarationNodeSetInitializer(v223, *(a3 + 24));
+      yyfill(a3, v1307, 4294967293, v11 == 0);
       result = 0;
-      v67 = *(a3 - 192);
+      v76 = *(a3 - 192);
       goto LABEL_311;
     case 121:
-      v495 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakeQualifiedTypeNode(v495, &v1068);
-      v497 = v496;
-      *a4 = v496;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpQualifiedTypeNodeSetQualifiers(v497, *(a3 - 48));
-      v498 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpQualifiedTypeNodeSetType(v498, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v598 = v597;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakeQualifiedTypeNode(v598, &v1303);
+      v600 = v599;
+      *a4 = v599;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpQualifiedTypeNodeSetQualifiers(v600, *(a3 - 48));
+      v601 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpQualifiedTypeNodeSetType(v601, *(a3 + 24));
       return 0;
     case 122:
-      v158 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v159 = glpMakeStringZ_0(*(a3 + 32));
-      v161 = v160;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v159, v161, *(a3 + 40), &v1068);
-      v95 = v158;
-      v96 = 1;
+      glpCompilerGetAllocator();
+      v186 = v185;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v187 = glpMakeStringZ_0(*(a3 + 32));
+      v189 = v188;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v187, v189, *(a3 + 40), &v1303);
+      v110 = v186;
+      v111 = 1;
       goto LABEL_332;
     case 123:
-      v206 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v207 = glpMakeStringZ_0(*(a3 + 32));
-      v209 = v208;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v207, v209, *(a3 + 40), &v1068);
-      v95 = v206;
-      v96 = 2;
+      glpCompilerGetAllocator();
+      v245 = v244;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v246 = glpMakeStringZ_0(*(a3 + 32));
+      v248 = v247;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v246, v248, *(a3 + 40), &v1303);
+      v110 = v245;
+      v111 = 2;
       goto LABEL_332;
     case 124:
-      v921 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v922 = glpMakeStringZ_0(*(a3 + 32));
-      v924 = v923;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v922, v924, *(a3 + 40), &v1068);
-      v95 = v921;
-      v96 = 3;
+      glpCompilerGetAllocator();
+      v1120 = v1119;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1121 = glpMakeStringZ_0(*(a3 + 32));
+      v1123 = v1122;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1121, v1123, *(a3 + 40), &v1303);
+      v110 = v1120;
+      v111 = 3;
       goto LABEL_332;
     case 125:
-      v149 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v150 = glpMakeStringZ_0(*(a3 + 32));
-      v152 = v151;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v150, v152, *(a3 + 40), &v1068);
-      v95 = v149;
-      v96 = 4;
+      glpCompilerGetAllocator();
+      v174 = v173;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v175 = glpMakeStringZ_0(*(a3 + 32));
+      v177 = v176;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v175, v177, *(a3 + 40), &v1303);
+      v110 = v174;
+      v111 = 4;
       goto LABEL_332;
     case 127:
-      v71 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      glpMakeLayoutTypeNode(v71, &v1068);
-      *a4 = v72;
+      glpCompilerGetAllocator();
+      v82 = v81;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      glpMakeLayoutTypeNode(v82, &v1303);
+      *a4 = v83;
       goto LABEL_58;
     case 128:
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       *a4 = *(a3 - 120);
 LABEL_58:
-      v168 = glpCompilerGetAllocator(a7[98]);
-      v169 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpLayoutTypeNodeAddLayoutPair(v168, v169, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v198 = v197;
+      v199 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpLayoutTypeNodeAddLayoutPair(v198, v199, *(a3 + 24));
       return 0;
     case 130:
-      v925 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      glpMakeLayoutQualifierNode(v925, &v1068);
-      *a4 = v926;
+      glpCompilerGetAllocator();
+      v1125 = v1124;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      glpMakeLayoutQualifierNode(v1125, &v1303);
+      *a4 = v1126;
       goto LABEL_303;
     case 131:
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       *a4 = *(a3 - 120);
 LABEL_303:
-      v927 = glpCompilerGetAllocator(a7[98]);
-      v928 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpLayoutQualifierNodeAddLayoutPair(v927, v928, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v1128 = v1127;
+      v1129 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpLayoutQualifierNodeAddLayoutPair(v1128, v1129, *(a3 + 24));
       return 0;
     case 132:
-      v430 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v431 = glpMakeStringZ_0(*(a3 + 32));
-      v433 = v432;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v431, v433, *(a3 + 40), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v41 = glpMakeStringZ_0(*(a3 + 24));
-      v42 = v434;
-      v38 = "<<BUG: printing string of non-string layout>>";
-      v39 = 0x4FE9A940000002DLL;
-      v40 = v430;
-      v43 = 0;
+      glpCompilerGetAllocator();
+      v518 = v517;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v519 = glpMakeStringZ_0(*(a3 + 32));
+      v521 = v520;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v519, v521, *(a3 + 40), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v42 = glpMakeStringZ_0(*(a3 + 24));
+      v43 = v522;
+      v39 = "<<BUG: printing string of non-string layout>>";
+      v40 = 0x4FE9A940000002DLL;
+      v41 = v518;
+      v44 = 0;
       goto LABEL_290;
     case 133:
     case 134:
       v25 = glpCompilerGetNameTable(a7[98]);
-      if (glpNameTableGetGLSLVersion(v25) > 4 || (v26 = glpCompilerGetNameTable(a7[98]), glpNameTableIsExtensionEnabled(v26, 0x23u)) || (v27 = glpCompilerGetNameTable(a7[98]), glpNameTableIsExtensionEnabled(v27, 1u)) || (v28 = glpCompilerGetNameTable(a7[98]), glpNameTableIsExtensionEnabled(v28, 0x15u)) || (v29 = glpCompilerGetNameTable(a7[98]), glpNameTableIsExtensionEnabled(v29, 0x11u)))
+      if (glpNameTableGetGLSLVersion(v25) <= 4)
       {
-        v30 = glpCompilerGetAllocator(a7[98]);
-        yyfill(a3, v1072, 4294967294, v11 == 0);
-        v31 = glpMakeStringZ_0(*(a3 - 112));
-        v33 = v32;
-        yyfill(a3, v1072, 4294967294, v11 == 0);
-        glpMakeSourceLocation(v31, v33, *(a3 - 104), &v1068);
-        yyfill(a3, v1072, 4294967294, v11 == 0);
-        v34 = glpMakeStringZ_0(*(a3 - 120));
-        v36 = v35;
-        yyfill(a3, v1072, 0, v11 == 0);
-        v37 = *(a3 + 24);
-        v38 = "<<BUG: printing string of non-string layout>>";
-        v39 = 0x4FE9A940000002DLL;
-        v40 = v30;
-        v41 = v34;
-        v42 = v36;
-        v43 = 1;
-        goto LABEL_291;
+        v26 = glpCompilerGetNameTable(a7[98]);
+        if (!glpNameTableIsExtensionEnabled(v26, 0x23u))
+        {
+          v27 = glpCompilerGetNameTable(a7[98]);
+          if (!glpNameTableIsExtensionEnabled(v27, 1u))
+          {
+            v28 = glpCompilerGetNameTable(a7[98]);
+            if (!glpNameTableIsExtensionEnabled(v28, 0x15u))
+            {
+              v29 = glpCompilerGetNameTable(a7[98]);
+              if (!glpNameTableIsExtensionEnabled(v29, 0x11u))
+              {
+                goto LABEL_369;
+              }
+            }
+          }
+        }
       }
 
-      v246 = "integers in layouts require GLSL 140 or later";
-      goto LABEL_371;
+      glpCompilerGetAllocator();
+      v31 = v30;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v32 = glpMakeStringZ_0(*(a3 - 112));
+      v34 = v33;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v32, v34, *(a3 - 104), &v1303);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v35 = glpMakeStringZ_0(*(a3 - 120));
+      v37 = v36;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v38 = *(a3 + 24);
+      v39 = "<<BUG: printing string of non-string layout>>";
+      v40 = 0x4FE9A940000002DLL;
+      v41 = v31;
+      v42 = v35;
+      v43 = v37;
+      v44 = 1;
+      goto LABEL_291;
     case 135:
-      v653 = glpCompilerGetNameTable(a7[98]);
-      if (!glpNameTableIsExtensionEnabled(v653, 0x23u))
+      v789 = glpCompilerGetNameTable(a7[98]);
+      if (!glpNameTableIsExtensionEnabled(v789, 0x23u))
       {
-        v246 = "types in layouts is an unsupported extension";
-        goto LABEL_371;
+        goto LABEL_369;
       }
 
-      v654 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v655 = glpMakeStringZ_0(*(a3 - 112));
-      v657 = v656;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpMakeSourceLocation(v655, v657, *(a3 - 104), &v1068);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v658 = glpMakeStringZ_0(*(a3 - 120));
-      glpMakeLayoutPairNode(v654, &v1068, v658, v659, 2, 0, "<<BUG: printing string of non-string layout>>", 0x4FE9A940000002DLL);
-      v661 = v660;
-      *a4 = v660;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpLayoutPairNodeSetType(v661, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v791 = v790;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v792 = glpMakeStringZ_0(*(a3 - 112));
+      v794 = v793;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v792, v794, *(a3 - 104), &v1303);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v795 = glpMakeStringZ_0(*(a3 - 120));
+      glpMakeLayoutPairNode(v791, &v1303, v795, v796, 2, 0, "<<BUG: printing string of non-string layout>>", 0x4FE9A940000002DLL);
+      v798 = v797;
+      *a4 = v797;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpLayoutPairNodeSetType(v798, *(a3 + 24));
       return 0;
     case 136:
-      v884 = glpCompilerGetNameTable(a7[98]);
-      if (!glpNameTableIsExtensionEnabled(v884, 0x23u))
+      v1074 = glpCompilerGetNameTable(a7[98]);
+      if (!glpNameTableIsExtensionEnabled(v1074, 0x23u))
       {
-        v246 = "identifiers in layouts is an unsupported extension";
-        goto LABEL_371;
+        goto LABEL_369;
       }
 
-      v885 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v886 = glpMakeStringZ_0(*(a3 - 112));
-      v888 = v887;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpMakeSourceLocation(v886, v888, *(a3 - 104), &v1068);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v889 = glpMakeStringZ_0(*(a3 - 120));
-      v891 = v890;
-      yyfill(a3, v1072, 0, v11 == 0);
-      v38 = glpMakeStringZ_0(*(a3 + 24));
-      v39 = v892;
-      v40 = v885;
-      v41 = v889;
-      v42 = v891;
-      v43 = 3;
+      glpCompilerGetAllocator();
+      v1076 = v1075;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v1077 = glpMakeStringZ_0(*(a3 - 112));
+      v1079 = v1078;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v1077, v1079, *(a3 - 104), &v1303);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v1080 = glpMakeStringZ_0(*(a3 - 120));
+      v1082 = v1081;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v39 = glpMakeStringZ_0(*(a3 + 24));
+      v40 = v1083;
+      v41 = v1076;
+      v42 = v1080;
+      v43 = v1082;
+      v44 = 3;
 LABEL_290:
-      v37 = 0;
+      v38 = 0;
 LABEL_291:
-      glpMakeLayoutPairNode(v40, &v1068, v41, v42, v43, v37, v38, v39);
-LABEL_333:
-      v24 = WhileFragment;
-      result = 0;
-      goto LABEL_334;
+      glpMakeLayoutPairNode(v41, &v1303, v42, v43, v44, v38, v39, v40);
+      goto LABEL_333;
     case 137:
-      v649 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v650 = glpMakeStringZ_0(*(a3 + 32));
-      v652 = v651;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v650, v652, *(a3 + 40), &v1068);
-      v95 = v649;
-      v96 = 0;
+      glpCompilerGetAllocator();
+      v785 = v784;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v786 = glpMakeStringZ_0(*(a3 + 32));
+      v788 = v787;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v786, v788, *(a3 + 40), &v1303);
+      v110 = v785;
+      v111 = 0;
       goto LABEL_332;
     case 138:
-      v318 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      glpMakeQualifierListNode(v318, &v1068);
-      *a4 = v319;
+      glpCompilerGetAllocator();
+      v384 = v383;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      glpMakeQualifierListNode(v384, &v1303);
+      *a4 = v385;
       goto LABEL_105;
     case 139:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
       *a4 = *(a3 - 48);
 LABEL_105:
-      v320 = glpCompilerGetAllocator(a7[98]);
-      v321 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpQualifierListNodeAddQualifier(v320, v321, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v387 = v386;
+      v388 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpQualifierListNodeAddQualifier(v387, v388, *(a3 + 24));
       return 0;
     case 146:
-      v280 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v281 = glpMakeStringZ_0(*(a3 + 32));
-      v283 = v282;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v281, v283, *(a3 + 40), &v1068);
-      v95 = v280;
-      v96 = 5;
+      glpCompilerGetAllocator();
+      v335 = v334;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v336 = glpMakeStringZ_0(*(a3 + 32));
+      v338 = v337;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v336, v338, *(a3 + 40), &v1303);
+      v110 = v335;
+      v111 = 5;
       goto LABEL_332;
     case 147:
-      v214 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v215 = glpMakeStringZ_0(*(a3 + 32));
-      v217 = v216;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v215, v217, *(a3 + 40), &v1068);
-      v95 = v214;
-      v96 = 15;
+      glpCompilerGetAllocator();
+      v255 = v254;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v256 = glpMakeStringZ_0(*(a3 + 32));
+      v258 = v257;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v256, v258, *(a3 + 40), &v1303);
+      v110 = v255;
+      v111 = 15;
       goto LABEL_332;
     case 148:
-      v91 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v92 = glpMakeStringZ_0(*(a3 + 32));
-      v94 = v93;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v92, v94, *(a3 + 40), &v1068);
-      v95 = v91;
-      v96 = 13;
+      glpCompilerGetAllocator();
+      v106 = v105;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v107 = glpMakeStringZ_0(*(a3 + 32));
+      v109 = v108;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v107, v109, *(a3 + 40), &v1303);
+      v110 = v106;
+      v111 = 13;
       goto LABEL_332;
     case 149:
-      v996 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v997 = glpMakeStringZ_0(*(a3 + 32));
-      v999 = v998;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v997, v999, *(a3 + 40), &v1068);
-      v95 = v996;
-      v96 = 14;
+      glpCompilerGetAllocator();
+      v1214 = v1213;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1215 = glpMakeStringZ_0(*(a3 + 32));
+      v1217 = v1216;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1215, v1217, *(a3 + 40), &v1303);
+      v110 = v1214;
+      v111 = 14;
       goto LABEL_332;
     case 150:
-      v967 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v968 = glpMakeStringZ_0(*(a3 + 32));
-      v970 = v969;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v968, v970, *(a3 + 40), &v1068);
-      v95 = v967;
-      v96 = 6;
+      glpCompilerGetAllocator();
+      v1179 = v1178;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1180 = glpMakeStringZ_0(*(a3 + 32));
+      v1182 = v1181;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1180, v1182, *(a3 + 40), &v1303);
+      v110 = v1179;
+      v111 = 6;
       goto LABEL_332;
     case 151:
-      v991 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v992 = glpMakeStringZ_0(*(a3 + 32));
-      v994 = v993;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v992, v994, *(a3 + 40), &v1068);
-      v95 = v991;
-      v96 = 7;
+      glpCompilerGetAllocator();
+      v1207 = v1206;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1208 = glpMakeStringZ_0(*(a3 + 32));
+      v1210 = v1209;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1208, v1210, *(a3 + 40), &v1303);
+      v110 = v1207;
+      v111 = 7;
       goto LABEL_332;
     case 152:
-      v893 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v894 = glpMakeStringZ_0(*(a3 + 32));
-      v896 = v895;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v894, v896, *(a3 + 40), &v1068);
-      v95 = v893;
-      v96 = 8;
+      glpCompilerGetAllocator();
+      v1085 = v1084;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1086 = glpMakeStringZ_0(*(a3 + 32));
+      v1088 = v1087;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1086, v1088, *(a3 + 40), &v1303);
+      v110 = v1085;
+      v111 = 8;
       goto LABEL_332;
     case 153:
-      v308 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v309 = glpMakeStringZ_0(*(a3 + 32));
-      v311 = v310;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v309, v311, *(a3 + 40), &v1068);
-      v95 = v308;
-      v96 = 16;
+      glpCompilerGetAllocator();
+      v370 = v369;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v371 = glpMakeStringZ_0(*(a3 + 32));
+      v373 = v372;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v371, v373, *(a3 + 40), &v1303);
+      v110 = v370;
+      v111 = 16;
       goto LABEL_332;
     case 154:
-      v198 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v199 = glpMakeStringZ_0(*(a3 + 32));
-      v201 = v200;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v199, v201, *(a3 + 40), &v1068);
-      v95 = v198;
-      v96 = 10;
+      glpCompilerGetAllocator();
+      v235 = v234;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v236 = glpMakeStringZ_0(*(a3 + 32));
+      v238 = v237;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v236, v238, *(a3 + 40), &v1303);
+      v110 = v235;
+      v111 = 10;
       goto LABEL_332;
     case 156:
-      v247 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v248 = glpMakeStringZ_0(*(a3 + 32));
-      v250 = v249;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v248, v250, *(a3 + 40), &v1068);
-      v95 = v247;
-      v96 = 17;
+      glpCompilerGetAllocator();
+      v294 = v293;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v295 = glpMakeStringZ_0(*(a3 + 32));
+      v297 = v296;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v295, v297, *(a3 + 40), &v1303);
+      v110 = v294;
+      v111 = 17;
       goto LABEL_332;
     case 157:
-      v971 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v972 = glpMakeStringZ_0(*(a3 + 32));
-      v974 = v973;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v972, v974, *(a3 + 40), &v1068);
-      v95 = v971;
-      v96 = 18;
+      glpCompilerGetAllocator();
+      v1184 = v1183;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1185 = glpMakeStringZ_0(*(a3 + 32));
+      v1187 = v1186;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1185, v1187, *(a3 + 40), &v1303);
+      v110 = v1184;
+      v111 = 18;
       goto LABEL_332;
     case 158:
-      v145 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v146 = glpMakeStringZ_0(*(a3 + 32));
-      v148 = v147;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v146, v148, *(a3 + 40), &v1068);
-      v95 = v145;
-      v96 = 9;
+      glpCompilerGetAllocator();
+      v169 = v168;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v170 = glpMakeStringZ_0(*(a3 + 32));
+      v172 = v171;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v170, v172, *(a3 + 40), &v1303);
+      v110 = v169;
+      v111 = 9;
       goto LABEL_332;
     case 159:
-      v251 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v252 = glpMakeStringZ_0(*(a3 + 32));
-      v254 = v253;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v252, v254, *(a3 + 40), &v1068);
-      v95 = v251;
-      v96 = 11;
+      glpCompilerGetAllocator();
+      v299 = v298;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v300 = glpMakeStringZ_0(*(a3 + 32));
+      v302 = v301;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v300, v302, *(a3 + 40), &v1303);
+      v110 = v299;
+      v111 = 11;
       goto LABEL_332;
     case 160:
-      v276 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v277 = glpMakeStringZ_0(*(a3 + 32));
-      v279 = v278;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v277, v279, *(a3 + 40), &v1068);
-      v95 = v276;
-      v96 = 12;
+      glpCompilerGetAllocator();
+      v330 = v329;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v331 = glpMakeStringZ_0(*(a3 + 32));
+      v333 = v332;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v331, v333, *(a3 + 40), &v1303);
+      v110 = v330;
+      v111 = 12;
       goto LABEL_332;
     case 161:
-      v808 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v809 = glpMakeStringZ_0(*(a3 + 32));
-      v811 = v810;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v809, v811, *(a3 + 40), &v1068);
-      glpMakeSubroutineTypeListNode(v808, &v1068);
-      *a4 = v812;
+      glpCompilerGetAllocator();
+      v980 = v979;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v981 = glpMakeStringZ_0(*(a3 + 32));
+      v983 = v982;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v981, v983, *(a3 + 40), &v1303);
+      glpMakeSubroutineTypeListNode(v980, &v1303);
+      *a4 = v984;
       goto LABEL_264;
     case 162:
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       *a4 = *(a3 - 120);
 LABEL_264:
-      v813 = glpCompilerGetAllocator(a7[98]);
-      v814 = *a4;
-      v815 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v816 = glpMakeStringZ_0(*(a3 + 32));
-      v818 = v817;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v816, v818, *(a3 + 40), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v819 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeTypeIdentifierNode(v815, &v1068, v819, v820);
-      glpSubroutineTypeListNodeAddType(v813, v814, v821);
+      glpCompilerGetAllocator();
+      v986 = v985;
+      v987 = *a4;
+      glpCompilerGetAllocator();
+      v989 = v988;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v990 = glpMakeStringZ_0(*(a3 + 32));
+      v992 = v991;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v990, v992, *(a3 + 40), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v993 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeTypeIdentifierNode(v989, &v1303, v993, v994);
+      glpSubroutineTypeListNodeAddType(v986, v987, v995);
       return 0;
     case 164:
-      v288 = glpCompilerGetNameTable(a7[98]);
-      if (glpNameTableGetGLSLVersion(v288) > 1)
+      v344 = glpCompilerGetNameTable(a7[98]);
+      if (glpNameTableGetGLSLVersion(v344) > 1)
       {
-        yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-        v1032 = *(a3 - 48);
-        yyfill(a3, v1072, 0, v11 == 0);
-        v1033 = *(a3 + 24);
-        arrayify(v1032, v1033);
+        yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+        v1262 = *(a3 - 48);
+        yyfill(a3, v1307, 0, v11 == 0);
+        v1263 = *(a3 + 24);
+        arrayify(v1262, v1263);
         result = 0;
-        *a4 = v1033;
+        *a4 = v1263;
       }
 
       else
       {
-        v246 = "Array size must appear after variable name";
-LABEL_371:
-        yyerror(0, a7, v246);
+LABEL_369:
+        yyerror(0, a7);
         *a6 = 0;
         return 3;
       }
 
       return result;
     case 165:
-      v322 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v323 = glpMakeStringZ_0(*(a3 - 40));
-      v325 = v324;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v323, v325, *(a3 - 32), &v1068);
-      glpMakeArrayTypeNode(v322, &v1068);
+      glpCompilerGetAllocator();
+      v390 = v389;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v391 = glpMakeStringZ_0(*(a3 - 40));
+      v393 = v392;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v391, v393, *(a3 - 32), &v1303);
+      glpMakeArrayTypeNode(v390, &v1303);
       goto LABEL_333;
     case 166:
-      v512 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v513 = glpMakeStringZ_0(*(a3 - 112));
-      v515 = v514;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpMakeSourceLocation(v513, v515, *(a3 - 104), &v1068);
-      glpMakeArrayTypeNode(v512, &v1068);
-      v517 = v516;
-      *a4 = v516;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpArrayTypeNodeSetDimension(v517, *(a3 - 48));
+      glpCompilerGetAllocator();
+      v620 = v619;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v621 = glpMakeStringZ_0(*(a3 - 112));
+      v623 = v622;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v621, v623, *(a3 - 104), &v1303);
+      glpMakeArrayTypeNode(v620, &v1303);
+      v625 = v624;
+      *a4 = v624;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpArrayTypeNodeSetDimension(v625, *(a3 - 48));
       return 0;
     case 167:
-      v162 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v163 = glpMakeStringZ_0(*(a3 - 40));
-      v165 = v164;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v163, v165, *(a3 - 32), &v1068);
-      glpMakeArrayTypeNode(v162, &v1068);
-      v167 = v166;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpArrayTypeNodeSetElementType(*(a3 - 120), v167);
+      glpCompilerGetAllocator();
+      v191 = v190;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v192 = glpMakeStringZ_0(*(a3 - 40));
+      v194 = v193;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v192, v194, *(a3 - 32), &v1303);
+      glpMakeArrayTypeNode(v191, &v1303);
+      v196 = v195;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpArrayTypeNodeSetElementType(*(a3 - 120), v196);
 LABEL_56:
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       result = 0;
       v24 = *(a3 - 120);
       goto LABEL_334;
     case 168:
-      v396 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v397 = glpMakeStringZ_0(*(a3 - 112));
-      v399 = v398;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpMakeSourceLocation(v397, v399, *(a3 - 104), &v1068);
-      glpMakeArrayTypeNode(v396, &v1068);
-      v401 = v400;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpArrayTypeNodeSetDimension(v401, *(a3 - 48));
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpArrayTypeNodeSetElementType(*(a3 - 192), v401);
+      glpCompilerGetAllocator();
+      v476 = v475;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v477 = glpMakeStringZ_0(*(a3 - 112));
+      v479 = v478;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v477, v479, *(a3 - 104), &v1303);
+      glpMakeArrayTypeNode(v476, &v1303);
+      v481 = v480;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpArrayTypeNodeSetDimension(v481, *(a3 - 48));
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpArrayTypeNodeSetElementType(*(a3 - 192), v481);
 LABEL_308:
-      yyfill(a3, v1072, 4294967293, v11 == 0);
+      yyfill(a3, v1307, 4294967293, v11 == 0);
       result = 0;
       v24 = *(a3 - 192);
       goto LABEL_334;
     case 169:
-      v170 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v171 = glpMakeStringZ_0(*(a3 + 32));
-      v173 = v172;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v171, v173, *(a3 + 40), &v1068);
-      v139 = v170;
-      v140 = 0;
+      glpCompilerGetAllocator();
+      v201 = v200;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v202 = glpMakeStringZ_0(*(a3 + 32));
+      v204 = v203;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v202, v204, *(a3 + 40), &v1303);
+      v161 = v201;
+      v162 = 0;
       goto LABEL_314;
     case 170:
-      v869 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v870 = glpMakeStringZ_0(*(a3 + 32));
-      v872 = v871;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v870, v872, *(a3 + 40), &v1068);
-      v139 = v869;
-      v140 = 1;
+      glpCompilerGetAllocator();
+      v1057 = v1056;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1058 = glpMakeStringZ_0(*(a3 + 32));
+      v1060 = v1059;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1058, v1060, *(a3 + 40), &v1303);
+      v161 = v1057;
+      v162 = 1;
       goto LABEL_314;
     case 171:
-      v735 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v736 = glpMakeStringZ_0(*(a3 + 32));
-      v738 = v737;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v736, v738, *(a3 + 40), &v1068);
-      v178 = v735;
-      v179 = 62;
+      glpCompilerGetAllocator();
+      v890 = v889;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v891 = glpMakeStringZ_0(*(a3 + 32));
+      v893 = v892;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v891, v893, *(a3 + 40), &v1303);
+      v210 = v890;
+      v211 = 62;
       goto LABEL_247;
     case 172:
-      v662 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v663 = glpMakeStringZ_0(*(a3 + 32));
-      v665 = v664;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v663, v665, *(a3 + 40), &v1068);
-      v139 = v662;
-      v140 = 5;
+      glpCompilerGetAllocator();
+      v800 = v799;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v801 = glpMakeStringZ_0(*(a3 + 32));
+      v803 = v802;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v801, v803, *(a3 + 40), &v1303);
+      v161 = v800;
+      v162 = 5;
       goto LABEL_314;
     case 173:
-      v331 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v332 = glpMakeStringZ_0(*(a3 + 32));
-      v334 = v333;
-      yyfill(a3, v1072, 0, v11 == 0);
-      v335 = *(a3 + 40);
+      glpCompilerGetAllocator();
+      v401 = v400;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v402 = glpMakeStringZ_0(*(a3 + 32));
+      v404 = v403;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v405 = *(a3 + 40);
       goto LABEL_253;
     case 174:
-      v331 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v332 = glpMakeStringZ_0(*(a3 - 40));
-      v334 = v765;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v335 = *(a3 - 32);
+      glpCompilerGetAllocator();
+      v401 = v925;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v402 = glpMakeStringZ_0(*(a3 - 40));
+      v404 = v926;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v405 = *(a3 - 32);
 LABEL_253:
-      glpMakeSourceLocation(v332, v334, v335, &v1068);
-      v139 = v331;
-      v140 = 36;
+      glpMakeSourceLocation(v402, v404, v405, &v1303);
+      v161 = v401;
+      v162 = 36;
       goto LABEL_314;
     case 175:
-      v854 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v855 = glpMakeStringZ_0(*(a3 + 32));
-      v857 = v856;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v855, v857, *(a3 + 40), &v1068);
-      v139 = v854;
-      v140 = 9;
+      glpCompilerGetAllocator();
+      v1037 = v1036;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1038 = glpMakeStringZ_0(*(a3 + 32));
+      v1040 = v1039;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1038, v1040, *(a3 + 40), &v1303);
+      v161 = v1037;
+      v162 = 9;
       goto LABEL_314;
     case 176:
-      v963 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v964 = glpMakeStringZ_0(*(a3 + 32));
-      v966 = v965;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v964, v966, *(a3 + 40), &v1068);
-      v139 = v963;
-      v140 = 2;
+      glpCompilerGetAllocator();
+      v1174 = v1173;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1175 = glpMakeStringZ_0(*(a3 + 32));
+      v1177 = v1176;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1175, v1177, *(a3 + 40), &v1303);
+      v161 = v1174;
+      v162 = 2;
       goto LABEL_314;
     case 177:
-      v388 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v389 = glpMakeStringZ_0(*(a3 + 32));
-      v391 = v390;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v389, v391, *(a3 + 40), &v1068);
-      v139 = v388;
-      v140 = 3;
+      glpCompilerGetAllocator();
+      v466 = v465;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v467 = glpMakeStringZ_0(*(a3 + 32));
+      v469 = v468;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v467, v469, *(a3 + 40), &v1303);
+      v161 = v466;
+      v162 = 3;
       goto LABEL_314;
     case 178:
-      v180 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v181 = glpMakeStringZ_0(*(a3 + 32));
-      v183 = v182;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v181, v183, *(a3 + 40), &v1068);
-      v139 = v180;
-      v140 = 4;
+      glpCompilerGetAllocator();
+      v213 = v212;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v214 = glpMakeStringZ_0(*(a3 + 32));
+      v216 = v215;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v214, v216, *(a3 + 40), &v1303);
+      v161 = v213;
+      v162 = 4;
       goto LABEL_314;
     case 179:
-      v210 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v211 = glpMakeStringZ_0(*(a3 + 32));
-      v213 = v212;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v211, v213, *(a3 + 40), &v1068);
-      v178 = v210;
-      v179 = 63;
+      glpCompilerGetAllocator();
+      v250 = v249;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v251 = glpMakeStringZ_0(*(a3 + 32));
+      v253 = v252;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v251, v253, *(a3 + 40), &v1303);
+      v210 = v250;
+      v211 = 63;
       goto LABEL_247;
     case 180:
-      v743 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v744 = glpMakeStringZ_0(*(a3 + 32));
-      v746 = v745;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v744, v746, *(a3 + 40), &v1068);
-      v178 = v743;
-      v179 = 64;
+      glpCompilerGetAllocator();
+      v900 = v899;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v901 = glpMakeStringZ_0(*(a3 + 32));
+      v903 = v902;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v901, v903, *(a3 + 40), &v1303);
+      v210 = v900;
+      v211 = 64;
       goto LABEL_247;
     case 181:
-      v412 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v413 = glpMakeStringZ_0(*(a3 + 32));
-      v415 = v414;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v413, v415, *(a3 + 40), &v1068);
-      v178 = v412;
-      v179 = 65;
+      glpCompilerGetAllocator();
+      v495 = v494;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v496 = glpMakeStringZ_0(*(a3 + 32));
+      v498 = v497;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v496, v498, *(a3 + 40), &v1303);
+      v210 = v495;
+      v211 = 65;
       goto LABEL_247;
     case 182:
-      v839 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v840 = glpMakeStringZ_0(*(a3 + 32));
-      v842 = v841;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v840, v842, *(a3 + 40), &v1068);
-      v139 = v839;
-      v140 = 10;
+      glpCompilerGetAllocator();
+      v1018 = v1017;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1019 = glpMakeStringZ_0(*(a3 + 32));
+      v1021 = v1020;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1019, v1021, *(a3 + 40), &v1303);
+      v161 = v1018;
+      v162 = 10;
       goto LABEL_314;
     case 183:
-      v897 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v898 = glpMakeStringZ_0(*(a3 + 32));
-      v900 = v899;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v898, v900, *(a3 + 40), &v1068);
-      v139 = v897;
-      v140 = 11;
+      glpCompilerGetAllocator();
+      v1090 = v1089;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1091 = glpMakeStringZ_0(*(a3 + 32));
+      v1093 = v1092;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1091, v1093, *(a3 + 40), &v1303);
+      v161 = v1090;
+      v162 = 11;
       goto LABEL_314;
     case 184:
-      v153 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v154 = glpMakeStringZ_0(*(a3 + 32));
-      v156 = v155;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v154, v156, *(a3 + 40), &v1068);
-      v139 = v153;
-      v140 = 12;
+      glpCompilerGetAllocator();
+      v179 = v178;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v180 = glpMakeStringZ_0(*(a3 + 32));
+      v182 = v181;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v180, v182, *(a3 + 40), &v1303);
+      v161 = v179;
+      v162 = 12;
       goto LABEL_314;
     case 185:
-      v135 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v136 = glpMakeStringZ_0(*(a3 + 32));
-      v138 = v137;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v136, v138, *(a3 + 40), &v1068);
-      v139 = v135;
-      v140 = 6;
+      glpCompilerGetAllocator();
+      v157 = v156;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v158 = glpMakeStringZ_0(*(a3 + 32));
+      v160 = v159;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v158, v160, *(a3 + 40), &v1303);
+      v161 = v157;
+      v162 = 6;
       goto LABEL_314;
     case 186:
-      v417 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v418 = glpMakeStringZ_0(*(a3 + 32));
-      v420 = v419;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v418, v420, *(a3 + 40), &v1068);
-      v139 = v417;
-      v140 = 7;
+      glpCompilerGetAllocator();
+      v501 = v500;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v502 = glpMakeStringZ_0(*(a3 + 32));
+      v504 = v503;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v502, v504, *(a3 + 40), &v1303);
+      v161 = v501;
+      v162 = 7;
       goto LABEL_314;
     case 187:
-      v453 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v454 = glpMakeStringZ_0(*(a3 + 32));
-      v456 = v455;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v454, v456, *(a3 + 40), &v1068);
-      v139 = v453;
-      v140 = 8;
+      glpCompilerGetAllocator();
+      v546 = v545;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v547 = glpMakeStringZ_0(*(a3 + 32));
+      v549 = v548;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v547, v549, *(a3 + 40), &v1303);
+      v161 = v546;
+      v162 = 8;
       goto LABEL_314;
     case 188:
-      v672 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v673 = glpMakeStringZ_0(*(a3 + 32));
-      v675 = v674;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v673, v675, *(a3 + 40), &v1068);
-      v139 = v672;
-      v140 = 37;
+      glpCompilerGetAllocator();
+      v813 = v812;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v814 = glpMakeStringZ_0(*(a3 + 32));
+      v816 = v815;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v814, v816, *(a3 + 40), &v1303);
+      v161 = v813;
+      v162 = 37;
       goto LABEL_314;
     case 189:
-      v485 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v486 = glpMakeStringZ_0(*(a3 + 32));
-      v488 = v487;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v486, v488, *(a3 + 40), &v1068);
-      v139 = v485;
-      v140 = 38;
+      glpCompilerGetAllocator();
+      v585 = v584;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v586 = glpMakeStringZ_0(*(a3 + 32));
+      v588 = v587;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v586, v588, *(a3 + 40), &v1303);
+      v161 = v585;
+      v162 = 38;
       goto LABEL_314;
     case 190:
-      v668 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v669 = glpMakeStringZ_0(*(a3 + 32));
-      v671 = v670;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v669, v671, *(a3 + 40), &v1068);
-      v139 = v668;
-      v140 = 39;
+      glpCompilerGetAllocator();
+      v808 = v807;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v809 = glpMakeStringZ_0(*(a3 + 32));
+      v811 = v810;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v809, v811, *(a3 + 40), &v1303);
+      v161 = v808;
+      v162 = 39;
       goto LABEL_314;
     case 191:
-      v522 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v523 = glpMakeStringZ_0(*(a3 + 32));
-      v525 = v524;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v523, v525, *(a3 + 40), &v1068);
-      v139 = v522;
-      v140 = 13;
+      glpCompilerGetAllocator();
+      v632 = v631;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v633 = glpMakeStringZ_0(*(a3 + 32));
+      v635 = v634;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v633, v635, *(a3 + 40), &v1303);
+      v161 = v632;
+      v162 = 13;
       goto LABEL_314;
     case 192:
-      v757 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v758 = glpMakeStringZ_0(*(a3 + 32));
-      v760 = v759;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v758, v760, *(a3 + 40), &v1068);
-      v139 = v757;
-      v140 = 22;
+      glpCompilerGetAllocator();
+      v916 = v915;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v917 = glpMakeStringZ_0(*(a3 + 32));
+      v919 = v918;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v917, v919, *(a3 + 40), &v1303);
+      v161 = v916;
+      v162 = 22;
       goto LABEL_314;
     case 193:
-      v141 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v142 = glpMakeStringZ_0(*(a3 + 32));
-      v144 = v143;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v142, v144, *(a3 + 40), &v1068);
-      v139 = v141;
-      v140 = 23;
+      glpCompilerGetAllocator();
+      v164 = v163;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v165 = glpMakeStringZ_0(*(a3 + 32));
+      v167 = v166;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v165, v167, *(a3 + 40), &v1303);
+      v161 = v164;
+      v162 = 23;
       goto LABEL_314;
     case 194:
-      v190 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v191 = glpMakeStringZ_0(*(a3 + 32));
-      v193 = v192;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v191, v193, *(a3 + 40), &v1068);
-      v139 = v190;
-      v140 = 24;
+      glpCompilerGetAllocator();
+      v225 = v224;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v226 = glpMakeStringZ_0(*(a3 + 32));
+      v228 = v227;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v226, v228, *(a3 + 40), &v1303);
+      v161 = v225;
+      v162 = 24;
       goto LABEL_314;
     case 195:
-      v461 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v462 = glpMakeStringZ_0(*(a3 + 32));
-      v464 = v463;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v462, v464, *(a3 + 40), &v1068);
-      v139 = v461;
-      v140 = 14;
-      goto LABEL_314;
-    case 196:
-      v260 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v261 = glpMakeStringZ_0(*(a3 + 32));
-      v263 = v262;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v261, v263, *(a3 + 40), &v1068);
-      v139 = v260;
-      v140 = 25;
-      goto LABEL_314;
-    case 197:
-      v688 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v689 = glpMakeStringZ_0(*(a3 + 32));
-      v691 = v690;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v689, v691, *(a3 + 40), &v1068);
-      v139 = v688;
-      v140 = 26;
-      goto LABEL_314;
-    case 198:
-      v715 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v716 = glpMakeStringZ_0(*(a3 + 32));
-      v718 = v717;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v716, v718, *(a3 + 40), &v1068);
-      v139 = v715;
-      v140 = 27;
-      goto LABEL_314;
-    case 199:
-      v435 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v436 = glpMakeStringZ_0(*(a3 + 32));
-      v438 = v437;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v436, v438, *(a3 + 40), &v1068);
-      v139 = v435;
-      v140 = 15;
-      goto LABEL_314;
-    case 200:
-      v724 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v725 = glpMakeStringZ_0(*(a3 + 32));
-      v727 = v726;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v725, v727, *(a3 + 40), &v1068);
-      v178 = v724;
-      v179 = 66;
-      goto LABEL_247;
-    case 201:
-      v684 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v685 = glpMakeStringZ_0(*(a3 + 32));
-      v687 = v686;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v685, v687, *(a3 + 40), &v1068);
-      v178 = v684;
-      v179 = 69;
-      goto LABEL_247;
-    case 202:
-      v327 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v328 = glpMakeStringZ_0(*(a3 + 32));
-      v330 = v329;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v328, v330, *(a3 + 40), &v1068);
-      v178 = v327;
-      v179 = 70;
-      goto LABEL_247;
-    case 203:
-      v340 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v341 = glpMakeStringZ_0(*(a3 + 32));
-      v343 = v342;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v341, v343, *(a3 + 40), &v1068);
-      v178 = v340;
-      v179 = 71;
-      goto LABEL_247;
-    case 204:
-      v692 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v693 = glpMakeStringZ_0(*(a3 + 32));
-      v695 = v694;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v693, v695, *(a3 + 40), &v1068);
-      v178 = v692;
-      v179 = 67;
-      goto LABEL_247;
-    case 205:
-      v739 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v740 = glpMakeStringZ_0(*(a3 + 32));
-      v742 = v741;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v740, v742, *(a3 + 40), &v1068);
-      v178 = v739;
-      v179 = 72;
-      goto LABEL_247;
-    case 206:
-      v174 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v175 = glpMakeStringZ_0(*(a3 + 32));
-      v177 = v176;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v175, v177, *(a3 + 40), &v1068);
-      v178 = v174;
-      v179 = 73;
-      goto LABEL_247;
-    case 207:
-      v202 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v203 = glpMakeStringZ_0(*(a3 + 32));
-      v205 = v204;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v203, v205, *(a3 + 40), &v1068);
-      v178 = v202;
-      v179 = 74;
-      goto LABEL_247;
-    case 208:
-      v336 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v337 = glpMakeStringZ_0(*(a3 + 32));
-      v339 = v338;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v337, v339, *(a3 + 40), &v1068);
-      v178 = v336;
-      v179 = 68;
-LABEL_247:
-      PrimitiveTypeNode = glpMakePrimitiveTypeNode(v178, &v1068, v179);
-      *a4 = v748;
-      glpCreateDoublesTelemetry(PrimitiveTypeNode);
-      return 0;
-    case 209:
-      v354 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v355 = glpMakeStringZ_0(*(a3 + 32));
-      v357 = v356;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v355, v357, *(a3 + 40), &v1068);
-      v139 = v354;
-      v140 = 16;
-      goto LABEL_314;
-    case 210:
-      v226 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v227 = glpMakeStringZ_0(*(a3 + 32));
-      v229 = v228;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v227, v229, *(a3 + 40), &v1068);
-      v139 = v226;
-      v140 = 17;
-      goto LABEL_314;
-    case 211:
-      v268 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v269 = glpMakeStringZ_0(*(a3 + 32));
-      v271 = v270;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v269, v271, *(a3 + 40), &v1068);
-      v139 = v268;
-      v140 = 18;
-      goto LABEL_314;
-    case 212:
-      v774 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v775 = glpMakeStringZ_0(*(a3 + 32));
-      v777 = v776;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v775, v777, *(a3 + 40), &v1068);
-      v139 = v774;
-      v140 = 19;
-      goto LABEL_314;
-    case 213:
-      v778 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v779 = glpMakeStringZ_0(*(a3 + 32));
-      v781 = v780;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v779, v781, *(a3 + 40), &v1068);
-      v139 = v778;
-      v140 = 20;
-      goto LABEL_314;
-    case 214:
-      v302 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v303 = glpMakeStringZ_0(*(a3 + 32));
-      v305 = v304;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v303, v305, *(a3 + 40), &v1068);
-      v139 = v302;
-      v140 = 21;
-      goto LABEL_314;
-    case 215:
-      v786 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v787 = glpMakeStringZ_0(*(a3 + 32));
-      v789 = v788;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v787, v789, *(a3 + 40), &v1068);
-      v139 = v786;
-      v140 = 35;
-      goto LABEL_314;
-    case 216:
-      v833 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v834 = glpMakeStringZ_0(*(a3 + 32));
-      v836 = v835;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v834, v836, *(a3 + 40), &v1068);
-      v139 = v833;
-      v140 = 30;
-      goto LABEL_314;
-    case 217:
-      v901 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v902 = glpMakeStringZ_0(*(a3 + 32));
-      v904 = v903;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v902, v904, *(a3 + 40), &v1068);
-      v139 = v901;
-      v140 = 31;
-      goto LABEL_314;
-    case 218:
-      v556 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
+      glpCompilerGetAllocator();
+      v556 = v555;
+      yyfill(a3, v1307, 0, v11 == 0);
       v557 = glpMakeStringZ_0(*(a3 + 32));
       v559 = v558;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v557, v559, *(a3 + 40), &v1068);
-      v139 = v556;
-      v140 = 33;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v557, v559, *(a3 + 40), &v1303);
+      v161 = v556;
+      v162 = 14;
+      goto LABEL_314;
+    case 196:
+      glpCompilerGetAllocator();
+      v310 = v309;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v311 = glpMakeStringZ_0(*(a3 + 32));
+      v313 = v312;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v311, v313, *(a3 + 40), &v1303);
+      v161 = v310;
+      v162 = 25;
+      goto LABEL_314;
+    case 197:
+      glpCompilerGetAllocator();
+      v833 = v832;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v834 = glpMakeStringZ_0(*(a3 + 32));
+      v836 = v835;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v834, v836, *(a3 + 40), &v1303);
+      v161 = v833;
+      v162 = 26;
+      goto LABEL_314;
+    case 198:
+      glpCompilerGetAllocator();
+      v865 = v864;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v866 = glpMakeStringZ_0(*(a3 + 32));
+      v868 = v867;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v866, v868, *(a3 + 40), &v1303);
+      v161 = v865;
+      v162 = 27;
+      goto LABEL_314;
+    case 199:
+      glpCompilerGetAllocator();
+      v524 = v523;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v525 = glpMakeStringZ_0(*(a3 + 32));
+      v527 = v526;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v525, v527, *(a3 + 40), &v1303);
+      v161 = v524;
+      v162 = 15;
+      goto LABEL_314;
+    case 200:
+      glpCompilerGetAllocator();
+      v876 = v875;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v877 = glpMakeStringZ_0(*(a3 + 32));
+      v879 = v878;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v877, v879, *(a3 + 40), &v1303);
+      v210 = v876;
+      v211 = 66;
+      goto LABEL_247;
+    case 201:
+      glpCompilerGetAllocator();
+      v828 = v827;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v829 = glpMakeStringZ_0(*(a3 + 32));
+      v831 = v830;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v829, v831, *(a3 + 40), &v1303);
+      v210 = v828;
+      v211 = 69;
+      goto LABEL_247;
+    case 202:
+      glpCompilerGetAllocator();
+      v396 = v395;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v397 = glpMakeStringZ_0(*(a3 + 32));
+      v399 = v398;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v397, v399, *(a3 + 40), &v1303);
+      v210 = v396;
+      v211 = 70;
+      goto LABEL_247;
+    case 203:
+      glpCompilerGetAllocator();
+      v412 = v411;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v413 = glpMakeStringZ_0(*(a3 + 32));
+      v415 = v414;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v413, v415, *(a3 + 40), &v1303);
+      v210 = v412;
+      v211 = 71;
+      goto LABEL_247;
+    case 204:
+      glpCompilerGetAllocator();
+      v838 = v837;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v839 = glpMakeStringZ_0(*(a3 + 32));
+      v841 = v840;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v839, v841, *(a3 + 40), &v1303);
+      v210 = v838;
+      v211 = 67;
+      goto LABEL_247;
+    case 205:
+      glpCompilerGetAllocator();
+      v895 = v894;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v896 = glpMakeStringZ_0(*(a3 + 32));
+      v898 = v897;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v896, v898, *(a3 + 40), &v1303);
+      v210 = v895;
+      v211 = 72;
+      goto LABEL_247;
+    case 206:
+      glpCompilerGetAllocator();
+      v206 = v205;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v207 = glpMakeStringZ_0(*(a3 + 32));
+      v209 = v208;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v207, v209, *(a3 + 40), &v1303);
+      v210 = v206;
+      v211 = 73;
+      goto LABEL_247;
+    case 207:
+      glpCompilerGetAllocator();
+      v240 = v239;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v241 = glpMakeStringZ_0(*(a3 + 32));
+      v243 = v242;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v241, v243, *(a3 + 40), &v1303);
+      v210 = v240;
+      v211 = 74;
+      goto LABEL_247;
+    case 208:
+      glpCompilerGetAllocator();
+      v407 = v406;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v408 = glpMakeStringZ_0(*(a3 + 32));
+      v410 = v409;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v408, v410, *(a3 + 40), &v1303);
+      v210 = v407;
+      v211 = 68;
+LABEL_247:
+      glpMakePrimitiveTypeNode(v210, &v1303, v211);
+      *a4 = v904;
+      glpCreateDoublesTelemetry();
+      return 0;
+    case 209:
+      glpCompilerGetAllocator();
+      v429 = v428;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v430 = glpMakeStringZ_0(*(a3 + 32));
+      v432 = v431;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v430, v432, *(a3 + 40), &v1303);
+      v161 = v429;
+      v162 = 16;
+      goto LABEL_314;
+    case 210:
+      glpCompilerGetAllocator();
+      v270 = v269;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v271 = glpMakeStringZ_0(*(a3 + 32));
+      v273 = v272;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v271, v273, *(a3 + 40), &v1303);
+      v161 = v270;
+      v162 = 17;
+      goto LABEL_314;
+    case 211:
+      glpCompilerGetAllocator();
+      v320 = v319;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v321 = glpMakeStringZ_0(*(a3 + 32));
+      v323 = v322;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v321, v323, *(a3 + 40), &v1303);
+      v161 = v320;
+      v162 = 18;
+      goto LABEL_314;
+    case 212:
+      glpCompilerGetAllocator();
+      v938 = v937;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v939 = glpMakeStringZ_0(*(a3 + 32));
+      v941 = v940;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v939, v941, *(a3 + 40), &v1303);
+      v161 = v938;
+      v162 = 19;
+      goto LABEL_314;
+    case 213:
+      glpCompilerGetAllocator();
+      v943 = v942;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v944 = glpMakeStringZ_0(*(a3 + 32));
+      v946 = v945;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v944, v946, *(a3 + 40), &v1303);
+      v161 = v943;
+      v162 = 20;
+      goto LABEL_314;
+    case 214:
+      glpCompilerGetAllocator();
+      v362 = v361;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v363 = glpMakeStringZ_0(*(a3 + 32));
+      v365 = v364;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v363, v365, *(a3 + 40), &v1303);
+      v161 = v362;
+      v162 = 21;
+      goto LABEL_314;
+    case 215:
+      glpCompilerGetAllocator();
+      v953 = v952;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v954 = glpMakeStringZ_0(*(a3 + 32));
+      v956 = v955;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v954, v956, *(a3 + 40), &v1303);
+      v161 = v953;
+      v162 = 35;
+      goto LABEL_314;
+    case 216:
+      glpCompilerGetAllocator();
+      v1010 = v1009;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1011 = glpMakeStringZ_0(*(a3 + 32));
+      v1013 = v1012;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1011, v1013, *(a3 + 40), &v1303);
+      v161 = v1010;
+      v162 = 30;
+      goto LABEL_314;
+    case 217:
+      glpCompilerGetAllocator();
+      v1095 = v1094;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1096 = glpMakeStringZ_0(*(a3 + 32));
+      v1098 = v1097;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1096, v1098, *(a3 + 40), &v1303);
+      v161 = v1095;
+      v162 = 31;
+      goto LABEL_314;
+    case 218:
+      glpCompilerGetAllocator();
+      v674 = v673;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v675 = glpMakeStringZ_0(*(a3 + 32));
+      v677 = v676;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v675, v677, *(a3 + 40), &v1303);
+      v161 = v674;
+      v162 = 33;
       goto LABEL_314;
     case 219:
-      v873 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v874 = glpMakeStringZ_0(*(a3 + 32));
-      v876 = v875;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v874, v876, *(a3 + 40), &v1068);
-      v139 = v873;
-      v140 = 34;
+      glpCompilerGetAllocator();
+      v1062 = v1061;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1063 = glpMakeStringZ_0(*(a3 + 32));
+      v1065 = v1064;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1063, v1065, *(a3 + 40), &v1303);
+      v161 = v1062;
+      v162 = 34;
       goto LABEL_314;
     case 220:
-      v264 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v265 = glpMakeStringZ_0(*(a3 + 32));
-      v267 = v266;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v265, v267, *(a3 + 40), &v1068);
-      v139 = v264;
-      v140 = 75;
+      glpCompilerGetAllocator();
+      v315 = v314;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v316 = glpMakeStringZ_0(*(a3 + 32));
+      v318 = v317;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v316, v318, *(a3 + 40), &v1303);
+      v161 = v315;
+      v162 = 75;
       goto LABEL_314;
     case 221:
-      v822 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v823 = glpMakeStringZ_0(*(a3 + 32));
-      v825 = v824;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v823, v825, *(a3 + 40), &v1068);
-      v139 = v822;
-      v140 = 76;
+      glpCompilerGetAllocator();
+      v997 = v996;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v998 = glpMakeStringZ_0(*(a3 + 32));
+      v1000 = v999;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v998, v1000, *(a3 + 40), &v1303);
+      v161 = v997;
+      v162 = 76;
       goto LABEL_314;
     case 222:
-      v574 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v575 = glpMakeStringZ_0(*(a3 + 32));
-      v577 = v576;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v575, v577, *(a3 + 40), &v1068);
-      v139 = v574;
-      v140 = 40;
+      glpCompilerGetAllocator();
+      v697 = v696;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v698 = glpMakeStringZ_0(*(a3 + 32));
+      v700 = v699;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v698, v700, *(a3 + 40), &v1303);
+      v161 = v697;
+      v162 = 40;
       goto LABEL_314;
     case 223:
-      v289 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v290 = glpMakeStringZ_0(*(a3 + 32));
-      v292 = v291;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v290, v292, *(a3 + 40), &v1068);
-      v139 = v289;
-      v140 = 41;
-      goto LABEL_314;
-    case 224:
-      v544 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v545 = glpMakeStringZ_0(*(a3 + 32));
-      v547 = v546;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v545, v547, *(a3 + 40), &v1068);
-      v139 = v544;
-      v140 = 42;
-      goto LABEL_314;
-    case 225:
-      v222 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v223 = glpMakeStringZ_0(*(a3 + 32));
-      v225 = v224;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v223, v225, *(a3 + 40), &v1068);
-      v139 = v222;
-      v140 = 43;
-      goto LABEL_314;
-    case 226:
-      v843 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v844 = glpMakeStringZ_0(*(a3 + 32));
-      v846 = v845;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v844, v846, *(a3 + 40), &v1068);
-      v139 = v843;
-      v140 = 45;
-      goto LABEL_314;
-    case 227:
-      v850 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v851 = glpMakeStringZ_0(*(a3 + 32));
-      v853 = v852;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v851, v853, *(a3 + 40), &v1068);
-      v139 = v850;
-      v140 = 46;
-      goto LABEL_314;
-    case 228:
-      v294 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v295 = glpMakeStringZ_0(*(a3 + 32));
-      v297 = v296;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v295, v297, *(a3 + 40), &v1068);
-      v139 = v294;
-      v140 = 77;
-      goto LABEL_314;
-    case 229:
-      v766 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v767 = glpMakeStringZ_0(*(a3 + 32));
-      v769 = v768;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v767, v769, *(a3 + 40), &v1068);
-      v139 = v766;
-      v140 = 48;
-      goto LABEL_314;
-    case 230:
-      v680 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v681 = glpMakeStringZ_0(*(a3 + 32));
-      v683 = v682;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v681, v683, *(a3 + 40), &v1068);
-      v139 = v680;
-      v140 = 49;
-      goto LABEL_314;
-    case 231:
-      v676 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v677 = glpMakeStringZ_0(*(a3 + 32));
-      v679 = v678;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v677, v679, *(a3 + 40), &v1068);
-      v139 = v676;
-      v140 = 50;
-      goto LABEL_314;
-    case 232:
-      v194 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v195 = glpMakeStringZ_0(*(a3 + 32));
-      v197 = v196;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v195, v197, *(a3 + 40), &v1068);
-      v139 = v194;
-      v140 = 51;
-      goto LABEL_314;
-    case 233:
-      v218 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v219 = glpMakeStringZ_0(*(a3 + 32));
-      v221 = v220;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v219, v221, *(a3 + 40), &v1068);
-      v139 = v218;
-      v140 = 53;
-      goto LABEL_314;
-    case 234:
-      v457 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v458 = glpMakeStringZ_0(*(a3 + 32));
-      v460 = v459;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v458, v460, *(a3 + 40), &v1068);
-      v139 = v457;
-      v140 = 54;
-      goto LABEL_314;
-    case 235:
-      v471 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v472 = glpMakeStringZ_0(*(a3 + 32));
-      v474 = v473;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v472, v474, *(a3 + 40), &v1068);
-      v139 = v471;
-      v140 = 78;
-      goto LABEL_314;
-    case 236:
-      v346 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
+      glpCompilerGetAllocator();
+      v346 = v345;
+      yyfill(a3, v1307, 0, v11 == 0);
       v347 = glpMakeStringZ_0(*(a3 + 32));
       v349 = v348;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v347, v349, *(a3 + 40), &v1068);
-      v139 = v346;
-      v140 = 28;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v347, v349, *(a3 + 40), &v1303);
+      v161 = v346;
+      v162 = 41;
+      goto LABEL_314;
+    case 224:
+      glpCompilerGetAllocator();
+      v659 = v658;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v660 = glpMakeStringZ_0(*(a3 + 32));
+      v662 = v661;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v660, v662, *(a3 + 40), &v1303);
+      v161 = v659;
+      v162 = 42;
+      goto LABEL_314;
+    case 225:
+      glpCompilerGetAllocator();
+      v265 = v264;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v266 = glpMakeStringZ_0(*(a3 + 32));
+      v268 = v267;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v266, v268, *(a3 + 40), &v1303);
+      v161 = v265;
+      v162 = 43;
+      goto LABEL_314;
+    case 226:
+      glpCompilerGetAllocator();
+      v1023 = v1022;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1024 = glpMakeStringZ_0(*(a3 + 32));
+      v1026 = v1025;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1024, v1026, *(a3 + 40), &v1303);
+      v161 = v1023;
+      v162 = 45;
+      goto LABEL_314;
+    case 227:
+      glpCompilerGetAllocator();
+      v1032 = v1031;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v1033 = glpMakeStringZ_0(*(a3 + 32));
+      v1035 = v1034;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v1033, v1035, *(a3 + 40), &v1303);
+      v161 = v1032;
+      v162 = 46;
+      goto LABEL_314;
+    case 228:
+      glpCompilerGetAllocator();
+      v352 = v351;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v353 = glpMakeStringZ_0(*(a3 + 32));
+      v355 = v354;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v353, v355, *(a3 + 40), &v1303);
+      v161 = v352;
+      v162 = 77;
+      goto LABEL_314;
+    case 229:
+      glpCompilerGetAllocator();
+      v928 = v927;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v929 = glpMakeStringZ_0(*(a3 + 32));
+      v931 = v930;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v929, v931, *(a3 + 40), &v1303);
+      v161 = v928;
+      v162 = 48;
+      goto LABEL_314;
+    case 230:
+      glpCompilerGetAllocator();
+      v823 = v822;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v824 = glpMakeStringZ_0(*(a3 + 32));
+      v826 = v825;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v824, v826, *(a3 + 40), &v1303);
+      v161 = v823;
+      v162 = 49;
+      goto LABEL_314;
+    case 231:
+      glpCompilerGetAllocator();
+      v818 = v817;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v819 = glpMakeStringZ_0(*(a3 + 32));
+      v821 = v820;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v819, v821, *(a3 + 40), &v1303);
+      v161 = v818;
+      v162 = 50;
+      goto LABEL_314;
+    case 232:
+      glpCompilerGetAllocator();
+      v230 = v229;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v231 = glpMakeStringZ_0(*(a3 + 32));
+      v233 = v232;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v231, v233, *(a3 + 40), &v1303);
+      v161 = v230;
+      v162 = 51;
+      goto LABEL_314;
+    case 233:
+      glpCompilerGetAllocator();
+      v260 = v259;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v261 = glpMakeStringZ_0(*(a3 + 32));
+      v263 = v262;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v261, v263, *(a3 + 40), &v1303);
+      v161 = v260;
+      v162 = 53;
+      goto LABEL_314;
+    case 234:
+      glpCompilerGetAllocator();
+      v551 = v550;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v552 = glpMakeStringZ_0(*(a3 + 32));
+      v554 = v553;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v552, v554, *(a3 + 40), &v1303);
+      v161 = v551;
+      v162 = 54;
+      goto LABEL_314;
+    case 235:
+      glpCompilerGetAllocator();
+      v568 = v567;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v569 = glpMakeStringZ_0(*(a3 + 32));
+      v571 = v570;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v569, v571, *(a3 + 40), &v1303);
+      v161 = v568;
+      v162 = 78;
+      goto LABEL_314;
+    case 236:
+      glpCompilerGetAllocator();
+      v419 = v418;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v420 = glpMakeStringZ_0(*(a3 + 32));
+      v422 = v421;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v420, v422, *(a3 + 40), &v1303);
+      v161 = v419;
+      v162 = 28;
       goto LABEL_314;
     case 237:
-      v256 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v257 = glpMakeStringZ_0(*(a3 + 32));
-      v259 = v258;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v257, v259, *(a3 + 40), &v1068);
-      v139 = v256;
-      v140 = 29;
+      glpCompilerGetAllocator();
+      v305 = v304;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v306 = glpMakeStringZ_0(*(a3 + 32));
+      v308 = v307;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v306, v308, *(a3 + 40), &v1303);
+      v161 = v305;
+      v162 = 29;
       goto LABEL_314;
     case 238:
-      v782 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v783 = glpMakeStringZ_0(*(a3 + 32));
-      v785 = v784;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v783, v785, *(a3 + 40), &v1068);
-      v139 = v782;
-      v140 = 44;
+      glpCompilerGetAllocator();
+      v948 = v947;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v949 = glpMakeStringZ_0(*(a3 + 32));
+      v951 = v950;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v949, v951, *(a3 + 40), &v1303);
+      v161 = v948;
+      v162 = 44;
       goto LABEL_314;
     case 239:
-      v284 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v285 = glpMakeStringZ_0(*(a3 + 32));
-      v287 = v286;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v285, v287, *(a3 + 40), &v1068);
-      v139 = v284;
-      v140 = 52;
+      glpCompilerGetAllocator();
+      v340 = v339;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v341 = glpMakeStringZ_0(*(a3 + 32));
+      v343 = v342;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v341, v343, *(a3 + 40), &v1303);
+      v161 = v340;
+      v162 = 52;
       goto LABEL_314;
     case 240:
-      v595 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v596 = glpMakeStringZ_0(*(a3 + 32));
-      v598 = v597;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v596, v598, *(a3 + 40), &v1068);
-      v139 = v595;
-      v140 = 32;
+      glpCompilerGetAllocator();
+      v722 = v721;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v723 = glpMakeStringZ_0(*(a3 + 32));
+      v725 = v724;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v723, v725, *(a3 + 40), &v1303);
+      v161 = v722;
+      v162 = 32;
       goto LABEL_314;
     case 241:
-      v367 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v368 = glpMakeStringZ_0(*(a3 + 32));
-      v370 = v369;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v368, v370, *(a3 + 40), &v1068);
-      v139 = v367;
-      v140 = 47;
+      glpCompilerGetAllocator();
+      v444 = v443;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v445 = glpMakeStringZ_0(*(a3 + 32));
+      v447 = v446;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v445, v447, *(a3 + 40), &v1303);
+      v161 = v444;
+      v162 = 47;
       goto LABEL_314;
     case 242:
-      v770 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v771 = glpMakeStringZ_0(*(a3 + 32));
-      v773 = v772;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v771, v773, *(a3 + 40), &v1068);
-      v139 = v770;
-      v140 = 55;
+      glpCompilerGetAllocator();
+      v933 = v932;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v934 = glpMakeStringZ_0(*(a3 + 32));
+      v936 = v935;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v934, v936, *(a3 + 40), &v1303);
+      v161 = v933;
+      v162 = 55;
       goto LABEL_314;
     case 243:
-      v761 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v762 = glpMakeStringZ_0(*(a3 + 32));
-      v764 = v763;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v762, v764, *(a3 + 40), &v1068);
-      v139 = v761;
-      v140 = 56;
+      glpCompilerGetAllocator();
+      v921 = v920;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v922 = glpMakeStringZ_0(*(a3 + 32));
+      v924 = v923;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v922, v924, *(a3 + 40), &v1303);
+      v161 = v921;
+      v162 = 56;
       goto LABEL_314;
     case 244:
-      v749 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v750 = glpMakeStringZ_0(*(a3 + 32));
-      v752 = v751;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v750, v752, *(a3 + 40), &v1068);
-      v139 = v749;
-      v140 = 58;
+      glpCompilerGetAllocator();
+      v906 = v905;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v907 = glpMakeStringZ_0(*(a3 + 32));
+      v909 = v908;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v907, v909, *(a3 + 40), &v1303);
+      v161 = v906;
+      v162 = 58;
       goto LABEL_314;
     case 245:
-      v350 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v351 = glpMakeStringZ_0(*(a3 + 32));
-      v353 = v352;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v351, v353, *(a3 + 40), &v1068);
-      v139 = v350;
-      v140 = 60;
+      glpCompilerGetAllocator();
+      v424 = v423;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v425 = glpMakeStringZ_0(*(a3 + 32));
+      v427 = v426;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v425, v427, *(a3 + 40), &v1303);
+      v161 = v424;
+      v162 = 60;
       goto LABEL_314;
     case 246:
-      v272 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v273 = glpMakeStringZ_0(*(a3 + 32));
-      v275 = v274;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v273, v275, *(a3 + 40), &v1068);
-      v139 = v272;
-      v140 = 57;
+      glpCompilerGetAllocator();
+      v325 = v324;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v326 = glpMakeStringZ_0(*(a3 + 32));
+      v328 = v327;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v326, v328, *(a3 + 40), &v1303);
+      v161 = v325;
+      v162 = 57;
       goto LABEL_314;
     case 247:
-      v402 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v403 = glpMakeStringZ_0(*(a3 + 32));
-      v405 = v404;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v403, v405, *(a3 + 40), &v1068);
-      v139 = v402;
-      v140 = 59;
+      glpCompilerGetAllocator();
+      v483 = v482;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v484 = glpMakeStringZ_0(*(a3 + 32));
+      v486 = v485;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v484, v486, *(a3 + 40), &v1303);
+      v161 = v483;
+      v162 = 59;
       goto LABEL_314;
     case 248:
-      v804 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v805 = glpMakeStringZ_0(*(a3 + 32));
-      v807 = v806;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v805, v807, *(a3 + 40), &v1068);
-      v139 = v804;
-      v140 = 61;
+      glpCompilerGetAllocator();
+      v975 = v974;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v976 = glpMakeStringZ_0(*(a3 + 32));
+      v978 = v977;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v976, v978, *(a3 + 40), &v1303);
+      v161 = v975;
+      v162 = 61;
 LABEL_314:
-      glpMakePrimitiveTypeNode(v139, &v1068, v140);
+      glpMakePrimitiveTypeNode(v161, &v1303, v162);
       goto LABEL_333;
     case 250:
-      v643 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v644 = glpMakeStringZ_0(*(a3 + 32));
-      v646 = v645;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v644, v646, *(a3 + 40), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v647 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeTypeIdentifierNode(v643, &v1068, v647, v648);
+      glpCompilerGetAllocator();
+      v778 = v777;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v779 = glpMakeStringZ_0(*(a3 + 32));
+      v781 = v780;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v779, v781, *(a3 + 40), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v782 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeTypeIdentifierNode(v778, &v1303, v782, v783);
       goto LABEL_333;
     case 252:
-      v421 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v422 = glpMakeStringZ_0(*(a3 + 32));
-      v424 = v423;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v422, v424, *(a3 + 40), &v1068);
-      v95 = v421;
-      v96 = 24;
+      glpCompilerGetAllocator();
+      v506 = v505;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v507 = glpMakeStringZ_0(*(a3 + 32));
+      v509 = v508;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v507, v509, *(a3 + 40), &v1303);
+      v110 = v506;
+      v111 = 24;
       goto LABEL_332;
     case 253:
-      v298 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v299 = glpMakeStringZ_0(*(a3 + 32));
-      v301 = v300;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v299, v301, *(a3 + 40), &v1068);
-      v95 = v298;
-      v96 = 23;
+      glpCompilerGetAllocator();
+      v357 = v356;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v358 = glpMakeStringZ_0(*(a3 + 32));
+      v360 = v359;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v358, v360, *(a3 + 40), &v1303);
+      v110 = v357;
+      v111 = 23;
       goto LABEL_332;
     case 254:
-      v711 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v712 = glpMakeStringZ_0(*(a3 + 32));
-      v714 = v713;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v712, v714, *(a3 + 40), &v1068);
-      v95 = v711;
-      v96 = 22;
+      glpCompilerGetAllocator();
+      v860 = v859;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v861 = glpMakeStringZ_0(*(a3 + 32));
+      v863 = v862;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v861, v863, *(a3 + 40), &v1303);
+      v110 = v860;
+      v111 = 22;
       goto LABEL_332;
     case 255:
-      v560 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v561 = glpMakeStringZ_0(*(a3 + 32));
-      v563 = v562;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v561, v563, *(a3 + 40), &v1068);
-      v95 = v560;
-      v96 = 20;
+      glpCompilerGetAllocator();
+      v679 = v678;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v680 = glpMakeStringZ_0(*(a3 + 32));
+      v682 = v681;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v680, v682, *(a3 + 40), &v1303);
+      v110 = v679;
+      v111 = 20;
       goto LABEL_332;
     case 256:
-      v475 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v476 = glpMakeStringZ_0(*(a3 + 32));
-      v478 = v477;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v476, v478, *(a3 + 40), &v1068);
-      v95 = v475;
-      v96 = 21;
+      glpCompilerGetAllocator();
+      v573 = v572;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v574 = glpMakeStringZ_0(*(a3 + 32));
+      v576 = v575;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v574, v576, *(a3 + 40), &v1303);
+      v110 = v573;
+      v111 = 21;
 LABEL_332:
-      glpMakeKeywordQualifierNode(v95, &v1068, v96);
+      glpMakeKeywordQualifierNode(v110, &v1303, v111);
       goto LABEL_333;
     case 257:
-      v696 = a7[4];
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v697 = glpMakeStringZ_0(*(a3 - 192));
-      glpStringHashPut(v696, v697, v698, 1, v699);
-      v700 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      v701 = glpMakeStringZ_0(*(a3 - 256));
-      v703 = v702;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpMakeSourceLocation(v701, v703, *(a3 - 248), &v1068);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v704 = glpMakeStringZ_0(*(a3 - 192));
-      v706 = v705;
+      v842 = a7[4];
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v843 = glpMakeStringZ_0(*(a3 - 192));
+      glpStringHashPut(v842, v843, v844, v845, 1);
+      glpCompilerGetAllocator();
+      v847 = v846;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      v848 = glpMakeStringZ_0(*(a3 - 256));
+      v850 = v849;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpMakeSourceLocation(v848, v850, *(a3 - 248), &v1303);
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v851 = glpMakeStringZ_0(*(a3 - 192));
+      v853 = v852;
       goto LABEL_243;
     case 258:
-      v700 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v728 = glpMakeStringZ_0(*(a3 - 184));
-      v730 = v729;
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpMakeSourceLocation(v728, v730, *(a3 - 176), &v1068);
-      v704 = "<<unnamed>>";
-      v706 = 0x725D7890000000BLL;
+      glpCompilerGetAllocator();
+      v847 = v880;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v881 = glpMakeStringZ_0(*(a3 - 184));
+      v883 = v882;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpMakeSourceLocation(v881, v883, *(a3 - 176), &v1303);
+      v851 = "<<unnamed>>";
+      v853 = 0x725D7890000000BLL;
 LABEL_243:
-      glpMakeStructTypeNode(v700, &v1068, v704, v706);
-      *a4 = v731;
-      v732 = glpCompilerGetAllocator(a7[98]);
-      v733 = *a4;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v734 = *(a3 - 48);
-LABEL_355:
-      addFields(v732, v733, v734);
+      glpMakeStructTypeNode(v847, &v1303, v851, v853);
+      *a4 = v884;
+      glpCompilerGetAllocator();
+      v886 = v885;
+      v887 = *a4;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v888 = *(a3 - 48);
+LABEL_354:
+      addFields(v886, v887, v888);
       return 0;
     case 260:
-      yyfill(a3, v1072, 0, v11 == 0);
-      v344 = *(a3 + 24);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v416 = *(a3 + 24);
       do
       {
-        v345 = v344;
-        v344 = *(v344 + 16);
+        v417 = v416;
+        v416 = *(v416 + 16);
       }
 
-      while (v344);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      *(v345 + 16) = *(a3 - 48);
+      while (v416);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      *(v417 + 16) = *(a3 - 48);
 LABEL_12:
-      yyfill(a3, v1072, 0, v11 == 0);
+      yyfill(a3, v1307, 0, v11 == 0);
       result = 0;
       v24 = *(a3 + 24);
       goto LABEL_334;
     case 261:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v371 = *(a3 - 48);
-      if (!v371)
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v448 = *(a3 - 48);
+      if (!v448)
       {
         goto LABEL_146;
       }
 
-      v372 = v1072[0];
-      v1055 = a3 - 71;
+      v449 = v1307[0];
+      v1290 = a3 - 71;
       break;
     case 262:
-      v358 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 192), &v1068);
-      glpMakeQualifiedTypeNode(v358, &v1068);
-      v360 = v359;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpQualifiedTypeNodeSetType(v360, *(a3 - 120));
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpQualifiedTypeNodeSetQualifiers(v360, *(a3 - 192));
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v361 = *(a3 - 48);
-      if (v361)
+      glpCompilerGetAllocator();
+      v434 = v433;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 192), &v1303);
+      glpMakeQualifiedTypeNode(v434, &v1303);
+      v436 = v435;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpQualifiedTypeNodeSetType(v436, *(a3 - 120));
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpQualifiedTypeNodeSetQualifiers(v436, *(a3 - 192));
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v437 = *(a3 - 48);
+      if (v437)
       {
         do
         {
-          v362 = v361[1];
-          v363 = v361[2];
-          v364 = v360;
-          if (v362)
+          v438 = v437[1];
+          v439 = v437[2];
+          v440 = v436;
+          if (v438)
           {
-            glpArrayTypeNodeSetElementType(v361[1], v360);
-            v364 = v362;
+            glpArrayTypeNodeSetElementType(v437[1], v436);
+            v440 = v438;
           }
 
-          glpFieldDeclarationNodeSetType(*v361, v364);
-          v361 = v363;
+          glpFieldDeclarationNodeSetType(*v437, v440);
+          v437 = v439;
         }
 
-        while (v363);
+        while (v439);
       }
 
 LABEL_121:
-      v365 = a3;
-      v366 = v11 == 0;
+      v441 = a3;
+      v442 = v11 == 0;
       goto LABEL_122;
     case 263:
-      v411 = glpCompilerPoolAlloc(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      *v411 = *(a3 + 24);
-      yyfill(a3, v1072, 0, v11 == 0);
+      v493 = glpCompilerPoolAlloc(a7[98]);
+      yyfill(a3, v1307, 0, v11 == 0);
+      *v493 = *(a3 + 24);
+      yyfill(a3, v1307, 0, v11 == 0);
       result = 0;
-      v411[1] = *(a3 + 32);
-      v411[2] = 0;
+      v493[1] = *(a3 + 32);
+      v493[2] = 0;
       goto LABEL_160;
     case 264:
-      v411 = glpCompilerPoolAlloc(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      *v411 = *(a3 + 24);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v411[1] = *(a3 + 32);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
+      v493 = glpCompilerPoolAlloc(a7[98]);
+      yyfill(a3, v1307, 0, v11 == 0);
+      *v493 = *(a3 + 24);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v493[1] = *(a3 + 32);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
       result = 0;
-      v411[2] = *(a3 - 120);
+      v493[2] = *(a3 - 120);
 LABEL_160:
-      *a4 = v411;
+      *a4 = v493;
       return result;
     case 265:
-      v622 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v623 = glpMakeStringZ_0(*(a3 + 32));
-      v625 = v624;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpMakeSourceLocation(v623, v625, *(a3 + 40), &v1068);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v626 = glpMakeStringZ_0(*(a3 + 24));
-      glpMakeFieldDeclarationNode(v622, &v1068, v626, v627);
-      v484 = v628;
+      glpCompilerGetAllocator();
+      v753 = v752;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v754 = glpMakeStringZ_0(*(a3 + 32));
+      v756 = v755;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpMakeSourceLocation(v754, v756, *(a3 + 40), &v1303);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v757 = glpMakeStringZ_0(*(a3 + 24));
+      glpMakeFieldDeclarationNode(v753, &v1303, v757, v758);
+      v583 = v759;
       result = 0;
       goto LABEL_214;
     case 266:
-      v536 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v537 = glpMakeStringZ_0(*(a3 - 40));
-      v539 = v538;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v537, v539, *(a3 - 32), &v1068);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v540 = glpMakeStringZ_0(*(a3 - 48));
-      glpMakeFieldDeclarationNode(v536, &v1068, v540, v541);
-      *a4 = v542;
-      yyfill(a3, v1072, 0, v11 == 0);
-      v543 = *(a3 + 24);
-      arrayify(0, v543);
+      glpCompilerGetAllocator();
+      v650 = v649;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v651 = glpMakeStringZ_0(*(a3 - 40));
+      v653 = v652;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v651, v653, *(a3 - 32), &v1303);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v654 = glpMakeStringZ_0(*(a3 - 48));
+      glpMakeFieldDeclarationNode(v650, &v1303, v654, v655);
+      *a4 = v656;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v657 = *(a3 + 24);
+      arrayify(0, v657);
       result = 0;
-      a4[1] = v543;
+      a4[1] = v657;
       return result;
     case 268:
-      v618 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpASTNodeGetLocation(*(a3 + 24), &v1068);
-      glpMakeExpressionStatementNode(v618, &v1068);
-      v620 = v619;
-      *a4 = v619;
-      yyfill(a3, v1072, 0, v11 == 0);
-      v621 = *(a3 + 24);
+      glpCompilerGetAllocator();
+      v748 = v747;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpASTNodeGetLocation(*(a3 + 24), &v1303);
+      glpMakeExpressionStatementNode(v748, &v1303);
+      v750 = v749;
+      *a4 = v749;
+      yyfill(a3, v1307, 0, v11 == 0);
+      v751 = *(a3 + 24);
       goto LABEL_226;
     case 278:
-      v720 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v721 = glpMakeStringZ_0(*(a3 - 40));
-      v723 = v722;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v721, v723, *(a3 - 32), &v1068);
-      v410 = v720;
-      v416 = 1;
+      glpCompilerGetAllocator();
+      v871 = v870;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v872 = glpMakeStringZ_0(*(a3 - 40));
+      v874 = v873;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v872, v874, *(a3 - 32), &v1303);
+      v492 = v871;
+      v499 = 1;
       goto LABEL_240;
     case 279:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v719 = *(a3 - 48);
-      *a4 = v719;
-      glpBlockNodeSetNeedsNewScope(v719, 1);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v869 = *(a3 - 48);
+      *a4 = v869;
+      glpBlockNodeSetNeedsNewScope(v869, 1);
       return 0;
     case 282:
-      v406 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v407 = glpMakeStringZ_0(*(a3 - 40));
-      v409 = v408;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v407, v409, *(a3 - 32), &v1068);
-      v410 = v406;
+      glpCompilerGetAllocator();
+      v488 = v487;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v489 = glpMakeStringZ_0(*(a3 - 40));
+      v491 = v490;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v489, v491, *(a3 - 32), &v1303);
+      v492 = v488;
       goto LABEL_155;
     case 284:
-      v489 = glpCompilerGetAllocator(a7[98]);
-      v1068.n128_u64[0] = "-1";
-      v1068.n128_u64[1] = 0xEDA00000002;
-      v1069 = 0xFFFFFFFFLL;
-      glpMakeBlockNode(v489, &v1068, 0);
-      *a4 = v490;
+      glpCompilerGetAllocator();
+      v1303.n128_u64[0] = "-1";
+      v1303.n128_u64[1] = 0xEDA00000002;
+      v1304 = 0xFFFFFFFFLL;
+      glpMakeBlockNode(v589, &v1303, 0);
+      *a4 = v590;
       goto LABEL_180;
     case 285:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
       *a4 = *(a3 - 48);
 LABEL_180:
-      v491 = glpCompilerGetAllocator(a7[98]);
-      v492 = *a4;
+      glpCompilerGetAllocator();
+      v592 = v591;
+      v593 = *a4;
       goto LABEL_201;
     case 287:
-      v666 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakeExpressionStatementNode(v666, &v1068);
-      v620 = v667;
-      *a4 = v667;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v621 = *(a3 - 48);
+      glpCompilerGetAllocator();
+      v805 = v804;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakeExpressionStatementNode(v805, &v1303);
+      v750 = v806;
+      *a4 = v806;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v751 = *(a3 - 48);
 LABEL_226:
-      glpExpressionStatementNodeSetExpr(v620, v621);
+      glpExpressionStatementNodeSetExpr(v750, v751);
       return 0;
     case 288:
-      v578 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      v579 = glpMakeStringZ_0(*(a3 - 256));
-      v581 = v580;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpMakeSourceLocation(v579, v581, *(a3 - 248), &v1068);
-      glpMakeIfStatementNode(v578, &v1068);
-      v583 = v582;
-      *a4 = v582;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpIfStatementNodeSetCond(v583, *(a3 - 120));
-      v584 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpIfStatementNodeSetIfStatement(v584, *(a3 + 24));
-      v585 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpIfStatementNodeSetElseStatement(v585, *(a3 + 32));
+      glpCompilerGetAllocator();
+      v702 = v701;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      v703 = glpMakeStringZ_0(*(a3 - 256));
+      v705 = v704;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpMakeSourceLocation(v703, v705, *(a3 - 248), &v1303);
+      glpMakeIfStatementNode(v702, &v1303);
+      v707 = v706;
+      *a4 = v706;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpIfStatementNodeSetCond(v707, *(a3 - 120));
+      v708 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpIfStatementNodeSetIfStatement(v708, *(a3 + 24));
+      v709 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpIfStatementNodeSetElseStatement(v709, *(a3 + 32));
       return 0;
     case 289:
-      v564 = glpCompilerGetAllocator(a7[98]);
-      v1068.n128_u64[0] = "-1";
-      v1068.n128_u64[1] = 0xEDA00000002;
-      v1069 = 0xFFFFFFFFLL;
-      glpMakeBlockNode(v564, &v1068, 1);
-      *a4 = v565;
-      v566 = glpCompilerGetAllocator(a7[98]);
-      v567 = *a4;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpBlockNodeAddStatement(v566, v567, *(a3 - 120));
-      v568 = glpCompilerGetAllocator(a7[98]);
-      v1068.n128_u64[0] = "-1";
-      v1068.n128_u64[1] = 0xEDA00000002;
-      v1069 = 0xFFFFFFFFLL;
-      glpMakeBlockNode(v568, &v1068, 1);
-      a4[1] = v569;
-      v491 = glpCompilerGetAllocator(a7[98]);
-      v492 = a4[1];
+      glpCompilerGetAllocator();
+      v1303.n128_u64[0] = "-1";
+      v1303.n128_u64[1] = 0xEDA00000002;
+      v1304 = 0xFFFFFFFFLL;
+      glpMakeBlockNode(v683, &v1303, 1);
+      *a4 = v684;
+      glpCompilerGetAllocator();
+      v686 = v685;
+      v687 = *a4;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpBlockNodeAddStatement(v686, v687, *(a3 - 120));
+      glpCompilerGetAllocator();
+      v1303.n128_u64[0] = "-1";
+      v1303.n128_u64[1] = 0xEDA00000002;
+      v1304 = 0xFFFFFFFFLL;
+      glpMakeBlockNode(v688, &v1303, 1);
+      a4[1] = v689;
+      glpCompilerGetAllocator();
+      v592 = v690;
+      v593 = a4[1];
 LABEL_201:
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpBlockNodeAddStatement(v491, v492, *(a3 + 24));
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpBlockNodeAddStatement(v592, v593, *(a3 + 24));
       return 0;
     case 290:
-      v707 = glpCompilerGetAllocator(a7[98]);
-      v1068.n128_u64[0] = "-1";
-      v1068.n128_u64[1] = 0xEDA00000002;
-      v1069 = 0xFFFFFFFFLL;
-      glpMakeBlockNode(v707, &v1068, 1);
-      *a4 = v708;
-      v709 = glpCompilerGetAllocator(a7[98]);
-      v710 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpBlockNodeAddStatement(v709, v710, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v1303.n128_u64[0] = "-1";
+      v1303.n128_u64[1] = 0xEDA00000002;
+      v1304 = 0xFFFFFFFFLL;
+      glpMakeBlockNode(v854, &v1303, 1);
+      *a4 = v855;
+      glpCompilerGetAllocator();
+      v857 = v856;
+      v858 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpBlockNodeAddStatement(v857, v858, *(a3 + 24));
       result = 0;
       a4[1] = 0;
       return result;
     case 292:
-      v599 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 192), &v1068);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v600 = glpMakeStringZ_0(*(a3 - 120));
-      glpMakeVariableDeclarationNode(v599, &v1068, v600, v601, 1);
-      v603 = v602;
-      *a4 = v602;
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      glpVariableDeclarationNodeSetType(v603, *(a3 - 192));
-      v604 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpVariableDeclarationNodeSetInitializer(v604, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v727 = v726;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 192), &v1303);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v728 = glpMakeStringZ_0(*(a3 - 120));
+      glpMakeVariableDeclarationNode(v727, &v1303, v728, v729, 1);
+      v731 = v730;
+      *a4 = v730;
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      glpVariableDeclarationNodeSetType(v731, *(a3 - 192));
+      v732 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpVariableDeclarationNodeSetInitializer(v732, *(a3 + 24));
       return 0;
     case 293:
-      v548 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967290, v11 == 0);
-      v549 = glpMakeStringZ_0(*(a3 - 400));
-      v551 = v550;
-      yyfill(a3, v1072, 4294967290, v11 == 0);
-      glpMakeSourceLocation(v549, v551, *(a3 - 392), &v1068);
-      glpMakeSwitchStatementNode(v548, &v1068);
-      v553 = v552;
-      *a4 = v552;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpSwitchStatementNodeSetExpr(v553, *(a3 - 264));
-      v554 = *a4;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpSwitchStatementNodeSetBody(v554, *(a3 - 48));
+      glpCompilerGetAllocator();
+      v664 = v663;
+      yyfill(a3, v1307, 4294967290, v11 == 0);
+      v665 = glpMakeStringZ_0(*(a3 - 400));
+      v667 = v666;
+      yyfill(a3, v1307, 4294967290, v11 == 0);
+      glpMakeSourceLocation(v665, v667, *(a3 - 392), &v1303);
+      glpMakeSwitchStatementNode(v664, &v1303);
+      v669 = v668;
+      *a4 = v668;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpSwitchStatementNodeSetExpr(v669, *(a3 - 264));
+      v670 = *a4;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpSwitchStatementNodeSetBody(v670, *(a3 - 48));
       return 0;
     case 294:
-      v410 = glpCompilerGetAllocator(a7[98]);
-      v1068.n128_u64[0] = "-1";
-      v1068.n128_u64[1] = 0xEDA00000002;
-      v1069 = 0xFFFFFFFFLL;
+      glpCompilerGetAllocator();
+      v1303.n128_u64[0] = "-1";
+      v1303.n128_u64[1] = 0xEDA00000002;
+      v1304 = 0xFFFFFFFFLL;
 LABEL_155:
-      v416 = 0;
+      v499 = 0;
 LABEL_240:
-      glpMakeBlockNode(v410, &v1068, v416);
+      glpMakeBlockNode(v492, &v1303, v499);
       goto LABEL_333;
     case 296:
-      v506 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v507 = glpMakeStringZ_0(*(a3 - 112));
-      v509 = v508;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpMakeSourceLocation(v507, v509, *(a3 - 104), &v1068);
-      glpMakeCaseStatementNode(v506, &v1068, 1);
-      v511 = v510;
-      *a4 = v510;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpCaseStatementNodeSetConstValue(v511, *(a3 - 48));
+      glpCompilerGetAllocator();
+      v613 = v612;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v614 = glpMakeStringZ_0(*(a3 - 112));
+      v616 = v615;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v614, v616, *(a3 - 104), &v1303);
+      glpMakeCaseStatementNode(v613, &v1303, 1);
+      v618 = v617;
+      *a4 = v617;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpCaseStatementNodeSetConstValue(v618, *(a3 - 48));
       return 0;
     case 297:
-      v425 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v426 = glpMakeStringZ_0(*(a3 - 40));
-      v428 = v427;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v426, v428, *(a3 - 32), &v1068);
-      glpMakeDefaultStatementNode(v425, &v1068, 1);
+      glpCompilerGetAllocator();
+      v511 = v510;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v512 = glpMakeStringZ_0(*(a3 - 40));
+      v514 = v513;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v512, v514, *(a3 - 32), &v1303);
+      glpMakeDefaultStatementNode(v511, &v1303, 1);
       goto LABEL_333;
     case 298:
-      v586 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      v587 = glpMakeStringZ_0(*(a3 - 256));
-      v589 = v588;
-      yyfill(a3, v1072, 4294967292, v11 == 0);
-      glpMakeSourceLocation(v587, v589, *(a3 - 248), &v1068);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v590 = *(a3 - 120);
-      yyfill(a3, v1072, 0, v11 == 0);
-      WhileFragment = glpMakeWhileFragment(v586, &v1068, v590, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v711 = v710;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      v712 = glpMakeStringZ_0(*(a3 - 256));
+      v714 = v713;
+      yyfill(a3, v1307, 4294967292, v11 == 0);
+      glpMakeSourceLocation(v712, v714, *(a3 - 248), &v1303);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v715 = *(a3 - 120);
+      yyfill(a3, v1307, 0, v11 == 0);
+      WhileFragment = glpMakeWhileFragment(v711, &v1303, v715, *(a3 + 24));
       goto LABEL_333;
     case 299:
-      v479 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967290, v11 == 0);
-      v480 = glpMakeStringZ_0(*(a3 - 400));
-      v482 = v481;
-      yyfill(a3, v1072, 4294967290, v11 == 0);
-      glpMakeSourceLocation(v480, v482, *(a3 - 392), &v1068);
-      yyfill(a3, v1072, 4294967291, v11 == 0);
-      v483 = *(a3 - 336);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      WhileFragment = glpMakeDoWhileFragment(v479, &v1068, v483, *(a3 - 120));
+      glpCompilerGetAllocator();
+      v578 = v577;
+      yyfill(a3, v1307, 4294967290, v11 == 0);
+      v579 = glpMakeStringZ_0(*(a3 - 400));
+      v581 = v580;
+      yyfill(a3, v1307, 4294967290, v11 == 0);
+      glpMakeSourceLocation(v579, v581, *(a3 - 392), &v1303);
+      yyfill(a3, v1307, 4294967291, v11 == 0);
+      v582 = *(a3 - 336);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      WhileFragment = glpMakeDoWhileFragment(v578, &v1303, v582, *(a3 - 120));
       goto LABEL_333;
     case 300:
-      v446 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967291, v11 == 0);
-      v447 = glpMakeStringZ_0(*(a3 - 328));
-      v449 = v448;
-      yyfill(a3, v1072, 4294967291, v11 == 0);
-      glpMakeSourceLocation(v447, v449, *(a3 - 320), &v1068);
-      yyfill(a3, v1072, 4294967293, v11 == 0);
-      v450 = *(a3 - 192);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v451 = *(a3 - 120);
-      yyfill(a3, v1072, 0, v11 == 0);
-      v452 = *(a3 + 24);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      WhileFragment = glpMakeForFragment(v446, &v1068, v450, v451, v452, *(a3 - 112));
+      glpCompilerGetAllocator();
+      v538 = v537;
+      yyfill(a3, v1307, 4294967291, v11 == 0);
+      v539 = glpMakeStringZ_0(*(a3 - 328));
+      v541 = v540;
+      yyfill(a3, v1307, 4294967291, v11 == 0);
+      glpMakeSourceLocation(v539, v541, *(a3 - 320), &v1303);
+      yyfill(a3, v1307, 4294967293, v11 == 0);
+      v542 = *(a3 - 192);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v543 = *(a3 - 120);
+      yyfill(a3, v1307, 0, v11 == 0);
+      v544 = *(a3 + 24);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      WhileFragment = glpMakeForFragment(v538, &v1303, v542, v543, v544, *(a3 - 112));
       goto LABEL_333;
     case 304:
-      v605 = glpGetPrimitiveType(9u);
-      v606 = glpCompilerGetAllocator(a7[98]);
-      v607 = a7[98];
-      v608 = glpCompilerGetAllocator(v607);
-      v614 = glpMakeMutableValue(v608, v605, 1, v609, v610, v611, v612, v613, 1);
-      v615 = glpCompilerRemapValue(v607, v605, v614);
-      v1068.n128_u64[0] = "-1";
-      v1068.n128_u64[1] = 0xEDA00000002;
-      v1069 = 0xFFFFFFFFLL;
-      v616 = v606;
-      v617 = v605;
-LABEL_352:
-      glpMakeConstantNode(v616, &v1068, v617, v615);
+      v733 = glpGetPrimitiveType(9u);
+      glpCompilerGetAllocator();
+      v735 = v734;
+      v736 = a7[98];
+      glpCompilerGetAllocator();
+      v743 = glpMakeMutableValue(v737, v733, 1, v738, v739, v740, v741, v742, 1);
+      v744 = glpCompilerRemapValue(v736, v733, v743);
+      v1303.n128_u64[0] = "-1";
+      v1303.n128_u64[1] = 0xEDA00000002;
+      v1304 = 0xFFFFFFFFLL;
+      v745 = v735;
+      v746 = v733;
+LABEL_351:
+      glpMakeConstantNode(v745, &v1303, v746, v744);
       goto LABEL_333;
     case 305:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
       result = 0;
-      v484 = *(a3 - 48);
+      v583 = *(a3 - 48);
 LABEL_214:
-      *a4 = v484;
+      *a4 = v583;
       a4[1] = 0;
       return result;
     case 306:
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v293 = *(a3 - 120);
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v350 = *(a3 - 120);
 LABEL_211:
-      *a4 = v293;
-      yyfill(a3, v1072, 0, v11 == 0);
+      *a4 = v350;
+      yyfill(a3, v1307, 0, v11 == 0);
       result = 0;
-      v67 = *(a3 + 24);
+      v76 = *(a3 + 24);
 LABEL_311:
-      a4[1] = v67;
+      a4[1] = v76;
       return result;
     case 307:
-      v526 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v527 = glpMakeStringZ_0(*(a3 - 40));
-      v529 = v528;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v527, v529, *(a3 - 32), &v1068);
-      glpMakeContinueStatementNode(v526, &v1068);
+      glpCompilerGetAllocator();
+      v637 = v636;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v638 = glpMakeStringZ_0(*(a3 - 40));
+      v640 = v639;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v638, v640, *(a3 - 32), &v1303);
+      glpMakeContinueStatementNode(v637, &v1303);
       goto LABEL_333;
     case 308:
-      v591 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v592 = glpMakeStringZ_0(*(a3 - 40));
-      v594 = v593;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v592, v594, *(a3 - 32), &v1068);
-      glpMakeBreakStatementNode(v591, &v1068);
+      glpCompilerGetAllocator();
+      v717 = v716;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v718 = glpMakeStringZ_0(*(a3 - 40));
+      v720 = v719;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v718, v720, *(a3 - 32), &v1303);
+      glpMakeBreakStatementNode(v717, &v1303);
       goto LABEL_333;
     case 309:
-      v570 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v571 = glpMakeStringZ_0(*(a3 - 40));
-      v573 = v572;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v571, v573, *(a3 - 32), &v1068);
-      glpMakeReturnStatementNode(v570, &v1068);
+      glpCompilerGetAllocator();
+      v692 = v691;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v693 = glpMakeStringZ_0(*(a3 - 40));
+      v695 = v694;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v693, v695, *(a3 - 32), &v1303);
+      glpMakeReturnStatementNode(v692, &v1303);
       goto LABEL_333;
     case 310:
-      v465 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      v466 = glpMakeStringZ_0(*(a3 - 112));
-      v468 = v467;
-      yyfill(a3, v1072, 4294967294, v11 == 0);
-      glpMakeSourceLocation(v466, v468, *(a3 - 104), &v1068);
-      glpMakeReturnStatementNode(v465, &v1068);
-      v470 = v469;
-      *a4 = v469;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpReturnStatementNodeSetExpr(v470, *(a3 - 48));
+      glpCompilerGetAllocator();
+      v561 = v560;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      v562 = glpMakeStringZ_0(*(a3 - 112));
+      v564 = v563;
+      yyfill(a3, v1307, 4294967294, v11 == 0);
+      glpMakeSourceLocation(v562, v564, *(a3 - 104), &v1303);
+      glpMakeReturnStatementNode(v561, &v1303);
+      v566 = v565;
+      *a4 = v565;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpReturnStatementNodeSetExpr(v566, *(a3 - 48));
       return 0;
     case 311:
-      v518 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      v519 = glpMakeStringZ_0(*(a3 - 40));
-      v521 = v520;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpMakeSourceLocation(v519, v521, *(a3 - 32), &v1068);
-      glpMakeDiscardStatementNode(v518, &v1068);
-      goto LABEL_333;
+      glpCompilerGetAllocator();
+      v627 = v626;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      v628 = glpMakeStringZ_0(*(a3 - 40));
+      v630 = v629;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpMakeSourceLocation(v628, v630, *(a3 - 32), &v1303);
+      glpMakeDiscardStatementNode(v627, &v1303);
+LABEL_333:
+      v24 = WhileFragment;
+      result = 0;
+      goto LABEL_334;
     case 312:
       *a4 = glpCompilerGetTopLevelNode(a7[98]);
-      v493 = glpCompilerGetAllocator(a7[98]);
-      v494 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpTopLevelNodeAddDef(v493, v494, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v595 = v594;
+      v596 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpTopLevelNodeAddDef(v595, v596, *(a3 + 24));
       result = 0;
       a7[99] = *a4;
       return result;
     case 313:
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
       *a4 = *(a3 - 48);
-      v530 = glpCompilerGetAllocator(a7[98]);
-      v531 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpTopLevelNodeAddDef(v530, v531, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v642 = v641;
+      v643 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpTopLevelNodeAddDef(v642, v643, *(a3 + 24));
       return 0;
     case 316:
-      v532 = glpCompilerGetAllocator(a7[98]);
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpASTNodeGetLocation(*(a3 - 48), &v1068);
-      glpMakeFunctionDefinitionNode(v532, &v1068);
-      v534 = v533;
-      *a4 = v533;
-      yyfill(a3, v1072, 0xFFFFFFFFLL, v11 == 0);
-      glpFunctionDefinitionNodeSetPrototype(v534, *(a3 - 48));
-      v535 = *a4;
-      yyfill(a3, v1072, 0, v11 == 0);
-      glpFunctionDefinitionNodeSetBody(v535, *(a3 + 24));
+      glpCompilerGetAllocator();
+      v645 = v644;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpASTNodeGetLocation(*(a3 - 48), &v1303);
+      glpMakeFunctionDefinitionNode(v645, &v1303);
+      v647 = v646;
+      *a4 = v646;
+      yyfill(a3, v1307, 0xFFFFFFFFLL, v11 == 0);
+      glpFunctionDefinitionNodeSetPrototype(v647, *(a3 - 48));
+      v648 = *a4;
+      yyfill(a3, v1307, 0, v11 == 0);
+      glpFunctionDefinitionNodeSetBody(v648, *(a3 + 24));
       return 0;
     default:
       return 0;
@@ -8496,14 +8732,14 @@ LABEL_311:
 
   do
   {
-    v373 = v371;
-    v374 = v371;
-    v375 = v371[1];
-    v371 = v371[2];
-    v376 = v374 + 1;
-    if (v375)
+    v450 = v448;
+    v451 = v448;
+    v452 = v448[1];
+    v448 = v448[2];
+    v453 = v451 + 1;
+    if (v452)
     {
-      for (j = v375; ; j = v379)
+      for (j = v452; ; j = v456)
       {
         ElementType = glpArrayTypeNodeGetElementType(j);
         if (!ElementType)
@@ -8511,88 +8747,88 @@ LABEL_311:
           break;
         }
 
-        v379 = ElementType;
+        v456 = ElementType;
         if (!glpIsArrayTypeNode(ElementType))
         {
           break;
         }
 
-        v375 = v379;
+        v452 = v456;
       }
 
-      if (v11 && v372 >= -1)
+      if (v11 && v449 >= -1)
       {
-        v380 = *(a3 + 72 * v372 + 8);
-        v381 = v372 + 1;
-        v382 = v1055 + 72 * v372;
+        v457 = *(a3 + 72 * v449 + 8);
+        v458 = v449 + 1;
+        v459 = v1290 + 72 * v449;
         do
         {
-          if (!*(v380 + 1))
+          if (!*(v457 + 1))
           {
-            goto LABEL_374;
+            goto LABEL_372;
           }
 
-          *v382 = 1;
-          v383 = *(v380 + 24);
-          *(v382 + 39) = *(v380 + 40);
-          *(v382 + 23) = v383;
-          *(v382 + 47) = *(v380 + 48);
-          v380 = *(v380 + 8);
-          *(v382 + 7) = v380;
-          --v381;
-          v382 -= 72;
+          *v459 = 1;
+          v460 = *(v457 + 24);
+          *(v459 + 39) = *(v457 + 40);
+          *(v459 + 23) = v460;
+          *(v459 + 47) = *(v457 + 48);
+          v457 = *(v457 + 8);
+          *(v459 + 7) = v457;
+          --v458;
+          v459 -= 72;
         }
 
-        while ((v381 & 0x8000000000000000) == 0);
-        v372 = -2;
-        v1072[0] = -2;
+        while ((v458 & 0x8000000000000000) == 0);
+        v449 = -2;
+        v1307[0] = -2;
       }
 
-      glpArrayTypeNodeSetElementType(v375, *(a3 - 120));
+      glpArrayTypeNodeSetElementType(v452, *(a3 - 120));
     }
 
     else
     {
-      if (v11 && v372 >= -1)
+      if (v11 && v449 >= -1)
       {
-        v384 = *(a3 + 72 * v372 + 8);
-        v385 = v372 + 1;
-        v386 = v1055 + 72 * v372;
+        v461 = *(a3 + 72 * v449 + 8);
+        v462 = v449 + 1;
+        v463 = v1290 + 72 * v449;
         do
         {
-          if (!*(v384 + 1))
+          if (!*(v461 + 1))
           {
-            goto LABEL_374;
+            goto LABEL_372;
           }
 
-          *v386 = 1;
-          v387 = *(v384 + 24);
-          *(v386 + 39) = *(v384 + 40);
-          *(v386 + 23) = v387;
-          *(v386 + 47) = *(v384 + 48);
-          v384 = *(v384 + 8);
-          *(v386 + 7) = v384;
-          --v385;
-          v386 -= 72;
+          *v463 = 1;
+          v464 = *(v461 + 24);
+          *(v463 + 39) = *(v461 + 40);
+          *(v463 + 23) = v464;
+          *(v463 + 47) = *(v461 + 48);
+          v461 = *(v461 + 8);
+          *(v463 + 7) = v461;
+          --v462;
+          v463 -= 72;
         }
 
-        while ((v385 & 0x8000000000000000) == 0);
-        v372 = -2;
-        v1072[0] = -2;
+        while ((v462 & 0x8000000000000000) == 0);
+        v449 = -2;
+        v1307[0] = -2;
       }
 
-      v376 = (a3 - 120);
+      v453 = (a3 - 120);
     }
 
-    glpFieldDeclarationNodeSetType(*v373, *v376);
+    glpFieldDeclarationNodeSetType(*v450, *v453);
   }
 
-  while (v371);
+  while (v448);
 LABEL_146:
-  v365 = a3;
-  v366 = v11 == 0;
+  v441 = a3;
+  v442 = v11 == 0;
 LABEL_122:
-  yyfill(v365, v1072, 0xFFFFFFFFLL, v366);
+  yyfill(v441, v1307, 0xFFFFFFFFLL, v442);
   result = 0;
   v24 = *(a3 - 48);
 LABEL_334:
@@ -8657,14 +8893,15 @@ const char *glpMakeStringZ_0(const char *a1)
 
 void *addFields(void *a1, uint64_t a2, uint64_t *a3)
 {
-  if (a3[2])
+  v6 = a3[2];
+  if (v6)
   {
-    addFields(a1, a2);
+    addFields(a1, a2, v6);
   }
 
-  v6 = *a3;
+  v7 = *a3;
 
-  return glpStructureNodeAddField(a1, a2, v6);
+  return glpStructureNodeAddField(a1, a2, v7);
 }
 
 uint64_t iterateQualifiers(uint64_t result, uint64_t a2)
@@ -8715,25 +8952,26 @@ uint64_t __yyuserAction_block_invoke(uint64_t a1, uint64_t a2)
       v6 = *(*(a1 + 32) + 32);
       Name = glpFunctionPrototypeNodeGetName(v5);
 
-      return glpStringHashPut(v6, Name, v7, 1, v9);
+      return glpStringHashPut(v6, Name, v7, v9, 1);
     }
   }
 
   return result;
 }
 
-void *__yyuserAction_block_invoke_2(void *a1, uint64_t a2)
+void *__yyuserAction_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  if (!*(*(a1[4] + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    Allocator = glpCompilerGetAllocator(*(a1[5] + 784));
-    glpASTNodeGetLocation(a1[6], &v8);
-    glpMakeQualifierListNode(Allocator, &v8);
-    *(*(a1[4] + 8) + 24) = v5;
+    glpCompilerGetAllocator();
+    v5 = v4;
+    glpASTNodeGetLocation(*(a1 + 48), &v9);
+    glpMakeQualifierListNode(v5, &v9);
+    *(*(*(a1 + 32) + 8) + 24) = v6;
   }
 
-  v6 = glpCompilerGetAllocator(*(a1[5] + 784));
-  return glpQualifierListNodeAddQualifier(v6, *(*(a1[4] + 8) + 24), a2);
+  glpCompilerGetAllocator();
+  return glpQualifierListNodeAddQualifier(v7, *(*(*(a1 + 32) + 8) + 24), a2);
 }
 
 void *__yyuserAction_block_invoke_3(uint64_t a1, uint64_t a2)
@@ -8742,10 +8980,10 @@ void *__yyuserAction_block_invoke_3(uint64_t a1, uint64_t a2)
   if (!v4)
   {
     *(*(*(a1 + 32) + 8) + 24) = glpCompilerPoolAlloc(*(*(a1 + 40) + 784));
-    Allocator = glpCompilerGetAllocator(*(*(a1 + 40) + 784));
+    glpCompilerGetAllocator();
     **(*(*(a1 + 32) + 8) + 24) = 4;
     *(*(*(*(a1 + 32) + 8) + 24) + 4) = 0;
-    *(*(*(*(a1 + 32) + 8) + 24) + 8) = (*(Allocator + 8))(*Allocator, 32, "Vector Storage (GLPASTNode *)");
+    *(*(*(*(a1 + 32) + 8) + 24) + 8) = (*(v5 + 8))(*v5, 32, "Vector Storage (GLPASTNode *)");
     v4 = *(*(*(a1 + 32) + 8) + 24);
   }
 
@@ -8774,21 +9012,22 @@ void *__yyuserAction_block_invoke_3(uint64_t a1, uint64_t a2)
       v10 = v9;
     }
 
-    v11 = glpCompilerGetAllocator(*(*(a1 + 40) + 784));
-    v12 = (v11[1])(*v11, 8 * v10, "Vector Storage (GLPASTNode *, growth)");
-    v13 = *(*(*(a1 + 32) + 8) + 24);
-    memcpy(v12, *(v13 + 8), 8 * *(v13 + 4));
-    (v11[3])(*v11, *(*(*(*(a1 + 32) + 8) + 24) + 8));
+    glpCompilerGetAllocator();
+    v12 = v11;
+    v13 = (*(v11 + 8))(*v11, 8 * v10, "Vector Storage (GLPASTNode *, growth)");
+    v14 = *(*(*(a1 + 32) + 8) + 24);
+    memcpy(v13, *(v14 + 8), 8 * *(v14 + 4));
+    (*(v12 + 24))(*v12, *(*(*(*(a1 + 32) + 8) + 24) + 8));
     **(*(*(a1 + 32) + 8) + 24) = v10;
-    *(*(*(*(a1 + 32) + 8) + 24) + 8) = v12;
+    *(*(*(*(a1 + 32) + 8) + 24) + 8) = v13;
     v4 = *(*(*(a1 + 32) + 8) + 24);
     v7 = *(v4 + 4);
   }
 
   result = memmove((*(v4 + 8) + 8 * v6 + 8), (*(v4 + 8) + 8 * v6), 8 * (v7 - v6));
   *(*(*(*(*(a1 + 32) + 8) + 24) + 8) + 8 * v6) = a2;
-  v15 = *(*(*(a1 + 32) + 8) + 24);
-  ++*(v15 + 4);
+  v16 = *(*(*(a1 + 32) + 8) + 24);
+  ++*(v16 + 4);
   return result;
 }
 
@@ -8848,112 +9087,113 @@ uint64_t arrayify(uint64_t a1, uint64_t a2)
 uint64_t yyresolveStates(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
   v53 = *MEMORY[0x277D85DE8];
-  if (a2 < 1)
+  v4 = __OFSUB__(a2, 1);
+  v5 = a2 - 1;
+  if (v5 < 0 != v4)
   {
-    goto LABEL_5;
+    return 0;
   }
 
-  if (!*(a1 + 8))
+  v7 = *(a1 + 8);
+  if (!v7)
   {
     abort();
   }
 
-  v7 = (yyresolveStates)();
-  if (!v7)
+  v10 = yyresolveStates(v7, v5, a3, a4);
+  if (!v10)
   {
     if (*(a1 + 1))
     {
-LABEL_5:
-      v7 = 0;
-      goto LABEL_6;
+      return 0;
     }
 
-    v10 = (a1 + 24);
-    v11 = *(a1 + 24);
+    v13 = (a1 + 24);
+    v14 = *(a1 + 24);
     v45 = 0uLL;
     v46 = 0;
-    v13 = (v11 + 64);
-    v12 = *(v11 + 64);
-    if (v12)
+    v16 = (v14 + 64);
+    v15 = *(v14 + 64);
+    if (v15)
     {
       while (1)
       {
-        v14 = *(v11 + 4);
-        v15 = *(v12 + 4);
-        if (v14 != v15)
+        v17 = *(v14 + 4);
+        v18 = *(v15 + 4);
+        if (v17 != v18)
         {
           goto LABEL_34;
         }
 
-        v16 = yyr2[v14];
-        if (yyr2[v14])
+        v19 = yyr2[v17];
+        if (yyr2[v17])
         {
-          v17 = v16 + 1;
-          v18 = v11;
-          v19 = v12;
+          v20 = v19 + 1;
+          v21 = v14;
+          v22 = v15;
           while (1)
           {
-            v19 = *(v19 + 8);
-            v18 = *(v18 + 8);
-            if (*(v18 + 16) != *(v19 + 16))
+            v22 = *(v22 + 8);
+            v21 = *(v21 + 8);
+            if (*(v21 + 16) != *(v22 + 16))
             {
               break;
             }
 
-            if (--v17 < 2)
+            if (--v20 < 2)
             {
-              v20 = *(v11 + 8);
-              for (i = *(v12 + 8); v20 != i; i = *(i + 8))
+              v23 = *(v14 + 8);
+              for (i = *(v15 + 8); v23 != i; i = *(i + 8))
               {
-                if (*(v20 + 1))
+                if (*(v23 + 1))
                 {
                   *(i + 1) = 1;
-                  v22 = *(v20 + 24);
-                  *(i + 40) = *(v20 + 40);
-                  *(i + 24) = v22;
+                  v11 = *(v23 + 24);
+                  *(i + 40) = *(v23 + 40);
+                  *(i + 24) = v11;
                 }
 
                 else if (*(i + 1))
                 {
-                  *(v20 + 1) = 1;
-                  v23 = *(i + 24);
-                  *(v20 + 40) = *(i + 40);
-                  *(v20 + 24) = v23;
+                  *(v23 + 1) = 1;
+                  v11 = *(i + 24);
+                  *(v23 + 40) = *(i + 40);
+                  *(v23 + 24) = v11;
                 }
 
                 else
                 {
-                  v24 = *(v20 + 24);
-                  v25 = *(i + 24);
-                  if (v25)
+                  v25 = *(v23 + 24);
+                  v26 = *(i + 24);
+                  if (v26)
                   {
-                    v26 = v25 == v24;
+                    v27 = v26 == v25;
                   }
 
                   else
                   {
-                    v26 = 1;
+                    v27 = 1;
                   }
 
-                  if (!v26)
+                  if (!v27)
                   {
-                    v27 = (v20 + 24);
-                    while (v24)
+                    v28 = (v23 + 24);
+                    while (v25)
                     {
-                      if (v24 < v25)
+                      if (v25 < v26)
                       {
-                        *v27 = v25;
-                        v28 = *(v25 + 64);
-                        *(v25 + 64) = v24;
-                        v24 = *v27;
-                        v25 = v28;
+                        *v28 = v26;
+                        v29 = *(v26 + 64);
+                        *(v26 + 64) = v25;
+                        v25 = *v28;
+                        v26 = v29;
                       }
 
-                      if (v25)
+                      if (v26)
                       {
-                        v27 = (v24 + 64);
-                        v24 = *(v24 + 64);
-                        if (v25 != v24)
+                        v28 = (v25 + 64);
+                        v25 = *(v25 + 64);
+                        if (v26 != v25)
                         {
                           continue;
                         }
@@ -8962,20 +9202,20 @@ LABEL_5:
                       goto LABEL_31;
                     }
 
-                    *v27 = v25;
+                    *v28 = v26;
                   }
 
 LABEL_31:
-                  *(i + 24) = *(v20 + 24);
+                  *(i + 24) = *(v23 + 24);
                 }
 
-                if (v16 < 2)
+                if (v19 < 2)
                 {
                   break;
                 }
 
-                --v16;
-                v20 = *(v20 + 8);
+                --v19;
+                v23 = *(v23 + 8);
               }
 
               goto LABEL_45;
@@ -8983,21 +9223,20 @@ LABEL_31:
           }
 
 LABEL_34:
-          v29 = yydprec[v14];
-          v30 = yydprec[v15];
-          v32 = v29 == v30 || v29 == 0 || v30 == 0;
-          if (v32 || (v33 = v12, v29 >= v30) && (v33 = v11, v30 >= v29))
+          v30 = yydprec[v17];
+          v31 = yydprec[v18];
+          v33 = v30 == v31 || v30 == 0 || v31 == 0;
+          if (v33 || (v34 = v15, v30 >= v31) && (v34 = v14, v31 >= v30))
           {
-            yyresolveLocations(a1, 1, a3);
-            yyerror(a1 + 48, a4, "syntax is ambiguous");
-            v7 = 2;
-            goto LABEL_6;
+            yyresolveLocations(a1, 1, a3, v11);
+            yyerror(a1 + 48, a4);
+            return 2;
           }
 
-          v13 = (v12 + 64);
-          v12 = *(v12 + 64);
-          v11 = v33;
-          if (!v12)
+          v16 = (v15 + 64);
+          v15 = *(v15 + 64);
+          v14 = v34;
+          if (!v15)
           {
             break;
           }
@@ -9006,9 +9245,9 @@ LABEL_34:
         else
         {
 LABEL_45:
-          v12 = *(v12 + 64);
-          *v13 = v12;
-          if (!v12)
+          v15 = *(v15 + 64);
+          *v16 = v15;
+          if (!v15)
           {
             break;
           }
@@ -9017,26 +9256,25 @@ LABEL_45:
     }
 
     bzero(v50, 0x288uLL);
-    v34 = (v11 + 8);
-    v35 = *(v11 + 4);
-    v36 = yyr2[v35];
-    v37 = yyresolveStates(*(v11 + 8), yyr2[v35], a3, a4);
+    v35 = (v14 + 8);
+    v36 = yyr2[*(v14 + 4)];
+    v37 = yyresolveStates(*(v14 + 8), v36, a3, a4);
     if (v37)
     {
-      v7 = v37;
+      v10 = v37;
       if (!v36)
       {
 LABEL_56:
-        *v10 = 0;
-        goto LABEL_6;
+        *v13 = 0;
+        return v10;
       }
 
       v38 = v36 + 1;
       do
       {
-        v39 = *v34;
-        yydestroyGLRState(*v34);
-        v34 = (v39 + 8);
+        v39 = *v35;
+        yydestroyGLRState(*v35);
+        v35 = (v39 + 8);
         --v38;
       }
 
@@ -9045,8 +9283,8 @@ LABEL_56:
 
     else
     {
-      v40 = *v34;
-      v52 = *v34;
+      v40 = *v35;
+      v52 = *v35;
       if (!v36)
       {
         v51[3] = *(v40 + 48);
@@ -9057,12 +9295,12 @@ LABEL_56:
       v42 = *(a3 + 232);
       v47 = *(a3 + 256);
       v48 = v42;
-      *(a3 + 228) = *(v11 + 16);
-      v43 = *(v11 + 40);
-      *(a3 + 232) = *(v11 + 24);
+      *(a3 + 228) = *(v14 + 16);
+      v43 = *(v14 + 40);
+      *(a3 + 232) = *(v14 + 24);
       *(a3 + 248) = v43;
-      *(a3 + 256) = *(v11 + 48);
-      v7 = yyuserAction(*(v11 + 4), v36, v51, &v45, (a1 + 48), a3, a4);
+      *(a3 + 256) = *(v14 + 48);
+      v10 = yyuserAction(*(v14 + 4), v36, v51, &v45, (a1 + 48), a3, a4);
       *(a3 + 228) = v41;
       v44 = v47;
       *(a3 + 232) = v48;
@@ -9070,107 +9308,108 @@ LABEL_56:
       *(a3 + 256) = v44;
     }
 
-    if (!v7)
+    if (!v10)
     {
       *(a1 + 1) = 1;
-      *v10 = v45;
+      *v13 = v45;
       *(a1 + 40) = v46;
-      goto LABEL_6;
+      return v10;
     }
 
     goto LABEL_56;
   }
 
-LABEL_6:
-  v8 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v10;
 }
 
-void yyresolveLocations(uint64_t a1, int a2, uint64_t a3)
+__n128 yyresolveLocations(uint64_t a1, int a2, uint64_t a3, __n128 result)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  if (a2 >= 1)
+  v25 = *MEMORY[0x277D85DE8];
+  v4 = __OFSUB__(a2, 1);
+  v5 = a2 - 1;
+  if (v5 < 0 == v4)
   {
-    yyresolveLocations(*(a1 + 8));
+    result.n128_u64[0] = yyresolveLocations(*(a1 + 8), v5, a3, result).n128_u64[0];
     if (!*(a1 + 1))
     {
-      bzero(v20, 0x288uLL);
-      v5 = *(a1 + 24);
-      if (!v5)
+      bzero(v22, 0x288uLL);
+      v9 = *(a1 + 24);
+      if (!v9)
       {
         abort();
       }
 
-      v6 = *(v5 + 4);
-      v7 = yyr2[v6];
-      if (yyr2[v6])
+      v10 = *(v9 + 4);
+      v11 = yyr2[v10];
+      if (yyr2[v10])
       {
-        v8 = (v5 + 8);
-        v9 = yyr2[v6];
-        yyresolveLocations(*(v5 + 8));
-        v10 = v7 + 1;
-        v11 = &v20[9 * v7 + 6];
+        v12 = (v9 + 8);
+        yyresolveLocations(*(v9 + 8), yyr2[v10], a3, v8);
+        v13 = v11 + 1;
+        v14 = &v22[9 * v11 + 6];
         do
         {
-          v12 = *v8;
-          *v11 = *(*v8 + 48);
-          v11 = (v11 - 72);
-          v8 = (v12 + 8);
-          --v10;
+          v15 = *v12;
+          *v14 = *(*v12 + 48);
+          v14 = (v14 - 72);
+          v12 = (v15 + 8);
+          --v13;
         }
 
-        while (v10 > 1);
+        while (v13 > 1);
       }
 
       else
       {
-        v21[0] = *(*(v5 + 8) + 48);
+        v23[0] = *(*(v9 + 8) + 48);
       }
 
-      v13 = *(a3 + 228);
-      v19 = *(a3 + 248);
-      v17 = *(a3 + 256);
-      v18 = *(a3 + 232);
-      *(a3 + 228) = *(v5 + 16);
-      v14 = *(v5 + 24);
-      *(a3 + 248) = *(v5 + 40);
-      *(a3 + 232) = v14;
-      if (v7)
+      v16 = *(a3 + 228);
+      v21 = *(a3 + 248);
+      v19 = *(a3 + 256);
+      v20 = *(a3 + 232);
+      *(a3 + 228) = *(v9 + 16);
+      v17 = *(v9 + 24);
+      *(a3 + 248) = *(v9 + 40);
+      *(a3 + 232) = v17;
+      if (v11)
       {
-        *&v15 = v22;
-        *(&v15 + 1) = *(v21 + 9 * v7 + 1);
+        *&v18 = v24;
+        *(&v18 + 1) = *(v23 + 9 * v11 + 1);
       }
 
       else
       {
-        *&v15 = *(&v21[0] + 1);
-        *(&v15 + 1) = *(&v21[0] + 1);
+        *&v18 = *(&v23[0] + 1);
+        *(&v18 + 1) = *(&v23[0] + 1);
       }
 
-      *(a1 + 48) = v15;
-      *(a3 + 228) = v13;
-      *(a3 + 232) = v18;
-      *(a3 + 248) = v19;
-      *(a3 + 256) = v17;
+      *(a1 + 48) = v18;
+      *(a3 + 228) = v16;
+      result = v19;
+      *(a3 + 232) = v20;
+      *(a3 + 248) = v21;
+      *(a3 + 256) = v19;
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
-uint64_t BitSetNewWithAllocator(unsigned int a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t, const char *), uint64_t a4, uint64_t a5)
+uint64_t BitSetNewWithAllocator(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t, const char *), uint64_t a4, uint64_t a5)
 {
+  v9 = a1;
   v10 = ((a1 >> 3) & 0x1FFFFFFC) + 4;
   v11 = a3(a2, 48, "Bit Set");
   *v11 = a2;
   *(v11 + 8) = a3;
   *(v11 + 16) = a4;
   *(v11 + 24) = a5;
-  *(v11 + 32) = a1;
+  *(v11 + 32) = v9;
   *(v11 + 36) = v10;
   *(v11 + 40) = a3(a2, v10, "Bit Set (packed bits)");
 
-  return BitSetSetRangeEqualsInternal(v11, 0, a1, 0);
+  return BitSetSetRangeEqualsInternal(v11, 0, v9, 0);
 }
 
 void *glpMallocAlloc_0(int a1, size_t size)
@@ -9347,14 +9586,15 @@ uint64_t BitSetClearEquals(uint64_t result, unsigned int a2)
   return result;
 }
 
-uint64_t BitSetSetRangeEquals(uint64_t a1, unsigned int a2, unsigned int a3, int a4)
+uint64_t BitSetSetRangeEquals(uint64_t a1, unsigned int a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   if (*(a1 + 32) < a3)
   {
     a1 = BitSetSetSizeEquals(a1, a3);
   }
 
-  return BitSetSetRangeEqualsInternal(a1, a2, a3, a4);
+  return BitSetSetRangeEqualsInternal(a1, a2, v5, a4);
 }
 
 uint64_t BitSetSetSizeEquals(uint64_t a1, unsigned int a2)
@@ -9707,211 +9947,4 @@ uint64_t BitSetEqualsTest(uint64_t a1, uint64_t a2)
   v19 = vbslq_s8(v16, v10, v15);
   *v19.i8 = vand_s8(*v19.i8, *&vextq_s8(v19, v19, 8uLL));
   return (v19.i32[0] & v19.i32[1]);
-}
-
-uint64_t PPStreamChunkGetStream(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, int *a5)
-{
-  *a3 = 1;
-  v5 = 16;
-  switch(*(a1 + 16))
-  {
-    case 0:
-    case 1:
-    case 2:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 0xA:
-    case 0xC:
-      v5 = a1 + 24;
-      break;
-    case 9:
-      *a3 = 2;
-      v5 = a1 + 32;
-      v7 = a1 + 24;
-      v8 = a4 == 0;
-      goto LABEL_8;
-    case 0xB:
-      v5 = a1 + 24;
-      v9 = *(a1 + 24) & 7;
-      if (a4)
-      {
-        *a3 = v9 + 2;
-        v5 = a1 + 8 * (a4 - 2) + 40;
-        v7 = a1 + 32;
-        v8 = a4 == 1;
-LABEL_8:
-        if (v8)
-        {
-          v5 = v7;
-        }
-      }
-
-      else
-      {
-        *a5 = v9;
-        *a3 = (*v5 & 7) + 2;
-      }
-
-      break;
-    case 0xD:
-      *a3 = 2;
-      v5 = a1 + 4 * (2 * a4) + 24;
-      break;
-    default:
-      return *v5;
-  }
-
-  return *v5;
-}
-
-uint64_t PPStreamChunkCompare(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 16) != *(a2 + 16))
-  {
-    return 1;
-  }
-
-  switch(*(a1 + 16))
-  {
-    case 0:
-    case 1:
-    case 7:
-    case 8:
-    case 0xA:
-    case 0xC:
-      if (*(a1 + 24) != *(a2 + 24))
-      {
-        return 1;
-      }
-
-      break;
-    case 2:
-    case 4:
-    case 5:
-    case 6:
-    case 9:
-    case 0xD:
-      if (*(a1 + 24) != *(a2 + 24) || *(a1 + 32) != *(a2 + 32))
-      {
-        return 1;
-      }
-
-      break;
-    case 3:
-      if (*(a1 + 24) != *(a2 + 24))
-      {
-        return 1;
-      }
-
-      break;
-    case 0xB:
-      *(a2 + 92) = *(a1 + 92);
-      *(a2 + 96) = *(a1 + 96);
-      if (memcmp((a1 + 24), (a2 + 24), 0x50uLL))
-      {
-        return 1;
-      }
-
-      break;
-    default:
-      return 1;
-  }
-
-  return 0;
-}
-
-void *PPStreamChunkListCreate()
-{
-  result = malloc_type_calloc(0x18uLL, 1uLL, 0x1A32276BuLL);
-  if (!result)
-  {
-    abort();
-  }
-
-  return result;
-}
-
-void *PPStreamChunkListCreateFromChunkList(uint64_t *a1)
-{
-  v2 = PPStreamChunkListCreate();
-  for (i = *a1; i; i = *(i + 8))
-  {
-    switch(*(i + 16))
-    {
-      case 0:
-      case 1:
-      case 7:
-      case 8:
-      case 0xA:
-      case 0xC:
-        v4 = 8;
-        break;
-      case 2:
-      case 4:
-      case 5:
-      case 6:
-      case 9:
-      case 0xD:
-        v4 = 16;
-        break;
-      case 3:
-        v4 = 4;
-        break;
-      case 0xB:
-        v9 = *(i + 96);
-        if (v9)
-        {
-          v4 = v9 + 81;
-        }
-
-        else
-        {
-          v4 = 80;
-        }
-
-        break;
-      case 0xE:
-        v8 = *(i + 28);
-        if (v8)
-        {
-          v4 = v8 + 9;
-        }
-
-        else
-        {
-          v4 = 8;
-        }
-
-        break;
-      default:
-        v4 = 0;
-        break;
-    }
-
-    v5 = v4;
-    v6 = PPStreamChunkCreate(v4);
-    memmove(v6, i, v5 + 24);
-    *v6 = 0;
-    v6[1] = 0;
-    if (!*v2)
-    {
-      *v2 = v6;
-    }
-
-    v7 = v2[1];
-    if (v7)
-    {
-      *(v7 + 8) = v6;
-      *v6 = v7;
-    }
-
-    v6[1] = 0;
-    v2[1] = v6;
-    ++*(v2 + 4);
-  }
-
-  return v2;
 }

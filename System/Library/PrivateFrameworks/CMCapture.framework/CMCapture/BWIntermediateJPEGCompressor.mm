@@ -172,34 +172,34 @@ LABEL_10:
 
 - (opaqueCMSampleBuffer)newJPEGSampleBufferFromUncompressedSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  v22 = 0;
-  v23 = 0;
+  v26 = 0;
+  v27 = 0;
   ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
   if (!ImageBuffer)
   {
-    FigSignalErrorAtGM();
-    v9 = 0;
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED8442A8, 0, "<<<< BWIntermediateJPEGCompressor >>>>", 0xB5, v3, v7, v8, sampleTimingArray);
+    v12 = 0;
     goto LABEL_16;
   }
 
-  v6 = ImageBuffer;
+  v9 = ImageBuffer;
   memset(&timingInfoOut, 0, sizeof(timingInfoOut));
   if (!CMSampleBufferGetSampleTimingInfo(buffer, 0, &timingInfoOut))
   {
-    if (!self->_setupIsComplete && [(BWIntermediateJPEGCompressor *)self _setupJPEGEncodeResourcesForSourcePixelBuffer:v6])
+    if (!self->_setupIsComplete && [(BWIntermediateJPEGCompressor *)self _setupJPEGEncodeResourcesForSourcePixelBuffer:v9])
     {
-      v9 = 0;
+      v12 = 0;
       goto LABEL_14;
     }
 
     if (!self->_backPressureSemaphore)
     {
-      v9 = 0;
+      v12 = 0;
 LABEL_11:
       if (!CMPhotoCompressionSessionOpenEmptyContainer() && !CMPhotoCompressionSessionAddImage())
       {
-        v19 = 0;
-        v18 = 0;
+        v23 = 0;
+        v22 = 0;
         if (!CMPhotoCompressionSessionCloseContainerAndCopyBacking())
         {
           goto LABEL_16;
@@ -212,35 +212,35 @@ LABEL_11:
     compressedBufferPoolAllocationTimeoutMS = self->_compressedBufferPoolAllocationTimeoutMS;
     if (compressedBufferPoolAllocationTimeoutMS == -1)
     {
-      v8 = -1;
+      v11 = -1;
     }
 
     else
     {
-      v8 = dispatch_time(0, 1000000 * compressedBufferPoolAllocationTimeoutMS);
+      v11 = dispatch_time(0, 1000000 * compressedBufferPoolAllocationTimeoutMS);
     }
 
     ++self->_numberOfTimesWaitedOnBackPressureSemaphore;
     HostTimeClock = CMClockGetHostTimeClock();
     CMClockGetTime(&time, HostTimeClock);
     Seconds = CMTimeGetSeconds(&time);
-    if (!dispatch_semaphore_wait(self->_backPressureSemaphore, v8))
+    if (!dispatch_semaphore_wait(self->_backPressureSemaphore, v11))
     {
-      v12 = CMClockGetHostTimeClock();
-      CMClockGetTime(&time, v12);
-      v13 = (CMTimeGetSeconds(&time) - Seconds) * 1000.0;
-      [(BWStats *)self->_recentWaitStats addDataPoint:v13];
-      [(BWStats *)self->_overallWaitStats addDataPoint:v13];
-      v14 = [BWIntermediateJPEGCompressedBufferAssociatedSemaphore alloc];
+      v15 = CMClockGetHostTimeClock();
+      CMClockGetTime(&time, v15);
+      v16 = (CMTimeGetSeconds(&time) - Seconds) * 1000.0;
+      [(BWStats *)self->_recentWaitStats addDataPoint:v16];
+      [(BWStats *)self->_overallWaitStats addDataPoint:v16];
+      v17 = [BWIntermediateJPEGCompressedBufferAssociatedSemaphore alloc];
       name = self->_name;
       backPressureSemaphore = self->_backPressureSemaphore;
       CMSampleBufferGetPresentationTimeStamp(&time, buffer);
-      v9 = [(BWIntermediateJPEGCompressedBufferAssociatedSemaphore *)v14 initWithSemaphore:backPressureSemaphore name:name presentationTimeStamp:&time];
+      v12 = [(BWIntermediateJPEGCompressedBufferAssociatedSemaphore *)v17 initWithSemaphore:backPressureSemaphore name:name presentationTimeStamp:&time];
       goto LABEL_11;
     }
   }
 
-  v9 = 0;
+  v12 = 0;
 LABEL_14:
   if (CMPhotoCompressionSessionIsContainerOpen())
   {
@@ -248,17 +248,17 @@ LABEL_14:
   }
 
 LABEL_16:
-  if (v23)
+  if (v27)
   {
-    CFRelease(v23);
+    CFRelease(v27);
   }
 
-  if (v9)
+  if (v12)
   {
-    CFRelease(v9);
+    CFRelease(v12);
   }
 
-  return v22;
+  return v26;
 }
 
 - (uint64_t)_setupJPEGEncodeResourcesForSourcePixelBuffer:(uint64_t)result
@@ -283,15 +283,17 @@ LABEL_16:
     *(v3 + 24) = v7;
     if (*(v3 + 64))
     {
-      _setupJPEGSurfacePool = 0;
+      LOWORD(v8) = 0;
     }
 
     else
     {
-      _setupJPEGSurfacePool = [(BWIntermediateJPEGCompressor *)v3 _setupJPEGSurfacePool];
+      LOWORD(v8) = [(BWIntermediateJPEGCompressor *)v3 _setupJPEGSurfacePool];
       if (!*(v3 + 64))
       {
-        goto LABEL_21;
+        OUTLINED_FUNCTION_2_23();
+        v14 = 342;
+        goto LABEL_23;
       }
 
       if (*(v3 + 32))
@@ -300,22 +302,38 @@ LABEL_16:
       }
     }
 
-    if (*(v3 + 72) || (_setupJPEGSurfacePool = [(BWIntermediateJPEGCompressor *)v3 _setupJPEGCompressionSession], *(v3 + 72)))
+    if (*(v3 + 72) || (LOWORD(v8) = [(BWIntermediateJPEGCompressor *)v3 _setupJPEGCompressionSession], *(v3 + 72)))
     {
-      if (*(v3 + 80) || (_setupJPEGSurfacePool = [(BWIntermediateJPEGCompressor *)v3 _setupJPEGContainerOptions], *(v3 + 80)))
+      if (*(v3 + 80) || (v8 = [(BWIntermediateJPEGCompressor *)v3 _setupJPEGContainerOptions], *(v3 + 80)))
       {
-        if (*(v3 + 96) || (_setupJPEGSurfacePool = [(BWIntermediateJPEGCompressor *)v3 _setupJPEGCompressionOptions], *(v3 + 96)))
+        if (*(v3 + 96) || (v8 = [(BWIntermediateJPEGCompressor *)v3 _setupJPEGCompressionOptions], *(v3 + 96)))
         {
           *(v3 + 60) = 1;
-          return _setupJPEGSurfacePool;
+          return v8;
         }
+
+        OUTLINED_FUNCTION_2_23();
+        v10 = v8;
+        v14 = 363;
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_2_23();
+        v10 = v8;
+        v14 = 357;
       }
     }
 
-LABEL_21:
-    OUTLINED_FUNCTION_2_23();
-    FigSignalErrorAtGM();
-    return _setupJPEGSurfacePool;
+    else
+    {
+      OUTLINED_FUNCTION_2_23();
+      v14 = 351;
+    }
+
+LABEL_23:
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, v10, "<<<< BWIntermediateJPEGCompressor >>>>", v14, v11, v12, v13, v15);
+    return v8;
   }
 
   return result;
@@ -331,12 +349,12 @@ LABEL_21:
     if (Extensions)
     {
       v6 = *MEMORY[0x1E6965F30];
-      v63[0] = *MEMORY[0x1E6965F98];
-      v63[1] = v6;
-      v63[2] = *MEMORY[0x1E6965D88];
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:3];
+      v62[0] = *MEMORY[0x1E6965F98];
+      v62[1] = v6;
+      v62[2] = *MEMORY[0x1E6965D88];
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:3];
       v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v7, "count")}];
-      v16 = OUTLINED_FUNCTION_4_2(v8, v9, v10, v11, v12, v13, v14, v15, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, 0);
+      v16 = OUTLINED_FUNCTION_4_2(v8, v9, v10, v11, v12, v13, v14, v15, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60);
       if (v16)
       {
         v17 = v16;
@@ -353,7 +371,7 @@ LABEL_21:
             v20 = [v8 setObject:-[__CFDictionary objectForKeyedSubscript:](Extensions forKeyedSubscript:{"objectForKeyedSubscript:", *(8 * i)), *(8 * i)}];
           }
 
-          v17 = OUTLINED_FUNCTION_4_2(v20, v21, v22, v23, v24, v25, v26, v27, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v62);
+          v17 = OUTLINED_FUNCTION_4_2(v20, v21, v22, v23, v24, v25, v26, v27, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
         }
 
         while (v17);

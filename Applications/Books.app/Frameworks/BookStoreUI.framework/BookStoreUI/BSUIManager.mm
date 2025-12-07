@@ -15,7 +15,7 @@
     v3 = [TUIImageResourceCache alloc];
     resourceLoader = [(BSUIManager *)selfCopy resourceLoader];
     filterRegistry = [(BSUIManager *)selfCopy filterRegistry];
-    v6 = BSUIBundle();
+    v6 = BSUIBundle(filterRegistry);
     v7 = [v3 initWithLoader:resourceLoader filters:filterRegistry customImageBundle:v6];
     imageResourceCache = selfCopy->_imageResourceCache;
     selfCopy->_imageResourceCache = v7;

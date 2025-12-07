@@ -9,13 +9,11 @@
 
 - (__NSPlaceholderDate)init
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &__tp);
-  result = [(__NSPlaceholderDate *)self initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(__NSPlaceholderDate *)self initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001];
 }
 
 + (void)initialize
@@ -51,7 +49,7 @@
     if (date == 0.0)
     {
 LABEL_19:
-      if (decodeTaggedTimeInterval(*&dateCopy) != date)
+      if (decodeTaggedTimeInterval(*&dateCopy, a2) != date)
       {
         [__NSPlaceholderDate initWithTimeIntervalSinceReferenceDate:];
       }

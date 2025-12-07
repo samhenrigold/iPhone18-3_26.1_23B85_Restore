@@ -6,7 +6,7 @@ void sub_1000017A4(FILE *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, ui
   fprintf(a1, "%s\n", [v11 UTF8String]);
 }
 
-void sub_10000182C(void *a1, int a2, int a3)
+void sub_10000182C(void *a1, int a2, uint64_t a3)
 {
   v5 = a1;
   v6 = objc_alloc_init(NSMutableDictionary);
@@ -41,7 +41,7 @@ void sub_10000182C(void *a1, int a2, int a3)
   }
 }
 
-void sub_10000195C(void *a1, void *a2, int a3)
+void sub_10000195C(void *a1, void *a2, uint64_t a3)
 {
   v5 = a1;
   v6 = a2;
@@ -96,8 +96,9 @@ void sub_10000195C(void *a1, void *a2, int a3)
   }
 }
 
-void sub_100001AF8(void *a1, int a2)
+void sub_100001AF8(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = a1;
   v4 = [v3 allKeys];
   v5 = [v4 sortedArrayUsingSelector:"localizedCaseInsensitiveCompare:"];
@@ -123,7 +124,7 @@ void sub_100001AF8(void *a1, int a2)
 
         v11 = *(*(&v13 + 1) + 8 * i);
         v12 = [v3 objectForKeyedSubscript:{v11, v13}];
-        sub_100003410(v11, v12, a2);
+        sub_100003410(v11, v12, v2);
       }
 
       v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
@@ -203,15 +204,14 @@ id sub_100001C54(uint64_t a1)
 
 void sub_1000020C0(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 40);
-  v5 = PCSIdentitySetCopyCurrentIdentityWithError();
-  if (v5)
+  v4 = PCSIdentitySetCopyCurrentIdentityWithError();
+  if (v4)
   {
-    v6 = v5;
-    v7 = [NSString stringWithFormat:@"%@", v5];
-    [*(a1 + 32) setObject:v7 forKeyedSubscript:a2];
+    v5 = v4;
+    v6 = [NSString stringWithFormat:@"%@", v4];
+    [*(a1 + 32) setObject:v6 forKeyedSubscript:a2];
 
-    CFRelease(v6);
+    CFRelease(v5);
   }
 
   else
@@ -223,84 +223,82 @@ void sub_1000020C0(uint64_t a1, uint64_t a2)
 void sub_100002198(uint64_t a1, uint64_t a2)
 {
   v4 = +[NSMutableDictionary dictionary];
-  v5 = *(a1 + 40);
-  v6 = PCSIdentitySetCopyCurrentIdentityPointer();
-  v7 = v6;
-  if (v6)
+  v5 = PCSIdentitySetCopyCurrentIdentityPointer();
+  v6 = v5;
+  if (v5)
   {
-    v8 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@", [v6 identity]);
-    [v4 setObject:v8 forKeyedSubscript:@"service"];
-    v9 = [v7 currentItemPointerModificationTime];
-    v10 = [v9 description];
-    [v4 setObject:v10 forKeyedSubscript:@"currentItemModificationTime"];
+    v7 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@", [v5 identity]);
+    [v4 setObject:v7 forKeyedSubscript:@"service"];
+    v8 = [v6 currentItemPointerModificationTime];
+    v9 = [v8 description];
+    [v4 setObject:v9 forKeyedSubscript:@"currentItemModificationTime"];
   }
 
   [*(a1 + 32) setObject:v4 forKeyedSubscript:a2];
 }
 
-void sub_1000022E0(uint64_t a1, uint64_t a2)
+void sub_1000022E0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   context = objc_autoreleasePoolPush();
-  v4 = _PCSIdentityCopyBAT();
+  v5 = _PCSIdentityCopyBAT();
   ServiceName = PCSIdentityGetServiceName();
-  v6 = PCSIdentityCopyCircleFingerPrint();
+  v7 = PCSIdentityCopyCircleFingerPrint();
   KeyID = PCSIdentityGetKeyID();
   if (!ServiceName)
   {
     ServiceName = [NSString stringWithFormat:@"UNKNOWN-%d", PCSIdentityGetServiceID()];
   }
 
-  v8 = [*(a1 + 32) objectForKey:ServiceName];
-  if (!v8)
+  v9 = [*(a1 + 32) objectForKey:ServiceName];
+  if (!v9)
   {
-    v8 = objc_alloc_init(NSMutableArray);
-    [*(a1 + 32) setObject:v8 forKeyedSubscript:ServiceName];
+    v9 = objc_alloc_init(NSMutableArray);
+    [*(a1 + 32) setObject:v9 forKeyedSubscript:ServiceName];
   }
 
-  v9 = objc_alloc_init(NSMutableDictionary);
-  v10 = [NSNumber numberWithInteger:PCSIdentityGetServiceID()];
-  [v9 setObject:v10 forKeyedSubscript:@"service_id"];
+  v10 = objc_alloc_init(NSMutableDictionary);
+  v11 = [NSNumber numberWithInteger:PCSIdentityGetServiceID()];
+  [v10 setObject:v11 forKeyedSubscript:@"service_id"];
 
-  [v9 setObject:a2 forKeyedSubscript:@"public_key"];
+  [v10 setObject:a2 forKeyedSubscript:@"public_key"];
   CFDataGetBytePtr(KeyID);
   CFDataGetLength(KeyID);
-  v11 = _PCSCreateHexString();
-  [v9 setObject:v11 forKeyedSubscript:@"key_id"];
+  v12 = _PCSCreateHexString();
+  [v10 setObject:v12 forKeyedSubscript:@"key_id"];
 
-  v12 = PCSIdentityWebSafePublicKeyID();
-  [v9 setObject:v12 forKeyedSubscript:@"key_id_websafe"];
+  v13 = PCSIdentityWebSafePublicKeyID();
+  [v10 setObject:v13 forKeyedSubscript:@"key_id_websafe"];
 
-  v13 = *(a1 + 40);
   v14 = [NSNumber numberWithBool:_PCSIdentitySetIsCurrentIdentityPreferCache()];
-  [v9 setObject:v14 forKeyedSubscript:@"current"];
+  [v10 setObject:v14 forKeyedSubscript:@"current"];
 
   v15 = [NSNumber numberWithBool:_PCSIdentityIsManatee()];
-  [v9 setObject:v15 forKeyedSubscript:@"manatee"];
+  [v10 setObject:v15 forKeyedSubscript:@"manatee"];
 
   v16 = [NSNumber numberWithBool:PCSIdentityIsFullManatee()];
-  [v9 setObject:v16 forKeyedSubscript:@"manatee_full"];
+  [v10 setObject:v16 forKeyedSubscript:@"manatee_full"];
 
-  if (v6)
+  if (v7)
   {
-    v17 = [v6 base64EncodedStringWithOptions:0];
-    [v9 setObject:v17 forKeyedSubscript:@"circleFingerPrint"];
+    v17 = [v7 base64EncodedStringWithOptions:0];
+    [v10 setObject:v17 forKeyedSubscript:@"circleFingerPrint"];
   }
 
-  if (v4)
+  if (v5)
   {
-    [v9 setObject:v4 forKeyedSubscript:@"build_time"];
+    [v10 setObject:v5 forKeyedSubscript:@"build_time"];
   }
 
   Mutable = CFStringCreateMutable(0, 0);
   if (!_PCSIdentityValidate())
   {
-    [v9 setObject:&__kCFBooleanFalse forKeyedSubscript:@"key_valid"];
+    [v10 setObject:&__kCFBooleanFalse forKeyedSubscript:@"key_valid"];
 LABEL_11:
-    [v9 setObject:Mutable forKeyedSubscript:@"key_valid_status"];
+    [v10 setObject:Mutable forKeyedSubscript:@"key_valid_status"];
     goto LABEL_12;
   }
 
-  [v9 setObject:&__kCFBooleanTrue forKeyedSubscript:@"key_valid"];
+  [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"key_valid"];
   if (CFStringGetLength(Mutable) > 0)
   {
     goto LABEL_11;
@@ -312,100 +310,100 @@ LABEL_12:
     CFRelease(Mutable);
   }
 
-  [v8 addObject:v9];
+  [v9 addObject:v10];
 
   objc_autoreleasePoolPop(context);
 }
 
-id sub_100002644()
+id sub_100002644(uint64_t a1)
 {
   IsICDP = PCSIdentitySetIsICDP();
-  v0 = PCSIdentitySetCopyIdentities();
-  v1 = &PCSAccountDisableWalrus_ptr;
-  v2 = +[NSMutableDictionary dictionary];
-  v24 = 0u;
+  v1 = PCSIdentitySetCopyIdentities();
+  v2 = &PCSAccountDisableWalrus_ptr;
+  v3 = +[NSMutableDictionary dictionary];
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v3 = v0;
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
-  if (v4)
+  v28 = 0u;
+  v4 = v1;
+  v5 = [v4 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v23 = *v25;
-    v22 = v3;
+    v6 = v5;
+    v24 = *v26;
+    v23 = v4;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v6; i = i + 1)
       {
-        if (*v25 != v23)
+        if (*v26 != v24)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * i);
-        [v3 objectForKeyedSubscript:v7];
+        v8 = *(*(&v25 + 1) + 8 * i);
+        [v4 objectForKeyedSubscript:v8];
 
         ServiceID = PCSIdentityGetServiceID();
         if (ServiceID)
         {
-          v9 = [NSString stringWithFormat:@"%d", ServiceID];
-          v10 = [v2 objectForKeyedSubscript:v9];
-          if (!v10)
+          v10 = [NSString stringWithFormat:@"%d", ServiceID];
+          v11 = [v3 objectForKeyedSubscript:v10];
+          if (!v11)
           {
-            v10 = [v1[237] dictionary];
+            v11 = [v2[237] dictionary];
           }
 
-          v11 = [v1[237] dictionary];
+          v12 = [v2[237] dictionary];
           if (_PCSIdentityIsManatee())
           {
-            [v11 setObject:&__kCFBooleanTrue forKeyedSubscript:@"manatee"];
+            [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"manatee"];
             if ((PCSIdentityIsFullManatee() & 1) == 0)
             {
-              [v11 setObject:&__kCFBooleanTrue forKeyedSubscript:@"fake-manatee"];
+              [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"fake-manatee"];
             }
           }
 
           else
           {
-            v12 = v5;
-            v13 = v1;
+            v13 = v6;
             v14 = v2;
-            v15 = [NSNumber numberWithBool:_PCSIdentitySetIsCurrentIdentityPreferCache()];
-            [v11 setObject:v15 forKeyedSubscript:@"current"];
+            v15 = v3;
+            v16 = [NSNumber numberWithBool:_PCSIdentitySetIsCurrentIdentityPreferCache()];
+            [v12 setObject:v16 forKeyedSubscript:@"current"];
 
+            v3 = v15;
             v2 = v14;
-            v1 = v13;
-            v5 = v12;
-            v3 = v22;
+            v6 = v13;
+            v4 = v23;
           }
 
-          v16 = _PCSIdentityCopyBAT();
-          if (v16)
+          v17 = _PCSIdentityCopyBAT();
+          if (v17)
           {
-            [v11 setObject:v16 forKeyedSubscript:@"bat"];
+            [v12 setObject:v17 forKeyedSubscript:@"bat"];
           }
 
-          [v10 setObject:v11 forKeyedSubscript:v7];
-          [v2 setObject:v10 forKeyedSubscript:v9];
+          [v11 setObject:v12 forKeyedSubscript:v8];
+          [v3 setObject:v11 forKeyedSubscript:v10];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  v28[0] = @"iCDP";
+  v29[0] = @"iCDP";
   [NSNumber numberWithBool:IsICDP];
-  v18 = v17 = v2;
-  v28[1] = @"services";
-  v29[0] = v18;
-  v29[1] = v17;
-  v19 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v19 = v18 = v3;
+  v29[1] = @"services";
+  v30[0] = v19;
+  v30[1] = v18;
+  v20 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:2];
 
-  return v19;
+  return v20;
 }
 
 id sub_100002974()
@@ -568,23 +566,23 @@ void sub_100002E6C(uint64_t a1, uint64_t a2, const __CFDictionary *a3)
 LABEL_9:
 }
 
-void sub_100002FE4(uint64_t a1)
+void sub_100002FE4(uint64_t a1, uint64_t a2)
 {
-  v2 = PCSPublicIdentityCreateWithPublicKeyInfo();
-  v3 = *(a1 + 32);
-  if (v2)
+  v3 = PCSPublicIdentityCreateWithPublicKeyInfo();
+  v4 = *(a1 + 32);
+  if (v3)
   {
-    v4 = v2;
-    v5 = [NSString stringWithFormat:@"%d/%@", PCSPublicIdentityGetServiceID(), v2];
-    [v3 addObject:v5];
+    v5 = v3;
+    v6 = [NSString stringWithFormat:@"%d/%@", PCSPublicIdentityGetServiceID(), v3];
+    [v4 addObject:v6];
 
-    CFRelease(v4);
+    CFRelease(v5);
   }
 
   else
   {
-    v6 = [NSString stringWithFormat:@"ERROR: PCSPublicIdentityCreateWithPublicKeyInfo error: %@", 0];
-    [v3 addObject:v6];
+    v7 = [NSString stringWithFormat:@"ERROR: PCSPublicIdentityCreateWithPublicKeyInfo error: %@", 0];
+    [v4 addObject:v7];
   }
 }
 
@@ -619,9 +617,9 @@ _UNKNOWN **sub_1000030B4()
   return v4;
 }
 
-void sub_100003244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -718,14 +716,14 @@ void sub_1000035F0(uint64_t a1, void *a2, uint64_t a3)
   sub_100003410(v6, v5, *(a1 + 32));
 }
 
-id sub_10000366C(void *a1, int a2)
+id sub_10000366C(void *a1, uint64_t a2)
 {
   v3 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = objc_alloc_init(NSMutableDictionary);
-    sub_10000195C();
+    sub_10000195C(v4, v3, a2);
 
     v3 = v4;
     goto LABEL_13;
@@ -781,7 +779,7 @@ LABEL_13:
   return v3;
 }
 
-void sub_10000385C(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_10000385C(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = sub_10000366C(a2, *(a1 + 40));
   [*(a1 + 32) setObject:v5 atIndexedSubscript:a3];
@@ -789,17 +787,17 @@ void sub_10000385C(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t start(int a1, char **a2)
 {
-  v78 = 0;
   v79 = 0;
   v80 = 0;
   v81 = 0;
+  v82 = 0;
   v4 = 0;
-  v76 = 0;
   v77 = 0;
+  v78 = 0;
   v5 = 0;
   v6 = 0;
   value = 0;
-  v90 = 0;
+  v91 = 0;
   optind = 0;
   for (i = 2; ; i = 1)
   {
@@ -818,7 +816,7 @@ uint64_t start(int a1, char **a2)
           switch(v8)
           {
             case 'Z':
-              LOBYTE(v78) = 1;
+              LOBYTE(v79) = 1;
               continue;
             case '[':
             case '\\':
@@ -842,19 +840,19 @@ uint64_t start(int a1, char **a2)
             case 'c':
               v11 = [NSString stringWithUTF8String:optarg];
 
-              v81 = v11;
+              v82 = v11;
               continue;
             case 'd':
-              LOBYTE(v79) = 1;
+              LOBYTE(v80) = 1;
               continue;
             case 'f':
-              LOBYTE(v77) = 1;
+              LOBYTE(v78) = 1;
               continue;
             case 'h':
               i = 3;
               continue;
             case 'j':
-              BYTE4(v77) = 1;
+              BYTE4(v78) = 1;
               continue;
             case 'p':
               v10 = [NSString stringWithUTF8String:optarg];
@@ -862,7 +860,7 @@ uint64_t start(int a1, char **a2)
               value = v10;
               continue;
             case 'r':
-              v76 = 1;
+              v77 = 1;
               continue;
             case 's':
               v4 = 1;
@@ -870,17 +868,17 @@ uint64_t start(int a1, char **a2)
               {
                 v9 = [NSString stringWithUTF8String:?];
 
-                v80 = v9;
+                v81 = v9;
               }
 
               continue;
             case 'u':
               continue;
             case 'v':
-              BYTE4(v78) = 1;
+              BYTE4(v79) = 1;
               continue;
             case 'w':
-              BYTE4(v79) = 1;
+              BYTE4(v80) = 1;
               continue;
             case 'y':
               v6 = 1;
@@ -941,10 +939,10 @@ LABEL_87:
     errx(1, "unknown command: %c", v8);
   }
 
-  v86 = 0;
-  v87 = &v86;
-  v88 = 0x2020000000;
-  v89 = 1;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
+  v90 = 1;
   if (v5)
   {
     v12 = +[PCSAccountsModel accountForCurrentPersona];
@@ -961,46 +959,47 @@ LABEL_87:
       errx(1, "no dsid");
     }
 
-    v95 = kPCSSetupDSID;
-    v96 = v14;
-    v16 = [NSDictionary dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+    v96 = kPCSSetupDSID;
+    v97 = v14;
+    v16 = [NSDictionary dictionaryWithObjects:&v97 forKeys:&v96 count:1];
     v17 = PCSIdentitySetCreate();
+    v18 = v17;
     if (!v17)
     {
       errx(1, "didn't find any identites in keychain");
     }
 
-    v18 = sub_100002644();
-    if (!v18)
+    v19 = sub_100002644(v17);
+    if (!v19)
     {
       errx(1, "no status");
     }
 
-    CFRelease(v17);
-    v85 = 0;
-    v19 = [NSPropertyListSerialization dataWithPropertyList:v18 format:100 options:0 error:&v85];
-    v20 = v85;
-    if (!v19)
+    CFRelease(v18);
+    v86 = 0;
+    v20 = [NSPropertyListSerialization dataWithPropertyList:v19 format:100 options:0 error:&v86];
+    v21 = v86;
+    if (!v20)
     {
-      [NSString stringWithFormat:@"failed to make plist: %@", v20];
-      v74 = [objc_claimAutoreleasedReturnValue() UTF8String];
-      errx(1, "%s", v74);
+      [NSString stringWithFormat:@"failed to make plist: %@", v21];
+      v75 = [objc_claimAutoreleasedReturnValue() UTF8String];
+      errx(1, "%s", v75);
     }
 
-    v21 = v19;
-    v22 = [v19 bytes];
-    v23 = [v19 length];
-    fwrite(v22, v23, 1uLL, __stdoutp);
-    *(v87 + 6) = 0;
+    v22 = v20;
+    v23 = [v20 bytes];
+    v24 = [v20 length];
+    fwrite(v23, v24, 1uLL, __stdoutp);
+    *(v88 + 6) = 0;
 
     goto LABEL_44;
   }
 
   if (v4)
   {
-    v84 = dispatch_semaphore_create(0);
+    v85 = dispatch_semaphore_create(0);
     PCSSyncKeyRegistryWithServiceName();
-    dispatch_semaphore_wait(v84, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_semaphore_wait(v85, 0xFFFFFFFFFFFFFFFFLL);
 
 LABEL_40:
     v13 = 0;
@@ -1012,114 +1011,114 @@ LABEL_40:
     PCSKeySyncingTriggerDaily();
     v13 = 0;
 LABEL_43:
-    *(v87 + 6) = 0;
+    *(v88 + 6) = 0;
     goto LABEL_44;
   }
 
-  if ((v79 & 0x100000000) != 0)
+  if ((v80 & 0x100000000) != 0)
   {
-    v83 = dispatch_semaphore_create(0);
+    v84 = dispatch_semaphore_create(0);
     PCSTriggerWatchSyncing();
-    dispatch_semaphore_wait(v83, 0xFFFFFFFFFFFFFFFFLL);
-    *(v87 + 6) = 0;
+    dispatch_semaphore_wait(v84, 0xFFFFFFFFFFFFFFFFLL);
+    *(v88 + 6) = 0;
 
     goto LABEL_40;
   }
 
-  if (v79)
+  if (v80)
   {
-    v26 = +[PCSAccountsModel accountForCurrentPersona];
-    v13 = v26;
-    if (v26)
+    v27 = +[PCSAccountsModel accountForCurrentPersona];
+    v13 = v27;
+    if (v27)
     {
-      v27 = [v26 aa_personID];
+      v28 = [v27 aa_personID];
     }
 
     else
     {
       warnx("Failed to a configured account, will delete all PCS data");
-      v27 = 0;
+      v28 = 0;
     }
 
-    *(v87 + 6) = 0;
+    *(v88 + 6) = 0;
     if ((__PCSDeleteFromKeychainICDP() & 1) == 0)
     {
-      v46 = [NSString stringWithFormat:@"Failed to delete from icloud keychain: %@", v90];
-      v47 = v46;
-      warnx("%s", [v46 UTF8String]);
+      v47 = [NSString stringWithFormat:@"Failed to delete from icloud keychain: %@", v91];
+      v48 = v47;
+      warnx("%s", [v47 UTF8String]);
 
-      v48 = v90;
-      if (v90)
+      v49 = v91;
+      if (v91)
       {
-        v90 = 0;
-        CFRelease(v48);
+        v91 = 0;
+        CFRelease(v49);
       }
 
-      *(v87 + 6) = 1;
+      *(v88 + 6) = 1;
     }
 
     if ((__PCSDeleteFromKeychain() & 1) == 0)
     {
-      v49 = [NSString stringWithFormat:@"Failed to delete from keychain: %@", v90];
-      v50 = v49;
-      warnx("%s", [v49 UTF8String]);
+      v50 = [NSString stringWithFormat:@"Failed to delete from keychain: %@", v91];
+      v51 = v50;
+      warnx("%s", [v50 UTF8String]);
 
-      v51 = v90;
-      if (v90)
+      v52 = v91;
+      if (v91)
       {
-        v90 = 0;
-        CFRelease(v51);
+        v91 = 0;
+        CFRelease(v52);
       }
 
-      *(v87 + 6) = 1;
+      *(v88 + 6) = 1;
     }
 
     if ((__PCSDeleteKeyfile() & 1) == 0)
     {
-      v52 = [NSString stringWithFormat:@"Failed to delete from keyfile: %@", v90];
-      v53 = v52;
-      warnx("%s", [v52 UTF8String]);
+      v53 = [NSString stringWithFormat:@"Failed to delete from keyfile: %@", v91];
+      v54 = v53;
+      warnx("%s", [v53 UTF8String]);
 
-      v54 = v90;
-      if (v90)
+      v55 = v91;
+      if (v91)
       {
-        v90 = 0;
-        CFRelease(v54);
+        v91 = 0;
+        CFRelease(v55);
       }
 
-      *(v87 + 6) = 1;
+      *(v88 + 6) = 1;
     }
 
-    v55 = [[PCSUserRegistry alloc] initWithBackup:0];
-    [(PCSUserRegistry *)v55 clearCloudKitCache];
+    v56 = [[PCSUserRegistry alloc] initWithBackup:0];
+    [(PCSUserRegistry *)v56 clearCloudKitCache];
 
     goto LABEL_44;
   }
 
-  if (v81)
+  if (v82)
   {
-    v28 = +[PCSAccountsModel accountForCurrentPersona];
+    v29 = +[PCSAccountsModel accountForCurrentPersona];
     if (!value)
     {
       errx(1, "password missing");
     }
 
-    v13 = v28;
-    v29 = __stdoutp;
-    v30 = [v28 aa_personID];
-    sub_1000017A4(v29, @"converting dsid %@\n", v31, v32, v33, v34, v35, v36, v30);
+    v13 = v29;
+    v30 = __stdoutp;
+    v31 = [v29 aa_personID];
+    sub_1000017A4(v30, @"converting dsid %@\n", v32, v33, v34, v35, v36, v37, v31);
 
-    v37 = [v13 username];
-    v38 = [v13 aa_personID];
-    sub_10000E7EC(i, v37, value, v38, BYTE4(v78) & 1);
+    v38 = [v13 username];
+    v39 = [v13 aa_personID];
+    sub_10000E7EC(i, v38, value, v39, BYTE4(v79) & 1);
 
     goto LABEL_43;
   }
 
-  if (v78)
+  if (v79)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v40 = Mutable;
+    v41 = Mutable;
     if (!Mutable)
     {
       errx(1, "out of memory");
@@ -1130,116 +1129,123 @@ LABEL_43:
       CFDictionarySetValue(Mutable, kPCSSetupPassword, value);
     }
 
-    if (v77)
+    if (v78)
     {
-      CFDictionarySetValue(v40, kPCSSetupForceUpdate, kCFBooleanTrue);
+      CFDictionarySetValue(v41, kPCSSetupForceUpdate, kCFBooleanTrue);
     }
 
     v13 = +[PCSAccountsModel accountForCurrentPersona];
-    v41 = kPCSSetupUsername;
-    v42 = [v13 username];
-    CFDictionarySetValue(v40, v41, v42);
+    v42 = kPCSSetupUsername;
+    v43 = [v13 username];
+    CFDictionarySetValue(v41, v42, v43);
 
-    v43 = kPCSSetupDSID;
-    v44 = [v13 aa_personID];
-    CFDictionarySetValue(v40, v43, v44);
+    v44 = kPCSSetupDSID;
+    v45 = [v13 aa_personID];
+    CFDictionarySetValue(v41, v44, v45);
 
     if ((PCSIdentitySynchronizeKeys() & 1) == 0)
     {
-      [NSString stringWithFormat:@"PCSIdentitySynchronizeKeys: %@", v90];
-      v75 = [objc_claimAutoreleasedReturnValue() UTF8String];
-      errx(1, "%s", v75);
+      [NSString stringWithFormat:@"PCSIdentitySynchronizeKeys: %@", v91];
+      v76 = [objc_claimAutoreleasedReturnValue() UTF8String];
+      errx(1, "%s", v76);
     }
 
-    CFRelease(v40);
-    v45 = v90;
-    if (v90)
+    CFRelease(v41);
+    v46 = v91;
+    if (v91)
     {
-      v90 = 0;
-      CFRelease(v45);
+      v91 = 0;
+      CFRelease(v46);
     }
 
     goto LABEL_43;
   }
 
-  if (v76)
+  if (v77)
   {
     v13 = +[PCSAccountsModel accountForCurrentPersona];
-    v56 = [v13 aa_personID];
-    v57 = v56;
-    if (!v56)
+    v57 = [v13 aa_personID];
+    v58 = v57;
+    if (!v57)
     {
       errx(1, "no iCloud primary account");
     }
 
-    v93 = kPCSSetupDSID;
-    v94 = v56;
-    v58 = [NSDictionary dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-    v59 = __PCSCopyStingrayInfo();
-    v60 = v59;
-    if (!v59)
+    v94 = kPCSSetupDSID;
+    v95 = v57;
+    v59 = [NSDictionary dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+    v60 = __PCSCopyStingrayInfo();
+    v61 = v60;
+    if (!v60)
     {
       errx(1, "metadata");
     }
 
-    v61 = [v59 objectForKeyedSubscript:kSecureBackupStingrayMetadataKey];
-    v62 = [v61 objectForKeyedSubscript:kSecureBackupClientMetadataKey];
-    v63 = [v62 objectForKeyedSubscript:kPCSSecureBackupCFSecureBackupKeyRegistry];
+    v62 = [v60 objectForKeyedSubscript:kSecureBackupStingrayMetadataKey];
+    v63 = [v62 objectForKeyedSubscript:kSecureBackupClientMetadataKey];
+    v64 = [v63 objectForKeyedSubscript:kPCSSecureBackupCFSecureBackupKeyRegistry];
 
-    v64 = sub_100002D8C(v63);
-    sub_100001C4C(v64, BYTE4(v77) & 1);
+    v65 = sub_100002D8C(v64);
+    sub_100001C4C(v65, BYTE4(v78) & 1);
 
-    *(v87 + 6) = 0;
+    *(v88 + 6) = 0;
     goto LABEL_44;
   }
 
-  v65 = +[PCSAccountsModel accountForCurrentPersona];
-  v13 = v65;
-  if (!v65)
+  v66 = +[PCSAccountsModel accountForCurrentPersona];
+  v13 = v66;
+  if (!v66)
   {
     warnx("no accounts");
     goto LABEL_84;
   }
 
-  v66 = [v65 aa_personID];
-  if (!v66)
+  v67 = [v66 aa_personID];
+  if (!v67)
   {
     warnx("no dsid");
 LABEL_84:
-    v66 = kPCSSetupDSIDAny;
+    v67 = kPCSSetupDSIDAny;
   }
 
-  v91 = kPCSSetupDSID;
-  v92 = v66;
-  v67 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-  v68 = PCSIdentitySetCreate();
-  if (!v68)
+  v92 = kPCSSetupDSID;
+  v93 = v67;
+  v68 = [NSDictionary dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+  v69 = PCSIdentitySetCreate();
+  if (!v69)
   {
     errx(1, "didn't find any identites in keychain");
   }
 
-  v69 = objc_alloc_init(NSMutableDictionary);
-  v70 = sub_100001C54(v68);
-  [v69 setObject:v70 forKeyedSubscript:@"status"];
+  v70 = objc_alloc_init(NSMutableDictionary);
+  v71 = sub_100001C54(v69);
+  [v70 setObject:v71 forKeyedSubscript:@"status"];
 
-  CFRelease(v68);
-  v71 = sub_100002974();
-  [v69 setObject:v71 forKeyedSubscript:@"status_keychain"];
+  CFRelease(v69);
+  v72 = sub_100002974();
+  [v70 setObject:v72 forKeyedSubscript:@"status_keychain"];
 
-  v72 = sub_100002BF4();
-  [v69 setObject:v72 forKeyedSubscript:@"status_keysync"];
+  v73 = sub_100002BF4();
+  [v70 setObject:v73 forKeyedSubscript:@"status_keysync"];
 
-  v73 = sub_1000030B4();
-  [v69 setObject:v73 forKeyedSubscript:@"status_messages"];
+  v74 = sub_1000030B4();
+  [v70 setObject:v74 forKeyedSubscript:@"status_messages"];
 
-  sub_100001C4C(v69, BYTE4(v77) & 1);
-  *(v87 + 6) = 0;
+  sub_100001C4C(v70, BYTE4(v78) & 1);
+  *(v88 + 6) = 0;
 
 LABEL_44:
-  v24 = *(v87 + 6);
-  _Block_object_dispose(&v86, 8);
+  v25 = *(v88 + 6);
+  _Block_object_dispose(&v87, 8);
 
-  return v24;
+  return v25;
+}
+
+void sub_100004510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 intptr_t sub_100004608(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1279,11 +1285,11 @@ void sub_100004AEC(uint64_t a1)
   [WeakRetained setupSubscriptions];
 }
 
-void sub_100004E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v7);
+  objc_sync_exit(v13);
   _Unwind_Resume(a1);
 }
 
@@ -1405,9 +1411,10 @@ void sub_10000549C(uint64_t a1, void *a2)
   [qword_10001D768 _setEnabledTopics:v12];
 }
 
-void sub_100005A38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100005A38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -1738,9 +1745,9 @@ id sub_100006E58(uint64_t a1)
   return [v4 _onqueueSaveUserRegistryStats];
 }
 
-void sub_1000070FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000070FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1807,10 +1814,11 @@ void sub_100007120(uint64_t a1)
   }
 }
 
-void sub_100007694(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, char a20)
+void sub_100007694(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, ...)
 {
-  _Block_object_dispose(&a20, 8);
-  objc_destroyWeak((v20 - 104));
+  va_start(va, location);
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v19 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -2037,11 +2045,12 @@ LABEL_34:
   objc_destroyWeak(&location);
 }
 
-void sub_10000802C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10000802C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 160), 8);
-  objc_destroyWeak((v29 - 248));
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 160), 8);
+  objc_destroyWeak((v28 - 248));
   _Unwind_Resume(a1);
 }
 
@@ -2317,9 +2326,9 @@ void sub_100009024(uint64_t a1)
   [v4 replaceConfigRecord:v2 data:v3];
 }
 
-void sub_100009348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100009348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2333,9 +2342,9 @@ void sub_10000936C(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100009540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100009540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2465,9 +2474,9 @@ void sub_10000A894(uint64_t a1, uint64_t a2, void *a3, void *a4)
   [v12 addOperation:*(a1 + 32)];
 }
 
-void sub_10000AB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000AB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2493,9 +2502,9 @@ void sub_10000ACC0(uint64_t a1)
   [v2 deleteEscrowKey:v3];
 }
 
-void sub_10000AE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000AE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2707,48 +2716,47 @@ void sub_10000C39C(uint64_t a1, uint64_t a2)
 {
   if (PCSServiceItemEscrowManateeIdentityByName())
   {
-    v4 = *(a1 + 48);
-    v5 = PCSIdentitySetCopyOrderedIdentities();
-    if (v5)
+    v4 = PCSIdentitySetCopyOrderedIdentities();
+    if (v4)
     {
-      v6 = v5;
+      v5 = v4;
       context[0] = _NSConcreteStackBlock;
       context[1] = 3221225472;
       context[2] = sub_10000C54C;
       context[3] = &unk_100018DC0;
-      v7 = *(a1 + 56);
-      v8 = *(a1 + 40);
+      v6 = *(a1 + 56);
+      v7 = *(a1 + 40);
       context[4] = *(a1 + 32);
-      v13 = v7;
-      v12 = v8;
-      v16.length = CFArrayGetCount(v6);
-      v16.location = 0;
-      CFArrayApplyFunction(v6, v16, sub_10000DFF4, context);
-      CFRelease(v6);
+      v12 = v6;
+      v11 = v7;
+      v15.length = CFArrayGetCount(v5);
+      v15.location = 0;
+      CFArrayApplyFunction(v5, v15, sub_10000DFF4, context);
+      CFRelease(v5);
 
       return;
     }
 
-    v9 = [*(a1 + 32) oslog];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = [*(a1 + 32) oslog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = a2;
-      v10 = "No identities for %@";
+      v14 = a2;
+      v9 = "No identities for %@";
       goto LABEL_8;
     }
   }
 
   else
   {
-    v9 = [*(a1 + 32) oslog];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = [*(a1 + 32) oslog];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = a2;
-      v10 = "Not doing MobileBackup for %@";
+      v14 = a2;
+      v9 = "Not doing MobileBackup for %@";
 LABEL_8:
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0xCu);
     }
   }
 }
@@ -2813,9 +2821,9 @@ LABEL_12:
   objc_autoreleasePoolPop(v4);
 }
 
-void sub_10000CFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000CFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2829,16 +2837,16 @@ void sub_10000D000(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_10000D764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000D764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2889,9 +2897,9 @@ LABEL_10:
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void sub_10000DD34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000DD34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2905,16 +2913,16 @@ void sub_10000DD58(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-id sub_10000E158()
+id sub_10000E158(uint64_t a1)
 {
   if (qword_10001D780 != -1)
   {
     sub_10000EFC8();
   }
 
-  v1 = qword_10001D778;
+  v2 = qword_10001D778;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000E19C(uint64_t a1)
@@ -2951,7 +2959,7 @@ void sub_10000E19C(uint64_t a1)
     }
 
     v8 = dispatch_time(0, 1000000000 * v2[4]);
-    v9 = sub_10000E158();
+    v9 = sub_10000E158(v8);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10000E3FC;
@@ -2961,9 +2969,9 @@ void sub_10000E19C(uint64_t a1)
   }
 }
 
-void sub_10000E35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000E35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3260,9 +3268,9 @@ void sub_10000EBEC(void *a1, void *a2, void *a3, void *a4)
   _Block_object_dispose(&v26, 8);
 }
 
-void sub_10000EE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000EE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

@@ -3,7 +3,7 @@
 - (ColorConvertStage)initWithMetalContext:(id)context;
 - (int)_convertColor:(const ColorSpaceConversionParameters *)color lumaPedestal:(float)pedestal inputLuma:(id)luma inputChroma:(id)chroma outputLuma:(id)outputLuma outputChroma:(id)outputChroma;
 - (int)convertColor:(const ColorSpaceConversionParameters *)color inputYCbCr:(id)cr outputLuma:(id)luma outputChroma:(id)chroma;
-- (uint64_t)extractLinearBufferWithLumaInput:(__n128)input chromaInput:(__n128)chromaInput inputIsLinear:(__n128)linear removeChromaBias:(uint64_t)bias lumaPedestal:(void *)pedestal exposureParams:(void *)params ccm:(char)ccm output:(int)self0;
+- (void)extractLinearBufferWithLumaInput:(__n128)input chromaInput:(__n128)chromaInput inputIsLinear:(__n128)linear removeChromaBias:(uint64_t)bias lumaPedestal:(void *)pedestal exposureParams:(void *)params ccm:(char)ccm output:(int)self0;
 @end
 
 @implementation ColorConvertStage
@@ -220,7 +220,7 @@ LABEL_9:
   return v46;
 }
 
-- (uint64_t)extractLinearBufferWithLumaInput:(__n128)input chromaInput:(__n128)chromaInput inputIsLinear:(__n128)linear removeChromaBias:(uint64_t)bias lumaPedestal:(void *)pedestal exposureParams:(void *)params ccm:(char)ccm output:(int)self0
+- (void)extractLinearBufferWithLumaInput:(__n128)input chromaInput:(__n128)chromaInput inputIsLinear:(__n128)linear removeChromaBias:(uint64_t)bias lumaPedestal:(void *)pedestal exposureParams:(void *)params ccm:(char)ccm output:(int)self0
 {
   *&v37[16] = chromaInput;
   *&v37[32] = linear;

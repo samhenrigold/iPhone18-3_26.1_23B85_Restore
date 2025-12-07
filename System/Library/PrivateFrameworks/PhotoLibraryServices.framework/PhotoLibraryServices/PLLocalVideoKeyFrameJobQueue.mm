@@ -84,7 +84,7 @@
     goto LABEL_10;
   }
 
-  if ([(NSMutableOrderedSet *)self->_queuedJobs count]< 0xC8)
+  if (objc_msgSend_count(self->_queuedJobs) < 0xC8)
   {
     v26 = objc_alloc_init(PLLocalVideoKeyFrameGenerationJob);
     [(PLLocalVideoKeyFrameGenerationJob *)v26 setAssetObjectID:dCopy];

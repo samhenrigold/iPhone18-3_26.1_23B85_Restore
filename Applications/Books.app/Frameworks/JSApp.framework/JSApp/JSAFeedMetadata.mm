@@ -1,5 +1,6 @@
 @interface JSAFeedMetadata
 + (id)metadataDictionary:(id)dictionary variationWithNavigationBarStyle:(unint64_t)style;
++ (id)metadataDictionary:(id)dictionary variationWithNavigationBarVisibile:(BOOL)visibile;
 - (JSAFeedMetadata)init;
 - (JSAFeedMetadata)initWithDictionary:(id)dictionary;
 - (UIEdgeInsets)navigationBarLayoutInsets;
@@ -229,6 +230,28 @@
   v9 = [v8 copy];
 
   return v9;
+}
+
++ (id)metadataDictionary:(id)dictionary variationWithNavigationBarVisibile:(BOOL)visibile
+{
+  visibileCopy = visibile;
+  if (dictionary)
+  {
+    v5 = [dictionary mutableCopy];
+  }
+
+  else
+  {
+    v5 = objc_opt_new();
+  }
+
+  v6 = v5;
+  v7 = [NSNumber numberWithBool:visibileCopy];
+  [v6 setObject:v7 forKeyedSubscript:@"navigationBarVisibility"];
+
+  v8 = [v6 copy];
+
+  return v8;
 }
 
 - (UIEdgeInsets)navigationBarLayoutInsets

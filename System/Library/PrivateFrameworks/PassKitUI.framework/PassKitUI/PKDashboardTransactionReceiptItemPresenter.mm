@@ -41,10 +41,9 @@
 {
   v10[5] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
-  v10[0] = v2;
-  v3 = _MergedGlobals_616();
+  v3 = _MergedGlobals_616(v2);
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-  v5 = -[objc_class descriptorForRequiredKeysWithThreeDTouchEnabled:](v3, "descriptorForRequiredKeysWithThreeDTouchEnabled:", [currentDevice _supportsForceTouch]);
+  v5 = [v3 descriptorForRequiredKeysWithThreeDTouchEnabled:{objc_msgSend(currentDevice, "_supportsForceTouch")}];
   v10[1] = v5;
   descriptorForRequiredKeys = [off_1EE98A640() descriptorForRequiredKeys];
   v7 = *MEMORY[0x1E695C208];

@@ -16,7 +16,6 @@
 - (id)osStatePropertyList;
 - (int)_passthroughModeForAttachedMediaKey:(id)key;
 - (int)_passthroughModeForUnspecifiedAttachedMedia;
-- (uint64_t)prepareForConfiguredFormatToBecomeLive;
 - (void)_clearAllMediaProperties;
 - (void)_setMediaProperties:(id)properties forAttachedMediaKey:(id)key;
 - (void)addPoolPreallocationCompletionHandler:(id)handler;
@@ -63,51 +62,13 @@
   }
 }
 
-- (uint64_t)prepareForConfiguredFormatToBecomeLive
-{
-  [(BWNodeOutput *)self _prepareForConfiguredFormatToBecomeLiveForAttachedMediaKey:?];
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  resolvedAttachedMediaKeys = [self resolvedAttachedMediaKeys];
-  result = [resolvedAttachedMediaKeys countByEnumeratingWithState:a2 objects:a3 count:16];
-  if (result)
-  {
-    v8 = result;
-    v9 = **(a2 + 16);
-    do
-    {
-      v10 = 0;
-      do
-      {
-        if (**(a2 + 16) != v9)
-        {
-          objc_enumerationMutation(resolvedAttachedMediaKeys);
-        }
-
-        [(BWNodeOutput *)self _prepareForConfiguredFormatToBecomeLiveForAttachedMediaKey:?];
-      }
-
-      while (v8 != v10);
-      result = [resolvedAttachedMediaKeys countByEnumeratingWithState:a2 objects:a3 count:16];
-      v8 = result;
-    }
-
-    while (result);
-  }
-
-  *(self + 232) = *(self + 48);
-  return result;
-}
-
 - (void)prepareForConfiguredFormatToBecomeLive
 {
   if (self->_mediaTypeIsVideo || self->_mediaTypeIsPointCloud)
   {
     v5[8] = v2;
     v5[9] = v3;
-    [(BWNodeOutput *)self prepareForConfiguredFormatToBecomeLive];
+    [(BWNodeOutput *)&self->super.isa prepareForConfiguredFormatToBecomeLive];
   }
 }
 
@@ -287,7 +248,7 @@
     goto LABEL_14;
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     v9 = MEMORY[0x1E695DF30];
     v10 = *MEMORY[0x1E695D940];
@@ -324,7 +285,7 @@ LABEL_14:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Cannot set media configuration for nil attachedMediaKey" userInfo:0]);
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return self->_primaryMediaConfiguration;
   }
@@ -341,7 +302,7 @@ LABEL_14:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Cannot set media configuration for nil attachedMediaKey" userInfo:0]);
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return self->_primaryMediaProperties;
   }
@@ -782,7 +743,7 @@ uint64_t __54__BWNodeOutput_addPoolPreallocationCompletionHandler___block_invoke
     goto LABEL_14;
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     v8 = MEMORY[0x1E695DF30];
     v9 = *MEMORY[0x1E695D940];
@@ -829,7 +790,7 @@ LABEL_14:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Cannot get passthrough mode for nil attachedMediaKey" userInfo:0]);
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     primaryMediaConfiguration = self->_primaryMediaConfiguration;
 LABEL_5:
@@ -848,7 +809,7 @@ LABEL_5:
 
 - (id)_mediaConfigurationForPossiblyUnspecifiedAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return self->_primaryMediaConfiguration;
   }
@@ -893,7 +854,7 @@ LABEL_5:
   if ([-[BWNodeOutput _mediaConfigurationForPossiblyUnspecifiedAttachedMediaKey:](self "_mediaConfigurationForPossiblyUnspecifiedAttachedMediaKey:{"isDrivenByInputWithIndex:", index}")])
   {
     v7 = @"PrimaryFormat";
-    if ([key isEqualToString:@"PrimaryFormat"])
+    if (objc_msgSend_isEqualToString_(key))
     {
       if (![(BWNodeOutputMediaConfiguration *)self->_primaryMediaConfiguration performsAttachedMediaRemapping])
       {
@@ -913,56 +874,52 @@ LABEL_5:
   }
 
   v7 = @"PrimaryFormat";
-  performsAttachedMediaRemapping = [(BWNodeOutputMediaConfiguration *)self->_primaryMediaConfiguration performsAttachedMediaRemapping];
-  attachedMediaKeyOfInputWhichDrivesThisOutput = @"PrimaryFormat";
-  if (performsAttachedMediaRemapping)
+  if ([(BWNodeOutputMediaConfiguration *)self->_primaryMediaConfiguration performsAttachedMediaRemapping])
   {
-    attachedMediaKeyOfInputWhichDrivesThisOutput = [(BWNodeOutputMediaConfiguration *)self->_primaryMediaConfiguration attachedMediaKeyOfInputWhichDrivesThisOutput];
+    [(BWNodeOutputMediaConfiguration *)self->_primaryMediaConfiguration attachedMediaKeyOfInputWhichDrivesThisOutput];
   }
 
-  if (([key isEqualToString:attachedMediaKeyOfInputWhichDrivesThisOutput] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(key) & 1) == 0)
   {
 LABEL_11:
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     specifiedAttachedMediaKeys = [(BWNodeOutput *)self specifiedAttachedMediaKeys];
-    v11 = [(NSArray *)specifiedAttachedMediaKeys countByEnumeratingWithState:&v20 objects:v19 count:16];
-    if (v11)
+    v9 = [(NSArray *)specifiedAttachedMediaKeys countByEnumeratingWithState:&v16 objects:v15 count:16];
+    if (v9)
     {
-      v12 = v11;
-      v13 = *v21;
+      v10 = v9;
+      v11 = *v17;
 LABEL_13:
-      v14 = 0;
+      v12 = 0;
       while (1)
       {
-        if (*v21 != v13)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(specifiedAttachedMediaKeys);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * v14);
-        v15 = [(BWNodeOutput *)self mediaConfigurationForAttachedMediaKey:v7];
-        if ([v15 isDrivenByInputWithIndex:index])
+        v7 = *(*(&v16 + 1) + 8 * v12);
+        v13 = [(BWNodeOutput *)self mediaConfigurationForAttachedMediaKey:v7];
+        if ([v13 isDrivenByInputWithIndex:index])
         {
-          performsAttachedMediaRemapping2 = [v15 performsAttachedMediaRemapping];
-          attachedMediaKeyOfInputWhichDrivesThisOutput2 = v7;
-          if (performsAttachedMediaRemapping2)
+          if ([v13 performsAttachedMediaRemapping])
           {
-            attachedMediaKeyOfInputWhichDrivesThisOutput2 = [v15 attachedMediaKeyOfInputWhichDrivesThisOutput];
+            [v13 attachedMediaKeyOfInputWhichDrivesThisOutput];
           }
 
-          if ([key isEqualToString:attachedMediaKeyOfInputWhichDrivesThisOutput2])
+          if (objc_msgSend_isEqualToString_(key))
           {
             break;
           }
         }
 
-        if (v12 == ++v14)
+        if (v10 == ++v12)
         {
-          v12 = [(NSArray *)specifiedAttachedMediaKeys countByEnumeratingWithState:&v20 objects:v19 count:16];
-          if (v12)
+          v10 = [(NSArray *)specifiedAttachedMediaKeys countByEnumeratingWithState:&v16 objects:v15 count:16];
+          if (v10)
           {
             goto LABEL_13;
           }
@@ -975,7 +932,7 @@ LABEL_13:
     else
     {
 LABEL_22:
-      if (([key isEqualToString:@"PrimaryFormat"] & 1) != 0 || -[NSArray containsObject:](-[BWNodeOutput specifiedAttachedMediaKeys](self, "specifiedAttachedMediaKeys"), "containsObject:", key) || !-[BWNodeOutputMediaConfiguration isDrivenByInputWithIndex:](self->_primaryMediaConfiguration, "isDrivenByInputWithIndex:", index))
+      if ((objc_msgSend_isEqualToString_(key) & 1) != 0 || [(NSArray *)[(BWNodeOutput *)self specifiedAttachedMediaKeys] containsObject:key]|| ![(BWNodeOutputMediaConfiguration *)self->_primaryMediaConfiguration isDrivenByInputWithIndex:index])
       {
         return 0;
       }

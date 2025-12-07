@@ -42,7 +42,7 @@
 
 - (void)importRecordData:(id)data summary:(id)summary account:(id)account completion:(id)completion
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   summaryCopy = summary;
   accountCopy = account;
@@ -65,31 +65,15 @@
         if (v16 != 1.0)
         {
           [v14 accessibilityFontScale];
-          if (v17 >= 1.29999995)
-          {
-            v19 = MEMORY[0x277D76828];
-          }
-
-          else
+          if (v17 < 1.29999995)
           {
             [v14 accessibilityFontScale];
-            if (v18 >= 1.14999998)
-            {
-              v19 = MEMORY[0x277D76838];
-            }
-
-            else
+            if (v18 < 1.14999998)
             {
               [v14 accessibilityFontScale];
-              v19 = MEMORY[0x277D76858];
-              if (v20 < 0.850000024)
-              {
-                v19 = MEMORY[0x277D76830];
-              }
             }
           }
 
-          v28 = *v19;
           _AXSSetPreferredContentSizeCategoryName();
         }
       }
@@ -105,35 +89,33 @@
       _WLLog();
       if (completionCopy)
       {
-        v24 = MEMORY[0x277CCA9B8];
-        v25 = *MEMORY[0x277D7B8F8];
-        v30 = *MEMORY[0x277CCA450];
-        v31 = @"did fail to convert json";
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-        v27 = [v24 errorWithDomain:v25 code:1 userInfo:v26];
+        v22 = MEMORY[0x277CCA9B8];
+        v23 = *MEMORY[0x277D7B8F8];
+        v26 = *MEMORY[0x277CCA450];
+        v27 = @"did fail to convert json";
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v25 = [v22 errorWithDomain:v23 code:1 userInfo:v24];
 
-        (completionCopy)[2](completionCopy, 0, v27);
+        (completionCopy)[2](completionCopy, 0, v25);
       }
     }
 
-    goto LABEL_22;
+    goto LABEL_18;
   }
 
   _WLLog();
   if (completionCopy)
   {
-    v21 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277D7B8F8];
-    v32 = *MEMORY[0x277CCA450];
-    v33[0] = @"could not import anything from nil data";
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-    v14 = [v21 errorWithDomain:v22 code:1 userInfo:v23];
+    v19 = MEMORY[0x277CCA9B8];
+    v20 = *MEMORY[0x277D7B8F8];
+    v28 = *MEMORY[0x277CCA450];
+    v29[0] = @"could not import anything from nil data";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v14 = [v19 errorWithDomain:v20 code:1 userInfo:v21];
 
     (completionCopy)[2](completionCopy, 0, v14);
-LABEL_22:
+LABEL_18:
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (WLFeaturePayload)featurePayload

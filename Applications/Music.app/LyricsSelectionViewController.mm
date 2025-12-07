@@ -62,13 +62,13 @@
 {
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_10033F4F4(cellCopy);
+  sub_10033F4F4(cellCopy, v11);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -77,7 +77,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;

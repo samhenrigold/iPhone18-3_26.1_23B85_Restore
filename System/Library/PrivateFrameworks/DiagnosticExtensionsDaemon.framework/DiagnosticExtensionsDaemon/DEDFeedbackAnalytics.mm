@@ -46,7 +46,7 @@ uint64_t __100__DEDFeedbackAnalytics_logEventWithRequest_httpStatusCode_nsurlErr
 
 id __100__DEDFeedbackAnalytics_logEventWithRequest_httpStatusCode_nsurlErrorCode_success_startedAt_endedAt___block_invoke_2(uint64_t a1)
 {
-  v44[7] = *MEMORY[0x277D85DE8];
+  v43[7] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -88,69 +88,71 @@ LABEL_8:
     v21 = @"Unknown";
   }
 
-  v43[0] = @"api_route";
-  v43[1] = @"method";
-  v44[0] = v4;
-  v44[1] = v21;
-  v43[2] = @"http_status_code";
+  v42[0] = @"api_route";
+  v42[1] = @"method";
+  v43[0] = v4;
+  v43[1] = v21;
+  v42[2] = @"http_status_code";
   v30 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v44[2] = v30;
-  v43[3] = @"nsurl_error_code";
+  v43[2] = v30;
+  v42[3] = @"nsurl_error_code";
   v31 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v44[3] = v31;
-  v43[4] = @"duration";
+  v43[3] = v31;
+  v42[4] = @"duration";
   v32 = [MEMORY[0x277CCABB0] numberWithDouble:{DEDTimeElapsed(*(a1 + 56), *(a1 + 64))}];
-  v44[4] = v32;
-  v43[5] = @"success";
+  v43[4] = v32;
+  v42[5] = @"success";
   v33 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 72)];
-  v44[5] = v33;
-  v43[6] = @"process_name";
+  v43[5] = v33;
+  v42[6] = @"process_name";
   v34 = +[DEDConstants processName];
-  v44[6] = v34;
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:7];
+  v43[6] = v34;
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:7];
 
   v36 = logEventWithRequest_httpStatusCode_nsurlErrorCode_success_startedAt_endedAt__NetworkLog;
   if (os_log_type_enabled(logEventWithRequest_httpStatusCode_nsurlErrorCode_success_startedAt_endedAt__NetworkLog, OS_LOG_TYPE_INFO))
   {
-    v39 = 138543618;
-    v40 = @"com.apple.feedback.networkEvent";
-    v41 = 2114;
-    v42 = v35;
-    _os_log_impl(&dword_248AD7000, v36, OS_LOG_TYPE_INFO, "%{public}@: %{public}@", &v39, 0x16u);
+    v38 = 138543618;
+    v39 = @"com.apple.feedback.networkEvent";
+    v40 = 2114;
+    v41 = v35;
+    _os_log_impl(&dword_248AD7000, v36, OS_LOG_TYPE_INFO, "%{public}@: %{public}@", &v38, 0x16u);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
 
 void __100__DEDFeedbackAnalytics_logEventWithRequest_httpStatusCode_nsurlErrorCode_success_startedAt_endedAt___block_invoke_34(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = logEventWithRequest_httpStatusCode_nsurlErrorCode_success_startedAt_endedAt__NetworkLog;
   v3 = os_log_type_enabled(logEventWithRequest_httpStatusCode_nsurlErrorCode_success_startedAt_endedAt__NetworkLog, OS_LOG_TYPE_DEFAULT);
   if (v1 == 1)
   {
-    if (v3)
+    if (!v3)
     {
-      v6 = 138543362;
-      v7 = @"com.apple.feedback.networkEvent";
-      v4 = "%{public}@ is enabled";
-LABEL_6:
-      _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, v4, &v6, 0xCu);
+      return;
     }
+
+    v5 = 138543362;
+    v6 = @"com.apple.feedback.networkEvent";
+    v4 = "%{public}@ is enabled";
   }
 
-  else if (v3)
+  else
   {
-    v6 = 138543362;
-    v7 = @"com.apple.feedback.networkEvent";
+    if (!v3)
+    {
+      return;
+    }
+
+    v5 = 138543362;
+    v6 = @"com.apple.feedback.networkEvent";
     v4 = "%{public}@ is NOT enabled";
-    goto LABEL_6;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, v4, &v5, 0xCu);
 }
 
 + (void)logDataLoadWithContentItemCount:(unint64_t)count formItemsCount:(unint64_t)itemsCount teamCount:(unint64_t)teamCount errorsCount:(unint64_t)errorsCount startedAt:(double)at endedAt:(double)endedAt
@@ -191,69 +193,71 @@ uint64_t __111__DEDFeedbackAnalytics_logDataLoadWithContentItemCount_formItemsCo
 
 id __111__DEDFeedbackAnalytics_logDataLoadWithContentItemCount_formItemsCount_teamCount_errorsCount_startedAt_endedAt___block_invoke_2(uint64_t a1)
 {
-  v17[6] = *MEMORY[0x277D85DE8];
-  v16[0] = @"content_item_count";
+  v16[6] = *MEMORY[0x277D85DE8];
+  v15[0] = @"content_item_count";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(a1 + 32)];
-  v17[0] = v2;
-  v16[1] = @"form_item_count";
+  v16[0] = v2;
+  v15[1] = @"form_item_count";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(a1 + 40)];
-  v17[1] = v3;
-  v16[2] = @"team_count";
+  v16[1] = v3;
+  v15[2] = @"team_count";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(a1 + 48)];
-  v17[2] = v4;
-  v16[3] = @"errors_count";
+  v16[2] = v4;
+  v15[3] = @"errors_count";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*(a1 + 56)];
-  v17[3] = v5;
-  v16[4] = @"total_duration";
+  v16[3] = v5;
+  v15[4] = @"total_duration";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 64) - *(a1 + 72)];
-  v17[4] = v6;
-  v16[5] = @"process_name";
+  v16[4] = v6;
+  v15[5] = @"process_name";
   v7 = +[DEDConstants processName];
-  v17[5] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
+  v16[5] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
 
   v9 = logDataLoadWithContentItemCount_formItemsCount_teamCount_errorsCount_startedAt_endedAt__DataLoadLog;
   if (os_log_type_enabled(logDataLoadWithContentItemCount_formItemsCount_teamCount_errorsCount_startedAt_endedAt__DataLoadLog, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543618;
-    v13 = @"com.apple.feedback.dataLoad";
-    v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_INFO, "%{public}@: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = @"com.apple.feedback.dataLoad";
+    v13 = 2114;
+    v14 = v8;
+    _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_INFO, "%{public}@: %{public}@", &v11, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __111__DEDFeedbackAnalytics_logDataLoadWithContentItemCount_formItemsCount_teamCount_errorsCount_startedAt_endedAt___block_invoke_54(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = logDataLoadWithContentItemCount_formItemsCount_teamCount_errorsCount_startedAt_endedAt__DataLoadLog;
   v3 = os_log_type_enabled(logDataLoadWithContentItemCount_formItemsCount_teamCount_errorsCount_startedAt_endedAt__DataLoadLog, OS_LOG_TYPE_DEFAULT);
   if (v1 == 1)
   {
-    if (v3)
+    if (!v3)
     {
-      v6 = 138543362;
-      v7 = @"com.apple.feedback.dataLoad";
-      v4 = "%{public}@ is enabled";
-LABEL_6:
-      _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, v4, &v6, 0xCu);
+      return;
     }
+
+    v5 = 138543362;
+    v6 = @"com.apple.feedback.dataLoad";
+    v4 = "%{public}@ is enabled";
   }
 
-  else if (v3)
+  else
   {
-    v6 = 138543362;
-    v7 = @"com.apple.feedback.dataLoad";
+    if (!v3)
+    {
+      return;
+    }
+
+    v5 = 138543362;
+    v6 = @"com.apple.feedback.dataLoad";
     v4 = "%{public}@ is NOT enabled";
-    goto LABEL_6;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, v4, &v5, 0xCu);
 }
 
 + (void)logFBKBugSessionStartWithDeviceType:(id)type isRemote:(BOOL)remote success:(BOOL)success errorCode:(int64_t)code startedAt:(double)at getSessionEndedAt:(double)endedAt showExtensionsEndedAt:(double)extensionsEndedAt getStatusEndedAt:(double)self0
@@ -298,7 +302,7 @@ uint64_t __154__DEDFeedbackAnalytics_logFBKBugSessionStartWithDeviceType_isRemot
 
 id __154__DEDFeedbackAnalytics_logFBKBugSessionStartWithDeviceType_isRemote_success_errorCode_startedAt_getSessionEndedAt_showExtensionsEndedAt_getStatusEndedAt___block_invoke_2(uint64_t a1)
 {
-  v22[8] = *MEMORY[0x277D85DE8];
+  v21[8] = *MEMORY[0x277D85DE8];
   v2 = DEDTimeElapsed(*(a1 + 40), *(a1 + 48));
   v3 = DEDTimeElapsed(*(a1 + 48), *(a1 + 56));
   v4 = DEDTimeElapsed(*(a1 + 56), *(a1 + 64));
@@ -308,73 +312,75 @@ id __154__DEDFeedbackAnalytics_logFBKBugSessionStartWithDeviceType_isRemote_succ
     v5 = *(a1 + 32);
   }
 
-  v22[0] = v5;
-  v21[0] = @"device_type";
-  v21[1] = @"is_remote";
+  v21[0] = v5;
+  v20[0] = @"device_type";
+  v20[1] = @"is_remote";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 80)];
-  v22[1] = v6;
-  v21[2] = @"success";
+  v21[1] = v6;
+  v20[2] = @"success";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 81)];
-  v22[2] = v7;
-  v21[3] = @"error_code";
+  v21[2] = v7;
+  v20[3] = @"error_code";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
-  v22[3] = v8;
-  v21[4] = @"process_name";
+  v21[3] = v8;
+  v20[4] = @"process_name";
   v9 = +[DEDConstants processName];
-  v22[4] = v9;
-  v21[5] = @"session_time_interval";
+  v21[4] = v9;
+  v20[5] = @"session_time_interval";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:v2];
-  v22[5] = v10;
-  v21[6] = @"show_extensions_time_interval";
+  v21[5] = v10;
+  v20[6] = @"show_extensions_time_interval";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:v3];
-  v22[6] = v11;
-  v21[7] = @"status_time_interval";
+  v21[6] = v11;
+  v20[7] = @"status_time_interval";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v22[7] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:8];
+  v21[7] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:8];
 
   v14 = logFBKBugSessionStartWithDeviceType_isRemote_success_errorCode_startedAt_getSessionEndedAt_showExtensionsEndedAt_getStatusEndedAt__Log;
   if (os_log_type_enabled(logFBKBugSessionStartWithDeviceType_isRemote_success_errorCode_startedAt_getSessionEndedAt_showExtensionsEndedAt_getStatusEndedAt__Log, OS_LOG_TYPE_INFO))
   {
-    v17 = 138543618;
-    v18 = @"com.apple.feedback.fbkSideSessionStart";
-    v19 = 2114;
-    v20 = v13;
-    _os_log_impl(&dword_248AD7000, v14, OS_LOG_TYPE_INFO, "%{public}@: %{public}@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = @"com.apple.feedback.fbkSideSessionStart";
+    v18 = 2114;
+    v19 = v13;
+    _os_log_impl(&dword_248AD7000, v14, OS_LOG_TYPE_INFO, "%{public}@: %{public}@", &v16, 0x16u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 void __154__DEDFeedbackAnalytics_logFBKBugSessionStartWithDeviceType_isRemote_success_errorCode_startedAt_getSessionEndedAt_showExtensionsEndedAt_getStatusEndedAt___block_invoke_76(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = logFBKBugSessionStartWithDeviceType_isRemote_success_errorCode_startedAt_getSessionEndedAt_showExtensionsEndedAt_getStatusEndedAt__Log;
   v3 = os_log_type_enabled(logFBKBugSessionStartWithDeviceType_isRemote_success_errorCode_startedAt_getSessionEndedAt_showExtensionsEndedAt_getStatusEndedAt__Log, OS_LOG_TYPE_DEFAULT);
   if (v1 == 1)
   {
-    if (v3)
+    if (!v3)
     {
-      v6 = 138543362;
-      v7 = @"com.apple.feedback.fbkSideSessionStart";
-      v4 = "%{public}@ is enabled";
-LABEL_6:
-      _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, v4, &v6, 0xCu);
+      return;
     }
+
+    v5 = 138543362;
+    v6 = @"com.apple.feedback.fbkSideSessionStart";
+    v4 = "%{public}@ is enabled";
   }
 
-  else if (v3)
+  else
   {
-    v6 = 138543362;
-    v7 = @"com.apple.feedback.fbkSideSessionStart";
+    if (!v3)
+    {
+      return;
+    }
+
+    v5 = 138543362;
+    v6 = @"com.apple.feedback.fbkSideSessionStart";
     v4 = "%{public}@ is NOT enabled";
-    goto LABEL_6;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, v4, &v5, 0xCu);
 }
 
 @end

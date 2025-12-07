@@ -73,8 +73,8 @@
     v5 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "maximum GL attribute limit reached, skip.", v10, 2u);
+      *v24 = 0;
+      _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "maximum GL attribute limit reached, skip.", v24, 2u);
     }
 
     v6 = os_log_shim_legacy_logging_enabled();
@@ -83,13 +83,13 @@
       v6 = _IDSShouldLogTransport();
       if (v6)
       {
-        _IDSLogTransport(@"GL", @"IDS", @"maximum GL attribute limit reached, skip.");
-        v6 = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"maximum GL attribute limit reached, skip.", v7, v8, v9, v10, v11, *v24);
+        v6 = _IDSShouldLog(0);
         if (v6)
         {
-          v7 = @"maximum GL attribute limit reached, skip.";
+          v16 = @"maximum GL attribute limit reached, skip.";
 LABEL_15:
-          _IDSLogV(0, @"IDSFoundation", @"GL", v7);
+          _IDSLogV(0, @"IDSFoundation", @"GL", v16, v12, v13, v14, v15, *v24);
           LOBYTE(v6) = 0;
         }
       }
@@ -98,11 +98,11 @@ LABEL_15:
 
   else
   {
-    v8 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v17 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "invalid GL attribute.", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "invalid GL attribute.", buf, 2u);
     }
 
     v6 = os_log_shim_legacy_logging_enabled();
@@ -111,11 +111,11 @@ LABEL_15:
       v6 = _IDSShouldLogTransport();
       if (v6)
       {
-        _IDSLogTransport(@"GL", @"IDS", @"invalid GL attribute.");
-        v6 = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"invalid GL attribute.", v18, v19, v20, v21, v22, *v24);
+        v6 = _IDSShouldLog(0);
         if (v6)
         {
-          v7 = @"invalid GL attribute.";
+          v16 = @"invalid GL attribute.";
           goto LABEL_15;
         }
       }
@@ -172,7 +172,7 @@ LABEL_15:
 - (void)_addBinaryDataAttribute:(int64_t)attribute value:(id)value
 {
   attributeCopy = attribute;
-  v15 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (valueCopy)
   {
@@ -198,9 +198,9 @@ LABEL_15:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          v11 = v8;
-          v12 = 1024;
-          v13 = attributeCopy;
+          v20 = v8;
+          v21 = 1024;
+          v22 = attributeCopy;
           _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "failed to add %dB for binary attr type %04x.", buf, 0xEu);
         }
 
@@ -208,10 +208,10 @@ LABEL_15:
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"failed to add %dB for binary attr type %04x.");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"failed to add %dB for binary attr type %04x.", v10, v11, v12, v13, v14, v8);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to add %dB for binary attr type %04x.");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to add %dB for binary attr type %04x.", v15, v16, v17, v18, v8);
             }
           }
         }
@@ -222,7 +222,7 @@ LABEL_15:
 
 - (void)setAttributes:(id)attributes
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   v5 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -239,185 +239,181 @@ LABEL_15:
   {
     if (_IDSShouldLogTransport())
     {
-      v15 = self->_command;
-      v16 = attributesCopy;
-      _IDSLogTransport(@"GL", @"IDS", @"[IDSGlobalLinkMessage command:%04lx setAttributes: %@]");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"[IDSGlobalLinkMessage command:%04lx setAttributes: %@]", v7, v8, v9, v10, v11, self->_command);
+      if (_IDSShouldLog(0))
       {
-        v15 = self->_command;
-        v16 = attributesCopy;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"[IDSGlobalLinkMessage command:%04lx setAttributes: %@]");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"[IDSGlobalLinkMessage command:%04lx setAttributes: %@]", v12, v13, v14, v15, self->_command);
       }
     }
   }
 
   [attributesCopy allKeys];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  obj = v20 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v7)
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  obj = v36 = 0u;
+  v16 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v16)
   {
-    v17 = 0;
-    v8 = *v20;
+    v33 = 0;
+    v17 = *v36;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v20 != v8)
+        if (*v36 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
         Value = 0;
-        v11 = *(*(&v19 + 1) + 8 * i);
-        if (attributesCopy && v11)
+        v20 = *(*(&v35 + 1) + 8 * i);
+        if (attributesCopy && v20)
         {
-          Value = CFDictionaryGetValue(attributesCopy, *(*(&v19 + 1) + 8 * i));
+          Value = CFDictionaryGetValue(attributesCopy, *(*(&v35 + 1) + 8 * i));
         }
 
-        v12 = Value;
-        if ([v11 isEqualToString:@"gl-attr-counter"])
+        v21 = Value;
+        if ([v20 isEqualToString:@"gl-attr-counter"])
         {
-          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 1, [v12 unsignedIntValue]);
+          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 1, [v21 unsignedIntValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-skedata"])
+        else if ([v20 isEqualToString:@"gl-attr-skedata"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:4 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:4 value:v21];
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-transport"])
+        else if ([v20 isEqualToString:@"gl-attr-transport"])
         {
-          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 2, [v12 unsignedIntValue]);
+          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 2, [v21 unsignedIntValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-rat"])
+        else if ([v20 isEqualToString:@"gl-attr-rat"])
         {
-          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 5, [v12 unsignedIntValue]);
+          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 5, [v21 unsignedIntValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-mtu"])
+        else if ([v20 isEqualToString:@"gl-attr-mtu"])
         {
-          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 6, [v12 unsignedIntValue]);
+          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 6, [v21 unsignedIntValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-conndata"])
+        else if ([v20 isEqualToString:@"gl-attr-conndata"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:3 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:3 value:v21];
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-acceptdelay"])
+        else if ([v20 isEqualToString:@"gl-attr-acceptdelay"])
         {
-          -[IDSGlobalLinkMessage _addUInt32Attribute:value:](self, "_addUInt32Attribute:value:", 7, [v12 unsignedIntValue]);
+          -[IDSGlobalLinkMessage _addUInt32Attribute:value:](self, "_addUInt32Attribute:value:", 7, [v21 unsignedIntValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-relayremoteaddress"])
+        else if ([v20 isEqualToString:@"gl-attr-relayremoteaddress"])
         {
-          -[IDSGlobalLinkMessage _addAddressAttribute:value:](self, "_addAddressAttribute:value:", 8, [v12 sa]);
+          -[IDSGlobalLinkMessage _addAddressAttribute:value:](self, "_addAddressAttribute:value:", 8, [v21 sa]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-hmac"])
+        else if ([v20 isEqualToString:@"gl-attr-hmac"])
         {
           objc_storeStrong(&self->_hmacKeyData, Value);
-          v17 = 1;
+          v33 = 1;
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-rttreport"])
+        else if ([v20 isEqualToString:@"gl-attr-rttreport"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:10 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:10 value:v21];
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-linkuuid"])
+        else if ([v20 isEqualToString:@"gl-attr-linkuuid"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:11 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:11 value:v21];
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-capability"])
+        else if ([v20 isEqualToString:@"gl-attr-capability"])
         {
-          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 12, [v12 unsignedIntValue]);
+          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 12, [v21 unsignedIntValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-local-cbuuid"])
+        else if ([v20 isEqualToString:@"gl-attr-local-cbuuid"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:13 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:13 value:v21];
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-remote-cbuuid"])
+        else if ([v20 isEqualToString:@"gl-attr-remote-cbuuid"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:14 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:14 value:v21];
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-generic-data"])
+        else if ([v20 isEqualToString:@"gl-attr-generic-data"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:15 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:15 value:v21];
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-error-code-data"])
+        else if ([v20 isEqualToString:@"gl-attr-error-code-data"])
         {
-          -[IDSGlobalLinkMessage _addUInt32Attribute:value:](self, "_addUInt32Attribute:value:", 17, [v12 unsignedIntValue]);
+          -[IDSGlobalLinkMessage _addUInt32Attribute:value:](self, "_addUInt32Attribute:value:", 17, [v21 unsignedIntValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-version"])
+        else if ([v20 isEqualToString:@"gl-attr-version"])
         {
-          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 18, [v12 unsignedShortValue]);
+          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 18, [v21 unsignedShortValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-link-flags"])
+        else if ([v20 isEqualToString:@"gl-attr-link-flags"])
         {
-          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 19, [v12 unsignedShortValue]);
+          -[IDSGlobalLinkMessage _addUInt16Attribute:value:](self, "_addUInt16Attribute:value:", 19, [v21 unsignedShortValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-data-so-mask"])
+        else if ([v20 isEqualToString:@"gl-attr-data-so-mask"])
         {
-          -[IDSGlobalLinkMessage _addUInt32Attribute:value:](self, "_addUInt32Attribute:value:", 20, [v12 unsignedIntValue]);
+          -[IDSGlobalLinkMessage _addUInt32Attribute:value:](self, "_addUInt32Attribute:value:", 20, [v21 unsignedIntValue]);
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-relay-link-interface-info"])
+        else if ([v20 isEqualToString:@"gl-attr-relay-link-interface-info"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:21 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:21 value:v21];
         }
 
-        else if ([v11 isEqualToString:@"gl-attr-mkm"])
+        else if ([v20 isEqualToString:@"gl-attr-mkm"])
         {
-          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:22 value:v12];
+          [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:22 value:v21];
         }
 
         else
         {
-          v13 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v22 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v11;
-            _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "receive invalid attribute key %@.", buf, 0xCu);
+            *&buf[4] = v20;
+            _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "receive invalid attribute key %@.", buf, 0xCu);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"GL", @"IDS", @"receive invalid attribute key %@.");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"GL", @"IDS", @"receive invalid attribute key %@.", v23, v24, v25, v26, v27, v20);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"GL", @"receive invalid attribute key %@.");
+                _IDSLogV(0, @"IDSFoundation", @"GL", @"receive invalid attribute key %@.", v28, v29, v30, v31, v20);
               }
             }
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v16 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
-    while (v7);
+    while (v16);
 
-    if (v17)
+    if (v33)
     {
       memset(buf, 170, 20);
-      v14 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:20];
-      [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:9 value:v14];
+      v32 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:20];
+      [(IDSGlobalLinkMessage *)self _addBinaryDataAttribute:9 value:v32];
     }
   }
 
@@ -485,7 +481,7 @@ LABEL_8:
   v16 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = v15;
+    v45 = v15;
     if (v15)
     {
       v17 = @"YES";
@@ -502,16 +498,16 @@ LABEL_8:
     __imHexString2 = [v20 __imHexString];
     __imHexString3 = [v8 __imHexString];
     *buf = 138413058;
-    v38 = v17;
-    v39 = 2112;
-    v40 = __imHexString;
-    v41 = 2112;
-    v42 = __imHexString2;
-    v43 = 2112;
-    v44 = __imHexString3;
+    v47 = v17;
+    v48 = 2112;
+    v49 = __imHexString;
+    v50 = 2112;
+    v51 = __imHexString2;
+    v52 = 2112;
+    v53 = __imHexString3;
     _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "verifyHMacDigestWithKey result:%@ (HMac:%@, Recv:%@, Key: %@).", buf, 0x2Au);
 
-    v15 = v36;
+    v15 = v45;
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
@@ -532,16 +528,16 @@ LABEL_8:
     v27 = [MEMORY[0x1E695DEF0] dataWithBytes:v26 length:20];
     __imHexString5 = [v27 __imHexString];
     __imHexString6 = [v8 __imHexString];
-    _IDSLogTransport(@"GL", @"IDS", @"verifyHMacDigestWithKey result:%@ (HMac:%@, Recv:%@, Key: %@).");
+    _IDSLogTransport(@"GL", @"IDS", @"verifyHMacDigestWithKey result:%@ (HMac:%@, Recv:%@, Key: %@).", v29, v30, v31, v32, v33, v23);
 
-    if (_IDSShouldLog())
+    if (_IDSShouldLog(0))
     {
-      v29 = [MEMORY[0x1E695DEF0] dataWithBytes:macOut length:{20, v23, __imHexString4, __imHexString5, __imHexString6}];
-      __imHexString7 = [v29 __imHexString];
-      v31 = [MEMORY[0x1E695DEF0] dataWithBytes:v26 length:20];
-      __imHexString8 = [v31 __imHexString];
+      v34 = [MEMORY[0x1E695DEF0] dataWithBytes:macOut length:20];
+      __imHexString7 = [v34 __imHexString];
+      v36 = [MEMORY[0x1E695DEF0] dataWithBytes:v26 length:20];
+      __imHexString8 = [v36 __imHexString];
       __imHexString9 = [v8 __imHexString];
-      _IDSLogV(0, @"IDSFoundation", @"GL", @"verifyHMacDigestWithKey result:%@ (HMac:%@, Recv:%@, Key: %@).");
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"verifyHMacDigestWithKey result:%@ (HMac:%@, Recv:%@, Key: %@).", v38, v39, v40, v41, v23);
     }
   }
 
@@ -561,10 +557,10 @@ LABEL_8:
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"[IDSGlobalLinkMessage write] attempting with all fields");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"[IDSGlobalLinkMessage write] attempting with all fields", v8, v9, v10, v11, v12, *v40);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"[IDSGlobalLinkMessage write] attempting with all fields");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"[IDSGlobalLinkMessage write] attempting with all fields", v13, v14, v15, v16, *v40);
       }
     }
   }
@@ -574,21 +570,21 @@ LABEL_8:
     goto LABEL_15;
   }
 
-  v8 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v17 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "[IDSGlobalLinkMessage write] failed with all fields; will drop lower priority fields", v15, 2u);
+    *v42 = 0;
+    _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "[IDSGlobalLinkMessage write] failed with all fields; will drop lower priority fields", v42, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"[IDSGlobalLinkMessage write] failed with all fields; will drop lower priority fields");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"[IDSGlobalLinkMessage write] failed with all fields; will drop lower priority fields", v18, v19, v20, v21, v22, *v40);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"[IDSGlobalLinkMessage write] failed with all fields; will drop lower priority fields");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"[IDSGlobalLinkMessage write] failed with all fields; will drop lower priority fields", v23, v24, v25, v26, *v40);
       }
     }
   }
@@ -596,37 +592,37 @@ LABEL_8:
   if ([(IDSGlobalLinkMessage *)self _write:write outputLength:length dropLowerPriorityFields:1])
   {
 LABEL_15:
-    v9 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v27 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "[IDSGlobalLinkMessage write] success", v13, 2u);
+      *v40 = 0;
+      _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "[IDSGlobalLinkMessage write] success", v40, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      v10 = @"[IDSGlobalLinkMessage write] success";
+      v33 = @"[IDSGlobalLinkMessage write] success";
       goto LABEL_25;
     }
   }
 
   else
   {
-    v11 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v34 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "[IDSGlobalLinkMessage write] WARNING: failed even after dropping lower priority fields", v14, 2u);
+      *v41 = 0;
+      _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "[IDSGlobalLinkMessage write] WARNING: failed even after dropping lower priority fields", v41, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      v10 = @"[IDSGlobalLinkMessage write] WARNING: failed even after dropping lower priority fields";
+      v33 = @"[IDSGlobalLinkMessage write] WARNING: failed even after dropping lower priority fields";
 LABEL_25:
-      _IDSLogTransport(@"GL", @"IDS", v10);
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", v33, v28, v29, v30, v31, v32, *v40);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", v10);
+        _IDSLogV(0, @"IDSFoundation", @"GL", v33, v35, v36, v37, v38, *v40);
       }
     }
   }
@@ -637,7 +633,7 @@ LABEL_25:
 - (BOOL)_write:(char *)_write outputLength:(int *)length dropLowerPriorityFields:(BOOL)fields
 {
   lengthCopy2 = length;
-  v41 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   *_write = bswap32(LOWORD(self->_command)) >> 16;
   *(_write + 12) = 0;
   *(_write + 4) = 0;
@@ -645,14 +641,14 @@ LABEL_25:
   numAttribute = self->_numAttribute;
   if (numAttribute <= 0)
   {
-    v35 = 0;
-    v17 = 1;
+    v75 = 0;
+    v26 = 1;
     goto LABEL_41;
   }
 
   fieldsCopy = fields;
   v11 = 0;
-  v35 = 0;
+  v75 = 0;
   attributes = self->_attributes;
   while (1)
   {
@@ -662,7 +658,7 @@ LABEL_25:
     }
 
     v13 = attributes->len + 4;
-    v36 = attributes->len + 4;
+    v76 = attributes->len + 4;
     if (v8 - _write + v13 >= 1025)
     {
       break;
@@ -683,7 +679,7 @@ LABEL_22:
             {
               v16 = attributes->type;
               *buf = 67109120;
-              LODWORD(v38) = v16;
+              LODWORD(v78) = v16;
               _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "receive invalid command attribute (%04x), skip.", buf, 8u);
             }
 
@@ -691,10 +687,10 @@ LABEL_22:
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"GL", @"IDS", @"receive invalid command attribute (%04x), skip.");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"GL", @"IDS", @"receive invalid command attribute (%04x), skip.", v17, v18, v19, v20, v21, attributes->type);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"GL", @"receive invalid command attribute (%04x), skip.");
+                  _IDSLogV(0, @"IDSFoundation", @"GL", @"receive invalid command attribute (%04x), skip.", v22, v23, v24, v25, attributes->type);
                 }
               }
             }
@@ -703,12 +699,12 @@ LABEL_22:
           }
 
 LABEL_21:
-          writeIDSGLAttrU32(&attributes->type, v8, &v36);
+          writeIDSGLAttrU32(&attributes->type, v8, &v76);
           goto LABEL_29;
         }
 
 LABEL_19:
-        writeIDSGLAttrU16(&attributes->type, v8, &v36);
+        writeIDSGLAttrU16(&attributes->type, v8, &v76);
         goto LABEL_29;
       }
 
@@ -745,7 +741,7 @@ LABEL_19:
 LABEL_11:
         if (type == 8)
         {
-          writeIDSGLAttrAddress(&attributes->type, v8, &v36);
+          writeIDSGLAttrAddress(&attributes->type, v8, &v76);
           goto LABEL_29;
         }
 
@@ -754,44 +750,44 @@ LABEL_11:
           goto LABEL_22;
         }
 
-        v35 = 1;
+        v75 = 1;
       }
     }
 
-    writeIDSGLAttrBinaryData(&attributes->type, v8, &v36);
+    writeIDSGLAttrBinaryData(&attributes->type, v8, &v76);
 LABEL_29:
-    v8 += v36;
+    v8 += v76;
     numAttribute = self->_numAttribute;
 LABEL_30:
     ++v11;
     ++attributes;
     if (v11 >= numAttribute)
     {
-      v17 = 1;
+      v26 = 1;
       goto LABEL_40;
     }
   }
 
-  v18 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v27 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "exceed max command buffer length, stop.", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "exceed max command buffer length, stop.", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"exceed max command buffer length, stop.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"exceed max command buffer length, stop.", v28, v29, v30, v31, v32, v70);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"exceed max command buffer length, stop.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"exceed max command buffer length, stop.", v33, v34, v35, v36, v71);
       }
     }
   }
 
-  v17 = 0;
+  v26 = 0;
 LABEL_40:
   lengthCopy2 = length;
 LABEL_41:
@@ -801,97 +797,97 @@ LABEL_41:
     *lengthCopy2 = v8 - _write;
   }
 
-  v19 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v37 = OSLogHandleForTransportCategory();
+  v38 = lengthCopy2;
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = @"NO";
-    if (v35)
+    v39 = @"NO";
+    if (v75)
     {
-      v21 = @"YES";
+      v40 = @"YES";
     }
 
     else
     {
-      v21 = @"NO";
+      v40 = @"NO";
     }
 
     if (self->_hmacKeyData)
     {
-      v20 = @"YES";
+      v39 = @"YES";
     }
 
     *buf = 138412546;
-    v38 = v21;
-    v39 = 2112;
-    v40 = v20;
-    _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "has hmac? %@; data: %@", buf, 0x16u);
+    v78 = v40;
+    v79 = 2112;
+    v80 = v39;
+    _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "has hmac? %@; data: %@", buf, 0x16u);
   }
 
-  if (os_log_shim_legacy_logging_enabled())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
-    if (_IDSShouldLogTransport())
+    v46 = (v75 & 1) != 0 ? @"YES" : @"NO";
+    _IDSLogTransport(@"GL", @"IDS", @"has hmac? %@; data: %@", v41, v42, v43, v44, v45, v46);
+    if (_IDSShouldLog(0))
     {
-      _IDSLogTransport(@"GL", @"IDS", @"has hmac? %@; data: %@");
-      if (_IDSShouldLog())
-      {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"has hmac? %@; data: %@");
-      }
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"has hmac? %@; data: %@", v47, v48, v49, v50, v46);
     }
   }
 
-  if (v35)
+  if (v75)
   {
     hmacKeyData = self->_hmacKeyData;
     if (hmacKeyData)
     {
-      CCHmac(0, [(NSData *)hmacKeyData bytes], [(NSData *)self->_hmacKeyData length], _write, *lengthCopy2 - 24, &_write[*lengthCopy2 - 20]);
-      v23 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      CCHmac(0, [(NSData *)hmacKeyData bytes], [(NSData *)self->_hmacKeyData length], _write, *v38 - 24, &_write[*v38 - 20]);
+      v52 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = [MEMORY[0x1E695DEF0] dataWithBytes:&_write[*lengthCopy2 - 20] length:20];
-        __imHexString = [v24 __imHexString];
+        v53 = [MEMORY[0x1E695DEF0] dataWithBytes:&_write[*v38 - 20] length:20];
+        __imHexString = [v53 __imHexString];
         __imHexString2 = [(NSData *)self->_hmacKeyData __imHexString];
         *buf = 138412546;
-        v38 = __imHexString;
-        v39 = 2112;
-        v40 = __imHexString2;
-        _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "HMac:%@, Key: %@", buf, 0x16u);
+        v78 = __imHexString;
+        v79 = 2112;
+        v80 = __imHexString2;
+        _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "HMac:%@, Key: %@", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v27 = [MEMORY[0x1E695DEF0] dataWithBytes:&_write[*lengthCopy2 - 20] length:20];
-          __imHexString3 = [v27 __imHexString];
+          v56 = [MEMORY[0x1E695DEF0] dataWithBytes:&_write[*v38 - 20] length:20];
+          __imHexString3 = [v56 __imHexString];
           __imHexString4 = [(NSData *)self->_hmacKeyData __imHexString];
-          _IDSLogTransport(@"GL", @"IDS", @"HMac:%@, Key: %@");
+          _IDSLogTransport(@"GL", @"IDS", @"HMac:%@, Key: %@", v58, v59, v60, v61, v62, __imHexString3);
 
-          if (_IDSShouldLog())
+          if (_IDSShouldLog(0))
           {
-            v29 = [MEMORY[0x1E695DEF0] dataWithBytes:&_write[*lengthCopy2 - 20] length:{20, __imHexString3, __imHexString4}];
-            __imHexString5 = [v29 __imHexString];
+            v63 = [MEMORY[0x1E695DEF0] dataWithBytes:&_write[*v38 - 20] length:20];
+            __imHexString5 = [v63 __imHexString];
             __imHexString6 = [(NSData *)self->_hmacKeyData __imHexString];
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"HMac:%@, Key: %@");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"HMac:%@, Key: %@", v65, v66, v67, v68, __imHexString5);
           }
         }
       }
     }
   }
 
-  return v17;
+  return v26;
 }
 
 - (BOOL)read:(char *)read inputLength:(int)length
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v4 = *&length;
+  v74 = *MEMORY[0x1E69E9840];
   if (length <= 19)
   {
     v5 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      lengthCopy2 = length;
+      v71 = v4;
       _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "receive invalid command data length %uB, too short.", buf, 8u);
     }
 
@@ -907,29 +903,29 @@ LABEL_41:
       return v6;
     }
 
-    _IDSLogTransport(@"GL", @"IDS", @"receive invalid command data length %uB, too short.");
-    v6 = _IDSShouldLog();
+    _IDSLogTransport(@"GL", @"IDS", @"receive invalid command data length %uB, too short.", v7, v8, v9, v10, v11, v4);
+    v6 = _IDSShouldLog(0);
     if (!v6)
     {
       return v6;
     }
 
-    _IDSLogV(0, @"IDSFoundation", @"GL", @"receive invalid command data length %uB, too short.");
+    _IDSLogV(0, @"IDSFoundation", @"GL", @"receive invalid command data length %uB, too short.", v12, v13, v14, v15, v4);
     goto LABEL_15;
   }
 
   self->_command = bswap32(*read) >> 16;
-  v8 = (bswap32(*(read + 1)) >> 16) + 20;
-  if (v8 > length)
+  v17 = (bswap32(*(read + 1)) >> 16) + 20;
+  if (v17 > length)
   {
-    v9 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v18 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      lengthCopy2 = length;
-      v27 = 1024;
-      v28 = v8;
-      _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "receive incomplete packet (%d < %d), skip.", buf, 0xEu);
+      v71 = v4;
+      v72 = 1024;
+      v73 = v17;
+      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "receive incomplete packet (%d < %d), skip.", buf, 0xEu);
     }
 
     v6 = os_log_shim_legacy_logging_enabled();
@@ -944,51 +940,51 @@ LABEL_41:
       return v6;
     }
 
-    _IDSLogTransport(@"GL", @"IDS", @"receive incomplete packet (%d < %d), skip.");
-    v6 = _IDSShouldLog();
+    _IDSLogTransport(@"GL", @"IDS", @"receive incomplete packet (%d < %d), skip.", v19, v20, v21, v22, v23, v4);
+    v6 = _IDSShouldLog(0);
     if (!v6)
     {
       return v6;
     }
 
-    _IDSLogV(0, @"IDSFoundation", @"GL", @"receive incomplete packet (%d < %d), skip.");
+    _IDSLogV(0, @"IDSFoundation", @"GL", @"receive incomplete packet (%d < %d), skip.", v24, v25, v26, v27, v4);
 LABEL_15:
     LOBYTE(v6) = 0;
     return v6;
   }
 
-  v24 = -1431655766;
+  v69 = -1431655766;
   if (length < 0x18)
   {
-    v10 = 0;
+    v28 = 0;
 LABEL_18:
-    self->_numAttribute = v10;
+    self->_numAttribute = v28;
     LOBYTE(v6) = 1;
     return v6;
   }
 
-  v11 = 0;
-  v12 = &read[length];
-  v13 = (read + 24);
-  v14 = read + 20;
+  v29 = 0;
+  v30 = &read[length];
+  v31 = (read + 24);
+  v32 = read + 20;
   attributes = self->_attributes;
   while (1)
   {
-    v16 = bswap32(*v14) >> 16;
-    attributes->type = v16;
-    v17 = bswap32(*(v14 + 1)) >> 16;
-    attributes->len = v17;
-    v24 = v17;
-    if (v12 - v13 < v17)
+    v34 = bswap32(*v32) >> 16;
+    attributes->type = v34;
+    v35 = bswap32(*(v32 + 1)) >> 16;
+    attributes->len = v35;
+    v69 = v35;
+    if (v30 - v31 < v35)
     {
-      v21 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v48 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        lengthCopy2 = v12 - v13;
-        v27 = 1024;
-        v28 = v24;
-        _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "Buffer may overflow, %d, %d, return", buf, 0xEu);
+        v71 = v30 - v31;
+        v72 = 1024;
+        v73 = v69;
+        _os_log_impl(&dword_1A7AD9000, v48, OS_LOG_TYPE_DEFAULT, "Buffer may overflow, %d, %d, return", buf, 0xEu);
       }
 
       v6 = os_log_shim_legacy_logging_enabled();
@@ -997,11 +993,11 @@ LABEL_18:
         v6 = _IDSShouldLogTransport();
         if (v6)
         {
-          _IDSLogTransport(@"GL", @"IDS", @"Buffer may overflow, %d, %d, return");
-          v6 = _IDSShouldLog();
+          _IDSLogTransport(@"GL", @"IDS", @"Buffer may overflow, %d, %d, return", v49, v50, v51, v52, v53, v30 - v31);
+          v6 = _IDSShouldLog(0);
           if (v6)
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"Buffer may overflow, %d, %d, return");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"Buffer may overflow, %d, %d, return", v54, v55, v56, v57, v30 - v31);
             goto LABEL_15;
           }
         }
@@ -1010,40 +1006,40 @@ LABEL_18:
       return v6;
     }
 
-    if (v17 >= 0x401)
+    if (v35 >= 0x401)
     {
       break;
     }
 
-    if (v16 <= 6)
+    if (v34 <= 6)
     {
-      if ((v16 - 1) < 2)
+      if ((v34 - 1) < 2)
       {
         goto LABEL_34;
       }
 
-      if ((v16 - 3) >= 2)
+      if ((v34 - 3) >= 2)
       {
-        if ((v16 - 5) >= 2)
+        if ((v34 - 5) >= 2)
         {
 LABEL_41:
-          v19 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v37 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             type = attributes->type;
             *buf = 67109120;
-            lengthCopy2 = type;
-            _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "receive invalid attribute %04x, skip.", buf, 8u);
+            v71 = type;
+            _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "receive invalid attribute %04x, skip.", buf, 8u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"GL", @"IDS", @"receive invalid attribute %04x, skip.");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"GL", @"IDS", @"receive invalid attribute %04x, skip.", v39, v40, v41, v42, v43, attributes->type);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"GL", @"receive invalid attribute %04x, skip.");
+                _IDSLogV(0, @"IDSFoundation", @"GL", @"receive invalid attribute %04x, skip.", v44, v45, v46, v47, attributes->type);
               }
             }
           }
@@ -1052,57 +1048,57 @@ LABEL_41:
         }
 
 LABEL_34:
-        readIDSGLAttrU16(attributes, &v24, v13, v12 - v13);
+        readIDSGLAttrU16(attributes, &v69, v31, v30 - v31);
         goto LABEL_36;
       }
 
 LABEL_35:
-      readIDSGLAttrBinaryData(attributes, &v24, v13, v12 - v13);
+      readIDSGLAttrBinaryData(attributes, &v69, v31, v30 - v31);
       goto LABEL_36;
     }
 
-    if (v16 <= 0x16)
+    if (v34 <= 0x16)
     {
-      if (((1 << v16) & 0x60EE00) != 0)
+      if (((1 << v34) & 0x60EE00) != 0)
       {
         goto LABEL_35;
       }
 
-      if (((1 << v16) & 0xC1000) != 0)
+      if (((1 << v34) & 0xC1000) != 0)
       {
         goto LABEL_34;
       }
 
-      if (v16 == 20)
+      if (v34 == 20)
       {
         goto LABEL_40;
       }
     }
 
-    if (v16 == 7)
+    if (v34 == 7)
     {
 LABEL_40:
-      readIDSGLAttrU32(attributes, &v24, v13, v12 - v13);
+      readIDSGLAttrU32(attributes, &v69, v31, v30 - v31);
     }
 
     else
     {
-      if (v16 != 8)
+      if (v34 != 8)
       {
         goto LABEL_41;
       }
 
-      readIDSGLAttrAddress(attributes, &v24, v13, v12 - v13);
+      readIDSGLAttrAddress(attributes, &v69, v31, v30 - v31);
     }
 
 LABEL_36:
-    v14 = v13 + v24;
-    v10 = v11 + 1;
-    v13 = (v14 + 4);
-    if (v14 + 4 <= v12)
+    v32 = v31 + v69;
+    v28 = v29 + 1;
+    v31 = (v32 + 4);
+    if (v32 + 4 <= v30)
     {
       ++attributes;
-      if (v11++ < 0x13)
+      if (v29++ < 0x13)
       {
         continue;
       }
@@ -1111,12 +1107,12 @@ LABEL_36:
     goto LABEL_18;
   }
 
-  v22 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v58 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    lengthCopy2 = v24;
-    _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "attrLen %d is greater than kIDSGLAttributeMaxSize, return", buf, 8u);
+    v71 = v69;
+    _os_log_impl(&dword_1A7AD9000, v58, OS_LOG_TYPE_DEFAULT, "attrLen %d is greater than kIDSGLAttributeMaxSize, return", buf, 8u);
   }
 
   v6 = os_log_shim_legacy_logging_enabled();
@@ -1125,11 +1121,11 @@ LABEL_36:
     v6 = _IDSShouldLogTransport();
     if (v6)
     {
-      _IDSLogTransport(@"GL", @"IDS", @"attrLen %d is greater than kIDSGLAttributeMaxSize, return");
-      v6 = _IDSShouldLog();
+      _IDSLogTransport(@"GL", @"IDS", @"attrLen %d is greater than kIDSGLAttributeMaxSize, return", v59, v60, v61, v62, v63, v69);
+      v6 = _IDSShouldLog(0);
       if (v6)
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"attrLen %d is greater than kIDSGLAttributeMaxSize, return");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"attrLen %d is greater than kIDSGLAttributeMaxSize, return", v64, v65, v66, v67, v69);
         goto LABEL_15;
       }
     }

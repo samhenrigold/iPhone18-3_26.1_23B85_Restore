@@ -58,13 +58,13 @@
 
 - (RTMotionActivity)initWithType:(unint64_t)type confidence:(unint64_t)confidence startDate:(id)date
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   if (dateCopy)
   {
-    v17.receiver = self;
-    v17.super_class = RTMotionActivity;
-    v9 = [(RTMotionActivity *)&v17 init];
+    v16.receiver = self;
+    v16.super_class = RTMotionActivity;
+    v9 = [(RTMotionActivity *)&v16 init];
     v10 = v9;
     if (v9)
     {
@@ -85,16 +85,15 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[RTMotionActivity initWithType:confidence:startDate:]";
-      v20 = 1024;
-      v21 = 97;
+      v18 = "[RTMotionActivity initWithType:confidence:startDate:]";
+      v19 = 1024;
+      v20 = 97;
       _os_log_error_impl(&dword_1BF1C4000, v14, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: startDate (in %s:%d)", buf, 0x12u);
     }
 
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

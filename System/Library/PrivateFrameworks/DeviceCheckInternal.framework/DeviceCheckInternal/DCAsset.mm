@@ -7,7 +7,7 @@
 
 + (id)assetWithMobileAsset:(id)asset
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v4 = [assetCopy assetProperty:*MEMORY[0x277D28900]];
   unsignedIntegerValue = [v4 unsignedIntegerValue];
@@ -30,11 +30,11 @@ LABEL_12:
     v11 = DCInternalLogSystem_log_7;
     if (os_log_type_enabled(DCInternalLogSystem_log_7, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "DCAsset.m";
-      v16 = 1024;
-      v17 = 47;
-      _os_log_impl(&dword_2488FB000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to parse asset, public key is missing.", &v14, 0x12u);
+      v13 = 136315394;
+      v14 = "DCAsset.m";
+      v15 = 1024;
+      v16 = 47;
+      _os_log_impl(&dword_2488FB000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to parse asset, public key is missing.", &v13, 0x12u);
     }
 
     goto LABEL_12;
@@ -56,17 +56,16 @@ LABEL_12:
   v10 = DCInternalLogSystem_log_7;
   if (os_log_type_enabled(DCInternalLogSystem_log_7, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136315650;
-    v15 = "DCAsset.m";
-    v16 = 1024;
-    v17 = 44;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_impl(&dword_2488FB000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Parsed asset. { asset=%@ }", &v14, 0x1Cu);
+    v13 = 136315650;
+    v14 = "DCAsset.m";
+    v15 = 1024;
+    v16 = 44;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&dword_2488FB000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Parsed asset. { asset=%@ }", &v13, 0x1Cu);
   }
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

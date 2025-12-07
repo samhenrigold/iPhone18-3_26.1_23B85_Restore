@@ -19,7 +19,7 @@
 
 void __76__ICPhoneNumberContentMapping_getStringRepresentation_withInput_parameters___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   if ([v6 numberOfItems])
@@ -27,14 +27,14 @@ void __76__ICPhoneNumberContentMapping_getStringRepresentation_withInput_paramet
     v8 = [v6 collectionByFilteringToItemClass:objc_opt_class() excludedItems:0];
     if ([v8 numberOfItems])
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __76__ICPhoneNumberContentMapping_getStringRepresentation_withInput_parameters___block_invoke_2;
-      v18[3] = &unk_1E837A538;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __76__ICPhoneNumberContentMapping_getStringRepresentation_withInput_parameters___block_invoke_2;
+      v17[3] = &unk_1E837A538;
       v9 = *(a1 + 40);
-      v18[4] = *(a1 + 32);
-      v19 = v9;
-      [v8 getObjectRepresentations:v18 forClass:objc_opt_class()];
+      v17[4] = *(a1 + 32);
+      v18 = v9;
+      [v8 getObjectRepresentations:v17 forClass:objc_opt_class()];
     }
 
     else
@@ -46,26 +46,24 @@ void __76__ICPhoneNumberContentMapping_getStringRepresentation_withInput_paramet
   else
   {
     v10 = [*(a1 + 32) destinationType];
-    v11 = [v10 isEqualToString:@"URLQueryValue"];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-    if (!v7 && (v11 & 1) == 0)
+    if (!v7 && (isEqualToString & 1) == 0)
     {
       v12 = MEMORY[0x1E696ABC0];
       v13 = *MEMORY[0x1E696A250];
-      v20[0] = *MEMORY[0x1E696A588];
+      v19[0] = *MEMORY[0x1E696A588];
       v14 = WFLocalizedString(@"Error");
-      v21[0] = v14;
-      v20[1] = *MEMORY[0x1E696A578];
+      v20[0] = v14;
+      v19[1] = *MEMORY[0x1E696A578];
       v15 = WFLocalizedString(@"No phone numbers were passed into this action.");
-      v21[1] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+      v20[1] = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
       v7 = [v12 errorWithDomain:v13 code:260 userInfo:v16];
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __76__ICPhoneNumberContentMapping_getStringRepresentation_withInput_parameters___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)

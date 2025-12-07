@@ -12,6 +12,7 @@
 - (void)handleNetworkConfigurationChange:(int64_t)change;
 - (void)handleNetworkDetectionNotification:(int)notification;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)handleWakeup;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)setStatus:(int)status;
@@ -836,6 +837,85 @@ LABEL_16:
   dispatch_async(queue, block);
 }
 
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v3 = *&reason;
+  if (self)
+  {
+    self->_stopped = 1;
+    objc_setProperty_atomic(self, a2, 0, 392);
+    v26.receiver = self;
+    v26.super_class = NESMAlwaysOnSession;
+    [(NESMSession *)&v26 handleStopMessageWithReason:v3];
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    Property = objc_getProperty(self, v5, 400, 1);
+  }
+
+  else
+  {
+    v26.receiver = 0;
+    v26.super_class = NESMAlwaysOnSession;
+    [(NESMSession *)&v26 handleStopMessageWithReason:*&reason];
+    Property = 0;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+  }
+
+  obj = Property;
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v7)
+  {
+    v9 = v7;
+    v10 = *v23;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v23 != v10)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v12 = *(*(&v22 + 1) + 8 * v11);
+        if (self)
+        {
+          v13 = objc_getProperty(self, v8, 400, 1);
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        v14 = [v13 objectForKeyedSubscript:v12];
+        queue = [v14 queue];
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_10000BDFC;
+        block[3] = &unk_1000EB338;
+        v20 = v14;
+        v21 = v3;
+        v16 = v14;
+        dispatch_async(queue, block);
+
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v17 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v9 = v17;
+    }
+
+    while (v17);
+  }
+}
+
 - (void)handleStartMessage:(id)message
 {
   messageCopy = message;
@@ -1049,9 +1129,9 @@ LABEL_16:
 
   [(NESMSession *)v9 setPolicySession:v11];
 
-  sub_10008E79C(v9);
-  v14 = ne_log_large_obj();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  sub_10008E79C(v9, v14);
+  v15 = ne_log_large_obj();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
     v56 = v9;
@@ -1059,11 +1139,11 @@ LABEL_16:
     v58 = "[NESMAlwaysOnSession initWithConfiguration:andServer:]";
     v59 = 2112;
     v60 = configurationCopy;
-    _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "%@:%s: Configuration %@", buf, 0x20u);
+    _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%@:%s: Configuration %@", buf, 0x20u);
   }
 
-  v15 = [[NSMutableDictionary alloc] initWithCapacity:0];
-  if (!v15)
+  v16 = [[NSMutableDictionary alloc] initWithCapacity:0];
+  if (!v16)
   {
     v28 = ne_log_obj();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -1083,8 +1163,8 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  v16 = [[NSMutableDictionary alloc] initWithCapacity:0];
-  if (!v16)
+  v17 = [[NSMutableDictionary alloc] initWithCapacity:0];
+  if (!v17)
   {
     v28 = ne_log_obj();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -1100,31 +1180,31 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v17 = v16;
-  objc_storeStrong(&v9->_VPNSessionRetryCounters, v16);
+  v18 = v17;
+  objc_storeStrong(&v9->_VPNSessionRetryCounters, v17);
   if (nwi_state_copy())
   {
     interface_names = nwi_state_get_interface_names();
-    if (interface_names && (v19 = malloc_type_calloc(interface_names, 8uLL, 0x50040EE9192B6uLL)) != 0)
+    if (interface_names && (v20 = malloc_type_calloc(interface_names, 8uLL, 0x50040EE9192B6uLL)) != 0)
     {
-      v20 = v19;
-      v52 = v17;
-      v53 = v15;
-      v21 = nwi_state_get_interface_names();
-      v51 = v20;
-      if (v21)
+      v21 = v20;
+      v52 = v18;
+      v53 = v16;
+      v22 = nwi_state_get_interface_names();
+      v51 = v21;
+      if (v22)
       {
-        v23 = v20;
-        v24 = 0;
-        v25 = v21;
-        *&v22 = 138412802;
-        v50 = v22;
+        v24 = v21;
+        v25 = 0;
+        v26 = v22;
+        *&v23 = 138412802;
+        v50 = v23;
         do
         {
-          v26 = *v23;
-          if (*v23 && (v27 = *v23, nwi_state_get_ifstate()) && !nwi_ifstate_get_vpn_server() && (nwi_ifstate_get_flags() & 3) != 0 && (nwi_ifstate_get_flags() & 4) != 0)
+          v27 = *v24;
+          if (*v24 && nwi_state_get_ifstate() && !nwi_ifstate_get_vpn_server() && (nwi_ifstate_get_flags() & 3) != 0 && (nwi_ifstate_get_flags() & 4) != 0)
           {
-            v29 = [NSString stringWithUTF8String:v26];
+            v29 = [NSString stringWithUTF8String:v27];
             v28 = sub_100009DCC(v9, v29);
 
             if (v28)
@@ -1155,15 +1235,15 @@ LABEL_46:
 
           else
           {
-            v28 = v24;
+            v28 = v25;
           }
 
-          ++v23;
-          v24 = v28;
-          --v25;
+          ++v24;
+          v25 = v28;
+          --v26;
         }
 
-        while (v25);
+        while (v26);
       }
 
       else
@@ -1172,8 +1252,8 @@ LABEL_46:
       }
 
       free(v51);
-      v17 = v52;
-      v15 = v53;
+      v18 = v52;
+      v16 = v53;
     }
 
     else
@@ -1189,7 +1269,7 @@ LABEL_46:
     v28 = 0;
   }
 
-  objc_storeStrong(&v9->_VPNSessions, v15);
+  objc_storeStrong(&v9->_VPNSessions, v16);
   sub_10000A028(v9, v33);
   v34 = [[NEPolicySession alloc] initWithSessionName:@"AOVPN control"];
   [(NESMSession *)v9 setControlPolicySession:v34];
@@ -1263,7 +1343,7 @@ LABEL_47:
 {
   if (objc_opt_class())
   {
-    v2 = sub_10005750C();
+    v2 = sub_10005750C(NESMServer);
     if (v2)
     {
       v3 = v2[8];

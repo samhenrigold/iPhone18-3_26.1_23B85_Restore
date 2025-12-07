@@ -322,25 +322,25 @@ void __45__NTKDualTimeDigitalTicksView_startAnimation__block_invoke(uint64_t a1,
         if (fraction >= *off_27877BE68)
         {
           CLKCompressFraction();
-          v21 = NTKInterpolateBetweenColors();
+          v21 = NTKInterpolateBetweenColors(v22);
         }
       }
     }
   }
 
   digitalTicks = self->_digitalTicks;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __101__NTKDualTimeDigitalTicksView__colorizeDigitalTicksWithActiveColor_inactiveColor_now_secondFraction___block_invoke;
-  v26[3] = &unk_2787823B8;
-  v27 = v21;
-  v28 = colorCopy;
-  v29 = v20;
-  v30 = second;
-  v23 = v20;
-  v24 = colorCopy;
-  v25 = v21;
-  [(NSArray *)digitalTicks enumerateObjectsUsingBlock:v26];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __101__NTKDualTimeDigitalTicksView__colorizeDigitalTicksWithActiveColor_inactiveColor_now_secondFraction___block_invoke;
+  v27[3] = &unk_2787823B8;
+  v28 = v21;
+  v29 = colorCopy;
+  v30 = v20;
+  v31 = second;
+  v24 = v20;
+  v25 = colorCopy;
+  v26 = v21;
+  [(NSArray *)digitalTicks enumerateObjectsUsingBlock:v27];
 }
 
 void __101__NTKDualTimeDigitalTicksView__colorizeDigitalTicksWithActiveColor_inactiveColor_now_secondFraction___block_invoke(uint64_t a1, void *a2, uint64_t a3)

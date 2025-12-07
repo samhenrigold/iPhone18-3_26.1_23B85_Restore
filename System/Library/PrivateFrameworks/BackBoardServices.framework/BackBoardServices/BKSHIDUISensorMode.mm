@@ -46,8 +46,8 @@
     if ([(NSSet *)self->_multitouchHostStateKeys count])
     {
       v6 = [(NSSet *)self->_multitouchHostStateKeys mutableCopy];
-      v7 = [MEMORY[0x1E695DFD8] setWithObjects:{@"CoverGestureEnabled", @"WakeOnTapEnabled", @"WakeOnSwipeEnabled", 0}];
-      [v6 minusSet:v7];
+      v7 = [MEMORY[0x1E695DFD8] setWithObjects:{@"WakeOnTapEnabled", @"WakeOnSwipeEnabled", 0}];
+      [v6 minusSet:?];
 
       v5 += 100 * [v6 count];
     }
@@ -63,10 +63,10 @@
 
 - (id)_init
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = BKSHIDUISensorMode;
-  v3 = [(BKSHIDUISensorMode *)&v12 init];
+  v24 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = BKSHIDUISensorMode;
+  v3 = [(BKSHIDUISensorMode *)&v11 init];
   if (v3)
   {
     v4 = objc_opt_class();
@@ -75,28 +75,28 @@
       v5 = objc_opt_class();
       if (v5 != objc_opt_class())
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSUISensorMode cannot be subclassed"];
+        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v9 = NSStringFromSelector(a2);
-          v10 = objc_opt_class();
-          v11 = NSStringFromClass(v10);
+          v8 = NSStringFromSelector(a2);
+          v9 = objc_opt_class();
+          v10 = NSStringFromClass(v9);
           *buf = 138544642;
-          v14 = v9;
-          v15 = 2114;
-          v16 = v11;
-          v17 = 2048;
-          v18 = v3;
-          v19 = 2114;
-          v20 = @"BKSHIDUISensorMode.m";
-          v21 = 1024;
-          v22 = 120;
-          v23 = 2114;
-          v24 = v8;
+          v13 = v8;
+          v14 = 2114;
+          v15 = v10;
+          v16 = 2048;
+          v17 = v3;
+          v18 = 2114;
+          v19 = @"BKSHIDUISensorMode.m";
+          v20 = 1024;
+          v21 = 120;
+          v22 = 2114;
+          v23 = v7;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v8 UTF8String];
+        [v7 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x18634E724);
@@ -107,23 +107,22 @@
     v3->_versionedPID = BSGetVersionedPID();
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (unint64_t)hash
 {
   [(NSString *)self->_reason hash];
-  v3 = [MEMORY[0x1E696AD98] numberWithLongLong:self->_versionedPID];
+  v3 = [MEMORY[0x1E696AD98] numberWithLongLong:?];
   [v3 hash];
 
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_changeSource];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
   [v4 hash];
 
-  v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_displayState];
+  v5 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   [v5 hash];
 
-  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_proximityDetectionMode];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
   [v6 hash];
 
   multitouchHostStateKeys = self->_multitouchHostStateKeys;
@@ -138,25 +137,25 @@
     [(NSSet *)proximityHostStateKeys hash];
   }
 
-  v9 = *&self->_digitizerEnabled;
-
   return BSHashPurifyNS();
 }
 
 void __36__BKSHIDUISensorMode_protobufSchema__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_reason"];
-  [v2 addField:"_versionedPID"];
-  [v2 addField:"_changeSource"];
-  [v2 addField:"_proximityDetectionMode"];
-  [v2 addField:"_displayState"];
-  [v2 addField:"_digitizerEnabled"];
-  [v2 addField:"_pocketTouchesExpected"];
-  [v2 addRepeatingField:"_multitouchHostStateKeys" containsClass:objc_opt_class()];
-  [v2 addRepeatingField:"_proximityHostStateKeys" containsClass:objc_opt_class()];
-  [v2 addField:"_estimatedProximityMode"];
-  [v2 addField:"_postEventWithCurrentDetectionMask"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  objc_opt_class();
+  [v2 addRepeatingField:? containsClass:?];
+  objc_opt_class();
+  [v2 addRepeatingField:? containsClass:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 - (id)initForProtobufDecoding
@@ -168,9 +167,9 @@ void __36__BKSHIDUISensorMode_protobufSchema__block_invoke(uint64_t a1, void *a2
 
 - (id)mutableCopy
 {
-  v3 = [BKSMutableHIDUISensorMode alloc];
+  v2 = [BKSMutableHIDUISensorMode alloc];
 
-  return [(BKSHIDUISensorMode *)v3 _initCopyFrom:self];
+  return [(BKSHIDUISensorMode *)v2 _initCopyFrom:?];
 }
 
 - (BOOL)isRestrictedToSystemShell
@@ -197,22 +196,23 @@ void __36__BKSHIDUISensorMode_protobufSchema__block_invoke(uint64_t a1, void *a2
     dispatch_once(&_settingKeysAllowed__onceToken, &__block_literal_global_137);
   }
 
-  v5 = [allowedCopy intersectsSet:_settingKeysAllowed__disallowedSettingKeys];
+  v5 = [allowedCopy intersectsSet:?];
 
   return v5 ^ 1;
 }
 
 uint64_t __42__BKSHIDUISensorMode__settingKeysAllowed___block_invoke()
 {
-  _settingKeysAllowed__disallowedSettingKeys = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"ScreenOn", @"DigitizerSurfaceCovered", @"PocketTouchesExpected", @"FaceTouchesExpected", 0}];
+  v0 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"DigitizerSurfaceCovered", @"PocketTouchesExpected", @"FaceTouchesExpected", 0}];
+  v1 = _settingKeysAllowed__disallowedSettingKeys;
+  _settingKeysAllowed__disallowedSettingKeys = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)didFinishProtobufDecodingWithError:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  if ([(BKSHIDUISensorMode *)self _settingKeysAllowed:self->_multitouchHostStateKeys])
+  if ([(BKSHIDUISensorMode *)self _settingKeysAllowed:?])
   {
     selfCopy = self;
   }
@@ -222,18 +222,13 @@ uint64_t __42__BKSHIDUISensorMode__settingKeysAllowed___block_invoke()
     if (error)
     {
       v6 = MEMORY[0x1E696ABC0];
-      v7 = *MEMORY[0x1E696A798];
-      multitouchHostStateKeys = self->_multitouchHostStateKeys;
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"disallowed settings:%@", multitouchHostStateKeys, *MEMORY[0x1E696A588]];
-      v14[0] = v9;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-      *error = [v6 errorWithDomain:v7 code:22 userInfo:v10];
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:self->_multitouchHostStateKeys, *MEMORY[0x1E696A588]];
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+      *error = [v6 errorWithDomain:? code:? userInfo:?];
     }
 
     selfCopy = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -241,36 +236,34 @@ uint64_t __42__BKSHIDUISensorMode__settingKeysAllowed___block_invoke()
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __48__BKSHIDUISensorMode_appendDescriptionToStream___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = streamCopy;
   selfCopy = self;
   v5 = streamCopy;
-  [v5 appendProem:0 block:v6];
+  [v5 appendProem:v6 block:{3221225472, __48__BKSHIDUISensorMode_appendDescriptionToStream___block_invoke, &unk_1E6F47C78}];
 }
 
 id __48__BKSHIDUISensorMode_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) _identifierDescription];
-  [v2 appendString:v3 withName:0];
+  [v2 appendString:? withName:?];
 
-  v4 = [*(a1 + 32) appendInteger:objc_msgSend(*(a1 + 40) withName:{"_comparisonScore"), @"score"}];
-  v5 = *(a1 + 32);
-  v6 = *(*(a1 + 40) + 24);
+  v4 = *(a1 + 32);
+  [*(a1 + 40) _comparisonScore];
+  v5 = [v4 appendInteger:? withName:?];
+  v6 = *(a1 + 32);
   v7 = BSProcessDescriptionForPID();
-  [v5 appendString:v7 withName:0];
+  [v6 appendString:? withName:?];
 
-  [*(a1 + 32) appendString:*(*(a1 + 40) + 16) withName:@"reason"];
+  [*(a1 + 32) appendString:? withName:?];
   v8 = *(a1 + 40);
   v9 = *(v8 + 32);
   if (v9)
   {
     v10 = *(a1 + 32);
     v11 = NSStringFromBKSHIDUISensorChangeSource(v9);
-    [v10 appendString:v11 withName:@"changeSource"];
+    [v10 appendString:? withName:?];
 
     v8 = *(a1 + 40);
   }
@@ -280,28 +273,23 @@ id __48__BKSHIDUISensorMode_appendDescriptionToStream___block_invoke(uint64_t a1
   {
     v13 = *(a1 + 32);
     v14 = NSStringFromBKSHIDServicesProximityDetectionMode(v12);
-    [v13 appendString:v14 withName:@"proximityDetectionMode"];
-
-    v8 = *(a1 + 40);
+    [v13 appendString:? withName:?];
   }
 
-  v15 = [*(a1 + 32) appendBool:*(v8 + 72) withName:@"digitizerEnabled"];
-  v16 = *(a1 + 40);
-  v17 = *(v16 + 64);
-  if (v17)
+  v15 = [*(a1 + 32) appendBool:? withName:?];
+  v16 = *(*(a1 + 40) + 64);
+  if (v16)
   {
-    v18 = *(a1 + 32);
-    v19 = NSStringFromBKSHIDUISensorDisplayState(v17);
-    [v18 appendString:v19 withName:@"displayState"];
-
-    v16 = *(a1 + 40);
+    v17 = *(a1 + 32);
+    v18 = NSStringFromBKSHIDUISensorDisplayState(v16);
+    [v17 appendString:? withName:?];
   }
 
-  v20 = [*(a1 + 32) appendBool:*(v16 + 73) withName:@"pocketTouchesExpected" ifEqualTo:1];
-  v21 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 48) withName:@"multitouchHostStateKeys" skipIfNil:1];
-  v22 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 56) withName:@"proximityHostStateKeys" skipIfNil:1];
-  v23 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 74) withName:@"estimatedProximityMode" ifEqualTo:1];
-  return [*(a1 + 32) appendBool:*(*(a1 + 40) + 75) withName:@"postEventWithCurrentDetectionMask" ifEqualTo:1];
+  v19 = [*(a1 + 32) appendBool:? withName:? ifEqualTo:?];
+  v20 = [*(a1 + 32) appendObject:? withName:? skipIfNil:?];
+  v21 = [*(a1 + 32) appendObject:? withName:? skipIfNil:?];
+  v22 = [*(a1 + 32) appendBool:? withName:? ifEqualTo:?];
+  return [*(a1 + 32) appendBool:? withName:? ifEqualTo:?];
 }
 
 - (id)_initCopyFrom:(id)from
@@ -339,20 +327,25 @@ id __48__BKSHIDUISensorMode_appendDescriptionToStream___block_invoke(uint64_t a1
 - (BOOL)isEffectivelyEqualToMode:(id)mode
 {
   modeCopy = mode;
-  v5 = modeCopy[6];
-  multitouchHostStateKeys = self->_multitouchHostStateKeys;
-  v9 = BSEqualObjects() && (v7 = modeCopy[7], proximityHostStateKeys = self->_proximityHostStateKeys, BSEqualObjects()) && *(modeCopy + 10) == self->_proximityDetectionMode && *(modeCopy + 72) == self->_digitizerEnabled && modeCopy[8] == self->_displayState && *(modeCopy + 73) == self->_pocketTouchesExpected && *(modeCopy + 74) == self->_estimatedProximityMode && *(modeCopy + 75) == self->_postEventWithCurrentDetectionMask;
+  v5 = BSEqualObjects() && BSEqualObjects() && modeCopy[10] == self->_proximityDetectionMode && *(modeCopy + 72) == self->_digitizerEnabled && *(modeCopy + 8) == self->_displayState && *(modeCopy + 73) == self->_pocketTouchesExpected && *(modeCopy + 74) == self->_estimatedProximityMode && *(modeCopy + 75) == self->_postEventWithCurrentDetectionMask;
 
-  return v9;
+  return v5;
 }
 
 - (BOOL)isEqualExceptIdentifierAndReasons:(id)reasons
 {
   reasonsCopy = reasons;
-  v5 = reasonsCopy;
-  v6 = *(reasonsCopy + 24) == *&self->_versionedPID && [(BKSHIDUISensorMode *)self isEffectivelyEqualToMode:reasonsCopy];
+  if (*(reasonsCopy + 24) == *&self->_versionedPID)
+  {
+    v5 = [(BKSHIDUISensorMode *)self isEffectivelyEqualToMode:?];
+  }
 
-  return v6;
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -380,99 +373,97 @@ id __48__BKSHIDUISensorMode_appendDescriptionToStream___block_invoke(uint64_t a1
 
   v8 = v7;
 
-  v11 = v8 && v8[1] == self->_identifier && (v9 = v8[2], reason = self->_reason, BSEqualObjects()) && [(BKSHIDUISensorMode *)self isEqualExceptIdentifierAndReasons:v8];
-  return v11;
+  if (v8 && v8[1] == self->_identifier && BSEqualObjects())
+  {
+    v9 = [(BKSHIDUISensorMode *)self isEqualExceptIdentifierAndReasons:?];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy encodeInteger:self->_identifier forKey:@"identifier"];
-  reason = self->_reason;
-  if (reason)
+  [coderCopy encodeInteger:? forKey:?];
+  if (self->_reason)
   {
-    [coderCopy encodeObject:reason forKey:@"reason"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  [coderCopy encodeInt64:self->_versionedPID forKey:@"versionedPID"];
-  [coderCopy encodeInteger:self->_changeSource forKey:@"changeSource"];
-  [coderCopy encodeInteger:self->_proximityDetectionMode forKey:@"proximityDetectionMode"];
-  [coderCopy encodeInteger:self->_displayState forKey:@"displayState"];
-  [coderCopy encodeBool:self->_digitizerEnabled forKey:@"digitizerEnabled"];
-  [coderCopy encodeBool:self->_pocketTouchesExpected forKey:@"pocketTouchesExpected"];
-  [coderCopy encodeObject:self->_multitouchHostStateKeys forKey:@"multitouchHostStateKeys"];
-  [coderCopy encodeObject:self->_proximityHostStateKeys forKey:@"proximityHostStateKeys"];
-  [coderCopy encodeBool:self->_estimatedProximityMode forKey:@"estimatedProximityMode"];
-  [coderCopy encodeBool:self->_postEventWithCurrentDetectionMask forKey:@"postEventWithCurrentDetectionMask"];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (BKSHIDUISensorMode)initWithCoder:(id)coder
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v47.receiver = self;
-  v47.super_class = BKSHIDUISensorMode;
-  v5 = [(BKSHIDUISensorMode *)&v47 init];
-  v5->_identifier = [coderCopy decodeIntegerForKey:@"identifier"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"reason"];
+  v32.receiver = self;
+  v32.super_class = BKSHIDUISensorMode;
+  v5 = [(BKSHIDUISensorMode *)&v32 init];
+  v5->_identifier = [coderCopy decodeIntegerForKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
   reason = v5->_reason;
   v5->_reason = v6;
 
-  v5->_versionedPID = [coderCopy decodeInt64ForKey:@"versionedPID"];
-  v5->_changeSource = [coderCopy decodeIntegerForKey:@"changeSource"];
-  v5->_proximityDetectionMode = [coderCopy decodeIntegerForKey:@"proximityDetectionMode"];
-  v5->_displayState = [coderCopy decodeIntegerForKey:@"displayState"];
-  v5->_digitizerEnabled = [coderCopy decodeBoolForKey:@"digitizerEnabled"];
-  v5->_pocketTouchesExpected = [coderCopy decodeBoolForKey:@"pocketTouchesExpected"];
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"multitouchHostStateKeys"];
+  v5->_versionedPID = [coderCopy decodeInt64ForKey:?];
+  v5->_changeSource = [coderCopy decodeIntegerForKey:?];
+  v5->_proximityDetectionMode = [coderCopy decodeIntegerForKey:?];
+  v5->_displayState = [coderCopy decodeIntegerForKey:?];
+  v5->_digitizerEnabled = [coderCopy decodeBoolForKey:?];
+  v5->_pocketTouchesExpected = [coderCopy decodeBoolForKey:?];
+  objc_opt_class();
+  v8 = [coderCopy decodeObjectOfClass:? forKey:?];
   multitouchHostStateKeys = v5->_multitouchHostStateKeys;
   v5->_multitouchHostStateKeys = v8;
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
   v10 = v5->_multitouchHostStateKeys;
-  v11 = [(NSSet *)v10 countByEnumeratingWithState:&v43 objects:v55 count:16];
+  v11 = [NSSet countByEnumeratingWithState:v10 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v11)
   {
     v12 = v11;
-    v13 = *v44;
+    v13 = MEMORY[0];
     while (2)
     {
-      v14 = 0;
-      do
+      for (i = 0; i != v12; i = (i + 1))
       {
-        if (*v44 != v13)
+        if (MEMORY[0] != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v43 + 1) + 8 * v14);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v24 = MEMORY[0x1E696ABC0];
-          v25 = *MEMORY[0x1E696A798];
-          v53 = *MEMORY[0x1E696A588];
-          v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unsupported type in _multitouchHostStateKeys:%@", objc_opt_class()];
-          v54 = v26;
-          v27 = MEMORY[0x1E695DF20];
-          v28 = &v54;
-          v29 = &v53;
+          v22 = MEMORY[0x1E696ABC0];
+          v37 = *MEMORY[0x1E696A588];
+          v23 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
+          v38 = v23;
+          v24 = MEMORY[0x1E695DF20];
 LABEL_21:
-          v30 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:1];
-          v31 = [v24 errorWithDomain:v25 code:22 userInfo:v30];
-          [coderCopy failWithError:v31];
+          v25 = [v24 dictionaryWithObjects:? forKeys:? count:?];
+          v26 = [v22 errorWithDomain:? code:? userInfo:?];
+          [coderCopy failWithError:?];
 
           goto LABEL_22;
         }
-
-        ++v14;
       }
 
-      while (v12 != v14);
-      v12 = [(NSSet *)v10 countByEnumeratingWithState:&v43 objects:v55 count:16];
+      v12 = [NSSet countByEnumeratingWithState:v10 objects:"countByEnumeratingWithState:objects:count:" count:?];
       if (v12)
       {
         continue;
@@ -482,47 +473,35 @@ LABEL_21:
     }
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   v10 = v5->_proximityHostStateKeys;
-  v16 = [(NSSet *)v10 countByEnumeratingWithState:&v39 objects:v52 count:16];
-  if (v16)
+  v15 = [NSSet countByEnumeratingWithState:v10 objects:"countByEnumeratingWithState:objects:count:" count:?];
+  if (v15)
   {
-    v17 = v16;
-    v18 = *v40;
+    v16 = v15;
+    v17 = MEMORY[0];
     while (2)
     {
-      v19 = 0;
-      do
+      for (j = 0; j != v16; j = (j + 1))
       {
-        if (*v40 != v18)
+        if (MEMORY[0] != v17)
         {
           objc_enumerationMutation(v10);
         }
 
-        v20 = *(*(&v39 + 1) + 8 * v19);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v24 = MEMORY[0x1E696ABC0];
-          v25 = *MEMORY[0x1E696A798];
-          v50 = *MEMORY[0x1E696A588];
-          v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unsupported type in _proximityHostStateKeys:%@", objc_opt_class()];
-          v51 = v26;
-          v27 = MEMORY[0x1E695DF20];
-          v28 = &v51;
-          v29 = &v50;
+          v22 = MEMORY[0x1E696ABC0];
+          v35 = *MEMORY[0x1E696A588];
+          v23 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
+          v36 = v23;
+          v24 = MEMORY[0x1E695DF20];
           goto LABEL_21;
         }
-
-        ++v19;
       }
 
-      while (v17 != v19);
-      v17 = [(NSSet *)v10 countByEnumeratingWithState:&v39 objects:v52 count:16];
-      if (v17)
+      v16 = [NSSet countByEnumeratingWithState:v10 objects:"countByEnumeratingWithState:objects:count:" count:?];
+      if (v16)
       {
         continue;
       }
@@ -531,39 +510,38 @@ LABEL_21:
     }
   }
 
-  if ([(BKSHIDUISensorMode *)v5 _settingKeysAllowed:v5->_multitouchHostStateKeys])
+  if ([(BKSHIDUISensorMode *)v5 _settingKeysAllowed:?])
   {
-    v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"proximityHostStateKeys"];
+    objc_opt_class();
+    v19 = [coderCopy decodeObjectOfClass:? forKey:?];
     proximityHostStateKeys = v5->_proximityHostStateKeys;
-    v5->_proximityHostStateKeys = v21;
+    v5->_proximityHostStateKeys = v19;
 
-    v5->_estimatedProximityMode = [coderCopy decodeBoolForKey:@"estimatedProximityMode"];
-    v5->_postEventWithCurrentDetectionMask = [coderCopy decodeBoolForKey:@"postEventWithCurrentDetectionMask"];
-    v23 = v5;
+    v5->_estimatedProximityMode = [coderCopy decodeBoolForKey:?];
+    v5->_postEventWithCurrentDetectionMask = [coderCopy decodeBoolForKey:?];
+    v21 = v5;
   }
 
   else
   {
-    v34 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A798];
-    v48 = *MEMORY[0x1E696A588];
-    v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"disallowed settings:%@", v5->_multitouchHostStateKeys];
-    v49 = v36;
-    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    v38 = [v34 errorWithDomain:v35 code:22 userInfo:v37];
-    [coderCopy failWithError:v38];
+    v28 = MEMORY[0x1E696ABC0];
+    v33 = *MEMORY[0x1E696A588];
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:v5->_multitouchHostStateKeys];
+    v34 = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v31 = [v28 errorWithDomain:? code:? userInfo:?];
+    [coderCopy failWithError:?];
 
 LABEL_22:
-    v23 = 0;
+    v21 = 0;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v21;
 }
 
 - (BKSHIDUISensorMode)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDUISensorMode"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -592,40 +570,35 @@ LABEL_22:
 
 + (id)_prevailingMode:(id)mode
 {
-  v35 = *MEMORY[0x1E69E9840];
   modeCopy = mode;
-  v4 = [modeCopy sortedArrayUsingComparator:&__block_literal_global_105];
+  v4 = [modeCopy sortedArrayUsingComparator:?];
   lastObject = [v4 lastObject];
   proximityDetectionMode = [lastObject proximityDetectionMode];
   if ([lastObject digitizerEnabled] && !objc_msgSend(lastObject, "pocketTouchesExpected") || proximityDetectionMode == 20)
   {
-    v28 = v4;
-    v29 = modeCopy;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
+    v26 = v4;
+    v27 = modeCopy;
     v8 = v4;
-    v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
       v7 = 0;
-      v12 = *v31;
+      v12 = MEMORY[0];
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v10; i = (i + 1))
         {
-          if (*v31 != v12)
+          if (MEMORY[0] != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v30 + 1) + 8 * i);
+          v14 = *(8 * i);
           if (v14 != lastObject)
           {
-            if ([*(*(&v30 + 1) + 8 * i) digitizerEnabled] && objc_msgSend(v14, "pocketTouchesExpected"))
+            if ([*(8 * i) digitizerEnabled] && objc_msgSend(v14, "pocketTouchesExpected"))
             {
               v15 = v14;
 
@@ -645,7 +618,7 @@ LABEL_22:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v10 = [v8 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v10);
@@ -660,48 +633,44 @@ LABEL_22:
     if (v11 | v7)
     {
       v19 = [lastObject mutableCopy];
-      changeSource = [v19 changeSource];
-      modeCopy = v29;
-      if (!changeSource)
+      modeCopy = v27;
+      if (![v19 changeSource] && !objc_msgSend(v11, "changeSource"))
       {
-        changeSource = [v11 changeSource];
-        if (!changeSource)
-        {
-          changeSource = [v7 changeSource];
-        }
+        [v7 changeSource];
       }
 
-      v4 = v28;
-      [v19 setChangeSource:changeSource];
+      v4 = v26;
+      [v19 setChangeSource:?];
       reason = [lastObject reason];
-      v22 = [reason mutableCopy];
+      v21 = [reason mutableCopy];
 
       if (v11)
       {
         _identifierDescription = [v11 _identifierDescription];
-        [v22 appendFormat:@" + pocketTouches(%@)", _identifierDescription];
+        [v21 appendFormat:_identifierDescription];
 
-        [v19 setPocketTouchesExpected:1];
+        [v19 setPocketTouchesExpected:?];
       }
 
       if (v7)
       {
         _identifierDescription2 = [v7 _identifierDescription];
-        [v22 appendFormat:@" + prox(%@)", _identifierDescription2];
+        [v21 appendFormat:_identifierDescription2];
 
-        [v19 setProximityDetectionMode:{objc_msgSend(v7, "proximityDetectionMode")}];
+        [v7 proximityDetectionMode];
+        [v19 setProximityDetectionMode:?];
       }
 
-      [v19 setReason:v22];
-      v25 = [v19 copy];
+      [v19 setReason:?];
+      v24 = [v19 copy];
 
-      lastObject = v25;
+      lastObject = v24;
     }
 
     else
     {
-      v4 = v28;
-      modeCopy = v29;
+      v4 = v26;
+      modeCopy = v27;
     }
   }
 
@@ -709,8 +678,6 @@ LABEL_22:
   {
     v7 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return lastObject;
 }
@@ -729,7 +696,7 @@ uint64_t __38__BKSHIDUISensorMode__prevailingMode___block_invoke(uint64_t a1, vo
   builderCopy = builder;
   reasonCopy = reason;
   _init = [(BKSHIDUISensorMode *)[BKSMutableHIDUISensorMode alloc] _init];
-  [_init setReason:reasonCopy];
+  [_init setReason:?];
 
   builderCopy[2](builderCopy, _init);
   v8 = [_init copy];
@@ -739,7 +706,7 @@ uint64_t __38__BKSHIDUISensorMode__prevailingMode___block_invoke(uint64_t a1, vo
 
 + (BKSHIDUISensorMode)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDUISensorMode"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

@@ -22,7 +22,7 @@
 - (id)_buildItemProvidersWithoutHome
 {
   sub_20D0C1568();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70, &unk_20D5BCEC0);
   v2 = sub_20D567A58();
 
   return v2;
@@ -34,7 +34,7 @@
   selfCopy = self;
   sub_20D0BAE9C(homeCopy);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70, &unk_20D5BCEC0);
   v6 = sub_20D567A58();
 
   return v6;
@@ -42,13 +42,13 @@
 
 - (id)_buildSectionsWithDisplayedItems:(id)items
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   sub_20CEF99B4();
   v4 = sub_20D567D08();
   selfCopy = self;
   sub_20D0BB950(v4);
 
-  sub_20CECF940(0, &unk_28111FFD0);
+  sub_20CECF940(0, &unk_28111FFD0, 0x277D14778);
   v6 = sub_20D567A58();
 
   return v6;
@@ -56,7 +56,7 @@
 
 - (id)_itemsToHideInSet:(id)set
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   sub_20CEF99B4();
   v4 = sub_20D567D08();
   selfCopy = self;
@@ -78,7 +78,7 @@
   {
 
     v8.receiver = selfCopy;
-    v8.super_class = type metadata accessor for ControlCenterModuleItemManager();
+    v8.super_class = type metadata accessor for ControlCenterModuleItemManager(0);
     homeManager = [(HFItemManager *)&v8 home];
   }
 
@@ -97,7 +97,7 @@
   {
 
     v10.receiver = selfCopy;
-    v10.super_class = type metadata accessor for ControlCenterModuleItemManager();
+    v10.super_class = type metadata accessor for ControlCenterModuleItemManager(0);
     [(HFItemManager *)&v10 setHome:homeCopy];
   }
 
@@ -123,7 +123,7 @@
 
 - (id)_updateResultsForItems:(id)items context:(id)context
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   sub_20CEF99B4();
   v6 = sub_20D567D08();
   contextCopy = context;
@@ -142,7 +142,7 @@
 
 - (void)executionEnvironmentDidEnterBackground:(id)background
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C8207C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C8207C0, &qword_20D5BC800);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   backgroundCopy = background;
@@ -154,7 +154,7 @@
   swift_beginAccess();
   sub_20CFAF29C(v7, selfCopy + v11);
   swift_endAccess();
-  v12 = type metadata accessor for ControlCenterModuleItemManager();
+  v12 = type metadata accessor for ControlCenterModuleItemManager(0);
   v14.receiver = selfCopy;
   v14.super_class = v12;
   [(HFItemManager *)&v14 executionEnvironmentDidEnterBackground:backgroundCopy];

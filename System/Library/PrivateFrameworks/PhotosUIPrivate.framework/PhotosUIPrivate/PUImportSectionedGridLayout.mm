@@ -51,8 +51,8 @@
 
           if (v15)
           {
-            indexPath = [v15 indexPath];
-            [v6 addObject:indexPath];
+            v16 = objc_msgSend_indexPath(v15);
+            [v6 addObject:v16];
           }
         }
 

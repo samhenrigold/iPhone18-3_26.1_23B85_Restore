@@ -51,7 +51,7 @@ uint64_t __58__CalExchangeCalendarItemExternalRepresentation_logHandle__block_in
 
 + (id)dictionaryWithExternalRepresentationData:(id)data
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -59,9 +59,9 @@ uint64_t __58__CalExchangeCalendarItemExternalRepresentation_logHandle__block_in
     goto LABEL_12;
   }
 
-  v17 = 0;
-  logHandle = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v17];
-  v6 = v17;
+  v16 = 0;
+  logHandle = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v16];
+  v6 = v16;
   if (!logHandle)
   {
     logHandle = [self logHandle];
@@ -88,16 +88,15 @@ LABEL_10:
   }
 
 LABEL_12:
-  v15 = *MEMORY[0x1E69E9840];
 
   return logHandle;
 }
 
 + (void)externalRepresentationDataWithDictionary:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1DEBB1000, a2, a3, "Failed to serialize Exchange calendar item external representation data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DEBB1000, a2, a3, "Failed to serialize Exchange calendar item external representation data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)dictionaryWithExternalRepresentationData:(os_log_t)log .cold.1(uint64_t a1, uint8_t *buf, os_log_t log)
@@ -109,16 +108,16 @@ LABEL_12:
 
 + (void)dictionaryWithExternalRepresentationData:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1DEBB1000, a2, a3, "Exception caught while deserializating Exchange calendar item external representation data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DEBB1000, a2, a3, "Exception caught while deserializating Exchange calendar item external representation data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)dictionaryWithExternalRepresentationData:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1DEBB1000, a2, a3, "Failed to deserialize Exchange calendar item external representation data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DEBB1000, a2, a3, "Failed to deserialize Exchange calendar item external representation data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

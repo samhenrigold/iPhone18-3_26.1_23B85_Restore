@@ -5,6 +5,7 @@
 - (id)containerViewsForPlatterTreatment;
 - (void)_updateAlphas;
 - (void)_updateSelectedStatus;
+- (void)dismissPresentedContentAnimated:(BOOL)animated completion:(id)completion;
 - (void)haccIconButtonTapped;
 - (void)pauseSoundRecognitionIfNecessary;
 - (void)restartSoundRecognitionIfNecessary;
@@ -15,7 +16,9 @@
 - (void)updateViewWithAudioSample:(id)sample;
 - (void)updateViewWithExposure:(float)exposure;
 - (void)updateViewWithState:(id)state;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)willTransitionToExpandedContentMode:(BOOL)mode;
 @end
@@ -93,6 +96,43 @@
   objc_destroyWeak(&location);
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v25.receiver = self;
+  v25.super_class = HACCModuleViewController;
+  [(HACCModuleViewController *)&v25 viewWillAppear:appear];
+  objc_msgSend_startListening(self, v4, v5, v6);
+  objc_initWeak(&location, self);
+  v10 = objc_msgSend_sharedInstance(MEMORY[0x29EDC50D8], v7, v8, v9);
+  v22[0] = MEMORY[0x29EDCA5F8];
+  v22[1] = 3221225472;
+  v22[2] = sub_29C981974;
+  v22[3] = &unk_29F339258;
+  objc_copyWeak(&v23, &location);
+  objc_msgSend_registerUpdateBlock_forRetrieveSelector_withListener_(v10, v11, v22, sel_comfortSoundsEnabled, self);
+
+  v15 = objc_msgSend_sharedInstance(MEMORY[0x29EDC50D0], v12, v13, v14);
+  v20[0] = MEMORY[0x29EDCA5F8];
+  v20[1] = 3221225472;
+  v20[2] = sub_29C9819B4;
+  v20[3] = &unk_29F3392A8;
+  objc_copyWeak(&v21, &location);
+  objc_msgSend_registerListener_forLiveListenLevelsHandler_(v15, v16, self, v20);
+
+  objc_msgSend__updateSelectedStatus(self, v17, v18, v19);
+  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v23);
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = HACCModuleViewController;
+  [(HACCModuleViewController *)&v7 viewDidDisappear:disappear];
+  objc_msgSend_stopListening(self, v4, v5, v6);
+}
+
 - (void)viewWillLayoutSubviews
 {
   v6.receiver = self;
@@ -152,9 +192,24 @@
   }
 }
 
+- (void)dismissPresentedContentAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  v7 = HCLogHearing();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *v13 = 0;
+    _os_log_impl(&dword_29C980000, v7, OS_LOG_TYPE_DEFAULT, "Dismissing Control Center", v13, 2u);
+  }
+
+  v11 = objc_msgSend_presentedViewController(self, v8, v9, v10);
+  objc_msgSend_dismissViewControllerAnimated_completion_(v11, v12, animatedCopy, completionCopy);
+}
+
 - (void)haccIconButtonTapped
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v5 = objc_msgSend_contentModuleContext(self->_shortcutController, a2, v2, v3);
   objc_msgSend_requestExpandModule(v5, v6, v7, v8);
 
@@ -167,14 +222,12 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v18 = &unk_2A23E8900;
+      v17 = &unk_2A23E8900;
       _os_log_impl(&dword_29C980000, v15, OS_LOG_TYPE_INFO, "Live headphone level opened: %@", buf, 0xCu);
     }
 
     AnalyticsSendEventLazy();
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (void)pauseSoundRecognitionIfNecessary
@@ -384,7 +437,7 @@ LABEL_12:
 
 - (id)containerViewsForPlatterTreatment
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   if (_UISolariumEnabled())
   {
     if (objc_msgSend_isExpanded(self, v3, v4, v5))
@@ -395,8 +448,8 @@ LABEL_12:
     else
     {
       v10 = objc_msgSend_buttonView(self, v6, v7, v8);
-      v14[0] = v10;
-      v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v11, v14, 1);
+      v13[0] = v10;
+      v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v11, v13, 1);
     }
   }
 
@@ -404,8 +457,6 @@ LABEL_12:
   {
     v9 = 0;
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

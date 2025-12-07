@@ -27,7 +27,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TVPreviewPlayerViewController();
+  v5.super_class = type metadata accessor for TVPreviewPlayerViewController(0);
   v4 = v5.receiver;
   [(TVPreviewPlayerViewController *)&v5 viewDidAppear:appearCopy];
   sub_20BC3EA28();

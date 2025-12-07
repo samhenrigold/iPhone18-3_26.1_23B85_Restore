@@ -11,22 +11,20 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[10] = *MEMORY[0x277D85DE8];
+  v6[10] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"DirectoryURL";
-  v7[1] = @"ClientIdentifier";
-  v7[2] = @"KeySize";
-  v7[3] = @"KeyType";
-  v7[4] = @"HardwareBound";
-  v7[5] = @"Subject";
-  v7[6] = @"SubjectAltName";
-  v7[7] = @"UsageFlags";
-  v7[8] = @"ExtendedKeyUsage";
-  v7[9] = @"Attest";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:10];
+  v6[0] = @"DirectoryURL";
+  v6[1] = @"ClientIdentifier";
+  v6[2] = @"KeySize";
+  v6[3] = @"KeyType";
+  v6[4] = @"HardwareBound";
+  v6[5] = @"Subject";
+  v6[6] = @"SubjectAltName";
+  v6[7] = @"UsageFlags";
+  v6[8] = @"ExtendedKeyUsage";
+  v6[9] = @"Attest";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:10];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -114,56 +112,55 @@
 
 uint64_t __79__RMModelACMECredentialDeclaration_loadFromDictionary_serializationType_error___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v2 = a2;
-  v3 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
-    v17 = *v23;
+    v5 = *v21;
+    v15 = *v21;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 LABEL_19:
-          v14 = 0;
+          v13 = 0;
           goto LABEL_21;
         }
 
-        v20 = 0u;
-        v21 = 0u;
         v18 = 0u;
         v19 = 0u;
+        v16 = 0u;
+        v17 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v19;
+          v11 = *v17;
           while (2)
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v19 != v11)
+              if (*v17 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v18 + 1) + 8 * j);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -172,7 +169,7 @@ LABEL_19:
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
             if (v10)
             {
               continue;
@@ -182,11 +179,11 @@ LABEL_19:
           }
         }
 
-        v5 = v17;
+        v5 = v15;
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
-      v14 = 1;
+      v4 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v13 = 1;
       if (v4)
       {
         continue;
@@ -198,13 +195,12 @@ LABEL_19:
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_21:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
 }
 
 uint64_t __79__RMModelACMECredentialDeclaration_loadFromDictionary_serializationType_error___block_invoke_2(uint64_t a1, void *a2)

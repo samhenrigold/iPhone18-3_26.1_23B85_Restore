@@ -21,11 +21,12 @@
 - (PDFAKPageAdaptor)initWithPDFPage:(id)page
 {
   pageCopy = page;
-  if (GetDefaultsWriteAKEnabled())
+  v5 = GetDefaultsWriteAKEnabled();
+  if (v5)
   {
-    v5 = objc_alloc_init(AKPageModelControllerClass());
-    [v5 setRepresentedObject:pageCopy];
-    self = [(PDFAKPageAdaptor *)self initWithPDFPage:pageCopy pageModelController:v5];
+    v6 = objc_alloc_init(AKPageModelControllerClass(v5));
+    [v6 setRepresentedObject:pageCopy];
+    self = [(PDFAKPageAdaptor *)self initWithPDFPage:pageCopy pageModelController:v6];
 
     selfCopy = self;
   }
@@ -469,38 +470,38 @@
 
 - (void)_annotationsWereAdded:(id)added
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   addedCopy = added;
   pdfPage = [(PDFAKPageAdaptor *)self pdfPage];
   annotations = [pdfPage annotations];
-  v30 = self->_private->akPageModelController;
-  annotations2 = [(AKPageModelController *)v30 annotations];
-  v42 = 0u;
-  v43 = 0u;
+  v32 = self->_private->akPageModelController;
+  annotations2 = [(AKPageModelController *)v32 annotations];
   v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v7 = addedCopy;
-  v8 = [v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v43;
+    v10 = *v45;
     p_vtable = &OBJC_METACLASS___PDFAKPageOverlayViewProvider.vtable;
-    v31 = *v43;
-    v32 = pdfPage;
+    v33 = *v45;
+    v34 = pdfPage;
     do
     {
       v12 = 0;
-      v35 = v9;
+      v37 = v9;
       do
       {
-        if (*v43 != v10)
+        if (*v45 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v42 + 1) + 8 * v12);
-        AKSignatureAnnotationClass();
+        v13 = *(*(&v44 + 1) + 8 * v12);
+        AKSignatureAnnotationClass(v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -512,7 +513,7 @@
             undoManager = [view undoManager];
             [undoManager undo];
 
-            v9 = v35;
+            v9 = v37;
             [v16 setSignatureAnnotationForRendering:v13];
             [view removeControlForAnnotation:v16];
             goto LABEL_42;
@@ -526,7 +527,7 @@
           goto LABEL_43;
         }
 
-        v36 = v18;
+        v38 = v18;
         v19 = [annotations2 indexOfObjectIdenticalTo:v13];
         for (i = v19 + 1; ; ++i)
         {
@@ -536,9 +537,10 @@
           }
 
           v16 = [annotations2 objectAtIndex:i];
-          if (([v7 containsObject:v16] & 1) == 0)
+          v21 = [v7 containsObject:v16];
+          if ((v21 & 1) == 0)
           {
-            AKCropAnnotationClass();
+            AKCropAnnotationClass(v21);
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               break;
@@ -548,7 +550,7 @@
 
         if (v16)
         {
-          v34 = 0;
+          v36 = 0;
           goto LABEL_27;
         }
 
@@ -559,13 +561,14 @@ LABEL_18:
           goto LABEL_40;
         }
 
-        view = v36;
+        view = v38;
         while (1)
         {
           v16 = [annotations2 objectAtIndex:--v19];
-          if (([v7 containsObject:v16] & 1) == 0)
+          v22 = [v7 containsObject:v16];
+          if ((v22 & 1) == 0)
           {
-            AKCropAnnotationClass();
+            AKCropAnnotationClass(v22);
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               break;
@@ -581,41 +584,41 @@ LABEL_18:
 
         if (v16)
         {
-          v34 = 1;
+          v36 = 1;
 LABEL_27:
+          v42 = 0u;
+          v43 = 0u;
           v40 = 0u;
           v41 = 0u;
-          v38 = 0u;
-          v39 = 0u;
           obj = annotations;
-          v21 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
-          if (v21)
+          v23 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+          if (v23)
           {
-            v22 = v21;
-            v23 = *v39;
+            v24 = v23;
+            v25 = *v41;
 LABEL_29:
-            v24 = 0;
+            v26 = 0;
             while (1)
             {
-              if (*v39 != v23)
+              if (*v41 != v25)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v25 = *(*(&v38 + 1) + 8 * v24);
-              akAnnotationAdaptor = [v25 akAnnotationAdaptor];
+              v27 = *(*(&v40 + 1) + 8 * v26);
+              akAnnotationAdaptor = [v27 akAnnotationAdaptor];
               akAnnotation = [akAnnotationAdaptor akAnnotation];
-              v28 = akAnnotation;
+              v30 = akAnnotation;
               if (akAnnotation == v16)
               {
                 break;
               }
 
-              if (v22 == ++v24)
+              if (v24 == ++v26)
               {
-                v22 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+                v24 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
                 p_vtable = (&OBJC_METACLASS___PDFAKPageOverlayViewProvider + 24);
-                if (v22)
+                if (v24)
                 {
                   goto LABEL_29;
                 }
@@ -624,22 +627,22 @@ LABEL_29:
               }
             }
 
-            v29 = v25;
+            v31 = v27;
 
-            if (v29)
+            if (v31)
             {
-              pdfPage = v32;
-              [v32 insertAnnotation:v36 atIndex:{objc_msgSend(obj, "indexOfObjectIdenticalTo:", v29) + v34}];
+              pdfPage = v34;
+              [v34 insertAnnotation:v38 atIndex:{objc_msgSend(obj, "indexOfObjectIdenticalTo:", v31) + v36}];
 
-              view = v36;
-              v10 = v31;
+              view = v38;
+              v10 = v33;
               p_vtable = (&OBJC_METACLASS___PDFAKPageOverlayViewProvider + 24);
-              v9 = v35;
+              v9 = v37;
               goto LABEL_42;
             }
 
-            v10 = v31;
-            pdfPage = v32;
+            v10 = v33;
+            pdfPage = v34;
             p_vtable = (&OBJC_METACLASS___PDFAKPageOverlayViewProvider + 24);
           }
 
@@ -647,13 +650,13 @@ LABEL_29:
           {
 LABEL_35:
 
-            v10 = v31;
-            pdfPage = v32;
+            v10 = v33;
+            pdfPage = v34;
           }
 
-          v9 = v35;
+          v9 = v37;
 LABEL_40:
-          view = v36;
+          view = v38;
         }
 
 LABEL_41:
@@ -665,10 +668,11 @@ LABEL_43:
       }
 
       while (v12 != v9);
-      v9 = [v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v9 = v8;
     }
 
-    while (v9);
+    while (v8);
   }
 }
 

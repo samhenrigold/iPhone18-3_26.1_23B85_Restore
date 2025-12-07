@@ -28,55 +28,55 @@
 
 - (AVRouteDetector)init
 {
-  v20.receiver = self;
-  v20.super_class = AVRouteDetector;
-  v2 = [(AVRouteDetector *)&v20 init];
-  if (v2 && (v3 = objc_alloc_init(AVRouteDetectorInternal), (v2->_routeDetectorInternal = v3) != 0) && (v3->multipleRoutesDetected = 0, v2->_routeDetectorInternal->detectsCustomRoutes = 0, v2->_routeDetectorInternal->routeDetectionEnabled = 0, v2->_routeDetectorInternal->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avroutedetector.ivars"), (v2->_routeDetectorInternal->outputDeviceDiscoverySession = [objc_alloc(MEMORY[0x1E6958810]) initWithDeviceFeatures:1]) != 0))
+  v21.receiver = self;
+  v21.super_class = AVRouteDetector;
+  v2 = [(AVRouteDetector *)&v21 init];
+  if (v2 && (v3 = objc_alloc_init(AVRouteDetectorInternal), (v2->_routeDetectorInternal = v3) != 0) && (v3->multipleRoutesDetected = 0, v2->_routeDetectorInternal->detectsCustomRoutes = 0, v2->_routeDetectorInternal->routeDetectionEnabled = 0, v2->_routeDetectorInternal->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avroutedetector.ivars", v4), (v2->_routeDetectorInternal->outputDeviceDiscoverySession = [objc_alloc(MEMORY[0x1E6958810]) initWithDeviceFeatures:1]) != 0))
   {
     objc_initWeak(&location, v2);
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     outputDeviceDiscoverySession = v2->_routeDetectorInternal->outputDeviceDiscoverySession;
     mainQueue = [MEMORY[0x1E696ADC8] mainQueue];
-    v7 = *MEMORY[0x1E69587A0];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __23__AVRouteDetector_init__block_invoke;
-    v17[3] = &unk_1E7460BB0;
-    objc_copyWeak(&v18, &location);
-    v2->_routeDetectorInternal->outputDevicesChangeNotificationToken = [defaultCenter addObserverForName:v7 object:outputDeviceDiscoverySession queue:mainQueue usingBlock:v17];
+    v8 = *MEMORY[0x1E69587A0];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __23__AVRouteDetector_init__block_invoke;
+    v18[3] = &unk_1E7460BB0;
+    objc_copyWeak(&v19, &location);
+    v2->_routeDetectorInternal->outputDevicesChangeNotificationToken = [defaultCenter addObserverForName:v8 object:outputDeviceDiscoverySession queue:mainQueue usingBlock:v18];
     defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __23__AVRouteDetector_init__block_invoke_2;
-    v15[3] = &unk_1E7460BB0;
-    objc_copyWeak(&v16, &location);
-    v2->_routeDetectorInternal->didEnterBackgroundNotificationToken = [defaultCenter2 addObserverForName:@"UIApplicationDidEnterBackgroundNotification" object:0 queue:0 usingBlock:v15];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __23__AVRouteDetector_init__block_invoke_2;
+    v16[3] = &unk_1E7460BB0;
+    objc_copyWeak(&v17, &location);
+    v2->_routeDetectorInternal->didEnterBackgroundNotificationToken = [defaultCenter2 addObserverForName:@"UIApplicationDidEnterBackgroundNotification" object:0 queue:0 usingBlock:v16];
     defaultCenter3 = [MEMORY[0x1E696AD88] defaultCenter];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __23__AVRouteDetector_init__block_invoke_3;
+    v14[3] = &unk_1E7460BB0;
+    objc_copyWeak(&v15, &location);
+    v2->_routeDetectorInternal->didEnterForegroundNotificationToken = [defaultCenter3 addObserverForName:@"UIApplicationWillEnterForegroundNotification" object:0 queue:0 usingBlock:v14];
+    v11 = v2;
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&location);
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __23__AVRouteDetector_init__block_invoke_3;
-    v13[3] = &unk_1E7460BB0;
-    objc_copyWeak(&v14, &location);
-    v2->_routeDetectorInternal->didEnterForegroundNotificationToken = [defaultCenter3 addObserverForName:@"UIApplicationWillEnterForegroundNotification" object:0 queue:0 usingBlock:v13];
-    v10 = v2;
-    objc_destroyWeak(&v14);
-    objc_destroyWeak(&v16);
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&location);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __23__AVRouteDetector_init__block_invoke_4;
-    v12[3] = &unk_1E7460C00;
-    v12[4] = v2;
-    AVSerializeOnQueueAsyncIfNecessary(MEMORY[0x1E69E96A0], v12);
+    v13[2] = __23__AVRouteDetector_init__block_invoke_4;
+    v13[3] = &unk_1E7460C00;
+    v13[4] = v2;
+    AVSerializeOnQueueAsyncIfNecessary(MEMORY[0x1E69E96A0], v13);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 uint64_t __23__AVRouteDetector_init__block_invoke(uint64_t a1)
@@ -102,7 +102,7 @@ uint64_t __23__AVRouteDetector_init__block_invoke_3(uint64_t a1)
 
 uint64_t __23__AVRouteDetector_init__block_invoke_4(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (AVRouteDetectorShouldAppBeConsideredForeground_sniffUIApplicationOnce != -1)
   {
     __23__AVRouteDetector_init__block_invoke_4_cold_1();
@@ -399,27 +399,27 @@ LABEL_4:
 
   if (!customRouteDiscoverySession)
   {
-    v8 = objc_alloc_init(getDADiscoveryConfigurationClass());
-    [v8 setBundleID:{objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8], "mainBundle"), "bundleIdentifier")}];
-    [v8 setBluetoothServices:0];
-    [v8 setBluetoothCompanyIdentifiers:0];
-    [v8 setBonjourServiceTypes:0];
-    [v8 setPresenceOnly:1];
-    self->_routeDetectorInternal->customRouteDiscoverySession = [objc_alloc(getDADiscoveryClass()) initWithConfiguration:v8 error:0];
+    v9 = objc_alloc_init(getDADiscoveryConfigurationClass());
+    [v9 setBundleID:{objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8], "mainBundle"), "bundleIdentifier")}];
+    [v9 setBluetoothServices:0];
+    [v9 setBluetoothCompanyIdentifiers:0];
+    [v9 setBonjourServiceTypes:0];
+    v7 = [v9 setPresenceOnly:1];
+    self->_routeDetectorInternal->customRouteDiscoverySession = [objc_alloc(getDADiscoveryClass(v7)) initWithConfiguration:v9 error:0];
     if (self->_routeDetectorInternal->customRouteDiscoverySession)
     {
       objc_initWeak(&location, self);
       [(DADiscovery *)self->_routeDetectorInternal->customRouteDiscoverySession setDispatchQueue:MEMORY[0x1E69E96A0]];
-      v7 = self->_routeDetectorInternal->customRouteDiscoverySession;
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __47__AVRouteDetector__updateRouteDetectionEnabled__block_invoke;
-      v9[3] = &unk_1E74661B8;
-      objc_copyWeak(&v10, &location);
-      [(DADiscovery *)v7 setEventHandler:v9];
+      v8 = self->_routeDetectorInternal->customRouteDiscoverySession;
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __47__AVRouteDetector__updateRouteDetectionEnabled__block_invoke;
+      v10[3] = &unk_1E74661B8;
+      objc_copyWeak(&v11, &location);
+      [(DADiscovery *)v8 setEventHandler:v10];
       [(DADiscovery *)self->_routeDetectorInternal->customRouteDiscoverySession activate];
 
-      objc_destroyWeak(&v10);
+      objc_destroyWeak(&v11);
       objc_destroyWeak(&location);
     }
 
@@ -453,7 +453,7 @@ void *__47__AVRouteDetector__updateRouteDetectionEnabled__block_invoke(uint64_t 
 
 - (void)_didEnterBackground
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCE90)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -462,12 +462,12 @@ void *__47__AVRouteDetector__updateRouteDetectionEnabled__block_invoke(uint64_t 
   }
 
   self->_routeDetectorInternal->routeDetectionSuspended = 1;
-  [(AVRouteDetector *)self _updateRouteDetectionEnabled:v4];
+  [(AVRouteDetector *)self _updateRouteDetectionEnabled];
 }
 
 - (void)_didEnterForeground
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCE90)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -476,7 +476,7 @@ void *__47__AVRouteDetector__updateRouteDetectionEnabled__block_invoke(uint64_t 
   }
 
   self->_routeDetectorInternal->routeDetectionSuspended = 0;
-  [(AVRouteDetector *)self _updateRouteDetectionEnabled:v4];
+  [(AVRouteDetector *)self _updateRouteDetectionEnabled];
 }
 
 @end

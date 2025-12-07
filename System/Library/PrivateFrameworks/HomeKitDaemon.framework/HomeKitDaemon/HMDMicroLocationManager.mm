@@ -9,7 +9,7 @@
 
 - (void)triggerThrottledMicroLocationLocalizationScanWithMetadata:(id)metadata triggerType:(unint64_t)type
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   if (type >= 3)
   {
@@ -20,11 +20,11 @@
     {
       v11 = HMFGetLogIdentifier();
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-      v34 = 138543618;
-      v35 = v11;
-      v36 = 2112;
-      v37 = v12;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Invalid HMDMicroLocationScanTriggerType: %@ for Localization Scan", &v34, 0x16u);
+      v33 = 138543618;
+      v34 = v11;
+      v35 = 2112;
+      v36 = v12;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Invalid HMDMicroLocationScanTriggerType: %@ for Localization Scan", &v33, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -66,11 +66,11 @@
       {
         v24 = HMFGetLogIdentifier();
         v25 = off_278689170[type];
-        v34 = 138543618;
-        v35 = v24;
-        v36 = 2112;
-        v37 = v25;
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Skipping microlocation localization scan for event: %@, throttling in effect", &v34, 0x16u);
+        v33 = 138543618;
+        v34 = v24;
+        v35 = 2112;
+        v36 = v25;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Skipping microlocation localization scan for event: %@, throttling in effect", &v33, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -90,23 +90,21 @@
   {
     v30 = HMFGetLogIdentifier();
     v31 = off_278689170[type];
-    v34 = 138543618;
-    v35 = v30;
-    v36 = 2112;
-    v37 = v31;
-    _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Performing microlocation localization scan for event: %@", &v34, 0x16u);
+    v33 = 138543618;
+    v34 = v30;
+    v35 = 2112;
+    v36 = v31;
+    _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Performing microlocation localization scan for event: %@", &v33, 0x16u);
   }
 
   objc_autoreleasePoolPop(v27);
   [objc_getProperty(selfCopy3 v32];
 LABEL_16:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerThrottledMicroLocationRecordingScanWithMetadata:(id)metadata triggerType:(unint64_t)type
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   if (type >= 3)
   {
@@ -117,11 +115,11 @@ LABEL_16:
     {
       v11 = HMFGetLogIdentifier();
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-      v34 = 138543618;
-      v35 = v11;
-      v36 = 2112;
-      v37 = v12;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Invalid HMDMicroLocationScanTriggerType: %@ for Recording Scan", &v34, 0x16u);
+      v33 = 138543618;
+      v34 = v11;
+      v35 = 2112;
+      v36 = v12;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Invalid HMDMicroLocationScanTriggerType: %@ for Recording Scan", &v33, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -163,11 +161,11 @@ LABEL_16:
       {
         v24 = HMFGetLogIdentifier();
         v25 = off_278689170[type];
-        v34 = 138543618;
-        v35 = v24;
-        v36 = 2112;
-        v37 = v25;
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Skipping microlocation recording scan for event type: %@, throttling in effect", &v34, 0x16u);
+        v33 = 138543618;
+        v34 = v24;
+        v35 = 2112;
+        v36 = v25;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Skipping microlocation recording scan for event type: %@, throttling in effect", &v33, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -187,18 +185,16 @@ LABEL_16:
   {
     v30 = HMFGetLogIdentifier();
     v31 = off_278689170[type];
-    v34 = 138543618;
-    v35 = v30;
-    v36 = 2112;
-    v37 = v31;
-    _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Performing microlocation recording scan for event: %@", &v34, 0x16u);
+    v33 = 138543618;
+    v34 = v30;
+    v35 = 2112;
+    v36 = v31;
+    _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Performing microlocation recording scan for event: %@", &v33, 0x16u);
   }
 
   objc_autoreleasePoolPop(v27);
   [objc_getProperty(selfCopy3 v32];
 LABEL_16:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMicroLocationManager)initWithLocationManager:(id)manager dateFactory:(id)factory
@@ -243,10 +239,9 @@ LABEL_16:
 
 void __38__HMDMicroLocationManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_275940;
-  logCategory__hmf_once_v9_275940 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_275940;
+  logCategory__hmf_once_v9_275940 = v0;
 }
 
 @end

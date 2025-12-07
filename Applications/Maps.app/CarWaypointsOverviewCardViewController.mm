@@ -21,7 +21,7 @@
 
 - (NSArray)waypoints
 {
-  sub_100014C84(0, &qword_101914500);
+  sub_100014C84(0, &qword_101914500, GEOComposedWaypoint_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -30,7 +30,7 @@
 
 - (void)setWaypoints:(id)waypoints
 {
-  sub_100014C84(0, &qword_101914500);
+  sub_100014C84(0, &qword_101914500, GEOComposedWaypoint_ptr);
   *(self + OBJC_IVAR____TtC4Maps38CarWaypointsOverviewCardViewController_waypoints) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
 
@@ -39,7 +39,7 @@
 
 - (_TtC4Maps38CarWaypointsOverviewCardViewController)initWithDelegate:(id)delegate
 {
-  sub_100014C84(0, &qword_101914500);
+  sub_100014C84(0, &qword_101914500, GEOComposedWaypoint_ptr);
   swift_unknownObjectRetain();
   isa = Array._bridgeToObjectiveC()().super.isa;
   v6 = [(CarWaypointsOverviewCardViewController *)self initWithDelegate:delegate waypoints:isa];
@@ -50,7 +50,7 @@
 
 - (_TtC4Maps38CarWaypointsOverviewCardViewController)initWithDelegate:(id)delegate waypoints:(id)waypoints
 {
-  sub_100014C84(0, &qword_101914500);
+  sub_100014C84(0, &qword_101914500, GEOComposedWaypoint_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = swift_unknownObjectRetain();
   v6 = sub_10024F1D8(v5, v4);

@@ -26,7 +26,7 @@
   if (v3)
   {
     v4 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
-    [(CKBalloonView *)v3 balloonDescriptor];
+    objc_msgSend_balloonDescriptor(v3);
     v5 = [(CKBalloonMaskLayer *)v4 initWithDescriptor:&v8];
     linkViewMaskLayer = v3->_linkViewMaskLayer;
     v3->_linkViewMaskLayer = v5;
@@ -116,20 +116,20 @@
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Fu, @"Calling sizeThatFits when LPLinkView has not been configured yet.", v17, v18, v19, v20, v21, v22, v27.receiver);
     }
 
-    v21.receiver = self;
-    v21.super_class = CKLinkBalloonView;
-    [(CKImageBalloonView *)&v21 sizeThatFits:insets textAlignmentInsets:tailInsets tailInsets:width, height];
-    v10 = v17;
-    v12 = v18;
+    v27.receiver = self;
+    v27.super_class = CKLinkBalloonView;
+    [(CKImageBalloonView *)&v27 sizeThatFits:insets textAlignmentInsets:tailInsets tailInsets:width, height];
+    v10 = v23;
+    v12 = v24;
   }
 
-  v19 = v10;
-  v20 = v12;
-  result.height = v20;
-  result.width = v19;
+  v25 = v10;
+  v26 = v12;
+  result.height = v26;
+  result.width = v25;
   return result;
 }
 
@@ -158,7 +158,7 @@
   v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  [(CKLinkBalloonView *)self backdropBalloonDescriptor];
+  objc_msgSend_backdropBalloonDescriptor(self);
   linkViewBackgroundLayer = [(CKLinkBalloonView *)self linkViewBackgroundLayer];
 
   if (linkViewBackgroundLayer)
@@ -205,7 +205,7 @@
     v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    [(CKLinkBalloonView *)self linkOverlayBalloonDescriptor];
+    objc_msgSend_linkOverlayBalloonDescriptor(self);
     linkOverlayBalloonLayer = self->_linkOverlayBalloonLayer;
     if (linkOverlayBalloonLayer)
     {
@@ -256,7 +256,7 @@
     return 1;
   }
 
-  [(CKBalloonView *)self balloonDescriptor:0];
+  objc_msgSend_balloonDescriptor(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   if (v6 - 1 < 4)
   {
     return 1;
@@ -323,7 +323,7 @@
 
     [(LPLinkView *)self->_linkView setAlpha:v20];
     linkViewMaskLayer = [(CKLinkBalloonView *)self linkViewMaskLayer];
-    [(CKLinkBalloonView *)self linkViewBalloonDescriptor];
+    objc_msgSend_linkViewBalloonDescriptor(self);
     [linkViewMaskLayer updateDescriptor:v42];
 
     [(LPLinkView *)self->_linkView bounds];
@@ -370,7 +370,7 @@
     v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    [(CKLinkBalloonView *)self backdropBalloonDescriptor];
+    objc_msgSend_backdropBalloonDescriptor(self);
     traitCollection = [(CKLinkBalloonView *)self traitCollection];
     linkViewBackgroundLayer = self->_linkViewBackgroundLayer;
     v16[4] = v21;
@@ -405,7 +405,7 @@
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  [(CKLinkBalloonView *)self linkViewBalloonDescriptor];
+  objc_msgSend_linkViewBalloonDescriptor(self, a3);
   retstr->var2 = 0;
   retstr->var6 = -1;
   retstr->var9 = 1;
@@ -431,7 +431,7 @@
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self, a3);
   result = [(CKImageBalloonView *)self isScheduled];
   if (result)
   {
@@ -480,7 +480,7 @@
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  result = [(CKBalloonView *)self balloonDescriptor];
+  result = objc_msgSend_balloonDescriptor(self, a3);
   v6 = 0;
   var2 = retstr->var2;
   if (var2 > 2)

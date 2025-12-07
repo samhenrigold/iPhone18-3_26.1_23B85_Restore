@@ -78,7 +78,7 @@ uint64_t __81__WFSendMessageActionUIKitUserInterface_cancelPresentationWithCompl
 
 - (void)showWithRecipients:(id)recipients content:(id)content files:(id)files completionHandler:(id)handler
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   recipientsCopy = recipients;
   contentCopy = content;
   filesCopy = files;
@@ -90,59 +90,57 @@ uint64_t __81__WFSendMessageActionUIKitUserInterface_cancelPresentationWithCompl
     block[1] = 3221225472;
     block[2] = __92__WFSendMessageActionUIKitUserInterface_showWithRecipients_content_files_completionHandler___block_invoke;
     block[3] = &unk_278C37690;
-    v19 = recipientsCopy;
-    v20 = contentCopy;
+    v18 = recipientsCopy;
+    v19 = contentCopy;
     selfCopy = self;
-    v22 = filesCopy;
+    v21 = filesCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v14 = v19;
+    v14 = v18;
   }
 
   else
   {
-    v23 = *MEMORY[0x277CCA450];
+    v22 = *MEMORY[0x277CCA450];
     v15 = WFLocalizedString(@"Cannot send messages. iMessage may not be enabled.");
-    v24[0] = v15;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v23[0] = v15;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
 
     v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:3328 userInfo:v14];
     handlerCopy[2](handlerCopy, 0, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __92__WFSendMessageActionUIKitUserInterface_showWithRecipients_content_files_completionHandler___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CD6888]);
   v3 = [*(a1 + 32) if_map:&__block_literal_global_4751];
   [v2 setRecipients:v3];
 
   [v2 setBody:*(a1 + 40)];
   [v2 setMessageComposeDelegate:*(a1 + 48)];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v18 = a1;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v17 = a1;
   v4 = *(a1 + 56);
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [v9 filename];
         v11 = [v9 wfType];
         v12 = WFLivePhotoFileType();
@@ -169,14 +167,13 @@ void __92__WFSendMessageActionUIKitUserInterface_showWithRecipients_content_file
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
 
-  [*(v18 + 48) presentContent:v2];
-  v17 = *MEMORY[0x277D85DE8];
+  [*(v17 + 48) presentContent:v2];
 }
 
 - (void)showWithRecipients:(id)recipients content:(id)content attachments:(id)attachments completionHandler:(id)handler

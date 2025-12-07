@@ -163,7 +163,7 @@
   mCurrentState = self->mCurrentState;
   if (mCurrentState)
   {
-    [(MFPGraphicsState *)mCurrentState pageTransform];
+    objc_msgSend_pageTransform(mCurrentState, a2);
   }
 
   else

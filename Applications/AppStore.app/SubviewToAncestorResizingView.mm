@@ -33,7 +33,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000F43F4();
+  sub_1000F43F4(v2);
 }
 
 @end

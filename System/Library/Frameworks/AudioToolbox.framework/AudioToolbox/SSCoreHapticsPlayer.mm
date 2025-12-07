@@ -3,6 +3,7 @@
 - (BOOL)doInit:(id)init haptic:(id)haptic error:(id *)error;
 - (BOOL)playWithOptions:(id)options completionCallbackToken:(unsigned int)token error:(id *)error;
 - (BOOL)prepareHapticPatternFromPlayOptions:(id)options;
+- (BOOL)startPlayerAtTime:(double)time forAudio:(BOOL)audio error:(id *)error;
 - (SSCoreHapticsPlayer)initWithAudio:(id)audio haptic:(id)haptic error:(id *)error;
 - (SSCoreHapticsPlayer)initWithAudio:(id)audio hapticDictionary:(id)dictionary error:(id *)error;
 - (id)getHapticDictionaryFromURL:(id)l;
@@ -22,7 +23,7 @@
 - (void)prewarm:(BOOL)prewarm
 {
   prewarmCopy = prewarm;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (kSystemSoundClientLogSubsystem)
   {
     v5 = *kSystemSoundClientLogSubsystem;
@@ -42,22 +43,22 @@
   {
     v7 = @"Unprewarming";
     ssid = self->_ssid;
-    v11 = 136316162;
-    v12 = "SSCoreHapticsPlayer.mm";
-    v13 = 1024;
+    v10 = 136316162;
+    v11 = "SSCoreHapticsPlayer.mm";
+    v12 = 1024;
     if (prewarmCopy)
     {
       v7 = @"Prewarming";
     }
 
-    v14 = 603;
-    v15 = 2112;
-    v16 = v7;
-    v17 = 1024;
-    v18 = ssid;
-    v19 = 2048;
+    v13 = 603;
+    v14 = 2112;
+    v15 = v7;
+    v16 = 1024;
+    v17 = ssid;
+    v18 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %@ SSID %u, SSCoreHapticsPlayer %p", &v11, 0x2Cu);
+    _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %@ SSID %u, SSCoreHapticsPlayer %p", &v10, 0x2Cu);
   }
 
 LABEL_10:
@@ -71,14 +72,12 @@ LABEL_10:
   {
     [(CHHapticEngine *)engine stopPrewarm];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop:(BOOL)stop
 {
   stopCopy = stop;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!kSystemSoundClientLogSubsystem)
   {
     v5 = MEMORY[0x1E69E9C10];
@@ -87,17 +86,17 @@ LABEL_6:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       ssid = self->_ssid;
-      v9 = 136316162;
-      v10 = "SSCoreHapticsPlayer.mm";
-      v11 = 1024;
-      v12 = 585;
-      v13 = 1024;
-      v14 = ssid;
-      v15 = 2048;
+      v8 = 136316162;
+      v9 = "SSCoreHapticsPlayer.mm";
+      v10 = 1024;
+      v11 = 585;
+      v12 = 1024;
+      v13 = ssid;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 1024;
-      v18 = stopCopy;
-      _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Stopping SSID %u, SSCoreHapticsPlayer %p. stopNow: %d", &v9, 0x28u);
+      v16 = 1024;
+      v17 = stopCopy;
+      _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Stopping SSID %u, SSCoreHapticsPlayer %p. stopNow: %d", &v8, 0x28u);
     }
 
     if (stopCopy)
@@ -118,7 +117,7 @@ LABEL_6:
   {
 LABEL_4:
     [(SSCoreHapticsPlayer *)self registerCompletionAndStop];
-    goto LABEL_13;
+    return;
   }
 
 LABEL_9:
@@ -131,39 +130,36 @@ LABEL_9:
   {
     [(CHHapticAdvancedPatternPlayerExtended *)self->_hapticPlayer setLoopEnabled:0];
   }
-
-LABEL_13:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)playWithOptions:(id)options completionCallbackToken:(unsigned int)token error:(id *)error
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v8 = getpid();
   self->_clientCompletionToken = token;
   v9 = [(SSCoreHapticsPlayer *)self prepareHapticPatternFromPlayOptions:optionsCopy];
-  SSClientPlayOptions::SSClientPlayOptions(&v64, self->_ssid, optionsCopy);
-  if (*(&v64 + 3) < 0.0)
+  SSClientPlayOptions::SSClientPlayOptions(&v63, self->_ssid, optionsCopy);
+  if (*(&v63 + 3) < 0.0)
   {
-    HIDWORD(v64) = 0;
+    HIDWORD(v63) = 0;
   }
 
   v10 = 0.0;
-  if (*&v65 < 0.0 || (v10 = 1.0, *&v65 > 1.0))
+  if (*&v64 < 0.0 || (v10 = 1.0, *&v64 > 1.0))
   {
-    *&v65 = v10;
+    *&v64 = v10;
   }
 
   v11 = -1.0;
-  if (*(&v65 + 1) < -1.0 || (v11 = 1.0, *(&v65 + 1) > 1.0))
+  if (*(&v64 + 1) < -1.0 || (v11 = 1.0, *(&v64 + 1) > 1.0))
   {
-    *(&v65 + 1) = v11;
+    *(&v64 + 1) = v11;
   }
 
-  if (*(&v65 + 2) < 0.0)
+  if (*(&v64 + 2) < 0.0)
   {
-    DWORD2(v65) = 0;
+    DWORD2(v64) = 0;
   }
 
   if (kSystemSoundClientLogSubsystem)
@@ -185,32 +181,32 @@ LABEL_13:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     ssid = self->_ssid;
-    caulk::platform::process_name(v8);
-    v16 = v57 >= 0 ? &__p : __p;
+    caulk::platform::process_name(&__p, v8);
+    v16 = v56 >= 0 ? &__p : __p;
     *buf = 136317698;
     *&buf[4] = "SSCoreHapticsPlayer.mm";
     *&buf[12] = 1024;
     *&buf[14] = 489;
     *&buf[18] = 1024;
     *&buf[20] = ssid;
+    LOWORD(v68) = 1024;
+    *(&v68 + 2) = v8;
+    WORD3(v68) = 2080;
+    *(&v68 + 1) = v16;
     LOWORD(v69) = 1024;
-    *(&v69 + 2) = v8;
-    WORD3(v69) = 2080;
-    *(&v69 + 1) = v16;
-    LOWORD(v70) = 1024;
-    *(&v70 + 2) = DWORD1(v64);
-    HIWORD(v70) = 1024;
-    *v71 = v9;
-    *&v71[4] = 1024;
-    *&v71[6] = BYTE12(v65);
-    *v72 = 2048;
-    *&v72[2] = *(&v64 + 3);
-    v73 = 1024;
-    v74 = DWORD2(v64);
-    v75 = 2048;
+    *(&v69 + 2) = DWORD1(v63);
+    HIWORD(v69) = 1024;
+    *v70 = v9;
+    *&v70[4] = 1024;
+    *&v70[6] = BYTE12(v64);
+    *v71 = 2048;
+    *&v71[2] = *(&v63 + 3);
+    v72 = 1024;
+    v73 = DWORD2(v63);
+    v74 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1B9A08000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d -> Incoming Request : SSID %d, inClientPID %d(%s), behaviorID %d, customHapticsProvided %d, loop %d, loopPeriod %f, inFlags %u, SSCoreHapticsPlayer %p", buf, 0x54u);
-    if (SHIBYTE(v57) < 0)
+    if (SHIBYTE(v56) < 0)
     {
       operator delete(__p);
     }
@@ -222,8 +218,8 @@ LABEL_22:
   shouldPlayAudioFinal = audioPlayer != 0;
   self->_shouldPlayAudioFinal = audioPlayer != 0;
   self->_shouldPlayHapticsFinal = hapticPlayer != 0;
-  v20 = BYTE8(v64);
-  if ((BYTE8(v64) & 1) == 0)
+  v20 = BYTE8(v63);
+  if ((BYTE8(v63) & 1) == 0)
   {
     goto LABEL_32;
   }
@@ -254,8 +250,8 @@ LABEL_22:
       *&buf[14] = 499;
       *&buf[18] = 1024;
       *&buf[20] = v23;
-      LOWORD(v69) = 2048;
-      *(&v69 + 2) = self;
+      LOWORD(v68) = 2048;
+      *(&v68 + 2) = self;
       _os_log_impl(&dword_1B9A08000, v21, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Disabling audio for SSID %d, SSCoreHapticsPlayer %p as suppress audio flag is set", buf, 0x22u);
     }
   }
@@ -292,8 +288,8 @@ LABEL_32:
         *&buf[14] = 503;
         *&buf[18] = 1024;
         *&buf[20] = v26;
-        LOWORD(v69) = 2048;
-        *(&v69 + 2) = self;
+        LOWORD(v68) = 2048;
+        *(&v68 + 2) = self;
         _os_log_impl(&dword_1B9A08000, v24, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Disabling haptics for SSID %d, SSCoreHapticsPlayer %p as suppress haptic flag is set", buf, 0x22u);
       }
     }
@@ -333,10 +329,10 @@ LABEL_65:
       *&buf[14] = 508;
       *&buf[18] = 1024;
       *&buf[20] = v42;
-      LOWORD(v69) = 1024;
-      *(&v69 + 2) = DWORD1(v64);
-      WORD3(v69) = 2048;
-      *(&v69 + 1) = self;
+      LOWORD(v68) = 1024;
+      *(&v68 + 2) = DWORD1(v63);
+      WORD3(v68) = 2048;
+      *(&v68 + 1) = self;
       _os_log_impl(&dword_1B9A08000, v41, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Both sound and haptic flags are false for SSID %d, behaviorID: %d, SSCoreHapticsPlayer %p", buf, 0x28u);
     }
 
@@ -369,105 +365,104 @@ LABEL_48:
       *&buf[14] = 523;
       *&buf[18] = 1024;
       *&buf[20] = v33;
-      LOWORD(v69) = 2048;
-      *(&v69 + 2) = self;
-      WORD5(v69) = 1024;
-      HIDWORD(v69) = v32;
-      LOWORD(v70) = 1024;
-      *(&v70 + 2) = shouldPlayHapticsFinal;
-      HIWORD(v70) = 2048;
-      *v71 = *&v65;
-      *&v71[8] = 1024;
-      *v72 = 0;
-      *&v72[4] = 1024;
-      *&v72[6] = 0;
+      LOWORD(v68) = 2048;
+      *(&v68 + 2) = self;
+      WORD5(v68) = 1024;
+      HIDWORD(v68) = v32;
+      LOWORD(v69) = 1024;
+      *(&v69 + 2) = shouldPlayHapticsFinal;
+      HIWORD(v69) = 2048;
+      *v70 = *&v64;
+      *&v70[8] = 1024;
+      *v71 = 0;
+      *&v71[4] = 1024;
+      *&v71[6] = 0;
       _os_log_impl(&dword_1B9A08000, v30, OS_LOG_TYPE_DEFAULT, "%25s:%-5d SSID %d, SSCoreHapticsPlayer %p, shouldPlayAudio %d, shouldPlayHaptics %d, clientVolumeScalar %f, needsUnduckCall %d, interruptCurrentSystemSounds %d", buf, 0x44u);
     }
   }
 
   objc_initWeak(&location, self);
-  v61[0] = MEMORY[0x1E69E9820];
-  v61[1] = 3221225472;
-  v61[2] = __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke;
-  v61[3] = &unk_1E7ECEAE0;
-  objc_copyWeak(&v62, &location);
-  [(CHHapticAdvancedPatternPlayerExtended *)self->_audioPlayer setCompletionHandler:v61];
-  v59[0] = MEMORY[0x1E69E9820];
-  v59[1] = 3221225472;
-  v59[2] = __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke_63;
-  v59[3] = &unk_1E7ECEAE0;
-  objc_copyWeak(&v60, &location);
-  [(CHHapticAdvancedPatternPlayerExtended *)self->_hapticPlayer setCompletionHandler:v59];
-  if (BYTE12(v65) == 1)
+  v60[0] = MEMORY[0x1E69E9820];
+  v60[1] = 3221225472;
+  v60[2] = __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke;
+  v60[3] = &unk_1E7ECEAE0;
+  objc_copyWeak(&v61, &location);
+  [(CHHapticAdvancedPatternPlayerExtended *)self->_audioPlayer setCompletionHandler:v60];
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke_63;
+  v58[3] = &unk_1E7ECEAE0;
+  objc_copyWeak(&v59, &location);
+  [(CHHapticAdvancedPatternPlayerExtended *)self->_hapticPlayer setCompletionHandler:v58];
+  if (BYTE12(v64) == 1)
   {
     [(SSCoreHapticsPlayer *)self setupLooping];
   }
 
   __p = 0;
   p_p = &__p;
-  v57 = 0x2020000000;
-  v58 = 1;
+  v56 = 0x2020000000;
+  v57 = 1;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  *&v69 = __Block_byref_object_copy__3676;
-  *(&v69 + 1) = __Block_byref_object_dispose__3677;
-  v70 = 0;
+  *&v68 = __Block_byref_object_copy__3676;
+  *(&v68 + 1) = __Block_byref_object_dispose__3677;
+  v69 = 0;
   engine = self->_engine;
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3321888768;
-  v46[2] = __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke_64;
-  v46[3] = &unk_1F37BD028;
-  v46[4] = self;
-  v49 = &__p;
-  v52 = v65;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3321888768;
+  v45[2] = __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke_64;
+  v45[3] = &unk_1F37BD028;
+  v45[4] = self;
+  v48 = &__p;
   v51 = v64;
+  v50 = v63;
   v35 = cf;
   if (cf)
   {
     CFRetain(cf);
   }
 
-  v53 = v35;
-  applesauce::xpc::object::object(&v54, v67);
-  v47 = optionsCopy;
-  v50 = buf;
+  v52 = v35;
+  applesauce::xpc::object::object(&v53, v66);
+  v46 = optionsCopy;
+  v49 = buf;
   v36 = v27;
-  v48 = v36;
-  [(CHHapticEngine *)engine startWithCompletionHandler:v46];
+  v47 = v36;
+  [(CHHapticEngine *)engine startWithCompletionHandler:v45];
   v37 = *(p_p + 24);
 
-  v38 = v54;
-  v54 = 0;
+  v38 = v53;
+  v53 = 0;
 
-  if (v53)
+  if (v52)
   {
-    CFRelease(v53);
+    CFRelease(v52);
   }
 
   _Block_object_dispose(buf, 8);
 
   _Block_object_dispose(&__p, 8);
-  objc_destroyWeak(&v60);
-  objc_destroyWeak(&v62);
+  objc_destroyWeak(&v59);
+  objc_destroyWeak(&v61);
   objc_destroyWeak(&location);
 
 LABEL_66:
-  v43 = v67;
-  v67 = 0;
+  v43 = v66;
+  v66 = 0;
 
   if (cf)
   {
     CFRelease(cf);
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
 void __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (kSystemSoundClientLogSubsystem)
   {
@@ -487,24 +482,22 @@ void __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___b
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v4 = WeakRetained[10];
-    v6 = 136315650;
-    v7 = "SSCoreHapticsPlayer.mm";
-    v8 = 1024;
-    v9 = 529;
-    v10 = 1024;
-    v11 = v4;
-    _os_log_impl(&dword_1B9A08000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Audio player completion handler called. SSID %d", &v6, 0x18u);
+    v5 = 136315650;
+    v6 = "SSCoreHapticsPlayer.mm";
+    v7 = 1024;
+    v8 = 529;
+    v9 = 1024;
+    v10 = v4;
+    _os_log_impl(&dword_1B9A08000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Audio player completion handler called. SSID %d", &v5, 0x18u);
   }
 
 LABEL_8:
   [WeakRetained registerCompletionPortion:1];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke_63(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (kSystemSoundClientLogSubsystem)
   {
@@ -524,24 +517,22 @@ void __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___b
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v4 = WeakRetained[10];
-    v6 = 136315650;
-    v7 = "SSCoreHapticsPlayer.mm";
-    v8 = 1024;
-    v9 = 534;
-    v10 = 1024;
-    v11 = v4;
-    _os_log_impl(&dword_1B9A08000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Haptic player completion handler called. SSID %d", &v6, 0x18u);
+    v5 = 136315650;
+    v6 = "SSCoreHapticsPlayer.mm";
+    v7 = 1024;
+    v8 = 534;
+    v9 = 1024;
+    v10 = v4;
+    _os_log_impl(&dword_1B9A08000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Haptic player completion handler called. SSID %d", &v5, 0x18u);
   }
 
 LABEL_8:
   [WeakRetained registerCompletionPortion:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __69__SSCoreHapticsPlayer_playWithOptions_completionCallbackToken_error___block_invoke_64(uint64_t a1, void *a2)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -568,15 +559,15 @@ LABEL_9:
       v6 = *(a1 + 32);
       v7 = *(v6 + 80);
       *buf = 136316162;
-      v50 = "SSCoreHapticsPlayer.mm";
-      v51 = 1024;
-      v52 = 548;
-      v53 = 2048;
-      *v54 = v6;
-      *&v54[8] = 1024;
-      *v55 = v7;
-      *&v55[4] = 2112;
-      *&v55[6] = v3;
+      v49 = "SSCoreHapticsPlayer.mm";
+      v50 = 1024;
+      v51 = 548;
+      v52 = 2048;
+      *v53 = v6;
+      *&v53[8] = 1024;
+      *v54 = v7;
+      *&v54[4] = 2112;
+      *&v54[6] = v3;
       _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot start SSCoreHapticsPlayer %p for SSID %d, error %@", buf, 0x2Cu);
     }
 
@@ -609,17 +600,17 @@ LABEL_15:
       v14 = *(a1 + 76);
       v15 = *(a1 + 88);
       *buf = 136316418;
-      v50 = "SSCoreHapticsPlayer.mm";
-      v51 = 1024;
-      v52 = 555;
-      v53 = 1024;
-      *v54 = v13;
-      *&v54[4] = 1024;
-      *&v54[6] = v14;
-      *v55 = 2048;
-      *&v55[2] = v12;
-      *&v55[10] = 2048;
-      *&v55[12] = v15;
+      v49 = "SSCoreHapticsPlayer.mm";
+      v50 = 1024;
+      v51 = 555;
+      v52 = 1024;
+      *v53 = v13;
+      *&v53[4] = 1024;
+      *&v53[6] = v14;
+      *v54 = 2048;
+      *&v54[2] = v12;
+      *&v54[10] = 2048;
+      *&v54[12] = v15;
       _os_log_impl(&dword_1B9A08000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Starting audio: SSID %u, behaviorID %u, SSCoreHapticsPlayer %p, clientVolumeScalar %f", buf, 0x32u);
     }
   }
@@ -647,9 +638,9 @@ LABEL_15:
   v26 = v25 + 0.03;
   v27 = *(a1 + 32);
   v28 = *(*(a1 + 64) + 8);
-  v47 = *(v28 + 40);
-  v29 = [v27 startPlayerAtTime:1 forAudio:&v47 error:v25 + 0.03];
-  objc_storeStrong((v28 + 40), v47);
+  v46 = *(v28 + 40);
+  v29 = [v27 startPlayerAtTime:1 forAudio:&v46 error:v25 + 0.03];
+  objc_storeStrong((v28 + 40), v46);
   if ((v29 & 1) == 0)
   {
     *(*(*(a1 + 56) + 8) + 24) = 0;
@@ -658,9 +649,9 @@ LABEL_15:
   v30 = *(*(a1 + 32) + 8);
   v31 = *(a1 + 48);
   v32 = *(*(a1 + 64) + 8);
-  v46 = *(v32 + 40);
-  [v30 sendParameters:v31 atTime:&v46 error:v26];
-  objc_storeStrong((v32 + 40), v46);
+  v45 = *(v32 + 40);
+  [v30 sendParameters:v31 atTime:&v45 error:v26];
+  objc_storeStrong((v32 + 40), v45);
 
   v8 = *(a1 + 32);
 LABEL_24:
@@ -689,32 +680,30 @@ LABEL_29:
       v39 = *(a1 + 32);
       v40 = *(v39 + 80);
       *buf = 136316162;
-      v50 = "SSCoreHapticsPlayer.mm";
-      v51 = 1024;
-      v52 = 573;
-      v53 = 1024;
-      *v54 = v40;
-      *&v54[4] = 1024;
-      *&v54[6] = v38;
-      *v55 = 2048;
-      *&v55[2] = v39;
+      v49 = "SSCoreHapticsPlayer.mm";
+      v50 = 1024;
+      v51 = 573;
+      v52 = 1024;
+      *v53 = v40;
+      *&v53[4] = 1024;
+      *&v53[6] = v38;
+      *v54 = 2048;
+      *&v54[2] = v39;
       _os_log_impl(&dword_1B9A08000, v37, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Starting haptics: SSID %u, behaviorID %u, SSCoreHapticsPlayer %p", buf, 0x28u);
     }
   }
 
   v41 = *(a1 + 32);
   v42 = *(*(a1 + 64) + 8);
-  v45 = *(v42 + 40);
-  v43 = [v41 startPlayerAtTime:0 forAudio:&v45 error:v34 + 0.03];
-  objc_storeStrong((v42 + 40), v45);
+  v44 = *(v42 + 40);
+  v43 = [v41 startPlayerAtTime:0 forAudio:&v44 error:v34 + 0.03];
+  objc_storeStrong((v42 + 40), v44);
   if ((v43 & 1) == 0)
   {
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
 
 LABEL_34:
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (SSCoreHapticsPlayer)initWithAudio:(id)audio hapticDictionary:(id)dictionary error:(id *)error
@@ -791,7 +780,7 @@ LABEL_34:
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (kSystemSoundClientLogSubsystem)
   {
     v3 = *kSystemSoundClientLogSubsystem;
@@ -810,10 +799,10 @@ LABEL_34:
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v12 = "SSCoreHapticsPlayer.mm";
-    v13 = 1024;
-    v14 = 429;
-    v15 = 2048;
+    v11 = "SSCoreHapticsPlayer.mm";
+    v12 = 1024;
+    v13 = 429;
+    v14 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1B9A08000, v3, OS_LOG_TYPE_INFO, "%25s:%-5d Destroying SSCoreHapticsPlayer %p", buf, 0x1Cu);
   }
@@ -831,21 +820,20 @@ LABEL_8:
   hapticPlayer = self->_hapticPlayer;
   self->_hapticPlayer = 0;
 
-  v10.receiver = self;
-  v10.super_class = SSCoreHapticsPlayer;
-  [(SSCoreHapticsPlayer *)&v10 dealloc];
-  v9 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = SSCoreHapticsPlayer;
+  [(SSCoreHapticsPlayer *)&v9 dealloc];
 }
 
 - (void)registerCompletionPortion:(BOOL)portion
 {
   portionCopy = portion;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (portion)
   {
     if (!self->_audioPlayer)
     {
-      goto LABEL_25;
+      return;
     }
 
     p_audioPlaybackFinished = &self->_audioPlaybackFinished;
@@ -859,7 +847,7 @@ LABEL_8:
   {
     if (!self->_hapticPlayer)
     {
-      goto LABEL_25;
+      return;
     }
 
     p_audioPlaybackFinished = &self->_hapticPlaybackFinished;
@@ -873,8 +861,8 @@ LABEL_4:
         if (!v6)
         {
 LABEL_18:
-          [(SSCoreHapticsPlayer *)self handleFinish];
-          goto LABEL_25;
+          [(SSCoreHapticsPlayer *)self handleFinish:*v14];
+          return;
         }
       }
 
@@ -888,22 +876,22 @@ LABEL_18:
       {
         v9 = @"Haptics";
         ssid = self->_ssid;
-        *&v15[4] = "SSCoreHapticsPlayer.mm";
-        *v15 = 136316162;
-        *&v15[12] = 1024;
+        *&v14[4] = "SSCoreHapticsPlayer.mm";
+        *v14 = 136316162;
+        *&v14[12] = 1024;
         if (portionCopy)
         {
           v9 = @"Audio";
         }
 
-        *&v15[14] = 415;
-        v16 = 2112;
-        v17 = v9;
-        v18 = 1024;
-        v19 = ssid;
-        v20 = 2048;
+        *&v14[14] = 415;
+        v15 = 2112;
+        v16 = v9;
+        v17 = 1024;
+        v18 = ssid;
+        v19 = 2048;
         selfCopy2 = self;
-        _os_log_impl(&dword_1B9A08000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %@ completed for SSID %d, SSCoreHapticsPlayer %p", v15, 0x2Cu);
+        _os_log_impl(&dword_1B9A08000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %@ completed for SSID %d, SSCoreHapticsPlayer %p", v14, 0x2Cu);
       }
 
       goto LABEL_18;
@@ -915,7 +903,7 @@ LABEL_18:
     v7 = *kSystemSoundClientLogSubsystem;
     if (!v7)
     {
-      goto LABEL_25;
+      return;
     }
   }
 
@@ -929,26 +917,23 @@ LABEL_18:
   {
     v12 = @"Haptics";
     v13 = self->_ssid;
-    *&v15[4] = "SSCoreHapticsPlayer.mm";
-    *v15 = 136316162;
-    *&v15[12] = 1024;
+    *&v14[4] = "SSCoreHapticsPlayer.mm";
+    *v14 = 136316162;
+    *&v14[12] = 1024;
     if (portionCopy)
     {
       v12 = @"Audio";
     }
 
-    *&v15[14] = 410;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 1024;
-    v19 = v13;
-    v20 = 2048;
+    *&v14[14] = 410;
+    v15 = 2112;
+    v16 = v12;
+    v17 = 1024;
+    v18 = v13;
+    v19 = 2048;
     selfCopy2 = self;
-    _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d %@ for SSID %d, SSCoreHapticsPlayer %p has already finished or never started", v15, 0x2Cu);
+    _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d %@ for SSID %d, SSCoreHapticsPlayer %p has already finished or never started", v14, 0x2Cu);
   }
-
-LABEL_25:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFinish
@@ -967,7 +952,7 @@ LABEL_25:
 
 void __35__SSCoreHapticsPlayer_handleFinish__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (kSystemSoundClientLogSubsystem)
   {
@@ -988,27 +973,89 @@ void __35__SSCoreHapticsPlayer_handleFinish__block_invoke(uint64_t a1, void *a2)
   {
     v6 = *(a1 + 32);
     v7 = *(v6 + 80);
-    v10 = 136315906;
-    v11 = "SSCoreHapticsPlayer.mm";
-    v12 = 1024;
-    v13 = 397;
-    v14 = 1024;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v6;
-    _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d System sound finished playing, SSID %d, SSCoreHapticsPlayer %p", &v10, 0x22u);
+    v9 = 136315906;
+    v10 = "SSCoreHapticsPlayer.mm";
+    v11 = 1024;
+    v12 = 397;
+    v13 = 1024;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v6;
+    _os_log_impl(&dword_1B9A08000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d System sound finished playing, SSID %d, SSCoreHapticsPlayer %p", &v9, 0x22u);
   }
 
 LABEL_8:
   v8 = CADeprecated::TSingleton<SSClientCompletion>::instance();
   SSClientCompletion::SendClientCompletion(v8, *(*(a1 + 32) + 64), *(*(a1 + 32) + 80));
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (BOOL)startPlayerAtTime:(double)time forAudio:(BOOL)audio error:(id *)error
+{
+  audioCopy = audio;
+  v30 = *MEMORY[0x1E69E9840];
+  v9 = 16;
+  if (audio)
+  {
+    v9 = 8;
+  }
+
+  v10 = *(&self->super.isa + v9);
+  [v10 startAtTime:error error:time];
+  v11 = *error;
+  if (*error)
+  {
+    if (kSystemSoundClientLogSubsystem)
+    {
+      v12 = *kSystemSoundClientLogSubsystem;
+      if (!v12)
+      {
+LABEL_13:
+        [(SSCoreHapticsPlayer *)self registerCompletionPortion:audioCopy];
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      v12 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      ssid = self->_ssid;
+      v15 = @"haptics";
+      v16 = *error;
+      if (audioCopy)
+      {
+        v15 = @"audio";
+      }
+
+      v18 = 136316418;
+      v19 = "SSCoreHapticsPlayer.mm";
+      v20 = 1024;
+      v21 = 386;
+      v22 = 2112;
+      v23 = v15;
+      v24 = 1024;
+      v25 = ssid;
+      v26 = 2048;
+      selfCopy = self;
+      v28 = 2112;
+      v29 = v16;
+      _os_log_impl(&dword_1B9A08000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot start %@ portion for SSID %d, SSCoreHapticsPlayer %p, error %@", &v18, 0x36u);
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_14:
+
+  return v11 == 0;
 }
 
 - (void)setupLooping
 {
-  shouldPlayHapticsFinal = self->_shouldPlayHapticsFinal;
   if (self->_shouldPlayAudioFinal)
   {
     if (self->_shouldPlayHapticsFinal)
@@ -1053,7 +1100,7 @@ LABEL_8:
 
 - (BOOL)prepareHapticPatternFromPlayOptions:(id)options
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = [options objectForKey:@"PlaySystemSoundOption_VibrationPattern"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1095,10 +1142,10 @@ LABEL_8:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v15 = "SSCoreHapticsPlayer.mm";
-        v16 = 1024;
-        v17 = 343;
-        v18 = 2048;
+        v14 = "SSCoreHapticsPlayer.mm";
+        v15 = 1024;
+        v16 = 343;
+        v17 = 2048;
         selfCopy = self;
         _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d playOptions contain haptic pattern identical to the one stored in SSCoreHapticsPlayer %p. NOT recreating haptic player", buf, 0x1Cu);
       }
@@ -1109,8 +1156,8 @@ LABEL_8:
     hapticPlayer = self->_hapticPlayer;
     self->_hapticPlayer = 0;
 
-    v13 = 0;
-    [(SSCoreHapticsPlayer *)self createHapticPlayer:v6 error:&v13];
+    v12 = 0;
+    [(SSCoreHapticsPlayer *)self createHapticPlayer:v6 error:&v12];
 LABEL_16:
 
     v8 = 1;
@@ -1121,13 +1168,12 @@ LABEL_10:
   v8 = 0;
 LABEL_17:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)getHapticDictionaryFromURL:(id)l
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if ([lCopy isFileURL])
   {
@@ -1168,16 +1214,16 @@ LABEL_5:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v23 = "SSCoreHapticsPlayer.mm";
-        v24 = 1024;
-        v25 = 307;
+        v22 = "SSCoreHapticsPlayer.mm";
+        v23 = 1024;
+        v24 = 307;
         _os_log_impl(&dword_1B9A08000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d Creating haptic dictionary from JSON or AHAP...", buf, 0x12u);
       }
 
 LABEL_19:
-      v21 = 0;
-      v14 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v11 options:0 error:&v21];
-      v13 = v21;
+      v20 = 0;
+      v14 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v11 options:0 error:&v20];
+      v13 = v20;
       if (v13)
       {
         if (kSystemSoundClientLogSubsystem)
@@ -1198,11 +1244,11 @@ LABEL_19:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v23 = "SSCoreHapticsPlayer.mm";
-          v24 = 1024;
-          v25 = 310;
-          v26 = 2112;
-          v27 = v13;
+          v22 = "SSCoreHapticsPlayer.mm";
+          v23 = 1024;
+          v24 = 310;
+          v25 = 2112;
+          v26 = v13;
           _os_log_impl(&dword_1B9A08000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot create haptic dictionary. error: %@", buf, 0x1Cu);
         }
       }
@@ -1232,9 +1278,9 @@ LABEL_27:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v23 = "SSCoreHapticsPlayer.mm";
-    v24 = 1024;
-    v25 = 314;
+    v22 = "SSCoreHapticsPlayer.mm";
+    v23 = 1024;
+    v24 = 314;
     _os_log_impl(&dword_1B9A08000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Incoming ahapURL not a valid file path URL or file type not supported. Not creating haptic portion", buf, 0x12u);
   }
 
@@ -1242,14 +1288,13 @@ LABEL_27:
 LABEL_28:
 
 LABEL_29:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BOOL)doInit:(id)init haptic:(id)haptic error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   initCopy = init;
   hapticCopy = haptic;
   if (kSystemSoundClientLogSubsystem)
@@ -1285,8 +1330,8 @@ LABEL_8:
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
   *&buf[24] = __Block_byref_object_copy__3676;
-  v48 = __Block_byref_object_dispose__3677;
-  v49 = 0;
+  v47 = __Block_byref_object_dispose__3677;
+  v48 = 0;
   self->_audioResourceID = 0;
   *&self->_shouldPlayAudioFinal = 16842752;
   setupDefaultEngineConfigBlock = [(SSCoreHapticsPlayer *)self setupDefaultEngineConfigBlock];
@@ -1321,10 +1366,10 @@ LABEL_8:
       v28 = *v19;
       *location = 136315650;
       *&location[4] = "SSCoreHapticsPlayer.mm";
-      v43 = 1024;
-      v44 = 248;
-      v45 = 2112;
-      v46 = v28;
+      v42 = 1024;
+      v43 = 248;
+      v44 = 2112;
+      v45 = v28;
       _os_log_impl(&dword_1B9A08000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot initialize CHHapticEngine. error: %@", location, 0x1Cu);
     }
 
@@ -1354,16 +1399,16 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v40 = 0;
-  v21 = [(SSCoreHapticsPlayer *)self createAudioResource:initCopy error:&v40];
-  objc_storeStrong(v19, v40);
+  v39 = 0;
+  v21 = [(SSCoreHapticsPlayer *)self createAudioResource:initCopy error:&v39];
+  objc_storeStrong(v19, v39);
   self->_audioResourceID = v21;
   if (v21)
   {
     v22 = (*&buf[8] + 40);
-    v39 = *(*&buf[8] + 40);
-    v23 = [(SSCoreHapticsPlayer *)self createAudioPlayerAndReturnError:&v39];
-    objc_storeStrong(v22, v39);
+    v38 = *(*&buf[8] + 40);
+    v23 = [(SSCoreHapticsPlayer *)self createAudioPlayerAndReturnError:&v38];
+    objc_storeStrong(v22, v38);
     if (v23)
     {
       [(CHHapticEngine *)self->_engine setFollowAudioRoute:1];
@@ -1371,33 +1416,32 @@ LABEL_26:
   }
 
   v24 = (*&buf[8] + 40);
-  v38 = *(*&buf[8] + 40);
-  [(SSCoreHapticsPlayer *)self createHapticPlayer:hapticCopy error:&v38];
-  objc_storeStrong(v24, v38);
+  v37 = *(*&buf[8] + 40);
+  [(SSCoreHapticsPlayer *)self createHapticPlayer:hapticCopy error:&v37];
+  objc_storeStrong(v24, v37);
   objc_initWeak(location, self);
-  v32 = MEMORY[0x1E69E9820];
-  v33 = 3221225472;
-  v34 = __43__SSCoreHapticsPlayer_doInit_haptic_error___block_invoke;
-  v35 = &unk_1E7ECEA90;
-  objc_copyWeak(&v37, location);
-  v36 = buf;
-  [(CHHapticEngine *)self->_engine setResetHandler:&v32];
-  objc_destroyWeak(&v37);
+  v31 = MEMORY[0x1E69E9820];
+  v32 = 3221225472;
+  v33 = __43__SSCoreHapticsPlayer_doInit_haptic_error___block_invoke;
+  v34 = &unk_1E7ECEA90;
+  objc_copyWeak(&v36, location);
+  v35 = buf;
+  [(CHHapticEngine *)self->_engine setResetHandler:&v31];
+  objc_destroyWeak(&v36);
   objc_destroyWeak(location);
-  v25 = [SSCoreHapticsInfo instance:v32];
+  v25 = [SSCoreHapticsInfo instance:v31];
   self->_ssid = [v25 generateNewSSIDForPlayer:self];
 
   v26 = self->_ssid != 0;
 LABEL_27:
 
   _Block_object_dispose(buf, 8);
-  v30 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 void __43__SSCoreHapticsPlayer_doInit_haptic_error___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (kSystemSoundClientLogSubsystem)
   {
@@ -1417,11 +1461,11 @@ void __43__SSCoreHapticsPlayer_doInit_haptic_error___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v21 = "SSCoreHapticsPlayer.mm";
-    v22 = 1024;
-    v23 = 271;
-    v24 = 2048;
-    v25 = WeakRetained;
+    v20 = "SSCoreHapticsPlayer.mm";
+    v21 = 1024;
+    v22 = 271;
+    v23 = 2048;
+    v24 = WeakRetained;
     _os_log_impl(&dword_1B9A08000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d SSCoreHapticsPlayer %p: Lost connection with server. re-creating players", buf, 0x1Cu);
   }
 
@@ -1437,53 +1481,50 @@ LABEL_8:
   objc_storeStrong((v8 + 40), obj);
   v9 = WeakRetained[3];
   v10 = *(*(a1 + 32) + 8);
-  v18 = *(v10 + 40);
-  v11 = [WeakRetained createAudioResource:v9 error:&v18];
-  objc_storeStrong((v10 + 40), v18);
+  v17 = *(v10 + 40);
+  v11 = [WeakRetained createAudioResource:v9 error:&v17];
+  objc_storeStrong((v10 + 40), v17);
   WeakRetained[4] = v11;
   if (v11)
   {
     v12 = *(*(a1 + 32) + 8);
-    v17 = *(v12 + 40);
-    [WeakRetained createAudioPlayerAndReturnError:&v17];
-    objc_storeStrong((v12 + 40), v17);
+    v16 = *(v12 + 40);
+    [WeakRetained createAudioPlayerAndReturnError:&v16];
+    objc_storeStrong((v12 + 40), v16);
   }
 
   v13 = WeakRetained[5];
   v14 = *(*(a1 + 32) + 8);
-  v16 = *(v14 + 40);
-  [WeakRetained createHapticPlayer:v13 error:&v16];
-  objc_storeStrong((v14 + 40), v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  v15 = *(v14 + 40);
+  [WeakRetained createHapticPlayer:v13 error:&v15];
+  objc_storeStrong((v14 + 40), v15);
 }
 
 - (id)setupDefaultEngineConfigBlock
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E695F550];
   v3 = *MEMORY[0x1E695F4A0];
-  v9[0] = *MEMORY[0x1E695F498];
-  v9[1] = v3;
-  v10[0] = v2;
-  v10[1] = v2;
+  v8[0] = *MEMORY[0x1E695F498];
+  v8[1] = v3;
+  v9[0] = v2;
+  v9[1] = v2;
   v4 = *MEMORY[0x1E695F4A8];
-  v9[2] = *MEMORY[0x1E695F4B8];
-  v9[3] = v4;
+  v8[2] = *MEMORY[0x1E695F4B8];
+  v8[3] = v4;
   v5 = *MEMORY[0x1E695F4F0];
-  v10[2] = *MEMORY[0x1E695F558];
-  v10[3] = v5;
-  v9[4] = @"UsageCategory";
-  v10[4] = @"SystemSound";
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:5];
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E695F558];
+  v9[3] = v5;
+  v8[4] = @"UsageCategory";
+  v9[4] = @"SystemSound";
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
 
   return v6;
 }
 
 - (void)createHapticPlayer:(id)player error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   playerCopy = player;
   v7 = playerCopy;
   if (!playerCopy)
@@ -1505,11 +1546,11 @@ LABEL_8:
 
     if (os_log_type_enabled(&hapticPatternDict->super, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 136315394;
-      v26 = "SSCoreHapticsPlayer.mm";
-      v27 = 1024;
-      v28 = 185;
-      _os_log_impl(&dword_1B9A08000, &hapticPatternDict->super, OS_LOG_TYPE_DEFAULT, "%25s:%-5d No haptic dictionary passed in", &v25, 0x12u);
+      v24 = 136315394;
+      v25 = "SSCoreHapticsPlayer.mm";
+      v26 = 1024;
+      v27 = 185;
+      _os_log_impl(&dword_1B9A08000, &hapticPatternDict->super, OS_LOG_TYPE_DEFAULT, "%25s:%-5d No haptic dictionary passed in", &v24, 0x12u);
     }
 
     goto LABEL_29;
@@ -1554,13 +1595,13 @@ LABEL_24:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       hapticPatternDuration = self->_hapticPatternDuration;
-      v25 = 136315650;
-      v26 = "SSCoreHapticsPlayer.mm";
-      v27 = 1024;
-      v28 = 196;
-      v29 = 2048;
-      v30 = hapticPatternDuration;
-      _os_log_impl(&dword_1B9A08000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d haptic duration: %.2fs", &v25, 0x1Cu);
+      v24 = 136315650;
+      v25 = "SSCoreHapticsPlayer.mm";
+      v26 = 1024;
+      v27 = 196;
+      v28 = 2048;
+      v29 = hapticPatternDuration;
+      _os_log_impl(&dword_1B9A08000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d haptic duration: %.2fs", &v24, 0x1Cu);
     }
 
     goto LABEL_24;
@@ -1584,13 +1625,13 @@ LABEL_24:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v19 = *error;
-    v25 = 136315650;
-    v26 = "SSCoreHapticsPlayer.mm";
-    v27 = 1024;
-    v28 = 192;
-    v29 = 2112;
-    v30 = *&v19;
-    _os_log_impl(&dword_1B9A08000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Invalid haptic pattern. Not creating haptic player and continue. error: %@", &v25, 0x1Cu);
+    v24 = 136315650;
+    v25 = "SSCoreHapticsPlayer.mm";
+    v26 = 1024;
+    v27 = 192;
+    v28 = 2112;
+    v29 = *&v19;
+    _os_log_impl(&dword_1B9A08000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Invalid haptic pattern. Not creating haptic player and continue. error: %@", &v24, 0x1Cu);
   }
 
 LABEL_25:
@@ -1606,13 +1647,11 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)createAudioPlayerAndReturnError:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   audioPlayer = self->_audioPlayer;
   self->_audioPlayer = 0;
 
@@ -1621,8 +1660,8 @@ LABEL_30:
   v8 = objc_alloc(MEMORY[0x1E695F598]);
   v9 = objc_alloc(MEMORY[0x1E695F580]);
   v10 = [v9 initWithAudioResourceID:self->_audioResourceID parameters:MEMORY[0x1E695E0F0] relativeTime:0.0 duration:v7];
-  v34[0] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+  v33[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
   v12 = [v8 initWithEvents:v11 parameters:MEMORY[0x1E695E0F0] error:error];
 
   if (*error)
@@ -1652,15 +1691,15 @@ LABEL_25:
     }
 
     v17 = *error;
-    v28 = 136315650;
-    v29 = "SSCoreHapticsPlayer.mm";
-    v30 = 1024;
-    v31 = 166;
-    v32 = 2112;
-    v33 = *&v17;
+    v27 = 136315650;
+    v28 = "SSCoreHapticsPlayer.mm";
+    v29 = 1024;
+    v30 = 166;
+    v31 = 2112;
+    v32 = *&v17;
     v18 = "%25s:%-5d Invalid audio pattern. Not creating audio player and continue. error: %@";
 LABEL_23:
-    _os_log_impl(&dword_1B9A08000, v13, OS_LOG_TYPE_DEFAULT, v18, &v28, 0x1Cu);
+    _os_log_impl(&dword_1B9A08000, v13, OS_LOG_TYPE_DEFAULT, v18, &v27, 0x1Cu);
     goto LABEL_24;
   }
 
@@ -1684,13 +1723,13 @@ LABEL_23:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     audioPatternDuration = self->_audioPatternDuration;
-    v28 = 136315650;
-    v29 = "SSCoreHapticsPlayer.mm";
-    v30 = 1024;
-    v31 = 172;
-    v32 = 2048;
-    v33 = audioPatternDuration;
-    _os_log_impl(&dword_1B9A08000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d audio duration: %.2fs", &v28, 0x1Cu);
+    v27 = 136315650;
+    v28 = "SSCoreHapticsPlayer.mm";
+    v29 = 1024;
+    v30 = 172;
+    v31 = 2048;
+    v32 = audioPatternDuration;
+    _os_log_impl(&dword_1B9A08000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d audio duration: %.2fs", &v27, 0x1Cu);
   }
 
 LABEL_15:
@@ -1721,12 +1760,12 @@ LABEL_15:
     }
 
     v25 = *error;
-    v28 = 136315650;
-    v29 = "SSCoreHapticsPlayer.mm";
-    v30 = 1024;
-    v31 = 175;
-    v32 = 2112;
-    v33 = *&v25;
+    v27 = 136315650;
+    v28 = "SSCoreHapticsPlayer.mm";
+    v29 = 1024;
+    v30 = 175;
+    v31 = 2112;
+    v32 = *&v25;
     v18 = "%25s:%-5d Failed to create audio player and continue. error: %@";
     goto LABEL_23;
   }
@@ -1734,20 +1773,19 @@ LABEL_15:
   v23 = 1;
 LABEL_26:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (unint64_t)createAudioResource:(id)resource error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   if (resourceCopy)
   {
     engine = self->_engine;
-    v27 = *MEMORY[0x1E695F488];
-    v28[0] = MEMORY[0x1E695E110];
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E695F488];
+    v27[0] = MEMORY[0x1E695E110];
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v9 = [(CHHapticEngine *)engine registerAudioResource:resourceCopy options:v8 error:error];
 
     if (!*error)
@@ -1778,18 +1816,18 @@ LABEL_18:
     if (os_log_type_enabled(&audioURL->super, OS_LOG_TYPE_DEFAULT))
     {
       v13 = *error;
-      v21 = 136315650;
-      v22 = "SSCoreHapticsPlayer.mm";
-      v23 = 1024;
-      v24 = 148;
-      v25 = 2112;
-      v26 = v13;
+      v20 = 136315650;
+      v21 = "SSCoreHapticsPlayer.mm";
+      v22 = 1024;
+      v23 = 148;
+      v24 = 2112;
+      v25 = v13;
       v14 = "%25s:%-5d Invalid audio resource. Not creating audio player and continue. error: %@";
       p_super = &audioURL->super;
       v16 = OS_LOG_TYPE_DEFAULT;
       v17 = 28;
 LABEL_16:
-      _os_log_impl(&dword_1B9A08000, p_super, v16, v14, &v21, v17);
+      _os_log_impl(&dword_1B9A08000, p_super, v16, v14, &v20, v17);
       goto LABEL_17;
     }
 
@@ -1803,10 +1841,10 @@ LABEL_16:
 LABEL_14:
     if (os_log_type_enabled(&audioURL->super, OS_LOG_TYPE_DEBUG))
     {
-      v21 = 136315394;
-      v22 = "SSCoreHapticsPlayer.mm";
-      v23 = 1024;
-      v24 = 141;
+      v20 = 136315394;
+      v21 = "SSCoreHapticsPlayer.mm";
+      v22 = 1024;
+      v23 = 141;
       v14 = "%25s:%-5d audioURL not valid";
       p_super = &audioURL->super;
       v16 = OS_LOG_TYPE_DEBUG;
@@ -1829,7 +1867,6 @@ LABEL_8:
   v9 = 0;
 LABEL_19:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

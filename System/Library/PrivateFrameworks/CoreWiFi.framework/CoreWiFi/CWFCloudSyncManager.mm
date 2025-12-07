@@ -34,73 +34,7 @@
   v25.receiver = self;
   v25.super_class = CWFCloudSyncManager;
   v2 = [(CWFCloudSyncManager *)&v25 init];
-  if (!v2)
-  {
-    goto LABEL_10;
-  }
-
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create("com.apple.corewifi.cloud-sync.internal", v3);
-  v5 = *(v2 + 2);
-  *(v2 + 2) = v4;
-
-  if (!*(v2 + 2))
-  {
-    goto LABEL_10;
-  }
-
-  v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v7 = dispatch_queue_create("com.apple.corewifi.cloud-sync.target", v6);
-  v8 = *(v2 + 11);
-  *(v2 + 11) = v7;
-
-  if (!*(v2 + 11))
-  {
-    goto LABEL_10;
-  }
-
-  v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v10 = *(v2 + 9);
-  *(v2 + 9) = v9;
-
-  if (!*(v2 + 9))
-  {
-    goto LABEL_10;
-  }
-
-  v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v12 = *(v2 + 8);
-  *(v2 + 8) = v11;
-
-  if (!*(v2 + 8))
-  {
-    goto LABEL_10;
-  }
-
-  v13 = [[CWFKeyValueStore alloc] initWithType:6 identifier:@"com.apple.wifi.syncable-networks"];
-  v14 = *(v2 + 1);
-  *(v2 + 1) = v13;
-
-  if (!*(v2 + 1))
-  {
-    goto LABEL_10;
-  }
-
-  objc_initWeak(&location, v2);
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = sub_1E0CD8DEC;
-  v22[3] = &unk_1E86E8C38;
-  objc_copyWeak(&v23, &location);
-  [*(v2 + 1) setEventHandler:v22];
-  objc_destroyWeak(&v23);
-  objc_destroyWeak(&location);
-  v15 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v2 + 2));
-  v16 = *(v2 + 4);
-  *(v2 + 4) = v15;
-
-  v17 = *(v2 + 4);
-  if (v17)
+  if (v2 && (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v3 = objc_claimAutoreleasedReturnValue(), v4 = dispatch_queue_create("com.apple.corewifi.cloud-sync.internal", v3), v5 = *(v2 + 2), *(v2 + 2) = v4, v5, v3, *(v2 + 2)) && (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v6 = objc_claimAutoreleasedReturnValue(), v7 = dispatch_queue_create("com.apple.corewifi.cloud-sync.target", v6), v8 = *(v2 + 11), *(v2 + 11) = v7, v8, v6, *(v2 + 11)) && (v9 = objc_alloc_init(MEMORY[0x1E695DF90]), v10 = *(v2 + 9), *(v2 + 9) = v9, v10, *(v2 + 9)) && (v11 = objc_alloc_init(MEMORY[0x1E695DF90]), v12 = *(v2 + 8), *(v2 + 8) = v11, v12, *(v2 + 8)) && (v13 = -[CWFKeyValueStore initWithType:identifier:]([CWFKeyValueStore alloc], "initWithType:identifier:", 6, @"com.apple.wifi.syncable-networks"), v14 = *(v2 + 1), *(v2 + 1) = v13, v14, *(v2 + 1)) && (objc_initWeak(&location, v2), v22[0] = MEMORY[0x1E69E9820], v22[1] = 3221225472, v22[2] = sub_1E0CD8DEC, v22[3] = &unk_1E86E8C38, objc_copyWeak(&v23, &location), [*(v2 + 1) setEventHandler:v22], objc_destroyWeak(&v23), objc_destroyWeak(&location), v15 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v2 + 2)), v16 = *(v2 + 4), *(v2 + 4) = v15, v16, (v17 = *(v2 + 4)) != 0))
   {
     ++*(v2 + 5);
     handler[0] = MEMORY[0x1E69E9820];
@@ -117,7 +51,6 @@
 
   else
   {
-LABEL_10:
 
     return 0;
   }
@@ -297,109 +230,122 @@ LABEL_10:
 
 - (BOOL)__updateCloudNetwork:(id)network error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   networkCopy = network;
   if (!networkCopy)
   {
-    v22 = CWFGetOSLog();
-    if (v22)
+    v21 = CWFGetOSLog();
+    if (v21)
     {
-      v23 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
-      v23 = MEMORY[0x1E69E9C10];
-      v28 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
+      v27 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      *v37 = 136446722;
+      *&v37[4] = "[CWFCloudSyncManager __updateCloudNetwork:error:]";
+      *&v37[12] = 2082;
+      *&v37[14] = "CWFCloudSyncManager.m";
+      v38 = 1024;
+      v39 = 259;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) NULL profile", v37, 28);
     }
 
-    v29 = *MEMORY[0x1E696A798];
-    v30 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-    v31 = v29;
-    v32 = 22;
-    goto LABEL_37;
+    v28 = *MEMORY[0x1E696A798];
+    v29 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+    v30 = v28;
+    v31 = 22;
+    goto LABEL_38;
   }
 
   if ([(CWFCloudSyncManager *)self cloudKeychainEnabled]!= 2)
   {
-    v24 = CWFGetOSLog();
-    if (v24)
+    v23 = CWFGetOSLog();
+    if (v23)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v33 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v32 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_36;
+      *v37 = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 0, "[corewifi] Cloud keychain is DISABLED", v37, 2, *v37, *&v37[8]);
     }
 
-LABEL_35:
-    _os_log_send_and_compose_impl();
-LABEL_36:
-
-    v36 = *MEMORY[0x1E696A798];
-    v30 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-    v31 = v36;
-    v32 = 45;
-LABEL_37:
-    v19 = CWFErrorWithDescription(v31, v32, v30);
-
-    goto LABEL_14;
+    goto LABEL_37;
   }
 
   if (([networkCopy isCloudSyncable] & 1) == 0)
   {
-    v26 = CWFGetOSLog();
-    if (v26)
+    v25 = CWFGetOSLog();
+    if (v25)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v34 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v33 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_36;
+      goto LABEL_37;
     }
 
-    goto LABEL_35;
+    *v37 = 138412290;
+    *&v37[4] = networkCopy;
+    v34 = "[corewifi] Cloud sync not supported for network (%@)";
+    goto LABEL_36;
   }
 
   if (![(CWFCloudSyncManager *)self __calloutToCheckIfNetworkIsSyncable:networkCopy])
   {
-    v27 = CWFGetOSLog();
-    if (v27)
+    v26 = CWFGetOSLog();
+    if (v26)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
       v35 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_36;
+      goto LABEL_37;
     }
 
-    goto LABEL_35;
+    *v37 = 138412290;
+    *&v37[4] = networkCopy;
+    v34 = "[corewifi] Cloud sync not supported (OS-specific) for network (%@)";
+LABEL_36:
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, v34, v37, 12, *v37, *&v37[8]);
+LABEL_37:
+
+    v36 = *MEMORY[0x1E696A798];
+    v29 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+    v30 = v36;
+    v31 = 45;
+LABEL_38:
+    v19 = CWFErrorWithDescription(v30, v31, v29);
+
+    goto LABEL_14;
   }
 
   v6 = [networkCopy copy];
@@ -440,7 +386,6 @@ LABEL_37:
   v19 = 0;
 LABEL_14:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19 == 0;
 }
 
@@ -561,45 +506,45 @@ LABEL_14:
 
 - (unsigned)__isCloudKeychainEnabled
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E697AA88]);
   v3 = v2;
   if (!v2)
   {
-    v11 = CWFGetOSLog();
-    if (v11)
+    v10 = CWFGetOSLog();
+    if (v10)
     {
-      v12 = CWFGetOSLog();
+      v11 = CWFGetOSLog();
     }
 
     else
     {
-      v12 = MEMORY[0x1E69E9C10];
-      v15 = MEMORY[0x1E69E9C10];
+      v11 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136446722;
-      v19 = "[CWFCloudSyncManager __isCloudKeychainEnabled]";
-      v20 = 2082;
-      v21 = "CWFCloudSyncManager.m";
-      v22 = 1024;
-      v23 = 392;
-      _os_log_send_and_compose_impl();
+      v17 = 136446722;
+      v18 = "[CWFCloudSyncManager __isCloudKeychainEnabled]";
+      v19 = 2082;
+      v20 = "CWFCloudSyncManager.m";
+      v21 = 1024;
+      v22 = 392;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] %{public}s (%{public}s:%u) [cloudsync] FAILED to initialize OTConfigurationContext", &v17, 28);
     }
 
     v4 = 0;
-    v13 = 0;
+    v12 = 0;
     v7 = 0;
     goto LABEL_19;
   }
 
   [v2 setContext:*MEMORY[0x1E697AAD0]];
   v4 = [objc_alloc(MEMORY[0x1E697AA80]) initWithContextData:v3];
-  v17 = 0;
-  v5 = [v4 fetchUserControllableViewsSyncingEnabled:&v17];
-  v6 = v17;
+  v16 = 0;
+  v5 = [v4 fetchUserControllableViewsSyncingEnabled:&v16];
+  v6 = v16;
   if (v5)
   {
     v7 = 2;
@@ -612,42 +557,41 @@ LABEL_14:
 
   if (v6)
   {
-    v13 = v6;
-    v14 = CWFGetOSLog();
-    if (v14)
+    v12 = v6;
+    v13 = CWFGetOSLog();
+    if (v13)
     {
-      v12 = CWFGetOSLog();
+      v11 = CWFGetOSLog();
     }
 
     else
     {
-      v12 = MEMORY[0x1E69E9C10];
-      v16 = MEMORY[0x1E69E9C10];
+      v11 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136446978;
-      v19 = "[CWFCloudSyncManager __isCloudKeychainEnabled]";
-      v20 = 2082;
-      v21 = "CWFCloudSyncManager.m";
-      v22 = 1024;
-      v23 = 400;
-      v24 = 2112;
-      v25 = v13;
-      _os_log_send_and_compose_impl();
+      v17 = 136446978;
+      v18 = "[CWFCloudSyncManager __isCloudKeychainEnabled]";
+      v19 = 2082;
+      v20 = "CWFCloudSyncManager.m";
+      v21 = 1024;
+      v22 = 400;
+      v23 = 2112;
+      v24 = v12;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] %{public}s (%{public}s:%u) [cloudsync] [OTClique fetchUserControllableViewsSyncingEnabled] returned error (%@)", &v17, 38);
     }
 
 LABEL_19:
 
-    v8 = v13;
+    v8 = v12;
     goto LABEL_7;
   }
 
   v8 = 0;
 LABEL_7:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -678,7 +622,8 @@ LABEL_7:
 
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          _os_log_send_and_compose_impl();
+          v13[0] = 0;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 0, "[corewifi] [cloudsync] Cloud keychain is ENABLED", v13, 2);
         }
 
         [(CWFCloudSyncManager *)self __startMonitoringKeychainChangeEvents];
@@ -700,7 +645,8 @@ LABEL_7:
 
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          _os_log_send_and_compose_impl();
+          v12[0] = 0;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] [cloudsync] Cloud keychain is DISABLED", v12, 2);
         }
 
         [(CWFCloudSyncManager *)self __stopMonitoringKeychainChangeEvents];
@@ -733,7 +679,8 @@ LABEL_7:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v8 = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] [cloudsync] Started monitoring cloud keychain sync state", &v8, 2);
   }
 
   [(CWFCloudSyncManager *)self __checkCloudKeychainSyncState];
@@ -759,36 +706,37 @@ LABEL_7:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v6[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [cloudsync] Stopped monitoring cloud keychain sync state", v6, 2);
     }
   }
 }
 
 - (id)__cloudNetworkProfiles
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
   dictionaryRepresentation = [(CWFKeyValueStore *)self->_cloudKVS dictionaryRepresentation];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [dictionaryRepresentation allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 hasPrefix:@"network."])
         {
           v11 = [dictionaryRepresentation objectForKeyedSubscript:v10];
@@ -800,14 +748,13 @@ LABEL_7:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v3 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -868,7 +815,7 @@ LABEL_7:
 
 - (void)__checkWaitingForKeychainPasswordList
 {
-  v66[2] = *MEMORY[0x1E69E9840];
+  v64[2] = *MEMORY[0x1E69E9840];
   if (clock_gettime_nsec_np(_CLOCK_MONOTONIC) - self->_checkKeychainTimestamp > 0x2540BE3FFLL)
   {
     v3 = CWFGetOSLog();
@@ -885,25 +832,23 @@ LABEL_7:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v64) = 0;
-      LODWORD(v58) = 2;
-      v57 = &v64;
-      _os_log_send_and_compose_impl();
+      LOWORD(v62) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [cloudsync] Checking waiting for password list", &v62, 2);
     }
 
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = sub_1E0CDB8BC;
-    v63[3] = &unk_1E86E72C0;
-    v63[4] = self;
-    v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:1 comparator:v63];
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = sub_1E0CDB8BC;
+    v61[3] = &unk_1E86E72C0;
+    v61[4] = self;
+    v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:1 comparator:v61];
     v7 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:0 comparator:&unk_1F5B892F0];
     allValues = [(NSMutableDictionary *)self->_waitingForKeychainNetworkMap allValues];
-    v59 = v7;
-    v60 = v6;
-    v66[0] = v6;
-    v66[1] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
+    v57 = v7;
+    v58 = v6;
+    v64[0] = v6;
+    v64[1] = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:2];
     v10 = [allValues sortedArrayUsingDescriptors:v9];
 
     v11 = CWFGetOSLog();
@@ -930,11 +875,9 @@ LABEL_7:
         v14 = [v10 count];
       }
 
-      v64 = 134217984;
-      v65 = v14;
-      LODWORD(v58) = 12;
-      v57 = &v64;
-      _os_log_send_and_compose_impl();
+      v62 = 134217984;
+      v63 = v14;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] [cloudsync] Processing next %lu networks waiting for keychain check", &v62);
     }
 
     v15 = 0;
@@ -971,10 +914,9 @@ LABEL_7:
 
         if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v64) = 0;
-          LODWORD(v58) = 2;
-          v57 = &v64;
-          _os_log_send_and_compose_impl();
+          LOWORD(v62) = 0;
+          LODWORD(v56) = 2;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v45, 0, "[corewifi] [cloudsync] Checked keychain for all networks, will wait for next keychain change event before processing again", &v62, v56);
         }
 
         self->_waitingForNextKeychainChangeEvent = 1;
@@ -995,11 +937,10 @@ LABEL_7:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         identifier2 = [v18 identifier];
-        v64 = 138412290;
-        v65 = identifier2;
-        LODWORD(v58) = 12;
-        v57 = &v64;
-        _os_log_send_and_compose_impl();
+        v62 = 138412290;
+        v63 = identifier2;
+        LODWORD(v56) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v26, 0, "[corewifi] [cloudsync] Checking keychain for %@", &v62, v56);
       }
 
       v29 = [(CWFCloudSyncManager *)self __calloutToCheckForKeychainPasswordWithNetworkProfile:v18 error:0];
@@ -1021,11 +962,10 @@ LABEL_7:
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           identifier3 = [v18 identifier];
-          v64 = 138412290;
-          v65 = identifier3;
-          LODWORD(v58) = 12;
-          v57 = &v64;
-          _os_log_send_and_compose_impl();
+          v62 = 138412290;
+          v63 = identifier3;
+          LODWORD(v56) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v32, 0, "[corewifi] [cloudsync] Found keychain password for %@, removing from waiting list", &v62, v56);
         }
 
         v36 = self->_waitingForKeychainCounterMap;
@@ -1039,7 +979,7 @@ LABEL_7:
         block[2] = sub_1E0CDBA10;
         block[3] = &unk_1E86E6420;
         block[4] = self;
-        v62 = v18;
+        v60 = v18;
         v39 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, identifier4, 0, block);
         dispatch_async(targetQueue, v39);
       }
@@ -1060,11 +1000,10 @@ LABEL_7:
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           identifier5 = [v18 identifier];
-          v64 = 138412290;
-          v65 = identifier5;
-          LODWORD(v58) = 12;
-          v57 = &v64;
-          _os_log_send_and_compose_impl();
+          v62 = 138412290;
+          v63 = identifier5;
+          LODWORD(v56) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v33, 0, "[corewifi] [cloudsync] Did not find keychain password for %@", &v62, v56);
         }
 
         v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_keychainChangeCounter];
@@ -1078,7 +1017,7 @@ LABEL_7:
       ++v15;
     }
 
-    if ([(NSMutableDictionary *)self->_waitingForKeychainCounterMap count:v57]&& !self->_waitingForNextKeychainChangeEvent)
+    if ([(NSMutableDictionary *)self->_waitingForKeychainCounterMap count]&& !self->_waitingForNextKeychainChangeEvent)
     {
       v49 = CWFGetOSLog();
       if (v49)
@@ -1094,9 +1033,9 @@ LABEL_7:
 
       if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
-        v64 = 67109120;
-        LODWORD(v65) = 10;
-        _os_log_send_and_compose_impl();
+        v62 = 67109120;
+        LODWORD(v63) = 10;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v50, 0, "[corewifi] [cloudsync] Scheduling next check keychain attempt in %ds", &v62);
       }
 
       checkKeychainTimer = self->_checkKeychainTimer;
@@ -1120,8 +1059,9 @@ LABEL_7:
 
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v64) = 0;
-        _os_log_send_and_compose_impl();
+        LOWORD(v62) = 0;
+        LODWORD(v56) = 2;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v48, 0, "[corewifi] [cloudsync] Unscheduling next check keychain attempt", &v62, v56);
       }
 
       v52 = self->_checkKeychainTimer;
@@ -1130,13 +1070,11 @@ LABEL_7:
 
     dispatch_source_set_timer(v52, v53, 0xFFFFFFFFFFFFFFFFLL, 0);
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__resetCheckKeychainCounterForRecentlyJoinedNetworks
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = CWFGetOSLog();
   if (v3)
   {
@@ -1151,16 +1089,14 @@ LABEL_7:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 0;
-    LODWORD(v17) = 2;
-    v16 = &v18;
-    _os_log_send_and_compose_impl();
+    v15[0] = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [cloudsync] Resetting keychain change counter for recently joined networks", v15, 2);
   }
 
   v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:0 comparator:&unk_1F5B8AEA0];
   allValues = [(NSMutableDictionary *)self->_waitingForKeychainNetworkMap allValues];
-  v19[0] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v16[0] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v9 = [allValues sortedArrayUsingDescriptors:v8];
 
   for (i = 0; ; ++i)
@@ -1176,8 +1112,6 @@ LABEL_7:
     identifier = [v13 identifier];
     [(NSMutableDictionary *)waitingForKeychainCounterMap setObject:0 forKeyedSubscript:identifier];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__handleKeychainChangeEvent
@@ -1212,7 +1146,8 @@ LABEL_7:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v6 = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [cloudsync] Started monitoring keychain change events", &v6, 2);
   }
 }
 
@@ -1236,7 +1171,8 @@ LABEL_7:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v6[0] = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [cloudsync] Stopped monitoring keychain change events", v6, 2);
     }
   }
 }
@@ -1333,7 +1269,7 @@ LABEL_7:
 
 - (void)__synchronizeWithLocalNetworks
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v3 = CWFGetOSLog();
   if (v3)
   {
@@ -1348,38 +1284,36 @@ LABEL_7:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v61) = 0;
-    LODWORD(v51) = 2;
-    v50 = &v61;
-    _os_log_send_and_compose_impl();
+    LOWORD(v59) = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [cloudsync] Merging cloud and local network stores", &v59, 2);
   }
 
   v6 = MEMORY[0x1E695DFA8];
   dictionaryRepresentation = [(CWFKeyValueStore *)self->_cloudKVS dictionaryRepresentation];
   allKeys = [dictionaryRepresentation allKeys];
-  v54 = [v6 setWithArray:allKeys];
+  v52 = [v6 setWithArray:allKeys];
 
   [(CWFCloudSyncManager *)self __calloutToFetchAllLocalNetworksAndReturnError:0];
+  v55 = 0u;
+  v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  obj = v60 = 0u;
-  v56 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
-  if (v56)
+  obj = v58 = 0u;
+  v54 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+  if (v54)
   {
-    v55 = *v58;
+    v53 = *v56;
     selfCopy = self;
     do
     {
       v9 = 0;
       do
       {
-        if (*v58 != v55)
+        if (*v56 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v57 + 1) + 8 * v9);
+        v10 = *(*(&v55 + 1) + 8 * v9);
         v11 = CWFGetOSLog();
         if (v11)
         {
@@ -1395,11 +1329,10 @@ LABEL_7:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           identifier = [v10 identifier];
-          v61 = 138412290;
-          v62 = identifier;
-          LODWORD(v51) = 12;
-          v50 = &v61;
-          _os_log_send_and_compose_impl();
+          v59 = 138412290;
+          v60 = identifier;
+          LODWORD(v49) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] [cloudsync] Processing local network %@", &v59, v49);
         }
 
         if ([v10 isCloudSyncable])
@@ -1425,11 +1358,10 @@ LABEL_7:
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               identifier2 = [v10 identifier];
-              v61 = 138412290;
-              v62 = identifier2;
-              LODWORD(v51) = 12;
-              v50 = &v61;
-              _os_log_send_and_compose_impl();
+              v59 = 138412290;
+              v60 = identifier2;
+              LODWORD(v49) = 12;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 0, "[corewifi] [cloudsync] Found matching cloud entry for local network %@, merging", &v59, v49);
             }
 
             cloudSyncExternalForm = [(CWFNetworkProfile *)v17 cloudSyncExternalForm];
@@ -1453,14 +1385,13 @@ LABEL_7:
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 identifier3 = [v10 identifier];
-                v61 = 138412290;
-                v62 = identifier3;
-                LODWORD(v51) = 12;
-                v50 = &v61;
-                _os_log_send_and_compose_impl();
+                v59 = 138412290;
+                v60 = identifier3;
+                LODWORD(v49) = 12;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 0, "[corewifi] [cloudsync] Merged cloud network %@ did not change, will not update cloud KVS", &v59, v49);
               }
 
-              [v54 removeObject:v15];
+              [v52 removeObject:v15];
             }
 
             else
@@ -1485,11 +1416,10 @@ LABEL_7:
               if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
                 identifier4 = [v10 identifier];
-                v61 = 138412290;
-                v62 = identifier4;
-                LODWORD(v51) = 12;
-                v50 = &v61;
-                _os_log_send_and_compose_impl();
+                v59 = 138412290;
+                v60 = identifier4;
+                LODWORD(v49) = 12;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v32, 0, "[corewifi] [cloudsync] Merged cloud network %@ changed, updating cloud KVS", &v59, v49);
               }
 
               v41 = CWFGetOSLog();
@@ -1506,13 +1436,12 @@ LABEL_7:
 
               if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
               {
-                v61 = 138412546;
-                v62 = v16;
-                v63 = 2112;
-                v64 = v29;
-                LODWORD(v51) = 22;
-                v50 = &v61;
-                _os_log_send_and_compose_impl();
+                v59 = 138412546;
+                v60 = v16;
+                v61 = 2112;
+                v62 = v29;
+                LODWORD(v49) = 22;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v42, 2, "[corewifi] [cloudsync] %@ --> %@", &v59, v49);
               }
 
               self = selfCopy;
@@ -1536,18 +1465,17 @@ LABEL_7:
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               identifier5 = [v10 identifier];
-              v61 = 138412290;
-              v62 = identifier5;
-              LODWORD(v51) = 12;
-              v50 = &v61;
-              _os_log_send_and_compose_impl();
+              v59 = 138412290;
+              v60 = identifier5;
+              LODWORD(v49) = 12;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 0, "[corewifi] [cloudsync] Did not find matching cloud entry for local network %@, adding to cloud KVS", &v59, v49);
             }
 
             cloudKVS = self->_cloudKVS;
             cloudSyncExternalForm3 = [v10 cloudSyncExternalForm];
             [(CWFKeyValueStore *)cloudKVS setObject:cloudSyncExternalForm3 forKey:v15];
 
-            [v54 removeObject:v15];
+            [v52 removeObject:v15];
           }
         }
 
@@ -1568,64 +1496,61 @@ LABEL_7:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             identifier6 = [v10 identifier];
-            v61 = 138412290;
-            v62 = identifier6;
-            LODWORD(v51) = 12;
-            v50 = &v61;
-            _os_log_send_and_compose_impl();
+            v59 = 138412290;
+            v60 = identifier6;
+            LODWORD(v49) = 12;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 0, "[corewifi] [cloudsync] Local network %@ is not syncable", &v59, v49);
           }
         }
 
         ++v9;
       }
 
-      while (v56 != v9);
-      v47 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
-      v56 = v47;
+      while (v54 != v9);
+      v47 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v54 = v47;
     }
 
     while (v47);
   }
 
-  [(CWFKeyValueStore *)self->_cloudKVS synchronize:v50];
-  allObjects = [v54 allObjects];
+  [(CWFKeyValueStore *)self->_cloudKVS synchronize];
+  allObjects = [v52 allObjects];
   [(CWFCloudSyncManager *)self __handleCloudKVSChangedKeys:allObjects];
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__handleCloudKVSChangedKeys:(id)keys
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   if ([(CWFCloudSyncManager *)self cloudKeychainEnabled]== 2)
   {
-    v53 = 0u;
-    v54 = 0u;
     v51 = 0u;
     v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v5 = keysCopy;
-    v6 = [v5 countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v6)
     {
       v7 = v6;
-      v46 = keysCopy;
-      v47 = 0;
-      v8 = *v52;
+      v44 = keysCopy;
+      v45 = 0;
+      v8 = *v50;
       v9 = @"network.";
-      v48 = v5;
+      v46 = v5;
       do
       {
         v10 = 0;
         do
         {
-          if (*v52 != v8)
+          if (*v50 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v51 + 1) + 8 * v10);
-          if ([v11 hasPrefix:{v9, v44, v45}])
+          v11 = *(*(&v49 + 1) + 8 * v10);
+          if ([v11 hasPrefix:v9])
           {
             v12 = [(CWFKeyValueStore *)self->_cloudKVS objectForKey:v11];
             if ([v12 isCloudSyncableExternalForm])
@@ -1652,11 +1577,10 @@ LABEL_7:
                 if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
                 {
                   identifier = [(CWFNetworkProfile *)v13 identifier];
-                  v56 = 138412290;
-                  v57 = identifier;
-                  LODWORD(v45) = 12;
-                  v44 = &v56;
-                  _os_log_send_and_compose_impl();
+                  v54 = 138412290;
+                  v55 = identifier;
+                  LODWORD(v43) = 12;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 0, "[corewifi] [cloudsync] Will add/update cloud network %@ to local KVS after checking keychain", &v54, v43);
                 }
 
                 allKeys = [(NSMutableDictionary *)self->_waitingForKeychainCounterMap allKeys];
@@ -1669,15 +1593,15 @@ LABEL_7:
                   identifier3 = [(CWFNetworkProfile *)v13 identifier];
                   [(NSMutableDictionary *)waitingForKeychainCounterMap setObject:&unk_1F5BBCB98 forKeyedSubscript:identifier3];
 
-                  v47 = 1;
+                  v45 = 1;
                 }
 
                 waitingForKeychainNetworkMap = self->_waitingForKeychainNetworkMap;
-                v28 = [(CWFNetworkProfile *)v13 identifier:v44];
-                [(NSMutableDictionary *)waitingForKeychainNetworkMap setObject:v13 forKeyedSubscript:v28];
+                identifier4 = [(CWFNetworkProfile *)v13 identifier];
+                [(NSMutableDictionary *)waitingForKeychainNetworkMap setObject:v13 forKeyedSubscript:identifier4];
 
                 v9 = v20;
-                v5 = v48;
+                v5 = v46;
               }
 
               else
@@ -1695,32 +1619,31 @@ LABEL_7:
 
                 if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
                 {
-                  identifier4 = [(CWFNetworkProfile *)v13 identifier];
-                  v56 = 138412290;
-                  v57 = identifier4;
-                  LODWORD(v45) = 12;
-                  v44 = &v56;
-                  _os_log_send_and_compose_impl();
+                  identifier5 = [(CWFNetworkProfile *)v13 identifier];
+                  v54 = 138412290;
+                  v55 = identifier5;
+                  LODWORD(v43) = 12;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 0, "[corewifi] [cloudsync] Will remove cloud network %@ from local KVS", &v54, v43);
                 }
 
                 v31 = self->_waitingForKeychainCounterMap;
-                identifier5 = [(CWFNetworkProfile *)v13 identifier];
-                [(NSMutableDictionary *)v31 setObject:0 forKeyedSubscript:identifier5];
+                identifier6 = [(CWFNetworkProfile *)v13 identifier];
+                [(NSMutableDictionary *)v31 setObject:0 forKeyedSubscript:identifier6];
 
                 v33 = self->_waitingForKeychainNetworkMap;
-                identifier6 = [(CWFNetworkProfile *)v13 identifier];
-                [(NSMutableDictionary *)v33 setObject:0 forKeyedSubscript:identifier6];
+                identifier7 = [(CWFNetworkProfile *)v13 identifier];
+                [(NSMutableDictionary *)v33 setObject:0 forKeyedSubscript:identifier7];
 
                 targetQueue = self->_targetQueue;
-                LODWORD(identifier6) = qos_class_self();
+                LODWORD(identifier7) = qos_class_self();
                 block[0] = MEMORY[0x1E69E9820];
                 block[1] = 3221225472;
                 block[2] = sub_1E0CDD478;
                 block[3] = &unk_1E86E6420;
                 block[4] = self;
                 v13 = v13;
-                v50 = v13;
-                v36 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, identifier6, 0, block);
+                v48 = v13;
+                v36 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, identifier7, 0, block);
                 dispatch_async(targetQueue, v36);
               }
             }
@@ -1741,11 +1664,10 @@ LABEL_7:
 
               if (os_log_type_enabled(&v13->super, OS_LOG_TYPE_DEFAULT))
               {
-                v56 = 138412290;
-                v57 = v11;
-                LODWORD(v45) = 12;
-                v44 = &v56;
-                _os_log_send_and_compose_impl();
+                v54 = 138412290;
+                v55 = v11;
+                LODWORD(v43) = 12;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 0, "[corewifi] [cloudsync] Cloud network %@ is not syncable", &v54, v43);
               }
             }
           }
@@ -1754,14 +1676,14 @@ LABEL_7:
         }
 
         while (v7 != v10);
-        v39 = [v5 countByEnumeratingWithState:&v51 objects:v55 count:16];
+        v39 = [v5 countByEnumeratingWithState:&v49 objects:v53 count:16];
         v7 = v39;
       }
 
       while (v39);
 
-      keysCopy = v46;
-      if (v47)
+      keysCopy = v44;
+      if (v45)
       {
         [(CWFCloudSyncManager *)self __resetCheckKeychainCounterForRecentlyJoinedNetworks];
         [(CWFCloudSyncManager *)self __checkWaitingForKeychainPasswordList];
@@ -1775,31 +1697,29 @@ LABEL_7:
 
   else
   {
-    v41 = CWFGetOSLog();
-    if (v41)
+    v40 = CWFGetOSLog();
+    if (v40)
     {
-      v42 = CWFGetOSLog();
+      v41 = CWFGetOSLog();
     }
 
     else
     {
+      v41 = MEMORY[0x1E69E9C10];
       v42 = MEMORY[0x1E69E9C10];
-      v43 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v56 = 136446722;
-      v57 = "[CWFCloudSyncManager __handleCloudKVSChangedKeys:]";
-      v58 = 2082;
-      v59 = "CWFCloudSyncManager.m";
-      v60 = 1024;
-      v61 = 792;
-      _os_log_send_and_compose_impl();
+      v54 = 136446722;
+      v55 = "[CWFCloudSyncManager __handleCloudKVSChangedKeys:]";
+      v56 = 2082;
+      v57 = "CWFCloudSyncManager.m";
+      v58 = 1024;
+      v59 = 792;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v41, 0, "[corewifi] %{public}s (%{public}s:%u) Cloud keychain is DISABLED", &v54, 28);
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 @end

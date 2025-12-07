@@ -455,7 +455,6 @@ LABEL_19:
 {
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -467,7 +466,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 0x400) != 0)
   {
-    triggerType = self->_triggerType;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -487,7 +485,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  triggerTrafficClass = self->_triggerTrafficClass;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -502,7 +499,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  ipv4Installed = self->_ipv4Installed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -517,7 +513,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  ipv6Installed = self->_ipv6Installed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -532,7 +527,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  proxyInstalled = self->_proxyInstalled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -547,7 +541,6 @@ LABEL_11:
   }
 
 LABEL_25:
-  appVpnUsed = self->_appVpnUsed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -562,7 +555,6 @@ LABEL_12:
   }
 
 LABEL_26:
-  systemAuthenMethod = self->_systemAuthenMethod;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -577,7 +569,6 @@ LABEL_13:
   }
 
 LABEL_27:
-  userAuthenMethod = self->_userAuthenMethod;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -592,7 +583,6 @@ LABEL_14:
   }
 
 LABEL_28:
-  disconnectReason = self->_disconnectReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -607,7 +597,6 @@ LABEL_15:
   }
 
 LABEL_29:
-  connectFailed = self->_connectFailed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -622,7 +611,6 @@ LABEL_16:
   }
 
 LABEL_30:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -634,7 +622,6 @@ LABEL_17:
     }
 
 LABEL_32:
-    inBytes = self->_inBytes;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -645,7 +632,6 @@ LABEL_32:
   }
 
 LABEL_31:
-  reassertCount = self->_reassertCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if (has)
@@ -660,7 +646,6 @@ LABEL_18:
   }
 
 LABEL_33:
-  outBytes = self->_outBytes;
 
   PBDataWriterWriteUint64Field();
 }
@@ -1184,7 +1169,6 @@ LABEL_17:
       goto LABEL_88;
     }
 
-    v10 = *(equal + 78);
     if (self->_proxyInstalled)
     {
       if ((*(equal + 78) & 1) == 0)
@@ -1211,7 +1195,6 @@ LABEL_17:
       goto LABEL_88;
     }
 
-    v11 = *(equal + 76);
     if (self->_appVpnUsed)
     {
       if ((*(equal + 76) & 1) == 0)
@@ -1274,7 +1257,6 @@ LABEL_17:
   {
     if ((*(equal + 40) & 0x2000) != 0)
     {
-      v12 = *(equal + 77);
       if (self->_connectFailed)
       {
         if ((*(equal + 77) & 1) == 0)

@@ -65,11 +65,11 @@
 - (DEAttachmentItem)initWithPathURL:(id)l shouldCheckURLAttributes:(BOOL)attributes
 {
   attributesCopy = attributes;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v36 = 0;
-  v7 = [lCopy checkResourceIsReachableAndReturnError:&v36];
-  v8 = v36;
+  v35 = 0;
+  v7 = [lCopy checkResourceIsReachableAndReturnError:&v35];
+  v8 = v35;
   if (!v7)
   {
     if (!attributesCopy)
@@ -98,19 +98,19 @@ LABEL_19:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v38 = lCopy;
+      v37 = lCopy;
       _os_log_impl(&dword_248AB3000, v20, OS_LOG_TYPE_DEFAULT, "Not checking attributes on %{public}@", buf, 0xCu);
     }
 
     goto LABEL_19;
   }
 
-  v35 = 0;
-  v9 = *MEMORY[0x277CBE7B0];
   v34 = 0;
-  [lCopy getResourceValue:&v35 forKey:v9 error:&v34];
-  v10 = v35;
-  v11 = v34;
+  v9 = *MEMORY[0x277CBE7B0];
+  v33 = 0;
+  [lCopy getResourceValue:&v34 forKey:v9 error:&v33];
+  v10 = v34;
+  v11 = v33;
   if (v11)
   {
     v12 = v11;
@@ -121,12 +121,12 @@ LABEL_19:
     }
   }
 
-  v33 = 0;
-  v14 = *MEMORY[0x277CBE868];
   v32 = 0;
-  [lCopy getResourceValue:&v33 forKey:v14 error:&v32];
-  v15 = v33;
-  v16 = v32;
+  v14 = *MEMORY[0x277CBE868];
+  v31 = 0;
+  [lCopy getResourceValue:&v32 forKey:v14 error:&v31];
+  v15 = v32;
+  v16 = v31;
   if (v16)
   {
     v17 = v16;
@@ -144,17 +144,17 @@ LABEL_19:
 
   else
   {
-    v31 = 0;
-    v26 = *MEMORY[0x277CBE838];
     v30 = 0;
-    [lCopy getResourceValue:&v31 forKey:v26 error:&v30];
-    v19 = v31;
-    v27 = v30;
-    if (v27)
+    v25 = *MEMORY[0x277CBE838];
+    v29 = 0;
+    [lCopy getResourceValue:&v30 forKey:v25 error:&v29];
+    v19 = v30;
+    v26 = v29;
+    if (v26)
     {
-      v28 = v27;
-      v29 = +[DELogging fwHandle];
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v27 = v26;
+      v28 = +[DELogging fwHandle];
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [DEAttachmentItem initWithPathURL:shouldCheckURLAttributes:];
       }
@@ -166,24 +166,23 @@ LABEL_21:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v38 = lCopy;
-    v39 = 2112;
-    v40 = v10;
-    v41 = 2112;
-    v42 = v19;
+    v37 = lCopy;
+    v38 = 2112;
+    v39 = v10;
+    v40 = 2112;
+    v41 = v19;
     _os_log_impl(&dword_248AB3000, v21, OS_LOG_TYPE_DEFAULT, "New attachment at path: [%{public}@] mod date: %@ size: %@", buf, 0x20u);
   }
 
   lastPathComponent = [lCopy lastPathComponent];
   v23 = [(DEAttachmentItem *)self initWithPath:lCopy withDisplayName:lastPathComponent modificationDate:v10 andFilesize:v19];
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (void)_generateSandboxExtensionTokenForPID:(int)d
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   deleteOnAttach = [(DEAttachmentItem *)self deleteOnAttach];
   [deleteOnAttach BOOLValue];
 
@@ -193,71 +192,70 @@ LABEL_21:
   if (fileSystemRepresentation)
   {
     path2 = [(DEAttachmentItem *)self path];
-    v34 = 0;
-    v9 = [path2 checkResourceIsReachableAndReturnError:&v34];
-    v10 = v34;
+    v32 = 0;
+    v9 = [path2 checkResourceIsReachableAndReturnError:&v32];
+    v10 = v32;
 
     if (v9)
     {
-      v11 = *MEMORY[0x277D861E8];
-      v12 = sandbox_extension_issue_file_to_process_by_pid();
-      v13 = +[DELogging fwHandle];
-      v14 = v13;
-      if (v12)
+      v11 = sandbox_extension_issue_file_to_process_by_pid();
+      v12 = +[DELogging fwHandle];
+      v13 = v12;
+      if (v11)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           deleteOnAttach2 = [(DEAttachmentItem *)self deleteOnAttach];
           bOOLValue = [deleteOnAttach2 BOOLValue];
-          v29 = "R";
+          v27 = "R";
           *buf = 136315650;
           if (bOOLValue)
           {
-            v29 = "RW";
+            v27 = "RW";
           }
 
-          v36 = v29;
-          v37 = 2082;
-          v38 = fileSystemRepresentation;
-          v39 = 1024;
+          v34 = v27;
+          v35 = 2082;
+          v36 = fileSystemRepresentation;
+          v37 = 1024;
           dCopy2 = d;
-          _os_log_debug_impl(&dword_248AB3000, v14, OS_LOG_TYPE_DEBUG, "Granted %s sandbox extension for attachment item '%{public}s' to process with PID: %d.", buf, 0x1Cu);
+          _os_log_debug_impl(&dword_248AB3000, v13, OS_LOG_TYPE_DEBUG, "Granted %s sandbox extension for attachment item '%{public}s' to process with PID: %d.", buf, 0x1Cu);
         }
 
-        v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
+        v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
         sandboxExtensionToken = self->__sandboxExtensionToken;
-        self->__sandboxExtensionToken = v15;
+        self->__sandboxExtensionToken = v14;
 
-        v17 = v12;
+        v16 = v11;
 LABEL_6:
-        free(v17);
+        free(v16);
         goto LABEL_12;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         deleteOnAttach3 = [(DEAttachmentItem *)self deleteOnAttach];
         if ([deleteOnAttach3 BOOLValue])
         {
-          v31 = "RW";
+          v29 = "RW";
         }
 
         else
         {
-          v31 = "R";
+          v29 = "R";
         }
 
-        v32 = __error();
-        v33 = strerror(*v32);
+        v30 = __error();
+        v31 = strerror(*v30);
         *buf = 136315906;
-        v36 = v31;
-        v37 = 2082;
-        v38 = fileSystemRepresentation;
-        v39 = 1024;
+        v34 = v29;
+        v35 = 2082;
+        v36 = fileSystemRepresentation;
+        v37 = 1024;
         dCopy2 = d;
-        v41 = 2080;
-        v42 = v33;
-        _os_log_error_impl(&dword_248AB3000, v14, OS_LOG_TYPE_ERROR, "Failed to grant %s sandbox extension for attachment item '%{public}s' for PID: %d with error: %s. This DiagnosticExtension may not have appropriate access to the specified item.", buf, 0x26u);
+        v39 = 2080;
+        v40 = v31;
+        _os_log_error_impl(&dword_248AB3000, v13, OS_LOG_TYPE_ERROR, "Failed to grant %s sandbox extension for attachment item '%{public}s' for PID: %d with error: %s. This DiagnosticExtension may not have appropriate access to the specified item.", buf, 0x26u);
       }
 
       deleteOnAttach4 = [(DEAttachmentItem *)self deleteOnAttach];
@@ -265,25 +263,25 @@ LABEL_6:
 
       if (bOOLValue2)
       {
-        v22 = sandbox_extension_issue_file_to_process_by_pid();
-        v23 = +[DELogging fwHandle];
-        v24 = v23;
-        if (v22)
+        v20 = sandbox_extension_issue_file_to_process_by_pid();
+        v21 = +[DELogging fwHandle];
+        v22 = v21;
+        if (v20)
         {
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             [DEAttachmentItem _generateSandboxExtensionTokenForPID:];
           }
 
-          v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:v22];
-          v26 = self->__sandboxExtensionToken;
-          self->__sandboxExtensionToken = v25;
+          v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:v20];
+          v24 = self->__sandboxExtensionToken;
+          self->__sandboxExtensionToken = v23;
 
-          v17 = v22;
+          v16 = v20;
           goto LABEL_6;
         }
 
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [DEAttachmentItem _generateSandboxExtensionTokenForPID:];
         }
@@ -292,8 +290,8 @@ LABEL_6:
 
     else
     {
-      v18 = +[DELogging fwHandle];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = +[DELogging fwHandle];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [(DEAttachmentItem *)fileSystemRepresentation _generateSandboxExtensionTokenForPID:v10];
       }
@@ -310,8 +308,6 @@ LABEL_6:
   }
 
 LABEL_12:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (DEAttachmentItem)initWithPath:(id)path withDisplayName:(id)name modificationDate:(id)date andFilesize:(id)filesize
@@ -393,14 +389,14 @@ LABEL_12:
 
 - (id)attachToDestinationDir:(id)dir
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   v5 = +[DELogging fwHandle];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v17 = 138543362;
-    v18 = dirCopy;
-    _os_log_impl(&dword_248AB3000, v5, OS_LOG_TYPE_INFO, "Log destination directory: %{public}@", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = dirCopy;
+    _os_log_impl(&dword_248AB3000, v5, OS_LOG_TYPE_INFO, "Log destination directory: %{public}@", &v16, 0xCu);
   }
 
   path = [(DEAttachmentItem *)self path];
@@ -423,8 +419,6 @@ LABEL_12:
   }
 
   attachedPath2 = [(DEAttachmentItem *)self attachedPath];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return attachedPath2;
 }
@@ -495,76 +489,35 @@ LABEL_12:
   return v9;
 }
 
-- (void)initWithPathURL:shouldCheckURLAttributes:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_248AB3000, v0, v1, "%{public}@ is not reachable", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPathURL:shouldCheckURLAttributes:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_248AB3000, v0, v1, "NSURLContentModificationDateKey: [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPathURL:shouldCheckURLAttributes:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_248AB3000, v0, v1, "NSURLIsDirectoryKey: [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPathURL:shouldCheckURLAttributes:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_248AB3000, v0, v1, "NSURLFileSizeKey: [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_generateSandboxExtensionTokenForPID:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateSandboxExtensionTokenForPID:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_debug_impl(&dword_248AB3000, v1, OS_LOG_TYPE_DEBUG, "Succeeded in fallback attempt to grant R sandbox extension for %{public}s for PID %d.", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_248AB3000, v1, OS_LOG_TYPE_DEBUG, "Succeeded in fallback attempt to grant R sandbox extension for %{public}s for PID %d.", v2, 0x12u);
 }
 
 - (void)_generateSandboxExtensionTokenForPID:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateSandboxExtensionTokenForPID:(void *)a1 .cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

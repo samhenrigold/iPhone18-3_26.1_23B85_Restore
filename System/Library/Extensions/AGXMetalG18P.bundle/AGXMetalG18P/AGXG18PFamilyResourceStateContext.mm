@@ -36,14 +36,13 @@
   numRegionsCopy = numRegions;
   if (numRegions)
   {
-    modeCopy = mode;
     impl = self->_impl;
     do
     {
       v16 = *levels++;
       v15 = v16;
       v17 = *slices++;
-      AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, mappings, regions++, v15, v17, modeCopy, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+      AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(impl, mappings, regions++, v15, v17, mode, 0, 0, 0, 0, 0, 0, 0, 0, 0);
       --numRegionsCopy;
     }
 

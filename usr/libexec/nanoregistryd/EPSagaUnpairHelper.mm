@@ -5,6 +5,7 @@
 - (id)registry;
 - (id)routingSlipEntry;
 - (id)serviceRegistry;
+- (void)addToOrCapOffRTCPairingMetric:(unsigned int)metric;
 - (void)filePairingReportWithPairingID:(id)d;
 - (void)savePairingReport;
 @end
@@ -155,6 +156,13 @@ LABEL_20:
   }
 
   return !unpairing;
+}
+
+- (void)addToOrCapOffRTCPairingMetric:(unsigned int)metric
+{
+  v3 = *&metric;
+  v4 = +[NRRTCPairingReporter sharedInstance];
+  [v4 addToOrCapOffRTCPairingMetric:v3];
 }
 
 - (NRPairingReport)pairingReport

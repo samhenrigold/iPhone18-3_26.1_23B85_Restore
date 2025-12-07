@@ -1562,7 +1562,7 @@ LABEL_19:
   v16 = viewModificationInfo;
   if (viewModificationInfo)
   {
-    [viewModificationInfo cropInfo];
+    objc_msgSend_cropInfo(viewModificationInfo);
   }
 
   else

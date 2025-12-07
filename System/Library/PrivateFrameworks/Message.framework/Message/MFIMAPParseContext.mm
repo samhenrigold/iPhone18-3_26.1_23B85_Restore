@@ -5,6 +5,7 @@
 - (BOOL)match:(const char *)match upToSpecial:(const char *)special;
 - (BOOL)parseSpace;
 - (MFIMAPParseContext)initWithConnection:(id)connection response:(id)response start:(const char *)start end:(const char *)end;
+- (__CFArray)copyArrayAllowingNulls:(BOOL)nulls;
 - (const)nextSeparator;
 - (id)copyAString;
 - (id)copyAtom;
@@ -74,23 +75,22 @@
 
 - (void)emitWarning:(id)warning
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = MFLogGeneral();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     response = self->_response;
     v7 = [(MFIMAPParseContext *)self copyStringFrom:self->_start to:self->_end withCaseOption:0];
-    v9 = 138412802;
-    v10 = response;
-    v11 = 2112;
+    v8 = 138412802;
+    v9 = response;
+    v10 = 2112;
     warningCopy = warning;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_INFO, "*** Warning while parsing %@: %@\nRemaining text: <%@>", &v9, 0x20u);
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_INFO, "*** Warning while parsing %@: %@\nRemaining text: <%@>", &v8, 0x20u);
   }
 
   sHadWarningOrError = 1;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)emitError:(id)error
@@ -507,6 +507,76 @@ LABEL_25:
   }
 
   return result;
+}
+
+- (__CFArray)copyArrayAllowingNulls:(BOOL)nulls
+{
+  nullsCopy = nulls;
+  if (![(MFIMAPParseContext *)self match:"(")]
+  {
+    return 0;
+  }
+
+  if (nullsCopy)
+  {
+    v5 = &kNullOrCFTypeArrayCallBacks;
+  }
+
+  else
+  {
+    v5 = MEMORY[0x1E695E9C0];
+  }
+
+  Mutable = CFArrayCreateMutable(0, 0, v5);
+  if (![(MFIMAPParseContext *)self match:"]"))
+  {
+    do
+    {
+      copyNumber = [(MFIMAPParseContext *)self copyArrayAllowingNulls:nullsCopy];
+      if (!copyNumber)
+      {
+        copyNumber = [(MFIMAPParseContext *)self copyNumber];
+        if (!copyNumber)
+        {
+          copyAtom = [(MFIMAPParseContext *)self copyAtom];
+          if (copyAtom)
+          {
+            v8 = copyAtom;
+            if (nullsCopy && ![(__CFArray *)copyAtom caseInsensitiveCompare:@"NIL"])
+            {
+
+              v8 = 0;
+            }
+
+            goto LABEL_9;
+          }
+
+          copyNumber = [(MFIMAPParseContext *)self copyQuotedString];
+          if (!copyNumber)
+          {
+            copyNumber = [(MFIMAPParseContext *)self copyLiteralString];
+            if (!copyNumber)
+            {
+              [(MFIMAPParseContext *)self emitWarning:@"Can't parse array contents"];
+              return Mutable;
+            }
+          }
+        }
+      }
+
+      v8 = copyNumber;
+LABEL_9:
+      [(MFIMAPParseContext *)self parseSpace];
+      CFArrayAppendValue(Mutable, v8);
+      if (v8)
+      {
+      }
+    }
+
+    while (![(MFIMAPParseContext *)self match:"]"));
+  }
+
+  return Mutable;
 }
 
 - (id)copyMessageSet

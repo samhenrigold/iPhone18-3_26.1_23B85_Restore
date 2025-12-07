@@ -131,14 +131,14 @@ void __28__EFSandboxedURLWrapper_log__block_invoke(uint64_t a1)
 
 - (void)encodeWithCoder:(id)coder
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(EFSandboxedURLWrapper *)self url];
   [coderCopy encodeObject:v5 forKey:@"EFPropertyKey_url"];
 
   [coderCopy encodeBool:-[EFSandboxedURLWrapper isReadOnly](self forKey:{"isReadOnly"), @"EFPropertyKey_readOnly"}];
-  v33 = 0u;
-  v34 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -146,7 +146,7 @@ void __28__EFSandboxedURLWrapper_log__block_invoke(uint64_t a1)
     v7 = connection;
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -154,94 +154,93 @@ void __28__EFSandboxedURLWrapper_log__block_invoke(uint64_t a1)
       memset(buf, 0, 32);
     }
 
-    v33 = *buf;
-    v34 = *&buf[16];
+    v29 = *buf;
+    v30 = *&buf[16];
   }
 
   v8 = [(EFSandboxedURLWrapper *)self url];
   startAccessingSecurityScopedResource = [v8 startAccessingSecurityScopedResource];
   isReadOnly = [(EFSandboxedURLWrapper *)self isReadOnly];
   v11 = v8;
-  if (v11 && (getpid(), v12 = v11, v13 = [v11 fileSystemRepresentation], v14 = *MEMORY[0x1E69E9BD0], v29 = v13, !sandbox_check()))
+  if (v11 && (getpid(), v12 = v11, v25 = [v11 fileSystemRepresentation], !sandbox_check()))
   {
-    v16 = MEMORY[0x1E69E9BA8];
+    v14 = MEMORY[0x1E69E9BA8];
     if (!isReadOnly)
     {
-      v16 = MEMORY[0x1E69E9BB0];
+      v14 = MEMORY[0x1E69E9BB0];
     }
 
-    v15 = *v16;
+    v13 = *v14;
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  v30 = v33;
-  v31 = v34;
-  v17 = v11;
-  if (!v15)
+  v26 = v29;
+  v27 = v30;
+  v15 = v11;
+  if (!v13)
   {
 LABEL_24:
 
-    v23 = 0;
+    v20 = 0;
     if (!startAccessingSecurityScopedResource)
     {
       goto LABEL_26;
     }
 
 LABEL_25:
-    [v17 stopAccessingSecurityScopedResource];
+    [v15 stopAccessingSecurityScopedResource];
     goto LABEL_26;
   }
 
-  memset(v32, 0, sizeof(v32));
-  v18 = bcmp(&v30, v32, 0x20uLL) == 0;
-  v19 = v17;
-  [v17 fileSystemRepresentation];
-  v20 = *MEMORY[0x1E69E9BE0];
-  if (v18)
+  memset(v28, 0, sizeof(v28));
+  v16 = bcmp(&v26, v28, 0x20uLL) == 0;
+  v17 = v15;
+  [v15 fileSystemRepresentation];
+  if (v16)
   {
-    v21 = sandbox_extension_issue_file();
+    v18 = sandbox_extension_issue_file();
   }
 
   else
   {
-    *buf = v30;
-    *&buf[16] = v31;
-    v21 = sandbox_extension_issue_file_to_process();
+    *buf = v26;
+    *&buf[16] = v27;
+    v18 = sandbox_extension_issue_file_to_process();
   }
 
-  v22 = v21;
-  if (!v21)
+  v19 = v18;
+  if (!v18)
   {
-    v24 = *__error();
-    v25 = __error();
-    v26 = strerror(*v25);
-    v27 = +[EFSandboxedURLWrapper log];
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v21 = *__error();
+    v22 = __error();
+    v23 = strerror(*v22);
+    v24 = +[EFSandboxedURLWrapper log];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      *&buf[4] = v15;
+      *&buf[4] = v13;
       *&buf[12] = 2112;
-      *&buf[14] = v17;
+      *&buf[14] = v15;
       *&buf[22] = 1024;
-      *&buf[24] = v24;
+      *&buf[24] = v21;
       *&buf[28] = 2082;
-      *&buf[30] = v26;
-      _os_log_error_impl(&dword_1C6152000, v27, OS_LOG_TYPE_ERROR, "unable to issue sandbox extension %{public}s for URL %@: (%d) %{public}s", buf, 0x26u);
+      *&buf[30] = v23;
+      _os_log_error_impl(&dword_1C6152000, v24, OS_LOG_TYPE_ERROR, "unable to issue sandbox extension %{public}s for URL %@: (%d) %{public}s", buf, 0x26u);
     }
 
     goto LABEL_24;
   }
 
-  v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v21];
-  free(v22);
+  v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v18];
+  free(v19);
 
-  if (v23)
+  if (v20)
   {
-    [coderCopy encodeObject:v23 forKey:@"kEFSandboxExtensionToken"];
+    [coderCopy encodeObject:v20 forKey:@"kEFSandboxExtensionToken"];
   }
 
   if (startAccessingSecurityScopedResource)
@@ -250,8 +249,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 @end

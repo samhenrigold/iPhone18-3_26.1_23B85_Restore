@@ -57,22 +57,8 @@ void __63__TPSAssetFileInfoManager_initWithDictionary_clientConditions___block_i
   v5 = a3;
   v6 = a1[4];
   v7 = a2;
-  if (![v6 count])
+  if (![v6 count] || (objc_msgSend(v5, "TPSSafeArrayForKey:", @"conditions"), v8 = objc_claimAutoreleasedReturnValue(), v11[0] = MEMORY[0x1E69E9820], v11[1] = 3221225472, v11[2] = __63__TPSAssetFileInfoManager_initWithDictionary_clientConditions___block_invoke_2, v11[3] = &unk_1E8101FA0, v12 = a1[4], objc_msgSend(v8, "na_firstObjectPassingTest:", v11), v9 = objc_claimAutoreleasedReturnValue(), v12, v8, !v9))
   {
-    goto LABEL_3;
-  }
-
-  v8 = [v5 TPSSafeArrayForKey:@"conditions"];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __63__TPSAssetFileInfoManager_initWithDictionary_clientConditions___block_invoke_2;
-  v11[3] = &unk_1E8101FA0;
-  v12 = a1[4];
-  v9 = [v8 na_firstObjectPassingTest:v11];
-
-  if (!v9)
-  {
-LABEL_3:
     v9 = v5;
   }
 
@@ -90,7 +76,7 @@ uint64_t __63__TPSAssetFileInfoManager_initWithDictionary_clientConditions___blo
 
 - (id)filesFromDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = [dictionary TPSSafeArrayForKey:@"files"];
   v4 = [v3 count];
   if (v4 < 1)
@@ -101,35 +87,35 @@ uint64_t __63__TPSAssetFileInfoManager_initWithDictionary_clientConditions___blo
   else
   {
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:v4];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           v12 = [TPSAssetFileInfo alloc];
-          v13 = [(TPSAssetFileInfo *)v12 initWithDictionary:v11, v17];
+          v13 = [(TPSAssetFileInfo *)v12 initWithDictionary:v11, v16];
           if (v13)
           {
             [v5 addObject:v13];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -145,8 +131,6 @@ uint64_t __63__TPSAssetFileInfoManager_initWithDictionary_clientConditions___blo
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -335,16 +319,16 @@ void __54__TPSAssetFileInfoManager_addNewAssetInfoFromFileMap___block_invoke(uin
   return v5;
 }
 
-id __38__TPSAssetFileInfoManager_na_identity__block_invoke()
+id __38__TPSAssetFileInfoManager_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSAssetFileInfoManagerKey_block_invoke_na_once_token_0 != -1)
   {
     __38__TPSAssetFileInfoManager_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSAssetFileInfoManagerKey_block_invoke_na_once_object_0;
+  v2 = TPSAssetFileInfoManagerKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __38__TPSAssetFileInfoManager_na_identity__block_invoke_2()

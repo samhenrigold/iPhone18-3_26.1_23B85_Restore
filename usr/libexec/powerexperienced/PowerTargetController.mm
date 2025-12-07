@@ -22,7 +22,10 @@
 - (void)saveState;
 - (void)setDefaultTargets;
 - (void)start;
+- (void)updateBGUtilityPowerTargets:(BOOL)targets;
 - (void)updateClients;
+- (void)updateIgnoreUSBDeviceMode:(BOOL)mode withReply:(id)reply;
+- (void)updatePackagePowerTargets:(BOOL)targets options:(unint64_t)options;
 - (void)updateTrialParameters;
 @end
 
@@ -590,7 +593,7 @@ LABEL_7:
     [deviceContext addObserver:self forKeyPath:@"currentContext" options:3 context:0];
 
     v4 = objc_alloc_init(ContextualPowerModesClient);
-    v5 = sub_100001600();
+    v5 = sub_100001600(v4);
     v10[0] = _NSConcreteStackBlock;
     v10[1] = 3221225472;
     v10[2] = sub_100015F10;
@@ -646,7 +649,7 @@ LABEL_7:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v7 = sub_100001600();
+  v7 = sub_100001600(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100016064;
@@ -760,6 +763,41 @@ LABEL_7:
   return v11;
 }
 
+- (void)updatePackagePowerTargets:(BOOL)targets options:(unint64_t)options
+{
+  targetsCopy = targets;
+  v7 = +[CLPCPolicyInterfaceHelper sharedInstance];
+  [v7 updatePowerTargetForMode:@"Prepickup" withState:targetsCopy andOptions:options];
+  [(SMCSensorExchangeHelper *)self->_smcHelper updateSMCDebugKey:@"DefaultMode" withState:targetsCopy];
+  [(PowerTargetController *)self setState:targetsCopy];
+  [(PowerTargetController *)self setOption:options];
+  [(PowerTargetController *)self logStatusToPowerLog];
+}
+
+- (void)updateBGUtilityPowerTargets:(BOOL)targets
+{
+  targetsCopy = targets;
+  v8 = +[CLPCPolicyInterfaceHelper sharedInstance];
+  if (targetsCopy)
+  {
+    [(PowerTargetController *)self bgPowerTarget];
+    [v8 setPowerBudgetForWorkload:1 value:?];
+    [(PowerTargetController *)self utilityPowerTarget];
+    v7 = LODWORD(v6);
+  }
+
+  else
+  {
+    v7 = 1115815936;
+    LODWORD(v5) = 1115815936;
+    [v8 setPowerBudgetForWorkload:1 value:v5];
+  }
+
+  LODWORD(v6) = v7;
+  [v8 setPowerBudgetForWorkload:2 value:v6];
+  [(SMCSensorExchangeHelper *)self->_smcHelper updateSMCDebugKey:@"ActiveWarmWorkload" withState:targetsCopy];
+}
+
 - (void)saveState
 {
   if ([(PowerTargetController *)self currentMitigation])
@@ -828,6 +866,24 @@ LABEL_7:
   }
 
   return v10;
+}
+
+- (void)updateIgnoreUSBDeviceMode:(BOOL)mode withReply:(id)reply
+{
+  modeCopy = mode;
+  replyCopy = reply;
+  [(PowerTargetController *)self setIgnoreUSBDeviceMode:modeCopy];
+  v7 = qword_100036CB8;
+  if (os_log_type_enabled(qword_100036CB8, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = modeCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting ignoreUSBDeviceMode to %d", v8, 8u);
+  }
+
+  replyCopy[2](replyCopy, 1);
+
+  [(PowerTargetController *)self evaluatePowerTargets];
 }
 
 - (unint64_t)getDeviceInUseReasons

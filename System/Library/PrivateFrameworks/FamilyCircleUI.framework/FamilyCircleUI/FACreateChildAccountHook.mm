@@ -92,7 +92,7 @@
 {
   keyCopy = key;
   completionCopy = completion;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -147,25 +147,25 @@ LABEL_12:
 
 void __70__FACreateChildAccountHook__handleCreateAccountBasedOnKey_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     v8 = @"NO";
-    v11 = 138412802;
+    v10 = 138412802;
     if (a2)
     {
       v8 = @"YES";
     }
 
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "child (%@) account creation (via rui hook) completed with success: %@, error: %@", &v11, 0x20u);
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "child (%@) account creation (via rui hook) completed with success: %@, error: %@", &v10, 0x20u);
   }
 
   v9 = *(a1 + 40);
@@ -173,8 +173,6 @@ void __70__FACreateChildAccountHook__handleCreateAccountBasedOnKey_completion___
   {
     (*(v9 + 16))(v9, a2, v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createChildControllerDidPresentInitialViewController:(id)controller

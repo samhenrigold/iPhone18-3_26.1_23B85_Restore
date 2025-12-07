@@ -52,7 +52,7 @@
   return sharedClient_sharedClient;
 }
 
-uint64_t __25__CDXClient_sharedClient__block_invoke(uint64_t a1)
+void *__25__CDXClient_sharedClient__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) initWithOptions:0 delegate:0];
   sharedClient_sharedClient = result;
@@ -69,7 +69,7 @@ uint64_t __25__CDXClient_sharedClient__block_invoke(uint64_t a1)
 
 - (void)setError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   error = self->error_;
   self->error_ = [error copyWithZone:{-[CDXClient zone](self, "zone")}];
@@ -109,19 +109,19 @@ uint64_t __25__CDXClient_sharedClient__block_invoke(uint64_t a1)
           v10 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
-            v18 = 136316418;
-            v19 = v9;
-            v20 = 2080;
-            v21 = "[CDXClient setError:]";
-            v22 = 1024;
-            v23 = 818;
-            v24 = 2112;
-            v25 = v8;
-            v26 = 2048;
+            v17 = 136316418;
+            v18 = v9;
+            v19 = 2080;
+            v20 = "[CDXClient setError:]";
+            v21 = 1024;
+            v22 = 818;
+            v23 = 2112;
+            v24 = v8;
+            v25 = 2048;
             selfCopy = self;
-            v28 = 2080;
-            v29 = [objc_msgSend(error "description")];
-            _os_log_error_impl(&dword_24E50C000, v10, OS_LOG_TYPE_ERROR, "CDXClient [%s] %s:%d %@(%p) err = %s", &v18, 0x3Au);
+            v27 = 2080;
+            uTF8String = [objc_msgSend_description(error) UTF8String];
+            _os_log_error_impl(&dword_24E50C000, v10, OS_LOG_TYPE_ERROR, "CDXClient [%s] %s:%d %@(%p) err = %s", &v17, 0x3Au);
           }
         }
       }
@@ -144,18 +144,18 @@ uint64_t __25__CDXClient_sharedClient__block_invoke(uint64_t a1)
             v15 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
             {
-              v16 = [-[CDXClient description](self "description")];
-              v18 = 136316162;
-              v19 = v14;
-              v20 = 2080;
-              v21 = "[CDXClient setError:]";
-              v22 = 1024;
-              v23 = 830;
-              v24 = 2080;
-              v25 = v16;
-              v26 = 2048;
+              uTF8String2 = [objc_msgSend_description(self) UTF8String];
+              v17 = 136316162;
+              v18 = v14;
+              v19 = 2080;
+              v20 = "[CDXClient setError:]";
+              v21 = 1024;
+              v22 = 830;
+              v23 = 2080;
+              v24 = uTF8String2;
+              v25 = 2048;
               selfCopy = *&v13;
-              _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Will restart in %f seconds due to POSIX error.", &v18, 0x30u);
+              _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Will restart in %f seconds due to POSIX error.", &v17, 0x30u);
             }
           }
 
@@ -167,8 +167,6 @@ uint64_t __25__CDXClient_sharedClient__block_invoke(uint64_t a1)
     [(CDXClientDelegate *)self->delegate_ CDXClient:self error:error];
     [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (NSData)preblob
@@ -193,9 +191,9 @@ uint64_t __25__CDXClient_sharedClient__block_invoke(uint64_t a1)
 
 - (void)sendHolePunch
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v19 = 8;
+  v35 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v18 = 8;
   holePunchSID = self->holePunchSID_;
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
@@ -204,11 +202,11 @@ uint64_t __25__CDXClient_sharedClient__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v27 = v3;
-      v28 = 2080;
-      v29 = "[CDXClient sendHolePunch]";
-      v30 = 1024;
-      v31 = 878;
+      v26 = v3;
+      v27 = 2080;
+      v28 = "[CDXClient sendHolePunch]";
+      v29 = 1024;
+      v30 = 878;
       _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d requesting-hole-punch", buf, 0x1Cu);
     }
   }
@@ -219,57 +217,54 @@ uint64_t __25__CDXClient_sharedClient__block_invoke(uint64_t a1)
     v6 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [-[CDXClient description](self "description")];
+      uTF8String = [objc_msgSend_description(self) UTF8String];
       holePunchAttemptCount = self->holePunchAttemptCount_;
       *buf = 136316162;
-      v27 = v5;
-      v28 = 2080;
-      v29 = "[CDXClient sendHolePunch]";
-      v30 = 1024;
-      v31 = 880;
-      v32 = 2080;
-      v33 = v7;
-      v34 = 1024;
-      v35 = holePunchAttemptCount;
+      v26 = v5;
+      v27 = 2080;
+      v28 = "[CDXClient sendHolePunch]";
+      v29 = 1024;
+      v30 = 880;
+      v31 = 2080;
+      v32 = uTF8String;
+      v33 = 1024;
+      v34 = holePunchAttemptCount;
       _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Poking hole to CDX server... (Try #%d)", buf, 0x2Cu);
     }
   }
 
   objc_sync_enter(self);
-  if (sendto(self->fd_, &v19, 0x10uLL, 0, [(CDXClient *)self currentSockAddr], [(CDXClient *)self currentSockAddrLen]) <= 0)
+  if (sendto(self->fd_, &v18, 0x10uLL, 0, [(CDXClient *)self currentSockAddr], [(CDXClient *)self currentSockAddrLen]) <= 0)
   {
     if (*__error() == 12)
     {
       objc_sync_exit(self);
-      goto LABEL_13;
+      return;
     }
 
     v9 = MEMORY[0x277CCA9B8];
     v10 = *__error();
-    v24 = *MEMORY[0x277CCA470];
+    v23 = *MEMORY[0x277CCA470];
     v11 = MEMORY[0x277CCACA8];
     v12 = __error();
-    v25 = [v11 stringWithFormat:@"Call to send() failed, %s.", strerror(*v12)];
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v24 = [v11 stringWithFormat:@"Call to send() failed, %s.", strerror(*v12)];
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     -[CDXClient setError:](self, "setError:", [v9 errorWithDomain:*MEMORY[0x277CCA5B8] code:v10 userInfo:v13]);
   }
 
   objc_sync_exit(self);
   *buf = 0;
-  v18 = 4;
-  getsockopt(self->fd_, 0xFFFF, 4103, buf, &v18);
+  v17 = 4;
+  getsockopt(self->fd_, 0xFFFF, 4103, buf, &v17);
   v14 = *buf;
   if (*buf)
   {
     v15 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA470];
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Socket has async error. %s", strerror(*buf)];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x277CCA470];
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Socket has async error. %s", strerror(*buf)];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     -[CDXClient setError:](self, "setError:", [v15 errorWithDomain:*MEMORY[0x277CCA5B8] code:v14 userInfo:v16]);
   }
-
-LABEL_13:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)handleHolePunchEvent
@@ -310,17 +305,17 @@ LABEL_13:
 
 - (void)resetHolepunchTimer
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   if (self->holePunchTimer_)
   {
     self->holePunchAttemptCount_ = 0;
     self->preblobIsUpToDate_ = 0;
     self->prevHolePunchSID_ = self->holePunchSID_;
-    v12[0] = 0xAAAAAAAAAAAAAAAALL;
-    v12[1] = 0xAAAAAAAAAAAAAAAALL;
-    MEMORY[0x253043380](v12);
-    self->holePunchSID_ = v12[0];
+    v11[0] = 0xAAAAAAAAAAAAAAAALL;
+    v11[1] = 0xAAAAAAAAAAAAAAAALL;
+    MEMORY[0x253043380](v11);
+    self->holePunchSID_ = v11[0];
     holePunchAttemptCount = self->holePunchAttemptCount_;
     self->holePunchAttemptCount_ = holePunchAttemptCount + 1;
     holePunchInterval = self->holePunchInterval_;
@@ -339,7 +334,6 @@ LABEL_13:
   }
 
   objc_sync_exit(self);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFDEvent
@@ -349,13 +343,12 @@ LABEL_13:
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_9(&dword_24E50C000, v1, v2, "CDXClient [%s] %s:%d %s: Received out-of-date holepunch reply. Ignoring...", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9(&dword_24E50C000, v1, v2, "CDXClient [%s] %s:%d %s: Received out-of-date holepunch reply. Ignoring...", v3, v4, v5, v6);
 }
 
 - (void)networkDidChange
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
     v3 = VRTraceErrorLogLevelToCSTR();
@@ -364,23 +357,23 @@ LABEL_13:
     {
       if (self)
       {
-        v5 = [-[CDXClient description](self "description")];
+        uTF8String = [objc_msgSend_description(self) UTF8String];
       }
 
       else
       {
-        v5 = "<nil>";
+        uTF8String = "<nil>";
       }
 
-      v7 = 136315906;
-      v8 = v3;
-      v9 = 2080;
-      v10 = "[CDXClient networkDidChange]";
-      v11 = 1024;
-      v12 = 1080;
-      v13 = 2080;
-      v14 = v5;
-      _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Processing network change. . .", &v7, 0x26u);
+      v6 = 136315906;
+      v7 = v3;
+      v8 = 2080;
+      v9 = "[CDXClient networkDidChange]";
+      v10 = 1024;
+      v11 = 1080;
+      v12 = 2080;
+      v13 = uTF8String;
+      _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Processing network change. . .", &v6, 0x26u);
     }
   }
 
@@ -388,7 +381,6 @@ LABEL_13:
   [(CDXClient *)self resetHolepunchTimer];
   self->willReconfigureShortly_ = 0;
   [(CDXClient *)self restart];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopListeningOnSockets
@@ -443,14 +435,14 @@ LABEL_13:
 
 - (CDXClient)initWithOptions:(id)options delegate:(id)delegate
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v49.receiver = self;
-  v49.super_class = CDXClient;
-  v6 = [(CDXClient *)&v49 init];
+  v63 = *MEMORY[0x277D85DE8];
+  v48.receiver = self;
+  v48.super_class = CDXClient;
+  v6 = [(CDXClient *)&v48 init];
   v7 = v6;
   if (!v6)
   {
-    goto LABEL_63;
+    return v7;
   }
 
   v6->delegate_ = delegate;
@@ -484,16 +476,16 @@ LABEL_7:
       v12 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [-[CDXClient description](v7 "description")];
+        uTF8String = [objc_msgSend_description(v7) UTF8String];
         server = v7->server_;
         if (server)
         {
-          uTF8String = [[(NSString *)server description] UTF8String];
+          uTF8String2 = [objc_msgSend_description(server) UTF8String];
         }
 
         else
         {
-          uTF8String = "<nil>";
+          uTF8String2 = "<nil>";
         }
 
         *buf = 136316162;
@@ -503,9 +495,9 @@ LABEL_7:
         *&buf[22] = 1024;
         *&buf[24] = 1203;
         *&buf[28] = 2080;
-        *&buf[30] = v13;
+        *&buf[30] = uTF8String;
         *&buf[38] = 2080;
-        *&buf[40] = uTF8String;
+        *&buf[40] = uTF8String2;
         _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Using CDXOverrideServer: %s", buf, 0x30u);
       }
     }
@@ -522,7 +514,7 @@ LABEL_7:
       v19 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v20 = [-[CDXClient description](v7 "description")];
+        uTF8String3 = [objc_msgSend_description(v7) UTF8String];
         port = v7->port_;
         *buf = 136316162;
         *&buf[4] = v18;
@@ -531,7 +523,7 @@ LABEL_7:
         *&buf[22] = 1024;
         *&buf[24] = 1206;
         *&buf[28] = 2080;
-        *&buf[30] = v20;
+        *&buf[30] = uTF8String3;
         *&buf[38] = 1024;
         *&buf[40] = port;
         _os_log_impl(&dword_24E50C000, v19, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Using CDXOverridePort: %d", buf, 0x2Cu);
@@ -547,7 +539,7 @@ LABEL_7:
     v24 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [-[CDXClient description](v7 "description")];
+      uTF8String4 = [objc_msgSend_description(v7) UTF8String];
       holePunchInterval = v7->holePunchInterval_;
       *buf = 136316162;
       *&buf[4] = v23;
@@ -556,7 +548,7 @@ LABEL_7:
       *&buf[22] = 1024;
       *&buf[24] = 1209;
       *&buf[28] = 2080;
-      *&buf[30] = v25;
+      *&buf[30] = uTF8String4;
       *&buf[38] = 2048;
       *&buf[40] = holePunchInterval;
       _os_log_impl(&dword_24E50C000, v24, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Using CDXOverrideHolePunchInterval: %f", buf, 0x30u);
@@ -573,16 +565,16 @@ LABEL_7:
       v29 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v30 = [-[CDXClient description](v7 "description")];
+        uTF8String5 = [objc_msgSend_description(v7) UTF8String];
         v31 = v7->server_;
         if (v31)
         {
-          uTF8String2 = [[(NSString *)v31 description] UTF8String];
+          uTF8String6 = [objc_msgSend_description(v31) UTF8String];
         }
 
         else
         {
-          uTF8String2 = "<nil>";
+          uTF8String6 = "<nil>";
         }
 
         *buf = 136316162;
@@ -592,9 +584,9 @@ LABEL_7:
         *&buf[22] = 1024;
         *&buf[24] = 1214;
         *&buf[28] = 2080;
-        *&buf[30] = v30;
+        *&buf[30] = uTF8String5;
         *&buf[38] = 2080;
-        *&buf[40] = uTF8String2;
+        *&buf[40] = uTF8String6;
         _os_log_impl(&dword_24E50C000, v29, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Using CDXIP(deprecated, please use CDXOverrideServer instead): %s", buf, 0x30u);
       }
     }
@@ -610,7 +602,7 @@ LABEL_7:
       v35 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v36 = [-[CDXClient description](v7 "description")];
+        uTF8String7 = [objc_msgSend_description(v7) UTF8String];
         v37 = v7->port_;
         *buf = 136316162;
         *&buf[4] = v34;
@@ -619,7 +611,7 @@ LABEL_7:
         *&buf[22] = 1024;
         *&buf[24] = 1217;
         *&buf[28] = 2080;
-        *&buf[30] = v36;
+        *&buf[30] = uTF8String7;
         *&buf[38] = 1024;
         *&buf[40] = v37;
         _os_log_impl(&dword_24E50C000, v35, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d %s: Using CDXPort(deprecated, please use CDXOverridePort instead): %d", buf, 0x2Cu);
@@ -649,22 +641,22 @@ LABEL_7:
     v40 = v39;
     if (![*p_server length])
     {
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
       v61 = 0u;
-      v58 = 0u;
+      v62 = 0u;
       v59 = 0u;
-      v56 = 0u;
+      v60 = 0u;
       v57 = 0u;
+      v58 = 0u;
       v55 = 0u;
-      v53 = 0u;
+      v56 = 0u;
       v54 = 0u;
-      v51 = 0u;
       v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       memset(buf, 0, sizeof(buf));
-      v48 = bswap32(*(v40 + 20));
-      inet_ntop(2, &v48, buf, 0xFFu);
+      v47 = bswap32(*(v40 + 20));
+      inet_ntop(2, &v47, buf, 0xFFu);
       *p_server = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
     }
 
@@ -734,8 +726,6 @@ LABEL_7:
   }
 
   [(CDXClient *)v7 start];
-LABEL_63:
-  v46 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -771,7 +761,7 @@ LABEL_63:
 
 - (void)mapIPv4AddrToIPv6:(sockaddr_in *)pv6
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   p_cdxMappedIPv4Addr = &self->cdxMappedIPv4Addr;
   cdxMappedIPv4Addr = self->cdxMappedIPv4Addr;
   if (cdxMappedIPv4Addr)
@@ -780,28 +770,26 @@ LABEL_63:
     *p_cdxMappedIPv4Addr = 0;
   }
 
-  *v15 = 0;
-  v16 = 0;
-  v7 = inet_ntop(2, &pv6->sin_addr, v15, 0x10u);
-  memset(&v12, 0, sizeof(v12));
-  v12.ai_socktype = 2;
-  v12.ai_flags = 1536;
-  v8 = getaddrinfo(v7, 0, &v12, p_cdxMappedIPv4Addr);
+  *v14 = 0;
+  v15 = 0;
+  v7 = inet_ntop(2, &pv6->sin_addr, v14, 0x10u);
+  memset(&v11, 0, sizeof(v11));
+  v11.ai_socktype = 2;
+  v11.ai_flags = 1536;
+  v8 = getaddrinfo(v7, 0, &v11, p_cdxMappedIPv4Addr);
   if (v8)
   {
     v9 = MEMORY[0x277CCA9B8];
     v10 = v8;
-    v13 = *MEMORY[0x277CCA470];
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Call to getaddrinfo() failed for hostname %s. Error %s.", v7, gai_strerror(v8)];
-    -[CDXClient setError:](self, "setError:", [v9 errorWithDomain:@"error" code:v10 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v14, &v13, 1)}]);
+    v12 = *MEMORY[0x277CCA470];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Call to getaddrinfo() failed for hostname %s. Error %s.", v7, gai_strerror(v8)];
+    -[CDXClient setError:](self, "setError:", [v9 errorWithDomain:@"error" code:v10 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v13, &v12, 1)}]);
   }
 
   else
   {
     *self->cdxMappedIPv4Addr->ai_addr->sa_data = bswap32(self->port_) >> 16;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -837,7 +825,7 @@ LABEL_63:
 
 - (void)start
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   p_server = &self->server_;
   v4 = gethostbyname2([(NSString *)self->server_ UTF8String], 2);
   *&self->cdxaddr_ipv4.sin_len = 528;
@@ -857,13 +845,13 @@ LABEL_63:
   if (v6)
   {
     [(CDXClient *)*MEMORY[0x277D85EE0] start];
-    goto LABEL_19;
+    return;
   }
 
   if (v4->h_length <= 1)
   {
     [(CDXClient *)p_server start];
-    goto LABEL_19;
+    return;
   }
 
   self->cdxaddr_ipv4.sin_addr.s_addr = **v4->h_addr_list;
@@ -885,46 +873,46 @@ LABEL_63:
   self->fd_ = v9;
   if (v9 <= 0)
   {
-    v19 = MEMORY[0x277CCA9B8];
-    v20 = *__error();
-    v21 = MEMORY[0x277CBEAC0];
-    v22 = MEMORY[0x277CCACA8];
-    v23 = __error();
-    -[CDXClient setError:](self, "setError:", [v19 errorWithDomain:*MEMORY[0x277CCA5B8] code:v20 userInfo:{objc_msgSend(v21, "dictionaryWithObjectsAndKeys:", objc_msgSend(v22, "stringWithFormat:", @"Unable to create FD to CDX. %s", strerror(*v23)), *MEMORY[0x277CCA470], 0)}]);
+    v18 = MEMORY[0x277CCA9B8];
+    v19 = *__error();
+    v20 = MEMORY[0x277CBEAC0];
+    v21 = MEMORY[0x277CCACA8];
+    v22 = __error();
+    -[CDXClient setError:](self, "setError:", [v18 errorWithDomain:*MEMORY[0x277CCA5B8] code:v19 userInfo:{objc_msgSend(v20, "dictionaryWithObjectsAndKeys:", objc_msgSend(v21, "stringWithFormat:", @"Unable to create FD to CDX. %s", strerror(*v22)), *MEMORY[0x277CCA470], 0)}]);
 LABEL_24:
     objc_sync_exit(self);
-    goto LABEL_19;
+    return;
   }
 
-  LODWORD(v30.version) = 1;
-  setsockopt(v9, 0xFFFF, 4130, &v30, 4u);
+  LODWORD(v29.version) = 1;
+  setsockopt(v9, 0xFFFF, 4130, &v29, 4u);
   v10 = self->cdxMappedIPv4Addr;
   if (v10 && v10->ai_family == 30)
   {
-    memset(&v30.version + 4, 0, 24);
-    LOWORD(v30.version) = 7708;
-    WORD1(v30.version) = bswap32(self->localPort_) >> 16;
-    *&v30.info = *MEMORY[0x277D85EE8];
-    v11 = bind(self->fd_, &v30, 0x1Cu);
+    memset(&v29.version + 4, 0, 24);
+    LOWORD(v29.version) = 7708;
+    WORD1(v29.version) = bswap32(self->localPort_) >> 16;
+    *&v29.info = *MEMORY[0x277D85EE8];
+    v11 = bind(self->fd_, &v29, 0x1Cu);
   }
 
   else
   {
-    v30.info = 0;
-    LOWORD(v30.version) = 528;
-    WORD1(v30.version) = bswap32(self->localPort_) >> 16;
-    HIDWORD(v30.version) = 0;
-    v11 = bind(self->fd_, &v30, 0x10u);
+    v29.info = 0;
+    LOWORD(v29.version) = 528;
+    WORD1(v29.version) = bswap32(self->localPort_) >> 16;
+    HIDWORD(v29.version) = 0;
+    v11 = bind(self->fd_, &v29, 0x10u);
   }
 
   if (v11)
   {
-    v24 = MEMORY[0x277CCA9B8];
-    v25 = *__error();
-    v26 = MEMORY[0x277CBEAC0];
-    v27 = MEMORY[0x277CCACA8];
-    v28 = __error();
-    -[CDXClient setError:](self, "setError:", [v24 errorWithDomain:*MEMORY[0x277CCA5B8] code:v25 userInfo:{objc_msgSend(v26, "dictionaryWithObjectsAndKeys:", objc_msgSend(v27, "stringWithFormat:", @"Unable to bind FD to sockaddr. %s", strerror(*v28)), *MEMORY[0x277CCA470], 0)}]);
+    v23 = MEMORY[0x277CCA9B8];
+    v24 = *__error();
+    v25 = MEMORY[0x277CBEAC0];
+    v26 = MEMORY[0x277CCACA8];
+    v27 = __error();
+    -[CDXClient setError:](self, "setError:", [v23 errorWithDomain:*MEMORY[0x277CCA5B8] code:v24 userInfo:{objc_msgSend(v25, "dictionaryWithObjectsAndKeys:", objc_msgSend(v26, "stringWithFormat:", @"Unable to bind FD to sockaddr. %s", strerror(*v27)), *MEMORY[0x277CCA470], 0)}]);
     goto LABEL_24;
   }
 
@@ -946,12 +934,12 @@ LABEL_24:
     dispatch_resume(self->holePunchTimer_);
     [(CDXClient *)self resetHolepunchTimer];
     [(CDXClient *)self sendHolePunch];
-    v30.version = 0;
-    v30.info = self;
-    v30.retain = MEMORY[0x277CBE558];
-    v30.release = MEMORY[0x277CBE550];
-    v30.copyDescription = 0;
-    v15 = SCDynamicStoreCreate(0, [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.cdx.%p", self], CDX_SCDynamicStoreCallBack, &v30);
+    v29.version = 0;
+    v29.info = self;
+    v29.retain = MEMORY[0x277CBE558];
+    v29.release = MEMORY[0x277CBE550];
+    v29.copyDescription = 0;
+    v15 = SCDynamicStoreCreate(0, [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.cdx.%p", self], CDX_SCDynamicStoreCallBack, &v29);
     self->scDynamicStore_ = v15;
     if (v15)
     {
@@ -970,18 +958,13 @@ LABEL_24:
   {
     [CDXClient start];
   }
-
-LABEL_19:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restart
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_19(&dword_24E50C000, v0, v1, "CDXClient [%s] %s:%d ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_19(&dword_24E50C000, v0, v1, "CDXClient [%s] %s:%d ", v2, v3, v4, v5);
 }
 
 - (void)stopHolePunchTimer
@@ -1001,68 +984,60 @@ LABEL_19:
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_19(&dword_24E50C000, v0, v1, "CDXClient [%s] %s:%d ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_19(&dword_24E50C000, v0, v1, "CDXClient [%s] %s:%d ", v2, v3, v4, v5);
 }
 
 - (BOOL)sendRaw:(id)raw
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   v5 = sendto(self->fd_, [raw bytes], objc_msgSend(raw, "length"), 0, -[CDXClient currentSockAddr](self, "currentSockAddr"), -[CDXClient currentSockAddrLen](self, "currentSockAddrLen"));
   objc_sync_exit(self);
   if (*__error() == 12)
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  if (VRTraceGetErrorLogLevelForModule() >= 8)
   {
-    if (VRTraceGetErrorLogLevelForModule() >= 8)
+    v7 = VRTraceErrorLogLevelToCSTR();
+    v8 = *MEMORY[0x277CE5818];
+    v9 = *MEMORY[0x277CE5818];
+    if (*MEMORY[0x277CE5808] == 1)
     {
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *MEMORY[0x277CE5818];
-      v9 = *MEMORY[0x277CE5818];
-      if (*MEMORY[0x277CE5808] == 1)
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        if (raw)
         {
-          if (raw)
-          {
-            v10 = [objc_msgSend(raw "description")];
-          }
-
-          else
-          {
-            v10 = "<nil>";
-          }
-
-          v12 = 136315906;
-          v13 = v7;
-          v14 = 2080;
-          v15 = "[CDXClient sendRaw:]";
-          v16 = 1024;
-          v17 = 1639;
-          v18 = 2080;
-          v19 = v10;
-          _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d sendRaw:%s", &v12, 0x26u);
+          uTF8String = [objc_msgSend_description(raw) UTF8String];
         }
-      }
 
-      else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-      {
-        [CDXClient sendRaw:];
+        else
+        {
+          uTF8String = "<nil>";
+        }
+
+        v11 = 136315906;
+        v12 = v7;
+        v13 = 2080;
+        v14 = "[CDXClient sendRaw:]";
+        v15 = 1024;
+        v16 = 1639;
+        v17 = 2080;
+        v18 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, "CDXClient [%s] %s:%d sendRaw:%s", &v11, 0x26u);
       }
     }
 
-    result = v5 == [raw length];
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      [CDXClient sendRaw:];
+    }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == [raw length];
 }
 
 - (void)invalidateSession:(id)session
@@ -1122,8 +1097,7 @@ uint64_t __48__CDXClient_createSessionWithTicket_sessionKey___block_invoke(uint6
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_24E50C000, v0, OS_LOG_TYPE_ERROR, "CDXClient [%s] %s:%d err = %s", v3, 0x26u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24E50C000, v0, OS_LOG_TYPE_ERROR, "CDXClient [%s] %s:%d err = %s", v2, 0x26u);
 }
 
 - (uint64_t)startListeningOnSockets
@@ -1132,13 +1106,6 @@ uint64_t __48__CDXClient_createSessionWithTicket_sessionKey___block_invoke(uint6
   v0 = OUTLINED_FUNCTION_20();
 
   return [v0 setError:?];
-}
-
-- (uint64_t)initWithOptions:(__int16 *)a1 delegate:.cold.1(__int16 *a1)
-{
-  v2 = *a1;
-  VRTraceVariable_();
-  return (*MEMORY[0x277CE5800] > 6) | *MEMORY[0x277CE5810] & 1u;
 }
 
 - (uint64_t)initWithOptions:(id *)a1 delegate:.cold.2(id *a1)
@@ -1163,17 +1130,15 @@ uint64_t __48__CDXClient_createSessionWithTicket_sessionKey___block_invoke(uint6
 - (void)sendRaw:.cold.1()
 {
   OUTLINED_FUNCTION_15();
-  v1 = *MEMORY[0x277D85DE8];
   if (v0)
   {
-    [objc_msgSend(v0 "description")];
+    [objc_msgSend_description(v0) UTF8String];
   }
 
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_9(&dword_24E50C000, v2, v3, "CDXClient [%s] %s:%d sendRaw:%s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9(&dword_24E50C000, v1, v2, "CDXClient [%s] %s:%d sendRaw:%s", v3, v4, v5, v6);
 }
 
 @end

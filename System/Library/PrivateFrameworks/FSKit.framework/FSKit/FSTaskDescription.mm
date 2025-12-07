@@ -1,6 +1,8 @@
 @interface FSTaskDescription
++ (FSTaskDescription)taskDescriptionWithID:(id)d state:(unsigned __int8)state purpose:(id)purpose error:(id)error bundleID:(id)iD extensionID:(id)extensionID resource:(id)resource;
 - (FSTaskDescription)initWithCoder:(id)coder;
 - (FSTaskDescription)initWithID:(id)d state:(unsigned __int8)state purpose:(id)purpose error:(id)error bundleID:(id)iD extensionID:(id)extensionID resource:(id)resource;
+- (id)updatedDescriptionInState:(unsigned __int8)state error:(id)error;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -63,6 +65,46 @@
   }
 
   return v21;
+}
+
++ (FSTaskDescription)taskDescriptionWithID:(id)d state:(unsigned __int8)state purpose:(id)purpose error:(id)error bundleID:(id)iD extensionID:(id)extensionID resource:(id)resource
+{
+  stateCopy = state;
+  resourceCopy = resource;
+  extensionIDCopy = extensionID;
+  iDCopy = iD;
+  errorCopy = error;
+  purposeCopy = purpose;
+  dCopy = d;
+  v22 = [[self alloc] initWithID:dCopy state:stateCopy purpose:purposeCopy error:errorCopy bundleID:iDCopy extensionID:extensionIDCopy resource:resourceCopy];
+
+  return v22;
+}
+
+- (id)updatedDescriptionInState:(unsigned __int8)state error:(id)error
+{
+  stateCopy = state;
+  errorCopy = error;
+  v7 = [objc_opt_class() taskDescriptionWithID:self->_taskID state:stateCopy purpose:self->_taskPurpose error:errorCopy bundleID:self->_taskBundleID extensionID:self->_taskExtensionInstanceID resource:self->_taskResource];
+
+  [v7 setTerminateExtensionWhenFinished:self->_terminateExtensionWhenFinished];
+  taskReferenceHolder = [(FSTaskDescription *)self taskReferenceHolder];
+
+  if (stateCopy != 3 && taskReferenceHolder)
+  {
+    taskReferenceHolder2 = [(FSTaskDescription *)self taskReferenceHolder];
+    [v7 setTaskReferenceHolder:taskReferenceHolder2];
+  }
+
+  taskInitiatorID = [(FSTaskDescription *)self taskInitiatorID];
+  [v7 setTaskInitiatorID:taskInitiatorID];
+
+  taskSigningID = [(FSTaskDescription *)self taskSigningID];
+  [v7 setTaskSigningID:taskSigningID];
+
+  [v7 setTaskHasCancellationHandler:{-[FSTaskDescription taskHasCancellationHandler](self, "taskHasCancellationHandler")}];
+
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder

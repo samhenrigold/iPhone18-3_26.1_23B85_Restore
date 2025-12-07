@@ -5,7 +5,6 @@
 - (unint64_t)numberOfRunsInLastDay;
 - (unint64_t)numberOfRunsInLastHour;
 - (void)_getLastDay:(id)day;
-- (void)_loadState;
 - (void)_saveStateIsolated;
 @end
 
@@ -44,62 +43,50 @@
   return v2;
 }
 
-- (void)_loadState
-{
-  isolater = self->_isolater;
-  geo_assert_not_isolated();
-  v4 = self->_isolater;
-  geo_isolate_sync();
-}
-
 - (void)_saveStateIsolated
 {
-  isolater = self->_isolater;
   geo_assert_isolated();
-  v10[0] = @"countPerHour";
-  v4 = [NSNumber numberWithUnsignedInteger:self->_countPerHour];
-  v11[0] = v4;
-  v10[1] = @"countPerDay";
-  v5 = [NSNumber numberWithUnsignedInteger:self->_countPerDay];
-  v11[1] = v5;
-  v10[2] = @"piCountPerDay";
-  v6 = [NSNumber numberWithUnsignedInteger:self->_placeInferenceCountPerDay];
+  v9[0] = @"countPerHour";
+  v3 = [NSNumber numberWithUnsignedInteger:self->_countPerHour];
+  v10[0] = v3;
+  v9[1] = @"countPerDay";
+  v4 = [NSNumber numberWithUnsignedInteger:self->_countPerDay];
+  v10[1] = v4;
+  v9[2] = @"piCountPerDay";
+  v5 = [NSNumber numberWithUnsignedInteger:self->_placeInferenceCountPerDay];
   lastHourReset = self->_lastHourReset;
   lastDayReset = self->_lastDayReset;
-  v11[2] = v6;
-  v11[3] = lastHourReset;
-  v10[3] = @"lastHourReset";
-  v10[4] = @"lastDayReset";
-  v11[4] = lastDayReset;
-  v9 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:5];
+  v10[2] = v5;
+  v10[3] = lastHourReset;
+  v9[3] = @"lastHourReset";
+  v9[4] = @"lastDayReset";
+  v10[4] = lastDayReset;
+  v8 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   GEOConfigSetDictionary();
 }
 
 - (unint64_t)numberOfRunsInLastHour
 {
-  v3 = +[NSDate date];
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  isolater = self->_isolater;
-  v7 = v3;
+  +[NSDate date];
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v4 = v8 = 0;
   geo_isolate_sync();
-  v5 = v9[3];
+  v2 = v6[3];
 
-  _Block_object_dispose(&v8, 8);
-  return v5;
+  _Block_object_dispose(&v5, 8);
+  return v2;
 }
 
 - (void)_getLastDay:(id)day
 {
   dayCopy = day;
-  v5 = +[NSDate date];
-  isolater = self->_isolater;
-  v9 = dayCopy;
+  v6 = +[NSDate date];
   v7 = dayCopy;
-  v8 = v5;
+  v4 = dayCopy;
+  v5 = v6;
   geo_isolate_sync();
 }
 

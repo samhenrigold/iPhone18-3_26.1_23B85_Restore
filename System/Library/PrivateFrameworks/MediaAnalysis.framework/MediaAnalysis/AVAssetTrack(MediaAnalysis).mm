@@ -1,20 +1,20 @@
 @interface AVAssetTrack(MediaAnalysis)
+- (char)vcp_sampleCountForTimeRange:()MediaAnalysis;
 - (double)vcp_cleanApertureRect;
 - (double)vcp_fullFrameSize;
 - (double)vcp_startTime;
 - (uint64_t)vcp_imageOrientation;
 - (uint64_t)vcp_orientation;
-- (uint64_t)vcp_sampleCountForTimeRange:()MediaAnalysis;
 @end
 
 @implementation AVAssetTrack(MediaAnalysis)
 
 - (double)vcp_startTime
 {
-  [self timeRange];
-  result = *&v4;
-  *a2 = v4;
-  *(a2 + 16) = v5;
+  objc_msgSend_timeRange(self, a2);
+  result = *&v5;
+  *a3 = v5;
+  *(a3 + 16) = v6;
   return result;
 }
 
@@ -23,7 +23,7 @@
   [self naturalSize];
   v3 = v2;
   v5 = v4;
-  [self preferredTransform];
+  objc_msgSend_preferredTransform(self);
   v6 = orientationForTransform(&v9) - 1;
   if (v3 < v5)
   {
@@ -51,9 +51,9 @@
 
 - (uint64_t)vcp_imageOrientation
 {
-  [self preferredTransform];
-  v1 = angleForTransform(v4);
-  switch(v1)
+  objc_msgSend_preferredTransform(self, a2);
+  v2 = angleForTransform(v5);
+  switch(v2)
   {
     case 90:
       return 6;
@@ -63,12 +63,12 @@
       return 3;
   }
 
-  HIDWORD(v3) = -1527099483 * v1 + 47721858;
-  LODWORD(v3) = HIDWORD(v3);
-  if ((v3 >> 1) >= 0x2D82D83 && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  HIDWORD(v4) = -1527099483 * v2 + 47721858;
+  LODWORD(v4) = HIDWORD(v4);
+  if ((v4 >> 1) >= 0x2D82D83 && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Video track rotation angle is not multiple of 90", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Video track rotation angle is not multiple of 90", v5, 2u);
   }
 
   return 1;
@@ -110,13 +110,13 @@
   return v3;
 }
 
-- (uint64_t)vcp_sampleCountForTimeRange:()MediaAnalysis
+- (char)vcp_sampleCountForTimeRange:()MediaAnalysis
 {
   v5 = *(a3 + 16);
   *&range1.start.value = *a3;
   *&range1.start.epoch = v5;
   *&range1.duration.timescale = *(a3 + 32);
-  [self timeRange];
+  objc_msgSend_timeRange(self, a2);
   if (CMTimeRangeEqual(&range1, &range2))
   {
     makeSampleCursorAtFirstSampleInDecodeOrder = [self makeSampleCursorAtFirstSampleInDecodeOrder];
@@ -139,7 +139,7 @@
     {
       if (makeSampleCursorAtFirstSampleInDecodeOrder)
       {
-        [makeSampleCursorAtFirstSampleInDecodeOrder presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(makeSampleCursorAtFirstSampleInDecodeOrder);
       }
 
       else

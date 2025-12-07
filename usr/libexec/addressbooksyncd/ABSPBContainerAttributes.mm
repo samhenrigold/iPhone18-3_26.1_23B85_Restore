@@ -125,53 +125,49 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    enabled = self->_enabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_permissions)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    guardianRestricted = self->_guardianRestricted;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    parentallyManaged = self->_parentallyManaged;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_accountExternalIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -278,7 +274,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 40);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0)
@@ -286,7 +281,6 @@
       goto LABEL_38;
     }
 
-    v11 = *(equalCopy + 36);
     if (self->_enabled)
     {
       if ((*(equalCopy + 36) & 1) == 0)
@@ -317,7 +311,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 40);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 40) & 4) == 0)
@@ -325,7 +318,6 @@
       goto LABEL_38;
     }
 
-    v12 = *(equalCopy + 37);
     if (self->_guardianRestricted)
     {
       if ((*(equalCopy + 37) & 1) == 0)
@@ -352,7 +344,6 @@
       goto LABEL_38;
     }
 
-    v13 = *(equalCopy + 38);
     if (self->_parentallyManaged)
     {
       if ((*(equalCopy + 38) & 1) == 0)
@@ -381,13 +372,12 @@
   if (![(NSString *)name isEqual:?])
   {
 LABEL_38:
-    v15 = 0;
+    v9 = 0;
     goto LABEL_39;
   }
 
   has = self->_has;
 LABEL_14:
-  v10 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_type != *(equalCopy + 8))
@@ -404,17 +394,17 @@ LABEL_14:
   accountExternalIdentifier = self->_accountExternalIdentifier;
   if (accountExternalIdentifier | *(equalCopy + 1))
   {
-    v15 = [(NSString *)accountExternalIdentifier isEqual:?];
+    v9 = [(NSString *)accountExternalIdentifier isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v9 = 1;
   }
 
 LABEL_39:
 
-  return v15;
+  return v9;
 }
 
 - (unint64_t)hash

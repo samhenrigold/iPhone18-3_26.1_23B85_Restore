@@ -71,27 +71,26 @@
   {
 
 LABEL_7:
-    v32 = v12;
+    v33 = v12;
     goto LABEL_13;
   }
 
   if (error)
   {
-    v33 = sh_log_object();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = sh_log_object(v32);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v34 = *error;
+      v35 = *error;
       *buf = 138412290;
-      *v43 = v34;
-      _os_log_impl(&dword_230F52000, v33, OS_LOG_TYPE_ERROR, "Feature extractor failed to initialize with error: %@", buf, 0xCu);
+      *v43 = v35;
+      _os_log_impl(&dword_230F52000, v34, OS_LOG_TYPE_ERROR, "Feature extractor failed to initialize with error: %@", buf, 0xCu);
     }
   }
 
-  v32 = 0;
+  v33 = 0;
 LABEL_13:
 
-  v35 = *MEMORY[0x277D85DE8];
-  return v32;
+  return v33;
 }
 
 void __96__SHMusicalFeaturesExtractor_initWithConfiguration_sampleRate_error_modelLoadCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -141,17 +140,15 @@ void __96__SHMusicalFeaturesExtractor_initWithConfiguration_sampleRate_error_mod
 
     if ((reset & 1) == 0)
     {
-      v6 = sh_log_object();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sh_log_object(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         v8 = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_ERROR, "Could not reset musical features extractor %@", &v8, 0xCu);
+        _os_log_impl(&dword_230F52000, v7, OS_LOG_TYPE_ERROR, "Could not reset musical features extractor %@", &v8, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (double)duration
@@ -189,7 +186,7 @@ void __96__SHMusicalFeaturesExtractor_initWithConfiguration_sampleRate_error_mod
 
 - (BOOL)flowBuffer:(id)buffer error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   format = [bufferCopy format];
   [format sampleRate];
@@ -203,19 +200,19 @@ void __96__SHMusicalFeaturesExtractor_initWithConfiguration_sampleRate_error_mod
     goto LABEL_6;
   }
 
-  v13 = sh_log_object();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = sh_log_object(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     featureConfiguration2 = [(SHMusicalFeaturesExtractor *)self featureConfiguration];
     [featureConfiguration2 sampleRate];
-    v16 = v15;
+    v17 = v16;
     format2 = [bufferCopy format];
     [format2 sampleRate];
     *buf = 134218240;
-    v37 = v16;
-    v38 = 2048;
-    v39 = v18;
-    _os_log_impl(&dword_230F52000, v13, OS_LOG_TYPE_INFO, "Sample rate for musical features extractor changed from %.1f to %.1f", buf, 0x16u);
+    v38 = v17;
+    v39 = 2048;
+    v40 = v19;
+    _os_log_impl(&dword_230F52000, v14, OS_LOG_TYPE_INFO, "Sample rate for musical features extractor changed from %.1f to %.1f", buf, 0x16u);
   }
 
   [(SHMusicalFeaturesExtractor *)self reset];
@@ -224,17 +221,17 @@ void __96__SHMusicalFeaturesExtractor_initWithConfiguration_sampleRate_error_mod
 
   format3 = [bufferCopy format];
   [format3 sampleRate];
-  v22 = v21;
+  v23 = v22;
   featureConfiguration3 = [(SHMusicalFeaturesExtractor *)self featureConfiguration];
-  [featureConfiguration3 setSampleRate:v22];
+  [featureConfiguration3 setSampleRate:v23];
 
-  v24 = [SHFeatureExtractor alloc];
+  v25 = [SHFeatureExtractor alloc];
   featureConfiguration4 = [(SHMusicalFeaturesExtractor *)self featureConfiguration];
-  v35 = 0;
-  v26 = [(SHFeatureExtractor *)v24 initWithFeatureConfiguration:featureConfiguration4 error:&v35 completionHandler:0];
-  featureExtractor2 = v35;
-  v28 = self->_featureExtractor;
-  self->_featureExtractor = v26;
+  v36 = 0;
+  v27 = [(SHFeatureExtractor *)v25 initWithFeatureConfiguration:featureConfiguration4 error:&v36 completionHandler:0];
+  featureExtractor2 = v36;
+  v29 = self->_featureExtractor;
+  self->_featureExtractor = v27;
 
   featureExtractor = [(SHMusicalFeaturesExtractor *)self featureExtractor];
   LODWORD(featureConfiguration4) = featureExtractor == 0;
@@ -244,34 +241,33 @@ void __96__SHMusicalFeaturesExtractor_initWithConfiguration_sampleRate_error_mod
 
 LABEL_6:
     featureExtractor2 = [(SHMusicalFeaturesExtractor *)self featureExtractor];
-    v30 = [featureExtractor2 flowBuffer:bufferCopy error:error];
+    v32 = [featureExtractor2 flowBuffer:bufferCopy error:error];
     goto LABEL_7;
   }
 
-  v33 = sh_log_object();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  v34 = sh_log_object(v31);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v37 = featureExtractor2;
-    _os_log_impl(&dword_230F52000, v33, OS_LOG_TYPE_ERROR, "Musical features extractor failed to initialize with error: %@", buf, 0xCu);
+    v38 = featureExtractor2;
+    _os_log_impl(&dword_230F52000, v34, OS_LOG_TYPE_ERROR, "Musical features extractor failed to initialize with error: %@", buf, 0xCu);
   }
 
   if (error)
   {
-    v34 = featureExtractor2;
-    v30 = 0;
+    v35 = featureExtractor2;
+    v32 = 0;
     *error = featureExtractor2;
   }
 
   else
   {
-    v30 = 0;
+    v32 = 0;
   }
 
 LABEL_7:
 
-  v31 = *MEMORY[0x277D85DE8];
-  return v30;
+  return v32;
 }
 
 @end

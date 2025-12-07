@@ -13,6 +13,7 @@
 + (id)PLEntryKeysForEntryType:(id)type;
 + (id)baseEntryKeyForEntryKey:(id)key;
 + (id)dynamicEntryKeyForEntryKey:(id)key;
++ (id)entryKeyForOperatorName:(id)name withType:(id)type withName:(id)withName withWildCardName:(id)cardName isDynamic:(BOOL)dynamic;
 + (id)entryKeysForOperator:(id)operator;
 + (id)entryKeysForOperatorClass:(Class)class;
 + (id)entryKeysForOperatorName:(id)name;
@@ -27,6 +28,7 @@
 - (PLEntryKey)baseEntryKey;
 - (PLEntryKey)initWithOperatorName:(id)name withEntryType:(id)type withEntryName:(id)entryName;
 - (_PLTimeIntervalRange)timeIntervalRange;
+- (id)copyWithIsDynamic:(BOOL)dynamic;
 - (id)copyWithTimeIntervalRange:(_PLTimeIntervalRange)range;
 - (id)copyWithWildCardName:(id)name;
 - (id)debugDescription;
@@ -225,44 +227,13 @@
     v16 = [v15 objectForKeyedSubscript:tableCopy];
     v17 = [v16 count];
 
-    if (!v17)
+    if (v17 && ((+[PLCoreStorage additionalTables](PLCoreStorage, "additionalTables"), v18 = objc_claimAutoreleasedReturnValue(), [v18 objectForKeyedSubscript:tableCopy], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "objectForKey:", typeCopy), v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, !v20) || (+[PLCoreStorage additionalTables](PLCoreStorage, "additionalTables"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "objectForKeyedSubscript:", tableCopy), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "objectForKeyedSubscript:", typeCopy), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "count"), v23, v22, v21, v24) && (+[PLCoreStorage additionalTables](PLCoreStorage, "additionalTables"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "objectForKeyedSubscript:", tableCopy), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "objectForKeyedSubscript:", typeCopy), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "containsObject:", nameCopy), v27, v26, v25, !v28)))
     {
-      goto LABEL_7;
-    }
-
-    v18 = +[PLCoreStorage additionalTables];
-    v19 = [v18 objectForKeyedSubscript:tableCopy];
-    v20 = [v19 objectForKey:typeCopy];
-
-    if (!v20)
-    {
-      goto LABEL_9;
-    }
-
-    v21 = +[PLCoreStorage additionalTables];
-    v22 = [v21 objectForKeyedSubscript:tableCopy];
-    v23 = [v22 objectForKeyedSubscript:typeCopy];
-    v24 = [v23 count];
-
-    if (!v24)
-    {
-      goto LABEL_7;
-    }
-
-    v25 = +[PLCoreStorage additionalTables];
-    v26 = [v25 objectForKeyedSubscript:tableCopy];
-    v27 = [v26 objectForKeyedSubscript:typeCopy];
-    v28 = [v27 containsObject:nameCopy];
-
-    if (!v28)
-    {
-LABEL_9:
       v29 = 0;
     }
 
     else
     {
-LABEL_7:
       [self addPLEntryKeyStringToTasking:v14];
       v29 = 1;
     }
@@ -375,29 +346,29 @@ uint64_t __48__PLEntryKey_setupEntryObjectsForOperatorClass___block_invoke()
 
 void __48__PLEntryKey_setupEntryObjectsForOperatorClass___block_invoke_16(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = [v6 allKeys];
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         v13 = [v6 objectForKeyedSubscript:v12];
         v14 = [v13 objectForKeyedSubscript:@"Configs"];
         v15 = *(*(a1 + 40) + 8);
@@ -415,13 +386,11 @@ void __48__PLEntryKey_setupEntryObjectsForOperatorClass___block_invoke_16(uint64
         *(v18 + 40) = 0;
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)entryKeysForOperator:(id)operator
@@ -623,7 +592,7 @@ LABEL_14:
     v18 = [[PLEntryKey alloc] initWithOperatorName:nameCopy withEntryType:typeCopy withEntryName:withNameCopy];
     if (+[PLDefaults debugEnabled])
     {
-      v37 = cardNameCopy;
+      v38 = cardNameCopy;
       selfCopy = self;
       v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown entryKey %@", v18];
       v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/DataTypes/PLEntryKey.m"];
@@ -631,13 +600,13 @@ LABEL_14:
       v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLEntryKey PLEntryKeyForOperatorName:withType:withName:withWildCardName:isDynamic:]"];
       [PLCoreStorage logMessage:v23 fromFile:lastPathComponent fromFunction:v26 fromLineNumber:295];
 
-      v27 = PLLogCommon();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v28 = PLLogCommon(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         [(PLSubmissionFileSP *)v23 copyAndPrepareLog];
       }
 
-      cardNameCopy = v37;
+      cardNameCopy = v38;
       self = selfCopy;
     }
 
@@ -670,25 +639,25 @@ LABEL_15:
   }
 
   objc_sync_enter(@"++entryKeyObjectsSync++");
-  v28 = _PLEntryKeyForEntryKeyForWildCardName;
+  v29 = _PLEntryKeyForEntryKeyForWildCardName;
   entryKey2 = [(PLEntryKey *)v18 entryKey];
-  v30 = [v28 objectForKeyedSubscript:entryKey2];
-  v21 = [v30 objectForKeyedSubscript:cardNameCopy];
+  v31 = [v29 objectForKeyedSubscript:entryKey2];
+  v21 = [v31 objectForKeyedSubscript:cardNameCopy];
 
   objc_sync_exit(@"++entryKeyObjectsSync++");
   if (!v21)
   {
     if ([typeCopy isEqualToString:@"Aggregate"])
     {
-      v31 = [cardNameCopy componentsSeparatedByString:@"_"];
-      [v31 count];
-      v32 = [v31 objectAtIndex:0];
-      v33 = atof([v32 UTF8String]);
+      v32 = [cardNameCopy componentsSeparatedByString:@"_"];
+      [v32 count];
+      v33 = [v32 objectAtIndex:0];
+      v34 = atof([v33 UTF8String]);
 
-      v34 = [v31 objectAtIndex:1];
-      v35 = atof([v34 UTF8String]);
+      v35 = [v32 objectAtIndex:1];
+      v36 = atof([v35 UTF8String]);
 
-      v22 = [(PLEntryKey *)v18 copyWithTimeIntervalRange:v33, v35];
+      v22 = [(PLEntryKey *)v18 copyWithTimeIntervalRange:v34, v36];
     }
 
     else
@@ -705,6 +674,14 @@ LABEL_16:
 LABEL_17:
 
   return v18;
+}
+
++ (id)entryKeyForOperatorName:(id)name withType:(id)type withName:(id)withName withWildCardName:(id)cardName isDynamic:(BOOL)dynamic
+{
+  v7 = [self PLEntryKeyForOperatorName:name withType:type withName:withName withWildCardName:cardName isDynamic:dynamic];
+  v8 = [v7 description];
+
+  return v8;
 }
 
 + (id)dynamicEntryKeyForEntryKey:(id)key
@@ -876,6 +853,20 @@ LABEL_17:
   v9 = [(PLEntryKey *)v5 initWithOperatorName:operatorName withEntryType:entryType withEntryName:entryName];
 
   [(PLEntryKey *)v9 setWildCardName:nameCopy];
+  [(PLEntryKey *)v9 setBaseEntryKey:self];
+  return v9;
+}
+
+- (id)copyWithIsDynamic:(BOOL)dynamic
+{
+  dynamicCopy = dynamic;
+  v5 = [PLEntryKey alloc];
+  operatorName = [(PLEntryKey *)self operatorName];
+  entryType = [(PLEntryKey *)self entryType];
+  entryName = [(PLEntryKey *)self entryName];
+  v9 = [(PLEntryKey *)v5 initWithOperatorName:operatorName withEntryType:entryType withEntryName:entryName];
+
+  [(PLEntryKey *)v9 setIsDynamic:dynamicCopy];
   [(PLEntryKey *)v9 setBaseEntryKey:self];
   return v9;
 }

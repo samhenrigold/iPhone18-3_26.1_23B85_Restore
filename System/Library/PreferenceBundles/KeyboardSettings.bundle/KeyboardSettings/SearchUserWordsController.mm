@@ -5,6 +5,7 @@
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)dealloc;
 - (void)filterContentForSearchText:(id)text;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateSearchResultsForSearchController:(id)controller;
@@ -35,6 +36,17 @@
   v3.receiver = self;
   v3.super_class = SearchUserWordsController;
   [(SearchUserWordsController *)&v3 dealloc];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v7.receiver = self;
+  v7.super_class = SearchUserWordsController;
+  [SearchUserWordsController setEditing:"setEditing:animated:" animated:?];
+  [-[SearchUserWordsController navigationItem](self "navigationItem")];
+  [-[SearchUserWordsController tableView](self "tableView")];
 }
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path

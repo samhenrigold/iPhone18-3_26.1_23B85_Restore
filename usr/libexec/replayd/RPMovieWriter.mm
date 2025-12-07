@@ -7,6 +7,7 @@
 - (BOOL)dispatchedAppendVideoSampleBuffer:(opaqueCMSampleBuffer *)buffer withWindowTransform:(CGAffineTransform *)transform;
 - (CGSize)windowSize;
 - (NSURL)outputURL;
+- (RPMovieWriter)initWithWindowSize:(CGSize)size outputPath:(id)path videoCodecType:(id)type audioCodecType:(unsigned int)codecType assetWriterSetting:(int64_t)setting;
 - (id)audioOutputSettingsForCodec:(unsigned int)codec audioChannelLayout:(AudioChannelLayout *)layout;
 - (id)averageVideoBitrate;
 - (id)createAssetURLFromPhotosIdentifier:(id)identifier;
@@ -23,6 +24,7 @@
 - (void)appendHQLRAudioSampleBuffer:(opaqueCMSampleBuffer *)buffer;
 - (void)dealloc;
 - (void)dispatchedAppendAudio1SampleBuffer:(opaqueCMSampleBuffer *)buffer;
+- (void)dispatchedAppendAudio2SampleBuffer:(opaqueCMSampleBuffer *)buffer convertHQLRMono:(BOOL)mono;
 - (void)displayHQLRNotificationWithURL:(id)l;
 - (void)displayScreenRecorderNotificationWithPhotoAsset:(id)asset;
 - (void)finishWritingAndSaveToCameraRollWithSessionID:(id)d mixAudioTracks:(BOOL)tracks handler:(id)handler;
@@ -47,6 +49,80 @@
 @end
 
 @implementation RPMovieWriter
+
+- (RPMovieWriter)initWithWindowSize:(CGSize)size outputPath:(id)path videoCodecType:(id)type audioCodecType:(unsigned int)codecType assetWriterSetting:(int64_t)setting
+{
+  v8 = *&codecType;
+  height = size.height;
+  width = size.width;
+  pathCopy = path;
+  typeCopy = type;
+  v29.receiver = self;
+  v29.super_class = RPMovieWriter;
+  v15 = [(RPMovieWriter *)&v29 init];
+  if (v15)
+  {
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136447234;
+      *&buf[4] = "[RPMovieWriter initWithWindowSize:outputPath:videoCodecType:audioCodecType:assetWriterSetting:]";
+      *&buf[12] = 1024;
+      *&buf[14] = 158;
+      *&buf[18] = 2048;
+      *&buf[20] = v15;
+      v31 = 2048;
+      v32 = width;
+      v33 = 2048;
+      v34 = height;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p window size width %.1f x height:%.1f", buf, 0x30u);
+    }
+
+    [(RPMovieWriter *)v15 setOutputPath:pathCopy];
+    [(RPMovieWriter *)v15 setOriginalOutputPath:pathCopy];
+    [(RPMovieWriter *)v15 setDownloadsURL:0];
+    [(RPMovieWriter *)v15 setAssetWriterStartCount:0];
+    [(RPMovieWriter *)v15 setWindowSize:width, height];
+    [(RPMovieWriter *)v15 setDidProcessFirstSample:0];
+    [(RPMovieWriter *)v15 setIsFinishingWriting:0];
+    *buf = *&kCMTimeInvalid.value;
+    *&buf[16] = kCMTimeInvalid.epoch;
+    [(RPMovieWriter *)v15 setTrimVideoPresentationTime:buf];
+    [(RPMovieWriter *)v15 setVideoCodecType:typeCopy];
+    [(RPMovieWriter *)v15 setAudioCodecType:v8];
+    [(RPMovieWriter *)v15 setAssetWriterSetting:setting];
+    [(RPMovieWriter *)v15 setIsSparselyInterleaved:0];
+    [(RPMovieWriter *)v15 setMaxContentLightLevel:0];
+    CallbacksForUnsortedSampleBuffers = CMBufferQueueGetCallbacksForUnsortedSampleBuffers();
+    CMBufferQueueCreate(kCFAllocatorDefault, 0, CallbacksForUnsortedSampleBuffers, &v15->_audioBufferQueue1);
+    v17 = CMBufferQueueGetCallbacksForUnsortedSampleBuffers();
+    CMBufferQueueCreate(kCFAllocatorDefault, 0, v17, &v15->_audioBufferQueue2);
+    v18 = CMBufferQueueGetCallbacksForUnsortedSampleBuffers();
+    CMBufferQueueCreate(kCFAllocatorDefault, 0, v18, &v15->_videoBufferQueue);
+    v19 = dispatch_queue_create("com.apple.ReplayKit.RPMovieWriterQueue", 0);
+    movieWriterQueue = v15->_movieWriterQueue;
+    v15->_movieWriterQueue = v19;
+
+    v21 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+    v22 = dispatch_queue_create("com.apple.ReplayKit.movieSaveQueue", v21);
+    movieSaveQueue = v15->_movieSaveQueue;
+    v15->_movieSaveQueue = v22;
+
+    v24 = [[UNUserNotificationCenter alloc] initWithBundleIdentifier:@"com.apple.ReplayKitNotifications"];
+    userNotificationCenter = v15->_userNotificationCenter;
+    v15->_userNotificationCenter = v24;
+
+    [(UNUserNotificationCenter *)v15->_userNotificationCenter setDelegate:v15];
+    [(UNUserNotificationCenter *)v15->_userNotificationCenter setWantsNotificationResponsesDelivered];
+    v26 = [[UNUserNotificationCenter alloc] initWithBundleIdentifier:@"com.apple.ReplayKitNotifications.CallRecording"];
+    callRecordingUserNotificationCenter = v15->_callRecordingUserNotificationCenter;
+    v15->_callRecordingUserNotificationCenter = v26;
+
+    [(UNUserNotificationCenter *)v15->_callRecordingUserNotificationCenter setDelegate:v15];
+    [(UNUserNotificationCenter *)v15->_callRecordingUserNotificationCenter setWantsNotificationResponsesDelivered];
+  }
+
+  return v15;
+}
 
 - (void)startWritingHandler:(id)handler
 {
@@ -1183,9 +1259,9 @@ LABEL_28:
                 [(RPMovieWriter *)self setLastVideoPresentationTime:buf];
                 if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
-                  [(RPMovieWriter *)self lastVideoPresentationTime];
-                  v32 = v49;
-                  [(RPMovieWriter *)self lastVideoPresentationTime];
+                  objc_msgSend_lastVideoPresentationTime(self);
+                  v32 = v49[0];
+                  objc_msgSend_lastVideoPresentationTime(self);
                   v33 = v48;
                   CMSampleBufferGetDuration(&v47, v28);
                   LODWORD(buf[0].value) = 136447234;
@@ -1335,7 +1411,7 @@ LABEL_7:
       {
         if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_10005FBF4(&buf[12]);
+          sub_10005FBF4();
         }
 
         goto LABEL_35;
@@ -1550,9 +1626,9 @@ LABEL_12:
             [(RPMovieWriter *)self setLastAudio1PresentationTime:time1];
             if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
-              [(RPMovieWriter *)self lastAudio1PresentationTime];
-              v17 = v26;
-              [(RPMovieWriter *)self lastAudio1PresentationTime];
+              objc_msgSend_lastAudio1PresentationTime(self);
+              v17 = v26[0];
+              objc_msgSend_lastAudio1PresentationTime(self);
               v18 = v10;
               v19 = v25;
               CMSampleBufferGetDuration(&v24, v13);
@@ -1588,6 +1664,194 @@ LABEL_12:
       {
 LABEL_30:
       }
+    }
+  }
+}
+
+- (void)dispatchedAppendAudio2SampleBuffer:(opaqueCMSampleBuffer *)buffer convertHQLRMono:(BOOL)mono
+{
+  v6 = [(RPMovieWriter *)self assetWriter:buffer];
+  if (!buffer || !v6)
+  {
+
+    return;
+  }
+
+  v31 = v6;
+  isFinishingWriting = [(RPMovieWriter *)self isFinishingWriting];
+
+  if (isFinishingWriting)
+  {
+    return;
+  }
+
+  FormatDescription = CMSampleBufferGetFormatDescription(buffer);
+  StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(FormatDescription);
+  if (!dword_1000B6840)
+  {
+    v10 = StreamBasicDescription;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      mChannelsPerFrame = v10->mChannelsPerFrame;
+      v12 = *&v10->mSampleRate;
+      LODWORD(buf[0].value) = 136446978;
+      *(&buf[0].value + 4) = "[RPMovieWriter dispatchedAppendAudio2SampleBuffer:convertHQLRMono:]";
+      LOWORD(buf[0].flags) = 1024;
+      *(&buf[0].flags + 2) = 1056;
+      WORD1(buf[0].epoch) = 1024;
+      HIDWORD(buf[0].epoch) = mChannelsPerFrame;
+      LOWORD(buf[1].value) = 2048;
+      *(&buf[1].value + 2) = v12;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d asbd mChannelsPerFrame=%d, mSampleRate=%f", buf, 0x22u);
+    }
+  }
+
+  assetWriter = [(RPMovieWriter *)self assetWriter];
+  if ([assetWriter status] != 1)
+  {
+
+LABEL_17:
+    if ([(RPMovieWriter *)self isSparselyInterleaved])
+    {
+      if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(buf[0].value) = 136446466;
+        *(&buf[0].value + 4) = "[RPMovieWriter dispatchedAppendAudio2SampleBuffer:convertHQLRMono:]";
+        LOWORD(buf[0].flags) = 1024;
+        *(&buf[0].flags + 2) = 1095;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Appending initial sample buffer for audio", buf, 0x12u);
+      }
+
+      audioInput2 = [(RPMovieWriter *)self audioInput2];
+      v16 = *&CGAffineTransformIdentity.c;
+      *&buf[0].value = *&CGAffineTransformIdentity.a;
+      *&buf[0].epoch = v16;
+      *&buf[1].timescale = *&CGAffineTransformIdentity.tx;
+      [(RPMovieWriter *)self appendInitialSampleBuffer:buffer withTransform:buf input:audioInput2];
+    }
+
+    return;
+  }
+
+  didProcessFirstSample = [(RPMovieWriter *)self didProcessFirstSample];
+
+  if (!didProcessFirstSample)
+  {
+    goto LABEL_17;
+  }
+
+  if (CMBufferQueueEnqueue(self->_audioBufferQueue2, buffer))
+  {
+    if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005FD1C();
+    }
+  }
+
+  else
+  {
+    audioInput22 = [(RPMovieWriter *)self audioInput2];
+    if ([audioInput22 isReadyForMoreMediaData])
+    {
+      *&v18 = 136446722;
+      v30 = v18;
+      v19 = &_mh_execute_header;
+      while (1)
+      {
+        IsEmpty = CMBufferQueueIsEmpty(self->_audioBufferQueue2);
+
+        if (IsEmpty)
+        {
+          break;
+        }
+
+        v21 = CMBufferQueueDequeueAndRetain(self->_audioBufferQueue2);
+        if (v21)
+        {
+          v22 = v21;
+          buf[0] = self->_lastAudio2PresentationTime;
+          time2 = kCMTimeInvalid;
+          if (CMTimeCompare(buf, &time2))
+          {
+            value = self->_lastAudio2PresentationTime.value;
+            CMSampleBufferGetPresentationTimeStamp(&v36, v22);
+            if (value >= v36.value)
+            {
+              if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+              {
+                LODWORD(buf[0].value) = 136446466;
+                *(&buf[0].value + 4) = "[RPMovieWriter dispatchedAppendAudio2SampleBuffer:convertHQLRMono:]";
+                LOWORD(buf[0].flags) = 1024;
+                *(&buf[0].flags + 2) = 1074;
+                _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d discarding audio 2 sample buffer due to timestamp earlier than previous", buf, 0x12u);
+              }
+
+              CFRelease(v22);
+              return;
+            }
+          }
+
+          else
+          {
+            v24 = sub_100057EA8(buffer);
+            if (dword_1000B6840 <= 1)
+            {
+              v25 = *&v24;
+              if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+              {
+                LODWORD(buf[0].value) = v30;
+                *(&buf[0].value + 4) = "[RPMovieWriter dispatchedAppendAudio2SampleBuffer:convertHQLRMono:]";
+                LOWORD(buf[0].flags) = 1024;
+                *(&buf[0].flags + 2) = 1080;
+                WORD1(buf[0].epoch) = 2048;
+                *(&buf[0].epoch + 4) = v25;
+                _os_log_impl(v19, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d mic first sample received at time %.3f", buf, 0x1Cu);
+              }
+            }
+          }
+
+          CMSampleBufferGetPresentationTimeStamp(&v35, v22);
+          buf[0] = v35;
+          [(RPMovieWriter *)self setLastAudio2PresentationTime:buf];
+          if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+          {
+            objc_msgSend_lastAudio2PresentationTime(self);
+            v26 = v34[0];
+            objc_msgSend_lastAudio2PresentationTime(self);
+            v27 = v19;
+            v28 = v33;
+            CMSampleBufferGetDuration(&v32, v22);
+            LODWORD(buf[0].value) = 136447234;
+            *(&buf[0].value + 4) = "[RPMovieWriter dispatchedAppendAudio2SampleBuffer:convertHQLRMono:]";
+            LOWORD(buf[0].flags) = 1024;
+            *(&buf[0].flags + 2) = 1084;
+            WORD1(buf[0].epoch) = 2048;
+            *(&buf[0].epoch + 4) = v26;
+            WORD2(buf[1].value) = 1024;
+            *(&buf[1].value + 6) = v28;
+            v19 = v27;
+            HIWORD(buf[1].timescale) = 2048;
+            *&buf[1].flags = v32.value;
+            _os_log_impl(v27, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d appending mic audio sample with timestamp:%lld scale:%d duration:%lld", buf, 0x2Cu);
+          }
+
+          audioInput23 = [(RPMovieWriter *)self audioInput2];
+          [audioInput23 appendSampleBuffer:v22];
+
+          CFRelease(v22);
+        }
+
+        audioInput22 = [(RPMovieWriter *)self audioInput2];
+        if (([audioInput22 isReadyForMoreMediaData] & 1) == 0)
+        {
+          goto LABEL_38;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_38:
     }
   }
 }
@@ -2042,31 +2306,14 @@ LABEL_26:
     content = [request content];
     userInfo = [content userInfo];
 
-    if (!userInfo)
-    {
-      goto LABEL_20;
-    }
-
-    v17 = [userInfo objectForKey:@"photoAssetIdKey"];
-    if (!v17)
-    {
-      goto LABEL_20;
-    }
-
-    v18 = v17;
-    v28 = v17;
-    v19 = [NSArray arrayWithObjects:&v28 count:1];
-    v20 = [PHAsset fetchAssetsWithLocalIdentifiers:v19 options:0];
-    firstObject = [v20 firstObject];
-
-    if (firstObject)
+    if (userInfo && ([userInfo objectForKey:@"photoAssetIdKey"], (v17 = objc_claimAutoreleasedReturnValue()) != 0) && (v18 = v17, v28 = v17, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v28, 1), v19 = objc_claimAutoreleasedReturnValue(), +[PHAsset fetchAssetsWithLocalIdentifiers:options:](PHAsset, "fetchAssetsWithLocalIdentifiers:options:", v19, 0), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "firstObject"), v21 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, v21))
     {
       v22 = +[PHPhotoLibrary sharedPhotoLibrary];
       v26[0] = _NSConcreteStackBlock;
       v26[1] = 3221225472;
       v26[2] = sub_10000F390;
       v26[3] = &unk_1000A1088;
-      v23 = firstObject;
+      v23 = v21;
       v27 = v23;
       v25 = 0;
       [v22 performChangesAndWait:v26 error:&v25];
@@ -2080,20 +2327,16 @@ LABEL_26:
       handlerCopy[2](handlerCopy);
     }
 
-    else
+    else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-LABEL_20:
-      if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        sub_1000602B0();
-      }
+      sub_1000602B0();
     }
   }
 }
 
 - (void)notifyRecordingMayBeStopped
 {
-  [(RPMovieWriter *)self lastVideoPresentationTime];
+  objc_msgSend_lastVideoPresentationTime(self, a2);
   v3 = v5;
   v4 = v6;
   [(RPMovieWriter *)self setTrimVideoPresentationTime:&v3];

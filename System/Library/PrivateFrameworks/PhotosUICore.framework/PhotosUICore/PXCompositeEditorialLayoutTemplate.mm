@@ -289,10 +289,10 @@ double __101__PXCompositeEditorialLayoutTemplate_getComputedRects_contentSize_fo
   self->_numberOfRects = v5;
   self->_rects = malloc_type_malloc(32 * v5, 0x1000040E0EAB150uLL);
   self->_rectWeights = malloc_type_malloc(8 * self->_numberOfRects, 0x100004000313F17uLL);
-  v8[0] = 0;
-  v8[1] = v8;
-  v8[2] = 0x2020000000;
-  v8[3] = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
   v7[0] = 0;
   v7[1] = v7;
   v7[2] = 0x2020000000;
@@ -302,13 +302,13 @@ double __101__PXCompositeEditorialLayoutTemplate_getComputedRects_contentSize_fo
   v6[2] = __71__PXCompositeEditorialLayoutTemplate__initRectsStorageWithDescriptors___block_invoke;
   v6[3] = &unk_1E7743400;
   v6[4] = self;
-  v6[5] = v8;
+  v6[5] = &v8;
   v6[6] = v7;
   [descriptorsCopy enumerateObjectsUsingBlock:v6];
-  PXFloatApproximatelyEqualToFloat();
+  PXFloatApproximatelyEqualToFloat(v9[3]);
 }
 
-void __71__PXCompositeEditorialLayoutTemplate__initRectsStorageWithDescriptors___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __71__PXCompositeEditorialLayoutTemplate__initRectsStorageWithDescriptors___block_invoke(void *a1, void *a2, uint64_t a3)
 {
   v5 = a2;
   v6 = [v5 objectAtIndexedSubscript:0];
@@ -325,7 +325,7 @@ void __71__PXCompositeEditorialLayoutTemplate__initRectsStorageWithDescriptors__
   [v15 floatValue];
   v17 = v16;
 
-  v18 = (*(*(a1 + 32) + 8) + 32 * a3);
+  v18 = (*(a1[4] + 8) + 32 * a3);
   *v18 = v8;
   v18[1] = v11;
   v18[2] = v14;

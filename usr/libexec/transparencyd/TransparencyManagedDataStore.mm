@@ -27,6 +27,7 @@
 - (BOOL)garbageCollectEntityBatchDelete:(id)delete predicate:(id)predicate error:(id *)error;
 - (BOOL)hasPendingDownloadForUUID:(id)d error:(id *)error;
 - (BOOL)hasPendingSingleQueryForUri:(id)uri application:(id)application error:(id *)error;
+- (BOOL)haveTreeHead:(id)head isMapHead:(BOOL)mapHead application:(id)application logBeginTime:(unint64_t)time logType:(int64_t)type revision:(unint64_t)revision gossip:(BOOL)gossip error:(id *)self0;
 - (BOOL)ignoreFailureForResults:(id)results error:(id *)error;
 - (BOOL)ignoreFailureForUri:(id)uri application:(id)application status:(unint64_t)status error:(id *)error;
 - (BOOL)initSelfState:(id)state uri:(id)uri error:(id *)error;
@@ -90,6 +91,7 @@
 - (id)createSingleQuery;
 - (id)createSingleQuery:(id)query backgroundOpId:(id)id error:(id *)error;
 - (id)createTreeHead;
+- (id)createTreeHead:(id)head isMapHead:(BOOL)mapHead application:(id)application logBeginTime:(unint64_t)time logHeadHash:(id)hash logType:(int64_t)type revision:(unint64_t)revision gossip:(BOOL)self0;
 - (id)createVerification:(id)verification application:(id)application onMoc:(id)moc verificationInfo:(id)info error:(id *)error;
 - (id)downloadRecords:(id *)records;
 - (id)failedHeadSignaturesWithRevisions:(id)revisions application:(id)application;
@@ -106,11 +108,14 @@
 - (id)fetchRequestWithUri:(id)uri application:(id)application accountKey:(id)key loggableDatas:(id)datas youngerThan:(id)than error:(id *)error;
 - (id)fetchRequestsForURI:(id)i error:(id *)error;
 - (id)fetchServerRpcById:(id)id error:(id *)error;
+- (id)fetchTreeHead:(id)head isMapHead:(BOOL)mapHead application:(id)application logBeginTime:(unint64_t)time logType:(int64_t)type revision:(unint64_t)revision error:(id *)error;
+- (id)fetchTreeHeadsWithoutHash:(id)hash isMapHead:(BOOL)head application:(id)application logBeginTime:(unint64_t)time logType:(int64_t)type revision:(unint64_t)revision error:(id *)error;
 - (id)getLatestSuccessfulBatchQueryForUri:(id)uri application:(id)application requestYoungerThan:(id)than error:(id *)error;
 - (id)getLatestSuccessfulSingleQueryForUri:(id)uri application:(id)application requestYoungerThan:(id)than error:(id *)error;
 - (id)getOptInStatus:(id)status application:(id)application error:(id *)error;
 - (id)getPendingSmtUris:(id)uris fetchLimit:(unint64_t)limit error:(id *)error;
 - (id)getTapToRadarDate:(id)date;
+- (id)initializeServerRPC:(id)c application:(int)application backgroundOpId:(id)id request:(id)request;
 - (id)insertCompletedSingleQuery:(id)query application:(id)application request:(id)request response:(id)response traceUUID:(id)d responseStatus:(int64_t)status serverHint:(id)hint;
 - (id)latestConsistencyVerifiedTreeHeadRevision:(id)revision logBeginMs:(unint64_t)ms error:(id *)error;
 - (id)latestConsistencyVerifiedTreeHeadSTH:(id)h logBeginMs:(unint64_t)ms error:(id *)error;
@@ -177,6 +182,7 @@
 - (void)performForRequestsWithPendingResponses:(id)responses error:(id *)error block:(id)block;
 - (void)performForSMHsWithUnverifiedMMD:(id)d error:(id *)error block:(id)block;
 - (void)performForSMTsWithUnverifiedSignature:(id)signature error:(id *)error block:(id)block;
+- (void)performForSTHs:(id)hs isMapHead:(BOOL)head revision:(id)revision error:(id *)error block:(id)block;
 - (void)performForSTHsWithUnverifiedSignature:(id)signature error:(id *)error block:(id)block;
 - (void)performOnBatchesOfEntity:(id)entity predicate:(id)predicate enforceMax:(BOOL)max error:(id *)error block:(id)block;
 - (void)recalculateVerifierResultForPeer:(id)peer application:(id)application after:(double)after;
@@ -184,6 +190,8 @@
 - (void)refaultObjects:(id)objects;
 - (void)releaseContext;
 - (void)removeFailuresOnOptIn:(id)in;
+- (void)reportCoreDataEventForEntity:(id)entity hardFailure:(BOOL)failure write:(BOOL)write code:(int64_t)code underlyingError:(id)error;
+- (void)reportCoreDataEventForEntity:(id)entity write:(BOOL)write code:(int64_t)code underlyingError:(id)error;
 - (void)reportCoreDataPersistEventForLocation:(id)location underlyingError:(id)error;
 - (void)reportFailedRevisions:(id)revisions failure:(id)failure downloadType:(unint64_t)type application:(id)application;
 - (void)saveAndRefaultObject:(id)object;
@@ -1659,6 +1667,29 @@
   }
 
   return v19;
+}
+
+- (id)initializeServerRPC:(id)c application:(int)application backgroundOpId:(id)id request:(id)request
+{
+  v8 = *&application;
+  cCopy = c;
+  requestCopy = request;
+  idCopy = id;
+  [cCopy setState:2];
+  v12 = +[NSDate now];
+  [cCopy setRequestTime:v12];
+
+  v13 = +[NSUUID UUID];
+  [cCopy setRpcId:v13];
+
+  v14 = [NSNumber numberWithInt:v8];
+  v15 = [TransparencyApplication applicationIdentifierForValue:v14];
+  [cCopy setApplication:v15];
+
+  [cCopy setRequest:requestCopy];
+  [cCopy setBackgroundOpId:idCopy];
+
+  return cCopy;
 }
 
 - (id)createBatchQuery
@@ -4662,6 +4693,87 @@ LABEL_19:
   return v3;
 }
 
+- (id)createTreeHead:(id)head isMapHead:(BOOL)mapHead application:(id)application logBeginTime:(unint64_t)time logHeadHash:(id)hash logType:(int64_t)type revision:(unint64_t)revision gossip:(BOOL)self0
+{
+  mapHeadCopy = mapHead;
+  applicationCopy = application;
+  hashCopy = hash;
+  headCopy = head;
+  createTreeHead = [(TransparencyManagedDataStore *)self createTreeHead];
+  [createTreeHead setSth:headCopy];
+
+  [createTreeHead setIsMapHead:mapHeadCopy];
+  [createTreeHead setApplication:applicationCopy];
+  [createTreeHead setUnsigned:"logBeginTime" value:time];
+  [createTreeHead setLogHeadHash:hashCopy];
+  [createTreeHead setLogType:type];
+  [createTreeHead setUnsigned:"revision" value:revision];
+  [createTreeHead setGossip:gossip];
+  [createTreeHead setReceiptTime:CFAbsoluteTimeGetCurrent()];
+  if (type != 3 || mapHeadCopy)
+  {
+    [createTreeHead setInclusionVerified:2];
+  }
+
+  if (mapHeadCopy)
+  {
+    [createTreeHead setConsistencyVerified:1];
+  }
+
+  if (qword_10039CCD8 != -1)
+  {
+    sub_10025ECD8();
+  }
+
+  v20 = qword_10039CCE0;
+  if (os_log_type_enabled(qword_10039CCE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = v20;
+    kt_hexString = [hashCopy kt_hexString];
+    v24 = 138413570;
+    v25 = kt_hexString;
+    v26 = 2112;
+    v27 = applicationCopy;
+    v28 = 1024;
+    v29 = mapHeadCopy;
+    v30 = 2048;
+    timeCopy = time;
+    v32 = 2048;
+    typeCopy = type;
+    v34 = 2048;
+    revisionCopy = revision;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Add new tree head: %@[%@] %d %llu %lld %lld", &v24, 0x3Au);
+  }
+
+  return createTreeHead;
+}
+
+- (BOOL)haveTreeHead:(id)head isMapHead:(BOOL)mapHead application:(id)application logBeginTime:(unint64_t)time logType:(int64_t)type revision:(unint64_t)revision gossip:(BOOL)gossip error:(id *)self0
+{
+  mapHeadCopy = mapHead;
+  applicationCopy = application;
+  headCopy = head;
+  v18 = [NSFetchRequest fetchRequestWithEntityName:@"KTTreeHead"];
+  v19 = [NSNumber numberWithBool:mapHeadCopy];
+  revision = [NSPredicate predicateWithFormat:@"isMapHead == %@ && logHeadHash == %@ && application == %@ && logBeginTime == %llu && logType == %lld && revision == %llu", v19, headCopy, applicationCopy, time, type, revision];
+
+  [v18 setPredicate:revision];
+  context = [(TransparencyManagedDataStore *)self context];
+  v26 = 0;
+  v22 = [context countForFetchRequest:v18 error:&v26];
+  v23 = v26;
+
+  if (error && v23)
+  {
+    v24 = v23;
+    *error = v23;
+  }
+
+  [TransparencyManagedDataStore cleanseError:error];
+
+  return v22 != 0;
+}
+
 - (id)treeHeads:(id *)heads
 {
   v5 = [NSFetchRequest fetchRequestWithEntityName:@"KTTreeHead"];
@@ -4716,6 +4828,169 @@ LABEL_19:
 
   [TransparencyManagedDataStore cleanseError:count];
   return v7;
+}
+
+- (id)fetchTreeHead:(id)head isMapHead:(BOOL)mapHead application:(id)application logBeginTime:(unint64_t)time logType:(int64_t)type revision:(unint64_t)revision error:(id *)error
+{
+  mapHeadCopy = mapHead;
+  headCopy = head;
+  applicationCopy = application;
+  v17 = [NSFetchRequest fetchRequestWithEntityName:@"KTTreeHead"];
+  v18 = [NSNumber numberWithBool:mapHeadCopy];
+  v50 = applicationCopy;
+  revision = [NSPredicate predicateWithFormat:@"isMapHead == %@ && logHeadHash == %@ && application == %@ && logBeginTime == %lld && logType == %lld && revision == %lld", v18, headCopy, applicationCopy, time, type, revision];
+  [v17 setPredicate:revision];
+
+  context = [(TransparencyManagedDataStore *)self context];
+  v58 = 0;
+  v49 = v17;
+  v21 = [context executeFetchRequest:v17 error:&v58];
+  v22 = v58;
+
+  if ([v21 count])
+  {
+    v48 = headCopy;
+    if ([v21 count] >= 2)
+    {
+      v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v47 = v21;
+      obj = v21;
+      v23 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+      if (v23)
+      {
+        v24 = v23;
+        v25 = *v55;
+        v26 = &qword_10039A8D0[742];
+        v27 = &qword_10039A8D0[742];
+        v51 = *v55;
+        do
+        {
+          for (i = 0; i != v24; i = i + 1)
+          {
+            if (*v55 != v25)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v29 = *(*(&v54 + 1) + 8 * i);
+            if (v26[411] != -1)
+            {
+              sub_10025ECEC();
+            }
+
+            v30 = v27[412];
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            {
+              log = v30;
+              logHeadHash = [v29 logHeadHash];
+              kt_hexString = [logHeadHash kt_hexString];
+              application = [v29 application];
+              v34 = v24;
+              v35 = v22;
+              isMapHead = [v29 isMapHead];
+              logBeginTime = [v29 logBeginTime];
+              logType = [v29 logType];
+              revision2 = [v29 revision];
+              *buf = 138413570;
+              v61 = kt_hexString;
+              v62 = 2112;
+              v63 = application;
+              v64 = 1024;
+              v65 = isMapHead;
+              v22 = v35;
+              v24 = v34;
+              v66 = 2048;
+              timeCopy = logBeginTime;
+              v68 = 2048;
+              typeCopy = logType;
+              v70 = 2048;
+              revisionCopy = revision2;
+              _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Fetch returned too dup head: %@[%@] %d %llu %lld %lld", buf, 0x3Au);
+
+              v25 = v51;
+              v26 = qword_10039A8D0 + 5936;
+
+              v27 = qword_10039A8D0 + 5936;
+            }
+          }
+
+          v24 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+        }
+
+        while (v24);
+      }
+
+      v21 = v47;
+    }
+
+    [TransparencyManagedDataStore cleanseError:error];
+    v40 = [v21 objectAtIndexedSubscript:0];
+    v41 = v22;
+    headCopy = v48;
+  }
+
+  else
+  {
+    kt_hexString2 = [headCopy kt_hexString];
+    v41 = [TransparencyError errorWithDomain:kTransparencyErrorDatabase code:-185 underlyingError:v22 description:@"Fetch returned no tree heads for hash: %@", kt_hexString2];
+
+    [(TransparencyManagedDataStore *)self reportCoreDataEventForEntity:@"KTTreeHead" hardFailure:0 write:0 code:-185 underlyingError:v41];
+    v43 = v21;
+    if (qword_10039CCD8 != -1)
+    {
+      sub_10025ED14();
+    }
+
+    v44 = qword_10039CCE0;
+    if (os_log_type_enabled(qword_10039CCE0, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138413570;
+      v61 = kt_hexString2;
+      v62 = 2112;
+      v63 = v50;
+      v64 = 1024;
+      v65 = mapHeadCopy;
+      v66 = 2048;
+      timeCopy = time;
+      v68 = 2048;
+      typeCopy = type;
+      v70 = 2048;
+      revisionCopy = revision;
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Fetch returned no tree heads for hash: %@[%@] %d %llu %lld %lld", buf, 0x3Au);
+    }
+
+    if (error && v41)
+    {
+      v45 = v41;
+      *error = v41;
+    }
+
+    v40 = 0;
+    v21 = v43;
+  }
+
+  return v40;
+}
+
+- (id)fetchTreeHeadsWithoutHash:(id)hash isMapHead:(BOOL)head application:(id)application logBeginTime:(unint64_t)time logType:(int64_t)type revision:(unint64_t)revision error:(id *)error
+{
+  headCopy = head;
+  applicationCopy = application;
+  hashCopy = hash;
+  v17 = [NSFetchRequest fetchRequestWithEntityName:@"KTTreeHead"];
+  v18 = [NSNumber numberWithBool:headCopy];
+  revision = [NSPredicate predicateWithFormat:@"isMapHead == %@ && logHeadHash != %@ && application == %@ && logBeginTime == %llu && logType == %lld && revision == %llu", v18, hashCopy, applicationCopy, time, type, revision];
+
+  [v17 setPredicate:revision];
+  context = [(TransparencyManagedDataStore *)self context];
+  v21 = [context executeFetchRequest:v17 error:error];
+
+  [TransparencyManagedDataStore cleanseError:error];
+
+  return v21;
 }
 
 - (id)latestConsistencyVerifiedTreeHeadRevision:(id)revision logBeginMs:(unint64_t)ms error:(id *)error
@@ -4909,6 +5184,18 @@ LABEL_19:
   blockCopy = block;
   v9 = [NSPredicate predicateWithFormat:@"isMapHead = %@ && application == %@ && mmdVerified == %d", &__kCFBooleanTrue, d, 2];
   [(TransparencyManagedDataStore *)self performOnBatchesOfEntity:@"KTTreeHead" predicate:v9 enforceMax:0 error:error block:blockCopy];
+}
+
+- (void)performForSTHs:(id)hs isMapHead:(BOOL)head revision:(id)revision error:(id *)error block:(id)block
+{
+  headCopy = head;
+  blockCopy = block;
+  revisionCopy = revision;
+  hsCopy = hs;
+  v15 = [NSNumber numberWithBool:headCopy];
+  revisionCopy = [NSPredicate predicateWithFormat:@"isMapHead == %@ && application == %@ && revision == %@", v15, hsCopy, revisionCopy];
+
+  [(TransparencyManagedDataStore *)self performOnBatchesOfEntity:@"KTTreeHead" predicate:revisionCopy enforceMax:0 error:error block:blockCopy];
 }
 
 - (void)garbageCollectSTHs:(id)hs logBeginMs:(unint64_t)ms olderThanDate:(id)date error:(id *)error
@@ -5758,6 +6045,25 @@ LABEL_19:
   {
     *error = [SecXPCHelper cleanseErrorForXPC:*error];
   }
+}
+
+- (void)reportCoreDataEventForEntity:(id)entity write:(BOOL)write code:(int64_t)code underlyingError:(id)error
+{
+  writeCopy = write;
+  errorCopy = error;
+  entityCopy = entity;
+  controller = [(TransparencyManagedDataStore *)self controller];
+  [controller reportCoreDataEventForEntity:entityCopy write:writeCopy code:code underlyingError:errorCopy];
+}
+
+- (void)reportCoreDataEventForEntity:(id)entity hardFailure:(BOOL)failure write:(BOOL)write code:(int64_t)code underlyingError:(id)error
+{
+  writeCopy = write;
+  failureCopy = failure;
+  errorCopy = error;
+  entityCopy = entity;
+  controller = [(TransparencyManagedDataStore *)self controller];
+  [controller reportCoreDataEventForEntity:entityCopy hardFailure:failureCopy write:writeCopy code:code underlyingError:errorCopy];
 }
 
 - (void)reportCoreDataPersistEventForLocation:(id)location underlyingError:(id)error

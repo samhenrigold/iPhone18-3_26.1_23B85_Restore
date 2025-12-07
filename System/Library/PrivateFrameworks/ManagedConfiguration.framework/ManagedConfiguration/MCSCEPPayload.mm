@@ -9,12 +9,12 @@
 
 - (MCSCEPPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v105.receiver = self;
-  v105.super_class = MCSCEPPayload;
-  v10 = [(MCCertificatePayload *)&v105 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v104.receiver = self;
+  v104.super_class = MCSCEPPayload;
+  v10 = [(MCCertificatePayload *)&v104 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_29;
@@ -22,9 +22,9 @@
 
   if (([profileCopy isStub] & 1) == 0)
   {
-    v104 = 0;
-    v14 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v104];
-    v12 = v104;
+    v103 = 0;
+    v14 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v103];
+    v12 = v103;
     v16 = [v14 mutableCopy];
     v17 = v16;
     if (v12)
@@ -33,11 +33,11 @@
       goto LABEL_24;
     }
 
-    v103 = 0;
+    v102 = 0;
     v18 = @"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD";
     v19 = 2002;
-    v20 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:v16 key:@"URL" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v103];
-    v12 = v103;
+    v20 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:v16 key:@"URL" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v102];
+    v12 = v102;
     URLString = v10->_URLString;
     v10->_URLString = v20;
 
@@ -73,116 +73,66 @@
           goto LABEL_21;
         }
 
-        v57 = *(v38 + 1640);
-        v102 = 0;
-        v58 = [v57 removeOptionalNonZeroLengthStringInDictionary:v17 key:@"Name" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v102];
-        v12 = v102;
-        CAInstanceName = v10->_CAInstanceName;
-        v10->_CAInstanceName = v58;
-
-        v88 = v14;
-        if (v12)
-        {
-          goto LABEL_36;
-        }
-
+        v56 = *(v38 + 1640);
         v101 = 0;
-        v60 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:v17 key:@"Challenge" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v101];
+        v57 = [v56 removeOptionalNonZeroLengthStringInDictionary:v17 key:@"Name" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v101];
         v12 = v101;
-        challenge = v10->_challenge;
-        v10->_challenge = v60;
+        CAInstanceName = v10->_CAInstanceName;
+        v10->_CAInstanceName = v57;
 
-        if (v12)
+        v87 = v14;
+        if (v12
+          || (v100 = 0, [MCProfile removeOptionalNonZeroLengthStringInDictionary:v17 key:@"Challenge" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v100], v59 = objc_claimAutoreleasedReturnValue(), v12 = v100, challenge = v10->_challenge, v10->_challenge = v59, challenge, v12)
+          || (v99 = 0, [MCProfile removeOptionalObjectInDictionary:v17 key:@"Subject" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v99], v61 = objc_claimAutoreleasedReturnValue(), v12 = v99, subject = v10->_subject, v10->_subject = v61, subject, v12)
+          || (v98 = 0, [MCProfile removeOptionalObjectInDictionary:v17 key:@"SubjectAltName" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v98], v63 = objc_claimAutoreleasedReturnValue(), v12 = v98, subjectAltName = v10->_subjectAltName, v10->_subjectAltName = v63, subjectAltName, v12)
+          || (v97 = 0, [MCProfile removeOptionalObjectInDictionary:v17 key:@"CAFingerprint" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v97], v65 = objc_claimAutoreleasedReturnValue(), v12 = v97, CAFingerprint = v10->_CAFingerprint, v10->_CAFingerprint = v65, CAFingerprint, v12)
+          || (v96 = 0, [MCProfile removeOptionalObjectInDictionary:v17 key:@"GetCACaps" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v96], v67 = objc_claimAutoreleasedReturnValue(), v12 = v96, CACaps = v10->_CACaps, v10->_CACaps = v67, CACaps, v12)
+          || (v70 = v29, v95 = 0, v75 = v17, [MCProfile removeOptionalObjectInDictionary:v17 key:@"Key Usage" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v95], v78 = objc_claimAutoreleasedReturnValue(), v12 = v95, (v89 = v78) == 0))
         {
-          goto LABEL_36;
-        }
-
-        v100 = 0;
-        v62 = [MCProfile removeOptionalObjectInDictionary:v17 key:@"Subject" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v100];
-        v12 = v100;
-        subject = v10->_subject;
-        v10->_subject = v62;
-
-        if (v12)
-        {
-          goto LABEL_36;
-        }
-
-        v99 = 0;
-        v64 = [MCProfile removeOptionalObjectInDictionary:v17 key:@"SubjectAltName" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v99];
-        v12 = v99;
-        subjectAltName = v10->_subjectAltName;
-        v10->_subjectAltName = v64;
-
-        if (v12)
-        {
-          goto LABEL_36;
-        }
-
-        v98 = 0;
-        v66 = [MCProfile removeOptionalObjectInDictionary:v17 key:@"CAFingerprint" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v98];
-        v12 = v98;
-        CAFingerprint = v10->_CAFingerprint;
-        v10->_CAFingerprint = v66;
-
-        if (v12)
-        {
-          goto LABEL_36;
-        }
-
-        v97 = 0;
-        v68 = [MCProfile removeOptionalObjectInDictionary:v17 key:@"GetCACaps" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v97];
-        v12 = v97;
-        CACaps = v10->_CACaps;
-        v10->_CACaps = v68;
-
-        if (v12 || (v71 = v29, v96 = 0, v76 = v17, [MCProfile removeOptionalObjectInDictionary:v17 key:@"Key Usage" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v96], v79 = objc_claimAutoreleasedReturnValue(), v12 = v96, (v90 = v79) == 0))
-        {
-LABEL_36:
-          v70 = 0;
+          v69 = 0;
           v10->_usageFlags = 1;
         }
 
         else
         {
-          unsignedIntValue = [v79 unsignedIntValue];
+          unsignedIntValue = [v78 unsignedIntValue];
           v10->_usageFlags = unsignedIntValue;
           if ((unsignedIntValue & 0xFFFFFFFA) != 0)
           {
-            v91 = MEMORY[0x1E696ABC0];
+            v90 = MEMORY[0x1E696ABC0];
             friendlyName = [profileCopy friendlyName];
-            v77 = MCErrorArray(@"SCEP_ERROR_INVALID_USAGE_FLAG_P_FIELD", v81, v82, v83, v84, v85, v86, v87, friendlyName);
-            v92 = [v91 MCErrorWithDomain:@"MCSCEPErrorDomain" code:22000 descriptionArray:v77 errorType:@"MCFatalError"];
+            v76 = MCErrorArray(@"SCEP_ERROR_INVALID_USAGE_FLAG_P_FIELD", v80, v81, v82, v83, v84, v85, v86, friendlyName);
+            v91 = [v90 MCErrorWithDomain:@"MCSCEPErrorDomain" code:22000 descriptionArray:v76 errorType:@"MCFatalError"];
 
-            v73 = 0;
-            v12 = v92;
+            v72 = 0;
+            v12 = v91;
             goto LABEL_49;
           }
 
-          v70 = v79;
+          v69 = v78;
         }
 
-        v71 = v29;
+        v70 = v29;
         if (v12)
         {
           friendlyName = 0;
-          v73 = 0;
+          v72 = 0;
           goto LABEL_51;
         }
 
-        v90 = v70;
-        v95 = 0;
-        friendlyName = [MCProfile removeOptionalObjectInDictionary:v17 key:@"Retries" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v95];
-        v74 = v95;
-        if (v74)
+        v89 = v69;
+        v94 = 0;
+        friendlyName = [MCProfile removeOptionalObjectInDictionary:v17 key:@"Retries" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v94];
+        v73 = v94;
+        if (v73)
         {
-          v12 = v74;
-          v73 = 0;
+          v12 = v73;
+          v72 = 0;
 LABEL_50:
-          v70 = v90;
+          v69 = v89;
 LABEL_51:
 
-          if (!v73)
+          if (!v72)
           {
             goto LABEL_23;
           }
@@ -201,16 +151,16 @@ LABEL_51:
         }
 
         v10->_retries = unsignedIntValue2;
-        v94 = 0;
-        v76 = v17;
-        v77 = [MCProfile removeOptionalObjectInDictionary:v17 key:@"RetryDelay" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v94];
-        v12 = v94;
-        v73 = v12 == 0;
+        v93 = 0;
+        v75 = v17;
+        v76 = [MCProfile removeOptionalObjectInDictionary:v17 key:@"RetryDelay" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v93];
+        v12 = v93;
+        v72 = v12 == 0;
         if (!v12)
         {
-          if (v77)
+          if (v76)
           {
-            unsignedIntValue3 = [v77 unsignedIntValue];
+            unsignedIntValue3 = [v76 unsignedIntValue];
           }
 
           else
@@ -219,16 +169,16 @@ LABEL_51:
           }
 
           v10->_retryDelay = unsignedIntValue3;
-          v73 = 1;
+          v72 = 1;
         }
 
 LABEL_49:
 
-        v17 = v76;
+        v17 = v75;
         goto LABEL_50;
       }
 
-      v89 = v29;
+      v88 = v29;
       v42 = v17;
       v43 = v14;
       v18 = @"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD";
@@ -237,7 +187,7 @@ LABEL_49:
 
     else
     {
-      v89 = 0;
+      v88 = 0;
       v42 = v17;
       v43 = v14;
     }
@@ -249,15 +199,15 @@ LABEL_49:
     v12 = v46;
     v14 = v43;
     v17 = v42;
-    v29 = v89;
+    v29 = v88;
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v93 = 0;
-  v11 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"Keysize" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v93];
-  v12 = v93;
+  v92 = 0;
+  v11 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"Keysize" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v92];
+  v12 = v92;
   v10->_keySize = [v11 unsignedIntValue];
 
   if (!v12)
@@ -271,9 +221,9 @@ LABEL_4:
         v14 = v13;
         friendlyName2 = [(MCPayload *)v10 friendlyName];
         *buf = 138543618;
-        v107 = friendlyName2;
-        v108 = 2114;
-        v109 = dictionaryCopy;
+        v106 = friendlyName2;
+        v107 = 2114;
+        v108 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
 
 LABEL_22:
@@ -304,16 +254,15 @@ LABEL_24:
     v53 = v52;
     mCVerboseDescription = [v48 MCVerboseDescription];
     *buf = 138543618;
-    v107 = v52;
-    v108 = 2114;
-    v109 = mCVerboseDescription;
+    v106 = v52;
+    v107 = 2114;
+    v108 = mCVerboseDescription;
     _os_log_impl(&dword_1A795B000, v51, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
   }
 
   v10 = 0;
 LABEL_29:
 
-  v55 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -382,7 +331,7 @@ LABEL_29:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_URLString)
   {
@@ -434,10 +383,8 @@ LABEL_29:
   [v3 addObject:v25];
 
   v26 = [MCKeyValueSection sectionWithKeyValues:v3];
-  v30[0] = v26;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
-
-  v28 = *MEMORY[0x1E69E9840];
+  v29[0] = v26;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
 
   return v27;
 }

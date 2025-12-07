@@ -1,25 +1,204 @@
+void sub_1A867FBEC()
+{
+  v2[5] = *MEMORY[0x1E69E9840];
+  v2[0] = IMServiceNameiMessage[0];
+  v2[1] = IMServiceNameiMessageLite[0];
+  v2[2] = IMServiceNameSMS[0];
+  v2[3] = IMServiceNameRCS[0];
+  v2[4] = IMServiceNameSatelliteSMS;
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:5];
+  v1 = qword_1EB30AFB0;
+  qword_1EB30AFB0 = v0;
+}
+
+void sub_1A867FE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+__CFArray *sub_1A8680188(void *a1, void *a2, int a3)
+{
+  v49 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v37 = a2;
+  theArray = [MEMORY[0x1E695DF70] array];
+  v6 = [MEMORY[0x1E695DF00] date];
+  v39 = [MEMORY[0x1E695DEE8] currentCalendar];
+  v31 = v6;
+  v40 = [v39 components:24 fromDate:v6];
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v7 = v5;
+  v8 = [v7 countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v43;
+    v41 = *MEMORY[0x1E695C1D0];
+    v32 = *MEMORY[0x1E695C240];
+    v36 = a3;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v43 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = *(*(&v42 + 1) + 8 * v11);
+        if (MEMORY[0x1AC570A30]())
+        {
+          v13 = IMLogHandleForCategory("IMReplySuggestionGenerator");
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v48 = v12;
+            v14 = v13;
+            v15 = "Handle %@ is a business ID, for SpecialEventReply.";
+            goto LABEL_32;
+          }
+
+          goto LABEL_11;
+        }
+
+        if (MEMORY[0x1AC570A60](v12))
+        {
+          v13 = IMLogHandleForCategory("IMReplySuggestionGenerator");
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v48 = v12;
+            v14 = v13;
+            v15 = "Handle %@ is a stewie ID, not eligible for a SpecialEventReply";
+LABEL_32:
+            _os_log_debug_impl(&dword_1A85E5000, v14, OS_LOG_TYPE_DEBUG, v15, buf, 0xCu);
+          }
+
+LABEL_11:
+          v16 = v12;
+LABEL_12:
+
+          v12 = v16;
+LABEL_13:
+
+          goto LABEL_14;
+        }
+
+        if (a3)
+        {
+          v17 = [IMContactUtilities getContactGivenNameAndBirthdayForHandleID:v12];
+        }
+
+        else
+        {
+          if (qword_1EB30AFC8 != -1)
+          {
+            sub_1A88C2798();
+          }
+
+          if (!off_1EB30AFC0)
+          {
+            goto LABEL_13;
+          }
+
+          v17 = off_1EB30AFC0(v12);
+        }
+
+        v16 = v17;
+
+        if (v16)
+        {
+          v13 = [v16 objectForKey:v41];
+          if (v13)
+          {
+            v18 = [v39 components:24 fromDate:v13];
+            v19 = [v18 month];
+            if (v19 == [v40 month])
+            {
+              v20 = [v18 day];
+              if (v20 == [v40 day])
+              {
+                v21 = [v7 count];
+                if (v21 < 2)
+                {
+                  v28 = IMSharedUtilitiesFrameworkBundle(v21, v22);
+                  v27 = sub_1A8681D10(v37, @"HAPPY_BIRTHDAY", v28);
+
+                  if (theArray && v27)
+                  {
+                    CFArrayAppendValue(theArray, v27);
+                  }
+
+                  a3 = v36;
+                }
+
+                else
+                {
+                  v23 = [v16 objectForKey:v32];
+                  v33 = MEMORY[0x1E696AEC0];
+                  v34 = IMSharedUtilitiesFrameworkBundle(v23, v24);
+                  v25 = sub_1A8681D10(v37, @"HAPPY_BIRTHDAY_TARGETED", v34);
+                  v35 = v23;
+                  v26 = [v33 stringWithValidatedFormat:v25 validFormatSpecifiers:@"Happy Birthday error:%@!", 0, v23];
+
+                  if (theArray && v26)
+                  {
+                    CFArrayAppendValue(theArray, v26);
+                  }
+
+                  a3 = v36;
+                  v27 = v35;
+                }
+              }
+            }
+          }
+
+          goto LABEL_12;
+        }
+
+LABEL_14:
+        ++v11;
+      }
+
+      while (v9 != v11);
+      v29 = [v7 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v9 = v29;
+    }
+
+    while (v29);
+  }
+
+  return theArray;
+}
+
 void sub_1A86805EC(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v29 objects:v42 count:16];
+  v3 = [obj countByEnumeratingWithState:&v28 objects:v41 count:16];
   if (v3)
   {
-    v26 = *v30;
+    v26 = *v29;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v30 != v26)
+        if (*v29 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v29 + 1) + 8 * i);
+        v5 = *(*(&v28 + 1) + 8 * i);
         v6 = [v5 title];
         if ([v6 length])
         {
@@ -38,24 +217,24 @@ void sub_1A86805EC(uint64_t a1, void *a2)
 
           else
           {
-            v38 = 0;
-            v39 = &v38;
-            v40 = 0x2050000000;
+            v37 = 0;
+            v38 = &v37;
+            v39 = 0x2050000000;
             v9 = qword_1EB30AFE0;
-            v41 = qword_1EB30AFE0;
+            v40 = qword_1EB30AFE0;
             if (!qword_1EB30AFE0)
             {
               *buf = MEMORY[0x1E69E9820];
-              v34 = 3221225472;
-              v35 = sub_1A8682028;
-              v36 = &unk_1E78261C8;
-              v37 = &v38;
+              v33 = 3221225472;
+              v34 = sub_1A8682028;
+              v35 = &unk_1E78261C8;
+              v36 = &v37;
               sub_1A8682028(buf);
-              v9 = v39[3];
+              v9 = v38[3];
             }
 
             v10 = v9;
-            _Block_object_dispose(&v38, 8);
+            _Block_object_dispose(&v37, 8);
             if (objc_opt_isKindOfClass())
             {
               v11 = v5;
@@ -122,17 +301,24 @@ void sub_1A86805EC(uint64_t a1, void *a2)
 
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          sub_1A88C27C0(&v27, v28);
+          sub_1A88C27C0(v27, &v27[1]);
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v29 objects:v42 count:16];
+      v3 = [obj countByEnumeratingWithState:&v28 objects:v41 count:16];
     }
 
     while (v3);
   }
 
   (*(*(a1 + 48) + 16))();
+}
+
+void sub_1A86809EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1A8680BDC(void *a1, void *a2, void *a3)
@@ -203,7 +389,7 @@ void sub_1A8680D2C(uint64_t a1, void *a2)
 
       else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_1A88C27C0(&v12, v13);
+        sub_1A88C27C0(v12, &v12[1]);
       }
 
       ++v7;
@@ -214,6 +400,13 @@ void sub_1A8680D2C(uint64_t a1, void *a2)
 
   sub_1A8680BDC(*(a1 + 32), *(a1 + 40), v4);
   (*(*(a1 + 48) + 16))();
+}
+
+void sub_1A8681564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
+{
+  va_start(va, a45);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_1A8681584()
@@ -240,9 +433,9 @@ id sub_1A8681584()
   return v1;
 }
 
-void sub_1A868164C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A868164C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -271,9 +464,9 @@ id sub_1A8681664()
   return v1;
 }
 
-void sub_1A868172C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A868172C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -296,9 +489,9 @@ void sub_1A8681820()
   [v0 primeResponsesExperimentsIfNeeded];
 }
 
-void sub_1A868199C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A868199C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -361,7 +554,7 @@ id sub_1A8681D10(void *a1, void *a2, void *a3)
   return v9;
 }
 
-void *sub_1A8681E44()
+uint64_t (*sub_1A8681E44())(void)
 {
   result = MEMORY[0x1AC570AB0]("IMDCNGivenNameAndBirthdayForHandleID", @"IMDPersistence");
   off_1EB30AFC0 = result;
@@ -394,7 +587,7 @@ void *sub_1A8681E74(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -409,7 +602,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_1A8681FB4()
+uint64_t sub_1A8681FB4(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1EB30AFD8 = result;
@@ -451,7 +644,7 @@ void sub_1A8682080()
   v0 = v1[0];
   if (!qword_1EB30AFE8)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -462,7 +655,7 @@ LABEL_7:
   }
 }
 
-uint64_t sub_1A868217C()
+uint64_t sub_1A868217C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1EB30AFE8 = result;
@@ -499,7 +692,7 @@ void sub_1A8682248(uint64_t a1)
 
   else
   {
-    v2 = sub_1A88C28AC();
+    sub_1A88C28AC();
     sub_1A86822A0(v2);
   }
 }
@@ -515,7 +708,7 @@ void sub_1A86822A0(uint64_t a1)
 
   else
   {
-    v2 = sub_1A88C28D4();
+    sub_1A88C28D4();
     [(IMLocationShareStatusChangeItem *)v2 dealloc];
   }
 }
@@ -808,9 +1001,9 @@ uint64_t sub_1A868360C(void *a1)
   return v3;
 }
 
-void sub_1A86836D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A86836D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -845,9 +1038,9 @@ uint64_t sub_1A8683704(void *a1, uint64_t a2, void *a3)
   return v5;
 }
 
-void sub_1A86837C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A86837C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -903,11 +1096,11 @@ uint64_t sub_1A86837F0(void *a1, uint64_t a2, void *a3)
   return v12 & 1;
 }
 
-void sub_1A8683988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A8683988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -987,11 +1180,11 @@ uint64_t sub_1A8683AC4(void *a1, uint64_t a2, void *a3)
   return v12 & 1;
 }
 
-void sub_1A8683C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A8683C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1357,16 +1550,16 @@ LABEL_41:
   return [a2 hasError] ^ 1;
 }
 
-id sub_1A8684F28()
+id sub_1A8684F28(uint64_t a1)
 {
   if (qword_1EB309600 != -1)
   {
     sub_1A88C2940();
   }
 
-  v1 = qword_1EB309608;
+  v2 = qword_1EB309608;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_1A8684F6C()
@@ -1423,7 +1616,7 @@ uint64_t sub_1A86850CC()
 id sub_1A868514C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = MEMORY[0x1E696AEC0];
-  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a3];
   v8 = [a1 stringFromHugeNumber:v7];
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a4];
   v10 = [a1 stringFromHugeNumber:v9];
@@ -1633,9 +1826,9 @@ LABEL_53:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1A8686890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A8686890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1653,7 +1846,7 @@ Class sub_1A86868A8(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1A86869A8()
+uint64_t sub_1A86869A8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1EB30B020 = result;
@@ -1694,45 +1887,45 @@ void sub_1A86870E4(uint64_t a1, void *a2, void *a3)
 
 id IMAttachmentsCreateLocalizedDescription(void *a1, void *a2, void *a3)
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
-  v71 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v76 = objc_alloc_init(MEMORY[0x1E695DFA0]);
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v89 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v92 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v89 objects:v94 count:16];
-  v78 = v7;
+  v10 = [v9 countByEnumeratingWithState:&v94 objects:v99 count:16];
+  v83 = v7;
   if (v10)
   {
-    v69 = v6;
+    v74 = v6;
     v11 = 0;
-    v77 = *v90;
-    v73 = *MEMORY[0x1E69A5EF8];
-    v76 = v8;
+    v82 = *v95;
+    v78 = *MEMORY[0x1E69A5EF8];
+    v81 = v8;
     v12 = v10;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v90 != v77)
+      if (*v95 != v82)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v89 + 1) + 8 * v13);
-      v88 = 0;
-      v86 = 0;
-      v87 = 0;
-      v85 = 0;
-      v15 = (v78)[2](v78, v14, &v87, &v86, &v88 + 1, &v88, &v85, 0, 0);
-      v79 = v87;
-      v16 = v86;
-      v17 = v85;
+      v14 = *(*(&v94 + 1) + 8 * v13);
+      v93 = 0;
+      v91 = 0;
+      v92 = 0;
+      v90 = 0;
+      v15 = (v83)[2](v83, v14, &v92, &v91, &v93 + 1, &v93, &v90, 0, 0);
+      v84 = v92;
+      v16 = v91;
+      v17 = v90;
       v18 = v17;
       if (!v15)
       {
@@ -1740,20 +1933,20 @@ LABEL_3:
       }
 
       v19 = @"%lu Stickers";
-      if ((v88 & 0x100) == 0)
+      if ((v93 & 0x100) == 0)
       {
-        v20 = [v17 objectForKey:v73];
+        v20 = [v17 objectForKey:v78];
         if ([v20 BOOLValue])
         {
 
           v19 = @"%lu Animated Emoji";
-          v8 = v76;
+          v8 = v81;
         }
 
         else
         {
-          v74 = v16;
-          v21 = v79;
+          v79 = v16;
+          v21 = v84;
           v22 = [v21 pathExtension];
           v23 = [v22 isEqualToString:@"png"];
           if ((v23 & 1) == 0)
@@ -1762,8 +1955,8 @@ LABEL_3:
             if (![v24 isEqualToString:@"gif"])
             {
 
-              v16 = v74;
-              v8 = v76;
+              v16 = v79;
+              v8 = v81;
               v27 = v21;
 LABEL_18:
               IsImage = IMUTTypeIsImage(v16);
@@ -1784,38 +1977,38 @@ LABEL_18:
                       v19 = @"%lu Watch Faces";
                       if (v32 == 1)
                       {
-                        v64 = MEMORY[0x1E696AEC0];
-                        v65 = IMSharedUtilitiesFrameworkBundle();
-                        [v65 localizedStringForKey:@"SHARED_WATCHFACE_NOTIFICATION" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
-                        v67 = v66 = v27;
-                        v6 = v69;
+                        v69 = MEMORY[0x1E696AEC0];
+                        v70 = IMSharedUtilitiesFrameworkBundle(1, v33);
+                        [v70 localizedStringForKey:@"SHARED_WATCHFACE_NOTIFICATION" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+                        v72 = v71 = v27;
+                        v6 = v74;
                         goto LABEL_56;
                       }
                     }
 
                     else if (IMUTTypeIsWorkout(v16))
                     {
-                      v34 = [v9 count];
+                      v35 = [v9 count];
                       v19 = @"%lu Workouts";
-                      if (v34 == 1)
+                      if (v35 == 1)
                       {
-                        v6 = v69;
-                        if (v69)
+                        v6 = v74;
+                        if (v74)
                         {
-                          v64 = MEMORY[0x1E696AEC0];
-                          v65 = IMSharedUtilitiesFrameworkBundle();
-                          [v65 localizedStringForKey:@"SHARED_WORKOUT_NOTIFICATION" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
-                          v67 = v66 = v27;
+                          v69 = MEMORY[0x1E696AEC0];
+                          v70 = IMSharedUtilitiesFrameworkBundle(1, v36);
+                          [v70 localizedStringForKey:@"SHARED_WORKOUT_NOTIFICATION" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+                          v72 = v71 = v27;
 LABEL_56:
-                          v46 = [v64 stringWithFormat:v67, v6];
+                          v48 = [v69 stringWithFormat:v72, v6];
 
-                          v27 = v66;
+                          v27 = v71;
                         }
 
                         else
                         {
-                          v65 = IMSharedUtilitiesFrameworkBundle();
-                          v46 = [v65 localizedStringForKey:@"SHARED_WORKOUT_NOTIFICATION_NO_NAME" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+                          v70 = IMSharedUtilitiesFrameworkBundle(1, v36);
+                          v48 = [v70 localizedStringForKey:@"SHARED_WORKOUT_NOTIFICATION_NO_NAME" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
                         }
 
                         goto LABEL_58;
@@ -1824,7 +2017,7 @@ LABEL_56:
 
                     else
                     {
-                      IsMap = IMUTTypeIsMap(v16, v33);
+                      IsMap = IMUTTypeIsMap(v16, v34);
                       v19 = @"%lu Locations";
                       if ((IsMap & 1) == 0)
                       {
@@ -1853,10 +2046,10 @@ LABEL_56:
               goto LABEL_32;
             }
 
-            v70 = v24;
+            v75 = v24;
           }
 
-          v72 = v11;
+          v77 = v11;
           v25 = [v21 path];
           v26 = [v25 rangeOfString:@".emoji"];
 
@@ -1865,9 +2058,9 @@ LABEL_56:
           }
 
           v19 = @"%lu Animated Emoji";
-          v16 = v74;
-          v8 = v76;
-          v11 = v72;
+          v16 = v79;
+          v8 = v81;
+          v11 = v77;
           v27 = v21;
           if (v26 == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -1877,32 +2070,32 @@ LABEL_56:
       }
 
 LABEL_32:
-      v39 = v19;
-      if (v39)
+      v41 = v19;
+      if (v41)
       {
-        v75 = v18;
-        v40 = v16;
-        v41 = [v8 objectForKey:v39];
-        v42 = v41;
-        if (v41)
+        v80 = v18;
+        v42 = v16;
+        v43 = [v8 objectForKey:v41];
+        v44 = v43;
+        if (v43)
         {
-          v43 = v9;
-          v44 = v11;
-          v45 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v41, "unsignedIntegerValue") + 1}];
-          [v8 setObject:v45 forKey:v39];
+          v45 = v9;
+          v46 = v11;
+          v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v43, "unsignedIntegerValue") + 1}];
+          [v8 setObject:v47 forKey:v41];
 
-          v11 = v44;
-          v9 = v43;
+          v11 = v46;
+          v9 = v45;
         }
 
         else
         {
-          [v8 setObject:&unk_1F1BFA6A0 forKey:v39];
-          [v71 addObject:v39];
+          [v8 setObject:&unk_1F1BFA6A0 forKey:v41];
+          [v76 addObject:v41];
         }
 
-        v16 = v40;
-        v18 = v75;
+        v16 = v42;
+        v18 = v80;
       }
 
       ++v11;
@@ -1910,7 +2103,7 @@ LABEL_32:
 LABEL_38:
       if (v12 == ++v13)
       {
-        v12 = [v9 countByEnumeratingWithState:&v89 objects:v94 count:16];
+        v12 = [v9 countByEnumeratingWithState:&v94 objects:v99 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -1918,69 +2111,70 @@ LABEL_38:
 
         if (v11 < 1)
         {
-          v46 = 0;
-          v6 = v69;
+          v48 = 0;
+          v6 = v74;
           goto LABEL_60;
         }
 
-        v46 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        v47 = MEMORY[0x1E696AEC0];
-        IMSharedUtilitiesFrameworkBundle();
-        v49 = v48 = v11;
-        v50 = [v49 localizedStringForKey:@"%lu Attachments: " value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
-        v51 = [v47 localizedStringWithFormat:v50, v48];
-        [v46 appendString:v51];
+        v48 = objc_alloc_init(MEMORY[0x1E696AD60]);
+        v49 = MEMORY[0x1E696AEC0];
+        IMSharedUtilitiesFrameworkBundle(v48, v50);
+        v52 = v51 = v11;
+        v53 = [v52 localizedStringForKey:@"%lu Attachments: " value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+        v54 = [v49 localizedStringWithFormat:v53, v51];
+        [v48 appendString:v54];
 
-        v83 = 0u;
-        v84 = 0u;
-        v81 = 0u;
-        v82 = 0u;
-        v52 = v71;
-        v53 = [v52 countByEnumeratingWithState:&v81 objects:v93 count:16];
-        if (v53)
+        v88 = 0u;
+        v89 = 0u;
+        v86 = 0u;
+        v87 = 0u;
+        v55 = v76;
+        v56 = [v55 countByEnumeratingWithState:&v86 objects:v98 count:16];
+        if (v56)
         {
-          v54 = v53;
-          v80 = v9;
-          v55 = *v82;
-          v56 = 1;
+          v57 = v56;
+          v85 = v9;
+          v58 = *v87;
+          v59 = 1;
           do
           {
-            for (i = 0; i != v54; ++i)
+            for (i = 0; i != v57; ++i)
             {
-              if (*v82 != v55)
+              if (*v87 != v58)
               {
-                objc_enumerationMutation(v52);
+                objc_enumerationMutation(v55);
               }
 
-              v58 = *(*(&v81 + 1) + 8 * i);
-              v59 = [v8 objectForKey:v58];
-              if ((v56 & 1) == 0)
+              v61 = *(*(&v86 + 1) + 8 * i);
+              v62 = [v8 objectForKey:v61];
+              v64 = v62;
+              if ((v59 & 1) == 0)
               {
-                [v46 appendString:{@", "}];
+                v62 = [v48 appendString:{@", "}];
               }
 
-              v60 = MEMORY[0x1E696AEC0];
-              v61 = IMSharedUtilitiesFrameworkBundle();
-              v62 = [v61 localizedStringForKey:v58 value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
-              v63 = [v60 localizedStringWithFormat:v62, objc_msgSend(v59, "unsignedIntegerValue")];
-              [v46 appendFormat:v63];
+              v65 = MEMORY[0x1E696AEC0];
+              v66 = IMSharedUtilitiesFrameworkBundle(v62, v63);
+              v67 = [v66 localizedStringForKey:v61 value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+              v68 = [v65 localizedStringWithFormat:v67, objc_msgSend(v64, "unsignedIntegerValue")];
+              [v48 appendFormat:v68];
 
-              v56 = 0;
-              v8 = v76;
+              v59 = 0;
+              v8 = v81;
             }
 
-            v54 = [v52 countByEnumeratingWithState:&v81 objects:v93 count:16];
-            v56 = 0;
+            v57 = [v55 countByEnumeratingWithState:&v86 objects:v98 count:16];
+            v59 = 0;
           }
 
-          while (v54);
-          v6 = v69;
-          v9 = v80;
+          while (v57);
+          v6 = v74;
+          v9 = v85;
         }
 
         else
         {
-          v6 = v69;
+          v6 = v74;
         }
 
         goto LABEL_59;
@@ -1988,14 +2182,14 @@ LABEL_38:
     }
   }
 
-  v46 = 0;
+  v48 = 0;
 LABEL_58:
-  v52 = v9;
+  v55 = v9;
 LABEL_59:
 
 LABEL_60:
 
-  return v46;
+  return v48;
 }
 
 void AttachmentsAutomationLogMilestoneWithOptionFlags(void *a1, void *a2, void *a3, char a4)
@@ -2749,33 +2943,33 @@ void sub_1A868E22C()
   }
 }
 
-uint64_t sub_1A868E2FC()
+uint64_t sub_1A868E2FC(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (qword_1ED8C9840 != -1)
   {
     sub_1A88C2C6C();
   }
 
-  v0 = byte_1EB30B028;
+  v1 = byte_1EB30B028;
   if (IMOSLoggingEnabled())
   {
-    v1 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v2 = @"NO";
-      if (v0)
+      v3 = @"NO";
+      if (v1)
       {
-        v2 = @"YES";
+        v3 = @"YES";
       }
 
-      v4 = 138412290;
-      v5 = v2;
-      _os_log_impl(&dword_1A85E5000, v1, OS_LOG_TYPE_INFO, "iOS - Apple MDM profile is installed: %@", &v4, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1A85E5000, v2, OS_LOG_TYPE_INFO, "iOS - Apple MDM profile is installed: %@", &v5, 0xCu);
     }
   }
 
-  return v0;
+  return v1;
 }
 
 BOOL sub_1A868E400()
@@ -2790,7 +2984,8 @@ BOOL sub_1A868E400()
 
 uint64_t IMShouldHandleInternalPhishingAttempts()
 {
-  if (sub_1A868E400())
+  v0 = sub_1A868E400();
+  if (v0)
   {
     result = IMOSLoggingEnabled();
     if (!result)
@@ -2798,50 +2993,50 @@ uint64_t IMShouldHandleInternalPhishingAttempts()
       return result;
     }
 
-    v1 = OSLogHandleForIMFoundationCategory();
-    if (!os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       goto LABEL_15;
     }
 
-    v8 = 0;
-    v2 = "Phishing UI disabled in IDSServerBag";
-    v3 = &v8;
+    v9 = 0;
+    v3 = "Phishing UI disabled in IDSServerBag";
+    v4 = &v9;
 LABEL_14:
-    _os_log_impl(&dword_1A85E5000, v1, OS_LOG_TYPE_INFO, v2, v3, 2u);
+    _os_log_impl(&dword_1A85E5000, v2, OS_LOG_TYPE_INFO, v3, v4, 2u);
 LABEL_15:
 
     return 0;
   }
 
-  v4 = sub_1A868E2FC();
+  v5 = sub_1A868E2FC(v0);
   result = IMOSLoggingEnabled();
-  if (!v4)
+  if (!v5)
   {
     if (!result)
     {
       return result;
     }
 
-    v1 = OSLogHandleForIMFoundationCategory();
-    if (!os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       goto LABEL_15;
     }
 
-    v6 = 0;
-    v2 = "Should NOT Handle Phishing UI - iOS";
-    v3 = &v6;
+    v7 = 0;
+    v3 = "Should NOT Handle Phishing UI - iOS";
+    v4 = &v7;
     goto LABEL_14;
   }
 
   if (result)
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A85E5000, v5, OS_LOG_TYPE_INFO, "Should Handle Phishing UI - iOS", buf, 2u);
+      _os_log_impl(&dword_1A85E5000, v6, OS_LOG_TYPE_INFO, "Should Handle Phishing UI - iOS", buf, 2u);
     }
   }
 
@@ -2891,33 +3086,33 @@ id sub_1A868FBA8(void *a1)
   return v2;
 }
 
-void *sub_1A868FC88()
+void *sub_1A868FC88(uint64_t a1, uint64_t a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v0 = IMSharedUtilitiesFrameworkBundle();
-  v1 = [MEMORY[0x1E695DF58] currentLocale];
-  v2 = [v1 localeIdentifier];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v2 = IMSharedUtilitiesFrameworkBundle(a1, a2);
+  v3 = [MEMORY[0x1E695DF58] currentLocale];
+  v4 = [v3 localeIdentifier];
 
-  v3 = MEMORY[0x1E696AAE8];
-  v4 = [v0 localizations];
-  v11[0] = v2;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
-  v6 = [v3 preferredLocalizationsFromArray:v4 forPreferences:v5];
-  v7 = [v6 firstObject];
+  v5 = MEMORY[0x1E696AAE8];
+  v6 = [v2 localizations];
+  v13[0] = v4;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v8 = [v5 preferredLocalizationsFromArray:v6 forPreferences:v7];
+  v9 = [v8 firstObject];
 
-  if (v7)
+  if (v9)
   {
-    v8 = v7;
+    v10 = v9;
   }
 
   else
   {
-    v8 = v2;
+    v10 = v4;
   }
 
-  v9 = v8;
+  v11 = v10;
 
-  return v8;
+  return v10;
 }
 
 uint64_t sub_1A868FDA0(void *a1)
@@ -3117,16 +3312,16 @@ __CFString *IMTextEffectDiscoverabilityTitleLocalizationKeyFromType(uint64_t a1)
   }
 }
 
-id IMTextEffectOrderedSupportedNames()
+id IMTextEffectOrderedSupportedNames(uint64_t a1)
 {
   if (qword_1EB309638 != -1)
   {
     sub_1A88C2C94();
   }
 
-  v1 = qword_1EB309630;
+  v2 = qword_1EB309630;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86904D0()
@@ -3735,14 +3930,14 @@ void sub_1A86970F4(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-uint64_t sub_1A86990D4(void *a1, const char *a2, double a3)
+uint64_t sub_1A86990D4(void *a1, double a2, const char *a3)
 {
-  if (a3 > 1000000000.0)
+  if (a2 > 1000000000.0)
   {
-    a3 = a3 / 1000000000.0;
+    a2 = a2 / 1000000000.0;
   }
 
-  return [a1 dateWithTimeIntervalSinceReferenceDate:a3];
+  return [a1 dateWithTimeIntervalSinceReferenceDate:a2];
 }
 
 uint64_t sub_1A86990EC()
@@ -3942,16 +4137,16 @@ uint64_t sub_1A86997F0(uint64_t a1, uint64_t a2, void *a3)
   return v9;
 }
 
-id sub_1A869989C()
+id sub_1A869989C(uint64_t a1)
 {
   if (qword_1EB30B060 != -1)
   {
     sub_1A88C33F8();
   }
 
-  v1 = qword_1EB30B058;
+  v2 = qword_1EB30B058;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86998E0()
@@ -4499,7 +4694,7 @@ LABEL_15:
     }
   }
 
-  v10 = [v7 shouldDropMessage:v5 from:v6 fromMe:{a3, *v13}];
+  v10 = [v7 shouldDropMessage:v5 from:v6 fromMe:{a3, *v13, *&v13[8]}];
 
 LABEL_16:
   return v10;
@@ -4529,9 +4724,9 @@ id sub_1A869AFF0()
   return v1;
 }
 
-void sub_1A869B0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A869B0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4570,7 +4765,7 @@ void IMInformSafetyMonitorManagerOfOutgoingMessage(void *a1, void *a2, uint64_t 
         }
       }
 
-      [v10 iMessageSendFor:v7 guid:v8 successful:a3 withError:{v9, *v14}];
+      [v10 iMessageSendFor:v7 guid:v8 successful:a3 withError:{v9, *v14, *&v14[8]}];
     }
   }
 
@@ -4616,7 +4811,7 @@ void IMInformSafetyMonitorManagerOfIncomingMessage(void *a1, void *a2, uint64_t 
         }
       }
 
-      [v7 iMessageReceived:v5 fromHandle:v6 fromMe:{a3, *v11}];
+      [v7 iMessageReceived:v5 fromHandle:v6 fromMe:{a3, *v11, *&v11[8]}];
     }
   }
 
@@ -4777,7 +4972,7 @@ void IMInformSafetyMonitorManagerOfScheduledSendScheduledFor(void *a1, void *a2,
         }
       }
 
-      [v10 iMessageScheduledSendScheduledFor:v7 guid:v8 successful:a3 withError:{v9, *v16}];
+      [v10 iMessageScheduledSendScheduledFor:v7 guid:v8 successful:a3 withError:{v9, *v16, *&v16[8]}];
     }
 
     else if (objc_opt_respondsToSelector())
@@ -4849,7 +5044,7 @@ void IMInformSafetyMonitorManagerOfScheduledSendCancelledFor(void *a1, uint64_t 
         }
       }
 
-      [v7 iMessageScheduledSendCancelFor:v5 successful:a2 withError:{v6, *v11}];
+      [v7 iMessageScheduledSendCancelFor:v5 successful:a2 withError:{v6, *v11, *&v11[8]}];
     }
   }
 
@@ -5086,9 +5281,9 @@ id sub_1A869C434()
   return v1;
 }
 
-void sub_1A869C4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A869C4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5547,7 +5742,7 @@ uint64_t sub_1A869D5AC()
   v1 = v3[0];
   if (!qword_1ED8C9838)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -5560,7 +5755,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t sub_1A869D6AC()
+uint64_t sub_1A869D6AC(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED8C9838 = result;
@@ -5703,8 +5898,9 @@ void sub_1A86A4250(uint64_t a1)
   objc_storeStrong((*(a1 + 32) + 16), *(a1 + 40));
 }
 
-void sub_1A86A4DA0(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_1A86A4DA0(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (a2 == 1)
   {
     objc_begin_catch(exc_buf);
@@ -5712,7 +5908,7 @@ void sub_1A86A4DA0(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
     JUMPOUT(0x1A86A4D28);
   }
 
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(exc_buf);
 }
 
@@ -6063,9 +6259,9 @@ uint64_t sub_1A86A86F0()
   return MEMORY[0x1EEE66BB8](v0);
 }
 
-void sub_1A86A8878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A86A8878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6133,16 +6329,16 @@ uint64_t sub_1A86AA59C()
   return MEMORY[0x1EEE66BB8](v0);
 }
 
-id IMMutedChatListLogHandle()
+id IMMutedChatListLogHandle(uint64_t a1)
 {
   if (qword_1EB30B120 != -1)
   {
     sub_1A88C38DC();
   }
 
-  v1 = qword_1EB30B118;
+  v2 = qword_1EB30B118;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_1A86AAC3C()
@@ -6155,7 +6351,7 @@ uint64_t sub_1A86AAC3C()
 
 uint64_t sub_1A86AAC80(uint64_t a1, void *a2)
 {
-  v3 = IMMutedChatListLogHandle();
+  v3 = IMMutedChatListLogHandle(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -6166,9 +6362,9 @@ uint64_t sub_1A86AAC80(uint64_t a1, void *a2)
   return +[_TtC17IMSharedUtilities35MutedConversationListRemoteNotifier notifyListChanged];
 }
 
-void sub_1A86AB01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1A86AB01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6199,6 +6395,13 @@ void sub_1A86ABA18()
   CFPreferencesAppSynchronize(@"com.apple.MobileSMS.CKDNDList");
   v0 = [MEMORY[0x1E696AD88] defaultCenter];
   [v0 postNotificationName:@"__kIMMutedChatListDidChangeNotification" object:0];
+}
+
+void sub_1A86ABF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_1A86ABF74(uint64_t a1, uint64_t a2, void *a3)
@@ -6265,19 +6468,52 @@ id sub_1A86AC2CC(void *a1)
     if (v6)
     {
       v8 = [(IMRichCards *)v6 previewText];
+      v10 = v8;
       if (v8)
       {
-        v9 = MEMORY[0x1E696AEC0];
-        v10 = IMSharedUtilitiesFrameworkBundle();
-        v11 = [v10 localizedStringForKey:@"RICH_CARDS_PREVIEW_FORMAT" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
-        v12 = [v9 localizedStringWithFormat:v11, v8];
+        v11 = MEMORY[0x1E696AEC0];
+        v12 = IMSharedUtilitiesFrameworkBundle(v8, v9);
+        v13 = [v12 localizedStringForKey:@"RICH_CARDS_PREVIEW_FORMAT" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+        v14 = [v11 localizedStringWithFormat:v13, v10];
       }
 
       else
       {
-        v10 = IMSharedUtilitiesFrameworkBundle();
-        v12 = [v10 localizedStringForKey:@"RICH_CARDS_DEFAULT_PREVIEW" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+        v12 = IMSharedUtilitiesFrameworkBundle(0, v9);
+        v14 = [v12 localizedStringForKey:@"RICH_CARDS_DEFAULT_PREVIEW" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
       }
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  return v14;
+}
+
+id sub_1A86AC44C(void *a1)
+{
+  if ([a1 isSingleCharacterString:@"\uFFFF"])
+  {
+    v2 = [a1 attributesAtIndex:0 effectiveRange:0];
+    v3 = [v2 _dictionaryForKey:@"__kIMSuggestedReplyAttributeName"];
+    v4 = [[IMChipReply alloc] initWithDictionary:v3];
+    v6 = v4;
+    if (v4)
+    {
+      v7 = MEMORY[0x1E696AEC0];
+      v8 = IMSharedUtilitiesFrameworkBundle(v4, v5);
+      v9 = [v8 localizedStringForKey:@"SELECTED_OPTION_PREVIEW_FORMAT" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+      v10 = [(IMChipReply *)v6 suggestion];
+      v11 = [v10 displayText];
+      v12 = [v7 localizedStringWithFormat:v9, v11];
     }
 
     else
@@ -6294,38 +6530,7 @@ id sub_1A86AC2CC(void *a1)
   return v12;
 }
 
-id sub_1A86AC44C(void *a1)
-{
-  if ([a1 isSingleCharacterString:@"\uFFFF"])
-  {
-    v2 = [a1 attributesAtIndex:0 effectiveRange:0];
-    v3 = [v2 _dictionaryForKey:@"__kIMSuggestedReplyAttributeName"];
-    v4 = [[IMChipReply alloc] initWithDictionary:v3];
-    if (v4)
-    {
-      v5 = MEMORY[0x1E696AEC0];
-      v6 = IMSharedUtilitiesFrameworkBundle();
-      v7 = [v6 localizedStringForKey:@"SELECTED_OPTION_PREVIEW_FORMAT" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
-      v8 = [(IMChipReply *)v4 suggestion];
-      v9 = [v8 displayText];
-      v10 = [v5 localizedStringWithFormat:v7, v9];
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  return v10;
-}
-
-uint64_t sub_1A86AC5B8(void *a1)
+void *sub_1A86AC5B8(void *a1)
 {
   result = [a1 length];
   if (result)
@@ -6618,9 +6823,9 @@ uint64_t IMFreeSpaceWriteDataToURL(void *a1, uint64_t a2, int a3)
   return v7 & 1;
 }
 
-void sub_1A86AE0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A86AE0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7178,9 +7383,9 @@ void sub_1A86B0F30()
   }
 }
 
-uint64_t sub_1A86B10C4(uint64_t a1)
+uint64_t sub_1A86B10C4(uint64_t a1, uint64_t a2)
 {
-  if (!IMIsRunningInIMDPersistenceAgent())
+  if (!IMIsRunningInIMDPersistenceAgent(a1, a2))
   {
     IMDispatchForNotify();
   }
@@ -8332,16 +8537,16 @@ void sub_1A86B54AC(uint64_t a1, uint64_t a2)
   [*(a1 + 32) addObject:v3];
 }
 
-id IMMessagesDatabaseURL()
+id IMMessagesDatabaseURL(uint64_t a1)
 {
   if (qword_1EB30B378 != -1)
   {
     sub_1A88C4210();
   }
 
-  v1 = qword_1EB30B370;
+  v2 = qword_1EB30B370;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B5FB0()
@@ -8352,16 +8557,16 @@ void sub_1A86B5FB0()
   qword_1EB30B370 = v0;
 }
 
-id IMAttachmentsDirectoryURL()
+id IMAttachmentsDirectoryURL(uint64_t a1)
 {
   if (qword_1EB3096E8 != -1)
   {
     sub_1A88C4224();
   }
 
-  v1 = qword_1EB3096E0;
+  v2 = qword_1EB3096E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B6054()
@@ -8372,16 +8577,16 @@ void sub_1A86B6054()
   qword_1EB3096E0 = v0;
 }
 
-id IMExternalAttachmentsDirectoryURL()
+id IMExternalAttachmentsDirectoryURL(uint64_t a1)
 {
   if (qword_1EB309698 != -1)
   {
     sub_1A88C4238();
   }
 
-  v1 = qword_1EB309690;
+  v2 = qword_1EB309690;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B60F8()
@@ -8413,36 +8618,36 @@ void sub_1A86B6158()
   }
 }
 
-id IMNicknameCacheDirectoryURL()
+id IMNicknameCacheDirectoryURL(uint64_t a1)
 {
   if (qword_1EB30B388 != -1)
   {
     sub_1A88C424C();
   }
 
-  v1 = qword_1EB30B380;
+  v2 = qword_1EB30B380;
 
-  return v1;
+  return v2;
 }
 
-void sub_1A86B62E4()
+void sub_1A86B62E4(uint64_t a1)
 {
-  v2 = IMExternalAttachmentsDirectoryURL();
-  v0 = [v2 URLByAppendingPathComponent:@"NickNameCache" isDirectory:1];
-  v1 = qword_1EB30B380;
-  qword_1EB30B380 = v0;
+  v3 = IMExternalAttachmentsDirectoryURL(a1);
+  v1 = [v3 URLByAppendingPathComponent:@"NickNameCache" isDirectory:1];
+  v2 = qword_1EB30B380;
+  qword_1EB30B380 = v1;
 }
 
-id IMCollaborationNoticeDirectoryURL()
+id IMCollaborationNoticeDirectoryURL(uint64_t a1)
 {
   if (qword_1EB30B398 != -1)
   {
     sub_1A88C4260();
   }
 
-  v1 = qword_1EB30B390;
+  v2 = qword_1EB30B390;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B6388()
@@ -8453,16 +8658,16 @@ void sub_1A86B6388()
   qword_1EB30B390 = v0;
 }
 
-id IMStickerCacheDirectoryURL()
+id IMStickerCacheDirectoryURL(uint64_t a1)
 {
   if (qword_1EB30A550 != -1)
   {
     sub_1A88C4274();
   }
 
-  v1 = qword_1EB30A548;
+  v2 = qword_1EB30A548;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B642C()
@@ -8473,16 +8678,16 @@ void sub_1A86B642C()
   qword_1EB30A548 = v0;
 }
 
-id IMStickerTransferInfoDirectoryURL()
+id IMStickerTransferInfoDirectoryURL(uint64_t a1)
 {
   if (qword_1EB30A540 != -1)
   {
     sub_1A88C4288();
   }
 
-  v1 = qword_1EB30A538;
+  v2 = qword_1EB30A538;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B64D0()
@@ -8493,16 +8698,16 @@ void sub_1A86B64D0()
   qword_1EB30A538 = v0;
 }
 
-id IMBrowserSnapshotCacheDirectoryURL()
+id IMBrowserSnapshotCacheDirectoryURL(uint64_t a1)
 {
   if (qword_1EB3096D8 != -1)
   {
     sub_1A88C429C();
   }
 
-  v1 = qword_1EB3096D0;
+  v2 = qword_1EB3096D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B6574()
@@ -8513,16 +8718,16 @@ void sub_1A86B6574()
   qword_1EB3096D0 = v0;
 }
 
-id IMBalloonPluginMetadataCacheDirectoryURL()
+id IMBalloonPluginMetadataCacheDirectoryURL(uint64_t a1)
 {
   if (qword_1EB30B3A8 != -1)
   {
     sub_1A88C42B0();
   }
 
-  v1 = qword_1EB30B3A0;
+  v2 = qword_1EB30B3A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B6618()
@@ -8533,16 +8738,16 @@ void sub_1A86B6618()
   qword_1EB30B3A0 = v0;
 }
 
-id IMSafeTemporaryDirectory()
+id IMSafeTemporaryDirectory(uint64_t a1)
 {
   if (qword_1ED8C9A08 != -1)
   {
     sub_1A88C42C4();
   }
 
-  v1 = qword_1ED8C9A00;
+  v2 = qword_1ED8C9A00;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A86B66BC()
@@ -8566,24 +8771,24 @@ void sub_1A86B66BC()
   }
 }
 
-id IMTranscriptBackgroundDirectory()
+id IMTranscriptBackgroundDirectory(uint64_t a1)
 {
   if (qword_1EB30B3B8 != -1)
   {
     sub_1A88C42D8();
   }
 
-  v1 = qword_1EB30B3B0;
+  v2 = qword_1EB30B3B0;
 
-  return v1;
+  return v2;
 }
 
-void sub_1A86B6834()
+void sub_1A86B6834(uint64_t a1)
 {
-  v2 = IMExternalAttachmentsDirectoryURL();
-  v0 = [v2 URLByAppendingPathComponent:@"TranscriptBackgroundCache" isDirectory:1];
-  v1 = qword_1EB30B3B0;
-  qword_1EB30B3B0 = v0;
+  v3 = IMExternalAttachmentsDirectoryURL(a1);
+  v1 = [v3 URLByAppendingPathComponent:@"TranscriptBackgroundCache" isDirectory:1];
+  v2 = qword_1EB30B3B0;
+  qword_1EB30B3B0 = v1;
 }
 
 void sub_1A86B6EC0(uint64_t a1, void *a2)
@@ -8843,7 +9048,7 @@ void sub_1A86B89DC()
   v0 = v1[0];
   if (!qword_1EB30B3D0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -8854,337 +9059,9 @@ LABEL_7:
   }
 }
 
-uint64_t sub_1A86B8AD8()
+uint64_t sub_1A86B8AD8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1EB30B3D0 = result;
   return result;
-}
-
-Class sub_1A86B8B4C(uint64_t a1)
-{
-  sub_1A86B89DC();
-  result = objc_getClass("WKUIConfigurationPreviewGenerator");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    qword_1EB30B3D8 = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v3 = sub_1A88C4328();
-    return [(IMSpamFilterHelper *)v3 shouldDowngradeToRecipient:v4 fromSender:v5 ifCapableOfSMS:v6 withConversationDowngradeState:v7 andConversationHistoryState:v8, v9];
-  }
-
-  return result;
-}
-
-void sub_1A86B8EE0(_Unwind_Exception *a1, int a2)
-{
-  if (a2 == 1)
-  {
-    objc_begin_catch(a1);
-    objc_end_catch();
-    JUMPOUT(0x1A86B8E9CLL);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1A86BB420(uint64_t a1, void *a2)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v4 = [v3 allKeys];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v12;
-    do
-    {
-      v8 = 0;
-      do
-      {
-        if (*v12 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = [v3 objectForKey:*(*(&v11 + 1) + 8 * v8)];
-        v10 = [v9 integerValue];
-
-        if (v10 != 1)
-        {
-          (*(*(a1 + 32) + 16))();
-        }
-
-        ++v8;
-      }
-
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v6);
-  }
-
-  (*(*(a1 + 32) + 16))();
-}
-
-void sub_1A86BBBF0()
-{
-  v4 = *MEMORY[0x1E69E9840];
-  off_1EB30B3E8 = MEMORY[0x1AC570AB0]("IMDCNRecordIDForAliases", @"IMDPersistence");
-  if (IMOSLoggingEnabled())
-  {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
-    {
-      if (off_1EB30B3E8)
-      {
-        v1 = @"YES";
-      }
-
-      else
-      {
-        v1 = @"NO";
-      }
-
-      v2 = 138412290;
-      v3 = v1;
-      _os_log_impl(&dword_1A85E5000, v0, OS_LOG_TYPE_INFO, "Linked linkedIMDCNRecordIDForAliases ok: %@", &v2, 0xCu);
-    }
-  }
-}
-
-void sub_1A86BBD20(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (IMOSLoggingEnabled())
-  {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-    {
-      v3 = *(a1 + 32);
-      v4 = 138412546;
-      v5 = &unk_1F1BFA700;
-      v6 = 2112;
-      v7 = v3;
-      _os_log_impl(&dword_1A85E5000, v2, OS_LOG_TYPE_INFO, "apply-international-spam-filter: Client (%@) Server (%@)", &v4, 0x16u);
-    }
-  }
-}
-
-void sub_1A86BBE34(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (IMOSLoggingEnabled())
-  {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-    {
-      v3 = *(a1 + 32);
-      v4 = 138412546;
-      v5 = &unk_1F1BFA700;
-      v6 = 2112;
-      v7 = v3;
-      _os_log_impl(&dword_1A85E5000, v2, OS_LOG_TYPE_INFO, "apply-international-spam-filter: Client (%@) Server (%@)", &v4, 0x16u);
-    }
-  }
-}
-
-void sub_1A86BC09C()
-{
-  if (IMOSLoggingEnabled())
-  {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
-    {
-      *v1 = 0;
-      _os_log_impl(&dword_1A85E5000, v0, OS_LOG_TYPE_INFO, "chinese-spam-filter enabled using Defaults", v1, 2u);
-    }
-  }
-}
-
-void sub_1A86BC144(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (IMOSLoggingEnabled())
-  {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-    {
-      v3 = *(a1 + 32);
-      v4 = 138412546;
-      v5 = &unk_1F1BFA700;
-      v6 = 2112;
-      v7 = v3;
-      _os_log_impl(&dword_1A85E5000, v2, OS_LOG_TYPE_INFO, "apply-chinese-spam-filter: Client (%@) Server (%@)", &v4, 0x16u);
-    }
-  }
-}
-
-uint64_t IMSharedUtilitiesProtoCloudKitEncryptedMessageUpdateT1ReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v27 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          [objc_msgSend(a2 "data")];
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v27 & 0x7F) << v5;
-        if ((v27 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v10 = v6++ >= 9;
-        if (v10)
-        {
-          v11 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v11 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v11 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v12 = v11 >> 3;
-      if ((v11 >> 3) <= 2)
-      {
-        if (v12 == 1)
-        {
-          v20 = 0;
-          v21 = 0;
-          v22 = 0;
-          *(a1 + 44) |= 1u;
-          while (1)
-          {
-            v28 = 0;
-            v23 = [a2 position] + 1;
-            if (v23 >= [a2 position] && (v24 = objc_msgSend(a2, "position") + 1, v24 <= objc_msgSend(a2, "length")))
-            {
-              [objc_msgSend(a2 "data")];
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v22 |= (v28 & 0x7F) << v20;
-            if ((v28 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v20 += 7;
-            v10 = v21++ >= 9;
-            if (v10)
-            {
-              v25 = 0;
-              goto LABEL_44;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v25 = 0;
-          }
-
-          else
-          {
-            v25 = v22;
-          }
-
-LABEL_44:
-          *(a1 + 40) = v25;
-          goto LABEL_28;
-        }
-
-        if (v12 == 2)
-        {
-          String = PBReaderReadString();
-
-          v14 = String;
-          v15 = 8;
-          goto LABEL_27;
-        }
-      }
-
-      else
-      {
-        switch(v12)
-        {
-          case 3:
-            v17 = PBReaderReadString();
-
-            v14 = v17;
-            v15 = 24;
-            goto LABEL_27;
-          case 4:
-            v18 = PBReaderReadString();
-
-            v14 = v18;
-            v15 = 32;
-            goto LABEL_27;
-          case 5:
-            Data = PBReaderReadData();
-
-            v14 = Data;
-            v15 = 16;
-LABEL_27:
-            *(a1 + v15) = v14;
-            goto LABEL_28;
-        }
-      }
-
-      result = PBReaderSkipValueWithTag();
-      if (!result)
-      {
-        return result;
-      }
-
-LABEL_28:
-      v19 = [a2 position];
-    }
-
-    while (v19 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
 }

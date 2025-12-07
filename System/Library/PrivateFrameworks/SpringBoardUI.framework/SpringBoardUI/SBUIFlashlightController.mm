@@ -10,7 +10,9 @@
 - (void)_beginFlashlightAnimation;
 - (void)_endFlashlightAnimation;
 - (void)_loadFlashlightIntensity:(float *)intensity width:(float *)width;
+- (void)_postAvailabilityChangeNotification:(BOOL)notification;
 - (void)_postLevelChangeNotification:(unint64_t)notification;
+- (void)_postOverheatedChangeNotification:(BOOL)notification;
 - (void)_setFlashlightBeamWidth:(float)width;
 - (void)_setFlashlightLevel:(float)level;
 - (void)_setIntensity:(double)intensity width:(double)width animated:(BOOL)animated withPowerChange:(unint64_t)change;
@@ -18,6 +20,7 @@
 - (void)_turnPowerOff;
 - (void)_turnPowerOn;
 - (void)_updateLevelForIntensityChange;
+- (void)_updateObservedAvailability:(BOOL)availability isOverheated:(BOOL)overheated;
 - (void)_updateObservedBeamWidth:(float)width;
 - (void)_updateObservedFlashlightLevel:(float)level;
 - (void)addObserver:(id)observer;
@@ -204,11 +207,11 @@ uint64_t __41__SBUIFlashlightController__turnPowerOff__block_invoke(uint64_t a1)
 
 - (SBUIFlashlightController)initWithFlashlight:(id)flashlight
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   flashlightCopy = flashlight;
-  v42.receiver = self;
-  v42.super_class = SBUIFlashlightController;
-  v6 = [(SBUIFlashlightController *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = SBUIFlashlightController;
+  v6 = [(SBUIFlashlightController *)&v41 init];
   v7 = v6;
   if (!v6)
   {
@@ -327,31 +330,30 @@ LABEL_23:
     v7->_animatableProperties = v28;
 
     v30 = v7->_animatableProperties;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __47__SBUIFlashlightController_initWithFlashlight___block_invoke;
-    v39[3] = &unk_27836B398;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __47__SBUIFlashlightController_initWithFlashlight___block_invoke;
+    v38[3] = &unk_27836B398;
     v31 = v7;
-    v40 = v31;
-    v41 = v23;
-    [(UIViewVectorAnimatableProperty *)v30 _mutateValue:v39];
+    v39 = v31;
+    v40 = v23;
+    [(UIViewVectorAnimatableProperty *)v30 _mutateValue:v38];
     objc_initWeak(&location, v31);
     v32 = MEMORY[0x277D75D18];
-    v43[0] = v7->_animatableProperties;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __47__SBUIFlashlightController_initWithFlashlight___block_invoke_2;
-    v36[3] = &unk_27836B3C0;
-    objc_copyWeak(&v37, &location);
-    [v32 _createTransformerWithInputAnimatableProperties:v33 presentationValueChangedCallback:v36];
+    v42[0] = v7->_animatableProperties;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __47__SBUIFlashlightController_initWithFlashlight___block_invoke_2;
+    v35[3] = &unk_27836B3C0;
+    objc_copyWeak(&v36, &location);
+    [v32 _createTransformerWithInputAnimatableProperties:v33 presentationValueChangedCallback:v35];
 
-    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v36);
     objc_destroyWeak(&location);
   }
 
 LABEL_26:
-  v34 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -392,7 +394,7 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
 
 - (void)turnFlashlightOnForReason:(id)reason
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   intensity = self->_intensity;
   v6 = CCUILogFlashlightModule;
@@ -402,16 +404,16 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
     if (v7)
     {
       *buf = 5.7779e-34;
-      v11 = reasonCopy;
+      v10 = reasonCopy;
       _os_log_impl(&dword_21E74E000, v6, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] turnFlashlightOnForReason: %@", buf, 0xCu);
     }
 
     if (self->_dynamicInterfaceEnabled)
     {
-      v9 = 0.0;
+      v8 = 0.0;
       *buf = 0.0;
-      [(SBUIFlashlightController *)self _loadFlashlightIntensity:buf width:&v9];
-      [(SBUIFlashlightController *)self _setIntensity:1 width:0 animated:*buf withPowerChange:v9];
+      [(SBUIFlashlightController *)self _loadFlashlightIntensity:buf width:&v8];
+      [(SBUIFlashlightController *)self _setIntensity:1 width:0 animated:*buf withPowerChange:v8];
     }
 
     else
@@ -423,17 +425,15 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
   else if (v7)
   {
     *buf = 5.7779e-34;
-    v11 = reasonCopy;
+    v10 = reasonCopy;
     _os_log_impl(&dword_21E74E000, v6, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Already turned on, got redundant request: %@", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)turnFlashlightOffForReason:(id)reason withCoolDown:(BOOL)down
 {
   downCopy = down;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   pendingPowerChange = self->_pendingPowerChange;
   v8 = CCUILogFlashlightModule;
@@ -442,9 +442,9 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
   {
     if (v9)
     {
-      v13 = 138412290;
-      v14 = reasonCopy;
-      _os_log_impl(&dword_21E74E000, v8, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Already turning off, got redundant request: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = reasonCopy;
+      _os_log_impl(&dword_21E74E000, v8, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Already turning off, got redundant request: %@", &v12, 0xCu);
     }
 
     if (downCopy)
@@ -463,11 +463,11 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
         v10 = @" (with coolDown)";
       }
 
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = reasonCopy;
-      _os_log_impl(&dword_21E74E000, v8, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] turnFlashlightOffForReason%@: %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2112;
+      v15 = reasonCopy;
+      _os_log_impl(&dword_21E74E000, v8, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] turnFlashlightOffForReason%@: %@", &v12, 0x16u);
     }
 
     if (downCopy)
@@ -490,19 +490,17 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
       [(SBUIFlashlightController *)self _setIntensity:1 width:v11 animated:0.0 withPowerChange:self->_width];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLevel:(unint64_t)level
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = CCUILogFlashlightModule;
   if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
+    v7 = 134217984;
     levelCopy = level;
-    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_INFO, "[Flashlight Controller] setLevel: %lu", &v8, 0xCu);
+    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_INFO, "[Flashlight Controller] setLevel: %lu", &v7, 0xCu);
   }
 
   v6 = 0.0;
@@ -512,7 +510,6 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
   }
 
   [(SBUIFlashlightController *)self _setIntensity:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)warmUp
@@ -547,7 +544,7 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -569,7 +566,7 @@ uint64_t __42__SBUIFlashlightController_sharedInstance__block_invoke()
       if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v50 = pathCopy;
+        v49 = pathCopy;
         _os_log_impl(&dword_21E74E000, v13, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Ignoring KVO change during flashlight animation for %@", buf, 0xCu);
       }
 
@@ -608,14 +605,14 @@ LABEL_8:
       }
 
       [v26 floatValue];
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_context___block_invoke_35;
-      v47[3] = &unk_27836B3E8;
-      v47[4] = self;
-      v48 = v27;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_context___block_invoke_35;
+      v46[3] = &unk_27836B3E8;
+      v46[4] = self;
+      v47 = v27;
       v28 = MEMORY[0x277D85CD0];
-      v29 = v47;
+      v29 = v46;
     }
 
     else if ([pathCopy isEqualToString:@"beamWidth"])
@@ -649,14 +646,14 @@ LABEL_8:
       }
 
       [v26 floatValue];
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_context___block_invoke_36;
-      v45[3] = &unk_27836B3E8;
-      v45[4] = self;
-      v46 = v34;
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_context___block_invoke_36;
+      v44[3] = &unk_27836B3E8;
+      v44[4] = self;
+      v45 = v34;
       v28 = MEMORY[0x277D85CD0];
-      v29 = v45;
+      v29 = v44;
     }
 
     else if ([pathCopy isEqualToString:@"available"])
@@ -688,28 +685,28 @@ LABEL_8:
       if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v50 = v26;
+        v49 = v26;
         _os_log_impl(&dword_21E74E000, v35, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] observed available change to: %@", buf, 0xCu);
       }
 
       bOOLValue = [v26 BOOLValue];
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_context___block_invoke_37;
-      v43[3] = &unk_27836B410;
-      v43[4] = self;
-      v44 = bOOLValue;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_context___block_invoke_37;
+      v42[3] = &unk_27836B410;
+      v42[4] = self;
+      v43 = bOOLValue;
       v28 = MEMORY[0x277D85CD0];
-      v29 = v43;
+      v29 = v42;
     }
 
     else
     {
       if (![pathCopy isEqualToString:@"overheated"])
       {
-        v40.receiver = self;
-        v40.super_class = SBUIFlashlightController;
-        [(SBUIFlashlightController *)&v40 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+        v39.receiver = self;
+        v39.super_class = SBUIFlashlightController;
+        [(SBUIFlashlightController *)&v39 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
         goto LABEL_48;
       }
 
@@ -740,7 +737,7 @@ LABEL_8:
       if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v50 = v26;
+        v49 = v26;
         _os_log_impl(&dword_21E74E000, v37, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] observed overheated change to: %@", buf, 0xCu);
       }
 
@@ -750,7 +747,7 @@ LABEL_8:
       block[2] = __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_context___block_invoke_38;
       block[3] = &unk_27836B410;
       block[4] = self;
-      v42 = bOOLValue2;
+      v41 = bOOLValue2;
       v28 = MEMORY[0x277D85CD0];
       v29 = block;
     }
@@ -766,8 +763,6 @@ LABEL_8:
   }
 
 LABEL_48:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_context___block_invoke()
@@ -797,15 +792,53 @@ uint64_t __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_c
   return [v2 _updateObservedAvailability:v3 isOverheated:v4];
 }
 
+- (void)_updateObservedAvailability:(BOOL)availability isOverheated:(BOOL)overheated
+{
+  overheatedCopy = overheated;
+  overheated = self->_overheated;
+  if (overheated != overheated)
+  {
+    self->_overheated = overheated;
+  }
+
+  v7 = availability & ~overheated;
+  available = self->_available;
+  if (available != v7)
+  {
+    self->_available = availability & ~overheated;
+    if ((availability & ~overheated & 1) == 0)
+    {
+      v9 = CCUILogFlashlightModule;
+      if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
+      {
+        *v10 = 0;
+        _os_log_impl(&dword_21E74E000, v9, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Flashlight became unavailable", v10, 2u);
+      }
+
+      [(SBUIFlashlightController *)self _setIntensity:0 width:2 animated:0.0 withPowerChange:self->_width];
+    }
+  }
+
+  if (overheated != overheatedCopy)
+  {
+    [(SBUIFlashlightController *)self _postOverheatedChangeNotification:overheatedCopy];
+  }
+
+  if (available != v7)
+  {
+    [(SBUIFlashlightController *)self _postAvailabilityChangeNotification:v7];
+  }
+}
+
 - (void)_updateObservedFlashlightLevel:(float)level
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = CCUILogFlashlightModule;
   if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     levelCopy = level;
-    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Got KVO intensity change to: %f", &v7, 0xCu);
+    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Got KVO intensity change to: %f", &v6, 0xCu);
   }
 
   if (self->_intensity != level)
@@ -813,13 +846,11 @@ uint64_t __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_c
     self->_intensity = level;
     [(SBUIFlashlightController *)self _updateLevelForIntensityChange];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateObservedBeamWidth:(float)width
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   minBeamWidth = self->_minBeamWidth;
   maxBeamWidth = self->_maxBeamWidth;
   v5 = self->_width * maxBeamWidth + (1.0 - self->_width) * minBeamWidth;
@@ -832,26 +863,25 @@ uint64_t __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_c
     if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
     {
       width = self->_width;
-      v12 = 134218240;
+      v11 = 134218240;
       widthCopy2 = width;
-      v14 = 2048;
-      v15 = widthCopy;
-      _os_log_impl(&dword_21E74E000, v9, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Got KVO width change to: %f beamWidth: %f", &v12, 0x16u);
+      v13 = 2048;
+      v14 = widthCopy;
+      _os_log_impl(&dword_21E74E000, v9, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] Got KVO width change to: %f beamWidth: %f", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_postLevelChangeNotification:(unint64_t)notification
+- (void)_postOverheatedChangeNotification:(BOOL)notification
 {
+  notificationCopy = notification;
   v19 = *MEMORY[0x277D85DE8];
   v5 = CCUILogFlashlightModule;
-  if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 134217984;
-    notificationCopy = notification;
-    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_INFO, "[Flashlight Controller] posting level change to: %lu", buf, 0xCu);
+    *buf = 67109120;
+    v18 = notificationCopy;
+    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] posting overheated change to: %u", buf, 8u);
   }
 
   v14 = 0u;
@@ -874,7 +904,13 @@ uint64_t __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_c
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) flashlightLevelDidChange:notification];
+        v11 = *(*(&v12 + 1) + 8 * v10);
+        if (objc_opt_respondsToSelector())
+        {
+          [v11 flashlightOverheatedDidChange:notificationCopy];
+        }
+
+        ++v10;
       }
 
       while (v8 != v10);
@@ -883,14 +919,97 @@ uint64_t __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_c
 
     while (v8);
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)_postAvailabilityChangeNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = CCUILogFlashlightModule;
+  if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v17 = notificationCopy;
+    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_DEFAULT, "[Flashlight Controller] posting available change to: %u", buf, 8u);
+  }
+
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = [(NSHashTable *)self->_observers copy];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10++) flashlightAvailabilityDidChange:notificationCopy];
+      }
+
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)_postLevelChangeNotification:(unint64_t)notification
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = CCUILogFlashlightModule;
+  if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134217984;
+    notificationCopy = notification;
+    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_INFO, "[Flashlight Controller] posting level change to: %lu", buf, 0xCu);
+  }
+
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = [(NSHashTable *)self->_observers copy];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10++) flashlightLevelDidChange:notification];
+      }
+
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (void)_setIntensity:(double)intensity width:(double)width animated:(BOOL)animated withPowerChange:(unint64_t)change
 {
   animatedCopy = animated;
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v11 = fmin(fmax(intensity, 0.0), 1.0);
   v12 = fmin(fmax(width, 0.0), 1.0);
   v13 = v11;
@@ -914,38 +1033,39 @@ uint64_t __75__SBUIFlashlightController_observeValueForKeyPath_ofObject_change_c
   {
     *buf = 134219264;
     intensityCopy = intensity;
+    v27 = 2048;
+    v28 = v11;
     v29 = 2048;
-    v30 = v11;
-    v31 = 2048;
     widthCopy = width;
-    v33 = 2048;
-    v34 = maxBeamWidth;
-    v35 = 1024;
-    v36 = animatedCopy;
-    v37 = 2048;
+    v31 = 2048;
+    v32 = maxBeamWidth;
+    v33 = 1024;
+    v34 = animatedCopy;
+    v35 = 2048;
     changeCopy = change;
     _os_log_debug_impl(&dword_21E74E000, v16, OS_LOG_TYPE_DEBUG, "[Flashlight Controller] _setIntensity:%0.3f(%0.3f) width:%0.3f(%0.3f) animated:%{BOOL}u withPowerChange:%lu", buf, 0x3Au);
   }
 
-  dynamicInterfaceEnabled = self->_dynamicInterfaceEnabled;
   if (!animatedCopy)
   {
     if (self->_dynamicInterfaceEnabled)
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_44;
-      v22[3] = &unk_27836B458;
-      v22[4] = self;
-      *&v22[5] = v11;
-      v23 = maxBeamWidth;
-      [MEMORY[0x277D75D18] performWithoutAnimation:v22];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_44;
+      v20[3] = &unk_27836B458;
+      v20[4] = self;
+      *&v20[5] = v11;
+      v21 = maxBeamWidth;
+      [MEMORY[0x277D75D18] performWithoutAnimation:v20];
       if (!change)
       {
-        goto LABEL_16;
+        return;
       }
 
-      goto LABEL_15;
+LABEL_15:
+      [(SBUIFlashlightController *)self _applyPowerChange:change];
+      return;
     }
 
 LABEL_14:
@@ -953,12 +1073,10 @@ LABEL_14:
     [(SBUIFlashlightController *)self _setFlashlightLevel:v17];
     if (!change)
     {
-      goto LABEL_16;
+      return;
     }
 
-LABEL_15:
-    [(SBUIFlashlightController *)self _applyPowerChange:change];
-    goto LABEL_16;
+    goto LABEL_15;
   }
 
   if (!self->_dynamicInterfaceEnabled)
@@ -974,22 +1092,20 @@ LABEL_15:
   }
 
   springBehavior = self->_springBehavior;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke;
-  v25[3] = &unk_27836B458;
-  v25[4] = self;
-  *&v25[5] = v11;
-  v26 = maxBeamWidth;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_3;
-  v24[3] = &unk_27836B480;
-  v24[4] = self;
-  v24[5] = change;
-  [MEMORY[0x277D75D18] _animateUsingSpringBehavior:springBehavior tracking:0 animations:v25 completion:v24];
-LABEL_16:
-  v21 = *MEMORY[0x277D85DE8];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke;
+  v23[3] = &unk_27836B458;
+  v23[4] = self;
+  *&v23[5] = v11;
+  v24 = maxBeamWidth;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_3;
+  v22[3] = &unk_27836B480;
+  v22[4] = self;
+  v22[5] = change;
+  [MEMORY[0x277D75D18] _animateUsingSpringBehavior:springBehavior tracking:0 animations:v23 completion:v22];
 }
 
 uint64_t __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke(uint64_t a1)
@@ -1015,53 +1131,51 @@ double __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChan
 
 void __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_3(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v1 = a1 + 32;
   --*(*(a1 + 32) + 80);
   v2 = *(a1 + 32);
   if (!*(v2 + 80))
   {
-    v5 = *(v2 + 16);
+    v4 = *(v2 + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_4;
     block[3] = &unk_27836AFB0;
     block[4] = v2;
-    dispatch_async(v5, block);
-    v6 = CCUILogFlashlightModule;
+    dispatch_async(v4, block);
+    v5 = CCUILogFlashlightModule;
     if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEBUG))
     {
-      __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_3_cold_1(v1, v6, v7, v8, v9, v10, v11, v12);
+      __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_3_cold_1(v1, v5, v6, v7, v8, v9, v10, v11);
     }
 
-    v13 = *v1;
+    v12 = *v1;
     if (*(*v1 + 88))
     {
-      if (v13[27] == 0.0)
+      if (v12[27] == 0.0)
       {
-        [v13 _applyPowerChange:?];
+        [v12 _applyPowerChange:?];
       }
 
       else
       {
-        v14 = CCUILogFlashlightModule;
+        v13 = CCUILogFlashlightModule;
         if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = *(a1 + 40);
-          v16 = *(*(a1 + 32) + 108);
+          v14 = *(a1 + 40);
+          v15 = *(*(a1 + 32) + 108);
           *buf = 134218240;
-          v19 = v15;
-          v20 = 2048;
-          v21 = v16;
-          _os_log_impl(&dword_21E74E000, v14, OS_LOG_TYPE_DEFAULT, "Aborting requested power change (%lu) because intensity is nonzero: %0.3f", buf, 0x16u);
+          v18 = v14;
+          v19 = 2048;
+          v20 = v15;
+          _os_log_impl(&dword_21E74E000, v13, OS_LOG_TYPE_DEFAULT, "Aborting requested power change (%lu) because intensity is nonzero: %0.3f", buf, 0x16u);
         }
 
         *(*v1 + 88) = 0;
       }
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_44(uint64_t a1)
@@ -1111,13 +1225,13 @@ double __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChan
 
 - (void)_applyPowerChange:(unint64_t)change
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = CCUILogFlashlightModule;
   if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     changeCopy = change;
-    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_DEFAULT, "Applying power change: %lu", &v7, 0xCu);
+    _os_log_impl(&dword_21E74E000, v5, OS_LOG_TYPE_DEFAULT, "Applying power change: %lu", &v6, 0xCu);
   }
 
   if (change == 2)
@@ -1131,7 +1245,6 @@ double __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChan
   }
 
   self->_pendingPowerChange = 0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setFlashlightLevel:(float)level
@@ -1234,18 +1347,18 @@ void __40__SBUIFlashlightController__turnPowerOn__block_invoke(uint64_t a1)
 
 - (void)storeFlashlightIntensity:(float)intensity width:(float)width
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (intensity > 0.0)
   {
     intensityCopy = intensity;
     v8 = CCUILogFlashlightModule;
     if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_INFO))
     {
-      v16 = 134218240;
-      v17 = intensityCopy;
-      v18 = 2048;
+      v15 = 134218240;
+      v16 = intensityCopy;
+      v17 = 2048;
       widthCopy = width;
-      _os_log_impl(&dword_21E74E000, v8, OS_LOG_TYPE_INFO, "[Flashlight Controller] Persisting intensity: %f, width: %f", &v16, 0x16u);
+      _os_log_impl(&dword_21E74E000, v8, OS_LOG_TYPE_INFO, "[Flashlight Controller] Persisting intensity: %f, width: %f", &v15, 0x16u);
     }
 
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -1281,13 +1394,11 @@ void __40__SBUIFlashlightController__turnPowerOn__block_invoke(uint64_t a1)
     *&v14 = width;
     [standardUserDefaults2 setFloat:@"FlashlightWidth" forKey:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadFlashlightIntensity:(float *)intensity width:(float *)width
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v7 = standardUserDefaults;
   if (intensity)
@@ -1310,9 +1421,9 @@ void __40__SBUIFlashlightController__turnPowerOn__block_invoke(uint64_t a1)
     if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_INFO))
     {
       v12 = *intensity;
-      v19 = 134217984;
-      v20 = v12;
-      _os_log_impl(&dword_21E74E000, v11, OS_LOG_TYPE_INFO, "[Flashlight Controller] Loaded intensity: %f", &v19, 0xCu);
+      v18 = 134217984;
+      v19 = v12;
+      _os_log_impl(&dword_21E74E000, v11, OS_LOG_TYPE_INFO, "[Flashlight Controller] Loaded intensity: %f", &v18, 0xCu);
     }
   }
 
@@ -1336,61 +1447,33 @@ void __40__SBUIFlashlightController__turnPowerOn__block_invoke(uint64_t a1)
     if (os_log_type_enabled(CCUILogFlashlightModule, OS_LOG_TYPE_INFO))
     {
       v17 = *width;
-      v19 = 134217984;
-      v20 = v17;
-      _os_log_impl(&dword_21E74E000, v16, OS_LOG_TYPE_INFO, "[Flashlight Controller] Loaded width: %f", &v19, 0xCu);
+      v18 = 134217984;
+      v19 = v17;
+      _os_log_impl(&dword_21E74E000, v16, OS_LOG_TYPE_INFO, "[Flashlight Controller] Loaded width: %f", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.2()
+double __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_3_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_21E74E000, v0, v1, "[Flashlight Controller] observed beamWidth change to: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_21E74E000, v0, v1, "[Flashlight Controller] observed flashlightLevel change to: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_21E74E000, v0, v1, "[Flashlight Controller] Ignoring flashlight queue KVO to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __73__SBUIFlashlightController__setIntensity_width_animated_withPowerChange___block_invoke_3_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *(*a1 + 108);
-  OUTLINED_FUNCTION_0_0(&dword_21E74E000, a2, a3, "[Flashlight Controller] Animations Finished; _intensity = %f", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = *(*a1 + 108);
+  OUTLINED_FUNCTION_0_0(&dword_21E74E000, a2, a3, "[Flashlight Controller] Animations Finished; _intensity = %f", a5, a6, a7, a8, v9, DWORD2(v9));
+  return result;
 }
 
 void __48__SBUIFlashlightController__setFlashlightLevel___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_21E74E000, v0, OS_LOG_TYPE_ERROR, "Error setting flashlight level: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21E74E000, v0, OS_LOG_TYPE_ERROR, "Error setting flashlight level: %@", v1, 0xCu);
 }
 
 void __40__SBUIFlashlightController__turnPowerOn__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_21E74E000, v0, OS_LOG_TYPE_ERROR, "Error turning on flashlight power: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21E74E000, v0, OS_LOG_TYPE_ERROR, "Error turning on flashlight power: %@", v1, 0xCu);
 }
 
 @end

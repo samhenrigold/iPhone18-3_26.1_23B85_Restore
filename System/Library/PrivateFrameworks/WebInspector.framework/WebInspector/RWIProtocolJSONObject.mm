@@ -10,7 +10,9 @@
 - (id)stringForKey:(id)key;
 - (int)integerForKey:(id)key;
 - (void)removeKey:(id)key;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setDouble:(double)double forKey:(id)key;
+- (void)setInteger:(int)integer forKey:(id)key;
 - (void)setJSONArray:(void *)array forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 - (void)setString:(id)string forKey:(id)key;
@@ -46,6 +48,34 @@
   ++*m_ptr;
   *v2 = m_ptr;
   return self;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  if (!key)
+  {
+    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"cannot set property with nil key"];
+  }
+
+  m_ptr = self->_object.m_ptr;
+  MEMORY[0x2743DB520](&v9, key);
+  WTF::JSONImpl::ObjectBase::setBoolean(m_ptr, &v9, boolCopy);
+  [RWIProtocolJSONObject setBool:v8 forKey:?];
+}
+
+- (void)setInteger:(int)integer forKey:(id)key
+{
+  v5 = *&integer;
+  if (!key)
+  {
+    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"cannot set property with nil key"];
+  }
+
+  m_ptr = self->_object.m_ptr;
+  MEMORY[0x2743DB520](&v9, key);
+  WTF::JSONImpl::ObjectBase::setInteger(m_ptr, &v9, v5);
+  [RWIProtocolJSONObject setBool:v8 forKey:?];
 }
 
 - (void)setDouble:(double)double forKey:(id)key
@@ -89,9 +119,9 @@
     {
 LABEL_3:
       m_ptr = self->_object.m_ptr;
-      MEMORY[0x2743DB520](&v18, key);
-      [object toJSONObject];
-      v8 = v16;
+      MEMORY[0x2743DB520](&v25, key);
+      objc_msgSend_toJSONObject(object);
+      v8 = v22;
       goto LABEL_6;
     }
   }
@@ -107,48 +137,62 @@ LABEL_3:
 
   [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"cannot set property to nil value"];
   m_ptr = self->_object.m_ptr;
-  MEMORY[0x2743DB520](&v18, key);
+  MEMORY[0x2743DB520](&v25, key);
   v8 = 0;
 LABEL_6:
-  v17 = v8;
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(m_ptr + 2, &v18, &v17, v19);
-  if (v19[16] == 1)
+  v23 = 0;
+  v24 = v8;
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(m_ptr + 2, &v25, &v24, v26);
+  if (v26[16] == 1)
   {
-    v10 = *(m_ptr + 9);
-    if (v10 == *(m_ptr + 8))
+    v16 = *(m_ptr + 9);
+    if (v16 == *(m_ptr + 8))
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(m_ptr + 24, &v18);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(m_ptr + 24, &v25);
     }
 
     else
     {
-      v11 = *(m_ptr + 3);
-      v12 = v18;
-      if (v18)
+      v17 = *(m_ptr + 3);
+      v18 = v25;
+      if (v25)
       {
-        atomic_fetch_add_explicit(v18, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v25, 2u, memory_order_relaxed);
       }
 
-      v13 = *(m_ptr + 9);
-      *(v11 + 8 * v10) = v12;
-      *(m_ptr + 9) = v13 + 1;
+      v19 = *(m_ptr + 9);
+      *(v17 + 8 * v16) = v18;
+      *(m_ptr + 9) = v19 + 1;
     }
   }
 
-  v14 = v17;
-  v17 = 0;
-  if (v14)
+  v20 = v24;
+  v24 = 0;
+  if (v20)
   {
-    Inspector::toJSONObjectArray(v14);
+    Inspector::toJSONObjectArray(v20, v9, v10, v11, v12, v13, v14, v15, 0, v24);
   }
 
-  v15 = v18;
-  v18 = 0;
-  if (v15)
+  if (v23)
   {
-    if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (*v23 == 1)
     {
-      WTF::StringImpl::destroy(v15, v9);
+      WTF::JSONImpl::Value::operator delete();
+    }
+
+    else
+    {
+      --*v23;
+    }
+  }
+
+  v21 = v25;
+  v25 = 0;
+  if (v21)
+  {
+    if (atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v21, v9);
     }
   }
 }
@@ -331,48 +375,48 @@ LABEL_6:
   }
 
   m_ptr = self->_object.m_ptr;
-  MEMORY[0x2743DB520](&v17, key);
+  MEMORY[0x2743DB520](&v24, key);
   v8 = *array;
   *array = 0;
-  v16 = v8;
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ArrayBase,WTF::RawPtrTraits<WTF::JSONImpl::ArrayBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayBase>>>(m_ptr + 2, &v17, &v16, v18);
-  if (v18[16] == 1)
+  v23 = v8;
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::ArrayBase,WTF::RawPtrTraits<WTF::JSONImpl::ArrayBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayBase>>>(m_ptr + 2, &v24, &v23, v25);
+  if (v25[16] == 1)
   {
-    v10 = *(m_ptr + 9);
-    if (v10 == *(m_ptr + 8))
+    v16 = *(m_ptr + 9);
+    if (v16 == *(m_ptr + 8))
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(m_ptr + 24, &v17);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(m_ptr + 24, &v24);
     }
 
     else
     {
-      v11 = *(m_ptr + 3);
-      v12 = v17;
-      if (v17)
+      v17 = *(m_ptr + 3);
+      v18 = v24;
+      if (v24)
       {
-        atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v24, 2u, memory_order_relaxed);
       }
 
-      v13 = *(m_ptr + 9);
-      *(v11 + 8 * v10) = v12;
-      *(m_ptr + 9) = v13 + 1;
+      v19 = *(m_ptr + 9);
+      *(v17 + 8 * v16) = v18;
+      *(m_ptr + 9) = v19 + 1;
     }
   }
 
-  v14 = v16;
-  v16 = 0;
-  if (v14)
+  v20 = v23;
+  v23 = 0;
+  if (v20)
   {
-    Inspector::toJSONObjectArray(v14);
+    Inspector::toJSONObjectArray(v20, v9, v10, v11, v12, v13, v14, v15, v22, v23);
   }
 
-  v15 = v17;
-  v17 = 0;
-  if (v15)
+  v21 = v24;
+  v24 = 0;
+  if (v21)
   {
-    if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v15, v9);
+      WTF::StringImpl::destroy(v21, v9);
     }
   }
 }

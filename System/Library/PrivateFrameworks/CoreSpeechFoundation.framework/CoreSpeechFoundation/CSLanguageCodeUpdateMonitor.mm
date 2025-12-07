@@ -13,9 +13,11 @@ uint64_t __45__CSLanguageCodeUpdateMonitor_sharedInstance__block_invoke()
     v1 = off_1E8659930;
   }
 
-  sharedInstance__sharedInstance_6425 = objc_alloc_init(*v1);
+  v2 = objc_alloc_init(*v1);
+  v3 = sharedInstance__sharedInstance_6425;
+  sharedInstance__sharedInstance_6425 = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 + (id)sharedInstance

@@ -50,7 +50,7 @@ id VGGetExternalAccessoryLog()
 
 NSObject *VGAllowlistPayload()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v0 = GEOConfigGetString();
   v1 = [MEMORY[0x277D0ECC8] sharedManager];
   v2 = [v1 dataForResourceWithName:v0 fallbackBundle:0];
@@ -67,7 +67,7 @@ NSObject *VGAllowlistPayload()
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v18 = v0;
+        v17 = v0;
         v10 = "data is nil. Error parsing manifest resource: %@ while network was reachable.";
         v11 = v4;
         v12 = OS_LOG_TYPE_FAULT;
@@ -79,7 +79,7 @@ LABEL_12:
     else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v0;
+      v17 = v0;
       v10 = "data is nil. Error parsing manifest resource: %@ because network was not reachable.";
       v11 = v4;
       v12 = OS_LOG_TYPE_ERROR;
@@ -90,16 +90,16 @@ LABEL_12:
     goto LABEL_19;
   }
 
-  v16 = 0;
-  v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v2 options:0 error:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v2 options:0 error:&v15];
+  v4 = v15;
   if (v4)
   {
     v5 = VGGetVirtualGarageLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v18 = v4;
+      v17 = v4;
       v6 = "Error parsing manifest resource. error: %@";
 LABEL_16:
       _os_log_impl(&dword_270EC1000, v5, OS_LOG_TYPE_FAULT, v6, buf, 0xCu);
@@ -116,7 +116,7 @@ LABEL_16:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v18 = v3;
+      v17 = v3;
       v6 = "Unexpected class type for allowlist payload: %@";
       goto LABEL_16;
     }
@@ -131,7 +131,6 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -162,17 +161,15 @@ id VGGetOEMApplicationLog()
 
 uint64_t IsEVRoutingSupported()
 {
-  v0 = *MEMORY[0x277D0EA90];
-  v1 = *(MEMORY[0x277D0EA90] + 8);
   if (!GEOConfigGetBOOL())
   {
     return 1;
   }
 
-  v2 = [MEMORY[0x277D0EB00] sharedConfiguration];
-  v3 = [v2 currentCountrySupportsElectricVehicleRouting];
+  v0 = [MEMORY[0x277D0EB00] sharedConfiguration];
+  v1 = [v0 currentCountrySupportsElectricVehicleRouting];
 
-  return v3;
+  return v1;
 }
 
 uint64_t VGChargingNetworkStorageReadFrom(uint64_t a1, void *a2)
@@ -297,13 +294,6 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t IsEVRoutingAllowListingEnabled()
-{
-  v0 = *MEMORY[0x277D0EA90];
-  v1 = *(MEMORY[0x277D0EA90] + 8);
-  return GEOConfigGetBOOL();
-}
-
 void startHostingVirtualGarageServiceWithPersister(void *a1)
 {
   v1 = a1;
@@ -319,20 +309,18 @@ void stopHostingVirtualGarageService()
 
 __CFString *VGProcessNameForPID(int a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  memset(v9, 0, 512);
-  v5 = 648;
-  *v6 = 0xE00000001;
-  v7 = 1;
-  v8 = a1;
-  v1 = sysctl(v6, 4u, v9, &v5, 0, 0);
+  v9 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, 512);
+  v4 = 648;
+  *v5 = 0xE00000001;
+  v6 = 1;
+  v7 = a1;
+  v1 = sysctl(v5, 4u, v8, &v4, 0, 0);
   v2 = 0;
   if (!v1)
   {
-    v2 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], &v9[15] + 3, 0x8000100u);
+    v2 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], &v8[15] + 3, 0x8000100u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -445,24 +433,13 @@ uint64_t VGVehiclesHaveMatchingVehicleStateProviders(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = [v3 iapIdentifier];
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = v5;
-  v7 = [v4 iapIdentifier];
-  v8 = [v3 iapIdentifier];
-  v9 = [v7 isEqualToString:v8];
-
-  if (v9)
+  if (v5 && (v6 = v5, [v4 iapIdentifier], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "iapIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToString:", v8), v8, v7, v6, (v9 & 1) != 0))
   {
     v10 = 1;
   }
 
   else
   {
-LABEL_4:
     v11 = [v3 siriIntentsIdentifier];
     if (v11)
     {
@@ -972,14 +949,14 @@ CGColor *VGHexRepresentationFromCGColor(CGColor *a1)
 
 NSObject *VGDictionaryFromVGVehicleArguments(void *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 dataUsingEncoding:4];
   if (v2)
   {
-    v20 = 0;
-    v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v2 options:0 error:&v20];
-    v4 = v20;
+    v18 = 0;
+    v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v2 options:0 error:&v18];
+    v4 = v18;
     if (v4)
     {
       v5 = 1;
@@ -996,59 +973,57 @@ NSObject *VGDictionaryFromVGVehicleArguments(void *a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        v23 = v1;
+        v21 = v1;
+        v22 = 2112;
+        v23 = v4;
         v24 = 2112;
-        v25 = v4;
-        v26 = 2112;
-        v27 = v3;
+        v25 = v3;
         _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_FAULT, "Failed to recreate a dictionary from serialized arguments: %@, with error: %@, dictionary: dictionary: %@", buf, 0x20u);
       }
 
 LABEL_24:
 
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v18 = 0u;
-      v19 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v6 = [v3 allKeys];
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v15 = 0u;
+      v6 = [v3 allKeys:0];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v17;
+        v9 = *v15;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v17 != v9)
+            if (*v15 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v16 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v13 = VGGetPersistingLog();
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+              v12 = VGGetPersistingLog();
+              if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412546;
-                v23 = v1;
-                v24 = 2112;
-                v25 = v3;
-                _os_log_impl(&dword_270EC1000, v13, OS_LOG_TYPE_FAULT, "Failed to recreate a dictionary from serialized arguments (wrong keys): %@, dictioanary: %@", buf, 0x16u);
+                v21 = v1;
+                v22 = 2112;
+                v23 = v3;
+                _os_log_impl(&dword_270EC1000, v12, OS_LOG_TYPE_FAULT, "Failed to recreate a dictionary from serialized arguments (wrong keys): %@, dictioanary: %@", buf, 0x16u);
               }
 
               goto LABEL_24;
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
           if (v8)
           {
             continue;
@@ -1058,7 +1033,7 @@ LABEL_24:
         }
       }
 
-      v12 = v3;
+      v11 = v3;
     }
   }
 
@@ -1068,54 +1043,52 @@ LABEL_24:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v23 = v1;
+      v21 = v1;
       _os_log_impl(&dword_270EC1000, v4, OS_LOG_TYPE_FAULT, "Failed to recreate data from serialized arguments: %@", buf, 0xCu);
     }
 
-    v12 = 0;
+    v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v11;
 }
 
 id VGFilter(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (v3)
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v18;
+      v10 = *v17;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
-        v16 = 0;
-        if (v4[2](v4, v12, v9, &v16))
+        v12 = *(*(&v16 + 1) + 8 * v11);
+        v15 = 0;
+        if (v4[2](v4, v12, v9, &v15))
         {
           [v5 addObject:v12];
         }
 
-        if (v16)
+        if (v15)
         {
           break;
         }
@@ -1123,7 +1096,7 @@ LABEL_4:
         ++v9;
         if (v8 == ++v11)
         {
-          v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -1141,8 +1114,6 @@ LABEL_4:
   {
     v13 = MEMORY[0x277CBEBF8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1185,9 +1156,9 @@ id NSStringFromVGChargingConnectorTypeOptions(uint64_t a1)
   return v5;
 }
 
-void sub_270ED9DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_270ED9DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1229,72 +1200,70 @@ void __VGChargingConnectorTypeOptionsList_block_invoke()
 
 id VGChargingConnectorTypeOptionsUnpacked(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = VGChargingConnectorTypeOptionsList();
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if (([v8 unsignedIntegerValue] & a1) != 0)
         {
           [v2 addObject:v8];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 uint64_t VGChargingConnectorTypeOptionsPacked(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = a1;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v4 |= [*(*(&v9 + 1) + 8 * i) unsignedIntegerValue];
+        v4 |= [*(*(&v8 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
@@ -1305,7 +1274,6 @@ uint64_t VGChargingConnectorTypeOptionsPacked(void *a1)
     v4 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1441,10 +1409,11 @@ uint64_t __VGGetUIHelperLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_270EDEB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_270EDEB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose((v29 - 248), 8);
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
+  _Block_object_dispose((v28 - 248), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1614,34 +1583,32 @@ void sub_270EE8C28(_Unwind_Exception *a1)
 
 void ___connectorMapping_block_invoke()
 {
-  v8[9] = *MEMORY[0x277D85DE8];
+  v7[9] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CD37A8];
-  v7[0] = *MEMORY[0x277CD37D0];
-  v7[1] = v0;
-  v8[0] = &unk_2880E5E00;
-  v8[1] = &unk_2880E5E18;
+  v6[0] = *MEMORY[0x277CD37D0];
+  v6[1] = v0;
+  v7[0] = &unk_2880E5E00;
+  v7[1] = &unk_2880E5E18;
   v1 = *MEMORY[0x277CD37B8];
-  v7[2] = *MEMORY[0x277CD37B0];
-  v7[3] = v1;
-  v8[2] = &unk_2880E5E30;
-  v8[3] = &unk_2880E5E48;
+  v6[2] = *MEMORY[0x277CD37B0];
+  v6[3] = v1;
+  v7[2] = &unk_2880E5E30;
+  v7[3] = &unk_2880E5E48;
   v2 = *MEMORY[0x277CD37C8];
-  v7[4] = *MEMORY[0x277CD37C0];
-  v7[5] = v2;
-  v8[4] = &unk_2880E5E60;
-  v8[5] = &unk_2880E5E78;
+  v6[4] = *MEMORY[0x277CD37C0];
+  v6[5] = v2;
+  v7[4] = &unk_2880E5E60;
+  v7[5] = &unk_2880E5E78;
   v3 = *MEMORY[0x277CD37E0];
-  v7[6] = *MEMORY[0x277CD37E8];
-  v7[7] = v3;
-  v8[6] = &unk_2880E5E90;
-  v8[7] = &unk_2880E5EA8;
-  v7[8] = *MEMORY[0x277CD37D8];
-  v8[8] = &unk_2880E5EC0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:9];
+  v6[6] = *MEMORY[0x277CD37E8];
+  v6[7] = v3;
+  v7[6] = &unk_2880E5E90;
+  v7[7] = &unk_2880E5EA8;
+  v6[8] = *MEMORY[0x277CD37D8];
+  v7[8] = &unk_2880E5EC0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:9];
   v5 = _connectorMapping_s_connectorMapping;
   _connectorMapping_s_connectorMapping = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_270EEC448(_Unwind_Exception *a1)
@@ -1652,10 +1619,10 @@ void sub_270EEC448(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270EEF798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_270EEF798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }

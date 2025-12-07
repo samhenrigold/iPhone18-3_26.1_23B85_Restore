@@ -1,6 +1,7 @@
 @interface IFObjectHasher
 - (id).cxx_construct;
 - (id)combine:(id)combine;
+- (id)combineBool:(BOOL)bool;
 - (id)combineBytes:(void *)bytes size:(unint64_t)size;
 - (id)combineInteger:(unint64_t)integer;
 - (unint64_t)finalize;
@@ -229,6 +230,14 @@ LABEL_19:
 - (id)combineInteger:(unint64_t)integer
 {
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:integer];
+  v5 = [(IFObjectHasher *)self combineContentsOfPropertyListObject:v4];
+
+  return self;
+}
+
+- (id)combineBool:(BOOL)bool
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:bool];
   v5 = [(IFObjectHasher *)self combineContentsOfPropertyListObject:v4];
 
   return self;

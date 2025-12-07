@@ -709,7 +709,7 @@ LABEL_13:
   v3 = viewModel;
   if (viewModel)
   {
-    [viewModel zoomState];
+    objc_msgSend_zoomState(viewModel);
     v4 = v6;
   }
 
@@ -961,7 +961,7 @@ void __39__PXZoomablePhotosLayout__updateLayers__block_invoke_2(uint64_t a1, voi
   v230 = 0u;
   if (viewModel)
   {
-    [viewModel zoomState];
+    objc_msgSend_zoomState(viewModel);
     v202 = BYTE8(v232);
   }
 
@@ -1091,7 +1091,7 @@ LABEL_34:
       v35 = itemsLayout;
       if ((BYTE9(v232) & 1) == 0)
       {
-        [v58 indexPath];
+        objc_msgSend_indexPath(v58);
         [itemsLayout frameForItem:v226];
         PXRectGetCenter();
       }
@@ -1108,9 +1108,9 @@ LABEL_34:
       v220 = 0u;
       if (v7)
       {
-        [(PXAssetsDataSource *)v7 firstItemIndexPath];
+        objc_msgSend_firstItemIndexPath(v7);
         memset(&v236, 0, 32);
-        [(PXAssetsDataSource *)v7 lastItemIndexPath];
+        objc_msgSend_lastItemIndexPath(v7);
         v68 = v220;
       }
 
@@ -1205,7 +1205,7 @@ LABEL_163:
           if (v58)
           {
 LABEL_38:
-            [v58 indexPath];
+            objc_msgSend_indexPath(v58);
             [v35 frameForItem:v225];
             PXPointNormalize();
             v60 = v59;
@@ -1280,12 +1280,12 @@ LABEL_25:
       PXPointDenormalize();
       if ((BYTE9(v232) & 1) == 0)
       {
-        [v34 indexPath];
+        objc_msgSend_indexPath(v34);
         [itemsLayout frameForItem:v224];
         PXRectGetCenter();
       }
 
-      [v34 indexPath];
+      objc_msgSend_indexPath(v34);
       [itemsLayout frameForItem:v223];
       v37 = v36;
       v39 = v38;
@@ -1295,7 +1295,7 @@ LABEL_25:
       v220 = 0u;
       v221 = 0u;
       v219 = 0u;
-      [(PXZoomablePhotosLayout *)self _spriteTransformForLayout:primaryLayer];
+      objc_msgSend__spriteTransformForLayout_(self);
       memset(&v236, 0, sizeof(v236));
       v240.origin.x = v37;
       v240.origin.y = v39;
@@ -1843,7 +1843,7 @@ void __53__PXZoomablePhotosLayout__updateDecorationVisibility__block_invoke(uint
 
 - (void)_updateDataSource
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   v4 = self->_dataSourceManager;
   v5 = self->_currentDataSource;
   dataSource = [(PXAssetsDataSourceManager *)v4 dataSource];
@@ -1855,16 +1855,16 @@ void __53__PXZoomablePhotosLayout__updateDecorationVisibility__block_invoke(uint
 
   viewModel = [(PXZoomablePhotosLayout *)self viewModel];
   v8 = viewModel;
-  v109 = 0;
-  v107 = 0u;
+  v110 = 0;
   v108 = 0u;
-  v105 = 0u;
+  v109 = 0u;
   v106 = 0u;
-  v103 = 0u;
+  v107 = 0u;
   v104 = 0u;
+  v105 = 0u;
   if (viewModel)
   {
-    [viewModel zoomState];
+    objc_msgSend_zoomState(viewModel);
   }
 
   spec = [(PXZoomablePhotosLayout *)self spec];
@@ -1901,43 +1901,43 @@ LABEL_7:
   p_sectionIndexPath = &self->_sectionIndexPath;
   section = self->_sectionIndexPath.section;
   dataSourceIdentifier = self->_sectionIndexPath.dataSourceIdentifier;
-  v102 = *&self->_sectionIndexPath.item;
+  v103 = *&self->_sectionIndexPath.item;
   if (v8)
   {
-    [v8 sectionIndexPath];
-    if (section != *(&v100 + 1))
+    objc_msgSend_sectionIndexPath(v8);
+    if (section != *(&v101 + 1))
     {
-      [v8 sectionIndexPath];
-      section = *(&v98 + 1);
-      dataSourceIdentifier = v98;
+      objc_msgSend_sectionIndexPath(v8);
+      section = *(&v99 + 1);
+      dataSourceIdentifier = v99;
 LABEL_12:
-      v102 = v99;
+      v103 = v100;
     }
   }
 
   else
   {
-    v100 = 0u;
     v101 = 0u;
+    v102 = 0u;
     if (section)
     {
       section = 0;
       dataSourceIdentifier = 0;
-      v98 = 0uLL;
       v99 = 0uLL;
+      v100 = 0uLL;
       goto LABEL_12;
     }
   }
 
-  v97 = 0;
+  v98 = 0;
   v21 = *&self->_sectionIndexPath.item;
-  v96[0] = *&p_sectionIndexPath->dataSourceIdentifier;
-  v96[1] = v21;
-  [MEMORY[0x277D3CDD0] indexPathAfterApplyingChanges:v10 toIndexPath:v96 hasIncrementalChanges:&v97 objectChanged:0];
-  v22 = v99;
-  *&p_sectionIndexPath->dataSourceIdentifier = v98;
+  v96 = *&p_sectionIndexPath->dataSourceIdentifier;
+  v97 = v21;
+  objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(MEMORY[0x277D3CDD0]);
+  v22 = v100;
+  *&p_sectionIndexPath->dataSourceIdentifier = v99;
   *&self->_sectionIndexPath.item = v22;
-  if (v97 == 1)
+  if (v98 == 1)
   {
     v24 = *&p_sectionIndexPath->dataSourceIdentifier;
     v23 = *&self->_sectionIndexPath.item;
@@ -1991,7 +1991,7 @@ LABEL_12:
   v92 = 0u;
   v93 = 0u;
   v31 = v10;
-  v32 = [v31 countByEnumeratingWithState:&v92 objects:v112 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v92 objects:v113 count:16];
   if (v32)
   {
     v33 = v32;
@@ -2016,7 +2016,7 @@ LABEL_12:
         }
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v92 objects:v112 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v92 objects:v113 count:16];
     }
 
     while (v33);
@@ -2039,7 +2039,7 @@ LABEL_12:
     areAllSectionsConsideredAccurate = [(PXAssetsDataSource *)obj areAllSectionsConsideredAccurate];
   }
 
-  if ((BYTE8(v106) & 1) == 0)
+  if ((BYTE8(v107) & 1) == 0)
   {
     numberOfColumns = [primaryItemsLayout numberOfColumns];
     if (numberOfColumns <= [spec maxColumnsForIndividualItems] && (areAllSectionsConsideredAccurate & 1) == 0 && ((v34 ^ 1) & 1) == 0)
@@ -2112,7 +2112,7 @@ LABEL_12:
   v90 = 0u;
   v91 = 0u;
   v58 = NSAllMapTableKeys(v57);
-  v59 = [v58 countByEnumeratingWithState:&v88 objects:v111 count:16];
+  v59 = [v58 countByEnumeratingWithState:&v88 objects:v112 count:16];
   if (v59)
   {
     v60 = v59;
@@ -2138,7 +2138,7 @@ LABEL_12:
         }
       }
 
-      v60 = [v58 countByEnumeratingWithState:&v88 objects:v111 count:16];
+      v60 = [v58 countByEnumeratingWithState:&v88 objects:v112 count:16];
     }
 
     while (v60);
@@ -2150,7 +2150,7 @@ LABEL_12:
   v86 = 0u;
   v87 = 0u;
   v68 = selfCopy->_layers;
-  v69 = [(NSArray *)v68 countByEnumeratingWithState:&v84 objects:v110 count:16];
+  v69 = [(NSArray *)v68 countByEnumeratingWithState:&v84 objects:v111 count:16];
   if (v69)
   {
     v70 = v69;
@@ -2165,13 +2165,13 @@ LABEL_12:
         }
 
         itemsLayout = [*(*(&v84 + 1) + 8 * k) itemsLayout];
-        *&v98 = dataSourceIdentifier;
-        *(&v98 + 1) = section;
-        v99 = v102;
-        [itemsLayout applySectionedChangeDetailsForSingleSection:v31 dataSourceBeforeChanges:v82 dataSourceAfterChanges:obj changeMediaVersionHandler:v67 sectionIndexPathBeforeState:&v98];
+        *&v99 = dataSourceIdentifier;
+        *(&v99 + 1) = section;
+        v100 = v103;
+        [itemsLayout applySectionedChangeDetailsForSingleSection:v31 dataSourceBeforeChanges:v82 dataSourceAfterChanges:obj changeMediaVersionHandler:v67 sectionIndexPathBeforeState:&v99];
       }
 
-      v70 = [(NSArray *)v68 countByEnumeratingWithState:&v84 objects:v110 count:16];
+      v70 = [(NSArray *)v68 countByEnumeratingWithState:&v84 objects:v111 count:16];
     }
 
     while (v70);
@@ -2505,7 +2505,7 @@ LABEL_29:
   v12 = anchorAssetReference;
   if (anchorAssetReference)
   {
-    [anchorAssetReference indexPath];
+    objc_msgSend_indexPath(anchorAssetReference);
     v13 = v59;
     [oneColLayout frameForItem:v59];
     if (oneColLayout)
@@ -2526,7 +2526,7 @@ LABEL_29:
     v16 = viewModel;
     if (viewModel)
     {
-      [viewModel zoomState];
+      objc_msgSend_zoomState(viewModel);
     }
 
     else
@@ -2551,7 +2551,7 @@ LABEL_29:
     v24 = v23;
     if (v23)
     {
-      [v23 indexPath];
+      objc_msgSend_indexPath(v23);
       v25 = v51;
     }
 
@@ -2575,7 +2575,7 @@ LABEL_29:
     v27 = v26;
     if (v26)
     {
-      [v26 indexPath];
+      objc_msgSend_indexPath(v26);
       v28 = v49;
     }
 
@@ -2670,7 +2670,7 @@ void __47__PXZoomablePhotosLayout__updateZoomTransforms__block_invoke(uint64_t a
   v13 = v12;
   if (v12)
   {
-    [v12 indexPath];
+    objc_msgSend_indexPath(v12);
     v14 = v37;
   }
 
@@ -3129,8 +3129,8 @@ LABEL_16:
   v23 = self->_edgeStretchEffect;
   if (v23)
   {
-    [(PXZoomablePhotosLayout *)self styleForSpriteAtIndex:self->_pinchEffectCaptureSpriteIndex];
-    v24 = v49;
+    objc_msgSend_styleForSpriteAtIndex_(self);
+    v24 = v49[0];
     isDisplayingIndividualItems = [viewModel isDisplayingIndividualItems];
     primaryItemsLayout = [(PXZoomablePhotosLayout *)self primaryItemsLayout];
 
@@ -3160,7 +3160,7 @@ LABEL_16:
       {
         v47 = 0;
         memset(&v46, 0, sizeof(v46));
-        [(PXZoomablePhotosLayout *)self _spriteTransformForLayout:lastObject];
+        objc_msgSend__spriteTransformForLayout_(self);
         v45 = v46;
         v51.origin.x = v32;
         v51.origin.y = v34;
@@ -3497,7 +3497,7 @@ LABEL_3:
   v4 = v3;
   if (v3)
   {
-    [v3 zoomState];
+    objc_msgSend_zoomState(v3);
   }
 
   else
@@ -4154,28 +4154,28 @@ void __59__PXZoomablePhotosLayout_enumerateAssetsInRect_enumerator___block_invok
 {
   v4 = *(a1 + 32);
   v5 = a2[1];
-  v13 = *a2;
-  v14 = v5;
-  v6 = [v4 assetAtItemIndexPath:&v13];
+  v12 = *a2;
+  v13 = v5;
+  v6 = [v4 assetAtItemIndexPath:&v12];
   v7 = [*(a1 + 40) primaryItemsLayout];
-  v8 = [v7 spriteIndexForItem:*(a2 + 2)];
+  [v7 spriteIndexForItem:*(a2 + 2)];
   if (v7)
   {
-    [v7 geometryForSpriteAtIndex:v8];
-    v9 = *(&v14 + 8);
-    v11 = *(&v13 + 1);
-    v10 = *&v13;
+    objc_msgSend_geometryForSpriteAtIndex_(v7);
+    v8 = *(&v13 + 8);
+    v10 = *(&v12 + 1);
+    v9 = *&v12;
   }
 
   else
   {
-    v9 = 0;
-    v11 = 0.0;
+    v8 = 0;
     v10 = 0.0;
+    v9 = 0.0;
   }
 
-  v12 = vmul_f32(v9, 0x3F0000003F000000);
-  (*(*(a1 + 48) + 16))(v10 - v12.f32[0], v11 - v12.f32[1], v9.f32[0], v9.f32[1]);
+  v11 = vmul_f32(v8, 0x3F0000003F000000);
+  (*(*(a1 + 48) + 16))(v9 - v11.f32[0], v10 - v11.f32[1], v8.f32[0], v8.f32[1]);
 }
 
 - (void)enumerateAssetCollectionsInRect:(CGRect)rect enumerator:(id)enumerator
@@ -4248,7 +4248,7 @@ LABEL_8:
   return v17;
 }
 
-id __62__PXZoomablePhotosLayout_locationNamesFutureForContentInRect___block_invoke(uint64_t a1, uint64_t a2)
+id __62__PXZoomablePhotosLayout_locationNamesFutureForContentInRect___block_invoke(uint64_t a1, void *a2)
 {
   if ([*(a1 + 32) identifier] == a2)
   {
@@ -4395,7 +4395,7 @@ LABEL_9:
   return v22;
 }
 
-id __66__PXZoomablePhotosLayout_dateIntervalFutureForContentInRect_type___block_invoke(uint64_t a1, uint64_t a2)
+id __66__PXZoomablePhotosLayout_dateIntervalFutureForContentInRect_type___block_invoke(uint64_t a1, void *a2)
 {
   if ([*(a1 + 32) identifier] == a2)
   {
@@ -4813,7 +4813,7 @@ LABEL_12:
   currentDataSource = self->_currentDataSource;
   if (currentDataSource)
   {
-    [(PXAssetsDataSource *)currentDataSource indexPathForAssetReference:v10];
+    objc_msgSend_indexPathForAssetReference_(currentDataSource);
   }
 
 LABEL_15:
@@ -4870,7 +4870,7 @@ LABEL_15:
     v11 = v10;
     if (v10)
     {
-      [v10 geometryForSublayout:v6];
+      objc_msgSend_geometryForSublayout_(v10);
     }
 
     else
@@ -4912,7 +4912,7 @@ LABEL_15:
   v6 = viewModel;
   if (viewModel)
   {
-    [viewModel zoomState];
+    objc_msgSend_zoomState(viewModel);
   }
 
   else
@@ -4930,7 +4930,7 @@ LABEL_15:
   v8 = anchorAssetReference;
   if (anchorAssetReference)
   {
-    [anchorAssetReference indexPath];
+    objc_msgSend_indexPath(anchorAssetReference);
     v9 = v55;
   }
 
@@ -5152,7 +5152,7 @@ LABEL_13:
   }
 }
 
-uint64_t __58__PXZoomablePhotosLayout__updateDebugVisualizationSprites__block_invoke(uint64_t result, unint64_t a2, void *a3)
+char *__58__PXZoomablePhotosLayout__updateDebugVisualizationSprites__block_invoke(char *result, unint64_t a2, void *a3)
 {
   v3 = HIDWORD(a2);
   if (HIDWORD(a2))
@@ -5176,8 +5176,8 @@ uint64_t __58__PXZoomablePhotosLayout__updateDebugVisualizationSprites__block_in
     v8 = *(MEMORY[0x277D73D70] + 32);
     do
     {
-      v9 = *(v4 + 40);
-      v10 = *(v4 + 48);
+      v9 = *(v4 + 5);
+      v10 = *(v4 + 6);
       v30.origin.x = 0.0;
       v30.origin.y = 0.0;
       v30.size.width = v9;
@@ -5219,7 +5219,7 @@ uint64_t __58__PXZoomablePhotosLayout__updateDebugVisualizationSprites__block_in
       *(v5 + 16) = v17;
       *(v5 + 1) = 3;
       v15 = vcvt_f32_f64(*(v4 + 40));
-      result = [*(v4 + 32) displayScale];
+      result = [*(v4 + 4) displayScale];
       *&v16 = v16;
       *(v5 + 8) = vmul_n_f32(v15, *&v16);
       v7 += 4;
@@ -5236,80 +5236,80 @@ uint64_t __58__PXZoomablePhotosLayout__updateDebugVisualizationSprites__block_in
 
 void __58__PXZoomablePhotosLayout__updateDebugVisualizationSprites__block_invoke_2(uint64_t a1, unint64_t a2, double *a3)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) visibleRect];
   v7 = v6;
   v9 = v8;
-  v62 = 0;
+  v64 = 0;
+  v62 = 0u;
+  v63 = 0u;
   v60 = 0u;
   v61 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
   v10 = [*(a1 + 32) viewModel];
   v11 = v10;
   if (v10)
   {
-    [v10 zoomState];
+    objc_msgSend_zoomState(v10);
   }
 
   else
   {
-    v62 = 0;
+    v64 = 0;
+    v62 = 0u;
+    v63 = 0u;
     v60 = 0u;
     v61 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
   }
 
-  MEMORY[0x28223BE20]();
-  v13 = &v49 - 2 * v12;
-  v14 = [*(a1 + 32) anchorAssetReference];
+  *&v13 = MEMORY[0x28223BE20](v12).n128_u64[0];
+  v15 = &v51 - 2 * v14;
+  v16 = [*(a1 + 32) anchorAssetReference];
 
-  if (v14)
+  if (v16)
   {
-    v15 = [*(a1 + 32) primaryItemsLayout];
-    v16 = [*(a1 + 32) anchorAssetReference];
-    v17 = v16;
-    v49 = v9;
-    v50 = v7;
-    if (v16)
+    v17 = [*(a1 + 32) primaryItemsLayout];
+    v18 = [*(a1 + 32) anchorAssetReference];
+    v19 = v18;
+    v51 = v9;
+    v52 = v7;
+    if (v18)
     {
-      [v16 indexPath];
-      v18 = v55;
+      objc_msgSend_indexPath(v18, v51, v52);
+      v20 = v57;
     }
 
     else
     {
-      v18 = 0;
-      v54 = 0u;
-      v55 = 0u;
+      v20 = 0;
+      v56 = 0u;
+      v57 = 0u;
     }
 
-    [v15 frameForItem:{v18, v49, v50}];
-    v24 = v23;
+    [v17 frameForItem:{v20, v51, v52}];
     v26 = v25;
     v28 = v27;
     v30 = v29;
+    v32 = v31;
 
-    *&v52 = 0;
-    memset(&v51, 0, sizeof(v51));
-    v31 = *(a1 + 32);
-    v32 = [v31[133] primaryLayer];
-    [v31 _spriteTransformForLayout:v32];
+    *&v54 = 0;
+    memset(&v53, 0, sizeof(v53));
+    v33 = *(a1 + 32);
+    v34 = [v33[133] primaryLayer];
+    objc_msgSend__spriteTransformForLayout_(v33);
 
-    v63 = v51;
-    v65.origin.x = v24;
-    v65.origin.y = v26;
-    v65.size.width = v28;
-    v65.size.height = v30;
-    CGRectApplyAffineTransform(v65, &v63);
+    v65 = v53;
+    v67.origin.x = v26;
+    v67.origin.y = v28;
+    v67.size.width = v30;
+    v67.size.height = v32;
+    CGRectApplyAffineTransform(v67, &v65);
     PXRectGetCenter();
-    v22 = v33;
-    v21 = v34;
+    v24 = v35;
+    v23 = v36;
     [*(a1 + 32) normalizedScaleCenterInAnchorSprite];
     if ((PXPointIsNull() & 1) == 0)
     {
@@ -5317,41 +5317,41 @@ void __58__PXZoomablePhotosLayout__updateDebugVisualizationSprites__block_invoke
     }
 
     PXPointDenormalize();
-    v19 = v35;
-    v20 = v36;
+    v21 = v37;
+    v22 = v38;
   }
 
   else
   {
-    v19 = *MEMORY[0x277D3CFB0];
-    v20 = *(MEMORY[0x277D3CFB0] + 8);
-    v21 = v20;
-    v22 = *MEMORY[0x277D3CFB0];
+    v21 = *MEMORY[0x277D3CFB0];
+    v22 = *(MEMORY[0x277D3CFB0] + 8);
+    v23 = v22;
+    v24 = *MEMORY[0x277D3CFB0];
   }
 
-  v37 = HIDWORD(a2);
-  v53 = 0;
-  v52 = 0u;
-  memset(&v51, 0, sizeof(v51));
-  v38 = *(a1 + 32);
-  v39 = [v38 primaryItemsLayout];
-  [v38 _getMiniModeInfo:&v51 forLayout:v39];
+  v39 = HIDWORD(a2);
+  v55 = 0;
+  v54 = 0u;
+  memset(&v53, 0, sizeof(v53));
+  v40 = *(a1 + 32);
+  v41 = [v40 primaryItemsLayout];
+  [v40 _getMiniModeInfo:&v53 forLayout:v41];
 
-  *v13 = v22;
-  v13[1] = v21;
-  v13[2] = v19;
-  v13[3] = v20;
+  *v15 = v24;
+  v15[1] = v23;
+  v15[2] = v21;
+  v15[3] = v22;
   [*(a1 + 32) scaleCenterTargetInViewport];
   PXPointAdd();
-  v13[4] = v40;
-  v13[5] = v41;
+  v15[4] = v42;
+  v15[5] = v43;
   PXPointDenormalize();
-  v13[6] = v42;
-  v13[7] = v43;
-  *(v13 + 4) = *&v51.tx;
+  v15[6] = v44;
+  v15[7] = v45;
+  *(v15 + 4) = *&v53.tx;
   if (*(a1 + 64) == 5)
   {
-    if (!v37)
+    if (!v39)
     {
       return;
     }
@@ -5359,29 +5359,29 @@ void __58__PXZoomablePhotosLayout__updateDebugVisualizationSprites__block_invoke
 
   else
   {
-    v48 = [MEMORY[0x277CCA890] currentHandler];
-    [v48 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PXZoomablePhotosLayout.m" lineNumber:2486 description:{@"Invalid parameter not satisfying: %@", @"i == spriteCount"}];
+    v50 = [MEMORY[0x277CCA890] currentHandler];
+    [v50 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PXZoomablePhotosLayout.m" lineNumber:2486 description:{@"Invalid parameter not satisfying: %@", @"i == spriteCount"}];
 
-    if (!v37)
+    if (!v39)
     {
       return;
     }
   }
 
-  v44 = 0;
-  v45 = *(a1 + 56) * -0.5 + 10.0;
-  v46 = (v13 + 1);
+  v46 = 0;
+  v47 = *(a1 + 56) * -0.5 + 10.0;
+  v48 = (v15 + 1);
   do
   {
-    v47 = *v46 - v45;
-    *a3 = *(v46 - 1);
-    a3[1] = v47;
-    a3[2] = (-200.0 - v44++);
+    v49 = *v48 - v47;
+    *a3 = *(v48 - 1);
+    a3[1] = v49;
+    a3[2] = (-200.0 - v46++);
     a3 += 4;
-    v46 += 2;
+    v48 += 2;
   }
 
-  while (v37 != v44);
+  while (v39 != v46);
 }
 
 void __44__PXZoomablePhotosLayout__updatePrefetching__block_invoke(uint64_t a1)
@@ -5472,12 +5472,12 @@ void __43__PXZoomablePhotosLayout__updateBlurEffect__block_invoke_5(uint64_t a1,
       v13 = [*(a1 + 32) objectAtIndexedSubscript:v11 & ~(v11 >> 63)];
       if (v12)
       {
-        [v12 collapseProgress];
+        objc_msgSend_collapseProgress(v12);
       }
 
       if (v13)
       {
-        [v13 collapseProgress];
+        objc_msgSend_collapseProgress(v13);
       }
 
       [v12 yPosition];
@@ -5771,7 +5771,7 @@ LABEL_8:
     v24 = v5;
     if (sublayoutDataStore)
     {
-      [sublayoutDataStore geometryForSublayout:self];
+      objc_msgSend_geometryForSublayout_(sublayoutDataStore);
     }
 
     else
@@ -6251,7 +6251,7 @@ LABEL_15:
           v65 = 0u;
           if (miniModeAnimator)
           {
-            [miniModeAnimator collapseProgressForNormalizedYPosition:v36];
+            objc_msgSend_collapseProgressForNormalizedYPosition_(miniModeAnimator, v36);
             v38 = *(&v65 + 1);
             v39 = *&v65;
             v40 = *(&v66 + 1);
@@ -6638,7 +6638,7 @@ LABEL_36:
   v28 = 0u;
   if (viewModel)
   {
-    [viewModel zoomState];
+    objc_msgSend_zoomState(viewModel, 0, 0, 0, 0);
   }
 
   v7 = [(NSArray *)self->_itemLayouts objectAtIndexedSubscript:0, v27, v28, v29, v30];
@@ -6762,7 +6762,7 @@ LABEL_36:
     currentDataSource = self->_currentDataSource;
     if (currentDataSource)
     {
-      [(PXAssetsDataSource *)currentDataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(currentDataSource);
       goto LABEL_8;
     }
 
@@ -6778,7 +6778,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  [(PXAssetsDataSource *)v8 lastItemIndexPath];
+  objc_msgSend_lastItemIndexPath(v8);
 LABEL_8:
   v7 = *&v16[0];
 LABEL_10:
@@ -7255,7 +7255,7 @@ void __34__PXZoomablePhotosLayout_setSpec___block_invoke(uint64_t a1, void *a2)
 
     if (modelCopy)
     {
-      [modelCopy sectionIndexPath];
+      objc_msgSend_sectionIndexPath(modelCopy);
     }
 
     else

@@ -473,7 +473,7 @@ LABEL_12:
   return v4 & 1;
 }
 
-uint64_t __42__TSWPLayout_invalidateForPageCountChange__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__42__TSWPLayout_invalidateForPageCountChange__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 layoutResultFlags];
   if ((result & 0x80) != 0)

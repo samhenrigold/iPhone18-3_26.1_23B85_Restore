@@ -80,14 +80,14 @@
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  sub_27440CB1C(v29, &unk_28094A230);
+  sub_27440CB1C(v29, &unk_28094A230, &qword_27464D1B0);
 }
 
 - (void)attachToParentViewController:(id)controller
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_274602F84(controller);
+  sub_274602F84();
 }
 
 - (void)detachFromParentViewController

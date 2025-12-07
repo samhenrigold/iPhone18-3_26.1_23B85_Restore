@@ -18,7 +18,7 @@
   if (v11 == objc_opt_class())
   {
     v13 = [elementCopy getAttribute:@"type"];
-    if ([v13 isEqualToString:@"checkbox"])
+    if (objc_msgSend_isEqualToString_(v13))
     {
       v14 = SKUICheckboxInputViewElement;
     }
@@ -28,14 +28,14 @@
       v14 = SKUITextInputViewElement;
     }
 
-    else if ([v13 isEqualToString:@"search"])
+    else if (objc_msgSend_isEqualToString_(v13))
     {
       v14 = SKUISearchBarViewElement;
     }
 
     else
     {
-      if (![v13 isEqualToString:@"submit"])
+      if (!objc_msgSend_isEqualToString_(v13))
       {
         v16.receiver = self;
         v16.super_class = SKUIInputViewElement;

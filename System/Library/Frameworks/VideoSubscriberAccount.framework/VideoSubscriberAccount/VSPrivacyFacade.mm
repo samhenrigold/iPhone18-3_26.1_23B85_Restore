@@ -52,19 +52,19 @@
 
 - (void)preflightCheckForProcessIdentifier:(int)identifier withCompletionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v7 = VSDefaultLogObject();
+  v7 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v27) = 0;
-    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Will preflight for pid.", &v27, 2u);
+    LOWORD(v29) = 0;
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Will preflight for pid.", &v29, 2u);
   }
 
   v8 = VSBundleURLForProcessIdentifier(identifier);
   if (!v8)
   {
-    v18 = VSErrorLogObject();
+    v18 = VSErrorLogObject(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [VSPrivacyFacade preflightCheckForProcessIdentifier:withCompletionHandler:];
@@ -76,8 +76,8 @@
   Unique = _CFBundleCreateUnique();
   if (!Unique)
   {
-    v19 = VSErrorLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = VSErrorLogObject(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [VSPrivacyFacade preflightCheckForProcessIdentifier:withCompletionHandler:];
     }
@@ -117,28 +117,29 @@ LABEL_10:
         }
       }
 
-      v21 = CFDictionaryGetValue(ValueAtIndex, *MEMORY[0x277D6C0D0]);
-      if (v21)
+      v22 = CFDictionaryGetValue(ValueAtIndex, *MEMORY[0x277D6C0D0]);
+      if (v22)
       {
-        v22 = CFBooleanGetValue(v21);
-        v23 = VSDefaultLogObject();
-        v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-        if (v22)
+        v23 = CFBooleanGetValue(v22);
+        v24 = v23;
+        v25 = VSDefaultLogObject(v23);
+        v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+        if (v24)
         {
-          if (v24)
+          if (v26)
           {
-            LOWORD(v27) = 0;
-            _os_log_impl(&dword_23AB8E000, v23, OS_LOG_TYPE_DEFAULT, "TCC status is granted.", &v27, 2u);
+            LOWORD(v29) = 0;
+            _os_log_impl(&dword_23AB8E000, v25, OS_LOG_TYPE_DEFAULT, "TCC status is granted.", &v29, 2u);
           }
 
           v17 = 1;
         }
 
-        else if (v24)
+        else if (v26)
         {
-          LOWORD(v27) = 0;
+          LOWORD(v29) = 0;
           v17 = 2;
-          _os_log_impl(&dword_23AB8E000, v23, OS_LOG_TYPE_DEFAULT, "TCC status is denied.", &v27, 2u);
+          _os_log_impl(&dword_23AB8E000, v25, OS_LOG_TYPE_DEFAULT, "TCC status is denied.", &v29, 2u);
         }
 
         else
@@ -149,8 +150,8 @@ LABEL_10:
 
       else
       {
-        v23 = VSErrorLogObject();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v25 = VSErrorLogObject(0);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           [VSPrivacyFacade preflightCheckForProcessIdentifier:withCompletionHandler:];
         }
@@ -164,8 +165,8 @@ LABEL_10:
 
   else
   {
-    v20 = VSErrorLogObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = VSErrorLogObject(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [VSPrivacyFacade preflightCheckForProcessIdentifier:withCompletionHandler:];
     }
@@ -175,13 +176,13 @@ LABEL_10:
 
   CFRelease(v10);
 LABEL_35:
-  v25 = VSDefaultLogObject();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v27 = VSDefaultLogObject(v19);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
-    v27 = 138412290;
-    v28 = v26;
-    _os_log_impl(&dword_23AB8E000, v25, OS_LOG_TYPE_DEFAULT, "Will call preflight completion handler with result %@", &v27, 0xCu);
+    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
+    v29 = 138412290;
+    v30 = v28;
+    _os_log_impl(&dword_23AB8E000, v27, OS_LOG_TYPE_DEFAULT, "Will call preflight completion handler with result %@", &v29, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, v17);
@@ -275,7 +276,7 @@ LABEL_15:
   }
 
   v18 = [(VSPrivacyFacade *)self _voucherForProcess:v12 providerID:dCopy];
-  v19 = VSDefaultLogObject();
+  v19 = VSDefaultLogObject(v18);
   v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
   if (v18)
   {
@@ -462,9 +463,12 @@ LABEL_13:
 
 uint64_t __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_identityProviderDisplayName_providerIsSupported_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = VSDisplayNameForBundleWithIdentifier(a2);
+  v3 = VSDisplayNameForBundleWithIdentifier(a2);
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_identityProviderDisplayName_providerIsSupported_completionHandler___block_invoke_2(uint64_t a1)
@@ -478,7 +482,7 @@ void __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_id
       v4 = 0;
       if (v2 == 1)
       {
-        v5 = VSDefaultLogObject();
+        v5 = VSDefaultLogObject(1);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -488,21 +492,22 @@ void __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_id
         v6 = *(a1 + 40);
         v7 = *(a1 + 72);
         *buf = *(a1 + 56);
-        v19 = v7;
-        if ([v6 setAccessGranted:1 forAuditToken:buf])
+        v21 = v7;
+        v8 = [v6 setAccessGranted:1 forAuditToken:buf];
+        if (v8)
         {
-          v8 = VSDefaultLogObject();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v9 = VSDefaultLogObject(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Did grant access.", buf, 2u);
+            _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Did grant access.", buf, 2u);
           }
         }
 
         else
         {
-          v8 = VSErrorLogObject();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v9 = VSErrorLogObject(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_identityProviderDisplayName_providerIsSupported_completionHandler___block_invoke_2_cold_2();
           }
@@ -533,31 +538,32 @@ LABEL_11:
   }
 
   v3 = VSPrivateError(-11, 0);
-  v9 = VSDefaultLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = VSDefaultLogObject(v3);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Will deny access.", buf, 2u);
+    _os_log_impl(&dword_23AB8E000, v10, OS_LOG_TYPE_DEFAULT, "Will deny access.", buf, 2u);
   }
 
-  v10 = *(a1 + 40);
-  v11 = *(a1 + 72);
+  v11 = *(a1 + 40);
+  v12 = *(a1 + 72);
   *buf = *(a1 + 56);
-  v19 = v11;
-  if ([v10 setAccessGranted:0 forAuditToken:buf])
+  v21 = v12;
+  v13 = [v11 setAccessGranted:0 forAuditToken:buf];
+  if (v13)
   {
-    v12 = VSDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = VSDefaultLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23AB8E000, v12, OS_LOG_TYPE_DEFAULT, "Did deny access.", buf, 2u);
+      _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, "Did deny access.", buf, 2u);
     }
   }
 
   else
   {
-    v12 = VSErrorLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = VSErrorLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_identityProviderDisplayName_providerIsSupported_completionHandler___block_invoke_2_cold_1();
     }
@@ -565,15 +571,15 @@ LABEL_11:
 
   v4 = 2;
 LABEL_23:
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_identityProviderDisplayName_providerIsSupported_completionHandler___block_invoke_46;
-  v14[3] = &unk_278B74268;
-  v16 = *(a1 + 48);
-  v17 = v4;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_identityProviderDisplayName_providerIsSupported_completionHandler___block_invoke_46;
+  v16[3] = &unk_278B74268;
+  v18 = *(a1 + 48);
+  v19 = v4;
+  v17 = v3;
   v15 = v3;
-  v13 = v3;
-  VSPerformCompletionHandler(v14);
+  VSPerformCompletionHandler(v16);
 }
 
 void __135__VSPrivacyFacade__promptForAccessUsingAuditToken_processIdentifier_identityProviderDisplayName_providerIsSupported_completionHandler___block_invoke_46(void *a1)
@@ -770,7 +776,7 @@ LABEL_6:
 
         else
         {
-          v28 = VSErrorLogObject();
+          v28 = VSErrorLogObject(0);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
           {
             *value = 138412290;

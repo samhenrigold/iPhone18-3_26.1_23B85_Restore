@@ -66,7 +66,7 @@
   }
 
   [(PDDPPayload *)v10 setAction:v12];
-  if ([(PDDPPayload *)v10 action]== 3 && sub_1000B2958())
+  if ([(PDDPPayload *)v10 action]== 3 && sub_1000B2958(PDClient))
   {
     [(PDDPPayload *)v10 setActionFlags:1];
   }

@@ -1,6 +1,7 @@
 @interface MFMailMimePart
 + (BOOL)isRecognizedClassForContent:(id)content;
 - (BOOL)_shouldContinueDecodingProcess;
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete;
 - (id)decodeMessagePartial;
 - (id)decodeMessageRfc822;
 - (id)decodeMultipartAppledouble;
@@ -9,6 +10,8 @@
 - (id)decodeTextPlain;
 - (id)decodeTextRichtext;
 - (id)fileWrapperForDecodedObject:(id)object withFileData:(id *)data;
+- (id)fileWrapperForcingDownload:(BOOL)download;
+- (id)storeData:(id)data inMessage:(id)message isComplete:(BOOL)complete;
 - (void)configureFileWrapper:(id)wrapper;
 @end
 
@@ -109,6 +112,54 @@
   return v4;
 }
 
+- (id)fileWrapperForcingDownload:(BOOL)download
+{
+  downloadCopy = download;
+  mimeBody = [(MFMailMimePart *)self mimeBody];
+  message = [mimeBody message];
+
+  if (objc_opt_respondsToSelector())
+  {
+    v7 = [message performSelector:sel__attachmentStorageLocation];
+    if (v7)
+    {
+      v8 = v7;
+      partNumber = [(MFMailMimePart *)self partNumber];
+      v10 = [v8 stringByAppendingPathComponent:partNumber];
+
+      attachmentFilename = [(MFMailMimePart *)self attachmentFilename];
+      if (attachmentFilename)
+      {
+        v12 = attachmentFilename;
+        v13 = objc_alloc(MEMORY[0x277D24F38]);
+        v14 = [v10 stringByAppendingPathComponent:v12];
+        v15 = [v13 initWithPath:v14];
+
+        [v15 setPreferredFilename:v12];
+        preferredFilename = [v15 preferredFilename];
+        [v15 setFilename:preferredFilename];
+
+        [(MFMailMimePart *)self configureFileWrapper:v15];
+        if (v15)
+        {
+          goto LABEL_8;
+        }
+      }
+
+      else
+      {
+      }
+    }
+  }
+
+  v18.receiver = self;
+  v18.super_class = MFMailMimePart;
+  v15 = [(MFMailMimePart *)&v18 fileWrapperForcingDownload:downloadCopy];
+LABEL_8:
+
+  return v15;
+}
+
 - (id)fileWrapperForDecodedObject:(id)object withFileData:(id *)data
 {
   objectCopy = object;
@@ -203,6 +254,16 @@ LABEL_5:
   }
 }
 
+- (id)storeData:(id)data inMessage:(id)message isComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  dataCopy = data;
+  messageStore = [message messageStore];
+  v10 = [messageStore storeData:dataCopy forMimePart:self isComplete:completeCopy];
+
+  return v10;
+}
+
 - (BOOL)_shouldContinueDecodingProcess
 {
   v2 = +[MFActivityMonitor currentMonitor];
@@ -229,6 +290,94 @@ LABEL_5:
   }
 
   return v5;
+}
+
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete
+{
+  v26 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = MFMailMimePart;
+  v8 = [(MFMailMimePart *)&v24 contentToOffset:offset resultOffset:resultOffset downloadIfNecessary:necessary asHTML:l isComplete:complete];
+  array = [MEMORY[0x277CBEB18] array];
+  if (v8)
+  {
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v10 = v8;
+    v11 = [(MFContentErrorDocument *)v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    if (!v11)
+    {
+      goto LABEL_20;
+    }
+
+    v12 = v11;
+    v13 = *v21;
+    while (1)
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v21 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v15 = *(*(&v20 + 1) + 8 * i);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v16 = [v15 dataUsingEncoding:4];
+          v17 = [[MFWebMessageDocument alloc] initWithMimePart:self htmlData:v16 encoding:134217984];
+
+          if (v17)
+          {
+            goto LABEL_14;
+          }
+        }
+
+        else
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v18 = [[MFContentErrorDocument alloc] initWithMimePart:self];
+          }
+
+          else
+          {
+            v18 = v15;
+          }
+
+          v17 = v18;
+          if (v18)
+          {
+LABEL_14:
+            [array addObject:v17];
+          }
+        }
+      }
+
+      v12 = [(MFContentErrorDocument *)v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      if (!v12)
+      {
+LABEL_20:
+
+        goto LABEL_21;
+      }
+    }
+  }
+
+  if ([(MFMailMimePart *)self _shouldContinueDecodingProcess])
+  {
+    v10 = [[MFContentErrorDocument alloc] initWithMimePart:self];
+    [array addObject:v10];
+    goto LABEL_20;
+  }
+
+LABEL_21:
+
+  return array;
 }
 
 - (id)decodeMessageRfc822

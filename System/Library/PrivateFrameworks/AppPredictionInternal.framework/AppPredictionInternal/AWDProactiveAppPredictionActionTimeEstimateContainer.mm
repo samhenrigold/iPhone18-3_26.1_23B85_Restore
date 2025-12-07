@@ -1,8 +1,10 @@
 @interface AWDProactiveAppPredictionActionTimeEstimateContainer
 - (BOOL)isEqual:(id)equal;
+- (id)actionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)launchReasonsAsString:(int)string;
 - (int)StringAsActionType:(id)type;
 - (int)StringAsLaunchReasons:(id)reasons;
 - (int)actionType;
@@ -43,6 +45,21 @@
   {
     return 0;
   }
+}
+
+- (id)actionTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278597950[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsActionType:(id)type
@@ -191,6 +208,21 @@
   }
 
   return p_launchReasons->list[index];
+}
+
+- (id)launchReasonsAsString:(int)string
+{
+  if (string >= 0x35)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278597990[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLaunchReasons:(id)reasons
@@ -564,7 +596,7 @@
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (!self->_actionKey)
   {
@@ -575,99 +607,93 @@
   PBDataWriterWriteStringField();
   if (*&self->_has)
   {
-    actionType = self->_actionType;
     PBDataWriterWriteInt32Field();
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v7 = self->_parameters;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v8)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v6 = self->_parameters;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v25;
+    v8 = v7;
+    v9 = *v17;
     do
     {
-      for (i = 0; i != v9; ++i)
+      v10 = 0;
+      do
       {
-        if (*v25 != v10)
+        if (*v17 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
         PBDataWriterWriteStringField();
+        ++v10;
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_timeEstimates.count)
   {
-    v13 = 0;
+    v11 = 0;
     do
     {
-      v14 = self->_timeEstimates.list[v13];
       PBDataWriterWriteInt32Field();
-      ++v13;
+      ++v11;
     }
 
-    while (v13 < self->_timeEstimates.count);
+    while (v11 < self->_timeEstimates.count);
   }
 
   if (self->_sessionLengths.count)
   {
-    v15 = 0;
+    v12 = 0;
     do
     {
-      v16 = self->_sessionLengths.list[v15];
       PBDataWriterWriteInt32Field();
-      ++v15;
+      ++v12;
     }
 
-    while (v15 < self->_sessionLengths.count);
+    while (v12 < self->_sessionLengths.count);
   }
 
   if (self->_sessionIndexs.count)
   {
-    v17 = 0;
+    v13 = 0;
     do
     {
-      v18 = self->_sessionIndexs.list[v17];
       PBDataWriterWriteInt32Field();
-      ++v17;
+      ++v13;
     }
 
-    while (v17 < self->_sessionIndexs.count);
+    while (v13 < self->_sessionIndexs.count);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    noMatchCount = self->_noMatchCount;
     PBDataWriterWriteInt32Field();
   }
 
   p_launchReasons = &self->_launchReasons;
   if (p_launchReasons->count)
   {
-    v21 = 0;
+    v15 = 0;
     do
     {
-      v22 = p_launchReasons->list[v21];
       PBDataWriterWriteInt32Field();
-      ++v21;
+      ++v15;
     }
 
-    while (v21 < p_launchReasons->count);
+    while (v15 < p_launchReasons->count);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -760,7 +786,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_actionKey copyWithZone:zone];
   v7 = *(v5 + 104);
@@ -772,34 +798,34 @@
     *(v5 + 128) |= 1u;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = self->_parameters;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * v12) copyWithZone:{zone, v16}];
+        v13 = [*(*(&v15 + 1) + 8 * v12) copyWithZone:{zone, v15}];
         [v5 addParameter:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -815,7 +841,6 @@
   }
 
   PBRepeatedInt32Copy();
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -836,7 +861,6 @@
     }
   }
 
-  v6 = *(equalCopy + 128);
   if (*&self->_has)
   {
     if ((*(equalCopy + 128) & 1) == 0 || self->_actionType != *(equalCopy + 28))
@@ -858,7 +882,6 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v8 = *(equalCopy + 128);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 128) & 2) == 0 || self->_noMatchCount != *(equalCopy + 29))
@@ -910,7 +933,7 @@ LABEL_21:
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 13))
   {
@@ -923,29 +946,29 @@ LABEL_21:
     *&self->_has |= 1u;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v5 = *(fromCopy + 15);
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AWDProactiveAppPredictionActionTimeEstimateContainer *)self addParameter:*(*(&v23 + 1) + 8 * i), v23];
+        [(AWDProactiveAppPredictionActionTimeEstimateContainer *)self addParameter:*(*(&v22 + 1) + 8 * i), v22];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
@@ -957,7 +980,7 @@ LABEL_21:
     v11 = timeEstimatesCount;
     for (j = 0; j != v11; ++j)
     {
-      -[AWDProactiveAppPredictionActionTimeEstimateContainer addTimeEstimate:](self, "addTimeEstimate:", [fromCopy timeEstimateAtIndex:{j, v23}]);
+      -[AWDProactiveAppPredictionActionTimeEstimateContainer addTimeEstimate:](self, "addTimeEstimate:", [fromCopy timeEstimateAtIndex:{j, v22}]);
     }
   }
 
@@ -996,8 +1019,6 @@ LABEL_21:
       -[AWDProactiveAppPredictionActionTimeEstimateContainer addLaunchReason:](self, "addLaunchReason:", [fromCopy launchReasonAtIndex:n]);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

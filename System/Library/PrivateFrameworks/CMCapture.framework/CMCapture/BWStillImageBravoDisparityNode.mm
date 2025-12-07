@@ -1,11 +1,10 @@
 @interface BWStillImageBravoDisparityNode
 - (BWStillImageBravoDisparityNode)initWithNodeConfiguration:(id)configuration sensorConfigurationsByPortType:(id)type disparityMapWidth:(unint64_t)width disparityMapHeight:(unint64_t)height outputDisparityBufferCount:(int)count;
-- (uint64_t)_computeDisparityForTeleBuffer:(void *)buffer wideBuffer:(void *)wideBuffer attachToOutputBuffer:;
-- (uint64_t)_configureCurrentCaptureRequestStateWithStillImageSettings:(uint64_t)result;
+- (id)_computeDisparityForTeleBuffer:(void *)buffer wideBuffer:(void *)wideBuffer attachToOutputBuffer:;
+- (id)_configureCurrentCaptureRequestStateWithStillImageSettings:(id *)result;
+- (id)_resolveProcessingMode;
+- (id)processorOptionsDictionary;
 - (uint64_t)_loadAndConfigureDisparityGenerator;
-- (uint64_t)_resolveProcessingMode;
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive;
-- (uint64_t)processorOptionsDictionary;
 - (void)_clearCaptureRequestState;
 - (void)_handleError:(CMAttachmentBearerRef)target duringProcessingOfSampleBuffer:(uint64_t)buffer fromInput:;
 - (void)_processBuffersForDisparityIfNecessary;
@@ -161,7 +160,7 @@
 {
   if (!self->_currentStillImageSettings || (v7 = [objc_msgSend(error "stillImageSettings")], v7 != -[BWStillImageSettings settingsID](self->_currentStillImageSettings, "settingsID")))
   {
-    -[BWStillImageBravoDisparityNode _configureCurrentCaptureRequestStateWithStillImageSettings:](self, [error stillImageSettings]);
+    -[BWStillImageBravoDisparityNode _configureCurrentCaptureRequestStateWithStillImageSettings:](&self->super.super.isa, [error stillImageSettings]);
   }
 
   if (self->_currentStillImageSettings)
@@ -239,7 +238,7 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if (self->_telephotoInput == input && ([key isEqualToString:0x1F21AAB10] & 1) == 0)
+  if (self->_telephotoInput == input && (objc_msgSend_isEqualToString_(key, a2, 0x1F21AAB10) & 1) == 0)
   {
     v8 = [(BWNodeOutput *)self->super._output mediaPropertiesForAttachedMediaKey:key];
     if (!v8)
@@ -256,68 +255,78 @@
 {
   if (result)
   {
-    v1 = result;
-    v21 = 0;
+    v2 = result;
+    v39 = 0;
     processorOptionsDictionary = [(BWStillImageBravoDisparityNode *)result processorOptionsDictionary];
-    if (!processorOptionsDictionary)
+    if (processorOptionsDictionary)
     {
-      goto LABEL_11;
-    }
-
-    v3 = processorOptionsDictionary;
-    v4 = +[FigCaptureCameraParameters sharedInstance];
-    disparityVersion = [(FigCaptureCameraParameters *)v4 disparityVersion];
-    if (!disparityVersion)
-    {
-      _sensorConfigurationWithPortraitTuningParameters = [(BWStillImageBravoDisparityNode *)v1 _sensorConfigurationWithPortraitTuningParameters];
-      if (!_sensorConfigurationWithPortraitTuningParameters)
+      v4 = processorOptionsDictionary;
+      v5 = +[FigCaptureCameraParameters sharedInstance];
+      disparityVersion = [(FigCaptureCameraParameters *)v5 disparityVersion];
+      if (!disparityVersion)
       {
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_1_6();
-        FigDebugAssert3();
-        return 0;
-      }
-
-      disparityVersion = -[FigCaptureCameraParameters disparityVersionForPortType:sensorIDString:](v4, "disparityVersionForPortType:sensorIDString:", [_sensorConfigurationWithPortraitTuningParameters portType], objc_msgSend(_sensorConfigurationWithPortraitTuningParameters, "sensorIDString"));
-    }
-
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@V%d.bundle", @"/System/Library/VideoProcessors", @"Disparity", disparityVersion];
-    v7 = [MEMORY[0x1E696AAE8] bundleWithPath:v6];
-    if (v7)
-    {
-      v8 = v7;
-      if (![v7 loadAndReturnError:&v21])
-      {
-        return 4294954510;
-      }
-
-      v9 = [objc_alloc(objc_msgSend(v8 "principalClass"))];
-      *(v1 + 136) = v9;
-      if (v9)
-      {
-        [v9 setOptions:v3];
-        v10 = [objc_msgSend(*(v1 + 8) "videoFormat")];
-        v11 = [objc_msgSend(*(v1 + 8) "videoFormat")];
-        v12 = *(v1 + 160);
-        v13 = *(v1 + 168);
-        v14 = *(v1 + 136);
-        v17[0] = v10;
-        v17[1] = v11;
-        v17[2] = 0;
-        v17[3] = v12;
-        v17[4] = v13;
-        v18 = 1067030938;
-        v19 = 0x1800000020;
-        v20 = 0;
-        [v14 setDisparityConfig:v17];
-        v15 = [*(v1 + 136) prepareToProcess:0];
-        result = 0;
-        if (!v15)
+        _sensorConfigurationWithPortraitTuningParameters = [(BWStillImageBravoDisparityNode *)v2 _sensorConfigurationWithPortraitTuningParameters];
+        if (!_sensorConfigurationWithPortraitTuningParameters)
         {
-          return result;
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_1_6();
+          v25 = 0;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v26, v28, v30, v31, v32, v33, v34);
+          return 0;
         }
 
+        disparityVersion = -[FigCaptureCameraParameters disparityVersionForPortType:sensorIDString:](v5, "disparityVersionForPortType:sensorIDString:", [_sensorConfigurationWithPortraitTuningParameters portType], objc_msgSend(_sensorConfigurationWithPortraitTuningParameters, "sensorIDString"));
+      }
+
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@V%d.bundle", @"/System/Library/VideoProcessors", @"Disparity", disparityVersion];
+      v8 = [MEMORY[0x1E696AAE8] bundleWithPath:v7];
+      if (v8)
+      {
+        v9 = v8;
+        if (![v8 loadAndReturnError:&v39])
+        {
+          return 4294954510;
+        }
+
+        v10 = [objc_alloc(objc_msgSend(v9 "principalClass"))];
+        *(v2 + 136) = v10;
+        if (v10)
+        {
+          [v10 setOptions:v4];
+          v11 = [objc_msgSend(*(v2 + 8) "videoFormat")];
+          v12 = [objc_msgSend(*(v2 + 8) "videoFormat")];
+          v13 = *(v2 + 160);
+          v14 = *(v2 + 168);
+          v15 = *(v2 + 136);
+          v31 = v11;
+          v32 = v12;
+          v33 = 0;
+          v34 = v13;
+          v35 = v14;
+          v36 = 1067030938;
+          v37 = 0x1800000020;
+          v38 = 0;
+          [v15 setDisparityConfig:&v31];
+          v16 = [*(v2 + 136) prepareToProcess:0];
+          result = 0;
+          if (!v16)
+          {
+            return result;
+          }
+
+          emitter = fig_log_get_emitter();
+          v22 = v1;
+          v21 = 476;
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0ELL, "<<<< BWStillImageBravoDisparityNode >>>>", v21, v22, v19, v20, v24);
+        }
+
+        OUTLINED_FUNCTION_17_26();
         fig_log_get_emitter();
+        OUTLINED_FUNCTION_0_2();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v29, v30, v31, v32, v33, v34);
+        OUTLINED_FUNCTION_17_26();
+        emitter = fig_log_get_emitter();
+        v21 = 457;
       }
 
       else
@@ -325,24 +334,26 @@
         OUTLINED_FUNCTION_17_26();
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0_2();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v29, v30, v31, v32, v33, v34);
         OUTLINED_FUNCTION_17_26();
-        fig_log_get_emitter();
+        emitter = fig_log_get_emitter();
+        v21 = 452;
       }
     }
 
     else
     {
-LABEL_11:
       OUTLINED_FUNCTION_17_26();
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_2();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v23, v26, v28, v30, v31, v32, v33, v34);
       OUTLINED_FUNCTION_17_26();
-      fig_log_get_emitter();
+      emitter = fig_log_get_emitter();
+      v21 = 435;
     }
 
-    return FigSignalErrorAtGM();
+    v22 = v1;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0ELL, "<<<< BWStillImageBravoDisparityNode >>>>", v21, v22, v19, v20, v24);
   }
 
   return result;
@@ -374,9 +385,9 @@ LABEL_11:
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_5_53();
-    v18 = OUTLINED_FUNCTION_6_0();
-    v19 = OUTLINED_FUNCTION_16_43();
-    v26 = 316;
+    v22 = OUTLINED_FUNCTION_6_0(v18, v19, v20, v21, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+    v23 = OUTLINED_FUNCTION_16_43();
+    v30 = 316;
     goto LABEL_32;
   }
 
@@ -405,19 +416,19 @@ LABEL_11:
     OUTLINED_FUNCTION_7_0();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     OUTLINED_FUNCTION_5_53();
-    v18 = OUTLINED_FUNCTION_6_0();
-    v19 = OUTLINED_FUNCTION_16_43();
-    v26 = 319;
+    v22 = OUTLINED_FUNCTION_6_0(v31, v32, v33, v34, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+    v23 = OUTLINED_FUNCTION_16_43();
+    v30 = 319;
 LABEL_32:
-    FigCapturePleaseFileRadar(v19, v20, v21, v22, v23, v26, v24, v25, 0);
-    free(v18);
+    FigCapturePleaseFileRadar(v23, v24, v25, v26, v27, v30, v28, v29, 0);
+    free(v22);
     goto LABEL_33;
   }
 
   v9 = v8;
   if (!self->_currentStillImageSettings || (v10 = [v8 settingsID], v10 != -[BWStillImageSettings settingsID](self->_currentStillImageSettings, "settingsID")))
   {
-    [(BWStillImageBravoDisparityNode *)self _configureCurrentCaptureRequestStateWithStillImageSettings:v9];
+    [(BWStillImageBravoDisparityNode *)&self->super.super.isa _configureCurrentCaptureRequestStateWithStillImageSettings:v9];
   }
 
   if (!self->_processingMode)
@@ -464,13 +475,13 @@ LABEL_15:
   }
 }
 
-- (uint64_t)_configureCurrentCaptureRequestStateWithStillImageSettings:(uint64_t)result
+- (id)_configureCurrentCaptureRequestStateWithStillImageSettings:(id *)result
 {
   if (result)
   {
     v3 = result;
     [(BWStillImageBravoDisparityNode *)result _clearCaptureRequestState];
-    *(v3 + 184) = a2;
+    v3[23] = a2;
     *(v3 + 224) = 1;
     *(v3 + 225) = 0;
     if ([objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_14_43() "requestedSettings")])
@@ -482,7 +493,6 @@ LABEL_15:
       {
         v9 = v6;
         v10 = MEMORY[0];
-        v11 = *off_1E798A0D8;
         while (2)
         {
           for (i = 0; i != v9; ++i)
@@ -492,7 +502,7 @@ LABEL_15:
               objc_enumerationMutation(v4);
             }
 
-            if ([objc_msgSend(*(8 * i) "portType")])
+            if (objc_msgSend_isEqualToString_([*(8 * i) portType]))
             {
               v7 = 2;
               v8 = 3;
@@ -557,21 +567,21 @@ LABEL_14:
   {
     if (*(self + 136))
     {
-      v2 = *(self + 240);
-      if (!v2)
+      v3 = *(self + 240);
+      if (!v3)
       {
-        v5 = 0;
+        v6 = 0;
         goto LABEL_9;
       }
 
       if (!*(self + 216))
       {
-        v3 = *(self + 232);
-        v4 = v2;
+        v4 = *(self + 232);
+        v5 = v3;
         goto LABEL_8;
       }
 
-      v18 = v2;
+      v23 = v3;
     }
 
     else
@@ -582,47 +592,47 @@ LABEL_14:
       OUTLINED_FUNCTION_7_0();
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       OUTLINED_FUNCTION_5_53();
-      v12 = OUTLINED_FUNCTION_6_0();
-      v13 = OUTLINED_FUNCTION_17_26();
-      FigCapturePleaseFileRadar(v13, v14, 0, 0, v15, 562, v16, v17, 0);
-      free(v12);
-      v18 = OUTLINED_FUNCTION_18_37(BWNodeError, 184);
+      v17 = OUTLINED_FUNCTION_6_0(v13, v14, v15, v16, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+      v18 = OUTLINED_FUNCTION_17_26();
+      FigCapturePleaseFileRadar(v18, v19, 0, 0, v20, 562, v21, v22, 0);
+      free(v17);
+      v23 = OUTLINED_FUNCTION_18_37(BWNodeError, 184);
     }
 
-    v5 = v18;
+    v6 = v23;
     goto LABEL_29;
   }
 
-  v3 = *(self + 240);
-  v4 = v3;
-LABEL_8:
+  v4 = *(self + 240);
   v5 = v4;
-  if (v3)
+LABEL_8:
+  v6 = v5;
+  if (v4)
   {
 LABEL_29:
-    [OUTLINED_FUNCTION_17_38() emitNodeError:v5];
-    v10 = 0;
-    LODWORD(v11) = 1;
+    [OUTLINED_FUNCTION_17_38() emitNodeError:v6];
+    v11 = 0;
+    LODWORD(v12) = 1;
 LABEL_30:
     OUTLINED_FUNCTION_33();
-    if (v7)
+    if (v8)
     {
-      v19 = *(self + 216);
-      if (v19)
+      v24 = *(self + 216);
+      if (v24)
       {
-        BWSampleBufferRemoveAttachedMedia(v19, 0x1F21AAB10);
+        BWSampleBufferRemoveAttachedMedia(v24, 0x1F21AAB10);
         [OUTLINED_FUNCTION_17_38() emitSampleBuffer:*(self + 216)];
       }
 
       else
       {
-        v20 = *(self + 232);
-        if (!v20)
+        v25 = *(self + 232);
+        if (!v25)
         {
-          v20 = OUTLINED_FUNCTION_18_37(BWNodeError, 184);
+          v25 = OUTLINED_FUNCTION_18_37(BWNodeError, 184);
         }
 
-        [OUTLINED_FUNCTION_17_38() emitNodeError:v20];
+        [OUTLINED_FUNCTION_17_38() emitNodeError:v25];
       }
     }
 
@@ -630,86 +640,86 @@ LABEL_30:
   }
 
 LABEL_9:
-  v6 = *(self + 200);
-  if ((v6 - 2) >= 2)
+  v7 = *(self + 200);
+  if ((v7 - 2) >= 2)
   {
-    v7 = v6 == 1 || v6 == 4;
-    if (!v7)
+    v8 = v7 == 1 || v7 == 4;
+    if (!v8)
     {
-      v10 = 0;
-      LODWORD(v11) = 0;
+      v11 = 0;
+      LODWORD(v12) = 0;
       goto LABEL_37;
     }
   }
 
-  v11 = *(self + 208);
-  if (v11)
+  v12 = *(self + 208);
+  if (v12)
   {
-    v8 = *(self + 216);
-    if (v8)
+    v9 = *(self + 216);
+    if (v9)
     {
-      [(BWStillImageBravoDisparityNode *)self _computeDisparityForTeleBuffer:v11 wideBuffer:v8 attachToOutputBuffer:v11];
-      v10 = 1;
+      [(BWStillImageBravoDisparityNode *)self _computeDisparityForTeleBuffer:v12 wideBuffer:v9 attachToOutputBuffer:v12];
+      v11 = 1;
       goto LABEL_18;
     }
 
-    v10 = 0;
+    v11 = 0;
     if (*(self + 232))
     {
 LABEL_18:
       OUTLINED_FUNCTION_33();
-      if (v7)
+      if (v8)
       {
         if (!*(self + 208))
         {
           fig_log_get_emitter();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v1, v30, v31, v32, v33, v34, v35);
         }
 
-        BWSampleBufferRemoveAttachedMedia(v11, 0x1F21AAB10);
-        [OUTLINED_FUNCTION_17_38() emitSampleBuffer:v11];
+        BWSampleBufferRemoveAttachedMedia(v12, 0x1F21AAB10);
+        [OUTLINED_FUNCTION_17_38() emitSampleBuffer:v12];
       }
 
-      LODWORD(v11) = 0;
+      LODWORD(v12) = 0;
       goto LABEL_30;
     }
 
-    LODWORD(v11) = 0;
+    LODWORD(v12) = 0;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
 LABEL_37:
-  if ((v10 & 1) != 0 || v11)
+  if ((v11 & 1) != 0 || v12)
   {
-    v21 = *(self + 208);
-    if (v21)
+    v26 = *(self + 208);
+    if (v26)
     {
-      CFRelease(v21);
+      CFRelease(v26);
       *(self + 208) = 0;
     }
 
-    v22 = *(self + 216);
-    if (v22)
+    v27 = *(self + 216);
+    if (v27)
     {
-      CFRelease(v22);
+      CFRelease(v27);
       *(self + 216) = 0;
     }
 
-    v23 = *(self + 240);
-    if (v23)
+    v28 = *(self + 240);
+    if (v28)
     {
-      CFRelease(v23);
+      CFRelease(v28);
       *(self + 240) = 0;
     }
 
-    v24 = *(self + 232);
-    if (v24)
+    v29 = *(self + 232);
+    if (v29)
     {
-      CFRelease(v24);
+      CFRelease(v29);
       *(self + 232) = 0;
     }
 
@@ -722,7 +732,7 @@ LABEL_37:
   }
 }
 
-- (uint64_t)processorOptionsDictionary
+- (id)processorOptionsDictionary
 {
   if (result)
   {
@@ -735,37 +745,37 @@ LABEL_37:
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_6();
-LABEL_17:
-        FigDebugAssert3();
+        v14 = 0;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14);
         return 0;
       }
     }
 
     v3 = stereoDisparityParameters;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v17 = 0u;
-    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    allValues = [*(v1 + 128) allValues];
-    v6 = [allValues countByEnumeratingWithState:&v17 objects:v16 count:16];
+    v21 = 0u;
+    v22 = 0u;
+    allValues = [v1[16] allValues];
+    v6 = [allValues countByEnumeratingWithState:&v19 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v10 = [dictionary setObject:objc_msgSend(*(*(&v17 + 1) + 8 * i) forKeyedSubscript:{"cameraInfo"), objc_msgSend(*(*(&v17 + 1) + 8 * i), "portType")}];
+          v10 = [dictionary setObject:objc_msgSend(*(*(&v19 + 1) + 8 * i) forKeyedSubscript:{"cameraInfo"), objc_msgSend(*(*(&v19 + 1) + 8 * i), "portType")}];
         }
 
-        v7 = OUTLINED_FUNCTION_52(v10, v11, &v17, v16);
+        v7 = OUTLINED_FUNCTION_52(v10, v11, &v19, v18);
       }
 
       while (v7);
@@ -775,15 +785,17 @@ LABEL_17:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_6();
-      goto LABEL_17;
+      v15 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15);
+      return 0;
     }
 
     v12 = *off_1E798A970;
-    v14[0] = *off_1E798A9D0;
-    v14[1] = v12;
-    v15[0] = v3;
-    v15[1] = dictionary;
-    return [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v16[0] = *off_1E798A9D0;
+    v16[1] = v12;
+    v17[0] = v3;
+    v17[1] = dictionary;
+    return [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   }
 
   return result;
@@ -841,24 +853,24 @@ LABEL_5:
   }
 }
 
-- (uint64_t)_computeDisparityForTeleBuffer:(void *)buffer wideBuffer:(void *)wideBuffer attachToOutputBuffer:
+- (id)_computeDisparityForTeleBuffer:(void *)buffer wideBuffer:(void *)wideBuffer attachToOutputBuffer:
 {
   if (result)
   {
-    v7 = result;
-    v8 = [objc_msgSend(objc_msgSend(*(result + 16) mediaPropertiesForAttachedMediaKey:{@"Depth", "livePixelBufferPool"), "newPixelBuffer"}];
-    if (v8)
+    v8 = result;
+    v9 = [objc_msgSend(objc_msgSend(result[2] mediaPropertiesForAttachedMediaKey:{@"Depth", "livePixelBufferPool"), "newPixelBuffer"}];
+    if (v9)
     {
-      v9 = v8;
+      v10 = v9;
       [OUTLINED_FUNCTION_2_121() setShouldComputeDisparityWhenCalibrationFails:?];
-      if (([objc_msgSend(*(v7 + 184) "captureSettings")] & 0x20000) != 0)
+      if (([objc_msgSend(v8[23] "captureSettings")] & 0x20000) != 0)
       {
-        [objc_msgSend(*(v7 + 184) "captureSettings")];
+        [objc_msgSend(v8[23] "captureSettings")];
       }
 
       [OUTLINED_FUNCTION_2_121() setEqualizeTeleGainToMatchReference:?];
       OUTLINED_FUNCTION_33();
-      if (v10)
+      if (v11)
       {
         AttachedMedia = BWSampleBufferGetAttachedMedia(AttachedMedia, 0x1F21AAB10);
         bufferCopy = BWSampleBufferGetAttachedMedia(buffer, 0x1F21AAB10);
@@ -871,24 +883,24 @@ LABEL_5:
 
       [OUTLINED_FUNCTION_2_121() setReferenceSampleBuffer:AttachedMedia];
       [OUTLINED_FUNCTION_2_121() setAuxiliarySampleBuffer:bufferCopy];
-      [OUTLINED_FUNCTION_2_121() setOutputShiftmap:v9];
+      [OUTLINED_FUNCTION_2_121() setOutputShiftmap:v10];
       process = [OUTLINED_FUNCTION_2_121() process];
-      v13 = process & 0xFFFFFFFE;
-      if (!process || v13 == 2 && (OUTLINED_FUNCTION_33(), v10))
+      v14 = process & 0xFFFFFFFE;
+      if (!process || v14 == 2 && (OUTLINED_FUNCTION_33(), v11))
       {
-        target = buffer;
+        targeta = buffer;
         [objc_msgSend(OUTLINED_FUNCTION_2_121() "metalContext")];
-        v14 = CMGetAttachment(wideBuffer, *off_1E798A3C8, 0);
+        v15 = CMGetAttachment(wideBuffer, *off_1E798A3C8, 0);
         shiftMapMetadata = [OUTLINED_FUNCTION_2_121() shiftMapMetadata];
-        v16 = 0;
+        v17 = 0;
         if (shiftMapMetadata)
         {
-          [objc_msgSend(*(v7 + 128) objectForKeyedSubscript:{objc_msgSend(v14, "objectForKeyedSubscript:", *off_1E798B540)), "sensorIDDictionary"}];
-          v16 = sidn_depthMetadataAttachmentDictionaryFromBravoDisparityMetadata(shiftMapMetadata, wideBuffer, 1, v13 == 2);
+          [objc_msgSend(v8[16] objectForKeyedSubscript:{objc_msgSend(v15, "objectForKeyedSubscript:", *off_1E798B540)), "sensorIDDictionary"}];
+          v17 = sidn_depthMetadataAttachmentDictionaryFromBravoDisparityMetadata(shiftMapMetadata, wideBuffer, 1, v14 == 2);
         }
 
         cf = 0;
-        if (!BWCMSampleBufferCreateCopyWithNewPixelBuffer(wideBuffer, v9, (v7 + 176), &cf))
+        if (!BWCMSampleBufferCreateCopyWithNewPixelBuffer(wideBuffer, v10, v8 + 22, &cf))
         {
           BWSampleBufferSetAttachedMedia(wideBuffer, @"Depth", cf);
           if (cf)
@@ -899,44 +911,44 @@ LABEL_5:
 
         if ([OUTLINED_FUNCTION_2_121() disparityDiagnosticMetadata])
         {
-          [v14 setObject:objc_msgSend(OUTLINED_FUNCTION_2_121() forKeyedSubscript:{"disparityDiagnosticMetadata"), @"Disparity"}];
+          [v15 setObject:objc_msgSend(OUTLINED_FUNCTION_2_121() forKeyedSubscript:{"disparityDiagnosticMetadata"), @"Disparity"}];
         }
 
-        if (v16)
+        if (v17)
         {
-          CMSetAttachment(wideBuffer, *off_1E798D2B8, v16, 1u);
+          CMSetAttachment(wideBuffer, *off_1E798D2B8, v17, 1u);
         }
 
         OUTLINED_FUNCTION_33();
-        if (v10)
+        if (v11)
         {
-          v19 = sidn_depthMetadataAttachmentDictionaryFromBravoDisparityMetadata(shiftMapMetadata, target, 0, v13 == 2);
-          if (v19)
+          v20 = sidn_depthMetadataAttachmentDictionaryFromBravoDisparityMetadata(shiftMapMetadata, targeta, 0, v14 == 2);
+          if (v20)
           {
-            CMSetAttachment(target, *off_1E798D2B8, v19, 1u);
+            CMSetAttachment(targeta, *off_1E798D2B8, v20, 1u);
           }
         }
       }
 
-      v17 = +[BWAggdDataReporter sharedInstance];
+      v18 = +[BWAggdDataReporter sharedInstance];
       if (process > 3)
       {
-        v18 = 4294949886;
+        v19 = 4294949886;
       }
 
       else
       {
-        v18 = dword_1AD056160[process];
+        v19 = dword_1AD056160[process];
       }
 
-      [(BWAggdDataReporter *)v17 reportSDOFSampleBufferProcessorProcessingStatus:v18];
-      CFRelease(v9);
+      [(BWAggdDataReporter *)v18 reportSDOFSampleBufferProcessorProcessingStatus:v19];
+      CFRelease(v10);
     }
 
     else
     {
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, target, cf, v24, v25, v26, v27);
     }
 
     [OUTLINED_FUNCTION_2_121() setShouldComputeDisparityWhenCalibrationFails:0];
@@ -949,25 +961,25 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)_resolveProcessingMode
+- (id)_resolveProcessingMode
 {
   if (result)
   {
     v1 = result;
-    *(result + 200) = 0;
-    result = [objc_msgSend(*(result + 184) "captureSettings")];
+    *(result + 50) = 0;
+    result = [objc_msgSend(result[23] "captureSettings")];
     if ((result & 0x800) != 0)
     {
-      *(v1 + 200) = 1;
-      *(v1 + 192) = 1;
+      *(v1 + 50) = 1;
+      *(v1 + 48) = 1;
       if ((*(v1 + 249) & 1) == 0 && ([objc_msgSend(OUTLINED_FUNCTION_12_53() "captureSettings")] == 3 || (objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_12_53(), "captureSettings"), "captureFlags") & 0x100000) != 0))
       {
-        *(v1 + 200) = 3;
+        *(v1 + 50) = 3;
         result = [objc_msgSend(OUTLINED_FUNCTION_12_53() "captureSettings")];
         if (result)
         {
-          *(v1 + 200) = 2;
-          ++*(v1 + 192);
+          *(v1 + 50) = 2;
+          ++*(v1 + 48);
         }
       }
 
@@ -976,22 +988,15 @@ LABEL_5:
         result = [objc_msgSend(OUTLINED_FUNCTION_12_53() "captureSettings")];
         if (result == 7)
         {
-          *(v1 + 200) = 4;
+          *(v1 + 50) = 4;
           result = [objc_msgSend(OUTLINED_FUNCTION_12_53() "requestedSettings")];
-          *(v1 + 192) = result;
+          *(v1 + 48) = result;
         }
       }
     }
   }
 
   return result;
-}
-
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 - (void)handleNodeError:(void *)a3 forInput:.cold.1(uint64_t a1, uint64_t a2, void *a3)

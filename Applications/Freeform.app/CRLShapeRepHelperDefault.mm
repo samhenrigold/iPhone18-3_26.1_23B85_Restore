@@ -236,7 +236,7 @@ LABEL_22:
         v30 = v29;
         if (v29)
         {
-          [v29 transformInRoot];
+          objc_msgSend_transformInRoot(v29);
         }
 
         else
@@ -265,7 +265,7 @@ LABEL_22:
         v43 = v42;
         if (v42)
         {
-          [v42 transformInRoot];
+          objc_msgSend_transformInRoot(v42);
         }
 
         else
@@ -654,7 +654,7 @@ LABEL_139:
             v204 = v137;
             if (v139)
             {
-              [v139 transformInRoot];
+              objc_msgSend_transformInRoot(v139);
             }
 
             else
@@ -723,7 +723,7 @@ LABEL_92:
               v163 = v162;
               if (v162)
               {
-                [v162 transformInRoot];
+                objc_msgSend_transformInRoot(v162);
               }
 
               else

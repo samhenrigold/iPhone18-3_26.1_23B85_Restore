@@ -93,18 +93,18 @@
 
 - (NNMKDeviceSyncRegistry)initWithPath:(id)path
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v36.receiver = self;
-  v36.super_class = NNMKDeviceSyncRegistry;
-  v5 = [(NNMKDeviceSyncRegistry *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = NNMKDeviceSyncRegistry;
+  v5 = [(NNMKDeviceSyncRegistry *)&v35 init];
   if (!v5)
   {
     goto LABEL_29;
   }
 
-  v35 = 0;
-  v6 = [[NNMKSQLiteConnection alloc] initWithPath:pathCopy errorCode:&v35];
+  v34 = 0;
+  v6 = [[NNMKSQLiteConnection alloc] initWithPath:pathCopy errorCode:&v34];
   p_database = &v5->_database;
   database = v5->_database;
   v5->_database = v6;
@@ -113,7 +113,7 @@
   pendingComposedMessages = v5->_pendingComposedMessages;
   v5->_pendingComposedMessages = v9;
 
-  v11 = [NNMKSQLiteConnection errorCodeMeansCorruptedDatabase:v35];
+  v11 = [NNMKSQLiteConnection errorCodeMeansCorruptedDatabase:v34];
   v12 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
@@ -144,11 +144,11 @@ LABEL_15:
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
     [defaultManager2 removeItemAtPath:pathCopy error:0];
 
-    v24 = [[NNMKSQLiteConnection alloc] initWithPath:pathCopy errorCode:&v35];
+    v24 = [[NNMKSQLiteConnection alloc] initWithPath:pathCopy errorCode:&v34];
     v25 = v5->_database;
     v5->_database = v24;
 
-    if ([NNMKSQLiteConnection errorCodeMeansCorruptedDatabase:v35]&& os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
+    if ([NNMKSQLiteConnection errorCodeMeansCorruptedDatabase:v34]&& os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
     {
       [NNMKDeviceSyncRegistry initWithPath:];
     }
@@ -169,9 +169,9 @@ LABEL_15:
         v20 = v16;
         currentDatabaseSchemaVersion2 = [(NNMKDeviceSyncRegistry *)v5 currentDatabaseSchemaVersion];
         *buf = 134218240;
-        v38 = currentDatabaseSchemaVersion2;
-        v39 = 2048;
-        v40 = 36;
+        v37 = currentDatabaseSchemaVersion2;
+        v38 = 2048;
+        v39 = 36;
         _os_log_impl(&dword_25B19F000, v20, OS_LOG_TYPE_DEFAULT, "Database from a previous version (%lu) already existed (Correct version should be %lu). Recreating...", buf, 0x16u);
       }
 
@@ -183,11 +183,11 @@ LABEL_15:
       v18 = v16;
       currentDatabaseSchemaVersion3 = [(NNMKDeviceSyncRegistry *)v5 currentDatabaseSchemaVersion];
       *buf = 134218496;
-      v38 = 36;
-      v39 = 2048;
-      v40 = currentDatabaseSchemaVersion3;
-      v41 = 2048;
-      v42 = 1;
+      v37 = 36;
+      v38 = 2048;
+      v39 = currentDatabaseSchemaVersion3;
+      v40 = 2048;
+      v41 = 1;
       _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "Database migration does not need to run. (Expected schema version: %lu, Current schema version: %lu, Path exist: %lu)", buf, 0x20u);
     }
   }
@@ -224,7 +224,7 @@ LABEL_18:
       {
         fullSyncVersion = v5->_fullSyncVersion;
         *buf = 134217984;
-        v38 = fullSyncVersion;
+        v37 = fullSyncVersion;
         _os_log_impl(&dword_25B19F000, v31, OS_LOG_TYPE_DEFAULT, "Restoring full sync version. %lu", buf, 0xCu);
       }
 
@@ -235,7 +235,6 @@ LABEL_18:
   [(NNMKDeviceSyncRegistry *)v5 _loadAllControlValues];
 LABEL_29:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -413,7 +412,7 @@ uint64_t __44__NNMKDeviceSyncRegistry_setSupportsWebKit___block_invoke(uint64_t 
 
 void __56__NNMKDeviceSyncRegistry_cleanUpForFullSyncWithMailbox___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setSyncActive:0];
   [*(a1 + 40) updateSyncActiveForMailbox:*(a1 + 32)];
   v2 = *(a1 + 40);
@@ -441,34 +440,30 @@ void __56__NNMKDeviceSyncRegistry_cleanUpForFullSyncWithMailbox___block_invoke(u
     v14 = [v12 mailboxId];
     v15 = [v11 syncVersionForMailboxId:v14];
     v16 = [*(a1 + 32) mailboxId];
-    v18 = 134218242;
-    v19 = v15;
-    v20 = 2114;
-    v21 = v16;
-    _os_log_impl(&dword_25B19F000, v13, OS_LOG_TYPE_DEFAULT, "Incrementing #mailbox-sync-version. %lu, %{public}@", &v18, 0x16u);
+    v17 = 134218242;
+    v18 = v15;
+    v19 = 2114;
+    v20 = v16;
+    _os_log_impl(&dword_25B19F000, v13, OS_LOG_TYPE_DEFAULT, "Incrementing #mailbox-sync-version. %lu, %{public}@", &v17, 0x16u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)incrementSyncVersionForMailboxId:(id)id
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = [(NNMKDeviceSyncRegistry *)self syncVersionForMailboxId:idCopy];
   v6 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134218242;
-    v9 = v5;
-    v10 = 2114;
-    v11 = idCopy;
-    _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Incrementing #mailbox-sync-version. Current #mailbox-sync-version:%lu, mailbox: %{public}@", &v8, 0x16u);
+    v7 = 134218242;
+    v8 = v5;
+    v9 = 2114;
+    v10 = idCopy;
+    _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Incrementing #mailbox-sync-version. Current #mailbox-sync-version:%lu, mailbox: %{public}@", &v7, 0x16u);
   }
 
   [(NNMKDeviceSyncRegistry *)self updateSyncVersion:v5 + 1 forMailboxId:idCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanUpForInitialSync
@@ -578,7 +573,7 @@ void __47__NNMKDeviceSyncRegistry_cleanUpForInitialSync__block_invoke(uint64_t a
 
 void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(*(a1 + 32) + 72) preparedStatementForPattern:{@"INSERT OR REPLACE INTO SYNCED_MESSAGE (ID, STATUS, STATUS_VERSION, DATE_RECEIVED, USED_PROTECTED_CHANNEL, USED_NOTIFICATION_PRIORITY, CONTENT_SYNCED, CONTENT_SYNCED_NOTIFICATION_PRIORITY, CONTENT_SYNCED_BECAUSE_USER_REQUESTED, CONTENT_REQUESTED_BY_USER, CONVERSATION_ID, RESEND_REQUESTED, RESEND_INTERVAL, CONTENT_RESEND_INTERVAL, MAILBOX_ID, THREAD_SPECIFIC, SPECIAL_MAILBOX_SPECIFIC, SANITIZED_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"}];
   v4 = [v2[1] messageId];
@@ -608,7 +603,7 @@ void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke(uint64
   v8 = [v2[1] sanitizedMessageId];
   [NNMKSQLiteUtils bindString:v8 intoStatement:v3 paramIndex:18];
 
-  v23 = v2;
+  v22 = v2;
   if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*(*v2 + 9) stepPreparedStatement:v3]))
   {
     v9 = qword_28144D620;
@@ -634,27 +629,27 @@ void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke(uint64
 
   [NNMKSQLiteUtils closeExecutedPreparedStatement:v10];
   v13 = [*(*(a1 + 32) + 72) preparedStatementForPattern:{@"INSERT INTO ATTACHMENT_NOT_SYNCED (MESSAGE_ID, CONTENT_ID, MAILBOX_ID) VALUES (?, ?, ?)"}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v14 = [*(a1 + 40) attachmentsContentIdsNotYetSynced];
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * v18);
+        v19 = *(*(&v23 + 1) + 8 * v18);
         v20 = [*(a1 + 40) messageId];
         [NNMKSQLiteUtils bindString:v20 intoStatement:v13 paramIndex:1];
 
@@ -665,7 +660,7 @@ void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke(uint64
           v21 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
           {
-            __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke_cold_3(v28, v23, v21, &v29);
+            __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke_cold_3(v27, v22, v21, &v28);
           }
         }
 
@@ -674,13 +669,11 @@ void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke(uint64
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v16);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSyncedMessageForMessageWithId:(id)id
@@ -691,7 +684,7 @@ void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke(uint64
   v6 = [(NNMKSQLiteConnection *)database preparedStatementForPattern:@"DELETE FROM SYNCED_MESSAGE WHERE ID = ?"];
   [NNMKSQLiteUtils bindString:idCopy intoStatement:v6 paramIndex:1];
 
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v6]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v6]])
   {
     v7 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -877,65 +870,63 @@ uint64_t __73__NNMKDeviceSyncRegistry_removeSyncedMessagesBeforeDateReceived_mai
 
 - (id)syncedMessagesKeyedByMessageIdAfterDateReceived:(id)received mailboxId:(id)id
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   receivedCopy = received;
   idCopy = id;
   v8 = idCopy;
   if (receivedCopy)
   {
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __84__NNMKDeviceSyncRegistry_syncedMessagesKeyedByMessageIdAfterDateReceived_mailboxId___block_invoke;
-    v27[3] = &unk_2799360C0;
-    v9 = &v28;
-    v28 = idCopy;
-    v29 = receivedCopy;
-    v10 = [(NNMKDeviceSyncRegistry *)self _selectSyncedMessagesWhere:@"MAILBOX_ID = ? AND DATE_RECEIVED >= ?" blockForBinding:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __84__NNMKDeviceSyncRegistry_syncedMessagesKeyedByMessageIdAfterDateReceived_mailboxId___block_invoke;
+    v26[3] = &unk_2799360C0;
+    v9 = &v27;
+    v27 = idCopy;
+    v28 = receivedCopy;
+    v10 = [(NNMKDeviceSyncRegistry *)self _selectSyncedMessagesWhere:@"MAILBOX_ID = ? AND DATE_RECEIVED >= ?" blockForBinding:v26];
   }
 
   else
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __84__NNMKDeviceSyncRegistry_syncedMessagesKeyedByMessageIdAfterDateReceived_mailboxId___block_invoke_2;
-    v25[3] = &unk_279936050;
-    v9 = &v26;
-    v26 = idCopy;
-    v10 = [(NNMKDeviceSyncRegistry *)self _selectSyncedMessagesWhere:@"MAILBOX_ID = ? AND ID IS NOT NULL" blockForBinding:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __84__NNMKDeviceSyncRegistry_syncedMessagesKeyedByMessageIdAfterDateReceived_mailboxId___block_invoke_2;
+    v24[3] = &unk_279936050;
+    v9 = &v25;
+    v25 = idCopy;
+    v10 = [(NNMKDeviceSyncRegistry *)self _selectSyncedMessagesWhere:@"MAILBOX_ID = ? AND ID IS NOT NULL" blockForBinding:v24];
   }
 
   v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v10, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
+        v17 = *(*(&v20 + 1) + 8 * i);
         messageId = [v17 messageId];
         [v11 setObject:v17 forKeyedSubscript:messageId];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v29 count:16];
     }
 
     while (v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -950,40 +941,38 @@ uint64_t __84__NNMKDeviceSyncRegistry_syncedMessagesKeyedByMessageIdAfterDateRec
 
 - (id)allSyncedAccountsKeyedByAccountId
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [(NNMKDeviceSyncRegistry *)self _selectSyncedAccountsWhere:0 blockForBinding:&__block_literal_global_127];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         accountId = [v9 accountId];
         [dictionary setObject:v9 forKeyedSubscript:accountId];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -1049,7 +1038,7 @@ uint64_t __84__NNMKDeviceSyncRegistry_syncedMessagesKeyedByMessageIdAfterDateRec
   pccEmailAddress = [accountCopy pccEmailAddress];
 
   [NNMKSQLiteUtils bindString:pccEmailAddress intoStatement:v6 paramIndex:13];
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v6]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v6]])
   {
     v17 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -1069,7 +1058,7 @@ uint64_t __84__NNMKDeviceSyncRegistry_syncedMessagesKeyedByMessageIdAfterDateRec
   v6 = [(NNMKSQLiteConnection *)database preparedStatementForPattern:@"DELETE FROM SYNCED_ACCOUNT WHERE ID = ?"];
   [NNMKSQLiteUtils bindString:idCopy intoStatement:v6 paramIndex:1];
 
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v6]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v6]])
   {
     v7 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -1374,13 +1363,13 @@ uint64_t __84__NNMKDeviceSyncRegistry_syncedMessagesKeyedByMessageIdAfterDateRec
       goto LABEL_11;
     }
 
-    [*p_database rollbackTransaction];
+    [(NNMKSQLiteConnection *)*p_database rollbackTransaction];
     goto LABEL_11;
   }
 
   if (transactionCopy)
   {
-    [*p_database commitTransaction];
+    [(NNMKSQLiteConnection *)*p_database commitTransaction];
   }
 
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEBUG))
@@ -1393,14 +1382,11 @@ LABEL_11:
 
 - (void)resetSyncRequestedFromMailboxes
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(self, a2);
   lastErrorMessage = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (id)mailboxWithId:(id)id
@@ -1474,7 +1460,7 @@ LABEL_7:
   [NNMKSQLiteUtils bindString:idCopy intoStatement:v8 paramIndex:1];
 
   [NNMKSQLiteUtils bindUnsignedInteger:version intoStatement:v8 paramIndex:2];
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v8]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v8]])
   {
     v9 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -1496,7 +1482,7 @@ LABEL_7:
   [NNMKSQLiteUtils bindString:idCopy intoStatement:v9 paramIndex:1];
 
   [NNMKSQLiteUtils bindString:mailboxIdCopy intoStatement:v9 paramIndex:2];
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v9]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v9]])
   {
     v10 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -1544,14 +1530,11 @@ LABEL_7:
 
 - (void)deleteAllMailboxes
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(self, a2);
   lastErrorMessage = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)updateSyncEnabledForMailbox:(id)mailbox
@@ -1567,7 +1550,7 @@ LABEL_7:
 
 - (void)updateSyncActiveForMailbox:(id)mailbox
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mailboxCopy = mailbox;
   v5 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -1575,11 +1558,11 @@ LABEL_7:
     v6 = v5;
     syncActive = [mailboxCopy syncActive];
     mailboxId = [mailboxCopy mailboxId];
-    v12 = 134218242;
-    v13 = syncActive;
-    v14 = 2114;
-    v15 = mailboxId;
-    _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Updating mailbox sync active: %lu (Mailbox: %{public}@)", &v12, 0x16u);
+    v11 = 134218242;
+    v12 = syncActive;
+    v13 = 2114;
+    v14 = mailboxId;
+    _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Updating mailbox sync active: %lu (Mailbox: %{public}@)", &v11, 0x16u);
   }
 
   mailboxId2 = [mailboxCopy mailboxId];
@@ -1587,13 +1570,11 @@ LABEL_7:
 
   [v10 setSyncActive:{objc_msgSend(mailboxCopy, "syncActive")}];
   [(NNMKDeviceSyncRegistry *)self addOrUpdateMailbox:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSyncRequestedForMailbox:(id)mailbox
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   mailboxCopy = mailbox;
   v5 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -1601,11 +1582,11 @@ LABEL_7:
     v6 = v5;
     syncRequested = [mailboxCopy syncRequested];
     mailboxId = [mailboxCopy mailboxId];
-    v13 = 134218242;
-    v14 = syncRequested;
-    v15 = 2114;
-    v16 = mailboxId;
-    _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Updating mailbox sync requested: %lu (Mailbox: %{public}@)", &v13, 0x16u);
+    v12 = 134218242;
+    v13 = syncRequested;
+    v14 = 2114;
+    v15 = mailboxId;
+    _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Updating mailbox sync requested: %lu (Mailbox: %{public}@)", &v12, 0x16u);
   }
 
   mailboxId2 = [mailboxCopy mailboxId];
@@ -1628,8 +1609,6 @@ LABEL_7:
 
     [(NNMKDeviceSyncRegistry *)self addOrUpdateMailbox:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_selectMailboxesWhere:(id)where blockForBinding:(id)binding
@@ -1737,7 +1716,7 @@ LABEL_7:
   [NNMKSQLiteUtils bindString:idCopy intoStatement:v8 paramIndex:1];
 
   [NNMKSQLiteUtils bindInteger:progress intoStatement:v8 paramIndex:2];
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v8]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v8]])
   {
     v9 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -1823,14 +1802,11 @@ LABEL_7:
 
 - (void)removePendingComposedMessages
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(self, a2);
   lastErrorMessage = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)removeProgressForComposedMessageWithId:(id)id
@@ -1982,10 +1958,9 @@ LABEL_7:
 
 - (void)_removeAllPendingAttachments
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_25B19F000, v0, OS_LOG_TYPE_ERROR, "Unable to delete all pending attachments. Error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25B19F000, v0, OS_LOG_TYPE_ERROR, "Unable to delete all pending attachments. Error: %{public}@", v1, 0xCu);
 }
 
 - (id)_urlForAttachmentsWithComposedMessageId:(id)id
@@ -2043,7 +2018,7 @@ LABEL_7:
 
 void __86__NNMKDeviceSyncRegistry_addObjectIds_type_resendInterval_forIDSIdentifierNotYetAckd___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(*(a1 + 32) + 72) preparedStatementForPattern:{@"INSERT INTO IDS_IDENTIFIER_NOT_YET_ACKD (IDS_IDENTIFIER, TYPE, DATE_TO_RESEND, RESEND_INTERVAL) VALUES (?, ?, NULL, ?)"}];
   [NNMKSQLiteUtils bindString:v2[1] intoStatement:v3 paramIndex:1];
@@ -2053,28 +2028,28 @@ void __86__NNMKDeviceSyncRegistry_addObjectIds_type_resendInterval_forIDSIdentif
   [NNMKSQLiteUtils closeExecutedPreparedStatement:v3];
   if ([NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:v4])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = *(a1 + 56);
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * v9);
-          v11 = [*(*(a1 + 32) + 72) preparedStatementForPattern:{@"INSERT INTO IDS_IDENTIFIER_OBJECT (IDS_IDENTIFIER, OBJECT_ID) VALUES (?, ?)", v15}];
+          v10 = *(*(&v14 + 1) + 8 * v9);
+          v11 = [*(*(a1 + 32) + 72) preparedStatementForPattern:{@"INSERT INTO IDS_IDENTIFIER_OBJECT (IDS_IDENTIFIER, OBJECT_ID) VALUES (?, ?)", v14}];
           [NNMKSQLiteUtils bindString:*(a1 + 40) intoStatement:v11 paramIndex:1];
           [NNMKSQLiteUtils bindString:v10 intoStatement:v11 paramIndex:2];
           v12 = [*(*(a1 + 32) + 72) stepPreparedStatement:v11];
@@ -2089,7 +2064,7 @@ void __86__NNMKDeviceSyncRegistry_addObjectIds_type_resendInterval_forIDSIdentif
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -2109,8 +2084,6 @@ LABEL_12:
       __86__NNMKDeviceSyncRegistry_addObjectIds_type_resendInterval_forIDSIdentifierNotYetAckd___block_invoke_cold_1(v2, v13);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)objectIdsForIDSIdentifierNotYetAckd:(id)ackd type:(id *)type resendInterval:(unint64_t *)interval
@@ -2219,7 +2192,7 @@ LABEL_11:
   v6 = [(NNMKSQLiteConnection *)database preparedStatementForPattern:@"SELECT TYPE FROM IDS_IDENTIFIER_NOT_YET_ACKD WHERE IDS_IDENTIFIER = ?"];
   [NNMKSQLiteUtils bindString:ackdCopy intoStatement:v6 paramIndex:1];
 
-  if (+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v6]))
+  if ([NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v6]])
   {
     v7 = [NNMKSQLiteUtils stringFromStatement:v6 columnIndex:0];
   }
@@ -2369,32 +2342,32 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
 
 - (void)deleteObjectId:(id)id fromIDSIdentifiersNotYetAckdOfType:(id)type
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v7 = [(NNMKDeviceSyncRegistry *)self _idsIdentifiersForObjectId:idCopy type:type];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v22;
+    v11 = *v21;
     *&v9 = 138543618;
-    v18 = v9;
+    v17 = v9;
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * v12);
-        v14 = [(NNMKSQLiteConnection *)self->_database preparedStatementForPattern:@"DELETE FROM IDS_IDENTIFIER_OBJECT WHERE OBJECT_ID = ? AND IDS_IDENTIFIER = ?", v18];
+        v13 = *(*(&v20 + 1) + 8 * v12);
+        v14 = [(NNMKSQLiteConnection *)self->_database preparedStatementForPattern:@"DELETE FROM IDS_IDENTIFIER_OBJECT WHERE OBJECT_ID = ? AND IDS_IDENTIFIER = ?", v17];
         [NNMKSQLiteUtils bindString:idCopy intoStatement:v14 paramIndex:1];
         [NNMKSQLiteUtils bindString:v13 intoStatement:v14 paramIndex:2];
         if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)self->_database stepPreparedStatement:v14]])
@@ -2405,10 +2378,10 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
             database = self->_database;
             v16 = v15;
             lastErrorMessage = [(NNMKSQLiteConnection *)database lastErrorMessage];
-            *buf = v18;
-            v26 = idCopy;
-            v27 = 2114;
-            v28 = lastErrorMessage;
+            *buf = v17;
+            v25 = idCopy;
+            v26 = 2114;
+            v27 = lastErrorMessage;
             _os_log_error_impl(&dword_25B19F000, v16, OS_LOG_TYPE_ERROR, "Error deleting Object Id from IDS Identifiers (Object Id: %{public}@ - Error: %{public}@).", buf, 0x16u);
           }
         }
@@ -2418,13 +2391,11 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
       }
 
       while (v10 != v12);
-      v10 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_idsIdentifiersForObjectId:(id)id type:(id)type
@@ -2469,14 +2440,11 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
 
 - (void)_loadAllControlValues
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(self, a2);
   lastErrorMessage = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)_setControlValueForKey:(id)key withBlockForBinding:(id)binding
@@ -2489,7 +2457,7 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
   [NNMKSQLiteUtils bindString:keyCopy intoStatement:v10 paramIndex:1];
   bindingCopy[2](bindingCopy, v10, 2);
 
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v10]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v10]])
   {
     v11 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -2508,7 +2476,7 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
   p_database = &self->_database;
   v7 = [(NNMKSQLiteConnection *)database preparedStatementForPattern:@"DELETE FROM CONTROL WHERE KEY = ?"];
   [NNMKSQLiteUtils bindString:keyCopy intoStatement:v7 paramIndex:1];
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v7]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v7]])
   {
     v8 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -2528,7 +2496,7 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
   tableCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@", tableCopy];
   v8 = [(NNMKSQLiteConnection *)database preparedStatementForPattern:tableCopy];
 
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v8]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v8]])
   {
     v9 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -2551,7 +2519,7 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
   v12 = [(NNMKSQLiteConnection *)database preparedStatementForPattern:tableCopy];
 
   [NNMKSQLiteUtils bindString:idCopy intoStatement:v12 paramIndex:1];
-  if (!+[NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:](NNMKSQLiteUtils, "isResponseOkFromPreparedStatementExecution:", [*p_database stepPreparedStatement:v12]))
+  if (![NNMKSQLiteUtils isResponseOkFromPreparedStatementExecution:[(NNMKSQLiteConnection *)*p_database stepPreparedStatement:v12]])
   {
     v13 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
@@ -2834,52 +2802,40 @@ uint64_t __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke(uin
   return v5;
 }
 
-- (void)initWithPath:(uint64_t *)a1 .cold.3(uint64_t *a1, void *a2)
+- (void)initWithPath:(uint64_t)a1 .cold.3(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)containsSyncedMessageForMessageWithId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)containsSyncedMessageForMessageWithId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke_cold_3(uint8_t *a1, uint64_t a2, void *a3, void *a4)
@@ -2892,289 +2848,220 @@ void __51__NNMKDeviceSyncRegistry_addOrUpdateSyncedMessage___block_invoke_cold_3
   _os_log_error_impl(&dword_25B19F000, v7, OS_LOG_TYPE_ERROR, "Error adding attachment not synced (%{public}@).", a1, 0xCu);
 }
 
-- (void)removeSyncedMessageForMessageWithId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)removeSyncedMessageForMessageWithId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)oldestDateReceivedForMailboxId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)oldestDateReceivedForMailboxId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)syncedMessagesCountForMailboxId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)syncedMessagesCountForMailboxId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)messageIdForSanitizedMessageId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)messageIdForSanitizedMessageId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 void __73__NNMKDeviceSyncRegistry_removeSyncedMessagesBeforeDateReceived_mailbox___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)addOrUpdateSyncedAccount:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)addOrUpdateSyncedAccount:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)removeSyncedAccountForAccountWithId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)removeSyncedAccountForAccountWithId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)syncedAccountIdsResendRequested
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(self, a2);
   lastErrorMessage = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)accountSourceTypeForMessageId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)accountSourceTypeForMessageId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15(a1, a2);
-  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error selecting account source type for message (%{public}@ - %{public}@).", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v4, v5, "Error selecting account source type for message (%{public}@ - %{public}@).", v6, v7, v8, v9);
 }
 
-- (void)accountSourceTypeForMailboxId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)accountSourceTypeForMailboxId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15(a1, a2);
-  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error selecting account source type for mailbox (%{public}@ - %{public}@).", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v4, v5, "Error selecting account source type for mailbox (%{public}@ - %{public}@).", v6, v7, v8, v9);
 }
 
-- (void)accountSourceTypeForAccountId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)accountSourceTypeForAccountId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15(a1, a2);
-  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error selecting account source type (%{public}@ - %{public}@).", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v4, v5, "Error selecting account source type (%{public}@ - %{public}@).", v6, v7, v8, v9);
 }
 
-- (void)accountIdForUsername:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)accountIdForUsername:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)updateSourceType:(uint64_t *)a1 forAccountId:(void *)a2 .cold.1(uint64_t *a1, void *a2)
+- (void)updateSourceType:(uint64_t)a1 forAccountId:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)updateSourceType:forAccountId:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_25B19F000, v0, OS_LOG_TYPE_DEBUG, "Account source type update for account (Id: %{public}@).", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25B19F000, v0, OS_LOG_TYPE_DEBUG, "Account source type update for account (Id: %{public}@).", v1, 0xCu);
 }
 
 - (void)addOrUpdateMailbox:(void *)a1 .cold.1(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5() mailboxId];
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(&dword_25B19F000, v1, OS_LOG_TYPE_FAULT, "Saving mailbox without url. %{public}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_25B19F000, v1, OS_LOG_TYPE_FAULT, "Saving mailbox without url. %{public}@", v4, 0xCu);
 }
 
-- (void)addOrUpdateMailbox:(uint64_t *)a1 .cold.2(uint64_t *a1, void *a2)
+- (void)addOrUpdateMailbox:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)addOrUpdateMailbox:(void *)a1 .cold.3(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5() mailboxId];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_25B19F000, v1, OS_LOG_TYPE_DEBUG, "Mailbox ADDED OR UPDATED to SQLite database (Id: %{public}@).", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25B19F000, v1, OS_LOG_TYPE_DEBUG, "Mailbox ADDED OR UPDATED to SQLite database (Id: %{public}@).", v4, 0xCu);
 }
 
 - (void)addOrUpdateMailbox:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5() mailboxId];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (void)deleteMailboxWithId:(uint64_t *)a1 startTransaction:(void *)a2 .cold.1(uint64_t *a1, void *a2)
+- (void)deleteMailboxWithId:(uint64_t)a1 startTransaction:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15(a1, a2);
-  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error deleting  mailboxes with id %{public}@ (%{public}@).", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v4, v5, "Error deleting  mailboxes with id %{public}@ (%{public}@).", v6, v7, v8, v9);
 }
 
 - (void)deleteMailboxWithId:startTransaction:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_25B19F000, v0, OS_LOG_TYPE_DEBUG, "Maibox with id %{public}@ deleted successfully.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25B19F000, v0, OS_LOG_TYPE_DEBUG, "Maibox with id %{public}@ deleted successfully.", v1, 0xCu);
 }
 
-- (void)syncVersionForMailboxId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)syncVersionForMailboxId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)updateSyncVersion:(uint64_t *)a1 forMailboxId:(void *)a2 .cold.1(uint64_t *a1, void *a2)
+- (void)updateSyncVersion:(uint64_t)a1 forMailboxId:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)insertDeletedMessageId:(uint64_t *)a1 mailboxId:(void *)a2 .cold.1(uint64_t *a1, void *a2)
+- (void)insertDeletedMessageId:(uint64_t)a1 mailboxId:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)mailboxIdForDeletedMessageId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)mailboxIdForDeletedMessageId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)_selectMailboxesWhere:(void *)a3 blockForBinding:.cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)_selectMailboxesWhere:(void *)a3 blockForBinding:.cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error selecting mailboxes where %{public}@ (%{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error selecting mailboxes where %{public}@ (%{public}@).", v7, v8, v9, v10);
 }
 
 - (void)_selectMailboxesWhere:(os_log_t)log blockForBinding:.cold.2(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -3184,280 +3071,185 @@ void __73__NNMKDeviceSyncRegistry_removeSyncedMessagesBeforeDateReceived_mailbox
   _os_log_error_impl(&dword_25B19F000, log, OS_LOG_TYPE_ERROR, "Retrived mailbox with empty id. Ignoring...", buf, 2u);
 }
 
-- (void)setProgress:(uint64_t *)a1 forComposedMessageWithId:(void *)a2 .cold.1(uint64_t *a1, void *a2)
+- (void)setProgress:(uint64_t)a1 forComposedMessageWithId:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)progressForComposedMessageWithId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)progressForComposedMessageWithId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)pendingComposedMessageIds
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(self, a2);
   lastErrorMessage = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)removeProgressForComposedMessageWithId:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)removeProgressForComposedMessageWithId:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)attachmentsForComposedMessageId:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7(&dword_25B19F000, v0, v1, "Unable to unarchive attachments for composed message: %{public}@ Error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)attachmentsFromURL:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7(&dword_25B19F000, v0, v1, "Unable to unarchive attachments for URL: %{public}@ Error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveAttachmentsForComposedMessageId:temporaryURL:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7(&dword_25B19F000, v0, v1, "Unable to save attachments for composedMessageId: %{public}@ Error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_removeAttachmentsForComposedMessageId:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7(&dword_25B19F000, v0, v1, "Unable to delete attachments for composedMessageId: %{public}@ Error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 void __86__NNMKDeviceSyncRegistry_addObjectIds_type_resendInterval_forIDSIdentifierNotYetAckd___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)objectIdsForIDSIdentifierNotYetAckd:(uint64_t *)a1 type:(void *)a2 resendInterval:.cold.1(uint64_t *a1, void *a2)
+- (void)objectIdsForIDSIdentifierNotYetAckd:(uint64_t)a1 type:(void *)a2 resendInterval:.cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)objectIdsForType:(void *)a3 .cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)objectIdsForType:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error retrieving Object Ids for type. (%{public}@, %{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error retrieving Object Ids for type. (%{public}@, %{public}@).", v7, v8, v9, v10);
 }
 
-- (void)typeForIDSIdentifierNotYetAckd:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)typeForIDSIdentifierNotYetAckd:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke_cold_1(uint64_t *a1, uint64_t a2, void *a3)
+void __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke_cold_1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_14(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke_cold_2(uint64_t *a1, uint64_t a2, void *a3)
+void __50__NNMKDeviceSyncRegistry_markIDSIdentifierAsAckd___block_invoke_cold_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_14(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-- (void)rescheduleIDSIdentifier:(void *)a3 resendInterval:withDateToResend:errorCode:.cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)rescheduleIDSIdentifier:(void *)a3 resendInterval:withDateToResend:errorCode:.cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error rescheduling Object for IDS Identifier (IDS Identifier: %{public}@ - Error: %{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error rescheduling Object for IDS Identifier (IDS Identifier: %{public}@ - Error: %{public}@).", v7, v8, v9, v10);
 }
 
-- (void)prepareIDSIdentifiersForResendForErrorCode:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)prepareIDSIdentifiersForResendForErrorCode:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)datesForIDSIdentifiersScheduledToBeResent
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(self, a2);
   lastErrorMessage = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)_idsIdentifiersForObjectId:(uint64_t *)a1 type:(void *)a2 .cold.1(uint64_t *a1, void *a2)
+- (void)_idsIdentifiersForObjectId:(uint64_t)a1 type:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(a1, a2);
-  v4 = [OUTLINED_FUNCTION_5() lastErrorMessage];
+  v3 = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-- (void)_setControlValueForKey:(void *)a3 withBlockForBinding:.cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)_setControlValueForKey:(void *)a3 withBlockForBinding:.cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error setting control value for key %{public}@ (%{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error setting control value for key %{public}@ (%{public}@).", v7, v8, v9, v10);
 }
 
-- (void)_removeControlValueForKey:(void *)a3 .cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)_removeControlValueForKey:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error deleting control value for key %{public}@ (%{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error deleting control value for key %{public}@ (%{public}@).", v7, v8, v9, v10);
 }
 
-- (void)_deleteAllObjectsFromTable:(void *)a3 .cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)_deleteAllObjectsFromTable:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error deleting all values from table %{public}@ (%{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error deleting all values from table %{public}@ (%{public}@).", v7, v8, v9, v10);
 }
 
-- (void)_selectSyncedMessagesWhere:(void *)a3 blockForBinding:.cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)_selectSyncedMessagesWhere:(void *)a3 blockForBinding:.cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error selecting synced messages where %{public}@ (%{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error selecting synced messages where %{public}@ (%{public}@).", v7, v8, v9, v10);
 }
 
-- (void)_selectSyncedMessagesIdsWhere:(uint64_t)a1 count:(uint64_t *)a2 blockForBinding:(void *)a3 .cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)_selectSyncedMessagesIdsWhere:(uint64_t)a1 count:(uint64_t)a2 blockForBinding:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error selecting synced message ids where %{public}@ (%{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error selecting synced message ids where %{public}@ (%{public}@).", v7, v8, v9, v10);
 }
 
-- (void)_selectSyncedAccountsWhere:(void *)a3 blockForBinding:.cold.1(uint64_t a1, uint64_t *a2, void *a3)
+- (void)_selectSyncedAccountsWhere:(void *)a3 blockForBinding:.cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11(a1, a2, a3);
-  v5 = [OUTLINED_FUNCTION_6() lastErrorMessage];
+  v4 = [OUTLINED_FUNCTION_6() lastErrorMessage];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25B19F000, v6, v7, "Error selecting synced accounts where %{public}@ (%{public}@).", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25B19F000, v5, v6, "Error selecting synced accounts where %{public}@ (%{public}@).", v7, v8, v9, v10);
 }
 
 - (void)hasMailboxSyncedActive
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8(self, a2);
   lastErrorMessage = [OUTLINED_FUNCTION_5() lastErrorMessage];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 @end

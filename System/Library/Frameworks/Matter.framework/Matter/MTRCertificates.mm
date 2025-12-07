@@ -35,7 +35,7 @@
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "Generating root certificate");
   }
 
   v23 = 0;
@@ -59,12 +59,10 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v21 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Generating root certificate failed: %s", v21);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -101,7 +99,7 @@
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "Generating intermediate certificate");
   }
 
   v27 = 0;
@@ -125,12 +123,10 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v25 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Generating intermediate certificate failed: %s", v25);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -169,7 +165,7 @@
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "Generating operational certificate");
   }
 
   v29 = 0;
@@ -193,12 +189,10 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v26 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Generating operational certificate failed: %s", v26);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -222,11 +216,11 @@
 
 + (BOOL)keypair:(id)keypair matchesCertificate:(NSData *)certificate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = keypair;
   v6 = certificate;
-  v17 = &unk_284BB9138;
-  if (sub_238DC3C3C(v5, &v17))
+  v18 = &unk_284BB9138;
+  if (sub_238DC3C3C(v5, &v18))
   {
     v7 = sub_2393D9044(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -238,60 +232,59 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v8 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Can't extract public key from keypair: %s", v8);
     }
   }
 
   else
   {
     *buf = &unk_284BB9138;
-    v8 = v6;
-    v9 = v8;
-    sub_238DB6950(v19, [(NSData *)v8 bytes], [(NSData *)v8 length]);
+    v9 = v6;
+    v10 = v9;
+    sub_238DB6950(v20, [(NSData *)v9 bytes], [(NSData *)v9 length]);
 
-    v15 = *v19;
-    if (!sub_2393FA970(&v15, buf))
+    v16 = *v20;
+    if (!sub_2393FA970(&v16, buf))
     {
-      v12 = memcmp(&buf[8], &v18, 0x41uLL) == 0;
+      v14 = memcmp(&buf[8], &v19, 0x41uLL) == 0;
       goto LABEL_12;
     }
 
-    v10 = sub_2393D9044(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_2393D9044(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = sub_2393C9138();
-      *v19 = 136315138;
-      *&v19[4] = v11;
-      _os_log_impl(&dword_238DAE000, v10, OS_LOG_TYPE_ERROR, "Can't extract public key from certificate: %s", v19, 0xCu);
+      v12 = sub_2393C9138();
+      *v20 = 136315138;
+      *&v20[4] = v12;
+      _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_ERROR, "Can't extract public key from certificate: %s", v20, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v13 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Can't extract public key from certificate: %s", v13);
     }
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_12:
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 + (BOOL)isCertificate:(MTRCertificateDERBytes)certificate1 equalTo:(MTRCertificateDERBytes)certificate2
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = certificate1;
   v6 = certificate2;
-  v33 = &unk_284BB9138;
+  v34 = &unk_284BB9138;
   v7 = v5;
   v8 = v7;
   sub_238DB6950(buf, [(NSData *)v7 bytes], [(NSData *)v7 length]);
 
-  *v29 = *buf;
-  if (sub_2393FA970(v29, &v33))
+  *v30 = *buf;
+  if (sub_2393FA970(v30, &v34))
   {
     v9 = sub_2393D9044(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
@@ -302,129 +295,127 @@ LABEL_12:
       _os_log_impl(&dword_238DAE000, v9, OS_LOG_TYPE_ERROR, "Can't extract public key from first certificate: %s", buf, 0xCu);
     }
 
-    if (!sub_2393D5398(1u))
+    if (sub_2393D5398(1u))
     {
-      goto LABEL_12;
+      v11 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Can't extract public key from first certificate: %s", v11);
     }
 
-    goto LABEL_5;
-  }
-
-  v31 = &unk_284BB9138;
-  v11 = v6;
-  v12 = v11;
-  sub_238DB6950(buf, [(NSData *)v11 bytes], [(NSData *)v11 length]);
-
-  *v29 = *buf;
-  if (sub_2393FA970(v29, &v31))
-  {
-    v13 = sub_2393D9044(0);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      v14 = sub_2393C9138();
-      *buf = 136315138;
-      *&buf[4] = v14;
-      _os_log_impl(&dword_238DAE000, v13, OS_LOG_TYPE_ERROR, "Can't extract public key from second certificate: %s", buf, 0xCu);
-    }
-
-    if (!sub_2393D5398(1u))
-    {
-      goto LABEL_12;
-    }
-
-LABEL_5:
-    sub_2393C9138();
-    sub_2393D5320(0, 1);
-LABEL_12:
-    v15 = 0;
-    goto LABEL_13;
-  }
-
-  if (memcmp(&v34, &v32, 0x41uLL))
-  {
     goto LABEL_12;
   }
 
-  sub_23949ECF0(buf);
-  v18 = v7;
-  v19 = v18;
-  sub_238DB6950(v29, [(NSData *)v18 bytes], [(NSData *)v18 length]);
+  v32 = &unk_284BB9138;
+  v12 = v6;
+  v13 = v12;
+  sub_238DB6950(buf, [(NSData *)v12 bytes], [(NSData *)v12 length]);
 
-  *v35 = *v29;
-  if (sub_2394A09DC(v35, buf))
+  *v30 = *buf;
+  if (sub_2393FA970(v30, &v32))
   {
-    v20 = sub_2393D9044(0);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v14 = sub_2393D9044(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v21 = sub_2393C9138();
-      LODWORD(v29[0]) = 136315138;
-      *(v29 + 4) = v21;
-      _os_log_impl(&dword_238DAE000, v20, OS_LOG_TYPE_ERROR, "Can't extract subject DN from first certificate: %s", v29, 0xCu);
+      v15 = sub_2393C9138();
+      *buf = 136315138;
+      *&buf[4] = v15;
+      _os_log_impl(&dword_238DAE000, v14, OS_LOG_TYPE_ERROR, "Can't extract public key from second certificate: %s", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v16 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Can't extract public key from second certificate: %s", v16);
     }
 
-    v15 = 0;
+    goto LABEL_12;
+  }
+
+  if (memcmp(&v35, &v33, 0x41uLL))
+  {
+LABEL_12:
+    v17 = 0;
+    goto LABEL_13;
+  }
+
+  sub_23949ECF0(buf);
+  v19 = v7;
+  v20 = v19;
+  sub_238DB6950(v30, [(NSData *)v19 bytes], [(NSData *)v19 length]);
+
+  *v36 = *v30;
+  if (sub_2394A09DC(v36, buf))
+  {
+    v21 = sub_2393D9044(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = sub_2393C9138();
+      *v30 = 136315138;
+      *&v30[4] = v22;
+      _os_log_impl(&dword_238DAE000, v21, OS_LOG_TYPE_ERROR, "Can't extract subject DN from first certificate: %s", v30, 0xCu);
+    }
+
+    if (sub_2393D5398(1u))
+    {
+      v23 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Can't extract subject DN from first certificate: %s", v23);
+    }
+
+    v17 = 0;
   }
 
   else
   {
-    sub_23949ECF0(v29);
-    v23 = v11;
-    v24 = v23;
-    sub_238DB6950(v35, [(NSData *)v23 bytes], [(NSData *)v23 length]);
+    sub_23949ECF0(v30);
+    v24 = v12;
+    v25 = v24;
+    sub_238DB6950(v36, [(NSData *)v24 bytes], [(NSData *)v24 length]);
 
-    v28 = *v35;
-    if (sub_2394A09DC(&v28, v29))
+    v29 = *v36;
+    if (sub_2394A09DC(&v29, v30))
     {
-      v25 = sub_2393D9044(0);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = sub_2393D9044(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v26 = sub_2393C9138();
-        LODWORD(v35[0]) = 136315138;
-        *(v35 + 4) = v26;
-        _os_log_impl(&dword_238DAE000, v25, OS_LOG_TYPE_ERROR, "Can't extract subject DN from second certificate: %s", v35, 0xCu);
+        v27 = sub_2393C9138();
+        *v36 = 136315138;
+        *&v36[4] = v27;
+        _os_log_impl(&dword_238DAE000, v26, OS_LOG_TYPE_ERROR, "Can't extract subject DN from second certificate: %s", v36, 0xCu);
       }
 
       if (sub_2393D5398(1u))
       {
-        sub_2393C9138();
-        sub_2393D5320(0, 1);
+        v28 = sub_2393C9138();
+        sub_2393D5320(0, 1, "Can't extract subject DN from second certificate: %s", v28);
       }
 
-      v15 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v15 = sub_23949EB88(buf, v29);
+      v17 = sub_23949EB88(buf, v30);
     }
 
-    nullsub_56(v29, v27);
+    nullsub_56();
   }
 
-  nullsub_56(buf, v22);
+  nullsub_56();
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v17;
 }
 
 + (MTRCSRDERBytes)createCertificateSigningRequest:(id)keypair error:(NSError *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = keypair;
-  v15[1] = &unk_284BB9138;
+  v14[1] = &unk_284BB9138;
+  v15 = 0;
+  v14[0] = &unk_284BA8C20;
   v16 = 0;
-  v15[0] = &unk_284BA8C20;
-  v17 = 0;
-  v18 = &unk_284BB9138;
-  v7 = sub_238DC3B28(v15, v5);
-  if (v7 || (v12 = &v14, v13 = 255, v7 = sub_2393F3C24(v15, &v12), v7))
+  v17 = &unk_284BB9138;
+  v7 = sub_238DC3B28(v14, v5);
+  if (v7 || (v11 = &v13, v12 = 255, v7 = sub_2393F3C24(v14, &v11), v7))
   {
     if (error)
     {
@@ -440,12 +431,11 @@ LABEL_13:
 
   else
   {
-    sub_238DB6950(v11, v12, v13);
-    v8 = [MEMORY[0x277CBEA90] dataWithBytes:v11[0] length:v11[1]];
+    sub_238DB6950(v10, v11, v12);
+    v8 = [MEMORY[0x277CBEA90] dataWithBytes:v10[0] length:v10[1]];
   }
 
-  sub_2393F96B4(v15);
-  v9 = *MEMORY[0x277D85DE8];
+  sub_2393F96B4(v14);
 
   return v8;
 }
@@ -473,11 +463,11 @@ LABEL_13:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v8 = sub_2393C9138();
+      sub_2393D5320(0, 1, "convertX509Certificate: %s", v8);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
@@ -490,16 +480,14 @@ LABEL_13:
 
     if (sub_2393D5398(3u))
     {
-      sub_2393D5320(0, 3);
+      sub_2393D5320(0, 3, "convertX509Certificate: Success");
     }
 
     sub_238DB6950(buf, v11, v12);
-    v8 = [MEMORY[0x277CBEA90] dataWithBytes:*buf length:?];
+    v9 = [MEMORY[0x277CBEA90] dataWithBytes:*buf length:?];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 + (MTRCertificateDERBytes)convertMatterCertificate:(MTRCertificateTLVBytes)matterCertificate
@@ -523,22 +511,20 @@ LABEL_13:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v6 = sub_2393C9138();
+      sub_2393D5320(0, 1, "convertMatterCertificate: %s", v6);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
     sub_238DB6950(&buf, v9, v10);
-    v6 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:?];
+    v7 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:?];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v7;
 }
 
 + (NSData)publicKeyFromCSR:(MTRCSRDERBytes)csr error:(NSError *)error
@@ -563,30 +549,28 @@ LABEL_13:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v11 = sub_2393C9138();
+      sub_2393D5320(0, 1, "publicKeyFromCSR: %s", v11);
     }
 
     if (error)
     {
       sub_23921C1E4(MTRError, v8, v9);
-      *error = v11 = 0;
+      *error = v12 = 0;
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v11 = [MEMORY[0x277CBEA90] dataWithBytes:v17 length:65];
+    v12 = [MEMORY[0x277CBEA90] dataWithBytes:v17 length:65];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 + (NSData)generateRootCertificate:(id)keypair issuerId:(NSNumber *)issuerId fabricId:(NSNumber *)fabricId error:(NSError *)error

@@ -6,17 +6,16 @@
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"fileId";
-  v5[1] = @"filename";
-  v6[0] = @"id";
-  v6[1] = @"file";
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"fileId";
+  v4[1] = @"filename";
+  v5[0] = @"id";
+  v5[1] = @"file";
+  v4[2] = @"url";
+  v4[3] = @"type";
   v5[2] = @"url";
   v5[3] = @"type";
-  v6[2] = @"url";
-  v6[3] = @"type";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
 
   return v2;
 }

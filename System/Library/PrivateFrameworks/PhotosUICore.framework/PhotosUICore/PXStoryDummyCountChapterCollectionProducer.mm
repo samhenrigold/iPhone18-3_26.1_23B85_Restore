@@ -26,16 +26,16 @@
   return v11;
 }
 
-uint64_t __101__PXStoryDummyCountChapterCollectionProducer_workQueue_uneditedChapterCollectionWithAssets_keyAsset___block_invoke(uint64_t result, void *a2)
+void *__101__PXStoryDummyCountChapterCollectionProducer_workQueue_uneditedChapterCollectionWithAssets_keyAsset___block_invoke(void *result, void *a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v2 >= 2)
   {
     v4 = result;
     v5 = 0;
     v6 = 0;
     v7 = MEMORY[0x1E69E9820];
-    v8 = *(result + 40);
+    v8 = result[5];
     do
     {
       v9 = v2 - v6;
@@ -51,8 +51,8 @@ uint64_t __101__PXStoryDummyCountChapterCollectionProducer_workQueue_uneditedCha
 
       LOBYTE(v11) = *(v4 + 48);
       result = [a2 addChapterWithAssetRange:v6 configuration:{v7, 3221225472, __101__PXStoryDummyCountChapterCollectionProducer_workQueue_uneditedChapterCollectionWithAssets_keyAsset___block_invoke_2, &__block_descriptor_57_e33_v16__0___PXStoryMutableChapter__8l, v5++, v6, v10, v11}];
-      v2 = *(v4 + 32);
-      v8 = *(v4 + 40);
+      v2 = v4[4];
+      v8 = v4[5];
       v6 += v8;
     }
 

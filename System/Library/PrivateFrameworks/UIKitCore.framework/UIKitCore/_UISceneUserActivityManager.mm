@@ -923,9 +923,9 @@ LABEL_35:
       }
 
       domain = [v10 domain];
-      v13 = [domain isEqualToString:*MEMORY[0x1E696A250]];
+      isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-      if (v13 && ([v10 code] == 257 || objc_msgSend(v10, "code") == 513))
+      if (isEqualToString && ([v10 code] == 257 || objc_msgSend(v10, "code") == 513))
       {
         v11 = 0;
       }
@@ -1020,9 +1020,9 @@ LABEL_35:
   if (v9)
   {
     domain = [v9 domain];
-    v12 = [domain isEqualToString:*MEMORY[0x1E696A250]];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-    if (v12)
+    if (isEqualToString)
     {
       if ([v10 code] != 260 && _UIStateRestorationDebugLogEnabled())
       {
@@ -1078,9 +1078,9 @@ LABEL_35:
   if (v9)
   {
     domain = [v9 domain];
-    v12 = [domain isEqualToString:*MEMORY[0x1E696A250]];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-    if (v12)
+    if (isEqualToString)
     {
       if ([v10 code] != 260 && _UIStateRestorationDebugLogEnabled())
       {
@@ -1312,9 +1312,9 @@ LABEL_41:
   }
 
   domain = [v13 domain];
-  v20 = [domain isEqualToString:*MEMORY[0x1E696A250]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (!v20)
+  if (!isEqualToString)
   {
     goto LABEL_31;
   }

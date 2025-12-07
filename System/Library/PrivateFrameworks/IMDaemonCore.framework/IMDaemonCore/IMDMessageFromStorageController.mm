@@ -123,7 +123,7 @@
 - (void)noteItemProcessed:(BOOL)processed batchContext:(id)context usingService:(id)service
 {
   processedCopy = processed;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   serviceCopy = service;
   mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
@@ -147,9 +147,9 @@
             v15 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
-              v19 = 138412290;
-              v20 = v12;
-              _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Batch Set for account %@ complete, removing tracker and sending completion", &v19, 0xCu);
+              v18 = 138412290;
+              v19 = v12;
+              _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Batch Set for account %@ complete, removing tracker and sending completion", &v18, 0xCu);
             }
           }
 
@@ -165,9 +165,9 @@
         v17 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v19 = 138412290;
-          v20 = v12;
-          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "BatchTrack: Can't find tracking context for account %@", &v19, 0xCu);
+          v18 = 138412290;
+          v19 = v12;
+          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "BatchTrack: Can't find tracking context for account %@", &v18, 0xCu);
         }
       }
     }
@@ -177,13 +177,11 @@
   {
     [(IMDMessageFromStorageController *)self noteLastItemProcessed];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteItemFromStorage:(id)storage extendsStorageTimer:(BOOL)timer
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   if (storageCopy)
   {
@@ -195,9 +193,9 @@
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v17 = 138412290;
-        v18 = storageCopy;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Noting item from storage (%@)", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = storageCopy;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Noting item from storage (%@)", &v16, 0xCu);
       }
     }
 
@@ -213,8 +211,8 @@
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "This is the first item from storage starting timer", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "This is the first item from storage starting timer", &v16, 2u);
         }
       }
 
@@ -245,13 +243,11 @@
       [(IMDMessageFromStorageController *)self _updateStorageTimerWithInterval:?];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteLastItemFromStorage:(id)storage
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   if (storageCopy)
   {
@@ -263,9 +259,9 @@
       v6 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = storageCopy;
-        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Noting last item from storage (%@)", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = storageCopy;
+        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Noting last item from storage (%@)", &v10, 0xCu);
       }
     }
 
@@ -283,13 +279,11 @@
     [(IMDMessageFromStorageController *)self lastMessageStorageTimerInterval];
     [(IMDMessageFromStorageController *)self _updateStorageTimerWithInterval:?];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteLastItemProcessedWithError:(unint64_t)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   timingComingBackFromStorage = self->_timingComingBackFromStorage;
   if (timingComingBackFromStorage)
   {
@@ -301,11 +295,11 @@
       {
         v8 = self->_timingComingBackFromStorage;
         messagesProcessedComingBackFromStorage = self->_messagesProcessedComingBackFromStorage;
-        v11 = 134218242;
-        v12 = messagesProcessedComingBackFromStorage;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Finished processing %lu items from storage %@", &v11, 0x16u);
+        v10 = 134218242;
+        v11 = messagesProcessedComingBackFromStorage;
+        v12 = 2112;
+        v13 = v8;
+        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Finished processing %lu items from storage %@", &v10, 0x16u);
       }
     }
 
@@ -315,13 +309,11 @@
 
     self->_messagesProcessedComingBackFromStorage = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitStorageMetricsWithError:(unint64_t)error
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   if (IMIsRunningInUnitTesting())
   {
     if (IMOSLoggingEnabled())
@@ -329,51 +321,49 @@
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Should not be submitting metrics during unit tests. This method should be stubbed", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Should not be submitting metrics during unit tests. This method should be stubbed", &v14, 2u);
       }
     }
   }
 
   else
   {
-    v17[0] = *MEMORY[0x277D1A328];
+    v16[0] = *MEMORY[0x277D1A328];
     v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_messagesProcessedComingBackFromStorage];
-    v18[0] = v6;
-    v17[1] = *MEMORY[0x277D1A370];
+    v17[0] = v6;
+    v16[1] = *MEMORY[0x277D1A370];
     v7 = MEMORY[0x277CCABB0];
     [(IMTimingCollection *)self->_timingComingBackFromStorage totalTimeForKey:@"ProcessingMessagesFromStorage"];
     v8 = [v7 numberWithDouble:?];
-    v18[1] = v8;
-    v17[2] = *MEMORY[0x277D1A358];
+    v17[1] = v8;
+    v16[2] = *MEMORY[0x277D1A358];
     serviceName = [(IMDMessageFromStorageController *)self serviceName];
-    v18[2] = serviceName;
-    v17[3] = *MEMORY[0x277D1A350];
+    v17[2] = serviceName;
+    v16[3] = *MEMORY[0x277D1A350];
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:error];
-    v18[3] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
+    v17[3] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
 
     if (IMOSLoggingEnabled())
     {
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Submitting message from storage metric with dictionary %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v11;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Submitting message from storage metric with dictionary %@", &v14, 0xCu);
       }
     }
 
     mEMORY[0x277D1AAA8] = [MEMORY[0x277D1AAA8] sharedInstance];
     [mEMORY[0x277D1AAA8] trackEvent:*MEMORY[0x277D1A1F8] withDictionary:v11];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateStorageTimerWithInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (interval > 0.0)
   {
     if (IMOSLoggingEnabled())
@@ -381,9 +371,9 @@
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v11 = 134217984;
+        v10 = 134217984;
         intervalCopy = interval;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Scheduling a storage invalidation timer in: %f", &v11, 0xCu);
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Scheduling a storage invalidation timer in: %f", &v10, 0xCu);
       }
     }
 
@@ -399,13 +389,11 @@
     v9 = self->_storageTimer;
     self->_storageTimer = v8;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_storageTimerFired
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([(IMDMessageFromStorageController *)self pendingReadReceiptFromStorageCount])
   {
     if (IMOSLoggingEnabled())
@@ -413,8 +401,8 @@
       v3 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "We have pending read receipts to process after storage timer fired, delaying by 15s", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "We have pending read receipts to process after storage timer fired, delaying by 15s", &v16, 2u);
       }
     }
 
@@ -437,11 +425,11 @@
       {
         v7 = [(NSMutableSet *)self->_messagesReceivedDuringStorage count];
         messagesReceivedDuringStorage = self->_messagesReceivedDuringStorage;
-        v17 = 134218242;
-        v18 = v7;
-        v19 = 2112;
-        v20 = messagesReceivedDuringStorage;
-        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Storage timer fired, have %lu guids we need to process: %@", &v17, 0x16u);
+        v16 = 134218242;
+        v17 = v7;
+        v18 = 2112;
+        v19 = messagesReceivedDuringStorage;
+        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Storage timer fired, have %lu guids we need to process: %@", &v16, 0x16u);
       }
     }
 
@@ -462,8 +450,8 @@
         v9 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Chat: Missed lastItemProcessed.  This time is likely off by the last storage timer", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Chat: Missed lastItemProcessed.  This time is likely off by the last storage timer", &v16, 2u);
         }
       }
 
@@ -484,61 +472,59 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:*MEMORY[0x277D19F60] object:0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postMessagesFromStorage:(id)storage
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = storageCopy;
-  v24 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v23)
   {
-    v22 = *v36;
+    v21 = *v35;
     do
     {
       v6 = 0;
       do
       {
-        if (*v36 != v22)
+        if (*v35 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = v6;
-        v7 = *(*(&v35 + 1) + 8 * v6);
+        v25 = v6;
+        v7 = *(*(&v34 + 1) + 8 * v6);
         context = objc_autoreleasePoolPush();
         messageStore = [(IMDMessageFromStorageController *)self messageStore];
         v9 = [messageStore chatsForMessage:v7];
 
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v32;
+          v13 = *v31;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v32 != v13)
+              if (*v31 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v31 + 1) + 8 * i);
+              v15 = *(*(&v30 + 1) + 8 * i);
               if (([v15 isBlackholed] & 1) == 0)
               {
                 guid = [v15 guid];
@@ -554,35 +540,33 @@
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
           }
 
           while (v12);
         }
 
         objc_autoreleasePoolPop(context);
-        v6 = v26 + 1;
+        v6 = v25 + 1;
       }
 
-      while (v26 + 1 != v24);
-      v24 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      while (v25 + 1 != v23);
+      v23 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = sub_22B53EC38;
-  v27[3] = &unk_278703E60;
-  v28 = v5;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = sub_22B53EC38;
+  v26[3] = &unk_278703E60;
+  v27 = v5;
   selfCopy = self;
-  v30 = obj;
+  v29 = obj;
   v18 = obj;
   v19 = v5;
-  [v4 enumerateKeysAndObjectsUsingBlock:v27];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [v4 enumerateKeysAndObjectsUsingBlock:v26];
 }
 
 - (void)decrementPendingReadReceiptFromStorageCount

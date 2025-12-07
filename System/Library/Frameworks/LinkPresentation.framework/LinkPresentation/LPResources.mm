@@ -80,7 +80,7 @@ void __34__LPResources_metadataExtractorJS__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E696AEC0]);
   v1 = objc_alloc(MEMORY[0x1E69DB798]);
-  v6 = linkPresentationBundle();
+  v6 = linkPresentationBundle(v1);
   v2 = [v1 initWithName:@"MetadataExtractor" bundle:?];
   v3 = [v2 data];
   v4 = [v0 initWithData:v3 encoding:4];

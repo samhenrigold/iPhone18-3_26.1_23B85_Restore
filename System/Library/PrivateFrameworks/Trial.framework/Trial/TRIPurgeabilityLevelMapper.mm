@@ -73,38 +73,38 @@
 
 - (int)availableSpaceClassForFactorNames:(id)names namespaceName:(id)name
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   nameCopy = name;
   v8 = [(TRIClientNamespaceMetadataStoring *)self->_namespaceMetadataStorage loadNamespaceMetadataForNamespaceName:nameCopy error:0];
   v9 = v8;
   if (namesCopy && v8)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v10 = namesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
       selfCopy = self;
       LODWORD(v13) = 0;
-      v14 = *v24;
+      v14 = *v23;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v23 + 1) + 8 * i);
-          v22 = 0;
+          v16 = *(*(&v22 + 1) + 8 * i);
+          v21 = 0;
           factorNamePurgeabilityLevels = [v9 factorNamePurgeabilityLevels];
-          LOBYTE(v16) = [factorNamePurgeabilityLevels getEnum:&v22 forKey:v16];
+          LOBYTE(v16) = [factorNamePurgeabilityLevels getEnum:&v21 forKey:v16];
 
           if ((v16 & 1) == 0)
           {
@@ -112,9 +112,9 @@
             goto LABEL_18;
           }
 
-          if (v13 <= v22)
+          if (v13 <= v21)
           {
-            v13 = v22;
+            v13 = v21;
           }
 
           else
@@ -123,7 +123,7 @@
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v12)
         {
           continue;
@@ -148,7 +148,6 @@ LABEL_18:
 
   v18 = [TRIPurgeabilityLevelMapper availableSpaceClassFromPurgeabilityLevel:v13];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

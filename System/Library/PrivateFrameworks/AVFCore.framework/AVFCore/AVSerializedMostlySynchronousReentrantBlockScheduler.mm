@@ -50,6 +50,7 @@
 
 - (void)scheduleBlock:(id)block
 {
+  v13 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
   v5 = [block copy];
   v6 = [(NSArray *)self->_blocks arrayByAddingObject:v5];

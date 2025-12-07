@@ -19,37 +19,38 @@
   initCopy = init;
   nameCopy = name;
   tableNameCopy = tableName;
-  v21.receiver = self;
-  v21.super_class = LCFDatabaseConnection;
-  v12 = [(LCFDatabaseConnection *)&v21 init];
+  v23.receiver = self;
+  v23.super_class = LCFDatabaseConnection;
+  v12 = [(LCFDatabaseConnection *)&v23 init];
+  v14 = v12;
   if (v12)
   {
-    LCFLoggingUtilsInit();
-    objc_storeStrong(&v12->_databaseBaseURL, init);
-    objc_storeStrong(&v12->_databaseName, name);
-    objc_storeStrong(&v12->_tableName, tableName);
-    path = [(NSURL *)v12->_databaseBaseURL path];
-    v14 = [path stringByAppendingPathComponent:v12->_databaseName];
-    databaseNamePath = v12->_databaseNamePath;
-    v12->_databaseNamePath = v14;
+    LCFLoggingUtilsInit(v12, v13);
+    objc_storeStrong(&v14->_databaseBaseURL, init);
+    objc_storeStrong(&v14->_databaseName, name);
+    objc_storeStrong(&v14->_tableName, tableName);
+    path = [(NSURL *)v14->_databaseBaseURL path];
+    v16 = [path stringByAppendingPathComponent:v14->_databaseName];
+    databaseNamePath = v14->_databaseNamePath;
+    v14->_databaseNamePath = v16;
 
-    v16 = [LCFDatabaseColumnConnection alloc];
-    v17 = [tableNameCopy stringByAppendingString:@"_Columns"];
-    v18 = [(LCFDatabaseColumnConnection *)v16 init:initCopy databaseName:nameCopy tableName:v17];
-    dbColumnConnection = v12->_dbColumnConnection;
-    v12->_dbColumnConnection = v18;
+    v18 = [LCFDatabaseColumnConnection alloc];
+    v19 = [tableNameCopy stringByAppendingString:@"_Columns"];
+    v20 = [(LCFDatabaseColumnConnection *)v18 init:initCopy databaseName:nameCopy tableName:v19];
+    dbColumnConnection = v14->_dbColumnConnection;
+    v14->_dbColumnConnection = v20;
 
-    [(LCFDatabaseConnection *)v12 ensureDatabaseTable];
+    [(LCFDatabaseConnection *)v14 ensureDatabaseTable];
   }
 
-  return v12;
+  return v14;
 }
 
 - (void)ensureDatabaseTable
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_255F22000, a2, a3, "sqlite3_exec failed %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_255F22000, a2, a3, "sqlite3_exec failed %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (BOOL)doQueryEachStep:(id)step statementStepHandler:(id)handler
@@ -191,43 +192,43 @@ void __35__LCFDatabaseConnection_getColumns__block_invoke(uint64_t a1, sqlite3_s
 
 - (BOOL)writeFeatures:(id)features
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   featureValues = [featuresCopy featureValues];
   itemIdentifier = [featuresCopy itemIdentifier];
   featureVersion = [featuresCopy featureVersion];
-  v49 = featuresCopy;
+  v48 = featuresCopy;
   timestamp = [featuresCopy timestamp];
   selfCopy = self;
   getColumns = [(LCFDatabaseConnection *)self getColumns];
   allKeys = [getColumns allKeys];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v53 = featureValues;
+  v52 = featureValues;
   v8 = featureValues;
   v9 = allKeys;
   allKeys2 = [v8 allKeys];
-  v11 = [allKeys2 countByEnumeratingWithState:&v58 objects:v65 count:16];
+  v11 = [allKeys2 countByEnumeratingWithState:&v57 objects:v64 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v59;
+    v13 = *v58;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v59 != v13)
+        if (*v58 != v13)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v15 = *(*(&v58 + 1) + 8 * i);
+        v15 = *(*(&v57 + 1) + 8 * i);
         if (([v9 containsObject:v15] & 1) == 0)
         {
           v16 = [LCFDatabaseColumn alloc];
-          v17 = [v53 objectForKeyedSubscript:v15];
+          v17 = [v52 objectForKeyedSubscript:v15];
           getTypeDBString = [v17 getTypeDBString];
           v19 = [(LCFDatabaseColumn *)v16 init:v15 typeDb:getTypeDBString];
 
@@ -235,13 +236,13 @@ void __35__LCFDatabaseConnection_getColumns__block_invoke(uint64_t a1, sqlite3_s
         }
       }
 
-      v12 = [allKeys2 countByEnumeratingWithState:&v58 objects:v65 count:16];
+      v12 = [allKeys2 countByEnumeratingWithState:&v57 objects:v64 count:16];
     }
 
     while (v12);
   }
 
-  v47 = v9;
+  v46 = v9;
   if (timestamp)
   {
     [timestamp timeIntervalSinceReferenceDate];
@@ -256,49 +257,49 @@ void __35__LCFDatabaseConnection_getColumns__block_invoke(uint64_t a1, sqlite3_s
   }
 
   v24 = objc_alloc(MEMORY[0x277CBEB18]);
-  v64[0] = @"_lcf_itemIdentifier";
-  v64[1] = @"_lcf_featureVersion";
-  v64[2] = @"_lcf_timestamp";
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:3];
+  v63[0] = @"_lcf_itemIdentifier";
+  v63[1] = @"_lcf_featureVersion";
+  v63[2] = @"_lcf_timestamp";
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:3];
   v26 = [v24 initWithArray:v25];
 
   v27 = objc_alloc(MEMORY[0x277CBEB18]);
   v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"'%@'", itemIdentifier];
-  v63[0] = v28;
-  v63[1] = featureVersion;
+  v62[0] = v28;
+  v62[1] = featureVersion;
   v29 = [MEMORY[0x277CCABB0] numberWithDouble:v21];
-  v63[2] = v29;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:3];
+  v62[2] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:3];
   v31 = [v27 initWithArray:v30];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  allKeys3 = [v53 allKeys];
-  v33 = [allKeys3 countByEnumeratingWithState:&v54 objects:v62 count:16];
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  allKeys3 = [v52 allKeys];
+  v33 = [allKeys3 countByEnumeratingWithState:&v53 objects:v61 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v55;
+    v35 = *v54;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v55 != v35)
+        if (*v54 != v35)
         {
           objc_enumerationMutation(allKeys3);
         }
 
-        v37 = *(*(&v54 + 1) + 8 * j);
-        v38 = [v53 objectForKeyedSubscript:v37];
+        v37 = *(*(&v53 + 1) + 8 * j);
+        v38 = [v52 objectForKeyedSubscript:v37];
         -[LCFDatabaseColumnConnection writeFeatures:featureValueType:](selfCopy->_dbColumnConnection, "writeFeatures:featureValueType:", v37, [v38 type]);
         [v26 addObject:v37];
         valueInString = [v38 valueInString];
         [v31 addObject:valueInString];
       }
 
-      v34 = [allKeys3 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v34 = [allKeys3 countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
     while (v34);
@@ -311,49 +312,47 @@ void __35__LCFDatabaseConnection_getColumns__block_invoke(uint64_t a1, sqlite3_s
   v44 = [v40 stringWithFormat:@"INSERT INTO %@ (%@) VALUES(%@)", tableName, v42, v43];
 
   LOBYTE(v43) = [(LCFDatabaseConnection *)selfCopy doQueryExec:v44];
-  v45 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
 - (id)isDoubleArray:(id)array
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [array dataUsingEncoding:4];
-  v19 = 0;
-  v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v19];
-  v5 = v19;
+  v17 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v17];
+  v5 = v17;
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
+    v13 = 0u;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v12 = 0;
+            v11 = 0;
             goto LABEL_14;
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -363,53 +362,51 @@ void __35__LCFDatabaseConnection_getColumns__block_invoke(uint64_t a1, sqlite3_s
       }
     }
 
-    v12 = v6;
+    v11 = v6;
 LABEL_14:
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v11;
 }
 
 - (id)query:(id)query startDate:(id)date endDate:(id)endDate reversed:(BOOL)reversed
 {
   reversedCopy = reversed;
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   dateCopy = date;
   endDateCopy = endDate;
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   query = [(LCFDatabaseColumnConnection *)self->_dbColumnConnection query];
-  v12 = [query countByEnumeratingWithState:&v75 objects:v80 count:16];
+  v12 = [query countByEnumeratingWithState:&v74 objects:v79 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v76;
+    v14 = *v75;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v76 != v14)
+        if (*v75 != v14)
         {
           objc_enumerationMutation(query);
         }
 
-        v16 = *(*(&v75 + 1) + 8 * i);
+        v16 = *(*(&v74 + 1) + 8 * i);
         featureName = [v16 featureName];
         [v10 setObject:v16 forKeyedSubscript:featureName];
       }
 
-      v13 = [query countByEnumeratingWithState:&v75 objects:v80 count:16];
+      v13 = [query countByEnumeratingWithState:&v74 objects:v79 count:16];
     }
 
     while (v13);
@@ -418,31 +415,31 @@ LABEL_14:
   v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
   getColumns = [(LCFDatabaseConnection *)self getColumns];
   v20 = getColumns;
-  v63 = queryCopy;
-  v61 = v18;
+  v62 = queryCopy;
+  v60 = v18;
   if (queryCopy)
   {
     allKeys = [getColumns allKeys];
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
     v22 = queryCopy;
-    v23 = [v22 countByEnumeratingWithState:&v71 objects:v79 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v70 objects:v78 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v72;
+      v25 = *v71;
       while (2)
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v72 != v25)
+          if (*v71 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v71 + 1) + 8 * j);
+          v27 = *(*(&v70 + 1) + 8 * j);
           if (([allKeys containsObject:v27] & 1) == 0)
           {
             v31 = LCFLogDatabaseConnection;
@@ -452,13 +449,13 @@ LABEL_14:
             }
 
             v38 = 0;
-            v39 = v61;
+            v39 = v60;
             v30 = dateCopy;
             goto LABEL_40;
           }
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v71 objects:v79 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v70 objects:v78 count:16];
         if (v24)
         {
           continue;
@@ -562,36 +559,35 @@ LABEL_35:
   }
 
 LABEL_39:
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __58__LCFDatabaseConnection_query_startDate_endDate_reversed___block_invoke;
-  v65[3] = &unk_279815EE8;
-  v66 = v28;
-  v67 = v20;
-  v68 = v10;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __58__LCFDatabaseConnection_query_startDate_endDate_reversed___block_invoke;
+  v64[3] = &unk_279815EE8;
+  v65 = v28;
+  v66 = v20;
+  v67 = v10;
   selfCopy = self;
-  v39 = v61;
-  v57 = v61;
-  v70 = v57;
+  v39 = v60;
+  v57 = v60;
+  v69 = v57;
   v22 = v28;
-  [(LCFDatabaseConnection *)self doQueryEachStep:v46 statementStepHandler:v65];
+  [(LCFDatabaseConnection *)self doQueryEachStep:v46 statementStepHandler:v64];
   v38 = v57;
 
 LABEL_40:
-  v58 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
 
 void __58__LCFDatabaseConnection_query_startDate_endDate_reversed___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if ([*(a1 + 32) count])
   {
     v6 = 0;
     *&v5 = 138412802;
-    v45 = v5;
+    v44 = v5;
     do
     {
       v7 = sqlite3_column_text(a2, v6);
@@ -690,12 +686,12 @@ LABEL_41:
                   v30 = v28;
                   v31 = [v10 name];
                   v32 = [v10 type];
-                  *buf = v45;
+                  *buf = v44;
                   *&buf[4] = v31;
                   *&buf[12] = 2048;
                   *&buf[14] = v32;
                   *&buf[22] = 2048;
-                  v47 = v14;
+                  v46 = v14;
                   _os_log_fault_impl(&dword_255F22000, v30, OS_LOG_TYPE_FAULT, "Wrong feature value type is assigned featureName:%@ columnInDb.type:%ld featureValueType: %ld", buf, 0x20u);
                 }
 
@@ -799,8 +795,6 @@ LABEL_43:
   v42 = *(a1 + 64);
   v43 = [[LCFFeatureSet alloc] initWithIdentifier:v35 featureVersion:v37 timestamp:v41 featureValues:v4];
   [v42 addObject:v43];
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dumpDatabase
@@ -819,7 +813,7 @@ LABEL_43:
 
 void __37__LCFDatabaseConnection_dumpDatabase__block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([*(a1 + 32) count])
   {
@@ -849,12 +843,10 @@ void __37__LCFDatabaseConnection_dumpDatabase__block_invoke(uint64_t a1, sqlite3
   {
     v9 = v8;
     v10 = [v4 componentsJoinedByString:{@", "}];
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_255F22000, v9, OS_LOG_TYPE_INFO, "database %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_255F22000, v9, OS_LOG_TYPE_INFO, "database %@", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)pruneFrom:(id)from endDate:(id)date
@@ -909,9 +901,9 @@ LABEL_8:
 
 - (void)query:(uint64_t)a3 startDate:(uint64_t)a4 endDate:(uint64_t)a5 reversed:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_255F22000, a2, a3, "sqlite3_exec no column found - %@ ", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_255F22000, a2, a3, "sqlite3_exec no column found - %@ ", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

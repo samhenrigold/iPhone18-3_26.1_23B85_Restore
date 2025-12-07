@@ -40,8 +40,6 @@
 - (uint64_t)safari_hasLocalScheme;
 - (uint64_t)safari_isAboutBlankURL;
 - (uint64_t)safari_isDataURL;
-- (uint64_t)safari_isEligibleToBeOpenedByServiceWorkers;
-- (uint64_t)safari_isEligibleToShowNotSecureWarning;
 - (uint64_t)safari_isEqualOrHasSameHighLevelDomainAsURL:()SafariSharedExtras;
 - (uint64_t)safari_isEqualToOrChildOfStartURL:()SafariSharedExtras;
 - (uint64_t)safari_isEqualToURL:()SafariSharedExtras;
@@ -58,6 +56,8 @@
 - (uint64_t)safari_looksLikeAboutBlankURL;
 - (uint64_t)safari_looksLikeAboutSrcdocURL;
 - (uint64_t)safari_shouldBeAssociatedWithFaviconFromRedirectedURL:()SafariSharedExtras;
+- (void)safari_isEligibleToBeOpenedByServiceWorkers;
+- (void)safari_isEligibleToShowNotSecureWarning;
 @end
 
 @implementation NSURL(SafariSharedExtras)
@@ -384,23 +384,23 @@
   return v2;
 }
 
-- (uint64_t)safari_isEligibleToBeOpenedByServiceWorkers
+- (void)safari_isEligibleToBeOpenedByServiceWorkers
 {
   result = [self safari_isHTTPFamilyURL];
   if (result)
   {
-    return [self safari_isLocalOrPrivateNetworkURL] ^ 1;
+    return ([self safari_isLocalOrPrivateNetworkURL] ^ 1);
   }
 
   return result;
 }
 
-- (uint64_t)safari_isEligibleToShowNotSecureWarning
+- (void)safari_isEligibleToShowNotSecureWarning
 {
   result = [self safari_isHTTPURL];
   if (result)
   {
-    return [self safari_isLocalOrPrivateNetworkURL] ^ 1;
+    return ([self safari_isLocalOrPrivateNetworkURL] ^ 1);
   }
 
   return result;
@@ -752,9 +752,9 @@ LABEL_5:
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
       path = [self path];
-      v6 = [defaultManager displayNameAtPath:path];
+      v7 = [defaultManager displayNameAtPath:path];
 
-      if (v6)
+      if (v7)
       {
         goto LABEL_9;
       }
@@ -774,23 +774,23 @@ LABEL_5:
     v5 = ;
   }
 
-  v6 = v5;
+  v7 = v5;
   if (v5)
   {
     goto LABEL_9;
   }
 
 LABEL_4:
-  v7 = WBS_LOG_CHANNEL_PREFIXOther();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = WBS_LOG_CHANNEL_PREFIXOther(v5, v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [(NSURL(SafariSharedExtras) *)self safari_displayNameWithTitle:v7];
+    [(NSURL(SafariSharedExtras) *)self safari_displayNameWithTitle:v8];
   }
 
-  v6 = _WBSLocalizedString();
+  v7 = _WBSLocalizedString();
 LABEL_9:
 
-  return v6;
+  return v7;
 }
 
 - (id)safari_originalDataAsString
@@ -827,7 +827,7 @@ LABEL_9:
   safari_isSafariWebExtensionURL = [(NSURL *)self safari_isSafariWebExtensionURL];
   if (safari_isSafariWebExtensionURL)
   {
-    v3 = SafariShared::ExtensionURLTranslator::shared(safari_isSafariWebExtensionURL);
+    SafariShared::ExtensionURLTranslator::shared(safari_isSafariWebExtensionURL);
     SafariShared::ExtensionURLTranslator::displayNameForExtensionURL(v3, self);
   }
 

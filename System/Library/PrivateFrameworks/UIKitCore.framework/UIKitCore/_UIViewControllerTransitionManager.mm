@@ -20,7 +20,7 @@
 
 - (void)configureWithInitialViewControllers:(id)controllers
 {
-  sub_188A34624(0, &qword_1ED48D5A0);
+  sub_188A34624(0, &qword_1ED48D5A0, off_1E70EAD90);
   v4 = sub_18A4A7548();
   selfCopy = self;
   sub_188FED5C4(v4);
@@ -28,7 +28,7 @@
 
 - (void)applyViewControllers:(id)controllers
 {
-  sub_188A34624(0, &qword_1ED48D5A0);
+  sub_188A34624(0, &qword_1ED48D5A0, off_1E70EAD90);
   v4 = sub_18A4A7548();
   selfCopy = self;
   sub_188FED7A8(v4);

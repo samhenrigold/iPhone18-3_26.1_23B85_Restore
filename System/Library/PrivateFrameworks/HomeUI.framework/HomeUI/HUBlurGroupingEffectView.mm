@@ -27,7 +27,7 @@
   dependentCopy = dependent;
   identifierCopy = identifier;
   selfCopy = self;
-  sub_20CF31E64(dependentCopy);
+  sub_20CF31E64(dependentCopy, identifierCopy);
 }
 
 - (HUBlurGroupingEffectView)initWithFrame:(CGRect)frame

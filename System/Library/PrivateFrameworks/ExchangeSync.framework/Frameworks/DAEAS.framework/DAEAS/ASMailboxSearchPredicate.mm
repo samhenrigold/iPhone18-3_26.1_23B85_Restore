@@ -34,7 +34,7 @@
 
 - (id)getStringForComparisonPredicate:(id)predicate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   predicateOperatorType = [predicateCopy predicateOperatorType];
   leftExpression = [predicateCopy leftExpression];
@@ -57,69 +57,69 @@
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = constantValue;
-          if ([v12 isEqualToString:*MEMORY[0x277D03F48]])
+          v11 = constantValue;
+          if ([v11 isEqualToString:*MEMORY[0x277D03F48]])
           {
-            v21 = objc_opt_new();
-            v7 = v21;
+            v20 = objc_opt_new();
+            v7 = v20;
 LABEL_62:
-            [v21 appendString:@""];
+            [v20 appendString:@""];
             [v7 appendString:constantValue2];
-            v15 = v7;
-            v14 = @"";
+            v14 = v7;
+            v13 = @"";
 LABEL_63:
-            [v15 appendString:v14];
+            [v14 appendString:v13];
             goto LABEL_52;
           }
 
-          if (([v12 isEqualToString:*MEMORY[0x277D03F78]]& 1) == 0 && ([v12 isEqualToString:*MEMORY[0x277D03F20]]& 1) == 0 && ([v12 isEqualToString:*MEMORY[0x277D03F28]]& 1) == 0 && ([v12 isEqualToString:*MEMORY[0x277D03F50]]& 1) == 0 && ([v12 isEqualToString:*MEMORY[0x277D03F68]]& 1) == 0 && ([v12 isEqualToString:*MEMORY[0x277D03F80]]& 1) == 0 && ([v12 isEqualToString:*MEMORY[0x277D03F70]]& 1) == 0 && ![v12 isEqualToString:*MEMORY[0x277D03F18]])
+          if (([v11 isEqualToString:*MEMORY[0x277D03F78]]& 1) == 0 && ([v11 isEqualToString:*MEMORY[0x277D03F20]]& 1) == 0 && ([v11 isEqualToString:*MEMORY[0x277D03F28]]& 1) == 0 && ([v11 isEqualToString:*MEMORY[0x277D03F50]]& 1) == 0 && ([v11 isEqualToString:*MEMORY[0x277D03F68]]& 1) == 0 && ([v11 isEqualToString:*MEMORY[0x277D03F80]]& 1) == 0 && ([v11 isEqualToString:*MEMORY[0x277D03F70]]& 1) == 0 && ![v11 isEqualToString:*MEMORY[0x277D03F18]])
           {
-            v16 = DALoggingwithCategory();
-            v17 = *(MEMORY[0x277D03988] + 3);
-            if (!os_log_type_enabled(v16, v17))
+            v15 = DALoggingwithCategory();
+            v16 = *(MEMORY[0x277D03988] + 3);
+            if (!os_log_type_enabled(v15, v16))
             {
               goto LABEL_50;
             }
 
-            v26 = 138412290;
-            v27 = v12;
-            v18 = "Predicate left string is not supported for contains operator type. Left string: %@";
+            v25 = 138412290;
+            v26 = v11;
+            v17 = "Predicate left string is not supported for contains operator type. Left string: %@";
             goto LABEL_49;
           }
 
 LABEL_61:
           v7 = objc_opt_new();
-          [v7 appendString:v12];
+          [v7 appendString:v11];
           [v7 appendString:@":"];
-          v21 = v7;
+          v20 = v7;
           goto LABEL_62;
         }
       }
 
-      v12 = DALoggingwithCategory();
-      v19 = *(MEMORY[0x277D03988] + 3);
-      if (os_log_type_enabled(v12, v19))
+      v11 = DALoggingwithCategory();
+      v18 = *(MEMORY[0x277D03988] + 3);
+      if (os_log_type_enabled(v11, v18))
       {
-        LOWORD(v26) = 0;
-        v20 = "Predicate left or right value is not string type for contains operator type.";
+        LOWORD(v25) = 0;
+        v19 = "Predicate left or right value is not string type for contains operator type.";
         goto LABEL_39;
       }
     }
 
     else
     {
-      v12 = DALoggingwithCategory();
-      v22 = *(MEMORY[0x277D03988] + 3);
-      if (os_log_type_enabled(v12, v22))
+      v11 = DALoggingwithCategory();
+      v21 = *(MEMORY[0x277D03988] + 3);
+      if (os_log_type_enabled(v11, v21))
       {
-        v26 = 134217984;
-        v27 = predicateOperatorType;
-        v20 = "Predicate operator type is not supported. Operator type: %lu";
-        v23 = v12;
-        v24 = v22;
-        v25 = 12;
+        v25 = 134217984;
+        v26 = predicateOperatorType;
+        v19 = "Predicate operator type is not supported. Operator type: %lu";
+        v22 = v11;
+        v23 = v21;
+        v24 = 12;
 LABEL_40:
-        _os_log_impl(&dword_24A0AC000, v23, v24, v20, &v26, v25);
+        _os_log_impl(&dword_24A0AC000, v22, v23, v19, &v25, v24);
       }
     }
 
@@ -137,16 +137,16 @@ LABEL_51:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = constantValue;
-        if (([v12 isEqualToString:*MEMORY[0x277D03F58]]& 1) == 0 && ![v12 isEqualToString:*MEMORY[0x277D03F60]])
+        v11 = constantValue;
+        if (([v11 isEqualToString:*MEMORY[0x277D03F58]]& 1) == 0 && ![v11 isEqualToString:*MEMORY[0x277D03F60]])
         {
-          v16 = DALoggingwithCategory();
-          v17 = *(MEMORY[0x277D03988] + 3);
-          if (os_log_type_enabled(v16, v17))
+          v15 = DALoggingwithCategory();
+          v16 = *(MEMORY[0x277D03988] + 3);
+          if (os_log_type_enabled(v15, v16))
           {
-            v26 = 138412290;
-            v27 = v12;
-            v18 = "Predicate left value is not supported for right value type. Left value is :%@";
+            v25 = 138412290;
+            v26 = v11;
+            v17 = "Predicate left value is not supported for right value type. Left value is :%@";
             goto LABEL_49;
           }
 
@@ -156,34 +156,34 @@ LABEL_51:
         if (predicateOperatorType == 4)
         {
           v7 = objc_opt_new();
-          [v7 appendString:v12];
+          [v7 appendString:v11];
           [v7 appendString:@":"];
           if ([constantValue2 BOOLValue])
           {
-            v14 = @"yes";
+            v13 = @"yes";
           }
 
           else
           {
-            v14 = @"no";
+            v13 = @"no";
           }
 
-          v15 = v7;
+          v14 = v7;
           goto LABEL_63;
         }
 
-        v16 = DALoggingwithCategory();
-        v17 = *(MEMORY[0x277D03988] + 3);
-        if (!os_log_type_enabled(v16, v17))
+        v15 = DALoggingwithCategory();
+        v16 = *(MEMORY[0x277D03988] + 3);
+        if (!os_log_type_enabled(v15, v16))
         {
           goto LABEL_50;
         }
 
-        v26 = 138412290;
-        v27 = v12;
-        v18 = "Predicate operator is not supported for given left value. Left value is :%@";
+        v25 = 138412290;
+        v26 = v11;
+        v17 = "Predicate operator is not supported for given left value. Left value is :%@";
 LABEL_49:
-        _os_log_impl(&dword_24A0AC000, v16, v17, v18, &v26, 0xCu);
+        _os_log_impl(&dword_24A0AC000, v15, v16, v17, &v25, 0xCu);
         goto LABEL_50;
       }
     }
@@ -194,34 +194,34 @@ LABEL_49:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = constantValue;
-        if (![v12 isEqualToString:*MEMORY[0x277D03F30]])
+        v11 = constantValue;
+        if (![v11 isEqualToString:*MEMORY[0x277D03F30]])
         {
-          v16 = DALoggingwithCategory();
-          v17 = *(MEMORY[0x277D03988] + 3);
-          if (!os_log_type_enabled(v16, v17))
+          v15 = DALoggingwithCategory();
+          v16 = *(MEMORY[0x277D03988] + 3);
+          if (!os_log_type_enabled(v15, v16))
           {
             goto LABEL_50;
           }
 
-          v26 = 138412290;
-          v27 = v12;
-          v18 = "Predicate left value is not supported for right value type. Left value is :%@";
+          v25 = 138412290;
+          v26 = v11;
+          v17 = "Predicate left value is not supported for right value type. Left value is :%@";
           goto LABEL_49;
         }
 
         if (predicateOperatorType != 4)
         {
-          v16 = DALoggingwithCategory();
-          v17 = *(MEMORY[0x277D03988] + 3);
-          if (!os_log_type_enabled(v16, v17))
+          v15 = DALoggingwithCategory();
+          v16 = *(MEMORY[0x277D03988] + 3);
+          if (!os_log_type_enabled(v15, v16))
           {
             goto LABEL_50;
           }
 
-          v26 = 138412290;
-          v27 = v12;
-          v18 = "Predicate operator is not supported for given left value. Left value is :%@";
+          v25 = 138412290;
+          v26 = v11;
+          v17 = "Predicate operator is not supported for given left value. Left value is :%@";
           goto LABEL_49;
         }
 
@@ -229,32 +229,32 @@ LABEL_49:
       }
     }
 
-    v12 = DALoggingwithCategory();
-    v19 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v12, v19))
+    v11 = DALoggingwithCategory();
+    v18 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v11, v18))
     {
-      LOWORD(v26) = 0;
-      v20 = "Predicate left value is not string type or right value is not date, number, or string type for less, less than, greater, greater than, or equal operator type.";
+      LOWORD(v25) = 0;
+      v19 = "Predicate left value is not string type or right value is not date, number, or string type for less, less than, greater, greater than, or equal operator type.";
 LABEL_39:
-      v23 = v12;
-      v24 = v19;
-      v25 = 2;
+      v22 = v11;
+      v23 = v18;
+      v24 = 2;
       goto LABEL_40;
     }
 
     goto LABEL_51;
   }
 
-  v12 = constantValue;
-  if (([v12 isEqualToString:*MEMORY[0x277D03F40]]& 1) == 0 && ![v12 isEqualToString:*MEMORY[0x277D03F38]])
+  v11 = constantValue;
+  if (([v11 isEqualToString:*MEMORY[0x277D03F40]]& 1) == 0 && ![v11 isEqualToString:*MEMORY[0x277D03F38]])
   {
-    v16 = DALoggingwithCategory();
-    v17 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v16, v17))
+    v15 = DALoggingwithCategory();
+    v16 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v15, v16))
     {
-      v26 = 138412290;
-      v27 = v12;
-      v18 = "Predicate left value is not supported for less, less than, greater, greater than, or equal operator type. Left value is :%@";
+      v25 = 138412290;
+      v26 = v11;
+      v17 = "Predicate left value is not supported for less, less than, greater, greater than, or equal operator type. Left value is :%@";
       goto LABEL_49;
     }
 
@@ -264,7 +264,7 @@ LABEL_50:
   }
 
   v7 = objc_opt_new();
-  [v7 appendString:v12];
+  [v7 appendString:v11];
   [v7 appendString:off_278FC7ED8[predicateOperatorType]];
   activeSyncString = [constantValue2 activeSyncString];
   [v7 appendString:activeSyncString];
@@ -272,54 +272,52 @@ LABEL_50:
 LABEL_52:
 LABEL_4:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)getStringForCompoundPredicate:(id)predicate
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   compoundPredicateType = [predicateCopy compoundPredicateType];
   if (compoundPredicateType > 2)
   {
-    v29 = 0;
+    v28 = 0;
   }
 
   else
   {
-    v29 = off_278FC7F00[compoundPredicateType];
+    v28 = off_278FC7F00[compoundPredicateType];
   }
 
   if ([predicateCopy compoundPredicateType])
   {
     v6 = objc_opt_new();
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     subpredicates = [predicateCopy subpredicates];
-    v8 = [subpredicates countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v8 = [subpredicates countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (!v8)
     {
       goto LABEL_33;
     }
 
     v9 = v8;
-    v28 = predicateCopy;
-    v10 = *v31;
+    v27 = predicateCopy;
+    v10 = *v30;
     v11 = 1;
 LABEL_7:
     v12 = 0;
     while (1)
     {
-      if (*v31 != v10)
+      if (*v30 != v10)
       {
         objc_enumerationMutation(subpredicates);
       }
 
-      v13 = *(*(&v30 + 1) + 8 * v12);
+      v13 = *(*(&v29 + 1) + 8 * v12);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -337,21 +335,21 @@ LABEL_7:
       {
         v18 = @" ";
         [v6 appendString:@" "];
-        [v6 appendString:v29];
+        [v6 appendString:v28];
         v16 = v15;
 LABEL_19:
-        [v6 appendString:{v18, v28}];
+        [v6 appendString:{v18, v27}];
         goto LABEL_20;
       }
 
       v16 = v14;
 LABEL_20:
-      [v6 appendString:{v15, v28}];
+      [v6 appendString:{v15, v27}];
 
       v11 = 0;
       if (v9 == ++v12)
       {
-        v9 = [subpredicates countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v9 = [subpredicates countByEnumeratingWithState:&v29 objects:v33 count:16];
         v11 = 0;
         if (v9)
         {
@@ -359,7 +357,7 @@ LABEL_20:
         }
 
 LABEL_24:
-        predicateCopy = v28;
+        predicateCopy = v27;
 LABEL_33:
 
         goto LABEL_34;
@@ -379,11 +377,11 @@ LABEL_23:
     if ((v11 & 1) == 0)
     {
       [v6 appendString:@" "];
-      [v6 appendString:v29];
+      [v6 appendString:v28];
       [v6 appendString:@" "];
     }
 
-    objc_msgSend(v6, "appendString:", @"("), v28;
+    objc_msgSend(v6, "appendString:", @"("), v27;
     v15 = @"");
     v16 = v18;
     goto LABEL_19;
@@ -400,7 +398,7 @@ LABEL_23:
     v22 = [(ASMailboxSearchPredicate *)self getStringForPredicate:subpredicates];
     if (v22)
     {
-      v6 = [MEMORY[0x277CCAB68] stringWithString:v29];
+      v6 = [MEMORY[0x277CCAB68] stringWithString:v28];
       [v6 appendString:@" "];
       [v6 appendString:v22];
     }
@@ -419,14 +417,12 @@ LABEL_23:
   {
     subpredicates4 = [predicateCopy subpredicates];
     *buf = 134217984;
-    v36 = [subpredicates4 count];
+    v35 = [subpredicates4 count];
     _os_log_impl(&dword_24A0AC000, v23, v24, "Invalid NOT predicate, because it contains %lu subpredicates.", buf, 0xCu);
   }
 
   v6 = 0;
 LABEL_34:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

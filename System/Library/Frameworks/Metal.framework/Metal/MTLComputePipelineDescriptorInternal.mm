@@ -135,7 +135,7 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
   v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:31];
@@ -160,28 +160,28 @@
   }
 
   while (v7 != 31);
-  v39 = v6;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
+  v38 = v6;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   preloadedLibraries = self->_private.var0.preloadedLibraries;
-  v12 = [(NSArray *)p_private->var0.preloadedLibraries countByEnumeratingWithState:&v50 objects:v56 count:16];
+  v12 = [(NSArray *)p_private->var0.preloadedLibraries countByEnumeratingWithState:&v49 objects:v55 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v51;
+    v15 = *v50;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v51 != v15)
+        if (*v50 != v15)
         {
           objc_enumerationMutation(preloadedLibraries);
         }
 
-        v17 = *(*(&v50 + 1) + 8 * i);
+        v17 = *(*(&v49 + 1) + 8 * i);
         if (v14)
         {
           [v14 appendString:v5];
@@ -195,7 +195,7 @@
         [v14 appendString:{objc_msgSend(v17, "formattedDescription:", description + 8)}];
       }
 
-      v13 = [(NSArray *)preloadedLibraries countByEnumeratingWithState:&v50 objects:v56 count:16];
+      v13 = [(NSArray *)preloadedLibraries countByEnumeratingWithState:&v49 objects:v55 count:16];
     }
 
     while (v13);
@@ -206,28 +206,28 @@
     v14 = 0;
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v40 = p_private;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v39 = p_private;
   binaryArchives = p_private->binaryArchives;
-  v19 = [(NSArray *)binaryArchives countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v19 = [(NSArray *)binaryArchives countByEnumeratingWithState:&v45 objects:v54 count:16];
   if (v19)
   {
     v20 = v19;
     null4 = 0;
-    v22 = *v47;
+    v22 = *v46;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v47 != v22)
+        if (*v46 != v22)
         {
           objc_enumerationMutation(binaryArchives);
         }
 
-        v24 = *(*(&v46 + 1) + 8 * j);
+        v24 = *(*(&v45 + 1) + 8 * j);
         if (null4)
         {
           [null4 appendString:v5];
@@ -241,7 +241,7 @@
         [null4 appendString:{objc_msgSend(v24, "formattedDescription:", description + 8)}];
       }
 
-      v20 = [(NSArray *)binaryArchives countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v20 = [(NSArray *)binaryArchives countByEnumeratingWithState:&v45 objects:v54 count:16];
     }
 
     while (v20);
@@ -252,63 +252,63 @@
     null4 = 0;
   }
 
-  v43 = *&v40->requiredThreadsPerThreadgroup.width;
-  depth = v40->requiredThreadsPerThreadgroup.depth;
-  v45 = 0;
-  MTLSizeToNSArray(&v43, &v45);
+  v42 = *&v39->requiredThreadsPerThreadgroup.width;
+  depth = v39->requiredThreadsPerThreadgroup.depth;
+  v44 = 0;
+  MTLSizeToNSArray(&v42, &v44);
   v25 = MEMORY[0x1E695DF70];
-  v54[0] = v5;
-  v54[1] = @"label =";
-  label = v40->label;
-  computeFunction = v40->computeFunction;
-  if (!v40->label)
+  v53[0] = v5;
+  v53[1] = @"label =";
+  label = v39->label;
+  computeFunction = v39->computeFunction;
+  if (!v39->label)
   {
     label = @"<none>";
   }
 
-  v54[2] = label;
-  v54[3] = v5;
-  name = v40->name;
+  v53[2] = label;
+  v53[3] = v5;
+  name = v39->name;
   if (!name)
   {
     name = @"<none>";
   }
 
-  v54[4] = @"name =";
-  v54[5] = name;
-  v54[6] = v5;
-  v54[7] = @"computeFunction =";
+  v53[4] = @"name =";
+  v53[5] = name;
+  v53[6] = v5;
+  v53[7] = @"computeFunction =";
   null = [(MTLFunction *)computeFunction formattedDescription:description + 8];
   if (!null)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54[8] = null;
-  v54[9] = v5;
-  v54[10] = @"threadGroupSizeIsMultipleOfThreadExecutionWidth =";
-  v54[11] = [MEMORY[0x1E696AD98] numberWithBool:v40->threadGroupSizeIsMultipleOfThreadExecutionWidth];
-  v54[12] = v5;
-  v54[13] = @"maxTotalThreadsPerThreadgroup =";
-  v54[14] = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v40->maxTotalThreadsPerThreadgroup];
-  v54[15] = v5;
-  v54[16] = @"supportIndirectCommandBuffers =";
-  v54[17] = [MEMORY[0x1E696AD98] numberWithBool:v40->supportIndirectCommandBuffers];
-  v54[18] = v5;
-  v54[19] = @"textureWriteRoundingMode =";
-  v54[20] = MTLRoundingModeString(v40->textureWriteRoundingMode);
-  v54[21] = v5;
-  v54[22] = @"stageInputDescriptor =";
-  null2 = [(MTLStageInputOutputDescriptor *)v40->stageInputDescriptor formattedDescription:description + 8];
+  v53[8] = null;
+  v53[9] = v5;
+  v53[10] = @"threadGroupSizeIsMultipleOfThreadExecutionWidth =";
+  v53[11] = [MEMORY[0x1E696AD98] numberWithBool:v39->threadGroupSizeIsMultipleOfThreadExecutionWidth];
+  v53[12] = v5;
+  v53[13] = @"maxTotalThreadsPerThreadgroup =";
+  v53[14] = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v39->maxTotalThreadsPerThreadgroup];
+  v53[15] = v5;
+  v53[16] = @"supportIndirectCommandBuffers =";
+  v53[17] = [MEMORY[0x1E696AD98] numberWithBool:v39->supportIndirectCommandBuffers];
+  v53[18] = v5;
+  v53[19] = @"textureWriteRoundingMode =";
+  v53[20] = MTLRoundingModeString(v39->textureWriteRoundingMode);
+  v53[21] = v5;
+  v53[22] = @"stageInputDescriptor =";
+  null2 = [(MTLStageInputOutputDescriptor *)v39->stageInputDescriptor formattedDescription:description + 8];
   if (!null2)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54[23] = null2;
-  v54[24] = v5;
-  v54[25] = @"linkedFunctions =";
-  linkedFunctions = v40->linkedFunctions;
+  v53[23] = null2;
+  v53[24] = v5;
+  v53[25] = @"linkedFunctions =";
+  linkedFunctions = v39->linkedFunctions;
   if (linkedFunctions)
   {
     null3 = [(MTLLinkedFunctions *)linkedFunctions formattedDescription:description + 8];
@@ -319,75 +319,73 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54[26] = null3;
-  v54[27] = v5;
+  v53[26] = null3;
+  v53[27] = v5;
   v33 = @"YES";
-  if (!v40->supportAddingBinaryFunctions)
+  if (!v39->supportAddingBinaryFunctions)
   {
     v33 = @"NO";
   }
 
-  v54[28] = @"supportAddingBinaryFunctions =";
-  v54[29] = v33;
-  v54[30] = v5;
-  v54[31] = @"maxCallStackDepth =";
-  v54[32] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v40->maxStackCallDepth];
-  v54[33] = v5;
-  v54[34] = @"pipelineLibrary =";
-  pipelineLibrary = v40->pipelineLibrary;
+  v53[28] = @"supportAddingBinaryFunctions =";
+  v53[29] = v33;
+  v53[30] = v5;
+  v53[31] = @"maxCallStackDepth =";
+  v53[32] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v39->maxStackCallDepth];
+  v53[33] = v5;
+  v53[34] = @"pipelineLibrary =";
+  pipelineLibrary = v39->pipelineLibrary;
   if (!pipelineLibrary)
   {
     pipelineLibrary = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54[35] = pipelineLibrary;
-  v54[36] = v5;
+  v53[35] = pipelineLibrary;
+  v53[36] = v5;
   v35 = MEMORY[0x1E695E0F0];
   if (v14)
   {
     v35 = v14;
   }
 
-  v54[37] = @"preloadedLibraries =";
-  v54[38] = v35;
-  v54[39] = v5;
-  v54[40] = @"binaryArchives =";
+  v53[37] = @"preloadedLibraries =";
+  v53[38] = v35;
+  v53[39] = v5;
+  v53[40] = @"binaryArchives =";
   if (!null4)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54[41] = null4;
-  v54[42] = v5;
-  v54[43] = @"Needs custom border color samplers = ";
-  v54[44] = [MEMORY[0x1E696AD98] numberWithBool:v40->needsCustomBorderColorSamplers];
-  v54[45] = v5;
-  v54[46] = @"buffers = ";
-  v54[47] = v39;
-  v54[48] = v5;
-  v54[49] = @"forceResourceIndex =";
-  v54[50] = [MEMORY[0x1E696AD98] numberWithBool:v40->forceResourceIndex];
-  v54[51] = v5;
-  v54[52] = @"resourceIndex =";
-  v54[53] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v40->resourceIndex];
-  v54[54] = v5;
-  v54[55] = @"maxAccelerationStructureTraversalDepth =";
-  v54[56] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v40->maxAccelerationStructureTraversalDepth];
-  v54[57] = v5;
-  v54[58] = @"shaderValidation =";
-  v54[59] = [MEMORY[0x1E696AD98] numberWithInteger:v40->shaderValidation];
-  v54[60] = v5;
-  v54[61] = @"shaderValidationState =";
-  v54[62] = [MEMORY[0x1E696AD98] numberWithInteger:v40->shaderValidationState];
-  v54[63] = v5;
-  v54[64] = @"requiredThreadsPerThreadgroup =";
-  v54[65] = v45;
-  v36 = [v25 arrayWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v54, 66)}];
-  v42.receiver = selfCopy;
-  v42.super_class = MTLComputePipelineDescriptorInternal;
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLComputePipelineDescriptorInternal description](&v42, sel_description), objc_msgSend(v36, "componentsJoinedByString:", @" "];
-  v38 = *MEMORY[0x1E69E9840];
-  return result;
+  v53[41] = null4;
+  v53[42] = v5;
+  v53[43] = @"Needs custom border color samplers = ";
+  v53[44] = [MEMORY[0x1E696AD98] numberWithBool:v39->needsCustomBorderColorSamplers];
+  v53[45] = v5;
+  v53[46] = @"buffers = ";
+  v53[47] = v38;
+  v53[48] = v5;
+  v53[49] = @"forceResourceIndex =";
+  v53[50] = [MEMORY[0x1E696AD98] numberWithBool:v39->forceResourceIndex];
+  v53[51] = v5;
+  v53[52] = @"resourceIndex =";
+  v53[53] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v39->resourceIndex];
+  v53[54] = v5;
+  v53[55] = @"maxAccelerationStructureTraversalDepth =";
+  v53[56] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v39->maxAccelerationStructureTraversalDepth];
+  v53[57] = v5;
+  v53[58] = @"shaderValidation =";
+  v53[59] = [MEMORY[0x1E696AD98] numberWithInteger:v39->shaderValidation];
+  v53[60] = v5;
+  v53[61] = @"shaderValidationState =";
+  v53[62] = [MEMORY[0x1E696AD98] numberWithInteger:v39->shaderValidationState];
+  v53[63] = v5;
+  v53[64] = @"requiredThreadsPerThreadgroup =";
+  v53[65] = v44;
+  v36 = [v25 arrayWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v53, 66)}];
+  v41.receiver = selfCopy;
+  v41.super_class = MTLComputePipelineDescriptorInternal;
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLComputePipelineDescriptorInternal description](&v41, sel_description), objc_msgSend(v36, "componentsJoinedByString:", @" "];
 }
 
 - (void)reset
@@ -982,10 +980,10 @@ LABEL_3:
 
 - (void)setComputeFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLComputePipelineDescriptorInternal setComputeFunction:]", 861, @"computeFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLComputePipelineDescriptorInternal setComputeFunction:]", 861, @"computeFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 

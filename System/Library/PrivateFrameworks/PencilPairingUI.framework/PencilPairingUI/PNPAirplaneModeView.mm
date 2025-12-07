@@ -178,7 +178,7 @@
 
 - (id)_applePencilOff
 {
-  v2 = PencilPairingUIBundle();
+  v2 = PencilPairingUIBundle(self);
   v3 = [v2 localizedStringForKey:@"APPLE_PENCIL_OFF" value:&stru_286FDFDB8 table:0];
 
   return v3;
@@ -186,7 +186,7 @@
 
 - (id)_applePencilOn
 {
-  v2 = PencilPairingUIBundle();
+  v2 = PencilPairingUIBundle(self);
   v3 = [v2 localizedStringForKey:@"APPLE_PENCIL_ON" value:&stru_286FDFDB8 table:0];
 
   return v3;
@@ -194,7 +194,7 @@
 
 - (id)_turnOnString
 {
-  v2 = PencilPairingUIBundle();
+  v2 = PencilPairingUIBundle(self);
   v3 = [v2 localizedStringForKey:@"TURN_ON_BLUETOOTH" value:&stru_286FDFDB8 table:0];
 
   return v3;
@@ -202,7 +202,7 @@
 
 - (id)_bluetoothOnString
 {
-  v2 = PencilPairingUIBundle();
+  v2 = PencilPairingUIBundle(self);
   v3 = [v2 localizedStringForKey:@"BLUETOOTH_TURNED_ON" value:&stru_286FDFDB8 table:0];
 
   return v3;

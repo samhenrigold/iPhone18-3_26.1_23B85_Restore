@@ -98,9 +98,9 @@
   return v3;
 }
 
-void __29__AMSUIOAuthTask_performTask__block_invoke_2(uint64_t a1, void *a2, void *a3)
+void __29__AMSUIOAuthTask_performTask__block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E698C968] sharedAccountsConfig];
@@ -117,30 +117,29 @@ void __29__AMSUIOAuthTask_performTask__block_invoke_2(uint64_t a1, void *a2, voi
     {
       v10 = AMSLogKey();
       v11 = MEMORY[0x1E696AEC0];
-      v12 = *(a1 + 32);
-      v13 = objc_opt_class();
-      v14 = v13;
+      v12 = objc_opt_class();
+      v13 = v12;
       if (v10)
       {
         a1 = AMSLogKey();
-        [v11 stringWithFormat:@"%@: [%@] ", v14, a1];
+        [v11 stringWithFormat:@"%@: [%@] ", v13, a1];
       }
 
       else
       {
-        [v11 stringWithFormat:@"%@: ", v13];
+        [v11 stringWithFormat:@"%@: ", v12];
       }
-      v15 = ;
-      v22 = AMSHashIfNeeded();
+      v14 = ;
+      v20 = AMSHashIfNeeded();
       *buf = 138543618;
-      v25 = v15;
-      v26 = 2114;
-      v27 = v22;
+      v22 = v14;
+      v23 = 2114;
+      v24 = v20;
       _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Task finished successfully with a URL. url = %{public}@", buf, 0x16u);
       if (v10)
       {
 
-        v15 = a1;
+        v14 = a1;
       }
     }
   }
@@ -155,36 +154,33 @@ void __29__AMSUIOAuthTask_performTask__block_invoke_2(uint64_t a1, void *a2, voi
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = AMSLogKey();
-      v17 = MEMORY[0x1E696AEC0];
-      v18 = *(a1 + 32);
-      v19 = objc_opt_class();
-      v20 = v19;
-      if (v16)
+      v15 = AMSLogKey();
+      v16 = MEMORY[0x1E696AEC0];
+      v17 = objc_opt_class();
+      v18 = v17;
+      if (v15)
       {
         a1 = AMSLogKey();
-        [v17 stringWithFormat:@"%@: [%@] ", v20, a1];
+        [v16 stringWithFormat:@"%@: [%@] ", v18, a1];
       }
 
       else
       {
-        [v17 stringWithFormat:@"%@: ", v19];
+        [v16 stringWithFormat:@"%@: ", v17];
       }
-      v21 = ;
+      v19 = ;
       *buf = 138543618;
-      v25 = v21;
-      v26 = 2114;
-      v27 = v6;
+      v22 = v19;
+      v23 = 2114;
+      v24 = v6;
       _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Task finished with error. error = %{public}@", buf, 0x16u);
-      if (v16)
+      if (v15)
       {
 
-        v21 = a1;
+        v19 = a1;
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)presentationAnchorForWebAuthenticationSession:(id)session

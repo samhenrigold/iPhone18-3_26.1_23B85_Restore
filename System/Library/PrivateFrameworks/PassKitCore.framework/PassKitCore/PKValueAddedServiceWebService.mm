@@ -88,7 +88,7 @@ void __71__PKValueAddedServiceWebService_downloadMerchantPayloadWithCompletion__
 
   v7 = [MEMORY[0x1E695DFF8] URLWithString:v6];
   scheme = [v7 scheme];
-  if ([scheme isEqualToString:@"https"])
+  if (objc_msgSend_isEqualToString_(scheme))
   {
     v9 = 0;
   }
@@ -96,7 +96,7 @@ void __71__PKValueAddedServiceWebService_downloadMerchantPayloadWithCompletion__
   else
   {
     scheme2 = [v7 scheme];
-    if ([scheme2 isEqualToString:@"http"])
+    if (objc_msgSend_isEqualToString_(scheme2))
     {
       v9 = !PKAllowHTTP();
     }
@@ -142,7 +142,7 @@ void __60__PKValueAddedServiceWebService_downloadPassWithCompletion___block_invo
   if (*(a1 + 40))
   {
     v10 = [v8 MIMEType];
-    if ([v10 isEqualToString:@"application/vnd.apple.pkpass"])
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = [v8 expectedContentLength];
 

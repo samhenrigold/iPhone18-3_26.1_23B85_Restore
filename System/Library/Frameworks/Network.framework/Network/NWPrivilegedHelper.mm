@@ -140,7 +140,7 @@ LABEL_45:
   v9 = gLogObj;
   *buf = 136446210;
   v28 = "[NWPrivilegedHelper startXPCListener]_block_invoke";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null request", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v25 = 0;
@@ -375,154 +375,155 @@ LABEL_46:
 
 - (NWPrivilegedHelper)initWithQueue:(id)queue
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
+  v5 = queueCopy;
   if ((gIsHelper & 1) == 0)
   {
     gIsHelper = 1;
-    nw_allow_use_of_dispatch_internal();
+    nw_allow_use_of_dispatch_internal(queueCopy);
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
   }
 
-  v36.receiver = self;
-  v36.super_class = NWPrivilegedHelper;
-  v5 = [(NWPrivilegedHelper *)&v36 init];
-  v6 = v5;
-  if (v5)
+  v37.receiver = self;
+  v37.super_class = NWPrivilegedHelper;
+  v6 = [(NWPrivilegedHelper *)&v37 init];
+  v7 = v6;
+  if (v6)
   {
-    if (queueCopy)
+    if (v5)
     {
-      [(NWPrivilegedHelper *)v5 setQueue:queueCopy];
+      [(NWPrivilegedHelper *)v6 setQueue:v5];
     }
 
     else
     {
-      v7 = getMainQueue();
-      [(NWPrivilegedHelper *)v6 setQueue:v7];
+      v8 = getMainQueue();
+      [(NWPrivilegedHelper *)v7 setQueue:v8];
     }
 
-    queue = [(NWPrivilegedHelper *)v6 queue];
-    v9 = +[ManagedNetworkSettings sharedMNS];
-    [v9 setQueue:queue];
+    queue = [(NWPrivilegedHelper *)v7 queue];
+    v10 = +[ManagedNetworkSettings sharedMNS];
+    [v10 setQueue:queue];
 
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    [(NWPrivilegedHelper *)v6 setHandlers:dictionary];
+    [(NWPrivilegedHelper *)v7 setHandlers:dictionary];
 
-    v11 = [MEMORY[0x1E695DFA8] set];
-    [(NWPrivilegedHelper *)v6 setAllKnownEntitlementSet:v11];
+    v12 = [MEMORY[0x1E695DFA8] set];
+    [(NWPrivilegedHelper *)v7 setAllKnownEntitlementSet:v12];
 
-    [(NWPrivilegedHelper *)v6 registerHelperFunctions];
+    [(NWPrivilegedHelper *)v7 registerHelperFunctions];
     array = [MEMORY[0x1E695DF70] array];
-    [(NWPrivilegedHelper *)v6 setAllKnownEntitlementGroup:array];
+    [(NWPrivilegedHelper *)v7 setAllKnownEntitlementGroup:array];
 
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
-    allKnownEntitlementSet = [(NWPrivilegedHelper *)v6 allKnownEntitlementSet];
-    v14 = [allKnownEntitlementSet countByEnumeratingWithState:&v30 objects:v38 count:16];
-    if (v14)
+    v32 = 0u;
+    allKnownEntitlementSet = [(NWPrivilegedHelper *)v7 allKnownEntitlementSet];
+    v15 = [allKnownEntitlementSet countByEnumeratingWithState:&v31 objects:v39 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v31;
+      v16 = v15;
+      v17 = *v32;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v31 != v16)
+          if (*v32 != v17)
           {
             objc_enumerationMutation(allKnownEntitlementSet);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * i);
-          allKnownEntitlementGroup = [(NWPrivilegedHelper *)v6 allKnownEntitlementGroup];
-          v37 = v18;
-          v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
-          [allKnownEntitlementGroup addObject:v20];
+          v19 = *(*(&v31 + 1) + 8 * i);
+          allKnownEntitlementGroup = [(NWPrivilegedHelper *)v7 allKnownEntitlementGroup];
+          v38 = v19;
+          v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+          [allKnownEntitlementGroup addObject:v21];
         }
 
-        v15 = [allKnownEntitlementSet countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v16 = [allKnownEntitlementSet countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
-    [(NWPrivilegedHelper *)v6 setAllKnownEntitlementSet:0];
-    v21 = 0;
-    if ([(NWPrivilegedHelper *)v6 startXPCListener])
+    [(NWPrivilegedHelper *)v7 setAllKnownEntitlementSet:0];
+    v22 = 0;
+    if ([(NWPrivilegedHelper *)v7 startXPCListener])
     {
-      [(NWPrivilegedHelper *)v6 startThrottlePolicyEventListener];
-      v21 = v6;
+      [(NWPrivilegedHelper *)v7 startThrottlePolicyEventListener];
+      v22 = v7;
     }
 
     goto LABEL_16;
   }
 
-  v23 = __nwlog_obj();
+  v24 = __nwlog_obj();
   *buf = 136446210;
-  v40 = "[NWPrivilegedHelper initWithQueue:]";
-  v24 = _os_log_send_and_compose_impl();
+  v41 = "[NWPrivilegedHelper initWithQueue:]";
+  v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v34 = 0;
-  if (__nwlog_fault(v24, &type, &v34))
+  v35 = 0;
+  if (__nwlog_fault(v25, &type, &v35))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v25 = __nwlog_obj();
-      v26 = type;
-      if (os_log_type_enabled(v25, type))
+      v26 = __nwlog_obj();
+      v27 = type;
+      if (os_log_type_enabled(v26, type))
       {
         *buf = 136446210;
-        v40 = "[NWPrivilegedHelper initWithQueue:]";
-        v27 = "%{public}s [super init] failed";
+        v41 = "[NWPrivilegedHelper initWithQueue:]";
+        v28 = "%{public}s [super init] failed";
 LABEL_30:
-        _os_log_impl(&dword_181A37000, v25, v26, v27, buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v26, v27, v28, buf, 0xCu);
       }
     }
 
     else
     {
-      if (v34 == 1)
+      if (v35 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
-        v25 = __nwlog_obj();
-        v26 = type;
-        v29 = os_log_type_enabled(v25, type);
+        v26 = __nwlog_obj();
+        v27 = type;
+        v30 = os_log_type_enabled(v26, type);
         if (backtrace_string)
         {
-          if (v29)
+          if (v30)
           {
             *buf = 136446466;
-            v40 = "[NWPrivilegedHelper initWithQueue:]";
-            v41 = 2082;
-            v42 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v25, v26, "%{public}s [super init] failed, dumping backtrace:%{public}s", buf, 0x16u);
+            v41 = "[NWPrivilegedHelper initWithQueue:]";
+            v42 = 2082;
+            v43 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v26, v27, "%{public}s [super init] failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
           goto LABEL_32;
         }
 
-        if (!v29)
+        if (!v30)
         {
           goto LABEL_31;
         }
 
         *buf = 136446210;
-        v40 = "[NWPrivilegedHelper initWithQueue:]";
-        v27 = "%{public}s [super init] failed, no backtrace";
+        v41 = "[NWPrivilegedHelper initWithQueue:]";
+        v28 = "%{public}s [super init] failed, no backtrace";
         goto LABEL_30;
       }
 
-      v25 = __nwlog_obj();
-      v26 = type;
-      if (os_log_type_enabled(v25, type))
+      v26 = __nwlog_obj();
+      v27 = type;
+      if (os_log_type_enabled(v26, type))
       {
         *buf = 136446210;
-        v40 = "[NWPrivilegedHelper initWithQueue:]";
-        v27 = "%{public}s [super init] failed, backtrace limit exceeded";
+        v41 = "[NWPrivilegedHelper initWithQueue:]";
+        v28 = "%{public}s [super init] failed, backtrace limit exceeded";
         goto LABEL_30;
       }
     }
@@ -531,15 +532,15 @@ LABEL_31:
   }
 
 LABEL_32:
-  if (v24)
+  if (v25)
   {
-    free(v24);
+    free(v25);
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_16:
 
-  return v21;
+  return v22;
 }
 
 - (void)startThrottlePolicyEventListener
@@ -550,11 +551,11 @@ LABEL_16:
 
 void __54__NWPrivilegedHelper_startThrottlePolicyEventListener__block_invoke(uint64_t a1, void *a2)
 {
-  *&v40[13] = *MEMORY[0x1E69E9840];
+  *&v41[13] = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v32 = 0;
-  v31 = 4;
-  if (sysctlbyname("kern.ipc.io_policy.throttled", &v32, &v31, 0, 0))
+  v33 = 0;
+  v32 = 4;
+  if (sysctlbyname("kern.ipc.io_policy.throttled", &v33, &v32, 0, 0))
   {
     v3 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -566,30 +567,30 @@ void __54__NWPrivilegedHelper_startThrottlePolicyEventListener__block_invoke(uin
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-        v35 = 2082;
-        v36 = "kern.ipc.io_policy.throttled";
-        v37 = 1024;
-        v38 = 2;
+        v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+        v36 = 2082;
+        v37 = "kern.ipc.io_policy.throttled";
+        v38 = 1024;
+        v39 = 2;
         _os_log_impl(&dword_181A37000, v5, OS_LOG_TYPE_ERROR, "%{public}s sysctlbyname(%{public}s) read failed %{darwin.errno}d", buf, 0x1Cu);
       }
 
 LABEL_22:
-      v32 = -1;
+      v33 = -1;
       goto LABEL_23;
     }
 
     *buf = 136446722;
-    v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-    v35 = 2082;
-    v36 = "kern.ipc.io_policy.throttled";
-    v37 = 1024;
-    v38 = v3;
-    v6 = _os_log_send_and_compose_impl();
+    v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+    v36 = 2082;
+    v37 = "kern.ipc.io_policy.throttled";
+    v38 = 1024;
+    v39 = v3;
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s sysctlbyname(%{public}s) read failed %{darwin.errno}d", buf, 28);
 
     type = OS_LOG_TYPE_ERROR;
-    v29 = 0;
-    if (!__nwlog_fault(v6, &type, &v29))
+    v30 = 0;
+    if (!__nwlog_fault(v6, &type, &v30))
     {
 LABEL_20:
       if (v6)
@@ -609,11 +610,11 @@ LABEL_20:
       if (os_log_type_enabled(v7, type))
       {
         *buf = 136446722;
-        v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-        v35 = 2082;
-        v36 = "kern.ipc.io_policy.throttled";
-        v37 = 1024;
-        v38 = v3;
+        v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+        v36 = 2082;
+        v37 = "kern.ipc.io_policy.throttled";
+        v38 = 1024;
+        v39 = v3;
         v9 = "%{public}s sysctlbyname(%{public}s) read failed %{darwin.errno}d";
 LABEL_17:
         v13 = v7;
@@ -625,7 +626,7 @@ LABEL_18:
 
     else
     {
-      if (v29 == 1)
+      if (v30 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -638,13 +639,13 @@ LABEL_18:
           if (v12)
           {
             *buf = 136446978;
-            v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-            v35 = 2082;
-            v36 = "kern.ipc.io_policy.throttled";
-            v37 = 1024;
-            v38 = v3;
-            v39 = 2082;
-            *v40 = backtrace_string;
+            v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+            v36 = 2082;
+            v37 = "kern.ipc.io_policy.throttled";
+            v38 = 1024;
+            v39 = v3;
+            v40 = 2082;
+            *v41 = backtrace_string;
             _os_log_impl(&dword_181A37000, v7, v11, "%{public}s sysctlbyname(%{public}s) read failed %{darwin.errno}d, dumping backtrace:%{public}s", buf, 0x26u);
           }
 
@@ -658,11 +659,11 @@ LABEL_18:
         }
 
         *buf = 136446722;
-        v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-        v35 = 2082;
-        v36 = "kern.ipc.io_policy.throttled";
-        v37 = 1024;
-        v38 = v3;
+        v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+        v36 = 2082;
+        v37 = "kern.ipc.io_policy.throttled";
+        v38 = 1024;
+        v39 = v3;
         v9 = "%{public}s sysctlbyname(%{public}s) read failed %{darwin.errno}d, no backtrace";
         v13 = v7;
         v14 = v11;
@@ -676,11 +677,11 @@ LABEL_18:
       if (os_log_type_enabled(v7, type))
       {
         *buf = 136446722;
-        v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-        v35 = 2082;
-        v36 = "kern.ipc.io_policy.throttled";
-        v37 = 1024;
-        v38 = v3;
+        v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+        v36 = 2082;
+        v37 = "kern.ipc.io_policy.throttled";
+        v38 = 1024;
+        v39 = v3;
         v9 = "%{public}s sysctlbyname(%{public}s) read failed %{darwin.errno}d, backtrace limit exceeded";
         goto LABEL_17;
       }
@@ -693,12 +694,12 @@ LABEL_19:
 
 LABEL_23:
   v15 = xpc_dictionary_get_uint64(v2, "_State") & 1;
-  if (v15 == v32)
+  if (v15 == v33)
   {
     goto LABEL_48;
   }
 
-  if (sysctlbyname("kern.ipc.io_policy.throttled", 0, 0, &v32, 4uLL))
+  if (sysctlbyname("kern.ipc.io_policy.throttled", 0, 0, &v33, 4uLL))
   {
     v16 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -710,13 +711,13 @@ LABEL_23:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446978;
-        v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-        v35 = 2082;
-        v36 = "kern.ipc.io_policy.throttled";
-        v37 = 1024;
-        v38 = v15;
-        v39 = 1024;
-        *v40 = 2;
+        v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+        v36 = 2082;
+        v37 = "kern.ipc.io_policy.throttled";
+        v38 = 1024;
+        v39 = v15;
+        v40 = 1024;
+        *v41 = 2;
         _os_log_impl(&dword_181A37000, v18, OS_LOG_TYPE_ERROR, "%{public}s sysctlbyname(%{public}s) to %d failed %{darwin.errno}d", buf, 0x22u);
       }
 
@@ -724,18 +725,19 @@ LABEL_23:
     }
 
     *buf = 136446978;
-    v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-    v35 = 2082;
-    v36 = "kern.ipc.io_policy.throttled";
-    v37 = 1024;
-    v38 = v15;
-    v39 = 1024;
-    *v40 = v16;
-    v20 = _os_log_send_and_compose_impl();
+    v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+    v36 = 2082;
+    v37 = "kern.ipc.io_policy.throttled";
+    v38 = 1024;
+    v39 = v15;
+    v40 = 1024;
+    *v41 = v16;
+    LODWORD(v29) = 34;
+    v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s sysctlbyname(%{public}s) to %d failed %{darwin.errno}d", buf, v29);
 
     type = OS_LOG_TYPE_ERROR;
-    v29 = 0;
-    if (!__nwlog_fault(v20, &type, &v29))
+    v30 = 0;
+    if (!__nwlog_fault(v20, &type, &v30))
     {
       goto LABEL_46;
     }
@@ -749,13 +751,13 @@ LABEL_23:
       if (os_log_type_enabled(v21, type))
       {
         *buf = 136446978;
-        v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-        v35 = 2082;
-        v36 = "kern.ipc.io_policy.throttled";
-        v37 = 1024;
-        v38 = v15;
-        v39 = 1024;
-        *v40 = v16;
+        v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+        v36 = 2082;
+        v37 = "kern.ipc.io_policy.throttled";
+        v38 = 1024;
+        v39 = v15;
+        v40 = 1024;
+        *v41 = v16;
         v23 = "%{public}s sysctlbyname(%{public}s) to %d failed %{darwin.errno}d";
 LABEL_43:
         v27 = v21;
@@ -765,7 +767,7 @@ LABEL_44:
       }
     }
 
-    else if (v29 == 1)
+    else if (v30 == 1)
     {
       v24 = __nw_create_backtrace_string();
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -778,15 +780,15 @@ LABEL_44:
         if (v26)
         {
           *buf = 136447234;
-          v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-          v35 = 2082;
-          v36 = "kern.ipc.io_policy.throttled";
-          v37 = 1024;
-          v38 = v15;
-          v39 = 1024;
-          *v40 = v16;
-          v40[2] = 2082;
-          *&v40[3] = v24;
+          v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+          v36 = 2082;
+          v37 = "kern.ipc.io_policy.throttled";
+          v38 = 1024;
+          v39 = v15;
+          v40 = 1024;
+          *v41 = v16;
+          v41[2] = 2082;
+          *&v41[3] = v24;
           _os_log_impl(&dword_181A37000, v21, v25, "%{public}s sysctlbyname(%{public}s) to %d failed %{darwin.errno}d, dumping backtrace:%{public}s", buf, 0x2Cu);
         }
 
@@ -797,13 +799,13 @@ LABEL_44:
       if (v26)
       {
         *buf = 136446978;
-        v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-        v35 = 2082;
-        v36 = "kern.ipc.io_policy.throttled";
-        v37 = 1024;
-        v38 = v15;
-        v39 = 1024;
-        *v40 = v16;
+        v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+        v36 = 2082;
+        v37 = "kern.ipc.io_policy.throttled";
+        v38 = 1024;
+        v39 = v15;
+        v40 = 1024;
+        *v41 = v16;
         v23 = "%{public}s sysctlbyname(%{public}s) to %d failed %{darwin.errno}d, no backtrace";
         v27 = v21;
         v28 = v25;
@@ -820,13 +822,13 @@ LABEL_44:
       if (os_log_type_enabled(v21, type))
       {
         *buf = 136446978;
-        v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-        v35 = 2082;
-        v36 = "kern.ipc.io_policy.throttled";
-        v37 = 1024;
-        v38 = v15;
-        v39 = 1024;
-        *v40 = v16;
+        v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+        v36 = 2082;
+        v37 = "kern.ipc.io_policy.throttled";
+        v38 = 1024;
+        v39 = v15;
+        v40 = 1024;
+        *v41 = v16;
         v23 = "%{public}s sysctlbyname(%{public}s) to %d failed %{darwin.errno}d, backtrace limit exceeded";
         goto LABEL_43;
       }
@@ -847,13 +849,13 @@ LABEL_46:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446978;
-    v34 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
-    v35 = 2082;
-    v36 = "kern.ipc.io_policy.throttled";
-    v37 = 1024;
-    v38 = v15;
-    v39 = 1024;
-    *v40 = v32;
+    v35 = "[NWPrivilegedHelper startThrottlePolicyEventListener]_block_invoke";
+    v36 = 2082;
+    v37 = "kern.ipc.io_policy.throttled";
+    v38 = 1024;
+    v39 = v15;
+    v40 = 1024;
+    *v41 = v33;
     _os_log_impl(&dword_181A37000, v19, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s=%d (old=%d)", buf, 0x22u);
   }
 
@@ -879,7 +881,7 @@ LABEL_48:
     v31 = "[NWPrivilegedHelper startXPCListener]";
     v32 = 2082;
     v33 = networkd_privileged_service;
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s FATAL: xpc_connection_create_mach_service(%{public}s, LISTENER) failed", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -989,7 +991,7 @@ LABEL_48:
   v31 = "[NWPrivilegedHelper startXPCListener]";
   v32 = 2082;
   v33 = networkd_privileged_service;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s FATAL: xpc_connection_create_mach_service(%{public}s, LISTENER) - wrong type failed", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
   v28 = 0;
@@ -1168,7 +1170,7 @@ LABEL_50:
     *&buf[4] = "[NWPrivilegedHelper startXPCListener]_block_invoke";
     *&buf[12] = 2082;
     *&buf[14] = v6;
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s FATAL: XPC listener received error %{public}s", buf, 22);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -1264,7 +1266,7 @@ LABEL_48:
   v11 = gLogObj;
   *buf = 136446210;
   *&buf[4] = "[NWPrivilegedHelper startXPCListener]_block_invoke";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null msg", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   v32 = 0;
@@ -1492,7 +1494,7 @@ LABEL_51:
     v16 = gLogObj;
     *buf = 136446210;
     v99 = "[NWPrivilegedHelper registerHandlerFunction:type:allowedEntitlementGroup:]";
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s called with null handlerFunction", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v96 = 0;
@@ -1621,7 +1623,7 @@ LABEL_49:
     *v101 = v5;
     *&v101[4] = 2082;
     *&v101[6] = v15;
-    v40 = _os_log_send_and_compose_impl();
+    v40 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s Trying to reregister handler for type [%u] %{public}s", buf, 28);
 
     type = OS_LOG_TYPE_ERROR;
     v96 = 0;
@@ -1831,7 +1833,7 @@ LABEL_49:
             *&v101[6] = v54;
             v102 = 2114;
             v103 = v36;
-            v59 = _os_log_send_and_compose_impl();
+            v59 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v52, 16, "%{public}s Refusing to register handler for type [%u] %{public}s with invalid entitlement %{public}@", buf, 38);
 
             type = OS_LOG_TYPE_ERROR;
             v96 = 0;
@@ -2039,7 +2041,7 @@ LABEL_58:
   *v101 = v5;
   *&v101[4] = 2082;
   *&v101[6] = v58;
-  v40 = _os_log_send_and_compose_impl();
+  v40 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v56, 16, "%{public}s Refusing to register handler for type [%u] %{public}s without any entitlement", buf, 28);
 
   type = OS_LOG_TYPE_ERROR;
   v96 = 0;

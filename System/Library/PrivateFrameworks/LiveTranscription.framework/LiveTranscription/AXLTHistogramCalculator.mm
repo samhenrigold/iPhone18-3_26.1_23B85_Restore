@@ -39,11 +39,11 @@
 
 + (id)histogramForInt16MonoBuffer:(signed __int16 *)buffer samplesCount:(int64_t)count
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (buffer)
   {
     v6 = objc_opt_new();
-    v34 = objc_opt_new();
+    v33 = objc_opt_new();
     v7 = 0;
     v8 = 0;
     v9 = 0;
@@ -117,13 +117,13 @@
             }
 
             v21 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-            [v34 addObject:v21];
+            [v33 addObject:v21];
           }
         }
 
         else
         {
-          [v34 addObject:&unk_28681A5F8];
+          [v33 addObject:&unk_28681A5F8];
         }
       }
 
@@ -132,12 +132,12 @@
     }
 
     while (v9 != 16);
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v22 = v34;
-    v23 = [v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v22 = v33;
+    v23 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v23)
     {
       v24 = v23;
@@ -148,17 +148,17 @@
       }
 
       v26 = v25;
-      v27 = *v36;
+      v27 = *v35;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v36 != v27)
+          if (*v35 != v27)
           {
             objc_enumerationMutation(v22);
           }
 
-          [*(*(&v35 + 1) + 8 * i) floatValue];
+          [*(*(&v34 + 1) + 8 * i) floatValue];
           v30 = v29 * 0.9 / v26;
           if (v30 < 0.1)
           {
@@ -169,7 +169,7 @@
           [v6 addObject:v31];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v24);
@@ -181,14 +181,12 @@
     v6 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)histogramForFloat32MonoBuffer:(float *)buffer samplesCount:(int64_t)count
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (buffer)
   {
     v6 = objc_opt_new();
@@ -272,26 +270,26 @@
       v22 = 0.025;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v23 = v7;
-    v24 = [v23 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v34;
+      v26 = *v33;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v34 != v26)
+          if (*v33 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          [*(*(&v33 + 1) + 8 * i) floatValue];
+          [*(*(&v32 + 1) + 8 * i) floatValue];
           v29 = v28 * 0.9 / v22;
           if (v29 < 0.1)
           {
@@ -302,7 +300,7 @@
           [v6 addObject:v30];
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v25);
@@ -313,8 +311,6 @@
   {
     v6 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

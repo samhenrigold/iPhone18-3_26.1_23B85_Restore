@@ -1,51 +1,51 @@
-uint64_t xpc_compile(xpc_object_t *a1, uint64_t a2)
+_BYTE *xpc_compile(xpc_object_t *a1, uint64_t a2)
 {
-  v15 = 0;
-  v16[0] = 0;
-  v12 = a2;
-  v13 = 0;
-  v14 = &_free;
-  pthread_attr_init(&v21);
-  pthread_attr_setstacksize(&v21, 0x404000uLL);
-  pthread_create(v16, &v21, compile_thread_handler, &v12);
-  pthread_join(v16[0], 0);
+  v14 = 0;
+  v15[0] = 0;
+  v11 = a2;
+  v12 = 0;
+  v13 = &_free;
+  pthread_attr_init(&v20);
+  pthread_attr_setstacksize(&v20, 0x404000uLL);
+  pthread_create(v15, &v20, compile_thread_handler, &v11);
+  pthread_join(v15[0], 0);
   v3 = os_log_create("com.apple.mlcompiler.service.compiler", "Compilation");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = v13;
-    if (v13 && !*v13)
+    v4 = v12;
+    if (v12 && !*v12)
     {
       v4 = &unk_100002F16;
     }
 
     *buf = 136315394;
     *&buf[4] = v4;
-    v18 = 2048;
-    v19 = v15;
+    v17 = 2048;
+    v18 = v14;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Compilation completed: %s (%lfms)", buf, 0x16u);
   }
 
-  v20 = 1;
+  v19 = 1;
   strcpy(buf, "m");
-  v5 = v13;
-  if (v13 && !*v13)
+  v5 = v12;
+  if (v12 && !*v12)
   {
     v5 = &unk_100002F16;
   }
 
   v6 = xpc_string_create(v5);
-  v16[1] = v6;
+  v15[1] = v6;
   xpc_dictionary_set_value(*a1, buf, v6);
   if (v6)
   {
     xpc_release(v6);
   }
 
-  if (v20 < 0)
+  if (v19 < 0)
   {
     operator delete(*buf);
-    v7 = v13;
-    if (v13)
+    v7 = v12;
+    if (v12)
     {
       goto LABEL_13;
     }
@@ -53,8 +53,8 @@ uint64_t xpc_compile(xpc_object_t *a1, uint64_t a2)
 
   else
   {
-    v7 = v13;
-    if (v13)
+    v7 = v12;
+    if (v12)
     {
 LABEL_13:
       v8 = *v7 == 0;
@@ -65,7 +65,6 @@ LABEL_13:
   v8 = 0;
 LABEL_16:
   mlc::xpc_auto_message_t::set_ret(a1, v8);
-  v9 = *a1;
   xpc_dictionary_send_reply();
   if (*a1)
   {
@@ -73,11 +72,11 @@ LABEL_16:
   }
 
   *a1 = 0;
-  result = v13;
-  v13 = 0;
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    return (v14)(result, v10);
+    return (v13)(result, v9);
   }
 
   return result;
@@ -105,13 +104,11 @@ void conection_handler(_xpc_connection_s *a1)
 uint64_t compile_thread_handler(double *a1)
 {
   rep = std::chrono::steady_clock::now().__d_.__rep_;
-  v3 = **a1;
-  v4 = *(*a1 + 8);
-  v5 = mlc_model_compile();
+  v3 = mlc_model_compile();
   a1[3] = (std::chrono::steady_clock::now().__d_.__rep_ - rep) / 1000000.0;
-  v6 = *(a1 + 1);
-  *(a1 + 1) = v5;
-  if (v6)
+  v4 = *(a1 + 1);
+  *(a1 + 1) = v3;
+  if (v4)
   {
     (*(a1 + 2))();
   }
@@ -215,33 +212,33 @@ uint64_t *std::unique_ptr<mlc::xpc_dispatch_t>::reset[abi:ne200100](uint64_t *re
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<mlc::function_kind_t,std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>>,std::__unordered_map_hasher<mlc::function_kind_t,std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>,std::hash<mlc::function_kind_t>,std::equal_to<mlc::function_kind_t>,true>,std::__unordered_map_equal<mlc::function_kind_t,std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>,std::equal_to,std::hash,true>,std::allocator<std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>>>::__emplace_unique_key_args<mlc::function_kind_t,std::piecewise_construct_t const&,std::tuple<mlc::function_kind_t const&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<mlc::function_kind_t,std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>>,std::__unordered_map_hasher<mlc::function_kind_t,std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>,std::hash<mlc::function_kind_t>,std::equal_to<mlc::function_kind_t>,true>,std::__unordered_map_equal<mlc::function_kind_t,std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>,std::equal_to,std::hash,true>,std::allocator<std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>>>::__emplace_unique_key_args<mlc::function_kind_t,std::piecewise_construct_t const&,std::tuple<mlc::function_kind_t const&>,std::piecewise_construct_t const&<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -249,49 +246,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_11:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_11;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_100001DDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100001DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<mlc::function_kind_t,std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>>,mlc::xpc_auto_reply_t &&>,std::__hash_node_destructor<std::allocator<std::__hash_value_type<mlc::function_kind_t,std::function<BOOL ()(mlc::xpc_auto_reply_t &&,void *)>>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -449,14 +446,15 @@ void mlc::detail::dispatch_impl_t<void (&)(mlc::xpc_auto_reply_t,std::vector<cha
   }
 }
 
-void sub_100002288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13)
+void sub_100002288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (__p)
   {
     operator delete(__p);
   }
 
-  mlc::xpc_auto_reply_t::~xpc_auto_reply_t(&a13);
+  mlc::xpc_auto_reply_t::~xpc_auto_reply_t(va);
   _Unwind_Resume(a1);
 }
 

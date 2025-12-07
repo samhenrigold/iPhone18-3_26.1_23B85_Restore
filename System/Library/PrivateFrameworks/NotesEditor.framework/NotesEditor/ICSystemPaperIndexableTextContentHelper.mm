@@ -10,7 +10,7 @@
 
 - (PKDrawing)drawing
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5E660);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5E660, &unk_2154C6F40);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR___ICSystemPaperIndexableTextContentHelper_drawing;
@@ -32,7 +32,7 @@
 
 - (void)setDrawing:(id)drawing
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5E660);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5E660, &unk_2154C6F40);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   if (drawing)

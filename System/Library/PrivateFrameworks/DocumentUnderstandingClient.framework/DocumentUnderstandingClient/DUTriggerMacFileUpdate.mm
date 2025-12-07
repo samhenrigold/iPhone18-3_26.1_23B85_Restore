@@ -25,13 +25,13 @@
 
 + (void)sendDUNotification
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [self findDocUConnectionWithUser:{objc_msgSend(self, "beMobileUser")}];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DocumentUndersanding: Simulating DocU connection connection:%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DocumentUndersanding: Simulating DocU connection connection:%@", &v4, 0xCu);
   }
 
   if (v2)
@@ -41,8 +41,6 @@
     xpc_dictionary_set_int64(v3, "num_updates", 1);
     xpc_connection_send_message(v2, v3);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (unsigned)beMobileUser

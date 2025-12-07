@@ -10,7 +10,7 @@
 
 - (void)_af_validateAndFinalize
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   applicationIdentifier = [self applicationIdentifier];
 
   if (!applicationIdentifier)
@@ -20,9 +20,9 @@
       v3 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
-        v9 = 136315138;
-        v10 = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_validateAndFinalize]";
-        _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s NowPlaying reports we are playing, but we have no ApplicationDisplayID for who is playing", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_validateAndFinalize]";
+        _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s NowPlaying reports we are playing, but we have no ApplicationDisplayID for who is playing", &v8, 0xCu);
       }
     }
 
@@ -35,11 +35,11 @@
       {
         v6 = v5;
         listeningToItem2 = [self listeningToItem];
-        v9 = 136315394;
-        v10 = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_validateAndFinalize]";
-        v11 = 2112;
-        v12 = listeningToItem2;
-        _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s We have a NowPlaying listeningToItem but no ApplicationDisplayID for it %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_validateAndFinalize]";
+        v10 = 2112;
+        v11 = listeningToItem2;
+        _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s We have a NowPlaying listeningToItem but no ApplicationDisplayID for it %@", &v8, 0x16u);
       }
     }
 
@@ -49,13 +49,11 @@
     [self setSource:0];
     [self setPlaybackRate:0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_af_setNowPlayingInfo:()SiriMediaRemoteHelpers mediaType:
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v6 = AFValidatedNowPlayingInfo(a3);
   v7 = [v6 objectForKey:*MEMORY[0x1E69B0F20]];
   bOOLValue = [v7 BOOLValue];
@@ -146,11 +144,11 @@ LABEL_14:
       v33 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
-        *v61 = 136315394;
-        *&v61[4] = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_setNowPlayingInfo:mediaType:]";
-        *&v61[12] = 2048;
-        *&v61[14] = v32;
-        _os_log_impl(&dword_1912FE000, v33, OS_LOG_TYPE_INFO, "%s infoToNowOffset = %g", v61, 0x16u);
+        *v60 = 136315394;
+        *&v60[4] = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_setNowPlayingInfo:mediaType:]";
+        *&v60[12] = 2048;
+        *&v60[14] = v32;
+        _os_log_impl(&dword_1912FE000, v33, OS_LOG_TYPE_INFO, "%s infoToNowOffset = %g", v60, 0x16u);
       }
     }
 
@@ -163,11 +161,11 @@ LABEL_14:
     v35 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
-      *v61 = 136315394;
-      *&v61[4] = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_setNowPlayingInfo:mediaType:]";
-      *&v61[12] = 2112;
-      *&v61[14] = v34;
-      _os_log_impl(&dword_1912FE000, v35, OS_LOG_TYPE_INFO, "%s playbackRate = %@", v61, 0x16u);
+      *v60 = 136315394;
+      *&v60[4] = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_setNowPlayingInfo:mediaType:]";
+      *&v60[12] = 2112;
+      *&v60[14] = v34;
+      _os_log_impl(&dword_1912FE000, v35, OS_LOG_TYPE_INFO, "%s playbackRate = %@", v60, 0x16u);
     }
 
     if (v34)
@@ -177,11 +175,11 @@ LABEL_14:
       v37 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
-        *v61 = 136315394;
-        *&v61[4] = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_setNowPlayingInfo:mediaType:]";
-        *&v61[12] = 2048;
-        *&v61[14] = v32;
-        _os_log_impl(&dword_1912FE000, v37, OS_LOG_TYPE_INFO, "%s adjusted infoToNowOffset = %g", v61, 0x16u);
+        *v60 = 136315394;
+        *&v60[4] = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_setNowPlayingInfo:mediaType:]";
+        *&v60[12] = 2048;
+        *&v60[14] = v32;
+        _os_log_impl(&dword_1912FE000, v37, OS_LOG_TYPE_INFO, "%s adjusted infoToNowOffset = %g", v60, 0x16u);
       }
     }
 
@@ -210,11 +208,11 @@ LABEL_14:
     v42 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
-      *v61 = 136315394;
-      *&v61[4] = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_setNowPlayingInfo:mediaType:]";
-      *&v61[12] = 2048;
-      *&v61[14] = v41;
-      _os_log_impl(&dword_1912FE000, v42, OS_LOG_TYPE_INFO, "%s calculatedElapsedTime = %g", v61, 0x16u);
+      *v60 = 136315394;
+      *&v60[4] = "[SAMPQueueState(SiriMediaRemoteHelpers) _af_setNowPlayingInfo:mediaType:]";
+      *&v60[12] = 2048;
+      *&v60[14] = v41;
+      _os_log_impl(&dword_1912FE000, v42, OS_LOG_TYPE_INFO, "%s calculatedElapsedTime = %g", v60, 0x16u);
     }
 
     [v22 setPlaybackPositionMillis:(v41 * 1000.0)];
@@ -291,13 +289,13 @@ LABEL_48:
   if ([v54 count])
   {
     v55 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    *v61 = MEMORY[0x1E69E9820];
-    *&v61[8] = 3221225472;
-    *&v61[16] = ___ListeningToContainerFromNowPlayingInfo_block_invoke;
-    v62 = &unk_1E7347DC8;
+    *v60 = MEMORY[0x1E69E9820];
+    *&v60[8] = 3221225472;
+    *&v60[16] = ___ListeningToContainerFromNowPlayingInfo_block_invoke;
+    v61 = &unk_1E7347DC8;
     v56 = v55;
-    v63 = v56;
-    [v54 enumerateKeysAndObjectsUsingBlock:v61];
+    v62 = v56;
+    [v54 enumerateKeysAndObjectsUsingBlock:v60];
   }
 
   else
@@ -305,9 +303,9 @@ LABEL_48:
     v57 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
-      *v61 = 136315138;
-      *&v61[4] = "_ListeningToContainerFromNowPlayingInfo";
-      _os_log_impl(&dword_1912FE000, v57, OS_LOG_TYPE_INFO, "%s No container info", v61, 0xCu);
+      *v60 = 136315138;
+      *&v60[4] = "_ListeningToContainerFromNowPlayingInfo";
+      _os_log_impl(&dword_1912FE000, v57, OS_LOG_TYPE_INFO, "%s No container info", v60, 0xCu);
     }
 
     v56 = 0;
@@ -317,8 +315,6 @@ LABEL_48:
   [self _af_setShuffleModeFromNowPlayingInfo:v6];
   v58 = AFLanguageOptionsForNowPlayingInfo(v6);
   [self setAudioAndSubtitleLanguageOptions:v58];
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_af_setShuffleModeFromNowPlayingInfo:()SiriMediaRemoteHelpers
@@ -341,7 +337,7 @@ LABEL_48:
 - (id)_mediaTypeFromNowPlayingInfo:()SiriMediaRemoteHelpers
 {
   v3 = [a3 objectForKey:*MEMORY[0x1E69B0F70]];
-  if ([v3 isEqualToString:*MEMORY[0x1E69B1060]] & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69B0DE8]) & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69B0DF0]) & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69B0DD0]))
+  if (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E69C8058];
 LABEL_6:
@@ -349,7 +345,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if ([v3 isEqualToString:*MEMORY[0x1E69B1068]])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E69C8060];
     goto LABEL_6;
@@ -363,7 +359,7 @@ LABEL_7:
 
 - (id)_mediaItemIdURLFromNowPlayingInfo:()SiriMediaRemoteHelpers
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = AFGetCurrentItemAdamIDFromNowPlayingInfo(v3);
   stringValue = [v4 stringValue];
@@ -375,12 +371,12 @@ LABEL_7:
     goto LABEL_3;
   }
 
-  v11 = [v3 objectForKey:*MEMORY[0x1E69B0F00]];
-  if (v11)
+  v10 = [v3 objectForKey:*MEMORY[0x1E69B0F00]];
+  if (v10)
   {
-    v12 = v11;
+    v11 = v10;
     uRLPathAllowedCharacterSet = [MEMORY[0x1E696AB08] URLPathAllowedCharacterSet];
-    stringValue2 = [v12 stringByAddingPercentEncodingWithAllowedCharacters:uRLPathAllowedCharacterSet];
+    stringValue2 = [v11 stringByAddingPercentEncodingWithAllowedCharacters:uRLPathAllowedCharacterSet];
 
     if (stringValue2)
     {
@@ -389,8 +385,8 @@ LABEL_7:
     }
   }
 
-  v14 = [v3 objectForKey:*MEMORY[0x1E69B1070]];
-  if (!v14)
+  v13 = [v3 objectForKey:*MEMORY[0x1E69B1070]];
+  if (!v13)
   {
     goto LABEL_19;
   }
@@ -399,7 +395,7 @@ LABEL_7:
   if (objc_opt_isKindOfClass())
   {
     uRLPathAllowedCharacterSet2 = [MEMORY[0x1E696AB08] URLPathAllowedCharacterSet];
-    stringValue2 = [v14 stringByAddingPercentEncodingWithAllowedCharacters:uRLPathAllowedCharacterSet2];
+    stringValue2 = [v13 stringByAddingPercentEncodingWithAllowedCharacters:uRLPathAllowedCharacterSet2];
 
     goto LABEL_14;
   }
@@ -407,18 +403,18 @@ LABEL_7:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v16 = AFSiriLogContextDaemon;
+    v15 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
-      v17 = v16;
-      v19 = 136315650;
-      v20 = "_DeviceIdFromNowPlayingInfo";
-      v21 = 2112;
-      v22 = objc_opt_class();
-      v23 = 2112;
-      v24 = v14;
-      v18 = v22;
-      _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, "%s Bad NowPlaying Info, kMRMediaRemoteNowPlayingInfoUniqueIdentifier gave unexpected item of class %@,  %@", &v19, 0x20u);
+      v16 = v15;
+      v18 = 136315650;
+      v19 = "_DeviceIdFromNowPlayingInfo";
+      v20 = 2112;
+      v21 = objc_opt_class();
+      v22 = 2112;
+      v23 = v13;
+      v17 = v21;
+      _os_log_impl(&dword_1912FE000, v16, OS_LOG_TYPE_INFO, "%s Bad NowPlaying Info, kMRMediaRemoteNowPlayingInfoUniqueIdentifier gave unexpected item of class %@,  %@", &v18, 0x20u);
     }
 
 LABEL_19:
@@ -428,7 +424,7 @@ LABEL_19:
     goto LABEL_3;
   }
 
-  stringValue2 = [v14 stringValue];
+  stringValue2 = [v13 stringValue];
 LABEL_14:
 
   if (stringValue2)
@@ -443,8 +439,6 @@ LABEL_14:
 
 LABEL_3:
   v8 = _AFMediaIdURLFromHostAndIdentifier(v7, stringValue2);
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

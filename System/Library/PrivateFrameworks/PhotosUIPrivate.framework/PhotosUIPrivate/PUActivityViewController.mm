@@ -1521,7 +1521,7 @@ void __110__PUActivityViewController_activityItemSourceController_willBeginPrepa
   itemSourceController = self->_itemSourceController;
   if (itemSourceController)
   {
-    [(PUActivityItemSourceController *)itemSourceController requestAssetsMediaTypeCount];
+    objc_msgSend_requestAssetsMediaTypeCount(itemSourceController);
   }
 
   PXMediaTypeForAssets();
@@ -2209,7 +2209,7 @@ void __74__PUActivityViewController__customizationGroupsForActivityViewControlle
   result = self->_itemSourceController;
   if (result)
   {
-    return [(PXAssetMediaTypeCount *)result requestAssetsMediaTypeCount];
+    return objc_msgSend_requestAssetsMediaTypeCount(result, a3);
   }
 
   return result;

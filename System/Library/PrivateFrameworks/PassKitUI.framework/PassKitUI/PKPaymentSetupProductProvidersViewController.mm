@@ -206,24 +206,24 @@ void __72__PKPaymentSetupProductProvidersViewController_preflightWithCompletion_
   dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
-uint64_t __72__PKPaymentSetupProductProvidersViewController_preflightWithCompletion___block_invoke_4(uint64_t a1)
+uint64_t __72__PKPaymentSetupProductProvidersViewController_preflightWithCompletion___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (v2)
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [*(a1 + 40) setObject:v2 forKeyedSubscript:*(a1 + 48)];
+    [*(a1 + 40) setObject:v3 forKeyedSubscript:*(a1 + 48)];
   }
 
   else
   {
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 56);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "App Clip not available with error: %@", &v6, 0xCu);
+      v5 = *(a1 + 56);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "App Clip not available with error: %@", &v7, 0xCu);
     }
   }
 

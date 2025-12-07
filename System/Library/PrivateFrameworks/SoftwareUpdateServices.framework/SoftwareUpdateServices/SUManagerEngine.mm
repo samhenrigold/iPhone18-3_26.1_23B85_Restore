@@ -19,6 +19,7 @@
 - (id)rollbackPolicy;
 - (id)updatePolicy;
 - (int64_t)actionUnknownAction:(id)action error:(id *)error;
+- (int64_t)action_ActivatedHelper:(BOOL)helper;
 - (int64_t)action_ArmInstallOrFail:(id)fail error:(id *)error;
 - (int64_t)action_BrainLoaded:(id)loaded error:(id *)error;
 - (int64_t)action_Cancel:(id)cancel error:(id *)error;
@@ -105,818 +106,817 @@
 
 + (id)_generateStateTable
 {
-  v458[18] = *MEMORY[0x277D85DE8];
-  v457[0] = *MEMORY[0x277D643F0];
-  v455[0] = @"DownloadAndPrepare";
-  v453 = *MEMORY[0x277D644B0];
-  v2 = v453;
-  v454 = @"ReportDownloadFailedNoUpdate";
-  v160 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v454 forKeys:&v453 count:1];
-  v456[0] = v160;
-  v455[1] = @"InstallUpdate";
-  v451 = v2;
-  v452 = @"ReportInstallFailedNoUpdate";
-  v159 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v452 forKeys:&v451 count:1];
-  v456[1] = v159;
-  v455[2] = @"RollbackRequested";
-  v449 = v2;
-  v450 = *MEMORY[0x277D64380];
-  v127 = v450;
-  v158 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v450 forKeys:&v449 count:1];
-  v456[2] = v158;
-  v455[3] = @"ActivateNoPersisted";
-  v447[0] = *MEMORY[0x277D647F8];
-  v3 = v447[0];
-  v447[1] = v2;
-  v448[0] = @"RemovingAll";
-  v448[1] = @"RemoveAll";
-  v157 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v448 forKeys:v447 count:2];
-  v456[3] = v157;
-  v455[4] = @"ActivateHavePersisted";
-  v445[0] = v3;
-  v445[1] = v2;
-  v446[0] = @"RemovingExceptPreserved";
-  v446[1] = @"RemovePreserving";
-  v156 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v446 forKeys:v445 count:2];
-  v456[4] = v156;
-  v155 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v456 forKeys:v455 count:5];
-  v458[0] = v155;
-  v457[1] = @"RemovingExceptPreserved";
-  v443[0] = @"DownloadAndPrepare";
-  v441[0] = v3;
-  v441[1] = v2;
-  v442[0] = @"CancelingDownloadRequested";
-  v442[1] = @"NewDownloadPending";
-  v154 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v442 forKeys:v441 count:2];
-  v444[0] = v154;
-  v443[1] = @"InstallUpdate";
-  v439 = v2;
-  v440 = @"ReportInstallFailedNoUpdate";
-  v153 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v440 forKeys:&v439 count:1];
-  v444[1] = v153;
-  v443[2] = @"RemoveUpdate";
-  v437 = v3;
-  v438 = @"CancelingRemoveRequested";
-  v152 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v438 forKeys:&v437 count:1];
-  v444[2] = v152;
-  v443[3] = @"RollbackRequested";
-  v435 = v3;
-  v436 = @"CancelingRollbackRequested";
-  v151 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v436 forKeys:&v435 count:1];
-  v444[3] = v151;
-  v443[4] = @"PreservedInvalid";
-  v433[0] = v3;
-  v433[1] = v2;
-  v434[0] = @"RemovingAll";
-  v434[1] = @"RemoveAll";
-  v150 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v434 forKeys:v433 count:2];
-  v444[4] = v150;
-  v443[5] = @"PreservedValidated";
+  v457[18] = *MEMORY[0x277D85DE8];
+  v456[0] = *MEMORY[0x277D643F0];
+  v454[0] = @"DownloadAndPrepare";
+  v452 = *MEMORY[0x277D644B0];
+  v2 = v452;
+  v453 = @"ReportDownloadFailedNoUpdate";
+  v159 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v453 forKeys:&v452 count:1];
+  v455[0] = v159;
+  v454[1] = @"InstallUpdate";
+  v450 = v2;
+  v451 = @"ReportInstallFailedNoUpdate";
+  v158 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v451 forKeys:&v450 count:1];
+  v455[1] = v158;
+  v454[2] = @"RollbackRequested";
+  v448 = v2;
+  v449 = *MEMORY[0x277D64380];
+  v126 = v449;
+  v157 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v449 forKeys:&v448 count:1];
+  v455[2] = v157;
+  v454[3] = @"ActivateNoPersisted";
+  v446[0] = *MEMORY[0x277D647F8];
+  v3 = v446[0];
+  v446[1] = v2;
+  v447[0] = @"RemovingAll";
+  v447[1] = @"RemoveAll";
+  v156 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v447 forKeys:v446 count:2];
+  v455[3] = v156;
+  v454[4] = @"ActivateHavePersisted";
+  v444[0] = v3;
+  v444[1] = v2;
+  v445[0] = @"RemovingExceptPreserved";
+  v445[1] = @"RemovePreserving";
+  v155 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v445 forKeys:v444 count:2];
+  v455[4] = v155;
+  v154 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v455 forKeys:v454 count:5];
+  v457[0] = v154;
+  v456[1] = @"RemovingExceptPreserved";
+  v442[0] = @"DownloadAndPrepare";
+  v440[0] = v3;
+  v440[1] = v2;
+  v441[0] = @"CancelingDownloadRequested";
+  v441[1] = @"NewDownloadPending";
+  v153 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v441 forKeys:v440 count:2];
+  v443[0] = v153;
+  v442[1] = @"InstallUpdate";
+  v438 = v2;
+  v439 = @"ReportInstallFailedNoUpdate";
+  v152 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v439 forKeys:&v438 count:1];
+  v443[1] = v152;
+  v442[2] = @"RemoveUpdate";
+  v436 = v3;
+  v437 = @"CancelingRemoveRequested";
+  v151 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v437 forKeys:&v436 count:1];
+  v443[2] = v151;
+  v442[3] = @"RollbackRequested";
+  v434 = v3;
+  v435 = @"CancelingRollbackRequested";
+  v150 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v435 forKeys:&v434 count:1];
+  v443[3] = v150;
+  v442[4] = @"PreservedInvalid";
+  v432[0] = v3;
+  v432[1] = v2;
+  v433[0] = @"RemovingAll";
+  v433[1] = @"RemoveAll";
+  v149 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v433 forKeys:v432 count:2];
+  v443[4] = v149;
+  v442[5] = @"PreservedValidated";
   v4 = *MEMORY[0x277D643D0];
-  v431[0] = v3;
-  v431[1] = v2;
+  v430[0] = v3;
+  v430[1] = v2;
   v5 = *MEMORY[0x277D64360];
-  v432[0] = v4;
-  v432[1] = v5;
-  v149 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v432 forKeys:v431 count:2];
-  v444[5] = v149;
-  v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v444 forKeys:v443 count:6];
-  v458[1] = v148;
-  v457[2] = @"RemovingAll";
-  v429[0] = @"DownloadAndPrepare";
-  v427[0] = v3;
-  v427[1] = v2;
-  v428[0] = @"RemovingAllDownloadRequested";
-  v428[1] = @"NewDownloadPending";
-  v147 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v428 forKeys:v427 count:2];
-  v430[0] = v147;
-  v429[1] = @"InstallUpdate";
-  v425 = v2;
-  v426 = @"ReportInstallFailedNoUpdate";
-  v146 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v426 forKeys:&v425 count:1];
-  v430[1] = v146;
-  v429[2] = @"RemoveUpdate";
-  v423 = v2;
-  v424 = *MEMORY[0x277D647D8];
-  v164 = v424;
-  v145 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v424 forKeys:&v423 count:1];
-  v430[2] = v145;
-  v429[3] = @"RollbackRequested";
-  v421 = v3;
-  v422 = @"RemovingAllRollbackRequested";
-  v144 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v422 forKeys:&v421 count:1];
-  v430[3] = v144;
-  v429[4] = @"RemovedAll";
-  v165 = *MEMORY[0x277D643E0];
-  v419[0] = v3;
-  v419[1] = v2;
-  v420[0] = v165;
-  v420[1] = @"ActivatedClean";
-  v143 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v420 forKeys:v419 count:2];
-  v430[4] = v143;
-  v142 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v430 forKeys:v429 count:5];
-  v458[2] = v142;
-  v457[3] = @"RemovingAllDownloadRequested";
-  v417[0] = @"DownloadAndPrepare";
-  v415 = v2;
-  v416 = @"NewDownloadPending";
-  v141 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v416 forKeys:&v415 count:1];
-  v418[0] = v141;
-  v417[1] = @"InstallUpdate";
-  v413 = v2;
-  v414 = @"ReportInstallFailedNoUpdate";
-  v140 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v414 forKeys:&v413 count:1];
-  v418[1] = v140;
-  v417[2] = @"RemoveUpdate";
-  v411 = v3;
-  v412 = @"RemovingAll";
-  v139 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v412 forKeys:&v411 count:1];
-  v418[2] = v139;
-  v417[3] = @"RollbackRequested";
-  v409 = v3;
-  v410 = @"RemovingAllRollbackRequested";
-  v138 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v410 forKeys:&v409 count:1];
-  v418[3] = v138;
-  v417[4] = @"RemovedAll";
-  v407 = v2;
-  v408 = @"HandlePendingDownload";
-  v137 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v408 forKeys:&v407 count:1];
-  v418[4] = v137;
-  v417[5] = @"ReadyToDownload";
-  v405[0] = v3;
-  v405[1] = v2;
-  v406[0] = v4;
-  v406[1] = v5;
-  v136 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v406 forKeys:v405 count:2];
-  v418[5] = v136;
-  v135 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v418 forKeys:v417 count:6];
-  v458[3] = v135;
-  v457[4] = @"RemovingAllRollbackRequested";
-  v403[0] = @"DownloadAndPrepare";
-  v401 = v2;
-  v402 = @"ReportDownloadFailedRollingBack";
-  v134 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v402 forKeys:&v401 count:1];
-  v404[0] = v134;
-  v403[1] = @"InstallUpdate";
-  v399 = v2;
-  v400 = @"ReportInstallFailedRollingBack";
-  v133 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v400 forKeys:&v399 count:1];
-  v404[1] = v133;
-  v403[2] = @"RemoveUpdate";
-  v397 = v2;
-  v398 = v164;
-  v132 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v398 forKeys:&v397 count:1];
-  v404[2] = v132;
-  v403[3] = @"RollbackRequested";
-  v395 = v2;
-  v396 = v164;
-  v131 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v396 forKeys:&v395 count:1];
-  v404[3] = v131;
-  v403[4] = @"RemovedAll";
-  v393 = v2;
-  v394 = @"HandleCanceledPendingRollback";
-  v130 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v394 forKeys:&v393 count:1];
-  v404[4] = v130;
-  v403[5] = @"ReadyToRollback";
-  v391[0] = v3;
-  v391[1] = v2;
-  v392[0] = @"RollingBack";
-  v392[1] = @"PerformRollback";
-  v129 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v392 forKeys:v391 count:2];
-  v404[5] = v129;
-  v128 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v404 forKeys:v403 count:6];
-  v458[4] = v128;
-  v457[5] = @"CancelingDownloadRequested";
-  v389[0] = @"DownloadAndPrepare";
-  v387 = v2;
-  v388 = @"NewDownloadPending";
-  v126 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v388 forKeys:&v387 count:1];
-  v390[0] = v126;
-  v389[1] = @"InstallUpdate";
-  v385 = v2;
-  v386 = @"ReportInstallFailedNoUpdate";
-  v125 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v386 forKeys:&v385 count:1];
-  v390[1] = v125;
-  v389[2] = @"RemoveUpdate";
-  v383 = v3;
-  v384 = @"CancelingRemoveRequested";
-  v124 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v384 forKeys:&v383 count:1];
-  v390[2] = v124;
-  v389[3] = @"RollbackRequested";
-  v381 = v3;
-  v382 = @"CancelingRollbackRequested";
-  v123 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v382 forKeys:&v381 count:1];
-  v390[3] = v123;
-  v389[4] = @"UpdateCanceled";
-  v379 = v2;
-  v380 = @"CanceledDownloadRequested";
-  v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v380 forKeys:&v379 count:1];
-  v390[4] = v122;
-  v389[5] = @"UpdateFailed";
-  v377 = v2;
-  v378 = @"CanceledDownloadRequested";
-  v121 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v378 forKeys:&v377 count:1];
-  v390[5] = v121;
-  v389[6] = @"PreservedInvalid";
-  v375 = v2;
-  v376 = @"CanceledDownloadRequested";
-  v120 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v376 forKeys:&v375 count:1];
-  v390[6] = v120;
-  v389[7] = @"PreservedValidated";
-  v373 = v2;
-  v374 = @"CanceledDownloadRequested";
-  v119 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v374 forKeys:&v373 count:1];
-  v390[7] = v119;
-  v389[8] = @"ReadyToDownload";
-  v371[0] = v3;
-  v371[1] = v2;
-  v372[0] = @"RemovingExceptPreserved";
-  v372[1] = @"RemovePreserving";
-  v118 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v372 forKeys:v371 count:2];
-  v390[8] = v118;
-  v117 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v390 forKeys:v389 count:9];
-  v458[5] = v117;
-  v457[6] = @"CancelingRollbackRequested";
-  v369[0] = @"DownloadAndPrepare";
-  v367 = v2;
-  v368 = @"ReportDownloadFailedRollingBack";
-  v116 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v368 forKeys:&v367 count:1];
-  v370[0] = v116;
-  v369[1] = @"InstallUpdate";
-  v365 = v2;
-  v366 = @"ReportInstallFailedRollingBack";
-  v115 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v366 forKeys:&v365 count:1];
-  v370[1] = v115;
-  v369[2] = @"RemoveUpdate";
-  v363 = v2;
-  v364 = v164;
-  v114 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v364 forKeys:&v363 count:1];
-  v370[2] = v114;
-  v369[3] = @"RollbackRequested";
-  v361 = v2;
-  v362 = v164;
-  v113 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v362 forKeys:&v361 count:1];
-  v370[3] = v113;
-  v369[4] = @"UpdateCanceled";
-  v359 = v2;
-  v360 = @"HandleCanceledPendingRollback";
-  v112 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v360 forKeys:&v359 count:1];
-  v370[4] = v112;
-  v369[5] = @"UpdateFailed";
-  v357 = v2;
-  v358 = @"HandleCanceledPendingRollback";
-  v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v358 forKeys:&v357 count:1];
-  v370[5] = v111;
-  v369[6] = @"PreservedInvalid";
-  v355 = v2;
-  v356 = @"HandleCanceledPendingRollback";
-  v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v356 forKeys:&v355 count:1];
-  v370[6] = v110;
-  v369[7] = @"PreservedValidated";
-  v353 = v2;
-  v354 = @"HandleCanceledPendingRollback";
-  v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v354 forKeys:&v353 count:1];
-  v370[7] = v109;
-  v369[8] = @"ReadyToRollback";
-  v351[0] = v3;
-  v351[1] = v2;
-  v352[0] = @"RollingBack";
-  v352[1] = @"PerformRollback";
-  v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v352 forKeys:v351 count:2];
-  v370[8] = v108;
-  v107 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v370 forKeys:v369 count:9];
-  v458[6] = v107;
-  v457[7] = @"CancelingRemoveRequested";
-  v349[0] = @"DownloadAndPrepare";
-  v347[0] = v3;
-  v347[1] = v2;
-  v348[0] = @"CancelingDownloadRequested";
-  v348[1] = @"NewDownloadPending";
-  v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v348 forKeys:v347 count:2];
-  v350[0] = v106;
-  v349[1] = @"InstallUpdate";
-  v345 = v2;
-  v346 = @"ReportInstallFailedNoUpdate";
-  v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v346 forKeys:&v345 count:1];
-  v350[1] = v105;
-  v349[2] = @"RemoveUpdate";
-  v343 = v2;
-  v344 = v164;
-  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v344 forKeys:&v343 count:1];
-  v350[2] = v104;
-  v349[3] = @"RollbackRequested";
-  v341 = v3;
-  v342 = @"CancelingRollbackRequested";
-  v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v342 forKeys:&v341 count:1];
-  v350[3] = v103;
-  v349[4] = @"UpdateCanceled";
-  v339[0] = v3;
-  v339[1] = v2;
-  v340[0] = @"RemovingAll";
-  v340[1] = @"RemoveAll";
-  v102 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v340 forKeys:v339 count:2];
-  v350[4] = v102;
-  v349[5] = @"UpdateFailed";
-  v337[0] = v3;
-  v337[1] = v2;
-  v338[0] = @"RemovingAll";
-  v338[1] = @"RemoveAll";
-  v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v338 forKeys:v337 count:2];
-  v350[5] = v101;
-  v349[6] = @"PreservedValidated";
-  v335[0] = v3;
-  v335[1] = v2;
-  v336[0] = @"RemovingAll";
-  v336[1] = @"RemoveAll";
-  v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v336 forKeys:v335 count:2];
-  v350[6] = v100;
-  v349[7] = @"PreservedInvalid";
-  v333[0] = v3;
-  v333[1] = v2;
-  v334[0] = @"RemovingAll";
-  v334[1] = @"RemoveAll";
-  v99 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v334 forKeys:v333 count:2];
-  v350[7] = v99;
-  v98 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v350 forKeys:v349 count:8];
-  v458[7] = v98;
-  v457[8] = v165;
-  v331[0] = @"DownloadAndPrepare";
-  v329[0] = v3;
-  v329[1] = v2;
-  v330[0] = v4;
-  v330[1] = v5;
-  v97 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v330 forKeys:v329 count:2];
-  v332[0] = v97;
-  v331[1] = @"InstallUpdate";
-  v327 = v2;
-  v328 = @"ReportInstallFailedNoUpdate";
-  v96 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v328 forKeys:&v327 count:1];
-  v332[1] = v96;
-  v331[2] = @"RemoveUpdate";
-  v325[0] = v3;
-  v325[1] = v2;
-  v326[0] = @"RemovingAll";
-  v326[1] = @"RemoveAll";
-  v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v326 forKeys:v325 count:2];
-  v332[2] = v95;
-  v331[3] = @"RollbackRequested";
-  v323 = v2;
-  v324 = @"HandlePendingRollback";
-  v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v324 forKeys:&v323 count:1];
-  v332[3] = v94;
-  v331[4] = @"ReadyToRollback";
-  v321[0] = v3;
-  v321[1] = v2;
-  v322[0] = @"RollingBack";
-  v322[1] = @"PerformRollback";
-  v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v322 forKeys:v321 count:2];
-  v332[4] = v93;
-  v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v332 forKeys:v331 count:5];
-  v458[8] = v92;
-  v457[9] = v4;
-  v319[0] = @"DownloadAndPrepare";
-  v317[0] = v3;
-  v317[1] = v2;
-  v318[0] = @"CancelingDownloadRequested";
-  v318[1] = @"Cancel";
-  v91 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v318 forKeys:v317 count:2];
-  v320[0] = v91;
-  v319[1] = @"InstallUpdate";
-  v315 = v2;
-  v316 = @"ArmInstallOrFail";
-  v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v316 forKeys:&v315 count:1];
-  v320[1] = v90;
-  v319[2] = @"RemoveUpdate";
-  v313[0] = v3;
-  v313[1] = v2;
-  v314[0] = @"CancelingRemoveRequested";
-  v314[1] = @"Cancel";
-  v89 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v314 forKeys:v313 count:2];
-  v320[2] = v89;
-  v319[3] = @"RollbackRequested";
-  v311[0] = v3;
-  v311[1] = v2;
-  v312[0] = @"CancelingRollbackRequested";
-  v312[1] = @"Cancel";
-  v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v312 forKeys:v311 count:2];
-  v320[3] = v88;
-  v319[4] = @"BrainLoading";
-  v309 = v2;
-  v310 = @"Activated";
-  v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v310 forKeys:&v309 count:1];
-  v320[4] = v87;
-  v319[5] = *MEMORY[0x277D643B0];
-  v307 = v2;
-  v308 = @"BrainLoaded";
-  v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v308 forKeys:&v307 count:1];
-  v320[5] = v86;
-  v319[6] = @"BrainLoaded";
-  v305[0] = v3;
-  v305[1] = v2;
-  v306[0] = @"DownloadAndPrepare";
-  v306[1] = @"DownloadAndPrepare";
-  v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v306 forKeys:v305 count:2];
-  v320[6] = v85;
-  v319[7] = @"AlreadyDownloaded";
-  v303[0] = v3;
-  v303[1] = v2;
-  v304[0] = @"DownloadAndPrepare";
-  v304[1] = @"Prepare";
-  v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v304 forKeys:v303 count:2];
-  v320[7] = v84;
-  v319[8] = @"PrepareInterrupted";
+  v431[0] = v4;
+  v431[1] = v5;
+  v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v431 forKeys:v430 count:2];
+  v443[5] = v148;
+  v147 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v443 forKeys:v442 count:6];
+  v457[1] = v147;
+  v456[2] = @"RemovingAll";
+  v428[0] = @"DownloadAndPrepare";
+  v426[0] = v3;
+  v426[1] = v2;
+  v427[0] = @"RemovingAllDownloadRequested";
+  v427[1] = @"NewDownloadPending";
+  v146 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v427 forKeys:v426 count:2];
+  v429[0] = v146;
+  v428[1] = @"InstallUpdate";
+  v424 = v2;
+  v425 = @"ReportInstallFailedNoUpdate";
+  v145 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v425 forKeys:&v424 count:1];
+  v429[1] = v145;
+  v428[2] = @"RemoveUpdate";
+  v422 = v2;
+  v423 = *MEMORY[0x277D647D8];
+  v163 = v423;
+  v144 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v423 forKeys:&v422 count:1];
+  v429[2] = v144;
+  v428[3] = @"RollbackRequested";
+  v420 = v3;
+  v421 = @"RemovingAllRollbackRequested";
+  v143 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v421 forKeys:&v420 count:1];
+  v429[3] = v143;
+  v428[4] = @"RemovedAll";
+  v164 = *MEMORY[0x277D643E0];
+  v418[0] = v3;
+  v418[1] = v2;
+  v419[0] = v164;
+  v419[1] = @"ActivatedClean";
+  v142 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v419 forKeys:v418 count:2];
+  v429[4] = v142;
+  v141 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v429 forKeys:v428 count:5];
+  v457[2] = v141;
+  v456[3] = @"RemovingAllDownloadRequested";
+  v416[0] = @"DownloadAndPrepare";
+  v414 = v2;
+  v415 = @"NewDownloadPending";
+  v140 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v415 forKeys:&v414 count:1];
+  v417[0] = v140;
+  v416[1] = @"InstallUpdate";
+  v412 = v2;
+  v413 = @"ReportInstallFailedNoUpdate";
+  v139 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v413 forKeys:&v412 count:1];
+  v417[1] = v139;
+  v416[2] = @"RemoveUpdate";
+  v410 = v3;
+  v411 = @"RemovingAll";
+  v138 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v411 forKeys:&v410 count:1];
+  v417[2] = v138;
+  v416[3] = @"RollbackRequested";
+  v408 = v3;
+  v409 = @"RemovingAllRollbackRequested";
+  v137 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v409 forKeys:&v408 count:1];
+  v417[3] = v137;
+  v416[4] = @"RemovedAll";
+  v406 = v2;
+  v407 = @"HandlePendingDownload";
+  v136 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v407 forKeys:&v406 count:1];
+  v417[4] = v136;
+  v416[5] = @"ReadyToDownload";
+  v404[0] = v3;
+  v404[1] = v2;
+  v405[0] = v4;
+  v405[1] = v5;
+  v135 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v405 forKeys:v404 count:2];
+  v417[5] = v135;
+  v134 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v417 forKeys:v416 count:6];
+  v457[3] = v134;
+  v456[4] = @"RemovingAllRollbackRequested";
+  v402[0] = @"DownloadAndPrepare";
+  v400 = v2;
+  v401 = @"ReportDownloadFailedRollingBack";
+  v133 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v401 forKeys:&v400 count:1];
+  v403[0] = v133;
+  v402[1] = @"InstallUpdate";
+  v398 = v2;
+  v399 = @"ReportInstallFailedRollingBack";
+  v132 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v399 forKeys:&v398 count:1];
+  v403[1] = v132;
+  v402[2] = @"RemoveUpdate";
+  v396 = v2;
+  v397 = v163;
+  v131 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v397 forKeys:&v396 count:1];
+  v403[2] = v131;
+  v402[3] = @"RollbackRequested";
+  v394 = v2;
+  v395 = v163;
+  v130 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v395 forKeys:&v394 count:1];
+  v403[3] = v130;
+  v402[4] = @"RemovedAll";
+  v392 = v2;
+  v393 = @"HandleCanceledPendingRollback";
+  v129 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v393 forKeys:&v392 count:1];
+  v403[4] = v129;
+  v402[5] = @"ReadyToRollback";
+  v390[0] = v3;
+  v390[1] = v2;
+  v391[0] = @"RollingBack";
+  v391[1] = @"PerformRollback";
+  v128 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v391 forKeys:v390 count:2];
+  v403[5] = v128;
+  v127 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v403 forKeys:v402 count:6];
+  v457[4] = v127;
+  v456[5] = @"CancelingDownloadRequested";
+  v388[0] = @"DownloadAndPrepare";
+  v386 = v2;
+  v387 = @"NewDownloadPending";
+  v125 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v387 forKeys:&v386 count:1];
+  v389[0] = v125;
+  v388[1] = @"InstallUpdate";
+  v384 = v2;
+  v385 = @"ReportInstallFailedNoUpdate";
+  v124 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v385 forKeys:&v384 count:1];
+  v389[1] = v124;
+  v388[2] = @"RemoveUpdate";
+  v382 = v3;
+  v383 = @"CancelingRemoveRequested";
+  v123 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v383 forKeys:&v382 count:1];
+  v389[2] = v123;
+  v388[3] = @"RollbackRequested";
+  v380 = v3;
+  v381 = @"CancelingRollbackRequested";
+  v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v381 forKeys:&v380 count:1];
+  v389[3] = v122;
+  v388[4] = @"UpdateCanceled";
+  v378 = v2;
+  v379 = @"CanceledDownloadRequested";
+  v121 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v379 forKeys:&v378 count:1];
+  v389[4] = v121;
+  v388[5] = @"UpdateFailed";
+  v376 = v2;
+  v377 = @"CanceledDownloadRequested";
+  v120 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v377 forKeys:&v376 count:1];
+  v389[5] = v120;
+  v388[6] = @"PreservedInvalid";
+  v374 = v2;
+  v375 = @"CanceledDownloadRequested";
+  v119 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v375 forKeys:&v374 count:1];
+  v389[6] = v119;
+  v388[7] = @"PreservedValidated";
+  v372 = v2;
+  v373 = @"CanceledDownloadRequested";
+  v118 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v373 forKeys:&v372 count:1];
+  v389[7] = v118;
+  v388[8] = @"ReadyToDownload";
+  v370[0] = v3;
+  v370[1] = v2;
+  v371[0] = @"RemovingExceptPreserved";
+  v371[1] = @"RemovePreserving";
+  v117 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v371 forKeys:v370 count:2];
+  v389[8] = v117;
+  v116 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v389 forKeys:v388 count:9];
+  v457[5] = v116;
+  v456[6] = @"CancelingRollbackRequested";
+  v368[0] = @"DownloadAndPrepare";
+  v366 = v2;
+  v367 = @"ReportDownloadFailedRollingBack";
+  v115 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v367 forKeys:&v366 count:1];
+  v369[0] = v115;
+  v368[1] = @"InstallUpdate";
+  v364 = v2;
+  v365 = @"ReportInstallFailedRollingBack";
+  v114 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v365 forKeys:&v364 count:1];
+  v369[1] = v114;
+  v368[2] = @"RemoveUpdate";
+  v362 = v2;
+  v363 = v163;
+  v113 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v363 forKeys:&v362 count:1];
+  v369[2] = v113;
+  v368[3] = @"RollbackRequested";
+  v360 = v2;
+  v361 = v163;
+  v112 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v361 forKeys:&v360 count:1];
+  v369[3] = v112;
+  v368[4] = @"UpdateCanceled";
+  v358 = v2;
+  v359 = @"HandleCanceledPendingRollback";
+  v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v359 forKeys:&v358 count:1];
+  v369[4] = v111;
+  v368[5] = @"UpdateFailed";
+  v356 = v2;
+  v357 = @"HandleCanceledPendingRollback";
+  v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v357 forKeys:&v356 count:1];
+  v369[5] = v110;
+  v368[6] = @"PreservedInvalid";
+  v354 = v2;
+  v355 = @"HandleCanceledPendingRollback";
+  v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v355 forKeys:&v354 count:1];
+  v369[6] = v109;
+  v368[7] = @"PreservedValidated";
+  v352 = v2;
+  v353 = @"HandleCanceledPendingRollback";
+  v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v353 forKeys:&v352 count:1];
+  v369[7] = v108;
+  v368[8] = @"ReadyToRollback";
+  v350[0] = v3;
+  v350[1] = v2;
+  v351[0] = @"RollingBack";
+  v351[1] = @"PerformRollback";
+  v107 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v351 forKeys:v350 count:2];
+  v369[8] = v107;
+  v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v369 forKeys:v368 count:9];
+  v457[6] = v106;
+  v456[7] = @"CancelingRemoveRequested";
+  v348[0] = @"DownloadAndPrepare";
+  v346[0] = v3;
+  v346[1] = v2;
+  v347[0] = @"CancelingDownloadRequested";
+  v347[1] = @"NewDownloadPending";
+  v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v347 forKeys:v346 count:2];
+  v349[0] = v105;
+  v348[1] = @"InstallUpdate";
+  v344 = v2;
+  v345 = @"ReportInstallFailedNoUpdate";
+  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v345 forKeys:&v344 count:1];
+  v349[1] = v104;
+  v348[2] = @"RemoveUpdate";
+  v342 = v2;
+  v343 = v163;
+  v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v343 forKeys:&v342 count:1];
+  v349[2] = v103;
+  v348[3] = @"RollbackRequested";
+  v340 = v3;
+  v341 = @"CancelingRollbackRequested";
+  v102 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v341 forKeys:&v340 count:1];
+  v349[3] = v102;
+  v348[4] = @"UpdateCanceled";
+  v338[0] = v3;
+  v338[1] = v2;
+  v339[0] = @"RemovingAll";
+  v339[1] = @"RemoveAll";
+  v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v339 forKeys:v338 count:2];
+  v349[4] = v101;
+  v348[5] = @"UpdateFailed";
+  v336[0] = v3;
+  v336[1] = v2;
+  v337[0] = @"RemovingAll";
+  v337[1] = @"RemoveAll";
+  v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v337 forKeys:v336 count:2];
+  v349[5] = v100;
+  v348[6] = @"PreservedValidated";
+  v334[0] = v3;
+  v334[1] = v2;
+  v335[0] = @"RemovingAll";
+  v335[1] = @"RemoveAll";
+  v99 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v335 forKeys:v334 count:2];
+  v349[6] = v99;
+  v348[7] = @"PreservedInvalid";
+  v332[0] = v3;
+  v332[1] = v2;
+  v333[0] = @"RemovingAll";
+  v333[1] = @"RemoveAll";
+  v98 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v333 forKeys:v332 count:2];
+  v349[7] = v98;
+  v97 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v349 forKeys:v348 count:8];
+  v457[7] = v97;
+  v456[8] = v164;
+  v330[0] = @"DownloadAndPrepare";
+  v328[0] = v3;
+  v328[1] = v2;
+  v329[0] = v4;
+  v329[1] = v5;
+  v96 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v329 forKeys:v328 count:2];
+  v331[0] = v96;
+  v330[1] = @"InstallUpdate";
+  v326 = v2;
+  v327 = @"ReportInstallFailedNoUpdate";
+  v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v327 forKeys:&v326 count:1];
+  v331[1] = v95;
+  v330[2] = @"RemoveUpdate";
+  v324[0] = v3;
+  v324[1] = v2;
+  v325[0] = @"RemovingAll";
+  v325[1] = @"RemoveAll";
+  v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v325 forKeys:v324 count:2];
+  v331[2] = v94;
+  v330[3] = @"RollbackRequested";
+  v322 = v2;
+  v323 = @"HandlePendingRollback";
+  v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v323 forKeys:&v322 count:1];
+  v331[3] = v93;
+  v330[4] = @"ReadyToRollback";
+  v320[0] = v3;
+  v320[1] = v2;
+  v321[0] = @"RollingBack";
+  v321[1] = @"PerformRollback";
+  v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v321 forKeys:v320 count:2];
+  v331[4] = v92;
+  v91 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v331 forKeys:v330 count:5];
+  v457[8] = v91;
+  v456[9] = v4;
+  v318[0] = @"DownloadAndPrepare";
+  v316[0] = v3;
+  v316[1] = v2;
+  v317[0] = @"CancelingDownloadRequested";
+  v317[1] = @"Cancel";
+  v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v317 forKeys:v316 count:2];
+  v319[0] = v90;
+  v318[1] = @"InstallUpdate";
+  v314 = v2;
+  v315 = @"ArmInstallOrFail";
+  v89 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v315 forKeys:&v314 count:1];
+  v319[1] = v89;
+  v318[2] = @"RemoveUpdate";
+  v312[0] = v3;
+  v312[1] = v2;
+  v313[0] = @"CancelingRemoveRequested";
+  v313[1] = @"Cancel";
+  v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v313 forKeys:v312 count:2];
+  v319[2] = v88;
+  v318[3] = @"RollbackRequested";
+  v310[0] = v3;
+  v310[1] = v2;
+  v311[0] = @"CancelingRollbackRequested";
+  v311[1] = @"Cancel";
+  v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v311 forKeys:v310 count:2];
+  v319[3] = v87;
+  v318[4] = @"BrainLoading";
+  v308 = v2;
+  v309 = @"Activated";
+  v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v309 forKeys:&v308 count:1];
+  v319[4] = v86;
+  v318[5] = *MEMORY[0x277D643B0];
+  v306 = v2;
+  v307 = @"BrainLoaded";
+  v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v307 forKeys:&v306 count:1];
+  v319[5] = v85;
+  v318[6] = @"BrainLoaded";
+  v304[0] = v3;
+  v304[1] = v2;
+  v305[0] = @"DownloadAndPrepare";
+  v305[1] = @"DownloadAndPrepare";
+  v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v305 forKeys:v304 count:2];
+  v319[6] = v84;
+  v318[7] = @"AlreadyDownloaded";
+  v302[0] = v3;
+  v302[1] = v2;
+  v303[0] = @"DownloadAndPrepare";
+  v303[1] = @"Prepare";
+  v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v303 forKeys:v302 count:2];
+  v319[7] = v83;
+  v318[8] = @"PrepareInterrupted";
   v6 = *MEMORY[0x277D643E8];
-  v301[0] = v3;
-  v301[1] = v2;
+  v300[0] = v3;
+  v300[1] = v2;
   v7 = *MEMORY[0x277D64390];
-  v302[0] = v6;
-  v302[1] = v7;
-  v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v302 forKeys:v301 count:2];
-  v320[8] = v83;
-  v319[9] = @"AlreadyPrepared";
+  v301[0] = v6;
+  v301[1] = v7;
+  v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v301 forKeys:v300 count:2];
+  v319[8] = v82;
+  v318[9] = @"AlreadyPrepared";
   v8 = *MEMORY[0x277D643D8];
-  v299[0] = v3;
-  v299[1] = v2;
-  v300[0] = v8;
-  v300[1] = @"ReportPreparedSet";
-  v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v300 forKeys:v299 count:2];
-  v320[9] = v82;
-  v319[10] = @"ArmedInstall";
-  v49 = *MEMORY[0x277D643C0];
-  v297[0] = v3;
-  v297[1] = v2;
-  v298[0] = v49;
-  v298[1] = @"InstallArmed";
-  v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v298 forKeys:v297 count:2];
-  v320[10] = v81;
-  v319[11] = @"UpdateProgress";
-  v295 = v2;
-  v296 = *MEMORY[0x277D64370];
-  v46 = v296;
-  v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v296 forKeys:&v295 count:1];
-  v320[11] = v80;
-  v319[12] = @"UpdateFailed";
-  v293 = v2;
-  v294 = @"CheckLockAndNetwork";
-  v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v294 forKeys:&v293 count:1];
-  v320[12] = v79;
-  v319[13] = @"Unlocked";
-  v291 = v2;
-  v292 = @"ReloadBrain";
-  v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v292 forKeys:&v291 count:1];
-  v320[13] = v78;
-  v319[14] = @"WaitUnlock";
-  v289 = v3;
-  v290 = @"WaitingFirstUnlock";
-  v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v290 forKeys:&v289 count:1];
-  v320[14] = v77;
-  v319[15] = @"WaitNetwork";
-  v287 = v3;
-  v288 = @"WaitingNetwork";
-  v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v288 forKeys:&v287 count:1];
-  v320[15] = v76;
-  v319[16] = *MEMORY[0x277D643A8];
-  v285[0] = v3;
-  v285[1] = v2;
-  v286[0] = @"CancelingRemoveRequested";
-  v286[1] = @"ReportDownloadFailedRemoveAll";
-  v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v286 forKeys:v285 count:2];
-  v320[16] = v75;
-  v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v320 forKeys:v319 count:17];
-  v458[9] = v74;
-  v457[10] = v6;
-  v279[0] = @"DownloadAndPrepare";
-  v277[0] = v3;
-  v277[1] = v2;
-  v278[0] = @"CancelingDownloadRequested";
-  v278[1] = @"Cancel";
-  v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v278 forKeys:v277 count:2];
-  v284[0] = v73;
-  v279[1] = @"InstallUpdate";
-  v275 = v2;
-  v276 = @"ReportInstallFailedNoUpdate";
-  v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v276 forKeys:&v275 count:1];
-  v284[1] = v72;
-  v279[2] = @"RemoveUpdate";
-  v273[0] = v3;
-  v273[1] = v2;
-  v274[0] = @"CancelingRemoveRequested";
-  v274[1] = @"Cancel";
-  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v274 forKeys:v273 count:2];
-  v284[2] = v71;
-  v279[3] = @"RollbackRequested";
-  v271[0] = v3;
-  v271[1] = v2;
-  v272[0] = @"CancelingRollbackRequested";
-  v272[1] = @"Cancel";
-  v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v272 forKeys:v271 count:2];
-  v284[3] = v70;
-  v279[4] = @"ApplyFailedDone";
-  v269 = v2;
-  v270 = @"RemoveAllPreserveCache";
-  v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v270 forKeys:&v269 count:1];
-  v284[4] = v69;
-  v280 = *MEMORY[0x277D64398];
-  v42 = v280;
-  v267 = v2;
-  v268 = @"RemoveAllPreserveCache";
-  v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v268 forKeys:&v267 count:1];
-  v284[5] = v68;
-  v281 = @"RemovedAllPreservedCache";
-  v265 = v2;
-  v266 = @"CanceledDownloadRequested";
-  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v266 forKeys:&v265 count:1];
-  v284[6] = v67;
-  v282 = @"ReadyToDownload";
-  v263[0] = v3;
-  v263[1] = v2;
-  v264[0] = v4;
-  v264[1] = v5;
-  v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v264 forKeys:v263 count:2];
-  v284[7] = v66;
-  v283 = *MEMORY[0x277D643B8];
-  v44 = v283;
-  v261[0] = v3;
-  v261[1] = v2;
-  v40 = *MEMORY[0x277D64378];
-  v262[0] = v8;
-  v262[1] = v40;
-  v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v262 forKeys:v261 count:2];
-  v284[8] = v65;
-  v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v284 forKeys:v279 count:9];
-  v458[10] = v64;
-  v457[11] = @"WaitingFirstUnlock";
-  v259[0] = @"DownloadAndPrepare";
-  v257[0] = v3;
-  v257[1] = v2;
-  v258[0] = @"CancelingDownloadRequested";
-  v258[1] = @"Cancel";
-  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v258 forKeys:v257 count:2];
-  v260[0] = v63;
-  v259[1] = @"InstallUpdate";
-  v255 = v2;
-  v256 = @"ReportInstallFailedNoUpdate";
-  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v256 forKeys:&v255 count:1];
-  v260[1] = v62;
-  v259[2] = @"RemoveUpdate";
-  v253[0] = v3;
-  v253[1] = v2;
-  v254[0] = @"CancelingRemoveRequested";
-  v254[1] = @"Cancel";
-  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v254 forKeys:v253 count:2];
-  v260[2] = v61;
-  v259[3] = @"RollbackRequested";
-  v251[0] = v3;
-  v251[1] = v2;
-  v252[0] = @"CancelingRollbackRequested";
-  v252[1] = @"Cancel";
-  v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v252 forKeys:v251 count:2];
-  v260[3] = v60;
-  v259[4] = @"Unlocked";
-  v249[0] = v3;
-  v249[1] = v2;
-  v250[0] = v4;
-  v250[1] = v5;
-  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v250 forKeys:v249 count:2];
-  v260[4] = v59;
-  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v260 forKeys:v259 count:5];
-  v458[11] = v58;
-  v457[12] = @"WaitingNetwork";
-  v247[0] = @"DownloadAndPrepare";
-  v245[0] = v3;
-  v245[1] = v2;
-  v246[0] = @"CancelingDownloadRequested";
-  v246[1] = @"Cancel";
-  v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v246 forKeys:v245 count:2];
-  v248[0] = v57;
-  v247[1] = @"InstallUpdate";
-  v243 = v2;
-  v244 = @"ReportInstallFailedNoUpdate";
-  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v244 forKeys:&v243 count:1];
-  v248[1] = v56;
-  v247[2] = @"RemoveUpdate";
-  v241[0] = v3;
-  v241[1] = v2;
-  v242[0] = @"CancelingRemoveRequested";
-  v242[1] = @"Cancel";
-  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v242 forKeys:v241 count:2];
-  v248[2] = v55;
-  v247[3] = @"RollbackRequested";
-  v239[0] = v3;
-  v239[1] = v2;
-  v240[0] = @"CancelingRollbackRequested";
-  v240[1] = @"Cancel";
-  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v240 forKeys:v239 count:2];
-  v248[3] = v54;
-  v247[4] = @"NetworkAvailable";
-  v237[0] = v3;
-  v237[1] = v2;
-  v238[0] = v4;
-  v238[1] = v5;
-  v163 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v238 forKeys:v237 count:2];
-  v248[4] = v163;
-  v162 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v248 forKeys:v247 count:5];
-  v458[12] = v162;
-  v457[13] = @"DownloadAndPrepare";
-  v235[0] = @"DownloadAndPrepare";
-  v233[0] = v3;
-  v233[1] = v2;
-  v234[0] = @"CancelingDownloadRequested";
-  v234[1] = @"Cancel";
-  v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v234 forKeys:v233 count:2];
-  v236[0] = v53;
-  v235[1] = @"InstallUpdate";
-  v231 = v2;
-  v232 = @"ReportInstallFailedNoUpdate";
-  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v232 forKeys:&v231 count:1];
-  v236[1] = v52;
-  v235[2] = @"RemoveUpdate";
-  v229[0] = v3;
-  v229[1] = v2;
-  v230[0] = @"CancelingRemoveRequested";
-  v230[1] = @"Cancel";
-  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v230 forKeys:v229 count:2];
-  v236[2] = v51;
-  v235[3] = @"RollbackRequested";
-  v227[0] = v3;
-  v227[1] = v2;
-  v228[0] = @"CancelingRollbackRequested";
-  v228[1] = @"Cancel";
-  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v228 forKeys:v227 count:2];
-  v236[3] = v48;
-  v235[4] = @"UpdateProgress";
-  v225 = v2;
-  v226 = v46;
-  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v226 forKeys:&v225 count:1];
-  v236[4] = v47;
+  v298[0] = v3;
+  v298[1] = v2;
+  v299[0] = v8;
+  v299[1] = @"ReportPreparedSet";
+  v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v299 forKeys:v298 count:2];
+  v319[9] = v81;
+  v318[10] = @"ArmedInstall";
+  v48 = *MEMORY[0x277D643C0];
+  v296[0] = v3;
+  v296[1] = v2;
+  v297[0] = v48;
+  v297[1] = @"InstallArmed";
+  v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v297 forKeys:v296 count:2];
+  v319[10] = v80;
+  v318[11] = @"UpdateProgress";
+  v294 = v2;
+  v295 = *MEMORY[0x277D64370];
+  v45 = v295;
+  v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v295 forKeys:&v294 count:1];
+  v319[11] = v79;
+  v318[12] = @"UpdateFailed";
+  v292 = v2;
+  v293 = @"CheckLockAndNetwork";
+  v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v293 forKeys:&v292 count:1];
+  v319[12] = v78;
+  v318[13] = @"Unlocked";
+  v290 = v2;
+  v291 = @"ReloadBrain";
+  v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v291 forKeys:&v290 count:1];
+  v319[13] = v77;
+  v318[14] = @"WaitUnlock";
+  v288 = v3;
+  v289 = @"WaitingFirstUnlock";
+  v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v289 forKeys:&v288 count:1];
+  v319[14] = v76;
+  v318[15] = @"WaitNetwork";
+  v286 = v3;
+  v287 = @"WaitingNetwork";
+  v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v287 forKeys:&v286 count:1];
+  v319[15] = v75;
+  v318[16] = *MEMORY[0x277D643A8];
+  v284[0] = v3;
+  v284[1] = v2;
+  v285[0] = @"CancelingRemoveRequested";
+  v285[1] = @"ReportDownloadFailedRemoveAll";
+  v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v285 forKeys:v284 count:2];
+  v319[16] = v74;
+  v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v319 forKeys:v318 count:17];
+  v457[9] = v73;
+  v456[10] = v6;
+  v278[0] = @"DownloadAndPrepare";
+  v276[0] = v3;
+  v276[1] = v2;
+  v277[0] = @"CancelingDownloadRequested";
+  v277[1] = @"Cancel";
+  v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v277 forKeys:v276 count:2];
+  v283[0] = v72;
+  v278[1] = @"InstallUpdate";
+  v274 = v2;
+  v275 = @"ReportInstallFailedNoUpdate";
+  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v275 forKeys:&v274 count:1];
+  v283[1] = v71;
+  v278[2] = @"RemoveUpdate";
+  v272[0] = v3;
+  v272[1] = v2;
+  v273[0] = @"CancelingRemoveRequested";
+  v273[1] = @"Cancel";
+  v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v273 forKeys:v272 count:2];
+  v283[2] = v70;
+  v278[3] = @"RollbackRequested";
+  v270[0] = v3;
+  v270[1] = v2;
+  v271[0] = @"CancelingRollbackRequested";
+  v271[1] = @"Cancel";
+  v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v271 forKeys:v270 count:2];
+  v283[3] = v69;
+  v278[4] = @"ApplyFailedDone";
+  v268 = v2;
+  v269 = @"RemoveAllPreserveCache";
+  v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v269 forKeys:&v268 count:1];
+  v283[4] = v68;
+  v279 = *MEMORY[0x277D64398];
+  v41 = v279;
+  v266 = v2;
+  v267 = @"RemoveAllPreserveCache";
+  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v267 forKeys:&v266 count:1];
+  v283[5] = v67;
+  v280 = @"RemovedAllPreservedCache";
+  v264 = v2;
+  v265 = @"CanceledDownloadRequested";
+  v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v265 forKeys:&v264 count:1];
+  v283[6] = v66;
+  v281 = @"ReadyToDownload";
+  v262[0] = v3;
+  v262[1] = v2;
+  v263[0] = v4;
+  v263[1] = v5;
+  v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v263 forKeys:v262 count:2];
+  v283[7] = v65;
+  v282 = *MEMORY[0x277D643B8];
+  v43 = v282;
+  v260[0] = v3;
+  v260[1] = v2;
+  v39 = *MEMORY[0x277D64378];
+  v261[0] = v8;
+  v261[1] = v39;
+  v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v261 forKeys:v260 count:2];
+  v283[8] = v64;
+  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v283 forKeys:v278 count:9];
+  v457[10] = v63;
+  v456[11] = @"WaitingFirstUnlock";
+  v258[0] = @"DownloadAndPrepare";
+  v256[0] = v3;
+  v256[1] = v2;
+  v257[0] = @"CancelingDownloadRequested";
+  v257[1] = @"Cancel";
+  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v257 forKeys:v256 count:2];
+  v259[0] = v62;
+  v258[1] = @"InstallUpdate";
+  v254 = v2;
+  v255 = @"ReportInstallFailedNoUpdate";
+  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v255 forKeys:&v254 count:1];
+  v259[1] = v61;
+  v258[2] = @"RemoveUpdate";
+  v252[0] = v3;
+  v252[1] = v2;
+  v253[0] = @"CancelingRemoveRequested";
+  v253[1] = @"Cancel";
+  v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v253 forKeys:v252 count:2];
+  v259[2] = v60;
+  v258[3] = @"RollbackRequested";
+  v250[0] = v3;
+  v250[1] = v2;
+  v251[0] = @"CancelingRollbackRequested";
+  v251[1] = @"Cancel";
+  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v251 forKeys:v250 count:2];
+  v259[3] = v59;
+  v258[4] = @"Unlocked";
+  v248[0] = v3;
+  v248[1] = v2;
+  v249[0] = v4;
+  v249[1] = v5;
+  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v249 forKeys:v248 count:2];
+  v259[4] = v58;
+  v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v259 forKeys:v258 count:5];
+  v457[11] = v57;
+  v456[12] = @"WaitingNetwork";
+  v246[0] = @"DownloadAndPrepare";
+  v244[0] = v3;
+  v244[1] = v2;
+  v245[0] = @"CancelingDownloadRequested";
+  v245[1] = @"Cancel";
+  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v245 forKeys:v244 count:2];
+  v247[0] = v56;
+  v246[1] = @"InstallUpdate";
+  v242 = v2;
+  v243 = @"ReportInstallFailedNoUpdate";
+  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v243 forKeys:&v242 count:1];
+  v247[1] = v55;
+  v246[2] = @"RemoveUpdate";
+  v240[0] = v3;
+  v240[1] = v2;
+  v241[0] = @"CancelingRemoveRequested";
+  v241[1] = @"Cancel";
+  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v241 forKeys:v240 count:2];
+  v247[2] = v54;
+  v246[3] = @"RollbackRequested";
+  v238[0] = v3;
+  v238[1] = v2;
+  v239[0] = @"CancelingRollbackRequested";
+  v239[1] = @"Cancel";
+  v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v239 forKeys:v238 count:2];
+  v247[3] = v53;
+  v246[4] = @"NetworkAvailable";
+  v236[0] = v3;
+  v236[1] = v2;
+  v237[0] = v4;
+  v237[1] = v5;
+  v162 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v237 forKeys:v236 count:2];
+  v247[4] = v162;
+  v161 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v247 forKeys:v246 count:5];
+  v457[12] = v161;
+  v456[13] = @"DownloadAndPrepare";
+  v234[0] = @"DownloadAndPrepare";
+  v232[0] = v3;
+  v232[1] = v2;
+  v233[0] = @"CancelingDownloadRequested";
+  v233[1] = @"Cancel";
+  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v233 forKeys:v232 count:2];
+  v235[0] = v52;
+  v234[1] = @"InstallUpdate";
+  v230 = v2;
+  v231 = @"ReportInstallFailedNoUpdate";
+  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v231 forKeys:&v230 count:1];
+  v235[1] = v51;
+  v234[2] = @"RemoveUpdate";
+  v228[0] = v3;
+  v228[1] = v2;
+  v229[0] = @"CancelingRemoveRequested";
+  v229[1] = @"Cancel";
+  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v229 forKeys:v228 count:2];
+  v235[2] = v50;
+  v234[3] = @"RollbackRequested";
+  v226[0] = v3;
+  v226[1] = v2;
+  v227[0] = @"CancelingRollbackRequested";
+  v227[1] = @"Cancel";
+  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v227 forKeys:v226 count:2];
+  v235[3] = v47;
+  v234[4] = @"UpdateProgress";
+  v224 = v2;
+  v225 = v45;
+  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v225 forKeys:&v224 count:1];
+  v235[4] = v46;
+  v234[5] = v43;
+  v222[0] = v3;
+  v222[1] = v2;
+  v223[0] = v8;
+  v223[1] = v39;
+  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v223 forKeys:v222 count:2];
   v235[5] = v44;
-  v223[0] = v3;
-  v223[1] = v2;
-  v224[0] = v8;
-  v224[1] = v40;
-  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v224 forKeys:v223 count:2];
-  v236[5] = v45;
-  v235[6] = @"UpdateFailed";
-  v221[0] = v3;
-  v221[1] = v2;
-  v222[0] = @"CancelingRemoveRequested";
-  v222[1] = @"ReportDownloadFailedRemoveAll";
-  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v222 forKeys:v221 count:2];
-  v236[6] = v41;
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v236 forKeys:v235 count:7];
-  v458[13] = v39;
-  v457[14] = v8;
-  v219[0] = @"DownloadAndPrepare";
-  v217[0] = v3;
-  v217[1] = v2;
-  v218[0] = @"CancelingDownloadRequested";
-  v218[1] = @"Cancel";
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v218 forKeys:v217 count:2];
-  v220[0] = v38;
-  v219[1] = @"InstallUpdate";
-  v215[0] = v3;
-  v215[1] = v2;
-  v216[0] = v49;
-  v216[1] = @"InstallUpdate";
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v216 forKeys:v215 count:2];
-  v220[1] = v37;
-  v219[2] = @"RemoveUpdate";
-  v213[0] = v3;
-  v213[1] = v2;
-  v214[0] = @"RemovingAll";
-  v214[1] = @"RemoveAll";
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v214 forKeys:v213 count:2];
-  v220[2] = v36;
-  v219[3] = @"RollbackRequested";
-  v211[0] = v3;
-  v211[1] = v2;
-  v212[0] = @"CancelingRollbackRequested";
-  v212[1] = @"Cancel";
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v212 forKeys:v211 count:2];
-  v220[3] = v35;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v220 forKeys:v219 count:4];
-  v458[14] = v34;
-  v457[15] = v49;
-  v209[0] = @"DownloadAndPrepare";
-  v207 = v2;
-  v208 = @"ReportDownloadInstalling";
-  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v208 forKeys:&v207 count:1];
-  v210[0] = v50;
-  v209[1] = @"InstallUpdate";
-  v205 = v2;
-  v206 = v164;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v206 forKeys:&v205 count:1];
-  v210[1] = v33;
-  v209[2] = @"RemoveUpdate";
-  v203 = v2;
-  v204 = @"ReportRemoveInstalling";
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v204 forKeys:&v203 count:1];
-  v210[2] = v32;
-  v209[3] = @"RollbackRequested";
-  v201 = v2;
-  v202 = @"ReportRollbackInstalling";
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v202 forKeys:&v201 count:1];
-  v210[3] = v31;
-  v209[4] = @"UpdateProgress";
-  v199 = v2;
-  v200 = v164;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v200 forKeys:&v199 count:1];
-  v210[4] = v30;
-  v209[5] = v42;
-  v197[0] = v3;
-  v197[1] = v2;
+  v234[6] = @"UpdateFailed";
+  v220[0] = v3;
+  v220[1] = v2;
+  v221[0] = @"CancelingRemoveRequested";
+  v221[1] = @"ReportDownloadFailedRemoveAll";
+  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v221 forKeys:v220 count:2];
+  v235[6] = v40;
+  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v235 forKeys:v234 count:7];
+  v457[13] = v38;
+  v456[14] = v8;
+  v218[0] = @"DownloadAndPrepare";
+  v216[0] = v3;
+  v216[1] = v2;
+  v217[0] = @"CancelingDownloadRequested";
+  v217[1] = @"Cancel";
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v217 forKeys:v216 count:2];
+  v219[0] = v37;
+  v218[1] = @"InstallUpdate";
+  v214[0] = v3;
+  v214[1] = v2;
+  v215[0] = v48;
+  v215[1] = @"InstallUpdate";
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v215 forKeys:v214 count:2];
+  v219[1] = v36;
+  v218[2] = @"RemoveUpdate";
+  v212[0] = v3;
+  v212[1] = v2;
+  v213[0] = @"RemovingAll";
+  v213[1] = @"RemoveAll";
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v213 forKeys:v212 count:2];
+  v219[2] = v35;
+  v218[3] = @"RollbackRequested";
+  v210[0] = v3;
+  v210[1] = v2;
+  v211[0] = @"CancelingRollbackRequested";
+  v211[1] = @"Cancel";
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v211 forKeys:v210 count:2];
+  v219[3] = v34;
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v219 forKeys:v218 count:4];
+  v457[14] = v33;
+  v456[15] = v48;
+  v208[0] = @"DownloadAndPrepare";
+  v206 = v2;
+  v207 = @"ReportDownloadInstalling";
+  v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v207 forKeys:&v206 count:1];
+  v209[0] = v49;
+  v208[1] = @"InstallUpdate";
+  v204 = v2;
+  v205 = v163;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v205 forKeys:&v204 count:1];
+  v209[1] = v32;
+  v208[2] = @"RemoveUpdate";
+  v202 = v2;
+  v203 = @"ReportRemoveInstalling";
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v203 forKeys:&v202 count:1];
+  v209[2] = v31;
+  v208[3] = @"RollbackRequested";
+  v200 = v2;
+  v201 = @"ReportRollbackInstalling";
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v201 forKeys:&v200 count:1];
+  v209[3] = v30;
+  v208[4] = @"UpdateProgress";
+  v198 = v2;
+  v199 = v163;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v199 forKeys:&v198 count:1];
+  v209[4] = v29;
+  v208[5] = v41;
+  v196[0] = v3;
+  v196[1] = v2;
   v9 = *MEMORY[0x277D64368];
-  v198[0] = v8;
-  v198[1] = v9;
-  v161 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v198 forKeys:v197 count:2];
-  v210[5] = v161;
-  v209[6] = @"ApplyFailedDone";
-  v195 = v2;
-  v196 = @"ReportApplyFailedRemoveAll";
-  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v196 forKeys:&v195 count:1];
-  v210[6] = v43;
-  v209[7] = @"ApplyFailedRemoveNow";
-  v193[0] = v3;
-  v193[1] = v2;
-  v194[0] = @"RemovingAll";
-  v194[1] = @"RemoveAll";
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v194 forKeys:v193 count:2];
-  v210[7] = v29;
-  v209[8] = *MEMORY[0x277D643A0];
+  v197[0] = v8;
+  v197[1] = v9;
+  v160 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v197 forKeys:v196 count:2];
+  v209[5] = v160;
+  v208[6] = @"ApplyFailedDone";
+  v194 = v2;
+  v195 = @"ReportApplyFailedRemoveAll";
+  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v195 forKeys:&v194 count:1];
+  v209[6] = v42;
+  v208[7] = @"ApplyFailedRemoveNow";
+  v192[0] = v3;
+  v192[1] = v2;
+  v193[0] = @"RemovingAll";
+  v193[1] = @"RemoveAll";
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v193 forKeys:v192 count:2];
+  v209[7] = v28;
+  v208[8] = *MEMORY[0x277D643A0];
   v10 = *MEMORY[0x277D643C8];
-  v191[0] = v3;
-  v191[1] = v2;
-  v192[0] = v10;
-  v192[1] = @"ReportAwaitingReboot";
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v192 forKeys:v191 count:2];
-  v210[8] = v28;
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v210 forKeys:v209 count:9];
-  v458[15] = v27;
-  v457[16] = @"RollingBack";
-  v189[0] = @"DownloadAndPrepare";
-  v187 = v2;
-  v188 = @"ReportDownloadFailedRollingBack";
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v188 forKeys:&v187 count:1];
-  v190[0] = v26;
-  v189[1] = @"InstallUpdate";
-  v185 = v2;
-  v186 = @"ReportInstallFailedRollingBack";
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v186 forKeys:&v185 count:1];
-  v190[1] = v25;
-  v189[2] = @"RemoveUpdate";
-  v183 = v2;
-  v184 = @"ReportRemoveFailedRollingBack";
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v184 forKeys:&v183 count:1];
-  v190[2] = v24;
-  v189[3] = @"RollbackRequested";
-  v181 = v2;
-  v182 = v164;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v182 forKeys:&v181 count:1];
-  v190[3] = v11;
-  v189[4] = @"RollbackComplete";
-  v179[0] = v3;
-  v179[1] = v2;
+  v190[0] = v3;
+  v190[1] = v2;
+  v191[0] = v10;
+  v191[1] = @"ReportAwaitingReboot";
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v191 forKeys:v190 count:2];
+  v209[8] = v27;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v209 forKeys:v208 count:9];
+  v457[15] = v26;
+  v456[16] = @"RollingBack";
+  v188[0] = @"DownloadAndPrepare";
+  v186 = v2;
+  v187 = @"ReportDownloadFailedRollingBack";
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v187 forKeys:&v186 count:1];
+  v189[0] = v25;
+  v188[1] = @"InstallUpdate";
+  v184 = v2;
+  v185 = @"ReportInstallFailedRollingBack";
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v185 forKeys:&v184 count:1];
+  v189[1] = v24;
+  v188[2] = @"RemoveUpdate";
+  v182 = v2;
+  v183 = @"ReportRemoveFailedRollingBack";
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
+  v189[2] = v23;
+  v188[3] = @"RollbackRequested";
+  v180 = v2;
+  v181 = v163;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v181 forKeys:&v180 count:1];
+  v189[3] = v11;
+  v188[4] = @"RollbackComplete";
+  v178[0] = v3;
+  v178[1] = v2;
   v12 = *MEMORY[0x277D64388];
-  v180[0] = v10;
-  v180[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v180 forKeys:v179 count:2];
-  v190[4] = v13;
-  v189[5] = @"RollbackFailed";
-  v177[0] = v3;
-  v177[1] = v2;
-  v178[0] = v165;
-  v178[1] = v127;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v178 forKeys:v177 count:2];
-  v190[5] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v190 forKeys:v189 count:6];
-  v458[16] = v15;
-  v457[17] = v10;
-  v175[0] = @"DownloadAndPrepare";
-  v173 = v2;
-  v174 = @"ReportDownloadAwaitingReboot";
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v174 forKeys:&v173 count:1];
-  v176[0] = v16;
-  v175[1] = @"InstallUpdate";
-  v171 = v2;
-  v172 = @"ReportInstallAwaitingReboot";
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v172 forKeys:&v171 count:1];
-  v176[1] = v17;
-  v175[2] = @"RemoveUpdate";
-  v169 = v2;
-  v170 = @"ReportRemoveAwaitingReboot";
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v170 forKeys:&v169 count:1];
-  v176[2] = v18;
-  v175[3] = @"RollbackRequested";
-  v167 = v2;
-  v168 = @"ReportRollbackAwaitingReboot";
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v168 forKeys:&v167 count:1];
-  v176[3] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v176 forKeys:v175 count:4];
-  v458[17] = v20;
-  v166 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v458 forKeys:v457 count:18];
+  v179[0] = v10;
+  v179[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v179 forKeys:v178 count:2];
+  v189[4] = v13;
+  v188[5] = @"RollbackFailed";
+  v176[0] = v3;
+  v176[1] = v2;
+  v177[0] = v164;
+  v177[1] = v126;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v177 forKeys:v176 count:2];
+  v189[5] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v189 forKeys:v188 count:6];
+  v457[16] = v15;
+  v456[17] = v10;
+  v174[0] = @"DownloadAndPrepare";
+  v172 = v2;
+  v173 = @"ReportDownloadAwaitingReboot";
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+  v175[0] = v16;
+  v174[1] = @"InstallUpdate";
+  v170 = v2;
+  v171 = @"ReportInstallAwaitingReboot";
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v171 forKeys:&v170 count:1];
+  v175[1] = v17;
+  v174[2] = @"RemoveUpdate";
+  v168 = v2;
+  v169 = @"ReportRemoveAwaitingReboot";
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v169 forKeys:&v168 count:1];
+  v175[2] = v18;
+  v174[3] = @"RollbackRequested";
+  v166 = v2;
+  v167 = @"ReportRollbackAwaitingReboot";
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v167 forKeys:&v166 count:1];
+  v175[3] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v175 forKeys:v174 count:4];
+  v457[17] = v20;
+  v165 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v457 forKeys:v456 count:18];
 
-  v21 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:v166 copyItems:1];
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:v165 copyItems:1];
 
   return v21;
 }
@@ -1184,6 +1184,36 @@
   return v11;
 }
 
+- (int64_t)action_ActivatedHelper:(BOOL)helper
+{
+  helperCopy = helper;
+  engineFSM = [(SUManagerEngine *)self engineFSM];
+  extendedStateQueue = [engineFSM extendedStateQueue];
+  dispatch_assert_queue_V2(extendedStateQueue);
+
+  if ([(SUManagerEngine *)self activating])
+  {
+    [(SUManagerEngine *)self setActivated:1];
+    [(SUManagerEngine *)self setActivating:0];
+    managerDelegate = [(SUManagerEngine *)self managerDelegate];
+    [managerDelegate activated:helperCopy];
+LABEL_5:
+
+    return 0;
+  }
+
+  if (![(SUManagerEngine *)self activated])
+  {
+    managerDelegate = [(SUManagerEngine *)self engineFSM];
+    diag = [managerDelegate diag];
+    [diag trackAnomaly:@"[ENGINE]" forReason:@"not in activating state" withResult:8115 withError:0];
+
+    goto LABEL_5;
+  }
+
+  return 0;
+}
+
 - (int64_t)action_NewDownloadPending:(id)pending error:(id *)error
 {
   pendingCopy = pending;
@@ -1214,7 +1244,7 @@
 
 - (int64_t)action_CheckLockAndNetwork:(id)network error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   engineFSM = [(SUManagerEngine *)self engineFSM];
   extendedStateQueue = [engineFSM extendedStateQueue];
@@ -1232,7 +1262,7 @@
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v49 = engineName;
+      v48 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ disarming install", buf, 0xCu);
     }
 
@@ -1287,7 +1317,7 @@
               {
                 engineName2 = [(SUManagerEngine *)self engineName];
                 *buf = 138412290;
-                v49 = engineName2;
+                v48 = engineName2;
                 _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, "%@ load brain failed, waiting for unlock", buf, 0xCu);
               }
 
@@ -1311,7 +1341,7 @@
             {
               engineName3 = [(SUManagerEngine *)self engineName];
               *buf = 138412290;
-              v49 = engineName3;
+              v48 = engineName3;
               _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to sendUnlockNotifications, failing", buf, 0xCu);
             }
           }
@@ -1353,7 +1383,7 @@ LABEL_28:
   {
     engineName4 = [(SUManagerEngine *)self engineName];
     *buf = 138412290;
-    v49 = engineName4;
+    v48 = engineName4;
     _os_log_impl(&dword_26AB34000, oslog3, OS_LOG_TYPE_DEFAULT, "%@ network unavailable, will wait for network", buf, 0xCu);
   }
 
@@ -1365,7 +1395,6 @@ LABEL_28:
   [engineFSM3 followupEvent:@"WaitNetwork" withInfo:v40];
 
 LABEL_29:
-  v45 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1718,7 +1747,7 @@ LABEL_7:
 
 - (int64_t)action_ArmInstallOrFail:(id)fail error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   failCopy = fail;
   engineFSM = [(SUManagerEngine *)self engineFSM];
   extendedStateQueue = [engineFSM extendedStateQueue];
@@ -1738,11 +1767,11 @@ LABEL_7:
     {
       engineName = [(SUManagerEngine *)self engineName];
       installOptions2 = [failCopy installOptions];
-      v19 = 138412546;
-      v20 = engineName;
-      v21 = 2112;
-      v22 = installOptions2;
-      _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ install is armed with options:%@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = engineName;
+      v20 = 2112;
+      v21 = installOptions2;
+      _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ install is armed with options:%@", &v18, 0x16u);
     }
   }
 
@@ -1751,15 +1780,14 @@ LABEL_7:
     if (v13)
     {
       engineName2 = [(SUManagerEngine *)self engineName];
-      v19 = 138412290;
-      v20 = engineName2;
-      _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ install can't be armed", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = engineName2;
+      _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ install can't be armed", &v18, 0xCu);
     }
 
     [(SUManagerEngine *)self actionHelper_ReportInstallFailedNoUpdate];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1801,7 +1829,7 @@ LABEL_7:
 
 - (int64_t)action_RemoveAll:(id)all error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   allCopy = all;
   engineFSM = [(SUManagerEngine *)self engineFSM];
   extendedStateQueue = [engineFSM extendedStateQueue];
@@ -1837,7 +1865,7 @@ LABEL_7:
       {
         engineName = [(SUManagerEngine *)self engineName];
         *buf = 138412290;
-        v20 = engineName;
+        v19 = engineName;
         _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ Temporarily disabling PSUS to skip purging the assets", buf, 0xCu);
       }
 
@@ -1845,20 +1873,19 @@ LABEL_7:
     }
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __42__SUManagerEngine_action_RemoveAll_error___block_invoke;
-  v18[3] = &unk_279CABA10;
-  v18[4] = self;
-  [MEMORY[0x277D641D0] removeAllUpdateContentWithPolicy:v12 completion:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __42__SUManagerEngine_action_RemoveAll_error___block_invoke;
+  v17[3] = &unk_279CABA10;
+  v17[4] = self;
+  [MEMORY[0x277D641D0] removeAllUpdateContentWithPolicy:v12 completion:v17];
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void __42__SUManagerEngine_action_RemoveAll_error___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -1887,12 +1914,12 @@ void __42__SUManagerEngine_action_RemoveAll_error___block_invoke(uint64_t a1, vo
 
 LABEL_6:
     v7 = *MEMORY[0x277D64318];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __42__SUManagerEngine_action_RemoveAll_error___block_invoke_2;
-    v13[3] = &unk_279CABA10;
-    v13[4] = *(a1 + 32);
-    [MEMORY[0x277D641D0] removeAllAssetsOfType:v7 completion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __42__SUManagerEngine_action_RemoveAll_error___block_invoke_2;
+    v12[3] = &unk_279CABA10;
+    v12[4] = *(a1 + 32);
+    [MEMORY[0x277D641D0] removeAllAssetsOfType:v7 completion:v12];
     goto LABEL_11;
   }
 
@@ -1904,19 +1931,17 @@ LABEL_8:
   {
     v11 = [*(a1 + 32) engineName];
     *buf = 138412290;
-    v16 = v11;
+    v15 = v11;
     _os_log_impl(&dword_26AB34000, v10, OS_LOG_TYPE_DEFAULT, "%@ Trying to purge installed assets one by one", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __42__SUManagerEngine_action_RemoveAll_error___block_invoke_532;
-  v14[3] = &unk_279CAA708;
-  v14[4] = *(a1 + 32);
-  [SUAssetSupport cleanupAllInstalledAssets:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __42__SUManagerEngine_action_RemoveAll_error___block_invoke_532;
+  v13[3] = &unk_279CAA708;
+  v13[4] = *(a1 + 32);
+  [SUAssetSupport cleanupAllInstalledAssets:v13];
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SUManagerEngine_action_RemoveAll_error___block_invoke_532(uint64_t a1)
@@ -1928,7 +1953,7 @@ void __42__SUManagerEngine_action_RemoveAll_error___block_invoke_532(uint64_t a1
 
 void __42__SUManagerEngine_action_RemoveAll_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -1971,19 +1996,17 @@ LABEL_8:
   {
     v12 = [*(a1 + 32) engineName];
     *buf = 138412290;
-    v16 = v12;
+    v15 = v12;
     _os_log_impl(&dword_26AB34000, v11, OS_LOG_TYPE_DEFAULT, "%@ Trying to purge installed assets one by one", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __42__SUManagerEngine_action_RemoveAll_error___block_invoke_536;
-  v14[3] = &unk_279CAA708;
-  v14[4] = *(a1 + 32);
-  [SUAssetSupport cleanupAllInstalledAssets:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __42__SUManagerEngine_action_RemoveAll_error___block_invoke_536;
+  v13[3] = &unk_279CAA708;
+  v13[4] = *(a1 + 32);
+  [SUAssetSupport cleanupAllInstalledAssets:v13];
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SUManagerEngine_action_RemoveAll_error___block_invoke_536(uint64_t a1)
@@ -2075,7 +2098,7 @@ void __55__SUManagerEngine_action_RemoveAllPreserveCache_error___block_invoke(ui
 
 - (int64_t)action_HandleCanceledPendingRollback:(id)rollback error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   rollbackCopy = rollback;
   engineFSM = [(SUManagerEngine *)self engineFSM];
   extendedStateQueue = [engineFSM extendedStateQueue];
@@ -2106,7 +2129,7 @@ LABEL_5:
   {
     delegateCallbackQueue = [(SUManagerEngine *)self engineName];
     *buf = 138412290;
-    v17 = delegateCallbackQueue;
+    v16 = delegateCallbackQueue;
     _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(downloadCompleted:) so not reporting", buf, 0xCu);
     goto LABEL_5;
   }
@@ -2116,7 +2139,6 @@ LABEL_6:
   engineFSM2 = [(SUManagerEngine *)self engineFSM];
   [engineFSM2 followupEvent:@"ReadyToRollback" withInfo:rollbackCopy];
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2129,7 +2151,7 @@ void __62__SUManagerEngine_action_HandleCanceledPendingRollback_error___block_in
 
 - (int64_t)action_ReportDownloadProgress:(id)progress error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   engineFSM = [(SUManagerEngine *)self engineFSM];
   extendedStateQueue = [engineFSM extendedStateQueue];
@@ -2152,13 +2174,13 @@ void __62__SUManagerEngine_action_HandleCanceledPendingRollback_error___block_in
   {
     mEMORY[0x277D64400] = [MEMORY[0x277D64400] sharedCore];
     delegateCallbackQueue = [mEMORY[0x277D64400] delegateCallbackQueue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __55__SUManagerEngine_action_ReportDownloadProgress_error___block_invoke;
-    v21[3] = &unk_279CAA7C0;
-    v21[4] = self;
-    v22 = progressCopy;
-    dispatch_async(delegateCallbackQueue, v21);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __55__SUManagerEngine_action_ReportDownloadProgress_error___block_invoke;
+    v20[3] = &unk_279CAA7C0;
+    v20[4] = self;
+    v21 = progressCopy;
+    dispatch_async(delegateCallbackQueue, v20);
   }
 
   else
@@ -2170,12 +2192,11 @@ void __62__SUManagerEngine_action_HandleCanceledPendingRollback_error___block_in
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v24 = engineName;
+      v23 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(downloadProgress:) so not reporting", buf, 0xCu);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2190,7 +2211,7 @@ void __55__SUManagerEngine_action_ReportDownloadProgress_error___block_invoke(ui
 
 - (void)actionHelper_ReportPrepared:(BOOL)prepared
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   managerDelegate = [(SUManagerEngine *)self managerDelegate];
   v6 = objc_opt_respondsToSelector();
 
@@ -2198,13 +2219,13 @@ void __55__SUManagerEngine_action_ReportDownloadProgress_error___block_invoke(ui
   {
     mEMORY[0x277D64400] = [MEMORY[0x277D64400] sharedCore];
     delegateCallbackQueue = [mEMORY[0x277D64400] delegateCallbackQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __47__SUManagerEngine_actionHelper_ReportPrepared___block_invoke;
-    v13[3] = &unk_279CAAD00;
-    v13[4] = self;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __47__SUManagerEngine_actionHelper_ReportPrepared___block_invoke;
+    v12[3] = &unk_279CAAD00;
+    v12[4] = self;
     preparedCopy = prepared;
-    dispatch_async(delegateCallbackQueue, v13);
+    dispatch_async(delegateCallbackQueue, v12);
   }
 
   else
@@ -2216,12 +2237,10 @@ void __55__SUManagerEngine_action_ReportDownloadProgress_error___block_invoke(ui
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(downloadCompleted:) so not reporting", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SUManagerEngine_actionHelper_ReportPrepared___block_invoke(uint64_t a1)
@@ -2276,7 +2295,7 @@ void __47__SUManagerEngine_actionHelper_ReportPrepared___block_invoke(uint64_t a
 
 - (int64_t)action_ReportDownloadFailedNoUpdate:(id)update error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [(SUManagerEngine *)self engineFSM:update];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -2305,12 +2324,11 @@ void __47__SUManagerEngine_actionHelper_ReportPrepared___block_invoke(uint64_t a
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(downloadCompleted:) so not reporting", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2323,7 +2341,7 @@ void __61__SUManagerEngine_action_ReportDownloadFailedNoUpdate_error___block_inv
 
 - (void)actionHelper_ReportInstallFailedNoUpdate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   managerDelegate = [(SUManagerEngine *)self managerDelegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -2348,12 +2366,10 @@ void __61__SUManagerEngine_action_ReportDownloadFailedNoUpdate_error___block_inv
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v12 = engineName;
+      v11 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(installCompleted:) so not reporting", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SUManagerEngine_actionHelper_ReportInstallFailedNoUpdate__block_invoke(uint64_t a1)
@@ -2375,7 +2391,7 @@ void __59__SUManagerEngine_actionHelper_ReportInstallFailedNoUpdate__block_invok
 
 - (void)actionHelper_ReportInstallFailedRollingBack
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   managerDelegate = [(SUManagerEngine *)self managerDelegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -2400,12 +2416,10 @@ void __59__SUManagerEngine_actionHelper_ReportInstallFailedNoUpdate__block_invok
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v12 = engineName;
+      v11 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(installCompleted:) so not reporting", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SUManagerEngine_actionHelper_ReportInstallFailedRollingBack__block_invoke(uint64_t a1)
@@ -2427,7 +2441,7 @@ void __62__SUManagerEngine_actionHelper_ReportInstallFailedRollingBack__block_in
 
 - (void)actionHelper_ReportDownloadFailedRollingBack
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   managerDelegate = [(SUManagerEngine *)self managerDelegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -2452,12 +2466,10 @@ void __62__SUManagerEngine_actionHelper_ReportInstallFailedRollingBack__block_in
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v12 = engineName;
+      v11 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(downloadCompleted:) so not reporting", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SUManagerEngine_actionHelper_ReportDownloadFailedRollingBack__block_invoke(uint64_t a1)
@@ -2479,7 +2491,7 @@ void __63__SUManagerEngine_actionHelper_ReportDownloadFailedRollingBack__block_i
 
 - (void)actionHelper_ReportRemoveFailedRollingBack
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   managerDelegate = [(SUManagerEngine *)self managerDelegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -2504,12 +2516,10 @@ void __63__SUManagerEngine_actionHelper_ReportDownloadFailedRollingBack__block_i
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v12 = engineName;
+      v11 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(removeCompleted:) so not reporting", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SUManagerEngine_actionHelper_ReportRemoveFailedRollingBack__block_invoke(uint64_t a1)
@@ -2531,7 +2541,7 @@ void __61__SUManagerEngine_actionHelper_ReportRemoveFailedRollingBack__block_inv
 
 - (int64_t)action_ReportDownloadInstalling:(id)installing error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [(SUManagerEngine *)self engineFSM:installing];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -2560,12 +2570,11 @@ void __61__SUManagerEngine_actionHelper_ReportRemoveFailedRollingBack__block_inv
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(downloadCompleted:) so not reporting", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2578,7 +2587,7 @@ void __57__SUManagerEngine_action_ReportDownloadInstalling_error___block_invoke(
 
 - (int64_t)action_ReportRemoveInstalling:(id)installing error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [(SUManagerEngine *)self engineFSM:installing];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -2607,12 +2616,11 @@ void __57__SUManagerEngine_action_ReportDownloadInstalling_error___block_invoke(
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(removeCompleted:) so not reporting", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2625,7 +2633,7 @@ void __55__SUManagerEngine_action_ReportRemoveInstalling_error___block_invoke(ui
 
 - (int64_t)action_ReportRollbackInstalling:(id)installing error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   installingCopy = installing;
   engineFSM = [(SUManagerEngine *)self engineFSM];
   extendedStateQueue = [engineFSM extendedStateQueue];
@@ -2638,13 +2646,13 @@ void __55__SUManagerEngine_action_ReportRemoveInstalling_error___block_invoke(ui
   {
     mEMORY[0x277D64400] = [MEMORY[0x277D64400] sharedCore];
     delegateCallbackQueue = [mEMORY[0x277D64400] delegateCallbackQueue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __57__SUManagerEngine_action_ReportRollbackInstalling_error___block_invoke;
-    v16[3] = &unk_279CAA7C0;
-    v16[4] = self;
-    v17 = installingCopy;
-    dispatch_async(delegateCallbackQueue, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __57__SUManagerEngine_action_ReportRollbackInstalling_error___block_invoke;
+    v15[3] = &unk_279CAA7C0;
+    v15[4] = self;
+    v16 = installingCopy;
+    dispatch_async(delegateCallbackQueue, v15);
   }
 
   else
@@ -2656,12 +2664,11 @@ void __55__SUManagerEngine_action_ReportRemoveInstalling_error___block_invoke(ui
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v19 = engineName;
+      v18 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(rollbackCompleted:withError:) so not reporting", buf, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2676,7 +2683,7 @@ void __57__SUManagerEngine_action_ReportRollbackInstalling_error___block_invoke(
 
 - (int64_t)action_ReportDownloadAwaitingReboot:(id)reboot error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [(SUManagerEngine *)self engineFSM:reboot];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -2705,12 +2712,11 @@ void __57__SUManagerEngine_action_ReportRollbackInstalling_error___block_invoke(
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(downloadCompleted:) so not reporting", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2723,7 +2729,7 @@ void __61__SUManagerEngine_action_ReportDownloadAwaitingReboot_error___block_inv
 
 - (int64_t)action_ReportInstallAwaitingReboot:(id)reboot error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [(SUManagerEngine *)self engineFSM:reboot];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -2752,12 +2758,11 @@ void __61__SUManagerEngine_action_ReportDownloadAwaitingReboot_error___block_inv
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(installCompleted:) so not reporting", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2770,7 +2775,7 @@ void __60__SUManagerEngine_action_ReportInstallAwaitingReboot_error___block_invo
 
 - (int64_t)action_ReportRemoveAwaitingReboot:(id)reboot error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [(SUManagerEngine *)self engineFSM:reboot];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -2799,12 +2804,11 @@ void __60__SUManagerEngine_action_ReportInstallAwaitingReboot_error___block_invo
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(removeCompleted:) so not reporting", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2817,7 +2821,7 @@ void __59__SUManagerEngine_action_ReportRemoveAwaitingReboot_error___block_invok
 
 - (int64_t)action_ReportRollbackAwaitingReboot:(id)reboot error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   rebootCopy = reboot;
   engineFSM = [(SUManagerEngine *)self engineFSM];
   extendedStateQueue = [engineFSM extendedStateQueue];
@@ -2830,13 +2834,13 @@ void __59__SUManagerEngine_action_ReportRemoveAwaitingReboot_error___block_invok
   {
     mEMORY[0x277D64400] = [MEMORY[0x277D64400] sharedCore];
     delegateCallbackQueue = [mEMORY[0x277D64400] delegateCallbackQueue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __61__SUManagerEngine_action_ReportRollbackAwaitingReboot_error___block_invoke;
-    v16[3] = &unk_279CAA7C0;
-    v16[4] = self;
-    v17 = rebootCopy;
-    dispatch_async(delegateCallbackQueue, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __61__SUManagerEngine_action_ReportRollbackAwaitingReboot_error___block_invoke;
+    v15[3] = &unk_279CAA7C0;
+    v15[4] = self;
+    v16 = rebootCopy;
+    dispatch_async(delegateCallbackQueue, v15);
   }
 
   else
@@ -2848,12 +2852,11 @@ void __59__SUManagerEngine_action_ReportRemoveAwaitingReboot_error___block_invok
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v19 = engineName;
+      v18 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(rollbackCompleted:withError:) so not reporting", buf, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2868,7 +2871,7 @@ void __61__SUManagerEngine_action_ReportRollbackAwaitingReboot_error___block_inv
 
 - (int64_t)action_ReportDownloadFailedRemoveAll:(id)all error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   allCopy = all;
   engineFSM = [(SUManagerEngine *)self engineFSM];
   extendedStateQueue = [engineFSM extendedStateQueue];
@@ -2881,13 +2884,13 @@ void __61__SUManagerEngine_action_ReportRollbackAwaitingReboot_error___block_inv
   {
     mEMORY[0x277D64400] = [MEMORY[0x277D64400] sharedCore];
     delegateCallbackQueue = [mEMORY[0x277D64400] delegateCallbackQueue];
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __62__SUManagerEngine_action_ReportDownloadFailedRemoveAll_error___block_invoke;
-    v20 = &unk_279CAA7C0;
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __62__SUManagerEngine_action_ReportDownloadFailedRemoveAll_error___block_invoke;
+    v19 = &unk_279CAA7C0;
     selfCopy = self;
-    v22 = allCopy;
-    dispatch_async(delegateCallbackQueue, &v17);
+    v21 = allCopy;
+    dispatch_async(delegateCallbackQueue, &v16);
   }
 
   else
@@ -2899,15 +2902,14 @@ void __61__SUManagerEngine_action_ReportRollbackAwaitingReboot_error___block_inv
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v24 = engineName;
+      v23 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(downloadCompleted:) so not reporting", buf, 0xCu);
     }
   }
 
-  v14 = [(SUManagerEngine *)self engineFSM:v17];
+  v14 = [(SUManagerEngine *)self engineFSM:v16];
   [v14 followupEvent:@"UpdateFailed" withInfo:allCopy];
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2920,7 +2922,7 @@ void __62__SUManagerEngine_action_ReportDownloadFailedRemoveAll_error___block_in
 
 - (void)actionHelper_ReportApplyFailed:(id)failed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   failedCopy = failed;
   managerDelegate = [(SUManagerEngine *)self managerDelegate];
   v6 = objc_opt_respondsToSelector();
@@ -2929,13 +2931,13 @@ void __62__SUManagerEngine_action_ReportDownloadFailedRemoveAll_error___block_in
   {
     mEMORY[0x277D64400] = [MEMORY[0x277D64400] sharedCore];
     delegateCallbackQueue = [mEMORY[0x277D64400] delegateCallbackQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __50__SUManagerEngine_actionHelper_ReportApplyFailed___block_invoke;
-    v13[3] = &unk_279CAA7C0;
-    v13[4] = self;
-    v14 = failedCopy;
-    dispatch_async(delegateCallbackQueue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __50__SUManagerEngine_actionHelper_ReportApplyFailed___block_invoke;
+    v12[3] = &unk_279CAA7C0;
+    v12[4] = self;
+    v13 = failedCopy;
+    dispatch_async(delegateCallbackQueue, v12);
   }
 
   else
@@ -2947,12 +2949,10 @@ void __62__SUManagerEngine_action_ReportDownloadFailedRemoveAll_error___block_in
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(installCompleted:) so not reporting", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SUManagerEngine_actionHelper_ReportApplyFailed___block_invoke(uint64_t a1)
@@ -2993,7 +2993,7 @@ void __50__SUManagerEngine_actionHelper_ReportApplyFailed___block_invoke(uint64_
 
 - (int64_t)action_ReportAwaitingReboot:(id)reboot error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [(SUManagerEngine *)self engineFSM:reboot];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -3022,12 +3022,11 @@ void __50__SUManagerEngine_actionHelper_ReportApplyFailed___block_invoke(uint64_
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, mEMORY[0x277D64400], OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(installCompleted:) so not reporting", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3039,7 +3038,7 @@ void __53__SUManagerEngine_action_ReportAwaitingReboot_error___block_invoke(uint
 
 - (void)actionHelper_ReportRollbackCompleted:(id)completed withError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   errorCopy = error;
   managerDelegate = [(SUManagerEngine *)self managerDelegate];
@@ -3054,8 +3053,8 @@ void __53__SUManagerEngine_action_ReportAwaitingReboot_error___block_invoke(uint
     block[2] = __66__SUManagerEngine_actionHelper_ReportRollbackCompleted_withError___block_invoke;
     block[3] = &unk_279CAA798;
     block[4] = self;
-    v17 = completedCopy;
-    v18 = errorCopy;
+    v16 = completedCopy;
+    v17 = errorCopy;
     dispatch_async(delegateCallbackQueue, block);
   }
 
@@ -3068,12 +3067,10 @@ void __53__SUManagerEngine_action_ReportAwaitingReboot_error___block_invoke(uint
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v20 = engineName;
+      v19 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(rollbackCompleted:withError:) so not reporting", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SUManagerEngine_actionHelper_ReportRollbackCompleted_withError___block_invoke(uint64_t a1)
@@ -3222,7 +3219,7 @@ LABEL_8:
 
 void __44__SUManagerEngine_activateLoadingPersisted___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) engineFSM];
   v3 = [v2 diag];
   [v3 trackBegin:@"activateLoadingPersisted" atLevel:1];
@@ -3230,10 +3227,10 @@ void __44__SUManagerEngine_activateLoadingPersisted___block_invoke(uint64_t a1)
   if (([*(a1 + 32) activated] & 1) == 0 && !objc_msgSend(*(a1 + 32), "activating"))
   {
     [*(a1 + 32) setActivating:1];
-    v46 = 0;
     v45 = 0;
-    [MEMORY[0x277D641D0] previousUpdateState:&v46 + 1 tetheredRestore:&v46 failedBackward:&v45 + 1 failedForward:&v45];
-    if (HIBYTE(v46) == 1)
+    v44 = 0;
+    [MEMORY[0x277D641D0] previousUpdateState:&v45 + 1 tetheredRestore:&v45 failedBackward:&v44 + 1 failedForward:&v44];
+    if (HIBYTE(v45) == 1)
     {
       v10 = [*(a1 + 32) engineLog];
       v11 = [v10 oslog];
@@ -3242,12 +3239,12 @@ void __44__SUManagerEngine_activateLoadingPersisted___block_invoke(uint64_t a1)
       {
         v12 = [*(a1 + 32) engineName];
         *buf = 138412290;
-        v48 = v12;
+        v47 = v12;
         _os_log_impl(&dword_26AB34000, v11, OS_LOG_TYPE_DEFAULT, "%@ previous update state: successful OTA", buf, 0xCu);
       }
     }
 
-    if (v46 == 1)
+    if (v45 == 1)
     {
       v13 = [*(a1 + 32) engineLog];
       v14 = [v13 oslog];
@@ -3256,12 +3253,12 @@ void __44__SUManagerEngine_activateLoadingPersisted___block_invoke(uint64_t a1)
       {
         v15 = [*(a1 + 32) engineName];
         *buf = 138412290;
-        v48 = v15;
+        v47 = v15;
         _os_log_impl(&dword_26AB34000, v14, OS_LOG_TYPE_DEFAULT, "%@ previous update state: tethered restore", buf, 0xCu);
       }
     }
 
-    if (HIBYTE(v45) == 1)
+    if (HIBYTE(v44) == 1)
     {
       v16 = [*(a1 + 32) engineLog];
       v17 = [v16 oslog];
@@ -3270,12 +3267,12 @@ void __44__SUManagerEngine_activateLoadingPersisted___block_invoke(uint64_t a1)
       {
         v18 = [*(a1 + 32) engineName];
         *buf = 138412290;
-        v48 = v18;
+        v47 = v18;
         _os_log_impl(&dword_26AB34000, v17, OS_LOG_TYPE_DEFAULT, "%@ previous update state: failed backward", buf, 0xCu);
       }
     }
 
-    if (v45 == 1)
+    if (v44 == 1)
     {
       v19 = [*(a1 + 32) engineLog];
       v20 = [v19 oslog];
@@ -3284,7 +3281,7 @@ void __44__SUManagerEngine_activateLoadingPersisted___block_invoke(uint64_t a1)
       {
         v21 = [*(a1 + 32) engineName];
         *buf = 138412290;
-        v48 = v21;
+        v47 = v21;
         _os_log_impl(&dword_26AB34000, v20, OS_LOG_TYPE_DEFAULT, "%@ previous update state: failed forward", buf, 0xCu);
       }
     }
@@ -3296,7 +3293,7 @@ void __44__SUManagerEngine_activateLoadingPersisted___block_invoke(uint64_t a1)
 
       if (v23)
       {
-        if (HIBYTE(v45) == 1)
+        if (HIBYTE(v44) == 1)
         {
           v24 = [*(a1 + 32) engineLog];
           v25 = [v24 oslog];
@@ -3312,17 +3309,17 @@ void __44__SUManagerEngine_activateLoadingPersisted___block_invoke(uint64_t a1)
 
         if ([*(a1 + 40) atPhase] == 2)
         {
-          v36 = [*(a1 + 32) engineLog];
-          v25 = [v36 oslog];
+          v35 = [*(a1 + 32) engineLog];
+          v25 = [v35 oslog];
 
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            v37 = [*(a1 + 32) engineName];
+            v36 = [*(a1 + 32) engineName];
             *buf = 138412290;
-            v48 = v37;
-            v38 = "%@ download descriptor found, started downloading but not completed, will try to load";
+            v47 = v36;
+            v37 = "%@ download descriptor found, started downloading but not completed, will try to load";
 LABEL_52:
-            _os_log_impl(&dword_26AB34000, v25, OS_LOG_TYPE_DEFAULT, v38, buf, 0xCu);
+            _os_log_impl(&dword_26AB34000, v25, OS_LOG_TYPE_DEFAULT, v37, buf, 0xCu);
 
             goto LABEL_53;
           }
@@ -3332,15 +3329,15 @@ LABEL_52:
 
         if ([*(a1 + 40) atPhase] == 3)
         {
-          v39 = [*(a1 + 32) engineLog];
-          v25 = [v39 oslog];
+          v38 = [*(a1 + 32) engineLog];
+          v25 = [v38 oslog];
 
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            v37 = [*(a1 + 32) engineName];
+            v36 = [*(a1 + 32) engineName];
             *buf = 138412290;
-            v48 = v37;
-            v38 = "%@ download descriptor found, update is downloaded, will try to load";
+            v47 = v36;
+            v37 = "%@ download descriptor found, update is downloaded, will try to load";
             goto LABEL_52;
           }
 
@@ -3354,48 +3351,48 @@ LABEL_53:
 
         if ([*(a1 + 40) atPhase] == 5)
         {
-          v40 = [*(a1 + 32) engineLog];
-          v25 = [v40 oslog];
+          v39 = [*(a1 + 32) engineLog];
+          v25 = [v39 oslog];
 
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            v37 = [*(a1 + 32) engineName];
+            v36 = [*(a1 + 32) engineName];
             *buf = 138412290;
-            v48 = v37;
-            v38 = "%@ download descriptor found, update is prepared, will try to load";
+            v47 = v36;
+            v37 = "%@ download descriptor found, update is prepared, will try to load";
             goto LABEL_52;
           }
 
           goto LABEL_53;
         }
 
-        v41 = [*(a1 + 40) atPhase];
-        v42 = [*(a1 + 32) engineLog];
-        v25 = [v42 oslog];
+        v40 = [*(a1 + 40) atPhase];
+        v41 = [*(a1 + 32) engineLog];
+        v25 = [v41 oslog];
 
-        v43 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-        if (v41 == 4)
+        v42 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+        if (v40 == 4)
         {
-          if (v43)
+          if (v42)
           {
-            v37 = [*(a1 + 32) engineName];
+            v36 = [*(a1 + 32) engineName];
             *buf = 138412290;
-            v48 = v37;
-            v38 = "%@ download descriptor found, prepare interrupted, will try to resume or purge and redownload";
+            v47 = v36;
+            v37 = "%@ download descriptor found, prepare interrupted, will try to resume or purge and redownload";
             goto LABEL_52;
           }
 
           goto LABEL_53;
         }
 
-        if (v43)
+        if (v42)
         {
           v27 = +[SUManagerEngineDownloadDescriptor phaseToString:](SUManagerEngineDownloadDescriptor, "phaseToString:", [*(a1 + 40) atPhase]);
-          v44 = [*(a1 + 32) engineName];
+          v43 = [*(a1 + 32) engineName];
           *buf = 138412546;
-          v48 = v27;
-          v49 = 2112;
-          v50 = v44;
+          v47 = v27;
+          v48 = 2112;
+          v49 = v43;
           _os_log_impl(&dword_26AB34000, v25, OS_LOG_TYPE_DEFAULT, "%@ download descriptor found, phase (%@) is not valid to load", buf, 0x16u);
 
           goto LABEL_36;
@@ -3423,7 +3420,7 @@ LABEL_38:
 
       v27 = [*(a1 + 32) engineName];
       *buf = 138412290;
-      v48 = v27;
+      v47 = v27;
       v28 = "%@ no download descriptor asset to load from";
     }
 
@@ -3439,7 +3436,7 @@ LABEL_38:
 
       v27 = [*(a1 + 32) engineName];
       *buf = 138412290;
-      v48 = v27;
+      v47 = v27;
       v28 = "%@ no download descriptor to load from";
     }
 
@@ -3478,8 +3475,6 @@ LABEL_39:
   v33 = [*(a1 + 32) engineFSM];
   v34 = [v33 diag];
   [v34 trackEnd:@"activateLoadingPersisted" atLevel:1 withResult:objc_msgSend(v9 withError:{"code"), v9}];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadUpdate:(id)update
@@ -3767,19 +3762,17 @@ void __37__SUManagerEngine_updateBrainLoaded___block_invoke(uint64_t a1)
 
 - (void)updateAssetDownloadPreflighted
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   engineLog = [(SUManagerEngine *)self engineLog];
   oslog = [engineLog oslog];
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     engineName = [(SUManagerEngine *)self engineName];
-    v7 = 138412290;
-    v8 = engineName;
-    _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ update asset download preflighted", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = engineName;
+    _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ update asset download preflighted", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAssetDownloadProgress:(id)progress
@@ -3977,27 +3970,7 @@ LABEL_8:
   }
 
   v10 = [v9 userInfo];
-  if (!v10)
-  {
-    goto LABEL_14;
-  }
-
-  v11 = v10;
-  v12 = [*(a1 + 32) userInfo];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_14;
-  }
-
-  v14 = [*(a1 + 32) userInfo];
-  v15 = [v14 objectForKeyedSubscript:@"Recoverable"];
-  objc_opt_class();
-  v16 = objc_opt_isKindOfClass();
-
-  if (v16)
+  if (v10 && (v11 = v10, [*(a1 + 32) userInfo], v12 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v12, v11, (isKindOfClass & 1) != 0) && (objc_msgSend(*(a1 + 32), "userInfo"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "objectForKeyedSubscript:", @"Recoverable"), v15 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v16 = objc_opt_isKindOfClass(), v15, v14, (v16 & 1) != 0))
   {
     v17 = [*(a1 + 32) userInfo];
     v18 = [v17 objectForKeyedSubscript:@"Recoverable"];
@@ -4020,7 +3993,6 @@ LABEL_8:
 
   else
   {
-LABEL_14:
     v21 = v5;
   }
 
@@ -4180,7 +4152,7 @@ void __51__SUManagerEngine_rollbackAttemptFailed_withError___block_invoke(uint64
 
 - (void)updateAnomaly:(id)anomaly
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   anomalyCopy = anomaly;
   engineLog = [(SUManagerEngine *)self engineLog];
   oslog = [engineLog oslog];
@@ -4188,20 +4160,18 @@ void __51__SUManagerEngine_rollbackAttemptFailed_withError___block_invoke(uint64
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     engineName = [(SUManagerEngine *)self engineName];
-    v9 = 138412546;
-    v10 = engineName;
-    v11 = 2112;
-    v12 = anomalyCopy;
-    _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ anomaly reporteed by update control interface, error:%@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = engineName;
+    v10 = 2112;
+    v11 = anomalyCopy;
+    _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ anomaly reporteed by update control interface, error:%@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pathSatisficationStatusChangedTo:(BOOL)to
 {
   toCopy = to;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   engineLog = [(SUManagerEngine *)self engineLog];
   oslog = [engineLog oslog];
 
@@ -4209,9 +4179,9 @@ void __51__SUManagerEngine_rollbackAttemptFailed_withError___block_invoke(uint64
   {
     engineName = [(SUManagerEngine *)self engineName];
     *buf = 138412546;
-    v13 = engineName;
-    v14 = 1024;
-    v15 = toCopy;
+    v12 = engineName;
+    v13 = 1024;
+    v14 = toCopy;
     _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ path satisfication changed to: %d", buf, 0x12u);
   }
 
@@ -4226,8 +4196,6 @@ void __51__SUManagerEngine_rollbackAttemptFailed_withError___block_invoke(uint64
     block[4] = self;
     dispatch_async(extendedStateQueue, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SUManagerEngine_pathSatisficationStatusChangedTo___block_invoke(uint64_t a1)
@@ -4244,7 +4212,7 @@ void __52__SUManagerEngine_pathSatisficationStatusChangedTo___block_invoke(uint6
 
 - (BOOL)isBrainNetworkError:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   engineLog = [(SUManagerEngine *)self engineLog];
   oslog = [engineLog oslog];
@@ -4252,11 +4220,11 @@ void __52__SUManagerEngine_pathSatisficationStatusChangedTo___block_invoke(uint6
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     engineName = [(SUManagerEngine *)self engineName];
-    v25 = 138412546;
-    v26 = engineName;
-    v27 = 2112;
-    v28 = errorCopy;
-    _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ Checking if engine parameter is brain network error, %@", &v25, 0x16u);
+    v24 = 138412546;
+    v25 = engineName;
+    v26 = 2112;
+    v27 = errorCopy;
+    _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ Checking if engine parameter is brain network error, %@", &v24, 0x16u);
   }
 
   if ([errorCopy paramType] != 5)
@@ -4270,11 +4238,11 @@ void __52__SUManagerEngine_pathSatisficationStatusChangedTo___block_invoke(uint6
     }
 
     engineName2 = [(SUManagerEngine *)self engineName];
-    v25 = 138412290;
-    v26 = engineName2;
+    v24 = 138412290;
+    v25 = engineName2;
     v15 = "%@ engine parameter is not an error";
 LABEL_11:
-    _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, v15, &v25, 0xCu);
+    _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, v15, &v24, 0xCu);
 
     goto LABEL_12;
   }
@@ -4294,8 +4262,8 @@ LABEL_11:
     }
 
     engineName2 = [(SUManagerEngine *)self engineName];
-    v25 = 138412290;
-    v26 = engineName2;
+    v24 = 138412290;
+    v25 = engineName2;
     v15 = "%@ engine error parameter is not in MSU domain";
     goto LABEL_11;
   }
@@ -4317,8 +4285,8 @@ LABEL_11:
     if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
     {
       engineName2 = [(SUManagerEngine *)self engineName];
-      v25 = 138412290;
-      v26 = engineName2;
+      v24 = 138412290;
+      v25 = engineName2;
       v15 = "%@ engine error parameter does not have a network failure code";
       goto LABEL_11;
     }
@@ -4335,21 +4303,20 @@ LABEL_15:
   if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
   {
     engineName3 = [(SUManagerEngine *)self engineName];
-    v25 = 138412290;
-    v26 = engineName3;
-    _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, "%@ Engine parameter is brain network error", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = engineName3;
+    _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, "%@ Engine parameter is brain network error", &v24, 0xCu);
   }
 
   v17 = 1;
 LABEL_13:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)isBrainReloadError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   engineLog = [(SUManagerEngine *)self engineLog];
   oslog = [engineLog oslog];
@@ -4357,11 +4324,11 @@ LABEL_13:
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     engineName = [(SUManagerEngine *)self engineName];
-    v24 = 138412546;
-    v25 = engineName;
-    v26 = 2112;
-    v27 = errorCopy;
-    _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ Checking if engine parameter is brain error that should be retried, %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = engineName;
+    v25 = 2112;
+    v26 = errorCopy;
+    _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ Checking if engine parameter is brain error that should be retried, %@", &v23, 0x16u);
   }
 
   if ([errorCopy paramType] != 5)
@@ -4375,11 +4342,11 @@ LABEL_13:
     }
 
     engineName2 = [(SUManagerEngine *)self engineName];
-    v24 = 138412290;
-    v25 = engineName2;
+    v23 = 138412290;
+    v24 = engineName2;
     v20 = "%@ engine parameter is not an error";
 LABEL_15:
-    _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, v20, &v24, 0xCu);
+    _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, v20, &v23, 0xCu);
 
     goto LABEL_16;
   }
@@ -4399,8 +4366,8 @@ LABEL_15:
     }
 
     engineName2 = [(SUManagerEngine *)self engineName];
-    v24 = 138412290;
-    v25 = engineName2;
+    v23 = 138412290;
+    v24 = engineName2;
     v20 = "%@ engine error parameter is not in SU domain";
     goto LABEL_15;
   }
@@ -4417,8 +4384,8 @@ LABEL_15:
     if (v15)
     {
       engineName2 = [(SUManagerEngine *)self engineName];
-      v24 = 138412290;
-      v25 = engineName2;
+      v23 = 138412290;
+      v24 = engineName2;
       v20 = "%@ engine error parameter does not have a brain should retry failure code";
       goto LABEL_15;
     }
@@ -4431,15 +4398,14 @@ LABEL_16:
   if (v15)
   {
     engineName3 = [(SUManagerEngine *)self engineName];
-    v24 = 138412290;
-    v25 = engineName3;
-    _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, "%@ Engine parameter is brain retry error", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = engineName3;
+    _os_log_impl(&dword_26AB34000, oslog2, OS_LOG_TYPE_DEFAULT, "%@ Engine parameter is brain retry error", &v23, 0xCu);
   }
 
   v17 = 1;
 LABEL_17:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -4494,7 +4460,7 @@ LABEL_17:
 
 - (void)notifyRollbackStarted:(id)started
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   managerDelegate = [(SUManagerEngine *)self managerDelegate];
   v6 = objc_opt_respondsToSelector();
@@ -4503,13 +4469,13 @@ LABEL_17:
   {
     mEMORY[0x277D64400] = [MEMORY[0x277D64400] sharedCore];
     delegateCallbackQueue = [mEMORY[0x277D64400] delegateCallbackQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __41__SUManagerEngine_notifyRollbackStarted___block_invoke;
-    v13[3] = &unk_279CAA7C0;
-    v13[4] = self;
-    v14 = startedCopy;
-    dispatch_async(delegateCallbackQueue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __41__SUManagerEngine_notifyRollbackStarted___block_invoke;
+    v12[3] = &unk_279CAA7C0;
+    v12[4] = self;
+    v13 = startedCopy;
+    dispatch_async(delegateCallbackQueue, v12);
   }
 
   else
@@ -4521,12 +4487,10 @@ LABEL_17:
     {
       engineName = [(SUManagerEngine *)self engineName];
       *buf = 138412290;
-      v16 = engineName;
+      v15 = engineName;
       _os_log_impl(&dword_26AB34000, oslog, OS_LOG_TYPE_DEFAULT, "%@ delegate does not respond to selector(rollbackStarted:) so not reporting", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SUManagerEngine_notifyRollbackStarted___block_invoke(uint64_t a1)

@@ -47,64 +47,65 @@
 
   else if (imageName)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__81;
-    v30 = __Block_byref_object_dispose__81;
-    v31 = 0;
-    if ([MEMORY[0x277CCACC8] isMainThread])
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__81;
+    v32 = __Block_byref_object_dispose__81;
+    v33 = 0;
+    isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+    if (isMainThread)
     {
-      v11 = MEMORY[0x277D755B8];
-      v12 = SKUIBundle();
-      v13 = [v11 imageNamed:imageName inBundle:v12];
-      v14 = v27[5];
-      v27[5] = v13;
+      v13 = MEMORY[0x277D755B8];
+      v14 = SKUIBundle(isMainThread, v12);
+      v15 = [v13 imageNamed:imageName inBundle:v14];
+      v16 = v29[5];
+      v29[5] = v15;
     }
 
     else
     {
-      v20 = MEMORY[0x277D85DD0];
-      v21 = 3221225472;
-      v22 = __40__SKUILoadArtworkResourceOperation_main__block_invoke;
-      v23 = &unk_2781F8608;
-      v25 = &v26;
-      v24 = imageName;
-      dispatch_sync(MEMORY[0x277D85CD0], &v20);
-      v12 = v24;
+      v22 = MEMORY[0x277D85DD0];
+      v23 = 3221225472;
+      v24 = __40__SKUILoadArtworkResourceOperation_main__block_invoke;
+      v25 = &unk_2781F8608;
+      v27 = &v28;
+      v26 = imageName;
+      dispatch_sync(MEMORY[0x277D85CD0], &v22);
+      v14 = v26;
     }
 
     if (([(SKUILoadArtworkResourceOperation *)self isCancelled]& 1) == 0)
     {
       dataConsumer2 = [resourceRequest dataConsumer];
-      v16 = dataConsumer2;
+      v18 = dataConsumer2;
       if (dataConsumer2)
       {
-        v17 = [dataConsumer2 imageForImage:v27[5]];
-        v18 = v27[5];
-        v27[5] = v17;
+        v19 = [dataConsumer2 imageForImage:v29[5]];
+        v20 = v29[5];
+        v29[5] = v19;
       }
 
-      v19 = [(SKUILoadResourceOperation *)self outputBlock:v20];
-      if (v19 && ([(SKUILoadArtworkResourceOperation *)self isCancelled]& 1) == 0)
+      v21 = [(SKUILoadResourceOperation *)self outputBlock:v22];
+      if (v21 && ([(SKUILoadArtworkResourceOperation *)self isCancelled]& 1) == 0)
       {
-        v19[2](v19, v27[5], 0);
+        v21[2](v21, v29[5], 0);
       }
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v28, 8);
   }
 }
 
-void __40__SKUILoadArtworkResourceOperation_main__block_invoke(uint64_t a1)
+void __40__SKUILoadArtworkResourceOperation_main__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D755B8];
-  v3 = *(a1 + 32);
-  v7 = SKUIBundle();
-  v4 = [v2 imageNamed:v3 inBundle:v7];
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v3 = MEMORY[0x277D755B8];
+  v4 = *(a1 + 32);
+  v8 = SKUIBundle(a1, a2);
+  v5 = [v3 imageNamed:v4 inBundle:v8];
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 }
 
 - (void)cancel

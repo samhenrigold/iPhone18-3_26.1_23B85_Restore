@@ -117,7 +117,7 @@ void __54__HSServiceDirectory_initWithReceiveRight_authorizer___block_invoke(uin
   std::mutex::lock((self + 32));
   serviceName = [serviceCopy serviceName];
   objc_initWeak(&v11, serviceCopy);
-  std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak},HSUtil::ObjectLess<NSString>,true>,std::allocator<objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},objc_object  {objcproto22HSServiceDirectoryable}*>>(self + 96, &serviceName);
+  std::__tree<std::__value_type<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>,std::__map_value_compare<NSString * {__strong},objc_object  {objcproto22HSServiceDirectoryable}* {__weak},HSUtil::ObjectLess<NSString>,true>,std::allocator<objc_object  {objcproto22HSServiceDirectoryable}* {__weak}>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},objc_object  {objcproto22HSServiceDirectoryable}*>>(self + 12, &serviceName, &serviceName);
   v7 = v6;
   objc_destroyWeak(&v11);
 
@@ -480,7 +480,7 @@ LABEL_29:
 - (void)_handleMessage:(void *)message fromClient:(shared_ptr<Client>)client
 {
   var0 = client.var0;
-  HSUtil::Decoder::decodeArray(message, v48);
+  HSUtil::Decoder::decodeArray(v48, message);
   if (*message)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -488,7 +488,7 @@ LABEL_29:
   }
 
   v7 = HSUtil::Decoder::decodeUInt(v48);
-  if (v48[0])
+  if (LODWORD(v48[0]))
   {
     v37 = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(v37, "array.decodeUInt() failed");
@@ -605,14 +605,14 @@ LABEL_43:
   }
 
   v52 = HSUtil::Decoder::decodeNSString(v48);
-  if (v48[0])
+  if (LODWORD(v48[0]))
   {
     v38 = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(v38, "array.decodeNSString() failed");
   }
 
   v26 = HSUtil::Decoder::decodeNSDictionary(v48);
-  if (v48[0])
+  if (LODWORD(v48[0]))
   {
     v39 = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(v39, "array.decodeNSDictionary() failed");
@@ -699,58 +699,66 @@ LABEL_35:
 
 - (void)removeService:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)setRemoteAccessSocket:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_addClient:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_addClient:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_removeClient:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_handleNewClient:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_handleNewClient:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_handleDataFromClient:.cold.1()
 {
   OUTLINED_FUNCTION_4_1(__stack_chk_guard);
-  (*(v0 + 16))();
-  OUTLINED_FUNCTION_4_2(&dword_0, &_os_log_default, v1, "Removing client: %s", v2, v3, v4, v5, 2u);
+  LODWORD(v6) = 136315138;
+  *(&v6 + 4) = (*(v0 + 16))();
+  OUTLINED_FUNCTION_4_2(&dword_0, &_os_log_default, v1, "Removing client: %s", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
 @end

@@ -204,63 +204,63 @@
   [(TUILayoutController *)layoutController updateEnvironment:environment];
 
   updated = self->_updated;
-  v21 = TUILayoutLog();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
+  v22 = TUILayoutLog(v21);
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
   if (updated)
   {
-    if (!v22)
+    if (!v23)
     {
       goto LABEL_13;
     }
 
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
-    v24 = self->_updated;
+    v25 = self->_updated;
     section = self->_section;
     entry = self->_entry;
-    *v41 = 134218754;
-    *&v41[4] = uniqueIdentifier;
-    *&v41[12] = 2048;
-    *&v41[14] = v24;
-    *&v41[22] = 1024;
-    *&v41[24] = section;
-    *&v41[28] = 2112;
-    *&v41[30] = entry;
-    v27 = "[fid:%lu] feed data update #%lu at section %d: %@";
-    v28 = v21;
-    v29 = 38;
+    *v43 = 134218754;
+    *&v43[4] = uniqueIdentifier;
+    *&v43[12] = 2048;
+    *&v43[14] = v25;
+    *&v43[22] = 1024;
+    *&v43[24] = section;
+    *&v43[28] = 2112;
+    *&v43[30] = entry;
+    v28 = "[fid:%lu] feed data update #%lu at section %d: %@";
+    v29 = v22;
+    v30 = 38;
   }
 
   else
   {
-    if (!v22)
+    if (!v23)
     {
       goto LABEL_13;
     }
 
-    v30 = self->_feedId.uniqueIdentifier;
-    v31 = self->_section;
-    v32 = self->_entry;
-    *v41 = 134218498;
-    *&v41[4] = v30;
-    *&v41[12] = 1024;
-    *&v41[14] = v31;
-    *&v41[18] = 2112;
-    *&v41[20] = v32;
-    v27 = "[fid:%lu] feed data loaded at section %d: %@";
-    v28 = v21;
-    v29 = 28;
+    v31 = self->_feedId.uniqueIdentifier;
+    v32 = self->_section;
+    v33 = self->_entry;
+    *v43 = 134218498;
+    *&v43[4] = v31;
+    *&v43[12] = 1024;
+    *&v43[14] = v32;
+    *&v43[18] = 2112;
+    *&v43[20] = v33;
+    v28 = "[fid:%lu] feed data loaded at section %d: %@";
+    v29 = v22;
+    v30 = 28;
   }
 
-  _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, v27, v41, v29);
+  _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, v28, v43, v30);
 LABEL_13:
 
   ++self->_updated;
   if (!self->_template)
   {
-    v33 = TUILayoutLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v35 = TUILayoutLog(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      sub_19AF68(self, &self->_entry, v33);
+      sub_19AF68(self, &self->_entry, v35);
     }
   }
 
@@ -268,9 +268,9 @@ LABEL_13:
   if (captureController)
   {
     [(TUIFeedCaptureController *)captureController captureSectionWithEntry:self->_entry bindings:self->_bindings template:self->_template];
-    v35 = [(TUIFeedCaptureController *)self->_captureController instantiateCaptureForEntry:self->_entry];
+    v37 = [(TUIFeedCaptureController *)self->_captureController instantiateCaptureForEntry:self->_entry];
     instantiateContext = [(TUILayoutController *)self->_layoutController instantiateContext];
-    [instantiateContext setCapture:v35];
+    [instantiateContext setCapture:v37];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_feedLayoutController);
@@ -286,11 +286,11 @@ LABEL_13:
     instantiateContext2 = [(TUILayoutController *)self->_layoutController instantiateContext];
     [instantiateContext2 setCapture:0];
 
-    v40 = self->_captureController;
+    v42 = self->_captureController;
     self->_captureController = 0;
   }
 
-  [(TUIStatsTimingCollector *)self->_timingCollector endPhase:0, *v41, *&v41[16], *&v41[24]];
+  [(TUIStatsTimingCollector *)self->_timingCollector endPhase:0, *v43, *&v43[8], *&v43[24]];
 }
 
 - (void)_instantiateTemplateWithTransactionGroup:(id)group

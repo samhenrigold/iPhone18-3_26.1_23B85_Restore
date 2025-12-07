@@ -6,7 +6,7 @@
 void ___SBCallDescriptionBlockForEachLayoutRoleInEachVisibleAppLayoutWithIndexAndBounds_block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  if ([*(a1 + 32) containsObject:v5])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     [*(a1 + 40) frameForIndex:a3];
     v7 = v6;

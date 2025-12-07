@@ -1116,9 +1116,9 @@ LABEL_33:
 
           v24 = *(*(&v41 + 1) + 8 * j);
           targetNode2 = [v24 targetNode];
-          v26 = [lastObject isEqual:targetNode2];
+          isEqual = objc_msgSend_isEqual_(lastObject);
 
-          if (v26)
+          if (isEqual)
           {
             [v24 sourceNode];
           }
@@ -1270,9 +1270,9 @@ LABEL_32:
 
           v22 = *(*(&v38 + 1) + 8 * j);
           targetNode2 = [v22 targetNode];
-          v24 = [firstObject isEqual:targetNode2];
+          isEqual = objc_msgSend_isEqual_(firstObject);
 
-          if (v24)
+          if (isEqual)
           {
             [v22 sourceNode];
           }

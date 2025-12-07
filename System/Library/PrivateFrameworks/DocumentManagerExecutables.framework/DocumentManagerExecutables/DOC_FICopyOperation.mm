@@ -60,9 +60,10 @@
 - (id)operationForUndoing
 {
   selfCopy = self;
-  v3 = DOC_FICopyOperation.operationForUndoing()();
+  DOC_FICopyOperation.operationForUndoing()();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (_TtC26DocumentManagerExecutables19DOC_FICopyOperation)init

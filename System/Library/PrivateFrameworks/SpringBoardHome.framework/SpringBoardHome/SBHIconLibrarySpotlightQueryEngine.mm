@@ -227,8 +227,7 @@ void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke(id *a1
       v9 = [v3 _searchQueryForIconLibraryQuery:a1[4]];
       [(SBHIconLibraryQueryContext *)v6 setObject:v9 forKeyedSubscript:@"kRunningQueryKey"];
       v10 = [v3 _relevancyQueryForLibraryQuery:a1[4]];
-      [(SBHIconLibraryQueryContext *)v6 setObject:v10 forKeyedSubscript:@"kRelevancyQueryKey"];
-      v11 = SBLogLibrarySearchController();
+      v11 = SBLogLibrarySearchController([(SBHIconLibraryQueryContext *)v6 setObject:v10 forKeyedSubscript:@"kRelevancyQueryKey"]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = a1[4];
@@ -416,7 +415,7 @@ id __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_2_53(uin
 uint64_t __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_3_55(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v2 = SBLogLibrarySearchController();
+  v2 = SBLogLibrarySearchController(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -454,7 +453,7 @@ void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_57(uin
 uint64_t __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_2_58(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v2 = SBLogLibrarySearchController();
+  v2 = SBLogLibrarySearchController(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -490,7 +489,7 @@ void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_60(uin
 
 void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_2_61(uint64_t a1)
 {
-  v2 = SBLogLibrarySearchController();
+  v2 = SBLogLibrarySearchController(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_2_61_cold_1(a1, v2);
@@ -522,7 +521,7 @@ void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_2_61(u
 void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_64(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = SBLogLibrarySearchController();
+  v2 = SBLogLibrarySearchController(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -551,21 +550,22 @@ void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_64(uin
 
 void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_65(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = SBLogLibrarySearchController();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogLibrarySearchController(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_DEFAULT, "Library Search Query '%@' ended with no found items", &v6, 0xCu);
+      v5 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "Library Search Query '%@' ended with no found items", &v7, 0xCu);
     }
 
-    v5 = +[SBHIconLibraryQueryResult nullQueryResults];
-    [WeakRetained _processingQueue_observerDispatchQueryResultsWereUpdated:v5];
+    v6 = +[SBHIconLibraryQueryResult nullQueryResults];
+    [v3 _processingQueue_observerDispatchQueryResultsWereUpdated:v6];
   }
 }
 
@@ -621,7 +621,7 @@ void __51__SBHIconLibrarySpotlightQueryEngine_executeQuery___block_invoke_4_71(u
 {
   v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SBLogLibrarySearchController();
+  v4 = SBLogLibrarySearchController(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);

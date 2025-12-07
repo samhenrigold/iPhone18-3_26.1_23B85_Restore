@@ -40,7 +40,7 @@
     uTF8String = "";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v22, uTF8String);
+  std::string::basic_string[abi:ne200100]<0>(v21, uTF8String);
   if (v9)
   {
   }
@@ -77,11 +77,11 @@
   if (!v7)
   {
     lpsrc = 0;
-    v20 = 0;
+    v19 = 0;
     p_mBuilder = &self->_mBuilder;
 LABEL_24:
+    v16 = 0;
     v17 = 0;
-    v18 = 0;
     goto LABEL_25;
   }
 
@@ -89,13 +89,13 @@ LABEL_24:
   if (slots)
   {
     slots2 = [v7 slots];
-    IE_NSObjectToVariable(slots2, &lpsrc);
+    IE_NSObjectToVariable(&lpsrc, slots2);
   }
 
   else
   {
     lpsrc = 0;
-    v20 = 0;
+    v19 = 0;
   }
 
   p_mBuilder = &self->_mBuilder;
@@ -104,29 +104,28 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v15 = **lpsrc;
-  if (!v16)
+  if (!v15)
   {
     goto LABEL_24;
   }
 
-  v17 = v16;
-  v18 = v20;
-  if (v20)
+  v16 = v15;
+  v17 = v19;
+  if (v19)
   {
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
 LABEL_25:
-  siri::intelligence::TestCaseBuilder::SendIntent(p_mBuilder, v22, &__p, &v17);
-  if (v18)
+  siri::intelligence::TestCaseBuilder::SendIntent(p_mBuilder, v21, &__p, &v16);
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -134,114 +133,110 @@ LABEL_25:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v23 < 0)
+  if (v22 < 0)
   {
-    operator delete(v22[0]);
+    operator delete(v21[0]);
   }
 }
 
 - (void)assertResponseAllIds:(id)ids
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   v5 = idsCopy;
-  memset(v18, 0, sizeof(v18));
+  memset(v17, 0, sizeof(v17));
   if (idsCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = idsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v7)
     {
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           if (v10)
           {
             std::string::basic_string[abi:ne200100]<0>(__p, [v10 UTF8String]);
-            std::vector<std::string>::push_back[abi:ne200100](v18, __p);
-            if (v13 < 0)
+            std::vector<std::string>::push_back[abi:ne200100](v17, __p);
+            if (v12 < 0)
             {
               operator delete(__p[0]);
             }
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
 
-  siri::intelligence::TestCaseBuilder::AssertResponseAllIds(&self->_mBuilder, v18);
-  __p[0] = v18;
+  siri::intelligence::TestCaseBuilder::AssertResponseAllIds(&self->_mBuilder, v17);
+  __p[0] = v17;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertResponseAnyId:(id)id
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = idCopy;
-  memset(v18, 0, sizeof(v18));
+  memset(v17, 0, sizeof(v17));
   if (idCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = idCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v7)
     {
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           if (v10)
           {
             std::string::basic_string[abi:ne200100]<0>(__p, [v10 UTF8String]);
-            std::vector<std::string>::push_back[abi:ne200100](v18, __p);
-            if (v13 < 0)
+            std::vector<std::string>::push_back[abi:ne200100](v17, __p);
+            if (v12 < 0)
             {
               operator delete(__p[0]);
             }
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
 
-  siri::intelligence::TestCaseBuilder::AssertResponseAnyId(&self->_mBuilder, v18);
-  __p[0] = v18;
+  siri::intelligence::TestCaseBuilder::AssertResponseAnyId(&self->_mBuilder, v17);
+  __p[0] = v17;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVariable:(id)variable value:(id)value
@@ -259,7 +254,7 @@ LABEL_25:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, uTF8String);
-  IE_NSObjectToVariable(valueCopy, &v11);
+  IE_NSObjectToVariable(&v11, valueCopy);
   v9 = v11;
   v10 = v12;
   if (v12)
@@ -418,8 +413,8 @@ LABEL_25:
     uTF8String3 = "";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&__p, uTF8String3);
-  siri::intelligence::TestCaseBuilder::AddToTestFile(&self->_mBuilder, &v17);
+  std::string::basic_string[abi:ne200100]<0>(__p, uTF8String3);
+  siri::intelligence::TestCaseBuilder::AddToTestFile(&self->_mBuilder, &v17, &v16, __p);
 }
 
 - (TestCaseBuilder)mBuilder

@@ -32,7 +32,7 @@
 
 - (id)cachedItemMatching:(id)matching
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   if (self)
   {
@@ -73,11 +73,11 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = NSStringFromBCSType([matchingCopy type]);
-      v15 = 136315394;
-      v16 = "[BCSItemResolver cachedItemMatching:]";
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "%s - Cached item found but expired - type: %@ --> deleting", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[BCSItemResolver cachedItemMatching:]";
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "%s - Cached item found but expired - type: %@ --> deleting", &v14, 0x16u);
     }
 
     if (self)
@@ -95,14 +95,12 @@
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)itemMatching:(id)matching metric:(id)metric completion:(id)completion
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   completionCopy = completion;
   metricCopy = metric;
@@ -132,18 +130,18 @@
     v16 = 0;
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __50__BCSItemResolver_itemMatching_metric_completion___block_invoke;
-  v36[3] = &unk_278D38980;
-  v36[4] = self;
-  v39 = v16;
-  v40 = v17;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __50__BCSItemResolver_itemMatching_metric_completion___block_invoke;
+  v35[3] = &unk_278D38980;
+  v35[4] = self;
+  v38 = v16;
+  v39 = v17;
   v18 = matchingCopy;
-  v37 = v18;
+  v36 = v18;
   v19 = completionCopy;
-  v38 = v19;
-  v20 = MEMORY[0x245D07100](v36);
+  v37 = v19;
+  v20 = MEMORY[0x245D07100](v35);
   itemIdentifier2 = [v18 itemIdentifier];
   v22 = [(BCSItemResolver *)self cachedItemMatching:itemIdentifier2];
 
@@ -176,9 +174,9 @@
       itemIdentifier4 = [v18 itemIdentifier];
       v32 = NSStringFromBCSType([itemIdentifier4 type]);
       *buf = 136315394;
-      v42 = "[BCSItemResolver itemMatching:metric:completion:]";
-      v43 = 2112;
-      v44 = v32;
+      v41 = "[BCSItemResolver itemMatching:metric:completion:]";
+      v42 = 2112;
+      v43 = v32;
       _os_log_impl(&dword_242072000, v29, OS_LOG_TYPE_DEFAULT, "%s - Item found in cache for - type: %@", buf, 0x16u);
     }
 
@@ -192,16 +190,14 @@
       itemIdentifier5 = [v18 itemIdentifier];
       v34 = NSStringFromBCSType([itemIdentifier5 type]);
       *buf = 136315394;
-      v42 = "[BCSItemResolver itemMatching:metric:completion:]";
-      v43 = 2112;
-      v44 = v34;
+      v41 = "[BCSItemResolver itemMatching:metric:completion:]";
+      v42 = 2112;
+      v43 = v34;
       _os_log_impl(&dword_242072000, v29, OS_LOG_TYPE_DEFAULT, "%s - Item not found in cache for - type: %@", buf, 0x16u);
     }
 
     v20[2](v20);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BCSItemResolver_itemMatching_metric_completion___block_invoke(uint64_t a1)
@@ -232,7 +228,7 @@ void __50__BCSItemResolver_itemMatching_metric_completion___block_invoke(uint64_
 
 void __50__BCSItemResolver_itemMatching_metric_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -247,7 +243,7 @@ void __50__BCSItemResolver_itemMatching_metric_completion___block_invoke_2(uint6
       *&buf[12] = 2112;
       *&buf[14] = v9;
       *&buf[22] = 2112;
-      v46 = v6;
+      v45 = v6;
       _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s - Error remote fetching buckets for - type: %@ - %@", buf, 0x20u);
     }
 
@@ -256,26 +252,26 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v12 = *(a1 + 32);
-  v13 = [*(a1 + 40) itemIdentifier];
-  v14 = v5;
-  v15 = v13;
-  v16 = v15;
-  if (v12)
+  v11 = *(a1 + 32);
+  v12 = [*(a1 + 40) itemIdentifier];
+  v13 = v5;
+  v14 = v12;
+  v15 = v14;
+  if (v11)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v46 = __Block_byref_object_copy_;
-    v47 = __Block_byref_object_dispose_;
-    v48 = 0;
-    v39 = MEMORY[0x277D85DD0];
-    v40 = 3221225472;
-    v41 = __47__BCSItemResolver__firstItemInBucket_matching___block_invoke;
-    v42 = &unk_278D389A8;
-    v43 = v15;
-    v44 = buf;
-    [v14 enumerateObjectsUsingBlock:&v39];
+    v45 = __Block_byref_object_copy_;
+    v46 = __Block_byref_object_dispose_;
+    v47 = 0;
+    v38 = MEMORY[0x277D85DD0];
+    v39 = 3221225472;
+    v40 = __47__BCSItemResolver__firstItemInBucket_matching___block_invoke;
+    v41 = &unk_278D389A8;
+    v42 = v14;
+    v43 = buf;
+    [v13 enumerateObjectsUsingBlock:&v38];
     v10 = *(*&buf[8] + 40);
 
     _Block_object_dispose(buf, 8);
@@ -287,55 +283,55 @@ LABEL_4:
   }
 
   v7 = ABSLogCommon();
-  v17 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v16 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (!v10)
   {
-    if (v17)
+    if (v16)
     {
-      v35 = [*(a1 + 40) itemIdentifier];
-      v36 = NSStringFromBCSType([v35 type]);
+      v34 = [*(a1 + 40) itemIdentifier];
+      v35 = NSStringFromBCSType([v34 type]);
       *buf = 136315394;
       *&buf[4] = "[BCSItemResolver itemMatching:metric:completion:]_block_invoke";
       *&buf[12] = 2112;
-      *&buf[14] = v36;
+      *&buf[14] = v35;
       _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s - Failed to find matching item in bucket - type: %@", buf, 0x16u);
     }
 
     goto LABEL_4;
   }
 
-  if (v17)
+  if (v16)
   {
-    v18 = [*(a1 + 40) itemIdentifier];
-    v19 = NSStringFromBCSType([v18 type]);
+    v17 = [*(a1 + 40) itemIdentifier];
+    v18 = NSStringFromBCSType([v17 type]);
     *buf = 136315394;
     *&buf[4] = "[BCSItemResolver itemMatching:metric:completion:]_block_invoke_2";
     *&buf[12] = 2112;
-    *&buf[14] = v19;
+    *&buf[14] = v18;
     _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s - Successfully found matching item in bucket - type: %@", buf, 0x16u);
   }
 
-  v20 = [*(a1 + 40) config];
-  v21 = [v20 itemTTL];
-  if (!v21)
+  v19 = [*(a1 + 40) config];
+  v20 = [v19 itemTTL];
+  if (!v20)
   {
     goto LABEL_14;
   }
 
-  v22 = [*(a1 + 40) config];
-  v23 = [v22 itemTTL];
-  [v23 doubleValue];
-  v25 = v24 > 0.0;
+  v21 = [*(a1 + 40) config];
+  v22 = [v21 itemTTL];
+  [v22 doubleValue];
+  v24 = v23 > 0.0;
 
-  if (v25)
+  if (v24)
   {
-    v26 = MEMORY[0x277CBEAA8];
-    v27 = [*(a1 + 40) config];
-    v28 = [v27 itemTTL];
-    [v28 doubleValue];
-    v20 = [v26 dateWithTimeIntervalSinceNow:?];
+    v25 = MEMORY[0x277CBEAA8];
+    v26 = [*(a1 + 40) config];
+    v27 = [v26 itemTTL];
+    [v27 doubleValue];
+    v19 = [v25 dateWithTimeIntervalSinceNow:?];
 
-    [v10 setExpirationDate:v20];
+    [v10 setExpirationDate:v19];
 LABEL_14:
   }
 
@@ -344,46 +340,45 @@ LABEL_14:
     v7 = ABSLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = [*(a1 + 40) itemIdentifier];
-      v38 = NSStringFromBCSType([v37 type]);
+      v36 = [*(a1 + 40) itemIdentifier];
+      v37 = NSStringFromBCSType([v36 type]);
       *buf = 136315394;
       *&buf[4] = "[BCSItemResolver itemMatching:metric:completion:]_block_invoke";
       *&buf[12] = 2112;
-      *&buf[14] = v38;
+      *&buf[14] = v37;
       _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s - Not caching matching item because it is already expired - type: %@", buf, 0x16u);
     }
   }
 
   else
   {
-    v29 = ABSLogCommon();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v28 = ABSLogCommon();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [*(a1 + 40) itemIdentifier];
-      v31 = NSStringFromBCSType([v30 type]);
+      v29 = [*(a1 + 40) itemIdentifier];
+      v30 = NSStringFromBCSType([v29 type]);
       *buf = 136315394;
       *&buf[4] = "[BCSItemResolver itemMatching:metric:completion:]_block_invoke";
       *&buf[12] = 2112;
-      *&buf[14] = v31;
-      _os_log_impl(&dword_242072000, v29, OS_LOG_TYPE_DEFAULT, "%s - Caching matching item - type: %@", buf, 0x16u);
+      *&buf[14] = v30;
+      _os_log_impl(&dword_242072000, v28, OS_LOG_TYPE_DEFAULT, "%s - Caching matching item - type: %@", buf, 0x16u);
     }
 
-    v32 = *(a1 + 32);
-    if (v32)
+    v31 = *(a1 + 32);
+    if (v31)
     {
-      v32 = v32[1];
+      v31 = v31[1];
     }
 
-    v33 = *(a1 + 40);
-    v34 = v32;
-    v7 = [v33 itemIdentifier];
-    [v34 updateItem:v10 withItemIdentifier:v7];
+    v32 = *(a1 + 40);
+    v33 = v31;
+    v7 = [v32 itemIdentifier];
+    [v33 updateItem:v10 withItemIdentifier:v7];
   }
 
 LABEL_5:
 
   (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __47__BCSItemResolver__firstItemInBucket_matching___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

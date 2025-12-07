@@ -319,7 +319,6 @@ LABEL_33:
   v15 = toCopy;
   if (flightNumber)
   {
-    flightNumber = self->_flightNumber;
     PBDataWriterWriteStringField();
     v15 = toCopy;
   }

@@ -61,10 +61,10 @@
     v15 = [v12 CAF_outOfRangeErrorForValue:v13 range:range3];
     [(CAFCharacteristic *)self setError:v15];
 
-    v16 = CAFGeneralLogging();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = CAFGeneralLogging(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(CAFFloatCharacteristic *)self setFloatValue:v16, value];
+      [(CAFFloatCharacteristic *)self setFloatValue:v17, value];
     }
   }
 }
@@ -118,13 +118,12 @@
 
 - (void)setFloatValue:(float)a3 .cold.1(uint64_t a1, NSObject *a2, float a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2050;
-  v7 = a3;
-  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "%{public}@ floatValue out of range %{public}g", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2050;
+  v6 = a3;
+  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "%{public}@ floatValue out of range %{public}g", &v3, 0x16u);
 }
 
 @end

@@ -16,7 +16,7 @@
 {
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController _restoreHomeApp]", 30, "Restoring Home app\n");
   }
 
   [*(&self->_progressView + 1) setHidden:0];
@@ -24,14 +24,14 @@
   [*(&self->_settingUp + 1) setHidden:0];
   [*(&self->_dismissButton + 1) setHidden:1];
   v3 = +[LSApplicationWorkspace defaultWorkspace];
-  [v3 addObserver:self];
-  v4 = [objc_alloc(off_1001BE650()) initWithBundleID:@"com.apple.Home"];
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1000EC848;
-  v5[3] = &unk_100195940;
-  v5[4] = self;
-  [v4 startWithErrorHandler:v5];
+  v4 = [v3 addObserver:self];
+  v5 = [objc_alloc(off_1001BE650(v4)) initWithBundleID:@"com.apple.Home"];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_1000EC848;
+  v6[3] = &unk_100195940;
+  v6[4] = self;
+  [v5 startWithErrorHandler:v6];
 }
 
 - (void)_launchHomeApp
@@ -52,27 +52,25 @@
 
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    v10 = v5;
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController _launchHomeApp]", 30, "Launch Home app (%@)\n", v5);
   }
 
   v6 = +[LSApplicationWorkspace defaultWorkspace];
   v7 = v6;
   if (v5)
   {
-    v13 = 0;
-    v8 = [v6 openSensitiveURL:v5 withOptions:0 error:&v13];
-    v9 = v13;
+    v10 = 0;
+    v8 = [v6 openSensitiveURL:v5 withOptions:0 error:&v10];
+    v9 = v10;
     if (v8)
     {
 LABEL_13:
       if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
       {
-        v11 = v5;
-        LogPrintF();
+        LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController _launchHomeApp]", 30, "Launched Home app (%@)\n", v5);
       }
 
-      [self->super._mainController dismiss:{8, v11}];
+      [self->super._mainController dismiss:8];
       goto LABEL_23;
     }
   }
@@ -89,13 +87,11 @@ LABEL_13:
 
   if (dword_1001BE5E0 <= 90 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    v11 = v5;
-    v12 = v9;
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController _launchHomeApp]", 90, "### Launch Home app failed (%@), %{error}\n", v5, v9);
   }
 
   BYTE1(self->_setupButton) = 0;
-  [*(&self->_dismissButton + 1) setEnabled:{1, v11, v12}];
+  [*(&self->_dismissButton + 1) setEnabled:1];
 LABEL_23:
 }
 
@@ -127,7 +123,7 @@ LABEL_23:
         {
           if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController applicationsDidInstall:]", 30, "Home app installed\n");
           }
 
           block[0] = _NSConcreteStackBlock;
@@ -158,7 +154,7 @@ LABEL_15:
   viewCopy = view;
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view\n");
   }
 
   [self->super._mainController dismiss:1];
@@ -195,7 +191,7 @@ LABEL_15:
   buttonCopy = button;
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -215,7 +211,7 @@ LABEL_15:
   disappearCopy = disappear;
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -228,7 +224,7 @@ LABEL_15:
   appearCopy = appear;
   if (dword_1001BE5E0 <= 30 && (dword_1001BE5E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE5E0, "[HomeKitDeviceDetectedStartViewController viewWillAppear:]", 30, "Start ViewWillAppear\n");
   }
 
   v9.receiver = self;

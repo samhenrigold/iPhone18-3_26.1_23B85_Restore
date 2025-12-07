@@ -38,7 +38,7 @@
 - (void)runWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10000BE38();
+  v5 = sub_10000BE38(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     registerRequestInfo = [(FMDPairingLockRegisterAction *)self registerRequestInfo];
@@ -84,26 +84,19 @@
 {
   actionCopy = action;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v10 = 0;
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_4;
-  }
+    registerRequestInfo = [actionCopy registerRequestInfo];
+    serialNumber = [registerRequestInfo serialNumber];
+    registerRequestInfo2 = [(FMDPairingLockRegisterAction *)self registerRequestInfo];
+    serialNumber2 = [registerRequestInfo2 serialNumber];
+    v9 = [serialNumber isEqualToString:serialNumber2];
 
-  registerRequestInfo = [actionCopy registerRequestInfo];
-  serialNumber = [registerRequestInfo serialNumber];
-  registerRequestInfo2 = [(FMDPairingLockRegisterAction *)self registerRequestInfo];
-  serialNumber2 = [registerRequestInfo2 serialNumber];
-  v9 = [serialNumber isEqualToString:serialNumber2];
-
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_4:
-    v10 = 0;
+    if (v9)
+    {
+      v10 = 1;
+    }
   }
 
   return v10;

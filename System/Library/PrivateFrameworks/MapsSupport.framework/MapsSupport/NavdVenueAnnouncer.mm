@@ -29,18 +29,18 @@
   registerCopy = register;
   if (!depotCopy)
   {
-    v68 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+    v61 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446978;
-      v73 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/navd/VenueAnnouncer/NavdVenueAnnouncer.mm";
-      v74 = 1024;
-      v75 = 262;
-      v76 = 2082;
-      v77 = "[NavdVenueAnnouncer initFromResourceDepot:sharedRegister:]";
-      v78 = 2082;
-      v79 = "nil == (resourceDepot)";
-      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a resource depot", buf, 0x26u);
+      v66 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/navd/VenueAnnouncer/NavdVenueAnnouncer.mm";
+      v67 = 1024;
+      v68 = 262;
+      v69 = 2082;
+      v70 = "[NavdVenueAnnouncer initFromResourceDepot:sharedRegister:]";
+      v71 = 2082;
+      v72 = "nil == (resourceDepot)";
+      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a resource depot", buf, 0x26u);
     }
 
     goto LABEL_17;
@@ -50,31 +50,30 @@
 
   if (!oneNetworkRequester)
   {
-    v68 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+    v61 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446978;
-      v73 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/navd/VenueAnnouncer/NavdVenueAnnouncer.mm";
-      v74 = 1024;
-      v75 = 263;
-      v76 = 2082;
-      v77 = "[NavdVenueAnnouncer initFromResourceDepot:sharedRegister:]";
-      v78 = 2082;
-      v79 = "nil == (resourceDepot.oneNetworkRequester)";
-      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a network requester", buf, 0x26u);
+      v66 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/navd/VenueAnnouncer/NavdVenueAnnouncer.mm";
+      v67 = 1024;
+      v68 = 263;
+      v69 = 2082;
+      v70 = "[NavdVenueAnnouncer initFromResourceDepot:sharedRegister:]";
+      v71 = 2082;
+      v72 = "nil == (resourceDepot.oneNetworkRequester)";
+      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a network requester", buf, 0x26u);
     }
 
     goto LABEL_17;
   }
 
-  v9 = GEOConfigNavdVenueAnnouncerEnabled[1];
   if ((GEOConfigGetBOOL() & 1) == 0)
   {
-    v68 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+    v61 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEBUG, "NavdVenueAnnouncer is Disabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEBUG, "NavdVenueAnnouncer is Disabled", buf, 2u);
     }
 
 LABEL_17:
@@ -83,111 +82,105 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v71.receiver = self;
-  v71.super_class = NavdVenueAnnouncer;
-  v10 = [(NavdVenueAnnouncer *)&v71 init];
-  if (v10)
+  v64.receiver = self;
+  v64.super_class = NavdVenueAnnouncer;
+  v9 = [(NavdVenueAnnouncer *)&v64 init];
+  if (v9)
   {
-    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v12 = dispatch_queue_create("NavdVenueAnnouncerQueue", v11);
-    queue = v10->_queue;
-    v10->_queue = v12;
+    v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v11 = dispatch_queue_create("NavdVenueAnnouncerQueue", v10);
+    queue = v9->_queue;
+    v9->_queue = v11;
 
     oneNetworkRequester2 = [depotCopy oneNetworkRequester];
-    network = v10->_network;
-    v10->_network = oneNetworkRequester2;
+    network = v9->_network;
+    v9->_network = oneNetworkRequester2;
 
-    v16 = objc_alloc_init(MapsSuggestionsShortcutFilter);
-    v70 = [NSSet setWithObjects:v16, 0];
+    v15 = objc_alloc_init(MapsSuggestionsShortcutFilter);
+    v63 = [NSSet setWithObjects:v15, 0];
 
-    v17 = objc_alloc_init(MapsSuggestionsExpiredFilter);
-    v18 = [NSSet setWithObjects:v17, 0];
+    v16 = objc_alloc_init(MapsSuggestionsExpiredFilter);
+    v17 = [NSSet setWithObjects:v16, 0];
 
-    v19 = +[MapsSuggestionsEngineBuilder forDevice];
-    v20 = [v19 withResourceDepot:depotCopy];
+    v18 = +[MapsSuggestionsEngineBuilder forDevice];
+    v19 = [v18 withResourceDepot:depotCopy];
 
-    v21 = +[MapsSuggestionsNavdLBALocationManager sharedLocationManager];
-    v22 = [v20 withLocationUpdater:v21];
+    v20 = +[MapsSuggestionsNavdLBALocationManager sharedLocationManager];
+    v21 = [v19 withLocationUpdater:v20];
 
-    v23 = [v22 withPreFilters:v70];
+    v22 = [v21 withPreFilters:v63];
 
-    v24 = [v23 withoutPreFilters:v18];
+    v23 = [v22 withoutPreFilters:v17];
 
-    withoutTracker = [v24 withoutTracker];
+    withoutTracker = [v23 withoutTracker];
 
-    v26 = [MapsSuggestionsEngineRunner alloc];
-    v27 = GEOConfigNavdVenueAnnouncerMinRunTime[1];
+    v25 = [MapsSuggestionsEngineRunner alloc];
+    GEOConfigGetDouble();
+    v27 = v26;
     GEOConfigGetDouble();
     v29 = v28;
-    v30 = GEOConfigNavdVenueAnnouncerMaxRunTime[1];
     GEOConfigGetDouble();
-    v32 = v31;
-    v33 = GEOConfigNavdVenueAnnouncerMinSleepTime[1];
+    v31 = v30;
     GEOConfigGetDouble();
-    v35 = v34;
-    v36 = GEOConfigNavdVenueAnnouncerRunTimeLeeway[1];
+    v33 = v32;
     GEOConfigGetDouble();
-    v38 = v37;
-    v39 = GEOConfigNavdVenueAnnouncerSleepTimeLeeway[1];
-    GEOConfigGetDouble();
-    v40 = GEOConfigNavdVenueAnnouncerEngineRunnerMaxEntries[1];
-    v42 = [v26 initWithEngineBuilder:withoutTracker name:@"NavdVenueAnnouncerRunner" minRunTime:GEOConfigGetInteger() maxRunTime:1 minSleepTime:v29 runTimeLeeway:v32 sleepTimeLeeway:v35 maxEntries:v38 nilledWhenAsleep:v41];
-    engineRunner = v10->_engineRunner;
-    v10->_engineRunner = v42;
+    v35 = [v25 initWithEngineBuilder:withoutTracker name:@"NavdVenueAnnouncerRunner" minRunTime:GEOConfigGetInteger() maxRunTime:1 minSleepTime:v27 runTimeLeeway:v29 sleepTimeLeeway:v31 maxEntries:v33 nilledWhenAsleep:v34];
+    engineRunner = v9->_engineRunner;
+    v9->_engineRunner = v35;
 
-    [(MapsSuggestionsEngineRunner *)v10->_engineRunner registerObserver:v10];
-    objc_storeStrong(&v10->_lastEngineRunnerState, register);
-    v44 = objc_alloc_init(MapsSuggestionsAirportArrivalBudget);
-    v45 = *&v10->_state.triggerLocation.currentSession;
-    *&v10->_state.triggerLocation.currentSession = v44;
+    [(MapsSuggestionsEngineRunner *)v9->_engineRunner registerObserver:v9];
+    objc_storeStrong(&v9->_lastEngineRunnerState, register);
+    v37 = objc_alloc_init(MapsSuggestionsAirportArrivalBudget);
+    v38 = *&v9->_state.triggerLocation.currentSession;
+    *&v9->_state.triggerLocation.currentSession = v37;
 
-    v46 = objc_alloc_init(MapsSuggestionsDefaultLocationUpdater);
-    lastEtaRequestTime = v10->_state._lastEtaRequestTime;
-    v10->_state._lastEtaRequestTime = v46;
+    v39 = objc_alloc_init(MapsSuggestionsDefaultLocationUpdater);
+    lastEtaRequestTime = v9->_state._lastEtaRequestTime;
+    v9->_state._lastEtaRequestTime = v39;
 
-    v48 = [[MapsSuggestionsDarwinNotificationTrigger alloc] initWithNotificationName:{objc_msgSend(@"AirportAnnouncerNotification", "UTF8String")}];
-    [(MapsSuggestionsEngineRunner *)v10->_engineRunner addTrigger:v48];
-    v49 = objc_alloc_init(NavdVenueNavigationSessionTrigger);
-    origin = v10->_state.origin;
-    v10->_state.origin = v49;
+    v41 = [[MapsSuggestionsDarwinNotificationTrigger alloc] initWithNotificationName:{objc_msgSend(@"AirportAnnouncerNotification", "UTF8String")}];
+    [(MapsSuggestionsEngineRunner *)v9->_engineRunner addTrigger:v41];
+    v42 = objc_alloc_init(NavdVenueNavigationSessionTrigger);
+    origin = v9->_state.origin;
+    v9->_state.origin = v42;
 
-    [(MapsSuggestionsEngineRunner *)v10->_engineRunner addCondition:v10->_state.origin];
-    v51 = v10->_engineRunner;
-    lastEngineRunnerState = v10->_lastEngineRunnerState;
-    v53 = +[MapsSuggestionsMapsInstalledTriggeringToggle description];
-    v54 = [(NSDictionary *)lastEngineRunnerState objectForKeyedSubscript:v53];
-    [(MapsSuggestionsEngineRunner *)v51 addCondition:v54];
+    [(MapsSuggestionsEngineRunner *)v9->_engineRunner addCondition:v9->_state.origin];
+    v44 = v9->_engineRunner;
+    lastEngineRunnerState = v9->_lastEngineRunnerState;
+    v46 = +[MapsSuggestionsMapsInstalledTriggeringToggle description];
+    v47 = [(NSDictionary *)lastEngineRunnerState objectForKeyedSubscript:v46];
+    [(MapsSuggestionsEngineRunner *)v44 addCondition:v47];
 
-    v55 = v10->_engineRunner;
-    v56 = v10->_lastEngineRunnerState;
-    v57 = +[MapsSuggestionsSiri isEnabledCondition];
-    uniqueName = [v57 uniqueName];
-    v59 = [(NSDictionary *)v56 objectForKeyedSubscript:uniqueName];
-    [(MapsSuggestionsEngineRunner *)v55 addCondition:v59];
+    v48 = v9->_engineRunner;
+    v49 = v9->_lastEngineRunnerState;
+    v50 = +[MapsSuggestionsSiri isEnabledCondition];
+    uniqueName = [v50 uniqueName];
+    v52 = [(NSDictionary *)v49 objectForKeyedSubscript:uniqueName];
+    [(MapsSuggestionsEngineRunner *)v48 addCondition:v52];
 
-    v60 = v10->_engineRunner;
-    v61 = v10->_lastEngineRunnerState;
-    v62 = +[MapsSuggestionsFirstUnlockTrigger description];
-    v63 = [(NSDictionary *)v61 objectForKeyedSubscript:v62];
-    [(MapsSuggestionsEngineRunner *)v60 addCondition:v63];
+    v53 = v9->_engineRunner;
+    v54 = v9->_lastEngineRunnerState;
+    v55 = +[MapsSuggestionsFirstUnlockTrigger description];
+    v56 = [(NSDictionary *)v54 objectForKeyedSubscript:v55];
+    [(MapsSuggestionsEngineRunner *)v53 addCondition:v56];
 
-    v64 = [[MapsSuggestionsBlockFilter alloc] initWithBlock:&stru_1000679C8];
-    [(MapsSuggestionsEngineRunner *)v10->_engineRunner addPostFilter:v64];
-    v65 = [[MapsSuggestionsBlockFilter alloc] initWithBlock:&stru_1000679E8];
-    [(MapsSuggestionsEngineRunner *)v10->_engineRunner addPostFilter:v65];
-    [(MapsSuggestionsEngineRunner *)v10->_engineRunner runASAP];
-    [(NavdVenueAnnouncer *)v10 _startStreamersWithNotificationName:@"AirportAnnouncerNotification" resourceDepot:depotCopy];
-    v66 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+    v57 = [[MapsSuggestionsBlockFilter alloc] initWithBlock:&stru_1000679C8];
+    [(MapsSuggestionsEngineRunner *)v9->_engineRunner addPostFilter:v57];
+    v58 = [[MapsSuggestionsBlockFilter alloc] initWithBlock:&stru_1000679E8];
+    [(MapsSuggestionsEngineRunner *)v9->_engineRunner addPostFilter:v58];
+    [(MapsSuggestionsEngineRunner *)v9->_engineRunner runASAP];
+    [(NavdVenueAnnouncer *)v9 _startStreamersWithNotificationName:@"AirportAnnouncerNotification" resourceDepot:depotCopy];
+    v59 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEBUG, "initialized", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "initialized", buf, 2u);
     }
 
-    [(NavdVenueAnnouncer *)v10 _logStateForStep:@"featureInitialized"];
+    [(NavdVenueAnnouncer *)v9 _logStateForStep:@"featureInitialized"];
   }
 
-  self = v10;
+  self = v9;
   selfCopy = self;
 LABEL_18:
 
@@ -200,16 +193,16 @@ LABEL_18:
   depotCopy = depot;
   objc_initWeak(&location, self);
   v8 = [MapsSuggestionsBlockAction alloc];
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_10003804C;
-  v28[3] = &unk_100065F88;
-  objc_copyWeak(&v31, &location);
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_10003804C;
+  v26[3] = &unk_100065F88;
+  objc_copyWeak(&v29, &location);
   v9 = depotCopy;
-  v29 = v9;
+  v27 = v9;
   v10 = nameCopy;
-  v30 = v10;
-  v11 = [v8 initWithName:@"startStreamerAction" block:v28];
+  v28 = v10;
+  v11 = [v8 initWithName:@"startStreamerAction" block:v26];
   if (!self->_state.locations)
   {
     v12 = [MapsSuggestionsLocationChangedTrigger alloc];
@@ -220,27 +213,25 @@ LABEL_18:
   }
 
   v16 = [MapsSuggestionsActionCircuit alloc];
-  v33 = self->_state.locations;
-  v17 = [NSArray arrayWithObjects:&v33 count:1];
+  v31 = self->_state.locations;
+  v17 = [NSArray arrayWithObjects:&v31 count:1];
   v18 = [v16 initWithTriggers:v17 action:v11];
   v19 = self->_state.triggerLocation.location;
   self->_state.triggerLocation.location = v18;
 
   v20 = self->_state.locations;
-  v21 = GEOConfigNavdVenueAnnouncerLocationForceTime[1];
   GEOConfigGetDouble();
-  v23 = v22;
-  v24 = GEOConfigNavdVenueAnnouncerMinimumDistanceTriggerThreshold[1];
+  v22 = v21;
   GEOConfigGetDouble();
-  [(NSMutableArray *)v20 startWithMinimumUpdateTime:v23 minimumDistance:v25];
-  v26 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  [(NSMutableArray *)v20 startWithMinimumUpdateTime:v22 minimumDistance:v23];
+  v24 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    *v27 = 0;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "_startStreamersActionCircut started. Once we get a location, we should start the streamers.", v27, 2u);
+    *v25 = 0;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "_startStreamersActionCircut started. Once we get a location, we should start the streamers.", v25, 2u);
   }
 
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
 }
 
@@ -281,19 +272,19 @@ LABEL_18:
 - (void)_processEntries:(id)entries
 {
   entriesCopy = entries;
-  v51 = MapsSuggestionsCurrentBestLocation();
-  if (v51)
+  v49 = MapsSuggestionsCurrentBestLocation();
+  if (v49)
   {
     v4 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [v51 coordinate];
+      [v49 coordinate];
       v6 = v5;
-      [v51 coordinate];
+      [v49 coordinate];
       *buf = 134218240;
-      v63 = v6;
-      v64 = 2048;
-      v65 = v7;
+      v61 = v6;
+      v62 = 2048;
+      v63 = v7;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "current location : %f %f", buf, 0x16u);
     }
 
@@ -314,32 +305,32 @@ LABEL_18:
       }
     }
 
-    v59 = 0u;
-    v60 = 0u;
     v57 = 0u;
     v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     obj = entriesCopy;
-    v13 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+    v13 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
     if (!v13)
     {
-      v53 = 0;
-      v54 = 0;
+      v51 = 0;
+      v52 = 0;
       goto LABEL_46;
     }
 
-    v53 = 0;
-    v54 = 0;
-    v14 = *v58;
+    v51 = 0;
+    v52 = 0;
+    v14 = *v56;
     while (1)
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v58 != v14)
+        if (*v56 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v57 + 1) + 8 * i);
+        v16 = *(*(&v55 + 1) + 8 * i);
         if ([v16 type] != 15)
         {
           [(NavdVenueAnnouncer *)self _logStateForStep:@"entrySkipped" stopReason:@"not a Flight!"];
@@ -350,7 +341,7 @@ LABEL_18:
         if (*location != v17)
         {
           objc_storeStrong(location, v17);
-          v53 = 1;
+          v51 = 1;
         }
 
         v18 = GEOFindOrCreateLog();
@@ -365,7 +356,7 @@ LABEL_18:
 
         if (IsVenue)
         {
-          v21 = v54;
+          v21 = v52;
           v22 = v16;
           v23 = v22;
           if (v21)
@@ -393,18 +384,18 @@ LABEL_18:
                     v32 = v23;
                   }
 
-                  v54 = v32;
+                  v52 = v32;
                 }
 
                 else
                 {
-                  v54 = 0;
+                  v52 = 0;
                 }
               }
 
               else
               {
-                v54 = 0;
+                v52 = 0;
               }
 
               goto LABEL_35;
@@ -418,7 +409,7 @@ LABEL_18:
             v26 = v22;
           }
 
-          v54 = v26;
+          v52 = v26;
 LABEL_35:
 
           goto LABEL_36;
@@ -428,52 +419,52 @@ LABEL_35:
 LABEL_36:
       }
 
-      v13 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v13 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
       if (!v13)
       {
 LABEL_46:
 
-        v44 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        v42 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEBUG, "About to check for Airport Arrival Announcer", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "About to check for Airport Arrival Announcer", buf, 2u);
         }
 
-        if (v53)
+        if (v51)
         {
           [(NavdVenueAnnouncer *)self _trackArrivalAirportForEntry:self->_state.lastKnownLocation];
         }
 
-        if (v54)
+        if (v52)
         {
           [(NavdVenueAnnouncer *)self _logStateForStep:@"entriesProcessed" stopReason:@"Found a flight at a Venue!"];
-          geoMapItem2 = [v54 geoMapItem];
+          geoMapItem2 = [v52 geoMapItem];
           IsAirport = MapsSuggestionsMapItemIsAirport();
 
           if (IsAirport)
           {
-            [(NavdVenueAnnouncer *)self _treatAirportEntry:v54];
+            [(NavdVenueAnnouncer *)self _treatAirportEntry:v52];
           }
 
           else
           {
-            geoMapItem3 = [v54 geoMapItem];
+            geoMapItem3 = [v52 geoMapItem];
             IsTerminal = MapsSuggestionsMapItemIsTerminal();
 
             if (IsTerminal)
             {
-              [(NavdVenueAnnouncer *)self _treatTerminalEntry:v54];
+              [(NavdVenueAnnouncer *)self _treatTerminalEntry:v52];
             }
 
             else
             {
-              geoMapItem4 = [v54 geoMapItem];
+              geoMapItem4 = [v52 geoMapItem];
               IsGate = MapsSuggestionsMapItemIsGate();
 
               if (IsGate)
               {
-                [(NavdVenueAnnouncer *)self _treatGateEntry:v54];
+                [(NavdVenueAnnouncer *)self _treatGateEntry:v52];
               }
             }
           }
@@ -509,12 +500,10 @@ LABEL_46:
     route = self->_state.route;
   }
 
-  v39 = GEOConfigNavdVenueAnnouncerLocationForceTime[1];
   GEOConfigGetDouble();
-  v41 = v40;
-  v42 = GEOConfigNavdVenueAnnouncerMinimumDistanceTriggerThreshold[1];
+  v40 = v39;
   GEOConfigGetDouble();
-  [(NavdRouteGeniusRoute *)route startWithMinimumUpdateTime:v41 minimumDistance:v43];
+  [(NavdRouteGeniusRoute *)route startWithMinimumUpdateTime:v40 minimumDistance:v41];
 LABEL_59:
 }
 
@@ -623,39 +612,37 @@ LABEL_17:
   {
     departingAirportCode = [airportCopy departingAirportCode];
     *buf = 138412290;
-    v35 = departingAirportCode;
+    v33 = departingAirportCode;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Start tracking Leaving Airport:%@", buf, 0xCu);
   }
 
   v13 = [[CLLocation alloc] initWithLatitude:v7 longitude:v10];
   v14 = [MapsSuggestionsRangeTrigger alloc];
-  v15 = GEOConfigNavdAirportArrivalAnnouncerInsideAirportThreshold[1];
   GEOConfigGetDouble();
-  v17 = v16;
-  v18 = GEOConfigNavdVenueAnnouncerAirportArrivalLocationForceTime[1];
+  v16 = v15;
   GEOConfigGetDouble();
-  v20 = v19;
-  v21 = +[MapsSuggestionsNavdLBALocationManager sharedLocationManager];
-  v22 = [v14 initWithLocation:v13 radius:0 onEnter:v21 minUpdateTime:self->_state._lastEtaRequestTime locationUpdater:v17 forcingLocationUpdater:v20];
+  v18 = v17;
+  v19 = +[MapsSuggestionsNavdLBALocationManager sharedLocationManager];
+  v20 = [v14 initWithLocation:v13 radius:0 onEnter:v19 minUpdateTime:self->_state._lastEtaRequestTime locationUpdater:v16 forcingLocationUpdater:v18];
 
   objc_initWeak(buf, self);
-  v23 = [MapsSuggestionsBlockAction alloc];
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_10003930C;
-  v30[3] = &unk_100065FB0;
-  objc_copyWeak(&v32, buf);
-  v24 = airportCopy;
-  v31 = v24;
-  v25 = [v23 initWithName:@"departureAction" block:v30];
-  v26 = [MapsSuggestionsActionCircuit alloc];
-  v33 = v22;
-  v27 = [NSArray arrayWithObjects:&v33 count:1];
-  v28 = [v26 initWithTriggers:v27 conditions:&__NSArray0__struct action:v25];
+  v21 = [MapsSuggestionsBlockAction alloc];
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_10003930C;
+  v28[3] = &unk_100065FB0;
+  objc_copyWeak(&v30, buf);
+  v22 = airportCopy;
+  v29 = v22;
+  v23 = [v21 initWithName:@"departureAction" block:v28];
+  v24 = [MapsSuggestionsActionCircuit alloc];
+  v31 = v20;
+  v25 = [NSArray arrayWithObjects:&v31 count:1];
+  v26 = [v24 initWithTriggers:v25 conditions:&__NSArray0__struct action:v23];
   etaCanKicker = self->_state.etaCanKicker;
-  self->_state.etaCanKicker = v28;
+  self->_state.etaCanKicker = v26;
 
-  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(buf);
 }
 
@@ -773,65 +760,62 @@ LABEL_17:
   {
     arrivingAirportCode = [entryCopy arrivingAirportCode];
     *buf = 138412290;
-    v48 = arrivingAirportCode;
+    v45 = arrivingAirportCode;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Start tracking arriving at Airport:%@", buf, 0xCu);
   }
 
   v13 = [[CLLocation alloc] initWithLatitude:v7 longitude:v10];
   v14 = [MapsSuggestionsRangeTrigger alloc];
-  v15 = GEOConfigNavdVenueAnnouncerArrivalRadius[1];
   GEOConfigGetDouble();
-  v17 = v16;
-  v18 = GEOConfigNavdVenueAnnouncerAirportArrivalLocationForceTime[1];
+  v16 = v15;
   GEOConfigGetDouble();
-  v20 = v19;
-  v21 = +[MapsSuggestionsNavdLBALocationManager sharedLocationManager];
-  v22 = [v14 initWithLocation:v13 radius:1 onEnter:v21 minUpdateTime:self->_state._lastEtaRequestTime locationUpdater:v17 forcingLocationUpdater:v20];
+  v18 = v17;
+  v19 = +[MapsSuggestionsNavdLBALocationManager sharedLocationManager];
+  v20 = [v14 initWithLocation:v13 radius:1 onEnter:v19 minUpdateTime:self->_state._lastEtaRequestTime locationUpdater:v16 forcingLocationUpdater:v18];
 
   if (!self->_state.locationHistory)
   {
-    v23 = [[MapsSuggestionsSimpleTrigger alloc] initWithName:@"AirportArrivalSimpleTrigger"];
+    v21 = [[MapsSuggestionsSimpleTrigger alloc] initWithName:@"AirportArrivalSimpleTrigger"];
     locationHistory = self->_state.locationHistory;
-    self->_state.locationHistory = v23;
+    self->_state.locationHistory = v21;
   }
 
   objc_initWeak(buf, self);
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_10003A138;
-  v43[3] = &unk_100065FB0;
-  objc_copyWeak(&v45, buf);
-  v25 = entryCopy;
-  v44 = v25;
-  v26 = v43;
-  v27 = [[MapsSuggestionsBlockAction alloc] initWithName:@"NavdVenueAnnouncerAirportArrivalAction" block:v26];
-
-  v28 = [MapsSuggestionsGCDTimer alloc];
-  queue = self->_queue;
   v40[0] = _NSConcreteStackBlock;
   v40[1] = 3221225472;
-  v40[2] = sub_10003A32C;
-  v40[3] = &unk_1000655F8;
+  v40[2] = sub_10003A138;
+  v40[3] = &unk_100065FB0;
   objc_copyWeak(&v42, buf);
-  v30 = v25;
-  v41 = v30;
-  v31 = [v28 initWithName:@"AirportArrivalTimer" queue:queue block:v40];
-  v32 = *&self->_state.skipScoring;
-  *&self->_state.skipScoring = v31;
+  v23 = entryCopy;
+  v41 = v23;
+  v24 = v40;
+  v25 = [[MapsSuggestionsBlockAction alloc] initWithName:@"NavdVenueAnnouncerAirportArrivalAction" block:v24];
 
-  v33 = *&self->_state.skipScoring;
-  v34 = GEOConfigNavdVenueAnnouncerArrivalAirportMaxAge[1];
+  v26 = [MapsSuggestionsGCDTimer alloc];
+  queue = self->_queue;
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_10003A32C;
+  v37[3] = &unk_1000655F8;
+  objc_copyWeak(&v39, buf);
+  v28 = v23;
+  v38 = v28;
+  v29 = [v26 initWithName:@"AirportArrivalTimer" queue:queue block:v37];
+  v30 = *&self->_state.skipScoring;
+  *&self->_state.skipScoring = v29;
+
+  v31 = *&self->_state.skipScoring;
   GEOConfigGetDouble();
-  [v33 scheduleWithInterval:(v35 * 1000000000.0) leeway:60000000000];
-  v36 = [MapsSuggestionsActionCircuit alloc];
-  v46 = v22;
-  v37 = [NSArray arrayWithObjects:&v46 count:1];
-  v38 = [v36 initWithTriggers:v37 conditions:&__NSArray0__struct action:v27];
+  [v31 scheduleWithInterval:(v32 * 1000000000.0) leeway:60000000000];
+  v33 = [MapsSuggestionsActionCircuit alloc];
+  v43 = v20;
+  v34 = [NSArray arrayWithObjects:&v43 count:1];
+  v35 = [v33 initWithTriggers:v34 conditions:&__NSArray0__struct action:v25];
   routeCoordinate = self->_state.routeCoordinate;
-  self->_state.routeCoordinate = v38;
+  self->_state.routeCoordinate = v35;
 
+  objc_destroyWeak(&v39);
   objc_destroyWeak(&v42);
-  objc_destroyWeak(&v45);
   objc_destroyWeak(buf);
 }
 
@@ -926,14 +910,13 @@ LABEL_17:
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Looking for airport with code %@", buf, 0xCu);
   }
 
-  network = self->_network;
   v12 = completionCopy;
   objc_copyWeak(&v13, &location);
-  LOBYTE(network) = MapsSuggestionsSearchAirport();
+  v10 = MapsSuggestionsSearchAirport();
   objc_destroyWeak(&v13);
 
   objc_destroyWeak(&location);
-  return network;
+  return v10;
 }
 
 - (char)_terminalMapItemForEntry:(id)entry completion:(id)completion
@@ -950,14 +933,13 @@ LABEL_17:
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Looking for terminal name '%@'", buf, 0xCu);
   }
 
-  network = self->_network;
   v12 = completionCopy;
   objc_copyWeak(&v13, &location);
-  LOBYTE(network) = MapsSuggestionsSearchTerminal();
+  v10 = MapsSuggestionsSearchTerminal();
   objc_destroyWeak(&v13);
 
   objc_destroyWeak(&location);
-  return network;
+  return v10;
 }
 
 - (void)_fireNotificationIfAtEntry:(id)entry
@@ -972,7 +954,7 @@ LABEL_17:
     if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v137 = v76;
+      v130 = v76;
       _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "Aborted location check: %@", buf, 0xCu);
     }
 
@@ -992,7 +974,7 @@ LABEL_17:
     if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v137 = v76;
+      v130 = v76;
       _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "Aborted location check: %@", buf, 0xCu);
     }
 
@@ -1028,7 +1010,7 @@ LABEL_61:
         _venueInfo = [geoMapItem5 _venueInfo];
         venueIdentifier = [_venueInfo venueIdentifier];
         *buf = 138412290;
-        v137 = venueIdentifier;
+        v130 = venueIdentifier;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "VBB:VenueIdentifier: %@", buf, 0xCu);
       }
 
@@ -1037,7 +1019,7 @@ LABEL_61:
       {
         name = [geoMapItem5 name];
         *buf = 138412290;
-        v137 = name;
+        v130 = name;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "VBB:Venue name: %@", buf, 0xCu);
       }
 
@@ -1064,9 +1046,9 @@ LABEL_61:
                 geoFenceMapRegion6 = [geoMapItem5 geoFenceMapRegion];
                 [geoFenceMapRegion6 centerLng];
                 *buf = 134218240;
-                v137 = v27;
-                v138 = 2048;
-                v139 = v29;
+                v130 = v27;
+                v131 = 2048;
+                v132 = v29;
                 _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "VBB:Venue center <%.6f,%.6f>", buf, 0x16u);
               }
 
@@ -1079,9 +1061,9 @@ LABEL_61:
                 geoFenceMapRegion8 = [geoMapItem5 geoFenceMapRegion];
                 [geoFenceMapRegion8 westLng];
                 *buf = 134218240;
-                v137 = v33;
-                v138 = 2048;
-                v139 = v35;
+                v130 = v33;
+                v131 = 2048;
+                v132 = v35;
                 _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "VBB:Venue topLeft <%.6f,%.6f>", buf, 0x16u);
               }
 
@@ -1094,9 +1076,9 @@ LABEL_61:
                 geoFenceMapRegion10 = [geoMapItem5 geoFenceMapRegion];
                 [geoFenceMapRegion10 eastLng];
                 *buf = 134218240;
-                v137 = v39;
-                v138 = 2048;
-                v139 = v41;
+                v130 = v39;
+                v131 = 2048;
+                v132 = v41;
                 _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "VBB:Venue topRight <%.6f,%.6f>", buf, 0x16u);
               }
 
@@ -1109,9 +1091,9 @@ LABEL_61:
                 geoFenceMapRegion12 = [geoMapItem5 geoFenceMapRegion];
                 [geoFenceMapRegion12 westLng];
                 *buf = 134218240;
-                v137 = v45;
-                v138 = 2048;
-                v139 = v47;
+                v130 = v45;
+                v131 = 2048;
+                v132 = v47;
                 _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "VBB:Venue bottomLeft <%.6f,%.6f>", buf, 0x16u);
               }
 
@@ -1124,9 +1106,9 @@ LABEL_61:
                 geoFenceMapRegion14 = [geoMapItem5 geoFenceMapRegion];
                 [geoFenceMapRegion14 eastLng];
                 *buf = 134218240;
-                v137 = v51;
-                v138 = 2048;
-                v139 = v53;
+                v130 = v51;
+                v131 = 2048;
+                v132 = v53;
                 _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "VBB:Venue bottomRight <%.6f,%.6f>", buf, 0x16u);
               }
 
@@ -1157,21 +1139,21 @@ LABEL_61:
                 geoFenceMapRegion22 = [geoMapItem5 geoFenceMapRegion];
                 [geoFenceMapRegion22 westLng];
                 *buf = 134219776;
-                v137 = v56;
-                v138 = 2048;
-                v139 = v58;
-                v140 = 2048;
-                v141 = v60;
-                v142 = 2048;
-                v143 = v63;
-                v144 = 2048;
-                v145 = v66;
-                v146 = 2048;
-                v147 = v69;
-                v148 = 2048;
-                v149 = v72;
-                v150 = 2048;
-                v151 = v74;
+                v130 = v56;
+                v131 = 2048;
+                v132 = v58;
+                v133 = 2048;
+                v134 = v60;
+                v135 = 2048;
+                v136 = v63;
+                v137 = 2048;
+                v138 = v66;
+                v139 = 2048;
+                v140 = v69;
+                v141 = 2048;
+                v142 = v72;
+                v143 = 2048;
+                v144 = v74;
                 _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEBUG, "\n#polygon 0\n%.6f,%.6f\n%.6f,%.6f\n%.6f,%.6f\n%.6f,%.6f\n", buf, 0x52u);
               }
 
@@ -1213,28 +1195,24 @@ LABEL_46:
                 *&selfCopy->_state.active = v95;
 
                 v97 = *&selfCopy->_state.active;
-                v98 = GEOConfigNavdVenueAnnouncerNotificationFrequencyShortWindow[1];
                 Integer = GEOConfigGetInteger();
-                v100 = GEOConfigNavdVenueAnnouncerNotificationFrequencyShortWindowDuration[1];
                 GEOConfigGetDouble();
                 [v97 addRollingWindowOfCount:Integer perTimeInterval:@"shortWindow" name:?];
-                v101 = *&selfCopy->_state.active;
-                v102 = GEOConfigNavdVenueAnnouncerNotificationFrequencyLongWindow[1];
-                v103 = GEOConfigGetInteger();
-                v104 = GEOConfigNavdVenueAnnouncerNotificationFrequencyLongWindowDuration[1];
+                v99 = *&selfCopy->_state.active;
+                v100 = GEOConfigGetInteger();
                 GEOConfigGetDouble();
-                [v101 addRollingWindowOfCount:v103 perTimeInterval:@"longWindow" name:?];
+                [v99 addRollingWindowOfCount:v100 perTimeInterval:@"longWindow" name:?];
                 if ([*&selfCopy->_state.active hasBudgetLeft])
                 {
                   geoMapItem8 = [entryCopy geoMapItem];
-                  v106 = [entryCopy stringForKey:@"MapsSuggestionsFlightDepartureAirportCodeKey"];
-                  [NavdVenueNotification showWithMapItem:geoMapItem8 airport:v106];
+                  v102 = [entryCopy stringForKey:@"MapsSuggestionsFlightDepartureAirportCodeKey"];
+                  [NavdVenueNotification showWithMapItem:geoMapItem8 airport:v102];
 
-                  v107 = GEOFindOrCreateLog();
-                  if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
+                  v103 = GEOFindOrCreateLog();
+                  if (os_log_type_enabled(v103, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEBUG, "Spending Bugdet", buf, 2u);
+                    _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEBUG, "Spending Bugdet", buf, 2u);
                   }
 
                   [*&selfCopy->_state.active spendNow];
@@ -1242,21 +1220,20 @@ LABEL_46:
 
                 else
                 {
-                  v127 = GEOFindOrCreateLog();
-                  if (os_log_type_enabled(v127, OS_LOG_TYPE_DEBUG))
+                  v121 = GEOFindOrCreateLog();
+                  if (os_log_type_enabled(v121, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_DEBUG, "No Budget left", buf, 2u);
+                    _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_DEBUG, "No Budget left", buf, 2u);
                   }
                 }
 
-                v128 = [MapsSuggestionsOutsideOfMapItemFenceCondition alloc];
+                v122 = [MapsSuggestionsOutsideOfMapItemFenceCondition alloc];
                 geoMapItem9 = [entryCopy geoMapItem];
-                v130 = GEOConfigNavdVenueAnnouncerDepartureRadius[1];
                 GEOConfigGetDouble();
-                v131 = [v128 initWithMapItem:geoMapItem9 radius:?];
+                v124 = [v122 initWithMapItem:geoMapItem9 radius:?];
                 startTime = selfCopy->_state.startTime;
-                selfCopy->_state.startTime = v131;
+                selfCopy->_state.startTime = v124;
 
                 [(MapsSuggestionsEngineRunner *)selfCopy->_engineRunner addCondition:selfCopy->_state.startTime];
                 [(NavdRouteGeniusRoute *)selfCopy->_state.route stop];
@@ -1271,10 +1248,10 @@ LABEL_46:
                 if (!self->_state.routes)
                 {
                   lastEngineRunnerState = self->_lastEngineRunnerState;
-                  v110 = +[MapsSuggestionsNetworkReachableTrigger description];
-                  v111 = [(NSDictionary *)lastEngineRunnerState objectForKeyedSubscript:v110];
+                  v106 = +[MapsSuggestionsNetworkReachableTrigger description];
+                  v107 = [(NSDictionary *)lastEngineRunnerState objectForKeyedSubscript:v106];
                   routes = self->_state.routes;
-                  self->_state.routes = v111;
+                  self->_state.routes = v107;
 
                   [(MapsSuggestionsEngineRunner *)self->_engineRunner addTrigger:self->_state.routes];
                 }
@@ -1282,26 +1259,24 @@ LABEL_46:
                 route = self->_state.route;
                 if (!route)
                 {
-                  v114 = [MapsSuggestionsLocationChangedTrigger alloc];
-                  v115 = +[MapsSuggestionsNavdLBALocationManager sharedLocationManager];
-                  v116 = [v114 initWithLocationUpdater:v115 forcingLocationUpdater:self->_state._lastEtaRequestTime];
-                  v117 = self->_state.route;
-                  self->_state.route = v116;
+                  v110 = [MapsSuggestionsLocationChangedTrigger alloc];
+                  v111 = +[MapsSuggestionsNavdLBALocationManager sharedLocationManager];
+                  v112 = [v110 initWithLocationUpdater:v111 forcingLocationUpdater:self->_state._lastEtaRequestTime];
+                  v113 = self->_state.route;
+                  self->_state.route = v112;
 
                   [(MapsSuggestionsEngineRunner *)self->_engineRunner addTrigger:self->_state.route];
                   route = self->_state.route;
                 }
 
                 [v76 distanceFromLocation:selfCopy];
-                v119 = v118;
-                v120 = GEOConfigNavdVenueAnnouncerSpeed[1];
+                v115 = v114;
                 GEOConfigGetDouble();
-                v122 = v121;
+                v117 = v116;
                 [v76 distanceFromLocation:selfCopy];
-                v124 = v123;
-                v125 = GEOConfigNavdVenueAnnouncerDistanceFraction[1];
+                v119 = v118;
                 GEOConfigGetDouble();
-                [(NavdRouteGeniusRoute *)route startWithMinimumUpdateTime:v119 / v122 minimumDistance:v126 * v124];
+                [(NavdRouteGeniusRoute *)route startWithMinimumUpdateTime:v115 / v117 minimumDistance:v120 * v119];
               }
 
               goto LABEL_61;
@@ -1378,33 +1353,32 @@ LABEL_62:
   reasonCopy = reason;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v20[0] = @"step";
+  v19[0] = @"step";
   v9 = MSg::jsonFor();
-  v21[0] = v9;
-  v20[1] = @"stopReason";
+  v20[0] = v9;
+  v19[1] = @"stopReason";
   v10 = MSg::jsonFor();
-  v21[1] = v10;
-  v20[2] = @"engineRunner";
-  name = selfCopy->_state.queue._name;
-  v12 = MSg::jsonFor();
-  v21[2] = v12;
-  v20[3] = @"feature";
-  v22 = @"displayedMapItem";
-  v13 = [NSNumber numberWithUnsignedLongLong:selfCopy->_state.queue._innerQueue];
-  v14 = MSg::jsonFor();
-  *v19 = v14;
-  v15 = [NSDictionary dictionaryWithObjects:v19 forKeys:&v22 count:1];
+  v20[1] = v10;
+  v19[2] = @"engineRunner";
+  v11 = MSg::jsonFor();
+  v20[2] = v11;
+  v19[3] = @"feature";
+  v21 = @"displayedMapItem";
+  v12 = [NSNumber numberWithUnsignedLongLong:selfCopy->_state.queue._innerQueue];
+  v13 = MSg::jsonFor();
+  *v18 = v13;
+  v14 = [NSDictionary dictionaryWithObjects:v18 forKeys:&v21 count:1];
 
-  v21[3] = v15;
-  v16 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v20[3] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:4];
 
-  v17 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v16 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v18 = NSStringFromMapsSuggestionsJSON();
-    *v19 = 138412290;
-    *&v19[4] = v18;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "EVAL{Welcome}=%@", v19, 0xCu);
+    v17 = NSStringFromMapsSuggestionsJSON();
+    *v18 = 138412290;
+    *&v18[4] = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "EVAL{Welcome}=%@", v18, 0xCu);
   }
 
   objc_sync_exit(selfCopy);

@@ -75,9 +75,9 @@
 
 - (void)layoutSubviews
 {
-  v27.receiver = self;
-  v27.super_class = MRUVolumeView;
-  [(MRUVolumeView *)&v27 layoutSubviews];
+  v30.receiver = self;
+  v30.super_class = MRUVolumeView;
+  [(MRUVolumeView *)&v30 layoutSubviews];
   [(MRUVolumeView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -85,90 +85,91 @@
   v10 = v9;
   v11 = CCUISliderExpandedContentModuleWidth();
   v13 = v12;
-  v14 = MRUDefaultExpandedWidth(v11);
+  v15 = MRUDefaultExpandedWidth(v11, v14);
   if (self->_expanded)
   {
-    if (!MRULayoutShouldBeVertical() && self->_showSpatialAudioModeButton && self->_showSecondarySlider)
+    ShouldBeVertical = MRULayoutShouldBeVertical();
+    if (!ShouldBeVertical && self->_showSpatialAudioModeButton && self->_showSecondarySlider)
     {
-      MRUExpandedContentInsets();
+      MRUExpandedContentInsets(ShouldBeVertical, v17);
       MRUHortizonalScreenInset(self);
       UIRectInset();
-      CGRectGetWidth(v28);
+      CGRectGetWidth(v31);
     }
 
     else
     {
-      v31.origin.x = v4;
-      v31.origin.y = v6;
-      v31.size.width = v8;
-      v31.size.height = v10;
-      CGRectGetWidth(v31);
+      v34.origin.x = v4;
+      v34.origin.y = v6;
+      v34.size.width = v8;
+      v34.size.height = v10;
+      CGRectGetWidth(v34);
     }
 
     UIRectInset();
-    x = v32.origin.x;
-    y = v32.origin.y;
-    width = v32.size.width;
-    height = v32.size.height;
-    CGRectGetHeight(v32);
+    x = v35.origin.x;
+    y = v35.origin.y;
+    width = v35.size.width;
+    height = v35.size.height;
+    CGRectGetHeight(v35);
     v6 = 0.0;
     UIRectCenteredRect();
     [(MRUVolumeStepperView *)self->_stepper setFrame:?];
-    v33.origin.x = x;
-    v33.origin.y = y;
-    v33.size.width = width;
-    v33.size.height = height;
-    MinX = CGRectGetMinX(v33);
-    v34.origin.x = x;
-    v34.origin.y = y;
-    v34.size.width = width;
-    v34.size.height = height;
-    v23 = CGRectGetHeight(v34);
+    v36.origin.x = x;
+    v36.origin.y = y;
+    v36.size.width = width;
+    v36.size.height = height;
+    MinX = CGRectGetMinX(v36);
+    v37.origin.x = x;
+    v37.origin.y = y;
+    v37.size.width = width;
+    v37.size.height = height;
+    v26 = CGRectGetHeight(v37);
     if (self->_showSecondarySlider || self->_showEnvironmentSlider)
     {
-      v24 = v13;
-      v25 = 0.0;
+      v27 = v13;
+      v28 = 0.0;
     }
 
     else
     {
       UIRectCenteredRect();
-      MinX = v26;
+      MinX = v29;
     }
 
-    [(MRUContinuousSliderView *)self->_primarySlider setFrame:MinX, v25, v24, v23];
-    v35.origin.x = x;
-    v35.origin.y = y;
-    v35.size.width = width;
-    v35.size.height = height;
-    v17 = CGRectGetMaxX(v35) - v13;
-    v36.origin.x = x;
-    v36.origin.y = y;
-    v36.size.width = width;
-    v36.size.height = height;
-    v10 = CGRectGetHeight(v36);
+    [(MRUContinuousSliderView *)self->_primarySlider setFrame:MinX, v28, v27, v26];
+    v38.origin.x = x;
+    v38.origin.y = y;
+    v38.size.width = width;
+    v38.size.height = height;
+    v20 = CGRectGetMaxX(v38) - v13;
+    v39.origin.x = x;
+    v39.origin.y = y;
+    v39.size.width = width;
+    v39.size.height = height;
+    v10 = CGRectGetHeight(v39);
   }
 
   else
   {
     [(MRUVolumeStepperView *)self->_stepper setFrame:v4, v6, v8, v10];
     [(MRUContinuousSliderView *)self->_primarySlider setFrame:v4, v6, v8, v10];
-    v15 = v14 + v13 * -2.0;
-    v29.origin.x = v4;
-    v29.origin.y = v6;
-    v29.size.width = v8;
-    v29.size.height = v10;
-    v16 = CGRectGetWidth(v29) / v13;
-    v30.origin.x = v4;
-    v30.origin.y = v6;
-    v30.size.width = v8;
-    v30.size.height = v10;
-    v17 = CGRectGetWidth(v30) + v15 * v16;
+    v18 = v15 + v13 * -2.0;
+    v32.origin.x = v4;
+    v32.origin.y = v6;
+    v32.size.width = v8;
+    v32.size.height = v10;
+    v19 = CGRectGetWidth(v32) / v13;
+    v33.origin.x = v4;
+    v33.origin.y = v6;
+    v33.size.width = v8;
+    v33.size.height = v10;
+    v20 = CGRectGetWidth(v33) + v18 * v19;
     v13 = v8;
   }
 
-  [(MRUContinuousSliderView *)self->_secondarySlider setFrame:v17, v6, v13, v10];
-  [(CCUIContinuousSliderView *)self->_environmentSlider setFrame:v17, v6, v13, v10];
+  [(MRUContinuousSliderView *)self->_secondarySlider setFrame:v20, v6, v13, v10];
+  [(CCUIContinuousSliderView *)self->_environmentSlider setFrame:v20, v6, v13, v10];
 }
 
 - (void)setExpanded:(BOOL)expanded

@@ -39,10 +39,10 @@
 
 - (void)viewDidLoad
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
-  v6 = type metadata accessor for StickerLivePhotoConfirmationController();
+  v6 = type metadata accessor for StickerLivePhotoConfirmationController(0);
   v13.receiver = self;
   v13.super_class = v6;
   selfCopy = self;
@@ -64,7 +64,7 @@
 {
   disappearCopy = disappear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for StickerLivePhotoConfirmationController();
+  v7.super_class = type metadata accessor for StickerLivePhotoConfirmationController(0);
   v4 = v7.receiver;
   [(StickerLivePhotoConfirmationController *)&v7 viewWillDisappear:disappearCopy];
   presentedViewController = [v4 presentedViewController];

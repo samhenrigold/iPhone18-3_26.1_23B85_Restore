@@ -123,7 +123,7 @@ LABEL_6:
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNLossNode.mm", 0x261, @"[%@ gradientFilterWithSources:] Error: the MPSNNLoss filter doesn't have a corresponding loss gradient filter.\n\tIt produces the gradient directly as its MPSImage destination and consequently acts as its own gradient filter.", v4, v5, v6, v7);
   }
 
   return 0;

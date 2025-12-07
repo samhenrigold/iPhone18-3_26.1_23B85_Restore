@@ -312,13 +312,13 @@
   v8 = errorCopy;
   if (resultCopy && errorCopy)
   {
-    v9 = MTMetricsKitOSLog();
+    v9 = MTMetricsKitOSLog(errorCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v28 = resultCopy;
-      v29 = 2112;
-      v30 = v8;
+      v29 = resultCopy;
+      v30 = 2112;
+      v31 = v8;
       v10 = "MetricsKit: Someone is finishing a promise with both a result and an error. This will result in both the success and error blocks being called. result = %@ error = %@";
       v11 = v9;
       v12 = 22;
@@ -334,7 +334,7 @@ LABEL_8:
       goto LABEL_10;
     }
 
-    v9 = MTMetricsKitOSLog();
+    v9 = MTMetricsKitOSLog(errorCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
@@ -370,7 +370,7 @@ LABEL_10:
         goto LABEL_16;
       }
 
-      promiseResult = MTMetricsKitOSLog();
+      promiseResult = MTMetricsKitOSLog(v24);
       if (os_log_type_enabled(promiseResult, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
@@ -398,10 +398,10 @@ LABEL_16:
   block[1] = 3221225472;
   block[2] = sub_1000047B4;
   block[3] = &unk_100020658;
-  objc_copyWeak(&v26, buf);
+  objc_copyWeak(&v27, buf);
   dispatch_async(v19, block);
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(buf);
 LABEL_17:
 

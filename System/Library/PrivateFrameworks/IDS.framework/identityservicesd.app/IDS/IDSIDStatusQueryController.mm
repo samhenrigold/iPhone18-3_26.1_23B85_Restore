@@ -685,7 +685,7 @@ LABEL_26:
     if ([v13 status] == 2)
     {
       lookupDate = [v13 lookupDate];
-      [lookupDate doubleValue];
+      objc_msgSend_doubleValue(lookupDate);
       v16 = v15;
       Current = CFAbsoluteTimeGetCurrent();
       v18 = +[IDSPeerIDManager sharedInstance];
@@ -914,19 +914,19 @@ LABEL_41:
         lookupDate = [v30 lookupDate];
         expiry = [v30 expiry];
         negativeTTL = [v30 negativeTTL];
-        [lookupDate doubleValue];
+        objc_msgSend_doubleValue(lookupDate);
         v47 = v46;
         [(IDSIDStatusDependencyProvider *)selfCopy->_dependencyProvider currentTime];
         v49 = v48;
         if (negativeTTL)
         {
-          [negativeTTL doubleValue];
+          objc_msgSend_doubleValue(negativeTTL);
           goto LABEL_43;
         }
 
         if (expiry && sub_10058817C())
         {
-          [expiry doubleValue];
+          objc_msgSend_doubleValue(expiry);
 LABEL_43:
           v51 = v50;
         }
@@ -1782,7 +1782,7 @@ LABEL_236:
     if (identityCopy && v23)
     {
       prefixedURI2 = [iCopy prefixedURI];
-      v25 = [prefixedURI2 isEqualToIgnoringCase:kIDSServiceDefaultsSentinelAlias];
+      v25 = objc_msgSend_isEqualToIgnoringCase_(prefixedURI2);
 
       if (!v25)
       {
@@ -2049,7 +2049,7 @@ LABEL_44:
         goto LABEL_45;
       }
 
-      [lookupDate doubleValue];
+      objc_msgSend_doubleValue(lookupDate);
       v32 = v31;
       [(IDSIDStatusDependencyProvider *)self->_dependencyProvider currentTime];
       v34 = v33;
@@ -2058,7 +2058,7 @@ LABEL_44:
       v37 = expiry;
       if (negativeTTL)
       {
-        v38 = negativeTTL;
+        objc_msgSend_doubleValue(negativeTTL);
       }
 
       else
@@ -2067,32 +2067,31 @@ LABEL_44:
         {
           peerIDManager2 = [(IDSIDStatusQueryController *)self peerIDManager];
           [peerIDManager2 timeToCacheURI:dCopy fromURI:iCopy service:serviceCopy forStatus:{objc_msgSend(v21, "status")}];
-          v40 = v42;
+          v39 = v41;
 
           goto LABEL_41;
         }
 
-        v38 = v37;
+        objc_msgSend_doubleValue(v37);
       }
 
-      [v38 doubleValue];
-      v40 = v39;
+      v39 = v38;
 LABEL_41:
-      v43 = vabdd_f64(v34, v32);
-      if (v43 >= v40)
+      v42 = vabdd_f64(v34, v32);
+      if (v42 >= v39)
       {
-        v45 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v44 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138413058;
-          v47 = dCopy;
-          v48 = 2112;
-          v49 = iCopy;
-          v50 = 2048;
-          v51 = v43;
-          v52 = 2048;
-          v53 = v40;
-          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, " => Expired status -- returning unknown {URI: %@, fromURI: %@, difference: %f, timeNeeded: %f}", buf, 0x2Au);
+          v46 = dCopy;
+          v47 = 2112;
+          v48 = iCopy;
+          v49 = 2048;
+          v50 = v42;
+          v51 = 2048;
+          v52 = v39;
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, " => Expired status -- returning unknown {URI: %@, fromURI: %@, difference: %f, timeNeeded: %f}", buf, 0x2Au);
         }
 
         if (os_log_shim_legacy_logging_enabled())
@@ -2116,7 +2115,7 @@ LABEL_41:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v47 = dCopy;
+      v46 = dCopy;
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, " => Bogus ID query for: %@   ignoring this", buf, 0xCu);
     }
 
@@ -2139,7 +2138,7 @@ LABEL_41:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v47 = dCopy;
+      v46 = dCopy;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, " => Bogus ID query for: %@   ignoring this", buf, 0xCu);
     }
 
@@ -2157,7 +2156,7 @@ LABEL_41:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v47 = iCopy;
+      v46 = iCopy;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, " => From URI: %@", buf, 0xCu);
     }
 
@@ -2175,7 +2174,7 @@ LABEL_41:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v47 = serviceCopy;
+      v46 = serviceCopy;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, " => From Service: %@", buf, 0xCu);
     }
 
@@ -2280,7 +2279,7 @@ LABEL_45:
       if (identityCopy && v21)
       {
         prefixedURI2 = [iCopy prefixedURI];
-        v23 = [prefixedURI2 isEqualToIgnoringCase:kIDSServiceDefaultsSentinelAlias];
+        v23 = objc_msgSend_isEqualToIgnoringCase_(prefixedURI2);
 
         if (!v23)
         {
@@ -2417,7 +2416,7 @@ LABEL_31:
       if (identityCopy && v23)
       {
         prefixedURI2 = [iCopy prefixedURI];
-        v25 = [prefixedURI2 isEqualToIgnoringCase:kIDSServiceDefaultsSentinelAlias];
+        v25 = objc_msgSend_isEqualToIgnoringCase_(prefixedURI2);
 
         if (!v25)
         {

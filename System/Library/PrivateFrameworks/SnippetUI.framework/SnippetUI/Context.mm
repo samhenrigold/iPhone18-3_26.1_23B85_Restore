@@ -33,7 +33,7 @@
 
 - (VRXInteractionDelegate)interactionDelegate
 {
-  v2 = sub_26A61DC9C();
+  v2 = sub_26A61DC9C(self, a2);
 
   return v2;
 }
@@ -42,7 +42,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_26A61DD38();
+  sub_26A61DD38(delegate);
 }
 
 - (int64_t)backgroundMaterial

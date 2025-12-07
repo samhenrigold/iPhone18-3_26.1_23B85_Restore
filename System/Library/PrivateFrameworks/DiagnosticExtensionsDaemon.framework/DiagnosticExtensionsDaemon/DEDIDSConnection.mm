@@ -2,7 +2,10 @@
 + (id)archivedClasses;
 + (id)packPayload:(id)payload;
 + (id)unpackProtobuf:(id)protobuf;
+- (BOOL)sendMessage:(int)message withData:(id)data forDevices:(id)devices isResponse:(BOOL)response;
+- (BOOL)sendMessage:(int)message withData:(id)data forIDSDeviceID:(id)d isResponse:(BOOL)response;
 - (BOOL)sendMessage:(int)message withData:(id)data forIDSDeviceIDs:(id)ds isResponse:(BOOL)response;
+- (BOOL)sendMessage:(int)message withData:(id)data forIDSDeviceIDs:(id)ds localIDSDeviceIDs:(id)iDs isResponse:(BOOL)response;
 - (DEDClientProtocol)remoteSideDelegate;
 - (DEDIDSConnection)initWithController:(id)controller;
 - (void)discoverDevicesWithCompletion:(id)completion;
@@ -314,16 +317,15 @@ void __35__DEDIDSConnection_archivedClasses__block_invoke()
     run_queue2 = [(DEDIDSConnection *)v31 run_queue];
     [localService7 addDelegate:incomingDelegate2 queue:run_queue2];
 
-    v46 = DEDIDSConnectionLog();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+    v47 = DEDIDSConnectionLog(v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
-      [DEDIDSConnection initWithController:v46];
+      [DEDIDSConnection initWithController:v47];
     }
 
     controllerCopy = v73;
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -344,24 +346,80 @@ void __39__DEDIDSConnection_initWithController___block_invoke(uint64_t a1, void 
 
 - (void)setDeviceCallback:(id)callback
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
-  v5 = DEDIDSConnectionLog();
+  v5 = DEDIDSConnectionLog(callbackCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = callbackCopy == 0;
-    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Setting device status callback. Nil? [%i]", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = callbackCopy == 0;
+    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Setting device status callback. Nil? [%i]", v6, 8u);
   }
 
   [(DEDIDSConnection *)self setDeviceStatusCallback:callbackCopy];
-  v6 = *MEMORY[0x277D85DE8];
+}
+
+- (BOOL)sendMessage:(int)message withData:(id)data forIDSDeviceID:(id)d isResponse:(BOOL)response
+{
+  responseCopy = response;
+  v8 = *&message;
+  v10 = MEMORY[0x277CBEB98];
+  dataCopy = data;
+  v12 = [v10 setWithObject:d];
+  LOBYTE(responseCopy) = [(DEDIDSConnection *)self sendMessage:v8 withData:dataCopy forIDSDeviceIDs:v12 isResponse:responseCopy];
+
+  return responseCopy;
+}
+
+- (BOOL)sendMessage:(int)message withData:(id)data forDevices:(id)devices isResponse:(BOOL)response
+{
+  responseCopy = response;
+  v8 = *&message;
+  v26 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  devicesCopy = devices;
+  v12 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(devicesCopy, "count")}];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v13 = devicesCopy;
+  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v22;
+    do
+    {
+      v17 = 0;
+      do
+      {
+        if (*v22 != v16)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v18 = IDSCopyIDForDevice();
+        [v12 addObject:{v18, v21}];
+
+        ++v17;
+      }
+
+      while (v15 != v17);
+      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v15);
+  }
+
+  v19 = [(DEDIDSConnection *)self sendMessage:v8 withData:dataCopy forIDSDeviceIDs:v12 isResponse:responseCopy];
+  return v19;
 }
 
 - (BOOL)sendMessage:(int)message withData:(id)data forIDSDeviceIDs:(id)ds isResponse:(BOOL)response
 {
   responseCopy = response;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dsCopy = ds;
   v9 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
@@ -370,73 +428,73 @@ void __39__DEDIDSConnection_initWithController___block_invoke(uint64_t a1, void 
   localService = [(DEDIDSConnection *)self localService];
   devices = [localService devices];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v12 = dsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v42;
-    v35 = v10;
-    v36 = v9;
-    v33 = v12;
+    v15 = *v41;
+    v34 = v10;
+    v35 = v9;
+    v32 = v12;
     do
     {
       v16 = 0;
       do
       {
-        if (*v42 != v15)
+        if (*v41 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v41 + 1) + 8 * v16);
+        v17 = *(*(&v40 + 1) + 8 * v16);
         if ([v17 hasPrefix:@"device"] && !objc_msgSend(v10, "count"))
         {
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
           v18 = devices;
-          v19 = [v18 countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v38;
+            v21 = *v37;
             while (2)
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v38 != v21)
+                if (*v37 != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                v23 = *(*(&v37 + 1) + 8 * i);
+                v23 = *(*(&v36 + 1) + 8 * i);
                 v24 = IDSCopyIDForDevice();
                 if ([v17 isEqualToString:v24])
                 {
                   if ([v23 isActive] && objc_msgSend(v23, "isConnected"))
                   {
-                    [v35 addObject:v24];
-                    v9 = v36;
+                    [v34 addObject:v24];
+                    v9 = v35;
                   }
 
                   else
                   {
-                    v9 = v36;
-                    [v36 addObject:v17];
+                    v9 = v35;
+                    [v35 addObject:v17];
                   }
 
                   goto LABEL_25;
                 }
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v37 objects:v45 count:16];
-              v9 = v36;
+              v20 = [v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v9 = v35;
               if (v20)
               {
                 continue;
@@ -448,8 +506,8 @@ void __39__DEDIDSConnection_initWithController___block_invoke(uint64_t a1, void 
 
 LABEL_25:
 
-          v10 = v35;
-          v12 = v33;
+          v10 = v34;
+          v12 = v32;
         }
 
         else
@@ -461,7 +519,7 @@ LABEL_25:
       }
 
       while (v16 != v14);
-      v25 = [v12 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v25 = [v12 countByEnumeratingWithState:&v40 objects:v45 count:16];
       v14 = v25;
     }
 
@@ -469,34 +527,163 @@ LABEL_25:
   }
 
   v26 = [(DEDIDSConnection *)selfCopy sendMessage:message withData:dataCopy forIDSDeviceIDs:v9 localIDSDeviceIDs:v10 isResponse:responseCopy];
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
+}
+
+- (BOOL)sendMessage:(int)message withData:(id)data forIDSDeviceIDs:(id)ds localIDSDeviceIDs:(id)iDs isResponse:(BOOL)response
+{
+  responseCopy = response;
+  v50[2] = *MEMORY[0x277D85DE8];
+  dsCopy = ds;
+  iDsCopy = iDs;
+  v14 = *MEMORY[0x277D18650];
+  v50[0] = &unk_285B89D60;
+  v15 = *MEMORY[0x277D185C0];
+  v49[0] = v14;
+  v49[1] = v15;
+  v16 = MEMORY[0x277CCABB0];
+  dataCopy = data;
+  v18 = [v16 numberWithBool:message == 17];
+  v50[1] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+
+  v20 = [objc_alloc(MEMORY[0x277D189F0]) initWithProtobufData:dataCopy type:message isResponse:responseCopy];
+  v38 = v19;
+  if ([dsCopy count])
+  {
+    service = [(DEDIDSConnection *)self service];
+    v41 = 0;
+    v42 = 0;
+    [service sendProtobuf:v20 toDestinations:dsCopy priority:300 options:v19 identifier:&v42 error:&v41];
+    v22 = v42;
+    v23 = v41;
+
+    v25 = DEDIDSConnectionLog(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = DEDIDSCommandString(message);
+      *buf = 136446722;
+      v44 = v26;
+      v45 = 2114;
+      v46 = v22;
+      v47 = 1024;
+      v48 = responseCopy;
+      _os_log_impl(&dword_248AD7000, v25, OS_LOG_TYPE_DEFAULT, "Sending IDS command: [%{public}s] with guid: [%{public}@] is response? [%i]", buf, 0x1Cu);
+    }
+  }
+
+  else
+  {
+    v23 = 0;
+    v22 = 0;
+  }
+
+  if ([iDsCopy count])
+  {
+    localService = [(DEDIDSConnection *)self localService];
+    v39 = 0;
+    v40 = 0;
+    [localService sendProtobuf:v20 toDestinations:iDsCopy priority:300 options:v38 identifier:&v40 error:&v39];
+    v28 = v40;
+    v29 = v39;
+
+    v31 = DEDIDSConnectionLog(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = DEDIDSCommandString(message);
+      *buf = 136446722;
+      v44 = v32;
+      v45 = 2114;
+      v46 = v28;
+      v47 = 1024;
+      v48 = responseCopy;
+      _os_log_impl(&dword_248AD7000, v31, OS_LOG_TYPE_DEFAULT, "Sending IDS command: [%{public}s] with guid: [%{public}@] is response? [%i] (local service)", buf, 0x1Cu);
+    }
+  }
+
+  else
+  {
+    v29 = 0;
+    v28 = 0;
+  }
+
+  if ([dsCopy count] && (v33 = objc_msgSend(v22, "length")) == 0)
+  {
+    v34 = 0;
+    if (!v23)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  else
+  {
+    v33 = [iDsCopy count];
+    if (v33)
+    {
+      v33 = [v28 length];
+      v34 = v33 != 0;
+      if (!v23)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    else
+    {
+      v34 = 1;
+      if (!v23)
+      {
+        goto LABEL_22;
+      }
+    }
+  }
+
+  v35 = DEDIDSConnectionLog(v33);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  {
+    [DEDIDSConnection sendMessage:withData:forIDSDeviceIDs:localIDSDeviceIDs:isResponse:];
+  }
+
+  v34 = 0;
+LABEL_22:
+  if (v29)
+  {
+    v36 = DEDIDSConnectionLog(v33);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    {
+      [DEDIDSConnection sendMessage:withData:forIDSDeviceIDs:localIDSDeviceIDs:isResponse:];
+    }
+
+    v34 = 0;
+  }
+
+  return v34;
 }
 
 - (void)ids_startBugSessionWithIdentifier:(id)identifier configuration:(id)configuration caller:(id)caller target:(id)target
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21[0] = @"targetDevice";
-  v21[1] = @"sessionID";
-  v22[0] = target;
-  v22[1] = identifier;
-  v21[2] = @"config";
-  v21[3] = @"callingDevice";
-  v22[2] = configuration;
-  v22[3] = caller;
+  v21[4] = *MEMORY[0x277D85DE8];
+  v20[0] = @"targetDevice";
+  v20[1] = @"sessionID";
+  v21[0] = target;
+  v21[1] = identifier;
+  v20[2] = @"config";
+  v20[3] = @"callingDevice";
+  v21[2] = configuration;
+  v21[3] = caller;
   v10 = MEMORY[0x277CBEAC0];
   targetCopy = target;
   callerCopy = caller;
   configurationCopy = configuration;
   identifierCopy = identifier;
-  v15 = [v10 dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v15 = [v10 dictionaryWithObjects:v21 forKeys:v20 count:4];
   v16 = [DEDIDSConnection packPayload:v15];
   v17 = MEMORY[0x277CBEB98];
   address = [targetCopy address];
   v19 = [v17 setWithObject:address];
 
   [(DEDIDSConnection *)self sendMessage:8 withData:v16 forIDSDeviceIDs:v19 isResponse:0];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ids_didStartBugSessionWithInfo:(id)info forID:(id)d
@@ -525,7 +712,7 @@ LABEL_25:
 void __50__DEDIDSConnection_discoverDevicesWithCompletion___block_invoke(uint64_t a1)
 {
   v43 = *MEMORY[0x277D85DE8];
-  v2 = DEDIDSConnectionLog();
+  v2 = DEDIDSConnectionLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -542,89 +729,87 @@ void __50__DEDIDSConnection_discoverDevicesWithCompletion___block_invoke(uint64_
     v32 = 0u;
     v33 = 0u;
     v30 = a1;
-    v4 = [*(a1 + 32) service];
-    v5 = [v4 devices];
+    v5 = [*(a1 + 32) service];
+    v6 = [v5 devices];
 
-    v6 = v5;
-    v7 = [v5 countByEnumeratingWithState:&v32 objects:v42 count:16];
-    v8 = v31;
-    if (v7)
+    v7 = v6;
+    v8 = [v6 countByEnumeratingWithState:&v32 objects:v42 count:16];
+    v9 = v31;
+    if (v8)
     {
-      v9 = v7;
-      v10 = *v33;
+      v10 = v8;
+      v11 = *v33;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v10)
+          if (*v33 != v11)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v32 + 1) + 8 * i);
-          v13 = DEDAddressForIDSDevice();
-          v14 = [DEDDevice deviceWithIDSDevice:v12 address:v13];
-          v15 = DEDIDSConnectionLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v13 = *(*(&v32 + 1) + 8 * i);
+          v14 = DEDAddressForIDSDevice();
+          v15 = [DEDDevice deviceWithIDSDevice:v13 address:v14];
+          v16 = DEDIDSConnectionLog(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            v16 = [v12 name];
-            v17 = [v14 idsIdentifier];
+            v17 = [v13 name];
+            v18 = [v15 idsIdentifier];
             *buf = 138478339;
-            v37 = v16;
+            v37 = v17;
             v38 = 2113;
-            v39 = v13;
+            v39 = v14;
             v40 = 2114;
-            v41 = v17;
-            _os_log_impl(&dword_248AD7000, v15, OS_LOG_TYPE_DEFAULT, "Ping sent: device name: %{private}@ targetID: %{private}@ | [%{public}@]", buf, 0x20u);
+            v41 = v18;
+            _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "Ping sent: device name: %{private}@ targetID: %{private}@ | [%{public}@]", buf, 0x20u);
 
-            v8 = v31;
+            v9 = v31;
           }
 
-          [v8 addObject:v14];
+          [v9 addObject:v15];
         }
 
-        v9 = [v6 countByEnumeratingWithState:&v32 objects:v42 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v32 objects:v42 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
-    v18 = v8;
-    v19 = *(v30 + 32);
-    v20 = [MEMORY[0x277CBEA90] data];
-    v21 = MEMORY[0x277CBEB98];
-    v22 = [*(v30 + 32) service];
-    v23 = [v22 devices];
-    v24 = [v21 setWithArray:v23];
-    [v19 sendMessage:1 withData:v20 forDevices:v24 isResponse:0];
+    v19 = v9;
+    v20 = *(v30 + 32);
+    v21 = [MEMORY[0x277CBEA90] data];
+    v22 = MEMORY[0x277CBEB98];
+    v23 = [*(v30 + 32) service];
+    v24 = [v23 devices];
+    v25 = [v22 setWithArray:v24];
+    [v20 sendMessage:1 withData:v21 forDevices:v25 isResponse:0];
 
-    v25 = *(v30 + 40);
-    v26 = [MEMORY[0x277CBEA60] arrayWithArray:v18];
-    (*(v25 + 16))(v25, v26);
+    v26 = *(v30 + 40);
+    v27 = [MEMORY[0x277CBEA60] arrayWithArray:v19];
+    (*(v26 + 16))(v26, v27);
   }
 
   else
   {
-    v27 = DEDIDSConnectionLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = DEDIDSConnectionLog(v4);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       __50__DEDIDSConnection_discoverDevicesWithCompletion___block_invoke_cold_1();
     }
 
-    v28 = *(a1 + 40);
-    v26 = objc_opt_new();
-    (*(v28 + 16))(v28, v26);
-    v18 = v31;
+    v29 = *(a1 + 40);
+    v27 = objc_opt_new();
+    (*(v29 + 16))(v29, v27);
+    v19 = v31;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)incomingDeviceReceived:(id)received
 {
   v15 = *MEMORY[0x277D85DE8];
   receivedCopy = received;
-  v5 = DEDIDSConnectionLog();
+  v5 = DEDIDSConnectionLog(receivedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     publicLogDescription = [receivedCopy publicLogDescription];
@@ -646,14 +831,12 @@ void __50__DEDIDSConnection_discoverDevicesWithCompletion___block_invoke(uint64_
 
   else
   {
-    deviceStatusCallback2 = DEDIDSConnectionLog();
+    deviceStatusCallback2 = DEDIDSConnectionLog(v9);
     if (os_log_type_enabled(deviceStatusCallback2, OS_LOG_TYPE_ERROR))
     {
       [DEDIDSConnection incomingDeviceReceived:];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (DEDClientProtocol)remoteSideDelegate
@@ -665,49 +848,30 @@ void __50__DEDIDSConnection_discoverDevicesWithCompletion___block_invoke(uint64_
 
 + (void)packPayload:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_248AD7000, log, OS_LOG_TYPE_ERROR, "error archiving payload [%{public}@] with error: [%{public}@]", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_248AD7000, log, OS_LOG_TYPE_ERROR, "error archiving payload [%{public}@] with error: [%{public}@]", &v3, 0x16u);
 }
 
 + (void)unpackProtobuf:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 67109378;
-  v6[1] = [a1 type];
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_248AD7000, a3, OS_LOG_TYPE_ERROR, "failed to unpack protobuf data [%hu] with error [%{public}@]", v6, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109378;
+  v5[1] = [a1 type];
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_248AD7000, a3, OS_LOG_TYPE_ERROR, "failed to unpack protobuf data [%hu] with error [%{public}@]", v5, 0x12u);
 }
 
 + (void)unpackProtobuf:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109120;
-  v4[1] = [a1 type];
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "failed to unpack protobuf [%hu] with error: protobuf or protobuf data is nil ", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendMessage:withData:forIDSDeviceIDs:localIDSDeviceIDs:isResponse:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendMessage:withData:forIDSDeviceIDs:localIDSDeviceIDs:isResponse:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = [a1 type];
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "failed to unpack protobuf [%hu] with error: protobuf or protobuf data is nil ", v3, 8u);
 }
 
 @end

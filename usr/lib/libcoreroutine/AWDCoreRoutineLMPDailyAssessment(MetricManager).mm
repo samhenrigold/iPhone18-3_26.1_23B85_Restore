@@ -71,12 +71,12 @@ LABEL_9:
 
 - (id)description
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [v2 stringWithFormat:@"%@, dailyEvents %d, eventsWithLocation %d, eventsWithLMPLocation %d, eventsWithMaybeLocation %d, visitLocation %d, visitLMPLocation %d, visitMaybeLocation %d", v4, objc_msgSend(self, "dailyEvents"), objc_msgSend(self, "eventsWithLocation"), objc_msgSend(self, "eventsWithLMPLocation"), objc_msgSend(self, "eventsWithMaybeLocation"), objc_msgSend(self, "visitLocation"), objc_msgSend(self, "visitLMPLocation"), objc_msgSend(self, "visitMaybeLocation")];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"%@, dailyEvents %d, eventsWithLocation %d, eventsWithLMPLocation %d, eventsWithMaybeLocation %d, visitLocation %d, visitLMPLocation %d, visitMaybeLocation %d", v5, objc_msgSend(self, "dailyEvents"), objc_msgSend(self, "eventsWithLocation"), objc_msgSend(self, "eventsWithLMPLocation"), objc_msgSend(self, "eventsWithMaybeLocation"), objc_msgSend(self, "visitLocation"), objc_msgSend(self, "visitLMPLocation"), objc_msgSend(self, "visitMaybeLocation")];
 
-  return v5;
+  return v6;
 }
 
 @end

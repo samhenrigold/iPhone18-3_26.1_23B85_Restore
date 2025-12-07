@@ -78,19 +78,19 @@ void __53__DBSColorScheduleController_initWithNibName_bundle___block_invoke(uint
   {
     v5 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale);
     bundleURL = [v7 bundleURL];
     v9 = [v5 initWithKey:@"DISPLAY_AND_BRIGHTNESS" defaultValue:0 table:@"Display" locale:currentLocale bundleURL:bundleURL];
 
     v10 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
-    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale2);
     bundleURL2 = [v12 bundleURL];
     v14 = [v10 initWithKey:@"BLUE_LIGHT_REDUCTION" defaultValue:0 table:@"Display" locale:currentLocale2 bundleURL:bundleURL2];
 
     v15 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
-    v17 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v17 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale3);
     bundleURL3 = [v17 bundleURL];
     v19 = [v15 initWithKey:@"SCHEDULE_TITLE" defaultValue:0 table:@"ColorSchedule" locale:currentLocale3 bundleURL:bundleURL3];
 

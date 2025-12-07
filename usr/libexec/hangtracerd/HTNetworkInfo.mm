@@ -9,7 +9,7 @@
   evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
   if (!evaluator_for_endpoint)
   {
-    v4 = sub_100003824();
+    v4 = sub_100003824(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_100031904(v4);
@@ -22,7 +22,7 @@
   v4 = v3;
   if (!v3)
   {
-    v5 = sub_100003824();
+    v5 = sub_100003824(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1000318C0(v5);
@@ -65,15 +65,15 @@ LABEL_8:
   v9 = [NSNumber numberWithUnsignedInt:interface_time_delta];
   [v5 setObject:v9 forKeyedSubscript:@"SecondsSincePrimary"];
 
-  v10 = sub_100003824();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = sub_100003824(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_100031808(v5, interface_time_delta, v10);
+    sub_100031808(v5, interface_time_delta, v11);
   }
 
-  v12 = @"NetworkState";
-  v13 = v5;
-  v7 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v13 = @"NetworkState";
+  v14 = v5;
+  v7 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
 LABEL_20:
 
 LABEL_21:

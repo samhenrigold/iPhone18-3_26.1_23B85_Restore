@@ -8,15 +8,14 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v5 = *(&self->super.isa + OBJC_IVAR___CHSReplicatedDescriptorsBox_descriptors);
   sub_224A3B79C(0, &unk_2813509D0, 0x277CFA378);
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_224DAEFF8();
+  v6 = sub_224DAEFF8();
 
-  v8 = sub_224DAEDE8();
+  v7 = sub_224DAEDE8();
 
-  [coderCopy encodeObject:v7 forKey:v8];
+  [coderCopy encodeObject:v6 forKey:v7];
 }
 
 - (CHSReplicatedDescriptorsBox)initWithCoder:(id)coder

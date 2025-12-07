@@ -360,7 +360,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    rxframe = self->_rxframe;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -380,7 +379,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txframe = self->_txframe;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -395,7 +393,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  rxrtry = self->_rxrtry;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -410,7 +407,6 @@ LABEL_5:
   }
 
 LABEL_17:
-  txretrans = self->_txretrans;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -425,7 +421,6 @@ LABEL_6:
   }
 
 LABEL_18:
-  txnocts = self->_txnocts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -440,7 +435,6 @@ LABEL_7:
   }
 
 LABEL_19:
-  txrts = self->_txrts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -455,7 +449,6 @@ LABEL_8:
   }
 
 LABEL_20:
-  txdeauth = self->_txdeauth;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -470,7 +463,6 @@ LABEL_9:
   }
 
 LABEL_21:
-  txassocreq = self->_txassocreq;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -485,7 +477,6 @@ LABEL_10:
   }
 
 LABEL_22:
-  txassocrsp = self->_txassocrsp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -497,7 +488,6 @@ LABEL_11:
     }
 
 LABEL_24:
-    txreassocrsp = self->_txreassocrsp;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -508,7 +498,6 @@ LABEL_24:
   }
 
 LABEL_23:
-  txreassocreq = self->_txreassocreq;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) != 0)
@@ -523,7 +512,6 @@ LABEL_12:
   }
 
 LABEL_25:
-  ctsnotrxafterrts = self->_ctsnotrxafterrts;
 
   PBDataWriterWriteUint64Field();
 }

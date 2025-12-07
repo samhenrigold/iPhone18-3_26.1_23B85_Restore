@@ -24,13 +24,13 @@
 
 - (void)_setupContent
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136315138;
-    v25 = "[VTUIEnrollmentSetupIntroView _setupContent]";
-    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s Setup content", &v24, 0xCu);
+    v23 = 136315138;
+    v24 = "[VTUIEnrollmentSetupIntroView _setupContent]";
+    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s Setup content", &v23, 0xCu);
   }
 
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
@@ -111,14 +111,12 @@
   laterButton = self->_laterButton;
   v22 = [v7 VTUIDeviceSpecificString:v13];
   [(VTUIButton *)laterButton setTitle:v22 forState:0];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createFooterWithTextFieldShowlaterButton:(BOOL)button
 {
   buttonCopy = button;
-  v63[4] = *MEMORY[0x277D85DE8];
+  v62[4] = *MEMORY[0x277D85DE8];
   v4 = +[VTUIStyle sharedStyle];
   mEMORY[0x277D653F8] = [MEMORY[0x277D653F8] sharedInstance];
   v6 = objc_alloc(MEMORY[0x277D75D18]);
@@ -136,7 +134,7 @@
   self->_languageCode = languageCode;
 
   languageCode2 = [(VTUIEnrollmentSetupIntroView *)self languageCode];
-  v60 = mEMORY[0x277D653F8];
+  v59 = mEMORY[0x277D653F8];
   if ([mEMORY[0x277D653F8] isSATEnrolledForSiriProfileId:0 forLanguageCode:languageCode2])
   {
 
@@ -162,7 +160,7 @@ LABEL_3:
 
   v14 = @"BUTTON_CONTINUE_SETUP";
 LABEL_9:
-  v56 = v7;
+  v55 = v7;
   v17 = self->_continueButton;
   v18 = [v4 VTUIDeviceSpecificString:v14];
   [(VTUIButton *)v17 setTitle:v18 forState:0];
@@ -171,24 +169,24 @@ LABEL_9:
   topAnchor = [(VTUIButton *)self->_continueButton topAnchor];
   topAnchor2 = [v7 topAnchor];
   [v4 continueButtonOffset];
-  v49 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
-  v63[0] = v49;
+  v48 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
+  v62[0] = v48;
   centerXAnchor = [(VTUIButton *)self->_continueButton centerXAnchor];
   centerXAnchor2 = [v7 centerXAnchor];
   v21 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v63[1] = v21;
+  v62[1] = v21;
   widthAnchor = [(VTUIButton *)self->_continueButton widthAnchor];
   [v4 footerButtonMaximumWidth];
   [widthAnchor constraintEqualToConstant:?];
   v24 = v23 = v4;
-  v63[2] = v24;
+  v62[2] = v24;
   heightAnchor = [(VTUIButton *)self->_continueButton heightAnchor];
-  v55 = v23;
+  v54 = v23;
   [v23 primaryButtonHeight];
   v26 = [heightAnchor constraintEqualToConstant:?];
-  v63[3] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
-  v59 = array;
+  v62[3] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
+  v58 = array;
   [array addObjectsFromArray:v27];
 
   if (buttonCopy)
@@ -198,51 +196,50 @@ LABEL_9:
     self->_laterButton = v28;
 
     [(VTUIButton *)self->_laterButton setTranslatesAutoresizingMaskIntoConstraints:0];
-    v30 = v56;
-    [v56 addSubview:self->_laterButton];
+    v30 = v55;
+    [v55 addSubview:self->_laterButton];
     leadingAnchor = [(VTUIButton *)self->_laterButton leadingAnchor];
-    leadingAnchor2 = [v56 leadingAnchor];
+    leadingAnchor2 = [v55 leadingAnchor];
     v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v62[0] = v31;
+    v61[0] = v31;
     trailingAnchor = [(VTUIButton *)self->_laterButton trailingAnchor];
-    trailingAnchor2 = [v56 trailingAnchor];
-    v50 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v62[1] = v50;
+    trailingAnchor2 = [v55 trailingAnchor];
+    v49 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v61[1] = v49;
     firstBaselineAnchor = [(VTUIButton *)self->_laterButton firstBaselineAnchor];
     bottomAnchor = [(VTUIButton *)self->_continueButton bottomAnchor];
-    [v55 laterButtonBaselinePadding];
+    [v54 laterButtonBaselinePadding];
     v33 = [firstBaselineAnchor constraintEqualToAnchor:bottomAnchor constant:?];
-    v62[2] = v33;
+    v61[2] = v33;
     bottomAnchor2 = [(VTUIButton *)self->_laterButton bottomAnchor];
-    bottomAnchor3 = [v56 bottomAnchor];
-    [v55 footerSkipButtonBaselineFromBottom];
+    bottomAnchor3 = [v55 bottomAnchor];
+    [v54 footerSkipButtonBaselineFromBottom];
     v37 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-v36];
-    v62[3] = v37;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
-    v39 = v59;
-    [v59 addObjectsFromArray:v38];
+    v61[3] = v37;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:4];
+    v39 = v58;
+    [v58 addObjectsFromArray:v38];
 
     bottomAnchor4 = leadingAnchor;
-    v41 = v55;
+    v41 = v54;
     bottomAnchor5 = leadingAnchor2;
   }
 
   else
   {
     bottomAnchor4 = [(VTUIButton *)self->_continueButton bottomAnchor];
-    v30 = v56;
-    bottomAnchor5 = [v56 bottomAnchor];
-    v41 = v55;
-    [v55 continueButtonFromBottom];
+    v30 = v55;
+    bottomAnchor5 = [v55 bottomAnchor];
+    v41 = v54;
+    [v54 continueButtonFromBottom];
     v31 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5 constant:-v43];
-    v61 = v31;
-    trailingAnchor = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+    v60 = v31;
+    trailingAnchor = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
     v39 = array;
     [array addObjectsFromArray:trailingAnchor];
   }
 
   [v30 addConstraints:v39];
-  v44 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

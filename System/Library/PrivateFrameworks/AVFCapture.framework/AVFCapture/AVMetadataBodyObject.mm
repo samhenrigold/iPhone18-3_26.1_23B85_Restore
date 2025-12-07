@@ -24,7 +24,7 @@
   y = v11[1];
   width = v11[2];
   height = v11[3];
-  v17 = [dictionary objectForKeyedSubscript:{*MEMORY[0x1E69910D8], v20}];
+  v17 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E69910D8], v20);
   if (v17)
   {
     memset(&rect, 0, sizeof(rect));
@@ -46,7 +46,7 @@
   height = [(AVMetadataObject *)&v24 initWithType:type time:&rect duration:&v22 bounds:dictionary optionalInfoDict:0 originalMetadataObject:input sourceCaptureInput:x, y, width, height];
   if (height)
   {
-    height->_bodyID = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990E68]), "integerValue"}];
+    height->_bodyID = [objc_msgSend_objectForKeyedSubscript_(dictionary) integerValue];
   }
 
   return height;
@@ -73,10 +73,10 @@
   v30 = 0;
   if (object)
   {
-    [object time];
+    objc_msgSend_time(object, a2, object, transform, mirrored, adjustment);
     v27 = 0uLL;
     v28 = 0;
-    [object duration];
+    objc_msgSend_duration(object);
   }
 
   else

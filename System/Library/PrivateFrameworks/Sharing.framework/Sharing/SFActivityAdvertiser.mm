@@ -140,7 +140,7 @@ void __40__SFActivityAdvertiser_sharedAdvertiser__block_invoke()
 void __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = handoff_log();
+  v4 = handoff_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_invoke_cold_1(a1);
@@ -160,7 +160,7 @@ void __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_in
 void __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_invoke_134(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = handoff_log();
+  v4 = handoff_log(v3);
   v5 = v4;
   if (v3)
   {
@@ -178,23 +178,23 @@ void __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_in
 
 - (void)activityPayloadForAdvertisementPayload:(id)payload command:(id)command requestedByDevice:(id)device withCompletionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   commandCopy = command;
   deviceCopy = device;
   handlerCopy = handler;
-  v14 = handoff_log();
+  v14 = handoff_log(handlerCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = objc_opt_class();
     v16 = NSStringFromClass(v15);
     v17 = SFAdvertisementDescriptionFromPayloadData(payloadCopy);
     *buf = 138412802;
-    v29 = v16;
-    v30 = 2112;
-    v31 = deviceCopy;
-    v32 = 2112;
-    v33 = v17;
+    v28 = v16;
+    v29 = 2112;
+    v30 = deviceCopy;
+    v31 = 2112;
+    v32 = v17;
     _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "[%@] Received payload request from %@ for %@", buf, 0x20u);
   }
 
@@ -203,26 +203,24 @@ void __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_in
   block[2] = __111__SFActivityAdvertiser_activityPayloadForAdvertisementPayload_command_requestedByDevice_withCompletionHandler___block_invoke;
   block[3] = &unk_1E7890068;
   block[4] = self;
-  v24 = payloadCopy;
-  v25 = commandCopy;
-  v26 = deviceCopy;
-  v27 = handlerCopy;
+  v23 = payloadCopy;
+  v24 = commandCopy;
+  v25 = deviceCopy;
+  v26 = handlerCopy;
   v18 = handlerCopy;
   v19 = deviceCopy;
   v20 = commandCopy;
   v21 = payloadCopy;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
-void __111__SFActivityAdvertiser_activityPayloadForAdvertisementPayload_command_requestedByDevice_withCompletionHandler___block_invoke(uint64_t a1)
+void __111__SFActivityAdvertiser_activityPayloadForAdvertisementPayload_command_requestedByDevice_withCompletionHandler___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 32) + 32);
-  if (objc_opt_respondsToSelector())
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [*(*(a1 + 32) + 32) activityAdvertiser:*(a1 + 32) activityPayloadForAdvertisementPayload:*(a1 + 40) command:*(a1 + 48) requestedByDevice:*(a1 + 56) withCompletionHandler:*(a1 + 64)];
+    v2 = [*(a1[4] + 32) activityAdvertiser:a1[4] activityPayloadForAdvertisementPayload:a1[5] command:a1[6] requestedByDevice:a1[7] withCompletionHandler:a1[8]];
     v3 = @"YES";
   }
 
@@ -231,26 +229,23 @@ void __111__SFActivityAdvertiser_activityPayloadForAdvertisementPayload_command_
     v3 = @"NO";
   }
 
-  v4 = handoff_log();
+  v4 = handoff_log(v2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = *(a1 + 56);
-    v9 = SFAdvertisementDescriptionFromPayloadData(*(a1 + 40));
-    v11 = 138413058;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = a1[7];
+    v8 = SFAdvertisementDescriptionFromPayloadData(a1[5]);
+    v9 = 138413058;
+    v10 = v6;
+    v11 = 2112;
     v12 = v7;
     v13 = 2112;
     v14 = v8;
     v15 = 2112;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "[%@] Received payload request from %@ for %@. Handled: %@", &v11, 0x2Au);
+    v16 = v3;
+    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "[%@] Received payload request from %@ for %@. Handled: %@", &v9, 0x2Au);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didSendPayloadForActivityIdentifier:(id)identifier toDevice:(id)device error:(id)error
@@ -274,11 +269,11 @@ void __111__SFActivityAdvertiser_activityPayloadForAdvertisementPayload_command_
 
 void __75__SFActivityAdvertiser_didSendPayloadForActivityIdentifier_toDevice_error___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 32) + 32);
-  if (objc_opt_respondsToSelector())
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [*(*(a1 + 32) + 32) activityAdvertiser:*(a1 + 32) didSendPayloadForActivityIdentifier:*(a1 + 40) toDevice:*(a1 + 48) error:*(a1 + 56)];
+    v2 = [*(*(a1 + 32) + 32) activityAdvertiser:*(a1 + 32) didSendPayloadForActivityIdentifier:*(a1 + 40) toDevice:*(a1 + 48) error:*(a1 + 56)];
     v3 = @"YES";
   }
 
@@ -287,26 +282,23 @@ void __75__SFActivityAdvertiser_didSendPayloadForActivityIdentifier_toDevice_err
     v3 = @"NO";
   }
 
-  v4 = handoff_log();
+  v4 = handoff_log(v2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = *(a1 + 48);
-    v10 = [*(a1 + 40) UUIDString];
-    v11 = 138413058;
-    v12 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = *(a1 + 48);
+    v8 = [*(a1 + 40) UUIDString];
+    v9 = 138413058;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
     v13 = 2112;
-    v14 = v9;
+    v14 = v8;
     v15 = 2112;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEBUG, "[%@] Did send payload to %@ for activity identifier %@. Handled: %@", &v11, 0x2Au);
+    v16 = v3;
+    _os_log_debug_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEBUG, "[%@] Did send payload to %@ for activity identifier %@. Handled: %@", &v9, 0x2Au);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pairedDevicesChanged:(id)changed
@@ -324,14 +316,12 @@ void __75__SFActivityAdvertiser_didSendPayloadForActivityIdentifier_toDevice_err
 
 uint64_t __45__SFActivityAdvertiser_pairedDevicesChanged___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 32);
+    v3 = *(*(a1 + 32) + 32);
 
-    return [v5 activityAdvertiser:? pairedDevicesChangedNotification:?];
+    return [v3 activityAdvertiser:? pairedDevicesChangedNotification:?];
   }
 
   return result;
@@ -339,88 +329,77 @@ uint64_t __45__SFActivityAdvertiser_pairedDevicesChanged___block_invoke(uint64_t
 
 - (id)exportedInterface
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1D9DBA0];
   [v2 setClass:objc_opt_class() forSelector:sel_activityPayloadForAdvertisementPayload_command_requestedByDevice_withCompletionHandler_ argumentIndex:2 ofReply:0];
   [v2 setClass:objc_opt_class() forSelector:sel_didSendPayloadForActivityIdentifier_toDevice_error_ argumentIndex:1 ofReply:0];
   v3 = MEMORY[0x1E695DFD8];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_pairedDevicesChanged_ argumentIndex:0 ofReply:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)remoteObjectInterface
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1DAECC0];
   v3 = MEMORY[0x1E695DFD8];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v11[2] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_pairedSFPeerDevicesWithOptions_completionHandler_ argumentIndex:0 ofReply:1];
 
   v6 = MEMORY[0x1E695DFD8];
-  v11[0] = objc_opt_class();
-  v11[1] = objc_opt_class();
-  v11[2] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
+  v10[0] = objc_opt_class();
+  v10[1] = objc_opt_class();
+  v10[2] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
   v8 = [v6 setWithArray:v7];
   [v2 setClasses:v8 forSelector:sel_advertiseAdvertisementPayload_options_withErrorHandler_ argumentIndex:1 ofReply:0];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 void __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_invoke_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = SFAdvertisementDescriptionFromPayloadData(*(a1 + 40));
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = SFAdvertisementDescriptionFromPayloadData(*(a1 + 40));
+  LODWORD(v11) = 138412546;
+  *(&v11 + 4) = v3;
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_17(&dword_1A9662000, v6, v7, "%@ dispatching request to advertise %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_17(&dword_1A9662000, v5, v6, "%@ dispatching request to advertise %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_invoke_134_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = SFAdvertisementDescriptionFromPayloadData(*(a1 + 40));
-  v12 = 138412802;
-  v13 = v8;
+  v14 = *MEMORY[0x1E69E9840];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = SFAdvertisementDescriptionFromPayloadData(*(a1 + 40));
+  v10 = 138412802;
+  v11 = v7;
   OUTLINED_FUNCTION_0_17();
-  v14 = v10;
-  v15 = a2;
-  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "%@ dispatching advertisement request for %@ failed (%@)", &v12, 0x20u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = v9;
+  v13 = a2;
+  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "%@ dispatching advertisement request for %@ failed (%@)", &v10, 0x20u);
 }
 
 void __62__SFActivityAdvertiser_advertiseAdvertisementPayload_options___block_invoke_134_cold_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = SFAdvertisementDescriptionFromPayloadData(*(a1 + 40));
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = SFAdvertisementDescriptionFromPayloadData(*(a1 + 40));
+  LODWORD(v11) = 138412546;
+  *(&v11 + 4) = v3;
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_17(&dword_1A9662000, v6, v7, "%@ advertisement request for %@ succeeded", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_17(&dword_1A9662000, v5, v6, "%@ advertisement request for %@ succeeded", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

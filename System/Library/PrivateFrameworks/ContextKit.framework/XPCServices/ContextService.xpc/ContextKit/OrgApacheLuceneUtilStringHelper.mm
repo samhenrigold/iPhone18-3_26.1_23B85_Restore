@@ -32,64 +32,64 @@ LABEL_3:
 {
   if (objc_opt_class() == self)
   {
-    PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"tests.seed");
+    PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"tests.seed", v2);
     if (PropertyWithNSString)
     {
-      v3 = [PropertyWithNSString hash];
+      v4 = [PropertyWithNSString hash];
     }
 
     else
     {
-      v3 = JavaLangSystem_currentTimeMillis();
+      v4 = JavaLangSystem_currentTimeMillis();
     }
 
-    OrgApacheLuceneUtilStringHelper_GOOD_FAST_HASH_SEED_ = v3;
+    OrgApacheLuceneUtilStringHelper_GOOD_FAST_HASH_SEED_ = v4;
     JreStrongAssignAndConsume(&qword_100553D88, [NSObject alloc]);
-    v4 = [IOSByteArray arrayWithLength:16];
-    JavaUtilArrays_fillWithByteArray_withByte_(v4, -1);
-    v5 = new_JavaMathBigInteger_initWithInt_withByteArray_(1, v4);
-    JreStrongAssignAndConsume(&qword_100553D90, v5);
-    v6 = JavaLangSystem_getPropertyWithNSString_(@"tests.seed");
-    if (v6)
+    v5 = [IOSByteArray arrayWithLength:16];
+    JavaUtilArrays_fillWithByteArray_withByte_(v5, -1);
+    v6 = new_JavaMathBigInteger_initWithInt_withByteArray_(1, v5);
+    JreStrongAssignAndConsume(&qword_100553D90, v6);
+    v8 = JavaLangSystem_getPropertyWithNSString_(@"tests.seed", v7);
+    if (v8)
     {
-      v7 = v6;
-      if ([v6 length] >= 9)
+      v9 = v8;
+      if ([v8 length] >= 9)
       {
-        v7 = [v7 substring:{objc_msgSend(v7, "length") - 8}];
+        v9 = [v9 substring:{objc_msgSend(v9, "length") - 8}];
       }
 
-      v14 = JavaLangLong_parseLongWithNSString_withInt_(v7, 16, v8, v9, v10, v11, v12, v13);
-      v15 = v14;
+      v16 = JavaLangLong_parseLongWithNSString_withInt_(v9, 16, v10, v11, v12, v13, v14, v15);
+      v17 = v16;
     }
 
     else
     {
-      v16 = arc4random();
-      v14 = v16 | (arc4random() << 32);
-      v17 = arc4random();
-      v15 = v17 | (arc4random() << 32);
+      v18 = arc4random();
+      v16 = v18 | (arc4random() << 32);
+      v19 = arc4random();
+      v17 = v19 | (arc4random() << 32);
     }
 
-    v18 = 10;
+    v20 = 10;
     do
     {
-      v19 = v15;
-      v15 ^= (v15 >> 26) ^ ((v14 ^ (v14 << 23)) >> 17) ^ v14 ^ (v14 << 23);
-      v14 = v19;
-      --v18;
+      v21 = v17;
+      v17 ^= (v17 >> 26) ^ ((v16 ^ (v16 << 23)) >> 17) ^ v16 ^ (v16 << 23);
+      v16 = v21;
+      --v20;
     }
 
-    while (v18);
-    v20 = [IOSByteArray arrayWithLength:8];
-    JavaUtilArrays_fillWithByteArray_withByte_(v20, -1);
-    v21 = new_JavaMathBigInteger_initWithInt_withByteArray_(1, v20);
-    v22 = JavaMathBigInteger_valueOfWithLong_(v19);
-    if (!v22 || (v23 = -[JavaMathBigInteger and__WithJavaMathBigInteger:](v22, "and__WithJavaMathBigInteger:", v21), (v24 = JavaMathBigInteger_valueOfWithLong_(v15)) == 0) || (v25 = -[JavaMathBigInteger and__WithJavaMathBigInteger:](v24, "and__WithJavaMathBigInteger:", v21), !v23) || (v26 = v25, (v27 = [v23 shiftLeftWithInt:64]) == 0))
+    while (v20);
+    v22 = [IOSByteArray arrayWithLength:8];
+    JavaUtilArrays_fillWithByteArray_withByte_(v22, -1);
+    v23 = new_JavaMathBigInteger_initWithInt_withByteArray_(1, v22);
+    v24 = JavaMathBigInteger_valueOfWithLong_(v21);
+    if (!v24 || (v25 = -[JavaMathBigInteger and__WithJavaMathBigInteger:](v24, "and__WithJavaMathBigInteger:", v23), (v26 = JavaMathBigInteger_valueOfWithLong_(v17)) == 0) || (v27 = -[JavaMathBigInteger and__WithJavaMathBigInteger:](v26, "and__WithJavaMathBigInteger:", v23), !v25) || (v28 = v27, (v29 = [v25 shiftLeftWithInt:64]) == 0))
     {
       JreThrowNullPointerException();
     }
 
-    JreStrongAssign(&qword_100553D98, [v27 or__WithJavaMathBigInteger:v26]);
+    JreStrongAssign(&qword_100553D98, [v29 or__WithJavaMathBigInteger:v28]);
     atomic_store(1u, OrgApacheLuceneUtilStringHelper__initialized);
   }
 }

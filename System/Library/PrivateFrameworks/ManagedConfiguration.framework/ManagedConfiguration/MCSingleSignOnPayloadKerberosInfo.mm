@@ -10,77 +10,77 @@
 
 - (MCSingleSignOnPayloadKerberosInfo)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v80.receiver = self;
-  v80.super_class = MCSingleSignOnPayloadKerberosInfo;
-  v10 = [(MCSingleSignOnPayloadKerberosInfo *)&v80 init];
+  v79.receiver = self;
+  v79.super_class = MCSingleSignOnPayloadKerberosInfo;
+  v10 = [(MCSingleSignOnPayloadKerberosInfo *)&v79 init];
   if (!v10)
   {
     goto LABEL_26;
   }
 
-  v79 = 0;
-  v11 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PrincipalName" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v79];
-  v12 = v79;
+  v78 = 0;
+  v11 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PrincipalName" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v78];
+  v12 = v78;
   principalName = v10->_principalName;
   v10->_principalName = v11;
 
   if (!v12)
   {
-    v78 = 0;
-    v14 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"Realm" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v78];
-    v12 = v78;
+    v77 = 0;
+    v14 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"Realm" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v77];
+    v12 = v77;
     realm = v10->_realm;
     v10->_realm = v14;
   }
 
-  v77 = v12;
-  v16 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"PayloadCertificateUUID" isRequired:0 outError:&v77];
-  v17 = v77;
+  v76 = v12;
+  v16 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"PayloadCertificateUUID" isRequired:0 outError:&v76];
+  v17 = v76;
 
   certificateUUID = v10->_certificateUUID;
   v10->_certificateUUID = v16;
 
   if (!v17)
   {
-    v76 = 0;
-    v19 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"AppIdentifierMatches" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v76];
-    v17 = v76;
+    v75 = 0;
+    v19 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"AppIdentifierMatches" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v75];
+    v17 = v75;
     appIdentifierMatches = v10->_appIdentifierMatches;
     v10->_appIdentifierMatches = v19;
 
     if (!v17)
     {
       errorCopy = error;
-      v61 = profileCopy;
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
+      v60 = profileCopy;
       v73 = 0u;
+      v74 = 0u;
+      v71 = 0u;
+      v72 = 0u;
       v21 = v10->_appIdentifierMatches;
-      v22 = [(NSArray *)v21 countByEnumeratingWithState:&v72 objects:v82 count:16];
+      v22 = [(NSArray *)v21 countByEnumeratingWithState:&v71 objects:v81 count:16];
       if (v22)
       {
         v23 = v22;
         v17 = 0;
-        v24 = *v73;
+        v24 = *v72;
         while (2)
         {
           v25 = 0;
           v26 = v17;
           do
           {
-            if (*v73 != v24)
+            if (*v72 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v27 = *(*(&v72 + 1) + 8 * v25);
-            v71 = v26;
-            v28 = [(MCSingleSignOnPayloadKerberosInfo *)v10 validateAppIdentifierMatch:v27 outError:&v71];
-            v17 = v71;
+            v27 = *(*(&v71 + 1) + 8 * v25);
+            v70 = v26;
+            v28 = [(MCSingleSignOnPayloadKerberosInfo *)v10 validateAppIdentifierMatch:v27 outError:&v70];
+            v17 = v70;
 
             if (!v28)
             {
@@ -88,7 +88,7 @@
 
               v17 = v29;
               error = errorCopy;
-              profileCopy = v61;
+              profileCopy = v60;
               goto LABEL_16;
             }
 
@@ -97,7 +97,7 @@
           }
 
           while (v23 != v25);
-          v23 = [(NSArray *)v21 countByEnumeratingWithState:&v72 objects:v82 count:16];
+          v23 = [(NSArray *)v21 countByEnumeratingWithState:&v71 objects:v81 count:16];
           if (v23)
           {
             continue;
@@ -127,82 +127,82 @@
       }
 
       error = errorCopy;
-      profileCopy = v61;
+      profileCopy = v60;
 
       if (!v17)
       {
-        v36 = v10->_principalName;
-        if (v36 && [(NSString *)v36 rangeOfString:@"@"]!= 0x7FFFFFFFFFFFFFFFLL)
+        v35 = v10->_principalName;
+        if (v35 && [(NSString *)v35 rangeOfString:@"@"]!= 0x7FFFFFFFFFFFFFFFLL)
         {
-          v55 = @"PrincipalName";
+          v54 = @"PrincipalName";
         }
 
         else
         {
           if ([(NSString *)v10->_realm rangeOfString:@"@"]== 0x7FFFFFFFFFFFFFFFLL)
           {
-            v70 = 0;
-            v37 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"URLPrefixMatches" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v70];
-            v17 = v70;
+            v69 = 0;
+            v36 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"URLPrefixMatches" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v69];
+            v17 = v69;
             URLPrefixMatches = v10->_URLPrefixMatches;
-            v10->_URLPrefixMatches = v37;
+            v10->_URLPrefixMatches = v36;
 
             if (![(NSArray *)v10->_URLPrefixMatches count])
             {
-              v39 = v10->_URLPrefixMatches;
+              v38 = v10->_URLPrefixMatches;
               v10->_URLPrefixMatches = &unk_1F1AA5A40;
             }
 
-            v40 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](v10->_URLPrefixMatches, "count")}];
-            v68 = 0u;
-            v69 = 0u;
-            v66 = 0u;
+            v39 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](v10->_URLPrefixMatches, "count")}];
             v67 = 0u;
+            v68 = 0u;
+            v65 = 0u;
+            v66 = 0u;
             obj = v10->_URLPrefixMatches;
-            v41 = [(NSArray *)obj countByEnumeratingWithState:&v66 objects:v81 count:16];
-            if (v41)
+            v40 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v80 count:16];
+            if (v40)
             {
-              v42 = v41;
-              v59 = *v67;
+              v41 = v40;
+              v58 = *v66;
               while (2)
               {
-                v43 = 0;
-                v44 = v17;
+                v42 = 0;
+                v43 = v17;
                 do
                 {
-                  if (*v67 != v59)
+                  if (*v66 != v58)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v45 = *(*(&v66 + 1) + 8 * v43);
-                  v64 = v44;
-                  v65 = 0;
-                  v46 = [(MCSingleSignOnPayloadKerberosInfo *)v10 validateURLPrefixMatch:v45 outNormalizedString:&v65 outError:&v64];
-                  v47 = v65;
-                  v17 = v64;
+                  v44 = *(*(&v65 + 1) + 8 * v42);
+                  v63 = v43;
+                  v64 = 0;
+                  v45 = [(MCSingleSignOnPayloadKerberosInfo *)v10 validateURLPrefixMatch:v44 outNormalizedString:&v64 outError:&v63];
+                  v46 = v64;
+                  v17 = v63;
 
-                  if (!v46)
+                  if (!v45)
                   {
-                    v48 = v40;
-                    v56 = [MCPayload badFieldValueErrorWithField:@"URLPrefixMatches" underlyingError:v17];
+                    v47 = v39;
+                    v55 = [MCPayload badFieldValueErrorWithField:@"URLPrefixMatches" underlyingError:v17];
 
-                    v17 = v56;
+                    v17 = v55;
                     error = errorCopy;
-                    profileCopy = v61;
+                    profileCopy = v60;
 
                     goto LABEL_48;
                   }
 
-                  [v40 addObject:v47];
+                  [v39 addObject:v46];
 
-                  ++v43;
-                  v44 = v17;
+                  ++v42;
+                  v43 = v17;
                 }
 
-                while (v42 != v43);
-                v42 = [(NSArray *)obj countByEnumeratingWithState:&v66 objects:v81 count:16];
-                if (v42)
+                while (v41 != v42);
+                v41 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v80 count:16];
+                if (v41)
                 {
                   continue;
                 }
@@ -211,31 +211,31 @@
               }
             }
 
-            v48 = v40;
-            v49 = [MEMORY[0x1E695DFD8] setWithArray:v40];
-            allObjects2 = [v49 allObjects];
-            v51 = v10->_URLPrefixMatches;
+            v47 = v39;
+            v48 = [MEMORY[0x1E695DFD8] setWithArray:v39];
+            allObjects2 = [v48 allObjects];
+            v50 = v10->_URLPrefixMatches;
             v10->_URLPrefixMatches = allObjects2;
 
-            profileCopy = v61;
-            if ([v61 isStub])
+            profileCopy = v60;
+            if ([v60 isStub])
             {
               error = errorCopy;
               if (!v17)
               {
-                v63 = 0;
-                v52 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"AccountGUID" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v63];
-                v17 = v63;
+                v62 = 0;
+                v51 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"AccountGUID" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v62];
+                v17 = v62;
                 accountGUID = v10->_accountGUID;
-                v10->_accountGUID = v52;
+                v10->_accountGUID = v51;
 
                 if (!v17)
                 {
-                  v62 = 0;
-                  v54 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"AccountTypeGUID" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v62];
-                  v17 = v62;
+                  v61 = 0;
+                  v53 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"AccountTypeGUID" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v61];
+                  v17 = v61;
                   obja = v10->_accountTypeGUID;
-                  v10->_accountTypeGUID = v54;
+                  v10->_accountTypeGUID = v53;
                 }
               }
             }
@@ -256,10 +256,10 @@ LABEL_16:
             goto LABEL_23;
           }
 
-          v55 = @"Realm";
+          v54 = @"Realm";
         }
 
-        v17 = [MCPayload badFieldValueErrorWithField:v55];
+        v17 = [MCPayload badFieldValueErrorWithField:v54];
         goto LABEL_16;
       }
     }
@@ -275,7 +275,6 @@ LABEL_23:
   v10 = 0;
 LABEL_26:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

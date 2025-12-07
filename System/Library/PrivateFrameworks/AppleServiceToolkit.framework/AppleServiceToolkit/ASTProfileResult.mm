@@ -47,35 +47,35 @@
 
 - (id)generatePayload
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   tests = [(ASTProfileResult *)self tests];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(tests, "count")}];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   tests2 = [(ASTProfileResult *)self tests];
-  v7 = [tests2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [tests2 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
+    v9 = *v31;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(tests2);
         }
 
-        dictionary = [*(*(&v31 + 1) + 8 * i) dictionary];
+        dictionary = [*(*(&v30 + 1) + 8 * i) dictionary];
         [v5 addObject:dictionary];
       }
 
-      v8 = [tests2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v8 = [tests2 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v8);
@@ -140,8 +140,6 @@
   }
 
   v28 = [v26 copy];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

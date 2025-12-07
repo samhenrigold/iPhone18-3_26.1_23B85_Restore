@@ -32,7 +32,7 @@
 
 - (id)valueForPropertyKey:(id)key error:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (error)
   {
@@ -49,9 +49,9 @@
 
       if (!v10)
       {
-        v17 = @"propertyKey";
-        v18[0] = keyCopy;
-        errorsByPropertyKey2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+        v16 = @"propertyKey";
+        v17[0] = keyCopy;
+        errorsByPropertyKey2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
         v12 = DMFErrorWithCodeAndUserInfo(111, errorsByPropertyKey2);
         goto LABEL_6;
       }
@@ -65,8 +65,6 @@ LABEL_6:
 
   valuesByPropertyKey2 = [(DMFFetchDevicePropertiesResultObject *)self valuesByPropertyKey];
   v14 = [valuesByPropertyKey2 valueForKey:keyCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

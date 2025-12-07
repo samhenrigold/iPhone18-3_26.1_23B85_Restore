@@ -503,7 +503,7 @@ void __153___UIViewServiceViewControllerOperator___hostViewWillAppear_inInterfac
   }
 }
 
-uint64_t __153___UIViewServiceViewControllerOperator___hostViewWillAppear_inInterfaceOrientation_traitCollection_statusBarHeight_underlapsStatusBar_completionHandler___block_invoke_2(void *a1)
+void *__153___UIViewServiceViewControllerOperator___hostViewWillAppear_inInterfaceOrientation_traitCollection_statusBarHeight_underlapsStatusBar_completionHandler___block_invoke_2(void *a1)
 {
   result = [*(a1[4] + 1088) _preferredInterfaceOrientationGivenCurrentOrientation:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -790,7 +790,7 @@ uint64_t __164___UIViewServiceViewControllerOperator___hostViewWillTransitionToS
   return v4();
 }
 
-uint64_t __164___UIViewServiceViewControllerOperator___hostViewWillTransitionToSize_withContextDescription_boundingPath_statusBarHeight_underlapsStatusBar_fence_timing_whenDone___block_invoke_579(uint64_t a1)
+void *__164___UIViewServiceViewControllerOperator___hostViewWillTransitionToSize_withContextDescription_boundingPath_statusBarHeight_underlapsStatusBar_fence_timing_whenDone___block_invoke_579(uint64_t a1)
 {
   if (*(a1 + 96) == 1)
   {
@@ -832,7 +832,7 @@ uint64_t __164___UIViewServiceViewControllerOperator___hostViewWillTransitionToS
   return [v2 __hostWillAnimateRotationToInterfaceOrientation:v3 duration:0 skipSelf:v4];
 }
 
-uint64_t __164___UIViewServiceViewControllerOperator___hostViewWillTransitionToSize_withContextDescription_boundingPath_statusBarHeight_underlapsStatusBar_fence_timing_whenDone___block_invoke_3_582(uint64_t a1)
+void *__164___UIViewServiceViewControllerOperator___hostViewWillTransitionToSize_withContextDescription_boundingPath_statusBarHeight_underlapsStatusBar_fence_timing_whenDone___block_invoke_3_582(uint64_t a1)
 {
   result = [*(a1 + 32) __hostDidRotateFromInterfaceOrientation:*(a1 + 56) skipSelf:0];
   v3 = *(a1 + 48);

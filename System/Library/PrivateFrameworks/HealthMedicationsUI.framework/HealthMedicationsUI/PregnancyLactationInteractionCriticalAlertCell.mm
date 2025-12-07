@@ -15,21 +15,20 @@
   [(PregnancyLactationInteractionCriticalAlertCell *)&v4 awakeFromNib];
   sub_2283922A0();
   v3[2] = v2;
-  sub_22817F074(sub_228205AE8, v3);
+  sub_22817F074(sub_228205AE8, v3, "HealthMedicationsUI/PregnancyLactationInteractionCriticalAlertCell.swift", 72, 2u, 58);
 }
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
   v4 = sub_228391350();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_228391340();
   selfCopy = self;
   sub_228202CB4();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)touchesBegan:(id)began withEvent:(id)event

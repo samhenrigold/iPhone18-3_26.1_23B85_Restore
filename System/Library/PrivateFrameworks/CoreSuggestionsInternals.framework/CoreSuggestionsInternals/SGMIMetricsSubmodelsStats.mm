@@ -231,45 +231,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_28;
-  }
-
-  personFromSenderStats = self->_personFromSenderStats;
-  if (personFromSenderStats | equalCopy[9])
-  {
-    if (![(SGMIMetricsSubmodelStats *)personFromSenderStats isEqual:?])
-    {
-      goto LABEL_28;
-    }
-  }
-
-  personFromSenderInDyadicConversationStats = self->_personFromSenderInDyadicConversationStats;
-  if (personFromSenderInDyadicConversationStats | equalCopy[8] && ![(SGMIMetricsSubmodelStats *)personFromSenderInDyadicConversationStats isEqual:?])
-  {
-    goto LABEL_28;
-  }
-
-  subjectContentStats = self->_subjectContentStats;
-  if (subjectContentStats | equalCopy[12] && ![(SGMIMetricsSubmodelStats *)subjectContentStats isEqual:?])
-  {
-    goto LABEL_28;
-  }
-
-  personToRecipientsStats = self->_personToRecipientsStats;
-  if (personToRecipientsStats | equalCopy[10] && ![(SGMIMetricsSubmodelStats *)personToRecipientsStats isEqual:?])
-  {
-    goto LABEL_28;
-  }
-
-  personCCRecipientsStats = self->_personCCRecipientsStats;
-  if (personCCRecipientsStats | equalCopy[7] && ![(SGMIMetricsSubmodelStats *)personCCRecipientsStats isEqual:?])
-  {
-    goto LABEL_28;
-  }
-
-  if (((domainFromSenderStats = self->_domainFromSenderStats, !(domainFromSenderStats | equalCopy[3])) || [(SGMIMetricsSubmodelStats *)domainFromSenderStats isEqual:?]) && ((conversationStats = self->_conversationStats, !(conversationStats | equalCopy[2])) || [(SGMIMetricsSubmodelStats *)conversationStats isEqual:?]) && ((listIdStats = self->_listIdStats, !(listIdStats | equalCopy[4])) || [(SGMIMetricsSubmodelStats *)listIdStats isEqual:?]) && ((attachmentsStats = self->_attachmentsStats, !(attachmentsStats | equalCopy[1])) || [(SGMIMetricsSubmodelStats *)attachmentsStats isEqual:?]) && ((subjectCountStatsStats = self->_subjectCountStatsStats, !(subjectCountStatsStats | equalCopy[13])) || [(SGMIMetricsSubmodelStats *)subjectCountStatsStats isEqual:?]) && ((standardMailRulesStats = self->_standardMailRulesStats, !(standardMailRulesStats | equalCopy[11])) || [(SGMIMetricsSubmodelStats *)standardMailRulesStats isEqual:?]) && ((mailboxStats = self->_mailboxStats, !(mailboxStats | equalCopy[5])) || [(SGMIMetricsSubmodelStats *)mailboxStats isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((personFromSenderStats = self->_personFromSenderStats, !(personFromSenderStats | equalCopy[9])) || -[SGMIMetricsSubmodelStats isEqual:](personFromSenderStats, "isEqual:")) && ((personFromSenderInDyadicConversationStats = self->_personFromSenderInDyadicConversationStats, !(personFromSenderInDyadicConversationStats | equalCopy[8])) || -[SGMIMetricsSubmodelStats isEqual:](personFromSenderInDyadicConversationStats, "isEqual:")) && ((subjectContentStats = self->_subjectContentStats, !(subjectContentStats | equalCopy[12])) || -[SGMIMetricsSubmodelStats isEqual:](subjectContentStats, "isEqual:")) && ((personToRecipientsStats = self->_personToRecipientsStats, !(personToRecipientsStats | equalCopy[10])) || -[SGMIMetricsSubmodelStats isEqual:](personToRecipientsStats, "isEqual:")) && ((personCCRecipientsStats = self->_personCCRecipientsStats, !(personCCRecipientsStats | equalCopy[7])) || -[SGMIMetricsSubmodelStats isEqual:](personCCRecipientsStats, "isEqual:")) && ((domainFromSenderStats = self->_domainFromSenderStats, !(domainFromSenderStats | equalCopy[3])) || -[SGMIMetricsSubmodelStats isEqual:](domainFromSenderStats, "isEqual:")) && ((conversationStats = self->_conversationStats, !(conversationStats | equalCopy[2])) || -[SGMIMetricsSubmodelStats isEqual:](conversationStats, "isEqual:")) && ((listIdStats = self->_listIdStats, !(listIdStats | equalCopy[4])) || -[SGMIMetricsSubmodelStats isEqual:](listIdStats, "isEqual:")) && ((attachmentsStats = self->_attachmentsStats, !(attachmentsStats | equalCopy[1])) || -[SGMIMetricsSubmodelStats isEqual:](attachmentsStats, "isEqual:")) && ((subjectCountStatsStats = self->_subjectCountStatsStats, !(subjectCountStatsStats | equalCopy[13])) || -[SGMIMetricsSubmodelStats isEqual:](subjectCountStatsStats, "isEqual:")) && ((standardMailRulesStats = self->_standardMailRulesStats, !(standardMailRulesStats | equalCopy[11])) || -[SGMIMetricsSubmodelStats isEqual:](standardMailRulesStats, "isEqual:")) && ((mailboxStats = self->_mailboxStats, !(mailboxStats | equalCopy[5])) || -[SGMIMetricsSubmodelStats isEqual:](mailboxStats, "isEqual:")))
   {
     mailboxTypeStats = self->_mailboxTypeStats;
     if (mailboxTypeStats | equalCopy[6])
@@ -285,7 +247,6 @@
 
   else
   {
-LABEL_28:
     v18 = 0;
   }
 

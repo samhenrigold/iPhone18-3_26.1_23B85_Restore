@@ -15,33 +15,33 @@
 
 - (TUHandle)defaultSelectedCallerID
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69A5B50] = [MEMORY[0x1E69A5B50] sharedController];
   [mEMORY[0x1E69A5B50] blockUntilConnected];
 
   facetimeService = [MEMORY[0x1E69A5C90] facetimeService];
   v5 = IMPreferredAccountForService();
 
-  v6 = ConversationKitLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = ConversationKitLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_1BBC58000, v6, OS_LOG_TYPE_DEFAULT, "[FaceTimeAccountFetcher] Found preferredAccount %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v5;
+    _os_log_impl(&dword_1BBC58000, v7, OS_LOG_TYPE_DEFAULT, "[FaceTimeAccountFetcher] Found preferredAccount %@", &v12, 0xCu);
   }
 
   if (v5)
   {
-    v7 = [(FaceTimeAccountFetcher *)self _aliasesForAccount:v5];
-    v8 = ConversationKitLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = [(FaceTimeAccountFetcher *)self _aliasesForAccount:v5];
+    v9 = ConversationKitLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_1BBC58000, v8, OS_LOG_TYPE_DEFAULT, "[FaceTimeAccountFetcher] Pulled out preferred aliases %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_1BBC58000, v9, OS_LOG_TYPE_DEFAULT, "[FaceTimeAccountFetcher] Pulled out preferred aliases %@", &v12, 0xCu);
     }
 
-    firstObject = [v7 firstObject];
+    firstObject = [v8 firstObject];
   }
 
   else
@@ -63,7 +63,7 @@
 - (NSArray)accounts
 {
   v24 = *MEMORY[0x1E69E9840];
-  v2 = ConversationKitLog();
+  v2 = ConversationKitLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     facetimeService = [MEMORY[0x1E69A5C90] facetimeService];
@@ -90,27 +90,32 @@
       v10 = *v18;
       do
       {
-        for (i = 0; i != v9; ++i)
+        v11 = 0;
+        do
         {
           if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          v13 = ConversationKitLog();
+          v12 = *(*(&v17 + 1) + 8 * v11);
+          v13 = ConversationKitLog(v8);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             v23 = v12;
             _os_log_impl(&dword_1BBC58000, v13, OS_LOG_TYPE_DEFAULT, "[FaceTimeAccountFetcher] Found account: %@", buf, 0xCu);
           }
+
+          ++v11;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        while (v9 != v11);
+        v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = v8;
       }
 
-      while (v9);
+      while (v8);
     }
 
     v14 = [v7 copy];
@@ -118,7 +123,7 @@
 
   else
   {
-    v15 = ConversationKitLog();
+    v15 = ConversationKitLog(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -440,20 +445,20 @@ LABEL_21:
 
 - (id)_temporaryDeviceAliases
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   phoneSubscriptionSelector = [(FaceTimeAccountFetcher *)self phoneSubscriptionSelector];
-  v7 = 0;
-  v3 = [phoneSubscriptionSelector unselectedTemporaryPhoneAliasesWithError:&v7];
-  v4 = v7;
+  v8 = 0;
+  v3 = [phoneSubscriptionSelector unselectedTemporaryPhoneAliasesWithError:&v8];
+  v4 = v8;
 
   if (v4)
   {
-    v5 = ConversationKitLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ConversationKitLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_1BBC58000, v5, OS_LOG_TYPE_DEFAULT, "[FaceTimeAccountFetcher] Error fetching temporary aliases %@", buf, 0xCu);
+      v10 = v4;
+      _os_log_impl(&dword_1BBC58000, v6, OS_LOG_TYPE_DEFAULT, "[FaceTimeAccountFetcher] Error fetching temporary aliases %@", buf, 0xCu);
     }
   }
 

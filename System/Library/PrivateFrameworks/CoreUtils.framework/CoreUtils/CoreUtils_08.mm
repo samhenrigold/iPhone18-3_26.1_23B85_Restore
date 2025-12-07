@@ -1,4 +1,4 @@
-uint64_t _NetSocketGCM_Write(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+uint64_t _NetSocketGCM_Write(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5[2] = *MEMORY[0x1E69E9840];
   v5[0] = a2;
@@ -208,67 +208,67 @@ LABEL_42:
   return result;
 }
 
-uint64_t NetSocketTLS_Configure(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t NetSocketTLS_Configure(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = a1[12];
-  if (!v6)
+  v7 = a1[12];
+  if (!v7)
   {
-    v7 = malloc_type_calloc(1uLL, 0x10uLL, 0x10200405F07FB98uLL);
-    if (!v7)
+    v8 = malloc_type_calloc(1uLL, 0x10uLL, 0x10200405F07FB98uLL);
+    if (!v8)
     {
-      v14 = 4294960568;
+      v15 = 4294960568;
       goto LABEL_12;
     }
 
-    v6 = v7;
-    a1[12] = v7;
+    v7 = v8;
+    a1[12] = v8;
   }
 
-  if (*v6)
+  if (*v7)
   {
-    CFRelease(*v6);
+    CFRelease(*v7);
   }
 
-  v12 = SSLCreateContext(0, (a4 == 0), kSSLStreamType);
-  *v6 = v12;
-  if (v12)
+  v13 = SSLCreateContext(0, (a4 == 0), kSSLStreamType);
+  *v7 = v13;
+  if (v13)
   {
-    v13 = SSLSetConnection(v12, a1);
-    if (v13 || (v13 = SSLSetIOFuncs(*v6, _TLSRead, _TLSWrite), v13) || (v13 = SSLSetProtocolVersionMin(*v6, kTLSProtocol12), v13) || (v13 = SSLSetPSKSharedSecret(), v13) || a4 && (v13 = SSLSetPSKIdentity(), v13))
+    v14 = SSLSetConnection(v13, a1);
+    if (v14 || (v14 = SSLSetIOFuncs(*v7, _TLSRead, _TLSWrite), v14) || (v14 = SSLSetProtocolVersionMin(*v7, kTLSProtocol12), v14) || (v14 = SSLSetPSKSharedSecret(), v14) || a4 && (v14 = SSLSetPSKIdentity(), v14))
     {
-      v14 = v13;
+      v15 = v14;
     }
 
     else
     {
-      v16 = *v6;
+      v17 = *v7;
       *ciphers = 11403432;
-      v14 = SSLSetEnabledCiphers(v16, ciphers, 2uLL);
-      if (!v14)
+      v15 = SSLSetEnabledCiphers(v17, ciphers, 2uLL);
+      if (!v15)
       {
         a1[3] = _NetSocketTLSRead;
         a1[4] = _NetSocketTLSWrite;
         a1[5] = NetSocket_WriteVSlow;
         a1[6] = NetSocket_WriteFileSlow;
         a1[7] = _NetSocketTLSFree;
-        return v14;
+        return v15;
       }
     }
   }
 
   else
   {
-    v14 = 4294960596;
+    v15 = 4294960596;
   }
 
 LABEL_12:
   if (gLogCategory_NetSocketTLS <= 60 && (gLogCategory_NetSocketTLS != -1 || _LogCategory_Initialize(&gLogCategory_NetSocketTLS, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus NetSocketTLS_Configure(NetSocketRef, const void *, size_t, const void *, size_t)", 0x3Cu, "### Configure TLS failed: %#m\n", v8, v9, v10, v11, v14);
+    LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus NetSocketTLS_Configure(NetSocketRef, const void *, size_t, const void *, size_t)", 60, "### Configure TLS failed: %#m\n", v9, v10, v11, v12, v15);
   }
 
   _NetSocketTLSFree(a1);
-  return v14;
+  return v15;
 }
 
 void _NetSocketTLSFree(uint64_t a1)
@@ -324,7 +324,7 @@ uint64_t _NetSocketTLSWrite(uint64_t a1, void *data, size_t dataLength, int a4)
     *(v6 + 8) = 1;
     if (gLogCategory_NetSocketTLS <= 20 && (gLogCategory_NetSocketTLS != -1 || _LogCategory_Initialize(&gLogCategory_NetSocketTLS, 0x14u)))
     {
-      LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus _NetSocketTLSWrite(NetSocketRef, const void *, size_t, int32_t)", 0x14u, "TLS handshake completed for write\n", v10, v11, v12, v13, v18);
+      LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus _NetSocketTLSWrite(NetSocketRef, const void *, size_t, int32_t)", 20, "TLS handshake completed for write\n", v10, v11, v12, v13, v18);
     }
   }
 
@@ -338,7 +338,7 @@ uint64_t _NetSocketTLSWrite(uint64_t a1, void *data, size_t dataLength, int a4)
 
     if (gLogCategory_NetSocketTLS != -1 || (result = _LogCategory_Initialize(&gLogCategory_NetSocketTLS, 9u), result))
     {
-      LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus _NetSocketTLSWrite(NetSocketRef, const void *, size_t, int32_t)", 9u, "TLS wrote %zu bytes\n", v14, v15, v16, v17, processed[0]);
+      LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus _NetSocketTLSWrite(NetSocketRef, const void *, size_t, int32_t)", 9, "TLS wrote %zu bytes\n", v14, v15, v16, v17, processed[0]);
       return 0;
     }
   }
@@ -381,7 +381,7 @@ uint64_t _NetSocketTLSRead(uint64_t a1, int a2, size_t dataLength, void *data, s
     *(v7 + 8) = 1;
     if (gLogCategory_NetSocketTLS <= 20 && (gLogCategory_NetSocketTLS != -1 || _LogCategory_Initialize(&gLogCategory_NetSocketTLS, 0x14u)))
     {
-      LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus _NetSocketTLSRead(NetSocketRef, size_t, size_t, void *, size_t *, int, int32_t)", 0x14u, "TLS handshake completed for read\n", v12, v13, v14, v15, v20);
+      LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus _NetSocketTLSRead(NetSocketRef, size_t, size_t, void *, size_t *, int, int32_t)", 20, "TLS handshake completed for read\n", v12, v13, v14, v15, v20);
     }
   }
 
@@ -395,7 +395,7 @@ uint64_t _NetSocketTLSRead(uint64_t a1, int a2, size_t dataLength, void *data, s
 
     if (gLogCategory_NetSocketTLS != -1 || (result = _LogCategory_Initialize(&gLogCategory_NetSocketTLS, 9u), result))
     {
-      LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus _NetSocketTLSRead(NetSocketRef, size_t, size_t, void *, size_t *, int, int32_t)", 9u, "TLS read %zu bytes\n", v16, v17, v18, v19, *processed);
+      LogPrintF(&gLogCategory_NetSocketTLS, "OSStatus _NetSocketTLSRead(NetSocketRef, size_t, size_t, void *, size_t *, int, int32_t)", 9, "TLS read %zu bytes\n", v16, v17, v18, v19, *processed);
       return 0;
     }
   }
@@ -671,7 +671,7 @@ LABEL_27:
 
     v22 = p_iov_len + 2;
     v17 += *p_iov_len;
-    v23 = (p_iov_len + 1) >= v8;
+    v23 = p_iov_len + 1 >= v8;
     p_iov_len += 2;
     if (v23)
     {
@@ -793,7 +793,7 @@ LABEL_25:
   v22 = __dst;
   if (gLogCategory_NetTransportGCM <= 60 && (gLogCategory_NetTransportGCM != -1 || _LogCategory_Initialize(&gLogCategory_NetTransportGCM, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_NetTransportGCM, "OSStatus _NetTransportRead(void *, size_t, size_t *, void *)", 0x3Cu, "### GCM verify failed: %#m\n", v16, v17, v18, v19, v21);
+    LogPrintF(&gLogCategory_NetTransportGCM, "OSStatus _NetTransportRead(void *, size_t, size_t *, void *)", 60, "### GCM verify failed: %#m\n", v16, v17, v18, v19, v21);
   }
 
 LABEL_26:
@@ -1496,33 +1496,33 @@ _DWORD *CUDispatchSocketAllocate(int *a1)
   return result;
 }
 
-void CUDispatchSocketCancelAll(void *a1)
+void CUDispatchSocketCancelAll(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = a1[1];
+    v2 = *(result + 8);
     if (v2)
     {
       dispatch_source_cancel(v2);
-      if (*(a1 + 16) == 1)
+      if (*(result + 16) == 1)
       {
-        *(a1 + 16) = 0;
-        dispatch_resume(a1[1]);
+        *(result + 16) = 0;
+        dispatch_resume(*(result + 8));
       }
     }
 
-    v3 = a1[3];
+    v3 = *(result + 24);
     if (v3)
     {
       dispatch_source_cancel(v3);
-      if (*(a1 + 32) == 1)
+      if (*(result + 32) == 1)
       {
-        *(a1 + 32) = 0;
-        dispatch_resume(a1[3]);
+        *(result + 32) = 0;
+        dispatch_resume(*(result + 24));
       }
     }
 
-    _CUDispatchSocketCleanupIfDone(a1);
+    _CUDispatchSocketCleanupIfDone(result);
   }
 }
 
@@ -2542,7 +2542,7 @@ uint64_t SockAddrGetSize(uint64_t a1)
   }
 }
 
-uint64_t NetSocket_Create(void *a1)
+uint64_t NetSocket_Create(int **a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   v2 = malloc_type_calloc(1uLL, 0x78uLL, 0x10B0040AF8E8938uLL);
@@ -2782,7 +2782,7 @@ LABEL_50:
         v33 = v28;
         if (*v45 <= 40 && (*v45 != -1 || _LogCategory_Initialize(v45, 0x28u)))
         {
-          LogPrintF(v45, "OSStatus NetSocket_WriteFileSlow(NetSocketRef, iovec_t *, int, iovec_t *, int, FDRef, int64_t, int64_t, int32_t)", 0x28u, "Wrote %10lld of %10lld, %6.2f%%, %6.2f Mbit/sec\n", v29, v30, v31, v32, v19);
+          LogPrintF(v45, "OSStatus NetSocket_WriteFileSlow(NetSocketRef, iovec_t *, int, iovec_t *, int, FDRef, int64_t, int64_t, int32_t)", 40, "Wrote %10lld of %10lld, %6.2f%%, %6.2f Mbit/sec\n", v29, v30, v31, v32, v19);
         }
 
         v20 = v33 + v46;
@@ -2843,7 +2843,7 @@ LABEL_52:
   mach_absolute_time();
   if (*v16 <= 40 && (*v16 != -1 || _LogCategory_Initialize(v16, 0x28u)))
   {
-    LogPrintF(v16, "OSStatus NetSocket_WriteFileSlow(NetSocketRef, iovec_t *, int, iovec_t *, int, FDRef, int64_t, int64_t, int32_t)", 0x28u, "Wrote %lld of %lld, %6.2f Mbit/sec: %#m\n", v37, v38, v39, v40, v19);
+    LogPrintF(v16, "OSStatus NetSocket_WriteFileSlow(NetSocketRef, iovec_t *, int, iovec_t *, int, FDRef, int64_t, int64_t, int32_t)", 40, "Wrote %lld of %lld, %6.2f Mbit/sec: %#m\n", v37, v38, v39, v40, v19);
   }
 
   return v35;
@@ -3170,7 +3170,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t NetSocket_CreateWithNative(void *a1, int a2)
+uint64_t NetSocket_CreateWithNative(int **a1, int a2)
 {
   if (a2 < 0)
   {
@@ -3182,7 +3182,7 @@ uint64_t NetSocket_CreateWithNative(void *a1, int a2)
   if (!result)
   {
     v5 = v6;
-    *(v6 + 4) = a2;
+    v6[1] = a2;
     *a1 = v5;
   }
 
@@ -3245,7 +3245,7 @@ uint64_t NetSocket_Reset(uint64_t a1)
   return result;
 }
 
-uint64_t NetSocket_TCPConnect(uint64_t a1, _BYTE *a2, unsigned int a3, unsigned int a4)
+uint64_t NetSocket_TCPConnect(uint64_t a1, _BYTE *a2, unsigned int a3, uint64_t a4)
 {
   v30 = *MEMORY[0x1E69E9840];
   if (!a1 || *a1 != 1853058915)
@@ -3264,6 +3264,7 @@ uint64_t NetSocket_TCPConnect(uint64_t a1, _BYTE *a2, unsigned int a3, unsigned 
     return 4294960543;
   }
 
+  v6 = a4;
   v21 = bswap32(a3) >> 16;
   while (1)
   {
@@ -3300,7 +3301,7 @@ uint64_t NetSocket_TCPConnect(uint64_t a1, _BYTE *a2, unsigned int a3, unsigned 
         *v25.sa_data = v21;
       }
 
-      v12 = _NetSocket_Connect(a1, v10, &v25, a4);
+      v12 = _NetSocket_Connect(a1, v10, &v25, v6);
       if (!v12)
       {
         return 0;
@@ -3366,7 +3367,7 @@ LABEL_31:
     if ((v17 & 0x80000000) == 0)
     {
       v18 = v17;
-      v19 = _NetSocket_Connect(a1, v17, v16->ai_addr, a4);
+      v19 = _NetSocket_Connect(a1, v17, v16->ai_addr, v6);
       if (!v19)
       {
         freeaddrinfo(v22);
@@ -3711,8 +3712,9 @@ LABEL_27:
   return v20;
 }
 
-uint64_t TCPConnect(_BYTE *a1, char *__str, int a3, int *a4)
+uint64_t TCPConnect(_BYTE *a1, char *__str, uint64_t a3, int *a4)
 {
+  v5 = a3;
   v25 = *MEMORY[0x1E69E9840];
   if (__str)
   {
@@ -3797,7 +3799,7 @@ LABEL_30:
               if ((v15 & 0x80000000) == 0)
               {
                 v12 = v15;
-                if (!SocketConnect(v15, v14->ai_addr, a3))
+                if (!SocketConnect(v15, v14->ai_addr, v5))
                 {
                   freeaddrinfo(v17);
                   goto LABEL_41;
@@ -3829,7 +3831,7 @@ LABEL_30:
           *v20.sa_data = v8;
         }
 
-        if (!SocketConnect(v11, &v20, a3))
+        if (!SocketConnect(v11, &v20, v5))
         {
 LABEL_41:
           result = 0;
@@ -4235,11 +4237,11 @@ uint64_t SocketGetPacketReceiveInterface(unsigned int *a1, unsigned int a2, void
   result = 0;
   if (a2 >= 0xC && a1)
   {
-    v6 = a1 + a2;
+    v6 = (a1 + a2);
     while (a1[1] || a1[2] != 20)
     {
       a1 = (a1 + ((*a1 + 3) & 0x1FFFFFFFCLL));
-      if ((a1 + 3) > v6)
+      if (a1 + 3 > v6)
       {
         return 0;
       }
@@ -5614,7 +5616,7 @@ uint64_t NTPClockStop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
         v16 = "client";
       }
 
-      return LogPrintF(result, "void NTPClockStop(NTPClockRef)", 0x1Eu, "NTP %s stopped\n", a5, a6, a7, a8, v16);
+      return LogPrintF(result, "void NTPClockStop(NTPClockRef)", 30, "NTP %s stopped\n", a5, a6, a7, a8, v16);
     }
   }
 
@@ -5818,7 +5820,7 @@ LABEL_56:
     v22 = *(a1 + 56);
   }
 
-  LogPrintF(v22, "OSStatus _NTPClockClientNegotiate(NTPClockRef)", 0x1Eu, "NTP client negotiating with %##a\n", v18, v19, v20, v21, a1 + 20);
+  LogPrintF(v22, "OSStatus _NTPClockClientNegotiate(NTPClockRef)", 30, "NTP client negotiating with %##a\n", v18, v19, v20, v21, a1 + 20);
 LABEL_18:
   v23 = mach_absolute_time();
   memset(&v48, 0, sizeof(v48));
@@ -5898,7 +5900,7 @@ LABEL_38:
         {
           v34 = *(a1 + 56);
 LABEL_40:
-          LogPrintF(v34, "OSStatus _NTPClockClientNegotiate(NTPClockRef)", 0x32u, "### NTP client negotiate wait for %##a failed (%u total): %#m\n", v30, v31, v32, v33, a1 + 20);
+          LogPrintF(v34, "OSStatus _NTPClockClientNegotiate(NTPClockRef)", 50, "### NTP client negotiate wait for %##a failed (%u total): %#m\n", v30, v31, v32, v33, a1 + 20);
           goto LABEL_21;
         }
 
@@ -5974,7 +5976,7 @@ LABEL_57:
         v43 = *(a1 + 56);
       }
 
-      LogPrintF(v43, "OSStatus NTPClockStartClient(NTPClockRef)", 0x3Cu, "### NTP client start failed: %#m\n", v7, v8, v9, v10, v25);
+      LogPrintF(v43, "OSStatus NTPClockStartClient(NTPClockRef)", 60, "### NTP client start failed: %#m\n", v7, v8, v9, v10, v25);
     }
 
 LABEL_61:
@@ -6007,7 +6009,7 @@ LABEL_61:
     {
       v45 = *(a1 + 56);
 LABEL_65:
-      LogPrintF(v45, "OSStatus NTPClockStartClient(NTPClockRef)", 0x1Eu, "NTP client started with %##a on port %d\n", v7, v8, v9, v10, a1 + 20);
+      LogPrintF(v45, "OSStatus NTPClockStartClient(NTPClockRef)", 30, "NTP client started with %##a on port %d\n", v7, v8, v9, v10, a1 + 20);
     }
   }
 
@@ -6044,7 +6046,7 @@ LABEL_4:
         v14 = *(a1 + 56);
       }
 
-      LogPrintF(v14, "OSStatus _NTPClockClientSendRequest(NTPClockRef)", 0xAu, "NTP client request: 0x%08X%08X\n", v7, v8, v9, v10, v4);
+      LogPrintF(v14, "OSStatus _NTPClockClientSendRequest(NTPClockRef)", 10, "NTP client request: 0x%08X%08X\n", v7, v8, v9, v10, v4);
     }
 
     return 0;
@@ -6078,7 +6080,7 @@ LABEL_4:
       v15 = *(a1 + 56);
     }
 
-    LogPrintF(v15, "OSStatus _NTPClockClientSendRequest(NTPClockRef)", 0x32u, "### NTP client send to %##a failed (%u total): %#m\n", v7, v8, v9, v10, a1 + 20);
+    LogPrintF(v15, "OSStatus _NTPClockClientSendRequest(NTPClockRef)", 50, "### NTP client send to %##a failed (%u total): %#m\n", v7, v8, v9, v10, a1 + 20);
   }
 
   return v11;
@@ -6229,7 +6231,7 @@ LABEL_51:
                     v140 = v53;
                     v72 = v42;
                     v73 = v55;
-                    LogPrintF(&gLogCategory_NTPClockRaw, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 0x28u, "NTP Raw: #\tT1\tT2\tT3\tT4\tOffset ms\tOffsetAvg\tOffsetMin\tOffsetMax\tOffsetJitter\tRTT ms\tRTTavg\tRTTmin\tRTTmax\tRTTjitter\n", v23, v24, v25, v26, v138);
+                    LogPrintF(&gLogCategory_NTPClockRaw, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 40, "NTP Raw: #\tT1\tT2\tT3\tT4\tOffset ms\tOffsetAvg\tOffsetMin\tOffsetMax\tOffsetJitter\tRTT ms\tRTTavg\tRTTmin\tRTTmax\tRTTjitter\n", v23, v24, v25, v26, v138);
                     v55 = v73;
                     v42 = v72;
                     v53 = v140;
@@ -6420,7 +6422,7 @@ LABEL_114:
                 if (v101 != -1 || (v103 = v42, v104 = _LogCategory_Initialize(&gLogCategory_NTPClockRaw, 0x28u), v42 = v103, v104))
                 {
                   v102 = v42;
-                  LogPrintF(&gLogCategory_NTPClockRaw, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 0x28u, "NTP Raw: %zu\t%llu\t%llu\t%llu\t%llu\t%.9f\t%.9f\t%.9f\t%.9f\t%.9f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%s\n", v23, v24, v25, v26, v42);
+                  LogPrintF(&gLogCategory_NTPClockRaw, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 40, "NTP Raw: %zu\t%llu\t%llu\t%llu\t%llu\t%.9f\t%.9f\t%.9f\t%.9f\t%.9f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%s\n", v23, v24, v25, v26, v42);
                   v42 = v102;
                 }
 
@@ -6454,7 +6456,7 @@ LABEL_147:
                     v137 = *(a1 + 56);
                   }
 
-                  LogPrintF(v137, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 0x14u, "NTP client poll updated: %u-%u ms\n", v23, v24, v25, v26, *(a1 + 68));
+                  LogPrintF(v137, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 20, "NTP client poll updated: %u-%u ms\n", v23, v24, v25, v26, *(a1 + 68));
                 }
 
                 return 0;
@@ -6489,7 +6491,7 @@ LABEL_147:
                     v129 = v42;
                     v130 = v53;
 LABEL_138:
-                    LogPrintF(v128, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 0x14u, "NTP client update: #\tRTT ms\tRTT ! \tRateNew    \tRateAvg    \tRateHz    \tJitHz\tOffset ms\tOffset Avg\tFlags\n", v23, v24, v25, v26, v138);
+                    LogPrintF(v128, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 20, "NTP client update: #\tRTT ms\tRTT ! \tRateNew    \tRateAvg    \tRateHz    \tJitHz\tOffset ms\tOffset Avg\tFlags\n", v23, v24, v25, v26, v138);
                     v53 = v130;
                     v42 = v129;
                     goto LABEL_141;
@@ -6533,7 +6535,7 @@ LABEL_141:
                 }
 
                 v134 = v42;
-                LogPrintF(v132, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 0x14u, "NTP client update: %zu\t%.3f\t%.3f\t%.9f\t%.9f\t%llu\t%llu\t%+.9f\t%+.9f%s%s%s%s\n", v23, v24, v25, v26, v42);
+                LogPrintF(v132, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 20, "NTP client update: %zu\t%.3f\t%.3f\t%.9f\t%.9f\t%llu\t%llu\t%+.9f\t%+.9f%s%s%s%s\n", v23, v24, v25, v26, v42);
                 v42 = v134;
                 v53 = v133;
               }
@@ -6588,7 +6590,7 @@ LABEL_17:
           v35 = *(a1 + 56);
         }
 
-        LogPrintF(v35, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 0x32u, "### NTP client received unexpected response: originated 0x%016llX, received 0x%016llX (%u total)\n", v23, v24, v25, v26, v20);
+        LogPrintF(v35, "OSStatus _NTPClockClientProcessResponse(NTPClockRef)", 50, "### NTP client received unexpected response: originated 0x%016llX, received 0x%016llX (%u total)\n", v23, v24, v25, v26, v20);
       }
 
       return 4294960560;
@@ -6923,7 +6925,7 @@ uint64_t NTPClockGetSynchronizedNTPTimeNearUpTicks(uint64_t a1, unint64_t a2)
   return v20 >> 32;
 }
 
-unint64_t NTPClockGetUpTicksNearSynchronizedNTPTime(uint64_t a1, unint64_t a2)
+uint64_t NTPClockGetUpTicksNearSynchronizedNTPTime(uint64_t a1, unint64_t a2)
 {
   SynchronizedNTPTime = NTPClockGetSynchronizedNTPTime(a1);
   v4 = mach_absolute_time();
@@ -7017,7 +7019,7 @@ uint64_t NTPClockStartServer(uint64_t a1)
             v17 = *(a1 + 56);
           }
 
-          LogPrintF(v17, "OSStatus NTPClockStartServer(NTPClockRef)", 0x1Eu, "NTP server started on port %d\n", v8, v9, v10, v11, *(a1 + 52));
+          LogPrintF(v17, "OSStatus NTPClockStartServer(NTPClockRef)", 30, "NTP server started on port %d\n", v8, v9, v10, v11, *(a1 + 52));
         }
 
         return 0;
@@ -7039,7 +7041,7 @@ uint64_t NTPClockStartServer(uint64_t a1)
       v15 = *(a1 + 56);
     }
 
-    LogPrintF(v15, "OSStatus NTPClockStartServer(NTPClockRef)", 0x3Cu, "### NTP server start failed: %#m\n", v8, v9, v10, v11, v14);
+    LogPrintF(v15, "OSStatus NTPClockStartServer(NTPClockRef)", 60, "### NTP server start failed: %#m\n", v8, v9, v10, v11, v14);
   }
 
 LABEL_25:
@@ -7067,13 +7069,13 @@ uint64_t SocketSetPacketReceiveInfo(int a1)
     {
       if (gLogCategory_NTPClockCore != -1)
       {
-        return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 0x1Eu, "Set IPV6_RECVPKTINFO: enable %d, %#m", v11, v12, v13, v14, v16);
+        return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 30, "Set IPV6_RECVPKTINFO: enable %d, %#m", v11, v12, v13, v14, v16);
       }
 
       result = _LogCategory_Initialize(&gLogCategory_NTPClockCore, 0x1Eu);
       if (result)
       {
-        return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 0x1Eu, "Set IPV6_RECVPKTINFO: enable %d, %#m", v11, v12, v13, v14, v16);
+        return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 30, "Set IPV6_RECVPKTINFO: enable %d, %#m", v11, v12, v13, v14, v16);
       }
     }
   }
@@ -7094,13 +7096,13 @@ uint64_t SocketSetPacketReceiveInfo(int a1)
     {
       if (gLogCategory_NTPClockCore != -1)
       {
-        return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 0x1Eu, "Set IP_PKTINFO: enable %d, %#m", v7, v8, v9, v10, v16);
+        return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 30, "Set IP_PKTINFO: enable %d, %#m", v7, v8, v9, v10, v16);
       }
 
       result = _LogCategory_Initialize(&gLogCategory_NTPClockCore, 0x1Eu);
       if (result)
       {
-        return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 0x1Eu, "Set IP_PKTINFO: enable %d, %#m", v7, v8, v9, v10, v16);
+        return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 30, "Set IP_PKTINFO: enable %d, %#m", v7, v8, v9, v10, v16);
       }
     }
   }
@@ -7110,13 +7112,13 @@ uint64_t SocketSetPacketReceiveInfo(int a1)
     v15 = result;
     if (gLogCategory_NTPClockCore != -1)
     {
-      return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 0x5Au, "### IP_PKTINFO/IPV6_RECVPKTINFO not supported for this socket family: %d", v3, v4, v5, v6, v15);
+      return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 90, "### IP_PKTINFO/IPV6_RECVPKTINFO not supported for this socket family: %d", v3, v4, v5, v6, v15);
     }
 
     result = _LogCategory_Initialize(&gLogCategory_NTPClockCore, 0x5Au);
     if (result)
     {
-      return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 0x5Au, "### IP_PKTINFO/IPV6_RECVPKTINFO not supported for this socket family: %d", v3, v4, v5, v6, v15);
+      return LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketSetPacketReceiveInfo(SocketRef, int)", 90, "### IP_PKTINFO/IPV6_RECVPKTINFO not supported for this socket family: %d", v3, v4, v5, v6, v15);
     }
   }
 
@@ -7394,7 +7396,7 @@ uint64_t __logger_block_invoke_12383()
 
 void _writeLineCompletion(uint64_t a1, void *aBlock)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = _Block_copy(aBlock);
   aBlocka[0] = MEMORY[0x1E69E9820];
   aBlocka[1] = 3221225472;
@@ -7409,12 +7411,12 @@ void _writeLineCompletion(uint64_t a1, void *aBlock)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v17 = a1;
+      v11 = a1;
       _os_log_error_impl(&dword_191EAF000, v7, OS_LOG_TYPE_ERROR, "### write line failed: err=%d", buf, 8u);
     }
 
-    v13 = NSErrorF_safe(*MEMORY[0x1E696A768], a1, "write line failed", v8, v9, v10, v11, v12, v14);
-    v4[2](v4, v13);
+    v8 = NSErrorF_safe(*MEMORY[0x1E696A768], a1, "write line failed");
+    v4[2](v4, v8);
   }
 
   else
@@ -7433,7 +7435,7 @@ void _writeLineCompletion(uint64_t a1, void *aBlock)
 
 void _readLineCompletion(uint64_t a1, uint64_t a2, uint64_t a3, void *aBlock)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v8 = _Block_copy(aBlock);
   aBlocka[0] = MEMORY[0x1E69E9820];
   aBlocka[1] = 3221225472;
@@ -7447,53 +7449,53 @@ void _readLineCompletion(uint64_t a1, uint64_t a2, uint64_t a3, void *aBlock)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v28) = a1;
+      LODWORD(v17) = a1;
       _os_log_error_impl(&dword_191EAF000, v10, OS_LOG_TYPE_ERROR, "### read line failed: err=%d", buf, 8u);
     }
 
-    v16 = NSErrorF_safe(*MEMORY[0x1E696A768], a1, "Read line failed", v11, v12, v13, v14, v15, v25);
-    v8[2](v8, 0, v16);
+    v11 = NSErrorF_safe(*MEMORY[0x1E696A768], a1, "Read line failed");
+    v8[2](v8, 0, v11);
   }
 
   else
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:a2 length:a3 encoding:4];
-    v17 = logger_12375();
-    v18 = v17;
-    if (v16)
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:a2 length:a3 encoding:4];
+    v12 = logger_12375();
+    v13 = v12;
+    if (v11)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v28 = v16;
-        _os_log_impl(&dword_191EAF000, v18, OS_LOG_TYPE_INFO, "read line success: line='%@'", buf, 0xCu);
+        v17 = v11;
+        _os_log_impl(&dword_191EAF000, v13, OS_LOG_TYPE_INFO, "read line success: line='%@'", buf, 0xCu);
       }
 
-      (v8)[2](v8, v16, 0);
+      (v8)[2](v8, v11, 0);
     }
 
     else
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_191EAF000, v18, OS_LOG_TYPE_ERROR, "### read line failed: bad UTF-8", buf, 2u);
+        _os_log_error_impl(&dword_191EAF000, v13, OS_LOG_TYPE_ERROR, "### read line failed: bad UTF-8", buf, 2u);
       }
 
-      v24 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960579, "Read line failed: bad UTF-8", v19, v20, v21, v22, v23, v25);
-      v8[2](v8, 0, v24);
+      v14 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960579, "Read line failed: bad UTF-8");
+      v8[2](v8, 0, v14);
 
-      v16 = 0;
+      v11 = 0;
     }
   }
 
   v9[2](v9);
 }
 
-void sub_191FA3C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191FA3C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8191,7 +8193,7 @@ uint64_t PairingSessionGenerateTranscriptResultMFi4(uint64_t a1, uint64_t a2, ui
     if (Length)
     {
       v13 = Length;
-      v14 = PairingSessionDeriveKey(a1);
+      v14 = PairingSessionDeriveKey(a1, "MFi4-KT1-Salt", 13, "MFi4-KT1-Info", 13, 32, v19);
       if (v14)
       {
         v15 = v14;
@@ -8224,7 +8226,7 @@ uint64_t PairingSessionGenerateTranscriptResultMFi4(uint64_t a1, uint64_t a2, ui
         CryptoHMACInit(&v20, _kCryptoHashDescriptor_SHA256, v19, 0x20uLL);
         (*(v20 + 8))(&v20, BytePtr, v13);
         CryptoHMACFinal(&v20, a2);
-        v15 = PairingSessionDeriveKey(a1);
+        v15 = PairingSessionDeriveKey(a1, "MFi4-KT2-Salt", 13, "MFi4-KT2-Info", 13, 32, v18);
         if (!v15)
         {
           v41 = 0;
@@ -8281,7 +8283,7 @@ uint64_t PairingSessionGenerateTranscriptResultMFi4(uint64_t a1, uint64_t a2, ui
       v17 = *(a1 + 16);
     }
 
-    LogPrintF(v17, "OSStatus PairingSessionGenerateTranscriptResultMFi4(PairingSessionRef, CUPairingTranscriptResultMFi4 *)", 0x5Au, "### Generate MFi4 transcript result failed: %#m", a5, a6, a7, a8, v15);
+    LogPrintF(v17, "OSStatus PairingSessionGenerateTranscriptResultMFi4(PairingSessionRef, CUPairingTranscriptResultMFi4 *)", 90, "### Generate MFi4 transcript result failed: %#m", a5, a6, a7, a8, v15);
   }
 
   return v15;
@@ -8386,11 +8388,11 @@ uint64_t PairingSessionSetVerifySignatureHandler_b(uint64_t a1, void *a2)
   return MEMORY[0x1EEE66BB8](v6, v4);
 }
 
-uint64_t PairingSessionExchange(uint64_t a1, unsigned __int8 *a2, uint64_t a3, char **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PairingSessionExchange(uint64_t a1, unsigned __int8 *a2, char *a3, char **a4, size_t *a5, char *a6, uint64_t a7, uint64_t a8)
 {
-  v225 = *MEMORY[0x1E69E9840];
+  v224 = *MEMORY[0x1E69E9840];
+  v191 = 0;
   v192 = 0;
-  v193 = 0;
   if (!a1)
   {
     return 4294960556;
@@ -8424,52 +8426,52 @@ uint64_t PairingSessionExchange(uint64_t a1, unsigned __int8 *a2, uint64_t a3, c
         v17 = off_1E73A4CA0[v16];
       }
 
-      LogPrintF(v15, "OSStatus PairingSessionExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairStart, %s, %#{flags}\n", a5, a6, a7, a8, v17);
+      LogPrintF(v15, "OSStatus PairingSessionExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairStart, %s, %#{flags}\n", a5, a6, a7, a8, v17);
     }
   }
 
 LABEL_12:
   __s = v14;
-  v187 = a4;
-  v188 = a5;
-  *v224 = 0;
-  v199 = 0;
+  v186 = a4;
+  v187 = a5;
+  *v223 = 0;
+  v198 = 0;
   __src = 0;
-  v222 = 0u;
-  v223 = 0u;
-  v220 = 0u;
   v221 = 0u;
-  v218 = 0u;
+  v222 = 0u;
   v219 = 0u;
-  v216 = 0u;
+  v220 = 0u;
   v217 = 0u;
-  v214 = 0u;
+  v218 = 0u;
   v215 = 0u;
-  v212 = 0u;
+  v216 = 0u;
   v213 = 0u;
-  v210 = 0u;
+  v214 = 0u;
   v211 = 0u;
-  v208 = 0u;
+  v212 = 0u;
   v209 = 0u;
+  v210 = 0u;
   v207 = 0u;
+  v208 = 0u;
   v206 = 0u;
   v205 = 0u;
-  v202 = &v205;
-  v203 = xmmword_191FF95F0;
-  v204 = 0;
-  v19 = TLV8GetOrCopyCoalesced(a2, &a2[a3], 12, &__src, &v199, v224, 0);
+  v204 = 0u;
+  v201 = &v204;
+  v202 = xmmword_191FF95F0;
+  v203 = 0;
+  v19 = TLV8GetOrCopyCoalesced(a2, &a3[a2], 12, &__src, &v198, v223, 0);
   v24 = v19;
   v18 = v19;
   if (v19 == -6727)
   {
-    v18 = TLV8GetOrCopyCoalesced(a2, &a2[a3], 13, &__src, &v199, v224, 0);
+    v18 = TLV8GetOrCopyCoalesced(a2, &a3[a2], 13, &__src, &v198, v223, 0);
   }
 
-  v190 = v8;
-  v191 = a1;
+  v189 = v8;
+  v190 = a1;
   if (v18)
   {
-    v186 = a3;
+    v185 = a3;
     v31 = 0;
     v32 = 0;
     if (v18 == -6727)
@@ -8478,12 +8480,12 @@ LABEL_12:
     }
 
     LOBYTE(v30) = 0;
-    v189 = 0;
+    v188 = 0;
     goto LABEL_44;
   }
 
-  v25 = v199;
-  if (!v199)
+  v25 = v198;
+  if (!v198)
   {
     v34 = *(a1 + 160);
     v33 = *(a1 + 168);
@@ -8497,13 +8499,13 @@ LABEL_12:
       v35 = v34 - v33;
     }
 
-    v186 = a3;
+    v185 = a3;
     if (!v35)
     {
       v31 = 0;
       v32 = 0;
       LOBYTE(v30) = 0;
-      v189 = 0;
+      v188 = 0;
       v18 = 4294960534;
       goto LABEL_44;
     }
@@ -8523,7 +8525,7 @@ LABEL_12:
       v40 = 12;
     }
 
-    v41 = TLV8BufferAppend(&v202, v40, (v38 + v33), v35);
+    v41 = TLV8BufferAppend(&v201, v40, (v38 + v33), v35);
     if (v41)
     {
 LABEL_42:
@@ -8531,25 +8533,25 @@ LABEL_42:
       v31 = 0;
       v32 = 0;
       LOBYTE(v30) = 0;
-      v189 = 0;
+      v188 = 0;
 LABEL_43:
-      v8 = v190;
+      v8 = v189;
       a2 = v28;
       goto LABEL_44;
     }
 
-    v32 = v203;
-    v31 = v204;
-    if (!v204)
+    v32 = v202;
+    v31 = v203;
+    if (!v203)
     {
-      if (v203 <= 1)
+      if (v202 <= 1)
       {
         v42 = 1;
       }
 
       else
       {
-        v42 = v203;
+        v42 = v202;
       }
 
       v43 = malloc_type_malloc(v42, 0x100004077774924uLL);
@@ -8563,19 +8565,19 @@ LABEL_43:
 
       if (v32)
       {
-        memcpy(v43, v202, v32);
+        memcpy(v43, v201, v32);
       }
     }
 
-    v202 = &v205;
-    *&v203 = 0;
-    v204 = 0;
+    v201 = &v204;
+    *&v202 = 0;
+    v203 = 0;
     if (v37 == v34)
     {
-      LOBYTE(v30) = v191[176];
-      free(*(v191 + 19));
+      LOBYTE(v30) = v190[176];
+      free(*(v190 + 19));
       v18 = 0;
-      v189 = 0;
+      v188 = 0;
       *v39 = 0;
       *(v39 + 8) = 0;
       *(v39 + 24) = 0;
@@ -8586,56 +8588,56 @@ LABEL_43:
     {
       v18 = 0;
       LOBYTE(v30) = 0;
-      v189 = 0;
-      *(v191 + 21) += v35;
+      v188 = 0;
+      *(v190 + 21) += v35;
     }
 
     goto LABEL_43;
   }
 
   v26 = *(a1 + 144);
-  v27 = v199 + v26;
-  if (v199 + v26 <= v26)
+  v27 = v198 + v26;
+  if (v198 + v26 <= v26)
   {
-    v186 = a3;
+    v185 = a3;
     v31 = 0;
     v32 = 0;
     LOBYTE(v30) = 0;
-    v189 = 0;
+    v188 = 0;
     v18 = 4294960545;
     goto LABEL_23;
   }
 
   if (v27 > 0x3E80)
   {
-    v186 = a3;
+    v185 = a3;
     v31 = 0;
     v32 = 0;
     LOBYTE(v30) = 0;
-    v189 = 0;
+    v188 = 0;
     v18 = 4294960553;
     goto LABEL_23;
   }
 
   v28 = a2;
-  v29 = malloc_type_realloc(*(v191 + 17), v27, 0x100004077774924uLL);
+  v29 = malloc_type_realloc(*(v190 + 17), v27, 0x100004077774924uLL);
   v30 = v29;
   if (!v29)
   {
-    v186 = a3;
+    v185 = a3;
     v31 = 0;
     v32 = 0;
 LABEL_393:
-    v189 = 0;
+    v188 = 0;
     v18 = 4294960568;
     goto LABEL_43;
   }
 
-  memcpy(&v29[*(v191 + 18)], __src, v25);
-  if (*v224)
+  memcpy(&v29[*(v190 + 18)], __src, v25);
+  if (*v223)
   {
-    free(*v224);
-    *v224 = 0;
+    free(*v223);
+    *v223 = 0;
   }
 
   if (v24 == -6727)
@@ -8645,40 +8647,40 @@ LABEL_393:
     v32 = 0;
     v18 = 0;
     LOBYTE(v30) = 0;
-    *(v191 + 17) = 0;
-    *(v191 + 18) = 0;
-    v186 = v27;
-    v189 = a2;
+    *(v190 + 17) = 0;
+    *(v190 + 18) = 0;
+    v185 = v27;
+    v188 = a2;
 LABEL_23:
-    v8 = v190;
+    v8 = v189;
     goto LABEL_44;
   }
 
-  v186 = a3;
-  *(v191 + 17) = v30;
-  *(v191 + 18) = v27;
-  v41 = TLV8BufferAppend(&v202, 12, 0, 0);
+  v185 = a3;
+  *(v190 + 17) = v30;
+  *(v190 + 18) = v27;
+  v41 = TLV8BufferAppend(&v201, 12, 0, 0);
   if (v41)
   {
     goto LABEL_42;
   }
 
-  v32 = v203;
-  v31 = v204;
-  v8 = v190;
-  if (v204)
+  v32 = v202;
+  v31 = v203;
+  v8 = v189;
+  if (v203)
   {
     goto LABEL_90;
   }
 
-  if (v203 <= 1)
+  if (v202 <= 1)
   {
     v55 = 1;
   }
 
   else
   {
-    v55 = v203;
+    v55 = v202;
   }
 
   v56 = malloc_type_malloc(v55, 0x100004077774924uLL);
@@ -8687,38 +8689,38 @@ LABEL_23:
   {
     if (v32)
     {
-      memcpy(v56, v202, v32);
+      memcpy(v56, v201, v32);
     }
 
 LABEL_90:
     v18 = 0;
     LOBYTE(v30) = 0;
-    v189 = 0;
-    v202 = &v205;
-    *&v203 = 0;
-    v204 = 0;
+    v188 = 0;
+    v201 = &v204;
+    *&v202 = 0;
+    v203 = 0;
     goto LABEL_44;
   }
 
   v32 = 0;
   LOBYTE(v30) = 0;
-  v189 = 0;
+  v188 = 0;
   v18 = 4294960568;
 LABEL_44:
-  if (v204)
+  if (v203)
   {
-    free(v204);
-    v204 = 0;
+    free(v203);
+    v203 = 0;
   }
 
-  v44 = v191;
-  if (*v224)
+  v44 = v190;
+  if (*v223)
   {
-    free(*v224);
+    free(*v223);
   }
 
-  v192 = v32;
-  v193 = v31;
+  v191 = v32;
+  v192 = v31;
   *v8 = v30;
   if (v18)
   {
@@ -8728,26 +8730,26 @@ LABEL_44:
   if (v31)
   {
     v18 = 0;
-    *v187 = v31;
-    *v188 = v32;
+    *v186 = v31;
+    *v187 = v32;
 LABEL_51:
-    v193 = 0;
+    v192 = 0;
     goto LABEL_52;
   }
 
-  v46 = *(v191 + 24);
+  v46 = *(v190 + 24);
   if (v46 <= 3)
   {
     switch(v46)
     {
       case 1:
-        v54 = _SetupClientExchange(v191, a2, v186, &v193, &v192, v8, v22, v23);
+        v54 = _SetupClientExchange(v190, a2, v185, &v192, &v191, v8, v22, v23);
         break;
       case 2:
-        v54 = _SetupServerExchange(v191, a2, v186, &v193, &v192, v8, v22, v23);
+        v54 = _SetupServerExchange(v190, a2, v185, &v192, &v191, v8, v22, v23);
         break;
       case 3:
-        v54 = _VerifyClientExchange(v191, a2, v186, &v193, &v192, v8, v22, v23);
+        v54 = _VerifyClientExchange(v190, a2, v185, &v192, &v191, v8, v22, v23);
         break;
       default:
         goto LABEL_111;
@@ -8763,18 +8765,18 @@ LABEL_129:
 LABEL_108:
     if (v46 == 4)
     {
-      v54 = _VerifyServerExchange(v191, a2, v186, &v193, &v192, v8, v22, v23);
+      v54 = _VerifyServerExchange(v190, a2, v185, &v192, &v191, v8, v22, v23);
       goto LABEL_129;
     }
 
     if (v46 == 5)
     {
-      v54 = _ResumePairingClientExchange(v191, a2, v186, &v193, &v192, v8, v22, v23);
+      v54 = _ResumePairingClientExchange(v190, a2, v185, &v192, &v191, v8, v22, v23);
       goto LABEL_129;
     }
 
 LABEL_111:
-    v64 = *(v191 + 2);
+    v64 = *(v190 + 2);
     if (*v64 <= 60)
     {
       if (*v64 == -1)
@@ -8784,11 +8786,11 @@ LABEL_111:
           goto LABEL_188;
         }
 
-        v64 = *(v191 + 2);
-        v46 = *(v191 + 24);
+        v64 = *(v190 + 2);
+        v46 = *(v190 + 24);
       }
 
-      LogPrintF(v64, "OSStatus PairingSessionExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### Bad pair type: %d\n", v20, v21, v22, v23, v46);
+      LogPrintF(v64, "OSStatus PairingSessionExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### Bad pair type: %d\n", v20, v21, v22, v23, v46);
     }
 
 LABEL_188:
@@ -8800,7 +8802,7 @@ LABEL_188:
   {
     if (((1 << v46) & 0x5400) != 0)
     {
-      v47 = &a2[v186];
+      v47 = &a2[v185];
       v48 = a2;
       do
       {
@@ -8817,7 +8819,7 @@ LABEL_215:
           goto LABEL_213;
         }
 
-        if (v47 - v48 < 2)
+        if ((v47 - v48) < 2)
         {
           goto LABEL_215;
         }
@@ -8843,7 +8845,7 @@ LABEL_215:
 
       if (*v49 == 1)
       {
-        _PairingSessionReset(v191);
+        _PairingSessionReset(v190);
       }
 
       v52 = *__s;
@@ -8856,7 +8858,7 @@ LABEL_215:
 
         if (v52 != 1)
         {
-          v53 = *(v191 + 2);
+          v53 = *(v190 + 2);
           if (*v53 <= 60)
           {
             if (*v53 != -1)
@@ -8866,10 +8868,10 @@ LABEL_215:
 
             if (_LogCategory_Initialize(v53, 0x3Cu))
             {
-              v53 = *(v191 + 2);
-              v52 = v191[128];
+              v53 = *(v190 + 2);
+              v52 = v190[128];
 LABEL_78:
-              LogPrintF(v53, "OSStatus _AdminPairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### AdminPairing server bad state: %d\n", v20, v21, v22, v23, v52);
+              LogPrintF(v53, "OSStatus _AdminPairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### AdminPairing server bad state: %d\n", v20, v21, v22, v23, v52);
             }
           }
 
@@ -8890,44 +8892,44 @@ LABEL_213:
         }
       }
 
-      v222 = 0u;
-      v223 = 0u;
-      v220 = 0u;
       v221 = 0u;
-      v218 = 0u;
+      v222 = 0u;
       v219 = 0u;
-      v216 = 0u;
+      v220 = 0u;
       v217 = 0u;
-      v214 = 0u;
+      v218 = 0u;
       v215 = 0u;
-      v212 = 0u;
+      v216 = 0u;
       v213 = 0u;
-      v210 = 0u;
+      v214 = 0u;
       v211 = 0u;
-      v208 = 0u;
+      v212 = 0u;
       v209 = 0u;
+      v210 = 0u;
       v207 = 0u;
+      v208 = 0u;
       v206 = 0u;
       v205 = 0u;
+      v204 = 0u;
       __dst = 0;
-      v195 = 0;
-      v196 = 0;
       v194 = 0;
-      v202 = &v205;
-      v203 = xmmword_191FF95F0;
-      v204 = 0;
+      v195 = 0;
+      v193 = 0;
+      v201 = &v204;
+      v202 = xmmword_191FF95F0;
+      v203 = 0;
       *__s = 2;
-      Bytes = TLV8BufferAppend(&v202, 6, __s, 1uLL);
+      Bytes = TLV8BufferAppend(&v201, 6, __s, 1uLL);
       if (Bytes)
       {
         goto LABEL_127;
       }
 
-      v78 = *(v191 + 24);
+      v78 = *(v190 + 24);
       switch(v78)
       {
         case 0xE:
-          Bytes = TLV8GetBytes(a2, &a2[v186], 0, 1uLL, 1uLL, &__dst, 0, 0);
+          Bytes = TLV8GetBytes(a2, &a2[v185], 0, 1uLL, 1uLL, &__dst, 0, 0);
           if (Bytes)
           {
             goto LABEL_127;
@@ -8939,20 +8941,20 @@ LABEL_213:
             if (Mutable)
             {
               theArray = Mutable;
-              v94 = *(v191 + 118);
+              v94 = *(v190 + 118);
               if (v94)
               {
-                v95 = v94(&Bytes, *(v191 + 119));
+                v95 = v94(&Bytes, *(v190 + 119));
                 v96 = Bytes;
               }
 
               else
               {
-                *v224 = 0;
+                *v223 = 0;
                 v95 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
                 if (v95)
                 {
-                  v107 = _PairingSessionCopyPeers(v191, 0, 0, v224);
+                  v107 = _PairingSessionCopyPeers(v190, 0, 0, v223);
                   if (v107)
                   {
                     v108 = v107;
@@ -8969,8 +8971,8 @@ LABEL_247:
                       while (1)
                       {
                         TypeID = CFDictionaryGetTypeID();
-                        TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v108, v109, TypeID, v224);
-                        if (*v224)
+                        TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v108, v109, TypeID, v223);
+                        if (*v223)
                         {
                           break;
                         }
@@ -8979,14 +8981,14 @@ LABEL_247:
                         v113 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
                         if (!v113)
                         {
-                          *v224 = -6728;
+                          *v223 = -6728;
                           break;
                         }
 
                         v114 = v113;
                         v115 = CFStringGetTypeID();
-                        TypedValue = CFDictionaryGetTypedValue(v112, @"identifier", v115, v224);
-                        if (!TypedValue || (CFDictionarySetValue(v114, @"identifier", TypedValue), v117 = CFDataGetTypeID(), (v118 = CFDictionaryGetTypedValue(v112, @"pk", v117, v224)) == 0))
+                        TypedValue = CFDictionaryGetTypedValue(v112, @"identifier", v115, v223);
+                        if (!TypedValue || (CFDictionarySetValue(v114, @"identifier", TypedValue), v117 = CFDataGetTypeID(), (v118 = CFDictionaryGetTypedValue(v112, @"pk", v117, v223)) == 0))
                         {
                           CFRelease(v114);
                           break;
@@ -9012,11 +9014,11 @@ LABEL_247:
 
                 else
                 {
-                  *v224 = -6728;
+                  *v223 = -6728;
                 }
 
-                v96 = *v224;
-                Bytes = *v224;
+                v96 = *v223;
+                Bytes = *v223;
               }
 
               if (!v95 || v96)
@@ -9024,8 +9026,8 @@ LABEL_247:
                 goto LABEL_435;
               }
 
-              v163 = CFArrayGetCount(v95);
-              if (v163 < 1)
+              v162 = CFArrayGetCount(v95);
+              if (v162 < 1)
               {
 LABEL_432:
                 Bytes = 0;
@@ -9033,52 +9035,52 @@ LABEL_432:
 
               else
               {
-                v164 = v163;
-                v165 = 0;
-                v201 = 0;
+                v163 = v162;
+                v164 = 0;
+                v200 = 0;
                 while (1)
                 {
-                  *v224 = 0;
-                  v199 = 0;
+                  *v223 = 0;
+                  v198 = 0;
                   __src = 0;
-                  if (v165)
+                  if (v164)
                   {
-                    appended = TLV8BufferAppend(&v202, 255, 0, 0);
-                    v201 = appended;
+                    appended = TLV8BufferAppend(&v201, 255, 0, 0);
+                    v200 = appended;
                     if (appended)
                     {
                       goto LABEL_434;
                     }
                   }
 
-                  v167 = CFDictionaryGetTypeID();
-                  v168 = CFArrayGetTypedValueAtIndex(v95, v165, v167, &v201);
-                  if (!v168)
+                  v166 = CFDictionaryGetTypeID();
+                  v167 = CFArrayGetTypedValueAtIndex(v95, v164, v166, &v200);
+                  if (!v167)
                   {
                     break;
                   }
 
-                  v169 = v168;
-                  v170 = CFStringGetTypeID();
-                  v171 = CFDictionaryGetTypedValue(v169, @"identifier", v170, &v201);
-                  if (!v171)
+                  v168 = v167;
+                  v169 = CFStringGetTypeID();
+                  v170 = CFDictionaryGetTypedValue(v168, @"identifier", v169, &v200);
+                  if (!v170)
                   {
                     break;
                   }
 
-                  appended = CFStringGetOrCopyCStringUTF8(v171, v224, &__src, &v199);
-                  v201 = appended;
+                  appended = CFStringGetOrCopyCStringUTF8(v170, v223, &__src, &v198);
+                  v200 = appended;
                   if (appended)
                   {
                     goto LABEL_434;
                   }
 
-                  appended = TLV8BufferAppend(&v202, 1, *v224, v199);
-                  v201 = appended;
+                  appended = TLV8BufferAppend(&v201, 1, *v223, v198);
+                  v200 = appended;
                   if (__src)
                   {
                     free(__src);
-                    appended = v201;
+                    appended = v200;
                   }
 
                   if (appended)
@@ -9086,131 +9088,131 @@ LABEL_432:
                     goto LABEL_434;
                   }
 
-                  v172 = CFDataGetTypeID();
-                  v173 = CFDictionaryGetTypedValue(v169, @"pk", v172, &v201);
-                  if (!v173)
+                  v171 = CFDataGetTypeID();
+                  v172 = CFDictionaryGetTypedValue(v168, @"pk", v171, &v200);
+                  if (!v172)
                   {
                     break;
                   }
 
-                  v174 = v173;
-                  BytePtr = CFDataGetBytePtr(v173);
-                  Length = CFDataGetLength(v174);
-                  appended = TLV8BufferAppend(&v202, 3, BytePtr, Length);
-                  v201 = appended;
+                  v173 = v172;
+                  BytePtr = CFDataGetBytePtr(v172);
+                  Length = CFDataGetLength(v173);
+                  appended = TLV8BufferAppend(&v201, 3, BytePtr, Length);
+                  v200 = appended;
                   if (appended)
                   {
-                    v8 = v190;
+                    v8 = v189;
 LABEL_434:
                     Bytes = appended;
                     goto LABEL_435;
                   }
 
-                  v177 = CFDictionaryGetInt64Ranged(v169, @"permissions", 0, 0xFFFFFFFFLL, 0);
-                  appended = TLV8BufferAppendUInt64(&v202, 11, v177);
-                  v201 = appended;
-                  v8 = v190;
+                  v176 = CFDictionaryGetInt64Ranged(v168, @"permissions", 0, 0xFFFFFFFFLL, 0);
+                  appended = TLV8BufferAppendUInt64(&v201, 11, v176);
+                  v200 = appended;
+                  v8 = v189;
                   if (appended)
                   {
                     goto LABEL_434;
                   }
 
-                  if (v164 == ++v165)
+                  if (v163 == ++v164)
                   {
                     goto LABEL_432;
                   }
                 }
 
-                Bytes = v201;
-                if (v201)
+                Bytes = v200;
+                if (v200)
                 {
                   goto LABEL_435;
                 }
               }
 
 LABEL_355:
+              v151 = v202;
               v152 = v203;
-              v153 = v204;
-              if (!v204)
+              if (!v203)
               {
-                if (v203 <= 1)
+                if (v202 <= 1)
                 {
-                  v154 = 1;
+                  v153 = 1;
                 }
 
                 else
                 {
-                  v154 = v203;
+                  v153 = v202;
                 }
 
-                v155 = malloc_type_malloc(v154, 0x100004077774924uLL);
-                if (!v155)
+                v154 = malloc_type_malloc(v153, 0x100004077774924uLL);
+                if (!v154)
                 {
                   Bytes = -6728;
                   goto LABEL_435;
                 }
 
-                v153 = v155;
-                if (v152)
+                v152 = v154;
+                if (v151)
                 {
-                  memcpy(v155, v202, v152);
+                  memcpy(v154, v201, v151);
                 }
               }
 
-              v202 = &v205;
-              *&v203 = 0;
-              v204 = 0;
+              v201 = &v204;
+              *&v202 = 0;
+              v203 = 0;
+              v191 = v151;
               v192 = v152;
-              v193 = v153;
               Bytes = 0;
-              v156 = *(v191 + 2);
-              v157 = *v156;
-              if (*v156 >= 31)
+              v155 = *(v190 + 2);
+              v156 = *v155;
+              if (*v155 >= 31)
               {
                 *__s = 3;
                 goto LABEL_435;
               }
 
-              if (v157 == -1)
+              if (v156 == -1)
               {
-                v159 = _LogCategory_Initialize(*(v191 + 2), 0x1Eu);
-                v156 = *(v191 + 2);
-                if (!v159)
+                v158 = _LogCategory_Initialize(*(v190 + 2), 0x1Eu);
+                v155 = *(v190 + 2);
+                if (!v158)
                 {
                   goto LABEL_377;
                 }
 
-                v157 = *v156;
+                v156 = *v155;
               }
 
-              if (v157 > 10)
+              if (v156 > 10)
               {
-                v158 = 1;
+                v157 = 1;
               }
 
               else
               {
-                v158 = v157 == -1 && !_LogCategory_Initialize(v156, 0xAu);
+                v157 = v156 == -1 && !_LogCategory_Initialize(v155, 0xAu);
               }
 
-              LogPrintF(v156, "OSStatus _AdminPairingServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x1Eu, "AdminPairing server M4 -- response\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v158);
-              v156 = *(v191 + 2);
+              LogPrintF(v155, "OSStatus _AdminPairingServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 30, "AdminPairing server M4 -- response\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v157);
+              v155 = *(v190 + 2);
 LABEL_377:
-              v161 = *v156;
+              v160 = *v155;
               *__s = 3;
-              if (v161 <= 30)
+              if (v160 <= 30)
               {
-                if (v161 == -1)
+                if (v160 == -1)
                 {
-                  if (!_LogCategory_Initialize(v156, 0x1Eu))
+                  if (!_LogCategory_Initialize(v155, 0x1Eu))
                   {
                     goto LABEL_435;
                   }
 
-                  v156 = *(v191 + 2);
+                  v155 = *(v190 + 2);
                 }
 
-                LogPrintF(v156, "OSStatus _AdminPairingServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x1Eu, "AdminPairing server done\n", v20, v21, v22, v23, v181);
+                LogPrintF(v155, "OSStatus _AdminPairingServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 30, "AdminPairing server done\n", v20, v21, v22, v23, v180);
               }
 
 LABEL_435:
@@ -9229,7 +9231,7 @@ LABEL_435:
 
           break;
         case 0xC:
-          Bytes = TLV8GetBytes(a2, &a2[v186], 0, 1uLL, 1uLL, &__dst, 0, 0);
+          Bytes = TLV8GetBytes(a2, &a2[v185], 0, 1uLL, 1uLL, &__dst, 0, 0);
           if (!Bytes)
           {
             if (__dst == 4)
@@ -9237,39 +9239,39 @@ LABEL_435:
               v65 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
               if (v65)
               {
-                Bytes = TLV8GetOrCopyCoalesced(a2, &a2[v186], 1, &v196, &v195, &v194, 0);
+                Bytes = TLV8GetOrCopyCoalesced(a2, &a2[v185], 1, &v195, &v194, &v193, 0);
                 if (Bytes)
                 {
                   goto LABEL_438;
                 }
 
-                Bytes = CFDictionarySetCString(v65, @"identifier", v196, v195);
+                Bytes = CFDictionarySetCString(v65, @"identifier", v195, v194);
                 if (Bytes)
                 {
                   goto LABEL_438;
                 }
 
-                if (v194)
+                if (v193)
                 {
-                  free(v194);
-                  v194 = 0;
+                  free(v193);
+                  v193 = 0;
                 }
 
-                v80 = *(v191 + 116);
+                v80 = *(v190 + 116);
                 if (v80)
                 {
-                  v81 = *(v191 + 117);
+                  v81 = *(v190 + 117);
                   goto LABEL_198;
                 }
 
-                LODWORD(v199) = 0;
-                *v224 = 0;
+                LODWORD(v198) = 0;
+                *v223 = 0;
                 __src = 0;
-                v120 = CFDictionaryGetOrCopyBytes(v65, @"identifier", v224, &__src, &v199);
+                v120 = CFDictionaryGetOrCopyBytes(v65, @"identifier", v223, &__src, &v198);
                 if (v120)
                 {
-                  _PairingSessionDeletePeer(v191, v120, *v224, v121, v20, v21, v22, v23);
-                  LODWORD(v199) = 0;
+                  _PairingSessionDeletePeer(v190, v120, *v223);
+                  LODWORD(v198) = 0;
                 }
 
 LABEL_255:
@@ -9278,7 +9280,7 @@ LABEL_255:
                   free(__src);
                 }
 
-                v92 = v199;
+                v92 = v198;
 LABEL_258:
                 Bytes = v92;
                 if (!v92)
@@ -9289,22 +9291,22 @@ LABEL_354:
                   goto LABEL_355;
                 }
 
-                v130 = *(v191 + 2);
-                if (*v130 <= 50)
+                v129 = *(v190 + 2);
+                if (*v129 <= 50)
                 {
-                  if (*v130 != -1)
+                  if (*v129 != -1)
                   {
 LABEL_261:
-                    LogPrintF(v130, "OSStatus _AdminPairingServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x32u, "### AdminPairing server failed for %##@: %#m\n", v20, v21, v22, v23, v65);
+                    LogPrintF(v129, "OSStatus _AdminPairingServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 50, "### AdminPairing server failed for %##@: %#m\n", v20, v21, v22, v23, v65);
                     v92 = Bytes;
                     goto LABEL_324;
                   }
 
-                  v149 = _LogCategory_Initialize(*(v191 + 2), 0x32u);
+                  v148 = _LogCategory_Initialize(*(v190 + 2), 0x32u);
                   v92 = Bytes;
-                  if (v149)
+                  if (v148)
                   {
-                    v130 = *(v191 + 2);
+                    v129 = *(v190 + 2);
                     goto LABEL_261;
                   }
                 }
@@ -9316,13 +9318,13 @@ LABEL_324:
                   {
                     if (v92 == -6773)
                     {
-                      v150 = 7;
+                      v149 = 7;
                       goto LABEL_353;
                     }
 
                     if (v92 == -6764)
                     {
-                      v150 = 6;
+                      v149 = 6;
                       goto LABEL_353;
                     }
                   }
@@ -9331,13 +9333,13 @@ LABEL_324:
                   {
                     if (v92 == -71144)
                     {
-                      v150 = 8;
+                      v149 = 8;
                       goto LABEL_353;
                     }
 
                     if (v92 == -6776)
                     {
-                      v150 = 9;
+                      v149 = 9;
                       goto LABEL_353;
                     }
                   }
@@ -9347,13 +9349,13 @@ LABEL_324:
                 {
                   if (v92 == -6763)
                   {
-                    v150 = 5;
+                    v149 = 5;
                     goto LABEL_353;
                   }
 
                   if (v92 == -6760)
                   {
-                    v150 = 3;
+                    v149 = 3;
                     goto LABEL_353;
                   }
                 }
@@ -9363,29 +9365,29 @@ LABEL_324:
                   switch(v92)
                   {
                     case -6754:
-                      v150 = 2;
+                      v149 = 2;
                       goto LABEL_353;
                     case -6727:
-                      v150 = 4;
+                      v149 = 4;
                       goto LABEL_353;
                     case -6700:
-                      v150 = 1;
+                      v149 = 1;
                       goto LABEL_353;
                   }
                 }
 
                 if (v92 == -6735)
                 {
-                  v150 = 10;
+                  v149 = 10;
                 }
 
                 else
                 {
-                  v150 = 1;
+                  v149 = 1;
                 }
 
 LABEL_353:
-                Bytes = TLV8BufferAppendUInt64(&v202, 7, v150);
+                Bytes = TLV8BufferAppendUInt64(&v201, 7, v149);
                 if (Bytes)
                 {
                   goto LABEL_438;
@@ -9402,7 +9404,7 @@ LABEL_353:
 
           goto LABEL_127;
         case 0xA:
-          Bytes = TLV8GetBytes(a2, &a2[v186], 0, 1uLL, 1uLL, &__dst, 0, 0);
+          Bytes = TLV8GetBytes(a2, &a2[v185], 0, 1uLL, 1uLL, &__dst, 0, 0);
           if (!Bytes)
           {
             if (__dst == 3)
@@ -9410,43 +9412,43 @@ LABEL_353:
               v65 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
               if (v65)
               {
-                Bytes = TLV8GetOrCopyCoalesced(a2, &a2[v186], 1, &v196, &v195, &v194, 0);
+                Bytes = TLV8GetOrCopyCoalesced(a2, &a2[v185], 1, &v195, &v194, &v193, 0);
                 if (Bytes)
                 {
                   goto LABEL_438;
                 }
 
-                Bytes = CFDictionarySetCString(v65, @"identifier", v196, v195);
+                Bytes = CFDictionarySetCString(v65, @"identifier", v195, v194);
                 if (Bytes)
                 {
                   goto LABEL_438;
                 }
 
-                if (v194)
+                if (v193)
                 {
-                  free(v194);
-                  v194 = 0;
+                  free(v193);
+                  v193 = 0;
                 }
 
-                Bytes = TLV8GetOrCopyCoalesced(a2, &a2[v186], 3, &v196, &v195, &v194, 0);
+                Bytes = TLV8GetOrCopyCoalesced(a2, &a2[v185], 3, &v195, &v194, &v193, 0);
                 if (Bytes)
                 {
                   goto LABEL_438;
                 }
 
-                Bytes = CFDictionarySetData(v65, @"pk", v196, v195);
+                Bytes = CFDictionarySetData(v65, @"pk", v195, v194);
                 if (Bytes)
                 {
                   goto LABEL_438;
                 }
 
-                if (v194)
+                if (v193)
                 {
-                  free(v194);
-                  v194 = 0;
+                  free(v193);
+                  v193 = 0;
                 }
 
-                UInt64 = TLV8GetUInt64(a2, &a2[v186], 11, &Bytes, 0);
+                UInt64 = TLV8GetUInt64(a2, &a2[v185], 11, &Bytes, 0);
                 if (Bytes)
                 {
                   goto LABEL_438;
@@ -9460,55 +9462,55 @@ LABEL_353:
                     goto LABEL_438;
                   }
 
-                  v80 = *(v191 + 114);
+                  v80 = *(v190 + 114);
                   if (v80)
                   {
-                    v81 = *(v191 + 115);
+                    v81 = *(v190 + 115);
 LABEL_198:
                     v92 = v80(v65, v81);
                     goto LABEL_258;
                   }
 
-                  LODWORD(v199) = 0;
-                  *v224 = 0;
+                  LODWORD(v198) = 0;
+                  *v223 = 0;
                   __src = 0;
-                  v122 = CFDictionaryGetOrCopyBytes(v65, @"identifier", v224, &__src, &v199);
-                  if (v122)
+                  v121 = CFDictionaryGetOrCopyBytes(v65, @"identifier", v223, &__src, &v198);
+                  if (v121)
                   {
-                    v123 = v122;
-                    v124 = CFDataGetTypeID();
-                    v125 = CFDictionaryGetTypedValue(v65, @"pk", v124, &v199);
-                    if (v125)
+                    v122 = v121;
+                    v123 = CFDataGetTypeID();
+                    v124 = CFDictionaryGetTypedValue(v65, @"pk", v123, &v198);
+                    if (v124)
                     {
-                      v126 = v125;
-                      if (CFDataGetLength(v125) == 32)
+                      v125 = v124;
+                      if (CFDataGetLength(v124) == 32)
                       {
-                        v127 = CFDictionaryGetInt64Ranged(v65, @"permissions", 0, 0xFFFFFFFFLL, 0);
-                        v128 = *v224;
-                        v129 = CFDataGetBytePtr(v126);
-                        LODWORD(v199) = _PairingSessionSavePeerKeychain(v191, v123, v128, v129, v127);
+                        v126 = CFDictionaryGetInt64Ranged(v65, @"permissions", 0, 0xFFFFFFFFLL, 0);
+                        v127 = *v223;
+                        v128 = CFDataGetBytePtr(v125);
+                        LODWORD(v198) = _PairingSessionSavePeerKeychain(v190, v122, v127, v128, v126);
                       }
 
                       else
                       {
-                        LODWORD(v199) = -6743;
+                        LODWORD(v198) = -6743;
                       }
 
-                      v8 = v190;
+                      v8 = v189;
                     }
                   }
 
                   goto LABEL_255;
                 }
 
-                v151 = -6710;
+                v150 = -6710;
 LABEL_342:
-                Bytes = v151;
+                Bytes = v150;
                 goto LABEL_438;
               }
 
 LABEL_457:
-              v151 = -6728;
+              v150 = -6728;
               goto LABEL_342;
             }
 
@@ -9518,9 +9520,9 @@ LABEL_457:
 LABEL_127:
           v65 = 0;
 LABEL_438:
-          if (v194)
+          if (v193)
           {
-            free(v194);
+            free(v193);
           }
 
           if (v65)
@@ -9528,9 +9530,9 @@ LABEL_438:
             CFRelease(v65);
           }
 
-          if (v204)
+          if (v203)
           {
-            free(v204);
+            free(v203);
           }
 
           v18 = Bytes;
@@ -9541,34 +9543,34 @@ LABEL_438:
           }
 
 LABEL_445:
-          v178 = *(v191 + 2);
-          v179 = *v178;
-          if (*v178 > 50)
+          v177 = *(v190 + 2);
+          v178 = *v177;
+          if (*v177 > 50)
           {
             goto LABEL_52;
           }
 
-          if (v179 == -1)
+          if (v178 == -1)
           {
-            if (!_LogCategory_Initialize(*(v191 + 2), 0x32u))
+            if (!_LogCategory_Initialize(*(v190 + 2), 0x32u))
             {
               goto LABEL_52;
             }
 
-            v178 = *(v191 + 2);
-            v179 = *v178;
+            v177 = *(v190 + 2);
+            v178 = *v177;
           }
 
-          v180 = *__s;
-          if (v179 == -1)
+          v179 = *__s;
+          if (v178 == -1)
           {
-            _LogCategory_Initialize(v178, 0x28u);
+            _LogCategory_Initialize(v177, 0x28u);
           }
 
-          LogPrintF(v178, "OSStatus _AdminPairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### AdminPairing server state %d failed: %#m\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v180);
+          LogPrintF(v177, "OSStatus _AdminPairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### AdminPairing server state %d failed: %#m\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v179);
           goto LABEL_52;
         default:
-          v97 = *(v191 + 2);
+          v97 = *(v190 + 2);
           if (*v97 <= 60)
           {
             if (*v97 == -1)
@@ -9578,24 +9580,24 @@ LABEL_445:
                 break;
               }
 
-              v97 = *(v191 + 2);
-              v78 = *(v191 + 24);
+              v97 = *(v190 + 2);
+              v78 = *(v190 + 24);
             }
 
-            LogPrintF(v97, "OSStatus _AdminPairingServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x3Cu, "### AdminPairing server bad session type %d\n", v20, v21, v22, v23, v78);
+            LogPrintF(v97, "OSStatus _AdminPairingServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 60, "### AdminPairing server bad session type %d\n", v20, v21, v22, v23, v78);
           }
 
           break;
       }
 
       v65 = 0;
-      v151 = -6705;
+      v150 = -6705;
       goto LABEL_342;
     }
 
     if (v46 == 6)
     {
-      v54 = _ResumePairingServerExchange(v191, a2, v186, &v193, &v192, v8, v22, v23);
+      v54 = _ResumePairingServerExchange(v190, a2, v185, &v192, &v191, v8, v22, v23);
       goto LABEL_129;
     }
 
@@ -9609,8 +9611,8 @@ LABEL_445:
     *__s = 1;
   }
 
-  v58 = &a2[v186];
-  if (v186)
+  v58 = &a2[v185];
+  if (v185)
   {
     v59 = a2;
     do
@@ -9628,7 +9630,7 @@ LABEL_262:
         goto LABEL_174;
       }
 
-      if (v58 - v59 < 2)
+      if ((v58 - v59) < 2)
       {
         goto LABEL_262;
       }
@@ -9659,7 +9661,7 @@ LABEL_406:
 LABEL_173:
       v18 = 4294960587;
 LABEL_174:
-      v8 = v190;
+      v8 = v189;
       goto LABEL_280;
     }
   }
@@ -9673,66 +9675,66 @@ LABEL_174:
   {
     if (v57 == 1)
     {
-      LODWORD(v196) = 0;
-      v222 = 0u;
-      v223 = 0u;
-      v220 = 0u;
+      LODWORD(v195) = 0;
       v221 = 0u;
-      v218 = 0u;
+      v222 = 0u;
       v219 = 0u;
-      v216 = 0u;
+      v220 = 0u;
       v217 = 0u;
-      v214 = 0u;
+      v218 = 0u;
       v215 = 0u;
-      v212 = 0u;
+      v216 = 0u;
       v213 = 0u;
-      v210 = 0u;
+      v214 = 0u;
       v211 = 0u;
-      v208 = 0u;
+      v212 = 0u;
       v209 = 0u;
+      v210 = 0u;
       v207 = 0u;
+      v208 = 0u;
       v206 = 0u;
       v205 = 0u;
-      v199 = 0;
+      v204 = 0u;
+      v198 = 0;
       __src = 0;
-      v202 = &v205;
-      v203 = xmmword_191FF95F0;
-      v204 = 0;
-      if (!v186)
+      v201 = &v204;
+      v202 = xmmword_191FF95F0;
+      v203 = 0;
+      if (!v185)
       {
-        LODWORD(v196) = TLV8BufferAppend(&v202, 6, __s, 1uLL);
-        if (v196)
+        LODWORD(v195) = TLV8BufferAppend(&v201, 6, __s, 1uLL);
+        if (v195)
         {
           goto LABEL_119;
         }
 
-        v82 = *(v191 + 24);
+        v82 = *(v190 + 24);
         switch(v82)
         {
           case 0xD:
-            v224[0] = 5;
-            v91 = TLV8BufferAppend(&v202, 0, v224, 1uLL);
+            v223[0] = 5;
+            v91 = TLV8BufferAppend(&v201, 0, v223, 1uLL);
 LABEL_222:
-            LODWORD(v196) = v91;
+            LODWORD(v195) = v91;
             if (v91)
             {
               goto LABEL_119;
             }
 
 LABEL_223:
-            v99 = v203;
-            v100 = v204;
-            if (v204)
+            v99 = v202;
+            v100 = v203;
+            if (v203)
             {
 LABEL_230:
-              v202 = &v205;
-              *&v203 = 0;
-              v204 = 0;
-              v192 = v99;
-              v193 = v100;
-              LODWORD(v196) = 0;
-              v191[128] = 2;
-              v103 = *(v191 + 2);
+              v201 = &v204;
+              *&v202 = 0;
+              v203 = 0;
+              v191 = v99;
+              v192 = v100;
+              LODWORD(v195) = 0;
+              v190[128] = 2;
+              v103 = *(v190 + 2);
               v104 = *v103;
               if (*v103 > 30)
               {
@@ -9741,12 +9743,12 @@ LABEL_230:
 
               if (v104 == -1)
               {
-                if (!_LogCategory_Initialize(*(v191 + 2), 0x1Eu))
+                if (!_LogCategory_Initialize(*(v190 + 2), 0x1Eu))
                 {
                   goto LABEL_119;
                 }
 
-                v103 = *(v191 + 2);
+                v103 = *(v190 + 2);
                 v104 = *v103;
               }
 
@@ -9760,21 +9762,21 @@ LABEL_230:
                 v105 = v104 == -1 && !_LogCategory_Initialize(v103, 0xAu);
               }
 
-              LogPrintF(v103, "OSStatus _AdminPairingClientM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x1Eu, "AdminPairing client M1 -- request\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v105);
+              LogPrintF(v103, "OSStatus _AdminPairingClientM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 30, "AdminPairing client M1 -- request\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v105);
 LABEL_119:
-              if (v199)
+              if (v198)
               {
-                free(v199);
+                free(v198);
               }
 
-              v8 = v190;
-              if (v204)
+              v8 = v189;
+              if (v203)
               {
-                free(v204);
+                free(v203);
               }
 
-              v18 = v196;
-              *v190 = 0;
+              v18 = v195;
+              *v189 = 0;
               if (v18)
               {
                 goto LABEL_281;
@@ -9783,14 +9785,14 @@ LABEL_119:
               goto LABEL_131;
             }
 
-            if (v203 <= 1)
+            if (v202 <= 1)
             {
               v101 = 1;
             }
 
             else
             {
-              v101 = v203;
+              v101 = v202;
             }
 
             v102 = malloc_type_malloc(v101, 0x100004077774924uLL);
@@ -9799,72 +9801,72 @@ LABEL_119:
               v100 = v102;
               if (v99)
               {
-                memcpy(v102, v202, v99);
+                memcpy(v102, v201, v99);
               }
 
               goto LABEL_230;
             }
 
-            v160 = -6728;
+            v159 = -6728;
 LABEL_374:
-            LODWORD(v196) = v160;
+            LODWORD(v195) = v159;
             goto LABEL_119;
           case 0xB:
-            v224[0] = 4;
-            LODWORD(v196) = TLV8BufferAppend(&v202, 0, v224, 1uLL);
-            if (v196)
+            v223[0] = 4;
+            LODWORD(v195) = TLV8BufferAppend(&v201, 0, v223, 1uLL);
+            if (v195)
             {
               goto LABEL_119;
             }
 
-            v98 = CFDictionaryGetOrCopyBytes(*(v191 + 45), @"controllerIdentifier", &__src, &v199, &v196);
+            v98 = CFDictionaryGetOrCopyBytes(*(v190 + 45), @"controllerIdentifier", &__src, &v198, &v195);
             if (!v98)
             {
               goto LABEL_119;
             }
 
-            LODWORD(v196) = TLV8BufferAppend(&v202, 1, v98, __src);
-            if (v196)
+            LODWORD(v195) = TLV8BufferAppend(&v201, 1, v98, __src);
+            if (v195)
             {
               goto LABEL_119;
             }
 
-            if (v199)
+            if (v198)
             {
-              free(v199);
-              v199 = 0;
+              free(v198);
+              v198 = 0;
             }
 
             goto LABEL_223;
           case 9:
-            v224[0] = 3;
-            LODWORD(v196) = TLV8BufferAppend(&v202, 0, v224, 1uLL);
-            if (v196)
+            v223[0] = 3;
+            LODWORD(v195) = TLV8BufferAppend(&v201, 0, v223, 1uLL);
+            if (v195)
             {
               goto LABEL_119;
             }
 
-            v83 = CFDictionaryGetOrCopyBytes(*(v191 + 45), @"controllerIdentifier", &__src, &v199, &v196);
+            v83 = CFDictionaryGetOrCopyBytes(*(v190 + 45), @"controllerIdentifier", &__src, &v198, &v195);
             if (!v83)
             {
               goto LABEL_119;
             }
 
-            LODWORD(v196) = TLV8BufferAppend(&v202, 1, v83, __src);
-            if (v196)
+            LODWORD(v195) = TLV8BufferAppend(&v201, 1, v83, __src);
+            if (v195)
             {
               goto LABEL_119;
             }
 
-            if (v199)
+            if (v198)
             {
-              free(v199);
-              v199 = 0;
+              free(v198);
+              v198 = 0;
             }
 
-            v84 = *(v191 + 45);
+            v84 = *(v190 + 45);
             v85 = CFDataGetTypeID();
-            v86 = CFDictionaryGetTypedValue(v84, @"controllerPK", v85, &v196);
+            v86 = CFDictionaryGetTypedValue(v84, @"controllerPK", v85, &v195);
             if (!v86)
             {
               goto LABEL_119;
@@ -9873,23 +9875,23 @@ LABEL_374:
             v87 = v86;
             v88 = CFDataGetBytePtr(v86);
             v89 = CFDataGetLength(v87);
-            LODWORD(v196) = TLV8BufferAppend(&v202, 3, v88, v89);
-            if (v196)
+            LODWORD(v195) = TLV8BufferAppend(&v201, 3, v88, v89);
+            if (v195)
             {
               goto LABEL_119;
             }
 
-            v90 = CFDictionaryGetInt64Ranged(*(v191 + 45), @"permissions", 0, 0xFFFFFFFFLL, &v196);
-            if (v196)
+            v90 = CFDictionaryGetInt64Ranged(*(v190 + 45), @"permissions", 0, 0xFFFFFFFFLL, &v195);
+            if (v195)
             {
               goto LABEL_119;
             }
 
-            v91 = TLV8BufferAppendUInt64(&v202, 11, v90);
+            v91 = TLV8BufferAppendUInt64(&v201, 11, v90);
             goto LABEL_222;
         }
 
-        v106 = *(v191 + 2);
+        v106 = *(v190 + 2);
         if (*v106 <= 60)
         {
           if (*v106 == -1)
@@ -9899,26 +9901,26 @@ LABEL_374:
               goto LABEL_373;
             }
 
-            v106 = *(v191 + 2);
-            v82 = *(v191 + 24);
+            v106 = *(v190 + 2);
+            v82 = *(v190 + 24);
           }
 
-          LogPrintF(v106, "OSStatus _AdminPairingClientM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x3Cu, "### AdminPairing client bad session type %d\n", v20, v21, v22, v23, v82);
+          LogPrintF(v106, "OSStatus _AdminPairingClientM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 60, "### AdminPairing client bad session type %d\n", v20, v21, v22, v23, v82);
         }
       }
 
 LABEL_373:
-      v160 = -6705;
+      v159 = -6705;
       goto LABEL_374;
     }
 
-    v77 = *(v191 + 2);
+    v77 = *(v190 + 2);
     if (*v77 > 60)
     {
       goto LABEL_173;
     }
 
-    v8 = v190;
+    v8 = v189;
     if (*v77 == -1)
     {
       if (!_LogCategory_Initialize(v77, 0x3Cu))
@@ -9926,17 +9928,17 @@ LABEL_373:
         goto LABEL_210;
       }
 
-      v77 = *(v191 + 2);
-      v57 = v191[128];
+      v77 = *(v190 + 2);
+      v57 = v190[128];
     }
 
-    LogPrintF(v77, "OSStatus _AdminPairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### AdminPairing client bad state: %d\n", v20, v21, v22, v23, v57);
+    LogPrintF(v77, "OSStatus _AdminPairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### AdminPairing client bad state: %d\n", v20, v21, v22, v23, v57);
 LABEL_210:
     v18 = 4294960587;
     goto LABEL_280;
   }
 
-  v74 = *(v191 + 2);
+  v74 = *(v190 + 2);
   v75 = *v74;
   if (*v74 > 30)
   {
@@ -9948,9 +9950,9 @@ LABEL_210:
     goto LABEL_148;
   }
 
-  if (_LogCategory_Initialize(*(v191 + 2), 0x1Eu))
+  if (_LogCategory_Initialize(*(v190 + 2), 0x1Eu))
   {
-    v74 = *(v191 + 2);
+    v74 = *(v190 + 2);
     v75 = *v74;
 LABEL_148:
     if (v75 > 10)
@@ -9963,16 +9965,16 @@ LABEL_148:
       v76 = v75 == -1 && !_LogCategory_Initialize(v74, 0xAu);
     }
 
-    LogPrintF(v74, "OSStatus _AdminPairingClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, const uint8_t *const)", 0x1Eu, "AdminPairing client M2 -- response\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v76);
+    LogPrintF(v74, "OSStatus _AdminPairingClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, const uint8_t *const)", 30, "AdminPairing client M2 -- response\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v76);
   }
 
 LABEL_265:
-  v131 = a2;
+  v130 = a2;
   do
   {
-    if (v58 <= v131 || v58 - v131 < 2 || (v132 = v131 + 2, v133 = v131[1], &v131[v133 + 2] > v58))
+    if (v58 <= v130 || (v58 - v130) < 2 || (v131 = v130 + 2, v132 = v130[1], &v130[v132 + 2] > v58))
     {
-      if (*(v191 + 24) == 13)
+      if (*(v190 + 24) == 13)
       {
         theArraya = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
         if (!theArraya)
@@ -9982,100 +9984,100 @@ LABEL_265:
         }
 
 LABEL_291:
-        v140 = 0;
+        v139 = 0;
         while (v58 > v62)
         {
-          if (v58 - v62 < 2)
+          if (&v58[-v62] < 2)
           {
             break;
           }
 
-          v141 = v62;
-          v142 = v62 + 2;
-          v143 = v62[1];
-          v62 += v143 + 2;
+          v140 = v62;
+          v141 = (v62 + 2);
+          v142 = *(v62 + 1);
+          v62 += 2 + v142;
           if (v62 > v58)
           {
             break;
           }
 
-          v144 = a2;
-          v145 = *v141;
-          if (!v140)
+          v143 = a2;
+          v144 = *v140;
+          if (!v139)
           {
-            v140 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-            if (!v140)
+            v139 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+            if (!v139)
             {
               CFRelease(theArraya);
               v18 = 4294960568;
-              v8 = v190;
-              v44 = v191;
+              v8 = v189;
+              v44 = v190;
               goto LABEL_280;
             }
           }
 
-          v146 = (((v145 + 1) >> 1) | ((v145 + 1) << 7));
-          if (v146 > 1)
+          v145 = (((v144 + 1) >> 1) | ((v144 + 1) << 7));
+          if (v145 > 1)
           {
-            a2 = v144;
-            if (v146 == 2)
+            a2 = v143;
+            if (v145 == 2)
             {
-              v147 = CFDictionarySetData(v140, @"pk", v142, v143);
-              if (v147)
+              v146 = CFDictionarySetData(v139, @"pk", v141, v142);
+              if (v146)
               {
                 goto LABEL_403;
               }
             }
 
-            else if (v146 == 6)
+            else if (v145 == 6)
             {
               v18 = 4294960553;
-              if (v143 > 3)
+              if (v142 > 3)
               {
-                v44 = v191;
-                if (v143 == 4)
+                v44 = v190;
+                if (v142 == 4)
                 {
-                  v148 = *v142;
+                  v147 = *v141;
                 }
 
                 else
                 {
-                  if (v143 != 8)
+                  if (v142 != 8)
                   {
                     goto LABEL_404;
                   }
 
-                  v148 = *v142;
+                  v147 = *v141;
                 }
               }
 
               else
               {
-                v44 = v191;
-                if (v143 == 1)
+                v44 = v190;
+                if (v142 == 1)
                 {
-                  v148 = *v142;
+                  v147 = *v141;
                 }
 
                 else
                 {
-                  if (v143 != 2)
+                  if (v142 != 2)
                   {
                     goto LABEL_404;
                   }
 
-                  v148 = *(v141 + 1);
+                  v147 = *(v140 + 2);
                 }
               }
 
-              v147 = CFDictionarySetInt64(v140, @"permissions", v148);
-              if (v147)
+              v146 = CFDictionarySetInt64(v139, @"permissions", v147);
+              if (v146)
               {
 LABEL_403:
-                v18 = v147;
-                v44 = v191;
+                v18 = v146;
+                v44 = v190;
 LABEL_404:
-                CFRelease(v140);
+                CFRelease(v139);
                 CFRelease(theArraya);
                 goto LABEL_174;
               }
@@ -10084,38 +10086,38 @@ LABEL_404:
 
           else
           {
-            a2 = v144;
-            if (!v146)
+            a2 = v143;
+            if (!v145)
             {
-              if (CFDictionaryGetCount(v140) >= 1)
+              if (CFDictionaryGetCount(v139) >= 1)
               {
-                CFArrayAppendValue(theArraya, v140);
+                CFArrayAppendValue(theArraya, v139);
               }
 
-              CFRelease(v140);
+              CFRelease(v139);
               goto LABEL_291;
             }
 
-            v147 = CFDictionarySetCString(v140, @"identifier", v142, v143);
-            if (v147)
+            v146 = CFDictionarySetCString(v139, @"identifier", v141, v142);
+            if (v146)
             {
               goto LABEL_403;
             }
           }
         }
 
-        v44 = v191;
-        if (v140)
+        v44 = v190;
+        if (v139)
         {
-          if (CFDictionaryGetCount(v140) >= 1)
+          if (CFDictionaryGetCount(v139) >= 1)
           {
-            CFArrayAppendValue(theArraya, v140);
+            CFArrayAppendValue(theArraya, v139);
           }
 
-          CFRelease(v140);
+          CFRelease(v139);
         }
 
-        v18 = PairingSessionSetProperty(v191, @"pairings", theArraya);
+        v18 = PairingSessionSetProperty(v190, @"pairings", theArraya);
         CFRelease(theArraya);
         if (v18)
         {
@@ -10124,45 +10126,45 @@ LABEL_404:
       }
 
       *(v44 + 128) = 3;
-      v162 = *(v44 + 16);
-      v8 = v190;
-      if (*v162 <= 30)
+      v161 = *(v44 + 16);
+      v8 = v189;
+      if (*v161 <= 30)
       {
-        if (*v162 == -1)
+        if (*v161 == -1)
         {
-          if (!_LogCategory_Initialize(v162, 0x1Eu))
+          if (!_LogCategory_Initialize(v161, 0x1Eu))
           {
             goto LABEL_398;
           }
 
-          v162 = *(v44 + 16);
+          v161 = *(v44 + 16);
         }
 
-        LogPrintF(v162, "OSStatus _AdminPairingClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, const uint8_t *const)", 0x1Eu, "AdminPairing client done\n", v20, v21, v22, v23, v181);
+        LogPrintF(v161, "OSStatus _AdminPairingClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, const uint8_t *const)", 30, "AdminPairing client done\n", v20, v21, v22, v23, v180);
       }
 
 LABEL_398:
+      v191 = 0;
       v192 = 0;
-      v193 = 0;
-      *v190 = 1;
+      *v189 = 1;
       goto LABEL_131;
     }
 
-    v134 = *v131;
-    v131 += v133 + 2;
+    v133 = *v130;
+    v130 += v132 + 2;
   }
 
-  while (v134 != 7);
-  if (v133 != 1)
+  while (v133 != 7);
+  if (v132 != 1)
   {
     goto LABEL_406;
   }
 
-  v135 = *v132;
-  v8 = v190;
-  if (v135 >= 0xA)
+  v134 = *v131;
+  v8 = v189;
+  if (v134 >= 0xA)
   {
-    if (v135 == 10)
+    if (v134 == 10)
     {
       v18 = 4294960561;
     }
@@ -10175,23 +10177,23 @@ LABEL_398:
 
   else
   {
-    v18 = dword_191FFB0EC[*v132];
+    v18 = dword_191FFB0EC[*v131];
   }
 
-  v136 = *(v191 + 2);
-  if (*v136 <= 50)
+  v135 = *(v190 + 2);
+  if (*v135 <= 50)
   {
-    if (*v136 != -1)
+    if (*v135 != -1)
     {
 LABEL_278:
-      LogPrintF(v136, "OSStatus _AdminPairingClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, const uint8_t *const)", 0x32u, "### AdminPairing client M2 bad status: 0x%X, %#m\n", v20, v21, v22, v23, v135);
+      LogPrintF(v135, "OSStatus _AdminPairingClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, const uint8_t *const)", 50, "### AdminPairing client M2 bad status: 0x%X, %#m\n", v20, v21, v22, v23, v134);
       goto LABEL_280;
     }
 
-    if (_LogCategory_Initialize(v136, 0x32u))
+    if (_LogCategory_Initialize(v135, 0x32u))
     {
-      v136 = *(v191 + 2);
-      v135 = *v132;
+      v135 = *(v190 + 2);
+      v134 = *v131;
       goto LABEL_278;
     }
   }
@@ -10199,27 +10201,27 @@ LABEL_278:
 LABEL_280:
   *v8 = 0;
 LABEL_281:
-  v137 = *(v44 + 16);
-  v138 = *v137;
-  if (*v137 <= 50)
+  v136 = *(v44 + 16);
+  v137 = *v136;
+  if (*v136 <= 50)
   {
-    if (v138 != -1)
+    if (v137 != -1)
     {
       goto LABEL_283;
     }
 
     if (_LogCategory_Initialize(*(v44 + 16), 0x32u))
     {
-      v137 = *(v44 + 16);
-      v138 = *v137;
+      v136 = *(v44 + 16);
+      v137 = *v136;
 LABEL_283:
-      v139 = *__s;
-      if (v138 == -1)
+      v138 = *__s;
+      if (v137 == -1)
       {
-        _LogCategory_Initialize(v137, 0x28u);
+        _LogCategory_Initialize(v136, 0x28u);
       }
 
-      LogPrintF(v137, "OSStatus _AdminPairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### AdminPairing client state %d failed: %#m\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v139);
+      LogPrintF(v136, "OSStatus _AdminPairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### AdminPairing client state %d failed: %#m\n%?{end}%1{tlv8}\n", v20, v21, v22, v23, v138);
     }
   }
 
@@ -10230,34 +10232,34 @@ LABEL_130:
   }
 
 LABEL_131:
-  v66 = v192;
-  v222 = 0u;
-  v223 = 0u;
-  v220 = 0u;
+  v66 = v191;
   v221 = 0u;
-  v218 = 0u;
+  v222 = 0u;
   v219 = 0u;
-  v216 = 0u;
+  v220 = 0u;
   v217 = 0u;
-  v214 = 0u;
+  v218 = 0u;
   v215 = 0u;
-  v212 = 0u;
+  v216 = 0u;
   v213 = 0u;
-  v210 = 0u;
+  v214 = 0u;
   v211 = 0u;
-  v208 = 0u;
+  v212 = 0u;
   v209 = 0u;
+  v210 = 0u;
   v207 = 0u;
+  v208 = 0u;
   v206 = 0u;
   v205 = 0u;
-  v202 = &v205;
-  v203 = xmmword_191FF95F0;
-  v204 = 0;
-  if (*(v44 + 120) >= v192)
+  v204 = 0u;
+  v201 = &v204;
+  v202 = xmmword_191FF95F0;
+  v203 = 0;
+  if (*(v44 + 120) >= v191)
   {
     v18 = 0;
-    *v187 = v193;
-    *v188 = v66;
+    *v186 = v192;
+    *v187 = v66;
     goto LABEL_51;
   }
 
@@ -10267,19 +10269,19 @@ LABEL_131:
     goto LABEL_52;
   }
 
-  v67 = v193;
-  *(v44 + 152) = v193;
+  v67 = v192;
+  *(v44 + 152) = v192;
   *(v44 + 160) = v66;
   v68 = *(v44 + 112);
   *(v44 + 168) = v68;
   *(v44 + 176) = *v8;
-  v69 = TLV8BufferAppend(&v202, 12, v67, v68);
-  v193 = 0;
-  v70 = v204;
+  v69 = TLV8BufferAppend(&v201, 12, v67, v68);
+  v192 = 0;
+  v70 = v203;
   if (v69)
   {
     v18 = v69;
-    if (v204)
+    if (v203)
     {
       goto LABEL_136;
     }
@@ -10287,28 +10289,28 @@ LABEL_131:
     goto LABEL_52;
   }
 
-  v71 = v203;
-  if (v204)
+  v71 = v202;
+  if (v203)
   {
 LABEL_145:
     v18 = 0;
-    v202 = &v205;
-    *&v203 = 0;
-    v204 = 0;
-    *v187 = v70;
-    *v188 = v71;
+    v201 = &v204;
+    *&v202 = 0;
+    v203 = 0;
+    *v186 = v70;
+    *v187 = v71;
     *v8 = 0;
     goto LABEL_52;
   }
 
-  if (v203 <= 1)
+  if (v202 <= 1)
   {
     v72 = 1;
   }
 
   else
   {
-    v72 = v203;
+    v72 = v202;
   }
 
   v73 = malloc_type_malloc(v72, 0x100004077774924uLL);
@@ -10317,29 +10319,29 @@ LABEL_145:
     v70 = v73;
     if (v71)
     {
-      memcpy(v73, v202, v71);
+      memcpy(v73, v201, v71);
     }
 
     goto LABEL_145;
   }
 
   v18 = 4294960568;
-  v70 = v204;
-  if (v204)
+  v70 = v203;
+  if (v203)
   {
 LABEL_136:
     free(v70);
   }
 
 LABEL_52:
-  if (v189)
+  if (v188)
   {
-    free(v189);
+    free(v188);
   }
 
-  if (v193)
+  if (v192)
   {
-    free(v193);
+    free(v192);
   }
 
   if (v18 != -6771 && v18)

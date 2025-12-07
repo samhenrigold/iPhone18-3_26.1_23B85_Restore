@@ -422,46 +422,46 @@
 
 - (BOOL)isEqualToAssetHandle:(id)handle keys:(id)keys optionalKeys:(id)optionalKeys differencesDescription:(id *)description
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   keysCopy = keys;
   optionalKeysCopy = optionalKeys;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2020000000;
-  v69 = 1;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = sub_225073E80;
-  v64 = sub_2250734CC;
   v65 = 0;
+  v66 = &v65;
+  v67 = 0x2020000000;
+  v68 = 1;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = sub_225073E80;
+  v63 = sub_2250734CC;
+  v64 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = sub_225125370;
   aBlock[3] = &unk_2785461F8;
-  aBlock[4] = &v60;
-  aBlock[5] = &v66;
+  aBlock[4] = &v59;
+  aBlock[5] = &v65;
   v11 = _Block_copy(aBlock);
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = keysCopy;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v55, v71, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v54, v70, 16);
   if (v14)
   {
-    v15 = *v56;
+    v15 = *v55;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v56 != v15)
+        if (*v55 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v55 + 1) + 8 * i);
+        v17 = *(*(&v54 + 1) + 8 * i);
         v18 = objc_msgSend_valueForKey_(self, v13, v17);
         v20 = objc_msgSend_valueForKey_(handleCopy, v19, v17);
         v21 = v18;
@@ -500,31 +500,31 @@ LABEL_14:
 LABEL_15:
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v55, v71, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v54, v70, 16);
     }
 
     while (v14);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v29 = optionalKeysCopy;
-  v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v51, v70, 16);
+  v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v50, v69, 16);
   if (v32)
   {
-    v33 = *v52;
+    v33 = *v51;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v52 != v33)
+        if (*v51 != v33)
         {
           objc_enumerationMutation(v29);
         }
 
-        v35 = *(*(&v51 + 1) + 8 * j);
+        v35 = *(*(&v50 + 1) + 8 * j);
         v36 = objc_msgSend_valueForKey_(self, v31, v35);
         v38 = objc_msgSend_valueForKey_(handleCopy, v37, v35);
         v40 = v38;
@@ -545,39 +545,38 @@ LABEL_15:
         }
       }
 
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v51, v70, 16);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v50, v69, 16);
     }
 
     while (v32);
   }
 
-  v44 = v67;
+  v44 = v66;
   if (description)
   {
-    if (v67[3])
+    if (v66[3])
     {
       *description = 0;
     }
 
     else
     {
-      *description = v61[5];
-      v44 = v67;
+      *description = v60[5];
+      v44 = v66;
     }
   }
 
   v45 = *(v44 + 24);
 
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v65, 8);
 
-  v46 = *MEMORY[0x277D85DE8];
   return v45 & 1;
 }
 
 - (void)setBoundaryKeyHashUsingBoundaryKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = keyCopy;
   if (keyCopy)
@@ -596,8 +595,6 @@ LABEL_15:
     boundaryKeyHash = self->_boundaryKeyHash;
     self->_boundaryKeyHash = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

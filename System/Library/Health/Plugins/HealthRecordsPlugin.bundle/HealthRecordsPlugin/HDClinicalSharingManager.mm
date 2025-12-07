@@ -160,7 +160,7 @@
     _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ scheduling clinical sharing for added samples", v8, 0xCu);
   }
 
-  [(HDClinicalSharingManager *)self scheduleSharing];
+  [(HDClinicalSharingManager *)self scheduleSharing:*v8];
 }
 
 @end

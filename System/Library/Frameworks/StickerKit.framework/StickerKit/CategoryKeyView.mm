@@ -34,7 +34,7 @@
   }
 
   v8.receiver = self;
-  v8.super_class = type metadata accessor for CategoryKeyView();
+  v8.super_class = type metadata accessor for CategoryKeyView(0);
   [(CategoryKeyView *)&v8 dealloc];
 }
 
@@ -53,7 +53,7 @@
 
 - (void)didVisitIndexPath:(id)path
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110, &unk_19A7B6AF0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (path)
@@ -72,7 +72,7 @@
   selfCopy = self;
   sub_19A779FCC(v7);
 
-  sub_19A5F2B54(v7, &unk_1EAFCF110);
+  sub_19A5F2B54(v7, &unk_1EAFCF110, &unk_19A7B6AF0);
 }
 
 @end

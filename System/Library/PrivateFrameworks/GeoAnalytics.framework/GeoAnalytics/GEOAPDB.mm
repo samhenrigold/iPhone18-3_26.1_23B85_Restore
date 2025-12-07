@@ -527,15 +527,13 @@
 - (void)processMapsAppDeletion
 {
   db = self->_db;
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1000111F8;
-  v5[3] = &unk_10003D5B8;
-  v5[4] = self;
-  [(GEOSQLiteDB *)db executeSync:v5];
-  v3 = GeoAnalyticsConfig_MapsLastUseDate[1];
+  v3[0] = _NSConcreteStackBlock;
+  v3[1] = 3221225472;
+  v3[2] = sub_1000111F8;
+  v3[3] = &unk_10003D5B8;
+  v3[4] = self;
+  [(GEOSQLiteDB *)db executeSync:v3];
   _GEOConfigRemoveValueSync();
-  v4 = GeoUserSessionConfig_MapsUserStartDate[1];
   _GEOConfigRemoveValueSync();
 }
 
@@ -555,17 +553,16 @@
   elemsCopy = elems;
   if ([elemsCopy count])
   {
-    v5 = GeoAnalyticsConfig_AnalyticsPipelineMaxPersist[1];
     Integer = GEOConfigGetInteger();
     db = self->_db;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100011534;
-    v8[3] = &unk_10003CAE0;
-    v8[4] = self;
-    v10 = Integer;
-    v9 = elemsCopy;
-    [(GEOSQLiteDB *)db executeSync:v8];
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100011534;
+    v7[3] = &unk_10003CAE0;
+    v7[4] = self;
+    v9 = Integer;
+    v8 = elemsCopy;
+    [(GEOSQLiteDB *)db executeSync:v7];
   }
 }
 
@@ -599,7 +596,26 @@
   [_setupCopy setUser_version:11];
   v4 = sub_1000014A0();
   v5 = _setupCopy;
-  if ([v5 createTable:"CREATE TABLE IF NOT EXISTS Analytics(   rowid INTEGER PRIMARY KEY NOT NULL withDrop:{expiretime INT NOT NULL, createtime INT NOT NULL, batchid INT NOT NULL, analytic BLOB NOT NULL   );", 0}] && objc_msgSend(v5, "createTable:withDrop:", "CREATE TABLE IF NOT EXISTS Shadow(   createtime REAL NOT NULL,    type INT NOT NULL,    batchid INT NOT NULL,    analytic BLOB NOT NULL   );", 0) && objc_msgSend(v5, "createTable:withDrop:", "CREATE TABLE IF NOT EXISTS DailyCounts(   rowid INTEGER PRIMARY KEY NOT NULL,    type INT NOT NULL,    createtime INT NOT NULL,    appid TEXT,    usagestring TEXT,    usageBOOL TEXT   );", 0) && objc_msgSend(v5, "createTable:withDrop:", "CREATE TABLE IF NOT EXISTS DailySettings(   rowid INTEGER PRIMARY KEY NOT NULL,    settings BLOB NOT NULL,    createtime INT NOT NULL   );", 0) && objc_msgSend(v5, "prepareStatement:forKey:", "INSERT OR REPLACE INTO Analytics    (expiretime, createtime, batchid, analytic)    VALUES (@expiretime, @createtime, @batchid, @analytic);", @"InsertAnalytic") && objc_msgSend(v5, "prepareStatement:forKey:", "SELECT batchid,    MIN(createtime) AS minCreateTime    FROM Analytics    GROUP BY batchid;", @"SelectAnalyticBatchIdsForUpload") && objc_msgSend(v5, "prepareStatement:forKey:", "SELECT rowid, expiretime, createtime, batchid, analytic    FROM Analytics    WHERE batchid = @batchid;", @"SelectAnalyticWithBatchId") && objc_msgSend(v5, "prepareStatement:forKey:", "DELETE FROM Analytics    WHERE expiretime <= @expiretime;", @"DeleteAllExpiredAnalytics") && objc_msgSend(v5, "prepareStatement:forKey:", "DELETE FROM Analytics    WHERE rowid = @rowid;", @"DeleteOneAnalytic") && objc_msgSend(v5, "prepareStatement:forKey:", "SELECT COUNT(*)    FROM Analytics;", @"CountAnalytics") && objc_msgSend(v5, "prepareStatement:forKey:", "INSERT OR REPLACE INTO Shadow    (createtime, type, batchid, analytic)    VALUES (@createtime, @type, @batchid, @analytic);", @"InsertShadowAnalytic") && objc_msgSend(v5, "prepareStatement:forKey:", "SELECT createtime, type, batchid, analytic    FROM Shadow    ORDER BY createtime ASC;", @"SelectAllShadowAnalytics") && objc_msgSend(v5, "prepareStatement:forKey:", "DELETE FROM Shadow;", @"DeleteShadowAnalytics") && objc_msgSend(v5, "prepareStatement:forKey:", "INSERT OR REPLACE INTO DailyCounts    (type, createtime, appid, usagestring, usageBOOL)    VALUES (@type, @createtime, @appid, @usagestring, @usageBOOL);", @"InsertDailyCount") && objc_msgSend(v5, "prepareStatement:forKey:", "SELECT rowid, type, appid, usagestring, usageBOOL, createtime    FROM DailyCounts    ORDER BY createtime ASC;", @"SelectDailyCounts") && objc_msgSend(v5, "prepareStatement:forKey:", "DELETE FROM DailyCounts    WHERE rowid = @rowid;", @"DeleteOneDailyCount") && objc_msgSend(v5, "prepareStatement:forKey:", "DELETE FROM DailyCounts;", @"DeleteAllDailyCount") && objc_msgSend(v5, "prepareStatement:forKey:", "INSERT OR REPLACE INTO DailySettings    (settings, createtime)    VALUES (@settings, @createtime);", @"InsertDailySetting") && objc_msgSend(v5, "prepareStatement:forKey:", "SELECT rowid, settings, createtime    FROM DailySettings    ORDER BY createtime ASC;", @"SelectDailySettings") && objc_msgSend(v5, "prepareStatement:forKey:", "DELETE FROM DailySettings    WHERE rowid = @rowid;", @"DeleteOneDailySettings"))
+  if ([v5 createTable:"CREATE TABLE IF NOT EXISTS Analytics(   rowid INTEGER PRIMARY KEY NOT NULL withDrop:{expiretime INT NOT NULL, createtime INT NOT NULL, batchid INT NOT NULL, analytic BLOB NOT NULL   );", 0}]
+    && [v5 createTable:"CREATE TABLE IF NOT EXISTS Shadow(   createtime REAL NOT NULL withDrop:{type INT NOT NULL, batchid INT NOT NULL, analytic BLOB NOT NULL   );", 0}]
+    && [v5 createTable:"CREATE TABLE IF NOT EXISTS DailyCounts(   rowid INTEGER PRIMARY KEY NOT NULL withDrop:{type INT NOT NULL, createtime INT NOT NULL, appid TEXT, usagestring TEXT, usageBOOL TEXT   );", 0}]
+    && [v5 createTable:"CREATE TABLE IF NOT EXISTS DailySettings(   rowid INTEGER PRIMARY KEY NOT NULL withDrop:{settings BLOB NOT NULL, createtime INT NOT NULL   );", 0}]
+    && [v5 prepareStatement:"INSERT OR REPLACE INTO Analytics    (expiretime forKey:{createtime, batchid, analytic)    VALUES (@expiretime, @createtime, @batchid, @analytic);", @"InsertAnalytic"}]
+    && [v5 prepareStatement:"SELECT batchid forKey:{MIN(createtime) AS minCreateTime    FROM Analytics    GROUP BY batchid;", @"SelectAnalyticBatchIdsForUpload"}]
+    && [v5 prepareStatement:"SELECT rowid forKey:{expiretime, createtime, batchid, analytic    FROM Analytics    WHERE batchid = @batchid;", @"SelectAnalyticWithBatchId"}]
+    && [v5 prepareStatement:"DELETE FROM Analytics    WHERE expiretime <= @expiretime;" forKey:@"DeleteAllExpiredAnalytics"]
+    && [v5 prepareStatement:"DELETE FROM Analytics    WHERE rowid = @rowid;" forKey:@"DeleteOneAnalytic"]
+    && [v5 prepareStatement:"SELECT COUNT(*)    FROM Analytics;" forKey:@"CountAnalytics"]
+    && [v5 prepareStatement:"INSERT OR REPLACE INTO Shadow    (createtime forKey:{type, batchid, analytic)    VALUES (@createtime, @type, @batchid, @analytic);", @"InsertShadowAnalytic"}]
+    && [v5 prepareStatement:"SELECT createtime forKey:{type, batchid, analytic    FROM Shadow    ORDER BY createtime ASC;", @"SelectAllShadowAnalytics"}]
+    && [v5 prepareStatement:"DELETE FROM Shadow;" forKey:@"DeleteShadowAnalytics"]
+    && [v5 prepareStatement:"INSERT OR REPLACE INTO DailyCounts    (type forKey:{createtime, appid, usagestring, usageBOOL)    VALUES (@type, @createtime, @appid, @usagestring, @usageBOOL);", @"InsertDailyCount"}]
+    && [v5 prepareStatement:"SELECT rowid forKey:{type, appid, usagestring, usageBOOL, createtime    FROM DailyCounts    ORDER BY createtime ASC;", @"SelectDailyCounts"}]
+    && [v5 prepareStatement:"DELETE FROM DailyCounts    WHERE rowid = @rowid;" forKey:@"DeleteOneDailyCount"]
+    && [v5 prepareStatement:"DELETE FROM DailyCounts;" forKey:@"DeleteAllDailyCount"]
+    && [v5 prepareStatement:"INSERT OR REPLACE INTO DailySettings    (settings forKey:{createtime)    VALUES (@settings, @createtime);", @"InsertDailySetting"}]
+    && [v5 prepareStatement:"SELECT rowid forKey:{settings, createtime    FROM DailySettings    ORDER BY createtime ASC;", @"SelectDailySettings"}]
+    && [v5 prepareStatement:"DELETE FROM DailySettings    WHERE rowid = @rowid;" forKey:@"DeleteOneDailySettings"])
   {
     v6 = [v5 prepareStatement:"DELETE FROM DailySettings;" forKey:@"DeleteAllDailySettings"];
   }
@@ -650,12 +666,11 @@
 - (GEOAPDB)initWithDBFilePath:(id)path
 {
   pathCopy = path;
-  v9.receiver = self;
-  v9.super_class = GEOAPDB;
-  v6 = [(GEOAPDB *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = GEOAPDB;
+  v6 = [(GEOAPDB *)&v8 init];
   if (v6)
   {
-    v7 = GeoAnalyticsConfig_AnalyticsPipelineEvalModeEnabled[1];
     v6->_shadowEnabled = GEOConfigGetBOOL();
     objc_storeStrong(&v6->_dbFilePath, path);
     [(GEOAPDB *)v6 _configureDatabase];
@@ -712,15 +727,15 @@
 
 - (unint64_t)_sessionHolddownDurationForSessionType:(int)type
 {
-  v3 = type - 2;
-  if ((type - 2) > 0x12 || ((0x6EFFFu >> v3) & 1) == 0)
+  if (type - 2) <= 0x12 && ((0x6EFFFu >> (type - 2)))
+  {
+    return GEOConfigGetUint64();
+  }
+
+  else
   {
     return 0;
   }
-
-  v4 = **(&off_10003CE78 + v3);
-  v5 = **(&off_10003CF10 + v3);
-  return GEOConfigGetUint64();
 }
 
 @end

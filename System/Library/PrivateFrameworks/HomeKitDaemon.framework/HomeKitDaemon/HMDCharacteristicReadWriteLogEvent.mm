@@ -30,7 +30,7 @@
 
 - (id)biomeEventsRepresentationForLogObserver:(id)observer
 {
-  v239 = *MEMORY[0x277D85DE8];
+  v238 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   if (![(HMDCharacteristicReadWriteLogEvent *)self isWriteOperation])
   {
@@ -59,15 +59,15 @@
       writtenValues3 = [(HMDCharacteristicReadWriteLogEvent *)selfCopy2 writtenValues];
       v29 = [v27 numberWithUnsignedInteger:{objc_msgSend(writtenValues3, "count")}];
       *buf = 138544386;
-      v230 = v21;
-      v231 = 2112;
-      v232 = characteristicsInRequest2;
-      v233 = 2112;
-      v234 = v25;
-      v235 = 2112;
-      v236 = writtenValues2;
-      v237 = 2112;
-      v238 = v29;
+      v229 = v21;
+      v230 = 2112;
+      v231 = characteristicsInRequest2;
+      v232 = 2112;
+      v233 = v25;
+      v234 = 2112;
+      v235 = writtenValues2;
+      v236 = 2112;
+      v237 = v29;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Attempting to get metadata for mismatched number of characteristics (%@) : %@, and values (%@): %@", buf, 0x34u);
 
 LABEL_13:
@@ -92,7 +92,7 @@ LABEL_15:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v230 = v21;
+      v229 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to log event metadata to biome, no home data for event", buf, 0xCu);
       goto LABEL_13;
     }
@@ -126,9 +126,9 @@ LABEL_15:
       v17 = HMDRequestSourceAsString([(HMDCharacteristicReadWriteLogEvent *)self triggerSource]);
     }
 
-    v33 = v17;
+    v32 = v17;
 
-    v34 = objc_alloc(MEMORY[0x277CF1980]);
+    v33 = objc_alloc(MEMORY[0x277CF1980]);
     homeUniqueIdentifier2 = [(HMDCharacteristicReadWriteLogEvent *)self homeUniqueIdentifier];
     uUIDString = [homeUniqueIdentifier2 UUIDString];
     isAtHome = [(HMDCharacteristicReadWriteLogEvent *)self isAtHome];
@@ -136,162 +136,162 @@ LABEL_15:
     clientMetricIdentifier = [(HMDCharacteristicReadWriteLogEvent *)self clientMetricIdentifier];
     if (clientMetricIdentifier)
     {
-      v221 = [v34 initWithDateInterval:v12 homeUniqueIdentifier:uUIDString homeOccupancy:isAtHome source:v33 clientName:bundleId eventCorrelationIdentifier:clientMetricIdentifier];
+      v220 = [v33 initWithDateInterval:v12 homeUniqueIdentifier:uUIDString homeOccupancy:isAtHome source:v32 clientName:bundleId eventCorrelationIdentifier:clientMetricIdentifier];
     }
 
     else
     {
       uUID = [MEMORY[0x277CCAD78] UUID];
       [uUID UUIDString];
-      v41 = v40 = v12;
-      v221 = [v34 initWithDateInterval:v40 homeUniqueIdentifier:uUIDString homeOccupancy:isAtHome source:v33 clientName:bundleId eventCorrelationIdentifier:v41];
+      v40 = v39 = v12;
+      v220 = [v33 initWithDateInterval:v39 homeUniqueIdentifier:uUIDString homeOccupancy:isAtHome source:v32 clientName:bundleId eventCorrelationIdentifier:v40];
 
-      v12 = v40;
+      v12 = v39;
     }
   }
 
   else
   {
-    v221 = 0;
+    v220 = 0;
   }
 
-  v42 = MEMORY[0x277CBEB18];
+  v41 = MEMORY[0x277CBEB18];
   characteristicsInRequest4 = [(HMDCharacteristicReadWriteLogEvent *)self characteristicsInRequest];
-  v220 = [v42 arrayWithCapacity:{objc_msgSend(characteristicsInRequest4, "count")}];
+  v219 = [v41 arrayWithCapacity:{objc_msgSend(characteristicsInRequest4, "count")}];
 
   characteristicsInRequest5 = [(HMDCharacteristicReadWriteLogEvent *)self characteristicsInRequest];
-  v45 = [characteristicsInRequest5 count];
+  v44 = [characteristicsInRequest5 count];
 
-  if (v45)
+  if (v44)
   {
-    v46 = 0;
-    v177 = *MEMORY[0x277CCFB48];
-    v176 = *MEMORY[0x277CCFBA8];
-    v175 = *MEMORY[0x277CCF980];
+    v45 = 0;
+    v176 = *MEMORY[0x277CCFB48];
+    v175 = *MEMORY[0x277CCFBA8];
+    v174 = *MEMORY[0x277CCF980];
     selfCopy3 = self;
     do
     {
       characteristicsInRequest6 = [(HMDCharacteristicReadWriteLogEvent *)self characteristicsInRequest];
-      v48 = [characteristicsInRequest6 objectAtIndexedSubscript:v46];
+      v47 = [characteristicsInRequest6 objectAtIndexedSubscript:v45];
 
-      service = [v48 service];
+      service = [v47 service];
       type = [service type];
-      v228 = v48;
-      type2 = [v48 type];
-      v52 = type2;
+      v227 = v47;
+      type2 = [v47 type];
+      v51 = type2;
       if (type)
       {
         if (type2)
         {
-          v53 = type;
-          v54 = v52;
+          v52 = type;
+          v53 = v51;
           if (observerCopy)
           {
-            v224 = v54;
+            v223 = v53;
             WeakRetained = objc_loadWeakRetained(observerCopy + 2);
             if (WeakRetained)
             {
-              v56 = WeakRetained;
-              v57 = v52;
-              v58 = [WeakRetained hapMetadataForBiomeLogEventObserver:observerCopy];
-              if (([v53 isEqualToString:@"00000228-0000-1000-8000-0026BB765291"] & 1) != 0 || (objc_msgSend(v58, "shouldFilterServiceOfTypeFromApp:", v53) & 1) == 0)
+              v55 = WeakRetained;
+              v56 = v51;
+              v57 = [WeakRetained hapMetadataForBiomeLogEventObserver:observerCopy];
+              if (([v52 isEqualToString:@"00000228-0000-1000-8000-0026BB765291"] & 1) != 0 || (objc_msgSend(v57, "shouldFilterServiceOfTypeFromApp:", v52) & 1) == 0)
               {
-                v59 = v53;
-                v60 = [v58 isStandardServiceType:v53];
+                v58 = v52;
+                v59 = [v57 isStandardServiceType:v52];
               }
 
               else
               {
-                v59 = v53;
-                v60 = 0;
+                v58 = v52;
+                v59 = 0;
               }
 
-              if ([v58 shouldFilterCharacteristicOfTypeFromApp:v224])
+              if ([v57 shouldFilterCharacteristicOfTypeFromApp:v223])
               {
-                v71 = 0;
+                v70 = 0;
               }
 
               else
               {
-                v71 = [v58 isStandardCharacteristicType:v224];
+                v70 = [v57 isStandardCharacteristicType:v223];
               }
 
-              v77 = v60 & v71;
+              v76 = v59 & v70;
 
-              v78 = v59;
-              v52 = v57;
-              if (v77)
+              v77 = v58;
+              v51 = v56;
+              if (v76)
               {
                 writtenValues4 = [(HMDCharacteristicReadWriteLogEvent *)self writtenValues];
-                v222 = [writtenValues4 objectAtIndexedSubscript:v46];
+                v221 = [writtenValues4 objectAtIndexedSubscript:v45];
 
-                v218 = v78;
-                if ([v78 isEqualToString:@"00000228-0000-1000-8000-0026BB765291"])
+                v217 = v77;
+                if ([v77 isEqualToString:@"00000228-0000-1000-8000-0026BB765291"])
                 {
-                  v80 = v224;
-                  v81 = v222;
-                  v82 = v221;
-                  v225 = v81;
+                  v79 = v223;
+                  v80 = v221;
+                  v81 = v220;
+                  v224 = v80;
                   if (self)
                   {
                     accessoryMediaRouteID = [(HMDCharacteristicReadWriteLogEvent *)self accessoryMediaRouteID];
 
-                    v219 = v80;
+                    v218 = v79;
                     if (accessoryMediaRouteID)
                     {
-                      v216 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
-                      if ([v80 isEqualToString:v177])
+                      v215 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
+                      if ([v79 isEqualToString:v176])
                       {
-                        v84 = v81;
+                        v83 = v80;
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v85 = v84;
+                          v84 = v83;
                         }
 
                         else
                         {
-                          v85 = 0;
+                          v84 = 0;
                         }
 
-                        v86 = v85;
+                        v85 = v84;
 
-                        if (v86)
+                        if (v85)
                         {
-                          integerValue = [v86 integerValue];
+                          integerValue = [v85 integerValue];
                           if (integerValue >= 3)
                           {
-                            v210 = service;
-                            v88 = objc_autoreleasePoolPush();
+                            v209 = service;
+                            v87 = objc_autoreleasePoolPush();
                             selfCopy4 = self;
-                            v90 = HMFGetOSLogHandle();
-                            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+                            v89 = HMFGetOSLogHandle();
+                            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
                             {
-                              v91 = HMFGetLogIdentifier();
+                              v90 = HMFGetLogIdentifier();
                               *buf = 138543362;
-                              v230 = v91;
-                              _os_log_impl(&dword_229538000, v90, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to log event metadata to biome, unknown playback state not eligible for donation", buf, 0xCu);
+                              v229 = v90;
+                              _os_log_impl(&dword_229538000, v89, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to log event metadata to biome, unknown playback state not eligible for donation", buf, 0xCu);
                             }
 
-                            objc_autoreleasePoolPop(v88);
-                            v92 = 0;
-                            service = v210;
+                            objc_autoreleasePoolPop(v87);
+                            v91 = 0;
+                            service = v209;
                             goto LABEL_105;
                           }
 
-                          v209 = v52;
-                          v212 = type;
-                          v151 = [MEMORY[0x277CCABB0] numberWithInteger:qword_22A587EB0[integerValue]];
-                          [v216 setObject:v151 forKeyedSubscript:@"playback-state"];
+                          v208 = v51;
+                          v211 = type;
+                          v150 = [MEMORY[0x277CCABB0] numberWithInteger:qword_22A587EB0[integerValue]];
+                          [v215 setObject:v150 forKeyedSubscript:@"playback-state"];
 
 LABEL_99:
-                          v214 = v82;
+                          v213 = v81;
 
 LABEL_100:
-                          v203 = objc_alloc(MEMORY[0x277CF1988]);
+                          v202 = objc_alloc(MEMORY[0x277CF1988]);
                           accessoryUniqueIdentifier = [(HMDCharacteristicReadWriteLogEvent *)self accessoryUniqueIdentifier];
                           uUIDString2 = [accessoryUniqueIdentifier UUIDString];
-                          v201 = [v216 copy];
+                          v200 = objc_msgSend_copy(v215);
                           accessoryMediaRouteID2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryMediaRouteID];
                           accessoryZoneUniqueIdentifiers = [(HMDCharacteristicReadWriteLogEvent *)self accessoryZoneUniqueIdentifiers];
                           accessoryRoomUniqueIdentifier = [(HMDCharacteristicReadWriteLogEvent *)self accessoryRoomUniqueIdentifier];
@@ -300,227 +300,227 @@ LABEL_100:
                           accessoryRoomName = [(HMDCharacteristicReadWriteLogEvent *)self accessoryRoomName];
                           accessoryZoneNames = [(HMDCharacteristicReadWriteLogEvent *)self accessoryZoneNames];
                           [(HMDCharacteristicReadWriteLogEvent *)self homeName];
-                          v155 = v154 = service;
-                          v82 = v214;
-                          v92 = [v203 initWithBase:v214 accessoryUniqueIdentifier:uUIDString2 accessoryStateString:MEMORY[0x277CBEC10] accessoryStateNumber:v201 accessoryStateData:MEMORY[0x277CBEC10] accessoryMediaRouteIdentifier:accessoryMediaRouteID2 zoneUniqueIdentifiers:accessoryZoneUniqueIdentifiers roomUniqueIdentifier:uUIDString3 accessoryName:accessoryName roomName:accessoryRoomName zoneNames:accessoryZoneNames homeName:v155];
+                          v154 = v153 = service;
+                          v81 = v213;
+                          v91 = [v202 initWithBase:v213 accessoryUniqueIdentifier:uUIDString2 accessoryStateString:MEMORY[0x277CBEC10] accessoryStateNumber:v200 accessoryStateData:MEMORY[0x277CBEC10] accessoryMediaRouteIdentifier:accessoryMediaRouteID2 zoneUniqueIdentifiers:accessoryZoneUniqueIdentifiers roomUniqueIdentifier:uUIDString3 accessoryName:accessoryName roomName:accessoryRoomName zoneNames:accessoryZoneNames homeName:v154];
 
-                          service = v154;
-                          v52 = v209;
-                          type = v212;
+                          service = v153;
+                          v51 = v208;
+                          type = v211;
                           goto LABEL_105;
                         }
 
-                        v143 = objc_autoreleasePoolPush();
+                        v142 = objc_autoreleasePoolPush();
                         selfCopy6 = self;
-                        v145 = HMFGetOSLogHandle();
-                        if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+                        v144 = HMFGetOSLogHandle();
+                        if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
                         {
                           HMFGetLogIdentifier();
-                          v215 = v82;
-                          v146 = type;
-                          v148 = v147 = service;
+                          v214 = v81;
+                          v145 = type;
+                          v147 = v146 = service;
                           *buf = 138543362;
-                          v230 = v148;
-                          v149 = v145;
-                          v150 = "%{public}@Unable to log event metadata to biome, non number playback state not eligible for donation";
+                          v229 = v147;
+                          v148 = v144;
+                          v149 = "%{public}@Unable to log event metadata to biome, non number playback state not eligible for donation";
                           goto LABEL_103;
                         }
 
                         goto LABEL_104;
                       }
 
-                      if ([v80 isEqualToString:v176])
+                      if ([v79 isEqualToString:v175])
                       {
-                        v133 = v81;
+                        v132 = v80;
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v134 = v133;
+                          v133 = v132;
                         }
 
                         else
                         {
-                          v134 = 0;
+                          v133 = 0;
                         }
 
-                        v86 = v134;
+                        v85 = v133;
 
-                        if (v86)
+                        if (v85)
                         {
-                          v209 = v52;
-                          v212 = type;
-                          [v216 setObject:v86 forKeyedSubscript:@"volume"];
+                          v208 = v51;
+                          v211 = type;
+                          [v215 setObject:v85 forKeyedSubscript:@"volume"];
                           goto LABEL_99;
                         }
 
-                        v143 = objc_autoreleasePoolPush();
+                        v142 = objc_autoreleasePoolPush();
                         selfCopy6 = self;
-                        v145 = HMFGetOSLogHandle();
-                        if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+                        v144 = HMFGetOSLogHandle();
+                        if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
                         {
                           HMFGetLogIdentifier();
-                          v215 = v82;
-                          v146 = type;
-                          v148 = v147 = service;
+                          v214 = v81;
+                          v145 = type;
+                          v147 = v146 = service;
                           *buf = 138543362;
-                          v230 = v148;
-                          v149 = v145;
-                          v150 = "%{public}@Unable to log event metadata to biome, unknown volume state not eligible for donation";
+                          v229 = v147;
+                          v148 = v144;
+                          v149 = "%{public}@Unable to log event metadata to biome, unknown volume state not eligible for donation";
 LABEL_103:
-                          _os_log_impl(&dword_229538000, v149, OS_LOG_TYPE_DEFAULT, v150, buf, 0xCu);
+                          _os_log_impl(&dword_229538000, v148, OS_LOG_TYPE_DEFAULT, v149, buf, 0xCu);
 
-                          service = v147;
-                          type = v146;
-                          v82 = v215;
+                          service = v146;
+                          type = v145;
+                          v81 = v214;
                         }
 
 LABEL_104:
 
-                        objc_autoreleasePoolPop(v143);
-                        v92 = 0;
+                        objc_autoreleasePoolPop(v142);
+                        v91 = 0;
                         goto LABEL_105;
                       }
 
-                      v212 = type;
-                      v214 = v82;
-                      v209 = v52;
-                      if (![v80 isEqualToString:v175])
+                      v211 = type;
+                      v213 = v81;
+                      v208 = v51;
+                      if (![v79 isEqualToString:v174])
                       {
                         goto LABEL_100;
                       }
 
-                      v135 = v81;
+                      v134 = v80;
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v136 = v135;
+                        v135 = v134;
                       }
 
                       else
                       {
-                        v136 = 0;
+                        v135 = 0;
                       }
 
-                      v86 = v136;
+                      v85 = v135;
 
-                      if (v86)
+                      if (v85)
                       {
-                        [v216 setObject:v86 forKeyedSubscript:@"mute"];
+                        [v215 setObject:v85 forKeyedSubscript:@"mute"];
                         goto LABEL_99;
                       }
 
-                      v163 = objc_autoreleasePoolPush();
+                      v162 = objc_autoreleasePoolPush();
                       selfCopy7 = self;
-                      v165 = HMFGetOSLogHandle();
-                      if (os_log_type_enabled(v165, OS_LOG_TYPE_DEFAULT))
+                      v164 = HMFGetOSLogHandle();
+                      if (os_log_type_enabled(v164, OS_LOG_TYPE_DEFAULT))
                       {
                         HMFGetLogIdentifier();
-                        v167 = v166 = service;
+                        v166 = v165 = service;
                         *buf = 138543362;
-                        v230 = v167;
-                        _os_log_impl(&dword_229538000, v165, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to log event metadata to biome, unknown mute state not eligible for donation", buf, 0xCu);
+                        v229 = v166;
+                        _os_log_impl(&dword_229538000, v164, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to log event metadata to biome, unknown mute state not eligible for donation", buf, 0xCu);
 
-                        service = v166;
+                        service = v165;
                       }
 
-                      objc_autoreleasePoolPop(v163);
-                      v92 = 0;
-                      type = v212;
+                      objc_autoreleasePoolPop(v162);
+                      v91 = 0;
+                      type = v211;
 LABEL_105:
                     }
 
                     else
                     {
-                      v127 = objc_autoreleasePoolPush();
+                      v126 = objc_autoreleasePoolPush();
                       selfCopy8 = self;
-                      v129 = HMFGetOSLogHandle();
-                      if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
+                      v128 = HMFGetOSLogHandle();
+                      if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
                       {
                         HMFGetLogIdentifier();
-                        v130 = type;
-                        v132 = v131 = service;
+                        v129 = type;
+                        v131 = v130 = service;
                         *buf = 138543362;
-                        v230 = v132;
-                        _os_log_impl(&dword_229538000, v129, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to log event metadata to biome, smart speaker event is missing media profile", buf, 0xCu);
+                        v229 = v131;
+                        _os_log_impl(&dword_229538000, v128, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to log event metadata to biome, smart speaker event is missing media profile", buf, 0xCu);
 
-                        service = v131;
-                        type = v130;
+                        service = v130;
+                        type = v129;
                       }
 
-                      objc_autoreleasePoolPop(v127);
-                      v92 = 0;
+                      objc_autoreleasePoolPop(v126);
+                      v91 = 0;
                     }
 
-                    v80 = v219;
+                    v79 = v218;
                   }
 
                   else
                   {
-                    v92 = 0;
+                    v91 = 0;
                   }
 
-                  [v220 na_safeAddObject:v92];
+                  [v219 na_safeAddObject:v91];
                 }
 
                 else
                 {
-                  v98 = v222;
+                  v97 = v221;
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v99 = v98;
+                    v98 = v97;
                   }
 
                   else
                   {
-                    v99 = 0;
+                    v98 = 0;
                   }
 
-                  v100 = v99;
+                  v99 = v98;
 
-                  v101 = v98;
+                  v100 = v97;
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v102 = v101;
+                    v101 = v100;
                   }
 
                   else
                   {
-                    v102 = 0;
+                    v101 = 0;
                   }
 
-                  v103 = v102;
+                  v102 = v101;
 
-                  v104 = v101;
+                  v103 = v100;
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v105 = v104;
+                    v104 = v103;
                   }
 
                   else
                   {
-                    v105 = 0;
+                    v104 = 0;
                   }
 
-                  v106 = v105;
+                  v105 = v104;
 
-                  v200 = v106;
-                  v202 = v100;
-                  v198 = v103;
-                  if (v100)
+                  v199 = v105;
+                  v201 = v99;
+                  v197 = v102;
+                  if (v99)
                   {
-                    v178 = objc_alloc(MEMORY[0x277CF1960]);
+                    v177 = objc_alloc(MEMORY[0x277CF1960]);
                     accessoryUniqueIdentifier2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryUniqueIdentifier];
                     uUIDString4 = [accessoryUniqueIdentifier2 UUIDString];
                     spiClientIdentifier = [service spiClientIdentifier];
                     uUIDString5 = [spiClientIdentifier UUIDString];
                     serviceUUIDToServiceGroupUniqueIdentifier = [(HMDCharacteristicReadWriteLogEvent *)self serviceUUIDToServiceGroupUniqueIdentifier];
                     uuid = [service uuid];
-                    v192 = serviceUUIDToServiceGroupUniqueIdentifier;
-                    v189 = [serviceUUIDToServiceGroupUniqueIdentifier objectForKeyedSubscript:?];
-                    uUIDString6 = [v189 UUIDString];
+                    v191 = serviceUUIDToServiceGroupUniqueIdentifier;
+                    v188 = [serviceUUIDToServiceGroupUniqueIdentifier objectForKeyedSubscript:?];
+                    uUIDString6 = [v188 UUIDString];
                     accessoryZoneUniqueIdentifiers2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryZoneUniqueIdentifiers];
                     accessoryRoomUniqueIdentifier2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryRoomUniqueIdentifier];
                     uUIDString7 = [accessoryRoomUniqueIdentifier2 UUIDString];
@@ -529,38 +529,38 @@ LABEL_105:
                     accessoryRoomName2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryRoomName];
                     serviceUUIDToServiceGroupName = [(HMDCharacteristicReadWriteLogEvent *)self serviceUUIDToServiceGroupName];
                     uuid2 = [service uuid];
-                    v187 = serviceUUIDToServiceGroupName;
-                    v112 = [serviceUUIDToServiceGroupName objectForKeyedSubscript:?];
+                    v186 = serviceUUIDToServiceGroupName;
+                    v111 = [serviceUUIDToServiceGroupName objectForKeyedSubscript:?];
                     accessoryZoneNames2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryZoneNames];
                     homeName = [(HMDCharacteristicReadWriteLogEvent *)self homeName];
-                    v184 = accessoryZoneNames2;
-                    v174 = accessoryZoneNames2;
-                    v185 = v112;
-                    v171 = v112;
+                    v183 = accessoryZoneNames2;
+                    v173 = accessoryZoneNames2;
+                    v184 = v111;
+                    v170 = v111;
                     accessoryRoomName4 = accessoryRoomName2;
                     accessoryName4 = accessoryName2;
-                    v168 = accessoryName2;
+                    v167 = accessoryName2;
                     name3 = name;
-                    v115 = uUIDString7;
-                    v116 = v202;
-                    v117 = [v178 initWithBase:v221 numberAccessoryState:v202 accessoryUniqueIdentifier:uUIDString4 serviceUniqueIdentifier:uUIDString5 serviceType:v218 characteristicType:v224 serviceGroupUniqueIdentifier:uUIDString6 zoneUniqueIdentifiers:accessoryZoneUniqueIdentifiers2 roomUniqueIdentifier:uUIDString7 accessoryName:v168 serviceName:name roomName:accessoryRoomName2 serviceGroupName:v171 zoneNames:v174 homeName:homeName];
-                    v118 = v198;
+                    v114 = uUIDString7;
+                    v115 = v201;
+                    v116 = [v177 initWithBase:v220 numberAccessoryState:v201 accessoryUniqueIdentifier:uUIDString4 serviceUniqueIdentifier:uUIDString5 serviceType:v217 characteristicType:v223 serviceGroupUniqueIdentifier:uUIDString6 zoneUniqueIdentifiers:accessoryZoneUniqueIdentifiers2 roomUniqueIdentifier:uUIDString7 accessoryName:v167 serviceName:name roomName:accessoryRoomName2 serviceGroupName:v170 zoneNames:v173 homeName:homeName];
+                    v117 = v197;
                   }
 
                   else
                   {
-                    if (v103)
+                    if (v102)
                     {
-                      v179 = objc_alloc(MEMORY[0x277CF1960]);
+                      v178 = objc_alloc(MEMORY[0x277CF1960]);
                       accessoryUniqueIdentifier2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryUniqueIdentifier];
                       uUIDString4 = [accessoryUniqueIdentifier2 UUIDString];
                       spiClientIdentifier = [service spiClientIdentifier];
                       uUIDString5 = [spiClientIdentifier UUIDString];
                       serviceUUIDToServiceGroupUniqueIdentifier2 = [(HMDCharacteristicReadWriteLogEvent *)self serviceUUIDToServiceGroupUniqueIdentifier];
                       uuid = [service uuid];
-                      v192 = serviceUUIDToServiceGroupUniqueIdentifier2;
-                      v189 = [serviceUUIDToServiceGroupUniqueIdentifier2 objectForKeyedSubscript:?];
-                      uUIDString6 = [v189 UUIDString];
+                      v191 = serviceUUIDToServiceGroupUniqueIdentifier2;
+                      v188 = [serviceUUIDToServiceGroupUniqueIdentifier2 objectForKeyedSubscript:?];
+                      uUIDString6 = [v188 UUIDString];
                       accessoryZoneUniqueIdentifiers2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryZoneUniqueIdentifiers];
                       accessoryRoomUniqueIdentifier2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryRoomUniqueIdentifier];
                       uUIDString8 = [accessoryRoomUniqueIdentifier2 UUIDString];
@@ -569,64 +569,64 @@ LABEL_105:
                       accessoryRoomName3 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryRoomName];
                       serviceUUIDToServiceGroupName2 = [(HMDCharacteristicReadWriteLogEvent *)self serviceUUIDToServiceGroupName];
                       uuid2 = [service uuid];
-                      v187 = serviceUUIDToServiceGroupName2;
-                      v124 = [serviceUUIDToServiceGroupName2 objectForKeyedSubscript:?];
+                      v186 = serviceUUIDToServiceGroupName2;
+                      v123 = [serviceUUIDToServiceGroupName2 objectForKeyedSubscript:?];
                       accessoryZoneNames3 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryZoneNames];
                       homeName = [(HMDCharacteristicReadWriteLogEvent *)self homeName];
-                      v184 = accessoryZoneNames3;
-                      v185 = v124;
-                      v170 = accessoryRoomName3;
-                      v172 = v124;
+                      v183 = accessoryZoneNames3;
+                      v184 = v123;
+                      v169 = accessoryRoomName3;
+                      v171 = v123;
                       accessoryRoomName4 = accessoryRoomName3;
                       accessoryName4 = accessoryName3;
-                      v169 = accessoryName3;
+                      v168 = accessoryName3;
                       name3 = name2;
-                      v115 = uUIDString8;
-                      v118 = v198;
-                      v126 = [v179 initWithBase:v221 stringAccessoryState:v198 accessoryUniqueIdentifier:uUIDString4 serviceUniqueIdentifier:uUIDString5 serviceType:v218 characteristicType:v224 serviceGroupUniqueIdentifier:uUIDString6 zoneUniqueIdentifiers:accessoryZoneUniqueIdentifiers2 roomUniqueIdentifier:uUIDString8 accessoryName:v169 serviceName:name2 roomName:v170 serviceGroupName:v172 zoneNames:accessoryZoneNames3 homeName:homeName];
+                      v114 = uUIDString8;
+                      v117 = v197;
+                      v125 = [v178 initWithBase:v220 stringAccessoryState:v197 accessoryUniqueIdentifier:uUIDString4 serviceUniqueIdentifier:uUIDString5 serviceType:v217 characteristicType:v223 serviceGroupUniqueIdentifier:uUIDString6 zoneUniqueIdentifiers:accessoryZoneUniqueIdentifiers2 roomUniqueIdentifier:uUIDString8 accessoryName:v168 serviceName:name2 roomName:v169 serviceGroupName:v171 zoneNames:accessoryZoneNames3 homeName:homeName];
                     }
 
                     else
                     {
-                      if (!v106)
+                      if (!v105)
                       {
-                        v156 = service;
-                        v157 = objc_autoreleasePoolPush();
+                        v155 = service;
+                        v156 = objc_autoreleasePoolPush();
                         selfCopy9 = self;
-                        v159 = HMFGetOSLogHandle();
-                        if (os_log_type_enabled(v159, OS_LOG_TYPE_INFO))
+                        v158 = HMFGetOSLogHandle();
+                        if (os_log_type_enabled(v158, OS_LOG_TYPE_INFO))
                         {
-                          v160 = HMFGetLogIdentifier();
-                          v161 = objc_opt_class();
+                          v159 = HMFGetLogIdentifier();
+                          v160 = objc_opt_class();
                           *buf = 138544386;
-                          v230 = v160;
-                          v231 = 2112;
-                          v232 = v161;
-                          v233 = 2112;
-                          v234 = v228;
-                          v235 = 2112;
-                          v236 = v156;
-                          v237 = 2112;
-                          v238 = v104;
-                          v162 = v161;
-                          _os_log_impl(&dword_229538000, v159, OS_LOG_TYPE_INFO, "%{public}@Unable to log event metadata to biome, unknown write value type (%@) for characteristic: %@, Service: %@, written value: %@", buf, 0x34u);
+                          v229 = v159;
+                          v230 = 2112;
+                          v231 = v160;
+                          v232 = 2112;
+                          v233 = v227;
+                          v234 = 2112;
+                          v235 = v155;
+                          v236 = 2112;
+                          v237 = v103;
+                          v161 = v160;
+                          _os_log_impl(&dword_229538000, v158, OS_LOG_TYPE_INFO, "%{public}@Unable to log event metadata to biome, unknown write value type (%@) for characteristic: %@, Service: %@, written value: %@", buf, 0x34u);
                         }
 
-                        objc_autoreleasePoolPop(v157);
-                        service = v156;
+                        objc_autoreleasePoolPop(v156);
+                        service = v155;
                         goto LABEL_108;
                       }
 
-                      v182 = objc_alloc(MEMORY[0x277CF1960]);
+                      v181 = objc_alloc(MEMORY[0x277CF1960]);
                       accessoryUniqueIdentifier2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryUniqueIdentifier];
                       uUIDString4 = [accessoryUniqueIdentifier2 UUIDString];
                       spiClientIdentifier = [service spiClientIdentifier];
                       uUIDString5 = [spiClientIdentifier UUIDString];
                       serviceUUIDToServiceGroupUniqueIdentifier3 = [(HMDCharacteristicReadWriteLogEvent *)self serviceUUIDToServiceGroupUniqueIdentifier];
                       uuid = [service uuid];
-                      v192 = serviceUUIDToServiceGroupUniqueIdentifier3;
-                      v189 = [serviceUUIDToServiceGroupUniqueIdentifier3 objectForKeyedSubscript:?];
-                      uUIDString6 = [v189 UUIDString];
+                      v191 = serviceUUIDToServiceGroupUniqueIdentifier3;
+                      v188 = [serviceUUIDToServiceGroupUniqueIdentifier3 objectForKeyedSubscript:?];
+                      uUIDString6 = [v188 UUIDString];
                       accessoryZoneUniqueIdentifiers2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryZoneUniqueIdentifiers];
                       accessoryRoomUniqueIdentifier2 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryRoomUniqueIdentifier];
                       uUIDString9 = [accessoryRoomUniqueIdentifier2 UUIDString];
@@ -635,24 +635,24 @@ LABEL_105:
                       accessoryRoomName4 = [(HMDCharacteristicReadWriteLogEvent *)self accessoryRoomName];
                       serviceUUIDToServiceGroupName3 = [(HMDCharacteristicReadWriteLogEvent *)self serviceUUIDToServiceGroupName];
                       uuid2 = [service uuid];
-                      v187 = serviceUUIDToServiceGroupName3;
-                      v140 = [serviceUUIDToServiceGroupName3 objectForKeyedSubscript:?];
+                      v186 = serviceUUIDToServiceGroupName3;
+                      v139 = [serviceUUIDToServiceGroupName3 objectForKeyedSubscript:?];
                       [(HMDCharacteristicReadWriteLogEvent *)self accessoryZoneNames];
-                      v141 = v106;
-                      v142 = v115 = uUIDString9;
+                      v140 = v105;
+                      v141 = v114 = uUIDString9;
                       homeName = [(HMDCharacteristicReadWriteLogEvent *)self homeName];
-                      v184 = v142;
-                      v185 = v140;
-                      v173 = v140;
-                      v118 = v198;
-                      v126 = [v182 initWithBase:v221 dataAccessoryState:v141 accessoryUniqueIdentifier:uUIDString4 serviceUniqueIdentifier:uUIDString5 serviceType:v218 characteristicType:v224 serviceGroupUniqueIdentifier:uUIDString6 zoneUniqueIdentifiers:accessoryZoneUniqueIdentifiers2 roomUniqueIdentifier:v115 accessoryName:accessoryName4 serviceName:name3 roomName:accessoryRoomName4 serviceGroupName:v173 zoneNames:v142 homeName:homeName];
+                      v183 = v141;
+                      v184 = v139;
+                      v172 = v139;
+                      v117 = v197;
+                      v125 = [v181 initWithBase:v220 dataAccessoryState:v140 accessoryUniqueIdentifier:uUIDString4 serviceUniqueIdentifier:uUIDString5 serviceType:v217 characteristicType:v223 serviceGroupUniqueIdentifier:uUIDString6 zoneUniqueIdentifiers:accessoryZoneUniqueIdentifiers2 roomUniqueIdentifier:v114 accessoryName:accessoryName4 serviceName:name3 roomName:accessoryRoomName4 serviceGroupName:v172 zoneNames:v141 homeName:homeName];
                     }
 
-                    v117 = v126;
-                    v116 = 0;
+                    v116 = v125;
+                    v115 = 0;
                   }
 
-                  [v220 addObject:v117];
+                  [v219 addObject:v116];
                 }
 
 LABEL_108:
@@ -663,92 +663,92 @@ LABEL_108:
               goto LABEL_59;
             }
 
-            v72 = objc_autoreleasePoolPush();
-            v73 = observerCopy;
-            v74 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+            v71 = objc_autoreleasePoolPush();
+            v72 = observerCopy;
+            v73 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
             {
               HMFGetLogIdentifier();
-              v76 = v75 = v52;
+              v75 = v74 = v51;
               *buf = 138543362;
-              v230 = v76;
-              _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_ERROR, "%{public}@HAP event ineligible for donation because data source is nil", buf, 0xCu);
+              v229 = v75;
+              _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_ERROR, "%{public}@HAP event ineligible for donation because data source is nil", buf, 0xCu);
 
-              v52 = v75;
+              v51 = v74;
               self = selfCopy3;
             }
 
-            objc_autoreleasePoolPop(v72);
-            v54 = v224;
+            objc_autoreleasePoolPop(v71);
+            v53 = v223;
           }
 
 LABEL_59:
-          v61 = objc_autoreleasePoolPush();
+          v60 = objc_autoreleasePoolPush();
           selfCopy12 = self;
-          v63 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+          v62 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
           {
             HMFGetLogIdentifier();
-            v93 = type;
-            v95 = v94 = service;
+            v92 = type;
+            v94 = v93 = service;
             *buf = 138543874;
-            v230 = v95;
-            v231 = 2112;
-            v232 = v228;
-            v233 = 2112;
-            v234 = v94;
-            _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_DEBUG, "%{public}@Unable to log event metadata to biome, not eligible for donation. Characteristic: %@, Service: %@", buf, 0x20u);
+            v229 = v94;
+            v230 = 2112;
+            v231 = v227;
+            v232 = 2112;
+            v233 = v93;
+            _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_DEBUG, "%{public}@Unable to log event metadata to biome, not eligible for donation. Characteristic: %@, Service: %@", buf, 0x20u);
 
-            service = v94;
-            type = v93;
+            service = v93;
+            type = v92;
           }
 
           goto LABEL_61;
         }
 
-        v61 = objc_autoreleasePoolPush();
+        v60 = objc_autoreleasePoolPush();
         selfCopy12 = self;
-        v63 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+        v62 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v67 = type;
-          v69 = v68 = service;
-          v70 = [MEMORY[0x277CCABB0] numberWithInt:v46];
+          v66 = type;
+          v68 = v67 = service;
+          v69 = [MEMORY[0x277CCABB0] numberWithInt:v45];
           *buf = 138543874;
-          v230 = v69;
-          v231 = 2112;
-          v232 = v228;
-          v233 = 2112;
-          v234 = v70;
-          _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_ERROR, "%{public}@Unable to log event metadata to biome, no characteristic type for characteristic (%@) at index: %@", buf, 0x20u);
+          v229 = v68;
+          v230 = 2112;
+          v231 = v227;
+          v232 = 2112;
+          v233 = v69;
+          _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_ERROR, "%{public}@Unable to log event metadata to biome, no characteristic type for characteristic (%@) at index: %@", buf, 0x20u);
 
-          service = v68;
-          type = v67;
-          v52 = 0;
+          service = v67;
+          type = v66;
+          v51 = 0;
           goto LABEL_37;
         }
       }
 
       else
       {
-        v61 = objc_autoreleasePoolPush();
+        v60 = objc_autoreleasePoolPush();
         selfCopy12 = self;
-        v63 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+        v62 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v65 = v64 = service;
-          v66 = [MEMORY[0x277CCABB0] numberWithInt:v46];
+          v64 = v63 = service;
+          v65 = [MEMORY[0x277CCABB0] numberWithInt:v45];
           *buf = 138543874;
-          v230 = v65;
-          v231 = 2112;
-          v232 = v228;
-          v233 = 2112;
-          v234 = v66;
-          _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_ERROR, "%{public}@Unable to log event metadata to biome, no service type for characteristic (%@) at index: %@", buf, 0x20u);
+          v229 = v64;
+          v230 = 2112;
+          v231 = v227;
+          v232 = 2112;
+          v233 = v65;
+          _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_ERROR, "%{public}@Unable to log event metadata to biome, no service type for characteristic (%@) at index: %@", buf, 0x20u);
 
-          service = v64;
+          service = v63;
           type = 0;
 LABEL_37:
           self = selfCopy3;
@@ -757,21 +757,20 @@ LABEL_37:
 
 LABEL_61:
 
-      objc_autoreleasePoolPop(v61);
+      objc_autoreleasePoolPop(v60);
 LABEL_62:
 
-      ++v46;
+      ++v45;
       characteristicsInRequest7 = [(HMDCharacteristicReadWriteLogEvent *)self characteristicsInRequest];
-      v97 = [characteristicsInRequest7 count];
+      v96 = [characteristicsInRequest7 count];
     }
 
-    while (v97 > v46);
+    while (v96 > v45);
   }
 
-  v30 = [v220 copy];
+  v30 = objc_msgSend_copy(v219);
 
 LABEL_16:
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -809,17 +808,7 @@ uint64_t __108__HMDCharacteristicReadWriteLogEvent_MicroLocationLogging__firstDo
   v3 = a2;
   v4 = [v3 service];
   v5 = v4;
-  if (!v4)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = *(a1 + 32);
-  v7 = [v4 type];
-  v8 = [v3 type];
-  LODWORD(v6) = [(HMDMicroLocationLogEventObserver *)v6 isEligibleForDonationWithHAPServiceType:v7 HAPCharacteristicType:v8];
-
-  if (v6)
+  if (v4 && (v6 = *(a1 + 32), [v4 type], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "type"), v8 = objc_claimAutoreleasedReturnValue(), LODWORD(v6) = -[HMDMicroLocationLogEventObserver isEligibleForDonationWithHAPServiceType:HAPCharacteristicType:](v6, v7, v8), v8, v7, v6))
   {
     v9 = [*(a1 + 40) numAccessoriesInHome];
     v10 = [*(a1 + 40) numNonEmptyScenesInHome];
@@ -837,7 +826,6 @@ uint64_t __108__HMDCharacteristicReadWriteLogEvent_MicroLocationLogging__firstDo
 
   else
   {
-LABEL_6:
     v12 = 0;
   }
 
@@ -872,17 +860,7 @@ uint64_t __119__HMDCharacteristicReadWriteLogEvent_MicroLocationLogging__shouldT
   v3 = a2;
   v4 = [v3 service];
   v5 = v4;
-  if (!v4)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = *(a1 + 32);
-  v7 = [v4 type];
-  v8 = [v3 type];
-  LODWORD(v6) = [(HMDMicroLocationLogEventObserver *)v6 isEligibleForDonationWithHAPServiceType:v7 HAPCharacteristicType:v8];
-
-  if (v6)
+  if (v4 && (v6 = *(a1 + 32), [v4 type], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "type"), v8 = objc_claimAutoreleasedReturnValue(), LODWORD(v6) = -[HMDMicroLocationLogEventObserver isEligibleForDonationWithHAPServiceType:HAPCharacteristicType:](v6, v7, v8), v8, v7, v6))
   {
     v9 = [*(a1 + 40) numAccessoriesInHome];
     v10 = [*(a1 + 40) numNonEmptyScenesInHome];
@@ -900,7 +878,6 @@ uint64_t __119__HMDCharacteristicReadWriteLogEvent_MicroLocationLogging__shouldT
 
   else
   {
-LABEL_6:
     v12 = 0;
   }
 
@@ -935,17 +912,7 @@ uint64_t __122__HMDCharacteristicReadWriteLogEvent_MicroLocationLogging__shouldT
   v3 = a2;
   v4 = [v3 service];
   v5 = v4;
-  if (!v4)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = *(a1 + 32);
-  v7 = [v4 type];
-  v8 = [v3 type];
-  LODWORD(v6) = [(HMDMicroLocationLogEventObserver *)v6 isEligibleForDonationWithHAPServiceType:v7 HAPCharacteristicType:v8];
-
-  if (v6)
+  if (v4 && (v6 = *(a1 + 32), [v4 type], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "type"), v8 = objc_claimAutoreleasedReturnValue(), LODWORD(v6) = -[HMDMicroLocationLogEventObserver isEligibleForDonationWithHAPServiceType:HAPCharacteristicType:](v6, v7, v8), v8, v7, v6))
   {
     v9 = [*(a1 + 40) numAccessoriesInHome];
     v10 = [*(a1 + 40) numNonEmptyScenesInHome];
@@ -963,7 +930,6 @@ uint64_t __122__HMDCharacteristicReadWriteLogEvent_MicroLocationLogging__shouldT
 
   else
   {
-LABEL_6:
     v12 = 0;
   }
 
@@ -1589,14 +1555,14 @@ LABEL_6:
     [dictionary setObject:domain3 forKeyedSubscript:@"coreHAPRetryErrorDomain"];
   }
 
-  v126 = [dictionary copy];
+  v126 = objc_msgSend_copy(dictionary);
 
   return v126;
 }
 
 - (void)_setBtLoad
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[HMDWirelessLoadManager sharedInstance];
   getBtLoadData = [v3 getBtLoadData];
   v5 = [getBtLoadData objectForKeyedSubscript:@"kBtLoadKey"];
@@ -1614,27 +1580,26 @@ LABEL_6:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138544130;
-    v14 = v11;
-    v15 = 1024;
+    v12 = 138544130;
+    v13 = v11;
+    v14 = 1024;
     btLoad = [(HMDCharacteristicReadWriteLogEvent *)selfCopy btLoad];
-    v17 = 1024;
+    v16 = 1024;
     btAudioTask = [(HMDCharacteristicReadWriteLogEvent *)selfCopy btAudioTask];
-    v19 = 1024;
+    v18 = 1024;
     btNonAudioTask = [(HMDCharacteristicReadWriteLogEvent *)selfCopy btNonAudioTask];
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@RW BT Load: %d AudioTsk: %d NonAudioTsk: %d", &v13, 0x1Eu);
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@RW BT Load: %d AudioTsk: %d NonAudioTsk: %d", &v12, 0x1Eu);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareForObservation
 {
-  v68 = *MEMORY[0x277D85DE8];
-  v31.receiver = self;
-  v31.super_class = HMDCharacteristicReadWriteLogEvent;
-  [(HMMLogEvent *)&v31 prepareForObservation];
+  v67 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = HMDCharacteristicReadWriteLogEvent;
+  [(HMMLogEvent *)&v30 prepareForObservation];
   readWriteLogEventManager = [(HMDCharacteristicReadWriteLogEvent *)self readWriteLogEventManager];
   [readWriteLogEventManager _updateNetworkStatisticsForLogEvent:self];
 
@@ -1648,7 +1613,7 @@ LABEL_6:
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v30 = HMFGetLogIdentifier();
+    v29 = HMFGetLogIdentifier();
     if ([(HMDCharacteristicReadWriteLogEvent *)self isWriteOperation])
     {
       v6 = @"Writing";
@@ -1691,60 +1656,59 @@ LABEL_6:
       v8 = v10;
     }
 
-    v20 = v8;
-    v19 = HMDRequestSourceAsLegacyMetricString([(HMDCharacteristicReadWriteLogEvent *)self triggerSource]);
+    v19 = v8;
+    v18 = HMDRequestSourceAsLegacyMetricString([(HMDCharacteristicReadWriteLogEvent *)self triggerSource]);
     [(HMDCharacteristicReadWriteLogEvent *)self isReachable];
     v11 = HMFBooleanToString();
     [(HMDCharacteristicReadWriteLogEvent *)self hasSession];
-    v18 = HMFBooleanToString();
+    v17 = HMFBooleanToString();
     recentSessionRetries = [(HMDCharacteristicReadWriteLogEvent *)self recentSessionRetries];
     topSessionFailureErrorDomain = [(HMDCharacteristicReadWriteLogEvent *)self topSessionFailureErrorDomain];
     topSessionFailureErrorCode = [(HMDCharacteristicReadWriteLogEvent *)self topSessionFailureErrorCode];
     [(HMDCharacteristicReadWriteLogEvent *)self isHomeThreadCapable];
     v14 = HMFBooleanToString();
     *buf = 138547714;
-    v33 = v30;
-    v34 = 2114;
-    v35 = v6;
-    v36 = 2050;
-    v37 = v7;
-    v38 = 2114;
-    v39 = accessoryUUID;
-    v40 = 2112;
-    v41 = accessoryManufacturer;
-    v42 = 2114;
-    v43 = error;
-    v44 = 2114;
-    v45 = residentFirstError;
-    v46 = 2048;
-    v47 = durationMilliseconds;
-    v48 = 2048;
-    v49 = localDurationInMilliseconds;
-    v50 = 2048;
-    v51 = residentFirstDurationInMilliseconds;
-    v52 = 2114;
-    v53 = v20;
-    v54 = 2114;
-    v55 = v19;
-    v56 = 2114;
-    v57 = v11;
-    v58 = 2114;
-    v59 = v18;
-    v60 = 2048;
-    v61 = recentSessionRetries;
-    v62 = 2112;
-    v63 = topSessionFailureErrorDomain;
-    v64 = 2048;
-    v65 = topSessionFailureErrorCode;
-    v66 = 2114;
-    v67 = v14;
+    v32 = v29;
+    v33 = 2114;
+    v34 = v6;
+    v35 = 2050;
+    v36 = v7;
+    v37 = 2114;
+    v38 = accessoryUUID;
+    v39 = 2112;
+    v40 = accessoryManufacturer;
+    v41 = 2114;
+    v42 = error;
+    v43 = 2114;
+    v44 = residentFirstError;
+    v45 = 2048;
+    v46 = durationMilliseconds;
+    v47 = 2048;
+    v48 = localDurationInMilliseconds;
+    v49 = 2048;
+    v50 = residentFirstDurationInMilliseconds;
+    v51 = 2114;
+    v52 = v19;
+    v53 = 2114;
+    v54 = v18;
+    v55 = 2114;
+    v56 = v11;
+    v57 = 2114;
+    v58 = v17;
+    v59 = 2048;
+    v60 = recentSessionRetries;
+    v61 = 2112;
+    v62 = topSessionFailureErrorDomain;
+    v63 = 2048;
+    v64 = topSessionFailureErrorCode;
+    v65 = 2114;
+    v66 = v14;
     v15 = v14;
     v5 = log;
     _os_log_impl(&dword_229538000, log, OS_LOG_TYPE_INFO, "%{public}@[CA] HMDCharacteristicReadWriteLogEvent -- %{public}@ %{public}tu characteristic(s) on accessory %{public}@ (%@) completed with error: %{public}@ (Resident first error: %{public}@), Total duration: %ld ms (Local duration: %ld ms, Resident first duration: %ld ms) using transport: %{public}@, Request source: %{public}@, isReachable:%{public}@, hasSession: %{public}@, recentSessionRetries: %lu, topSessionFailureErrorDomain: %@, topSessionFailureErrorCode: %ld, homeThreadCapable: %{public}@", buf, 0xB6u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markEndTime
@@ -1774,7 +1738,7 @@ LABEL_6:
   [(HMDCharacteristicReadWriteLogEvent *)self setResidentFirstUnderlyingError:0];
   if (errorCopy && ![(HMDCharacteristicReadWriteLogEvent *)self isCurrentDevicePrimaryResident])
   {
-    v5 = [errorCopy copy];
+    v5 = objc_msgSend_copy(errorCopy);
     underlyingErrors = [v5 underlyingErrors];
     v7 = [underlyingErrors count];
 
@@ -1804,7 +1768,7 @@ LABEL_6:
 
 - (void)_updateResidentFirstErrorWithHomeHubError
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   residentFirstError = [(HMDCharacteristicReadWriteLogEvent *)self residentFirstError];
 
   if (!residentFirstError)
@@ -1819,115 +1783,118 @@ LABEL_6:
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           v8 = HMFGetLogIdentifier();
-          v22 = 138543362;
-          v23 = v8;
-          _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: Current device has no cellular or wifi data connectivity", &v22, 0xCu);
+          v21 = 138543362;
+          v22 = v8;
+          _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: Current device has no cellular or wifi data connectivity", &v21, 0xCu);
         }
 
         v9 = 3605;
-LABEL_32:
-
-        objc_autoreleasePoolPop(v5);
-        v20 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:v9];
-        [(HMDCharacteristicReadWriteLogEvent *)self setResidentFirstError:v20];
-
-        goto LABEL_33;
       }
 
-      if (![(HMDCharacteristicReadWriteLogEvent *)self isNetworkAvailable])
+      else if ([(HMDCharacteristicReadWriteLogEvent *)self isNetworkAvailable])
       {
-        v5 = objc_autoreleasePoolPush();
-        selfCopy2 = self;
-        v7 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        if ([(HMDCharacteristicReadWriteLogEvent *)self isRemoteAccessAllowed])
         {
-          v13 = HMFGetLogIdentifier();
-          v22 = 138543362;
-          v23 = v13;
-          _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: Current device has no network connectivity", &v22, 0xCu);
+          if ([(HMDCharacteristicReadWriteLogEvent *)self isResidentAvailable])
+          {
+            if ([(HMDCharacteristicReadWriteLogEvent *)self isPrimaryResidentAvailable])
+            {
+              if ([(HMDCharacteristicReadWriteLogEvent *)self isPrimaryResidentReachable])
+              {
+                return;
+              }
+
+              v5 = objc_autoreleasePoolPush();
+              selfCopy2 = self;
+              v7 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+              {
+                v11 = HMFGetLogIdentifier();
+                v21 = 138543362;
+                v22 = v11;
+                _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: Primary resident is unreachable", &v21, 0xCu);
+              }
+
+              v9 = 3602;
+            }
+
+            else
+            {
+              v5 = objc_autoreleasePoolPush();
+              selfCopy3 = self;
+              v7 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+              {
+                v19 = HMFGetLogIdentifier();
+                v21 = 138543362;
+                v22 = v19;
+                _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: No primary resident in home", &v21, 0xCu);
+              }
+
+              v9 = 3601;
+            }
+          }
+
+          else
+          {
+            v5 = objc_autoreleasePoolPush();
+            selfCopy4 = self;
+            v7 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+            {
+              v17 = HMFGetLogIdentifier();
+              v21 = 138543362;
+              v22 = v17;
+              _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: No resident in this home", &v21, 0xCu);
+            }
+
+            v9 = 3600;
+          }
         }
 
-        v9 = 3604;
-        goto LABEL_32;
-      }
-
-      if (![(HMDCharacteristicReadWriteLogEvent *)self isRemoteAccessAllowed])
-      {
-        v5 = objc_autoreleasePoolPush();
-        selfCopy3 = self;
-        v7 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        else
         {
-          v15 = HMFGetLogIdentifier();
-          v22 = 138543362;
-          v23 = v15;
-          _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: Current user is not allowed remote access", &v22, 0xCu);
-        }
+          v5 = objc_autoreleasePoolPush();
+          selfCopy5 = self;
+          v7 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+          {
+            v15 = HMFGetLogIdentifier();
+            v21 = 138543362;
+            v22 = v15;
+            _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: Current user is not allowed remote access", &v21, 0xCu);
+          }
 
-        v9 = 3606;
-        goto LABEL_32;
+          v9 = 3606;
+        }
       }
 
-      if (![(HMDCharacteristicReadWriteLogEvent *)self isResidentAvailable])
-      {
-        v5 = objc_autoreleasePoolPush();
-        selfCopy4 = self;
-        v7 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-        {
-          v17 = HMFGetLogIdentifier();
-          v22 = 138543362;
-          v23 = v17;
-          _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: No resident in this home", &v22, 0xCu);
-        }
-
-        v9 = 3600;
-        goto LABEL_32;
-      }
-
-      if (![(HMDCharacteristicReadWriteLogEvent *)self isPrimaryResidentAvailable])
-      {
-        v5 = objc_autoreleasePoolPush();
-        selfCopy5 = self;
-        v7 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-        {
-          v19 = HMFGetLogIdentifier();
-          v22 = 138543362;
-          v23 = v19;
-          _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: No primary resident in home", &v22, 0xCu);
-        }
-
-        v9 = 3601;
-        goto LABEL_32;
-      }
-
-      if (![(HMDCharacteristicReadWriteLogEvent *)self isPrimaryResidentReachable])
+      else
       {
         v5 = objc_autoreleasePoolPush();
         selfCopy6 = self;
         v7 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          v11 = HMFGetLogIdentifier();
-          v22 = 138543362;
-          v23 = v11;
-          _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: Primary resident is unreachable", &v22, 0xCu);
+          v13 = HMFGetLogIdentifier();
+          v21 = 138543362;
+          v22 = v13;
+          _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@HomeHub-ResidentFirstError: Current device has no network connectivity", &v21, 0xCu);
         }
 
-        v9 = 3602;
-        goto LABEL_32;
+        v9 = 3604;
       }
+
+      objc_autoreleasePoolPop(v5);
+      v20 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:v9];
+      [(HMDCharacteristicReadWriteLogEvent *)self setResidentFirstError:v20];
     }
   }
-
-LABEL_33:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isRequestForTHSensorOnAppleMediaAccessory:(id)accessory characteristicsInRequest:(id)request
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   requestCopy = request;
   hostAccessory = [accessoryCopy hostAccessory];
@@ -1941,34 +1908,34 @@ LABEL_33:
     v10 = 0;
     if ((isKindOfClass & 1) != 0 && hostAccessory2)
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v11 = requestCopy;
-      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v24;
-        v22 = requestCopy;
+        v14 = *v23;
+        v21 = requestCopy;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v24 != v14)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            service = [*(*(&v23 + 1) + 8 * i) service];
+            service = [*(*(&v22 + 1) + 8 * i) service];
             type = [service type];
             if ([type isEqualToString:@"0000008A-0000-1000-8000-0026BB765291"])
             {
 
 LABEL_17:
               v10 = 1;
-              requestCopy = v22;
+              requestCopy = v21;
               goto LABEL_18;
             }
 
@@ -1981,9 +1948,9 @@ LABEL_17:
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
           v10 = 0;
-          requestCopy = v22;
+          requestCopy = v21;
           if (v13)
           {
             continue;
@@ -2007,13 +1974,12 @@ LABEL_18:
     v10 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)updateWithTHSensorNetworkData:(id)data primaryNetworkData:(id)networkData accessoryServer:(id)server
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   networkDataCopy = networkData;
   serverCopy = server;
@@ -2046,26 +2012,26 @@ LABEL_18:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v23 = v107 = v17;
+      v23 = v106 = v17;
       networkInformationCache3 = [v10 networkInformationCache];
       [networkInformationCache3 wifiSSID];
-      v110 = v10;
+      v109 = v10;
       v26 = v25 = dataCopy;
       [networkDataCopy wifiSSID];
       v28 = v27 = networkDataCopy;
       *buf = 138543874;
-      v125 = v23;
-      v126 = 2112;
-      v127 = v26;
-      v128 = 2112;
-      v129 = v28;
+      v124 = v23;
+      v125 = 2112;
+      v126 = v26;
+      v127 = 2112;
+      v128 = v28;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Wifi information mismatch with statusKit data. Local wifi ssid: %@, statusKit wifi ssid: %@", buf, 0x20u);
 
       networkDataCopy = v27;
       dataCopy = v25;
-      v10 = v110;
+      v10 = v109;
 
-      v17 = v107;
+      v17 = v106;
     }
 
     objc_autoreleasePoolPop(v20);
@@ -2194,12 +2160,12 @@ LABEL_18:
 
   if (v62)
   {
-    v113 = networkDataCopy;
+    v112 = networkDataCopy;
     currentSocketInfo = [v62 currentSocketInfo];
-    v108 = v62;
+    v107 = v62;
     cachedSocketInfo = [v62 cachedSocketInfo];
     v65 = cachedSocketInfo;
-    v109 = dataCopy;
+    v108 = dataCopy;
     if (!currentSocketInfo || !cachedSocketInfo || ([currentSocketInfo isEqual:cachedSocketInfo] & 1) == 0)
     {
       v66 = v65;
@@ -2209,31 +2175,31 @@ LABEL_18:
       if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v70 = v101 = v67;
+        v70 = v100 = v67;
         [currentSocketInfo shortDescription];
-        v71 = v103 = v55;
+        v71 = v102 = v55;
         [v66 shortDescription];
-        v105 = currentSocketInfo;
+        v104 = currentSocketInfo;
         v72 = v17;
         v74 = v73 = v10;
         *buf = 138543874;
-        v125 = v70;
-        v126 = 2112;
-        v127 = v71;
-        v128 = 2112;
-        v129 = v74;
+        v124 = v70;
+        v125 = 2112;
+        v126 = v71;
+        v127 = 2112;
+        v128 = v74;
         _os_log_impl(&dword_229538000, v69, OS_LOG_TYPE_INFO, "%{public}@Unexpected, current socket: %@ does not match cached socket: %@", buf, 0x20u);
 
         v10 = v73;
         v17 = v72;
-        currentSocketInfo = v105;
+        currentSocketInfo = v104;
 
-        v55 = v103;
-        v67 = v101;
+        v55 = v102;
+        v67 = v100;
       }
 
       objc_autoreleasePoolPop(v67);
-      dataCopy = v109;
+      dataCopy = v108;
       v65 = v66;
       if (!v66)
       {
@@ -2241,7 +2207,7 @@ LABEL_18:
       }
     }
 
-    v111 = v10;
+    v110 = v10;
     v75 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v65, "ipAddressType")}];
     [(HMDCharacteristicReadWriteLogEvent *)self setThSensorCachedSourceIPType:v75];
 
@@ -2249,25 +2215,25 @@ LABEL_18:
     v77 = [ipAddressString componentsSeparatedByString:@"%"];
     firstObject = [v77 firstObject];
 
-    v104 = firstObject;
+    v103 = firstObject;
     v79 = [firstObject dataUsingEncoding:4];
     v80 = HMDTruncatedHash(v79);
 
     ipAddressType = [v65 ipAddressType];
     if ((ipAddressType - 2) >= 3)
     {
-      v10 = v111;
+      v10 = v110;
       if (ipAddressType != 1)
       {
 LABEL_71:
 
 LABEL_72:
-        networkDataCopy = v113;
-        v62 = v108;
+        networkDataCopy = v112;
+        v62 = v107;
         goto LABEL_73;
       }
 
-      v102 = v65;
+      v101 = v65;
       v92 = [dataCopy objectForKeyedSubscript:@"NwI4"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -2282,36 +2248,36 @@ LABEL_72:
 
       v94 = v93;
 
-      v120 = 0u;
-      v121 = 0u;
-      v118 = 0u;
       v119 = 0u;
+      v120 = 0u;
+      v117 = 0u;
+      v118 = 0u;
       v85 = v94;
-      v95 = [v85 countByEnumeratingWithState:&v118 objects:v123 count:16];
+      v95 = [v85 countByEnumeratingWithState:&v117 objects:v122 count:16];
       if (!v95)
       {
 LABEL_70:
 
-        v10 = v111;
-        v65 = v102;
+        v10 = v110;
+        v65 = v101;
         goto LABEL_71;
       }
 
       v96 = v95;
-      v106 = currentSocketInfo;
+      v105 = currentSocketInfo;
       v88 = v55;
-      v97 = *v119;
+      v97 = *v118;
       v98 = MEMORY[0x277CBEC28];
       while (2)
       {
         for (i = 0; i != v96; ++i)
         {
-          if (*v119 != v97)
+          if (*v118 != v97)
           {
             objc_enumerationMutation(v85);
           }
 
-          if (v80 == [*(*(&v118 + 1) + 8 * i) longValue])
+          if (v80 == [*(*(&v117 + 1) + 8 * i) longValue])
           {
             [(HMDCharacteristicReadWriteLogEvent *)self setThSensorIPv4AddressSameAsCachedIP:MEMORY[0x277CBEC38]];
             goto LABEL_69;
@@ -2320,7 +2286,7 @@ LABEL_70:
           [(HMDCharacteristicReadWriteLogEvent *)self setThSensorIPv4AddressSameAsCachedIP:v98];
         }
 
-        v96 = [v85 countByEnumeratingWithState:&v118 objects:v123 count:16];
+        v96 = [v85 countByEnumeratingWithState:&v117 objects:v122 count:16];
         if (v96)
         {
           continue;
@@ -2332,7 +2298,7 @@ LABEL_70:
 
     else
     {
-      v102 = v65;
+      v101 = v65;
       v82 = [dataCopy objectForKeyedSubscript:@"NwI6"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -2347,32 +2313,32 @@ LABEL_70:
 
       v84 = v83;
 
-      v116 = 0u;
-      v117 = 0u;
-      v114 = 0u;
       v115 = 0u;
+      v116 = 0u;
+      v113 = 0u;
+      v114 = 0u;
       v85 = v84;
-      v86 = [v85 countByEnumeratingWithState:&v114 objects:v122 count:16];
+      v86 = [v85 countByEnumeratingWithState:&v113 objects:v121 count:16];
       if (!v86)
       {
         goto LABEL_70;
       }
 
       v87 = v86;
-      v106 = currentSocketInfo;
+      v105 = currentSocketInfo;
       v88 = v55;
-      v89 = *v115;
+      v89 = *v114;
       v90 = MEMORY[0x277CBEC28];
       while (2)
       {
         for (j = 0; j != v87; ++j)
         {
-          if (*v115 != v89)
+          if (*v114 != v89)
           {
             objc_enumerationMutation(v85);
           }
 
-          if (v80 == [*(*(&v114 + 1) + 8 * j) longValue])
+          if (v80 == [*(*(&v113 + 1) + 8 * j) longValue])
           {
             [(HMDCharacteristicReadWriteLogEvent *)self setThSensorIPv6AddressSameAsCachedIP:MEMORY[0x277CBEC38]];
             goto LABEL_69;
@@ -2381,7 +2347,7 @@ LABEL_70:
           [(HMDCharacteristicReadWriteLogEvent *)self setThSensorIPv6AddressSameAsCachedIP:v90];
         }
 
-        v87 = [v85 countByEnumeratingWithState:&v114 objects:v122 count:16];
+        v87 = [v85 countByEnumeratingWithState:&v113 objects:v121 count:16];
         if (v87)
         {
           continue;
@@ -2392,20 +2358,18 @@ LABEL_70:
     }
 
 LABEL_69:
-    dataCopy = v109;
+    dataCopy = v108;
     v55 = v88;
-    currentSocketInfo = v106;
+    currentSocketInfo = v105;
     goto LABEL_70;
   }
 
 LABEL_73:
-
-  v100 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateTHSensorMetricsForAccessory:(id)accessory accessoryServer:(id)server characteristicsInRequest:(id)request home:(id)home
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   hostAccessory = [accessory hostAccessory];
   objc_opt_class();
@@ -2423,30 +2387,30 @@ LABEL_73:
 
   if (v10)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    v26 = homeCopy;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v25 = homeCopy;
     residentDeviceManager = [homeCopy residentDeviceManager];
     residentDevices = [residentDeviceManager residentDevices];
 
     obj = residentDevices;
-    v13 = [residentDevices countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v13 = [residentDevices countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v30;
+      v15 = *v29;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v30 != v15)
+          if (*v29 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v29 + 1) + 8 * i);
+          v17 = *(*(&v28 + 1) + 8 * i);
           device = [v17 device];
           idsIdentifier = [device idsIdentifier];
           device2 = [v10 device];
@@ -2460,7 +2424,7 @@ LABEL_73:
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v14 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v14);
@@ -2469,16 +2433,14 @@ LABEL_73:
     v24 = [MEMORY[0x277CCABB0] numberWithInt:0];
     [(HMDCharacteristicReadWriteLogEvent *)self setThSensorReachable:v24];
 
-    homeCopy = v26;
+    homeCopy = v25;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCharacteristicReadWriteLogEvent)initWithStartTime:(double)time characteristics:(id)characteristics hmdAccessory:(id)accessory hapAccessory:(id)hapAccessory source:(unint64_t)source biomeSource:(unint64_t)biomeSource isWriteOperation:(BOOL)operation isTimedWrite:(BOOL)self0 isLocal:(BOOL)self1 transactionId:(id)self2 isCached:(BOOL)self3 bundleId:(id)self4 userUUID:(id)self5 writtenValues:(id)self6 readWriteLogEventManager:(id)self7
 {
   operationCopy = operation;
-  v259 = *MEMORY[0x277D85DE8];
+  v258 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   accessoryCopy = accessory;
   hapAccessoryCopy = hapAccessory;
@@ -2487,23 +2449,23 @@ LABEL_73:
   dCopy = d;
   valuesCopy = values;
   managerCopy = manager;
-  v228 = accessoryCopy;
+  v227 = accessoryCopy;
   home = [accessoryCopy home];
   uuid = [home uuid];
-  v247.receiver = self;
-  v247.super_class = HMDCharacteristicReadWriteLogEvent;
+  v246.receiver = self;
+  v246.super_class = HMDCharacteristicReadWriteLogEvent;
   v27 = home;
-  v28 = [(HMMDatedHomeLogEvent *)&v247 initWithStartTime:uuid homeUUID:time];
+  v28 = [(HMMDatedHomeLogEvent *)&v246 initWithStartTime:uuid homeUUID:time];
 
   if (!v28)
   {
     goto LABEL_90;
   }
 
-  v219 = valuesCopy;
+  v218 = valuesCopy;
   objc_storeStrong(&v28->_readWriteLogEventManager, manager);
   readWriteLogEventManager = v28->_readWriteLogEventManager;
-  v222 = home;
+  v221 = home;
   wifiManager = [home wifiManager];
   [(HMDCharacteristicReadWriteLogEventManager *)readWriteLogEventManager _setupNetworkCacheWithWifiManager:wifiManager];
 
@@ -2544,7 +2506,7 @@ LABEL_73:
   }
 
   v40 = v39;
-  v229 = v38;
+  v228 = v38;
 
   server = [hapAccessoryCopy server];
   if (v40)
@@ -2586,9 +2548,9 @@ LABEL_73:
   accessoryRoomUniqueIdentifier = v28->_accessoryRoomUniqueIdentifier;
   v28->_accessoryRoomUniqueIdentifier = spiClientIdentifier2;
 
-  v221 = room;
+  v220 = room;
   name2 = [room name];
-  v60 = [name2 copy];
+  v60 = objc_msgSend_copy(name2);
   accessoryRoomName = v28->_accessoryRoomName;
   v28->_accessoryRoomName = v60;
 
@@ -2602,14 +2564,14 @@ LABEL_73:
   topError = [sessionMetric topError];
   v28->_topSessionFailureErrorCode = [topError code];
 
-  v217 = sessionMetric;
+  v216 = sessionMetric;
   topError2 = [sessionMetric topError];
   domain = [topError2 domain];
   topSessionFailureErrorDomain = v28->_topSessionFailureErrorDomain;
   v28->_topSessionFailureErrorDomain = domain;
 
-  v27 = v222;
-  threadNetworkID = [v222 threadNetworkID];
+  v27 = v221;
+  threadNetworkID = [v221 threadNetworkID];
   v28->_homeThreadCapable = threadNetworkID != 0;
 
   v28->_lastKnownLinkQuality = 5;
@@ -2631,7 +2593,7 @@ LABEL_73:
   transportProtocolVersion = v28->_transportProtocolVersion;
   v28->_transportProtocolVersion = versionString;
 
-  v224 = v40;
+  v223 = v40;
   v75 = [HMDMetricsUtilities primaryServiceTypeForHAPAccessory:v40];
   primaryServiceType = v28->_primaryServiceType;
   v28->_primaryServiceType = v75;
@@ -2645,86 +2607,86 @@ LABEL_73:
 
   else
   {
-    userUUID = [v222 currentUser];
+    userUUID = [v221 currentUser];
     uuid3 = [userUUID uuid];
     uUIDString3 = [uuid3 UUIDString];
     v81 = v28->_userUUID;
     v28->_userUUID = uUIDString3;
   }
 
-  spiClientIdentifier3 = [v222 spiClientIdentifier];
-  v83 = [spiClientIdentifier3 copy];
+  spiClientIdentifier3 = [v221 spiClientIdentifier];
+  v83 = objc_msgSend_copy(spiClientIdentifier3);
   homeUniqueIdentifier = v28->_homeUniqueIdentifier;
   v28->_homeUniqueIdentifier = v83;
 
-  name3 = [v222 name];
-  v86 = [name3 copy];
+  name3 = [v221 name];
+  v86 = objc_msgSend_copy(name3);
   homeName = v28->_homeName;
   v28->_homeName = v86;
 
-  atHomeLevel = [v222 atHomeLevel];
+  atHomeLevel = [v221 atHomeLevel];
   v89 = 1;
   if (atHomeLevel != 2)
   {
-    v89 = [v222 atHomeLevel] == 3;
+    v89 = [v221 atHomeLevel] == 3;
   }
 
   v28->_isAtHome = v89;
-  residentDeviceManager = [v222 residentDeviceManager];
+  residentDeviceManager = [v221 residentDeviceManager];
   v28->_isResidentAvailable = [residentDeviceManager isResidentAvailable];
 
-  residentDeviceManager2 = [v222 residentDeviceManager];
+  residentDeviceManager2 = [v221 residentDeviceManager];
   v28->_isCurrentDeviceAvailableResident = [residentDeviceManager2 isCurrentDeviceAvailableResident];
 
-  residentDeviceManager3 = [v222 residentDeviceManager];
+  residentDeviceManager3 = [v221 residentDeviceManager];
   v28->_isCurrentDevicePrimaryResident = [residentDeviceManager3 isCurrentDevicePrimaryResident];
 
-  residentDeviceManager4 = [v222 residentDeviceManager];
+  residentDeviceManager4 = [v221 residentDeviceManager];
   v28->_isCurrentDeviceConfirmedPrimaryResident = [residentDeviceManager4 isCurrentDeviceConfirmedPrimaryResident];
 
-  residentDeviceManager5 = [v222 residentDeviceManager];
+  residentDeviceManager5 = [v221 residentDeviceManager];
   primaryResidentDevice = [residentDeviceManager5 primaryResidentDevice];
   v28->_isPrimaryResidentReachable = [primaryResidentDevice isReachable];
 
-  currentUser = [v222 currentUser];
+  currentUser = [v221 currentUser];
   v28->_isRemoteAccessAllowed = [currentUser isRemoteAccessAllowed];
 
-  v28->_isRemotelyReachable = [v229 isRemotelyReachable];
-  enabledResidents = [v222 enabledResidents];
+  v28->_isRemotelyReachable = [v228 isRemotelyReachable];
+  enabledResidents = [v221 enabledResidents];
   v28->_hasEnabledResidents = [enabledResidents count] != 0;
 
   v28->_isResidentFirstEnabled = 1;
-  v28->_isDeviceAtHome = [v222 homeLocation] == 1;
+  v28->_isDeviceAtHome = [v221 homeLocation] == 1;
   v98 = [HMDMetricsUtilities redactedThirdPartyBundleID:bundleIdCopy];
   bundleId = v28->_bundleId;
   v28->_bundleId = v98;
 
-  v233 = v28;
-  if (v222)
+  v232 = v28;
+  if (v221)
   {
     characteristicsInRequest = [(HMDCharacteristicReadWriteLogEvent *)v28 characteristicsInRequest];
-    obja = v222;
+    obja = v221;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v249 = 0u;
     v250 = 0u;
     v251 = 0u;
     v252 = 0u;
-    v253 = 0u;
     v102 = characteristicsInRequest;
-    v103 = [v102 countByEnumeratingWithState:&v250 objects:buf count:16];
+    v103 = [v102 countByEnumeratingWithState:&v249 objects:buf count:16];
     if (v103)
     {
       v104 = v103;
-      v105 = *v251;
+      v105 = *v250;
       do
       {
         for (i = 0; i != v104; ++i)
         {
-          if (*v251 != v105)
+          if (*v250 != v105)
           {
             objc_enumerationMutation(v102);
           }
 
-          service = [*(*(&v250 + 1) + 8 * i) service];
+          service = [*(*(&v249 + 1) + 8 * i) service];
           v108 = service;
           if (service)
           {
@@ -2734,13 +2696,13 @@ LABEL_73:
             if (!v110)
             {
               serviceGroups = [obja serviceGroups];
-              v248[0] = MEMORY[0x277D85DD0];
-              v248[1] = 3221225472;
-              v248[2] = __90__HMDCharacteristicReadWriteLogEvent_serviceUUIDToServiceGroupsForCharacteristics_inHome___block_invoke;
-              v248[3] = &unk_2786808D0;
+              v247[0] = MEMORY[0x277D85DD0];
+              v247[1] = 3221225472;
+              v247[2] = __90__HMDCharacteristicReadWriteLogEvent_serviceUUIDToServiceGroupsForCharacteristics_inHome___block_invoke;
+              v247[3] = &unk_2786808D0;
               v112 = v108;
-              v249 = v112;
-              v113 = [serviceGroups na_firstObjectPassingTest:v248];
+              v248 = v112;
+              v113 = [serviceGroups na_firstObjectPassingTest:v247];
 
               if (v113)
               {
@@ -2751,15 +2713,15 @@ LABEL_73:
           }
         }
 
-        v104 = [v102 countByEnumeratingWithState:&v250 objects:buf count:16];
+        v104 = [v102 countByEnumeratingWithState:&v249 objects:buf count:16];
       }
 
       while (v104);
     }
 
-    v115 = [dictionary copy];
-    valuesCopy = v219;
-    v27 = v222;
+    v115 = objc_msgSend_copy(dictionary);
+    valuesCopy = v218;
+    v27 = v221;
   }
 
   else
@@ -2768,26 +2730,26 @@ LABEL_73:
   }
 
   v116 = [v115 na_dictionaryByMappingValues:&__block_literal_global_477_212800];
-  v216 = [v115 na_dictionaryByMappingValues:&__block_literal_global_480_212801];
-  v117 = [v216 copy];
+  v215 = [v115 na_dictionaryByMappingValues:&__block_literal_global_480_212801];
+  v117 = objc_msgSend_copy(v215);
   serviceUUIDToServiceGroupName = v28->_serviceUUIDToServiceGroupName;
   v28->_serviceUUIDToServiceGroupName = v117;
 
-  v119 = [v116 copy];
+  v119 = objc_msgSend_copy(v116);
   serviceUUIDToServiceGroupUniqueIdentifier = v28->_serviceUUIDToServiceGroupUniqueIdentifier;
   v28->_serviceUUIDToServiceGroupUniqueIdentifier = v119;
 
   v121 = MEMORY[0x277CBEBF8];
-  if (v27 && v221)
+  if (v27 && v220)
   {
-    uuid6 = [v221 uuid];
+    uuid6 = [v220 uuid];
     zones = [v27 zones];
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __62__HMDCharacteristicReadWriteLogEvent_zonesForRoomUUID_inHome___block_invoke;
-    v257 = &unk_2786808A8;
+    v256 = &unk_2786808A8;
     v124 = uuid6;
-    v258 = v124;
+    v257 = v124;
     v121 = [zones na_filter:buf];
   }
 
@@ -2795,7 +2757,7 @@ LABEL_73:
   accessoryZoneUniqueIdentifiers = v28->_accessoryZoneUniqueIdentifiers;
   v28->_accessoryZoneUniqueIdentifiers = v125;
 
-  v215 = v121;
+  v214 = v121;
   v127 = [v121 na_map:&__block_literal_global_485];
   accessoryZoneNames = v28->_accessoryZoneNames;
   v28->_accessoryZoneNames = v127;
@@ -2807,26 +2769,26 @@ LABEL_73:
   v130 = [actionSets na_filter:&__block_literal_global_488];
   v28->_numNonEmptyScenesInHome = [v130 count];
 
-  accessoryProfiles = [v229 accessoryProfiles];
+  accessoryProfiles = [v228 accessoryProfiles];
   v132 = [accessoryProfiles na_firstObjectPassingTest:&__block_literal_global_491_212803];
 
-  v213 = v132;
+  v212 = v132;
   mediaRouteID = [v132 mediaRouteID];
   accessoryMediaRouteID = v28->_accessoryMediaRouteID;
   v28->_accessoryMediaRouteID = mediaRouteID;
 
-  v135 = [valuesCopy copy];
+  v135 = objc_msgSend_copy(valuesCopy);
   writtenValues = v28->_writtenValues;
   v28->_writtenValues = v135;
 
-  v137 = [v224 findServiceWithServiceType:@"00000701-0000-1000-8000-0026BB765291"];
+  v137 = [v223 findServiceWithServiceType:@"00000701-0000-1000-8000-0026BB765291"];
 
   if (v137)
   {
     v28->_threadAccessory = 1;
   }
 
-  v138 = [v224 findCharacteristicType:@"00000702-0000-1000-8000-0026BB765291" forServiceType:@"00000701-0000-1000-8000-0026BB765291"];
+  v138 = [v223 findCharacteristicType:@"00000702-0000-1000-8000-0026BB765291" forServiceType:@"00000701-0000-1000-8000-0026BB765291"];
   value = [v138 value];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -2845,7 +2807,7 @@ LABEL_73:
   {
   }
 
-  v212 = v138;
+  v211 = v138;
 
   server2 = [hapAccessoryCopy server];
   objc_opt_class();
@@ -2880,7 +2842,7 @@ LABEL_73:
     v28->_ipTriedConnectingToIPv6Address = 0;
   }
 
-  v210 = v145;
+  v209 = v145;
   homeManager = [v27 homeManager];
   reachabilityMonitor = [homeManager reachabilityMonitor];
   v28->_isNetworkAvailable = [reachabilityMonitor isReachable];
@@ -2901,7 +2863,7 @@ LABEL_73:
     v28->_timeIntervalSinceCurrentDeviceAsPrimary = v152 - v153;
   }
 
-  v211 = v143;
+  v210 = v143;
   coreHAPRetryStatus = v28->_coreHAPRetryStatus;
   v28->_coreHAPRetryStatus = 0;
 
@@ -2939,36 +2901,36 @@ LABEL_73:
 
   if (v169)
   {
-    v207 = v116;
+    v206 = v116;
     residentDeviceManager8 = [v27 residentDeviceManager];
     residentDevices2 = [residentDeviceManager8 residentDevices];
     v172 = [residentDevices2 count];
 
-    v245 = 0u;
-    v246 = 0u;
-    v243 = 0u;
     v244 = 0u;
+    v245 = 0u;
+    v242 = 0u;
+    v243 = 0u;
     residentDeviceManager9 = [v27 residentDeviceManager];
     residentDevices3 = [residentDeviceManager9 residentDevices];
 
-    v175 = [residentDevices3 countByEnumeratingWithState:&v243 objects:v255 count:16];
+    v175 = [residentDevices3 countByEnumeratingWithState:&v242 objects:v254 count:16];
     if (v175)
     {
       v176 = v175;
       v177 = v115;
       v178 = 0;
       v179 = 0;
-      v180 = *v244;
+      v180 = *v243;
       do
       {
         for (j = 0; j != v176; ++j)
         {
-          if (*v244 != v180)
+          if (*v243 != v180)
           {
             objc_enumerationMutation(residentDevices3);
           }
 
-          v182 = *(*(&v243 + 1) + 8 * j);
+          v182 = *(*(&v242 + 1) + 8 * j);
           if ([v182 isEnabled])
           {
             v178 += [v182 isReachable];
@@ -2976,14 +2938,14 @@ LABEL_73:
           }
         }
 
-        v176 = [residentDevices3 countByEnumeratingWithState:&v243 objects:v255 count:16];
+        v176 = [residentDevices3 countByEnumeratingWithState:&v242 objects:v254 count:16];
       }
 
       while (v176);
       v183 = 100 * v178;
       v184 = 100 * v179;
       v115 = v177;
-      valuesCopy = v219;
+      valuesCopy = v218;
     }
 
     else
@@ -2994,8 +2956,8 @@ LABEL_73:
 
     v28->_percentageOfLocalReachableResidents = v183 / v172;
     v28->_percentageOfIDSReachableResidents = v184 / v172;
-    v27 = v222;
-    v116 = v207;
+    v27 = v221;
+    v116 = v206;
   }
 
   v28->_isThreadNetworkUpInHome = [v27 threadNetworkIsUp];
@@ -3007,50 +2969,50 @@ LABEL_73:
     goto LABEL_86;
   }
 
-  v206 = v115;
+  v205 = v115;
   residentDeviceManager10 = [v27 residentDeviceManager];
   primaryResidentDevice2 = [residentDeviceManager10 primaryResidentDevice];
 
   appleMediaAccessories = [v27 appleMediaAccessories];
-  v241[0] = MEMORY[0x277D85DD0];
-  v241[1] = 3221225472;
-  v241[2] = __235__HMDCharacteristicReadWriteLogEvent_initWithStartTime_characteristics_hmdAccessory_hapAccessory_source_biomeSource_isWriteOperation_isTimedWrite_isLocal_transactionId_isCached_bundleId_userUUID_writtenValues_readWriteLogEventManager___block_invoke_7;
-  v241[3] = &unk_278688F28;
+  v240[0] = MEMORY[0x277D85DD0];
+  v240[1] = 3221225472;
+  v240[2] = __235__HMDCharacteristicReadWriteLogEvent_initWithStartTime_characteristics_hmdAccessory_hapAccessory_source_biomeSource_isWriteOperation_isTimedWrite_isLocal_transactionId_isCached_bundleId_userUUID_writtenValues_readWriteLogEventManager___block_invoke_7;
+  v240[3] = &unk_278688F28;
   v188 = primaryResidentDevice2;
-  v242 = v188;
-  v205 = appleMediaAccessories;
-  v189 = [appleMediaAccessories na_firstObjectPassingTest:v241];
+  v241 = v188;
+  v204 = appleMediaAccessories;
+  v189 = [appleMediaAccessories na_firstObjectPassingTest:v240];
   if (!v189)
   {
     goto LABEL_85;
   }
 
-  v204 = v188;
-  v208 = v116;
-  v231 = [v27 mediaSystemForAppleMediaAccessory:v189];
+  v203 = v188;
+  v207 = v116;
+  v230 = [v27 mediaSystemForAppleMediaAccessory:v189];
+  v236 = 0u;
   v237 = 0u;
   v238 = 0u;
   v239 = 0u;
-  v240 = 0u;
   objb = [v27 appleMediaAccessories];
-  v190 = [objb countByEnumeratingWithState:&v237 objects:v254 count:16];
+  v190 = [objb countByEnumeratingWithState:&v236 objects:v253 count:16];
   if (!v190)
   {
     goto LABEL_82;
   }
 
   v191 = v190;
-  v192 = *v238;
+  v192 = *v237;
   do
   {
     for (k = 0; k != v191; ++k)
     {
-      if (*v238 != v192)
+      if (*v237 != v192)
       {
         objc_enumerationMutation(objb);
       }
 
-      audioDestinationControllerData = [*(*(&v237 + 1) + 8 * k) audioDestinationControllerData];
+      audioDestinationControllerData = [*(*(&v236 + 1) + 8 * k) audioDestinationControllerData];
       destinationIdentifier = [audioDestinationControllerData destinationIdentifier];
       uUIDString4 = [destinationIdentifier UUIDString];
 
@@ -3062,11 +3024,11 @@ LABEL_73:
 
       else
       {
-        audioDestination2 = [v231 audioDestination];
+        audioDestination2 = [v230 audioDestination];
         identifier3 = [audioDestination2 identifier];
         v201 = [uUIDString4 isEqualToString:identifier3];
 
-        v28 = v233;
+        v28 = v232;
         if (!v201)
         {
           goto LABEL_80;
@@ -3077,33 +3039,32 @@ LABEL_73:
 LABEL_80:
     }
 
-    v191 = [objb countByEnumeratingWithState:&v237 objects:v254 count:16];
+    v191 = [objb countByEnumeratingWithState:&v236 objects:v253 count:16];
   }
 
   while (v191);
 LABEL_82:
 
-  if (v231)
+  if (v230)
   {
     v28->_mediaSystemConfiguration |= 4uLL;
   }
 
-  valuesCopy = v219;
-  v27 = v222;
-  v116 = v208;
-  v188 = v204;
+  valuesCopy = v218;
+  v27 = v221;
+  v116 = v207;
+  v188 = v203;
 LABEL_85:
 
-  v115 = v206;
+  v115 = v205;
 LABEL_86:
-  if (v28->_isCurrentDevicePrimaryResident && [(HMDCharacteristicReadWriteLogEvent *)v28 _isRequestForTHSensorOnAppleMediaAccessory:v229 characteristicsInRequest:characteristicsCopy])
+  if (v28->_isCurrentDevicePrimaryResident && [(HMDCharacteristicReadWriteLogEvent *)v28 _isRequestForTHSensorOnAppleMediaAccessory:v228 characteristicsInRequest:characteristicsCopy])
   {
-    [(HMDCharacteristicReadWriteLogEvent *)v28 _populateTHSensorMetricsForAccessory:v229 accessoryServer:v211 characteristicsInRequest:characteristicsCopy home:v27];
+    [(HMDCharacteristicReadWriteLogEvent *)v28 _populateTHSensorMetricsForAccessory:v228 accessoryServer:v210 characteristicsInRequest:characteristicsCopy home:v27];
     [(HMDCharacteristicReadWriteLogEvent *)v28 setIsTHSensorRequest:1];
   }
 
 LABEL_90:
-  v202 = *MEMORY[0x277D85DE8];
   return v28;
 }
 

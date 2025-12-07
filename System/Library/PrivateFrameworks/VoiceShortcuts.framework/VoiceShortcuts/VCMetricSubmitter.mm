@@ -97,86 +97,86 @@ void __51__VCMetricSubmitter_coherenceSyncEnablementStatus___block_invoke(uint64
 
 - (BOOL)addWidgetMetricsToEvent:(id)event error:(id *)error
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v6 = objc_alloc_init(getATXHomeScreenConfigCacheClass());
-  v54 = 0;
-  v7 = [v6 loadHomeScreenAndTodayPageConfigurationsWithError:&v54];
-  v8 = v54;
+  v53 = 0;
+  v7 = [v6 loadHomeScreenAndTodayPageConfigurationsWithError:&v53];
+  v8 = v53;
   v9 = v8;
   if (v7)
   {
-    v27 = v8;
-    v28 = v7;
-    v30 = eventCopy;
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
+    v26 = v8;
+    v27 = v7;
+    v29 = eventCopy;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     obj = v7;
-    v33 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
-    v29 = v6;
+    v32 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
+    v28 = v6;
     v10 = 0;
-    if (v33)
+    if (v32)
     {
-      v40 = 0;
-      v41 = 0;
       v39 = 0;
-      v32 = *v51;
+      v40 = 0;
+      v38 = 0;
+      v31 = *v50;
       v11 = *MEMORY[0x277D7A338];
       do
       {
         v12 = 0;
         do
         {
-          if (*v51 != v32)
+          if (*v50 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = v12;
-          v13 = *(*(&v50 + 1) + 8 * v12);
+          v33 = v12;
+          v13 = *(*(&v49 + 1) + 8 * v12);
+          v45 = 0u;
           v46 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v49 = 0u;
           stacks = [v13 stacks];
-          v37 = [stacks countByEnumeratingWithState:&v46 objects:v56 count:16];
-          if (v37)
+          v36 = [stacks countByEnumeratingWithState:&v45 objects:v55 count:16];
+          if (v36)
           {
-            v36 = *v47;
+            v35 = *v46;
             do
             {
               v14 = 0;
               do
               {
-                if (*v47 != v36)
+                if (*v46 != v35)
                 {
                   objc_enumerationMutation(stacks);
                 }
 
-                v38 = v14;
-                v15 = *(*(&v46 + 1) + 8 * v14);
+                v37 = v14;
+                v15 = *(*(&v45 + 1) + 8 * v14);
+                v41 = 0u;
                 v42 = 0u;
                 v43 = 0u;
                 v44 = 0u;
-                v45 = 0u;
                 widgets = [v15 widgets];
-                v17 = [widgets countByEnumeratingWithState:&v42 objects:v55 count:16];
+                v17 = [widgets countByEnumeratingWithState:&v41 objects:v54 count:16];
                 if (v17)
                 {
                   v18 = v17;
-                  v19 = *v43;
+                  v19 = *v42;
                   do
                   {
                     for (i = 0; i != v18; ++i)
                     {
-                      if (*v43 != v19)
+                      if (*v42 != v19)
                       {
                         objc_enumerationMutation(widgets);
                       }
 
-                      v21 = *(*(&v42 + 1) + 8 * i);
+                      v21 = *(*(&v41 + 1) + 8 * i);
                       appBundleId = [v21 appBundleId];
                       extensionBundleId = [v21 extensionBundleId];
                       if (appBundleId | extensionBundleId && (([appBundleId isEqualToString:v11] & 1) != 0 || objc_msgSend(extensionBundleId, "isEqualToString:", @"Shortcuts")))
@@ -185,13 +185,13 @@ void __51__VCMetricSubmitter_coherenceSyncEnablementStatus___block_invoke(uint64
                         switch(stackLayoutSize)
                         {
                           case 2:
-                            ++v41;
-                            break;
-                          case 1:
                             ++v40;
                             break;
-                          case 0:
+                          case 1:
                             ++v39;
+                            break;
+                          case 0:
+                            ++v38;
                             break;
                         }
 
@@ -202,48 +202,48 @@ void __51__VCMetricSubmitter_coherenceSyncEnablementStatus___block_invoke(uint64
                       }
                     }
 
-                    v18 = [widgets countByEnumeratingWithState:&v42 objects:v55 count:16];
+                    v18 = [widgets countByEnumeratingWithState:&v41 objects:v54 count:16];
                   }
 
                   while (v18);
                 }
 
-                v14 = v38 + 1;
+                v14 = v37 + 1;
               }
 
-              while (v38 + 1 != v37);
-              v37 = [stacks countByEnumeratingWithState:&v46 objects:v56 count:16];
+              while (v37 + 1 != v36);
+              v36 = [stacks countByEnumeratingWithState:&v45 objects:v55 count:16];
             }
 
-            while (v37);
+            while (v36);
           }
 
-          v12 = v34 + 1;
+          v12 = v33 + 1;
         }
 
-        while (v34 + 1 != v33);
-        v33 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
+        while (v33 + 1 != v32);
+        v32 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
 
     else
     {
-      v40 = 0;
-      v41 = 0;
       v39 = 0;
+      v40 = 0;
+      v38 = 0;
     }
 
-    eventCopy = v30;
-    [v30 setNumberOfSmallWidgets:?];
-    [v30 setNumberOfMediumWidgets:v40];
-    [v30 setNumberOfLargeWidgets:v41];
-    [v30 setNumberOfWidgetsOnHomeScreen:(v41 - v10 + v40 + v39)];
-    [v30 setNumberOfWidgetsOnLoL:v10];
-    v7 = v28;
-    v6 = v29;
-    v9 = v27;
+    eventCopy = v29;
+    [v29 setNumberOfSmallWidgets:?];
+    [v29 setNumberOfMediumWidgets:v39];
+    [v29 setNumberOfLargeWidgets:v40];
+    [v29 setNumberOfWidgetsOnHomeScreen:(v40 - v10 + v39 + v38)];
+    [v29 setNumberOfWidgetsOnLoL:v10];
+    v7 = v27;
+    v6 = v28;
+    v9 = v26;
   }
 
   else
@@ -251,7 +251,6 @@ void __51__VCMetricSubmitter_coherenceSyncEnablementStatus___block_invoke(uint64
     *error = [MEMORY[0x277CCA9B8] vc_voiceShortcutErrorWithCode:213456 underlyingError:v8];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v7 != 0;
 }
 
@@ -265,33 +264,33 @@ void __51__VCMetricSubmitter_coherenceSyncEnablementStatus___block_invoke(uint64
 
 - (unsigned)numberOfAppSessions:(id *)sessions
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   checkIn = [(VCMetricSubmitter *)self checkIn];
   v5 = MEMORY[0x277CCA920];
   v6 = MEMORY[0x277CFE260];
   intervalStartDate = [checkIn intervalStartDate];
   currentDate = [checkIn currentDate];
   v9 = [v6 predicateForEventsWithStartOrEndInDateRangeWithFrom:intervalStartDate to:currentDate];
-  v30[0] = v9;
+  v29[0] = v9;
   v10 = MEMORY[0x277CFE260];
   v11 = [MEMORY[0x277CFE1A8] withBundle:*MEMORY[0x277D7A338]];
   v12 = [v10 predicateForEventsWithIdentifierValue:v11];
-  v30[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   v14 = [v5 andPredicateWithSubpredicates:v13];
 
   v15 = MEMORY[0x277CFE1E0];
   appInFocusStream = [MEMORY[0x277CFE298] appInFocusStream];
-  v29 = appInFocusStream;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+  v28 = appInFocusStream;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
   v18 = [v15 eventQueryWithPredicate:v14 eventStreams:v17 offset:0 limit:0 sortDescriptors:MEMORY[0x277CBEBF8]];
 
   [v18 setResultType:1];
   [v18 setReadMetadata:0];
   knowledgeStore = [MEMORY[0x277CFE208] knowledgeStore];
-  v28 = 0;
-  v20 = [knowledgeStore executeQuery:v18 error:&v28];
-  v21 = v28;
+  v27 = 0;
+  v20 = [knowledgeStore executeQuery:v18 error:&v27];
+  v21 = v27;
 
   if (v20)
   {
@@ -328,7 +327,6 @@ void __51__VCMetricSubmitter_coherenceSyncEnablementStatus___block_invoke(uint64
     *sessions = unsignedIntValue = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return unsignedIntValue;
 }
 
@@ -366,7 +364,7 @@ void __51__VCMetricSubmitter_coherenceSyncEnablementStatus___block_invoke(uint64
   return allConfiguredTriggers;
 }
 
-uint64_t __56__VCMetricSubmitter_numberOfPersonalAutomationsEnabled___block_invoke(uint64_t a1, void *a2)
+void *__56__VCMetricSubmitter_numberOfPersonalAutomationsEnabled___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isEnabled];
   if (result)
@@ -424,7 +422,7 @@ uint64_t __56__VCMetricSubmitter_numberOfPersonalAutomationsEnabled___block_invo
 
 - (BOOL)homeAutomationsPresent:(id *)present
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D7C4F0] = [MEMORY[0x277D7C4F0] sharedManager];
   if ([mEMORY[0x277D7C4F0] status] == 1)
   {
@@ -434,50 +432,50 @@ uint64_t __56__VCMetricSubmitter_numberOfPersonalAutomationsEnabled___block_invo
 
   else
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v27 = mEMORY[0x277D7C4F0];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v26 = mEMORY[0x277D7C4F0];
     homesToWhichWeCanAddHomeAutomations = [mEMORY[0x277D7C4F0] homesToWhichWeCanAddHomeAutomations];
-    v24 = [homesToWhichWeCanAddHomeAutomations countByEnumeratingWithState:&v32 objects:v41 count:16];
-    if (v24)
+    v23 = [homesToWhichWeCanAddHomeAutomations countByEnumeratingWithState:&v31 objects:v40 count:16];
+    if (v23)
     {
-      v7 = *v33;
-      v26 = homesToWhichWeCanAddHomeAutomations;
-      v23 = *v33;
+      v7 = *v32;
+      v25 = homesToWhichWeCanAddHomeAutomations;
+      v22 = *v32;
       do
       {
         v8 = 0;
         do
         {
-          if (*v33 != v7)
+          if (*v32 != v7)
           {
             objc_enumerationMutation(homesToWhichWeCanAddHomeAutomations);
           }
 
-          v25 = v8;
-          v9 = *(*(&v32 + 1) + 8 * v8);
+          v24 = v8;
+          v9 = *(*(&v31 + 1) + 8 * v8);
+          v27 = 0u;
           v28 = 0u;
           v29 = 0u;
           v30 = 0u;
-          v31 = 0u;
           triggers = [v9 triggers];
-          v11 = [triggers countByEnumeratingWithState:&v28 objects:v40 count:16];
+          v11 = [triggers countByEnumeratingWithState:&v27 objects:v39 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v29;
+            v13 = *v28;
             while (2)
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v29 != v13)
+                if (*v28 != v13)
                 {
                   objc_enumerationMutation(triggers);
                 }
 
-                v15 = *(*(&v28 + 1) + 8 * i);
+                v15 = *(*(&v27 + 1) + 8 * i);
                 v16 = v15;
                 if (v15)
                 {
@@ -511,14 +509,14 @@ uint64_t __56__VCMetricSubmitter_numberOfPersonalAutomationsEnabled___block_invo
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136315394;
-                  v37 = "[VCMetricSubmitter homeAutomationsPresent:]";
-                  v38 = 2114;
-                  v39 = v16;
+                  v36 = "[VCMetricSubmitter homeAutomationsPresent:]";
+                  v37 = 2114;
+                  v38 = v16;
                   _os_log_impl(&dword_23103C000, v20, OS_LOG_TYPE_ERROR, "%s Ignoring trigger of unknown or placeholder type: %{public}@", buf, 0x16u);
                 }
               }
 
-              v12 = [triggers countByEnumeratingWithState:&v28 objects:v40 count:16];
+              v12 = [triggers countByEnumeratingWithState:&v27 objects:v39 count:16];
               if (v12)
               {
                 continue;
@@ -528,24 +526,23 @@ uint64_t __56__VCMetricSubmitter_numberOfPersonalAutomationsEnabled___block_invo
             }
           }
 
-          v8 = v25 + 1;
-          homesToWhichWeCanAddHomeAutomations = v26;
-          v7 = v23;
+          v8 = v24 + 1;
+          homesToWhichWeCanAddHomeAutomations = v25;
+          v7 = v22;
         }
 
-        while (v25 + 1 != v24);
-        v24 = [v26 countByEnumeratingWithState:&v32 objects:v41 count:16];
+        while (v24 + 1 != v23);
+        v23 = [v25 countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
 
     v5 = 0;
 LABEL_28:
-    mEMORY[0x277D7C4F0] = v27;
+    mEMORY[0x277D7C4F0] = v26;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -587,21 +584,21 @@ LABEL_7:
 
 - (BOOL)isAppInstalled
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CC1E70]);
   v3 = *MEMORY[0x277D7A338];
-  v10 = 0;
-  v4 = [v2 initWithBundleIdentifier:v3 allowPlaceholder:0 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [v2 initWithBundleIdentifier:v3 allowPlaceholder:0 error:&v9];
+  v5 = v9;
   if (v5)
   {
     applicationState = getWFEventTrackerLogObject();
     if (os_log_type_enabled(applicationState, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v12 = "[VCMetricSubmitter isAppInstalled]";
-      v13 = 2112;
-      v14 = v5;
+      v11 = "[VCMetricSubmitter isAppInstalled]";
+      v12 = 2112;
+      v13 = v5;
       _os_log_impl(&dword_23103C000, applicationState, OS_LOG_TYPE_FAULT, "%s Error accessing LSApplicationRecord for Shortcuts: %@", buf, 0x16u);
     }
 
@@ -614,18 +611,17 @@ LABEL_7:
     isInstalled = [applicationState isInstalled];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return isInstalled;
 }
 
 - (void)perform
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = getWFEventTrackerLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v27 = "[VCMetricSubmitter perform]";
+    v26 = "[VCMetricSubmitter perform]";
     _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_INFO, "%s Attempting to perform checkin", buf, 0xCu);
   }
 
@@ -635,9 +631,9 @@ LABEL_7:
   if (isCheckInAllowed)
   {
     databaseProvider = [(VCMetricSubmitter *)self databaseProvider];
-    v25 = 0;
-    date = [databaseProvider databaseWithError:&v25];
-    v8 = v25;
+    v24 = 0;
+    date = [databaseProvider databaseWithError:&v24];
+    v8 = v24;
 
     if (!date)
     {
@@ -645,9 +641,9 @@ LABEL_7:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v27 = "[VCMetricSubmitter perform]";
-        v28 = 2114;
-        v29 = v8;
+        v26 = "[VCMetricSubmitter perform]";
+        v27 = 2114;
+        v28 = v8;
         _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_INFO, "%s Checkin is not possible because no database is available; %{public}@", buf, 0x16u);
       }
 
@@ -659,9 +655,9 @@ LABEL_7:
     [event setSharingEnabled:{-[VCMetricSubmitter isSharingEnabled](self, "isSharingEnabled")}];
     [event setPersonalAutomationsEnabled:{-[VCMetricSubmitter personalAutomationsEnabled:](self, "personalAutomationsEnabled:", date)}];
     [event setSleepEnabled:{-[VCMetricSubmitter isSleepEnabled](self, "isSleepEnabled")}];
-    v24 = 0;
-    v10 = [(VCMetricSubmitter *)self homeAutomationsPresent:&v24];
-    v11 = v24;
+    v23 = 0;
+    v10 = [(VCMetricSubmitter *)self homeAutomationsPresent:&v23];
+    v11 = v23;
     [event setHomeAutomationsEnabled:v10];
     [event setAverageShortcutCountPerFolder:{-[VCMetricSubmitter averageShortcutCountPerFolder:](self, "averageShortcutCountPerFolder:", date)}];
     [event setShortcutsCount:{-[VCMetricSubmitter shortcutsCount:](self, "shortcutsCount:", date)}];
@@ -672,18 +668,18 @@ LABEL_7:
     [event setAppComplicationSlotsUsed:{objc_msgSend(MEMORY[0x277D7C280], "appComplicationSlotsUsed")}];
     [event setShortcutComplicationSlotsUsed:{objc_msgSend(MEMORY[0x277D7C280], "shortcutComplicationSlotsUsed")}];
     [event setShortcutRunCount:{-[VCMetricSubmitter numberOfShortcutRuns:](self, "numberOfShortcutRuns:", date)}];
-    v23 = v11;
-    v12 = [(VCMetricSubmitter *)self numberOfAppSessions:&v23];
-    v13 = v23;
+    v22 = v11;
+    v12 = [(VCMetricSubmitter *)self numberOfAppSessions:&v22];
+    v13 = v22;
 
     [event setAppSessionCount:v12];
     [event setSleepShortcutsCount:{-[VCMetricSubmitter sleepShortcutCount:](self, "sleepShortcutCount:", date)}];
     [event setAutoShortcutsSectionsViewed:{-[VCMetricSubmitter hasSeenAutoShortcutsSections](self, "hasSeenAutoShortcutsSections")}];
     [event setCoherenceSyncEnablement:{-[VCMetricSubmitter coherenceSyncEnablementStatus:](self, "coherenceSyncEnablementStatus:", date)}];
     [event setCoherenceBlobSize:{-[NSObject libraryBlobSize](date, "libraryBlobSize")}];
-    v22 = v13;
-    [(VCMetricSubmitter *)self addWidgetMetricsToEvent:event error:&v22];
-    v14 = v22;
+    v21 = v13;
+    [(VCMetricSubmitter *)self addWidgetMetricsToEvent:event error:&v21];
+    v14 = v21;
 
     if (v14)
     {
@@ -691,9 +687,9 @@ LABEL_7:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v27 = "[VCMetricSubmitter perform]";
-        v28 = 2114;
-        v29 = v14;
+        v26 = "[VCMetricSubmitter perform]";
+        v27 = 2114;
+        v28 = v14;
         v16 = "%s Checkin is not possible because of an error: %{public}@";
         v17 = v15;
         v18 = OS_LOG_TYPE_FAULT;
@@ -713,7 +709,7 @@ LABEL_14:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v27 = "[VCMetricSubmitter perform]";
+        v26 = "[VCMetricSubmitter perform]";
         v16 = "%s Checkin completed successfully";
         v17 = v15;
         v18 = OS_LOG_TYPE_INFO;
@@ -731,14 +727,12 @@ LABEL_16:
   {
     date = [MEMORY[0x277CBEAA8] date];
     *buf = 136315394;
-    v27 = "[VCMetricSubmitter perform]";
-    v28 = 2112;
-    v29 = date;
+    v26 = "[VCMetricSubmitter perform]";
+    v27 = 2112;
+    v28 = date;
     _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_INFO, "%s Checkin is not allowed at this time: %@", buf, 0x16u);
 LABEL_17:
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (VCMetricSubmitter)initWithCheckIn:(id)in event:(id)event databaseProvider:(id)provider
@@ -819,7 +813,7 @@ LABEL_4:
 
 + (void)scheduleWithScheduler:(id)scheduler databaseProvider:(id)provider
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   schedulerCopy = scheduler;
   providerCopy = provider;
   v9 = providerCopy;
@@ -851,22 +845,20 @@ LABEL_3:
   {
     activityIdentifier = [self activityIdentifier];
     *buf = 136315394;
-    v20 = "+[VCMetricSubmitter scheduleWithScheduler:databaseProvider:]";
-    v21 = 2114;
-    v22 = activityIdentifier;
+    v19 = "+[VCMetricSubmitter scheduleWithScheduler:databaseProvider:]";
+    v20 = 2114;
+    v21 = activityIdentifier;
     _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEBUG, "%s Scheduling metric check in activity: (%{public}@)", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __60__VCMetricSubmitter_scheduleWithScheduler_databaseProvider___block_invoke;
-  v16[3] = &unk_2788FE898;
-  v17 = v9;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __60__VCMetricSubmitter_scheduleWithScheduler_databaseProvider___block_invoke;
+  v15[3] = &unk_2788FE898;
+  v16 = v9;
   selfCopy = self;
   v12 = v9;
-  [schedulerCopy scheduleWithRunHandler:v16];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [schedulerCopy scheduleWithRunHandler:v15];
 }
 
 uint64_t __60__VCMetricSubmitter_scheduleWithScheduler_databaseProvider___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -887,24 +879,22 @@ uint64_t __60__VCMetricSubmitter_scheduleWithScheduler_databaseProvider___block_
   return 0;
 }
 
-uint64_t __60__VCMetricSubmitter_scheduleWithScheduler_databaseProvider___block_invoke_2(uint64_t a1)
+uint64_t __60__VCMetricSubmitter_scheduleWithScheduler_databaseProvider___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = getWFEventTrackerLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = getWFEventTrackerLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 48) activityIdentifier];
+    v4 = [*(a1 + 48) activityIdentifier];
     v6 = 136315394;
     v7 = "+[VCMetricSubmitter scheduleWithScheduler:databaseProvider:]_block_invoke_2";
     v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_INFO, "%s Scheduling metric checkin activity invoked: (%{public}@)", &v6, 0x16u);
+    v9 = v4;
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_INFO, "%s Scheduling metric checkin activity invoked: (%{public}@)", &v6, 0x16u);
   }
 
   [*(a1 + 48) performWithDatabaseProvider:*(a1 + 32)];
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 + (void)scheduleWithDatabaseProvider:(id)provider

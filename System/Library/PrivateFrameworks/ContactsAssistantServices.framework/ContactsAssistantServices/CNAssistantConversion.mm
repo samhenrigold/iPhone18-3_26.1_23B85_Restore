@@ -33,34 +33,34 @@
 
 + (id)descriptorsForRequiredKeysForConversionType:(int64_t)type
 {
-  v22[7] = *MEMORY[0x277D85DE8];
+  v21[7] = *MEMORY[0x277D85DE8];
   if (type)
   {
     if (type == 2)
     {
       v9 = *MEMORY[0x277CBD160];
-      v21[0] = *MEMORY[0x277CBD018];
-      v21[1] = v9;
+      v20[0] = *MEMORY[0x277CBD018];
+      v20[1] = v9;
       v10 = *MEMORY[0x277CBCFF8];
-      v21[2] = *MEMORY[0x277CBD000];
-      v21[3] = v10;
+      v20[2] = *MEMORY[0x277CBD000];
+      v20[3] = v10;
       v11 = *MEMORY[0x277CBD090];
-      v21[4] = *MEMORY[0x277CBD078];
-      v21[5] = v11;
+      v20[4] = *MEMORY[0x277CBD078];
+      v20[5] = v11;
       v12 = *MEMORY[0x277CBD0B0];
-      v21[6] = *MEMORY[0x277CBD0A0];
-      v21[7] = v12;
+      v20[6] = *MEMORY[0x277CBD0A0];
+      v20[7] = v12;
       v13 = *MEMORY[0x277CBCFC0];
-      v21[8] = *MEMORY[0x277CBD0A8];
-      v21[9] = v13;
+      v20[8] = *MEMORY[0x277CBD0A8];
+      v20[9] = v13;
       v14 = *MEMORY[0x277CBD0C8];
-      v21[10] = *MEMORY[0x277CBD098];
-      v21[11] = v14;
+      v20[10] = *MEMORY[0x277CBD098];
+      v20[11] = v14;
       v15 = *MEMORY[0x277CBD010];
-      v21[12] = *MEMORY[0x277CBD120];
-      v21[13] = v15;
+      v20[12] = *MEMORY[0x277CBD120];
+      v20[13] = v15;
       v6 = MEMORY[0x277CBEA60];
-      v7 = v21;
+      v7 = v20;
       v8 = 14;
       goto LABEL_6;
     }
@@ -68,17 +68,17 @@
     if (type == 1)
     {
       v3 = *MEMORY[0x277CBD000];
-      v22[0] = *MEMORY[0x277CBD018];
-      v22[1] = v3;
+      v21[0] = *MEMORY[0x277CBD018];
+      v21[1] = v3;
       v4 = *MEMORY[0x277CBD078];
-      v22[2] = *MEMORY[0x277CBD0B0];
-      v22[3] = v4;
+      v21[2] = *MEMORY[0x277CBD0B0];
+      v21[3] = v4;
       v5 = *MEMORY[0x277CBD0A0];
-      v22[4] = *MEMORY[0x277CBD120];
-      v22[5] = v5;
-      v22[6] = *MEMORY[0x277CBD010];
+      v21[4] = *MEMORY[0x277CBD120];
+      v21[5] = v5;
+      v21[6] = *MEMORY[0x277CBD010];
       v6 = MEMORY[0x277CBEA60];
-      v7 = v22;
+      v7 = v21;
       v8 = 7;
 LABEL_6:
       v16 = [v6 arrayWithObjects:v7 count:v8];
@@ -91,12 +91,11 @@ LABEL_6:
   else
   {
     v17 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:{*MEMORY[0x277CBD018], *MEMORY[0x277CBD160], *MEMORY[0x277CBD000], *MEMORY[0x277CBD058], *MEMORY[0x277CBCFF8], *MEMORY[0x277CBCF90], *MEMORY[0x277CBD078], *MEMORY[0x277CBD068], *MEMORY[0x277CBD070], *MEMORY[0x277CBD090], *MEMORY[0x277CBD0A0], *MEMORY[0x277CBD0B0], *MEMORY[0x277CBD0A8], *MEMORY[0x277CBCFC0], *MEMORY[0x277CBD098], *MEMORY[0x277CBD0C8], *MEMORY[0x277CBD120], *MEMORY[0x277CBD138], *MEMORY[0x277CBD010]}];
-    v20[19] = v17;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:20];
+    v19[19] = v17;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:20];
   }
 
 LABEL_9:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -263,38 +262,30 @@ LABEL_19:
 
 + (id)personFromContact:(id)contact useABPerson:(BOOL)person
 {
-  personCopy = person;
   contactCopy = contact;
-  v6 = [CNAssistantConversion descriptorsForRequiredKeysForConversionType:0];
-  v7 = [contactCopy areKeysAvailable:v6];
+  v5 = [CNAssistantConversion descriptorsForRequiredKeysForConversionType:0];
+  v6 = [contactCopy areKeysAvailable:v5];
 
-  v8 = 0;
-  if (v7)
+  v7 = 0;
+  if (v6)
   {
-    v9 = 0x277D470F0;
-    if (!personCopy)
-    {
-      v9 = 0x277D47630;
-    }
-
-    v10 = *v9;
-    v8 = objc_opt_new();
-    v11 = [CNAssistantID assistantIDFromContact:contactCopy];
-    [v8 setIdentifier:v11];
+    v7 = objc_opt_new();
+    v8 = [CNAssistantID assistantIDFromContact:contactCopy];
+    [v7 setIdentifier:v8];
     identifier = [contactCopy identifier];
-    [v8 setInternalGUID:identifier];
+    [v7 setInternalGUID:identifier];
 
     givenName = [contactCopy givenName];
-    v14 = NonEmptyOrNilString(givenName);
-    [v8 setFirstName:v14];
+    v11 = NonEmptyOrNilString(givenName);
+    [v7 setFirstName:v11];
 
     middleName = [contactCopy middleName];
-    v16 = NonEmptyOrNilString(middleName);
-    [v8 setMiddleName:v16];
+    v13 = NonEmptyOrNilString(middleName);
+    [v7 setMiddleName:v13];
 
     familyName = [contactCopy familyName];
-    v18 = NonEmptyOrNilString(familyName);
-    [v8 setLastName:v18];
+    v15 = NonEmptyOrNilString(familyName);
+    [v7 setLastName:v15];
 
     birthday = [contactCopy birthday];
 
@@ -310,65 +301,65 @@ LABEL_19:
 
       if (!timeZone)
       {
-        v22 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
-        [birthday2 setTimeZone:v22];
+        v19 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
+        [birthday2 setTimeZone:v19];
       }
 
-      v23 = [MEMORY[0x277CBEA80] calendarWithIdentifier:*MEMORY[0x277CBE5C0]];
-      v24 = [v23 dateFromComponents:birthday2];
-      [v8 setBirthday:v24];
+      v20 = [MEMORY[0x277CBEA80] calendarWithIdentifier:*MEMORY[0x277CBE5C0]];
+      v21 = [v20 dateFromComponents:birthday2];
+      [v7 setBirthday:v21];
     }
 
     nickname = [contactCopy nickname];
-    v26 = NonEmptyOrNilString(nickname);
-    [v8 setNickName:v26];
+    v23 = NonEmptyOrNilString(nickname);
+    [v7 setNickName:v23];
 
     namePrefix = [contactCopy namePrefix];
-    v28 = NonEmptyOrNilString(namePrefix);
-    [v8 setPrefix:v28];
+    v25 = NonEmptyOrNilString(namePrefix);
+    [v7 setPrefix:v25];
 
     nameSuffix = [contactCopy nameSuffix];
-    v30 = NonEmptyOrNilString(nameSuffix);
-    [v8 setSuffix:v30];
+    v27 = NonEmptyOrNilString(nameSuffix);
+    [v7 setSuffix:v27];
 
     organizationName = [contactCopy organizationName];
-    v32 = NonEmptyOrNilString(organizationName);
-    [v8 setCompany:v32];
+    v29 = NonEmptyOrNilString(organizationName);
+    [v7 setCompany:v29];
 
     phoneticGivenName = [contactCopy phoneticGivenName];
-    v34 = NonEmptyOrNilString(phoneticGivenName);
-    [v8 setFirstNamePhonetic:v34];
+    v31 = NonEmptyOrNilString(phoneticGivenName);
+    [v7 setFirstNamePhonetic:v31];
 
     phoneticFamilyName = [contactCopy phoneticFamilyName];
-    v36 = NonEmptyOrNilString(phoneticFamilyName);
-    [v8 setLastNamePhonetic:v36];
+    v33 = NonEmptyOrNilString(phoneticFamilyName);
+    [v7 setLastNamePhonetic:v33];
 
     phonemeData = [contactCopy phonemeData];
-    v38 = NonEmptyOrNilString(phonemeData);
-    [v8 setPhonemeData:v38];
+    v35 = NonEmptyOrNilString(phonemeData);
+    [v7 setPhonemeData:v35];
 
-    v39 = [CNAssistantConversion emailAddressesFromContact:contactCopy];
-    v40 = NonEmptyOrNilArray(v39);
-    [v8 setEmails:v40];
+    v36 = [CNAssistantConversion emailAddressesFromContact:contactCopy];
+    v37 = NonEmptyOrNilArray(v36);
+    [v7 setEmails:v37];
 
-    v41 = [CNAssistantConversion phoneNumbersFromContact:contactCopy];
-    v42 = NonEmptyOrNilArray(v41);
-    [v8 setPhones:v42];
+    v38 = [CNAssistantConversion phoneNumbersFromContact:contactCopy];
+    v39 = NonEmptyOrNilArray(v38);
+    [v7 setPhones:v39];
 
-    v43 = [CNAssistantConversion addressesFromContact:contactCopy];
-    v44 = NonEmptyOrNilArray(v43);
-    [v8 setAddresses:v44];
+    v40 = [CNAssistantConversion addressesFromContact:contactCopy];
+    v41 = NonEmptyOrNilArray(v40);
+    [v7 setAddresses:v41];
 
-    v45 = [CNAssistantConversion relationsFromContact:contactCopy];
-    v46 = NonEmptyOrNilArray(v45);
-    [v8 setRelatedNames:v46];
+    v42 = [CNAssistantConversion relationsFromContact:contactCopy];
+    v43 = NonEmptyOrNilArray(v42);
+    [v7 setRelatedNames:v43];
 
-    v47 = [MEMORY[0x277CBDA78] stringFromContact:contactCopy style:0];
-    v48 = NonEmptyOrNilString(v47);
-    [v8 setFullName:v48];
+    v44 = [MEMORY[0x277CBDA78] stringFromContact:contactCopy style:0];
+    v45 = NonEmptyOrNilString(v44);
+    [v7 setFullName:v45];
   }
 
-  return v8;
+  return v7;
 }
 
 + (id)createSAPersonFromCNContact:(id)contact conversionType:(int64_t)type
@@ -502,39 +493,39 @@ LABEL_9:
 
 + (id)emailAddressesFromContact:(id)contact
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v5 = *MEMORY[0x277CBCFC0];
   if ([contactCopy isKeyAvailable:*MEMORY[0x277CBCFC0]])
   {
     selfCopy = self;
     mEMORY[0x277CBDAF8] = [MEMORY[0x277CBDAF8] sharedInstance];
-    v31 = contactCopy;
+    v30 = contactCopy;
     v6 = [mEMORY[0x277CBDAF8] entriesForContact:contactCopy propertyKey:v5 labeledValueIdentifier:0 actionType:0 bundleIdentifier:*MEMORY[0x277CBCF58]];
     v7 = [MEMORY[0x277CBEB58] set];
-    v32 = [MEMORY[0x277CBEB58] set];
+    v31 = [MEMORY[0x277CBEB58] set];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v38;
+      v10 = *v37;
       v11 = *MEMORY[0x277CBCF70];
       v12 = *MEMORY[0x277CBCF80];
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v38 != v10)
+          if (*v37 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v37 + 1) + 8 * i);
+          v14 = *(*(&v36 + 1) + 8 * i);
           actionType = [v14 actionType];
           v16 = [actionType isEqualToString:v11];
 
@@ -544,7 +535,7 @@ LABEL_9:
             actionType2 = [v14 actionType];
             v19 = [actionType2 isEqualToString:v12];
 
-            v17 = v32;
+            v17 = v31;
             if (!v19)
             {
               continue;
@@ -556,33 +547,31 @@ LABEL_9:
           [v17 addObject:identifier];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v9 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v9);
     }
 
-    contactCopy = v31;
-    emailAddresses = [v31 emailAddresses];
+    contactCopy = v30;
+    emailAddresses = [v30 emailAddresses];
     v23 = [selfCopy filterLabeledValues:emailAddresses droppingEmptyLabels:0 droppingDuplicates:0];
 
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __51__CNAssistantConversion_emailAddressesFromContact___block_invoke;
-    v34[3] = &unk_278E05268;
-    v35 = v7;
-    v36 = v32;
-    v24 = v32;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __51__CNAssistantConversion_emailAddressesFromContact___block_invoke;
+    v33[3] = &unk_278E05268;
+    v34 = v7;
+    v35 = v31;
+    v24 = v31;
     v25 = v7;
-    v26 = [v23 mapUsingBlock:v34];
+    v26 = [v23 mapUsingBlock:v33];
   }
 
   else
   {
     v26 = MEMORY[0x277CBEBF8];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -634,39 +623,39 @@ id __51__CNAssistantConversion_emailAddressesFromContact___block_invoke(uint64_t
 
 + (id)emailAddressesForSyncFromContact:(id)contact
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v5 = *MEMORY[0x277CBCFC0];
   if ([contactCopy isKeyAvailable:*MEMORY[0x277CBCFC0]])
   {
     selfCopy = self;
     mEMORY[0x277CBDAF8] = [MEMORY[0x277CBDAF8] sharedInstance];
-    v31 = contactCopy;
+    v30 = contactCopy;
     v6 = [mEMORY[0x277CBDAF8] entriesForContact:contactCopy propertyKey:v5 labeledValueIdentifier:0 actionType:0 bundleIdentifier:*MEMORY[0x277CBCF58]];
     v7 = [MEMORY[0x277CBEB58] set];
-    v32 = [MEMORY[0x277CBEB58] set];
+    v31 = [MEMORY[0x277CBEB58] set];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v38;
+      v10 = *v37;
       v11 = *MEMORY[0x277CBCF70];
       v12 = *MEMORY[0x277CBCF80];
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v38 != v10)
+          if (*v37 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v37 + 1) + 8 * i);
+          v14 = *(*(&v36 + 1) + 8 * i);
           actionType = [v14 actionType];
           v16 = [actionType isEqualToString:v11];
 
@@ -676,7 +665,7 @@ id __51__CNAssistantConversion_emailAddressesFromContact___block_invoke(uint64_t
             actionType2 = [v14 actionType];
             v19 = [actionType2 isEqualToString:v12];
 
-            v17 = v32;
+            v17 = v31;
             if (!v19)
             {
               continue;
@@ -688,33 +677,31 @@ id __51__CNAssistantConversion_emailAddressesFromContact___block_invoke(uint64_t
           [v17 addObject:identifier];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v9 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v9);
     }
 
-    contactCopy = v31;
-    emailAddresses = [v31 emailAddresses];
+    contactCopy = v30;
+    emailAddresses = [v30 emailAddresses];
     v23 = [selfCopy filterLabeledValues:emailAddresses droppingEmptyLabels:1 droppingDuplicates:0];
 
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __58__CNAssistantConversion_emailAddressesForSyncFromContact___block_invoke;
-    v34[3] = &unk_278E05268;
-    v35 = v7;
-    v36 = v32;
-    v24 = v32;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __58__CNAssistantConversion_emailAddressesForSyncFromContact___block_invoke;
+    v33[3] = &unk_278E05268;
+    v34 = v7;
+    v35 = v31;
+    v24 = v31;
     v25 = v7;
-    v26 = [v23 mapUsingBlock:v34];
+    v26 = [v23 mapUsingBlock:v33];
   }
 
   else
   {
     v26 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -762,45 +749,45 @@ id __58__CNAssistantConversion_emailAddressesForSyncFromContact___block_invoke(u
 
 + (id)phoneNumbersFromContact:(id)contact
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v5 = *MEMORY[0x277CBD098];
   if ([contactCopy isKeyAvailable:*MEMORY[0x277CBD098]])
   {
     selfCopy = self;
     mEMORY[0x277CBDAF8] = [MEMORY[0x277CBDAF8] sharedInstance];
-    v40 = contactCopy;
+    v39 = contactCopy;
     v6 = [mEMORY[0x277CBDAF8] entriesForContact:contactCopy propertyKey:v5 labeledValueIdentifier:0 actionType:0 bundleIdentifier:0];
-    v43 = [MEMORY[0x277CBEB58] set];
-    v44 = [MEMORY[0x277CBEB58] set];
     v42 = [MEMORY[0x277CBEB58] set];
+    v43 = [MEMORY[0x277CBEB58] set];
+    v41 = [MEMORY[0x277CBEB58] set];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (!v8)
     {
       goto LABEL_16;
     }
 
     v9 = v8;
-    v10 = *v50;
+    v10 = *v49;
     v11 = *MEMORY[0x277CBCF58];
     v12 = *MEMORY[0x277CBCF68];
     v13 = *MEMORY[0x277CBCF70];
-    v41 = *MEMORY[0x277CBCF80];
+    v40 = *MEMORY[0x277CBCF80];
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v50 != v10)
+        if (*v49 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v49 + 1) + 8 * i);
+        v15 = *(*(&v48 + 1) + 8 * i);
         bundleIdentifier = [v15 bundleIdentifier];
         v17 = [bundleIdentifier isEqualToString:v11];
 
@@ -809,16 +796,16 @@ id __58__CNAssistantConversion_emailAddressesForSyncFromContact___block_invoke(u
           actionType = [v15 actionType];
           v19 = [actionType isEqualToString:v13];
 
-          v20 = v44;
+          v20 = v43;
           if (v19)
           {
             goto LABEL_13;
           }
 
           actionType2 = [v15 actionType];
-          v22 = [actionType2 isEqualToString:v41];
+          v22 = [actionType2 isEqualToString:v40];
 
-          v20 = v42;
+          v20 = v41;
           if (v22)
           {
             goto LABEL_13;
@@ -835,7 +822,7 @@ id __58__CNAssistantConversion_emailAddressesForSyncFromContact___block_invoke(u
             actionType3 = [v15 actionType];
             v26 = [actionType3 isEqualToString:v13];
 
-            v20 = v43;
+            v20 = v42;
             if (v26)
             {
 LABEL_13:
@@ -849,27 +836,27 @@ LABEL_13:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v48 objects:v52 count:16];
       if (!v9)
       {
 LABEL_16:
         v29 = v7;
 
-        contactCopy = v40;
-        phoneNumbers = [v40 phoneNumbers];
+        contactCopy = v39;
+        phoneNumbers = [v39 phoneNumbers];
         v31 = [selfCopy filterLabeledValues:phoneNumbers droppingEmptyLabels:0 droppingDuplicates:0];
 
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __49__CNAssistantConversion_phoneNumbersFromContact___block_invoke;
-        v45[3] = &unk_278E05290;
-        v46 = v44;
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __49__CNAssistantConversion_phoneNumbersFromContact___block_invoke;
+        v44[3] = &unk_278E05290;
+        v45 = v43;
+        v46 = v41;
         v47 = v42;
-        v48 = v43;
-        v32 = v43;
-        v33 = v42;
-        v34 = v44;
-        v35 = [v31 mapUsingBlock:v45];
+        v32 = v42;
+        v33 = v41;
+        v34 = v43;
+        v35 = [v31 mapUsingBlock:v44];
 
         goto LABEL_18;
       }
@@ -878,8 +865,6 @@ LABEL_16:
 
   v35 = 0;
 LABEL_18:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
@@ -946,45 +931,45 @@ id __49__CNAssistantConversion_phoneNumbersFromContact___block_invoke(void *a1, 
 
 + (id)phoneNumbersForSyncFromContact:(id)contact
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v5 = *MEMORY[0x277CBD098];
   if ([contactCopy isKeyAvailable:*MEMORY[0x277CBD098]])
   {
     selfCopy = self;
     mEMORY[0x277CBDAF8] = [MEMORY[0x277CBDAF8] sharedInstance];
-    v40 = contactCopy;
+    v39 = contactCopy;
     v6 = [mEMORY[0x277CBDAF8] entriesForContact:contactCopy propertyKey:v5 labeledValueIdentifier:0 actionType:0 bundleIdentifier:0];
-    v43 = [MEMORY[0x277CBEB58] set];
-    v44 = [MEMORY[0x277CBEB58] set];
     v42 = [MEMORY[0x277CBEB58] set];
+    v43 = [MEMORY[0x277CBEB58] set];
+    v41 = [MEMORY[0x277CBEB58] set];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (!v8)
     {
       goto LABEL_16;
     }
 
     v9 = v8;
-    v10 = *v50;
+    v10 = *v49;
     v11 = *MEMORY[0x277CBCF58];
     v12 = *MEMORY[0x277CBCF68];
     v13 = *MEMORY[0x277CBCF70];
-    v41 = *MEMORY[0x277CBCF80];
+    v40 = *MEMORY[0x277CBCF80];
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v50 != v10)
+        if (*v49 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v49 + 1) + 8 * i);
+        v15 = *(*(&v48 + 1) + 8 * i);
         bundleIdentifier = [v15 bundleIdentifier];
         v17 = [bundleIdentifier isEqualToString:v11];
 
@@ -993,16 +978,16 @@ id __49__CNAssistantConversion_phoneNumbersFromContact___block_invoke(void *a1, 
           actionType = [v15 actionType];
           v19 = [actionType isEqualToString:v13];
 
-          v20 = v44;
+          v20 = v43;
           if (v19)
           {
             goto LABEL_13;
           }
 
           actionType2 = [v15 actionType];
-          v22 = [actionType2 isEqualToString:v41];
+          v22 = [actionType2 isEqualToString:v40];
 
-          v20 = v42;
+          v20 = v41;
           if (v22)
           {
             goto LABEL_13;
@@ -1019,7 +1004,7 @@ id __49__CNAssistantConversion_phoneNumbersFromContact___block_invoke(void *a1, 
             actionType3 = [v15 actionType];
             v26 = [actionType3 isEqualToString:v13];
 
-            v20 = v43;
+            v20 = v42;
             if (v26)
             {
 LABEL_13:
@@ -1033,27 +1018,27 @@ LABEL_13:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v48 objects:v52 count:16];
       if (!v9)
       {
 LABEL_16:
         v29 = v7;
 
-        contactCopy = v40;
-        phoneNumbers = [v40 phoneNumbers];
+        contactCopy = v39;
+        phoneNumbers = [v39 phoneNumbers];
         v31 = [selfCopy filterLabeledValues:phoneNumbers droppingEmptyLabels:1 droppingDuplicates:0];
 
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __56__CNAssistantConversion_phoneNumbersForSyncFromContact___block_invoke;
-        v45[3] = &unk_278E05290;
-        v46 = v44;
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __56__CNAssistantConversion_phoneNumbersForSyncFromContact___block_invoke;
+        v44[3] = &unk_278E05290;
+        v45 = v43;
+        v46 = v41;
         v47 = v42;
-        v48 = v43;
-        v32 = v43;
-        v33 = v42;
-        v34 = v44;
-        v35 = [v31 mapUsingBlock:v45];
+        v32 = v42;
+        v33 = v41;
+        v34 = v43;
+        v35 = [v31 mapUsingBlock:v44];
 
         goto LABEL_18;
       }
@@ -1062,8 +1047,6 @@ LABEL_16:
 
   v35 = 0;
 LABEL_18:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
@@ -1317,7 +1300,7 @@ id __51__CNAssistantConversion_socialProfilesFromContact___block_invoke(uint64_t
 
 + (id)verifyContact:(id)contact hasDescriptorsForRequiredKeys:(id)keys
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   keysCopy = keys;
   if ([contactCopy areKeysAvailable:keysCopy])
@@ -1325,8 +1308,8 @@ id __51__CNAssistantConversion_socialProfilesFromContact___block_invoke(uint64_t
     goto LABEL_4;
   }
 
-  v15[0] = *MEMORY[0x277CBD018];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = *MEMORY[0x277CBD018];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v8 = [contactCopy areKeysAvailable:v7];
 
   if (v8)
@@ -1345,43 +1328,41 @@ LABEL_4:
   v12 = 0;
 LABEL_6:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (void)markMeContactInPeople:(id)people usingStore:(id)store
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   peopleCopy = people;
   storeCopy = store;
-  v25[0] = *MEMORY[0x277CBD018];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = *MEMORY[0x277CBD018];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   v8 = [storeCopy _crossPlatformUnifiedMeContactWithKeysToFetch:v7 error:0];
 
   if (v8)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v19 = peopleCopy;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v18 = peopleCopy;
     v9 = peopleCopy;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           internalGUID = [v14 internalGUID];
           identifier = [v8 identifier];
           v17 = [internalGUID isEqualToString:identifier];
@@ -1393,7 +1374,7 @@ LABEL_6:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v11)
         {
           continue;
@@ -1405,10 +1386,8 @@ LABEL_6:
 
 LABEL_12:
 
-    peopleCopy = v19;
+    peopleCopy = v18;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)keysFromPerson:(id)person
@@ -1612,32 +1591,32 @@ id __45__CNAssistantConversion_relationsFromPerson___block_invoke(uint64_t a1, v
 
 + (void)addFieldsFromPerson:(id)person toContactWithIdentifier:(id)identifier usingStore:(id)store saveRequest:(id)request
 {
-  v42[9] = *MEMORY[0x277D85DE8];
+  v41[9] = *MEMORY[0x277D85DE8];
   personCopy = person;
   requestCopy = request;
   storeCopy = store;
   identifierCopy = identifier;
   v14 = [self keysFromPerson:personCopy];
   v15 = *MEMORY[0x277CBCFC0];
-  v42[0] = *MEMORY[0x277CBD098];
-  v42[1] = v15;
+  v41[0] = *MEMORY[0x277CBD098];
+  v41[1] = v15;
   v16 = *MEMORY[0x277CBD168];
-  v42[2] = *MEMORY[0x277CBCFB0];
-  v42[3] = v16;
+  v41[2] = *MEMORY[0x277CBCFB0];
+  v41[3] = v16;
   v17 = *MEMORY[0x277CBD120];
-  v42[4] = *MEMORY[0x277CBD038];
-  v42[5] = v17;
+  v41[4] = *MEMORY[0x277CBD038];
+  v41[5] = v17;
   v18 = *MEMORY[0x277CBD0C8];
-  v42[6] = *MEMORY[0x277CBD138];
-  v42[7] = v18;
-  v42[8] = *MEMORY[0x277CBCF98];
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:9];
+  v41[6] = *MEMORY[0x277CBD138];
+  v41[7] = v18;
+  v41[8] = *MEMORY[0x277CBCF98];
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:9];
   v20 = [v14 arrayByAddingObjectsFromArray:v19];
 
-  v41 = 0;
-  v21 = [storeCopy contactWithIdentifier:identifierCopy keysToFetch:v20 error:&v41];
+  v40 = 0;
+  v21 = [storeCopy contactWithIdentifier:identifierCopy keysToFetch:v20 error:&v40];
 
-  v22 = v41;
+  v22 = v40;
   v23 = [v21 mutableCopy];
 
   if (v23)
@@ -1689,38 +1668,36 @@ id __45__CNAssistantConversion_relationsFromPerson___block_invoke(uint64_t a1, v
   {
     _AFServiceLog();
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setFieldsFromPerson:(id)person toContactWithIdentifier:(id)identifier usingStore:(id)store saveRequest:(id)request
 {
-  v54[9] = *MEMORY[0x277D85DE8];
+  v53[9] = *MEMORY[0x277D85DE8];
   personCopy = person;
   requestCopy = request;
   storeCopy = store;
   identifierCopy = identifier;
   v14 = [self keysFromPerson:personCopy];
   v15 = *MEMORY[0x277CBCFC0];
-  v54[0] = *MEMORY[0x277CBD098];
-  v54[1] = v15;
+  v53[0] = *MEMORY[0x277CBD098];
+  v53[1] = v15;
   v16 = *MEMORY[0x277CBD168];
-  v54[2] = *MEMORY[0x277CBCFB0];
-  v54[3] = v16;
+  v53[2] = *MEMORY[0x277CBCFB0];
+  v53[3] = v16;
   v17 = *MEMORY[0x277CBD120];
-  v54[4] = *MEMORY[0x277CBD038];
-  v54[5] = v17;
+  v53[4] = *MEMORY[0x277CBD038];
+  v53[5] = v17;
   v18 = *MEMORY[0x277CBD0C8];
-  v54[6] = *MEMORY[0x277CBD138];
-  v54[7] = v18;
-  v54[8] = *MEMORY[0x277CBCF98];
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:9];
+  v53[6] = *MEMORY[0x277CBD138];
+  v53[7] = v18;
+  v53[8] = *MEMORY[0x277CBCF98];
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:9];
   v20 = [v14 arrayByAddingObjectsFromArray:v19];
 
-  v53 = 0;
-  v21 = [storeCopy contactWithIdentifier:identifierCopy keysToFetch:v20 error:&v53];
+  v52 = 0;
+  v21 = [storeCopy contactWithIdentifier:identifierCopy keysToFetch:v20 error:&v52];
 
-  v22 = v53;
+  v22 = v52;
   v23 = [v21 mutableCopy];
 
   if (v23)
@@ -1839,8 +1816,6 @@ id __45__CNAssistantConversion_relationsFromPerson___block_invoke(uint64_t a1, v
   {
     _AFServiceLog();
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeFieldsFromPerson:(id)person toContactWithIdentifier:(id)identifier usingStore:(id)store saveRequest:(id)request

@@ -271,13 +271,13 @@ LABEL_12:
       switch(type)
       {
         case 7:
-          v3 = getEMFEmojiCategoryFlags();
+          v3 = getEMFEmojiCategoryFlags(0, a2);
           break;
         case 9:
-          v3 = getEMFEmojiCategoryPrepopulated();
+          v3 = getEMFEmojiCategoryPrepopulated(0, a2);
           break;
         case 10:
-          v3 = getEMFEmojiCategoryObjects();
+          v3 = getEMFEmojiCategoryObjects(0, a2);
           break;
       }
 
@@ -287,7 +287,7 @@ LABEL_12:
     switch(type)
     {
       case 11:
-        v3 = getEMFEmojiCategorySymbols();
+        v3 = getEMFEmojiCategorySymbols(0, a2);
         goto LABEL_32;
       case 13:
         v4 = @"Memoji";
@@ -308,13 +308,13 @@ LABEL_12:
     switch(type)
     {
       case 3:
-        v3 = getEMFEmojiCategoryFoodAndDrink();
+        v3 = getEMFEmojiCategoryFoodAndDrink(0, a2);
         break;
       case 5:
-        v3 = getEMFEmojiCategoryActivity();
+        v3 = getEMFEmojiCategoryActivity(0, a2);
         break;
       case 6:
-        v3 = getEMFEmojiCategoryTravelAndPlaces();
+        v3 = getEMFEmojiCategoryTravelAndPlaces(0, a2);
         break;
     }
   }
@@ -323,12 +323,12 @@ LABEL_12:
   {
     if (type == 1)
     {
-      v3 = getEMFEmojiCategoryPeople();
+      v3 = getEMFEmojiCategoryPeople(0, a2);
     }
 
     else if (type == 2)
     {
-      v3 = getEMFEmojiCategoryNature();
+      v3 = getEMFEmojiCategoryNature(0, a2);
     }
   }
 
@@ -369,107 +369,107 @@ LABEL_32:
 + (int64_t)emojiCategoryTypeForCategoryString:(id)string
 {
   stringCopy = string;
-  v4 = getEMFEmojiCategoryPrepopulated();
-  v5 = [stringCopy isEqualToString:v4];
+  v5 = getEMFEmojiCategoryPrepopulated(stringCopy, v4);
+  isEqualToString = objc_msgSend_isEqualToString_(stringCopy);
 
-  if (v5)
+  if (isEqualToString)
   {
-    v6 = 9;
+    v9 = 9;
   }
 
   else
   {
-    v7 = getEMFEmojiCategoryPeople();
-    v8 = [stringCopy isEqualToString:v7];
+    v10 = getEMFEmojiCategoryPeople(v7, v8);
+    v11 = objc_msgSend_isEqualToString_(stringCopy);
 
-    if (v8)
+    if (v11)
     {
-      v6 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v9 = getEMFEmojiCategoryNature();
-      v10 = [stringCopy isEqualToString:v9];
+      v14 = getEMFEmojiCategoryNature(v12, v13);
+      v15 = objc_msgSend_isEqualToString_(stringCopy);
 
-      if (v10)
+      if (v15)
       {
-        v6 = 2;
+        v9 = 2;
       }
 
       else
       {
-        v11 = getEMFEmojiCategoryFoodAndDrink();
-        v12 = [stringCopy isEqualToString:v11];
+        v18 = getEMFEmojiCategoryFoodAndDrink(v16, v17);
+        v19 = objc_msgSend_isEqualToString_(stringCopy);
 
-        if (v12)
+        if (v19)
         {
-          v6 = 3;
+          v9 = 3;
         }
 
         else
         {
-          v13 = getEMFEmojiCategoryActivity();
-          v14 = [stringCopy isEqualToString:v13];
+          v22 = getEMFEmojiCategoryActivity(v20, v21);
+          v23 = objc_msgSend_isEqualToString_(stringCopy);
 
-          if (v14)
+          if (v23)
           {
-            v6 = 5;
+            v9 = 5;
           }
 
           else
           {
-            v15 = getEMFEmojiCategoryTravelAndPlaces();
-            v16 = [stringCopy isEqualToString:v15];
+            v26 = getEMFEmojiCategoryTravelAndPlaces(v24, v25);
+            v27 = objc_msgSend_isEqualToString_(stringCopy);
 
-            if (v16)
+            if (v27)
             {
-              v6 = 6;
+              v9 = 6;
             }
 
             else
             {
-              v17 = getEMFEmojiCategoryObjects();
-              v18 = [stringCopy isEqualToString:v17];
+              v30 = getEMFEmojiCategoryObjects(v28, v29);
+              v31 = objc_msgSend_isEqualToString_(stringCopy);
 
-              if (v18)
+              if (v31)
               {
-                v6 = 10;
+                v9 = 10;
               }
 
               else
               {
-                v19 = getEMFEmojiCategorySymbols();
-                v20 = [stringCopy isEqualToString:v19];
+                v34 = getEMFEmojiCategorySymbols(v32, v33);
+                v35 = objc_msgSend_isEqualToString_(stringCopy);
 
-                if (v20)
+                if (v35)
                 {
-                  v6 = 11;
+                  v9 = 11;
                 }
 
                 else
                 {
-                  v21 = getEMFEmojiCategoryFlags();
-                  v22 = [stringCopy isEqualToString:v21];
+                  v38 = getEMFEmojiCategoryFlags(v36, v37);
+                  v39 = objc_msgSend_isEqualToString_(stringCopy);
 
-                  if (v22)
+                  if (v39)
                   {
-                    v6 = 7;
+                    v9 = 7;
                   }
 
-                  else if ([stringCopy isEqualToString:@"UIKeyboardEmojiCategoryMemoji"])
+                  else if (objc_msgSend_isEqualToString_(stringCopy))
                   {
-                    v6 = 13;
+                    v9 = 13;
                   }
 
-                  else if ([stringCopy isEqualToString:@"UIKeyboardEmojiCategoryStickers"])
+                  else if (objc_msgSend_isEqualToString_(stringCopy))
                   {
-                    v6 = 14;
+                    v9 = 14;
                   }
 
                   else
                   {
-                    v6 = 0;
+                    v9 = 0;
                   }
                 }
               }
@@ -480,7 +480,7 @@ LABEL_32:
     }
   }
 
-  return v6;
+  return v9;
 }
 
 + (id)categoryForType:(int64_t)type

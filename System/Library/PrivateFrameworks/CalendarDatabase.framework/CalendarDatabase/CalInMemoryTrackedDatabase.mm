@@ -26,11 +26,9 @@
 
 - (BOOL)hasClients
 {
-  v6 = *MEMORY[0x1E69E9840];
-  memset(v4, 0, sizeof(v4));
-  result = [(NSHashTable *)self->_clients countByEnumeratingWithState:v4 objects:v5 count:16]!= 0;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v5 = *MEMORY[0x1E69E9840];
+  memset(v3, 0, sizeof(v3));
+  return [(NSHashTable *)self->_clients countByEnumeratingWithState:v3 objects:v4 count:16]!= 0;
 }
 
 @end

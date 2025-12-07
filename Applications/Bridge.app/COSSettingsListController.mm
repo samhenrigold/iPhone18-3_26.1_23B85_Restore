@@ -377,8 +377,8 @@
     {
       v5 = [v99 specifierForID:@"FAMILY_WATCHES_GROUP_ID"];
       v6 = [v99 specifierForID:@"FAMILY_WATCHES_ID"];
-      [v99 removeObject:v5];
-      [v99 removeObject:v6];
+      objc_msgSend_removeObject_(v99);
+      objc_msgSend_removeObject_(v99);
     }
 
     if (+[COSPreferencesAppController hasUpdateAvailable])
@@ -449,7 +449,7 @@
     if ((v22 & 1) == 0)
     {
       v23 = [obj specifierForID:@"NTK_CUSTOMIZATION_ID"];
-      [obj removeObject:v23];
+      objc_msgSend_removeObject_(obj);
     }
   }
 
@@ -686,18 +686,18 @@ LABEL_73:
   if (!BPSDeviceHasCapabilityForString() || ![(COSSettingsListController *)val isBreatheAppInstalled]&& ([COSTinkerHealthSharingSetupDelegate tinkerDevice]_0(), v74 = objc_claimAutoreleasedReturnValue(), HasStandaloneAppsCapability = BPSDeviceHasStandaloneAppsCapability(), v74, HasStandaloneAppsCapability))
   {
     v76 = [obja specifierForID:@"com.apple.DeepBreathingSettings"];
-    [obja removeObject:v76];
+    objc_msgSend_removeObject_(obja);
   }
 
   [(COSSettingsListController *)val systemAppSpecifierProcessing:obja];
   if (sub_100007C2C())
   {
     v77 = [obja specifierForID:@"PASSCODE_ID"];
-    [obja removeObject:v77];
+    objc_msgSend_removeObject_(obja);
   }
 
   v78 = [obja specifierForID:@"PAIRED_WATCH_GROUP_ID"];
-  [obja removeObject:v78];
+  objc_msgSend_removeObject_(obja);
 
   if ([(COSSettingsListController *)val isEnrolledAndSupervised])
   {
@@ -1182,7 +1182,7 @@ LABEL_24:
   if (v11 == 2)
   {
     v12 = [processingCopy specifierForID:@"com.apple.MessagesBridgeSettings"];
-    [processingCopy removeObject:v12];
+    objc_msgSend_removeObject_(processingCopy);
   }
 
   objc_initWeak(&location, self);
@@ -1243,67 +1243,67 @@ LABEL_18:
   if (BPSDeviceHasCapabilityForString())
   {
     v22 = [processingCopy specifierForID:@"com.apple.NanoBooks.BridgeSettings"];
-    [processingCopy removeObject:v22];
+    objc_msgSend_removeObject_(processingCopy);
 
     v23 = [processingCopy specifierForID:@"com.apple.private.PodcastsBridgeSettings"];
-    [processingCopy removeObject:v23];
+    objc_msgSend_removeObject_(processingCopy);
 
     v24 = [processingCopy specifierForID:@"com.apple.tincan.settings"];
-    [processingCopy removeObject:v24];
+    objc_msgSend_removeObject_(processingCopy);
 
     v25 = [processingCopy specifierForID:@"com.apple.weatherbridgesettings"];
-    [processingCopy removeObject:v25];
+    objc_msgSend_removeObject_(processingCopy);
 
     v26 = [processingCopy specifierForID:@"com.apple.StocksBridgeSettings"];
-    [processingCopy removeObject:v26];
+    objc_msgSend_removeObject_(processingCopy);
 
     v27 = [processingCopy specifierForID:@"com.apple.NanoMailBridgeSettings"];
-    [processingCopy removeObject:v27];
+    objc_msgSend_removeObject_(processingCopy);
 
     v28 = [processingCopy specifierForID:@"com.apple.NanoMapsBridgeSettings"];
-    [processingCopy removeObject:v28];
+    objc_msgSend_removeObject_(processingCopy);
 
     v29 = [processingCopy specifierForID:@"com.apple.NanoMusicBridgeSettings"];
-    [processingCopy removeObject:v29];
+    objc_msgSend_removeObject_(processingCopy);
 
     v30 = [processingCopy specifierForID:@"com.apple.NanoCalendarBridgeSettings"];
-    [processingCopy removeObject:v30];
+    objc_msgSend_removeObject_(processingCopy);
 
     v31 = [processingCopy specifierForID:@"com.apple.NanoClockBridgeSettings"];
-    [processingCopy removeObject:v31];
+    objc_msgSend_removeObject_(processingCopy);
 
     v32 = [processingCopy specifierForID:@"com.apple.HealthSettings"];
-    [processingCopy removeObject:v32];
+    objc_msgSend_removeObject_(processingCopy);
 
     v33 = [processingCopy specifierForID:@"com.apple.DeepBreathingSettings"];
-    [processingCopy removeObject:v33];
+    objc_msgSend_removeObject_(processingCopy);
 
     v34 = [processingCopy specifierForID:@"com.apple.PhoneBridgeSettings"];
-    [processingCopy removeObject:v34];
+    objc_msgSend_removeObject_(processingCopy);
 
     v35 = [processingCopy specifierForID:@"com.apple.MindSettings"];
-    [processingCopy removeObject:v35];
+    objc_msgSend_removeObject_(processingCopy);
 
     v36 = [processingCopy specifierForID:@"com.apple.NanoTipsBridgeSettings"];
-    [processingCopy removeObject:v36];
+    objc_msgSend_removeObject_(processingCopy);
 
     v37 = [processingCopy specifierForID:@"com.apple.NanoMenstrualCyclesCompanionSettings"];
-    [processingCopy removeObject:v37];
+    objc_msgSend_removeObject_(processingCopy);
 
     v38 = [processingCopy specifierForID:@"com.apple.findmy"];
-    [processingCopy removeObject:v38];
+    objc_msgSend_removeObject_(processingCopy);
   }
 
   if (sub_100007C2C())
   {
     v39 = [processingCopy specifierForID:@"com.apple.BridgeHealthSettings"];
-    [processingCopy removeObject:v39];
+    objc_msgSend_removeObject_(processingCopy);
 
     v40 = [processingCopy specifierForID:@"SOS_MODE_ID"];
-    [processingCopy removeObject:v40];
+    objc_msgSend_removeObject_(processingCopy);
 
     v41 = [processingCopy specifierForID:@"PASSCODE_ID"];
-    [processingCopy removeObject:v41];
+    objc_msgSend_removeObject_(processingCopy);
   }
 
   if (bOOLValue)
@@ -1872,7 +1872,7 @@ LABEL_12:
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v4 = sub_10007A374();
+  v4 = sub_10007A374(dCopy);
   allKeys = [v4 allKeys];
 
   v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
@@ -1913,7 +1913,7 @@ LABEL_11:
 - (void)pushCustomControllerForRootSpecifierID:(id)d
 {
   dCopy = d;
-  v5 = sub_10007A374();
+  v5 = sub_10007A374(dCopy);
   v6 = [v5 objectForKey:dCopy];
 
   if (v6)
@@ -1936,7 +1936,7 @@ LABEL_11:
 - (id)customControllerForRootSpecifierID:(id)d
 {
   dCopy = d;
-  v5 = sub_10007A374();
+  v5 = sub_10007A374(dCopy);
   v6 = [v5 objectForKey:dCopy];
 
   if (v6)
@@ -2106,17 +2106,18 @@ LABEL_11:
 - (id)specialCaseVictoryRow
 {
   displayDevice = [UIApp displayDevice];
+  v3 = displayDevice;
   if (displayDevice)
   {
-    v3 = sub_1000E64B8();
+    v4 = sub_1000E64B8(displayDevice);
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)wkAppSpinnerGroup
@@ -2698,7 +2699,7 @@ LABEL_46:
   identifier = [stashCopy identifier];
   [(COSSettingsListController *)self removeSpecifierID:identifier animated:animatedCopy];
 
-  [*(&self->_sockPuppetAppMapping + 6) removeObject:stashCopy];
+  objc_msgSend_removeObject_(*(&self->_sockPuppetAppMapping + 6));
 }
 
 - (void)_insertSpecifierIntoTableAndStash:(id)stash atIndex:(unint64_t)index stashIndex:(unint64_t)stashIndex animated:(BOOL)animated

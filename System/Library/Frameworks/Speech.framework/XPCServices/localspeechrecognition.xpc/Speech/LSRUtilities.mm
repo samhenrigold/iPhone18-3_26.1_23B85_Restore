@@ -1,9 +1,22 @@
 @interface LSRUtilities
++ (id)emptyResultWithIsFinal:(BOOL)final;
 + (id)recognizedResultFromEARPackage:(id)package;
 + (id)transcriptionsWithEARTokens:(id)tokens;
 @end
 
 @implementation LSRUtilities
+
++ (id)emptyResultWithIsFinal:(BOOL)final
+{
+  finalCopy = final;
+  v4 = [[_EARSpeechRecognitionToken alloc] initWithTokenName:&stru_100066A98 start:0 end:0 silenceStart:&stru_100066A98 confidence:&stru_100066A98 hasSpaceAfter:0.0 hasSpaceBefore:0.0 phoneSequence:0.0 ipaPhoneSequence:0.0];
+  v9 = v4;
+  v5 = [NSArray arrayWithObjects:&v9 count:1];
+  v6 = [LSRUtilities transcriptionsWithEARTokens:v5];
+  v7 = [[SFSpeechRecognitionResult alloc] _initWithBestTranscription:v6 rawTranscription:v6 final:finalCopy speechRecognitionMetadata:0];
+
+  return v7;
+}
 
 + (id)recognizedResultFromEARPackage:(id)package
 {

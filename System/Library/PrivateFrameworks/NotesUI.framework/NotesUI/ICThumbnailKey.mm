@@ -32,7 +32,7 @@
 LABEL_5:
     v17 = 0;
     v19 = 0;
-    return ThumbnailKey.init(type:accountId:objectId:preferredSize:scale:appearance:)(type, width, height, scale, v14, v16, v17, v19, appearance);
+    return ThumbnailKey.init(type:accountId:objectId:preferredSize:scale:appearance:)(type, v14, v16, v17, v19, appearance, width, height, scale);
   }
 
   v14 = sub_1D4419C54();
@@ -45,7 +45,7 @@ LABEL_5:
 LABEL_3:
   v17 = sub_1D4419C54();
   v19 = v18;
-  return ThumbnailKey.init(type:accountId:objectId:preferredSize:scale:appearance:)(type, width, height, scale, v14, v16, v17, v19, appearance);
+  return ThumbnailKey.init(type:accountId:objectId:preferredSize:scale:appearance:)(type, v14, v16, v17, v19, appearance, width, height, scale);
 }
 
 - (ICThumbnailKey)initWithType:(int64_t)type accountId:(id)id objectId:(id)objectId preferredSize:(CGSize)size scale:(double)scale appearance:(unint64_t)appearance isRTL:(BOOL)l contentSizeCategory:(id)self0 hasBoldText:(BOOL)self1 hasButtonShapes:(BOOL)self2 hasDarkerSystemColors:(BOOL)self3 hasBorder:(BOOL)self4
@@ -237,7 +237,7 @@ LABEL_3:
 
 LABEL_5:
     v16 = 0;
-    return ThumbnailKey.init(type:accountId:objectId:preferredSize:traitCollection:)(type, width, height, v12, v14, objectIdCopy, v16, collection);
+    return ThumbnailKey.init(type:accountId:objectId:preferredSize:traitCollection:)(type, v12, v14, objectIdCopy, v16, collection, width, height);
   }
 
   v12 = sub_1D4419C54();
@@ -250,7 +250,7 @@ LABEL_5:
 LABEL_3:
   objectIdCopy = sub_1D4419C54();
   v16 = v15;
-  return ThumbnailKey.init(type:accountId:objectId:preferredSize:traitCollection:)(type, width, height, v12, v14, objectIdCopy, v16, collection);
+  return ThumbnailKey.init(type:accountId:objectId:preferredSize:traitCollection:)(type, v12, v14, objectIdCopy, v16, collection, width, height);
 }
 
 - (NSString)description

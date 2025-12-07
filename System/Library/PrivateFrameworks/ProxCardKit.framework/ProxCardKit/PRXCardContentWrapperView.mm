@@ -51,21 +51,21 @@
     v16 = PRXCardPreferredSizeClassForContainerBounds(v12, v13, v14, v15);
     v17 = &PRXCardCompactLayoutMargins;
     v18 = &unk_260F85308;
-    if (v16 != 1)
+    if (!v16)
     {
       v18 = &unk_260F852E8;
     }
 
     v19 = *v18;
     v20 = &unk_260F85300;
-    if (v16 != 1)
+    if (!v16)
     {
       v20 = &unk_260F852E0;
     }
 
     v21 = *v20;
     v22 = &unk_260F852F8;
-    if (v16 != 1)
+    if (!v16)
     {
       v22 = &unk_260F852D8;
       v17 = &PRXCardDefaultLayoutMargins;
@@ -328,21 +328,21 @@
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size withHorizontalFittingPriority:(float)priority verticalFittingPriority:(float)fittingPriority
 {
-  v12.receiver = self;
-  v12.super_class = PRXCardContentWrapperView;
-  [(PRXCardContentWrapperView *)&v12 systemLayoutSizeFittingSize:size.width withHorizontalFittingPriority:size.height verticalFittingPriority:?];
-  v6 = v5;
-  v8 = v7;
-  v9 = PRXDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v13.receiver = self;
+  v13.super_class = PRXCardContentWrapperView;
+  v5 = [(PRXCardContentWrapperView *)&v13 systemLayoutSizeFittingSize:size.width withHorizontalFittingPriority:size.height verticalFittingPriority:?];
+  v7 = v6;
+  v9 = v8;
+  v10 = PRXDefaultLog(v5);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [PRXCardContentWrapperView systemLayoutSizeFittingSize:v9 withHorizontalFittingPriority:v6 verticalFittingPriority:v8];
+    [PRXCardContentWrapperView systemLayoutSizeFittingSize:v10 withHorizontalFittingPriority:v7 verticalFittingPriority:v9];
   }
 
-  v10 = v6;
-  v11 = v8;
-  result.height = v11;
-  result.width = v10;
+  v11 = v7;
+  v12 = v9;
+  result.height = v12;
+  result.width = v11;
   return result;
 }
 

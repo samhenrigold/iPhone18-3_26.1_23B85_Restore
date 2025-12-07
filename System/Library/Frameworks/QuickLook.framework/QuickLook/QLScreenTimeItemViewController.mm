@@ -40,7 +40,7 @@
 
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D75348];
   handlerCopy = handler;
   clearColor = [v6 clearColor];
@@ -63,24 +63,23 @@
 
   view5 = [(QLScreenTimeItemViewController *)self view];
   v19 = MEMORY[0x277CCAAD0];
-  v31 = @"lockoutView";
+  v30 = @"lockoutView";
   view6 = [(STBlockingViewController *)self->_blockingViewController view];
-  v32[0] = view6;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+  v31[0] = view6;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
   v22 = [v19 constraintsWithVisualFormat:@"H:|[lockoutView]|" options:0 metrics:0 views:v21];
   [view5 addConstraints:v22];
 
   view7 = [(QLScreenTimeItemViewController *)self view];
   v24 = MEMORY[0x277CCAAD0];
-  v29 = @"lockoutView";
+  v28 = @"lockoutView";
   view8 = [(STBlockingViewController *)self->_blockingViewController view];
-  v30 = view8;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v29 = view8;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   v27 = [v24 constraintsWithVisualFormat:@"V:|[lockoutView]|" options:0 metrics:0 views:v26];
   [view7 addConstraints:v27];
 
   handlerCopy[2](handlerCopy, 0);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showBlockingViewControllerWithPolicy:(int64_t)policy

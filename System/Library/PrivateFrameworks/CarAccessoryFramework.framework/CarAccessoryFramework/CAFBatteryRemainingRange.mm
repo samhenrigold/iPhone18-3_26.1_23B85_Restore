@@ -4,6 +4,7 @@
 - (BOOL)hidden;
 - (BOOL)registeredForHidden;
 - (CAFBoolCharacteristic)hiddenCharacteristic;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -93,6 +94,33 @@
   v3 = hiddenCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000036000023"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  hiddenCharacteristic = [(CAFBatteryRemainingRange *)self hiddenCharacteristic];
+  uniqueIdentifier2 = [hiddenCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    [characteristicType batteryRemainingRangeService:self didUpdateHidden:{-[CAFBatteryRemainingRange hidden](self, "hidden")}];
+LABEL_4:
+  }
+
+  v12.receiver = self;
+  v12.super_class = CAFBatteryRemainingRange;
+  [(CAFDistanceDisplay *)&v12 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForHidden

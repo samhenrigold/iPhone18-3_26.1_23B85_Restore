@@ -187,7 +187,7 @@ void __45__HMDDataStreamSocket__writeData_completion___block_invoke(uint64_t a1)
 
 void __39__HMDDataStreamSocket_setTrafficClass___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -196,20 +196,18 @@ void __39__HMDDataStreamSocket_setTrafficClass___block_invoke(uint64_t a1)
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    v14 = 2048;
-    v15 = v7;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Traffic class changed from %lu -> %lu, notifying protocol", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2048;
+    v14 = v7;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Traffic class changed from %lu -> %lu, notifying protocol", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
   v8 = [*(a1 + 32) streamProtocol];
   [v8 evaluateOptionsForSocket:*(a1 + 32)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)trafficClass

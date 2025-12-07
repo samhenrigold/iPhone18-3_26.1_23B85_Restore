@@ -19,7 +19,7 @@
 
 + (id)diffFromDictionaryData:(id)data toDictionaryData:(id)dictionaryData
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionaryDataCopy = dictionaryData;
   objectsAndKeys = [data objectsAndKeys];
   v7 = objectsAndKeys;
@@ -37,7 +37,7 @@
 
   objectsAndKeys2 = [dictionaryDataCopy objectsAndKeys];
   v11 = objectsAndKeys2;
-  v39 = dictionaryDataCopy;
+  v38 = dictionaryDataCopy;
   if (objectsAndKeys2)
   {
     dictionary2 = objectsAndKeys2;
@@ -51,26 +51,26 @@
   v13 = dictionary2;
 
   v14 = [v13 mutableCopy];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   allKeys = [v9 allKeys];
-  v16 = [allKeys countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v16 = [allKeys countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v45;
+    v18 = *v44;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v45 != v18)
+        if (*v44 != v18)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v20 = *(*(&v44 + 1) + 8 * i);
+        v20 = *(*(&v43 + 1) + 8 * i);
         v21 = [v9 objectForKey:v20];
         v22 = [v13 objectForKey:v20];
         if ([v21 isEqual:v22])
@@ -79,36 +79,36 @@
         }
       }
 
-      v17 = [allKeys countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v17 = [allKeys countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v17);
   }
 
-  v38 = v14;
+  v37 = v14;
 
   v23 = [v9 mutableCopy];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   allKeys2 = [v13 allKeys];
-  v25 = [allKeys2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v25 = [allKeys2 countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v41;
+    v27 = *v40;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v41 != v27)
+        if (*v40 != v27)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v29 = *(*(&v40 + 1) + 8 * j);
-        v30 = [v9 objectForKey:{v29, v38, v39}];
+        v29 = *(*(&v39 + 1) + 8 * j);
+        v30 = [v9 objectForKey:{v29, v37, v38}];
         v31 = [v13 objectForKey:v29];
         if ([v31 isEqual:v30])
         {
@@ -116,16 +116,16 @@
         }
       }
 
-      v26 = [allKeys2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v26 = [allKeys2 countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v26);
   }
 
-  v32 = v38;
-  if ([v38 count])
+  v32 = v37;
+  if ([v37 count])
   {
-    v33 = [[STDictionaryData alloc] initWithObjectsAndKeys:v38];
+    v33 = [[STDictionaryData alloc] initWithObjectsAndKeys:v37];
   }
 
   else
@@ -144,8 +144,6 @@
   }
 
   v35 = [[STDictionaryDataDiff alloc] initWithObjectsAndKeysAdded:v33 objectsAndKeysRemoved:v34];
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v35;
 }
@@ -184,7 +182,7 @@
 
 - (void)applyToMutableDictionaryData:(id)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (self)
   {
@@ -213,7 +211,7 @@
   v11 = dictionary;
 
   [v11 addEntriesFromDictionary:objectsAndKeys];
-  v23 = objectsAndKeys;
+  v22 = objectsAndKeys;
   if (self)
   {
     objectsAndKeysRemoved = self->_objectsAndKeysRemoved;
@@ -225,26 +223,26 @@
   }
 
   objectsAndKeys3 = [(STDictionaryData *)objectsAndKeysRemoved objectsAndKeys];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   allKeys = [objectsAndKeys3 allKeys];
-  v15 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * i);
+        v19 = *(*(&v23 + 1) + 8 * i);
         v20 = [v11 objectForKey:v19];
         v21 = [objectsAndKeys3 objectForKey:v19];
         if ([v20 isEqual:v21])
@@ -253,14 +251,13 @@
         }
       }
 
-      v16 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
   }
 
   [dataCopy setObjectsAndKeys:v11];
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEmpty
@@ -301,13 +298,13 @@
 
 - (id)diffByApplyingDiff:(id)diff
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = diffCopy;
-    v43 = diffCopy;
+    v42 = diffCopy;
     if (self)
     {
       objectsAndKeysAdded = self->_objectsAndKeysAdded;
@@ -356,47 +353,47 @@
 
     v16 = v15;
 
-    v42 = v5;
+    v41 = v5;
     if (v5)
     {
-      v44 = v5[1];
+      v43 = v5[1];
       v17 = v5[2];
     }
 
     else
     {
-      v44 = 0;
+      v43 = 0;
       v17 = 0;
     }
 
-    v41 = v17;
-    objectsAndKeys = [v41 objectsAndKeys];
+    v40 = v17;
+    objectsAndKeys = [v40 objectsAndKeys];
     v19 = [objectsAndKeys mutableCopy];
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
-    v46 = v19;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v45 = v19;
     allKeys = [v19 allKeys];
-    v21 = [allKeys countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v21 = [allKeys countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v52;
+      v23 = *v51;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v52 != v23)
+          if (*v51 != v23)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v25 = *(*(&v51 + 1) + 8 * i);
+          v25 = *(*(&v50 + 1) + 8 * i);
           objectsAndKeys2 = [(STDictionaryData *)v11 objectsAndKeys];
           v27 = [objectsAndKeys2 objectForKey:v25];
-          v28 = [v46 objectForKey:v25];
+          v28 = [v45 objectForKey:v25];
           if ([v28 isEqual:v27])
           {
             [(STMutableDictionaryData *)v11 removeObjectForKey:v25];
@@ -408,35 +405,35 @@
           }
         }
 
-        v22 = [allKeys countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v22 = [allKeys countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v22);
     }
 
-    objectsAndKeys3 = [v44 objectsAndKeys];
+    objectsAndKeys3 = [v43 objectsAndKeys];
     v30 = [objectsAndKeys3 mutableCopy];
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     obj = [v30 allKeys];
-    v31 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v31 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v48;
+      v33 = *v47;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v48 != v33)
+          if (*v47 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = *(*(&v47 + 1) + 8 * j);
+          v35 = *(*(&v46 + 1) + 8 * j);
           objectsAndKeys4 = [(STDictionaryData *)v16 objectsAndKeys];
           v37 = [objectsAndKeys4 objectForKey:v35];
           v38 = [v30 objectForKey:v35];
@@ -451,7 +448,7 @@
           }
         }
 
-        v32 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v32 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v32);
@@ -463,7 +460,7 @@
       v11 = 0;
     }
 
-    diffCopy = v43;
+    diffCopy = v42;
     if (![(STDictionaryData *)v16 count])
     {
 
@@ -477,8 +474,6 @@
   {
     v10 = 0;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

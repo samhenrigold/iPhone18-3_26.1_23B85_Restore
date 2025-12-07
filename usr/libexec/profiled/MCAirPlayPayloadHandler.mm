@@ -71,7 +71,7 @@
               v26 = 0;
               if (error)
               {
-                *error = [v25 MCCopyAsPrimaryError];
+                *error = objc_msgSend_MCCopyAsPrimaryError(v25);
               }
 
               goto LABEL_16;

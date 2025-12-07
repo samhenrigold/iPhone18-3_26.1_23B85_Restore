@@ -203,10 +203,10 @@
 
 - (id)objectWithId:(unint64_t)id
 {
-  v6[0] = id;
+  idCopy = id;
   objectMap = [(DYMTLFunctionPlayer *)self->_player objectMap];
-  v6[2] = v6;
-  v4 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(objectMap, v6)[3];
+  v7 = &idCopy;
+  v4 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(objectMap, &idCopy, &std::piecewise_construct, &v7)[3];
 
   return v4;
 }
@@ -263,7 +263,7 @@
       *&v45 = v8;
       *(&v45 + 1) = v9;
       v46 = &v44;
-      v10 = std::__tree<std::__value_type<unsigned long long,std::vector<DYMTLOriginalProcessBuffer>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<DYMTLOriginalProcessBuffer>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<DYMTLOriginalProcessBuffer>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_bufferVitualAddressMap, &v44);
+      v10 = std::__tree<std::__value_type<unsigned long long,std::vector<DYMTLOriginalProcessBuffer>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<DYMTLOriginalProcessBuffer>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<DYMTLOriginalProcessBuffer>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_bufferVitualAddressMap, &v44, &std::piecewise_construct, &v46);
       v11 = v10;
       v13 = v10[6];
       v12 = v10[7];
@@ -324,7 +324,7 @@
       v11[6] = v14;
       v25 = *(&v45 + 1);
       v46 = &v45;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_bufferLengthMap.__table_.__bucket_list_.__ptr_, &v45)[3] = v25;
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_bufferLengthMap.__table_.__bucket_list_.__ptr_, &v45, &std::piecewise_construct, &v46)[3] = v25;
       v5 = v7 + 3;
       --v6;
     }
@@ -344,7 +344,7 @@
       v26 += 2;
       v46 = v28;
       *&v45 = &v46;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_textureMap.__table_.__bucket_list_.__ptr_, &v46)[3] = v29;
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_textureMap.__table_.__bucket_list_.__ptr_, &v46, &std::piecewise_construct, &v45)[3] = v29;
       --v27;
     }
 
@@ -353,19 +353,19 @@
   }
 
   v30 = *v26;
-  for (i = (v5 + 2); v30; --v30)
+  for (i = v5 + 2; v30; --v30)
   {
     v46 = *i;
     v44 = i[1];
     *&v45 = &v44;
-    v32 = std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_samplerMap.__table_.__bucket_list_.__ptr_, &v44);
+    v32 = std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_samplerMap.__table_.__bucket_list_.__ptr_, &v44, &std::piecewise_construct, &v45);
     std::vector<unsigned long long>::push_back[abi:ne200100](v32 + 3, &v46);
     i += 2;
   }
 
   if (v4 > 0x16)
   {
-    v33 = (i + 1);
+    v33 = i + 1;
     v34 = *i;
     if (*i)
     {
@@ -376,12 +376,12 @@
         v33 += 2;
         v46 = v35;
         *&v45 = &v46;
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_renderPipelineMap.__table_.__bucket_list_.__ptr_, &v46)[3] = v36;
-        --v34;
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_renderPipelineMap.__table_.__bucket_list_.__ptr_, &v46, &std::piecewise_construct, &v45)[3] = v36;
+        v34 = (v34 - 1);
       }
 
       while (v34);
-      i = (v33 - 1);
+      i = v33 - 1;
     }
 
     v37 = *v33;
@@ -392,19 +392,19 @@
       j += 2;
       v46 = v39;
       *&v45 = &v46;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_computePipelineMap.__table_.__bucket_list_.__ptr_, &v46)[3] = v40;
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_computePipelineMap.__table_.__bucket_list_.__ptr_, &v46, &std::piecewise_construct, &v45)[3] = v40;
     }
 
     v41 = *j;
     if (*j)
     {
-      v42 = j + 2;
+      v42 = (j + 2);
       do
       {
         v43 = *(v42 - 1);
         v46 = *v42;
         *&v45 = &v46;
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_indirectCommandBufferMap.__table_.__bucket_list_.__ptr_, &v46)[3] = v43;
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_indirectCommandBufferMap.__table_.__bucket_list_.__ptr_, &v46, &std::piecewise_construct, &v45)[3] = v43;
         v42 += 2;
         --v41;
       }
@@ -440,8 +440,8 @@
             std::vector<unsigned long long>::push_back[abi:ne200100](&__p, v7 + 3);
             LOBYTE(v37) = 1;
             v33 = v7;
-            v9 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_decodingMap.__table_.__bucket_list_.__ptr_, v7);
-            std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>((v9 + 3), &v36);
+            v9 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_decodingMap.__table_.__bucket_list_.__ptr_, v7, &std::piecewise_construct, &v33);
+            std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(v9 + 3, &v36, &v36);
             if (__p)
             {
               v39 = __p;
@@ -467,8 +467,8 @@
                 std::vector<unsigned long long>::push_back[abi:ne200100](&__p, v7 + 3);
                 LOBYTE(v37) = 0;
                 v41 = &v32;
-                v12 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_decodingMap.__table_.__bucket_list_.__ptr_, &v32);
-                std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>((v12 + 3), &v36);
+                v12 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_decodingMap.__table_.__bucket_list_.__ptr_, &v32, &std::piecewise_construct, &v41);
+                std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(v12 + 3, &v36, &v36);
                 if (__p)
                 {
                   v39 = __p;
@@ -530,20 +530,20 @@
     *&v36 = &v36 + 8;
     v33 = 0;
     v34 = 0;
-    v17 = i[3];
-    if (v17 != i + 4)
+    v17 = *(i + 3);
+    if (v17 != i + 32)
     {
       v18 = 0;
       encodedLength = 0;
       do
       {
-        if (v18 && v17[5] == v18[1] && (v20 = v17[7], v21 = v17[8] - v20, v22 = v18[3], v21 == v18[4] - v22) && !memcmp(v20, v22, v21))
+        if (v18 && *(v17 + 5) == v18[1] && (v20 = *(v17 + 7), v21 = *(v17 + 8) - v20, v22 = v18[3], v21 == v18[4] - v22) && !memcmp(v20, v22, v21))
         {
           v27 = v33;
           if (v34 == v33)
           {
 LABEL_40:
-            std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(&v36, (v17 + 4));
+            std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(&v36, (v17 + 32), (v17 + 32));
             std::vector<unsigned long long>::push_back[abi:ne200100](&v33, v17 + 4);
           }
 
@@ -558,7 +558,7 @@ LABEL_40:
             while (1)
             {
               v29 = *v27++;
-              if (!((v17[4] - v29) % encodedLength))
+              if (!((*(v17 + 4) - v29) % encodedLength))
               {
                 break;
               }
@@ -574,17 +574,17 @@ LABEL_40:
         else
         {
           v31 = 0;
-          v23 = [(DYMTLIndirectArgumentBufferManager *)self argumentEncoderForDecodingOperation:v17 + 4 reflectionStructType:&v31, end];
+          v23 = [(DYMTLIndirectArgumentBufferManager *)self argumentEncoderForDecodingOperation:v17 + 32 reflectionStructType:&v31, end];
           v24 = v31;
           encodedLength = [v23 encodedLength];
-          std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(&v36, (v17 + 4));
+          std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(&v36, (v17 + 32), (v17 + 32));
           v34 = v33;
           std::vector<unsigned long long>::push_back[abi:ne200100](&v33, v17 + 4);
 
-          v18 = v17 + 4;
+          v18 = v17 + 32;
         }
 
-        v25 = v17[1];
+        v25 = *(v17 + 1);
         if (v25)
         {
           do
@@ -600,7 +600,7 @@ LABEL_40:
         {
           do
           {
-            v26 = v17[2];
+            v26 = *(v17 + 2);
             v15 = *v26 == v17;
             v17 = v26;
           }
@@ -611,7 +611,7 @@ LABEL_40:
         v17 = v26;
       }
 
-      while (v26 != i + 4);
+      while (v26 != i + 32);
     }
 
     std::__tree<DYMTLIABDecodingOp>::swap(i + 3, &v36);
@@ -676,7 +676,7 @@ LABEL_40:
                   if (v22 == v12 || v21 < v22[4])
                   {
 LABEL_21:
-                    std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(ancestors, v19 + 2);
+                    std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(ancestors, v19 + 2, v19 + 2);
                     [(DYMTLIndirectArgumentBufferManager *)self findAncestorsForBuffer:v19[2] commandBufferIndex:index commandEncoderIndex:encoderIndex callIndex:v19[3] ancestors:ancestors];
                   }
                 }
@@ -687,7 +687,7 @@ LABEL_21:
             {
               for (; v19; v19 = *v19)
               {
-                std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(ancestors, v19 + 2);
+                std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(ancestors, v19 + 2, v19 + 2);
                 [(DYMTLIndirectArgumentBufferManager *)self findAncestorsForBuffer:v19[2] commandBufferIndex:indexCopy commandEncoderIndex:i callIndex:v19[3] ancestors:ancestors];
               }
             }
@@ -769,10 +769,10 @@ LABEL_11:
 
 - (void)encodeIndirectArgumentsForBuffer:(unint64_t)buffer data:(void *)data decodingMap:(void *)map
 {
-  v46[0] = buffer;
+  bufferCopy = buffer;
   if (self->_currentCommandBuffer)
   {
-    v7 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(map, v46);
+    v7 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(map, &bufferCopy);
     if (v7)
     {
       v43 = 0u;
@@ -785,7 +785,7 @@ LABEL_11:
         do
         {
           v10 = objc_autoreleasePoolPush();
-          [(DYMTLIndirectArgumentBufferManager *)self executeIABDecodingOp:v8 + 4 bufferId:v46[0] data:data indirectDecodingMap:&v43];
+          [(DYMTLIndirectArgumentBufferManager *)self executeIABDecodingOp:v8 + 4 bufferId:bufferCopy data:data indirectDecodingMap:&v43];
           objc_autoreleasePoolPop(v10);
           v11 = v8[1];
           if (v11)
@@ -878,9 +878,9 @@ LABEL_11:
                     __p = 0;
                     std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, v21[7], v21[8], (v21[8] - v21[7]) >> 3);
                     v33 = 0;
-                    v46[2] = &v37;
-                    v22 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v40, &v37);
-                    std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>((v22 + 3), &v32);
+                    v47 = &v37;
+                    v22 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v40, &v37, &std::piecewise_construct, &v47);
+                    std::__tree<DYMTLIABDecodingOp>::__emplace_unique_key_args<DYMTLIABDecodingOp,DYMTLIABDecodingOp const&>(v22 + 3, &v32, &v32);
                     if (__p)
                     {
                       v35 = __p;
@@ -955,8 +955,8 @@ LABEL_11:
           for (i = v41; i; i = *i)
           {
             *&v32 = i + 2;
-            v28 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v43, i + 2);
-            std::set<DYMTLIABDecodingOp>::insert[abi:ne200100]<std::__tree_const_iterator<DYMTLIABDecodingOp,std::__tree_node<DYMTLIABDecodingOp,void *> *,long>>((v28 + 3), i[3], i + 4);
+            v28 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v43, i + 2, &std::piecewise_construct, &v32);
+            std::set<DYMTLIABDecodingOp>::insert[abi:ne200100]<std::__tree_const_iterator<DYMTLIABDecodingOp,std::__tree_node<DYMTLIABDecodingOp,void *> *,long>>(v28 + 3, i[3], i + 4);
           }
 
           v29 = v44;
@@ -972,8 +972,8 @@ LABEL_11:
             for (j = v44; j; j = *j)
             {
               *&v32 = j + 2;
-              v31 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_decodingMap.__table_.__bucket_list_.__ptr_, j + 2);
-              std::set<DYMTLIABDecodingOp>::insert[abi:ne200100]<std::__tree_const_iterator<DYMTLIABDecodingOp,std::__tree_node<DYMTLIABDecodingOp,void *> *,long>>((v31 + 3), j[3], j + 4);
+              v31 = std::__hash_table<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::set<DYMTLIABDecodingOp>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_decodingMap.__table_.__bucket_list_.__ptr_, j + 2, &std::piecewise_construct, &v32);
+              std::set<DYMTLIABDecodingOp>::insert[abi:ne200100]<std::__tree_const_iterator<DYMTLIABDecodingOp,std::__tree_node<DYMTLIABDecodingOp,void *> *,long>>(v31 + 3, j[3], j + 4);
             }
           }
         }
@@ -987,7 +987,7 @@ LABEL_11:
 
   else
   {
-    std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(&self->_deviceResourcesBuffers, v46);
+    std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(&self->_deviceResourcesBuffers, &bufferCopy, &bufferCopy);
   }
 }
 
@@ -1275,42 +1275,42 @@ LABEL_22:
 
 - (void)decodeReplayerIAB:(id)b offset:(unint64_t)offset function:(id)function argument:(id)argument
 {
-  v30[22] = *MEMORY[0x277D85DE8];
+  v29[22] = *MEMORY[0x277D85DE8];
   bCopy = b;
   functionCopy = function;
   argumentCopy = argument;
-  v19 = [functionCopy newArgumentEncoderWithBufferIndex:{objc_msgSend(argumentCopy, "index")}];
-  v11 = DYMTLGetOriginalObject(v19);
+  v18 = [functionCopy newArgumentEncoderWithBufferIndex:{objc_msgSend(argumentCopy, "index")}];
+  v11 = DYMTLGetOriginalObject(v18);
   layout = [v11 layout];
 
-  encodedLength = [(objc_object *)v19 encodedLength];
-  v21 = [(objc_object *)bCopy length];
+  encodedLength = [(objc_object *)v18 encodedLength];
+  v20 = [(objc_object *)bCopy length];
   device = [(objc_object *)bCopy device];
   if (self->_currentDeviceDecodingData && (objc_opt_respondsToSelector() & 1) != 0)
   {
     [device setIndirectArgumentBufferDecodingData:0];
   }
 
-  memset(v26, 0, sizeof(v26));
+  memset(v25, 0, sizeof(v25));
   objectMap = [(DYMTLFunctionPlayer *)self->_player objectMap];
-  if (offset % encodedLength < v21)
+  if (offset % encodedLength < v20)
   {
     v12 = DYMTLGetOriginalObject(bCopy);
-    v28 = offset % encodedLength;
-    v29 = v12;
-    v27 = layout;
+    v27 = offset % encodedLength;
+    v28 = v12;
+    v26 = layout;
     v13 = argumentCopy;
-    v30[0] = &v27;
-    v30[1] = &v29;
-    v30[2] = &v28;
-    v30[3] = &self->_replayerBufferBaseVirtualAddressMap.__tree_.__begin_node_;
-    v30[4] = &self->_bufferVitualAddressMap.__tree_.__begin_node_;
-    v30[5] = &self->_replayerTextureMap.__table_.__bucket_list_.__ptr_;
-    v30[6] = &self->_replayerSamplerMap.__table_.__bucket_list_.__ptr_;
-    v30[7] = &self->_replayerRenderPipelineMap.__table_.__bucket_list_.__ptr_;
-    v30[8] = &self->_replayerComputePipelineMap.__table_.__bucket_list_.__ptr_;
-    v30[9] = &self->_replayerIndirectCommandBufferMap.__table_.__bucket_list_.__ptr_;
-    v30[17] = 0;
+    v29[0] = &v26;
+    v29[1] = &v28;
+    v29[2] = &v27;
+    v29[3] = &self->_replayerBufferBaseVirtualAddressMap.__tree_.__begin_node_;
+    v29[4] = &self->_bufferVitualAddressMap.__tree_.__begin_node_;
+    v29[5] = &self->_replayerTextureMap.__table_.__bucket_list_.__ptr_;
+    v29[6] = &self->_replayerSamplerMap.__table_.__bucket_list_.__ptr_;
+    v29[7] = &self->_replayerRenderPipelineMap.__table_.__bucket_list_.__ptr_;
+    v29[8] = &self->_replayerComputePipelineMap.__table_.__bucket_list_.__ptr_;
+    v29[9] = &self->_replayerIndirectCommandBufferMap.__table_.__bucket_list_.__ptr_;
+    v29[17] = 0;
     operator new();
   }
 
@@ -1319,7 +1319,7 @@ LABEL_22:
     [device setIndirectArgumentBufferDecodingData:self->_currentDeviceDecodingData];
   }
 
-  v30[0] = 0;
+  v29[0] = 0;
   functionType = [functionCopy functionType];
   switch(functionType)
   {
@@ -1335,15 +1335,13 @@ LABEL_22:
       index = [argumentCopy index];
       v16 = MEMORY[0x277D0B260];
 LABEL_15:
-      v30[0] = (index + *v16);
+      v29[0] = (index + *v16);
       break;
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__erase_unique<unsigned long long>(objectMap, v30);
-  v30[0] = v26;
-  std::vector<std::pair<unsigned long long,std::map<unsigned long long,unsigned long long>>>::__destroy_vector::operator()[abi:ne200100](v30);
-
-  v17 = *MEMORY[0x277D85DE8];
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__erase_unique<unsigned long long>(objectMap, v29);
+  v29[0] = v25;
+  std::vector<std::pair<unsigned long long,std::map<unsigned long long,unsigned long long>>>::__destroy_vector::operator()[abi:ne200100](v29);
 }
 
 - (id).cxx_construct

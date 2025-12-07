@@ -33,7 +33,7 @@
   v7 = sub_1B83DD90C();
   v9 = v8;
 
-  v10 = sub_1B83B3744();
+  v10 = sub_1B83B3744(v7, v9);
   sub_1B83B100C(v7, v9);
 
   return v10;

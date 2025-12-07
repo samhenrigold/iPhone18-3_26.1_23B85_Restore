@@ -19,142 +19,132 @@
   v10 = +[PXStorySettings sharedInstance];
   autoEditRotateMotionMax = [v10 autoEditRotateMotionMax];
 
-  v66[0] = 0uLL;
-  v65 = 0uLL;
-  v49 = length;
-  v50 = location;
-  v64 = 0uLL;
+  v63[0] = 0uLL;
+  v62 = 0uLL;
+  v46 = length;
+  v47 = location;
+  v61 = 0uLL;
   v11 = __CFADD__(length - 1, location);
   v12 = length - 1 + location;
-  if (!v11)
+  if (v11)
   {
-    v48 = a2;
-    v13 = 0;
-    v51 = 0;
-    v55 = 0;
-    v14 = v50;
-    while (1)
+    goto LABEL_3;
+  }
+
+  v45 = a2;
+  v13 = 0;
+  v48 = 0;
+  v52 = 0;
+  v14 = v47;
+  do
+  {
+    v15 = [catalogCopy clipAtIndex:v14];
+    displayAssets = [v15 displayAssets];
+    v17 = [displayAssets count];
+
+    if (v17 == 3)
     {
-      v15 = [catalogCopy clipAtIndex:v14];
-      displayAssets = [v15 displayAssets];
-      v17 = [displayAssets count];
-
-      if (v17 == 3)
+      v18 = v48;
+      if ((v48 - 1) < 3)
       {
-        v18 = v51;
-        if ((v51 - 1) >= 3)
-        {
-          displayAssets2 = [v15 displayAssets];
-          [(PXStoryRecipeClipMotionStyleProvider *)self nextMotionInfoForDisplayAssetCount:3 displayAssets:displayAssets2];
-          v18 = *v63;
-          v64 = *&v63[8];
-          v19 = &v64;
-          v51 = *v63;
-          goto LABEL_19;
-        }
-
-        v19 = &v64;
+        v19 = &v61;
+        goto LABEL_20;
       }
 
-      else if (v17 == 2)
+      displayAssets2 = [v15 displayAssets];
+      objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_(self);
+      v18 = *v60;
+      v61 = *&v60[8];
+      v19 = &v61;
+      v48 = *v60;
+    }
+
+    else if (v17 == 2)
+    {
+      if ((v13 - 1) < 3)
       {
-        if ((v13 - 1) >= 3)
-        {
-          displayAssets2 = [v15 displayAssets];
-          [(PXStoryRecipeClipMotionStyleProvider *)self nextMotionInfoForDisplayAssetCount:2 displayAssets:displayAssets2];
-          v18 = *v63;
-          v65 = *&v63[8];
-          v19 = &v65;
-          v13 = *v63;
-LABEL_19:
-
-          goto LABEL_20;
-        }
-
-        v19 = &v65;
+        v19 = &v62;
         v18 = v13;
+        goto LABEL_20;
+      }
+
+      displayAssets2 = [v15 displayAssets];
+      objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_(self);
+      v18 = *v60;
+      v62 = *&v60[8];
+      v19 = &v62;
+      v13 = *v60;
+    }
+
+    else
+    {
+      v18 = v52;
+      if (v17 != 1)
+      {
+        currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+        displayAssets3 = [v15 displayAssets];
+        [currentHandler handleFailureInMethod:v45 object:self file:@"PXStoryRecipeClipMotionStyleProvider.m" lineNumber:295 description:{@"Invalid number of display assets (%ld) in clip", objc_msgSend(displayAssets3, "count")}];
+
+        abort();
+      }
+
+      if ((v52 - 1) < 3)
+      {
+        v19 = v63;
+        goto LABEL_20;
+      }
+
+      if ([PXStoryRecipeClipUtilities canRotate1UpClipsInRange:v47 clipCatalog:v46 maxAdjacent1Ups:catalogCopy, autoEditRotateMotionMax])
+      {
+        displayAssets2 = [v15 displayAssets];
+        objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_(self);
+        v18 = *v60;
+        v63[0] = *&v60[8];
       }
 
       else
       {
-        v18 = v55;
-        if (v17 != 1)
-        {
-          currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-          displayAssets3 = [v15 displayAssets];
-          [currentHandler handleFailureInMethod:v48 object:self file:@"PXStoryRecipeClipMotionStyleProvider.m" lineNumber:295 description:{@"Invalid number of display assets (%ld) in clip", objc_msgSend(displayAssets3, "count")}];
-
-          abort();
-        }
-
-        if ((v55 - 1) >= 3)
-        {
-          if ([PXStoryRecipeClipUtilities canRotate1UpClipsInRange:v50 clipCatalog:v49 maxAdjacent1Ups:catalogCopy, autoEditRotateMotionMax])
-          {
-            displayAssets2 = [v15 displayAssets];
-            [(PXStoryRecipeClipMotionStyleProvider *)self nextMotionInfoForDisplayAssetCount:1 displayAssets:displayAssets2];
-            v18 = *v63;
-            v66[0] = *&v63[8];
-          }
-
-          else
-          {
-            displayAssets2 = [v15 displayAssets];
-            v21 = [MEMORY[0x1E695DFD8] setWithObject:&unk_1F1909A00];
-            [(PXStoryRecipeClipMotionStyleProvider *)self nextMotionInfoForDisplayAssetCount:1 displayAssets:displayAssets2 excluding:v21];
-            v18 = *v63;
-            v66[0] = *&v63[8];
-          }
-
-          v19 = v66;
-          v55 = v18;
-          goto LABEL_19;
-        }
-
-        v19 = v66;
+        displayAssets2 = [v15 displayAssets];
+        v21 = [MEMORY[0x1E695DFD8] setWithObject:&unk_1F1909A00];
+        objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_excluding_(self);
+        v18 = *v60;
+        v63[0] = *&v60[8];
       }
 
+      v19 = v63;
+      v52 = v18;
+    }
+
 LABEL_20:
-      v58 = *v19;
-      v22 = blockCopy[2];
-      *v63 = v18;
-      *&v63[8] = v58;
-      v22(blockCopy, v63, v14);
+    v55 = *v19;
+    v22 = blockCopy[2];
+    *v60 = v18;
+    *&v60[8] = v55;
+    v22(blockCopy, v60, v14);
 
-      if (++v14 > v12)
+    ++v14;
+  }
+
+  while (v14 <= v12);
+  v23 = 0;
+  v24 = v47;
+  do
+  {
+    v25 = v24 + 1;
+    v26 = [catalogCopy clipAtIndex:v24];
+    displayAssets4 = [v26 displayAssets];
+    v28 = [displayAssets4 count];
+
+    if (v28 == 1)
+    {
+      [v26 moduleInfo];
+      if (v29)
       {
-        v23 = 0;
-        v24 = v50;
-        while (1)
-        {
-          v25 = v24 + 1;
-          v26 = [catalogCopy clipAtIndex:v24];
-          displayAssets4 = [v26 displayAssets];
-          v28 = [displayAssets4 count];
-
-          if (v28 == 1)
-          {
-            [v26 moduleInfo];
-            if (v29)
-            {
-              break;
-            }
-          }
-
-LABEL_43:
-
-          v24 = v25;
-          if (v25 > v12)
-          {
-            goto LABEL_3;
-          }
-        }
-
-        v52 = v23;
+        v49 = v23;
         v30 = [catalogCopy clipAtIndex:v24];
         moduleInfo = [v30 moduleInfo];
         v25 = v24;
-        v32 = v55;
+        v32 = v52;
         while (1)
         {
           moduleInfo2 = [v30 moduleInfo];
@@ -183,123 +173,76 @@ LABEL_43:
 
         v34 = v30;
 LABEL_33:
-        if ((v55 - 1) >= 3)
+        if ((v52 - 1) >= 3)
         {
           if ([PXStoryRecipeClipUtilities canRotate1UpClipsInRange:v24 clipCatalog:v25 - v24 maxAdjacent1Ups:catalogCopy, autoEditRotateMotionMax])
           {
             displayAssets5 = [v26 displayAssets];
-            [(PXStoryRecipeClipMotionStyleProvider *)self nextMotionInfoForDisplayAssetCount:1 displayAssets:displayAssets5];
-            v32 = *v63;
-            v66[0] = *&v63[8];
+            objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_(self);
+            v32 = *v60;
+            v63[0] = *&v60[8];
           }
 
           else
           {
             displayAssets5 = [v26 displayAssets];
             v37 = [MEMORY[0x1E695DFD8] setWithObject:&unk_1F1909A00];
-            [(PXStoryRecipeClipMotionStyleProvider *)self nextMotionInfoForDisplayAssetCount:1 displayAssets:displayAssets5 excluding:v37];
-            v56 = *v63;
-            v66[0] = *&v63[8];
+            objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_excluding_(self);
+            v53 = *v60;
+            v63[0] = *&v60[8];
 
-            v32 = v56;
+            v32 = v53;
           }
         }
 
-        v55 = v32;
-        if ([PXStoryRecipeClipUtilities canRotate1UpClipsInRange:v24 clipCatalog:v25 - v24 maxAdjacent1Ups:catalogCopy, autoEditRotateMotionMax])
+        v52 = v32;
+        if (![PXStoryRecipeClipUtilities canRotate1UpClipsInRange:v24 clipCatalog:v25 - v24 maxAdjacent1Ups:catalogCopy, autoEditRotateMotionMax]&& (v49 - 1) <= 2 && v24 != v47 && v49 != 3 && v32 != 3)
         {
-          v38 = v32;
-          v39 = v52;
-        }
+          v40 = [catalogCopy clipAtIndex:v24 - 1];
+          displayAssets6 = [v40 displayAssets];
+          v42 = [displayAssets6 count];
 
-        else
-        {
-          v38 = v32;
-          v39 = 3;
-          if ((v52 - 1) <= 2 && v24 != v50)
+          if (v42 <= 1)
           {
-            if (v52 == 3)
+            if (v40)
             {
-              v38 = v55;
+              objc_msgSend_motionInfo(v40);
             }
 
             else
             {
-              v38 = v55;
-              if (v55 != 3)
-              {
-                v42 = [catalogCopy clipAtIndex:v24 - 1];
-                displayAssets6 = [v42 displayAssets];
-                v44 = [displayAssets6 count];
-
-                if (v44 <= 1)
-                {
-                  v38 = v55;
-                  if (v42)
-                  {
-                    [v42 motionInfo];
-                    v45 = v60;
-                  }
-
-                  else
-                  {
-                    v45 = 0;
-                    v60 = 0;
-                    v61 = 0;
-                    v62 = 0;
-                  }
-
-                  if (v45 == v55)
-                  {
-                    v38 = 3;
-                    v39 = v52;
-                  }
-
-                  else
-                  {
-                    v39 = 3;
-                  }
-                }
-
-                else
-                {
-                  v38 = v55;
-                  v39 = 3;
-                }
-
-                goto LABEL_40;
-              }
+              v57 = 0;
+              v58 = 0;
+              v59 = 0;
             }
-
-            v39 = v52;
           }
         }
 
-LABEL_40:
-        memset(v63, 0, sizeof(v63));
+        memset(v60, 0, sizeof(v60));
         displayAssets7 = [v26 displayAssets];
-        [(PXStoryRecipeClipMotionStyleProvider *)self nextMotionInfoForModuleExcludingMomentMotion:v38 previousModuleMotion:v39 displayAssets:displayAssets7];
+        objc_msgSend_nextMotionInfoForModuleExcludingMomentMotion_previousModuleMotion_displayAssets_(self);
 
         if (v25 > v24)
         {
           do
           {
-            v41 = blockCopy[2];
-            v58 = *v63;
-            v59 = *&v63[16];
-            v41(blockCopy, &v58, v24++);
+            v39 = blockCopy[2];
+            v55 = *v60;
+            v56 = *&v60[16];
+            v39(blockCopy, &v55, v24++);
           }
 
           while (v25 != v24);
         }
 
-        v23 = *v63;
-
-        goto LABEL_43;
+        v23 = *v60;
       }
     }
+
+    v24 = v25;
   }
 
+  while (v25 <= v12);
 LABEL_3:
 }
 
@@ -359,7 +302,7 @@ void __120__PXStoryRecipeClipMotionStyleProvider_nextMotionInfoForModuleExcludin
   v8 = _Block_copy(aBlock);
   v8[2](v8, a2);
   v8[2](v8, a3);
-  [*(a1 + 32) nextMotionInfoForDisplayAssetCount:1 displayAssets:*(a1 + 40) excluding:v7];
+  objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_excluding_(*(a1 + 32));
   v9 = *(*(a1 + 48) + 8);
   *(v9 + 32) = v10;
   *(v9 + 48) = v11;

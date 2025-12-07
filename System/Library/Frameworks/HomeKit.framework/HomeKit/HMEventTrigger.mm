@@ -39,7 +39,9 @@
 - (void)_removeEvent:(id)event completionHandler:(id)handler;
 - (void)_removeEventsForAccessory:(id)accessory;
 - (void)_updateCharacteristicReference;
+- (void)_updateEvents:(id)events endEvent:(BOOL)event completionHandler:(id)handler;
 - (void)_updateEventsFromResponse:(id)response responsePayload:(id)payload;
+- (void)_updateExecuteOnce:(BOOL)once completionHandler:(id)handler;
 - (void)_updatePredicate:(id)predicate completionHandler:(id)handler;
 - (void)_updateRecurrences:(id)recurrences completionHandler:(id)handler;
 - (void)addEvent:(HMEvent *)event completionHandler:(void *)completion;
@@ -74,7 +76,7 @@
 
 - (BOOL)containsSharedTriggerActivationBits
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if ([(HMEventTrigger *)self executeOnce])
   {
     v3 = objc_autoreleasePoolPush();
@@ -87,33 +89,33 @@
 
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v6;
+    v23 = v6;
     v7 = "%{public}@Contains execute once, requires data version 4";
     goto LABEL_4;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   currentEvents = [(HMEventTrigger *)self currentEvents];
   array = [currentEvents array];
 
-  v10 = [array countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [array countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(array);
         }
 
-        if (([*(*(&v18 + 1) + 8 * i) isEndEvent] & 1) == 0)
+        if (([*(*(&v17 + 1) + 8 * i) isEndEvent] & 1) == 0)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -134,10 +136,10 @@
           }
         }
 
-        goto LABEL_22;
+        return 1;
       }
 
-      v11 = [array countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [array countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         continue;
@@ -152,8 +154,7 @@
 
   if (!v15)
   {
-    result = 0;
-    goto LABEL_23;
+    return 0;
   }
 
   v3 = objc_autoreleasePoolPush();
@@ -163,7 +164,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v6;
+    v23 = v6;
     v7 = "%{public}@Contains presence events, requires data version 4";
 LABEL_4:
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, v7, buf, 0xCu);
@@ -172,11 +173,7 @@ LABEL_4:
 LABEL_5:
 
   objc_autoreleasePoolPop(v3);
-LABEL_22:
-  result = 1;
-LABEL_23:
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (BOOL)_updateCharacteristicReferenceInNewEvent:(id)event
@@ -292,7 +289,7 @@ LABEL_23:
 
 void __54__HMEventTrigger_mergeFromNewObjectForBuilderUpdates___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -300,22 +297,20 @@ void __54__HMEventTrigger_mergeFromNewObjectForBuilderUpdates___block_invoke(uin
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed event via merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed event via merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [v3 _unconfigure];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __54__HMEventTrigger_mergeFromNewObjectForBuilderUpdates___block_invoke_152(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -323,11 +318,11 @@ void __54__HMEventTrigger_mergeFromNewObjectForBuilderUpdates___block_invoke_152
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added event via merge: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added event via merge: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -349,8 +344,6 @@ void __54__HMEventTrigger_mergeFromNewObjectForBuilderUpdates___block_invoke_152
     v11 = [*(a1 + 32) context];
     [v8 __configureWithContext:v11 eventTrigger:*(a1 + 32)];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mergeFromNewObject:(id)object
@@ -454,7 +447,7 @@ LABEL_14:
 
 void __37__HMEventTrigger_mergeFromNewObject___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -462,22 +455,20 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke(uint64_t a1, void *a
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed event via merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed event via merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [v3 _unconfigure];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __37__HMEventTrigger_mergeFromNewObject___block_invoke_148(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -485,11 +476,11 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_148(uint64_t a1, voi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added event via merge: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added event via merge: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -511,8 +502,6 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_148(uint64_t a1, voi
     v11 = [*(a1 + 32) context];
     [v8 __configureWithContext:v11 eventTrigger:*(a1 + 32)];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
@@ -523,24 +512,24 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
 
 - (HMEventTrigger)initWithCoder:(id)coder
 {
-  v27[9] = *MEMORY[0x1E69E9840];
+  v26[9] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = HMEventTrigger;
-  v5 = [(HMTrigger *)&v24 initWithCoder:coderCopy];
+  v23.receiver = self;
+  v23.super_class = HMEventTrigger;
+  v5 = [(HMTrigger *)&v23 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v27[2] = objc_opt_class();
-    v27[3] = objc_opt_class();
-    v27[4] = objc_opt_class();
-    v27[5] = objc_opt_class();
-    v27[6] = objc_opt_class();
-    v27[7] = objc_opt_class();
-    v27[8] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:9];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v26[2] = objc_opt_class();
+    v26[3] = objc_opt_class();
+    v26[4] = objc_opt_class();
+    v26[5] = objc_opt_class();
+    v26[6] = objc_opt_class();
+    v26[7] = objc_opt_class();
+    v26[8] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:9];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HM.eventTriggerEvents"];
 
@@ -549,18 +538,18 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
     v5->_currentEvents = v10;
 
     v12 = MEMORY[0x1E695DFD8];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"HM.eventTriggerCondition"];
     internalPredicate = v5->_internalPredicate;
     v5->_internalPredicate = v15;
 
     v17 = MEMORY[0x1E695DFD8];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
     v19 = [v17 setWithArray:v18];
     v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"HM.eventTriggerRecurrences"];
     recurrences = v5->_recurrences;
@@ -570,7 +559,6 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
     *(&v5->_executeOnce + 4) = [coderCopy decodeBoolForKey:@"kEventTriggerExecuteOnce"];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -586,31 +574,31 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
 
 - (void)_handleEventsRemovedFromResponse:(id)response
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = [response hmf_arrayForKey:@"kUUIDsOfEventsKey"];
   v5 = v4;
   if (v4)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:*(*(&v15 + 1) + 8 * v9)];
+          v10 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:*(*(&v14 + 1) + 8 * v9)];
           currentEvents = [(HMEventTrigger *)self currentEvents];
           v12 = [currentEvents firstItemWithUUID:v10];
 
@@ -626,44 +614,42 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateEventsFromResponse:(id)response responsePayload:(id)payload
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   payloadCopy = payload;
   v7 = [payloadCopy hmf_BOOLForKey:@"kEventTriggerEndEvent"];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   currentEvents = [(HMEventTrigger *)self currentEvents];
   array = [currentEvents array];
 
-  v10 = [array countByEnumeratingWithState:&v37 objects:v46 count:16];
+  v10 = [array countByEnumeratingWithState:&v36 objects:v45 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v38;
+    v12 = *v37;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v38 != v12)
+        if (*v37 != v12)
         {
           objc_enumerationMutation(array);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * i);
+        v14 = *(*(&v36 + 1) + 8 * i);
         if (v7 == [v14 isEndEvent])
         {
           currentEvents2 = [(HMEventTrigger *)self currentEvents];
@@ -671,32 +657,32 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
         }
       }
 
-      v11 = [array countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v11 = [array countByEnumeratingWithState:&v36 objects:v45 count:16];
     }
 
     while (v11);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v16 = responseCopy;
-  v17 = [v16 countByEnumeratingWithState:&v33 objects:v45 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v32 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v34;
+    v19 = *v33;
     while (2)
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v34 != v19)
+        if (*v33 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v33 + 1) + 8 * j);
+        v21 = *(*(&v32 + 1) + 8 * j);
         currentEvents3 = [(HMEventTrigger *)self currentEvents];
         [currentEvents3 replaceObject:v21];
 
@@ -724,7 +710,7 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v32 objects:v44 count:16];
       if (v18)
       {
         continue;
@@ -741,16 +727,14 @@ void __37__HMEventTrigger_mergeFromNewObject___block_invoke_149(uint64_t a1)
     v29 = HMFGetLogIdentifier();
     allEvents = [(HMEventTrigger *)self allEvents];
     *buf = 138543618;
-    v42 = v29;
-    v43 = 2112;
-    v44 = allEvents;
+    v41 = v29;
+    v42 = 2112;
+    v43 = allEvents;
     _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_INFO, "%{public}@handleEventsUpdatedNotification: current events: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v27);
 LABEL_26:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleAddEventFromResponse:(id)response newEventPayload:(id)payload
@@ -805,7 +789,7 @@ LABEL_11:
 
 - (id)addedEvent:(void *)event home:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   eventCopy = event;
   if (self)
@@ -850,22 +834,22 @@ LABEL_11:
     {
       if (![v7 isEqualToString:@"kEventTriggerTypeMatterAttributeEventKey"])
       {
-        v11 = objc_autoreleasePoolPush();
+        v10 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v13 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v12 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v14 = HMFGetLogIdentifier();
-          v15 = 138543874;
-          v16 = v14;
-          v17 = 2112;
-          v18 = objc_opt_class();
-          v19 = 2112;
-          v20 = v7;
-          _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, invalid event type '%@'", &v15, 0x20u);
+          v13 = HMFGetLogIdentifier();
+          v14 = 138543874;
+          v15 = v13;
+          v16 = 2112;
+          v17 = objc_opt_class();
+          v18 = 2112;
+          v19 = v7;
+          _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, invalid event type '%@'", &v14, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v11);
+        objc_autoreleasePoolPop(v10);
         self = 0;
         goto LABEL_19;
       }
@@ -876,8 +860,6 @@ LABEL_11:
     self = [(__objc2_class *)v8 createWithDictionary:v5 home:eventCopy];
 LABEL_19:
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -894,36 +876,36 @@ LABEL_19:
 
 - (id)_serializeForAdd
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
-  v32.receiver = self;
-  v32.super_class = HMEventTrigger;
-  _serializeForAdd = [(HMTrigger *)&v32 _serializeForAdd];
+  v31.receiver = self;
+  v31.super_class = HMEventTrigger;
+  _serializeForAdd = [(HMTrigger *)&v31 _serializeForAdd];
   v5 = [v3 dictionaryWithDictionary:_serializeForAdd];
 
   array = [MEMORY[0x1E695DF70] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   events = [(HMEventTrigger *)self events];
   v8 = [events copy];
 
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        _serializeForAdd2 = [*(*(&v28 + 1) + 8 * i) _serializeForAdd];
+        _serializeForAdd2 = [*(*(&v27 + 1) + 8 * i) _serializeForAdd];
         v14 = _serializeForAdd2;
         if (_serializeForAdd2)
         {
@@ -936,7 +918,7 @@ LABEL_19:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v10);
@@ -949,9 +931,9 @@ LABEL_19:
 
   if (internalPredicate)
   {
-    v27 = 0;
+    v26 = 0;
     predicate = [(HMEventTrigger *)self predicate];
-    v19 = [HMPredicateUtilities rewritePredicateForDaemon:predicate characteristicIsInvalid:&v27];
+    v19 = [HMPredicateUtilities rewritePredicateForDaemon:predicate characteristicIsInvalid:&v26];
 
     v20 = encodeRootObject(v19);
     [v5 setObject:v20 forKeyedSubscript:@"kEventTriggerConditionKey"];
@@ -968,36 +950,34 @@ LABEL_19:
 
   v24 = [v5 copy];
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 - (void)_removeEventsForAccessory:(id)accessory
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   array = [MEMORY[0x1E695DF70] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = [(HMEventTrigger *)self allEvents];
-  v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v29;
+    v6 = *v28;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1030,7 +1010,7 @@ LABEL_19:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v5);
@@ -1046,16 +1026,14 @@ LABEL_19:
   {
     context = [(HMTrigger *)self context];
     delegateCaller = [context delegateCaller];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __44__HMEventTrigger__removeEventsForAccessory___block_invoke;
-    v25[3] = &unk_1E754E5C0;
-    v26 = delegate;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __44__HMEventTrigger__removeEventsForAccessory___block_invoke;
+    v24[3] = &unk_1E754E5C0;
+    v25 = delegate;
     selfCopy = self;
-    [delegateCaller invokeBlock:v25];
+    [delegateCaller invokeBlock:v24];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __44__HMEventTrigger__removeEventsForAccessory___block_invoke(uint64_t a1)
@@ -1065,9 +1043,74 @@ void __44__HMEventTrigger__removeEventsForAccessory___block_invoke(uint64_t a1)
   [v2 home:v3 didUpdateTrigger:*(a1 + 40)];
 }
 
+- (void)_updateExecuteOnce:(BOOL)once completionHandler:(id)handler
+{
+  onceCopy = once;
+  v35 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  home = [(HMTrigger *)self home];
+  context = [(HMTrigger *)self context];
+  v9 = context;
+  if (home)
+  {
+    if (context)
+    {
+      v30 = @"kEventTriggerExecuteOnce";
+      v10 = [MEMORY[0x1E696AD98] numberWithBool:onceCopy];
+      v31 = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+
+      v12 = MEMORY[0x1E69A2A10];
+      v13 = objc_alloc(MEMORY[0x1E69A2A00]);
+      uuid = [(HMTrigger *)self uuid];
+      v15 = [v13 initWithTarget:uuid];
+      v16 = [v12 messageWithName:@"kUpdateEventTriggerExecuteOnceRequestKey" destination:v15 payload:v11];
+
+      objc_initWeak(location, self);
+      v24 = MEMORY[0x1E69E9820];
+      v25 = 3221225472;
+      v26 = __55__HMEventTrigger__updateExecuteOnce_completionHandler___block_invoke;
+      v27 = &unk_1E754CFF8;
+      objc_copyWeak(&v29, location);
+      v28 = handlerCopy;
+      [v16 setResponseHandler:&v24];
+      messageDispatcher = [v9 messageDispatcher];
+      [messageDispatcher sendMessage:v16 completionHandler:0];
+
+      objc_destroyWeak(&v29);
+      objc_destroyWeak(location);
+    }
+
+    else
+    {
+      v20 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v22 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        v23 = HMFGetLogIdentifier();
+        *location = 138543618;
+        *&location[4] = v23;
+        v33 = 2080;
+        v34 = "[HMEventTrigger _updateExecuteOnce:completionHandler:]";
+        _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", location, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v20);
+    }
+  }
+
+  else
+  {
+    delegateCaller = [context delegateCaller];
+    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:@"HMErrorDomain" code:12 userInfo:0];
+    [delegateCaller callCompletion:handlerCopy error:v19];
+  }
+}
+
 void __55__HMEventTrigger__updateExecuteOnce_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1078,15 +1121,15 @@ void __55__HMEventTrigger__updateExecuteOnce_completionHandler___block_invoke(ui
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 32));
-    v15 = 138544130;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Update event trigger execute once response : %@, completionHandler: %@ error %@", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Update event trigger execute once response : %@, completionHandler: %@ error %@", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1106,34 +1149,32 @@ void __55__HMEventTrigger__updateExecuteOnce_completionHandler___block_invoke(ui
   }
 
   [v9 _updateClientWithResults:*(a1 + 32) withError:v5];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateExecuteOnce:(BOOL)executeOnce completionHandler:(void *)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = completion;
   context = [(HMTrigger *)self context];
   if (!v6)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updateExecuteOnce:completionHandler:]", @"completion"];
-    v17 = objc_autoreleasePoolPush();
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updateExecuteOnce:completionHandler:]", @"completion"];
+    v16 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v20;
-      v27 = 2112;
-      v28 = v16;
-      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v25 = v19;
+      v26 = 2112;
+      v27 = v15;
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
-    objc_exception_throw(v21);
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
+    objc_exception_throw(v20);
   }
 
   v8 = context;
@@ -1145,8 +1186,8 @@ void __55__HMEventTrigger__updateExecuteOnce_completionHandler___block_invoke(ui
     block[2] = __54__HMEventTrigger_updateExecuteOnce_completionHandler___block_invoke;
     block[3] = &unk_1E7548108;
     block[4] = self;
-    v24 = executeOnce;
-    v23 = v6;
+    v23 = executeOnce;
+    v22 = v6;
     dispatch_async(queue, block);
   }
 
@@ -1159,9 +1200,9 @@ void __55__HMEventTrigger__updateExecuteOnce_completionHandler___block_invoke(ui
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v13;
-      v27 = 2080;
-      v28 = "[HMEventTrigger updateExecuteOnce:completionHandler:]";
+      v25 = v13;
+      v26 = 2080;
+      v27 = "[HMEventTrigger updateExecuteOnce:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1169,13 +1210,11 @@ void __55__HMEventTrigger__updateExecuteOnce_completionHandler___block_invoke(ui
     v14 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v6 + 2))(v6, v14);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateRecurrences:(id)recurrences completionHandler:(id)handler
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   recurrencesCopy = recurrences;
   handlerCopy = handler;
   home = [(HMTrigger *)self home];
@@ -1195,9 +1234,9 @@ void __55__HMEventTrigger__updateExecuteOnce_completionHandler___block_invoke(ui
       v10 = v9;
       if (v9)
       {
-        v37 = @"kEventTriggerRecurrencesKey";
-        v38[0] = v9;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+        v36 = @"kEventTriggerRecurrencesKey";
+        v37[0] = v9;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
       }
 
       else
@@ -1230,17 +1269,17 @@ LABEL_12:
     v21 = [v17 messageWithName:@"kUpdateEventTriggerRecurrencesRequestKey" destination:v20 payload:v11];
 
     objc_initWeak(location, self);
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 3221225472;
-    v30 = __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke;
-    v31 = &unk_1E754CFF8;
-    objc_copyWeak(&v33, location);
-    v32 = handlerCopy;
-    [v21 setResponseHandler:&v28];
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke;
+    v30 = &unk_1E754CFF8;
+    objc_copyWeak(&v32, location);
+    v31 = handlerCopy;
+    [v21 setResponseHandler:&v27];
     messageDispatcher = [context2 messageDispatcher];
     [messageDispatcher sendMessage:v21 completionHandler:0];
 
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(location);
   }
 
@@ -1254,8 +1293,8 @@ LABEL_12:
       v26 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v26;
-      v35 = 2080;
-      v36 = "[HMEventTrigger _updateRecurrences:completionHandler:]";
+      v34 = 2080;
+      v35 = "[HMEventTrigger _updateRecurrences:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", location, 0x16u);
     }
 
@@ -1263,12 +1302,11 @@ LABEL_12:
   }
 
 LABEL_18:
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1279,15 +1317,15 @@ void __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke(ui
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 32));
-    v15 = 138544130;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Update event trigger recurrences response : %@, completionHandler: %@ error %@", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Update event trigger recurrences response : %@, completionHandler: %@ error %@", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1306,35 +1344,33 @@ void __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke(ui
   }
 
   [v9 _updateClientWithResults:*(a1 + 32) withError:v5];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRecurrences:(NSArray *)recurrences completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = recurrences;
   v7 = completion;
   context = [(HMTrigger *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updateRecurrences:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updateRecurrences:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -1346,8 +1382,8 @@ void __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke(ui
     block[2] = __54__HMEventTrigger_updateRecurrences_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -1360,9 +1396,9 @@ void __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke(ui
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMEventTrigger updateRecurrences:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMEventTrigger updateRecurrences:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1370,13 +1406,11 @@ void __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke(ui
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updatePredicate:(id)predicate completionHandler:(id)handler
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   handlerCopy = handler;
   home = [(HMTrigger *)self home];
@@ -1397,10 +1431,10 @@ void __55__HMEventTrigger__updateRecurrences_completionHandler___block_invoke(ui
 
       if (v9)
       {
-        v36 = @"kEventTriggerConditionKey";
+        v35 = @"kEventTriggerConditionKey";
         v10 = encodeRootObject(v9);
-        v37[0] = v10;
-        predicateCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+        v36[0] = v10;
+        predicateCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       }
 
       else
@@ -1433,17 +1467,17 @@ LABEL_11:
     v20 = [v16 messageWithName:@"kUpdateEventTriggerConditionRequestKey" destination:v19 payload:predicateCopy];
 
     objc_initWeak(location, self);
-    v27 = MEMORY[0x1E69E9820];
-    v28 = 3221225472;
-    v29 = __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke;
-    v30 = &unk_1E754CFF8;
-    objc_copyWeak(&v32, location);
-    v31 = handlerCopy;
-    [v20 setResponseHandler:&v27];
+    v26 = MEMORY[0x1E69E9820];
+    v27 = 3221225472;
+    v28 = __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke;
+    v29 = &unk_1E754CFF8;
+    objc_copyWeak(&v31, location);
+    v30 = handlerCopy;
+    [v20 setResponseHandler:&v26];
     messageDispatcher = [context2 messageDispatcher];
     [messageDispatcher sendMessage:v20 completionHandler:0];
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(location);
   }
 
@@ -1457,8 +1491,8 @@ LABEL_11:
       v25 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v25;
-      v34 = 2080;
-      v35 = "[HMEventTrigger _updatePredicate:completionHandler:]";
+      v33 = 2080;
+      v34 = "[HMEventTrigger _updatePredicate:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", location, 0x16u);
     }
 
@@ -1467,13 +1501,11 @@ LABEL_11:
 
   predicateCopy = v9;
 LABEL_17:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1484,15 +1516,15 @@ void __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke(uint
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 32));
-    v15 = 138544130;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Update event trigger condition response : %@, completionHandler: %@ error %@", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Update event trigger condition response : %@, completionHandler: %@ error %@", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1511,35 +1543,33 @@ void __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke(uint
   }
 
   [v9 _updateClientWithResults:*(a1 + 32) withError:v5];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePredicate:(NSPredicate *)predicate completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = predicate;
   v7 = completion;
   context = [(HMTrigger *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updatePredicate:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updatePredicate:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -1551,8 +1581,8 @@ void __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke(uint
     block[2] = __52__HMEventTrigger_updatePredicate_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -1565,9 +1595,9 @@ void __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke(uint
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMEventTrigger updatePredicate:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMEventTrigger updatePredicate:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1575,47 +1605,45 @@ void __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke(uint
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateCharacteristicReference
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v30 = v5;
+    v29 = v5;
     _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Updating characteristic references in the events and predicate", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   allEvents = [(HMEventTrigger *)self allEvents];
-  v7 = [allEvents countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v7 = [allEvents countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     v10 = &selRef_hm_generateSHA256;
-    v24 = *v26;
+    v23 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(allEvents);
         }
 
         v12 = v10[37];
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         if ([v13 conformsToProtocol:v12])
         {
           v14 = v13;
@@ -1640,33 +1668,169 @@ void __53__HMEventTrigger__updatePredicate_completionHandler___block_invoke(uint
             v21 = v20 = self;
             uuid = [v13 uuid];
             *buf = 138543618;
-            v30 = v21;
-            v31 = 2112;
-            v32 = uuid;
+            v29 = v21;
+            v30 = 2112;
+            v31 = uuid;
             _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Failed to update the characteristic reference for event %@", buf, 0x16u);
 
             self = v20;
             allEvents = v19;
             v10 = v18;
-            v9 = v24;
+            v9 = v23;
           }
 
           objc_autoreleasePoolPop(v16);
         }
       }
 
-      v8 = [allEvents countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v8 = [allEvents countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v8);
   }
+}
 
-  v23 = *MEMORY[0x1E69E9840];
+- (void)_updateEvents:(id)events endEvent:(BOOL)event completionHandler:(id)handler
+{
+  eventCopy = event;
+  v61 = *MEMORY[0x1E69E9840];
+  eventsCopy = events;
+  val = self;
+  handlerCopy = handler;
+  home = [(HMTrigger *)self home];
+  if (home)
+  {
+    v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(eventsCopy, "count")}];
+    v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v9 = eventsCopy;
+    v10 = [v9 countByEnumeratingWithState:&v53 objects:v60 count:16];
+    if (v10)
+    {
+      v11 = *v54;
+      do
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v54 != v11)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v13 = [*(*(&v53 + 1) + 8 * i) copy];
+          [v8 addObject:v13];
+        }
+
+        v10 = [v9 countByEnumeratingWithState:&v53 objects:v60 count:16];
+      }
+
+      while (v10);
+    }
+
+    array = [MEMORY[0x1E695DF70] array];
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v15 = v8;
+    v16 = [v15 countByEnumeratingWithState:&v49 objects:v59 count:16];
+    if (v16)
+    {
+      v17 = *v50;
+      while (2)
+      {
+        for (j = 0; j != v16; ++j)
+        {
+          if (*v50 != v17)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          _serializeForAdd = [*(*(&v49 + 1) + 8 * j) _serializeForAdd];
+          v20 = [_serializeForAdd mutableCopy];
+
+          if (!v20)
+          {
+            context = [(HMTrigger *)val context];
+            delegateCaller = [context delegateCaller];
+            v34 = [MEMORY[0x1E696ABC0] errorWithDomain:@"HMErrorDomain" code:3 userInfo:0];
+            [delegateCaller callCompletion:handlerCopy error:v34];
+
+            v25 = v15;
+            goto LABEL_19;
+          }
+
+          v21 = [MEMORY[0x1E696AD98] numberWithBool:eventCopy];
+          [v20 setObject:v21 forKeyedSubscript:@"kEventTriggerEndEvent"];
+
+          v22 = [v20 copy];
+          [array addObject:v22];
+        }
+
+        v16 = [v15 countByEnumeratingWithState:&v49 objects:v59 count:16];
+        if (v16)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v57[0] = @"kEventTriggerEventsKey";
+    v23 = [array copy];
+    v57[1] = @"kEventTriggerEndEvent";
+    v58[0] = v23;
+    v24 = [MEMORY[0x1E696AD98] numberWithBool:eventCopy];
+    v58[1] = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:2];
+
+    v26 = MEMORY[0x1E69A2A10];
+    v27 = objc_alloc(MEMORY[0x1E69A2A00]);
+    uuid = [(HMTrigger *)val uuid];
+    v29 = [v27 initWithTarget:uuid];
+    context = [v26 messageWithName:@"kUpdateEventsToEventTriggerRequestKey" destination:v29 payload:v25];
+
+    v47[0] = 0;
+    v47[1] = v47;
+    v47[2] = 0x3032000000;
+    v47[3] = __Block_byref_object_copy__17070;
+    v47[4] = __Block_byref_object_dispose__17071;
+    v48 = v15;
+    objc_initWeak(&location, val);
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invoke;
+    v42[3] = &unk_1E75480D8;
+    objc_copyWeak(&v45, &location);
+    v43 = handlerCopy;
+    v44 = v47;
+    [context setResponseHandler:v42];
+    context2 = [(HMTrigger *)val context];
+    messageDispatcher = [context2 messageDispatcher];
+    [messageDispatcher sendMessage:context completionHandler:0];
+
+    objc_destroyWeak(&v45);
+    objc_destroyWeak(&location);
+    _Block_object_dispose(v47, 8);
+
+LABEL_19:
+  }
+
+  else
+  {
+    context3 = [(HMTrigger *)self context];
+    delegateCaller2 = [context3 delegateCaller];
+    v37 = [MEMORY[0x1E696ABC0] errorWithDomain:@"HMErrorDomain" code:12 userInfo:0];
+    [delegateCaller2 callCompletion:handlerCopy error:v37];
+  }
 }
 
 void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -1677,15 +1841,15 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 32));
-    v14 = 138544130;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Update events to event trigger response : %@, completionHandler: %@ error %@", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Update events to event trigger response : %@, completionHandler: %@ error %@", &v13, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1695,35 +1859,33 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
   }
 
   [v9 _updateClientWithResults:*(a1 + 32) withError:v5];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateEndEvents:(NSArray *)endEvents completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = endEvents;
   v7 = completion;
   context = [(HMTrigger *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updateEndEvents:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updateEndEvents:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -1735,8 +1897,8 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
     block[2] = __52__HMEventTrigger_updateEndEvents_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -1749,9 +1911,9 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMEventTrigger updateEndEvents:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMEventTrigger updateEndEvents:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1759,35 +1921,33 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateEvents:(NSArray *)events completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = events;
   v7 = completion;
   context = [(HMTrigger *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updateEvents:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger updateEvents:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -1799,8 +1959,8 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
     block[2] = __49__HMEventTrigger_updateEvents_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -1813,9 +1973,9 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMEventTrigger updateEvents:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMEventTrigger updateEvents:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1823,23 +1983,21 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeEvent:(id)event completionHandler:(id)handler
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   handlerCopy = handler;
   home = [(HMTrigger *)self home];
   if (home)
   {
-    v36 = @"kEventUUIDKey";
+    v35 = @"kEventUUIDKey";
     uuid = [eventCopy uuid];
     uUIDString = [uuid UUIDString];
-    v37[0] = uUIDString;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v36[0] = uUIDString;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
 
     context = [(HMTrigger *)self context];
     if (context)
@@ -1851,17 +2009,17 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
       v17 = [v13 messageWithName:@"kRemoveEventFromEventTriggerRequestKey" destination:v16 payload:v11];
 
       objc_initWeak(location, self);
-      v27 = MEMORY[0x1E69E9820];
-      v28 = 3221225472;
-      v29 = __49__HMEventTrigger__removeEvent_completionHandler___block_invoke;
-      v30 = &unk_1E754CFF8;
-      objc_copyWeak(&v32, location);
-      v31 = handlerCopy;
-      [v17 setResponseHandler:&v27];
+      v26 = MEMORY[0x1E69E9820];
+      v27 = 3221225472;
+      v28 = __49__HMEventTrigger__removeEvent_completionHandler___block_invoke;
+      v29 = &unk_1E754CFF8;
+      objc_copyWeak(&v31, location);
+      v30 = handlerCopy;
+      [v17 setResponseHandler:&v26];
       messageDispatcher = [context messageDispatcher];
       [messageDispatcher sendMessage:v17 completionHandler:0];
 
-      objc_destroyWeak(&v32);
+      objc_destroyWeak(&v31);
       objc_destroyWeak(location);
     }
 
@@ -1875,8 +2033,8 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
         v25 = HMFGetLogIdentifier();
         *location = 138543618;
         *&location[4] = v25;
-        v34 = 2080;
-        v35 = "[HMEventTrigger _removeEvent:completionHandler:]";
+        v33 = 2080;
+        v34 = "[HMEventTrigger _removeEvent:completionHandler:]";
         _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", location, 0x16u);
       }
 
@@ -1891,13 +2049,11 @@ void __59__HMEventTrigger__updateEvents_endEvent_completionHandler___block_invok
     v21 = [MEMORY[0x1E696ABC0] errorWithDomain:@"HMErrorDomain" code:12 userInfo:0];
     [delegateCaller callCompletion:handlerCopy error:v21];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __49__HMEventTrigger__removeEvent_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1908,15 +2064,15 @@ void __49__HMEventTrigger__removeEvent_completionHandler___block_invoke(uint64_t
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 32));
-    v14 = 138544130;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Remove event from event trigger response : %@, completionHandler: %@ error %@", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Remove event from event trigger response : %@, completionHandler: %@ error %@", &v13, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1926,35 +2082,33 @@ void __49__HMEventTrigger__removeEvent_completionHandler___block_invoke(uint64_t
   }
 
   [v9 _updateClientWithResults:*(a1 + 32) withError:v5];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeEvent:(HMEvent *)event completionHandler:(void *)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v6 = event;
   v7 = completion;
   context = [(HMTrigger *)self context];
   if (!v7)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger removeEvent:completionHandler:]", @"completion"];
-    v19 = objc_autoreleasePoolPush();
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger removeEvent:completionHandler:]", @"completion"];
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v22;
-      v29 = 2112;
-      v30 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v27 = v21;
+      v28 = 2112;
+      v29 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v9 = context;
@@ -1967,9 +2121,9 @@ void __49__HMEventTrigger__removeEvent_completionHandler___block_invoke(uint64_t
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v14;
-      v29 = 2080;
-      v30 = "[HMEventTrigger removeEvent:completionHandler:]";
+      v27 = v14;
+      v28 = 2080;
+      v29 = "[HMEventTrigger removeEvent:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1994,17 +2148,16 @@ LABEL_9:
   block[2] = __48__HMEventTrigger_removeEvent_completionHandler___block_invoke;
   block[3] = &unk_1E754E0F8;
   block[4] = self;
-  v25 = v6;
-  v26 = v7;
+  v24 = v6;
+  v25 = v7;
   dispatch_async(queue, block);
 
 LABEL_10:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addEvent:(id)event completionHandler:(id)handler
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   handlerCopy = handler;
   home = [(HMTrigger *)self home];
@@ -2015,10 +2168,10 @@ LABEL_10:
 
     if (v10)
     {
-      v43 = @"kEventTriggerEventsKey";
+      v42 = @"kEventTriggerEventsKey";
       v11 = [v10 copy];
-      v44[0] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v43[0] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
 
       context = [(HMTrigger *)self context];
       if (context)
@@ -2032,22 +2185,22 @@ LABEL_10:
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v40 = __Block_byref_object_copy__17070;
-        v41 = __Block_byref_object_dispose__17071;
-        v42 = eventCopy;
+        v39 = __Block_byref_object_copy__17070;
+        v40 = __Block_byref_object_dispose__17071;
+        v41 = eventCopy;
         objc_initWeak(&location, self);
-        v31 = MEMORY[0x1E69E9820];
-        v32 = 3221225472;
-        v33 = __46__HMEventTrigger__addEvent_completionHandler___block_invoke;
-        v34 = &unk_1E75480D8;
-        objc_copyWeak(&v37, &location);
-        v35 = handlerCopy;
-        v36 = buf;
-        [v18 setResponseHandler:&v31];
+        v30 = MEMORY[0x1E69E9820];
+        v31 = 3221225472;
+        v32 = __46__HMEventTrigger__addEvent_completionHandler___block_invoke;
+        v33 = &unk_1E75480D8;
+        objc_copyWeak(&v36, &location);
+        v34 = handlerCopy;
+        v35 = buf;
+        [v18 setResponseHandler:&v30];
         messageDispatcher = [context messageDispatcher];
         [messageDispatcher sendMessage:v18 completionHandler:0];
 
-        objc_destroyWeak(&v37);
+        objc_destroyWeak(&v36);
         objc_destroyWeak(&location);
         _Block_object_dispose(buf, 8);
       }
@@ -2087,13 +2240,11 @@ LABEL_10:
     v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"HMErrorDomain" code:12 userInfo:0];
     [delegateCaller2 callCompletion:handlerCopy error:v22];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __46__HMEventTrigger__addEvent_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -2104,15 +2255,15 @@ void __46__HMEventTrigger__addEvent_completionHandler___block_invoke(uint64_t a1
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 32));
-    v14 = 138544130;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Add event to event trigger response : %@, completionHandler: %@ error %@", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Add event to event trigger response : %@, completionHandler: %@ error %@", &v13, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -2122,35 +2273,33 @@ void __46__HMEventTrigger__addEvent_completionHandler___block_invoke(uint64_t a1
   }
 
   [v9 _updateClientWithResults:*(a1 + 32) withError:v5];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addEvent:(HMEvent *)event completionHandler:(void *)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v6 = event;
   v7 = completion;
   context = [(HMTrigger *)self context];
   if (!v7)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger addEvent:completionHandler:]", @"completion"];
-    v19 = objc_autoreleasePoolPush();
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMEventTrigger addEvent:completionHandler:]", @"completion"];
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v22;
-      v29 = 2112;
-      v30 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v27 = v21;
+      v28 = 2112;
+      v29 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v9 = context;
@@ -2163,9 +2312,9 @@ void __46__HMEventTrigger__addEvent_completionHandler___block_invoke(uint64_t a1
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v14;
-      v29 = 2080;
-      v30 = "[HMEventTrigger addEvent:completionHandler:]";
+      v27 = v14;
+      v28 = 2080;
+      v29 = "[HMEventTrigger addEvent:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -2190,12 +2339,11 @@ LABEL_9:
   block[2] = __45__HMEventTrigger_addEvent_completionHandler___block_invoke;
   block[3] = &unk_1E754E0F8;
   block[4] = self;
-  v25 = v6;
-  v26 = v7;
+  v24 = v6;
+  v25 = v7;
   dispatch_async(queue, block);
 
 LABEL_10:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setActivationState:(unint64_t)state
@@ -2289,138 +2437,132 @@ LABEL_10:
 
 - (NSArray)endEvents
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   currentEvents = [(HMEventTrigger *)self currentEvents];
   array2 = [currentEvents array];
 
-  v6 = [array2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [array2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(array2);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 isEndEvent])
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [array2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [array2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (NSArray)events
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   currentEvents = [(HMEventTrigger *)self currentEvents];
   array2 = [currentEvents array];
 
-  v6 = [array2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [array2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(array2);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if (([v10 isEndEvent] & 1) == 0)
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [array2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [array2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (void)__configureWithContext:(id)context home:(id)home
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v17.receiver = self;
-  v17.super_class = HMEventTrigger;
-  [(HMTrigger *)&v17 __configureWithContext:contextCopy home:home];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v16.receiver = self;
+  v16.super_class = HMEventTrigger;
+  [(HMTrigger *)&v16 __configureWithContext:contextCopy home:home];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   allEvents = [(HMEventTrigger *)self allEvents];
-  v8 = [allEvents countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v8 = [allEvents countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(allEvents);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) __configureWithContext:contextCopy eventTrigger:self];
+        [*(*(&v12 + 1) + 8 * v11++) __configureWithContext:contextCopy eventTrigger:self];
       }
 
       while (v9 != v11);
-      v9 = [allEvents countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v9 = [allEvents countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (HMEventTrigger)initWithDictionary:(id)dictionary home:(id)home
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   homeCopy = home;
-  v38.receiver = self;
-  v38.super_class = HMEventTrigger;
-  v8 = [(HMTrigger *)&v38 initWithDictionary:dictionaryCopy home:homeCopy];
+  v37.receiver = self;
+  v37.super_class = HMEventTrigger;
+  v8 = [(HMTrigger *)&v37 initWithDictionary:dictionaryCopy home:homeCopy];
   if (v8)
   {
     v9 = [dictionaryCopy hmf_numberForKey:@"kEventTriggerRecurrencesKey"];
@@ -2454,34 +2596,34 @@ LABEL_10:
 
       if (v19)
       {
-        v32 = v17;
-        v33 = v10;
+        v31 = v17;
+        v32 = v10;
         v20 = [v17 mutableCopy];
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
         v21 = v19;
-        v22 = [v21 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v35;
+          v24 = *v34;
           do
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v35 != v24)
+              if (*v34 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v34 + 1) + 8 * i);
+              v26 = *(*(&v33 + 1) + 8 * i);
               [v26 setEndEvent:1];
               [v20 addObject:v26];
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v34 objects:v39 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
           }
 
           while (v23);
@@ -2503,31 +2645,30 @@ LABEL_15:
   v29 = v8;
 LABEL_18:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
 - (id)_eventsWithDictionaries:(void *)dictionaries home:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   dictionariesCopy = dictionaries;
   v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
@@ -2541,10 +2682,10 @@ LABEL_18:
         }
 
         v14 = v13;
-        [v7 addObject:{v13, v18}];
+        [v7 addObject:{v13, v17}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -2556,8 +2697,6 @@ LABEL_18:
 
   v15 = [v7 copy];
 LABEL_11:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -2638,7 +2777,7 @@ LABEL_11:
 
 + (id)_predicateForEvaluatingTriggerWithCharacteristic:(id)characteristic value:(id)value valueFormatString:(id)string
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E696AE18];
   stringCopy = string;
   valueCopy = value;
@@ -2646,12 +2785,10 @@ LABEL_11:
   valueCopy = [MEMORY[0x1E696AE18] predicateWithFormat:stringCopy, @"characteristicValue", valueCopy];
 
   v12 = MEMORY[0x1E696AB28];
-  v17[0] = characteristic;
-  v17[1] = valueCopy;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = characteristic;
+  v16[1] = valueCopy;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v14 = [v12 andPredicateWithSubpredicates:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -2676,7 +2813,7 @@ LABEL_11:
 
 + (NSPredicate)predicateForEvaluatingTriggerOccurringBetweenDateWithComponents:(NSDateComponents *)firstDateComponents secondDateWithComponents:(NSDateComponents *)secondDateWithComponents
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   v5 = firstDateComponents;
   v6 = secondDateWithComponents;
   v7 = [HMEventTrigger predicateForEvaluatingTriggerOccurringAfterDateWithComponents:v5];
@@ -2684,10 +2821,10 @@ LABEL_11:
   if (![HMPredicateUtilities areOnlyHourAndMinuteSet:v5]|| ![HMPredicateUtilities areOnlyHourAndMinuteSet:v6])
   {
     v13 = MEMORY[0x1E696AB28];
-    v22[0] = v7;
-    v22[1] = v8;
+    v21[0] = v7;
+    v21[1] = v8;
     v14 = MEMORY[0x1E695DEC8];
-    v15 = v22;
+    v15 = v21;
 LABEL_6:
     v11 = [v14 arrayWithObjects:v15 count:2];
     v12 = [v13 andPredicateWithSubpredicates:v11];
@@ -2699,9 +2836,9 @@ LABEL_6:
   {
 LABEL_4:
     v10 = MEMORY[0x1E696AB28];
-    v23[0] = v7;
-    v23[1] = v8;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+    v22[0] = v7;
+    v22[1] = v8;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
     v12 = [v10 orPredicateWithSubpredicates:v11];
 LABEL_7:
     v16 = v12;
@@ -2726,24 +2863,22 @@ LABEL_7:
   {
 LABEL_12:
     v13 = MEMORY[0x1E696AB28];
-    v24[0] = v7;
-    v24[1] = v8;
+    v23[0] = v7;
+    v23[1] = v8;
     v14 = MEMORY[0x1E695DEC8];
-    v15 = v24;
+    v15 = v23;
     goto LABEL_6;
   }
 
   v16 = [HMEventTrigger predicateForEvaluatingTriggerOccurringOnDateWithComponents:v5];
 LABEL_8:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (NSPredicate)predicateForEvaluatingTriggerOccurringBetweenSignificantEvent:(HMSignificantTimeEvent *)firstSignificantEvent secondSignificantEvent:(HMSignificantTimeEvent *)secondSignificantEvent
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v5 = secondSignificantEvent;
   v6 = firstSignificantEvent;
   v7 = [HMEventTrigger predicateForEvaluatingTriggerOccurringAfterSignificantEvent:v6];
@@ -2758,9 +2893,9 @@ LABEL_8:
     if (v11)
     {
       v12 = MEMORY[0x1E696AB28];
-      v20[0] = v7;
-      v20[1] = v8;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+      v19[0] = v7;
+      v19[1] = v8;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
       v14 = [v12 andPredicateWithSubpredicates:v13];
       goto LABEL_6;
     }
@@ -2771,14 +2906,12 @@ LABEL_8:
   }
 
   v15 = MEMORY[0x1E696AB28];
-  v19[0] = v7;
-  v19[1] = v8;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = v7;
+  v18[1] = v8;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v14 = [v15 orPredicateWithSubpredicates:v13];
 LABEL_6:
   v16 = v14;
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -2872,34 +3005,34 @@ LABEL_6:
 
 + (BOOL)__validateRecurrences:(id)recurrences
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   recurrencesCopy = recurrences;
-  v4 = [recurrencesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [recurrencesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(recurrencesCopy);
         }
 
-        if (![*(*(&v11 + 1) + 8 * i) weekday])
+        if (![*(*(&v10 + 1) + 8 * i) weekday])
         {
           v8 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [recurrencesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [recurrencesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -2912,13 +3045,12 @@ LABEL_6:
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)updateWithBuilder:(id)builder completionHandler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   builderCopy = builder;
   handlerCopy = handler;
   context = [(HMTrigger *)self context];
@@ -2926,16 +3058,16 @@ LABEL_11:
   v10 = home;
   if (context)
   {
-    v38 = 0;
-    v11 = [home validateBuilder:builderCopy error:&v38];
-    v12 = v38;
+    v37 = 0;
+    v11 = [home validateBuilder:builderCopy error:&v37];
+    v12 = v37;
     v13 = v12;
     if (v11)
     {
       v14 = MEMORY[0x1E695DF90];
-      v37 = v12;
-      v15 = [v10 encodeEventTriggerBuilder:builderCopy error:&v37];
-      v16 = v37;
+      v36 = v12;
+      v15 = [v10 encodeEventTriggerBuilder:builderCopy error:&v36];
+      v16 = v36;
 
       delegateCaller2 = [v14 dictionaryWithDictionary:v15];
 
@@ -2952,26 +3084,26 @@ LABEL_11:
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v40 = v23;
-          v41 = 2112;
-          v42 = delegateCaller2;
+          v39 = v23;
+          v40 = 2112;
+          v41 = delegateCaller2;
           _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_INFO, "%{public}@Going to update the event trigger with : %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v20);
         uuid2 = [(HMTrigger *)selfCopy uuid];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __77__HMEventTrigger_HMEventTriggerBuilder__updateWithBuilder_completionHandler___block_invoke;
-        v31[3] = &unk_1E754B6C8;
-        v32 = context;
-        v36 = handlerCopy;
-        v33 = selfCopy;
-        v34 = delegateCaller2;
-        v35 = v10;
-        [(_HMContext *)v32 sendMessage:uuid2 target:v34 payload:v31 responseHandler:?];
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __77__HMEventTrigger_HMEventTriggerBuilder__updateWithBuilder_completionHandler___block_invoke;
+        v30[3] = &unk_1E754B6C8;
+        v31 = context;
+        v35 = handlerCopy;
+        v32 = selfCopy;
+        v33 = delegateCaller2;
+        v34 = v10;
+        [(_HMContext *)v31 sendMessage:uuid2 target:v33 payload:v30 responseHandler:?];
 
-        delegateCaller = v32;
+        delegateCaller = v31;
       }
 
       else
@@ -2998,21 +3130,19 @@ LABEL_11:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v29;
-      v41 = 2080;
-      v42 = "[HMEventTrigger(HMEventTriggerBuilder) updateWithBuilder:completionHandler:]";
+      v39 = v29;
+      v40 = 2080;
+      v41 = "[HMEventTrigger(HMEventTriggerBuilder) updateWithBuilder:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v26);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __77__HMEventTrigger_HMEventTriggerBuilder__updateWithBuilder_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -3030,11 +3160,11 @@ void __77__HMEventTrigger_HMEventTriggerBuilder__updateWithBuilder_completionHan
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 48);
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully updated the event trigger. ResponsePayload : %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully updated the event trigger. ResponsePayload : %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -3054,8 +3184,6 @@ void __77__HMEventTrigger_HMEventTriggerBuilder__updateWithBuilder_completionHan
       [v13 callCompletion:v14 error:v15];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyAsBuilder

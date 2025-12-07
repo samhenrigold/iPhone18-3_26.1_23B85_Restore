@@ -17,7 +17,7 @@
 - (id)description
 {
   selfCopy = self;
-  v52 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   message = [(SUCoreConnectMessage *)self message];
   v4 = @"[>>>\n";
   if (!message)
@@ -27,72 +27,70 @@
 
   v5 = v4;
 
-  v48 = 0u;
-  v49 = 0u;
+  v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = [(SUCoreConnectMessage *)selfCopy message];
-  v40 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
-  if (v40)
+  v37 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+  if (v37)
   {
-    v6 = 0x277CBE000uLL;
-    v7 = *v47;
-    v36 = *v47;
-    v37 = selfCopy;
+    v6 = *v44;
+    v33 = *v44;
+    v34 = selfCopy;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v47 != v7)
+        if (*v44 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v46 + 1) + 8 * i);
+        v8 = *(*(&v43 + 1) + 8 * i);
         message2 = [(SUCoreConnectMessage *)selfCopy message];
-        v11 = [message2 objectForKey:v9];
+        v10 = [message2 objectForKey:v8];
 
-        v12 = *(v6 + 2752);
         objc_opt_class();
-        v41 = v11;
+        v38 = v10;
         if (objc_opt_isKindOfClass())
         {
-          v39 = v5;
-          v44 = 0u;
-          v45 = 0u;
+          v36 = v5;
+          v41 = 0u;
           v42 = 0u;
-          v43 = 0u;
-          v13 = v11;
-          v14 = [v13 countByEnumeratingWithState:&v42 objects:v50 count:16];
-          if (v14)
+          v39 = 0u;
+          v40 = 0u;
+          v11 = v10;
+          v12 = [v11 countByEnumeratingWithState:&v39 objects:v47 count:16];
+          if (v12)
           {
-            v15 = v14;
-            v16 = *v43;
+            v13 = v12;
+            v14 = *v40;
             message3 = @"{\n";
             do
             {
-              v18 = 0;
-              v19 = message3;
+              v16 = 0;
+              v17 = message3;
               do
               {
-                if (*v43 != v16)
+                if (*v40 != v14)
                 {
-                  objc_enumerationMutation(v13);
+                  objc_enumerationMutation(v11);
                 }
 
-                v20 = *(*(&v42 + 1) + 8 * v18);
-                v21 = [v13 objectForKey:v20];
-                message3 = [(__CFString *)v19 stringByAppendingFormat:@"\t\t%@: %@\n", v20, v21];
+                v18 = *(*(&v39 + 1) + 8 * v16);
+                v19 = [v11 objectForKey:v18];
+                message3 = [(__CFString *)v17 stringByAppendingFormat:@"\t\t%@: %@\n", v18, v19];
 
-                ++v18;
-                v19 = message3;
+                ++v16;
+                v17 = message3;
               }
 
-              while (v15 != v18);
-              v15 = [v13 countByEnumeratingWithState:&v42 objects:v50 count:16];
+              while (v13 != v16);
+              v13 = [v11 countByEnumeratingWithState:&v39 objects:v47 count:16];
             }
 
-            while (v15);
+            while (v13);
           }
 
           else
@@ -100,52 +98,49 @@
             message3 = @"{\n";
           }
 
-          v22 = v39;
-          v5 = [(__CFString *)v39 stringByAppendingFormat:@"\t%@: %@\n\t}\n", v9, message3];
-          v7 = v36;
-          selfCopy = v37;
-          v6 = 0x277CBE000;
+          v20 = v36;
+          v5 = [(__CFString *)v36 stringByAppendingFormat:@"\t%@: %@\n\t}\n", v8, message3];
+          v6 = v33;
+          selfCopy = v34;
         }
 
         else
         {
           message3 = [(SUCoreConnectMessage *)selfCopy message];
-          v22 = [(__CFString *)message3 objectForKey:v9];
-          v23 = [(__CFString *)v5 stringByAppendingFormat:@"\t%@: %@\n", v9, v22];
+          v20 = [(__CFString *)message3 objectForKey:v8];
+          v21 = [(__CFString *)v5 stringByAppendingFormat:@"\t%@: %@\n", v8, v20];
 
-          v5 = v23;
+          v5 = v21;
         }
       }
 
-      v40 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v37 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
-    while (v40);
+    while (v37);
   }
 
   if (v5)
   {
-    v24 = [(__CFString *)v5 stringByAppendingString:@"<<<]"];
+    v22 = [(__CFString *)v5 stringByAppendingString:@"<<<]"];
   }
 
   else
   {
-    v24 = 0;
+    v22 = 0;
   }
 
-  v25 = MEMORY[0x277CCACA8];
-  v26 = [SUCoreConnectMessage nameForMessageType:[(SUCoreConnectMessage *)selfCopy messageType]];
+  v23 = MEMORY[0x277CCACA8];
+  v24 = [SUCoreConnectMessage nameForMessageType:[(SUCoreConnectMessage *)selfCopy messageType]];
   messageName = [(SUCoreConnectMessage *)selfCopy messageName];
   clientID = [(SUCoreConnectMessage *)selfCopy clientID];
   clientIDRaw = [(SUCoreConnectMessage *)selfCopy clientIDRaw];
   clientProcessIdentifier = [(SUCoreConnectMessage *)selfCopy clientProcessIdentifier];
   version = [(SUCoreConnectMessage *)selfCopy version];
   error = [(SUCoreConnectMessage *)selfCopy error];
-  v33 = [v25 stringWithFormat:@"SUCoreConnectMessage(type:%@|name:%@|clientID:%@|clientIDRaw:%@|clientProcessIdentifier:%d|version:%@|error:%@|message:%@)", v26, messageName, clientID, clientIDRaw, clientProcessIdentifier, version, error, v24];
+  v31 = [v23 stringWithFormat:@"SUCoreConnectMessage(type:%@|name:%@|clientID:%@|clientIDRaw:%@|clientProcessIdentifier:%d|version:%@|error:%@|message:%@)", v24, messageName, clientID, clientIDRaw, clientProcessIdentifier, version, error, v22];
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v31;
 }
 
 - (id)summary

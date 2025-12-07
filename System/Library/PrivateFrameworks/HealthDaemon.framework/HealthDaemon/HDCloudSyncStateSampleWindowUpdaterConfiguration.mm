@@ -17,21 +17,21 @@
   v22 = [(HDCloudSyncStateSampleWindowUpdaterConfiguration *)&v32 init];
   if (v22)
   {
-    v23 = [domainCopy copy];
+    v23 = objc_msgSend_copy(domainCopy);
     domain = v22->_domain;
     v22->_domain = v23;
 
-    v25 = [keyCopy copy];
+    v25 = objc_msgSend_copy(keyCopy);
     key = v22->_key;
     v22->_key = v25;
 
-    v27 = [originKeyCopy copy];
+    v27 = objc_msgSend_copy(originKeyCopy);
     sampleOriginKey = v22->_sampleOriginKey;
     v22->_sampleOriginKey = v27;
 
     objc_storeStrong(&v22->_sampleType, type);
     objc_storeStrong(&v22->_syncEntityClass, class);
-    v29 = [windowCopy copy];
+    v29 = objc_msgSend_copy(windowCopy);
     timeWindow = v22->_timeWindow;
     v22->_timeWindow = v29;
 

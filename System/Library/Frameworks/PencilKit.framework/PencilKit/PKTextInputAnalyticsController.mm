@@ -396,10 +396,10 @@ id __52__PKTextInputAnalyticsController__dispatchAnalytics__block_invoke(uint64_
   return v7;
 }
 
-uint64_t __52__PKTextInputAnalyticsController__dispatchAnalytics__block_invoke_2()
+uint64_t __52__PKTextInputAnalyticsController__dispatchAnalytics__block_invoke_2(uint64_t a1, char a2)
 {
-  v0 = +[PKTextInputSettings sharedSettings];
-  [v0 isScribbleActive];
+  v2 = +[PKTextInputSettings sharedSettings];
+  [v2 isScribbleActive];
 
   +[PKHoverSettings allowDoubleTapOnlyWithPencilHover];
   return AnalyticsSendEventLazy();

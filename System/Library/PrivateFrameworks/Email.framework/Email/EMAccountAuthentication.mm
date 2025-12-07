@@ -73,7 +73,7 @@ void __30__EMAccountAuthentication_log__block_invoke(uint64_t a1)
 
 - (BOOL)_updateDeliveryAccountCredentialIfNecessaryForAccountWithAccount:(id)account
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v5 = accountCopy;
   if (accountCopy && [accountCopy conformsToProtocol:&unk_1F46417C8])
@@ -87,38 +87,37 @@ void __30__EMAccountAuthentication_log__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [v5 identifier];
-      v11 = 138412290;
-      v12 = identifier;
-      _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "Account is not a receiving account. No delivery account to update: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = identifier;
+      _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "Account is not a receiving account. No delivery account to update: %@", &v10, 0xCu);
     }
 
     v6 = 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)_updateDeliveryAccountCredentialIfNecessaryForReceivingAccount:(id)account
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   deliveryAccount = [accountCopy deliveryAccount];
   v6 = +[EMAccountAuthentication log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [accountCopy identifier];
-    v20 = 138412290;
-    v21 = identifier;
-    _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "Receiving account password changed: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = identifier;
+    _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "Receiving account password changed: %@", &v19, 0xCu);
   }
 
   v8 = +[EMAccountAuthentication log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = deliveryAccount;
-    _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "Attempt to update password if needed for delivery account %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = deliveryAccount;
+    _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "Attempt to update password if needed for delivery account %@", &v19, 0xCu);
   }
 
   if (!deliveryAccount)
@@ -126,10 +125,10 @@ void __30__EMAccountAuthentication_log__block_invoke(uint64_t a1)
     password = +[EMAccountAuthentication log];
     if (os_log_type_enabled(password, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
       v11 = "No delivery account password found. Nothing to do";
 LABEL_13:
-      _os_log_impl(&dword_1C6655000, password, OS_LOG_TYPE_DEFAULT, v11, &v20, 2u);
+      _os_log_impl(&dword_1C6655000, password, OS_LOG_TYPE_DEFAULT, v11, &v19, 2u);
     }
 
 LABEL_14:
@@ -144,7 +143,7 @@ LABEL_15:
     password = +[EMAccountAuthentication log];
     if (os_log_type_enabled(password, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
       v11 = "Should not try to update delivery account password";
       goto LABEL_13;
     }
@@ -157,34 +156,34 @@ LABEL_15:
     password = [deliveryAccount password];
     password2 = [accountCopy password];
     systemAccount = [deliveryAccount systemAccount];
-    v16 = [objc_alloc(MEMORY[0x1E6959A30]) initWithPassword:password2];
-    [systemAccount setCredential:v16];
+    v15 = [objc_alloc(MEMORY[0x1E6959A30]) initWithPassword:password2];
+    [systemAccount setCredential:v15];
     canAuthenticateWithCurrentCredentials = [deliveryAccount canAuthenticateWithCurrentCredentials];
     if (canAuthenticateWithCurrentCredentials)
     {
       [deliveryAccount savePersistentAccount];
-      v17 = +[EMAccountAuthentication log];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = +[EMAccountAuthentication log];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138412290;
-        v21 = deliveryAccount;
-        _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_DEFAULT, "Updating password worked for delivery account: %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = deliveryAccount;
+        _os_log_impl(&dword_1C6655000, v16, OS_LOG_TYPE_DEFAULT, "Updating password worked for delivery account: %@", &v19, 0xCu);
       }
     }
 
     else
     {
-      v18 = +[EMAccountAuthentication log];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = +[EMAccountAuthentication log];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138412290;
-        v21 = deliveryAccount;
-        _os_log_impl(&dword_1C6655000, v18, OS_LOG_TYPE_DEFAULT, "Updating password for %@ did not work. Reverting password", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = deliveryAccount;
+        _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_DEFAULT, "Updating password for %@ did not work. Reverting password", &v19, 0xCu);
       }
 
-      v19 = [objc_alloc(MEMORY[0x1E6959A30]) initWithPassword:password];
-      v16 = v19;
-      [systemAccount setCredential:v19];
+      v18 = [objc_alloc(MEMORY[0x1E6959A30]) initWithPassword:password];
+      v15 = v18;
+      [systemAccount setCredential:v18];
     }
 
     goto LABEL_15;
@@ -193,7 +192,6 @@ LABEL_15:
   canAuthenticateWithCurrentCredentials = 1;
 LABEL_16:
 
-  v12 = *MEMORY[0x1E69E9840];
   return canAuthenticateWithCurrentCredentials;
 }
 

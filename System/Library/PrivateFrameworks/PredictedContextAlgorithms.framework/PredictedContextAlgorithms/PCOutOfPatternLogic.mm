@@ -38,7 +38,7 @@
 
 - (id)processInputSignals:(id)signals isOutOfPattern:(BOOL *)pattern
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   signalsCopy = signals;
   v7 = [(PCOutOfPatternLogic *)self isOutOfPatternForInputSignals:signalsCopy];
   visits = [signalsCopy visits];
@@ -65,17 +65,17 @@
     visits2 = [v12 visits];
     v16 = [visits2 count];
     transitions2 = [v12 transitions];
-    v20 = 136316162;
-    v21 = v14;
-    v22 = 2048;
-    v23 = v9;
-    v24 = 2048;
-    v25 = v11;
-    v26 = 2048;
-    v27 = v16;
-    v28 = 2048;
-    v29 = [transitions2 count];
-    _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "out of pattern? %s, num input visits, %lu, num input transitions, %lu, num output visits, %lu, num output transitions, %lu", &v20, 0x34u);
+    v19 = 136316162;
+    v20 = v14;
+    v21 = 2048;
+    v22 = v9;
+    v23 = 2048;
+    v24 = v11;
+    v25 = 2048;
+    v26 = v16;
+    v27 = 2048;
+    v28 = [transitions2 count];
+    _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "out of pattern? %s, num input visits, %lu, num input transitions, %lu, num output visits, %lu, num output transitions, %lu", &v19, 0x34u);
   }
 
   if (pattern)
@@ -83,14 +83,12 @@
     *pattern = v7;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (BOOL)isOutOfPatternForInputSignals:(id)signals
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   signalsCopy = signals;
   locationHistorys = [signalsCopy locationHistorys];
   [signalsCopy currentTimeCFAbsolute];
@@ -105,8 +103,8 @@
     v13 = _plc_log_get_normal_handle(PCLogCategoryOutOfPatternLogic);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "Missing model centroid, indicating no trained model", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "Missing model centroid, indicating no trained model", &v19, 2u);
     }
 
     v14 = @"initial model training";
@@ -124,11 +122,11 @@
       modelCentroid3 = [(PCOutOfPatternLogic *)self modelCentroid];
       v16 = [modelCentroid3 description];
       v17 = [v8 description];
-      v20 = 138740227;
-      v21 = v16;
-      v22 = 2117;
-      v23 = v17;
-      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "Out-of-pattern detected. modelCentroid:%{sensitive}@, currentLatLon:%{sensitive}@", &v20, 0x16u);
+      v19 = 138740227;
+      v20 = v16;
+      v21 = 2117;
+      v22 = v17;
+      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "Out-of-pattern detected. modelCentroid:%{sensitive}@, currentLatLon:%{sensitive}@", &v19, 0x16u);
     }
 
     v14 = @"GOOP detection";
@@ -141,7 +139,6 @@ LABEL_10:
   v12 = 0;
 LABEL_11:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -181,7 +178,7 @@ LABEL_11:
 
 - (void)resetAwaitingRetrainWithCurrentLocation:(id)location inputSignals:(id)signals
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   signalsCopy = signals;
   if ([(PCOutOfPatternLogic *)self isAwaitingRetrain])
@@ -195,9 +192,9 @@ LABEL_11:
     {
       modelCentroid = [(PCOutOfPatternLogic *)self modelCentroid];
       v11 = [modelCentroid description];
-      v13 = 138739971;
-      v14 = v11;
-      _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_DEFAULT, "Reset awaiting retrain state after successful retrain. New modelCentroid: %{sensitive}@", &v13, 0xCu);
+      v12 = 138739971;
+      v13 = v11;
+      _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_DEFAULT, "Reset awaiting retrain state after successful retrain. New modelCentroid: %{sensitive}@", &v12, 0xCu);
     }
   }
 
@@ -206,40 +203,38 @@ LABEL_11:
     v9 = _plc_log_get_normal_handle(PCLogCategoryOutOfPatternLogic);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_INFO, "Reset awaiting retrain state while not waiting for a retrain, no-op", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_INFO, "Reset awaiting retrain state while not waiting for a retrain, no-op", &v12, 2u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)homeLOIsWithinBoundingBoxCenteredAtLocation:(id)location fromLocationOfInterests:(id)interests
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   interestsCopy = interests;
   array = [MEMORY[0x1E695DF70] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = interestsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         if ([v13 placeType] == 1)
         {
           v14 = [PCLatLon alloc];
@@ -257,45 +252,44 @@ LABEL_11:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
   }
 
   v21 = [array copy];
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 - (id)closestHomeLOIFromCandidates:(id)candidates toLocation:(id)location
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   candidatesCopy = candidates;
   locationCopy = location;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = candidatesCopy;
-  v7 = [candidatesCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [candidatesCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v28;
+    v10 = *v27;
     v11 = 1.79769313e308;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
+        v13 = *(*(&v26 + 1) + 8 * i);
         v14 = [PCLatLon alloc];
         location = [v13 location];
         [location locationLatitudeDeg];
@@ -315,7 +309,7 @@ LABEL_11:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v8);
@@ -326,14 +320,12 @@ LABEL_11:
     v9 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)snapModelCentroidForCurrentLocation:(id)location withInputSignals:(id)signals
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   locationOfInterests = [signals locationOfInterests];
   v8 = [(PCOutOfPatternLogic *)self homeLOIsWithinBoundingBoxCenteredAtLocation:locationCopy fromLocationOfInterests:locationOfInterests];
@@ -353,9 +345,9 @@ LABEL_11:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = [(PCLatLon *)v16 description];
-      v23 = 138739971;
-      v24 = v18;
-      _os_log_impl(&dword_1CEE74000, v17, OS_LOG_TYPE_DEFAULT, "Assign home LOI as model centroid. modelCentroid:%{sensitive}@", &v23, 0xCu);
+      v22 = 138739971;
+      v23 = v18;
+      _os_log_impl(&dword_1CEE74000, v17, OS_LOG_TYPE_DEFAULT, "Assign home LOI as model centroid. modelCentroid:%{sensitive}@", &v22, 0xCu);
     }
   }
 
@@ -365,46 +357,44 @@ LABEL_11:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = [locationCopy description];
-      v23 = 138739971;
-      v24 = v20;
-      _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_DEFAULT, "Assign current location as model centroid. modelCentroid:%{sensitive}@", &v23, 0xCu);
+      v22 = 138739971;
+      v23 = v20;
+      _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_DEFAULT, "Assign current location as model centroid. modelCentroid:%{sensitive}@", &v22, 0xCu);
     }
 
     v16 = locationCopy;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)locationOfInterestForIdentifier:(id)identifier fromArray:(id)array
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   arrayCopy = array;
   v7 = arrayCopy;
   if (identifierCopy)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = arrayCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           loiIdentifier = [v12 loiIdentifier];
           v14 = [loiIdentifier isEqualToData:identifierCopy];
 
@@ -415,7 +405,7 @@ LABEL_11:
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -433,39 +423,37 @@ LABEL_12:
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)filterItems:(id)items usingLocationBlock:(id)block
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   blockCopy = block;
   array = [MEMORY[0x1E695DF70] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = itemsCopy;
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v25;
+    v11 = *v24;
     *&v9 = 138739971;
-    v21 = v9;
+    v20 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         v14 = blockCopy[2](blockCopy, v13);
         if (v14 && ([(PCOutOfPatternLogic *)self modelCentroid], v15 = objc_claimAutoreleasedReturnValue(), v16 = [(PCOutOfPatternLogic *)self isLatLon:v14 insideBoundingBoxWithCentroid:v15], v15, !v16))
         {
@@ -473,32 +461,30 @@ LABEL_12:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             v18 = [v14 description];
-            *buf = v21;
-            v29 = v18;
+            *buf = v20;
+            v28 = v18;
             _os_log_impl(&dword_1CEE74000, v17, OS_LOG_TYPE_DEFAULT, "Filtering out item at location: %{sensitive}@", buf, 0xCu);
           }
         }
 
         else
         {
-          [array addObject:{v13, v21}];
+          [array addObject:{v13, v20}];
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v10 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)filterVisits:(id)visits
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   v5 = [(PCOutOfPatternLogic *)self filterItems:visitsCopy usingLocationBlock:&__block_literal_global_8];
   v6 = [visitsCopy count];
@@ -507,12 +493,10 @@ LABEL_12:
   v8 = _plc_log_get_normal_handle(PCLogCategoryOutOfPatternLogic);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = v6 - v7;
-    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "Filtered out %lu visits", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v6 - v7;
+    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "Filtered out %lu visits", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -545,7 +529,7 @@ PCLatLon *__36__PCOutOfPatternLogic_filterVisits___block_invoke(uint64_t a1, voi
 
 - (id)filterCalendarEvents:(id)events
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   v5 = [(PCOutOfPatternLogic *)self filterItems:eventsCopy usingLocationBlock:&__block_literal_global_17];
   v6 = [eventsCopy count];
@@ -554,12 +538,10 @@ PCLatLon *__36__PCOutOfPatternLogic_filterVisits___block_invoke(uint64_t a1, voi
   v8 = _plc_log_get_normal_handle(PCLogCategoryOutOfPatternLogic);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = v6 - v7;
-    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "Filtered out %lu calendar events", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v6 - v7;
+    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "Filtered out %lu calendar events", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -592,7 +574,7 @@ PCLatLon *__44__PCOutOfPatternLogic_filterCalendarEvents___block_invoke(uint64_t
 
 - (id)filterMapsViewedPlaces:(id)places
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   placesCopy = places;
   v5 = [(PCOutOfPatternLogic *)self filterItems:placesCopy usingLocationBlock:&__block_literal_global_20];
   v6 = [placesCopy count];
@@ -601,12 +583,10 @@ PCLatLon *__44__PCOutOfPatternLogic_filterCalendarEvents___block_invoke(uint64_t
   v8 = _plc_log_get_normal_handle(PCLogCategoryOutOfPatternLogic);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = v6 - v7;
-    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "Filtered out %lu maps viewed place events", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v6 - v7;
+    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "Filtered out %lu maps viewed place events", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -639,35 +619,35 @@ PCLatLon *__46__PCOutOfPatternLogic_filterMapsViewedPlaces___block_invoke(uint64
 
 - (id)filterTransitions:(id)transitions withLocationOfInterests:(id)interests
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   transitionsCopy = transitions;
   interestsCopy = interests;
   array = [MEMORY[0x1E695DF70] array];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   v9 = transitionsCopy;
-  v46 = [v9 countByEnumeratingWithState:&v47 objects:v55 count:16];
-  if (v46)
+  v45 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  if (v45)
   {
-    v11 = *v48;
+    v11 = *v47;
     *&v10 = 138740227;
-    v41 = v10;
-    v44 = v9;
-    v45 = array;
-    v42 = interestsCopy;
-    v43 = *v48;
+    v40 = v10;
+    v43 = v9;
+    v44 = array;
+    v41 = interestsCopy;
+    v42 = *v47;
     do
     {
-      for (i = 0; i != v46; ++i)
+      for (i = 0; i != v45; ++i)
       {
-        if (*v48 != v11)
+        if (*v47 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v47 + 1) + 8 * i);
+        v13 = *(*(&v46 + 1) + 8 * i);
         visitIdentifierOrigin = [v13 visitIdentifierOrigin];
         v15 = [(PCOutOfPatternLogic *)self locationOfInterestForIdentifier:visitIdentifierOrigin fromArray:interestsCopy];
 
@@ -710,10 +690,10 @@ PCLatLon *__46__PCOutOfPatternLogic_filterMapsViewedPlaces___block_invoke(uint64
         if ((location4 & 1) != 0 || v35)
         {
 
-          v9 = v44;
-          array = v45;
-          interestsCopy = v42;
-          v11 = v43;
+          v9 = v43;
+          array = v44;
+          interestsCopy = v41;
+          v11 = v42;
 LABEL_18:
           [array addObject:v13];
           goto LABEL_19;
@@ -724,34 +704,32 @@ LABEL_18:
         {
           v37 = [(PCLatLon *)v25 description];
           v38 = [(PCLatLon *)v32 description];
-          *buf = v41;
-          v52 = v37;
-          v53 = 2117;
-          v54 = v38;
+          *buf = v40;
+          v51 = v37;
+          v52 = 2117;
+          v53 = v38;
           _os_log_impl(&dword_1CEE74000, v36, OS_LOG_TYPE_DEFAULT, "Filtering out transition. Origin: %{sensitive}@, Destination: %{sensitive}@", buf, 0x16u);
         }
 
-        v9 = v44;
-        array = v45;
-        interestsCopy = v42;
-        v11 = v43;
+        v9 = v43;
+        array = v44;
+        interestsCopy = v41;
+        v11 = v42;
 LABEL_19:
       }
 
-      v46 = [v9 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v45 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (BOOL)_requestRetrainIfNeededWithReason:(id)reason
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   isAwaitingRetrain = [(PCOutOfPatternLogic *)self isAwaitingRetrain];
   v6 = _plc_log_get_normal_handle(PCLogCategoryOutOfPatternLogic);
@@ -760,9 +738,9 @@ LABEL_19:
   {
     if (v7)
     {
-      v10 = 138412290;
-      v11 = reasonCopy;
-      _os_log_impl(&dword_1CEE74000, v6, OS_LOG_TYPE_DEFAULT, "Already awaiting retrain, not requesting again (reason: %@)", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = reasonCopy;
+      _os_log_impl(&dword_1CEE74000, v6, OS_LOG_TYPE_DEFAULT, "Already awaiting retrain, not requesting again (reason: %@)", &v9, 0xCu);
     }
   }
 
@@ -770,15 +748,14 @@ LABEL_19:
   {
     if (v7)
     {
-      v10 = 138412290;
-      v11 = reasonCopy;
-      _os_log_impl(&dword_1CEE74000, v6, OS_LOG_TYPE_DEFAULT, "Setting awaiting retrain flag for %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = reasonCopy;
+      _os_log_impl(&dword_1CEE74000, v6, OS_LOG_TYPE_DEFAULT, "Setting awaiting retrain flag for %@", &v9, 0xCu);
     }
 
     [(PCOutOfPatternLogic *)self setIsAwaitingRetrain:1];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return !isAwaitingRetrain;
 }
 

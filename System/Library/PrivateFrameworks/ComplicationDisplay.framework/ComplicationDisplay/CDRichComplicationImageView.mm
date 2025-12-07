@@ -1,5 +1,4 @@
 @interface CDRichComplicationImageView
-- (BOOL)_isSymbolImageProvider;
 - (BOOL)_isSymbolImageProviderWithoutSpecificSize;
 - (BOOL)viewShouldIgnoreTwoPieceImage:(id)image;
 - (CDRichComplicationImageView)initWithDevice:(id)device useAccentColor:(BOOL)color;
@@ -8,6 +7,7 @@
 - (UIView)richComplicationImageView;
 - (id)_createMonochromeImageView;
 - (id)backgroundColorForView:(id)view;
+- (id)colorForView:(id)view accented:(BOOL)accented;
 - (id)filterForView:(id)view style:(int64_t)style;
 - (id)filterForView:(id)view style:(int64_t)style fraction:(double)fraction;
 - (id)filtersForView:(id)view style:(int64_t)style;
@@ -15,6 +15,7 @@
 - (id)interpolatedColorForView:(id)view;
 - (int64_t)_filterStyle;
 - (void)layoutSubviews;
+- (void)renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)setFontDescriptor:(id)descriptor;
 - (void)setFontSizeFactor:(double)factor;
 - (void)setImageProvider:(id)provider reason:(int64_t)reason;
@@ -319,11 +320,15 @@
   }
 }
 
-- (BOOL)_isSymbolImageProvider
+- (void)renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
 {
-  imageProvider = self->_imageProvider;
-  objc_opt_class();
-  return objc_opt_isKindOfClass() & 1;
+  discardCopy = discard;
+  groupCopy = group;
+  richComplicationImageView = [(CDRichComplicationImageView *)self richComplicationImageView];
+  if (objc_opt_respondsToSelector())
+  {
+    [richComplicationImageView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  }
 }
 
 - (BOOL)_isSymbolImageProviderWithoutSpecificSize
@@ -595,6 +600,16 @@ LABEL_9:
   v7 = [filterProvider filterForView:self style:style];
 
   return v7;
+}
+
+- (id)colorForView:(id)view accented:(BOOL)accented
+{
+  accentedCopy = accented;
+  viewCopy = view;
+  filterProvider = [(CDRichComplicationImageView *)self filterProvider];
+  v8 = [filterProvider colorForView:viewCopy accented:accentedCopy];
+
+  return v8;
 }
 
 - (id)interpolatedColorForView:(id)view

@@ -15,7 +15,7 @@
   state = [hoverCopy state];
   if (state != 1)
   {
-    state = [hoverCopy state] == 2;
+    LOBYTE(state) = [hoverCopy state] == 2;
   }
 
   sub_18BB87304(state);
@@ -33,13 +33,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_18BB89950();
+  sub_18BB89950(selfCopy);
 }
 
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_18BB89AD0();
+  sub_18BB89AD0(selfCopy);
 }
 
 - (BOOL)textFieldShouldBeginEditing:(id)editing

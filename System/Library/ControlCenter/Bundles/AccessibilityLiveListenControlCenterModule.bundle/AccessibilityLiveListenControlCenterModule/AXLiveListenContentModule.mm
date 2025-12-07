@@ -16,12 +16,12 @@
     moduleViewController = self->_moduleViewController;
   }
 
-  contentModuleContext = [(AXLiveListenContentModule *)self contentModuleContext];
-  [(AXLiveListenModuleViewController *)moduleViewController setContentModuleContext:contentModuleContext];
+  v7 = objc_msgSend_contentModuleContext(self, a2, context);
+  objc_msgSend_setContentModuleContext_(moduleViewController, v8, v7);
 
-  v8 = self->_moduleViewController;
+  v9 = self->_moduleViewController;
 
-  return v8;
+  return v9;
 }
 
 @end

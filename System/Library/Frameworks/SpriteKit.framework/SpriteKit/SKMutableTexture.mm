@@ -162,7 +162,7 @@
   v6 = _textureCache;
   if (_textureCache)
   {
-    [_textureCache backingTexture];
+    objc_msgSend_backingTexture(_textureCache);
   }
 
   else
@@ -200,7 +200,7 @@
     v17 = _textureCache4;
     if (_textureCache4)
     {
-      [_textureCache4 backingTexture];
+      objc_msgSend_backingTexture(_textureCache4);
     }
 
     else

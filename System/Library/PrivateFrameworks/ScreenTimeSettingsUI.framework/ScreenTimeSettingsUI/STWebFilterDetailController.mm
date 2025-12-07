@@ -294,11 +294,11 @@ LABEL_9:
   }
 }
 
-uint64_t __49__STWebFilterDetailController_gatedAddNamedSite___block_invoke(uint64_t result, int a2)
+id *__49__STWebFilterDetailController_gatedAddNamedSite___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) addNamedSite:*(result + 40)];
+    return [result[4] addNamedSite:result[5]];
   }
 
   return result;
@@ -324,11 +324,11 @@ uint64_t __49__STWebFilterDetailController_gatedAddNamedSite___block_invoke(uint
   }
 }
 
-uint64_t __44__STWebFilterDetailController_gatedAddSite___block_invoke(uint64_t result, int a2)
+id *__44__STWebFilterDetailController_gatedAddSite___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) addSite:*(result + 40)];
+    return [result[4] addSite:result[5]];
   }
 
   return result;

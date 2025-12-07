@@ -11,7 +11,7 @@
   sub_20D563938();
   *(&self->super.isa + OBJC_IVAR____TtCVC6HomeUI22AccessoryDetailsHelper37SuggestedAutomationsViewRepresentable11Coordinator__viewHeight) = 0x3FF0000000000000;
   *(&self->super.isa + OBJC_IVAR____TtCVC6HomeUI22AccessoryDetailsHelper37SuggestedAutomationsViewRepresentable11Coordinator__shouldShowView) = 0;
-  v3 = (&self->super.isa + OBJC_IVAR____TtCVC6HomeUI22AccessoryDetailsHelper37SuggestedAutomationsViewRepresentable11Coordinator__requestUpdate);
+  v3 = (self + OBJC_IVAR____TtCVC6HomeUI22AccessoryDetailsHelper37SuggestedAutomationsViewRepresentable11Coordinator__requestUpdate);
   *v3 = CGSizeMake;
   v3[1] = 0;
   v5.receiver = self;

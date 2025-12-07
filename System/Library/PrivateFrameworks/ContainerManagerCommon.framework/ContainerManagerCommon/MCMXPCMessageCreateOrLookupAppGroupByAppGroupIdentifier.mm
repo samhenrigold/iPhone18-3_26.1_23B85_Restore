@@ -1,35 +1,17 @@
 @interface MCMXPCMessageCreateOrLookupAppGroupByAppGroupIdentifier
 - (MCMXPCMessageCreateOrLookupAppGroupByAppGroupIdentifier)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
-- (NSString)appGroupIdentifier;
-- (unsigned)expectedPersonaKernelID;
 @end
 
 @implementation MCMXPCMessageCreateOrLookupAppGroupByAppGroupIdentifier
 
-- (NSString)appGroupIdentifier
-{
-  result = self->_appGroupIdentifier;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unsigned)expectedPersonaKernelID
-{
-  result = self->_expectedPersonaKernelID;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMXPCMessageCreateOrLookupAppGroupByAppGroupIdentifier)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
-  v37.receiver = self;
-  v37.super_class = MCMXPCMessageCreateOrLookupAppGroupByAppGroupIdentifier;
-  v10 = [(MCMXPCMessageBase *)&v37 initWithXPCObject:objectCopy context:contextCopy error:error];
+  v36.receiver = self;
+  v36.super_class = MCMXPCMessageCreateOrLookupAppGroupByAppGroupIdentifier;
+  v10 = [(MCMXPCMessageBase *)&v36 initWithXPCObject:objectCopy context:contextCopy error:error];
   v11 = v10;
   if (!v10)
   {
@@ -68,13 +50,13 @@
             expectedPersonaKernelID = v11->_expectedPersonaKernelID;
             kernelPersonaID = [contextCopy kernelPersonaID];
             *buf = 138413058;
-            v39 = identifier;
-            v40 = 1024;
-            v41 = posixPID;
-            v42 = 1024;
-            v43 = expectedPersonaKernelID;
-            v44 = 1024;
-            v45 = kernelPersonaID;
+            v38 = identifier;
+            v39 = 1024;
+            v40 = posixPID;
+            v41 = 1024;
+            v42 = expectedPersonaKernelID;
+            v43 = 1024;
+            v44 = kernelPersonaID;
             _os_log_error_impl(&dword_1DF2C3000, v22, OS_LOG_TYPE_ERROR, "Persona failed to propgate; client[%@(%d)] = %u, server = %u", buf, 0x1Eu);
           }
 
@@ -97,9 +79,9 @@
           clientIdentity4 = [contextCopy clientIdentity];
           posixPID2 = [clientIdentity4 posixPID];
           *buf = 138412546;
-          v39 = identifier2;
-          v40 = 1024;
-          v41 = posixPID2;
+          v38 = identifier2;
+          v39 = 1024;
+          v40 = posixPID2;
           _os_log_error_impl(&dword_1DF2C3000, v20, OS_LOG_TYPE_ERROR, "Kernel persona ID is invalid; client[%@(%d)]", buf, 0x12u);
         }
 
@@ -127,7 +109,6 @@ LABEL_12:
 
 LABEL_21:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

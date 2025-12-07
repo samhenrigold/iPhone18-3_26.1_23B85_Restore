@@ -184,12 +184,12 @@ LABEL_12:
 LABEL_4:
 }
 
-void __60__BookmarksBarView__repositionBookmarksNavigationController__block_invoke(uint64_t a1)
+void __60__BookmarksBarView__repositionBookmarksNavigationController__block_invoke(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if (*(v1 + 480))
   {
-    __60__BookmarksBarView__repositionBookmarksNavigationController__block_invoke_cold_1(a1, v1, (a1 + 32));
+    __60__BookmarksBarView__repositionBookmarksNavigationController__block_invoke_cold_1(result, v1, (result + 32));
   }
 }
 

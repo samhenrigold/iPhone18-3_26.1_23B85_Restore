@@ -2,10 +2,123 @@
 - (BOOL)start;
 - (BTPBrowser)initWithSrcIfIndex:(unsigned int)index dstIfIndex:(unsigned int)ifIndex bonjourType:(id)type;
 - (void)dealloc;
+- (void)handleReplyName:(id)name type:(id)type domain:(id)domain ifIndex:(unsigned int)index add:(BOOL)add;
 - (void)stop;
 @end
 
 @implementation BTPBrowser
+
+- (void)handleReplyName:(id)name type:(id)type domain:(id)domain ifIndex:(unsigned int)index add:(BOOL)add
+{
+  addCopy = add;
+  v8 = *&index;
+  nameCopy = name;
+  typeCopy = type;
+  domainCopy = domain;
+  if (self->_srcIfIndex == v8)
+  {
+    if (qword_100228F30 != -1)
+    {
+      dispatch_once(&qword_100228F30, &stru_1001FA700);
+    }
+
+    if (_NRLogIsLevelEnabled())
+    {
+      if (qword_100228F30 != -1)
+      {
+        dispatch_once(&qword_100228F30, &stru_1001FA700);
+      }
+
+      v14 = "Rmv";
+      if (addCopy)
+      {
+        v14 = "Add";
+      }
+
+      _NRLogWithArgs(qword_100228F28, 2, "%s%.30s:%-4d browse reply: %s %3u %-20@ %-20@ %@", ", "[BTPBrowser handleReplyName:type:domain:ifIndex:add:]"", 233, v14, v8, domainCopy, typeCopy, nameCopy);
+    }
+
+    domainCopy = [NSString stringWithFormat:@"%@.%@.%@", nameCopy, typeCopy, domainCopy];
+    v16 = [(NSMutableDictionary *)self->_resolvers objectForKeyedSubscript:domainCopy];
+    v17 = v16;
+    if (addCopy)
+    {
+
+      if (v17)
+      {
+        if (qword_100228F30 != -1)
+        {
+          dispatch_once(&qword_100228F30, &stru_1001FA700);
+        }
+
+        if (_NRLogIsLevelEnabled())
+        {
+          if (qword_100228F30 != -1)
+          {
+            dispatch_once(&qword_100228F30, &stru_1001FA700);
+          }
+
+          _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d trying to add already existing resolver for %@", ", "[BTPBrowser handleReplyName:type:domain:ifIndex:add:]"", 237, domainCopy);
+        }
+      }
+
+      else
+      {
+        v18 = [[BTPResolver alloc] initWithSrcIfIndex:self->_srcIfIndex dstIfIndex:self->_dstIfIndex name:nameCopy type:typeCopy domain:domainCopy];
+        v19 = v18;
+        if (v18 && [(BTPResolver *)v18 start])
+        {
+          [(NSMutableDictionary *)self->_resolvers setObject:v19 forKeyedSubscript:domainCopy];
+        }
+      }
+    }
+
+    else
+    {
+      if (v16)
+      {
+        [v16 stop];
+        [(NSMutableDictionary *)self->_resolvers removeObjectForKey:domainCopy];
+      }
+
+      else
+      {
+        if (qword_100228F30 != -1)
+        {
+          dispatch_once(&qword_100228F30, &stru_1001FA700);
+        }
+
+        if (_NRLogIsLevelEnabled())
+        {
+          if (qword_100228F30 != -1)
+          {
+            dispatch_once(&qword_100228F30, &stru_1001FA700);
+          }
+
+          _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d trying to remove unknown resolver for %@", ", "[BTPBrowser handleReplyName:type:domain:ifIndex:add:]"", 255, domainCopy);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_100228F30 != -1)
+    {
+      dispatch_once(&qword_100228F30, &stru_1001FA700);
+    }
+
+    if (_NRLogIsLevelEnabled())
+    {
+      if (qword_100228F30 != -1)
+      {
+        dispatch_once(&qword_100228F30, &stru_1001FA700);
+      }
+
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d received update with invalid ifIndex %u != %u", ", "[BTPBrowser handleReplyName:type:domain:ifIndex:add:]"", 230, v8, self->_srcIfIndex);
+    }
+  }
+}
 
 - (void)dealloc
 {
@@ -23,18 +136,15 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      v5 = 218;
-      v3 = "";
-      v4 = "[BTPBrowser dealloc]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d _sdRefBrowse is still active", ", "[BTPBrowser dealloc]"", 218);
     }
 
-    [(BTPBrowser *)self stop:v3];
+    [(BTPBrowser *)self stop];
   }
 
-  v6.receiver = self;
-  v6.super_class = BTPBrowser;
-  [(BTPBrowser *)&v6 dealloc];
+  v3.receiver = self;
+  v3.super_class = BTPBrowser;
+  [(BTPBrowser *)&v3 dealloc];
 }
 
 - (void)stop
@@ -124,9 +234,7 @@
           dispatch_once(&qword_100228F30, &stru_1001FA700);
         }
 
-        bonjourType = self->_bonjourType;
-        srcIfIndex = self->_srcIfIndex;
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_100228F28, 2, "%s%.30s:%-4d Successfully started browsing for %@ over %u", ", "[BTPBrowser start]"", 200, self->_bonjourType, self->_srcIfIndex);
       }
 
       return 1;
@@ -145,14 +253,10 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      v13 = 196;
-      v14 = v9;
-      v11 = "";
-      v12 = "[BTPBrowser start]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d DNSServiceSetDispatchQueue failed %d", ", "[BTPBrowser start]"", 196, v9);
     }
 
-    [(BTPBrowser *)self stop:v11];
+    [(BTPBrowser *)self stop];
     return 0;
   }
 
@@ -170,8 +274,7 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      v15 = self->_bonjourType;
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d DNSServiceBrowse for %@ failed %d", ", "[BTPBrowser start]"", 190, self->_bonjourType, v5);
     }
 
     result = 0;
@@ -215,7 +318,7 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d super init failed", ", "[BTPBrowser initWithSrcIfIndex:dstIfIndex:bonjourType:]"", 170);
     }
   }
 

@@ -12,9 +12,12 @@
 - (int64_t)level;
 - (int64_t)source;
 - (int64_t)type;
+- (void)setColumn:(int)column;
 - (void)setLevel:(int64_t)level;
+- (void)setLine:(int)line;
 - (void)setNetworkRequestId:(id)id;
 - (void)setParameters:(id)parameters;
+- (void)setRepeatCount:(int)count;
 - (void)setSource:(int64_t)source;
 - (void)setStackTrace:(id)trace;
 - (void)setText:(id)text;
@@ -283,6 +286,13 @@ LABEL_8:
   return v2;
 }
 
+- (void)setLine:(int)line
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolConsoleMessage;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&line forKey:@"line"];
+}
+
 - (int)line
 {
   v3.receiver = self;
@@ -290,11 +300,25 @@ LABEL_8:
   return [(RWIProtocolJSONObject *)&v3 integerForKey:@"line"];
 }
 
+- (void)setColumn:(int)column
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolConsoleMessage;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&column forKey:@"column"];
+}
+
 - (int)column
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolConsoleMessage;
   return [(RWIProtocolJSONObject *)&v3 integerForKey:@"column"];
+}
+
+- (void)setRepeatCount:(int)count
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolConsoleMessage;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&count forKey:@"repeatCount"];
 }
 
 - (int)repeatCount
@@ -306,27 +330,27 @@ LABEL_8:
 
 - (void)setParameters:(id)parameters
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = parameters;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -337,18 +361,18 @@ LABEL_8:
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolConsoleMessage;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"parameters"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolConsoleMessage;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"parameters"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -361,8 +385,6 @@ LABEL_8:
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)parameters
@@ -393,7 +415,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolConsoleMessage;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"stackTrace"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

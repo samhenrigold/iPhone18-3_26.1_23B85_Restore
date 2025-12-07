@@ -53,25 +53,25 @@
   os_unfair_lock_unlock(&self->_lock);
 }
 
-void __54__HDHAHealthAppPluginHostConnection_resumeIfNecessary__block_invoke()
+void __54__HDHAHealthAppPluginHostConnection_resumeIfNecessary__block_invoke(uint64_t a1)
 {
   _HKInitializeLogging();
-  v0 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_22939E000, v0, OS_LOG_TYPE_DEFAULT, "HDHAHealthAppPluginHostConnection remote proxy interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_22939E000, v1, OS_LOG_TYPE_DEFAULT, "HDHAHealthAppPluginHostConnection remote proxy interrupted", v2, 2u);
   }
 }
 
-void __54__HDHAHealthAppPluginHostConnection_resumeIfNecessary__block_invoke_305()
+void __54__HDHAHealthAppPluginHostConnection_resumeIfNecessary__block_invoke_305(uint64_t a1)
 {
   _HKInitializeLogging();
-  v0 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_22939E000, v0, OS_LOG_TYPE_DEFAULT, "HDHAHealthAppPluginHostConnection remote proxy invalidated", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_22939E000, v1, OS_LOG_TYPE_DEFAULT, "HDHAHealthAppPluginHostConnection remote proxy invalidated", v2, 2u);
   }
 }
 
@@ -85,18 +85,16 @@ void __54__HDHAHealthAppPluginHostConnection_resumeIfNecessary__block_invoke_305
 
 void __42__HDHAHealthAppPluginHostConnection_proxy__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   _HKInitializeLogging();
   v3 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_22939E000, v3, OS_LOG_TYPE_DEFAULT, "HDHAHealthAppPluginHostConnection error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_22939E000, v3, OS_LOG_TYPE_DEFAULT, "HDHAHealthAppPluginHostConnection error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)synchronousProxy
@@ -109,18 +107,16 @@ void __42__HDHAHealthAppPluginHostConnection_proxy__block_invoke(uint64_t a1, vo
 
 void __53__HDHAHealthAppPluginHostConnection_synchronousProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   _HKInitializeLogging();
   v3 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_22939E000, v3, OS_LOG_TYPE_DEFAULT, "HDHAHealthAppPluginHostConnection error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_22939E000, v3, OS_LOG_TYPE_DEFAULT, "HDHAHealthAppPluginHostConnection error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

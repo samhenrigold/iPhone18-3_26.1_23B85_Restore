@@ -3,8 +3,10 @@
 - (BOOL)hasSecureCookie;
 - (void)_restoreLocationServicesState;
 - (void)_setupComplete:(BOOL)complete;
+- (void)_startEACSWithReason:(id)reason eraseDataPlan:(BOOL)plan;
 - (void)disconnectWiFi;
 - (void)enableLocationServices;
+- (void)markAsNotDemoAndEraseDataPlan:(BOOL)plan;
 - (void)popTopmostViewController;
 - (void)pushViewController:(id)controller andRemoveTopmostView:(BOOL)view;
 - (void)quitToCustomerFlow;
@@ -74,29 +76,26 @@ void __64__MSDSetupUIController_pushViewController_andRemoveTopmostView___block_
 
 void __64__MSDSetupUIController_pushViewController_andRemoveTopmostView___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
   {
-    v2 = defaultLogHandle();
+    v2 = defaultLogHandle(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = objc_opt_class();
-      v4 = v11;
-      _os_log_impl(&dword_259BCA000, v2, OS_LOG_TYPE_DEFAULT, "Removing top most view: %{public}@", &v10, 0xCu);
+      v8 = 138543362;
+      v9 = objc_opt_class();
+      v3 = v9;
+      _os_log_impl(&dword_259BCA000, v2, OS_LOG_TYPE_DEFAULT, "Removing top most view: %{public}@", &v8, 0xCu);
     }
 
-    v5 = [*(a1 + 40) navigationController];
-    v6 = [v5 viewControllers];
-    v7 = [v6 mutableCopy];
+    v4 = [*(a1 + 40) navigationController];
+    v5 = [v4 viewControllers];
+    v6 = [v5 mutableCopy];
 
-    [v7 removeObject:*(a1 + 32)];
-    v8 = [*(a1 + 40) navigationController];
-    [v8 setViewControllers:v7];
+    [v6 removeObject:*(a1 + 32)];
+    v7 = [*(a1 + 40) navigationController];
+    [v7 setViewControllers:v6];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)popTopmostViewController
@@ -117,9 +116,7 @@ void __48__MSDSetupUIController_popTopmostViewController__block_invoke(uint64_t 
 
 - (void)setCompletionHandler:(id)handler
 {
-  v4 = MEMORY[0x259CB1050](handler, a2);
-  completionHandler = self->_completionHandler;
-  self->_completionHandler = v4;
+  self->_completionHandler = MEMORY[0x259CB1050](handler, a2);
 
   MEMORY[0x2821F96F8]();
 }
@@ -128,7 +125,7 @@ void __48__MSDSetupUIController_popTopmostViewController__block_invoke(uint64_t 
 {
   v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = defaultLogHandle();
+  v5 = defaultLogHandle(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -141,34 +138,34 @@ void __48__MSDSetupUIController_popTopmostViewController__block_invoke(uint64_t 
     v12 = *MEMORY[0x277D29550];
     v13 = dCopy;
     v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = defaultLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = defaultLogHandle(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = v6;
-    _os_log_impl(&dword_259BCA000, v7, OS_LOG_TYPE_DEFAULT, "Starting demod with options: %{public}@", buf, 0xCu);
+    v15 = v7;
+    _os_log_impl(&dword_259BCA000, v8, OS_LOG_TYPE_DEFAULT, "Starting demod with options: %{public}@", buf, 0xCu);
   }
 
   mEMORY[0x277D29520] = [MEMORY[0x277D29520] sharedInstance];
   [mEMORY[0x277D29520] sendAutoEnrollmentResult:dCopy withStoreId:self->_helpMenuUserTapped withHelpMenuRowSelection:self->_autoEnrollmentTimeStamp];
 
   mEMORY[0x277D29520]2 = [MEMORY[0x277D29520] sharedInstance];
-  v10 = [mEMORY[0x277D29520]2 prepareWithOptions:v6];
+  v11 = [mEMORY[0x277D29520]2 prepareWithOptions:v7];
 
-  [(MSDSetupUIController *)self _setupComplete:v10];
-  v11 = *MEMORY[0x277D85DE8];
+  [(MSDSetupUIController *)self _setupComplete:v11];
 }
 
 - (void)quitToCustomerFlow
 {
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -180,7 +177,7 @@ void __48__MSDSetupUIController_popTopmostViewController__block_invoke(uint64_t 
 
 - (void)quitToOfflineMode
 {
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -199,22 +196,21 @@ void __48__MSDSetupUIController_popTopmostViewController__block_invoke(uint64_t 
   mEMORY[0x277D29520] = [MEMORY[0x277D29520] sharedInstance];
   typeOfDemoDevice = [mEMORY[0x277D29520] typeOfDemoDevice];
 
-  v5 = typeOfDemoDevice == 5 || typeOfDemoDevice == 3;
-  v6 = defaultLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = typeOfDemoDevice == 5 || typeOfDemoDevice == 3;
+  v7 = defaultLogHandle(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9[0] = 67109120;
-    v9[1] = v5;
-    _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, "Device has secure cookie: %d", v9, 8u);
+    v9[1] = v6;
+    _os_log_impl(&dword_259BCA000, v7, OS_LOG_TYPE_DEFAULT, "Device has secure cookie: %d", v9, 8u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
 - (void)quitToHomeScreen
 {
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -226,29 +222,85 @@ void __48__MSDSetupUIController_popTopmostViewController__block_invoke(uint64_t 
 
 - (void)setHelpMenuRowSelection:(id)selection
 {
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:selection requiringSecureCoding:0 error:0];
-  helpMenuUserTapped = self->_helpMenuUserTapped;
-  self->_helpMenuUserTapped = v4;
+  self->_helpMenuUserTapped = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:selection requiringSecureCoding:0 error:0];
 
   MEMORY[0x2821F96F8]();
 }
 
+- (void)markAsNotDemoAndEraseDataPlan:(BOOL)plan
+{
+  planCopy = plan;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = dispatch_semaphore_create(0);
+  if (os_variant_has_internal_content() && (+[MSDTestPreferences sharedInstance](MSDTestPreferences, "sharedInstance"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 skipMarkAsNotDemo], v5, v6))
+  {
+    v20 = defaultLogHandle(v7);
+    [MSDSetupUIController markAsNotDemoAndEraseDataPlan:v20];
+  }
+
+  else
+  {
+    mEMORY[0x277D29520] = [MEMORY[0x277D29520] sharedInstance];
+    typeOfDemoDevice = [mEMORY[0x277D29520] typeOfDemoDevice];
+
+    if (typeOfDemoDevice == 5)
+    {
+      mEMORY[0x277D29520]2 = [MEMORY[0x277D29520] sharedInstance];
+      v12 = +[MSDLanguageAndRegionManager sharedInstance];
+      getCurrentDeviceLanguage = [v12 getCurrentDeviceLanguage];
+      v14 = +[MSDLanguageAndRegionManager sharedInstance];
+      getCurrentDeviceRegion = [v14 getCurrentDeviceRegion];
+      [mEMORY[0x277D29520]2 sendAutoEnrollmentAbortEvent:getCurrentDeviceLanguage countryCode:getCurrentDeviceRegion];
+    }
+
+    v16 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_259BCA000, v16, OS_LOG_TYPE_DEFAULT, "Requesting device to be marked as not demo", buf, 2u);
+    }
+
+    mEMORY[0x277D29520]3 = [MEMORY[0x277D29520] sharedInstance];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __54__MSDSetupUIController_markAsNotDemoAndEraseDataPlan___block_invoke;
+    v21[3] = &unk_2798F1E00;
+    v21[4] = &v23;
+    [mEMORY[0x277D29520]3 markAsNotDemoWithCompletion:v21];
+
+    v19 = defaultLogHandle(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_259BCA000, v19, OS_LOG_TYPE_DEFAULT, "Waiting for mark as demo to complete...", buf, 2u);
+    }
+
+    dispatch_semaphore_wait(v24[5], 0xFFFFFFFFFFFFFFFFLL);
+  }
+
+  [(MSDSetupUIController *)self _startEACSWithReason:@"Not a Demo Device Erase" eraseDataPlan:planCopy];
+  _Block_object_dispose(&v23, 8);
+}
+
 void __54__MSDSetupUIController_markAsNotDemoAndEraseDataPlan___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = defaultLogHandle();
+  v6 = defaultLogHandle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2114;
-    v10 = v5;
-    _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, "MarkAsNotDemo returned success: %d; error: %{public}@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, "MarkAsNotDemo returned success: %d; error: %{public}@", v7, 0x12u);
   }
 
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectWiFi
@@ -259,7 +311,7 @@ void __54__MSDSetupUIController_markAsNotDemoAndEraseDataPlan___block_invoke(uin
 
 - (void)enableLocationServices
 {
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -288,7 +340,7 @@ void __49__MSDSetupUIController_saveLocationServicesState__block_invoke(uint64_t
   [*(a1 + 32) setOriginalLocationServicesState:{objc_msgSend(*(a1 + 32), "hasSecureCookie")}];
   v2 = dispatch_semaphore_create(0);
   v3 = dispatch_time(0, 30000000000);
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -305,39 +357,35 @@ void __49__MSDSetupUIController_saveLocationServicesState__block_invoke(uint64_t
   v15 = v6;
   dispatch_async(v5, &v10);
 
-  if (dispatch_semaphore_wait(v6, v3))
+  v7 = dispatch_semaphore_wait(v6, v3);
+  if (v7)
   {
-    v7 = defaultLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) originalLocationServicesState];
+      v9 = [*(a1 + 32) originalLocationServicesState];
       *buf = 67109376;
       v17 = 30;
       v18 = 1024;
-      v19 = v8;
-      _os_log_impl(&dword_259BCA000, v7, OS_LOG_TYPE_DEFAULT, "Timed out waiting for location services state after %ds; assume Location Services is %{BOOL}d", buf, 0xEu);
+      v19 = v9;
+      _os_log_impl(&dword_259BCA000, v8, OS_LOG_TYPE_DEFAULT, "Timed out waiting for location services state after %ds; assume Location Services is %{BOOL}d", buf, 0xEu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __49__MSDSetupUIController_saveLocationServicesState__block_invoke_25(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  [*(a1 + 32) setOriginalLocationServicesState:{objc_msgSend(MEMORY[0x277CBFC10], "locationServicesEnabled:", 0)}];
-  v2 = defaultLogHandle();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = defaultLogHandle([*(a1 + 32) setOriginalLocationServicesState:{objc_msgSend(MEMORY[0x277CBFC10], "locationServicesEnabled:", 0)}]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) originalLocationServicesState];
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_259BCA000, v2, OS_LOG_TYPE_DEFAULT, "Saved original Location Services state as %{BOOL}d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_259BCA000, v2, OS_LOG_TYPE_DEFAULT, "Saved original Location Services state as %{BOOL}d", v5, 8u);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 40));
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 40));
 }
 
 - (void)_setupComplete:(BOOL)complete
@@ -358,78 +406,92 @@ intptr_t __49__MSDSetupUIController_saveLocationServicesState__block_invoke_25(u
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, "No completion handler provided", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_259BCA000, v7, OS_LOG_TYPE_DEFAULT, "No completion handler provided", v8, 2u);
     }
   }
 }
 
 void __39__MSDSetupUIController__setupComplete___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = defaultLogHandle();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_259BCA000, v2, OS_LOG_TYPE_DEFAULT, "Calling MobileStoreDemoSetupUI completion handler with success=%{BOOL}d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_259BCA000, v2, OS_LOG_TYPE_DEFAULT, "Calling MobileStoreDemoSetupUI completion handler with success=%{BOOL}d", v5, 8u);
   }
 
   v4 = [*(a1 + 32) completionHandler];
   v4[2](v4, *(a1 + 40));
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (void)_startEACSWithReason:(id)reason eraseDataPlan:(BOOL)plan
+{
+  planCopy = plan;
+  reasonCopy = reason;
+  v6 = defaultLogHandle(reasonCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *v10 = 0;
+    _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, "Starting Erase Content and Settings...", v10, 2u);
+  }
+
+  v7 = objc_alloc_init(MEMORY[0x277D072B0]);
+  [v7 setEraseDataPlan:planCopy];
+  v8 = [objc_alloc(MEMORY[0x277D072B8]) initWithMode:4 options:v7 reason:reasonCopy];
+
+  mEMORY[0x277D072C0] = [MEMORY[0x277D072C0] sharedInstance];
+  [mEMORY[0x277D072C0] resetWithRequest:v8 completion:&__block_literal_global_31];
 }
 
 void __59__MSDSetupUIController__startEACSWithReason_eraseDataPlan___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
     if (v4)
     {
-      v9 = 138543362;
-      v10 = v2;
+      v8 = 138543362;
+      v9 = v2;
       v5 = "Request to erase all content and settings failed =  %{public}@";
       v6 = v3;
       v7 = 12;
 LABEL_6:
-      _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, v7);
+      _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
     }
   }
 
   else if (v4)
   {
-    LOWORD(v9) = 0;
+    LOWORD(v8) = 0;
     v5 = "Reset was successful";
     v6 = v3;
     v7 = 2;
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_restoreLocationServicesState
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = defaultLogHandle();
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = defaultLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = [(MSDSetupUIController *)self originalLocationServicesState];
-    _os_log_impl(&dword_259BCA000, v3, OS_LOG_TYPE_DEFAULT, "Restoring Location Services state to %{BOOL}d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = [(MSDSetupUIController *)self originalLocationServicesState];
+    _os_log_impl(&dword_259BCA000, v3, OS_LOG_TYPE_DEFAULT, "Restoring Location Services state to %{BOOL}d", v4, 8u);
   }
 
   [MEMORY[0x277CBFC10] setLocationServicesEnabled:{-[MSDSetupUIController originalLocationServicesState](self, "originalLocationServicesState")}];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAsNotDemoAndEraseDataPlan:(NSObject *)a1 .cold.1(NSObject *a1)

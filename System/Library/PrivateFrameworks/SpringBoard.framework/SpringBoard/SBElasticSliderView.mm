@@ -355,16 +355,16 @@
 {
   leadingAccessoryView = [(SBElasticSliderView *)self leadingAccessoryView];
   trailingAccessoryView = [(SBElasticSliderView *)self trailingAccessoryView];
-  [leadingAccessoryView frame];
-  v66 = v4;
-  v68 = v5;
+  objc_msgSend_frame(leadingAccessoryView);
+  v67 = v4;
+  v69 = v5;
   v7 = v6;
   rect = v8;
-  [trailingAccessoryView frame];
+  objc_msgSend_frame(trailingAccessoryView);
   v10 = v9;
-  v70 = v11;
+  v71 = v11;
   v13 = v12;
-  v75 = v14;
+  v76 = v14;
   elasticBackgroundContentView = [(CCUIBaseSliderView *)self elasticBackgroundContentView];
   [elasticBackgroundContentView bounds];
   v17 = v16;
@@ -377,28 +377,29 @@
   accessoryLayoutEdge = [(SBElasticSliderView *)self accessoryLayoutEdge];
   if (accessoryLayoutEdge == 4)
   {
-    v83.origin.x = v17;
-    v83.origin.y = v19;
-    v83.size.width = v21;
-    v83.size.height = v23;
-    MidX = CGRectGetMidX(v83);
     v84.origin.x = v17;
     v84.origin.y = v19;
     v84.size.width = v21;
     v84.size.height = v23;
-    CGRectGetMaxY(v84);
-    v85.origin.x = v66;
-    v85.origin.y = v68;
-    v85.size.width = v7;
-    v85.size.height = rect;
-    v30 = CGRectGetHeight(v85) * 0.5;
-    v86.origin.x = v10;
-    v86.origin.y = v70;
-    v86.size.width = v13;
-    v86.size.height = v75;
+    MidX = CGRectGetMidX(v84);
+    v85.origin.x = v17;
+    v85.origin.y = v19;
+    v85.size.width = v21;
+    v85.size.height = v23;
+    CGRectGetMaxY(v85);
+    v86.origin.x = v67;
+    v86.origin.y = v69;
+    v86.size.width = v7;
+    v86.size.height = rect;
+    v30 = CGRectGetHeight(v86) * 0.5;
+    v87.origin.x = v10;
+    v87.origin.y = v71;
+    v87.size.width = v13;
+    v87.size.height = v76;
     v29 = 0;
     v28 = 0;
-    MaxY = v25 * 0.5 + v30 + CGRectGetHeight(v86) * 0.5;
+    v31 = v25 * 0.5 + v30 + CGRectGetHeight(v87) * 0.5;
+    objc_msgSend_frame(leadingAccessoryView, v31, *&MidX);
   }
 
   else
@@ -419,176 +420,177 @@
     if ((accessoryLayoutEdge & 2) != 0)
     {
       effectiveUserInterfaceLayoutDirection = [(SBElasticSliderView *)self effectiveUserInterfaceLayoutDirection];
-      v65 = v13;
-      v32 = v17;
-      v33 = v19;
-      v34 = v21;
-      v35 = v23;
+      v66 = v13;
+      v33 = v17;
+      v34 = v19;
+      v35 = v21;
+      v36 = v23;
       if (effectiveUserInterfaceLayoutDirection == 1)
       {
-        v36 = v25 + CGRectGetMaxX(*&v32);
-        v87.origin.x = v17;
-        v87.origin.y = v19;
-        v87.size.width = v21;
-        v87.size.height = v23;
-        v37 = CGRectGetMinX(v87) - v13 - v25;
-      }
-
-      else
-      {
-        v36 = CGRectGetMinX(*&v32) - v7 - v25;
+        v37 = v25 + CGRectGetMaxX(*&v33);
         v88.origin.x = v17;
         v88.origin.y = v19;
         v88.size.width = v21;
         v88.size.height = v23;
-        v37 = v25 + CGRectGetMaxX(v88);
+        v38 = CGRectGetMinX(v88) - v13 - v25;
       }
 
-      v89.origin.x = v17;
-      v89.origin.y = v19;
-      v89.size.width = v21;
-      v89.size.height = v23;
-      MidY = CGRectGetMidY(v89);
-      v90.origin.x = v36;
-      v90.origin.y = v68;
-      v90.size.width = v7;
-      v90.size.height = rect;
-      v39 = MidY - CGRectGetHeight(v90) * 0.5;
-      v91.origin.x = v17;
-      v91.origin.y = v19;
-      v91.size.width = v21;
-      v91.size.height = v23;
-      v40 = CGRectGetMidY(v91);
-      v92.origin.x = v37;
-      v92.origin.y = v70;
-      v92.size.width = v65;
-      v92.size.height = v75;
-      v71 = v40 - CGRectGetHeight(v92) * 0.5;
-      v93.origin.x = v36;
-      v93.origin.y = v39;
-      v93.size.width = v7;
-      v93.size.height = rect;
-      CGRectGetMidX(v93);
-      v94.origin.x = v36;
-      v94.origin.y = v39;
+      else
+      {
+        v37 = CGRectGetMinX(*&v33) - v7 - v25;
+        v89.origin.x = v17;
+        v89.origin.y = v19;
+        v89.size.width = v21;
+        v89.size.height = v23;
+        v38 = v25 + CGRectGetMaxX(v89);
+      }
+
+      v90.origin.x = v17;
+      v90.origin.y = v19;
+      v90.size.width = v21;
+      v90.size.height = v23;
+      MidY = CGRectGetMidY(v90);
+      v91.origin.x = v37;
+      v91.origin.y = v69;
+      v91.size.width = v7;
+      v91.size.height = rect;
+      v40 = MidY - CGRectGetHeight(v91) * 0.5;
+      v92.origin.x = v17;
+      v92.origin.y = v19;
+      v92.size.width = v21;
+      v92.size.height = v23;
+      v41 = CGRectGetMidY(v92);
+      v93.origin.x = v38;
+      v93.origin.y = v71;
+      v93.size.width = v66;
+      v93.size.height = v76;
+      v72 = v41 - CGRectGetHeight(v93) * 0.5;
+      v94.origin.x = v37;
+      v94.origin.y = v40;
       v94.size.width = v7;
       v94.size.height = rect;
-      CGRectGetMidY(v94);
+      CGRectGetMidX(v94);
       v95.origin.x = v37;
-      v95.origin.y = v71;
-      v95.size.width = v65;
-      v95.size.height = v75;
-      CGRectGetMidX(v95);
-      v96.origin.x = v37;
-      v96.origin.y = v71;
-      v96.size.width = v65;
-      v96.size.height = v75;
-      MaxY = CGRectGetMidY(v96);
+      v95.origin.y = v40;
+      v95.size.width = v7;
+      v95.size.height = rect;
+      CGRectGetMidY(v95);
+      v96.origin.x = v38;
+      v96.origin.y = v72;
+      v96.size.width = v66;
+      v96.size.height = v76;
+      CGRectGetMidX(v96);
+      v97.origin.x = v38;
+      v97.origin.y = v72;
+      v97.size.width = v66;
+      v97.size.height = v76;
+      MaxY = CGRectGetMidY(v97);
       v29 = 0;
       v28 = 1;
     }
 
     else
     {
-      v79.origin.x = v17;
-      v79.origin.y = v19;
-      v79.size.width = v21;
-      v79.size.height = v23;
-      CGRectGetMidX(v79);
       v80.origin.x = v17;
       v80.origin.y = v19;
       v80.size.width = v21;
       v80.size.height = v23;
-      CGRectGetMinY(v80);
+      CGRectGetMidX(v80);
       v81.origin.x = v17;
       v81.origin.y = v19;
       v81.size.width = v21;
       v81.size.height = v23;
-      CGRectGetMidX(v81);
+      CGRectGetMinY(v81);
       v82.origin.x = v17;
       v82.origin.y = v19;
       v82.size.width = v21;
       v82.size.height = v23;
-      MaxY = CGRectGetMaxY(v82);
+      CGRectGetMidX(v82);
+      v83.origin.x = v17;
+      v83.origin.y = v19;
+      v83.size.width = v21;
+      v83.size.height = v23;
+      MaxY = CGRectGetMaxY(v83);
       v28 = 0;
       v29 = 1;
     }
+
+    objc_msgSend_frame(leadingAccessoryView, MaxY);
   }
 
-  [leadingAccessoryView frame];
   SBUnintegralizedRectCenteredAboutPoint();
-  v67 = v41;
-  v43 = v42;
-  recta = v45;
-  v76 = v44;
-  [trailingAccessoryView frame];
+  v68 = v42;
+  v44 = v43;
+  recta = v46;
+  v77 = v45;
+  objc_msgSend_frame(trailingAccessoryView);
   SBUnintegralizedRectCenteredAboutPoint();
-  v47 = v46;
-  v49 = v48;
-  v69 = v51;
-  v72 = v50;
+  v48 = v47;
+  v50 = v49;
+  v70 = v52;
+  v73 = v51;
   traitCollection = [(SBElasticSliderView *)self traitCollection];
   [traitCollection displayScale];
 
-  [leadingAccessoryView frame];
+  objc_msgSend_frame(leadingAccessoryView);
   UIRectCenteredAboutPointScale();
-  v54 = v53;
-  v56 = v55;
-  [trailingAccessoryView frame];
+  v55 = v54;
+  v57 = v56;
+  objc_msgSend_frame(trailingAccessoryView);
   UIRectCenteredAboutPointScale();
   if (v28)
   {
-    v59 = v54;
+    v60 = v55;
   }
 
   else
   {
-    v57 = v47;
-    v59 = v67;
+    v58 = v48;
+    v60 = v68;
   }
 
   if (v28)
   {
-    v60 = v43;
+    v61 = v44;
   }
 
   else
   {
-    v60 = v56;
+    v61 = v57;
   }
 
   if (v28)
   {
-    v61 = v49;
+    v62 = v50;
   }
 
   else
   {
-    v61 = v58;
+    v62 = v59;
   }
 
-  if ((v29 & (v57 < 2.0)) != 0)
-  {
-    v62 = 2.0;
-  }
-
-  else
-  {
-    v62 = v57;
-  }
-
-  if ((v29 & (v59 < 2.0)) != 0)
+  if ((v29 & (v58 < 2.0)) != 0)
   {
     v63 = 2.0;
   }
 
   else
   {
-    v63 = v59;
+    v63 = v58;
   }
 
-  [leadingAccessoryView setFrame:{v63, v60, v76, recta}];
-  [trailingAccessoryView setFrame:{v62, v61, v72, v69}];
+  if ((v29 & (v60 < 2.0)) != 0)
+  {
+    v64 = 2.0;
+  }
+
+  else
+  {
+    v64 = v60;
+  }
+
+  [leadingAccessoryView setFrame:{v64, v61, v77, recta}];
+  [trailingAccessoryView setFrame:{v63, v62, v73, v70}];
 }
 
 - (void)_updateShadowMode

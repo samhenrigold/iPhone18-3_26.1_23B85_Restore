@@ -7,7 +7,7 @@
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_20BDFF910();
+  sub_20BDFF910(selfCopy);
 }
 
 @end

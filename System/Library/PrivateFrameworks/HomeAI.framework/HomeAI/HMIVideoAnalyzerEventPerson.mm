@@ -89,7 +89,7 @@
 - (HMIVideoAnalyzerEventPerson)initWithFaceEvent:(id)event
 {
   eventCopy = event;
-  v6 = [[HMIConfidence alloc] initWithValue:&unk_284075630 levelThresholds:0.0];
+  v6 = [HMIConfidence initWithValue:"initWithValue:levelThresholds:" levelThresholds:?];
   v11.receiver = self;
   v11.super_class = HMIVideoAnalyzerEventPerson;
   v7 = [(HMIVideoAnalyzerEvent *)&v11 initWithConfidence:v6 boundingBox:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
@@ -109,7 +109,7 @@
 - (HMIVideoAnalyzerEventPerson)initWithTorsoEvent:(id)event
 {
   eventCopy = event;
-  v6 = [[HMIConfidence alloc] initWithValue:&unk_284075648 levelThresholds:0.0];
+  v6 = [HMIConfidence initWithValue:"initWithValue:levelThresholds:" levelThresholds:?];
   v11.receiver = self;
   v11.super_class = HMIVideoAnalyzerEventPerson;
   v7 = [(HMIVideoAnalyzerEvent *)&v11 initWithConfidence:v6 boundingBox:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
@@ -130,7 +130,7 @@
 {
   eventCopy = event;
   torsoCopy = torso;
-  v9 = [[HMIConfidence alloc] initWithValue:&unk_284075660 levelThresholds:0.0];
+  v9 = [HMIConfidence initWithValue:"initWithValue:levelThresholds:" levelThresholds:?];
   v13.receiver = self;
   v13.super_class = HMIVideoAnalyzerEventPerson;
   v10 = [(HMIVideoAnalyzerEvent *)&v13 initWithConfidence:v9 boundingBox:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
@@ -153,7 +153,7 @@
   {
     if (eventCopy && torsoCopy)
     {
-      v8 = [[HMIVideoAnalyzerEventPerson alloc] initWithFaceEvent:eventCopy torso:torsoCopy];
+      v8 = [HMIVideoAnalyzerEventPerson initWithFaceEvent:"initWithFaceEvent:torso:" torso:?];
 LABEL_13:
       v11 = v8;
       goto LABEL_14;
@@ -161,7 +161,7 @@ LABEL_13:
 
     if (eventCopy && !torsoCopy)
     {
-      v8 = [[HMIVideoAnalyzerEventPerson alloc] initWithFaceEvent:eventCopy];
+      v8 = [[HMIVideoAnalyzerEventPerson alloc] initWithFaceEvent:?];
       goto LABEL_13;
     }
 
@@ -169,19 +169,15 @@ LABEL_13:
     v13 = v12;
     if (!eventCopy && torsoCopy)
     {
-      v8 = [(HMIVideoAnalyzerEventPerson *)v12 initWithTorsoEvent:torsoCopy];
+      v8 = [(HMIVideoAnalyzerEventPerson *)v12 initWithTorsoEvent:?];
       goto LABEL_13;
     }
 
     confidence = [(HMIVideoAnalyzerEventPerson *)self confidence];
     [(HMIVideoAnalyzerEventPerson *)self boundingBox];
-    v16 = v15;
-    v18 = v17;
-    v20 = v19;
-    v22 = v21;
     face = [(HMIVideoAnalyzerEventPerson *)self face];
     torso = [(HMIVideoAnalyzerEventPerson *)self torso];
-    v11 = [(HMIVideoAnalyzerEventPerson *)v13 initWithConfidence:confidence boundingBox:face face:torso torso:v16, v18, v20, v22];
+    v11 = [HMIVideoAnalyzerEventPerson initWithConfidence:v13 boundingBox:"initWithConfidence:boundingBox:face:torso:" face:? torso:?];
   }
 
   else
@@ -189,7 +185,7 @@ LABEL_13:
     v9 = [HMIVideoAnalyzerEventPerson alloc];
     confidence = [(HMIVideoAnalyzerEventPerson *)self confidence];
     [(HMIVideoAnalyzerEventPerson *)self boundingBox];
-    v11 = [(HMIVideoAnalyzerEventPerson *)v9 initWithConfidence:confidence boundingBox:eventCopy face:torsoCopy torso:?];
+    v11 = [HMIVideoAnalyzerEventPerson initWithConfidence:v9 boundingBox:"initWithConfidence:boundingBox:face:torso:" face:? torso:?];
   }
 
 LABEL_14:
@@ -198,13 +194,13 @@ LABEL_14:
 
 - (id)allEvents
 {
-  v3 = [MEMORY[0x277CBEB18] arrayWithObject:self];
+  v3 = [MEMORY[0x277CBEB18] arrayWithObject:?];
   face = [(HMIVideoAnalyzerEventPerson *)self face];
 
   if (face)
   {
     face2 = [(HMIVideoAnalyzerEventPerson *)self face];
-    [v3 addObject:face2];
+    [v3 addObject:?];
   }
 
   torso = [(HMIVideoAnalyzerEventPerson *)self torso];
@@ -212,7 +208,7 @@ LABEL_14:
   if (torso)
   {
     torso2 = [(HMIVideoAnalyzerEventPerson *)self torso];
-    [v3 addObject:torso2];
+    [v3 addObject:?];
   }
 
   v8 = [v3 copy];
@@ -381,26 +377,28 @@ LABEL_9:
 
 - (id)attributeDescriptions
 {
-  v17[3] = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = HMIVideoAnalyzerEventPerson;
-  attributeDescriptions = [(HMIVideoAnalyzerEvent *)&v16 attributeDescriptions];
+  v21 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = HMIVideoAnalyzerEventPerson;
+  attributeDescriptions = [(HMIVideoAnalyzerEvent *)&v17 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
-  v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMIVideoAnalyzerEventPerson hasEstimatedBoundingBox](self, "hasEstimatedBoundingBox")}];
-  v6 = [v4 initWithName:@"Is Bounding Box & Confidence Estimated" value:v5];
-  v17[0] = v6;
-  v7 = objc_alloc(MEMORY[0x277D0F778]);
+  v5 = MEMORY[0x277CCABB0];
+  [(HMIVideoAnalyzerEventPerson *)self hasEstimatedBoundingBox];
+  v6 = [v5 numberWithBool:?];
+  v7 = [v4 initWithName:? value:?];
+  v18 = v7;
+  v8 = objc_alloc(MEMORY[0x277D0F778]);
   face = [(HMIVideoAnalyzerEventPerson *)self face];
-  v9 = [v7 initWithName:@"Face" value:face];
-  v17[1] = v9;
-  v10 = objc_alloc(MEMORY[0x277D0F778]);
+  v10 = [v8 initWithName:? value:?];
+  v19 = v10;
+  v11 = objc_alloc(MEMORY[0x277D0F778]);
   torso = [(HMIVideoAnalyzerEventPerson *)self torso];
-  v12 = [v10 initWithName:@"Torso" value:torso];
-  v17[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-  v14 = [attributeDescriptions arrayByAddingObjectsFromArray:v13];
+  v13 = [v11 initWithName:? value:?];
+  v20 = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v15 = [attributeDescriptions arrayByAddingObjectsFromArray:?];
 
-  return v14;
+  return v15;
 }
 
 - (id)shortDescription
@@ -433,7 +431,7 @@ LABEL_9:
   v13.receiver = self;
   v13.super_class = HMIVideoAnalyzerEventPerson;
   shortDescription3 = [(HMIVideoAnalyzerEvent *)&v13 shortDescription];
-  v11 = [v9 stringWithFormat:@"%@ %@ %@", shortDescription3, shortDescription, shortDescription2];
+  v11 = [v9 stringWithFormat:shortDescription3, shortDescription, shortDescription2];
 
   return v11;
 }
@@ -483,27 +481,30 @@ LABEL_9:
   coderCopy = coder;
   [(HMIVideoAnalyzerEvent *)&v7 encodeWithCoder:coderCopy];
   v5 = [(HMIVideoAnalyzerEventPerson *)self face:v7.receiver];
-  [coderCopy encodeObject:v5 forKey:@"HMIVAEP.f"];
+  [coderCopy encodeObject:? forKey:?];
 
   torso = [(HMIVideoAnalyzerEventPerson *)self torso];
-  [coderCopy encodeObject:torso forKey:@"HMIVAEP.t"];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeBool:-[HMIVideoAnalyzerEventPerson hasEstimatedBoundingBox](self forKey:{"hasEstimatedBoundingBox"), @"HMIVAEP.ibbe"}];
+  [(HMIVideoAnalyzerEventPerson *)self hasEstimatedBoundingBox];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (HMIVideoAnalyzerEventPerson)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [[HMIVideoAnalyzerEvent alloc] initWithCoder:coderCopy];
+  v5 = [[HMIVideoAnalyzerEvent alloc] initWithCoder:?];
   if (v5)
   {
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIVAEP.f"];
-    v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIVAEP.t"];
-    if ([coderCopy decodeBoolForKey:@"HMIVAEP.ibbe"])
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+    objc_opt_class();
+    v7 = [coderCopy decodeObjectOfClass:? forKey:?];
+    if ([coderCopy decodeBoolForKey:?])
     {
       if (v6 && v7)
       {
-        v8 = [(HMIVideoAnalyzerEventPerson *)self initWithFaceEvent:v6 torso:v7];
+        v8 = [HMIVideoAnalyzerEventPerson initWithFaceEvent:"initWithFaceEvent:torso:" torso:?];
 LABEL_11:
         self = v8;
 LABEL_13:
@@ -514,20 +515,20 @@ LABEL_13:
 
       if (v6)
       {
-        v8 = [(HMIVideoAnalyzerEventPerson *)self initWithFaceEvent:v6];
+        v8 = [(HMIVideoAnalyzerEventPerson *)self initWithFaceEvent:?];
         goto LABEL_11;
       }
 
       if (v7)
       {
-        v8 = [(HMIVideoAnalyzerEventPerson *)self initWithTorsoEvent:v7];
+        v8 = [(HMIVideoAnalyzerEventPerson *)self initWithTorsoEvent:?];
         goto LABEL_11;
       }
     }
 
     confidence = [(HMIVideoAnalyzerEvent *)v5 confidence];
     [(HMIVideoAnalyzerEvent *)v5 boundingBox];
-    self = [(HMIVideoAnalyzerEventPerson *)self initWithConfidence:confidence boundingBox:v6 face:v7 torso:?];
+    self = [HMIVideoAnalyzerEventPerson initWithConfidence:"initWithConfidence:boundingBox:face:torso:" boundingBox:? face:? torso:?];
 
     goto LABEL_13;
   }

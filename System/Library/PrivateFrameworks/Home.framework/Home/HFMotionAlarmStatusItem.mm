@@ -36,8 +36,8 @@ LABEL_8:
   }
 
   anyObject = [v5 anyObject];
-  home = [(HFStatusItem *)self home];
-  roomForEntireHome = [home roomForEntireHome];
+  v9 = objc_msgSend_home(self);
+  roomForEntireHome = [v9 roomForEntireHome];
   v11 = [anyObject isEqual:roomForEntireHome];
 
   if (v11)

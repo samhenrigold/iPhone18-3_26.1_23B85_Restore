@@ -301,47 +301,12 @@ LABEL_11:
   }
 }
 
-- (void)removeDeliveredDiagnosticsForSourceID:forDate:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Cleaning %@ Directory", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeDeliveredDiagnosticsForSourceID:forDate:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_3(&dword_258D6F000, v0, v1, "Failed to read contents of %@ source directory: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)removeDeliveredDiagnosticsForSourceID:(void *)a1 forDate:(void *)a2 .cold.3(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 count];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4(&dword_258D6F000, v4, v5, "Found %lu files to clean for source: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setupSourceDirectoryForSourceID:andBundleID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Creating Source Directory at path %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setupSourceDirectoryForSourceID:andBundleID:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Source Directory %@ exists", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_258D6F000, v4, v5, "Found %lu files to clean for source: %@", v6, v7, v8, v9);
 }
 
 @end

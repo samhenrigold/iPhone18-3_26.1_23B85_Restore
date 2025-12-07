@@ -181,14 +181,12 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  Name = class_getName(v4);
-  v6 = *&self->_backupUDID;
-  return [v3 stringWithFormat:@"<%s: %p; deviceUDID=%@, deviceUUID=%@, device=%@/%@/%@, restoreSysFiles=%d, snapshots=%@>", Name, self, self->_backupUDID, self->_backupUUID, self->_productType, self->_hardwareModel, self->_marketingName, self->_restoreSystemFiles, self->_snapshots];
+  return [v3 stringWithFormat:@"<%s: %p; deviceUDID=%@, deviceUUID=%@, device=%@/%@/%@, restoreSysFiles=%d, snapshots=%@>", class_getName(v4), self, self->_backupUDID, self->_backupUUID, self->_productType, self->_hardwareModel, self->_marketingName, self->_restoreSystemFiles, self->_snapshots];
 }
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary setObject:self->_backupUDID forKeyedSubscript:@"UDID"];
   [dictionary setObject:self->_backupUUID forKeyedSubscript:@"UUID"];
@@ -209,37 +207,36 @@
   [dictionary setObject:v7 forKeyedSubscript:@"hasBackupEnabledState"];
 
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = self->_snapshots;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
         [array addObject:dictionaryRepresentation];
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
   [dictionary setObject:array forKeyedSubscript:@"snapshots"];
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

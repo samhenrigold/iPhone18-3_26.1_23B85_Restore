@@ -50,11 +50,11 @@
 
 - (REPredictionElement)initWithCoder:(id)coder
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v33.receiver = self;
-  v33.super_class = REPredictionElement;
-  v5 = [(REPredictionElement *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = REPredictionElement;
+  v5 = [(REPredictionElement *)&v32 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
@@ -77,34 +77,34 @@
     v16 = [v12 setWithObjects:{v13, v14, v15, objc_opt_class(), 0}];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"relevanceProviders"];
     array = [MEMORY[0x277CBEB18] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v19 = v17;
-    v20 = [v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v30;
+      v22 = *v29;
       do
       {
         v23 = 0;
         do
         {
-          if (*v30 != v22)
+          if (*v29 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = [[RECustomRelevanceProvider alloc] initWithDictionary:*(*(&v29 + 1) + 8 * v23)];
+          v24 = [[RECustomRelevanceProvider alloc] initWithDictionary:*(*(&v28 + 1) + 8 * v23)];
           [array addObject:v24];
 
           ++v23;
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v21);
@@ -115,46 +115,45 @@
     v5->_relevanceProviders = v25;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   [coderCopy encodeObject:self->_identifier forKey:@"identifier"];
   [coderCopy encodeObject:self->_bundleIdentifier forKey:@"bundleIdentifier"];
   [coderCopy encodeObject:self->_applicationBundleIdentifier forKey:@"applicationBundleIdentifier"];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = self->_relevanceProviders;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        dictionaryEncoding = [*(*(&v14 + 1) + 8 * v10) dictionaryEncoding];
+        dictionaryEncoding = [*(*(&v13 + 1) + 8 * v10) dictionaryEncoding];
         [array addObject:dictionaryEncoding];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -162,13 +161,11 @@
 
   v12 = [array copy];
   [coderCopy encodeObject:v12 forKey:@"relevanceProviders"];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)predictionElementWithIdentifier:(id)identifier relevanceProviders:(id)providers bundleIdentifier:(id)bundleIdentifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   providersCopy = providers;
   bundleIdentifierCopy = bundleIdentifier;
@@ -177,34 +174,34 @@
   objc_storeStrong((v11 + 32), bundleIdentifier);
   objc_storeStrong((v11 + 48), @"REElementInteractionDefault");
   array = [MEMORY[0x277CBEB18] array];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v13 = providersCopy;
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * i);
+        v18 = *(*(&v22 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [array addObject:{v18, v23}];
+          [array addObject:{v18, v22}];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
@@ -213,8 +210,6 @@
   v19 = [array copy];
   v20 = *(v11 + 24);
   *(v11 + 24) = v19;
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -50,7 +50,7 @@
 
   selfCopy = self;
   sub_100AF6AE0(v7, v6);
-  sub_1000C1014(v7);
+  sub_1000C1014(v7, v6);
 }
 
 - (BOOL)isShowingUI
@@ -122,7 +122,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_100B0035C(&qword_1019F6EC0, 255, type metadata accessor for InfoKey);
+  sub_100B0035C(&qword_1019F6EC0, 255, type metadata accessor for InfoKey, aI_43);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

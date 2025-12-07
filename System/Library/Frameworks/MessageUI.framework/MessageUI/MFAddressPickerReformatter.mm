@@ -527,7 +527,7 @@ BOOL __50__MFAddressPickerReformatter__expandAllLocalParts__block_invoke(uint64_
   return v3;
 }
 
-unint64_t __79__MFAddressPickerReformatter__reformattedAddressesByDisplayedStringsAreUnique___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__79__MFAddressPickerReformatter__reformattedAddressesByDisplayedStringsAreUnique___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 count];
   if (result >= 2)

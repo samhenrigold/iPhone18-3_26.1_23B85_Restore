@@ -1,10 +1,10 @@
 @interface UIButton(SUScriptButtonAdditions)
-- (uint64_t)configureFromScriptButton:()SUScriptButtonAdditions;
+- (void)configureFromScriptButton:()SUScriptButtonAdditions;
 @end
 
 @implementation UIButton(SUScriptButtonAdditions)
 
-- (uint64_t)configureFromScriptButton:()SUScriptButtonAdditions
+- (void)configureFromScriptButton:()SUScriptButtonAdditions
 {
   [self setEnabled:{objc_msgSend(a3, "enabled")}];
   [a3 image];

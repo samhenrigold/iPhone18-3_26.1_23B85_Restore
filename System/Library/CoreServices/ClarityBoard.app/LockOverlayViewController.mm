@@ -15,7 +15,7 @@
 
 - (void)pressesBegan:(id)began withEvent:(id)event
 {
-  sub_10002C9FC(0, &qword_10032EA50);
+  sub_10002C9FC(0, &qword_10032EA50, UIPress_ptr);
   sub_100080C10();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -37,7 +37,7 @@
   }
 
   v8 = OBJC_IVAR____TtC12ClarityBoard25LockOverlayViewController_dismissPublisher;
-  sub_10002B6CC(&qword_10032D0B8);
+  sub_10002B6CC(&qword_10032D0B8, &qword_100299050);
   swift_allocObject();
   bundleCopy = bundle;
   *(&self->super.super.super.isa + v8) = PassthroughSubject.init()();
@@ -61,7 +61,7 @@
 - (_TtC12ClarityBoard25LockOverlayViewController)initWithCoder:(id)coder
 {
   v5 = OBJC_IVAR____TtC12ClarityBoard25LockOverlayViewController_dismissPublisher;
-  sub_10002B6CC(&qword_10032D0B8);
+  sub_10002B6CC(&qword_10032D0B8, &qword_100299050);
   swift_allocObject();
   coderCopy = coder;
   *(&self->super.super.super.isa + v5) = PassthroughSubject.init()();

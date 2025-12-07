@@ -72,14 +72,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    distance = self->_distance;
     PBDataWriterWriteUint32Field();
   }
 
@@ -140,7 +138,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 24);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 24) & 2) == 0 || self->_duration != *(equal + 3))

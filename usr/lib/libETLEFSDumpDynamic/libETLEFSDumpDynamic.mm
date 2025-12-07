@@ -1,6 +1,6 @@
 uint64_t ETLEFSDumpInterpret(uint64_t a1, unsigned int a2, uint64_t *a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   result = malloc(0x50uLL);
   *a3 = 0;
   if (result)
@@ -22,36 +22,35 @@ uint64_t ETLEFSDumpInterpret(uint64_t a1, unsigned int a2, uint64_t *a3)
       *(result + 60) = *(a1 + 60);
       *&v9 = 0xAAAAAAAAAAAAAAAALL;
       *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v14[14] = v9;
-      v14[15] = v9;
-      v14[12] = v9;
-      v14[13] = v9;
-      v14[10] = v9;
-      v14[11] = v9;
-      v14[8] = v9;
-      v14[9] = v9;
-      v14[6] = v9;
-      v14[7] = v9;
-      v14[4] = v9;
-      v14[5] = v9;
-      v14[2] = v9;
-      v14[3] = v9;
-      v14[0] = v9;
-      v14[1] = v9;
+      v13[14] = v9;
+      v13[15] = v9;
+      v13[12] = v9;
+      v13[13] = v9;
+      v13[10] = v9;
+      v13[11] = v9;
+      v13[8] = v9;
+      v13[9] = v9;
+      v13[6] = v9;
+      v13[7] = v9;
+      v13[4] = v9;
+      v13[5] = v9;
+      v13[2] = v9;
+      v13[3] = v9;
+      v13[0] = v9;
+      v13[1] = v9;
       TelephonyUtilStrlcpy();
-      v10 = strdup(v14);
+      v10 = strdup(v13);
       *(v7 + 62) = v10;
       if (v10)
       {
         v11 = v10;
         TelephonyUtilStrlcpy();
-        v12 = strdup(v14);
+        v12 = strdup(v13);
         *(v7 + 70) = v12;
         if (v12)
         {
           *a3 = v7;
-          result = 1;
-          goto LABEL_9;
+          return 1;
         }
 
         v10 = v11;
@@ -60,11 +59,9 @@ uint64_t ETLEFSDumpInterpret(uint64_t a1, unsigned int a2, uint64_t *a3)
 
     free(v10);
     free(v7);
-    result = 0;
+    return 0;
   }
 
-LABEL_9:
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -91,7 +88,7 @@ BOOL ETLEFSDumpCopyCrashHeaderDetails(uint64_t a1, _WORD *a2, _WORD *a3)
   return a1 != 0;
 }
 
-BOOL ETLEFSDumpCopySoftwareVersion(uint64_t a1)
+BOOL ETLEFSDumpCopySoftwareVersion(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
@@ -129,9 +126,7 @@ BOOL ETLEFSDUmpCopyCrashLocationDetails(uint64_t a1, uint64_t a2)
     v3 = *(a1 + 60);
     *a2 = *(a1 + 56);
     *(a2 + 4) = v3;
-    v4 = *(a1 + 62);
     TelephonyUtilStrlcpy();
-    v5 = *(a1 + 70);
     TelephonyUtilStrlcpy();
   }
 
@@ -697,7 +692,7 @@ LABEL_188:
                       {
                         v88 = __dst[0];
                         v89 = __dst[1] - v86;
-                        if (__dst[1] - v86 > 0x7FFFFFFFFFFFFFF7)
+                        if ((__dst[1] - v86) > 0x7FFFFFFFFFFFFFF7)
                         {
                           goto LABEL_342;
                         }
@@ -770,7 +765,7 @@ LABEL_223:
                           }
                         }
 
-                        v96 = (v88 + v86);
+                        v96 = (v86 + v88);
 LABEL_219:
                         memmove(v94, v96, v89);
                         goto LABEL_220;
@@ -1048,7 +1043,7 @@ LABEL_185:
         {
           if (SHIBYTE(v165) < 0)
           {
-            std::string::__assign_no_alias<false>(&v164, &__s2, 0xBuLL);
+            std::string::__assign_no_alias<false>(&v164, &__s2, 0xB);
           }
 
           else
@@ -1606,7 +1601,7 @@ LABEL_15:
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ETLEFSearchCrashReason(uint64_t a1, const void **a2, const void **a3, void *a4)
+uint64_t ETLEFSearchCrashReason(uint64_t **a1, const void **a2, const void **a3, void **a4)
 {
   v4 = *(a2 + 23);
   if (v4 >= 0)
@@ -1643,10 +1638,10 @@ uint64_t ETLEFSearchCrashReason(uint64_t a1, const void **a2, const void **a3, v
     HIBYTE(__p.__end_cap_.__value_) = v7 + v5;
     *&v15 = 0xAAAAAAAAAAAAAAAALL;
     *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&v88[16] = v15;
-    *&v88[32] = v15;
-    *&v87[0].__locale_ = v15;
-    *v88 = v15;
+    *&v86[16] = v15;
+    *&v86[32] = v15;
+    *&v85[0].__locale_ = v15;
+    *v86 = v15;
     if (!v5)
     {
       goto LABEL_19;
@@ -1671,49 +1666,47 @@ uint64_t ETLEFSearchCrashReason(uint64_t a1, const void **a2, const void **a3, v
   __p.__begin_ = p_p;
   *&v14 = 0xAAAAAAAAAAAAAAAALL;
   *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v88[16] = v14;
-  *&v88[32] = v14;
-  *&v87[0].__locale_ = v14;
-  *v88 = v14;
+  *&v86[16] = v14;
+  *&v86[32] = v14;
+  *&v85[0].__locale_ = v14;
+  *v86 = v14;
   if (v5)
   {
 LABEL_15:
-    v16 = *a2;
     if (v4 >= 0)
     {
-      v17 = a2;
+      v16 = a2;
     }
 
     else
     {
-      v17 = *a2;
+      v16 = *a2;
     }
 
-    memmove(p_p, v17, v5);
+    memmove(p_p, v16, v5);
   }
 
 LABEL_19:
   if (v7)
   {
-    v18 = *a3;
     if (v6 >= 0)
     {
-      v19 = a3;
+      v17 = a3;
     }
 
     else
     {
-      v19 = *a3;
+      v17 = *a3;
     }
 
-    memmove(p_p + v5, v19, v7);
+    memmove(p_p + v5, v17, v7);
   }
 
   *(&p_p->first + v5 + v7) = 0;
-  MEMORY[0x29C275600](v87);
-  v87[1].__locale_ = std::locale::use_facet(v87, MEMORY[0x29EDC93D0]);
-  *v88 = std::locale::use_facet(v87, MEMORY[0x29EDC93E8]);
-  memset(&v88[8], 0, 40);
+  MEMORY[0x29C275600](v85);
+  v85[1].__locale_ = std::locale::use_facet(v85, MEMORY[0x29EDC93D0]);
+  *v86 = std::locale::use_facet(v85, MEMORY[0x29EDC93E8]);
+  memset(&v86[8], 0, 40);
   value_high = HIBYTE(__p.__end_cap_.__value_);
   if (SHIBYTE(__p.__end_cap_.__value_) >= 0)
   {
@@ -1730,7 +1723,7 @@ LABEL_19:
     value_high = __p.__end_;
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(v87, begin, &value_high[begin]) != &value_high[begin])
+  if (std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(v85, begin, &value_high[begin]) != &value_high[begin])
   {
     std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)17>();
   }
@@ -1740,132 +1733,132 @@ LABEL_19:
     operator delete(__p.__begin_);
   }
 
-  *&v22 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *v91 = 0xAAAAAAAAAAAAAAAALL;
-  v92 = 0xAAAAAAAAAAAAAA00;
-  v94 = v22;
-  *&v91[16] = 0;
-  v93 = 0uLL;
-  LOBYTE(v94) = 0;
-  BYTE8(v94) = 0;
-  v95 = 0;
+  *&v20 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *v89 = 0xAAAAAAAAAAAAAAAALL;
+  v90 = 0xAAAAAAAAAAAAAA00;
+  v92 = v20;
+  *&v89[16] = 0;
+  v91 = 0uLL;
+  LOBYTE(v92) = 0;
+  BYTE8(v92) = 0;
+  v93 = 0;
   __p.__begin_ = 0;
   __p.__end_ = 0;
-  v23 = *(a1 + 23);
-  if (v23 >= 0)
+  v21 = *(a1 + 23);
+  if (v21 >= 0)
   {
-    v24 = a1;
+    v22 = a1;
   }
 
   else
   {
-    v24 = *a1;
+    v22 = *a1;
   }
 
-  if (v23 >= 0)
+  if (v21 >= 0)
   {
-    v25 = *(a1 + 23);
+    v23 = *(a1 + 23);
   }
 
   else
   {
-    v25 = *(a1 + 8);
+    v23 = a1[1];
   }
 
-  v26 = (v24 + v25);
+  v24 = v22 + v23;
   __p.__end_cap_.__value_ = 0;
-  v90.i64[0] = v24 + v25;
-  v90.i64[1] = v24 + v25;
-  v91[0] = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, (*&v88[12] + 1), &v90);
-  *&v91[8] = v24;
-  *&v91[16] = v24;
-  LOBYTE(v92) = 0;
-  v93 = v90;
-  LOBYTE(v94) = v91[0];
-  v95 = v24;
-  BYTE8(v94) = 1;
-  if ((*&v88[8] & 0x1F0) == 0)
+  v88.i64[0] = v22 + v23;
+  v88.i64[1] = v22 + v23;
+  v89[0] = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, (*&v86[12] + 1), &v88);
+  *&v89[8] = v22;
+  *&v89[16] = v22;
+  LOBYTE(v90) = 0;
+  v91 = v88;
+  LOBYTE(v92) = v89[0];
+  v93 = v22;
+  BYTE8(v92) = 1;
+  if ((*&v86[8] & 0x1F0) == 0)
   {
-    v27 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(v87, v24, (v24 + v25), &__p, 0, 1);
+    v25 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(v85, v22, v22 + v23, &__p, 0, 1);
     goto LABEL_44;
   }
 
-  if (!*&v88[12])
+  if (!*&v86[12])
   {
-    v27 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(v87, v24, v24 + v25, &__p, 0, 1);
+    v25 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(v85, v22, v22 + v23, &__p, 0, 1);
 LABEL_44:
-    if ((v27 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
       goto LABEL_51;
     }
 
 LABEL_45:
-    v28 = __p.__begin_;
+    v26 = __p.__begin_;
     end = __p.__end_;
     if (__p.__end_ == __p.__begin_)
     {
-      v30 = &v90;
+      v28 = &v88;
     }
 
     else
     {
-      v30 = __p.__begin_;
+      v28 = __p.__begin_;
     }
 
-    first = v30->first;
-    *&v91[16] = first;
+    first = v28->first;
+    *&v89[16] = first;
     p_second = &__p.__begin_->second;
     if (__p.__end_ == __p.__begin_)
     {
-      p_second = &v90.i64[1];
+      p_second = &v88.i64[1];
     }
 
-    v33 = *&v91[8];
-    LOBYTE(v92) = *&v91[8] != first;
-    v93.i64[0] = *p_second;
-    LOBYTE(v94) = v93.i64[0] != v93.i64[1];
-    v85 = 1;
-    v34 = a4;
+    v31 = *&v89[8];
+    LOBYTE(v90) = *&v89[8] != first;
+    v91.i64[0] = *p_second;
+    LOBYTE(v92) = v91.i64[0] != v91.i64[1];
+    v83 = 1;
+    v32 = a4;
     goto LABEL_74;
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(v87, v24, (v24 + v25), &__p, 0, 1))
+  if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(v85, v22, v22 + v23, &__p, 0, 1))
   {
     goto LABEL_45;
   }
 
 LABEL_51:
-  v34 = a4;
-  if (!v25)
+  v32 = a4;
+  if (!v23)
   {
 LABEL_64:
-    v85 = 0;
-    v28 = __p.__begin_;
-    v33 = *&v91[8];
+    v83 = 0;
+    v26 = __p.__begin_;
+    v31 = *&v89[8];
     __p.__end_ = __p.__begin_;
     end = __p.__begin_;
     goto LABEL_74;
   }
 
-  v35 = v24 + 1;
-  v36 = v25 - 1;
-  if (v36)
+  v33 = v22 + 1;
+  v34 = v23 - 1;
+  if (v34)
   {
     while (1)
     {
-      std::vector<std::sub_match<char const*>>::assign(&__p, 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3), &v90);
-      if ((*&v88[8] & 0x1F0) == 0)
+      std::vector<std::sub_match<char const*>>::assign(&__p, 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3), &v88);
+      if ((*&v86[8] & 0x1F0) == 0)
       {
         break;
       }
 
-      if (!*&v88[12])
+      if (!*&v86[12])
       {
-        v37 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(v87, v35, v26, &__p, 128, 0);
+        v35 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(v85, v33, v24, &__p, 128, 0);
 LABEL_59:
-        if (v37)
+        if (v35)
         {
           goto LABEL_45;
         }
@@ -1873,32 +1866,32 @@ LABEL_59:
         goto LABEL_60;
       }
 
-      if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(v87, v35, v26, &__p, 128, 0))
+      if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(v85, v33, v24, &__p, 128, 0))
       {
         goto LABEL_45;
       }
 
 LABEL_60:
-      std::vector<std::sub_match<char const*>>::assign(&__p, 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3), &v90);
-      ++v35;
-      if (!--v36)
+      std::vector<std::sub_match<char const*>>::assign(&__p, 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3), &v88);
+      ++v33;
+      if (!--v34)
       {
         goto LABEL_61;
       }
     }
 
-    v37 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(v87, v35, v26, &__p, 128, 0);
+    v35 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(v85, v33, v24, &__p, 128, 0);
     goto LABEL_59;
   }
 
 LABEL_61:
-  std::vector<std::sub_match<char const*>>::assign(&__p, 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3), &v90);
-  if ((*&v88[8] & 0x1F0) != 0)
+  std::vector<std::sub_match<char const*>>::assign(&__p, 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3), &v88);
+  if ((*&v86[8] & 0x1F0) != 0)
   {
-    if (*&v88[12])
+    if (*&v86[12])
     {
-      v34 = a4;
-      if (!std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(v87, v35, v26, &__p, 128, 0))
+      v32 = a4;
+      if (!std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(v85, v33, v24, &__p, 128, 0))
       {
         goto LABEL_64;
       }
@@ -1906,85 +1899,85 @@ LABEL_61:
       goto LABEL_68;
     }
 
-    v38 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(v87, v35, v26, &__p, 128, 0);
+    v36 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(v85, v33, v24, &__p, 128, 0);
   }
 
   else
   {
-    v38 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(v87, v35, v26, &__p, 128, 0);
+    v36 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(v85, v33, v24, &__p, 128, 0);
   }
 
-  v34 = a4;
-  if ((v38 & 1) == 0)
+  v32 = a4;
+  if ((v36 & 1) == 0)
   {
     goto LABEL_64;
   }
 
 LABEL_68:
-  v28 = __p.__begin_;
+  v26 = __p.__begin_;
   end = __p.__end_;
   if (__p.__end_ == __p.__begin_)
   {
-    v39 = &v90;
+    v37 = &v88;
   }
 
   else
   {
-    v39 = __p.__begin_;
+    v37 = __p.__begin_;
   }
 
-  v40 = v39->first;
-  *&v91[16] = v40;
-  v41 = &__p.__begin_->second;
+  v38 = v37->first;
+  *&v89[16] = v38;
+  v39 = &__p.__begin_->second;
   if (__p.__end_ == __p.__begin_)
   {
-    v41 = &v90.i64[1];
+    v39 = &v88.i64[1];
   }
 
-  v33 = *&v91[8];
-  LOBYTE(v92) = *&v91[8] != v40;
-  v93.i64[0] = *v41;
-  LOBYTE(v94) = v93.i64[0] != v93.i64[1];
-  v85 = 1;
+  v31 = *&v89[8];
+  LOBYTE(v90) = *&v89[8] != v38;
+  v91.i64[0] = *v39;
+  LOBYTE(v92) = v91.i64[0] != v91.i64[1];
+  v83 = 1;
 LABEL_74:
-  v42 = *(a1 + 23);
-  if (v42 >= 0)
+  v40 = *(a1 + 23);
+  if (v40 >= 0)
   {
-    v43 = a1;
+    v41 = a1;
   }
 
   else
   {
-    v43 = *a1;
+    v41 = *a1;
   }
 
-  if (v42 >= 0)
+  if (v40 >= 0)
   {
-    v44 = *(a1 + 23);
+    v42 = *(a1 + 23);
   }
 
   else
   {
-    v44 = *(a1 + 8);
+    v42 = a1[1];
   }
 
-  v45 = end - v28;
-  v46 = 0xAAAAAAAAAAAAAAABLL * (v45 >> 3);
-  v47 = *v34;
-  v48 = v34[1];
-  v49 = &v48[-*v34];
-  v50 = 0xAAAAAAAAAAAAAAABLL * (v49 >> 3);
-  v51 = v46 - v50;
-  if (v46 <= v50)
+  v43 = end - v26;
+  v44 = 0xAAAAAAAAAAAAAAABLL * (v43 >> 3);
+  v45 = *v32;
+  v46 = v32[1];
+  v47 = v46 - *v32;
+  v48 = 0xAAAAAAAAAAAAAAABLL * (v47 >> 3);
+  v49 = v44 - v48;
+  if (v44 <= v48)
   {
-    if (v46 < v50)
+    if (v44 < v48)
     {
-      v48 = &v47[v45];
-      v34[1] = &v47[v45];
+      v46 = &v45[v43];
+      v32[1] = &v45[v43];
     }
 
-    v66 = v43 + v44;
-    if (v48 == v47)
+    v64 = v41 + v42;
+    if (v46 == v45)
     {
       goto LABEL_97;
     }
@@ -1992,195 +1985,195 @@ LABEL_74:
 
   else
   {
-    v52 = v34[2];
-    if (0xAAAAAAAAAAAAAAABLL * ((v52 - v48) >> 3) >= v51)
+    v50 = v32[2];
+    if (0xAAAAAAAAAAAAAAABLL * ((v50 - v46) >> 3) >= v49)
     {
-      v81 = &v48[24 * v51];
-      v82 = 24 * v46 - 8 * (v49 >> 3);
+      v79 = &v46[24 * v49];
+      v80 = 24 * v44 - 8 * (v47 >> 3);
       do
       {
-        *v48 = 0;
-        *(v48 + 1) = 0;
-        v48[16] = 0;
-        v48 += 24;
-        v82 -= 24;
+        *v46 = 0;
+        *(v46 + 1) = 0;
+        v46[16] = 0;
+        v46 += 24;
+        v80 -= 24;
       }
 
-      while (v82);
-      v34[1] = v81;
-      v47 = *v34;
-      v48 = v81;
-      v66 = v43 + v44;
-      if (v48 == *v34)
+      while (v80);
+      v32[1] = v79;
+      v45 = *v32;
+      v46 = v79;
+      v64 = v41 + v42;
+      if (v46 == *v32)
       {
 LABEL_97:
-        v67 = v43 - v33;
-        v68 = __p.__begin_;
+        v65 = v41 - v31;
+        v66 = __p.__begin_;
         goto LABEL_112;
       }
     }
 
     else
     {
-      if (v46 > 0xAAAAAAAAAAAAAAALL)
+      if (v44 > 0xAAAAAAAAAAAAAAALL)
       {
         std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
       }
 
-      v83 = v44;
-      v84 = v43;
-      v53 = 0xAAAAAAAAAAAAAAABLL * ((v52 - v47) >> 3);
-      v54 = 0x5555555555555556 * ((v52 - v47) >> 3);
-      if (v54 <= v46)
+      v81 = v42;
+      v82 = v41;
+      v51 = 0xAAAAAAAAAAAAAAABLL * ((v50 - v45) >> 3);
+      v52 = 0x5555555555555556 * ((v50 - v45) >> 3);
+      if (v52 <= v44)
       {
-        v54 = 0xAAAAAAAAAAAAAAABLL * (v45 >> 3);
+        v52 = 0xAAAAAAAAAAAAAAABLL * (v43 >> 3);
       }
 
-      if (v53 >= 0x555555555555555)
+      if (v51 >= 0x555555555555555)
       {
-        v55 = 0xAAAAAAAAAAAAAAALL;
+        v53 = 0xAAAAAAAAAAAAAAALL;
       }
 
       else
       {
-        v55 = v54;
+        v53 = v52;
       }
 
-      if (v55 > 0xAAAAAAAAAAAAAAALL)
+      if (v53 > 0xAAAAAAAAAAAAAAALL)
       {
         std::__throw_bad_array_new_length[abi:ne200100]();
       }
 
-      v56 = v33;
-      v57 = operator new(24 * v55);
-      v58 = &v57[24 * v51 + v49];
-      v59 = 24 * v46 - 8 * (v49 >> 3);
-      v60 = &v57[v49];
-      v33 = v56;
-      v43 = v84;
+      v54 = v31;
+      v55 = operator new(24 * v53);
+      v56 = &v55[24 * v49 + v47];
+      v57 = 24 * v44 - 8 * (v47 >> 3);
+      v58 = &v55[v47];
+      v31 = v54;
+      v41 = v82;
       do
       {
-        *v60 = 0;
-        *(v60 + 1) = 0;
-        v60[16] = 0;
-        v60 += 24;
-        v59 -= 24;
+        *v58 = 0;
+        *(v58 + 1) = 0;
+        v58[16] = 0;
+        v58 += 24;
+        v57 -= 24;
       }
 
-      while (v59);
-      v61 = &v57[24 * v55];
-      if (v47 != v48)
+      while (v57);
+      v59 = &v55[24 * v53];
+      if (v45 != v46)
       {
-        v62 = v47;
-        v63 = v57;
+        v60 = v45;
+        v61 = v55;
         do
         {
-          v64 = *v62;
-          *(v63 + 2) = *(v62 + 2);
-          *v63 = v64;
-          v63 += 24;
-          v62 += 24;
+          v62 = *v60;
+          *(v61 + 2) = *(v60 + 2);
+          *v61 = v62;
+          v61 += 24;
+          v60 += 24;
         }
 
-        while (v62 != v48);
+        while (v60 != v46);
       }
 
-      v34 = a4;
-      *a4 = v57;
-      a4[1] = v58;
-      a4[2] = v61;
-      v65 = v83;
-      if (v47)
+      v32 = a4;
+      *a4 = v55;
+      a4[1] = v56;
+      a4[2] = v59;
+      v63 = v81;
+      if (v45)
       {
-        operator delete(v47);
-        v65 = v83;
-        v43 = v84;
-        v33 = v56;
-        v58 = a4[1];
+        operator delete(v45);
+        v63 = v81;
+        v41 = v82;
+        v31 = v54;
+        v56 = a4[1];
       }
 
-      v47 = *a4;
-      v48 = v58;
-      v66 = v43 + v65;
-      if (v48 == *a4)
+      v45 = *a4;
+      v46 = v56;
+      v64 = v41 + v63;
+      if (v46 == *a4)
       {
         goto LABEL_97;
       }
     }
   }
 
-  v69 = 0;
-  v70 = 0xAAAAAAAAAAAAAAABLL * ((v48 - v47) >> 3);
-  v68 = __p.__begin_;
-  v71 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  v67 = v43 - v33;
-  if (v70 <= 1)
+  v67 = 0;
+  v68 = 0xAAAAAAAAAAAAAAABLL * ((v46 - v45) >> 3);
+  v66 = __p.__begin_;
+  v69 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  v65 = v41 - v31;
+  if (v68 <= 1)
   {
-    v70 = 1;
+    v68 = 1;
   }
 
-  v72 = (v47 + 16);
-  v73 = __p.__begin_;
+  v70 = (v45 + 16);
+  v71 = __p.__begin_;
   do
   {
-    if (v71 <= v69)
+    if (v69 <= v67)
     {
-      v74 = &v90;
+      v72 = &v88;
     }
 
     else
     {
-      v74 = v73;
+      v72 = v71;
     }
 
-    *(v72 - 2) = v67 + v74->i64[0];
-    v75 = &v73->second;
-    if (v71 <= v69)
+    *(v70 - 2) = v65 + v72->i64[0];
+    v73 = &v71->second;
+    if (v69 <= v67)
     {
-      v75 = &v90.i64[1];
+      v73 = &v88.i64[1];
     }
 
-    *(v72 - 1) = &(*v75)[v67];
-    p_matched = &v73->matched;
-    if (v71 <= v69)
+    *(v70 - 1) = &(*v73)[v65];
+    p_matched = &v71->matched;
+    if (v69 <= v67)
     {
-      p_matched = v91;
+      p_matched = v89;
     }
 
-    *v72 = *p_matched;
-    v72 += 24;
-    ++v69;
-    ++v73;
+    *v70 = *p_matched;
+    v70 += 24;
+    ++v67;
+    ++v71;
   }
 
-  while (v70 != v69);
+  while (v68 != v67);
 LABEL_112:
-  v34[3] = v66;
-  v34[4] = v66;
-  *(v34 + 40) = 0;
-  v77 = vdupq_n_s64(v67);
-  v78 = vaddq_s64(v77, *&v91[8]);
-  *(v34 + 3) = v78;
-  *(v34 + 64) = v92;
-  *(v34 + 9) = vaddq_s64(v77, v93);
-  *(v34 + 88) = v94;
-  v34[13] = v78.i64[0];
-  *(v34 + 96) = BYTE8(v94);
-  if (v68)
+  v32[3] = v64;
+  v32[4] = v64;
+  *(v32 + 40) = 0;
+  v75 = vdupq_n_s64(v65);
+  v76 = vaddq_s64(v75, *&v89[8]);
+  *(v32 + 3) = v76;
+  *(v32 + 64) = v90;
+  *(v32 + 9) = vaddq_s64(v75, v91);
+  *(v32 + 88) = v92;
+  v32[13] = v76.i64[0];
+  *(v32 + 96) = BYTE8(v92);
+  if (v66)
   {
-    __p.__end_ = v68;
-    operator delete(v68);
+    __p.__end_ = v66;
+    operator delete(v66);
   }
 
-  v79 = *&v88[32];
-  if (*&v88[32] && !atomic_fetch_add((*&v88[32] + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v77 = *&v86[32];
+  if (*&v86[32] && !atomic_fetch_add((*&v86[32] + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v79->__on_zero_shared)(v79);
-    std::__shared_weak_count::__release_weak(v79);
+    (v77->__on_zero_shared)(v77);
+    std::__shared_weak_count::__release_weak(v77);
   }
 
-  std::locale::~locale(v87);
-  return v85;
+  std::locale::~locale(v85);
+  return v83;
 }
 
 void sub_2977D3368(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::locale a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -2195,7 +2188,7 @@ void sub_2977D3368(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2977D339C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::locale a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22)
+void sub_2977D339C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22)
 {
   if (__p)
   {
@@ -2264,9 +2257,9 @@ LABEL_12:
   return __dst;
 }
 
-uint64_t ETLEFSearchBasebandCrashReasonM20(capabilities::radio *a1, uint64_t a2)
+uint64_t ETLEFSearchBasebandCrashReasonM20(size_t *a1, uint64_t a2)
 {
-  v82 = *MEMORY[0x29EDCA608];
+  v77 = *MEMORY[0x29EDCA608];
   v4 = capabilities::radio::mav25Plus(a1);
   v5 = 64488;
   if (v4)
@@ -2274,288 +2267,272 @@ uint64_t ETLEFSearchBasebandCrashReasonM20(capabilities::radio *a1, uint64_t a2)
     v5 = 3048;
   }
 
-  v76 = v5;
-  v77 = 0;
-  v78 = 0;
-  v79 = 0;
+  v71 = v5;
+  v72 = 0;
+  v73 = 0;
+  v74 = 0;
   memset(__p, 0, 24);
-  v6 = *(a1 + 23);
-  if (v6 < 0)
-  {
-    v7 = *a1;
-  }
-
-  if (v6 >= 0)
-  {
-    v8 = *(a1 + 23);
-  }
-
-  else
-  {
-    v8 = *(a1 + 1);
-  }
-
   folder = ctu::fs::read_folder();
-  v11 = folder;
-  v12 = __p[0];
-  v75 = a2;
+  v8 = folder;
+  v9 = 0;
+  v70 = a2;
   if (folder)
   {
-    v13 = -1431655765 * ((__p[1] - __p[0]) >> 3);
-    if (v13)
+    v10 = -1431655765 * ((__p[1] - __p[0]) >> 3);
+    if (v10)
     {
-      v73 = folder;
-      v14 = 0;
-      v15 = 24 * v13;
+      v68 = folder;
+      v11 = 0;
+      v12 = 24 * v10;
       while (1)
       {
-        v17 = __p[0];
-        v18 = (__p[0] + v14);
+        v14 = __p[0];
+        v15 = (__p[0] + v11);
         __s2[23] = 6;
         strcpy(__s2, "OCIMEM");
-        v19 = *(__p[0] + v14 + 23);
-        if (v19 < 0)
+        v16 = *(__p[0] + v11 + 23);
+        if (v16 < 0)
         {
-          v21 = *v18;
-          if (v18[1] >= 6)
+          v18 = *v15;
+          if (v15[1] >= 6)
           {
-            v20 = 6;
+            v17 = 6;
           }
 
           else
           {
-            v20 = v18[1];
+            v17 = v15[1];
           }
         }
 
         else
         {
-          if (v19 >= 6)
+          if (v16 >= 6)
           {
-            v20 = 6;
+            v17 = 6;
           }
 
           else
           {
-            v20 = v19;
+            v17 = v16;
           }
 
-          v21 = __p[0] + v14;
+          v18 = __p[0] + v11;
         }
 
-        v22 = memcmp(v21, __s2, v20);
-        if (v20 != 6 || v22 != 0)
+        v19 = memcmp(v18, __s2, v17);
+        if (v17 != 6 || v19 != 0)
         {
-          goto LABEL_13;
+          goto LABEL_8;
         }
 
-        if ((v19 & 0x80000000) != 0)
+        if ((v16 & 0x80000000) != 0)
         {
-          v25 = *&v17[v14 + 8];
-          v26 = v25 > 4;
-          v27 = v25 - 4;
-          if (!v26)
+          v22 = *&v14[v11 + 8];
+          v23 = v22 > 4;
+          v24 = v22 - 4;
+          if (!v23)
           {
-            v32 = v78;
-            if (v78 < v79)
+            v29 = v73;
+            if (v73 < v74)
             {
-              goto LABEL_45;
+              goto LABEL_40;
             }
 
-            goto LABEL_11;
+            goto LABEL_6;
           }
 
           __s2[23] = 4;
           strcpy(__s2, ".BIN");
-          v28 = *&v17[v14 + 8];
-          v29 = v28 >= v27;
-          v30 = v28 - v27;
-          if (!v29)
+          v25 = *&v14[v11 + 8];
+          v26 = v25 >= v24;
+          v27 = v25 - v24;
+          if (!v26)
           {
             std::string::__throw_out_of_range[abi:ne200100]();
           }
 
-          if (v30 >= 4)
+          if (v27 >= 4)
           {
-            v31 = 4;
+            v28 = 4;
           }
 
           else
           {
-            v31 = v30;
+            v28 = v27;
           }
 
-          v24 = memcmp(&(*v18)[v27], __s2, v31);
-          if (v31 != 4)
+          v21 = memcmp(&(*v15)[v24], __s2, v28);
+          if (v28 != 4)
           {
-            goto LABEL_13;
+            goto LABEL_8;
           }
         }
 
         else
         {
-          if (v19 <= 4)
+          if (v16 <= 4)
           {
-            v32 = v78;
-            if (v78 < v79)
+            v29 = v73;
+            if (v73 < v74)
             {
-              goto LABEL_43;
+              goto LABEL_38;
             }
 
-            goto LABEL_11;
+            goto LABEL_6;
           }
 
           __s2[23] = 4;
           strcpy(__s2, ".BIN");
-          v24 = memcmp(v18 + v19 - 4, __s2, 4uLL);
+          v21 = memcmp(v15 + v16 - 4, __s2, 4uLL);
         }
 
-        if (v24)
+        if (v21)
         {
-          goto LABEL_13;
+          goto LABEL_8;
         }
 
-        v32 = v78;
-        if (v78 < v79)
+        v29 = v73;
+        if (v73 < v74)
         {
-          if ((v19 & 0x80000000) != 0)
+          if ((v16 & 0x80000000) != 0)
           {
-LABEL_45:
-            std::string::__init_copy_ctor_external(v32, *&v17[v14], *&v17[v14 + 8]);
+LABEL_40:
+            std::string::__init_copy_ctor_external(v29, *&v14[v11], *&v14[v11 + 8]);
           }
 
           else
           {
-LABEL_43:
-            v10 = *v18;
-            v32->__r_.__value_.__r.__words[2] = v18[2];
-            *&v32->__r_.__value_.__l.__data_ = v10;
+LABEL_38:
+            v7 = *v15;
+            v29->__r_.__value_.__r.__words[2] = v15[2];
+            *&v29->__r_.__value_.__l.__data_ = v7;
           }
 
-          v16 = &v32[1];
-          goto LABEL_12;
+          v13 = &v29[1];
+          goto LABEL_7;
         }
 
-LABEL_11:
-        v16 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v77, v18);
-LABEL_12:
-        v78 = v16;
-LABEL_13:
-        v14 += 24;
-        if (v15 == v14)
+LABEL_6:
+        v13 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v72, v15);
+LABEL_7:
+        v73 = v13;
+LABEL_8:
+        v11 += 24;
+        if (v12 == v11)
         {
-          v12 = __p[0];
-          v11 = v73;
+          v9 = __p[0];
+          v8 = v68;
           break;
         }
       }
     }
   }
 
-  if (v12)
+  if (v9)
   {
-    v33 = __p[1];
-    v34 = v12;
-    if (__p[1] != v12)
+    v30 = __p[1];
+    v31 = v9;
+    if (__p[1] != v9)
     {
       do
       {
-        v35 = *(v33 - 1);
-        v33 -= 3;
-        if (v35 < 0)
+        v32 = *(v30 - 1);
+        v30 -= 3;
+        if (v32 < 0)
         {
-          operator delete(*v33);
+          operator delete(*v30);
         }
       }
 
-      while (v33 != v12);
-      v34 = __p[0];
+      while (v30 != v9);
+      v31 = __p[0];
     }
 
-    __p[1] = v12;
-    operator delete(v34);
+    __p[1] = v9;
+    operator delete(v31);
   }
 
-  v36 = v77;
-  if (!v11)
+  v33 = v72;
+  if (!v8)
   {
-LABEL_115:
-    if (!v36)
+LABEL_110:
+    if (!v33)
     {
-      goto LABEL_123;
+      return v8 & 1;
     }
 
-    goto LABEL_116;
+    goto LABEL_111;
   }
 
-  if (v78 != v77)
+  if (v73 != v72)
   {
-    LOBYTE(v11) = 0;
-    *&v10 = 136315138;
-    v72 = v10;
+    LOBYTE(v8) = 0;
+    *&v7 = 136315138;
+    v67 = v7;
     while (1)
     {
       memset(__p, 170, 24);
-      v37 = *(a1 + 23);
-      if (v37 >= 0)
+      v34 = *(a1 + 23);
+      if (v34 >= 0)
       {
-        v38 = *(a1 + 23);
+        v35 = *(a1 + 23);
       }
 
       else
       {
-        v38 = *(a1 + 1);
+        v35 = a1[1];
       }
 
-      v39 = v38 + 1;
-      if (v38 + 1 >= 0x7FFFFFFFFFFFFFF8)
+      v36 = v35 + 1;
+      if (v35 + 1 >= 0x7FFFFFFFFFFFFFF8)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      if (v39 >= 0x17)
+      if (v36 >= 0x17)
       {
         break;
       }
 
       memset(__s2, 0, 24);
-      v41 = __s2;
-      __s2[23] = v38 + 1;
-      if (v38)
+      v38 = __s2;
+      __s2[23] = v35 + 1;
+      if (v35)
       {
-        goto LABEL_70;
+        goto LABEL_65;
       }
 
-LABEL_74:
-      *&v41[v38] = 47;
-      v44 = *(v36 + 23);
-      if (v44 >= 0)
+LABEL_69:
+      *&v38[v35] = 47;
+      v40 = *(v33 + 23);
+      if (v40 >= 0)
       {
-        v45 = v36;
-      }
-
-      else
-      {
-        v45 = *v36;
-      }
-
-      if (v44 >= 0)
-      {
-        v46 = *(v36 + 23);
+        v41 = v33;
       }
 
       else
       {
-        v46 = v36[1];
+        v41 = *v33;
       }
 
-      v47 = std::string::append(__s2, v45, v46);
-      v48 = *&v47->__r_.__value_.__l.__data_;
-      __p[2] = v47->__r_.__value_.__r.__words[2];
-      *__p = v48;
-      v47->__r_.__value_.__l.__size_ = 0;
-      v47->__r_.__value_.__r.__words[2] = 0;
-      v47->__r_.__value_.__r.__words[0] = 0;
+      if (v40 >= 0)
+      {
+        v42 = *(v33 + 23);
+      }
+
+      else
+      {
+        v42 = v33[1];
+      }
+
+      v43 = std::string::append(__s2, v41, v42);
+      v44 = *&v43->__r_.__value_.__l.__data_;
+      __p[2] = v43->__r_.__value_.__r.__words[2];
+      *__p = v44;
+      v43->__r_.__value_.__l.__size_ = 0;
+      v43->__r_.__value_.__r.__words[2] = 0;
+      v43->__r_.__value_.__r.__words[0] = 0;
       if ((__s2[23] & 0x80000000) != 0)
       {
         operator delete(*__s2);
@@ -2563,162 +2540,162 @@ LABEL_74:
 
       if (SHIBYTE(__p[2]) >= 0)
       {
-        v49 = __p;
+        v45 = __p;
       }
 
       else
       {
-        v49 = __p[0];
+        v45 = __p[0];
       }
 
-      v50 = open(v49, 0, v72);
-      if (v50 < 0)
+      v46 = open(v45, 0, v67);
+      if (v46 < 0)
       {
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
         {
-          v66 = __p;
+          v62 = __p;
           if (SHIBYTE(__p[2]) < 0)
           {
-            v66 = __p[0];
+            v62 = __p[0];
           }
 
-          *__s2 = v72;
-          *&__s2[4] = v66;
+          *__s2 = v67;
+          *&__s2[4] = v62;
           _os_log_error_impl(&dword_2977D1000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Failed to open %s", __s2, 0xCu);
         }
 
-        v57 = 0;
+        v53 = 0;
       }
 
       else
       {
-        v51 = operator new[](0x100uLL);
-        v51[14] = 0u;
-        v51[15] = 0u;
-        v51[12] = 0u;
-        v51[13] = 0u;
-        v51[10] = 0u;
-        v51[11] = 0u;
-        v51[8] = 0u;
-        v51[9] = 0u;
-        v51[6] = 0u;
-        v51[7] = 0u;
-        v51[4] = 0u;
-        v51[5] = 0u;
-        v51[2] = 0u;
-        v51[3] = 0u;
-        *v51 = 0u;
-        v51[1] = 0u;
-        if (lseek(v50, v76, 1) < 1 || read(v50, v51, 0x100uLL) < 1)
+        v47 = operator new[](0x100uLL);
+        v47[14] = 0u;
+        v47[15] = 0u;
+        v47[12] = 0u;
+        v47[13] = 0u;
+        v47[10] = 0u;
+        v47[11] = 0u;
+        v47[8] = 0u;
+        v47[9] = 0u;
+        v47[6] = 0u;
+        v47[7] = 0u;
+        v47[4] = 0u;
+        v47[5] = 0u;
+        v47[2] = 0u;
+        v47[3] = 0u;
+        *v47 = 0u;
+        v47[1] = 0u;
+        if (lseek(v46, v71, 1) < 1 || read(v46, v47, 0x100uLL) < 1)
         {
-          v57 = 0;
+          v53 = 0;
         }
 
         else
         {
           *&__s2[384] = -1431655766;
-          *&v52 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v52 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *&__s2[352] = v52;
-          *&__s2[368] = v52;
-          *&__s2[320] = v52;
-          *&__s2[336] = v52;
-          *&__s2[288] = v52;
-          *&__s2[304] = v52;
-          *&__s2[256] = v52;
-          *&__s2[272] = v52;
-          *&__s2[224] = v52;
-          *&__s2[240] = v52;
-          *&__s2[192] = v52;
-          *&__s2[208] = v52;
-          *&__s2[160] = v52;
-          *&__s2[176] = v52;
-          *&__s2[128] = v52;
-          *&__s2[144] = v52;
-          *&__s2[96] = v52;
-          *&__s2[112] = v52;
-          *&__s2[80] = v52;
-          *&__s2[48] = v52;
-          *&__s2[64] = v52;
-          *&__s2[16] = v52;
-          *&__s2[32] = v52;
-          *__s2 = v52;
-          if (ETLEFCopyCrashLocationDetailsM20(v51, 0x100u, __s2))
+          *&v48 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v48 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *&__s2[352] = v48;
+          *&__s2[368] = v48;
+          *&__s2[320] = v48;
+          *&__s2[336] = v48;
+          *&__s2[288] = v48;
+          *&__s2[304] = v48;
+          *&__s2[256] = v48;
+          *&__s2[272] = v48;
+          *&__s2[224] = v48;
+          *&__s2[240] = v48;
+          *&__s2[192] = v48;
+          *&__s2[208] = v48;
+          *&__s2[160] = v48;
+          *&__s2[176] = v48;
+          *&__s2[128] = v48;
+          *&__s2[144] = v48;
+          *&__s2[96] = v48;
+          *&__s2[112] = v48;
+          *&__s2[80] = v48;
+          *&__s2[48] = v48;
+          *&__s2[64] = v48;
+          *&__s2[16] = v48;
+          *&__s2[32] = v48;
+          *__s2 = v48;
+          if (ETLEFCopyCrashLocationDetailsM20(v47, 0x100u, __s2))
           {
-            v53 = v75;
-            v55 = *(v75 + 8);
-            v54 = *(v75 + 16);
-            if (v55 >= v54)
+            v49 = v70;
+            v51 = *(v70 + 8);
+            v50 = *(v70 + 16);
+            if (v51 >= v50)
             {
-              v58 = *v75;
-              v59 = v55 - *v75;
-              v60 = 0xA3A0FD5C5F02A3A1 * (v59 >> 2) + 1;
-              if (v60 > 0xA8E83F5717C0A8)
+              v54 = *v70;
+              v55 = v51 - *v70;
+              v56 = 0xA3A0FD5C5F02A3A1 * (v55 >> 2) + 1;
+              if (v56 > 0xA8E83F5717C0A8)
               {
                 std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
               }
 
-              v61 = 0xA3A0FD5C5F02A3A1 * ((v54 - v58) >> 2);
-              if (2 * v61 > v60)
+              v57 = 0xA3A0FD5C5F02A3A1 * ((v50 - v54) >> 2);
+              if (2 * v57 > v56)
               {
-                v60 = 2 * v61;
+                v56 = 2 * v57;
               }
 
-              if (v61 >= 0x54741FAB8BE054)
+              if (v57 >= 0x54741FAB8BE054)
               {
-                v62 = 0xA8E83F5717C0A8;
+                v58 = 0xA8E83F5717C0A8;
               }
 
               else
               {
-                v62 = v60;
+                v58 = v56;
               }
 
-              if (v62)
+              if (v58)
               {
-                if (v62 > 0xA8E83F5717C0A8)
+                if (v58 > 0xA8E83F5717C0A8)
                 {
                   std::__throw_bad_array_new_length[abi:ne200100]();
                 }
 
-                v63 = operator new(388 * v62);
+                v59 = operator new(388 * v58);
               }
 
               else
               {
-                v63 = 0;
+                v59 = 0;
               }
 
-              v64 = &v63[4 * (v59 >> 2)];
-              v74 = &v63[388 * v62];
-              memcpy(v64, __s2, 0x184uLL);
-              v56 = v64 + 388;
-              v65 = &v64[-v59];
-              memcpy(v65, v58, v59);
-              *v75 = v65;
-              *(v75 + 8) = v56;
-              v53 = v75;
-              *(v75 + 16) = v74;
-              if (v58)
+              v60 = &v59[4 * (v55 >> 2)];
+              v69 = &v59[388 * v58];
+              memcpy(v60, __s2, 0x184uLL);
+              v52 = v60 + 388;
+              v61 = &v60[-v55];
+              memcpy(v61, v54, v55);
+              *v70 = v61;
+              *(v70 + 8) = v52;
+              v49 = v70;
+              *(v70 + 16) = v69;
+              if (v54)
               {
-                operator delete(v58);
+                operator delete(v54);
               }
             }
 
             else
             {
-              memcpy(*(v75 + 8), __s2, 0x184uLL);
-              v56 = (v55 + 388);
+              memcpy(*(v70 + 8), __s2, 0x184uLL);
+              v52 = (v51 + 388);
             }
 
-            *(v53 + 8) = v56;
+            *(v49 + 8) = v52;
           }
 
-          v57 = 1;
+          v53 = 1;
         }
 
-        operator delete[](v51);
-        close(v50);
+        operator delete[](v47);
+        close(v46);
       }
 
       if (SHIBYTE(__p[2]) < 0)
@@ -2726,110 +2703,107 @@ LABEL_74:
         operator delete(__p[0]);
       }
 
-      LOBYTE(v11) = v57 | v11;
-      v36 += 3;
-      if (v36 == v78)
+      LOBYTE(v8) = v53 | v8;
+      v33 += 3;
+      if (v33 == v73)
       {
-        v36 = v77;
-        goto LABEL_115;
+        v33 = v72;
+        goto LABEL_110;
       }
     }
 
-    if ((v39 | 7) == 0x17)
+    if ((v36 | 7) == 0x17)
     {
-      v40 = 25;
+      v37 = 25;
     }
 
     else
     {
-      v40 = (v39 | 7) + 1;
+      v37 = (v36 | 7) + 1;
     }
 
-    v41 = operator new(v40);
-    *&__s2[8] = v38 + 1;
-    *&__s2[16] = v40 | 0x8000000000000000;
-    *__s2 = v41;
-LABEL_70:
-    v42 = *a1;
-    if (v37 >= 0)
+    v38 = operator new(v37);
+    *&__s2[8] = v35 + 1;
+    *&__s2[16] = v37 | 0x8000000000000000;
+    *__s2 = v38;
+LABEL_65:
+    if (v34 >= 0)
     {
-      v43 = a1;
+      v39 = a1;
     }
 
     else
     {
-      v43 = *a1;
+      v39 = *a1;
     }
 
-    memmove(v41, v43, v38);
-    goto LABEL_74;
+    memmove(v38, v39, v35);
+    goto LABEL_69;
   }
 
-  LOBYTE(v11) = 0;
-  if (v77)
+  LOBYTE(v8) = 0;
+  if (v72)
   {
-LABEL_116:
-    p_data = &v78->__r_.__value_.__l.__data_;
-    v68 = v36;
-    if (v78 != v36)
+LABEL_111:
+    p_data = &v73->__r_.__value_.__l.__data_;
+    v64 = v33;
+    if (v73 != v33)
     {
       do
       {
-        v69 = *(p_data - 1);
+        v65 = *(p_data - 1);
         p_data -= 3;
-        if (v69 < 0)
+        if (v65 < 0)
         {
           operator delete(*p_data);
         }
       }
 
-      while (p_data != v36);
-      v68 = v77;
+      while (p_data != v33);
+      v64 = v72;
     }
 
-    v78 = v36;
-    operator delete(v68);
+    v73 = v33;
+    operator delete(v64);
   }
 
-LABEL_123:
-  v70 = *MEMORY[0x29EDCA608];
-  return v11 & 1;
+  return v8 & 1;
 }
 
-void sub_2977D3B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2977D3B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void **);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, void **);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   std::vector<std::string>::~vector[abi:ne200100](va1);
   std::vector<std::string>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2977D3B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_2977D3B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   std::vector<std::string>::~vector[abi:ne200100](&__p);
   std::vector<std::string>::~vector[abi:ne200100](&a14);
   _Unwind_Resume(a1);
 }
 
-void sub_2977D3BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2977D3BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::vector<std::string>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2977D3BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2977D3BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::vector<std::string>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2977D3BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_2977D3BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
   if (a26 < 0)
   {
@@ -2841,7 +2815,7 @@ void sub_2977D3BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   JUMPOUT(0x2977D3C24);
 }
 
-void sub_2977D3C10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_2977D3C10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a22 < 0)
   {
@@ -2955,7 +2929,7 @@ void *std::string::__assign_no_alias<true>(void *__dst, const void *a2, size_t _
   return __dst;
 }
 
-void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t __len)
+void ***std::string::__assign_no_alias<false>(void ***a1, const void *a2, void **__len)
 {
   v5 = a1[2];
   v6 = v5 & 0x7FFFFFFFFFFFFFFFLL;
@@ -3033,7 +3007,7 @@ void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t _
     }
   }
 
-  *(v7 + __len) = 0;
+  *(__len + v7) = 0;
   return a1;
 }
 
@@ -3051,7 +3025,7 @@ void std::basic_regex<char,std::regex_traits<char>>::~basic_regex(std::locale *a
   std::locale::~locale(a1);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+char *std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(uint64_t a1, char *a2, char *a3)
 {
   v6 = operator new(8uLL);
   *v6 = &unk_2A1E53B28;
@@ -3103,7 +3077,7 @@ LABEL_20:
           *(a1 + 56) = v17;
           if (v16 != a3)
           {
-            ++v16;
+            v16 = (v16 + 1);
           }
 
           if (v16 == a3)
@@ -3117,7 +3091,7 @@ LABEL_20:
           std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<std::__wrap_iter<char const*>>(a1, a2, v16);
           if (v16 != a3)
           {
-            ++v16;
+            v16 = (v16 + 1);
           }
 
           if (v16 == a3)
@@ -3181,7 +3155,7 @@ LABEL_20:
 
           else
           {
-            v16 = v30 + 1;
+            v16 = (&v30->__traits_.__loc_.__locale_ + 1);
           }
         }
 
@@ -3286,7 +3260,7 @@ LABEL_20:
 
           else
           {
-            v13 = v44 + 1;
+            v13 = (v44 + 1);
           }
         }
 
@@ -3347,7 +3321,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)17
   __cxa_throw(exception, MEMORY[0x29EDC9420], MEMORY[0x29EDC9378]);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+char *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, char *a3)
 {
   v6 = *(a1 + 56);
   v7 = a2;
@@ -3389,7 +3363,7 @@ LABEL_11:
     {
       v22 = *(a1 + 56);
       v23 = v8 + 1;
-      v24 = v8 + 1;
+      v24 = (v8 + 1);
       while (1)
       {
         v8 = v24;
@@ -3450,12 +3424,12 @@ LABEL_8:
   return a3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
 {
   result = a2;
   if (a2 != a3)
   {
-    if (*a2 == 94)
+    if (LOBYTE(a2->__traits_.__loc_.__locale_) == 94)
     {
       v7 = operator new(0x18uLL);
       v8 = (*(a1 + 24) & 0x5F0) == 1024;
@@ -3466,7 +3440,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
       *(v7 + 16) = v8;
       *(v9 + 8) = v7;
       *(a1 + 56) = v7;
-      result = a2 + 1;
+      result = (&a2->__traits_.__loc_.__locale_ + 1);
     }
 
     if (result != a3)
@@ -3492,7 +3466,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
       }
 
       while (v11 != result);
-      if (v11 + 1 == a3 && *v11 == 36)
+      if ((&v11->__traits_.__loc_.__locale_ + 1) == a3 && LOBYTE(v11->__traits_.__loc_.__locale_) == 36)
       {
         v15 = operator new(0x18uLL);
         v16 = (*(a1 + 24) & 0x5F0) == 1024;
@@ -3503,7 +3477,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
         *(v15 + 16) = v16;
         *(v17 + 8) = v15;
         *(a1 + 56) = v15;
-        ++v11;
+        v11 = (v11 + 1);
       }
 
 LABEL_13:
@@ -3692,7 +3666,7 @@ void std::__owns_one_state<char>::~__owns_one_state(std::__owns_one_state<char> 
   operator delete(this);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_assertion<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+char *std::basic_regex<char,std::regex_traits<char>>::__parse_assertion<std::__wrap_iter<char const*>>(uint64_t a1, char *a2, char *a3)
 {
   if (a2 == a3)
   {
@@ -3792,7 +3766,7 @@ LABEL_17:
     v26 = a1;
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&v31);
     v28 = v26;
-    v31.__flags_ = v26->__flags_;
+    v31.__flags_ = *(v26 + 24);
     v29 = v4 + 2;
     v30 = a3;
     v12 = std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(&v31, v29, a3);
@@ -3821,7 +3795,7 @@ LABEL_17:
   v7 = a1;
   std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&v31);
   v9 = v7;
-  v31.__flags_ = v7->__flags_;
+  v31.__flags_ = *(v7 + 24);
   v10 = v4 + 2;
   v11 = a3;
   v12 = std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(&v31, v10, a3);
@@ -3860,29 +3834,29 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_atom<st
 
       if (v4 == 92)
       {
-        v22 = a2 + 1;
+        v23 = a2 + 1;
         if (a3 == a2 + 1)
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
         }
 
-        v23 = *v22;
-        v24 = v23 - 48;
-        if (v23 == 48)
+        v24 = *v23;
+        v25 = v24 - 48;
+        if (v24 == 48)
         {
-          v25 = 0;
+          v26 = 0;
 LABEL_46:
-          std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v25);
-          return v22 + 1;
+          std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v26);
+          return v23 + 1;
         }
 
-        if ((v23 - 49) <= 8)
+        if ((v24 - 49) <= 8)
         {
           v3 = a2 + 2;
           if (a2 + 2 == a3)
           {
-            v34 = a2;
-            v35 = a3;
+            v35 = a2;
+            v36 = a3;
             v3 = a3;
           }
 
@@ -3890,19 +3864,19 @@ LABEL_46:
           {
             while (1)
             {
-              v33 = *v3;
-              if ((v33 - 48) > 9)
+              v34 = *v3;
+              if ((v34 - 48) > 9)
               {
                 break;
               }
 
-              if (v24 >= 0x19999999)
+              if (v25 >= 0x19999999)
               {
                 goto LABEL_75;
               }
 
               ++v3;
-              v24 = v33 + 10 * v24 - 48;
+              v25 = v34 + 10 * v25 - 48;
               if (v3 == a3)
               {
                 v3 = a3;
@@ -3910,141 +3884,141 @@ LABEL_46:
               }
             }
 
-            v34 = a2;
-            v35 = a3;
-            if (!v24)
+            v35 = a2;
+            v36 = a3;
+            if (!v25)
             {
 LABEL_75:
               std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)4>();
             }
           }
 
-          if (v24 > *(a1 + 28))
+          if (v25 > *(a1 + 28))
           {
             goto LABEL_75;
           }
 
-          v36 = a1;
-          std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v24);
-          if (v3 != v22)
+          v37 = a1;
+          std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v25);
+          if (v3 != v23)
           {
             return v3;
           }
 
-          a1 = v36;
-          a3 = v35;
-          a2 = v34;
-          v23 = *v22;
+          a1 = v37;
+          a3 = v36;
+          a2 = v35;
+          v24 = *v23;
         }
 
-        v37 = a1;
-        if (v23 > 99)
+        v38 = a1;
+        if (v24 > 99)
         {
-          if (v23 == 119)
+          if (v24 == 119)
           {
-            v42 = a2;
-            v43 = a3;
-            v46 = operator new(0xB0uLL);
-            std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v46, v37, *(*(v37 + 56) + 8), 0, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
-            *(*(v37 + 56) + 8) = v46;
-            *(v37 + 56) = v46;
-            v46[40] |= 0x500u;
-            std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v46, 95);
-            a1 = v37;
+            v43 = a2;
+            v44 = a3;
+            v47 = operator new(0xB0uLL);
+            std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v47, v38, *(*(v38 + 56) + 8), 0, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
+            *(*(v38 + 56) + 8) = v47;
+            *(v38 + 56) = v47;
+            v47[40] |= 0x500u;
+            std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v47, 95);
+            a1 = v38;
 LABEL_68:
-            v3 = v22 + 1;
-            a3 = v43;
-            a2 = v42;
+            v3 = v23 + 1;
+            a3 = v44;
+            a2 = v43;
             goto LABEL_69;
           }
 
-          if (v23 != 115)
+          if (v24 != 115)
           {
-            v3 = v22;
-            if (v23 == 100)
+            v3 = v23;
+            if (v24 == 100)
             {
-              v38 = a2;
-              v39 = a3;
-              v41 = operator new(0xB0uLL);
-              std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v41, v37, *(*(v37 + 56) + 8), 0, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
-              a1 = v37;
-              *(*(v37 + 56) + 8) = v41;
-              *(v37 + 56) = v41;
-              v41[40] |= 0x400u;
+              v39 = a2;
+              v40 = a3;
+              v42 = operator new(0xB0uLL);
+              std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v42, v38, *(*(v38 + 56) + 8), 0, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
+              a1 = v38;
+              *(*(v38 + 56) + 8) = v42;
+              *(v38 + 56) = v42;
+              v42[40] |= 0x400u;
               goto LABEL_61;
             }
 
 LABEL_69:
-            if (v22 == v3)
+            if (v23 == v3)
             {
               v3 = a2;
-              v47 = std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, v22, a3, 0);
-              if (v47 != v22)
+              v48 = std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, v23, a3, 0);
+              if (v48 != v23)
               {
-                return v47;
+                return v48;
               }
             }
 
             return v3;
           }
 
-          v42 = a2;
-          v43 = a3;
-          v44 = operator new(0xB0uLL);
-          std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v44, v37, *(*(v37 + 56) + 8), 0, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
+          v43 = a2;
+          v44 = a3;
+          v45 = operator new(0xB0uLL);
+          std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v45, v38, *(*(v38 + 56) + 8), 0, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
         }
 
         else
         {
-          if (v23 == 68)
+          if (v24 == 68)
           {
-            v42 = a2;
-            v43 = a3;
-            v44 = operator new(0xB0uLL);
-            std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v44, v37, *(*(v37 + 56) + 8), 1, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
-            a1 = v37;
-            *(*(v37 + 56) + 8) = v44;
-            *(v37 + 56) = v44;
-            v45 = v44[40] | 0x400;
+            v43 = a2;
+            v44 = a3;
+            v45 = operator new(0xB0uLL);
+            std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v45, v38, *(*(v38 + 56) + 8), 1, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
+            a1 = v38;
+            *(*(v38 + 56) + 8) = v45;
+            *(v38 + 56) = v45;
+            v46 = v45[40] | 0x400;
 LABEL_67:
-            v44[40] = v45;
+            v45[40] = v46;
             goto LABEL_68;
           }
 
-          if (v23 != 83)
+          if (v24 != 83)
           {
-            v3 = v22;
-            if (v23 == 87)
+            v3 = v23;
+            if (v24 == 87)
             {
-              v38 = a2;
-              v39 = a3;
-              v40 = operator new(0xB0uLL);
-              std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v40, v37, *(*(v37 + 56) + 8), 1, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
-              *(*(v37 + 56) + 8) = v40;
-              *(v37 + 56) = v40;
-              v40[40] |= 0x500u;
-              std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v40, 95);
-              a1 = v37;
+              v39 = a2;
+              v40 = a3;
+              v41 = operator new(0xB0uLL);
+              std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v41, v38, *(*(v38 + 56) + 8), 1, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
+              *(*(v38 + 56) + 8) = v41;
+              *(v38 + 56) = v41;
+              v41[40] |= 0x500u;
+              std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v41, 95);
+              a1 = v38;
 LABEL_61:
-              v3 = v22 + 1;
-              a3 = v39;
-              a2 = v38;
+              v3 = v23 + 1;
+              a3 = v40;
+              a2 = v39;
               goto LABEL_69;
             }
 
             goto LABEL_69;
           }
 
-          v42 = a2;
-          v43 = a3;
-          v44 = operator new(0xB0uLL);
-          std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v44, v37, *(*(v37 + 56) + 8), 1, *(v37 + 24) & 1, (*(v37 + 24) & 8) != 0);
+          v43 = a2;
+          v44 = a3;
+          v45 = operator new(0xB0uLL);
+          std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v45, v38, *(*(v38 + 56) + 8), 1, *(v38 + 24) & 1, (*(v38 + 24) & 8) != 0);
         }
 
-        a1 = v37;
-        *(*(v37 + 56) + 8) = v44;
-        *(v37 + 56) = v44;
-        v45 = v44[40] | 0x4000;
+        a1 = v38;
+        *(*(v38 + 56) + 8) = v45;
+        *(v38 + 56) = v45;
+        v46 = v45[40] | 0x4000;
         goto LABEL_67;
       }
 
@@ -4074,18 +4048,19 @@ LABEL_61:
     {
       if (v4 == 40)
       {
+        v12 = a2 + 1;
         if (a2 + 1 != a3)
         {
-          if (a2 + 2 != a3 && a2[1] == 63 && a2[2] == 58)
+          if (a2 + 2 != a3 && *v12 == 63 && a2[2] == 58)
           {
             ++*(a1 + 36);
-            v12 = a1;
-            v13 = a3;
-            v14 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>();
-            if (v14 != v13 && *v14 == 41)
+            v13 = a1;
+            v14 = a3;
+            v15 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(a1, a2 + 3, a3);
+            if (v15 != v14 && *v15 == 41)
             {
-              --*(v12 + 36);
-              return v14 + 1;
+              --*(v13 + 36);
+              return v15 + 1;
             }
           }
 
@@ -4093,53 +4068,53 @@ LABEL_61:
           {
             if ((*(a1 + 24) & 2) != 0)
             {
-              v19 = *(a1 + 28);
+              v20 = *(a1 + 28);
             }
 
             else
             {
-              v15 = a1;
-              v16 = a3;
-              v17 = operator new(0x18uLL);
-              a3 = v16;
-              v18 = v17;
-              a1 = v15;
-              v19 = *(v15 + 28) + 1;
-              *(v15 + 28) = v19;
-              v20 = *(v15 + 56);
-              v21 = *(v20 + 8);
-              *v18 = &unk_2A1E53FD8;
-              v18[1] = v21;
-              *(v18 + 4) = v19;
-              *(v20 + 8) = v18;
-              *(v15 + 56) = v18;
+              v16 = a1;
+              v17 = a3;
+              v18 = operator new(0x18uLL);
+              a3 = v17;
+              v19 = v18;
+              a1 = v16;
+              v20 = *(v16 + 28) + 1;
+              *(v16 + 28) = v20;
+              v21 = *(v16 + 56);
+              v22 = *(v21 + 8);
+              *v19 = &unk_2A1E53FD8;
+              v19[1] = v22;
+              *(v19 + 4) = v20;
+              *(v21 + 8) = v19;
+              *(v16 + 56) = v19;
             }
 
             ++*(a1 + 36);
-            v26 = a1;
-            v27 = a3;
-            v28 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>();
-            if (v28 != v27)
+            v27 = a1;
+            v28 = a3;
+            v29 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(a1, v12, a3);
+            if (v29 != v28)
             {
-              v22 = v28;
-              if (*v28 == 41)
+              v23 = v29;
+              if (*v29 == 41)
               {
-                v29 = v26;
-                if ((*(v26 + 24) & 2) == 0)
+                v30 = v27;
+                if ((*(v27 + 24) & 2) == 0)
                 {
-                  v30 = operator new(0x18uLL);
-                  v29 = v26;
-                  v31 = *(v26 + 56);
-                  v32 = *(v31 + 8);
-                  *v30 = &unk_2A1E54020;
-                  v30[1] = v32;
-                  *(v30 + 4) = v19;
-                  *(v31 + 8) = v30;
-                  *(v26 + 56) = v30;
+                  v31 = operator new(0x18uLL);
+                  v30 = v27;
+                  v32 = *(v27 + 56);
+                  v33 = *(v32 + 8);
+                  *v31 = &unk_2A1E54020;
+                  v31[1] = v33;
+                  *(v31 + 4) = v20;
+                  *(v32 + 8) = v31;
+                  *(v27 + 56) = v31;
                 }
 
-                --*(v29 + 36);
-                return v22 + 1;
+                --*(v30 + 36);
+                return v23 + 1;
               }
             }
           }
@@ -4175,8 +4150,8 @@ LABEL_73:
     }
 
 LABEL_45:
-    v22 = a2;
-    v25 = v4;
+    v23 = a2;
+    v26 = v4;
     goto LABEL_46;
   }
 
@@ -4791,41 +4766,40 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
 {
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
-  v22 = 0xAAAAAAAAAAAAAA00;
-  v24 = v4;
-  v21 = 0;
-  v23 = 0uLL;
-  LOBYTE(v24) = 0;
-  BYTE8(v24) = 0;
-  v25 = 0;
+  v19 = 0xAAAAAAAAAAAAAAAALL;
+  v21 = 0xAAAAAAAAAAAAAA00;
+  v23 = v4;
+  v20 = 0;
+  v22 = 0uLL;
+  LOBYTE(v23) = 0;
+  BYTE8(v23) = 0;
+  v24 = 0;
   memset(&__p, 0, sizeof(__p));
   v5 = (*(a1 + 44) + 1);
   v6 = *(a2 + 16);
-  *&v19 = *(a2 + 24);
-  *(&v19 + 1) = v19;
-  LOBYTE(v20) = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v5, &v19);
-  *(&v20 + 1) = v6;
-  v21 = v6;
-  LOBYTE(v22) = 0;
-  v23 = v19;
-  LOBYTE(v24) = v20;
-  v25 = v6;
-  BYTE8(v24) = 1;
-  v7 = *(a2 + 88) & 0xFFF;
-  v8 = *(a2 + 16);
-  if (v8 == *(a2 + 8))
+  *&v18 = *(a2 + 24);
+  *(&v18 + 1) = v18;
+  LOBYTE(v19) = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v5, &v18);
+  *(&v19 + 1) = v6;
+  v20 = v6;
+  LOBYTE(v21) = 0;
+  v22 = v18;
+  LOBYTE(v23) = v19;
+  v24 = v6;
+  BYTE8(v23) = 1;
+  v7 = *(a2 + 16);
+  if (v7 == *(a2 + 8))
   {
-    v9 = *(a2 + 92);
+    v8 = *(a2 + 92);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v8, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v9))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -4836,8 +4810,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v11 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v11 < 2)
+  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v10 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -4848,22 +4822,22 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v12 = *(a1 + 80);
-  v13 = *(a2 + 32);
-  v14 = 2;
-  v15 = 1;
+  v11 = *(a1 + 80);
+  v12 = *(a2 + 32);
+  v13 = 2;
+  v14 = 1;
   do
   {
-    v16 = &begin[v15];
-    v17 = v13 + 24 * v12;
-    *v17 = v16->std::pair<const char *, const char *>;
-    *(v17 + 16) = v16->matched;
-    v15 = v14;
-    ++v12;
-    ++v14;
+    v15 = &begin[v14];
+    v16 = v12 + 24 * v11;
+    *v16 = v15->std::pair<const char *, const char *>;
+    *(v16 + 16) = v15->matched;
+    v14 = v13;
+    ++v11;
+    ++v13;
   }
 
-  while (v11 > v15);
+  while (v10 > v14);
 LABEL_11:
 
   operator delete(begin);
@@ -5308,7 +5282,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)16
   __cxa_throw(exception, MEMORY[0x29EDC9420], MEMORY[0x29EDC9378]);
 }
 
-void **std::vector<std::__state<char>>::~vector[abi:ne200100](void **a1)
+char **std::vector<std::__state<char>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -5738,7 +5712,7 @@ void sub_2977D7550(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_expression<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_expression<std::__wrap_iter<char const*>>(uint64_t classname, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   if (a2 != a3 && *a2 == 91)
   {
@@ -5749,17 +5723,17 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket
 
     v5 = a2[1];
     v6 = v5 == 94;
-    v7 = (v5 == 94 ? a2 + 2 : a2 + 1);
+    v7 = v5 == 94 ? a2 + 2 : a2 + 1;
     v8 = operator new(0xB0uLL);
-    std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v8, a1, *(*(a1 + 56) + 8), v6, *(a1 + 24) & 1, (*(a1 + 24) & 8) != 0);
-    *(*(a1 + 56) + 8) = v8;
-    *(a1 + 56) = v8;
+    std::__bracket_expression<char,std::regex_traits<char>>::__bracket_expression[abi:ne200100](v8, classname, *(*(classname + 56) + 8), v6, *(classname + 24) & 1, (*(classname + 24) & 8) != 0);
+    *(*(classname + 56) + 8) = v8;
+    *(classname + 56) = v8;
     if (v7 == a3)
     {
       goto LABEL_260;
     }
 
-    if ((*(a1 + 24) & 0x1F0) != 0 && *v7 == 93)
+    if ((*(classname + 24) & 0x1F0) != 0 && *v7 == 93)
     {
       std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v8, 93);
       ++v7;
@@ -5804,12 +5778,12 @@ LABEL_260:
         goto LABEL_22;
       }
 
-      v14 = (v7 + 1);
+      v14 = v7 + 1;
       __p[0] = 0;
       __p[1] = 0;
       v97 = 0;
       v12 = v7;
-      if ((v7 + 1) == a3 || v13 != 91)
+      if (v7 + 1 == a3 || v13 != 91)
       {
         goto LABEL_67;
       }
@@ -5819,8 +5793,8 @@ LABEL_260:
       {
         if (v15 == 58)
         {
-          v23 = (v7 + 2);
-          if (&a3[-v7 - 2] < 2)
+          v23 = v7 + 2;
+          if (a3 - (v7 + 2) < 2)
           {
             goto LABEL_258;
           }
@@ -5855,7 +5829,7 @@ LABEL_44:
             goto LABEL_258;
           }
 
-          v26 = *(a1 + 24);
+          v26 = *(classname + 24);
           v27 = v24 - 1;
           memset(__dst, 170, sizeof(__dst));
           if (v24 - 1 > 0x7FFFFFFFFFFFFFF7)
@@ -5866,7 +5840,7 @@ LABEL_44:
           v89 = v8;
           if (v24 >= 0x18)
           {
-            v37 = a1;
+            v37 = classname;
             if ((v27 | 7) == 0x17)
             {
               v38 = 25;
@@ -5881,7 +5855,7 @@ LABEL_44:
             *&__dst[8] = v24 - 1;
             *&__dst[16] = v38 | 0x8000000000000000;
             *__dst = v28;
-            a1 = v37;
+            classname = v37;
             v23 = v14 + 1;
           }
 
@@ -5909,7 +5883,7 @@ LABEL_85:
                 v39 = *&__dst[8];
               }
 
-              (*(**(a1 + 8) + 48))(*(a1 + 8), v40, &v40[v39]);
+              (*(**(classname + 8) + 48))(*(classname + 8), v40, &v40[v39]);
               if (__dst[23] >= 0)
               {
                 v41 = __dst;
@@ -5920,22 +5894,22 @@ LABEL_85:
                 v41 = *__dst;
               }
 
-              classname = std::__get_classname(v41, v26 & 1);
+              v42 = std::__get_classname(v41, v26 & 1);
               v8 = v89;
               if ((__dst[23] & 0x80000000) != 0)
               {
-                v43 = classname;
+                v43 = v42;
                 operator delete(*__dst);
-                classname = v43;
+                v42 = v43;
               }
 
-              if (!classname)
+              if (!v42)
               {
                 std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)2>();
               }
 
               v44 = 0;
-              v89[40] |= classname;
+              v89[40] |= v42;
               v7 = &v14[v24 + 2];
               v12 = v9;
               if (SHIBYTE(v97) < 0)
@@ -5960,15 +5934,15 @@ LABEL_97:
 
         if (v15 == 61)
         {
-          v16 = (v7 + 2);
-          if (&a3[-v7 - 2] < 2)
+          v16 = v7 + 2;
+          if (a3 - (v7 + 2) < 2)
           {
             goto LABEL_258;
           }
 
-          v17 = (v7 + 3);
-          v18 = (v7 + 2);
-          if (*(v7 + 2) == 61)
+          v17 = v7 + 3;
+          v18 = v7 + 2;
+          if (v7[2] == 61)
           {
             goto LABEL_35;
           }
@@ -6000,8 +5974,8 @@ LABEL_35:
 
           v19 = v8;
           memset(v99, 170, sizeof(v99));
-          v20 = a1;
-          std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(v99, a1, v16, v18);
+          v20 = classname;
+          std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(v99, classname, v16, v18);
           v21 = SHIBYTE(v99[2]);
           if ((SHIBYTE(v99[2]) & 0x8000000000000000) != 0)
           {
@@ -6060,7 +6034,7 @@ LABEL_261:
           memmove(v45, v22, v21);
           v45[v21] = 0;
           memset(__s, 170, sizeof(__s));
-          a1 = v20;
+          classname = v20;
           (*(**(v20 + 16) + 32))(__s);
           v47 = HIBYTE(__s[2]);
           if (SHIBYTE(__s[2]) < 0)
@@ -6167,7 +6141,7 @@ LABEL_118:
               {
                 operator delete(v99[0]);
                 v44 = 0;
-                v7 = (v18 + 2);
+                v7 = v18 + 2;
                 v12 = v9;
                 if (SHIBYTE(v97) < 0)
                 {
@@ -6178,7 +6152,7 @@ LABEL_118:
               else
               {
                 v44 = 0;
-                v7 = (v18 + 2);
+                v7 = v18 + 2;
                 v12 = v9;
                 if (SHIBYTE(v97) < 0)
                 {
@@ -6215,19 +6189,19 @@ LABEL_118:
 
         v12 = v7;
 LABEL_67:
-        v7 = *(a1 + 24) & 0x1F0;
+        v7 = (*(classname + 24) & 0x1F0);
         v33 = 0;
         goto LABEL_70;
       }
 
-      if (&a3[-v7 - 2] < 2)
+      if (a3 - (v7 + 2) < 2)
       {
         goto LABEL_259;
       }
 
-      v29 = (v7 + 3);
-      v30 = (v7 + 2);
-      if (*(v7 + 2) != 46)
+      v29 = v7 + 3;
+      v30 = v7 + 2;
+      if (v7[2] != 46)
       {
         break;
       }
@@ -6244,7 +6218,7 @@ LABEL_259:
         std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
       }
 
-      std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(__dst, a1, (v7 + 2), v30);
+      std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(__dst, classname, v7 + 2, v30);
       if (SHIBYTE(v97) < 0)
       {
         operator delete(__p[0]);
@@ -6269,7 +6243,7 @@ LABEL_259:
       }
 
       v12 = v30 + 2;
-      v7 = *(a1 + 24) & 0x1F0;
+      v7 = (*(classname + 24) & 0x1F0);
       v33 = __dst[23];
       if (__dst[23] >= 0)
       {
@@ -6294,12 +6268,12 @@ LABEL_70:
         {
           if (v7)
           {
-            v35 = std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<std::__wrap_iter<char const*>>(a1, v12 + 1, a3, __p);
+            v35 = std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<std::__wrap_iter<char const*>>(classname, v12 + 1, a3, __p);
           }
 
           else
           {
-            v35 = std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(a1, v12 + 1, a3, __p, v8);
+            v35 = std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(classname, v12 + 1, a3, __p, v8);
           }
 
           v12 = v35;
@@ -6355,7 +6329,7 @@ LABEL_134:
             v12 += 2;
             if (v57 + 1 != a3 && v58 == 91 && *v12 == 46)
             {
-              v59 = std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(a1, v57 + 2, a3, v94);
+              v59 = std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(classname, v57 + 2, a3, v94);
               v7 = v90;
               goto LABEL_177;
             }
@@ -6364,12 +6338,12 @@ LABEL_134:
             {
               if (v7)
               {
-                v59 = std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<std::__wrap_iter<char const*>>(a1, v12, a3, v94);
+                v59 = std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<std::__wrap_iter<char const*>>(classname, v12, a3, v94);
               }
 
               else
               {
-                v59 = std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(a1, v12, a3, v94, v8);
+                v59 = std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(classname, v12, a3, v94, v8);
               }
 
               v7 = v90;
@@ -6421,7 +6395,7 @@ LABEL_177:
                       v65 = v92;
                     }
 
-                    v66 = (*(**(v8 + 24) + 40))(*(v8 + 24), *(v65 + v63));
+                    v66 = (*(*v8[3] + 40))(v8[3], *(v65 + v63));
                     if (v93 >= 0)
                     {
                       v67 = v92;
@@ -6466,7 +6440,7 @@ LABEL_177:
                       v72 = v90;
                     }
 
-                    v73 = (*(**(v8 + 24) + 40))(*(v8 + 24), *(v72 + v70));
+                    v73 = (*(*v8[3] + 40))(v8[3], *(v72 + v70));
                     if (SHIBYTE(v91) >= 0)
                     {
                       v74 = v90;
@@ -6506,7 +6480,7 @@ LABEL_177:
                 v76 = v92[1];
               }
 
-              std::regex_traits<char>::transform<std::__wrap_iter<char *>>(v99, v8 + 16, v77, &v76[v77]);
+              std::regex_traits<char>::transform<std::__wrap_iter<char *>>(v99, (v8 + 2), v77, &v76[v77]);
               v78 = HIBYTE(v91);
               if (SHIBYTE(v91) >= 0)
               {
@@ -6523,14 +6497,14 @@ LABEL_177:
                 v78 = v90[1];
               }
 
-              std::regex_traits<char>::transform<std::__wrap_iter<char *>>(__s, v8 + 16, v79, &v78[v79]);
+              std::regex_traits<char>::transform<std::__wrap_iter<char *>>(__s, (v8 + 2), v79, &v78[v79]);
               *__dst = *v99;
               *&__dst[16] = v99[2];
               v101 = *__s;
               v102 = __s[2];
               memset(__s, 0, sizeof(__s));
               memset(v99, 0, sizeof(v99));
-              std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100]((v8 + 88), __dst);
+              std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](v8 + 11, __dst);
               if ((SHIBYTE(v102) & 0x80000000) == 0)
               {
                 if ((__dst[23] & 0x80000000) == 0)
@@ -6666,7 +6640,7 @@ LABEL_265:
                   v82 = v92[0];
                 }
 
-                v83 = (*(**(v8 + 24) + 40))(*(v8 + 24), *v82);
+                v83 = (*(*v8[3] + 40))(v8[3], *v82);
                 if (v93 >= 0)
                 {
                   v84 = v92;
@@ -6688,7 +6662,7 @@ LABEL_265:
                   v85 = v90[0];
                 }
 
-                v86 = (*(**(v8 + 24) + 40))(*(v8 + 24), *v85);
+                v86 = (*(*v8[3] + 40))(v8[3], *v85);
                 if (SHIBYTE(v91) >= 0)
                 {
                   v87 = v90;
@@ -6712,7 +6686,7 @@ LABEL_265:
               v90[0] = 0;
               v90[1] = 0;
               v91 = 0;
-              std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100]((v8 + 88), __dst);
+              std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](v8 + 11, __dst);
               if (SHIBYTE(v102) < 0)
               {
                 operator delete(v101);
@@ -7190,6 +7164,49 @@ LABEL_98:
   return a2 + 1;
 }
 
+void std::basic_regex<char,std::regex_traits<char>>::__push_char(std::basic_regex<char> *this, std::basic_regex<char>::value_type __c)
+{
+  v2 = __c;
+  flags = this->__flags_;
+  if (flags)
+  {
+    v8 = operator new(0x30uLL);
+    first = this->__end_->__first_;
+    *v8 = &unk_2A1E53DE0;
+    *(v8 + 1) = first;
+    std::locale::locale(v8 + 2, &this->__traits_.__loc_);
+    *(v8 + 24) = *&this->__traits_.__ct_;
+    v8[40] = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v2);
+  }
+
+  else
+  {
+    if ((flags & 8) == 0)
+    {
+      v5 = operator new(0x18uLL);
+      end = this->__end_;
+      v7 = end->__first_;
+      v5->__vftable = &unk_2A1E53E70;
+      v5->__first_ = v7;
+      LOBYTE(v5[1].__vftable) = v2;
+      end->__first_ = v5;
+      this->__end_ = v5;
+      return;
+    }
+
+    v8 = operator new(0x30uLL);
+    v10 = this->__end_->__first_;
+    *v8 = &unk_2A1E53E28;
+    *(v8 + 1) = v10;
+    std::locale::locale(v8 + 2, &this->__traits_.__loc_);
+    *(v8 + 24) = *&this->__traits_.__ct_;
+    v8[40] = v2;
+  }
+
+  this->__end_->__first_ = v8;
+  this->__end_ = v8;
+}
+
 void sub_2977D8CA4(_Unwind_Exception *a1)
 {
   std::locale::~locale(v1 + 2);
@@ -7424,20 +7441,19 @@ LABEL_3:
   }
 
   v6 = result;
-  v7 = *(v3 + 8) != *v3;
   if (v4 >= 1)
   {
-    v8 = 0;
+    v7 = 0;
     while (1)
     {
-      v9 = (*(**(v6 + 24) + 40))(*(v6 + 24), *(*v3 + v8));
-      result = (*(**(v6 + 24) + 40))(*(v6 + 24), *(*(a2 + 16) + v8));
-      if (v9 != result)
+      v8 = (*(**(v6 + 24) + 40))(*(v6 + 24), *(*v3 + v7));
+      result = (*(**(v6 + 24) + 40))(*(v6 + 24), *(*(a2 + 16) + v7));
+      if (v8 != result)
       {
         goto LABEL_3;
       }
 
-      if (v4 == ++v8)
+      if (v4 == ++v7)
       {
         v5 = *(a2 + 16);
         break;
@@ -7549,25 +7565,7 @@ uint64_t std::__back_ref<char>::__exec(uint64_t result, uint64_t a2)
   }
 
   v4 = v3 + 24 * (v2 - 1);
-  if (*(v4 + 16) != 1)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = v4;
-  v5 = *v4;
-  v7 = *(v6 + 8) - v5;
-  v8 = *(a2 + 16);
-  if (*(a2 + 24) - v8 < v7)
-  {
-    goto LABEL_5;
-  }
-
-  v9 = result;
-  v10 = a2;
-  result = memcmp(v5, *(a2 + 16), v7);
-  a2 = v10;
-  if (!result)
+  if (*(v4 + 16) == 1 && (v6 = v4, v5 = *v4, v7 = *(v6 + 8) - v5, v8 = *(a2 + 16), *(a2 + 24) - v8 >= v7) && (v9 = result, v10 = a2, result = memcmp(v5, *(a2 + 16), v7), a2 = v10, !result))
   {
     *v10 = -994;
     *(v10 + 16) = v8 + v7;
@@ -7576,7 +7574,6 @@ uint64_t std::__back_ref<char>::__exec(uint64_t result, uint64_t a2)
 
   else
   {
-LABEL_5:
     *a2 = -993;
     *(a2 + 80) = 0;
   }
@@ -7584,11 +7581,11 @@ LABEL_5:
   return result;
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](uint64_t a1, char a2)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 169) == 1)
   {
-    v3 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v3 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v5 = *(a1 + 48);
     v4 = *(a1 + 56);
     if (v5 < v4)
@@ -7598,42 +7595,42 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne2
       goto LABEL_28;
     }
 
-    v10 = *(a1 + 40);
-    v11 = v5 - v10;
-    v12 = v5 - v10 + 1;
-    if (v12 >= 0)
+    v9 = *(a1 + 40);
+    v10 = v5 - v9;
+    v11 = v5 - v9 + 1;
+    if (v11 >= 0)
     {
-      v13 = v4 - v10;
-      if (2 * v13 > v12)
+      v12 = v4 - v9;
+      if (2 * v12 > v11)
       {
-        v12 = 2 * v13;
+        v11 = 2 * v12;
       }
 
-      if (v13 >= 0x3FFFFFFFFFFFFFFFLL)
+      if (v12 >= 0x3FFFFFFFFFFFFFFFLL)
       {
-        v14 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v14 = v12;
-      }
-
-      if (v14)
-      {
-        v15 = v3;
-        v16 = operator new(v14);
-        v3 = v15;
+        v13 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v16 = 0;
+        v13 = v11;
       }
 
-      v22 = &v16[v14];
-      v16[v11] = v3;
-      v6 = &v16[v11 + 1];
+      if (v13)
+      {
+        v14 = v3;
+        v15 = operator new(v13);
+        v3 = v14;
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      v21 = &v15[v13];
+      v15[v10] = v3;
+      v6 = &v15[v10 + 1];
       goto LABEL_26;
     }
 
@@ -7641,64 +7638,63 @@ LABEL_29:
     std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
   }
 
-  v7 = *(a1 + 170);
-  v9 = *(a1 + 48);
-  v8 = *(a1 + 56);
-  if (v9 < v8)
+  v8 = *(a1 + 48);
+  v7 = *(a1 + 56);
+  if (v8 < v7)
   {
-    *v9 = a2;
-    *(a1 + 48) = v9 + 1;
+    *v8 = a2;
+    *(a1 + 48) = v8 + 1;
     return;
   }
 
-  v10 = *(a1 + 40);
-  v11 = v9 - v10;
-  v17 = v9 - v10 + 1;
-  if (v17 < 0)
+  v9 = *(a1 + 40);
+  v10 = v8 - v9;
+  v16 = v8 - v9 + 1;
+  if (v16 < 0)
   {
     goto LABEL_29;
   }
 
-  v18 = v8 - v10;
-  if (2 * v18 > v17)
+  v17 = v7 - v9;
+  if (2 * v17 > v16)
   {
-    v17 = 2 * v18;
+    v16 = 2 * v17;
   }
 
-  if (v18 >= 0x3FFFFFFFFFFFFFFFLL)
+  if (v17 >= 0x3FFFFFFFFFFFFFFFLL)
   {
-    v19 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v19 = v17;
-  }
-
-  if (v19)
-  {
-    v20 = a2;
-    v21 = operator new(v19);
-    a2 = v20;
-    v16 = v21;
+    v18 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v16 = 0;
+    v18 = v16;
   }
 
-  v22 = &v16[v19];
-  v16[v11] = a2;
-  v6 = &v16[v11 + 1];
+  if (v18)
+  {
+    v19 = a2;
+    v20 = operator new(v18);
+    LOBYTE(a2) = v19;
+    v15 = v20;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v21 = &v15[v18];
+  v15[v10] = a2;
+  v6 = &v15[v10 + 1];
 LABEL_26:
-  memcpy(v16, v10, v11);
-  *(a1 + 40) = v16;
+  memcpy(v15, v9, v10);
+  *(a1 + 40) = v15;
   *(a1 + 48) = v6;
-  *(a1 + 56) = v22;
-  if (v10)
+  *(a1 + 56) = v21;
+  if (v9)
   {
-    operator delete(v10);
+    operator delete(v9);
     *(a1 + 48) = v6;
     return;
   }
@@ -7907,7 +7903,7 @@ LABEL_181:
           v90 = __s.__r_.__value_.__l.__size_;
         }
 
-        std::string::__assign_no_alias<false>(&__p.__r_.__value_.__l.__data_, p_s, v90);
+        std::string::__assign_no_alias<false>(&__p, p_s, v90);
       }
 
       else
@@ -8866,7 +8862,7 @@ LABEL_21:
       if (*(v8 - 1) < 0)
       {
         operator delete(*(v8 - 3));
-        v10 = v8 - 6;
+        v10 = (v8 - 48);
         if (*(v8 - 25) < 0)
         {
 LABEL_19:
@@ -8876,7 +8872,7 @@ LABEL_19:
 
       else
       {
-        v10 = v8 - 6;
+        v10 = (v8 - 48);
         if (*(v8 - 25) < 0)
         {
           goto LABEL_19;
@@ -9110,7 +9106,7 @@ LABEL_15:
   return v6 + 2;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4, void *a5)
 {
   if (a2 == a3)
   {
@@ -9126,7 +9122,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
       {
         if (v5 == 119)
         {
-          *(a5 + 160) |= 0x500u;
+          *(a5 + 40) |= 0x500u;
           v15 = a2;
           std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](a5, 95);
           return v15 + 1;
@@ -9135,7 +9131,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
         return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
       }
 
-      v7 = *(a5 + 160) | 0x4000;
+      v7 = *(a5 + 40) | 0x4000;
     }
 
     else
@@ -9162,10 +9158,10 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
         return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
       }
 
-      v7 = *(a5 + 160) | 0x400;
+      v7 = *(a5 + 40) | 0x400;
     }
 
-    *(a5 + 160) = v7;
+    *(a5 + 40) = v7;
     return a2 + 1;
   }
 
@@ -9173,7 +9169,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
   {
     if (v5 == 83)
     {
-      v6 = *(a5 + 164) | 0x4000;
+      v6 = *(a5 + 41) | 0x4000;
       goto LABEL_24;
     }
 
@@ -9182,12 +9178,12 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
       return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
     }
 
-    *(a5 + 164) |= 0x500u;
+    *(a5 + 41) |= 0x500u;
     if (*(a5 + 169) == 1)
     {
       v8 = a2;
       v9 = a5;
-      v10 = (*(**(a5 + 24) + 40))(*(a5 + 24), 95);
+      v10 = (*(*a5[3] + 40))(a5[3], 95);
       v11 = v9;
       v13 = v9[9];
       v12 = v9[10];
@@ -9200,48 +9196,48 @@ LABEL_54:
         return v8 + 1;
       }
 
-      v21 = v9[8];
-      v22 = v13 - v21;
-      v23 = v13 - v21 + 1;
-      if (v23 >= 0)
+      v20 = v9[8];
+      v21 = v13 - v20;
+      v22 = v13 - v20 + 1;
+      if (v22 >= 0)
       {
-        v24 = v12 - v21;
-        if (2 * v24 > v23)
+        v23 = v12 - v20;
+        if (2 * v23 > v22)
         {
-          v23 = 2 * v24;
+          v22 = 2 * v23;
         }
 
-        if (v24 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v23 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v25 = 0x7FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v25 = v23;
-        }
-
-        if (v25)
-        {
-          v26 = v10;
-          v27 = operator new(v25);
-          v10 = v26;
+          v24 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v27 = 0;
+          v24 = v22;
         }
 
-        v27[v22] = v10;
-        v14 = &v27[v22 + 1];
-        memcpy(v27, v21, v22);
-        v9[8] = v27;
+        if (v24)
+        {
+          v25 = v10;
+          v26 = operator new(v24);
+          v10 = v25;
+        }
+
+        else
+        {
+          v26 = 0;
+        }
+
+        v26[v21] = v10;
+        v14 = &v26[v21 + 1];
+        memcpy(v26, v20, v21);
+        v9[8] = v26;
         v9[9] = v14;
-        v9[10] = &v27[v25];
-        if (v21)
+        v9[10] = &v26[v24];
+        if (v20)
         {
-          operator delete(v21);
+          operator delete(v20);
         }
 
         v11 = v9;
@@ -9252,69 +9248,68 @@ LABEL_62:
       std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = *(a5 + 170);
-    v19 = *(a5 + 72);
-    v18 = *(a5 + 80);
-    if (v19 >= v18)
+    v18 = a5[9];
+    v17 = a5[10];
+    if (v18 >= v17)
     {
-      v28 = *(a5 + 64);
-      v29 = v19 - v28;
-      v30 = v19 - v28 + 1;
-      if (v30 < 0)
+      v27 = a5[8];
+      v28 = v18 - v27;
+      v29 = v18 - v27 + 1;
+      if (v29 < 0)
       {
         goto LABEL_62;
       }
 
-      v31 = a5;
-      v32 = a2;
-      v33 = v18 - v28;
-      if (2 * v33 > v30)
+      v30 = a5;
+      v31 = a2;
+      v32 = v17 - v27;
+      if (2 * v32 > v29)
       {
-        v30 = 2 * v33;
+        v29 = 2 * v32;
       }
 
-      if (v33 >= 0x3FFFFFFFFFFFFFFFLL)
+      if (v32 >= 0x3FFFFFFFFFFFFFFFLL)
       {
-        v34 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v34 = v30;
-      }
-
-      if (v34)
-      {
-        v35 = operator new(v34);
+        v33 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v35 = 0;
+        v33 = v29;
       }
 
-      v35[v29] = 95;
-      v20 = &v35[v29 + 1];
-      memcpy(v35, v28, v29);
-      v31[8] = v35;
-      v31[9] = v20;
-      v31[10] = &v35[v34];
-      if (v28)
+      if (v33)
       {
-        operator delete(v28);
+        v34 = operator new(v33);
       }
 
-      a5 = v31;
-      a2 = v32;
+      else
+      {
+        v34 = 0;
+      }
+
+      v34[v28] = 95;
+      v19 = &v34[v28 + 1];
+      memcpy(v34, v27, v28);
+      v30[8] = v34;
+      v30[9] = v19;
+      v30[10] = &v34[v33];
+      if (v27)
+      {
+        operator delete(v27);
+      }
+
+      a5 = v30;
+      a2 = v31;
     }
 
     else
     {
-      *v19 = 95;
-      v20 = (v19 + 1);
+      *v18 = 95;
+      v19 = (v18 + 1);
     }
 
-    *(a5 + 72) = v20;
+    a5[9] = v19;
     return a2 + 1;
   }
 
@@ -9340,9 +9335,9 @@ LABEL_62:
     return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
   }
 
-  v6 = *(a5 + 164) | 0x400;
+  v6 = *(a5 + 41) | 0x400;
 LABEL_24:
-  *(a5 + 164) = v6;
+  *(a5 + 41) = v6;
   return a2 + 1;
 }
 
@@ -9672,11 +9667,11 @@ LABEL_82:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v6 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v8 = *(a1 + 120);
     v7 = *(a1 + 128);

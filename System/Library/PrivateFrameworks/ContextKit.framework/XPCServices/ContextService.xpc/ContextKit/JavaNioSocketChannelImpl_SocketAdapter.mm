@@ -5,9 +5,53 @@
 - (void)__javaClone;
 - (void)bindWithJavaNetSocketAddress:(id)address;
 - (void)close;
+- (void)connectWithJavaNetSocketAddress:(id)address withInt:(int)int;
 @end
 
 @implementation JavaNioSocketChannelImpl_SocketAdapter
+
+- (void)connectWithJavaNetSocketAddress:(id)address withInt:(int)int
+{
+  v4 = *&int;
+  Weak = objc_loadWeak(&self->channel_);
+  if (!Weak)
+  {
+    JreThrowNullPointerException();
+  }
+
+  if (([Weak isBlocking] & 1) == 0)
+  {
+    v8 = new_JavaNioChannelsIllegalBlockingModeException_init();
+    goto LABEL_13;
+  }
+
+  if ([(JavaNetSocket *)self isConnected])
+  {
+    v8 = new_JavaNioChannelsAlreadyConnectedException_init();
+LABEL_13:
+    objc_exception_throw(v8);
+  }
+
+  v10.receiver = self;
+  v10.super_class = JavaNioSocketChannelImpl_SocketAdapter;
+  [(JavaNetSocket *)&v10 connectWithJavaNetSocketAddress:address withInt:v4];
+  [objc_loadWeak(&self->channel_) onBindWithBoolean:0];
+  v9.receiver = self;
+  v9.super_class = JavaNioSocketChannelImpl_SocketAdapter;
+  if ([(JavaNetSocket *)&v9 isConnected])
+  {
+    objc_opt_class();
+    if (address)
+    {
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        JreThrowClassCastException();
+      }
+    }
+
+    [objc_loadWeak(&self->channel_) onConnectStatusChangedWithJavaNetInetSocketAddress:address withInt:2 withBoolean:0];
+  }
+}
 
 - (void)bindWithJavaNetSocketAddress:(id)address
 {

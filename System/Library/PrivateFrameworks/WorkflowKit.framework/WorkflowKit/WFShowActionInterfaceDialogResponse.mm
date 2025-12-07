@@ -1,6 +1,7 @@
 @interface WFShowActionInterfaceDialogResponse
 - (NSString)description;
 - (WFShowActionInterfaceDialogResponse)initWithBSXPCCoder:(id)coder;
+- (WFShowActionInterfaceDialogResponse)initWithCancelled:(BOOL)cancelled;
 - (WFShowActionInterfaceDialogResponse)initWithCoder:(id)coder;
 - (WFShowActionInterfaceDialogResponse)initWithListenerEndpoint:(id)endpoint userInterfaceType:(id)type;
 - (WFShowActionInterfaceDialogResponse)initWithUnsupported:(BOOL)unsupported;
@@ -146,6 +147,13 @@
   }
 
   return v5;
+}
+
+- (WFShowActionInterfaceDialogResponse)initWithCancelled:(BOOL)cancelled
+{
+  v4.receiver = self;
+  v4.super_class = WFShowActionInterfaceDialogResponse;
+  return [(WFDialogResponse *)&v4 initWithCancelled:cancelled];
 }
 
 @end

@@ -148,10 +148,9 @@ uint64_t __44__TLVibrationManager_sharedVibrationManager__block_invoke()
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_1D9356000, v0, OS_LOG_TYPE_ERROR, "Found no living vibration managers while deallocating %p.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D9356000, v0, OS_LOG_TYPE_ERROR, "Found no living vibration managers while deallocating %p.", v1, 0xCu);
 }
 
 void __29__TLVibrationManager_dealloc__block_invoke(uint64_t a1)
@@ -256,187 +255,190 @@ void __29__TLVibrationManager_refresh__block_invoke(uint64_t a1)
 - (id)_currentVibrationIdentifierForAlertType:(int64_t)type topic:(id)topic allowsFallbackToDefaultPreferablyNonSilentVibrationForInvalidPersistedValue:(BOOL)value
 {
   valueCopy = value;
-  v56 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   topicCopy = topic;
-  v9 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TLLogVibrationManagement(topicCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = NSStringFromTLAlertType(type);
+    v11 = NSStringFromTLAlertType(type);
     *buf = 138544130;
     selfCopy12 = self;
-    v50 = 2114;
-    v51 = v10;
-    v52 = 2114;
-    v53 = topicCopy;
-    v54 = 1024;
-    *v55 = valueCopy;
-    _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) allowsFallbackToDefaultPreferablyNonSilentVibrationForInvalidPersistedValue:(%{BOOL}u).", buf, 0x26u);
+    v65 = 2114;
+    v66 = v11;
+    v67 = 2114;
+    v68 = topicCopy;
+    v69 = 1024;
+    *v70 = valueCopy;
+    _os_log_impl(&dword_1D9356000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) allowsFallbackToDefaultPreferablyNonSilentVibrationForInvalidPersistedValue:(%{BOOL}u).", buf, 0x26u);
   }
 
-  v11 = [topicCopy length];
-  v12 = [(TLVibrationManager *)self _systemWideVibrationPatternPreferenceKeyForAlertType:type];
-  v13 = v12;
-  if (v12 && v11)
+  v12 = [topicCopy length];
+  v13 = [(TLVibrationManager *)self _systemWideVibrationPatternPreferenceKeyForAlertType:type];
+  v14 = v13;
+  if (v13 && v12)
   {
-    v14 = [(__CFString *)v12 stringByAppendingString:@"PerAccount"];
+    v15 = [(__CFString *)v13 stringByAppendingString:@"PerAccount"];
 
-    v13 = v14;
+    v14 = v15;
   }
 
-  v15 = +[TLPreferencesUtilities copySharedResourcesPreferencesDomain];
-  v16 = v15;
-  if (v13 && v15)
+  v16 = +[TLPreferencesUtilities copySharedResourcesPreferencesDomain];
+  v17 = v16;
+  if (v14 && v16)
   {
-    v47 = valueCopy;
-    v17 = CFPreferencesCopyValue(v13, v15, *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-    v18 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v62 = valueCopy;
+    v18 = CFPreferencesCopyValue(v14, v16, *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
+    v20 = TLLogVibrationManagement(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = NSStringFromTLAlertType(type);
+      v21 = NSStringFromTLAlertType(type);
       *buf = 138544386;
       selfCopy12 = self;
-      v50 = 2114;
-      v51 = v19;
-      v52 = 2114;
-      v53 = v13;
-      v54 = 2114;
-      *v55 = v16;
-      *&v55[8] = 2114;
-      *&v55[10] = v17;
-      _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Read Preferences value for key '%{public}@' from domain '%{public}@': %{public}@.", buf, 0x34u);
+      v65 = 2114;
+      v66 = v21;
+      v67 = 2114;
+      v68 = v14;
+      v69 = 2114;
+      *v70 = v17;
+      *&v70[8] = 2114;
+      *&v70[10] = v18;
+      _os_log_impl(&dword_1D9356000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Read Preferences value for key '%{public}@' from domain '%{public}@': %{public}@.", buf, 0x34u);
     }
 
-    if (!v17)
+    if (!v18)
     {
-      v28 = 0;
-      v24 = 0;
+      v32 = 0;
+      v27 = 0;
 LABEL_35:
-      valueCopy = v47;
+      valueCopy = v62;
       goto LABEL_36;
     }
 
-    if (v11)
+    if (v12)
     {
-      v20 = [v17 objectForKey:topicCopy];
-      v21 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = [v18 objectForKey:topicCopy];
+      v24 = TLLogVibrationManagement(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = NSStringFromTLAlertType(type);
+        v25 = NSStringFromTLAlertType(type);
         *buf = 138543874;
         selfCopy12 = self;
-        v50 = 2114;
-        v51 = v22;
-        v52 = 2114;
-        v53 = v20;
-        v23 = "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Per-topic: persistedVibrationIdentifier = %{public}@.";
+        v65 = 2114;
+        v66 = v25;
+        v67 = 2114;
+        v68 = v22;
+        v26 = "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Per-topic: persistedVibrationIdentifier = %{public}@.";
 LABEL_24:
-        _os_log_impl(&dword_1D9356000, v21, OS_LOG_TYPE_DEFAULT, v23, buf, 0x20u);
+        _os_log_impl(&dword_1D9356000, v24, OS_LOG_TYPE_DEFAULT, v26, buf, 0x20u);
       }
     }
 
     else
     {
-      v20 = v17;
-      v21 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = v18;
+      v24 = TLLogVibrationManagement(v22, v35);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = NSStringFromTLAlertType(type);
+        v25 = NSStringFromTLAlertType(type);
         *buf = 138543874;
         selfCopy12 = self;
-        v50 = 2114;
-        v51 = v22;
-        v52 = 2114;
-        v53 = v20;
-        v23 = "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. persistedVibrationIdentifier = %{public}@.";
+        v65 = 2114;
+        v66 = v25;
+        v67 = 2114;
+        v68 = v22;
+        v26 = "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. persistedVibrationIdentifier = %{public}@.";
         goto LABEL_24;
       }
     }
 
-    v46 = v20;
-    if ([v20 length])
+    v61 = v22;
+    if ([v22 length])
     {
-      v45 = [(TLVibrationManager *)self vibrationWithIdentifierIsValid:v20];
-      if (v45)
+      v36 = [(TLVibrationManager *)self vibrationWithIdentifierIsValid:v22];
+      v60 = v36;
+      if (v36)
       {
-        v24 = [MEMORY[0x1E696AEC0] stringWithString:v20];
-        v29 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v27 = [MEMORY[0x1E696AEC0] stringWithString:v22];
+        v39 = TLLogVibrationManagement(v27, v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = NSStringFromTLAlertType(type);
+          v40 = NSStringFromTLAlertType(type);
           *buf = 138543874;
           selfCopy12 = self;
-          v50 = 2114;
-          v51 = v30;
-          v52 = 2114;
-          v53 = v24;
-          _os_log_impl(&dword_1D9356000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
+          v65 = 2114;
+          v66 = v40;
+          v67 = 2114;
+          v68 = v27;
+          _os_log_impl(&dword_1D9356000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
         }
       }
 
       else
       {
-        v29 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v39 = TLLogVibrationManagement(v36, v37);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = NSStringFromTLAlertType(type);
+          v41 = NSStringFromTLAlertType(type);
           *buf = 138543618;
           selfCopy12 = self;
-          v50 = 2114;
-          v51 = v31;
-          _os_log_impl(&dword_1D9356000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. persistedVibrationIdentifierWasInvalid = YES.", buf, 0x16u);
+          v65 = 2114;
+          v66 = v41;
+          _os_log_impl(&dword_1D9356000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. persistedVibrationIdentifierWasInvalid = YES.", buf, 0x16u);
         }
 
-        v24 = 0;
+        v27 = 0;
       }
 
-      v28 = !v45;
+      v32 = v60 ^ 1;
     }
 
     else
     {
-      v24 = 0;
-      v28 = 0;
+      v27 = 0;
+      v32 = 0;
     }
 
-    CFRelease(v17);
+    CFRelease(v18);
 
     goto LABEL_35;
   }
 
-  v24 = [(TLVibrationManager *)self _defaultVibrationIdentifierForAlertType:type topic:topicCopy correspondingToneIdentifier:0];
-  v25 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v27 = [(TLVibrationManager *)self _defaultVibrationIdentifierForAlertType:type topic:topicCopy correspondingToneIdentifier:0];
+  v29 = TLLogVibrationManagement(v27, v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     NSStringFromTLAlertType(type);
-    v27 = v26 = valueCopy;
+    v31 = v30 = valueCopy;
     *buf = 138543874;
     selfCopy12 = self;
-    v50 = 2114;
-    v51 = v27;
-    v52 = 2114;
-    v53 = v24;
-    _os_log_impl(&dword_1D9356000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Vibration is not settable for this alert type. Returning corresponding default vibration. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
+    v65 = 2114;
+    v66 = v31;
+    v67 = 2114;
+    v68 = v27;
+    _os_log_impl(&dword_1D9356000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Vibration is not settable for this alert type. Returning corresponding default vibration. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
 
-    valueCopy = v26;
+    valueCopy = v30;
   }
 
-  if (!v16)
+  if (!v17)
   {
-    if ([v24 length] || !v11)
+    v33 = [v27 length];
+    if (v33 || !v12)
     {
       goto LABEL_54;
     }
 
-    v28 = 0;
+    v32 = 0;
     goto LABEL_38;
   }
 
-  v28 = 0;
+  v32 = 0;
 LABEL_36:
-  CFRelease(v16);
-  if ([v24 length] || !v11)
+  CFRelease(v17);
+  v33 = [v27 length];
+  if (v33 || !v12)
   {
-    if (!v28)
+    if (!v32)
     {
       goto LABEL_54;
     }
@@ -445,130 +447,129 @@ LABEL_36:
   }
 
 LABEL_38:
-  v32 = v24;
-  v24 = [(TLVibrationManager *)self _currentVibrationIdentifierForAlertType:type topic:0 allowsFallbackToDefaultPreferablyNonSilentVibrationForInvalidPersistedValue:0];
+  v42 = v27;
+  v27 = [(TLVibrationManager *)self _currentVibrationIdentifierForAlertType:type topic:0 allowsFallbackToDefaultPreferablyNonSilentVibrationForInvalidPersistedValue:0];
 
-  v33 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v45 = TLLogVibrationManagement(v43, v44);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = NSStringFromTLAlertType(type);
+    v46 = NSStringFromTLAlertType(type);
     *buf = 138543874;
     selfCopy12 = self;
-    v50 = 2114;
-    v51 = v34;
-    v52 = 2114;
-    v53 = v24;
-    _os_log_impl(&dword_1D9356000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Falling back to current vibration without topic. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
+    v65 = 2114;
+    v66 = v46;
+    v67 = 2114;
+    v68 = v27;
+    _os_log_impl(&dword_1D9356000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Falling back to current vibration without topic. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
   }
 
-  if (v28)
+  if (v32)
   {
-    if ([v24 isEqualToString:@"<none>"])
+    if ([v27 isEqualToString:@"<none>"])
     {
 
-      v35 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v49 = TLLogVibrationManagement(v47, v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = NSStringFromTLAlertType(type);
+        v50 = NSStringFromTLAlertType(type);
         *buf = 138543874;
         selfCopy12 = self;
-        v50 = 2114;
-        v51 = v36;
-        v52 = 2114;
-        v53 = 0;
-        _os_log_impl(&dword_1D9356000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Persisted value was invalid, and fallback value is none. Ignoring fallback value. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
+        v65 = 2114;
+        v66 = v50;
+        v67 = 2114;
+        v68 = 0;
+        _os_log_impl(&dword_1D9356000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Persisted value was invalid, and fallback value is none. Ignoring fallback value. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
       }
 
-      v24 = 0;
+      v27 = 0;
     }
 
 LABEL_46:
-    if (![v24 length])
+    v33 = [v27 length];
+    if (!v33)
     {
       if (valueCopy)
       {
-        v37 = [(TLVibrationManager *)self _defaultPreferablyNonSilentVibrationIdentifierForAlertType:type topic:topicCopy correspondingToneIdentifier:0];
+        v51 = [(TLVibrationManager *)self _defaultPreferablyNonSilentVibrationIdentifierForAlertType:type topic:topicCopy correspondingToneIdentifier:0];
 
-        v38 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v54 = TLLogVibrationManagement(v52, v53);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
-          v39 = NSStringFromTLAlertType(type);
+          v55 = NSStringFromTLAlertType(type);
           *buf = 138543874;
           selfCopy12 = self;
-          v50 = 2114;
-          v51 = v39;
-          v52 = 2114;
-          v53 = v37;
-          _os_log_impl(&dword_1D9356000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Persisted value was invalid; falling back to non-silent default vibration. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
+          v65 = 2114;
+          v66 = v55;
+          v67 = 2114;
+          v68 = v51;
+          _os_log_impl(&dword_1D9356000, v54, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Persisted value was invalid; falling back to non-silent default vibration. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
         }
       }
 
       else
       {
-        v38 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v54 = TLLogVibrationManagement(0, v34);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
-          v40 = NSStringFromTLAlertType(type);
+          v56 = NSStringFromTLAlertType(type);
           *buf = 138543874;
           selfCopy12 = self;
-          v50 = 2114;
-          v51 = v40;
-          v52 = 2114;
-          v53 = v24;
-          _os_log_impl(&dword_1D9356000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Persisted value was invalid, but falling back to non-silent default vibration is disallowed. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
+          v65 = 2114;
+          v66 = v56;
+          v67 = 2114;
+          v68 = v27;
+          _os_log_impl(&dword_1D9356000, v54, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]. Persisted value was invalid, but falling back to non-silent default vibration is disallowed. currentVibrationIdentifier = %{public}@.", buf, 0x20u);
         }
 
-        v37 = v24;
+        v51 = v27;
       }
 
-      v24 = v37;
+      v27 = v51;
     }
   }
 
 LABEL_54:
-  v41 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v57 = TLLogVibrationManagement(v33, v34);
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = NSStringFromTLAlertType(type);
+    v58 = NSStringFromTLAlertType(type);
     *buf = 138544386;
     selfCopy12 = self;
-    v50 = 2114;
-    v51 = v42;
-    v52 = 2114;
-    v53 = topicCopy;
-    v54 = 1024;
-    *v55 = valueCopy;
-    *&v55[4] = 2114;
-    *&v55[6] = v24;
-    _os_log_impl(&dword_1D9356000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) allowsFallbackToDefaultPreferablyNonSilentVibrationForInvalidPersistedValue:(%{BOOL}u). Returning: %{public}@.", buf, 0x30u);
+    v65 = 2114;
+    v66 = v58;
+    v67 = 2114;
+    v68 = topicCopy;
+    v69 = 1024;
+    *v70 = valueCopy;
+    *&v70[4] = 2114;
+    *&v70[6] = v27;
+    _os_log_impl(&dword_1D9356000, v57, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) allowsFallbackToDefaultPreferablyNonSilentVibrationForInvalidPersistedValue:(%{BOOL}u). Returning: %{public}@.", buf, 0x30u);
   }
 
-  v43 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v27;
 }
 
 - (id)_currentVibrationIdentifierForAlertType:(int64_t)type topic:(id)topic correspondingToneIdentifier:(id)identifier allowsNoneDefaultToAnyActualVibrationSubstitution:(BOOL)substitution
 {
   substitutionCopy = substitution;
-  v50 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   topicCopy = topic;
   identifierCopy = identifier;
-  v12 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = TLLogVibrationManagement(identifierCopy, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = NSStringFromTLAlertType(type);
+    v14 = NSStringFromTLAlertType(type);
     *buf = 138544386;
     selfCopy11 = self;
-    v40 = 2114;
-    v41 = v13;
-    v42 = 2114;
-    v43 = topicCopy;
-    v44 = 2114;
-    v45 = identifierCopy;
-    v46 = 1024;
-    v47 = substitutionCopy;
-    _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@) allowsNoneDefaultToAnyActualVibrationSubstitution:(%{BOOL}u).", buf, 0x30u);
+    v55 = 2114;
+    v56 = v14;
+    v57 = 2114;
+    v58 = topicCopy;
+    v59 = 2114;
+    v60 = identifierCopy;
+    v61 = 1024;
+    v62 = substitutionCopy;
+    _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@) allowsNoneDefaultToAnyActualVibrationSubstitution:(%{BOOL}u).", buf, 0x30u);
   }
 
   if ([TLAlert _currentOverridePolicyForType:type]!= 1)
@@ -576,60 +577,61 @@ LABEL_54:
     goto LABEL_7;
   }
 
-  v14 = @"<none>";
-  v15 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = @"<none>";
+  v17 = TLLogVibrationManagement(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = NSStringFromTLAlertType(type);
+    v18 = NSStringFromTLAlertType(type);
     *buf = 138543874;
     selfCopy11 = self;
-    v40 = 2114;
-    v41 = v16;
-    v42 = 2114;
-    v43 = v14;
-    _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Falling back to none due to alert override policy. vibrationIdentifier = %{public}@.", buf, 0x20u);
+    v55 = 2114;
+    v56 = v18;
+    v57 = 2114;
+    v58 = v15;
+    _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Falling back to none due to alert override policy. vibrationIdentifier = %{public}@.", buf, 0x20u);
   }
 
-  if (!v14)
+  if (!v15)
   {
 LABEL_7:
     if (topicCopy)
     {
       if (type == 13)
       {
-        if ([(__CFString *)topicCopy isEqualToString:@"TLAlertTopicAlarmGoToSleep"])
+        v22 = [(__CFString *)topicCopy isEqualToString:@"TLAlertTopicAlarmGoToSleep"];
+        if (v22)
         {
-          v14 = TLLogVibrationManagement();
-          if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = TLLogVibrationManagement(v22, v23);
+          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
 LABEL_34:
 
 LABEL_35:
-            v14 = [(TLVibrationManager *)self _defaultVibrationIdentifierForAlertType:type topic:topicCopy correspondingToneIdentifier:identifierCopy];
-            v25 = TLLogVibrationManagement();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v15 = [(TLVibrationManager *)self _defaultVibrationIdentifierForAlertType:type topic:topicCopy correspondingToneIdentifier:identifierCopy];
+            v35 = TLLogVibrationManagement(v15, v34);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
-              v26 = NSStringFromTLAlertType(type);
+              v36 = NSStringFromTLAlertType(type);
               *buf = 138543874;
               selfCopy11 = self;
-              v40 = 2114;
-              v41 = v26;
-              v42 = 2114;
-              v43 = v14;
-              _os_log_impl(&dword_1D9356000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Falling back to default due missing setting in Preferences. vibrationIdentifier = %{public}@.", buf, 0x20u);
+              v55 = 2114;
+              v56 = v36;
+              v57 = 2114;
+              v58 = v15;
+              _os_log_impl(&dword_1D9356000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Falling back to default due missing setting in Preferences. vibrationIdentifier = %{public}@.", buf, 0x20u);
             }
 
             goto LABEL_38;
           }
 
-          v18 = NSStringFromTLAlertType(0xDuLL);
+          v24 = NSStringFromTLAlertType(0xDuLL);
           *buf = 138543874;
           selfCopy11 = self;
-          v40 = 2114;
-          v41 = v18;
-          v42 = 2114;
-          v43 = topicCopy;
-          _os_log_impl(&dword_1D9356000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Skipping Preferences lookup for topic %{public}@.", buf, 0x20u);
+          v55 = 2114;
+          v56 = v24;
+          v57 = 2114;
+          v58 = topicCopy;
+          _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Skipping Preferences lookup for topic %{public}@.", buf, 0x20u);
 LABEL_33:
 
           goto LABEL_34;
@@ -640,56 +642,56 @@ LABEL_33:
       {
         if (([(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentHeart"]& 1) != 0 || ([(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentThumbsUp"]& 1) != 0 || ([(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentThumbsDown"]& 1) != 0 || ([(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentHaHa"]& 1) != 0 || ([(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentExclamation"]& 1) != 0)
         {
-          v17 = 1;
+          v21 = 1;
         }
 
         else
         {
-          v17 = [(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentQuestionMark"];
+          v21 = [(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentQuestionMark"];
         }
 
         goto LABEL_20;
       }
     }
 
-    v17 = 0;
+    v21 = 0;
 LABEL_20:
-    v19 = [(TLVibrationManager *)self _currentVibrationIdentifierForAlertType:type topic:topicCopy];
-    v20 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v25 = [(TLVibrationManager *)self _currentVibrationIdentifierForAlertType:type topic:topicCopy];
+    v27 = TLLogVibrationManagement(v25, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = NSStringFromTLAlertType(type);
+      v28 = NSStringFromTLAlertType(type);
       *buf = 138543874;
       selfCopy11 = self;
-      v40 = 2114;
-      v41 = v21;
-      v42 = 2114;
-      v43 = v19;
-      _os_log_impl(&dword_1D9356000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Value from Preferences lookup method: vibrationIdentifier = %{public}@.", buf, 0x20u);
+      v55 = 2114;
+      v56 = v28;
+      v57 = 2114;
+      v58 = v25;
+      _os_log_impl(&dword_1D9356000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Value from Preferences lookup method: vibrationIdentifier = %{public}@.", buf, 0x20u);
     }
 
-    if (v19)
+    if (v25)
     {
-      LOBYTE(v37) = substitutionCopy;
-      v14 = [(TLVibrationManager *)self _sanitizeVibrationIdentifier:v19 forAlertType:type topic:topicCopy targetDevice:0 correspondingToneIdentifier:identifierCopy useDefaultVibrationAsFallback:1 allowsNoneDefaultToAnyActualVibrationSubstitution:v37 didFallback:0];
+      LOBYTE(v52) = substitutionCopy;
+      v15 = [(TLVibrationManager *)self _sanitizeVibrationIdentifier:v25 forAlertType:type topic:topicCopy targetDevice:0 correspondingToneIdentifier:identifierCopy useDefaultVibrationAsFallback:1 allowsNoneDefaultToAnyActualVibrationSubstitution:v52 didFallback:0];
 
-      v22 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v31 = TLLogVibrationManagement(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = NSStringFromTLAlertType(type);
+        v32 = NSStringFromTLAlertType(type);
         *buf = 138543874;
         selfCopy11 = self;
-        v40 = 2114;
-        v41 = v23;
-        v42 = 2114;
-        v43 = v14;
-        _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Sanitized: vibrationIdentifier = %{public}@.", buf, 0x20u);
+        v55 = 2114;
+        v56 = v32;
+        v57 = 2114;
+        v58 = v15;
+        _os_log_impl(&dword_1D9356000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Sanitized: vibrationIdentifier = %{public}@.", buf, 0x20u);
       }
 
-      if (!v17)
+      if (!v21)
       {
 LABEL_29:
-        if (v14)
+        if (v15)
         {
           goto LABEL_38;
         }
@@ -700,132 +702,135 @@ LABEL_29:
 
     else
     {
-      v14 = 0;
-      if (!v17)
+      v15 = 0;
+      if (!v21)
       {
         goto LABEL_29;
       }
     }
 
-    if (([(__CFString *)v14 isEqualToString:@"<none>"]& 1) != 0)
+    v19 = [(__CFString *)v15 isEqualToString:@"<none>"];
+    if (v19)
     {
       goto LABEL_29;
     }
 
-    v18 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v24 = TLLogVibrationManagement(v19, v20);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = NSStringFromTLAlertType(type);
+      v33 = NSStringFromTLAlertType(type);
       *buf = 138543874;
       selfCopy11 = self;
-      v40 = 2114;
-      v41 = v24;
-      v42 = 2114;
-      v43 = @"<none>";
-      _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Value from Preferences lookup method was not %{public}@; ignoring it.", buf, 0x20u);
+      v55 = 2114;
+      v56 = v33;
+      v57 = 2114;
+      v58 = @"<none>";
+      _os_log_impl(&dword_1D9356000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Value from Preferences lookup method was not %{public}@; ignoring it.", buf, 0x20u);
     }
 
     goto LABEL_33;
   }
 
 LABEL_38:
-  if (type == 18)
+  switch(type)
   {
-    v27 = [(TLVibrationManager *)self currentVibrationIdentifierForAlertType:1 topic:topicCopy];
+    case 18:
+      v39 = [(TLVibrationManager *)self currentVibrationIdentifierForAlertType:1 topic:topicCopy];
 
-    v31 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-    {
-      v32 = NSStringFromTLAlertType(0x12uLL);
-      *buf = 138543874;
-      selfCopy11 = self;
-      v40 = 2114;
-      v41 = v32;
-      v42 = 2114;
-      v43 = v27;
-      _os_log_impl(&dword_1D9356000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Detected alert type for emergency alert. Resolving to current vibration identifier for incoming call: vibrationIdentifier = %{public}@.", buf, 0x20u);
-    }
+      v47 = TLLogVibrationManagement(v45, v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      {
+        v48 = NSStringFromTLAlertType(0x12uLL);
+        *buf = 138543874;
+        selfCopy11 = self;
+        v55 = 2114;
+        v56 = v48;
+        v57 = 2114;
+        v58 = v39;
+        _os_log_impl(&dword_1D9356000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Detected alert type for emergency alert. Resolving to current vibration identifier for incoming call: vibrationIdentifier = %{public}@.", buf, 0x20u);
+      }
 
-    v28 = v27;
-    goto LABEL_53;
-  }
-
-  if (type == 3)
-  {
-    v27 = [(TLVibrationManager *)self currentVibrationIdentifierForAlertType:2 topic:topicCopy];
-    if (![v27 isEqualToString:@"<none>"])
-    {
-      v28 = v14;
+      v40 = v39;
       goto LABEL_53;
-    }
+    case 3:
+      v39 = [(TLVibrationManager *)self currentVibrationIdentifierForAlertType:2 topic:topicCopy];
+      if (![v39 isEqualToString:@"<none>"])
+      {
+        v40 = v15;
+        goto LABEL_53;
+      }
 
-    v28 = @"<none>";
+      v40 = @"<none>";
 
-    v29 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
-    {
-      v30 = NSStringFromTLAlertType(3uLL);
-      *buf = 138543874;
-      selfCopy11 = self;
-      v40 = 2114;
-      v41 = v30;
-      v42 = 2114;
-      v43 = v28;
-      _os_log_impl(&dword_1D9356000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Detected alert type for text message in conversation. vibrationIdentifier = %{public}@.", buf, 0x20u);
-    }
+      v41 = TLLogVibrationManagement(v42, v43);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      {
+        v44 = NSStringFromTLAlertType(3uLL);
+        *buf = 138543874;
+        selfCopy11 = self;
+        v55 = 2114;
+        v56 = v44;
+        v57 = 2114;
+        v58 = v40;
+        _os_log_impl(&dword_1D9356000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Detected alert type for text message in conversation. vibrationIdentifier = %{public}@.", buf, 0x20u);
+      }
 
-    goto LABEL_48;
-  }
+      goto LABEL_48;
+    case 2:
+      v19 = [(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageInConversation"];
+      if (v19)
+      {
+        v19 = [(__CFString *)v15 isEqualToString:@"<none>"];
+        if ((v19 & 1) == 0)
+        {
 
-  if (type == 2 && [(__CFString *)topicCopy isEqualToString:@"TLAlertTopicTextMessageInConversation"]&& ([(__CFString *)v14 isEqualToString:@"<none>"]& 1) == 0)
-  {
-
-    v27 = TLLogVibrationManagement();
-    v28 = @"Text-Message-Alert-In-Conversation";
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-    {
+          v39 = TLLogVibrationManagement(v37, v38);
+          v40 = @"Text-Message-Alert-In-Conversation";
+          if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          {
 LABEL_53:
 
-      v14 = v28;
-      goto LABEL_54;
-    }
+            v15 = v40;
+            break;
+          }
 
-    v29 = NSStringFromTLAlertType(2uLL);
-    *buf = 138543874;
-    selfCopy11 = self;
-    v40 = 2114;
-    v41 = v29;
-    v42 = 2114;
-    v43 = @"Text-Message-Alert-In-Conversation";
-    _os_log_impl(&dword_1D9356000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Detected topic for text message in conversation. vibrationIdentifier = %{public}@.", buf, 0x20u);
+          v41 = NSStringFromTLAlertType(2uLL);
+          *buf = 138543874;
+          selfCopy11 = self;
+          v55 = 2114;
+          v56 = v41;
+          v57 = 2114;
+          v58 = @"Text-Message-Alert-In-Conversation";
+          _os_log_impl(&dword_1D9356000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) […]: Detected topic for text message in conversation. vibrationIdentifier = %{public}@.", buf, 0x20u);
 LABEL_48:
 
-    goto LABEL_53;
+          goto LABEL_53;
+        }
+      }
+
+      break;
   }
 
-LABEL_54:
-  v33 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v49 = TLLogVibrationManagement(v19, v20);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = NSStringFromTLAlertType(type);
+    v50 = NSStringFromTLAlertType(type);
     *buf = 138544642;
     selfCopy11 = self;
-    v40 = 2114;
-    v41 = v34;
-    v42 = 2114;
-    v43 = topicCopy;
-    v44 = 2114;
-    v45 = identifierCopy;
-    v46 = 1024;
-    v47 = substitutionCopy;
-    v48 = 2114;
-    v49 = v14;
-    _os_log_impl(&dword_1D9356000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@) allowsNoneDefaultToAnyActualVibrationSubstitution:(%{BOOL}u). Returning: %{public}@.", buf, 0x3Au);
+    v55 = 2114;
+    v56 = v50;
+    v57 = 2114;
+    v58 = topicCopy;
+    v59 = 2114;
+    v60 = identifierCopy;
+    v61 = 1024;
+    v62 = substitutionCopy;
+    v63 = 2114;
+    v64 = v15;
+    _os_log_impl(&dword_1D9356000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@) allowsNoneDefaultToAnyActualVibrationSubstitution:(%{BOOL}u). Returning: %{public}@.", buf, 0x3Au);
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v15;
 }
 
 - (void)setCurrentVibrationIdentifier:(id)identifier forAlertType:(int64_t)type topic:(id)topic
@@ -926,123 +931,129 @@ LABEL_24:
 
 - (id)_defaultVibrationIdentifierForAlertType:(int64_t)type topic:(id)topic correspondingToneIdentifier:(id)identifier
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   topicCopy = topic;
   identifierCopy = identifier;
   v10 = [(TLVibrationManager *)self _areSynchronizedVibrationsAllowedForAlertType:type topic:topicCopy];
-  v11 = TLLogVibrationManagement();
-  v12 = &off_1D93A5000;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = v10;
+  v13 = TLLogVibrationManagement(v10, v12);
+  v14 = &off_1D93A5000;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = NSStringFromTLAlertType(type);
+    v15 = NSStringFromTLAlertType(type);
     *buf = 138544386;
     selfCopy3 = self;
-    v39 = 2114;
-    v40 = v13;
-    v41 = 2114;
-    v42 = topicCopy;
     v43 = 2114;
-    v44 = identifierCopy;
-    v45 = 1024;
-    LODWORD(v46) = v10;
-    _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: -_defaultVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@). areSynchronizedVibrationsAllowed = %{BOOL}u.", buf, 0x30u);
+    v44 = v15;
+    v45 = 2114;
+    v46 = topicCopy;
+    v47 = 2114;
+    v48 = identifierCopy;
+    v49 = 1024;
+    LODWORD(v50) = v11;
+    _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: -_defaultVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@). areSynchronizedVibrationsAllowed = %{BOOL}u.", buf, 0x30u);
   }
 
-  if (v10)
+  if (v11)
   {
-    v14 = identifierCopy;
+    v16 = identifierCopy;
     if (![(__CFString *)identifierCopy length])
     {
-      v15 = +[TLToneManager sharedToneManager];
-      v14 = [v15 currentToneIdentifierForAlertType:type topic:topicCopy];
+      v17 = +[TLToneManager sharedToneManager];
+      v16 = [v17 currentToneIdentifierForAlertType:type topic:topicCopy];
     }
 
-    v16 = [(TLVibrationManager *)self _synchronizedVibrationIdentifierForToneIdentifier:v14 targetDevice:0];
-    v17 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = [(TLVibrationManager *)self _synchronizedVibrationIdentifierForToneIdentifier:v16 targetDevice:0];
+    v20 = TLLogVibrationManagement(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = NSStringFromTLAlertType(type);
+      v21 = NSStringFromTLAlertType(type);
       *buf = 138544642;
       selfCopy3 = self;
-      v39 = 2114;
-      v40 = v18;
-      v41 = 2114;
-      v42 = topicCopy;
       v43 = 2114;
-      v44 = identifierCopy;
+      v44 = v21;
       v45 = 2114;
-      v46 = v14;
+      v46 = topicCopy;
       v47 = 2114;
-      v48 = v16;
-      _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: -_defaultVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@). resolvedCorrespondingToneIdentifier = %{public}@; synchronizedVibrationIdentifier = %{public}@.", buf, 0x3Eu);
+      v48 = identifierCopy;
+      v49 = 2114;
+      v50 = v16;
+      v51 = 2114;
+      v52 = v18;
+      _os_log_impl(&dword_1D9356000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: -_defaultVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@). resolvedCorrespondingToneIdentifier = %{public}@; synchronizedVibrationIdentifier = %{public}@.", buf, 0x3Eu);
     }
   }
 
   else
   {
-    v16 = 0;
-    v14 = identifierCopy;
+    v18 = 0;
+    v16 = identifierCopy;
   }
 
-  v19 = [0 length];
-  v20 = 0;
-  if (type && !v19)
+  v22 = [0 length];
+  v23 = 0;
+  if (type && !v22)
   {
     if (type > 0x1D)
     {
-      v20 = 0;
+      v23 = 0;
     }
 
     else
     {
-      v20 = _TLVibrationManagerDefaultIdentifiers[type - 1];
-      if (([(__CFString *)v20 isEqualToString:@"Built-In-System-Sound-ID-Vibration"]& 1) == 0 && ([(__CFString *)v20 isEqualToString:@"Corresponding-Synchronized-Vibration"]& 1) == 0)
+      v23 = _TLVibrationManagerDefaultIdentifiers[type - 1];
+      if (([(__CFString *)v23 isEqualToString:@"Built-In-System-Sound-ID-Vibration"]& 1) == 0 && ([(__CFString *)v23 isEqualToString:@"Corresponding-Synchronized-Vibration"]& 1) == 0)
       {
-        v21 = [(TLVibrationManager *)self _patternForSystemVibrationWithIdentifier:v20 correspondingToneIdentifier:v14 targetDevice:0 shouldLogAssetPath:0];
-        if (!v21)
+        v24 = [(TLVibrationManager *)self _patternForSystemVibrationWithIdentifier:v23 correspondingToneIdentifier:v16 targetDevice:0 shouldLogAssetPath:0];
+        if (!v24)
         {
-          v35 = [@"UserSelectable" stringByAppendingPathComponent:@"Classic"];
-          v22 = [(TLVibrationManager *)self _systemVibrationIdentifiersForSubdirectory:v35];
+          v39 = [@"UserSelectable" stringByAppendingPathComponent:@"Classic"];
+          v25 = [(TLVibrationManager *)self _systemVibrationIdentifiersForSubdirectory:v39];
 
-          v36 = v22;
-          if (([v22 containsObject:v20] & 1) == 0)
+          v40 = v25;
+          if (([v25 containsObject:v23] & 1) == 0)
           {
-            v23 = *(&_TLVibrationManagerClassicFallbackDefaultIdentifiers + type - 1);
-            if ([(__CFString *)v23 length])
+            v26 = *(&_TLVibrationManagerClassicFallbackDefaultIdentifiers + type - 1);
+            if ([(__CFString *)v26 length])
             {
-              v24 = v23;
+              v27 = v26;
 
-              v20 = v24;
+              v23 = v27;
             }
           }
 
-          v12 = &off_1D93A5000;
+          v14 = &off_1D93A5000;
 
-          v21 = 0;
+          v24 = 0;
         }
       }
 
-      if (![(__CFString *)v20 length])
+      if (![(__CFString *)v23 length])
       {
-        v25 = @"<none>";
+        v28 = @"<none>";
 
-        v20 = v25;
+        v23 = v28;
       }
     }
   }
 
-  if (![(__CFString *)v20 length])
+  if (![(__CFString *)v23 length])
   {
-    v26 = @"<none>";
+    v29 = @"<none>";
 
-    v20 = v26;
+    v23 = v29;
   }
 
-  if ([v16 length] && (-[__CFString isEqualToString:](v20, "isEqualToString:", @"<none>") & 1) == 0)
+  v30 = [v18 length];
+  if (v30)
   {
-    v27 = v16;
+    v30 = [(__CFString *)v23 isEqualToString:@"<none>"];
+    if ((v30 & 1) == 0)
+    {
+      v32 = v18;
 
-    v20 = v27;
+      v23 = v32;
+    }
   }
 
   if (type > 15)
@@ -1051,10 +1062,14 @@ LABEL_24:
     {
       if (type != 16)
       {
-        if (type == 17 && ([topicCopy isEqualToString:@"TLAlertTopicAppNotificationCriticalAlert"] & 1) != 0)
+        if (type == 17)
         {
-          v28 = @"App-Notification-Critical-Alert";
-          goto LABEL_73;
+          v30 = [topicCopy isEqualToString:@"TLAlertTopicAppNotificationCriticalAlert"];
+          if (v30)
+          {
+            v33 = @"App-Notification-Critical-Alert";
+            goto LABEL_73;
+          }
         }
 
         goto LABEL_74;
@@ -1062,7 +1077,7 @@ LABEL_24:
 
       if ([topicCopy isEqualToString:@"TLAlertTopicSystemNotificationBackgroundMicUsage"])
       {
-        v28 = @"Background-Mic-Usage";
+        v33 = @"Background-Mic-Usage";
         goto LABEL_73;
       }
 
@@ -1071,7 +1086,7 @@ LABEL_24:
         goto LABEL_72;
       }
 
-      v29 = TLAlertTopicSystemNotificationHeadphoneAudioExposure;
+      v34 = TLAlertTopicSystemNotificationHeadphoneAudioExposure;
     }
 
     else
@@ -1082,27 +1097,28 @@ LABEL_24:
         {
           if ([topicCopy isEqualToString:@"TLAlertTopicSOSCountdownTick"])
           {
-            v28 = @"SOS-Countdown-Tick";
+            v33 = @"SOS-Countdown-Tick";
           }
 
           else if ([topicCopy isEqualToString:@"TLAlertTopicSOSDialStart"])
           {
-            v28 = @"SOS-Dial-Start";
+            v33 = @"SOS-Dial-Start";
           }
 
           else if ([topicCopy isEqualToString:@"TLAlertTopicSOSButtonChordingTimeout"])
           {
-            v28 = @"SOS-Button-Chording-Timeout";
+            v33 = @"SOS-Button-Chording-Timeout";
           }
 
           else
           {
-            if (([topicCopy isEqualToString:@"TLAlertTopicSOSCountdownPreannounce"] & 1) == 0)
+            v30 = [topicCopy isEqualToString:@"TLAlertTopicSOSCountdownPreannounce"];
+            if ((v30 & 1) == 0)
             {
               goto LABEL_74;
             }
 
-            v28 = @"SOS-Countdown-Preannounce";
+            v33 = @"SOS-Countdown-Preannounce";
           }
         }
 
@@ -1115,39 +1131,40 @@ LABEL_24:
 
           if ([topicCopy isEqualToString:@"TLAlertTopicHandwashingReminder"])
           {
-            v28 = @"Handwashing-Reminder";
+            v33 = @"Handwashing-Reminder";
           }
 
           else if ([topicCopy isEqualToString:@"TLAlertTopicHandwashingSessionStart"])
           {
-            v28 = @"Handwashing-Session-Start";
+            v33 = @"Handwashing-Session-Start";
           }
 
           else if ([topicCopy isEqualToString:@"TLAlertTopicHandwashingSessionProgressTapHaptics"])
           {
-            v28 = @"Handwashing-Session-Progress-Tap-Haptics";
+            v33 = @"Handwashing-Session-Progress-Tap-Haptics";
           }
 
           else if ([topicCopy isEqualToString:@"TLAlertTopicHandwashingSessionProgressVibeHaptics"])
           {
-            v28 = @"Handwashing-Session-Progress-Vibe-Haptics";
+            v33 = @"Handwashing-Session-Progress-Vibe-Haptics";
           }
 
           else
           {
-            if (([topicCopy isEqualToString:@"TLAlertTopicHandwashingSessionEnd"] & 1) == 0)
+            v30 = [topicCopy isEqualToString:@"TLAlertTopicHandwashingSessionEnd"];
+            if ((v30 & 1) == 0)
             {
               goto LABEL_74;
             }
 
-            v28 = @"Handwashing-Session-End";
+            v33 = @"Handwashing-Session-End";
           }
         }
 
         goto LABEL_73;
       }
 
-      v29 = TLAlertTopicPassbookNFCScanComplete;
+      v34 = TLAlertTopicPassbookNFCScanComplete;
     }
 
     goto LABEL_65;
@@ -1157,10 +1174,13 @@ LABEL_24:
   {
     if (type != 1)
     {
-      if (type == 2 && (([topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentHeart"] & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentThumbsUp") & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentThumbsDown") & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentHaHa") & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentExclamation") & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentQuestionMark") & 1) != 0))
+      if (type == 2)
       {
-        v28 = @"Text-Message-Acknowledgement";
-        goto LABEL_73;
+        if ([topicCopy isEqualToString:@"TLAlertTopicTextMessageAcknowledgmentHeart"] & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentThumbsUp") & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentThumbsDown") & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentHaHa") & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentExclamation") & 1) != 0 || (v30 = objc_msgSend(topicCopy, "isEqualToString:", @"TLAlertTopicTextMessageAcknowledgmentQuestionMark"), (v30))
+        {
+          v33 = @"Text-Message-Acknowledgement";
+          goto LABEL_73;
+        }
       }
 
       goto LABEL_74;
@@ -1171,9 +1191,10 @@ LABEL_24:
       goto LABEL_72;
     }
 
-    v29 = TLAlertTopicIncomingCallFaceTimeParticipantJoined;
+    v34 = TLAlertTopicIncomingCallFaceTimeParticipantJoined;
 LABEL_65:
-    if ([topicCopy isEqualToString:*v29])
+    v30 = [topicCopy isEqualToString:*v34];
+    if (v30)
     {
       goto LABEL_72;
     }
@@ -1192,7 +1213,8 @@ LABEL_65:
 
       if (([topicCopy isEqualToString:@"TLAlertTopicAlarmGoToSleep"] & 1) == 0)
       {
-        if (([topicCopy isEqualToString:@"TLAlertTopicAlarmWakeUp"] & 1) == 0)
+        v30 = [topicCopy isEqualToString:@"TLAlertTopicAlarmWakeUp"];
+        if ((v30 & 1) == 0)
         {
           goto LABEL_74;
         }
@@ -1201,56 +1223,56 @@ LABEL_65:
       }
 
 LABEL_72:
-      v28 = @"Built-In-System-Sound-ID-Vibration";
+      v33 = @"Built-In-System-Sound-ID-Vibration";
       goto LABEL_73;
     }
 
     if ([topicCopy isEqualToString:@"TLAlertTopicPhotosNotificationSharingPost"])
     {
 LABEL_68:
-      v28 = @"<none>";
+      v33 = @"<none>";
       goto LABEL_73;
     }
 
-    if (([topicCopy isEqualToString:@"TLAlertTopicPhotosNotificationMemory"] & 1) == 0)
+    v30 = [topicCopy isEqualToString:@"TLAlertTopicPhotosNotificationMemory"];
+    if ((v30 & 1) == 0)
     {
       goto LABEL_74;
     }
 
-    v28 = @"PhotosMemoriesNotification";
+    v33 = @"PhotosMemoriesNotification";
 LABEL_73:
 
-    v20 = v28;
+    v23 = v33;
     goto LABEL_74;
   }
 
-  if ([topicCopy isEqualToString:@"com.apple.mobilemail.bulletin-subsection.VIP"] & 1) != 0 || (objc_msgSend(topicCopy, "isEqualToString:", @"com.apple.mobilemail.bulletin-subsection.ThreadNotify"))
+  if ([topicCopy isEqualToString:@"com.apple.mobilemail.bulletin-subsection.VIP"] & 1) != 0 || (v30 = objc_msgSend(topicCopy, "isEqualToString:", @"com.apple.mobilemail.bulletin-subsection.ThreadNotify"), (v30))
   {
-    v28 = @"Quick";
+    v33 = @"Quick";
     goto LABEL_73;
   }
 
 LABEL_74:
-  v30 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v35 = TLLogVibrationManagement(v30, v31);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = NSStringFromTLAlertType(type);
-    *buf = *(v12 + 329);
+    v36 = NSStringFromTLAlertType(type);
+    *buf = *(v14 + 329);
     selfCopy3 = self;
-    v39 = 2114;
-    v40 = v31;
-    v41 = 2114;
-    v42 = topicCopy;
     v43 = 2114;
-    v44 = identifierCopy;
+    v44 = v36;
     v45 = 2114;
-    v46 = v20;
-    _os_log_impl(&dword_1D9356000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@: -_defaultVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@). Returning: %{public}@.", buf, 0x34u);
+    v46 = topicCopy;
+    v47 = 2114;
+    v48 = identifierCopy;
+    v49 = 2114;
+    v50 = v23;
+    _os_log_impl(&dword_1D9356000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@: -_defaultVibrationIdentifierForAlertType:(%{public}@) topic:(%{public}@) correspondingToneIdentifier:(%{public}@). Returning: %{public}@.", buf, 0x34u);
   }
 
-  v32 = v20;
-  v33 = *MEMORY[0x1E69E9840];
-  return v20;
+  v37 = v23;
+  return v23;
 }
 
 - (id)defaultVibrationNameForAlertType:(int64_t)type
@@ -1349,7 +1371,7 @@ LABEL_74:
 
 void __75__TLVibrationManager__completeSystemVibrationsSubdirectoryForSubdirectory___block_invoke(void *a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 32) objectForKey:a1[5]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -1368,11 +1390,11 @@ void __75__TLVibrationManager__completeSystemVibrationsSubdirectoryForSubdirecto
     if (!*(*(a1[6] + 8) + 40) && [v10 length])
     {
       v12 = [v5 stringByAppendingPathComponent:v11];
-      LOBYTE(v37) = 0;
+      LOBYTE(v38) = 0;
       v13 = [v9 stringByAppendingPathComponent:v12];
-      v14 = [v6 fileExistsAtPath:v13 isDirectory:&v37];
+      v14 = [v6 fileExistsAtPath:v13 isDirectory:&v38];
 
-      if (v14 && v37 == 1)
+      if (v14 && v38 == 1)
       {
         v15 = [v12 copy];
         v16 = *(a1[6] + 8);
@@ -1391,11 +1413,11 @@ void __75__TLVibrationManager__completeSystemVibrationsSubdirectoryForSubdirecto
     if ([v19 length] && (objc_msgSend(v11, "isEqualToString:", v19) & 1) == 0)
     {
       v20 = [v5 stringByAppendingPathComponent:v19];
-      LOBYTE(v37) = 0;
+      LOBYTE(v38) = 0;
       v21 = [v9 stringByAppendingPathComponent:v20];
-      v22 = [v6 fileExistsAtPath:v21 isDirectory:&v37];
+      v22 = [v6 fileExistsAtPath:v21 isDirectory:&v38];
 
-      if (v22 && v37 == 1)
+      if (v22 && v38 == 1)
       {
         v23 = [v20 copy];
         v24 = *(a1[6] + 8);
@@ -1420,22 +1442,20 @@ LABEL_17:
         v18 = *(*(a1[6] + 8) + 40);
       }
 
-      [v29 setObject:v18 forKey:a1[5]];
-      v33 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v33 = [v29 setObject:v18 forKey:a1[5]];
+      v35 = TLLogVibrationManagement(v33, v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = a1[5];
-        v35 = [v9 stringByAppendingPathComponent:*(*(a1[6] + 8) + 40)];
-        v37 = 138543618;
-        v38 = v34;
-        v39 = 2114;
-        v40 = v35;
-        _os_log_impl(&dword_1D9356000, v33, OS_LOG_TYPE_DEFAULT, "Looking up system vibrations for subdirectory %{public}@ at absolute path: %{public}@.", &v37, 0x16u);
+        v36 = a1[5];
+        v37 = [v9 stringByAppendingPathComponent:*(*(a1[6] + 8) + 40)];
+        v38 = 138543618;
+        v39 = v36;
+        v40 = 2114;
+        v41 = v37;
+        _os_log_impl(&dword_1D9356000, v35, OS_LOG_TYPE_DEFAULT, "Looking up system vibrations for subdirectory %{public}@ at absolute path: %{public}@.", &v38, 0x16u);
       }
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_systemVibrationIdentifiersForSubdirectory:(id)subdirectory
@@ -1465,7 +1485,7 @@ LABEL_17:
 
 void __65__TLVibrationManager__systemVibrationIdentifiersForSubdirectory___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 24) objectForKey:*(a1 + 40)];
   v3 = *(*(a1 + 48) + 8);
   v4 = *(v3 + 40);
@@ -1476,27 +1496,27 @@ void __65__TLVibrationManager__systemVibrationIdentifiersForSubdirectory___block
     v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
     v6 = [*(a1 + 32) _completeSystemVibrationsSubdirectoryForSubdirectory:*(a1 + 40)];
     v7 = [v5 pathsForResourcesOfType:@"plist" inDirectory:v6];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v8)
     {
       v9 = v8;
-      v23 = v5;
+      v22 = v5;
       v10 = 0;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = [*(*(&v24 + 1) + 8 * i) lastPathComponent];
+          v13 = [*(*(&v23 + 1) + 8 * i) lastPathComponent];
           v14 = [v13 stringByDeletingPathExtension];
 
           if ([v14 length])
@@ -1510,7 +1530,7 @@ void __65__TLVibrationManager__systemVibrationIdentifiersForSubdirectory___block
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v9);
@@ -1522,7 +1542,7 @@ void __65__TLVibrationManager__systemVibrationIdentifiersForSubdirectory___block
         *(v16 + 40) = v15;
 
         v18 = *(*(a1 + 32) + 24);
-        v5 = v23;
+        v5 = v22;
         if (!v18)
         {
           v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -1538,7 +1558,7 @@ void __65__TLVibrationManager__systemVibrationIdentifiersForSubdirectory___block
 
       else
       {
-        v5 = v23;
+        v5 = v22;
       }
     }
 
@@ -1547,88 +1567,86 @@ void __65__TLVibrationManager__systemVibrationIdentifiersForSubdirectory___block
       v10 = 0;
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_patternForSystemVibrationWithIdentifier:(id)identifier correspondingToneIdentifier:(id)toneIdentifier targetDevice:(int64_t)device shouldLogAssetPath:(BOOL)path
 {
   pathCopy = path;
-  v55 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   toneIdentifierCopy = toneIdentifier;
   if (![identifierCopy isEqualToString:@"<none>"])
   {
-    v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __123__TLVibrationManager__patternForSystemVibrationWithIdentifier_correspondingToneIdentifier_targetDevice_shouldLogAssetPath___block_invoke;
-    v46[3] = &unk_1E8579560;
-    v13 = v14;
-    v47 = v13;
-    selfCopy = self;
-    v50 = pathCopy;
-    v15 = identifierCopy;
+    v16 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __123__TLVibrationManager__patternForSystemVibrationWithIdentifier_correspondingToneIdentifier_targetDevice_shouldLogAssetPath___block_invoke;
+    v48[3] = &unk_1E8579560;
+    v15 = v16;
     v49 = v15;
-    v16 = MEMORY[0x1DA730160](v46);
-    v17 = +[TLCapabilitiesManager sharedCapabilitiesManager];
-    hasSynchronizedVibrationsCapability = [v17 hasSynchronizedVibrationsCapability];
+    selfCopy = self;
+    v52 = pathCopy;
+    v17 = identifierCopy;
+    v51 = v17;
+    v18 = MEMORY[0x1DA730160](v48);
+    v19 = +[TLCapabilitiesManager sharedCapabilitiesManager];
+    hasSynchronizedVibrationsCapability = [v19 hasSynchronizedVibrationsCapability];
 
     if (!hasSynchronizedVibrationsCapability)
     {
       goto LABEL_30;
     }
 
-    if (![v15 hasPrefix:@"synchronizedvibration:"])
+    if (![v17 hasPrefix:@"synchronizedvibration:"])
     {
       goto LABEL_45;
     }
 
-    v19 = [v15 substringFromIndex:{objc_msgSend(@"synchronizedvibration:", "length")}];
-    v20 = [v19 stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    v21 = [v17 substringFromIndex:{objc_msgSend(@"synchronizedvibration:", "length")}];
+    v22 = [v21 stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 
-    v21 = (v16)[2](v16, v20, @"Synchronized");
-    propertyListRepresentation = v21;
-    if (device == 1 && !v21)
+    v23 = (v18)[2](v18, v22, @"Synchronized");
+    propertyListRepresentation = v23;
+    if (device == 1 && !v23)
     {
-      v22 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v25 = TLLogVibrationManagement(0, v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = _TLAlertTargetDeviceGetHumanReadableDescription(1uLL);
+        v26 = _TLAlertTargetDeviceGetHumanReadableDescription(1uLL);
         *buf = 138543618;
-        v52 = v15;
-        v53 = 2114;
-        v54 = v23;
-        _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "Making assumption that %{public}@ is a valid synchronized vibration for target device: %{public}@.", buf, 0x16u);
+        v54 = v17;
+        v55 = 2114;
+        v56 = v26;
+        _os_log_impl(&dword_1D9356000, v25, OS_LOG_TYPE_DEFAULT, "Making assumption that %{public}@ is a valid synchronized vibration for target device: %{public}@.", buf, 0x16u);
       }
 
-      v24 = [TLVibrationPattern simpleVibrationPatternWithVibrationDuration:0.1 pauseDuration:0.1];
-      propertyListRepresentation = [v24 propertyListRepresentation];
+      v27 = [TLVibrationPattern simpleVibrationPatternWithVibrationDuration:0.1 pauseDuration:0.1];
+      propertyListRepresentation = [v27 propertyListRepresentation];
     }
 
     if (!_os_feature_enabled_impl() || propertyListRepresentation)
     {
-      v25 = v20;
+      v28 = v22;
     }
 
     else
     {
-      v25 = [v20 stringByAppendingString:@"-EncoreInfinitum"];
+      v28 = [v22 stringByAppendingString:@"-EncoreInfinitum"];
 
-      v26 = (v16)[2](v16, v25, @"Synchronized");
-      propertyListRepresentation = v26;
-      if (toneIdentifierCopy && !v26)
+      v29 = (v18)[2](v18, v28, @"Synchronized");
+      propertyListRepresentation = v29;
+      if (toneIdentifierCopy && !v29)
       {
-        v27 = +[TLToneManager sharedToneManager];
-        v28 = [v27 filePathForToneIdentifier:toneIdentifierCopy];
+        v30 = +[TLToneManager sharedToneManager];
+        v31 = [v30 filePathForToneIdentifier:toneIdentifierCopy];
 
-        lastPathComponent = [v28 lastPathComponent];
-        v30 = [lastPathComponent containsString:@"-EncoreInfinitum"];
+        lastPathComponent = [v31 lastPathComponent];
+        v33 = [lastPathComponent containsString:@"-EncoreInfinitum"];
 
-        if (v30)
+        if (v33)
         {
-          v31 = [TLVibrationPattern simpleVibrationPatternWithVibrationDuration:0.1 pauseDuration:0.1];
-          propertyListRepresentation = [v31 propertyListRepresentation];
+          v34 = [TLVibrationPattern simpleVibrationPatternWithVibrationDuration:0.1 pauseDuration:0.1];
+          propertyListRepresentation = [v34 propertyListRepresentation];
         }
 
         else
@@ -1638,8 +1656,8 @@ void __65__TLVibrationManager__systemVibrationIdentifiersForSubdirectory___block
       }
     }
 
-    v32 = +[TLCapabilitiesManager sharedCapabilitiesManager];
-    supportsReflectionRemixes = [v32 supportsReflectionRemixes];
+    v35 = +[TLCapabilitiesManager sharedCapabilitiesManager];
+    supportsReflectionRemixes = [v35 supportsReflectionRemixes];
 
     if (supportsReflectionRemixes)
     {
@@ -1650,22 +1668,22 @@ LABEL_35:
         goto LABEL_36;
       }
 
-      v34 = [v25 stringByAppendingString:@"-EncoreRemix"];
+      v37 = [v28 stringByAppendingString:@"-EncoreRemix"];
 
-      v35 = (v16)[2](v16, v34, @"Synchronized");
-      propertyListRepresentation = v35;
-      if (toneIdentifierCopy && !v35)
+      v38 = (v18)[2](v18, v37, @"Synchronized");
+      propertyListRepresentation = v38;
+      if (toneIdentifierCopy && !v38)
       {
-        v36 = +[TLToneManager sharedToneManager];
-        v37 = [v36 filePathForToneIdentifier:toneIdentifierCopy];
+        v39 = +[TLToneManager sharedToneManager];
+        v40 = [v39 filePathForToneIdentifier:toneIdentifierCopy];
 
-        lastPathComponent2 = [v37 lastPathComponent];
-        v39 = [lastPathComponent2 containsString:@"-EncoreRemix"];
+        lastPathComponent2 = [v40 lastPathComponent];
+        v42 = [lastPathComponent2 containsString:@"-EncoreRemix"];
 
-        if (v39)
+        if (v42)
         {
-          v40 = [TLVibrationPattern simpleVibrationPatternWithVibrationDuration:0.1 pauseDuration:0.1];
-          propertyListRepresentation = [v40 propertyListRepresentation];
+          v43 = [TLVibrationPattern simpleVibrationPatternWithVibrationDuration:0.1 pauseDuration:0.1];
+          propertyListRepresentation = [v43 propertyListRepresentation];
         }
 
         else
@@ -1677,35 +1695,35 @@ LABEL_35:
 
     else
     {
-      v34 = v25;
+      v37 = v28;
     }
 
     if (!propertyListRepresentation)
     {
 LABEL_45:
-      v41 = [@"UserSelectable" stringByAppendingPathComponent:@"Modern"];
-      propertyListRepresentation = (v16)[2](v16, v15, v41);
+      v44 = [@"UserSelectable" stringByAppendingPathComponent:@"Modern"];
+      propertyListRepresentation = (v18)[2](v18, v17, v44);
 
       if (!propertyListRepresentation)
       {
 LABEL_30:
-        v42 = [@"UserSelectable" stringByAppendingPathComponent:@"Classic"];
-        propertyListRepresentation = (v16)[2](v16, v15, v42);
+        v45 = [@"UserSelectable" stringByAppendingPathComponent:@"Classic"];
+        propertyListRepresentation = (v18)[2](v18, v17, v45);
 
         if (!propertyListRepresentation)
         {
           if (hasSynchronizedVibrationsCapability)
           {
-            v43 = @"Modern";
+            v46 = @"Modern";
           }
 
           else
           {
-            v43 = @"Classic";
+            v46 = @"Classic";
           }
 
-          v25 = [@"Other" stringByAppendingPathComponent:v43];
-          propertyListRepresentation = (v16)[2](v16, v15, v25);
+          v28 = [@"Other" stringByAppendingPathComponent:v46];
+          propertyListRepresentation = (v18)[2](v18, v17, v28);
           goto LABEL_35;
         }
       }
@@ -1716,31 +1734,31 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  propertyListRepresentation = [(TLVibrationManager *)self noneVibrationPattern];
+  noneVibrationPattern = [(TLVibrationManager *)self noneVibrationPattern];
+  propertyListRepresentation = noneVibrationPattern;
   if (!pathCopy)
   {
     goto LABEL_38;
   }
 
-  v13 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = TLLogVibrationManagement(noneVibrationPattern, v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v52 = identifierCopy;
-    _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "Using none vibration pattern for vibration identifier %{public}@", buf, 0xCu);
+    v54 = identifierCopy;
+    _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "Using none vibration pattern for vibration identifier %{public}@", buf, 0xCu);
   }
 
 LABEL_37:
 
 LABEL_38:
-  v44 = *MEMORY[0x1E69E9840];
 
   return propertyListRepresentation;
 }
 
 id __123__TLVibrationManager__patternForSystemVibrationWithIdentifier_correspondingToneIdentifier_targetDevice_shouldLogAssetPath___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
   v7 = a2;
@@ -1750,30 +1768,29 @@ id __123__TLVibrationManager__patternForSystemVibrationWithIdentifier_correspond
   if (v9)
   {
     v10 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v9];
+    v12 = v10;
     if (v10 && *(a1 + 56) == 1)
     {
-      v11 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = TLLogVibrationManagement(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 48);
-        v13 = [v9 path];
-        v16 = 138543618;
-        v17 = v12;
-        v18 = 2114;
-        v19 = v13;
-        _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "Vibration pattern for identifier %{public}@ found at path: %{public}@.", &v16, 0x16u);
+        v14 = *(a1 + 48);
+        v15 = [v9 path];
+        v17 = 138543618;
+        v18 = v14;
+        v19 = 2114;
+        v20 = v15;
+        _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "Vibration pattern for identifier %{public}@ found at path: %{public}@.", &v17, 0x16u);
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v12;
 }
 
 - (id)_localizedNameForVibrationWithIdentifier:(id)identifier
@@ -1867,10 +1884,7 @@ LABEL_5:
 
       if (v13)
       {
-        v14 = [*(a1 + 32) copy];
-        v15 = *(*(a1 + 48) + 8);
-        v16 = *(v15 + 40);
-        *(v15 + 40) = v14;
+        *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) copy];
 
         MEMORY[0x1EEE66BB8]();
       }
@@ -1939,10 +1953,7 @@ uint64_t __56__TLVibrationManager_patternForVibrationWithIdentifier___block_invo
 
   else
   {
-    v8 = [v3 _patternForSystemVibrationWithIdentifier:*(a1 + 32) correspondingToneIdentifier:0 targetDevice:0 shouldLogAssetPath:1];
-    v9 = *(*(a1 + 48) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    *(*(*(a1 + 48) + 8) + 40) = [v3 _patternForSystemVibrationWithIdentifier:*(a1 + 32) correspondingToneIdentifier:0 targetDevice:0 shouldLogAssetPath:1];
   }
 
   return MEMORY[0x1EEE66BB8]();
@@ -2039,101 +2050,103 @@ uint64_t __56__TLVibrationManager_patternForVibrationWithIdentifier___block_invo
 + (void)_handleVibrationPreferencesDidChangeNotificationForPreferencesKinds:(unint64_t)kinds atInitiativeOfVibrationManager:(id)manager
 {
   kindsCopy = kinds;
-  v40 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
+  v8 = managerCopy;
   if (_TLVibrationManagerShouldIgnoreNextVibrationPreferencesDidChangeNotification == 1)
   {
     _TLVibrationManagerShouldIgnoreNextVibrationPreferencesDidChangeNotification = 0;
-    v7 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = TLLogVibrationManagement(managerCopy, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       *&buf[4] = self;
-      _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Ignoring notification.", buf, 0xCu);
+      _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Ignoring notification.", buf, 0xCu);
     }
   }
 
   else
   {
-    v8 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TLLogVibrationManagement(managerCopy, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       *&buf[4] = self;
-      _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…", buf, 0xCu);
+      _os_log_impl(&dword_1D9356000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…", buf, 0xCu);
     }
 
     if (kindsCopy)
     {
-      v9 = +[TLPreferencesUtilities copySharedResourcesPreferencesDomain];
-      v10 = v9;
-      if (v9)
+      v11 = +[TLPreferencesUtilities copySharedResourcesPreferencesDomain];
+      v12 = v11;
+      if (v11)
       {
-        CFPreferencesSynchronize(v9, *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-        v11 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = CFPreferencesSynchronize(v11, *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
+        v15 = TLLogVibrationManagement(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
           *&buf[4] = self;
           *&buf[12] = 2114;
-          *&buf[14] = v10;
-          _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Synchronized CFPreferences domain %{public}@.", buf, 0x16u);
+          *&buf[14] = v12;
+          _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Synchronized CFPreferences domain %{public}@.", buf, 0x16u);
         }
 
-        CFRelease(v10);
+        CFRelease(v12);
       }
     }
 
     if ((kindsCopy & 2) != 0)
     {
-      if (+[TLPreferencesUtilities canAccessNanoRegistry]&& (NPSDomainAccessorClass_0 = getNPSDomainAccessorClass_0()) != 0)
+      NPSDomainAccessorClass_0 = +[TLPreferencesUtilities canAccessNanoRegistry];
+      if (NPSDomainAccessorClass_0 && (NPSDomainAccessorClass_0 = getNPSDomainAccessorClass_0(), (v18 = NPSDomainAccessorClass_0) != 0))
       {
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v37 = __Block_byref_object_copy__1;
-        v38 = __Block_byref_object_dispose__1;
-        v39 = 0;
-        v26 = MEMORY[0x1E69E9820];
-        v27 = 3221225472;
-        v28 = __121__TLVibrationManager__handleVibrationPreferencesDidChangeNotificationForPreferencesKinds_atInitiativeOfVibrationManager___block_invoke;
-        v29 = &unk_1E8578950;
-        v31 = buf;
-        v30 = managerCopy;
-        [v30 _performBlockInAccessQueue:&v26];
-        v13 = *(*&buf[8] + 40);
-        if (!v13)
+        v45 = __Block_byref_object_copy__1;
+        v46 = __Block_byref_object_dispose__1;
+        v47 = 0;
+        v34 = MEMORY[0x1E69E9820];
+        v35 = 3221225472;
+        v36 = __121__TLVibrationManager__handleVibrationPreferencesDidChangeNotificationForPreferencesKinds_atInitiativeOfVibrationManager___block_invoke;
+        v37 = &unk_1E8578950;
+        v39 = buf;
+        v38 = v8;
+        [v38 _performBlockInAccessQueue:&v34];
+        v19 = *(*&buf[8] + 40);
+        if (!v19)
         {
-          v14 = [NPSDomainAccessorClass_0 alloc];
-          v15 = [TLPreferencesUtilities perWatchPreferencesDomain:v26];
-          v16 = [v14 initWithDomain:v15];
-          v17 = *(*&buf[8] + 40);
-          *(*&buf[8] + 40) = v16;
+          v20 = [v18 alloc];
+          v21 = [TLPreferencesUtilities perWatchPreferencesDomain:v34];
+          v22 = [v20 initWithDomain:v21];
+          v23 = *(*&buf[8] + 40);
+          *(*&buf[8] + 40) = v22;
 
-          v18 = TLLogVibrationManagement();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v26 = TLLogVibrationManagement(v24, v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = *(*&buf[8] + 40);
-            *v32 = 138543618;
+            v27 = *(*&buf[8] + 40);
+            *v40 = 138543618;
             selfCopy2 = self;
-            v34 = 2114;
-            v35 = v19;
-            _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Instantiated domain accessor %{public}@.", v32, 0x16u);
+            v42 = 2114;
+            v43 = v27;
+            _os_log_impl(&dword_1D9356000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Instantiated domain accessor %{public}@.", v40, 0x16u);
           }
 
-          v13 = *(*&buf[8] + 40);
+          v19 = *(*&buf[8] + 40);
         }
 
-        synchronize = [v13 synchronize];
-        v21 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        synchronize = [v19 synchronize];
+        v30 = TLLogVibrationManagement(synchronize, v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = *(*&buf[8] + 40);
-          *v32 = 138543618;
+          v31 = *(*&buf[8] + 40);
+          *v40 = 138543618;
           selfCopy2 = self;
-          v34 = 2114;
-          v35 = v22;
-          _os_log_impl(&dword_1D9356000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Synchronized domain accessor %{public}@.", v32, 0x16u);
+          v42 = 2114;
+          v43 = v31;
+          _os_log_impl(&dword_1D9356000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Synchronized domain accessor %{public}@.", v40, 0x16u);
         }
 
         _Block_object_dispose(buf, 8);
@@ -2141,24 +2154,22 @@ uint64_t __56__TLVibrationManager_patternForVibrationWithIdentifier___block_invo
 
       else
       {
-        v23 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v32 = TLLogVibrationManagement(NPSDomainAccessorClass_0, v17);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = +[TLPreferencesUtilities canAccessNanoRegistry];
+          v33 = +[TLPreferencesUtilities canAccessNanoRegistry];
           *buf = 138543618;
           *&buf[4] = self;
           *&buf[12] = 1024;
-          *&buf[14] = v24;
-          _os_log_impl(&dword_1D9356000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Skipping synchronizing the domain accessor. canAccessNanoRegistry = %{BOOL}u.", buf, 0x12u);
+          *&buf[14] = v33;
+          _os_log_impl(&dword_1D9356000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleVibrationPreferencesDidChangeNotification…: Skipping synchronizing the domain accessor. canAccessNanoRegistry = %{BOOL}u.", buf, 0x12u);
         }
       }
     }
 
-    v7 = dispatch_get_global_queue(0, 0);
-    dispatch_async(v7, &__block_literal_global_249);
+    v9 = dispatch_get_global_queue(0, 0);
+    dispatch_async(v9, &__block_literal_global_249);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __121__TLVibrationManager__handleVibrationPreferencesDidChangeNotificationForPreferencesKinds_atInitiativeOfVibrationManager___block_invoke_247()
@@ -2181,19 +2192,19 @@ void __121__TLVibrationManager__handleVibrationPreferencesDidChangeNotificationF
 
 - (void)_didSetVibrationPreferenceSuccessfullyWithKey:(id)key inDomain:(id)domain usingPreferencesOfKind:(unint64_t)kind
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v31[3] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   domainCopy = domain;
-  v10 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = TLLogVibrationManagement(domainCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
     *&buf[4] = self;
     *&buf[12] = 2114;
     *&buf[14] = keyCopy;
     *&buf[22] = 2114;
-    v25 = domainCopy;
-    _os_log_impl(&dword_1D9356000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didSetVibrationPreferenceSuccessfullyWithKey:(%{public}@) inDomain:(%{public}@)…", buf, 0x20u);
+    v30 = domainCopy;
+    _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didSetVibrationPreferenceSuccessfullyWithKey:(%{public}@) inDomain:(%{public}@)…", buf, 0x20u);
   }
 
   [objc_opt_class() _handleVibrationPreferencesDidChangeNotificationForPreferencesKinds:kind atInitiativeOfVibrationManager:self];
@@ -2202,77 +2213,75 @@ void __121__TLVibrationManager__handleVibrationPreferencesDidChangeNotificationF
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"_TLVibrationPreferencesDidChangeNotification", 0, 0, 1u);
   if (kind)
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2050000000;
-    v12 = getNPSManagerClass_softClass_0;
-    v23 = getNPSManagerClass_softClass_0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2050000000;
+    v13 = getNPSManagerClass_softClass_0;
+    v28 = getNPSManagerClass_softClass_0;
     if (!getNPSManagerClass_softClass_0)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getNPSManagerClass_block_invoke_0;
-      v25 = &unk_1E8578D30;
-      v26[0] = &v20;
+      v30 = &unk_1E8578D30;
+      v31[0] = &v25;
       __getNPSManagerClass_block_invoke_0(buf);
-      v12 = v21[3];
+      v13 = v26[3];
     }
 
-    v13 = v12;
-    _Block_object_dispose(&v20, 8);
-    if (v12)
+    v14 = v13;
+    _Block_object_dispose(&v25, 8);
+    if (v13)
     {
-      v14 = objc_alloc_init(v12);
-      v15 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v15 = objc_alloc_init(v13);
+      v17 = TLLogVibrationManagement(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
         *&buf[4] = self;
         *&buf[12] = 2114;
-        *&buf[14] = v14;
-        _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didSetVibrationPreferenceSuccessfully…: Instantiated preferences sync manager %{public}@.", buf, 0x16u);
+        *&buf[14] = v15;
+        _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didSetVibrationPreferenceSuccessfully…: Instantiated preferences sync manager %{public}@.", buf, 0x16u);
       }
 
-      v16 = [MEMORY[0x1E695DFD8] setWithObjects:{keyCopy, 0}];
+      v18 = [MEMORY[0x1E695DFD8] setWithObjects:{keyCopy, 0}];
       if (kind)
       {
-        [v14 synchronizeUserDefaultsDomain:domainCopy keys:v16];
-        v17 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = [v15 synchronizeUserDefaultsDomain:domainCopy keys:v18];
+        v21 = TLLogVibrationManagement(v19, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138544130;
           *&buf[4] = self;
           *&buf[12] = 2114;
           *&buf[14] = domainCopy;
           *&buf[22] = 2114;
-          v25 = v14;
-          LOWORD(v26[0]) = 2114;
-          *(v26 + 2) = v16;
-          _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didSetVibrationPreferenceSuccessfully…: Did synchronize user defaults domain %{public}@ with %{public}@ for keys %{public}@.", buf, 0x2Au);
+          v30 = v15;
+          LOWORD(v31[0]) = 2114;
+          *(v31 + 2) = v18;
+          _os_log_impl(&dword_1D9356000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didSetVibrationPreferenceSuccessfully…: Did synchronize user defaults domain %{public}@ with %{public}@ for keys %{public}@.", buf, 0x2Au);
         }
       }
 
       if ((kind & 2) != 0)
       {
-        [v14 synchronizeNanoDomain:domainCopy keys:v16];
-        v18 = TLLogVibrationManagement();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v22 = [v15 synchronizeNanoDomain:domainCopy keys:v18];
+        v24 = TLLogVibrationManagement(v22, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138544130;
           *&buf[4] = self;
           *&buf[12] = 2114;
           *&buf[14] = domainCopy;
           *&buf[22] = 2114;
-          v25 = v14;
-          LOWORD(v26[0]) = 2114;
-          *(v26 + 2) = v16;
-          _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didSetVibrationPreferenceSuccessfully…: Did synchronize nano domain %{public}@ with %{public}@ for keys %{public}@.", buf, 0x2Au);
+          v30 = v15;
+          LOWORD(v31[0]) = 2114;
+          *(v31 + 2) = v18;
+          _os_log_impl(&dword_1D9356000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didSetVibrationPreferenceSuccessfully…: Did synchronize nano domain %{public}@ with %{public}@ for keys %{public}@.", buf, 0x2Au);
         }
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_areSynchronizedVibrationsAllowedForAlertType:(int64_t)type topic:(id)topic
@@ -2549,7 +2558,7 @@ LABEL_11:
 
 - (id)addUserGeneratedVibrationPattern:(id)pattern name:(id)name error:(id *)error
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   patternCopy = pattern;
   nameCopy = name;
   v10 = nameCopy;
@@ -2581,11 +2590,11 @@ LABEL_11:
             v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
           }
 
-          v20[0] = @"Name";
-          v20[1] = @"Pattern";
-          v21[0] = v10;
-          v21[1] = patternCopy;
-          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+          v19[0] = @"Name";
+          v19[1] = @"Pattern";
+          v20[0] = v10;
+          v20[1] = patternCopy;
+          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
           [v16 setObject:v17 forKey:v11];
           if (![(TLVibrationManager *)self _saveUserGeneratedVibrationPatterns:v16 error:error])
           {
@@ -2601,8 +2610,6 @@ LABEL_11:
       v11 = 0;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -2727,8 +2734,8 @@ LABEL_11:
 void __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingService__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = TLLogVibrationManagement(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingService__block_invoke_cold_1(v3);
   }
@@ -2740,7 +2747,7 @@ void __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingServic
 {
   v6 = a2;
   v7 = a3;
-  v8 = v7;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -2748,10 +2755,10 @@ void __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingServic
 
   else if (v7)
   {
-    v9 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = TLLogVibrationManagement(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingService__block_invoke_324_cold_1(v8);
+      __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingService__block_invoke_324_cold_1(v9);
     }
   }
 
@@ -2809,16 +2816,16 @@ void __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingServic
 void __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = TLLogVibrationManagement(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_error___block_invoke_cold_1(v3);
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
-  v7 = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v3;
+  v8 = v3;
 
   dispatch_semaphore_signal(*(a1 + 32));
 }
@@ -2826,13 +2833,14 @@ void __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_err
 void __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_error___block_invoke_326(uint64_t a1, char a2, void *a3)
 {
   v6 = a3;
+  v8 = v6;
   *(*(*(a1 + 40) + 8) + 24) = a2;
   if ((a2 & 1) == 0)
   {
-    v7 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = TLLogVibrationManagement(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_error___block_invoke_326_cold_1(v6);
+      __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_error___block_invoke_326_cold_1(v8);
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -2890,16 +2898,16 @@ void __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_err
 void __84__TLVibrationManager__removeAllUserGeneratedVibrationPatternsUsingServiceWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = TLLogVibrationManagement(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __84__TLVibrationManager__removeAllUserGeneratedVibrationPatternsUsingServiceWithError___block_invoke_cold_1(v3);
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
-  v7 = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v3;
+  v8 = v3;
 
   dispatch_semaphore_signal(*(a1 + 32));
 }
@@ -2907,13 +2915,14 @@ void __84__TLVibrationManager__removeAllUserGeneratedVibrationPatternsUsingServi
 void __84__TLVibrationManager__removeAllUserGeneratedVibrationPatternsUsingServiceWithError___block_invoke_328(uint64_t a1, char a2, void *a3)
 {
   v6 = a3;
+  v8 = v6;
   *(*(*(a1 + 40) + 8) + 24) = a2;
   if ((a2 & 1) == 0)
   {
-    v7 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = TLLogVibrationManagement(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __84__TLVibrationManager__removeAllUserGeneratedVibrationPatternsUsingServiceWithError___block_invoke_328_cold_1(v6);
+      __84__TLVibrationManager__removeAllUserGeneratedVibrationPatternsUsingServiceWithError___block_invoke_328_cold_1(v8);
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -3112,7 +3121,7 @@ void __80__TLVibrationManager__makeSystemVibrationDataMigrationVersionCurrentIfN
 
 - (int64_t)_currentVibrationWatchAlertPolicyForAlertType:(int64_t)type topic:(id)topic didFindPersistedWatchAlertPolicy:(BOOL *)policy
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   topicCopy = topic;
   if ((type - 13) >= 2)
   {
@@ -3151,30 +3160,30 @@ LABEL_21:
   }
 
   v16 = [[NPSDomainAccessorClass_0 alloc] initWithDomain:v13];
-  v17 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = TLLogVibrationManagement(v16, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v27 = 2114;
-    v28 = v16;
-    _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationWatchAlertPolicy…: Instantiated domain accessor %{public}@.", buf, 0x16u);
+    v28 = 2114;
+    v29 = v16;
+    _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationWatchAlertPolicy…: Instantiated domain accessor %{public}@.", buf, 0x16u);
   }
 
-  v24 = v16;
-  v18 = [v16 objectForKey:v14];
-  v19 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v25 = v16;
+  v19 = [v16 objectForKey:v14];
+  v21 = TLLogVibrationManagement(v19, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
     selfCopy2 = self;
-    v27 = 2114;
-    v28 = v14;
-    v29 = 2114;
-    v30 = v24;
-    v31 = 2114;
-    v32 = v18;
-    _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationWatchAlertPolicy…: Retrieved object for key %{public}@ from %{public}@: %{public}@.", buf, 0x2Au);
+    v28 = 2114;
+    v29 = v14;
+    v30 = 2114;
+    v31 = v25;
+    v32 = 2114;
+    v33 = v19;
+    _os_log_impl(&dword_1D9356000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: -_currentVibrationWatchAlertPolicy…: Retrieved object for key %{public}@ from %{public}@: %{public}@.", buf, 0x2Au);
   }
 
   if (v12)
@@ -3182,22 +3191,22 @@ LABEL_21:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = [v18 objectForKey:topicCopy];
+      v22 = [v19 objectForKey:topicCopy];
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
 
-    v18 = v20;
+    v19 = v22;
   }
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
   {
-    v9 = TLWatchAlertPolicyFromString(v18);
+    v9 = TLWatchAlertPolicyFromString(v19);
   }
 
   if ((isKindOfClass & 1) == 0)
@@ -3211,7 +3220,6 @@ LABEL_23:
     *policy = isKindOfClass & 1;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -3232,32 +3240,32 @@ LABEL_23:
     }
   }
 
-  v21 = 0;
-  v10 = [(TLVibrationManager *)self _currentVibrationWatchAlertPolicyForAlertType:type topic:topicCopy didFindPersistedWatchAlertPolicy:&v21];
-  if (v21 != 1 || v10 != policy)
+  v22 = 0;
+  v10 = [(TLVibrationManager *)self _currentVibrationWatchAlertPolicyForAlertType:type topic:topicCopy didFindPersistedWatchAlertPolicy:&v22];
+  if (v22 != 1 || v10 != policy)
   {
     v12 = +[TLPreferencesUtilities perWatchPreferencesDomain];
-    v13 = [(TLVibrationManager *)self _currentVibrationWatchAlertPolicyPreferenceKeyForAlertType:type topic:topicCopy];
-    if (v13)
+    v14 = [(TLVibrationManager *)self _currentVibrationWatchAlertPolicyPreferenceKeyForAlertType:type topic:topicCopy];
+    if (v14)
     {
-      v14 = NSStringFromTLWatchAlertPolicy(policy);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __78__TLVibrationManager__setCurrentVibrationWatchAlertPolicy_forAlertType_topic___block_invoke;
-      v16[3] = &unk_1E8578C70;
-      v16[4] = self;
-      v17 = v12;
-      v18 = topicCopy;
-      v19 = v13;
+      v15 = NSStringFromTLWatchAlertPolicy(policy);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __78__TLVibrationManager__setCurrentVibrationWatchAlertPolicy_forAlertType_topic___block_invoke;
+      v17[3] = &unk_1E8578C70;
+      v17[4] = self;
+      v18 = v12;
+      v19 = topicCopy;
       v20 = v14;
-      v15 = v14;
-      [(TLVibrationManager *)self _performBlockInAccessQueue:v16];
+      v21 = v15;
+      v16 = v15;
+      [(TLVibrationManager *)self _performBlockInAccessQueue:v17];
     }
 
     else
     {
-      v15 = TLLogVibrationManagement();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = TLLogVibrationManagement(0, v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [TLVibrationManager _setCurrentVibrationWatchAlertPolicy:type forAlertType:? topic:?];
       }
@@ -3267,7 +3275,7 @@ LABEL_23:
 
 void __78__TLVibrationManager__setCurrentVibrationWatchAlertPolicy_forAlertType_topic___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 56);
   if (v2)
   {
@@ -3286,173 +3294,150 @@ LABEL_3:
 
   v3 = [[NPSDomainAccessorClass_0 alloc] initWithDomain:*(a1 + 40)];
   objc_storeStrong((*(a1 + 32) + 56), v3);
-  v6 = TLLogVibrationManagement();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = TLLogVibrationManagement(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v26 = 138543618;
-    v27 = v7;
-    v28 = 2114;
-    v29 = v3;
-    _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: -_setCurrentVibrationWatchAlertPolicy…: Instantiated domain accessor %{public}@ and set it to be the transient one.", &v26, 0x16u);
+    v9 = *(a1 + 32);
+    v32 = 138543618;
+    v33 = v9;
+    v34 = 2114;
+    v35 = v3;
+    _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: -_setCurrentVibrationWatchAlertPolicy…: Instantiated domain accessor %{public}@ and set it to be the transient one.", &v32, 0x16u);
   }
 
   v4 = 1;
 LABEL_8:
   if ([*(a1 + 48) length])
   {
-    v8 = [v3 objectForKey:*(a1 + 56)];
-    v9 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = [v3 objectForKey:*(a1 + 56)];
+    v12 = TLLogVibrationManagement(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 56);
-      v26 = 138544130;
-      v27 = v10;
-      v28 = 2114;
-      v29 = v11;
-      v30 = 2114;
-      v31 = v3;
-      v32 = 2114;
-      v33 = v8;
-      _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: -_setCurrentVibrationWatchAlertPolicy…: Retrieved object for key %{public}@ from %{public}@: %{public}@.", &v26, 0x2Au);
+      v13 = *(a1 + 32);
+      v14 = *(a1 + 56);
+      v32 = 138544130;
+      v33 = v13;
+      v34 = 2114;
+      v35 = v14;
+      v36 = 2114;
+      v37 = v3;
+      v38 = 2114;
+      v39 = v10;
+      _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: -_setCurrentVibrationWatchAlertPolicy…: Retrieved object for key %{public}@ from %{public}@: %{public}@.", &v32, 0x2Au);
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = [v8 mutableCopy];
+      v15 = [v10 mutableCopy];
     }
 
     else
     {
-      v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
-    v13 = v12;
-    [v12 setObject:*(a1 + 64) forKey:*(a1 + 48)];
-    [v3 setObject:v13 forKey:*(a1 + 56)];
-    v17 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = v15;
+    [v15 setObject:*(a1 + 64) forKey:*(a1 + 48)];
+    v22 = [v3 setObject:v18 forKey:*(a1 + 56)];
+    v24 = TLLogVibrationManagement(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(a1 + 32);
-      v19 = *(a1 + 56);
-      v26 = 138544130;
-      v27 = v18;
-      v28 = 2114;
-      v29 = v19;
-      v30 = 2114;
-      v31 = v3;
-      v32 = 2114;
-      v33 = v13;
-      _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: -_setCurrentVibrationWatchAlertPolicy…: Did set object for key %{public}@ on %{public}@: %{public}@.", &v26, 0x2Au);
+      v25 = *(a1 + 32);
+      v26 = *(a1 + 56);
+      v32 = 138544130;
+      v33 = v25;
+      v34 = 2114;
+      v35 = v26;
+      v36 = 2114;
+      v37 = v3;
+      v38 = 2114;
+      v39 = v18;
+      _os_log_impl(&dword_1D9356000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: -_setCurrentVibrationWatchAlertPolicy…: Did set object for key %{public}@ on %{public}@: %{public}@.", &v32, 0x2Au);
     }
   }
 
   else
   {
-    [v3 setObject:*(a1 + 64) forKey:*(a1 + 56)];
-    v13 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = [v3 setObject:*(a1 + 64) forKey:*(a1 + 56)];
+    v18 = TLLogVibrationManagement(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 32);
-      v15 = *(a1 + 56);
-      v16 = *(a1 + 64);
-      v26 = 138544130;
-      v27 = v14;
-      v28 = 2114;
-      v29 = v15;
-      v30 = 2114;
-      v31 = v3;
-      v32 = 2114;
-      v33 = v16;
-      _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: -_setCurrentVibrationWatchAlertPolicy…: Did set object for key %{public}@ on %{public}@: %{public}@.", &v26, 0x2Au);
+      v19 = *(a1 + 32);
+      v20 = *(a1 + 56);
+      v21 = *(a1 + 64);
+      v32 = 138544130;
+      v33 = v19;
+      v34 = 2114;
+      v35 = v20;
+      v36 = 2114;
+      v37 = v3;
+      v38 = 2114;
+      v39 = v21;
+      _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_setCurrentVibrationWatchAlertPolicy…: Did set object for key %{public}@ on %{public}@: %{public}@.", &v32, 0x2Au);
     }
   }
 
-  v20 = *(a1 + 32);
-  v21 = *(a1 + 56);
-  v22 = +[TLPreferencesUtilities perWatchPreferencesDomain];
-  [v20 _didSetVibrationPreferenceSuccessfullyWithKey:v21 inDomain:v22 usingPreferencesOfKind:2];
+  v27 = *(a1 + 32);
+  v28 = *(a1 + 56);
+  v29 = +[TLPreferencesUtilities perWatchPreferencesDomain];
+  [v27 _didSetVibrationPreferenceSuccessfullyWithKey:v28 inDomain:v29 usingPreferencesOfKind:2];
 
   if (v4)
   {
-    v23 = *(a1 + 32);
-    v24 = *(v23 + 56);
-    *(v23 + 56) = 0;
+    v30 = *(a1 + 32);
+    v31 = *(v30 + 56);
+    *(v30 + 56) = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingService__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 tl_nonRedundantDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Unexpected error while retrieving user generated vibration patterns: %{public}@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Unexpected error while retrieving user generated vibration patterns: %{public}@.", v4, v5, v6, v7);
 }
 
 void __73__TLVibrationManager__retrieveUserGeneratedVibrationPatternsUsingService__block_invoke_324_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 tl_nonRedundantDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed retrieving user generated vibration patterns: %{public}@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed retrieving user generated vibration patterns: %{public}@.", v4, v5, v6, v7);
 }
 
 void __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_error___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 tl_nonRedundantDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Unexpected error while setting user generated vibration patterns: %{public}@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Unexpected error while setting user generated vibration patterns: %{public}@.", v4, v5, v6, v7);
 }
 
 void __75__TLVibrationManager__setUserGeneratedVibrationPatternsUsingService_error___block_invoke_326_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 tl_nonRedundantDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed setting user generated vibration patterns with error: %{public}@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed setting user generated vibration patterns with error: %{public}@.", v4, v5, v6, v7);
 }
 
 void __84__TLVibrationManager__removeAllUserGeneratedVibrationPatternsUsingServiceWithError___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 tl_nonRedundantDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Unexpected error while removing user generated vibration patterns: %{public}@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Unexpected error while removing user generated vibration patterns: %{public}@.", v4, v5, v6, v7);
 }
 
 void __84__TLVibrationManager__removeAllUserGeneratedVibrationPatternsUsingServiceWithError___block_invoke_328_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 tl_nonRedundantDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed removing user generated vibration patterns with error: %{public}@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed removing user generated vibration patterns with error: %{public}@.", v4, v5, v6, v7);
 }
 
 - (void)_setCurrentVibrationWatchAlertPolicy:(unint64_t)a1 forAlertType:topic:.cold.1(unint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromTLAlertType(a1);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed to update watch alert policy for alert type %{public}@ because it is not settable.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed to update watch alert policy for alert type %{public}@ because it is not settable.", v4, v5, v6, v7);
 }
 
 @end

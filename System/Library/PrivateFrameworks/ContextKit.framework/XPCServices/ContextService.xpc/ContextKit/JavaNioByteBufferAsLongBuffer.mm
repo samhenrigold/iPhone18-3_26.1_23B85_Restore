@@ -4,9 +4,11 @@
 - (id)asReadOnlyBuffer;
 - (id)compact;
 - (id)duplicate;
+- (id)getWithLongArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)order;
 - (id)putWithInt:(int)int withLong:(int64_t)long;
 - (id)putWithLong:(int64_t)long;
+- (id)putWithLongArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)slice;
 - (int64_t)get;
 - (int64_t)getWithInt:(int)int;
@@ -108,6 +110,32 @@
   return [(JavaNioByteBuffer *)byteBuffer getLongWithInt:(8 * int)];
 }
 
+- (id)getWithLongArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  byteBuffer = self->byteBuffer_;
+  if (!byteBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v7 = *&withInt;
+  v8 = *&int;
+  [(JavaNioBuffer *)byteBuffer limitWithInt:(8 * self->super.super.limit_)];
+  [(JavaNioBuffer *)self->byteBuffer_ positionWithInt:(8 * self->super.super.position_)];
+  objc_opt_class();
+  objc_opt_isKindOfClass();
+  v10 = self->byteBuffer_;
+  objc_opt_class();
+  if (v10 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  [(JavaNioByteBuffer *)v10 getWithLongArray:array withInt:v8 withInt:v7];
+  self->super.super.position_ += v7;
+  return self;
+}
+
 - (BOOL)isDirect
 {
   byteBuffer = self->byteBuffer_;
@@ -171,6 +199,32 @@
   }
 
   [(JavaNioByteBuffer *)byteBuffer putLongWithInt:(8 * int) withLong:long];
+  return self;
+}
+
+- (id)putWithLongArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  byteBuffer = self->byteBuffer_;
+  if (!byteBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v7 = *&withInt;
+  v8 = *&int;
+  [(JavaNioBuffer *)byteBuffer limitWithInt:(8 * self->super.super.limit_)];
+  [(JavaNioBuffer *)self->byteBuffer_ positionWithInt:(8 * self->super.super.position_)];
+  objc_opt_class();
+  objc_opt_isKindOfClass();
+  v10 = self->byteBuffer_;
+  objc_opt_class();
+  if (v10 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  [(JavaNioByteBuffer *)v10 putWithLongArray:array withInt:v8 withInt:v7];
+  self->super.super.position_ += v7;
   return self;
 }
 

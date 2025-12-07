@@ -84,9 +84,9 @@
   }
 
   [v13 addObject:layoutCopy];
-  v21[0] = layoutCopy;
-  v21[2] = v21;
-  v17 = sub_F4048(&self->_layoutToLength.__table_.__bucket_list_.__ptr_, v21);
+  v21 = layoutCopy;
+  v22 = &v21;
+  v17 = sub_F4048(&self->_layoutToLength.__table_.__bucket_list_.__ptr_, &v21, &std::piecewise_construct, &v22);
   v17[3] = length;
   v17[4] = compressed;
   [(NSMapTable *)self->_layoutToFlexed setObject:&off_275CB8 forKey:layoutCopy];

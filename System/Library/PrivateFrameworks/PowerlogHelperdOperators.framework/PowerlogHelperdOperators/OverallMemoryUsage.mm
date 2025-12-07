@@ -2,6 +2,7 @@
 + (id)accumulateMemoryAcrossPrioritiesWithFootprints:(id)footprints withComparator:(id)comparator;
 - (OverallMemoryUsage)init;
 - (id)systemMemoryStatsDictionary;
+- (void)addProcessFootprint:(unint64_t)footprint withPriority:(int)priority;
 @end
 
 @implementation OverallMemoryUsage
@@ -79,37 +80,61 @@
   return v2;
 }
 
+- (void)addProcessFootprint:(unint64_t)footprint withPriority:(int)priority
+{
+  v11 = [MEMORY[0x277CCABB0] numberWithInt:*&priority];
+  v5 = [_sumMemoryAtEachPriority objectForKeyedSubscript:?];
+
+  if (v5)
+  {
+    v6 = [_sumMemoryAtEachPriority objectForKeyedSubscript:v11];
+    unsignedLongValue = [v6 unsignedLongValue];
+
+    v8 = MEMORY[0x277CCABB0];
+    footprintCopy = unsignedLongValue + footprint;
+  }
+
+  else
+  {
+    v8 = MEMORY[0x277CCABB0];
+    footprintCopy = footprint;
+  }
+
+  v10 = [v8 numberWithUnsignedLongLong:footprintCopy];
+  [_sumMemoryAtEachPriority setObject:v10 forKeyedSubscript:v11];
+}
+
 + (id)accumulateMemoryAcrossPrioritiesWithFootprints:(id)footprints withComparator:(id)comparator
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   footprintsCopy = footprints;
   comparatorCopy = comparator;
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
   allKeys = [footprintsCopy allKeys];
-  v21 = comparatorCopy;
+  v20 = comparatorCopy;
   v9 = [allKeys sortedArrayUsingComparator:comparatorCopy];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         v17 = [footprintsCopy objectForKeyedSubscript:v16];
         v13 += [v17 unsignedLongValue];
 
@@ -117,49 +142,45 @@
         [v7 setObject:v18 forKeyedSubscript:v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)systemMemoryStatsDictionary
 {
-  v15[9] = *MEMORY[0x277D85DE8];
+  v14[9] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{_wiredBytes >> 10, @"wired_down"}];
-  v15[0] = v2;
-  v14[1] = @"file_backed";
+  v14[0] = v2;
+  v13[1] = @"file_backed";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:_filebackedBytes >> 10];
-  v15[1] = v3;
-  v14[2] = @"free";
+  v14[1] = v3;
+  v13[2] = @"free";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:_freeBytes >> 10];
-  v15[2] = v4;
-  v14[3] = @"occupied_by_compressor";
+  v14[2] = v4;
+  v13[3] = @"occupied_by_compressor";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:_occupiedByCompressorBytes >> 10];
-  v15[3] = v5;
-  v14[4] = @"stored_in_compressor";
+  v14[3] = v5;
+  v13[4] = @"stored_in_compressor";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:_storedInCompressorBytes >> 10];
-  v15[4] = v6;
-  v14[5] = @"speculative";
+  v14[4] = v6;
+  v13[5] = @"speculative";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:_speculativeBytes >> 10];
-  v15[5] = v7;
-  v14[6] = @"anonymous";
+  v14[5] = v7;
+  v13[6] = @"anonymous";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:_anonymousBytes >> 10];
-  v15[6] = v8;
-  v14[7] = @"idle_phys_footprint";
+  v14[6] = v8;
+  v13[7] = @"idle_phys_footprint";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:_idlePhysFootprintBytes >> 10];
-  v15[7] = v9;
-  v14[8] = @"idle_wired";
+  v14[7] = v9;
+  v13[8] = @"idle_wired";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:_idleWiredBytes >> 10];
-  v15[8] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:9];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[8] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:9];
 
   return v11;
 }

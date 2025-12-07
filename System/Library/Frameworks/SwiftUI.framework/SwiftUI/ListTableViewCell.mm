@@ -12,7 +12,7 @@
 - (void)layoutMarginsDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ListTableViewCell();
+  v3.super_class = type metadata accessor for ListTableViewCell(0);
   v2 = v3.receiver;
   [(ListTableViewCell *)&v3 layoutMarginsDidChange];
   ListTableViewCell.updateSeparatorsFromConfiguration()();
@@ -41,7 +41,7 @@
 - (void)didUpdateFocusInContext:(id)context withAnimationCoordinator:(id)coordinator
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for ListTableViewCell();
+  v10.super_class = type metadata accessor for ListTableViewCell(0);
   contextCopy = context;
   coordinatorCopy = coordinator;
   v8 = v10.receiver;

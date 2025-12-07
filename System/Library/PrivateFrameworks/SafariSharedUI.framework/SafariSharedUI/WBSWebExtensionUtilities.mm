@@ -96,84 +96,84 @@
 
 void __125__WBSWebExtensionUtilities_validateContentsOfDictionary_requiredKeys_optionalKeys_keyToExpectedValueType_outExceptionString___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
-  if ([*(a1 + 32) containsObject:v7] & 1) != 0 || (objc_msgSend(*(a1 + 40), "containsObject:", v7))
+  if ([*(a1 + 32) containsObject:v7] & 1) != 0 || (v9 = objc_msgSend(*(a1 + 40), "containsObject:", v7), (v9))
   {
-    v9 = [*(a1 + 48) objectForKeyedSubscript:v7];
+    v11 = [*(a1 + 48) objectForKeyedSubscript:v7];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10 = v9;
+      v12 = v11;
     }
 
     else
     {
-      v10 = 0;
+      v12 = 0;
     }
 
-    v11 = v10;
+    v13 = v12;
 
-    v39 = v11;
-    if (v11)
+    v41 = v13;
+    if (v13)
     {
-      v12 = [v11 firstObject];
-      v13 = v8;
+      v14 = [v13 firstObject];
+      v15 = v8;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v14 = v13;
+        v16 = v15;
       }
 
       else
       {
-        v14 = 0;
+        v16 = 0;
       }
 
-      v15 = v14;
+      v17 = v16;
 
-      if (v15)
+      if (v17)
       {
+        v44 = 0u;
+        v45 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v40 = 0u;
-        v41 = 0u;
-        v16 = v15;
-        v17 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
-        if (v17)
+        v18 = v17;
+        v19 = [v18 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        if (v19)
         {
-          v18 = *v41;
-          v38 = v8;
+          v20 = *v43;
+          v40 = v8;
           while (2)
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v19; ++i)
             {
-              if (*v41 != v18)
+              if (*v43 != v20)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v18);
               }
 
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 *a4 = 1;
-                v21 = MEMORY[0x1E696AEC0];
-                v8 = v38;
-                v22 = classToClassString(v12, 1);
-                v23 = objc_opt_class();
-                v24 = classToClassString(v23, 0);
-                v25 = [v21 stringWithFormat:@"Expected %@ in the array for '%@', found %@ instead.", v22, v7, v24, v15];
-                v26 = *(*(a1 + 64) + 8);
-                v27 = *(v26 + 40);
-                *(v26 + 40) = v25;
+                v23 = MEMORY[0x1E696AEC0];
+                v8 = v40;
+                v24 = classToClassString(v14, 1);
+                v25 = objc_opt_class();
+                v26 = classToClassString(v25, 0);
+                v27 = [v23 stringWithFormat:@"Expected %@ in the array for '%@', found %@ instead.", v24, v7, v26, v17];
+                v28 = *(*(a1 + 64) + 8);
+                v29 = *(v28 + 40);
+                *(v28 + 40) = v27;
 
                 goto LABEL_28;
               }
             }
 
-            v17 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
-            v8 = v38;
-            if (v17)
+            v19 = [v18 countByEnumeratingWithState:&v42 objects:v46 count:16];
+            v8 = v40;
+            if (v19)
             {
               continue;
             }
@@ -186,10 +186,10 @@ void __125__WBSWebExtensionUtilities_validateContentsOfDictionary_requiredKeys_o
       }
 
       *a4 = 1;
-      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Expected an array for '%@'.", v7];
-      v29 = *(*(a1 + 64) + 8);
-      v30 = *(v29 + 40);
-      *(v29 + 40) = v28;
+      v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Expected an array for '%@'.", v7];
+      v31 = *(*(a1 + 64) + 8);
+      v32 = *(v31 + 40);
+      *(v31 + 40) = v30;
     }
 
     else
@@ -206,14 +206,14 @@ LABEL_21:
       }
 
       *a4 = 1;
-      v31 = MEMORY[0x1E696AEC0];
-      v32 = classToClassString(v9, 0);
-      v33 = objc_opt_class();
-      v34 = classToClassString(v33, 0);
-      v35 = [v31 stringWithFormat:@"Expected %@ for '%@', found %@ instead.", v32, v7, v34];
-      v36 = *(*(a1 + 64) + 8);
-      v37 = *(v36 + 40);
-      *(v36 + 40) = v35;
+      v33 = MEMORY[0x1E696AEC0];
+      v34 = classToClassString(v11, 0);
+      v35 = objc_opt_class();
+      v36 = classToClassString(v35, 0);
+      v37 = [v33 stringWithFormat:@"Expected %@ for '%@', found %@ instead.", v34, v7, v36];
+      v38 = *(*(a1 + 64) + 8);
+      v39 = *(v38 + 40);
+      *(v38 + 40) = v37;
     }
 
 LABEL_28:
@@ -221,12 +221,12 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v20 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v22 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v9, v10);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v46 = v7;
-    _os_log_impl(&dword_1C6968000, v20, OS_LOG_TYPE_INFO, "Found unrecognized key (%{private}@), not specified in required or optional keys.", buf, 0xCu);
+    v48 = v7;
+    _os_log_impl(&dword_1C6968000, v22, OS_LOG_TYPE_INFO, "Found unrecognized key (%{private}@), not specified in required or optional keys.", buf, 0xCu);
   }
 
 LABEL_29:
@@ -234,37 +234,38 @@ LABEL_29:
 
 + (id)serializeObjectToJSON:(id)n
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   nCopy = n;
   if (nCopy)
   {
-    v10 = 0;
-    v4 = [MEMORY[0x1E696ACB0] dataWithJSONObject:nCopy options:0 error:&v10];
-    v5 = v10;
+    v12 = 0;
+    v4 = [MEMORY[0x1E696ACB0] dataWithJSONObject:nCopy options:0 error:&v12];
+    v5 = v12;
+    v7 = v5;
     if (v5)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        safari_privacyPreservingDescription = [v5 safari_privacyPreservingDescription];
-        [(WBSWebExtensionUtilities *)nCopy serializeObjectToJSON:safari_privacyPreservingDescription, buf, v6];
+        safari_privacyPreservingDescription = [v7 safari_privacyPreservingDescription];
+        [(WBSWebExtensionUtilities *)nCopy serializeObjectToJSON:safari_privacyPreservingDescription, buf, v8];
       }
 
-      v8 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v4 encoding:4];
+      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v4 encoding:4];
     }
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 + (double)storageSizeForKeysAndValues:(id)values

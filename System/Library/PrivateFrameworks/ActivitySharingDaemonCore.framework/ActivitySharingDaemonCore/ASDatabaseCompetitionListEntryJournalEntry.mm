@@ -85,30 +85,30 @@
 
 uint64_t __71__ASDatabaseCompetitionListEntryJournalEntry_applyEntries_withProfile___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 databaseForEntityClass:objc_opt_class()];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v17 + 1) + 8 * v11) competitionList];
+        v12 = [*(*(&v16 + 1) + 8 * v11) competitionList];
         v13 = [ASDatabaseCompetitionListEntryEntity _insertCompetitionList:v12 database:v6 error:a3];
 
         if (!v13)
@@ -121,7 +121,7 @@ uint64_t __71__ASDatabaseCompetitionListEntryJournalEntry_applyEntries_withProfi
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -134,7 +134,6 @@ uint64_t __71__ASDatabaseCompetitionListEntryJournalEntry_applyEntries_withProfi
   v14 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -144,14 +143,6 @@ uint64_t __71__ASDatabaseCompetitionListEntryJournalEntry_applyEntries_withProfi
   v6 = [v5 addJournalEntries:*(a1 + 40) error:a3];
 
   return v6;
-}
-
-+ (void)applyEntries:withProfile:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error inserting journaled competition lists %@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

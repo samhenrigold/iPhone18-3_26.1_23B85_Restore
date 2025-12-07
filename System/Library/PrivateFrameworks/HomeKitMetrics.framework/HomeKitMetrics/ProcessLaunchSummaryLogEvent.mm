@@ -11,12 +11,10 @@
 
 - (NSString)coreAnalyticsEventName
 {
-  v2 = *(self + OBJC_IVAR____TtC14HomeKitMetrics28ProcessLaunchSummaryLogEvent_coreAnalyticsEventName);
-  v3 = *(self + OBJC_IVAR____TtC14HomeKitMetrics28ProcessLaunchSummaryLogEvent_coreAnalyticsEventName + 8);
 
-  v4 = sub_22B0DF300();
+  v2 = sub_22B0DF300();
 
-  return v4;
+  return v2;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary

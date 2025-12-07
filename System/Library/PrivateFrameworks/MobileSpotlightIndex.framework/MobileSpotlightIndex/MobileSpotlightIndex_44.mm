@@ -1,5613 +1,6 @@
-void rehashPage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  Size = directoryStorePageGetSize(a2);
-  v29 = 0;
-  if (*(a2 + 6) != a4)
-  {
-    v23 = __si_assert_copy_extra(0);
-    v24 = v23;
-    v25 = "";
-    if (v23)
-    {
-      v25 = v23;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 459, "getNum16(page->depth)==(unsigned)depth", v25);
-    free(v24);
-    if (__valid_fs(-1))
-    {
-      v26 = 2989;
-    }
-
-    else
-    {
-      v26 = 3072;
-    }
-
-    *v26 = -559038737;
-    abort();
-  }
-
-  v9 = Size;
-  v10 = a2 + 8;
-  bzero((a2 + 8 + 16 * a3), 16 * (Size - a3));
-  MEMORY[0x1EEE9AC00](v11);
-  v12 = &v28[-2 * a3 - 1];
-  bzero(v12, 16 * a3);
-  if (a3)
-  {
-    v13 = 0;
-    v14 = 8;
-    do
-    {
-      v15 = a2 + v14;
-      v16 = *(a2 + v14);
-      if (v16)
-      {
-        if (v16 != 1)
-        {
-          *&v12[2 * v13++] = *v15;
-        }
-
-        *v15 = 0;
-        *(v15 + 8) = 0;
-      }
-
-      v14 += 16;
-      --a3;
-    }
-
-    while (a3);
-    for (*a2 = 0; v13; --v13)
-    {
-      v17 = *v12;
-      v28[0] = 0;
-      v18 = *(a2 + 2);
-      v27 = v17;
-      v19 = v17;
-      Hash = getHash(v17, v9, v18, a4, 10, v28);
-      v29 = Hash;
-      if (*(v10 + 16 * Hash))
-      {
-        directoryStorePageFindItemOffset(*(a1 + 216), a2, v19, &v29, a4);
-        v21 = v29;
-        if (*(v10 + 16 * v29))
-        {
-          shiftEntries(a2, v29, v9);
-          v21 = v29;
-        }
-      }
-
-      else
-      {
-        v21 = Hash;
-      }
-
-      *(v10 + 16 * v21) = v27;
-      *a2 += 16;
-      v12 += 2;
-    }
-  }
-
-  else
-  {
-    *a2 = 0;
-  }
-
-  v22 = *MEMORY[0x1E69E9840];
-}
-
-void insertDirectoryFT(uint64_t a1, uint64_t a2, __int128 *a3, unsigned int a4, unint64_t a5, uint64_t a6, unint64_t a7, _BYTE *a8, uint64_t a9)
-{
-  v54 = a4;
-  if (a6 <= 1)
-  {
-    v33 = __si_assert_copy_extra(0);
-LABEL_41:
-    __message_assert("%s:%u: failed assertion '%s' %s ");
-LABEL_42:
-    free(v33);
-    if (__valid_fs(-1))
-    {
-      v42 = 2989;
-    }
-
-    else
-    {
-      v42 = 3072;
-    }
-
-    *v42 = -559038737;
-    abort();
-  }
-
-  v53 = 0;
-  v16 = *(a3 + 1);
-  if (v16)
-  {
-    *a3 = &_directoryStoreGetPageInner(a2, v16, &v53)[8 * *(a3 + 4) + 4];
-  }
-
-  v45 = *a3;
-  *&v46 = *(a3 + 2);
-  v17 = directoryStoreEnsurePage(a2, &v45, 0, 1, a8, &v53, 0, a9);
-  if (a6 != a5)
-  {
-    v34 = __si_assert_copy_extra(0);
-    v35 = v34;
-    v36 = "";
-    if (v34)
-    {
-      v36 = v34;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 1248, "getStoreOID(newDirectory.fileId)==fileid", v36);
-LABEL_36:
-    free(v35);
-    if (__valid_fs(-1))
-    {
-      v41 = 2989;
-    }
-
-    else
-    {
-      v41 = 3072;
-    }
-
-    *v41 = -559038737;
-    abort();
-  }
-
-  v18 = v17;
-  if (*a8 != 1)
-  {
-    v22 = v17;
-    if (v17 > 0x3FFFFFFFFFFFFFFFLL)
-    {
-      goto LABEL_17;
-    }
-
-    v52 = 0;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v45 = 0u;
-    if (!directoryStoreTreeFindItemOffset(a2, v17, a5, &v45, &v54, 0, 1))
-    {
-      PageInner = _directoryStoreGetPageInner(a2, *(&v51 + 1), &v53);
-      if (v53)
-      {
-        v21 = PageInner;
-        v22 = *(&v51 + 1);
-        goto LABEL_16;
-      }
-    }
-
-    goto LABEL_40;
-  }
-
-  if (v17 < 0x4000000000000000)
-  {
-    ItemOffset = directoryStoreTreeFindItemOffset(a2, v17, a5, a9, &v54, 0, 1);
-    v20 = _directoryStoreGetPageInner(a2, *(a9 + 104), &v53);
-    if (v53)
-    {
-      v21 = v20;
-      v22 = *(a9 + 104);
-      goto LABEL_15;
-    }
-
-LABEL_40:
-    v33 = __si_assert_copy_extra(0);
-    goto LABEL_41;
-  }
-
-  v24 = _directoryStoreGetPageInner(a2, v17, &v53);
-  if (!v53)
-  {
-    goto LABEL_40;
-  }
-
-  v21 = v24;
-  ItemOffset = directoryStorePageFindItemOffset(*(a2 + 216), v24, a5, &v54, 0);
-  v22 = v18;
-LABEL_15:
-  if (ItemOffset)
-  {
-    v39 = __si_assert_copy_extra(0);
-    v35 = v39;
-    v40 = "";
-    if (v39)
-    {
-      v40 = v39;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 1268, "elem==0", v40);
-    goto LABEL_36;
-  }
-
-LABEL_16:
-  if (v21)
-  {
-    goto LABEL_19;
-  }
-
-LABEL_17:
-  v25 = _directoryStoreGetPageInner(a2, v18, &v53);
-  if (!v53)
-  {
-    v37 = __si_assert_copy_extra(0);
-    v35 = v37;
-    v38 = "";
-    if (v37)
-    {
-      v38 = v37;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 1281, "flat", v38);
-    goto LABEL_36;
-  }
-
-  v21 = v25;
-LABEL_19:
-  v26 = v21 + 4;
-  v27 = v54;
-  if (*&v21[8 * v54 + 4] >= 2uLL)
-  {
-    Size = directoryStorePageGetSize(v21);
-    shiftEntries(v21, v27, Size);
-    v27 = v54;
-  }
-
-  v29 = &v26[8 * v27];
-  *v29 = a5;
-  v29[1] = a7;
-  *v21 += 16;
-  v30 = directoryStorePageGetSize(v21);
-  v31 = *v21;
-  if ((64 << *(v21 + 2)) - 8 < v31)
-  {
-    v33 = __si_assert_copy_extra(0);
-    v43 = *v21;
-    v44 = ((64 << *(v21 + 2)) - 8);
-    __message_assert("%s:%u: failed assertion '%s' %s Got end %d and size %d");
-    goto LABEL_42;
-  }
-
-  if (5 * (v31 >> 4) >= 4 * v30)
-  {
-    goto LABEL_40;
-  }
-
-  dirtyStoragePage(a2, v21);
-  v32 = v54;
-  *a1 = &v26[8 * v54];
-  *(a1 + 8) = v22;
-  *(a1 + 16) = v32;
-}
-
-uint64_t directoryStoreMoveDirectory(uint64_t result, int a2, unint64_t *a3, int a4, uint64_t a5)
-{
-  if (result)
-  {
-    v9 = result;
-    v10 = (result + 4424);
-    v11 = setCrashStateTarget(3);
-    *v9 = 1;
-    if (a2)
-    {
-      if (a3[a2 - 1] == *v10)
-      {
-        v12 = -3;
-      }
-
-      else
-      {
-        v12 = -2;
-      }
-
-      v13 = v12 + a2;
-      if (a4)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    else
-    {
-      v13 = -2;
-      if (a4)
-      {
-LABEL_7:
-        v14 = ~(*(a5 + 8 * a4 - 8) == *v10) + a4;
-        v15 = *v10;
-        goto LABEL_10;
-      }
-    }
-
-    v15 = *v10;
-    v14 = -1;
-LABEL_10:
-    if (v15 != 2)
-    {
-      v49 = __si_assert_copy_extra(0);
-      v50 = v49;
-      v51 = "";
-      if (v49)
-      {
-        v51 = v49;
-      }
-
-      __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 1991, "getStoreOID(root->fileId)==2", v51);
-      goto LABEL_61;
-    }
-
-    v81 = 0;
-    v80 = 1;
-    if (!storageResolvePtr(v9 + 8, 0, 1, 1))
-    {
-LABEL_54:
-      result = setCrashStateTarget(v11);
-      if (v80)
-      {
-        return result;
-      }
-
-      result = directoryStoreValidate(v9 + 8, v10);
-      if (*v10 == 2)
-      {
-        return result;
-      }
-
-      v53 = __si_assert_copy_extra(0);
-      __message_assert("%s:%u: failed assertion '%s' %s ");
-LABEL_66:
-      free(v53);
-      if (__valid_fs(-1))
-      {
-        v54 = 2989;
-      }
-
-      else
-      {
-        v54 = 3072;
-      }
-
-      *v54 = -559038737;
-      abort();
-    }
-
-    v16 = OSAtomicIncrement32(&exceptionSequenceNum);
-    v79 = 0;
-    v78 = 0;
-    v17 = *(v9 + 224);
-    if (v17)
-    {
-      v18 = *(v17 + 44);
-    }
-
-    else
-    {
-      v18 = -1;
-    }
-
-    v19 = setThreadIdAndInfo(v18, sStorageExceptionCallbacks, v9 + 8, 1, v16);
-    v79 = __PAIR64__(v19, HIDWORD(v19));
-    v78 = __PAIR64__(v20, v21);
-    v22 = threadData[9 * v19 + 1] + 320 * HIDWORD(v19);
-    v23 = *(v22 + 312);
-    v24 = *(v22 + 224);
-    if (v24)
-    {
-      v24(*(v22 + 288));
-    }
-
-    v77 = v79;
-    v76 = v78;
-    if (_setjmp(v22))
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
-      }
-
-      *(v22 + 312) = v23;
-      CIOnThreadCleanUpReset(v76);
-      dropThreadId(HIDWORD(v77), 1, v16);
-      CICleanUpReset(HIDWORD(v77), HIDWORD(v76));
-      goto LABEL_54;
-    }
-
-    directoryStoreValidate(v9 + 8, v10);
-    *&buf[8] = 0;
-    *&v83 = 0;
-    v63[0] = 0;
-    v65 = 0uLL;
-    *&v66 = 0;
-    *buf = v10;
-    directoryStoreGetDirectoryWithPath(&v65, v9 + 8, buf, v13, (a3 + 1), 0, 0);
-    if (!v65)
-    {
-      v33 = 0;
-      v27 = 0;
-      goto LABEL_31;
-    }
-
-    v25 = *(v65 + 8);
-    if (v25 >= 1)
-    {
-      v26 = *(v65 + 8);
-      if (!(v25 >> 62))
-      {
-        v27 = 0;
-        v89 = 0;
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
-        v84 = 0u;
-        *buf = 0u;
-        LODWORD(v74) = 0;
-        ItemOffset = directoryStoreTreeFindItemOffset(v9 + 8, v26, *a3, buf, &v74, 0, 0);
-        if (ItemOffset)
-        {
-          v29 = *ItemOffset;
-          v60 = ItemOffset[1];
-          *ItemOffset = 0;
-          ItemOffset[1] = 0;
-          PageInner = _directoryStoreGetPageInner(v9 + 8, *(&v88 + 1), v63);
-          *PageInner -= 16;
-          v31 = v74;
-          Size = directoryStorePageGetSize(PageInner);
-          shiftEntriesForDelete(PageInner, v31, Size, v88);
-          if (v63[0])
-          {
-            v27 = v60;
-            dirtyStoragePage(v9 + 8, PageInner);
-            v33 = v29;
-            goto LABEL_31;
-          }
-
-          v55 = __si_assert_copy_extra(0);
-          v50 = v55;
-          v56 = "";
-          if (v55)
-          {
-            v56 = v55;
-          }
-
-          __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 1888, "flat", v56);
-LABEL_61:
-          free(v50);
-          if (__valid_fs(-1))
-          {
-            v52 = 2989;
-          }
-
-          else
-          {
-            v52 = 3072;
-          }
-
-          *v52 = -559038737;
-          abort();
-        }
-
-        v33 = 0;
-LABEL_31:
-        directoryStoreValidate(v9 + 8, v10);
-        if (!v33)
-        {
-LABEL_51:
-          v80 = 0;
-          v47 = threadData[9 * HIDWORD(v77) + 1] + 320 * v77;
-          *(v47 + 312) = v23;
-          v48 = *(v47 + 232);
-          if (v48)
-          {
-            v48(*(v47 + 288));
-          }
-
-          dropThreadId(HIDWORD(v77), 0, v16);
-          goto LABEL_54;
-        }
-
-        v89 = 0;
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
-        v84 = 0u;
-        *buf = 0u;
-        v74 = 0uLL;
-        v75 = 0;
-        *&v66 = 0;
-        v65 = v10;
-        directoryStoreGetDirectoryWithPath(&v74, v9 + 8, &v65, v14, a5, 1, buf);
-        if (*(&v74 + 1))
-        {
-          v39 = _directoryStoreGetPageInner(v9 + 8, *(&v74 + 1), &v81);
-          if (v39)
-          {
-            *&v74 = &v39[8 * v75 + 4];
-            v40 = 0;
-          }
-
-          else
-          {
-            v40 = 1;
-          }
-        }
-
-        else
-        {
-          v40 = 1;
-        }
-
-        v73 = 0;
-        v41 = *(v74 + 8);
-        if (v41 < 1)
-        {
-          v64 = 0;
-          v45 = 0;
-LABEL_50:
-          v72 = 0;
-          v70 = 0u;
-          v71 = 0u;
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
-          v67 = 0u;
-          v65 = 0u;
-          v61 = v74;
-          v62 = v75;
-          insertDirectoryFT(v63, v9 + 8, &v61, v45, v33, v33, v27, &v64, &v65);
-          goto LABEL_51;
-        }
-
-        v42 = _directoryStoreGetPageInner(v9 + 8, v41, &v81);
-        if (v81)
-        {
-          v43 = 0;
-          v44 = directoryStorePageFindItemOffset(*(v9 + 224), v42, v33, &v73, 0);
-          if (!v44)
-          {
-LABEL_46:
-            if ((v40 & 1) == 0)
-            {
-              v46 = _directoryStoreGetPageInner(v9 + 8, *(&v74 + 1), &v81);
-              *&v74 = &v46[8 * v75 + 4];
-            }
-
-            v64 = 0;
-            if (v43)
-            {
-              goto LABEL_51;
-            }
-
-            v45 = v73;
-            goto LABEL_50;
-          }
-
-          if (*v44 == v33)
-          {
-            v43 = 1;
-            goto LABEL_46;
-          }
-        }
-
-        else
-        {
-          v72 = 0;
-          v70 = 0u;
-          v71 = 0u;
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
-          v67 = 0u;
-          v65 = 0u;
-          v44 = directoryStoreTreeFindItemOffset(v9 + 8, *(v74 + 8), v33, &v65, &v73, 0, 0);
-          if (!v44 || *v44 == v33)
-          {
-            v43 = v44 != 0;
-            goto LABEL_46;
-          }
-        }
-
-        v57 = v44;
-        v53 = __si_assert_copy_extra(0);
-        v58 = *v57;
-        __message_assert("%s:%u: failed assertion '%s' %s %lld != %lld");
-        goto LABEL_66;
-      }
-
-      v34 = _directoryStoreGetPageInner(v9 + 8, v26, v63);
-      *buf = 0;
-      v35 = directoryStorePageFindItemOffset(*(v9 + 224), v34, *a3, buf, 0);
-      if (v35)
-      {
-        v36 = v35[1];
-        v59 = *v35;
-        *v35 = xmmword_1C2BFA340;
-        *v34 -= 16;
-        v37 = *buf;
-        v38 = directoryStorePageGetSize(v34);
-        shiftEntriesForDelete(v34, v37, v38, 0);
-        dirtyStoragePage(v9 + 8, v34);
-        v27 = v36;
-        v33 = v59;
-        goto LABEL_31;
-      }
-    }
-
-    v27 = 0;
-    v33 = 0;
-    goto LABEL_31;
-  }
-
-  return result;
-}
-
-uint64_t directoryStoreMergeUpdateSet(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = setCrashStateTarget(3);
-  if (storageResolvePtr(a1 + 8, 0, 1, 1))
-  {
-    v7 = OSAtomicIncrement32(&exceptionSequenceNum);
-    v8 = *(a1 + 224);
-    if (v8)
-    {
-      v9 = *(v8 + 44);
-    }
-
-    else
-    {
-      v9 = -1;
-    }
-
-    v10 = setThreadIdAndInfo(v9, sStorageExceptionCallbacks, a1 + 8, 1, v7);
-    v30 = HIDWORD(v10);
-    v31 = v10;
-    v29 = __PAIR64__(v11, v12);
-    v13 = threadData[9 * v10 + 1] + 320 * HIDWORD(v10);
-    v14 = *(v13 + 312);
-    v15 = *(v13 + 224);
-    if (v15)
-    {
-      v15(*(v13 + 288));
-    }
-
-    v28 = v31;
-    v27 = v30;
-    v26 = v29;
-    if (_setjmp(v13))
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        LOWORD(buf) = 0;
-        _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", &buf, 2u);
-      }
-
-      *(v13 + 312) = v14;
-      CIOnThreadCleanUpReset(v26);
-      dropThreadId(v28, 1, v7);
-      CICleanUpReset(v28, HIDWORD(v26));
-    }
-
-    else
-    {
-      *a1 = 1;
-      v16 = *(a1 + 4424);
-      if (!v16)
-      {
-        v16 = 2;
-        *(a1 + 4424) = 2;
-      }
-
-      if (*a2 != v16)
-      {
-        v20 = __si_assert_copy_extra(0);
-        v21 = v20;
-        v22 = "";
-        if (v20)
-        {
-          v22 = v20;
-        }
-
-        __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2306, "rootDirectory->fileid == getStoreOID(root.directory->fileId)", v22);
-        free(v21);
-        if (__valid_fs(-1))
-        {
-          v23 = 2989;
-        }
-
-        else
-        {
-          v23 = 3072;
-        }
-
-        *v23 = -559038737;
-        abort();
-      }
-
-      v25 = 0;
-      buf = (a1 + 4424);
-      mergeOne(a1 + 8, &buf, a2, a3);
-      v17 = threadData[9 * v28 + 1] + 320 * v27;
-      *(v17 + 312) = v14;
-      v18 = *(v17 + 232);
-      if (v18)
-      {
-        v18(*(v17 + 288));
-      }
-
-      dropThreadId(v28, 0, v7);
-    }
-  }
-
-  return setCrashStateTarget(v6);
-}
-
-uint64_t mergeOne(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
-{
-  v48 = 0;
-  v8 = *(a2 + 1);
-  if (v8)
-  {
-    v9 = &_directoryStoreGetPageInner(a1, v8, &v48)[8 * *(a2 + 4) + 4];
-    *a2 = v9;
-  }
-
-  else
-  {
-    v9 = *a2;
-  }
-
-  directoryStoreValidate(a1, v9);
-  v10 = *(a2 + 1);
-  if (*(a3 + 8))
-  {
-    if (v10)
-    {
-      v11 = &_directoryStoreGetPageInner(a1, v10, &v48)[8 * *(a2 + 4) + 4];
-      *a2 = v11;
-    }
-
-    else
-    {
-      v11 = *a2;
-    }
-
-    directoryStoreValidate(a1, v11);
-    v12 = *(a2 + 1);
-    if (v12)
-    {
-      *a2 = &_directoryStoreGetPageInner(a1, v12, &v48)[8 * *(a2 + 4) + 4];
-    }
-
-    v47 = 0;
-    v13 = **(a3 + 8);
-    v37 = *a2;
-    *&v38 = *(a2 + 2);
-    directoryStoreEnsurePage(a1, &v37, v13, 0, &v47, &v47 + 1, 0, 0);
-    v14 = *(a2 + 1);
-    if (v14)
-    {
-      *a2 = &_directoryStoreGetPageInner(a1, v14, &v47 + 1)[8 * *(a2 + 4) + 4];
-    }
-
-    v46 = 0;
-    v45 = 0uLL;
-    v15 = *(a3 + 8);
-    if (*(v15 + 8))
-    {
-      v16 = 0;
-      v17 = 16;
-      do
-      {
-        if (*(v15 + v17) >= 2)
-        {
-          v18 = *(a2 + 1);
-          if (v18)
-          {
-            *a2 = &_directoryStoreGetPageInner(a1, v18, &v47 + 1)[8 * *(a2 + 4) + 4];
-            v15 = *(a3 + 8);
-          }
-
-          v44 = 0;
-          v42 = 0u;
-          v43 = 0u;
-          v40 = 0u;
-          v41 = 0u;
-          v38 = 0u;
-          v39 = 0u;
-          v37 = 0u;
-          v35 = *a2;
-          v36 = *(a2 + 2);
-          directoryStoreGetDirectoryWithPath(&v45, a1, &v35, 0, v15 + v17, 1, &v37);
-          v35 = v45;
-          v36 = v46;
-          mergeOne(a1, &v35, v15 + v17, a4);
-          v15 = *(a3 + 8);
-        }
-
-        ++v16;
-        v17 += 32;
-      }
-
-      while (v16 < *(v15 + 8));
-    }
-
-    v10 = *(a2 + 1);
-  }
-
-  if (v10)
-  {
-    v19 = &_directoryStoreGetPageInner(a1, v10, &v48)[8 * *(a2 + 4) + 4];
-    *a2 = v19;
-  }
-
-  else
-  {
-    v19 = *a2;
-  }
-
-  directoryStoreValidate(a1, v19);
-  v20 = *(a2 + 1);
-  if (v20)
-  {
-    *a2 = &_directoryStoreGetPageInner(a1, v20, &v48)[8 * *(a2 + 4) + 4];
-  }
-
-  if (*(a3 + 24))
-  {
-    v21 = *(a4 + 16);
-    v22 = *(a4 + 8) + 1;
-    if (v22 >= v21)
-    {
-      if (!v21)
-      {
-        v21 = 1024;
-        *(a4 + 16) = 1024;
-      }
-
-      if (v22 >= v21)
-      {
-        do
-        {
-          v23 = v22 >= 2 * v21;
-          v21 *= 2;
-        }
-
-        while (v23);
-        *(a4 + 16) = v21;
-      }
-
-      *a4 = malloc_type_realloc(*a4, 24 * v21, 0x10200409F4E64B8uLL);
-    }
-
-    v24 = *a2;
-    v25 = *(*a2 + 8);
-    if ((v25 & 0x8000000000000000) == 0)
-    {
-      if (v25)
-      {
-        v44 = 0;
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
-        v39 = 0u;
-        v37 = 0u;
-        v45 = 0uLL;
-        v46 = 0;
-        v35 = *a2;
-        v36 = *(a2 + 2);
-        directoryStoreGetDirectoryWithPath(&v45, a1, &v35, 0, a3, 1, &v37);
-        v26 = v45;
-        v25 = *(v45 + 8);
-        if ((v25 & 0x8000000000000000) == 0)
-        {
-          if (v25)
-          {
-            v32 = __si_assert_copy_extra(0);
-            v33 = v32;
-            if (v32)
-            {
-              v34 = v32;
-            }
-
-            else
-            {
-              v34 = "";
-            }
-
-            __message_assert("%s:%u: Unexpected code path %s ", "FileTree.c", 2249, v34);
-            free(v33);
-            MEMORY[0xBAD] = -559038737;
-            abort();
-          }
-
-          v25 = (*(a4 + 24) + 1);
-          *(a4 + 24) = v25;
-          *(v26 + 8) = v25 | 0x8000000000000000;
-        }
-      }
-
-      else
-      {
-        v25 = (*(a4 + 24) + 1);
-        *(a4 + 24) = v25;
-        *(v24 + 1) = v25 | 0x8000000000000000;
-      }
-    }
-
-    v27 = *a4;
-    v28 = *(a4 + 8);
-    v27[6 * v28] = v25;
-    *&v27[6 * v28 + 2] = a3 + 16;
-    *(a4 + 8) = v28 + 1;
-  }
-
-  v29 = *(a2 + 1);
-  if (v29)
-  {
-    v30 = &_directoryStoreGetPageInner(a1, v29, &v48)[8 * *(a2 + 4) + 4];
-    *a2 = v30;
-  }
-
-  else
-  {
-    v30 = *a2;
-  }
-
-  return directoryStoreValidate(a1, v30);
-}
-
-void freeForwardDirectoryStore(void *a1)
-{
-  storageClose((a1 + 1));
-  v2 = a1[550];
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  free(a1);
-}
-
-uint64_t dirStoreInit(uint64_t a1, _DWORD *a2, int a3, char a4, void *aBlock)
-{
-  v79 = *MEMORY[0x1E69E9840];
-  v68 = 0;
-  if (!a3)
-  {
-    bzero(v78, 0x400uLL);
-    v14 = fd_pread(a2, v78, 0x400uLL, 64);
-    if (v14 == 1024)
-    {
-      v61 = v78 + 8;
-      v68 = storageHeaderRestore(a1 + 8, &v61);
-      if (v68 == 1)
-      {
-        v15 = storageInit(a1 + 8, 0x10000, 0x40uLL, a2, 0, 1, a4, 102, aBlock);
-      }
-
-      else
-      {
-        v15 = 0;
-      }
-
-      v68 = v15;
-      if (v15)
-      {
-        v22 = v61;
-        v23 = 0;
-        v24 = 0;
-        do
-        {
-          v25 = *v22++;
-          v26 = v24;
-          v27 = ((v25 & 0x7F) << v24) | v23;
-          v28 = v22;
-          if ((v25 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v24 += 7;
-          v23 = v27;
-        }
-
-        while (v26 != 63);
-        *(a1 + 4432) = v27;
-        v29 = 0;
-        v30 = 0;
-        do
-        {
-          v31 = v30;
-          v32 = ((*v28 & 0x7F) << v30) | v29;
-          if ((*v28 & 0x80) == 0)
-          {
-            break;
-          }
-
-          ++v28;
-          v30 += 7;
-          v29 = v32;
-        }
-
-        while (v31 != 63);
-        *(a1 + 4424) = v32;
-        v33 = *MEMORY[0x1E695E480];
-        *(a1 + 4384) = xmmword_1C2BFA3A0;
-        Mutable = CFBitVectorCreateMutable(v33, 0x2000);
-        *(a1 + 4400) = Mutable;
-        CFBitVectorSetCount(Mutable, 0x2000);
-        if (*(a1 + 4400))
-        {
-          goto LABEL_42;
-        }
-
-        goto LABEL_21;
-      }
-
-      bzero(v77, 0x400uLL);
-      v17 = *__error();
-      v38 = _SILogForLogForCategory(6);
-      if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-      {
-LABEL_25:
-        *__error() = v17;
-        goto LABEL_42;
-      }
-
-      v51 = fd_realpath(a2, v77);
-      *buf = 136315650;
-      v70 = "dirStoreInit";
-      v71 = 1024;
-      v72 = 2368;
-      v73 = 2080;
-      v74 = v51;
-      v19 = "%s:%d: init storage failed %s";
-      v20 = v38;
-      v21 = 28;
-    }
-
-    else
-    {
-      v16 = v14;
-      bzero(v77, 0x400uLL);
-      v17 = *__error();
-      v18 = _SILogForLogForCategory(6);
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_25;
-      }
-
-      *buf = 136315906;
-      v70 = "dirStoreInit";
-      v71 = 1024;
-      v72 = 2377;
-      v73 = 2080;
-      v74 = fd_realpath(a2, v77);
-      v75 = 2048;
-      v76 = v16;
-      v19 = "%s:%d: init storage failed %s; could not read header got %ld bytes";
-      v20 = v18;
-      v21 = 38;
-    }
-
-    _os_log_error_impl(&dword_1C278D000, v20, OS_LOG_TYPE_ERROR, v19, buf, v21);
-    goto LABEL_25;
-  }
-
-  v68 = storageInit(a1 + 8, 0x10000, 0x40uLL, a2, 1, 1, a4, 102, aBlock);
-  v9 = *MEMORY[0x1E695E480];
-  *(a1 + 4384) = xmmword_1C2BFA3A0;
-  v10 = CFBitVectorCreateMutable(v9, 0x2000);
-  *(a1 + 4400) = v10;
-  CFBitVectorSetCount(v10, 0x2000);
-  if (!*(a1 + 4400))
-  {
-LABEL_21:
-    v35 = __si_assert_copy_extra(0);
-    v36 = v35;
-    v37 = "";
-    if (v35)
-    {
-      v37 = v35;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "bit_vector.h", 47, "bv->_cfbv", v37);
-    goto LABEL_50;
-  }
-
-  if (v68 != 1)
-  {
-    goto LABEL_42;
-  }
-
-  v68 = 0;
-  if (!storageResolvePtr(a1 + 8, 0, 1, 1))
-  {
-    goto LABEL_42;
-  }
-
-  v11 = OSAtomicIncrement32(&exceptionSequenceNum);
-  v12 = *(a1 + 224);
-  if (v12)
-  {
-    v13 = *(v12 + 44);
-  }
-
-  else
-  {
-    v13 = -1;
-  }
-
-  v39 = setThreadIdAndInfo(v13, sStorageExceptionCallbacks, a1 + 8, 1, v11);
-  *buf = HIDWORD(v39);
-  v77[0] = v39;
-  LODWORD(v61) = v40;
-  v67 = v41;
-  v42 = threadData[9 * v39 + 1] + 320 * HIDWORD(v39);
-  v43 = *(v42 + 312);
-  v44 = *(v42 + 224);
-  if (v44)
-  {
-    v44(*(v42 + 288));
-  }
-
-  v66 = v77[0];
-  v65 = *buf;
-  v64 = v61;
-  v63 = v67;
-  if (_setjmp(v42))
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v78[0]) = 0;
-      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v78, 2u);
-    }
-
-    *(v42 + 312) = v43;
-    CIOnThreadCleanUpReset(v63);
-    dropThreadId(v66, 1, v11);
-    CICleanUpReset(v66, v64);
-    goto LABEL_42;
-  }
-
-  memset(v78, 0, 192);
-  v62 = 0;
-  v45 = storageAllocOffset(a1 + 8, 0x400u, v78, &v62);
-  if (v62)
-  {
-    dirtyStorageOffsets(a1 + 8, v78, v62);
-  }
-
-  if (v68 == 1)
-  {
-    v55 = __si_assert_copy_extra(0);
-    v56 = v55;
-    v57 = "";
-    if (v55)
-    {
-      v57 = v55;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2340, "!result", v57);
-    free(v56);
-    if (__valid_fs(-1))
-    {
-      v58 = 2989;
-    }
-
-    else
-    {
-      v58 = 3072;
-    }
-
-    *v58 = -559038737;
-    abort();
-  }
-
-  if (v45)
-  {
-    if (v45 == 64)
-    {
-      v46 = storageResolvePtr(a1 + 8, 0x40uLL, 1024, 1);
-      bzero(v46, 0x400uLL);
-      *(v46 + 2) = 4;
-      dirtyStoragePage(a1 + 8, v46);
-      *(v46 + 4) = 0;
-      goto LABEL_39;
-    }
-
-    v59 = __si_assert_copy_extra(0);
-    v36 = v59;
-    v60 = "";
-    if (v59)
-    {
-      v60 = v59;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2342, "realOffset==(64)", v60);
-LABEL_50:
-    free(v36);
-    if (__valid_fs(-1))
-    {
-      v54 = 2989;
-    }
-
-    else
-    {
-      v54 = 3072;
-    }
-
-    *v54 = -559038737;
-    abort();
-  }
-
-LABEL_39:
-  v68 = 1;
-  v47 = threadData[9 * v66 + 1] + 320 * v65;
-  *(v47 + 312) = v43;
-  v48 = *(v47 + 232);
-  if (v48)
-  {
-    v48(*(v47 + 288));
-  }
-
-  dropThreadId(v66, 0, v11);
-LABEL_42:
-  *(a1 + 4408) = 1;
-  if (v68 == 1 && !*(a1 + 224))
-  {
-    v52 = __si_assert_copy_extra(0);
-    v36 = v52;
-    v53 = "";
-    if (v52)
-    {
-      v53 = v52;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2382, "storageFdPtr(&dirStore->store)!=0", v53);
-    goto LABEL_50;
-  }
-
-  result = v68;
-  v50 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t flushForwardStore(uint64_t result, uint64_t a2)
-{
-  v2 = result;
-  if (*(result + 240) == *(result + 248))
-  {
-    *result = 0;
-  }
-
-  else if (*result)
-  {
-    v4 = setCrashStateTarget(3);
-    if (storageResolvePtr((v2 + 1), 0, 1, 1))
-    {
-      v5 = OSAtomicIncrement32(&exceptionSequenceNum);
-      v6 = v2[28];
-      if (v6)
-      {
-        v7 = *(v6 + 44);
-      }
-
-      else
-      {
-        v7 = -1;
-      }
-
-      v8 = setThreadIdAndInfo(v7, sStorageExceptionCallbacks, (v2 + 1), 1, v5);
-      v24 = HIDWORD(v8);
-      v25 = v8;
-      v23 = __PAIR64__(v9, v10);
-      v11 = threadData[9 * v8 + 1] + 320 * HIDWORD(v8);
-      v12 = *(v11 + 312);
-      v13 = *(v11 + 224);
-      if (v13)
-      {
-        v13(*(v11 + 288));
-      }
-
-      v22 = v25;
-      v21 = v24;
-      v20 = v23;
-      if (_setjmp(v11))
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-        {
-          LOWORD(v19) = 0;
-          _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", &v19, 2u);
-        }
-
-        *(v11 + 312) = v12;
-        CIOnThreadCleanUpReset(v20);
-        dropThreadId(v22, 1, v5);
-        CICleanUpReset(v22, HIDWORD(v20));
-      }
-
-      else
-      {
-        *storageResolvePtr((v2 + 1), 0, 8, 1) = a2;
-        v14 = storageResolvePtr((v2 + 1), 0x40uLL, 1024, 1);
-        v19 = v14 + 8;
-        storageHeaderStore((v2 + 1), &v19);
-        v15 = v19;
-        v16 = writeVInt64(v19, 0, v2[554]);
-        writeVInt64(v15, v16, v2[553]);
-        dirtyStoragePage((v2 + 1), v14);
-        storageSyncPages((v2 + 1), (v2 + 548), 0x20000uLL);
-        v17 = threadData[9 * v22 + 1] + 320 * v21;
-        *(v17 + 312) = v12;
-        v18 = *(v17 + 232);
-        if (v18)
-        {
-          v18(*(v17 + 288));
-        }
-
-        dropThreadId(v22, 0, v5);
-      }
-    }
-
-    return setCrashStateTarget(v4);
-  }
-
-  return result;
-}
-
-void bit_vector_init_4656(uint64_t a1)
-{
-  if (!a1)
-  {
-    v4 = __si_assert_copy_extra(0);
-    v5 = v4;
-    v6 = "";
-    if (v4)
-    {
-      v6 = v4;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "bit_vector.h", 41, "bv", v6);
-    free(v5);
-    if (__valid_fs(-1))
-    {
-      v7 = 2989;
-    }
-
-    else
-    {
-      v7 = 3072;
-    }
-
-    *v7 = -559038737;
-    abort();
-  }
-
-  v2 = *MEMORY[0x1E695E480];
-  *a1 = xmmword_1C2BFA3A0;
-  Mutable = CFBitVectorCreateMutable(v2, 0x2000);
-  *(a1 + 16) = Mutable;
-  CFBitVectorSetCount(Mutable, 0x2000);
-  if (!*(a1 + 16))
-  {
-    v8 = __si_assert_copy_extra(0);
-    v9 = v8;
-    v10 = "";
-    if (v8)
-    {
-      v10 = v8;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "bit_vector.h", 47, "bv->_cfbv", v10);
-    free(v9);
-    if (__valid_fs(-1))
-    {
-      v11 = 2989;
-    }
-
-    else
-    {
-      v11 = 3072;
-    }
-
-    *v11 = -559038737;
-    abort();
-  }
-}
-
-void *createForwardStore(int a1, const char *a2, void *a3)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v6 = malloc_type_calloc(1uLL, 0x1168uLL, 0x10A0040377E5B1DuLL);
-  bzero(v15, 0x400uLL);
-  __sprintf_chk(v15, 0, 0x400uLL, "%s%s", a2, "directoryStoreFile");
-  v7 = fd_create_protected(a1, v15, 1538, 3u);
-  if (dirStoreInit(v6, v7, 1, 0, a3))
-  {
-    v8 = *__error();
-    v9 = _SILogForLogForCategory(0);
-    v10 = 2 * (gSILogLevels[0] < 4);
-    if (os_log_type_enabled(v9, v10))
-    {
-      *buf = 136315138;
-      v14 = v15;
-      _os_log_impl(&dword_1C278D000, v9, v10, "createForwardStore:%s", buf, 0xCu);
-    }
-
-    *__error() = v8;
-    v6[554] = 0;
-    v6[553] = 2;
-    flushForwardStore(v6, 0);
-    *v6 = 1;
-  }
-
-  else
-  {
-    freeForwardDirectoryStore(v6);
-    v6 = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return v6;
-}
-
-uint64_t recoverForwardStore(uint64_t a1, const char *a2, _DWORD *a3)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  bzero(v14, 0x400uLL);
-  __sprintf_chk(v14, 0, 0x400uLL, "%s%s", a2, "directoryStoreFile");
-  bzero(v13, 0x400uLL);
-  __sprintf_chk(v13, 0, 0x400uLL, "%s%s", a2, "directoryStoreFile.shadow");
-  v6 = *__error();
-  v7 = _SILogForLogForCategory(0);
-  v8 = 2 * (gSILogLevels[0] < 4);
-  if (os_log_type_enabled(v7, v8))
-  {
-    *buf = 136315138;
-    v12 = v14;
-    _os_log_impl(&dword_1C278D000, v7, v8, "recoverForwardStore:%s", buf, 0xCu);
-  }
-
-  *__error() = v6;
-  result = copyFileFallback(a1, v13, a1, v14, a3, 1, 1);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *openForwardStore(int a1, const char *a2, int a3, int a4, int a5, void *a6)
-{
-  v171 = *MEMORY[0x1E69E9840];
-  v159 = malloc_type_calloc(1uLL, 0x1168uLL, 0x10A0040377E5B1DuLL);
-  bzero(v168, 0x400uLL);
-  v11 = "directoryStoreFile";
-  if (a5)
-  {
-    v11 = "directoryStoreFile.shadow";
-  }
-
-  v12 = a5 | a4;
-  v13 = a5 | a4;
-  __sprintf_chk(v168, 0, 0x400uLL, "%s%s", a2, v11);
-  v14 = *__error();
-  v15 = _SILogForLogForCategory(0);
-  v16 = 2 * (gSILogLevels[0] < 4);
-  if (os_log_type_enabled(v15, v16))
-  {
-    *buf = 136315138;
-    *&buf[4] = v168;
-    _os_log_impl(&dword_1C278D000, v15, v16, "openForwardStore:%s", buf, 0xCu);
-  }
-
-  *__error() = v14;
-  if (v12)
-  {
-    v17 = 0;
-  }
-
-  else
-  {
-    v17 = 2;
-  }
-
-  v18 = fd_create_protected(a1, v168, v17, 3u);
-  v19 = v159;
-  if (dirStoreInit(v159, v18, 0, v13, a6))
-  {
-    v20 = v159;
-    if ((v13 & 1) == 0)
-    {
-      v166 = 0;
-      if (storageResolvePtr((v159 + 1), 0, 1, 1))
-      {
-        v21 = OSAtomicIncrement32(&exceptionSequenceNum);
-        *buf = 0;
-        v170[0] = 0;
-        LODWORD(v167) = 0;
-        v165 = 0;
-        v22 = v159[28];
-        if (v22)
-        {
-          v23 = *(v22 + 44);
-        }
-
-        else
-        {
-          v23 = -1;
-        }
-
-        v27 = setThreadIdAndInfo(v23, sStorageExceptionCallbacks, (v159 + 1), 1, v21);
-        v170[0] = HIDWORD(v27);
-        *buf = v27;
-        LODWORD(v167) = v28;
-        v165 = v29;
-        v30 = threadData[9 * v27 + 1] + 320 * HIDWORD(v27);
-        v31 = *(v30 + 312);
-        v32 = *(v30 + 224);
-        if (v32)
-        {
-          v32(*(v30 + 288));
-        }
-
-        v164 = *buf;
-        v163 = v170[0];
-        v162 = v167;
-        v161 = v165;
-        if (_setjmp(v30))
-        {
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-          {
-            *v160 = 0;
-            _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v160, 2u);
-          }
-
-          *(v30 + 312) = v31;
-          CIOnThreadCleanUpReset(v161);
-          dropThreadId(v164, 1, v21);
-          CICleanUpReset(v164, v162);
-        }
-
-        else
-        {
-          for (i = 0; i != 24; ++i)
-          {
-            freeListVerify((v159 + 1), i);
-          }
-
-          v166 = 1;
-          v34 = threadData[9 * v164 + 1] + 320 * v163;
-          *(v34 + 312) = v31;
-          v35 = *(v34 + 232);
-          if (v35)
-          {
-            v35(*(v34 + 288));
-          }
-
-          dropThreadId(v164, 0, v21);
-        }
-      }
-
-      if ((v166 & 1) == 0)
-      {
-        v24 = *__error();
-        v25 = _SILogForLogForCategory(10);
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          *&buf[4] = "openForwardStore";
-          *&buf[12] = 1024;
-          *&buf[14] = 2511;
-          goto LABEL_43;
-        }
-
-        goto LABEL_14;
-      }
-    }
-
-    v159[553] = 2;
-    if (a3)
-    {
-      v36 = v159[554];
-      v37 = v36;
-      for (j = 2; j != 26; ++j)
-      {
-        if (!freeListVerify((v159 + 1), j - 2))
-        {
-          v159[j] = 0;
-        }
-      }
-
-      if (*(v159 + 1102) && v36 > 0)
-      {
-        if ((v36 & 0x3FFFFFFFFFFFFFFFuLL) >= v159[30])
-        {
-          goto LABEL_169;
-        }
-
-        v39 = malloc_type_zone_malloc(queryZone, 0x300uLL, 0xA4971684uLL);
-        if (!v39)
-        {
-          _log_fault_for_malloc_failure();
-        }
-
-        memset(buf, 0, 24);
-        pqinit_offset_ptr(buf);
-        v40 = v36 & 0x3F;
-        v41 = *&buf[16];
-        if (*&buf[16] + 2 >= *&buf[8])
-        {
-          v43 = 4;
-          if (*&buf[8] >= 4)
-          {
-            v43 = 2 * *&buf[8];
-          }
-
-          *&buf[8] = v43;
-          v44 = 16 * v43;
-          if (*buf)
-          {
-            v45 = malloc_type_zone_realloc(queryZone, *buf, v44 + 32, 0xA1A7ADA0uLL);
-          }
-
-          else
-          {
-            v45 = malloc_type_zone_malloc(queryZone, v44 + 32, 0x566E289CuLL);
-          }
-
-          v46 = v45;
-          if (!v45)
-          {
-            _log_fault_for_malloc_failure();
-          }
-
-          *buf = v46;
-          *v46 = 0;
-          v46[1] = 0;
-          v42 = v46;
-        }
-
-        else
-        {
-          v42 = *buf;
-        }
-
-        *&buf[16] = v41 + 1;
-        v47 = &v42[2 * v41];
-        *v47 = v37;
-        v47[1] = 0;
-        if (v41 >= 2)
-        {
-          v48 = v41;
-          do
-          {
-            v49 = v48;
-            v50 = &v42[2 * v48];
-            v51 = &v42[2 * (v49 >> 1)];
-            if ((*v50 & 0x3FFFFFFFFFFFFFFFuLL) > (*v51 & 0x3FFFFFFFFFFFFFFFuLL))
-            {
-              break;
-            }
-
-            *v170 = *v50;
-            *v50 = *v51;
-            *v51 = *v170;
-            v48 = v49 >> 1;
-          }
-
-          while (v49 > 3);
-        }
-
-        if (v40)
-        {
-          free(*buf);
-          free(v39);
-          goto LABEL_169;
-        }
-
-        v52 = *&buf[16];
-        v53 = 32;
-        v54 = 0;
-        v55 = v39;
-        while (1)
-        {
-          v56 = v55;
-          v57 = v54;
-          if (v52 == 1)
-          {
-            v58 = 0;
-            v52 = 1;
-            goto LABEL_77;
-          }
-
-          v59 = *buf;
-          v58 = *(*buf + 16);
-          v60 = *(*buf + 16 * v52 - 16);
-          v61 = *&buf[8] >> 1;
-          v62 = *(*buf + 16 * v52 - 16);
-          *(*buf + 16) = v60;
-          *&buf[16] = v52 - 1;
-          v63 = v62 & 0x3FFFFFFFFFFFFFFFLL;
-          v64 = 3;
-          v65 = 2;
-          v66 = 1;
-          while (1)
-          {
-            v67 = v64;
-            v68 = *(v59 + 16 * v65);
-            if (v64 >= v52)
-            {
-              v69 = xmmword_1C2BFA360;
-              if (v65 >= v52)
-              {
-                goto LABEL_76;
-              }
-            }
-
-            else
-            {
-              v69 = *(v59 + 16 * v64);
-            }
-
-            v70 = v68.i64[0] & 0x3FFFFFFFFFFFFFFFLL;
-            v71 = v69.i64[0] & 0x3FFFFFFFFFFFFFFFLL;
-            if ((v68.i64[0] & 0x3FFFFFFFFFFFFFFFuLL) < v63)
-            {
-              _CF = v71 >= v70;
-              v72 = v71 < v70;
-              if (_CF)
-              {
-                v67 = v65;
-              }
-
-              v73 = vdup_n_s32(v72);
-              v74.i64[0] = v73.u32[0];
-              v74.i64[1] = v73.u32[1];
-              v75 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v74, 0x3FuLL)), v69, v68);
-              goto LABEL_69;
-            }
-
-            v75 = v69;
-            if (v71 >= v63)
-            {
-              break;
-            }
-
-LABEL_69:
-            _X15 = v59 + 32 * v67;
-            __asm { PRFM            #1, [X15] }
-
-            if (v67 != v66)
-            {
-              v65 = 2 * v67;
-              v64 = (2 * v67) | 1;
-              *(v59 + 16 * v67) = v60;
-              *(v59 + 16 * v66) = v75;
-              v66 = v67;
-              if (v67 < v61)
-              {
-                continue;
-              }
-            }
-
-            goto LABEL_76;
-          }
-
-          _X8 = v59 + 32 * v66;
-          __asm { PRFM            #1, [X8] }
-
-LABEL_76:
-          --v52;
-LABEL_77:
-          v83 = (v58 & 0x3F) == 0;
-          LOBYTE(v167) = 0;
-          v158 = v58;
-          PageInner = _directoryStoreGetPageInner((v20 + 1), v58, &v167);
-          v85 = PageInner;
-          if (v167 == 1)
-          {
-            Size = directoryStorePageGetSize(PageInner);
-            v87 = *buf;
-            v88 = *&buf[8];
-            if (Size)
-            {
-              v89 = 0;
-              v90 = v85 + 4;
-              v91 = v53;
-              v92 = v57;
-              v93 = v56;
-              v94 = 0;
-              v95 = v52;
-              v96 = *&buf[8];
-              v97 = *buf;
-              v153 = v90;
-              v154 = Size;
-              do
-              {
-                v98 = v96;
-                v99 = v92;
-                v100 = v91;
-                v101 = &v90[8 * v89];
-                if (*v101 >= 2 && *(v159 + 1102))
-                {
-                  v102 = v101[1];
-                  if (v102 < 0)
-                  {
-                    v108 = v102 & 0x7FFFFFFFFFFFFFFFLL;
-                    v109 = v93;
-                    if (v92 >= 1)
-                    {
-                      do
-                      {
-                        v110 = *v109;
-                        v109 += 3;
-                        LOBYTE(v83) = v83 & (v110 != v108);
-                        --v92;
-                      }
-
-                      while (v92);
-                    }
-
-                    if (v99 >= v100)
-                    {
-                      if (v100)
-                      {
-                        v100 *= 2;
-                      }
-
-                      else
-                      {
-                        v100 = 4;
-                      }
-
-                      v111 = (v93 ? malloc_type_zone_realloc(queryZone, v93, 24 * v100, 0xA1A7ADA0uLL) : malloc_type_zone_malloc(queryZone, 24 * v100, 0x566E289CuLL));
-                      v93 = v111;
-                      v90 = v153;
-                      Size = v154;
-                      if (!v111)
-                      {
-                        _log_fault_for_malloc_failure();
-                        v90 = v153;
-                        Size = v154;
-                      }
-                    }
-
-                    v117 = &v93[3 * v99];
-                    *v117 = v108;
-                    v117[1] = v158;
-                    v117[2] = v89;
-                    ++v99;
-                  }
-
-                  else if (v102)
-                  {
-                    v103 = v102;
-                    _CF = (v102 & 0x3F) != 0 || (v102 & 0x3FFFFFFFFFFFFFFFuLL) >= v159[30];
-                    v105 = !_CF;
-                    if (v95 + 2 >= v96)
-                    {
-                      if (v96 >= 4)
-                      {
-                        v98 = 2 * v96;
-                      }
-
-                      else
-                      {
-                        v98 = 4;
-                      }
-
-                      v106 = 16 * v98;
-                      if (v97)
-                      {
-                        v107 = malloc_type_zone_realloc(queryZone, v97, v106 + 32, 0xA1A7ADA0uLL);
-                      }
-
-                      else
-                      {
-                        v107 = malloc_type_zone_malloc(queryZone, v106 + 32, 0x566E289CuLL);
-                      }
-
-                      v97 = v107;
-                      v90 = v153;
-                      Size = v154;
-                      if (!v107)
-                      {
-                        _log_fault_for_malloc_failure();
-                        v90 = v153;
-                        Size = v154;
-                      }
-
-                      *v97 = 0;
-                      v97[1] = 0;
-                    }
-
-                    LOBYTE(v83) = v83 & v105;
-                    v112 = v95 + 1;
-                    v113 = &v97[2 * v95];
-                    *v113 = v103;
-                    v113[1] = 0;
-                    if (v95 >= 2)
-                    {
-                      do
-                      {
-                        v114 = v95;
-                        v115 = &v97[2 * v95];
-                        v95 = v95 >> 1;
-                        v116 = &v97[2 * v95];
-                        if ((*v115 & 0x3FFFFFFFFFFFFFFFuLL) > (*v116 & 0x3FFFFFFFFFFFFFFFuLL))
-                        {
-                          break;
-                        }
-
-                        *v170 = *v115;
-                        *v115 = *v116;
-                        *v116 = *v170;
-                      }
-
-                      while (v114 > 3);
-                    }
-
-                    v95 = v112;
-                  }
-                }
-
-                v96 = v98;
-                v92 = v99;
-                v53 = v100;
-                v91 = v100;
-                v57 = v92;
-                v118 = v93;
-                LOBYTE(v87) = v83;
-                v89 = ++v94;
-                v52 = v95;
-                v88 = v96;
-                v119 = v97;
-              }
-
-              while (Size > v94);
-              goto LABEL_145;
-            }
-
-LABEL_144:
-            v118 = v56;
-            v119 = v87;
-            LOBYTE(v87) = v83;
-            goto LABEL_145;
-          }
-
-          v120 = directoryTreePageGetSize(*PageInner, *(PageInner + 2));
-          v87 = *buf;
-          v88 = *&buf[8];
-          if (!v120)
-          {
-            goto LABEL_144;
-          }
-
-          v155 = v57;
-          v156 = v56;
-          v121 = v85 + 4;
-          v122 = 0;
-          v123 = v83;
-          v124 = 0;
-          v125 = v52;
-          v126 = *&buf[8];
-          v127 = *buf;
-          do
-          {
-            v128 = v124;
-            v129 = *&v121[4 * v122];
-            if (v129)
-            {
-              v131 = (v129 & 0x3F) == 0 && (v129 & 0x3FFFFFFFFFFFFFFFuLL) < v19[30];
-              if (v125 + 2 >= v126)
-              {
-                if (v126 >= 4)
-                {
-                  v134 = 2 * v126;
-                }
-
-                else
-                {
-                  v134 = 4;
-                }
-
-                v135 = 16 * v134;
-                if (v127)
-                {
-                  v136 = malloc_type_zone_realloc(queryZone, v127, v135 + 32, 0xA1A7ADA0uLL);
-                }
-
-                else
-                {
-                  v136 = malloc_type_zone_malloc(queryZone, v135 + 32, 0x566E289CuLL);
-                }
-
-                v137 = v136;
-                if (!v136)
-                {
-                  _log_fault_for_malloc_failure();
-                }
-
-                *v137 = 0;
-                v137[1] = 0;
-                v132 = v137;
-                v88 = v134;
-                v19 = v159;
-              }
-
-              else
-              {
-                v132 = v127;
-                v88 = v126;
-              }
-
-              v87 = (v123 & v131);
-              v133 = v125 + 1;
-              v138 = &v132[2 * v125];
-              *v138 = v129;
-              v138[1] = 0;
-              if (v125 >= 2)
-              {
-                do
-                {
-                  v139 = &v132[2 * v125];
-                  v140 = &v132[2 * (v125 >> 1)];
-                  if ((*v139 & 0x3FFFFFFFFFFFFFFFuLL) > (*v140 & 0x3FFFFFFFFFFFFFFFuLL))
-                  {
-                    break;
-                  }
-
-                  v141 = v125;
-                  *v170 = *v139;
-                  *v139 = *v140;
-                  *v140 = *v170;
-                  v125 = v125 >> 1;
-                }
-
-                while (v141 > 3);
-              }
-            }
-
-            else
-            {
-              v132 = v127;
-              v88 = v126;
-              v133 = v125;
-              v87 = v123;
-            }
-
-            v122 = (v128 + 1);
-            v123 = v87;
-            v124 = v128 + 1;
-            v125 = v133;
-            v126 = v88;
-            v127 = v132;
-          }
-
-          while (v120 > v122);
-          v57 = v155;
-          v118 = v156;
-          v52 = v133;
-          v119 = v132;
-LABEL_145:
-          v142 = v87;
-          *&buf[8] = v88;
-          *&buf[16] = v52;
-          *buf = v119;
-          v20 = v159;
-          v19 = v159;
-          if (v52 != 1)
-          {
-            v54 = v57;
-            v55 = v118;
-            if (v87)
-            {
-              continue;
-            }
-          }
-
-          free(v119);
-          if (v57 >= 2)
-          {
-            if (qos_class_self() >= 0x12 && v57 > 2047)
-            {
-              v143 = OSAtomicDequeue(&qsort_cached_allocations_4560, 0);
-              if (!v143)
-              {
-                v143 = malloc_type_malloc(0x40uLL, 0x102004053A8A26AuLL);
-              }
-
-              v144 = dispatch_group_create();
-              v143[3] = v144;
-              v143[4] = 0;
-              v143[1] = 0;
-              v143[2] = v57 - 1;
-              *v143 = v118;
-              v145 = thread_count_4561;
-              if (!thread_count_4561)
-              {
-                *v170 = 0x1900000006;
-                v167 = 4;
-                sysctl(v170, 2u, &thread_count_4561, &v167, 0, 0);
-                v145 = thread_count_4561;
-              }
-
-              *(v143 + 14) = v145;
-              v143[5] = sqrt(v57) / 2;
-              if (!v145)
-              {
-                *v170 = 0x1900000006;
-                v167 = 4;
-                sysctl(v170, 2u, &thread_count_4561, &v167, 0, 0);
-                v145 = thread_count_4561;
-              }
-
-              v146 = v57 / (2 * v145);
-              if (v146 <= 0x8000)
-              {
-                v146 = 0x8000;
-              }
-
-              else if (!v145)
-              {
-                *v170 = 0x1900000006;
-                v167 = 4;
-                sysctl(v170, 2u, &thread_count_4561, &v167, 0, 0);
-                v146 = v57 / (2 * thread_count_4561);
-              }
-
-              v143[6] = v146;
-              if (v143[5] <= 2047)
-              {
-                v143[5] = 2048;
-              }
-
-              _qsort_big_offset_triple(v143);
-              dispatch_group_wait(v144, 0xFFFFFFFFFFFFFFFFLL);
-              dispatch_release(v144);
-            }
-
-            else
-            {
-              _qsort_offset_triple(v118, 0, v57 - 1);
-            }
-
-            v147 = v57 - 1;
-            v148 = v118;
-            v149 = v142;
-            do
-            {
-              v150 = *v148;
-              v151 = v148[3];
-              v148 += 3;
-              v149 &= v151 != v150;
-              v142 = v149;
-              --v147;
-            }
-
-            while (v147);
-          }
-
-          free(v118);
-          if (v142)
-          {
-            break;
-          }
-
-LABEL_169:
-          v24 = *__error();
-          v25 = _SILogForLogForCategory(10);
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315394;
-            *&buf[4] = "openForwardStore";
-            *&buf[12] = 1024;
-            *&buf[14] = 2526;
-LABEL_43:
-            _os_log_error_impl(&dword_1C278D000, v25, OS_LOG_TYPE_ERROR, "%s:%d: Failed to open dir store", buf, 0x12u);
-          }
-
-          goto LABEL_14;
-        }
-      }
-    }
-
-    result = v19;
-  }
-
-  else
-  {
-    v24 = *__error();
-    v25 = _SILogForLogForCategory(10);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      *&buf[4] = "openForwardStore";
-      *&buf[12] = 1024;
-      *&buf[14] = 2483;
-      goto LABEL_43;
-    }
-
-LABEL_14:
-    *__error() = v24;
-    freeForwardDirectoryStore(v19);
-    result = 0;
-  }
-
-  v152 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void shadowForwardStore(uint64_t a1, int a2, _DWORD *a3)
-{
-  v4 = a2;
-  v92 = *MEMORY[0x1E69E9840];
-  if ((*a1 & 1) != 0 || a2)
-  {
-    memset(v91, 0, 255);
-    memset(v90, 0, 255);
-    v6 = fd_name(*(a1 + 224), v91, 0xFFuLL);
-    if (v6)
-    {
-      v7 = v6;
-      __strlcpy_chk();
-      strlcat(v7, ".shadow", 0xFFuLL);
-      v8 = *(a1 + 224);
-      if (v8)
-      {
-        v9 = *(v8 + 44);
-      }
-
-      else
-      {
-        v9 = 0xFFFFFFFFLL;
-      }
-
-      if (isRegisteredForCloning(v9) && (copyFileFallback(v9, v90, v9, v7, a3, 0, 1) & 1) != 0)
-      {
-        bit_vector_set_bits_4698((a1 + 4384), 0, *(a1 + 4384));
-        goto LABEL_70;
-      }
-
-      v12 = *(a1 + 240);
-      directoryStoreValidate(a1 + 8, a1 + 4424);
-      v88 = 0u;
-      v89 = 0u;
-      v86 = 0u;
-      v87 = 0u;
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
-      v79 = 0u;
-      v76 = 0u;
-      v77 = 0u;
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      v68 = 0u;
-      v69 = 0u;
-      v67 = 0u;
-      memset(v66, 0, sizeof(v66));
-      v56 = 0;
-      v57 = 0;
-      sibling_protected = fd_create_sibling_protected(*(a1 + 224), v7, 514, 0);
-      fd_no_cache(sibling_protected);
-      if (!sibling_protected)
-      {
-        v19 = *__error();
-        v20 = *__error();
-        v21 = _SILogForLogForCategory(0);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315906;
-          v59 = "shadowForwardStore";
-          v60 = 1024;
-          v61 = 2607;
-          v62 = 1024;
-          v63 = v19;
-          v64 = 2080;
-          v65 = v7;
-          _os_log_error_impl(&dword_1C278D000, v21, OS_LOG_TYPE_ERROR, "%s:%d: open err: %d, %s", buf, 0x22u);
-        }
-
-        v16 = 0;
-        goto LABEL_66;
-      }
-
-      v14 = (v12 + 0x1FFFF) >> 17;
-      if ((v4 & 1) == 0 && v14 >= *(a1 + 4384))
-      {
-        v14 = *(a1 + 4384);
-      }
-
-      v15 = malloc_type_malloc(0x20000uLL, 0x47A6DE18uLL);
-      if (!v15)
-      {
-        v46 = __si_assert_copy_extra(0);
-        v47 = v46;
-        v48 = "";
-        if (v46)
-        {
-          v48 = v46;
-        }
-
-        __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2617, "readBuffer", v48);
-        free(v47);
-        if (__valid_fs(-1))
-        {
-          v49 = 2989;
-        }
-
-        else
-        {
-          v49 = 3072;
-        }
-
-        *v49 = -559038737;
-        abort();
-      }
-
-      v16 = v15;
-      v17 = *(a1 + 240);
-      v18 = *(a1 + 224);
-      if (v17 >> 17)
-      {
-        v22 = _fd_acquire_fd(v18, &v56);
-        if (v22 != -1)
-        {
-          LODWORD(v23) = v22;
-          v24 = _fd_acquire_fd(sibling_protected, &v57);
-          if (v24 != -1)
-          {
-            v55 = v24;
-            if (v14 < 1)
-            {
-LABEL_57:
-              _fd_release_fd(*(a1 + 224), v23, 0, v56);
-              _fd_release_fd(sibling_protected, v55, 0, v57);
-              goto LABEL_58;
-            }
-
-            __fd = v23;
-            v25 = 0;
-            v26 = 0;
-            while (v26 != 100)
-            {
-LABEL_41:
-              if ((v4 & 1) != 0 || *(a1 + 4384) > v25 && CFBitVectorGetBitAtIndex(*(a1 + 4400), v25))
-              {
-                *&v66[4 * v26++] = v25;
-              }
-
-              if (++v25 == v14)
-              {
-                v23 = __fd;
-                if (v26)
-                {
-                  v29 = v26;
-                  v30 = v66;
-                  while (1)
-                  {
-                    if (*a3 == 1 || *a3 == -1 && (v4 & 1) != 0)
-                    {
-                      goto LABEL_74;
-                    }
-
-                    v31 = v23;
-                    v32 = *v30;
-                    if (prot_pread(v31, v16, 0x20000uLL, v32 << 17) == -1)
-                    {
-                      break;
-                    }
-
-                    v33 = v55;
-                    if (*a3 == 1 || *a3 == -1 && (v4 & 1) != 0)
-                    {
-                      LODWORD(v23) = __fd;
-                      goto LABEL_69;
-                    }
-
-                    if (prot_pwrite_guarded(v55, &v57, v16, 0x20000uLL, v32 << 17) == -1)
-                    {
-                      v53 = *__error();
-                      v20 = *__error();
-                      v51 = _SILogForLogForCategory(0);
-                      if (!os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
-                      {
-                        goto LABEL_89;
-                      }
-
-                      *buf = 136315650;
-                      v59 = "shadowForwardStore";
-                      v60 = 1024;
-                      v61 = 2699;
-                      v62 = 1024;
-                      v63 = v53;
-                      v52 = "%s:%d: pwrite err: %d";
-                      goto LABEL_93;
-                    }
-
-                    bit_vector_internal_touch_for_set_4691((a1 + 4384), v32);
-                    CFBitVectorSetBitAtIndex(*(a1 + 4400), v32, 0);
-                    v30 += 4;
-                    --v29;
-                    v23 = __fd;
-                    if (!v29)
-                    {
-                      goto LABEL_57;
-                    }
-                  }
-
-                  v50 = *__error();
-                  v20 = *__error();
-                  v51 = _SILogForLogForCategory(0);
-                  if (!os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
-                  {
-LABEL_89:
-                    LODWORD(v23) = __fd;
-                    goto LABEL_80;
-                  }
-
-                  *buf = 136315650;
-                  v59 = "shadowForwardStore";
-                  v60 = 1024;
-                  v61 = 2690;
-                  v62 = 1024;
-                  v63 = v50;
-                  v52 = "%s:%d: pread err: %d";
-LABEL_93:
-                  _os_log_error_impl(&dword_1C278D000, v51, OS_LOG_TYPE_ERROR, v52, buf, 0x18u);
-                  goto LABEL_89;
-                }
-
-                goto LABEL_57;
-              }
-            }
-
-            v27 = 0;
-            while (*a3 != 1 && (*a3 != -1 || (v4 & 1) == 0))
-            {
-              v28 = *&v66[v27];
-              if (prot_pread(__fd, v16, 0x20000uLL, v28 << 17) == -1)
-              {
-                v42 = *__error();
-                v20 = *__error();
-                v43 = _SILogForLogForCategory(0);
-                v33 = v55;
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136315650;
-                  v59 = "shadowForwardStore";
-                  v60 = 1024;
-                  v61 = 2653;
-                  v62 = 1024;
-                  v63 = v42;
-                  _os_log_error_impl(&dword_1C278D000, v43, OS_LOG_TYPE_ERROR, "%s:%d: read err: %d", buf, 0x18u);
-                }
-
-                LODWORD(v23) = __fd;
-                goto LABEL_68;
-              }
-
-              if (*a3 == 1 || *a3 == -1 && (v4 & 1) != 0)
-              {
-                break;
-              }
-
-              if (prot_pwrite_guarded(v55, &v57, v16, 0x20000uLL, v28 << 17) == -1)
-              {
-                v44 = *__error();
-                v20 = *__error();
-                v45 = _SILogForLogForCategory(0);
-                LODWORD(v23) = __fd;
-                if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136315650;
-                  v59 = "shadowForwardStore";
-                  v60 = 1024;
-                  v61 = 2662;
-                  v62 = 1024;
-                  v63 = v44;
-                  _os_log_error_impl(&dword_1C278D000, v45, OS_LOG_TYPE_ERROR, "%s:%d: pwrite err: %d", buf, 0x18u);
-                }
-
-LABEL_80:
-                v33 = v55;
-                goto LABEL_68;
-              }
-
-              bit_vector_internal_touch_for_set_4691((a1 + 4384), v28);
-              CFBitVectorSetBitAtIndex(*(a1 + 4400), v28, 0);
-              v27 += 4;
-              if (v27 == 400)
-              {
-                v26 = 0;
-                goto LABEL_41;
-              }
-            }
-
-            LODWORD(v23) = __fd;
-LABEL_74:
-            v33 = v55;
-LABEL_69:
-            free(v16);
-            _fd_release_fd(*(a1 + 224), v23, 0, v56);
-            _fd_release_fd(sibling_protected, v33, 0, v57);
-            fd_release(sibling_protected);
-            goto LABEL_70;
-          }
-
-          v40 = *__error();
-          v20 = *__error();
-          v41 = _SILogForLogForCategory(0);
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315650;
-            v59 = "shadowForwardStore";
-            v60 = 1024;
-            v61 = 2640;
-            v62 = 1024;
-            v63 = v40;
-            _os_log_error_impl(&dword_1C278D000, v41, OS_LOG_TYPE_ERROR, "%s:%d: fd_open err: %d", buf, 0x18u);
-          }
-
-LABEL_67:
-          v33 = -1;
-LABEL_68:
-          *__error() = v20;
-          goto LABEL_69;
-        }
-
-        v37 = *__error();
-        v20 = *__error();
-        v35 = _SILogForLogForCategory(0);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315650;
-          v59 = "shadowForwardStore";
-          v60 = 1024;
-          v61 = 2634;
-          v62 = 1024;
-          v63 = v37;
-          v36 = "%s:%d: fd_open err: %d";
-          goto LABEL_65;
-        }
-      }
-
-      else
-      {
-        if (fd_pread(v18, v16, v17, 0) != -1)
-        {
-          if (fd_pwrite(sibling_protected, v16, *(a1 + 240), 0) != -1)
-          {
-            bit_vector_internal_touch_for_set_4691((a1 + 4384), 0);
-            CFBitVectorSetBitAtIndex(*(a1 + 4400), 0, 0);
-LABEL_58:
-            fd_release(sibling_protected);
-            free(v16);
-            goto LABEL_70;
-          }
-
-          v38 = *__error();
-          v20 = *__error();
-          v35 = _SILogForLogForCategory(0);
-          if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_66;
-          }
-
-          *buf = 136315650;
-          v59 = "shadowForwardStore";
-          v60 = 1024;
-          v61 = 2626;
-          v62 = 1024;
-          v63 = v38;
-          v36 = "%s:%d: pwrite err: %d";
-          goto LABEL_65;
-        }
-
-        v34 = *__error();
-        v20 = *__error();
-        v35 = _SILogForLogForCategory(0);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315650;
-          v59 = "shadowForwardStore";
-          v60 = 1024;
-          v61 = 2621;
-          v62 = 1024;
-          v63 = v34;
-          v36 = "%s:%d: read err: %d";
-LABEL_65:
-          _os_log_error_impl(&dword_1C278D000, v35, OS_LOG_TYPE_ERROR, v36, buf, 0x18u);
-        }
-      }
-
-LABEL_66:
-      LODWORD(v23) = -1;
-      goto LABEL_67;
-    }
-
-    v10 = *__error();
-    v11 = _SILogForLogForCategory(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      *v66 = 136315394;
-      *&v66[4] = "shadowForwardStore";
-      *&v66[12] = 1024;
-      *&v66[14] = 2572;
-      _os_log_error_impl(&dword_1C278D000, v11, OS_LOG_TYPE_ERROR, "%s:%d: no path for shadow", v66, 0x12u);
-    }
-
-    *__error() = v10;
-  }
-
-LABEL_70:
-  v39 = *MEMORY[0x1E69E9840];
-}
-
-void bit_vector_internal_touch_for_set_4691(CFIndex *a1, CFIndex a2)
-{
-  v4 = a1[1];
-  if (v4 <= a2)
-  {
-    if (v4)
-    {
-      v5 = a1[1];
-    }
-
-    else
-    {
-      v5 = 32;
-    }
-
-    while (1)
-    {
-      v5 *= 2;
-      if (v5 > a2)
-      {
-        break;
-      }
-
-      if (v5 <= v4)
-      {
-        v6 = __si_assert_copy_extra(0);
-        v7 = v6;
-        v8 = "";
-        if (v6)
-        {
-          v8 = v6;
-        }
-
-        __message_assert("%s:%u: failed assertion '%s' %s ", "bit_vector.h", 124, "newCapacity > bv->capacity", v8);
-        free(v7);
-        if (__valid_fs(-1))
-        {
-          v9 = 2989;
-        }
-
-        else
-        {
-          v9 = 3072;
-        }
-
-        *v9 = -559038737;
-        abort();
-      }
-    }
-
-    v10 = a1[2];
-    v11 = *MEMORY[0x1E695E480];
-    if (v10)
-    {
-      MutableCopy = CFBitVectorCreateMutableCopy(v11, v5, v10);
-    }
-
-    else
-    {
-      MutableCopy = CFBitVectorCreateMutable(v11, v5);
-    }
-
-    v13 = MutableCopy;
-    if (!MutableCopy)
-    {
-      v15 = __si_assert_copy_extra(0);
-      v16 = v15;
-      v17 = "";
-      if (v15)
-      {
-        v17 = v15;
-      }
-
-      __message_assert("%s:%u: failed assertion '%s' %s ", "bit_vector.h", 128, "newBV", v17);
-      free(v16);
-      if (__valid_fs(-1))
-      {
-        v18 = 2989;
-      }
-
-      else
-      {
-        v18 = 3072;
-      }
-
-      *v18 = -559038737;
-      abort();
-    }
-
-    CFBitVectorSetCount(MutableCopy, v5);
-    v14 = a1[2];
-    if (v14)
-    {
-      CFRelease(v14);
-    }
-
-    a1[1] = v5;
-    a1[2] = v13;
-  }
-
-  if (*a1 <= a2)
-  {
-    *a1 = a2 + 1;
-  }
-}
-
-void bit_vector_set_bits_4698(CFIndex *a1, CFIndex a2, CFIndex a3)
-{
-  if (a2 < 0)
-  {
-    v8 = __si_assert_copy_extra(0);
-    v9 = v8;
-    v10 = "";
-    if (v8)
-    {
-      v10 = v8;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "bit_vector.h", 164, "range.location >= 0", v10);
-    free(v9);
-    if (__valid_fs(-1))
-    {
-      v11 = 2989;
-    }
-
-    else
-    {
-      v11 = 3072;
-    }
-
-    *v11 = -559038737;
-    abort();
-  }
-
-  if (a3 >= 1)
-  {
-    bit_vector_internal_touch_for_set_4691(a1, a3 + a2 - 1);
-    v6 = a1[2];
-    v7.location = a2;
-    v7.length = a3;
-
-    CFBitVectorSetBits(v6, v7, 0);
-  }
-}
-
-uint64_t directoryStoreMakePathWithPostingsOffset(uint64_t a1, int a2, void *a3, unint64_t a4, uint64_t a5)
-{
-  v66 = 0;
-  v10 = setCrashStateTarget(3);
-  if (!storageResolvePtr(a1 + 8, 0, 1, 1))
-  {
-    goto LABEL_38;
-  }
-
-  v11 = OSAtomicIncrement32(&exceptionSequenceNum);
-  v65 = 0;
-  v64 = 0;
-  v12 = *(a1 + 224);
-  if (v12)
-  {
-    v13 = *(v12 + 44);
-  }
-
-  else
-  {
-    v13 = -1;
-  }
-
-  v14 = setThreadIdAndInfo(v13, sStorageExceptionCallbacks, a1 + 8, 1, v11);
-  v65 = __PAIR64__(v14, HIDWORD(v14));
-  v64 = __PAIR64__(v15, v16);
-  v17 = threadData[9 * v14 + 1] + 320 * HIDWORD(v14);
-  v18 = *(v17 + 312);
-  v19 = *(v17 + 224);
-  if (v19)
-  {
-    v19(*(v17 + 288));
-  }
-
-  v63 = v65;
-  v62 = v64;
-  if (_setjmp(v17))
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
-    }
-
-    *(v17 + 312) = v18;
-    CIOnThreadCleanUpReset(v62);
-    dropThreadId(HIDWORD(v63), 1, v11);
-    CICleanUpReset(HIDWORD(v63), HIDWORD(v62));
-    goto LABEL_38;
-  }
-
-  *a1 = 1;
-  if (a4 >= 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v35 = __si_assert_copy_extra(0);
-    v27 = v35;
-    v36 = "";
-    if (v35)
-    {
-      v36 = v35;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2763, "postings<9223372036854775807", v36);
-    goto LABEL_45;
-  }
-
-  v20 = (a1 + 4424);
-  if (*(a1 + 4424) != 2)
-  {
-    v37 = __si_assert_copy_extra(0);
-    v27 = v37;
-    v38 = "";
-    if (v37)
-    {
-      v38 = v37;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2765, "getStoreOID(root.directory->fileId)==2", v38);
-    goto LABEL_45;
-  }
-
-  if (a2)
-  {
-    v21 = a2 - (a3[a2 - 1] == 2);
-    if (v21 < 2)
-    {
-      v23 = 0;
-      a2 -= a3[a2 - 1] == 2;
-    }
-
-    else
-    {
-      v22 = a3[1];
-      v23 = *a3 == v22;
-      if (*a3 == v22)
-      {
-        ++a3;
-        a2 = v21 - 1;
-      }
-
-      else
-      {
-        a2 -= a3[a2 - 1] == 2;
-      }
-    }
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  directoryStoreValidate(a1 + 8, a1 + 4424);
-  v61 = 0;
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  *buf = 0u;
-  v52 = 0uLL;
-  v53 = 0;
-  v51 = 0;
-  v50 = v20;
-  directoryStoreGetDirectoryWithPath(&v52, a1 + 8, &v50, a2 - 1, a3, 1, buf);
-  v24 = v52;
-  if (!a4)
-  {
-    if (v52)
-    {
-      goto LABEL_33;
-    }
-
-    v29 = __si_assert_copy_extra(0);
-    v27 = v29;
-    v30 = "";
-    if (v29)
-    {
-      v30 = v29;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2849, "target.directory", v30);
-LABEL_45:
-    free(v27);
-    if (__valid_fs(-1))
-    {
-      v39 = 2989;
-    }
-
-    else
-    {
-      v39 = 3072;
-    }
-
-    *v39 = -559038737;
-    abort();
-  }
-
-  v25 = *(v52 + 8);
-  if (v23)
-  {
-    if (v25)
-    {
-      v61 = 0;
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      *buf = 0u;
-      v48 = v52;
-      v49 = v53;
-      directoryStoreGetDirectoryWithPath(&v50, a1 + 8, &v48, 0, a3, 1, buf);
-      v52 = v50;
-      v24 = v50;
-      v53 = v51;
-      if (*(v50 + 8))
-      {
-        v26 = __si_assert_copy_extra(0);
-        v27 = v26;
-        v28 = "";
-        if (v26)
-        {
-          v28 = v26;
-        }
-
-        __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2842, "!target.directory->childPage.offset", v28);
-        goto LABEL_45;
-      }
-    }
-  }
-
-  else if (v25)
-  {
-    v45 = __si_assert_copy_extra(0);
-    v41 = v45;
-    v46 = "";
-    if (v45)
-    {
-      v46 = v45;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2844, "!target.directory->childPage.offset", v46);
-LABEL_58:
-    free(v41);
-    if (__valid_fs(-1))
-    {
-      v47 = 2989;
-    }
-
-    else
-    {
-      v47 = 3072;
-    }
-
-    *v47 = -559038737;
-    abort();
-  }
-
-  *(v24 + 8) = a4 | 0x8000000000000000;
-LABEL_33:
-  directoryStoreValidate(a1 + 8, a1 + 4424);
-  if (*v20 != 2)
-  {
-    v40 = __si_assert_copy_extra(0);
-    v41 = v40;
-    v42 = "";
-    if (v40)
-    {
-      v42 = v40;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2851, "getStoreOID(root.directory->fileId)==2", v42);
-    goto LABEL_58;
-  }
-
-  memcpy(a5, a3, 8 * a2);
-  *(a5 + 4096) = a2;
-  v31 = *buf;
-  *(a5 + 4104) = *(&v60 + 1);
-  *(a5 + 4112) = v31;
-  if (v31 < 0)
-  {
-    v43 = __si_assert_copy_extra(0);
-    v41 = v43;
-    v44 = "";
-    if (v43)
-    {
-      v44 = v43;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 2857, "!((refPage.pageOffset[0] & (1ull << 63)) || refPage.pageOffset[0]==0)", v44);
-    goto LABEL_58;
-  }
-
-  *(a5 + 4120) = v60;
-  v66 = 1;
-  v32 = threadData[9 * HIDWORD(v63) + 1] + 320 * v63;
-  *(v32 + 312) = v18;
-  v33 = *(v32 + 232);
-  if (v33)
-  {
-    v33(*(v32 + 288));
-  }
-
-  dropThreadId(HIDWORD(v63), 0, v11);
-LABEL_38:
-  setCrashStateTarget(v10);
-  return v66;
-}
-
-void dumpDirectoryStore(uint64_t a1)
-{
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v8 = v1;
-  v107[1] = *MEMORY[0x1E69E9840];
-  bzero(v105, 0x1000uLL);
-  v104 = 0;
-  bzero(&v102, 0x6038uLL);
-  v99 = 0;
-  __new = 0;
-  v101 = 0;
-  storage_reader_init((v8 + 1), &v99);
-  v98 = 0;
-  v9 = setCrashStateTarget(3);
-  if (v101 == 1)
-  {
-    v10 = OSAtomicIncrement32(&exceptionSequenceNum);
-    v11 = setThreadIdAndInfo(-1, sStorageReaderExceptionCallbacks, &v99, 0, v10);
-    v96 = HIDWORD(v11);
-    *buf = v11;
-    v94 = v13;
-    v95 = v12;
-    v14 = threadData[9 * v11 + 1] + 320 * HIDWORD(v11);
-    v15 = *(v14 + 312);
-    v16 = *(v14 + 224);
-    if (v16)
-    {
-      v16(*(v14 + 288));
-    }
-
-    v93 = *buf;
-    v92 = v96;
-    v91 = __PAIR64__(v95, v94);
-    if (_setjmp(v14))
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        *v90 = 0;
-        _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v90, 2u);
-      }
-
-      *(v14 + 312) = v15;
-      CIOnThreadCleanUpReset(v91);
-      dropThreadId(v93, 1, v10);
-      CICleanUpReset(v93, HIDWORD(v91));
-      goto LABEL_88;
-    }
-
-    v89 = v10;
-    v17 = CICleanUpThreadLoc();
-    v87 = threadData[9 * v17 + 4];
-    v88 = v17;
-    CICleanUpPush(v17, cleanup, &v102);
-    v107[0] = 2;
-    v20 = v8[554];
-    v21 = v8[555];
-    v22 = v8[556];
-    v23 = v22 - v21 < 0x100000001 && v22 > v21;
-    v24 = v22 & 0xFFFFFFFF00000000;
-    if (v23)
-    {
-      v25 = v24;
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-
-    v86 = v21;
-    if ((v20 & 0x8000000000000000) == 0)
-    {
-      if (v20)
-      {
-        v26 = v104 + 1;
-        if (!(v20 >> 62))
-        {
-          v27 = v102;
-          v28 = &v103[3 * v102];
-          *v28 = v26;
-          *(v28 + 12) = 0x200000000;
-          *(v28 + 4) = 0;
-          *(v28 + 20) = 0;
-          *(v28 + 28) = 0;
-          *(v28 + 36) = 0;
-          *(v28 + 11) = 0;
-          *(v28 + 3) = v20;
-          v29 = v27 + 1;
-          v102 = v27 + 1;
-          if (v27 == -1)
-          {
-            goto LABEL_85;
-          }
-
-LABEL_29:
-          v32 = 24;
-          v33 = v29;
-          while (1)
-          {
-            if ((v98 & 1) != 0 || *v5)
-            {
-              goto LABEL_85;
-            }
-
-            v34 = v33 - 1;
-            v35 = v103[3 * v33 - 2];
-            if (v35 != 2)
-            {
-              break;
-            }
-
-            if (!*v5)
-            {
-              v42 = v15;
-              v43 = v32;
-              v90[0] = 0;
-              v44 = &v103[3 * v34];
-              Page = _directoryStoreReaderGetPage(&v99, *(v44 + 3), v90, v18, v19);
-              if (Page)
-              {
-                if (v90[0] == 1)
-                {
-                  v81 = __si_assert_copy_extra(0);
-                  __message_assert("%s:%u: failed assertion '%s' %s ");
-                  goto LABEL_97;
-                }
-
-                v46 = Page;
-                Size = directoryTreePageGetSize(*Page, *(Page + 2));
-                v48 = *(v44 + 1);
-                if (Size <= v48)
-                {
-LABEL_46:
-                  v53 = v102 - 1;
-LABEL_47:
-                  v102 = v53;
-                }
-
-                else
-                {
-                  *(v44 + 1) = v48 + 1;
-                  v49 = *v44;
-                  v50 = &v46[4 * v48 + 4];
-                  v51 = v48 + 2;
-                  v52 = Size - v48;
-                  while (!*v5)
-                  {
-                    if (*v50 >= 1)
-                    {
-                      v71 = *v50;
-                      if (!(*v50 >> 62))
-                      {
-                        v72 = v102;
-                        v73 = &v103[3 * v102];
-                        *v73 = v49;
-                        *(v73 + 4) = 0;
-                        *(v73 + 20) = 0;
-                        *(v73 + 28) = 0;
-                        *(v73 + 36) = 0;
-                        *(v73 + 12) = 0x200000000;
-                        *(v73 + 11) = 0;
-                        *(v73 + 3) = v71;
-                        v53 = v72 + 1;
-                        goto LABEL_47;
-                      }
-
-                      dumpDirectoryStorePage(&v99, v5, v71, v49, &v102, v103, v18, v19);
-                      break;
-                    }
-
-                    *(v44 + 1) = v51;
-                    ++v50;
-                    ++v51;
-                    if (!--v52)
-                    {
-                      goto LABEL_46;
-                    }
-                  }
-                }
-              }
-
-              v32 = v43;
-              v15 = v42;
-            }
-
-LABEL_69:
-            v33 = v102;
-            if (!v102)
-            {
-              goto LABEL_85;
-            }
-          }
-
-          if (v35 != 1)
-          {
-            v83 = __si_assert_copy_extra(0);
-            v84 = v83;
-            if (v83)
-            {
-              v85 = v83;
-            }
-
-            else
-            {
-              v85 = "";
-            }
-
-            __message_assert("%s:%u: Unexpected code path %s ", "FileTree.c", 3171, v85);
-            free(v84);
-            goto LABEL_93;
-          }
-
-          v36 = &v103[3 * v34];
-          v37 = *(v36 + 1);
-          v38 = *v36;
-          v39 = *v36;
-          v40 = *v36;
-          if (v37 == *(v36 + 5))
-          {
-            if (*(v36 + 24) || (v7 & 1) != 0)
-            {
-              free(*(v36 + 4));
-              --v102;
-              v62 = 0;
-LABEL_68:
-              v98 = v62;
-              goto LABEL_69;
-            }
-
-            *(v36 + 1) = 0;
-            *(v36 + 24) = 1;
-            v41 = *(v36 + 4);
-            v37 = 0;
-          }
-
-          else
-          {
-            if (!*(v36 + 24))
-            {
-              v63 = *(v36 + 4) + 24 * v37;
-              v66 = *(v63 + 8);
-              v65 = v63 + 8;
-              v64 = v66;
-              if (v66 < 2)
-              {
-                goto LABEL_66;
-              }
-
-              v67 = *(v65 + 8);
-              v59 = v67;
-              v105[511 - v38] = v64;
-              if ((v67 & 0x8000000000000000) != 0)
-              {
-                v74 = v67 & 0x7FFFFFFFFFFFFFFFLL;
-                v75 = v67 & 0x7FFFFFFFFFFFFFFFLL;
-                if ((v67 & 0x7FFFFFFFFFFFFFFFLL) < v86)
-                {
-                  if (!v25 || HIDWORD(v74))
-                  {
-LABEL_106:
-                    v79 = __si_assert_copy_extra(0);
-                    __message_assert("%s:%u: failed assertion '%s' %s invalid posting 0x%llx for 0x%llx");
-LABEL_92:
-                    free(v79);
-                    if (__valid_fs(-1))
-                    {
-LABEL_93:
-                      v80 = 2989;
-                    }
-
-                    else
-                    {
-                      v80 = 3072;
-                    }
-
-                    *v80 = -559038737;
-                    abort();
-                  }
-
-                  v75 = v74 | v25;
-                }
-
-                if (!v75)
-                {
-                  goto LABEL_106;
-                }
-
-                if (v38 < 1 || v64 == v105[512 - v38])
-                {
-                  v70 = (*(v3 + 16))(v3, (v40 + 1), &v107[-v38], v75);
-                }
-
-                else
-                {
-                  v105[510 - v38] = v64;
-                  v70 = (*(v3 + 16))(v3, (v40 + 2), &v107[-v38 - 1]);
-                }
-
-                goto LABEL_67;
-              }
-
-              if (!v67)
-              {
-                goto LABEL_66;
-              }
-
-              if ((v7 & 1) == 0)
-              {
-                v70 = (*(v3 + 16))(v3, (v38 + 1), &v107[-v38], 0);
-                goto LABEL_67;
-              }
-
-              if (!(v67 >> 62))
-              {
-                v68 = &v103[3 * v33];
-                *v68 = v39 + 1;
-                *(v68 + 4) = 0;
-                *(v68 + 20) = 0;
-                *(v68 + 28) = 0;
-                *(v68 + 36) = 0;
-                *(v68 + 12) = 0x200000000;
-                *(v68 + 11) = 0;
-                *(v68 + 3) = v67;
-                goto LABEL_56;
-              }
-
-              v69 = v5;
-              v60 = v38 + 1;
-LABEL_65:
-              dumpDirectoryStorePage(&v99, v69, v59, v60, &v102, v103, v18, v19);
-              goto LABEL_66;
-            }
-
-            v41 = *(v36 + 4);
-          }
-
-          if (v7)
-          {
-            v79 = __si_assert_copy_extra(0);
-            __message_assert("%s:%u: failed assertion '%s' %s ");
-            goto LABEL_92;
-          }
-
-          v54 = v41 + v37 * v32;
-          v57 = *(v54 + 8);
-          v55 = v54 + 8;
-          v56 = v57;
-          if (v57 < 2)
-          {
-            goto LABEL_66;
-          }
-
-          v58 = *(v55 + 8);
-          if (v58 < 1)
-          {
-            goto LABEL_66;
-          }
-
-          v59 = v58;
-          v105[511 - v38] = v56;
-          v60 = v40 + 1;
-          if (!(v58 >> 62))
-          {
-            v61 = &v103[3 * v33];
-            *v61 = v60;
-            *(v61 + 4) = 0;
-            *(v61 + 20) = 0;
-            *(v61 + 28) = 0;
-            *(v61 + 36) = 0;
-            *(v61 + 12) = 0x200000000;
-            *(v61 + 11) = 0;
-            *(v61 + 3) = v59;
-LABEL_56:
-            v102 = v33 + 1;
-LABEL_66:
-            v70 = 0;
-LABEL_67:
-            ++*(v36 + 1);
-            v62 = v70;
-            goto LABEL_68;
-          }
-
-          v69 = v5;
-          goto LABEL_65;
-        }
-
-        dumpDirectoryStorePage(&v99, v5, v20, v26, &v102, v103, v18, v19);
-      }
-
-LABEL_28:
-      v29 = v102;
-      if (!v102)
-      {
-LABEL_85:
-        CICleanUpReset(v88, v87);
-        v76 = threadData[9 * v93 + 1] + 320 * v92;
-        *(v76 + 312) = v15;
-        v77 = *(v76 + 232);
-        if (v77)
-        {
-          v77(*(v76 + 288));
-        }
-
-        dropThreadId(v93, 0, v89);
-        goto LABEL_88;
-      }
-
-      goto LABEL_29;
-    }
-
-    v30 = v20 & 0x7FFFFFFFFFFFFFFFLL;
-    v31 = v30;
-    if (v30 < v21)
-    {
-      if (HIDWORD(v30) || !v25)
-      {
-        goto LABEL_105;
-      }
-
-      v31 = v25 | v30;
-    }
-
-    if (v31)
-    {
-      v106 = 2;
-      (*(v3 + 16))(v3);
-      goto LABEL_28;
-    }
-
-LABEL_105:
-    v81 = __si_assert_copy_extra(0);
-    __message_assert("%s:%u: failed assertion '%s' %s invalid posting 0x%llx for 0x%llx");
-LABEL_97:
-    free(v81);
-    if (__valid_fs(-1))
-    {
-      v82 = 2989;
-    }
-
-    else
-    {
-      v82 = 3072;
-    }
-
-    *v82 = -559038737;
-    abort();
-  }
-
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Skipping because index is shut down", buf, 2u);
-  }
-
-LABEL_88:
-  setCrashStateTarget(v9);
-  if (__new)
-  {
-    _release_read_window(&availableReaders, __new);
-  }
-
-  v78 = *MEMORY[0x1E69E9840];
-}
-
-void dumpDirectoryStorePage(uint64_t *a1, _DWORD *a2, unint64_t a3, int a4, _DWORD *a5, uint64_t a6, __n128 a7, __n128 a8)
-{
-  v34 = 0;
-  Page = _directoryStoreReaderGetPage(a1, a3, &v34, a7, a8);
-  if (Page)
-  {
-    if (!v34)
-    {
-      v27 = __si_assert_copy_extra(0);
-      v25 = v27;
-      v28 = "";
-      if (v27)
-      {
-        v28 = v27;
-      }
-
-      __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3032, "flat", v28);
-LABEL_21:
-      free(v25);
-      if (__valid_fs(-1))
-      {
-        v29 = 2989;
-      }
-
-      else
-      {
-        v29 = 3072;
-      }
-
-      *v29 = -559038737;
-      abort();
-    }
-
-    if (!*a2)
-    {
-      v13 = Page;
-      v14 = *Page;
-      if ((64 << *(Page + 2)) - 8 < v14)
-      {
-        v30 = __si_assert_copy_extra(0);
-        v32 = *v13;
-        v33 = ((64 << *(v13 + 2)) - 8);
-        __message_assert("%s:%u: failed assertion '%s' %s Got end %d and size %d");
-      }
-
-      else
-      {
-        Size = directoryStorePageGetSize(Page);
-        if (v14 < 0x10)
-        {
-          return;
-        }
-
-        v16 = Size;
-        v17 = v14 >> 4;
-        v18 = malloc_type_malloc(24 * v17, 0x1000040504FFAC1uLL);
-        v19 = 0;
-        if (v16)
-        {
-          v20 = v13 + 4;
-          do
-          {
-            if (*v20)
-            {
-              v21 = &v18[24 * v19];
-              *(v21 + 1) = *v20;
-              *v21 = hash64(v21[1]);
-              ++v19;
-            }
-
-            else if (*(v20 + 1))
-            {
-              v24 = __si_assert_copy_extra(0);
-              v25 = v24;
-              v26 = "";
-              if (v24)
-              {
-                v26 = v24;
-              }
-
-              __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3010, "page->items[i].childPage.offset==0", v26);
-              goto LABEL_21;
-            }
-
-            v20 += 8;
-            v16 = (v16 - 1);
-          }
-
-          while (v16);
-        }
-
-        if (v19 == v17)
-        {
-          qsort_b(v18, v17, 0x18uLL, &__block_literal_global_125_4713);
-          v22 = a6 + 48 * *a5;
-          *v22 = a4;
-          *(v22 + 4) = 0;
-          *(v22 + 12) = 0x100000000;
-          *(v22 + 20) = 0;
-          *(v22 + 44) = 0;
-          *(v22 + 36) = 0;
-          *(v22 + 28) = 0;
-          LODWORD(v22) = *a5;
-          v23 = a6 + 48 * *a5;
-          *(v23 + 24) = 0;
-          *(v23 + 32) = v18;
-          *(v23 + 40) = v17;
-          *a5 = v22 + 1;
-          return;
-        }
-
-        v30 = __si_assert_copy_extra(0);
-        __message_assert("%s:%u: failed assertion '%s' %s ");
-      }
-
-      free(v30);
-      if (__valid_fs(-1))
-      {
-        v31 = 2989;
-      }
-
-      else
-      {
-        v31 = 3072;
-      }
-
-      *v31 = -559038737;
-      abort();
-    }
-  }
-}
-
-uint64_t __dumpSpecialDirectoryStorePage_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  if (*a2 < *a3)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (*a2 > *a3)
-  {
-    return 1;
-  }
-
-  if (a2[1] < a3[1])
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  return 1;
-}
-
-void cleanup(unsigned int *a1)
-{
-  v1 = *a1;
-  if (v1)
-  {
-    v3 = 0;
-    v4 = (a1 + 10);
-    do
-    {
-      if (*(v4 - 4) == 1)
-      {
-        free(*v4);
-        v1 = *a1;
-      }
-
-      ++v3;
-      v4 += 6;
-    }
-
-    while (v3 < v1);
-  }
-}
-
-void compactForwardDirectoryStore(uint64_t a1)
-{
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v8 = v1;
-  bzero(v11, 0x1020uLL);
-  v9 = *v5;
-  v10 = v5[1];
-  dumpDirectoryStore(v8);
-  if (!*v3)
-  {
-    flushForwardStore(v7, 0);
-  }
-}
-
-uint64_t __compactForwardDirectoryStore_block_invoke(uint64_t a1, int a2, void *a3, unint64_t a4)
-{
-  if (a4)
-  {
-    v7 = *(a1 + 32);
-    if (v7)
-    {
-      v8 = uint32_map_get(v7, a4);
-      a4 = *storageResolvePtr(*(a1 + 40), 8 * v8, 8, 1);
-    }
-  }
-
-  if (!directoryStoreMakePathWithPostingsOffset(*(a1 + 48), a2, a3, a4, *(a1 + 56)) || **(a1 + 64))
-  {
-    return 1;
-  }
-
-  v11 = *(a1 + 88);
-  v10 = *(a1 + 96);
-
-  return v11(v10);
-}
-
-void subvertForwardDirectoryStore(void *a1, uint64_t a2)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  memset(v18, 0, 255);
-  v4 = fd_name(a1[28], v18, 0xFFuLL);
-  memset(v17, 0, 255);
-  v5 = fd_name(a1[28], v17, 0xFFuLL);
-  v6 = v5;
-  if (v5)
-  {
-    strlcat(v5, ".shadow", 0xFFuLL);
-    sibling_protected = fd_create_sibling_protected(a1[28], v6, 0, 0);
-    if (sibling_protected)
-    {
-      v8 = sibling_protected;
-      _fd_unlink_with_origin(sibling_protected, 0);
-      fd_release(v8);
-    }
-  }
-
-  _fd_unlink_with_origin(a1[28], 0);
-  freeForwardDirectoryStore(a1);
-  if (strstr(v6, ".shadow.shadow"))
-  {
-    v12 = __si_assert_copy_extra(0);
-    v13 = v12;
-    v14 = "";
-    if (v12)
-    {
-      v14 = v12;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3225, "0==strstr(shadowpathPtr, .shadow.shadow)", v14);
-    free(v13);
-    if (__valid_fs(-1))
-    {
-      v15 = 2989;
-    }
-
-    else
-    {
-      v15 = 3072;
-    }
-
-    *v15 = -559038737;
-    abort();
-  }
-
-  memset(v16, 0, 255);
-  v9 = fd_name(*(a2 + 224), v16, 0xFFuLL);
-  strlcat(v9, ".shadow", 0xFFuLL);
-  v10 = fd_create_sibling_protected(*(a2 + 224), v9, 0, 0);
-  fd_rename(*(a2 + 224), v4);
-  if (v10)
-  {
-    fd_rename(v10, v6);
-    fd_release(v10);
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t unlinkDirectoryStore(const char *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  bzero(__str, 0x400uLL);
-  snprintf(__str, 0x400uLL, "%s%s", a1, "directoryStoreFile");
-  result = unlink(__str);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t unlinkDirectoryStoreShadow(const char *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  bzero(__str, 0x400uLL);
-  snprintf(__str, 0x400uLL, "%s%s.shadow", a1, "directoryStoreFile");
-  result = unlink(__str);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t directoryStoreGetParent(uint64_t a1, unint64_t a2)
-{
-  v4 = setCrashStateTarget(2);
-  db_read_lock(a1 + 4424);
-  v27 = 0;
-  __new = 0;
-  v29 = 0;
-  storage_reader_init(a1, &v27);
-  if (v29 != 1)
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Skipping because index is shut down", buf, 2u);
-    }
-
-    goto LABEL_10;
-  }
-
-  v5 = OSAtomicIncrement32(&exceptionSequenceNum);
-  v6 = setThreadIdAndInfo(-1, sStorageReaderExceptionCallbacks, &v27, 0, v5);
-  v25 = HIDWORD(v6);
-  *buf = v6;
-  v24 = __PAIR64__(v7, v8);
-  v9 = threadData[9 * v6 + 1] + 320 * HIDWORD(v6);
-  v10 = *(v9 + 312);
-  v11 = *(v9 + 224);
-  if (v11)
-  {
-    v11(*(v9 + 288));
-  }
-
-  v23 = *buf;
-  v22 = v25;
-  v21 = v24;
-  if (_setjmp(v9))
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *v20 = 0;
-      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v20, 2u);
-    }
-
-    *(v9 + 312) = v10;
-    CIOnThreadCleanUpReset(v21);
-    dropThreadId(v23, 1, v5);
-    CICleanUpReset(v23, HIDWORD(v21));
-LABEL_10:
-    v14 = 0;
-    goto LABEL_11;
-  }
-
-  ItemOffset = directoryStoreReaderTreeFindItemOffset(&v27, 1088, a2, 0, v12, v13);
-  if (ItemOffset)
-  {
-    v17 = *(ItemOffset + 1);
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = threadData[9 * v23 + 1] + 320 * v22;
-  *(v18 + 312) = v10;
-  v19 = *(v18 + 232);
-  if (v19)
-  {
-    v19(*(v18 + 288));
-  }
-
-  dropThreadId(v23, 0, v5);
-  v14 = v17;
-LABEL_11:
-  db_read_unlock(a1 + 4424);
-  if (__new)
-  {
-    _release_read_window(&availableReaders, __new);
-    __new = 0;
-  }
-
-  setCrashStateTarget(v4);
-  return v14;
-}
-
-uint64_t directoryStoreGetPath(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v6 = setCrashStateTarget(2);
-  db_read_lock(a1 + 4424);
-  v32 = 0;
-  __new = 0;
-  v34 = 0;
-  storage_reader_init(a1, &v32);
-  if (v34 != 1)
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
-    {
-      v16 = 0;
-      *buf = 0;
-      _os_log_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Skipping because index is shut down", buf, 2u);
-      goto LABEL_21;
-    }
-
-    goto LABEL_10;
-  }
-
-  v7 = OSAtomicIncrement32(&exceptionSequenceNum);
-  v8 = setThreadIdAndInfo(-1, sStorageReaderExceptionCallbacks, &v32, 0, v7);
-  v30 = HIDWORD(v8);
-  *buf = v8;
-  v29 = __PAIR64__(v9, v10);
-  v11 = threadData[9 * v8 + 1] + 320 * HIDWORD(v8);
-  v12 = *(v11 + 312);
-  v13 = *(v11 + 224);
-  if (v13)
-  {
-    v13(*(v11 + 288));
-  }
-
-  v28 = *buf;
-  v27 = v30;
-  v26 = v29;
-  if (_setjmp(v11))
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *v25 = 0;
-      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v25, 2u);
-    }
-
-    *(v11 + 312) = v12;
-    CIOnThreadCleanUpReset(v26);
-    dropThreadId(v28, 1, v7);
-    CICleanUpReset(v28, HIDWORD(v26));
-LABEL_10:
-    v16 = 0;
-    goto LABEL_21;
-  }
-
-  if (a2 == 2)
-  {
-    v16 = 0;
-  }
-
-  else
-  {
-    v17 = 0;
-    v18 = a2;
-    do
-    {
-      v19 = v17;
-      ItemOffset = directoryStoreReaderTreeFindItemOffset(&v32, 1088, v18, 0, v14, v15);
-      if (!ItemOffset)
-      {
-        break;
-      }
-
-      v21 = *(ItemOffset + 1);
-      if (!v21)
-      {
-        break;
-      }
-
-      v18 = *(ItemOffset + 1);
-      v17 = v19 + 1;
-      *(a3 + 8 * v19++) = v21;
-    }
-
-    while (v21 != 2);
-    v16 = v19;
-  }
-
-  v22 = threadData[9 * v28 + 1] + 320 * v27;
-  *(v22 + 312) = v12;
-  v23 = *(v22 + 232);
-  if (v23)
-  {
-    v23(*(v22 + 288));
-  }
-
-  dropThreadId(v28, 0, v7);
-LABEL_21:
-  db_read_unlock(a1 + 4424);
-  if (__new)
-  {
-    _release_read_window(&availableReaders, __new);
-    __new = 0;
-  }
-
-  setCrashStateTarget(v6);
-  return v16;
-}
-
-uint64_t directoryStoreWriterGetParent(uint64_t a1, unint64_t a2)
-{
-  v4 = setCrashStateTarget(2);
-  _db_write_lock(a1 + 4424);
-  v5 = 0;
-  if (storageResolvePtr(a1, 0, 1, 1))
-  {
-    v6 = OSAtomicIncrement32(&exceptionSequenceNum);
-    v7 = *(a1 + 216);
-    if (v7)
-    {
-      v8 = *(v7 + 44);
-    }
-
-    else
-    {
-      v8 = -1;
-    }
-
-    v9 = setThreadIdAndInfo(v8, sStorageExceptionCallbacks, a1, 1, v6);
-    v24 = HIDWORD(v9);
-    v25 = v9;
-    v23 = __PAIR64__(v10, v11);
-    v12 = threadData[9 * v9 + 1] + 320 * HIDWORD(v9);
-    v13 = *(v12 + 312);
-    v14 = *(v12 + 224);
-    if (v14)
-    {
-      v14(*(v12 + 288));
-    }
-
-    v22 = v25;
-    v21 = v24;
-    v20 = v23;
-    if (_setjmp(v12))
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        v19[0] = 0;
-        _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v19, 2u);
-      }
-
-      *(v12 + 312) = v13;
-      CIOnThreadCleanUpReset(v20);
-      dropThreadId(v22, 1, v6);
-      CICleanUpReset(v22, HIDWORD(v20));
-      v5 = 0;
-    }
-
-    else
-    {
-      Parent = _directoryStoreGetParent(a1, a2);
-      v16 = threadData[9 * v22 + 1] + 320 * v21;
-      *(v16 + 312) = v13;
-      v17 = *(v16 + 232);
-      if (v17)
-      {
-        v17(*(v16 + 288));
-      }
-
-      dropThreadId(v22, 0, v6);
-      v5 = Parent;
-    }
-  }
-
-  db_write_unlock(a1 + 4424);
-  setCrashStateTarget(v4);
-  return v5;
-}
-
-uint64_t _directoryStoreGetParent(uint64_t a1, unint64_t a2)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v11 = 0u;
-  memset(v10, 0, sizeof(v10));
-  ItemOffset = directoryStoreTreeFindItemOffset(a1, 0x440uLL, a2, v10, 0, 0, 0);
-  if (ItemOffset)
-  {
-    result = ItemOffset[1];
-    if (result)
-    {
-      v4 = 1;
-    }
-
-    else
-    {
-      v4 = dword_1EBF46AE4 < 5;
-    }
-
-    if (!v4)
-    {
-      v5 = *__error();
-      v6 = _SILogForLogForCategory(6);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134217984;
-        v14 = *(&v11 + 1);
-        v7 = "leafPageOffset: %llx";
-LABEL_13:
-        _os_log_impl(&dword_1C278D000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
-        goto LABEL_14;
-      }
-
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    if (dword_1EBF46AE4 >= 5)
-    {
-      v5 = *__error();
-      v6 = _SILogForLogForCategory(6);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134217984;
-        v14 = *(&v11 + 1);
-        v7 = "_directoryStoreGetParent failed. leafPageOffset: %llx";
-        goto LABEL_13;
-      }
-
-LABEL_14:
-      v9 = __error();
-      result = 0;
-      *v9 = v5;
-      goto LABEL_10;
-    }
-
-    result = 0;
-  }
-
-LABEL_10:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t dirtyStore(uint64_t a1)
-{
-  if (*(a1 + 4416))
-  {
-    v2 = *(a1 + 4640);
-    if (v2)
-    {
-      (*(v2 + 16))();
-    }
-
-    v3 = storageResolvePtr(a1, 0x40uLL, 1024, 1);
-    *(v3 + 4) = 0;
-    dirtyStoragePage(a1, v3);
-    v4 = *MEMORY[0x1E69E9AB8];
-    fd_system_status_stall_if_busy();
-    msync((v3 & ~v4), 0x1000uLL, 16);
-    result = fd_sync(*(a1 + 216), 1);
-    *(a1 + 4416) = 0;
-  }
-
-  else
-  {
-    if (*(a1 + 232) <= 0x43FuLL)
-    {
-      storageAllocOffsetFromEnd(a1, *(a1 + 224) + 960);
-    }
-
-    result = storageResolvePtr(a1, 0x40uLL, 1024, 1);
-    *(result + 4) = 0;
-  }
-
-  return result;
-}
-
-uint64_t directoryStoreSetParentForMove(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v51 = *MEMORY[0x1E69E9840];
-  v46 = 0;
-  v45 = 0;
-  v44 = 0u;
-  memset(v43, 0, sizeof(v43));
-  v6 = setCrashStateTarget(2);
-  if (!a3)
-  {
-    v33 = __si_assert_copy_extra(*(a1 + 216));
-    v34 = v33;
-    v35 = "";
-    if (v33)
-    {
-      v35 = v33;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3492, "parent", v35);
-    free(v34);
-    if (__valid_fsp(*(a1 + 216)))
-    {
-      v36 = 2989;
-    }
-
-    else
-    {
-      v36 = 3072;
-    }
-
-    *v36 = -559038737;
-    abort();
-  }
-
-  v7 = v6;
-  _db_write_lock(a1 + 4424);
-  if (storageResolvePtr(a1, 0, 1, 1))
-  {
-    v8 = OSAtomicIncrement32(&exceptionSequenceNum);
-    v9 = *(a1 + 216);
-    if (v9)
-    {
-      v10 = *(v9 + 44);
-    }
-
-    else
-    {
-      v10 = -1;
-    }
-
-    v11 = setThreadIdAndInfo(v10, sStorageExceptionCallbacks, a1, 1, v8);
-    v41 = HIDWORD(v11);
-    v42 = v11;
-    v39 = v13;
-    v40 = v12;
-    v14 = threadData[9 * v11 + 1] + 320 * HIDWORD(v11);
-    v15 = *(v14 + 312);
-    v16 = *(v14 + 224);
-    if (v16)
-    {
-      v16(*(v14 + 288));
-    }
-
-    if (_setjmp(v14))
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
-      }
-
-      *(v14 + 312) = v15;
-      CIOnThreadCleanUpReset(v39);
-      dropThreadId(v42, 1, v8);
-      CICleanUpReset(v42, v40);
-    }
-
-    else
-    {
-      if (dword_1EBF46AE4 >= 5)
-      {
-        v37 = *__error();
-        v38 = _SILogForLogForCategory(6);
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 134218240;
-          v48 = a2;
-          v49 = 2048;
-          v50 = a3;
-          _os_log_impl(&dword_1C278D000, v38, OS_LOG_TYPE_DEFAULT, "Move %llx/%llx", buf, 0x16u);
-        }
-
-        *__error() = v37;
-      }
-
-      dirtyStore(a1);
-      ItemOffset = directoryStoreTreeFindItemOffset(a1, 0x440uLL, a2, v43, &v46, 0, 1);
-      PageInner = _directoryStoreGetPageInner(a1, *(&v44 + 1), buf);
-      v19 = PageInner;
-      v20 = PageInner;
-      if (ItemOffset)
-      {
-        if (*ItemOffset != a2 || (v21 = v46, &PageInner[8 * v46 + 4] != ItemOffset))
-        {
-          v22 = __si_assert_copy_extra(*(a1 + 216));
-          v23 = v22;
-          v24 = "";
-          if (v22)
-          {
-            v24 = v22;
-          }
-
-          __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3513, "(getStoreOID(element->fileId)==item && &page->items[slot]==element)", v24);
-          free(v23);
-          if (__valid_fsp(*(a1 + 216)))
-          {
-            v25 = 2989;
-          }
-
-          else
-          {
-            v25 = 3072;
-          }
-
-          *v25 = -559038737;
-          abort();
-        }
-      }
-
-      else
-      {
-        v26 = v46;
-        if (*&PageInner[8 * v46 + 4] >= 2uLL)
-        {
-          Size = directoryStorePageGetSize(PageInner);
-          shiftEntries(v20, v26, Size);
-          v26 = v46;
-        }
-
-        *v20 += 16;
-        v21 = v26;
-      }
-
-      v28 = &v19[8 * v21];
-      *(v28 + 1) = a2;
-      *(v28 + 2) = a3;
-      dirtyStoragePage(a1, v20);
-      v29 = threadData[9 * v42 + 1] + 320 * v41;
-      *(v29 + 312) = v15;
-      v30 = *(v29 + 232);
-      if (v30)
-      {
-        v30(*(v29 + 288));
-      }
-
-      dropThreadId(v42, 0, v8);
-    }
-  }
-
-  db_write_unlock(a1 + 4424);
-  result = setCrashStateTarget(v7);
-  v32 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t _directoryStoreSetParent(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v37 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v31 = 0;
-  v30 = 0u;
-  memset(v29, 0, sizeof(v29));
-  if (!a3)
-  {
-    v17 = __si_assert_copy_extra(*(a1 + 216));
-    v10 = v17;
-    v18 = "";
-    if (v17)
-    {
-      v18 = v17;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3541, "parent", v18);
-LABEL_18:
-    free(v10);
-    if (__valid_fsp(*(a1 + 216)))
-    {
-      v19 = 2989;
-    }
-
-    else
-    {
-      v19 = 3072;
-    }
-
-    *v19 = -559038737;
-    abort();
-  }
-
-  if (a2 == a3)
-  {
-    v20 = __si_assert_copy_extra(*(a1 + 216));
-    v21 = v20;
-    v22 = "";
-    if (v20)
-    {
-      v22 = v20;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3542, "item!=parent", v22);
-    free(v21);
-    if (!__valid_fsp(*(a1 + 216)))
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_23;
-  }
-
-  dirtyStore(a1);
-  if (dword_1EBF46AE4 >= 5)
-  {
-    v24 = *__error();
-    v25 = _SILogForLogForCategory(6);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134218240;
-      v34 = a2;
-      v35 = 2048;
-      v36 = a3;
-      _os_log_impl(&dword_1C278D000, v25, OS_LOG_TYPE_DEFAULT, "Set %llx/%llx", buf, 0x16u);
-    }
-
-    *__error() = v24;
-  }
-
-  ItemOffset = directoryStoreTreeFindItemOffset(a1, 0x440uLL, a2, v29, &v32, 0, 1);
-  PageInner = _directoryStoreGetPageInner(a1, *(&v30 + 1), buf);
-  v8 = PageInner;
-  if (ItemOffset)
-  {
-    if (*ItemOffset != a2 || ItemOffset[1] != a3)
-    {
-      v9 = __si_assert_copy_extra(*(a1 + 216));
-      v10 = v9;
-      v11 = "";
-      if (v9)
-      {
-        v11 = v9;
-      }
-
-      __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3549, "(element==0 || (getStoreOID(element->fileId)==item && getOffset(element->childPage) == (offset_t)parent))", v11);
-      goto LABEL_18;
-    }
-  }
-
-  else
-  {
-    v12 = v32;
-    if (*&PageInner[8 * v32 + 4] >= 2uLL)
-    {
-      Size = directoryStorePageGetSize(PageInner);
-      shiftEntries(v8, v12, Size);
-    }
-
-    *v8 += 16;
-  }
-
-  v14 = &v8[8 * v32];
-  *(v14 + 1) = a2;
-  *(v14 + 2) = a3;
-  dirtyStoragePage(a1, v8);
-  result = _directoryStoreGetParent(a1, a2);
-  if (result != a3)
-  {
-    v26 = __si_assert_copy_extra(0);
-    v27 = v26;
-    v28 = "";
-    if (v26)
-    {
-      v28 = v26;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3567, "parent == _directoryStoreGetParent(store, item)", v28);
-    free(v27);
-    if (!__valid_fs(-1))
-    {
-LABEL_30:
-      v23 = 3072;
-LABEL_31:
-      *v23 = -559038737;
-      abort();
-    }
-
-LABEL_23:
-    v23 = 2989;
-    goto LABEL_31;
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t directoryStoreEnsurePath(uint64_t a1, unint64_t a2, uint64_t *a3, int a4, uint64_t a5, BOOL *a6, void *a7, _DWORD *a8)
-{
-  v109 = *MEMORY[0x1E69E9840];
-  v16 = setCrashStateTarget(2);
-  *a6 = 0;
-  if (!a2)
-  {
-    result = 0;
-    goto LABEL_75;
-  }
-
-  v17 = v16;
-  _db_write_lock(a1 + 4424);
-  LODWORD(v18) = 0;
-  v100 = 0;
-  if (!storageResolvePtr(a1, 0, 1, 1))
-  {
-    v23 = 0;
-    goto LABEL_70;
-  }
-
-  v86 = a7;
-  v19 = OSAtomicIncrement32(&exceptionSequenceNum);
-  v20 = *(a1 + 216);
-  v84 = a4;
-  if (v20)
-  {
-    v21 = *(v20 + 44);
-  }
-
-  else
-  {
-    v21 = -1;
-  }
-
-  v24 = setThreadIdAndInfo(v21, sStorageExceptionCallbacks, a1, 1, v19);
-  v98 = HIDWORD(v24);
-  v99 = v24;
-  v96 = v26;
-  v97 = v25;
-  v18 = threadData[9 * v24 + 1] + 320 * HIDWORD(v24);
-  v27 = *(v18 + 312);
-  v28 = *(v18 + 224);
-  if (v28)
-  {
-    v28(*(v18 + 288));
-  }
-
-  if (_setjmp(v18))
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
-    }
-
-    *(v18 + 312) = v27;
-    CIOnThreadCleanUpReset(v96);
-    dropThreadId(v99, 1, v19);
-    CICleanUpReset(v99, v97);
-    v23 = 0;
-    LODWORD(v18) = 0;
-    goto LABEL_70;
-  }
-
-  v88 = v27;
-  dirtyStore(a1);
-  v29 = OSAtomicIncrement32(&exceptionSequenceNum);
-  v30 = setThreadIdAndInfo(-1, sAssertExceptionCallbacks, 0, 0, v29);
-  v94 = HIDWORD(v30);
-  v95 = v30;
-  v92 = v32;
-  v93 = v31;
-  v33 = threadData[9 * v30 + 1] + 320 * HIDWORD(v30);
-  v85 = *(v33 + 312);
-  v34 = *(v33 + 224);
-  if (v34)
-  {
-    v34(*(v33 + 288));
-  }
-
-  v89 = v19;
-  if (_setjmp(v33))
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
-    }
-
-    *(v33 + 312) = v85;
-    CIOnThreadCleanUpReset(v92);
-    dropThreadId(v95, 1, v29);
-    CICleanUpReset(v95, v93);
-    v23 = 0;
-    LODWORD(v18) = 0;
-    v35 = v88;
-    goto LABEL_67;
-  }
-
-  v87 = v29;
-  v90 = v17;
-  v91 = a8;
-  v18 = 0;
-  v36 = -1;
-  v37 = a2;
-  while (1)
-  {
-    v23 = v37 != 2;
-    if (v37 == 2)
-    {
-      if (v36 != -1)
-      {
-        v44 = v36;
-        v45 = v18;
-LABEL_48:
-        if (v44 < 1)
-        {
-          v52 = a2;
-LABEL_55:
-          v57 = &a3[v44];
-          if (v45 && v44 == v45)
-          {
-            v58 = *(v57 - 1);
-            v59 = v44;
-            if (v58 != 2)
-            {
-              _directoryStoreSetParent(a1, v58, 2);
-              v59 = v44 + 1;
-              *v57 = 2;
-            }
-          }
-
-          else
-          {
-            v59 = v45;
-            if (!v45 && !v44 && v52 != 2)
-            {
-              _directoryStoreSetParent(a1, v52, 2);
-              *a3 = 2;
-              v42 = 1;
-              goto LABEL_63;
-            }
-          }
-
-          if (v44)
-          {
-            *v86 = *(v57 - 1);
-          }
-
-          v42 = v59;
-          goto LABEL_63;
-        }
-
-        dirtyStore(a1);
-        v49 = v44;
-        v50 = a3;
-        v51 = a2;
-        while (1)
-        {
-          v52 = v51;
-          v53 = v50;
-          _directoryStoreSetParent(a1, v51, *v50);
-          v54 = v53;
-          v17 = v90;
-          v56 = *v54;
-          v50 = v54 + 1;
-          v55 = v56;
-          if (v56 == 2)
-          {
-            goto LABEL_55;
-          }
-
-          if (v55 == a2)
-          {
-            break;
-          }
-
-          v52 = v55;
-          v51 = v55;
-          if (!--v49)
-          {
-            goto LABEL_55;
-          }
-        }
-
-        v80 = __si_assert_copy_extra(*(a1 + 216));
-        v68 = v80;
-        v81 = "";
-        if (v80)
-        {
-          v81 = v80;
-        }
-
-        __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3643, "item!=inItem", v81);
-LABEL_92:
-        free(v68);
-        if (__valid_fsp(*(a1 + 216)))
-        {
-          v82 = 2989;
-        }
-
-        else
-        {
-          v82 = 3072;
-        }
-
-        *v82 = -559038737;
-        abort();
-      }
-
-      if (v18)
-      {
-        if (a3[v18 - 1] == 2)
-        {
-          v44 = v18;
-          v45 = v18;
-          goto LABEL_48;
-        }
-
-        v48 = v18;
-      }
-
-      else
-      {
-        v48 = 0;
-      }
-
-      a3[v48] = 2;
-      v45 = v18 + 1;
-      v44 = v18 + 1;
-      goto LABEL_48;
-    }
-
-    Parent = _directoryStoreGetParent(a1, v37);
-    if (Parent)
-    {
-      if (v18 < 0x200)
-      {
-        if (v37 != Parent)
-        {
-          a3[v18] = Parent;
-          if (v36 == -1)
-          {
-            v39 = v18;
-          }
-
-          else
-          {
-            v39 = v36;
-          }
-
-          v40 = Parent;
-          goto LABEL_33;
-        }
-
-        v43 = v37;
-        v42 = v18;
-LABEL_39:
-        v46 = *__error();
-        v47 = _SILogForLogForCategory(6);
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-        {
-          v66 = *a3;
-          *buf = 136315906;
-          v102 = "directoryStoreEnsurePath";
-          v103 = 1024;
-          v104 = 3658;
-          v105 = 2048;
-          v106 = v43;
-          v107 = 2048;
-          v108 = v66;
-          _os_log_error_impl(&dword_1C278D000, v47, OS_LOG_TYPE_ERROR, "%s:%d: Move would loop in reverse directory store, skipping %lld to %lld", buf, 0x26u);
-        }
-
-        *__error() = v46;
-LABEL_63:
-        v60 = v85;
-        v100 = 1;
-        LODWORD(v18) = v42;
-        a8 = v91;
-        goto LABEL_64;
-      }
-
-      v67 = __si_assert_copy_extra(*(a1 + 216));
-      v68 = v67;
-      v69 = "";
-      if (v67)
-      {
-        v69 = v67;
-      }
-
-      __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3614, "depth<512", v69);
-      goto LABEL_92;
-    }
-
-    if (v18 >= v84)
-    {
-      v70 = __si_assert_copy_extra(*(a1 + 216));
-      __message_assert("%s:%u: failed assertion '%s' %s %d, %d, %d, %llx", "FileTree.c");
-      goto LABEL_84;
-    }
-
-    v40 = a3[v18];
-    if (v37 == v40)
-    {
-      v70 = __si_assert_copy_extra(*(a1 + 216));
-      v83 = a3[v18];
-      __message_assert("%s:%u: failed assertion '%s' %s %d, %d, %d, %llx, %llx", "FileTree.c", 3606);
-LABEL_84:
-      free(v70);
-      if (__valid_fsp(*(a1 + 216)))
-      {
-        v71 = 2989;
-      }
-
-      else
-      {
-        v71 = 3072;
-      }
-
-      *v71 = -559038737;
-      abort();
-    }
-
-    if (v36 != -1)
-    {
-      break;
-    }
-
-    v39 = -1;
-LABEL_33:
-    v41 = v18 + 1;
-    if (v40 != a2)
-    {
-      ++v18;
-      v36 = v39;
-      v37 = v40;
-      if (v40 != a5)
-      {
-        continue;
-      }
-    }
-
-    v42 = v41;
-    v43 = v40;
-    goto LABEL_39;
-  }
-
-  v72 = __si_assert_copy_extra(*(a1 + 216));
-  si_analytics_log_4767(v72, v73, v74, v75, v76, v77, v78, v79, "FileTree.c");
-  free(v72);
-  v23 = 0;
-  a8 = v91;
-  v60 = v85;
-LABEL_64:
-  *a6 = v23;
-  v61 = threadData[9 * v95 + 1] + 320 * v94;
-  *(v61 + 312) = v60;
-  v62 = *(v61 + 232);
-  v35 = v88;
-  if (v62)
-  {
-    v62(*(v61 + 288));
-  }
-
-  dropThreadId(v95, 0, v87);
-LABEL_67:
-  v63 = threadData[9 * v99 + 1] + 320 * v98;
-  *(v63 + 312) = v35;
-  v64 = *(v63 + 232);
-  if (v64)
-  {
-    v64(*(v63 + 288));
-  }
-
-  dropThreadId(v99, 0, v89);
-LABEL_70:
-  db_write_unlock(a1 + 4424);
-  *a8 = v18;
-  setCrashStateTarget(v17);
-  if (v23)
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  else if (v100)
-  {
-    result = v18;
-  }
-
-  else
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-LABEL_75:
-  v65 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void si_analytics_log_4767(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  string[0] = 0;
-  string[1] = &a9;
-  vasprintf(string, "%s:%u: failure log '%s' %s %d, %d, %d", &a9);
-  SISetCrashCStr(string[0]);
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
-  {
-    *keys = 136315138;
-    *&keys[4] = string[0];
-    _os_log_fault_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "%s", keys, 0xCu);
-  }
-
-  *keys = "crash_string";
-  v9 = xpc_string_create(string[0]);
-  values = v9;
-  v10 = xpc_dictionary_create(keys, &values, 1uLL);
-  analytics_send_event();
-  xpc_release(v10);
-  xpc_release(v9);
-  free(string[0]);
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t directoryStoreWriterGetPath(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v6 = setCrashStateTarget(2);
-  _db_write_lock(a1 + 4424);
-  if (!storageResolvePtr(a1, 0, 1, 1))
-  {
-LABEL_11:
-    v16 = 0;
-    goto LABEL_21;
-  }
-
-  v7 = OSAtomicIncrement32(&exceptionSequenceNum);
-  v8 = *(a1 + 216);
-  if (v8)
-  {
-    v9 = *(v8 + 44);
-  }
-
-  else
-  {
-    v9 = -1;
-  }
-
-  v10 = setThreadIdAndInfo(v9, sStorageExceptionCallbacks, a1, 1, v7);
-  v30 = HIDWORD(v10);
-  v31 = v10;
-  v29 = __PAIR64__(v11, v12);
-  v13 = threadData[9 * v10 + 1] + 320 * HIDWORD(v10);
-  v14 = *(v13 + 312);
-  v15 = *(v13 + 224);
-  if (v15)
-  {
-    v15(*(v13 + 288));
-  }
-
-  v28 = v31;
-  v27 = v30;
-  v26 = v29;
-  if (_setjmp(v13))
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *v25 = 0;
-      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v25, 2u);
-    }
-
-    *(v13 + 312) = v14;
-    CIOnThreadCleanUpReset(v26);
-    dropThreadId(v28, 1, v7);
-    CICleanUpReset(v28, HIDWORD(v26));
-    goto LABEL_11;
-  }
-
-  if (a2 == 2)
-  {
-    v17 = 0;
-  }
-
-  else
-  {
-    v18 = 0;
-    v19 = a2;
-    do
-    {
-      v20 = v18;
-      Parent = _directoryStoreGetParent(a1, v19);
-      if (!Parent)
-      {
-        break;
-      }
-
-      v19 = Parent;
-      v18 = v20 + 1;
-      *(a3 + 8 * v20++) = Parent;
-    }
-
-    while (Parent != 2);
-    v17 = v20;
-  }
-
-  v22 = threadData[9 * v28 + 1] + 320 * v27;
-  *(v22 + 312) = v14;
-  v23 = *(v22 + 232);
-  if (v23)
-  {
-    v23(*(v22 + 288));
-  }
-
-  dropThreadId(v28, 0, v7);
-  v16 = v17;
-LABEL_21:
-  db_write_unlock(a1 + 4424);
-  setCrashStateTarget(v6);
-  return v16;
-}
-
-uint64_t reverseDirStoreInit(uint64_t a1, atomic_uint *a2, int a3, char a4, void *aBlock)
-{
-  v57 = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  if (a3)
-  {
-    v47 = storageInit(a1, 0x10000, 0x40uLL, a2, 1, 1, a4, 102, aBlock);
-    if (v47 == 1)
-    {
-      v47 = 0;
-      if (storageResolvePtr(a1, 0, 1, 1))
-      {
-        v9 = OSAtomicIncrement32(&exceptionSequenceNum);
-        v10 = *(a1 + 216);
-        if (v10)
-        {
-          v11 = *(v10 + 44);
-        }
-
-        else
-        {
-          v11 = -1;
-        }
-
-        v24 = setThreadIdAndInfo(v11, sStorageExceptionCallbacks, a1, 1, v9);
-        *buf = HIDWORD(v24);
-        LODWORD(v54[0]) = v24;
-        LODWORD(v40) = v25;
-        v46 = v26;
-        v27 = threadData[9 * v24 + 1] + 320 * HIDWORD(v24);
-        v28 = *(v27 + 312);
-        v29 = *(v27 + 224);
-        if (v29)
-        {
-          v29(*(v27 + 288));
-        }
-
-        v45 = v54[0];
-        v44 = *buf;
-        v43 = v40;
-        v42 = v46;
-        if (_setjmp(v27))
-        {
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-          {
-            LOWORD(v56[0]) = 0;
-            _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v56, 2u);
-          }
-
-          *(v27 + 312) = v28;
-          CIOnThreadCleanUpReset(v42);
-          dropThreadId(v45, 1, v9);
-          CICleanUpReset(v45, v43);
-        }
-
-        else
-        {
-          memset(v56, 0, 192);
-          v41 = 0;
-          v30 = storageAllocOffset(a1, 0x400u, v56, &v41);
-          if (v41)
-          {
-            dirtyStorageOffsets(a1, v56, v41);
-          }
-
-          if (v30)
-          {
-            v31 = storageResolvePtr(a1, v30, 1024, 1);
-            bzero(v31, 0x400uLL);
-            v31[2] = 4;
-          }
-
-          if (directoryStoreNewTreePage(a1, 0, 3730, 0) != 1088)
-          {
-            v36 = __si_assert_copy_extra(*(a1 + 216));
-            v37 = v36;
-            v38 = "";
-            if (v36)
-            {
-              v38 = v36;
-            }
-
-            __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3731, "getOffset(addr) == REVERSE_MAP_ROOT_OFFSET", v38);
-            free(v37);
-            if (__valid_fsp(*(a1 + 216)))
-            {
-              v39 = 2989;
-            }
-
-            else
-            {
-              v39 = 3072;
-            }
-
-            *v39 = -559038737;
-            abort();
-          }
-
-          v47 = 1;
-          v32 = threadData[9 * v45 + 1] + 320 * v44;
-          *(v32 + 312) = v28;
-          v33 = *(v32 + 232);
-          if (v33)
-          {
-            v33(*(v32 + 288));
-          }
-
-          dropThreadId(v45, 0, v9);
-        }
-      }
-    }
-  }
-
-  else
-  {
-    bzero(v56, 0x400uLL);
-    v40 = v56;
-    if (fd_pread(a2, v56, 0x400uLL, 72) == 1024)
-    {
-      v47 = storageHeaderRestore(a1, &v40);
-      if (v47 == 1)
-      {
-        v47 = storageInit(a1, 0x10000, 0x40uLL, a2, 0, 1, a4, 102, aBlock);
-      }
-
-      else
-      {
-        v55 = 0;
-        v12 = v56;
-        v13.i64[0] = 0xA0A0A0A0A0A0A0A0;
-        v13.i64[1] = 0xA0A0A0A0A0A0A0A0;
-        v14.i64[0] = 0x3030303030303030;
-        v14.i64[1] = 0x3030303030303030;
-        v15.i64[0] = 0x3737373737373737;
-        v15.i64[1] = 0x3737373737373737;
-        v16.i64[0] = 0xF0F0F0F0F0F0F0FLL;
-        v16.i64[1] = 0xF0F0F0F0F0F0F0FLL;
-        memset(v54, 0, sizeof(v54));
-        v17.i64[0] = 0xA0A0A0A0A0A0A0ALL;
-        v17.i64[1] = 0xA0A0A0A0A0A0A0ALL;
-        for (i = 0; i != 8; i += 2)
-        {
-          v19 = *v12++;
-          v20 = &v54[i];
-          v58.val[0] = vbslq_s8(vcgtq_u8(v13, v19), vsraq_n_u8(v14, v19, 4uLL), vsraq_n_u8(v15, v19, 4uLL));
-          v21 = vandq_s8(v19, v16);
-          v58.val[1] = vbslq_s8(vcgtq_u8(v17, v21), vorrq_s8(v21, v14), vaddq_s8(v21, v15));
-          vst2q_s8(v20, v58);
-        }
-
-        v22 = *__error();
-        v23 = _SILogForLogForCategory(6);
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315650;
-          v49 = "reverseDirStoreInit";
-          v50 = 1024;
-          v51 = 3751;
-          v52 = 2080;
-          v53 = v54;
-          _os_log_error_impl(&dword_1C278D000, v23, OS_LOG_TYPE_ERROR, "%s:%d: init reverse failed %s", buf, 0x1Cu);
-        }
-
-        *__error() = v22;
-        fd_release(a2);
-      }
-    }
-  }
-
-  result = v47;
-  v35 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void _reverseStoreIterate(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    _db_write_lock(a1 + 4424);
-    v27 = 0;
-    __new = 0;
-    v29 = 0;
-    storage_reader_init(a1, &v27);
-    if (v29 == 1)
-    {
-      v4 = OSAtomicIncrement32(&exceptionSequenceNum);
-      v5 = setThreadIdAndInfo(-1, sStorageReaderExceptionCallbacks, &v27, 0, v4);
-      v25 = HIDWORD(v5);
-      *buf = v5;
-      v24 = __PAIR64__(v6, v7);
-      v8 = threadData[9 * v5 + 1] + 320 * HIDWORD(v5);
-      v9 = *(v8 + 312);
-      v10 = *(v8 + 224);
-      if (v10)
-      {
-        v10(*(v8 + 288));
-      }
-
-      v23 = *buf;
-      v22 = v25;
-      v21 = v24;
-      if (_setjmp(v8))
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-        {
-          *v20 = 0;
-          _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v20, 2u);
-        }
-
-        *(v8 + 312) = v9;
-        CIOnThreadCleanUpReset(v21);
-        dropThreadId(v23, 1, v4);
-        CICleanUpReset(v23, HIDWORD(v21));
-      }
-
-      else
-      {
-        v20[0] = 0;
-        Page = _directoryStoreReaderGetPage(&v27, 0x440uLL, v20, v11, v12);
-        if (Page)
-        {
-          if (v20[0])
-          {
-            v16 = __si_assert_copy_extra(*(a1 + 216));
-            v17 = v16;
-            v18 = "";
-            if (v16)
-            {
-              v18 = v16;
-            }
-
-            __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3976, "(!page)", v18);
-            free(v17);
-            if (__valid_fsp(*(a1 + 216)))
-            {
-              v19 = 2989;
-            }
-
-            else
-            {
-              v19 = 3072;
-            }
-
-            *v19 = -559038737;
-            abort();
-          }
-
-          _reverseStoreIterateTreePage(a1, &v27, Page, 0x440, 0, a2);
-        }
-
-        v14 = threadData[9 * v23 + 1] + 320 * v22;
-        *(v14 + 312) = v9;
-        v15 = *(v14 + 232);
-        if (v15)
-        {
-          v15(*(v14 + 288));
-        }
-
-        dropThreadId(v23, 0, v4);
-      }
-    }
-
-    else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Skipping because index is shut down", buf, 2u);
-    }
-
-    db_write_unlock(a1 + 4424);
-    if (__new)
-    {
-      _release_read_window(&availableReaders, __new);
-    }
-  }
-}
-
-uint64_t _reverseStoreIterateTreePage(uint64_t a1, uint64_t *a2, unsigned __int16 *a3, unsigned __int16 *a4, int a5, uint64_t a6)
-{
-  *(&v72[2] + 6) = *MEMORY[0x1E69E9840];
-  if (a3)
-  {
-    Size = directoryTreePageGetSize(*a3, *(a3 + 2));
-    v15 = a3[3];
-    v63 = Size;
-    if (dword_1EBF46AE4 >= 5)
-    {
-      v51 = a1;
-      v52 = a3[2];
-      v53 = *__error();
-      v54 = _SILogForLogForCategory(6);
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134219008;
-        v68 = a3;
-        v69 = 1024;
-        *v70 = a5;
-        *&v70[4] = 1024;
-        *&v70[6] = v15;
-        v71 = 1024;
-        LODWORD(v72[0]) = v52;
-        WORD2(v72[0]) = 1024;
-        *(v72 + 6) = v63;
-        _os_log_impl(&dword_1C278D000, v54, OS_LOG_TYPE_DEFAULT, "Tree page:%p level: %d depth: %d origin: %d size: %d", buf, 0x24u);
-      }
-
-      *__error() = v53;
-      a1 = v51;
-      Size = v63;
-    }
-
-    if (v15 != a5)
-    {
-      v16 = a2;
-      v17 = *__error();
-      v18 = _SILogForLogForCategory(6);
-      v19 = dword_1EBF46AE4 < 3;
-      if (os_log_type_enabled(v18, (dword_1EBF46AE4 < 3)))
-      {
-        *buf = 134218496;
-        v68 = a4;
-        v69 = 1024;
-        *v70 = v15;
-        *&v70[4] = 1024;
-        *&v70[6] = a5;
-        _os_log_impl(&dword_1C278D000, v18, v19, "*warn* Flat page: 0x%8.8llx depth: %d exected: %d", buf, 0x18u);
-      }
-
-      *__error() = v17;
-      a2 = v16;
-      Size = v63;
-    }
-
-    if (Size)
-    {
-      v55 = v15;
-      v20 = 0;
-      v56 = a3;
-      v21 = a3 + 4;
-      v22 = (a5 + 1);
-      v13.n128_u64[0] = 134218496;
-      v62 = a3 + 4;
-      v64 = v22;
-      v60 = a2;
-      v61 = a1;
-      do
-      {
-        v23 = *&v21[4 * v20];
-        if (v23)
-        {
-          if (dword_1EBF46AE4 >= 5)
-          {
-            v38 = *__error();
-            v39 = _SILogForLogForCategory(6);
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 134218752;
-              v68 = v56;
-              v69 = 1024;
-              *v70 = v55;
-              *&v70[4] = 1024;
-              *&v70[6] = v20;
-              v71 = 2048;
-              v72[0] = v23;
-              _os_log_impl(&dword_1C278D000, v39, OS_LOG_TYPE_DEFAULT, "page:%p depth: %d idx: %d offset: 0x%8.8llx", buf, 0x22u);
-            }
-
-            *__error() = v38;
-            v22 = v64;
-          }
-
-          v65 = 0;
-          Page = _directoryStoreReaderGetPage(a2, v23, &v65, v13, v14);
-          v25 = Page;
-          if (v65)
-          {
-            v66 = 0;
-            if (Page)
-            {
-              v26 = directoryStorePageGetSize(Page);
-              v27 = *v25;
-              if ((64 << *(v25 + 2)) - 8 < v27)
-              {
-                v44 = __si_assert_copy_extra(0);
-                v45 = v44;
-                v46 = "";
-                if (v44)
-                {
-                  v46 = v44;
-                }
-
-                __message_assert("%s:%u: failed assertion '%s' %s Got end %d and size %d", "FileTree.c", 287, "storePageEnd((StorePageRef)page) <= storePageDataSize((StorePageRef)page)", v46, *v25, (64 << *(v25 + 2)) - 8);
-                free(v45);
-                if (__valid_fs(-1))
-                {
-                  goto LABEL_53;
-                }
-
-LABEL_57:
-                v47 = 3072;
-LABEL_58:
-                *v47 = -559038737;
-                abort();
-              }
-
-              v28 = v26;
-              v29 = v25[3];
-              if (dword_1EBF46AE4 >= 5)
-              {
-                v59 = v25[2];
-                v40 = *__error();
-                v41 = _SILogForLogForCategory(6);
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 134219008;
-                  v68 = v25;
-                  v69 = 1024;
-                  *v70 = v64;
-                  *&v70[4] = 1024;
-                  *&v70[6] = v29;
-                  v71 = 1024;
-                  LODWORD(v72[0]) = v59;
-                  WORD2(v72[0]) = 1024;
-                  *(v72 + 6) = v28;
-                  _os_log_impl(&dword_1C278D000, v41, OS_LOG_TYPE_DEFAULT, "Flat page:%p level: %d depth: %d origin: %d size: %d", buf, 0x24u);
-                }
-
-                *__error() = v40;
-                v21 = v62;
-                v22 = v64;
-              }
-
-              if (v22 != v29)
-              {
-                v57 = *__error();
-                v30 = _SILogForLogForCategory(6);
-                v31 = dword_1EBF46AE4 < 3;
-                if (os_log_type_enabled(v30, (dword_1EBF46AE4 < 3)))
-                {
-                  *buf = 134218496;
-                  v68 = v23;
-                  v69 = 1024;
-                  *v70 = v29;
-                  *&v70[4] = 1024;
-                  *&v70[6] = v64;
-                  _os_log_impl(&dword_1C278D000, v30, v31, "*warn* Flat page: 0x%8.8llx depth: %d exected: %d", buf, 0x18u);
-                }
-
-                *__error() = v57;
-                v21 = v62;
-                v22 = v64;
-              }
-
-              if (v28)
-              {
-                v32 = v27 >> 4;
-                v33 = (v25 + 8);
-                v34 = 1;
-                Size = v63;
-                do
-                {
-                  v35 = *(v33 - 1);
-                  if (v35)
-                  {
-                    v36 = *v33;
-                    if (dword_1EBF46AE4 >= 5)
-                    {
-                      v58 = *__error();
-                      v37 = _SILogForLogForCategory(6);
-                      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 134218240;
-                        v68 = v35;
-                        v69 = 2048;
-                        *v70 = v36;
-                        _os_log_impl(&dword_1C278D000, v37, OS_LOG_TYPE_DEFAULT, "oid: %lld parent: %lld", buf, 0x16u);
-                      }
-
-                      *__error() = v58;
-                      Size = v63;
-                    }
-
-                    --v32;
-                    if (a6)
-                    {
-                      (*(a6 + 16))(a6, v35, v36, &v66);
-                    }
-                  }
-
-                  if (v34 >= v28)
-                  {
-                    break;
-                  }
-
-                  v33 += 2;
-                  ++v34;
-                }
-
-                while ((v66 & 1) == 0);
-                v21 = v62;
-                v22 = v64;
-                if ((v66 & 1) == 0 && v32)
-                {
-LABEL_54:
-                  v48 = __si_assert_copy_extra(*(v61 + 216));
-                  v49 = v48;
-                  v50 = "";
-                  if (v48)
-                  {
-                    v50 = v48;
-                  }
-
-                  __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 3839, "itemCount == 0", v50);
-                  free(v49);
-                  if (!__valid_fsp(*(v61 + 216)))
-                  {
-                    goto LABEL_57;
-                  }
-
-LABEL_53:
-                  v47 = 2989;
-                  goto LABEL_58;
-                }
-
-                a2 = v60;
-                a1 = v61;
-                if (v66)
-                {
-LABEL_49:
-                  result = 1;
-                  goto LABEL_48;
-                }
-              }
-
-              else
-              {
-                Size = v63;
-                if (v27 > 0xF)
-                {
-                  goto LABEL_54;
-                }
-
-                a2 = v60;
-                a1 = v61;
-              }
-            }
-          }
-
-          else if (_reverseStoreIterateTreePage(a1, a2, Page, v23, v22, a6))
-          {
-            goto LABEL_49;
-          }
-        }
-
-        ++v20;
-      }
-
-      while (v20 != Size);
-    }
-  }
-
-  result = 0;
-LABEL_48:
-  v43 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 uint64_t flushReverseStore(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = setCrashStateTarget(2);
   v3 = *(a1 + 4416);
   v5 = v3 == -1073623027 || v3 == -804450864 || v3 == 2;
@@ -5637,34 +30,34 @@ LABEL_24:
       goto LABEL_12;
     }
 
-    v13 = OSAtomicIncrement32(&exceptionSequenceNum);
-    v14 = *(a1 + 216);
-    if (v14)
+    v12 = OSAtomicIncrement32(&exceptionSequenceNum);
+    v13 = *(a1 + 216);
+    if (v13)
     {
-      v15 = *(v14 + 44);
+      v14 = *(v13 + 44);
     }
 
     else
     {
-      v15 = -1;
+      v14 = -1;
     }
 
-    v16 = setThreadIdAndInfo(v15, sStorageExceptionCallbacks, a1, 1, v13);
-    v34 = HIDWORD(v16);
-    v35 = v16;
-    v33 = __PAIR64__(v17, v18);
-    v19 = threadData[9 * v16 + 1] + 320 * HIDWORD(v16);
-    v20 = *(v19 + 312);
-    v21 = *(v19 + 224);
-    if (v21)
+    v15 = setThreadIdAndInfo(v14, sStorageExceptionCallbacks, a1, 1, v12);
+    v33 = HIDWORD(v15);
+    v34 = v15;
+    v32 = __PAIR64__(v16, v17);
+    v18 = threadData[9 * v15 + 1] + 320 * HIDWORD(v15);
+    v19 = *(v18 + 312);
+    v20 = *(v18 + 224);
+    if (v20)
     {
-      v21(*(v19 + 288));
+      v20(*(v18 + 288));
     }
 
-    v32 = v35;
     v31 = v34;
     v30 = v33;
-    if (_setjmp(v19))
+    v29 = v32;
+    if (_setjmp(v18))
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
@@ -5672,50 +65,49 @@ LABEL_24:
         _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
       }
 
-      *(v19 + 312) = v20;
-      CIOnThreadCleanUpReset(v30);
-      dropThreadId(v32, 1, v13);
-      CICleanUpReset(v32, HIDWORD(v30));
+      *(v18 + 312) = v19;
+      CIOnThreadCleanUpReset(v29);
+      dropThreadId(v31, 1, v12);
+      CICleanUpReset(v31, HIDWORD(v29));
       goto LABEL_24;
     }
 
     dirtyStore(a1);
-    v22 = storageResolvePtr(a1, 0x40uLL, 1024, 1);
-    *buf = v22 + 8;
+    v21 = storageResolvePtr(a1, 0x40uLL, 1024, 1);
+    *buf = v21 + 8;
     storageHeaderStore(a1, buf);
-    dirtyStoragePage(a1, v22);
-    v23 = storageSyncPages(a1, a1 + 4376, 0x20000uLL);
-    v24 = *__error();
-    v25 = _SILogForLogForCategory(6);
-    v26 = 2 * (dword_1EBF46AE4 < 4);
-    if (os_log_type_enabled(v25, v26))
+    dirtyStoragePage(a1, v21);
+    v22 = storageSyncPages(a1, a1 + 4376, 0x20000uLL);
+    v23 = *__error();
+    v24 = _SILogForLogForCategory(6);
+    v25 = 2 * (dword_1EBF46AE4 < 4);
+    if (os_log_type_enabled(v24, v25))
     {
-      v29[0] = 0;
-      _os_log_impl(&dword_1C278D000, v25, v26, "completed flushReverseStore", v29, 2u);
+      v28[0] = 0;
+      _os_log_impl(&dword_1C278D000, v24, v25, "completed flushReverseStore", v28, 2u);
     }
 
-    *__error() = v24;
-    v27 = threadData[9 * v32 + 1] + 320 * v31;
-    *(v27 + 312) = v20;
-    v28 = *(v27 + 232);
-    if (v28)
+    *__error() = v23;
+    v26 = threadData[9 * v31 + 1] + 320 * v30;
+    *(v26 + 312) = v19;
+    v27 = *(v26 + 232);
+    if (v27)
     {
-      v28(*(v27 + 288));
+      v27(*(v26 + 288));
     }
 
-    dropThreadId(v32, 0, v13);
-    v10 = v23;
+    dropThreadId(v31, 0, v12);
+    v10 = v22;
   }
 
 LABEL_12:
   setCrashStateTarget(v2);
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 uint64_t commitSyncReverseStore(uint64_t a1, int a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v4 = setCrashStateTarget(2);
   if (*(a1 + 4416) == -1073623027)
   {
@@ -5754,10 +146,10 @@ LABEL_16:
   }
 
   v10 = setThreadIdAndInfo(v9, sStorageExceptionCallbacks, a1, 1, v7);
-  v28 = HIDWORD(v10);
-  v29 = v10;
-  v26 = v12;
-  v27 = v11;
+  v27 = HIDWORD(v10);
+  v28 = v10;
+  v25 = v12;
+  v26 = v11;
   v13 = threadData[9 * v10 + 1] + 320 * HIDWORD(v10);
   v14 = *(v13 + 312);
   v15 = *(v13 + 224);
@@ -5775,9 +167,9 @@ LABEL_16:
     }
 
     *(v13 + 312) = v14;
-    CIOnThreadCleanUpReset(v26);
-    dropThreadId(v29, 1, v7);
-    CICleanUpReset(v29, v27);
+    CIOnThreadCleanUpReset(v25);
+    dropThreadId(v28, 1, v7);
+    CICleanUpReset(v28, v26);
     goto LABEL_16;
   }
 
@@ -5802,12 +194,12 @@ LABEL_16:
   if (os_log_type_enabled(v20, v21))
   {
     *buf = 67109120;
-    v31 = v18;
+    v30 = v18;
     _os_log_impl(&dword_1C278D000, v20, v21, "completed commitSyncReverseStore: %d", buf, 8u);
   }
 
   *__error() = v19;
-  v22 = threadData[9 * v29 + 1] + 320 * v28;
+  v22 = threadData[9 * v28 + 1] + 320 * v27;
   *(v22 + 312) = v14;
   v23 = *(v22 + 232);
   if (v23)
@@ -5815,17 +207,16 @@ LABEL_16:
     v23(*(v22 + 288));
   }
 
-  dropThreadId(v29, 0, v7);
+  dropThreadId(v28, 0, v7);
   v5 = v18;
 LABEL_26:
   setCrashStateTarget(v4);
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t shadowReverseStore(uint64_t a1, char a2, _DWORD *a3)
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   v6 = setCrashStateTarget(2);
   if (!storageResolvePtr(a1, 0, 1, 1))
   {
@@ -5837,23 +228,22 @@ LABEL_12:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4218;
-      v105 = 1024;
-      v106 = v16;
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4218;
+      v104 = 1024;
+      v105 = v16;
       _os_log_error_impl(&dword_1C278D000, v18, OS_LOG_TYPE_ERROR, "%s:%d: shadowReverseStore fail. metadata = %d", buf, 0x18u);
     }
 
     *__error() = v17;
-    result = 104;
-    goto LABEL_15;
+    return 104;
   }
 
   v7 = OSAtomicIncrement32(&exceptionSequenceNum);
   *buf = 0;
-  v100 = 0;
   v99 = 0;
+  v98 = 0;
   v8 = *(a1 + 216);
   if (v8)
   {
@@ -5867,8 +257,8 @@ LABEL_12:
 
   v10 = setThreadIdAndInfo(v9, sStorageExceptionCallbacks, a1, 1, v7);
   *buf = v10;
-  v99 = v12;
-  v100 = __PAIR64__(HIDWORD(v10), v11);
+  v98 = v12;
+  v99 = __PAIR64__(HIDWORD(v10), v11);
   v13 = threadData[9 * v10 + 1] + 320 * HIDWORD(v10);
   v14 = *(v13 + 312);
   v15 = *(v13 + 224);
@@ -5877,490 +267,488 @@ LABEL_12:
     v15(*(v13 + 288));
   }
 
-  v98 = *buf;
-  v97 = HIDWORD(v100);
-  v96 = __PAIR64__(v100, v99);
+  v97 = *buf;
+  v96 = HIDWORD(v99);
+  v95 = __PAIR64__(v99, v98);
   if (_setjmp(v13))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v95 = 0;
-      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v95, 2u);
+      *v94 = 0;
+      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v94, 2u);
     }
 
     *(v13 + 312) = v14;
-    CIOnThreadCleanUpReset(v96);
-    dropThreadId(v98, 1, v7);
-    CICleanUpReset(v98, HIDWORD(v96));
+    CIOnThreadCleanUpReset(v95);
+    dropThreadId(v97, 1, v7);
+    CICleanUpReset(v97, HIDWORD(v95));
     goto LABEL_11;
   }
 
-  v21 = *(storageResolvePtr(a1, 0x40uLL, 1024, 1) + 4);
-  v22 = threadData[9 * v98 + 1] + 320 * v97;
-  *(v22 + 312) = v14;
-  v23 = *(v22 + 232);
-  if (v23)
+  v20 = *(storageResolvePtr(a1, 0x40uLL, 1024, 1) + 4);
+  v21 = threadData[9 * v97 + 1] + 320 * v96;
+  *(v21 + 312) = v14;
+  v22 = *(v21 + 232);
+  if (v22)
   {
-    v23(*(v22 + 288));
+    v22(*(v21 + 288));
   }
 
-  dropThreadId(v98, 0, v7);
-  if (!*(a1 + 4416) || !v21)
+  dropThreadId(v97, 0, v7);
+  if (!*(a1 + 4416) || !v20)
   {
-    v16 = v21;
+    v16 = v20;
     goto LABEL_12;
   }
 
-  if (v21 != -804450864)
+  if (v20 != -804450864)
   {
-    if (v21 == 2)
+    if (v20 == 2)
     {
-      v77 = __si_assert_copy_extra(*(a1 + 216));
-      v78 = v77;
-      v79 = "";
-      if (v77)
+      v76 = __si_assert_copy_extra(*(a1 + 216));
+      v77 = v76;
+      v78 = "";
+      if (v76)
       {
-        v79 = v77;
+        v78 = v76;
       }
 
-      __message_assert("%s:%u: failed assertion '%s' %s invalid state", "FileTree.c", 4224, "metadata != kIndexShutDownStateFastFlush", v79);
-      free(v78);
+      __message_assert("%s:%u: failed assertion '%s' %s invalid state", "FileTree.c", 4224, "metadata != kIndexShutDownStateFastFlush", v78);
+      free(v77);
       if (__valid_fsp(*(a1 + 216)))
       {
-        v80 = 2989;
+        v79 = 2989;
       }
 
       else
       {
-        v80 = 3072;
+        v79 = 3072;
       }
 
-      *v80 = -559038737;
+      *v79 = -559038737;
       abort();
     }
 
-    v24 = *__error();
-    v25 = _SILogForLogForCategory(6);
-    v26 = 2 * (dword_1EBF46AE4 < 4);
-    if (!os_log_type_enabled(v25, v26))
+    v23 = *__error();
+    v24 = _SILogForLogForCategory(6);
+    v25 = 2 * (dword_1EBF46AE4 < 4);
+    if (!os_log_type_enabled(v24, v25))
     {
-      goto LABEL_25;
+      goto LABEL_24;
     }
 
     *buf = 67109120;
-    LODWORD(v102) = v21;
-    v27 = "shadowReverseStore: %d";
+    LODWORD(v101) = v20;
+    v26 = "shadowReverseStore: %d";
+    v27 = v24;
     v28 = v25;
-    v29 = v26;
-    v30 = 8;
-    goto LABEL_24;
+    v29 = 8;
+    goto LABEL_23;
   }
 
-  v31 = *(a1 + 216);
-  if (v31)
+  v30 = *(a1 + 216);
+  if (v30)
   {
-    v32 = *(v31 + 44);
+    v31 = *(v30 + 44);
   }
 
   else
   {
-    v32 = 0xFFFFFFFFLL;
+    v31 = 0xFFFFFFFFLL;
   }
 
-  if (isRegisteredForCloning(v32))
+  if (isRegisteredForCloning(v31))
   {
-    if (copyFileFallback(v32, "reverseDirectoryStore", v32, "reverseDirectoryStore.shadow", a3, 0, 1))
+    if (copyFileFallback(v31, "reverseDirectoryStore", v31, "reverseDirectoryStore.shadow", a3, 0, 1))
     {
       bit_vector_set_bits_4698((a1 + 4376), 0, *(a1 + 4376));
-      v24 = *__error();
-      v33 = _SILogForLogForCategory(6);
-      v34 = 2 * (dword_1EBF46AE4 < 4);
-      if (!os_log_type_enabled(v33, v34))
+      v23 = *__error();
+      v32 = _SILogForLogForCategory(6);
+      v33 = 2 * (dword_1EBF46AE4 < 4);
+      if (!os_log_type_enabled(v32, v33))
       {
-        goto LABEL_25;
+        goto LABEL_24;
       }
 
       *buf = 0;
-      v27 = "Completed shadowReverseStore";
+      v26 = "Completed shadowReverseStore";
+      v27 = v32;
       v28 = v33;
-      v29 = v34;
-      v30 = 2;
+      v29 = 2;
+LABEL_23:
+      _os_log_impl(&dword_1C278D000, v27, v28, v26, buf, v29);
 LABEL_24:
-      _os_log_impl(&dword_1C278D000, v28, v29, v27, buf, v30);
-LABEL_25:
-      *__error() = v24;
-LABEL_26:
-      result = 0;
-      goto LABEL_15;
+      *__error() = v23;
+      return 0;
     }
 
-    v35 = *__error();
-    v36 = _SILogForLogForCategory(6);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v34 = *__error();
+    v35 = _SILogForLogForCategory(6);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4241;
-      _os_log_error_impl(&dword_1C278D000, v36, OS_LOG_TYPE_ERROR, "%s:%d: copyFile error, src: reverseDirectoryStore, dst: reverseDirectoryStore.shadow", buf, 0x12u);
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4241;
+      _os_log_error_impl(&dword_1C278D000, v35, OS_LOG_TYPE_ERROR, "%s:%d: copyFile error, src: reverseDirectoryStore, dst: reverseDirectoryStore.shadow", buf, 0x12u);
     }
 
-    *__error() = v35;
+    *__error() = v34;
   }
 
-  v37 = *(a1 + 232);
-  v38 = v6;
-  memset(v109, 0, sizeof(v109));
+  v36 = *(a1 + 232);
+  v37 = v6;
+  memset(v108, 0, sizeof(v108));
+  v92 = 0;
   v93 = 0;
-  v94 = 0;
   sibling_protected = fd_create_sibling_protected(*(a1 + 216), "reverseDirectoryStore.shadow", 514, 0);
   fd_no_cache(sibling_protected);
   if (!sibling_protected)
   {
+    v44 = *__error();
     v45 = *__error();
-    v46 = *__error();
-    v47 = _SILogForLogForCategory(6);
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v46 = _SILogForLogForCategory(6);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4265;
-      v105 = 1024;
-      v106 = v45;
-      v107 = 2080;
-      v108 = "reverseDirectoryStore.shadow";
-      _os_log_error_impl(&dword_1C278D000, v47, OS_LOG_TYPE_ERROR, "%s:%d: open err: %d, %s", buf, 0x22u);
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4265;
+      v104 = 1024;
+      v105 = v44;
+      v106 = 2080;
+      v107 = "reverseDirectoryStore.shadow";
+      _os_log_error_impl(&dword_1C278D000, v46, OS_LOG_TYPE_ERROR, "%s:%d: open err: %d, %s", buf, 0x22u);
     }
 
-    v48 = 0;
-    v49 = -1;
-    v50 = v46;
-    goto LABEL_97;
+    v47 = 0;
+    v48 = -1;
+    v49 = v45;
+    goto LABEL_96;
   }
 
-  v40 = (v37 + 0x1FFFF) >> 17;
-  if ((a2 & 1) == 0 && v40 >= *(a1 + 4376))
+  v39 = (v36 + 0x1FFFF) >> 17;
+  if ((a2 & 1) == 0 && v39 >= *(a1 + 4376))
   {
-    v40 = *(a1 + 4376);
+    v39 = *(a1 + 4376);
   }
 
-  v41 = malloc_type_malloc(0x20000uLL, 0x51B4EE50uLL);
-  if (!v41)
+  v40 = malloc_type_malloc(0x20000uLL, 0x51B4EE50uLL);
+  if (!v40)
   {
-    v81 = __si_assert_copy_extra(0);
-    v82 = v81;
-    v83 = "";
-    if (v81)
+    v80 = __si_assert_copy_extra(0);
+    v81 = v80;
+    v82 = "";
+    if (v80)
     {
-      v83 = v81;
+      v82 = v80;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 4275, "readBuffer", v83);
-    free(v82);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 4275, "readBuffer", v82);
+    free(v81);
     if (__valid_fs(-1))
     {
-      v84 = 2989;
+      v83 = 2989;
     }
 
     else
     {
-      v84 = 3072;
+      v83 = 3072;
     }
 
-    *v84 = -559038737;
+    *v83 = -559038737;
     abort();
   }
 
-  v42 = v41;
-  v43 = *(a1 + 232);
-  v44 = *(a1 + 216);
-  if (!(v43 >> 17))
+  v41 = v40;
+  v42 = *(a1 + 232);
+  v43 = *(a1 + 216);
+  if (!(v42 >> 17))
   {
-    if (fd_pread(v44, v42, v43, 0) != -1)
+    if (fd_pread(v43, v41, v42, 0) != -1)
     {
-      if (fd_pwrite(sibling_protected, v42, *(a1 + 232), 0) != -1)
+      if (fd_pwrite(sibling_protected, v41, *(a1 + 232), 0) != -1)
       {
         bit_vector_internal_touch_for_set_4691((a1 + 4376), 0);
         CFBitVectorSetBitAtIndex(*(a1 + 4392), 0, 0);
-        goto LABEL_84;
+        goto LABEL_83;
       }
 
-      v45 = *__error();
-      v66 = *__error();
-      v67 = _SILogForLogForCategory(0);
-      if (!os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+      v44 = *__error();
+      v65 = *__error();
+      v66 = _SILogForLogForCategory(0);
+      if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_96;
+        goto LABEL_95;
       }
 
       *buf = 136315650;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4284;
-      v105 = 1024;
-      v106 = v45;
-      v68 = "%s:%d: pwrite err: %d";
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4284;
+      v104 = 1024;
+      v105 = v44;
+      v67 = "%s:%d: pwrite err: %d";
+      goto LABEL_94;
+    }
+
+    v44 = *__error();
+    v65 = *__error();
+    v66 = _SILogForLogForCategory(0);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4279;
+      v104 = 1024;
+      v105 = v44;
+      v67 = "%s:%d: read err: %d";
+LABEL_94:
+      _os_log_error_impl(&dword_1C278D000, v66, OS_LOG_TYPE_ERROR, v67, buf, 0x18u);
       goto LABEL_95;
     }
 
-    v45 = *__error();
-    v66 = *__error();
-    v67 = _SILogForLogForCategory(0);
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+    goto LABEL_95;
+  }
+
+  v50 = _fd_acquire_fd(v43, &v92);
+  if (v50 == -1)
+  {
+    v44 = *__error();
+    v65 = *__error();
+    v66 = _SILogForLogForCategory(0);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4279;
-      v105 = 1024;
-      v106 = v45;
-      v68 = "%s:%d: read err: %d";
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4292;
+      v104 = 1024;
+      v105 = v44;
+      v67 = "%s:%d: fd_open err: %d";
+      goto LABEL_94;
+    }
+
 LABEL_95:
-      _os_log_error_impl(&dword_1C278D000, v67, OS_LOG_TYPE_ERROR, v68, buf, 0x18u);
-      goto LABEL_96;
-    }
-
-    goto LABEL_96;
-  }
-
-  v51 = _fd_acquire_fd(v44, &v93);
-  if (v51 == -1)
-  {
-    v45 = *__error();
-    v66 = *__error();
-    v67 = _SILogForLogForCategory(0);
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315650;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4292;
-      v105 = 1024;
-      v106 = v45;
-      v68 = "%s:%d: fd_open err: %d";
-      goto LABEL_95;
-    }
-
+    v48 = -1;
+    v49 = v65;
+    v47 = v41;
 LABEL_96:
-    v49 = -1;
-    v50 = v66;
-    v48 = v42;
+    v68 = -1;
 LABEL_97:
-    v69 = -1;
-LABEL_98:
-    *__error() = v50;
-    goto LABEL_99;
-  }
-
-  __fd = v51;
-  v52 = _fd_acquire_fd(sibling_protected, &v94);
-  if (v52 == -1)
-  {
-    v45 = *__error();
-    v72 = *__error();
-    v73 = _SILogForLogForCategory(0);
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315650;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4298;
-      v105 = 1024;
-      v106 = v45;
-      _os_log_error_impl(&dword_1C278D000, v73, OS_LOG_TYPE_ERROR, "%s:%d: fd_open err: %d", buf, 0x18u);
-    }
-
-    v69 = -1;
-    v50 = v72;
-    v48 = v42;
-    v49 = __fd;
+    *__error() = v49;
     goto LABEL_98;
   }
 
-  v92 = sibling_protected;
-  v90 = v52;
-  if (v40 < 1)
+  __fd = v50;
+  v51 = _fd_acquire_fd(sibling_protected, &v93);
+  if (v51 == -1)
   {
-    goto LABEL_83;
+    v44 = *__error();
+    v71 = *__error();
+    v72 = _SILogForLogForCategory(0);
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4298;
+      v104 = 1024;
+      v105 = v44;
+      _os_log_error_impl(&dword_1C278D000, v72, OS_LOG_TYPE_ERROR, "%s:%d: fd_open err: %d", buf, 0x18u);
+    }
+
+    v68 = -1;
+    v49 = v71;
+    v47 = v41;
+    v48 = __fd;
+    goto LABEL_97;
   }
 
+  v91 = sibling_protected;
+  v89 = v51;
+  if (v39 < 1)
+  {
+    goto LABEL_82;
+  }
+
+  v52 = 0;
   v53 = 0;
-  v54 = 0;
   do
   {
-    v55 = v54;
-    if (v54 == 100)
+    v54 = v53;
+    if (v53 == 100)
     {
-      v56 = 0;
+      v55 = 0;
       while (1)
       {
         if (*a3 == 1 || *a3 == -1 && (a2 & 1) != 0)
         {
-          goto LABEL_107;
+          goto LABEL_106;
         }
 
-        v57 = *(v109 + v56);
-        if (prot_pread(__fd, v42, 0x20000uLL, v57 << 17) == -1)
+        v56 = *(v108 + v55);
+        if (prot_pread(__fd, v41, 0x20000uLL, v56 << 17) == -1)
         {
           break;
         }
 
         if (*a3 == 1 || *a3 == -1 && (a2 & 1) != 0)
         {
-          goto LABEL_107;
+          goto LABEL_106;
         }
 
-        if (prot_pwrite_guarded(v90, &v94, v42, 0x20000uLL, v57 << 17) == -1)
+        if (prot_pwrite_guarded(v89, &v93, v41, 0x20000uLL, v56 << 17) == -1)
         {
-          v45 = *__error();
-          v74 = *__error();
-          v75 = _SILogForLogForCategory(0);
-          if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+          v44 = *__error();
+          v73 = *__error();
+          v74 = _SILogForLogForCategory(0);
+          if (!os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_111;
+            goto LABEL_110;
           }
 
           *buf = 136315650;
-          v102 = "shadowReverseStore";
-          v103 = 1024;
-          v104 = 4320;
-          v105 = 1024;
-          v106 = v45;
-          v76 = "%s:%d: pwrite err: %d";
-          goto LABEL_119;
+          v101 = "shadowReverseStore";
+          v102 = 1024;
+          v103 = 4320;
+          v104 = 1024;
+          v105 = v44;
+          v75 = "%s:%d: pwrite err: %d";
+          goto LABEL_118;
         }
 
-        bit_vector_internal_touch_for_set_4691((a1 + 4376), v57);
-        CFBitVectorSetBitAtIndex(*(a1 + 4392), v57, 0);
-        v56 += 4;
-        if (v56 == 400)
+        bit_vector_internal_touch_for_set_4691((a1 + 4376), v56);
+        CFBitVectorSetBitAtIndex(*(a1 + 4392), v56, 0);
+        v55 += 4;
+        if (v55 == 400)
         {
-          v55 = 0;
-          goto LABEL_66;
+          v54 = 0;
+          goto LABEL_65;
         }
       }
 
-      v45 = *__error();
-      v74 = *__error();
-      v75 = _SILogForLogForCategory(0);
-      if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v44 = *__error();
+      v73 = *__error();
+      v74 = _SILogForLogForCategory(0);
+      if (!os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
-LABEL_111:
-        v50 = v74;
-        v48 = v42;
-        v69 = v90;
-        v49 = __fd;
-        sibling_protected = v92;
-        goto LABEL_98;
+LABEL_110:
+        v49 = v73;
+        v47 = v41;
+        v68 = v89;
+        v48 = __fd;
+        sibling_protected = v91;
+        goto LABEL_97;
       }
 
       *buf = 136315650;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4311;
-      v105 = 1024;
-      v106 = v45;
-      v76 = "%s:%d: read err: %d";
-LABEL_119:
-      _os_log_error_impl(&dword_1C278D000, v75, OS_LOG_TYPE_ERROR, v76, buf, 0x18u);
-      goto LABEL_111;
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4311;
+      v104 = 1024;
+      v105 = v44;
+      v75 = "%s:%d: read err: %d";
+LABEL_118:
+      _os_log_error_impl(&dword_1C278D000, v74, OS_LOG_TYPE_ERROR, v75, buf, 0x18u);
+      goto LABEL_110;
     }
 
-LABEL_66:
-    if ((a2 & 1) != 0 || *(a1 + 4376) > v53 && CFBitVectorGetBitAtIndex(*(a1 + 4392), v53))
+LABEL_65:
+    if ((a2 & 1) != 0 || *(a1 + 4376) > v52 && CFBitVectorGetBitAtIndex(*(a1 + 4392), v52))
     {
-      *(v109 + v55) = v53;
-      v58 = (v55 + 1);
+      *(v108 + v54) = v52;
+      v57 = (v54 + 1);
     }
 
     else
     {
-      v58 = v55;
+      v57 = v54;
     }
 
-    ++v53;
-    v54 = v58;
+    ++v52;
+    v53 = v57;
   }
 
-  while (v53 != v40);
-  if (!v58)
+  while (v52 != v39);
+  if (!v57)
   {
+LABEL_82:
+    prot_fsync(v89, 0);
+    _fd_release_fd(*(a1 + 216), __fd, 0, v92);
+    sibling_protected = v91;
+    _fd_release_fd(v91, v89, 0, v93);
 LABEL_83:
-    prot_fsync(v90, 0);
-    _fd_release_fd(*(a1 + 216), __fd, 0, v93);
-    sibling_protected = v92;
-    _fd_release_fd(v92, v90, 0, v94);
-LABEL_84:
-    v111.length = *(a1 + 4376);
-    v111.location = 0;
-    FirstIndexOfBit = CFBitVectorGetFirstIndexOfBit(*(a1 + 4392), v111, 1u);
+    v110.length = *(a1 + 4376);
+    v110.location = 0;
+    FirstIndexOfBit = CFBitVectorGetFirstIndexOfBit(*(a1 + 4392), v110, 1u);
     if (FirstIndexOfBit != -1 && FirstIndexOfBit < *(a1 + 232) >> 17)
     {
-      v85 = FirstIndexOfBit;
-      v86 = __si_assert_copy_extra(*(a1 + 216));
-      v87 = v86;
-      v88 = "";
-      if (v86)
+      v84 = FirstIndexOfBit;
+      v85 = __si_assert_copy_extra(*(a1 + 216));
+      v86 = v85;
+      v87 = "";
+      if (v85)
       {
-        v88 = v86;
+        v87 = v85;
       }
 
-      __message_assert("%s:%u: failed assertion '%s' %s Expected bitmap to be clean for index in state %x. Dirty bit at index %lx", "FileTree.c", 4393, "dirtyBitIx == kCFNotFound || dirtyBitIx >= (CFIndex)(storageGetCount(&store->storage)/STORAGE_SHADOWPAGESIZE)", v88, -804450864, v85);
-      free(v87);
+      __message_assert("%s:%u: failed assertion '%s' %s Expected bitmap to be clean for index in state %x. Dirty bit at index %lx", "FileTree.c", 4393, "dirtyBitIx == kCFNotFound || dirtyBitIx >= (CFIndex)(storageGetCount(&store->storage)/STORAGE_SHADOWPAGESIZE)", v87, -804450864, v84);
+      free(v86);
       if (__valid_fsp(*(a1 + 216)))
       {
-        v89 = 2989;
+        v88 = 2989;
       }
 
       else
       {
-        v89 = 3072;
+        v88 = 3072;
       }
 
-      *v89 = -559038737;
+      *v88 = -559038737;
       abort();
     }
 
     fd_release(sibling_protected);
-    free(v42);
-    v63 = *__error();
-    v64 = _SILogForLogForCategory(6);
-    v65 = 2 * (dword_1EBF46AE4 < 4);
-    if (os_log_type_enabled(v64, v65))
+    free(v41);
+    v62 = *__error();
+    v63 = _SILogForLogForCategory(6);
+    v64 = 2 * (dword_1EBF46AE4 < 4);
+    if (os_log_type_enabled(v63, v64))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C278D000, v64, v65, "Completed shadowReverseStore", buf, 2u);
+      _os_log_impl(&dword_1C278D000, v63, v64, "Completed shadowReverseStore", buf, 2u);
     }
 
-    *__error() = v63;
-    setCrashStateTarget(v38);
-    goto LABEL_26;
+    *__error() = v62;
+    setCrashStateTarget(v37);
+    return 0;
   }
 
-  v59 = v58;
-  v60 = v109;
+  v58 = v57;
+  v59 = v108;
   while (*a3 != 1 && (*a3 != -1 || (a2 & 1) == 0))
   {
-    v61 = *v60;
-    if (prot_pread(__fd, v42, 0x20000uLL, v61 << 17) == -1)
+    v60 = *v59;
+    if (prot_pread(__fd, v41, 0x20000uLL, v60 << 17) == -1)
     {
-      v45 = *__error();
-      v74 = *__error();
-      v75 = _SILogForLogForCategory(0);
-      if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v44 = *__error();
+      v73 = *__error();
+      v74 = _SILogForLogForCategory(0);
+      if (!os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_111;
+        goto LABEL_110;
       }
 
       *buf = 136315650;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4348;
-      v105 = 1024;
-      v106 = v45;
-      v76 = "%s:%d: pread err: %d";
-      goto LABEL_119;
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4348;
+      v104 = 1024;
+      v105 = v44;
+      v75 = "%s:%d: pread err: %d";
+      goto LABEL_118;
     }
 
     if (*a3 == 1 || *a3 == -1 && (a2 & 1) != 0)
@@ -6368,71 +756,67 @@ LABEL_84:
       break;
     }
 
-    if (prot_pwrite_guarded(v90, &v94, v42, 0x20000uLL, v61 << 17) == -1)
+    if (prot_pwrite_guarded(v89, &v93, v41, 0x20000uLL, v60 << 17) == -1)
     {
-      v45 = *__error();
-      v74 = *__error();
-      v75 = _SILogForLogForCategory(0);
-      if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v44 = *__error();
+      v73 = *__error();
+      v74 = _SILogForLogForCategory(0);
+      if (!os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_111;
+        goto LABEL_110;
       }
 
       *buf = 136315650;
-      v102 = "shadowReverseStore";
-      v103 = 1024;
-      v104 = 4357;
-      v105 = 1024;
-      v106 = v45;
-      v76 = "%s:%d: pwrite err: %d";
-      goto LABEL_119;
+      v101 = "shadowReverseStore";
+      v102 = 1024;
+      v103 = 4357;
+      v104 = 1024;
+      v105 = v44;
+      v75 = "%s:%d: pwrite err: %d";
+      goto LABEL_118;
     }
 
-    bit_vector_set_4833((a1 + 4376), v61);
-    ++v60;
-    if (!--v59)
+    bit_vector_set_4833((a1 + 4376), v60);
+    ++v59;
+    if (!--v58)
     {
-      goto LABEL_83;
+      goto LABEL_82;
     }
   }
 
-LABEL_107:
-  v45 = 89;
-  v48 = v42;
-  v69 = v90;
-  v49 = __fd;
-  sibling_protected = v92;
-LABEL_99:
-  v70 = *__error();
-  v71 = _SILogForLogForCategory(6);
-  if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+LABEL_106:
+  v44 = 89;
+  v47 = v41;
+  v68 = v89;
+  v48 = __fd;
+  sibling_protected = v91;
+LABEL_98:
+  v69 = *__error();
+  v70 = _SILogForLogForCategory(6);
+  if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v102 = "shadowReverseStore";
-    v103 = 1024;
-    v104 = 4406;
-    _os_log_error_impl(&dword_1C278D000, v71, OS_LOG_TYPE_ERROR, "%s:%d: Failed shadowReverseStore", buf, 0x12u);
+    v101 = "shadowReverseStore";
+    v102 = 1024;
+    v103 = 4406;
+    _os_log_error_impl(&dword_1C278D000, v70, OS_LOG_TYPE_ERROR, "%s:%d: Failed shadowReverseStore", buf, 0x12u);
   }
 
-  *__error() = v70;
-  free(v48);
-  _fd_release_fd(*(a1 + 216), v49, 0, v93);
-  _fd_release_fd(sibling_protected, v69, 0, v94);
+  *__error() = v69;
+  free(v47);
+  _fd_release_fd(*(a1 + 216), v48, 0, v92);
+  _fd_release_fd(sibling_protected, v68, 0, v93);
   fd_release(sibling_protected);
-  setCrashStateTarget(v38);
-  if (v45)
+  setCrashStateTarget(v37);
+  if (v44)
   {
-    result = v45;
+    return v44;
   }
 
   else
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-LABEL_15:
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void bit_vector_set_4833(CFIndex *a1, CFIndex a2)
@@ -6595,7 +979,7 @@ char *createReverseStore(int a1, const char *a2, void *a3)
   return v6;
 }
 
-char *openReverseStore(int a1, int a2, int a3, int a4, _DWORD *a5, uint64_t a6, void *a7)
+char *openReverseStore(uint64_t a1, int a2, int a3, int a4, _DWORD *a5, uint64_t a6, void *a7)
 {
   v14 = setCrashStateTarget(2);
   if (a2 > 10)
@@ -6813,9 +1197,10 @@ LABEL_17:
   return v24;
 }
 
-uint64_t recoverReverseStore(int a1, const char *a2, const char *a3, _DWORD *a4, int a5)
+uint64_t recoverReverseStore(uint64_t a1, const char *a2, const char *a3, _DWORD *a4, int a5)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v9 = a1;
+  v43 = *MEMORY[0x1E69E9840];
   v10 = *__error();
   v11 = _SILogForLogForCategory(0);
   v12 = 2 * (gSILogLevels[0] < 4);
@@ -6826,7 +1211,7 @@ uint64_t recoverReverseStore(int a1, const char *a2, const char *a3, _DWORD *a4,
   }
 
   *__error() = v10;
-  if ((_copyFile(a1, a2, a1, a3, a4, 1088) & 1) == 0)
+  if ((_copyFile(v9, a2, v9, a3, a4, 1088) & 1) == 0)
   {
     v22 = *__error();
     v23 = _SILogForLogForCategory(0);
@@ -6836,23 +1221,23 @@ LABEL_15:
       v26 = __error();
       result = 0;
       *v26 = v22;
-      goto LABEL_16;
+      return result;
     }
 
     *buf = 136315650;
-    v38 = "recoverReverseStore";
-    v39 = 1024;
-    v40 = 4502;
-    v41 = 2080;
-    v42 = a2;
+    v37 = "recoverReverseStore";
+    v38 = 1024;
+    v39 = 4502;
+    v40 = 2080;
+    v41 = a2;
     v24 = "%s:%d: Copy file failed for %s";
     v25 = buf;
-LABEL_25:
+LABEL_24:
     _os_log_error_impl(&dword_1C278D000, v23, OS_LOG_TYPE_ERROR, v24, v25, 0x1Cu);
     goto LABEL_15;
   }
 
-  v13 = fd_create_protected(a1, a2, 0, 0);
+  v13 = fd_create_protected(v9, a2, 0, 0);
   bzero(buf, 0x440uLL);
   v14 = fd_pread(v13, buf, 0x440uLL, 0);
   fd_release(v13);
@@ -6865,89 +1250,85 @@ LABEL_25:
       goto LABEL_15;
     }
 
-    *v33 = 136315650;
-    v34 = "recoverReverseStore";
-    v35 = 1024;
-    *v36 = 4514;
-    *&v36[4] = 2080;
-    *&v36[6] = a2;
+    *v32 = 136315650;
+    v33 = "recoverReverseStore";
+    v34 = 1024;
+    *v35 = 4514;
+    *&v35[4] = 2080;
+    *&v35[6] = a2;
     v24 = "%s:%d: Failed to read reverse store file %s";
-    v25 = v33;
-    goto LABEL_25;
+    v25 = v32;
+    goto LABEL_24;
   }
 
-  v15 = fd_create_protected(a1, a3, 2, 0);
-  v32 = 0;
-  v16 = _fd_acquire_fd(v15, &v32);
+  v15 = fd_create_protected(v9, a3, 2, 0);
+  v31 = 0;
+  v16 = _fd_acquire_fd(v15, &v31);
   prot_fsync(v16, 1);
-  v17 = v43;
-  v43 = 0;
-  if (prot_pwrite_guarded(v16, &v32, buf, 0x440uLL, 0) != 1088)
+  v17 = v42;
+  v42 = 0;
+  if (prot_pwrite_guarded(v16, &v31, buf, 0x440uLL, 0) != 1088)
   {
-    v28 = *__error();
-    v29 = _SILogForLogForCategory(6);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v27 = *__error();
+    v28 = _SILogForLogForCategory(6);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      *v33 = 136315650;
-      v34 = "recoverReverseStore";
-      v35 = 1024;
-      *v36 = 4529;
-      *&v36[4] = 2080;
-      *&v36[6] = a3;
-      _os_log_error_impl(&dword_1C278D000, v29, OS_LOG_TYPE_ERROR, "%s:%d: Failed to write reverse store header %s", v33, 0x1Cu);
+      *v32 = 136315650;
+      v33 = "recoverReverseStore";
+      v34 = 1024;
+      *v35 = 4529;
+      *&v35[4] = 2080;
+      *&v35[6] = a3;
+      _os_log_error_impl(&dword_1C278D000, v28, OS_LOG_TYPE_ERROR, "%s:%d: Failed to write reverse store header %s", v32, 0x1Cu);
     }
 
-    *__error() = v28;
-    goto LABEL_20;
+    *__error() = v27;
+    goto LABEL_19;
   }
 
   prot_fsync(v16, 1);
   if (a5 && v17 != -1073623027 && v17 != -804450864)
   {
-    v30 = *__error();
-    v31 = _SILogForLogForCategory(6);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v29 = *__error();
+    v30 = _SILogForLogForCategory(6);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      *v33 = 136315650;
-      v34 = "recoverReverseStore";
-      v35 = 1024;
-      *v36 = 4541;
-      *&v36[4] = 1024;
-      *&v36[6] = v17;
-      _os_log_error_impl(&dword_1C278D000, v31, OS_LOG_TYPE_ERROR, "%s:%d: Unexpected state in shadow header %x", v33, 0x18u);
+      *v32 = 136315650;
+      v33 = "recoverReverseStore";
+      v34 = 1024;
+      *v35 = 4541;
+      *&v35[4] = 1024;
+      *&v35[6] = v17;
+      _os_log_error_impl(&dword_1C278D000, v30, OS_LOG_TYPE_ERROR, "%s:%d: Unexpected state in shadow header %x", v32, 0x18u);
     }
 
-    *__error() = v30;
-LABEL_20:
-    _fd_release_fd(v15, v16, 0, v32);
+    *__error() = v29;
+LABEL_19:
+    _fd_release_fd(v15, v16, 0, v31);
     fd_release(v15);
-    result = 0;
-    goto LABEL_16;
+    return 0;
   }
 
-  v43 = -1073623027;
-  prot_pwrite_guarded(v16, &v32, buf, 0x440uLL, 0);
-  _fd_release_fd(v15, v16, 0, v32);
+  v42 = -1073623027;
+  prot_pwrite_guarded(v16, &v31, buf, 0x440uLL, 0);
+  _fd_release_fd(v15, v16, 0, v31);
   fd_release(v15);
   v18 = *__error();
   v19 = _SILogForLogForCategory(6);
   v20 = 2 * (dword_1EBF46AE4 < 4);
   if (os_log_type_enabled(v19, v20))
   {
-    *v33 = 136315650;
-    v34 = a2;
-    v35 = 2080;
-    *v36 = a3;
-    *&v36[8] = 1024;
-    *&v36[10] = v17;
-    _os_log_impl(&dword_1C278D000, v19, v20, "Successfully recovered from %s to %s with state %x", v33, 0x1Cu);
+    *v32 = 136315650;
+    v33 = a2;
+    v34 = 2080;
+    *v35 = a3;
+    *&v35[8] = 1024;
+    *&v35[10] = v17;
+    _os_log_impl(&dword_1C278D000, v19, v20, "Successfully recovered from %s to %s with state %x", v32, 0x1Cu);
   }
 
   *__error() = v18;
-  result = 1;
-LABEL_16:
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 uint64_t get_state(uint64_t a1)
@@ -7182,31 +1563,31 @@ LABEL_28:
 
 BOOL _reverseStoreValidateTreePage(uint64_t *a1, unsigned __int16 *a2, unsigned __int16 *a3, int a4)
 {
-  *(&v59[2] + 6) = *MEMORY[0x1E69E9840];
+  *(&v58[2] + 6) = *MEMORY[0x1E69E9840];
   Size = directoryTreePageGetSize(*a2, *(a2 + 2));
-  v47 = a2;
+  v46 = a2;
   v10 = a2[3];
   if (dword_1EBF46AE4 >= 5)
   {
-    v43 = a2[2];
-    v44 = *__error();
-    v45 = _SILogForLogForCategory(6);
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v42 = a2[2];
+    v43 = *__error();
+    v44 = _SILogForLogForCategory(6);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134219008;
-      v55 = v47;
-      v56 = 1024;
-      *v57 = a4;
-      *&v57[4] = 1024;
-      *&v57[6] = v10;
-      v58 = 1024;
-      LODWORD(v59[0]) = v43;
-      WORD2(v59[0]) = 1024;
-      *(v59 + 6) = Size;
-      _os_log_impl(&dword_1C278D000, v45, OS_LOG_TYPE_DEFAULT, "Tree page:%p level: %d depth: %d origin: %d size: %d", buf, 0x24u);
+      v54 = v46;
+      v55 = 1024;
+      *v56 = a4;
+      *&v56[4] = 1024;
+      *&v56[6] = v10;
+      v57 = 1024;
+      LODWORD(v58[0]) = v42;
+      WORD2(v58[0]) = 1024;
+      *(v58 + 6) = Size;
+      _os_log_impl(&dword_1C278D000, v44, OS_LOG_TYPE_DEFAULT, "Tree page:%p level: %d depth: %d origin: %d size: %d", buf, 0x24u);
     }
 
-    *__error() = v44;
+    *__error() = v43;
   }
 
   if (v10 != a4)
@@ -7217,11 +1598,11 @@ BOOL _reverseStoreValidateTreePage(uint64_t *a1, unsigned __int16 *a2, unsigned 
     if (os_log_type_enabled(v12, (dword_1EBF46AE4 < 3)))
     {
       *buf = 134218496;
-      v55 = a3;
-      v56 = 1024;
-      *v57 = v10;
-      *&v57[4] = 1024;
-      *&v57[6] = a4;
+      v54 = a3;
+      v55 = 1024;
+      *v56 = v10;
+      *&v56[4] = 1024;
+      *&v56[6] = a4;
       _os_log_impl(&dword_1C278D000, v12, v13, "*warn* Flat page: 0x%8.8llx depth: %d exected: %d", buf, 0x18u);
     }
 
@@ -7231,13 +1612,13 @@ BOOL _reverseStoreValidateTreePage(uint64_t *a1, unsigned __int16 *a2, unsigned 
   v14 = Size;
   if (Size)
   {
-    v46 = v10;
+    v45 = v10;
     v15 = 0;
-    v16 = v47 + 4;
-    v52 = a4 + 1;
+    v16 = v46 + 4;
+    v51 = a4 + 1;
     v17 = 1;
     v8.n128_u64[0] = 134218496;
-    v48 = a1;
+    v47 = a1;
     do
     {
       v18 = *&v16[4 * v15];
@@ -7250,54 +1631,54 @@ BOOL _reverseStoreValidateTreePage(uint64_t *a1, unsigned __int16 *a2, unsigned 
           if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218752;
-            v55 = v47;
-            v56 = 1024;
-            *v57 = v46;
-            *&v57[4] = 1024;
-            *&v57[6] = v15;
-            v58 = 2048;
-            v59[0] = v18;
+            v54 = v46;
+            v55 = 1024;
+            *v56 = v45;
+            *&v56[4] = 1024;
+            *&v56[6] = v15;
+            v57 = 2048;
+            v58[0] = v18;
             _os_log_impl(&dword_1C278D000, v34, OS_LOG_TYPE_DEFAULT, "page:%p depth: %d idx: %d offset: 0x%8.8llx", buf, 0x22u);
           }
 
           *__error() = v33;
         }
 
-        v53 = 0;
-        Page = _directoryStoreReaderGetPage(a1, v18, &v53, v8, v9);
+        v52 = 0;
+        Page = _directoryStoreReaderGetPage(a1, v18, &v52, v8, v9);
         if (!Page)
         {
-          goto LABEL_39;
+          return v17;
         }
 
         v20 = Page;
-        if (v53)
+        if (v52)
         {
           v21 = directoryStorePageGetSize(Page);
           v22 = *v20;
           if ((64 << *(v20 + 2)) - 8 < v22)
           {
-            v39 = __si_assert_copy_extra(0);
-            v40 = v39;
-            v41 = "";
-            if (v39)
+            v38 = __si_assert_copy_extra(0);
+            v39 = v38;
+            v40 = "";
+            if (v38)
             {
-              v41 = v39;
+              v40 = v38;
             }
 
-            __message_assert("%s:%u: failed assertion '%s' %s Got end %d and size %d", "FileTree.c", 287, "storePageEnd((StorePageRef)page) <= storePageDataSize((StorePageRef)page)", v41, *v20, (64 << *(v20 + 2)) - 8);
-            free(v40);
+            __message_assert("%s:%u: failed assertion '%s' %s Got end %d and size %d", "FileTree.c", 287, "storePageEnd((StorePageRef)page) <= storePageDataSize((StorePageRef)page)", v40, *v20, (64 << *(v20 + 2)) - 8);
+            free(v39);
             if (__valid_fs(-1))
             {
-              v42 = 2989;
+              v41 = 2989;
             }
 
             else
             {
-              v42 = 3072;
+              v41 = 3072;
             }
 
-            *v42 = -559038737;
+            *v41 = -559038737;
             abort();
           }
 
@@ -7305,47 +1686,47 @@ BOOL _reverseStoreValidateTreePage(uint64_t *a1, unsigned __int16 *a2, unsigned 
           v24 = v20[3];
           if (dword_1EBF46AE4 >= 5)
           {
-            v50 = v20[2];
+            v49 = v20[2];
             v35 = *__error();
             v36 = _SILogForLogForCategory(6);
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134219008;
-              v55 = v20;
-              v56 = 1024;
-              *v57 = v52;
-              *&v57[4] = 1024;
-              *&v57[6] = v24;
-              v58 = 1024;
-              LODWORD(v59[0]) = v50;
-              WORD2(v59[0]) = 1024;
-              *(v59 + 6) = v23;
+              v54 = v20;
+              v55 = 1024;
+              *v56 = v51;
+              *&v56[4] = 1024;
+              *&v56[6] = v24;
+              v57 = 1024;
+              LODWORD(v58[0]) = v49;
+              WORD2(v58[0]) = 1024;
+              *(v58 + 6) = v23;
               _os_log_impl(&dword_1C278D000, v36, OS_LOG_TYPE_DEFAULT, "Flat page:%p level: %d depth: %d origin: %d size: %d", buf, 0x24u);
             }
 
             *__error() = v35;
-            a1 = v48;
+            a1 = v47;
             v14 = Size;
           }
 
-          if (v52 != v24)
+          if (v51 != v24)
           {
-            v49 = *__error();
+            v48 = *__error();
             v25 = _SILogForLogForCategory(6);
             v26 = dword_1EBF46AE4 < 3;
             if (os_log_type_enabled(v25, (dword_1EBF46AE4 < 3)))
             {
               *buf = 134218496;
-              v55 = v18;
-              v56 = 1024;
-              *v57 = v24;
-              *&v57[4] = 1024;
-              *&v57[6] = v52;
+              v54 = v18;
+              v55 = 1024;
+              *v56 = v24;
+              *&v56[4] = 1024;
+              *&v56[6] = v51;
               _os_log_impl(&dword_1C278D000, v25, v26, "*warn* Flat page: 0x%8.8llx depth: %d exected: %d", buf, 0x18u);
             }
 
-            *__error() = v49;
-            a1 = v48;
+            *__error() = v48;
+            a1 = v47;
             v14 = Size;
           }
 
@@ -7367,14 +1748,14 @@ BOOL _reverseStoreValidateTreePage(uint64_t *a1, unsigned __int16 *a2, unsigned 
                   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 134218240;
-                    v55 = v29;
-                    v56 = 2048;
-                    *v57 = v30;
+                    v54 = v29;
+                    v55 = 2048;
+                    *v56 = v30;
                     _os_log_impl(&dword_1C278D000, v32, OS_LOG_TYPE_DEFAULT, "oid: %lld parent: %lld", buf, 0x16u);
                   }
 
                   *__error() = v31;
-                  a1 = v48;
+                  a1 = v47;
                   v14 = Size;
                 }
               }
@@ -7386,16 +1767,16 @@ BOOL _reverseStoreValidateTreePage(uint64_t *a1, unsigned __int16 *a2, unsigned 
             while (v23);
           }
 
-          v16 = v47 + 4;
+          v16 = v46 + 4;
           if (v27)
           {
-            goto LABEL_39;
+            return v17;
           }
         }
 
-        else if (_reverseStoreValidateTreePage(a1, Page, v18, v52))
+        else if (_reverseStoreValidateTreePage(a1, Page, v18, v51))
         {
-          goto LABEL_39;
+          return v17;
         }
       }
 
@@ -7405,10 +1786,7 @@ BOOL _reverseStoreValidateTreePage(uint64_t *a1, unsigned __int16 *a2, unsigned 
     while (v15 != v14);
   }
 
-  v17 = 0;
-LABEL_39:
-  v37 = *MEMORY[0x1E69E9840];
-  return v17;
+  return 0;
 }
 
 uint64_t reverseStoreNeedsRecover(int a1)
@@ -7427,8 +1805,8 @@ uint64_t reverseStoreNeedsRecover(int a1)
 uint64_t reverseStoreUpdateState(uint64_t a1, int a2, _BYTE *a3)
 {
   v6 = 0;
-  v26 = *MEMORY[0x1E69E9840];
-  v15 = 0;
+  v25 = *MEMORY[0x1E69E9840];
+  v14 = 0;
   *a3 = 0;
   if (a2 > 2)
   {
@@ -7442,7 +1820,7 @@ uint64_t reverseStoreUpdateState(uint64_t a1, int a2, _BYTE *a3)
         goto LABEL_14;
       }
 
-      if ((!isRegisteredForCloning(a1) || (copyFileFallback(a1, "reverseDirectoryStore", a1, "reverseDirectoryStore.shadow", &v15, 0, 1) & 1) == 0) && !recoverReverseStore(a1, "reverseDirectoryStore", "reverseDirectoryStore.shadow", &v15, 0))
+      if ((!isRegisteredForCloning(a1) || (copyFileFallback(a1, "reverseDirectoryStore", a1, "reverseDirectoryStore.shadow", &v14, 0, 1) & 1) == 0) && !recoverReverseStore(a1, "reverseDirectoryStore", "reverseDirectoryStore.shadow", &v14, 0))
       {
         v7 = 4751;
         v6 = 0xFFFFFFFFLL;
@@ -7461,7 +1839,7 @@ uint64_t reverseStoreUpdateState(uint64_t a1, int a2, _BYTE *a3)
     {
       if (a2 != 4)
       {
-        goto LABEL_17;
+        return v6;
       }
 
       v6 = _reverseStoreUpdateState(a1, -1073623027);
@@ -7485,12 +1863,12 @@ uint64_t reverseStoreUpdateState(uint64_t a1, int a2, _BYTE *a3)
       goto LABEL_14;
     }
 
-    if ((!isRegisteredForCloning(a1) || (copyFileFallback(a1, "reverseDirectoryStore.shadow", a1, "reverseDirectoryStore", &v15, 0, 1) & 1) == 0) && (recoverReverseStore(a1, "reverseDirectoryStore.shadow", "reverseDirectoryStore", &v15, 1) & 1) == 0)
+    if ((!isRegisteredForCloning(a1) || (copyFileFallback(a1, "reverseDirectoryStore.shadow", a1, "reverseDirectoryStore", &v14, 0, 1) & 1) == 0) && (recoverReverseStore(a1, "reverseDirectoryStore.shadow", "reverseDirectoryStore", &v14, 1) & 1) == 0)
     {
-      v14 = *__error();
-      if (v14)
+      v13 = *__error();
+      if (v13)
       {
-        v6 = v14;
+        v6 = v13;
       }
 
       else
@@ -7511,19 +1889,19 @@ uint64_t reverseStoreUpdateState(uint64_t a1, int a2, _BYTE *a3)
 
 LABEL_29:
     *a3 = 4;
-    goto LABEL_17;
+    return v6;
   }
 
   if (a2 != 2)
   {
-    goto LABEL_17;
+    return v6;
   }
 
   v6 = _reverseStoreUpdateState(a1, 2);
   if (!v6)
   {
     *a3 = 2;
-    goto LABEL_17;
+    return v6;
   }
 
   v7 = 4732;
@@ -7533,21 +1911,19 @@ LABEL_14:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v17 = "reverseStoreUpdateState";
-    v18 = 1024;
-    v19 = 4776;
-    v20 = 1024;
-    v21 = a2;
-    v22 = 1024;
-    v23 = v6;
-    v24 = 1024;
-    v25 = v7;
+    v16 = "reverseStoreUpdateState";
+    v17 = 1024;
+    v18 = 4776;
+    v19 = 1024;
+    v20 = a2;
+    v21 = 1024;
+    v22 = v6;
+    v23 = 1024;
+    v24 = v7;
     _os_log_error_impl(&dword_1C278D000, v11, OS_LOG_TYPE_ERROR, "%s:%d: update state (%d) failed err:%d at %d", buf, 0x24u);
   }
 
   *__error() = v10;
-LABEL_17:
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -7782,11 +2158,11 @@ LABEL_24:
 
 uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
+  v34 = *MEMORY[0x1E69E9840];
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v2 = *(a1 + 4376);
   v4 = v2 + 7;
   v3 = v2 < -7;
@@ -7800,37 +2176,37 @@ uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
   v7 = malloc_type_malloc(v5 >> 3, 0xA2CB6193uLL);
   if (!v7)
   {
-    v25 = __si_assert_copy_extra(0);
-    v26 = v25;
-    v27 = "";
-    if (v25)
+    v24 = __si_assert_copy_extra(0);
+    v25 = v24;
+    v26 = "";
+    if (v24)
     {
-      v27 = v25;
+      v26 = v24;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 4851, "bits", v27);
-    free(v26);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "FileTree.c", 4851, "bits", v26);
+    free(v25);
     if (__valid_fs(-1))
     {
-      v28 = 2989;
+      v27 = 2989;
     }
 
     else
     {
-      v28 = 3072;
+      v27 = 3072;
     }
 
-    *v28 = -559038737;
+    *v27 = -559038737;
     abort();
   }
 
   v8 = v7;
   sibling_protected = fd_create_sibling_protected(*(a1 + 216), "reverseStore.updates", 1538, 0);
-  if (store_stream_init(&v30, sibling_protected, 1))
+  if (store_stream_init(&v29, sibling_protected, 1))
   {
     v10 = *(a1 + 4376);
-    v11 = *(&v32 + 1);
-    if (v32 - *(&v32 + 1) < 6uLL)
+    v11 = *(&v31 + 1);
+    if (v31 - *(&v31 + 1) < 6uLL)
     {
       memset(__src, 0, sizeof(__src));
       if (v10 >> 28)
@@ -7840,7 +2216,7 @@ uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
         BYTE2(__src[0]) = (v10 >> 14) | 0x80;
         BYTE3(__src[0]) = (v10 >> 21) | 0x80;
         BYTE4(__src[0]) = v10 >> 28;
-        v29 = 5;
+        v28 = 5;
       }
 
       else if (v10 >= 0x200000)
@@ -7849,7 +2225,7 @@ uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
         BYTE1(__src[0]) = (v10 >> 7) | 0x80;
         BYTE2(__src[0]) = (v10 >> 14) | 0x80;
         BYTE3(__src[0]) = v10 >> 21;
-        v29 = 4;
+        v28 = 4;
       }
 
       else if (v10 >= 0x4000)
@@ -7857,30 +2233,30 @@ uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
         LOBYTE(__src[0]) = v10 | 0x80;
         BYTE1(__src[0]) = (v10 >> 7) | 0x80;
         BYTE2(__src[0]) = v10 >> 14;
-        v29 = 3;
+        v28 = 3;
       }
 
       else if (v10 >= 0x80)
       {
         LOBYTE(__src[0]) = v10 | 0x80;
         BYTE1(__src[0]) = v10 >> 7;
-        v29 = 2;
+        v28 = 2;
       }
 
       else
       {
         LOBYTE(__src[0]) = v10;
-        v29 = 1;
+        v28 = 1;
       }
 
-      store_stream_write_bytes(&v30, __src, v29);
+      store_stream_write_bytes(&v29, __src, v28);
     }
 
     else
     {
       if (v10 >> 28)
       {
-        v15 = (v33 + *(&v32 + 1));
+        v15 = (v32 + *(&v31 + 1));
         *v15 = v10 | 0x80;
         v15[1] = (v10 >> 7) | 0x80;
         v15[2] = (v10 >> 14) | 0x80;
@@ -7891,7 +2267,7 @@ uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
 
       else if (v10 >= 0x200000)
       {
-        v16 = (v33 + *(&v32 + 1));
+        v16 = (v32 + *(&v31 + 1));
         *v16 = v10 | 0x80;
         v16[1] = (v10 >> 7) | 0x80;
         v16[2] = (v10 >> 14) | 0x80;
@@ -7901,7 +2277,7 @@ uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
 
       else
       {
-        v12 = (v33 + *(&v32 + 1));
+        v12 = (v32 + *(&v31 + 1));
         if (v10 >= 0x4000)
         {
           *v12 = v10 | 0x80;
@@ -7919,12 +2295,12 @@ uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
 
         else
         {
-          v13 = *(&v32 + 1) + 1;
+          v13 = *(&v31 + 1) + 1;
           *v12 = v10;
         }
       }
 
-      *(&v32 + 1) = v13;
+      *(&v31 + 1) = v13;
     }
 
     v17.length = *(a1 + 4376);
@@ -7934,52 +2310,51 @@ uint64_t reverseStoreStoreDirtyBitmap(uint64_t a1)
       CFBitVectorGetBits(*(a1 + 4392), v17, v8);
     }
 
-    v18 = *(&v32 + 1);
-    v19 = v32;
-    v20 = *(&v32 + 1) + v6;
+    v18 = *(&v31 + 1);
+    v19 = v31;
+    v20 = *(&v31 + 1) + v6;
     v21 = v8;
     while (v20 >= v19)
     {
       v22 = v19 - v18;
-      memcpy((v33 + v18), v21, v19 - v18);
-      *(&v32 + 1) += v22;
-      if (store_stream_flush(&v30, 0))
+      memcpy((v32 + v18), v21, v19 - v18);
+      *(&v31 + 1) += v22;
+      if (store_stream_flush(&v29, 0))
       {
         goto LABEL_24;
       }
 
       v21 += v22;
       v6 -= v22;
-      v18 = *(&v32 + 1);
-      v19 = v32;
-      v20 = *(&v32 + 1) + v6;
+      v18 = *(&v31 + 1);
+      v19 = v31;
+      v20 = *(&v31 + 1) + v6;
     }
 
-    memcpy((v33 + v18), v21, v6);
-    *(&v32 + 1) += v6;
+    memcpy((v32 + v18), v21, v6);
+    *(&v31 + 1) += v6;
 LABEL_24:
-    store_stream_flush(&v30, 0);
-    v14 = v31;
-    store_stream_destroy(&v30);
+    store_stream_flush(&v29, 0);
+    v14 = v30;
+    store_stream_destroy(&v29);
   }
 
   else
   {
-    v14 = v31;
+    v14 = v30;
   }
 
   fd_release(sibling_protected);
   free(v8);
-  v23 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
-void si_perform_livequeries_directory_updates(uint64_t a1)
+void si_perform_livequeries_directory_updates(__n128 a1)
 {
   MEMORY[0x1EEE9AC00](a1);
-  v49 = v1;
+  v48 = v1;
   v3 = v2;
-  v67[128] = *MEMORY[0x1E69E9840];
+  v66[128] = *MEMORY[0x1E69E9840];
   bzero(values, 0x2000uLL);
   pthread_mutex_lock((v3 + 1712));
   Count = CFSetGetCount(*(v3 + 1776));
@@ -7993,7 +2368,7 @@ void si_perform_livequeries_directory_updates(uint64_t a1)
   else if (!Count || (v6 = values, CFSetGetValues(*(v3 + 1776), values), v5 < 1))
   {
     pthread_mutex_unlock((v3 + 1712));
-    goto LABEL_70;
+    return;
   }
 
   v7 = 0;
@@ -8003,40 +2378,40 @@ void si_perform_livequeries_directory_updates(uint64_t a1)
   }
 
   while (v5 != v7);
-  v50 = v3;
+  v49 = v3;
   pthread_mutex_unlock((v3 + 1712));
   v8 = 0;
   alloc = *MEMORY[0x1E695E480];
-  v44 = v5;
+  v43 = v5;
   do
   {
     v9 = v6[v8];
     v10 = *(v9 + 1);
     v11 = *(v9 + 5);
-    v56[0] = 0;
-    v56[1] = v56;
-    v56[2] = 0x2000000000;
-    v57 = 0;
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x2000000000;
-    v55 = 0;
-    scope_node = si_query_get_scope_node(v50, v10, 0);
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 0x40000000;
-    v51[2] = __si_query_evaluate_move_block_invoke;
-    v51[3] = &unk_1E8196398;
-    v51[6] = v50;
-    v51[7] = v49;
-    v51[4] = &v52;
-    v51[5] = v56;
-    v67[0] = MEMORY[0x1E69E9820];
-    v67[1] = 0x40000000;
-    v67[2] = __db_query_tree_apply_block_block_invoke;
-    v67[3] = &unk_1E8198ED0;
-    v67[4] = v51;
-    db_query_tree_apply_block_with_meta(scope_node, v67, 0);
-    if (*(v53 + 24) != 1)
+    v55[0] = 0;
+    v55[1] = v55;
+    v55[2] = 0x2000000000;
+    v56 = 0;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2000000000;
+    v54 = 0;
+    scope_node = si_query_get_scope_node(v49, v10, 0);
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 0x40000000;
+    v50[2] = __si_query_evaluate_move_block_invoke;
+    v50[3] = &unk_1E8196398;
+    v50[6] = v49;
+    v50[7] = v48;
+    v50[4] = &v51;
+    v50[5] = v55;
+    v66[0] = MEMORY[0x1E69E9820];
+    v66[1] = 0x40000000;
+    v66[2] = __db_query_tree_apply_block_block_invoke;
+    v66[3] = &unk_1E8198ED0;
+    v66[4] = v50;
+    db_query_tree_apply_block_with_meta(scope_node, v66, 0);
+    if (*(v52 + 24) != 1)
     {
       goto LABEL_15;
     }
@@ -8059,14 +2434,14 @@ void si_perform_livequeries_directory_updates(uint64_t a1)
     }
 
     *(v13 + 11) = v14;
-    bzero(v67, 0x400uLL);
-    v15 = *(v50 + 1416);
+    bzero(v66, 0x400uLL);
+    v15 = *(v49 + 1416);
     if (*(v15 + 240))
     {
       goto LABEL_13;
     }
 
-    v16 = (*(v15 + 40))(v15, *v49, v67, 0, 0, 0, 0, -1);
+    v16 = (*(v15 + 40))(v15, *v48, v66, 0, 0, 0, 0, -1);
     if (!v16)
     {
       goto LABEL_13;
@@ -8078,7 +2453,7 @@ void si_perform_livequeries_directory_updates(uint64_t a1)
     if (!v18)
     {
       Mutable = CFArrayCreateMutable(alloc, 0, MEMORY[0x1E695E9C0]);
-      v5 = v44;
+      v5 = v43;
 LABEL_58:
       CFArrayAppendValue(Mutable, v17);
       v21 = Mutable;
@@ -8086,24 +2461,24 @@ LABEL_58:
     }
 
     v19 = CFArrayGetCount(v18);
-    v46 = CFArrayCreateMutable(alloc, 0, MEMORY[0x1E695E9C0]);
+    v45 = CFArrayCreateMutable(alloc, 0, MEMORY[0x1E695E9C0]);
     if (!v19)
     {
-      v5 = v44;
-      Mutable = v46;
+      v5 = v43;
+      Mutable = v45;
       goto LABEL_58;
     }
 
     if (v19 < 1)
     {
-      v5 = v44;
-      v21 = v46;
+      v5 = v43;
+      v21 = v45;
       goto LABEL_59;
     }
 
     theArray = v18;
     v20 = 0;
-    v21 = v46;
+    v21 = v45;
     do
     {
       v22 = v19;
@@ -8149,8 +2524,8 @@ LABEL_24:
           }
 
 LABEL_30:
-          v21 = v46;
-          CFArrayAppendValue(v46, ValueAtIndex);
+          v21 = v45;
+          CFArrayAppendValue(v45, ValueAtIndex);
 LABEL_31:
           LODWORD(v28) = 0;
           goto LABEL_32;
@@ -8160,18 +2535,18 @@ LABEL_31:
         {
 LABEL_50:
           LODWORD(v28) = 0;
-          v21 = v46;
+          v21 = v45;
           goto LABEL_32;
         }
 
-        v41 = CFArrayCreateMutable(alloc, v28, MEMORY[0x1E695E9C0]);
-        CFArrayAppendValue(v41, cf1);
+        v40 = CFArrayCreateMutable(alloc, v28, MEMORY[0x1E695E9C0]);
+        CFArrayAppendValue(v40, cf1);
         if (v28 < 2)
         {
 LABEL_51:
-          v21 = v46;
-          v35 = v41;
-          CFArrayAppendValue(v46, v41);
+          v21 = v45;
+          v35 = v40;
+          CFArrayAppendValue(v45, v40);
           LODWORD(v28) = 0;
         }
 
@@ -8180,7 +2555,7 @@ LABEL_51:
           v32 = 1;
           while (1)
           {
-            v42 = v32;
+            v41 = v32;
             prefix = CFArrayGetValueAtIndex(ValueAtIndex, v32);
             if (CFEqual(cf1, v29))
             {
@@ -8201,20 +2576,20 @@ LABEL_51:
               v34 = CFStringGetLength(cf1);
               if (CFStringGetCharacterAtIndex(prefix, v34) == 47)
               {
-                CFArrayAppendValue(v41, prefix);
+                CFArrayAppendValue(v40, prefix);
               }
             }
 
-            v32 = v42 + 1;
-            if (v28 == v42 + 1)
+            v32 = v41 + 1;
+            if (v28 == v41 + 1)
             {
               goto LABEL_51;
             }
           }
 
           LODWORD(v28) = 1;
-          v21 = v46;
-          v35 = v41;
+          v21 = v45;
+          v35 = v40;
         }
 
         CFRelease(v35);
@@ -8226,7 +2601,7 @@ LABEL_32:
     }
 
     while (v20 < v22 && !v28);
-    v5 = v44;
+    v5 = v43;
     if (v28)
     {
 LABEL_60:
@@ -8249,26 +2624,26 @@ LABEL_61:
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         v39 = v10[24];
-        v59 = 136315906;
-        v60 = "adds";
-        v61 = 2112;
-        v62 = cf1;
-        v63 = 2112;
-        v64 = v39;
-        v65 = 2112;
-        v66 = v21;
-        _os_log_impl(&dword_1C278D000, v38, OS_LOG_TYPE_DEFAULT, "check (%s) %@ old:%@ new:%@", &v59, 0x2Au);
+        v58 = 136315906;
+        v59 = "adds";
+        v60 = 2112;
+        v61 = cf1;
+        v62 = 2112;
+        v63 = v39;
+        v64 = 2112;
+        v65 = v21;
+        _os_log_impl(&dword_1C278D000, v38, OS_LOG_TYPE_DEFAULT, "check (%s) %@ old:%@ new:%@", &v58, 0x2Au);
       }
 
       *__error() = v37;
-      v5 = v44;
+      v5 = v43;
     }
 
     CFRelease(cf1);
     if (v21)
     {
       atomic_fetch_add_explicit(v13 + 16, 1u, memory_order_relaxed);
-      _queryGoCracked(v10, v50, v21, v13);
+      _queryGoCracked(v10, v49, v21, v13);
       CFRelease(v21);
       si_querypipe_remove_process(v13, v10, 0, 0);
     }
@@ -8280,8 +2655,8 @@ LABEL_13:
     }
 
 LABEL_15:
-    _Block_object_dispose(&v52, 8);
-    _Block_object_dispose(v56, 8);
+    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(v55, 8);
     si_livequery_release(v6[v8++]);
   }
 
@@ -8290,18 +2665,15 @@ LABEL_15:
   {
     free(v6);
   }
-
-LABEL_70:
-  v40 = *MEMORY[0x1E69E9840];
 }
 
-void si_perform_livequeries_bulk_updates(uint64_t a1)
+void si_perform_livequeries_bulk_updates(__n128 a1)
 {
   MEMORY[0x1EEE9AC00](a1);
   v2 = v1;
-  v26 = v3;
+  v25 = v3;
   v5 = v4;
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   bzero(values, 0x2000uLL);
   pthread_mutex_lock((v5 + 1712));
   Count = CFSetGetCount(*(v5 + 1776));
@@ -8343,7 +2715,7 @@ LABEL_10:
   if (v2)
   {
     atomic_fetch_add((v5 + 1452), 1u);
-    v21 = _si_scheduler_suspend(*(v5 + 872), "SpotlightIndex.c", 2139);
+    v20 = _si_scheduler_suspend(*(v5 + 872), "SpotlightIndex.c", 2139);
     atomic_fetch_add((v5 + 1452), 0xFFFFFFFF);
     if (!v9)
     {
@@ -8353,7 +2725,7 @@ LABEL_10:
 
   else
   {
-    v21 = 0;
+    v20 = 0;
     if (!v9)
     {
       goto LABEL_26;
@@ -8361,104 +2733,105 @@ LABEL_10:
   }
 
   v11 = 0;
-  v22 = MEMORY[0x1E69E9820];
-  v23 = v8;
-  v24 = v7;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = v8;
+  v23 = v7;
   do
   {
     v12 = v8[v11];
-    v29 = v12[5];
-    v13 = *(v29 + 88);
+    v28 = v12[5];
+    v13 = *(v28 + 88);
     if (v13)
     {
-      v28 = *(v13 + 120);
+      v27 = *(v13 + 120);
     }
 
     else
     {
-      v28 = 0;
+      v27 = 0;
     }
 
     v14 = v12[1];
     v15 = *(v14 + 144);
-    v34 = v22;
-    *&v35 = 0x40000000;
-    *(&v35 + 1) = __query_once_block_invoke;
-    *&v36 = &__block_descriptor_tmp_518;
-    *(&v36 + 1) = v14;
-    v25 = v11;
+    v33 = v21;
+    *&v34 = 0x40000000;
+    *(&v34 + 1) = __query_once_block_invoke;
+    *&v35 = &__block_descriptor_tmp_518;
+    *(&v35 + 1) = v14;
+    v24 = v11;
     if (v15 != -1)
     {
-      dispatch_once((v14 + 144), &v34);
+      dispatch_once((v14 + 144), &v33);
     }
 
     v16 = *(v14 + 136);
     if (v16 >= 1)
     {
       v17 = *(v14 + 128);
-      v27 = v17;
+      v26 = v17;
       do
       {
         if (*(*v17 + 4))
         {
-          bzero(v38, 0x4D0uLL);
-          v30 = *(v5 + 2072);
+          bzero(v37, 0x4D0uLL);
+          v29 = *(v5 + 2072);
           v18 = *(v5 + 6587) & 1;
+          v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
-          v37 = 0;
-          memset(&v38[8], 0, 41);
-          memset(&v38[56], 0, 60);
-          memset(&v38[128], 0, 64);
-          v34 = &unk_1F4282348;
-          v39 = -1;
-          v44 = 0;
+          v36 = 0;
+          memset(&v37[8], 0, 41);
+          memset(&v37[56], 0, 60);
+          memset(&v37[128], 0, 64);
+          v33 = &unk_1F4282348;
+          v38 = -1;
+          v43 = 0;
+          v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
-          v46 = 0u;
-          v47 = 0u;
           v45 = 0u;
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 0x40000000;
-          v32[2] = ___ZN11SISearchCtxC2Ev_block_invoke;
-          v32[3] = &__block_descriptor_tmp_6;
-          v32[4] = &v34;
-          v42 = md_deadline_once_create();
-          v43 = dispatch_time(0, 500000000);
-          v34 = &unk_1F427CAD8;
-          v48 = 10;
+          v46 = 0u;
+          v44 = 0u;
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 0x40000000;
+          v31[2] = ___ZN11SISearchCtxC2Ev_block_invoke;
+          v31[3] = &__block_descriptor_tmp_6;
+          v31[4] = &v33;
+          v41 = md_deadline_once_create();
+          v42 = dispatch_time(0, 500000000);
+          v33 = &unk_1F427CAD8;
+          v47 = 10;
+          v48 = 0;
           v49 = 0;
           v50 = 0;
-          v51 = 0;
+          v51 = 0u;
           v52 = 0u;
           v53 = 0u;
           v54 = 0u;
           v55 = 0u;
           v56 = 0u;
           v57 = 0u;
-          v58 = 0u;
-          v59 = 0;
+          v58 = 0;
+          v59 = 0u;
           v60 = 0u;
           v61 = 0u;
           v62 = 0u;
-          v63 = 0u;
-          v64 = 0;
+          v63 = 0;
+          v64 = 0u;
           v65 = 0u;
-          v66 = 0u;
-          memset(v67, 0, 22);
-          v67[22] = v30;
-          v67[23] = v18;
+          memset(v66, 0, 22);
+          v66[22] = v29;
+          v66[23] = v18;
+          v67 = 0;
           v68 = 0;
           v69 = 0;
-          v70 = 0;
+          v79 = 0;
           v80 = 0;
-          v81 = 0;
+          v106 = 0;
           v107 = 0;
           v108 = 0;
           v109 = 0;
           v110 = 0;
           v111 = 0;
-          v112 = 0;
+          v70 = 0u;
           v71 = 0u;
           v72 = 0u;
           v73 = 0u;
@@ -8466,41 +2839,40 @@ LABEL_10:
           v75 = 0u;
           v76 = 0u;
           v77 = 0u;
-          v78 = 0u;
-          memset(v79, 0, sizeof(v79));
-          v103 = 0;
-          v101 = 0u;
-          v102 = 0u;
-          v99 = 0u;
+          memset(v78, 0, sizeof(v78));
+          v102 = 0;
           v100 = 0u;
-          v97 = 0u;
+          v101 = 0u;
           v98 = 0u;
-          v95 = 0u;
+          v99 = 0u;
           v96 = 0u;
-          v93 = 0u;
+          v97 = 0u;
           v94 = 0u;
-          v91 = 0u;
+          v95 = 0u;
           v92 = 0u;
-          v89 = 0u;
+          v93 = 0u;
           v90 = 0u;
-          v87 = 0u;
+          v91 = 0u;
           v88 = 0u;
-          v85 = 0u;
+          v89 = 0u;
           v86 = 0u;
-          v83 = 0u;
+          v87 = 0u;
           v84 = 0u;
+          v85 = 0u;
           v82 = 0u;
+          v83 = 0u;
+          v81 = 0u;
+          v103 = 0;
           v104 = 0;
           v105 = 0;
-          v106 = 0;
-          v31 = 0;
-          v32[0] = 0;
-          si_query_copy_grouping(v14, v32, &v31);
-          SISearchCtx_METADATA::vinitContext(&v34, v14, v5, *v27, v27[1], *(v14 + 176), *(v14 + 200), v28, v20, v29, *(v14 + 16), v32[0], v31, *(v14 + 697));
-          LOBYTE(v64) = 1;
-          LODWORD(v65) = *(v26 + 56);
-          SISearchCtx::executeSearchContext(&v34, 1);
-          SISearchCtx_METADATA::~SISearchCtx_METADATA(&v34);
+          v30 = 0;
+          v31[0] = 0;
+          si_query_copy_grouping(v14, v31, &v30);
+          SISearchCtx_METADATA::vinitContext(&v33, v14, v5, *v26, v26[1], *(v14 + 176), *(v14 + 200), v27, v19, v28, *(v14 + 16), v31[0], v30, *(v14 + 697));
+          LOBYTE(v63) = 1;
+          LODWORD(v64) = *(v25 + 56);
+          SISearchCtx::executeSearchContext(&v33, 1);
+          SISearchCtx_METADATA::~SISearchCtx_METADATA(&v33);
         }
 
         v17 += 2;
@@ -8510,38 +2882,36 @@ LABEL_10:
       while (v16);
     }
 
-    v8 = v23;
-    si_livequery_release(v23[v25]);
-    v11 = v25 + 1;
+    v8 = v22;
+    si_livequery_release(v22[v24]);
+    v11 = v24 + 1;
   }
 
-  while (v25 + 1 != v24);
+  while (v24 + 1 != v23);
 LABEL_26:
   if (v2)
   {
-    si_scheduler_resume(*(v5 + 872), v21, "/Library/Caches/com.apple.xbs/Sources/Spotlight_frameworks/spotlight/index/SpotlightIndex/SILiveQuerySupport.c", 326);
+    si_scheduler_resume(*(v5 + 872), v20, "/Library/Caches/com.apple.xbs/Sources/Spotlight_frameworks/spotlight/index/SpotlightIndex/SILiveQuerySupport.c", 326);
   }
 
   if (v8 != values)
   {
     free(v8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __si_perform_livequeries_updates_block_invoke(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (*(a2 + 48) != 4)
   {
-    goto LABEL_18;
+    return a2;
   }
 
   v3 = **(a2 + 16);
   if (!v3)
   {
-    goto LABEL_18;
+    return a2;
   }
 
   v5 = *v3;
@@ -8559,7 +2929,7 @@ LABEL_15:
     v16 = 0x40000000;
 LABEL_17:
     update_lq_field_info(v13, v14, v15, v16);
-    goto LABEL_18;
+    return a2;
   }
 
   if (42 == v5)
@@ -8582,14 +2952,14 @@ LABEL_5:
   if (*(v7 + 2072) != 1 || strcmp("_kMDItemBundleID", v3))
   {
     v8 = *(v7 + 1192);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 0x40000000;
-    v20 = __si_perform_livequeries_updates_block_invoke_2;
-    v21 = &__block_descriptor_tmp_4907;
-    v22 = v7;
-    v23 = *(a1 + 5);
-    memset(v24, 0, sizeof(v24));
-    v9 = db_copy_field_ids_with_buffer(v8, v3, v24, 8uLL);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 0x40000000;
+    v19 = __si_perform_livequeries_updates_block_invoke_2;
+    v20 = &__block_descriptor_tmp_4907;
+    v21 = v7;
+    v22 = *(a1 + 5);
+    memset(v23, 0, sizeof(v23));
+    v9 = db_copy_field_ids_with_buffer(v8, v3, v23, 8uLL);
     if (v9)
     {
       v10 = v9;
@@ -8598,21 +2968,19 @@ LABEL_5:
         v11 = v9 + 1;
         do
         {
-          (v20)(v19);
+          (v19)(v18);
         }
 
         while (*v11++);
       }
 
-      if (v10 != v24)
+      if (v10 != v23)
       {
         free(v10);
       }
     }
   }
 
-LABEL_18:
-  v17 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
@@ -8644,11 +3012,11 @@ void update_lq_field_info(unsigned int *a1, CFSetRef theSet, __CFArray *a3, void
   }
 }
 
-void si_perform_livequeries_deletions(uint64_t a1)
+void si_perform_livequeries_deletions(__n128 a1)
 {
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v3 = v2;
-  v4 = v1;
+  MEMORY[0x1EEE9AC00](a1);
+  v2 = v1;
+  v4 = v3;
   values[1024] = *MEMORY[0x1E69E9840];
   bzero(values, 0x2000uLL);
   pthread_mutex_lock((v4 + 1712));
@@ -8663,7 +3031,7 @@ void si_perform_livequeries_deletions(uint64_t a1)
   else if (!Count || (v7 = values, CFSetGetValues(*(v4 + 1776), values), v6 < 1))
   {
     pthread_mutex_unlock((v4 + 1712));
-    goto LABEL_30;
+    return;
   }
 
   v8 = 0;
@@ -8675,80 +3043,79 @@ void si_perform_livequeries_deletions(uint64_t a1)
   while (v6 != v8);
   pthread_mutex_unlock((v4 + 1712));
   v9 = 0;
-  v10 = *MEMORY[0x1E695E480];
   do
   {
-    v11 = v7[v9];
-    v12 = v11[5];
+    v10 = v7[v9];
+    v11 = v10[5];
     do
     {
-      v13 = v12;
-      v12 = *(v12 + 80);
+      v12 = v11;
+      v11 = *(v11 + 80);
     }
 
-    while (v12);
-    v14 = *(v13 + 40);
-    if (RLEOIDArrayContainsOid(v14, v3))
+    while (v11);
+    v13 = *(v12 + 40);
+    if (RLEOIDArrayContainsOid(v13, v2))
     {
-      v15 = v11[5];
+      v14 = v10[5];
       do
       {
-        v16 = v15;
-        v15 = *(v15 + 80);
+        v15 = v14;
+        v14 = *(v14 + 80);
       }
 
-      while (v15);
-      v17 = *(v16 + 8);
-      v18 = malloc_type_calloc(1uLL, 0x40uLL, 0x10720403C4CCC75uLL);
+      while (v14);
+      v16 = *(v15 + 8);
+      v17 = malloc_type_calloc(1uLL, 0x40uLL, 0x10720403C4CCC75uLL);
       if (dword_1EBF46AD4 >= 5)
       {
-        v26 = *__error();
-        v22 = _SILogForLogForCategory(2);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = *__error();
+        v21 = _SILogForLogForCategory(2);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C278D000, v22, OS_LOG_TYPE_DEFAULT, "Passing up deletion", buf, 2u);
+          _os_log_impl(&dword_1C278D000, v21, OS_LOG_TYPE_DEFAULT, "Passing up deletion", buf, 2u);
         }
 
-        *__error() = v26;
+        *__error() = v24;
       }
 
-      v18[1] = *(v11[5] + 48);
-      *(v18 + 1) = si_querypipe_copy_jobid(v11[5]);
-      *(v18 + 5) = 0;
-      *v18 = 7;
-      v19 = malloc_type_malloc(0x10uLL, 0x100004000313F17uLL);
-      RLEOIDArrayRemoveOid(v14, v3);
-      *v19 = 0;
-      v20 = v11[5];
+      v17[1] = *(v10[5] + 48);
+      *(v17 + 1) = si_querypipe_copy_jobid(v10[5]);
+      *(v17 + 5) = 0;
+      *v17 = 7;
+      v18 = malloc_type_malloc(0x10uLL, 0x100004000313F17uLL);
+      RLEOIDArrayRemoveOid(v13, v2);
+      *v18 = 0;
+      v19 = v10[5];
       do
       {
-        v21 = v20;
-        v20 = *(v20 + 80);
+        v20 = v19;
+        v19 = *(v19 + 80);
       }
 
-      while (v20);
-      *v19 = (*(*(v21 + 8) + 80) << 32) | 0xDE10001;
-      v19[1] = v3;
-      *(v18 + 4) = _MDStoreOIDArrayCreateMutableWithOids();
+      while (v19);
+      *v18 = (*(*(v20 + 8) + 80) << 32) | 0xDE10001;
+      v18[1] = v2;
+      *(v17 + 4) = _MDStoreOIDArrayCreateMutableWithOids();
       _MDStoreOIDArraySetShouldUseMalloc();
-      *(v18 + 14) = 3;
-      if (!si_resultqueue_enqueue(v17, v18))
+      *(v17 + 14) = 3;
+      if (!si_resultqueue_enqueue(v16, v17))
       {
         if (dword_1EBF46AD4 >= 5)
         {
-          v23 = *__error();
-          v24 = _SILogForLogForCategory(2);
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v22 = *__error();
+          v23 = _SILogForLogForCategory(2);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C278D000, v24, OS_LOG_TYPE_DEFAULT, "Attempt to append to queue failed. Releasing result batch", buf, 2u);
+            _os_log_impl(&dword_1C278D000, v23, OS_LOG_TYPE_DEFAULT, "Attempt to append to queue failed. Releasing result batch", buf, 2u);
           }
 
-          *__error() = v23;
+          *__error() = v22;
         }
 
-        SIResultBatchFree(v18);
+        SIResultBatchFree(v17);
       }
     }
 
@@ -8760,12 +3127,9 @@ void si_perform_livequeries_deletions(uint64_t a1)
   {
     free(v7);
   }
-
-LABEL_30:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
-void si_perform_livequeries_reassignments(uint64_t a1)
+void si_perform_livequeries_reassignments(__n128 a1)
 {
   MEMORY[0x1EEE9AC00](a1);
   v2 = v1;
@@ -8859,7 +3223,7 @@ LABEL_10:
       v20 = *(v19 + 40);
       if (!RLEOIDArrayContainsOid(v20, v5))
       {
-        goto LABEL_99;
+        goto LABEL_97;
       }
 
       v88 = v16;
@@ -8875,15 +3239,15 @@ LABEL_10:
       v23 = malloc_type_calloc(1uLL, 0x40uLL, 0x10720403C4CCC75uLL);
       if (dword_1EBF46AD4 >= 5)
       {
-        v64 = *__error();
-        v65 = _SILogForLogForCategory(2);
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+        v65 = *__error();
+        v66 = _SILogForLogForCategory(2);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C278D000, v65, OS_LOG_TYPE_DEFAULT, "Passing up deletion", buf, 2u);
+          _os_log_impl(&dword_1C278D000, v66, OS_LOG_TYPE_DEFAULT, "Passing up deletion", buf, 2u);
         }
 
-        *__error() = v64;
+        *__error() = v65;
         v9 = v75;
       }
 
@@ -8909,78 +3273,73 @@ LABEL_10:
       *(v23 + 14) = 3;
       v27 = v89;
       pthread_mutex_lock((*v89 + 8));
-      ++v89[21];
+      ++*(v89 + 21);
       pthread_mutex_unlock((*v89 + 8));
       if (!si_resultqueue_enqueue(v89, v23))
       {
         if (dword_1EBF46AD4 >= 5)
         {
-          v70 = *__error();
-          v71 = _SILogForLogForCategory(2);
-          if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+          v71 = *__error();
+          v72 = _SILogForLogForCategory(2);
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C278D000, v71, OS_LOG_TYPE_DEFAULT, "Attempt to append to queue failed. Releasing result batch", buf, 2u);
+            _os_log_impl(&dword_1C278D000, v72, OS_LOG_TYPE_DEFAULT, "Attempt to append to queue failed. Releasing result batch", buf, 2u);
           }
 
-          *__error() = v70;
+          *__error() = v71;
           v9 = v75;
         }
 
         SIResultBatchFree(v23);
       }
 
-      v28 = v17[1];
-      v29 = *(v28 + 576);
-      if (!v29)
+      v29 = v17[1];
+      v30 = *(v29 + 576);
+      if (!v30)
       {
         goto LABEL_32;
       }
 
-      pthread_rwlock_wrlock((v29 + 16));
-      if (RLEOIDArrayContainsOid(v29, v5))
+      pthread_rwlock_wrlock((v30 + 16));
+      if (RLEOIDArrayContainsOid(v30, v5))
       {
         break;
       }
 
-      pthread_rwlock_unlock((v29 + 16));
+      pthread_rwlock_unlock((v30 + 16));
       v16 = v88;
-LABEL_98:
+LABEL_96:
       si_resultqueue_start(v27);
-LABEL_99:
+LABEL_97:
       si_livequery_release(v10[v16++]);
       if (v16 == v9)
       {
-        goto LABEL_110;
+        goto LABEL_108;
       }
     }
 
-    RLEOIDArrayRemoveOid(v29, v5);
-    pthread_rwlock_wrlock((v29 + 16));
-    SIValueSet<unsigned long long>::SIValueSetInsert((v29 + 216), v76);
-    pthread_rwlock_unlock((v29 + 16));
-    pthread_rwlock_unlock((v29 + 16));
-    v28 = v17[1];
+    RLEOIDArrayRemoveOid(v30, v5);
+    pthread_rwlock_wrlock((v30 + 16));
+    SIValueSet<unsigned long long>::SIValueSetInsert((v30 + 216), v76);
+    pthread_rwlock_unlock((v30 + 16));
+    pthread_rwlock_unlock((v30 + 16));
+    v29 = v17[1];
 LABEL_32:
-    v30 = v17[5];
-    v31 = *(v28 + 144);
+    v31 = v17[5];
+    v32 = *(v29 + 144);
     *buf = MEMORY[0x1E69E9820];
     v106 = 0x40000000;
     v107 = __query_once_block_invoke;
     v108 = &__block_descriptor_tmp_518;
-    v109 = v28;
-    if (v31 != -1)
+    v109 = v29;
+    if (v32 != -1)
     {
-      dispatch_once((v28 + 144), buf);
+      dispatch_once((v29 + 144), buf);
     }
 
-    if (!*(v28 + 104))
-    {
-      v32 = *(v28 + 72);
-    }
-
-    v90 = v30;
-    v33 = *(v30 + 88);
+    v90 = v31;
+    v33 = *(v31 + 88);
     v123 = 0;
     v118 = v7;
     v119 = 0;
@@ -9003,14 +3362,14 @@ LABEL_32:
       v34 = 0;
     }
 
-    v82 = *(v28 + 256);
-    v83 = *(v28 + 248);
-    v35 = *(v28 + 60) ^ 1;
-    v86 = v28;
-    v36 = *(v28 + 61);
+    v82 = *(v29 + 256);
+    v83 = *(v29 + 248);
+    v35 = *(v29 + 60) ^ 1;
+    v86 = v29;
+    v36 = *(v29 + 61);
     if ((v35 & 1) == 0)
     {
-      db_eval_obj_with_options(*(v7 + 1192));
+      db_eval_obj_with_options(v28);
     }
 
     Mutable = CFDictionaryCreateMutable(allocator, 0, 0, MEMORY[0x1E695E9E8]);
@@ -9024,16 +3383,16 @@ LABEL_32:
       if (v110)
       {
         PartialQueryResults::attributeVector(buf);
-        v48 = v110;
+        v49 = v110;
       }
 
       else
       {
-        v48 = 0;
+        v49 = 0;
       }
 
       v10 = v79;
-      collectAttributesFromDBO(v7, v2, v48, buf, v34);
+      collectAttributesFromDBO(v7, v2, v49, buf, v34);
       si_querypipe_addcoalescedresults(v90, buf, *(v7 + 1192), 1);
       v16 = v88;
     }
@@ -9052,15 +3411,16 @@ LABEL_32:
       v104 = 0;
       v77 = v42;
       LOBYTE(v43) = 1;
+      v44 = 0uLL;
       *&cf[1] = 0u;
       if (v42)
       {
-        v44 = 2;
+        v45 = 2;
       }
 
       else
       {
-        v44 = 1;
+        v45 = 1;
       }
 
       v101 = 0;
@@ -9079,12 +3439,12 @@ LABEL_32:
       v96 = &unk_1F42826A0;
       v101 = v2;
       LODWORD(v97) = 4;
-      v78 = v44;
+      v78 = v45;
       if (v36)
       {
-        v45 = 0;
         v46 = 0;
-        v47 = -1;
+        v47 = 0;
+        v48 = -1;
       }
 
       else
@@ -9092,106 +3452,106 @@ LABEL_32:
         v92 = *(v86 + 288);
         if (v92 < 1)
         {
-          v45 = 0;
           v46 = 0;
+          v47 = 0;
         }
 
         else
         {
-          v49 = 0;
-          v45 = 0;
-          v46 = 0;
           v50 = 0;
+          v46 = 0;
+          v47 = 0;
+          v51 = 0;
           v91 = *(v86 + 264);
           do
           {
-            v51 = (v91 + 24 * v49);
-            v52 = v51[1];
-            if (v52 < 1)
+            v52 = (v91 + 24 * v50);
+            v53 = v52[1];
+            if (v53 < 1)
             {
-              v54 = 0;
               v55 = 0;
+              v56 = 0;
             }
 
             else
             {
-              v53 = 0;
               v54 = 0;
               v55 = 0;
+              v56 = 0;
               do
               {
-                if (*(*v51 + 8 * v53))
+                if (*(*v52 + 8 * v54))
                 {
-                  v56 = db_eval_obj_with_options(*(v93 + 1192)) != 0;
-                  v57 = __CFADD__(v54, v56);
-                  v54 += v56;
-                  if (v57)
+                  v57 = db_eval_obj_with_options(v44) != 0;
+                  v58 = __CFADD__(v55, v57);
+                  v55 += v57;
+                  if (v58)
                   {
-                    ++v55;
+                    ++v56;
                   }
                 }
 
-                ++v53;
-                v52 = v51[1];
+                ++v54;
+                v53 = v52[1];
               }
 
-              while (v52 > v53);
+              while (v53 > v54);
             }
 
-            v58 = (v55 << v50) | (v54 >> 1 >> ~v50);
-            if ((v50 & 0x40) != 0)
+            v59 = (v56 << v51) | (v55 >> 1 >> ~v51);
+            if ((v51 & 0x40) != 0)
             {
-              v58 = v54 << v50;
-              v59 = 0;
+              v59 = v55 << v51;
+              v60 = 0;
             }
 
             else
             {
-              v59 = v54 << v50;
+              v60 = v55 << v51;
             }
 
-            v46 |= v58;
-            v45 |= v59;
-            v50 += v52;
-            ++v49;
+            v47 |= v59;
+            v46 |= v60;
+            v51 += v53;
+            ++v50;
           }
 
-          while (v92 > v49);
+          while (v92 > v50);
         }
 
         v39 = v86;
-        v47 = *(v86 + 360);
+        v48 = *(v86 + 360);
         v5 = v73;
         v2 = v74;
         v27 = v89;
       }
 
-      v60 = v90;
+      v61 = v90;
       v10 = v79;
       do
       {
-        v61 = v60;
-        v60 = *(v60 + 80);
+        v62 = v61;
+        v61 = *(v61 + 80);
       }
 
-      while (v60);
+      while (v61);
       if (v77)
       {
-        v62 = 3213;
+        v63 = 3213;
       }
 
       else
       {
-        v62 = 2781;
+        v63 = 2781;
       }
 
-      v63 = PartialQueryResults::start(buf, *(*(v61 + 8) + 80), v62, 2uLL, 0);
+      v64 = PartialQueryResults::start(buf, *(*(v62 + 8) + 80), v63, 2uLL, 0);
       LODWORD(v97) = v97 | 8;
-      *v128 = v45;
-      *&v128[8] = v46;
+      *v128 = v46;
+      *&v128[8] = v47;
       *&v128[16] = 0u;
       v129 = 0u;
-      v130 = v47;
+      v130 = v48;
       v131 = 0;
       v133 = 0;
       v132 = 0;
@@ -9199,7 +3559,7 @@ LABEL_32:
       memset(v94, 0, sizeof(v94));
       v95 = 0;
       v7 = v93;
-      writeDBOToPlistBytes(v93, v63, buf, v34, &v96, v84, v83, v82, 0, v128, 0, 0, v94, 0, 0, 0, v39, 0);
+      writeDBOToPlistBytes(v93, v64, buf, v34, &v96, v84, v83, v82, 0, v128, 0, 0, v94, 0, 0, 0, v39, 0);
       if (v112)
       {
         _MDPlistBytesEndArray();
@@ -9223,20 +3583,20 @@ LABEL_32:
       si_querypipe_addresults(v90, buf, v78, 0, v39);
       if (dword_1EBF46AD4 >= 5)
       {
-        v66 = *__error();
-        v67 = _SILogForLogForCategory(2);
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+        v67 = *__error();
+        v68 = _SILogForLogForCategory(2);
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
         {
-          v68 = *v2;
-          v69 = *(v39 + 8);
+          v69 = *v2;
+          v70 = *(v39 + 8);
           *v128 = 134218242;
-          *&v128[4] = v68;
+          *&v128[4] = v69;
           *&v128[12] = 2112;
-          *&v128[14] = v69;
-          _os_log_impl(&dword_1C278D000, v67, OS_LOG_TYPE_DEFAULT, "True live query: (%lld) %@", v128, 0x16u);
+          *&v128[14] = v70;
+          _os_log_impl(&dword_1C278D000, v68, OS_LOG_TYPE_DEFAULT, "True live query: (%lld) %@", v128, 0x16u);
         }
 
-        *__error() = v66;
+        *__error() = v67;
         v16 = v88;
       }
 
@@ -9279,16 +3639,14 @@ LABEL_32:
       (*(*v123 + 8))(v123);
     }
 
-    goto LABEL_98;
+    goto LABEL_96;
   }
 
-LABEL_110:
+LABEL_108:
   if (v10 != v127)
   {
     free(v10);
   }
-
-  v72 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t si_remove_livequery(uint64_t a1, const void *a2)
@@ -9309,60 +3667,58 @@ uint64_t si_dump_livequeries(uint64_t a1)
     Count = CFSetGetCount(v2);
     if (Count)
     {
-      v4 = Count;
+      v5 = Count;
       v19[1] = v19;
-      MEMORY[0x1EEE9AC00](Count);
-      v6 = v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v6, v5);
-      CFSetGetValues(*(a1 + 1776), v6);
-      if (v4 >= 1)
+      MEMORY[0x1EEE9AC00](v4);
+      v7 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+      bzero(v7, v6);
+      CFSetGetValues(*(a1 + 1776), v7);
+      if (v5 >= 1)
       {
-        v8 = 0;
-        *&v7 = 67110914;
-        v20 = v7;
+        v9 = 0;
+        *&v8 = 67110914;
+        v20 = v8;
         do
         {
-          v9 = *&v6[8 * v8];
-          v10 = *__error();
-          v11 = _SILogForLogForCategory(2);
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v10 = *&v7[8 * v9];
+          v11 = *__error();
+          v12 = _SILogForLogForCategory(2);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v12 = *(a1 + 32);
-            v13 = atomic_load(v9);
-            v14 = *(v9 + 40);
-            v15 = *(v9 + 8);
-            v16 = *(v15 + 8);
+            v13 = *(a1 + 32);
+            v14 = atomic_load(v10);
+            v15 = *(v10 + 40);
+            v16 = *(v10 + 8);
+            v17 = *(v16 + 8);
             *buf = v20;
-            v22 = v12;
+            v22 = v13;
             v23 = 1024;
-            v24 = v8;
+            v24 = v9;
             v25 = 1024;
-            v26 = v4;
+            v26 = v5;
             v27 = 2048;
-            v28 = v9;
+            v28 = v10;
             v29 = 1024;
-            v30 = v13;
+            v30 = v14;
             v31 = 2048;
-            v32 = v14;
+            v32 = v15;
             v33 = 2048;
-            v34 = v15;
+            v34 = v16;
             v35 = 2112;
-            v36 = v16;
-            _os_log_impl(&dword_1C278D000, v11, OS_LOG_TYPE_DEFAULT, "### indexFd: %d live_query[%d,%d]: %p rc: %d pipe: %p q: %p %@", buf, 0x42u);
+            v36 = v17;
+            _os_log_impl(&dword_1C278D000, v12, OS_LOG_TYPE_DEFAULT, "### indexFd: %d live_query[%d,%d]: %p rc: %d pipe: %p q: %p %@", buf, 0x42u);
           }
 
-          *__error() = v10;
-          ++v8;
+          *__error() = v11;
+          ++v9;
         }
 
-        while (v4 != v8);
+        while (v5 != v9);
       }
     }
   }
 
-  result = pthread_mutex_unlock((a1 + 1712));
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return pthread_mutex_unlock((a1 + 1712));
 }
 
 uint64_t siquerynode_compare(uint64_t a1, uint64_t a2)
@@ -9683,7 +4039,7 @@ void __initCharSets_block_invoke()
   CFRelease(v2);
 }
 
-uint64_t rewriteForFSPostCheckInPlace(uint64_t a1)
+uint64_t rewriteForFSPostCheckInPlace(uint64_t *a1)
 {
   v2 = *a1;
   v3 = *(*a1 + 16);
@@ -9775,7 +4131,7 @@ LABEL_14:
   }
 
   v15 = v8[1];
-  v14 = (v8 + 1);
+  v14 = v8 + 1;
   if (v15)
   {
     v4 = rewriteForFSPostCheckInPlace(v14);
@@ -9792,7 +4148,7 @@ LABEL_14:
   }
 }
 
-uint64_t keycompare_4999(uint64_t a1, int a2, uint64_t *a3, int a4, uint64_t *a5)
+uint64_t keycompare_4999(uint64_t a1, int a2, const char *a3, int a4, const char *a5)
 {
   v5 = *a3;
   v6 = *a5;
@@ -9854,13 +4210,13 @@ uint64_t keycompare_4999(uint64_t a1, int a2, uint64_t *a3, int a4, uint64_t *a5
   }
 }
 
-void release_persistent_id_64_store(uint64_t a1)
+void release_persistent_id_64_store(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 32);
-  if (*(a1 + 32) > 0x7FFFFFFFFFFFFFFEuLL)
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = a1 + 4;
+  if (a1[4] > 0x7FFFFFFFFFFFFFFEuLL)
   {
-    if (!_sqlite_insert(a1, &master_fid_rec_4983, master_fid_rec_size_4985, (a1 + 32), 8, 0))
+    if (!_sqlite_insert(a1, &master_fid_rec_4983, master_fid_rec_size_4985, a1 + 32, 8, 0))
     {
       goto LABEL_7;
     }
@@ -9869,13 +4225,13 @@ void release_persistent_id_64_store(uint64_t a1)
     v4 = _SILogForLogForCategory(4);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = *v2;
-      v10 = 136315650;
-      v11 = "release_persistent_id_64_store";
-      v12 = 1024;
-      v13 = 298;
-      v14 = 2048;
-      v15 = v9;
+      v12 = *v2;
+      v13 = 136315650;
+      v14 = "release_persistent_id_64_store";
+      v15 = 1024;
+      v16 = 298;
+      v17 = 2048;
+      v18 = v12;
       v6 = "%s:%d: psid-release: Failed to update the master fid! (0x%llx)\n";
       goto LABEL_13;
     }
@@ -9888,31 +4244,5883 @@ void release_persistent_id_64_store(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *v2;
-      v10 = 136315650;
-      v11 = "release_persistent_id_64_store";
-      v12 = 1024;
-      v13 = 285;
-      v14 = 2048;
-      v15 = v5;
+      v13 = 136315650;
+      v14 = "release_persistent_id_64_store";
+      v15 = 1024;
+      v16 = 285;
+      v17 = 2048;
+      v18 = v5;
       v6 = "%s:%d: release_psid_64_store: danger! master_fid %lld looks bad.\n";
 LABEL_13:
-      _os_log_error_impl(&dword_1C278D000, v4, OS_LOG_TYPE_ERROR, v6, &v10, 0x1Cu);
+      _os_log_error_impl(&dword_1C278D000, v4, OS_LOG_TYPE_ERROR, v6, &v13, 0x1Cu);
     }
   }
 
   *__error() = v3;
 LABEL_7:
-  v7 = *(a1 + 16);
-  if (v7)
+  v11 = a1[2];
+  if (v11)
   {
-    sqlite3BtreeCloseCursor(v7);
+    sqlite3BtreeCloseCursor(v11);
   }
 
   if (*a1)
   {
-    sqlite3BtreeClose(*a1);
+    sqlite3BtreeClose(*a1, v7, v8, v9, v10);
   }
 
   free(a1);
-  v8 = *MEMORY[0x1E69E9840];
+}
+
+uint64_t get_id_for_path_64(uint64_t *a1, const char *a2, uint64_t *a3, void *a4, char a5, uint64_t a6)
+{
+  v28[34] = *MEMORY[0x1E69E9840];
+  v27 = 0;
+  memset(&v28[1], 0, 264);
+  v28[0] = 2;
+  *a3 = 0;
+  if (a4)
+  {
+    *a4 = 2;
+  }
+
+  v12 = *a2;
+  if (*a2)
+  {
+    v26 = a6 + 16;
+    v13 = 2;
+    v14 = a2;
+    do
+    {
+      while (v12 == 47)
+      {
+        v15 = *++v14;
+        v12 = v15;
+      }
+
+      v16 = v14;
+      if (!v12)
+      {
+        break;
+      }
+
+      do
+      {
+        if (v12 == 47)
+        {
+          break;
+        }
+
+        v17 = *++v16;
+        v12 = v17;
+      }
+
+      while (v17);
+      v18 = v16 - v14;
+      if (((v16 - v14) & 0xFF00) != 0)
+      {
+        v18 = 255;
+      }
+
+      WORD2(v28[1]) = v18;
+      __strncpy_chk();
+      v19 = WORD2(v28[1]);
+      ++WORD2(v28[1]);
+      *(&v28[1] + v19 + 6) = 0;
+      LODWORD(v28[1]) = 0;
+      if (*v16 == 47)
+      {
+        v14 = v16 + 1;
+      }
+
+      else
+      {
+        v14 = v16;
+      }
+
+      if (psid_lookup_5012(a1, v28, &v27))
+      {
+        if ((a5 & 1) == 0)
+        {
+          return 2;
+        }
+
+        if (a6)
+        {
+          v24 = &v24;
+          v25 = a1;
+          MEMORY[0x1EEE9AC00](v20);
+          v22 = &v24 - v21;
+          bzero(&v24 - v21, v14 - a2 + 1);
+          strncat(v22, a2, v14 - a2);
+          v22[v14 - a2] = 0;
+          a1 = v25;
+          v27 = (*(a6 + 16))(a6, v22);
+          result = psid_insert_with_id(a1, v28, &v27);
+          if (result)
+          {
+            return result;
+          }
+        }
+
+        else
+        {
+          result = psid_insert(a1, v28, &v27);
+          if (result)
+          {
+            return result;
+          }
+        }
+      }
+
+      if (a4)
+      {
+        *a4 = v28[0];
+      }
+
+      v13 = v27;
+      v28[0] = v27;
+      v12 = *v14;
+    }
+
+    while (*v14);
+  }
+
+  else
+  {
+    v13 = 2;
+  }
+
+  result = 0;
+  *a3 = v13;
+  return result;
+}
+
+uint64_t psid_lookup_5012(uint64_t a1, uint64_t a2, void *a3)
+{
+  v4 = *(a2 + 12);
+  v6 = 8;
+  v7 = 0;
+  result = _sqlite_get_psid(a1, a2, v4 + 16, &v7, &v6);
+  if (result)
+  {
+    return 2;
+  }
+
+  *a3 = v7;
+  return result;
+}
+
+uint64_t psid_insert_with_id(uint64_t *a1, uint64_t a2, const char **a3)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (*a3 > 1)
+  {
+
+    return _psid_insert_5014(a1, a2, a3);
+  }
+
+  else
+  {
+    v4 = *__error();
+    v5 = _SILogForLogForCategory(4);
+    v6 = 2 * (dword_1EBF46ADC < 4);
+    if (os_log_type_enabled(v5, v6))
+    {
+      v7 = *a3;
+      v9 = 134217984;
+      v10 = v7;
+      _os_log_impl(&dword_1C278D000, v5, v6, "psid_insert_with_id: fid %lld not valid!\n", &v9, 0xCu);
+    }
+
+    *__error() = v4;
+    return 22;
+  }
+}
+
+uint64_t psid_insert(uint64_t *a1, uint64_t a2, const char **a3)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = a1[4];
+  if (v4 > 1)
+  {
+    *a3 = v4;
+    ++a1[4];
+
+    return _psid_insert_5014(a1, a2, a3);
+  }
+
+  else
+  {
+    v5 = *__error();
+    v6 = _SILogForLogForCategory(4);
+    v7 = 2 * (dword_1EBF46ADC < 4);
+    if (os_log_type_enabled(v6, v7))
+    {
+      v8 = a1[4];
+      v10 = 134217984;
+      v11 = v8;
+      _os_log_impl(&dword_1C278D000, v6, v7, "psid_insert: master fid corrupted (%lld)\n", &v10, 0xCu);
+    }
+
+    *__error() = v5;
+    return 22;
+  }
+}
+
+uint64_t _psid_insert_5014(uint64_t *a1, uint64_t a2, const char **a3)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  if (_sqlite_bulkBegin(a1))
+  {
+    return 22;
+  }
+
+  v7 = *(a2 + 12);
+  if (_sqlite_insert(a1, a2, v7 + 16, a3, 8, 1))
+  {
+    v8 = *__error();
+    v9 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = a1[4];
+      *buf = 136315906;
+      v25 = "_psid_insert_locked";
+      v26 = 1024;
+      *v27 = 413;
+      *&v27[4] = 2048;
+      *&v27[6] = v10;
+      v28 = 2080;
+      v29 = a2 + 14;
+      v11 = "%s:%d: psid-insert: failed to store fid 0x%llx for path %s\n";
+LABEL_21:
+      _os_log_error_impl(&dword_1C278D000, v9, OS_LOG_TYPE_ERROR, v11, buf, 0x26u);
+      goto LABEL_9;
+    }
+
+    goto LABEL_9;
+  }
+
+  v12 = 0x1EBF46000uLL;
+  if (dword_1EBF46ADC >= 5)
+  {
+    v23 = v7;
+    v18 = *__error();
+    v19 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = *a3;
+      *buf = 134218242;
+      v25 = v20;
+      v26 = 2080;
+      *v27 = a2 + 14;
+      _os_log_impl(&dword_1C278D000, v19, OS_LOG_TYPE_DEFAULT, "psid-insert: fid 0x%llx for path %s\n", buf, 0x16u);
+    }
+
+    *__error() = v18;
+    v7 = v23;
+    v12 = 0x1EBF46000;
+  }
+
+  if (_sqlite_insert(a1, a3, 8uLL, a2, v7 + 16, 1))
+  {
+    v8 = *__error();
+    v9 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v17 = a1[4];
+      *buf = 136315906;
+      v25 = "_psid_insert_locked";
+      v26 = 1024;
+      *v27 = 419;
+      *&v27[4] = 2080;
+      *&v27[6] = a2 + 14;
+      v28 = 2048;
+      v29 = v17;
+      v11 = "%s:%d: psid-insert: failed to store path %s for fid 0x%llx\n";
+      goto LABEL_21;
+    }
+
+LABEL_9:
+    v14 = 22;
+    goto LABEL_10;
+  }
+
+  if (*(v12 + 2780) < 5)
+  {
+    v14 = 0;
+    goto LABEL_11;
+  }
+
+  v8 = *__error();
+  v21 = _SILogForLogForCategory(4);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = a1[4];
+    *buf = 136315394;
+    v25 = (a2 + 14);
+    v26 = 2048;
+    *v27 = v22;
+    _os_log_impl(&dword_1C278D000, v21, OS_LOG_TYPE_DEFAULT, "psid-insert: store path %s for fid 0x%llx\n", buf, 0x16u);
+  }
+
+  v14 = 0;
+LABEL_10:
+  *__error() = v8;
+LABEL_11:
+  v15 = _sqlite_bulkEnd(a1, v13);
+  if (v14)
+  {
+    v16 = v14;
+  }
+
+  else
+  {
+    v16 = 22;
+  }
+
+  if (v15)
+  {
+    return v16;
+  }
+
+  else
+  {
+    return v14;
+  }
+}
+
+uint64_t get_path_for_id_64(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v29 = a2;
+  v7 = a5;
+  *(a4 + a5 - 1) = 0;
+  if (a2 == 2)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = 1;
+    memset(v33, 0, sizeof(v33));
+    while (1)
+    {
+      v28 = 272;
+      if (_sqlite_get(a1, &v29, 8, v33, &v28))
+      {
+        return 2;
+      }
+
+      v11 = WORD6(v33[0]);
+      if (WORD6(v33[0]) >= a5)
+      {
+        v15 = *__error();
+        v16 = _SILogForLogForCategory(4);
+        v17 = 2 * (dword_1EBF46ADC < 4);
+        if (os_log_type_enabled(v16, v17))
+        {
+          *buf = 67109890;
+          *v31 = WORD6(v33[0]);
+          *&v31[4] = 2048;
+          *&v31[6] = *&v33[0];
+          *&v31[14] = 1024;
+          *&v31[16] = DWORD2(v33[0]);
+          LOWORD(v32[0]) = 2080;
+          *(v32 + 2) = v33 | 0xE;
+          v18 = "get_path_for_id: bogus part len %d (%lld/%d/%s)\n";
+          v19 = v16;
+          v20 = v17;
+          v21 = 34;
+          goto LABEL_21;
+        }
+
+LABEL_22:
+        *__error() = v15;
+        return 22;
+      }
+
+      if (*&v33[0] <= 1uLL)
+      {
+        v12 = *__error();
+        v13 = _SILogForLogForCategory(4);
+        v14 = 2 * (dword_1EBF46ADC < 4);
+        if (os_log_type_enabled(v13, v14))
+        {
+          *buf = 134218498;
+          *v31 = v29;
+          *&v31[8] = 2048;
+          *&v31[10] = *&v33[0];
+          *&v31[18] = 2080;
+          v32[0] = v33 | 0xE;
+          _os_log_impl(&dword_1C278D000, v13, v14, "get_path_for_id: bogus looking part fid (cur fid %lld, part fid %lld name %s)\n", buf, 0x20u);
+        }
+
+        *__error() = v12;
+        v11 = WORD6(v33[0]);
+      }
+
+      if (v8 + v11 + 1 >= a5)
+      {
+        *(a4 + v8) = 0;
+        v15 = *__error();
+        v22 = _SILogForLogForCategory(4);
+        v23 = 2 * (dword_1EBF46ADC < 4);
+        if (os_log_type_enabled(v22, v23))
+        {
+          *buf = 67109634;
+          *v31 = v8;
+          *&v31[4] = 1024;
+          *&v31[6] = WORD6(v33[0]);
+          *&v31[10] = 2080;
+          *&v31[12] = a4;
+          v18 = "get_path_for_id: path index too large! (%d %d : %s)\n";
+          v19 = v22;
+          v20 = v23;
+          v21 = 24;
+LABEL_21:
+          _os_log_impl(&dword_1C278D000, v19, v20, v18, buf, v21);
+        }
+
+        goto LABEL_22;
+      }
+
+      strncpy((a4 + 1 + a5 - (v8 + v11)), (v33 | 0xE), v11 - 1);
+      v8 += v11;
+      *(a4 + v7 - v8) = 47;
+      if (v29 == 2 && *&v33[0] != 2)
+      {
+        break;
+      }
+
+      v29 = *&v33[0];
+      if (*&v33[0] == 2)
+      {
+        goto LABEL_3;
+      }
+    }
+
+    v24 = *__error();
+    v25 = _SILogForLogForCategory(4);
+    v26 = 2 * (dword_1EBF46ADC < 4);
+    if (os_log_type_enabled(v25, v26))
+    {
+      *buf = 134218240;
+      *v31 = v29;
+      *&v31[8] = 2048;
+      *&v31[10] = *&v33[0];
+      _os_log_impl(&dword_1C278D000, v25, v26, "get_path_for_id: cur fid %lld should have parent fid 2 but part->fid == %lld\n", buf, 0x16u);
+    }
+
+    *__error() = v24;
+  }
+
+LABEL_3:
+  result = 0;
+  *a3 = a4 + v7 - v8;
+  return result;
+}
+
+uint64_t set_id_for_path_64(__n128 a1)
+{
+  MEMORY[0x1EEE9AC00](a1);
+  v94 = *MEMORY[0x1E69E9840];
+  v81 = v4;
+  *(&v5 + 1) = 0;
+  memset(&v91[1], 0, 264);
+  v91[0] = 2;
+  v6 = *v2;
+  if (!*v2)
+  {
+    return v6;
+  }
+
+  v7 = v3;
+  v8 = v2;
+  v9 = v1;
+  v79 = &v91[1] + 6;
+  v80 = 0;
+  v78 = v3 + 16;
+  v75 = v85 + 14;
+  *&v5 = 134218242;
+  v72 = v5;
+  *&v5 = 136315394;
+  v71 = v5;
+  *&v5 = 136315650;
+  v76 = v5;
+  *&v5 = 134218498;
+  v74 = v5;
+  *&v5 = 134217984;
+  v73 = v5;
+  *&v5 = 67109376;
+  v77 = v5;
+  v10 = v2;
+  while (1)
+  {
+    while (v6 == 47)
+    {
+      v20 = *++v10;
+      v6 = v20;
+    }
+
+    v11 = v10;
+    if (!v6)
+    {
+      return v6;
+    }
+
+    do
+    {
+      if (v6 == 47)
+      {
+        break;
+      }
+
+      v12 = *++v11;
+      LODWORD(v6) = v12;
+    }
+
+    while (v12);
+    v13 = v11 - v10;
+    if (((v11 - v10) & 0xFF00) != 0)
+    {
+      v13 = 255;
+    }
+
+    WORD2(v91[1]) = v13;
+    v14 = v79;
+    __strncpy_chk();
+    v15 = WORD2(v91[1]);
+    ++WORD2(v91[1]);
+    v14[v15] = 0;
+    LODWORD(v91[1]) = 0;
+    v10 = *v11 == 47 ? v11 + 1 : v11;
+    if (psid_lookup_5012(v9, v91, &v80))
+    {
+      break;
+    }
+
+    if (*v10)
+    {
+      goto LABEL_83;
+    }
+
+    if (v80 == v81)
+    {
+      if (dword_1EBF46AE4 < 5)
+      {
+        goto LABEL_83;
+      }
+
+      v21 = *__error();
+      v22 = _SILogForLogForCategory(6);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        v86 = v72;
+        v87 = v81;
+        v88 = 2080;
+        v89 = v8;
+        v23 = &v86;
+        v24 = v22;
+        v25 = "Existing path for %lld at %s matches. Re-parent not needed.";
+        v26 = 22;
+        goto LABEL_99;
+      }
+
+      goto LABEL_100;
+    }
+
+    if (dword_1EBF46AE4 >= 5)
+    {
+      v59 = *__error();
+      v60 = _SILogForLogForCategory(6);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      {
+        v86 = v72;
+        v87 = v81;
+        v88 = 2080;
+        v89 = v8;
+        _os_log_impl(&dword_1C278D000, v60, OS_LOG_TYPE_DEFAULT, "Existing path for %lld at %s. Re-parent.", &v86, 0x16u);
+      }
+
+      *__error() = v59;
+    }
+
+    memcpy(v90, v91, sizeof(v90));
+    v90[0] = 2;
+    strncpy(&v90[1] + 6, "SP_TMP_MOVE", 0x100uLL);
+    WORD2(v90[1]) = strlen(&v90[1] + 6);
+    if (!psid_insert_with_id(v9, v90, &v81))
+    {
+      v70 = v8;
+      bzero(&v86, 0x2000uLL);
+      while (1)
+      {
+        _sqlite_bulkBegin(v9);
+        v84 = v80;
+        v82 = 0;
+        if (!v80)
+        {
+          goto LABEL_80;
+        }
+
+        v83 = 0;
+        memset(v85, 0, 272);
+        v28 = sqlite3BtreeMoveto(v9[2], &v84, 8, &v82);
+        if (v28 | v82)
+        {
+          v49 = v28;
+          v50 = *__error();
+          v51 = _SILogForLogForCategory(4);
+          v52 = 2 * (dword_1EBF46ADC < 4);
+          if (os_log_type_enabled(v51, v52))
+          {
+            *buf = v77;
+            *v93 = v49;
+            *&v93[4] = 2048;
+            *&v93[6] = v84;
+            _os_log_impl(&dword_1C278D000, v51, v52, "psid_iterate: sqlite3BtreeMoveto failed; rc = %d for for dir_id %lld\n", buf, 0x12u);
+          }
+
+          *__error() = v50;
+LABEL_80:
+          _sqlite_bulkEnd(v9, v27);
+          goto LABEL_81;
+        }
+
+        v29 = 0;
+        while (1)
+        {
+          v30 = v9[2];
+          if (!*(v30 + 97))
+          {
+            break;
+          }
+
+          getCellInfo(v9[2]);
+          v31 = *(v30 + 72);
+          v30 = v9[2];
+          if (v31 != 8)
+          {
+            goto LABEL_45;
+          }
+
+          if (getPayload(v9[2], 8, &v83, 0))
+          {
+            goto LABEL_65;
+          }
+
+          v32 = v83;
+          if (v84)
+          {
+            if (v84 != v83)
+            {
+              goto LABEL_65;
+            }
+          }
+
+          if (dword_1EBF46ADC >= 5)
+          {
+            v33 = *__error();
+            v34 = _SILogForLogForCategory(4);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = v73;
+              *v93 = v32;
+              _os_log_impl(&dword_1C278D000, v34, OS_LOG_TYPE_DEFAULT, "key: %lld # ", buf, 0xCu);
+            }
+
+            *__error() = v33;
+          }
+
+LABEL_48:
+          v35 = v9[2];
+          if (!*(v35 + 97))
+          {
+            v36 = 0;
+LABEL_55:
+            if (getPayload(v35, v36, v85, 1))
+            {
+              goto LABEL_65;
+            }
+
+            if (dword_1EBF46ADC >= 5)
+            {
+              v38 = *__error();
+              v39 = _SILogForLogForCategory(4);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = v74;
+                *v93 = *&v85[0];
+                *&v93[8] = 1024;
+                *&v93[10] = DWORD2(v85[0]);
+                *&v93[14] = 2080;
+                *&v93[16] = v75;
+                _os_log_impl(&dword_1C278D000, v39, OS_LOG_TYPE_DEFAULT, "value: %lld / %d / %s\n", buf, 0x1Cu);
+              }
+
+              *__error() = v38;
+            }
+
+            goto LABEL_57;
+          }
+
+          getCellInfo(v9[2]);
+          v36 = *(v35 + 80);
+          v35 = v9[2];
+          if (v36 != 8)
+          {
+            goto LABEL_55;
+          }
+
+          if (getPayload(v9[2], 8, &v83, 1))
+          {
+            goto LABEL_65;
+          }
+
+          if (dword_1EBF46ADC >= 5)
+          {
+            v40 = *__error();
+            v41 = _SILogForLogForCategory(4);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = v73;
+              *v93 = v83;
+              _os_log_impl(&dword_1C278D000, v41, OS_LOG_TYPE_DEFAULT, "value: %lld\n", buf, 0xCu);
+            }
+
+            *__error() = v40;
+          }
+
+          *(&v86 + v29++) = v83;
+          if (v29 >= 0x401)
+          {
+            v48 = 1;
+            goto LABEL_67;
+          }
+
+LABEL_57:
+          v37 = sqlite3BtreeNext(v9[2], &v82);
+          if (v37 | v82)
+          {
+            goto LABEL_65;
+          }
+        }
+
+        LODWORD(v31) = 0;
+LABEL_45:
+        if (!getPayload(v30, v31, v85, 0) && (!v84 || v84 == *&v85[0]))
+        {
+          goto LABEL_48;
+        }
+
+LABEL_65:
+        if (!v29)
+        {
+          goto LABEL_80;
+        }
+
+        v48 = 0;
+LABEL_67:
+        v42 = &v86;
+        do
+        {
+          bzero(v85, 0x800uLL);
+          v84 = 0;
+          v43 = *v42++;
+          if (!get_path_for_id_64(v9, v43, &v84, v85, 2048))
+          {
+            v45 = v84;
+            v46 = rename_path_64(v9, v84, "/SP_TMP_MOVE", v7);
+            if (dword_1EBF46AE4 >= 5)
+            {
+              v47 = v46;
+              v69 = *__error();
+              v68 = _SILogForLogForCategory(6);
+              if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = v76;
+                *v93 = v45;
+                *&v93[8] = 2080;
+                *&v93[10] = "/SP_TMP_MOVE";
+                *&v93[18] = 1024;
+                *&v93[20] = v47;
+                _os_log_impl(&dword_1C278D000, v68, OS_LOG_TYPE_DEFAULT, "Move %s to %s. (%d)", buf, 0x1Cu);
+              }
+
+              *__error() = v69;
+            }
+          }
+
+          --v29;
+        }
+
+        while (v29);
+        _sqlite_bulkEnd(v9, v44);
+        if ((v48 & 1) == 0)
+        {
+LABEL_81:
+          v8 = v70;
+          v53 = remove_path_64(v9, v70);
+          if (dword_1EBF46AE4 >= 5)
+          {
+            v61 = v53;
+            v62 = *__error();
+            v63 = _SILogForLogForCategory(6);
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+            {
+              LODWORD(v85[0]) = v71;
+              *(v85 + 4) = v8;
+              WORD6(v85[0]) = 1024;
+              *(v85 + 14) = v61;
+              _os_log_impl(&dword_1C278D000, v63, OS_LOG_TYPE_DEFAULT, "Remove %s. (%d)", v85, 0x12u);
+            }
+
+            *__error() = v62;
+          }
+
+          v54 = rename_path_64(v9, "/SP_TMP_MOVE", v8, v7);
+          if (dword_1EBF46AE4 < 5)
+          {
+            break;
+          }
+
+          v64 = v54;
+          v21 = *__error();
+          v65 = _SILogForLogForCategory(6);
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+          {
+            LODWORD(v85[0]) = v76;
+            *(v85 + 4) = "/SP_TMP_MOVE";
+            WORD6(v85[0]) = 2080;
+            *(v85 + 14) = v8;
+            WORD3(v85[1]) = 1024;
+            DWORD2(v85[1]) = v64;
+            v23 = v85;
+            v24 = v65;
+            v25 = "Move %s to %s. (%d)";
+            v26 = 28;
+LABEL_99:
+            _os_log_impl(&dword_1C278D000, v24, OS_LOG_TYPE_DEFAULT, v25, v23, v26);
+          }
+
+LABEL_100:
+          *__error() = v21;
+          break;
+        }
+      }
+    }
+
+LABEL_83:
+    v91[0] = v80;
+    v6 = *v10;
+    if (!*v10)
+    {
+      return v6;
+    }
+  }
+
+  if (!*v10)
+  {
+    if (dword_1EBF46AE4 >= 5)
+    {
+      v55 = *__error();
+      v56 = _SILogForLogForCategory(6);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+      {
+        v86 = v72;
+        v87 = v81;
+        v88 = 2080;
+        v89 = v79;
+        _os_log_impl(&dword_1C278D000, v56, OS_LOG_TYPE_DEFAULT, "%lld -> %s", &v86, 0x16u);
+      }
+
+      *__error() = v55;
+    }
+
+    v19 = psid_insert_with_id(v9, v91, &v81);
+    if (!v19)
+    {
+      v80 = v81;
+      goto LABEL_83;
+    }
+
+    return v19;
+  }
+
+  if (v7)
+  {
+    MEMORY[0x1EEE9AC00](v16);
+    v18 = &v67 - v17;
+    bzero(&v67 - v17, v10 - v8 + 1);
+    strncpy(v18, v8, v10 - v8);
+    v18[v10 - v8] = 0;
+    v80 = (*(v7 + 16))(v7, v18);
+    v19 = psid_insert_with_id(v9, v91, &v80);
+    if (!v19)
+    {
+      goto LABEL_83;
+    }
+
+    return v19;
+  }
+
+  v6 = psid_insert(v9, v91, &v80);
+  if (dword_1EBF46AE4 >= 5)
+  {
+    v57 = *__error();
+    v58 = _SILogForLogForCategory(6);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+    {
+      v86 = v72;
+      v87 = v80;
+      v88 = 2080;
+      v89 = v79;
+      _os_log_impl(&dword_1C278D000, v58, OS_LOG_TYPE_DEFAULT, "%lld -> %s", &v86, 0x16u);
+    }
+
+    *__error() = v57;
+  }
+
+  if (!v6)
+  {
+    goto LABEL_83;
+  }
+
+  return v6;
+}
+
+uint64_t rename_path_64(uint64_t *a1, char *a2, char *a3, uint64_t a4)
+{
+  v42 = *MEMORY[0x1E69E9840];
+  v29 = 0;
+  v30 = 0;
+  remove_path_64(a1, a3);
+  if (get_id_for_path_64(a1, a2, &v30, &v29, 0, 0))
+  {
+    return 2;
+  }
+
+  strncpy(__dst, a3, 0x400uLL);
+  __dst[1023] = 0;
+  v8 = strrchr(__dst, 47);
+  if (v8)
+  {
+    v9 = v8;
+    *v8 = 0;
+  }
+
+  else
+  {
+    v9 = &__dst[-(__dst[0] != 47)];
+  }
+
+  v28 = 0;
+  if (get_id_for_path_64(a1, __dst, &v28, 0, 1, a4))
+  {
+    return 2;
+  }
+
+  v40 = 0u;
+  memset(v39, 0, sizeof(v39));
+  v11 = strncpy((v39 | 0xE), v9 + 1, 0x100uLL);
+  BYTE13(v40) = 0;
+  v12 = strlen(v11);
+  *&v39[0] = v28;
+  WORD6(v39[0]) = v12 + 1;
+  v13 = _sqlite_bulkBegin(a1);
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *__error();
+    v16 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136316418;
+      v32 = "rename_path_64";
+      v33 = 1024;
+      v34 = 981;
+      v35 = 1024;
+      *v36 = v14;
+      *&v36[4] = 2048;
+      *&v36[6] = v30;
+      *&v36[14] = 2048;
+      *&v36[16] = *&v39[0];
+      v37 = 2080;
+      v38 = v39 | 0xE;
+      v17 = "%s:%d: psid-rename: begin error %d updating the file-fid record for fid %lld pid %lld / %s. \n";
+LABEL_28:
+      _os_log_error_impl(&dword_1C278D000, v16, OS_LOG_TYPE_ERROR, v17, buf, 0x36u);
+      goto LABEL_26;
+    }
+
+    goto LABEL_26;
+  }
+
+  if (_sqlite_insert(a1, &v30, 8uLL, v39, v12 + 17, 1))
+  {
+    v18 = *__error();
+    v19 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v32 = "rename_path_64";
+      v33 = 1024;
+      v34 = 989;
+      v35 = 2048;
+      *v36 = v30;
+      _os_log_error_impl(&dword_1C278D000, v19, OS_LOG_TYPE_ERROR, "%s:%d: psid-rename: Could not update the file-fid record for fid %lld\n", buf, 0x1Cu);
+    }
+
+    *__error() = v18;
+  }
+
+  if (_sqlite_insert(a1, v39, v12 + 17, &v30, 8, 1))
+  {
+    v20 = *__error();
+    v21 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315906;
+      v32 = "rename_path_64";
+      v33 = 1024;
+      v34 = 997;
+      v35 = 2048;
+      *v36 = *&v39[0];
+      *&v36[8] = 2080;
+      *&v36[10] = v39 | 0xE;
+      _os_log_error_impl(&dword_1C278D000, v21, OS_LOG_TYPE_ERROR, "%s:%d: psid-rename: failed to insert new record for %lld / %s.\n", buf, 0x26u);
+    }
+
+    *__error() = v20;
+  }
+
+  *&v39[0] = v29;
+  v22 = strrchr(a2, 47);
+  if (v22)
+  {
+    v24 = strncpy((v39 | 0xE), v22 + 1, 0x100uLL);
+    BYTE13(v40) = 0;
+    WORD6(v39[0]) = strlen(v24) + 1;
+    if (_sqlite_delete(a1, v39, WORD6(v39[0]) + 16))
+    {
+      v25 = *__error();
+      v26 = _SILogForLogForCategory(4);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315906;
+        v32 = "rename_path_64";
+        v33 = 1024;
+        v34 = 1019;
+        v35 = 2048;
+        *v36 = *&v39[0];
+        *&v36[8] = 2080;
+        *&v36[10] = v39 | 0xE;
+        _os_log_error_impl(&dword_1C278D000, v26, OS_LOG_TYPE_ERROR, "%s:%d: psid-rename: failed to delete old record for %lld / %s\n", buf, 0x26u);
+      }
+
+      *__error() = v25;
+    }
+  }
+
+  result = _sqlite_bulkEnd(a1, v23);
+  if (result)
+  {
+    v27 = result;
+    v15 = *__error();
+    v16 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136316418;
+      v32 = "rename_path_64";
+      v33 = 1024;
+      v34 = 1025;
+      v35 = 1024;
+      *v36 = v27;
+      *&v36[4] = 2048;
+      *&v36[6] = v30;
+      *&v36[14] = 2048;
+      *&v36[16] = *&v39[0];
+      v37 = 2080;
+      v38 = v39 | 0xE;
+      v17 = "%s:%d: psid-rename: end error %d updating the file-fid record for fid %lld pid %lld / %s. \n";
+      goto LABEL_28;
+    }
+
+LABEL_26:
+    *__error() = v15;
+    return 22;
+  }
+
+  return result;
+}
+
+uint64_t remove_path_64(uint64_t *a1, char *a2)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  if (_sqlite_bulkBegin(a1))
+  {
+    return 22;
+  }
+
+  memset(v20, 0, sizeof(v20));
+  v13 = 0;
+  if (get_id_for_path_64(a1, a2, v20, &v13, 0, 0))
+  {
+    v6 = 2;
+  }
+
+  else
+  {
+    if (_sqlite_delete(a1, v20, 8))
+    {
+      v7 = *__error();
+      v8 = _SILogForLogForCategory(4);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v15 = "remove_path_locked";
+        v16 = 1024;
+        v17 = 813;
+        v18 = 2048;
+        v19 = *&v20[0];
+        _os_log_error_impl(&dword_1C278D000, v8, OS_LOG_TYPE_ERROR, "%s:%d: psid-remove: Could not delete the file-fid record for fid %lld\n", buf, 0x1Cu);
+      }
+
+      *__error() = v7;
+    }
+
+    memset(v20 + 8, 0, 264);
+    *&v20[0] = v13;
+    v9 = strrchr(a2, 47);
+    v10 = a2 - 1;
+    if (v9)
+    {
+      v10 = v9;
+    }
+
+    strncpy((v20 | 0xE), v10 + 1, 0x100uLL);
+    BYTE13(v20[16]) = 0;
+    WORD6(v20[0]) = strlen((v20 | 0xE)) + 1;
+    v6 = 2 * (_sqlite_delete(a1, v20, WORD6(v20[0]) + 16) != 0);
+  }
+
+  v11 = _sqlite_bulkEnd(a1, v5);
+  if (v6)
+  {
+    v12 = v6;
+  }
+
+  else
+  {
+    v12 = 22;
+  }
+
+  if (v11)
+  {
+    return v12;
+  }
+
+  else
+  {
+    return v6;
+  }
+}
+
+uint64_t si_getUserFSBundleID(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (!*(a1 + 1192) || (*(a1 + 2072) & 1) != 0)
+  {
+    return 0;
+  }
+
+  result = 0;
+  if (a4)
+  {
+    if (*(a1 + 1416))
+    {
+      (*(a9 + 16))(a9, 28, "com.apple.filesystems.UserFS.FileProvider", 0, a6, a10, a7, a8);
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t si_getRenderOrEngagementValues(datastore_info *a1, uint64_t a2, _DWORD *a3, int a4, uint64_t a5, uint64_t a6, char *__s)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  if (!a1)
+  {
+    return 0;
+  }
+
+  Dbo = a3;
+  if (!a3)
+  {
+    Dbo = iterateToGetDbo(a1, a2);
+    if (!Dbo)
+    {
+      return 0;
+    }
+  }
+
+  v36 = 0;
+  v37 = 0;
+  if (db_get_field_locked(a1, Dbo, __s, &v37, &v36))
+  {
+    goto LABEL_41;
+  }
+
+  if (*v37 != 14)
+  {
+    goto LABEL_41;
+  }
+
+  v14 = *(v37 + 8);
+  if (v14 < 2)
+  {
+    goto LABEL_41;
+  }
+
+  v15 = v36;
+  if (*v36 != 9)
+  {
+    goto LABEL_41;
+  }
+
+  v16 = v14 - 1;
+  v39 = 0;
+  v38 = 0;
+  if (v16 < 9)
+  {
+    goto LABEL_41;
+  }
+
+  v17 = llround(((86400 * (CFAbsoluteTimeGetCurrent() / 0x15180)) - *(v36 + 1)) / 86400.0);
+  if (v17 > 0x16D || v16 == 9)
+  {
+    goto LABEL_41;
+  }
+
+  v19 = 0;
+  v20 = 0;
+  v21 = 0;
+  v22 = 0;
+  v23 = 0;
+  v24 = 0;
+  v25 = 0;
+  v26 = (v15 + 9);
+  v27 = (v15 + 11);
+  do
+  {
+    v28 = *v26;
+    v25 += v28;
+    if (v28 == 255 && !v26[3])
+    {
+      v25 += *v27;
+      v29 = 1;
+    }
+
+    else
+    {
+      v29 = 0;
+    }
+
+    v30 = v17 - v25;
+    v31 = v26[1];
+    if (v17 == v25)
+    {
+      v24 += v31;
+      LOWORD(v38) = v24;
+LABEL_20:
+      v23 += v31;
+      WORD1(v38) = v23;
+LABEL_21:
+      v22 += v31;
+      WORD2(v38) = v22;
+LABEL_22:
+      v21 += v31;
+      HIWORD(v38) = v21;
+LABEL_23:
+      v20 += v31;
+      LOWORD(v39) = v20;
+LABEL_24:
+      v19 += v31;
+      HIWORD(v39) = v19;
+      goto LABEL_25;
+    }
+
+    if (v30 <= 6)
+    {
+      goto LABEL_20;
+    }
+
+    if (v30 <= 0x1D)
+    {
+      goto LABEL_21;
+    }
+
+    if (v30 <= 0x59)
+    {
+      goto LABEL_22;
+    }
+
+    if (v30 <= 0xB5)
+    {
+      goto LABEL_23;
+    }
+
+    if (v30 <= 0x16C)
+    {
+      goto LABEL_24;
+    }
+
+LABEL_25:
+    v26 += 4;
+    if (!v29)
+    {
+      v26 = v27;
+    }
+
+    if ((v30 & 0x8000000000000000) != 0)
+    {
+      break;
+    }
+
+    v27 = v26 + 2;
+  }
+
+  while ((v26 + 2) <= v15 + 1 + v16);
+  if (v31)
+  {
+    v33 = (*(a5 + 16))(a5, 6, 0, 0, a4, a6);
+    for (i = 0; i != 6; ++i)
+    {
+      (*(a5 + 16))(a5, 17, *(&v38 + i), 0, i, v33);
+    }
+
+    (*(a5 + 16))(a5, 7, v33, 0, a4, a6);
+    v32 = 1;
+    goto LABEL_42;
+  }
+
+LABEL_41:
+  v32 = 0;
+LABEL_42:
+  if (Dbo != a3)
+  {
+    free(Dbo);
+  }
+
+  return v32;
+}
+
+_DWORD *iterateToGetDbo(datastore_info *a1, uint64_t a2)
+{
+  v12 = a2;
+  v2 = db_obj_iter_create_with_filter(a1, 1uLL, &v12, 0, 0, 16, 0, 0, 0);
+  v6 = db_obj_iter_next(v2, &v11, 1, v3, v4, v5);
+  if (v6)
+  {
+    v7 = v6;
+    v8 = malloc_type_malloc(v6[3], 0x1000040EED21634uLL);
+    v9 = v8;
+    if (v8)
+    {
+      memcpy(v8, v7, v7[3]);
+      v9[2] = v7[3];
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  db_obj_iter_release(v2);
+  return v9;
+}
+
+uint64_t si_fsContentTypeMatch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, CatInfoGotten *a6, uint64_t a7)
+{
+  if (!convert_value_to_type(0xBu, a7))
+  {
+    if (*(a7 + 24) == 5 && (v9 = *(a7 + 72), *v9 == 42))
+    {
+      if (!a6 || !v9[1])
+      {
+        return 0;
+      }
+    }
+
+    else if (!a6)
+    {
+      return 0;
+    }
+
+    CatInfoGotten::fastPath(a6);
+  }
+
+  return 0;
+}
+
+uint64_t si_fsContentTypeAttr(int a1, int a2, int a3, int a4, int a5, int a6, int a7, CatInfoGotten *this)
+{
+  if (this)
+  {
+    CatInfoGotten::fastPath(this);
+  }
+
+  return 0;
+}
+
+uint64_t si_getOnBootVolumeField(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (*(a1 + 6584))
+  {
+    v10 = MEMORY[0x1E695E4D0];
+  }
+
+  else
+  {
+    v10 = MEMORY[0x1E695E4C0];
+  }
+
+  (*(a9 + 16))(a9, 34, *v10, 0, a6, a10, a7, a8);
+  return 1;
+}
+
+uint64_t si_getSDBInfo(__n128 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  MEMORY[0x1EEE9AC00](a1);
+  v17 = v16;
+  v60[512] = *MEMORY[0x1E69E9840];
+  v59 = v13;
+  result = v16[149];
+  if (result)
+  {
+    v19 = v15;
+    v20 = v14;
+    v21 = v13;
+    v22 = v12;
+    v23 = v11;
+    if (!v13 && (!db_get_obj(result, v12, &v59, 0) ? (v24 = v59 == 0) : (v24 = 1), v24))
+    {
+      return 0;
+    }
+
+    else
+    {
+      makeThreadId();
+      Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      if (v23)
+      {
+        v26 = *(v23 + 176);
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+      v27 = v17[149];
+      v57[0] = MEMORY[0x1E69E9820];
+      v57[1] = 0x40000000;
+      v57[2] = ___ZL13si_getSDBInfoP4__SIPKcP11__SIUserCtxxP6db_objiPP8db_fieldP13CatInfoGottenU13block_pointerFPv15SI_OBJECT_EVENT15si_event_data_tmSC_ESC__block_invoke;
+      v57[3] = &__block_descriptor_tmp_213;
+      v58 = v26;
+      v57[4] = v17;
+      v57[5] = v59;
+      v57[6] = Mutable;
+      _enumerate_dbo(v27, v59, 1, v57);
+      v28 = CFDateCreate(0, *(v59 + 2) / 1000000.0 - *MEMORY[0x1E695E468]);
+      CFDictionaryAddValue(Mutable, @"kMDItemAttributeChangeDate", v28);
+      CFRelease(v28);
+      valuePtr = *v59;
+      v29 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
+      CFDictionaryAddValue(Mutable, @"oid", v29);
+      CFRelease(v29);
+      valuePtr = *(v59 + 3);
+      v30 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
+      CFDictionaryAddValue(Mutable, @"parent_oid", v30);
+      CFRelease(v30);
+      valuePtr = *(v59 + 4);
+      v31 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
+      CFDictionaryAddValue(Mutable, @"index_id", v31);
+      CFRelease(v31);
+      v55 = 0;
+      v32 = si_indexForDocId(v17, valuePtr);
+      if (v32)
+      {
+        LODWORD(v60[0]) = 0;
+        v53 = 0;
+        v54 = 0.0;
+        v33 = !v19 || (*(v19 + 8) & 4) == 0;
+        if (_CIGetDocIDInfo(v32, v21[4], &v55, v60, &v54, &v53, v33))
+        {
+          if (LODWORD(v60[0]))
+          {
+            v34 = CFDateCreate(0, LODWORD(v60[0]));
+            CFDictionaryAddValue(Mutable, @"index_ranking_date", v34);
+            CFRelease(v34);
+          }
+
+          if (v54 != 0.0)
+          {
+            v35 = CFNumberCreate(0, kCFNumberFloatType, &v54);
+            CFDictionaryAddValue(Mutable, @"index_ranking_score", v35);
+            CFRelease(v35);
+          }
+
+          if (v53)
+          {
+            valuePtr = v53;
+            v36 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
+            CFDictionaryAddValue(Mutable, @"index_ranking_container", v36);
+            CFRelease(v36);
+          }
+        }
+      }
+
+      v37 = CFNumberCreate(0, kCFNumberSInt8Type, &v55);
+      CFDictionaryAddValue(Mutable, @"index_group", v37);
+      CFRelease(v37);
+      v38 = CFNumberCreate(0, kCFNumberSInt32Type, v59 + 40);
+      CFDictionaryAddValue(Mutable, @"flags", v38);
+      CFRelease(v38);
+      v39 = v17[828];
+      if (v39)
+      {
+        v40 = *(v59 + 3);
+        if (v40)
+        {
+          bzero(v60, 0x1000uLL);
+          Path = directoryStoreGetPath(v39, v40, v60);
+          if (Path)
+          {
+            v42 = Path;
+            v43 = CFStringCreateMutable(0, 0);
+            if (v42 >= 1)
+            {
+              v44 = v42 + 1;
+              v45 = &v60[v42 - 1];
+              do
+              {
+                v46 = *v45--;
+                CFStringAppendFormat(v43, 0, @"/%lld", v46);
+                --v44;
+              }
+
+              while (v44 > 1);
+            }
+
+            CFStringAppendFormat(v43, 0, @"/%lld", *(v59 + 3));
+            CFStringAppendFormat(v43, 0, @"/%lld", *v59);
+            CFDictionaryAddValue(Mutable, @"oid_path", v43);
+            CFRelease(v43);
+          }
+        }
+      }
+
+      v47 = v17[177];
+      if (v47)
+      {
+        bzero(v60, 0x400uLL);
+        if (!*(v47 + 240))
+        {
+          v50 = (*(v47 + 40))(v47, v22, v60, 0, 0, 0, 0, -1);
+          if (v50)
+          {
+            v51 = CFStringCreateWithCString(*MEMORY[0x1E695E480], v50, 0x8000100u);
+            if (v51)
+            {
+              v52 = v51;
+              CFDictionaryAddValue(Mutable, @"_kMDItemPSIDPath", v51);
+              CFRelease(v52);
+            }
+          }
+        }
+      }
+
+      if (*v59 == 2)
+      {
+        v48 = SICopyProperties(v17);
+        if (v48)
+        {
+          v49 = v48;
+          CFDictionaryAddValue(Mutable, @"store_properties", v48);
+          CFRelease(v49);
+        }
+      }
+
+      (*(a10 + 16))(a10, 34, Mutable, 0, v20, a11);
+      CFRelease(Mutable);
+      if (v59 != v21)
+      {
+        free(v59);
+      }
+
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+void ___ZL13si_getSDBInfoP4__SIPKcP11__SIUserCtxxP6db_objiPP8db_fieldP13CatInfoGottenU13block_pointerFPv15SI_OBJECT_EVENT15si_event_data_tmSC_ESC__block_invoke(uint64_t a1, char *a2, uint64_t a3)
+{
+  if (isEntitledForAttribute(*(a1 + 56), a2))
+  {
+    v6 = CFStringCreateWithCString(0, a2, 0x8000100u);
+    if (v6)
+    {
+      v8 = v6;
+      v9 = _decodeSDBField(*(*(a1 + 32) + 1192), a3, (a3 + 13), 0, 0, 0, 1, *MEMORY[0x1E695E480], v7);
+      if (v9)
+      {
+        v10 = v9;
+        CFDictionaryAddValue(*(a1 + 48), v8, v9);
+        CFRelease(v10);
+      }
+
+      CFRelease(v8);
+    }
+  }
+}
+
+uint64_t si_getLabelIDs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v11 = *(a1 + 1192);
+  if (a5)
+  {
+    v12 = v11 == 0;
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  result = !v12;
+  if (!v12)
+  {
+    v22 = result;
+    v21 = a6;
+    v15 = (*(a9 + 16))(a9, 6, 0, 0);
+    if (*(a5 + 12) >= 0x31u)
+    {
+      v16 = 0;
+      v17 = a5 + 48;
+      do
+      {
+        if (*(a1 + 1284) < 73 || (*(v17 + 2) & 4) != 0)
+        {
+          field_name_for_id_locked = db_get_field_name_for_id_locked(v11, *(v17 + 4));
+          if (field_name_for_id_locked)
+          {
+            v19 = field_name_for_id_locked;
+            if (!strncmp("kMDLabel_", field_name_for_id_locked, 9uLL))
+            {
+              v20 = rindex(v19, 95);
+              (*(a9 + 16))(a9, 28, v20 + 1, 0, v16++, v15);
+            }
+          }
+        }
+
+        v17 += *(v17 + 8) + 13;
+      }
+
+      while (v17 < a5 + *(a5 + 12));
+    }
+
+    (*(a9 + 16))(a9, 7, v15, 0, v21, a10);
+    return v22;
+  }
+
+  return result;
+}
+
+uint64_t si_collectDisplayNameWithExtensionsSynth(uint64_t a1, int a2, uint64_t a3, __CFSet *a4, char **a5)
+{
+  v5 = 0;
+  if (a3)
+  {
+    v6 = *(a1 + 1192);
+    if (v6)
+    {
+      *v14 = 0;
+      v15 = 0;
+      if (db_get_field_locked(v6, a3, "_kMDItemDisplayNameWithExtensions", v14, &v15))
+      {
+        v11 = 1;
+      }
+
+      else
+      {
+        v11 = v15 == 0;
+      }
+
+      if (!v11 || (v5 = 0, !db_get_field_locked(v6, a3, "kMDItemDisplayName", v14, &v15)) && v15)
+      {
+        v5 = 1;
+        v12 = _decodeSDBField(v6, *v14, (*v14 + 13), a5, 0, 0, 1, 0, v10);
+        CFSetAddValue(a4, v12);
+        CFRelease(v12);
+      }
+    }
+  }
+
+  return v5;
+}
+
+uint64_t si_getDisplayNameWithExtensionsSynth(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, int a6, uint64_t a7, int a8, uint64_t a9, uint64_t a10)
+{
+  v12 = *(a1 + 1192);
+  if (a3)
+  {
+    v13 = *(a3 + 120);
+    if (!v12)
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+    if (!v12)
+    {
+      return 0;
+    }
+  }
+
+  if (a5 && a6 && a7)
+  {
+    v14 = (a7 + 8 * a6);
+    result = *v14;
+    if (!*v14)
+    {
+      result = v14[1];
+      if (!result)
+      {
+        return result;
+      }
+    }
+
+LABEL_17:
+    eventParseField(result, *result, a9, a10, v12, v13, 0, a6);
+    return 1;
+  }
+
+  if (!a5)
+  {
+    return 0;
+  }
+
+  key = 0;
+  v18 = 0;
+  if (!db_get_field_locked(v12, a5, "_kMDItemDisplayNameWithExtensions", &key, &v18) && v18 || (field_locked = db_get_field_locked(v12, a5, "kMDItemDisplayName", &key, &v18), result = 0, !field_locked) && v18)
+  {
+    result = key;
+    goto LABEL_17;
+  }
+
+  return result;
+}
+
+BOOL si_dboLastModMatches(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  if (!a5)
+  {
+    return 0;
+  }
+
+  if ((*(a7 + 24) - 11) >= 2)
+  {
+    if (convert_value_to_type(0xCu, a7))
+    {
+      return 0;
+    }
+
+    else
+    {
+      v9.n128_f64[0] = *(a5 + 16) / 1000000.0 - *MEMORY[0x1E695E468];
+      return db_compare_val(v9);
+    }
+  }
+
+  else
+  {
+    v10 = *(a5 + 16) / 1000000.0 - *MEMORY[0x1E695E468];
+    return _db_rangeCompare(12, a7, 8uLL, &v10, 0, 0, 0) == 1;
+  }
+}
+
+BOOL si_itemRecipientEmailAddressesMatch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7 = 0;
+  if (a5)
+  {
+    v8 = *(a1 + 1192);
+    if (v8)
+    {
+      v14 = 0;
+      v15 = 0;
+      if (convert_value_to_type(0xBu, a7))
+      {
+        return 0;
+      }
+
+      if (db_get_field_locked(v8, a5, "kMDItemPrimaryRecipientEmailAddresses", &v15, &v14) || (v7 = 1, do_compare(v11) != 1))
+      {
+        if (db_get_field_locked(v8, a5, "kMDItemAdditionalRecipientEmailAddresses", &v15, &v14) || (v7 = 1, do_compare(v12) != 1))
+        {
+          if (!db_get_field_locked(v8, a5, "kMDItemHiddenAdditionalRecipientEmailAddresses", &v15, &v14))
+          {
+            return do_compare(v13) == 1;
+          }
+
+          return 0;
+        }
+      }
+    }
+  }
+
+  return v7;
+}
+
+uint64_t si_getItemRecipientEmailAddresses(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v10 = *(a1 + 1192);
+  if (a5)
+  {
+    v11 = v10 == 0;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  v12 = !v11;
+  if (!v11)
+  {
+    v17 = (*(a9 + 16))(a9, 6, 0, 0, a6);
+    v45 = 0;
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x2000000000;
+    v44 = 0;
+    v37[0] = MEMORY[0x1E69E9820];
+    v18.n128_u64[0] = 0x40000000;
+    v37[1] = 0x40000000;
+    v38 = ___ZL33si_getItemRecipientEmailAddressesP4__SIPKcP11__SIUserCtxxP6db_objiPP8db_fieldP13CatInfoGottenU13block_pointerFPv15SI_OBJECT_EVENT15si_event_data_tmSC_ESC__block_invoke;
+    v39 = &unk_1E8193E90;
+    v40 = a9;
+    v41 = v43;
+    v35 = v17;
+    v42 = v17;
+    if (a6 && a7)
+    {
+      v19 = (a7 + 8 * a6);
+      v20 = *v19;
+      v21 = v19[1];
+      v22 = v19[2];
+      if (*v19)
+      {
+        v45 = v20 + 13;
+        v23 = _decodeSDBField(*(a1 + 1192), v20, (v20 + 13), 0, 0, 0, 1, *MEMORY[0x1E695E480], v18);
+        v38(v37, v23);
+        CFRelease(v23);
+      }
+
+      if (v21)
+      {
+        v45 = v21 + 13;
+        v24 = _decodeSDBField(*(a1 + 1192), v21, (v21 + 13), 0, 0, 0, 1, *MEMORY[0x1E695E480], v18);
+        v38(v37, v24);
+        CFRelease(v24);
+      }
+
+      if (!v22)
+      {
+        goto LABEL_23;
+      }
+
+      v25 = (v22 + 13);
+      v45 = v22 + 13;
+      v26 = *(a1 + 1192);
+      v27 = *MEMORY[0x1E695E480];
+      v28 = v22;
+    }
+
+    else
+    {
+      *v36 = 0;
+      if (!db_get_field_locked(v10, a5, "kMDItemPrimaryRecipientEmailAddresses", v36, &v45))
+      {
+        v30 = _decodeSDBField(*(a1 + 1192), *v36, (*v36 + 13), 0, 0, 0, 1, *MEMORY[0x1E695E480], v29);
+        v38(v37, v30);
+        CFRelease(v30);
+      }
+
+      if (!db_get_field_locked(v10, a5, "kMDItemAdditionalRecipientEmailAddresses", v36, &v45))
+      {
+        v32 = _decodeSDBField(*(a1 + 1192), *v36, (*v36 + 13), 0, 0, 0, 1, *MEMORY[0x1E695E480], v31);
+        v38(v37, v32);
+        CFRelease(v32);
+      }
+
+      if (db_get_field_locked(v10, a5, "kMDItemHiddenAdditionalRecipientEmailAddresses", v36, &v45))
+      {
+        goto LABEL_23;
+      }
+
+      v26 = *(a1 + 1192);
+      v28 = *v36;
+      v27 = *MEMORY[0x1E695E480];
+      v25 = (*v36 + 13);
+    }
+
+    v33 = _decodeSDBField(v26, v28, v25, 0, 0, 0, 1, v27, v18);
+    v38(v37, v33);
+    CFRelease(v33);
+LABEL_23:
+    (*(a9 + 16))(a9, 7, v35, 0, a6, a10);
+    _Block_object_dispose(v43, 8);
+  }
+
+  return v12;
+}
+
+uint64_t ___ZL33si_getItemRecipientEmailAddressesP4__SIPKcP11__SIUserCtxxP6db_objiPP8db_fieldP13CatInfoGottenU13block_pointerFPv15SI_OBJECT_EVENT15si_event_data_tmSC_ESC__block_invoke(uint64_t a1, const __CFArray *a2)
+{
+  TypeID = CFArrayGetTypeID();
+  if (TypeID == CFGetTypeID(a2))
+  {
+    for (i = 0; ; ++i)
+    {
+      result = CFArrayGetCount(a2);
+      if (result <= i)
+      {
+        break;
+      }
+
+      v7 = *(a1 + 32);
+      ValueAtIndex = CFArrayGetValueAtIndex(a2, i);
+      ++*(*(*(a1 + 40) + 8) + 24);
+      (*(v7 + 16))(v7, 34, ValueAtIndex, 0);
+    }
+  }
+
+  else
+  {
+    v9 = CFStringGetTypeID();
+    result = CFGetTypeID(a2);
+    if (v9 == result)
+    {
+      v10 = *(a1 + 32);
+      ++*(*(*(a1 + 40) + 8) + 24);
+      v11 = *(v10 + 16);
+
+      return v11();
+    }
+  }
+
+  return result;
+}
+
+BOOL si_getIndexGroupId(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (a5)
+  {
+    v12 = *(a5 + 32);
+    v13 = si_indexForDocId(a1, v12);
+    v14 = _CIGetGroupForDocId(v13, v12);
+    (*(a9 + 16))(a9, 18, v14, 0, a6, a10);
+  }
+
+  return a5 != 0;
+}
+
+uint64_t si_getCachedTextContent(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  if (result)
+  {
+    v12 = result;
+    bzero(v31, 0x400uLL);
+    v13 = si_cache_relative_path_for_oid(a4, "txt", v31, *(v12 + 2072));
+    if (v13)
+    {
+      v15 = openat(*(v12 + 32), v13, 0);
+      if (v15 != -1)
+      {
+        v16 = v15;
+        v17 = lseek(v15, 0, 2);
+        if (v17 >= 1)
+        {
+          v18 = v17 >= 0x20000 ? 0x20000 : v17;
+          v19 = mmap(0, v18, 1, 1025, v16, 0);
+          if (v19 != -1)
+          {
+            v20 = v19;
+            (*(a9 + 16))(a9, 33, v19, v18, a6, a10);
+            munmap(v20, v18);
+            close(v16);
+            return 1;
+          }
+        }
+
+        close(v16);
+      }
+    }
+
+    if (!*(v12 + 1296))
+    {
+      return 0;
+    }
+
+    MEMORY[0x1EEE9AC00](v14);
+    bzero(v29, 0x3E9uLL);
+    v30 = 0;
+    if (doc_store_get_document(*(v12 + 1296), a4, v29, &v30))
+    {
+      return 0;
+    }
+
+    v21 = v30;
+    if (!v30)
+    {
+      return 0;
+    }
+
+    if ((v29[v30 - 1] & 0x80000000) == 0)
+    {
+LABEL_17:
+      v29[v21] = 0;
+      (*(a9 + 16))(a9, 28, v29, 0, a6, a10);
+      return 1;
+    }
+
+    v22 = v29[v30 - 1];
+    if (v22 - 194 > 0x32)
+    {
+      if (v22 > 0xBF)
+      {
+        goto LABEL_17;
+      }
+
+      v23 = v29[v30 - 2];
+      if ((v23 - 224) > 0x14)
+      {
+        if (v23 > -65)
+        {
+          goto LABEL_17;
+        }
+
+        v28 = v29[v30 - 3];
+        if ((v28 - 240) > 4 || ((byte_1C2BFF1EA[v23 >> 4] >> (v28 & 7)) & 1) == 0)
+        {
+          goto LABEL_17;
+        }
+
+        v30 -= 3;
+        v21 -= 3;
+LABEL_22:
+        if (v21)
+        {
+          goto LABEL_17;
+        }
+
+        return 0;
+      }
+
+      v24 = v23 > 0xEF;
+      v25 = v23 & 7;
+      v26 = &a00000000000000[v23 & 0xF];
+      v27 = v22 >> 5;
+      if (v24)
+      {
+        LOBYTE(v27) = v25;
+        v26 = &byte_1C2BFF1EA[v29[v30 - 1] >> 4];
+      }
+
+      if (((*v26 >> v27) & 1) == 0)
+      {
+        goto LABEL_17;
+      }
+
+      v21 = v30 - 2;
+    }
+
+    else
+    {
+      v21 = v30 - 1;
+    }
+
+    v30 = v21;
+    goto LABEL_22;
+  }
+
+  return result;
+}
+
+uint64_t si_getHealthCheckDate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (!*(a1 + 1192))
+  {
+    return 0;
+  }
+
+  result = SICopyProperty(a1, @"kStorePropertyHealthCheckCompleteTime");
+  if (result)
+  {
+    v12 = result;
+    (*(a9 + 16))(a9, 34, result, 0, a6, a10);
+    CFRelease(v12);
+    return 1;
+  }
+
+  return result;
+}
+
+BOOL si_fsGroupIdMatch(int a1, int a2, int a3, int a4, int a5, CatInfoGotten *this, uint64_t a7)
+{
+  if (this)
+  {
+    CatInfoGotten::fastPath(this);
+  }
+
+  convert_value_to_type(5u, a7);
+  return db_compare_val(v8);
+}
+
+uint64_t si_fsGroupIdAttr(int a1, int a2, int a3, int a4, int a5, int a6, int a7, CatInfoGotten *this)
+{
+  if (this)
+  {
+    CatInfoGotten::fastPath(this);
+  }
+
+  return 0;
+}
+
+uint64_t si_dboTopMatchingAttribute(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v28 = 0u;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 0x40000000;
+  block[2] = ___ZL26si_dboTopMatchingAttributeP4__SIPKcP11__SIUserCtxxP6db_objiPP8db_fieldP13CatInfoGottenU13block_pointerFPv15SI_OBJECT_EVENT15si_event_data_tmSC_ESC__block_invoke;
+  block[3] = &__block_descriptor_tmp_5183;
+  v29 = 0;
+  v30 = constStrDictionaryCopyDescriptionCallBack;
+  v31 = constStrDictionaryEqualCallBack;
+  v32 = constStrDictionaryHashCallBack;
+  if (si_dboTopMatchingAttribute(__SI *,char const*,__SIUserCtx *,long long,db_obj *,int,db_field **,CatInfoGotten *,void *({block_pointer})(SI_OBJECT_EVENT,si_event_data_t,unsigned long,void *),void *)::once == -1)
+  {
+    if (!a5)
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&si_dboTopMatchingAttribute(__SI *,char const*,__SIUserCtx *,long long,db_obj *,int,db_field **,CatInfoGotten *,void *({block_pointer})(SI_OBJECT_EVENT,si_event_data_t,unsigned long,void *),void *)::once, block);
+    if (!a5)
+    {
+      return 0;
+    }
+  }
+
+  if (*(a5 + 12) >= 0x31u)
+  {
+    v14 = 0;
+    v15 = (a5 + 48);
+    v16 = 0.0;
+    do
+    {
+      if (*(v15 + 12) && (v15[1] & 0x100) == 0)
+      {
+        field_name_for_id_locked = db_get_field_name_for_id_locked(*(a1 + 1192), *(v15 + 1));
+        v18 = *(v15 + 1) == *(a1 + 2052) ? "kMDItemDisplayName" : field_name_for_id_locked;
+        if (v18)
+        {
+          Value = CFDictionaryGetValue(si_dboTopMatchingAttribute(__SI *,char const*,__SIUserCtx *,long long,db_obj *,int,db_field **,CatInfoGotten *,void *({block_pointer})(SI_OBJECT_EVENT,si_event_data_t,unsigned long,void *),void *)::__attribute_importance_dictionary, v18);
+          if (Value)
+          {
+            valuePtr = 0.0;
+            if (CFNumberGetValue(Value, kCFNumberFloatType, &valuePtr))
+            {
+              if (valuePtr > v16 || v14 == 0)
+              {
+                v16 = valuePtr;
+                v14 = v15;
+              }
+            }
+          }
+        }
+      }
+
+      v15 = (v15 + *(v15 + 2) + 13);
+    }
+
+    while (v15 < a5 + *(a5 + 12));
+    if (v14)
+    {
+      v21 = (*(a9 + 16))(a9, 12, 0, 0, a6, a10, a7, a8);
+      addFieldName(a9, v21, *(a1 + 1192), *(v14 + 1));
+      if (a3)
+      {
+        v22 = *(a3 + 120);
+      }
+
+      else
+      {
+        v22 = 0;
+      }
+
+      v23 = 1;
+      eventParseField(v14, *v14, a9, v21, *(a1 + 1192), v22, 0, 1);
+      (*(a9 + 16))(a9, 13, v21, 0, a6, a10);
+      return v23;
+    }
+  }
+
+  if ((*(a5 + 41) & 0x80) == 0)
+  {
+    return 0;
+  }
+
+  v24 = (*(a9 + 16))(a9, 12, 0, 0, a6, a10, a7, a8);
+  if (!(*(a9 + 16))(a9, 30, 0x40000000, 0, 0, v24))
+  {
+    (*(a9 + 16))(a9, 31, "kMDItemTextContent", 0x40000000, 0, v24);
+  }
+
+  (*(a9 + 16))(a9, 13, v24, 0, a6, a10);
+  return 1;
+}
+
+void ___ZL26si_dboTopMatchingAttributeP4__SIPKcP11__SIUserCtxxP6db_objiPP8db_fieldP13CatInfoGottenU13block_pointerFPv15SI_OBJECT_EVENT15si_event_data_tmSC_ESC__block_invoke(uint64_t a1)
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v1 = 41;
+  si_dboTopMatchingAttribute(__SI *,char const*,__SIUserCtx *,long long,db_obj *,int,db_field **,CatInfoGotten *,void *({block_pointer})(SI_OBJECT_EVENT,si_event_data_t,unsigned long,void *),void *)::__attribute_importance_dictionary = CFDictionaryCreateMutable(0, 41, (a1 + 32), MEMORY[0x1E695E9E8]);
+  v2 = &unk_1E8193C00;
+  do
+  {
+    v3 = *(v2 - 1);
+    CStringPtr = CFStringGetCStringPtr(v3, 0);
+    memset(v6, 0, sizeof(v6));
+    if (CStringPtr || (CStringPtr = v6, CFStringGetCString(v3, v6, 256, 0x8000100u)))
+    {
+      if (*CStringPtr)
+      {
+        v5 = CFNumberCreate(0, kCFNumberFloatType, v2);
+        CFDictionarySetValue(si_dboTopMatchingAttribute(__SI *,char const*,__SIUserCtx *,long long,db_obj *,int,db_field **,CatInfoGotten *,void *({block_pointer})(SI_OBJECT_EVENT,si_event_data_t,unsigned long,void *),void *)::__attribute_importance_dictionary, CStringPtr, v5);
+        CFRelease(v5);
+      }
+    }
+
+    v2 += 2;
+    --v1;
+  }
+
+  while (v1);
+}
+
+uint64_t addFieldName(uint64_t a1, uint64_t a2, int *a3, uint64_t a4)
+{
+  v8 = a4 | 0x40000000;
+  result = (*(a1 + 16))(a1, 30, 0, v8, 0, a2);
+  if (!result)
+  {
+    field_name_for_id_locked = db_get_field_name_for_id_locked(a3, a4);
+    if (field_name_for_id_locked)
+    {
+      v11 = field_name_for_id_locked;
+    }
+
+    else
+    {
+      v11 = "";
+    }
+
+    v12 = *(a1 + 16);
+
+    return v12(a1, 31, v11, v8, 0, a2);
+  }
+
+  return result;
+}
+
+uint64_t constStrDictionaryHashCallBack(const char *a1)
+{
+  v2 = -1759636613;
+  v3 = strlen(a1);
+  if (v3 >= 0)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = v3 + 3;
+  }
+
+  v5 = &a1[v4 & 0xFFFFFFFC];
+  if ((v3 + 3) >= 7)
+  {
+    v8 = -(v4 >> 2);
+    v9 = -1789642873;
+    v10 = 718793509;
+    do
+    {
+      v9 = 5 * v9 + 2071795100;
+      v10 = 5 * v10 + 1808688022;
+      HIDWORD(v11) = v9 * *&v5[4 * v8];
+      LODWORD(v11) = HIDWORD(v11);
+      v12 = (v11 >> 21) * v10;
+      HIDWORD(v11) = v2;
+      LODWORD(v11) = v2;
+      v2 = v12 ^ (5 * (v11 >> 19) + 1390208809);
+    }
+
+    while (!__CFADD__(v8++, 1));
+    v7 = 5 * v9 + 2071795100;
+    v6 = 5 * v10 + 1808688022;
+  }
+
+  else
+  {
+    v6 = 1107688271;
+    v7 = 1713515327;
+  }
+
+  v14 = 0;
+  if ((v3 & 3u) > 1)
+  {
+    if ((v3 & 3) != 2)
+    {
+      v14 = *(v5 + 2) << 16;
+    }
+
+    v14 |= *(v5 + 1) << 8;
+  }
+
+  else if ((v3 & 3) == 0)
+  {
+    goto LABEL_17;
+  }
+
+  HIDWORD(v15) = (v14 ^ *v5) * v7;
+  LODWORD(v15) = HIDWORD(v15);
+  v16 = (v15 >> 21) * v6;
+  HIDWORD(v15) = v2;
+  LODWORD(v15) = v2;
+  v2 = v16 ^ (5 * (v15 >> 19) + 1390208809);
+LABEL_17:
+  v17 = -1028477387 * ((-2048144789 * (v2 ^ v3)) ^ ((-2048144789 * (v2 ^ v3)) >> 13));
+  return v17 ^ HIWORD(v17);
+}
+
+uint64_t si_getIndexCookie(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v11 = si_storecookieRef(a1);
+  v12 = CFUUIDCreateString(*MEMORY[0x1E695E480], v11);
+  (*(a9 + 16))(a9, 34, v12, 0, a6, a10);
+  CFRelease(v12);
+  return 1;
+}
+
+uint64_t si_getFPItemIdentifier(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  if (!*(a1 + 1192) || (*(a1 + 2072) & 1) != 0)
+  {
+    return 0;
+  }
+
+  result = 0;
+  if (a5 && a4 && *(a1 + 1416))
+  {
+    makeThreadId();
+    if (a4 == 2)
+    {
+      (*(a9 + 16))(a9, 28, "NSFileProviderRootContainerItemIdentifier", 0, a6, a10);
+      return 1;
+    }
+
+    bzero(v28, 0x400uLL);
+    v26 = 0;
+    v27 = 0;
+    if (db_get_field_locked(*(a1 + 1192), a5, "_kMDItemFileName", &v26, &v27) || *v26 != 11 || (v26[1] & 0x10) != 0)
+    {
+      v17 = 0;
+    }
+
+    else
+    {
+      v15 = *(a1 + 1416);
+      if (v15 && (*(v15 + 160) & 1) == 0 && (v16 = *(v15 + 184)) != 0)
+      {
+        v17 = v28;
+        v18 = v16();
+        if (v18)
+        {
+          v17 = 0;
+        }
+
+        if (v18 != 45)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      else
+      {
+        v17 = 0;
+        v28[0] = 0;
+      }
+    }
+
+    v19 = *(a1 + 1416);
+    if (!*(v19 + 240))
+    {
+      v20 = (*(v19 + 40))(v19, 2, v28, 0, 0, 0, 0, -1);
+      if (v20)
+      {
+        v21 = strlen(v20);
+        v22 = *(a1 + 1416);
+        if (!*(v22 + 240))
+        {
+          v23 = (*(v22 + 40))(v22, a4, v28, 0, 0, 0, 0, -1);
+          if (v23)
+          {
+            v24 = v23;
+            if (strlen(v23) > v21)
+            {
+              v17 = &v24[v21 - 1];
+              do
+              {
+                v25 = *++v17;
+              }
+
+              while (v25 == 47);
+LABEL_23:
+              (*(a9 + 16))(a9, 28, v17, 0, a6, a10);
+              return 1;
+            }
+          }
+        }
+      }
+    }
+
+LABEL_22:
+    if (!v17)
+    {
+      return 0;
+    }
+
+    goto LABEL_23;
+  }
+
+  return result;
+}
+
+uint64_t si_indexRankingDateSecondsMatch(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  result = 0;
+  if (a5 && *(a1 + 1192))
+  {
+    if (convert_value_to_type(6u, a7))
+    {
+      return 0;
+    }
+
+    v12 = *(a5 + 32);
+    result = si_indexForDocId(a1, v12);
+    if (result)
+    {
+      v17 = 0;
+      if (a6)
+      {
+        v13 = (*(a6 + 8) & 4) == 0;
+      }
+
+      else
+      {
+        v13 = 1;
+      }
+
+      _CIGetDocIDInfo(result, v12, 0, &v17, 0, 0, v13);
+      if (!v17)
+      {
+        return 0;
+      }
+
+      v14 = *(a7 + 216);
+      v15 = *(a7 + 24);
+      if (v15 == 1)
+      {
+        return v17 == v14;
+      }
+
+      if (v15 == 2 && v17 == v14)
+      {
+        return 1;
+      }
+
+      if ((v15 - 5) <= 1 && v17 != v14)
+      {
+        return 1;
+      }
+
+      v16 = v17 - v14;
+      if (v15 == 7 && v16 < 0)
+      {
+        return 1;
+      }
+
+      if (v15 == 3 && v16 < 1)
+      {
+        return 1;
+      }
+
+      if (v15 == 8 && v16 > 0)
+      {
+        return 1;
+      }
+
+      result = 0;
+      if (v15 == 4 && (v16 & 0x80000000) == 0)
+      {
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL si_getIndexRankingDateSeconds(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (!a5)
+  {
+    return 0;
+  }
+
+  v12 = *(a5 + 32);
+  v13 = si_indexForDocId(a1, v12);
+  if (!v13)
+  {
+    return 0;
+  }
+
+  v17 = 0;
+  if (a8)
+  {
+    v14 = (*(a8 + 8) & 4) == 0;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  _CIGetDocIDInfo(v13, v12, 0, &v17, 0, 0, v14);
+  v15 = v17 != 0;
+  if (v17)
+  {
+    (*(a9 + 16))(a9, 22, v17, 0, a6, a10);
+  }
+
+  return v15;
+}
+
+uint64_t si_getIndexRankingContainer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (!a5)
+  {
+    return 0;
+  }
+
+  v12 = *(a5 + 32);
+  v13 = si_indexForDocId(a1, v12);
+  if (!v13)
+  {
+    return 0;
+  }
+
+  v17 = 0;
+  if (a8)
+  {
+    v14 = (*(a8 + 8) & 4) == 0;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  v15 = _CIGetDocIDInfo(v13, v12, 0, 0, 0, &v17, v14);
+  if (v15)
+  {
+    (*(a9 + 16))(a9, 22, v17, 0, a6, a10);
+  }
+
+  return v15;
+}
+
+uint64_t si_dboDisplayNameMatchingAttributes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  if (a5)
+  {
+    v9 = *(a5 + 12);
+    if (v9 >= 0x31)
+    {
+      v10 = a5 + v9;
+      v11 = a5 + 48;
+      do
+      {
+        if (*(v11 + 12))
+        {
+          if ((*(v11 + 2) & 0x100) == 0)
+          {
+            v12 = *(v11 + 4);
+            if (v12 == *(a1 + 2016) || v12 == *(a1 + 2052))
+            {
+              break;
+            }
+          }
+        }
+
+        v11 += *(v11 + 8) + 13;
+      }
+
+      while (v11 < v10);
+    }
+  }
+
+  (*(a9 + 16))();
+  return 1;
+}
+
+uint64_t si_getIndexRankingScore(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (!a5)
+  {
+    return 0;
+  }
+
+  v12 = *(a5 + 32);
+  v13 = si_indexForDocId(a1, v12);
+  if (!v13)
+  {
+    return 0;
+  }
+
+  v17 = 0;
+  if (a8)
+  {
+    v14 = (*(a8 + 8) & 4) == 0;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  v15 = _CIGetDocIDInfo(v13, v12, 0, 0, &v17, 0, v14);
+  if (v15)
+  {
+    (*(a9 + 16))(a9, 26, v17, 0, a6, a10);
+  }
+
+  return v15;
+}
+
+BOOL si_getIndexRankingDate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (!a5)
+  {
+    return 0;
+  }
+
+  v12 = *(a5 + 32);
+  v13 = si_indexForDocId(a1, v12);
+  if (!v13)
+  {
+    return 0;
+  }
+
+  v18 = 0;
+  if (a8)
+  {
+    v14 = (*(a8 + 8) & 4) == 0;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  _CIGetDocIDInfo(v13, v12, 0, &v18, 0, 0, v14);
+  v15 = v18 != 0;
+  if (v18)
+  {
+    v16 = CFDateCreate(0, v18);
+    (*(a9 + 16))(a9, 34, v16, 0, a6, a10);
+    CFRelease(v16);
+  }
+
+  return v15;
+}
+
+uint64_t si_getCachedCachedIconPath(uint64_t a1, int a2, int a3, unint64_t a4, uint64_t a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v18 = 0;
+  if (a5 && (db_get_field_locked(*(a1 + 1192), a5, "_kMDItemThumbnailDataExists", &v17, &v18) || !*v18))
+  {
+    return 0;
+  }
+
+  bzero(__dst, 0x800uLL);
+  if (fcntl(*(a1 + 32), 50, __dst) < 0)
+  {
+    return 0;
+  }
+
+  if (!__dst[0])
+  {
+    return 0;
+  }
+
+  v14 = strlcat(__dst, "/", 0x400uLL);
+  if (v14 > 0x3FF)
+  {
+    return 0;
+  }
+
+  si_cache_relative_path_for_oid(a4, "img", &__dst[v14], *(a1 + 2072));
+  memset(&v16, 0, sizeof(v16));
+  if (!a5)
+  {
+    if (stat(__dst, &v16))
+    {
+      return 0;
+    }
+  }
+
+  (*(a9 + 16))(a9, 28, __dst, 0, a6, a10);
+  return 1;
+}
+
+BOOL si_getAccumulatedSizes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v35 = *MEMORY[0x1E69E9840];
+  v10 = *(a1 + 1192);
+  if (!v10)
+  {
+    return v10 != 0;
+  }
+
+  v12 = *(a1 + 2072);
+  v13 = *(a9 + 16);
+  v31 = a6;
+  v32 = a10;
+  if ((v12 & 1) == 0)
+  {
+    v21 = v13(a9, 6, 0, 0);
+    pthread_mutex_lock((a1 + 6976));
+    MEMORY[0x1EEE9AC00](v22);
+    v23 = 0;
+    v24 = 0;
+    memset(&v28[1872], 0, 176);
+    do
+    {
+      v25 = *(a1 + 7048 + v23);
+      v24 |= v25 < 0;
+      *&v28[v23 + 1880] = v25 & ~(v25 >> 63);
+      v23 += 8;
+    }
+
+    while (v23 != 168);
+    pthread_mutex_unlock((a1 + 6976));
+    for (i = 0; i != 21; ++i)
+    {
+      (*(a9 + 16))(a9, 23, *&v28[8 * i + 1880], 0, i, v21);
+    }
+
+    (*(a9 + 16))(a9, 7, v21, 0, v31, v32);
+    if ((v24 & 1) == 0)
+    {
+      return v10 != 0;
+    }
+
+LABEL_19:
+    _SIRecomputeSizesWithCallback(a1, 0, &__block_literal_global_9005);
+    return v10 != 0;
+  }
+
+  v30 = v10;
+  v14 = v13(a9, 10, 0, 0);
+  pthread_mutex_lock((a1 + 6976));
+  v29 = &v29;
+  MEMORY[0x1EEE9AC00](v15);
+  bzero(v28, 0x800uLL);
+  v16 = 0;
+  v17 = 0;
+  do
+  {
+    if ((*&v28[v16 + 8] & 0x8000000000000000) != 0)
+    {
+      v18 = 0;
+      v17 = 1;
+    }
+
+    else
+    {
+      v18 = *(a1 + 7048 + v16);
+    }
+
+    *&v28[v16 + 8] = v18;
+    v16 += 8;
+  }
+
+  while (v16 != 2040);
+  pthread_mutex_unlock((a1 + 6976));
+  for (j = 1; j != 256; ++j)
+  {
+    v20 = *&v28[8 * j];
+    if (v20)
+    {
+      *__str = 0u;
+      v34 = 0u;
+      snprintf(__str, 0x20uLL, "%d", j);
+      (*(a9 + 16))(a9, 14, __str, 0, j - 1, v14);
+      (*(a9 + 16))(a9, 23, v20, 0, j - 1, v14);
+    }
+  }
+
+  (*(a9 + 16))(a9, 11, v14, 0, v31, v32);
+  v10 = v30;
+  if (v17)
+  {
+    goto LABEL_19;
+  }
+
+  return v10 != 0;
+}
+
+uint64_t si_dboMatchingAttributes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v12 = a6;
+  v13 = (*(a9 + 16))(a9, 6, 0, 0, a6, a10, a7, a8);
+  if (a5)
+  {
+    if (*(a5 + 12) >= 0x31u)
+    {
+      v14 = 0;
+      v15 = a5 + 48;
+      while (!*(v15 + 12) || (*(v15 + 2) & 0x100) != 0)
+      {
+LABEL_15:
+        v15 += *(v15 + 8) + 13;
+        if (v15 >= a5 + *(a5 + 12))
+        {
+          goto LABEL_16;
+        }
+      }
+
+      v16 = *(v15 + 4);
+      if (v16 == *(a1 + 2052))
+      {
+        if ((v14 & 1) == 0)
+        {
+          v17 = *(a1 + 1192);
+          v16 = *(a1 + 2016);
+LABEL_11:
+          addFieldName(a9, v13, v17, v16);
+        }
+      }
+
+      else if (((v16 == *(a1 + 2016)) & v14) == 0)
+      {
+        v17 = *(a1 + 1192);
+        goto LABEL_11;
+      }
+
+      v18 = *(v15 + 4);
+      if (v18 == *(a1 + 2052) || v18 != *(a1 + 2016))
+      {
+        v14 = 1;
+      }
+
+      goto LABEL_15;
+    }
+
+LABEL_16:
+    if ((*(a5 + 41) & 0x80) != 0 && (*(a9 + 16))(a9, 30, 0x40000000, 0, 0, v13))
+    {
+      (*(a9 + 16))(a9, 31, "kMDItemTextContent", 0x40000000, 0, v13);
+    }
+  }
+
+  (*(a9 + 16))(a9, 7, v13, 0, v12, a10);
+  return 1;
+}
+
+uint64_t si_getCachedCachedIcon(uint64_t a1, int a2, int a3, unint64_t a4, uint64_t a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v22 = 0;
+  v23 = 0;
+  if (a5 && (db_get_field_locked(*(a1 + 1192), a5, "_kMDItemThumbnailDataExists", &v22, &v23) || !*v23))
+  {
+    return 0;
+  }
+
+  bzero(__str, 0x400uLL);
+  v13 = si_cache_relative_path_for_oid(a4, "img", __str, *(a1 + 2072));
+  if (!v13)
+  {
+    return 0;
+  }
+
+  v14 = openat(*(a1 + 32), v13, 0);
+  if (v14 == -1)
+  {
+    return 0;
+  }
+
+  v15 = v14;
+  v16 = lseek(v14, 0, 2);
+  if (v16 >= 0x100000 || (v17 = v16, v18 = mmap(0, v16, 1, 1025, v15, 0), v18 == -1))
+  {
+    v20 = 0;
+  }
+
+  else
+  {
+    v19 = v18;
+    (*(a9 + 16))(a9, 33, v18, v17, a6, a10);
+    munmap(v19, v17);
+    v20 = 1;
+  }
+
+  close(v15);
+  return v20;
+}
+
+BOOL si_getIndexID(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (a5)
+  {
+    (*(a9 + 16))(a9, 19, *(a5 + 32), 0, a6, a10, a7, a8);
+  }
+
+  return a5 != 0;
+}
+
+uint64_t si_getFPIsTrashed(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (!*(a1 + 1192) || (*(a1 + 2072) & 1) != 0)
+  {
+    return 0;
+  }
+
+  result = 0;
+  if (a4)
+  {
+    if (*(a1 + 1416))
+    {
+      (*(a9 + 16))(a9, 20, 0, 0, a6, a10, a7, a8);
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t si_getPSIDPath(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  if (!*(a1 + 1192) || (*(a1 + 2072) & 1) != 0)
+  {
+    return 0;
+  }
+
+  result = 0;
+  if (a4 && *(a1 + 1416))
+  {
+    makeThreadId();
+    bzero(v15, 0x400uLL);
+    v14 = *(a1 + 1416);
+    if (*(v14 + 240))
+    {
+      return 0;
+    }
+
+    result = (*(v14 + 40))(v14, a4, v15, 0, 0, 0, 0, -1);
+    if (result)
+    {
+      (*(a9 + 16))(a9, 28, result, 0, a6, a10);
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+BOOL si_getOIDParent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (a5)
+  {
+    (*(a9 + 16))(a9, 23, *(a5 + 24), 0, a6, a10, a7, a8);
+  }
+
+  return a5 != 0;
+}
+
+BOOL si_getOIDPath(__n128 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  MEMORY[0x1EEE9AC00](a1);
+  v15 = v14;
+  v28[512] = *MEMORY[0x1E69E9840];
+  v16 = *(v14 + 1192);
+  if (!v16)
+  {
+    return 0;
+  }
+
+  if (!*(v15 + 6624))
+  {
+    return 0;
+  }
+
+  v17 = v13;
+  v18 = v12;
+  Dbo = v12;
+  if (!v12)
+  {
+    Dbo = iterateToGetDbo(v16, v11);
+    if (!Dbo)
+    {
+      return 0;
+    }
+  }
+
+  if (Dbo[3])
+  {
+    bzero(v28, 0x1000uLL);
+    makeThreadId();
+    Path = directoryStoreGetPath(*(v15 + 6624), Dbo[3], v28);
+    v21 = Path != 0;
+    if (Path)
+    {
+      v22 = Path;
+      Mutable = CFStringCreateMutable(0, 0);
+      if (v22 >= 1)
+      {
+        v24 = v22 + 1;
+        v25 = &v28[v22 - 1];
+        do
+        {
+          v26 = *v25--;
+          CFStringAppendFormat(Mutable, 0, @"/%lld", v26);
+          --v24;
+        }
+
+        while (v24 > 1);
+      }
+
+      CFStringAppendFormat(Mutable, 0, @"/%lld", Dbo[3]);
+      CFStringAppendFormat(Mutable, 0, @"/%lld", *Dbo);
+      (*(a10 + 16))(a10, 34, Mutable, 0, v17, a11);
+      CFRelease(Mutable);
+    }
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  if (Dbo != v18)
+  {
+    free(Dbo);
+  }
+
+  return v21;
+}
+
+uint64_t si_getFilesystemField(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    if (!a8 && (*(a1 + 2072) & 1) == 0)
+    {
+      bzero(v14, 0x470uLL);
+      v14[1] = a1;
+      v15 = a3;
+      v16 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      v11 = (*(a1 + 6584) >> 23) & 1;
+LABEL_7:
+      v19 = v11;
+      v13 = &unk_1F42826E0;
+      v20 = a4;
+      CatInfoGotten_OID::~CatInfoGotten_OID(&v13);
+    }
+  }
+
+  else if (!a8)
+  {
+    bzero(v14, 0x470uLL);
+    v15 = a3;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    LOBYTE(v11) = 1;
+    goto LABEL_7;
+  }
+
+  return 0;
+}
+
+BOOL si_dboIdMatches(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7)
+{
+  v10 = *a7;
+  if (!strcmp(*a7, "_kMDItemIndexID"))
+  {
+    if (!a5)
+    {
+      return 0;
+    }
+
+    v11 = a5[4];
+  }
+
+  else
+  {
+    if (strcmp(v10, "_kMDItemOIDParent"))
+    {
+      if (a4)
+      {
+        v14 = a4;
+        goto LABEL_12;
+      }
+
+      if (a5)
+      {
+        v11 = *a5;
+        goto LABEL_11;
+      }
+
+      return 0;
+    }
+
+    if (!a5)
+    {
+      return 0;
+    }
+
+    v11 = a5[3];
+  }
+
+LABEL_11:
+  v14 = v11;
+LABEL_12:
+  if ((*(a7 + 24) - 11) < 2)
+  {
+    return _db_rangeCompare(7, a7, 4uLL, &v14, 0, 0, 0) == 1;
+  }
+
+  if (convert_value_to_type(7u, a7))
+  {
+    return 0;
+  }
+
+  return db_compare_val(v13);
+}
+
+void _log_fault_for_malloc_failure()
+{
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
+  {
+    *v0 = 0;
+    _os_log_fault_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "allocation function returned null", v0, 2u);
+  }
+}
+
+CFAllocatorRef __query_zone_init_block_invoke()
+{
+  queryZone = malloc_create_zone(0x10000uLL, 0);
+  malloc_set_zone_name(queryZone, "SIQueryMallocZone");
+  context.version = 0;
+  context.info = queryZone;
+  memset(&context.retain, 0, 24);
+  context.allocate = zone_allocate;
+  context.reallocate = zone_reallocate;
+  context.deallocate = zone_deallocate;
+  context.preferredSize = zone_preferredSize;
+  result = CFAllocatorCreate(*MEMORY[0x1E695E480], &context);
+  kCIQueryZoneAllocator = result;
+  return result;
+}
+
+float automaton_state_score(uint64_t a1, int a2)
+{
+  if (!a1)
+  {
+    return INFINITY;
+  }
+
+  v2 = a1 & -a1;
+  if (!v2)
+  {
+    return INFINITY;
+  }
+
+  result = INFINITY;
+  do
+  {
+    v4 = __clz(__rbit64(v2));
+    if (a2 + ((103 * v4) >> 9))
+    {
+      v5 = (v4 - 5 * ((103 * v4) >> 9)) / (a2 + ((103 * v4) >> 9));
+      if (v5 < result)
+      {
+        v6 = v5;
+        result = v6;
+      }
+    }
+
+    v7 = (-2 * v2) & a1;
+    if (!v7)
+    {
+      break;
+    }
+
+    v2 = v7 & -v7;
+  }
+
+  while (v2);
+  return result;
+}
+
+void la_init(uint64_t a1, char a2)
+{
+  *(malloc_type_malloc(0x48uLL, 0x10300400E37CE8CuLL) + 7) = a1;
+  *(malloc_type_malloc(0x10uLL, 0x10200405F07FB98uLL) + 8) = 1;
+  operator new();
+}
+
+void sub_1C29D824C(_Unwind_Exception *a1)
+{
+  v4 = std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::~__hash_table(v2);
+  MEMORY[0x1C691FEF0](v4, v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ***std::__hash_table<std::__hash_value_type<unsigned char,unsigned int>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned int>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned int>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned int>>>::find<unsigned char>(void *a1, unsigned __int8 a2)
+{
+  v2 = a1[1];
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = vcnt_s8(v2);
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
+  {
+    v4 = a2;
+    if (v2 <= a2)
+    {
+      v4 = a2 % a1[1];
+    }
+  }
+
+  else
+  {
+    v4 = (v2 - 1) & a2;
+  }
+
+  v5 = *(*a1 + 8 * v4);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  for (result = *v5; result; result = *result)
+  {
+    v7 = result[1];
+    if (v7 == a2)
+    {
+      if (*(result + 16) == a2)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= v2)
+        {
+          v7 %= v2;
+        }
+      }
+
+      else
+      {
+        v7 &= v2 - 1;
+      }
+
+      if (v7 != v4)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+void la_free(uint64_t **a1)
+{
+  v2 = a1[3];
+  if (v2)
+  {
+    v3 = std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::~__hash_table(v2);
+    MEMORY[0x1C691FEF0](v3, 0x10A0C408EF24B1CLL);
+  }
+
+  v4 = *a1;
+  v5 = **a1;
+  if (v5)
+  {
+    v6 = std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::~__hash_table(v5);
+    MEMORY[0x1C691FEF0](v6, 0x10A0C408EF24B1CLL);
+  }
+
+  free(v4);
+  v7 = 0;
+  do
+  {
+    lt_trie_free(a1[5][3 * v7++]);
+  }
+
+  while (v7 <= *(a1 + 4));
+  free(a1[1]);
+  free(a1[5]);
+  free(a1[8]);
+
+  free(a1);
+}
+
+uint64_t la_new_state_from_state_with_char_at_index(uint64_t a1, uint64_t a2, int a3, unsigned int a4)
+{
+  v4 = a3;
+  v7 = 2 * *(a1 + 32);
+  if (v7 < *(a1 + 16) - a3)
+  {
+    v8 = v7 + 1;
+  }
+
+  else
+  {
+    v8 = *(a1 + 16) - a3;
+  }
+
+  v9 = std::__hash_table<std::__hash_value_type<unsigned char,unsigned int>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned int>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned int>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned int>>>::find<unsigned char>(*(a1 + 24), *(*(a1 + 8) + a4));
+  if (v9)
+  {
+    v10 = ((*(v9 + 5) >> v4) & ~(-1 << v8)) | (v8 << 8);
+  }
+
+  else
+  {
+    v10 = v8 << 8;
+  }
+
+  v13 = 0;
+  v12 = 0;
+  if (tt_transition_for_state(**a1, a2, v10, &v12, &v13))
+  {
+    return v12;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+CFTimeZoneRef __si_calendar_retain_block_invoke()
+{
+  si_calendar_retain_s_local_tz = CFTimeZoneCopySystem();
+  result = CFTimeZoneCreateWithTimeIntervalFromGMT(*MEMORY[0x1E695E480], 0.0);
+  si_calendar_retain_s_gmt_tz = result;
+  return result;
+}
+
+CFCalendarRef ___expandFunctions_block_invoke()
+{
+  result = CFCalendarCreateWithIdentifier(*MEMORY[0x1E695E480], *MEMORY[0x1E695E678]);
+  _expandFunctions_calendar = result;
+  return result;
+}
+
+void __si_querypipe_addresults_block_invoke_2(uint64_t a1, const void *a2, const void *a3)
+{
+  if (*(*(*(a1 + 32) + 8) + 24) != *(*(*(a1 + 40) + 8) + 24))
+  {
+    MutableCopy = _MDStoreOIDArrayCreateMutableCopy();
+    _MDStoreOIDArrayGetVectorCount();
+    _MDStoreOIDArrayApplyBlock();
+    Vector = _MDStoreOIDArrayGetVector();
+    VectorCount = _MDStoreOIDArrayGetVectorCount();
+    if (VectorCount)
+    {
+      for (i = 0; i < VectorCount; i += v11 + 1)
+      {
+        v10 = (Vector + 8 * i);
+        v11 = *v10;
+        v10[1] = 3213;
+      }
+    }
+
+    v12 = _MDPlistBytesCreateMutableCopy();
+    _si_querypipe_addoids(*(a1 + 56), 2, MutableCopy, 0, v12, 0, *(a1 + 64));
+  }
+
+  _MDStoreOIDArrayGetVectorCount();
+  _MDStoreOIDArrayApplyBlock();
+  _si_querypipe_addoids(*(a1 + 56), *(a1 + 72), a2, *(*(*(a1 + 32) + 8) + 24), a3, 0, *(a1 + 64));
+}
+
+uint64_t PartialQueryResults::ownOidArray(PartialQueryResults *this)
+{
+  if (*(this + 443))
+  {
+    v3 = __si_assert_copy_extra_332();
+    v11 = v3;
+    v12 = "";
+    if (v3)
+    {
+      v12 = v3;
+    }
+
+    __message_assert_336(v3, v4, v5, v6, v7, v8, v9, v10, "SISearchCtx.h", 1409, "ffillPtr[0] == 0", v12);
+    free(v11);
+    if (__valid_fs(-1))
+    {
+      v13 = 2989;
+    }
+
+    else
+    {
+      v13 = 3072;
+    }
+
+    *v13 = -559038737;
+    abort();
+  }
+
+  v1 = *(this + 58);
+  *(this + 58) = 0;
+  _MDStoreOIDArrayAppendMultipleOIDArrays();
+  return v1;
+}
+
+uint64_t PartialQueryResults::ownFields(PartialQueryResults *this)
+{
+  v1 = *(this + 186);
+  *(this + 186) = 0;
+  v2 = *(this + 884);
+  if (v1)
+  {
+LABEL_8:
+    _MDPlistBytesAppendMultiplePlistBytes();
+  }
+
+  else
+  {
+    if (v2 <= 1)
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = v2;
+    }
+
+    v4 = (this + 1496);
+    v5 = 1;
+    while (v3 != v5)
+    {
+      v1 = *v4;
+      *v4++ = 0;
+      ++v5;
+      if (v1)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    return 0;
+  }
+
+  return v1;
+}
+
+uint64_t __si_querypipe_addresults_block_invoke_5(uint64_t result, uint64_t a2, int a3)
+{
+  if (!a3 || !*(result + 48))
+  {
+    v3 = *(result + 40);
+    v4 = *(*(result + 32) + 8);
+    v5 = *(v4 + 24);
+    *(v4 + 24) = v5 + 1;
+    *(v3 + 8 * v5) = a2;
+  }
+
+  return result;
+}
+
+uint64_t _oidCmp(void *a1, void *a2)
+{
+  if (*a1 < *a2)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    return *a1 > *a2;
+  }
+}
+
+uint64_t __si_querypipe_addresults_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+{
+  v6 = *(a1 + 32);
+  v7 = (a5 - 1);
+  pthread_rwlock_rdlock((v6 + 16));
+  if (v7)
+  {
+    v8 = (a4 + 8);
+    if (*(v6 + 384))
+    {
+      bzero(v8, 8 * v7);
+    }
+
+    else
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*(v6 + 384))
+        {
+          goto LABEL_13;
+        }
+
+        v10 = *(v8 + i);
+        v11 = *(v6 + 224);
+        if (v11)
+        {
+          if ((*(v6 + 216) ^ v10) >> (-4 * v11))
+          {
+            goto LABEL_13;
+          }
+        }
+
+        v12 = *(v6 + 256 + 8 * ((v10 >> (60 - 4 * v11)) & 0xF));
+        if (v12)
+        {
+          v13 = v11 + 2;
+          do
+          {
+            v12 = *((v12 & 0xFFFFFFFFFFFFFFFELL) + 8 * ((v10 >> (64 - 4 * v13++)) & 0xF));
+          }
+
+          while ((v12 & 1) != 0);
+        }
+
+        if (!v12 || ((*(*v12 + 16))(v12) & 1) == 0)
+        {
+LABEL_13:
+          *(v8 + i) = 0;
+        }
+      }
+    }
+  }
+
+  return pthread_rwlock_unlock((v6 + 16));
+}
+
+uint64_t __si_querypipe_addresults_block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+{
+  v6 = *(a1 + 32);
+  v7 = (a5 - 1);
+  pthread_rwlock_rdlock((v6 + 16));
+  if (v7 && (*(v6 + 384) & 1) == 0)
+  {
+    v8 = 0;
+    v9 = a4 + 8;
+    do
+    {
+      if ((*(v6 + 384) & 1) == 0)
+      {
+        v10 = *(v9 + 8 * v8);
+        v11 = *(v6 + 224);
+        if (!v11 || !((*(v6 + 216) ^ v10) >> (-4 * v11)))
+        {
+          v12 = *(v6 + 256 + 8 * ((v10 >> (60 - 4 * v11)) & 0xF));
+          if (v12)
+          {
+            v13 = v11 + 2;
+            do
+            {
+              v12 = *((v12 & 0xFFFFFFFFFFFFFFFELL) + 8 * ((v10 >> (64 - 4 * v13++)) & 0xF));
+            }
+
+            while ((v12 & 1) != 0);
+          }
+
+          if (v12 && (*(*v12 + 16))(v12))
+          {
+            *(v9 + 8 * v8) = 0;
+          }
+        }
+      }
+
+      ++v8;
+    }
+
+    while (v8 != v7);
+  }
+
+  return pthread_rwlock_unlock((v6 + 16));
+}
+
+void si_querypipe_addcompletions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v35 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 96))
+  {
+    goto LABEL_5;
+  }
+
+  v7 = a1;
+  do
+  {
+    v8 = v7;
+    v7 = *(v7 + 80);
+  }
+
+  while (v7);
+  if (*(*(v8 + 8) + 12) == 1)
+  {
+LABEL_5:
+    v9 = si_querypipe_copy_jobid(a1);
+    if (v9)
+    {
+      v10 = v9;
+      if (*MEMORY[0x1E69E9AC8] <= 0x3FuLL)
+      {
+        ++sTotal;
+      }
+
+      v11 = malloc_type_zone_calloc(queryZone, 1uLL, 0x40uLL, 0x5BAF1CEAuLL);
+      if (!v11)
+      {
+        _log_fault_for_malloc_failure();
+      }
+
+      v11[1] = *(a1 + 48);
+      *(v11 + 1) = v10;
+      *v11 = 9;
+      *(v11 + 4) = _MDStoreOIDArrayCreate();
+
+      si_querypipe_remove_process(a1, a4, v11, 0);
+    }
+
+    return;
+  }
+
+  v12 = *(a2 + 320);
+  if (*a4 && (v13 = *(*a4 + 120)) != 0)
+  {
+    v14 = *v13;
+    v15 = *__error();
+    v16 = _SILogForLogForCategory(1);
+    v17 = 2 * (dword_1EBF46AD0 < 4);
+    if (os_log_type_enabled(v16, v17))
+    {
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = v14;
+      _os_log_impl(&dword_1C278D000, v16, v17, "Setting locale to %s", &buf, 0xCu);
+    }
+
+    *__error() = v15;
+  }
+
+  else
+  {
+    v14 = "en-US";
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v33 = 0x2000000000;
+  MutableUsingMallocWithZone = _MDPlistBytesCreateMutableUsingMallocWithZone();
+  _MDPlistBytesBeginPlist();
+  _MDPlistBytesBeginArray();
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x2000000000;
+  v31[3] = 0;
+  if ((v12 & 0x100) != 0)
+  {
+    v19 = *(a2 + 320);
+    if (!v14)
+    {
+      v21 = 0;
+LABEL_38:
+      v24 = *(a2 + 424);
+      v25 = *(a2 + 312);
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 0x40000000;
+      v30[2] = __si_querypipe_addcompletions_block_invoke;
+      v30[3] = &unk_1E8194030;
+      v30[4] = &buf;
+      v30[5] = v31;
+      SIPommesEnumerateSuggestions(v24, v25, (v19 >> 9) & 1, (v19 & 0x400) != 0, (v19 >> 11) & 1, v21, v14, v30);
+      goto LABEL_39;
+    }
+
+    v20 = *v14;
+    switch(v20)
+    {
+      case 'z':
+        if (v14[1] != 104)
+        {
+          goto LABEL_35;
+        }
+
+        break;
+      case 'k':
+        if (v14[1] != 111)
+        {
+          v22 = 14;
+LABEL_37:
+          v21 = v22 == 0;
+          goto LABEL_38;
+        }
+
+        break;
+      case 'j':
+        if (v14[1] != 97)
+        {
+          goto LABEL_35;
+        }
+
+        break;
+      case 'y':
+        v20 = *(v14 + 1);
+        if (v20 == 117)
+        {
+          v20 = *(v14 + 2);
+          v23 = 101;
+        }
+
+        else
+        {
+          v23 = 117;
+        }
+
+        goto LABEL_36;
+      default:
+LABEL_35:
+        v23 = 121;
+LABEL_36:
+        v22 = v23 - v20;
+        goto LABEL_37;
+    }
+
+    v21 = 1;
+    goto LABEL_38;
+  }
+
+  atomic_load_explicit((a2 + 328), memory_order_acquire);
+  v18.n128_u64[0] = 0x40000000;
+  SICompletionModelEnumerateCompletions(v18);
+LABEL_39:
+  _MDPlistBytesEndArray();
+  _MDPlistBytesEndPlist();
+  if (*MEMORY[0x1E69E9AC8] <= 0x3FuLL)
+  {
+    ++sTotal;
+  }
+
+  v26 = malloc_type_zone_calloc(queryZone, 1uLL, 0x40uLL, 0x5BAF1CEAuLL);
+  if (!v26)
+  {
+    _log_fault_for_malloc_failure();
+  }
+
+  v26[1] = *(a1 + 48);
+  *(v26 + 1) = si_querypipe_copy_jobid(a1);
+  v27 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
+  *(v26 + 5) = *(*(&buf + 1) + 24);
+  *v26 = 9;
+  *(v26 + 4) = _MDStoreOIDArrayCreateMutableWithOids();
+  v28 = a1;
+  do
+  {
+    v29 = v28;
+    v28 = *(v28 + 80);
+  }
+
+  while (v28);
+  *v27 = (*(*(v29 + 8) + 80) << 32) | 0xADF0000;
+  _MDStoreOIDArraySetShouldUseMalloc();
+  si_querypipe_remove_process(a1, a4, v26, 0);
+  _Block_object_dispose(v31, 8);
+  _Block_object_dispose(&buf, 8);
+}
+
+uint64_t __si_querypipe_addcompletions_block_invoke(uint64_t a1, uint64_t a2)
+{
+  _MDPlistBytesBeginArray();
+  _MDPlistBytesAddString();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesBeginArray();
+  v4 = *(a2 + 184);
+  if (v4)
+  {
+    Count = CFArrayGetCount(v4);
+    if (Count >= 1)
+    {
+      v6 = Count;
+      for (i = 0; i != v6; ++i)
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(*(a2 + 184), i);
+        if (CFStringGetCStringPtr(ValueAtIndex, 0x8000100u))
+        {
+          _MDPlistBytesAddCString();
+        }
+      }
+    }
+  }
+
+  _MDPlistBytesEndArray();
+  result = _MDPlistBytesEndArray();
+  ++*(*(*(a1 + 40) + 8) + 24);
+  return result;
+}
+
+uint64_t __si_querypipe_addcompletions_block_invoke_2(uint64_t a1, uint64_t a2)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  _MDPlistBytesBeginArray();
+  _MDPlistBytesAddString();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddReal();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesAddInteger();
+  _MDPlistBytesBeginArray();
+  if (*(a2 + 164) >= 1)
+  {
+    v4 = 0;
+    v5 = MEMORY[0x1E69E9C10];
+    do
+    {
+      v6 = *(a2 + 168 + 4 * v4);
+      if (v6)
+      {
+        if (!_MDPlistBytesAddRawInternedCStringKey())
+        {
+          string_for_id = db_get_string_for_id(*(a1 + 48), v6);
+          if (string_for_id)
+          {
+            v8 = string_for_id;
+            if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315138;
+              v11 = v8;
+              _os_log_impl(&dword_1C278D000, v5, OS_LOG_TYPE_DEFAULT, "String: %s", buf, 0xCu);
+            }
+
+            _MDPlistBytesAddRawInternedCStringKeyWithString();
+          }
+        }
+      }
+
+      ++v4;
+    }
+
+    while (v4 < *(a2 + 164));
+  }
+
+  _MDPlistBytesEndArray();
+  result = _MDPlistBytesEndArray();
+  ++*(*(*(a1 + 40) + 8) + 24);
+  return result;
+}
+
+uint64_t FileBackedBloomMap::grow(FileBackedBloomMap *this)
+{
+  if (_fd_ftruncate(*this, (*(this + 6) << 17) + 0x20000))
+  {
+    return -*__error();
+  }
+
+  *(this + 3) = (*(this + 6) + 1);
+  FileBackedBloomMap::unmap(this);
+
+  return FileBackedBloomMap::map(this);
+}
+
+int *FileBackedBloomMap::unmap(FileBackedBloomMap *this)
+{
+  v3 = (this + 8);
+  result = *(this + 1);
+  if (result)
+  {
+    v4 = *(this + 2);
+    *v3 = 0;
+    v3[1] = 0;
+    result = munmap(result, v4);
+    if (result)
+    {
+
+      return __error();
+    }
+  }
+
+  return result;
+}
+
+uint64_t FileBackedBloomMap::map(FileBackedBloomMap *this)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = mmap(0, *(this + 6) << 17, 1, 1, *this, 0);
+  if (*(this + 1) == -1)
+  {
+    v9 = __error();
+    v5 = -*v9;
+    if (gSILogLevels[0] >= 5)
+    {
+      __errnuma = *v9;
+      v6 = *__error();
+      v7 = _SILogForLogForCategory(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315138;
+        v14 = strerror(__errnuma);
+        v8 = "mmap: %s\n";
+        goto LABEL_9;
+      }
+
+LABEL_10:
+      *__error() = v6;
+    }
+  }
+
+  else
+  {
+    v3 = *(this + 6) << 17;
+    *(this + 1) = v2;
+    *(this + 2) = v3;
+    if (!mprotect(&v2[v3 - 0x20000], 0x20000uLL, 3))
+    {
+      return 0;
+    }
+
+    v4 = __error();
+    v5 = -*v4;
+    if (gSILogLevels[0] >= 5)
+    {
+      __errnum = *v4;
+      v6 = *__error();
+      v7 = _SILogForLogForCategory(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315138;
+        v14 = strerror(__errnum);
+        v8 = "mprotect: %s\n";
+LABEL_9:
+        _os_log_impl(&dword_1C278D000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
+        goto LABEL_10;
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  return v5;
+}
+
+uint64_t FileBackedBloomMap::Update(FileBackedBloomMap *this, uint64_t a2, uint64_t a3)
+{
+  if (*(this + 7) < *(this + 8) || (v6 = FileBackedBloomMap::grow(this), !v6))
+  {
+    v7 = *(this + 2);
+    v34[0] = *(this + 1);
+    v34[1] = v7;
+    v34[2] = 0;
+    v33[0] = 1;
+    v33[1] = v34;
+    add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
+    v9 = setThreadIdAndInfo(-1, sMappingExceptionCallbacks, v33, 0, add_explicit + 1);
+    v11 = v10;
+    v12 = v9;
+    v13 = HIDWORD(v9);
+    v15 = v14;
+    v16 = threadData[9 * v9 + 1] + 320 * HIDWORD(v9);
+    *(v16 + 216) = 0;
+    v17 = *(v16 + 312);
+    v18 = *(v16 + 224);
+    v19 = v16;
+    if (v18)
+    {
+      v18(*(v16 + 288));
+    }
+
+    v31 = v13;
+    v32 = v12;
+    v29 = v11;
+    v30 = v15;
+    if (_setjmp(v19))
+    {
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        *v28 = 0;
+        _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v28, 2u);
+      }
+
+      v19[78] = v17;
+      CIOnThreadCleanUpReset(v29);
+      dropThreadId(v32, 1, add_explicit + 1);
+      CICleanUpReset(v32, v30);
+      return 4294967261;
+    }
+
+    else
+    {
+      v21 = *(this + 9);
+      if (v21 >= 1)
+      {
+        v22 = *(this + 1) + (*(this + 6) << 17) - 0x20000;
+        v23 = bloom_filter_hash_moduli;
+        do
+        {
+          v24 = *v23++;
+          *(v22 + (((a3 + ((v24 * a2) >> 32)) >> 3) & 0x1FFFF)) |= 1 << ((a3 + ((v24 * a2) >> 32)) & 7);
+          --v21;
+        }
+
+        while (v21);
+      }
+
+      v25 = threadData[9 * v32 + 1] + 320 * v31;
+      *(v25 + 312) = v17;
+      v26 = *(v25 + 232);
+      if (v26)
+      {
+        v26(*(v25 + 288));
+      }
+
+      dropThreadId(v32, 0, add_explicit + 1);
+      ++*(this + 7);
+      return 0;
+    }
+  }
+
+  return v6;
+}
+
+uint64_t FileBackedBloomMap::CalcMayContainBitset(FileBackedBloomMap *this, uint64_t a2, unsigned __int8 *a3, int a4)
+{
+  v68 = a4;
+  v78 = *MEMORY[0x1E69E9840];
+  v7 = *(this + 1);
+  if (!v7)
+  {
+    v22 = FileBackedBloomMap::map(this);
+    if (v22)
+    {
+      return v22;
+    }
+
+    v7 = *(this + 1);
+  }
+
+  v8 = *(this + 2);
+  v76[0] = v7;
+  v76[1] = v8;
+  v76[2] = 0;
+  v75[0] = 1;
+  v75[1] = v76;
+  add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
+  v10 = setThreadIdAndInfo(-1, sMappingExceptionCallbacks, v75, 0, add_explicit + 1);
+  v12 = v11;
+  v13 = v10;
+  v14 = HIDWORD(v10);
+  v16 = v15;
+  v17 = threadData[9 * v10 + 1] + 320 * HIDWORD(v10);
+  *(v17 + 216) = 0;
+  v18 = *(v17 + 312);
+  v19 = *(v17 + 224);
+  v20 = v17;
+  if (v19)
+  {
+    v19(*(v17 + 288));
+  }
+
+  v73 = v14;
+  v74 = v13;
+  v71 = v12;
+  v72 = v16;
+  if (_setjmp(v20))
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
+    }
+
+    v20[78] = v18;
+    CIOnThreadCleanUpReset(v71);
+    dropThreadId(v74, 1, add_explicit + 1);
+    CICleanUpReset(v74, v72);
+  }
+
+  else
+  {
+    v67 = v18;
+    v69 = a3;
+    v70 = add_explicit;
+    v66 = &v55;
+    v23 = v68;
+    MEMORY[0x1EEE9AC00](v21);
+    v24 = (v23 + 15) & 0x1FFFFFFF0;
+    v64 = &v55 - v24;
+    bzero(&v55 - v24, v23);
+    MEMORY[0x1EEE9AC00](v25);
+    v63 = &v55 - v24;
+    v65 = v23;
+    bzero(&v55 - v24, v23);
+    v26 = v23;
+    bzero(&v55 - v24, v23);
+    v62 = *(this + 6);
+    if (v62 >= 1)
+    {
+      v27 = v63;
+      v60 = *(this + 1);
+      v61 = v23;
+      v59 = *(this + 9);
+      v58 = v59;
+      v57 = 0x1FFFFLL;
+      v56 = v23 - 0x20000;
+      v28 = 0;
+      do
+      {
+        v55 = v28;
+        memset(v27, 255, v61);
+        if (v58 >= 1)
+        {
+          v29 = v59;
+          v30 = (v60 + (v55 << 17));
+          v31 = bloom_filter_hash_moduli;
+          do
+          {
+            v32 = *v31++;
+            v33 = ((v32 * a2) >> 32) & 7;
+            v34 = ((v32 * a2) >> 35) & 0x1FFFF;
+            if ((v34 + v26) >> 17)
+            {
+              v38 = a2;
+              v39 = v34;
+              buf[0] = v30[v57];
+              buf[1] = *v30;
+              v40 = v34 ^ 0x1FFFF;
+              do_shifted_and(v27, &v30[v34], v34 ^ 0x1FFFF, v33);
+              v41 = &v63[v40];
+              do_shifted_and(v41, buf, 1u, v33);
+              v42 = v39;
+              a2 = v38;
+              v36 = v41 + 1;
+              v37 = v56 + v42;
+              v35 = v30;
+            }
+
+            else
+            {
+              v35 = &v30[v34];
+              v36 = v27;
+              v37 = v68;
+            }
+
+            do_shifted_and(v36, v35, v37, v33);
+            --v29;
+          }
+
+          while (v29);
+        }
+
+        v43 = v27;
+        v44 = v64;
+        v45 = v65;
+        if (v68 >= 1)
+        {
+          do
+          {
+            v46 = *v43++;
+            *v44++ |= v46;
+            --v45;
+          }
+
+          while (v45);
+        }
+
+        v28 = v55 + 1;
+      }
+
+      while (v55 + 1 != v62);
+    }
+
+    v47 = v70;
+    if (v68 >= 1)
+    {
+      v48 = v64;
+      v49 = v65;
+      v50 = v69;
+      do
+      {
+        v51 = *v48++;
+        *v50++ &= v51;
+        --v49;
+      }
+
+      while (v49);
+    }
+
+    v52 = threadData[9 * v74 + 1] + 320 * v73;
+    *(v52 + 312) = v67;
+    v53 = *(v52 + 232);
+    if (v53)
+    {
+      v53(*(v52 + 288));
+    }
+
+    dropThreadId(v74, 0, v47 + 1);
+  }
+
+  return 0;
+}
+
+uint64_t ends(uint64_t a1, char *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  v4 = (*a1 + v3);
+  v5 = a2[v2] != *v4 || v3 + 1 < v2;
+  if (v5 || memcmp(&v4[-v2 + 1], a2 + 1, v2))
+  {
+    return 0;
+  }
+
+  *(a1 + 12) = v3 - v2;
+  return 1;
+}
+
+uint64_t m(uint64_t *a1)
+{
+  v1 = *(a1 + 3);
+  if ((v1 & 0x80000000) != 0)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = *a1;
+  while (1)
+  {
+    v4 = 0;
+    for (i = v2; ; --i)
+    {
+      HIDWORD(v7) = *(v3 + i) - 97;
+      LODWORD(v7) = HIDWORD(v7);
+      v6 = v7 >> 1;
+      if (v6 != 12)
+      {
+        break;
+      }
+
+      if (!i)
+      {
+        goto LABEL_12;
+      }
+
+      v4 ^= 1u;
+    }
+
+    if (v6 <= 0xA && ((1 << v6) & 0x495) != 0)
+    {
+      v9 = 0;
+      goto LABEL_13;
+    }
+
+LABEL_12:
+    v9 = 1;
+LABEL_13:
+    if (v9 == v4)
+    {
+      break;
+    }
+
+    if (++v2 == v1 + 1)
+    {
+      return 0;
+    }
+  }
+
+  result = 0;
+LABEL_18:
+  v11 = v2;
+  if (v2 <= v1)
+  {
+    v12 = v1;
+  }
+
+  else
+  {
+    v12 = v2;
+  }
+
+  v13 = v2 + 2;
+  while (v11 != v12)
+  {
+    v14 = v11;
+    LODWORD(v2) = v13;
+    v15 = 0;
+    for (j = ++v11; ; --j)
+    {
+      HIDWORD(v18) = *(v3 + j) - 97;
+      LODWORD(v18) = HIDWORD(v18);
+      v17 = v18 >> 1;
+      if (v17 != 12)
+      {
+        break;
+      }
+
+      if (!j)
+      {
+        goto LABEL_32;
+      }
+
+      v15 ^= 1u;
+    }
+
+    if (v17 <= 0xA && ((1 << v17) & 0x495) != 0)
+    {
+      v20 = 0;
+      goto LABEL_33;
+    }
+
+LABEL_32:
+    v20 = 1;
+LABEL_33:
+    v13 = v2 + 1;
+    if (v20 != v15)
+    {
+      result = (result + 1);
+      if (v14 + 2 > v1)
+      {
+        return result;
+      }
+
+      v2 = v2;
+      while (1)
+      {
+        v21 = 0;
+        for (k = v2; ; --k)
+        {
+          HIDWORD(v24) = *(v3 + k) - 97;
+          LODWORD(v24) = HIDWORD(v24);
+          v23 = v24 >> 1;
+          if (v23 != 12)
+          {
+            break;
+          }
+
+          if (!k)
+          {
+            goto LABEL_45;
+          }
+
+          v21 ^= 1u;
+        }
+
+        if (v23 <= 0xA && ((1 << v23) & 0x495) != 0)
+        {
+          v26 = 0;
+          goto LABEL_46;
+        }
+
+LABEL_45:
+        v26 = 1;
+LABEL_46:
+        if (v26 == v21)
+        {
+          goto LABEL_18;
+        }
+
+        if (v2++ >= v1)
+        {
+          return result;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL cvc(uint64_t *a1, int a2)
+{
+  v2 = (a2 - 2);
+  if (a2 < 2)
+  {
+    return 0;
+  }
+
+  v3 = 0;
+  v4 = *a1;
+  for (i = a2; ; --i)
+  {
+    HIDWORD(v7) = *(v4 + i) - 97;
+    LODWORD(v7) = HIDWORD(v7);
+    v6 = v7 >> 1;
+    if (v6 != 12)
+    {
+      break;
+    }
+
+    if (!i)
+    {
+      goto LABEL_11;
+    }
+
+    v3 ^= 1u;
+  }
+
+  if (v6 <= 0xA && ((1 << v6) & 0x495) != 0)
+  {
+    v9 = 0;
+    goto LABEL_12;
+  }
+
+LABEL_11:
+  v9 = 1;
+LABEL_12:
+  if (v9 == v3)
+  {
+    return 0;
+  }
+
+  v10 = 0;
+  for (j = (a2 - 1); ; --j)
+  {
+    HIDWORD(v13) = *(v4 + j) - 97;
+    LODWORD(v13) = HIDWORD(v13);
+    v12 = v13 >> 1;
+    if (v12 != 12)
+    {
+      break;
+    }
+
+    if (!j)
+    {
+      goto LABEL_22;
+    }
+
+    v10 ^= 1u;
+  }
+
+  if (v12 <= 0xA && ((1 << v12) & 0x495) != 0)
+  {
+    v15 = 0;
+    goto LABEL_23;
+  }
+
+LABEL_22:
+  v15 = 1;
+LABEL_23:
+  if (v15 != v10)
+  {
+    return 0;
+  }
+
+  for (k = 0; ; k ^= 1u)
+  {
+    HIDWORD(v18) = *(v4 + v2) - 97;
+    LODWORD(v18) = HIDWORD(v18);
+    v17 = v18 >> 1;
+    if (v17 != 12)
+    {
+      break;
+    }
+
+    if (!v2)
+    {
+      goto LABEL_33;
+    }
+
+    --v2;
+  }
+
+  if (v17 <= 0xA && ((1 << v17) & 0x495) != 0)
+  {
+    v20 = 0;
+    return v20 != k && *(v4 + a2) - 122 < 0xFFFFFFFD;
+  }
+
+LABEL_33:
+  v20 = 1;
+  return v20 != k && *(v4 + a2) - 122 < 0xFFFFFFFD;
+}
+
+uint64_t step5(uint64_t result)
+{
+  v1 = result;
+  v2 = *result;
+  v3 = *(result + 8);
+  *(result + 12) = v3;
+  v4 = *(v2 + v3);
+  if (v4 == 101)
+  {
+    result = m(result);
+    if (result < 2)
+    {
+      if (result != 1)
+      {
+        return result;
+      }
+
+      LODWORD(v3) = v3 - 1;
+      result = cvc(v1, v3);
+      if (result)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      LODWORD(v3) = v3 - 1;
+    }
+
+    *(v1 + 8) = v3;
+    v4 = *(v2 + v3);
+  }
+
+  if (v3 >= 1 && v4 == 108 && *(v2 + v3) == *(v2 + v3 - 1))
+  {
+    result = m(v1);
+    if (result >= 2)
+    {
+      *(v1 + 8) = v3 - 1;
+    }
+  }
+
+  return result;
+}
+
+void *userDefaultExtendedDebuggingEnabled(void)
+{
+  result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
+  if (result)
+  {
+    v1 = [MEMORY[0x1E695E000] standardUserDefaults];
+
+    return [v1 BOOLForKey:@"EnableL1ExtendedDebug"];
+  }
+
+  return result;
+}
+
+uint64_t SISearchCtx_METADATA::queryContext(SISearchCtx_METADATA *this)
+{
+  if (!*(this + 150))
+  {
+    operator new();
+  }
+
+  return *(this + 150);
+}
+
+const __CFDictionary *QueryFunctionCallbackContext_METADATA::getDocSet(QueryFunctionCallbackContext_METADATA *this, query_piece *a2)
+{
+  result = *(a2 + 15);
+  if (!result)
+  {
+    result = *(*(this + 2) + 216);
+    if (result)
+    {
+      return CFDictionaryGetValue(result, a2);
+    }
+  }
+
+  return result;
+}
+
+uint64_t QueryFunctionCallbackContext_METADATA::findPath(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+{
+  v6 = *a5;
+  if (*a5 == -1)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    if (!v6)
+    {
+      v9 = __si_assert_copy_extra_332();
+      v10 = v9;
+      if (v9)
+      {
+        v11 = v9;
+      }
+
+      else
+      {
+        v11 = "";
+      }
+
+      __message_assert("%s:%u: Unexpected code path %s ", "SISearchCtx_METADATA.cpp", 861, v11);
+      free(v10);
+      MEMORY[0xBAD] = -559038737;
+      abort();
+    }
+
+    v7 = ContentIndexDocSetContainsDocId(v6, *(*a3 + 32));
+  }
+
+  return v7 ^ ((*(a4 + 24) - 5) < 2);
+}
+
+uint64_t QueryFunctionCallbackContext_METADATA::findContent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+{
+  v6 = *a4;
+  if (*a4 == -1)
+  {
+    v11 = 0;
+  }
+
+  else if (v6)
+  {
+    v11 = ContentIndexDocSetContainsDocId(v6, *(a2 + 32));
+  }
+
+  else
+  {
+    v8 = *(a3 + 32);
+    v9 = *(a3 + 72);
+    if (v9)
+    {
+      v10 = strlen(*(a3 + 72));
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v12 = CFStringCreateWithBytes(*MEMORY[0x1E695E480], v9, v10, 0x8000100u, 0);
+    v13 = *(a1 + 8);
+    v14 = *(a2 + 32);
+    v15 = si_indexForDocId(v13, v14);
+    if (!v15)
+    {
+      v11 = 0;
+      if (!v12)
+      {
+        return v11 ^ ((*(a3 + 24) - 5) < 2);
+      }
+
+      goto LABEL_20;
+    }
+
+    v16 = (v8 >> 4) & 1;
+    if ((v8 & 0x800000) != 0)
+    {
+      v16 = (v8 >> 4) & 1 | ((*(a3 + 28) & 0x7F) << 18) | 0x10000;
+    }
+
+    v23 = 0;
+    v24 = 0;
+    v25 = 0;
+    v17 = *(a1 + 16);
+    if (v17)
+    {
+      v18 = *(v17 + 8);
+      if (v18)
+      {
+        v19 = v18[82];
+        v23 = v18[4];
+        v24 = v19;
+        v25 = v18[9];
+      }
+    }
+
+    v20 = *(a1 + 24);
+    if (v20)
+    {
+      v21 = *(v20 + 144);
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    v11 = ContentIndexContainsContentByDocId(v15, v14, v12, v16 | (v8 >> 4) & 2, v21, (*(v13 + 6584) >> 25) & 3, *(a1 + 32), &v23);
+    if (v12)
+    {
+LABEL_20:
+      CFRelease(v12);
+    }
+  }
+
+  return v11 ^ ((*(a3 + 24) - 5) < 2);
+}
+
+uint64_t QueryFunctionCallbackContext_METADATA::gotten(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!*a3)
+  {
+    (*(a3 + 8))(a2, a3);
+    if (!*a3)
+    {
+      return 0;
+    }
+  }
+
+  v5 = *(*a1 + 32);
+
+  return v5(a1);
+}
+
+const void *QueryFunctionCallbackContext_METADATA::gotten(uint64_t a1, void *key)
+{
+  v3 = *(a1 + 40);
+  if (!v3)
+  {
+    *(a1 + 40) = CFDictionaryCreateMutable(kCIQueryZoneAllocator, 0, 0, 0);
+    goto LABEL_5;
+  }
+
+  Value = CFDictionaryGetValue(v3, key);
+  if (!Value)
+  {
+LABEL_5:
+    operator new();
+  }
+
+  return Value;
+}
+
+uint64_t deleteValue(const void *a1, const void *a2, void *a3)
+{
+  if (a2)
+  {
+    return (*(*a2 + 8))(a2);
+  }
+
+  return result;
+}
+
+uint64_t ___ZN20SISearchCtx_METADATA7cleanUpEb_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  if (*(a2 + 56) != *(a1 + 40))
+  {
+    return 1;
+  }
+
+  if (*(a2 + 15712))
+  {
+    return 0;
+  }
+
+  v5 = *__error();
+  v6 = _SILogForLogForCategory(1);
+  v7 = 2 * (dword_1EBF46AD0 < 4);
+  if (os_log_type_enabled(v6, v7))
+  {
+    v8 = *(a1 + 40);
+    v10[0] = 67109634;
+    v10[1] = v8;
+    v11 = 2048;
+    v12 = a2;
+    v13 = 2080;
+    v14 = a2 + 15208;
+    _os_log_impl(&dword_1C278D000, v6, v7, "Index Should Merge id:%d %p %s", v10, 0x1Cu);
+  }
+
+  v9 = __error();
+  result = 0;
+  *v9 = v5;
+  *(a2 + 15712) = 1;
+  *(*(a1 + 32) + 647) = 1;
+  return result;
+}
+
+uint64_t ___ZN20SISearchCtx_METADATA7cleanUpEb_block_invoke_1(uint64_t a1, uint64_t a2)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  if (*(a2 + 56) != *(a1 + 40))
+  {
+    return 1;
+  }
+
+  if (*(a2 + 15206))
+  {
+    return 0;
+  }
+
+  v5 = *__error();
+  v6 = _SILogForLogForCategory(1);
+  v7 = 2 * (dword_1EBF46AD0 < 4);
+  if (os_log_type_enabled(v6, v7))
+  {
+    v8 = *(a1 + 40);
+    v10[0] = 67109634;
+    v10[1] = v8;
+    v11 = 2048;
+    v12 = a2;
+    v13 = 2080;
+    v14 = a2 + 15208;
+    _os_log_impl(&dword_1C278D000, v6, v7, "Index Should Merge id:%d %p %s", v10, 0x1Cu);
+  }
+
+  v9 = __error();
+  result = 0;
+  *v9 = v5;
+  *(a2 + 15206) = 1;
+  *(*(a1 + 32) + 646) = 1;
+  return result;
+}
+
+uint64_t SISearchCtx_METADATA::addMatchingAttributeNodes(SISearchCtx_METADATA *this, CFArrayRef theArray, const int *a3, uint64_t *a4, char a5)
+{
+  Count = CFArrayGetCount(theArray);
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2000000000;
+  v34 = 0;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x2000000000;
+  v30 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2000000000;
+  v28 = 0;
+  if (Count)
+  {
+    v11 = Count;
+    v30 = 2 * Count;
+    if (((Count >> 13) & 0x7FFFFFFFFFFFLL) == 0 && 16 * Count > *MEMORY[0x1E69E9AC8])
+    {
+      ++sTotal;
+    }
+
+    v12 = malloc_type_zone_calloc(queryZone, 2 * Count, 8uLL, 0x5BAF1CEAuLL);
+    if (!v12)
+    {
+      _log_fault_for_malloc_failure();
+    }
+
+    v26[3] = v12;
+    Mutable = CFSetCreateMutable(kCIQueryZoneAllocator, 0, &dbqpSetCallbacks);
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2000000000;
+    v24 = 0;
+    v14 = **(this + 105);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 0x40000000;
+    v19[2] = ___ZN20SISearchCtx_METADATA25addMatchingAttributeNodesEPK9__CFArrayPKiPlb_block_invoke;
+    v19[3] = &unk_1E8194120;
+    v20 = a5;
+    v19[4] = &v31;
+    v19[5] = v29;
+    v19[8] = Mutable;
+    v19[9] = v11;
+    v19[10] = theArray;
+    v19[11] = a3;
+    v19[6] = &v25;
+    v19[7] = &v21;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 0x40000000;
+    v35[2] = __db_query_tree_apply_block_block_invoke;
+    v35[3] = &unk_1E8198ED0;
+    v35[4] = v19;
+    db_query_tree_apply_block_with_meta(v14, v35, 0);
+    v15 = v22[3];
+    if (v15)
+    {
+      CFRelease(v15);
+    }
+
+    CFRelease(Mutable);
+    _Block_object_dispose(&v21, 8);
+    v16 = v32[3];
+    v17 = v26[3];
+  }
+
+  else
+  {
+    v17 = 0;
+    v16 = 0;
+  }
+
+  *a4 = v16;
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(v29, 8);
+  _Block_object_dispose(&v31, 8);
+  return v17;
+}
+
+void cleanUp(SISearchCtx_METADATA *a1)
+{
+  SISearchCtx_METADATA::cleanUp(a1, 0);
+  v2 = *(a1 + 208);
+  if (v2)
+  {
+    v3 = 0;
+    for (i = 0; i < v2; ++i)
+    {
+      v5 = *(*(a1 + 105) + v3);
+      if (v5)
+      {
+        clear_node_caches(v5);
+        v2 = *(a1 + 208);
+      }
+
+      v3 += 48;
+    }
+  }
+}
+
+CFArrayRef ___ZN20SISearchCtx_METADATA10preIterateEv_block_invoke()
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = xmmword_1E8194160;
+  v2 = @"kMDItemPhotosPeopleNamesAlternatives";
+  result = CFArrayCreate(*MEMORY[0x1E695E480], &v1, 3, MEMORY[0x1E695E9C0]);
+  SISearchCtx_METADATA::preIterate(void)::sAttributesToConsider = result;
+  return result;
+}
+
+uint64_t ___ZN20SISearchCtx_METADATA25addMatchingAttributeNodesEPK9__CFArrayPKiPlb_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v44 = *MEMORY[0x1E69E9840];
+  bzero(__s1, 0x400uLL);
+  if (query_node_is_double_star(a2))
+  {
+    goto LABEL_2;
+  }
+
+  if (a2)
+  {
+    if (*(a2 + 48) == 4)
+    {
+      v7 = *(a2 + 16);
+      if (v7)
+      {
+        v8 = *v7;
+        if (v8)
+        {
+          if (*v8 == 42 && !v8[1])
+          {
+LABEL_2:
+            if (*(a1 + 96))
+            {
+              v38 = MEMORY[0x1E69E9820];
+              v39 = 0x40000000;
+              v40 = __db_query_tree_apply_block_block_invoke;
+              v41 = &unk_1E8198ED0;
+              v42 = &__block_literal_global_21_15415;
+              db_query_tree_apply_block_with_meta(a2, &v38, &__block_literal_global_25_15416);
+              v5 = v4;
+              if (v4)
+              {
+                v6 = *(v4 + 16);
+                if (v6)
+                {
+                  if (*v6)
+                  {
+                    if (CFSetContainsValue(*(a1 + 64), v6))
+                    {
+                      v38 = MEMORY[0x1E69E9820];
+                      v39 = 0x40000000;
+                      v40 = __db_query_tree_apply_block_block_invoke;
+                      v41 = &unk_1E8198ED0;
+                      v42 = &__block_literal_global_174;
+                      db_query_tree_apply_block_with_meta(v5, &v38, 0);
+                      return a2;
+                    }
+
+                    v25 = *(*(a1 + 32) + 8);
+                    v26 = *(v25 + 24);
+                    v27 = *(*(a1 + 40) + 8);
+                    if (v26 == *(v27 + 24))
+                    {
+                      *(v27 + 24) = 2 * v26;
+                      *(*(*(a1 + 48) + 8) + 24) = malloc_type_realloc(*(*(*(a1 + 48) + 8) + 24), 8 * *(*(*(a1 + 40) + 8) + 24), 0x2004093837F09uLL);
+                      v25 = *(*(a1 + 32) + 8);
+                      v26 = *(v25 + 24);
+                    }
+
+                    v28 = *(*(*(a1 + 48) + 8) + 24);
+                    *(v25 + 24) = v26 + 1;
+                    *(v28 + 8 * v26) = v5;
+LABEL_51:
+                    CFSetAddValue(*(a1 + 64), *(v5 + 16));
+                    return a2;
+                  }
+                }
+              }
+
+              goto LABEL_24;
+            }
+
+            if (*(a1 + 72) < 1)
+            {
+              return a2;
+            }
+
+            v13 = 0;
+            while (!cStringFromCFStringArray(*(a1 + 80), v13, __s1))
+            {
+LABEL_41:
+              if (++v13 >= *(a1 + 72))
+              {
+                return a2;
+              }
+            }
+
+            if (a2)
+            {
+              if (*(a2 + 48) == 4)
+              {
+                v14 = *(a2 + 16);
+                if (v14)
+                {
+                  if (*v14)
+                  {
+                    v38 = MEMORY[0x1E69E9820];
+                    v39 = 0x40000000;
+                    v40 = __db_query_tree_apply_block_block_invoke;
+                    v41 = &unk_1E8198ED0;
+                    v42 = &__block_literal_global_21_15415;
+                    db_query_tree_apply_block_with_meta(a2, &v38, &__block_literal_global_25_15416);
+                    v16 = v15;
+                    if (!v15)
+                    {
+LABEL_40:
+                      db_free_query_node(v16);
+                      goto LABEL_41;
+                    }
+
+                    v17 = v15[2];
+                    if (v17 && *v17)
+                    {
+                      free(*v17);
+                      v18 = strdup(__s1);
+                      v19 = v16[2];
+                      *v19 = v18;
+                      if (v18)
+                      {
+                        if (CFSetContainsValue(*(a1 + 64), v19))
+                        {
+                          v38 = MEMORY[0x1E69E9820];
+                          v39 = 0x40000000;
+                          v40 = __db_query_tree_apply_block_block_invoke;
+                          v41 = &unk_1E8198ED0;
+                          v42 = &__block_literal_global_174;
+                          db_query_tree_apply_block_with_meta(v16, &v38, 0);
+                        }
+
+                        else
+                        {
+                          v20 = *(*(a1 + 32) + 8);
+                          v21 = *(v20 + 24);
+                          v22 = *(*(a1 + 40) + 8);
+                          if (v21 == *(v22 + 24))
+                          {
+                            *(v22 + 24) = 2 * v21;
+                            *(*(*(a1 + 48) + 8) + 24) = malloc_type_realloc(*(*(*(a1 + 48) + 8) + 24), 8 * *(*(*(a1 + 40) + 8) + 24), 0x2004093837F09uLL);
+                            v20 = *(*(a1 + 32) + 8);
+                            v21 = *(v20 + 24);
+                          }
+
+                          v23 = *(*(*(a1 + 48) + 8) + 24);
+                          *(v20 + 24) = v21 + 1;
+                          *(v23 + 8 * v21) = v16;
+                          CFSetAddValue(*(a1 + 64), v16[2]);
+                          v24 = *(a1 + 88);
+                          if (v24)
+                          {
+                            LODWORD(v24) = *(v24 + 4 * v13);
+                          }
+
+                          *(v16[2] + 80) = v24;
+                        }
+
+                        goto LABEL_41;
+                      }
+
+                      goto LABEL_40;
+                    }
+
+                    v38 = MEMORY[0x1E69E9820];
+                    v39 = 0x40000000;
+                    v40 = __db_query_tree_apply_block_block_invoke;
+                    v41 = &unk_1E8198ED0;
+                    v42 = &__block_literal_global_174;
+                    db_query_tree_apply_block_with_meta(v15, &v38, 0);
+                  }
+                }
+              }
+            }
+
+            v16 = 0;
+            goto LABEL_40;
+          }
+
+          v9 = *(a2 + 16);
+          if (v9 && *v9)
+          {
+            v10 = *(*(*(a1 + 56) + 8) + 24);
+            if (v10)
+            {
+              goto LABEL_70;
+            }
+
+            *(*(*(a1 + 56) + 8) + 24) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, &kCStringDictionaryKeyCallBacks, &kIntDictionaryValueCallBacks);
+            if (*(a1 + 72) >= 1)
+            {
+              v30 = 0;
+              do
+              {
+                if (cStringFromCFStringArray(*(a1 + 80), v30, __s1))
+                {
+                  v31 = *(a1 + 88);
+                  if (v31)
+                  {
+                    v32 = *(v31 + 4 * v30);
+                  }
+
+                  else
+                  {
+                    v32 = 0;
+                  }
+
+                  CFDictionarySetValue(*(*(*(a1 + 56) + 8) + 24), __s1, v32);
+                }
+
+                ++v30;
+              }
+
+              while (v30 < *(a1 + 72));
+            }
+
+            v10 = *(*(*(a1 + 56) + 8) + 24);
+            if (v10)
+            {
+              if (*(a2 + 48) == 4)
+              {
+                v9 = *(a2 + 16);
+                if (v9)
+                {
+LABEL_70:
+                  if (*v9 && CFDictionaryContainsKey(v10, *v9) && **(a2 + 16))
+                  {
+                    db_clone_query_node(a2);
+                    v5 = v11;
+                    if (v11)
+                    {
+                      v12 = *(v11 + 16);
+                      if (v12)
+                      {
+                        if (*v12 && !CFSetContainsValue(*(a1 + 64), v12))
+                        {
+                          v33 = *(*(*(a1 + 32) + 8) + 24);
+                          v34 = *(*(a1 + 40) + 8);
+                          if (v33 == *(v34 + 24))
+                          {
+                            *(v34 + 24) = 2 * v33;
+                            *(*(*(a1 + 48) + 8) + 24) = malloc_type_realloc(*(*(*(a1 + 48) + 8) + 24), 8 * *(*(*(a1 + 40) + 8) + 24), 0x2004093837F09uLL);
+                          }
+
+                          *(*(v5 + 16) + 80) = CFDictionaryGetValue(*(*(*(a1 + 56) + 8) + 24), **(v5 + 16));
+                          v35 = *(*(*(a1 + 48) + 8) + 24);
+                          v36 = *(*(a1 + 32) + 8);
+                          v37 = *(v36 + 24);
+                          *(v36 + 24) = v37 + 1;
+                          *(v35 + 8 * v37) = v5;
+                          goto LABEL_51;
+                        }
+                      }
+                    }
+
+LABEL_24:
+                    db_free_query_node(v5);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return a2;
+}
+
+BOOL cStringFromCFStringArray(const __CFArray *a1, CFIndex a2, char *a3)
+{
+  ValueAtIndex = CFArrayGetValueAtIndex(a1, a2);
+  v5 = CFGetTypeID(ValueAtIndex);
+  return v5 == CFStringGetTypeID() && CFStringGetCString(ValueAtIndex, a3, 1024, 0x8000100u) != 0;
+}
+
+uint64_t ___ZL11emitResultsP20SISearchCtx_METADATAP19PartialQueryResultsb_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 16);
+  if (v3)
+  {
+    v4 = *(*(a1 + 32) + 216);
+    if (!v4)
+    {
+      goto LABEL_9;
+    }
+
+    Value = CFDictionaryGetValue(v4, v3);
+    if (!Value)
+    {
+      goto LABEL_9;
+    }
+
+    v7 = *(Value + 12);
+    if (v7 <= 3)
+    {
+      LODWORD(v9) = 0;
+      if (v7 <= 1)
+      {
+        if (!v7)
+        {
+          goto LABEL_10;
+        }
+
+        if (v7 == 1)
+        {
+          LODWORD(v9) = *(*(Value + 7) + 68);
+          goto LABEL_10;
+        }
+
+        goto LABEL_22;
+      }
+
+      if (v7 == 2)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      if ((v7 - 4) < 4)
+      {
+LABEL_6:
+        v8 = (Value + 80);
+        goto LABEL_7;
+      }
+
+      if (v7 != 8)
+      {
+        if (v7 == 9)
+        {
+          goto LABEL_6;
+        }
+
+LABEL_22:
+        assert_invalid_doc_type(Value);
+      }
+    }
+
+    v9 = *(Value + 8);
+    if (!v9)
+    {
+      goto LABEL_10;
+    }
+
+    v8 = (v9 + 88);
+LABEL_7:
+    if (*v8)
+    {
+      LODWORD(v9) = lockedCountItemsInRange(*v8, (*v8)[5], (*v8)[6], v6);
+LABEL_10:
+      *(*(a2 + 16) + 152) += v9;
+      return a2;
+    }
+
+LABEL_9:
+    LODWORD(v9) = 0;
+    goto LABEL_10;
+  }
+
+  return a2;
+}
+
+uint64_t ___ZL11emitResultsP20SISearchCtx_METADATAP19PartialQueryResultsb_block_invoke_2(uint64_t a1, uint64_t a2)
+{
+  v4 = a2;
+  if (*(a2 + 16))
+  {
+    malloc_size(**(a1 + 32));
+    _db_render_query_tree(v2);
+    _MDPlistContainerAddCString();
+    _MDPlistContainerAddInt64Value();
+    return v4;
+  }
+
+  return a2;
+}
+
+uint64_t SISearchCtx_METADATA::updateGroupingCount(SISearchCtx_METADATA *this)
+{
+  v2 = currentCategoryCount(*(this + 3));
+  v3 = *(this + 291) + v2;
+  result = *(this + 164);
+  if (v3 > result)
+  {
+    v5 = *(this + 116);
+    if (v5 && v5[1] < v3)
+    {
+      v5 = malloc_type_realloc(*(this + 116), 32 * (*(this + 291) + v2) + 40, 0x10000400A747E1EuLL);
+      if (v5[1] < v3)
+      {
+        L1ComboQueueInit();
+      }
+
+      v5[1] = v3;
+    }
+
+    *(this + 116) = v5;
+    v6 = *(this + 22);
+    if (v6 || (v6 = *(this + 23)) != 0)
+    {
+      if (v6 <= *(this + 21))
+      {
+        v6 = *(this + 21);
+      }
+
+      v6 = v6;
+    }
+
+    Info = *(this + 147);
+    v8 = *(this + 291);
+    v9 = v8 + v2;
+    if ((*(this + 40) & 0xFFFFFFFD) == 1)
+    {
+      v10 = 0;
+    }
+
+    else
+    {
+      v10 = v6;
+    }
+
+    if (Info)
+    {
+      if (*Info < v9)
+      {
+        Info = malloc_type_zone_realloc(queryZone, *(this + 147), 40 * v9 + 8, 0xA1A7ADA0uLL);
+        if (!Info)
+        {
+          _log_fault_for_malloc_failure();
+        }
+
+        v11 = *Info;
+        if (*Info < v9)
+        {
+          v12 = v2 + v8 - v11;
+          v13 = &Info[10 * v11 + 8];
+          do
+          {
+            pqinit_rankAndFetchInfo_t(v13 - 3, v10);
+            *v13 = 0;
+            *(v13 + 1) = 0;
+            v13 += 10;
+            --v12;
+          }
+
+          while (v12);
+        }
+
+        *Info = v9;
+      }
+    }
+
+    else
+    {
+      Info = createFetchInfo(v8 + v2, v10);
+    }
+
+    *(this + 147) = Info;
+    result = (*(this + 291) + v2);
+    *(this + 164) = result;
+  }
+
+  return result;
+}
+
+uint64_t pqpop_rankAndFetchInfo_t(uint64_t result, void *a2)
+{
+  v146 = *MEMORY[0x1E69E9840];
+  v2 = a2[2];
+  if (v2 != 1)
+  {
+    v3 = *a2;
+    v4 = *(*a2 + 272);
+    *(result + 96) = *(*a2 + 256);
+    *(result + 112) = v4;
+    v5 = *(v3 + 304);
+    *(result + 128) = *(v3 + 288);
+    *(result + 144) = v5;
+    v6 = *(v3 + 208);
+    *(result + 32) = *(v3 + 192);
+    *(result + 48) = v6;
+    v7 = *(v3 + 240);
+    *(result + 64) = *(v3 + 224);
+    *(result + 80) = v7;
+    v8 = *(v3 + 176);
+    *result = *(v3 + 160);
+    *(result + 16) = v8;
+    result = 160;
+    v9 = v3 + 160 * v2;
+    v10 = *(v9 - 160);
+    v11 = *(v9 - 152);
+    v94 = *(v9 - 144);
+    v96 = *(v9 - 128);
+    v12 = *(v9 - 112);
+    v13 = *(v9 - 108);
+    v14 = *(v9 - 104);
+    v15 = *(v9 - 100);
+    v16 = *(v9 - 96);
+    v17 = *(v9 - 92);
+    v18 = *(v9 - 91);
+    v19 = *(v9 - 90);
+    v20 = *(v9 - 82);
+    v84 = *(v9 - 48);
+    v86 = *(v9 - 32);
+    v88 = *(v9 - 16);
+    v80 = *(v9 - 80);
+    v82 = *(v9 - 64);
+    *(v3 + 176) = v94;
+    *(v3 + 192) = v96;
+    *(v3 + 288) = v86;
+    *(v3 + 304) = v88;
+    *(v3 + 256) = v82;
+    *(v3 + 272) = v84;
+    *(v3 + 240) = v80;
+    v138 = v94;
+    v139 = v96;
+    v135 = v88;
+    v90 = v16;
+    v92 = v17;
+    v140 = v19;
+    v141 = v20;
+    *(v3 + 160) = v10;
+    *(v3 + 168) = v11;
+    *(v3 + 208) = v12;
+    *(v3 + 212) = v13;
+    *(v3 + 216) = v14;
+    *(v3 + 220) = v15;
+    *(v3 + 228) = v17;
+    *(v3 + 224) = v16;
+    *(v3 + 229) = v18;
+    *(v3 + 238) = v20;
+    *(v3 + 230) = v19;
+    v22 = a2[1];
+    v21 = a2[2];
+    a2[2] = v21 - 1;
+    v23 = v22 >> 1;
+    v136 = v16;
+    v137 = v17;
+    v144 = v19;
+    v145 = v141;
+    v24 = 3;
+    v133 = v84;
+    v134 = v86;
+    v25 = 2;
+    v26 = 1;
+    v27 = 0uLL;
+    v131 = v80;
+    v132 = v82;
+    while (1)
+    {
+      v28 = *a2;
+      v29 = *a2 + 160 * v25;
+      v30 = *v29;
+      v31 = *(v29 + 8);
+      v32 = *(v29 + 48);
+      v33 = *(v29 + 52);
+      v34 = *(v29 + 56);
+      v35 = *(v29 + 60);
+      v36 = *(v29 + 69);
+      v37 = *a2 + 160 * v24;
+      v39 = *v37;
+      v38 = *(v37 + 8);
+      v40 = *(v37 + 32);
+      v129 = *(v37 + 16);
+      v130 = v40;
+      v41 = *(v37 + 48);
+      v42 = *(v37 + 52);
+      v43 = *(v37 + 56);
+      v44 = *(v37 + 60);
+      v45 = *(v37 + 64);
+      v128 = *(v37 + 68);
+      v127 = v45;
+      v46 = *(v37 + 69);
+      v142 = *(v37 + 70);
+      v143 = *(v37 + 78);
+      v47 = *(v37 + 128);
+      v124 = *(v37 + 112);
+      v125 = v47;
+      v126 = *(v37 + 144);
+      v48 = *(v37 + 96);
+      v122 = *(v37 + 80);
+      v123 = v48;
+      if (v24 >= v21)
+      {
+        v129 = xmmword_1C2BFF510;
+        v130 = unk_1C2BFF520;
+        v127 = 0;
+        v128 = 0;
+        v142 = 0;
+        v143 = 0;
+        v122 = v27;
+        v123 = v27;
+        v124 = v27;
+        v125 = v27;
+        v126 = v27;
+        if (v25 >= v21)
+        {
+          return result;
+        }
+
+        v46 = 0;
+        v43 = 0;
+        v41 = 0;
+        v39 = -1;
+        v42 = 0.0;
+        v44 = 3.4028e38;
+        v38 = -1;
+      }
+
+      v110[0] = v10;
+      v110[1] = v11;
+      v111 = v94;
+      v112 = v96;
+      v113 = v12;
+      v114 = v13;
+      v115 = v14;
+      v116 = v15;
+      v117 = v90;
+      v118 = v92;
+      v119 = v18;
+      v120 = v140;
+      v121 = v141;
+      v98[0] = v39;
+      v98[1] = v38;
+      v99 = v129;
+      v100 = v130;
+      v101 = v41;
+      v102 = v42;
+      v103 = v43;
+      v104 = v44;
+      v105 = v127;
+      v106 = v128;
+      v107 = v46;
+      v109 = v143;
+      v108 = v142;
+      if (v36)
+      {
+        if (v35 < v15)
+        {
+          goto LABEL_19;
+        }
+
+        if (v35 != v15)
+        {
+          goto LABEL_38;
+        }
+      }
+
+      else
+      {
+        if (__PAIR128__(v31, v30) < __PAIR128__(v11, v10))
+        {
+          goto LABEL_19;
+        }
+
+        if (v31 != v11 || v30 != v10)
+        {
+LABEL_38:
+          v73 = v21;
+          v74 = v18;
+          v75 = v14;
+          v76 = v12;
+          v77 = v11;
+          v78 = v10;
+          v79 = a2;
+          result = ci_rankingbits_wrapped_s::operator<(v98, v110);
+          if ((result & 1) == 0)
+          {
+            _X8 = v28 + 320 * v26;
+            __asm { PRFM            #1, [X8] }
+
+            return result;
+          }
+
+          v53 = &v122;
+          v52 = &v142;
+          v51 = &v127;
+          v50 = &v129;
+          v36 = v46;
+          v35 = v44;
+          v34 = v43;
+          v33 = v42;
+          v32 = v41;
+          v30 = v39;
+          v31 = v38;
+          v25 = v24;
+          v10 = v78;
+          a2 = v79;
+          result = 160;
+          v11 = v77;
+          v14 = v75;
+          v12 = v76;
+          v18 = v74;
+          v21 = v73;
+          v27 = 0uLL;
+          goto LABEL_33;
+        }
+      }
+
+      if (v33 >= v13 && (v33 != v13 || v32 <= v12))
+      {
+        goto LABEL_38;
+      }
+
+LABEL_19:
+      v50 = (v29 + 16);
+      v51 = (v29 + 64);
+      v52 = (v29 + 70);
+      v53 = (v29 + 80);
+      if ((v46 & 1) == 0)
+      {
+        if (__PAIR128__(v38, v39) >= __PAIR128__(v31, v30))
+        {
+          if (v38 != v31 || v39 != v30)
+          {
+            goto LABEL_33;
+          }
+
+LABEL_29:
+          if (v42 >= v33 && (v42 != v33 || v41 <= v32))
+          {
+            goto LABEL_33;
+          }
+        }
+
+LABEL_32:
+        v53 = &v122;
+        v52 = &v142;
+        v51 = &v127;
+        v50 = &v129;
+        v36 = v46;
+        v35 = v44;
+        v34 = v43;
+        v33 = v42;
+        v32 = v41;
+        v30 = v39;
+        v31 = v38;
+        v25 = v24;
+        goto LABEL_33;
+      }
+
+      if (v44 < v35)
+      {
+        goto LABEL_32;
+      }
+
+      if (v44 == v35)
+      {
+        goto LABEL_29;
+      }
+
+LABEL_33:
+      v95 = *v50;
+      v97 = v50[1];
+      v91 = *v51;
+      v93 = *(v51 + 4);
+      v140 = *v52;
+      v141 = *(v52 + 4);
+      v87 = v53[3];
+      v89 = v53[4];
+      v83 = v53[1];
+      v85 = v53[2];
+      v81 = *v53;
+      _X14 = v28 + 320 * v25;
+      __asm { PRFM            #1, [X14] }
+
+      if (v25 != v26)
+      {
+        v60 = v28 + 160 * v25;
+        *v60 = v10;
+        *(v60 + 8) = v11;
+        v61 = v139;
+        v62 = v138;
+        v63 = v139;
+        *(v60 + 16) = v138;
+        *(v60 + 32) = v61;
+        *(v60 + 48) = v12;
+        *(v60 + 52) = v13;
+        *(v60 + 56) = v14;
+        *(v60 + 60) = v15;
+        v64 = v136;
+        *(v60 + 64) = v136;
+        *(v60 + 68) = v137;
+        *(v60 + 69) = v18;
+        *(v60 + 78) = v145;
+        v65 = v144;
+        *(v60 + 70) = v144;
+        v66 = v134;
+        *(v60 + 112) = v133;
+        *(v60 + 128) = v66;
+        *(v60 + 144) = v135;
+        v67 = v132;
+        *(v60 + 80) = v131;
+        *(v60 + 96) = v67;
+        v68 = *a2 + 160 * v26;
+        *(v68 + 16) = v95;
+        *(v68 + 32) = v97;
+        *(v68 + 52) = v33;
+        *(v68 + 60) = v35;
+        *(v68 + 128) = v87;
+        *(v68 + 144) = v89;
+        *(v68 + 96) = v83;
+        *(v68 + 112) = v85;
+        *(v68 + 80) = v81;
+        v94 = v62;
+        v96 = v63;
+        v26 = v25;
+        v24 = (2 * v25) | 1;
+        *v68 = v30;
+        *(v68 + 8) = v31;
+        *(v68 + 48) = v32;
+        *(v68 + 56) = v34;
+        *(v68 + 64) = v91;
+        *(v68 + 68) = v93;
+        *(v68 + 69) = v36;
+        v69 = v140;
+        *(v68 + 78) = v141;
+        *(v68 + 70) = v69;
+        v92 = v137;
+        v90 = v64;
+        v141 = v145;
+        v140 = v65;
+        v70 = v25 < v23;
+        v25 *= 2;
+        if (v70)
+        {
+          continue;
+        }
+      }
+
+      return result;
+    }
+  }
+
+  *(result + 96) = xmmword_1C2BFF380;
+  *(result + 112) = unk_1C2BFF390;
+  *(result + 128) = xmmword_1C2BFF3A0;
+  *(result + 144) = unk_1C2BFF3B0;
+  *(result + 32) = xmmword_1C2BFF340;
+  *(result + 48) = unk_1C2BFF350;
+  *(result + 64) = xmmword_1C2BFF360;
+  *(result + 80) = unk_1C2BFF370;
+  *result = ZERO_FETCHINFO;
+  *(result + 16) = *algn_1C2BFF330;
+  return result;
 }

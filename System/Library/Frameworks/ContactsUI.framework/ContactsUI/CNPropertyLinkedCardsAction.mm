@@ -33,7 +33,7 @@
   v14 = v9;
   if ((mutableContact & 1) == 0)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyLinkedCardsAction.m", 114, 3, @"Could not set preferred contact for name: %@", v10, v11, v12, v13, v9);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyLinkedCardsAction.m", 114, 3u, @"Could not set preferred contact for name: %@", v10, v11, v12, v13, v9);
   }
 
   contactController = [(CNPropertyLinkedCardsAction *)self contactController];
@@ -62,7 +62,7 @@
   v14 = v9;
   if ((mutableContact & 1) == 0)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyLinkedCardsAction.m", 96, 3, @"Could not set preferred contact for image: %@", v10, v11, v12, v13, v9);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyLinkedCardsAction.m", 96, 3u, @"Could not set preferred contact for image: %@", v10, v11, v12, v13, v9);
   }
 
   contactController = [(CNPropertyLinkedCardsAction *)self contactController];

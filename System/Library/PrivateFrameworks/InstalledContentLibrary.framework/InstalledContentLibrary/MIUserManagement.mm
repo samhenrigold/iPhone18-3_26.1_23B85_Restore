@@ -17,7 +17,7 @@
 
 @implementation MIUserManagement
 
-uint64_t __34__MIUserManagement_sharedInstance__block_invoke()
+uint64_t __34__MIUserManagement_sharedInstance__block_invoke(uint64_t a1)
 {
   sharedInstance_defaultInstance = objc_alloc_init(objc_opt_class());
 

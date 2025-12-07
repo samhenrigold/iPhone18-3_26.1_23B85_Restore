@@ -44,7 +44,7 @@
 
 - (void)setServerResolvedAddress:(void *)address path:
 {
-  *&v27[5] = *MEMORY[0x1E69E9840];
+  *&v26[5] = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -54,9 +54,9 @@
       v13 = ne_log_obj();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        v26 = 136315138;
-        *v27 = "[NEIKEv2Server setServerResolvedAddress:path:]";
-        _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "%s called with null normalizedAddress", &v26, 0xCu);
+        v25 = 136315138;
+        *v26 = "[NEIKEv2Server setServerResolvedAddress:path:]";
+        _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "%s called with null normalizedAddress", &v25, 0xCu);
       }
 
       goto LABEL_19;
@@ -83,9 +83,9 @@ LABEL_19:
       v22 = ne_log_obj();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
-        v26 = 136315138;
-        *v27 = "[NEIKEv2AddressList addAddressToList:]";
-        _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, "%s called with null address", &v26, 0xCu);
+        v25 = 136315138;
+        *v26 = "[NEIKEv2AddressList addAddressToList:]";
+        _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, "%s called with null address", &v25, 0xCu);
       }
 
       goto LABEL_18;
@@ -107,11 +107,11 @@ LABEL_19:
         v24 = ne_log_obj();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v26 = 67109378;
-          v27[0] = v23;
-          LOWORD(v27[1]) = 2112;
-          *(&v27[1] + 2) = v13;
-          _os_log_error_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_ERROR, "Bad address family %d for address %@", &v26, 0x12u);
+          v25 = 67109378;
+          v26[0] = v23;
+          LOWORD(v26[1]) = 2112;
+          *(&v26[1] + 2) = v13;
+          _os_log_error_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_ERROR, "Bad address family %d for address %@", &v25, 0x12u);
         }
 
         v22 = 0;
@@ -141,13 +141,11 @@ LABEL_18:
   }
 
 LABEL_20:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startRedirectTimer
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self)
   {
     [(NEIKEv2Server *)self stopRedirectTimer];
@@ -157,34 +155,32 @@ LABEL_20:
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v10 = "[NEIKEv2Server startRedirectTimer]";
+        v9 = "[NEIKEv2Server startRedirectTimer]";
         _os_log_error_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_ERROR, "%s: Starting timer\n", buf, 0xCu);
       }
 
       v4 = dispatch_time(0, 300000000000);
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __35__NEIKEv2Server_startRedirectTimer__block_invoke;
-      v8[3] = &unk_1E7F0B0E8;
-      v8[4] = self;
-      v5 = NERepeatingEventCreate(MEMORY[0x1E69E96A0], v4, 0, 300000, 150000, 0, v8, 0);
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __35__NEIKEv2Server_startRedirectTimer__block_invoke;
+      v7[3] = &unk_1E7F0B0E8;
+      v7[4] = self;
+      v5 = NERepeatingEventCreate(MEMORY[0x1E69E96A0], v4, 0, 300000, 150000, 0, v7, 0);
       v6 = self[9];
       self[9] = v5;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __35__NEIKEv2Server_startRedirectTimer__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[NEIKEv2Server startRedirectTimer]_block_invoke";
-    _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "%s: timeout\n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[NEIKEv2Server startRedirectTimer]_block_invoke";
+    _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "%s: timeout\n", &v4, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -192,8 +188,6 @@ void __35__NEIKEv2Server_startRedirectTimer__block_invoke(uint64_t a1)
   {
     *(v3 + 12) = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetPathProxyState
@@ -209,7 +203,7 @@ void __35__NEIKEv2Server_startRedirectTimer__block_invoke(uint64_t a1)
 
 - (id)getNextViableServerAddressForPath:(void *)path
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (path)
   {
     v3 = a2;
@@ -286,6 +280,16 @@ LABEL_21:
       {
         if ([v7 supportsIPv4])
         {
+          v27 = "yes";
+        }
+
+        else
+        {
+          v27 = "no";
+        }
+
+        if ([v7 supportsIPv6])
+        {
           v28 = "yes";
         }
 
@@ -294,20 +298,10 @@ LABEL_21:
           v28 = "no";
         }
 
-        if ([v7 supportsIPv6])
-        {
-          v29 = "yes";
-        }
-
-        else
-        {
-          v29 = "no";
-        }
-
         *buf = 136315394;
-        *&buf[4] = v28;
-        v31 = 2080;
-        v32 = v29;
+        *&buf[4] = v27;
+        v30 = 2080;
+        v31 = v28;
         _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "Failed to find suitable address, path supports IPv4 %s IPv6 %s", buf, 0x16u);
       }
     }
@@ -318,7 +312,6 @@ LABEL_21:
 
   v11 = 0;
 LABEL_22:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

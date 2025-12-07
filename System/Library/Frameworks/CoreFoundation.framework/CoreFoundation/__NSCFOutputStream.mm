@@ -3,6 +3,7 @@
 - (__NSCFOutputStream)initWithURL:(id)l append:(BOOL)append;
 - (id)delegate;
 - (id)initToBuffer:(char *)buffer capacity:(unint64_t)capacity;
+- (id)initToFileAtPath:(id)path append:(BOOL)append;
 - (id)initToMemory;
 - (id)propertyForKey:(id)key;
 - (id)streamError;
@@ -42,6 +43,21 @@
   return CFWriteStreamCreateWithBuffer(0, buffer, capacity);
 }
 
+- (id)initToFileAtPath:(id)path append:(BOOL)append
+{
+  appendCopy = append;
+  result = [[NSURL alloc] initFileURLWithPath:path];
+  if (result)
+  {
+    v7 = result;
+    v8 = [(__NSCFOutputStream *)self initWithURL:result append:appendCopy];
+
+    return v8;
+  }
+
+  return result;
+}
+
 - (__NSCFOutputStream)initWithURL:(id)l append:(BOOL)append
 {
   appendCopy = append;
@@ -68,23 +84,20 @@
 
 - (void)setDelegate:(id)delegate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (delegate)
   {
     v4 = [[__NSCFStreamWeakDelegateWrapper alloc] initWithDelegate:delegate];
-    v7.version = 0;
-    v7.info = v4;
-    v7.retain = CFRetain;
-    v7.release = CFRelease;
-    v7.copyDescription = 0;
-    CFWriteStreamSetClient(self, 0x1DuLL, _outputStreamCallbackFunc, &v7);
-
-    v5 = *MEMORY[0x1E69E9840];
+    v5.version = 0;
+    v5.info = v4;
+    v5.retain = CFRetain;
+    v5.release = CFRelease;
+    v5.copyDescription = 0;
+    CFWriteStreamSetClient(self, 0x1DuLL, _outputStreamCallbackFunc, &v5);
   }
 
   else
   {
-    v6 = *MEMORY[0x1E69E9840];
 
     CFWriteStreamSetClient(self, 0, 0, 0);
   }

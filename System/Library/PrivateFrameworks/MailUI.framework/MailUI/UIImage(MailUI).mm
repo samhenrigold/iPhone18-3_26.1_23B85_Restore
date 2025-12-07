@@ -12,57 +12,58 @@
 {
   v4 = a3;
   v5 = @"magnifyingglass";
-  switch([v4 tokenKind])
+  tokenKind = [v4 tokenKind];
+  switch(tokenKind)
   {
     case 0:
       break;
     case 2:
-      v6 = MFImageGlyphSearchAttachment;
+      v7 = MFImageGlyphSearchAttachment;
       goto LABEL_22;
     case 3:
-      v6 = MFImageGlyphSearchAudio;
+      v7 = MFImageGlyphSearchAudio;
       goto LABEL_22;
     case 5:
     case 7:
-      v6 = MFImageGlyphSearchDate;
+      v7 = MFImageGlyphSearchDate;
       goto LABEL_22;
     case 6:
-      v6 = MFImageGlyphSearchDocument;
+      v7 = MFImageGlyphSearchDocument;
       goto LABEL_22;
     case 9:
-      v6 = MFImageGlyphSearchIgnore;
+      v7 = MFImageGlyphSearchIgnore;
       goto LABEL_22;
     case 10:
     case 17:
-      v6 = MFImageGlyphSearchImage;
+      v7 = MFImageGlyphSearchImage;
       goto LABEL_22;
     case 11:
     case 14:
-      v6 = MFImageGlyphSearchEmail;
+      v7 = MFImageGlyphSearchEmail;
       goto LABEL_22;
     case 12:
-      v6 = MFImageGlyphSearchMailbox;
+      v7 = MFImageGlyphSearchMailbox;
       goto LABEL_22;
     case 13:
-      v6 = MFImageGlyphSearchDefaultLocation;
+      v7 = MFImageGlyphSearchDefaultLocation;
       goto LABEL_22;
     case 16:
     case 46:
-      v6 = MFImageGlyphSearchPersonCompletion;
+      v7 = MFImageGlyphSearchPersonCompletion;
       goto LABEL_22;
     case 19:
-      v6 = MFImageGlyphSearchReadIndicator;
+      v7 = MFImageGlyphSearchReadIndicator;
       goto LABEL_22;
     case 20:
-      v6 = MFImageGlyphSearchReply;
+      v7 = MFImageGlyphSearchReply;
       goto LABEL_22;
     case 22:
-      v6 = MFImageGlyphSearchSourceCode;
+      v7 = MFImageGlyphSearchSourceCode;
       goto LABEL_22;
     case 24:
     case 25:
     case 33:
-      v6 = MFImageGlyphSearchFlag;
+      v7 = MFImageGlyphSearchFlag;
       goto LABEL_22;
     case 26:
     case 27:
@@ -71,31 +72,31 @@
     case 30:
     case 31:
     case 32:
-      v6 = MFImageGlyphSearchFlagFilled;
+      v7 = MFImageGlyphSearchFlagFilled;
       goto LABEL_22;
     case 36:
-      v6 = MFImageGlyphSearchMovie;
+      v7 = MFImageGlyphSearchMovie;
       goto LABEL_22;
     case 37:
-      v6 = MFImageGlyphSearchDefaultLink;
+      v7 = MFImageGlyphSearchDefaultLink;
 LABEL_22:
-      v8 = *v6;
+      v9 = *v7;
 
-      v5 = v8;
+      v5 = v9;
       break;
     default:
-      v7 = _ef_log_UIImage();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _ef_log_UIImage(tokenKind);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(UIImage(MailUI) *)v4 mui_imageFromSuggestionToken:v7];
+        [(UIImage(MailUI) *)v4 mui_imageFromSuggestionToken:v8];
       }
 
       break;
   }
 
-  v9 = [self mui_imageWithSystemSymbolName:v5];
+  v10 = [self mui_imageWithSystemSymbolName:v5];
 
-  return v9;
+  return v10;
 }
 
 + (id)mui_imageWithSystemSymbolName:()MailUI symbolColor:hintScale:accessibilityDescription:

@@ -10,11 +10,12 @@
   sub_100006AF0(0, &qword_1006A3DE0, TUConversationMember_ptr);
   sub_10000CE3C(&qword_1006A2660, &qword_1006A3DE0, TUConversationMember_ptr);
   v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   selfCopy = self;
-  v7 = sub_1003CEA1C(v5);
+  LOBYTE(v6) = sub_1003CEA1C(v5, v6, v8);
 
-  return v7 & 1;
+  return v6 & 1;
 }
 
 - (BOOL)blockListContainsHandles:(id)handles providerIdentifier:(id)identifier

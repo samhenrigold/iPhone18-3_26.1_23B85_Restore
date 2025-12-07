@@ -1,3 +1,25 @@
+void CPSDLayerInfo::CreateImageAtLayer(CPSDLayerInfo *this, unsigned int a2)
+{
+  if (*(this + 10) >= a2)
+  {
+    if (CPSDFile::IsTaggedWithICCProfile(*(this + 1)))
+    {
+      v4 = CPSDImageResources::LookupResourceWithResID((*(this + 1) + 192), 1039);
+      v5 = (*(*v4 + 56))(v4);
+      v6 = (*(*v4 + 48))(v4);
+    }
+
+    else
+    {
+      v5 = 0;
+      v6 = 0;
+    }
+
+    v7 = operator new();
+    CPSDLayerImage::CPSDLayerImage(v7, (*(this + 3) + 488 * a2), *(*(this + 6) + 8 * a2), *(*(this + 1) + 154), *(*(this + 1) + 152), v6, v5);
+  }
+}
+
 void CPSDLayerInfo::CreateImageAtLayerWithSlice(CPSDLayerInfo *this, unsigned int a2, CPSDSliceResource *a3)
 {
   if (*(this + 10) >= a2)
@@ -1136,7 +1158,7 @@ CPSDMeshedARGBStream *CPSDChannelImage::CreateChannelStream(CPSDChannelImage *th
   return v2;
 }
 
-CPSDAlphaChannelStream *CPSDChannelImage::CreateAlphaStream(CPSDChannelImage *this, unsigned int a2)
+CPSDAlphaChannelStream *CPSDChannelImage::CreateAlphaStream(CPSDChannelImage *this, uint64_t a2)
 {
   if (!*(this + 6))
   {
@@ -1719,7 +1741,7 @@ size_t CPSDVectorMaskData::Dump(CPSDVectorMaskData *this, __sFILE *a2)
   return fwrite("} // End VectorMaskData\n", 0x18uLL, 1uLL, a2);
 }
 
-void *std::vector<CPSDChannelBlendingInfo>::resize(void *result, unint64_t a2)
+uint64_t *std::vector<CPSDChannelBlendingInfo>::resize(uint64_t *result, unint64_t a2)
 {
   v2 = result;
   v3 = result[1];
@@ -1831,8 +1853,8 @@ void CPSDOSTypeList::~CPSDOSTypeList(CPSDOSTypeList *this)
 
 uint64_t CPSDOSTypeList::Load(CPSDOSTypeList *this, uint64_t a2)
 {
-  v17 = 0;
-  CPSDBaseComponent::ReadFile(a2, this + 56, 4uLL, &v17);
+  v11 = 0;
+  CPSDBaseComponent::ReadFile(a2, this + 56, 4uLL, &v11);
   v4 = bswap32(*(this + 14));
   *(this + 14) = v4;
   std::vector<CPSDLayerChannelGroup *>::resize(this + 8, v4);
@@ -1841,107 +1863,107 @@ uint64_t CPSDOSTypeList::Load(CPSDOSTypeList *this, uint64_t a2)
     v5 = 0;
     do
     {
-      CPSDBaseComponent::ReadFile(a2, this + 60, 4uLL, &v17);
-      v12 = 0;
-      v13 = bswap32(*(this + 15));
-      *(this + 15) = v13;
-      if (v13 > 1651470187)
+      CPSDBaseComponent::ReadFile(a2, this + 60, 4uLL, &v11);
+      v6 = 0;
+      v7 = bswap32(*(this + 15));
+      *(this + 15) = v7;
+      if (v7 > 1651470187)
       {
-        if (v13 > 1701737836)
+        if (v7 > 1701737836)
         {
-          if (v13 == 1701737837)
+          if (v7 == 1701737837)
           {
-            v12 = operator new();
-            *(v12 + 16) = 0;
-            *(v12 + 24) = 0u;
-            *(v12 + 40) = 0u;
-            *v12 = &unk_1F00D5390;
-            *(v12 + 56) = 0;
-            *(v12 + 64) = 0;
-            *(v12 + 80) = 0;
-            *(v12 + 88) = 0;
+            v6 = operator new();
+            *(v6 + 16) = 0;
+            *(v6 + 24) = 0u;
+            *(v6 + 40) = 0u;
+            *v6 = &unk_1F00D5390;
+            *(v6 + 56) = 0;
+            *(v6 + 64) = 0;
+            *(v6 + 80) = 0;
+            *(v6 + 88) = 0;
           }
 
-          else if (v13 == 1819242087)
+          else if (v7 == 1819242087)
           {
-            v12 = operator new();
-            *(v12 + 16) = 0;
-            *(v12 + 24) = 0u;
-            *(v12 + 40) = 0u;
-            *v12 = &unk_1F00D5300;
-            *(v12 + 56) = 0;
+            v6 = operator new();
+            *(v6 + 16) = 0;
+            *(v6 + 24) = 0u;
+            *(v6 + 40) = 0u;
+            *v6 = &unk_1F00D5300;
+            *(v6 + 56) = 0;
           }
         }
 
-        else if (v13 == 1651470188)
+        else if (v7 == 1651470188)
         {
-          v12 = operator new();
-          *(v12 + 16) = 0;
-          *(v12 + 24) = 0u;
-          *(v12 + 40) = 0u;
-          *v12 = &unk_1F00D4630;
-          *(v12 + 56) = 0;
+          v6 = operator new();
+          *(v6 + 16) = 0;
+          *(v6 + 24) = 0u;
+          *(v6 + 40) = 0u;
+          *v6 = &unk_1F00D4630;
+          *(v6 + 56) = 0;
         }
 
-        else if (v13 == 1685026146)
+        else if (v7 == 1685026146)
         {
-          v12 = operator new();
-          *(v12 + 16) = 0;
-          *(v12 + 24) = 0u;
-          *(v12 + 40) = 0u;
-          *v12 = &unk_1F00D5348;
-          *(v12 + 56) = 0;
-        }
-      }
-
-      else if (v13 > 1433302085)
-      {
-        if (v13 == 1433302086)
-        {
-          v12 = operator new();
-          *(v12 + 16) = 0;
-          *(v12 + 24) = 0u;
-          *(v12 + 40) = 0u;
-          *v12 = &unk_1F00D4678;
-          *(v12 + 56) = 0;
-          *(v12 + 64) = 0;
-        }
-
-        else if (v13 == 1449938035)
-        {
-          v12 = operator new();
-          *(v12 + 16) = 0;
-          *(v12 + 24) = 0u;
-          *(v12 + 40) = 0u;
-          *v12 = &unk_1F00D45E8;
-          *(v12 + 56) = 0u;
-          *(v12 + 72) = 0u;
+          v6 = operator new();
+          *(v6 + 16) = 0;
+          *(v6 + 24) = 0u;
+          *(v6 + 40) = 0u;
+          *v6 = &unk_1F00D5348;
+          *(v6 + 56) = 0;
         }
       }
 
-      else if (v13 == 1331849827)
+      else if (v7 > 1433302085)
       {
-        v12 = operator new();
-        CPSDActionDescriptor::CPSDActionDescriptor(v12);
+        if (v7 == 1433302086)
+        {
+          v6 = operator new();
+          *(v6 + 16) = 0;
+          *(v6 + 24) = 0u;
+          *(v6 + 40) = 0u;
+          *v6 = &unk_1F00D4678;
+          *(v6 + 56) = 0;
+          *(v6 + 64) = 0;
+        }
+
+        else if (v7 == 1449938035)
+        {
+          v6 = operator new();
+          *(v6 + 16) = 0;
+          *(v6 + 24) = 0u;
+          *(v6 + 40) = 0u;
+          *v6 = &unk_1F00D45E8;
+          *(v6 + 56) = 0u;
+          *(v6 + 72) = 0u;
+        }
       }
 
-      else if (v13 == 1413830740)
+      else if (v7 == 1331849827)
       {
-        v12 = operator new();
-        CPSDOSTypeText::CPSDOSTypeText(v12);
+        v6 = operator new();
+        CPSDActionDescriptor::CPSDActionDescriptor(v6);
       }
 
-      *(*(this + 8) + 8 * v5) = v12;
-      v14 = *(*(this + 8) + 8 * v5);
-      if (v14)
+      else if (v7 == 1413830740)
       {
-        (*(*v14 + 16))(v14, a2);
+        v6 = operator new();
+        CPSDOSTypeText::CPSDOSTypeText(v6);
+      }
+
+      *(*(this + 8) + 8 * v5) = v6;
+      v8 = *(*(this + 8) + 8 * v5);
+      if (v8)
+      {
+        (*(*v8 + 16))(v8, a2);
       }
 
       else
       {
-        v16 = bswap32(*(this + 15));
-        _CUILog(1, "Error parsing gradient fill info: The OSType %.4s cannot be parsed.\n", v6, v7, v8, v9, v10, v11, &v16);
+        v10 = bswap32(*(this + 15));
+        _CUILog(1, "Error parsing gradient fill info: The OSType %.4s cannot be parsed.\n", &v10);
       }
 
       ++v5;
@@ -2295,197 +2317,197 @@ void CPSDActionKeyedItem::~CPSDActionKeyedItem(CPSDActionKeyedItem *this)
 
 uint64_t CPSDActionKeyedItem::Load(CPSDActionKeyedItem *this, uint64_t a2)
 {
-  v18 = 0;
-  CPSDBaseComponent::ReadFile(a2, this + 56, 4uLL, &v18);
+  v11 = 0;
+  CPSDBaseComponent::ReadFile(a2, this + 56, 4uLL, &v11);
   v4 = *(this + 14);
   *(this + 14) = bswap32(v4);
   if (v4)
   {
     v5 = operator new[]();
     *(this + 8) = v5;
-    CPSDBaseComponent::ReadFile(a2, v5, *(this + 14), &v18);
+    CPSDBaseComponent::ReadFile(a2, v5, *(this + 14), &v11);
   }
 
   else
   {
-    CPSDBaseComponent::ReadFile(a2, this + 60, 4uLL, &v18);
+    CPSDBaseComponent::ReadFile(a2, this + 60, 4uLL, &v11);
     *(this + 15) = bswap32(*(this + 15));
   }
 
-  CPSDBaseComponent::ReadFile(a2, this + 72, 4uLL, &v18);
-  v12 = bswap32(*(this + 18));
-  *(this + 18) = v12;
-  if (v12 <= 1651470187)
+  CPSDBaseComponent::ReadFile(a2, this + 72, 4uLL, &v11);
+  v6 = bswap32(*(this + 18));
+  *(this + 18) = v6;
+  if (v6 <= 1651470187)
   {
-    if (v12 > 1433302085)
+    if (v6 > 1433302085)
     {
-      if (v12 == 1433302086)
+      if (v6 == 1433302086)
       {
-        v13 = operator new();
-        *(v13 + 16) = 0;
-        *(v13 + 24) = 0u;
-        *(v13 + 40) = 0u;
-        *v13 = &unk_1F00D4678;
-        *(v13 + 56) = 0;
-        *(v13 + 64) = 0;
+        v7 = operator new();
+        *(v7 + 16) = 0;
+        *(v7 + 24) = 0u;
+        *(v7 + 40) = 0u;
+        *v7 = &unk_1F00D4678;
+        *(v7 + 56) = 0;
+        *(v7 + 64) = 0;
         goto LABEL_40;
       }
 
-      if (v12 == 1449938035)
+      if (v6 == 1449938035)
       {
-        v13 = operator new();
-        *(v13 + 16) = 0;
-        *(v13 + 24) = 0u;
-        *(v13 + 40) = 0u;
-        *v13 = &unk_1F00D45E8;
-        *(v13 + 56) = 0u;
-        *(v13 + 72) = 0u;
+        v7 = operator new();
+        *(v7 + 16) = 0;
+        *(v7 + 24) = 0u;
+        *(v7 + 40) = 0u;
+        *v7 = &unk_1F00D45E8;
+        *(v7 + 56) = 0u;
+        *(v7 + 72) = 0u;
         goto LABEL_40;
       }
 
       goto LABEL_27;
     }
 
-    if (v12 != 1331849827)
+    if (v6 != 1331849827)
     {
-      if (v12 == 1413830740)
+      if (v6 == 1413830740)
       {
-        v13 = operator new();
-        CPSDOSTypeText::CPSDOSTypeText(v13);
+        v7 = operator new();
+        CPSDOSTypeText::CPSDOSTypeText(v7);
 LABEL_40:
-        *(this + 10) = v13;
-        (*(*v13 + 16))(v13, a2);
+        *(this + 10) = v7;
+        (*(*v7 + 16))(v7, a2);
         return 1;
       }
 
       goto LABEL_27;
     }
 
-    v14 = *(this + 15);
-    if (v14 <= 1232229223)
+    v8 = *(this + 15);
+    if (v8 <= 1232229223)
     {
-      switch(v14)
+      switch(v8)
       {
         case 1148343144:
-          v13 = operator new();
-          CPSDActionDescriptor::CPSDActionDescriptor(v13);
-          v15 = &unk_1F00D4890;
+          v7 = operator new();
+          CPSDActionDescriptor::CPSDActionDescriptor(v7);
+          v9 = &unk_1F00D4890;
           goto LABEL_39;
         case 1198671468:
-          v13 = operator new();
-          CPSDActionDescriptor::CPSDActionDescriptor(v13);
-          *v13 = &unk_1F00D4A70;
-          *(v13 + 120) = 0;
+          v7 = operator new();
+          CPSDActionDescriptor::CPSDActionDescriptor(v7);
+          *v7 = &unk_1F00D4A70;
+          *(v7 + 120) = 0;
           goto LABEL_40;
         case 1232226156:
-          v13 = operator new();
-          CPSDActionDescriptor::CPSDActionDescriptor(v13);
-          v15 = &unk_1F00D4930;
+          v7 = operator new();
+          CPSDActionDescriptor::CPSDActionDescriptor(v7);
+          v9 = &unk_1F00D4930;
           goto LABEL_39;
       }
     }
 
-    else if (v14 > 1399801448)
+    else if (v8 > 1399801448)
     {
-      if (v14 == 1399801449)
+      if (v8 == 1399801449)
       {
-        v13 = operator new();
-        CPSDActionDescriptor::CPSDActionDescriptor(v13);
-        v15 = &unk_1F00D4A20;
+        v7 = operator new();
+        CPSDActionDescriptor::CPSDActionDescriptor(v7);
+        v9 = &unk_1F00D4A20;
         goto LABEL_39;
       }
 
-      if (v14 == 1700946540)
+      if (v8 == 1700946540)
       {
-        v13 = operator new();
-        CPSDActionDescriptor::CPSDActionDescriptor(v13);
-        v15 = &unk_1F00D49D0;
+        v7 = operator new();
+        CPSDActionDescriptor::CPSDActionDescriptor(v7);
+        v9 = &unk_1F00D49D0;
         goto LABEL_39;
       }
     }
 
     else
     {
-      if (v14 == 1232229224)
+      if (v8 == 1232229224)
       {
-        v13 = operator new();
-        CPSDActionDescriptor::CPSDActionDescriptor(v13);
-        v15 = &unk_1F00D48E0;
+        v7 = operator new();
+        CPSDActionDescriptor::CPSDActionDescriptor(v7);
+        v9 = &unk_1F00D48E0;
         goto LABEL_39;
       }
 
-      if (v14 == 1332889452)
+      if (v8 == 1332889452)
       {
-        v13 = operator new();
-        CPSDActionDescriptor::CPSDActionDescriptor(v13);
-        v15 = &unk_1F00D4980;
+        v7 = operator new();
+        CPSDActionDescriptor::CPSDActionDescriptor(v7);
+        v9 = &unk_1F00D4980;
 LABEL_39:
-        *v13 = v15;
+        *v7 = v9;
         goto LABEL_40;
       }
     }
 
-    v13 = operator new();
-    CPSDActionDescriptor::CPSDActionDescriptor(v13);
+    v7 = operator new();
+    CPSDActionDescriptor::CPSDActionDescriptor(v7);
     goto LABEL_40;
   }
 
-  if (v12 > 1701737836)
+  if (v6 > 1701737836)
   {
-    if (v12 == 1701737837)
+    if (v6 == 1701737837)
     {
-      v13 = operator new();
-      *(v13 + 16) = 0;
-      *(v13 + 24) = 0u;
-      *(v13 + 40) = 0u;
-      *v13 = &unk_1F00D5390;
-      *(v13 + 56) = 0;
-      *(v13 + 64) = 0;
-      *(v13 + 80) = 0;
-      *(v13 + 88) = 0;
+      v7 = operator new();
+      *(v7 + 16) = 0;
+      *(v7 + 24) = 0u;
+      *(v7 + 40) = 0u;
+      *v7 = &unk_1F00D5390;
+      *(v7 + 56) = 0;
+      *(v7 + 64) = 0;
+      *(v7 + 80) = 0;
+      *(v7 + 88) = 0;
       goto LABEL_40;
     }
 
-    if (v12 == 1819242087)
+    if (v6 == 1819242087)
     {
-      v13 = operator new();
-      *(v13 + 16) = 0;
-      *(v13 + 24) = 0u;
-      *(v13 + 40) = 0u;
-      *v13 = &unk_1F00D5300;
-      *(v13 + 56) = 0;
+      v7 = operator new();
+      *(v7 + 16) = 0;
+      *(v7 + 24) = 0u;
+      *(v7 + 40) = 0u;
+      *v7 = &unk_1F00D5300;
+      *(v7 + 56) = 0;
       goto LABEL_40;
     }
   }
 
   else
   {
-    if (v12 == 1651470188)
+    if (v6 == 1651470188)
     {
-      v13 = operator new();
-      *(v13 + 16) = 0;
-      *(v13 + 24) = 0u;
-      *(v13 + 40) = 0u;
-      *v13 = &unk_1F00D4630;
-      *(v13 + 56) = 0;
+      v7 = operator new();
+      *(v7 + 16) = 0;
+      *(v7 + 24) = 0u;
+      *(v7 + 40) = 0u;
+      *v7 = &unk_1F00D4630;
+      *(v7 + 56) = 0;
       goto LABEL_40;
     }
 
-    if (v12 == 1685026146)
+    if (v6 == 1685026146)
     {
-      v13 = operator new();
-      *(v13 + 16) = 0;
-      *(v13 + 24) = 0u;
-      *(v13 + 40) = 0u;
-      *v13 = &unk_1F00D5348;
-      *(v13 + 56) = 0;
+      v7 = operator new();
+      *(v7 + 16) = 0;
+      *(v7 + 24) = 0u;
+      *(v7 + 40) = 0u;
+      *v7 = &unk_1F00D5348;
+      *(v7 + 56) = 0;
       goto LABEL_40;
     }
   }
 
 LABEL_27:
   *(this + 10) = 0;
-  _CUILog(1, "in keyed item Error parsing gradient fill info: This OSType cannot be parsed.\n", v6, v7, v8, v9, v10, v11, v17);
+  _CUILog(1, "in keyed item Error parsing gradient fill info: This OSType cannot be parsed.\n");
   return 1;
 }
 
@@ -2643,7 +2665,7 @@ uint64_t CPSDActionDescriptor::Load(CPSDActionDescriptor *this, uint64_t a2)
   return 1;
 }
 
-void *std::vector<CPSDActionKeyedItem>::resize(void *result, unint64_t a2)
+uint64_t *std::vector<CPSDActionKeyedItem>::resize(uint64_t *result, unint64_t a2)
 {
   v2 = result;
   v3 = result[1];
@@ -2824,7 +2846,7 @@ void CPSDActionDescriptor::CPSDActionDescriptor(CPSDActionDescriptor *this)
   *(this + 40) = 0u;
   *this = &unk_1F00D4840;
   *(this + 8) = 0;
-  CPSDString::AllocateCharData((this + 56), 1);
+  CPSDString::AllocateCharData((this + 56), 1u);
   **(this + 8) = 0;
   *(this + 13) = 0;
   *(this + 14) = 0;
@@ -4495,11 +4517,11 @@ LABEL_55:
   return result;
 }
 
-void sub_18DFA2268(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+void sub_18DFA2268(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   if (a19)
   {
-    MEMORY[0x193AC64A0](a19, 0x1000C80BDFB0063);
+    MEMORY[0x193AC64A0](a19, 0x1000C80BDFB0063, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4812,12 +4834,13 @@ CPSDActionKeyedItem *CPSDObjectEffectsLayerInfo::MakeOffsetItem(CPSDObjectEffect
   return v8;
 }
 
-void sub_18DFA29C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_18DFA29C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  v21 = v20;
-  MEMORY[0x193AC64C0](v21, 0x10B1C40DEC6B036);
+  va_start(va, a19);
+  v20 = v19;
+  MEMORY[0x193AC64C0](v20, 0x10B1C40DEC6B036);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(&a9);
-  CPSDActionKeyedItem::~CPSDActionKeyedItem(&a20);
+  CPSDActionKeyedItem::~CPSDActionKeyedItem(va);
   _Unwind_Resume(a1);
 }
 
@@ -4891,12 +4914,11 @@ CPSDActionKeyedItem *CPSDObjectEffectsLayerInfo::MakeRGBColor(CPSDObjectEffectsL
   return v11;
 }
 
-void sub_18DFA2CC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFA2CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
@@ -4906,11 +4928,12 @@ void sub_18DFA2CC8(_Unwind_Exception *a1, uint64_t a2, ...)
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
-  v4 = v2;
-  MEMORY[0x193AC64C0](v4, 0x10B1C40DEC6B036);
+  v18 = va_arg(va1, void);
+  v5 = v3;
+  MEMORY[0x193AC64C0](v5, 0x10B1C40DEC6B036);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(va);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(va1);
-  CPSDActionKeyedItem::~CPSDActionKeyedItem((v3 - 152));
+  CPSDActionKeyedItem::~CPSDActionKeyedItem((v4 - 152));
   _Unwind_Resume(a1);
 }
 
@@ -4954,12 +4977,11 @@ CPSDActionDescriptor *CPSDObjectEffectsLayerInfo::MakeColorStopObject(CPSDObject
   return v11;
 }
 
-void sub_18DFA2F50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFA2F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
@@ -4969,9 +4991,10 @@ void sub_18DFA2F50(_Unwind_Exception *a1, uint64_t a2, ...)
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(va);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(va1);
-  CPSDActionKeyedItem::~CPSDActionKeyedItem((v2 - 168));
+  CPSDActionKeyedItem::~CPSDActionKeyedItem((v3 - 168));
   _Unwind_Resume(a1);
 }
 
@@ -5011,12 +5034,11 @@ CPSDActionDescriptor *CPSDObjectEffectsLayerInfo::MakeTransparencyStopObject(CPS
   return v7;
 }
 
-void sub_18DFA317C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFA317C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
@@ -5026,9 +5048,10 @@ void sub_18DFA317C(_Unwind_Exception *a1, uint64_t a2, ...)
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(va);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(va1);
-  CPSDActionKeyedItem::~CPSDActionKeyedItem((v2 - 152));
+  CPSDActionKeyedItem::~CPSDActionKeyedItem((v3 - 152));
   _Unwind_Resume(a1);
 }
 
@@ -5227,13 +5250,14 @@ CPSDActionKeyedItem *CPSDObjectEffectsLayerInfo::MakeGradientDescriptor(uint64_t
   return v13;
 }
 
-void sub_18DFA36B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_18DFA36B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  MEMORY[0x193AC64C0](v32, v31);
+  va_start(va, a30);
+  MEMORY[0x193AC64C0](v31, v30, a3, a4, a5, a6, a7, a8);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(&a9);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(&a20);
-  CPSDActionKeyedItem::~CPSDActionKeyedItem(&a31);
-  CPSDActionKeyedItem::~CPSDActionKeyedItem((v33 - 136));
+  CPSDActionKeyedItem::~CPSDActionKeyedItem(va);
+  CPSDActionKeyedItem::~CPSDActionKeyedItem((v32 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -5249,11 +5273,11 @@ void CPSDActionDescriptor::CPSDActionDescriptor(CPSDActionDescriptor *this, cons
   }
 }
 
-void sub_18DFA37D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_18DFA37D8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x193AC64A0](a10, 0x1000C80BDFB0063);
+    MEMORY[0x193AC64A0](a10, 0x1000C80BDFB0063, a3, a4, a5, a6, a7, a8);
   }
 
   CPSDActionDescriptor::~CPSDActionDescriptor(v10);
@@ -5271,18 +5295,18 @@ void CPSDOSTypeText::CPSDOSTypeText(CPSDOSTypeText *this, const char *a2)
   }
 }
 
-void sub_18DFA3878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_18DFA3878(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x193AC64A0](a10, 0x1000C80BDFB0063);
+    MEMORY[0x193AC64A0](a10, 0x1000C80BDFB0063, a3, a4, a5, a6, a7, a8);
   }
 
   CPSDOSTypeText::~CPSDOSTypeText(v10);
   _Unwind_Resume(a1);
 }
 
-CPSDActionDescriptor *CPSDObjectEffectsLayerInfo::MakeGradientOverlayObject(uint64_t a1, uint64_t a2)
+CPSDActionDescriptor *CPSDObjectEffectsLayerInfo::MakeGradientOverlayObject(uint64_t a1, uint64_t *a2)
 {
   v3 = operator new();
   CPSDActionDescriptor::CPSDActionDescriptor(v3);
@@ -5328,7 +5352,7 @@ CPSDActionDescriptor *CPSDObjectEffectsLayerInfo::MakeGradientOverlayObject(uint
   CPSDActionKeyedItem::CPSDActionKeyedItem(v28, 1097754476, v9);
   CPSDActionDescriptor::AdoptItem(v3, v28);
   v11 = operator new();
-  v12 = *(a2 + 48);
+  v12 = *(a2 + 12);
   *(v11 + 16) = 0;
   *(v11 + 24) = 0u;
   *(v11 + 40) = 0u;
@@ -5389,7 +5413,7 @@ CPSDActionDescriptor *CPSDObjectEffectsLayerInfo::MakeGradientOverlayObject(uint
   return v3;
 }
 
-void sub_18DFA3D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_18DFA3D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   CPSDActionKeyedItem::~CPSDActionKeyedItem(&a10);
   CPSDActionKeyedItem::~CPSDActionKeyedItem(&a21);
@@ -6225,21 +6249,21 @@ void CPSDLayerAndMaskInfo::~CPSDLayerAndMaskInfo(CPSDLayerAndMaskInfo *this)
   CPSDLayerInfo::~CPSDLayerInfo((this + 24));
 }
 
-uint64_t std::vector<CPSDLayerRecord>::__emplace_back_slow_path<CPSDLayerRecord>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<CPSDLayerRecord>::__emplace_back_slow_path<CPSDLayerRecord>(uint64_t *a1, uint64_t a2)
 {
-  v2 = 0x4FBCDA3AC10C9715 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x4FBCDA3AC10C9715 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x864B8A7DE6D1D6)
   {
     std::vector<RB::Path::Subpath::DistanceMap::Element>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x9F79B47582192E2ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x9F79B47582192E2ALL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x9F79B47582192E2ALL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x9F79B47582192E2ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x4FBCDA3AC10C9715 * ((*(a1 + 16) - *a1) >> 3)) >= 0x4325C53EF368EBLL)
+  if ((0x4FBCDA3AC10C9715 * ((a1[2] - *a1) >> 3)) >= 0x4325C53EF368EBLL)
   {
     v6 = 0x864B8A7DE6D1D6;
   }
@@ -6261,18 +6285,18 @@ uint64_t std::vector<CPSDLayerRecord>::__emplace_back_slow_path<CPSDLayerRecord>
   }
 
   v14 = v7;
-  v15 = v7 + 488 * v2;
+  v15 = (v7 + 488 * v2);
   *(&v16 + 1) = v7 + 488 * v6;
   CPSDLayerRecord::CPSDLayerRecord(v15, a2);
-  *&v16 = v15 + 488;
-  v8 = *(a1 + 8);
+  *&v16 = v15 + 61;
+  v8 = a1[1];
   v9 = v15 + *a1 - v8;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CPSDLayerRecord>,CPSDLayerRecord*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -6281,9 +6305,9 @@ uint64_t std::vector<CPSDLayerRecord>::__emplace_back_slow_path<CPSDLayerRecord>
   return v13;
 }
 
-void sub_18DFA5ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_18DFA5ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CPSDLayerRecord>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6361,9 +6385,9 @@ uint64_t CPSDLayerRecord::CPSDLayerRecord(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_18DFA5C84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFA5C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<CPSDChannelBlendingInfo>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6432,15 +6456,15 @@ void std::vector<CPSDChannelBlendingInfo>::__destroy_vector::operator()[abi:ne20
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 24;
-      v7 = v4 - 24;
-      v8 = v4 - 24;
+      v6 = v4 - 3;
+      v7 = v4 - 3;
+      v8 = v4 - 3;
       do
       {
         v9 = *v8;
-        v8 -= 24;
+        v8 -= 3;
         (*v9)(v7);
-        v6 -= 24;
+        v6 -= 3;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -6475,7 +6499,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CP
     do
     {
       result = CPSDLayerRecord::CPSDLayerRecord(a4 + v7, v8);
-      v8 += 488;
+      v8 += 61;
       v7 += 488;
     }
 
@@ -6524,7 +6548,7 @@ uint64_t std::__split_buffer<CPSDLayerRecord>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void *std::vector<CPSDChannelLengthInfo>::__append(void *result, unint64_t a2)
+unint64_t *std::vector<CPSDChannelLengthInfo>::__append(unint64_t *result, unint64_t a2)
 {
   v3 = result;
   v4 = result[1];
@@ -6604,13 +6628,13 @@ void *std::vector<CPSDChannelLengthInfo>::__append(void *result, unint64_t a2)
 
     while (v15 != v13 + 24 * a2);
     *&v22 = v13 + 24 * a2;
-    v16 = *(v3 + 8);
+    v16 = v3[1];
     v17 = v13 + *v3 - v16;
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CPSDChannelLengthInfo>,CPSDChannelLengthInfo*>(v3, *v3, v16, v17);
     v18 = *v3;
     *v3 = v17;
-    v19 = *(v3 + 16);
-    *(v3 + 8) = v22;
+    v19 = v3[2];
+    *(v3 + 1) = v22;
     *&v22 = v18;
     *(&v22 + 1) = v19;
     v20 = v18;
@@ -6621,9 +6645,9 @@ void *std::vector<CPSDChannelLengthInfo>::__append(void *result, unint64_t a2)
   return result;
 }
 
-void sub_18DFA61E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFA61E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CPSDChannelLengthInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6838,7 +6862,7 @@ void CPSDSlicesResourceItem::CPSDSlicesResourceItem(CPSDSlicesResourceItem *this
   *(this + 10) = 0;
   *(this + 7) = 0;
   *(this + 16) = 0;
-  CPSDString::AllocateCharData((this + 72), 1);
+  CPSDString::AllocateCharData((this + 72), 1u);
   **(this + 10) = 0;
   *(this + 22) = 0;
   *(this + 13) = 0;
@@ -6891,7 +6915,7 @@ void *std::vector<CPSDString>::__construct_one_at_end[abi:ne200100]<CPSDString c
   return result;
 }
 
-uint64_t std::vector<CPSDString>::__emplace_back_slow_path<CPSDString const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<CPSDString>::__emplace_back_slow_path<CPSDString const&>(CPSDString **a1, uint64_t a2)
 {
   v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
@@ -6953,9 +6977,9 @@ uint64_t std::vector<CPSDString>::__emplace_back_slow_path<CPSDString const&>(ui
   return v16;
 }
 
-void sub_18DFA6960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_18DFA6960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CPSDString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7088,26 +7112,26 @@ void CPSDSliceResource::CPSDSliceResource(CPSDSliceResource *this)
   *(this + 5) = 0;
   *(this + 2) = 0;
   *(this + 3) = 0;
-  CPSDString::AllocateCharData((this + 32), 1);
+  CPSDString::AllocateCharData((this + 32), 1u);
   **(this + 5) = 0;
   *(this + 10) = 0;
   *(this + 16) = 0;
   *(this + 6) = 0;
   *(this + 7) = 0;
-  CPSDString::AllocateCharData((this + 72), 1);
+  CPSDString::AllocateCharData((this + 72), 1u);
   **(this + 10) = 0;
   *(this + 12) = 0;
-  CPSDString::AllocateCharData((this + 88), 1);
+  CPSDString::AllocateCharData((this + 88), 1u);
   **(this + 12) = 0;
   *(this + 14) = 0;
-  CPSDString::AllocateCharData((this + 104), 1);
+  CPSDString::AllocateCharData((this + 104), 1u);
   **(this + 14) = 0;
   *(this + 16) = 0;
-  CPSDString::AllocateCharData((this + 120), 1);
+  CPSDString::AllocateCharData((this + 120), 1u);
   **(this + 16) = 0;
   *(this + 136) = 0;
   *(this + 19) = 0;
-  CPSDString::AllocateCharData((this + 144), 1);
+  CPSDString::AllocateCharData((this + 144), 1u);
   **(this + 19) = 0;
   *(this + 20) = 0;
   *(this + 42) = 0;
@@ -7277,14 +7301,14 @@ CPSDLayerRecord *std::vector<CPSDLayerRecord>::__append(uint64_t a1, unint64_t a
   return result;
 }
 
-void sub_18DFA70C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFA70C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CPSDLayerRecord>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<CPSDChannelBlendingInfo>::__append(void *result, unint64_t a2)
+uint64_t *std::vector<CPSDChannelBlendingInfo>::__append(uint64_t *result, unint64_t a2)
 {
   v3 = result;
   v4 = result[1];
@@ -7362,13 +7386,13 @@ void *std::vector<CPSDChannelBlendingInfo>::__append(void *result, unint64_t a2)
 
     while (v15 != &v13[3 * a2]);
     *&v22 = &v13[3 * a2];
-    v16 = *(v3 + 8);
+    v16 = v3[1];
     v17 = v13 + *v3 - v16;
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CPSDChannelBlendingInfo>,CPSDChannelBlendingInfo*>(v3, *v3, v16, v17);
     v18 = *v3;
     *v3 = v17;
-    v19 = *(v3 + 16);
-    *(v3 + 8) = v22;
+    v19 = v3[2];
+    *(v3 + 1) = v22;
     *&v22 = v18;
     *(&v22 + 1) = v19;
     v20 = v18;
@@ -7379,9 +7403,9 @@ void *std::vector<CPSDChannelBlendingInfo>::__append(void *result, unint64_t a2)
   return result;
 }
 
-void sub_18DFA7274(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFA7274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CPSDChannelLengthInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7430,7 +7454,7 @@ void CPSDOSTypeText::CPSDOSTypeText(CPSDOSTypeText *this)
   *(this + 40) = 0u;
   *this = &unk_1F00D46C0;
   *(this + 8) = 0;
-  CPSDString::AllocateCharData((this + 56), 1);
+  CPSDString::AllocateCharData((this + 56), 1u);
   **(this + 8) = 0;
 }
 
@@ -7444,15 +7468,15 @@ void std::vector<CPSDActionKeyedItem>::__destroy_vector::operator()[abi:ne200100
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 88;
-      v7 = v4 - 88;
-      v8 = v4 - 88;
+      v6 = v4 - 11;
+      v7 = v4 - 11;
+      v8 = v4 - 11;
       do
       {
         v9 = *v8;
-        v8 -= 88;
+        v8 -= 11;
         (*v9)(v7);
-        v6 -= 88;
+        v6 -= 11;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -7467,7 +7491,7 @@ void std::vector<CPSDActionKeyedItem>::__destroy_vector::operator()[abi:ne200100
   }
 }
 
-void *std::vector<CPSDActionKeyedItem>::__append(void *result, unint64_t a2)
+uint64_t *std::vector<CPSDActionKeyedItem>::__append(uint64_t *result, unint64_t a2)
 {
   v3 = result;
   v4 = result[1];
@@ -7561,13 +7585,13 @@ void *std::vector<CPSDActionKeyedItem>::__append(void *result, unint64_t a2)
 
     while (v15);
     *&v24 = v14 + 88 * a2;
-    v18 = *(v3 + 8);
+    v18 = v3[1];
     v19 = v14 + *v3 - v18;
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CPSDActionKeyedItem>,CPSDActionKeyedItem*>(v3, *v3, v18, v19);
     v20 = *v3;
     *v3 = v19;
-    v21 = *(v3 + 16);
-    *(v3 + 8) = v24;
+    v21 = v3[2];
+    *(v3 + 1) = v24;
     *&v24 = v20;
     *(&v24 + 1) = v21;
     v22 = v20;
@@ -7578,9 +7602,9 @@ void *std::vector<CPSDActionKeyedItem>::__append(void *result, unint64_t a2)
   return result;
 }
 
-void sub_18DFA7664(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFA7664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CPSDActionKeyedItem>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7732,9 +7756,9 @@ uint64_t std::vector<CPSDActionKeyedItem>::__emplace_back_slow_path<CPSDActionKe
   return v17;
 }
 
-void sub_18DFA79B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_18DFA79B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CPSDActionKeyedItem>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7742,7 +7766,7 @@ void sub_18DFA79B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void CPSDString::CPSDString(CPSDString *this, const char *a2)
 {
   *(this + 1) = 0;
-  CPSDString::AllocateCharData(this, 1);
+  CPSDString::AllocateCharData(this, 1u);
   **(this + 1) = 0;
   v4 = strlen(a2) + 1;
   CPSDString::AllocateCharData(this, v4);
@@ -7827,53 +7851,51 @@ void CPSDUnicodeLayerName::CopyStringValue(const UniChar **this, char *a2, unsig
   CFRelease(v5);
 }
 
-__CFData *__CUIImageCompressedWithDeepmap(uint64_t a1, int a2, uint64_t a3, int a4)
+__CFData *__CUIImageCompressedWithDeepmap(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v21 = a3;
-  v22 = a4;
-  v20 = 0;
+  v4 = a2;
+  v13 = a3;
+  v14 = a4;
+  v12 = 0;
   Buffer = vImageDeepmapEncodeCreateBuffer();
   if (!Buffer)
   {
-    v14 = "CoreUI: DeepmapEncodeImageCreateBuffer() returned 0.";
-LABEL_7:
-    _CUILog(4, v14, v6, v7, v8, v9, v10, v11, v16);
+    _CUILog(4, "CoreUI: DeepmapEncodeImageCreateBuffer() returned 0.");
     return 0;
   }
 
-  v12 = Buffer;
+  v6 = Buffer;
   __CUIImageCompressedWithDeepmap_cold_1();
-  if ((v21 - 1) >= 4)
+  if ((v13 - 1) >= 4)
   {
-    v16 = v21;
-    v14 = "CoreUI: vImageDeepmapEncodeCreateBuffer() returned unrecognized compression method: %lu [%s]";
-    goto LABEL_7;
+    _CUILog(4, "CoreUI: vImageDeepmapEncodeCreateBuffer() returned unrecognized compression method: %lu [%s]");
+    return 0;
   }
 
   *bytes = 5;
-  v18 = a2;
-  v19 = v12;
-  Mutable = CFDataCreateMutable(kCFAllocatorDefault, v12 + 16);
+  v10 = v4;
+  v11 = v6;
+  Mutable = CFDataCreateMutable(kCFAllocatorDefault, v6 + 16);
   CFDataAppendBytes(Mutable, bytes, 16);
-  CFDataAppendBytes(Mutable, v20, v12);
-  free(v20);
+  CFDataAppendBytes(Mutable, v12, v6);
+  free(v12);
   return Mutable;
 }
 
-id CUIImageCompressedWithDeepmap(unsigned int *a1, __int128 *a2, uint64_t a3, _DWORD *a4, __int16 *a5, uint64_t *a6, _DWORD *a7, uint64_t a8)
+id CUIImageCompressedWithDeepmap(uint64_t a1, __int128 *a2, uint64_t a3, int *a4, __int16 *a5, uint64_t *a6, _DWORD *a7)
 {
   if (*a2 && *(a2 + 3) && *(a2 + 2) && *(a2 + 1))
   {
     if (*a1 == 8 || *a1 == 16)
     {
-      if (*(a1 + 1))
+      if (*(a1 + 8))
       {
         if (a3 > 1195456543)
         {
           if (a3 == 1195456544)
           {
-            v11 = 2;
             v10 = 2;
+            v9 = 2;
           }
 
           else
@@ -7881,12 +7903,12 @@ id CUIImageCompressedWithDeepmap(unsigned int *a1, __int128 *a2, uint64_t a3, _D
             if (a3 != 1380401751)
             {
 LABEL_20:
-              _CUILog(4, "CoreUI: Unrecognized input pixel format: %d [%s]", a3, a4, a5, a6, a7, a8, a3);
+              _CUILog(4, "CoreUI: Unrecognized input pixel format: %d [%s]", a3, a4, a5, a6, a7);
               return 0;
             }
 
-            v10 = 20;
-            v11 = 4;
+            v9 = 20;
+            v10 = 4;
           }
         }
 
@@ -7896,99 +7918,106 @@ LABEL_20:
           {
             if (a3 == 1195454774)
             {
-              v10 = 18;
-              v11 = 6;
+              v9 = 18;
+              v10 = 6;
               goto LABEL_23;
             }
 
             goto LABEL_20;
           }
 
-          v10 = 4;
-          v11 = 1;
+          v9 = 4;
+          v10 = 1;
         }
 
 LABEL_23:
         *a4 = a3;
-        *a5 = v11;
+        *a5 = v10;
         *a6 = CGBitmapGetAlignedBytesPerRow();
-        v12 = objc_alloc_init(NSMutableArray);
-        v14 = *(a2 + 1);
-        if (v14 * *(a2 + 3) < 0x5000)
+        v11 = objc_alloc_init(NSMutableArray);
+        v13 = *(a2 + 1);
+        if (v13 * *(a2 + 3) < 0x5000)
         {
-          v29 = a2[1];
-          v32 = *a2;
-          v33 = v29;
-          v30 = __CUIImageCompressedWithDeepmap(&v32, v10, 0x100000000, 10);
-          if (!v30)
+          v22 = a2[1];
+          v26 = *a2;
+          v27 = v22;
+          v23 = __CUIImageCompressedWithDeepmap(&v26, v9, 0x100000000, 10);
+          if (!v23)
           {
-LABEL_36:
-            _CUILog(4, "CoreUI: Deepmap compressed failed in %s [%s:%lu]", v21, v22, v23, v24, v25, v26, "NSArray<NSData *> *CUIImageCompressedWithDeepmap(vImage_CGImageFormat, vImage_Buffer, u_int32_t, u_int32_t *, short *, size_t *, u_int32_t *)");
+            v25 = 285;
+LABEL_38:
+            _CUILog(4, "CoreUI: Deepmap compressed failed in %s [%s:%lu]", "NSArray<NSData *> *CUIImageCompressedWithDeepmap(vImage_CGImageFormat, vImage_Buffer, u_int32_t, u_int32_t *, short *, size_t *, u_int32_t *)", "/Library/Caches/com.apple.xbs/Sources/CoreUI/CoreTheme/ImageUtils/CUIDeepmapCompression.m", v25);
 
             return 0;
           }
 
-          v31 = v30;
-          [v12 addObject:v30];
-          CFRelease(v31);
-          v28 = *(a2 + 1);
+          v24 = v23;
+          [v11 addObject:v23];
+          CFRelease(v24);
+          v21 = *(a2 + 1);
         }
 
         else
         {
-          v15 = (v14 * 0xAAAAAAAAAAAAAAABLL) >> 64;
-          v16 = (v14 / 3);
-          if (!(v14 / 3))
+          v14 = (v13 * 0xAAAAAAAAAAAAAAABLL) >> 64;
+          v15 = (v13 / 3);
+          if (!(v13 / 3))
           {
             CUIImageCompressedWithDeepmap_cold_1();
           }
 
-          if (v14)
+          if (v13)
           {
-            v17 = *a2;
-            do
+            v16 = *a2;
+            while (1)
             {
-              v18 = v14 >= v16 ? v16 : v14;
-              *a2 = v17;
-              *(a2 + 1) = v18;
-              v19 = a2[1];
-              v32 = *a2;
-              v33 = v19;
-              v20 = __CUIImageCompressedWithDeepmap(&v32, v10, 0x100000000, 10);
-              if (!v20)
+              v17 = v13 >= v15 ? v15 : v13;
+              *a2 = v16;
+              *(a2 + 1) = v17;
+              v18 = a2[1];
+              v26 = *a2;
+              v27 = v18;
+              v19 = __CUIImageCompressedWithDeepmap(&v26, v9, 0x100000000, 10);
+              if (!v19)
               {
-                goto LABEL_36;
+                break;
               }
 
-              v27 = v20;
-              [v12 addObject:v20];
-              CFRelease(v27);
-              v17 += *(a2 + 3) * v18;
-              v14 -= v18;
+              v20 = v19;
+              [v11 addObject:v19];
+              CFRelease(v20);
+              v16 += *(a2 + 3) * v17;
+              v13 -= v17;
+              if (!v13)
+              {
+                goto LABEL_32;
+              }
             }
 
-            while (v14);
+            v25 = 266;
+            goto LABEL_38;
           }
 
-          v28 = v15 >> 1;
+LABEL_32:
+          v21 = v14 >> 1;
         }
 
-        *a7 = v28;
-        return v12;
+        *a7 = v21;
+        return v11;
       }
 
-      _CUILog(4, "CoreUI: Missing image color space to perform Deemap compression [%s].", a3, a4, a5, a6, a7, a8, "NSArray<NSData *> *CUIImageCompressedWithDeepmap(vImage_CGImageFormat, vImage_Buffer, u_int32_t, u_int32_t *, short *, size_t *, u_int32_t *)");
+      _CUILog(4, "CoreUI: Missing image color space to perform Deemap compression [%s].", a3);
     }
 
     else
     {
-      _CUILog(4, "CoreUI: unsupported bpc for Deepmap compression: %d [%s].", a3, a4, a5, a6, a7, a8, *a1);
+      _CUILog(4, "CoreUI: unsupported bpc for Deepmap compression: %d [%s].", a3, a4, a5, a6, a7);
     }
   }
 
   else
   {
-    _CUILog(4, "CoreUI: invalid input image buffer in %s", a3, a4, a5, a6, a7, a8, "NSArray<NSData *> *CUIImageCompressedWithDeepmap(vImage_CGImageFormat, vImage_Buffer, u_int32_t, u_int32_t *, short *, size_t *, u_int32_t *)");
+    _CUILog(4, "CoreUI: invalid input image buffer in %s", a3);
   }
 
   return 0;
@@ -7998,13 +8027,13 @@ uint64_t CUIUncompressDeepmapImageData(unsigned int *a1, uint64_t a2, uint64_t a
 {
   if (!a1)
   {
-    _CUILog(4, "CoreUI: Received NULL buffer in [%s]", a3, a4, a5, a6, a7, a8, "Boolean CUIUncompressDeepmapImageData(const u_int8_t *, u_int64_t, u_int32_t, u_int8_t *, size_t, size_t, size_t, u_int32_t)");
+    _CUILog(4, "CoreUI: Received NULL buffer in [%s]", a3);
     return 0;
   }
 
   if (!a4)
   {
-    _CUILog(4, "CoreUI: Received NULL destination in [%s]", a3, 0, a5, a6, a7, a8, "Boolean CUIUncompressDeepmapImageData(const u_int8_t *, u_int64_t, u_int32_t, u_int8_t *, size_t, size_t, size_t, u_int32_t)");
+    _CUILog(4, "CoreUI: Received NULL destination in [%s]", a3);
     return 0;
   }
 
@@ -8028,20 +8057,20 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    _CUILog(4, "CoreUI: %s got unsupported pixel format [%d]", a3, a4, a5, a6, a7, a8, "Boolean CUIUncompressDeepmapImageData(const u_int8_t *, u_int64_t, u_int32_t, u_int8_t *, size_t, size_t, size_t, u_int32_t)");
+    _CUILog(4, "CoreUI: %s got unsupported pixel format [%d]", a3, a4, a5, a6, a7, a8);
     return 0;
   }
 
 LABEL_11:
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 1;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 1;
   if (a3)
   {
     v14 = a1[3];
     a2 = a1[4];
-    v35 = *a1 == 1262699075;
+    v28 = *a1 == 1262699075;
     v15 = [[NSMutableArray alloc] initWithCapacity:a3];
     v16 = v12;
     v12 += 5;
@@ -8049,7 +8078,7 @@ LABEL_11:
 
   else
   {
-    v35 = 0;
+    v28 = 0;
     v15 = 0;
     v16 = 0;
     v14 = a6;
@@ -8068,7 +8097,7 @@ LABEL_11:
 
       if (!v16 || v14 - 1 >= a6)
       {
-        _CUILog(4, "CoreUI: Invalid chunk rows of %lu in image of height %lu", a3, a4, a5, a6, a7, a8, v14);
+        _CUILog(4, "CoreUI: Invalid chunk rows of %lu in image of height %lu", v14, a6);
         if (!v15)
         {
           goto LABEL_43;
@@ -8080,8 +8109,8 @@ LABEL_11:
 
     if (*v12 >= 6)
     {
-      _CUILog(4, "CoreUI: Encoded Deepmap blob version %lu greater than decoder version %lu", a3, a4, a5, a6, a7, a8, *v12);
-      *(v42 + 24) = 0;
+      _CUILog(4, "CoreUI: Encoded Deepmap blob version %lu greater than decoder version %lu", *v12, 5);
+      *(v35 + 24) = 0;
       if (!v15)
       {
         goto LABEL_43;
@@ -8093,22 +8122,22 @@ LABEL_42:
     }
 
     v19 = v12[1];
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = __CUIUncompressDeepmapImageData_block_invoke;
-    v39[3] = &unk_1E724A2F8;
-    v39[6] = v14;
-    v39[7] = a7;
-    v39[8] = a4;
-    v39[9] = v17;
-    v39[10] = v12;
-    v39[11] = v12;
-    v40 = v19;
-    v39[4] = &v41;
-    v39[5] = a5;
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = __CUIUncompressDeepmapImageData_block_invoke;
+    v32[3] = &unk_1E724A2F8;
+    v32[6] = v14;
+    v32[7] = a7;
+    v32[8] = a4;
+    v32[9] = v17;
+    v32[10] = v12;
+    v32[11] = v12;
+    v33 = v19;
+    v32[4] = &v34;
+    v32[5] = a5;
     if (!v10)
     {
-      __CUIUncompressDeepmapImageData_block_invoke(v39);
+      __CUIUncompressDeepmapImageData_block_invoke(v32);
       goto LABEL_38;
     }
 
@@ -8117,7 +8146,7 @@ LABEL_42:
       v15 = objc_alloc_init(NSMutableArray);
     }
 
-    v20 = [v39 copy];
+    v20 = [v32 copy];
     [v15 addObject:v20];
 
     if (v18 >= v10)
@@ -8132,8 +8161,8 @@ LABEL_42:
     v23 = v21[9];
     v24 = bswap32(v22);
     v25 = bswap32(v23);
-    v14 = v35 ? v24 : v22;
-    a2 = v35 ? v25 : v23;
+    v14 = v28 ? v24 : v22;
+    a2 = v28 ? v25 : v23;
     v12 = v21 + 10;
     ++v18;
   }
@@ -8147,18 +8176,18 @@ LABEL_42:
   dispatch_apply([v15 count], 0, block);
 
 LABEL_38:
-  if (v42[3])
+  if (v35[3])
   {
-    v32 = 1;
+    v26 = 1;
     goto LABEL_44;
   }
 
-  _CUILog(4, "CoreUI: CUIUncompressDeepmapImageData() fails.", v26, v27, v28, v29, v30, v31, v34);
+  _CUILog(4, "CoreUI: CUIUncompressDeepmapImageData() fails.");
 LABEL_43:
-  v32 = 0;
+  v26 = 0;
 LABEL_44:
-  _Block_object_dispose(&v41, 8);
-  return v32;
+  _Block_object_dispose(&v34, 8);
+  return v26;
 }
 
 uint64_t __CUIUncompressDeepmapImageData_block_invoke(uint64_t a1)
@@ -8234,7 +8263,7 @@ Class initMDLMeshBufferMap()
     initMDLMeshBufferMap_cold_1();
   }
 
-  getMDLMeshBufferMapClass[0] = MDLMeshBufferMapFunction;
+  getMDLMeshBufferMapClass = MDLMeshBufferMapFunction;
   return result;
 }
 
@@ -8314,11 +8343,11 @@ uint64_t CPSDMeshedARGBStream::convert(uint64_t this, unsigned __int8 *a2)
   return this;
 }
 
-unint64_t CPSDMeshedARGBStream::GetBytes(CPSDMeshedARGBStream *this, char *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t CPSDMeshedARGBStream::GetBytes(CPSDMeshedARGBStream *this, char *a2, unint64_t a3)
 {
   if (a3 % *(this + 5))
   {
-    _CUILog(1, "ERROR (CPSDMeshedARGBStream): count is not a multiple of bytesPerRow.", a3, a4, a5, a6, a7, a8, v14);
+    _CUILog(1, "ERROR (CPSDMeshedARGBStream): count is not a multiple of bytesPerRow.");
     return 0;
   }
 
@@ -8327,43 +8356,43 @@ unint64_t CPSDMeshedARGBStream::GetBytes(CPSDMeshedARGBStream *this, char *a2, u
     return 0;
   }
 
-  v8 = 0;
-  v13 = *(this + 6);
+  v3 = 0;
+  v8 = *(this + 6);
   do
   {
-    if (v13 >= *(*(this + 1) + 12))
+    if (v8 >= *(*(this + 1) + 12))
     {
       break;
     }
 
-    (*(*this + 24))(this, &a2[v8]);
-    v8 += *(this + 5);
-    v13 = *(this + 6) + 1;
-    *(this + 6) = v13;
+    (*(*this + 24))(this, &a2[v3]);
+    v3 += *(this + 5);
+    v8 = *(this + 6) + 1;
+    *(this + 6) = v8;
   }
 
-  while (v8 < a3);
-  return v8;
+  while (v3 < a3);
+  return v3;
 }
 
-uint64_t CPSDMeshedARGBStream::SkipBytes(CPSDMeshedARGBStream *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CPSDMeshedARGBStream::SkipBytes(CPSDMeshedARGBStream *this, uint64_t a2)
 {
-  v8 = *(this + 5);
-  if (a2 % v8)
+  v2 = *(this + 5);
+  if (a2 % v2)
   {
-    _CUILog(1, "ERROR (CPSDMeshedARGBStream): count is not a multiple of bytesPerRow.", a3, a4, a5, a6, a7, a8, vars0);
+    _CUILog(1, "ERROR (CPSDMeshedARGBStream): count is not a multiple of bytesPerRow.");
     return 0;
   }
 
   else
   {
-    v9 = *(this + 6) + a2 / v8;
-    if (v9 >= *(*(this + 1) + 12))
+    v3 = *(this + 6) + a2 / v2;
+    if (v3 >= *(*(this + 1) + 12))
     {
-      v9 = *(*(this + 1) + 12);
+      v3 = *(*(this + 1) + 12);
     }
 
-    *(this + 6) = v9;
+    *(this + 6) = v3;
   }
 
   return a2;
@@ -8394,13 +8423,13 @@ CGImageRef CPSDMeshedARGBStream::CreateCGImageRef(CPSDMeshedARGBStream *this)
 
   else
   {
-    SRGB = _CUIColorSpaceGetSRGB();
+    SRGB = _CUIColorSpaceGetSRGB(0, v7);
   }
 
   Sequential = CGDataProviderCreateSequential(this, &psdStreamCallbacks);
-  v10 = CGImageCreate(*(*(this + 1) + 8), *(*(this + 1) + 12), *(*(this + 1) + 18), *(*(this + 1) + 16), *(this + 5), SRGB, v5, Sequential, 0, 0, kCGRenderingIntentDefault);
+  v11 = CGImageCreate(*(*(this + 1) + 8), *(*(this + 1) + 12), *(*(this + 1) + 18), *(*(this + 1) + 16), *(this + 5), SRGB, v5, Sequential, 0, 0, kCGRenderingIntentDefault);
   CGDataProviderRelease(Sequential);
-  return v10;
+  return v11;
 }
 
 CGColorSpaceRef CPSDMeshedARGBStream::GetColorSpace(CPSDMeshedARGBStream *this)
@@ -8654,25 +8683,25 @@ void __CUIAccumulateSVGShapesIntoJoinedPath_block_invoke(uint64_t a1, uint64_t a
   }
 }
 
-CGAffineTransform *CUISVGNodeGetTransform@<X0>(uint64_t a1@<X8>)
+CGAffineTransform *CUISVGNodeGetTransform@<X0>(uint64_t a2@<X8>)
 {
-  v4 = *&CGAffineTransformIdentity.c;
-  v5 = *&CGAffineTransformIdentity.a;
-  *a1 = *&CGAffineTransformIdentity.a;
-  *(a1 + 16) = v4;
-  v3 = *&CGAffineTransformIdentity.tx;
-  *(a1 + 32) = v3;
+  v5 = *&CGAffineTransformIdentity.c;
+  v6 = *&CGAffineTransformIdentity.a;
+  *a2 = *&CGAffineTransformIdentity.a;
+  *(a2 + 16) = v5;
+  v4 = *&CGAffineTransformIdentity.tx;
+  *(a2 + 32) = v4;
   result = CGSVGNodeFindAttribute();
   if (result)
   {
     result = CGSVGAttributeGetFloats();
     if (result)
     {
-      *&t1.a = v5;
-      *&t1.c = v4;
-      *&t1.tx = v3;
-      t2 = v8;
-      return CGAffineTransformConcat(a1, &t1, &t2);
+      *&t1.a = v6;
+      *&t1.c = v5;
+      *&t1.tx = v4;
+      t2 = v9;
+      return CGAffineTransformConcat(a2, &t1, &t2);
     }
   }
 
@@ -8759,7 +8788,7 @@ void CUIAccumulateSVGShapesIntoPath(uint64_t a1, uint64_t a2, CGPath *a3)
   CGPathRelease(CompoundCGPath);
 }
 
-CGMutablePathRef CUICreateJoinedPathFromSVGNode()
+CGMutablePathRef CUICreateJoinedPathFromSVGNode(uint64_t a1, __int128 *a2)
 {
   Mutable = CGPathCreateMutable();
   CGSVGNodeEnumerate();
@@ -8841,9 +8870,9 @@ id CUICreateSubpathArrayFromCGPath(const CGPath *a1)
   return v2;
 }
 
-void sub_18DFAF2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18DFAF2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8992,12 +9021,12 @@ double CUIColorHistogramARGBIntersection(int64x2_t *a1, int64x2_t *a2)
   return v14 / v12;
 }
 
-uint64_t RB::Path::ClipStroke::KeyframeConsumer::moveto(void *a1, Point a2, __n128 a3)
+uint64_t RB::Path::ClipStroke::KeyframeConsumer::moveto(void *a1, uint64_t a2, __n128 a3)
 {
   if (a1[8] != a1[9])
   {
     v5 = a3;
-    (*(*a1 + 8))(a1);
+    (*(*a1 + 8))(a1, a2);
     a3 = v5;
   }
 
@@ -9145,11 +9174,11 @@ uint64_t RB::Path::ClipStroke::Transform::Transform(uint64_t result, uint64_t a2
   return RB::Path::ClipStroke::Transform::Transform(result, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
 }
 
-uint64_t RB::Path::ClipStroke::Transform::moveto(uint64_t result, Point a2, __n128 a3)
+uint64_t RB::Path::ClipStroke::Transform::moveto(uint64_t result, uint64_t a2, __n128 a3)
 {
   if (*(result + 148) == 1)
   {
-    return (*(**(result + 96) + 16))();
+    return (*(**(result + 96) + 16))(a3);
   }
 
   if ((*(result + 149) & 1) == 0)
@@ -9164,7 +9193,7 @@ double RB::Path::ClipStroke::Transform::lineto(uint64_t a1, __n128 a2)
 {
   if (*(a1 + 148) == 1)
   {
-    (*(**(a1 + 96) + 24))();
+    (*(**(a1 + 96) + 24))(a2);
   }
 
   else if ((*(a1 + 149) & 1) == 0)
@@ -9179,7 +9208,7 @@ double RB::Path::ClipStroke::Transform::quadto(uint64_t a1, int8x16_t a2, int8x1
 {
   if (*(a1 + 148) == 1)
   {
-    (*(**(a1 + 96) + 32))();
+    (*(**(a1 + 96) + 32))(a2, a3);
   }
 
   else if ((*(a1 + 149) & 1) == 0)
@@ -9194,7 +9223,7 @@ double RB::Path::ClipStroke::Transform::cubeto(uint64_t a1, int8x16_t a2, int8x1
 {
   if (*(a1 + 148) == 1)
   {
-    (*(**(a1 + 96) + 40))();
+    (*(**(a1 + 96) + 40))(a2, a3, a4);
   }
 
   else if ((*(a1 + 149) & 1) == 0)
@@ -9258,75 +9287,75 @@ void RB::Path::ClipStroke::Transform::subpath_keyframes(uint64_t a1, uint64_t a2
     v17 = *(a1 + 136);
     if (*&v17 != 0.0 && (v13 < INFINITY || v13 > INFINITY))
     {
-      (off_1F00D3960)();
-      v16 = &v53;
-      v19 = a2 + 16 * v18;
-      v56 = 0;
-      v54 = 0u;
+      off_1F00D3960(a1, a2, a3);
+      v16 = &v55;
+      v20 = a2 + 16 * v19;
+      v58 = 0;
+      v56 = 0u;
+      v57 = 0u;
       v55 = 0u;
-      v53 = 0u;
-      v21 = *(v19 + 8);
-      v20 = *(v19 + 12);
-      if (v20 >= v21)
+      v22 = *(v20 + 8);
+      v21 = *(v20 + 12);
+      if (v21 >= v22)
       {
-        v22 = *(v19 + 8);
+        v23 = *(v20 + 8);
       }
 
       else
       {
-        v22 = *(v19 + 12);
+        v23 = *(v20 + 12);
       }
 
-      if (v21 >= v20)
+      if (v22 >= v21)
       {
-        v20 = *(v19 + 8);
+        v21 = *(v20 + 8);
       }
 
-      v23 = (a2 + 12);
-      v24 = a3;
+      v24 = (a2 + 12);
+      v25 = a3;
       while (1)
       {
-        if (v18)
+        if (v19)
         {
-          v25 = *(v23 - 1);
-          if (v22 <= v25 && v20 > v25)
+          v26 = *(v24 - 1);
+          if (v23 <= v26 && v21 > v26)
           {
             break;
           }
 
-          if (v22 <= *v23 && v20 > *v23)
+          if (v23 <= *v24 && v21 > *v24)
           {
             break;
           }
         }
 
-        v23 += 4;
-        --v18;
-        if (!--v24)
+        v24 += 4;
+        --v19;
+        if (!--v25)
         {
-          v28 = v20;
-          v20 = v22;
+          v29 = v21;
+          v21 = v23;
           goto LABEL_43;
         }
       }
 
-      v28 = v22;
+      v29 = v23;
 LABEL_43:
-      RB::Path::Subpath::append_logical_range(&v53, (v6 + 40), *(v6 + 56) * (v20 - floor(v20)), *(v6 + 56) * (v28 - floor(v28)), 0);
-      a1 = *(&v54 + 1);
-      if (*(&v54 + 1) == v55)
+      RB::Path::Subpath::append_logical_range(&v55, (v6 + 40), *(v6 + 56) * (v21 - floor(v21)), *(v6 + 56) * (v29 - floor(v29)), 0, v18);
+      a1 = *(&v56 + 1);
+      if (*(&v56 + 1) == v57)
       {
-        if (*(&v54 + 1))
+        if (*(&v56 + 1))
         {
-          *&v55 = *(&v54 + 1);
-          operator delete(*(&v54 + 1));
+          *&v57 = *(&v56 + 1);
+          operator delete(*(&v56 + 1));
         }
 
         v16 = 0;
       }
     }
 
-    v37 = 0;
+    v38 = 0;
     LODWORD(a4) = *(v6 + 140);
     LODWORD(v17) = 1.0;
     if (*&a4 != 1.0)
@@ -9335,101 +9364,101 @@ LABEL_43:
       if (v14 != -INFINITY)
       {
         off_1F00D3960(a1, a2, a3);
-        v37 = &v53 - 4;
-        v38 = a2 + 16 * v11;
-        *(&v53 - 2) = 0;
-        *(&v53 - 3) = 0u;
-        *(&v53 - 2) = 0u;
-        *(&v53 - 4) = 0u;
-        v40 = *(v38 + 8);
-        v39 = *(v38 + 12);
-        if (v39 >= v40)
+        v38 = &v55 - 4;
+        v40 = a2 + 16 * v11;
+        *(&v55 - 2) = 0;
+        *(&v55 - 3) = 0u;
+        *(&v55 - 2) = 0u;
+        *(&v55 - 4) = 0u;
+        v42 = *(v40 + 8);
+        v41 = *(v40 + 12);
+        if (v41 >= v42)
         {
-          v41 = *(v38 + 8);
+          v43 = *(v40 + 8);
         }
 
         else
         {
-          v41 = *(v38 + 12);
+          v43 = *(v40 + 12);
         }
 
-        if (v40 >= v39)
+        if (v42 >= v41)
         {
-          v39 = *(v38 + 8);
+          v41 = *(v40 + 8);
         }
 
-        v42 = (a2 + 12);
-        v43 = a3;
+        v44 = (a2 + 12);
+        v45 = a3;
         while (1)
         {
           if (v11)
           {
-            v44 = *(v42 - 1);
-            if (v41 <= v44 && v39 > v44)
+            v46 = *(v44 - 1);
+            if (v43 <= v46 && v41 > v46)
             {
               break;
             }
 
-            if (v41 <= *v42 && v39 > *v42)
+            if (v43 <= *v44 && v41 > *v44)
             {
               break;
             }
           }
 
-          v42 += 4;
+          v44 += 4;
           --v11;
-          if (!--v43)
+          if (!--v45)
           {
-            v47 = v39;
-            v39 = v41;
+            v49 = v41;
+            v41 = v43;
             goto LABEL_69;
           }
         }
 
-        v47 = v41;
+        v49 = v43;
 LABEL_69:
-        RB::Path::Subpath::append_logical_range((&v53 - 4), (v6 + 40), *(v6 + 56) * (v39 - floor(v39)), *(v6 + 56) * (v47 - floor(v47)), 0);
-        v48 = *(&v53 - 5);
-        if (v48 == *(&v53 - 4))
+        RB::Path::Subpath::append_logical_range((&v55 - 4), (v6 + 40), *(v6 + 56) * (v41 - floor(v41)), *(v6 + 56) * (v49 - floor(v49)), 0, v39);
+        v50 = *(&v55 - 5);
+        if (v50 == *(&v55 - 4))
         {
-          if (v48)
+          if (v50)
           {
-            *(&v53 - 4) = v48;
-            operator delete(v48);
+            *(&v55 - 4) = v50;
+            operator delete(v50);
           }
 
-          v37 = 0;
+          v38 = 0;
         }
       }
     }
 
-    v57 = 0;
-    v58 = 0;
     v59 = 0;
-    RB::Path::ClipStroke::Transform::emit(v6, (v6 + 40), a2, a3, v9, &v57, v16, v37, a4, v17, a6);
-    if (v57)
+    v60 = 0;
+    v61 = 0;
+    RB::Path::ClipStroke::Transform::emit(v6, (v6 + 40), a2, a3, v9, &v59, v16, v38, a4, v17, a6);
+    if (v59)
     {
-      v58 = v57;
-      operator delete(v57);
+      v60 = v59;
+      operator delete(v59);
     }
 
-    if (v37)
+    if (v38)
     {
-      v49 = *(v37 + 3);
-      if (v49)
+      v51 = *(v38 + 3);
+      if (v51)
       {
-        *(v37 + 4) = v49;
-        operator delete(v49);
+        *(v38 + 4) = v51;
+        operator delete(v51);
       }
     }
 
     if (v16)
     {
-      v50 = *(v16 + 3);
-      if (v50)
+      v52 = *(v16 + 3);
+      if (v52)
       {
-        *(v16 + 4) = v50;
-        operator delete(v50);
+        *(v16 + 4) = v52;
+        operator delete(v52);
       }
     }
   }
@@ -9441,53 +9470,53 @@ LABEL_69:
       return;
     }
 
-    v29 = *(a1 + 112);
-    if (!v29)
+    v30 = *(a1 + 112);
+    if (!v30)
     {
       goto LABEL_82;
     }
 
-    v30 = *(a1 + 104);
-    v31 = &v30[8 * v29];
+    v31 = *(a1 + 104);
+    v32 = &v31[8 * v30];
     do
     {
-      v32 = v29 >> 1;
-      v33 = &v30[8 * (v29 >> 1)];
-      v35 = *v33;
-      v34 = v33 + 8;
-      v29 += ~(v29 >> 1);
-      if (v35 < *(a1 + 32))
+      v33 = v30 >> 1;
+      v34 = &v31[8 * (v30 >> 1)];
+      v36 = *v34;
+      v35 = v34 + 8;
+      v30 += ~(v30 >> 1);
+      if (v36 < *(a1 + 32))
       {
-        v30 = v34;
+        v31 = v35;
       }
 
       else
       {
-        v29 = v32;
+        v30 = v33;
       }
     }
 
-    while (v29);
-    if (v30 != v31 && *v30 == *(a1 + 32))
+    while (v30);
+    if (v31 != v32 && *v31 == *(a1 + 32))
     {
-      if (v30[7])
+      if (v31[7])
       {
         return;
       }
 
-      v36 = (v30 + 1);
+      v37 = (v31 + 1);
     }
 
     else
     {
 LABEL_82:
-      v36 = 0;
+      v37 = 0;
     }
 
-    v51 = *(a1 + 96);
-    v52 = a1 + 40;
+    v53 = *(a1 + 96);
+    v54 = (a1 + 40);
 
-    RB::Path::Subpath::replay(v52, v51, 1, v36);
+    RB::Path::Subpath::replay(v54, v53, 1, v37);
   }
 }
 
@@ -9523,32 +9552,32 @@ void sub_18DFB0B74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void RB::Path::ClipStroke::Transform::emit(uint64_t a1, double *a2, uint64_t a3, unint64_t a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11)
+void RB::Path::ClipStroke::Transform::emit(int8x8_t *a1, const RB::Path::Subpath *a2, uint64_t a3, unint64_t a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11)
 {
   if ((a5 & 8) != 0)
   {
 
-    RB::Path::ClipStroke::Transform::emit_bisections(a1, a2, a3, a4);
+    RB::Path::ClipStroke::Transform::emit_bisections(a1, a2, a3, a4, a6, a7, a8);
   }
 
   else if (a5)
   {
 
-    RB::Path::ClipStroke::Transform::emit_corners(a1, a2, a3, a4, a9, a10, a11);
+    RB::Path::ClipStroke::Transform::emit_corners(a1, a2, a3, a4, a6, a7, a8, a9, a10, a11);
   }
 
   else
   {
-    v33 = 0.0;
-    v34 = 0.0;
-    if (RB::Path::ClipStroke::Transform::make_keyframes(a1, a3, a4, a2, a6, &v34, &v33))
+    v36 = 0.0;
+    v37 = 0.0;
+    if (RB::Path::ClipStroke::Transform::make_keyframes(a1, a3, a4, a2, a6, &v37, &v36))
     {
-      v16.i32[0] = *(a1 + 136);
-      v16.i32[1] = HIDWORD(v34);
-      v17.i32[0] = LODWORD(v34);
-      v17.i32[1] = HIDWORD(*(a1 + 136));
-      v18 = vbsl_s8(vcgt_f32(v17, v16), *&v34, *(a1 + 136));
-      if ((*(a1 + 128) & 4) != 0)
+      v16.i32[0] = a1[17];
+      v16.i32[1] = HIDWORD(v37);
+      v17.i32[0] = LODWORD(v37);
+      v17.i32[1] = HIDWORD(*&a1[17]);
+      v18 = vbsl_s8(vcgt_f32(v17, v16), *&v37, a1[17]);
+      if ((a1[16].i8[0] & 4) != 0)
       {
         v19 = *v18.i32 <= *&v18.i32[1];
       }
@@ -9560,352 +9589,354 @@ void RB::Path::ClipStroke::Transform::emit(uint64_t a1, double *a2, uint64_t a3,
 
       if (v19)
       {
-        RB::Path::ClipStroke::Transform::Clipper::Clipper(v28, a1, a2, a7, a8, *a6, 0xAAAAAAAAAAAAAAABLL * ((*(a6 + 8) - *a6) >> 3), v34, v33);
-        RB::Path::ClipStroke::Transform::Clipper::run(v28, v20, v21, v22, v23, v24, v25, v26);
+        RB::Path::ClipStroke::Transform::Clipper::Clipper(v31, a1, a2, a7, a8, *a6, 0xAAAAAAAAAAAAAAABLL * ((*(a6 + 8) - *a6) >> 3), v37, v36);
+        RB::Path::ClipStroke::Transform::Clipper::run(v31, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29);
         if (__p)
         {
-          v32 = __p;
+          v35 = __p;
           operator delete(__p);
         }
 
-        if (v29)
+        if (v32)
         {
-          v30 = v29;
-          operator delete(v29);
+          v33 = v32;
+          operator delete(v32);
         }
       }
     }
 
     else
     {
-      v27 = *(a1 + 96);
+      v30 = a1[12];
 
-      RB::Path::Subpath::replay(a2, v27, 1, 0);
+      RB::Path::Subpath::replay(a2, v30, 1, 0);
     }
   }
 }
 
-void sub_18DFB0D88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18DFB0D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   RB::Path::ClipStroke::Transform::Clipper::~Clipper(va);
   _Unwind_Resume(a1);
 }
 
-void RB::Path::ClipStroke::Transform::emit_bisections(uint64_t a1, double *a2, uint64_t a3, unint64_t a4)
+void RB::Path::ClipStroke::Transform::emit_bisections(int8x8_t *a1, const RB::Path::Subpath *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v25 = a3;
-  v26 = a4;
-  *v19 = 0u;
-  v20 = 0u;
-  *v17 = 0u;
-  v18 = 0u;
-  v16 = 0u;
-  v21 = 1;
-  *v22 = 0u;
+  v32 = a3;
+  v33 = a4;
+  *v26 = 0u;
+  v27 = 0u;
+  *v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
+  v28 = 1;
+  *v29 = 0u;
   *__p = 0u;
-  v24 = 0u;
+  v31 = 0u;
   if (!a4)
   {
-    goto LABEL_21;
+    v13 = 0;
+    goto LABEL_22;
   }
 
-  v6 = a4;
-  v7 = 0;
-  v8 = 0;
+  v12 = a4;
+  v13 = 0;
+  v14 = 0;
   while (1)
   {
-    v9 = v25;
-    v10 = v25 + 16 * v8;
-    if ((*v10 & 8) != 0)
+    v15 = v32;
+    v16 = v32 + 16 * v14;
+    if ((*v16 & 8) != 0)
     {
       break;
     }
 
-    v7 |= *v10;
-    ++v8;
+    v13 |= *v16;
+    ++v14;
 LABEL_18:
-    if (v8 >= v6)
+    if (v14 >= v12)
     {
       goto LABEL_19;
     }
   }
 
-  v11 = *(v10 + 12) - *(v10 + 8);
-  v12 = v11;
-  if (v11 < -0.5)
+  v17 = *(v16 + 12) - *(v16 + 8);
+  v18 = v17;
+  if (v17 < -0.5)
   {
-    v12 = v12 + 1.0;
+    v18 = v18 + 1.0;
   }
 
-  if (v11 <= 0.5)
+  if (v17 <= 0.5)
   {
-    v13 = v12;
-  }
-
-  else
-  {
-    v13 = v11 + -1.0;
-  }
-
-  if (v13 >= 0.0)
-  {
-    v14 = *(v10 + 12);
+    v19 = v18;
   }
 
   else
   {
-    v14 = *(v10 + 8);
+    v19 = v17 + -1.0;
   }
 
-  if (v13 >= 0.0)
+  if (v19 >= 0.0)
   {
-    v15 = *(v10 + 8);
+    v20 = *(v16 + 12);
   }
 
   else
   {
-    v15 = *(v10 + 12);
+    v20 = *(v16 + 8);
   }
 
-  RB::Path::ClipStroke::Transform::emit(a1, &v16);
-  if ((v7 & 8) != 0)
+  if (v19 >= 0.0)
   {
-    v7 = 0;
-    v6 = v26;
-    v8 = 1;
+    v21 = *(v16 + 8);
+  }
+
+  else
+  {
+    v21 = *(v16 + 12);
+  }
+
+  RB::Path::ClipStroke::Transform::emit(a1, &v23, v29[0], (v29[1] - v29[0]) >> 4, v22, a5, a6, a7);
+  if ((v13 & 8) != 0)
+  {
+    v13 = 0;
+    v12 = v33;
+    v14 = 1;
     goto LABEL_18;
   }
 
 LABEL_19:
-  if ((v7 & 8) != 0)
+  if ((v13 & 8) != 0)
   {
     __assert_rtn("emit_bisections", "path-clip-stroke.cc", 545, "!(all_flags & bisection_flag)");
   }
 
-LABEL_21:
-  RB::Path::ClipStroke::Transform::emit(a1, a2);
+LABEL_22:
+  RB::Path::ClipStroke::Transform::emit(a1, a2, v32, v33, v13, a5, a6, a7);
   if (__p[1])
   {
-    *&v24 = __p[1];
+    *&v31 = __p[1];
     operator delete(__p[1]);
   }
 
-  if (v22[0])
+  if (v29[0])
   {
-    v22[1] = v22[0];
-    operator delete(v22[0]);
+    v29[1] = v29[0];
+    operator delete(v29[0]);
   }
 
-  if (v19[1])
+  if (v26[1])
   {
-    *&v20 = v19[1];
-    operator delete(v19[1]);
+    *&v27 = v26[1];
+    operator delete(v26[1]);
   }
 
-  if (v17[1])
+  if (v24[1])
   {
-    *&v18 = v17[1];
-    operator delete(v17[1]);
+    *&v25 = v24[1];
+    operator delete(v24[1]);
   }
 }
 
-void RB::Path::ClipStroke::Transform::emit_corners(float32x2_t *a1, double *a2, uint64_t a3, unint64_t a4, double a5, double a6, double a7)
+void RB::Path::ClipStroke::Transform::emit_corners(int8x8_t *a1, const RB::Path::Subpath *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8, double a9, double a10)
 {
-  v7 = a4;
-  v66 = a3;
-  v67 = a4;
-  v10.n128_u32[1] = 0;
-  *v60 = 0u;
-  v61 = 0u;
-  *v58 = 0u;
-  v59 = 0u;
-  v57 = 0u;
-  v62 = 1;
-  *v63 = 0u;
+  v13 = a4;
+  v73 = a3;
+  v74 = a4;
+  v16.n128_u32[1] = 0;
+  *v67 = 0u;
+  v68 = 0u;
+  *v65 = 0u;
+  v66 = 0u;
+  v64 = 0u;
+  v69 = 1;
+  *v70 = 0u;
   *__p = 0u;
-  v65 = 0u;
+  v72 = 0u;
   if (a4)
   {
-    v11 = 0;
+    v17 = 0;
     __asm
     {
       FMOV            V18.2D, #-1.0
       FMOV            V19.2D, #1.0
     }
 
-    v54 = _Q19;
-    v55 = _Q18;
+    v61 = _Q19;
+    v62 = _Q18;
     do
     {
-      if (v11)
+      if (v17)
       {
-        v16 = v66;
-        v17 = v66 + 16 * v11;
-        if ((*v17 & 1) != 0 && v11 + 1 != v7)
+        v22 = v73;
+        v23 = v73 + 16 * v17;
+        if ((*v23 & 1) != 0 && v17 + 1 != v13)
         {
-          v10.n128_u32[0] = *(v17 + 20);
-          v19 = *(v17 - 12);
-          if (v10.n128_f32[0] >= v19)
+          v16.n128_u32[0] = *(v23 + 20);
+          v25 = *(v23 - 12);
+          if (v16.n128_f32[0] >= v25)
           {
-            LODWORD(a7) = *(v17 - 12);
+            LODWORD(a10) = *(v23 - 12);
           }
 
           else
           {
-            LODWORD(a7) = *(v17 + 20);
+            LODWORD(a10) = *(v23 + 20);
           }
 
-          if (v19 >= v10.n128_f32[0])
+          if (v25 >= v16.n128_f32[0])
           {
-            v10.n128_u32[0] = *(v17 - 12);
+            v16.n128_u32[0] = *(v23 - 12);
           }
 
-          v20 = a1[17];
-          a7 = COERCE_DOUBLE(vcge_f32(v20, vdup_lane_s32(*&a7, 0)));
-          v21 = vand_s8(*&a7, vcge_f32(vdup_lane_s32(v10.n128_u64[0], 0), v20));
-          v10.n128_u64[0] = vpmax_u32(v21, v21);
-          if ((v10.n128_u32[0] & 0x80000000) != 0)
+          v26 = a1[17];
+          a10 = COERCE_DOUBLE(vcge_f32(v26, vdup_lane_s32(*&a10, 0)));
+          v27 = vand_s8(*&a10, vcge_f32(vdup_lane_s32(v16.n128_u64[0], 0), v26));
+          v16.n128_u64[0] = vpmax_u32(v27, v27);
+          if ((v16.n128_u32[0] & 0x80000000) != 0)
           {
-            v22 = 0;
-            v23 = *(v17 + 8);
-            v24 = *(v17 + 12);
-            a7 = INFINITY;
-            v25 = (v24 - v23);
-            v26 = v25 + 1.0;
-            if ((v24 - v23) >= -0.5)
+            v28 = 0;
+            v29 = *(v23 + 8);
+            v30 = *(v23 + 12);
+            a10 = INFINITY;
+            v31 = (v30 - v29);
+            v32 = v31 + 1.0;
+            if ((v30 - v29) >= -0.5)
             {
-              v26 = (v24 - v23);
+              v32 = (v30 - v29);
             }
 
-            v27 = v25 + -1.0;
-            v28 = (v24 - v23) <= 0.5 ? v26 : v27;
-            _NF = v28 < 0.0;
-            v30 = v28 >= 0.0 ? *(v17 + 12) : *(v17 + 8);
-            v31 = _NF ? *(v17 + 12) : *(v17 + 8);
-            v10.n128_u64[0] = 0;
-            v32 = 0.0;
-            v33 = INFINITY;
+            v33 = v31 + -1.0;
+            v34 = (v30 - v29) <= 0.5 ? v32 : v33;
+            _NF = v34 < 0.0;
+            v36 = v34 >= 0.0 ? *(v23 + 12) : *(v23 + 8);
+            v37 = _NF ? *(v23 + 12) : *(v23 + 8);
+            v16.n128_u64[0] = 0;
+            v38 = 0.0;
+            v39 = INFINITY;
             do
             {
-              if (v11 != v22)
+              if (v17 != v28)
               {
-                v34 = v66 + 16 * v22;
-                v35 = (v34 + 8);
-                v36 = (v34 + 12);
-                v37 = 1;
+                v40 = v73 + 16 * v28;
+                v41 = (v40 + 8);
+                v42 = (v40 + 12);
+                v43 = 1;
                 do
                 {
-                  v38 = v37 & 1;
-                  if (v37)
+                  v44 = v43 & 1;
+                  if (v43)
                   {
-                    v39 = v35;
+                    v45 = v41;
                   }
 
                   else
                   {
-                    v39 = v36;
+                    v45 = v42;
                   }
 
-                  v41.i32[0] = *v39;
-                  v40.f32[0] = v30;
-                  v40.i32[1] = *v39;
-                  v41.f32[1] = v31;
-                  if (v38)
+                  v47.i32[0] = *v45;
+                  v46.f32[0] = v36;
+                  v46.i32[1] = *v45;
+                  v47.f32[1] = v37;
+                  if (v44)
                   {
-                    v42 = v36;
+                    v48 = v42;
                   }
 
                   else
                   {
-                    v42 = v35;
+                    v48 = v41;
                   }
 
-                  v43 = vsub_f32(v41, v40);
-                  v44 = vcvtq_f64_f32(v43);
-                  v45 = vcgt_f32(v43, 0x3F0000003F000000);
-                  v46.i64[0] = v45.i32[0];
-                  v46.i64[1] = v45.i32[1];
-                  v47 = v46;
-                  v48 = vcgt_f32(0xBF000000BF000000, v43);
-                  v46.i64[0] = v48.i32[0];
-                  v46.i64[1] = v48.i32[1];
-                  v49 = vbslq_s8(v47, vaddq_f64(v44, _Q18), vbslq_s8(v46, vaddq_f64(v44, _Q19), v44));
-                  v50 = vmovn_s64(vmvnq_s8(vcltzq_f64(v49)));
-                  if ((v50.i8[4] & (v49.f64[1] < a7)) != 0)
+                  v49 = vsub_f32(v47, v46);
+                  v50 = vcvtq_f64_f32(v49);
+                  v51 = vcgt_f32(v49, 0x3F0000003F000000);
+                  v52.i64[0] = v51.i32[0];
+                  v52.i64[1] = v51.i32[1];
+                  v53 = v52;
+                  v54 = vcgt_f32(0xBF000000BF000000, v49);
+                  v52.i64[0] = v54.i32[0];
+                  v52.i64[1] = v54.i32[1];
+                  v55 = vbslq_s8(v53, vaddq_f64(v50, _Q18), vbslq_s8(v52, vaddq_f64(v50, _Q19), v50));
+                  v56 = vmovn_s64(vmvnq_s8(vcltzq_f64(v55)));
+                  if ((v56.i8[4] & (v55.f64[1] < a10)) != 0)
                   {
-                    a7 = v49.f64[1];
-                    v10.n128_f64[0] = *v42;
+                    a10 = v55.f64[1];
+                    v16.n128_f64[0] = *v48;
                   }
 
-                  if ((v50.i8[0] & (v49.f64[0] < v33)) != 0)
+                  if ((v56.i8[0] & (v55.f64[0] < v39)) != 0)
                   {
-                    v33 = v49.f64[0];
-                    v32 = *v42;
+                    v39 = v55.f64[0];
+                    v38 = *v48;
                   }
 
-                  v37 = 0;
+                  v43 = 0;
                 }
 
-                while (v38);
+                while (v44);
               }
 
-              ++v22;
+              ++v28;
             }
 
-            while (v22 != v7);
-            if (a7 != INFINITY)
+            while (v28 != v13);
+            if (a10 != INFINITY)
             {
-              HIDWORD(a7) = 2146435072;
-              if (v33 < INFINITY || v33 > INFINITY)
+              HIDWORD(a10) = 2146435072;
+              if (v39 < INFINITY || v39 > INFINITY)
               {
-                v56 = v31;
-                v51 = v10.n128_f64[0];
-                RB::Path::ClipStroke::Transform::emit(a1, &v57);
-                v52 = v32;
-                v7 = v67;
-                if ((v53 & 1) == 0)
+                v63 = v37;
+                v57 = v16.n128_f64[0];
+                RB::Path::ClipStroke::Transform::emit(a1, &v64, v70[0], (v70[1] - v70[0]) >> 4, v58, a5, a6, a7);
+                v59 = v38;
+                v13 = v74;
+                if ((v60 & 1) == 0)
                 {
                   break;
                 }
 
-                v11 = 0;
-                _Q19 = v54;
-                _Q18 = v55;
+                v17 = 0;
+                _Q19 = v61;
+                _Q18 = v62;
               }
             }
           }
         }
       }
 
-      ++v11;
+      ++v17;
     }
 
-    while (v11 < v7);
+    while (v17 < v13);
+    a3 = v73;
   }
 
-  RB::Path::ClipStroke::Transform::emit(a1, a2);
+  RB::Path::ClipStroke::Transform::emit(a1, a2, a3, v13, 0, a5, a6, a7);
   if (__p[1])
   {
-    *&v65 = __p[1];
+    *&v72 = __p[1];
     operator delete(__p[1]);
   }
 
-  if (v63[0])
+  if (v70[0])
   {
-    v63[1] = v63[0];
-    operator delete(v63[0]);
+    v70[1] = v70[0];
+    operator delete(v70[0]);
   }
 
-  if (v60[1])
+  if (v67[1])
   {
-    *&v61 = v60[1];
-    operator delete(v60[1]);
+    *&v68 = v67[1];
+    operator delete(v67[1]);
   }
 
-  if (v58[1])
+  if (v65[1])
   {
-    *&v59 = v58[1];
-    operator delete(v58[1]);
+    *&v66 = v65[1];
+    operator delete(v65[1]);
   }
 }

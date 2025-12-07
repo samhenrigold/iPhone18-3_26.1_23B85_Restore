@@ -56,26 +56,24 @@ LABEL_7:
 
 void __78__VUIProductLockupViewAccessibility__accessibilitySpeakableLabelForBadgeName___block_invoke()
 {
-  v4[7] = *MEMORY[0x29EDCA608];
-  v3[0] = @"cc_mask";
-  v3[1] = @"itunes-extras-badge";
-  v4[0] = @"lockup.attribute.CC";
-  v4[1] = @"lockup.attribute.iTunes.extras";
-  v3[2] = @"hd_mask";
-  v3[3] = @"hdr_mask";
-  v4[2] = @"lockup.attribute.HD";
-  v4[3] = @"lockup.attribute.HDR";
-  v3[4] = @"4k_mask";
-  v3[5] = @"dolbyvision_mask";
-  v4[4] = @"lockup.attribute.4k";
-  v4[5] = @"lockup.attribute.dolby.vision";
-  v3[6] = @"dolby-atmos";
-  v4[6] = @"lockup.attribute.dolby.atmos";
-  v0 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v4 forKeys:v3 count:7];
+  v3[7] = *MEMORY[0x29EDCA608];
+  v2[0] = @"cc_mask";
+  v2[1] = @"itunes-extras-badge";
+  v3[0] = @"lockup.attribute.CC";
+  v3[1] = @"lockup.attribute.iTunes.extras";
+  v2[2] = @"hd_mask";
+  v2[3] = @"hdr_mask";
+  v3[2] = @"lockup.attribute.HD";
+  v3[3] = @"lockup.attribute.HDR";
+  v2[4] = @"4k_mask";
+  v2[5] = @"dolbyvision_mask";
+  v3[4] = @"lockup.attribute.4k";
+  v3[5] = @"lockup.attribute.dolby.vision";
+  v2[6] = @"dolby-atmos";
+  v3[6] = @"lockup.attribute.dolby.atmos";
+  v0 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v3 forKeys:v2 count:7];
   v1 = _accessibilitySpeakableLabelForBadgeName__knownBadgeNameToKeyMap;
   _accessibilitySpeakableLabelForBadgeName__knownBadgeNameToKeyMap = v0;
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityMarkupBadgeViews

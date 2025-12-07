@@ -2078,9 +2078,10 @@ LABEL_22:
 
 - (void)clearConsecutiveKeyPressCount
 {
+  lastKeyForTapCount = self->_lastKeyForTapCount;
   self->_consecutiveKeyPressCount = 1;
   self->_lastKeyForTapCount = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, lastKeyForTapCount);
 }
 
 @end

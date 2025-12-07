@@ -2,13 +2,14 @@
 - (BOOL)generatePayloadData;
 - (BOOL)hasRequiredFields;
 - (BOOL)parsePayloadData:(id)data;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 @end
 
 @implementation NEIKEv2ChildSAPayload
 
 - (BOOL)parsePayloadData:(id)data
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length] <= 7)
   {
@@ -16,7 +17,7 @@
     if (os_log_type_enabled(newValue, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      *v91 = "[NEIKEv2ChildSAPayload parsePayloadData:]";
+      *v90 = "[NEIKEv2ChildSAPayload parsePayloadData:]";
       _os_log_error_impl(&dword_1BA83C000, newValue, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_proposal_t))", buf, 0xCu);
     }
 
@@ -44,12 +45,12 @@ LABEL_98:
     }
 
 LABEL_118:
-    v69 = ne_log_obj();
-    if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+    v68 = ne_log_obj();
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *v91 = v7;
-      _os_log_error_impl(&dword_1BA83C000, v69, OS_LOG_TYPE_ERROR, "Ignoring %u remaining bytes in Child SA payload", buf, 8u);
+      *v90 = v7;
+      _os_log_error_impl(&dword_1BA83C000, v68, OS_LOG_TYPE_ERROR, "Ignoring %u remaining bytes in Child SA payload", buf, 8u);
     }
 
     if (!self)
@@ -61,15 +62,15 @@ LABEL_118:
   }
 
   selfCopy = self;
-  v73 = dataCopy;
+  v72 = dataCopy;
   while (1)
   {
     v8 = bswap32(*(bytes + 2));
     v9 = HIWORD(v8);
     if (v7 < HIWORD(v8))
     {
-      v65 = ne_log_obj();
-      if (!os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      v64 = ne_log_obj();
+      if (!os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
 LABEL_117:
 
@@ -77,38 +78,38 @@ LABEL_117:
       }
 
       *buf = 67109376;
-      *v91 = v7;
-      *&v91[4] = 1024;
-      *&v91[6] = v9;
-      v66 = "Not enough bytes remaining (%u) to process proposal length %u";
-      v67 = v65;
-      v68 = 14;
+      *v90 = v7;
+      *&v90[4] = 1024;
+      *&v90[6] = v9;
+      v65 = "Not enough bytes remaining (%u) to process proposal length %u";
+      v66 = v64;
+      v67 = 14;
 LABEL_132:
-      _os_log_error_impl(&dword_1BA83C000, v67, OS_LOG_TYPE_ERROR, v66, buf, v68);
+      _os_log_error_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_ERROR, v65, buf, v67);
       goto LABEL_117;
     }
 
     if (*(bytes + 6) + 8 > v9)
     {
-      v65 = ne_log_obj();
-      if (!os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      v64 = ne_log_obj();
+      if (!os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_117;
       }
 
       *buf = 67109120;
-      *v91 = v9;
-      v66 = "Proposal length %u is too short";
-      v67 = v65;
-      v68 = 8;
+      *v90 = v9;
+      v65 = "Proposal length %u is too short";
+      v66 = v64;
+      v67 = 8;
       goto LABEL_132;
     }
 
     v10 = *(bytes + 7);
     v11 = *(bytes + 5);
     selfa = [[NEIKEv2ChildSAProposal alloc] initWithProtocol:v11];
-    v79 = v11;
-    v77 = v7;
+    v78 = v11;
+    v76 = v7;
     if ((v11 & 0xFE) == 2)
     {
       if (*(bytes + 6) != 4)
@@ -123,7 +124,7 @@ LABEL_132:
         if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          v70 = "IPsec SA value 0 is invalid";
+          v69 = "IPsec SA value 0 is invalid";
           goto LABEL_126;
         }
 
@@ -143,15 +144,15 @@ LABEL_92:
         v54 = ne_log_obj();
         if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
-          v62 = *(bytes + 4);
-          v63 = *(bytes + 6);
-          v64 = NEIKEv2ProtocolIDCreateString(v11);
+          v61 = *(bytes + 4);
+          v62 = *(bytes + 6);
+          v63 = NEIKEv2ProtocolIDCreateString(v11);
           *buf = 67109634;
-          *v91 = v62;
-          *&v91[4] = 1024;
-          *&v91[6] = v63;
-          v92 = 2112;
-          v93 = v64;
+          *v90 = v61;
+          *&v90[4] = 1024;
+          *&v90[6] = v62;
+          v91 = 2112;
+          v92 = v63;
           _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "SA proposal %u has wrong SPI length %u for protocol %@", buf, 0x18u);
         }
 
@@ -165,9 +166,9 @@ LABEL_92:
         if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          v70 = "TLS SA value 0 is invalid";
+          v69 = "TLS SA value 0 is invalid";
 LABEL_126:
-          _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, v70, buf, 2u);
+          _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, v69, buf, 2u);
         }
 
 LABEL_94:
@@ -186,8 +187,8 @@ LABEL_94:
       objc_setProperty_atomic(selfa, v16, v15, 80);
     }
 
-    v75 = v9;
-    v76 = bytes;
+    v74 = v9;
+    v75 = bytes;
 
     if (v10)
     {
@@ -195,28 +196,28 @@ LABEL_94:
     }
 
     v19 = 0;
-    v78 = 0;
-    v81 = 0;
+    v77 = 0;
+    v80 = 0;
 LABEL_77:
-    dataCopy = v73;
+    dataCopy = v72;
     if (v14)
     {
       v52 = ne_log_obj();
       if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
-        v53 = v76[4];
+        v53 = v75[4];
         *buf = 67109376;
-        *v91 = v14;
-        *&v91[4] = 1024;
-        *&v91[6] = v53;
+        *v90 = v14;
+        *&v90[4] = 1024;
+        *&v90[6] = v53;
         _os_log_error_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_ERROR, "Ignoring %u remaining bytes in proposal %u", buf, 0xEu);
       }
     }
 
     if (selfa)
     {
-      selfa->_proposalNumber = v76[4];
-      selfa->_noESNTransformPresent = v78 & 1;
+      selfa->_proposalNumber = v75[4];
+      selfa->_noESNTransformPresent = v77 & 1;
     }
 
     self = selfCopy;
@@ -226,9 +227,9 @@ LABEL_77:
       [(NEIKEv2ChildSAProposal *)selfa setAdditionalKEMProtocols:v49];
     }
 
-    if (v81)
+    if (v80)
     {
-      v51 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithSet:v81];
+      v51 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithSet:v80];
       if (selfa)
       {
         objc_setProperty_atomic(selfa, v50, v51, 72);
@@ -236,14 +237,14 @@ LABEL_77:
     }
 
     [newValue addObject:selfa, selfCopy];
-    v7 = v77 - v75;
-    if (*v76 != 2)
+    v7 = v76 - v74;
+    if (*v75 != 2)
     {
 
       goto LABEL_96;
     }
 
-    bytes = &v76[v75];
+    bytes = &v75[v74];
 
     if (v7 <= 7)
     {
@@ -251,13 +252,13 @@ LABEL_77:
     }
   }
 
-  v81 = 0;
-  v78 = 0;
+  v80 = 0;
+  v77 = 0;
   v19 = 0;
   v20 = 1;
   v21 = 1;
   v22 = 0x1E696A000uLL;
-  v80 = v10;
+  v79 = v10;
   while (1)
   {
     if (v14 <= 7)
@@ -269,14 +270,14 @@ LABEL_77:
       }
 
       *buf = 67109376;
-      *v91 = v14;
-      *&v91[4] = 1024;
-      *&v91[6] = v20;
+      *v90 = v14;
+      *&v90[4] = 1024;
+      *&v90[6] = v20;
       v57 = "Not enough bytes remaining (%u) for transform %u";
       goto LABEL_106;
     }
 
-    v85 = v20;
+    v84 = v20;
     v23 = bswap32(*(v13 + 2)) >> 16;
     if (v14 < v23)
     {
@@ -287,11 +288,11 @@ LABEL_77:
       }
 
       *buf = 67109632;
-      *v91 = v14;
-      *&v91[4] = 1024;
-      *&v91[6] = v20;
-      v92 = 1024;
-      LODWORD(v93) = v23;
+      *v90 = v14;
+      *&v90[4] = 1024;
+      *&v90[6] = v20;
+      v91 = 1024;
+      LODWORD(v92) = v23;
       v57 = "Not enough bytes remaining (%u) to process transform %u with length %u";
       v58 = v56;
       v59 = 20;
@@ -307,9 +308,9 @@ LABEL_77:
       }
 
       *buf = 67109376;
-      *v91 = v20;
-      *&v91[4] = 1024;
-      *&v91[6] = v23;
+      *v90 = v20;
+      *&v90[4] = 1024;
+      *&v90[6] = v23;
       v57 = "Transform %u length %u is too short";
 LABEL_106:
       v58 = v56;
@@ -328,37 +329,37 @@ LABEL_107:
 
     if ((v25 - 6) >= 7)
     {
-      if (v25 == 5 && v79 != 240)
+      if (v25 == 5 && v78 != 240)
       {
-        v78 |= *(v13 + 6) == 0;
+        v77 |= *(v13 + 6) == 0;
         goto LABEL_34;
       }
 
 LABEL_45:
-      if (!v81)
+      if (!v80)
       {
-        v81 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+        v80 = objc_alloc_init(MEMORY[0x1E695DFA8]);
         v25 = *(v13 + 4);
       }
 
       v38 = [*(v22 + 3480) numberWithUnsignedChar:{v25, selfCopy}];
-      [v81 addObject:v38];
+      [v80 addObject:v38];
 
       v39 = ne_log_obj();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         v40 = *(v13 + 4);
         *buf = 67109376;
-        *v91 = v85;
-        *&v91[4] = 1024;
-        *&v91[6] = v40;
+        *v90 = v84;
+        *&v90[4] = 1024;
+        *&v90[6] = v40;
         _os_log_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_INFO, "Transform %u type %u in Child SA proposal is unsupported", buf, 0xEu);
       }
 
       goto LABEL_49;
     }
 
-    v83 = v14;
+    v82 = v14;
     v26 = [*(v22 + 3480) numberWithUnsignedChar:?];
     v27 = [[NEIKEv2KEMProtocol alloc] initWithMethod:bswap32(*(v13 + 6)) >> 16];
     if (!v19)
@@ -374,18 +375,18 @@ LABEL_45:
       v30 = [v29 arrayByAddingObject:v27];
       [v19 setObject:v30 forKeyedSubscript:v26];
 
-      v10 = v80;
+      v10 = v79;
       v22 = 0x1E696A000;
     }
 
     else
     {
-      v86 = v27;
-      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v86 count:1];
+      v85 = v27;
+      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v85 count:1];
       [v19 setObject:v29 forKeyedSubscript:v26];
     }
 
-    v14 = v83;
+    v14 = v82;
 LABEL_34:
     if (v24)
     {
@@ -406,12 +407,12 @@ LABEL_50:
   {
     if (v25 == 3)
     {
-      if (v79 == 240)
+      if (v78 == 240)
       {
         goto LABEL_45;
       }
 
-      v84 = v23 - 8;
+      v83 = v23 - 8;
       v41 = [[NEIKEv2IntegrityProtocol alloc] initWithType:bswap32(*(v13 + 6)) >> 16];
       integrityProtocols = [(NEIKEv2ChildSAProposal *)selfa integrityProtocols];
 
@@ -424,12 +425,12 @@ LABEL_50:
         goto LABEL_62;
       }
 
-      v88 = v41;
-      integrityProtocols2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
+      v87 = v41;
+      integrityProtocols2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
       [(NEIKEv2ChildSAProposal *)selfa setIntegrityProtocols:integrityProtocols2];
 LABEL_70:
 
-      v24 = v84;
+      v24 = v83;
       goto LABEL_34;
     }
 
@@ -449,13 +450,13 @@ LABEL_70:
       [(NEIKEv2ChildSAProposal *)selfa setKemProtocols:v35];
 
       v14 = v34;
-      v10 = v80;
+      v10 = v79;
     }
 
     else
     {
-      v87 = v31;
-      kemProtocols2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
+      v86 = v31;
+      kemProtocols2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v86 count:1];
       [(NEIKEv2ChildSAProposal *)selfa setKemProtocols:kemProtocols2];
     }
 
@@ -464,7 +465,7 @@ LABEL_70:
     goto LABEL_34;
   }
 
-  if (v79 == 240)
+  if (v78 == 240)
   {
     goto LABEL_45;
   }
@@ -476,7 +477,7 @@ LABEL_70:
     {
       if (*(v13 + 10))
       {
-        v84 = v23 - 12;
+        v83 = v23 - 12;
         v37 = __rev16(*(v13 + 10));
         goto LABEL_57;
       }
@@ -488,7 +489,7 @@ LABEL_70:
       }
 
       *buf = 67109120;
-      *v91 = v20;
+      *v90 = v20;
       v57 = "Transform %u has a key length attribute with length 0";
       v58 = v56;
       v59 = 8;
@@ -499,9 +500,9 @@ LABEL_70:
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      *v91 = v85;
-      *&v91[4] = 1024;
-      *&v91[6] = __rev16(v36);
+      *v90 = v84;
+      *&v90[4] = 1024;
+      *&v90[6] = __rev16(v36);
       _os_log_error_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_ERROR, "Transform %u has an unrecognized attribute type %u, ignoring", buf, 0xEu);
     }
 
@@ -510,9 +511,9 @@ LABEL_74:
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      *v91 = v24;
-      *&v91[4] = 1024;
-      *&v91[6] = v85;
+      *v90 = v24;
+      *&v90[4] = 1024;
+      *&v90[6] = v84;
       _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, "Ignoring %u remaining bytes in transform %u ", buf, 0xEu);
     }
 
@@ -521,7 +522,7 @@ LABEL_49:
     goto LABEL_50;
   }
 
-  v84 = v23 - 8;
+  v83 = v23 - 8;
   v37 = 0;
 LABEL_57:
   v46 = bswap32(*(v13 + 6)) >> 16;
@@ -541,13 +542,13 @@ LABEL_60:
 LABEL_62:
 
       v14 = v44;
-      v10 = v80;
+      v10 = v79;
     }
 
     else
     {
-      v89 = v41;
-      integrityProtocols2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v89 count:1];
+      v88 = v41;
+      integrityProtocols2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
       [(NEIKEv2ChildSAProposal *)selfa setEncryptionProtocols:integrityProtocols2];
     }
 
@@ -575,29 +576,28 @@ LABEL_108:
   {
     String = NEIKEv2EncryptionWireTypeCreateString(v46);
     *buf = 67109634;
-    *v91 = v85;
-    *&v91[4] = 1024;
-    *&v91[6] = v37;
-    v92 = 2112;
-    v93 = String;
+    *v90 = v84;
+    *&v90[4] = 1024;
+    *&v90[6] = v37;
+    v91 = 2112;
+    v92 = String;
     _os_log_error_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_ERROR, "Transform %u has invalid key length %u for encryption type %@", buf, 0x18u);
   }
 
 LABEL_110:
-  dataCopy = v73;
+  dataCopy = v72;
 
 LABEL_111:
 LABEL_112:
   hasRequiredFields = 0;
 LABEL_113:
 
-  v60 = *MEMORY[0x1E69E9840];
   return hasRequiredFields;
 }
 
 - (BOOL)generatePayloadData
 {
-  v198 = *MEMORY[0x1E69E9840];
+  v197 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     hasRequiredFields = [0 hasRequiredFields];
@@ -611,8 +611,8 @@ LABEL_158:
     log = ne_log_obj();
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      *v173 = 0;
-      _os_log_error_impl(&dword_1BA83C000, log, OS_LOG_TYPE_ERROR, "Child SA payload missing required fields", v173, 2u);
+      *v172 = 0;
+      _os_log_error_impl(&dword_1BA83C000, log, OS_LOG_TYPE_ERROR, "Child SA payload missing required fields", v172, 2u);
     }
 
     goto LABEL_160;
@@ -620,8 +620,7 @@ LABEL_158:
 
   if (self->super._payloadDataVector)
   {
-    v3 = 1;
-    goto LABEL_162;
+    return 1;
   }
 
   if (![(NEIKEv2ChildSAPayload *)self hasRequiredFields])
@@ -633,10 +632,10 @@ LABEL_158:
 LABEL_6:
   v6 = [Property count];
   log = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v6];
+  v181 = 0u;
   v182 = 0u;
   v183 = 0u;
   v184 = 0u;
-  v185 = 0u;
   selfCopy = self;
   if (self)
   {
@@ -649,8 +648,8 @@ LABEL_6:
   }
 
   obj = v8;
-  v141 = [obj countByEnumeratingWithState:&v182 objects:v197 count:16];
-  if (!v141)
+  v140 = [obj countByEnumeratingWithState:&v181 objects:v196 count:16];
+  if (!v140)
   {
 LABEL_147:
 
@@ -661,19 +660,19 @@ LABEL_147:
 
   v9 = v6;
   v10 = 0;
-  v137 = v9;
+  v136 = v9;
   v11 = 1;
-  v12 = *v183;
-  v138 = *v183;
+  v12 = *v182;
+  v137 = *v182;
 LABEL_10:
-  if (v12 != v138)
+  if (v12 != v137)
   {
     objc_enumerationMutation(obj);
   }
 
-  v13 = *(*(&v182 + 1) + 8 * v10);
+  v13 = *(*(&v181 + 1) + 8 * v10);
   encryptionProtocols = [v13 encryptionProtocols];
-  v142 = v10;
+  v141 = v10;
   if (v13)
   {
     v16 = objc_getProperty(v13, v14, 96, 1);
@@ -699,8 +698,8 @@ LABEL_10:
     }
 
     v20 = v19;
-    v196 = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v196 count:1];
+    v195 = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v195 count:1];
 
     encryptionProtocols = v21;
   }
@@ -731,8 +730,8 @@ LABEL_10:
     }
 
     v28 = v27;
-    v195 = v28;
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v195 count:1];
+    v194 = v28;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v194 count:1];
 
     integrityProtocols = v29;
   }
@@ -747,7 +746,7 @@ LABEL_10:
         goto LABEL_155;
       }
 
-      *v173 = 0;
+      *v172 = 0;
       v130 = "Child SA proposal missing encryption protocol";
       goto LABEL_154;
     }
@@ -756,52 +755,52 @@ LABEL_30:
     additionalKEMProtocols = [v13 additionalKEMProtocols];
     chosenAdditionalKEMProtocols = [(NEIKEv2IKESAProposal *)v13 chosenAdditionalKEMProtocols];
 
-    v148 = v13;
-    v144 = v11;
-    v145 = integrityProtocols;
-    v146 = encryptionProtocols;
+    v147 = v13;
+    v143 = v11;
+    v144 = integrityProtocols;
+    v145 = encryptionProtocols;
     if (chosenAdditionalKEMProtocols)
     {
       chosenAdditionalKEMProtocols2 = [(NEIKEv2IKESAProposal *)v13 chosenAdditionalKEMProtocols];
       if ([chosenAdditionalKEMProtocols2 count])
       {
         v33 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(chosenAdditionalKEMProtocols2, "count")}];
+        v177 = 0u;
         v178 = 0u;
         v179 = 0u;
         v180 = 0u;
-        v181 = 0u;
         v34 = chosenAdditionalKEMProtocols2;
-        v35 = [v34 countByEnumeratingWithState:&v178 objects:v194 count:16];
+        v35 = [v34 countByEnumeratingWithState:&v177 objects:v193 count:16];
         if (v35)
         {
           v36 = v35;
-          v37 = *v179;
+          v37 = *v178;
           do
           {
             for (i = 0; i != v36; ++i)
             {
-              if (*v179 != v37)
+              if (*v178 != v37)
               {
                 objc_enumerationMutation(v34);
               }
 
-              v39 = *(*(&v178 + 1) + 8 * i);
+              v39 = *(*(&v177 + 1) + 8 * i);
               v40 = [v34 objectForKeyedSubscript:v39];
-              v193 = v40;
-              v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v193 count:1];
+              v192 = v40;
+              v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v192 count:1];
               [v33 setObject:v41 forKeyedSubscript:v39];
             }
 
-            v36 = [v34 countByEnumeratingWithState:&v178 objects:v194 count:16];
+            v36 = [v34 countByEnumeratingWithState:&v177 objects:v193 count:16];
           }
 
           while (v36);
         }
 
-        LOBYTE(v11) = v144;
-        integrityProtocols = v145;
-        encryptionProtocols = v146;
-        v13 = v148;
+        LOBYTE(v11) = v143;
+        integrityProtocols = v144;
+        encryptionProtocols = v145;
+        v13 = v147;
       }
 
       else
@@ -838,15 +837,15 @@ LABEL_30:
       }
 
       v48 = v47;
-      v192 = v48;
-      v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v192 count:1];
+      v191 = v48;
+      v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v191 count:1];
 
-      v147 = v49;
+      v146 = v49;
     }
 
     else
     {
-      v147 = kemProtocols;
+      v146 = kemProtocols;
     }
 
     protocol = [v13 protocol];
@@ -862,84 +861,84 @@ LABEL_30:
     }
 
     v53 = v52 + [integrityProtocols count];
+    v173 = 0u;
     v174 = 0u;
     v175 = 0u;
     v176 = 0u;
-    v177 = 0u;
     v54 = additionalKEMProtocols;
-    v55 = [v54 countByEnumeratingWithState:&v174 objects:v191 count:16];
+    v55 = [v54 countByEnumeratingWithState:&v173 objects:v190 count:16];
     if (v55)
     {
       v56 = v55;
-      v57 = *v175;
+      v57 = *v174;
       do
       {
         for (j = 0; j != v56; ++j)
         {
-          if (*v175 != v57)
+          if (*v174 != v57)
           {
             objc_enumerationMutation(v54);
           }
 
-          v59 = [v54 objectForKeyedSubscript:*(*(&v174 + 1) + 8 * j)];
+          v59 = [v54 objectForKeyedSubscript:*(*(&v173 + 1) + 8 * j)];
           v53 += [v59 count];
         }
 
-        v56 = [v54 countByEnumeratingWithState:&v174 objects:v191 count:16];
+        v56 = [v54 countByEnumeratingWithState:&v173 objects:v190 count:16];
       }
 
       while (v56);
     }
 
-    v60 = [v147 count];
-    *v173 = (2 * (v137 > v11));
-    if (v148)
+    v60 = [v146 count];
+    *v172 = (2 * (v136 > v11));
+    if (v147)
     {
-      v173[4] = v148[8];
-      v173[5] = [v148 protocol];
-      v62 = objc_getProperty(v148, v61, 80, 1);
+      v172[4] = v147[8];
+      v172[5] = [v147 protocol];
+      v62 = objc_getProperty(v147, v61, 80, 1);
     }
 
     else
     {
-      v173[4] = 0;
+      v172[4] = 0;
       protocol2 = [0 protocol];
       v62 = 0;
-      v173[5] = protocol2;
+      v172[5] = protocol2;
     }
 
     v63 = v60 + v53;
     v64 = v62;
     copySPIData = [v64 copySPIData];
 
-    v173[6] = [copySPIData length];
-    v173[7] = v63;
-    v66 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:8 * v63 + v173[6] + 8];
-    [v66 appendBytes:v173 length:8];
-    v143 = copySPIData;
+    v172[6] = [copySPIData length];
+    v172[7] = v63;
+    v66 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:8 * v63 + v172[6] + 8];
+    [v66 appendBytes:v172 length:8];
+    v142 = copySPIData;
     [v66 appendData:copySPIData];
-    if ([v148 protocol] == 240)
+    if ([v147 protocol] == 240)
     {
       goto LABEL_95;
     }
 
-    v171 = 0u;
-    v172 = 0u;
-    v169 = 0u;
     v170 = 0u;
-    v67 = v146;
-    v68 = [v67 countByEnumeratingWithState:&v169 objects:v190 count:16];
+    v171 = 0u;
+    v168 = 0u;
+    v169 = 0u;
+    v67 = v145;
+    v68 = [v67 countByEnumeratingWithState:&v168 objects:v189 count:16];
     if (!v68)
     {
 
 LABEL_90:
-      if (![v145 count])
+      if (![v144 count])
       {
         goto LABEL_95;
       }
 
       v93 = ne_log_obj();
-      v11 = v144;
+      v11 = v143;
       if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -954,15 +953,15 @@ LABEL_90:
     v70 = 0;
     v71 = 0;
     v72 = 0;
-    v73 = *v170;
-    for (k = *v170; ; k = *v170)
+    v73 = *v169;
+    for (k = *v169; ; k = *v169)
     {
       if (k != v73)
       {
         objc_enumerationMutation(v67);
       }
 
-      v75 = *(*(&v169 + 1) + 8 * v72);
+      v75 = *(*(&v168 + 1) + 8 * v72);
       if (v75)
       {
         v76 = *(v75 + 16);
@@ -971,11 +970,11 @@ LABEL_90:
         *&buf[6] = bswap32(v76) >> 16;
         if (v77)
         {
-          v167[0] = 3712;
-          v167[1] = __rev16(v77);
+          v166[0] = 3712;
+          v166[1] = __rev16(v77);
           *&buf[2] = 3072;
           [v66 appendBytes:buf length:8];
-          v78 = v167;
+          v78 = v166;
           v79 = v66;
           v80 = 4;
         }
@@ -1009,14 +1008,14 @@ LABEL_74:
       v71 |= v82;
       if (++v72 >= v69)
       {
-        v83 = [v67 countByEnumeratingWithState:&v169 objects:v190 count:16];
+        v83 = [v67 countByEnumeratingWithState:&v168 objects:v189 count:16];
         if (!v83)
         {
 
           if (v71 & v70)
           {
             v126 = ne_log_obj();
-            v125 = v143;
+            v125 = v142;
             if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
@@ -1028,7 +1027,7 @@ LABEL_74:
 LABEL_139:
 
             v94 = 0;
-            v11 = v144;
+            v11 = v143;
             goto LABEL_129;
           }
 
@@ -1037,10 +1036,10 @@ LABEL_139:
             goto LABEL_90;
           }
 
-          if (![v145 count])
+          if (![v144 count])
           {
             v126 = ne_log_obj();
-            v125 = v143;
+            v125 = v142;
             if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
@@ -1053,25 +1052,25 @@ LABEL_138:
             goto LABEL_139;
           }
 
-          v165 = 0u;
-          v166 = 0u;
-          v163 = 0u;
           v164 = 0u;
-          v84 = v145;
-          v85 = [v84 countByEnumeratingWithState:&v163 objects:v189 count:16];
+          v165 = 0u;
+          v162 = 0u;
+          v163 = 0u;
+          v84 = v144;
+          v85 = [v84 countByEnumeratingWithState:&v162 objects:v188 count:16];
           if (v85)
           {
             v86 = v85;
             v87 = 0;
-            v88 = *v164;
-            for (m = *v164; ; m = *v164)
+            v88 = *v163;
+            for (m = *v163; ; m = *v163)
             {
               if (m != v88)
               {
                 objc_enumerationMutation(v84);
               }
 
-              v90 = *(*(&v163 + 1) + 8 * v87);
+              v90 = *(*(&v162 + 1) + 8 * v87);
               *buf = 0;
               type = [v90 type];
               buf[0] = 3;
@@ -1081,7 +1080,7 @@ LABEL_138:
               [v66 appendBytes:buf length:8];
               if (++v87 >= v86)
               {
-                v92 = [v84 countByEnumeratingWithState:&v163 objects:v189 count:16];
+                v92 = [v84 countByEnumeratingWithState:&v162 objects:v188 count:16];
                 if (!v92)
                 {
                   break;
@@ -1094,49 +1093,49 @@ LABEL_138:
           }
 
 LABEL_95:
-          v161 = 0u;
-          v162 = 0u;
-          v159 = 0u;
           v160 = 0u;
+          v161 = 0u;
+          v158 = 0u;
+          v159 = 0u;
           allKeys = [v54 allKeys];
           v96 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-          v150 = v96;
-          v97 = [v96 countByEnumeratingWithState:&v159 objects:v188 count:16];
+          v149 = v96;
+          v97 = [v96 countByEnumeratingWithState:&v158 objects:v187 count:16];
           if (v97)
           {
             v98 = v97;
             v99 = 0;
-            v100 = *v160;
-            v149 = *v160;
+            v100 = *v159;
+            v148 = *v159;
             while (1)
             {
-              if (v100 != v149)
+              if (v100 != v148)
               {
-                objc_enumerationMutation(v150);
+                objc_enumerationMutation(v149);
               }
 
-              v101 = *(*(&v159 + 1) + 8 * v99);
+              v101 = *(*(&v158 + 1) + 8 * v99);
               unsignedCharValue = [v101 unsignedCharValue];
+              v154 = 0u;
               v155 = 0u;
               v156 = 0u;
               v157 = 0u;
-              v158 = 0u;
               v103 = [v54 objectForKeyedSubscript:v101];
-              v104 = [v103 countByEnumeratingWithState:&v155 objects:v187 count:16];
+              v104 = [v103 countByEnumeratingWithState:&v154 objects:v186 count:16];
               if (v104)
               {
                 v105 = v104;
                 v106 = 0;
-                v107 = *v156;
-                for (n = *v156; ; n = *v156)
+                v107 = *v155;
+                for (n = *v155; ; n = *v155)
                 {
                   if (n != v107)
                   {
                     objc_enumerationMutation(v103);
                   }
 
-                  v109 = *(*(&v155 + 1) + 8 * v106);
+                  v109 = *(*(&v154 + 1) + 8 * v106);
                   *buf = 0;
                   method = [v109 method];
                   buf[0] = 3;
@@ -1147,7 +1146,7 @@ LABEL_95:
                   ++v63;
                   if (++v106 >= v105)
                   {
-                    v111 = [v103 countByEnumeratingWithState:&v155 objects:v187 count:16];
+                    v111 = [v103 countByEnumeratingWithState:&v154 objects:v186 count:16];
                     if (!v111)
                     {
                       break;
@@ -1161,7 +1160,7 @@ LABEL_95:
 
               if (++v99 >= v98)
               {
-                v112 = [v150 countByEnumeratingWithState:&v159 objects:v188 count:16];
+                v112 = [v149 countByEnumeratingWithState:&v158 objects:v187 count:16];
                 if (!v112)
                 {
                   break;
@@ -1171,41 +1170,41 @@ LABEL_95:
                 v99 = 0;
               }
 
-              v100 = *v160;
+              v100 = *v159;
             }
           }
 
-          if ([v148 protocol] == 240)
+          if ([v147 protocol] == 240)
           {
-            v113 = v147;
-            v114 = (v63 + [v147 count]);
+            v113 = v146;
+            v114 = (v63 + [v146 count]);
           }
 
           else
           {
             v114 = 0;
-            v113 = v147;
+            v113 = v146;
           }
 
-          v153 = 0u;
-          v154 = 0u;
-          v151 = 0u;
           v152 = 0u;
+          v153 = 0u;
+          v150 = 0u;
+          v151 = 0u;
           v115 = v113;
-          v116 = [v115 countByEnumeratingWithState:&v151 objects:v186 count:16];
+          v116 = [v115 countByEnumeratingWithState:&v150 objects:v185 count:16];
           if (v116)
           {
             v117 = v116;
             v118 = 0;
-            v119 = *v152;
-            for (ii = *v152; ; ii = *v152)
+            v119 = *v151;
+            for (ii = *v151; ; ii = *v151)
             {
               if (ii != v119)
               {
                 objc_enumerationMutation(v115);
               }
 
-              v121 = *(*(&v151 + 1) + 8 * v118);
+              v121 = *(*(&v150 + 1) + 8 * v118);
               *buf = 0;
               method2 = [v121 method];
               if (v63 + 1 == v114)
@@ -1225,7 +1224,7 @@ LABEL_95:
               [v66 appendBytes:buf length:8];
               if (++v118 >= v117)
               {
-                v124 = [v115 countByEnumeratingWithState:&v151 objects:v186 count:16];
+                v124 = [v115 countByEnumeratingWithState:&v150 objects:v185 count:16];
                 if (!v124)
                 {
                   break;
@@ -1239,7 +1238,7 @@ LABEL_95:
             }
           }
 
-          if ([v148 protocol] != 240)
+          if ([v147 protocol] != 240)
           {
             *buf = 0x508000000;
             [v66 appendBytes:buf length:8];
@@ -1247,10 +1246,10 @@ LABEL_95:
 
           *([v66 mutableBytes] + 2) = bswap32(objc_msgSend(v66, "length")) >> 16;
           [log addObject:v66];
-          v11 = (v144 + 1);
+          v11 = (v143 + 1);
           v94 = 1;
 LABEL_128:
-          v125 = v143;
+          v125 = v142;
 LABEL_129:
 
           if (!v94)
@@ -1258,21 +1257,21 @@ LABEL_129:
             goto LABEL_156;
           }
 
-          v10 = v142 + 1;
-          if (v142 + 1 < v141)
+          v10 = v141 + 1;
+          if (v141 + 1 < v140)
           {
             goto LABEL_133;
           }
 
-          v141 = [obj countByEnumeratingWithState:&v182 objects:v197 count:16];
-          if (!v141)
+          v140 = [obj countByEnumeratingWithState:&v181 objects:v196 count:16];
+          if (!v140)
           {
             goto LABEL_147;
           }
 
           v10 = 0;
 LABEL_133:
-          v12 = *v183;
+          v12 = *v182;
           goto LABEL_10;
         }
 
@@ -1290,7 +1289,7 @@ LABEL_133:
       goto LABEL_155;
     }
 
-    *v173 = 0;
+    *v172 = 0;
     v130 = "Child TLS SA proposal has encryption protocol";
     goto LABEL_154;
   }
@@ -1303,10 +1302,10 @@ LABEL_133:
   v131 = ne_log_obj();
   if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
   {
-    *v173 = 0;
+    *v172 = 0;
     v130 = "Child TLS SA proposal has integrity protocols";
 LABEL_154:
-    _os_log_error_impl(&dword_1BA83C000, v131, OS_LOG_TYPE_ERROR, v130, v173, 2u);
+    _os_log_error_impl(&dword_1BA83C000, v131, OS_LOG_TYPE_ERROR, v130, v172, 2u);
   }
 
 LABEL_155:
@@ -1316,8 +1315,6 @@ LABEL_160:
   v3 = 0;
 LABEL_161:
 
-LABEL_162:
-  v134 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -1329,6 +1326,28 @@ LABEL_162:
   }
 
   return [(NEIKEv2ChildSAPayload *)self count]!= 0;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  typeDescription = [(NEIKEv2ChildSAPayload *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  if (self)
+  {
+    Property = objc_getProperty(self, v9, 32, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"Proposals" andIndent:v5 options:options];
+
+  return v7;
 }
 
 @end

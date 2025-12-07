@@ -1,193 +1,3 @@
-BOOL save_pac(uint64_t *a1)
-{
-  v50 = *MEMORY[0x277D85DE8];
-  v38 = 0;
-  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v35 = Mutable;
-  dict_add_tlv_as_data(Mutable, @"AuthorityID", a1[4], 0);
-  v3 = a1[5];
-  if (v3)
-  {
-    dict_add_tlv_as_string(Mutable, @"AuthorityIDInfo", v3);
-  }
-
-  v4 = a1[6];
-  if (v4)
-  {
-    dict_add_tlv_as_string(Mutable, @"InitiatorID", v4);
-  }
-
-  dict_add_tlv_as_data(Mutable, @"PACOpaque", a1[1], 1);
-  dict_add_tlv_as_data(Mutable, @"PACInfo", a1[2], 0);
-  v5 = a1[6];
-  if (v5)
-  {
-    v6 = (v5 + 4);
-    v7 = bswap32(*(v5 + 2)) >> 16;
-  }
-
-  else
-  {
-    v7 = 0;
-    v6 = 0;
-  }
-
-  v8 = pac_list_copy();
-  v36 = v8;
-  if (!v8)
-  {
-    MutableCopy = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    v37 = MutableCopy;
-    goto LABEL_15;
-  }
-
-  MutableCopy = CFArrayCreateMutableCopy(0, 0, v8);
-  v37 = MutableCopy;
-  pac = pac_list_find_pac(MutableCopy, (a1[4] + 4), bswap32(*(a1[4] + 2)) >> 16, v6, v7);
-  if (pac == -1)
-  {
-LABEL_15:
-    v11 = -1;
-    goto LABEL_16;
-  }
-
-  v11 = pac;
-  ValueAtIndex = CFArrayGetValueAtIndex(MutableCopy, pac);
-  v13 = CFDictionaryGetValue(ValueAtIndex, @"PACKeyKeychainItemID");
-  v38 = v13;
-  if (v13)
-  {
-    v14 = v13;
-    CFDictionarySetValue(Mutable, @"PACKeyKeychainItemID", v13);
-    v15 = CFDataCreate(0, (*a1 + 4), bswap32(*(*a1 + 2)) >> 16);
-    v40 = v15;
-    v16 = EAPSecKeychainPasswordItemSet(0, v14, v15);
-    if (v16 == -25300)
-    {
-      v44 = 0;
-      v45 = 0;
-      v42 = 0;
-      v43 = 0;
-      v41 = 0;
-      pac_keychain_init_items(v6, v7, &v41, &v45, &v44, &v42);
-      v17 = EAPSecKeychainPasswordItemCreateWithAccess(0, v45, v14, v42, v44, v41, v15);
-      if (v17)
-      {
-        LogHandle = EAPLogGetLogHandle();
-        v29 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(LogHandle, v29))
-        {
-          v30 = EAPSecurityErrorString(v17);
-          *buf = 136315394;
-          v47 = v30;
-          v48 = 1024;
-          v49 = v17;
-          _os_log_impl(&dword_249EFB000, LogHandle, v29, "EAP-FAST: EAPSecKeychainPasswordItemCreateWithAccess failed,%s (%d)", buf, 0x12u);
-        }
-      }
-
-      my_CFRelease(&v43);
-      my_CFRelease(&v45);
-      my_CFRelease(&v44);
-      my_CFRelease(&v42);
-      my_CFRelease(&v41);
-    }
-
-    else
-    {
-      v17 = v16;
-      if (!v16)
-      {
-        my_CFRelease(&v40);
-        goto LABEL_21;
-      }
-
-      v31 = EAPLogGetLogHandle();
-      v32 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v31, v32))
-      {
-        *buf = 136315394;
-        v47 = EAPSecurityErrorString(v17);
-        v48 = 1024;
-        v49 = v17;
-        _os_log_impl(&dword_249EFB000, v31, v32, "EAP-FAST: EAPSecKeychainPasswordItemSet failed, %s (%d)", buf, 0x12u);
-      }
-    }
-
-    my_CFRelease(&v40);
-    if (!v17)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_31:
-    v27 = 0;
-    goto LABEL_32;
-  }
-
-LABEL_16:
-  v18 = *a1;
-  v19 = bswap32(*(*a1 + 2)) >> 16;
-  v44 = 0;
-  v45 = 0;
-  v42 = 0;
-  v43 = 0;
-  v41 = 0;
-  value = 0;
-  pac_keychain_init_items(v6, v7, &v41, &v45, &v44, &v42);
-  v40 = CFDataCreate(0, (v18 + 4), v19);
-  UniqueWithAccess = EAPSecKeychainPasswordItemCreateUniqueWithAccess(0, v45, v42, v44, v41, v40, &value);
-  if (UniqueWithAccess)
-  {
-    v21 = UniqueWithAccess;
-    v22 = EAPLogGetLogHandle();
-    v23 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v22, v23))
-    {
-      v24 = EAPSecurityErrorString(v21);
-      *buf = 136315394;
-      v47 = v24;
-      v48 = 1024;
-      v49 = v21;
-      _os_log_impl(&dword_249EFB000, v22, v23, "EAP-FAST: EAPSecKeychainPasswordItemCreateUniqueWithAccess failed,%s (%d)", buf, 0x12u);
-    }
-  }
-
-  my_CFRelease(&v43);
-  my_CFRelease(&v45);
-  my_CFRelease(&v44);
-  my_CFRelease(&v42);
-  my_CFRelease(&v41);
-  my_CFRelease(&v40);
-  v38 = value;
-  if (!value)
-  {
-    goto LABEL_31;
-  }
-
-  CFDictionarySetValue(Mutable, @"PACKeyKeychainItemID", value);
-  my_CFRelease(&v38);
-  if (v11 == -1)
-  {
-    CFArrayAppendValue(MutableCopy, Mutable);
-    goto LABEL_23;
-  }
-
-LABEL_21:
-  CFArraySetValueAtIndex(MutableCopy, v11, Mutable);
-LABEL_23:
-  v25 = *MEMORY[0x277CBF040];
-  v26 = *MEMORY[0x277CBF010];
-  CFPreferencesSetValue(@"PACList", v37, @"com.apple.network.eapclient.eapfast", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-  v27 = CFPreferencesSynchronize(@"com.apple.network.eapclient.eapfast", v25, v26) != 0;
-LABEL_32:
-  my_CFRelease(&v35);
-  my_CFRelease(&v36);
-  my_CFRelease(&v37);
-  v33 = *MEMORY[0x277D85DE8];
-  return v27;
-}
-
 void dict_add_tlv_as_data(__CFDictionary *a1, const void *a2, uint64_t a3, int a4)
 {
   v6 = 4;
@@ -221,7 +31,7 @@ void dict_add_tlv_as_string(__CFDictionary *a1, const void *a2, uint64_t a3)
 uint64_t EAPSecKeychainPasswordItemSet(uint64_t a1, void *a2, void *a3)
 {
   keys[3] = *MEMORY[0x277D85DE8];
-  v14 = a3;
+  v13 = a3;
   v4 = *MEMORY[0x277CDC120];
   keys[0] = *MEMORY[0x277CDC228];
   keys[1] = v4;
@@ -245,7 +55,7 @@ uint64_t EAPSecKeychainPasswordItemSet(uint64_t a1, void *a2, void *a3)
       v7 = MEMORY[0x277CBF138];
       v8 = MEMORY[0x277CBF150];
       v9 = CFDictionaryCreate(0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v10 = CFDictionaryCreate(0, MEMORY[0x277CDC5E8], &v14, 1, v7, v8);
+      v10 = CFDictionaryCreate(0, MEMORY[0x277CDC5E8], &v13, 1, v7, v8);
       v6 = SecItemUpdate(v9, v10);
       CFRelease(v9);
       CFRelease(v10);
@@ -253,7 +63,6 @@ uint64_t EAPSecKeychainPasswordItemSet(uint64_t a1, void *a2, void *a3)
   }
 
   my_CFRelease(&result);
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -297,7 +106,7 @@ uint64_t EAPSecKeychainPasswordItemCreateWithAccess(uint64_t a1, uint64_t a2, co
 
 void make_pac_ack(uint64_t a1, unsigned int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 12);
   if (*(a1 + 8) - v3 <= 9)
   {
@@ -306,19 +115,19 @@ void make_pac_ack(uint64_t a1, unsigned int a2)
     if (os_log_type_enabled(LogHandle, v6))
     {
       v7 = *(a1 + 8) - *(a1 + 12);
-      v11[0] = 67109376;
-      v11[1] = 10;
-      v12 = 1024;
-      v13 = v7;
-      _os_log_impl(&dword_249EFB000, LogHandle, v6, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v11, 0xEu);
+      v10[0] = 67109376;
+      v10[1] = 10;
+      v11 = 1024;
+      v12 = v7;
+      _os_log_impl(&dword_249EFB000, LogHandle, v6, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v10, 0xEu);
     }
 
     v8 = EAPLogGetLogHandle();
     v9 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v8, v9))
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_249EFB000, v8, v9, "EAP-FAST: make_pac_ack(): buffer too small", v11, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_249EFB000, v8, v9, "EAP-FAST: make_pac_ack(): buffer too small", v10, 2u);
     }
   }
 
@@ -329,8 +138,6 @@ void make_pac_ack(uint64_t a1, unsigned int a2)
     *v4 = 0x200080006000B00;
     *(v4 + 8) = __rev16(a2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void eapmschapv2_free(void **a1)
@@ -361,7 +168,6 @@ CFMutableStringRef EAPOLControlKeyCopyInterface(const __CFString *a1)
   v2 = EAPOLControlKeyCopyInterface_prefix;
   if (!EAPOLControlKeyCopyInterface_prefix)
   {
-    v3 = *MEMORY[0x277CE1638];
     v2 = SCDynamicStoreKeyCreate(0, @"%@/%@/%@/", *MEMORY[0x277CE1648], *MEMORY[0x277CE1638], *MEMORY[0x277CE1630]);
     EAPOLControlKeyCopyInterface_prefix = v2;
   }
@@ -374,16 +180,16 @@ CFMutableStringRef EAPOLControlKeyCopyInterface(const __CFString *a1)
   MutableCopy = CFStringCreateMutableCopy(0, 0, a1);
   if (MutableCopy)
   {
-    v8.length = CFStringGetLength(v2);
-    v8.location = 0;
-    CFStringDelete(MutableCopy, v8);
+    v7.length = CFStringGetLength(v2);
+    v7.location = 0;
+    CFStringDelete(MutableCopy, v7);
     location = CFStringFind(MutableCopy, @"/", 0).location;
     if (location != -1)
     {
-      v6 = location;
-      v9.length = CFStringGetLength(MutableCopy) - location;
-      v9.location = v6;
-      CFStringDelete(MutableCopy, v9);
+      v5 = location;
+      v8.length = CFStringGetLength(MutableCopy) - location;
+      v8.location = v5;
+      CFStringDelete(MutableCopy, v8);
       return MutableCopy;
     }
 
@@ -396,34 +202,34 @@ CFMutableStringRef EAPOLControlKeyCopyInterface(const __CFString *a1)
 
 uint64_t EAPOLControlCopyStateAndStatus(uint64_t a1, _DWORD *a2, const __CFData **a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  memset(v13, 0, sizeof(v13));
-  v12 = 0;
+  v13 = *MEMORY[0x277D85DE8];
+  memset(v12, 0, sizeof(v12));
   v11 = 0;
+  v10 = 0;
   bytes = 0;
-  v9 = 0;
+  v8 = 0;
   *a3 = 0;
-  if (!get_server_port(&v12, &v11))
+  if (!get_server_port(&v11, &v10))
   {
     goto LABEL_4;
   }
 
   __strlcpy_chk();
-  v5 = eapolcontroller_copy_status(v12, v13, &bytes, &v9, a2, &v12 + 1);
+  v5 = eapolcontroller_copy_status(v11, v12, &bytes, &v8, a2, &v11 + 1);
   if (v5)
   {
     mach_error("eapolcontroller_copy_status failed", v5);
 LABEL_4:
     v6 = 6;
 LABEL_5:
-    HIDWORD(v12) = v6;
-    goto LABEL_6;
+    HIDWORD(v11) = v6;
+    return HIDWORD(v11);
   }
 
   if (bytes)
   {
-    *a3 = my_CFPropertyListCreateWithBytePtrAndLength(bytes, v9);
-    MEMORY[0x24C207D30](*MEMORY[0x277D85F48], bytes, v9);
+    *a3 = my_CFPropertyListCreateWithBytePtrAndLength(bytes, v8);
+    MEMORY[0x24C207D30](*MEMORY[0x277D85F48], bytes, v8);
     if (!*a3)
     {
       v6 = 12;
@@ -431,47 +237,39 @@ LABEL_5:
     }
   }
 
-LABEL_6:
-  result = HIDWORD(v12);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return HIDWORD(v11);
 }
 
 BOOL get_server_port(uint64_t a1, mach_error_t *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D85F18];
-  v4 = bootstrap_look_up2();
-  *a2 = v4;
-  if (v4)
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = bootstrap_look_up2();
+  *a2 = v3;
+  if (!v3)
   {
-    LogHandle = EAPLogGetLogHandle();
-    v6 = _SC_syslog_os_log_mapping();
-    result = os_log_type_enabled(LogHandle, v6);
-    if (result)
-    {
-      v8 = mach_error_string(*a2);
-      v10 = 136315138;
-      v11 = v8;
-      _os_log_impl(&dword_249EFB000, LogHandle, v6, "eapolcontroller_server_port failed, %s", &v10, 0xCu);
-      result = 0;
-    }
+    return 1;
   }
 
-  else
+  LogHandle = EAPLogGetLogHandle();
+  v5 = _SC_syslog_os_log_mapping();
+  result = os_log_type_enabled(LogHandle, v5);
+  if (result)
   {
-    result = 1;
+    v7 = mach_error_string(*a2);
+    v8 = 136315138;
+    v9 = v7;
+    _os_log_impl(&dword_249EFB000, LogHandle, v5, "eapolcontroller_server_port failed, %s", &v8, 0xCu);
+    return 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t eapolcontroller_copy_status(int a1, _OWORD *a2, void *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   memset(&reply_port[16], 0, 48);
-  v22 = 0;
+  v21 = 0;
   *reply_port = 0u;
   *&reply_port[20] = *MEMORY[0x277D85EF8];
   v11 = a2[1];
@@ -480,11 +278,11 @@ uint64_t eapolcontroller_copy_status(int a1, _OWORD *a2, void *a3, _DWORD *a4, _
   v12 = mig_get_reply_port();
   *&reply_port[4] = a1;
   *&reply_port[8] = v12;
-  v20 = 5395;
+  v19 = 5395;
   *&reply_port[12] = 0x55F500000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v20);
+    voucher_mach_msg_set(&v19);
     v13 = *&reply_port[8];
   }
 
@@ -493,7 +291,7 @@ uint64_t eapolcontroller_copy_status(int a1, _OWORD *a2, void *a3, _DWORD *a4, _
     v13 = v12;
   }
 
-  v14 = mach_msg(&v20, 3, 0x40u, 0x48u, v13, 0, 0);
+  v14 = mach_msg(&v19, 3, 0x40u, 0x48u, v13, 0, 0);
   v15 = v14;
   if ((v14 - 268435458) <= 0xE && ((1 << (v14 - 2)) & 0x4003) != 0)
   {
@@ -511,7 +309,7 @@ uint64_t eapolcontroller_copy_status(int a1, _OWORD *a2, void *a3, _DWORD *a4, _
 
       else if (*&reply_port[16] == 22105)
       {
-        if (v20 < 0)
+        if (v19 < 0)
         {
           v15 = 4294966996;
           if (*&reply_port[20] == 1 && *reply_port == 64 && !*&reply_port[4] && reply_port[35] == 1)
@@ -525,7 +323,7 @@ uint64_t eapolcontroller_copy_status(int a1, _OWORD *a2, void *a3, _DWORD *a4, _
               v17 = *&reply_port[56];
               *a5 = *&reply_port[52];
               *a6 = v17;
-              goto LABEL_27;
+              return v15;
             }
           }
         }
@@ -558,15 +356,13 @@ uint64_t eapolcontroller_copy_status(int a1, _OWORD *a2, void *a3, _DWORD *a4, _
         v15 = 4294966995;
       }
 
-      mach_msg_destroy(&v20);
-      goto LABEL_27;
+      mach_msg_destroy(&v19);
+      return v15;
     }
 
     mig_dealloc_reply_port(*&reply_port[8]);
   }
 
-LABEL_27:
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -830,23 +626,23 @@ LABEL_21:
   return EAPOLClientItemIDCreateWithWLANDomain(v11);
 }
 
-uint64_t EAPOLClientItemIDCopyIdentity(uint64_t a1)
+CFTypeRef EAPOLClientItemIDCopyIdentity(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v19 = 0;
   v20 = 0;
-  v21 = 0;
   v1 = EAPOLClientItemIDCopyUniqueString(a1, 0);
-  v22 = v1;
+  v21 = v1;
   LogHandle = EAPLogGetLogHandle();
   v3 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(LogHandle, v3))
   {
     *buf = 138412290;
-    v24 = v1;
+    v23 = v1;
     _os_log_impl(&dword_249EFB000, LogHandle, v3, "looking for identity reference for [%@]", buf, 0xCu);
   }
 
-  v4 = EAPKeychainCopyIdentityReference(v1, &v21);
+  v4 = EAPKeychainCopyIdentityReference(v1, &v20);
   if (v4)
   {
     v5 = v4;
@@ -856,9 +652,9 @@ uint64_t EAPOLClientItemIDCopyIdentity(uint64_t a1)
     {
       v8 = EAPSecurityErrorString(v5);
       *buf = 136315394;
-      v24 = v8;
-      v25 = 1024;
-      v26 = v5;
+      v23 = v8;
+      v24 = 1024;
+      v25 = v5;
       v9 = "EAPKeychainCopyIdentityReference() failed %s (%d)";
 LABEL_6:
       v10 = v6;
@@ -871,36 +667,36 @@ LABEL_7:
 
   else
   {
-    if (!v21)
+    if (!v20)
     {
-      v18 = EAPLogGetLogHandle();
-      v19 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v18, v19))
+      v17 = EAPLogGetLogHandle();
+      v18 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v17, v18))
       {
         goto LABEL_8;
       }
 
       *buf = 0;
       v9 = "EAPKeychainCopyIdentityReference() returned NULL";
-      v10 = v18;
-      v11 = v19;
+      v10 = v17;
+      v11 = v18;
       v12 = 2;
       goto LABEL_7;
     }
 
-    v15 = EAPSecIdentityHandleCreateSecIdentity(v21, &v20);
-    if (v15)
+    v14 = EAPSecIdentityHandleCreateSecIdentity(v20, &v19);
+    if (v14)
     {
-      v16 = v15;
+      v15 = v14;
       v6 = EAPLogGetLogHandle();
       v7 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(v6, v7))
       {
-        v17 = EAPSecurityErrorString(v16);
+        v16 = EAPSecurityErrorString(v15);
         *buf = 136315394;
-        v24 = v17;
-        v25 = 1024;
-        v26 = v16;
+        v23 = v16;
+        v24 = 1024;
+        v25 = v15;
         v9 = "EAPSecIdentityHandleCreateSecIdentity() failed %s (%d)";
         goto LABEL_6;
       }
@@ -908,11 +704,9 @@ LABEL_7:
   }
 
 LABEL_8:
-  my_CFRelease(&v22);
   my_CFRelease(&v21);
-  result = v20;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  my_CFRelease(&v20);
+  return v19;
 }
 
 CFStringRef EAPOLClientItemIDCopyUniqueString(uint64_t a1, int a2)
@@ -1012,11 +806,11 @@ LABEL_20:
 
 BOOL EAPOLClientItemIDSetIdentity(uint64_t a1, uint64_t a2, __SecIdentity *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
   v4 = EAPOLClientItemIDCopyUniqueString(a1, 0);
-  v32 = v4;
+  v31 = v4;
   LogHandle = EAPLogGetLogHandle();
   v6 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(LogHandle, v6))
@@ -1028,28 +822,28 @@ BOOL EAPOLClientItemIDSetIdentity(uint64_t a1, uint64_t a2, __SecIdentity *a3)
     }
 
     *buf = 136315394;
-    v34 = v7;
-    v35 = 2112;
-    v36 = v4;
+    v33 = v7;
+    v34 = 2112;
+    v35 = v4;
     _os_log_impl(&dword_249EFB000, LogHandle, v6, "%s identity reference for key : [%@]", buf, 0x16u);
   }
 
-  v8 = EAPKeychainCopyIdentityReference(v4, &v30);
+  v8 = EAPKeychainCopyIdentityReference(v4, &v29);
   if (!a3 && v8 == -25300)
   {
     goto LABEL_7;
   }
 
-  if (!v30)
+  if (!v29)
   {
     v10 = 0;
     goto LABEL_14;
   }
 
-  v29 = 0;
+  v28 = 0;
   if (a3)
   {
-    if (!EAPSecIdentityCompareIdentityHandle(a3, v30, &v29) && v29 == 1)
+    if (!EAPSecIdentityCompareIdentityHandle(a3, v29, &v28) && v28 == 1)
     {
       goto LABEL_7;
     }
@@ -1057,7 +851,7 @@ BOOL EAPOLClientItemIDSetIdentity(uint64_t a1, uint64_t a2, __SecIdentity *a3)
     v10 = 1;
 LABEL_14:
     v11 = EAPSecIdentityHandleCreate(a3);
-    v31 = v11;
+    v30 = v11;
     if (!v11)
     {
       v25 = EAPLogGetLogHandle();
@@ -1087,9 +881,9 @@ LABEL_25:
       {
         v16 = EAPSecurityErrorString(v13);
         *buf = 136315394;
-        v34 = v16;
-        v35 = 1024;
-        LODWORD(v36) = v13;
+        v33 = v16;
+        v34 = 1024;
+        LODWORD(v35) = v13;
         v17 = "failed to add/update identity reference in the Keychain, %s (%d)";
         v18 = v14;
         v19 = v15;
@@ -1116,66 +910,60 @@ LABEL_7:
     {
       v24 = EAPSecurityErrorString(v21);
       *buf = 136315394;
-      v34 = v24;
-      v35 = 1024;
-      LODWORD(v36) = v21;
+      v33 = v24;
+      v34 = 1024;
+      LODWORD(v35) = v21;
       _os_log_impl(&dword_249EFB000, v22, v23, "failed to delete identity reference, %s (%d)", buf, 0x12u);
     }
   }
 
   v9 = v21 == 0;
 LABEL_26:
+  my_CFRelease(&v29);
   my_CFRelease(&v30);
   my_CFRelease(&v31);
-  my_CFRelease(&v32);
-  v27 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-BOOL EAPOLClientItemIDCopyPasswordItem(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+BOOL EAPOLClientItemIDCopyPasswordItem(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (a3 | a4)
+  v21 = *MEMORY[0x277D85DE8];
+  if (!(a3 | a4))
   {
-    v7 = EAPOLClientItemIDCopyUniqueString(a1, 1);
-    v17 = v7;
-    if (v7)
+    return 0;
+  }
+
+  v7 = EAPOLClientItemIDCopyUniqueString(a1, 1);
+  v16 = v7;
+  if (v7)
+  {
+    v8 = v7;
+    LogHandle = EAPLogGetLogHandle();
+    v10 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(LogHandle, v10))
     {
-      v8 = v7;
-      LogHandle = EAPLogGetLogHandle();
-      v10 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(LogHandle, v10))
-      {
-        *buf = 138412290;
-        v19 = v8;
-        _os_log_impl(&dword_249EFB000, LogHandle, v10, "searching username/password for [%@]", buf, 0xCu);
-      }
-
-      v11 = EAPKeychainCopyPasswordItem(v8, a3, a4);
-      if (v11)
-      {
-        v12 = EAPLogGetLogHandle();
-        v13 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v12, v13))
-        {
-          v14 = EAPSecurityErrorString(v11);
-          *buf = 136315394;
-          v19 = v14;
-          v20 = 1024;
-          v21 = v11;
-          _os_log_impl(&dword_249EFB000, v12, v13, "failed to copy username/password from the Keychain, %s (%d)", buf, 0x12u);
-        }
-      }
-
-      v4 = v11 == 0;
+      *buf = 138412290;
+      v18 = v8;
+      _os_log_impl(&dword_249EFB000, LogHandle, v10, "searching username/password for [%@]", buf, 0xCu);
     }
 
-    else
+    v11 = EAPKeychainCopyPasswordItem(v8, a3, a4);
+    if (v11)
     {
-      v4 = 0;
+      v12 = EAPLogGetLogHandle();
+      v13 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v12, v13))
+      {
+        v14 = EAPSecurityErrorString(v11);
+        *buf = 136315394;
+        v18 = v14;
+        v19 = 1024;
+        v20 = v11;
+        _os_log_impl(&dword_249EFB000, v12, v13, "failed to copy username/password from the Keychain, %s (%d)", buf, 0x12u);
+      }
     }
 
-    my_CFRelease(&v17);
+    v4 = v11 == 0;
   }
 
   else
@@ -1183,15 +971,15 @@ BOOL EAPOLClientItemIDCopyPasswordItem(uint64_t a1, uint64_t a2, unint64_t a3, u
     v4 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  my_CFRelease(&v16);
   return v4;
 }
 
 uint64_t EAPOLClientItemIDRemovePasswordItem(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = EAPOLClientItemIDCopyUniqueString(a1, 1);
-  v11 = v1;
+  v10 = v1;
   if (v1)
   {
     LogHandle = EAPLogGetLogHandle();
@@ -1199,7 +987,7 @@ uint64_t EAPOLClientItemIDRemovePasswordItem(uint64_t a1)
     if (os_log_type_enabled(LogHandle, v3))
     {
       *buf = 138412290;
-      v13 = v1;
+      v12 = v1;
       _os_log_impl(&dword_249EFB000, LogHandle, v3, "removing username/password for [%@]", buf, 0xCu);
     }
 
@@ -1213,9 +1001,9 @@ uint64_t EAPOLClientItemIDRemovePasswordItem(uint64_t a1)
       {
         v8 = EAPSecurityErrorString(v5);
         *buf = 136315394;
-        v13 = v8;
-        v14 = 1024;
-        v15 = v5;
+        v12 = v8;
+        v13 = 1024;
+        v14 = v5;
         _os_log_impl(&dword_249EFB000, v6, v7, "failed to remove username/password from the Keychain, %s (%d)", buf, 0x12u);
       }
 
@@ -1228,28 +1016,27 @@ uint64_t EAPOLClientItemIDRemovePasswordItem(uint64_t a1)
     }
   }
 
-  my_CFRelease(&v11);
-  v9 = *MEMORY[0x277D85DE8];
+  my_CFRelease(&v10);
   return v1;
 }
 
-__CFString *EAPOLClientItemIDSetPasswordItem(uint64_t a1, uint64_t a2, const __CFData *a3, void *a4)
+__CFString *EAPOLClientItemIDSetPasswordItem(uint64_t a1, uint64_t a2, const __CFData *a3, const __CFData *a4)
 {
   v4 = 0;
-  v28 = *MEMORY[0x277D85DE8];
-  v23 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  v22 = 0;
   theData = 0;
   if (a3 && a4)
   {
     v4 = EAPOLClientItemIDCopyUniqueString(a1, 1);
-    v25 = v4;
+    v24 = v4;
     if (!v4)
     {
 LABEL_19:
       my_CFRelease(&theData);
-      my_CFRelease(&v23);
-      my_CFRelease(&v25);
-      goto LABEL_20;
+      my_CFRelease(&v22);
+      my_CFRelease(&v24);
+      return v4;
     }
 
     LogHandle = EAPLogGetLogHandle();
@@ -1257,11 +1044,11 @@ LABEL_19:
     if (os_log_type_enabled(LogHandle, v8))
     {
       *buf = 138412290;
-      v27 = v4;
+      v26 = v4;
       _os_log_impl(&dword_249EFB000, LogHandle, v8, "adding/updating username/password for [%@]", buf, 0xCu);
     }
 
-    EAPKeychainCopyPasswordItem(v4, &theData, &v23);
+    EAPKeychainCopyPasswordItem(v4, &theData, &v22);
     if (theData)
     {
       Length = CFDataGetLength(theData);
@@ -1277,10 +1064,10 @@ LABEL_19:
         }
       }
 
-      if (v23)
+      if (v22)
       {
-        v14 = CFDataGetLength(v23);
-        if (v14 != CFDataGetLength(a4) || (v15 = CFDataGetBytePtr(v23), v16 = CFDataGetBytePtr(a3), v17 = CFDataGetLength(theData), memcmp(v15, v16, v17)))
+        v14 = CFDataGetLength(v22);
+        if (v14 != CFDataGetLength(a4) || (v15 = CFDataGetBytePtr(v22), v16 = CFDataGetBytePtr(a3), v17 = CFDataGetLength(theData), memcmp(v15, v16, v17)))
         {
           v18 = 1;
 LABEL_18:
@@ -1296,7 +1083,7 @@ LABEL_18:
         if (os_log_type_enabled(v19, v20))
         {
           *buf = 138412290;
-          v27 = v4;
+          v26 = v4;
           _os_log_impl(&dword_249EFB000, v19, v20, "failed to find current password for [%@]", buf, 0xCu);
         }
       }
@@ -1310,8 +1097,6 @@ LABEL_18:
     goto LABEL_18;
   }
 
-LABEL_20:
-  v21 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1425,7 +1210,7 @@ CFIndex accept_types_valid(const __CFArray *a1)
   return 0;
 }
 
-uint64_t EAPOLClientProfileCreate(const void *a1)
+uint64_t EAPOLClientProfileCreate(void *a1)
 {
   v2 = CFGetAllocator(a1);
   pthread_once(&__EAPOLClientProfileRegisterClass_initialized, __EAPOLClientProfileInitialize);
@@ -1709,7 +1494,7 @@ __CFDictionary *EAPOLClientProfileCreatePropertyList(uint64_t a1)
 
 __CFDictionary *EAPOLClientProfileCreateDictAndProfileID(uint64_t a1, CFTypeRef *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   Value = *(a1 + 32);
   if (Value)
   {
@@ -1741,25 +1526,25 @@ __CFDictionary *EAPOLClientProfileCreateDictAndProfileID(uint64_t a1, CFTypeRef 
     if (v8)
     {
       keys = @"SSID";
-      v19 = @"SecurityType";
+      v17 = @"SecurityType";
       v9 = *(a1 + 56);
       values = v8;
-      v17 = v9;
+      v15 = v9;
       v10 = 2;
 LABEL_16:
       v12 = CFDictionaryCreate(0, &keys, &values, v10, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       CFDictionarySetValue(Mutable, @"WLAN", v12);
       CFRelease(v12);
-      goto LABEL_17;
+      return Mutable;
     }
 
     v11 = *(a1 + 64);
     if (v11)
     {
       keys = @"Domain";
-      v19 = 0;
-      values = v11;
       v17 = 0;
+      values = v11;
+      v15 = 0;
       v10 = 1;
       goto LABEL_16;
     }
@@ -1767,13 +1552,10 @@ LABEL_16:
 
   else
   {
-    v15 = *(a1 + 24);
     SCLog();
-    Mutable = 0;
+    return 0;
   }
 
-LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -2005,7 +1787,7 @@ __CFString *__EAPOLClientProfileCopyDebugDesc(void *a1)
 
 uint64_t EAPOLClientConfigurationCreateInternal(const __CFAllocator *a1, const AuthorizationOpaqueRef *a2, int a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   pthread_once(&__EAPOLClientConfigurationRegisterClass_initialized, __EAPOLClientConfigurationInitialize);
   Instance = _CFRuntimeCreateInstance();
   *(Instance + 16) = 0u;
@@ -2014,7 +1796,7 @@ uint64_t EAPOLClientConfigurationCreateInternal(const __CFAllocator *a1, const A
   *(Instance + 64) = 0u;
   *(Instance + 80) = 0u;
   *(Instance + 96) = 0;
-  v37 = Instance;
+  v36 = Instance;
   if (Instance)
   {
     if (a3 == 1)
@@ -2046,13 +1828,13 @@ uint64_t EAPOLClientConfigurationCreateInternal(const __CFAllocator *a1, const A
           if (Count)
           {
             theDict = v12;
-            v36 = malloc_type_malloc(16 * Count, 0xC0040B8AA526DuLL);
-            CFDictionaryGetKeysAndValues(Value, v36, &v36[v16]);
+            v35 = malloc_type_malloc(16 * Count, 0xC0040B8AA526DuLL);
+            CFDictionaryGetKeysAndValues(Value, v35, &v35[v16]);
             if (v16 >= 1)
             {
               v17 = v16;
               v18 = v16 & 0x7FFFFFFF;
-              v19 = v36;
+              v19 = v35;
               do
               {
                 v20 = v19[v17];
@@ -2070,9 +1852,9 @@ uint64_t EAPOLClientConfigurationCreateInternal(const __CFAllocator *a1, const A
                       v26 = WLANSSIDAndSecurityType;
                       if (CFDictionaryGetValue(v11, WLANSSIDAndSecurityType))
                       {
-                        v34 = my_CFStringCreateWithData(v26);
+                        v33 = my_CFStringCreateWithData(v26);
                         SCLog();
-                        CFRelease(v34);
+                        CFRelease(v33);
 LABEL_25:
                         CFRelease(v24);
                         goto LABEL_26;
@@ -2116,7 +1898,7 @@ LABEL_26:
               while (v18);
             }
 
-            free(v36);
+            free(v35);
             v12 = theDict;
           }
         }
@@ -2136,22 +1918,21 @@ LABEL_26:
       {
         v31 = SCError();
         *buf = 136315138;
-        v39 = SCErrorString(v31);
+        v38 = SCErrorString(v31);
         _os_log_impl(&dword_249EFB000, LogHandle, v30, "failed to create preferences %s", buf, 0xCu);
       }
 
-      my_CFRelease(&v37);
-      Instance = 0;
+      my_CFRelease(&v36);
+      return 0;
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return Instance;
 }
 
 uint64_t EAPOLClientConfigurationSave(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   Count = CFDictionaryGetCount(*(a1 + 48));
   Mutable = CFDictionaryCreateMutable(0, Count, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   *buf = Mutable;
@@ -2221,7 +2002,7 @@ LABEL_28:
   if (my_CFEqual(Value, key) && !*(a1 + 96))
   {
     v26 = 0;
-    v29 = 1;
+    v28 = 1;
     goto LABEL_36;
   }
 
@@ -2288,9 +2069,7 @@ LABEL_27:
 
 LABEL_29:
         my_CFRelease(&key);
-LABEL_30:
-        v26 = 0;
-        goto LABEL_31;
+        return 0;
       }
     }
 
@@ -2307,38 +2086,36 @@ LABEL_30:
     }
   }
 
-  v30 = SCPreferencesCommitChanges(*(a1 + 24));
-  if (!v30)
+  v29 = SCPreferencesCommitChanges(*(a1 + 24));
+  if (!v29)
   {
-    v31 = EAPLogGetLogHandle();
-    v32 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v31, v32))
+    v30 = EAPLogGetLogHandle();
+    v31 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v30, v31))
     {
-      v33 = SCError();
-      v34 = SCErrorString(v33);
+      v32 = SCError();
+      v33 = SCErrorString(v32);
       *buf = 136315138;
-      *&buf[4] = v34;
-      _os_log_impl(&dword_249EFB000, v31, v32, "EAPOLClientConfigurationSave SCPreferencesCommitChanges failed %s", buf, 0xCu);
+      *&buf[4] = v33;
+      _os_log_impl(&dword_249EFB000, v30, v31, "EAPOLClientConfigurationSave SCPreferencesCommitChanges failed %s", buf, 0xCu);
     }
 
-    goto LABEL_30;
+    return 0;
   }
 
-  v26 = v30;
+  v26 = v29;
   *(a1 + 80) = 0;
   *(a1 + 96) = 0;
   SCPreferencesApplyChanges(*(a1 + 24));
-  v29 = 0;
+  v28 = 0;
 LABEL_36:
   my_CFRelease((a1 + 32));
   my_CFRelease(&key);
-  if ((v29 & 1) == 0)
+  if ((v28 & 1) == 0)
   {
     notify_post(kEAPOLClientConfigurationChangedNotifyKey);
   }
 
-LABEL_31:
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -2426,7 +2203,7 @@ uint64_t EAPOLClientConfigurationRemoveProfile(uint64_t a1, const void *a2)
   return result;
 }
 
-uint64_t EAPOLClientConfigurationAddProfile(uint64_t a1, void *a2)
+uint64_t EAPOLClientConfigurationAddProfile(CFDictionaryRef *a1, void *a2)
 {
   ID = EAPOLClientProfileGetID(a2);
   if (a2[2])
@@ -2435,7 +2212,7 @@ uint64_t EAPOLClientConfigurationAddProfile(uint64_t a1, void *a2)
   }
 
   v5 = ID;
-  if (CFDictionaryGetValue(*(a1 + 48), ID))
+  if (CFDictionaryGetValue(a1[6], ID))
   {
     return 0;
   }
@@ -2446,7 +2223,7 @@ uint64_t EAPOLClientConfigurationAddProfile(uint64_t a1, void *a2)
     WLANDomain = EAPOLClientProfileGetWLANDomain(a2);
     if (!WLANDomain)
     {
-      v9 = *(a1 + 48);
+      v9 = a1[6];
       v11 = v5;
       v12 = a2;
       goto LABEL_12;
@@ -2455,8 +2232,8 @@ uint64_t EAPOLClientConfigurationAddProfile(uint64_t a1, void *a2)
     v8 = WLANDomain;
     if (!EAPOLClientConfigurationGetProfileWithWLANDomain(a1, WLANDomain))
     {
-      CFDictionarySetValue(*(a1 + 48), v5, a2);
-      v9 = *(a1 + 64);
+      CFDictionarySetValue(a1[6], v5, a2);
+      v9 = a1[8];
       goto LABEL_10;
     }
 
@@ -2469,8 +2246,8 @@ uint64_t EAPOLClientConfigurationAddProfile(uint64_t a1, void *a2)
     return 0;
   }
 
-  CFDictionarySetValue(*(a1 + 48), v5, a2);
-  v9 = *(a1 + 56);
+  CFDictionarySetValue(a1[6], v5, a2);
+  v9 = a1[7];
 LABEL_10:
   v11 = v8;
   v12 = v5;
@@ -2528,23 +2305,19 @@ CFArrayRef EAPOLClientConfigurationCopyMatchingProfiles(CFDictionaryRef *a1, uin
   {
     values[v7] = ProfileWithWLANSSID;
     v11 = (v7 + 1);
-    goto LABEL_13;
+LABEL_13:
+    v12 = CFGetAllocator(a1);
+    return CFArrayCreate(v12, values, v11, MEMORY[0x277CBF128]);
   }
 
 LABEL_11:
-  if (!v6)
+  if (v6)
   {
-    result = 0;
-    goto LABEL_15;
+    v11 = 1;
+    goto LABEL_13;
   }
 
-  v11 = 1;
-LABEL_13:
-  v12 = CFGetAllocator(a1);
-  result = CFArrayCreate(v12, values, v11, MEMORY[0x277CBF128]);
-LABEL_15:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 const void *EAPOLClientConfigurationGetSystemEthernetProfile(uint64_t a1)
@@ -2641,7 +2414,7 @@ CFIndex EAPOLClientConfigurationSetDefaultAuthenticationProperties(uint64_t a1, 
 
 CFMutableDictionaryRef copy_def_auth_props(const __SCPreferences *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   valuePtr = xmmword_249F2EDF0;
   Value = SCPreferencesGetValue(a1, @"DefaultAuthenticationProperties");
   if (Value)
@@ -2651,7 +2424,7 @@ CFMutableDictionaryRef copy_def_auth_props(const __SCPreferences *a1)
     if (accept_types_valid(v3))
     {
       CFRetain(v2);
-      goto LABEL_9;
+      return v2;
     }
 
     if (v3)
@@ -2679,8 +2452,6 @@ CFMutableDictionaryRef copy_def_auth_props(const __SCPreferences *a1)
   CFDictionarySetValue(v2, @"EAPFASTUsePAC", *MEMORY[0x277CBED28]);
   CFDictionarySetValue(v2, @"EAPFASTProvisionPAC", v8);
   CFRelease(Mutable);
-LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -2769,51 +2540,50 @@ __CFString *__EAPOLClientConfigurationCopyDebugDesc(void *a1)
 
 CCCryptorRef sim_simulator_gsm_milenage_algo(int8x16_t *a1, void *key, int8x16_t *a3, _DWORD *a4, int8x8_t *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20 = veorq_s8(*a3, *a1);
-  sim_simulator_aes128_encrypt(key, &v20, &v21);
-  v20 = veorq_s8(*a1, v21);
-  v20.i8[15] ^= 1u;
-  sim_simulator_aes128_encrypt(key, &v20, &v21);
-  v10.i32[1] = v21.i32[1];
-  v11 = veorq_s8(v21, *a1);
-  v21 = v11;
+  v21 = *MEMORY[0x277D85DE8];
+  v19 = veorq_s8(*a3, *a1);
+  sim_simulator_aes128_encrypt(key, &v19, &v20);
+  v19 = veorq_s8(*a1, v20);
+  v19.i8[15] ^= 1u;
+  sim_simulator_aes128_encrypt(key, &v19, &v20);
+  v10.i32[1] = v20.i32[1];
+  v11 = veorq_s8(v20, *a1);
+  v20 = v11;
   v11.i32[0] = v11.i32[2];
-  v10.i32[0] = v21.i32[3];
-  v18 = vmovl_u8(v10).u64[0];
-  v19 = vmovl_u8(*v11.i8).u64[0];
-  v20 = veorq_s8(*a3, *a1);
-  sim_simulator_aes128_encrypt(key, &v20, &v21);
+  v10.i32[0] = v20.i32[3];
+  v17 = vmovl_u8(v10).u64[0];
+  v18 = vmovl_u8(*v11.i8).u64[0];
+  v19 = veorq_s8(*a3, *a1);
+  sim_simulator_aes128_encrypt(key, &v19, &v20);
   for (i = 0; i != 16; ++i)
   {
-    *(&v20 | (i + 12) & 0xFLL) = a1->i8[i] ^ v21.i8[i];
+    *(&v19 | (i + 12) & 0xFLL) = a1->i8[i] ^ v20.i8[i];
   }
 
-  v20.i8[15] ^= 2u;
-  sim_simulator_aes128_encrypt(key, &v20, &v21);
-  v21 = veorq_s8(v21, *a1);
-  v13 = v21;
-  v20 = veorq_s8(*a3, *a1);
-  sim_simulator_aes128_encrypt(key, &v20, &v21);
+  v19.i8[15] ^= 2u;
+  sim_simulator_aes128_encrypt(key, &v19, &v20);
+  v20 = veorq_s8(v20, *a1);
+  v13 = v20;
+  v19 = veorq_s8(*a3, *a1);
+  sim_simulator_aes128_encrypt(key, &v19, &v20);
   for (j = 0; j != 16; ++j)
   {
-    v20.i8[j ^ 8] = a1->i8[j] ^ v21.i8[j];
+    v19.i8[j ^ 8] = a1->i8[j] ^ v20.i8[j];
   }
 
-  v20.i8[15] ^= 4u;
-  result = sim_simulator_aes128_encrypt(key, &v20, &v21);
-  v21 = veorq_s8(v21, *a1);
-  *a5 = veor_s8(veor_s8(veor_s8(v13.u64[1], *v13.i8), *v21.i8), v21.u64[1]);
-  v16 = veor_s8(v18, v19);
+  v19.i8[15] ^= 4u;
+  result = sim_simulator_aes128_encrypt(key, &v19, &v20);
+  v20 = veorq_s8(v20, *a1);
+  *a5 = veor_s8(veor_s8(veor_s8(v13.u64[1], *v13.i8), *v20.i8), v20.u64[1]);
+  v16 = veor_s8(v17, v18);
   *a4 = vuzp1_s8(v16, v16).u32[0];
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 CCCryptorRef sim_simulator_aes128_encrypt(void *key, const void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v18 = 0;
+  v21 = *MEMORY[0x277D85DE8];
+  v17 = 0;
   cryptorRef = 0;
   v5 = CCCryptorCreate(0, 0, 2u, key, 0x10uLL, 0, &cryptorRef);
   if (v5)
@@ -2827,125 +2597,124 @@ CCCryptorRef sim_simulator_aes128_encrypt(void *key, const void *a2, void *a3)
     }
 
     *buf = 67109120;
-    v21 = v6;
+    v20 = v6;
     v9 = "CCCryptoCreate failed with %d";
     v10 = LogHandle;
     v11 = v8;
-    goto LABEL_7;
   }
 
-  v12 = CCCryptorUpdate(cryptorRef, a2, 0x10uLL, a3, 0x10uLL, &v18);
-  if (v12)
+  else
   {
+    v12 = CCCryptorUpdate(cryptorRef, a2, 0x10uLL, a3, 0x10uLL, &v17);
+    if (!v12)
+    {
+      goto LABEL_8;
+    }
+
     v13 = v12;
     v14 = EAPLogGetLogHandle();
     v15 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v14, v15))
+    if (!os_log_type_enabled(v14, v15))
     {
-      *buf = 67109120;
-      v21 = v13;
-      v9 = "CCCryptorUpdate failed with %d";
-      v10 = v14;
-      v11 = v15;
-LABEL_7:
-      _os_log_impl(&dword_249EFB000, v10, v11, v9, buf, 8u);
+      goto LABEL_8;
     }
+
+    *buf = 67109120;
+    v20 = v13;
+    v9 = "CCCryptorUpdate failed with %d";
+    v10 = v14;
+    v11 = v15;
   }
 
+  _os_log_impl(&dword_249EFB000, v10, v11, v9, buf, 8u);
 LABEL_8:
   result = cryptorRef;
   if (cryptorRef)
   {
-    result = CCCryptorRelease(cryptorRef);
+    return CCCryptorRelease(cryptorRef);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t EAPOLClientEstablishSession(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *special_port = 0;
-  v2 = *MEMORY[0x277D85F18];
-  v3 = bootstrap_look_up2();
-  if (v3)
+  v2 = bootstrap_look_up2();
+  if (v2)
   {
-    v4 = v3;
+    v3 = v2;
     LogHandle = EAPLogGetLogHandle();
-    v6 = _SC_syslog_os_log_mapping();
-    result = os_log_type_enabled(LogHandle, v6);
-    if (result)
+    v5 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(LogHandle, v5);
+    if (!result)
     {
-      LODWORD(v25[0]) = 136315138;
-      *(v25 + 4) = mach_error_string(v4);
-      v8 = "eapolcontroller_server_port(): %s";
-      v9 = v25;
-      v10 = LogHandle;
-      v11 = v6;
-      v12 = 12;
-LABEL_7:
-      _os_log_impl(&dword_249EFB000, v10, v11, v8, v9, v12);
-      result = 0;
+      return result;
     }
+
+    LODWORD(v23[0]) = 136315138;
+    *(v23 + 4) = mach_error_string(v3);
+    v7 = "eapolcontroller_server_port(): %s";
+    v8 = v23;
+    v9 = LogHandle;
+    v10 = v5;
+    v11 = 12;
+    goto LABEL_7;
   }
 
-  else
+  memset(v23, 0, sizeof(v23));
+  __strlcpy_chk();
+  result = eapolcontroller_client_get_session(0, v23, special_port, &special_port[1]);
+  if (result)
   {
-    memset(v25, 0, sizeof(v25));
-    __strlcpy_chk();
-    result = eapolcontroller_client_get_session(0, v25, special_port, &special_port[1]);
-    if (result)
+    v12 = result;
+    v13 = EAPLogGetLogHandle();
+    v14 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v13, v14);
+    if (!result)
     {
-      v13 = result;
-      v14 = EAPLogGetLogHandle();
-      v15 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(v14, v15);
-      if (result)
-      {
-        v16 = mach_error_string(v13);
-        *buf = 136315394;
-        v22 = a1;
-        v23 = 2080;
-        v24 = v16;
-        v8 = "eapolcontroller_client_get_session(%s): %s";
-        v9 = buf;
-        v10 = v14;
-        v11 = v15;
-        v12 = 22;
-        goto LABEL_7;
-      }
+      return result;
     }
 
-    else if (special_port[0] && special_port[1])
+    v15 = mach_error_string(v12);
+    *buf = 136315394;
+    v20 = a1;
+    v21 = 2080;
+    v22 = v15;
+    v7 = "eapolcontroller_client_get_session(%s): %s";
+    v8 = buf;
+    v9 = v13;
+    v10 = v14;
+    v11 = 22;
+    goto LABEL_7;
+  }
+
+  if (special_port[0] && special_port[1])
+  {
+    task_set_special_port(*MEMORY[0x277D85F48], 4, special_port[0]);
+    if (audit_session_join(special_port[1]))
     {
-      task_set_special_port(*MEMORY[0x277D85F48], 4, special_port[0]);
-      if (audit_session_join(special_port[1]))
-      {
-        result = 1;
-        goto LABEL_8;
-      }
+      return 1;
+    }
 
-      v18 = EAPLogGetLogHandle();
-      v19 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(v18, v19);
-      if (!result)
-      {
-        goto LABEL_8;
-      }
-
+    v16 = EAPLogGetLogHandle();
+    v17 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v16, v17);
+    if (result)
+    {
       *buf = 0;
-      v8 = "audit_session_join returned AU_DEFAULTSID";
-      v9 = buf;
-      v10 = v18;
-      v11 = v19;
-      v12 = 2;
-      goto LABEL_7;
+      v7 = "audit_session_join returned AU_DEFAULTSID";
+      v8 = buf;
+      v9 = v16;
+      v10 = v17;
+      v11 = 2;
+LABEL_7:
+      _os_log_impl(&dword_249EFB000, v9, v10, v7, v8, v11);
+      return 0;
     }
   }
 
-LABEL_8:
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3056,14 +2825,14 @@ __CFString *eapmschapv2_copy_packet_description(unsigned __int8 *a1, char *a2)
         {
           CFStringAppendFormat(Mutable, 0, @"Response:\n");
           CFStringAppendFormat(Mutable, 0, @"Peer Challenge: ");
-          print_bytes_cfstr(Mutable, (a1 + 10), 16);
+          print_bytes_cfstr(Mutable, (a1 + 10), 0x10u);
           CFStringAppendFormat(Mutable, 0, @"\nReserved:       ");
-          print_bytes_cfstr(Mutable, (a1 + 26), 8);
+          print_bytes_cfstr(Mutable, (a1 + 26), 8u);
           CFStringAppendFormat(Mutable, 0, @"\nNT Response:    ");
-          print_bytes_cfstr(Mutable, (a1 + 34), 24);
+          print_bytes_cfstr(Mutable, (a1 + 34), 0x18u);
           CFStringAppendFormat(Mutable, 0, @"\nFlags:          ");
           v7 = 1;
-          print_bytes_cfstr(Mutable, (a1 + 58), 1);
+          print_bytes_cfstr(Mutable, (a1 + 58), 1u);
           if (v5 != 59)
           {
             CFStringAppendFormat(Mutable, 0, @"\nName:           %.*s\n", (v5 - 59), a1 + 59);
@@ -3102,7 +2871,7 @@ LABEL_60:
       if (v5 - 5 == bswap32(*(a1 + 7)) >> 16)
       {
         CFStringAppendFormat(Mutable, 0, @"Challenge: ");
-        print_bytes_cfstr(Mutable, (a1 + 10), 16);
+        print_bytes_cfstr(Mutable, (a1 + 10), 0x10u);
         CFStringAppendFormat(Mutable, 0, @"\n");
         if (v5 != 26)
         {
@@ -3207,19 +2976,19 @@ LABEL_27:
         CFStringAppendFormat(Mutable, 0, @"Encrypted Password:\n");
         print_data_cfstr(Mutable, (a1 + 9), 516);
         CFStringAppendFormat(Mutable, 0, @"Encrypted Hash: ");
-        print_bytes_cfstr(Mutable, (a1 + 525), 16);
+        print_bytes_cfstr(Mutable, (a1 + 525), 0x10u);
         CFStringAppendFormat(Mutable, 0, @"\n");
         CFStringAppendFormat(Mutable, 0, @"Peer Challenge: ");
-        print_bytes_cfstr(Mutable, (a1 + 541), 16);
+        print_bytes_cfstr(Mutable, (a1 + 541), 0x10u);
         CFStringAppendFormat(Mutable, 0, @"\n");
         CFStringAppendFormat(Mutable, 0, @"Reserved: ");
-        print_bytes_cfstr(Mutable, (a1 + 557), 8);
+        print_bytes_cfstr(Mutable, (a1 + 557), 8u);
         CFStringAppendFormat(Mutable, 0, @"\n");
         CFStringAppendFormat(Mutable, 0, @"NT Response: ");
-        print_bytes_cfstr(Mutable, (a1 + 565), 24);
+        print_bytes_cfstr(Mutable, (a1 + 565), 0x18u);
         CFStringAppendFormat(Mutable, 0, @"\n");
         CFStringAppendFormat(Mutable, 0, @"NT Flags: ");
-        print_bytes_cfstr(Mutable, (a1 + 589), 2);
+        print_bytes_cfstr(Mutable, (a1 + 589), 2u);
         CFStringAppendFormat(Mutable, 0, @"\n", v18, v21);
 LABEL_52:
         v7 = 1;
@@ -3249,7 +3018,7 @@ LABEL_7:
 
 char *EAPMSCHAPv2ResponsePacketCreate(uint64_t *a1, char a2, char a3, _DWORD *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   Value = CFDictionaryGetValue(a1[10], @"EAPMSCHAPv2ClientChallenge");
   v9 = *a1;
   v10 = *(a1 + 12) + 54;
@@ -3286,18 +3055,18 @@ LABEL_5:
     *(v11 + 34) = v14;
     v11[58] = 0;
     memcpy(v11 + 59, a1[5], *(a1 + 12));
-    goto LABEL_14;
+    return v11;
   }
 
   LogHandle = EAPLogGetLogHandle();
   v13 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(LogHandle, v13))
   {
-    v17 = 134218240;
+    v16 = 134218240;
     Length = CFDataGetLength(Value);
-    v19 = 2048;
-    v20 = 16;
-    _os_log_impl(&dword_249EFB000, LogHandle, v13, "EAPMSCHAPv2ResponsePacketCreate: internal error %ld != %ld", &v17, 0x16u);
+    v18 = 2048;
+    v19 = 16;
+    _os_log_impl(&dword_249EFB000, LogHandle, v13, "EAPMSCHAPv2ResponsePacketCreate: internal error %ld != %ld", &v16, 0x16u);
   }
 
   if (a4)
@@ -3307,12 +3076,10 @@ LABEL_5:
 
   v11 = 0;
   *(v9 + 4) = 2;
-LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-char *EAPMSCHAPv2ChangePasswordPacketCreate(unsigned int *a1, char a2, char a3, UInt8 *a4, unsigned int a5)
+char *EAPMSCHAPv2ChangePasswordPacketCreate(unsigned int *a1, char a2, char a3, UInt8 *a4, uint64_t a5)
 {
   v9 = *a1;
   v10 = EAPPacketCreate((*a1 + 105), 1024, 2, a2, 26, 0, 586, 0);
@@ -3356,167 +3123,159 @@ uint64_t EAPSecIdentityListCreate(void *a1)
   keys[2] = *MEMORY[0x277CDC228];
   keys[3] = v3;
   keys[4] = *MEMORY[0x277CDC428];
-  v8 = 0;
+  v7 = 0;
   values[0] = *MEMORY[0x277CBED28];
   values[1] = @"com.apple.identities";
   values[2] = *MEMORY[0x277CDC240];
   values[3] = values[0];
   values[4] = *MEMORY[0x277CDC430];
   v4 = CFDictionaryCreate(0, keys, values, 5, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v5 = SecItemCopyMatching(v4, &v8);
+  v5 = SecItemCopyMatching(v4, &v7);
   CFRelease(v4);
   if (!v5)
   {
-    *a1 = v8;
+    *a1 = v7;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t EAPSecIdentityCreateTrustChainWithPersistentCertificateRefs(const void *a1, CFArrayRef theArray, __CFArray **a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   *a3 = 0;
   Count = CFArrayGetCount(theArray);
-  if (Count)
+  if (!Count)
   {
-    v7 = Count;
-    Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    v30 = Mutable;
-    if (Mutable)
+    return 4294967246;
+  }
+
+  v7 = Count;
+  Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+  v29 = Mutable;
+  if (Mutable)
+  {
+    v9 = Mutable;
+    CFArrayAppendValue(Mutable, a1);
+    v10 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    v30 = v10;
+    if (v10)
     {
-      v9 = Mutable;
-      CFArrayAppendValue(Mutable, a1);
-      v10 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v31 = v10;
-      if (v10)
+      v11 = v10;
+      CFDictionaryAddValue(v10, *MEMORY[0x277CDC228], *MEMORY[0x277CDC230]);
+      CFDictionaryAddValue(v11, *MEMORY[0x277CDC568], *MEMORY[0x277CBED28]);
+      if (v7 < 1)
       {
-        v11 = v10;
-        CFDictionaryAddValue(v10, *MEMORY[0x277CDC228], *MEMORY[0x277CDC230]);
-        CFDictionaryAddValue(v11, *MEMORY[0x277CDC568], *MEMORY[0x277CBED28]);
-        if (v7 < 1)
-        {
-          goto LABEL_20;
-        }
+        goto LABEL_20;
+      }
 
-        result = 0;
-        ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
-        TypeID = CFDataGetTypeID();
-        if (ValueAtIndex)
+      result = 0;
+      ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
+      TypeID = CFDataGetTypeID();
+      if (ValueAtIndex)
+      {
+        v14 = TypeID;
+        v15 = 0;
+        key = *MEMORY[0x277CDC5F0];
+        v16 = 4294967246;
+        v17 = 1;
+        while (CFGetTypeID(ValueAtIndex) == v14)
         {
-          v14 = TypeID;
-          v15 = 0;
-          key = *MEMORY[0x277CDC5F0];
-          v16 = 4294967246;
-          v17 = 1;
-          while (CFGetTypeID(ValueAtIndex) == v14)
+          CFDictionarySetValue(v11, key, ValueAtIndex);
+          v18 = SecItemCopyMatching(v11, &result);
+          if (v18)
           {
-            CFDictionarySetValue(v11, key, ValueAtIndex);
-            v18 = SecItemCopyMatching(v11, &result);
-            if (v18)
+            v16 = v18;
+            LogHandle = EAPLogGetLogHandle();
+            v22 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(LogHandle, v22))
             {
-              v16 = v18;
-              LogHandle = EAPLogGetLogHandle();
-              v22 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(LogHandle, v22))
-              {
-                v23 = EAPSecurityErrorString(v16);
-                *buf = 136315394;
-                v33 = v23;
-                v34 = 1024;
-                v35 = v16;
-                _os_log_impl(&dword_249EFB000, LogHandle, v22, "SecItemCopyMatching failed, %s (%d)", buf, 0x12u);
-              }
-
-              goto LABEL_23;
+              v23 = EAPSecurityErrorString(v16);
+              *buf = 136315394;
+              v32 = v23;
+              v33 = 1024;
+              v34 = v16;
+              _os_log_impl(&dword_249EFB000, LogHandle, v22, "SecItemCopyMatching failed, %s (%d)", buf, 0x12u);
             }
 
-            if (!isA_SecCertificate(result))
-            {
-              v26 = EAPLogGetLogHandle();
-              v27 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v26, v27))
-              {
-                *buf = 0;
-                _os_log_impl(&dword_249EFB000, v26, v27, "Certificate data with incorrect data type", buf, 2u);
-              }
-
-              goto LABEL_20;
-            }
-
-            CFArrayAppendValue(v9, result);
-            my_CFRelease(&result);
-            if (v7 == v17)
-            {
-              goto LABEL_20;
-            }
-
-            result = 0;
-            ValueAtIndex = CFArrayGetValueAtIndex(theArray, v17);
-            v14 = CFDataGetTypeID();
-            v16 = 0;
-            ++v17;
-            v15 = 1;
-            if (!ValueAtIndex)
-            {
-              break;
-            }
+            goto LABEL_23;
           }
-        }
 
-        else
-        {
-          v15 = 0;
-          v16 = 4294967246;
-        }
+          if (!isA_SecCertificate(result))
+          {
+            v25 = EAPLogGetLogHandle();
+            v26 = _SC_syslog_os_log_mapping();
+            if (os_log_type_enabled(v25, v26))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_249EFB000, v25, v26, "Certificate data with incorrect data type", buf, 2u);
+            }
 
-        v19 = EAPLogGetLogHandle();
-        v20 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v19, v20))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_249EFB000, v19, v20, "Persistent reference with incorrect data type.", buf, 2u);
-        }
+            goto LABEL_20;
+          }
 
-        if (v15)
-        {
-LABEL_20:
+          CFArrayAppendValue(v9, result);
+          my_CFRelease(&result);
+          if (v7 == v17)
+          {
+            goto LABEL_20;
+          }
+
+          result = 0;
+          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v17);
+          v14 = CFDataGetTypeID();
           v16 = 0;
-LABEL_24:
-          *a3 = v9;
-          my_CFRelease(&v31);
-          goto LABEL_25;
+          ++v17;
+          v15 = 1;
+          if (!ValueAtIndex)
+          {
+            break;
+          }
         }
       }
 
       else
       {
-        v16 = 4294967188;
+        v15 = 0;
+        v16 = 4294967246;
       }
 
-LABEL_23:
-      my_CFRelease(&v30);
-      v9 = v30;
-      goto LABEL_24;
+      v19 = EAPLogGetLogHandle();
+      v20 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v19, v20))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_249EFB000, v19, v20, "Persistent reference with incorrect data type.", buf, 2u);
+      }
+
+      if (v15)
+      {
+LABEL_20:
+        v16 = 0;
+LABEL_24:
+        *a3 = v9;
+        my_CFRelease(&v30);
+        return v16;
+      }
     }
 
-    v16 = 4294967188;
+    else
+    {
+      v16 = 4294967188;
+    }
+
+LABEL_23:
+    my_CFRelease(&v29);
+    v9 = v29;
+    goto LABEL_24;
   }
 
-  else
-  {
-    v16 = 4294967246;
-  }
-
-LABEL_25:
-  v24 = *MEMORY[0x277D85DE8];
-  return v16;
+  return 4294967188;
 }
 
 uint64_t EAPSecIdentityCompareIdentityHandle(__SecIdentity *a1, const __CFData *a2, _BYTE *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   certificateRef = 0;
   v6 = 4294967246;
   if (isA_SecIdentity(a1) && a2 && a3)
@@ -3531,9 +3290,9 @@ uint64_t EAPSecIdentityCompareIdentityHandle(__SecIdentity *a1, const __CFData *
       {
         v9 = EAPSecurityErrorString(v6);
         *buf = 136315394;
-        v15 = v9;
-        v16 = 1024;
-        v17 = v6;
+        v14 = v9;
+        v15 = 1024;
+        v16 = v6;
         _os_log_impl(&dword_249EFB000, LogHandle, v8, "SecIdentityCopyCertificate failed, %s (%d)", buf, 0x12u);
       }
     }
@@ -3541,7 +3300,7 @@ uint64_t EAPSecIdentityCompareIdentityHandle(__SecIdentity *a1, const __CFData *
     else
     {
       BytePtr = CFDataGetBytePtr(a2);
-      if (IdentityHandleMatchesCertificate(BytePtr))
+      if (IdentityHandleMatchesCertificate(BytePtr, certificateRef))
       {
         *a3 = 1;
       }
@@ -3550,7 +3309,6 @@ uint64_t EAPSecIdentityCompareIdentityHandle(__SecIdentity *a1, const __CFData *
     my_CFRelease(&certificateRef);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3570,48 +3328,48 @@ const void *isA_SecIdentity(const void *a1)
   return 0;
 }
 
-BOOL IdentityHandleMatchesCertificate(void *a1)
+BOOL IdentityHandleMatchesCertificate(void *a1, uint64_t a2)
 {
-  v2 = SecCertificateCopySHA256Digest();
-  if (CFDataGetLength(v2) != 32)
+  v3 = SecCertificateCopySHA256Digest();
+  if (CFDataGetLength(v3) != 32)
   {
     IdentityHandleMatchesCertificate_cold_1();
   }
 
-  BytePtr = CFDataGetBytePtr(v2);
+  BytePtr = CFDataGetBytePtr(v3);
   if (*BytePtr == *a1 && *(BytePtr + 1) == a1[1] && *(BytePtr + 2) == a1[2] && *(BytePtr + 3) == a1[3])
   {
-    v8 = SecCertificateCopySubjectPublicKeyInfoSHA256Digest();
-    if (CFDataGetLength(v8) != 32)
+    v9 = SecCertificateCopySubjectPublicKeyInfoSHA256Digest();
+    if (CFDataGetLength(v9) != 32)
     {
       IdentityHandleMatchesCertificate_cold_2();
     }
 
-    v9 = CFDataGetBytePtr(v8);
-    v7 = *v9 == a1[4] && *(v9 + 1) == a1[5] && *(v9 + 2) == a1[6] && *(v9 + 3) == a1[7];
-    CFRelease(v8);
+    v10 = CFDataGetBytePtr(v9);
+    v8 = *v10 == a1[4] && *(v10 + 1) == a1[5] && *(v10 + 2) == a1[6] && *(v10 + 3) == a1[7];
+    CFRelease(v9);
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  CFRelease(v2);
-  return v7;
+  CFRelease(v3);
+  return v8;
 }
 
 uint64_t EAPSecIdentityCreateTrustChain(__SecIdentity *a1, __CFArray **a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   *a2 = 0;
-  v36 = 0;
+  v35 = 0;
   certificateRef = 0;
   trust = 0;
-  v33 = 0;
   v32 = 0;
+  v31 = 0;
   EAP = SecPolicyCreateEAP();
-  v35 = EAP;
+  v34 = EAP;
   if (EAP)
   {
     v5 = EAP;
@@ -3625,9 +3383,9 @@ uint64_t EAPSecIdentityCreateTrustChain(__SecIdentity *a1, __CFArray **a2)
       {
         v10 = EAPSecurityErrorString(v7);
         *buf = 136315394;
-        v39 = v10;
-        v40 = 1024;
-        v41 = v7;
+        v38 = v10;
+        v39 = 1024;
+        v40 = v7;
         v11 = "SecIdentityCopyCertificate failed: %s (%d)";
 LABEL_11:
         _os_log_impl(&dword_249EFB000, LogHandle, v9, v11, buf, 0x12u);
@@ -3637,10 +3395,10 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v36 = CFArrayCreate(0, &certificateRef, 1, MEMORY[0x277CBF128]);
+    v35 = CFArrayCreate(0, &certificateRef, 1, MEMORY[0x277CBF128]);
     my_CFRelease(&certificateRef);
-    v7 = SecTrustCreateWithCertificates(v36, v5, &trust);
-    my_CFRelease(&v36);
+    v7 = SecTrustCreateWithCertificates(v35, v5, &trust);
+    my_CFRelease(&v35);
     if (v7)
     {
       LogHandle = EAPLogGetLogHandle();
@@ -3649,9 +3407,9 @@ LABEL_11:
       {
         v15 = EAPSecurityErrorString(v7);
         *buf = 136315394;
-        v39 = v15;
-        v40 = 1024;
-        v41 = v7;
+        v38 = v15;
+        v39 = 1024;
+        v40 = v7;
         v11 = "SecTrustCreateWithCertificates failed: %s (%d)";
         goto LABEL_11;
       }
@@ -3661,47 +3419,47 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v7 = EAPTLSSecTrustEvaluate(trust, &v33);
+    v7 = EAPTLSSecTrustEvaluate(trust, &v32);
     if (v7)
     {
-      v23 = EAPLogGetLogHandle();
-      v24 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v23, v24))
+      v22 = EAPLogGetLogHandle();
+      v23 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v22, v23))
       {
-        v25 = EAPSecurityErrorString(v7);
+        v24 = EAPSecurityErrorString(v7);
         *buf = 136315394;
-        v39 = v25;
-        v40 = 1024;
-        v41 = v7;
-        _os_log_impl(&dword_249EFB000, v23, v24, "SecTrustEvaluate returned %s (%d)", buf, 0x12u);
+        v38 = v24;
+        v39 = 1024;
+        v40 = v7;
+        _os_log_impl(&dword_249EFB000, v22, v23, "SecTrustEvaluate returned %s (%d)", buf, 0x12u);
       }
     }
 
     CertificateCount = SecTrustGetCertificateCount(trust);
     if (CertificateCount)
     {
-      v27 = CertificateCount;
+      v26 = CertificateCount;
       Mutable = CFArrayCreateMutable(0, CertificateCount, MEMORY[0x277CBF128]);
-      if (v27 >= 1)
+      if (v26 >= 1)
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v26; ++i)
         {
           CertificateAtIndex = SecTrustGetCertificateAtIndex(trust, i);
           CFArrayAppendValue(Mutable, CertificateAtIndex);
         }
       }
 
-      v32 = Mutable;
+      v31 = Mutable;
     }
 
     else
     {
-      v30 = EAPLogGetLogHandle();
-      v31 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v30, v31))
+      v29 = EAPLogGetLogHandle();
+      v30 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v29, v30))
       {
         *buf = 0;
-        _os_log_impl(&dword_249EFB000, v30, v31, "SecTrustGetCertificateCount returned 0", buf, 2u);
+        _os_log_impl(&dword_249EFB000, v29, v30, "SecTrustGetCertificateCount returned 0", buf, 2u);
       }
 
       Mutable = 0;
@@ -3725,7 +3483,7 @@ LABEL_12:
 
 LABEL_13:
   my_CFRelease(&trust);
-  my_CFRelease(&v35);
+  my_CFRelease(&v34);
   if (v7)
   {
     v16 = EAPLogGetLogHandle();
@@ -3734,9 +3492,9 @@ LABEL_13:
     {
       v18 = EAPSecurityErrorString(v7);
       *buf = 136315394;
-      v39 = v18;
-      v40 = 1024;
-      v41 = v7;
+      v38 = v18;
+      v39 = 1024;
+      v40 = v7;
       _os_log_impl(&dword_249EFB000, v16, v17, "EAPSecIdentityCreateCertificateTrustChain failed: %s (%d)", buf, 0x12u);
     }
   }
@@ -3749,14 +3507,13 @@ LABEL_13:
     *a2 = MutableCopy;
   }
 
-  my_CFRelease(&v32);
-  v21 = *MEMORY[0x277D85DE8];
+  my_CFRelease(&v31);
   return v7;
 }
 
 __CFData *EAPSecIdentityHandleCreate(__SecIdentity *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   certificateRef = 0;
   v1 = SecIdentityCopyCertificate(a1, &certificateRef);
   if (v1)
@@ -3768,13 +3525,13 @@ __CFData *EAPSecIdentityHandleCreate(__SecIdentity *a1)
     {
       v5 = EAPSecurityErrorString(v2);
       *buf = 136315394;
-      v15 = v5;
-      v16 = 1024;
-      v17 = v2;
+      v14 = v5;
+      v15 = 1024;
+      v16 = v2;
       _os_log_impl(&dword_249EFB000, LogHandle, v4, "SecIdentityCopyCertificate failed, %s (%d)", buf, 0x12u);
     }
 
-    MutableCopy = 0;
+    return 0;
   }
 
   else
@@ -3800,7 +3557,6 @@ __CFData *EAPSecIdentityHandleCreate(__SecIdentity *a1)
     CFRelease(certificateRef);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return MutableCopy;
 }
 
@@ -3825,22 +3581,20 @@ __CFString *EAPSecCertificateCopySHA1DigestString()
   return Mutable;
 }
 
-unsigned __int8 *NTSessionKey16(UInt8 *a1, unsigned int a2, uint64_t *a3, __int128 *a4, uint64_t *a5, unsigned __int8 *a6)
+unsigned __int8 *NTSessionKey16(UInt8 *a1, uint64_t a2, uint64_t *a3, __int128 *a4, uint64_t *a5, unsigned __int8 *a6)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v10 = password_to_unicode(a1, a2, data);
   CC_MD4(data, v10, &md);
-  CC_MD4(&md, 0x10u, v17);
-  v18 = *a3;
-  v19 = *a4;
+  CC_MD4(&md, 0x10u, v16);
+  v17 = *a3;
+  v18 = *a4;
   v11 = *a5;
-  v20 = *(a4 + 2);
-  v21 = v11;
+  v19 = *(a4 + 2);
+  v20 = v11;
   CC_MD4(data, v10, &md);
-  ChallengeResponse(a5, &md, &v22, v12, v13);
-  result = CC_MD5(v17, 0x50u, a6);
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  ChallengeResponse(a5, &md, &v21, v12, v13);
+  return CC_MD5(v16, 0x50u, a6);
 }
 
 const __CFString *password_to_unicode(UInt8 *bytes, unsigned int a2, UInt8 *a3)
@@ -3872,28 +3626,24 @@ const __CFString *password_to_unicode(UInt8 *bytes, unsigned int a2, UInt8 *a3)
 
 uint64_t MSChap(void *a1, UInt8 *bytes, unsigned int a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = password_to_unicode(bytes, a3, data);
   CC_MD4(data, v6, &md);
-  result = ChallengeResponse(a1, &md, a4, v7, v8);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return ChallengeResponse(a1, &md, a4, v7, v8);
 }
 
 uint64_t MSChap_MPPE(void *a1, UInt8 *bytes, unsigned int a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = password_to_unicode(bytes, a3, data);
   CC_MD4(data, v6, md);
-  CC_MD4(md, 0x10u, &v12);
-  result = ChallengeResponse(a1, &v12, a4, v7, v8);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  CC_MD4(md, 0x10u, &v11);
+  return ChallengeResponse(a1, &v11, a4, v7, v8);
 }
 
 uint64_t NTPasswordBlockEncryptNewPasswordWithOldHash(UInt8 *a1, unsigned int a2, UInt8 *a3, unsigned int a4, void *a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = password_to_unicode(a1, a2, __src);
   v9 = password_to_unicode(a3, a4, data);
   CC_MD4(data, v9, md);
@@ -3907,53 +3657,53 @@ uint64_t NTPasswordBlockEncryptNewPasswordWithOldHash(UInt8 *a1, unsigned int a2
 
   while (v10 != 516);
   memmove(&dataIn[512 - v8], __src, v8);
-  v18 = v8;
+  v17 = v8;
   dataOutMoved = 0;
   result = CCCrypt(0, 4u, 0, md, 0x10uLL, 0, dataIn, 0x204uLL, a5, 0x204uLL, &dataOutMoved);
   if (result)
   {
-    result = fprintf(*MEMORY[0x277D85DF8], "rc4_encrypt: CCCrypt failed with %d\n", result);
+    return fprintf(*MEMORY[0x277D85DF8], "rc4_encrypt: CCCrypt failed with %d\n", result);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t NTPasswordHashEncryptOldWithNew(UInt8 *a1, unsigned int a2, UInt8 *a3, unsigned int a4, uint64_t a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v8 = password_to_unicode(a1, a2, data);
   CC_MD4(data, v8, md);
-  v9 = password_to_unicode(a3, a4, v18);
-  CC_MD4(v18, v9, dataIn);
+  v9 = password_to_unicode(a3, a4, v17);
+  CC_MD4(v17, v9, dataIn);
   DesEncrypt(dataIn, md, a5, v10, v11);
-  result = DesEncrypt(&v17, &v20, (a5 + 8), v12, v13);
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return DesEncrypt(&v16, &v19, (a5 + 8), v12, v13);
 }
 
 void EAPOLSIMGenerationIncrement()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   valuePtr = 1;
   v0 = SCPreferencesCreate(0, @"EAPOLSIMPrefsManage", @"com.apple.eapol.sim.generation.plist");
-  v9 = v0;
+  v8 = v0;
   if (v0)
   {
     v1 = v0;
     Value = SCPreferencesGetValue(v0, @"SIMGenerationID");
     TypeID = CFNumberGetTypeID();
-    if (Value && CFGetTypeID(Value) == TypeID)
+    if (Value)
     {
-      CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
-      ++valuePtr;
+      if (CFGetTypeID(Value) == TypeID)
+      {
+        CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
+        ++valuePtr;
+      }
     }
 
     *buf = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
     SCPreferencesSetValue(v1, @"SIMGenerationID", *buf);
     SCPreferencesCommitChanges(v1);
     my_CFRelease(buf);
-    my_CFRelease(&v9);
+    my_CFRelease(&v8);
   }
 
   else
@@ -3968,27 +3718,28 @@ void EAPOLSIMGenerationIncrement()
       _os_log_impl(&dword_249EFB000, LogHandle, v5, "SCPreferencesCreate failed, %s", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t EAPOLSIMGenerationGet()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   v0 = SCPreferencesCreate(0, @"EAPOLSIMPrefsManage", @"com.apple.eapol.sim.generation.plist");
-  v8 = v0;
+  v7 = v0;
   if (v0)
   {
     Value = SCPreferencesGetValue(v0, @"SIMGenerationID");
     TypeID = CFNumberGetTypeID();
-    if (Value && CFGetTypeID(Value) == TypeID)
+    if (Value)
     {
-      CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
+      if (CFGetTypeID(Value) == TypeID)
+      {
+        CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
+      }
     }
 
-    my_CFRelease(&v8);
-    result = valuePtr;
+    my_CFRelease(&v7);
+    return valuePtr;
   }
 
   else
@@ -4000,13 +3751,12 @@ uint64_t EAPOLSIMGenerationGet()
     {
       v6 = SCError();
       *buf = 136315138;
-      v11 = SCErrorString(v6);
+      v10 = SCErrorString(v6);
       _os_log_impl(&dword_249EFB000, LogHandle, v5, "SCPreferencesCreate failed, %s", buf, 0xCu);
-      result = 0;
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4027,15 +3777,14 @@ uint64_t EAPSecKeychainPasswordItemRemove(uint64_t a1, void *a2)
     v6 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(LogHandle, v6))
     {
-      v9 = 136315394;
-      v10 = EAPSecurityErrorString(v4);
-      v11 = 1024;
-      v12 = v4;
-      _os_log_impl(&dword_249EFB000, LogHandle, v6, "SecItemDelete failed: %s (%d)", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = EAPSecurityErrorString(v4);
+      v10 = 1024;
+      v11 = v4;
+      _os_log_impl(&dword_249EFB000, LogHandle, v6, "SecItemDelete failed: %s (%d)", &v8, 0x12u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -4044,10 +3793,7 @@ uint64_t EAPKeychainSetIdentityReference(void *a1, void *a2, int a3)
   keys[6] = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v10 = 4294967246;
-LABEL_8:
-    v11 = *MEMORY[0x277D85DE8];
-    return v10;
+    return 4294967246;
   }
 
   if (a2)
@@ -4069,17 +3815,15 @@ LABEL_8:
     values[4] = *MEMORY[0x277CDBEE0];
     values[5] = v8;
     v9 = CFDictionaryCreate(0, keys, values, 6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v14 = v9;
+    v12 = v9;
     if (!a3 || (v10 = EAPKeychainRemoveIdentityReference(a1), !v10))
     {
       v10 = SecItemAdd(v9, 0);
     }
 
-    my_CFRelease(&v14);
-    goto LABEL_8;
+    my_CFRelease(&v12);
+    return v10;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return EAPKeychainRemoveIdentityReference(a1);
 }
@@ -4098,117 +3842,101 @@ uint64_t EAPKeychainRemoveIdentityReference(void *a1)
   v3 = *MEMORY[0x277CDC250];
   values[2] = @"com.apple.identities";
   values[3] = v3;
-  v7 = CFDictionaryCreate(0, keys, values, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v4 = SecItemDelete(v7);
-  my_CFRelease(&v7);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = CFDictionaryCreate(0, keys, values, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v4 = SecItemDelete(v6);
+  my_CFRelease(&v6);
   return v4;
 }
 
 uint64_t EAPKeychainCopyIdentityReference(void *a1, CFTypeRef *a2)
 {
   keys[5] = *MEMORY[0x277D85DE8];
-  if (a1)
+  if (!a1)
   {
-    *a2 = 0;
-    v3 = *MEMORY[0x277CDBEC8];
-    keys[0] = *MEMORY[0x277CDC5D0];
-    keys[1] = v3;
-    v4 = *MEMORY[0x277CDC558];
-    keys[2] = *MEMORY[0x277CDBF30];
-    keys[3] = v4;
-    keys[4] = *MEMORY[0x277CDC228];
-    values[0] = *MEMORY[0x277CBED28];
-    values[1] = @"com.apple.identities";
-    values[2] = a1;
-    values[3] = values[0];
-    values[4] = *MEMORY[0x277CDC250];
-    v8 = CFDictionaryCreate(0, keys, values, 5, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v5 = SecItemCopyMatching(v8, a2);
-    my_CFRelease(&v8);
+    return 4294967246;
   }
 
-  else
-  {
-    v5 = 4294967246;
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
+  *a2 = 0;
+  v3 = *MEMORY[0x277CDBEC8];
+  keys[0] = *MEMORY[0x277CDC5D0];
+  keys[1] = v3;
+  v4 = *MEMORY[0x277CDC558];
+  keys[2] = *MEMORY[0x277CDBF30];
+  keys[3] = v4;
+  keys[4] = *MEMORY[0x277CDC228];
+  values[0] = *MEMORY[0x277CBED28];
+  values[1] = @"com.apple.identities";
+  values[2] = a1;
+  values[3] = values[0];
+  values[4] = *MEMORY[0x277CDC250];
+  v7 = CFDictionaryCreate(0, keys, values, 5, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v5 = SecItemCopyMatching(v7, a2);
+  my_CFRelease(&v7);
   return v5;
 }
 
 uint64_t EAPKeychainRemovePasswordItem(void *a1)
 {
   keys[3] = *MEMORY[0x277D85DE8];
-  if (a1)
+  if (!a1)
   {
-    v1 = *MEMORY[0x277CDC120];
-    keys[0] = *MEMORY[0x277CDC5D0];
-    keys[1] = v1;
-    keys[2] = *MEMORY[0x277CDC228];
-    values[0] = *MEMORY[0x277CBED28];
-    values[1] = a1;
-    values[2] = *MEMORY[0x277CDC238];
-    v5 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v2 = SecItemDelete(v5);
-    my_CFRelease(&v5);
+    return 4294967246;
   }
 
-  else
-  {
-    v2 = 4294967246;
-  }
-
-  v3 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277CDC120];
+  keys[0] = *MEMORY[0x277CDC5D0];
+  keys[1] = v1;
+  keys[2] = *MEMORY[0x277CDC228];
+  values[0] = *MEMORY[0x277CBED28];
+  values[1] = a1;
+  values[2] = *MEMORY[0x277CDC238];
+  v4 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v2 = SecItemDelete(v4);
+  my_CFRelease(&v4);
   return v2;
 }
 
 uint64_t EAPKeychainSetPasswordItem(void *a1, void *a2, void *a3, int a4)
 {
   keys[6] = *MEMORY[0x277D85DE8];
-  if (a1)
+  if (!a1)
   {
-    if (a4)
-    {
-      EAPKeychainRemovePasswordItem(a1);
-    }
-
-    v7 = *MEMORY[0x277CDBF20];
-    keys[0] = *MEMORY[0x277CDC5D0];
-    keys[1] = v7;
-    v8 = *MEMORY[0x277CDC228];
-    keys[2] = *MEMORY[0x277CDC120];
-    keys[3] = v8;
-    v9 = *MEMORY[0x277CDBED8];
-    keys[4] = *MEMORY[0x277CDC5E8];
-    keys[5] = v9;
-    values[0] = *MEMORY[0x277CBED28];
-    values[1] = a2;
-    v10 = *MEMORY[0x277CDC238];
-    values[2] = a1;
-    values[3] = v10;
-    v11 = *MEMORY[0x277CDBEE0];
-    values[4] = a3;
-    values[5] = v11;
-    v15 = CFDictionaryCreate(0, keys, values, 6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v12 = SecItemAdd(v15, 0);
-    my_CFRelease(&v15);
+    return 4294967246;
   }
 
-  else
+  if (a4)
   {
-    v12 = 4294967246;
+    EAPKeychainRemovePasswordItem(a1);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277CDBF20];
+  keys[0] = *MEMORY[0x277CDC5D0];
+  keys[1] = v7;
+  v8 = *MEMORY[0x277CDC228];
+  keys[2] = *MEMORY[0x277CDC120];
+  keys[3] = v8;
+  v9 = *MEMORY[0x277CDBED8];
+  keys[4] = *MEMORY[0x277CDC5E8];
+  keys[5] = v9;
+  values[0] = *MEMORY[0x277CBED28];
+  values[1] = a2;
+  v10 = *MEMORY[0x277CDC238];
+  values[2] = a1;
+  values[3] = v10;
+  v11 = *MEMORY[0x277CDBEE0];
+  values[4] = a3;
+  values[5] = v11;
+  v14 = CFDictionaryCreate(0, keys, values, 6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v12 = SecItemAdd(v14, 0);
+  my_CFRelease(&v14);
   return v12;
 }
 
 uint64_t EAPKeychainCopyPasswordItem(void *a1, void *a2, void *a3)
 {
   keys[5] = *MEMORY[0x277D85DE8];
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
   result = 0;
   if (!a1)
   {
@@ -4236,8 +3964,8 @@ uint64_t EAPKeychainCopyPasswordItem(void *a1, void *a2, void *a3)
   values[2] = a1;
   values[3] = values[0];
   values[4] = values[0];
-  v21 = CFDictionaryCreate(0, keys, values, 5, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v8 = SecItemCopyMatching(v21, &result);
+  v20 = CFDictionaryCreate(0, keys, values, 5, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v8 = SecItemCopyMatching(v20, &result);
   v9 = result;
   TypeID = CFDictionaryGetTypeID();
   if (!v9)
@@ -4257,7 +3985,7 @@ uint64_t EAPKeychainCopyPasswordItem(void *a1, void *a2, void *a3)
   {
     Value = CFDictionaryGetValue(result, v11);
     v9 = CFRetain(Value);
-    v19 = v9;
+    v18 = v9;
   }
 
   else
@@ -4270,7 +3998,7 @@ uint64_t EAPKeychainCopyPasswordItem(void *a1, void *a2, void *a3)
   {
     v15 = CFDictionaryGetValue(result, v14);
     v13 = CFRetain(v15);
-    v18 = v13;
+    v17 = v13;
   }
 
   else
@@ -4281,7 +4009,7 @@ LABEL_13:
 
 LABEL_14:
   my_CFRelease(&result);
-  my_CFRelease(&v21);
+  my_CFRelease(&v20);
   if (a2)
   {
 LABEL_15:
@@ -4295,18 +4023,16 @@ LABEL_15:
   }
 
 LABEL_7:
-  my_CFRelease(&v19);
+  my_CFRelease(&v18);
   if (a3)
   {
 LABEL_16:
     *a3 = v13;
-    goto LABEL_17;
+    return v8;
   }
 
 LABEL_8:
-  my_CFRelease(&v18);
-LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
+  my_CFRelease(&v17);
   return v8;
 }
 
@@ -4335,14 +4061,14 @@ uint64_t EAPSecKeychainPasswordItemCreateUniqueWithAccess(uint64_t a1, uint64_t 
 
 uint64_t EAPOLControlStart(uint64_t a1, const void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
-  memset(v36, 0, sizeof(v36));
+  memset(v35, 0, sizeof(v35));
   v3 = MEMORY[0x277D85F48];
   v4 = MEMORY[0x277D85F18];
   v5 = mach_port_mod_refs(*MEMORY[0x277D85F48], *MEMORY[0x277D85F18], 0, 1);
-  v29 = v5;
+  v28 = v5;
   if (v5)
   {
     v6 = v5;
@@ -4351,13 +4077,13 @@ uint64_t EAPOLControlStart(uint64_t a1, const void *a2)
     if (os_log_type_enabled(LogHandle, v8))
     {
       *buf = 136315394;
-      v33 = mach_error_string(v6);
-      v34 = 1024;
-      v35 = v6;
+      v32 = mach_error_string(v6);
+      v33 = 1024;
+      v34 = v6;
       _os_log_impl(&dword_249EFB000, LogHandle, v8, "mach_port_mod_refs failed, %s (%d)", buf, 0x12u);
     }
 
-    LODWORD(v30) = 6;
+    LODWORD(v29) = 6;
     goto LABEL_20;
   }
 
@@ -4365,7 +4091,7 @@ uint64_t EAPOLControlStart(uint64_t a1, const void *a2)
   if (v9)
   {
     v10 = v9;
-    if (get_server_port(&v30 + 4, &v29))
+    if (get_server_port(&v29 + 4, &v28))
     {
       TypeID = CFDictionaryGetTypeID();
       if (!a2 || CFGetTypeID(a2) != TypeID)
@@ -4375,7 +4101,7 @@ uint64_t EAPOLControlStart(uint64_t a1, const void *a2)
       }
 
       Data = CFPropertyListCreateData(0, a2, kCFPropertyListBinaryFormat_v1_0, 0, 0);
-      v31 = Data;
+      v30 = Data;
       if (!Data)
       {
         v22 = 12;
@@ -4384,21 +4110,21 @@ uint64_t EAPOLControlStart(uint64_t a1, const void *a2)
 
       v13 = Data;
       __strlcpy_chk();
-      v14 = HIDWORD(v30);
+      v14 = HIDWORD(v29);
       BytePtr = CFDataGetBytePtr(v13);
       Length = CFDataGetLength(v13);
-      v17 = eapolcontroller_start(v14, v36, BytePtr, Length, *v4, v10, &v30);
+      v17 = eapolcontroller_start(v14, v35, BytePtr, Length, *v4, v10, &v29);
       if (!v17)
       {
-        if (v30)
+        if (v29)
         {
-          v27 = EAPLogGetLogHandle();
-          v28 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v27, v28))
+          v26 = EAPLogGetLogHandle();
+          v27 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v26, v27))
           {
             *buf = 67109120;
-            LODWORD(v33) = v30;
-            _os_log_impl(&dword_249EFB000, v27, v28, "eapolcontroller_start: result is %d", buf, 8u);
+            LODWORD(v32) = v29;
+            _os_log_impl(&dword_249EFB000, v26, v27, "eapolcontroller_start: result is %d", buf, 8u);
           }
         }
 
@@ -4412,23 +4138,23 @@ uint64_t EAPOLControlStart(uint64_t a1, const void *a2)
       {
         v21 = mach_error_string(v18);
         *buf = 136315394;
-        v33 = v21;
-        v34 = 1024;
-        v35 = v18;
+        v32 = v21;
+        v33 = 1024;
+        v34 = v18;
         _os_log_impl(&dword_249EFB000, v19, v20, "eapolcontroller_start failed, %s (%d)", buf, 0x12u);
       }
     }
 
     v22 = 6;
 LABEL_18:
-    LODWORD(v30) = v22;
+    LODWORD(v29) = v22;
 LABEL_19:
     mach_port_mod_refs(*v3, *v4, 0, -1);
     mach_port_deallocate(*v3, v10);
     goto LABEL_20;
   }
 
-  LODWORD(v30) = 6;
+  LODWORD(v29) = 6;
   v23 = EAPLogGetLogHandle();
   v24 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v23, v24))
@@ -4439,20 +4165,18 @@ LABEL_19:
 
   mach_port_mod_refs(*v3, *v4, 0, -1);
 LABEL_20:
-  my_CFRelease(&v31);
-  result = v30;
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  my_CFRelease(&v30);
+  return v29;
 }
 
 uint64_t EAPOLControlStartWithClientItemID(uint64_t a1, uint64_t a2, const void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v28 = 0;
-  values = 0;
+  v33 = *MEMORY[0x277D85DE8];
   v26 = 0;
-  v24 = 0;
+  v27 = 0;
+  values = 0;
+  v25 = 0;
+  v23 = 0;
   if (!a3)
   {
     goto LABEL_22;
@@ -4462,7 +4186,7 @@ uint64_t EAPOLControlStartWithClientItemID(uint64_t a1, uint64_t a2, const void 
   TypeID = CFDictionaryGetTypeID();
   if (CFGetTypeID(v5) != TypeID)
   {
-    goto LABEL_28;
+    return 22;
   }
 
   Count = CFDictionaryGetCount(v5);
@@ -4477,19 +4201,17 @@ LABEL_22:
       goto LABEL_24;
     }
 
-LABEL_28:
-    v21 = 22;
-    goto LABEL_29;
+    return 22;
   }
 
   if (Count > 5)
   {
-    goto LABEL_28;
+    return 22;
   }
 
-  v33 = 0;
+  v32 = 0;
   *keys = 0u;
-  v32 = 0u;
+  v31 = 0u;
   CFDictionaryGetKeysAndValues(v5, keys, 0);
   if (v8 >= 1)
   {
@@ -4507,7 +4229,7 @@ LABEL_28:
           {
             v13 = *v10;
             *buf = 138412290;
-            v30 = v13;
+            v29 = v13;
             _os_log_impl(&dword_249EFB000, LogHandle, v12, "Ignoring %@ since no credentials were specified", buf, 0xCu);
           }
 
@@ -4517,7 +4239,7 @@ LABEL_28:
 
       else if (!CFEqual(*v10, @"UserName") && !CFEqual(*v10, @"UserPassword") && !CFEqual(*v10, @"TLSIdentityHandle") && !CFEqual(*v10, @"DisableUserInteraction"))
       {
-        goto LABEL_28;
+        return 22;
       }
 
       ++v10;
@@ -4529,29 +4251,29 @@ LABEL_28:
   v14 = EAPOLClientItemIDCopyDictionary(a2);
   if (!v14)
   {
-    goto LABEL_28;
+    return 22;
   }
 
   v15 = v14;
   if (!v5)
   {
 LABEL_24:
-    v27 = @"ClientItemID";
+    v26 = @"ClientItemID";
     values = v15;
     goto LABEL_25;
   }
 
   MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v5);
-  v24 = MutableCopy;
+  v23 = MutableCopy;
   values = v15;
-  v27 = @"ClientItemID";
+  v26 = @"ClientItemID";
   if (MutableCopy)
   {
     v17 = MutableCopy;
     if (CFDictionaryGetCount(MutableCopy) >= 1)
     {
-      v28 = @"EAPClientConfiguration";
-      v26 = v17;
+      v27 = @"EAPClientConfiguration";
+      v25 = v17;
       v18 = 2;
       goto LABEL_26;
     }
@@ -4560,53 +4282,48 @@ LABEL_24:
 LABEL_25:
   v18 = 1;
 LABEL_26:
-  v20 = CFDictionaryCreate(0, &v27, &values, v18, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v20 = CFDictionaryCreate(0, &v26, &values, v18, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   CFRelease(v15);
-  my_CFRelease(&v24);
+  my_CFRelease(&v23);
   v21 = EAPOLControlStart(a1, v20);
   if (v20)
   {
     CFRelease(v20);
   }
 
-LABEL_29:
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
-uint64_t EAPOLControlStop()
+uint64_t EAPOLControlStop(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
   memset(v5, 0, sizeof(v5));
   v4 = 0;
   v3 = 0;
-  if (get_server_port(&v4 + 4, &v3))
+  if (!get_server_port(&v4 + 4, &v3))
   {
-    __strlcpy_chk();
-    v0 = eapolcontroller_stop(HIDWORD(v4), v5, &v4);
-    if (!v0)
-    {
-      result = v4;
-      goto LABEL_6;
-    }
-
-    mach_error("eapolcontroller_start failed", v0);
+    return 6;
   }
 
-  result = 6;
-LABEL_6:
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  __strlcpy_chk();
+  v1 = eapolcontroller_stop(HIDWORD(v4), v5, &v4);
+  if (v1)
+  {
+    mach_error("eapolcontroller_start failed", v1);
+    return 6;
+  }
+
+  return v4;
 }
 
 uint64_t EAPOLControlUpdate(uint64_t a1, const void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = 0;
-  memset(v16, 0, sizeof(v16));
+  v16 = *MEMORY[0x277D85DE8];
   v13 = 0;
-  if (!get_server_port(&v14 + 4, &v13))
+  v14 = 0;
+  memset(v15, 0, sizeof(v15));
+  v12 = 0;
+  if (!get_server_port(&v13 + 4, &v12))
   {
     goto LABEL_7;
   }
@@ -4619,7 +4336,7 @@ uint64_t EAPOLControlUpdate(uint64_t a1, const void *a2)
   }
 
   Data = CFPropertyListCreateData(0, a2, kCFPropertyListBinaryFormat_v1_0, 0, 0);
-  v15 = Data;
+  v14 = Data;
   if (!Data)
   {
     v10 = 12;
@@ -4628,58 +4345,53 @@ uint64_t EAPOLControlUpdate(uint64_t a1, const void *a2)
 
   v5 = Data;
   __strlcpy_chk();
-  v6 = HIDWORD(v14);
+  v6 = HIDWORD(v13);
   BytePtr = CFDataGetBytePtr(v5);
   Length = CFDataGetLength(v5);
-  v9 = eapolcontroller_update(v6, v16, BytePtr, Length, &v14);
+  v9 = eapolcontroller_update(v6, v15, BytePtr, Length, &v13);
   if (v9)
   {
     mach_error("eapolcontroller_update failed", v9);
 LABEL_7:
     v10 = 6;
 LABEL_9:
-    LODWORD(v14) = v10;
+    LODWORD(v13) = v10;
   }
 
-  my_CFRelease(&v15);
-  result = v14;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  my_CFRelease(&v14);
+  return v13;
 }
 
-uint64_t EAPOLControlRetry()
+uint64_t EAPOLControlRetry(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
   memset(v5, 0, sizeof(v5));
   v4 = 0;
   v3 = 0;
-  if (get_server_port(&v4, &v3))
+  if (!get_server_port(&v4, &v3))
   {
-    __strlcpy_chk();
-    v0 = eapolcontroller_retry(v4, v5, &v4 + 1);
-    if (!v0)
-    {
-      result = HIDWORD(v4);
-      goto LABEL_6;
-    }
-
-    mach_error("eapolcontroller_retry failed", v0);
+    return 6;
   }
 
-  result = 6;
-LABEL_6:
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  __strlcpy_chk();
+  v1 = eapolcontroller_retry(v4, v5, &v4 + 1);
+  if (v1)
+  {
+    mach_error("eapolcontroller_retry failed", v1);
+    return 6;
+  }
+
+  return HIDWORD(v4);
 }
 
 uint64_t EAPOLControlProvideUserInput(uint64_t a1, const UInt8 *BytePtr)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = 0;
-  memset(v14, 0, sizeof(v14));
+  v14 = *MEMORY[0x277D85DE8];
   v11 = 0;
-  if (!get_server_port(&v12 + 4, &v11))
+  v12 = 0;
+  memset(v13, 0, sizeof(v13));
+  v10 = 0;
+  if (!get_server_port(&v11 + 4, &v10))
   {
     goto LABEL_9;
   }
@@ -4694,7 +4406,7 @@ uint64_t EAPOLControlProvideUserInput(uint64_t a1, const UInt8 *BytePtr)
     }
 
     Data = CFPropertyListCreateData(0, BytePtr, kCFPropertyListBinaryFormat_v1_0, 0, 0);
-    v13 = Data;
+    v12 = Data;
     if (!Data)
     {
       v8 = 12;
@@ -4712,35 +4424,33 @@ uint64_t EAPOLControlProvideUserInput(uint64_t a1, const UInt8 *BytePtr)
   }
 
   __strlcpy_chk();
-  v7 = eapolcontroller_provide_user_input(HIDWORD(v12), v14, BytePtr, Length, &v12);
+  v7 = eapolcontroller_provide_user_input(HIDWORD(v11), v13, BytePtr, Length, &v11);
   if (v7)
   {
     mach_error("eapolcontroller_provide_user_input failed", v7);
 LABEL_9:
     v8 = 6;
 LABEL_12:
-    LODWORD(v12) = v8;
+    LODWORD(v11) = v8;
   }
 
-  my_CFRelease(&v13);
-  result = v12;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  my_CFRelease(&v12);
+  return v11;
 }
 
 uint64_t EAPOLControlStartSystem(uint64_t a1, const UInt8 *BytePtr)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = 0;
-  memset(v24, 0, sizeof(v24));
+  v24 = *MEMORY[0x277D85DE8];
   v17 = 0;
-  if (!get_server_port(&v18 + 4, &v17))
+  v18 = 0;
+  memset(v23, 0, sizeof(v23));
+  v16 = 0;
+  if (!get_server_port(&v17 + 4, &v16))
   {
 LABEL_10:
     v12 = 6;
 LABEL_16:
-    LODWORD(v18) = v12;
+    LODWORD(v17) = v12;
     goto LABEL_17;
   }
 
@@ -4754,7 +4464,7 @@ LABEL_16:
     }
 
     Data = CFPropertyListCreateData(0, BytePtr, kCFPropertyListBinaryFormat_v1_0, 0, 0);
-    v19 = Data;
+    v18 = Data;
     if (!Data)
     {
       v12 = 12;
@@ -4772,7 +4482,7 @@ LABEL_16:
   }
 
   __strlcpy_chk();
-  started = eapolcontroller_start_system(HIDWORD(v18), v24, BytePtr, Length, &v18);
+  started = eapolcontroller_start_system(HIDWORD(v17), v23, BytePtr, Length, &v17);
   if (started)
   {
     v8 = started;
@@ -4782,32 +4492,30 @@ LABEL_16:
     {
       v11 = mach_error_string(v8);
       *buf = 136315394;
-      v21 = v11;
-      v22 = 1024;
-      v23 = v8;
+      v20 = v11;
+      v21 = 1024;
+      v22 = v8;
       _os_log_impl(&dword_249EFB000, LogHandle, v10, "eapolcontroller_start_system failed, %s (%d)", buf, 0x12u);
     }
 
     goto LABEL_10;
   }
 
-  if (v18)
+  if (v17)
   {
     v13 = EAPLogGetLogHandle();
     v14 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v13, v14))
     {
       *buf = 67109120;
-      LODWORD(v21) = v18;
+      LODWORD(v20) = v17;
       _os_log_impl(&dword_249EFB000, v13, v14, "eapolcontroller_start_system: result is %d", buf, 8u);
     }
   }
 
 LABEL_17:
-  my_CFRelease(&v19);
-  result = v18;
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  my_CFRelease(&v18);
+  return v17;
 }
 
 uint64_t EAPOLControlStartSystemWithClientItemID(uint64_t a1, uint64_t a2)
@@ -4841,7 +4549,7 @@ uint64_t chap_md5(char a1, const void *a2, CC_LONG a3, const void *a4, CC_LONG a
   return CC_MD5_Final(a6, &v12);
 }
 
-void print_bytes_cfstr(CFMutableStringRef theString, uint64_t a2, int a3)
+void print_bytes_cfstr(CFMutableStringRef theString, uint64_t a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -4873,7 +4581,7 @@ void print_bytes_cfstr(CFMutableStringRef theString, uint64_t a2, int a3)
 
 void print_data_cfstr(CFMutableStringRef theString, uint64_t a2, int a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a3 >= 1)
   {
     v5 = 0;
@@ -4908,7 +4616,7 @@ void print_data_cfstr(CFMutableStringRef theString, uint64_t a2, int a3)
         v12 = 46;
       }
 
-      v18[v6] = v12;
+      v17[v6] = v12;
       CFStringAppendFormat(theString, 0, @" %02x", v11);
       if (v6 == 7)
       {
@@ -4918,8 +4626,8 @@ void print_data_cfstr(CFMutableStringRef theString, uint64_t a2, int a3)
 
       else if (v6 == 15)
       {
-        v19 = 0;
-        CFStringAppendFormat(theString, 0, @"  %s\n", v18);
+        v18 = 0;
+        CFStringAppendFormat(theString, 0, @"  %s\n", v17);
         v6 = 0;
       }
 
@@ -4946,7 +4654,7 @@ void print_data_cfstr(CFMutableStringRef theString, uint64_t a2, int a3)
 
       if (v6 <= 15)
       {
-        v14 = &v18[v6];
+        v14 = &v17[v6];
         v15 = v6 + 1;
         do
         {
@@ -4957,19 +4665,16 @@ void print_data_cfstr(CFMutableStringRef theString, uint64_t a2, int a3)
         while (v15++ != 16);
       }
 
-      v19 = 0;
-      CFStringAppendFormat(theString, 0, @"  %s%s\n", v13, v18);
+      v18 = 0;
+      CFStringAppendFormat(theString, 0, @"  %s%s\n", v13, v17);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t fprint_bytes(FILE *a1, uint64_t a2, int a3)
+uint64_t fprint_bytes(FILE *a1, uint64_t a2, unsigned int a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
   v7 = Mutable;
-  v8 = *MEMORY[0x277D85E08];
   if (!a1)
   {
     a1 = *MEMORY[0x277D85E08];
@@ -4986,21 +4691,20 @@ uint64_t fprint_data(FILE *a1, uint64_t a2, int a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
   print_data_cfstr(Mutable, a2, a3);
-  v7 = *MEMORY[0x277D85E08];
   if (a1)
   {
-    v8 = a1;
+    v7 = a1;
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85E08];
+    v7 = *MEMORY[0x277D85E08];
   }
 
   SCPrint();
   CFRelease(Mutable);
 
-  return fflush(v8);
+  return fflush(v7);
 }
 
 uint64_t sockaddr_dl_print(unsigned __int8 *a1)
@@ -5030,9 +4734,9 @@ uint64_t sockaddr_dl_print(unsigned __int8 *a1)
   return putchar(10);
 }
 
-uint64_t LinkAddresses_element(uint64_t a1, unsigned int a2)
+uint64_t LinkAddresses_element(uint64_t a1, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *(a1 + 8) <= a2)
+  if (a2 < 0 || *(a1 + 8) <= a2)
   {
     return 0;
   }
@@ -5079,9 +4783,9 @@ void leap_free(void **a1)
   }
 }
 
-uint64_t leap_process(uint64_t *a1, unsigned __int8 *a2, void *a3, _DWORD *a4, _DWORD *a5)
+uint64_t leap_process(uint64_t *a1, unsigned __int8 *a2, uint64_t *a3, _DWORD *a4, _DWORD *a5)
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   v5 = *a1;
   *a4 = 0;
   *a5 = 0;
@@ -5091,7 +4795,7 @@ uint64_t leap_process(uint64_t *a1, unsigned __int8 *a2, void *a3, _DWORD *a4, _
   {
     result = 0;
     *a4 = 3;
-    goto LABEL_25;
+    return result;
   }
 
   result = 0;
@@ -5105,18 +4809,16 @@ uint64_t leap_process(uint64_t *a1, unsigned __int8 *a2, void *a3, _DWORD *a4, _
         *a4 = 1;
         *v5 = 4;
         strcpy(v5 + 36, "server sent failure");
-LABEL_15:
-        result = 2;
-        goto LABEL_25;
+        return 2;
       }
 
-      goto LABEL_25;
+      return result;
     }
 
     v15 = *v5;
     if (*v5 != 1)
     {
-      goto LABEL_20;
+      return 0;
     }
 
     v16 = 3;
@@ -5135,7 +4837,7 @@ LABEL_15:
     v20 = 2;
 LABEL_24:
     *v5 = v20;
-    goto LABEL_25;
+    return result;
   }
 
   if (v11 == 1)
@@ -5144,58 +4846,51 @@ LABEL_24:
     if (Length < 8 || (Length & 0xFFF8) == 8 || a2[7] != 8)
     {
       snprintf(v5 + 36, 0x80uLL, "LEAPVerifyRequest: packet is too short %d");
-LABEL_14:
-      *v5 = 4;
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     *(v5 + 1) = *(a2 + 1);
-    MSChap(v5 + 1, a1[8], *(a1 + 18), v28);
-    v21 = LEAPPacketCreate(2, v28, 0x18u, a2[1], a1[5], *(a1 + 12));
+    MSChap(v5 + 1, a1[8], *(a1 + 18), v27);
+    v21 = LEAPPacketCreate(2, v27, 0x18u, a2[1], a1[5], *(a1 + 12));
     result = 0;
     *a3 = v21;
     v20 = 1;
     goto LABEL_24;
   }
 
-  if (v11 == 2)
+  if (v11 != 2)
   {
-    if (*v5 == 2)
-    {
-      v12 = *(a1 + 18);
-      v13 = EAPPacketGetLength(a2);
-      if (v13 >= 8 && a2[7] == 24 && (v13 - 8) > 0x17)
-      {
-        MSChap_MPPE(v5 + 3, v6, v12, v28);
-        v23 = *(a2 + 1);
-        v24 = *(a2 + 2);
-        v25 = a2 + 8;
-        if (v28[0] == v23 && v28[1] == v24 && v28[2] == *(v25 + 2))
-        {
-          NTSessionKey16(v6, v12, (v5 + 3), v25, (v5 + 1), v5 + 20);
-          *v5 = 3;
-          result = 1;
-          goto LABEL_25;
-        }
-
-        strcpy(v5 + 36, "LEAPVerifyResponse: server failed mutual authentication");
-      }
-
-      else
-      {
-        snprintf(v5 + 36, 0x80uLL, "LEAPVerifyResponse: packet is too short %d");
-      }
-
-      goto LABEL_14;
-    }
-
-LABEL_20:
-    result = 0;
+    return result;
   }
 
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  if (*v5 != 2)
+  {
+    return 0;
+  }
+
+  v12 = *(a1 + 18);
+  v13 = EAPPacketGetLength(a2);
+  if (v13 < 8 || a2[7] != 24 || (v13 - 8) <= 0x17)
+  {
+    snprintf(v5 + 36, 0x80uLL, "LEAPVerifyResponse: packet is too short %d");
+LABEL_14:
+    *v5 = 4;
+    return 2;
+  }
+
+  MSChap_MPPE(v5 + 3, v6, v12, v27);
+  v22 = *(a2 + 1);
+  v23 = *(a2 + 2);
+  v24 = a2 + 8;
+  if (v27[0] != v22 || v27[1] != v23 || v27[2] != *(v24 + 2))
+  {
+    strcpy(v5 + 36, "LEAPVerifyResponse: server failed mutual authentication");
+    goto LABEL_14;
+  }
+
+  NTSessionKey16(v6, v12, (v5 + 3), v24, (v5 + 1), v5 + 20);
+  *v5 = 3;
+  return 1;
 }
 
 void leap_free_packet(int a1, void *a2)
@@ -5219,12 +4914,12 @@ uint64_t leap_failure_string(void *a1)
   }
 }
 
-uint64_t leap_session_key(_DWORD **a1, int *a2)
+_DWORD *leap_session_key(_DWORD **a1, int *a2)
 {
   v2 = 16 * (**a1 == 3);
   if (**a1 == 3)
   {
-    result = (*a1 + 5);
+    result = *a1 + 5;
   }
 
   else
@@ -5236,12 +4931,12 @@ uint64_t leap_session_key(_DWORD **a1, int *a2)
   return result;
 }
 
-uint64_t leap_server_key(_DWORD **a1, int *a2)
+_DWORD *leap_server_key(_DWORD **a1, int *a2)
 {
   v2 = 16 * (**a1 == 3);
   if (**a1 == 3)
   {
-    result = (*a1 + 5);
+    result = *a1 + 5;
   }
 
   else
@@ -5390,45 +5085,46 @@ CFPropertyListRef my_CFPropertyListCreateFromFile(const char *a1)
 
 uint64_t my_CFPropertyListWriteFile(CFPropertyListRef propertyList, const std::__fs::filesystem::path *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (propertyList && (Data = CFPropertyListCreateData(0, propertyList, kCFPropertyListXMLFormat_v1_0, 0, 0)) != 0)
+  v13 = *MEMORY[0x277D85DE8];
+  if (!propertyList)
   {
-    v4 = Data;
-    BytePtr = CFDataGetBytePtr(Data);
-    Length = CFDataGetLength(v4);
-    snprintf(__str, 0x400uLL, "%s-", a2);
-    v7 = open(__str, 1537, 420);
-    if (v7 < 0)
-    {
-      v10 = 0xFFFFFFFFLL;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v8 = v7;
-      if (write(v7, BytePtr, Length) == Length)
-      {
-        rename(__str, a2, v9);
-        v10 = 0;
-      }
+  Data = CFPropertyListCreateData(0, propertyList, kCFPropertyListXMLFormat_v1_0, 0, 0);
+  if (!Data)
+  {
+    return 0;
+  }
 
-      else
-      {
-        v10 = 0xFFFFFFFFLL;
-      }
-
-      close(v8);
-    }
-
-    CFRelease(v4);
+  v4 = Data;
+  BytePtr = CFDataGetBytePtr(Data);
+  Length = CFDataGetLength(v4);
+  snprintf(__str, 0x400uLL, "%s-", a2);
+  v7 = open(__str, 1537, 420);
+  if (v7 < 0)
+  {
+    v10 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v10 = 0;
+    v8 = v7;
+    if (write(v7, BytePtr, Length) == Length)
+    {
+      rename(__str, a2, v9);
+      v10 = 0;
+    }
+
+    else
+    {
+      v10 = 0xFFFFFFFFLL;
+    }
+
+    close(v8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  CFRelease(v4);
   return v10;
 }
 
@@ -5593,11 +5289,11 @@ void sub_249F12610(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_249F12AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_249F12AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 160), 8);
+  _Block_object_dispose((v22 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5608,9 +5304,9 @@ void sub_249F13084(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_249F14110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_249F14110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5668,14 +5364,14 @@ EAPBoringSSLSession *EAPBoringSSLSessionContextCreate(uint64_t a1, uint64_t a2)
   return v7;
 }
 
-void *EAPBoringSSLSessionStop(void *a1, const char *a2)
+void *EAPBoringSSLSessionStop(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 stop];
+    return [result stop];
   }
 
-  return a1;
+  return result;
 }
 
 void EAPBoringSSLSessionContextFree(void *a1)
@@ -5694,17 +5390,17 @@ void EAPBoringSSLSessionContextFree(void *a1)
   }
 }
 
-void *EAPBoringSSLSessionStart(void *a1, const char *a2)
+void *EAPBoringSSLSessionStart(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 start];
+    return [result start];
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t EAPBoringSSLSessionGetCurrentState(void *a1, _DWORD *a2)
+uint64_t EAPBoringSSLSessionGetCurrentState(void *a1, unsigned int *a2)
 {
   if (!a1)
   {
@@ -5730,14 +5426,14 @@ __CFString *EAPBoringSSLSessionGetCurrentStateDescription(int a1)
   }
 }
 
-void EAPBoringSSLUtilGetPreferredTLSVersions(const __CFDictionary *a1, __int16 *a2, __int16 *a3)
+void EAPBoringSSLUtilGetPreferredTLSVersions(const __CFDictionary *a1, unsigned __int16 *a2, unsigned __int16 *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     *a2 = 769;
     *a3 = 771;
-    goto LABEL_32;
+    return;
   }
 
   Value = CFDictionaryGetValue(a1, @"TLSMinimumVersion");
@@ -5762,11 +5458,11 @@ void EAPBoringSSLUtilGetPreferredTLSVersions(const __CFDictionary *a1, __int16 *
       v10 = v7;
     }
 
-    v23 = 138412546;
-    v24 = v11;
-    v25 = 2112;
-    v26 = v10;
-    _os_log_impl(&dword_249EFB000, v8, v9, "configured minimum TLS version: [%@], maximum TLS version: [%@]", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v10;
+    _os_log_impl(&dword_249EFB000, v8, v9, "configured minimum TLS version: [%@], maximum TLS version: [%@]", &v22, 0x16u);
   }
 
   TypeID = CFStringGetTypeID();
@@ -5787,12 +5483,12 @@ void EAPBoringSSLUtilGetPreferredTLSVersions(const __CFDictionary *a1, __int16 *
       if (!CFEqual(Value, @"1.3"))
       {
         *a2 = 769;
-        v19 = EAPLogGetLogHandle();
-        v20 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v19, v20))
+        v18 = EAPLogGetLogHandle();
+        v19 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v18, v19))
         {
-          LOWORD(v23) = 0;
-          _os_log_impl(&dword_249EFB000, v19, v20, "invalid minimum TLS version", &v23, 2u);
+          LOWORD(v22) = 0;
+          _os_log_impl(&dword_249EFB000, v18, v19, "invalid minimum TLS version", &v22, 2u);
         }
 
         goto LABEL_14;
@@ -5837,12 +5533,12 @@ LABEL_26:
   if (!CFEqual(v7, @"1.3"))
   {
     *a3 = 771;
-    v21 = EAPLogGetLogHandle();
-    v22 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v21, v22))
+    v20 = EAPLogGetLogHandle();
+    v21 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v20, v21))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_249EFB000, v21, v22, "invalid maximum TLS version", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_249EFB000, v20, v21, "invalid maximum TLS version", &v22, 2u);
     }
 
     v15 = *a3;
@@ -5859,15 +5555,12 @@ LABEL_28:
     v17 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v16, v17))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_249EFB000, v16, v17, "minimum TLS version cannot be higher than maximum TLS version", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_249EFB000, v16, v17, "minimum TLS version cannot be higher than maximum TLS version", &v22, 2u);
     }
 
     *a2 = *a3;
   }
-
-LABEL_32:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t EAPBoringSSLSessionHandshake(void *a1)
@@ -5914,14 +5607,14 @@ uint64_t EAPBoringSSLSessionCopyServerCertificates(void *a1, void *a2)
   return SecTrustCopyInputCertificates();
 }
 
-void *EAPBoringSSLSessionGetSecTrust(void *a1, const char *a2)
+void *EAPBoringSSLSessionGetSecTrust(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 serverSecTrust];
+    return [result serverSecTrust];
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t EAPBoringSSLSessionComputeKeyData(void *a1, void *a2, int a3)
@@ -5970,7 +5663,7 @@ LABEL_11:
   return v3;
 }
 
-uint64_t EAPBoringSSLSessionGetNegotiatedTLSVersion(void *a1, _WORD *a2)
+uint64_t EAPBoringSSLSessionGetNegotiatedTLSVersion(void *a1, unsigned __int16 *a2)
 {
   result = 4294967246;
   if (a1)
@@ -5986,7 +5679,7 @@ uint64_t EAPBoringSSLSessionGetNegotiatedTLSVersion(void *a1, _WORD *a2)
   return result;
 }
 
-uint64_t EAPBoringSSLSessionGetSessionResumed(void *a1, _BYTE *a2)
+uint64_t EAPBoringSSLSessionGetSessionResumed(void *a1, unsigned __int8 *a2)
 {
   result = 4294967246;
   if (a1)
@@ -6496,30 +6189,30 @@ void **eaptls_update_tls_session_data(void **result)
 
 _BYTE *eaptls_handshake(uint64_t *a1, const char *a2, _DWORD *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   if (*(*a1 + 271) == 1 && (*(v6 + 140) & 1) == 0)
   {
-    v33 = EAPTLSSessionIsRevocationStatusCheckRequired(*v6);
+    v32 = EAPTLSSessionIsRevocationStatusCheckRequired(*v6);
     LogHandle = EAPLogGetLogHandle();
-    v35 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(LogHandle, v35))
+    v34 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(LogHandle, v34))
     {
-      v36 = "is";
-      if (!v33)
+      v35 = "is";
+      if (!v32)
       {
-        v36 = "is not";
+        v35 = "is not";
       }
 
-      v37 = 136315138;
-      v38 = v36;
-      _os_log_impl(&dword_249EFB000, LogHandle, v35, "revocation status check %s required", &v37, 0xCu);
+      v36 = 136315138;
+      v37 = v35;
+      _os_log_impl(&dword_249EFB000, LogHandle, v34, "revocation status check %s required", &v36, 0xCu);
     }
 
-    v7 = eaptls_verify_server(a1, a2, v33, a3);
+    v7 = eaptls_verify_server(a1, a2, v32, a3);
     if (!*(v6 + 140))
     {
-      goto LABEL_38;
+      return v7;
     }
   }
 
@@ -6533,15 +6226,15 @@ _BYTE *eaptls_handshake(uint64_t *a1, const char *a2, _DWORD *a3)
   {
 LABEL_15:
     v16 = v8;
-    v37 = 0;
-    if (EAPTLSSessionGetState(*v6, &v37))
+    v36 = 0;
+    if (EAPTLSSessionGetState(*v6, &v36))
     {
       v17 = 0;
     }
 
     else
     {
-      v17 = v37 == 2;
+      v17 = v36 == 2;
     }
 
     if (v17)
@@ -6553,7 +6246,7 @@ LABEL_15:
     {
       if (!*(v6 + 40))
       {
-        goto LABEL_38;
+        return v7;
       }
     }
 
@@ -6564,11 +6257,11 @@ LABEL_15:
       if (os_log_type_enabled(v23, v24))
       {
         v25 = EAPSSLErrorString(v16);
-        v37 = 136315394;
-        v38 = v25;
-        v39 = 2048;
-        v40 = v16;
-        _os_log_impl(&dword_249EFB000, v23, v24, "SSLHandshake failed, %s (%ld)", &v37, 0x16u);
+        v36 = 136315394;
+        v37 = v25;
+        v38 = 2048;
+        v39 = v16;
+        _os_log_impl(&dword_249EFB000, v23, v24, "SSLHandshake failed, %s (%ld)", &v36, 0x16u);
       }
 
       *(v6 + 124) = v16;
@@ -6580,14 +6273,14 @@ LABEL_15:
       {
         if (v16 != -9802)
         {
-          goto LABEL_38;
+          return v7;
         }
 
         v28 = a2;
         v27 = 0;
         v29 = 0;
         v30 = 0;
-        goto LABEL_37;
+        return EAPTLSPacketCreate(2, 13, v28, v27, v29, v30);
       }
     }
 
@@ -6606,9 +6299,9 @@ LABEL_15:
           v21 = "is not";
         }
 
-        v37 = 136315138;
-        v38 = v21;
-        _os_log_impl(&dword_249EFB000, v19, v20, "revocation status check %s required", &v37, 0xCu);
+        v36 = 136315138;
+        v37 = v21;
+        _os_log_impl(&dword_249EFB000, v19, v20, "revocation status check %s required", &v36, 0xCu);
       }
 
       v22 = eaptls_verify_server(a1, a2, v18, a3);
@@ -6619,10 +6312,10 @@ LABEL_15:
         v10 = _SC_syslog_os_log_mapping();
         if (!os_log_type_enabled(v9, v10))
         {
-          goto LABEL_38;
+          return v7;
         }
 
-        LOWORD(v37) = 0;
+        LOWORD(v36) = 0;
         v11 = "trust_proceed is FALSE?";
         goto LABEL_8;
       }
@@ -6632,9 +6325,7 @@ LABEL_15:
     v28 = a2;
     v29 = (v6 + 40);
     v30 = (v6 + 72);
-LABEL_37:
-    v7 = EAPTLSPacketCreate(2, 13, v28, v27, v29, v30);
-    goto LABEL_38;
+    return EAPTLSPacketCreate(2, 13, v28, v27, v29, v30);
   }
 
   if (*(v6 + 271) != 1)
@@ -6653,15 +6344,15 @@ LABEL_37:
         v15 = "is not";
       }
 
-      v37 = 136315138;
-      v38 = v15;
-      _os_log_impl(&dword_249EFB000, v13, v14, "revocation status check %s required", &v37, 0xCu);
+      v36 = 136315138;
+      v37 = v15;
+      _os_log_impl(&dword_249EFB000, v13, v14, "revocation status check %s required", &v36, 0xCu);
     }
 
     v7 = eaptls_verify_server(a1, a2, v12, a3);
     if (!*(v6 + 140))
     {
-      goto LABEL_38;
+      return v7;
     }
 
     v8 = EAPTLSSessionHandshake(*v6);
@@ -6672,14 +6363,12 @@ LABEL_37:
   v10 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v9, v10))
   {
-    LOWORD(v37) = 0;
+    LOWORD(v36) = 0;
     v11 = "AuthCompleted again?";
 LABEL_8:
-    _os_log_impl(&dword_249EFB000, v9, v10, v11, &v37, 2u);
+    _os_log_impl(&dword_249EFB000, v9, v10, v11, &v36, 2u);
   }
 
-LABEL_38:
-  v31 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6692,7 +6381,7 @@ uint64_t md5_init(uint64_t a1, void *a2, _DWORD *a3)
 
 uint64_t md5_process(uint64_t a1, unsigned __int8 *a2, void *a3, _DWORD *a4, _DWORD *a5)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   *a4 = 0;
   *a5 = 0;
   *a3 = 0;
@@ -6700,91 +6389,86 @@ uint64_t md5_process(uint64_t a1, unsigned __int8 *a2, void *a3, _DWORD *a4, _DW
   if (v5 == 4)
   {
     *a4 = 1;
-    result = 2;
+    return 2;
   }
 
-  else if (v5 == 3)
+  if (v5 == 3)
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  result = 0;
+  if (v5 == 1)
   {
-    result = 0;
-    if (v5 == 1)
+    if (!*(a1 + 64))
     {
-      if (*(a1 + 64))
-      {
-        Length = EAPPacketGetLength(a2);
-        v11 = Length;
-        if (Length > 5)
-        {
-          if (a2[5] + 6 <= Length)
-          {
-            v22 = *(a1 + 48) + 22;
-            v23 = malloc_type_malloc(v22, 0x5786EAF5uLL);
-            v20 = v23;
-            if (v23)
-            {
-              *v23 = 2;
-              v23[1] = a2[1];
-              EAPPacketSetLength(v23, v22);
-              *(v20 + 2) = 4100;
-              chap_md5(a2[1], *(a1 + 64), *(a1 + 72), a2 + 6, a2[5], v20 + 6);
-              memmove(v20 + 22, *(a1 + 40), *(a1 + 48));
-            }
-
-            goto LABEL_16;
-          }
-
-          LogHandle = EAPLogGetLogHandle();
-          v18 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(LogHandle, v18))
-          {
-            v19 = a2[5] + 6;
-            v24 = 67109376;
-            v25 = v11;
-            v26 = 2048;
-            v27 = v19;
-            v14 = "value too short (length %d < %ld)";
-            v15 = LogHandle;
-            v16 = v18;
-            goto LABEL_14;
-          }
-        }
-
-        else
-        {
-          v12 = EAPLogGetLogHandle();
-          v13 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v12, v13))
-          {
-            v24 = 67109376;
-            v25 = v11;
-            v26 = 2048;
-            v27 = 6;
-            v14 = "header too short (length %d < %ld)";
-            v15 = v12;
-            v16 = v13;
-LABEL_14:
-            _os_log_impl(&dword_249EFB000, v15, v16, v14, &v24, 0x12u);
-          }
-        }
-
-        v20 = 0;
-LABEL_16:
-        result = 0;
-        *a3 = v20;
-        goto LABEL_17;
-      }
-
       result = 0;
       *a4 = 3;
+      return result;
     }
+
+    Length = EAPPacketGetLength(a2);
+    v11 = Length;
+    if (Length > 5)
+    {
+      if (a2[5] + 6 <= Length)
+      {
+        v21 = *(a1 + 48) + 22;
+        v22 = malloc_type_malloc(v21, 0x5786EAF5uLL);
+        v20 = v22;
+        if (v22)
+        {
+          *v22 = 2;
+          v22[1] = a2[1];
+          EAPPacketSetLength(v22, v21);
+          *(v20 + 2) = 4100;
+          chap_md5(a2[1], *(a1 + 64), *(a1 + 72), a2 + 6, a2[5], v20 + 6);
+          memmove(v20 + 22, *(a1 + 40), *(a1 + 48));
+        }
+
+        goto LABEL_16;
+      }
+
+      LogHandle = EAPLogGetLogHandle();
+      v18 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(LogHandle, v18))
+      {
+        v19 = a2[5] + 6;
+        v23 = 67109376;
+        v24 = v11;
+        v25 = 2048;
+        v26 = v19;
+        v14 = "value too short (length %d < %ld)";
+        v15 = LogHandle;
+        v16 = v18;
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      v12 = EAPLogGetLogHandle();
+      v13 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v12, v13))
+      {
+        v23 = 67109376;
+        v24 = v11;
+        v25 = 2048;
+        v26 = 6;
+        v14 = "header too short (length %d < %ld)";
+        v15 = v12;
+        v16 = v13;
+LABEL_14:
+        _os_log_impl(&dword_249EFB000, v15, v16, v14, &v23, 0x12u);
+      }
+    }
+
+    v20 = 0;
+LABEL_16:
+    result = 0;
+    *a3 = v20;
   }
 
-LABEL_17:
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7033,7 +6717,7 @@ __CFString *eapfast_copy_packet_description(unsigned __int8 *a1, _BYTE *a2)
     {
       if ((a1[5] & 0x20) != 0 && v13 >= 5 && *v12 == 1024)
       {
-        v17 = bswap32(v12[1]) >> 16;
+        v17 = bswap32(*(v12 + 1)) >> 16;
         CFStringAppendFormat(v7, 0, @"Authority ID Data Length %d ID ", v17);
         if (v13 - 4 < v17)
         {
@@ -7041,7 +6725,7 @@ __CFString *eapfast_copy_packet_description(unsigned __int8 *a1, _BYTE *a2)
           LODWORD(v17) = v13 - 4;
         }
 
-        print_bytes_cfstr(v7, (v12 + 2), v17);
+        print_bytes_cfstr(v7, (v12 + 4), v17);
         CFStringAppendFormat(v7, 0, @"\n");
       }
 
@@ -7069,23 +6753,23 @@ __CFString *eapfast_copy_packet_description(unsigned __int8 *a1, _BYTE *a2)
   return v7;
 }
 
-_BYTE *eapfast_tunnel(uint64_t *a1, uint64_t a2)
+_BYTE *eapfast_tunnel(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = *a1;
-  if (!eapfast_eap())
+  v9 = *a1;
+  if (!eapfast_eap(a1, a3, a3, a4, a5, a6, a7, a8))
   {
     return 0;
   }
 
-  v4 = *(a2 + 1);
-  v5 = *(v3 + 128);
+  v10 = *(a2 + 1);
+  v11 = *(v9 + 128);
 
-  return EAPTLSPacketCreate2(2, 43, v4, v5, (v3 + 48), (v3 + 80), 0);
+  return EAPTLSPacketCreate2(2, 43, v10, v11, (v9 + 48), (v9 + 80), 0);
 }
 
 _BYTE *eapfast_handshake(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   v7 = *a1 + 0x8000;
   if (*(*a1 + 33406) == 1 && (*(*a1 + 33276) & 1) == 0)
@@ -7093,7 +6777,7 @@ _BYTE *eapfast_handshake(uint64_t a1, uint64_t a2, _DWORD *a3)
     v8 = eapfast_verify_server(a1, *(a2 + 1), a3);
     if (!*(v7 + 508))
     {
-      goto LABEL_44;
+      return v8;
     }
   }
 
@@ -7116,7 +6800,7 @@ _BYTE *eapfast_handshake(uint64_t a1, uint64_t a2, _DWORD *a3)
     v8 = eapfast_verify_server(a1, *(a2 + 1), a3);
     if (!*(v7 + 508))
     {
-      goto LABEL_44;
+      return v8;
     }
 
     v9 = SSLHandshake(*v6);
@@ -7127,36 +6811,35 @@ LABEL_11:
 LABEL_39:
       if (*(v6 + 6))
       {
-        v43 = *(v6 + 32);
-        v44 = (v6 + 48);
-        v45 = (v6 + 80);
+        v41 = *(v6 + 32);
+        v42 = (v6 + 48);
+        v43 = (v6 + 80);
       }
 
       else
       {
+        v41 = 0;
+        v42 = 0;
         v43 = 0;
-        v44 = 0;
-        v45 = 0;
       }
 
-      v46 = EAPTLSPacketCreate(2, 43, *(a2 + 1), v43, v44, v45);
-      goto LABEL_43;
+      return EAPTLSPacketCreate(2, 43, *(a2 + 1), v41, v42, v43);
     }
 
     if (v9)
     {
       LogHandle = EAPLogGetLogHandle();
-      v17 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(LogHandle, v17))
+      v16 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(LogHandle, v16))
       {
         *buf = 136315394;
-        v73 = EAPSSLErrorString(v13);
-        v74 = 1024;
-        v75 = v13;
-        v19 = "SSLHandshake failed, %s (%d)";
-        v20 = buf;
+        v74 = EAPSSLErrorString(v13);
+        v75 = 1024;
+        v76 = v13;
+        v18 = "SSLHandshake failed, %s (%d)";
+        v19 = buf;
 LABEL_29:
-        _os_log_impl(&dword_249EFB000, LogHandle, v17, v19, v20, 0x12u);
+        _os_log_impl(&dword_249EFB000, LogHandle, v16, v18, v19, 0x12u);
       }
     }
 
@@ -7173,7 +6856,7 @@ LABEL_29:
           v11 = _SC_syslog_os_log_mapping();
           if (!os_log_type_enabled(v10, v11))
           {
-            goto LABEL_44;
+            return v8;
           }
 
           *buf = 0;
@@ -7182,127 +6865,120 @@ LABEL_29:
         }
       }
 
-      v64 = 0;
       v65 = 0;
-      v62 = 64;
-      LODWORD(v13) = ssl_get_server_client_random(*v6, v70, &v62);
+      v66 = 0;
+      v63 = 64;
+      LODWORD(v13) = ssl_get_server_client_random(*v6, v71, &v63);
       if (v13)
       {
         goto LABEL_30;
       }
 
-      v63 = 48;
-      v14 = *v6;
-      v15 = SSLInternalMasterSecret();
-      if (v15)
+      v64 = 48;
+      v14 = SSLInternalMasterSecret();
+      if (v14)
       {
-        v13 = v15;
+        v13 = v14;
         LogHandle = EAPLogGetLogHandle();
-        v17 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(LogHandle, v17))
+        v16 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(LogHandle, v16))
         {
-          v18 = EAPSSLErrorString(v13);
-          *v66 = 136315394;
-          v67 = v18;
-          v68 = 1024;
-          v69 = v13;
-          v19 = "SSLInternalMasterSecret failed, %s (%d)";
+          v17 = EAPSSLErrorString(v13);
+          *v67 = 136315394;
+          v68 = v17;
+          v69 = 1024;
+          v70 = v13;
+          v18 = "SSLInternalMasterSecret failed, %s (%d)";
 LABEL_28:
-          v20 = v66;
+          v19 = v67;
           goto LABEL_29;
         }
       }
 
       else
       {
-        v21 = *v6;
-        v22 = SSLGetCipherSizes();
-        if (!v22)
+        v20 = SSLGetCipherSizes();
+        if (!v20)
         {
-          v49 = 2 * (v65 + v64);
-          if ((v49 + 72) < 0x101)
+          v46 = 2 * (v66 + v65);
+          if ((v46 + 72) < 0x101)
           {
-            v50 = buf;
+            v47 = buf;
           }
 
           else
           {
-            v50 = malloc_type_malloc(v49 + 72, 0x100004077774924uLL);
+            v47 = malloc_type_malloc(v46 + 72, 0x100004077774924uLL);
           }
 
-          v51 = *v6;
           v13 = SSLInternal_PRF();
           if (v13)
           {
-            v52 = EAPLogGetLogHandle();
-            v53 = _SC_syslog_os_log_mapping();
-            log = v52;
-            v54 = v52;
-            v55 = v53;
-            if (os_log_type_enabled(v54, v53))
+            v48 = EAPLogGetLogHandle();
+            v49 = _SC_syslog_os_log_mapping();
+            log = v48;
+            v50 = v48;
+            v51 = v49;
+            if (os_log_type_enabled(v50, v49))
             {
-              v56 = EAPSSLErrorString(v13);
-              *v66 = 136315394;
-              v67 = v56;
-              v68 = 1024;
-              v69 = v13;
-              _os_log_impl(&dword_249EFB000, log, v55, "SSLInternal_PRF failed, %s (%d)\n", v66, 0x12u);
+              v52 = EAPSSLErrorString(v13);
+              *v67 = 136315394;
+              v68 = v52;
+              v69 = 1024;
+              v70 = v13;
+              _os_log_impl(&dword_249EFB000, log, v51, "SSLInternal_PRF failed, %s (%d)\n", v67, 0x12u);
             }
           }
 
           else
           {
-            v57 = &v50[v49];
-            v58 = *v57;
-            v59 = *(v57 + 1);
-            *(v6 + 33501) = *(v57 + 4);
-            *(v6 + 33469) = v58;
-            *(v6 + 33485) = v59;
-            *(v6 + 33509) = *&v50[v49 + 40];
-            *(v6 + 33525) = *(v57 + 56);
+            v53 = &v47[v46];
+            v54 = *v53;
+            v55 = *(v53 + 1);
+            *(v6 + 33501) = *(v53 + 4);
+            *(v6 + 33469) = v54;
+            *(v6 + 33485) = v55;
+            *(v6 + 33509) = *&v47[v46 + 40];
+            *(v6 + 33525) = *(v53 + 56);
           }
 
-          if (v50 && v50 != buf)
+          if (v47 && v47 != buf)
           {
-            free(v50);
+            free(v47);
           }
 
           if (!v13)
           {
             *(v6 + 144) = 1;
-            v70[0] = 32;
-            LOBYTE(v71) = 0;
-            v60 = *v6;
+            v71[0] = 32;
+            LOBYTE(v72) = 0;
             if (!SSLGetResumableSessionInfo())
             {
-              *(v7 + 684) = v71 != 0;
+              *(v7 + 684) = v72 != 0;
             }
 
-            if (!eapfast_eap())
+            if (!eapfast_eap(a1, a3, v56, v57, v58, v59, v60, v61))
             {
-              goto LABEL_44;
+              return v8;
             }
 
-            v46 = EAPTLSPacketCreate2(2, 43, *(a2 + 1), *(v6 + 32), v6 + 6, v6 + 20, 0);
-LABEL_43:
-            v8 = v46;
-            goto LABEL_44;
+            return EAPTLSPacketCreate2(2, 43, *(a2 + 1), *(v6 + 32), v6 + 6, v6 + 20, 0);
           }
 
           goto LABEL_30;
         }
 
-        v13 = v22;
+        v13 = v20;
         LogHandle = EAPLogGetLogHandle();
-        v17 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(LogHandle, v17))
+        v16 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(LogHandle, v16))
         {
-          v23 = EAPSSLErrorString(v13);
-          *v66 = 136315394;
-          v67 = v23;
-          v68 = 1024;
-          v69 = v13;
-          v19 = "SSLGetCipherSizes failed, %s (%d)";
+          v21 = EAPSSLErrorString(v13);
+          *v67 = 136315394;
+          v68 = v21;
+          v69 = 1024;
+          v70 = v13;
+          v18 = "SSLGetCipherSizes failed, %s (%d)";
           goto LABEL_28;
         }
       }
@@ -7316,54 +6992,54 @@ LABEL_30:
     SSLClose(*v6);
     if (v13 == -9825)
     {
-      v24 = *(v7 + 688);
-      if (v24)
+      v22 = *(v7 + 688);
+      if (v22)
       {
-        v25 = *(a1 + 40);
-        v26 = *(a1 + 48);
-        v71 = 0;
-        Value = CFDictionaryGetValue(v24, @"PACKeyKeychainItemID");
-        v28 = CFDictionaryGetValue(v24, @"AuthorityID");
-        v29 = pac_list_copy();
-        v70[0] = v29;
-        if (v29)
+        v23 = *(a1 + 40);
+        v24 = *(a1 + 48);
+        v72 = 0;
+        Value = CFDictionaryGetValue(v22, @"PACKeyKeychainItemID");
+        v26 = CFDictionaryGetValue(v22, @"AuthorityID");
+        v27 = pac_list_copy();
+        v71[0] = v27;
+        if (v27)
         {
-          v30 = v29;
-          BytePtr = CFDataGetBytePtr(v28);
-          Length = CFDataGetLength(v28);
-          pac = pac_list_find_pac(v30, BytePtr, Length, v25, v26);
+          v28 = v27;
+          BytePtr = CFDataGetBytePtr(v26);
+          Length = CFDataGetLength(v26);
+          pac = pac_list_find_pac(v28, BytePtr, Length, v23, v24);
           if (pac != -1)
           {
-            v34 = pac;
-            MutableCopy = CFArrayCreateMutableCopy(0, 0, v30);
-            v71 = MutableCopy;
-            CFArrayRemoveValueAtIndex(MutableCopy, v34);
-            v36 = EAPSecKeychainPasswordItemRemove(0, Value);
-            if (v36)
+            v32 = pac;
+            MutableCopy = CFArrayCreateMutableCopy(0, 0, v28);
+            v72 = MutableCopy;
+            CFArrayRemoveValueAtIndex(MutableCopy, v32);
+            v34 = EAPSecKeychainPasswordItemRemove(0, Value);
+            if (v34)
             {
-              v37 = v36;
-              v38 = EAPLogGetLogHandle();
-              v39 = _SC_syslog_os_log_mapping();
-              if (os_log_type_enabled(v38, v39))
+              v35 = v34;
+              v36 = EAPLogGetLogHandle();
+              v37 = _SC_syslog_os_log_mapping();
+              if (os_log_type_enabled(v36, v37))
               {
-                v40 = EAPSecurityErrorString(v37);
+                v38 = EAPSecurityErrorString(v35);
                 *buf = 136315394;
-                v73 = v40;
-                v74 = 1024;
-                v75 = v37;
-                _os_log_impl(&dword_249EFB000, v38, v39, "EAP-FAST: EAPSecKeychainPasswordItemRemove failed, %s (%d)", buf, 0x12u);
+                v74 = v38;
+                v75 = 1024;
+                v76 = v35;
+                _os_log_impl(&dword_249EFB000, v36, v37, "EAP-FAST: EAPSecKeychainPasswordItemRemove failed, %s (%d)", buf, 0x12u);
               }
             }
 
-            v41 = *MEMORY[0x277CBF040];
-            v42 = *MEMORY[0x277CBF010];
+            v39 = *MEMORY[0x277CBF040];
+            v40 = *MEMORY[0x277CBF010];
             CFPreferencesSetValue(@"PACList", MutableCopy, @"com.apple.network.eapclient.eapfast", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-            my_CFRelease(&v71);
-            CFPreferencesSynchronize(@"com.apple.network.eapclient.eapfast", v41, v42);
+            my_CFRelease(&v72);
+            CFPreferencesSynchronize(@"com.apple.network.eapclient.eapfast", v39, v40);
           }
         }
 
-        my_CFRelease(v70);
+        my_CFRelease(v71);
       }
     }
 
@@ -7380,14 +7056,12 @@ LABEL_8:
     _os_log_impl(&dword_249EFB000, v10, v11, v12, buf, 2u);
   }
 
-LABEL_44:
-  v47 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void make_error(uint64_t a1, unsigned int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 12);
   if (*(a1 + 8) - v3 <= 7)
   {
@@ -7396,19 +7070,19 @@ void make_error(uint64_t a1, unsigned int a2)
     if (os_log_type_enabled(LogHandle, v6))
     {
       v7 = *(a1 + 8) - *(a1 + 12);
-      v11[0] = 67109376;
-      v11[1] = 8;
-      v12 = 1024;
-      v13 = v7;
-      _os_log_impl(&dword_249EFB000, LogHandle, v6, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v11, 0xEu);
+      v10[0] = 67109376;
+      v10[1] = 8;
+      v11 = 1024;
+      v12 = v7;
+      _os_log_impl(&dword_249EFB000, LogHandle, v6, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v10, 0xEu);
     }
 
     v8 = EAPLogGetLogHandle();
     v9 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v8, v9))
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_249EFB000, v8, v9, "EAP-FAST: make_error(): buffer too small", v11, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_249EFB000, v8, v9, "EAP-FAST: make_error(): buffer too small", v10, 2u);
     }
   }
 
@@ -7419,13 +7093,11 @@ void make_error(uint64_t a1, unsigned int a2)
     *v4 = 67110272;
     v4[1] = bswap32(a2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void make_nak(uint64_t a1, _WORD *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 12);
   if (*(a1 + 8) - v3 <= 9)
   {
@@ -7434,19 +7106,19 @@ void make_nak(uint64_t a1, _WORD *a2)
     if (os_log_type_enabled(LogHandle, v6))
     {
       v7 = *(a1 + 8) - *(a1 + 12);
-      v11[0] = 67109376;
-      v11[1] = 10;
-      v12 = 1024;
-      v13 = v7;
-      _os_log_impl(&dword_249EFB000, LogHandle, v6, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v11, 0xEu);
+      v10[0] = 67109376;
+      v10[1] = 10;
+      v11 = 1024;
+      v12 = v7;
+      _os_log_impl(&dword_249EFB000, LogHandle, v6, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v10, 0xEu);
     }
 
     v8 = EAPLogGetLogHandle();
     v9 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v8, v9))
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_249EFB000, v8, v9, "EAP-FAST: make_nak(): buffer too small", v11, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_249EFB000, v8, v9, "EAP-FAST: make_nak(): buffer too small", v10, 2u);
     }
   }
 
@@ -7458,13 +7130,11 @@ void make_nak(uint64_t a1, _WORD *a2)
     *(v4 + 8) = *a2 & 0xFF3F;
     *(v4 + 4) = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void make_intermediate_result(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 12);
   if (*(a1 + 8) - v2 <= 5)
   {
@@ -7473,19 +7143,19 @@ void make_intermediate_result(uint64_t a1)
     if (os_log_type_enabled(LogHandle, v5))
     {
       v6 = *(a1 + 8) - *(a1 + 12);
-      v10[0] = 67109376;
-      v10[1] = 6;
-      v11 = 1024;
-      v12 = v6;
-      _os_log_impl(&dword_249EFB000, LogHandle, v5, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = 6;
+      v10 = 1024;
+      v11 = v6;
+      _os_log_impl(&dword_249EFB000, LogHandle, v5, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v9, 0xEu);
     }
 
     v7 = EAPLogGetLogHandle();
     v8 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v7, v8))
     {
-      LOWORD(v10[0]) = 0;
-      _os_log_impl(&dword_249EFB000, v7, v8, "EAP-FAST: make_intermediate_result(): buffer too small", v10, 2u);
+      LOWORD(v9[0]) = 0;
+      _os_log_impl(&dword_249EFB000, v7, v8, "EAP-FAST: make_intermediate_result(): buffer too small", v9, 2u);
     }
   }
 
@@ -7496,197 +7166,22 @@ void make_intermediate_result(uint64_t a1)
     *v3 = 33557120;
     *(v3 + 4) = 256;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 BOOL process_crypto_binding(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v35 = 0;
-  if ((*(a3 + 8) - *(a3 + 12)) > 0x3B)
+  v42 = *MEMORY[0x277D85DE8];
+  v34 = 0;
+  if ((*(a3 + 8) - *(a3 + 12)) <= 0x3B)
   {
-    if (*(a2 + 5) != 1)
+    LogHandle = EAPLogGetLogHandle();
+    v5 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(LogHandle, v5);
+    if (!result)
     {
-      LogHandle = EAPLogGetLogHandle();
-      v16 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(LogHandle, v16);
-      if (!result)
-      {
-        goto LABEL_16;
-      }
-
-      v18 = *(a2 + 5);
-      *buf = 67109376;
-      *&buf[4] = v18;
-      *&buf[8] = 1024;
-      *&buf[10] = 1;
-      v8 = "EAP-FAST: process_crypto_binding version is %d != %d";
-LABEL_11:
-      v9 = buf;
-      v10 = LogHandle;
-      v11 = v16;
-      goto LABEL_14;
+      return result;
     }
 
-    if (*(a2 + 6) != *(a1 + 133))
-    {
-      v19 = EAPLogGetLogHandle();
-      v20 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(v19, v20);
-      if (!result)
-      {
-        goto LABEL_16;
-      }
-
-      v21 = *(a2 + 6);
-      v22 = *(a1 + 133);
-      *buf = 67109376;
-      *&buf[4] = v21;
-      *&buf[8] = 1024;
-      *&buf[10] = v22;
-      v8 = "EAP-FAST: process_crypto_binding received_version is %d != %d";
-      v9 = buf;
-      v10 = v19;
-      v11 = v20;
-LABEL_14:
-      v12 = 14;
-      goto LABEL_15;
-    }
-
-    if (*(a2 + 7))
-    {
-      LogHandle = EAPLogGetLogHandle();
-      v16 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(LogHandle, v16);
-      if (!result)
-      {
-        goto LABEL_16;
-      }
-
-      v17 = *(a2 + 7);
-      *buf = 67109376;
-      *&buf[4] = v17;
-      *&buf[8] = 1024;
-      *&buf[10] = 0;
-      v8 = "EAP-FAST: process_crypto_binding sub_type %d != %d";
-      goto LABEL_11;
-    }
-
-    v24 = EAPClientModulePluginSessionKey(*(a1 + 152), a1 + 160, &v35);
-    if (v24)
-    {
-      v25 = v35;
-      if (v35 < 0x21)
-      {
-        __memcpy_chk();
-        if (v25 != 32)
-        {
-          bzero(&v36 + v25, 32 - v25);
-        }
-      }
-
-      else
-      {
-        v35 = 32;
-        v26 = v24[1];
-        v36 = *v24;
-        v37 = v26;
-      }
-    }
-
-    else
-    {
-      if (*(a1 + 33467) == 1)
-      {
-        v27 = EAPLogGetLogHandle();
-        v28 = _SC_syslog_os_log_mapping();
-        result = os_log_type_enabled(v27, v28);
-        if (!result)
-        {
-          goto LABEL_16;
-        }
-
-        *buf = 0;
-        v8 = "EAP-FAST: anonymous PAC provisioning requires MSCHAPv2 - possible malicious server";
-        v9 = buf;
-        goto LABEL_34;
-      }
-
-      v36 = 0u;
-      v37 = 0u;
-    }
-
-    T_PRF((a1 + 33469), 40, "Inner Methods Compound Keys", 0x1Bu, &v36, 32, buf, 60);
-    v29 = *a3 + *(a3 + 12);
-    v30 = *a2;
-    v31 = a2[1];
-    *(v29 + 32) = *(a2 + 4);
-    *v29 = v30;
-    *(v29 + 16) = v31;
-    *(v29 + 40) = 0;
-    *(v29 + 48) = 0;
-    *(v29 + 56) = 0;
-    CCHmac(0, v40, 0x14uLL, v29, 0x3CuLL, &macOut);
-    if (cc_cmp_safe())
-    {
-      v27 = EAPLogGetLogHandle();
-      v28 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(v27, v28);
-      if (!result)
-      {
-        goto LABEL_16;
-      }
-
-      v34 = 0;
-      v8 = "EAP-FAST: process_crypto_binding Compound MAC is incorrect";
-    }
-
-    else
-    {
-      *v29 = 939527296;
-      *(v29 + 6) = *(a1 + 134);
-      *(v29 + 39) |= 1u;
-      *(v29 + 7) = 1;
-      CCHmac(0, v40, 0x14uLL, v29, 0x3CuLL, &macOut);
-      v32 = macOut;
-      *(v29 + 56) = v42;
-      *(v29 + 40) = v32;
-      if (BufferAdvanceWritePtr(a3, 60))
-      {
-        v33 = *&buf[16];
-        *(a1 + 33469) = *buf;
-        *(a1 + 33485) = v33;
-        *(a1 + 33501) = v39;
-        result = 1;
-        goto LABEL_16;
-      }
-
-      v27 = EAPLogGetLogHandle();
-      v28 = _SC_syslog_os_log_mapping();
-      result = os_log_type_enabled(v27, v28);
-      if (!result)
-      {
-        goto LABEL_16;
-      }
-
-      v34 = 0;
-      v8 = "EAP-FAST: process_crypto_binding: buffer too small";
-    }
-
-    v9 = &v34;
-LABEL_34:
-    v10 = v27;
-    v11 = v28;
-    v12 = 2;
-    goto LABEL_15;
-  }
-
-  v4 = EAPLogGetLogHandle();
-  v5 = _SC_syslog_os_log_mapping();
-  result = os_log_type_enabled(v4, v5);
-  if (result)
-  {
     v7 = *(a3 + 8) - *(a3 + 12);
     *buf = 67109376;
     *&buf[4] = v7;
@@ -7694,16 +7189,185 @@ LABEL_34:
     *&buf[10] = 60;
     v8 = "EAP-FAST: process_crypto_binding: buffer too small %d < %ld";
     v9 = buf;
-    v10 = v4;
+    v10 = LogHandle;
     v11 = v5;
     v12 = 18;
-LABEL_15:
-    _os_log_impl(&dword_249EFB000, v10, v11, v8, v9, v12);
-    result = 0;
+    goto LABEL_15;
   }
 
-LABEL_16:
-  v23 = *MEMORY[0x277D85DE8];
+  if (*(a2 + 5) != 1)
+  {
+    v15 = EAPLogGetLogHandle();
+    v16 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v15, v16);
+    if (!result)
+    {
+      return result;
+    }
+
+    v18 = *(a2 + 5);
+    *buf = 67109376;
+    *&buf[4] = v18;
+    *&buf[8] = 1024;
+    *&buf[10] = 1;
+    v8 = "EAP-FAST: process_crypto_binding version is %d != %d";
+    goto LABEL_11;
+  }
+
+  if (*(a2 + 6) != *(a1 + 133))
+  {
+    v19 = EAPLogGetLogHandle();
+    v20 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v19, v20);
+    if (!result)
+    {
+      return result;
+    }
+
+    v21 = *(a2 + 6);
+    v22 = *(a1 + 133);
+    *buf = 67109376;
+    *&buf[4] = v21;
+    *&buf[8] = 1024;
+    *&buf[10] = v22;
+    v8 = "EAP-FAST: process_crypto_binding received_version is %d != %d";
+    v9 = buf;
+    v10 = v19;
+    v11 = v20;
+    goto LABEL_14;
+  }
+
+  if (*(a2 + 7))
+  {
+    v15 = EAPLogGetLogHandle();
+    v16 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v15, v16);
+    if (!result)
+    {
+      return result;
+    }
+
+    v17 = *(a2 + 7);
+    *buf = 67109376;
+    *&buf[4] = v17;
+    *&buf[8] = 1024;
+    *&buf[10] = 0;
+    v8 = "EAP-FAST: process_crypto_binding sub_type %d != %d";
+LABEL_11:
+    v9 = buf;
+    v10 = v15;
+    v11 = v16;
+LABEL_14:
+    v12 = 14;
+LABEL_15:
+    _os_log_impl(&dword_249EFB000, v10, v11, v8, v9, v12);
+    return 0;
+  }
+
+  v23 = EAPClientModulePluginSessionKey(*(a1 + 152), a1 + 160, &v34);
+  if (v23)
+  {
+    v24 = v34;
+    if (v34 < 0x21)
+    {
+      __memcpy_chk();
+      if (v24 != 32)
+      {
+        bzero(&v35 + v24, 32 - v24);
+      }
+    }
+
+    else
+    {
+      v34 = 32;
+      v25 = v23[1];
+      v35 = *v23;
+      v36 = v25;
+    }
+  }
+
+  else
+  {
+    if (*(a1 + 33467) == 1)
+    {
+      v26 = EAPLogGetLogHandle();
+      v27 = _SC_syslog_os_log_mapping();
+      result = os_log_type_enabled(v26, v27);
+      if (result)
+      {
+        *buf = 0;
+        v8 = "EAP-FAST: anonymous PAC provisioning requires MSCHAPv2 - possible malicious server";
+        v9 = buf;
+LABEL_34:
+        v10 = v26;
+        v11 = v27;
+        v12 = 2;
+        goto LABEL_15;
+      }
+
+      return result;
+    }
+
+    v35 = 0u;
+    v36 = 0u;
+  }
+
+  T_PRF((a1 + 33469), 40, "Inner Methods Compound Keys", 0x1Bu, &v35, 32, buf, 60);
+  v28 = *a3 + *(a3 + 12);
+  v29 = *a2;
+  v30 = a2[1];
+  *(v28 + 32) = *(a2 + 4);
+  *v28 = v29;
+  *(v28 + 16) = v30;
+  *(v28 + 40) = 0;
+  *(v28 + 48) = 0;
+  *(v28 + 56) = 0;
+  CCHmac(0, v39, 0x14uLL, v28, 0x3CuLL, &macOut);
+  if (cc_cmp_safe())
+  {
+    v26 = EAPLogGetLogHandle();
+    v27 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v26, v27);
+    if (result)
+    {
+      v33 = 0;
+      v8 = "EAP-FAST: process_crypto_binding Compound MAC is incorrect";
+LABEL_33:
+      v9 = &v33;
+      goto LABEL_34;
+    }
+  }
+
+  else
+  {
+    *v28 = 939527296;
+    *(v28 + 6) = *(a1 + 134);
+    *(v28 + 39) |= 1u;
+    *(v28 + 7) = 1;
+    CCHmac(0, v39, 0x14uLL, v28, 0x3CuLL, &macOut);
+    v31 = macOut;
+    *(v28 + 56) = v41;
+    *(v28 + 40) = v31;
+    if (BufferAdvanceWritePtr(a3, 60))
+    {
+      v32 = *&buf[16];
+      *(a1 + 33469) = *buf;
+      *(a1 + 33485) = v32;
+      *(a1 + 33501) = v38;
+      return 1;
+    }
+
+    v26 = EAPLogGetLogHandle();
+    v27 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(v26, v27);
+    if (result)
+    {
+      v33 = 0;
+      v8 = "EAP-FAST: process_crypto_binding: buffer too small";
+      goto LABEL_33;
+    }
+  }
+
   return result;
 }
 
@@ -7716,7 +7380,7 @@ void eapfast_compute_session_key(uint64_t a1)
 
 void make_pac_request(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 12);
   if (*(a1 + 8) - v2 <= 9)
   {
@@ -7725,19 +7389,19 @@ void make_pac_request(uint64_t a1)
     if (os_log_type_enabled(LogHandle, v5))
     {
       v6 = *(a1 + 8) - *(a1 + 12);
-      v10[0] = 67109376;
-      v10[1] = 10;
-      v11 = 1024;
-      v12 = v6;
-      _os_log_impl(&dword_249EFB000, LogHandle, v5, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = 10;
+      v10 = 1024;
+      v11 = v6;
+      _os_log_impl(&dword_249EFB000, LogHandle, v5, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v9, 0xEu);
     }
 
     v7 = EAPLogGetLogHandle();
     v8 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v7, v8))
     {
-      LOWORD(v10[0]) = 0;
-      _os_log_impl(&dword_249EFB000, v7, v8, "EAP-FAST: make_pac_request(): buffer too small", v10, 2u);
+      LOWORD(v9[0]) = 0;
+      _os_log_impl(&dword_249EFB000, v7, v8, "EAP-FAST: make_pac_request(): buffer too small", v9, 2u);
     }
   }
 
@@ -7748,13 +7412,11 @@ void make_pac_request(uint64_t a1)
     *v3 = 0x2000A0006000B00;
     *(v3 + 8) = 256;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 BOOL BufferAdvanceWritePtr(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 12);
   v5 = *(a1 + 8) - v4;
   if (v5 < a2)
@@ -7764,11 +7426,11 @@ BOOL BufferAdvanceWritePtr(uint64_t a1, int a2)
     if (os_log_type_enabled(LogHandle, v7))
     {
       v8 = *(a1 + 8) - *(a1 + 12);
-      v11[0] = 67109376;
-      v11[1] = a2;
-      v12 = 1024;
-      v13 = v8;
-      _os_log_impl(&dword_249EFB000, LogHandle, v7, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v11, 0xEu);
+      v10[0] = 67109376;
+      v10[1] = a2;
+      v11 = 1024;
+      v12 = v8;
+      _os_log_impl(&dword_249EFB000, LogHandle, v7, "EAP-FAST: BufferAdvanceWritePtr failed: %d > %d", v10, 0xEu);
     }
   }
 
@@ -7777,9 +7439,7 @@ BOOL BufferAdvanceWritePtr(uint64_t a1, int a2)
     *(a1 + 12) = v4 + a2;
   }
 
-  result = v5 >= a2;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 >= a2;
 }
 
 uint64_t peap_server_key(uint64_t *a1, _DWORD *a2)
@@ -7954,7 +7614,7 @@ __CFString *peap_copy_packet_description(unsigned __int8 *a1, _BYTE *a2)
     }
 
     CFStringAppendFormat(Mutable, 0, @"PEAP Version %d %s: Identifier %d Length %d Flags 0x%x%s", v9 & 7, v10, a1[1], v5, v9, v11);
-    v12 = (a1 + 6);
+    v12 = a1 + 6;
     v13 = (v5 - 6);
     v14 = a1[5];
     if ((v14 & 0x20) != 0)
@@ -7966,7 +7626,7 @@ __CFString *peap_copy_packet_description(unsigned __int8 *a1, _BYTE *a2)
     MessageLength = (v5 - 6);
     if ((v14 & 0x80) != 0 && v5 >= 0xA)
     {
-      v12 = (a1 + 10);
+      v12 = a1 + 10;
       v13 = (v5 - 10);
       MessageLength = EAPTLSLengthIncludedPacketGetMessageLength(a1);
       CFStringAppendFormat(v7, 0, @" length=%u", MessageLength);
@@ -8012,77 +7672,77 @@ __CFString *peap_copy_packet_description(unsigned __int8 *a1, _BYTE *a2)
   return v7;
 }
 
-_BYTE *peap_tunnel()
+_BYTE *peap_tunnel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v2 = v1;
-  v4 = v3;
-  v5 = v0;
-  v64 = *MEMORY[0x277D85DE8];
-  v6 = *v0;
-  v59 = 0;
-  v57 = 0;
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8, v72, v73, v74, v75);
+  v10 = v9;
+  v12 = v11;
+  v13 = v8;
+  v71 = *MEMORY[0x277D85DE8];
+  v14 = *v8;
+  v66 = 0;
+  v64 = 0;
   processed = 0;
-  v56 = 2048;
-  v7 = 2 * (*(v6 + 124) == 0);
-  if (*(v6 + 76) != *(v3 + 1))
+  v63 = 2048;
+  v15 = 2 * (*(v14 + 124) == 0);
+  if (*(v14 + 76) != *(v11 + 1))
   {
-    *(v6 + 24) = 0;
-    v8 = &v63[v7];
-    v11 = SSLRead(*v6, v8, 2048 - v7 * 2, &processed);
-    if (v11)
+    *(v14 + 24) = 0;
+    v16 = &v70[v15];
+    v19 = SSLRead(*v14, v16, 2048 - v15 * 2, &processed);
+    if (v19)
     {
-      v12 = v11;
+      v20 = v19;
       LogHandle = EAPLogGetLogHandle();
-      v14 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(LogHandle, v14))
+      v22 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(LogHandle, v22))
       {
-        v15 = EAPSSLErrorString(v12);
+        v23 = EAPSSLErrorString(v20);
         *buf = 136315394;
-        *v61 = v15;
-        *&v61[8] = 1024;
-        *&v61[10] = v12;
-        _os_log_impl(&dword_249EFB000, LogHandle, v14, "SSLRead failed, %s (%d)", buf, 0x12u);
+        *v68 = v23;
+        *&v68[8] = 1024;
+        *&v68[10] = v20;
+        _os_log_impl(&dword_249EFB000, LogHandle, v22, "SSLRead failed, %s (%d)", buf, 0x12u);
       }
 
-      *(v6 + 104) = 2;
-      *(v6 + 132) = v12;
-      goto LABEL_80;
+      *(v14 + 104) = 2;
+      *(v14 + 132) = v20;
+      return 0;
     }
 
-    if (!*(v6 + 124))
+    if (!*(v14 + 124))
     {
-      v19 = processed;
-      if (processed < 5 || *v8 != 1 || v8[4] != 33 || (Length = EAPPacketGetLength(&v63[v7]), v19 = processed, processed != Length))
+      v27 = processed;
+      if (processed < 5 || *v16 != 1 || v16[4] != 33 || (Length = EAPPacketGetLength(&v70[v15]), v27 = processed, processed != Length))
       {
-        v63[0] = *v4;
-        processed = v19 + 4;
-        v8 = v63;
-        EAPPacketSetLength(v63, (v19 + 4));
+        v70[0] = *v12;
+        processed = v27 + 4;
+        v16 = v70;
+        EAPPacketSetLength(v70, (v27 + 4));
       }
     }
 
-    if (*(v5 + 8))
+    if (*(v13 + 8))
     {
       Mutable = CFStringCreateMutable(0, 0);
-      IsValid = EAPPacketIsValid(v8, processed, Mutable);
+      IsValid = EAPPacketIsValid(v16, processed, Mutable);
       if (Mutable)
       {
-        v23 = EAPLogGetLogHandle();
-        v24 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v23, v24))
+        v31 = EAPLogGetLogHandle();
+        v32 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v31, v32))
         {
-          v25 = " Invalid";
+          v33 = " Invalid";
           if (IsValid)
           {
-            v25 = &unk_249F2FF71;
+            v33 = &unk_249F2FF71;
           }
 
           *buf = 136315394;
-          *v61 = v25;
-          *&v61[8] = 2112;
-          *&v61[10] = Mutable;
-          _os_log_impl(&dword_249EFB000, v23, v24, "PEAP Receive EAP Payload%s:\n%@", buf, 0x16u);
+          *v68 = v33;
+          *&v68[8] = 2112;
+          *&v68[10] = Mutable;
+          _os_log_impl(&dword_249EFB000, v31, v32, "PEAP Receive EAP Payload%s:\n%@", buf, 0x16u);
         }
 
         CFRelease(Mutable);
@@ -8094,106 +7754,106 @@ _BYTE *peap_tunnel()
       }
     }
 
-    else if (EAPPacketIsValid(v8, processed, 0))
+    else if (EAPPacketIsValid(v16, processed, 0))
     {
       goto LABEL_3;
     }
 
-    if (*(v5 + 8))
+    if (*(v13 + 8))
     {
-      goto LABEL_80;
+      return 0;
     }
 
-    v26 = EAPLogGetLogHandle();
-    v27 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v26, v27))
+    v34 = EAPLogGetLogHandle();
+    v35 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v34, v35))
     {
-      goto LABEL_80;
+      return 0;
     }
 
     *buf = 0;
-    v28 = "PEAP Receive EAP Payload Invalid";
-    v29 = v26;
-    v30 = v27;
-    v31 = 2;
+    v36 = "PEAP Receive EAP Payload Invalid";
+    v37 = v34;
+    v38 = v35;
+    v39 = 2;
     goto LABEL_69;
   }
 
-  memoryBufferClear(v6 + 8);
-  v8 = *(v6 + 352);
-  if (!v8)
+  memoryBufferClear(v14 + 8);
+  v16 = *(v14 + 352);
+  if (!v16)
   {
-    goto LABEL_80;
+    return 0;
   }
 
 LABEL_3:
-  v9 = *v8;
-  if (v9 <= 2)
+  v17 = *v16;
+  if (v17 <= 2)
   {
-    if (v9 != 1)
+    if (v17 != 1)
     {
-      if (v9 != 2)
+      if (v17 != 2)
       {
-        goto LABEL_80;
+        return 0;
       }
 
       goto LABEL_6;
     }
 
-    v32 = v8[4];
-    if (v32 != 33)
+    v40 = v16[4];
+    if (v40 != 33)
     {
-      if (v32 == 2)
+      if (v40 == 2)
       {
-        v33 = v56;
-        v34 = v8[1];
-        v37 = 2;
-        v35 = 0;
-        v36 = 0;
+        v41 = v63;
+        v42 = v16[1];
+        v45 = 2;
+        v43 = 0;
+        v44 = 0;
       }
 
       else
       {
-        if (v32 != 1)
+        if (v40 != 1)
         {
 LABEL_6:
-          v10 = peap_eap_process(v5, v8, v62, &v56, v2, &v59);
+          v18 = peap_eap_process(v13, v16, v69, &v63, v10, &v66);
 LABEL_43:
-          v17 = v10;
+          v25 = v18;
           goto LABEL_44;
         }
 
-        v33 = v56;
-        v34 = v8[1];
-        v35 = *(v5 + 40);
-        v36 = *(v5 + 48);
-        v37 = 1;
+        v41 = v63;
+        v42 = v16[1];
+        v43 = *(v13 + 40);
+        v44 = *(v13 + 48);
+        v45 = 1;
       }
 
-      v10 = EAPPacketCreate(v62, v33, 2, v34, v37, v35, v36, &v56);
+      v18 = EAPPacketCreate(v69, v41, 2, v42, v45, v43, v44, &v63);
       goto LABEL_43;
     }
 
-    v48 = EAPPacketGetLength(v8);
-    if (v48 > 8)
+    v56 = EAPPacketGetLength(v16);
+    if (v56 > 8)
     {
-      if ((*(v8 + 5) & 0xFF3F) != 0x300)
+      if ((*(v16 + 5) & 0xFF3F) != 0x300)
       {
-        goto LABEL_80;
+        return 0;
       }
 
-      v52 = *(v8 + 9);
-      v53 = __rev16(v52);
-      if (v53 == 1 || v53 == 2)
+      v60 = *(v16 + 9);
+      v61 = __rev16(v60);
+      if (v61 == 1 || v61 == 2)
       {
-        *(v6 + 144) = v53;
+        *(v14 + 144) = v61;
       }
 
-      v17 = EAPPacketCreate(v62, v56, 2, v8[1], 33, 0, 6, &v56);
-      v18 = 0;
-      *(v17 + 5) = 33555328;
-      *(v17 + 9) = v52;
-      if (!v17)
+      v25 = EAPPacketCreate(v69, v63, 2, v16[1], 33, 0, 6, &v63);
+      v26 = 0;
+      *(v25 + 5) = 33555328;
+      *(v25 + 9) = v60;
+      if (!v25)
       {
         goto LABEL_75;
       }
@@ -8201,59 +7861,57 @@ LABEL_43:
       goto LABEL_45;
     }
 
-    v49 = v48;
-    v50 = EAPLogGetLogHandle();
-    v51 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v50, v51))
+    v57 = v56;
+    v58 = EAPLogGetLogHandle();
+    v59 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v58, v59))
     {
-      goto LABEL_80;
+      return 0;
     }
 
     *buf = 67109376;
-    *v61 = v49;
-    *&v61[4] = 2048;
-    *&v61[6] = 9;
-    v28 = "packet too short %d < %ld";
-    v29 = v50;
-    v30 = v51;
-    v31 = 18;
+    *v68 = v57;
+    *&v68[4] = 2048;
+    *&v68[6] = 9;
+    v36 = "packet too short %d < %ld";
+    v37 = v58;
+    v38 = v59;
+    v39 = 18;
 LABEL_69:
-    _os_log_impl(&dword_249EFB000, v29, v30, v28, buf, v31);
-    goto LABEL_80;
+    _os_log_impl(&dword_249EFB000, v37, v38, v36, buf, v39);
+    return 0;
   }
 
-  if (v9 == 3)
+  if (v17 == 3)
   {
-    v17 = peap_eap_process(v5, v8, v62, &v56, v2, &v59);
-    v18 = *(v6 + 124) == 1;
-    if (v17)
+    v25 = peap_eap_process(v13, v16, v69, &v63, v10, &v66);
+    v26 = *(v14 + 124) == 1;
+    if (v25)
     {
       goto LABEL_45;
     }
 
 LABEL_75:
-    if (v18)
+    if (v26)
     {
       goto LABEL_76;
     }
 
-LABEL_80:
-    result = 0;
-    goto LABEL_81;
+    return 0;
   }
 
-  if (v9 != 4)
+  if (v17 != 4)
   {
-    goto LABEL_80;
+    return 0;
   }
 
-  v16 = peap_eap_process(v5, v8, v62, &v56, v2, &v59);
-  v17 = v16;
-  if (*(v6 + 124) == 1)
+  v24 = peap_eap_process(v13, v16, v69, &v63, v10, &v66);
+  v25 = v24;
+  if (*(v14 + 124) == 1)
   {
-    *(v6 + 144) = 2;
-    v18 = 1;
-    if (v16)
+    *(v14 + 144) = 2;
+    v26 = 1;
+    if (v24)
     {
       goto LABEL_45;
     }
@@ -8262,49 +7920,49 @@ LABEL_80:
   }
 
 LABEL_44:
-  v18 = 0;
-  if (!v17)
+  v26 = 0;
+  if (!v25)
   {
     goto LABEL_75;
   }
 
 LABEL_45:
-  if (*(v5 + 8) == 1)
+  if (*(v13 + 8) == 1)
   {
-    v38 = CFStringCreateMutable(0, 0);
-    v39 = EAPPacketGetLength(v17);
-    EAPPacketIsValid(v17, v39, v38);
-    v40 = EAPLogGetLogHandle();
-    v41 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v40, v41))
+    v46 = CFStringCreateMutable(0, 0);
+    v47 = EAPPacketGetLength(v25);
+    EAPPacketIsValid(v25, v47, v46);
+    v48 = EAPLogGetLogHandle();
+    v49 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v48, v49))
     {
       *buf = 138412290;
-      *v61 = v38;
-      _os_log_impl(&dword_249EFB000, v40, v41, "PEAP Send EAP Payload:\n%@", buf, 0xCu);
+      *v68 = v46;
+      _os_log_impl(&dword_249EFB000, v48, v49, "PEAP Send EAP Payload:\n%@", buf, 0xCu);
     }
 
-    CFRelease(v38);
+    CFRelease(v46);
   }
 
-  v42 = v56;
-  if (!*(v6 + 124) && v56 >= 5 && *v17 == 2 && v17[4] == 33)
+  v50 = v63;
+  if (!*(v14 + 124) && v63 >= 5 && *v25 == 2 && v25[4] == 33)
   {
-    v7 = 0;
+    v15 = 0;
   }
 
-  v43 = *(v6 + 352);
-  if (v43 && v43 != (v6 + 360))
+  v51 = *(v14 + 352);
+  if (v51 && v51 != (v14 + 360))
   {
-    free(v43);
-    v42 = v56;
+    free(v51);
+    v50 = v63;
   }
 
-  *(v6 + 352) = 0;
-  v44 = SSLWrite(*v6, &v17[v7 * 2], (v42 - v7 * 2), &v57);
-  if (v17 == v62)
+  *(v14 + 352) = 0;
+  v52 = SSLWrite(*v14, &v25[v15 * 2], (v50 - v15 * 2), &v64);
+  if (v25 == v69)
   {
 LABEL_60:
-    if (!v44)
+    if (!v52)
     {
       goto LABEL_76;
     }
@@ -8312,59 +7970,57 @@ LABEL_60:
     goto LABEL_63;
   }
 
-  if (v59 == 1)
+  if (v66 == 1)
   {
-    EAPClientModulePluginFreePacket(*(v6 + 152), v6 + 160, v17);
+    EAPClientModulePluginFreePacket(*(v14 + 152), v14 + 160, v25);
     goto LABEL_60;
   }
 
-  free(v17);
-  if (!v44)
+  free(v25);
+  if (!v52)
   {
     goto LABEL_76;
   }
 
 LABEL_63:
-  v45 = EAPLogGetLogHandle();
-  v46 = _SC_syslog_os_log_mapping();
-  if (!os_log_type_enabled(v45, v46))
+  v53 = EAPLogGetLogHandle();
+  v54 = _SC_syslog_os_log_mapping();
+  if (!os_log_type_enabled(v53, v54))
   {
     goto LABEL_75;
   }
 
-  v47 = EAPSSLErrorString(v44);
+  v55 = EAPSSLErrorString(v52);
   *buf = 136315394;
-  *v61 = v47;
-  *&v61[8] = 2048;
-  *&v61[10] = v44;
-  _os_log_impl(&dword_249EFB000, v45, v46, "SSLWrite failed, %s (%ld)", buf, 0x16u);
-  if (!v18)
+  *v68 = v55;
+  *&v68[8] = 2048;
+  *&v68[10] = v52;
+  _os_log_impl(&dword_249EFB000, v53, v54, "SSLWrite failed, %s (%ld)", buf, 0x16u);
+  if (!v26)
   {
-    goto LABEL_80;
+    return 0;
   }
 
 LABEL_76:
-  result = EAPTLSPacketCreate2(2, 25, *(v4 + 1), *(v6 + 120), (v6 + 40), (v6 + 72), 0);
-  if (result && *(v6 + 40) && *(v6 + 128) == 1)
+  result = EAPTLSPacketCreate2(2, 25, *(v12 + 1), *(v14 + 120), (v14 + 40), (v14 + 72), 0);
+  if (result && *(v14 + 40) && *(v14 + 128) == 1)
   {
     result[5] |= 0x80u;
   }
 
-LABEL_81:
-  v55 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-_BYTE *peap_handshake(uint64_t *a1, char a2, _DWORD *a3)
+_BYTE *peap_handshake(uint64_t *a1, unsigned __int8 a2, _DWORD *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   if (*(*a1 + 1526) == 1 && (*(v6 + 1396) & 1) == 0)
   {
     v7 = peap_verify_server(a1, a2, a3);
     if (!*(v6 + 1396))
     {
-      goto LABEL_32;
+      return v7;
     }
   }
 
@@ -8387,7 +8043,7 @@ _BYTE *peap_handshake(uint64_t *a1, char a2, _DWORD *a3)
     v7 = peap_verify_server(a1, a2, a3);
     if (!*(v6 + 1396))
     {
-      goto LABEL_32;
+      return v7;
     }
 
     v8 = SSLHandshake(*v6);
@@ -8397,21 +8053,21 @@ LABEL_11:
     {
       if (!*(v6 + 40))
       {
-        goto LABEL_32;
+        return v7;
       }
     }
 
     else if (v8)
     {
       LogHandle = EAPLogGetLogHandle();
-      v20 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(LogHandle, v20))
+      v19 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(LogHandle, v19))
       {
         *buf = 136315394;
-        v29 = EAPSSLErrorString(v12);
-        v30 = 1024;
-        LODWORD(v31) = v12;
-        _os_log_impl(&dword_249EFB000, LogHandle, v20, "SSLHandshake failed, %s (%d)", buf, 0x12u);
+        v26 = EAPSSLErrorString(v12);
+        v27 = 1024;
+        LODWORD(v28) = v12;
+        _os_log_impl(&dword_249EFB000, LogHandle, v19, "SSLHandshake failed, %s (%d)", buf, 0x12u);
       }
 
       *(v6 + 132) = v12;
@@ -8423,16 +8079,14 @@ LABEL_11:
       {
         if (v12 != -9802)
         {
-          goto LABEL_32;
+          return v7;
         }
 
-        v21 = a2;
+        v20 = a2;
+        v21 = 0;
         v22 = 0;
         v23 = 0;
-        v24 = 0;
-LABEL_31:
-        v7 = EAPTLSPacketCreate(2, 25, v21, v22, v23, v24);
-        goto LABEL_32;
+        return EAPTLSPacketCreate(2, 25, v20, v21, v22, v23);
       }
     }
 
@@ -8450,7 +8104,7 @@ LABEL_31:
           v10 = _SC_syslog_os_log_mapping();
           if (!os_log_type_enabled(v9, v10))
           {
-            goto LABEL_32;
+            return v7;
           }
 
           *buf = 0;
@@ -8461,20 +8115,19 @@ LABEL_31:
 
       *(v6 + 140) = 1;
       *(v6 + 1397) = 0;
-      v14 = *v6;
-      v15 = EAPTLSComputeKeyData();
-      if (v15)
+      v14 = EAPTLSComputeKeyData(*v6, "client EAP encryption", 21, v6 + 1398, 128);
+      if (v14)
       {
-        v16 = v15;
-        v17 = EAPLogGetLogHandle();
-        v18 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v17, v18))
+        v15 = v14;
+        v16 = EAPLogGetLogHandle();
+        v17 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v16, v17))
         {
           *buf = 136315394;
-          v29 = EAPSSLErrorString(v16);
-          v30 = 2048;
-          v31 = v16;
-          _os_log_impl(&dword_249EFB000, v17, v18, "EAPTLSComputeSessionKey failed, %s, (%ld)", buf, 0x16u);
+          v26 = EAPSSLErrorString(v15);
+          v27 = 2048;
+          v28 = v15;
+          _os_log_impl(&dword_249EFB000, v16, v17, "EAPTLSComputeSessionKey failed, %s, (%ld)", buf, 0x16u);
         }
       }
 
@@ -8483,18 +8136,17 @@ LABEL_31:
         *(v6 + 1397) = 1;
       }
 
-      v25 = *v6;
       if (!SSLGetResumableSessionInfo())
       {
         *(v6 + 1537) = 0;
       }
     }
 
-    v22 = *(v6 + 120);
-    v21 = a2;
-    v23 = (v6 + 40);
-    v24 = (v6 + 72);
-    goto LABEL_31;
+    v21 = *(v6 + 120);
+    v20 = a2;
+    v22 = (v6 + 40);
+    v23 = (v6 + 72);
+    return EAPTLSPacketCreate(2, 25, v20, v21, v22, v23);
   }
 
   v9 = EAPLogGetLogHandle();
@@ -8507,8 +8159,6 @@ LABEL_8:
     _os_log_impl(&dword_249EFB000, v9, v10, v11, buf, 2u);
   }
 
-LABEL_32:
-  v26 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -8535,7 +8185,7 @@ void save_last_packet(uint64_t a1, const void *a2)
 
 NSObject *_SIMCopyIMSI(const __CFDictionary *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CC37B0]);
   if (v3)
@@ -8572,9 +8222,9 @@ LABEL_15:
       }
     }
 
-    v18 = 0;
-    v11 = [v3 copyMobileSubscriberIdentity:v7 error:&v18];
-    v12 = v18;
+    v17 = 0;
+    v11 = [v3 copyMobileSubscriberIdentity:v7 error:&v17];
+    v12 = v17;
     if (!v12)
     {
       v8 = v11;
@@ -8589,7 +8239,7 @@ LABEL_15:
     if (os_log_type_enabled(v13, v14))
     {
       *buf = 138412290;
-      v20 = v8;
+      v19 = v8;
       _os_log_impl(&dword_249EFB000, v13, v14, "CoreTelephonyClient.copyMobileSubscriberIdentity failed with error: %@", buf, 0xCu);
     }
 
@@ -8610,17 +8260,16 @@ LABEL_16:
 LABEL_17:
 
   objc_autoreleasePoolPop(v2);
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 id SubscriptionContextMatchingSlotGet(void *a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v32 = 0;
-  v4 = [a1 getSubscriptionInfoWithError:&v32];
-  v5 = v32;
+  v31 = 0;
+  v4 = [a1 getSubscriptionInfoWithError:&v31];
+  v5 = v31;
   if (v5)
   {
     v6 = EAPLogGetLogHandle();
@@ -8633,7 +8282,7 @@ LABEL_5:
     }
 
     *buf = 138412290;
-    v35 = v5;
+    v34 = v5;
     v8 = "CoreTelephonyClient.getSubscriptionInfoWithError failed with error: %@";
     v9 = v6;
     v10 = v7;
@@ -8645,12 +8294,12 @@ LABEL_4:
 
   if (!v4)
   {
-    v22 = [0 subscriptions];
-    if (!v22 || (v23 = v22, [0 subscriptions], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "count"), v24, v23, !v25))
+    v21 = [0 subscriptions];
+    if (!v21 || (v22 = v21, [0 subscriptions], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "count"), v23, v22, !v24))
     {
       v6 = EAPLogGetLogHandle();
-      v26 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v6, v26))
+      v25 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v6, v25))
       {
         goto LABEL_5;
       }
@@ -8658,35 +8307,35 @@ LABEL_4:
       *buf = 0;
       v8 = "failed to get the subscription contexts";
       v9 = v6;
-      v10 = v26;
+      v10 = v25;
       v11 = 2;
       goto LABEL_4;
     }
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v6 = [v4 subscriptions];
-  v12 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v12 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v12)
   {
-    v27 = v4;
-    v13 = *v29;
+    v26 = v4;
+    v13 = *v28;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v29 != v13)
+        if (*v28 != v13)
         {
           objc_enumerationMutation(v6);
         }
 
-        v15 = *(*(&v28 + 1) + 8 * i);
+        v15 = *(*(&v27 + 1) + 8 * i);
         if (v15)
         {
-          v16 = [*(*(&v28 + 1) + 8 * i) uuid];
+          v16 = [*(*(&v27 + 1) + 8 * i) uuid];
           if (v16)
           {
             v17 = v16;
@@ -8702,7 +8351,7 @@ LABEL_4:
         }
       }
 
-      v12 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v12 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (v12)
       {
         continue;
@@ -8712,22 +8361,20 @@ LABEL_4:
     }
 
 LABEL_19:
-    v4 = v27;
+    v4 = v26;
   }
 
 LABEL_20:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id SubscriptionContextUserPreferredGet(void *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v1 = [a1 getSubscriptionInfoWithError:&v28];
-  v2 = v28;
+  v31 = *MEMORY[0x277D85DE8];
+  v27 = 0;
+  v1 = [a1 getSubscriptionInfoWithError:&v27];
+  v2 = v27;
   if (v2)
   {
     v3 = EAPLogGetLogHandle();
@@ -8740,7 +8387,7 @@ LABEL_5:
     }
 
     *buf = 138412290;
-    v31 = v2;
+    v30 = v2;
     v5 = "CoreTelephonyClient.getSubscriptionInfoWithError failed with error: %@";
     v6 = v3;
     v7 = v4;
@@ -8752,12 +8399,12 @@ LABEL_4:
 
   if (!v1)
   {
-    v19 = [0 subscriptions];
-    if (!v19 || (v20 = v19, [0 subscriptions], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "count"), v21, v20, !v22))
+    v18 = [0 subscriptions];
+    if (!v18 || (v19 = v18, [0 subscriptions], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "count"), v20, v19, !v21))
     {
       v3 = EAPLogGetLogHandle();
-      v23 = _SC_syslog_os_log_mapping();
-      if (!os_log_type_enabled(v3, v23))
+      v22 = _SC_syslog_os_log_mapping();
+      if (!os_log_type_enabled(v3, v22))
       {
         goto LABEL_5;
       }
@@ -8765,50 +8412,50 @@ LABEL_4:
       *buf = 0;
       v5 = "failed to get the subscription contexts";
       v6 = v3;
-      v7 = v23;
+      v7 = v22;
       v8 = 2;
       goto LABEL_4;
     }
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v3 = [v1 subscriptions];
-  v9 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v9 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v9)
   {
-    v12 = *v25;
+    v11 = *v24;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v25 != v12)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v3);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
-        if (v14)
+        v13 = *(*(&v23 + 1) + 8 * i);
+        if (v13)
         {
-          v15 = [*(*(&v24 + 1) + 8 * i) userDataPreferred];
-          if (v15)
+          v14 = [*(*(&v23 + 1) + 8 * i) userDataPreferred];
+          if (v14)
           {
-            v16 = v15;
-            v17 = [v14 userDataPreferred];
-            v18 = [v17 BOOLValue];
+            v15 = v14;
+            v16 = [v13 userDataPreferred];
+            v17 = [v16 BOOLValue];
 
-            if (v18)
+            if (v17)
             {
-              v9 = v14;
+              v9 = v13;
               goto LABEL_6;
             }
           }
         }
       }
 
-      v9 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v9 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v9)
       {
         continue;
@@ -8820,14 +8467,12 @@ LABEL_4:
 
 LABEL_6:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 id _SIMCopyRealm(const __CFDictionary *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CC37B0]);
   if (!v3)
@@ -8884,9 +8529,9 @@ LABEL_15:
     }
   }
 
-  v24 = 0;
-  v11 = [v3 copyMobileSubscriberCountryCode:v7 error:&v24];
-  v12 = v24;
+  v23 = 0;
+  v11 = [v3 copyMobileSubscriberCountryCode:v7 error:&v23];
+  v12 = v23;
   if (v12)
   {
     v13 = v12;
@@ -8895,7 +8540,7 @@ LABEL_15:
     if (os_log_type_enabled(v14, v15))
     {
       *buf = 138412290;
-      v26 = v13;
+      v25 = v13;
       _os_log_impl(&dword_249EFB000, v14, v15, "CoreTelephonyClient.copyMobileSubscriberCountryCode failed with error: %@", buf, 0xCu);
     }
 
@@ -8903,18 +8548,18 @@ LABEL_15:
     goto LABEL_17;
   }
 
-  v23 = 0;
-  v16 = [v3 copyMobileSubscriberNetworkCode:v7 error:&v23];
-  v13 = v23;
+  v22 = 0;
+  v16 = [v3 copyMobileSubscriberNetworkCode:v7 error:&v22];
+  v13 = v22;
   if (v13)
   {
-    v20 = EAPLogGetLogHandle();
-    v21 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v20, v21))
+    v19 = EAPLogGetLogHandle();
+    v20 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v19, v20))
     {
       *buf = 138412290;
-      v26 = v13;
-      _os_log_impl(&dword_249EFB000, v20, v21, "CoreTelephonyClient.copyMobileSubscriberNetworkCode failed with error: %@", buf, 0xCu);
+      v25 = v13;
+      _os_log_impl(&dword_249EFB000, v19, v20, "CoreTelephonyClient.copyMobileSubscriberNetworkCode failed with error: %@", buf, 0xCu);
     }
 
     goto LABEL_17;
@@ -8924,9 +8569,9 @@ LABEL_15:
   {
     if ([v16 length] == 2)
     {
-      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"0%@", v16];
+      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"0%@", v16];
 
-      v16 = v22;
+      v16 = v21;
     }
 
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"wlan.mnc%@.mcc%@.3gppnetwork.org", v16, v11];
@@ -8941,13 +8586,12 @@ LABEL_15:
 LABEL_18:
 
   objc_autoreleasePoolPop(v2);
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 uint64_t _SIMIsOOBPseudonymSupported(BOOL *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   *a1 = 0;
   v3 = objc_alloc_init(MEMORY[0x277CC37B0]);
@@ -8985,9 +8629,9 @@ LABEL_11:
 
   v6 = v5;
   v7 = *MEMORY[0x277CC3A08];
-  v18 = 0;
-  v8 = [v4 context:v5 supportedIdentityProtectionFor:v7 error:&v18];
-  v9 = v18;
+  v17 = 0;
+  v8 = [v4 context:v5 supportedIdentityProtectionFor:v7 error:&v17];
+  v9 = v17;
   if (!v9)
   {
     *a1 = v8 == 2;
@@ -9002,7 +8646,7 @@ LABEL_11:
   if (os_log_type_enabled(v11, v12))
   {
     *buf = 138412290;
-    v20 = v10;
+    v19 = v10;
     _os_log_impl(&dword_249EFB000, v11, v12, "CoreTelephonyClient.supportedIdentityProtectionFor failed with error: %@", buf, 0xCu);
   }
 
@@ -9011,13 +8655,12 @@ LABEL_12:
 LABEL_13:
 
   objc_autoreleasePoolPop(v2);
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 NSObject *_SIMCopyOOBPseudonym()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
   v1 = objc_alloc_init(MEMORY[0x277CC37B0]);
   v2 = v1;
@@ -9054,9 +8697,9 @@ LABEL_11:
 
   v4 = v3;
   v5 = *MEMORY[0x277CC3A08];
-  v16 = 0;
-  v6 = [v2 context:v3 getPseudoIdentityFor:v5 error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [v2 context:v3 getPseudoIdentityFor:v5 error:&v15];
+  v7 = v15;
   if (!v7)
   {
     v6 = v6;
@@ -9071,7 +8714,7 @@ LABEL_11:
   if (os_log_type_enabled(v9, v10))
   {
     *buf = 138412290;
-    v18 = v8;
+    v17 = v8;
     _os_log_impl(&dword_249EFB000, v9, v10, "CoreTelephonyClient.getPseudoIdentityFor failed with error: %@", buf, 0xCu);
   }
 
@@ -9080,13 +8723,12 @@ LABEL_12:
 LABEL_13:
 
   objc_autoreleasePoolPop(v0);
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 NSObject *_SIMCopyEncryptedIMSIInfo(int a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CC37B0]);
   v4 = v3;
@@ -9155,7 +8797,7 @@ LABEL_22:
 
   v10 = [MEMORY[0x277CCACA8] stringWithFormat:v9, v7];
   v11 = v10;
-  v22 = v2;
+  v21 = v2;
   if (v8)
   {
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@@%@", v10, v8];
@@ -9167,9 +8809,9 @@ LABEL_22:
   }
 
   v16 = v12;
-  v23 = 0;
-  v13 = [v4 context:v6 getEncryptedIdentity:v12 error:&v23];
-  v17 = v23;
+  v22 = 0;
+  v13 = [v4 context:v6 getEncryptedIdentity:v12 error:&v22];
+  v17 = v22;
   if (v17)
   {
     v18 = EAPLogGetLogHandle();
@@ -9177,24 +8819,23 @@ LABEL_22:
     if (os_log_type_enabled(v18, v19))
     {
       *buf = 138412290;
-      v25 = v17;
+      v24 = v17;
       _os_log_impl(&dword_249EFB000, v18, v19, "CoreTelephonyClient.getEncryptedIdentity failed with error: %@", buf, 0xCu);
     }
 
-    v2 = v22;
+    v2 = v21;
     goto LABEL_21;
   }
 
 LABEL_23:
 
   objc_autoreleasePoolPop(v2);
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void _SIMReportDecryptionError(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CC37B0]);
   v4 = v3;
@@ -9204,10 +8845,10 @@ void _SIMReportDecryptionError(uint64_t a1)
     v10 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v8, v10))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v11 = "failed to get the CoreTelephonyClient instance";
 LABEL_10:
-      _os_log_impl(&dword_249EFB000, v8, v10, v11, &v13, 2u);
+      _os_log_impl(&dword_249EFB000, v8, v10, v11, &v12, 2u);
     }
 
 LABEL_11:
@@ -9225,7 +8866,7 @@ LABEL_12:
     v10 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v8, v10))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v11 = "failed to get the user preferred subscription context";
       goto LABEL_10;
     }
@@ -9241,9 +8882,9 @@ LABEL_12:
     v9 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v8, v9))
     {
-      v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_249EFB000, v8, v9, "CoreTelephonyClient.evaluateMobileSubscriberIdentity failed with error: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&dword_249EFB000, v8, v9, "CoreTelephonyClient.evaluateMobileSubscriberIdentity failed with error: %@", &v12, 0xCu);
     }
 
     goto LABEL_12;
@@ -9252,7 +8893,6 @@ LABEL_12:
 LABEL_13:
 
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _SIMCreateAuthResponse(uint64_t a1, uint64_t a2)
@@ -9360,11 +9000,11 @@ LABEL_19:
   return v19;
 }
 
-void sub_249F1A664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_249F1A664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9375,7 +9015,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t SIMAuthenticateGSM(const __CFDictionary *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t SIMAuthenticateGSM(const __CFDictionary *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5)
 {
   keys[3] = *MEMORY[0x277D85DE8];
   if (a1)
@@ -9396,18 +9036,18 @@ uint64_t SIMAuthenticateGSM(const __CFDictionary *a1, uint64_t a2, int a3, uint6
   if (a3 >= 1)
   {
     v8 = 0;
-    v33 = *MEMORY[0x277CC42C8];
+    v32 = *MEMORY[0x277CC42C8];
     v9 = *MEMORY[0x277CC42C0];
     v10 = *MEMORY[0x277CC4298];
     v11 = *MEMORY[0x277CC4290];
     key = *MEMORY[0x277CC4260];
     v12 = *MEMORY[0x277CC42B0];
-    v29 = *MEMORY[0x277CC4268];
-    v31 = a3;
+    v28 = *MEMORY[0x277CC4268];
+    v30 = a3;
     while (1)
     {
       v13 = CFDataCreate(0, (a2 + 16 * v8), 16);
-      keys[0] = v33;
+      keys[0] = v32;
       keys[1] = v10;
       values[0] = v9;
       values[1] = v13;
@@ -9448,14 +9088,14 @@ uint64_t SIMAuthenticateGSM(const __CFDictionary *a1, uint64_t a2, int a3, uint6
 LABEL_26:
 
         CFRelease(v17);
-        goto LABEL_30;
+        return 0;
       }
 
-      v38.location = 0;
-      v38.length = 8;
-      CFDataGetBytes(v19, v38, (a4 + 8 * v8));
+      v37.location = 0;
+      v37.length = 8;
+      CFDataGetBytes(v19, v37, (a4 + 8 * v8));
       v20 = CFDictionaryGetValue(v17, v12);
-      if (!v20 && (v20 = CFDictionaryGetValue(v17, v29)) == 0 || (v21 = v20, CFDataGetLength(v20) != 4))
+      if (!v20 && (v20 = CFDictionaryGetValue(v17, v28)) == 0 || (v21 = v20, CFDataGetLength(v20) != 4))
       {
         v23 = EAPLogGetLogHandle();
         v24 = _SC_syslog_os_log_mapping();
@@ -9470,14 +9110,13 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v39.location = 0;
-      v39.length = 4;
-      CFDataGetBytes(v21, v39, (a5 + 4 * v8));
+      v38.location = 0;
+      v38.length = 4;
+      CFDataGetBytes(v21, v38, (a5 + 4 * v8));
       CFRelease(v17);
-      if (++v8 == v31)
+      if (++v8 == v30)
       {
-        result = 1;
-        goto LABEL_31;
+        return 1;
       }
     }
 
@@ -9490,11 +9129,7 @@ LABEL_25:
     }
   }
 
-LABEL_30:
-  result = 0;
-LABEL_31:
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 BOOL SIMAuthenticateAKA(const __CFDictionary *a1, void *a2, void *a3, uint64_t a4)
@@ -9565,7 +9200,7 @@ BOOL SIMAuthenticateAKA(const __CFDictionary *a1, void *a2, void *a3, uint64_t a
       {
 LABEL_25:
         CFRelease(v14);
-        goto LABEL_26;
+        return v14 != 0;
       }
 
       v23 = v20;
@@ -9592,10 +9227,7 @@ LABEL_25:
     _os_log_impl(&dword_249EFB000, v21, v22, "Could not access SIM", keys, 2u);
   }
 
-LABEL_26:
-  result = v14 != 0;
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return v14 != 0;
 }
 
 double AKAAuthResultsInit(_OWORD *a1)
@@ -9639,222 +9271,91 @@ CFArrayRef eapgtc_require_props(uint64_t a1)
   return CFArrayCreate(0, values, 1, MEMORY[0x277CBF128]);
 }
 
-BOOL eapttls_eap()
+BOOL eapttls_eap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v2 = v1;
-  v3 = v0;
-  v58 = *MEMORY[0x277D85DE8];
-  v48 = 0;
-  v4 = *v0;
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8, v66, v67, v68, v69);
+  v10 = v9;
+  v11 = v8;
+  v65 = *MEMORY[0x277D85DE8];
+  v55 = 0;
+  v12 = *v8;
   *&__len[1] = 0;
-  if (*(v4 + 76) == *(v5 + 1))
+  if (*(v12 + 76) == *(v13 + 1))
   {
-    memoryBufferClear(v4 + 8);
-    v6 = *(v4 + 496);
-    if (!v6)
+    memoryBufferClear(v12 + 8);
+    v14 = *(v12 + 496);
+    if (!v14)
     {
-      goto LABEL_55;
+      return 0;
     }
 
-LABEL_3:
-    result = 0;
-    __len[0] = 2048;
-    v8 = *v6;
-    if (v8 > 2)
-    {
-      if (v8 != 3 && v8 != 4)
-      {
-        goto LABEL_56;
-      }
-
-      goto LABEL_27;
-    }
-
-    if (v8 != 1)
-    {
-      if (v8 != 2)
-      {
-        goto LABEL_56;
-      }
-
-      goto LABEL_27;
-    }
-
-    v17 = v6[4];
-    if (v17 == 2)
-    {
-      v18 = v6[1];
-      v19 = 0;
-      v21 = 2;
-      v20 = 0;
-    }
-
-    else
-    {
-      if (v17 != 1)
-      {
-LABEL_27:
-        v22 = eapttls_eap_process(v3, v6, buf, __len, v2, &v48);
-        goto LABEL_28;
-      }
-
-      v18 = v6[1];
-      v19 = *(v3 + 40);
-      v20 = *(v3 + 48);
-      v21 = 1;
-    }
-
-    v22 = EAPPacketCreate(buf, 2048, 2, v18, v21, v19, v20, __len);
-LABEL_28:
-    v23 = v22;
-    if (v22)
-    {
-      if (*(v3 + 8) == 1)
-      {
-        Mutable = CFStringCreateMutable(0, 0);
-        Length = EAPPacketGetLength(v23);
-        EAPPacketIsValid(v23, Length, Mutable);
-        LogHandle = EAPLogGetLogHandle();
-        v27 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(LogHandle, v27))
-        {
-          *v49 = 138412290;
-          v50 = Mutable;
-          _os_log_impl(&dword_249EFB000, LogHandle, v27, "TTLS Send EAP Payload:\n%@", v49, 0xCu);
-        }
-
-        CFRelease(Mutable);
-      }
-
-      v28 = *(v4 + 496);
-      if (v28 && v28 != (v4 + 504))
-      {
-        free(v28);
-      }
-
-      *(v4 + 496) = 0;
-      v29 = __len[0] + 8;
-      if (__len[0] + 8 <= 0)
-      {
-        v30 = -(-(__len[0] + 8) & 3);
-      }
-
-      else
-      {
-        v30 = (__len[0] + 8) & 3;
-      }
-
-      v31 = __len[0] - v30 + 12;
-      if (!v30)
-      {
-        v31 = __len[0] + 8;
-      }
-
-      v32 = v31;
-      v33 = malloc_type_malloc(v31, 0x91BF6E96uLL);
-      bzero(v33, v32);
-      *v33 = 1325400064;
-      v33[1] = bswap32(v29 & 0xFFFFFF);
-      memmove(v33 + 2, v23, __len[0]);
-      v34 = SSLWrite(*v4, v33, v32, &__len[1]);
-      free(v33);
-      if (v23 != buf)
-      {
-        if (v48 != 1)
-        {
-          free(v23);
-          if (v34)
-          {
-LABEL_45:
-            v35 = EAPLogGetLogHandle();
-            v36 = _SC_syslog_os_log_mapping();
-            result = os_log_type_enabled(v35, v36);
-            if (result)
-            {
-              v37 = EAPSSLErrorString(v34);
-              *v49 = 136315394;
-              v50 = v37;
-              v51 = 2048;
-              v52 = v34;
-              v38 = "SSLWrite failed, %s (%ld)";
-              v39 = v49;
-              v40 = v35;
-              v41 = v36;
-              v42 = 22;
-LABEL_54:
-              _os_log_impl(&dword_249EFB000, v40, v41, v38, v39, v42);
-              goto LABEL_55;
-            }
-
-            goto LABEL_56;
-          }
-
-LABEL_48:
-          result = 1;
-          goto LABEL_56;
-        }
-
-        EAPClientModulePluginFreePacket(*(v4 + 296), v4 + 304, v23);
-      }
-
-      if (v34)
-      {
-        goto LABEL_45;
-      }
-
-      goto LABEL_48;
-    }
-
-LABEL_55:
-    result = 0;
-    goto LABEL_56;
+    goto LABEL_3;
   }
 
-  v47 = 2048;
-  if (!eapttls_eap_read_avp(v0, v57, &v47))
+  v54 = 2048;
+  if (!eapttls_eap_read_avp(v8, v64, &v54))
   {
-    v15 = EAPLogGetLogHandle();
-    v16 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v15, v16))
+    LogHandle = EAPLogGetLogHandle();
+    v24 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(LogHandle, v24))
     {
       *buf = 0;
-      _os_log_impl(&dword_249EFB000, v15, v16, "TTLS EAP Payload is missing", buf, 2u);
+      _os_log_impl(&dword_249EFB000, LogHandle, v24, "TTLS EAP Payload is missing", buf, 2u);
     }
 
     result = 0;
-    *(v4 + 104) = 2;
-    goto LABEL_56;
+    *(v12 + 104) = 2;
+    return result;
   }
 
-  if (*(v3 + 8))
+  if (*(v11 + 8))
   {
-    v9 = CFStringCreateMutable(0, 0);
-    IsValid = EAPPacketIsValid(v57, v47, v9);
-    v11 = IsValid;
-    if (v9)
+    Mutable = CFStringCreateMutable(0, 0);
+    IsValid = EAPPacketIsValid(v64, v54, Mutable);
+    v19 = IsValid;
+    if (Mutable)
     {
-      v12 = EAPLogGetLogHandle();
-      v13 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v12, v13))
+      v20 = EAPLogGetLogHandle();
+      v21 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v20, v21))
       {
-        v14 = " Invalid";
-        if (v11)
+        v22 = " Invalid";
+        if (v19)
         {
-          v14 = &unk_249F2FF71;
+          v22 = &unk_249F2FF71;
         }
 
         *buf = 136315394;
-        v54 = v14;
-        v55 = 2112;
-        v56 = v9;
-        _os_log_impl(&dword_249EFB000, v12, v13, "TTLS Receive EAP Payload%s:\n%@", buf, 0x16u);
+        v61 = v22;
+        v62 = 2112;
+        v63 = Mutable;
+        _os_log_impl(&dword_249EFB000, v20, v21, "TTLS Receive EAP Payload%s:\n%@", buf, 0x16u);
       }
 
-      CFRelease(v9);
-      if ((v11 & 1) == 0)
+      CFRelease(Mutable);
+      if ((v19 & 1) == 0)
       {
-        goto LABEL_51;
+LABEL_51:
+        if ((*(v11 + 8) & 1) == 0)
+        {
+          v51 = EAPLogGetLogHandle();
+          v52 = _SC_syslog_os_log_mapping();
+          result = os_log_type_enabled(v51, v52);
+          if (!result)
+          {
+            return result;
+          }
+
+          *buf = 0;
+          v46 = "TTLS Receive EAP Payload Invalid";
+          v47 = buf;
+          v48 = v51;
+          v49 = v52;
+          v50 = 2;
+          goto LABEL_54;
+        }
+
+        return 0;
       }
     }
 
@@ -9863,37 +9364,519 @@ LABEL_55:
       goto LABEL_51;
     }
 
-    v6 = v57;
-    goto LABEL_3;
+    v14 = v64;
   }
 
-  v6 = v57;
-  if (EAPPacketIsValid(v57, v47, 0))
+  else
   {
-    goto LABEL_3;
+    v14 = v64;
+    if ((EAPPacketIsValid(v64, v54, 0) & 1) == 0)
+    {
+      goto LABEL_51;
+    }
   }
 
-LABEL_51:
-  if (*(v3 + 8))
+LABEL_3:
+  result = 0;
+  __len[0] = 2048;
+  v16 = *v14;
+  if (v16 <= 2)
   {
-    goto LABEL_55;
+    if (v16 != 1)
+    {
+      if (v16 != 2)
+      {
+        return result;
+      }
+
+      goto LABEL_27;
+    }
+
+    v25 = v14[4];
+    if (v25 == 2)
+    {
+      v26 = v14[1];
+      v27 = 0;
+      v29 = 2;
+      v28 = 0;
+      goto LABEL_58;
+    }
+
+    if (v25 == 1)
+    {
+      v26 = v14[1];
+      v27 = *(v11 + 40);
+      v28 = *(v11 + 48);
+      v29 = 1;
+LABEL_58:
+      v30 = EAPPacketCreate(buf, 2048, 2, v26, v29, v27, v28, __len);
+LABEL_28:
+      v31 = v30;
+      if (v30)
+      {
+        if (*(v11 + 8) == 1)
+        {
+          v32 = CFStringCreateMutable(0, 0);
+          Length = EAPPacketGetLength(v31);
+          EAPPacketIsValid(v31, Length, v32);
+          v34 = EAPLogGetLogHandle();
+          v35 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(v34, v35))
+          {
+            *v56 = 138412290;
+            v57 = v32;
+            _os_log_impl(&dword_249EFB000, v34, v35, "TTLS Send EAP Payload:\n%@", v56, 0xCu);
+          }
+
+          CFRelease(v32);
+        }
+
+        v36 = *(v12 + 496);
+        if (v36 && v36 != (v12 + 504))
+        {
+          free(v36);
+        }
+
+        *(v12 + 496) = 0;
+        v37 = __len[0] + 8;
+        if (__len[0] + 8 <= 0)
+        {
+          v38 = -(-(__len[0] + 8) & 3);
+        }
+
+        else
+        {
+          v38 = (__len[0] + 8) & 3;
+        }
+
+        v39 = __len[0] - v38 + 12;
+        if (!v38)
+        {
+          v39 = __len[0] + 8;
+        }
+
+        v40 = v39;
+        v41 = malloc_type_malloc(v39, 0x91BF6E96uLL);
+        bzero(v41, v40);
+        *v41 = 1325400064;
+        v41[1] = bswap32(v37 & 0xFFFFFF);
+        memmove(v41 + 2, v31, __len[0]);
+        v42 = SSLWrite(*v12, v41, v40, &__len[1]);
+        free(v41);
+        if (v31 != buf)
+        {
+          if (v55 != 1)
+          {
+            free(v31);
+            if (v42)
+            {
+              goto LABEL_45;
+            }
+
+            return 1;
+          }
+
+          EAPClientModulePluginFreePacket(*(v12 + 296), v12 + 304, v31);
+        }
+
+        if (v42)
+        {
+LABEL_45:
+          v43 = EAPLogGetLogHandle();
+          v44 = _SC_syslog_os_log_mapping();
+          result = os_log_type_enabled(v43, v44);
+          if (!result)
+          {
+            return result;
+          }
+
+          v45 = EAPSSLErrorString(v42);
+          *v56 = 136315394;
+          v57 = v45;
+          v58 = 2048;
+          v59 = v42;
+          v46 = "SSLWrite failed, %s (%ld)";
+          v47 = v56;
+          v48 = v43;
+          v49 = v44;
+          v50 = 22;
+LABEL_54:
+          _os_log_impl(&dword_249EFB000, v48, v49, v46, v47, v50);
+          return 0;
+        }
+
+        return 1;
+      }
+
+      return 0;
+    }
+
+LABEL_27:
+    v30 = eapttls_eap_process(v11, v14, buf, __len, v10, &v55);
+    goto LABEL_28;
   }
 
-  v43 = EAPLogGetLogHandle();
-  v44 = _SC_syslog_os_log_mapping();
-  result = os_log_type_enabled(v43, v44);
-  if (result)
+  if (v16 == 3 || v16 == 4)
   {
-    *buf = 0;
-    v38 = "TTLS Receive EAP Payload Invalid";
-    v39 = buf;
-    v40 = v43;
-    v41 = v44;
-    v42 = 2;
-    goto LABEL_54;
+    goto LABEL_27;
   }
 
-LABEL_56:
-  v45 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+uint64_t eapttls_eap_read_avp(uint64_t *a1, void *a2, unsigned int *a3)
+{
+  v5 = 0;
+  v45 = *MEMORY[0x277D85DE8];
+  data = 0;
+  v6 = *a1;
+  v7 = *a3;
+  while (1)
+  {
+    processed = 0;
+    v8 = SSLRead(*v6, &data, 8uLL, &processed);
+    if (v8)
+    {
+      break;
+    }
+
+    if (processed != 8)
+    {
+      LogHandle = EAPLogGetLogHandle();
+      v26 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(LogHandle, v26))
+      {
+        *buf = 0;
+        v27 = "EAP AVP is invalid";
+        v28 = LogHandle;
+        v29 = v26;
+        v30 = 2;
+        goto LABEL_25;
+      }
+
+LABEL_26:
+      LODWORD(v21) = 0;
+LABEL_27:
+      if (v5)
+      {
+        return 1;
+      }
+
+      goto LABEL_32;
+    }
+
+    v16 = bswap32(HIDWORD(data));
+    v17 = v16 & 0xFFFFFF;
+    if ((v16 & 0xFFFFFF) <= 8)
+    {
+      v31 = EAPLogGetLogHandle();
+      v32 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v31, v32))
+      {
+        *buf = 67109376;
+        *&buf[4] = v17;
+        *&buf[8] = 1024;
+        *&buf[10] = 8;
+        v27 = "EAP AVP is too short %d <= %d";
+        v28 = v31;
+        v29 = v32;
+        goto LABEL_24;
+      }
+
+      goto LABEL_26;
+    }
+
+    if ((v16 & 3) != 0)
+    {
+      v18 = (v16 & 0xFFFFFC) - 4;
+    }
+
+    else
+    {
+      v18 = (v16 & 0xFFFFFF) - 8;
+    }
+
+    if (v18 > v7)
+    {
+      v33 = EAPLogGetLogHandle();
+      v34 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v33, v34))
+      {
+        *buf = 67109376;
+        *&buf[4] = v18;
+        *&buf[8] = 1024;
+        *&buf[10] = v7;
+        v27 = "EAP AVP is too large %d > %d";
+        v28 = v33;
+        v29 = v34;
+LABEL_24:
+        v30 = 14;
+LABEL_25:
+        _os_log_impl(&dword_249EFB000, v28, v29, v27, buf, v30);
+      }
+
+      goto LABEL_26;
+    }
+
+    if (v5 & 1 | (data != 1325400064))
+    {
+      MEMORY[0x28223BE20](v8, v9, v10, v11, v12, v13, v14, v15, processed, data, *buf, *&buf[8]);
+      v19 = SSLRead(*v6, &processed - ((v18 + 15) & 0x1FFFFFFF0), v18, &processed);
+      if (v19)
+      {
+        v21 = v19;
+        v36 = EAPLogGetLogHandle();
+        v37 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v36, v37))
+        {
+          v38 = EAPSSLErrorString(v21);
+          *buf = 136315394;
+          *&buf[4] = v38;
+          *&buf[12] = 1024;
+          *&buf[14] = v21;
+          _os_log_impl(&dword_249EFB000, v36, v37, "SSLRead failed, %s (%d)", buf, 0x12u);
+        }
+
+        if ((v5 & 1) == 0)
+        {
+          goto LABEL_32;
+        }
+
+        return 1;
+      }
+    }
+
+    else
+    {
+      v20 = SSLRead(*v6, a2, v18, &processed);
+      if (v20)
+      {
+        v21 = v20;
+        v39 = EAPLogGetLogHandle();
+        v40 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v39, v40))
+        {
+          v41 = EAPSSLErrorString(v21);
+          *buf = 136315394;
+          *&buf[4] = v41;
+          *&buf[12] = 1024;
+          *&buf[14] = v21;
+          _os_log_impl(&dword_249EFB000, v39, v40, "SSLRead failed, %s (%d)", buf, 0x12u);
+        }
+
+        goto LABEL_32;
+      }
+
+      *a3 = processed;
+      v5 = 1;
+    }
+  }
+
+  v21 = v8;
+  if (v8 == -9803)
+  {
+    goto LABEL_27;
+  }
+
+  v22 = EAPLogGetLogHandle();
+  v23 = _SC_syslog_os_log_mapping();
+  if (!os_log_type_enabled(v22, v23))
+  {
+    goto LABEL_27;
+  }
+
+  v24 = EAPSSLErrorString(v21);
+  *buf = 136315394;
+  *&buf[4] = v24;
+  *&buf[12] = 1024;
+  *&buf[14] = v21;
+  _os_log_impl(&dword_249EFB000, v22, v23, "SSLRead failed, %s (%d)", buf, 0x12u);
+  if (v5)
+  {
+    return 1;
+  }
+
+LABEL_32:
+  result = 0;
+  *(v6 + 124) = v21;
+  return result;
+}
+
+char *eapttls_eap_process(uint64_t a1, unsigned __int8 *a2, char *a3, signed int *a4, int *a5, _BYTE *a6)
+{
+  v38 = *MEMORY[0x277D85DE8];
+  v11 = *a1;
+  v35 = 0;
+  *a6 = 0;
+  v12 = *a2;
+  if (v12 == 2)
+  {
+    v21 = a2[4];
+    v22 = *(v11 + 296);
+    if (v22)
+    {
+      LODWORD(v22) = EAPClientModulePluginEAPType(v22);
+    }
+
+    if (v22 != v21)
+    {
+      return v35;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (v12 == 1)
+  {
+    v13 = a2[4];
+    if (!a2[4])
+    {
+      return v35;
+    }
+
+    v15 = *(v11 + 296);
+    if (v15)
+    {
+      LODWORD(v15) = EAPClientModulePluginEAPType(v15);
+    }
+
+    if (v15 != v13)
+    {
+      v16 = a2[4];
+      if (v16 <= 0x1A && ((1 << v16) & 0x4000050) != 0)
+      {
+        eap_client_free_1(v11);
+        v17 = a2[4];
+        v18 = *a1;
+        *(v18 + 472) = 0;
+        *(v18 + 480) = 0;
+        if (*(v18 + 296))
+        {
+          LogHandle = EAPLogGetLogHandle();
+          v20 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(LogHandle, v20))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_249EFB000, LogHandle, v20, "eap_client_init: already initialized\n", buf, 2u);
+          }
+
+          goto LABEL_15;
+        }
+
+        v28 = EAPClientModuleLookup(v17);
+        if (v28)
+        {
+          v29 = v28;
+          my_CFRelease((v18 + 456));
+          my_CFRelease((v18 + 464));
+          *(v18 + 448) = 0;
+          *(v18 + 416) = 0u;
+          *(v18 + 432) = 0u;
+          *(v18 + 384) = 0u;
+          *(v18 + 400) = 0u;
+          *(v18 + 352) = 0u;
+          *(v18 + 368) = 0u;
+          *(v18 + 320) = 0u;
+          *(v18 + 336) = 0u;
+          *(v18 + 304) = 0u;
+          *(v18 + 320) = *(a1 + 16);
+          *(v18 + 344) = *(a1 + 40);
+          *(v18 + 352) = *(a1 + 48);
+          *(v18 + 368) = *(a1 + 64);
+          *(v18 + 376) = *(a1 + 72);
+          *(v18 + 384) = *(a1 + 80);
+          *(v18 + 488) = EAPClientModulePluginInit(v29, v18 + 304, v18 + 456, v18 + 492);
+          *(v18 + 480) = EAPClientModulePluginEAPName(v29);
+          *(v18 + 472) = v17;
+          if (!*(v18 + 488))
+          {
+            *(v18 + 296) = v29;
+            goto LABEL_15;
+          }
+        }
+
+        if (*(v11 + 488) == 3)
+        {
+          *a5 = 3;
+          save_last_packet_0(v11, a2);
+          return v35;
+        }
+
+        v32 = EAPLogGetLogHandle();
+        v33 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v32, v33))
+        {
+          v34 = a2[4];
+          *buf = 67109120;
+          v37 = v34;
+          _os_log_impl(&dword_249EFB000, v32, v33, "eap_client_init type %d failed", buf, 8u);
+        }
+
+        v31 = *(v11 + 488);
+      }
+
+      else
+      {
+        v30 = *(v11 + 1528);
+        if (v30 <= 2)
+        {
+          *(v11 + 1528) = v30 + 1;
+          buf[0] = inner_auth_types_1[v30];
+          return EAPPacketCreate(a3, *a4, 2, a2[1], 3, buf, 1, a4);
+        }
+
+        v31 = 5;
+      }
+
+      *a5 = v31;
+      *(v11 + 104) = 2;
+      return v35;
+    }
+  }
+
+LABEL_15:
+  if (*(v11 + 296))
+  {
+    my_CFRelease((v11 + 456));
+    my_CFRelease((v11 + 464));
+    v23 = *a1;
+    *(v23 + 344) = *(a1 + 40);
+    *(v23 + 352) = *(a1 + 48);
+    *(v23 + 368) = *(a1 + 64);
+    *(v23 + 376) = *(a1 + 72);
+    *(v23 + 324) = *(a1 + 20);
+    *(v23 + 384) = *(a1 + 80);
+    v24 = EAPClientModulePluginProcess(*(v23 + 296), v23 + 304, a2, &v35, v23 + 488, v23 + 492);
+    v25 = v35;
+    if (v35)
+    {
+      *a6 = 1;
+      *a4 = EAPPacketGetLength(v25);
+    }
+
+    *(v11 + 464) = EAPClientModulePluginPublishProperties(*(v11 + 296), v11 + 304);
+    if (v24 == 2)
+    {
+      *(v11 + 292) = 2;
+      v26 = *(v11 + 488);
+      goto LABEL_25;
+    }
+
+    if (v24 == 1)
+    {
+      *(v11 + 292) = 1;
+    }
+
+    else if (!v24 && *(v11 + 488) == 3)
+    {
+      *(v11 + 456) = EAPClientModulePluginRequireProperties(*(v11 + 296), v11 + 304);
+      save_last_packet_0(v11, a2);
+      v26 = *(v11 + 488);
+      *(v11 + 128) = v26;
+LABEL_25:
+      *a5 = v26;
+    }
+  }
+
+  return v35;
 }

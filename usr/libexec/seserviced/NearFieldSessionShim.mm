@@ -10,50 +10,50 @@
 
 - (void)dealloc
 {
-  invalidated = self->_invalidated;
   (*(self->_onDealloc + 2))();
-  v4.receiver = self;
-  v4.super_class = NearFieldSessionShim;
-  [(NearFieldSessionShim *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = NearFieldSessionShim;
+  [(NearFieldSessionShim *)&v3 dealloc];
 }
 
 - (id)transceive:(id)transceive toOS:(int64_t)s outError:(id *)error
 {
   transceiveCopy = transceive;
+  v9 = transceiveCopy;
   if (self->_invalidated)
   {
     if (error)
     {
-      v9 = sub_1000554DC();
+      v10 = sub_1000554DC(transceiveCopy);
       *error = SESCreateAndLogError();
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
     session = self->_session;
     seid = self->_seid;
-    v18 = 0;
-    v10 = [(NFSecureElementManagerSession *)session transceive:transceiveCopy forSEID:seid toOS:s error:&v18];
-    v13 = v18;
-    v14 = v13;
-    if (v10)
+    v19 = 0;
+    v11 = [(NFSecureElementManagerSession *)session transceive:v9 forSEID:seid toOS:s error:&v19];
+    v14 = v19;
+    v15 = v14;
+    if (v11)
     {
-      v15 = v13 == 0;
+      v16 = v14 == 0;
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
-    if (!v15)
+    if (!v16)
     {
       if (error)
       {
-        v16 = sub_1000554DC();
+        v17 = sub_1000554DC(v14);
         *error = SESCreateAndLogError();
       }
 
@@ -61,7 +61,7 @@
     }
   }
 
-  return v10;
+  return v11;
 }
 
 - (unint64_t)validatePairing:(id *)pairing
@@ -71,7 +71,7 @@
     v4 = 4279897;
     if (pairing)
     {
-      v5 = sub_1000554DC();
+      v5 = sub_1000554DC(self);
       *pairing = SESCreateAndLogError();
     }
   }
@@ -91,7 +91,7 @@
         v4 = 4279897;
         if (pairing)
         {
-          v7 = sub_1000554DC();
+          v7 = sub_1000554DC(v6);
           *pairing = SESCreateAndLogError();
         }
       }
@@ -112,7 +112,7 @@
   {
     if (session)
     {
-      v4 = sub_1000554DC();
+      v4 = sub_1000554DC(self);
       *session = SESCreateAndLogError();
     }
 
@@ -130,11 +130,12 @@
 - (id)transceiveSensitive:(id)sensitive outError:(id *)error
 {
   sensitiveCopy = sensitive;
+  v7 = sensitiveCopy;
   if (self->_invalidated)
   {
     if (error)
     {
-      v7 = sub_1000554DC();
+      v8 = sub_1000554DC(sensitiveCopy);
       *error = SESCreateAndLogError();
 
       error = 0;

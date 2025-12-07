@@ -59,24 +59,23 @@
 
 - (void)cancel
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 138412290;
-  v5 = objc_opt_class();
-  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "%@ - cancel", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = objc_opt_class();
+  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "%@ - cancel", &v3, 0xCu);
 }
 
 - (void)receiveCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v16 = 138412290;
-    v17 = objc_opt_class();
-    _os_log_impl(&dword_1C871B000, v6, OS_LOG_TYPE_INFO, "%@ - completion", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = objc_opt_class();
+    _os_log_impl(&dword_1C871B000, v6, OS_LOG_TYPE_INFO, "%@ - completion", &v15, 0xCu);
   }
 
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -111,7 +110,6 @@
   selfCopy->_status = v13;
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)receiveInput:(id)input
@@ -188,14 +186,14 @@
 
 - (id)upstreamSubscriptions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   subscription = [(BPSSubscriptionStatus *)self->_status subscription];
   os_unfair_lock_unlock(&self->_lock);
   if (subscription)
   {
-    v8[0] = subscription;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = subscription;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
@@ -209,18 +207,15 @@
     v4 = MEMORY[0x1E695E0F0];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)upstreamSubscriptions
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 138412290;
-  v5 = objc_opt_class();
-  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "%@ - upstreamSubscriptions are nil", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = objc_opt_class();
+  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "%@ - upstreamSubscriptions are nil", &v3, 0xCu);
 }
 
 @end

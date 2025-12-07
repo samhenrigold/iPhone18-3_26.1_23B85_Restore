@@ -29,31 +29,31 @@
 
 - (unint64_t)indexOfEngagedSuggestion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   action = [(_PSMapsFeedback *)self action];
   handle = [action handle];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   suggestions = [(_PSMapsFeedback *)self suggestions];
-  v6 = [suggestions countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [suggestions countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
     selfCopy = self;
-    v8 = *v21;
+    v8 = *v20;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(suggestions);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         recipients = [v10 recipients];
         firstObject = [recipients firstObject];
         handle2 = [firstObject handle];
@@ -68,7 +68,7 @@
         }
       }
 
-      v7 = [suggestions countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [suggestions countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -81,7 +81,6 @@
   v15 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_11:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

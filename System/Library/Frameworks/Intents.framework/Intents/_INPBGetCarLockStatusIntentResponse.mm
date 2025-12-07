@@ -94,7 +94,6 @@
   toCopy = to;
   if ([(_INPBGetCarLockStatusIntentResponse *)self hasLocked])
   {
-    locked = self->_locked;
     PBDataWriterWriteBOOLField();
   }
 }

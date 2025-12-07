@@ -16,7 +16,7 @@
 
 + (id)connectionWithExportedObject:(id)object
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v4 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.soundboardservices.server" options:4096];
   v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287BCB3C8];
@@ -34,9 +34,9 @@
   v8 = [remoteObjectInterface classesForSelector:sel_getAllSyncedAlarmsAndTimers_ argumentIndex:0 ofReply:1];
   v9 = [v8 mutableCopy];
 
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   [v9 addObjectsFromArray:v10];
   remoteObjectInterface2 = [v4 remoteObjectInterface];
   [remoteObjectInterface2 setClasses:v9 forSelector:sel_getAllSyncedAlarmsAndTimers_ argumentIndex:0 ofReply:1];
@@ -45,37 +45,31 @@
   [v4 setInvalidationHandler:&__block_literal_global_158];
   [v4 resume];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 void __41__SBSUtils_connectionWithExportedObject___block_invoke_156()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = _SBSLoggingFacility();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "+[SBSUtils connectionWithExportedObject:]_block_invoke";
-    _os_log_impl(&dword_26B246000, v0, OS_LOG_TYPE_DEFAULT, "%s - Connection to SoundBoard server was invalidated!\n", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "+[SBSUtils connectionWithExportedObject:]_block_invoke";
+    _os_log_impl(&dword_26B246000, v0, OS_LOG_TYPE_DEFAULT, "%s - Connection to SoundBoard server was invalidated!\n", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SBSUtils_connectionWithExportedObject___block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = _SBSLoggingFacility();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "+[SBSUtils connectionWithExportedObject:]_block_invoke";
-    _os_log_impl(&dword_26B246000, v0, OS_LOG_TYPE_DEFAULT, "%s - Connection to SoundBoard server was interrupted!\n", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "+[SBSUtils connectionWithExportedObject:]_block_invoke";
+    _os_log_impl(&dword_26B246000, v0, OS_LOG_TYPE_DEFAULT, "%s - Connection to SoundBoard server was interrupted!\n", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createProxyConnectionForXPCWithExportedObject:(id)object connection:(id *)connection

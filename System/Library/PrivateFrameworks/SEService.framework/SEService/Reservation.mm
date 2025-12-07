@@ -26,7 +26,7 @@
   v6 = Reservation.isEqual(_:)(v8);
 
   sub_1C7BE48DC(v8, &unk_1EC262EB0, &unk_1C7C97910);
-  return v6 & 1;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -8,12 +8,14 @@
 - (void)dataSession:(id)session confirmedForPeerDataAddress:(id)address serviceSpecificInfo:(id)info;
 - (void)dataSession:(id)session failedToStartWithError:(int64_t)error;
 - (void)dataSession:(id)session terminatedWithReason:(int64_t)reason;
+- (void)dataSession:(id)session updatedPeerRSSI:(int)i;
 - (void)dataSessionRequestStarted:(id)started;
 - (void)publisher:(id)publisher dataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info;
 - (void)publisher:(id)publisher dataTerminatedForHandle:(id)handle reason:(int64_t)reason;
 - (void)publisher:(id)publisher failedToStartWithError:(int64_t)error;
 - (void)publisher:(id)publisher terminatedWithReason:(int64_t)reason;
 - (void)publisherStarted:(id)started;
+- (void)registerClientDatapathEstablishedCallback:(void *)callback withContext:(void *)context withNetworkContext:(void *)networkContext withAssocData:(void *)data isAutoJoined:(unsigned __int8)joined;
 - (void)registerClientDatapathTerminatedCallback:(void *)callback withContext:(void *)context;
 - (void)registerPublisherMetricCallback:(void *)callback withContext:(void *)context;
 - (void)registerStaArriveCallback:(void *)callback withContext:(void *)context;
@@ -228,6 +230,17 @@
   [(WiFiHotspotNANInterface *)self setStaArrivecallback:callback];
 
   [(WiFiHotspotNANInterface *)self setCallbackContext:context];
+}
+
+- (void)registerClientDatapathEstablishedCallback:(void *)callback withContext:(void *)context withNetworkContext:(void *)networkContext withAssocData:(void *)data isAutoJoined:(unsigned __int8)joined
+{
+  joinedCopy = joined;
+  [(WiFiHotspotNANInterface *)self setStaDatapathEstablishedcallback:callback];
+  [(WiFiHotspotNANInterface *)self setLinkEstablishedCallbackContext:context];
+  [(WiFiHotspotNANInterface *)self setEstablishedLinkNetwork:networkContext];
+  [(WiFiHotspotNANInterface *)self setNanAssocData:data];
+
+  [(WiFiHotspotNANInterface *)self setIsAutoJoined:joinedCopy];
 }
 
 - (void)registerPublisherMetricCallback:(void *)callback withContext:(void *)context
@@ -500,6 +513,20 @@
   objc_autoreleasePoolPop(v4);
 }
 
+- (void)dataSession:(id)session updatedPeerRSSI:(int)i
+{
+  v4 = *&i;
+  sessionCopy = session;
+  self->_current_rssi = v4;
+  v6 = objc_autoreleasePoolPush();
+  if (off_100298C40)
+  {
+    [off_100298C40 WFLog:3 message:{"WiFiAwareDataSession updated Peer RSSI:%d", v4}];
+  }
+
+  objc_autoreleasePoolPop(v6);
+}
+
 - (void)dataSession:(id)session failedToStartWithError:(int64_t)error
 {
   sessionCopy = session;
@@ -560,8 +587,7 @@
     v15 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v16 = self->_networkSsid;
-      [off_100298C40 WFLog:3 message:{"NANPHS: Started PHS over NAN Subscribe for SSID [%@] MacAddress [%@]", v16, self->_networkMacAddr}];
+      [off_100298C40 WFLog:3 message:{"NANPHS: Started PHS over NAN Subscribe for SSID [%@] MacAddress [%@]", self->_networkSsid, self->_networkMacAddr}];
     }
 
     objc_autoreleasePoolPop(v15);
@@ -863,15 +889,15 @@
 
     else
     {
-      v33 = objc_autoreleasePoolPush();
+      v32 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
         [off_100298C40 WFLog:3 message:{"WiFiAwareSubscriber Disabling mac randomization, ending P2P transaction"}];
       }
 
-      objc_autoreleasePoolPop(v33);
-      v34 = +[WiFiP2PSPITransactionRequestor shared];
-      [v34 endTransaction:16 completionHandler:&stru_100260FE8];
+      objc_autoreleasePoolPop(v32);
+      v33 = +[WiFiP2PSPITransactionRequestor shared];
+      [v33 endTransaction:16 completionHandler:&stru_100260FE8];
 
       v16 = objc_autoreleasePoolPush();
       v17 = off_100298C40;
@@ -947,8 +973,7 @@ LABEL_14:
     v31 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v32 = self->_networkSsid;
-      [off_100298C40 WFLog:3 message:{"NANPHS: Started PHS over NAN Subscribe for SSID [%@] MacAddress [%@]", v32, self->_networkMacAddr}];
+      [off_100298C40 WFLog:3 message:{"NANPHS: Started PHS over NAN Subscribe for SSID [%@] MacAddress [%@]", self->_networkSsid, self->_networkMacAddr}];
     }
 
     objc_autoreleasePoolPop(v31);

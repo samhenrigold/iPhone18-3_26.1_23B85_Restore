@@ -44,36 +44,36 @@
 
 - (void)updateWithMeasurement:(id)measurement
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   measurementCopy = measurement;
   variables = [(PDAggregateMeasurement *)self variables];
 
   selfCopy = self;
-  v93 = measurementCopy;
+  v92 = measurementCopy;
   if (variables)
   {
-    v100 = 0u;
-    v101 = 0u;
-    v98 = 0u;
     v99 = 0u;
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
     variables2 = [(PDAggregateMeasurement *)self variables];
     allKeys = [variables2 allKeys];
 
-    v8 = [allKeys countByEnumeratingWithState:&v98 objects:v103 count:16];
+    v8 = [allKeys countByEnumeratingWithState:&v97 objects:v102 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v99;
+      v10 = *v98;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v99 != v10)
+          if (*v98 != v10)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = *(*(&v98 + 1) + 8 * i);
+          v12 = *(*(&v97 + 1) + 8 * i);
           variables3 = [measurementCopy variables];
           v14 = [variables3 objectForKeyedSubscript:v12];
           variables4 = [(PDAggregateMeasurement *)self variables];
@@ -87,10 +87,10 @@
             [variables5 removeObjectForKey:v12];
           }
 
-          measurementCopy = v93;
+          measurementCopy = v92;
         }
 
-        v9 = [allKeys countByEnumeratingWithState:&v98 objects:v103 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v97 objects:v102 count:16];
       }
 
       while (v9);
@@ -112,29 +112,29 @@
     [(PDAggregateMeasurement *)self setLabels:dictionary];
   }
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   labels2 = [measurementCopy labels];
   allKeys2 = [labels2 allKeys];
 
   v25 = allKeys2;
-  v26 = [allKeys2 countByEnumeratingWithState:&v94 objects:v102 count:16];
+  v26 = [allKeys2 countByEnumeratingWithState:&v93 objects:v101 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v95;
+    v28 = *v94;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v95 != v28)
+        if (*v94 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v94 + 1) + 8 * j);
+        v30 = *(*(&v93 + 1) + 8 * j);
         labels3 = [(PDAggregateMeasurement *)self labels];
         v32 = [labels3 objectForKeyedSubscript:v30];
 
@@ -154,12 +154,12 @@
           v37 = [v35 setWithSet:v36];
           [labels4 setValue:v37 forKey:v30];
 
-          self = v92;
-          measurementCopy = v93;
+          self = v91;
+          measurementCopy = v92;
         }
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v94 objects:v102 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v93 objects:v101 count:16];
     }
 
     while (v27);
@@ -296,8 +296,6 @@
       -[PDAggregateMeasurement setSamples:](self, "setSamples:", -[PDAggregateMeasurement samples](self, "samples") + [sampleCount3 unsignedIntegerValue]);
     }
   }
-
-  v90 = *MEMORY[0x277D85DE8];
 }
 
 - (PDMeasurement)measurement

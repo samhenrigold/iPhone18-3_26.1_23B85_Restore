@@ -72,18 +72,15 @@ uint64_t ProgressCallback(uint64_t result, float a2)
 
 id _computeCheckpoint(uint64_t a1)
 {
-  v93 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277CBECE8];
+  v89 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v3 = *MEMORY[0x277CBECE8];
     ModelSpecificPropertyListForModel = FigCreateModelSpecificPropertyListForModel();
     ModelSpecificPropertyList = FigCreateModelSpecificPropertyListForModel();
   }
 
   else
   {
-    v6 = *MEMORY[0x277CBECE8];
     ModelSpecificPropertyListForModel = FigCreateModelSpecificPropertyList();
     ModelSpecificPropertyList = FigCreateModelSpecificPropertyList();
   }
@@ -91,245 +88,245 @@ id _computeCheckpoint(uint64_t a1)
   obj = ModelSpecificPropertyList;
   if (!ModelSpecificPropertyListForModel)
   {
-    v7 = 0;
+    v4 = 0;
     goto LABEL_100;
   }
 
-  v84 = a1;
-  v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v8 = [ModelSpecificPropertyListForModel objectForKeyedSubscript:@"VideoCodecs"];
-  v82 = ModelSpecificPropertyListForModel;
-  v9 = [ModelSpecificPropertyListForModel objectForKeyedSubscript:@"AudioCodecs"];
-  v10 = MGCopyAnswer();
-  if (v10)
+  v80 = a1;
+  v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v5 = [ModelSpecificPropertyListForModel objectForKeyedSubscript:@"VideoCodecs"];
+  v78 = ModelSpecificPropertyListForModel;
+  v6 = [ModelSpecificPropertyListForModel objectForKeyedSubscript:@"AudioCodecs"];
+  v7 = MGCopyAnswer();
+  if (v7)
   {
-    v11 = v10;
-    v12 = [v10 intValue];
+    v8 = v7;
+    v9 = [v7 intValue];
 
-    v13 = v12 == 1;
+    v10 = v9 == 1;
   }
 
   else
   {
-    v13 = 0;
+    v10 = 0;
   }
 
-  v14 = MGCopyAnswer();
-  if (v14)
+  v11 = MGCopyAnswer();
+  if (v11)
   {
-    v15 = v14;
-    [v14 intValue];
+    v12 = v11;
+    [v11 intValue];
   }
 
-  v16 = MGCopyAnswer();
-  if (v16)
+  v13 = MGCopyAnswer();
+  if (v13)
   {
-    v17 = v16;
-    [v16 intValue];
+    v14 = v13;
+    [v13 intValue];
   }
 
-  v18 = MGCopyAnswer();
-  if (v18)
+  v15 = MGCopyAnswer();
+  if (v15)
   {
-    v19 = v18;
-    [v18 intValue];
+    v16 = v15;
+    [v15 intValue];
   }
 
-  v20 = MGCopyAnswer();
-  if (v20)
+  v17 = MGCopyAnswer();
+  if (v17)
   {
-    v21 = v20;
-    [v20 intValue];
+    v18 = v17;
+    [v17 intValue];
   }
 
-  v22 = MGCopyAnswer();
-  if (v22)
+  v19 = MGCopyAnswer();
+  if (v19)
   {
-    v23 = v22;
-    v24 = [v22 intValue];
+    v20 = v19;
+    v21 = [v19 intValue];
 
-    v25 = v24 > 41;
-  }
-
-  else
-  {
-    v25 = 0;
-  }
-
-  v26 = MGCopyAnswer();
-  if (v26)
-  {
-    v27 = v26;
-    v28 = [v26 intValue];
-
-    v29 = v28 > 49;
+    v22 = v21 > 41;
   }
 
   else
   {
-    v29 = 0;
+    v22 = 0;
   }
 
-  v30 = MGCopyAnswer();
-  if (v30)
+  v23 = MGCopyAnswer();
+  if (v23)
   {
-    v31 = v30;
-    v32 = [v30 intValue];
+    v24 = v23;
+    v25 = [v23 intValue];
 
-    v33 = v32 > 50;
-  }
-
-  else
-  {
-    v33 = 0;
-  }
-
-  v34 = MGCopyAnswer();
-  if (v34)
-  {
-    v35 = v34;
-    v36 = [v34 intValue];
-
-    v37 = v36 > 51;
+    v26 = v25 > 49;
   }
 
   else
   {
-    v37 = 0;
+    v26 = 0;
+  }
+
+  v27 = MGCopyAnswer();
+  if (v27)
+  {
+    v28 = v27;
+    v29 = [v27 intValue];
+
+    v30 = v29 > 50;
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  v31 = MGCopyAnswer();
+  if (v31)
+  {
+    v32 = v31;
+    v33 = [v31 intValue];
+
+    v34 = v33 > 51;
+  }
+
+  else
+  {
+    v34 = 0;
+  }
+
+  v35 = MGCopyAnswer();
+  if (v35)
+  {
+    v36 = v35;
+    v37 = [v35 intValue];
+
+    v81 = v37 != 0;
+  }
+
+  else
+  {
+    v81 = 0;
   }
 
   v38 = MGCopyAnswer();
   if (v38)
   {
     v39 = v38;
-    v40 = [v38 intValue];
-
-    v85 = v40 != 0;
+    [v38 intValue];
   }
 
-  else
+  if (!v10)
   {
-    v85 = 0;
-  }
-
-  v41 = MGCopyAnswer();
-  if (v41)
-  {
-    v42 = v41;
-    [v41 intValue];
-  }
-
-  if (!v13)
-  {
-    v43 = MGCopyAnswer();
-    if (v43)
+    v40 = MGCopyAnswer();
+    if (v40)
     {
-      v44 = v43;
-      [v43 intValue];
+      v41 = v40;
+      [v40 intValue];
     }
   }
 
-  v45 = MGCopyAnswer();
-  if (v45)
+  v42 = MGCopyAnswer();
+  if (v42)
   {
-    v46 = v45;
-    [v45 intValue];
+    v43 = v42;
+    [v42 intValue];
   }
 
-  v47 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  if (v47)
+  v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  if (v44)
   {
-    if (v37)
+    if (v34)
     {
-      v48 = [v8 objectForKeyedSubscript:@"H.264_UHDVideo3"];
+      v45 = [v5 objectForKeyedSubscript:@"H.264_UHDVideo3"];
+      if (v45)
+      {
+        [v44 setObject:v45 forKeyedSubscript:@"H.264"];
+      }
+
+      v46 = [v5 objectForKeyedSubscript:@"H.264M_UHDVideo3"];
+      if (v46)
+      {
+        [v44 setObject:v46 forKeyedSubscript:@"H.264M"];
+      }
+
+      v47 = @"H.264H_UHDVideo3";
+    }
+
+    else if (v30)
+    {
+      v48 = [v5 objectForKeyedSubscript:@"H.264_UHDVideo2"];
       if (v48)
       {
-        [v47 setObject:v48 forKeyedSubscript:@"H.264"];
+        [v44 setObject:v48 forKeyedSubscript:@"H.264"];
       }
 
-      v49 = [v8 objectForKeyedSubscript:@"H.264M_UHDVideo3"];
+      v49 = [v5 objectForKeyedSubscript:@"H.264M_UHDVideo2"];
       if (v49)
       {
-        [v47 setObject:v49 forKeyedSubscript:@"H.264M"];
+        [v44 setObject:v49 forKeyedSubscript:@"H.264M"];
       }
 
-      v50 = @"H.264H_UHDVideo3";
+      v47 = @"H.264H_UHDVideo2";
     }
 
-    else if (v33)
+    else if (v26)
     {
-      v51 = [v8 objectForKeyedSubscript:@"H.264_UHDVideo2"];
+      v50 = [v5 objectForKeyedSubscript:@"H.264_UHDVideo"];
+      if (v50)
+      {
+        [v44 setObject:v50 forKeyedSubscript:@"H.264"];
+      }
+
+      v51 = [v5 objectForKeyedSubscript:@"H.264M_UHDVideo"];
       if (v51)
       {
-        [v47 setObject:v51 forKeyedSubscript:@"H.264"];
+        [v44 setObject:v51 forKeyedSubscript:@"H.264M"];
       }
 
-      v52 = [v8 objectForKeyedSubscript:@"H.264M_UHDVideo2"];
-      if (v52)
-      {
-        [v47 setObject:v52 forKeyedSubscript:@"H.264M"];
-      }
-
-      v50 = @"H.264H_UHDVideo2";
-    }
-
-    else if (v29)
-    {
-      v53 = [v8 objectForKeyedSubscript:@"H.264_UHDVideo"];
-      if (v53)
-      {
-        [v47 setObject:v53 forKeyedSubscript:@"H.264"];
-      }
-
-      v54 = [v8 objectForKeyedSubscript:@"H.264M_UHDVideo"];
-      if (v54)
-      {
-        [v47 setObject:v54 forKeyedSubscript:@"H.264M"];
-      }
-
-      v50 = @"H.264H_UHDVideo";
+      v47 = @"H.264H_UHDVideo";
     }
 
     else
     {
-      if (!v25)
+      if (!v22)
       {
 LABEL_66:
-        v58 = [v8 objectForKeyedSubscript:@"H.263"];
-        if (v58)
+        v55 = [v5 objectForKeyedSubscript:@"H.263"];
+        if (v55)
         {
-          [v47 setObject:v58 forKeyedSubscript:@"H.263"];
+          [v44 setObject:v55 forKeyedSubscript:@"H.263"];
         }
 
-        v59 = [v8 objectForKeyedSubscript:@"MPEG4"];
-        if (v59)
+        v56 = [v5 objectForKeyedSubscript:@"MPEG4"];
+        if (v56)
         {
-          [v47 setObject:v59 forKeyedSubscript:@"MPEG4"];
+          [v44 setObject:v56 forKeyedSubscript:@"MPEG4"];
         }
 
-        [v7 setObject:v47 forKeyedSubscript:@"VideoCodecs"];
+        [v4 setObject:v44 forKeyedSubscript:@"VideoCodecs"];
         goto LABEL_71;
       }
 
-      v55 = [v8 objectForKeyedSubscript:@"H.264_HDVideo42"];
-      if (v55)
+      v52 = [v5 objectForKeyedSubscript:@"H.264_HDVideo42"];
+      if (v52)
       {
-        [v47 setObject:v55 forKeyedSubscript:@"H.264"];
+        [v44 setObject:v52 forKeyedSubscript:@"H.264"];
       }
 
-      v56 = [v8 objectForKeyedSubscript:@"H.264M_HDVideo42"];
-      if (v56)
+      v53 = [v5 objectForKeyedSubscript:@"H.264M_HDVideo42"];
+      if (v53)
       {
-        [v47 setObject:v56 forKeyedSubscript:@"H.264M"];
+        [v44 setObject:v53 forKeyedSubscript:@"H.264M"];
       }
 
-      v50 = @"H.264H_HDVideo42";
+      v47 = @"H.264H_HDVideo42";
     }
 
-    v57 = [v8 objectForKeyedSubscript:v50];
-    if (v57)
+    v54 = [v5 objectForKeyedSubscript:v47];
+    if (v54)
     {
-      [v47 setObject:v57 forKeyedSubscript:@"H.264H"];
+      [v44 setObject:v54 forKeyedSubscript:@"H.264H"];
     }
 
     goto LABEL_66;
@@ -337,116 +334,115 @@ LABEL_66:
 
 LABEL_71:
 
-  v60 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v9];
-  v61 = v60;
-  ModelSpecificPropertyListForModel = v82;
-  if (v9)
+  v57 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v6];
+  v58 = v57;
+  ModelSpecificPropertyListForModel = v78;
+  if (v6)
   {
-    if (!v85)
+    if (!v81)
     {
-      [v60 removeObjectForKey:@"AC3"];
-      [v61 removeObjectForKey:@"EnhancedAC3"];
+      [v57 removeObjectForKey:@"AC3"];
+      [v58 removeObjectForKey:@"EnhancedAC3"];
     }
 
-    [v7 setObject:v61 forKeyedSubscript:@"AudioCodecs"];
+    [v4 setObject:v58 forKeyedSubscript:@"AudioCodecs"];
   }
 
-  if (obj && v7)
+  if (obj && v4)
   {
-    v88 = 0u;
-    v89 = 0u;
-    v90 = 0u;
-    v91 = 0u;
-    v62 = v84;
-    v86 = [obj countByEnumeratingWithState:&v88 objects:v92 count:16];
-    if (v86)
+    v84 = 0u;
+    v85 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v59 = v80;
+    v82 = [obj countByEnumeratingWithState:&v84 objects:v88 count:16];
+    if (v82)
     {
-      v83 = *v89;
+      v79 = *v85;
       do
       {
-        for (i = 0; i != v86; ++i)
+        for (i = 0; i != v82; ++i)
         {
-          if (*v89 != v83)
+          if (*v85 != v79)
           {
             objc_enumerationMutation(obj);
           }
 
-          v64 = *(*(&v88 + 1) + 8 * i);
-          [v64 stringByAppendingFormat:@".plist"];
-          if (v62)
+          v61 = *(*(&v84 + 1) + 8 * i);
+          [v61 stringByAppendingFormat:@".plist"];
+          if (v59)
           {
-            v65 = FigCreateModelSpecificPropertyListForModel();
+            v62 = FigCreateModelSpecificPropertyListForModel();
           }
 
           else
           {
-            v65 = FigCreateModelSpecificPropertyList();
+            v62 = FigCreateModelSpecificPropertyList();
           }
 
-          v66 = v65;
-          v67 = [obj objectForKeyedSubscript:v64];
-          v68 = [v67 objectForKeyedSubscript:@"VideoCodecs"];
-          if (v68)
+          v63 = v62;
+          v64 = [obj objectForKeyedSubscript:v61];
+          v65 = [v64 objectForKeyedSubscript:@"VideoCodecs"];
+          if (v65)
           {
-            v69 = v68;
-            if ([v68 count])
+            v66 = v65;
+            if ([v65 count])
             {
-              v70 = 0;
+              v67 = 0;
               do
               {
-                v71 = [v69 objectAtIndexedSubscript:v70];
-                v72 = [objc_msgSend(v66 objectForKeyedSubscript:{@"VideoCodecs", "objectForKeyedSubscript:", v71}];
-                v73 = [v7 objectForKeyedSubscript:@"VideoCodecs"];
-                if (v72)
+                v68 = [v66 objectAtIndexedSubscript:v67];
+                v69 = [objc_msgSend(v63 objectForKeyedSubscript:{@"VideoCodecs", "objectForKeyedSubscript:", v68}];
+                v70 = [v4 objectForKeyedSubscript:@"VideoCodecs"];
+                if (v69)
                 {
-                  [v73 setObject:v72 forKey:v71];
+                  [v70 setObject:v69 forKey:v68];
                 }
 
-                ++v70;
+                ++v67;
               }
 
-              while (v70 < [v69 count]);
+              while (v67 < [v66 count]);
             }
           }
 
-          v74 = [v67 objectForKeyedSubscript:@"AudioCodecs"];
-          if (v74)
+          v71 = [v64 objectForKeyedSubscript:@"AudioCodecs"];
+          if (v71)
           {
-            v75 = v74;
-            if ([v74 count])
+            v72 = v71;
+            if ([v71 count])
             {
-              v76 = 0;
+              v73 = 0;
               do
               {
-                v77 = [v75 objectAtIndexedSubscript:v76];
-                v78 = [objc_msgSend(v66 objectForKeyedSubscript:{@"AudioCodecs", "objectForKeyedSubscript:", v77}];
-                v79 = [v7 objectForKeyedSubscript:@"AudioCodecs"];
-                if (v78)
+                v74 = [v72 objectAtIndexedSubscript:v73];
+                v75 = [objc_msgSend(v63 objectForKeyedSubscript:{@"AudioCodecs", "objectForKeyedSubscript:", v74}];
+                v76 = [v4 objectForKeyedSubscript:@"AudioCodecs"];
+                if (v75)
                 {
-                  [v79 setObject:v78 forKey:v77];
+                  [v76 setObject:v75 forKey:v74];
                 }
 
-                ++v76;
+                ++v73;
               }
 
-              while (v76 < [v75 count]);
+              while (v73 < [v72 count]);
             }
           }
 
-          v62 = v84;
+          v59 = v80;
         }
 
-        v86 = [obj countByEnumeratingWithState:&v88 objects:v92 count:16];
+        v82 = [obj countByEnumeratingWithState:&v84 objects:v88 count:16];
       }
 
-      while (v86);
+      while (v82);
     }
 
-    ModelSpecificPropertyListForModel = v82;
+    ModelSpecificPropertyListForModel = v78;
   }
 
 LABEL_100:
 
-  v80 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v4;
 }

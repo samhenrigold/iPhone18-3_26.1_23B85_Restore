@@ -33,32 +33,32 @@
 
 - (unint64_t)memoryUsage
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = self->_lock_frames;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 += [*(*(&v11 + 1) + 8 * i) retainedMemoryUsage];
+        v6 += [*(*(&v10 + 1) + 8 * i) retainedMemoryUsage];
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -70,7 +70,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -123,7 +122,7 @@
 
 void __49__BLSHFlipbookHistory_addRenderedFrameToHistory___block_invoke(void *a1, void *a2, int a3, _BYTE *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = [v7 retainedMemoryUsage];
   if (v8)
@@ -154,26 +153,26 @@ void __49__BLSHFlipbookHistory_addRenderedFrameToHistory___block_invoke(void *a1
       v12 = bls_diagnostics_log();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v14 = a1[4];
-        v15 = *(*(a1[7] + 8) + 24);
-        v16 = [MEMORY[0x277CF0978] sharedFormatter];
-        v17 = [v16 stringFromByteCount:*(*(a1[6] + 8) + 24)];
-        v18 = [MEMORY[0x277CF0978] sharedFormatter];
-        v19 = [v18 stringFromByteCount:*(a1[4] + 16)];
-        v20 = [v7 bls_shortLoggingString];
-        v21 = 134219266;
-        v22 = v14;
-        v23 = 1024;
-        v24 = a3;
-        v25 = 1024;
-        v26 = v15;
-        v27 = 2114;
-        v28 = v17;
-        v29 = 2114;
-        v30 = v19;
-        v31 = 2114;
-        v32 = v20;
-        _os_log_debug_impl(&dword_21FD11000, v12, OS_LOG_TYPE_DEBUG, "%p frame %u, reached memory limit (%u — %{public}@/%{public}@), purging %{public}@", &v21, 0x36u);
+        v13 = a1[4];
+        v14 = *(*(a1[7] + 8) + 24);
+        v15 = [MEMORY[0x277CF0978] sharedFormatter];
+        v16 = [v15 stringFromByteCount:*(*(a1[6] + 8) + 24)];
+        v17 = [MEMORY[0x277CF0978] sharedFormatter];
+        v18 = [v17 stringFromByteCount:*(a1[4] + 16)];
+        v19 = [v7 bls_shortLoggingString];
+        v20 = 134219266;
+        v21 = v13;
+        v22 = 1024;
+        v23 = a3;
+        v24 = 1024;
+        v25 = v14;
+        v26 = 2114;
+        v27 = v16;
+        v28 = 2114;
+        v29 = v18;
+        v30 = 2114;
+        v31 = v19;
+        _os_log_debug_impl(&dword_21FD11000, v12, OS_LOG_TYPE_DEBUG, "%p frame %u, reached memory limit (%u — %{public}@/%{public}@), purging %{public}@", &v20, 0x36u);
       }
     }
 
@@ -182,8 +181,6 @@ void __49__BLSHFlipbookHistory_addRenderedFrameToHistory___block_invoke(void *a1
       *a4 = 1;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)allFrames

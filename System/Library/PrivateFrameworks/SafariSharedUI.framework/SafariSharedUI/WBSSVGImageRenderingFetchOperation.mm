@@ -7,7 +7,9 @@ void __60__WBSSVGImageRenderingFetchOperation__takeSnapshotAndFinish__block_invo
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Check for successful SVG rendering failed with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Check for successful SVG rendering failed with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __60__WBSSVGImageRenderingFetchOperation__takeSnapshotAndFinish__block_invoke_cold_2(uint64_t a1, NSObject *a2)
@@ -22,7 +24,9 @@ void __60__WBSSVGImageRenderingFetchOperation__takeSnapshotAndFinish__block_invo
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Snapshotting SVG content failed with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Snapshotting SVG content failed with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

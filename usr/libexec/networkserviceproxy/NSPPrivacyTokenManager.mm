@@ -1,5 +1,6 @@
 @interface NSPPrivacyTokenManager
 + (id)sharedTokenManager;
+- (BOOL)updateTokenFetchURL:(id)l accessTokenURL:(id)rL accessTokenTypes:(id)types accessTokenBlockedIssuers:(id)issuers authenticationType:(int)type ignoreInvalidCerts:(BOOL)certs;
 - (void)checkCostQuotaForIssuerName:(id)name quotaService:(id)service auditToken:(id)token bundleID:(id)d accessToken:(id)accessToken completionHandler:(id)handler;
 - (void)copyTokenInfo:(id)info;
 - (void)fetchPairedPrivateAccessTokensForChallenge:(id)challenge overrideAttester:(id)attester configurationFetchDate:(id)date configurationETag:(id)tag tokenKey:(id)key originNameKey:(id)nameKey selectedOrigin:(id)origin pairedChallenge:(id)self0 overridePairedAttester:(id)self1 pairedTokenKey:(id)self2 auditToken:(id)self3 bundleID:(id)self4 allowTools:(BOOL)self5 systemTokenClient:(BOOL)self6 accessToken:(id)self7 completionHandler:(id)self8;
@@ -21,6 +22,102 @@
   v3 = qword_100129868;
 
   return v3;
+}
+
+- (BOOL)updateTokenFetchURL:(id)l accessTokenURL:(id)rL accessTokenTypes:(id)types accessTokenBlockedIssuers:(id)issuers authenticationType:(int)type ignoreInvalidCerts:(BOOL)certs
+{
+  v9 = *&type;
+  lCopy = l;
+  rLCopy = rL;
+  typesCopy = types;
+  issuersCopy = issuers;
+  if (!lCopy)
+  {
+    v21 = rLCopy;
+    v22 = nplog_obj();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 136315138;
+      v29 = "[NSPPrivacyTokenManager updateTokenFetchURL:accessTokenURL:accessTokenTypes:accessTokenBlockedIssuers:authenticationType:ignoreInvalidCerts:]";
+      _os_log_fault_impl(&_mh_execute_header, v22, OS_LOG_TYPE_FAULT, "%s called with null tokenFetchURL", buf, 0xCu);
+    }
+
+    goto LABEL_13;
+  }
+
+  certsCopy = certs;
+  v18 = nplog_obj();
+  v19 = v18;
+  if (v9)
+  {
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = rLCopy;
+      if (v9 >= 5)
+      {
+        v20 = [NSString stringWithFormat:@"(unknown: %i)", v9];
+      }
+
+      else
+      {
+        v20 = off_10010B0C8[v9 - 1];
+      }
+
+      *buf = 138412802;
+      v29 = lCopy;
+      v30 = 2112;
+      v31 = v25;
+      v32 = 2112;
+      v33 = v20;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "updating token fetch url %@ access token url %@ authentication type %@", buf, 0x20u);
+
+      rLCopy = v25;
+    }
+
+    objc_storeStrong(&self->_tokenFetchURL, l);
+    objc_storeStrong(&self->_accessTokenURL, rL);
+    objc_storeStrong(&self->_accessTokenTypes, types);
+    objc_storeStrong(&self->_accessTokenBlockedIssuers, issuers);
+    self->_ignoreInvalidCerts = certsCopy;
+    if (v9 == 3)
+    {
+      sub_100049B9C();
+    }
+
+    else if (v9 != 2 && v9 != 1)
+    {
+      v21 = rLCopy;
+      v22 = nplog_obj();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 67109120;
+        LODWORD(v29) = v9;
+        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "invalid authentication type %d", buf, 8u);
+      }
+
+LABEL_13:
+
+      v23 = 0;
+      rLCopy = v21;
+      goto LABEL_17;
+    }
+
+    self->_authenticationClass = objc_opt_class();
+    v23 = 1;
+    goto LABEL_17;
+  }
+
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 136315138;
+    v29 = "[NSPPrivacyTokenManager updateTokenFetchURL:accessTokenURL:accessTokenTypes:accessTokenBlockedIssuers:authenticationType:ignoreInvalidCerts:]";
+    _os_log_fault_impl(&_mh_execute_header, v19, OS_LOG_TYPE_FAULT, "%s called with null (authenticationType != NSPPrivacyProxyAuthenticationInfo_AuthenticationType_UNKNOWN)", buf, 0xCu);
+  }
+
+  v23 = 0;
+LABEL_17:
+
+  return v23;
 }
 
 - (void)fetchPrivacyTokensOnInterface:(id)interface tierType:(id)type proxyURL:(id)l tokenVendor:(id)vendor tokenIssuancePublicKey:(id)key tokenChallenge:(id)challenge tokenCount:(unint64_t)count accessToken:(id)self0 retryAttempt:(unint64_t)self1 completionHandler:(id)self2
@@ -133,7 +230,7 @@ LABEL_89:
       countCopy = count;
       while (1)
       {
-        v26 = sub_1000B4FC8();
+        v26 = sub_1000B4FC8(NSPPrivateAccessTokenRequest);
         if (!v26)
         {
           break;
@@ -359,7 +456,7 @@ LABEL_43:
         [v63 setSessionDescription:@"PrivacyProxyTokenFetch"];
         if (os_variant_has_internal_diagnostics())
         {
-          v64 = sub_100053E68();
+          v64 = sub_100053E68(NSPServer);
           v65 = v64;
           if (v64)
           {
@@ -1878,7 +1975,7 @@ LABEL_52:
 
         if (os_variant_has_internal_diagnostics())
         {
-          v27 = sub_100053E68();
+          v27 = sub_100053E68(NSPServer);
           v28 = v27;
           if (v27)
           {

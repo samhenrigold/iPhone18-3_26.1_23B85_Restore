@@ -9,25 +9,25 @@ void ___OspreyMachAbsoluteTimeRate_block_invoke()
   v0 = mach_timebase_info(&info);
   if (v0)
   {
-    v3 = v0;
-    OspreyLoggingInit();
-    v4 = OspreyLogContextUtility;
+    v4 = v0;
+    OspreyLoggingInit(v0, v1);
+    v5 = OspreyLogContextUtility;
     if (os_log_type_enabled(OspreyLogContextUtility, OS_LOG_TYPE_DEBUG))
     {
-      ___OspreyMachAbsoluteTimeRate_block_invoke_cold_1(v3, v4);
+      ___OspreyMachAbsoluteTimeRate_block_invoke_cold_1(v4, v5);
     }
   }
 
   else
   {
-    LODWORD(v1) = info.numer;
-    LODWORD(v2) = info.denom;
-    *&_OspreyMachAbsoluteTimeRate_rate = v1 / v2;
-    OspreyLoggingInit();
-    v5 = OspreyLogContextUtility;
+    LODWORD(v2) = info.numer;
+    LODWORD(v3) = info.denom;
+    *&_OspreyMachAbsoluteTimeRate_rate = v2 / v3;
+    OspreyLoggingInit(v0, v1);
+    v6 = OspreyLogContextUtility;
     if (os_log_type_enabled(OspreyLogContextUtility, OS_LOG_TYPE_DEBUG))
     {
-      ___OspreyMachAbsoluteTimeRate_block_invoke_cold_2(&info, &info.denom, v5);
+      ___OspreyMachAbsoluteTimeRate_block_invoke_cold_2(&info, &info.denom, v6);
     }
   }
 }

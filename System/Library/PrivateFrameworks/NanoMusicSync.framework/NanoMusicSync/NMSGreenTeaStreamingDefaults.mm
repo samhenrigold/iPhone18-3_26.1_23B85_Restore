@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (BOOL)_BOOLForKey:(id)key;
 - (NMSGreenTeaStreamingDefaults)init;
+- (void)_setBool:(BOOL)bool forKey:(id)key;
 @end
 
 @implementation NMSGreenTeaStreamingDefaults
@@ -25,12 +26,11 @@
 
 uint64_t __46__NMSGreenTeaStreamingDefaults_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
-  v3 = sharedInstance___sharedInstance;
-  sharedInstance___sharedInstance = v2;
+  v1 = objc_opt_new();
+  v2 = sharedInstance___sharedInstance;
+  sharedInstance___sharedInstance = v1;
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (NMSGreenTeaStreamingDefaults)init
@@ -57,6 +57,14 @@ uint64_t __46__NMSGreenTeaStreamingDefaults_sharedInstance__block_invoke(uint64_
   LOBYTE(selfCopy) = [(NSUserDefaults *)selfCopy->_sharedDefaults BOOLForKey:keyCopy];
 
   return selfCopy;
+}
+
+- (void)_setBool:(BOOL)bool forKey:(id)key
+{
+  [(NSUserDefaults *)self->_sharedDefaults setBool:bool forKey:key];
+  sharedDefaults = self->_sharedDefaults;
+
+  [(NSUserDefaults *)sharedDefaults synchronize];
 }
 
 @end

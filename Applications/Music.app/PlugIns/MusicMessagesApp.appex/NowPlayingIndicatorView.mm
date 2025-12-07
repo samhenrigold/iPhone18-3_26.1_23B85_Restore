@@ -10,13 +10,13 @@
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_10000523C();
+  sub_10000523C(selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000053AC();
+  sub_1000053AC(selfCopy);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

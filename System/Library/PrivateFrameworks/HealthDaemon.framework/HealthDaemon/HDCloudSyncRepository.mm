@@ -63,7 +63,7 @@
     allCKContainers = v19->_allCKContainers;
     v19->_allCKContainers = v23;
 
-    v25 = [containersCopy copy];
+    v25 = objc_msgSend_copy(containersCopy);
     secondaryCKContainers = v19->_secondaryCKContainers;
     v19->_secondaryCKContainers = v25;
 
@@ -71,11 +71,11 @@
     v28 = v19->_allCKContainers;
     v19->_allCKContainers = v27;
 
-    v29 = [identifierCopy copy];
+    v29 = objc_msgSend_copy(identifierCopy);
     syncCircleIdentifier = v19->_syncCircleIdentifier;
     v19->_syncCircleIdentifier = v29;
 
-    v31 = [nameCopy copy];
+    v31 = objc_msgSend_copy(nameCopy);
     userRecordName = v19->_userRecordName;
     v19->_userRecordName = v31;
 
@@ -197,27 +197,27 @@
 
 - (id)containerForContainerIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_allCKContainers;
-  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         containerIdentifier = [v9 containerIdentifier];
         v11 = [containerIdentifier isEqualToString:identifierCopy];
 
@@ -228,7 +228,7 @@
         }
       }
 
-      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -239,8 +239,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -283,76 +281,72 @@ LABEL_11:
 
 - (void)enumerateSecondaryContainersWithBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   secondaryCKContainers = [(HDCloudSyncRepository *)self secondaryCKContainers];
-  v6 = [secondaryCKContainers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [secondaryCKContainers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(secondaryCKContainers);
         }
 
-        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9++));
+        blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [secondaryCKContainers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [secondaryCKContainers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateAllContainersWithBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allCKContainers = [(HDCloudSyncRepository *)self allCKContainers];
-  v6 = [allCKContainers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allCKContainers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allCKContainers);
         }
 
-        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9++));
+        blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [allCKContainers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allCKContainers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HDCloudSyncRepositoryProfile)profile

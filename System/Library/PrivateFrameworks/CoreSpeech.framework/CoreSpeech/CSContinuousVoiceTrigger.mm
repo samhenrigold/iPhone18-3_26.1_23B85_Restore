@@ -16,7 +16,7 @@
 
 - (void)_reset
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   self->_pendingTwoShotDetection = 0;
   *&self->_mode = 0u;
   *&self->_triggerEndSampleCount = 0u;
@@ -28,37 +28,35 @@
   lastVoiceTriggerScores = self->_lastVoiceTriggerScores;
   self->_lastVoiceTriggerScores = dictionary;
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   voiceTriggerPhIds = [(CSContinuousVoiceTriggerConfig *)self->_cvtConfig voiceTriggerPhIds];
-  v7 = [voiceTriggerPhIds countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [voiceTriggerPhIds countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(voiceTriggerPhIds);
         }
 
-        [(NSMutableDictionary *)self->_lastVoiceTriggerScores setObject:&unk_283668118 forKey:*(*(&v12 + 1) + 8 * v10++)];
+        [(NSMutableDictionary *)self->_lastVoiceTriggerScores setObject:&unk_283668118 forKey:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [voiceTriggerPhIds countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [voiceTriggerPhIds countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (CSContinuousVoiceTriggerDelegate)delegate
@@ -70,7 +68,7 @@
 
 - (void)_keywordAnalyzerNDAPI:(id)i hasResultAvailable:(id)available forChannel:(unint64_t)channel lastVoiceTriggerScore:(float)score phId:(unint64_t)id
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   iCopy = i;
   availableCopy = available;
   [availableCopy bestScore];
@@ -82,15 +80,15 @@
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316162;
-      v49 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
-      v50 = 2050;
+      v48 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
+      v49 = 2050;
       *&idCopy2 = v15;
-      v52 = 2050;
-      v53 = *&channel;
-      v54 = 2050;
+      v51 = 2050;
+      v52 = *&channel;
+      v53 = 2050;
       idCopy = id;
-      v56 = 2050;
-      v57 = v16;
+      v55 = 2050;
+      v56 = v16;
       _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_DEFAULT, "%s NDAPI continuous voicetrigger best score = %{public}f for channel = %{public}tu,  phId: %{public}tu, heartbeat = %{public}lld", buf, 0x34u);
       v16 = _keywordAnalyzerNDAPI_hasResultAvailable_forChannel_lastVoiceTriggerScore_phId__heartbeat;
     }
@@ -99,17 +97,17 @@
   _keywordAnalyzerNDAPI_hasResultAvailable_forChannel_lastVoiceTriggerScore_phId__heartbeat = v16 + 1;
   if (v15 <= score && v15 >= self->_keywordThreshold)
   {
-    v43 = iCopy;
+    v42 = iCopy;
     v18 = MEMORY[0x277D015D8];
     v19 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v49 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
-      v50 = 2048;
+      v48 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
+      v49 = 2048;
       idCopy2 = id;
-      v52 = 2050;
-      v53 = v15;
+      v51 = 2050;
+      v52 = v15;
       _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_DEFAULT, "%s Continuous VoiceTrigger detected with %tu! (score = %{public}f)", buf, 0x20u);
     }
 
@@ -123,7 +121,7 @@
       if (os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v49 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
+        v48 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
         _os_log_error_impl(&dword_222E4D000, v24, OS_LOG_TYPE_ERROR, "%s Warning: audioTimeConverter not existing, override triggerEndMachTime as NOW", buf, 0xCu);
       }
 
@@ -131,33 +129,33 @@
     }
 
     v25 = v23;
-    v46[0] = *MEMORY[0x277D01F00];
+    v45[0] = *MEMORY[0x277D01F00];
     v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(availableCopy, "bestStart")}];
-    v47[0] = v26;
-    v46[1] = *MEMORY[0x277D01EA8];
+    v46[0] = v26;
+    v45[1] = *MEMORY[0x277D01EA8];
     v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(availableCopy, "bestEnd")}];
-    v47[1] = v27;
-    v46[2] = *MEMORY[0x277D01EF0];
+    v46[1] = v27;
+    v45[2] = *MEMORY[0x277D01EF0];
     *&v28 = v15;
     v29 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
     v30 = *MEMORY[0x277D01DD8];
-    v47[2] = v29;
-    v47[3] = MEMORY[0x277CBEC38];
+    v46[2] = v29;
+    v46[3] = MEMORY[0x277CBEC38];
     v31 = *MEMORY[0x277D01D10];
-    v46[3] = v30;
-    v46[4] = v31;
+    v45[3] = v30;
+    v45[4] = v31;
     v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(MEMORY[0x277D016E0], "channelForProcessedInput")}];
-    v47[4] = v32;
-    v46[5] = *MEMORY[0x277D01EF8];
+    v46[4] = v32;
+    v45[5] = *MEMORY[0x277D01EF8];
     v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v22];
-    v47[5] = v33;
-    v46[6] = *MEMORY[0x277D01EA0];
+    v46[5] = v33;
+    v45[6] = *MEMORY[0x277D01EA0];
     v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v25];
-    v47[6] = v34;
-    v46[7] = *MEMORY[0x277D01ED0];
+    v46[6] = v34;
+    v45[7] = *MEMORY[0x277D01ED0];
     v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:mach_absolute_time()];
-    v47[7] = v35;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:8];
+    v46[7] = v35;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:8];
     v36 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
 
     v37 = MEMORY[0x277D015D8];
@@ -165,16 +163,16 @@
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v49 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
-      v50 = 2114;
+      v48 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
+      v49 = 2114;
       *&idCopy2 = v36;
       _os_log_impl(&dword_222E4D000, v38, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
     }
 
-    iCopy = v43;
+    iCopy = v42;
     if (!self->_pendingTwoShotDetection || v36 == 0.0)
     {
-      [v43 reset];
+      [v42 reset];
     }
 
     else
@@ -183,11 +181,11 @@
       if (os_log_type_enabled(*v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v49 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
+        v48 = "[CSContinuousVoiceTrigger _keywordAnalyzerNDAPI:hasResultAvailable:forChannel:lastVoiceTriggerScore:phId:]";
         _os_log_impl(&dword_222E4D000, v39, OS_LOG_TYPE_DEFAULT, "%s Starting pending two shot detection", buf, 0xCu);
       }
 
-      [v43 resetBest];
+      [v42 resetBest];
       self->_pendingTwoShotDetection = 0;
       [(CSContinuousVoiceTrigger *)self _startDetectTwoShot:*&v36];
     }
@@ -198,12 +196,10 @@
     block[2] = __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_forChannel_lastVoiceTriggerScore_phId___block_invoke;
     block[3] = &unk_2784C6FA8;
     block[4] = self;
-    v45 = v36;
+    v44 = v36;
     v41 = *&v36;
     dispatch_async(queue, block);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_forChannel_lastVoiceTriggerScore_phId___block_invoke(uint64_t a1)
@@ -221,7 +217,7 @@ void __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_fo
 
 - (void)_shotAnalyzerNDAPI:(id)i hasResultAvailable:(id)available forChannel:(unint64_t)channel
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   iCopy = i;
   [available bestScore];
   v10 = v9;
@@ -230,11 +226,11 @@ void __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_fo
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v28 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]";
-    v29 = 2050;
-    v30 = v10;
-    v31 = 2050;
-    v32 = *&channel;
+    v27 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]";
+    v28 = 2050;
+    v29 = v10;
+    v30 = 2050;
+    v31 = *&channel;
     _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s Shot: best score = %{public}f for channel = %{public}tu", buf, 0x20u);
     v12 = *v11;
   }
@@ -244,11 +240,11 @@ void __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_fo
     analyzedSampleCount = self->_analyzedSampleCount;
     v14 = self->_twoShotDecisionWaitSamples + self->_triggerEndSampleCount;
     *buf = 136315650;
-    v28 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]";
-    v29 = 2050;
-    v30 = *&analyzedSampleCount;
-    v31 = 2050;
-    v32 = *&v14;
+    v27 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]";
+    v28 = 2050;
+    v29 = *&analyzedSampleCount;
+    v30 = 2050;
+    v31 = *&v14;
     _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s analyzedSampleCount: %{public}tu, checkTime: %{public}lu", buf, 0x20u);
   }
 
@@ -271,9 +267,9 @@ void __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_fo
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v28 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]";
-        v29 = 2050;
-        v30 = *&v16;
+        v27 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]";
+        v28 = 2050;
+        v29 = *&v16;
         _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_INFO, "%s Reset bestScore at analyzedSampleCount: %{public}tu", buf, 0x16u);
       }
 
@@ -299,7 +295,7 @@ void __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_fo
         block[3] = &unk_2784C5F40;
         block[4] = self;
         *&block[5] = v18 / v22;
-        v26 = v10;
+        v25 = v10;
         dispatch_async(queue, block);
       }
     }
@@ -310,11 +306,11 @@ void __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_fo
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v28 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]";
-        v29 = 2050;
-        v30 = v10;
-        v31 = 2050;
-        v32 = twoShotThreshold;
+        v27 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]";
+        v28 = 2050;
+        v29 = v10;
+        v30 = 2050;
+        v31 = twoShotThreshold;
         _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_DEFAULT, "%s Not entering two shot: [score: %{public}.3f < threshold: %{public}.3f]", buf, 0x20u);
       }
     }
@@ -322,11 +318,9 @@ void __107__CSContinuousVoiceTrigger__keywordAnalyzerNDAPI_hasResultAvailable_fo
     self->_mode = 0;
     [iCopy reset];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-void __77__CSContinuousVoiceTrigger__shotAnalyzerNDAPI_hasResultAvailable_forChannel___block_invoke(uint64_t a1)
+double __77__CSContinuousVoiceTrigger__shotAnalyzerNDAPI_hasResultAvailable_forChannel___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
@@ -335,28 +329,28 @@ void __77__CSContinuousVoiceTrigger__shotAnalyzerNDAPI_hasResultAvailable_forCha
   if (v3)
   {
     kdebug_trace();
-    v4 = objc_loadWeakRetained((*(a1 + 32) + 24));
-    [v4 continuousVoiceTrigger:*(a1 + 32) detectedSilenceAfterVoiceTriggerAt:*(a1 + 40)];
+    v5 = objc_loadWeakRetained((*(a1 + 32) + 24));
+    [v5 continuousVoiceTrigger:*(a1 + 32) detectedSilenceAfterVoiceTriggerAt:*(a1 + 40)];
 
-    v5 = *MEMORY[0x277D015D8];
+    v6 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 48);
-      v7 = *(a1 + 40);
-      v8 = *(*(a1 + 32) + 16);
+      v7 = *(a1 + 48);
+      v8 = *(a1 + 40);
+      v9 = *(*(a1 + 32) + 16);
       v10 = 136315906;
       v11 = "[CSContinuousVoiceTrigger _shotAnalyzerNDAPI:hasResultAvailable:forChannel:]_block_invoke";
       v12 = 2050;
-      v13 = v7;
+      v13 = v8;
       v14 = 2050;
-      v15 = v6;
+      v15 = v7;
       v16 = 2050;
-      v17 = v8;
-      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Entering two shot at %{public}.2f with [score: %{public}.3f > threshold: %{public}.3f]", &v10, 0x2Au);
+      v17 = v9;
+      _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Entering two shot at %{public}.2f with [score: %{public}.3f > threshold: %{public}.3f]", &v10, 0x2Au);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 - (void)processAudioSamples:(id)samples
@@ -375,7 +369,7 @@ void __77__CSContinuousVoiceTrigger__shotAnalyzerNDAPI_hasResultAvailable_forCha
 
 void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 48))
   {
     v2 = [*(a1 + 40) numSamples];
@@ -386,8 +380,8 @@ void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t 
       do
       {
         context = objc_autoreleasePoolPush();
-        v40 = v4;
-        v41 = v3;
+        v39 = v4;
+        v40 = v3;
         if (v3 >= 0x280)
         {
           v5 = 640;
@@ -399,32 +393,32 @@ void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t 
         }
 
         v6 = [*(a1 + 40) subChunkFrom:v4 numSamples:v5];
-        v37 = [v6 numSamples];
         v36 = [v6 numSamples];
+        v35 = [v6 numSamples];
         *(*(a1 + 32) + 72) += [v6 numSamples];
-        v38 = v6;
+        v37 = v6;
         v7 = [*(*(a1 + 32) + 56) getAnalyzedResultsFromAudioChunk:v6];
+        v43 = 0u;
         v44 = 0u;
         v45 = 0u;
         v46 = 0u;
-        v47 = 0u;
         v8 = 0x277CCA000uLL;
-        v43 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
-        if (v43)
+        v42 = [v7 countByEnumeratingWithState:&v43 objects:v47 count:16];
+        if (v42)
         {
           v9 = 0;
-          v10 = *v45;
-          v42 = *v45;
+          v10 = *v44;
+          v41 = *v44;
           do
           {
-            for (i = 0; i != v43; ++i)
+            for (i = 0; i != v42; ++i)
             {
-              if (*v45 != v10)
+              if (*v44 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v44 + 1) + 8 * i);
+              v12 = *(*(&v43 + 1) + 8 * i);
               v13 = *(a1 + 32);
               v14 = *(v13 + 112);
               if (*(v13 + 64) == 1)
@@ -467,27 +461,27 @@ void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t 
                   [v32 setObject:v30 forKey:v31];
 
                   v7 = v24;
-                  v10 = v42;
+                  v10 = v41;
                 }
               }
 
               ++v9;
             }
 
-            v43 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
+            v42 = [v7 countByEnumeratingWithState:&v43 objects:v47 count:16];
           }
 
-          while (v43);
+          while (v42);
         }
 
-        v3 = v41 - v37;
+        v3 = v40 - v36;
         v33 = v7;
-        v4 = v36 + v40;
+        v4 = v35 + v39;
 
         objc_autoreleasePoolPop(context);
       }
 
-      while ((v41 - v37) > 0);
+      while ((v40 - v36) > 0);
     }
   }
 
@@ -497,17 +491,15 @@ void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t 
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v50 = "[CSContinuousVoiceTrigger processAudioSamples:]_block_invoke";
+      v49 = "[CSContinuousVoiceTrigger processAudioSamples:]_block_invoke";
       _os_log_error_impl(&dword_222E4D000, v34, OS_LOG_TYPE_ERROR, "%s Could not find Assets. Cannot process Audio", buf, 0xCu);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startDetectTwoShot:(id)shot
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   shotCopy = shot;
   isRTSTriggered = [(CSAudioRecordContext *)self->_audioRecordContext isRTSTriggered];
   if (shotCopy || !isRTSTriggered)
@@ -535,19 +527,19 @@ void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t 
       twoShotThreshold = self->_twoShotThreshold;
       twoShotDecisionWaitSamples = self->_twoShotDecisionWaitSamples;
       [MEMORY[0x277D016E0] inputRecordingSampleRate];
-      v26 = 136316418;
-      v27 = "[CSContinuousVoiceTrigger _startDetectTwoShot:]";
-      v28 = 2050;
-      v29 = triggerEndSampleCount;
-      v30 = 2050;
-      v31 = v19;
-      v32 = 2050;
-      v33 = twoShotThreshold;
-      v34 = 2050;
-      v35 = twoShotDecisionWaitSamples;
-      v36 = 2050;
-      v37 = (twoShotDecisionWaitSamples / v22);
-      _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_DEFAULT, "%s Setting two shot decision mode triggerEndSampleCount = %{public}tu (%{public}.3f), twoShotThreshold = %{public}.3f, twoShotDecisionWaitSamples = %{public}tu (%{public}.3f)", &v26, 0x3Eu);
+      v25 = 136316418;
+      v26 = "[CSContinuousVoiceTrigger _startDetectTwoShot:]";
+      v27 = 2050;
+      v28 = triggerEndSampleCount;
+      v29 = 2050;
+      v30 = v19;
+      v31 = 2050;
+      v32 = twoShotThreshold;
+      v33 = 2050;
+      v34 = twoShotDecisionWaitSamples;
+      v35 = 2050;
+      v36 = (twoShotDecisionWaitSamples / v22);
+      _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_DEFAULT, "%s Setting two shot decision mode triggerEndSampleCount = %{public}tu (%{public}.3f), twoShotThreshold = %{public}.3f, twoShotDecisionWaitSamples = %{public}tu (%{public}.3f)", &v25, 0x3Eu);
 
       v14 = *v13;
     }
@@ -557,11 +549,11 @@ void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t 
     activeChannel = 0;
     if (v23)
     {
-      v26 = 136315394;
-      v27 = "[CSContinuousVoiceTrigger _startDetectTwoShot:]";
-      v28 = 2050;
-      v29 = 0;
-      _os_log_impl(&dword_222E4D000, v14, OS_LOG_TYPE_DEFAULT, "%s Setting active channel of continuous voice trigger to %{public}tu according to VTEI", &v26, 0x16u);
+      v25 = 136315394;
+      v26 = "[CSContinuousVoiceTrigger _startDetectTwoShot:]";
+      v27 = 2050;
+      v28 = 0;
+      _os_log_impl(&dword_222E4D000, v14, OS_LOG_TYPE_DEFAULT, "%s Setting active channel of continuous voice trigger to %{public}tu according to VTEI", &v25, 0x16u);
       activeChannel = self->_activeChannel;
     }
 
@@ -573,46 +565,42 @@ void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t 
     v6 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 136315138;
-      v27 = "[CSContinuousVoiceTrigger _startDetectTwoShot:]";
-      _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s RTS triggered with nil voicetrigger info. Falling back to CVT pending two shot detection", &v26, 0xCu);
+      v25 = 136315138;
+      v26 = "[CSContinuousVoiceTrigger _startDetectTwoShot:]";
+      _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s RTS triggered with nil voicetrigger info. Falling back to CVT pending two shot detection", &v25, 0xCu);
     }
 
     self->_mode = 0;
     self->_pendingTwoShotDetection = 1;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDetectTwoShot:(id)shot
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   shotCopy = shot;
   v5 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[CSContinuousVoiceTrigger startDetectTwoShot:]";
+    v11 = "[CSContinuousVoiceTrigger startDetectTwoShot:]";
     _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__CSContinuousVoiceTrigger_startDetectTwoShot___block_invoke;
-  v9[3] = &unk_2784C6FA8;
-  v9[4] = self;
-  v10 = shotCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __47__CSContinuousVoiceTrigger_startDetectTwoShot___block_invoke;
+  v8[3] = &unk_2784C6FA8;
+  v8[4] = self;
+  v9 = shotCopy;
   v7 = shotCopy;
-  dispatch_sync(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(queue, v8);
 }
 
 - (void)_setAsset:(id)asset
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   if (assetCopy)
   {
@@ -643,13 +631,11 @@ void __48__CSContinuousVoiceTrigger_processAudioSamples___block_invoke(uint64_t 
     v17 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315138;
-      v20 = "[CSContinuousVoiceTrigger _setAsset:]";
-      _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_DEFAULT, "%s asset is nil, stop initialization", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "[CSContinuousVoiceTrigger _setAsset:]";
+      _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_DEFAULT, "%s asset is nil, stop initialization", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAsset:(id)asset

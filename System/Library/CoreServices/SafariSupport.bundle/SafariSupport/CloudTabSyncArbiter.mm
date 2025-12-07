@@ -39,9 +39,9 @@
 - (CloudTabSyncArbiter)initWithAccountStore:(id)store
 {
   storeCopy = store;
-  v32.receiver = self;
-  v32.super_class = CloudTabSyncArbiter;
-  v6 = [(CloudTabSyncArbiter *)&v32 init];
+  v33.receiver = self;
+  v33.super_class = CloudTabSyncArbiter;
+  v6 = [(CloudTabSyncArbiter *)&v33 init];
   if (v6)
   {
     objc_initWeak(&location, v6);
@@ -61,44 +61,44 @@
     v12 = qword_100153FF8;
     if (!v12)
     {
-      v13 = sub_100001B78();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_100001B78(0, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_1000767C8(v13);
+        sub_1000767C8(v14);
       }
 
       v12 = +[WBSSQLiteDatabase inMemoryDatabaseURL];
     }
 
-    v14 = v12;
-    v15 = [CloudTabSQLiteStore alloc];
-    v16 = +[CloudTabRemoteStore cloudTabsRecordZoneID];
-    v17 = [(CloudTabSQLiteStore *)v15 initWithDatabaseURL:v14 cloudTabsRecordZoneID:v16];
+    v15 = v12;
+    v16 = [CloudTabSQLiteStore alloc];
+    v17 = +[CloudTabRemoteStore cloudTabsRecordZoneID];
+    v18 = [(CloudTabSQLiteStore *)v16 initWithDatabaseURL:v15 cloudTabsRecordZoneID:v17];
     cloudTabLocalStore = v6->_cloudTabLocalStore;
-    v6->_cloudTabLocalStore = v17;
+    v6->_cloudTabLocalStore = v18;
 
-    v19 = +[NSMutableArray array];
+    v20 = +[NSMutableArray array];
     completionHandlersForNextDeviceFetchRequest = v6->_completionHandlersForNextDeviceFetchRequest;
-    v6->_completionHandlersForNextDeviceFetchRequest = v19;
+    v6->_completionHandlersForNextDeviceFetchRequest = v20;
 
-    v21 = +[NSMutableArray array];
+    v22 = +[NSMutableArray array];
     syncCoordinatorDeterminationCompletionBlocks = v6->_syncCoordinatorDeterminationCompletionBlocks;
-    v6->_syncCoordinatorDeterminationCompletionBlocks = v21;
+    v6->_syncCoordinatorDeterminationCompletionBlocks = v22;
 
-    v23 = objc_alloc_init(AppleAccountInformationProvider);
-    v24 = [WBSCloudKitContainerManateeObserver alloc];
-    v25 = [v24 initWithContainerIdentifier:WBSCloudTabManateeContainerIdentifier appleAccountInformationProvider:v23];
+    v24 = objc_alloc_init(AppleAccountInformationProvider);
+    v25 = [WBSCloudKitContainerManateeObserver alloc];
+    v26 = [v25 initWithContainerIdentifier:WBSCloudTabManateeContainerIdentifier appleAccountInformationProvider:v24];
     containerManateeObserver = v6->_containerManateeObserver;
-    v6->_containerManateeObserver = v25;
+    v6->_containerManateeObserver = v26;
 
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_1000735F0;
-    v29[3] = &unk_1001313E0;
-    objc_copyWeak(&v30, &location);
-    [(WBSCloudKitContainerManateeObserver *)v6->_containerManateeObserver setStateChangeObserver:v29];
-    v27 = v6;
-    objc_destroyWeak(&v30);
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1000735F0;
+    v30[3] = &unk_1001313E0;
+    objc_copyWeak(&v31, &location);
+    [(WBSCloudKitContainerManateeObserver *)v6->_containerManateeObserver setStateChangeObserver:v30];
+    v28 = v6;
+    objc_destroyWeak(&v31);
 
     objc_destroyWeak(&location);
   }

@@ -10,6 +10,7 @@
 - (void)rightNavigationButtonPressed;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STKListDisplayAlertViewController
@@ -81,6 +82,72 @@
   v25[3] = v16;
   v17 = [NSArray arrayWithObjects:v25 count:4];
   [NSLayoutConstraint activateConstraints:v17];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  sessionAction = [(STKBaseAlertViewController *)self sessionAction];
+  sessionData = [sessionAction sessionData];
+  text = [sessionData text];
+
+  sessionAction2 = [(STKBaseAlertViewController *)self sessionAction];
+  sessionData2 = [sessionAction2 sessionData];
+  simLabel = [sessionData2 simLabel];
+
+  if (simLabel)
+  {
+    sessionAction3 = [(STKBaseAlertViewController *)self sessionAction];
+    sessionData3 = [sessionAction3 sessionData];
+    simLabel2 = [sessionData3 simLabel];
+    v14 = simLabel2;
+    v15 = &stru_100018670;
+    if (text)
+    {
+      v15 = text;
+    }
+
+    v16 = [NSString stringWithFormat:@"(%@) %@", simLabel2, v15];
+  }
+
+  else
+  {
+    v17 = &stru_100018670;
+    if (text)
+    {
+      v17 = text;
+    }
+
+    v16 = [NSString stringWithFormat:@"%@", v17];
+  }
+
+  if ([v16 length])
+  {
+    v18 = [UILabel alloc];
+    [(UITableView *)self->_table bounds];
+    v20 = [v18 initWithSize:{v19, 20.0}];
+    v21 = +[UIColor blackColor];
+    [v20 setBackgroundColor:v21];
+
+    v22 = +[UIColor whiteColor];
+    [v20 setTextColor:v22];
+
+    [v20 setTextAlignment:1];
+    [v20 setText:v16];
+    [v20 setNumberOfLines:0];
+    [v20 sizeToFit];
+    [v20 bounds];
+    [v20 setBounds:?];
+    [(UITableView *)self->_table setTableHeaderView:v20];
+  }
+
+  [(UITableView *)self->_table reloadData];
+  view = [(STKListDisplayAlertViewController *)self view];
+  [view bringSubviewToFront:self->_table];
+
+  v24.receiver = self;
+  v24.super_class = STKListDisplayAlertViewController;
+  [(STKListDisplayAlertViewController *)&v24 viewWillAppear:appearCopy];
 }
 
 - (void)leftNavigationButtonPressed

@@ -8,33 +8,31 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
   v7 = entriesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v44;
-    v11 = off_27860F000;
+    v10 = *v41;
     while (2)
     {
-      v12 = 0;
-      v41 = v9;
+      v11 = 0;
+      v38 = v9;
       do
       {
-        if (*v44 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * v12);
-        v14 = v11[10];
+        v12 = *(*(&v40 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -43,81 +41,80 @@
           entity = [legacySyncIdentity entity];
           persistentID = [entity persistentID];
 
-          if ([v13 syncIdentity] != -1)
+          if ([v12 syncIdentity] != -1)
           {
-            persistentID = [v13 syncIdentity];
+            persistentID = [v12 syncIdentity];
           }
 
-          records = [v13 records];
-          syncProvenance = [v13 syncProvenance];
-          v42 = 0;
-          v21 = [HDObjectAuthorizationEntity setObjectAuthorizationRecords:records syncProvenance:syncProvenance syncIdentity:persistentID profile:profileCopy error:&v42];
-          v22 = v42;
+          records = [v12 records];
+          syncProvenance = [v12 syncProvenance];
+          v39 = 0;
+          v19 = [HDObjectAuthorizationEntity setObjectAuthorizationRecords:records syncProvenance:syncProvenance syncIdentity:persistentID profile:profileCopy error:&v39];
+          v20 = v39;
 
-          if (!v21)
+          if (!v19)
           {
             _HKInitializeLogging();
-            v23 = *MEMORY[0x277CCC2A0];
+            v21 = *MEMORY[0x277CCC2A0];
             if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
             {
-              v37 = v23;
-              v38 = objc_opt_class();
+              v35 = v21;
+              v36 = objc_opt_class();
               *buf = 138543618;
-              v48 = v38;
-              v49 = 2114;
-              v50 = v22;
-              v39 = v38;
-              _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "Failed to apply %{public}@: %{public}@", buf, 0x16u);
+              v45 = v36;
+              v46 = 2114;
+              v47 = v20;
+              v37 = v36;
+              _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "Failed to apply %{public}@: %{public}@", buf, 0x16u);
             }
 
-            if ([v22 hk_isTransactionInterruptedError])
+            if ([v20 hk_isTransactionInterruptedError])
             {
 
               goto LABEL_21;
             }
 
-            v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", objc_opt_class()];
+            v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", objc_opt_class()];
             daemon = [profileCopy daemon];
             autoBugCaptureReporter = [daemon autoBugCaptureReporter];
-            v27 = profileCopy;
-            v28 = v10;
-            v29 = v7;
-            v30 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v13, "syncProvenance")}];
-            [autoBugCaptureReporter reportJournalFailureWithErrorDescription:v24 provenance:v30 error:v22];
+            v25 = profileCopy;
+            v26 = v10;
+            v27 = v7;
+            v28 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v12, "syncProvenance")}];
+            [autoBugCaptureReporter reportJournalFailureWithErrorDescription:v22 provenance:v28 error:v20];
 
-            v7 = v29;
-            v10 = v28;
-            profileCopy = v27;
-            v11 = off_27860F000;
+            v7 = v27;
+            v10 = v26;
+            profileCopy = v25;
           }
 
-          v9 = v41;
+          v9 = v38;
         }
 
         else
         {
           _HKInitializeLogging();
-          v31 = *MEMORY[0x277CCC2A0];
+          v29 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
+            v30 = v29;
+            v31 = objc_opt_class();
             v32 = v31;
             v33 = objc_opt_class();
-            v34 = v33;
-            v35 = objc_opt_class();
             *buf = 138543618;
-            v48 = v33;
-            v49 = 2114;
-            v50 = v35;
-            v36 = v35;
-            _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "Attempt to apply entry of class %{public}@ via class %{public}@", buf, 0x16u);
+            v45 = v31;
+            v46 = 2114;
+            v47 = v33;
+            v34 = v33;
+            _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "Attempt to apply entry of class %{public}@ via class %{public}@", buf, 0x16u);
           }
         }
 
-        ++v12;
+        ++v11;
       }
 
-      while (v9 != v12);
-      v9 = [v7 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v40 objects:v48 count:16];
       if (v9)
       {
         continue;
@@ -128,8 +125,6 @@
   }
 
 LABEL_21:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (HDObjectAuthorizationJournalEntry)initWithCoder:(id)coder

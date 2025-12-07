@@ -39,7 +39,7 @@ uint64_t sub_1AE37DA28(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t ReplayKitLibraryCore()
+uint64_t ReplayKitLibraryCore(uint64_t a1)
 {
   if (!ReplayKitLibraryCore_frameworkLibrary)
   {
@@ -49,7 +49,7 @@ uint64_t ReplayKitLibraryCore()
   return ReplayKitLibraryCore_frameworkLibrary;
 }
 
-uint64_t __ReplayKitLibraryCore_block_invoke()
+uint64_t __ReplayKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ReplayKitLibraryCore_frameworkLibrary = result;
@@ -58,12 +58,24 @@ uint64_t __ReplayKitLibraryCore_block_invoke()
 
 void __getRPScreenRecorderClass_block_invoke(uint64_t a1)
 {
-  if (!ReplayKitLibraryCore())
+  v4 = 0;
+  v2 = ReplayKitLibraryCore(&v4);
+  v3 = v4;
+  if (v2)
   {
-    v2 = abort_report_np();
-    free(v2);
+    if (!v4)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v4);
+  }
+
+  free(v3);
+LABEL_3:
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("RPScreenRecorder");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
@@ -108,9 +120,9 @@ id getVNDetectHorizonRequestClass()
   return v1;
 }
 
-void sub_1AE37FF80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE37FF80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -140,7 +152,7 @@ Class __getVNDetectHorizonRequestClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -158,122 +170,122 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke()
+uint64_t __VisionLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1AE381AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE381AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE381DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE381DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3820C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE3820C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE38272C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE38272C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE382B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE382B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE382EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE382EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3832CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE3832CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3835D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE3835D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE383B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE383B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3841CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE3841CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE38491C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE38491C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE385070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE385070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE38560C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE38560C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE385BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE385BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE386210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE386210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getVNFaceAttributeAgeBabySymbolLoc_block_invoke(uint64_t a1)
+void *__getVNFaceAttributeAgeBabySymbolLoc_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = VisionLibrary();
-  result = dlsym(v2, "VNFaceAttributeAgeBaby");
+  v5 = VisionLibrary();
+  result = dlsym(v5, "VNFaceAttributeAgeBaby");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getVNFaceAttributeAgeBabySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -299,7 +311,7 @@ uint64_t VisionLibrary()
   v1 = v3[0];
   if (!VisionLibraryCore_frameworkLibrary_0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -312,7 +324,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_0()
+uint64_t __VisionLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_0 = result;
@@ -913,10 +925,11 @@ void *__getVN4bzonkXHYlzBnJNXcyyPd8WLw1wAI1PvSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 id getVNDetectFaceExpressionsRequestClass()
@@ -943,9 +956,9 @@ id getVNDetectFaceExpressionsRequestClass()
   return v1;
 }
 
-void sub_1AE3890E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3890E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -974,9 +987,9 @@ id getVNCreateFaceprintRequestClass()
   return v1;
 }
 
-void sub_1AE3897F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3897F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1005,9 +1018,9 @@ id getVNClassifyFaceAttributesRequestClass()
   return v1;
 }
 
-void sub_1AE3898D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3898D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1036,9 +1049,9 @@ id getVNDetectFaceLandmarksRequestClass()
   return v1;
 }
 
-void sub_1AE3899B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3899B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1067,40 +1080,40 @@ id getVNDetectFacePoseRequestClass()
   return v1;
 }
 
-void sub_1AE389A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE389A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id getVNDetectFaceRectanglesRequestClass(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+id getVNDetectFaceRectanglesRequestClass()
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2050000000;
-  v8 = getVNDetectFaceRectanglesRequestClass_softClass;
-  v16 = getVNDetectFaceRectanglesRequestClass_softClass;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getVNDetectFaceRectanglesRequestClass_softClass;
+  v7 = getVNDetectFaceRectanglesRequestClass_softClass;
   if (!getVNDetectFaceRectanglesRequestClass_softClass)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __getVNDetectFaceRectanglesRequestClass_block_invoke;
-    v12[3] = &unk_1E7A1C700;
-    v12[4] = &v13;
-    __getVNDetectFaceRectanglesRequestClass_block_invoke(v12, a2, a3, a4, a5, a6, a7, a8, v11);
-    v8 = v14[3];
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getVNDetectFaceRectanglesRequestClass_block_invoke;
+    v3[3] = &unk_1E7A1C700;
+    v3[4] = &v4;
+    __getVNDetectFaceRectanglesRequestClass_block_invoke(v3);
+    v0 = v5[3];
   }
 
-  v9 = v8;
-  _Block_object_dispose(&v13, 8);
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
 
-  return v9;
+  return v1;
 }
 
-void sub_1AE389B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE389B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1140,7 +1153,7 @@ void VisionLibrary_0()
   v0 = v1[0];
   if (!VisionLibraryCore_frameworkLibrary_1)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1151,7 +1164,7 @@ LABEL_7:
   }
 }
 
-uint64_t __VisionLibraryCore_block_invoke_1()
+uint64_t __VisionLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_1 = result;
@@ -1234,7 +1247,7 @@ Class __getVNDetectFacePoseRequestClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void __getVNDetectFaceRectanglesRequestClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void __getVNDetectFaceRectanglesRequestClass_block_invoke(uint64_t a1)
 {
   VisionLibrary_0();
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("VNDetectFaceRectanglesRequest");
@@ -1245,15 +1258,16 @@ void __getVNDetectFaceRectanglesRequestClass_block_invoke(uint64_t a1, uint64_t 
 
   else
   {
-    v10 = __getVNDetectFaceRectanglesRequestClass_block_invoke_cold_1();
-    OUTLINED_FUNCTION_0_1(v10, v11, v12, v13, v14, v15, v16, v17, a9);
+    __getVNDetectFaceRectanglesRequestClass_block_invoke_cold_1();
+    OUTLINED_FUNCTION_0_1(v2, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id getVNClassifyImageAestheticsRequestClass()
@@ -1280,9 +1294,9 @@ id getVNClassifyImageAestheticsRequestClass()
   return v1;
 }
 
-void sub_1AE38ADBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE38ADBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1312,7 +1326,7 @@ Class __getVNClassifyImageAestheticsRequestClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1330,7 +1344,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_2()
+uint64_t __VisionLibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_2 = result;
@@ -1377,20 +1391,20 @@ void sub_1AE38CED4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<BOOL>::__vallocate[abi:ne200100](result, a2);
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1537,10 +1551,11 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id getMLModelClass()
@@ -1567,9 +1582,9 @@ id getMLModelClass()
   return v1;
 }
 
-void sub_1AE38FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE38FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1598,9 +1613,9 @@ id getVNCoreMLModelClass()
   return v1;
 }
 
-void sub_1AE38FD48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE38FD48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1629,9 +1644,9 @@ id getVNClassificationObservationClass()
   return v1;
 }
 
-void sub_1AE39014C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE39014C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1660,9 +1675,9 @@ id getVNCoreMLRequestClass()
   return v1;
 }
 
-void sub_1AE39022C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE39022C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1692,7 +1707,7 @@ Class __getMLModelClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1710,7 +1725,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __CoreMLLibraryCore_block_invoke()
+uint64_t __CoreMLLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary = result;
@@ -1752,7 +1767,7 @@ void VisionLibrary_1()
   v0 = v1[0];
   if (!VisionLibraryCore_frameworkLibrary_3)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1763,18 +1778,17 @@ LABEL_7:
   }
 }
 
-uint64_t __VisionLibraryCore_block_invoke_3()
+uint64_t __VisionLibraryCore_block_invoke_3(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_3 = result;
   return result;
 }
 
-Class __getVNClassificationObservationClass_block_invoke(uint64_t a1)
+void __getVNClassificationObservationClass_block_invoke(uint64_t a1)
 {
   VisionLibrary_1();
-  result = objc_getClass("VNClassificationObservation");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("VNClassificationObservation");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getVNClassificationObservationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -1782,11 +1796,9 @@ Class __getVNClassificationObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getVNClassificationObservationClass_block_invoke_cold_1();
-    return __getVNCoreMLRequestClass_block_invoke(v3);
+    v2 = __getVNClassificationObservationClass_block_invoke_cold_1();
+    __getVNCoreMLRequestClass_block_invoke(v2);
   }
-
-  return result;
 }
 
 void __getVNCoreMLRequestClass_block_invoke(uint64_t a1)
@@ -1800,7 +1812,7 @@ void __getVNCoreMLRequestClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = __getVNCoreMLRequestClass_block_invoke_cold_1();
+    __getVNCoreMLRequestClass_block_invoke_cold_1();
     [(AXMScreenCaptureNode *)v2 nodeInitialize];
   }
 }
@@ -1836,9 +1848,9 @@ id getVNImageScoreObservationClass()
   return v1;
 }
 
-void sub_1AE390FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE390FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1867,9 +1879,9 @@ id getVNImageBrightnessObservationClass()
   return v1;
 }
 
-void sub_1AE3910D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3910D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1898,16 +1910,16 @@ id getVNImageBlurObservationClass()
   return v1;
 }
 
-void sub_1AE3911B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3911B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE391498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE391498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1947,7 +1959,7 @@ void VisionLibrary_2()
   v0 = v1[0];
   if (!VisionLibraryCore_frameworkLibrary_4)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1958,7 +1970,7 @@ LABEL_7:
   }
 }
 
-uint64_t __VisionLibraryCore_block_invoke_4()
+uint64_t __VisionLibraryCore_block_invoke_4(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_4 = result;
@@ -2015,14 +2027,14 @@ AXMMobileAssetEvaluationNode *__getVNImageBlurScoreRequestClass_block_invoke(uin
 
   else
   {
-    v3 = __getVNImageBlurScoreRequestClass_block_invoke_cold_1();
+    __getVNImageBlurScoreRequestClass_block_invoke_cold_1();
     return [(AXMMobileAssetEvaluationNode *)v3 initWithIdentifier:v4, v5];
   }
 
   return result;
 }
 
-uint64_t CoreAnalyticsLibraryCore()
+uint64_t CoreAnalyticsLibraryCore(uint64_t a1)
 {
   if (!CoreAnalyticsLibraryCore_frameworkLibrary)
   {
@@ -2032,7 +2044,7 @@ uint64_t CoreAnalyticsLibraryCore()
   return CoreAnalyticsLibraryCore_frameworkLibrary;
 }
 
-uint64_t __CoreAnalyticsLibraryCore_block_invoke()
+uint64_t __CoreAnalyticsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreAnalyticsLibraryCore_frameworkLibrary = result;
@@ -2041,11 +2053,19 @@ uint64_t __CoreAnalyticsLibraryCore_block_invoke()
 
 void *__getAnalyticsSendEventLazySymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = CoreAnalyticsLibraryCore();
+  v5 = 0;
+  v2 = CoreAnalyticsLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "AnalyticsSendEventLazy");
@@ -2083,6 +2103,13 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_1AE39AE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t VisionLibrary_3()
 {
   v6 = *MEMORY[0x1E69E9840];
@@ -2103,7 +2130,7 @@ uint64_t VisionLibrary_3()
   v1 = v3[0];
   if (!VisionLibraryCore_frameworkLibrary_5)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2116,7 +2143,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_5()
+uint64_t __VisionLibraryCore_block_invoke_5(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_5 = result;
@@ -2148,29 +2175,31 @@ void __getVNImageRequestHandlerClass_block_invoke(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void sub_1AE39C7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AE39C7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1AE39DDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE39DDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -2201,7 +2230,7 @@ Class ___ZL15getMLModelClassv_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2219,7 +2248,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t ___ZL17CoreMLLibraryCorePPc_block_invoke()
+uint64_t ___ZL17CoreMLLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreMLLibraryCore(char **)::frameworkLibrary = result;
@@ -2255,7 +2284,7 @@ uint64_t UIKitLibrary(void)
   v1 = v3[0];
   if (!UIKitLibraryCore(char **)::frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2268,7 +2297,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t ___ZL16UIKitLibraryCorePPc_block_invoke()
+uint64_t ___ZL16UIKitLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   UIKitLibraryCore(char **)::frameworkLibrary = result;
@@ -2296,7 +2325,7 @@ Class ___ZL15getUIImageClassv_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = ___ZL15getUIImageClassv_block_invoke_cold_1();
+    ___ZL15getUIImageClassv_block_invoke_cold_1();
     return ___ZL53getUIGraphicsGetImageFromCurrentImageContextSymbolLocv_block_invoke(v3);
   }
 
@@ -2347,7 +2376,7 @@ void std::vector<NSString * {__strong}>::__destroy_vector::operator()[abi:ne2001
   }
 }
 
-void std::vector<NSString * {__strong}>::__vdeallocate(void **a1)
+void std::vector<NSString * {__strong}>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -2449,8 +2478,11 @@ uint64_t std::__split_buffer<NSString * {__strong}>::~__split_buffer(uint64_t a1
   return a1;
 }
 
-__CFDictionary *ImageTools_fcssCreateIOSurfacePropertiesDictionary(int a1, int a2, int a3)
+__CFDictionary *ImageTools_fcssCreateIOSurfacePropertiesDictionary(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
+  v5 = a1;
   hasVXD = ImageTools_hasVXD();
   v7 = ImageTools_hasVXD();
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -2468,8 +2500,8 @@ __CFDictionary *ImageTools_fcssCreateIOSurfacePropertiesDictionary(int a1, int a
     CFDictionarySetValue(Mutable, *MEMORY[0x1E696CF90], @"PurpleGfxMem");
   }
 
-  v10 = (a1 + 15) & 0xFFFFFFF0;
-  if (a3 == 1111970369)
+  v10 = (v5 + 15) & 0xFFFFFFF0;
+  if (v3 == 1111970369)
   {
     v11 = 2;
   }
@@ -2479,11 +2511,11 @@ __CFDictionary *ImageTools_fcssCreateIOSurfacePropertiesDictionary(int a1, int a
     v11 = 1;
   }
 
-  v12 = (v10 << v11) * ((a2 + 15) & 0xFFFFFFF0);
+  v12 = (v10 << v11) * ((v4 + 15) & 0xFFFFFFF0);
   ImageTools_setIntValue(v9, *MEMORY[0x1E696CE58], v10 << v11);
-  ImageTools_setIntValue(v9, *MEMORY[0x1E696D130], a1);
-  ImageTools_setIntValue(v9, *MEMORY[0x1E696CF58], a2);
-  ImageTools_setIntValue(v9, *MEMORY[0x1E696CFC0], a3);
+  ImageTools_setIntValue(v9, *MEMORY[0x1E696D130], v5);
+  ImageTools_setIntValue(v9, *MEMORY[0x1E696CF58], v4);
+  ImageTools_setIntValue(v9, *MEMORY[0x1E696CFC0], v3);
   ImageTools_setIntValue(v9, *MEMORY[0x1E696CE30], v12);
   return v9;
 }
@@ -2544,9 +2576,9 @@ id getVNImageRequestHandlerClass()
   return v1;
 }
 
-void sub_1AE3A04CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3A04CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2583,7 +2615,7 @@ Class __getVNImageRequestHandlerClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2601,7 +2633,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_6()
+uint64_t __VisionLibraryCore_block_invoke_6(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_6 = result;
@@ -2632,9 +2664,9 @@ id getVNRecognizeTextRequestClass()
   return v1;
 }
 
-void sub_1AE3A18AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3A18AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2664,7 +2696,7 @@ Class __getVNRecognizeTextRequestClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2682,17 +2714,18 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_7()
+uint64_t __VisionLibraryCore_block_invoke_7(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_7 = result;
   return result;
 }
 
-void sub_1AE3A352C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1AE3A352C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2717,9 +2750,9 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1AE3A52C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3A52C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2748,16 +2781,16 @@ id getPHPhotoLibraryClass()
   return v1;
 }
 
-void sub_1AE3A53AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3A53AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3A55F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AE3A55F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2786,9 +2819,9 @@ id getPHImageManagerClass()
   return v1;
 }
 
-void sub_1AE3A56D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3A56D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2828,7 +2861,7 @@ void PhotosLibrary()
   v0 = v1[0];
   if (!PhotosLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -2839,7 +2872,7 @@ LABEL_7:
   }
 }
 
-uint64_t __PhotosLibraryCore_block_invoke()
+uint64_t __PhotosLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotosLibraryCore_frameworkLibrary = result;
@@ -2896,7 +2929,7 @@ Class __getPHImageRequestOptionsClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getPHImageRequestOptionsClass_block_invoke_cold_1();
+    __getPHImageRequestOptionsClass_block_invoke_cold_1();
     return +[(AXMADSREnvelope *)v3];
   }
 
@@ -2927,9 +2960,16 @@ id getVNDetectRectanglesRequestClass()
   return v1;
 }
 
-void sub_1AE3A63AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3A63AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AE3A67A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2973,7 +3013,7 @@ uint64_t VisionLibrary_4()
   v1 = v3[0];
   if (!VisionLibraryCore_frameworkLibrary_8)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2986,7 +3026,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_8()
+uint64_t __VisionLibraryCore_block_invoke_8(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_8 = result;
@@ -3008,12 +3048,12 @@ double _AXMRGBToHSB(void *a1, double *a2, double *a3, int8x16_t a4, int8x16_t a5
   {
     if (*a5.i64 >= *a4.i64)
     {
-      v7 = *a4.i64;
+      v7 = a4.i64[0];
     }
 
     else
     {
-      v7 = *a5.i64;
+      v7 = a5.i64[0];
     }
 
     if (*a4.i64 >= a6)
@@ -3029,7 +3069,7 @@ double _AXMRGBToHSB(void *a1, double *a2, double *a3, int8x16_t a4, int8x16_t a5
     v9 = *a5.i64 < *a4.i64 || *a5.i64 < a6;
     if (v9)
     {
-      v10 = v7;
+      v10 = *&v7;
     }
 
     else
@@ -3290,37 +3330,37 @@ id get_LTTranslatorClass()
   return v1;
 }
 
-void sub_1AE3AC464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3AC464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3AD2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AE3AD2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3ADDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3ADDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3AE228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AE3AE228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3345,7 +3385,7 @@ void TranslationLibrary()
   v0 = v1[0];
   if (!TranslationLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -3356,16 +3396,16 @@ LABEL_7:
   }
 }
 
-uint64_t __TranslationLibraryCore_block_invoke()
+uint64_t __TranslationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   TranslationLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1AE3B1C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3B1C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3377,15 +3417,16 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_1AE3B36C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1AE3B36C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3443,42 +3484,54 @@ id getPFSceneTaxonomyClass()
   return v1;
 }
 
-void sub_1AE3B6394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AE3B6A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AE3B70AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1AE3B7570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1AE3B6394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
+void sub_1AE3B6A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+{
+  va_start(va, a17);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AE3B70AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AE3B7570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class __getPFSceneTaxonomyClass_block_invoke(uint64_t a1)
 {
-  if (!PhotosFormatsLibraryCore())
+  v6 = 0;
+  v2 = PhotosFormatsLibraryCore(&v6);
+  v3 = v6;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v6);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("PFSceneTaxonomy");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -3489,13 +3542,13 @@ Class __getPFSceneTaxonomyClass_block_invoke(uint64_t a1)
   else
   {
     __getPFSceneTaxonomyClass_block_invoke_cold_1();
-    return PhotosFormatsLibraryCore();
+    return PhotosFormatsLibraryCore(v5);
   }
 
   return result;
 }
 
-uint64_t PhotosFormatsLibraryCore()
+uint64_t PhotosFormatsLibraryCore(uint64_t a1)
 {
   if (!PhotosFormatsLibraryCore_frameworkLibrary)
   {
@@ -3505,7 +3558,7 @@ uint64_t PhotosFormatsLibraryCore()
   return PhotosFormatsLibraryCore_frameworkLibrary;
 }
 
-uint64_t __PhotosFormatsLibraryCore_block_invoke()
+uint64_t __PhotosFormatsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotosFormatsLibraryCore_frameworkLibrary = result;
@@ -3536,9 +3589,9 @@ id getVNVYvzEtX1JlUdu8xx5qhDIClass()
   return v1;
 }
 
-void sub_1AE3B7B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3B7B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3582,7 +3635,7 @@ uint64_t VisionLibrary_5()
   v1 = v3[0];
   if (!VisionLibraryCore_frameworkLibrary_9)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -3595,7 +3648,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_9()
+uint64_t __VisionLibraryCore_block_invoke_9(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_9 = result;
@@ -3758,7 +3811,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t AXMEXIFOrientationFromInterfaceOrientation(uint64_t a1, int a2)
+uint64_t AXMEXIFOrientationFromInterfaceOrientation(unint64_t a1, int a2)
 {
   if (a2)
   {
@@ -3836,9 +3889,9 @@ uint64_t AXMEXIFOrientationFromInterfaceOrientation(uint64_t a1, int a2)
   }
 }
 
-void sub_1AE3B8844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3B8844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3868,7 +3921,7 @@ Class __getVNSequenceRequestHandlerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3886,7 +3939,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_10()
+uint64_t __VisionLibraryCore_block_invoke_10(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_10 = result;
@@ -3917,9 +3970,9 @@ id getVNRecognizeObjectsRequestClass()
   return v1;
 }
 
-void sub_1AE3B8C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3B8C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3949,7 +4002,7 @@ Class __getVNRecognizeObjectsRequestClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3967,7 +4020,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_11()
+uint64_t __VisionLibraryCore_block_invoke_11(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_11 = result;
@@ -4006,7 +4059,7 @@ Class ___ZL30getVNRecognizeTextRequestClassv_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -4024,17 +4077,18 @@ LABEL_4:
   return result;
 }
 
-uint64_t ___ZL17VisionLibraryCorePPc_block_invoke()
+uint64_t ___ZL17VisionLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore(char **)::frameworkLibrary = result;
   return result;
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 id getVNImageRequestHandlerClass_0()
@@ -4061,9 +4115,9 @@ id getVNImageRequestHandlerClass_0()
   return v1;
 }
 
-void sub_1AE3C2F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3C2F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4092,9 +4146,9 @@ id getVNDetectContoursRequestClass()
   return v1;
 }
 
-void sub_1AE3C3030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3C3030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4123,9 +4177,9 @@ id getVNRecognizeTextRequestClass_0()
   return v1;
 }
 
-void sub_1AE3C3EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3C3EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4165,7 +4219,7 @@ void VisionLibrary_6()
   v0 = v1[0];
   if (!VisionLibraryCore_frameworkLibrary_12)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -4176,7 +4230,7 @@ LABEL_7:
   }
 }
 
-uint64_t __VisionLibraryCore_block_invoke_12()
+uint64_t __VisionLibraryCore_block_invoke_12(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_12 = result;
@@ -4195,7 +4249,7 @@ Class __getVNDetectContoursRequestClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getVNDetectContoursRequestClass_block_invoke_cold_1();
+    __getVNDetectContoursRequestClass_block_invoke_cold_1();
     return __getVNRecognizeTextRequestClass_block_invoke_0(v3);
   }
 
@@ -4214,7 +4268,7 @@ Class __getVNRecognizeTextRequestClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getVNRecognizeTextRequestClass_block_invoke_cold_1();
+    __getVNRecognizeTextRequestClass_block_invoke_cold_1();
     return OUTLINED_FUNCTION_0_6(v3, v4);
   }
 
@@ -4258,9 +4312,9 @@ id getVNTranslationalImageRegistrationRequestClass()
   return v1;
 }
 
-void sub_1AE3C97E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3C97E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4289,9 +4343,9 @@ id getVNImageTranslationAlignmentObservationClass()
   return v1;
 }
 
-void sub_1AE3C98C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3C98C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4331,7 +4385,7 @@ void VisionLibrary_7()
   v0 = v1[0];
   if (!VisionLibraryCore_frameworkLibrary_13)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -4342,7 +4396,7 @@ LABEL_7:
   }
 }
 
-uint64_t __VisionLibraryCore_block_invoke_13()
+uint64_t __VisionLibraryCore_block_invoke_13(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_13 = result;
@@ -4361,7 +4415,7 @@ Class __getVNImageTranslationAlignmentObservationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getVNImageTranslationAlignmentObservationClass_block_invoke_cold_1();
+    __getVNImageTranslationAlignmentObservationClass_block_invoke_cold_1();
     return +[(AXMCameraMetadataNode *)v3];
   }
 
@@ -4382,9 +4436,9 @@ void sub_1AE3CB174(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3CC8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AE3CC8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4412,10 +4466,10 @@ void sub_1AE3CF5CC(_Unwind_Exception *a1)
 
 BOOL AXMIsContainedBy(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v23 = CGRectIntersection(*&a1, *&a5);
-  width = v23.size.width;
-  height = v23.size.height;
-  IsNull = CGRectIsNull(v23);
+  v15 = CGRectIntersection(*&a1, *&a5);
+  width = v15.size.width;
+  height = v15.size.height;
+  IsNull = CGRectIsNull(v15);
   result = 0;
   if (!IsNull && width > 0.0 && height > 0.0)
   {
@@ -4480,16 +4534,16 @@ double AXMDistanceBetweenCenters(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4,
   return sqrt(v23 * v23 + (v17 - (v18 + MaxY) * 0.5) * (v17 - (v18 + MaxY) * 0.5));
 }
 
-void sub_1AE3DB6A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3DB6A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE3DD14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3DD14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4525,9 +4579,9 @@ id getVNCreateSceneprintRequestClass()
   return v1;
 }
 
-void sub_1AE3DE278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3DE278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4557,7 +4611,7 @@ Class __getVNCreateSceneprintRequestClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -4575,16 +4629,16 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_14()
+uint64_t __VisionLibraryCore_block_invoke_14(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_14 = result;
   return result;
 }
 
-void sub_1AE3DEC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3DEC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4624,7 +4678,7 @@ void MediaAnalysisServicesLibrary()
   v0 = v1[0];
   if (!MediaAnalysisServicesLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -4635,7 +4689,7 @@ LABEL_7:
   }
 }
 
-uint64_t __MediaAnalysisServicesLibraryCore_block_invoke()
+uint64_t __MediaAnalysisServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaAnalysisServicesLibraryCore_frameworkLibrary = result;
@@ -4654,7 +4708,7 @@ AXMSynthOscillatorParameters *__getMADVIDocumentRecognitionRequestClass_block_in
 
   else
   {
-    v3 = __getMADVIDocumentRecognitionRequestClass_block_invoke_cold_1();
+    __getMADVIDocumentRecognitionRequestClass_block_invoke_cold_1();
     return [(AXMSynthOscillatorParameters *)v3 init];
   }
 
@@ -4692,7 +4746,7 @@ void std::vector<int>::resize(std::vector<int> *this, std::vector<int>::size_typ
   }
 }
 
-void sub_1AE3E28C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_1AE3E28C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   objc_destroyWeak((v29 + 56));
   _Block_object_dispose(&a20, 8);
@@ -4897,9 +4951,9 @@ id getUIScreenClass()
   return v1;
 }
 
-void sub_1AE3F099C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3F099C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5072,19 +5126,19 @@ LABEL_11:
   return v35;
 }
 
-intptr_t __UIAccessibilityAddMetadataDescriptionToVideo_block_invoke(uint64_t a1)
+intptr_t __UIAccessibilityAddMetadataDescriptionToVideo_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = AXMediaLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = AXMediaLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 32) status];
-    v4 = [*(a1 + 32) error];
-    v6 = 134218242;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1AE37B000, v2, OS_LOG_TYPE_INFO, "AX: Export Session status: %ld %@", &v6, 0x16u);
+    v4 = [*(a1 + 32) status];
+    v5 = [*(a1 + 32) error];
+    v7 = 134218242;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1AE37B000, v3, OS_LOG_TYPE_INFO, "AX: Export Session status: %ld %@", &v7, 0x16u);
   }
 
   return dispatch_semaphore_signal(*(a1 + 40));
@@ -5286,25 +5340,25 @@ id UIAXPhotoDescriptionString(CGImage *a1, unint64_t a2)
     goto LABEL_9;
   }
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v4 = getUIAccessibilityIsVoiceOverRunningSymbolLoc_ptr;
-  v46 = getUIAccessibilityIsVoiceOverRunningSymbolLoc_ptr;
+  v47 = getUIAccessibilityIsVoiceOverRunningSymbolLoc_ptr;
   if (!getUIAccessibilityIsVoiceOverRunningSymbolLoc_ptr)
   {
     *&transform.a = MEMORY[0x1E69E9820];
     *&transform.b = 3221225472;
     *&transform.c = __getUIAccessibilityIsVoiceOverRunningSymbolLoc_block_invoke;
     *&transform.d = &unk_1E7A1C700;
-    *&transform.tx = &v43;
+    *&transform.tx = &v44;
     v5 = UIKitLibrary();
-    v44[3] = dlsym(v5, "UIAccessibilityIsVoiceOverRunning");
+    v45[3] = dlsym(v5, "UIAccessibilityIsVoiceOverRunning");
     getUIAccessibilityIsVoiceOverRunningSymbolLoc_ptr = *(*(*&transform.tx + 8) + 24);
-    v4 = v44[3];
+    v4 = v45[3];
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
   if (v4)
   {
     if (v4())
@@ -5342,30 +5396,30 @@ LABEL_7:
   v11 = v9 * Height / Width;
   v12 = 0;
   v13 = 0;
-  v48 = CGRectIntegral(*(&v9 - 2));
-  x = v48.origin.x;
-  y = v48.origin.y;
-  v16 = v48.size.width;
-  v17 = v48.size.height;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
+  v49 = CGRectIntegral(*(&v9 - 2));
+  x = v49.origin.x;
+  y = v49.origin.y;
+  v16 = v49.size.width;
+  v17 = v49.size.height;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v18 = getUIGraphicsBeginImageContextWithOptionsSymbolLoc_ptr;
-  v46 = getUIGraphicsBeginImageContextWithOptionsSymbolLoc_ptr;
+  v47 = getUIGraphicsBeginImageContextWithOptionsSymbolLoc_ptr;
   if (!getUIGraphicsBeginImageContextWithOptionsSymbolLoc_ptr)
   {
     *&transform.a = MEMORY[0x1E69E9820];
     *&transform.b = 3221225472;
     *&transform.c = __getUIGraphicsBeginImageContextWithOptionsSymbolLoc_block_invoke;
     *&transform.d = &unk_1E7A1C700;
-    *&transform.tx = &v43;
+    *&transform.tx = &v44;
     v19 = UIKitLibrary();
-    v44[3] = dlsym(v19, "UIGraphicsBeginImageContextWithOptions");
+    v45[3] = dlsym(v19, "UIGraphicsBeginImageContextWithOptions");
     getUIGraphicsBeginImageContextWithOptionsSymbolLoc_ptr = *(*(*&transform.tx + 8) + 24);
-    v18 = v44[3];
+    v18 = v45[3];
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v18)
   {
     __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
@@ -5375,25 +5429,25 @@ LABEL_29:
   }
 
   v18(0, v16, v17, 0.0);
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v20 = getUIGraphicsGetCurrentContextSymbolLoc_ptr;
-  v46 = getUIGraphicsGetCurrentContextSymbolLoc_ptr;
+  v47 = getUIGraphicsGetCurrentContextSymbolLoc_ptr;
   if (!getUIGraphicsGetCurrentContextSymbolLoc_ptr)
   {
     *&transform.a = MEMORY[0x1E69E9820];
     *&transform.b = 3221225472;
     *&transform.c = __getUIGraphicsGetCurrentContextSymbolLoc_block_invoke;
     *&transform.d = &unk_1E7A1C700;
-    *&transform.tx = &v43;
+    *&transform.tx = &v44;
     v21 = UIKitLibrary();
-    v44[3] = dlsym(v21, "UIGraphicsGetCurrentContext");
+    v45[3] = dlsym(v21, "UIGraphicsGetCurrentContext");
     getUIGraphicsGetCurrentContextSymbolLoc_ptr = *(*(*&transform.tx + 8) + 24);
-    v20 = v44[3];
+    v20 = v45[3];
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v20)
   {
     goto LABEL_29;
@@ -5407,38 +5461,39 @@ LABEL_29:
   *&transform.d = xmmword_1AE451DE0;
   transform.ty = v17;
   CGContextConcatCTM(v22, &transform);
-  v49.origin.x = x;
-  v49.origin.y = y;
-  v49.size.width = v16;
-  v49.size.height = v17;
-  CGContextDrawImage(v22, v49, a1);
+  v50.origin.x = x;
+  v50.origin.y = y;
+  v50.size.width = v16;
+  v50.size.height = v17;
+  CGContextDrawImage(v22, v50, a1);
   Image = CGBitmapContextCreateImage(v22);
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v24 = getUIGraphicsEndImageContextSymbolLoc_ptr;
-  v46 = getUIGraphicsEndImageContextSymbolLoc_ptr;
+  v47 = getUIGraphicsEndImageContextSymbolLoc_ptr;
   if (!getUIGraphicsEndImageContextSymbolLoc_ptr)
   {
     *&transform.a = MEMORY[0x1E69E9820];
     *&transform.b = 3221225472;
     *&transform.c = __getUIGraphicsEndImageContextSymbolLoc_block_invoke;
     *&transform.d = &unk_1E7A1C700;
-    *&transform.tx = &v43;
+    *&transform.tx = &v44;
     v25 = UIKitLibrary();
     v26 = dlsym(v25, "UIGraphicsEndImageContext");
     *(*(*&transform.tx + 8) + 24) = v26;
     getUIGraphicsEndImageContextSymbolLoc_ptr = *(*(*&transform.tx + 8) + 24);
-    v24 = v44[3];
+    v24 = v45[3];
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v24)
   {
 LABEL_30:
-    v41 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v43, 8);
-    _Unwind_Resume(v41);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v42 = v41;
+    _Block_object_dispose(&v44, 8);
+    _Unwind_Resume(v42);
   }
 
   v24();
@@ -6114,7 +6169,7 @@ id UIAccessibilityEmojiDescription(void *a1)
 
   if (v6)
   {
-    v7 = [(__CFURL *)v2 path];
+    v7 = [v2 path];
     v8 = [v7 lastPathComponent];
     v9 = [v8 stringByDeletingPathExtension];
 
@@ -6300,7 +6355,7 @@ uint64_t UIKitLibrary()
   v1 = v3[0];
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -6313,7 +6368,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __UIKitLibraryCore_block_invoke()
+uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
@@ -6422,16 +6477,16 @@ uint64_t AXMSecureCodingClasses()
   return [v61 setWithObjects:{v60, v59, v58, v57, v56, v55, v54, v53, v52, v51, v50, v49, v48, v47, v46, v45, v44, v43, v42, v41, v40, v39, v38, v37, v36, v35, v34, v33, v32, v31, v30, v29, v28, v27, v26, v25, v24, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v12, v11, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class()}];
 }
 
-id AXMServiceInterface()
+id AXMServiceInterface(uint64_t a1)
 {
   if (AXMServiceInterface_onceToken != -1)
   {
     AXMServiceInterface_cold_1();
   }
 
-  v1 = AXMServiceInterface__Interface;
+  v2 = AXMServiceInterface__Interface;
 
-  return v1;
+  return v2;
 }
 
 void __AXMServiceInterface_block_invoke()
@@ -6449,7 +6504,7 @@ void __AXMServiceInterface_block_invoke()
   [AXMServiceInterface__Interface setClasses:v2 forSelector:sel_visionEngine_evaluateSource_context_options_result_ argumentIndex:1 ofReply:1];
 }
 
-uint64_t AXMIsRunningInServiceProcess()
+uint64_t AXMIsRunningInServiceProcess(uint64_t a1, uint64_t a2)
 {
   if (AXMIsRunningInServiceProcess_onceToken != -1)
   {
@@ -6466,16 +6521,16 @@ void __AXMIsRunningInServiceProcess_block_invoke()
   AXMIsRunningInServiceProcess__RunningInServiceProcess = [v0 isEqualToString:AXMServiceIdentifier];
 }
 
-id _AXMContextQueue()
+id _AXMContextQueue(uint64_t a1)
 {
   if (_AXMContextQueue_onceToken != -1)
   {
     _AXMContextQueue_cold_1();
   }
 
-  v1 = _AXMContextQueue__ContextQueue;
+  v2 = _AXMContextQueue__ContextQueue;
 
-  return v1;
+  return v2;
 }
 
 id AXMCoreImageContext(void *a1)
@@ -6487,7 +6542,7 @@ id AXMCoreImageContext(void *a1)
   v12 = __Block_byref_object_copy__11;
   v13 = __Block_byref_object_dispose__11;
   v14 = 0;
-  v2 = _AXMContextQueue();
+  v2 = _AXMContextQueue(v1);
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __AXMCoreImageContext_block_invoke;
@@ -6531,10 +6586,10 @@ void __AXMCoreImageContext_block_invoke_2()
   _AXMContext = v0;
 }
 
-void AXMDeleteCoreImageContext()
+void AXMDeleteCoreImageContext(uint64_t a1)
 {
-  v0 = _AXMContextQueue();
-  dispatch_sync(v0, &__block_literal_global_153);
+  v1 = _AXMContextQueue(a1);
+  dispatch_sync(v1, &__block_literal_global_153);
 }
 
 void __AXMDeleteCoreImageContext_block_invoke()
@@ -6543,16 +6598,16 @@ void __AXMDeleteCoreImageContext_block_invoke()
   _AXMContext = 0;
 }
 
-id AXMSharedDisplayManager()
+id AXMSharedDisplayManager(uint64_t a1)
 {
   if (AXMSharedDisplayManager_onceToken != -1)
   {
     AXMSharedDisplayManager_cold_1();
   }
 
-  v1 = AXMSharedDisplayManager_DisplayManager;
+  v2 = AXMSharedDisplayManager_DisplayManager;
 
-  return v1;
+  return v2;
 }
 
 void __AXMSharedDisplayManager_block_invoke()
@@ -6806,34 +6861,35 @@ void AXMWriteImageToURL(void *a1, void *a2, void *a3)
   }
 }
 
-void sub_1AE3F8790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE3F8790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id getVN2vIWnsZbk4Su55oeWfKDq1()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr;
-  v8 = getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr;
+  v9 = getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr;
   if (!getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr)
   {
     v1 = VisionLibrary_8();
-    v6[3] = dlsym(v1, "VN2vIWnsZbk4Su55oeWfKDq1");
-    getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VN2vIWnsZbk4Su55oeWfKDq1");
+    getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -6843,25 +6899,26 @@ id getVN2vIWnsZbk4Su55oeWfKDq1()
 
 id getVNmNJnu0xlW8CZXt6hJ7Rpb0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr;
-  v8 = getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr;
+  v9 = getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr;
   if (!getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr)
   {
     v1 = VisionLibrary_8();
-    v6[3] = dlsym(v1, "VNmNJnu0xlW8CZXt6hJ7Rpb0");
-    getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VNmNJnu0xlW8CZXt6hJ7Rpb0");
+    getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -6871,25 +6928,26 @@ id getVNmNJnu0xlW8CZXt6hJ7Rpb0()
 
 id getVN35FOB1QhtSfYGRIJvTgtTq()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr;
-  v8 = getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr;
+  v9 = getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr;
   if (!getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr)
   {
     v1 = VisionLibrary_8();
-    v6[3] = dlsym(v1, "VN35FOB1QhtSfYGRIJvTgtTq");
-    getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VN35FOB1QhtSfYGRIJvTgtTq");
+    getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -6899,25 +6957,26 @@ id getVN35FOB1QhtSfYGRIJvTgtTq()
 
 id getVN6ZsEIQ9ri2eF1vhsxw5COm()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr;
-  v8 = getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr;
+  v9 = getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr;
   if (!getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr)
   {
     v1 = VisionLibrary_8();
-    v6[3] = dlsym(v1, "VN6ZsEIQ9ri2eF1vhsxw5COm");
-    getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VN6ZsEIQ9ri2eF1vhsxw5COm");
+    getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -6960,7 +7019,7 @@ void MediaAnalysisServicesLibrary_0()
   v0 = v1[0];
   if (!MediaAnalysisServicesLibraryCore_frameworkLibrary_0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -6971,7 +7030,7 @@ LABEL_7:
   }
 }
 
-uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_0()
+uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaAnalysisServicesLibraryCore_frameworkLibrary_0 = result;
@@ -6990,7 +7049,7 @@ Class __getMADVISceneClassificationResultClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getMADVISceneClassificationResultClass_block_invoke_cold_1();
+    __getMADVISceneClassificationResultClass_block_invoke_cold_1();
     return __getVN81aedeb999c79d74e79af7f1c922cf97SymbolLoc_block_invoke_0(v3);
   }
 
@@ -7026,7 +7085,7 @@ uint64_t VisionLibrary_8()
   v1 = v3[0];
   if (!VisionLibraryCore_frameworkLibrary_15)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -7039,7 +7098,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_15()
+uint64_t __VisionLibraryCore_block_invoke_15(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_15 = result;
@@ -7160,9 +7219,9 @@ id getVNGenerateAttentionBasedSaliencyImageRequestClass()
   return v1;
 }
 
-void sub_1AE4009F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE4009F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7192,7 +7251,7 @@ Class __getVNGenerateAttentionBasedSaliencyImageRequestClass_block_invoke(uint64
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -7210,21 +7269,21 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_16()
+uint64_t __VisionLibraryCore_block_invoke_16(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_16 = result;
   return result;
 }
 
-void sub_1AE4067E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1AE4067E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7273,7 +7332,7 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -7325,7 +7384,7 @@ void **std::vector<std::shared_ptr<espresso_buffer_t>>::push_back[abi:ne200100](
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -7356,14 +7415,14 @@ void **std::vector<std::shared_ptr<espresso_buffer_t>>::push_back[abi:ne200100](
   return result;
 }
 
-void sub_1AE409FF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1AE409FF8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = AXShotflowNetwork;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7450,7 +7509,7 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float co
   return result;
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -7460,7 +7519,7 @@ void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<BOOL>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7532,8 +7591,7 @@ void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -7620,7 +7678,7 @@ void std::vector<NSString * {__strong}>::__assign_with_size[abi:ne200100]<NSStri
   }
 }
 
-void std::vector<NSString * {__strong}>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<NSString * {__strong}>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7708,17 +7766,17 @@ void std::__split_buffer<std::shared_ptr<espresso_buffer_t>>::clear[abi:ne200100
   }
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1AE40BB6C(_Unwind_Exception *exception_object)
@@ -7762,28 +7820,29 @@ void std::vector<std::shared_ptr<espresso_buffer_t>>::clear[abi:ne200100](uint64
 
 id MLAllComputeDevicesSoft()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getMLAllComputeDevicesSymbolLoc_ptr;
-  v8 = getMLAllComputeDevicesSymbolLoc_ptr;
+  v9 = getMLAllComputeDevicesSymbolLoc_ptr;
   if (!getMLAllComputeDevicesSymbolLoc_ptr)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __getMLAllComputeDevicesSymbolLoc_block_invoke;
-    v4[3] = &unk_1E7A1C700;
-    v4[4] = &v5;
-    __getMLAllComputeDevicesSymbolLoc_block_invoke(v4);
-    v0 = v6[3];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __getMLAllComputeDevicesSymbolLoc_block_invoke;
+    v5[3] = &unk_1E7A1C700;
+    v5[4] = &v6;
+    __getMLAllComputeDevicesSymbolLoc_block_invoke(v5);
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v3 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v3);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v4 = v3;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v4);
   }
 
   v1 = v0();
@@ -7791,9 +7850,9 @@ id MLAllComputeDevicesSoft()
   return v1;
 }
 
-void sub_1AE40C4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE40C4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7824,7 +7883,7 @@ void *__getMLAllComputeDevicesSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -7839,7 +7898,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __CoreMLLibraryCore_block_invoke_0()
+uint64_t __CoreMLLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreMLLibraryCore_frameworkLibrary_0 = result;
@@ -7870,9 +7929,9 @@ id getVNRecognizedTextClass()
   return v1;
 }
 
-void sub_1AE40D000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE40D000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7902,7 +7961,7 @@ Class __getVNRecognizedTextClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -7920,7 +7979,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_17()
+uint64_t __VisionLibraryCore_block_invoke_17(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_17 = result;
@@ -7951,9 +8010,9 @@ id getVCPMediaAnalyzerClass()
   return v1;
 }
 
-void sub_1AE40D360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE40D360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7982,16 +8041,16 @@ id getPHPhotoLibraryClass_0()
   return v1;
 }
 
-void sub_1AE40D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE40D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE40DCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE40DCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8021,7 +8080,7 @@ Class __getVCPMediaAnalyzerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -8039,7 +8098,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __MediaAnalysisLibraryCore_block_invoke()
+uint64_t __MediaAnalysisLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaAnalysisLibraryCore_frameworkLibrary = result;
@@ -8081,7 +8140,7 @@ void PhotosLibrary_0()
   v0 = v1[0];
   if (!PhotosLibraryCore_frameworkLibrary_0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -8092,7 +8151,7 @@ LABEL_7:
   }
 }
 
-uint64_t __PhotosLibraryCore_block_invoke_0()
+uint64_t __PhotosLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotosLibraryCore_frameworkLibrary_0 = result;
@@ -8111,7 +8170,7 @@ Class __getPHPersonClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getPHPersonClass_block_invoke_cold_1();
+    __getPHPersonClass_block_invoke_cold_1();
     return __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v3);
   }
 
@@ -8144,7 +8203,7 @@ void *__getMKBGetDeviceLockStateSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -8159,16 +8218,16 @@ LABEL_5:
   return result;
 }
 
-uint64_t __MobileKeyBagLibraryCore_block_invoke()
+uint64_t __MobileKeyBagLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MobileKeyBagLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1AE40F024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE40F024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8198,7 +8257,7 @@ Class __getVNFaceLandmarks2DClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -8216,7 +8275,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_18()
+uint64_t __VisionLibraryCore_block_invoke_18(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_18 = result;
@@ -8247,16 +8306,23 @@ id getMADImageCaptionRequestClass()
   return v1;
 }
 
-void sub_1AE413CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE413CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE415058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE414DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a7);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AE415058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8281,7 +8347,7 @@ uint64_t MediaAnalysisLibrary()
   v1 = v3[0];
   if (!MediaAnalysisLibraryCore_frameworkLibrary_0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -8294,7 +8360,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __MediaAnalysisLibraryCore_block_invoke_0()
+uint64_t __MediaAnalysisLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaAnalysisLibraryCore_frameworkLibrary_0 = result;
@@ -8352,7 +8418,7 @@ void MediaAnalysisServicesLibrary_1()
   v0 = v1[0];
   if (!MediaAnalysisServicesLibraryCore_frameworkLibrary_1)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -8363,7 +8429,7 @@ LABEL_7:
   }
 }
 
-uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_1()
+uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaAnalysisServicesLibraryCore_frameworkLibrary_1 = result;
@@ -8424,7 +8490,7 @@ void *__getMediaAnalysisResultImageCaptionConfidenceAttributeKeySymbolLoc_block_
   return result;
 }
 
-void __getMADCaptionResultClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void __getMADCaptionResultClass_block_invoke(uint64_t a1)
 {
   MediaAnalysisServicesLibrary_1();
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MADCaptionResult");
@@ -8435,15 +8501,16 @@ void __getMADCaptionResultClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t 
 
   else
   {
-    v10 = __getMADCaptionResultClass_block_invoke_cold_1();
-    OUTLINED_FUNCTION_2_0(v10, v11, v12, v13, v14, v15, v16, v17, a9);
+    __getMADCaptionResultClass_block_invoke_cold_1();
+    OUTLINED_FUNCTION_2_0(v2, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_4_0(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
@@ -8452,9 +8519,9 @@ void OUTLINED_FUNCTION_4_0(void *a1, int a2, os_log_t log, const char *a4, uint8
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, a5, 2u);
 }
 
-void sub_1AE415CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE415CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8464,6 +8531,13 @@ uint64_t __Block_byref_object_copy__12(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_1AE41DA88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63, ...)
+{
+  va_start(va, a63);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void __getMADVIFaceRequestClass_block_invoke(uint64_t a1)
@@ -8501,7 +8575,7 @@ void MediaAnalysisServicesLibrary_2()
   v0 = v1[0];
   if (!MediaAnalysisServicesLibraryCore_frameworkLibrary_2)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -8512,7 +8586,7 @@ LABEL_7:
   }
 }
 
-uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_2()
+uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaAnalysisServicesLibraryCore_frameworkLibrary_2 = result;
@@ -8531,7 +8605,7 @@ Class __getMADVIFaceResultClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getMADVIFaceResultClass_block_invoke_cold_1();
+    __getMADVIFaceResultClass_block_invoke_cold_1();
     return +[(AXMMADSService *)v3];
   }
 
@@ -8563,7 +8637,7 @@ Class __getMADServiceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -8581,14 +8655,14 @@ LABEL_4:
   return result;
 }
 
-uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_3()
+uint64_t __MediaAnalysisServicesLibraryCore_block_invoke_3(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaAnalysisServicesLibraryCore_frameworkLibrary_3 = result;
   return result;
 }
 
-double mean(double *a1, int a2)
+double mean(double *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -8612,7 +8686,7 @@ double mean(double *a1, int a2)
   return v3 / a2;
 }
 
-double min(double *a1, int a2)
+double min(double *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -8637,7 +8711,7 @@ double min(double *a1, int a2)
   return result;
 }
 
-double max(double *a1, int a2)
+double max(double *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -8662,7 +8736,7 @@ double max(double *a1, int a2)
   return result;
 }
 
-double covariance(double *a1, double *a2, int a3)
+double covariance(double *a1, double *a2, unsigned int a3)
 {
   if (a3 < 1)
   {
@@ -8713,7 +8787,7 @@ double covariance(double *a1, double *a2, int a3)
   return v14 / (a3 - 1);
 }
 
-double variance(double *a1, int a2)
+double variance(double *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -8749,7 +8823,7 @@ double variance(double *a1, int a2)
   return v8 / (a2 - 1);
 }
 
-double rsquared(double *a1, double *a2, int a3)
+double rsquared(double *a1, double *a2, unsigned int a3)
 {
   v6 = covariance(a1, a2, a3);
   v7 = variance(a1, a3);
@@ -9078,9 +9152,16 @@ LABEL_60:
   return v2;
 }
 
-void sub_1AE421128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE421010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a7);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AE421128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9092,45 +9173,45 @@ uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1AE42130C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE42130C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE421484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE421484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE421640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE421640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE42175C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE42175C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE4229EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1AE4229EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getCVNLPCaptionsSymbolLoc_block_invoke(uint64_t a1)
+void *__getCVNLPCaptionsSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CVNLPLibrary();
-  result = dlsym(v2, "CVNLPCaptions");
+  v3 = CVNLPLibrary();
+  result = dlsym(v3, "CVNLPCaptions");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCVNLPCaptionsSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -9156,7 +9237,7 @@ uint64_t CVNLPLibrary()
   v1 = v3[0];
   if (!CVNLPLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -9169,7 +9250,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __CVNLPLibraryCore_block_invoke()
+uint64_t __CVNLPLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CVNLPLibraryCore_frameworkLibrary = result;
@@ -9371,9 +9452,9 @@ id getVNSceneClassificationRequestClass()
   return v1;
 }
 
-void sub_1AE423CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE423CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9403,7 +9484,7 @@ Class __getVNSceneClassificationRequestClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -9421,7 +9502,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_19()
+uint64_t __VisionLibraryCore_block_invoke_19(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_19 = result;
@@ -9452,34 +9533,35 @@ id getVN6Mb1ME89lyW3HpahkEygIGClass()
   return v1;
 }
 
-void sub_1AE427274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE427274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id getVN2vIWnsZbk4Su55oeWfKDq1_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr_0;
-  v8 = getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr_0;
+  v9 = getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr_0;
   if (!getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr_0)
   {
     v1 = VisionLibrary_9();
-    v6[3] = dlsym(v1, "VN2vIWnsZbk4Su55oeWfKDq1");
-    getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr_0 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VN2vIWnsZbk4Su55oeWfKDq1");
+    getVN2vIWnsZbk4Su55oeWfKDq1SymbolLoc_ptr_0 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -9489,25 +9571,26 @@ id getVN2vIWnsZbk4Su55oeWfKDq1_0()
 
 id getVNmNJnu0xlW8CZXt6hJ7Rpb0_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr_0;
-  v8 = getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr_0;
+  v9 = getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr_0;
   if (!getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr_0)
   {
     v1 = VisionLibrary_9();
-    v6[3] = dlsym(v1, "VNmNJnu0xlW8CZXt6hJ7Rpb0");
-    getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr_0 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VNmNJnu0xlW8CZXt6hJ7Rpb0");
+    getVNmNJnu0xlW8CZXt6hJ7Rpb0SymbolLoc_ptr_0 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -9517,25 +9600,26 @@ id getVNmNJnu0xlW8CZXt6hJ7Rpb0_0()
 
 id getVN35FOB1QhtSfYGRIJvTgtTq_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr_0;
-  v8 = getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr_0;
+  v9 = getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr_0;
   if (!getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr_0)
   {
     v1 = VisionLibrary_9();
-    v6[3] = dlsym(v1, "VN35FOB1QhtSfYGRIJvTgtTq");
-    getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr_0 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VN35FOB1QhtSfYGRIJvTgtTq");
+    getVN35FOB1QhtSfYGRIJvTgtTqSymbolLoc_ptr_0 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -9545,114 +9629,29 @@ id getVN35FOB1QhtSfYGRIJvTgtTq_0()
 
 id getVN6ZsEIQ9ri2eF1vhsxw5COm_0()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr_0;
-  v8 = getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr_0;
+  v9 = getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr_0;
   if (!getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr_0)
   {
     v1 = VisionLibrary_9();
-    v6[3] = dlsym(v1, "VN6ZsEIQ9ri2eF1vhsxw5COm");
-    getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr_0 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VN6ZsEIQ9ri2eF1vhsxw5COm");
+    getVN6ZsEIQ9ri2eF1vhsxw5COmSymbolLoc_ptr_0 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    v4 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
 
   return v2;
-}
-
-Class __getVN6Mb1ME89lyW3HpahkEygIGClass_block_invoke(uint64_t a1)
-{
-  VisionLibrary_9();
-  result = objc_getClass("VN6Mb1ME89lyW3HpahkEygIG");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getVN6Mb1ME89lyW3HpahkEygIGClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    __getVN6Mb1ME89lyW3HpahkEygIGClass_block_invoke_cold_1();
-    return VisionLibrary_9();
-  }
-
-  return result;
-}
-
-uint64_t VisionLibrary_9()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
-  if (!VisionLibraryCore_frameworkLibrary_20)
-  {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __VisionLibraryCore_block_invoke_20;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E7A1EAF0;
-    v5 = 0;
-    VisionLibraryCore_frameworkLibrary_20 = _sl_dlopen();
-  }
-
-  v0 = VisionLibraryCore_frameworkLibrary_20;
-  v1 = v3[0];
-  if (!VisionLibraryCore_frameworkLibrary_20)
-  {
-    v1 = abort_report_np();
-    goto LABEL_7;
-  }
-
-  if (v3[0])
-  {
-LABEL_7:
-    free(v1);
-  }
-
-  return v0;
-}
-
-uint64_t __VisionLibraryCore_block_invoke_20()
-{
-  result = _sl_dlopen();
-  VisionLibraryCore_frameworkLibrary_20 = result;
-  return result;
-}
-
-void *__getVN3FNQUJVIs2puI1uPc9mxh7SymbolLoc_block_invoke_0(uint64_t a1)
-{
-  v2 = VisionLibrary_9();
-  result = dlsym(v2, "VN3FNQUJVIs2puI1uPc9mxh7");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getVN3FNQUJVIs2puI1uPc9mxh7SymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getVNSY8t4EoTztuqIL02g8uVA0SymbolLoc_block_invoke_0(uint64_t a1)
-{
-  v2 = VisionLibrary_9();
-  result = dlsym(v2, "VNSY8t4EoTztuqIL02g8uVA0");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getVNSY8t4EoTztuqIL02g8uVA0SymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getVN6XNMvaRunPpzWjGa9uUHD6SymbolLoc_block_invoke_0(uint64_t a1)
-{
-  v2 = VisionLibrary_9();
-  result = dlsym(v2, "VN6XNMvaRunPpzWjGa9uUHD6");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getVN6XNMvaRunPpzWjGa9uUHD6SymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
 }

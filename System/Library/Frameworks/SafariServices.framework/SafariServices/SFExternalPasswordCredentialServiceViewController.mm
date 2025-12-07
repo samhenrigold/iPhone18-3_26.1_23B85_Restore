@@ -82,15 +82,15 @@
 {
   identityCopy = identity;
   applicationIdentifier = [(SFPasswordServiceViewController *)self applicationIdentifier];
-  v45 = 0;
-  v8 = [applicationIdentifier safari_bundleIdentifierFromApplicationIdentifier:&v45];
-  v9 = v45;
+  v49 = 0;
+  v8 = [applicationIdentifier safari_bundleIdentifierFromApplicationIdentifier:&v49];
+  v9 = v49;
   clientBundleID = self->_clientBundleID;
   self->_clientBundleID = v8;
 
-  if (!self->_clientBundleID && (v11 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(), os_log_type_enabled(v11, OS_LOG_TYPE_ERROR)))
+  if (!self->_clientBundleID && (v13 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v11, v12), v11 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR)))
   {
-    [SFExternalPasswordCredentialServiceViewController _autoFillWithCredentialIdentity:v11 pageID:v9 frameID:?];
+    [SFExternalPasswordCredentialServiceViewController _autoFillWithCredentialIdentity:v13 pageID:v9 frameID:?];
     if (identityCopy)
     {
 LABEL_4:
@@ -98,12 +98,12 @@ LABEL_4:
       providerBundleID = [owningExtensionState providerBundleID];
 
       mEMORY[0x1E69C8DE0] = [MEMORY[0x1E69C8DE0] sharedManager];
-      v15 = [mEMORY[0x1E69C8DE0] enabledExtensionWithContainingAppBundleID:providerBundleID];
+      v17 = [mEMORY[0x1E69C8DE0] enabledExtensionWithContainingAppBundleID:providerBundleID];
 
-      if (!v15)
+      if (!v17)
       {
-        v21 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v25 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v18, v19);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           [SFExternalPasswordCredentialServiceViewController _autoFillWithCredentialIdentity:pageID:frameID:];
         }
@@ -117,13 +117,13 @@ LABEL_4:
       switch(type)
       {
         case 4:
-          v27 = objc_alloc(MEMORY[0x1E695A978]);
-          v28 = objc_alloc(MEMORY[0x1E695A930]);
-          v29 = [objc_alloc(MEMORY[0x1E695A928]) _initWithFoundationCredentialIdentity:identityCopy];
-          v30 = [v28 initWithCredentialIdentity:v29];
-          v31 = [v27 initWithExtension:v15 oneTimeCodeCredentialRequest:v30];
+          v31 = objc_alloc(MEMORY[0x1E695A978]);
+          v32 = objc_alloc(MEMORY[0x1E695A930]);
+          v33 = [objc_alloc(MEMORY[0x1E695A928]) _initWithFoundationCredentialIdentity:identityCopy];
+          v34 = [v32 initWithCredentialIdentity:v33];
+          v35 = [v31 initWithExtension:v17 oneTimeCodeCredentialRequest:v34];
           extensionController = self->_extensionController;
-          self->_extensionController = v31;
+          self->_extensionController = v35;
 
           break;
         case 2:
@@ -132,23 +132,23 @@ LABEL_4:
           aBlock[2] = __100__SFExternalPasswordCredentialServiceViewController__autoFillWithCredentialIdentity_pageID_frameID___block_invoke;
           aBlock[3] = &unk_1E84934C0;
           aBlock[4] = self;
-          v44 = v15;
-          v42 = _Block_copy(aBlock);
-          v22 = identityCopy;
-          [(SFExternalPasswordCredentialServiceViewController *)self _hostAuditToken];
-          v23 = WBSApplicationIdentifierFromAuditToken();
+          v48 = v17;
+          v46 = _Block_copy(aBlock);
+          v26 = identityCopy;
+          objc_msgSend__hostAuditToken(self);
+          v27 = WBSApplicationIdentifierFromAuditToken();
           authenticationServicesAgentProxy = self->_authenticationServicesAgentProxy;
-          serviceIdentifier = [v22 serviceIdentifier];
-          credentialID = [v22 credentialID];
+          serviceIdentifier = [v26 serviceIdentifier];
+          credentialID = [v26 credentialID];
 
-          [(WBSAuthenticationServicesAgentProxy *)authenticationServicesAgentProxy getExternalPasskeyRequestForApplicationIdentifier:v23 relyingPartyIdentifier:serviceIdentifier credentialID:credentialID completionHandler:v42];
+          [(WBSAuthenticationServicesAgentProxy *)authenticationServicesAgentProxy getExternalPasskeyRequestForApplicationIdentifier:v27 relyingPartyIdentifier:serviceIdentifier credentialID:credentialID completionHandler:v46];
           goto LABEL_15;
         case 1:
-          v17 = objc_alloc(MEMORY[0x1E695A978]);
-          v18 = [objc_alloc(MEMORY[0x1E695A940]) initWithFoundationCredentialIdentity:identityCopy];
-          v19 = [v17 initWithExtension:v15 credentialIdentity:v18];
-          v20 = self->_extensionController;
-          self->_extensionController = v19;
+          v21 = objc_alloc(MEMORY[0x1E695A978]);
+          v22 = [objc_alloc(MEMORY[0x1E695A940]) initWithFoundationCredentialIdentity:identityCopy];
+          v23 = [v21 initWithExtension:v17 credentialIdentity:v22];
+          v24 = self->_extensionController;
+          self->_extensionController = v23;
 
           break;
         default:
@@ -162,10 +162,10 @@ LABEL_15:
       {
         if (serviceIdentifierType == 1)
         {
-          v34 = MEMORY[0x1E695DFF8];
+          v38 = MEMORY[0x1E695DFF8];
           serviceIdentifier2 = [identityCopy serviceIdentifier];
-          v36 = [v34 URLWithString:serviceIdentifier2];
-          host = [v36 host];
+          v40 = [v38 URLWithString:serviceIdentifier2];
+          host = [v40 host];
           hostForLastAutoFill = self->_hostForLastAutoFill;
           self->_hostForLastAutoFill = host;
         }
@@ -174,7 +174,7 @@ LABEL_15:
       else
       {
         serviceIdentifier3 = [identityCopy serviceIdentifier];
-        v40 = self->_hostForLastAutoFill;
+        v44 = self->_hostForLastAutoFill;
         self->_hostForLastAutoFill = serviceIdentifier3;
       }
 
@@ -189,8 +189,8 @@ LABEL_19:
     goto LABEL_4;
   }
 
-  v41 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+  v45 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v11, v12);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
   {
     [SFExternalPasswordCredentialServiceViewController _autoFillWithCredentialIdentity:pageID:frameID:];
   }
@@ -248,118 +248,120 @@ void __100__SFExternalPasswordCredentialServiceViewController__autoFillWithCrede
   }
 }
 
-void __123__SFExternalPasswordCredentialServiceViewController__finishRequestToAutoFillCredential_extensionShowedUI_error_completion___block_invoke(uint64_t a1, char a2)
+void __123__SFExternalPasswordCredentialServiceViewController__finishRequestToAutoFillCredential_extensionShowedUI_error_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(a1, a2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    if (v4)
     {
-      v4 = *(a1 + 32);
-      v5 = v3;
-      v6 = [v4 user];
-      if ([v6 length])
+      v6 = *(a1 + 32);
+      v7 = v3;
+      v8 = [v6 user];
+      if ([v8 length])
       {
-        v7 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v7 = @"NO";
+        v9 = @"NO";
       }
 
-      v8 = v7;
-      v9 = [*(a1 + 32) password];
-      if ([v9 length])
+      v10 = v9;
+      v11 = [*(a1 + 32) password];
+      if ([v11 length])
       {
-        v10 = @"YES";
+        v12 = @"YES";
       }
 
       else
       {
-        v10 = @"NO";
+        v12 = @"NO";
       }
 
-      v11 = v10;
+      v13 = v12;
       *buf = 138543618;
-      v19 = v8;
-      v20 = 2114;
-      v21 = v11;
-      _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_DEFAULT, "Sending credential with non-empty username: %{public}@, non-empty password: %{public}@", buf, 0x16u);
+      v21 = v10;
+      v22 = 2114;
+      v23 = v13;
+      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Sending credential with non-empty username: %{public}@, non-empty password: %{public}@", buf, 0x16u);
     }
 
-    v12 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v4, v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      __123__SFExternalPasswordCredentialServiceViewController__finishRequestToAutoFillCredential_extensionShowedUI_error_completion___block_invoke_cold_1(a1, v12);
+      __123__SFExternalPasswordCredentialServiceViewController__finishRequestToAutoFillCredential_extensionShowedUI_error_completion___block_invoke_cold_1(a1, v14);
     }
 
-    v13 = MEMORY[0x1E69D9578];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __123__SFExternalPasswordCredentialServiceViewController__finishRequestToAutoFillCredential_extensionShowedUI_error_completion___block_invoke_68;
-    v16[3] = &unk_1E84909E8;
-    v14 = *(a1 + 32);
-    v17 = *(a1 + 40);
-    [v13 sendAutofillCredentialCandidate:v14 completionHandler:v16];
+    v15 = MEMORY[0x1E69D9578];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __123__SFExternalPasswordCredentialServiceViewController__finishRequestToAutoFillCredential_extensionShowedUI_error_completion___block_invoke_68;
+    v18[3] = &unk_1E84909E8;
+    v16 = *(a1 + 32);
+    v19 = *(a1 + 40);
+    [v15 sendAutofillCredentialCandidate:v16 completionHandler:v18];
   }
 
   else
   {
-    v15 = *(*(a1 + 40) + 16);
+    v17 = *(*(a1 + 40) + 16);
 
-    v15();
+    v17();
   }
 }
 
 - (void)getCredentialForCredentialIdentity:(id)identity completion:(id)completion
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   completionCopy = completion;
   if (completionCopy)
   {
-    [(SFExternalPasswordCredentialServiceViewController *)self _hostAuditToken];
-    if (WBSAuditTokenHasEntitlement())
+    objc_msgSend__hostAuditToken(self);
+    HasEntitlement = WBSAuditTokenHasEntitlement();
+    if (HasEntitlement)
     {
       owningExtensionState = [identityCopy owningExtensionState];
       providerBundleID = [owningExtensionState providerBundleID];
 
       mEMORY[0x1E69C8DE0] = [MEMORY[0x1E69C8DE0] sharedManager];
-      v11 = [mEMORY[0x1E69C8DE0] enabledExtensionWithContainingAppBundleID:providerBundleID];
+      v13 = [mEMORY[0x1E69C8DE0] enabledExtensionWithContainingAppBundleID:providerBundleID];
 
-      if (v11)
+      if (v13)
       {
-        v12 = _Block_copy(completionCopy);
+        v16 = _Block_copy(completionCopy);
         getCredentialCompletion = self->_getCredentialCompletion;
-        self->_getCredentialCompletion = v12;
+        self->_getCredentialCompletion = v16;
 
         self->_completionAction = 1;
-        v14 = objc_alloc(MEMORY[0x1E695A978]);
-        v15 = [objc_alloc(MEMORY[0x1E695A940]) initWithFoundationCredentialIdentity:identityCopy];
-        v16 = [v14 initWithExtension:v11 credentialIdentity:v15];
+        v18 = objc_alloc(MEMORY[0x1E695A978]);
+        v19 = [objc_alloc(MEMORY[0x1E695A940]) initWithFoundationCredentialIdentity:identityCopy];
+        v20 = [v18 initWithExtension:v13 credentialIdentity:v19];
         extensionController = self->_extensionController;
-        self->_extensionController = v16;
+        self->_extensionController = v20;
 
         [(_ASCredentialAuthenticationViewController *)self->_extensionController setDelegate:self];
       }
 
       else
       {
-        v23 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v27 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v14, v15);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           [SFExternalPasswordCredentialServiceViewController _autoFillWithCredentialIdentity:pageID:frameID:];
         }
 
-        v24 = MEMORY[0x1E696ABC0];
-        v25 = *MEMORY[0x1E695A8F0];
-        v28 = *MEMORY[0x1E696A588];
-        v29 = @"Primary credential provider extension was not found";
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-        v27 = [v24 errorWithDomain:v25 code:0 userInfo:v26];
-        (*(completionCopy + 2))(completionCopy, 0, 0, v27);
+        v28 = MEMORY[0x1E696ABC0];
+        v29 = *MEMORY[0x1E695A8F0];
+        v32 = *MEMORY[0x1E696A588];
+        v33 = @"Primary credential provider extension was not found";
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = [v28 errorWithDomain:v29 code:0 userInfo:v30];
+        (*(completionCopy + 2))(completionCopy, 0, 0, v31);
 
         [(SFExternalPasswordCredentialServiceViewController *)self _dismiss];
       }
@@ -367,19 +369,19 @@ void __123__SFExternalPasswordCredentialServiceViewController__finishRequestToAu
 
     else
     {
-      v18 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v22 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(HasEntitlement, v9);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [SFExternalPasswordCredentialServiceViewController getCredentialForCredentialIdentity:completion:];
       }
 
-      v19 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A250];
-      v30 = *MEMORY[0x1E696A588];
-      v31[0] = @"Calling process is not entitled";
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      v22 = [v19 errorWithDomain:v20 code:4099 userInfo:v21];
-      (*(completionCopy + 2))(completionCopy, 0, 0, v22);
+      v23 = MEMORY[0x1E696ABC0];
+      v24 = *MEMORY[0x1E696A250];
+      v34 = *MEMORY[0x1E696A588];
+      v35[0] = @"Calling process is not entitled";
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+      v26 = [v23 errorWithDomain:v24 code:4099 userInfo:v25];
+      (*(completionCopy + 2))(completionCopy, 0, 0, v26);
 
       [(SFExternalPasswordCredentialServiceViewController *)self _dismiss];
     }
@@ -400,8 +402,8 @@ void __123__SFExternalPasswordCredentialServiceViewController__finishRequestToAu
   else
   {
     completionCopy2 = completion;
-    v14 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(completionCopy2, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [SFExternalPasswordCredentialServiceViewController _finishRequestToReturnCredential:extensionShowedUI:error:completion:];
     }
@@ -436,94 +438,95 @@ void __112__SFExternalPasswordCredentialServiceViewController_presentUIForPasswo
 
   v15 = dispatch_group_create();
   dispatch_group_enter(v15);
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke;
-  v45[3] = &unk_1E8490798;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke;
+  v47[3] = &unk_1E8490798;
   v16 = completionCopy;
-  v47 = v16;
+  v49 = v16;
   v17 = v15;
-  v46 = v17;
-  v34 = controllerCopy;
-  [controllerCopy dismissViewControllerAnimated:1 completion:v45];
+  v48 = v17;
+  v36 = controllerCopy;
+  [controllerCopy dismissViewControllerAnimated:1 completion:v47];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_2;
   aBlock[3] = &unk_1E848F548;
   v18 = v17;
-  v43 = v18;
+  v45 = v18;
   selfCopy = self;
-  v33 = _Block_copy(aBlock);
+  v19 = _Block_copy(aBlock);
+  v35 = v19;
   if (credentialCopy)
   {
-    v19 = objc_alloc(MEMORY[0x1E69C8E10]);
+    v21 = objc_alloc(MEMORY[0x1E69C8E10]);
     [credentialCopy user];
-    v20 = v18;
-    v22 = v21 = errorCopy;
+    v22 = v18;
+    v24 = v23 = errorCopy;
     password = [credentialCopy password];
     [MEMORY[0x1E695DF00] date];
-    v25 = v24 = v16;
-    v26 = [v19 initWithUser:v22 password:password site:&stru_1F4FE9E38 creationDate:v25 customTitle:0 groupName:0 requestedHost:0];
+    v27 = v26 = v16;
+    v28 = [v21 initWithUser:v24 password:password site:&stru_1F4FE9E38 creationDate:v27 customTitle:0 groupName:0 requestedHost:0];
 
-    v16 = v24;
-    errorCopy = v21;
-    v18 = v20;
+    v16 = v26;
+    errorCopy = v23;
+    v18 = v22;
   }
 
   else
   {
-    v26 = 0;
+    v28 = 0;
   }
 
   completionAction = self->_completionAction;
   if (completionAction == 1)
   {
-    v31 = presentingViewController != 0;
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_88;
-    v35[3] = &unk_1E84909E8;
-    v30 = v33;
-    v36 = v33;
-    [(SFExternalPasswordCredentialServiceViewController *)self _finishRequestToReturnCredential:v26 extensionShowedUI:v31 error:errorCopy completion:v35];
+    v33 = presentingViewController != 0;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_88;
+    v37[3] = &unk_1E84909E8;
+    v32 = v35;
+    v38 = v35;
+    [(SFExternalPasswordCredentialServiceViewController *)self _finishRequestToReturnCredential:v28 extensionShowedUI:v33 error:errorCopy completion:v37];
 
 LABEL_12:
-    v29 = v34;
+    v31 = v36;
     goto LABEL_13;
   }
 
   if (completionAction)
   {
 LABEL_11:
-    v30 = v33;
-    v33[2](v33);
+    v32 = v35;
+    v35[2](v35);
     goto LABEL_12;
   }
 
-  if (!v26)
+  if (!v28)
   {
-    v32 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v34 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v19, v20);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D4644000, v32, OS_LOG_TYPE_DEFAULT, "Did not receive any external password credential", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v34, OS_LOG_TYPE_DEFAULT, "Did not receive any external password credential", buf, 2u);
     }
 
     goto LABEL_11;
   }
 
-  v28 = presentingViewController != 0;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_86;
-  v37[3] = &unk_1E8495650;
-  v37[4] = self;
-  v38 = credentialCopy;
-  v29 = v34;
-  v39 = v34;
-  v30 = v33;
-  v40 = v33;
-  [(SFExternalPasswordCredentialServiceViewController *)self _finishRequestToAutoFillCredential:v26 extensionShowedUI:v28 error:errorCopy completion:v37];
+  v30 = presentingViewController != 0;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_86;
+  v39[3] = &unk_1E8495650;
+  v39[4] = self;
+  v40 = credentialCopy;
+  v31 = v36;
+  v41 = v36;
+  v32 = v35;
+  v42 = v35;
+  [(SFExternalPasswordCredentialServiceViewController *)self _finishRequestToAutoFillCredential:v28 extensionShowedUI:v30 error:errorCopy completion:v39];
 
 LABEL_13:
 }
@@ -571,13 +574,13 @@ void __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenti
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_2_87(uint64_t a1)
+uint64_t __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_2_87(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "Dismissing external password credential service view controller after sending credential", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "Dismissing external password credential service view controller after sending credential", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -593,13 +596,13 @@ void __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenti
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_2_89(uint64_t a1)
+uint64_t __133__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithCredential_error_completion___block_invoke_2_89(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "Dismissing external password credential service view controller after returning credential", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "Dismissing external password credential service view controller after returning credential", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -614,7 +617,7 @@ uint64_t __133__SFExternalPasswordCredentialServiceViewController_credentialAuth
   controllerCopy = controller;
 
   authenticationServicesAgentProxy = self->_authenticationServicesAgentProxy;
-  [(SFExternalPasswordCredentialServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   v13 = WBSApplicationIdentifierFromAuditToken();
   relyingParty = [credentialCopy relyingParty];
   authenticatorData = [credentialCopy authenticatorData];
@@ -649,44 +652,45 @@ uint64_t __149__SFExternalPasswordCredentialServiceViewController_credentialAuth
   controllerCopy = controller;
   v14 = dispatch_group_create();
   dispatch_group_enter(v14);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __144__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithOneTimeCodeCredential_error_completion___block_invoke;
-  v29[3] = &unk_1E8490798;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __144__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithOneTimeCodeCredential_error_completion___block_invoke;
+  v31[3] = &unk_1E8490798;
   v15 = completionCopy;
-  v31 = v15;
+  v33 = v15;
   v16 = v14;
-  v30 = v16;
-  [controllerCopy dismissViewControllerAnimated:1 completion:v29];
+  v32 = v16;
+  [controllerCopy dismissViewControllerAnimated:1 completion:v31];
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __144__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithOneTimeCodeCredential_error_completion___block_invoke_2;
   aBlock[3] = &unk_1E848F548;
   v17 = v16;
-  v27 = v17;
+  v29 = v17;
   selfCopy = self;
   v18 = _Block_copy(aBlock);
-  if (credentialCopy && (v19 = objc_alloc(MEMORY[0x1E69C8E10]), [credentialCopy code], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "initWithOneTimeCode:", v20), v20, v21))
+  v20 = v18;
+  if (credentialCopy && (v21 = objc_alloc(MEMORY[0x1E69C8E10]), [credentialCopy code], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v21, "initWithOneTimeCode:", v22), v22, v23))
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __144__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithOneTimeCodeCredential_error_completion___block_invoke_90;
-    v23[3] = &unk_1E848FA50;
-    v24 = v18;
-    [(SFExternalPasswordCredentialServiceViewController *)self _finishRequestToAutoFillCredential:v21 extensionShowedUI:1 error:errorCopy completion:v23];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __144__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithOneTimeCodeCredential_error_completion___block_invoke_90;
+    v25[3] = &unk_1E848FA50;
+    v26 = v20;
+    [(SFExternalPasswordCredentialServiceViewController *)self _finishRequestToAutoFillCredential:v23 extensionShowedUI:1 error:errorCopy completion:v25];
   }
 
   else
   {
-    v22 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v18, v19);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D4644000, v22, OS_LOG_TYPE_DEFAULT, "Did not receive any external one time code credential", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v24, OS_LOG_TYPE_DEFAULT, "Did not receive any external one time code credential", buf, 2u);
     }
 
-    v18[2](v18);
+    v20[2](v20);
   }
 }
 
@@ -719,13 +723,13 @@ void __144__SFExternalPasswordCredentialServiceViewController_credentialAuthenti
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __144__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithOneTimeCodeCredential_error_completion___block_invoke_2_91(uint64_t a1)
+uint64_t __144__SFExternalPasswordCredentialServiceViewController_credentialAuthenticationViewController_didFinishWithOneTimeCodeCredential_error_completion___block_invoke_2_91(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "Dismissing external one time code credential service view controller after sending credential", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "Dismissing external one time code credential service view controller after sending credential", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();

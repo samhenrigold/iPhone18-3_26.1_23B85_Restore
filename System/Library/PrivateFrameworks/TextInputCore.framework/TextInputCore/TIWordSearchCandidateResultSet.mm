@@ -6,7 +6,10 @@
 - (void)addCandidates:(id)candidates candidateRefsDictionary:(id)dictionary;
 - (void)addMecabraCandidate:(id)candidate mecabraCandidateRef:(void *)ref;
 - (void)addMecabraFacemarkCandidate:(void *)candidate forInput:(id)input;
+- (void)addMecabraProactiveCandidate:(void *)candidate triggerSourceType:(unsigned __int8)type;
 - (void)addProactiveTrigger:(id)trigger;
+- (void)addSyntheticMecabraCandidateWithSurface:(id)surface input:(id)input isExtension:(BOOL)extension deleteCount:(unint64_t)count cursorMovement:(int64_t)movement annotation:(id)annotation;
+- (void)addSyntheticMecabraProactiveCandidate:(id)candidate triggerSourceType:(unsigned __int8)type;
 - (void)clearProactiveTriggers;
 - (void)insertMecabraCandidate:(id)candidate mecabraCandidateRef:(void *)ref atIndex:(unint64_t)index;
 - (void)insertStickers:(id)stickers;
@@ -145,6 +148,16 @@
   }
 }
 
+- (void)addSyntheticMecabraProactiveCandidate:(id)candidate triggerSourceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v6 = MecabraProactiveCandidateCreate();
+  [(TIWordSearchCandidateResultSet *)self addMecabraProactiveCandidate:v6 triggerSourceType:typeCopy];
+  if (v6)
+  {
+  }
+}
+
 - (void)addMecabraFacemarkCandidate:(void *)candidate forInput:(id)input
 {
   inputCopy = input;
@@ -170,6 +183,30 @@
       [mutableCandidateRefsDictionary setObject:candidate forKey:mecabraCandidatePointerValue];
 
       inputCopy = v17;
+    }
+  }
+}
+
+- (void)addMecabraProactiveCandidate:(void *)candidate triggerSourceType:(unsigned __int8)type
+{
+  typeCopy = type;
+  if (MecabraCandidateGetType() == 6)
+  {
+    v7 = MecabraCandidateGetAttributes();
+    if (v7)
+    {
+      v13 = v7;
+      v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:candidate];
+      mutableCandidateRefsDictionary = [(TIWordSearchCandidateResultSet *)self mutableCandidateRefsDictionary];
+      [mutableCandidateRefsDictionary setObject:candidate forKey:v8];
+
+      v10 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v13];
+      [v10 setObject:v8 forKey:*MEMORY[0x277D6FD88]];
+      v11 = [[TIProactiveTrigger alloc] initWithSourceType:typeCopy attributes:v10];
+      mutableProactiveTriggers = [(TIWordSearchCandidateResultSet *)self mutableProactiveTriggers];
+      [mutableProactiveTriggers addObject:v11];
+
+      v7 = v13;
     }
   }
 }
@@ -215,6 +252,30 @@
     mecabraCandidatePointerValue = [v18 mecabraCandidatePointerValue];
     [mutableCandidateRefsDictionary setObject:v10 forKey:mecabraCandidatePointerValue];
   }
+}
+
+- (void)addSyntheticMecabraCandidateWithSurface:(id)surface input:(id)input isExtension:(BOOL)extension deleteCount:(unint64_t)count cursorMovement:(int64_t)movement annotation:(id)annotation
+{
+  extensionCopy = extension;
+  annotationCopy = annotation;
+  inputCopy = input;
+  surfaceCopy = surface;
+  v16 = MecabraConversionCandidateCreate();
+  v17 = objc_alloc(MEMORY[0x277D6F448]);
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v16];
+  v19 = [v17 initWithCandidate:surfaceCopy forInput:inputCopy mecabraCandidatePointerValue:v18 withFlags:extensionCopy deleteCount:count cursorMovement:movement];
+
+  if (annotationCopy)
+  {
+    [v19 setAnnotationText:annotationCopy];
+  }
+
+  mutableCandidates = [(TIWordSearchCandidateResultSet *)self mutableCandidates];
+  [mutableCandidates addObject:v19];
+
+  mutableCandidateRefsDictionary = [(TIWordSearchCandidateResultSet *)self mutableCandidateRefsDictionary];
+  mecabraCandidatePointerValue = [v19 mecabraCandidatePointerValue];
+  [mutableCandidateRefsDictionary setObject:v16 forKey:mecabraCandidatePointerValue];
 }
 
 - (void)addCandidates:(id)candidates candidateRefsDictionary:(id)dictionary

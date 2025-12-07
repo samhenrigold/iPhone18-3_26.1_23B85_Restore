@@ -13,10 +13,12 @@
 - (int64_t)decodeInt64ForKey:(id)key;
 - (int64_t)decodeIntegerForKey:(id)key;
 - (uint64_t)decodeTopLevelObjectOfClass:(void *)class forKey:;
+- (void)encodeBool:(BOOL)bool forKey:(id)key;
 - (void)encodeBytes:(const char *)bytes length:(unint64_t)length forKey:(id)key;
 - (void)encodeConditionalObject:(id)object forKey:(id)key;
 - (void)encodeDouble:(double)double forKey:(id)key;
 - (void)encodeFloat:(float)float forKey:(id)key;
+- (void)encodeInt32:(int)int32 forKey:(id)key;
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key;
 - (void)encodeInteger:(int64_t)integer forKey:(id)key;
 - (void)encodeObject:(id)object forKey:(id)key;
@@ -149,30 +151,29 @@
 
 - (id)decodeObjectOfClasses:(id)classes forKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   v7 = [(NSMutableDictionary *)self->_dictionary objectForKeyedSubscript:key];
   if (v7)
   {
-    v17 = 0u;
-    v18 = 0u;
     v15 = 0u;
     v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = classesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
-      v10 = *v16;
+      v10 = *v14;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
             v9 = v7;
@@ -180,7 +181,7 @@
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v9)
         {
           continue;
@@ -197,8 +198,6 @@ LABEL_12:
   {
     v9 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -249,6 +248,15 @@ LABEL_12:
   [(NSMutableDictionary *)self->_dictionary setObject:v8 forKeyedSubscript:keyCopy];
 }
 
+- (void)encodeBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(NSMutableDictionary *)self->_dictionary setObject:v8 forKeyedSubscript:keyCopy];
+}
+
 - (void)encodeFloat:(float)float forKey:(id)key
 {
   v6 = MEMORY[0x1E696AD98];
@@ -263,6 +271,15 @@ LABEL_12:
   v6 = MEMORY[0x1E696AD98];
   keyCopy = key;
   v8 = [v6 numberWithDouble:double];
+  [(NSMutableDictionary *)self->_dictionary setObject:v8 forKeyedSubscript:keyCopy];
+}
+
+- (void)encodeInt32:(int)int32 forKey:(id)key
+{
+  v4 = *&int32;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
   [(NSMutableDictionary *)self->_dictionary setObject:v8 forKeyedSubscript:keyCopy];
 }
 

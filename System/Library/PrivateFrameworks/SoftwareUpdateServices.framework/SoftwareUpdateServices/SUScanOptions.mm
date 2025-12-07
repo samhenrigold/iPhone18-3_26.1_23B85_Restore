@@ -4,6 +4,7 @@
 - (BOOL)clientIsBuddy;
 - (BOOL)clientIsDDM;
 - (BOOL)clientIsInboxUpdaterd;
+- (BOOL)containsType:(int)type;
 - (BOOL)findsAnyUpdate;
 - (BOOL)isEmergencyOnlyScan;
 - (BOOL)isPMVRequested;
@@ -13,7 +14,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)MDMSoftwareUpdatePath;
+- (void)addType:(int)type;
 - (void)encodeWithCoder:(id)coder;
+- (void)removeType:(int)type;
 - (void)setMDMShowRapidSecurityResponse:(BOOL)response;
 - (void)setMDMSoftwareUpdatePath:(unint64_t)path;
 - (void)setMDMUseDelayPeriod:(BOOL)period;
@@ -219,6 +222,26 @@
   }
 
   return v5;
+}
+
+- (void)addType:(int)type
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&type];
+  [(NSMutableSet *)self->_types addObject:v4];
+}
+
+- (void)removeType:(int)type
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&type];
+  [(NSMutableSet *)self->_types removeObject:v4];
+}
+
+- (BOOL)containsType:(int)type
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&type];
+  LOBYTE(self) = [(NSMutableSet *)self->_types containsObject:v4];
+
+  return self;
 }
 
 - (BOOL)findsAnyUpdate

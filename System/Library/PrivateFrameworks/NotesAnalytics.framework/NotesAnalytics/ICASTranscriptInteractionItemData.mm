@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"transcriptInteractionTarget";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"transcriptInteractionTarget";
   transcriptInteractionTarget = [(ICASTranscriptInteractionItemData *)self transcriptInteractionTarget];
   if (transcriptInteractionTarget)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = transcriptInteractionTarget2;
-  v12[1] = @"transcriptActionType";
-  v13[0] = transcriptInteractionTarget2;
+  v11[1] = @"transcriptActionType";
+  v12[0] = transcriptInteractionTarget2;
   transcriptActionType = [(ICASTranscriptInteractionItemData *)self transcriptActionType];
   if (transcriptActionType)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = transcriptActionType2;
-  v13[1] = transcriptActionType2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = transcriptActionType2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

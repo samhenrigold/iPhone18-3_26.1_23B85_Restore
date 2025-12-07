@@ -106,7 +106,7 @@ LABEL_18:
 
 - (CGRect)captureBounds
 {
-  [(BSUICAPackageView *)self->_assetView frame];
+  objc_msgSend_frame(self->_assetView, a2);
   result.size.height = v5;
   result.size.width = v4;
   result.origin.y = v3;
@@ -184,7 +184,7 @@ uint64_t __65__SBPrototypeFlipBookElementDescription_resetToState_completion___b
 {
   if (*(a1[4] + 24) == a1[7])
   {
-    v2 = SBLogSystemApertureSecureFlipBookElements();
+    v2 = SBLogSystemApertureSecureFlipBookElements(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __65__SBPrototypeFlipBookElementDescription_resetToState_completion___block_invoke_2_cold_1(a1, v2);
@@ -264,7 +264,7 @@ uint64_t __70__SBPrototypeFlipBookElementDescription_transitionToState_completio
 {
   if (*(a1[4] + 32) == a1[7])
   {
-    v2 = SBLogSystemApertureSecureFlipBookElements();
+    v2 = SBLogSystemApertureSecureFlipBookElements(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __70__SBPrototypeFlipBookElementDescription_transitionToState_completion___block_invoke_2_cold_1(a1, v2);

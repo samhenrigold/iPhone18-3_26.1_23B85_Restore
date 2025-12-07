@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    force = self->_force;
     PBDataWriterWriteBOOLField();
   }
 }

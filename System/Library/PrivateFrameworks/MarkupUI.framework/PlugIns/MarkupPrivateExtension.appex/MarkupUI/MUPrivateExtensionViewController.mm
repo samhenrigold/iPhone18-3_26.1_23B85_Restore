@@ -738,7 +738,7 @@ LABEL_32:
     width = v88.size.width;
     height = v88.size.height;
 
-    [(MUPrivateExtensionViewController *)self _transformToHideContainerViewBehindBounds:x, y, width, height];
+    objc_msgSend__transformToHideContainerViewBehindBounds_(self, x, y, width, height);
     contentContainerView3 = [(MUPrivateExtensionViewController *)self contentContainerView];
     v83[0] = v83[3];
     v83[1] = v83[4];

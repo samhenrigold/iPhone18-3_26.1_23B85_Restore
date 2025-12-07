@@ -229,7 +229,7 @@ LABEL_17:
     v2 = new_OrgApacheLuceneUtilBytesRef_init();
     JreStrongAssignAndConsume(&qword_100554558, v2);
     v3 = [OrgApacheLuceneUtilFstByteSequenceOutputs alloc];
-    OrgApacheLuceneUtilFstOutputs_init(v3, v4);
+    OrgApacheLuceneUtilFstOutputs_init();
     JreStrongAssignAndConsume(&qword_100554568, v3);
     qword_100554560 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfWithId_(qword_100554558);
     atomic_store(1u, OrgApacheLuceneUtilFstByteSequenceOutputs__initialized);

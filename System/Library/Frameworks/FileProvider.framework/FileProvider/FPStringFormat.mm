@@ -49,7 +49,7 @@
       v11 = fp_current_or_default_log();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        +[FPStringFormat formatForPlistObject:localizationLookup:];
+        [FPStringFormat formatForPlistObject:objectCopy localizationLookup:?];
       }
 
       v8 = 0;
@@ -61,7 +61,7 @@
 
 + (id)formatForStringFormatDict:(id)dict localizationLookup:(id)lookup
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   lookupCopy = lookup;
   v7 = [dictCopy objectForKey:@"NSStringFormat"];
@@ -92,34 +92,33 @@
     {
       if ([v14 count] < 0xB)
       {
-        v26 = lookupCopy;
-        v29 = 0u;
-        v30 = 0u;
+        v24 = lookupCopy;
         v27 = 0u;
         v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         v17 = v14;
-        v18 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v28;
+          v20 = *v26;
           while (2)
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v28 != v20)
+              if (*v26 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = *(*(&v27 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v23 = fp_current_or_default_log();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+                v22 = fp_current_or_default_log();
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
                 {
-                  +[FPStringFormat formatForStringFormatDict:localizationLookup:];
+                  [FPStringFormat formatForStringFormatDict:v17 localizationLookup:?];
                 }
 
                 v16 = 0;
@@ -127,7 +126,7 @@
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
             if (v19)
             {
               continue;
@@ -141,7 +140,7 @@
         [v16 setFormat:v7];
         [v16 setKeyPaths:v17];
 LABEL_28:
-        lookupCopy = v26;
+        lookupCopy = v24;
         goto LABEL_29;
       }
 
@@ -157,7 +156,7 @@ LABEL_28:
       v15 = fp_current_or_default_log();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        +[FPStringFormat formatForStringFormatDict:localizationLookup:];
+        [FPStringFormat formatForStringFormatDict:v14 localizationLookup:?];
       }
     }
 
@@ -170,13 +169,11 @@ LABEL_29:
   v9 = fp_current_or_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    +[FPStringFormat formatForStringFormatDict:localizationLookup:];
+    [FPStringFormat formatForStringFormatDict:v7 localizationLookup:?];
   }
 
   v16 = 0;
 LABEL_30:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -191,61 +188,47 @@ LABEL_30:
   return v9;
 }
 
-+ (void)formatForPlistObject:localizationLookup:.cold.1()
++ (void)formatForPlistObject:(uint64_t)a1 localizationLookup:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
   v1 = objc_opt_class();
   v2 = objc_opt_class();
+  v3 = objc_opt_class();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
-+ (void)formatForStringFormatDict:localizationLookup:.cold.1()
++ (void)formatForStringFormatDict:(uint64_t)a1 localizationLookup:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
   v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_1_14(v1);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_1_14(v2);
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
-+ (void)formatForStringFormatDict:localizationLookup:.cold.2()
++ (void)formatForStringFormatDict:(uint64_t)a1 localizationLookup:.cold.2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
   v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_1_14(v1);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_1_14(v2);
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
-+ (void)formatForStringFormatDict:localizationLookup:.cold.3()
++ (void)formatForStringFormatDict:(uint64_t)a1 localizationLookup:.cold.3(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
   v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_1_14(v1);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_1_14(v2);
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
 + (void)formatForStringFormatDict:(void *)a1 localizationLookup:.cold.4(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

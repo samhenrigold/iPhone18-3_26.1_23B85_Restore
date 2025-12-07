@@ -4,22 +4,23 @@ void OSAStabilityMonitorEvaluateStabilityForBundleID(void *a1, void *a2, void *a
   v8 = a2;
   v9 = a3;
   v10 = a4;
+  v11 = v10;
   if (v7)
   {
-    v11 = OSAnalyticsHelperServiceConnection();
-    if (v11)
+    v12 = OSAnalyticsHelperServiceConnection();
+    if (v12)
     {
-      v12 = OSAStabilityMonitorLoadParameters();
-      if (v12)
+      v13 = OSAStabilityMonitorLoadParameters();
+      if (v13)
       {
-        v13 = ns2xpc();
-        v14 = v13 == 0;
-        if (v13)
+        v14 = ns2xpc();
+        v15 = v14 == 0;
+        if (v14)
         {
           empty = xpc_dictionary_create_empty();
           xpc_dictionary_set_uint64(empty, "operation", 8uLL);
           xpc_dictionary_set_string(empty, "stability_bundleID", [v7 UTF8String]);
-          xpc_dictionary_set_value(empty, "stability_parameters", v13);
+          xpc_dictionary_set_value(empty, "stability_parameters", v14);
           if (v8)
           {
             xpc_dictionary_set_string(empty, "stability_coalitionName", [v8 UTF8String]);
@@ -29,13 +30,13 @@ void OSAStabilityMonitorEvaluateStabilityForBundleID(void *a1, void *a2, void *a
           handler[1] = 3221225472;
           handler[2] = __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke;
           handler[3] = &unk_2799C0128;
-          v17 = v10;
-          xpc_connection_send_message_with_reply(v11, empty, v9, handler);
+          v18 = v11;
+          xpc_connection_send_message_with_reply(v12, empty, v9, handler);
         }
 
         else
         {
-          empty = OSAStabilityMonitorLogDomain();
+          empty = OSAStabilityMonitorLogDomain(0);
           if (os_log_type_enabled(empty, OS_LOG_TYPE_ERROR))
           {
             OSAStabilityMonitorEvaluateStabilityForBundleID_cold_1();
@@ -45,42 +46,42 @@ void OSAStabilityMonitorEvaluateStabilityForBundleID(void *a1, void *a2, void *a
 
       else
       {
-        v13 = OSAStabilityMonitorLogDomain();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = OSAStabilityMonitorLogDomain(0);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           OSAStabilityMonitorEvaluateStabilityForBundleID_cold_2();
         }
 
-        v14 = 1;
+        v15 = 1;
       }
     }
 
     else
     {
-      v12 = OSAStabilityMonitorLogDomain();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = OSAStabilityMonitorLogDomain(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         OSAStabilityMonitorEvaluateStabilityForBundleID_cold_3();
       }
 
-      v14 = 1;
+      v15 = 1;
     }
   }
 
   else
   {
-    v11 = OSAStabilityMonitorLogDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = OSAStabilityMonitorLogDomain(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       OSAStabilityMonitorEvaluateStabilityForBundleID_cold_4();
     }
 
-    v14 = 1;
+    v15 = 1;
   }
 
-  if (v10 && v14)
+  if (v11 && v15)
   {
-    (*(v10 + 2))(v10, 0);
+    v11[2](v11, 0);
   }
 }
 
@@ -97,13 +98,14 @@ id OSAStabilityMonitorLoadParameters()
 
     if (v5)
     {
-      v10 = 0;
-      v6 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:&v10];
-      v7 = v10;
-      if (!v6)
+      v12 = 0;
+      v7 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:&v12];
+      v8 = v12;
+      v9 = v8;
+      if (!v7)
       {
-        v8 = OSAStabilityMonitorLogDomain();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v10 = OSAStabilityMonitorLogDomain(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           OSAStabilityMonitorLoadParameters_cold_1();
         }
@@ -112,40 +114,40 @@ id OSAStabilityMonitorLoadParameters()
 
     else
     {
-      v7 = OSAStabilityMonitorLogDomain();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = OSAStabilityMonitorLogDomain(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         OSAStabilityMonitorLoadParameters_cold_2();
       }
 
-      v6 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v0 = OSAStabilityMonitorLogDomain();
+    v0 = OSAStabilityMonitorLogDomain(0);
     if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
     {
       OSAStabilityMonitorLoadParameters_cold_3();
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
-id OSAStabilityMonitorLogDomain()
+id OSAStabilityMonitorLogDomain(uint64_t a1)
 {
   if (OSAStabilityMonitorLogDomain_onceToken != -1)
   {
     OSAStabilityMonitorLogDomain_cold_1();
   }
 
-  v1 = OSAStabilityMonitorLogDomain_domain;
+  v2 = OSAStabilityMonitorLogDomain_domain;
 
-  return v1;
+  return v2;
 }
 
 void __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke(uint64_t a1, void *a2)
@@ -159,9 +161,9 @@ void __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke(uint64_t a1,
       goto LABEL_12;
     }
 
-    xpc_dictionary_get_string(v3, "error_desc");
-    v7 = OSAStabilityMonitorLogDomain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    string = xpc_dictionary_get_string(v3, "error_desc");
+    v8 = OSAStabilityMonitorLogDomain(string);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke_cold_2();
     }
@@ -170,7 +172,7 @@ void __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke(uint64_t a1,
   else
   {
     v4 = MEMORY[0x25F892A40](v3);
-    v5 = OSAStabilityMonitorLogDomain();
+    v5 = OSAStabilityMonitorLogDomain(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke_cold_1();
@@ -184,25 +186,25 @@ void __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke(uint64_t a1,
 
   v6 = 0;
 LABEL_12:
-  v8 = *(a1 + 32);
-  if (v8)
+  v9 = *(a1 + 32);
+  if (v9)
   {
-    (*(v8 + 16))(v8, v6);
+    (*(v9 + 16))(v9, v6);
   }
 
   else
   {
-    v9 = OSAStabilityMonitorLogDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = OSAStabilityMonitorLogDomain(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke_cold_3();
     }
   }
 }
 
-void sub_25D12EE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25D12EE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -214,16 +216,25 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
+}
+
+void sub_25D137A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
@@ -242,11 +253,9 @@ uint64_t __OSAStabilityMonitorLogDomain_block_invoke()
 
 void OSAStabilityMonitorLoadParameters_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void OSAStabilityMonitorLoadParameters_cold_2()
@@ -265,11 +274,9 @@ void OSAStabilityMonitorLoadParameters_cold_3()
 
 void OSAStabilityMonitorEvaluateStabilityForBundleID_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void OSAStabilityMonitorEvaluateStabilityForBundleID_cold_2()
@@ -295,20 +302,16 @@ void OSAStabilityMonitorEvaluateStabilityForBundleID_cold_4()
 
 void __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __OSAStabilityMonitorEvaluateStabilityForBundleID_block_invoke_cold_3()

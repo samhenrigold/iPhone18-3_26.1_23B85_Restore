@@ -66,22 +66,20 @@ LABEL_9:
 
 - (id)descriptionDictionary
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"MetricsType";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"MetricsType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v13[0] = v4;
-  v12[1] = @"CurrentInterVisitMetric";
+  v12[0] = v4;
+  v11[1] = @"CurrentInterVisitMetric";
   currentInterVisitMetric = [(TAMetricsInterVisit *)self currentInterVisitMetric];
   descriptionDictionary = [currentInterVisitMetric descriptionDictionary];
-  v13[1] = descriptionDictionary;
-  v12[2] = @"TotalInterVisitMetric";
+  v12[1] = descriptionDictionary;
+  v11[2] = @"TotalInterVisitMetric";
   totalInterVisitMetric = [(TAMetricsInterVisit *)self totalInterVisitMetric];
   descriptionDictionary2 = [totalInterVisitMetric descriptionDictionary];
-  v13[2] = descriptionDictionary2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[2] = descriptionDictionary2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   return v9;
 }
@@ -89,15 +87,15 @@ LABEL_9:
 - (NSString)description
 {
   descriptionDictionary = [(TAMetricsInterVisit *)self descriptionDictionary];
-  v9 = 0;
-  v3 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v9];
-  v4 = v9;
-  if (v4)
+  v10 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v10];
+  v5 = v10;
+  if (v5)
   {
-    v5 = TAStatusLog;
+    v6 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
     {
-      [(TAInterVisitMetricPerDevice *)v5 description];
+      [(TAInterVisitMetricPerDevice *)v6 description];
     }
 
     string = [MEMORY[0x277CCACA8] string];
@@ -105,12 +103,12 @@ LABEL_9:
 
   else
   {
-    string = v3;
+    string = v4;
   }
 
-  v7 = string;
+  v8 = string;
 
-  return v7;
+  return v8;
 }
 
 @end

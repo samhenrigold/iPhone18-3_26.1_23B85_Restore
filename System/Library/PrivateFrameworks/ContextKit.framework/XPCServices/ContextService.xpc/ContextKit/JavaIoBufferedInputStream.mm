@@ -1,6 +1,7 @@
 @interface JavaIoBufferedInputStream
 - (int)available;
 - (int)read;
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (int64_t)skipWithLong:(int64_t)long;
 - (void)__javaClone;
 - (void)close;
@@ -114,6 +115,136 @@ LABEL_13:
 LABEL_14:
   objc_sync_exit(self);
   return v9;
+}
+
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&int;
+  objc_sync_enter(self);
+  v8 = atomic_load(&self->buf_);
+  if (!v8)
+  {
+    sub_1001AE8AC();
+  }
+
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v5, withInt);
+  if (!withInt)
+  {
+    LODWORD(withIntCopy2) = 0;
+    goto LABEL_31;
+  }
+
+  v9 = atomic_load(&self->super.in_);
+  if (!v9)
+  {
+    sub_1001AE8AC();
+  }
+
+  pos = self->pos_;
+  count = self->count_;
+  v12 = count - pos;
+  if (count <= pos)
+  {
+    withIntCopy2 = withInt;
+    goto LABEL_14;
+  }
+
+  if (v12 >= withInt)
+  {
+    withIntCopy2 = withInt;
+  }
+
+  else
+  {
+    withIntCopy2 = v12;
+  }
+
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v8, pos, array, v5, withIntCopy2);
+  self->pos_ += withIntCopy2;
+  if (v12 < withInt && [v9 available])
+  {
+    v5 = (withIntCopy2 + v5);
+    withIntCopy2 = (withInt - withIntCopy2);
+    while (1)
+    {
+LABEL_14:
+      if (self->markpos_ == -1 && withIntCopy2 >= v8[2])
+      {
+        LODWORD(v17) = [v9 readWithByteArray:array withInt:v5 withInt:withIntCopy2];
+        if (v17 == -1)
+        {
+LABEL_27:
+          if (withInt == withIntCopy2)
+          {
+            LODWORD(withIntCopy2) = -1;
+          }
+
+          else
+          {
+            LODWORD(withIntCopy2) = withInt - withIntCopy2;
+          }
+
+          break;
+        }
+      }
+
+      else
+      {
+        if (sub_1001AE96C(self, v9, v8) == -1)
+        {
+          goto LABEL_27;
+        }
+
+        v14 = atomic_load(&self->buf_);
+        if (v8 != v14)
+        {
+          v8 = atomic_load(&self->buf_);
+          if (!v8)
+          {
+            sub_1001AE8AC();
+          }
+        }
+
+        v15 = self->pos_;
+        v16 = self->count_ - v15;
+        if (v16 >= withIntCopy2)
+        {
+          v17 = withIntCopy2;
+        }
+
+        else
+        {
+          v17 = v16;
+        }
+
+        JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v8, v15, array, v5, v17);
+        self->pos_ += v17;
+      }
+
+      withIntCopy2 = (withIntCopy2 - v17);
+      if (!withIntCopy2)
+      {
+        LODWORD(withIntCopy2) = withInt;
+        break;
+      }
+
+      v5 = (v17 + v5);
+      if (![v9 available])
+      {
+        LODWORD(withIntCopy2) = withInt - withIntCopy2;
+        break;
+      }
+    }
+  }
+
+LABEL_31:
+  objc_sync_exit(self);
+  return withIntCopy2;
 }
 
 - (void)reset

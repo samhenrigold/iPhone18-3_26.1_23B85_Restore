@@ -21,7 +21,7 @@
   (*(v4 + 8))(v6, v3);
   (*(v8 + 32))(self + OBJC_IVAR___HKBalanceDaySeries_gregorianCalendar, v11, v7);
   *(&self->super.super.super.isa + OBJC_IVAR___HKBalanceDaySeries_sleepingMetrics) = sub_1C3D1E8A4();
-  v12 = type metadata accessor for BalanceDaySeries();
+  v12 = type metadata accessor for BalanceDaySeries(0);
   v14.receiver = self;
   v14.super_class = v12;
   return [(HKBalanceSeries *)&v14 init];
@@ -58,7 +58,7 @@
   renderContextCopy = renderContext;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C3CA30EC(coordinatesCopy, x, y, width, height, configurationCopy, v24, contextCopy, delegate);
+  sub_1C3CA30EC(coordinatesCopy, configurationCopy, v24, contextCopy, delegate, x, y, width, height);
 
   swift_unknownObjectRelease();
 }

@@ -54,7 +54,7 @@
   depthMap = [sceneDepth depthMap];
   segmentationBuffer = [frameCopy segmentationBuffer];
   camera = [frameCopy camera];
-  [camera transform];
+  objc_msgSend_transform(camera);
   v32 = v15;
   v33 = v14;
   v30 = v17;

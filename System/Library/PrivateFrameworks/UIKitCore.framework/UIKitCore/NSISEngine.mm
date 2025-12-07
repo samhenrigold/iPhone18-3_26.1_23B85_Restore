@@ -1,15 +1,15 @@
 @interface NSISEngine
-- (uint64_t)_UIKitPerformPendingChangeNotifications;
+- (void)_UIKitPerformPendingChangeNotifications;
 @end
 
 @implementation NSISEngine
 
-- (uint64_t)_UIKitPerformPendingChangeNotifications
+- (void)_UIKitPerformPendingChangeNotifications
 {
   if (result)
   {
     v1 = result;
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UIKitEngineTracking, @"UIKitEngineTracking") & 1) != 0 || byte_1ED48B684)
+    if (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UIKitEngineTracking, @"UIKitEngineTracking") || byte_1ED48B684)
     {
       [v1 _setUIKitEngineTrackingOn:1];
     }
@@ -20,7 +20,7 @@
   return result;
 }
 
-uint64_t __55__NSISEngine__UILayoutEngineStatistics___UIKitRowCount__block_invoke()
+uint64_t __55__NSISEngine__UILayoutEngineStatistics___UIKitRowCount__block_invoke(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   byte_1ED4981B1 = result & 1;
@@ -71,7 +71,7 @@ void __50__NSISEngine_UIKitAdditions__debugQuickLookObject__block_invoke_3(uint6
       v14 = *(v8 + 8);
       if ((v14 & 4) != 0)
       {
-        v18 = +[UIColor blackColor];
+        v18 = objc_msgSend_blackColor(UIColor);
         [v18 setFill];
 
         v22.origin.x = v12;

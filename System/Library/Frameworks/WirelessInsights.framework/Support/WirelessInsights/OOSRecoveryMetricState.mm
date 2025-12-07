@@ -1,8 +1,38 @@
 @interface OOSRecoveryMetricState
+- (OOSRecoveryMetricState)initWithIsDataContext:(BOOL)context registrationState:(id)state cellInfo:(id)info;
 - (id)description;
 @end
 
 @implementation OOSRecoveryMetricState
+
+- (OOSRecoveryMetricState)initWithIsDataContext:(BOOL)context registrationState:(id)state cellInfo:(id)info
+{
+  contextCopy = context;
+  stateCopy = state;
+  infoCopy = info;
+  v16.receiver = self;
+  v16.super_class = OOSRecoveryMetricState;
+  v10 = [(OOSRecoveryMetricState *)&v16 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(OOSRecoveryMetricState *)v10 setOosStart:0];
+    [(OOSRecoveryMetricState *)v11 setIsDataContext:contextCopy];
+    [(OOSRecoveryMetricState *)v11 setRegistrationState:stateCopy];
+    [(OOSRecoveryMetricState *)v11 setCellInfo:infoCopy];
+    v12 = objc_alloc_init(NSMutableOrderedSet);
+    [(OOSRecoveryMetricState *)v11 setKnownOosTacs:v12];
+
+    [(OOSRecoveryMetricState *)v11 setKnownOosTacsSizeLimited:0];
+    v13 = objc_alloc_init(NSMutableOrderedSet);
+    [(OOSRecoveryMetricState *)v11 setKnownOosGcis:v13];
+
+    [(OOSRecoveryMetricState *)v11 setKnownOosGcisSizeLimited:0];
+    v14 = v11;
+  }
+
+  return v11;
+}
 
 - (id)description
 {

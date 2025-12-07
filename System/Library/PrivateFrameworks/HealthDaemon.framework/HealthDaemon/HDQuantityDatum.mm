@@ -14,35 +14,35 @@
 
 + (id)quantityDataForDifferencesInData:(id)data baseDatum:(id)datum unit:(id)unit differenceHandler:(id)handler intervalHandler:(id)intervalHandler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   datumCopy = datum;
   unitCopy = unit;
   handlerCopy = handler;
   intervalHandlerCopy = intervalHandler;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = dataCopy;
-  v35 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v34 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   v15 = 0;
-  if (v35)
+  if (v34)
   {
-    v16 = *v38;
-    v31 = *v38;
-    v32 = handlerCopy;
+    v16 = *v37;
+    v30 = *v37;
+    v31 = handlerCopy;
     do
     {
-      for (i = 0; i != v35; ++i)
+      for (i = 0; i != v34; ++i)
       {
         v18 = datumCopy;
-        if (*v38 != v16)
+        if (*v37 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v37 + 1) + 8 * i);
+        v19 = *(*(&v36 + 1) + 8 * i);
         v20 = objc_autoreleasePoolPush();
         datumCopy = v19;
         if (v18)
@@ -61,59 +61,55 @@
             v25 = v24 = intervalHandlerCopy;
             [MEMORY[0x277CCD7E8] quantityWithUnit:unitCopy doubleValue:v21];
             v27 = v26 = v15;
-            v36[0] = MEMORY[0x277D85DD0];
-            v36[1] = 3221225472;
-            v36[2] = __101__HDQuantityDatum_quantityDataForDifferencesInData_baseDatum_unit_differenceHandler_intervalHandler___block_invoke;
-            v36[3] = &unk_278620030;
-            v36[4] = datumCopy;
-            v28 = [(HDQuantityDatum *)v22 initWithIdentifier:uUID dateInterval:v25 quantity:v27 metadata:0 resumeContextProvider:v36];
+            v35[0] = MEMORY[0x277D85DD0];
+            v35[1] = 3221225472;
+            v35[2] = __101__HDQuantityDatum_quantityDataForDifferencesInData_baseDatum_unit_differenceHandler_intervalHandler___block_invoke;
+            v35[3] = &unk_278620030;
+            v35[4] = datumCopy;
+            v28 = [(HDQuantityDatum *)v22 initWithIdentifier:uUID dateInterval:v25 quantity:v27 metadata:0 resumeContextProvider:v35];
 
             v15 = v26;
             intervalHandlerCopy = v24;
 
             [v26 addObject:v28];
-            v16 = v31;
-            handlerCopy = v32;
+            v16 = v30;
+            handlerCopy = v31;
           }
         }
 
         objc_autoreleasePoolPop(v20);
       }
 
-      v35 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v34 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
-    while (v35);
+    while (v34);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 id __101__HDQuantityDatum_quantityDataForDifferencesInData_baseDatum_unit_differenceHandler_intervalHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v9 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v2 requiringSecureCoding:1 error:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v2 requiringSecureCoding:1 error:&v8];
+  v4 = v8;
   if (!v3)
   {
     _HKInitializeLogging();
     v5 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_FAULT))
     {
-      v8 = *(a1 + 32);
+      v7 = *(a1 + 32);
       *buf = 138543618;
-      v11 = v8;
-      v12 = 2114;
-      v13 = v4;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v4;
       _os_log_fault_impl(&dword_228986000, v5, OS_LOG_TYPE_FAULT, "Failed to archive %{public}@ when generating resume context for persisted data: %{public}@", buf, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -141,11 +137,11 @@ id __101__HDQuantityDatum_quantityDataForDifferencesInData_baseDatum_unit_differ
   v14 = [(HDDataCollectorSensorDatum *)&v20 initWithIdentifier:identifier dateInterval:interval resumeContextProvider:provider];
   if (v14)
   {
-    v15 = [quantityCopy copy];
+    v15 = objc_msgSend_copy(quantityCopy);
     quantity = v14->_quantity;
     v14->_quantity = v15;
 
-    v17 = [metadataCopy copy];
+    v17 = objc_msgSend_copy(metadataCopy);
     metadata = v14->_metadata;
     v14->_metadata = v17;
   }
@@ -155,7 +151,7 @@ id __101__HDQuantityDatum_quantityDataForDifferencesInData_baseDatum_unit_differ
 
 - (id)datumForChangeSince:(id)since newIdentifier:(id)identifier newResumeContext:(id)context
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   sinceCopy = since;
   identifierCopy = identifier;
   contextCopy = context;
@@ -176,16 +172,16 @@ id __101__HDQuantityDatum_quantityDataForDifferencesInData_baseDatum_unit_differ
     v27 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v45 = v27;
+      v44 = v27;
       quantity3 = [(HDQuantityDatum *)self quantity];
       _unit2 = [quantity3 _unit];
       quantity4 = [sinceCopy quantity];
       _unit3 = [quantity4 _unit];
-      v50 = 138478083;
-      v51 = _unit2;
-      v52 = 2113;
-      v53 = _unit3;
-      _os_log_error_impl(&dword_228986000, v45, OS_LOG_TYPE_ERROR, "Couldn't subtract units of type %{private}@ from units of type %{private}@", &v50, 0x16u);
+      v49 = 138478083;
+      v50 = _unit2;
+      v51 = 2113;
+      v52 = _unit3;
+      _os_log_error_impl(&dword_228986000, v44, OS_LOG_TYPE_ERROR, "Couldn't subtract units of type %{private}@ from units of type %{private}@", &v49, 0x16u);
     }
 
     goto LABEL_9;
@@ -208,11 +204,11 @@ id __101__HDQuantityDatum_quantityDataForDifferencesInData_baseDatum_unit_differ
       endDate3 = [dateInterval3 endDate];
       dateInterval4 = [(HDDataCollectorSensorDatum *)self dateInterval];
       endDate4 = [dateInterval4 endDate];
-      v50 = 138478083;
-      v51 = endDate3;
-      v52 = 2113;
-      v53 = endDate4;
-      _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Minuend date %{private}@ must occur at the same time or before subtrahend date %{private}@", &v50, 0x16u);
+      v49 = 138478083;
+      v50 = endDate3;
+      v51 = 2113;
+      v52 = endDate4;
+      _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Minuend date %{private}@ must occur at the same time or before subtrahend date %{private}@", &v49, 0x16u);
     }
 
 LABEL_9:
@@ -241,8 +237,6 @@ LABEL_9:
 
   selfCopy = [[HDQuantityDatum alloc] initWithIdentifier:identifierCopy dateInterval:v42 resumeContext:contextCopy quantity:v36];
 LABEL_11:
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

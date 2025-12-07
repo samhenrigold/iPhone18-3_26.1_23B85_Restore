@@ -30,9 +30,9 @@
 
 - (MTKTextureLoaderPVR3)initWithData:(id)data options:(id)options error:(id *)error
 {
-  v25.receiver = self;
-  v25.super_class = MTKTextureLoaderPVR3;
-  v8 = [(MTKTextureLoaderData *)&v25 init];
+  v23.receiver = self;
+  v23.super_class = MTKTextureLoaderPVR3;
+  v8 = [(MTKTextureLoaderData *)&v23 init];
   if (!v8)
   {
     return v8;
@@ -60,14 +60,12 @@
   }
 
   *(v8 + 20) = *(bytes + 8);
-  v12 = *(bytes + 16);
-  v13 = *(bytes + 20);
   [v8 setPixelFormat:objc_msgSend(v8, "determineFormat:colorSpace:channelType:options:")];
   if (![v8 pixelFormat])
   {
     if (error)
     {
-      v17 = @"Could not determine format from PVR header";
+      v15 = @"Could not determine format from PVR header";
       goto LABEL_31;
     }
 
@@ -78,20 +76,20 @@ LABEL_32:
 
   [v8 pixelFormat];
   MTLPixelFormatGetInfoForDevice();
-  *(v8 + 17) = v24;
-  *(v8 + 104) = v22;
-  *(v8 + 120) = v23;
-  *(v8 + 88) = v21;
-  v14 = *(v8 + 24);
-  v15 = [options objectForKey:@"MTKTextureLoaderOptionOrigin"];
-  v16 = v15;
-  if ((v14 & 0x400) != 0 && v15)
+  *(v8 + 17) = v22;
+  *(v8 + 104) = v20;
+  *(v8 + 120) = v21;
+  *(v8 + 88) = v19;
+  v12 = *(v8 + 24);
+  v13 = [options objectForKey:@"MTKTextureLoaderOptionOrigin"];
+  v14 = v13;
+  if ((v12 & 0x400) != 0 && v13)
   {
     if (error)
     {
-      v17 = @"Vertical flip is not supported for compressed PVR textures";
+      v15 = @"Vertical flip is not supported for compressed PVR textures";
 LABEL_31:
-      *error = _newMTKTextureErrorWithCodeAndErrorString(0, v17);
+      *error = _newMTKTextureErrorWithCodeAndErrorString(0, v15);
       goto LABEL_32;
     }
 
@@ -104,7 +102,7 @@ LABEL_31:
     {
       if (error)
       {
-        v17 = @"Metal does not support texture cube arrays";
+        v15 = @"Metal does not support texture cube arrays";
         goto LABEL_31;
       }
 
@@ -115,7 +113,7 @@ LABEL_31:
     {
       [v8 setTextureType:3];
       [v8 setNumArrayElements:v11];
-      if (v16)
+      if (v14)
       {
         goto LABEL_22;
       }
@@ -129,33 +127,33 @@ LABEL_31:
   if ([v8 depth] >= 2)
   {
 LABEL_19:
-    v18 = v8;
-    v19 = 7;
+    v16 = v8;
+    v17 = 7;
     goto LABEL_21;
   }
 
   if ([v8 numFaces] < 2)
   {
-    v18 = v8;
-    v19 = 2;
+    v16 = v8;
+    v17 = 2;
   }
 
   else
   {
-    v18 = v8;
-    v19 = 5;
+    v16 = v8;
+    v17 = 5;
   }
 
 LABEL_21:
-  [v18 setTextureType:v19];
-  if (v16)
+  [v16 setTextureType:v17];
+  if (v14)
   {
 LABEL_22:
     if ([v8 textureType] != 2 && objc_msgSend(v8, "textureType") != 3 && objc_msgSend(v8, "textureType") != 5)
     {
       if (error)
       {
-        v17 = @"Vertical flip is only supported for 2D, 2D array, and cube map textures";
+        v15 = @"Vertical flip is only supported for 2D, 2D array, and cube map textures";
         goto LABEL_31;
       }
 
@@ -168,7 +166,7 @@ LABEL_28:
   {
     if (error)
     {
-      v17 = @"Creating cube maps from 2D textures is not supported for PVR files";
+      v15 = @"Creating cube maps from 2D textures is not supported for PVR files";
       goto LABEL_31;
     }
 

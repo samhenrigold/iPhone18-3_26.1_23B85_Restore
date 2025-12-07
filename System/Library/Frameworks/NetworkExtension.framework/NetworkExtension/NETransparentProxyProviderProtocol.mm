@@ -3,10 +3,25 @@
 - (NETransparentProxyProviderProtocol)initWithCoder:(id)coder;
 - (NETransparentProxyProviderProtocol)initWithPluginType:(id)type;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NETransparentProxyProviderProtocol
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v11.receiver = self;
+  v11.super_class = NETransparentProxyProviderProtocol;
+  v8 = [(NETunnelProviderProtocol *)&v11 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  [v9 appendPrettyInt:-[NETransparentProxyProviderProtocol order](self withName:"order") andIndent:@"order" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+
+  return v9;
+}
 
 - (NETransparentProxyProviderProtocol)initWithPluginType:(id)type
 {

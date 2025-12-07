@@ -42,59 +42,8 @@ LABEL_16:
   v8 = [v6 registerFunctionWithName:@"strip_url" numArgs:1 function:&__block_literal_global_4 userData:0 error:&v35];
   v9 = v35;
   v10 = v9;
-  if ((v8 & 1) == 0)
+  if ((v8 & 1) == 0 || (v9, v34 = 0, v7 = @"extract_host", v11 = [v6 registerFunctionWithName:@"extract_host" numArgs:1 function:&__block_literal_global_54 userData:0 error:&v34], v12 = v34, v10 = v12, (v11 & 1) == 0) || (v12, v33 = 0, v7 = @"sha1", v13 = objc_msgSend(v6, "registerFunctionWithName:numArgs:function:userData:error:", @"sha1", 1, &__block_literal_global_56, 0, &v33), v14 = v33, v10 = v14, (v13 & 1) == 0) || (v14, v32 = 0, v7 = @"bit_string_to_int", v15 = objc_msgSend(v6, "registerFunctionWithName:numArgs:function:userData:error:", @"bit_string_to_int", 1, &__block_literal_global_59, 0, &v32), v16 = v32, v10 = v16, (v15 & 1) == 0) || (v16, v31 = 0, v7 = @"tokenize_ngram", v17 = objc_msgSend(v6, "registerFunctionWithName:numArgs:function:userData:error:", @"tokenize_ngram", 6, &__block_literal_global_61, 0, &v31), v18 = v31, v10 = v18, (v17 & 1) == 0) || (v18, v30 = 0, v7 = @"transform_use_case_id", v19 = objc_msgSend(v6, "registerFunctionWithName:numArgs:function:userData:error:", @"transform_use_case_id", 1, &__block_literal_global_66, 0, &v30), v20 = v30, v10 = v20, (v19 & 1) == 0) || (v20, v29 = 0, v7 = @"subsample", v21 = objc_msgSend(v6, "registerFunctionWithName:numArgs:function:userData:error:", @"subsample", 3, &__block_literal_global_71, 0, &v29), v22 = v29, v10 = v22, (v21 & 1) == 0))
   {
-    goto LABEL_12;
-  }
-
-  v34 = 0;
-  v7 = @"extract_host";
-  v11 = [v6 registerFunctionWithName:@"extract_host" numArgs:1 function:&__block_literal_global_54 userData:0 error:&v34];
-  v12 = v34;
-  v10 = v12;
-  if ((v11 & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  v33 = 0;
-  v7 = @"sha1";
-  v13 = [v6 registerFunctionWithName:@"sha1" numArgs:1 function:&__block_literal_global_56 userData:0 error:&v33];
-  v14 = v33;
-  v10 = v14;
-  if ((v13 & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  v32 = 0;
-  v7 = @"bit_string_to_int";
-  v15 = [v6 registerFunctionWithName:@"bit_string_to_int" numArgs:1 function:&__block_literal_global_59 userData:0 error:&v32];
-  v16 = v32;
-  v10 = v16;
-  if ((v15 & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  v31 = 0;
-  v7 = @"tokenize_ngram";
-  v17 = [v6 registerFunctionWithName:@"tokenize_ngram" numArgs:6 function:&__block_literal_global_61 userData:0 error:&v31];
-  v18 = v31;
-  v10 = v18;
-  if ((v17 & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  v30 = 0;
-  v7 = @"transform_use_case_id";
-  v19 = [v6 registerFunctionWithName:@"transform_use_case_id" numArgs:1 function:&__block_literal_global_66 userData:0 error:&v30];
-  v20 = v30;
-  v10 = v20;
-  if ((v19 & 1) == 0 || (v20, v29 = 0, v7 = @"subsample", v21 = [v6 registerFunctionWithName:@"subsample" numArgs:3 function:&__block_literal_global_71 userData:0 error:&v29], v22 = v29, v10 = v22, (v21 & 1) == 0))
-  {
-LABEL_12:
     if (error)
     {
       v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot register UDF '%@' with Biome DB", v7];
@@ -259,21 +208,20 @@ id __35__FedStatsPluginSQL_initWithError___block_invoke_7(uint64_t a1, void *a2,
 
 - (id)runQuery:(id)query withError:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   database = [(FedStatsPluginSQL *)self database];
   [database resetColumnAccessLog];
 
-  v48 = queryCopy;
-  v8 = v7 = [queryCopy copy];
-  v10 = v9 = objc_claimAutoreleasedReturnValue();
+  v47 = queryCopy;
+  v10 = v9 = v8 = v7 = [queryCopy copy];
 
   selfCopy = self;
   database2 = [(FedStatsPluginSQL *)self database];
-  v47 = v10;
+  v46 = v10;
   v12 = [database2 executeQuery:{@"%@", v10}];
 
-  v49 = [MEMORY[0x277D08458] samplerWithCount:*MEMORY[0x277D08478]];
+  v48 = [MEMORY[0x277D08458] samplerWithCount:*MEMORY[0x277D08478]];
   if ([v12 next])
   {
     do
@@ -282,31 +230,31 @@ id __35__FedStatsPluginSQL_initWithError___block_invoke_7(uint64_t a1, void *a2,
       columns = [v12 columns];
       v15 = [v13 dictionaryWithCapacity:{objc_msgSend(columns, "count")}];
 
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       columns2 = [v12 columns];
-      v17 = [columns2 countByEnumeratingWithState:&v55 objects:v60 count:16];
+      v17 = [columns2 countByEnumeratingWithState:&v54 objects:v59 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v56;
+        v19 = *v55;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v56 != v19)
+            if (*v55 != v19)
             {
               objc_enumerationMutation(columns2);
             }
 
-            v21 = *(*(&v55 + 1) + 8 * i);
+            v21 = *(*(&v54 + 1) + 8 * i);
             null = [MEMORY[0x277CBEB68] null];
             [v15 setObject:null forKey:v21];
           }
 
-          v18 = [columns2 countByEnumeratingWithState:&v55 objects:v60 count:16];
+          v18 = [columns2 countByEnumeratingWithState:&v54 objects:v59 count:16];
         }
 
         while (v18);
@@ -315,7 +263,7 @@ id __35__FedStatsPluginSQL_initWithError___block_invoke_7(uint64_t a1, void *a2,
       v23 = [v12 row];
       [v15 addEntriesFromDictionary:v23];
 
-      [v49 addItem:v15];
+      [v48 addItem:v15];
     }
 
     while (([v12 next] & 1) != 0);
@@ -325,7 +273,7 @@ id __35__FedStatsPluginSQL_initWithError___block_invoke_7(uint64_t a1, void *a2,
 
   if (!error)
   {
-    getResults = [v49 getResults];
+    getResults = [v48 getResults];
     if (![getResults count])
     {
       v28 = +[FedStatsPluginLog logger];
@@ -336,48 +284,48 @@ id __35__FedStatsPluginSQL_initWithError___block_invoke_7(uint64_t a1, void *a2,
       }
     }
 
-    v46 = getResults;
+    v45 = getResults;
     v29 = MEMORY[0x277CBEB38];
     database3 = [(FedStatsPluginSQL *)selfCopy database];
     accessedColumns = [database3 accessedColumns];
     error2 = [v29 dictionaryWithCapacity:{objc_msgSend(accessedColumns, "count")}];
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     database4 = [(FedStatsPluginSQL *)selfCopy database];
     accessedColumns2 = [database4 accessedColumns];
 
-    v34 = [accessedColumns2 countByEnumeratingWithState:&v50 objects:v59 count:16];
+    v34 = [accessedColumns2 countByEnumeratingWithState:&v49 objects:v58 count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v51;
+      v36 = *v50;
       do
       {
         for (j = 0; j != v35; ++j)
         {
-          if (*v51 != v36)
+          if (*v50 != v36)
           {
             objc_enumerationMutation(accessedColumns2);
           }
 
-          v38 = *(*(&v50 + 1) + 8 * j);
+          v38 = *(*(&v49 + 1) + 8 * j);
           columns3 = [v38 columns];
           allObjects = [columns3 allObjects];
           table = [v38 table];
           [error2 setObject:allObjects forKey:table];
         }
 
-        v35 = [accessedColumns2 countByEnumeratingWithState:&v50 objects:v59 count:16];
+        v35 = [accessedColumns2 countByEnumeratingWithState:&v49 objects:v58 count:16];
       }
 
       while (v35);
     }
 
     [(FedStatsPluginSQL *)selfCopy setAccessInformation:error2];
-    v26 = v46;
+    v26 = v45;
     goto LABEL_25;
   }
 
@@ -393,8 +341,6 @@ LABEL_25:
 
   v26 = 0;
 LABEL_27:
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

@@ -37,7 +37,7 @@ void __48__PXFlexMusicPathfinder__loadRenditionsIfNeeded__block_invoke(uint64_t 
   v8 = 0;
   if (a2)
   {
-    [a2 CMTimeValue];
+    objc_msgSend_CMTimeValue(a2);
   }
 
   v3 = *(a1 + 32);
@@ -92,74 +92,75 @@ BOOL __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTargetR
 
 void __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTargetRemainder_tolerance_result___block_invoke_12(uint64_t a1, void *a2)
 {
-  v42[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
-  v40 = 0uLL;
-  v41 = 0;
+  v41 = 0uLL;
+  v42 = 0;
   if (v3)
   {
-    [v3 CMTimeValue];
+    objc_msgSend_CMTimeValue(v3);
   }
 
   v5 = *(a1 + 32);
-  v28 = v40;
   v29 = v41;
-  v6 = [v5 renditionForDuration:&v28 withOptions:MEMORY[0x1E695E0F8]];
-  memset(&v39, 0, sizeof(v39));
-  CMTimeMake(&v39, [v6 duration], *(a1 + 48));
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__134916;
-  v37 = __Block_byref_object_dispose__134917;
-  v38 = 0;
-  *&v28 = 0;
-  *(&v28 + 1) = &v28;
-  v29 = 0x3810000000;
-  v30 = &unk_1A561E057;
-  v31 = *MEMORY[0x1E6960C70];
-  v32 = *(MEMORY[0x1E6960C70] + 16);
-  v7 = [v6 trackB];
-  v8 = [v7 clips];
-  v9 = [v6 trackA];
-  v10 = [v9 clips];
-  v11 = [v8 arrayByAddingObjectsFromArray:v10];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTargetRemainder_tolerance_result___block_invoke_13;
-  v19[3] = &unk_1E773C2B8;
-  v20 = *(a1 + 48);
-  v21 = *(a1 + 52);
-  v22 = *(a1 + 68);
-  v23 = v39;
-  v25 = *(a1 + 92);
-  v24 = *(a1 + 76);
-  v27 = *(a1 + 116);
-  v26 = *(a1 + 100);
-  v19[4] = &v33;
-  v19[5] = &v28;
-  [v11 enumerateObjectsUsingBlock:v19];
+  v30 = v42;
+  v6 = [v5 renditionForDuration:&v29 withOptions:MEMORY[0x1E695E0F8]];
+  memset(&v40, 0, sizeof(v40));
+  v7 = objc_msgSend_duration(v6);
+  CMTimeMake(&v40, v7, *(a1 + 48));
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__134916;
+  v38 = __Block_byref_object_dispose__134917;
+  v39 = 0;
+  *&v29 = 0;
+  *(&v29 + 1) = &v29;
+  v30 = 0x3810000000;
+  v31 = &unk_1A561E057;
+  v32 = *MEMORY[0x1E6960C70];
+  v33 = *(MEMORY[0x1E6960C70] + 16);
+  v8 = [v6 trackB];
+  v9 = [v8 clips];
+  v10 = [v6 trackA];
+  v11 = [v10 clips];
+  v12 = [v9 arrayByAddingObjectsFromArray:v11];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTargetRemainder_tolerance_result___block_invoke_13;
+  v20[3] = &unk_1E773C2B8;
+  v21 = *(a1 + 48);
+  v22 = *(a1 + 52);
+  v23 = *(a1 + 68);
+  v24 = v40;
+  v26 = *(a1 + 92);
+  v25 = *(a1 + 76);
+  v28 = *(a1 + 116);
+  v27 = *(a1 + 100);
+  v20[4] = &v34;
+  v20[5] = &v29;
+  [v12 enumerateObjectsUsingBlock:v20];
 
-  if (v34[5])
+  if (v35[5])
   {
-    memset(&v18, 0, sizeof(v18));
-    lhs = v39;
-    v16 = *(*(&v28 + 1) + 32);
-    CMTimeSubtract(&v18, &lhs, &v16);
-    v42[0] = v6;
-    lhs = *(*(&v28 + 1) + 32);
-    v12 = [MEMORY[0x1E696B098] valueWithCMTime:&lhs];
-    v42[1] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
-    v14 = *(a1 + 40);
-    lhs = v18;
-    v15 = [MEMORY[0x1E696B098] valueWithCMTime:&lhs];
-    [v14 setObject:v13 forKeyedSubscript:v15];
+    memset(&v19, 0, sizeof(v19));
+    lhs = v40;
+    v17 = *(*(&v29 + 1) + 32);
+    CMTimeSubtract(&v19, &lhs, &v17);
+    v43[0] = v6;
+    lhs = *(*(&v29 + 1) + 32);
+    v13 = [MEMORY[0x1E696B098] valueWithCMTime:&lhs];
+    v43[1] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+    v15 = *(a1 + 40);
+    lhs = v19;
+    v16 = [MEMORY[0x1E696B098] valueWithCMTime:&lhs];
+    [v15 setObject:v14 forKeyedSubscript:v16];
   }
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 uint64_t __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTargetRemainder_tolerance_result___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -169,7 +170,7 @@ uint64_t __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTar
   memset(&v13, 0, sizeof(v13));
   if (v5)
   {
-    [v5 CMTimeValue];
+    objc_msgSend_CMTimeValue(v5);
   }
 
   else
@@ -183,7 +184,7 @@ uint64_t __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTar
   memset(&time, 0, sizeof(time));
   if (v6)
   {
-    [v6 CMTimeValue];
+    objc_msgSend_CMTimeValue(v6);
   }
 
   else
@@ -204,13 +205,14 @@ uint64_t __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTar
 void __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTargetRemainder_tolerance_result___block_invoke_13(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a2;
+  memset(&v17, 0, sizeof(v17));
+  CMTimeMake(&v17, [v7 offset], *(a1 + 48));
   memset(&v16, 0, sizeof(v16));
-  CMTimeMake(&v16, [v7 offset], *(a1 + 48));
-  memset(&v15, 0, sizeof(v15));
-  CMTimeMake(&duration.start, [v7 duration], *(a1 + 48));
-  start = v16;
-  CMTimeRangeMake(&v15, &start, &duration.start);
-  duration = v15;
+  v8 = objc_msgSend_duration(v7);
+  CMTimeMake(&duration.start, v8, *(a1 + 48));
+  start = v17;
+  CMTimeRangeMake(&v16, &start, &duration.start);
+  duration = v16;
   start = *(a1 + 52);
   if (CMTimeRangeContainsTime(&duration, &start))
   {
@@ -218,7 +220,7 @@ void __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTargetR
     CMTimeMake(&duration.start, [v7 position], *(a1 + 48));
     memset(&start, 0, sizeof(start));
     lhs = *(a1 + 52);
-    rhs = v16;
+    rhs = v17;
     CMTimeSubtract(&start, &lhs, &rhs);
     memset(&lhs, 0, sizeof(lhs));
     rhs = duration.start;
@@ -229,8 +231,8 @@ void __98__PXFlexMusicPathfinder_findPathFromCurrentTime_inRendition_withTargetR
     time = lhs;
     CMTimeSubtract(&rhs, &time1, &time);
     time1 = rhs;
-    v8 = *(a1 + 100);
-    CMTimeSubtract(&time, &time1, &v8);
+    v9 = *(a1 + 100);
+    CMTimeSubtract(&time, &time1, &v9);
     CMTimeAbsoluteValue(&time1, &time);
     time = *(a1 + 124);
     if (CMTimeCompare(&time1, &time) <= 0)

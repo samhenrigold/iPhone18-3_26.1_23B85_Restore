@@ -88,29 +88,29 @@ void __99__HKSleepDaySummaryDurationCollection_computeDurationsFromSleepPeriod_s
 
 - (id)durationsByAdding:(id)adding
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   addingCopy = adding;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = self->_durations;
-  v6 = [(NSDictionary *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [(NSDictionary *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         integerValue = [v10 integerValue];
         v12 = [(HKSleepDaySummaryDurationCollection *)self durationsForStrategyType:integerValue];
         v13 = [addingCopy durationsForStrategyType:integerValue];
@@ -118,7 +118,7 @@ void __99__HKSleepDaySummaryDurationCollection_computeDurationsFromSleepPeriod_s
         [v5 setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSDictionary *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [(NSDictionary *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -127,8 +127,6 @@ void __99__HKSleepDaySummaryDurationCollection_computeDurationsFromSleepPeriod_s
   v15 = [HKSleepDaySummaryDurationCollection alloc];
   v16 = [v5 copy];
   v17 = [(HKSleepDaySummaryDurationCollection *)&v15->super.isa initWithDurations:v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

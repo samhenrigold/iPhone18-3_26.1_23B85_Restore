@@ -47,28 +47,26 @@
 
 - (id)convertError
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   ErrorMessage = JetPackReaderGetErrorMessage([(JPReader *)self backing]);
   if (ErrorMessage && (v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:ErrorMessage]) != 0)
   {
     v4 = v3;
     v5 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = v3;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = v3;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v7 = [v5 errorWithDomain:@"JPErrorDomain" code:0 userInfo:v6];
   }
 
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
-    v12 = @"An unknown error occurred";
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11 = @"An unknown error occurred";
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v7 = [v8 errorWithDomain:@"JPErrorDomain" code:0 userInfo:v4];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -129,26 +129,17 @@ LABEL_6:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  switch(mode)
+  if (mode == 10 || mode == 19 || mode == 17)
   {
-    case 10:
-      v4 = NTKFaceColorModularEditOption_ptr;
-LABEL_7:
-      v5 = *v4;
-      v6 = objc_opt_class();
-
-      return v6;
-    case 19:
-      v4 = NTKNumeralEditOption_ptr;
-      goto LABEL_7;
-    case 17:
-      v4 = NTKFaceBackgroundStyleEditOption_ptr;
-      goto LABEL_7;
+    v4 = objc_opt_class();
   }
 
-  v6 = 0;
+  else
+  {
+    v4 = 0;
+  }
 
-  return v6;
+  return v4;
 }
 
 @end

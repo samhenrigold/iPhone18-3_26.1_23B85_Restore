@@ -62,7 +62,7 @@
 
 - (void)_readUserDefaults
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2, v3, v4);
   v10 = objc_msgSend_objectForKey_(v6, v7, self->_preferencePathArray, v8, v9);
   v14 = objc_msgSend_objectForKey_(v6, v11, self->_preferencePathMaxCount, v12, v13);
@@ -82,53 +82,51 @@
     objc_msgSend_setObject_forKey_(v6, v15, MEMORY[0x277CBEBF8], self->_preferencePathArray, v18);
     objc_msgSend_setObject_forKey_(v6, v21, &unk_285A47180, self->_preferencePathMaxCount, v22);
     v27 = objc_msgSend_unsignedIntegerValue(&unk_285A47180, v23, v24, v25, v26);
-    v49.receiver = self;
-    v49.super_class = XRRecentArrayStoredPrefs;
-    [(XRRecentArray *)&v49 setMaximumRecentCount:v27];
+    v48.receiver = self;
+    v48.super_class = XRRecentArrayStoredPrefs;
+    [(XRRecentArray *)&v48 setMaximumRecentCount:v27];
   }
 
   else
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v42 = v10;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v41 = v10;
     v28 = objc_msgSend_reverseObjectEnumerator(v10, v15, v16, v17, v18);
-    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v45, v50, 16);
+    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v44, v49, 16);
     if (v30)
     {
       v31 = v30;
-      v32 = *v46;
+      v32 = *v45;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v46 != v32)
+          if (*v45 != v32)
           {
             objc_enumerationMutation(v28);
           }
 
-          v34 = *(*(&v45 + 1) + 8 * i);
-          v44.receiver = self;
-          v44.super_class = XRRecentArrayStoredPrefs;
-          [(XRRecentArray *)&v44 addEntry:v34];
+          v34 = *(*(&v44 + 1) + 8 * i);
+          v43.receiver = self;
+          v43.super_class = XRRecentArrayStoredPrefs;
+          [(XRRecentArray *)&v43 addEntry:v34];
         }
 
-        v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v35, &v45, v50, 16);
+        v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v35, &v44, v49, 16);
       }
 
       while (v31);
     }
 
     v40 = objc_msgSend_unsignedIntegerValue(v19, v36, v37, v38, v39);
-    v43.receiver = self;
-    v43.super_class = XRRecentArrayStoredPrefs;
-    [(XRRecentArray *)&v43 setMaximumRecentCount:v40];
-    v10 = v42;
+    v42.receiver = self;
+    v42.super_class = XRRecentArrayStoredPrefs;
+    [(XRRecentArray *)&v42 setMaximumRecentCount:v40];
+    v10 = v41;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronize

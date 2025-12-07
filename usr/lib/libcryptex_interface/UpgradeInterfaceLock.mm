@@ -96,7 +96,7 @@ uint64_t __41__UpgradeInterfaceLock_getSharedInstance__block_invoke()
   return selfCopy;
 }
 
-uint64_t __32__UpgradeInterfaceLock_isLocked__block_invoke(uint64_t a1)
+void *__32__UpgradeInterfaceLock_isLocked__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isLockedOnQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -198,10 +198,7 @@ void __35__UpgradeInterfaceLock_releaseLock__block_invoke(uint64_t a1)
 
 uint64_t __35__UpgradeInterfaceLock_acquireLock__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _acquireLockOnQueue];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _acquireLockOnQueue];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -240,7 +237,7 @@ uint64_t __35__UpgradeInterfaceLock_acquireLock__block_invoke(uint64_t a1)
 
 - (id)_acquireLockOnQueue
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   cf = 0;
   queue = [(UpgradeInterfaceLock *)self queue];
   dispatch_assert_queue_barrier(queue);
@@ -255,27 +252,36 @@ uint64_t __35__UpgradeInterfaceLock_acquireLock__block_invoke(uint64_t a1)
       _createXPCRequest = [(UpgradeInterfaceLock *)self _createXPCRequest];
       if (!_createXPCRequest)
       {
-        v15 = [(UpgradeInterfaceLock *)self log];
+        v16 = [(UpgradeInterfaceLock *)self log];
 
-        if (v15)
+        if (v16)
         {
-          v16 = [(UpgradeInterfaceLock *)self log];
-          os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+          v17 = [(UpgradeInterfaceLock *)self log];
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          {
+            v18 = 3;
+          }
+
+          else
+          {
+            v18 = 2;
+          }
+
           *buf = 0;
-          v17 = _os_log_send_and_compose_impl();
+          v19 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_298711000, v17, 16, "Failed to create XPC request.", buf, 2);
         }
 
         else
         {
           *buf = 0;
-          v17 = _os_log_send_and_compose_impl();
+          v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_298711000, MEMORY[0x29EDCA988], 16, "Failed to create XPC request.", buf, 2);
         }
 
-        Error = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 170, "com.apple.security.cryptex", 24, 0, v17);
-        free(v17);
+        Error = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 170, "com.apple.security.cryptex", 24, 0, v19);
+        free(v19);
         v6 = Error;
         v8 = 0;
-        goto LABEL_39;
+        goto LABEL_57;
       }
 
       v11 = xpc_connection_send_message_with_reply_sync(connection, _createXPCRequest);
@@ -284,30 +290,39 @@ uint64_t __35__UpgradeInterfaceLock_acquireLock__block_invoke(uint64_t a1)
       {
         if (MEMORY[0x29C290B80](v11) == MEMORY[0x29EDCAA18])
         {
-          v22 = MEMORY[0x29C290A60](v8);
-          v23 = [(UpgradeInterfaceLock *)self log];
+          v25 = MEMORY[0x29C290A60](v8);
+          v26 = [(UpgradeInterfaceLock *)self log];
 
-          if (v23)
+          if (v26)
           {
-            v24 = [(UpgradeInterfaceLock *)self log];
-            os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+            v27 = [(UpgradeInterfaceLock *)self log];
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            {
+              v28 = 3;
+            }
+
+            else
+            {
+              v28 = 2;
+            }
+
             *buf = 136446210;
-            v46 = v22;
-            v25 = _os_log_send_and_compose_impl();
+            v52 = v25;
+            v29 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_298711000, v27, 16, "XPC error while locking upgrade interface: %{public}s", buf, 12);
           }
 
           else
           {
             *buf = 136446210;
-            v46 = v22;
-            v25 = _os_log_send_and_compose_impl();
+            v52 = v25;
+            v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_298711000, MEMORY[0x29EDCA988], 16, "XPC error while locking upgrade interface: %{public}s", buf, 12);
           }
 
-          v39 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 186, "com.apple.security.cryptex", 16, 0, v25);
+          v45 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 186, "com.apple.security.cryptex", 16, 0, v29);
+          free(v29);
+          v6 = v45;
           free(v25);
-          v6 = v39;
-          free(v22);
-          goto LABEL_39;
+          goto LABEL_57;
         }
 
         v6 = 0;
@@ -315,82 +330,113 @@ uint64_t __35__UpgradeInterfaceLock_acquireLock__block_invoke(uint64_t a1)
 
       else
       {
-        v18 = [(UpgradeInterfaceLock *)self log];
+        v20 = [(UpgradeInterfaceLock *)self log];
 
-        if (v18)
+        if (v20)
         {
-          v19 = [(UpgradeInterfaceLock *)self log];
-          os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+          v21 = [(UpgradeInterfaceLock *)self log];
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          {
+            v22 = 3;
+          }
+
+          else
+          {
+            v22 = 2;
+          }
+
           *buf = 0;
-          v20 = _os_log_send_and_compose_impl();
+          v23 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_298711000, v21, 16, "No reply to request to lock upgrade interface.", buf, 2);
         }
 
         else
         {
           *buf = 0;
-          v20 = _os_log_send_and_compose_impl();
+          v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_298711000, MEMORY[0x29EDCA988], 16, "No reply to request to lock upgrade interface.", buf, 2);
         }
 
-        v27 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 179, "com.apple.security.cryptex", 16, 0, v20);
-        free(v20);
-        v6 = v27;
+        v31 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 179, "com.apple.security.cryptex", 16, 0, v23);
+        free(v23);
+        v6 = v31;
       }
 
       cferr = _xpc_dictionary_try_get_cferr(v8, "upgrade_lock_error", &cf);
       if ((cferr | 2) != 2)
       {
-        v32 = [(UpgradeInterfaceLock *)self log];
+        v37 = [(UpgradeInterfaceLock *)self log];
 
-        if (v32)
+        if (v37)
         {
-          v33 = [(UpgradeInterfaceLock *)self log];
-          os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+          v38 = [(UpgradeInterfaceLock *)self log];
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          {
+            v39 = 3;
+          }
+
+          else
+          {
+            v39 = 2;
+          }
+
           *buf = 67109120;
-          LODWORD(v46) = cferr;
-          v34 = _os_log_send_and_compose_impl();
+          LODWORD(v52) = cferr;
+          LODWORD(v48) = 8;
+          v40 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &dword_298711000, v38, 16, "Error unpacking upgrade lock response: %{darwin.errno}d", buf, v48);
         }
 
         else
         {
           *buf = 67109120;
-          LODWORD(v46) = cferr;
-          v34 = _os_log_send_and_compose_impl();
+          LODWORD(v52) = cferr;
+          LODWORD(v48) = 8;
+          v40 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_298711000, MEMORY[0x29EDCA988], 16, "Error unpacking upgrade lock response: %{darwin.errno}d", buf, v48);
         }
 
-        v38 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 201, "com.apple.security.cryptex", 16, 0, v34);
-        free(v34);
-        v37 = v38;
+        v44 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 201, "com.apple.security.cryptex", 16, 0, v40);
+        free(v40);
+        v43 = v44;
 
-        goto LABEL_36;
+        goto LABEL_54;
       }
 
       if (cf)
       {
-        v29 = [(UpgradeInterfaceLock *)self log];
+        v33 = [(UpgradeInterfaceLock *)self log];
 
-        if (v29)
+        if (v33)
         {
-          v30 = [(UpgradeInterfaceLock *)self log];
-          os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+          v34 = [(UpgradeInterfaceLock *)self log];
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          {
+            v35 = 3;
+          }
+
+          else
+          {
+            v35 = 2;
+          }
+
           *buf = 0;
-          v31 = _os_log_send_and_compose_impl();
+          LODWORD(v48) = 2;
+          v36 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_298711000, v34, 16, "Failed to lock upgrade interface", buf, v48);
         }
 
         else
         {
           *buf = 0;
-          v31 = _os_log_send_and_compose_impl();
+          LODWORD(v48) = 2;
+          v36 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_298711000, MEMORY[0x29EDCA988], 16, "Failed to lock upgrade interface", buf, v48);
         }
 
-        v36 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 210, "com.apple.security.cryptex", 25, cf, v31);
-        free(v31);
-        v37 = v36;
+        v42 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 210, "com.apple.security.cryptex", 25, cf, v36);
+        free(v36);
+        v43 = v42;
 
-LABEL_36:
-        v6 = v37;
-LABEL_39:
+LABEL_54:
+        v6 = v43;
+LABEL_57:
         xpc_connection_cancel(connection);
-        goto LABEL_40;
+        goto LABEL_58;
       }
 
       [(UpgradeInterfaceLock *)self setLockConn:connection];
@@ -411,26 +457,35 @@ LABEL_39:
       if (v12)
       {
         v13 = [(UpgradeInterfaceLock *)self log];
-        os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        {
+          v14 = 3;
+        }
+
+        else
+        {
+          v14 = 2;
+        }
+
         *buf = 0;
-        v14 = _os_log_send_and_compose_impl();
+        v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_298711000, v13, 16, "Failed to get XPC connection.", buf, 2);
       }
 
       else
       {
         *buf = 0;
-        v14 = _os_log_send_and_compose_impl();
+        v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_298711000, MEMORY[0x29EDCA988], 16, "Failed to get XPC connection.", buf, 2);
       }
 
-      v21 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 161, "com.apple.security.cryptex", 23, 0, v14);
-      free(v14);
-      v6 = v21;
+      v24 = createError("[UpgradeInterfaceLock _acquireLockOnQueue]", "upgrade_lock_interface.m", 161, "com.apple.security.cryptex", 23, 0, v15);
+      free(v15);
+      v6 = v24;
       _createXPCRequest = 0;
       v8 = 0;
     }
 
     connection = 0;
-    goto LABEL_40;
+    goto LABEL_58;
   }
 
   v4 = *__error();
@@ -446,22 +501,20 @@ LABEL_39:
   v8 = 0;
   connection = 0;
   *__error() = v4;
-LABEL_40:
-  v40 = v6;
+LABEL_58:
+  v46 = v6;
 
   if (cf)
   {
     CFRelease(cf);
   }
 
-  v41 = *MEMORY[0x29EDCA608];
-
-  return v40;
+  return v46;
 }
 
 - (void)_handleXPCMessage:(id)message
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   messageCopy = message;
   v5 = messageCopy;
   if (messageCopy)
@@ -474,7 +527,7 @@ LABEL_40:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136446210;
-        v18 = v6;
+        v17 = v6;
         _os_log_impl(&dword_298711000, v13, OS_LOG_TYPE_DEBUG, "XPC error while upgrade interface was locked: %{public}s", buf, 0xCu);
       }
 
@@ -495,9 +548,9 @@ LABEL_40:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v18 = v6;
-        v19 = 1024;
-        v20 = 5;
+        v17 = v6;
+        v18 = 1024;
+        v19 = 5;
         _os_log_impl(&dword_298711000, v8, OS_LOG_TYPE_ERROR, "Unexpected message: %{public}s: %{darwin.errno}d", buf, 0x12u);
       }
 
@@ -514,7 +567,7 @@ LABEL_40:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v18) = 22;
+      LODWORD(v17) = 22;
       _os_log_impl(&dword_298711000, v11, OS_LOG_TYPE_ERROR, "Invalid input.: %{darwin.errno}d", buf, 8u);
     }
 
@@ -523,38 +576,36 @@ LABEL_40:
   }
 
   free(v6);
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __42__UpgradeInterfaceLock__handleXPCMessage___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) onNextLockReleaseCallbacks];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v9 + 1) + 8 * v6++) + 16))();
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -563,9 +614,7 @@ uint64_t __42__UpgradeInterfaceLock__handleXPCMessage___block_invoke(uint64_t a1
   v7 = [*(a1 + 32) onNextLockReleaseCallbacks];
   [v7 removeAllObjects];
 
-  result = [*(a1 + 32) setLockConn:0];
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return [*(a1 + 32) setLockConn:0];
 }
 
 @end

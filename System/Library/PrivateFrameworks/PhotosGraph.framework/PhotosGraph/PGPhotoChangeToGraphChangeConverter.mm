@@ -9,26 +9,26 @@
 
 - (id)graphChangesWithPhotoChange:(id)change progressBlock:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   blockCopy = block;
   v8 = _Block_copy(blockCopy);
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
   v33 = 0;
-  if (v8 && (v9 = CFAbsoluteTimeGetCurrent(), v9 - v31[3] >= 0.01) && (v31[3] = v9, v29 = 0, (*(v8 + 2))(v8, &v29, 0.0), v10 = *(v35 + 24) | v29, *(v35 + 24) = v10, (v10 & 1) != 0))
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  if (v8 && (v9 = CFAbsoluteTimeGetCurrent(), v9 - v30[3] >= 0.01) && (v30[3] = v9, v28 = 0, (*(v8 + 2))(v8, &v28, 0.0), v10 = *(v34 + 24) | v28, *(v34 + 24) = v10, (v10 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v39 = 70;
-      *&v39[4] = 2080;
-      *&v39[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGPhotoChangeToGraphChangeConverter.m";
+      *v38 = 70;
+      *&v38[4] = 2080;
+      *&v38[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGPhotoChangeToGraphChangeConverter.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -41,35 +41,35 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *v39 = changeCopy;
+      *v38 = changeCopy;
       _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "PGPhotoChangeToGraphChangeConverter: handling change %@", buf, 0xCu);
     }
 
     array = [MEMORY[0x277CBEB18] array];
     entityTranslatorByEntityClassName = self->_entityTranslatorByEntityClassName;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progressBlock___block_invoke;
-    v21[3] = &unk_278884218;
-    v21[4] = self;
-    v22 = changeCopy;
-    v24 = blockCopy;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progressBlock___block_invoke;
+    v20[3] = &unk_278884218;
+    v20[4] = self;
+    v21 = changeCopy;
+    v23 = blockCopy;
     v15 = array;
-    v23 = v15;
+    v22 = v15;
     v16 = v8;
-    v25 = v16;
-    v26 = &v30;
-    v28 = xmmword_22F78C070;
-    v27 = &v34;
-    [(NSMutableDictionary *)entityTranslatorByEntityClassName enumerateKeysAndObjectsUsingBlock:v21];
-    if (v8 && (Current = CFAbsoluteTimeGetCurrent(), Current - v31[3] >= 0.01) && (v31[3] = Current, v29 = 0, (*(v16 + 2))(v16, &v29, 1.0), v18 = *(v35 + 24) | v29, *(v35 + 24) = v18, (v18 & 1) != 0))
+    v24 = v16;
+    v25 = &v29;
+    v27 = xmmword_22F78C070;
+    v26 = &v33;
+    [(NSMutableDictionary *)entityTranslatorByEntityClassName enumerateKeysAndObjectsUsingBlock:v20];
+    if (v8 && (Current = CFAbsoluteTimeGetCurrent(), Current - v30[3] >= 0.01) && (v30[3] = Current, v28 = 0, (*(v16 + 2))(v16, &v28, 1.0), v18 = *(v34 + 24) | v28, *(v34 + 24) = v18, (v18 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v39 = 172;
-        *&v39[4] = 2080;
-        *&v39[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGPhotoChangeToGraphChangeConverter.m";
+        *v38 = 172;
+        *&v38[4] = 2080;
+        *&v38[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGPhotoChangeToGraphChangeConverter.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -82,30 +82,28 @@
     }
   }
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v34, 8);
-
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v33, 8);
 
   return v11;
 }
 
 void __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progressBlock___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
-  v91 = v6;
+  v90 = v6;
   v8 = NSClassFromString(v6);
   v9 = *(*(a1 + 32) + 16);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    *v113 = v6;
+    *v112 = v6;
     _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "PGPhotoChangeToGraphChangeConverter: handling entity %@", buf, 0xCu);
   }
 
-  v89 = v7;
+  v88 = v7;
 
   v10 = *(*(a1 + 32) + 16);
   v11 = os_signpost_id_generate(v10);
@@ -120,7 +118,7 @@ void __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progr
   info = 0;
   mach_timebase_info(&info);
   v14 = mach_absolute_time();
-  v90 = [*(a1 + 40) changedLocalIdentifiersForEntityClass:v8];
+  v89 = [*(a1 + 40) changedLocalIdentifiersForEntityClass:v8];
   v15 = mach_absolute_time();
   v16 = info;
   v17 = v13;
@@ -135,38 +133,38 @@ void __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progr
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    *v113 = "ChangedLocalIdentifiersForEntityClass";
-    *&v113[8] = 2048;
-    v114 = ((((v15 - v14) * v16.numer) / v16.denom) / 1000000.0);
+    *v112 = "ChangedLocalIdentifiersForEntityClass";
+    *&v112[8] = 2048;
+    v113 = ((((v15 - v14) * v16.numer) / v16.denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
 
-  v20 = v90;
-  v21 = [v90 objectForKeyedSubscript:*MEMORY[0x277CD9C18]];
-  v22 = [v90 objectForKeyedSubscript:*MEMORY[0x277CD9BB8]];
-  v23 = [v90 objectForKeyedSubscript:*MEMORY[0x277CD9CB0]];
-  v93 = v21;
+  v20 = v89;
+  v21 = [v89 objectForKeyedSubscript:*MEMORY[0x277CD9C18]];
+  v22 = [v89 objectForKeyedSubscript:*MEMORY[0x277CD9BB8]];
+  v23 = [v89 objectForKeyedSubscript:*MEMORY[0x277CD9CB0]];
+  v92 = v21;
   v24 = [v21 count];
-  v92 = v22;
+  v91 = v22;
   v25 = [v22 count];
-  v88 = v23;
+  v87 = v23;
   v26 = [v23 count];
   v27 = *(*(a1 + 32) + 16);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     *buf = 67109632;
-    *v113 = v24;
-    *&v113[4] = 1024;
-    *&v113[6] = v25;
-    LOWORD(v114) = 1024;
-    *(&v114 + 2) = v26;
+    *v112 = v24;
+    *&v112[4] = 1024;
+    *&v112[6] = v25;
+    LOWORD(v113) = 1024;
+    *(&v113 + 2) = v26;
     _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "PGPhotoChangeToGraphChangeConverter: %d insertions, %d deletions, %d updates", buf, 0x14u);
   }
 
-  v28 = v89;
+  v28 = v88;
   if (v24)
   {
-    v29 = [v89 graphChangesForInsertedLocalIdentifiers:v93 progressBlock:*(a1 + 56)];
+    v29 = [v88 graphChangesForInsertedLocalIdentifiers:v92 progressBlock:*(a1 + 56)];
     if (v29)
     {
       [*(a1 + 48) addObjectsFromArray:v29];
@@ -193,7 +191,7 @@ void __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progr
 
   if (v25)
   {
-    v33 = [v89 graphChangesForDeletedLocalIdentifiers:v92 progressBlock:*(a1 + 56)];
+    v33 = [v88 graphChangesForDeletedLocalIdentifiers:v91 progressBlock:*(a1 + 56)];
     if (v33)
     {
       [*(a1 + 48) addObjectsFromArray:v33];
@@ -223,48 +221,48 @@ void __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progr
     goto LABEL_86;
   }
 
-  v86 = v19;
-  v94 = [MEMORY[0x277CBEB98] set];
+  v85 = v19;
+  v93 = [MEMORY[0x277CBEB98] set];
   v36 = [MEMORY[0x277CBEB38] dictionary];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progressBlock___block_invoke_199;
   aBlock[3] = &unk_2788841F0;
-  v106 = v89;
+  v105 = v88;
   v37 = v36;
-  v107 = v37;
-  v108 = *(a1 + 40);
-  v110 = *(a1 + 56);
-  v109 = *(a1 + 48);
-  v98 = _Block_copy(aBlock);
+  v106 = v37;
+  v107 = *(a1 + 40);
+  v109 = *(a1 + 56);
+  v108 = *(a1 + 48);
+  v97 = _Block_copy(aBlock);
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
-  obj = v88;
-  v38 = [obj countByEnumeratingWithState:&v101 objects:v117 count:16];
+  obj = v87;
+  v38 = [obj countByEnumeratingWithState:&v100 objects:v116 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v102;
-    v96 = v8;
-    v95 = *v102;
+    v40 = *v101;
+    v95 = v8;
+    v94 = *v101;
     while (2)
     {
       v41 = 0;
-      v97 = v39;
+      v96 = v39;
       do
       {
-        if (*v102 != v40)
+        if (*v101 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = *(*(&v101 + 1) + 8 * v41);
+        v42 = *(*(&v100 + 1) + 8 * v41);
         v43 = [*(a1 + 40) changedPropertyNamesForLocalIdentifier:v42 entityClass:v8];
         v44 = [v43 count];
         v45 = v43;
-        if (v44 || [objc_opt_class() includesRelationshipChanges] && (v46 = objc_msgSend(*(a1 + 40), "hasRelationshipChangesForLocalIdentifier:", v42), v45 = v94, v46))
+        if (v44 || [objc_opt_class() includesRelationshipChanges] && (v46 = objc_msgSend(*(a1 + 40), "hasRelationshipChangesForLocalIdentifier:", v42), v45 = v93, v46))
         {
           [v37 setObject:v45 forKeyedSubscript:v42];
         }
@@ -305,18 +303,18 @@ LABEL_62:
             _os_signpost_emit_with_name_impl(&dword_22F0FC000, v55, OS_SIGNPOST_INTERVAL_BEGIN, v53, "ProcessChangedPropertyNames", "", buf, 2u);
           }
 
-          v100 = 0;
-          mach_timebase_info(&v100);
+          v99 = 0;
+          mach_timebase_info(&v99);
           v56 = mach_absolute_time();
-          v98[2]();
+          v97[2]();
           v57 = mach_absolute_time();
-          v58 = v100;
+          v58 = v99;
           v59 = v55;
           v60 = v59;
           if (v53 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v59))
           {
             *buf = 67109120;
-            *v113 = v48;
+            *v112 = v48;
             _os_signpost_emit_with_name_impl(&dword_22F0FC000, v60, OS_SIGNPOST_INTERVAL_END, v53, "ProcessChangedPropertyNames", "%d entities", buf, 8u);
           }
 
@@ -326,16 +324,16 @@ LABEL_62:
             [MEMORY[0x277CCACA8] stringWithFormat:@"%d entities", v48];
             v62 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
             *buf = 136315650;
-            *v113 = "ProcessChangedPropertyNames";
-            *&v113[8] = 2112;
-            v114 = v62;
-            v115 = 2048;
-            v116 = ((((v57 - v56) * v58.numer) / v58.denom) / 1000000.0);
+            *v112 = "ProcessChangedPropertyNames";
+            *&v112[8] = 2112;
+            v113 = v62;
+            v114 = 2048;
+            v115 = ((((v57 - v56) * v58.numer) / v58.denom) / 1000000.0);
             _os_log_impl(&dword_22F0FC000, v61, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
           }
 
           a1 = v51;
-          v8 = v96;
+          v8 = v95;
           if (*(v51 + 64))
           {
             v63 = CFAbsoluteTimeGetCurrent();
@@ -355,15 +353,15 @@ LABEL_62:
             }
           }
 
-          v39 = v97;
-          v40 = v95;
+          v39 = v96;
+          v40 = v94;
         }
 
         ++v41;
       }
 
       while (v39 != v41);
-      v39 = [obj countByEnumeratingWithState:&v101 objects:v117 count:16];
+      v39 = [obj countByEnumeratingWithState:&v100 objects:v116 count:16];
       if (v39)
       {
         continue;
@@ -377,25 +375,7 @@ LABEL_62:
   if (v65)
   {
     v66 = v65;
-    if (!*(a1 + 64))
-    {
-      goto LABEL_63;
-    }
-
-    v67 = CFAbsoluteTimeGetCurrent();
-    v68 = *(*(a1 + 72) + 8);
-    if (v67 - *(v68 + 24) < *(a1 + 88))
-    {
-      goto LABEL_63;
-    }
-
-    *(v68 + 24) = v67;
-    buf[0] = 0;
-    (*(*(a1 + 64) + 16))(*(a1 + 96));
-    *(*(*(a1 + 80) + 8) + 24) |= buf[0];
-    v20 = v90;
-    v19 = v86;
-    if (*(*(*(a1 + 80) + 8) + 24) == 1)
+    if (*(a1 + 64) && (v67 = CFAbsoluteTimeGetCurrent(), v68 = *(*(a1 + 72) + 8), v67 - *(v68 + 24) >= *(a1 + 88)) && (*(v68 + 24) = v67, buf[0] = 0, (*(*(a1 + 64) + 16))(*(a1 + 96)), *(*(*(a1 + 80) + 8) + 24) |= buf[0], v20 = v89, v19 = v85, *(*(*(a1 + 80) + 8) + 24) == 1))
     {
       v69 = 0;
       *a4 = 1;
@@ -403,7 +383,6 @@ LABEL_62:
 
     else
     {
-LABEL_63:
       v70 = *(*(a1 + 32) + 16);
       v71 = os_signpost_id_generate(v70);
       v72 = v70;
@@ -414,18 +393,18 @@ LABEL_63:
         _os_signpost_emit_with_name_impl(&dword_22F0FC000, v73, OS_SIGNPOST_INTERVAL_BEGIN, v71, "ProcessChangedPropertyNames", "", buf, 2u);
       }
 
-      v100 = 0;
-      mach_timebase_info(&v100);
+      v99 = 0;
+      mach_timebase_info(&v99);
       v74 = mach_absolute_time();
-      v98[2]();
+      v97[2]();
       v75 = mach_absolute_time();
-      v76 = v100;
+      v76 = v99;
       v77 = v73;
       v78 = v77;
       if (v71 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v77))
       {
         *buf = 67109120;
-        *v113 = v66;
+        *v112 = v66;
         _os_signpost_emit_with_name_impl(&dword_22F0FC000, v78, OS_SIGNPOST_INTERVAL_END, v71, "ProcessChangedPropertyNames", "%d entities", buf, 8u);
       }
 
@@ -435,24 +414,17 @@ LABEL_63:
         [MEMORY[0x277CCACA8] stringWithFormat:@"%d entities", v66];
         v80 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         *buf = 136315650;
-        *v113 = "ProcessChangedPropertyNames";
-        *&v113[8] = 2112;
-        v114 = v80;
-        v115 = 2048;
-        v116 = ((((v75 - v74) * v76.numer) / v76.denom) / 1000000.0);
+        *v112 = "ProcessChangedPropertyNames";
+        *&v112[8] = 2112;
+        v113 = v80;
+        v114 = 2048;
+        v115 = ((((v75 - v74) * v76.numer) / v76.denom) / 1000000.0);
         _os_log_impl(&dword_22F0FC000, v79, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
       }
 
-      v20 = v90;
-      v19 = v86;
-      if (!*(a1 + 64))
-      {
-        goto LABEL_75;
-      }
-
-      v81 = CFAbsoluteTimeGetCurrent();
-      v82 = *(*(a1 + 72) + 8);
-      if (v81 - *(v82 + 24) >= *(a1 + 88) && (*(v82 + 24) = v81, buf[0] = 0, (*(*(a1 + 64) + 16))(*(a1 + 96)), *(*(*(a1 + 80) + 8) + 24) |= buf[0], *(*(*(a1 + 80) + 8) + 24) == 1))
+      v20 = v89;
+      v19 = v85;
+      if (*(a1 + 64) && (v81 = CFAbsoluteTimeGetCurrent(), v82 = *(*(a1 + 72) + 8), v81 - *(v82 + 24) >= *(a1 + 88)) && (*(v82 + 24) = v81, buf[0] = 0, (*(*(a1 + 64) + 16))(*(a1 + 96)), *(*(*(a1 + 80) + 8) + 24) |= buf[0], *(*(*(a1 + 80) + 8) + 24) == 1))
       {
         *a4 = 1;
 
@@ -461,7 +433,6 @@ LABEL_63:
 
       else
       {
-LABEL_75:
 
         v69 = 1;
       }
@@ -472,11 +443,11 @@ LABEL_75:
   {
     v69 = 1;
 LABEL_77:
-    v20 = v90;
-    v19 = v86;
+    v20 = v89;
+    v19 = v85;
   }
 
-  v28 = v89;
+  v28 = v88;
   if (v69)
   {
 LABEL_86:
@@ -499,8 +470,6 @@ LABEL_82:
       }
     }
   }
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 void __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progressBlock___block_invoke_199(uint64_t a1)
@@ -583,26 +552,24 @@ void __81__PGPhotoChangeToGraphChangeConverter_graphChangesWithPhotoChange_progr
 
 void __68__PGPhotoChangeToGraphChangeConverter_managedEntityNamesToTranslate__block_invoke()
 {
-  v11[6] = *MEMORY[0x277D85DE8];
+  v10[6] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = +[(PGGraphEntityTranslator *)PGGraphAssetTranslator];
-  v11[0] = v1;
+  v10[0] = v1;
   v2 = +[(PGGraphEntityTranslator *)PGGraphMomentTranslator];
-  v11[1] = v2;
+  v10[1] = v2;
   v3 = +[(PGGraphEntityTranslator *)PGGraphHighlightTranslator];
-  v11[2] = v3;
+  v10[2] = v3;
   v4 = +[(PGGraphEntityTranslator *)PGGraphFaceTranslator];
-  v11[3] = v4;
+  v10[3] = v4;
   v5 = +[(PGGraphEntityTranslator *)PGGraphPersonTranslator];
-  v11[4] = v5;
+  v10[4] = v5;
   v6 = +[(PGGraphEntityTranslator *)PGGraphSocialGroupTranslator];
-  v11[5] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:6];
+  v10[5] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:6];
   v8 = [v0 setWithArray:v7];
   v9 = managedEntityNamesToTranslate_managedEntityNamesToTranslate;
   managedEntityNamesToTranslate_managedEntityNamesToTranslate = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

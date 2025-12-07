@@ -11,15 +11,15 @@
 
 + (id)ioServiceDependenciesForConfig:(id)config
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   configCopy = config;
   asdtServiceID = [configCopy asdtServiceID];
   v5 = [(ASDTIOServiceManager *)ASDTIOPAudioCMServiceManager dependencyForID:asdtServiceID andConfiguration:configCopy];
 
   if (v5)
   {
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -27,17 +27,15 @@
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (ASDTIOPAudioCMPowerStateProperty)initWithConfig:(id)config
 {
   configCopy = config;
-  v16.receiver = self;
-  v16.super_class = ASDTIOPAudioCMPowerStateProperty;
-  v5 = [(ASDTCustomProperty *)&v16 initWithConfig:configCopy propertyDataType:1918990199 qualifierDataType:0];
+  v20.receiver = self;
+  v20.super_class = ASDTIOPAudioCMPowerStateProperty;
+  v5 = [(ASDTCustomProperty *)&v20 initWithConfig:configCopy propertyDataType:1918990199 qualifierDataType:0];
   v6 = v5;
   if (!v5)
   {
@@ -56,8 +54,8 @@
 
   if ((isKindOfClass & 1) == 0)
   {
-    v14 = ASDTIOPLogType();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = ASDTIOPLogType(v11, v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ASDTIOPAudioCMPowerStateProperty initWithConfig:v6];
     }
@@ -70,15 +68,15 @@
 
   if ((open & 1) == 0)
   {
-    v14 = ASDTIOPLogType();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = ASDTIOPLogType(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ASDTIOPAudioCMPowerStateProperty initWithConfig:v6];
     }
 
 LABEL_10:
 
-    v13 = 0;
+    v17 = 0;
     goto LABEL_11;
   }
 
@@ -87,10 +85,10 @@ LABEL_10:
   -[ASDTIOPAudioCMPowerStateProperty setPowerStateDirection:](v6, "setPowerStateDirection:", [configCopy asdtIOPAudioCMPowerStatePropertyDirection]);
 
 LABEL_5:
-  v13 = v6;
+  v17 = v6;
 LABEL_11:
 
-  return v13;
+  return v17;
 }
 
 - (void)dealloc
@@ -106,22 +104,23 @@ LABEL_11:
 - (int)checkPropertyValue:(id)value
 {
   valueCopy = value;
-  v10.receiver = self;
-  v10.super_class = ASDTIOPAudioCMPowerStateProperty;
-  v5 = [(ASDTCustomProperty *)&v10 checkPropertyValue:valueCopy];
+  v12.receiver = self;
+  v12.super_class = ASDTIOPAudioCMPowerStateProperty;
+  v5 = [(ASDTCustomProperty *)&v12 checkPropertyValue:valueCopy];
   if (!v5)
   {
     v6 = valueCopy;
     v7 = [v6 length];
-    if (v7 == [(ASDTCustomProperty *)self propertyValueSize])
+    propertyValueSize = [(ASDTCustomProperty *)self propertyValueSize];
+    if (v7 == propertyValueSize)
     {
       v5 = 0;
     }
 
     else
     {
-      v8 = ASDTIOPLogType();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = ASDTIOPLogType(propertyValueSize, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [(ASDTIOPAudioCMPowerStateProperty *)self checkPropertyValue:v6];
       }
@@ -181,32 +180,26 @@ LABEL_11:
 
 - (void)initWithConfig:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_2416E9000, v2, v3, "%@: Failed to retrieve client manager service with identifier: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2416E9000, v2, v3, "%@: Failed to retrieve client manager service with identifier: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithConfig:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_2416E9000, v2, v3, "%@: Failed to open client manager service with identifier: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2416E9000, v2, v3, "%@: Failed to open client manager service with identifier: %@", v4, v5, v6, v7);
 }
 
 - (void)checkPropertyValue:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 name];
-  [a2 length];
-  OUTLINED_FUNCTION_1_0(&dword_2416E9000, v4, v5, "%@: set: Bad property data length: %lu", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  *v10 = 138412546;
+  *&v10[4] = v3;
+  *&v10[12] = 2048;
+  *&v10[14] = [a2 length];
+  OUTLINED_FUNCTION_1_0(&dword_2416E9000, v4, v5, "%@: set: Bad property data length: %lu", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

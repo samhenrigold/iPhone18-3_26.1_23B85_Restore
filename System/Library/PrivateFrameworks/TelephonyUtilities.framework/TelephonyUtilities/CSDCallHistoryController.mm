@@ -16,7 +16,7 @@
 - (void)recentCallsDeleted:(id)deleted
 {
   deletedCopy = deleted;
-  v5 = sub_100004778();
+  v5 = sub_100004778(deletedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;

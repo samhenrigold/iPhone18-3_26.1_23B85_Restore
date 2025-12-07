@@ -969,11 +969,11 @@ LABEL_7:
   animationCopy = animation;
   layerCopy = layer;
   beginTimeMode = [animationCopy beginTimeMode];
-  v8 = [beginTimeMode isEqualToString:*MEMORY[0x1E69795C0]];
+  isEqualToString = objc_msgSend_isEqualToString_(beginTimeMode);
 
   [animationCopy beginTime];
   v10 = v9;
-  if ((v8 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v10 = 0.0;
     if (v9 > 0.0)
@@ -1395,7 +1395,7 @@ uint64_t __38__UIViewPropertyAnimator_setReversed___block_invoke(uint64_t a1)
 + (BOOL)automaticallyNotifiesObserversForKey:(id)key
 {
   keyCopy = key;
-  if ([@"running" isEqualToString:keyCopy] & 1) != 0 || (objc_msgSend(@"reversed", "isEqualToString:", keyCopy) & 1) != 0 || (objc_msgSend(@"fractionComplete", "isEqualToString:", keyCopy) & 1) != 0 || (objc_msgSend(@"state", "isEqualToString:", keyCopy) & 1) != 0 || (objc_msgSend(@"animationState", "isEqualToString:", keyCopy))
+  if (objc_msgSend_isEqualToString_(@"running") & 1) != 0 || (objc_msgSend_isEqualToString_(@"reversed") & 1) != 0 || (objc_msgSend_isEqualToString_(@"fractionComplete") & 1) != 0 || (objc_msgSend_isEqualToString_(@"state") & 1) != 0 || (objc_msgSend_isEqualToString_(@"animationState"))
   {
     v5 = 0;
   }
@@ -1484,7 +1484,7 @@ uint64_t __38__UIViewPropertyAnimator_setReversed___block_invoke(uint64_t a1)
 {
   pathCopy = path;
   springTimingParameters = [(UITimingCurveProvider *)self->_timingParameters springTimingParameters];
-  if (springTimingParameters && [pathCopy isEqualToString:@"position"])
+  if (springTimingParameters && objc_msgSend_isEqualToString_(pathCopy))
   {
     [springTimingParameters initialVelocity];
     v8 = v7 != v6;
@@ -3288,7 +3288,7 @@ void __73__UIViewPropertyAnimator__restoreLayerValueIfReversed_animation_toValue
       v92 = 0u;
       if (v23)
       {
-        [v23 CATransform3DValue];
+        objc_msgSend_CATransform3DValue(v23);
         v53 = 0uLL;
       }
 
@@ -3302,7 +3302,7 @@ void __73__UIViewPropertyAnimator__restoreLayerValueIfReversed_animation_toValue
       v84 = v53;
       if (v21)
       {
-        [v21 CATransform3DValue];
+        objc_msgSend_CATransform3DValue(v21);
       }
 
       v81 = 0u;
@@ -3315,7 +3315,7 @@ void __73__UIViewPropertyAnimator__restoreLayerValueIfReversed_animation_toValue
       v76 = 0u;
       if (v35)
       {
-        [v35 CATransform3DValue];
+        objc_msgSend_CATransform3DValue(v35);
       }
 
       v71 = v95;

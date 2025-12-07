@@ -14,7 +14,6 @@
 - (id)description
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  operation = self->_operation;
   event = self->_event;
   if (!event)
   {

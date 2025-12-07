@@ -82,66 +82,66 @@ void __56__PLCameraCaptureTaskConstraints_stateCaptureDictionary__block_invoke(v
   return v2;
 }
 
-void __54__PLCameraCaptureTaskConstraints_taskConstraintStatus__block_invoke(uint64_t a1)
+void __54__PLCameraCaptureTaskConstraints_taskConstraintStatus__block_invoke(uint64_t a1, const char *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v2 = [*(*(a1 + 32) + 16) count];
-  if (v2)
+  v27 = *MEMORY[0x1E69E9840];
+  v3 = objc_msgSend_count(*(*(a1 + 32) + 16), a2);
+  if (v3)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Camera capture task constraints are active (%ld coordinators activated)", v2];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Camera capture task constraints are active (%ld coordinators activated)", v3];
+    v5 = *(*(a1 + 40) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
 
-    v6 = *(a1 + 32);
-    if (*(v6 + 24))
+    v7 = *(a1 + 32);
+    if (*(v7 + 24))
     {
-      v7 = [*(*(*(a1 + 40) + 8) + 40) stringByAppendingFormat:@", photo streams are paused"];
-      v8 = *(*(a1 + 40) + 8);
-      v9 = *(v8 + 40);
-      *(v8 + 40) = v7;
+      v8 = [*(*(*(a1 + 40) + 8) + 40) stringByAppendingFormat:@", photo streams are paused"];
+      v9 = *(*(a1 + 40) + 8);
+      v10 = *(v9 + 40);
+      *(v9 + 40) = v8;
 
-      v6 = *(a1 + 32);
+      v7 = *(a1 + 32);
     }
 
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v10 = *(v6 + 16);
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v11)
+    v23 = 0u;
+    v11 = *(v7 + 16);
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v22;
+      v13 = v12;
+      v14 = *v23;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v13)
+          if (*v23 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v15 = [*(*(*(a1 + 40) + 8) + 40) stringByAppendingFormat:@"\n\t%@", *(*(&v21 + 1) + 8 * i)];
-          v16 = *(*(a1 + 40) + 8);
-          v17 = *(v16 + 40);
-          *(v16 + 40) = v15;
+          v16 = [*(*(*(a1 + 40) + 8) + 40) stringByAppendingFormat:@"\n\t%@", *(*(&v22 + 1) + 8 * i)];
+          v17 = *(*(a1 + 40) + 8);
+          v18 = *(v17 + 40);
+          *(v17 + 40) = v16;
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
   }
 
   else
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Camera capture task constraints are not active"];
-    v19 = *(*(a1 + 40) + 8);
-    v20 = *(v19 + 40);
-    *(v19 + 40) = v18;
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Camera capture task constraints are not active"];
+    v20 = *(*(a1 + 40) + 8);
+    v21 = *(v20 + 40);
+    *(v20 + 40) = v19;
   }
 }
 
@@ -155,30 +155,30 @@ void __54__PLCameraCaptureTaskConstraints_taskConstraintStatus__block_invoke(uin
   PLSafeRunWithUnfairLock();
 }
 
-void __71__PLCameraCaptureTaskConstraints_stopConstrainingTasksWithCoordinator___block_invoke(uint64_t a1)
+void __71__PLCameraCaptureTaskConstraints_stopConstrainingTasksWithCoordinator___block_invoke(uint64_t a1, const char *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = [*(*(a1 + 32) + 16) count];
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = objc_msgSend_count(*(*(a1 + 32) + 16), a2);
   [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
-  v3 = [*(*(a1 + 32) + 16) count];
-  if (v2 == 1 && v3 == 0)
+  v4 = objc_msgSend_count(*(*(a1 + 32) + 16));
+  if (v3 == 1 && v4 == 0)
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 40);
-    if (v5)
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 40);
+    if (v6)
     {
-      v8 = v6;
-      os_unfair_lock_assert_owner(v5 + 2);
-      v9 = PLCameraTaskConstraintsGetLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v9 = v7;
+      os_unfair_lock_assert_owner(v6 + 2);
+      v10 = PLCameraTaskConstraintsGetLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = v7;
-        _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: resign active for camera activity", &v10, 0xCu);
+        v11 = 138543362;
+        v12 = v8;
+        _os_log_impl(&dword_19BF1F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: resign active for camera activity", &v11, 0xCu);
       }
 
-      [v8 enableOpportunisticTasks];
+      [v9 enableOpportunisticTasks];
     }
   }
 }
@@ -193,51 +193,51 @@ void __71__PLCameraCaptureTaskConstraints_stopConstrainingTasksWithCoordinator__
   PLSafeRunWithUnfairLock();
 }
 
-void __72__PLCameraCaptureTaskConstraints_startConstrainingTasksWithCoordinator___block_invoke(uint64_t a1)
+void __72__PLCameraCaptureTaskConstraints_startConstrainingTasksWithCoordinator___block_invoke(uint64_t a1, const char *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 32) + 16);
-  if (!v2)
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = *(*(a1 + 32) + 16);
+  if (!v3)
   {
-    v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 16);
-    *(v4 + 16) = v3;
+    v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 16);
+    *(v5 + 16) = v4;
 
-    v2 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
   }
 
-  v6 = [v2 count];
+  v7 = objc_msgSend_count(v3, a2);
   [*(*(a1 + 32) + 16) addObject:*(a1 + 40)];
-  v7 = [*(*(a1 + 32) + 16) count];
-  if (v6)
+  v8 = objc_msgSend_count(*(*(a1 + 32) + 16));
+  if (v7)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v7 == 1;
+    v9 = v8 == 1;
   }
 
-  if (v8)
+  if (v9)
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 40);
-    if (v9)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 48);
+    v12 = *(a1 + 40);
+    if (v10)
     {
-      v12 = v10;
-      os_unfair_lock_assert_owner(v9 + 2);
-      v13 = PLCameraTaskConstraintsGetLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v13 = v11;
+      os_unfair_lock_assert_owner(v10 + 2);
+      v14 = PLCameraTaskConstraintsGetLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        v15 = v11;
-        _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: become active for camera activity", &v14, 0xCu);
+        v15 = 138543362;
+        v16 = v12;
+        _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: become active for camera activity", &v15, 0xCu);
       }
 
-      [v12 disableOpportunisticTasks];
+      [v13 disableOpportunisticTasks];
     }
   }
 }

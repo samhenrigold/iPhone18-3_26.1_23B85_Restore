@@ -12,10 +12,10 @@
   {
     v3 = *&self->continueAction[OBJC_IVAR____TtCV20TranslationUIService20SearchUIFirstUseView11Coordinator_continueAction];
     selfCopy = self;
-    v5 = sub_10000BAB4(v2);
+    v5 = sub_10000BAB4(v2, v3);
     v2(v5);
 
-    sub_100009F24(v2);
+    sub_100009F24(v2, v3);
   }
 }
 

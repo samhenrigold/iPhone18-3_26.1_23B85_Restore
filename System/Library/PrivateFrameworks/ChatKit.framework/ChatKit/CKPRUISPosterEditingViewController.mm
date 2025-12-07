@@ -646,7 +646,7 @@ void __56__CKPRUISPosterEditingViewController_setSelectedColors___block_invoke(u
       [v26 setChangeHandler:v42];
       [v26 setDelegate:self];
       v27 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:v26];
-      v28 = CKFrameworkBundle();
+      v28 = CKFrameworkBundle(v27);
       if (_isPhotosPoster)
       {
         [v28 localizedStringForKey:@"STYLE_COLOR" value:&stru_1F04268F8 table:@"ChatKit"];

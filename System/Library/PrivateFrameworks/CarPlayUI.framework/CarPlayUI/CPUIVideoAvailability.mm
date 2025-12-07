@@ -58,11 +58,11 @@
 
   if ((isCarPlayVideoAllowed & 1) == 0)
   {
-    v4 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarPlayUIGeneralLogging(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_243134000, v4, OS_LOG_TYPE_DEFAULT, "CarPlay video not allowed", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_243134000, v5, OS_LOG_TYPE_DEFAULT, "CarPlay video not allowed", v7, 2u);
     }
   }
 
@@ -71,62 +71,64 @@
 
 - (int64_t)playbackState
 {
-  if ([(CPUIVideoAvailability *)self isVideoSupported])
+  isVideoSupported = [(CPUIVideoAvailability *)self isVideoSupported];
+  if (isVideoSupported)
   {
     _currentCarPlayDevice = [(CPUIVideoAvailability *)self _currentCarPlayDevice];
     mediaSessionStatus = [_currentCarPlayDevice mediaSessionStatus];
     if (mediaSessionStatus < 2)
     {
-      v5 = CarPlayUIGeneralLogging();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = CarPlayUIGeneralLogging(mediaSessionStatus);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_243134000, v5, OS_LOG_TYPE_DEFAULT, "not playing a video", v12, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_243134000, v6, OS_LOG_TYPE_DEFAULT, "not playing a video", v14, 2u);
       }
 
-      v6 = 0;
+      v7 = 0;
       goto LABEL_13;
     }
 
     if (mediaSessionStatus == 2)
     {
-      v8 = CarPlayUIGeneralLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = CarPlayUIGeneralLogging(2);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_243134000, v8, OS_LOG_TYPE_DEFAULT, "playable / playing video", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_243134000, v9, OS_LOG_TYPE_DEFAULT, "playable / playing video", v13, 2u);
       }
 
-      if (([_currentCarPlayDevice isCarPlayVideoAllowed]& 1) != 0)
+      isCarPlayVideoAllowed = [_currentCarPlayDevice isCarPlayVideoAllowed];
+      if (isCarPlayVideoAllowed)
       {
-        v6 = 3;
+        v7 = 3;
         goto LABEL_14;
       }
 
-      v5 = CarPlayUIGeneralLogging();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = CarPlayUIGeneralLogging(isCarPlayVideoAllowed);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_243134000, v5, OS_LOG_TYPE_DEFAULT, "video not allowed", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_243134000, v6, OS_LOG_TYPE_DEFAULT, "video not allowed", v11, 2u);
       }
 
-      v6 = 1;
+      v7 = 1;
       goto LABEL_13;
     }
 
     if (mediaSessionStatus == 3)
     {
-      v5 = CarPlayUIGeneralLogging();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = CarPlayUIGeneralLogging(3);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v6 = 2;
-        _os_log_impl(&dword_243134000, v5, OS_LOG_TYPE_DEFAULT, "playing an unsupported video", buf, 2u);
+        v7 = 2;
+        _os_log_impl(&dword_243134000, v6, OS_LOG_TYPE_DEFAULT, "playing an unsupported video", buf, 2u);
       }
 
       else
       {
-        v6 = 2;
+        v7 = 2;
       }
 
 LABEL_13:
@@ -137,18 +139,18 @@ LABEL_13:
 
   else
   {
-    _currentCarPlayDevice = CarPlayUIGeneralLogging();
+    _currentCarPlayDevice = CarPlayUIGeneralLogging(isVideoSupported);
     if (os_log_type_enabled(_currentCarPlayDevice, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_243134000, _currentCarPlayDevice, OS_LOG_TYPE_DEFAULT, "video unsupported", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_243134000, _currentCarPlayDevice, OS_LOG_TYPE_DEFAULT, "video unsupported", v15, 2u);
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_14:
 
-  return v6;
+  return v7;
 }
 
 - (void)setVideoActive:(BOOL)active completionHandler:(id)handler

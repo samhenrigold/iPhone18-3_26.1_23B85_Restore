@@ -174,43 +174,41 @@
 
 - (void)initWithUsername:(uint64_t)a3 overridesAllowded:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "**** Error %{public}s: pageTemplateURL is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[WFBlockPage initWithUsername:overridesAllowded:]";
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "**** Error %{public}s: pageTemplateURL is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_initWithUsername:(uint64_t)a3 fileName:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "**** Error %{public}s: pageTemplateURL is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[WFBlockPage _initWithUsername:fileName:]";
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "**** Error %{public}s: pageTemplateURL is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_blockpage
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a2, a3, "**** error loading block page: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a2, a3, "**** error loading block page: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_fileContentWithName:(os_log_t)log extension:.cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_272D73000, log, OS_LOG_TYPE_ERROR, "**** error loading:%@ error:%@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_272D73000, log, OS_LOG_TYPE_ERROR, "**** error loading:%@ error:%@", &v4, 0x16u);
 }
 
 - (void)_fileContentWithName:(uint64_t)a3 extension:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a2, a3, "**** error loading %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a2, a3, "**** error loading %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

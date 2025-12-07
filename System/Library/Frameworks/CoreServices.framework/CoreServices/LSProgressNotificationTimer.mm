@@ -110,7 +110,7 @@
 
 - (void)notifyObservers:(id)observers withApplications:(id)applications
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   observersCopy = observers;
   applicationsCopy = applications;
   v8 = applicationsCopy;
@@ -118,30 +118,30 @@
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v11)
     {
-      v12 = *v27;
+      v12 = *v26;
       do
       {
         v13 = 0;
         do
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          [(LSProgressNotificationTimer *)selfCopy addApplication:*(*(&v26 + 1) + 8 * v13++), v26];
+          [(LSProgressNotificationTimer *)selfCopy addApplication:*(*(&v25 + 1) + 8 * v13++), v25];
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v11);
@@ -193,15 +193,13 @@ LABEL_18:
 LABEL_19:
     objc_sync_exit(selfCopy);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessage:(id)message
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v4 = _LSProgressLog();
+  v4 = _LSProgressLog(messageCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSProgressNotificationTimer sendMessage:?];
@@ -218,33 +216,33 @@ LABEL_19:
     [(LSProgressNotificationTimer *)selfCopy setLastFiredDate:date];
 
     [messageCopy userInfo];
+    v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
-    obj = v23 = 0u;
-    v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v21 = 0u;
+    obj = v22 = 0u;
+    v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         v11 = 0;
         do
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * v11);
+          v12 = *(*(&v21 + 1) + 8 * v11);
           v13 = objc_autoreleasePoolPush();
           connection = [v12 connection];
-          v21[0] = MEMORY[0x1E69E9820];
-          v21[1] = 3221225472;
-          v21[2] = __43__LSProgressNotificationTimer_sendMessage___block_invoke;
-          v21[3] = &unk_1E6A19AC0;
-          v21[4] = v12;
-          v15 = [connection remoteObjectProxyWithErrorHandler:v21];
+          v20[0] = MEMORY[0x1E69E9820];
+          v20[1] = 3221225472;
+          v20[2] = __43__LSProgressNotificationTimer_sendMessage___block_invoke;
+          v20[3] = &unk_1E6A19AC0;
+          v20[4] = v12;
+          v15 = [connection remoteObjectProxyWithErrorHandler:v20];
 
           applications = [(LSProgressNotificationTimer *)selfCopy applications];
           allObjects = [applications allObjects];
@@ -255,7 +253,7 @@ LABEL_19:
         }
 
         while (v9 != v11);
-        v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
@@ -266,26 +264,22 @@ LABEL_19:
   }
 
   objc_sync_exit(selfCopy);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __43__LSProgressNotificationTimer_sendMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _LSProgressLog();
+  v4 = _LSProgressLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Error %@ connecting to observer %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Error %@ connecting to observer %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -329,13 +323,10 @@ void __43__LSProgressNotificationTimer_sendMessage___block_invoke(uint64_t a1, v
 
 - (void)sendMessage:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 applications];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_20();
   OUTLINED_FUNCTION_5_4(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

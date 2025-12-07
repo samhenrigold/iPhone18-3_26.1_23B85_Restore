@@ -110,26 +110,26 @@ void __49__CAMSmartStylePreviewGridView_setLogIdentifier___block_invoke(uint64_t
 
 void __46__CAMSmartStylePreviewGridView_layoutSubviews__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = a2;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v4 = a2;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v6 = *(a1 + 32);
-  if (v6)
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    [v6 _subviewGeometryForIndex:a3];
+    objc_msgSend__subviewGeometryForIndex_(v5);
   }
 
-  v7[2] = v10;
-  v7[3] = v11;
-  v7[4] = v12;
-  v7[5] = v13;
-  v7[0] = v8;
-  v7[1] = v9;
-  CAMViewSetGeometry(v5, v7);
+  v6[2] = v9;
+  v6[3] = v10;
+  v6[4] = v11;
+  v6[5] = v12;
+  v6[0] = v7;
+  v6[1] = v8;
+  CAMViewSetGeometry(v4, v6);
 }
 
 - ($3B1716E7537CC2F16D6737AAC3CCCADB)_subviewGeometryForIndex:(SEL)index
@@ -430,7 +430,7 @@ uint64_t __62__CAMSmartStylePreviewGridView_setExpandedItemIndex_animated___bloc
   return _previewViews;
 }
 
-uint64_t __50__CAMSmartStylePreviewGridView_didFinishRendering__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__50__CAMSmartStylePreviewGridView_didFinishRendering__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 didFinishRendering];
   if ((result & 1) == 0)

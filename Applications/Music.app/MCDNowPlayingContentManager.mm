@@ -1053,7 +1053,7 @@ LABEL_5:
     v6 = nowPlayingItem;
     if (nowPlayingItem)
     {
-      [nowPlayingItem duration];
+      objc_msgSend_duration(nowPlayingItem);
       v7 = v9;
     }
 
@@ -2081,7 +2081,7 @@ LABEL_32:
   v4 = nowPlayingItem;
   if (nowPlayingItem)
   {
-    [nowPlayingItem duration];
+    objc_msgSend_duration(nowPlayingItem);
     if (v7)
     {
       v5 = 4;

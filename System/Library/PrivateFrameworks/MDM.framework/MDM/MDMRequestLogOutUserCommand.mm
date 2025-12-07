@@ -91,13 +91,13 @@
 
 void __73__MDMRequestLogOutUserCommand_Handler__processRequest_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = a2;
-  if (v13)
+  v12 = a2;
+  if (v12)
   {
     v3 = MEMORY[0x277CCA9B8];
     v4 = *MEMORY[0x277D03480];
     v5 = DMCErrorArray();
-    v6 = [v3 DMCErrorWithDomain:v4 code:12124 descriptionArray:v5 underlyingError:v13 errorType:{*MEMORY[0x277D032F8], 0}];
+    v6 = [v3 DMCErrorWithDomain:v4 code:12124 descriptionArray:v5 underlyingError:v12 errorType:{*MEMORY[0x277D032F8], 0}];
     v7 = *(*(a1 + 48) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
@@ -114,7 +114,6 @@ void __73__MDMRequestLogOutUserCommand_Handler__processRequest_completionHandler
     [v11 didInitiateSwitchUser];
   }
 
-  v12 = *(*(*(a1 + 56) + 8) + 40);
   (*(*(a1 + 40) + 16))();
 }
 

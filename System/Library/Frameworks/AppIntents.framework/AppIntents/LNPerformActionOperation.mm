@@ -155,7 +155,7 @@
   v17 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else

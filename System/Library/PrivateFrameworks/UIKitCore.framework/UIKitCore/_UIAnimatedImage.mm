@@ -617,8 +617,8 @@
             images5 = [v5 images];
             v32 = [images5 objectAtIndexedSubscript:v28];
 
-            v33 = [v30 isEqual:v32];
-            if ((v33 & 1) == 0)
+            isEqual = objc_msgSend_isEqual_(v30);
+            if ((isEqual & 1) == 0)
             {
               break;
             }
@@ -633,7 +633,7 @@
 
         else
         {
-          v33 = 1;
+          isEqual = 1;
         }
 
         goto LABEL_17;
@@ -644,16 +644,16 @@
     {
     }
 
-    v33 = 0;
+    isEqual = 0;
 LABEL_17:
 
     goto LABEL_18;
   }
 
-  v33 = 0;
+  isEqual = 0;
 LABEL_18:
 
-  return v33;
+  return isEqual;
 }
 
 - (unint64_t)hash

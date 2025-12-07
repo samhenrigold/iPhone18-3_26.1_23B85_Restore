@@ -156,7 +156,7 @@ void __42__PTAssetReaderFrame__jsonFriendlyObject___block_invoke(uint64_t a1, vo
   {
     if (frameCopy)
     {
-      [frameCopy time];
+      objc_msgSend_time(frameCopy);
     }
 
     else
@@ -175,7 +175,7 @@ void __42__PTAssetReaderFrame__jsonFriendlyObject___block_invoke(uint64_t a1, vo
 
     if (frameCopy)
     {
-      [frameCopy metadataTime];
+      objc_msgSend_metadataTime(frameCopy);
     }
 
     else
@@ -189,10 +189,10 @@ void __42__PTAssetReaderFrame__jsonFriendlyObject___block_invoke(uint64_t a1, vo
     *(v5 + 4) = CVPixelBufferRetain([frameCopy colorBuffer]);
     if (frameCopy)
     {
-      [frameCopy colorBufferTime];
+      objc_msgSend_colorBufferTime(frameCopy);
       *(v5 + 6) = v12;
       *(v5 + 14) = v14;
-      [frameCopy colorBufferPreferredTransform];
+      objc_msgSend_colorBufferPreferredTransform(frameCopy);
     }
 
     else
@@ -211,10 +211,10 @@ void __42__PTAssetReaderFrame__jsonFriendlyObject___block_invoke(uint64_t a1, vo
     *(v5 + 5) = CVPixelBufferRetain([frameCopy disparityBuffer]);
     if (frameCopy)
     {
-      [frameCopy disparityBufferTime];
+      objc_msgSend_disparityBufferTime(frameCopy);
       *(v5 + 120) = v13;
       *(v5 + 17) = v14;
-      [frameCopy disparityBufferPreferredTransform];
+      objc_msgSend_disparityBufferPreferredTransform(frameCopy);
     }
 
     else

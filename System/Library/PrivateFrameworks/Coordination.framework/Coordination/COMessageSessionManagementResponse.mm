@@ -45,41 +45,13 @@
   v14.receiver = self;
   v14.super_class = COMessageSessionManagementResponse;
   v5 = [(COMessageChannelResponse *)&v14 initWithCoder:coderCopy];
-  if (!v5)
+  if (v5 && (([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payload"], v6 = objc_claimAutoreleasedReturnValue(), payload = v5->_payload, v5->_payload = v6, payload, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"payloadType"), v8 = objc_claimAutoreleasedReturnValue(), payloadType = v5->_payloadType, v5->_payloadType = v8, payloadType, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"remoteError"), v10 = objc_claimAutoreleasedReturnValue(), remoteError = v5->_remoteError, v5->_remoteError = v10, remoteError, v5->_payload) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || v5->_payloadType && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || v5->_remoteError && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0)))
   {
-    goto LABEL_8;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payload"];
-  payload = v5->_payload;
-  v5->_payload = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payloadType"];
-  payloadType = v5->_payloadType;
-  v5->_payloadType = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"remoteError"];
-  remoteError = v5->_remoteError;
-  v5->_remoteError = v10;
-
-  if (v5->_payload)
-  {
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  if (v5->_payloadType && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || v5->_remoteError && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-  {
-LABEL_9:
     v12 = 0;
   }
 
   else
   {
-LABEL_8:
     v12 = v5;
   }
 

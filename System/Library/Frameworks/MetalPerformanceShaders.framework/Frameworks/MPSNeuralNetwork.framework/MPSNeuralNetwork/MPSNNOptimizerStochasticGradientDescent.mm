@@ -62,9 +62,9 @@
 
 - (MPSNNOptimizerStochasticGradientDescent)initWithCoder:(id)coder device:(id)device
 {
-  v22.receiver = self;
-  v22.super_class = MPSNNOptimizerStochasticGradientDescent;
-  v5 = [(MPSNNOptimizer *)&v22 initWithCoder:coder device:device];
+  v26.receiver = self;
+  v26.super_class = MPSNNOptimizerStochasticGradientDescent;
+  v5 = [(MPSNNOptimizer *)&v26 initWithCoder:coder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -83,7 +83,7 @@
   {
     v21 = objc_opt_class();
     NSStringFromClass(v21);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x1D3, @"[%@ initWithCoder:device:] Unsupported file version. Could not init object.", v22, v23, v24, v25);
   }
 
   return 0;
@@ -277,7 +277,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x276, @"[resultState isKindOfClass: MPSCNNConvolutionWeightsAndBiasesState.class] failed\n", v226, v227, v228, v229);
   }
 
   objc_opt_class();
@@ -285,7 +285,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x27A, @"[convolutionSourceState isKindOfClass: MPSCNNConvolutionWeightsAndBiasesState.class] failed\n", v230, v231, v232, v233);
   }
 
   objc_opt_class();
@@ -293,7 +293,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x27E, @"[convolutionGradientState isKindOfClass: MPSCNNConvolutionGradientState] failed\n", v14, v15, v16, v17);
   }
 
   if (inputMomentumVectors)
@@ -303,7 +303,7 @@ LABEL_16:
     {
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x283, @"[inputMomentumVectors count] > 0 failed\n", v14, v15, v16, v17);
       }
     }
   }
@@ -313,7 +313,7 @@ LABEL_16:
   v39 = objc_msgSend_numberOfWeights(resultState, v32, v33, v34, v35, v36, v37, v38);
   if (v39 != objc_msgSend_numberOfWeights(convolutionSourceState, v40, v41, v42, v43, v44, v45, v46) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x28B, @"convolutionResultState.numberOfWeights == convolutionSourceState.numberOfWeights failed \n", v50, v51, v52, v53);
   }
 
   v54 = MEMORY[0x277CD72D0];
@@ -331,12 +331,12 @@ LABEL_16:
   if (inputMomentumVectors)
   {
     v113 = objc_msgSend_objectAtIndexedSubscript_(inputMomentumVectors, v106, 0, v107, v108, v109, v110, v111);
-    objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_resultValuesVector_(v227, v114, v229, v76, v91, v113, v112, v115);
+    objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_resultValuesVector_(v235, v114, v237, v76, v91, v113, v112, v115);
   }
 
   else
   {
-    objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_resultValuesVector_(v227, v106, v229, v76, v91, 0, v112, v111);
+    objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_resultValuesVector_(v235, v106, v237, v76, v91, 0, v112, v111);
   }
 
   if (objc_msgSend_gradientForBiases(convolutionGradientState, v116, v117, v118, v119, v120, v121, v122))
@@ -346,7 +346,7 @@ LABEL_16:
     v144 = objc_msgSend_numberOfBiases(resultState, v137, v138, v139, v140, v141, v142, v143);
     if (v144 != objc_msgSend_numberOfBiases(convolutionSourceState, v145, v146, v147, v148, v149, v150, v151) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x2A5, @"convolutionResultState.numberOfBiases == convolutionSourceState.numberOfBiases failed \n", v155, v156, v157, v158);
     }
 
     v159 = MEMORY[0x277CD72D0];
@@ -364,12 +364,12 @@ LABEL_16:
     if (inputMomentumVectors && objc_msgSend_count(inputMomentumVectors, v211, v212, v213, v214, v215, v216, v217) == 2)
     {
       v223 = objc_msgSend_objectAtIndexedSubscript_(inputMomentumVectors, v211, 1, v219, v220, v221, v222, v217);
-      objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_resultValuesVector_(v227, v224, v229, v181, v196, v223, v218, v225);
+      objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_resultValuesVector_(v235, v224, v237, v181, v196, v223, v218, v225);
     }
 
     else
     {
-      objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_resultValuesVector_(v227, v211, v229, v181, v196, 0, v218, v217);
+      objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_resultValuesVector_(v235, v211, v237, v181, v196, 0, v218, v217);
     }
   }
 
@@ -385,7 +385,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x2CB, @"[batchNormalizationSourceState isKindOfClass: MPSCNNBatchNormalizationState.class] failed\n", v176, v177, v178, v179);
   }
 
   objc_opt_class();
@@ -393,7 +393,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x2CF, @"[batchNormalizationGradientState isKindOfClass: MPSCNNBatchNormalizationState.class] failed\n", v180, v181, v182, v183);
   }
 
   objc_opt_class();
@@ -401,7 +401,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x2D3, @"[resultState isKindOfClass: MPSCNNNormalizationGammaAndBetaState.class] failed\n", v15, v16, v17, v18);
   }
 
   if (inputMomentumVectors)
@@ -411,7 +411,7 @@ LABEL_16:
     {
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x2D9, @"[inputMomentumVectors count] > 0 failed\n", v15, v16, v17, v18);
       }
     }
   }
@@ -420,7 +420,7 @@ LABEL_16:
   objc_msgSend_gradientForGamma(batchNormalizationGradientState, v27, v28, v29, v30, v31, v32, v33);
   if (!objc_msgSend_gradientForGamma(batchNormalizationGradientState, v34, v35, v36, v37, v38, v39, v40) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x2E2, @"inputGradientState.gradientForGamma returned nil\n", v44, v45, v46, v47);
   }
 
   v48 = MEMORY[0x277CD72D0];
@@ -481,7 +481,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x31A, @"[batchNormalizationState isKindOfClass: MPSCNNBatchNormalizationState.class] failed\n", v175, v176, v177, v178);
   }
 
   objc_opt_class();
@@ -489,7 +489,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x31E, @"[resultState isKindOfClass: MPSCNNNormalizationGammaAndBetaState.class] failed\n", v14, v15, v16, v17);
   }
 
   if (inputMomentumVectors)
@@ -499,7 +499,7 @@ LABEL_16:
     {
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x323, @"[inputMomentumVectors count] > 0 failed\n", v14, v15, v16, v17);
       }
     }
   }
@@ -508,7 +508,7 @@ LABEL_16:
   objc_msgSend_gradientForGamma(batchNormalizationState, v26, v27, v28, v29, v30, v31, v32);
   if (!objc_msgSend_gradientForGamma(batchNormalizationState, v33, v34, v35, v36, v37, v38, v39) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x32C, @"inputGradientState.gradientForGamma returned nil\n", v43, v44, v45, v46);
   }
 
   v47 = MEMORY[0x277CD72D0];

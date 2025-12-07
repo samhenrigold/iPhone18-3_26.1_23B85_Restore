@@ -8,7 +8,9 @@
 - (CAFSettingNotificationEntryCharacteristic)notificationInfoCharacteristic;
 - (id)name;
 - (unsigned)buttonAction;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setButtonAction:(unsigned __int8)action;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -117,6 +119,13 @@
   return buttonActionValue;
 }
 
+- (void)setButtonAction:(unsigned __int8)action
+{
+  actionCopy = action;
+  buttonActionCharacteristic = [(CAFButtonSetting *)self buttonActionCharacteristic];
+  [buttonActionCharacteristic setButtonActionValue:actionCopy];
+}
+
 - (CAFSettingNotificationEntryCharacteristic)notificationInfoCharacteristic
 {
   v3 = [(CAFService *)self car];
@@ -157,6 +166,58 @@
   v3 = notificationInfoCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036000010"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    buttonActionCharacteristic = [(CAFButtonSetting *)self buttonActionCharacteristic];
+    uniqueIdentifier2 = [buttonActionCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers buttonSettingService:self didUpdateButtonAction:{-[CAFButtonSetting buttonAction](self, "buttonAction")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000031"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  notificationInfoCharacteristic = [(CAFButtonSetting *)self notificationInfoCharacteristic];
+  uniqueIdentifier4 = [notificationInfoCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    notificationInfo = [(CAFButtonSetting *)self notificationInfo];
+    [observers buttonSettingService:self didUpdateNotificationInfo:notificationInfo];
+
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v18.receiver = self;
+  v18.super_class = CAFButtonSetting;
+  [(CAFAutomakerSetting *)&v18 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForButtonAction

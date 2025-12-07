@@ -1279,11 +1279,11 @@ LABEL_88:
 
 - (RFFormattedText)initWithProtobuf:(id)protobuf
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v75.receiver = self;
-  v75.super_class = RFFormattedText;
-  v5 = [(RFFormattedText *)&v75 init];
+  v74.receiver = self;
+  v74.super_class = RFFormattedText;
+  v5 = [(RFFormattedText *)&v74 init];
   if (v5)
   {
     text = [protobufCopy text];
@@ -1375,33 +1375,33 @@ LABEL_88:
       v37 = 0;
     }
 
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     attributions2 = [protobufCopy attributions];
-    v39 = [attributions2 countByEnumeratingWithState:&v71 objects:v77 count:16];
+    v39 = [attributions2 countByEnumeratingWithState:&v70 objects:v76 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v72;
+      v41 = *v71;
       do
       {
         for (i = 0; i != v40; ++i)
         {
-          if (*v72 != v41)
+          if (*v71 != v41)
           {
             objc_enumerationMutation(attributions2);
           }
 
-          v43 = [[RFAttribution alloc] initWithProtobuf:*(*(&v71 + 1) + 8 * i)];
+          v43 = [[RFAttribution alloc] initWithProtobuf:*(*(&v70 + 1) + 8 * i)];
           if (v43)
           {
             [v37 addObject:v43];
           }
         }
 
-        v40 = [attributions2 countByEnumeratingWithState:&v71 objects:v77 count:16];
+        v40 = [attributions2 countByEnumeratingWithState:&v70 objects:v76 count:16];
       }
 
       while (v40);
@@ -1419,33 +1419,33 @@ LABEL_88:
       v45 = 0;
     }
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     highlighted_substrings2 = [protobufCopy highlighted_substrings];
-    v47 = [highlighted_substrings2 countByEnumeratingWithState:&v67 objects:v76 count:16];
+    v47 = [highlighted_substrings2 countByEnumeratingWithState:&v66 objects:v75 count:16];
     if (v47)
     {
       v48 = v47;
-      v49 = *v68;
+      v49 = *v67;
       do
       {
         for (j = 0; j != v48; ++j)
         {
-          if (*v68 != v49)
+          if (*v67 != v49)
           {
             objc_enumerationMutation(highlighted_substrings2);
           }
 
-          v51 = [[RFHighlightedSubstring alloc] initWithProtobuf:*(*(&v67 + 1) + 8 * j)];
+          v51 = [[RFHighlightedSubstring alloc] initWithProtobuf:*(*(&v66 + 1) + 8 * j)];
           if (v51)
           {
             [v45 addObject:v51];
           }
         }
 
-        v48 = [highlighted_substrings2 countByEnumeratingWithState:&v67 objects:v76 count:16];
+        v48 = [highlighted_substrings2 countByEnumeratingWithState:&v66 objects:v75 count:16];
       }
 
       while (v48);
@@ -1495,7 +1495,6 @@ LABEL_88:
     v64 = v5;
   }
 
-  v65 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

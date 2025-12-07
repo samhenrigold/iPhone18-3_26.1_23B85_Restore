@@ -16,23 +16,21 @@
 {
   v6 = sub_1C6D76A40();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6);
+  MEMORY[0x1EEE9AC00](v6, v8);
   v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v17 - v12;
+  MEMORY[0x1EEE9AC00](v11, v12);
+  v14 = &v17 - v13;
   swift_unknownObjectRetain();
   selfCopy = self;
   personalizationTreatment = [change personalizationTreatment];
   sub_1C6B7A268();
 
-  v16 = *(&selfCopy->super.isa + OBJC_IVAR____TtC19NewsPersonalization20XavierEventProcessor__configuration);
-  (*(v7 + 16))(v10, v13, v6);
+  (*(v7 + 16))(v10, v14, v6);
 
   sub_1C6D78240();
   swift_unknownObjectRelease();
 
-  (*(v7 + 8))(v13, v6);
+  (*(v7 + 8))(v14, v6);
 }
 
 @end

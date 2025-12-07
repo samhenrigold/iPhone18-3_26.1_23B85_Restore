@@ -73,7 +73,7 @@
 
 void __62__SYReturnToSenderRequest_performWithServiceProxy_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -85,11 +85,11 @@ void __62__SYReturnToSenderRequest_performWithServiceProxy_completion___block_in
       v9 = [*(a1 + 32) storedDocumentAttributes];
       v10 = [v9 sender];
       v11 = [v10 name];
-      v14 = 138412546;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "Unable to return document at url: %@, to sender: %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "Unable to return document at url: %@, to sender: %@", &v13, 0x16u);
     }
   }
 
@@ -98,22 +98,18 @@ void __62__SYReturnToSenderRequest_performWithServiceProxy_completion___block_in
   {
     (*(v12 + 16))(v12, a2, v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyParameters
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   document = [self document];
   fileURL = [document fileURL];
-  v8 = 138412546;
-  v9 = fileURL;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Document doesn't have required attributes at url: %@, error: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = fileURL;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Document doesn't have required attributes at url: %@, error: %@", &v7, 0x16u);
 }
 
 @end

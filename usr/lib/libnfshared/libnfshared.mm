@@ -1,11 +1,11 @@
-uint64_t NFLogGetLogger(unint64_t a1)
+uint64_t (*NFLogGetLogger(unint64_t a1))(void, const char *, ...)
 {
   if (a1 >= 5)
   {
     __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
   }
 
-  return *(&off_27DA9DE50 + a1);
+  return off_27DA9DE50[a1];
 }
 
 uint64_t NFIsInternalBuild()
@@ -86,7 +86,7 @@ uint64_t NFIsUIBuild()
 
 __CFString *sub_22EEC5600(void *a1, const char *a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_length(a1, a2, a3);
   if (!v4)
   {
@@ -106,7 +106,7 @@ LABEL_12:
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v19 = *(&off_27DA9DE50 + specific);
+    v19 = off_27DA9DE50[specific];
     if (v19)
     {
       v19(3, "%s:%i Memory allocation request failed.", "[NSData(HexString) NF_asHexString]", 70);
@@ -118,9 +118,9 @@ LABEL_12:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v25 = "[NSData(HexString) NF_asHexString]";
-      v26 = 1024;
-      v27 = 70;
+      v24 = "[NSData(HexString) NF_asHexString]";
+      v25 = 1024;
+      v26 = 70;
       _os_log_impl(&dword_22EEC4000, v21, OS_LOG_TYPE_ERROR, "%{public}s:%i Memory allocation request failed.", buf, 0x12u);
     }
 
@@ -144,7 +144,6 @@ LABEL_12:
   v16 = objc_msgSend_initWithUTF8String_(v14, v15, v7);
   free(v7);
 LABEL_13:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -188,7 +187,7 @@ uint64_t NF_isFeatureSupported(int a1)
 
 uint64_t NFProductHasNFCRadio()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (qword_280AEEEA8 != -1)
   {
     dispatch_once(&qword_280AEEEA8, &unk_2843AD9A0);
@@ -206,11 +205,11 @@ uint64_t NFProductHasNFCRadio()
       v0 = MGGetBoolAnswer();
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
-        v3[0] = 67109376;
-        v3[1] = byte_280AEEE98;
-        v4 = 1024;
-        v5 = v0;
-        _os_log_fault_impl(&dword_22EEC4000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Critical error : this device should have NFC !!! cache = %d, new = $%d", v3, 0xEu);
+        v2[0] = 67109376;
+        v2[1] = byte_280AEEE98;
+        v3 = 1024;
+        v4 = v0;
+        _os_log_fault_impl(&dword_22EEC4000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Critical error : this device should have NFC !!! cache = %d, new = $%d", v2, 0xEu);
       }
 
       if (qword_280AEEFD8 != -1)
@@ -225,24 +224,22 @@ uint64_t NFProductHasNFCRadio()
     }
   }
 
-  result = byte_280AEEE98;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return byte_280AEEE98;
 }
 
-void NFDataRelease(void *a1)
+void NFDataRelease(void *result)
 {
-  if (a1)
+  if (result)
   {
-    pthread_mutex_lock((a1[2] + 8));
-    v2 = a1[2];
+    pthread_mutex_lock((result[2] + 8));
+    v2 = result[2];
     v3 = *v2 - 1;
     *v2 = v3;
     pthread_mutex_unlock((v2 + 8));
     if (!v3)
     {
 
-      sub_22EEDECE4(a1);
+      sub_22EEDECE4(result);
     }
   }
 }
@@ -507,7 +504,7 @@ uint64_t NFBuildVersion()
 
 void sub_22EEC6D78()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   qword_280AEEED8 = MGCopyAnswer();
   if (!qword_280AEEED8)
   {
@@ -518,7 +515,7 @@ void sub_22EEC6D78()
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v2 = *(&off_27DA9DE50 + specific);
+    v2 = off_27DA9DE50[specific];
     if (v2)
     {
       v2(3, "%s:%i Failed to query build", "NFBuildVersion_block_invoke", 458);
@@ -530,16 +527,14 @@ void sub_22EEC6D78()
     if (os_log_type_enabled(Logger, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v7 = "NFBuildVersion_block_invoke";
-      v8 = 1024;
-      v9 = 458;
+      v6 = "NFBuildVersion_block_invoke";
+      v7 = 1024;
+      v8 = 458;
       _os_log_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to query build", buf, 0x12u);
     }
 
     qword_280AEEED8 = @"UnknownBuild";
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 BOOL NFIsProductType(int a1)
@@ -564,7 +559,7 @@ BOOL NFIsNonRFDeviceWithLPMSupport()
 
 uint64_t sub_22EEC6FA4()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CD2898];
   v1 = IOServiceNameMatching("stockholm-spmi");
   MatchingService = IOServiceGetMatchingService(v0, v1);
@@ -606,7 +601,7 @@ uint64_t sub_22EEC6FA4()
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v11 = *(&off_27DA9DE50 + specific);
+    v11 = off_27DA9DE50[specific];
     if (v11)
     {
       v11(3, "%s:%i Failed find IOKit service", "_NFPlatformGetSupportedLPMFlags", 496);
@@ -618,16 +613,15 @@ uint64_t sub_22EEC6FA4()
     if (os_log_type_enabled(Logger, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v17 = "_NFPlatformGetSupportedLPMFlags";
-      v18 = 1024;
-      v19 = 496;
+      v16 = "_NFPlatformGetSupportedLPMFlags";
+      v17 = 1024;
+      v18 = 496;
       _os_log_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed find IOKit service", buf, 0x12u);
     }
 
-    v8 = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1257,7 +1251,7 @@ uint64_t sub_22EEC7C7C()
 
 BOOL NFProductAllowsWiredInDLMode(int a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = *MEMORY[0x277CD2898];
   if (a1)
   {
@@ -1300,7 +1294,7 @@ BOOL NFProductAllowsWiredInDLMode(int a1)
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v12 = *(&off_27DA9DE50 + specific);
+    v12 = off_27DA9DE50[specific];
     if (v12)
     {
       v12(3, "%s:%i Failed find IOKit service", "NFProductAllowsWiredInDLMode", 1056);
@@ -1312,16 +1306,15 @@ BOOL NFProductAllowsWiredInDLMode(int a1)
     if (os_log_type_enabled(Logger, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v18 = "NFProductAllowsWiredInDLMode";
-      v19 = 1024;
-      v20 = 1056;
+      v17 = "NFProductAllowsWiredInDLMode";
+      v18 = 1024;
+      v19 = 1056;
       _os_log_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed find IOKit service", buf, 0x12u);
     }
 
-    v9 = 0;
+    return 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1364,21 +1357,21 @@ void sub_22EEC837C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   }
 }
 
-void sub_22EEC83F8(uint64_t a1)
+void sub_22EEC83F8(uint64_t a1, uint64_t a2)
 {
   v33 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v3 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v4 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific >= 5)
     {
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v5 = *(&off_27DA9DE50 + specific);
-    if (v5)
+    v6 = off_27DA9DE50[specific];
+    if (v6)
     {
       Class = object_getClass(WeakRetained);
       isMetaClass = class_isMetaClass(Class);
@@ -1386,149 +1379,145 @@ void sub_22EEC83F8(uint64_t a1)
       Name = sel_getName(*(a1 + 48));
       v19 = *(a1 + 32);
       v20 = xpc_strerror();
-      v10 = 45;
+      v11 = 45;
       if (isMetaClass)
       {
-        v10 = 43;
+        v11 = 43;
       }
 
-      v5(3, "%c[%{public}s %{public}s]:%i Unexpected error from XPC event publisher for stream %{public}@: %s", v10, ClassName, Name, 59, v19, v20);
-      v3 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+      v6(3, "%c[%{public}s %{public}s]:%i Unexpected error from XPC event publisher for stream %{public}@: %s", v11, ClassName, Name, 59, v19, v20);
+      v4 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     }
 
-    v11 = dispatch_get_specific(v3);
-    v12 = NFSharedLogGetLogger(v11);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v12 = dispatch_get_specific(v4);
+    v13 = NFSharedLogGetLogger(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = object_getClass(WeakRetained);
-      if (class_isMetaClass(v13))
+      v14 = object_getClass(WeakRetained);
+      if (class_isMetaClass(v14))
       {
-        v14 = 43;
+        v15 = 43;
       }
 
       else
       {
-        v14 = 45;
+        v15 = 45;
       }
 
-      v15 = object_getClassName(WeakRetained);
-      v16 = sel_getName(*(a1 + 48));
-      v17 = *(a1 + 32);
+      v16 = object_getClassName(WeakRetained);
+      v17 = sel_getName(*(a1 + 48));
+      v18 = *(a1 + 32);
       *buf = 67110402;
-      v22 = v14;
+      v22 = v15;
       v23 = 2082;
-      v24 = v15;
+      v24 = v16;
       v25 = 2082;
-      v26 = v16;
+      v26 = v17;
       v27 = 1024;
       v28 = 59;
       v29 = 2114;
-      v30 = v17;
+      v30 = v18;
       v31 = 2080;
       v32 = xpc_strerror();
-      _os_log_impl(&dword_22EEC4000, v12, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected error from XPC event publisher for stream %{public}@: %s", buf, 0x36u);
+      _os_log_impl(&dword_22EEC4000, v13, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected error from XPC event publisher for stream %{public}@: %s", buf, 0x36u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22EEC8B20(uint64_t a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v51 = 0u;
-    v52 = 0u;
+    v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     obj = *(v2 + 48);
-    v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v3, &v49, v67, 16);
+    v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v3, &v46, v64, 16);
     if (v4)
     {
       v7 = v4;
-      v48 = *v50;
+      v45 = *v47;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v50 != v48)
+          if (*v47 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v49 + 1) + 8 * i);
-          v10 = *(*(a1 + 32) + 16);
+          v9 = *(*(&v46 + 1) + 8 * i);
           objc_msgSend_unsignedLongLongValue(v9, v5, v6);
-          v11 = *(a1 + 40);
           if (xpc_event_publisher_fire())
           {
-            v12 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+            v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
             specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
             if (specific >= 5)
             {
-              goto LABEL_34;
+              goto LABEL_33;
             }
 
-            v14 = *(&off_27DA9DE50 + specific);
-            if (v14)
+            v12 = off_27DA9DE50[specific];
+            if (v12)
             {
               Class = object_getClass(*(a1 + 32));
               isMetaClass = class_isMetaClass(Class);
               ClassName = object_getClassName(*(a1 + 32));
               Name = sel_getName(*(a1 + 48));
-              v19 = *(*(a1 + 32) + 24);
-              v46 = xpc_strerror();
-              v20 = 45;
+              v17 = *(*(a1 + 32) + 24);
+              v43 = xpc_strerror();
+              v18 = 45;
               if (isMetaClass)
               {
-                v20 = 43;
+                v18 = 43;
               }
 
-              v14(3, "%c[%{public}s %{public}s]:%i Failed to send event to XPC event stream %{public}@ for token %{public}@: %s", v20, ClassName, Name, 112, v19, v9, v46);
-              v12 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+              v12(3, "%c[%{public}s %{public}s]:%i Failed to send event to XPC event stream %{public}@ for token %{public}@: %s", v18, ClassName, Name, 112, v17, v9, v43);
+              v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
             }
 
-            v21 = dispatch_get_specific(v12);
-            v22 = NFSharedLogGetLogger(v21);
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v19 = dispatch_get_specific(v10);
+            v20 = NFSharedLogGetLogger(v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              v23 = object_getClass(*(a1 + 32));
-              if (class_isMetaClass(v23))
+              v21 = object_getClass(*(a1 + 32));
+              if (class_isMetaClass(v21))
               {
-                v24 = 43;
+                v22 = 43;
               }
 
               else
               {
-                v24 = 45;
+                v22 = 45;
               }
 
-              v25 = object_getClassName(*(a1 + 32));
-              v26 = sel_getName(*(a1 + 48));
-              v27 = *(*(a1 + 32) + 24);
-              v28 = xpc_strerror();
+              v23 = object_getClassName(*(a1 + 32));
+              v24 = sel_getName(*(a1 + 48));
+              v25 = *(*(a1 + 32) + 24);
+              v26 = xpc_strerror();
               *buf = 67110658;
-              v54 = v24;
-              v55 = 2082;
-              v56 = v25;
-              v57 = 2082;
-              v58 = v26;
-              v59 = 1024;
-              v60 = 112;
-              v61 = 2114;
-              v62 = v27;
-              v63 = 2114;
-              v64 = v9;
-              v65 = 2080;
-              v66 = v28;
-              _os_log_impl(&dword_22EEC4000, v22, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to send event to XPC event stream %{public}@ for token %{public}@: %s", buf, 0x40u);
+              v51 = v22;
+              v52 = 2082;
+              v53 = v23;
+              v54 = 2082;
+              v55 = v24;
+              v56 = 1024;
+              v57 = 112;
+              v58 = 2114;
+              v59 = v25;
+              v60 = 2114;
+              v61 = v9;
+              v62 = 2080;
+              v63 = v26;
+              _os_log_impl(&dword_22EEC4000, v20, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to send event to XPC event stream %{public}@ for token %{public}@: %s", buf, 0x40u);
             }
           }
         }
 
-        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v49, v67, 16);
+        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v46, v64, 16);
       }
 
       while (v7);
@@ -1537,66 +1526,64 @@ void sub_22EEC8B20(uint64_t a1)
 
   else
   {
-    v29 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-    v30 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    if (v30 >= 5)
+    v27 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v28 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    if (v28 >= 5)
     {
-LABEL_34:
+LABEL_33:
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v31 = *(&off_27DA9DE50 + v30);
-    if (v31)
+    v29 = off_27DA9DE50[v28];
+    if (v29)
     {
-      v32 = object_getClass(v2);
-      v33 = class_isMetaClass(v32);
-      v34 = object_getClassName(*(a1 + 32));
-      v35 = sel_getName(*(a1 + 48));
-      v36 = 45;
-      if (v33)
+      v30 = object_getClass(v2);
+      v31 = class_isMetaClass(v30);
+      v32 = object_getClassName(*(a1 + 32));
+      v33 = sel_getName(*(a1 + 48));
+      v34 = 45;
+      if (v31)
       {
-        v36 = 43;
+        v34 = 43;
       }
 
-      v31(4, "%c[%{public}s %{public}s]:%i Have not received initial barrier; not sending %@", v36, v34, v35, 116, *(a1 + 40));
-      v29 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+      v29(4, "%c[%{public}s %{public}s]:%i Have not received initial barrier; not sending %@", v34, v32, v33, 116, *(a1 + 40));
+      v27 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     }
 
-    v37 = dispatch_get_specific(v29);
-    v38 = NFSharedLogGetLogger(v37);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v35 = dispatch_get_specific(v27);
+    v36 = NFSharedLogGetLogger(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v39 = object_getClass(*(a1 + 32));
-      if (class_isMetaClass(v39))
+      v37 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v37))
       {
-        v40 = 43;
+        v38 = 43;
       }
 
       else
       {
-        v40 = 45;
+        v38 = 45;
       }
 
-      v41 = object_getClassName(*(a1 + 32));
-      v42 = sel_getName(*(a1 + 48));
-      v43 = *(a1 + 40);
+      v39 = object_getClassName(*(a1 + 32));
+      v40 = sel_getName(*(a1 + 48));
+      v41 = *(a1 + 40);
       *buf = 67110146;
-      v54 = v40;
-      v55 = 2082;
-      v56 = v41;
-      v57 = 2082;
-      v58 = v42;
-      v59 = 1024;
-      v60 = 116;
-      v61 = 2112;
-      v62 = v43;
-      _os_log_impl(&dword_22EEC4000, v38, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Have not received initial barrier; not sending %@", buf, 0x2Cu);
+      v51 = v38;
+      v52 = 2082;
+      v53 = v39;
+      v54 = 2082;
+      v55 = v40;
+      v56 = 1024;
+      v57 = 116;
+      v58 = 2112;
+      v59 = v41;
+      _os_log_impl(&dword_22EEC4000, v36, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Have not received initial barrier; not sending %@", buf, 0x2Cu);
     }
 
-    objc_msgSend_addObject_(*(*(a1 + 32) + 40), v44, *(a1 + 40));
+    objc_msgSend_addObject_(*(*(a1 + 32) + 40), v42, *(a1 + 40));
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void postAnalyticsHardwareExceptionEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
@@ -1648,27 +1635,26 @@ void postAnalyticsMiddlewareExceptionEvent(uint64_t a1, uint64_t a2, uint64_t a3
 
 void postAnalyticsMainSERemovedEvent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   objc_msgSend_postAnalyticsSERemovedEvent_hasExpressTransactionStarted_hasCardEmulationStarted_hardwareType_(NFExceptionsCALogger, v7, a2, 0, a3, a1);
   v10 = objc_msgSend_sharedCALogger(NFCALogger, v8, v9);
   v13 = objc_msgSend_generateDailyUUIDForCA(v10, v11, v12);
   v15 = v13;
-  v20[0] = @"seRemovedEvt0Count";
-  v20[1] = @"dailyDeviceUUID";
+  v19[0] = @"seRemovedEvt0Count";
+  v19[1] = @"dailyDeviceUUID";
   v16 = @"noUUID";
   if (v13)
   {
     v16 = v13;
   }
 
-  v21[0] = &unk_2843B4BF0;
-  v21[1] = v16;
-  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v21, v20, 2);
+  v20[0] = &unk_2843B4BF0;
+  v20[1] = v16;
+  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v20, v19, 2);
   objc_msgSend_postCAEventFor_eventInput_(v10, v18, @"com.apple.nfcd.deviceExceptionStatistic", v17);
 
   objc_autoreleasePoolPop(v6);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void postAnalyticsTxLdoOverCurrentErrorEvent()
@@ -1682,7 +1668,7 @@ void postAnalyticsTxLdoOverCurrentErrorEvent()
 void postAnalyticsTxLdoErrorEvent(uint64_t a1, int a2)
 {
   LODWORD(v2) = a2;
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   if (v2 >= 0x32)
   {
@@ -1700,80 +1686,79 @@ void postAnalyticsTxLdoErrorEvent(uint64_t a1, int a2)
   if (v12)
   {
     v13 = objc_msgSend_sharedCALogger(NFCALogger, v10, v11);
-    v18 = @"status";
-    v19[0] = v12;
-    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v19, &v18, 1);
+    v17 = @"status";
+    v18[0] = v12;
+    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v18, &v17, 1);
     objc_msgSend_postCAEventFor_eventInput_(v13, v16, @"com.apple.nfcd.exceptions.txLdoErrors", v15);
   }
 
   objc_autoreleasePoolPop(v4);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-BOOL sub_22EECB990(void *a1, const char *a2, uint64_t a3, unint64_t a4)
+BOOL sub_22EECB990(void *a1, const char *a2, unsigned __int8 *a3, unint64_t a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     v5 = a3;
     if ((objc_msgSend_length(a1, a2, a3) & 1) == 0 && a4 <= objc_msgSend_length(a1, v7, v8) >> 1)
     {
-      v16 = a1;
+      v15 = a1;
       __str[2] = 0;
-      v19 = a4 - 1;
-      v20 = (objc_msgSend_UTF8String(v16, v17, v18) + 1);
-      v21 = MEMORY[0x277D85DE0];
+      v18 = a4 - 1;
+      v19 = (objc_msgSend_UTF8String(v15, v16, v17) + 1);
+      v20 = MEMORY[0x277D85DE0];
       while (1)
       {
-        __str[0] = *(v20 - 1);
-        v22 = *v20;
-        __str[1] = *v20;
-        if ((__str[0] & 0x8000000000000000) != 0 || (*(v21 + 4 * __str[0] + 60) & 0x10000) == 0 || v22 < 0 || (*(v21 + 4 * v22 + 60) & 0x10000) == 0)
+        __str[0] = *(v19 - 1);
+        v21 = *v19;
+        __str[1] = *v19;
+        if ((__str[0] & 0x8000000000000000) != 0 || (*(v20 + 4 * __str[0] + 60) & 0x10000) == 0 || v21 < 0 || (*(v20 + 4 * v21 + 60) & 0x10000) == 0)
         {
           break;
         }
 
-        v23 = strtoul(__str, 0, 16);
-        v25 = *v5++;
-        v24 = v25;
-        v27 = v19-- != 0;
-        v28 = v24 == v23;
-        result = v28;
-        if (v28)
+        v22 = strtoul(__str, 0, 16);
+        v24 = *v5++;
+        v23 = v24;
+        v26 = v18-- != 0;
+        v27 = v23 == v22;
+        result = v27;
+        if (v27)
         {
-          v20 += 2;
-          if (v27)
+          v19 += 2;
+          if (v26)
           {
             continue;
           }
         }
 
-        goto LABEL_11;
+        return result;
       }
 
-      v29 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+      v28 = kNFLOG_DISPATCH_SPECIFIC_KEY;
       specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       if (specific < 5)
       {
-        v31 = *(&off_27DA9DE50 + specific);
-        if (v31)
+        v30 = off_27DA9DE50[specific];
+        if (v30)
         {
-          v31(4, "%s:%i Source is not hex encoded bytes", "[NSString(HexString) NF_isPrefixOfHexEncodedEqualToBytes:length:]", 34);
-          v29 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+          v30(4, "%s:%i Source is not hex encoded bytes", "[NSString(HexString) NF_isPrefixOfHexEncodedEqualToBytes:length:]", 34);
+          v28 = kNFLOG_DISPATCH_SPECIFIC_KEY;
         }
 
-        v32 = dispatch_get_specific(v29);
-        v33 = NFSharedLogGetLogger(v32);
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v31 = dispatch_get_specific(v28);
+        v32 = NFSharedLogGetLogger(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446466;
-          v36 = "[NSString(HexString) NF_isPrefixOfHexEncodedEqualToBytes:length:]";
-          v37 = 1024;
-          v38 = 34;
-          _os_log_impl(&dword_22EEC4000, v33, OS_LOG_TYPE_ERROR, "%{public}s:%i Source is not hex encoded bytes", buf, 0x12u);
+          v35 = "[NSString(HexString) NF_isPrefixOfHexEncodedEqualToBytes:length:]";
+          v36 = 1024;
+          v37 = 34;
+          _os_log_impl(&dword_22EEC4000, v32, OS_LOG_TYPE_ERROR, "%{public}s:%i Source is not hex encoded bytes", buf, 0x12u);
         }
 
-        goto LABEL_10;
+        return 0;
       }
 
 LABEL_30:
@@ -1788,7 +1773,7 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v11 = *(&off_27DA9DE50 + v10);
+  v11 = off_27DA9DE50[v10];
   if (v11)
   {
     v11(4, "%s:%i prefixBytes is of invalid length=%ld", "[NSString(HexString) NF_isPrefixOfHexEncodedEqualToBytes:length:]", 15, a4);
@@ -1800,56 +1785,52 @@ LABEL_30:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446722;
-    v36 = "[NSString(HexString) NF_isPrefixOfHexEncodedEqualToBytes:length:]";
-    v37 = 1024;
-    v38 = 15;
-    v39 = 2048;
-    v40 = a4;
+    v35 = "[NSString(HexString) NF_isPrefixOfHexEncodedEqualToBytes:length:]";
+    v36 = 1024;
+    v37 = 15;
+    v38 = 2048;
+    v39 = a4;
     _os_log_impl(&dword_22EEC4000, v13, OS_LOG_TYPE_ERROR, "%{public}s:%i prefixBytes is of invalid length=%ld", buf, 0x1Cu);
   }
 
-LABEL_10:
-  result = 0;
-LABEL_11:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t ValidateAPDUWithAIDAllowList(void *a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (objc_msgSend_instruction(v3, v5, v6) == 164 && objc_msgSend_p1(v3, v7, v8) == 4 && (objc_msgSend_payload(v3, v9, v10), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend_member_(v4, v12, v11), v13 = objc_claimAutoreleasedReturnValue(), v13, v11, !v13))
   {
-    v19 = objc_msgSend_payload(v3, v14, v15);
-    v22 = objc_msgSend_NF_asHexString(v19, v20, v21);
+    v18 = objc_msgSend_payload(v3, v14, v15);
+    v21 = objc_msgSend_NF_asHexString(v18, v19, v20);
 
-    v23 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v22 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific >= 5)
     {
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v25 = *(&off_27DA9DE50 + specific);
-    if (v25)
+    v24 = off_27DA9DE50[specific];
+    if (v24)
     {
-      v25(3, "%s:%i %{public}@ not in allow list", "ValidateAPDUWithAIDAllowList", 62, v22);
-      v23 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+      v24(3, "%s:%i %{public}@ not in allow list", "ValidateAPDUWithAIDAllowList", 62, v21);
+      v22 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     }
 
-    v26 = dispatch_get_specific(v23);
-    v27 = NFSharedLogGetLogger(v26);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v25 = dispatch_get_specific(v22);
+    v26 = NFSharedLogGetLogger(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v29 = "ValidateAPDUWithAIDAllowList";
-      v30 = 1024;
-      v31 = 62;
-      v32 = 2114;
-      v33 = v22;
-      _os_log_impl(&dword_22EEC4000, v27, OS_LOG_TYPE_ERROR, "%{public}s:%i %{public}@ not in allow list", buf, 0x1Cu);
+      v28 = "ValidateAPDUWithAIDAllowList";
+      v29 = 1024;
+      v30 = 62;
+      v31 = 2114;
+      v32 = v21;
+      _os_log_impl(&dword_22EEC4000, v26, OS_LOG_TYPE_ERROR, "%{public}s:%i %{public}@ not in allow list", buf, 0x1Cu);
     }
 
     v16 = 0;
@@ -1860,7 +1841,6 @@ uint64_t ValidateAPDUWithAIDAllowList(void *a1, void *a2)
     v16 = 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1891,96 +1871,93 @@ uint64_t sub_22EED1100(uint64_t result, uint64_t a2)
 
 void sub_22EED1118(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v7 = *(a1 + 40);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v8 = *(*(a1 + 32) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = 0;
+    v7 = *(*(a1 + 32) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = 0;
 
     *a4 = 1;
-    v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v9 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific >= 5)
     {
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v12 = *(&off_27DA9DE50 + specific);
-    if (v12)
+    v11 = off_27DA9DE50[specific];
+    if (v11)
     {
       Class = object_getClass(*(a1 + 48));
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(*(a1 + 48));
       Name = sel_getName(*(a1 + 56));
-      v28 = objc_opt_class();
-      v17 = 45;
+      v26 = objc_opt_class();
+      v16 = 45;
       if (isMetaClass)
       {
-        v17 = 43;
+        v16 = 43;
       }
 
-      v12(3, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", v17, ClassName, Name, 33, v28, *(a1 + 40));
-      v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+      v11(3, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", v16, ClassName, Name, 33, v26, *(a1 + 40));
+      v9 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     }
 
-    v18 = dispatch_get_specific(v10);
-    v19 = NFSharedLogGetLogger(v18);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v17 = dispatch_get_specific(v9);
+    v18 = NFSharedLogGetLogger(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = object_getClass(*(a1 + 48));
-      if (class_isMetaClass(v20))
+      v19 = object_getClass(*(a1 + 48));
+      if (class_isMetaClass(v19))
       {
-        v21 = 43;
+        v20 = 43;
       }
 
       else
       {
-        v21 = 45;
+        v20 = 45;
       }
 
-      v22 = object_getClassName(*(a1 + 48));
-      v23 = sel_getName(*(a1 + 56));
-      v24 = objc_opt_class();
-      v25 = *(a1 + 40);
+      v21 = object_getClassName(*(a1 + 48));
+      v22 = sel_getName(*(a1 + 56));
+      v23 = objc_opt_class();
+      v24 = *(a1 + 40);
       *buf = 67110402;
+      v28 = v20;
+      v29 = 2082;
       v30 = v21;
       v31 = 2082;
       v32 = v22;
-      v33 = 2082;
-      v34 = v23;
-      v35 = 1024;
-      v36 = 33;
+      v33 = 1024;
+      v34 = 33;
+      v35 = 2114;
+      v36 = v23;
       v37 = 2114;
       v38 = v24;
-      v39 = 2114;
-      v40 = v25;
-      v26 = v24;
-      _os_log_impl(&dword_22EEC4000, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", buf, 0x36u);
+      v25 = v23;
+      _os_log_impl(&dword_22EEC4000, v18, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", buf, 0x36u);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22EED1700(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v6 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = sub_22EED19D0;
-    v28[3] = &unk_278872AA0;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = sub_22EED19D0;
+    v27[3] = &unk_278872AA0;
     v8 = *(a1 + 64);
-    v29 = *(a1 + 48);
-    v28[4] = *(a1 + 40);
-    v28[5] = v8;
-    objc_msgSend_enumerateObjectsUsingBlock_(v6, v7, v28);
+    v28 = *(a1 + 48);
+    v27[4] = *(a1 + 40);
+    v27[5] = v8;
+    objc_msgSend_enumerateObjectsUsingBlock_(v6, v7, v27);
     if (*(*(*(a1 + 40) + 8) + 24) != 1)
     {
       goto LABEL_16;
@@ -1996,21 +1973,21 @@ void sub_22EED1700(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v11 = *(&off_27DA9DE50 + specific);
+    v11 = off_27DA9DE50[specific];
     if (v11)
     {
       Class = object_getClass(*(a1 + 48));
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(*(a1 + 48));
       Name = sel_getName(*(a1 + 56));
-      v27 = objc_opt_class();
+      v26 = objc_opt_class();
       v16 = 45;
       if (isMetaClass)
       {
         v16 = 43;
       }
 
-      v11(3, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", v16, ClassName, Name, 60, v27, @"NSArray");
+      v11(3, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", v16, ClassName, Name, 60, v26, @"NSArray");
       v9 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     }
 
@@ -2032,18 +2009,18 @@ void sub_22EED1700(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
       v21 = object_getClassName(*(a1 + 48));
       v22 = sel_getName(*(a1 + 56));
       *buf = 67110402;
-      v31 = v20;
-      v32 = 2082;
-      v33 = v21;
-      v34 = 2082;
-      v35 = v22;
-      v36 = 1024;
-      v37 = 60;
-      v38 = 2114;
-      v39 = objc_opt_class();
-      v40 = 2114;
-      v41 = @"NSArray";
-      v23 = v39;
+      v30 = v20;
+      v31 = 2082;
+      v32 = v21;
+      v33 = 2082;
+      v34 = v22;
+      v35 = 1024;
+      v36 = 60;
+      v37 = 2114;
+      v38 = objc_opt_class();
+      v39 = 2114;
+      v40 = @"NSArray";
+      v23 = v38;
       _os_log_impl(&dword_22EEC4000, v18, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", buf, 0x36u);
     }
   }
@@ -2054,181 +2031,171 @@ void sub_22EED1700(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 
   *a4 = 1;
 LABEL_16:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22EED19D0(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v7 = *(a1 + 40);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v8 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v7 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific >= 5)
     {
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v10 = *(&off_27DA9DE50 + specific);
-    if (v10)
+    v9 = off_27DA9DE50[specific];
+    if (v9)
     {
       Class = object_getClass(*(a1 + 48));
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(*(a1 + 48));
       Name = sel_getName(*(a1 + 56));
-      v26 = objc_opt_class();
-      v15 = 45;
+      v24 = objc_opt_class();
+      v14 = 45;
       if (isMetaClass)
       {
-        v15 = 43;
+        v14 = 43;
       }
 
-      v10(3, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", v15, ClassName, Name, 66, v26, *(a1 + 40));
-      v8 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+      v9(3, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", v14, ClassName, Name, 66, v24, *(a1 + 40));
+      v7 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     }
 
-    v16 = dispatch_get_specific(v8);
-    v17 = NFSharedLogGetLogger(v16);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v15 = dispatch_get_specific(v7);
+    v16 = NFSharedLogGetLogger(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = object_getClass(*(a1 + 48));
-      if (class_isMetaClass(v18))
+      v17 = object_getClass(*(a1 + 48));
+      if (class_isMetaClass(v17))
       {
-        v19 = 43;
+        v18 = 43;
       }
 
       else
       {
-        v19 = 45;
+        v18 = 45;
       }
 
-      v20 = object_getClassName(*(a1 + 48));
-      v21 = sel_getName(*(a1 + 56));
-      v22 = objc_opt_class();
-      v23 = *(a1 + 40);
+      v19 = object_getClassName(*(a1 + 48));
+      v20 = sel_getName(*(a1 + 56));
+      v21 = objc_opt_class();
+      v22 = *(a1 + 40);
       *buf = 67110402;
+      v26 = v18;
+      v27 = 2082;
       v28 = v19;
       v29 = 2082;
       v30 = v20;
-      v31 = 2082;
-      v32 = v21;
-      v33 = 1024;
-      v34 = 66;
+      v31 = 1024;
+      v32 = 66;
+      v33 = 2114;
+      v34 = v21;
       v35 = 2114;
       v36 = v22;
-      v37 = 2114;
-      v38 = v23;
-      v24 = v22;
-      _os_log_impl(&dword_22EEC4000, v17, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", buf, 0x36u);
+      v23 = v21;
+      _os_log_impl(&dword_22EEC4000, v16, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected class %{public}@, expecting %{public}@", buf, 0x36u);
     }
 
     *a4 = 1;
     *(*(*(a1 + 32) + 8) + 24) = 1;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22EED1F98(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
-  v9 = *(a1 + 40);
   if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+    v9 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific >= 5)
     {
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v12 = *(&off_27DA9DE50 + specific);
-    if (v12)
+    v11 = off_27DA9DE50[specific];
+    if (v11)
     {
       Class = object_getClass(*(a1 + 48));
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(*(a1 + 48));
       Name = sel_getName(*(a1 + 56));
-      v17 = objc_opt_class();
-      v33 = objc_opt_class();
-      v18 = 43;
+      v16 = objc_opt_class();
+      v31 = objc_opt_class();
+      v17 = 43;
       if (!isMetaClass)
       {
-        v18 = 45;
+        v17 = 45;
       }
 
-      v12(3, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected key %{public}@, class %{public}@, expecting %{public}@", v18, ClassName, Name, 101, v17, v33, *(a1 + 40));
-      v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+      v11(3, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected key %{public}@, class %{public}@, expecting %{public}@", v17, ClassName, Name, 101, v16, v31, *(a1 + 40));
+      v9 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     }
 
-    v19 = dispatch_get_specific(v10);
-    v20 = NFSharedLogGetLogger(v19);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v18 = dispatch_get_specific(v9);
+    v19 = NFSharedLogGetLogger(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = object_getClass(*(a1 + 48));
-      if (class_isMetaClass(v21))
+      v20 = object_getClass(*(a1 + 48));
+      if (class_isMetaClass(v20))
       {
-        v22 = 43;
+        v21 = 43;
       }
 
       else
       {
-        v22 = 45;
+        v21 = 45;
       }
 
-      v23 = object_getClassName(*(a1 + 48));
-      v24 = sel_getName(*(a1 + 56));
-      v25 = objc_opt_class();
-      v26 = v25;
-      v27 = objc_opt_class();
-      v28 = *(a1 + 40);
+      v22 = object_getClassName(*(a1 + 48));
+      v23 = sel_getName(*(a1 + 56));
+      v24 = objc_opt_class();
+      v25 = v24;
+      v26 = objc_opt_class();
+      v27 = *(a1 + 40);
       *buf = 67110658;
+      v33 = v21;
+      v34 = 2082;
       v35 = v22;
       v36 = 2082;
       v37 = v23;
-      v38 = 2082;
-      v39 = v24;
-      v40 = 1024;
-      v41 = 101;
+      v38 = 1024;
+      v39 = 101;
+      v40 = 2114;
+      v41 = v24;
       v42 = 2114;
-      v43 = v25;
+      v43 = v26;
       v44 = 2114;
       v45 = v27;
-      v46 = 2114;
-      v47 = v28;
-      v29 = v27;
-      _os_log_impl(&dword_22EEC4000, v20, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected key %{public}@, class %{public}@, expecting %{public}@", buf, 0x40u);
+      v28 = v26;
+      _os_log_impl(&dword_22EEC4000, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i XPC Sanitizer : Unexpected key %{public}@, class %{public}@, expecting %{public}@", buf, 0x40u);
     }
 
-    v30 = *(*(a1 + 32) + 8);
-    v31 = *(v30 + 40);
-    *(v30 + 40) = 0;
+    v29 = *(*(a1 + 32) + 8);
+    v30 = *(v29 + 40);
+    *(v29 + 40) = 0;
 
     *a4 = 1;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void NFSimulateCrash(int a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   Logger = NFSharedLogGetLogger(0);
   if (os_log_type_enabled(Logger, OS_LOG_TYPE_FAULT))
   {
-    v6[0] = 67109378;
-    v6[1] = a1;
-    v7 = 2082;
-    v8 = a2;
-    _os_log_fault_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_FAULT, "Error 0x%02X : %{public}s", v6, 0x12u);
+    v5[0] = 67109378;
+    v5[1] = a1;
+    v6 = 2082;
+    v7 = a2;
+    _os_log_fault_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_FAULT, "Error 0x%02X : %{public}s", v5, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22EED815C()
@@ -2278,7 +2245,7 @@ os_log_t sub_22EED986C()
 
 void NFSharedDumpTransport(int a1, const char *a2, uint64_t a3, unint64_t a4, int a5)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (qword_280AEEF60 != -1)
   {
     dispatch_once(&qword_280AEEF60, &unk_2843ADB80);
@@ -2286,26 +2253,26 @@ void NFSharedDumpTransport(int a1, const char *a2, uint64_t a3, unint64_t a4, in
 
   if (byte_280AEEF10[0] == 1)
   {
-    v34 = 0u;
-    memset(v33, 0, sizeof(v33));
+    v33 = 0u;
+    memset(v32, 0, sizeof(v32));
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific >= 5)
     {
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v11 = *(&off_27DA9DE50 + specific);
+    v11 = off_27DA9DE50[specific];
     Logger = NFSharedLogGetLogger(specific);
     if (os_log_type_enabled(Logger, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v26 = "NFSharedDumpTransport";
-      v27 = 1024;
-      v28 = 132;
-      v29 = 2082;
-      v30 = a2;
-      v31 = 2048;
-      v32 = a4;
+      v25 = "NFSharedDumpTransport";
+      v26 = 1024;
+      v27 = 132;
+      v28 = 2082;
+      v29 = a2;
+      v30 = 2048;
+      v31 = a4;
       _os_log_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_ERROR, "%s:%i %{public}s %lu bytes", buf, 0x26u);
     }
 
@@ -2320,7 +2287,7 @@ void NFSharedDumpTransport(int a1, const char *a2, uint64_t a3, unint64_t a4, in
       do
       {
         v14 = 0;
-        v15 = &v33[__sprintf_chk(v33, 0, 0x30uLL, "%04lX: ", v13)];
+        v15 = &v32[__sprintf_chk(v32, 0, 0x30uLL, "%04lX: ", v13)];
         do
         {
           v16 = *(a3 + v13++);
@@ -2340,13 +2307,13 @@ void NFSharedDumpTransport(int a1, const char *a2, uint64_t a3, unint64_t a4, in
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446210;
-          v26 = v33;
+          v25 = v32;
           _os_log_impl(&dword_22EEC4000, v19, OS_LOG_TYPE_ERROR, "%{public}s", buf, 0xCu);
         }
 
         if (v11)
         {
-          v11(4, "%s", v33);
+          v11(4, "%s", v32);
         }
       }
 
@@ -2366,7 +2333,7 @@ void NFSharedDumpTransport(int a1, const char *a2, uint64_t a3, unint64_t a4, in
         qword_280AEEF38 = v22;
         if (!v22)
         {
-          goto LABEL_36;
+          return;
         }
 
         v21 = v22;
@@ -2385,13 +2352,13 @@ void NFSharedDumpTransport(int a1, const char *a2, uint64_t a3, unint64_t a4, in
 
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        *v33 = 136446722;
-        *&v33[4] = a2;
-        *&v33[12] = 1040;
-        *&v33[14] = a4;
-        *&v33[18] = 2098;
-        *&v33[20] = a3;
-        _os_log_impl(&dword_22EEC4000, v23, OS_LOG_TYPE_ERROR, "%{public}s %{public,stockholm:NCI}.*P", v33, 0x1Cu);
+        *v32 = 136446722;
+        *&v32[4] = a2;
+        *&v32[12] = 1040;
+        *&v32[14] = a4;
+        *&v32[18] = 2098;
+        *&v32[20] = a3;
+        _os_log_impl(&dword_22EEC4000, v23, OS_LOG_TYPE_ERROR, "%{public}s %{public,stockholm:NCI}.*P", v32, 0x1Cu);
       }
 
       if (a5)
@@ -2410,14 +2377,11 @@ void NFSharedDumpTransport(int a1, const char *a2, uint64_t a3, unint64_t a4, in
       }
     }
   }
-
-LABEL_36:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void NFSharedLogTransport(char a1, const char *a2, uint64_t a3, unint64_t a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (qword_280AEEF60 != -1)
   {
     dispatch_once(&qword_280AEEF60, &unk_2843ADB80);
@@ -2425,27 +2389,27 @@ void NFSharedLogTransport(char a1, const char *a2, uint64_t a3, unint64_t a4)
 
   if (byte_280AEEF10[0] == 1)
   {
+    v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    *v29 = 0u;
+    *v28 = 0u;
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific >= 5)
     {
       __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
     }
 
-    v9 = *(&off_27DA9DE50 + specific);
+    v9 = off_27DA9DE50[specific];
     Logger = NFSharedLogGetLogger(specific);
     if (os_log_type_enabled(Logger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v22 = "NFSharedLogTransport";
-      v23 = 1024;
-      v24 = 184;
-      v25 = 2082;
-      v26 = a2;
-      v27 = 2048;
-      v28 = a4;
+      v21 = "NFSharedLogTransport";
+      v22 = 1024;
+      v23 = 184;
+      v24 = 2082;
+      v25 = a2;
+      v26 = 2048;
+      v27 = a4;
       _os_log_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_DEFAULT, "%s:%i %{public}s %lu bytes", buf, 0x26u);
     }
 
@@ -2460,7 +2424,7 @@ void NFSharedLogTransport(char a1, const char *a2, uint64_t a3, unint64_t a4)
       do
       {
         v12 = 0;
-        v13 = &v29[__sprintf_chk(v29, 0, 0x30uLL, "%04lX: ", v11)];
+        v13 = &v28[__sprintf_chk(v28, 0, 0x30uLL, "%04lX: ", v11)];
         do
         {
           v14 = *(a3 + v11++);
@@ -2480,13 +2444,13 @@ void NFSharedLogTransport(char a1, const char *a2, uint64_t a3, unint64_t a4)
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v22 = v29;
+          v21 = v28;
           _os_log_impl(&dword_22EEC4000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
         }
 
         if (v9)
         {
-          v9(5, "%s", v29);
+          v9(5, "%s", v28);
         }
       }
 
@@ -2505,14 +2469,12 @@ void NFSharedLogTransport(char a1, const char *a2, uint64_t a3, unint64_t a4)
     block[1] = 0x40000000;
     block[2] = sub_22EED9FCC;
     block[3] = &unk_278872BE8;
-    v20 = a1;
+    v19 = a1;
     block[4] = a2;
     block[5] = a4;
     block[6] = a3;
     dispatch_sync(qword_280AEEF48, block);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 os_log_t sub_22EED9F4C()
@@ -2528,7 +2490,7 @@ os_log_t sub_22EED9F4C()
 
 void sub_22EED9FCC(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = 72;
   if (*(a1 + 56))
   {
@@ -2541,26 +2503,24 @@ void sub_22EED9FCC(uint64_t a1)
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
     v6 = *(a1 + 48);
-    v8 = 136446722;
-    v9 = v4;
-    v10 = 1040;
-    v11 = v5;
-    v12 = 2098;
-    v13 = v6;
-    _os_log_impl(&dword_22EEC4000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s %{public,stockholm:NCI}.*P", &v8, 0x1Cu);
+    v7 = 136446722;
+    v8 = v4;
+    v9 = 1040;
+    v10 = v5;
+    v11 = 2098;
+    v12 = v6;
+    _os_log_impl(&dword_22EEC4000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s %{public,stockholm:NCI}.*P", &v7, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t NFLogSetLogger(unint64_t result, void *a2)
+unint64_t NFLogSetLogger(unint64_t result, uint64_t (*a2)(void, const char *, ...))
 {
   if (result >= 5)
   {
     __assert_rtn("NFLogSetLogger", "NFSharedLog.c", 223, "category < NFLogCategoryMax");
   }
 
-  *(&off_27DA9DE50 + result) = a2;
+  off_27DA9DE50[result] = a2;
   return result;
 }
 
@@ -2742,12 +2702,12 @@ void resetCALoadStackExceptionCount()
 void *sub_22EEDD20C(unint64_t *a1, unint64_t a2, _WORD *a3)
 {
   result = 0;
-  v81 = *MEMORY[0x277D85DE8];
-  v72 = 0;
+  v80 = *MEMORY[0x277D85DE8];
+  v71 = 0;
   v5 = *a1;
   if (*a1 >= a2)
   {
-    goto LABEL_65;
+    return result;
   }
 
   v8 = 0;
@@ -2776,7 +2736,7 @@ void *sub_22EEDD20C(unint64_t *a1, unint64_t a2, _WORD *a3)
       specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       if (specific < 5)
       {
-        v29 = *(&off_27DA9DE50 + specific);
+        v29 = off_27DA9DE50[specific];
         if (v29)
         {
           v29(3, "%s:%i Underflow", "_TLVCreateWithBytes", 126);
@@ -2791,9 +2751,9 @@ void *sub_22EEDD20C(unint64_t *a1, unint64_t a2, _WORD *a3)
         }
 
         *buf = 136446466;
-        v74 = "_TLVCreateWithBytes";
-        v75 = 1024;
-        v76 = 126;
+        v73 = "_TLVCreateWithBytes";
+        v74 = 1024;
+        v75 = 126;
         v32 = "%{public}s:%i Underflow";
         v33 = Logger;
         v34 = 18;
@@ -2836,33 +2796,33 @@ LABEL_9:
       {
         if (v15 >= a2)
         {
-          v63 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-          v64 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          if (v64 >= 5)
+          v62 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+          v63 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          if (v63 >= 5)
           {
             goto LABEL_99;
           }
 
-          v65 = *(&off_27DA9DE50 + v64);
-          if (v65)
+          v64 = off_27DA9DE50[v63];
+          if (v64)
           {
-            v65(3, "%s:%i Underflow: tag=0x%x", "_TLVCreateWithBytes", 152, v14);
-            v63 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+            v64(3, "%s:%i Underflow: tag=0x%x", "_TLVCreateWithBytes", 152, v14);
+            v62 = kNFLOG_DISPATCH_SPECIFIC_KEY;
           }
 
-          v66 = dispatch_get_specific(v63);
-          v39 = NFSharedLogGetLogger(v66);
+          v65 = dispatch_get_specific(v62);
+          v39 = NFSharedLogGetLogger(v65);
           if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_64;
           }
 
           *buf = 136446722;
-          v74 = "_TLVCreateWithBytes";
-          v75 = 1024;
-          v76 = 152;
-          v77 = 1024;
-          v78 = v14;
+          v73 = "_TLVCreateWithBytes";
+          v74 = 1024;
+          v75 = 152;
+          v76 = 1024;
+          v77 = v14;
           v32 = "%{public}s:%i Underflow: tag=0x%x";
         }
 
@@ -2878,33 +2838,33 @@ LABEL_9:
             goto LABEL_18;
           }
 
-          v67 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-          v68 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          if (v68 >= 5)
+          v66 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+          v67 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          if (v67 >= 5)
           {
             goto LABEL_99;
           }
 
-          v69 = *(&off_27DA9DE50 + v68);
-          if (v69)
+          v68 = off_27DA9DE50[v67];
+          if (v68)
           {
-            v69(3, "%s:%i Underflow: tag=0x%x", "_TLVCreateWithBytes", 154, v14);
-            v67 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+            v68(3, "%s:%i Underflow: tag=0x%x", "_TLVCreateWithBytes", 154, v14);
+            v66 = kNFLOG_DISPATCH_SPECIFIC_KEY;
           }
 
-          v70 = dispatch_get_specific(v67);
-          v39 = NFSharedLogGetLogger(v70);
+          v69 = dispatch_get_specific(v66);
+          v39 = NFSharedLogGetLogger(v69);
           if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_64;
           }
 
           *buf = 136446722;
-          v74 = "_TLVCreateWithBytes";
-          v75 = 1024;
-          v76 = 154;
-          v77 = 1024;
-          v78 = v14;
+          v73 = "_TLVCreateWithBytes";
+          v74 = 1024;
+          v75 = 154;
+          v76 = 1024;
+          v77 = v14;
           v32 = "%{public}s:%i Underflow: tag=0x%x";
         }
 
@@ -2946,7 +2906,7 @@ LABEL_19:
       v36 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       if (v36 < 5)
       {
-        v37 = *(&off_27DA9DE50 + v36);
+        v37 = off_27DA9DE50[v36];
         if (v37)
         {
           v37(3, "%s:%i Underflow: tag=0x%x", "_TLVCreateWithBytes", 143, v14);
@@ -2958,11 +2918,11 @@ LABEL_19:
         if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446722;
-          v74 = "_TLVCreateWithBytes";
-          v75 = 1024;
-          v76 = 143;
-          v77 = 1024;
-          v78 = v14;
+          v73 = "_TLVCreateWithBytes";
+          v74 = 1024;
+          v75 = 143;
+          v76 = 1024;
+          v77 = v14;
           v32 = "%{public}s:%i Underflow: tag=0x%x";
           goto LABEL_62;
         }
@@ -2977,9 +2937,7 @@ LABEL_19:
 LABEL_21:
     if (!(v14 | v16))
     {
-LABEL_56:
-      result = v72;
-      goto LABEL_65;
+      return v71;
     }
 
     if ((v20 ^ 1) & (v10 >> 5))
@@ -2994,38 +2952,38 @@ LABEL_56:
       {
         if ((a2 - v15) < v16)
         {
-          v59 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-          v60 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          if (v60 >= 5)
+          v58 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+          v59 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          if (v59 >= 5)
           {
             goto LABEL_99;
           }
 
-          v61 = *(&off_27DA9DE50 + v60);
-          if (v61)
+          v60 = off_27DA9DE50[v59];
+          if (v60)
           {
-            v61(3, "%s:%i Underflow: tag=0x%x len=%u", "_TLVCreateWithBytes", 184, v14, v16);
-            v59 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+            v60(3, "%s:%i Underflow: tag=0x%x len=%u", "_TLVCreateWithBytes", 184, v14, v16);
+            v58 = kNFLOG_DISPATCH_SPECIFIC_KEY;
           }
 
-          v62 = dispatch_get_specific(v59);
-          v49 = NFSharedLogGetLogger(v62);
-          if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          v61 = dispatch_get_specific(v58);
+          v48 = NFSharedLogGetLogger(v61);
+          if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_64;
           }
 
           *buf = 136446978;
-          v74 = "_TLVCreateWithBytes";
-          v75 = 1024;
-          v76 = 184;
-          v77 = 1024;
-          v78 = v14;
-          v79 = 1024;
-          v80 = v16;
+          v73 = "_TLVCreateWithBytes";
+          v74 = 1024;
+          v75 = 184;
+          v76 = 1024;
+          v77 = v14;
+          v78 = 1024;
+          v79 = v16;
           v32 = "%{public}s:%i Underflow: tag=0x%x len=%u";
 LABEL_88:
-          v33 = v49;
+          v33 = v48;
           v34 = 30;
           goto LABEL_63;
         }
@@ -3035,37 +2993,37 @@ LABEL_88:
       }
 
       v21 = NFDataCreateWithBytes(v15, v24);
-      v71 = sub_22EEDD20C(a1, v25, a3);
-      Child = TLVCreateWithFirstChild(v14, v71);
-      TLVRelease(&v71);
+      v70 = sub_22EEDD20C(a1, v25, a3);
+      Child = TLVCreateWithFirstChild(v14, v70);
+      TLVRelease(&v70);
       if (!Child)
       {
-        v50 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-        v51 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        if (v51 >= 5)
+        v49 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+        v50 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        if (v50 >= 5)
         {
           goto LABEL_99;
         }
 
-        v52 = *(&off_27DA9DE50 + v51);
-        if (v52)
+        v51 = off_27DA9DE50[v50];
+        if (v51)
         {
-          v52(3, "%s:%i NULL error: tag=0x%x len=%u", "_TLVCreateWithBytes", 196, v14, v16);
-          v50 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+          v51(3, "%s:%i NULL error: tag=0x%x len=%u", "_TLVCreateWithBytes", 196, v14, v16);
+          v49 = kNFLOG_DISPATCH_SPECIFIC_KEY;
         }
 
-        v53 = dispatch_get_specific(v50);
-        v54 = NFSharedLogGetLogger(v53);
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        v52 = dispatch_get_specific(v49);
+        v53 = NFSharedLogGetLogger(v52);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446978;
-          v74 = "_TLVCreateWithBytes";
-          v75 = 1024;
-          v76 = 196;
-          v77 = 1024;
-          v78 = v14;
-          v79 = 1024;
-          v80 = v16;
+          v73 = "_TLVCreateWithBytes";
+          v74 = 1024;
+          v75 = 196;
+          v76 = 1024;
+          v77 = v14;
+          v78 = 1024;
+          v79 = v16;
           goto LABEL_81;
         }
 
@@ -3082,7 +3040,7 @@ LABEL_82:
 
       else
       {
-        v72 = Child;
+        v71 = Child;
       }
 
       v5 = *a1;
@@ -3092,35 +3050,35 @@ LABEL_82:
     {
       if ((a2 - v15) < v16)
       {
-        v45 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-        v46 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        if (v46 >= 5)
+        v44 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+        v45 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        if (v45 >= 5)
         {
           goto LABEL_99;
         }
 
-        v47 = *(&off_27DA9DE50 + v46);
-        if (v47)
+        v46 = off_27DA9DE50[v45];
+        if (v46)
         {
-          v47(3, "%s:%i Underflow: tag=0x%x len=%u", "_TLVCreateWithBytes", 169, v14, v16);
-          v45 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+          v46(3, "%s:%i Underflow: tag=0x%x len=%u", "_TLVCreateWithBytes", 169, v14, v16);
+          v44 = kNFLOG_DISPATCH_SPECIFIC_KEY;
         }
 
-        v48 = dispatch_get_specific(v45);
-        v49 = NFSharedLogGetLogger(v48);
-        if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v47 = dispatch_get_specific(v44);
+        v48 = NFSharedLogGetLogger(v47);
+        if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_64;
         }
 
         *buf = 136446978;
-        v74 = "_TLVCreateWithBytes";
-        v75 = 1024;
-        v76 = 169;
-        v77 = 1024;
-        v78 = v14;
-        v79 = 1024;
-        v80 = v16;
+        v73 = "_TLVCreateWithBytes";
+        v74 = 1024;
+        v75 = 169;
+        v76 = 1024;
+        v77 = v14;
+        v78 = 1024;
+        v79 = v16;
         v32 = "%{public}s:%i Underflow: tag=0x%x len=%u";
         goto LABEL_88;
       }
@@ -3129,34 +3087,34 @@ LABEL_82:
       v22 = TLVCreateWithValue(v14, v21);
       if (!v22)
       {
-        v55 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-        v56 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        if (v56 >= 5)
+        v54 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+        v55 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        if (v55 >= 5)
         {
           goto LABEL_99;
         }
 
-        v57 = *(&off_27DA9DE50 + v56);
-        if (v57)
+        v56 = off_27DA9DE50[v55];
+        if (v56)
         {
-          v57(3, "%s:%i NULL error: tag=0x%x len=%u", "_TLVCreateWithBytes", 172, v14, v16);
-          v55 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+          v56(3, "%s:%i NULL error: tag=0x%x len=%u", "_TLVCreateWithBytes", 172, v14, v16);
+          v54 = kNFLOG_DISPATCH_SPECIFIC_KEY;
         }
 
-        v58 = dispatch_get_specific(v55);
-        v54 = NFSharedLogGetLogger(v58);
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        v57 = dispatch_get_specific(v54);
+        v53 = NFSharedLogGetLogger(v57);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446978;
-          v74 = "_TLVCreateWithBytes";
-          v75 = 1024;
-          v76 = 172;
-          v77 = 1024;
-          v78 = v14;
-          v79 = 1024;
-          v80 = v16;
+          v73 = "_TLVCreateWithBytes";
+          v74 = 1024;
+          v75 = 172;
+          v76 = 1024;
+          v77 = v14;
+          v78 = 1024;
+          v79 = v16;
 LABEL_81:
-          _os_log_impl(&dword_22EEC4000, v54, OS_LOG_TYPE_ERROR, "%{public}s:%i NULL error: tag=0x%x len=%u", buf, 0x1Eu);
+          _os_log_impl(&dword_22EEC4000, v53, OS_LOG_TYPE_ERROR, "%{public}s:%i NULL error: tag=0x%x len=%u", buf, 0x1Eu);
         }
 
         goto LABEL_82;
@@ -3171,7 +3129,7 @@ LABEL_81:
 
       else
       {
-        v72 = Child;
+        v71 = Child;
       }
 
       v5 = (*a1 + v16);
@@ -3181,7 +3139,7 @@ LABEL_81:
     v8 = Child;
     if (v5 >= a2)
     {
-      goto LABEL_56;
+      return v71;
     }
   }
 
@@ -3192,7 +3150,7 @@ LABEL_81:
     goto LABEL_99;
   }
 
-  v42 = *(&off_27DA9DE50 + v41);
+  v42 = off_27DA9DE50[v41];
   if (v42)
   {
     v42(3, "%s:%i Underflow: tag=0x%x", "_TLVCreateWithBytes", 134, v14);
@@ -3204,21 +3162,18 @@ LABEL_81:
   if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446722;
-    v74 = "_TLVCreateWithBytes";
-    v75 = 1024;
-    v76 = 134;
-    v77 = 1024;
-    v78 = v14;
+    v73 = "_TLVCreateWithBytes";
+    v74 = 1024;
+    v75 = 134;
+    v76 = 1024;
+    v77 = v14;
     v32 = "%{public}s:%i Underflow: tag=0x%x";
     goto LABEL_62;
   }
 
 LABEL_64:
-  TLVRelease(&v72);
-  result = 0;
-LABEL_65:
-  v44 = *MEMORY[0x277D85DE8];
-  return result;
+  TLVRelease(&v71);
+  return 0;
 }
 
 _DWORD *TLVCreateWithValue(int a1, uint64_t a2)
@@ -3360,7 +3315,7 @@ BOOL NFDataScannerRead8(uint64_t **a1, _BYTE *a2)
 {
   *a2 = 0;
   v2 = a1[1];
-  v3 = v2 + 1;
+  v3 = (v2 + 1);
   v4 = (*a1)[1];
   if (v2 + 1 <= v4)
   {
@@ -3661,7 +3616,7 @@ void *NFDataCreateWithHexString(const char *a1)
 
 void *NFDataCreateWithFile(const char *a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = fopen(a1, "r");
   if (!v2)
   {
@@ -3669,7 +3624,7 @@ void *NFDataCreateWithFile(const char *a1)
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific < 5)
     {
-      v11 = *(&off_27DA9DE50 + specific);
+      v11 = off_27DA9DE50[specific];
       if (v11)
       {
         v12 = __error();
@@ -3687,19 +3642,19 @@ void *NFDataCreateWithFile(const char *a1)
         v18 = strerror(*v17);
         v19 = *__error();
         *buf = 136447234;
-        v39 = "NFDataCreateWithFile";
-        v40 = 1024;
-        v41 = 121;
-        v42 = 2080;
-        v43 = v18;
-        v44 = 1024;
-        v45 = v19;
-        v46 = 2080;
-        v47 = a1;
+        v38 = "NFDataCreateWithFile";
+        v39 = 1024;
+        v40 = 121;
+        v41 = 2080;
+        v42 = v18;
+        v43 = 1024;
+        v44 = v19;
+        v45 = 2080;
+        v46 = a1;
         _os_log_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d Failed to open %s", buf, 0x2Cu);
       }
 
-      goto LABEL_24;
+      return 0;
     }
 
     goto LABEL_26;
@@ -3716,7 +3671,7 @@ void *NFDataCreateWithFile(const char *a1)
     v21 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (v21 < 5)
     {
-      v22 = *(&off_27DA9DE50 + v21);
+      v22 = off_27DA9DE50[v21];
       if (v22)
       {
         v22(3, "%s:%i Failed to alloc %ld", "NFDataCreateWithFile", 133, v4);
@@ -3728,16 +3683,16 @@ void *NFDataCreateWithFile(const char *a1)
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v39 = "NFDataCreateWithFile";
-        v40 = 1024;
-        v41 = 133;
-        v42 = 2048;
-        v43 = v4;
+        v38 = "NFDataCreateWithFile";
+        v39 = 1024;
+        v40 = 133;
+        v41 = 2048;
+        v42 = v4;
         _os_log_impl(&dword_22EEC4000, v24, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to alloc %ld", buf, 0x1Cu);
       }
 
       fclose(v3);
-      goto LABEL_24;
+      return 0;
     }
 
     goto LABEL_26;
@@ -3745,65 +3700,63 @@ void *NFDataCreateWithFile(const char *a1)
 
   v6 = v5;
   v7 = fread(v5, 1uLL, v4, v3);
-  if (v7 != v4)
+  if (v7 == v4)
   {
-    v25 = v7;
-    v26 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-    v27 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    if (v27 < 5)
+    fclose(v3);
+    result = NFDataCreateWithBytesNoCopy(v6, v4, 1);
+    if (result)
     {
-      v28 = *(&off_27DA9DE50 + v27);
-      if (v28)
-      {
-        v29 = __error();
-        v30 = strerror(*v29);
-        v31 = __error();
-        v28(3, "%s:%i %s errno=%d Failed to read data %ld/%ld", "NFDataCreateWithFile", 140, v30, *v31, v25, v4);
-        v26 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-      }
-
-      v32 = dispatch_get_specific(v26);
-      v33 = NFSharedLogGetLogger(v32);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-      {
-        v34 = __error();
-        v35 = strerror(*v34);
-        v36 = *__error();
-        *buf = 136447490;
-        v39 = "NFDataCreateWithFile";
-        v40 = 1024;
-        v41 = 140;
-        v42 = 2080;
-        v43 = v35;
-        v44 = 1024;
-        v45 = v36;
-        v46 = 2048;
-        v47 = v25;
-        v48 = 2048;
-        v49 = v4;
-        _os_log_impl(&dword_22EEC4000, v33, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d Failed to read data %ld/%ld", buf, 0x36u);
-      }
-
-      fclose(v3);
-      goto LABEL_23;
+      return result;
     }
 
+    goto LABEL_23;
+  }
+
+  v25 = v7;
+  v26 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+  v27 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  if (v27 >= 5)
+  {
 LABEL_26:
     __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
   }
 
-  fclose(v3);
-  result = NFDataCreateWithBytesNoCopy(v6, v4, 1);
-  if (!result)
+  v28 = off_27DA9DE50[v27];
+  if (v28)
   {
-LABEL_23:
-    free(v6);
-LABEL_24:
-    result = 0;
+    v29 = __error();
+    v30 = strerror(*v29);
+    v31 = __error();
+    v28(3, "%s:%i %s errno=%d Failed to read data %ld/%ld", "NFDataCreateWithFile", 140, v30, *v31, v25, v4);
+    v26 = kNFLOG_DISPATCH_SPECIFIC_KEY;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-  return result;
+  v32 = dispatch_get_specific(v26);
+  v33 = NFSharedLogGetLogger(v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  {
+    v34 = __error();
+    v35 = strerror(*v34);
+    v36 = *__error();
+    *buf = 136447490;
+    v38 = "NFDataCreateWithFile";
+    v39 = 1024;
+    v40 = 140;
+    v41 = 2080;
+    v42 = v35;
+    v43 = 1024;
+    v44 = v36;
+    v45 = 2048;
+    v46 = v25;
+    v47 = 2048;
+    v48 = v4;
+    _os_log_impl(&dword_22EEC4000, v33, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d Failed to read data %ld/%ld", buf, 0x36u);
+  }
+
+  fclose(v3);
+LABEL_23:
+  free(v6);
+  return 0;
 }
 
 uint64_t NFDataRetain(uint64_t a1)
@@ -3821,7 +3774,7 @@ uint64_t NFDataRetain(uint64_t a1)
 
 BOOL NFDataAppendBytes(_BOOL8 result, const void *a2, size_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v4 = result;
@@ -3840,7 +3793,7 @@ BOOL NFDataAppendBytes(_BOOL8 result, const void *a2, size_t a3)
           v8 = *(v4 + 8) + a3;
           *v4 = v7;
           *(v4 + 8) = v8;
-          result = 1;
+          return 1;
         }
 
         else
@@ -3852,7 +3805,7 @@ BOOL NFDataAppendBytes(_BOOL8 result, const void *a2, size_t a3)
             __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
           }
 
-          v11 = *(&off_27DA9DE50 + specific);
+          v11 = off_27DA9DE50[specific];
           if (v11)
           {
             v12 = __error();
@@ -3872,24 +3825,23 @@ BOOL NFDataAppendBytes(_BOOL8 result, const void *a2, size_t a3)
             v19 = *__error();
             v20 = *(v4 + 8) + a3;
             *buf = 136447234;
-            v23 = "NFDataAppendBytes";
-            v24 = 1024;
-            v25 = 186;
-            v26 = 2080;
-            v27 = v18;
-            v28 = 1024;
-            v29 = v19;
-            v30 = 2048;
-            v31 = v20;
+            v22 = "NFDataAppendBytes";
+            v23 = 1024;
+            v24 = 186;
+            v25 = 2080;
+            v26 = v18;
+            v27 = 1024;
+            v28 = v19;
+            v29 = 2048;
+            v30 = v20;
             _os_log_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d Failed to realloc to %zu bytes", buf, 0x2Cu);
-            result = 0;
+            return 0;
           }
         }
       }
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3927,7 +3879,7 @@ char *NFDataAsHexString(uint64_t *a1)
 
 void NFDataPrintAsHexString(uint64_t a1, const char *a2, uint64_t *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = NFDataAsHexString(a3);
   if (v5)
   {
@@ -3972,20 +3924,18 @@ void NFDataPrintAsHexString(uint64_t a1, const char *a2, uint64_t *a3)
       }
 
       *buf = 136446978;
-      v14 = "NFDataPrintAsHexString";
-      v15 = 1024;
-      v16 = 225;
-      v17 = 2080;
-      v18 = v11;
-      v19 = 2080;
-      v20 = v6;
+      v13 = "NFDataPrintAsHexString";
+      v14 = 1024;
+      v15 = 225;
+      v16 = 2080;
+      v17 = v11;
+      v18 = 2080;
+      v19 = v6;
       _os_log_impl(&dword_22EEC4000, v9, v10, "%{public}s:%i %s: %s", buf, 0x26u);
     }
 
     free(v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 CFDataRef NFDataToCFDataCreateOwnership(uint64_t a1, char a2)
@@ -4030,7 +3980,7 @@ void sub_22EEE12D8(uint64_t a1, void *a2)
 
 id sub_22EEE1424(uint64_t a1, uint64_t a2, void *a3)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   v7 = objc_msgSend_UTF8String(v4, v5, v6);
@@ -4057,11 +4007,11 @@ id sub_22EEE1424(uint64_t a1, uint64_t a2, void *a3)
       }
 
       *buf = 136446722;
-      v47 = "+[NSData(HexString) NF_dataWithHexString:]";
-      v48 = 1024;
-      v49 = 20;
-      v50 = 2048;
-      v51 = v11;
+      v46 = "+[NSData(HexString) NF_dataWithHexString:]";
+      v47 = 1024;
+      v48 = 20;
+      v49 = 2048;
+      v50 = v11;
       v17 = "%{public}s:%i String is of invalid length=%ld";
 LABEL_16:
       _os_log_impl(&dword_22EEC4000, v16, OS_LOG_TYPE_ERROR, v17, buf, 0x1Cu);
@@ -4096,11 +4046,11 @@ LABEL_38:
         }
 
         *buf = 136446722;
-        v47 = "+[NSData(HexString) NF_dataWithHexString:]";
-        v48 = 1024;
-        v49 = 27;
-        v50 = 2048;
-        v51 = 2;
+        v46 = "+[NSData(HexString) NF_dataWithHexString:]";
+        v47 = 1024;
+        v48 = 27;
+        v49 = 2048;
+        v50 = 2;
         v17 = "%{public}s:%i String is of invalid length=%ld with 0x prefix";
         goto LABEL_16;
       }
@@ -4136,9 +4086,9 @@ LABEL_38:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v47 = "+[NSData(HexString) NF_dataWithHexString:]";
-        v48 = 1024;
-        v49 = 36;
+        v46 = "+[NSData(HexString) NF_dataWithHexString:]";
+        v47 = 1024;
+        v48 = 36;
         _os_log_impl(&dword_22EEC4000, v43, OS_LOG_TYPE_ERROR, "%{public}s:%i Memory allocation request failed.", buf, 0x12u);
       }
 
@@ -4199,12 +4149,10 @@ LABEL_33:
   v37 = 0;
 LABEL_34:
 
-  v44 = *MEMORY[0x277D85DE8];
-
   return v37;
 }
 
-uint64_t sub_22EEE180C(void *a1, const char *a2, uint64_t a3)
+BOOL sub_22EEE180C(void *a1, const char *a2, uint64_t a3)
 {
   if (!objc_msgSend_length(a1, a2, a3))
   {
@@ -4236,30 +4184,28 @@ uint64_t sub_22EEE180C(void *a1, const char *a2, uint64_t a3)
 
 uint64_t sub_22EEE188C(void *a1, const char *a2, void *a3)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   if (objc_msgSend_length(a1, a2, a3) >= 9)
   {
     if (a3)
     {
       v5 = objc_alloc(MEMORY[0x277CCA9B8]);
       v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "nfcd");
-      v25 = *MEMORY[0x277CCA450];
+      v24 = *MEMORY[0x277CCA450];
       v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "Overflow");
-      v26[0] = v9;
-      v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, v26, &v25, 1);
+      v25[0] = v9;
+      v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, v25, &v24, 1);
       *a3 = objc_msgSend_initWithDomain_code_userInfo_(v5, v12, v7, 45, v11);
     }
 
-    goto LABEL_8;
+    return 0;
   }
 
   v13 = a1;
   v16 = objc_msgSend_bytes(v13, v14, v15);
   if (!objc_msgSend_length(a1, v17, v18))
   {
-LABEL_8:
-    v22 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v21 = 0;
@@ -4270,14 +4216,12 @@ LABEL_8:
   }
 
   while (objc_msgSend_length(a1, v19, v20) > v21);
-LABEL_9:
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 id sub_22EEE1D68(void *a1, const char *a2, void *a3, uint64_t a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v9 = objc_msgSend_objectForKey_(a1, v8, v7);
   if (v9 && (objc_opt_isKindOfClass() & 1) == 0)
@@ -4296,14 +4240,14 @@ id sub_22EEE1D68(void *a1, const char *a2, void *a3, uint64_t a4)
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(a1);
       Name = sel_getName(a2);
-      v26 = object_getClass(v9);
+      v25 = object_getClass(v9);
       v18 = 43;
       if (!isMetaClass)
       {
         v18 = 45;
       }
 
-      v13(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected %{public}@, got %{public}@", v18, ClassName, Name, 17, v7, a4, v26);
+      v13(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected %{public}@, got %{public}@", v18, ClassName, Name, 17, v7, a4, v25);
       v11 = kNFLOG_DISPATCH_SPECIFIC_KEY;
     }
 
@@ -4323,20 +4267,20 @@ id sub_22EEE1D68(void *a1, const char *a2, void *a3, uint64_t a4)
       }
 
       *buf = 67110658;
-      v28 = v22;
-      v29 = 2082;
-      v30 = object_getClassName(a1);
-      v31 = 2082;
-      v32 = sel_getName(a2);
-      v33 = 1024;
-      v34 = 17;
-      v35 = 2114;
-      v36 = v7;
-      v37 = 2114;
-      v38 = a4;
-      v39 = 2114;
-      v40 = object_getClass(v9);
-      v23 = v40;
+      v27 = v22;
+      v28 = 2082;
+      v29 = object_getClassName(a1);
+      v30 = 2082;
+      v31 = sel_getName(a2);
+      v32 = 1024;
+      v33 = 17;
+      v34 = 2114;
+      v35 = v7;
+      v36 = 2114;
+      v37 = a4;
+      v38 = 2114;
+      v39 = object_getClass(v9);
+      v23 = v39;
       _os_log_impl(&dword_22EEC4000, v20, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ Expected %{public}@, got %{public}@", buf, 0x40u);
     }
 
@@ -4347,8 +4291,6 @@ id sub_22EEE1D68(void *a1, const char *a2, void *a3, uint64_t a4)
   {
     v10 = v9;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -4436,31 +4378,30 @@ uint64_t NFGetRootQueue()
 
 NSObject *NFGetOrCreateRootQueue(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&stru_280AEEE48);
   v3 = qword_280AEEFA0;
   if (!qword_280AEEFA0)
   {
-    memset(&v7, 0, sizeof(v7));
-    pthread_attr_init(&v7);
-    v6 = 0;
-    pthread_attr_getschedparam(&v7, &v6);
-    v6.sched_priority = a2;
-    pthread_attr_setschedpolicy(&v7, 2);
-    pthread_attr_setschedparam(&v7, &v6);
-    pthread_attr_setinheritsched(&v7, 2);
+    memset(&v6, 0, sizeof(v6));
+    pthread_attr_init(&v6);
+    v5 = 0;
+    pthread_attr_getschedparam(&v6, &v5);
+    v5.sched_priority = a2;
+    pthread_attr_setschedpolicy(&v6, 2);
+    pthread_attr_setschedparam(&v6, &v5);
+    pthread_attr_setinheritsched(&v6, 2);
     v3 = dispatch_pthread_root_queue_create();
-    pthread_attr_destroy(&v7);
+    pthread_attr_destroy(&v6);
     dispatch_set_finalizer_f(v3, sub_22EEE5228);
     qword_280AEEFA0 = v3;
   }
 
   pthread_mutex_unlock(&stru_280AEEE48);
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-NSObject *NFCreateWorkLoop(const char *a1)
+NSObject *NFCreateWorkLoop(const char *a1, uint64_t a2)
 {
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_workloop_set_scheduler_priority();
@@ -4470,7 +4411,7 @@ NSObject *NFCreateWorkLoop(const char *a1)
 
 void sub_22EEE5228()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = kNFLOG_DISPATCH_SPECIFIC_KEY;
   specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
   if (specific >= 5)
@@ -4490,14 +4431,13 @@ void sub_22EEE5228()
   if (os_log_type_enabled(Logger, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v7 = "_NFRootQueueFinalizer";
-    v8 = 1024;
-    v9 = 43;
+    v6 = "_NFRootQueueFinalizer";
+    v7 = 1024;
+    v8 = 43;
     _os_log_impl(&dword_22EEC4000, Logger, OS_LOG_TYPE_ERROR, "%{public}s:%i Dispatch queue has been destroyed !", buf, 0x12u);
   }
 
   NFSimulateCrash(65261, "Root queue has been destroyed");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22EEE6694(double a1)
@@ -4520,7 +4460,7 @@ double sub_22EEE66C0(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_22EEE66E4(double a1)
+double sub_22EEE66E4(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CoreAnalytics.framework/CoreAnalytics", 0);
   atomic_store(1u, &unk_27DA9DA68);

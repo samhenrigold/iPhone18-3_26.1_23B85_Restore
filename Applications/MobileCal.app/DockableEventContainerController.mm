@@ -52,7 +52,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_10016143C();
+  sub_10016143C(selfCopy, v2);
 }
 
 - (void)sheetPresentationControllerDidChangeSelectedDetentIdentifier:(id)identifier

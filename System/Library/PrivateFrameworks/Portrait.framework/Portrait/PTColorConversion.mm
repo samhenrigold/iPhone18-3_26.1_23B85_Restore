@@ -21,9 +21,9 @@
 - (PTColorConversion)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v29.receiver = self;
-  v29.super_class = PTColorConversion;
-  v6 = [(PTColorConversion *)&v29 init];
+  v32.receiver = self;
+  v32.super_class = PTColorConversion;
+  v6 = [(PTColorConversion *)&v32 init];
   p_isa = &v6->super.isa;
   if (v6)
   {
@@ -38,32 +38,32 @@
 
     v11 = v10;
     v12 = p_isa + 2;
-    v28 = 0;
+    v31 = 0;
     v13 = p_isa + 11;
     v14 = p_isa + 20;
     while (1)
     {
       [v8 reset];
-      [v8 setConstantValue:&v28 type:29 withName:@"kColorTransferFunction"];
+      [v8 setConstantValue:&v31 type:29 withName:@"kColorTransferFunction"];
       v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"convertRGB%@", v11];
       v16 = [contextCopy computePipelineStateFor:v15 withConstants:v8];
-      v17 = v12[v28];
-      v12[v28] = v16;
+      v17 = v12[v31];
+      v12[v31] = v16;
 
-      if (!v12[v28])
+      if (!v12[v31])
       {
         break;
       }
 
-      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"convertRGBToYUV%@", v11];
-      v19 = [contextCopy computePipelineStateFor:v18 withConstants:v8];
-      v20 = v13[v28];
-      v13[v28] = v19;
+      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"convertRGBToYUV%@", v11];
+      v20 = [contextCopy computePipelineStateFor:v19 withConstants:v8];
+      v21 = v13[v31];
+      v13[v31] = v20;
 
-      if (!v13[v28])
+      if (!v13[v31])
       {
-        v26 = _PTLogSystem();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v29 = _PTLogSystem(v22);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [PTColorConversion initWithMetalContext:];
         }
@@ -71,16 +71,16 @@
         goto LABEL_17;
       }
 
-      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"convertYUVToRGB%@", v11];
-      v22 = [contextCopy computePipelineStateFor:v21 withConstants:v8];
-      v23 = v14[v28];
-      v14[v28] = v22;
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"convertYUVToRGB%@", v11];
+      v24 = [contextCopy computePipelineStateFor:v23 withConstants:v8];
+      v25 = v14[v31];
+      v14[v31] = v24;
 
-      v24 = v28;
-      if (!v14[v28])
+      v27 = v31;
+      if (!v14[v31])
       {
-        v26 = _PTLogSystem();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v29 = _PTLogSystem(v26);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [PTColorConversion initWithMetalContext:];
         }
@@ -88,32 +88,32 @@
         goto LABEL_17;
       }
 
-      ++v28;
-      if (v24 > 7)
+      ++v31;
+      if (v27 > 7)
       {
-        v25 = p_isa;
+        v28 = p_isa;
         goto LABEL_18;
       }
     }
 
-    v26 = _PTLogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v29 = _PTLogSystem(v18);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [PTColorConversion initWithMetalContext:];
     }
 
 LABEL_17:
 
-    v25 = 0;
+    v28 = 0;
 LABEL_18:
   }
 
   else
   {
-    v25 = 0;
+    v28 = 0;
   }
 
-  return v25;
+  return v28;
 }
 
 + (void)getColorMatrix:(unsigned int)matrix@<W4> toRGB:(uint64_t)b@<X5> fullRange:(void *)range@<X8> colorYCbCrDepth:
@@ -122,7 +122,7 @@ LABEL_18:
   v10 = selfCopy;
   if (!selfCopy)
   {
-    v15 = _PTLogSystem();
+    v15 = _PTLogSystem(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[PTColorConversion getColorMatrix:toRGB:fullRange:colorYCbCrDepth:];
@@ -138,7 +138,8 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if (CFStringCompare(selfCopy, *MEMORY[0x277CC4D18], 0) == kCFCompareEqualTo)
+  v11 = CFStringCompare(selfCopy, *MEMORY[0x277CC4D18], 0);
+  if (v11 == kCFCompareEqualTo)
   {
     v12 = xmmword_2244C6100;
     v13 = 0.0593;
@@ -158,7 +159,8 @@ LABEL_18:
     goto LABEL_17;
   }
 
-  if (CFStringCompare(v10, *MEMORY[0x277CC4D20], 0) == kCFCompareEqualTo)
+  v11 = CFStringCompare(v10, *MEMORY[0x277CC4D20], 0);
+  if (v11 == kCFCompareEqualTo)
   {
     v12 = xmmword_2244C60E0;
     v13 = 0.114;
@@ -171,7 +173,8 @@ LABEL_17:
     goto LABEL_35;
   }
 
-  if (CFStringCompare(v10, *MEMORY[0x277CC4D30], 0) == kCFCompareEqualTo)
+  v11 = CFStringCompare(v10, *MEMORY[0x277CC4D30], 0);
+  if (v11 == kCFCompareEqualTo)
   {
     v12 = xmmword_2244C60F0;
     v13 = 0.087;
@@ -187,7 +190,7 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v14 = _PTLogSystem();
+  v14 = _PTLogSystem(v11);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     +[PTColorConversion getColorMatrix:toRGB:fullRange:colorYCbCrDepth:];
@@ -381,7 +384,7 @@ LABEL_36:
     goto LABEL_50;
   }
 
-  v20 = _PTLogSystem();
+  v20 = _PTLogSystem(v11);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     +[PTColorConversion getColorMatrix:toRGB:fullRange:colorYCbCrDepth:];
@@ -423,10 +426,10 @@ LABEL_50:
 {
   matrixCopy = matrix;
   yCbCrMatrix = [matrixCopy YCbCrMatrix];
-  yCbCrFullRange = [matrixCopy YCbCrFullRange];
-  yCbCrColorDepth = [matrixCopy YCbCrColorDepth];
+  [matrixCopy YCbCrFullRange];
+  [matrixCopy YCbCrColorDepth];
 
-  [PTColorConversion getColorMatrix:yCbCrMatrix toRGB:b fullRange:yCbCrFullRange colorYCbCrDepth:yCbCrColorDepth];
+  objc_msgSend_getColorMatrix_toRGB_fullRange_colorYCbCrDepth_(PTColorConversion);
 }
 
 + (int)getTransferFunction:(id)function toLinear:(BOOL)linear
@@ -436,8 +439,8 @@ LABEL_50:
   v6 = functionCopy;
   if (!functionCopy)
   {
-    v7 = _PTLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PTLogSystem(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[PTColorConversion getTransferFunction:toLinear:];
     }
@@ -450,8 +453,8 @@ LABEL_50:
     if (CFStringCompare(v6, *MEMORY[0x277CC4CD8], 0) == kCFCompareEqualTo)
     {
 LABEL_12:
-      v8 = !linearCopy;
-      v9 = 1;
+      v9 = !linearCopy;
+      v10 = 1;
       goto LABEL_17;
     }
 
@@ -459,14 +462,15 @@ LABEL_12:
     {
       if (CFStringCompare(v6, *MEMORY[0x277CC4CE0], 0) == kCFCompareEqualTo)
       {
-        v10 = 0;
+        v11 = 0;
         goto LABEL_20;
       }
 
-      if (CFStringCompare(v6, @"PTImageBufferTransferFunction_Linear_1_6", 0))
+      v7 = CFStringCompare(v6, @"PTImageBufferTransferFunction_Linear_1_6", 0);
+      if (v7)
       {
-        v7 = _PTLogSystem();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = _PTLogSystem(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           +[PTColorConversion getTransferFunction:toLinear:];
         }
@@ -476,37 +480,37 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      v8 = !linearCopy;
-      v9 = 7;
+      v9 = !linearCopy;
+      v10 = 7;
     }
 
     else
     {
-      v8 = !linearCopy;
-      v9 = 5;
+      v9 = !linearCopy;
+      v10 = 5;
     }
   }
 
   else
   {
-    v8 = !linearCopy;
-    v9 = 3;
+    v9 = !linearCopy;
+    v10 = 3;
   }
 
 LABEL_17:
-  if (v8)
+  if (v9)
   {
-    v10 = v9 + 1;
+    v11 = v10 + 1;
   }
 
   else
   {
-    v10 = v9;
+    v11 = v10;
   }
 
 LABEL_20:
 
-  return v10;
+  return v11;
 }
 
 + (BOOL2)getChromaSubsampledFromLuma:(id)luma texChroma:(id)chroma
@@ -563,69 +567,70 @@ LABEL_20:
 
 - (int)convertRGB:(id)b inRGBA:(id)a outRGBA:(id)bA toLinear:(BOOL)linear transferFunction:(id)function outRect:
 {
-  v25 = v7;
+  v26 = v7;
   linearCopy = linear;
   bCopy = b;
   aCopy = a;
   bACopy = bA;
   functionCopy = function;
-  if ([(PTMetalContext *)self->_metalContext imageblocksSupported]|| !v25)
+  imageblocksSupported = [(PTMetalContext *)self->_metalContext imageblocksSupported];
+  if ((imageblocksSupported & 1) != 0 || !v26)
   {
-    v19 = [PTColorConversion getTransferFunction:functionCopy toLinear:linearCopy, v25];
-    v20 = [PTImageblockConfig alloc];
-    v21 = [PTTexture createRGBA:bACopy];
-    v17 = [(PTImageblockConfig *)v20 initWithPTTexture:v21 outRect:v26];
+    v20 = [PTColorConversion getTransferFunction:functionCopy toLinear:linearCopy, v26];
+    v21 = [PTImageblockConfig alloc];
+    v22 = [PTTexture createRGBA:bACopy];
+    v18 = [(PTImageblockConfig *)v21 initWithPTTexture:v22 outRect:v27];
 
-    outOffset = [v17 outOffset];
+    outOffset = [v18 outOffset];
     computeCommandEncoder = [bCopy computeCommandEncoder];
     if (!computeCommandEncoder)
     {
-      v23 = _PTLogSystem();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = _PTLogSystem(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [PTColorConversion convertRGB:inRGBA:outRGBA:toLinear:transferFunction:outRect:];
       }
     }
 
-    [computeCommandEncoder setComputePipelineState:self->_convertRGB[v19]];
+    [computeCommandEncoder setComputePipelineState:self->_convertRGB[v20]];
     if ([(PTMetalContext *)self->_metalContext imageblocksSupported])
     {
-      [computeCommandEncoder setImageblockWidth:-[NSObject imageblockSize](v17 height:{"imageblockSize"), -[NSObject imageblockSize](v17, "imageblockSize")}];
+      [computeCommandEncoder setImageblockWidth:-[NSObject imageblockSize](v18 height:{"imageblockSize"), -[NSObject imageblockSize](v18, "imageblockSize")}];
     }
 
     [computeCommandEncoder setTexture:aCopy atIndex:0];
     [computeCommandEncoder setTexture:bACopy atIndex:1];
     [computeCommandEncoder setBytes:&outOffset length:8 atIndex:0];
-    if (v17)
+    if (v18)
     {
-      [v17 threads];
-      [v17 threadsPerGroup];
+      objc_msgSend_threads(v18);
+      objc_msgSend_threadsPerGroup(v18);
     }
 
     else
     {
+      memset(v29, 0, sizeof(v29));
       memset(v28, 0, sizeof(v28));
-      memset(v27, 0, sizeof(v27));
     }
 
-    [computeCommandEncoder dispatchThreads:v28 threadsPerThreadgroup:v27];
+    [computeCommandEncoder dispatchThreads:v29 threadsPerThreadgroup:v28];
     [computeCommandEncoder endEncoding];
 
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v17 = _PTLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _PTLogSystem(imageblocksSupported);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [PTColorConversion convertRGB:inRGBA:outRGBA:toLinear:transferFunction:outRect:];
     }
 
-    v18 = -1;
+    v19 = -1;
   }
 
-  return v18;
+  return v19;
 }
 
 - (int)convertRGB:(id)b inRGBA:(id)a outRGBA:(id)bA toLinear:(BOOL)linear transferFunction:(id)function
@@ -676,11 +681,11 @@ LABEL_20:
   matrixCopy = matrix;
   imageblocksSupported = [(PTMetalContext *)self->_metalContext imageblocksSupported];
   v24 = LOBYTE(v40) | BYTE2(v40);
-  if (!imageblocksSupported)
+  if ((imageblocksSupported & 1) == 0)
   {
     if (LODWORD(v40))
     {
-      v25 = _PTLogSystem();
+      v25 = _PTLogSystem(imageblocksSupported);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [PTColorConversion convertRGB:inRGBA:outRGBA:toLinear:transferFunction:outRect:];
@@ -697,7 +702,7 @@ LABEL_19:
 
   if (v24 & 1 | BYTE4(v40) & 1 | BYTE6(v40) & 1)
   {
-    v25 = _PTLogSystem();
+    v25 = _PTLogSystem(imageblocksSupported);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [PTColorConversion convertRGBtoYUV:inRGBA:outLuma:outChroma:toLinear:transferFunction:colorYCbCrMatrix:colorYCbCrFullRange:colorYCbCrDepthOut:outRect:];
@@ -714,7 +719,7 @@ LABEL_19:
   v46 = 0;
   v47 = 0;
   v38 = matrixCopy;
-  [PTColorConversion getColorMatrix:matrixCopy toRGB:0 fullRange:range colorYCbCrDepth:out];
+  objc_msgSend_getColorMatrix_toRGB_fullRange_colorYCbCrDepth_(PTColorConversion);
   v44 = [PTColorConversion getChromaSubsampledFromLuma:lumaCopy texChroma:chromaCopy];
   v28 = [PTImageblockConfig alloc];
   v29 = [PTTexture createYUV420:lumaCopy chroma:chromaCopy];
@@ -727,7 +732,7 @@ LABEL_19:
   computeCommandEncoder = [v32 computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v34 = _PTLogSystem();
+    v34 = _PTLogSystem(0);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [PTColorConversion convertRGB:inRGBA:outRGBA:toLinear:transferFunction:outRect:];
@@ -753,8 +758,8 @@ LABEL_19:
 
   if (v30)
   {
-    [(PTImageblockConfig *)v30 threads];
-    [(PTImageblockConfig *)v30 threadsPerGroup];
+    objc_msgSend_threads(v30);
+    objc_msgSend_threadsPerGroup(v30);
   }
 
   else
@@ -783,21 +788,21 @@ LABEL_22:
   matrixCopy = matrix;
   bCopy = b;
   v21 = [PTColorConversion getTransferFunction:function toLinear:linearCopy];
-  v32 = 0;
   v33 = 0;
   v34 = 0;
-  [PTColorConversion getColorMatrix:matrixCopy toRGB:1 fullRange:range colorYCbCrDepth:in];
+  v35 = 0;
+  objc_msgSend_getColorMatrix_toRGB_fullRange_colorYCbCrDepth_(PTColorConversion);
 
   v22 = lumaCopy;
-  v31 = [PTColorConversion getChromaSubsampledFromLuma:lumaCopy texChroma:chromaCopy];
+  v32 = [PTColorConversion getChromaSubsampledFromLuma:lumaCopy texChroma:chromaCopy];
   v23 = [[PTImageblockConfig alloc] initWithTexture:aCopy];
   outOffset = [(PTImageblockConfig *)v23 outOffset];
   computeCommandEncoder = [bCopy computeCommandEncoder];
 
   if (!computeCommandEncoder)
   {
-    v25 = _PTLogSystem();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = _PTLogSystem(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [PTColorConversion convertRGB:inRGBA:outRGBA:toLinear:transferFunction:outRect:];
     }
@@ -812,8 +817,8 @@ LABEL_22:
   [computeCommandEncoder setTexture:v22 atIndex:0];
   [computeCommandEncoder setTexture:chromaCopy atIndex:1];
   [computeCommandEncoder setTexture:aCopy atIndex:2];
-  [computeCommandEncoder setBytes:&v31 + 2 length:24 atIndex:0];
-  [computeCommandEncoder setBytes:&v31 length:2 atIndex:1];
+  [computeCommandEncoder setBytes:&v32 + 2 length:24 atIndex:0];
+  [computeCommandEncoder setBytes:&v32 length:2 atIndex:1];
   if ([(PTMetalContext *)self->_metalContext imageblocksSupported])
   {
     [computeCommandEncoder setBytes:&outOffset length:8 atIndex:2];
@@ -821,17 +826,17 @@ LABEL_22:
 
   if (v23)
   {
-    [(PTImageblockConfig *)v23 threads];
-    [(PTImageblockConfig *)v23 threadsPerGroup];
+    objc_msgSend_threads(v23);
+    objc_msgSend_threadsPerGroup(v23);
   }
 
   else
   {
+    memset(v30, 0, sizeof(v30));
     memset(v29, 0, sizeof(v29));
-    memset(v28, 0, sizeof(v28));
   }
 
-  [computeCommandEncoder dispatchThreads:v29 threadsPerThreadgroup:v28];
+  [computeCommandEncoder dispatchThreads:v30 threadsPerThreadgroup:v29];
   [computeCommandEncoder endEncoding];
 
   return 0;

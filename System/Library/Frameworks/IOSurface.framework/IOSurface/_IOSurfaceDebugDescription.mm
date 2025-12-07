@@ -9,10 +9,10 @@
 
 - (_IOSurfaceDebugDescription)initWithBasicInfo:(id *)info layoutInfo:(id *)layoutInfo name:(id)name
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = _IOSurfaceDebugDescription;
-  v8 = [(_IOSurfaceDebugDescription *)&v20 init];
+  v20 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = _IOSurfaceDebugDescription;
+  v8 = [(_IOSurfaceDebugDescription *)&v19 init];
   v9 = v8;
   if (v8)
   {
@@ -38,23 +38,21 @@
     *(v8 + 22) = [name copy];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
 
-  v4.receiver = self;
-  v4.super_class = _IOSurfaceDebugDescription;
-  [(_IOSurfaceDebugDescription *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = _IOSurfaceDebugDescription;
+  [(_IOSurfaceDebugDescription *)&v3 dealloc];
 }
 
 - (id)description
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   p_basicInfo = &self->_basicInfo;
   pixelFormat = self->_basicInfo.pixelFormat;
   v5 = pixelFormat >> 24;
@@ -84,7 +82,6 @@ LABEL_6:
   clientAddress = p_basicInfo->clientAddress;
   width = self->_layoutInfo.width;
   height = self->_layoutInfo.height;
-  allocSize = p_basicInfo->allocSize;
   surfaceID = p_basicInfo->surfaceID;
   uTF8String = [NSLocalizedFileSizeDescription() UTF8String];
   name = self->_name;
@@ -93,14 +90,12 @@ LABEL_6:
     name = &stru_1F25E13F8;
   }
 
-  result = [v6 stringWithFormat:@"sid: %08x traceID: %016llx virt: %016llx fmt: %s dims: %5d x %5d size: %7s name: %@", surfaceID, traceID, clientAddress, __str, width, height, uTF8String, name];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v6 stringWithFormat:@"sid: %08x traceID: %016llx virt: %016llx fmt: %s dims: %5d x %5d size: %7s name: %@", surfaceID, traceID, clientAddress, __str, width, height, uTF8String, name];
 }
 
 - (NSString)pixelFormatString
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   pixelFormat = self->_basicInfo.pixelFormat;
   v3 = pixelFormat >> 24;
   if ((pixelFormat & 0x80000000) != 0)
@@ -112,7 +107,7 @@ LABEL_6:
 
 LABEL_5:
     snprintf(__str, 5uLL, "%4d", pixelFormat);
-    goto LABEL_6;
+    return [MEMORY[0x1E696AEC0] stringWithCString:__str encoding:1];
   }
 
   if ((*(MEMORY[0x1E69E9830] + 4 * v3 + 60) & 0x800) == 0)
@@ -126,10 +121,7 @@ LABEL_3:
   __str[2] = BYTE1(pixelFormat);
   __str[3] = pixelFormat;
   __str[4] = 0;
-LABEL_6:
-  result = [MEMORY[0x1E696AEC0] stringWithCString:__str encoding:1];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E696AEC0] stringWithCString:__str encoding:1];
 }
 
 @end

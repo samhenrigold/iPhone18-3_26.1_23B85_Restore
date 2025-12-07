@@ -368,7 +368,7 @@ LABEL_64:
     if (parentAnimation)
     {
       parentAnimation2 = [(CarCardsUpdate *)self parentAnimation];
-      [parentAnimation2 duration];
+      objc_msgSend_duration(parentAnimation2);
       v70 = v69;
     }
 

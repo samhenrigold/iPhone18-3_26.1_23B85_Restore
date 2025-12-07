@@ -11,7 +11,7 @@
 - (UIImage)stackImage
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for TVArtworkView();
+  v4.super_class = type metadata accessor for TVArtworkView(0);
   stackImage = [(_UIStackedImageContainerView *)&v4 stackImage];
 
   return stackImage;
@@ -28,7 +28,7 @@
 {
   height = frame.size.height;
   width = frame.size.width;
-  v5 = objc_allocWithZone(type metadata accessor for TVArtworkView());
+  v5 = objc_allocWithZone(type metadata accessor for TVArtworkView(0));
   v8 = sub_20BAEFC6C(0, v6, v7, width, height);
   swift_getObjectType();
   swift_deallocPartialClassInstance();

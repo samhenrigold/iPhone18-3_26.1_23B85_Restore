@@ -1,17 +1,17 @@
-void sub_18E75F9C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18E75F9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   v11 = va_arg(va2, void);
   v12 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
@@ -119,7 +119,7 @@ uint64_t OUTLINED_FUNCTION_39_0()
 
 const void *getColor(uint64_t a1, uint64_t a2)
 {
-  v43[5] = *MEMORY[0x1E69E9840];
+  v45[5] = *MEMORY[0x1E69E9840];
   if (*(a1 + 2816) > 0)
   {
     return 0;
@@ -194,7 +194,7 @@ LABEL_61:
     {
       v23 = 0;
       v24 = (v5 + 48);
-      v25 = v43;
+      v25 = v45;
       v26 = *(v5 + 44);
       while (1)
       {
@@ -261,7 +261,7 @@ LABEL_40:
 LABEL_46:
     if (NumberOfComponents == v21)
     {
-      v43[NumberOfComponents] = 1.0;
+      v45[NumberOfComponents] = 1.0;
     }
 
     if (!v34)
@@ -286,14 +286,15 @@ LABEL_57:
           goto LABEL_62;
         }
 
-        v38 = CGColorCreate(v19, v43);
+        v38 = CGColorCreate(v19, v45);
         if (!v38)
         {
           goto LABEL_61;
         }
 
         v39 = v38;
-        v2 = [(objc_class *)getNSColorClass_3() colorWithCGColor:v38];
+        *&v40 = getNSColorClass_3(v38).n128_u64[0];
+        v2 = [v41 colorWithCGColor:{v39, v40}];
         CFRelease(v39);
         CFRelease(v19);
         if (v2)
@@ -302,26 +303,26 @@ LABEL_57:
         }
 
 LABEL_62:
-        v40 = *(v5 + 4);
-        v41 = *(v5 + 8);
-        if (v40 == v41)
+        v42 = *(v5 + 4);
+        v43 = *(v5 + 8);
+        if (v42 == v43)
         {
-          if (v40 == *(v5 + 12))
+          if (v42 == *(v5 + 12))
           {
-            if (v40 <= 0)
+            if (v42 <= 0)
             {
               if (onceToken != -1)
               {
                 getColor_cold_2();
               }
 
-              v42 = &_black;
+              v44 = &_black;
 LABEL_73:
-              v2 = *v42;
-              if (!*v42)
+              v2 = *v44;
+              if (!*v44)
               {
-                v40 = *(v5 + 4);
-                v41 = *(v5 + 8);
+                v42 = *(v5 + 4);
+                v43 = *(v5 + 8);
                 goto LABEL_75;
               }
 
@@ -330,27 +331,27 @@ LABEL_76:
               return v2;
             }
 
-            v41 = *(v5 + 4);
-            if (v40 == 255)
+            v43 = *(v5 + 4);
+            if (v42 == 255)
             {
               if (onceToken != -1)
               {
                 getColor_cold_1();
               }
 
-              v42 = &_white;
+              v44 = &_white;
               goto LABEL_73;
             }
           }
 
           else
           {
-            v41 = *(v5 + 4);
+            v43 = *(v5 + 4);
           }
         }
 
 LABEL_75:
-        v2 = colorFromRTFRGB(a1, v40, v41, *(v5 + 12));
+        v2 = colorFromRTFRGB(a1, v42, v43, *(v5 + 12));
         goto LABEL_76;
       }
 
@@ -474,12 +475,12 @@ Class initNSColor_5()
   return result;
 }
 
-id initRTFColors()
+id initRTFColors(uint64_t a1)
 {
-  getNSColorClass_3();
-  _white = [v0 colorWithCalibratedWhite:1.0 alpha:1.0];
-  getNSColorClass_3();
-  result = [v1 colorWithCalibratedWhite:0.0 alpha:1.0];
+  getNSColorClass_3(a1);
+  _white = [v1 colorWithCalibratedWhite:1.0 alpha:1.0];
+  getNSColorClass_3(_white);
+  result = [v2 colorWithCalibratedWhite:0.0 alpha:1.0];
   _black = result;
   return result;
 }
@@ -529,9 +530,9 @@ LABEL_45:
       }
 
       v11 = [a1 mutableAttributes];
-      v24 = &NSForegroundColorAttributeName;
+      v26 = &NSForegroundColorAttributeName;
 LABEL_55:
-      v12 = *v24;
+      v12 = *v26;
       goto LABEL_56;
     }
 
@@ -563,7 +564,7 @@ LABEL_55:
     if (([v9 isEqual:_white] & 1) == 0)
     {
       v11 = [a1 mutableAttributes];
-      v24 = &NSBackgroundColorAttributeName;
+      v26 = &NSBackgroundColorAttributeName;
       goto LABEL_55;
     }
 
@@ -587,10 +588,10 @@ LABEL_44:
         v15 = [a1 _currentTableCell];
       }
 
-      v22 = v15;
-      v23 = [a1 _currentBorderEdge];
+      v24 = v15;
+      v25 = [a1 _currentBorderEdge];
 
-      return [v22 setBorderColor:v9 forEdge:v23];
+      return [v24 setBorderColor:v9 forEdge:v25];
     }
 
     else
@@ -611,13 +612,14 @@ LABEL_44:
 
   if (a3 != 4)
   {
-    v27 = 0.0;
+    v29 = 0.0;
+    v30 = 0.0;
+    v27 = 0.333333333;
     v28 = 0.0;
-    v25 = 0.333333333;
-    v26 = 0.0;
     [objc_msgSend(a4 "shadowColor")];
-    [v9 getRed:&v28 green:&v27 blue:&v26 alpha:0];
-    return [a4 setShadowColor:{-[objc_class colorWithCalibratedRed:green:blue:alpha:](getNSColorClass_3(), "colorWithCalibratedRed:green:blue:alpha:", v28, v27, v26, v25)}];
+    v22 = [v9 getRed:&v30 green:&v29 blue:&v28 alpha:0];
+    getNSColorClass_3(v22);
+    return [a4 setShadowColor:{objc_msgSend(v23, "colorWithCalibratedRed:green:blue:alpha:", v30, v29, v28, v27)}];
   }
 
   v11 = [a1 mutableAttributes];
@@ -649,10 +651,11 @@ uint64_t OUTLINED_FUNCTION_7_2(uint64_t a1, uint64_t a2)
   return [v2 glyphRangeForCharacterRange:a1 actualCharacterRange:{a2, 0}];
 }
 
-uint64_t OUTLINED_FUNCTION_6_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+uint64_t OUTLINED_FUNCTION_6_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
 {
+  va_start(va, a51);
 
-  return [v52 appendBytes:&a52 length:a1];
+  return [v51 appendBytes:va length:{a1, a5, a6, a7, a8}];
 }
 
 CTLineRef OUTLINED_FUNCTION_15(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, CTTypesetterRef typesetter)
@@ -668,7 +671,7 @@ CTLineRef OUTLINED_FUNCTION_15(uint64_t a1, uint64_t a2, int a3, int a4, int a5,
 uint64_t OUTLINED_FUNCTION_29_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, char a12)
 {
 
-  return [v12 appendBytes:&a12 length:a1];
+  return [v12 appendBytes:&a12 length:{a1, a5, a6, a7, a8}];
 }
 
 void flushCharacters(uint64_t a1, char a2)
@@ -827,9 +830,9 @@ uint64_t __NSTextLayoutManagerGetLayoutFragmentForPosition(void *a1, id *a2, cha
   return v18;
 }
 
-void sub_18E7631C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18E7631C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1271,9 +1274,9 @@ char *_NSRTFStrSave(const char *a1)
   return v4;
 }
 
-void sub_18E763AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18E763AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1592,9 +1595,9 @@ LABEL_52:
   return _NSRTFRouteToken(a1);
 }
 
-void sub_18E764440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E764440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1612,7 +1615,7 @@ double __NSTextLayoutManagerClearTextContainerEntry(uint64_t a1)
   return result;
 }
 
-uint64_t processFont(uint64_t a1, uint64_t a2)
+uint64_t processFont(unint64_t a1, uint64_t a2)
 {
   result = _NSRTFGetFont(a1 + 536, a2);
   v24 = -1;
@@ -2201,9 +2204,9 @@ LABEL_46:
   return 1;
 }
 
-void sub_18E766F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E766F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2267,16 +2270,16 @@ void __NSTextLayoutFragmentConfigureForTextAnimationContext(uint64_t a1, void *a
   }
 }
 
-void sub_18E76716C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18E76716C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E767314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E767314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2292,7 +2295,7 @@ uint64_t setCurrentCGContextDuringBlock_iOS(uint64_t a1, uint64_t a2, uint64_t a
 
   else
   {
-    (softLinkUIGraphicsPushContext[0])(a1);
+    softLinkUIGraphicsPushContext(a1);
     (*(a3 + 16))(a3);
     v5 = softLinkUIGraphicsPopContext[0];
 
@@ -2359,7 +2362,7 @@ uint64_t __NSTextContentStorageGetElementIndexRangeForRange(uint64_t a1, unint64
   return v11;
 }
 
-NSUInteger __NSTextContentStorageReleaseElementsInRange(NSUInteger a1, NSUInteger a2, NSUInteger a3)
+uint64_t __NSTextContentStorageReleaseElementsInRange(uint64_t a1, NSUInteger a2, void *a3)
 {
   if (a2 == 0x7FFFFFFFFFFFFFFFLL && a3 == 0)
   {
@@ -2562,9 +2565,10 @@ void _NSLayoutNodeFree(uint64_t a1)
     {
       for (i = 0; i != 3; ++i)
       {
-        if (v2[i])
+        v6 = v2[i];
+        if (v6)
         {
-          _NSLayoutNodeFree();
+          _NSLayoutNodeFree(v6);
         }
       }
     }
@@ -2653,7 +2657,7 @@ void *_NSLayoutTreeDescription(uint64_t a1)
   return v4;
 }
 
-uint64_t _NSLayoutNodeDescribe(uint64_t result, void *a2, uint64_t a3)
+void *_NSLayoutNodeDescribe(void *result, void *a2, uint64_t a3)
 {
   if (!result)
   {
@@ -3197,12 +3201,13 @@ LABEL_117:
   return [a2 appendString:v97];
 }
 
-void _NSLayoutTreeLogDebug(NSString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _NSLayoutTreeLogDebug(NSString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (_NSLayoutTreeLogDebug_logCount <= 0xF)
   {
     ++_NSLayoutTreeLogDebug_logCount;
-    NSLogv(a1, &a9);
+    NSLogv(a1, va);
     if (_NSLayoutTreeLogDebug_logCount >= 0x10)
     {
       NSLog(@"!!! Suppressing further NSLayoutTree logs");
@@ -4591,7 +4596,7 @@ LABEL_61:
           goto LABEL_61;
         }
 
-        if (v15 > 0 || v20 > -v15)
+        if (v15 > 0 || *&v20 > -v15)
         {
           v144 = *(v17 + 336);
           v35 = *(v17 + 344);
@@ -4615,10 +4620,10 @@ LABEL_61:
             v23 = *v24;
           }
 
-          v77 = v15 + v20;
+          v77 = v15 + *&v20;
           *(v19 + 59) = 1;
-          v78 = v15 + v20 - 1;
-          if (!(v15 + v20))
+          v78 = v15 + *&v20 - 1;
+          if (!(v15 + *&v20))
           {
             v78 = 0;
           }
@@ -4861,7 +4866,7 @@ LABEL_129:
   if (v145 + a4 != **(*(v10 + *v11) + 240))
   {
 
-    _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeInvalidateLayoutForGlyphRange glyph count mismatch", a2, a3, a4, a5, a6, a7, a8, a9);
+    _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeInvalidateLayoutForGlyphRange glyph count mismatch", a2, a3, a4, a5, a6, a7, a8);
   }
 }
 
@@ -4897,7 +4902,7 @@ void _NSLayoutTreeInsertNodeAfterCurrentNode(uint64_t a1, uint64_t a2, uint64_t 
       v24[3] = v8;
       v24[4] = v10;
       v8[2] = v24;
-      v10[2] = v24;
+      *(v10 + 16) = v24;
       _NSLayoutNodeSetInvariants(v24);
       *(*(a1 + 240) + 240) = v24;
       return;
@@ -4927,7 +4932,7 @@ void _NSLayoutTreeInsertNodeAfterCurrentNode(uint64_t a1, uint64_t a2, uint64_t 
 
     if (v8 != v14)
     {
-      _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeInsertNodeAfterCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8, v25);
+      _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeInsertNodeAfterCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8);
       v12 = v8;
       v15 = v10;
       if (!v8)
@@ -5000,12 +5005,12 @@ LABEL_23:
   }
 
   v12[v13 + 4] = v10;
-  v10[2] = v12;
+  *(v10 + 16) = v12;
 
   _NSLayoutNodeSetInvariants(v12);
 }
 
-double *_NSLayoutNodeCreateSubNode(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, double a5)
+double *_NSLayoutNodeCreateSubNode(unint64_t *a1, unint64_t a2, uint64_t a3, unint64_t a4, double a5)
 {
   v10 = *a1;
   v11 = malloc_type_calloc(1uLL, 0x40uLL, 0x10A2040487CA78AuLL);
@@ -5021,7 +5026,7 @@ double *_NSLayoutNodeCreateSubNode(uint64_t a1, unint64_t a2, uint64_t a3, unint
   v11[1] = (v13 / a4 + 1) * a5;
   *(v11 + 56) = a3 != 0;
   *(v11 + 56) = *(a1 + 56);
-  v14 = *(a1 + 24);
+  v14 = a1[3];
   if (v14)
   {
     v15 = 0;
@@ -5084,7 +5089,7 @@ LABEL_10:
     }
   }
 
-  if (*(a1 + 32))
+  if (a1[4])
   {
     v27 = *(a1 + 58);
     *(v12 + 58) = v27;
@@ -5104,10 +5109,10 @@ LABEL_10:
       v29 = 16;
     }
 
-    *(v12 + 4) = _NSGlyphRangeListCreateSubRange(*(a1 + 32), _NSLayoutNodeSuggestedLocationCapacity, v10, 16, v29, a2, a3);
+    *(v12 + 4) = _NSGlyphRangeListCreateSubRange(a1[4], _NSLayoutNodeSuggestedLocationCapacity, v10, 16, v29, a2, a3);
   }
 
-  v30 = *(a1 + 40);
+  v30 = a1[5];
   if (v30)
   {
     *(v12 + 5) = _NSGlyphRangeListCreateSubRange(v30, _NSLayoutNodeSuggestedAttachmentSizeCapacity, v10, 16, 24, a2, a3);
@@ -5116,10 +5121,10 @@ LABEL_10:
   return v12;
 }
 
-uint64_t _NSLayoutNodeTruncate(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, double a5)
+uint64_t _NSLayoutNodeTruncate(double *a1, unint64_t a2, uint64_t a3, unint64_t a4, double a5)
 {
   v8 = *a1;
-  v9 = *(a1 + 24);
+  v9 = *(a1 + 3);
   if (v9)
   {
     v10 = 0;
@@ -5164,8 +5169,8 @@ LABEL_8:
             v17 = *v15;
           }
 
-          *(a1 + 8) = *&v16[10 * v17 - 3] + *&v16[10 * v17 - 1];
-          *(a1 + 24) = v15;
+          a1[1] = *&v16[10 * v17 - 3] + *&v16[10 * v17 - 1];
+          *(a1 + 3) = v15;
           goto LABEL_20;
         }
       }
@@ -5188,9 +5193,9 @@ LABEL_8:
     v18 = 0;
   }
 
-  *(a1 + 8) = (v18 / a4 + 1) * a5;
+  a1[1] = (v18 / a4 + 1) * a5;
 LABEL_20:
-  v23 = *(a1 + 32);
+  v23 = *(a1 + 4);
   if (v23)
   {
     v24 = 24;
@@ -5209,13 +5214,13 @@ LABEL_20:
       v25 = 16;
     }
 
-    *(a1 + 32) = _NSGlyphRangeListTruncate(v23, _NSLayoutNodeSuggestedLocationCapacity, v8, 16, v25, a2, a3);
+    *(a1 + 4) = _NSGlyphRangeListTruncate(v23, _NSLayoutNodeSuggestedLocationCapacity, v8, 16, v25, a2, a3);
   }
 
-  v26 = *(a1 + 40);
+  v26 = *(a1 + 5);
   if (v26)
   {
-    *(a1 + 40) = _NSGlyphRangeListTruncate(v26, _NSLayoutNodeSuggestedAttachmentSizeCapacity, v8, 16, 24, a2, a3);
+    *(a1 + 5) = _NSGlyphRangeListTruncate(v26, _NSLayoutNodeSuggestedAttachmentSizeCapacity, v8, 16, 24, a2, a3);
   }
 
   *a1 = a3;
@@ -5266,7 +5271,7 @@ uint64_t _NSLayoutTreeDeleteCurrentNode(uint64_t a1, uint64_t a2, uint64_t a3, u
       if (*(*(a1 + 240) + 248))
       {
 LABEL_12:
-        _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeDeleteCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8, v26);
+        _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeDeleteCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8);
         break;
       }
 
@@ -5470,7 +5475,7 @@ double _NSLayoutTreeInsertNodeBeforeCurrentNode(uint64_t a1, uint64_t a2, uint64
 
     if (v11 != v15)
     {
-      _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeInsertNodeBeforeCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8, v31);
+      _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeInsertNodeBeforeCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8);
       v13 = v11;
       v16 = v12;
       goto LABEL_20;
@@ -5826,7 +5831,7 @@ LABEL_33:
     v40 = @"!!! _NSLayoutTreeSetLineFragmentRectForGlyphRange found invalid glyph index";
 LABEL_5:
 
-    _NSLayoutTreeLogDebug(v40, v28, v29, v30, v31, v32, v33, v34, a17);
+    _NSLayoutTreeLogDebug(v40, v28, v29, v30, v31, v32, v33, v34);
   }
 
   else
@@ -6151,7 +6156,7 @@ void _NSLayoutTreeSetLocationForGlyphRange(uint64_t a1, unint64_t a2, uint64_t a
 
     else
     {
-      _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeSetLocationForGlyphRange invalid glyph range {%lu, %lu}", v10, v11, v12, v13, v14, v15, v16, a2);
+      _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeSetLocationForGlyphRange invalid glyph range {%lu, %lu}", v10, v11, v12, v13, v14, v15, v16, a2, a3);
     }
   }
 }
@@ -6209,7 +6214,7 @@ void _NSLayoutTreeSetAttachmentSizeForGlyphRange(uint64_t a1, unint64_t a2, uint
 
     else
     {
-      _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeSetAttachmentSizeForGlyphRange invalid glyph range {%lu, %lu}", v10, v11, v12, v13, v14, v15, v16, a2);
+      _NSLayoutTreeLogDebug(@"!!! _NSLayoutTreeSetAttachmentSizeForGlyphRange invalid glyph range {%lu, %lu}", v10, v11, v12, v13, v14, v15, v16, a2, a3);
     }
   }
 }
@@ -6973,10 +6978,11 @@ LABEL_20:
   return v8;
 }
 
-void sub_18E76DD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_18E76DD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a38, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7001,42 +7007,43 @@ void sub_18E76EBE0(void *exc_buf, int a2)
   JUMPOUT(0x18E76EBD4);
 }
 
-void sub_18E770AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E770AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E770C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E770C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7711F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_18E7711F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __NSGetCircledImage(uint64_t a1, double a2, double a3)
+uint64_t __NSGetCircledImage(uint64_t a1, double a2, __n128 a3)
 {
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = ____NSGetCircledImage_block_invoke;
-  v5[3] = &unk_1E7265960;
-  v5[4] = a1;
-  *&v5[5] = a2;
-  *&v5[6] = a3;
-  (softLinkUIGraphicsBeginImageContextWithOptions[0])(0, a2 + 1.0, a3, 2.0);
-  ____NSGetCircledImage_block_invoke(v5, [-[objc_class graphicsContextForApplicationFrameworkContext:](+[NSTextGraphicsContextProvider textGraphicsContextProviderClass](NSTextGraphicsContextProvider "textGraphicsContextProviderClass")]);
-  v3 = softLinkUIGraphicsGetImageFromCurrentImageContext[0]();
-  softLinkUIGraphicsEndImageContext[0]();
-  return v3;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = ____NSGetCircledImage_block_invoke;
+  v6[3] = &unk_1E7265960;
+  v6[4] = a1;
+  *&v6[5] = a2;
+  v6[6] = a3.n128_u64[0];
+  softLinkUIGraphicsBeginImageContextWithOptions(0, a2 + 1.0, a3, 2.0);
+  v3 = (____NSGetCircledImage_block_invoke)(v6, [-[objc_class graphicsContextForApplicationFrameworkContext:](+[NSTextGraphicsContextProvider textGraphicsContextProviderClass](NSTextGraphicsContextProvider "textGraphicsContextProviderClass")]);
+  ImageFromCurrentImageContext = softLinkUIGraphicsGetImageFromCurrentImageContext(v3);
+  softLinkUIGraphicsEndImageContext();
+  return ImageFromCurrentImageContext;
 }
 
 uint64_t __NSGetColorForSpellingState(char a1)
@@ -7106,7 +7113,7 @@ uint64_t initUIGraphicsBeginImageContextWithOptions(uint64_t a1, double a2, doub
 {
   v8 = __NSGetFrameworkReference(0, 0);
   v9 = dlsym(v8, "UIGraphicsBeginImageContextWithOptions");
-  softLinkUIGraphicsBeginImageContextWithOptions[0] = v9;
+  softLinkUIGraphicsBeginImageContextWithOptions = v9;
   if (!v9)
   {
     initUIGraphicsBeginImageContextWithOptions_cold_1();
@@ -7123,20 +7130,20 @@ uint64_t initUIGraphicsGetImageFromCurrentImageContext()
 {
   v0 = __NSGetFrameworkReference(0, 0);
   v1 = dlsym(v0, "UIGraphicsGetImageFromCurrentImageContext");
-  softLinkUIGraphicsGetImageFromCurrentImageContext[0] = v1;
+  softLinkUIGraphicsGetImageFromCurrentImageContext = v1;
   if (!v1)
   {
     initUIGraphicsGetImageFromCurrentImageContext_cold_1();
   }
 
-  return v1();
+  return (v1)();
 }
 
 uint64_t initUIGraphicsEndImageContext()
 {
   v0 = __NSGetFrameworkReference(0, 0);
   v1 = dlsym(v0, "UIGraphicsEndImageContext");
-  softLinkUIGraphicsEndImageContext[0] = v1;
+  softLinkUIGraphicsEndImageContext = v1;
   if (!v1)
   {
     initUIGraphicsEndImageContext_cold_1();
@@ -7157,7 +7164,7 @@ float64x2_t *lmProcessPathElement(float64x2_t *result, uint64_t a2)
       if (v4 == 1)
       {
         v2 = *(a2 + 8);
-        v3 = v2 + 1;
+        v3 = &v2->f64[1];
       }
 
       else
@@ -7180,15 +7187,15 @@ float64x2_t *lmProcessPathElement(float64x2_t *result, uint64_t a2)
   {
     case 2:
       v5 = *(a2 + 8);
-      v2 = (v5 + 16);
-      v3 = (v5 + 24);
+      v2 = v5 + 1;
+      v3 = &v5[1].f64[1];
 LABEL_12:
       v4 = 1;
       goto LABEL_15;
     case 3:
       v6 = *(a2 + 8);
-      v2 = (v6 + 32);
-      v3 = (v6 + 40);
+      v2 = v6 + 2;
+      v3 = &v6[2].f64[1];
       goto LABEL_12;
     case 4:
       v3 = &result->f64[1];
@@ -7198,7 +7205,7 @@ LABEL_12:
 
   v4 = v4 == 4;
 LABEL_15:
-  v7 = *v2;
+  v7 = v2->f64[0];
   v8 = *v3;
   v10 = result[2].f64[0];
   v9 = result[2].f64[1];
@@ -7290,9 +7297,10 @@ void _NSGlyphNodeFree(_BYTE *a1)
     {
       for (i = 0; i != 24; i += 8)
       {
-        if (*&a1[i + 24])
+        v3 = *&a1[i + 24];
+        if (v3)
         {
-          _NSGlyphNodeFree();
+          _NSGlyphNodeFree(v3);
         }
       }
     }
@@ -7341,7 +7349,7 @@ void *_NSGlyphTreeDescription(uint64_t a1)
   return v4;
 }
 
-uint64_t _NSGlyphNodeDescribe(uint64_t result, void *a2, uint64_t a3)
+char *_NSGlyphNodeDescribe(char *result, void *a2, uint64_t a3)
 {
   if (!result)
   {
@@ -7363,17 +7371,17 @@ uint64_t _NSGlyphNodeDescribe(uint64_t result, void *a2, uint64_t a3)
   }
 
   v7 = (v5 + 24);
-  if (!*(v5 + 59))
+  if (!v5[59])
   {
     for (i = 0; i != 3; ++i)
     {
-      if (!*(v5 + 8 * i + 24))
+      if (!*&v5[8 * i + 24])
       {
         break;
       }
     }
 
-    [a2 appendFormat:@"Internal node %p with %lu chars, %lu glyphs, %lu children, flags 0x%x\n", v5, *v5, *(v5 + 8), i, *(v5 + 56)];
+    [a2 appendFormat:@"Internal node %p with %lu chars, %lu glyphs, %lu children, flags 0x%x\n", v5, *v5, *(v5 + 1), i, v5[56]];
     for (j = 0; j != 3; ++j)
     {
       result = _NSGlyphNodeDescribe(v7[j], a2, v3 + 1);
@@ -7383,12 +7391,12 @@ uint64_t _NSGlyphNodeDescribe(uint64_t result, void *a2, uint64_t a3)
   }
 
   v8 = *v5;
-  if (!*(v5 + 24))
+  if (!*(v5 + 3))
   {
-    return [a2 appendFormat:@"Leaf node %p with %lu chars, %lu glyphs (not generated), flags 0x%x\n", v5, v8, *(v5 + 8), *(v5 + 56)];
+    return [a2 appendFormat:@"Leaf node %p with %lu chars, %lu glyphs (not generated), flags 0x%x\n", v5, v8, *(v5 + 1), v5[56]];
   }
 
-  [a2 appendFormat:@"Leaf node %p with %lu chars, %lu glyphs, capacity %lu, flags 0x%x\n", v5, v8, *(v5 + 8), *(v5 + 48), *(v5 + 56)];
+  [a2 appendFormat:@"Leaf node %p with %lu chars, %lu glyphs, capacity %lu, flags 0x%x\n", v5, v8, *(v5 + 1), *(v5 + 6), v5[56]];
   if (v3)
   {
     v9 = v3;
@@ -7401,7 +7409,7 @@ uint64_t _NSGlyphNodeDescribe(uint64_t result, void *a2, uint64_t a3)
     while (v9);
   }
 
-  v10 = *(v5 + 57);
+  v10 = v5[57];
   if (v10 > 3)
   {
     v11 = 0;
@@ -7409,14 +7417,14 @@ uint64_t _NSGlyphNodeDescribe(uint64_t result, void *a2, uint64_t a3)
 
   else
   {
-    v11 = qword_18E8561F0[*(v5 + 57)];
+    v11 = qword_18E8561F0[v5[57]];
   }
 
   v14 = *v7;
   if (*v7)
   {
     v15 = 0;
-    if (*(v5 + 57) > 1u)
+    if (v5[57] > 1u)
     {
       if (v10 != 2 && v10 != 3)
       {
@@ -7428,7 +7436,7 @@ uint64_t _NSGlyphNodeDescribe(uint64_t result, void *a2, uint64_t a3)
 
     else
     {
-      if (!*(v5 + 57))
+      if (!v5[57])
       {
         v20 = *v14;
         v17 = v20 & 3;
@@ -7478,7 +7486,7 @@ LABEL_36:
   v15 = 0;
 LABEL_39:
   [a2 appendFormat:@"  glyphs (%lu-byte) <%d", v11, v15];
-  if (*(v5 + 8) < 2uLL)
+  if (*(v5 + 1) < 2uLL)
   {
     goto LABEL_66;
   }
@@ -7495,7 +7503,7 @@ LABEL_39:
     }
 
     v24 = 0;
-    v25 = *(v5 + 57);
+    v25 = v5[57];
     if (v25 > 1)
     {
       if (v25 == 2)
@@ -7516,7 +7524,7 @@ LABEL_39:
 
     else
     {
-      if (!*(v5 + 57))
+      if (!v5[57])
       {
         v27 = v23[v21];
         v28 = v27 & 3;
@@ -7567,7 +7575,7 @@ LABEL_59:
 
 LABEL_62:
     [a2 appendFormat:@" %d", v24];
-    v31 = *(v5 + 8);
+    v31 = *(v5 + 1);
     if (v21 > 0xFE)
     {
       break;
@@ -7588,14 +7596,14 @@ LABEL_66:
   v32 = @">\n";
 LABEL_67:
   result = [a2 appendString:v32];
-  if (*(v5 + 32))
+  if (*(v5 + 4))
   {
     for (; v3; --v3)
     {
       [a2 appendString:@"  "];
     }
 
-    v33 = *(v5 + 58);
+    v33 = v5[58];
     if (v33 > 2)
     {
       v34 = 0;
@@ -7603,10 +7611,10 @@ LABEL_67:
 
     else
     {
-      v34 = qword_18E856210[*(v5 + 58)];
+      v34 = qword_18E856210[v5[58]];
     }
 
-    v35 = *(v5 + 32);
+    v35 = *(v5 + 4);
     if (!v35)
     {
       goto LABEL_79;
@@ -7624,7 +7632,7 @@ LABEL_67:
       goto LABEL_82;
     }
 
-    if (*(v5 + 58))
+    if (v5[58])
     {
 LABEL_79:
       v36 = 0;
@@ -7637,7 +7645,7 @@ LABEL_79:
 
 LABEL_82:
     [a2 appendFormat:@"  deltas (%lu-byte) <%ld", v34, v36];
-    if (*(v5 + 8) < 2uLL)
+    if (*(v5 + 1) < 2uLL)
     {
       goto LABEL_96;
     }
@@ -7645,10 +7653,10 @@ LABEL_82:
     v37 = 1;
     do
     {
-      v38 = *(v5 + 32);
+      v38 = *(v5 + 4);
       if (v38)
       {
-        v39 = *(v5 + 58);
+        v39 = v5[58];
         if (v39 == 2)
         {
           v38 = *(v38 + 4 * v37);
@@ -7659,7 +7667,7 @@ LABEL_82:
           v38 = *(v38 + 2 * v37);
         }
 
-        else if (*(v5 + 58))
+        else if (v5[58])
         {
           v38 = 0;
         }
@@ -7671,7 +7679,7 @@ LABEL_82:
       }
 
       [a2 appendFormat:@" %ld", v38];
-      v40 = *(v5 + 8);
+      v40 = *(v5 + 1);
       if (v37 > 0xFE)
       {
         break;
@@ -7698,12 +7706,13 @@ LABEL_96:
   return result;
 }
 
-void _NSGlyphTreeLogDebug(NSString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _NSGlyphTreeLogDebug(NSString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (_NSGlyphTreeLogDebug_logCount <= 0xF)
   {
     ++_NSGlyphTreeLogDebug_logCount;
-    NSLogv(a1, &a9);
+    NSLogv(a1, va);
     if (_NSGlyphTreeLogDebug_logCount >= 0x10)
     {
       NSLog(@"!!! Suppressing further NSGlyphTree logs");
@@ -7953,7 +7962,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t _NSGlyphTreeGlyphIndexForCharacterAtIndex(uint64_t a1, unint64_t a2)
+unint64_t _NSGlyphTreeGlyphIndexForCharacterAtIndex(uint64_t a1, unint64_t a2)
 {
   v2 = a2;
   if ((*(*(*(a1 + 240) + 208) + 56) & 4) == 0)
@@ -8579,7 +8588,7 @@ uint64_t _NSGlyphTreeCharacterRangeForGlyphRange(uint64_t a1, uint64_t a2, uint6
   if (_NSGlyphTreeMoveToGlyphIndex(a1, a2))
   {
     v10 = v12;
-    v87 = v12;
+    v86 = v12;
 LABEL_5:
     v19 = *(a1 + 240);
     v20 = v19 + 26;
@@ -8610,7 +8619,7 @@ LABEL_5:
       }
 
       v27 = 0;
-      v89 = v19[28] + v10 - v23 - v26;
+      v88 = v19[28] + v10 - v23 - v26;
       if (v10 >= v23)
       {
         v28 = v19[29];
@@ -8671,7 +8680,7 @@ LABEL_5:
 
     else
     {
-      v89 = v19[28] + v10 - v19[29];
+      v88 = v19[28] + v10 - v19[29];
       if (v10)
       {
 LABEL_31:
@@ -8775,8 +8784,8 @@ LABEL_57:
                 goto LABEL_71;
               }
 
-              a2 = v87;
-              result = v89;
+              a2 = v86;
+              result = v88;
               if (v10 < v32)
               {
                 goto LABEL_5;
@@ -8805,7 +8814,7 @@ LABEL_57:
 
         if (a4)
         {
-          _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeCharacterRangeForGlyphRange missing glyphs 1", a2, v13, v14, v15, v16, v17, v18, v84);
+          _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeCharacterRangeForGlyphRange missing glyphs 1", a2, v13, v14, v15, v16, v17, v18);
         }
 
 LABEL_71:
@@ -8813,8 +8822,8 @@ LABEL_71:
       }
     }
 
-    a2 = v87;
-    result = v89;
+    a2 = v86;
+    result = v88;
     goto LABEL_73;
   }
 
@@ -8854,13 +8863,13 @@ LABEL_141:
     return result;
   }
 
-  v88 = a2;
-  v90 = result;
-  v85 = a6;
+  v87 = a2;
+  v89 = result;
+  v84 = a6;
   if (v44 >= v47)
   {
 LABEL_146:
-    v92 = v46 - 1;
+    v91 = v46 - 1;
     v74 = v47 - 1;
     goto LABEL_147;
   }
@@ -8880,7 +8889,7 @@ LABEL_146:
     v49 = 0;
   }
 
-  v86 = v49;
+  v85 = v49;
   while (1)
   {
     v50 = *(a1 + 240);
@@ -8918,7 +8927,7 @@ LABEL_146:
       {
         if (v48 + v58 + 1 >= v61)
         {
-          v92 = v59 + *v51 - 1;
+          v91 = v59 + *v51 - 1;
           v48 = v63;
           goto LABEL_107;
         }
@@ -8963,10 +8972,10 @@ LABEL_146:
       v57 = v50[28] + v48 - v53;
     }
 
-    v92 = v57;
+    v91 = v57;
 LABEL_107:
     v70 = v48 + 1;
-    if ((v48 + 1 >= *(v50[26] + 8)) | v86 & 1)
+    if ((v48 + 1 >= *(v50[26] + 8)) | v85 & 1)
     {
       break;
     }
@@ -9102,18 +9111,18 @@ LABEL_147:
       }
 
 LABEL_150:
-      result = v92 + 1;
+      result = v91 + 1;
       if (a5)
       {
         v46 = 0;
-        if (v88 >= *(*(*(a1 + 240) + 208) + 8))
+        if (v87 >= *(*(*(a1 + 240) + 208) + 8))
         {
           v10 = *(*(*(a1 + 240) + 208) + 8);
         }
 
         else
         {
-          v10 = v88;
+          v10 = v87;
         }
       }
 
@@ -9134,11 +9143,11 @@ LABEL_150:
   }
 
 LABEL_148:
-  result = v90;
+  result = v89;
   v46 = v74 - v10 + 1;
 LABEL_155:
-  a6 = v85;
-  if (v85)
+  a6 = v84;
+  if (v84)
   {
 LABEL_156:
     *a6 = v10;
@@ -9174,7 +9183,7 @@ unint64_t _NSGlyphTreeGlyphRangeForCharacterRange(uint64_t a1, unint64_t a2, uin
         }
 
         v24 = 0xFFFFFF;
-        v106 = v8;
+        v105 = v8;
         while (1)
         {
           v25 = *(*(a1 + 240) + 216);
@@ -9279,19 +9288,19 @@ LABEL_72:
           {
 LABEL_171:
             v11 = v39;
-            v8 = v106;
+            v8 = v105;
             goto LABEL_79;
           }
 
           v52 = v11 >= v39;
-          v8 = v106;
+          v8 = v105;
           if (v52)
           {
             goto LABEL_79;
           }
         }
 
-        v103 = v12;
+        v102 = v12;
         v40 = *(a1 + 240) + 208;
         v41 = *(*(a1 + 240) + 216);
         if (*(v41 + 59))
@@ -9392,7 +9401,7 @@ LABEL_171:
 LABEL_64:
             if (!v11 || v24)
             {
-              v12 = v103;
+              v12 = v102;
               if (!v24)
               {
                 goto LABEL_171;
@@ -9416,13 +9425,13 @@ LABEL_64:
 
         if (a4)
         {
-          _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGlyphRangeForCharacterRange missing glyphs 1", v13, v14, v15, v16, v17, v18, v19, v99);
+          _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGlyphRangeForCharacterRange missing glyphs 1", v13, v14, v15, v16, v17, v18, v19);
         }
 
 LABEL_78:
         v11 = v39;
-        v8 = v106;
-        v12 = v103;
+        v8 = v105;
+        v12 = v102;
       }
 
       else
@@ -9464,10 +9473,10 @@ LABEL_79:
     goto LABEL_100;
   }
 
-  v104 = v12;
-  v107 = v8;
-  v100 = a2;
-  v101 = a7;
+  v103 = v12;
+  v106 = v8;
+  v99 = a2;
+  v100 = a7;
   if (v53 >= v55)
   {
 LABEL_90:
@@ -9734,10 +9743,10 @@ LABEL_164:
 
   while (v62 >= v98 && v62 < *(*(*(a1 + 240) + 216) + 8) + v98 || _NSGlyphTreeMoveToGlyphIndex(a1, v91 - 1));
 LABEL_91:
-  if (v107)
+  if (v106)
   {
-    v12 = v104;
-    v55 = v65 - v104 + 1;
+    v12 = v103;
+    v55 = v65 - v103 + 1;
     goto LABEL_104;
   }
 
@@ -9745,21 +9754,21 @@ LABEL_91:
   v12 = v65 + 1;
   if (a5)
   {
-    a7 = v101;
+    a7 = v100;
     if ((~*(a1 + 64) & 0xC000) == 0)
     {
       v55 = 0;
-      if (v100 >= **(*(a1 + 240) + 208))
+      if (v99 >= **(*(a1 + 240) + 208))
       {
         v12 = **(*(a1 + 240) + 208);
       }
 
       else
       {
-        v12 = v100;
+        v12 = v99;
       }
 
-      if (!v101)
+      if (!v100)
       {
         return v11;
       }
@@ -9782,8 +9791,8 @@ LABEL_100:
 
   v55 = 0;
 LABEL_104:
-  a7 = v101;
-  if (v101)
+  a7 = v100;
+  if (v100)
   {
     goto LABEL_101;
   }

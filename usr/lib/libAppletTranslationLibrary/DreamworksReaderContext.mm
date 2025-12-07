@@ -1,194 +1,209 @@
 @interface DreamworksReaderContext
++ (id)readAllFiles:(id)files debug:(BOOL)debug error:(id *)error;
 - (id)readAll:(id)all debug:(BOOL)debug error:(id *)error;
 - (id)readBalance:(id)balance error:(id *)error;
+- (id)readRecord:(id)record sfi:(unsigned __int8)sfi index:(unsigned __int8)index error:(id *)error;
 - (id)readTransSN:(id)n error:(id *)error;
 - (void)dumpAllFiles;
 @end
 
 @implementation DreamworksReaderContext
 
++ (id)readAllFiles:(id)files debug:(BOOL)debug error:(id *)error
+{
+  debugCopy = debug;
+  filesCopy = files;
+  v8 = objc_alloc_init(DreamworksReaderContext);
+  v9 = [(DreamworksReaderContext *)v8 readAll:filesCopy debug:debugCopy error:error];
+
+  return v9;
+}
+
 - (id)readAll:(id)all debug:(BOOL)debug error:(id *)error
 {
-  v82[1] = *MEMORY[0x277D85DE8];
+  v80[1] = *MEMORY[0x277D85DE8];
   allCopy = all;
-  v70 = 0;
-  v69 = 61824;
-  v9 = [allCopy transceiveBytesAndCheckSW:&v69 length:5 error:error];
+  v68 = 0;
+  v67 = 61824;
+  v9 = [allCopy transceiveBytesAndCheckSW:&v67 length:5 error:error];
   v10 = v9;
-  if (v9 && [v9 length] > 0x8F)
+  if (v9)
   {
-    v21 = *([v10 bytes] + 52);
-    v22 = __rev16(v21);
-    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v22];
-    [(DreamworksReaderContext *)self setFilePurseMaxRecCount:v23];
-
-    v13 = [(DreamworksReaderContext *)self readBalance:allCopy error:error];
-    if (v13)
+    v9 = [v9 length];
+    if (v9 > 0x8F)
     {
-      [(DreamworksReaderContext *)self setBalance:v13];
-      v24 = [(DreamworksReaderContext *)self readRecord:allCopy sfi:2 index:1 error:error];
-      if ([v24 length] == 51)
+      v21 = *([v10 bytes] + 52);
+      v22 = __rev16(v21);
+      v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v22];
+      [(DreamworksReaderContext *)self setFilePurseMaxRecCount:v23];
+
+      v13 = [(DreamworksReaderContext *)self readBalance:allCopy error:error];
+      if (v13)
       {
-        debugCopy = debug;
-        v65 = v24;
-        v66 = v13;
-        [(DreamworksReaderContext *)self setFilePurseInfo:v24];
-        v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:v22];
-        [(DreamworksReaderContext *)self setFilePurse:v25];
-
-        if (v21)
+        [(DreamworksReaderContext *)self setBalance:v13];
+        v24 = [(DreamworksReaderContext *)self readRecord:allCopy sfi:2 index:1 error:error];
+        v25 = [v24 length];
+        if (v25 == 51)
         {
-          v26 = 1;
-          do
+          debugCopy = debug;
+          v63 = v24;
+          v64 = v13;
+          [(DreamworksReaderContext *)self setFilePurseInfo:v24];
+          v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:v22];
+          [(DreamworksReaderContext *)self setFilePurse:v26];
+
+          if (v21)
           {
-            v27 = [(DreamworksReaderContext *)self readRecord:allCopy sfi:4 index:v26 error:error];
-            if ([v27 length] == 46 && (objc_msgSend(v27, "isAll00") & 1) == 0)
+            v27 = 1;
+            do
             {
-              filePurse = [(DreamworksReaderContext *)self filePurse];
-              v29 = [DreamworksPurseRecord recordNumber:v26 recordData:v27];
-              [filePurse addObject:v29];
+              v28 = [(DreamworksReaderContext *)self readRecord:allCopy sfi:4 index:v27 error:error];
+              if ([v28 length] == 46 && (objc_msgSend(v28, "isAll00") & 1) == 0)
+              {
+                filePurse = [(DreamworksReaderContext *)self filePurse];
+                v30 = [DreamworksPurseRecord recordNumber:v27 recordData:v28];
+                [filePurse addObject:v30];
+              }
+
+              ++v27;
             }
 
-            ++v26;
+            while (v22 >= v27);
           }
 
-          while (v22 >= v26);
-        }
+          filePurse2 = [(DreamworksReaderContext *)self filePurse];
+          [DreamworksPurseRecord adjustRecords:filePurse2];
 
-        filePurse2 = [(DreamworksReaderContext *)self filePurse];
-        [DreamworksPurseRecord adjustRecords:filePurse2];
+          v65 = [(DreamworksReaderContext *)self readTransSN:allCopy error:error];
+          v32 = [v65 count];
+          v33 = [MEMORY[0x277CBEB18] arrayWithCapacity:v32];
+          [(DreamworksReaderContext *)self setFileTrans:v33];
 
-        v67 = [(DreamworksReaderContext *)self readTransSN:allCopy error:error];
-        v31 = [v67 count];
-        v32 = [MEMORY[0x277CBEB18] arrayWithCapacity:v31];
-        [(DreamworksReaderContext *)self setFileTrans:v32];
-
-        if (v31)
-        {
-          v33 = 1;
-          for (i = 1; i <= v31; v33 = ++i)
+          if (v32)
           {
-            v35 = [(DreamworksReaderContext *)self readRecord:allCopy sfi:3 index:i error:error];
-            if ([v35 length] == 52 && (objc_msgSend(v35, "isAll00") & 1) == 0)
+            v34 = 1;
+            for (i = 1; i <= v32; v34 = ++i)
             {
-              fileTrans = [(DreamworksReaderContext *)self fileTrans];
-              v37 = [v67 objectAtIndexedSubscript:v33 - 1];
-              v38 = +[DreamworksTransRecord recordNumber:recordData:seqnum:](DreamworksTransRecord, "recordNumber:recordData:seqnum:", i, v35, [v37 unsignedIntValue]);
-              [fileTrans addObject:v38];
+              v36 = [(DreamworksReaderContext *)self readRecord:allCopy sfi:3 index:i error:error];
+              if ([v36 length] == 52 && (objc_msgSend(v36, "isAll00") & 1) == 0)
+              {
+                fileTrans = [(DreamworksReaderContext *)self fileTrans];
+                v38 = [v65 objectAtIndexedSubscript:v34 - 1];
+                v39 = +[DreamworksTransRecord recordNumber:recordData:seqnum:](DreamworksTransRecord, "recordNumber:recordData:seqnum:", i, v36, [v38 unsignedIntValue]);
+                [fileTrans addObject:v39];
+              }
             }
           }
+
+          if (debugCopy)
+          {
+            [(DreamworksReaderContext *)self dumpAllFiles];
+          }
+
+          selfCopy = self;
+          v24 = v63;
+          v13 = v64;
+          v41 = v65;
         }
 
-        if (debugCopy)
+        else
         {
-          [(DreamworksReaderContext *)self dumpAllFiles];
-        }
+          v51 = ATLLogObject(v25);
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_22EEF5000, v51, OS_LOG_TYPE_ERROR, "Failed to read EF_Purse_Info", buf, 2u);
+          }
 
-        selfCopy = self;
-        v24 = v65;
-        v13 = v66;
-        v40 = v67;
+          v52 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to read EF_Purse_Info"];
+          v41 = v52;
+          if (error)
+          {
+            v53 = *error;
+            v54 = MEMORY[0x277CCA9B8];
+            if (*error)
+            {
+              v55 = *MEMORY[0x277CCA7E8];
+              v69[0] = *MEMORY[0x277CCA450];
+              v69[1] = v55;
+              v70[0] = v52;
+              v70[1] = v53;
+              v56 = MEMORY[0x277CBEAC0];
+              v57 = v70;
+              v58 = v69;
+              v59 = 2;
+            }
+
+            else
+            {
+              v71 = *MEMORY[0x277CCA450];
+              v72 = v52;
+              v56 = MEMORY[0x277CBEAC0];
+              v57 = &v72;
+              v58 = &v71;
+              v59 = 1;
+            }
+
+            v60 = [v56 dictionaryWithObjects:v57 forKeys:v58 count:v59];
+            *error = [v54 errorWithDomain:@"ATL" code:5 userInfo:v60];
+          }
+
+          selfCopy = 0;
+        }
       }
 
       else
       {
-        v51 = ATLLogObject();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v42 = ATLLogObject(0);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22EEF5000, v51, OS_LOG_TYPE_ERROR, "Failed to read EF_Purse_Info", buf, 2u);
+          _os_log_impl(&dword_22EEF5000, v42, OS_LOG_TYPE_ERROR, "Failed to get balance", buf, 2u);
         }
 
-        v52 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to read EF_Purse_Info"];
-        v40 = v52;
-        if (error)
+        v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to get balance"];
+        v24 = v43;
+        if (!error)
         {
-          v53 = *error;
-          v54 = MEMORY[0x277CCA9B8];
-          v55 = *MEMORY[0x277CCA450];
-          if (*error)
-          {
-            v56 = *MEMORY[0x277CCA7E8];
-            v71[0] = *MEMORY[0x277CCA450];
-            v71[1] = v56;
-            v72[0] = v52;
-            v72[1] = v53;
-            v57 = MEMORY[0x277CBEAC0];
-            v58 = v72;
-            v59 = v71;
-            v60 = 2;
-          }
-
-          else
-          {
-            v73 = *MEMORY[0x277CCA450];
-            v74 = v52;
-            v57 = MEMORY[0x277CBEAC0];
-            v58 = &v74;
-            v59 = &v73;
-            v60 = 1;
-          }
-
-          v61 = [v57 dictionaryWithObjects:v58 forKeys:v59 count:v60];
-          *error = [v54 errorWithDomain:@"ATL" code:5 userInfo:v61];
+          selfCopy = 0;
+          goto LABEL_45;
         }
 
-        selfCopy = 0;
+        v44 = *error;
+        v45 = MEMORY[0x277CCA9B8];
+        if (*error)
+        {
+          v46 = *MEMORY[0x277CCA7E8];
+          v73[0] = *MEMORY[0x277CCA450];
+          v73[1] = v46;
+          v74[0] = v43;
+          v74[1] = v44;
+          v47 = MEMORY[0x277CBEAC0];
+          v48 = v74;
+          v49 = v73;
+          v50 = 2;
+        }
+
+        else
+        {
+          v75 = *MEMORY[0x277CCA450];
+          v76 = v43;
+          v47 = MEMORY[0x277CBEAC0];
+          v48 = &v76;
+          v49 = &v75;
+          v50 = 1;
+        }
+
+        v41 = [v47 dictionaryWithObjects:v48 forKeys:v49 count:v50];
+        [v45 errorWithDomain:@"ATL" code:5 userInfo:v41];
+        *error = selfCopy = 0;
       }
+
+      goto LABEL_45;
     }
-
-    else
-    {
-      v41 = ATLLogObject();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_22EEF5000, v41, OS_LOG_TYPE_ERROR, "Failed to get balance", buf, 2u);
-      }
-
-      v42 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to get balance"];
-      v24 = v42;
-      if (!error)
-      {
-        selfCopy = 0;
-        goto LABEL_45;
-      }
-
-      v43 = *error;
-      v44 = MEMORY[0x277CCA9B8];
-      v45 = *MEMORY[0x277CCA450];
-      if (*error)
-      {
-        v46 = *MEMORY[0x277CCA7E8];
-        v75[0] = *MEMORY[0x277CCA450];
-        v75[1] = v46;
-        v76[0] = v42;
-        v76[1] = v43;
-        v47 = MEMORY[0x277CBEAC0];
-        v48 = v76;
-        v49 = v75;
-        v50 = 2;
-      }
-
-      else
-      {
-        v77 = *MEMORY[0x277CCA450];
-        v78 = v42;
-        v47 = MEMORY[0x277CBEAC0];
-        v48 = &v78;
-        v49 = &v77;
-        v50 = 1;
-      }
-
-      v40 = [v47 dictionaryWithObjects:v48 forKeys:v49 count:v50];
-      [v44 errorWithDomain:@"ATL" code:5 userInfo:v40];
-      *error = selfCopy = 0;
-    }
-
-    goto LABEL_45;
   }
 
-  v11 = ATLLogObject();
+  v11 = ATLLogObject(v9);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -208,23 +223,23 @@
   if (*error)
   {
     v16 = *MEMORY[0x277CCA7E8];
-    v79[0] = *MEMORY[0x277CCA450];
-    v79[1] = v16;
-    v80[0] = v12;
-    v80[1] = v14;
+    v77[0] = *MEMORY[0x277CCA450];
+    v77[1] = v16;
+    v78[0] = v12;
+    v78[1] = v14;
     v17 = MEMORY[0x277CBEAC0];
-    v18 = v80;
-    v19 = v79;
+    v18 = v78;
+    v19 = v77;
     v20 = 2;
   }
 
   else
   {
-    v81 = *MEMORY[0x277CCA450];
-    v82[0] = v12;
+    v79 = *MEMORY[0x277CCA450];
+    v80[0] = v12;
     v17 = MEMORY[0x277CBEAC0];
-    v18 = v82;
-    v19 = &v81;
+    v18 = v80;
+    v19 = &v79;
     v20 = 1;
   }
 
@@ -234,35 +249,34 @@
 LABEL_45:
 
 LABEL_46:
-  v62 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
 
 - (void)dumpAllFiles
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = ATLLogObject();
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = ATLLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v16 = 0;
-    _os_log_impl(&dword_22EEF5000, v3, OS_LOG_TYPE_INFO, "--- Dreamworks DUMP BEGIN --", v16, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_22EEF5000, v3, OS_LOG_TYPE_INFO, "--- Dreamworks DUMP BEGIN --", v17, 2u);
   }
 
-  v4 = ATLLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = ATLLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     balance = [(DreamworksReaderContext *)self balance];
-    *v16 = 138412290;
-    *&v16[4] = balance;
-    _os_log_impl(&dword_22EEF5000, v4, OS_LOG_TYPE_INFO, "    Balance File %@", v16, 0xCu);
+    *v17 = 138412290;
+    *&v17[4] = balance;
+    _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_INFO, "    Balance File %@", v17, 0xCu);
   }
 
   filePurseInfo = [(DreamworksReaderContext *)self filePurseInfo];
   bytes = [filePurseInfo bytes];
   filePurseInfo2 = [(DreamworksReaderContext *)self filePurseInfo];
-  v9 = [filePurseInfo2 length];
-  LogBinary(OS_LOG_TYPE_DEFAULT, "[DreamworksReaderContext dumpAllFiles]", 109, bytes, v9, @"    SFI 0x02:", v10, v11, *v16);
+  v10 = [filePurseInfo2 length];
+  LogBinary(OS_LOG_TYPE_DEFAULT, "[DreamworksReaderContext dumpAllFiles]", 109, bytes, v10, @"    SFI 0x02:", v11, v12, *v17);
 
   filePurse = [(DreamworksReaderContext *)self filePurse];
   [filePurse enumerateObjectsUsingBlock:&__block_literal_global_2];
@@ -270,14 +284,12 @@ LABEL_46:
   fileTrans = [(DreamworksReaderContext *)self fileTrans];
   [fileTrans enumerateObjectsUsingBlock:&__block_literal_global_752];
 
-  v14 = ATLLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v16 = ATLLogObject(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    *v16 = 0;
-    _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_INFO, "--- Dreamworks DUMP END --", v16, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_INFO, "--- Dreamworks DUMP END --", v17, 2u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __39__DreamworksReaderContext_dumpAllFiles__block_invoke(uint64_t a1, void *a2)
@@ -308,6 +320,68 @@ void __39__DreamworksReaderContext_dumpAllFiles__block_invoke_2(uint64_t a1, voi
   LogBinary(OS_LOG_TYPE_DEFAULT, "[DreamworksReaderContext dumpAllFiles]_block_invoke_2", 115, v4, v6, @"    Trans file record %u (SN 0x%X)", v8, v9, v7);
 }
 
+- (id)readRecord:(id)record sfi:(unsigned __int8)sfi index:(unsigned __int8)index error:(id *)error
+{
+  sfiCopy = sfi;
+  v27 = *MEMORY[0x277D85DE8];
+  if (sfi < 0x1Fu)
+  {
+    *buf = -19968;
+    buf[2] = index;
+    buf[3] = (8 * sfi) | 4;
+    LOBYTE(v26) = 0;
+    v18 = [record transceiveBytesAndCheckSW:buf length:5 inArray:&unk_2843C7328 error:error];
+  }
+
+  else
+  {
+    v8 = ATLLogObject(self);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v26 = sfiCopy;
+      _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "Invalid SFI for read record 0x%x", buf, 8u);
+    }
+
+    sfiCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid SFI for read record 0x%x", sfiCopy];
+    v10 = sfiCopy;
+    if (error)
+    {
+      v11 = *error;
+      v12 = MEMORY[0x277CCA9B8];
+      if (*error)
+      {
+        v13 = *MEMORY[0x277CCA7E8];
+        v21[0] = *MEMORY[0x277CCA450];
+        v21[1] = v13;
+        v22[0] = sfiCopy;
+        v22[1] = v11;
+        v14 = MEMORY[0x277CBEAC0];
+        v15 = v22;
+        v16 = v21;
+        v17 = 2;
+      }
+
+      else
+      {
+        v23 = *MEMORY[0x277CCA450];
+        v24 = sfiCopy;
+        v14 = MEMORY[0x277CBEAC0];
+        v15 = &v24;
+        v16 = &v23;
+        v17 = 1;
+      }
+
+      v19 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+      *error = [v12 errorWithDomain:@"ATL" code:8 userInfo:v19];
+    }
+
+    v18 = 0;
+  }
+
+  return v18;
+}
+
 - (id)readTransSN:(id)n error:(id *)error
 {
   v12 = 0;
@@ -335,21 +409,21 @@ void __39__DreamworksReaderContext_dumpAllFiles__block_invoke_2(uint64_t a1, voi
 
 - (id)readBalance:(id)balance error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [balance transceiveBytesAndCheckSW:&readBalance_error__getBalanceCmd length:5 error:error];
   v6 = v5;
-  if (v5 && [v5 length] == 4)
+  if (v5 && (v5 = [v5 length], v5 == 4))
   {
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{bswap32(*objc_msgSend(v6, "bytes"))}];
   }
 
   else
   {
-    v8 = ATLLogObject();
+    v8 = ATLLogObject(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v27 = [v6 length];
+      v25 = [v6 length];
       _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "Failed or short balance %u", buf, 8u);
     }
 
@@ -359,38 +433,35 @@ void __39__DreamworksReaderContext_dumpAllFiles__block_invoke_2(uint64_t a1, voi
     {
       v11 = *error;
       v12 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA450];
       if (*error)
       {
-        v14 = *MEMORY[0x277CCA7E8];
-        v22[0] = *MEMORY[0x277CCA450];
-        v22[1] = v14;
-        v23[0] = v9;
-        v23[1] = v11;
-        v15 = MEMORY[0x277CBEAC0];
-        v16 = v23;
-        v17 = v22;
-        v18 = 2;
+        v13 = *MEMORY[0x277CCA7E8];
+        v20[0] = *MEMORY[0x277CCA450];
+        v20[1] = v13;
+        v21[0] = v9;
+        v21[1] = v11;
+        v14 = MEMORY[0x277CBEAC0];
+        v15 = v21;
+        v16 = v20;
+        v17 = 2;
       }
 
       else
       {
-        v24 = *MEMORY[0x277CCA450];
-        v25 = v9;
-        v15 = MEMORY[0x277CBEAC0];
-        v16 = &v25;
-        v17 = &v24;
-        v18 = 1;
+        v22 = *MEMORY[0x277CCA450];
+        v23 = v9;
+        v14 = MEMORY[0x277CBEAC0];
+        v15 = &v23;
+        v16 = &v22;
+        v17 = 1;
       }
 
-      v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-      *error = [v12 errorWithDomain:@"ATL" code:5 userInfo:v19];
+      v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+      *error = [v12 errorWithDomain:@"ATL" code:5 userInfo:v18];
     }
 
     v7 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

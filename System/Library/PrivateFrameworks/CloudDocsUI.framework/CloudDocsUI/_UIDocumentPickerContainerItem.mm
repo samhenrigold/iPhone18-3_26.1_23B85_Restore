@@ -543,9 +543,10 @@ LABEL_18:
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v17 = [objc_alloc(MEMORY[0x277CDAA60]) initWithURL:itemCopy];
   v18 = [MEMORY[0x277CDAA68] descriptorWithSize:width scaleFactor:{height, scale}];
-  v23 = 0;
-  v19 = [v17 imageForUseMode:0 descriptor:v18 generateIfNeeded:1 contentRect:0 error:&v23];
-  v20 = v23;
+  v24 = 0;
+  v19 = [v17 imageForUseMode:0 descriptor:v18 generateIfNeeded:1 contentRect:0 error:&v24];
+  v20 = v24;
+  v21 = v20;
   if (v19)
   {
     if (thumbnail)
@@ -561,8 +562,8 @@ LABEL_18:
 
   else
   {
-    v21 = cdui_default_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = cdui_default_log(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [_UIDocumentPickerContainerItem(Icons) _blockingThumbnailForItem:itemCopy documentProxy:? withSize:? scale:? wantsBorder:? generatedThumbnail:?];
     }
@@ -732,32 +733,34 @@ LABEL_8:
   width = size.width;
   lCopy = l;
   containerCopy = container;
-  v14 = *MEMORY[0x277CBF3A8];
-  v13 = *(MEMORY[0x277CBF3A8] + 8);
-  v15 = 1;
-  v16 = 0;
-  v17 = &qword_278DD65D8;
-  v18 = 5;
-  while (--v18)
+  v13 = containerCopy;
+  v15 = *MEMORY[0x277CBF3A8];
+  v14 = *(MEMORY[0x277CBF3A8] + 8);
+  v16 = 1;
+  v17 = 0;
+  v18 = &qword_278DD65D8;
+  v19 = 5;
+  while (--v19)
   {
-    if (vabdd_f64(width, *(v17 - 2)) >= 1.0)
+    if (vabdd_f64(width, *(v18 - 2)) >= 1.0)
     {
-      v19 = 0;
+      v20 = 0;
     }
 
     else
     {
-      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(v17 - 1)];
-      v16 = *v17;
-      v13 = *(v17 + 1);
-      v15 = *(v17 + 16);
-      v14 = v13;
+      containerCopy = [MEMORY[0x277CCACA8] stringWithUTF8String:*(v18 - 1)];
+      v20 = containerCopy;
+      v17 = *v18;
+      v14 = *(v18 + 1);
+      v16 = *(v18 + 16);
+      v15 = v14;
     }
 
-    v17 += 5;
-    if (v19)
+    v18 += 5;
+    if (v20)
     {
-      if (containerCopy)
+      if (v13)
       {
         goto LABEL_8;
       }
@@ -766,113 +769,113 @@ LABEL_13:
       br_containerID = [lCopy br_containerID];
       if ([br_containerID isEqualToString:*MEMORY[0x277CFAD68]])
       {
-        v23 = [lCopy br_pathRelativeToSyncedRootURLForContainerID:br_containerID];
-        pathComponents = [v23 pathComponents];
-        v25 = [pathComponents count];
+        v24 = [lCopy br_pathRelativeToSyncedRootURLForContainerID:br_containerID];
+        pathComponents = [v24 pathComponents];
+        v26 = [pathComponents count];
 
-        if (v25 == 2)
+        if (v26 == 2)
         {
-          lastPathComponent = [v23 lastPathComponent];
+          lastPathComponent = [v24 lastPathComponent];
           if ([lastPathComponent isEqualToString:*MEMORY[0x277CFAD80]])
           {
-            v40 = lastPathComponent;
-            v27 = @"Desktop%@";
+            v41 = lastPathComponent;
+            v28 = @"Desktop%@";
             goto LABEL_24;
           }
 
           if ([lastPathComponent isEqualToString:*MEMORY[0x277CFAD90]])
           {
-            v40 = lastPathComponent;
-            v27 = @"Documents%@";
+            v41 = lastPathComponent;
+            v28 = @"Documents%@";
 LABEL_24:
-            v30 = MEMORY[0x277D755B8];
-            v31 = [MEMORY[0x277CCACA8] stringWithFormat:v27, v19];
-            v32 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-            v33 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:scale];
-            v20 = [v30 imageNamed:v31 inBundle:v32 compatibleWithTraitCollection:v33];
+            v31 = MEMORY[0x277D755B8];
+            v32 = [MEMORY[0x277CCACA8] stringWithFormat:v28, v20];
+            v33 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+            v34 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:scale];
+            v21 = [v31 imageNamed:v32 inBundle:v33 compatibleWithTraitCollection:v34];
 
-            lastPathComponent = v40;
+            lastPathComponent = v41;
           }
 
           else
           {
-            v20 = 0;
+            v21 = 0;
           }
         }
 
         else
         {
-          v20 = 0;
+          v21 = 0;
         }
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
 
       goto LABEL_29;
     }
   }
 
-  v21 = cdui_default_log();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+  v22 = cdui_default_log(containerCopy);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
   {
     [_UIDocumentPickerContainerItem(Icons) _blockingFolderIconForURL:height container:? size:? scale:?];
   }
 
-  v19 = 0;
-  if (!containerCopy)
+  v20 = 0;
+  if (!v13)
   {
     goto LABEL_13;
   }
 
 LABEL_8:
-  if (v15)
+  if (v16)
   {
-    v20 = [self _blockingBadgeForContainer:containerCopy size:v14 scale:{v13, scale}];
+    v21 = [self _blockingBadgeForContainer:v13 size:v15 scale:{v14, scale}];
   }
 
   else
   {
-    v28 = [self _blockingBadgeForContainer:containerCopy size:width scale:{height, scale}];
-    if (v28)
+    v29 = [self _blockingBadgeForContainer:v13 size:width scale:{height, scale}];
+    if (v29)
     {
-      v20 = v28;
-      v29 = v20;
+      v21 = v29;
+      v30 = v21;
       goto LABEL_31;
     }
 
-    v20 = 0;
+    v21 = 0;
   }
 
 LABEL_29:
-  v34 = MEMORY[0x277D755B8];
-  v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Folder%@", v19];
-  v36 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-  v29 = [v34 imageNamed:v35 inBundle:v36 compatibleWithTraitCollection:0];
+  v35 = MEMORY[0x277D755B8];
+  v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Folder%@", v20];
+  v37 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+  v30 = [v35 imageNamed:v36 inBundle:v37 compatibleWithTraitCollection:0];
 
-  if (v20)
+  if (v21)
   {
-    v37 = objc_alloc(MEMORY[0x277D75560]);
-    [v29 size];
-    v38 = [v37 initWithSize:?];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __88___UIDocumentPickerContainerItem_Icons___blockingFolderIconForURL_container_size_scale___block_invoke;
-    v41[3] = &unk_278DD6698;
-    v42 = v29;
-    v44 = v14;
-    v45 = v13;
-    v46 = v16;
-    v20 = v20;
-    v43 = v20;
-    v29 = [v38 imageWithActions:v41];
+    v38 = objc_alloc(MEMORY[0x277D75560]);
+    [v30 size];
+    v39 = [v38 initWithSize:?];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __88___UIDocumentPickerContainerItem_Icons___blockingFolderIconForURL_container_size_scale___block_invoke;
+    v42[3] = &unk_278DD6698;
+    v43 = v30;
+    v45 = v15;
+    v46 = v14;
+    v47 = v17;
+    v21 = v21;
+    v44 = v21;
+    v30 = [v39 imageWithActions:v42];
   }
 
 LABEL_31:
 
-  return v29;
+  return v30;
 }
 
 @end

@@ -58,7 +58,7 @@
 
 - (id)specifiers
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICallTimeGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -90,45 +90,43 @@
       v4 = "null";
     }
 
-    v14 = v5;
-    v15 = 2080;
-    v16 = v7;
-    v17 = 2080;
-    v18 = v4;
+    v13 = v5;
+    v14 = 2080;
+    v15 = v7;
+    v16 = 2080;
+    v17 = v4;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Call time group returning, group: %s, current: %s, lifetime: %s", buf, 0x20u);
   }
 
-  v11 = *&self->_groupSpecifier;
-  v12 = self->_lifetimeCallTimeSpecifier;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:3];
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *&self->_groupSpecifier;
+  v11 = self->_lifetimeCallTimeSpecifier;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:3];
 
   return v8;
 }
 
 - (void)handleCallTimersChanged
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICallTimeGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *MEMORY[0x277CF7E20];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Call time group received notification %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __44__PSUICallTimeGroup_handleCallTimersChanged__block_invoke;
-  v6[3] = &unk_279BA9DA8;
-  v6[4] = self;
-  objc_copyWeak(&v7, buf);
-  dispatch_async(MEMORY[0x277D85CD0], v6);
-  objc_destroyWeak(&v7);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __44__PSUICallTimeGroup_handleCallTimersChanged__block_invoke;
+  v5[3] = &unk_279BA9DA8;
+  v5[4] = self;
+  objc_copyWeak(&v6, buf);
+  dispatch_async(MEMORY[0x277D85CD0], v5);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PSUICallTimeGroup_handleCallTimersChanged__block_invoke(uint64_t a1)

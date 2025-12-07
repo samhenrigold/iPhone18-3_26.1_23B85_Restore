@@ -291,7 +291,7 @@ uint64_t __169__OKTransitionFadeThruColor__transitionInView_fromSubview_toSubvie
   return [v6 addAnimation:v3 forKey:@"progress"];
 }
 
-uint64_t __169__OKTransitionFadeThruColor__transitionInView_fromSubview_toSubview_wasInteractive_duration_doEaseIn_doEaseOut_isCompleting_wasCancelled_fromProgress_completionHandler___block_invoke_10(uint64_t a1)
+void *__169__OKTransitionFadeThruColor__transitionInView_fromSubview_toSubview_wasInteractive_duration_doEaseIn_doEaseOut_isCompleting_wasCancelled_fromProgress_completionHandler___block_invoke_10(uint64_t a1)
 {
   result = [*(a1 + 32) _canComplete];
   if (result)

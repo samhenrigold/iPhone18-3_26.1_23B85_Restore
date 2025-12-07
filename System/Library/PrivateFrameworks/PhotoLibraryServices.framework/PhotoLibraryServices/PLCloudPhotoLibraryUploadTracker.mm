@@ -55,7 +55,7 @@ double __41__PLCloudPhotoLibraryUploadTracker_reset__block_invoke(uint64_t a1, u
 - (id)currentStateForDebug
 {
   v3 = [(NSMutableDictionary *)self->_masterRecordUploadState keysOfEntriesPassingTest:&__block_literal_global_60_72605];
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\nTracked Deferred assets count: %llu\nTracked masters still need to upload count: %lu", -[PLCloudPhotoLibraryUploadTracker totalNumberOfDeferredAssets](self, "totalNumberOfDeferredAssets"), objc_msgSend(v3, "count")];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\nTracked Deferred assets count: %llu\nTracked masters still need to upload count: %lu", -[PLCloudPhotoLibraryUploadTracker totalNumberOfDeferredAssets](self, "totalNumberOfDeferredAssets"), objc_msgSend_count(v3)];
 
   return v4;
 }
@@ -147,7 +147,7 @@ void __56__PLCloudPhotoLibraryUploadTracker_setupFromCPLManager___block_invoke(u
   if (uploadCopy)
   {
     v8 = [PLManagedAsset totalSizeOfUnpushedOriginalsInPhotoLibrary:libraryCopy outMasterList:self->_mastersToUpload isInitialUpload:1];
-    v9 = [(NSMutableSet *)self->_mastersToUpload count];
+    v9 = objc_msgSend_count(self->_mastersToUpload);
     [(PLCloudPhotoLibraryUploadTracker *)self _setBatchUploadStateForTrackedMasters:self->_mastersToUpload withState:0];
   }
 

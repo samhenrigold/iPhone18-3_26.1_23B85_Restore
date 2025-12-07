@@ -21,9 +21,11 @@
 
 uint64_t __47__WLKBackgroundUpdateController_sharedInstance__block_invoke()
 {
-  sharedInstance___sharedInstance_0 = [[WLKBackgroundUpdateController alloc] _init];
+  v0 = [[WLKBackgroundUpdateController alloc] _init];
+  v1 = sharedInstance___sharedInstance_0;
+  sharedInstance___sharedInstance_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKBackgroundUpdateController)init

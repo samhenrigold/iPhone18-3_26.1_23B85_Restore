@@ -416,10 +416,10 @@ uint64_t __43__DOCConcreteLocation_trashedItemsLocation__block_invoke()
   return v4;
 }
 
-void __35__DOCConcreteLocation_attachedTags__block_invoke(uint64_t a1)
+void __35__DOCConcreteLocation_attachedTags__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = DOCTagFromFPTag();
-  [*(a1 + 32) addObject:v2];
+  v3 = DOCTagFromFPTag();
+  [*(a1 + 32) addObject:v3];
 }
 
 - (BOOL)isTrash

@@ -1,66 +1,3 @@
-uint64_t std::pmr::synchronized_pool_resource::do_allocate(std::pmr::synchronized_pool_resource *this, uint64_t a2, uint64_t a3)
-{
-  std::mutex::lock((this + 8));
-  v6 = (*(*(this + 9) + 16))(this + 72, a2, a3);
-  std::mutex::unlock((this + 8));
-  return v6;
-}
-
-void std::pmr::synchronized_pool_resource::do_deallocate(std::pmr::synchronized_pool_resource *this, void *a2, uint64_t a3, uint64_t a4)
-{
-  std::mutex::lock((this + 8));
-  (*(*(this + 9) + 24))(this + 72, a2, a3, a4);
-
-  std::mutex::unlock((this + 8));
-}
-
-void *std::pmr::__new_delete_memory_resource_imp::do_allocate(std::pmr::__new_delete_memory_resource_imp *this, size_t __sz, std::align_val_t a3)
-{
-  if (a3 < 0x11)
-  {
-    operator new();
-  }
-
-  return operator new(__sz, a3);
-}
-
-void std::pmr::__new_delete_memory_resource_imp::do_deallocate(std::pmr::__new_delete_memory_resource_imp *this, void *__p, size_t __sz, std::align_val_t a4)
-{
-  if (a4 < 0x11)
-  {
-    JUMPOUT(0x193B0CA40);
-  }
-
-  operator delete(__p, __sz, a4);
-}
-
-void *std::pmr::monotonic_buffer_resource::release[abi:ne200100](void *result)
-{
-  v1 = result;
-  if (result[1])
-  {
-    result[2] = result[3];
-  }
-
-  v2 = result[4];
-  if (v2)
-  {
-    do
-    {
-      v4 = *v2;
-      v3 = v2[1];
-      v5 = v2[3];
-      result = (*(*v1[5] + 24))(v1[5]);
-      v1[4] = v4;
-      v2 = v4;
-    }
-
-    while (v4);
-  }
-
-  return result;
-}
-
 void std::__throw_bad_alloc(void)
 {
   exception = __cxa_allocate_exception(8uLL);
@@ -2314,19 +2251,19 @@ _BYTE *std::__f2s_buffered_n(_BYTE *a1, _BYTE *a2, int a3, float a4)
 
 _BYTE *std::_Large_integer_to_chars[abi:ne200100](_BYTE *a1, _BYTE *a2, unsigned int a3, unint64_t a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  *v25 = 0;
-  v26 = 0;
+  v26 = *MEMORY[0x1E69E9840];
+  *v24 = 0;
+  v25 = 0;
   v6 = (a4 + 55) >> 5;
   v7 = v6 - 1;
   v8 = a3 << a4;
   if ((a4 & 0x1F) >= 9)
   {
-    v25[v6 - 2] = v8;
+    v24[v6 - 2] = v8;
     v8 = a3 >> -(a4 & 0x1F);
   }
 
-  v25[v7] = v8;
+  v24[v7] = v8;
   if (v6 == 1)
   {
     LODWORD(v9) = 0;
@@ -2335,15 +2272,15 @@ _BYTE *std::_Large_integer_to_chars[abi:ne200100](_BYTE *a1, _BYTE *a2, unsigned
   else
   {
     v9 = 0;
-    v10 = &v25[v6 - 2];
+    v10 = &v24[v6 - 2];
     do
     {
       v11 = v9;
       do
       {
-        v12 = v25[v7];
+        v12 = v24[v7];
         v13 = v12 % 0x3B9ACA00;
-        v25[v7] = v12 / 0x3B9ACA00;
+        v24[v7] = v12 / 0x3B9ACA00;
         v14 = v10;
         v15 = v7;
         do
@@ -2357,7 +2294,7 @@ _BYTE *std::_Large_integer_to_chars[abi:ne200100](_BYTE *a1, _BYTE *a2, unsigned
 
         while (v15);
         v9 = v11 + 1;
-        v24[v11++] = v13;
+        v23[v11++] = v13;
       }
 
       while (v12 >= 0x3B9ACA00);
@@ -2368,23 +2305,23 @@ _BYTE *std::_Large_integer_to_chars[abi:ne200100](_BYTE *a1, _BYTE *a2, unsigned
     while (v7);
   }
 
-  if (v25[0] <= 0x3B9AC9FF)
+  if (v24[0] <= 0x3B9AC9FF)
   {
-    if (v25[0] <= 0x5F5E0FF)
+    if (v24[0] <= 0x5F5E0FF)
     {
-      if (v25[0] <= 0x98967F)
+      if (v24[0] <= 0x98967F)
       {
-        if (v25[0] <= 0xF423F)
+        if (v24[0] <= 0xF423F)
         {
-          if (v25[0] >> 5 <= 0xC34)
+          if (v24[0] >> 5 <= 0xC34)
           {
-            if (v25[0] >> 4 <= 0x270)
+            if (v24[0] >> 4 <= 0x270)
             {
-              if (v25[0] <= 0x3E7)
+              if (v24[0] <= 0x3E7)
               {
-                if (v25[0] <= 0x63)
+                if (v24[0] <= 0x63)
                 {
-                  if (v25[0] <= 9)
+                  if (v24[0] <= 9)
                   {
                     v17 = 1;
                   }
@@ -2444,12 +2381,12 @@ _BYTE *std::_Large_integer_to_chars[abi:ne200100](_BYTE *a1, _BYTE *a2, unsigned
 
   if (a2 - a1 >= (v17 + 9 * v9))
   {
-    std::__append_n_digits(v17, v25[0], a1, a4);
+    std::__append_n_digits(v17, v24[0], a1, a4);
     a2 = &a1[v17];
     if (v9 >= 1)
     {
       v19 = v9 + 1;
-      v20 = &v24[v9 - 1];
+      v20 = &v23[v9 - 1];
       do
       {
         v21 = *v20--;
@@ -2462,7 +2399,6 @@ _BYTE *std::_Large_integer_to_chars[abi:ne200100](_BYTE *a1, _BYTE *a2, unsigned
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
@@ -2548,31 +2484,8 @@ unint64_t std::__f2d[abi:ne200100](int a1, unsigned int a2)
     }
 
     v30 = ((2 * v50) << v42) | (v49 >> v41);
-    if (v32 < 0x100000)
+    if (v32 < 0x100000 || ((v25 - 1) / 0xA <= v30 / 0xA ? ((v63 = std::__FLOAT_POW5_SPLIT[1 - v10], v64 = HIDWORD(v63) * v4, v65 = (v63 * v4) >> 32, v6 = __CFADD__(v65, v64), v66 = v65 + v64, !v6) ? (v67 = HIDWORD(v64)) : (v67 = HIDWORD(v64) + 1), v62 = v33 + ~((1217359 * (1 - v10)) >> 19), v31 = (((2 * v67) << ~(v62 + 28)) | (v66 >> (v62 + 28))) % 0xA) : (v31 = 0), !(v32 >> 21)))
     {
-      goto LABEL_54;
-    }
-
-    if ((v25 - 1) / 0xA <= v30 / 0xA)
-    {
-      v63 = std::__FLOAT_POW5_SPLIT[1 - v10];
-      v64 = HIDWORD(v63) * v4;
-      v65 = (v63 * v4) >> 32;
-      v6 = __CFADD__(v65, v64);
-      v66 = v65 + v64;
-      v67 = v6 ? HIDWORD(v64) + 1 : HIDWORD(v64);
-      v62 = v33 + ~((1217359 * (1 - v10)) >> 19);
-      v31 = (((2 * v67) << ~(v62 + 28)) | (v66 >> (v62 + 28))) % 0xA;
-    }
-
-    else
-    {
-      v31 = 0;
-    }
-
-    if (!(v32 >> 21))
-    {
-LABEL_54:
       if (v2)
       {
         v59 = 0;
@@ -3175,7 +3088,7 @@ std::logic_error *__cdecl std::logic_error::logic_error(std::logic_error *this, 
   imp = a2->__imp_.__imp_;
   this->__vftable = (MEMORY[0x1E69E5650] + 16);
   this->__imp_.__imp_ = imp;
-  if ((atomic_load_explicit(qword_1EAE01518, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1EAE01518, memory_order_acquire) & 1) == 0)
   {
     v3 = imp;
     v4 = this;
@@ -3195,7 +3108,7 @@ std::logic_error *__cdecl std::logic_error::logic_error(std::logic_error *this, 
 std::__libcpp_refstring *__cdecl std::__libcpp_refstring::operator=(std::__libcpp_refstring *this, const std::__libcpp_refstring *__s)
 {
   imp = this->__imp_;
-  if ((atomic_load_explicit(qword_1EAE01518, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1EAE01518, memory_order_acquire) & 1) == 0)
   {
     v10 = __s;
     v12 = imp;
@@ -3208,7 +3121,7 @@ std::__libcpp_refstring *__cdecl std::__libcpp_refstring::operator=(std::__libcp
   v5 = this->__imp_;
   v6 = __s->__imp_;
   this->__imp_ = __s->__imp_;
-  if ((atomic_load_explicit(qword_1EAE01518, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1EAE01518, memory_order_acquire) & 1) == 0)
   {
     v11 = v4;
     v13 = imp;
@@ -3277,7 +3190,7 @@ std::runtime_error *__cdecl std::runtime_error::runtime_error(std::runtime_error
   imp = a2->__imp_.__imp_;
   this->__vftable = (MEMORY[0x1E69E5668] + 16);
   this->__imp_.__imp_ = imp;
-  if ((atomic_load_explicit(qword_1EAE01518, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1EAE01518, memory_order_acquire) & 1) == 0)
   {
     v3 = imp;
     v4 = this;
@@ -3354,7 +3267,7 @@ std::string *__cdecl std::string::replace(std::string *this, std::string::size_t
     }
 
 LABEL_39:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   v10 = size - __pos;
@@ -3457,11 +3370,6 @@ void std::string::__grow_by_and_replace(std::string *this, std::string::size_typ
 {
   if (0x7FFFFFFFFFFFFFF6 - __old_cap >= __delta_cap)
   {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v8 = this->__r_.__value_.__r.__words[0];
-    }
-
     operator new();
   }
 
@@ -3754,7 +3662,7 @@ std::string *__cdecl std::string::insert(std::string *this, std::string::size_ty
 
   if (size < __pos)
   {
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   if (__n)
@@ -3862,7 +3770,7 @@ std::string::const_reference std::string::at(const std::string *this, std::strin
 
   if (size <= __n)
   {
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __n);
   }
 
   if ((v2 & 0x80000000) != 0)
@@ -3887,7 +3795,7 @@ std::string *__cdecl std::string::insert(std::string *this, std::string::size_ty
     }
 
 LABEL_24:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   size = this->__r_.__value_.__l.__size_;
@@ -4028,7 +3936,7 @@ std::string *__cdecl std::string::replace(std::string *this, std::string::size_t
     }
 
 LABEL_27:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   v10 = size - __pos;
@@ -4256,7 +4164,7 @@ std::string *__cdecl std::string::assign(std::string *this, const std::string *_
   else if (size < __pos)
   {
 LABEL_11:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __str);
   }
 
   v6 = size - __pos;
@@ -4281,7 +4189,7 @@ std::string::size_type std::string::copy(const std::string *this, std::string::v
     if (!v5)
     {
 LABEL_17:
-      std::string::__throw_out_of_range[abi:ne200100]();
+      std::string::__throw_out_of_range[abi:ne200100](this, __s);
     }
 
     if (v10 >= __n)
@@ -4348,7 +4256,7 @@ std::string *__cdecl std::string::basic_string(std::string *this, const std::str
   else if (size < __pos)
   {
 LABEL_16:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __str);
   }
 
   v8 = size - __pos;
@@ -4484,11 +4392,6 @@ void std::string::__grow_by(std::string *this, std::string::size_type __old_cap,
 {
   if (0x7FFFFFFFFFFFFFF7 - __old_cap >= __delta_cap)
   {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v7 = this->__r_.__value_.__r.__words[0];
-    }
-
     operator new();
   }
 
@@ -4709,7 +4612,7 @@ std::string *__cdecl std::string::erase(std::string *this, std::string::size_typ
 
   if (size < __pos)
   {
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   if (__n == -1)
@@ -4798,7 +4701,7 @@ std::string *__cdecl std::string::append(std::string *this, const std::string *_
   else if (size < __pos)
   {
 LABEL_11:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __str);
   }
 
   v6 = size - __pos;
@@ -4823,41 +4726,41 @@ int std::string::compare(const std::string *this, const std::string::value_type 
       goto LABEL_15;
     }
 
-    v6 = this;
+    v7 = this;
     this = this->__r_.__value_.__r.__words[0];
-    size = v6->__r_.__value_.__l.__size_;
+    size = v7->__r_.__value_.__l.__size_;
   }
 
   else if (v4 == -1)
   {
 LABEL_15:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](v4, v5);
   }
 
   if (size >= v4)
   {
-    v7 = v4;
+    v8 = v4;
   }
 
   else
   {
-    v7 = size;
+    v8 = size;
   }
 
   if (size < v4)
   {
-    v8 = -1;
+    v9 = -1;
   }
 
   else
   {
-    v8 = size > v4;
+    v9 = size > v4;
   }
 
-  result = memcmp(this, __s, v7);
+  result = memcmp(this, __s, v8);
   if (!result)
   {
-    return v8;
+    return v9;
   }
 
   return result;
@@ -4871,7 +4774,7 @@ int std::string::compare(const std::string *this, std::string::size_type __pos1,
     if (__n2 == -1 || (size = this->__r_.__value_.__l.__size_, v6 = size >= __pos1, v7 = size - __pos1, !v6))
     {
 LABEL_23:
-      std::string::__throw_out_of_range[abi:ne200100]();
+      std::string::__throw_out_of_range[abi:ne200100](this, __pos1);
     }
 
     if (v7 >= __n1)
@@ -4934,18 +4837,18 @@ LABEL_23:
 int std::string::compare(const std::string *this, std::string::size_type __pos1, std::string::size_type __n1, const std::string::value_type *__s)
 {
   v8 = strlen(__s);
-  v9 = SHIBYTE(this->__r_.__value_.__r.__words[2]);
-  if ((v9 & 0x8000000000000000) != 0)
+  v10 = SHIBYTE(this->__r_.__value_.__r.__words[2]);
+  if ((v10 & 0x8000000000000000) != 0)
   {
-    if (v8 == -1 || (size = this->__r_.__value_.__l.__size_, v10 = size >= __pos1, v11 = size - __pos1, !v10))
+    if (v8 == -1 || (size = this->__r_.__value_.__l.__size_, v11 = size >= __pos1, v12 = size - __pos1, !v11))
     {
 LABEL_23:
-      std::string::__throw_out_of_range[abi:ne200100]();
+      std::string::__throw_out_of_range[abi:ne200100](v8, v9);
     }
 
-    if (v11 >= __n1)
+    if (v12 >= __n1)
     {
-      v11 = __n1;
+      v12 = __n1;
     }
 
     this = this->__r_.__value_.__r.__words[0];
@@ -4958,43 +4861,43 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v10 = v9 >= __pos1;
-    v11 = v9 - __pos1;
-    if (!v10)
+    v11 = v10 >= __pos1;
+    v12 = v10 - __pos1;
+    if (!v11)
     {
       goto LABEL_23;
     }
 
-    if (v11 >= __n1)
+    if (v12 >= __n1)
     {
-      v11 = __n1;
+      v12 = __n1;
     }
   }
 
-  if (v11 >= v8)
+  if (v12 >= v8)
   {
-    v13 = v8;
+    v14 = v8;
   }
 
   else
   {
-    v13 = v11;
+    v14 = v12;
   }
 
-  if (v11 < v8)
+  if (v12 < v8)
   {
-    v14 = -1;
+    v15 = -1;
   }
 
   else
   {
-    v14 = v11 > v8;
+    v15 = v12 > v8;
   }
 
-  result = memcmp(this + __pos1, __s, v13);
+  result = memcmp(this + __pos1, __s, v14);
   if (!result)
   {
-    return v14;
+    return v15;
   }
 
   return result;
@@ -5015,7 +4918,7 @@ std::string::reference std::string::at(std::string *this, std::string::size_type
 
   if (size <= __n)
   {
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __n);
   }
 
   if ((v2 & 0x80000000) != 0)
@@ -5283,7 +5186,7 @@ std::string *__cdecl std::string::replace(std::string *this, std::string::size_t
   else if (size < __pos2)
   {
 LABEL_11:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos1);
   }
 
   v8 = size - __pos2;
@@ -5400,7 +5303,7 @@ std::string *__cdecl std::string::insert(std::string *this, std::string::size_ty
   else if (size < __pos2)
   {
 LABEL_11:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos1);
   }
 
   v7 = size - __pos2;
@@ -5447,7 +5350,7 @@ std::wstring *__cdecl std::wstring::replace(std::wstring *this, std::wstring::si
     }
 
 LABEL_39:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   v10 = size - __pos;
@@ -5550,45 +5453,40 @@ void std::wstring::__grow_by_and_replace(std::wstring *this, std::wstring::size_
 {
   if (0x3FFFFFFFFFFFFFF6 - __old_cap >= __delta_cap)
   {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v8 = this->__r_.__value_.__r.__words[0];
-    }
-
-    v9 = __delta_cap + __old_cap;
+    v8 = __delta_cap + __old_cap;
     if (__delta_cap + __old_cap <= 2 * __old_cap)
     {
-      v9 = 2 * __old_cap;
+      v8 = 2 * __old_cap;
     }
 
-    if ((v9 | 1) == 5)
+    if ((v8 | 1) == 5)
     {
-      v10 = 7;
+      v9 = 7;
     }
 
     else
     {
-      v10 = (v9 | 1) + 1;
+      v9 = (v8 | 1) + 1;
     }
 
-    v11 = v9 >= 5;
-    v12 = 5;
-    if (v11)
+    v10 = v8 >= 5;
+    v11 = 5;
+    if (v10)
     {
-      v12 = v10;
+      v11 = v9;
     }
 
     if (__old_cap > 0x1FFFFFFFFFFFFFF2)
     {
-      v13 = 0x3FFFFFFFFFFFFFF7;
+      v12 = 0x3FFFFFFFFFFFFFF7;
     }
 
     else
     {
-      v13 = v12;
+      v12 = v11;
     }
 
-    std::allocator<wchar_t>::allocate_at_least[abi:ne200100](this, v13);
+    std::allocator<wchar_t>::allocate_at_least[abi:ne200100](this, v12);
   }
 
   std::string::__throw_length_error[abi:ne200100]();
@@ -5916,7 +5814,7 @@ std::wstring *__cdecl std::wstring::insert(std::wstring *this, std::wstring::siz
 
   if (size < __pos)
   {
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   if (__n)
@@ -6061,7 +5959,7 @@ std::wstring::const_reference std::wstring::at(const std::wstring *this, std::ws
 
   if (size <= __n)
   {
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __n);
   }
 
   if ((v2 & 0x80000000) != 0)
@@ -6086,7 +5984,7 @@ std::wstring *__cdecl std::wstring::insert(std::wstring *this, std::wstring::siz
     }
 
 LABEL_24:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   size = this->__r_.__value_.__l.__size_;
@@ -6227,7 +6125,7 @@ std::wstring *__cdecl std::wstring::replace(std::wstring *this, std::wstring::si
     }
 
 LABEL_34:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   v10 = size - __pos;
@@ -6444,7 +6342,7 @@ const void **std::wstring::__shrink_or_extend[abi:ne200100](const void **__dst, 
   }
 
   v9 = __CFADD__(v5, 1);
-  v10 = v5 + 1;
+  v10 = (v5 + 1);
   if (!v9)
   {
     __dst = memmove(__dst, v8, 4 * v10);
@@ -6532,7 +6430,7 @@ std::wstring *__cdecl std::wstring::assign(std::wstring *this, const std::wstrin
   else if (size < __pos)
   {
 LABEL_11:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __str);
   }
 
   v6 = size - __pos;
@@ -6557,7 +6455,7 @@ std::wstring::size_type std::wstring::copy(const std::wstring *this, std::wstrin
     if (!v5)
     {
 LABEL_17:
-      std::string::__throw_out_of_range[abi:ne200100]();
+      std::string::__throw_out_of_range[abi:ne200100](this, __s);
     }
 
     if (v10 >= __n)
@@ -6624,7 +6522,7 @@ std::wstring *__cdecl std::wstring::basic_string(std::wstring *this, const std::
   else if (size < __pos)
   {
 LABEL_19:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __str);
   }
 
   v8 = size - __pos;
@@ -6805,45 +6703,40 @@ void std::wstring::__grow_by(std::wstring *this, std::wstring::size_type __old_c
 {
   if (0x3FFFFFFFFFFFFFF7 - __old_cap >= __delta_cap)
   {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      v7 = this->__r_.__value_.__r.__words[0];
-    }
-
-    v8 = __delta_cap + __old_cap;
+    v7 = __delta_cap + __old_cap;
     if (__delta_cap + __old_cap <= 2 * __old_cap)
     {
-      v8 = 2 * __old_cap;
+      v7 = 2 * __old_cap;
     }
 
-    if ((v8 | 1) == 5)
+    if ((v7 | 1) == 5)
     {
-      v9 = 7;
+      v8 = 7;
     }
 
     else
     {
-      v9 = (v8 | 1) + 1;
+      v8 = (v7 | 1) + 1;
     }
 
-    v10 = v8 >= 5;
-    v11 = 5;
-    if (v10)
+    v9 = v7 >= 5;
+    v10 = 5;
+    if (v9)
     {
-      v11 = v9;
+      v10 = v8;
     }
 
     if (__old_cap <= 0x1FFFFFFFFFFFFFF2)
     {
-      v12 = v11;
+      v11 = v10;
     }
 
     else
     {
-      v12 = 0x3FFFFFFFFFFFFFF7;
+      v11 = 0x3FFFFFFFFFFFFFF7;
     }
 
-    std::allocator<wchar_t>::allocate_at_least[abi:ne200100](this, v12);
+    std::allocator<wchar_t>::allocate_at_least[abi:ne200100](this, v11);
   }
 
   std::string::__throw_length_error[abi:ne200100]();
@@ -7116,7 +7009,7 @@ std::wstring *__cdecl std::wstring::erase(std::wstring *this, std::wstring::size
 
   if (size < __pos)
   {
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos);
   }
 
   if (__n == -1)
@@ -7205,7 +7098,7 @@ std::wstring *__cdecl std::wstring::append(std::wstring *this, const std::wstrin
   else if (size < __pos)
   {
 LABEL_12:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __str);
   }
 
   v6 = (__str + 4 * __pos);
@@ -7226,7 +7119,7 @@ LABEL_12:
 int std::wstring::compare(const std::wstring *this, const std::wstring::value_type *__s)
 {
   v4 = wcslen(__s);
-  v5 = v4;
+  v6 = v4;
   size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
   if ((size & 0x8000000000000000) != 0)
   {
@@ -7235,37 +7128,37 @@ int std::wstring::compare(const std::wstring *this, const std::wstring::value_ty
       goto LABEL_15;
     }
 
-    v7 = this;
+    v8 = this;
     this = this->__r_.__value_.__r.__words[0];
-    size = v7->__r_.__value_.__l.__size_;
+    size = v8->__r_.__value_.__l.__size_;
   }
 
   else if (v4 == -1)
   {
 LABEL_15:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](v4, v5);
   }
 
   if (size >= v4)
   {
-    v8 = v4;
+    v9 = v4;
   }
 
   else
   {
-    v8 = size;
+    v9 = size;
   }
 
-  if (!v8 || (result = wmemcmp(this, __s, v8)) == 0)
+  if (!v9 || (result = wmemcmp(this, __s, v9)) == 0)
   {
-    if (size < v5)
+    if (size < v6)
     {
       return -1;
     }
 
     else
     {
-      return size > v5;
+      return size > v6;
     }
   }
 
@@ -7280,7 +7173,7 @@ int std::wstring::compare(const std::wstring *this, std::wstring::size_type __po
     if (__n2 == -1 || (size = this->__r_.__value_.__l.__size_, v7 = size >= __pos1, v11 = size - __pos1, !v7))
     {
 LABEL_24:
-      std::string::__throw_out_of_range[abi:ne200100]();
+      std::string::__throw_out_of_range[abi:ne200100](this, __pos1);
     }
 
     if (v11 >= __n1)
@@ -7350,19 +7243,19 @@ LABEL_24:
 int std::wstring::compare(const std::wstring *this, std::wstring::size_type __pos1, std::wstring::size_type __n1, const std::wstring::value_type *__s)
 {
   v8 = wcslen(__s);
-  v9 = v8;
-  v10 = SHIBYTE(this->__r_.__value_.__r.__words[2]);
-  if ((v10 & 0x8000000000000000) != 0)
+  v10 = v8;
+  v11 = SHIBYTE(this->__r_.__value_.__r.__words[2]);
+  if ((v11 & 0x8000000000000000) != 0)
   {
-    if (v8 == -1 || (size = this->__r_.__value_.__l.__size_, v11 = size >= __pos1, v14 = size - __pos1, !v11))
+    if (v8 == -1 || (size = this->__r_.__value_.__l.__size_, v12 = size >= __pos1, v15 = size - __pos1, !v12))
     {
 LABEL_23:
-      std::string::__throw_out_of_range[abi:ne200100]();
+      std::string::__throw_out_of_range[abi:ne200100](v8, v9);
     }
 
-    if (v14 < __n1)
+    if (v15 < __n1)
     {
-      __n1 = v14;
+      __n1 = v15;
     }
 
     this = this->__r_.__value_.__r.__words[0];
@@ -7375,39 +7268,39 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v11 = v10 >= __pos1;
-    v12 = v10 - __pos1;
-    if (!v11)
+    v12 = v11 >= __pos1;
+    v13 = v11 - __pos1;
+    if (!v12)
     {
       goto LABEL_23;
     }
 
-    if (v12 < __n1)
+    if (v13 < __n1)
     {
-      __n1 = v12;
+      __n1 = v13;
     }
   }
 
   if (__n1 >= v8)
   {
-    v15 = v8;
+    v16 = v8;
   }
 
   else
   {
-    v15 = __n1;
+    v16 = __n1;
   }
 
-  if (!v15 || (result = wmemcmp(this + __pos1, __s, v15)) == 0)
+  if (!v16 || (result = wmemcmp(this + __pos1, __s, v16)) == 0)
   {
-    if (__n1 < v9)
+    if (__n1 < v10)
     {
       return -1;
     }
 
     else
     {
-      return __n1 > v9;
+      return __n1 > v10;
     }
   }
 
@@ -7429,7 +7322,7 @@ std::wstring::reference std::wstring::at(std::wstring *this, std::wstring::size_
 
   if (size <= __n)
   {
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __n);
   }
 
   if ((v2 & 0x80000000) != 0)
@@ -7684,7 +7577,7 @@ std::wstring *__cdecl std::wstring::replace(std::wstring *this, std::wstring::si
   else if (size < __pos2)
   {
 LABEL_12:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos1);
   }
 
   v8 = (__str + 4 * __pos2);
@@ -7807,7 +7700,7 @@ std::wstring *__cdecl std::wstring::insert(std::wstring *this, std::wstring::siz
   else if (size < __pos2)
   {
 LABEL_12:
-    std::string::__throw_out_of_range[abi:ne200100]();
+    std::string::__throw_out_of_range[abi:ne200100](this, __pos1);
   }
 
   v7 = (__str + 4 * __pos2);
@@ -7825,7 +7718,7 @@ LABEL_12:
   return std::wstring::insert(this, __pos1, v7, v9);
 }
 
-uint64_t std::operator+<char>@<X0>(const char *a1@<X0>, const void **a2@<X1>, void **a3@<X8>)
+void *std::operator+<char>@<X0>(const char *a1@<X0>, const void ***a2@<X1>, void ***a3@<X8>)
 {
   v6 = strlen(a1);
   v7 = v6;
@@ -7953,22 +7846,22 @@ int std::stoi(const std::string *__str, size_t *__idx, int __base)
   return v7;
 }
 
-void sub_1922B05A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B05A0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -7982,13 +7875,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -8032,7 +7925,7 @@ void sub_1922B0770(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (a14 < 0)
   {
-    std::stoi(&a9);
+    std::stoi();
   }
 
   _Unwind_Resume(exception_object);
@@ -8162,16 +8055,16 @@ unint64_t std::stoul(const std::string *__str, size_t *__idx, int __base)
   return v7;
 }
 
-void sub_1922B0980(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B0980(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8301,16 +8194,16 @@ uint64_t std::stoll(const std::string *__str, size_t *__idx, int __base)
   return v7;
 }
 
-void sub_1922B0BC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B0BC8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8440,16 +8333,16 @@ unint64_t std::stoull(const std::string *__str, size_t *__idx, int __base)
   return v7;
 }
 
-void sub_1922B0E10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B0E10(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8579,16 +8472,16 @@ float std::stof(const std::string *__str, size_t *__idx)
   return v5;
 }
 
-void sub_1922B1058(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B1058(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8718,16 +8611,16 @@ double std::stod(const std::string *__str, size_t *__idx)
   return v5;
 }
 
-void sub_1922B12A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B12A0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8857,16 +8750,16 @@ long double std::stold(const std::string *__str, size_t *__idx)
   return v5;
 }
 
-void sub_1922B14E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B14E8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8956,16 +8849,16 @@ int std::stoi(const std::wstring *__str, size_t *__idx, int __base)
   return v7;
 }
 
-void sub_1922B16BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B16BC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a12) < 0)
   {
-    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a10, a12 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9011,7 +8904,7 @@ void sub_1922B17D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (a14 < 0)
   {
-    std::stoi(&a9);
+    std::stoi();
   }
 
   _Unwind_Resume(exception_object);
@@ -9141,16 +9034,16 @@ unint64_t std::stoul(const std::wstring *__str, size_t *__idx, int __base)
   return v7;
 }
 
-void sub_1922B19EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B19EC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9280,16 +9173,16 @@ uint64_t std::stoll(const std::wstring *__str, size_t *__idx, int __base)
   return v7;
 }
 
-void sub_1922B1C38(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B1C38(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9419,16 +9312,16 @@ unint64_t std::stoull(const std::wstring *__str, size_t *__idx, int __base)
   return v7;
 }
 
-void sub_1922B1E84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B1E84(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9558,16 +9451,16 @@ float std::stof(const std::wstring *__str, size_t *__idx)
   return v5;
 }
 
-void sub_1922B20D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B20D0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9697,16 +9590,16 @@ double std::stod(const std::wstring *__str, size_t *__idx)
   return v5;
 }
 
-void sub_1922B231C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B231C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9836,16 +9729,16 @@ long double std::stold(const std::wstring *__str, size_t *__idx)
   return v5;
 }
 
-void sub_1922B2568(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1922B2568(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
-    std::stoi(&a13);
+    std::stoi();
   }
 
   if (SHIBYTE(a11) < 0)
   {
-    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a9, a11 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9853,22 +9746,179 @@ void sub_1922B2568(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *__cdecl std::to_string(std::string *__return_ptr retstr, int __val)
 {
+  v10 = *MEMORY[0x1E69E9840];
+  p_src = &__src;
+  v5 = &v10;
+  if (__val < 0)
+  {
+    p_src = &v9;
+    __src = 45;
+    __val = -__val;
+  }
+
+  if (&v10 - p_src > 9 || (v6 = (1233 * (32 - __clz(__val | 1))) >> 12, &v10 - p_src >= (((__PAIR64__(v6, __val) - std::__itoa::__pow10_32[v6]) >> 32) + 1)))
+  {
+    v5 = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val);
+  }
+
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, &__src, v5, v5 - &__src);
+}
+
+std::string *__cdecl std::to_string(std::string *__return_ptr retstr, uint64_t __val)
+{
   v11 = *MEMORY[0x1E69E9840];
   p_src = &__src;
   v5 = &v11;
   if (__val < 0)
   {
-    p_src = &v10;
+    p_src = v10;
     __src = 45;
     __val = -__val;
   }
 
-  if (&v11 - p_src > 9 || (v6 = (1233 * (32 - __clz(__val | 1))) >> 12, &v11 - p_src >= (((__PAIR64__(v6, __val) - std::__itoa::__pow10_32[v6]) >> 32) + 1)))
+  if (&v11 - p_src > 19 || (v6 = (1233 * (64 - __clz(__val | 1))) >> 12, &v11 - p_src >= v6 - (std::__itoa::__pow10_64[v6] > __val) + 1))
   {
-    v5 = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val);
+    if (HIDWORD(__val))
+    {
+      if (__val > 0x2540BE3FFLL)
+      {
+        p_src = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val / 0x2540BE400uLL);
+        __val %= 0x2540BE400uLL;
+      }
+
+      *p_src = std::__itoa::__digits_base_10[__val / 0x5F5E100uLL];
+      v7 = __val % 0x5F5E100uLL;
+      *(p_src + 1) = std::__itoa::__digits_base_10[v7 / 0xF4240uLL];
+      v7 %= 0xF4240u;
+      *(p_src + 2) = std::__itoa::__digits_base_10[v7 / 0x2710uLL];
+      v7 %= 0x2710u;
+      *(p_src + 3) = std::__itoa::__digits_base_10[v7 / 0x64u];
+      *(p_src + 4) = std::__itoa::__digits_base_10[v7 % 0x64u];
+      v5 = p_src + 10;
+    }
+
+    else
+    {
+      v5 = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val);
+    }
   }
 
-  result = std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, &__src, v5, v5 - &__src);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, &__src, v5, v5 - &__src);
+}
+
+{
+  v11 = *MEMORY[0x1E69E9840];
+  p_src = &__src;
+  v5 = &v11;
+  if (__val < 0)
+  {
+    p_src = v10;
+    __src = 45;
+    __val = -__val;
+  }
+
+  if (&v11 - p_src > 19 || (v6 = (1233 * (64 - __clz(__val | 1))) >> 12, &v11 - p_src >= v6 - (std::__itoa::__pow10_64[v6] > __val) + 1))
+  {
+    if (HIDWORD(__val))
+    {
+      if (__val > 0x2540BE3FFLL)
+      {
+        p_src = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val / 0x2540BE400uLL);
+        __val %= 0x2540BE400uLL;
+      }
+
+      *p_src = std::__itoa::__digits_base_10[__val / 0x5F5E100uLL];
+      v7 = __val % 0x5F5E100uLL;
+      *(p_src + 1) = std::__itoa::__digits_base_10[v7 / 0xF4240uLL];
+      v7 %= 0xF4240u;
+      *(p_src + 2) = std::__itoa::__digits_base_10[v7 / 0x2710uLL];
+      v7 %= 0x2710u;
+      *(p_src + 3) = std::__itoa::__digits_base_10[v7 / 0x64u];
+      *(p_src + 4) = std::__itoa::__digits_base_10[v7 % 0x64u];
+      v5 = p_src + 10;
+    }
+
+    else
+    {
+      v5 = std::__itoa::__base_10_u32[abi:ne200100](p_src, __val);
+    }
+  }
+
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, &__src, v5, v5 - &__src);
+}
+
+std::string *__cdecl std::to_string(std::string *__return_ptr retstr, unsigned int __val)
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val);
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, __src, v3, v3 - __src);
+}
+
+std::string *__cdecl std::to_string(std::string *__return_ptr retstr, unint64_t __val)
+{
+  v2 = __val;
+  v9 = *MEMORY[0x1E69E9840];
+  if (HIDWORD(__val))
+  {
+    if (__val <= 0x2540BE3FFLL)
+    {
+      v5 = __src;
+    }
+
+    else
+    {
+      v5 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val / 0x2540BE400);
+      v2 %= 0x2540BE400uLL;
+    }
+
+    *v5 = std::__itoa::__digits_base_10[v2 / 0x5F5E100];
+    *(v5 + 1) = std::__itoa::__digits_base_10[v2 % 0x5F5E100 / 0xF4240];
+    v6 = v2 % 0x5F5E100 % 0xF4240;
+    *(v5 + 2) = std::__itoa::__digits_base_10[v6 / 0x2710uLL];
+    v6 %= 0x2710u;
+    *(v5 + 3) = std::__itoa::__digits_base_10[v6 / 0x64u];
+    *(v5 + 4) = std::__itoa::__digits_base_10[v6 % 0x64u];
+    v4 = v5 + 10;
+  }
+
+  else
+  {
+    v4 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val);
+  }
+
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, __src, v4, v4 - __src);
+}
+
+{
+  v2 = __val;
+  v9 = *MEMORY[0x1E69E9840];
+  if (HIDWORD(__val))
+  {
+    if (__val <= 0x2540BE3FFLL)
+    {
+      v5 = __src;
+    }
+
+    else
+    {
+      v5 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val / 0x2540BE400);
+      v2 %= 0x2540BE400uLL;
+    }
+
+    *v5 = std::__itoa::__digits_base_10[v2 / 0x5F5E100];
+    *(v5 + 1) = std::__itoa::__digits_base_10[v2 % 0x5F5E100 / 0xF4240];
+    v6 = v2 % 0x5F5E100 % 0xF4240;
+    *(v5 + 2) = std::__itoa::__digits_base_10[v6 / 0x2710uLL];
+    v6 %= 0x2710u;
+    *(v5 + 3) = std::__itoa::__digits_base_10[v6 / 0x64u];
+    *(v5 + 4) = std::__itoa::__digits_base_10[v6 % 0x64u];
+    v4 = v5 + 10;
+  }
+
+  else
+  {
+    v4 = std::__itoa::__base_10_u32[abi:ne200100](__src, __val);
+  }
+
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(retstr, __src, v4, v4 - __src);
 }

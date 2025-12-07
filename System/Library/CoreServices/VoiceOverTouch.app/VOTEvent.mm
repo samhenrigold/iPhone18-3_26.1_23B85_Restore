@@ -131,9 +131,11 @@
 
   else
   {
-    self->_info = [info copyWithZone:0];
+    v5 = [info copyWithZone:0];
+    v6 = self->_info;
+    self->_info = v5;
 
-    _objc_release_x1();
+    _objc_release_x1(v5, v6);
   }
 }
 

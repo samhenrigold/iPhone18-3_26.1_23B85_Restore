@@ -108,20 +108,19 @@ void __36__MTAccountController_activeAccount__block_invoke(uint64_t a1)
   dispatch_async(accountQueue, v7);
 }
 
-void __40__MTAccountController_setActiveAccount___block_invoke(uint64_t a1)
+void __40__MTAccountController_setActiveAccount___block_invoke(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = _MTLogCategoryDefault();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _MTLogCategoryDefault();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_25E9F0000, v2, OS_LOG_TYPE_DEFAULT, "MTAccountController: Setting active account: %@", &v5, 0xCu);
+    v6 = v4;
+    _os_log_impl(&dword_25E9F0000, v3, OS_LOG_TYPE_DEFAULT, "MTAccountController: Setting active account: %@", &v5, 0xCu);
   }
 
   objc_storeStrong((*(a1 + 40) + 56), *(a1 + 32));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPrimaryUserActiveAccount
@@ -262,26 +261,26 @@ void __56__MTAccountController_fetchActiveAccountWithCompletion___block_invoke(u
   dispatch_async(accountQueue, v7);
 }
 
-void __43__MTAccountController__updateActiveAccount__block_invoke(uint64_t a1)
+void __43__MTAccountController__updateActiveAccount__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _MTLogCategoryDefault();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _MTLogCategoryDefault();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_25E9F0000, v2, OS_LOG_TYPE_DEFAULT, "MTAccountController: updating active account", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_25E9F0000, v3, OS_LOG_TYPE_DEFAULT, "MTAccountController: updating active account", v8, 2u);
   }
 
-  v3 = [*(a1 + 32) _activeAccountBlocking];
-  v4 = [v3 ams_DSID];
-  v5 = [v4 stringValue];
+  v4 = [*(a1 + 32) _activeAccountBlocking];
+  v5 = [v4 ams_DSID];
+  v6 = [v5 stringValue];
 
-  v6 = *(a1 + 40);
-  if (v6 | v5 && ([v6 isEqualToString:v5] & 1) == 0)
+  v7 = *(a1 + 40);
+  if (v7 | v6 && ([v7 isEqualToString:v6] & 1) == 0)
   {
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_8);
   }
 
-  [*(a1 + 32) setActiveAccount:v3];
+  [*(a1 + 32) setActiveAccount:v4];
   [*(a1 + 32) setHasFetchedInitialAccount:1];
 }
 

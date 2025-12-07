@@ -27,7 +27,7 @@
 - (void)smartInvertDidChange
 {
   selfCopy = self;
-  sub_1000C9724();
+  sub_1000C9724(selfCopy, v2);
 }
 
 - (void)didTapSelectorView
@@ -35,18 +35,19 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8AppStore20PlatformSelectorView_didSelectHandler);
   if (v2)
   {
+    v3 = *&self->descriptionWithBadgesAsHeadingLabel[OBJC_IVAR____TtC8AppStore20PlatformSelectorView_didSelectHandler];
     selfCopy = self;
-    v4 = sub_10000827C(v2);
-    v2(v4);
+    v5 = sub_10000827C(v2, v3);
+    v2(v5);
 
-    sub_10001F63C(v2);
+    sub_10001F63C(v2, v3);
   }
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000C9E30();
+  sub_1000C9E30(selfCopy, v2);
 }
 
 - (_TtC11AppStoreKit16DynamicTypeLabel)accessibilityDescriptionLabel

@@ -715,16 +715,16 @@ void __46__PKAddPassesViewController__aquireAssertions__block_invoke_2(uint64_t 
   }
 }
 
-void __46__PKAddPassesViewController__aquireAssertions__block_invoke_3(uint64_t a1)
+void __46__PKAddPassesViewController__aquireAssertions__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v4 = 138412290;
-    v5 = WeakRetained;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Assertion Invalidated: %@", &v4, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Assertion Invalidated: %@", &v5, 0xCu);
   }
 }
 

@@ -68,7 +68,7 @@
   }
 
   swift_beginAccess();
-  sub_1A7CC7FFC(&qword_1EB2B7260);
+  sub_1A7CC7FFC(&qword_1EB2B7260, &qword_1A7E4F818);
   sub_1A7DAB35C();
   v5 = sub_1A7E215E0();
   v7 = v6;

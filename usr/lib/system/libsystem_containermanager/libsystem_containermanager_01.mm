@@ -1,6 +1,6 @@
 uint64_t __container_frozenset_enumerate_matches_block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  if (MEMORY[0x1E12D2570](a3) == MEMORY[0x1E69E9F10])
+  if (MEMORY[0x1E12D2570](a3, a2) == MEMORY[0x1E69E9F10])
   {
     string_ptr = xpc_string_get_string_ptr(a3);
   }
@@ -21,9 +21,9 @@ uint64_t __container_frozenset_enumerate_matches_block_invoke(void *a1, uint64_t
 
 BOOL container_fs_item_exists_at(int a1, const char *a2, int *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  memset(&v10, 0, sizeof(v10));
-  v5 = fstatat(a1, a2, &v10, 32);
+  v14 = *MEMORY[0x1E69E9840];
+  memset(&v9, 0, sizeof(v9));
+  v5 = fstatat(a1, a2, &v9, 32);
   if (a3)
   {
     *a3 = *__error();
@@ -36,28 +36,26 @@ BOOL container_fs_item_exists_at(int a1, const char *a2, int *a3)
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v6 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+    v6 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
     {
-      v9 = *__error();
+      v8 = *__error();
       *buf = 136380931;
-      v12 = a2;
-      v13 = 1024;
-      v14 = v9;
+      v11 = a2;
+      v12 = 1024;
+      v13 = v8;
       _os_log_error_impl(&dword_1DF28A000, v6, OS_LOG_TYPE_ERROR, "Failed to determine if %{private}s exists: %{darwin.errno}d", buf, 0x12u);
     }
   }
 
-  result = v5 == 0;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 == 0;
 }
 
 BOOL container_fs_item_exists(const char *a1, int *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  memset(&v9, 0, sizeof(v9));
-  v4 = lstat(a1, &v9);
+  v13 = *MEMORY[0x1E69E9840];
+  memset(&v8, 0, sizeof(v8));
+  v4 = lstat(a1, &v8);
   if (a2)
   {
     *a2 = *__error();
@@ -73,18 +71,16 @@ BOOL container_fs_item_exists(const char *a1, int *a2)
     v5 = container_log_handle_for_category_logHandles[0];
     if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
     {
-      v8 = *__error();
+      v7 = *__error();
       *buf = 136380931;
-      v11 = a1;
-      v12 = 1024;
-      v13 = v8;
+      v10 = a1;
+      v11 = 1024;
+      v12 = v7;
       _os_log_error_impl(&dword_1DF28A000, v5, OS_LOG_TYPE_ERROR, "Failed to determine if %{private}s exists: %{darwin.errno}d", buf, 0x12u);
     }
   }
 
-  result = v4 == 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4 == 0;
 }
 
 uint64_t container_fs_load_plist_at(uint64_t a1, uint64_t a2)
@@ -588,13 +584,13 @@ LABEL_14:
 
 xpc_object_t container_client_copy_encoded_xpc_object(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v3 = xpc_uint64_create(*a1);
     __s = v3;
     v4 = xpc_string_create(*(a1 + 8));
-    v29 = v4;
+    v28 = v4;
     v5 = *(a1 + 16);
     if (v5)
     {
@@ -606,9 +602,9 @@ xpc_object_t container_client_copy_encoded_xpc_object(uint64_t a1, void *a2)
       v6 = 0;
     }
 
-    v28 = v6;
+    v27 = v6;
     v10 = xpc_uint64_create(*(a1 + 24));
-    v27 = v10;
+    v26 = v10;
     v11 = *(a1 + 32);
     if (v11)
     {
@@ -620,15 +616,15 @@ xpc_object_t container_client_copy_encoded_xpc_object(uint64_t a1, void *a2)
       v12 = 0;
     }
 
-    v26 = v12;
+    v25 = v12;
     v13 = xpc_uint64_create(*(a1 + 40));
-    v25 = v13;
+    v24 = v13;
     v14 = xpc_uint64_create(*(a1 + 44));
-    v24 = v14;
+    v23 = v14;
     v15 = xpc_data_create((a1 + 48), 0x20uLL);
-    v23 = v15;
+    v22 = v15;
     v16 = xpc_int64_create(*(a1 + 80));
-    v22 = v16;
+    v21 = v16;
     v17 = *(a1 + 88);
     if (v17)
     {
@@ -640,12 +636,12 @@ xpc_object_t container_client_copy_encoded_xpc_object(uint64_t a1, void *a2)
       v18 = 0;
     }
 
-    v21 = v18;
-    v35 = xmmword_1E86ADEB0;
-    v36 = *&off_1E86ADEC0;
-    v37 = xmmword_1E86ADED0;
+    v20 = v18;
+    v34 = xmmword_1E86ADEB0;
+    v35 = *&off_1E86ADEC0;
+    v36 = xmmword_1E86ADED0;
     *keys = xmmword_1E86ADE90;
-    v34 = *&off_1E86ADEA0;
+    v33 = *&off_1E86ADEA0;
     values[0] = v3;
     values[1] = v4;
     values[2] = v6;
@@ -656,7 +652,7 @@ xpc_object_t container_client_copy_encoded_xpc_object(uint64_t a1, void *a2)
     values[7] = v15;
     values[8] = v16;
     values[9] = v18;
-    v20 = xpc_dictionary_create(keys, values, 0xAuLL);
+    v19 = xpc_dictionary_create(keys, values, 0xAuLL);
     if (v3)
     {
       xpc_release(v3);
@@ -666,58 +662,58 @@ xpc_object_t container_client_copy_encoded_xpc_object(uint64_t a1, void *a2)
     if (v4)
     {
       xpc_release(v4);
-      memset_s(&v29, 8uLL, 0, 8uLL);
+      memset_s(&v28, 8uLL, 0, 8uLL);
     }
 
     if (v6)
     {
       xpc_release(v6);
-      memset_s(&v28, 8uLL, 0, 8uLL);
+      memset_s(&v27, 8uLL, 0, 8uLL);
     }
 
     if (v10)
     {
       xpc_release(v10);
-      memset_s(&v27, 8uLL, 0, 8uLL);
+      memset_s(&v26, 8uLL, 0, 8uLL);
     }
 
     if (v12)
     {
       xpc_release(v12);
-      memset_s(&v26, 8uLL, 0, 8uLL);
+      memset_s(&v25, 8uLL, 0, 8uLL);
     }
 
     if (v13)
     {
       xpc_release(v13);
-      memset_s(&v25, 8uLL, 0, 8uLL);
+      memset_s(&v24, 8uLL, 0, 8uLL);
     }
 
     if (v14)
     {
       xpc_release(v14);
-      memset_s(&v24, 8uLL, 0, 8uLL);
+      memset_s(&v23, 8uLL, 0, 8uLL);
     }
 
     if (v15)
     {
       xpc_release(v15);
-      memset_s(&v23, 8uLL, 0, 8uLL);
+      memset_s(&v22, 8uLL, 0, 8uLL);
     }
 
     if (v16)
     {
       xpc_release(v16);
-      memset_s(&v22, 8uLL, 0, 8uLL);
+      memset_s(&v21, 8uLL, 0, 8uLL);
     }
 
     if (v18)
     {
       xpc_release(v18);
-      memset_s(&v21, 8uLL, 0, 8uLL);
+      memset_s(&v20, 8uLL, 0, 8uLL);
     }
 
-    result = v20;
+    return v19;
   }
 
   else
@@ -741,14 +737,13 @@ xpc_object_t container_client_copy_encoded_xpc_object(uint64_t a1, void *a2)
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *container_client_copy_decoded_from_xpc_object(void *a1, uint64_t *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v29 = 1;
+  v32 = *MEMORY[0x1E69E9840];
+  v28 = 1;
   if (!a1)
   {
     if (container_log_handle_for_category_onceToken != -1)
@@ -861,15 +856,15 @@ LABEL_24:
     }
   }
 
-  v30 = *v15;
-  v21 = v15[5];
-  v31 = v15[4];
-  v22 = *(v15 + 3);
-  *buf = v30;
-  *&buf[16] = v31;
-  *&buf[20] = v21;
-  *&buf[24] = v22;
-  status = container_codesign_get_status();
+  v29 = *v15;
+  v20 = v15[5];
+  v30 = v15[4];
+  v21 = *(v15 + 3);
+  *buf = v29;
+  *&buf[16] = v30;
+  *&buf[20] = v20;
+  *&buf[24] = v21;
+  status = container_codesign_get_status(v20, buf);
   if ((status & 0x8000000000000000) != 0)
   {
     if (container_log_handle_for_category_onceToken != -1)
@@ -877,17 +872,17 @@ LABEL_24:
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v24 = qword_1ED452B30;
+    v23 = qword_1ED452B30;
     if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_ERROR))
     {
-      v25 = *__error();
+      v24 = *__error();
       *buf = 67109634;
       *&buf[4] = int64;
       *&buf[8] = 2080;
       *&buf[10] = string;
       *&buf[18] = 1024;
-      *&buf[20] = v25;
-      _os_log_error_impl(&dword_1DF28A000, v24, OS_LOG_TYPE_ERROR, "Could not get code sign status from audit token for pid [%d] identifier [%s]: %{darwin.errno}d", buf, 0x18u);
+      *&buf[20] = v24;
+      _os_log_error_impl(&dword_1DF28A000, v23, OS_LOG_TYPE_ERROR, "Could not get code sign status from audit token for pid [%d] identifier [%s]: %{darwin.errno}d", buf, 0x18u);
     }
 
     result = 0;
@@ -898,17 +893,19 @@ LABEL_24:
   {
     *buf = *v15;
     *&buf[16] = *(v15 + 1);
-    result = container_client_initializer(uint64, string, v9, v10, v11, v12, v13, buf, int64, status & 1, (status & 2) != 0, (status & 4) != 0, object, &v29);
-    v19 = v29;
+    result = container_client_initializer(uint64, string, v9, v10, v11, v12, v13, buf, int64, status & 1, (status & 2) != 0, (status & 4) != 0, object, &v28);
+    v19 = v28;
   }
 
 LABEL_25:
-  if (a2 && v19 != 1)
+  if (a2)
   {
-    *a2 = v19;
+    if (v19 != 1)
+    {
+      *a2 = v19;
+    }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1084,10 +1081,9 @@ BOOL container_client_is_sandboxed(uint64_t a1)
 {
   if (a1)
   {
-    v1 = *MEMORY[0x1E69E9BD0];
-    v2 = *(a1 + 64);
-    v5[0] = *(a1 + 48);
-    v5[1] = v2;
+    v1 = *(a1 + 64);
+    v4[0] = *(a1 + 48);
+    v4[1] = v1;
     return sandbox_check_by_audit_token() != 0;
   }
 
@@ -1098,11 +1094,11 @@ BOOL container_client_is_sandboxed(uint64_t a1)
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v4 = qword_1ED452B30;
+    v3 = qword_1ED452B30;
     if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v5[0]) = 0;
-      _os_log_fault_impl(&dword_1DF28A000, v4, OS_LOG_TYPE_FAULT, "NULL client when fetching sandbox state", v5, 2u);
+      LOWORD(v4[0]) = 0;
+      _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "NULL client when fetching sandbox state", v4, 2u);
     }
 
     return 1;
@@ -1270,17 +1266,17 @@ void *container_paths_context_create()
 
 void container_paths_context_set_class(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 40);
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 0x40000000;
-    v5[2] = __container_paths_context_set_class_block_invoke;
-    v5[3] = &__block_descriptor_tmp_198;
-    v5[4] = a1;
-    v5[5] = a2;
-    os_activity_apply(v2, v5);
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 0x40000000;
+    v4[2] = __container_paths_context_set_class_block_invoke;
+    v4[3] = &__block_descriptor_tmp_198;
+    v4[4] = a1;
+    v4[5] = a2;
+    os_activity_apply(v2, v4);
   }
 
   else
@@ -1294,27 +1290,25 @@ void container_paths_context_set_class(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v7 = "container_paths_context_set_class";
+      v6 = "container_paths_context_set_class";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: context parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void container_paths_context_set_transient(uint64_t a1, char a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 40);
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 0x40000000;
-    v5[2] = __container_paths_context_set_transient_block_invoke;
-    v5[3] = &__block_descriptor_tmp_1;
-    v5[4] = a1;
-    v6 = a2;
-    os_activity_apply(v2, v5);
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 0x40000000;
+    v4[2] = __container_paths_context_set_transient_block_invoke;
+    v4[3] = &__block_descriptor_tmp_1;
+    v4[4] = a1;
+    v5 = a2;
+    os_activity_apply(v2, v4);
   }
 
   else
@@ -1328,27 +1322,25 @@ void container_paths_context_set_transient(uint64_t a1, char a2)
     if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v8 = "container_paths_context_set_transient";
+      v7 = "container_paths_context_set_transient";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: context parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void container_paths_context_set_flags(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 40);
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 0x40000000;
-    v5[2] = __container_paths_context_set_flags_block_invoke;
-    v5[3] = &__block_descriptor_tmp_2;
-    v5[4] = a1;
-    v5[5] = a2;
-    os_activity_apply(v2, v5);
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 0x40000000;
+    v4[2] = __container_paths_context_set_flags_block_invoke;
+    v4[3] = &__block_descriptor_tmp_2;
+    v4[4] = a1;
+    v4[5] = a2;
+    os_activity_apply(v2, v4);
   }
 
   else
@@ -1362,27 +1354,25 @@ void container_paths_context_set_flags(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v7 = "container_paths_context_set_flags";
+      v6 = "container_paths_context_set_flags";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: context parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void container_paths_context_set_persona_unique_string(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 40);
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 0x40000000;
-    v5[2] = __container_paths_context_set_persona_unique_string_block_invoke;
-    v5[3] = &__block_descriptor_tmp_3;
-    v5[4] = a1;
-    v5[5] = a2;
-    os_activity_apply(v2, v5);
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 0x40000000;
+    v4[2] = __container_paths_context_set_persona_unique_string_block_invoke;
+    v4[3] = &__block_descriptor_tmp_3;
+    v4[4] = a1;
+    v4[5] = a2;
+    os_activity_apply(v2, v4);
   }
 
   else
@@ -1396,12 +1386,10 @@ void container_paths_context_set_persona_unique_string(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v7 = "container_paths_context_set_persona_unique_string";
+      v6 = "container_paths_context_set_persona_unique_string";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: context parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 char *__container_paths_context_set_persona_unique_string_block_invoke(uint64_t a1)
@@ -1425,17 +1413,17 @@ char *__container_paths_context_set_persona_unique_string_block_invoke(uint64_t 
 
 void container_paths_context_set_uid(uint64_t a1, int a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 40);
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 0x40000000;
-    v5[2] = __container_paths_context_set_uid_block_invoke;
-    v5[3] = &__block_descriptor_tmp_4;
-    v5[4] = a1;
-    v6 = a2;
-    os_activity_apply(v2, v5);
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 0x40000000;
+    v4[2] = __container_paths_context_set_uid_block_invoke;
+    v4[3] = &__block_descriptor_tmp_4;
+    v4[4] = a1;
+    v5 = a2;
+    os_activity_apply(v2, v4);
   }
 
   else
@@ -1449,12 +1437,10 @@ void container_paths_context_set_uid(uint64_t a1, int a2)
     if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v8 = "container_paths_context_set_uid";
+      v7 = "container_paths_context_set_uid";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: context parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t container_paths_context_free(uint64_t result)
@@ -1480,11 +1466,11 @@ uint64_t container_paths_context_free(uint64_t result)
 
 uint64_t container_paths_copy_container_from_path(char *a1, char **a2, void **a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v48 = 0;
-  bzero(__s1, 0x401uLL);
-  v46 = 0;
+  v53 = *MEMORY[0x1E69E9840];
   v47 = 0;
+  bzero(__s1, 0x401uLL);
+  v45 = 0;
+  v46 = 0;
   if (!a1)
   {
     v9 = 3;
@@ -1494,10 +1480,10 @@ uint64_t container_paths_copy_container_from_path(char *a1, char **a2, void **a3
     goto LABEL_13;
   }
 
-  v6 = (gCMContainerSeam[2])(&v48);
+  v6 = (gCMContainerSeam[2])(&v47);
   if (!v6)
   {
-    __s = container_error_copy_unlocalized_description(v48);
+    __s = container_error_copy_unlocalized_description(v47);
     if (container_log_handle_for_category_onceToken != -1)
     {
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
@@ -1517,8 +1503,8 @@ uint64_t container_paths_copy_container_from_path(char *a1, char **a2, void **a3
       memset_s(&__s, 8uLL, 0, 8uLL);
     }
 
-    container_error_free(v48);
-    v48 = 0;
+    container_error_free(v47);
+    v47 = 0;
   }
 
   if ((gCMContainerSeam[3])(a1, __s1, 1024))
@@ -1533,15 +1519,15 @@ LABEL_13:
     v14 = 0;
     v15 = 0;
     v16 = 0;
-    v48 = v12;
+    v47 = v12;
     goto LABEL_14;
   }
 
   *buf = 0;
   v20 = strnlen(__s1, 0x400uLL);
   v21 = v20;
-  v23 = *__s1 == 0x657461766972702FLL && *v52 == 0x6E6F632F7261762FLL && *&v52[7] == 0x7372656E6961746ELL;
-  if (v23 && (v20 == 23 || v20 >= 0x18 && v53 == 47))
+  v23 = *__s1 == 0x657461766972702FLL && *v51 == 0x6E6F632F7261762FLL && *&v51[7] == 0x7372656E6961746ELL;
+  if (v23 && (v20 == 23 || v20 >= 0x18 && v52 == 47))
   {
     v14 = strdup("/private/var/containers");
     goto LABEL_38;
@@ -1566,13 +1552,13 @@ LABEL_37:
           memset_s(&__s, 8uLL, 0, 8uLL);
           v14 = *buf;
 LABEL_38:
-          v46 = v14;
+          v45 = v14;
           if (v14)
           {
-            v45 = a2;
+            v44 = a2;
             v29 = strnlen(v14, 0x400uLL);
             v13 = strndup(__s1, 0x400uLL);
-            v47 = v13;
+            v46 = v13;
             v15 = 0;
             v16 = &v13[strnlen(v13, 0x400uLL)];
             v17 = 0xFFFFFFFFLL;
@@ -1592,7 +1578,7 @@ LABEL_38:
 
               else
               {
-                v31 = (gCMContainerSeam[1])(v17, 0, 0, &v48);
+                v31 = (gCMContainerSeam[1])(v17, 0, 0, &v47);
                 if (v31)
                 {
                   v19 = v31;
@@ -1600,7 +1586,7 @@ LABEL_38:
                   v35 = container_object_get_class(v31);
                   if (v34(v35))
                   {
-                    a2 = v45;
+                    a2 = v44;
                     if (!strncmp(v16, "Data/", 5uLL))
                     {
                       v16 += 5;
@@ -1627,15 +1613,15 @@ LABEL_38:
                   else
                   {
                     v18 = 1;
-                    a2 = v45;
+                    a2 = v44;
                   }
 
                   goto LABEL_69;
                 }
 
-                if (v48)
+                if (v47)
                 {
-                  v15 = *(v48 + 6);
+                  v15 = *(v47 + 6);
                 }
 
                 else
@@ -1643,8 +1629,8 @@ LABEL_38:
                   v15 = 14;
                 }
 
-                container_error_free(v48);
-                v48 = 0;
+                container_error_free(v47);
+                v47 = 0;
               }
 
               if (v15 != 2 && v15 != 20)
@@ -1671,9 +1657,9 @@ LABEL_38:
             v39 = a1;
             v40 = 0;
 LABEL_67:
-            v48 = container_error_create_with_message(v37, v38, v39, v40, 0);
-            a2 = v45;
-            if (v48)
+            v47 = container_error_create_with_message(v37, v38, v39, v40, 0);
+            a2 = v44;
+            if (v47)
             {
               goto LABEL_15;
             }
@@ -1694,13 +1680,13 @@ LABEL_67:
     }
   }
 
-  v46 = 0;
+  v45 = 0;
 LABEL_59:
   v13 = 0;
   v14 = 0;
   v15 = 0;
   v16 = 0;
-  v12 = v48;
+  v12 = v47;
 LABEL_14:
   v17 = 0xFFFFFFFFLL;
   if (!v12)
@@ -1709,7 +1695,7 @@ LABEL_68:
     v41 = container_error_create_with_message(3, 21, a1, v15, 0);
     v18 = 0;
     v19 = 0;
-    v48 = v41;
+    v47 = v41;
     goto LABEL_69;
   }
 
@@ -1717,11 +1703,11 @@ LABEL_15:
   v18 = 0;
   v19 = 0;
 LABEL_69:
-  v42 = v48;
-  if (a3 && v48)
+  v42 = v47;
+  if (a3 && v47)
   {
-    *a3 = container_error_create_with_message(*(v48 + 1), *v48, *(v48 + 2), *(v48 + 6), *(v48 + 4));
-    v42 = v48;
+    *a3 = container_error_create_with_message(*(v47 + 1), *v47, *(v47 + 2), *(v47 + 6), *(v47 + 4));
+    v42 = v47;
   }
 
   container_log_ext_error("container_paths_copy_container_from_path", gClientFaultLoggingEnabled, v42);
@@ -1738,18 +1724,17 @@ LABEL_69:
   if (v14)
   {
     free(v14);
-    memset_s(&v46, 8uLL, 0, 8uLL);
-    v13 = v47;
+    memset_s(&v45, 8uLL, 0, 8uLL);
+    v13 = v46;
   }
 
   if (v13)
   {
     free(v13);
-    memset_s(&v47, 8uLL, 0, 8uLL);
+    memset_s(&v46, 8uLL, 0, 8uLL);
   }
 
-  container_error_free(v48);
-  v43 = *MEMORY[0x1E69E9840];
+  container_error_free(v47);
   return v19;
 }
 
@@ -1792,11 +1777,11 @@ char *_container_user_prefix_managed_by_containermanager_transient(const char *a
 unsigned __int8 *container_paths_copy_container_at(uint64_t a1, int a2, unsigned __int8 a3, void **a4)
 {
   v7 = a1;
-  v53 = *MEMORY[0x1E69E9840];
-  v49 = 0;
-  v50 = 0;
-  memset(uu, 0, sizeof(uu));
+  v52 = *MEMORY[0x1E69E9840];
   v48 = 0;
+  v49 = 0;
+  memset(uu, 0, sizeof(uu));
+  v47 = 0;
   plist_at = container_fs_load_plist_at(a1, ".com.apple.mobile_container_manager.metadata.plist");
   __s = plist_at;
   v9 = *__error();
@@ -1810,14 +1795,14 @@ unsigned __int8 *container_paths_copy_container_at(uint64_t a1, int a2, unsigned
       if (!string)
       {
         v12 = container_fs_path_at(v7, ".com.apple.mobile_container_manager.metadata.plist");
-        v50 = v12;
+        v49 = v12;
         if (container_log_handle_for_category_onceToken != -1)
         {
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v23 = container_log_handle_for_category_logHandles;
-        if (!os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+        v23 = container_log_handle_for_category_logHandles[0];
+        if (!os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_18;
         }
@@ -1834,14 +1819,14 @@ unsigned __int8 *container_paths_copy_container_at(uint64_t a1, int a2, unsigned
       if (uuid_parse(string, uu))
       {
         v12 = container_fs_path_at(v7, ".com.apple.mobile_container_manager.metadata.plist");
-        v50 = v12;
+        v49 = v12;
         if (container_log_handle_for_category_onceToken != -1)
         {
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v19 = container_log_handle_for_category_logHandles;
-        if (!os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+        v19 = container_log_handle_for_category_logHandles[0];
+        if (!os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_18;
         }
@@ -1863,15 +1848,15 @@ LABEL_18:
       }
 
       int64 = xpc_dictionary_get_int64(plist_at, "MCMMetadataContentClass");
-      v27 = xpc_dictionary_get_string(plist_at, "MCMMetadataIdentifier");
-      if (v27)
+      v26 = xpc_dictionary_get_string(plist_at, "MCMMetadataIdentifier");
+      if (v26)
       {
-        v28 = v27;
+        v27 = v26;
         dictionary = xpc_dictionary_get_dictionary(plist_at, "MCMMetadataUserIdentity");
-        if (dictionary && (v30 = dictionary, MEMORY[0x1E12D2570]() == v11))
+        if (dictionary && (v29 = dictionary, MEMORY[0x1E12D2570]() == v11))
         {
-          v33 = xpc_dictionary_get_string(v30, "personaUniqueString");
-          st_uid = xpc_dictionary_get_int64(v30, "posixUID");
+          v32 = xpc_dictionary_get_string(v29, "personaUniqueString");
+          st_uid = xpc_dictionary_get_int64(v29, "posixUID");
         }
 
         else
@@ -1879,29 +1864,29 @@ LABEL_18:
           value = xpc_dictionary_get_value(plist_at, "MCMMetadataPersona");
           if (value)
           {
-            v32 = xpc_uint64_get_value(value);
-            v33 = 0;
-            if (v32 == 499)
+            v31 = xpc_uint64_get_value(value);
+            v32 = 0;
+            if (v31 == 499)
             {
               st_uid = 0;
             }
 
             else
             {
-              st_uid = v32;
+              st_uid = v31;
             }
           }
 
           else if ((int64 & 0xFFFFFFFFFFFFFFFELL) == 0xC)
           {
             st_uid = 0;
-            v33 = 0;
+            v32 = 0;
           }
 
           else
           {
             memset(&buf, 0, sizeof(buf));
-            v33 = 0;
+            v32 = 0;
             if (fstat(v7, &buf))
             {
               st_uid = 0;
@@ -1914,41 +1899,41 @@ LABEL_18:
           }
         }
 
-        v38 = container_fs_path_at(v7, 0);
-        v50 = v38;
-        if (v38)
+        v37 = container_fs_path_at(v7, 0);
+        v49 = v37;
+        if (v37)
         {
-          v12 = v38;
-          v39 = rindex(v38, 47);
-          v40 = strndup(v39 + 1, 0x400uLL);
-          v49 = v40;
+          v12 = v37;
+          v38 = rindex(v37, 47);
+          v39 = strndup(v38 + 1, 0x400uLL);
+          v48 = v39;
           if (a2)
           {
-            v41 = v33;
-            v42 = xpc_dictionary_get_dictionary(plist_at, "MCMMetadataInfo");
-            if (v42)
+            v40 = v32;
+            v41 = xpc_dictionary_get_dictionary(plist_at, "MCMMetadataInfo");
+            if (v41)
             {
-              v43 = v42;
+              v42 = v41;
               v16 = 0;
             }
 
             else
             {
               v16 = xpc_dictionary_create(0, 0, 0);
-              v48 = v16;
-              v43 = v16;
+              v47 = v16;
+              v42 = v16;
             }
           }
 
           else
           {
-            v41 = v33;
+            v40 = v32;
             v16 = 0;
-            v43 = 0;
+            v42 = 0;
           }
 
-          v46 = 1;
-          v15 = container_object_create(uu, v28, int64, st_uid, v12, v40, v41, v43, 0, 0, a3, 0, 0, &v46);
+          v45 = 1;
+          v15 = container_object_create(uu, v27, int64, st_uid, v12, v39, v40, v42, 0, 0, a3, 0, 0, &v45);
           v14 = 0;
 LABEL_19:
           xpc_release(plist_at);
@@ -1956,28 +1941,28 @@ LABEL_19:
           if (v16)
           {
             xpc_release(v16);
-            memset_s(&v48, 8uLL, 0, 8uLL);
-            v12 = v50;
+            memset_s(&v47, 8uLL, 0, 8uLL);
+            v12 = v49;
           }
 
           goto LABEL_21;
         }
 
-        v44 = *__error();
+        v43 = *__error();
         if (container_log_handle_for_category_onceToken != -1)
         {
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v45 = container_log_handle_for_category_logHandles;
-        if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+        v44 = container_log_handle_for_category_logHandles[0];
+        if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
         {
           LOWORD(buf.st_dev) = 0;
-          _os_log_error_impl(&dword_1DF28A000, v45, OS_LOG_TYPE_ERROR, "Failed to get container root path.", &buf, 2u);
+          _os_log_error_impl(&dword_1DF28A000, v44, OS_LOG_TYPE_ERROR, "Failed to get container root path.", &buf, 2u);
         }
 
-        v36 = 127;
-        v37 = v44;
+        v35 = 127;
+        v36 = v43;
       }
 
       else
@@ -1987,19 +1972,19 @@ LABEL_19:
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v35 = container_log_handle_for_category_logHandles;
-        if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+        v34 = container_log_handle_for_category_logHandles[0];
+        if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
         {
           buf.st_dev = 136380675;
           *&buf.st_mode = 0;
-          _os_log_error_impl(&dword_1DF28A000, v35, OS_LOG_TYPE_ERROR, "Metadata plist [%{private}s] is missing an identifier.", &buf, 0xCu);
+          _os_log_error_impl(&dword_1DF28A000, v34, OS_LOG_TYPE_ERROR, "Metadata plist [%{private}s] is missing an identifier.", &buf, 0xCu);
         }
 
-        v36 = 108;
-        v37 = 0;
+        v35 = 108;
+        v36 = 0;
       }
 
-      v14 = container_error_create_with_message(1, v36, 0, v37, 0);
+      v14 = container_error_create_with_message(1, v35, 0, v36, 0);
       v15 = 0;
       v16 = 0;
       v12 = 0;
@@ -2008,14 +1993,14 @@ LABEL_19:
   }
 
   v12 = container_fs_path_at(v7, ".com.apple.mobile_container_manager.metadata.plist");
-  v50 = v12;
+  v49 = v12;
   if (container_log_handle_for_category_onceToken != -1)
   {
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v13 = container_log_handle_for_category_logHandles;
-  if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+  v13 = container_log_handle_for_category_logHandles[0];
+  if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
   {
     buf.st_dev = 136380931;
     *&buf.st_mode = v12;
@@ -2036,7 +2021,7 @@ LABEL_21:
   if (v12)
   {
     free(v12);
-    memset_s(&v50, 8uLL, 0, 8uLL);
+    memset_s(&v49, 8uLL, 0, 8uLL);
   }
 
   if (!v15 && a4 && v14)
@@ -2044,65 +2029,64 @@ LABEL_21:
     *a4 = container_error_create_with_message(v14[1], *v14, v14[2], *(v14 + 6), v14[4]);
   }
 
-  if (v49)
+  if (v48)
   {
-    free(v49);
-    memset_s(&v49, 8uLL, 0, 8uLL);
+    free(v48);
+    memset_s(&v48, 8uLL, 0, 8uLL);
   }
 
   container_error_free(v14);
-  v24 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 uint64_t container_paths_enumerate_containers_at(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2000000000;
-  v22 = 0;
-  v18[0] = 0;
-  v18[1] = v18;
-  v18[2] = 0x2000000000;
-  v18[3] = a2;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2000000000;
-  v17 = 0;
+  v24 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2000000000;
+  v21 = 0;
+  v17[0] = 0;
+  v17[1] = v17;
+  v17[2] = 0x2000000000;
+  v17[3] = a2;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2000000000;
+  v16 = 0;
   if (a3)
   {
     v4 = *(a3 + 40);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 0x40000000;
-    v12[2] = __container_paths_enumerate_containers_at_block_invoke;
-    v12[3] = &unk_1E86AE020;
-    v12[4] = a4;
-    v12[5] = &v14;
-    v12[7] = &v19;
-    v12[8] = a3;
-    v13 = a1;
-    v12[6] = v18;
-    os_activity_apply(v4, v12);
-    if (v20[3])
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 0x40000000;
+    v11[2] = __container_paths_enumerate_containers_at_block_invoke;
+    v11[3] = &unk_1E86AE020;
+    v11[4] = a4;
+    v11[5] = &v13;
+    v11[7] = &v18;
+    v11[8] = a3;
+    v12 = a1;
+    v11[6] = v17;
+    os_activity_apply(v4, v11);
+    if (v19[3])
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      v5 = container_log_handle_for_category_logHandles;
-      if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_DEFAULT))
+      v5 = container_log_handle_for_category_logHandles[0];
+      if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v24 = "container_paths_enumerate_containers_at";
+        v23 = "container_paths_enumerate_containers_at";
         _os_log_impl(&dword_1DF28A000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: success", buf, 0xCu);
       }
     }
 
     else
     {
-      v8 = v15[3];
+      v8 = v14[3];
       if (v8)
       {
         container_log_ext_error("container_paths_enumerate_containers_at", gClientFaultLoggingEnabled, v8);
@@ -2115,18 +2099,18 @@ uint64_t container_paths_enumerate_containers_at(int a1, uint64_t a2, uint64_t a
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v9 = container_log_handle_for_category_logHandles;
-        if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+        v9 = container_log_handle_for_category_logHandles[0];
+        if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
         {
           *buf = 136446210;
-          v24 = "container_paths_enumerate_containers_at";
+          v23 = "container_paths_enumerate_containers_at";
           _os_log_error_impl(&dword_1DF28A000, v9, OS_LOG_TYPE_ERROR, "%{public}s: failed (errors during enumeration)", buf, 0xCu);
         }
       }
     }
 
-    container_error_free(v15[3]);
-    v7 = *(v20 + 24);
+    container_error_free(v14[3]);
+    v7 = *(v19 + 24);
   }
 
   else
@@ -2140,30 +2124,29 @@ uint64_t container_paths_enumerate_containers_at(int a1, uint64_t a2, uint64_t a
     if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v24 = "container_paths_enumerate_containers_at";
+      v23 = "container_paths_enumerate_containers_at";
       _os_log_fault_impl(&dword_1DF28A000, v6, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: context parameter is NULL", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(v18, 8);
-  _Block_object_dispose(&v19, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(v17, 8);
+  _Block_object_dispose(&v18, 8);
   return v7 & 1;
 }
 
 void __container_paths_enumerate_containers_at_block_invoke(uint64_t a1)
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v120 = *MEMORY[0x1E69E9840];
   __s = 0;
   object = xpc_array_create(0, 0);
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x2000000000;
-  v76 = 0;
-  atomic_store(0, &v76);
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x2000000000;
+  v74 = 0;
+  atomic_store(0, &v74);
   if (!*(a1 + 32))
   {
     if (container_log_handle_for_category_onceToken != -1)
@@ -2240,7 +2223,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v69 = v3;
+  v67 = v3;
   v6 = *(v2 + 16);
   v7 = container_fs_path_at(*(a1 + 72), v5);
   __s = v7;
@@ -2251,32 +2234,32 @@ LABEL_31:
 
   if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_DEFAULT))
   {
-    v120 = 0u;
-    v121 = 0u;
-    v119 = 0u;
-    current_persona_originator_info = voucher_get_current_persona_originator_info();
-    v64 = DWORD2(v119);
-    v66 = current_persona_originator_info;
-    v62 = DWORD1(v120);
-    v117 = 0u;
     v118 = 0u;
+    v119 = 0u;
+    v117 = 0u;
+    current_persona_originator_info = voucher_get_current_persona_originator_info();
+    v62 = DWORD2(v117);
+    v64 = current_persona_originator_info;
+    v60 = DWORD1(v118);
+    v115 = 0u;
     v116 = 0u;
+    v114 = 0u;
     current_persona_proximate_info = voucher_get_current_persona_proximate_info();
-    v60 = DWORD1(v117);
-    v61 = DWORD2(v116);
-    v115 = 0;
-    memset(v114, 0, sizeof(v114));
-    v113 = 0u;
-    v112 = 0u;
+    v58 = DWORD1(v115);
+    v59 = DWORD2(v114);
+    v113 = 0;
+    memset(v112, 0, sizeof(v112));
     v111 = 0u;
     v110 = 0u;
+    v109 = 0u;
+    v108 = 0u;
     *&buf[4] = 0u;
     *buf = 2;
     current_persona = voucher_get_current_persona();
     if (current_persona == -1 || (kpersona_info() & 0x80000000) != 0)
     {
-      v59 = "NOPERSONA";
-      v24 = "<unknown>";
+      v57 = "NOPERSONA";
+      v22 = "<unknown>";
     }
 
     else
@@ -2291,87 +2274,87 @@ LABEL_31:
         v11 = (&off_1E86AF498)[*&buf[8] - 2];
       }
 
-      v59 = v11;
-      v24 = &v114[4];
+      v57 = v11;
+      v22 = &v112[4];
     }
 
-    v58 = v24;
-    v68 = v6;
+    v56 = v22;
+    v66 = v6;
     if (container_log_handle_for_category_onceToken != -1)
     {
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v25 = qword_1ED452B40;
+    v23 = qword_1ED452B40;
     if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = v62 & ~(v66 >> 31);
-      v27 = v64 & ~(v66 >> 31);
-      v67 = v60 & ~(current_persona_proximate_info >> 31);
-      v63 = v26;
-      v65 = v61 & ~(current_persona_proximate_info >> 31);
-      v28 = geteuid();
-      v29 = getuid();
-      v30 = *(a1 + 64);
-      v31 = *v30;
-      v32 = v30[2];
-      v33 = v30[3];
-      v34 = *(v30 + 8);
-      LODWORD(v30) = *(v30 + 8);
-      *v79 = 67112706;
-      v80 = current_persona;
+      v24 = v60 & ~(v64 >> 31);
+      v25 = v62 & ~(v64 >> 31);
+      v65 = v58 & ~(current_persona_proximate_info >> 31);
+      v61 = v24;
+      v63 = v59 & ~(current_persona_proximate_info >> 31);
+      v26 = geteuid();
+      v27 = getuid();
+      v28 = *(a1 + 64);
+      v29 = *v28;
+      v30 = v28[2];
+      v31 = v28[3];
+      v32 = *(v28 + 8);
+      LODWORD(v28) = *(v28 + 8);
+      *v77 = 67112706;
+      v78 = current_persona;
+      v79 = 2082;
+      v80 = v57;
       v81 = 2082;
-      v82 = v59;
-      v83 = 2082;
-      v84 = v58;
+      v82 = v56;
+      v83 = 1024;
+      v84 = v25;
       v85 = 1024;
-      v86 = v27;
+      v86 = v61;
       v87 = 1024;
       v88 = v63;
       v89 = 1024;
       v90 = v65;
       v91 = 1024;
-      v92 = v67;
+      v92 = v26;
       v93 = 1024;
-      v94 = v28;
-      v95 = 1024;
-      v96 = v29;
-      v97 = 2080;
-      v98 = v7;
+      v94 = v27;
+      v95 = 2080;
+      v96 = v7;
+      v97 = 2048;
+      v98 = v29;
       v99 = 2048;
-      v100 = v31;
-      v101 = 2048;
-      v102 = v32;
-      v103 = 2082;
-      v104 = v33;
+      v100 = v30;
+      v101 = 2082;
+      v102 = v31;
+      v103 = 1024;
+      v104 = v32;
       v105 = 1024;
-      v106 = v34;
-      v107 = 1024;
-      v108 = v30;
-      _os_log_impl(&dword_1DF28A000, v25, OS_LOG_TYPE_DEFAULT, "Enumerate; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, context<path = [%s], class = %llu, flags = 0x%llx, persona = [%{public}s], uid = %u, transient = %d>", v79, 0x74u);
+      v106 = v28;
+      _os_log_impl(&dword_1DF28A000, v23, OS_LOG_TYPE_DEFAULT, "Enumerate; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, context<path = [%s], class = %llu, flags = 0x%llx, persona = [%{public}s], uid = %u, transient = %d>", v77, 0x74u);
     }
 
-    v6 = v68;
+    v6 = v66;
   }
 
-  v35 = openat(*(a1 + 72), v5, 0x1000000, v58);
-  v17 = v35;
-  if (v35 < 0)
+  v33 = openat(*(a1 + 72), v5, 0x1000000, v56);
+  v17 = v33;
+  if (v33 < 0)
   {
-    v47 = *__error();
-    if (v47 == 2)
+    v45 = *__error();
+    if (v45 == 2)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      v48 = qword_1ED452B40;
+      v46 = qword_1ED452B40;
       if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
         *&buf[4] = __s;
-        _os_log_impl(&dword_1DF28A000, v48, OS_LOG_TYPE_DEFAULT, "[%s] does not exist, assuming no containers.", buf, 0xCu);
+        _os_log_impl(&dword_1DF28A000, v46, OS_LOG_TYPE_DEFAULT, "[%s] does not exist, assuming no containers.", buf, 0xCu);
       }
 
       v16 = 0;
@@ -2381,46 +2364,46 @@ LABEL_31:
     else
     {
       v16 = 0;
-      *(*(*(a1 + 40) + 8) + 24) = container_error_create_with_message(1, 127, __s, v47, 0);
+      *(*(*(a1 + 40) + 8) + 24) = container_error_create_with_message(1, 127, __s, v45, 0);
     }
   }
 
   else
   {
-    v36 = object;
-    v37 = *(*(a1 + 40) + 8);
-    v38 = dup(v35);
-    if (v38 < 0)
+    v34 = object;
+    v35 = *(*(a1 + 40) + 8);
+    v36 = dup(v33);
+    if (v36 < 0)
     {
-      v54 = *__error();
-      v55 = v17;
+      v52 = *__error();
+      v53 = v17;
     }
 
     else
     {
-      v39 = v38;
-      v40 = fdopendir(v38);
-      if (v40)
+      v37 = v36;
+      v38 = fdopendir(v36);
+      if (v38)
       {
-        v41 = v40;
-        v42 = v6 & 1;
+        v39 = v38;
+        v40 = v6 & 1;
         while (1)
         {
-          v43 = readdir(v41);
-          if (!v43)
+          v41 = readdir(v39);
+          if (!v41)
           {
             break;
           }
 
-          v44 = v43;
-          if (container_fs_resolve_dirent_type_at(v17, v43) == 4)
+          v42 = v41;
+          if (container_fs_resolve_dirent_type_at(v17, v41) == 4)
           {
-            v46 = v44->d_name[0];
-            d_name = v44->d_name;
-            if (v46 != 46)
+            v44 = v42->d_name[0];
+            d_name = v42->d_name;
+            if (v44 != 46)
             {
               *buf = xpc_string_create(d_name);
-              xpc_array_append_value(v36, *buf);
+              xpc_array_append_value(v34, *buf);
               if (*buf)
               {
                 xpc_release(*buf);
@@ -2430,8 +2413,8 @@ LABEL_31:
           }
         }
 
-        closedir(v41);
-        count = xpc_array_get_count(v36);
+        closedir(v39);
+        count = xpc_array_get_count(v34);
         if (container_log_handle_for_category_onceToken != -1)
         {
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
@@ -2445,13 +2428,13 @@ LABEL_31:
 
         if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v50 = qword_1ED452B40;
+          v48 = qword_1ED452B40;
           if (os_signpost_enabled(qword_1ED452B40))
           {
-            v51 = **(a1 + 64);
+            v49 = **(a1 + 64);
             *buf = 134349056;
-            *&buf[4] = v51;
-            _os_signpost_emit_with_name_impl(&dword_1DF28A000, v50, OS_SIGNPOST_INTERVAL_BEGIN, v16, "Enumerate", " class=%{public, signpost.description:attribute}llu ", buf, 0xCu);
+            *&buf[4] = v49;
+            _os_signpost_emit_with_name_impl(&dword_1DF28A000, v48, OS_SIGNPOST_INTERVAL_BEGIN, v16, "Enumerate", " class=%{public, signpost.description:attribute}llu ", buf, 0xCu);
           }
         }
 
@@ -2460,50 +2443,49 @@ LABEL_31:
         block[1] = 0x40000000;
         block[2] = __container_paths_enumerate_containers_at_block_invoke_23;
         block[3] = &unk_1E86ADFD8;
-        v71 = v17;
-        v72 = v42;
-        v52 = *(a1 + 64);
+        v69 = v17;
+        v70 = v40;
+        v50 = *(a1 + 64);
         block[8] = __s;
-        block[9] = v52;
-        block[10] = v69;
-        v53 = *(a1 + 48);
+        block[9] = v50;
+        block[10] = v67;
+        v51 = *(a1 + 48);
         block[4] = *(a1 + 32);
-        block[5] = v53;
-        block[6] = &v73;
-        block[7] = v36;
+        block[5] = v51;
+        block[6] = &v71;
+        block[7] = v34;
         dispatch_apply(count, 0, block);
         goto LABEL_32;
       }
 
-      v54 = *__error();
-      v55 = v39;
+      v52 = *__error();
+      v53 = v37;
     }
 
-    v56 = container_fs_path_at(v55, 0);
-    *buf = v56;
-    v57 = container_error_create_with_message(1, 127, v56, v54, 0);
-    if (v56)
+    v54 = container_fs_path_at(v53, 0);
+    *buf = v54;
+    v55 = container_error_create_with_message(1, 127, v54, v52, 0);
+    if (v54)
     {
-      free(v56);
+      free(v54);
       memset_s(buf, 8uLL, 0, 8uLL);
     }
 
     v16 = 0;
-    *(v37 + 24) = v57;
+    *(v35 + 24) = v55;
   }
 
 LABEL_32:
   if (*(*(*(a1 + 40) + 8) + 24))
   {
     *(*(*(a1 + 56) + 8) + 24) = 0;
-    v18 = *(*(*(a1 + 40) + 8) + 24);
     (*(*(a1 + 32) + 16))();
   }
 
-  v19 = *(*(*(a1 + 48) + 8) + 24);
-  if (v19)
+  v18 = *(*(*(a1 + 48) + 8) + 24);
+  if (v18)
   {
-    dispatch_barrier_async_and_wait(v19, &__block_literal_global_264);
+    dispatch_barrier_async_and_wait(v18, &__block_literal_global_264);
   }
 
   if (v16)
@@ -2515,18 +2497,18 @@ LABEL_32:
 
     if (v16 != -1)
     {
-      v20 = qword_1ED452B40;
+      v19 = qword_1ED452B40;
       if (os_signpost_enabled(qword_1ED452B40))
       {
-        v21 = **(a1 + 64);
+        v20 = **(a1 + 64);
         *buf = 134349056;
-        *&buf[4] = v21;
-        _os_signpost_emit_with_name_impl(&dword_1DF28A000, v20, OS_SIGNPOST_INTERVAL_END, v16, "Enumerate", " class=%{public, signpost.description:attribute}llu ", buf, 0xCu);
+        *&buf[4] = v20;
+        _os_signpost_emit_with_name_impl(&dword_1DF28A000, v19, OS_SIGNPOST_INTERVAL_END, v16, "Enumerate", " class=%{public, signpost.description:attribute}llu ", buf, 0xCu);
       }
     }
   }
 
-  if (atomic_load(v74 + 3))
+  if (atomic_load(v72 + 3))
   {
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
@@ -2548,13 +2530,12 @@ LABEL_32:
     close(v17);
   }
 
-  _Block_object_dispose(&v73, 8);
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v71, 8);
 }
 
 uint64_t __container_paths_enumerate_containers_at_block_invoke_23(uint64_t a1, size_t a2)
 {
-  v20 = 0;
+  v19 = 0;
   string = xpc_array_get_string(*(a1 + 56), a2);
   v4 = openat(*(a1 + 88), string, 0x1000000);
   if ((v4 & 0x80000000) != 0)
@@ -2567,29 +2548,28 @@ uint64_t __container_paths_enumerate_containers_at_block_invoke_23(uint64_t a1, 
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_DEBUG) || os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_DEBUG) || os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
   {
 LABEL_6:
     v5 = malloc_type_calloc(0x401uLL, 1uLL, 0x100004077774924uLL);
-    v6 = *(a1 + 64);
     __strlcpy_chk();
     container_fs_add_path_component(v5, string, 0x400uLL);
     if ((v4 & 0x80000000) != 0)
     {
-      v7 = __error();
-      v8 = container_error_create_with_message(1, 127, v5, *v7, 0);
+      v6 = __error();
+      v7 = container_error_create_with_message(1, 127, v5, *v6, 0);
       add = atomic_fetch_add((*(*(a1 + 48) + 8) + 24), 1uLL);
-      v10 = *(a1 + 80);
-      v11 = *(*(*(a1 + 40) + 8) + 24);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 0x40000000;
-      v18[2] = __container_paths_enumerate_containers_at_block_invoke_25;
-      v18[3] = &unk_1E86ADFB0;
-      v18[4] = *(a1 + 32);
-      v18[5] = v8;
-      v18[6] = add;
-      v18[7] = v5;
-      return v10(v11, v18);
+      v9 = *(a1 + 80);
+      v10 = *(*(*(a1 + 40) + 8) + 24);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 0x40000000;
+      v17[2] = __container_paths_enumerate_containers_at_block_invoke_25;
+      v17[3] = &unk_1E86ADFB0;
+      v17[4] = *(a1 + 32);
+      v17[5] = v7;
+      v17[6] = add;
+      v17[7] = v5;
+      return v9(v10, v17);
     }
   }
 
@@ -2598,85 +2578,83 @@ LABEL_6:
     v5 = 0;
   }
 
-  v13 = container_paths_copy_container_at(v4, *(a1 + 92), *(*(a1 + 72) + 8), &v20);
+  v12 = container_paths_copy_container_at(v4, *(a1 + 92), *(*(a1 + 72) + 8), &v19);
   close(v4);
-  v14 = *(a1 + 80);
-  v15 = *(*(*(a1 + 40) + 8) + 24);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 0x40000000;
-  v19[2] = __container_paths_enumerate_containers_at_block_invoke_2;
-  v19[3] = &unk_1E86ADF88;
-  v16 = *(a1 + 32);
-  v19[6] = v13;
-  v19[7] = v20;
-  v19[8] = v5;
-  v17 = *(a1 + 48);
-  v19[4] = v16;
-  v19[5] = v17;
-  return v14(v15, v19);
+  v13 = *(a1 + 80);
+  v14 = *(*(*(a1 + 40) + 8) + 24);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 0x40000000;
+  v18[2] = __container_paths_enumerate_containers_at_block_invoke_2;
+  v18[3] = &unk_1E86ADF88;
+  v15 = *(a1 + 32);
+  v18[6] = v12;
+  v18[7] = v19;
+  v18[8] = v5;
+  v16 = *(a1 + 48);
+  v18[4] = v15;
+  v18[5] = v16;
+  return v13(v14, v18);
 }
 
-void *__container_paths_enumerate_containers_at_block_invoke_2(uint64_t a1)
+void *__container_paths_enumerate_containers_at_block_invoke_2(void *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 56);
-  v4 = (*(*(a1 + 32) + 16))();
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = (*(a1[4] + 16))();
   if (container_log_handle_for_category_onceToken != -1)
   {
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v5 = container_log_handle_for_category_logHandles;
-  if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_DEBUG))
+  v3 = container_log_handle_for_category_logHandles[0];
+  if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1 + 64);
-    v14 = *(a1 + 48) != 0;
+    v10 = a1[8];
+    v11 = a1[6] != 0;
     *buf = 136446978;
-    v18 = "container_paths_enumerate_containers_at";
-    v19 = 2080;
-    v20 = v13;
-    v21 = 1024;
-    *v22 = v4;
-    *&v22[4] = 1024;
-    *&v22[6] = v14;
-    _os_log_debug_impl(&dword_1DF28A000, v5, OS_LOG_TYPE_DEBUG, "%{public}s: enumeration of path [%s]: success = %d, found container = %d", buf, 0x22u);
-    if (!v4)
+    v15 = "container_paths_enumerate_containers_at";
+    v16 = 2080;
+    v17 = v10;
+    v18 = 1024;
+    *v19 = v2;
+    *&v19[4] = 1024;
+    *&v19[6] = v11;
+    _os_log_debug_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_DEBUG, "%{public}s: enumeration of path [%s]: success = %d, found container = %d", buf, 0x22u);
+    if (!v2)
     {
       goto LABEL_6;
     }
   }
 
-  else if (!v4)
+  else if (!v2)
   {
     goto LABEL_6;
   }
 
-  if (*(a1 + 48))
+  if (a1[6])
   {
     goto LABEL_14;
   }
 
 LABEL_6:
-  add = atomic_fetch_add((*(*(a1 + 40) + 8) + 24), 1uLL);
+  add = atomic_fetch_add((*(a1[5] + 8) + 24), 1uLL);
   if (container_log_handle_for_category_onceToken != -1)
   {
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
   {
-    v7 = container_error_copy_unlocalized_description(*(a1 + 56));
-    __s = v7;
+    v5 = container_error_copy_unlocalized_description(a1[7]);
+    __s = v5;
     if (container_log_handle_for_category_onceToken != -1)
     {
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v8 = container_log_handle_for_category_logHandles;
-    if (!os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+    v6 = container_log_handle_for_category_logHandles[0];
+    if (!os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
     {
-      if (!v7)
+      if (!v5)
       {
         goto LABEL_14;
       }
@@ -2684,63 +2662,61 @@ LABEL_6:
       goto LABEL_13;
     }
 
-    v15 = *(a1 + 64);
+    v12 = a1[8];
     *buf = 136446978;
-    v18 = "container_paths_enumerate_containers_at";
-    v19 = 2080;
-    v20 = v15;
-    v21 = 2048;
-    *v22 = add + 1;
-    *&v22[8] = 2080;
-    v23 = v7;
-    _os_log_error_impl(&dword_1DF28A000, v8, OS_LOG_TYPE_ERROR, "%{public}s: enumeration failure processing container [%s][%llu]: %s", buf, 0x2Au);
-    if (v7)
+    v15 = "container_paths_enumerate_containers_at";
+    v16 = 2080;
+    v17 = v12;
+    v18 = 2048;
+    *v19 = add + 1;
+    *&v19[8] = 2080;
+    v20 = v5;
+    _os_log_error_impl(&dword_1DF28A000, v6, OS_LOG_TYPE_ERROR, "%{public}s: enumeration failure processing container [%s][%llu]: %s", buf, 0x2Au);
+    if (v5)
     {
 LABEL_13:
-      free(v7);
+      free(v5);
       memset_s(&__s, 8uLL, 0, 8uLL);
     }
   }
 
 LABEL_14:
-  container_error_free(*(a1 + 56));
-  container_object_free(*(a1 + 48));
-  v11 = *(a1 + 64);
-  v10 = (a1 + 64);
-  result = v11;
-  if (v11)
+  container_error_free(a1[7]);
+  container_object_free(a1[6]);
+  v9 = a1[8];
+  v8 = a1 + 8;
+  result = v9;
+  if (v9)
   {
     free(result);
-    result = memset_s(v10, 8uLL, 0, 8uLL);
+    return memset_s(v8, 8uLL, 0, 8uLL);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *__container_paths_enumerate_containers_at_block_invoke_25(uint64_t a1)
+void *__container_paths_enumerate_containers_at_block_invoke_25(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  (*(*(a1 + 32) + 16))();
+  v15 = *MEMORY[0x1E69E9840];
+  (*(a1[4] + 16))();
   if (container_log_handle_for_category_onceToken != -1)
   {
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
   {
-    v3 = container_error_copy_unlocalized_description(*(a1 + 40));
-    __s = v3;
+    v2 = container_error_copy_unlocalized_description(a1[5]);
+    __s = v2;
     if (container_log_handle_for_category_onceToken != -1)
     {
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v4 = container_log_handle_for_category_logHandles;
-    if (!os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_ERROR))
+    v3 = container_log_handle_for_category_logHandles[0];
+    if (!os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_ERROR))
     {
-      if (!v3)
+      if (!v2)
       {
         goto LABEL_9;
       }
@@ -2748,34 +2724,33 @@ void *__container_paths_enumerate_containers_at_block_invoke_25(uint64_t a1)
       goto LABEL_8;
     }
 
-    v9 = *(a1 + 48) + 1;
+    v7 = a1[6] + 1;
     *buf = 136446722;
-    v12 = "container_paths_enumerate_containers_at";
-    v13 = 2048;
-    v14 = v9;
-    v15 = 2080;
-    v16 = v3;
-    _os_log_error_impl(&dword_1DF28A000, v4, OS_LOG_TYPE_ERROR, "%{public}s: enumeration failure opening container dir [%llu]: %s", buf, 0x20u);
-    if (v3)
+    v10 = "container_paths_enumerate_containers_at";
+    v11 = 2048;
+    v12 = v7;
+    v13 = 2080;
+    v14 = v2;
+    _os_log_error_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_ERROR, "%{public}s: enumeration failure opening container dir [%llu]: %s", buf, 0x20u);
+    if (v2)
     {
 LABEL_8:
-      free(v3);
+      free(v2);
       memset_s(&__s, 8uLL, 0, 8uLL);
     }
   }
 
 LABEL_9:
-  container_error_free(*(a1 + 40));
-  v7 = *(a1 + 56);
-  v6 = (a1 + 56);
-  result = v7;
-  if (v7)
+  container_error_free(a1[5]);
+  v6 = a1[7];
+  v5 = a1 + 7;
+  result = v6;
+  if (v6)
   {
     free(result);
-    result = memset_s(v6, 8uLL, 0, 8uLL);
+    return memset_s(v5, 8uLL, 0, 8uLL);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2791,11 +2766,11 @@ uint64_t _container_paths_passthru_dispatch_async(uint64_t a1, uint64_t a2)
 
 uint64_t container_paths_copy_container_root_path_for_context(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2000000000;
-  v13 = 0;
+  v15 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2000000000;
+  v12 = 0;
   if (!a3)
   {
     if (container_log_handle_for_category_onceToken != -1)
@@ -2810,7 +2785,7 @@ uint64_t container_paths_copy_container_root_path_for_context(uint64_t a1, uint6
     }
 
     *buf = 136315138;
-    v15 = "container_paths_copy_container_root_path_for_context";
+    v14 = "container_paths_copy_container_root_path_for_context";
     v6 = "%s: SPI MISUSE: context parameter is NULL";
     goto LABEL_14;
   }
@@ -2829,7 +2804,7 @@ uint64_t container_paths_copy_container_root_path_for_context(uint64_t a1, uint6
     }
 
     *buf = 136315138;
-    v15 = "container_paths_copy_container_root_path_for_context";
+    v14 = "container_paths_copy_container_root_path_for_context";
     v6 = "%s: SPI MISUSE: Unknown container class";
 LABEL_14:
     _os_log_fault_impl(&dword_1DF28A000, v5, OS_LOG_TYPE_FAULT, v6, buf, 0xCu);
@@ -2843,22 +2818,21 @@ LABEL_11:
   block[1] = 0x40000000;
   block[2] = __container_paths_copy_container_root_path_for_context_block_invoke;
   block[3] = &unk_1E86AE048;
-  block[4] = &v10;
+  block[4] = &v9;
   block[5] = a2;
   block[6] = a3;
   block[7] = "container_paths_copy_container_root_path_for_context";
   block[8] = a1;
   os_activity_apply(v3, block);
-  v4 = v11[3];
+  v4 = v10[3];
 LABEL_12:
-  _Block_object_dispose(&v10, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v9, 8);
   return v4;
 }
 
 void __container_paths_copy_container_root_path_for_context_block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   if (v2 > 1)
   {
@@ -2871,116 +2845,113 @@ void __container_paths_copy_container_root_path_for_context_block_invoke(uint64_
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v26 = qword_1ED452B40;
+        v25 = qword_1ED452B40;
         if (!os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
         {
-          goto LABEL_74;
+          return;
         }
 
-        v29 = *(a1 + 56);
+        v28 = *(a1 + 56);
         *buf = 136315138;
-        *&v42[0] = v29;
-        v23 = "%s: SPI MISUSE: persona_unique_string is NULL but is required for data separated mount point";
+        *&v39[0] = v28;
+        v22 = "%s: SPI MISUSE: persona_unique_string is NULL but is required for data separated mount point";
         goto LABEL_46;
       }
     }
 
     else if (v2 != 3)
     {
-      goto LABEL_74;
+      return;
     }
 
-    v16 = *(a1 + 64);
-    if (v16)
+    v15 = *(a1 + 64);
+    if (!v15)
     {
-      v17 = **(a1 + 48);
-      if ((v17 & 0xFFFFFFFFFFFFFFFELL) == 0xC || ((v5 = v17 > 8, v18 = (1 << v17) & 0x12A, !v5) ? (v19 = v18 == 0) : (v19 = 1), !v19))
+      if (container_log_handle_for_category_onceToken != -1)
       {
-        if (container_log_handle_for_category_onceToken != -1)
-        {
-          dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-        }
-
-        v20 = qword_1ED452B40;
-        if (!os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
-        {
-          goto LABEL_74;
-        }
-
-        v21 = *(a1 + 56);
-        v22 = **(a1 + 48);
-        *buf = 136315394;
-        *&v42[0] = v21;
-        WORD4(v42[0]) = 2048;
-        *(v42 + 10) = v22;
-        v23 = "%s: SPI MISUSE: Cannot use CONTAINER_PATHS_PREFIX_TYPE_USER_HOME with global container class %llu";
-        v24 = v20;
-        v25 = 22;
-        goto LABEL_47;
+        dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      v15 = strndup(v16, 0x400uLL);
-      goto LABEL_22;
+      v25 = qword_1ED452B40;
+      if (!os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
+      {
+        return;
+      }
+
+      v26 = *(a1 + 56);
+      *buf = 136315138;
+      *&v39[0] = v26;
+      v22 = "%s: SPI MISUSE: prefix parameter is NULL";
+      goto LABEL_46;
     }
 
-    if (container_log_handle_for_category_onceToken != -1)
+    v16 = **(a1 + 48);
+    if ((v16 & 0xFFFFFFFFFFFFFFFELL) == 0xC || ((v5 = v16 > 8, v17 = (1 << v16) & 0x12A, !v5) ? (v18 = v17 == 0) : (v18 = 1), !v18))
     {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
+      if (container_log_handle_for_category_onceToken != -1)
+      {
+        dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
+      }
 
-    v26 = qword_1ED452B40;
-    if (!os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_74;
-    }
+      v19 = qword_1ED452B40;
+      if (!os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
+      {
+        return;
+      }
 
-    v27 = *(a1 + 56);
-    *buf = 136315138;
-    *&v42[0] = v27;
-    v23 = "%s: SPI MISUSE: prefix parameter is NULL";
-LABEL_46:
-    v24 = v26;
-    v25 = 12;
+      v20 = *(a1 + 56);
+      v21 = **(a1 + 48);
+      *buf = 136315394;
+      *&v39[0] = v20;
+      WORD4(v39[0]) = 2048;
+      *(v39 + 10) = v21;
+      v22 = "%s: SPI MISUSE: Cannot use CONTAINER_PATHS_PREFIX_TYPE_USER_HOME with global container class %llu";
+      v23 = v19;
+      v24 = 22;
 LABEL_47:
-    _os_log_fault_impl(&dword_1DF28A000, v24, OS_LOG_TYPE_FAULT, v23, buf, v25);
-    goto LABEL_74;
+      _os_log_fault_impl(&dword_1DF28A000, v23, OS_LOG_TYPE_FAULT, v22, buf, v24);
+      return;
+    }
+
+    v14 = strndup(v15, 0x400uLL);
+LABEL_22:
+    *(*(*(a1 + 32) + 8) + 24) = v14;
+    return;
   }
 
   if (!v2)
   {
-    v11 = *(a1 + 48);
-    v12 = *v11;
-    if ((*v11 & 0xFFFFFFFFFFFFFFFELL) == 0xC || ((v5 = v12 > 8, v13 = (1 << v12) & 0x12A, !v5) ? (v14 = v13 == 0) : (v14 = 1), !v14))
+    v10 = *(a1 + 48);
+    v11 = *v10;
+    if ((*v10 & 0xFFFFFFFFFFFFFFFELL) == 0xC || ((v5 = v11 > 8, v12 = (1 << v11) & 0x12A, !v5) ? (v13 = v12 == 0) : (v13 = 1), !v13))
     {
-      v15 = strdup("/private/var");
-LABEL_22:
-      *(*(*(a1 + 32) + 8) + 24) = v15;
-      goto LABEL_74;
-    }
-
-    if (!v11[3] || (*buf = 0, v30 = MEMORY[0x1E12D1E60](), !host_get_multiuser_config_flags(v30, buf)) && (*buf & 0x80000000) != 0)
-    {
-LABEL_73:
-      if (*(*(*(a1 + 32) + 8) + 24))
-      {
-        goto LABEL_74;
-      }
-
-      v15 = container_pwd_copy_user_home_path(*(*(a1 + 48) + 32), 1, 0, 0);
+      v14 = strdup("/private/var");
       goto LABEL_22;
     }
 
-    v31 = *(*(a1 + 48) + 24);
-    v32 = *(*(a1 + 32) + 8);
-    if (!v31)
+    if (!v10[3])
+    {
+      goto LABEL_73;
+    }
+
+    *buf = 0;
+    v29 = MEMORY[0x1E12D1E60]();
+    if (!host_get_multiuser_config_flags(v29, buf) && (*buf & 0x80000000) != 0)
+    {
+      goto LABEL_73;
+    }
+
+    v30 = *(*(a1 + 48) + 24);
+    v31 = *(*(a1 + 32) + 8);
+    if (!v30)
     {
       goto LABEL_71;
     }
 
-    v43 = 0;
-    memset(v42, 0, sizeof(v42));
+    v40 = 0;
+    memset(v39, 0, sizeof(v39));
     *buf = 2;
-    if (!strncmp(v31, "com.apple.containermanager.current-persona", 0x2AuLL))
+    if (!strncmp(v30, "com.apple.containermanager.current-persona", 0x2AuLL))
     {
       if (voucher_get_current_persona() == -1)
       {
@@ -2988,7 +2959,7 @@ LABEL_73:
       }
     }
 
-    else if (container_persona_convert_unique_string_to_persona_uid(v31) == -1)
+    else if (container_persona_convert_unique_string_to_persona_uid(v30) == -1)
     {
       goto LABEL_66;
     }
@@ -2996,34 +2967,39 @@ LABEL_73:
     if (kpersona_info())
     {
 LABEL_66:
-      *(v32 + 24) = 0;
-      goto LABEL_74;
+      *(v31 + 24) = 0;
+      return;
     }
 
-    if (DWORD1(v42[0]) == 2)
+    if (DWORD1(v39[0]) == 2)
     {
-      v38 = malloc_type_calloc(0x401uLL, 1uLL, 0x100004077774924uLL);
-      __s = v38;
-      if (!kpersona_getpath() || !v38)
+      v36 = malloc_type_calloc(0x401uLL, 1uLL, 0x100004077774924uLL);
+      __s = v36;
+      if (!kpersona_getpath() || !v36)
       {
         goto LABEL_72;
       }
 
-      free(v38);
+      free(v36);
       memset_s(&__s, 8uLL, 0, 8uLL);
     }
 
 LABEL_71:
-    v38 = 0;
+    v36 = 0;
 LABEL_72:
-    *(v32 + 24) = v38;
-    goto LABEL_73;
+    *(v31 + 24) = v36;
+LABEL_73:
+    if (*(*(*(a1 + 32) + 8) + 24))
+    {
+      return;
+    }
+
+    v14 = container_pwd_copy_user_home_path(*(*(a1 + 48) + 32), 1, 0, 0);
+    goto LABEL_22;
   }
 
   if (v2 != 1)
   {
-LABEL_74:
-    v39 = *MEMORY[0x1E69E9840];
     return;
   }
 
@@ -3034,17 +3010,20 @@ LABEL_74:
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v26 = qword_1ED452B40;
+    v25 = qword_1ED452B40;
     if (!os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_74;
+      return;
     }
 
-    v28 = *(a1 + 56);
+    v27 = *(a1 + 56);
     *buf = 136315138;
-    *&v42[0] = v28;
-    v23 = "%s: SPI MISUSE: prefix parameter is NULL";
-    goto LABEL_46;
+    *&v39[0] = v27;
+    v22 = "%s: SPI MISUSE: prefix parameter is NULL";
+LABEL_46:
+    v23 = v25;
+    v24 = 12;
+    goto LABEL_47;
   }
 
   v3 = *(a1 + 48);
@@ -3054,46 +3033,43 @@ LABEL_74:
     *(*(*(a1 + 32) + 8) + 24) = malloc_type_calloc(0x401uLL, 1uLL, 0x100004077774924uLL);
     v8 = *(*(*(a1 + 32) + 8) + 24);
     v9 = *(a1 + 64);
-    v10 = *MEMORY[0x1E69E9840];
 
     strlcpy(v8, v9, 0x400uLL);
     return;
   }
 
-  if (*(v3 + 32) != 501)
+  if (*(v3 + 32) == 501)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
+    *(*(*(a1 + 32) + 8) + 24) = malloc_type_calloc(0x401uLL, 1uLL, 0x100004077774924uLL);
+    strlcpy(*(*(*(a1 + 32) + 8) + 24), *(a1 + 64), 0x400uLL);
+    v32 = *(*(*(a1 + 32) + 8) + 24);
 
-    v35 = qword_1ED452B40;
-    if (!os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_74;
-    }
-
-    v36 = *(a1 + 56);
-    v37 = *(*(a1 + 48) + 32);
-    *buf = 136315394;
-    *&v42[0] = v36;
-    WORD4(v42[0]) = 1024;
-    *(v42 + 10) = v37;
-    v23 = "%s: SPI MISUSE: Cannot use CONTAINER_PATHS_PREFIX_TYPE_DATA_VOLUME_MOUNT_POINT with edu mode user %u";
-    v24 = v35;
-    v25 = 18;
-    goto LABEL_47;
+    container_fs_add_path_component(v32, "mobile", 0x400uLL);
+    return;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = malloc_type_calloc(0x401uLL, 1uLL, 0x100004077774924uLL);
-  strlcpy(*(*(*(a1 + 32) + 8) + 24), *(a1 + 64), 0x400uLL);
-  v33 = *(*(*(a1 + 32) + 8) + 24);
-  v34 = *MEMORY[0x1E69E9840];
+  if (container_log_handle_for_category_onceToken != -1)
+  {
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
+  }
 
-  container_fs_add_path_component(v33, "mobile", 0x400uLL);
+  v33 = qword_1ED452B40;
+  if (os_log_type_enabled(qword_1ED452B40, OS_LOG_TYPE_FAULT))
+  {
+    v34 = *(a1 + 56);
+    v35 = *(*(a1 + 48) + 32);
+    *buf = 136315394;
+    *&v39[0] = v34;
+    WORD4(v39[0]) = 1024;
+    *(v39 + 10) = v35;
+    v22 = "%s: SPI MISUSE: Cannot use CONTAINER_PATHS_PREFIX_TYPE_DATA_VOLUME_MOUNT_POINT with edu mode user %u";
+    v23 = v33;
+    v24 = 18;
+    goto LABEL_47;
+  }
 }
 
-BOOL container_paths_create_uid_home_relative(int a1, uint64_t a2, void *a3, void *a4)
+BOOL container_paths_create_uid_home_relative(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v27 = 0;
   v28 = &v27;
@@ -3316,11 +3292,11 @@ LABEL_24:
 BOOL _container_paths_in_reverse_order_from_type_do(uint64_t a1, uint64_t a2)
 {
   v3 = &_container_paths_definition_from_type_definitions[7 * a1];
-  v4 = *(v3 + 1);
+  v4 = v3[1];
   if (v4)
   {
     v5 = 0;
-    v6 = *(v3 + 1);
+    v6 = v3[1];
     do
     {
       v6 = _container_paths_definition_from_type_definitions[7 * v6 + 1];
@@ -3348,7 +3324,7 @@ BOOL _container_paths_in_reverse_order_from_type_do(uint64_t a1, uint64_t a2)
     v10 = *(v3 + 2);
     v21 = *(v3 + 1);
     v22 = v10;
-    v23 = *(v3 + 6);
+    v23 = v3[6];
     v11 = v5;
     v12 = v4;
     --v7;
@@ -3362,11 +3338,11 @@ BOOL _container_paths_in_reverse_order_from_type_do(uint64_t a1, uint64_t a2)
       do
       {
         v13 = &_container_paths_definition_from_type_definitions[7 * v12];
-        v12 = *(v13 + 1);
+        v12 = v13[1];
         v14 = *(v13 + 2);
         v21 = *(v13 + 1);
         v22 = v14;
-        v23 = *(v13 + 6);
+        v23 = v13[6];
         --v11;
       }
 
@@ -3394,7 +3370,7 @@ uint64_t ___container_paths_chown_component_block_invoke(uint64_t a1, _DWORD *a2
   return 1;
 }
 
-uint64_t container_paths_copy_uid_home_relative(int a1, uint64_t a2, void *a3)
+uint64_t container_paths_copy_uid_home_relative(uint64_t a1, uint64_t a2, void *a3)
 {
   v16 = 0;
   v5 = container_pwd_copy_user_home_path(a1, 1, 0, &v16);
@@ -3449,7 +3425,6 @@ uint64_t __container_paths_copy_uid_home_relative_block_invoke(uint64_t a1, uint
   v2 = *(a2 + 40);
   v3 = *(*(a1 + 32) + 8);
   v4 = malloc_type_calloc(0x401uLL, 1uLL, 0x100004077774924uLL);
-  v6 = *(v3 + 24);
   v5 = (v3 + 24);
   __strlcpy_chk();
   container_fs_add_path_component(v4, v2, 0x400uLL);
@@ -3537,13 +3512,13 @@ uint64_t container_authorize(_OWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 uint64_t _container_authorize_execute(const void *a1, uint64_t a2, BOOL a3, uint64_t a4, uint64_t a5)
 {
   uint64 = a2;
-  v137 = *MEMORY[0x1E69E9840];
-  v84 = 0;
-  v85 = 0;
+  v136 = *MEMORY[0x1E69E9840];
   v83 = 0;
+  v84 = 0;
+  v82 = 0;
   if (!a2)
   {
-    goto LABEL_30;
+    return uint64;
   }
 
   if ((*(a2 + 16) & 0x10) != 0)
@@ -3553,8 +3528,8 @@ uint64_t _container_authorize_execute(const void *a1, uint64_t a2, BOOL a3, uint
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v18 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v18 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *__s = 136315138;
       *&__s[4] = "_container_authorize_execute";
@@ -3568,7 +3543,7 @@ uint64_t _container_authorize_execute(const void *a1, uint64_t a2, BOOL a3, uint
   }
 
   v10 = xpc_dictionary_create(0, 0, 0);
-  v84 = v10;
+  v83 = v10;
   xpc_dictionary_set_uint64(v10, "Command", 0x32uLL);
   xpc_dictionary_set_BOOL(v10, "OnBehalfOfSelf", a3);
   if (!a3)
@@ -3608,48 +3583,48 @@ uint64_t _container_authorize_execute(const void *a1, uint64_t a2, BOOL a3, uint
     xpc_dictionary_set_uint64(v10, "ContainerClass", *(uint64 + 32));
     if ((*(uint64 + 16) & 4) != 0)
     {
-      v22 = *(uint64 + 40);
-      if (v22)
+      v21 = *(uint64 + 40);
+      if (v21)
       {
-        xpc_dictionary_set_value(v10, "GroupIdentifiers", v22);
+        xpc_dictionary_set_value(v10, "GroupIdentifiers", v21);
       }
     }
 
     xpc_dictionary_set_uint64(v10, "PersonaKernelID", *(uint64 + 172));
     if ((*(uint64 + 16) & 0x10) != 0)
     {
-      v23 = *(uint64 + 56);
-      if (v23)
+      v22 = *(uint64 + 56);
+      if (v22)
       {
-        xpc_dictionary_set_string(v10, "PersonaUniqueString", v23);
+        xpc_dictionary_set_string(v10, "PersonaUniqueString", v22);
       }
     }
 
-    v24 = 0;
-    v25 = *(uint64 + 32);
-    if (v25 <= 0xE && ((1 << v25) & 0x4ED4) != 0)
+    v23 = 0;
+    v24 = *(uint64 + 32);
+    if (v24 <= 0xE && ((1 << v24) & 0x4ED4) != 0)
     {
       if ((*(uint64 + 16) & 8) != 0)
       {
         xpc_dictionary_set_uint64(v10, "UID", *(uint64 + 48));
-        v24 = *(uint64 + 48);
+        v23 = *(uint64 + 48);
       }
 
       else
       {
-        v24 = 0;
+        v23 = 0;
       }
     }
 
-    v26 = *(uint64 + 16);
-    if ((v26 & 0x20) != 0)
+    v25 = *(uint64 + 16);
+    if ((v25 & 0x20) != 0)
     {
       xpc_dictionary_set_BOOL(v10, "Transient", *(uint64 + 64));
-      v26 = *(uint64 + 16);
-      if ((v26 & 0x40) == 0)
+      v25 = *(uint64 + 16);
+      if ((v25 & 0x40) == 0)
       {
 LABEL_44:
-        if ((v26 & 0x80) == 0)
+        if ((v25 & 0x80) == 0)
         {
           goto LABEL_46;
         }
@@ -3658,7 +3633,7 @@ LABEL_44:
       }
     }
 
-    else if ((v26 & 0x40) == 0)
+    else if ((v25 & 0x40) == 0)
     {
       goto LABEL_44;
     }
@@ -3677,32 +3652,31 @@ LABEL_46:
         goto LABEL_72;
       }
 
-      v27 = *(uint64 + 32);
-      if ((v27 & 0xFFFFFFFFFFFFFFFELL) != 0xC && (v27 > 8 || ((1 << v27) & 0x12A) == 0))
+      v26 = *(uint64 + 32);
+      if ((v26 & 0xFFFFFFFFFFFFFFFELL) != 0xC && (v26 > 8 || ((1 << v26) & 0x12A) == 0))
       {
         if (os_log_type_enabled(qword_1ED452B38, OS_LOG_TYPE_DEBUG))
         {
-          v47 = MEMORY[0x1E12D2400](v10);
-          v82 = v47;
-          v135 = 0u;
-          v136 = 0u;
+          v46 = MEMORY[0x1E12D2400](v10);
+          v81 = v46;
           v134 = 0u;
-          current_persona_originator_info = voucher_get_current_persona_originator_info();
-          v76 = DWORD1(v135);
-          v78 = DWORD2(v134);
-          v132 = 0u;
+          v135 = 0u;
           v133 = 0u;
+          current_persona_originator_info = voucher_get_current_persona_originator_info();
+          v75 = DWORD1(v134);
+          v77 = DWORD2(v133);
           v131 = 0u;
+          v132 = 0u;
+          v130 = 0u;
           current_persona_proximate_info = voucher_get_current_persona_proximate_info();
-          v72 = DWORD2(v131);
-          v74 = current_persona_proximate_info;
-          v70 = DWORD1(v132);
-          v130 = 0;
-          v128 = 0u;
-          v129 = 0u;
-          v126 = 0u;
+          v71 = DWORD2(v130);
+          v73 = current_persona_proximate_info;
+          v69 = DWORD1(v131);
+          v129 = 0;
           v127 = 0u;
+          v128 = 0u;
           v125 = 0u;
+          v126 = 0u;
           v124 = 0u;
           v123 = 0u;
           v122 = 0u;
@@ -3715,79 +3689,80 @@ LABEL_46:
           v115 = 0u;
           v114 = 0u;
           v113 = 0u;
-          memset(v112, 0, sizeof(v112));
+          v112 = 0u;
+          memset(v111, 0, sizeof(v111));
           memset(&__s[4], 0, 32);
           *__s = 2;
           current_persona = voucher_get_current_persona();
           if (current_persona == -1 || (kpersona_info() & 0x80000000) != 0)
           {
-            v52 = "<unknown>";
-            v50 = "NOPERSONA";
+            v51 = "<unknown>";
+            v49 = "NOPERSONA";
           }
 
           else
           {
             if ((*&__s[8] - 2) > 4)
             {
-              v50 = "<unknown>";
+              v49 = "<unknown>";
             }
 
             else
             {
-              v50 = (&off_1E86AF498)[*&__s[8] - 2];
+              v49 = (&off_1E86AF498)[*&__s[8] - 2];
             }
 
-            v52 = &v114 + 4;
+            v51 = &v113 + 4;
           }
 
-          v60 = v50;
+          v59 = v49;
           if (container_log_handle_for_category_onceToken != -1)
           {
             dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
           }
 
-          v61 = qword_1ED452B38;
+          v60 = qword_1ED452B38;
           if (os_log_type_enabled(qword_1ED452B38, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67111426;
             *&buf[4] = current_persona;
-            v87 = 2082;
-            v88 = v60;
-            v89 = 2082;
-            v90 = v52;
-            v91 = 1024;
-            v92 = v78 & ~(current_persona_originator_info >> 31);
-            v93 = 1024;
-            v94 = v76 & ~(current_persona_originator_info >> 31);
-            v95 = 1024;
-            v96 = v72 & ~(v74 >> 31);
-            v97 = 1024;
-            v98 = v70 & ~(v74 >> 31);
-            v99 = 1024;
-            v100 = geteuid();
-            v101 = 1024;
-            v102 = getuid();
-            v103 = 2080;
-            v104 = v47;
-            _os_log_debug_impl(&dword_1DF28A000, v61, OS_LOG_TYPE_DEBUG, "Query; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, query = %s", buf, 0x4Au);
-            if (!v47)
+            v86 = 2082;
+            v87 = v59;
+            v88 = 2082;
+            v89 = v51;
+            v90 = 1024;
+            v91 = v77 & ~(current_persona_originator_info >> 31);
+            v92 = 1024;
+            v93 = v75 & ~(current_persona_originator_info >> 31);
+            v94 = 1024;
+            v95 = v71 & ~(v73 >> 31);
+            v96 = 1024;
+            v97 = v69 & ~(v73 >> 31);
+            v98 = 1024;
+            v99 = geteuid();
+            v100 = 1024;
+            v101 = getuid();
+            v102 = 2080;
+            v103 = v46;
+            _os_log_debug_impl(&dword_1DF28A000, v60, OS_LOG_TYPE_DEBUG, "Query; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, query = %s", buf, 0x4Au);
+            if (!v46)
             {
               goto LABEL_72;
             }
           }
 
-          else if (!v47)
+          else if (!v46)
           {
             goto LABEL_72;
           }
 
-          free(v47);
-          v30 = &v82;
+          free(v46);
+          v29 = &v81;
           goto LABEL_58;
         }
 
-        v51 = *(uint64 + 24);
-        if (v51 && (count = xpc_array_get_count(v51)) != 0)
+        v50 = *(uint64 + 24);
+        if (v50 && (count = xpc_array_get_count(v50)) != 0)
         {
           string = xpc_array_get_string(*(uint64 + 24), 0);
         }
@@ -3798,25 +3773,24 @@ LABEL_46:
           count = 0;
         }
 
-        v135 = 0u;
-        v136 = 0u;
         v134 = 0u;
-        v53 = voucher_get_current_persona_originator_info();
-        v75 = DWORD1(v135);
-        v77 = DWORD2(v134);
-        v132 = 0u;
+        v135 = 0u;
         v133 = 0u;
+        v52 = voucher_get_current_persona_originator_info();
+        v74 = DWORD1(v134);
+        v76 = DWORD2(v133);
         v131 = 0u;
-        v54 = voucher_get_current_persona_proximate_info();
-        v73 = DWORD2(v131);
-        v69 = v54;
-        v71 = DWORD1(v132);
-        v130 = 0;
-        v128 = 0u;
-        v129 = 0u;
-        v126 = 0u;
+        v132 = 0u;
+        v130 = 0u;
+        v53 = voucher_get_current_persona_proximate_info();
+        v72 = DWORD2(v130);
+        v68 = v53;
+        v70 = DWORD1(v131);
+        v129 = 0;
         v127 = 0u;
+        v128 = 0u;
         v125 = 0u;
+        v126 = 0u;
         v124 = 0u;
         v123 = 0u;
         v122 = 0u;
@@ -3829,29 +3803,30 @@ LABEL_46:
         v115 = 0u;
         v114 = 0u;
         v113 = 0u;
-        memset(v112, 0, sizeof(v112));
+        v112 = 0u;
+        memset(v111, 0, sizeof(v111));
         memset(&__s[4], 0, 32);
         *__s = 2;
-        v55 = voucher_get_current_persona();
-        if (v55 == -1 || (kpersona_info() & 0x80000000) != 0)
+        v54 = voucher_get_current_persona();
+        if (v54 == -1 || (kpersona_info() & 0x80000000) != 0)
         {
-          v57 = "<unknown>";
-          v56 = "NOPERSONA";
+          v56 = "<unknown>";
+          v55 = "NOPERSONA";
         }
 
         else
         {
           if ((*&__s[8] - 2) > 4)
           {
-            v56 = "<unknown>";
+            v55 = "<unknown>";
           }
 
           else
           {
-            v56 = (&off_1E86AF498)[*&__s[8] - 2];
+            v55 = (&off_1E86AF498)[*&__s[8] - 2];
           }
 
-          v57 = &v114 + 4;
+          v56 = &v113 + 4;
         }
 
         if (container_log_handle_for_category_onceToken != -1)
@@ -3859,109 +3834,109 @@ LABEL_46:
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v62 = qword_1ED452B38;
+        v61 = qword_1ED452B38;
         if (!os_log_type_enabled(qword_1ED452B38, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_72;
         }
 
-        v63 = v77 & ~(v53 >> 31);
-        v68 = v75 & ~(v53 >> 31);
-        v64 = geteuid();
-        v65 = getuid();
-        v66 = *(uint64 + 32);
-        v67 = *(uint64 + 96);
+        v62 = v76 & ~(v52 >> 31);
+        v67 = v74 & ~(v52 >> 31);
+        v63 = geteuid();
+        v64 = getuid();
+        v65 = *(uint64 + 32);
+        v66 = *(uint64 + 96);
         *buf = 67112194;
-        *&buf[4] = v55;
-        v87 = 2082;
-        v88 = v56;
-        v89 = 2082;
-        v90 = v57;
-        v91 = 1024;
-        v92 = v63;
-        v93 = 1024;
-        v94 = v68;
-        v95 = 1024;
-        v96 = v73 & ~(v69 >> 31);
-        v97 = 1024;
-        v98 = v71 & ~(v69 >> 31);
-        v99 = 1024;
-        v100 = v64;
-        v101 = 1024;
-        v102 = v65;
-        v103 = 2048;
-        v104 = v66;
-        v105 = 2080;
-        v106 = string;
-        v107 = 2048;
-        v108 = count;
-        v109 = 2048;
-        v110 = v67;
-        v39 = "Query; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, class = %llu, identifier = [%s](%zu), flags = %llx";
-        v40 = buf;
-        v41 = v62;
-        v42 = 104;
+        *&buf[4] = v54;
+        v86 = 2082;
+        v87 = v55;
+        v88 = 2082;
+        v89 = v56;
+        v90 = 1024;
+        v91 = v62;
+        v92 = 1024;
+        v93 = v67;
+        v94 = 1024;
+        v95 = v72 & ~(v68 >> 31);
+        v96 = 1024;
+        v97 = v70 & ~(v68 >> 31);
+        v98 = 1024;
+        v99 = v63;
+        v100 = 1024;
+        v101 = v64;
+        v102 = 2048;
+        v103 = v65;
+        v104 = 2080;
+        v105 = string;
+        v106 = 2048;
+        v107 = count;
+        v108 = 2048;
+        v109 = v66;
+        v38 = "Query; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, class = %llu, identifier = [%s](%zu), flags = %llx";
+        v39 = buf;
+        v40 = v61;
+        v41 = 104;
 LABEL_71:
-        _os_log_impl(&dword_1DF28A000, v41, OS_LOG_TYPE_DEFAULT, v39, v40, v42);
+        _os_log_impl(&dword_1DF28A000, v40, OS_LOG_TYPE_DEFAULT, v38, v39, v41);
         goto LABEL_72;
       }
 
       if (os_log_type_enabled(qword_1ED452B38, OS_LOG_TYPE_DEBUG))
       {
-        v28 = MEMORY[0x1E12D2400](v10);
-        *buf = v28;
+        v27 = MEMORY[0x1E12D2400](v10);
+        *buf = v27;
         if (container_log_handle_for_category_onceToken != -1)
         {
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v29 = qword_1ED452B30;
+        v28 = qword_1ED452B30;
         if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_DEBUG))
         {
-          v58 = geteuid();
-          v59 = getuid();
+          v57 = geteuid();
+          v58 = getuid();
           *__s = 67109634;
-          *&__s[4] = v58;
+          *&__s[4] = v57;
           *&__s[8] = 1024;
-          *&__s[10] = v59;
+          *&__s[10] = v58;
           *&__s[14] = 2080;
-          *&__s[16] = v28;
-          _os_log_debug_impl(&dword_1DF28A000, v29, OS_LOG_TYPE_DEBUG, "Query; euid = %u, uid = %u, query = %s", __s, 0x18u);
-          if (!v28)
+          *&__s[16] = v27;
+          _os_log_debug_impl(&dword_1DF28A000, v28, OS_LOG_TYPE_DEBUG, "Query; euid = %u, uid = %u, query = %s", __s, 0x18u);
+          if (!v27)
           {
             goto LABEL_72;
           }
         }
 
-        else if (!v28)
+        else if (!v27)
         {
 LABEL_72:
-          v43 = *(uint64 + 32);
-          if ((v43 & 0xFFFFFFFFFFFFFFFELL) == 0xC)
+          v42 = *(uint64 + 32);
+          if ((v42 & 0xFFFFFFFFFFFFFFFELL) == 0xC)
           {
-            v44 = 1;
+            v43 = 1;
           }
 
           else
           {
-            v45 = v43 - 1;
-            if (v45 > 0xD)
+            v44 = v42 - 1;
+            if (v44 > 0xD)
             {
-              v44 = 0;
+              v43 = 0;
             }
 
             else
             {
-              v44 = dword_1DF2B94B0[v45];
+              v43 = dword_1DF2B94B0[v44];
             }
           }
 
-          v46 = container_xpc_send_sync_message(v44, 0, v10, 1, v24, uint64 + 168, &v83);
-          v17 = v46;
-          v85 = v46;
-          if (v46)
+          v45 = container_xpc_send_sync_message(v43, 0, v10, 1, v23, uint64 + 168, &v82);
+          v17 = v45;
+          v84 = v45;
+          if (v45)
           {
-            uint64 = xpc_dictionary_get_uint64(v46, "ReplyAuthorized");
+            uint64 = xpc_dictionary_get_uint64(v45, "ReplyAuthorized");
           }
 
           else
@@ -3972,62 +3947,62 @@ LABEL_72:
           goto LABEL_23;
         }
 
-        free(v28);
-        v30 = buf;
+        free(v27);
+        v29 = buf;
 LABEL_58:
-        memset_s(v30, 8uLL, 0, 8uLL);
+        memset_s(v29, 8uLL, 0, 8uLL);
         goto LABEL_72;
       }
 
-      v31 = *(uint64 + 24);
-      if (v31)
+      v30 = *(uint64 + 24);
+      if (v30)
       {
-        v32 = xpc_array_get_count(v31);
-        if (v32)
+        v31 = xpc_array_get_count(v30);
+        if (v31)
         {
-          v33 = xpc_array_get_string(*(uint64 + 24), 0);
+          v32 = xpc_array_get_string(*(uint64 + 24), 0);
 LABEL_67:
           if (container_log_handle_for_category_onceToken != -1)
           {
             dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
           }
 
-          v34 = qword_1ED452B30;
+          v33 = qword_1ED452B30;
           if (!os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_72;
           }
 
-          v35 = geteuid();
-          v36 = getuid();
-          v37 = *(uint64 + 32);
-          v38 = *(uint64 + 96);
+          v34 = geteuid();
+          v35 = getuid();
+          v36 = *(uint64 + 32);
+          v37 = *(uint64 + 96);
           *__s = 67110402;
-          *&__s[4] = v35;
+          *&__s[4] = v34;
           *&__s[8] = 1024;
-          *&__s[10] = v36;
+          *&__s[10] = v35;
           *&__s[14] = 2048;
-          *&__s[16] = v37;
+          *&__s[16] = v36;
           *&__s[24] = 2080;
-          *&__s[26] = v33;
+          *&__s[26] = v32;
           *&__s[34] = 2048;
-          v112[0] = v32;
-          LOWORD(v112[1]) = 2048;
-          *(&v112[1] + 2) = v38;
-          v39 = "Query; euid = %u, uid = %u, class = %llu, identifier = [%s](%zu), flags = %llx";
-          v40 = __s;
-          v41 = v34;
-          v42 = 54;
+          v111[0] = v31;
+          LOWORD(v111[1]) = 2048;
+          *(&v111[1] + 2) = v37;
+          v38 = "Query; euid = %u, uid = %u, class = %llu, identifier = [%s](%zu), flags = %llx";
+          v39 = __s;
+          v40 = v33;
+          v41 = 54;
           goto LABEL_71;
         }
       }
 
       else
       {
-        v32 = 0;
+        v31 = 0;
       }
 
-      v33 = 0;
+      v32 = 0;
       goto LABEL_67;
     }
 
@@ -4041,8 +4016,8 @@ LABEL_45:
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v15 = container_log_handle_for_category_logHandles;
-  if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+  v15 = container_log_handle_for_category_logHandles[0];
+  if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
   {
     *__s = 136315138;
     *&__s[4] = "_container_authorize_execute";
@@ -4053,30 +4028,28 @@ LABEL_45:
   v17 = 0;
 LABEL_22:
   uint64 = 0;
-  v83 = v16;
+  v82 = v16;
 LABEL_23:
-  v19 = v83;
-  if (a5 && v83)
+  v19 = v82;
+  if (a5 && v82)
   {
-    (*(a5 + 16))(a5, v83);
-    v19 = v83;
+    (*(a5 + 16))(a5, v82);
+    v19 = v82;
   }
 
   container_error_free(v19);
   if (v10)
   {
     xpc_release(v10);
-    memset_s(&v84, 8uLL, 0, 8uLL);
+    memset_s(&v83, 8uLL, 0, 8uLL);
   }
 
   if (v17)
   {
     xpc_release(v17);
-    memset_s(&v85, 8uLL, 0, 8uLL);
+    memset_s(&v84, 8uLL, 0, 8uLL);
   }
 
-LABEL_30:
-  v20 = *MEMORY[0x1E69E9840];
   return uint64;
 }
 
@@ -4164,7 +4137,7 @@ const char *container_authorize_get_result_description(uint64_t a1)
 
 char *container_serialize_copy_serialized_reference(char *result, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -4172,16 +4145,16 @@ char *container_serialize_copy_serialized_reference(char *result, void *a2)
     persona_unique_string = container_object_get_persona_unique_string(v3);
     unique_path_component = container_object_get_unique_path_component(v3);
     v7 = container_base64_encode_string(identifier);
-    v20 = v7;
+    v19 = v7;
     if (persona_unique_string)
     {
       v8 = strlen(persona_unique_string);
       persona_unique_string = container_base64_encode(persona_unique_string, v8);
     }
 
-    v19 = persona_unique_string;
+    v18 = persona_unique_string;
     v9 = container_base64_encode_string(unique_path_component);
-    v18 = v9;
+    v17 = v9;
     memset(out, 0, 37);
     uuid = container_object_get_uuid(v3);
     uuid_unparse(uuid, out);
@@ -4210,25 +4183,24 @@ char *container_serialize_copy_serialized_reference(char *result, void *a2)
     if (v7)
     {
       free(v7);
-      memset_s(&v20, 8uLL, 0, 8uLL);
+      memset_s(&v19, 8uLL, 0, 8uLL);
     }
 
     if (persona_unique_string)
     {
       free(persona_unique_string);
-      memset_s(&v19, 8uLL, 0, 8uLL);
+      memset_s(&v18, 8uLL, 0, 8uLL);
     }
 
     if (v9)
     {
       free(v9);
-      memset_s(&v18, 8uLL, 0, 8uLL);
+      memset_s(&v17, 8uLL, 0, 8uLL);
     }
 
-    result = __s;
+    return __s;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4345,16 +4317,16 @@ LABEL_8:
 unsigned __int8 *_container_serialize_copy_deserialized_reference_v1(char *__s, uint64_t a2, uint64_t *a3)
 {
   v3 = a3;
-  v35 = *MEMORY[0x1E69E9840];
-  v33 = 1;
+  v34 = *MEMORY[0x1E69E9840];
+  v32 = 1;
   memset(uu, 0, sizeof(uu));
-  v31 = 0;
-  __sa = 0;
   v30 = 0;
+  __sa = 0;
+  v29 = 0;
   if (a2 >= 1)
   {
     v4 = __s;
-    v28 = 0;
+    v27 = 0;
     v5 = 0;
     v6 = 0;
     LODWORD(v7) = 0;
@@ -4399,8 +4371,8 @@ unsigned __int8 *_container_serialize_copy_deserialized_reference_v1(char *__s, 
           }
 
 LABEL_49:
-          v26 = 0;
-          v27 = 20;
+          v25 = 0;
+          v26 = 20;
           goto LABEL_51;
         }
 
@@ -4435,17 +4407,17 @@ LABEL_49:
           }
 
 LABEL_50:
-          v26 = 0;
-          v27 = 136;
+          v25 = 0;
+          v26 = 136;
 LABEL_51:
-          v33 = v27;
+          v32 = v26;
           goto LABEL_52;
         }
 
         if (v9 == 2 && (v12 != 36 || uuid_parse(v4, uu)))
         {
-          v26 = 0;
-          v27 = 137;
+          v25 = 0;
+          v26 = 137;
           goto LABEL_51;
         }
       }
@@ -4457,25 +4429,25 @@ LABEL_51:
           if (v13 >= 2)
           {
             v6 = _container_base64_decode(v4, 0, 1u);
-            v31 = v6;
+            v30 = v6;
           }
 
           if (!v6)
           {
-            v26 = 0;
-            v27 = 139;
+            v25 = 0;
+            v26 = 139;
             goto LABEL_51;
           }
         }
 
         else if (v9 == 6 && v13 >= 2)
         {
-          v30 = _container_base64_decode(v4, 0, 1u);
-          v28 = v30;
-          if (!v30)
+          v29 = _container_base64_decode(v4, 0, 1u);
+          v27 = v29;
+          if (!v29)
           {
-            v26 = 0;
-            v27 = 76;
+            v25 = 0;
+            v26 = 76;
             goto LABEL_51;
           }
         }
@@ -4496,8 +4468,8 @@ LABEL_51:
         __sa = v14;
         if (!v14)
         {
-          v26 = 0;
-          v33 = 138;
+          v25 = 0;
+          v32 = 138;
           v3 = a3;
           if (v6)
           {
@@ -4521,7 +4493,7 @@ LABEL_43:
           goto LABEL_47;
         }
 
-        v26 = container_object_create(uu, v5, v10, v7, 0, v6, v28, 0, 0, 0, v8 & 1, 0, 0, &v33);
+        v25 = container_object_create(uu, v5, v10, v7, 0, v6, v27, 0, 0, 0, v8 & 1, 0, 0, &v32);
 LABEL_52:
         v3 = a3;
         if (!v5)
@@ -4537,14 +4509,14 @@ LABEL_52:
   v6 = 0;
   v5 = 0;
 LABEL_47:
-  v26 = 0;
-  v33 = 141;
+  v25 = 0;
+  v32 = 141;
   if (v5)
   {
 LABEL_53:
     free(v5);
     memset_s(&__sa, 8uLL, 0, 8uLL);
-    v6 = v31;
+    v6 = v30;
   }
 
 LABEL_54:
@@ -4552,23 +4524,22 @@ LABEL_54:
   {
 LABEL_55:
     free(v6);
-    memset_s(&v31, 8uLL, 0, 8uLL);
-  }
-
-LABEL_56:
-  if (v30)
-  {
-    free(v30);
     memset_s(&v30, 8uLL, 0, 8uLL);
   }
 
-  if (v3 && !v26)
+LABEL_56:
+  if (v29)
   {
-    *v3 = v33;
+    free(v29);
+    memset_s(&v29, 8uLL, 0, 8uLL);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v26;
+  if (v3 && !v25)
+  {
+    *v3 = v32;
+  }
+
+  return v25;
 }
 
 __n128 container_seam_pwd_set_common(uint64_t a1)
@@ -4621,14 +4592,13 @@ uint64_t container_operation_delete(uint64_t a1, uint64_t a2, uint64_t a3, void 
   return v10;
 }
 
-uint64_t __container_operation_delete_block_invoke(uint64_t a1)
+uint64_t __container_operation_delete_block_invoke(void *a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v5[0] = *(a1 + 48);
-  result = container_operation_delete_array(v5, 1, *(a1 + 56), *(a1 + 64), (*(v2 + 8) + 24));
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  v4 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v2 = a1[5];
+  v4[0] = a1[6];
+  result = container_operation_delete_array(v4, 1, a1[7], a1[8], (*(v2 + 8) + 24));
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -4682,28 +4652,28 @@ uint64_t container_operation_delete_array(uint64_t a1, uint64_t a2, uint64_t a3,
 
 void __container_operation_delete_array_block_invoke(void *a1)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v2 = a1[7];
   v3 = a1[8];
   v4 = a1[9];
   v5 = *(a1[5] + 8);
   v6 = *(a1[6] + 8);
-  v31 = 0;
-  v32 = 1;
-  v29 = 0;
   v30 = 0;
-  v27 = 0;
+  v31 = 1;
   v28 = 0;
+  v29 = 0;
   v26 = 0;
+  v27 = 0;
+  v25 = 0;
   if (v3)
   {
     v7 = xpc_dictionary_create(0, 0, 0);
-    v30 = v7;
+    v29 = v7;
     xpc_dictionary_set_uint64(v7, "Command", 3uLL);
-    v24 = v4;
+    v23 = v4;
     xpc_dictionary_set_uint64(v7, "Flags", v4);
     v8 = xpc_array_create(0, 0);
-    v28 = v8;
+    v27 = v8;
     container_xpc_encode_container_array(v8, v2, v3);
     xpc_dictionary_set_value(v7, "ContainersArray", v8);
     if (container_log_handle_for_category_onceToken != -1)
@@ -4713,45 +4683,45 @@ void __container_operation_delete_array_block_invoke(void *a1)
 
     if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = v5;
-      v23 = MEMORY[0x1E12D2400](v7);
-      __s = v23;
-      v65 = 0u;
-      v66 = 0u;
+      v21 = v5;
+      v22 = MEMORY[0x1E12D2400](v7);
+      __s = v22;
       v64 = 0u;
-      voucher_get_current_persona_originator_info();
-      v62 = 0u;
+      v65 = 0u;
       v63 = 0u;
+      voucher_get_current_persona_originator_info();
       v61 = 0u;
+      v62 = 0u;
+      v60 = 0u;
       voucher_get_current_persona_proximate_info();
-      v60 = 0;
-      memset(v59, 0, sizeof(v59));
-      v58 = 0u;
+      v59 = 0;
+      memset(v58, 0, sizeof(v58));
       v57 = 0u;
       v56 = 0u;
       v55 = 0u;
       v54 = 0u;
-      v53 = 2;
+      v53 = 0u;
+      v52 = 2;
       current_persona = voucher_get_current_persona();
       if (current_persona == -1 || (kpersona_info() & 0x80000000) != 0)
       {
-        v21 = "<unknown>";
+        v20 = "<unknown>";
         v10 = "NOPERSONA";
       }
 
       else
       {
-        if ((DWORD1(v54) - 2) > 4)
+        if ((DWORD1(v53) - 2) > 4)
         {
           v10 = "<unknown>";
         }
 
         else
         {
-          v10 = (&off_1E86AF498)[DWORD1(v54) - 2];
+          v10 = (&off_1E86AF498)[DWORD1(v53) - 2];
         }
 
-        v21 = &v59[4];
+        v20 = &v58[4];
       }
 
       if (container_log_handle_for_category_onceToken != -1)
@@ -4763,35 +4733,35 @@ void __container_operation_delete_array_block_invoke(void *a1)
       if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67111427;
-        v34 = current_persona;
-        v35 = 2082;
-        v36 = v10;
-        v37 = 2082;
-        v38 = v21;
-        v39 = 1024;
-        v40 = 0;
-        v41 = 1024;
-        v42 = 0;
-        v43 = 1024;
-        v44 = 0;
-        v45 = 1024;
-        v46 = 0;
-        v47 = 1024;
-        v48 = geteuid();
-        v49 = 1024;
-        v50 = getuid();
-        v51 = 2081;
-        v52 = v23;
+        v33 = current_persona;
+        v34 = 2082;
+        v35 = v10;
+        v36 = 2082;
+        v37 = v20;
+        v38 = 1024;
+        v39 = 0;
+        v40 = 1024;
+        v41 = 0;
+        v42 = 1024;
+        v43 = 0;
+        v44 = 1024;
+        v45 = 0;
+        v46 = 1024;
+        v47 = geteuid();
+        v48 = 1024;
+        v49 = getuid();
+        v50 = 2081;
+        v51 = v22;
         _os_log_impl(&dword_1DF28A000, v14, OS_LOG_TYPE_DEFAULT, "Container delete; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, manifest = %{private}s", buf, 0x4Au);
       }
 
-      if (v23)
+      if (v22)
       {
-        free(v23);
+        free(v22);
         memset_s(&__s, 8uLL, 0, 8uLL);
       }
 
-      v5 = v22;
+      v5 = v21;
     }
 
     for (i = 0; i != v3; ++i)
@@ -4803,25 +4773,25 @@ void __container_operation_delete_array_block_invoke(void *a1)
         v12 = 0;
         v11 = 0;
 LABEL_29:
-        v27 = v13;
+        v26 = v13;
         goto LABEL_30;
       }
     }
 
-    v17 = container_disposition_for_array(v2, v3, &v26);
-    v18 = container_xpc_send_sync_message(v17, (2 * (v24 & 1)), v7, 1, v26, 0, &v27);
+    v17 = container_disposition_for_array(v2, v3, &v25);
+    v18 = container_xpc_send_sync_message(v17, (2 * (v23 & 1)), v7, 1, v25, 0, &v26);
     v12 = v18;
-    v31 = v18;
+    v30 = v18;
     if (v18)
     {
       value = xpc_dictionary_get_value(v18, "ReplyContainersArray");
-      v11 = container_xpc_decode_create_container_object_array(value, &v29, &v32);
+      v11 = container_xpc_decode_create_container_object_array(value, &v28, &v31);
       if (v11)
       {
         goto LABEL_10;
       }
 
-      v13 = container_error_create_with_message(2, v32, 0, 0, 0);
+      v13 = container_error_create_with_message(2, v31, 0, 0, 0);
       goto LABEL_29;
     }
 
@@ -4837,36 +4807,35 @@ LABEL_29:
   }
 
 LABEL_10:
-  v13 = v27;
+  v13 = v26;
 LABEL_30:
-  *(v5 + 24) = v29;
+  *(v5 + 24) = v28;
   if (v13)
   {
     *(v6 + 24) = container_error_create_with_message(*(v13 + 1), *v13, *(v13 + 2), v13[6], *(v13 + 4));
-    v13 = v27;
+    v13 = v26;
   }
 
   container_error_free(v13);
   if (v8)
   {
     xpc_release(v8);
-    memset_s(&v28, 8uLL, 0, 8uLL);
+    memset_s(&v27, 8uLL, 0, 8uLL);
   }
 
   if (v7)
   {
     xpc_release(v7);
-    memset_s(&v30, 8uLL, 0, 8uLL);
+    memset_s(&v29, 8uLL, 0, 8uLL);
   }
 
   if (v12)
   {
     xpc_release(v12);
-    memset_s(&v31, 8uLL, 0, 8uLL);
+    memset_s(&v30, 8uLL, 0, 8uLL);
   }
 
   *(*(a1[4] + 8) + 24) = v11;
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t container_operation_delete_reclaim_disk_space()
@@ -4891,27 +4860,27 @@ uint64_t container_operation_delete_reclaim_disk_space()
 
 uint64_t __container_operation_delete_reclaim_disk_space_block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v11 = 0;
+  v43 = *MEMORY[0x1E69E9840];
+  v10 = 0;
   v2 = xpc_dictionary_create(0, 0, 0);
   __s = v2;
   xpc_dictionary_set_uint64(v2, "Command", 4uLL);
-  v42 = 0u;
-  v43 = 0u;
   v41 = 0u;
-  voucher_get_current_persona_originator_info();
-  v39 = 0u;
+  v42 = 0u;
   v40 = 0u;
+  voucher_get_current_persona_originator_info();
   v38 = 0u;
+  v39 = 0u;
+  v37 = 0u;
   voucher_get_current_persona_proximate_info();
-  v37 = 0;
-  memset(v36, 0, sizeof(v36));
-  v35 = 0u;
+  v36 = 0;
+  memset(v35, 0, sizeof(v35));
   v34 = 0u;
   v33 = 0u;
   v32 = 0u;
   v31 = 0u;
-  v30 = 2;
+  v30 = 0u;
+  v29 = 2;
   current_persona = voucher_get_current_persona();
   if (current_persona == -1 || (kpersona_info() & 0x80000000) != 0)
   {
@@ -4921,17 +4890,17 @@ uint64_t __container_operation_delete_reclaim_disk_space_block_invoke(uint64_t a
 
   else
   {
-    if ((DWORD1(v31) - 2) > 4)
+    if ((DWORD1(v30) - 2) > 4)
     {
       v4 = "<unknown>";
     }
 
     else
     {
-      v4 = (&off_1E86AF498)[DWORD1(v31) - 2];
+      v4 = (&off_1E86AF498)[DWORD1(v30) - 2];
     }
 
-    v5 = &v36[4];
+    v5 = &v35[4];
   }
 
   if (container_log_handle_for_category_onceToken != -1)
@@ -4943,29 +4912,29 @@ uint64_t __container_operation_delete_reclaim_disk_space_block_invoke(uint64_t a
   if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67111170;
-    v13 = current_persona;
-    v14 = 2082;
-    v15 = v4;
-    v16 = 2082;
-    v17 = v5;
-    v18 = 1024;
-    v19 = 0;
-    v20 = 1024;
-    v21 = 0;
-    v22 = 1024;
-    v23 = 0;
-    v24 = 1024;
-    v25 = 0;
-    v26 = 1024;
-    v27 = geteuid();
-    v28 = 1024;
-    v29 = getuid();
+    v12 = current_persona;
+    v13 = 2082;
+    v14 = v4;
+    v15 = 2082;
+    v16 = v5;
+    v17 = 1024;
+    v18 = 0;
+    v19 = 1024;
+    v20 = 0;
+    v21 = 1024;
+    v22 = 0;
+    v23 = 1024;
+    v24 = 0;
+    v25 = 1024;
+    v26 = geteuid();
+    v27 = 1024;
+    v28 = getuid();
     _os_log_impl(&dword_1DF28A000, v6, OS_LOG_TYPE_DEFAULT, "Wait for obliteration; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u", buf, 0x40u);
   }
 
   result = container_xpc_send_sync_message(2, 2, v2, 1, 0, 0, *(*(a1 + 32) + 8) + 24);
   v8 = result;
-  v11 = result;
+  v10 = result;
   if (v2)
   {
     xpc_release(v2);
@@ -4975,10 +4944,9 @@ uint64_t __container_operation_delete_reclaim_disk_space_block_invoke(uint64_t a
   if (v8)
   {
     xpc_release(v8);
-    result = memset_s(&v11, 8uLL, 0, 8uLL);
+    return memset_s(&v10, 8uLL, 0, 8uLL);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5005,8 +4973,8 @@ uint64_t container_operation_complete_background_tasks(int a1)
 
 void __container_operation_complete_background_tasks_block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v9 = 0;
+  v12 = *MEMORY[0x1E69E9840];
+  v8 = 0;
   v2 = xpc_dictionary_create(0, 0, 0);
   __s = v2;
   xpc_dictionary_set_uint64(v2, "Command", 0x2EuLL);
@@ -5020,7 +4988,7 @@ void __container_operation_complete_background_tasks_block_invoke(uint64_t a1)
   {
     v4 = *(a1 + 40);
     *buf = 67109120;
-    v12 = v4;
+    v11 = v4;
     _os_log_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_DEFAULT, "Wait for background task completion; disposition = 0x%x", buf, 8u);
   }
 
@@ -5028,25 +4996,25 @@ void __container_operation_complete_background_tasks_block_invoke(uint64_t a1)
   if ((v5 & 0xFFFFFFFE) == 2)
   {
     v6 = container_xpc_send_sync_message(2, 5, v2, 1, 0, 0, *(*(a1 + 32) + 8) + 24);
-    v9 = v6;
+    v8 = v6;
     if (!v6)
     {
       goto LABEL_11;
     }
 
     xpc_release(v6);
-    memset_s(&v9, 8uLL, 0, 8uLL);
+    memset_s(&v8, 8uLL, 0, 8uLL);
     v5 = *(a1 + 40);
   }
 
   if ((v5 | 2) == 3)
   {
     v7 = container_xpc_send_sync_message(1, 5, v2, 1, 0, 0, *(*(a1 + 32) + 8) + 24);
-    v9 = v7;
+    v8 = v7;
     if (v7)
     {
       xpc_release(v7);
-      memset_s(&v9, 8uLL, 0, 8uLL);
+      memset_s(&v8, 8uLL, 0, 8uLL);
     }
   }
 
@@ -5056,8 +5024,6 @@ LABEL_11:
     xpc_release(v2);
     memset_s(&__s, 8uLL, 0, 8uLL);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 char *container_audit_token_copy_codesign_team_identifier(uint64_t a1)
@@ -5071,7 +5037,7 @@ char *container_audit_token_copy_codesign_team_identifier(uint64_t a1)
 
 uint64_t container_audit_token_copy_executable_name(audit_token_t *a1, char **a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a1->val[5];
   bzero(buffer, 0x401uLL);
   if (proc_pidpath_audittoken(a1, buffer, 0x400u) <= 0)
@@ -5085,11 +5051,11 @@ uint64_t container_audit_token_copy_executable_name(audit_token_t *a1, char **a2
     v8 = qword_1ED452B30;
     if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_ERROR))
     {
-      v11[0] = 67109376;
-      v11[1] = v4;
-      v12 = 1024;
-      v13 = v7;
-      _os_log_error_impl(&dword_1DF28A000, v8, OS_LOG_TYPE_ERROR, "Unable to fetch executable path from client for pid [%d]: %{darwin.errno}d", v11, 0xEu);
+      v10[0] = 67109376;
+      v10[1] = v4;
+      v11 = 1024;
+      v12 = v7;
+      _os_log_error_impl(&dword_1DF28A000, v8, OS_LOG_TYPE_ERROR, "Unable to fetch executable path from client for pid [%d]: %{darwin.errno}d", v10, 0xEu);
     }
   }
 
@@ -5114,17 +5080,16 @@ uint64_t container_audit_token_copy_executable_name(audit_token_t *a1, char **a2
 
     else
     {
-      v7 = 0;
+      return 0;
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 uint64_t container_audit_token_copy_executable_name_with_pid(int a1, char **a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x401uLL);
   if (proc_pidpath(a1, buffer, 0x400u) <= 0)
   {
@@ -5137,11 +5102,11 @@ uint64_t container_audit_token_copy_executable_name_with_pid(int a1, char **a2)
     v7 = qword_1ED452B30;
     if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_ERROR))
     {
-      v10[0] = 67109376;
-      v10[1] = a1;
-      v11 = 1024;
-      v12 = v6;
-      _os_log_error_impl(&dword_1DF28A000, v7, OS_LOG_TYPE_ERROR, "Unable to fetch executable path from client for pid [%d]: %{darwin.errno}d", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = a1;
+      v10 = 1024;
+      v11 = v6;
+      _os_log_error_impl(&dword_1DF28A000, v7, OS_LOG_TYPE_ERROR, "Unable to fetch executable path from client for pid [%d]: %{darwin.errno}d", v9, 0xEu);
     }
   }
 
@@ -5166,26 +5131,23 @@ uint64_t container_audit_token_copy_executable_name_with_pid(int a1, char **a2)
 
     else
     {
-      v6 = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 BOOL container_audit_token_for_pid(int pid, _OWORD *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-LABEL_8:
-    v8 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   *task_info_out = 0u;
-  v20 = 0u;
+  v19 = 0u;
   tn = 0;
   v4 = MEMORY[0x1E69E9A60];
   if (task_name_for_pid(*MEMORY[0x1E69E9A60], pid, &tn))
@@ -5202,17 +5164,17 @@ LABEL_8:
       v7 = qword_1ED452B30;
       if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_ERROR))
       {
-        v16 = mach_error_string(v6);
+        v15 = mach_error_string(v6);
         *buf = 67109634;
-        v22 = pid;
-        v23 = 2082;
-        v24 = v16;
-        v25 = 1024;
-        v26 = v6;
+        v21 = pid;
+        v22 = 2082;
+        v23 = v15;
+        v24 = 1024;
+        v25 = v6;
         _os_log_error_impl(&dword_1DF28A000, v7, OS_LOG_TYPE_ERROR, "Unable to obtain a task name port right for pid %i: %{public}s (0x%x)", buf, 0x18u);
       }
 
-      goto LABEL_8;
+      return 0;
     }
   }
 
@@ -5232,24 +5194,22 @@ LABEL_8:
     {
       v12 = mach_error_string(v10);
       *buf = 67109634;
-      v22 = pid;
-      v23 = 2082;
-      v24 = v12;
-      v25 = 1024;
-      v26 = v10;
+      v21 = pid;
+      v22 = 2082;
+      v23 = v12;
+      v24 = 1024;
+      v25 = v10;
       _os_log_error_impl(&dword_1DF28A000, v11, OS_LOG_TYPE_ERROR, "Unable to obtain a task info for pid %i: %{public}s (0x%x)", buf, 0x18u);
     }
   }
 
   else
   {
-    v13 = v20;
+    v13 = v19;
     *a2 = *task_info_out;
     a2[1] = v13;
   }
 
-LABEL_15:
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -5279,7 +5239,7 @@ __n128 container_seam_quarantine_set_common(uint64_t a1)
 
 void __container_xpc_create_connection_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (container_log_handle_for_category_onceToken != -1)
   {
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
@@ -5290,30 +5250,28 @@ void __container_xpc_create_connection_block_invoke_2(uint64_t a1, uint64_t a2)
   {
     if (a2 == MEMORY[0x1E69E9E18])
     {
-      v5 = " interrupted";
+      v4 = " interrupted";
     }
 
     else
     {
-      v5 = &unk_1DF2BBE1A;
+      v4 = &unk_1DF2BBE1A;
     }
 
     if (a2 == MEMORY[0x1E69E9E20])
     {
-      v6 = " invalidation";
+      v5 = " invalidation";
     }
 
     else
     {
-      v6 = v5;
+      v5 = v4;
     }
 
-    v7 = 136446210;
-    v8 = v6;
-    _os_log_debug_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_DEBUG, "received superfluous connection%{public}s event, ignoring", &v7, 0xCu);
+    v6 = 136446210;
+    v7 = v5;
+    _os_log_debug_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_DEBUG, "received superfluous connection%{public}s event, ignoring", &v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void container_xpc_invalidate_connection(uint64_t a1)
@@ -5354,7 +5312,7 @@ void *container_references_create()
 
 void container_references_set_class(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 8);
@@ -5375,52 +5333,48 @@ void container_references_set_class(uint64_t a1, uint64_t a2)
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v3 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v3 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v7 = "container_references_set_class";
+      v6 = "container_references_set_class";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: references parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void __container_references_set_class_block_invoke(uint64_t a1)
+void __container_references_set_class_block_invoke(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if ((*(a1 + 32) - 1) >= 0xE)
+  v10 = *MEMORY[0x1E69E9840];
+  if ((a1[4] - 1) >= 0xE)
   {
     if (container_log_handle_for_category_onceToken != -1)
     {
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v4 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v4 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = 136315138;
-      v10 = v8;
-      _os_log_fault_impl(&dword_1DF28A000, v4, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: invalid container class", &v9, 0xCu);
+      v7 = a1[5];
+      v8 = 136315138;
+      v9 = v7;
+      _os_log_fault_impl(&dword_1DF28A000, v4, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: invalid container class", &v8, 0xCu);
     }
 
-    v5 = *(a1 + 48);
+    v5 = a1[6];
     v6 = container_error_create_with_message(3, 20, 0, 0, 0);
     _container_references_replace_error(v5, v6);
   }
 
   else
   {
-    _container_references_log_if_error(*(a1 + 48), *(a1 + 40));
-    v2 = *(a1 + 32);
-    v3 = *(a1 + 48);
+    _container_references_log_if_error(a1[6], a1[5]);
+    v2 = a1[4];
+    v3 = a1[6];
     *(v3 + 16) |= 1uLL;
     *(v3 + 24) = v2;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void *_container_references_replace_error(uint64_t *a1, uint64_t a2)
@@ -5443,9 +5397,9 @@ void *_container_references_replace_error(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-void _container_references_log_if_error(uint64_t **a1, uint64_t a2)
+void _container_references_log_if_error(uint64_t *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *a1;
@@ -5462,34 +5416,30 @@ void _container_references_log_if_error(uint64_t **a1, uint64_t a2)
       if (os_log_type_enabled(qword_1ED452B38, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v9 = a2;
-        v10 = 2080;
-        v11 = v4;
+        v8 = a2;
+        v9 = 2080;
+        v10 = v4;
         _os_log_error_impl(&dword_1DF28A000, v5, OS_LOG_TYPE_ERROR, "WARNING: Calling %s with a references that has a previous error: %s", buf, 0x16u);
         if (!v4)
         {
-          goto LABEL_8;
+          return;
         }
-
-        goto LABEL_7;
       }
 
-      if (v4)
+      else if (!v4)
       {
-LABEL_7:
-        free(v4);
-        memset_s(&__s, 8uLL, 0, 8uLL);
+        return;
       }
+
+      free(v4);
+      memset_s(&__s, 8uLL, 0, 8uLL);
     }
   }
-
-LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void container_references_set_uid(uint64_t a1, int a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 8);
@@ -5499,7 +5449,7 @@ void container_references_set_uid(uint64_t a1, int a2)
     block[3] = &__block_descriptor_tmp_1_409;
     block[4] = a1;
     block[5] = "container_references_set_uid";
-    v6 = a2;
+    v5 = a2;
     os_activity_apply(v2, block);
   }
 
@@ -5510,16 +5460,14 @@ void container_references_set_uid(uint64_t a1, int a2)
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v3 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v3 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v8 = "container_references_set_uid";
+      v7 = "container_references_set_uid";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: references parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __container_references_set_uid_block_invoke(uint64_t a1)
@@ -5532,7 +5480,7 @@ void __container_references_set_uid_block_invoke(uint64_t a1)
 
 void container_references_set_persona_unique_string(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 8);
@@ -5553,21 +5501,19 @@ void container_references_set_persona_unique_string(uint64_t a1, uint64_t a2)
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v3 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v3 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v7 = "container_references_set_persona_unique_string";
+      v6 = "container_references_set_persona_unique_string";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: references parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void *__container_references_set_persona_unique_string_block_invoke(uint64_t a1)
+char *__container_references_set_persona_unique_string_block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     _container_references_log_if_error(*(a1 + 48), "container_references_set_persona_unique_string_block_invoke");
@@ -5592,27 +5538,26 @@ void *__container_references_set_persona_unique_string_block_invoke(uint64_t a1)
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v5 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v5 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
-      v9 = *(a1 + 40);
-      v10 = 136315138;
-      v11 = v9;
-      _os_log_fault_impl(&dword_1DF28A000, v5, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: persona_unique_string parameter is NULL", &v10, 0xCu);
+      v8 = *(a1 + 40);
+      v9 = 136315138;
+      v10 = v8;
+      _os_log_fault_impl(&dword_1DF28A000, v5, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: persona_unique_string parameter is NULL", &v9, 0xCu);
     }
 
     v6 = *(a1 + 48);
     v7 = container_error_create_with_message(3, 38, 0, 0, 0);
-    result = _container_references_replace_error(v6, v7);
+    return _container_references_replace_error(v6, v7);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void container_references_operation_set_flags(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *(a1 + 8);
@@ -5633,16 +5578,14 @@ void container_references_operation_set_flags(uint64_t a1, uint64_t a2)
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v3 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v3 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v7 = "container_references_operation_set_flags";
+      v6 = "container_references_operation_set_flags";
       _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: references parameter is NULL", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void *container_references_free(void *result)
@@ -5689,27 +5632,27 @@ void *container_references_free(void *result)
 
 uint64_t container_references_add(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2000000000;
-  v14 = 0;
+  v16 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2000000000;
+  v13 = 0;
   if (a1)
   {
     v5 = *(a1 + 8);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 0x40000000;
-    v10[2] = __container_references_add_block_invoke;
-    v10[3] = &unk_1E86AE458;
-    v10[4] = &v11;
-    v10[5] = a1;
-    v10[6] = "container_references_add";
-    v10[7] = a2;
-    v10[8] = a3;
-    v10[9] = a4;
-    os_activity_apply(v5, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 0x40000000;
+    v9[2] = __container_references_add_block_invoke;
+    v9[3] = &unk_1E86AE458;
+    v9[4] = &v10;
+    v9[5] = a1;
+    v9[6] = "container_references_add";
+    v9[7] = a2;
+    v9[8] = a3;
+    v9[9] = a4;
+    os_activity_apply(v5, v9);
     container_log_ext_error("container_references_add", gClientFaultLoggingEnabled, *a1);
-    v6 = v12[3];
+    v6 = v11[3];
   }
 
   else
@@ -5719,19 +5662,18 @@ uint64_t container_references_add(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v7 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v7 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v16 = "container_references_add";
+      v15 = "container_references_add";
       _os_log_fault_impl(&dword_1DF28A000, v7, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: references parameter is NULL", buf, 0xCu);
     }
 
     v6 = 0;
   }
 
-  _Block_object_dispose(&v11, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v10, 8);
   return v6;
 }
 
@@ -5745,14 +5687,14 @@ void *__container_references_add_block_invoke(uint64_t a1)
 
 void *_container_add_remove(uint64_t a1, uint64_t a2, xpc_object_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v109 = *MEMORY[0x1E69E9840];
-  v76 = 0;
+  v108 = *MEMORY[0x1E69E9840];
+  v75 = 0;
+  v72 = 0;
   v73 = 0;
-  v74 = 0;
   value = 0;
   objects = 0;
   v12 = xpc_dictionary_create(0, 0, 0);
-  v75 = v12;
+  v74 = v12;
   xpc_dictionary_set_uint64(v12, "Command", a2);
   xpc_dictionary_set_uint64(v12, "Flags", *(a1 + 48));
   xpc_dictionary_set_uint64(v12, "PrivateFlags", *(a1 + 56));
@@ -5770,11 +5712,11 @@ void *_container_add_remove(uint64_t a1, uint64_t a2, xpc_object_t a3, void *a4,
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v14 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v14 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v97[0] = a6;
+      v96[0] = a6;
       _os_log_fault_impl(&dword_1DF28A000, v14, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: container_query_set_class() is required", buf, 0xCu);
     }
 
@@ -5809,11 +5751,11 @@ LABEL_30:
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      v23 = container_log_handle_for_category_logHandles;
-      if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+      v23 = container_log_handle_for_category_logHandles[0];
+      if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v97[0] = a6;
+        v96[0] = a6;
         _os_log_fault_impl(&dword_1DF28A000, v23, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: owner_identifiers is not an array or string", buf, 0xCu);
       }
 
@@ -5863,11 +5805,11 @@ LABEL_22:
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v26 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v26 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v97[0] = a6;
+      v96[0] = a6;
       _os_log_fault_impl(&dword_1DF28A000, v26, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: group_identifiers is not an array or string", buf, 0xCu);
     }
 
@@ -5930,11 +5872,11 @@ LABEL_34:
       v35 = geteuid();
       v36 = getuid();
       *buf = 67109634;
-      LODWORD(v97[0]) = v35;
-      WORD2(v97[0]) = 1024;
-      *(v97 + 6) = v36;
-      WORD1(v97[1]) = 2080;
-      *(&v97[1] + 4) = v32;
+      LODWORD(v96[0]) = v35;
+      WORD2(v96[0]) = 1024;
+      *(v96 + 6) = v36;
+      WORD1(v96[1]) = 2080;
+      *(&v96[1] + 4) = v32;
       v37 = "References query; euid = %u, uid = %u, query = %s";
       v38 = buf;
       v39 = v34;
@@ -5943,48 +5885,48 @@ LABEL_34:
 
     else
     {
-      v107 = 0u;
-      v108 = 0u;
       v106 = 0u;
-      current_persona_originator_info = voucher_get_current_persona_originator_info();
-      v65 = DWORD2(v106);
-      v67 = current_persona_originator_info;
-      v63 = DWORD1(v107);
-      v104 = 0u;
+      v107 = 0u;
       v105 = 0u;
+      current_persona_originator_info = voucher_get_current_persona_originator_info();
+      v64 = DWORD2(v105);
+      v66 = current_persona_originator_info;
+      v62 = DWORD1(v106);
       v103 = 0u;
+      v104 = 0u;
+      v102 = 0u;
       current_persona_proximate_info = voucher_get_current_persona_proximate_info();
-      v60 = DWORD2(v103);
-      v61 = current_persona_proximate_info;
-      v59 = DWORD1(v104);
-      v102 = 0;
-      memset(v101, 0, sizeof(v101));
-      v100 = 0u;
+      v59 = DWORD2(v102);
+      v60 = current_persona_proximate_info;
+      v58 = DWORD1(v103);
+      v101 = 0;
+      memset(v100, 0, sizeof(v100));
       v99 = 0u;
       v98 = 0u;
-      memset(v97, 0, sizeof(v97));
+      v97 = 0u;
+      memset(v96, 0, sizeof(v96));
       *buf = 2;
       current_persona = voucher_get_current_persona();
       if (current_persona == -1 || (kpersona_info() & 0x80000000) != 0)
       {
-        v57 = "<unknown>";
-        v58 = "NOPERSONA";
+        v56 = "<unknown>";
+        v57 = "NOPERSONA";
       }
 
       else
       {
-        if ((HIDWORD(v97[0]) - 2) > 4)
+        if ((HIDWORD(v96[0]) - 2) > 4)
         {
-          v53 = "<unknown>";
+          v52 = "<unknown>";
         }
 
         else
         {
-          v53 = (&off_1E86AF498)[HIDWORD(v97[0]) - 2];
+          v52 = (&off_1E86AF498)[HIDWORD(v96[0]) - 2];
         }
 
-        v58 = v53;
-        v57 = &v101[4];
+        v57 = v52;
+        v56 = &v100[4];
       }
 
       if (container_log_handle_for_category_onceToken != -1)
@@ -5992,41 +5934,41 @@ LABEL_34:
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      v54 = qword_1ED452B38;
+      v53 = qword_1ED452B38;
       if (!os_log_type_enabled(qword_1ED452B38, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_53;
       }
 
-      v55 = v65 & ~(v67 >> 31);
-      v64 = v63 & ~(v67 >> 31);
-      v66 = v60 & ~(v61 >> 31);
-      v68 = v59 & ~(v61 >> 31);
-      v62 = geteuid();
-      v56 = getuid();
-      v77[0] = 67111426;
-      v77[1] = current_persona;
-      v78 = 2082;
-      v79 = v58;
-      v80 = 2082;
-      v81 = v57;
-      v82 = 1024;
-      v83 = v55;
-      v84 = 1024;
-      v85 = v64;
-      v86 = 1024;
-      v87 = v66;
-      v88 = 1024;
-      v89 = v68;
-      v90 = 1024;
-      v91 = v62;
-      v92 = 1024;
-      v93 = v56;
-      v94 = 2080;
-      v95 = v32;
+      v54 = v64 & ~(v66 >> 31);
+      v63 = v62 & ~(v66 >> 31);
+      v65 = v59 & ~(v60 >> 31);
+      v67 = v58 & ~(v60 >> 31);
+      v61 = geteuid();
+      v55 = getuid();
+      v76[0] = 67111426;
+      v76[1] = current_persona;
+      v77 = 2082;
+      v78 = v57;
+      v79 = 2082;
+      v80 = v56;
+      v81 = 1024;
+      v82 = v54;
+      v83 = 1024;
+      v84 = v63;
+      v85 = 1024;
+      v86 = v65;
+      v87 = 1024;
+      v88 = v67;
+      v89 = 1024;
+      v90 = v61;
+      v91 = 1024;
+      v92 = v55;
+      v93 = 2080;
+      v94 = v32;
       v37 = "References query; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, query = %s";
-      v38 = v77;
-      v39 = v54;
+      v38 = v76;
+      v39 = v53;
       v40 = 74;
     }
 
@@ -6059,15 +6001,15 @@ LABEL_53:
     }
   }
 
-  v44 = container_xpc_send_sync_message(v42, 0, v12, 1, v29, a1 + 72, &v74);
+  v44 = container_xpc_send_sync_message(v42, 0, v12, 1, v29, a1 + 72, &v73);
   v17 = v44;
-  v76 = v44;
+  v75 = v44;
   if (!v44)
   {
     v27 = 0;
 LABEL_64:
-    v16 = v74;
-    if (v74)
+    v16 = v73;
+    if (v73)
     {
       goto LABEL_32;
     }
@@ -6076,22 +6018,22 @@ LABEL_64:
   }
 
   v45 = xpc_dictionary_get_value(v44, "ReplyContainersArray");
-  v69 = 1;
-  v27 = container_xpc_decode_create_container_object_array(v45, &v73, &v69);
+  v68 = 1;
+  v27 = container_xpc_decode_create_container_object_array(v45, &v72, &v68);
   if (v27)
   {
     goto LABEL_64;
   }
 
-  v15 = container_error_create_with_message(2, v69, 0, 0, 0);
+  v15 = container_error_create_with_message(2, v68, 0, 0, 0);
   v16 = v15;
 LABEL_31:
-  v74 = v15;
+  v73 = v15;
   if (v16)
   {
 LABEL_32:
     _container_references_replace_error(a1, v16);
-    v28 = v74;
+    v28 = v73;
     goto LABEL_66;
   }
 
@@ -6101,19 +6043,19 @@ LABEL_66:
   container_error_free(v28);
   if (a5)
   {
-    *a5 = v73;
+    *a5 = v72;
   }
 
   if (v12)
   {
     xpc_release(v12);
-    memset_s(&v75, 8uLL, 0, 8uLL);
+    memset_s(&v74, 8uLL, 0, 8uLL);
   }
 
   if (v17)
   {
     xpc_release(v17);
-    memset_s(&v76, 8uLL, 0, 8uLL);
+    memset_s(&v75, 8uLL, 0, 8uLL);
   }
 
   if (objects)
@@ -6148,33 +6090,32 @@ LABEL_66:
     memset_s(&value, 8uLL, 0, 8uLL);
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 uint64_t container_references_remove(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2000000000;
-  v14 = 0;
+  v16 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2000000000;
+  v13 = 0;
   if (a1)
   {
     v5 = *(a1 + 8);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 0x40000000;
-    v10[2] = __container_references_remove_block_invoke;
-    v10[3] = &unk_1E86AE480;
-    v10[4] = &v11;
-    v10[5] = a1;
-    v10[6] = "container_references_remove";
-    v10[7] = a2;
-    v10[8] = a3;
-    v10[9] = a4;
-    os_activity_apply(v5, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 0x40000000;
+    v9[2] = __container_references_remove_block_invoke;
+    v9[3] = &unk_1E86AE480;
+    v9[4] = &v10;
+    v9[5] = a1;
+    v9[6] = "container_references_remove";
+    v9[7] = a2;
+    v9[8] = a3;
+    v9[9] = a4;
+    os_activity_apply(v5, v9);
     container_log_ext_error("container_references_remove", gClientFaultLoggingEnabled, *a1);
-    v6 = v12[3];
+    v6 = v11[3];
   }
 
   else
@@ -6184,19 +6125,18 @@ uint64_t container_references_remove(uint64_t a1, uint64_t a2, uint64_t a3, uint
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v7 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v7 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v16 = "container_references_remove";
+      v15 = "container_references_remove";
       _os_log_fault_impl(&dword_1DF28A000, v7, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: references parameter is NULL", buf, 0xCu);
     }
 
     v6 = 0;
   }
 
-  _Block_object_dispose(&v11, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v10, 8);
   return v6;
 }
 
@@ -6210,11 +6150,11 @@ void *__container_references_remove_block_invoke(uint64_t a1)
 
 uint64_t container_references_iterate_by_owner_sync(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2000000000;
-  v13 = 0;
+  v15 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2000000000;
+  v12 = 0;
   if (a1)
   {
     v4 = *(a1 + 8);
@@ -6226,10 +6166,10 @@ uint64_t container_references_iterate_by_owner_sync(uint64_t a1, uint64_t a2, ui
     block[7] = "container_references_iterate_by_owner_sync";
     block[8] = a2;
     block[4] = a3;
-    block[5] = &v10;
+    block[5] = &v9;
     os_activity_apply(v4, block);
     container_log_ext_error("container_references_iterate_by_owner_sync", gClientFaultLoggingEnabled, *a1);
-    v5 = *(v11 + 24);
+    v5 = *(v10 + 24);
   }
 
   else
@@ -6239,19 +6179,18 @@ uint64_t container_references_iterate_by_owner_sync(uint64_t a1, uint64_t a2, ui
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v6 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v6 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v15 = "container_references_iterate_by_owner_sync";
+      v14 = "container_references_iterate_by_owner_sync";
       _os_log_fault_impl(&dword_1DF28A000, v6, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: references parameter is NULL", buf, 0xCu);
     }
 
     v5 = 0;
   }
 
-  _Block_object_dispose(&v10, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v9, 8);
   return v5 & 1;
 }
 
@@ -6272,19 +6211,18 @@ uint64_t __container_references_iterate_by_owner_sync_block_invoke(uint64_t a1)
 
 uint64_t _container_references_query_execute(uint64_t a1, xpc_object_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v120 = *MEMORY[0x1E69E9840];
-  v88 = 0;
+  v119 = *MEMORY[0x1E69E9840];
+  v87 = 0;
   objects = 0;
-  v86 = 0;
+  v85 = 0;
   value = 0;
   if (!a1)
   {
-    v18 = 0;
-    goto LABEL_91;
+    return 0;
   }
 
   v10 = xpc_dictionary_create(0, 0, 0);
-  v87 = v10;
+  v86 = v10;
   xpc_dictionary_set_uint64(v10, "Command", 0x2FuLL);
   xpc_dictionary_set_uint64(v10, "Flags", *(a1 + 48));
   xpc_dictionary_set_uint64(v10, "PrivateFlags", *(a1 + 56));
@@ -6302,8 +6240,8 @@ uint64_t _container_references_query_execute(uint64_t a1, xpc_object_t a2, void 
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v12 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v12 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = a4;
@@ -6340,7 +6278,7 @@ uint64_t _container_references_query_execute(uint64_t a1, xpc_object_t a2, void 
   {
     xpc_dictionary_set_value(v10, "OwnerIdentifiersArray", objects);
 LABEL_24:
-    v82 = a5;
+    v81 = a5;
     if (a3)
     {
       value = a3;
@@ -6365,8 +6303,8 @@ LABEL_24:
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v26 = container_log_handle_for_category_logHandles;
-        if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+        v26 = container_log_handle_for_category_logHandles[0];
+        if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
           *&buf[4] = a4;
@@ -6376,7 +6314,7 @@ LABEL_24:
         v14 = container_error_create_with_message(3, 38, 0, 0, 0);
         v15 = 0;
         v18 = 0;
-        v86 = v14;
+        v85 = v14;
         v16 = v25;
         if (!v14)
         {
@@ -6386,7 +6324,7 @@ LABEL_24:
 LABEL_76:
         _container_references_replace_error(a1, v14);
         v18 = 0;
-        v27 = v86;
+        v27 = v85;
         goto LABEL_77;
       }
 
@@ -6451,38 +6389,38 @@ LABEL_58:
         }
       }
 
-      v43 = container_xpc_send_sync_message(v41, 0, v10, 1, v28, a1 + 72, &v86);
+      v43 = container_xpc_send_sync_message(v41, 0, v10, 1, v28, a1 + 72, &v85);
       v15 = v43;
-      v88 = v43;
+      v87 = v43;
       if (v43)
       {
         object = xpc_retain(v43);
         *buf = object;
         array = xpc_dictionary_get_array(v15, "ReplyOwnerIdentifiers");
-        v80 = v16;
+        v79 = v16;
         if (array && (v45 = array, (v46 = xpc_dictionary_get_array(v15, "ReplyGroupIdentifiers")) != 0) && (v47 = v46, length = 0, (data = xpc_dictionary_get_data(v15, "ReplyFacts", &length)) != 0))
         {
           if (length >= 0x10)
           {
-            v54 = (length >> 4) - 1;
-            v55 = (data + 8);
+            v53 = (length >> 4) - 1;
+            v54 = (data + 8);
             do
             {
-              string = xpc_array_get_string(v45, *(v55 - 1));
-              v57 = xpc_array_get_string(v47, *v55);
-              v58 = (*(v82 + 16))(v82, string, v57);
-              v18 = v58;
+              string = xpc_array_get_string(v45, *(v54 - 1));
+              v56 = xpc_array_get_string(v47, *v54);
+              v57 = (*(v81 + 16))(v81, string, v56);
+              v18 = v57;
               v49 = 0;
-              v60 = v54-- != 0;
-              if (!v58)
+              v59 = v53-- != 0;
+              if (!v57)
               {
                 break;
               }
 
-              v55 += 2;
+              v54 += 2;
             }
 
-            while (v60);
+            while (v59);
           }
 
           else
@@ -6504,10 +6442,10 @@ LABEL_58:
           memset_s(buf, 8uLL, 0, 8uLL);
         }
 
-        v16 = v80;
+        v16 = v79;
         if ((v18 & 1) == 0)
         {
-          v86 = v49;
+          v85 = v49;
         }
       }
 
@@ -6516,8 +6454,8 @@ LABEL_58:
         v18 = 0;
       }
 
-      v14 = v86;
-      if (!v86)
+      v14 = v85;
+      if (!v85)
       {
         goto LABEL_35;
       }
@@ -6557,47 +6495,47 @@ LABEL_58:
 
     else
     {
-      v118 = 0u;
-      v119 = 0u;
       v117 = 0u;
-      current_persona_originator_info = voucher_get_current_persona_originator_info();
-      v77 = DWORD1(v118);
-      objecta = DWORD2(v117);
-      v115 = 0u;
+      v118 = 0u;
       v116 = 0u;
+      current_persona_originator_info = voucher_get_current_persona_originator_info();
+      v76 = DWORD1(v117);
+      objecta = DWORD2(v116);
       v114 = 0u;
+      v115 = 0u;
+      v113 = 0u;
       current_persona_proximate_info = voucher_get_current_persona_proximate_info();
-      v75 = DWORD2(v114);
-      v76 = current_persona_proximate_info;
-      v74 = DWORD1(v115);
-      v113 = 0;
-      memset(v112, 0, sizeof(v112));
-      v111 = 0u;
+      v74 = DWORD2(v113);
+      v75 = current_persona_proximate_info;
+      v73 = DWORD1(v114);
+      v112 = 0;
+      memset(v111, 0, sizeof(v111));
       v110 = 0u;
       v109 = 0u;
+      v108 = 0u;
       memset(&buf[4], 0, 32);
       *buf = 2;
       current_persona = voucher_get_current_persona();
       if (current_persona == -1 || (kpersona_info() & 0x80000000) != 0)
       {
-        v72 = "<unknown>";
-        v73 = "NOPERSONA";
+        v71 = "<unknown>";
+        v72 = "NOPERSONA";
       }
 
       else
       {
         if ((*&buf[8] - 2) > 4)
         {
-          v64 = "<unknown>";
+          v63 = "<unknown>";
         }
 
         else
         {
-          v64 = (&off_1E86AF498)[*&buf[8] - 2];
+          v63 = (&off_1E86AF498)[*&buf[8] - 2];
         }
 
-        v73 = v64;
-        v72 = &v112[4];
+        v72 = v63;
+        v71 = &v111[4];
       }
 
       if (container_log_handle_for_category_onceToken != -1)
@@ -6605,44 +6543,44 @@ LABEL_58:
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      v65 = qword_1ED452B38;
+      v64 = qword_1ED452B38;
       if (!os_log_type_enabled(qword_1ED452B38, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_56;
       }
 
-      v66 = current_persona_originator_info;
-      v67 = v16;
-      v68 = objecta & ~(v66 >> 31);
-      v81 = v17;
-      v69 = v77 & ~(v66 >> 31);
-      v70 = geteuid();
-      v71 = getuid();
+      v65 = current_persona_originator_info;
+      v66 = v16;
+      v67 = objecta & ~(v65 >> 31);
+      v80 = v17;
+      v68 = v76 & ~(v65 >> 31);
+      v69 = geteuid();
+      v70 = getuid();
       LODWORD(length) = 67111426;
       HIDWORD(length) = current_persona;
-      v90 = 2082;
-      v91 = v73;
-      v92 = 2082;
-      v93 = v72;
-      v94 = 1024;
-      v95 = v68;
-      v16 = v67;
-      v96 = 1024;
-      v97 = v69;
-      v17 = v81;
-      v98 = 1024;
-      v99 = v75 & ~(v76 >> 31);
-      v100 = 1024;
-      v101 = v74 & ~(v76 >> 31);
-      v102 = 1024;
-      v103 = v70;
-      v104 = 1024;
-      v105 = v71;
-      v106 = 2080;
-      v107 = v31;
+      v89 = 2082;
+      v90 = v72;
+      v91 = 2082;
+      v92 = v71;
+      v93 = 1024;
+      v94 = v67;
+      v16 = v66;
+      v95 = 1024;
+      v96 = v68;
+      v17 = v80;
+      v97 = 1024;
+      v98 = v74 & ~(v75 >> 31);
+      v99 = 1024;
+      v100 = v73 & ~(v75 >> 31);
+      v101 = 1024;
+      v102 = v69;
+      v103 = 1024;
+      v104 = v70;
+      v105 = 2080;
+      v106 = v31;
       v36 = "References query; personaid = %u, type = %{public}s, name = %{public}s, origin [pid = %d, personaid = %u], proximate [pid = %d, personaid = %u], euid = %u, uid = %u, query = %s";
       p_length = &length;
-      v38 = v65;
+      v38 = v64;
       v39 = 74;
     }
 
@@ -6662,8 +6600,8 @@ LABEL_56:
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v22 = container_log_handle_for_category_logHandles;
-  if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+  v22 = container_log_handle_for_category_logHandles[0];
+  if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
     *&buf[4] = a4;
@@ -6676,7 +6614,7 @@ LABEL_56:
   v16 = 0;
 LABEL_20:
   v18 = 0;
-  v86 = v13;
+  v85 = v13;
   if (v14)
   {
     goto LABEL_76;
@@ -6689,13 +6627,13 @@ LABEL_77:
   if (v10)
   {
     xpc_release(v10);
-    memset_s(&v87, 8uLL, 0, 8uLL);
+    memset_s(&v86, 8uLL, 0, 8uLL);
   }
 
   if (v15)
   {
     xpc_release(v15);
-    memset_s(&v88, 8uLL, 0, 8uLL);
+    memset_s(&v87, 8uLL, 0, 8uLL);
   }
 
   if (objects)
@@ -6730,18 +6668,16 @@ LABEL_77:
     memset_s(&value, 8uLL, 0, 8uLL);
   }
 
-LABEL_91:
-  v52 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 uint64_t container_references_iterate_by_group_sync(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2000000000;
-  v13 = 0;
+  v15 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2000000000;
+  v12 = 0;
   if (a1)
   {
     v4 = *(a1 + 8);
@@ -6753,10 +6689,10 @@ uint64_t container_references_iterate_by_group_sync(uint64_t a1, uint64_t a2, ui
     block[7] = "container_references_iterate_by_group_sync";
     block[8] = a2;
     block[4] = a3;
-    block[5] = &v10;
+    block[5] = &v9;
     os_activity_apply(v4, block);
     container_log_ext_error("container_references_iterate_by_group_sync", gClientFaultLoggingEnabled, *a1);
-    v5 = *(v11 + 24);
+    v5 = *(v10 + 24);
   }
 
   else
@@ -6766,19 +6702,18 @@ uint64_t container_references_iterate_by_group_sync(uint64_t a1, uint64_t a2, ui
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v6 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v6 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v15 = "container_references_iterate_by_group_sync";
+      v14 = "container_references_iterate_by_group_sync";
       _os_log_fault_impl(&dword_1DF28A000, v6, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: references parameter is NULL", buf, 0xCu);
     }
 
     v5 = 0;
   }
 
-  _Block_object_dispose(&v10, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v9, 8);
   return v5 & 1;
 }
 
@@ -6841,7 +6776,7 @@ uint64_t container_xpc_set_client_context_during_block(void *a1, uint64_t a2)
 
 void ___container_xpc_pthread_key_for_client_context_block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v0 = pthread_key_create(&_container_xpc_pthread_key_for_client_context_key, 0);
   if (v0)
   {
@@ -6854,13 +6789,11 @@ void ___container_xpc_pthread_key_for_client_context_block_invoke()
     v2 = qword_1ED452B30;
     if (os_log_type_enabled(qword_1ED452B30, OS_LOG_TYPE_FAULT))
     {
-      v4[0] = 67109120;
-      v4[1] = v1;
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "Failed to create pthread key. container_perform_with_client_context() cannot continue; errno = %{darwin.errno}d", v4, 8u);
+      v3[0] = 67109120;
+      v3[1] = v1;
+      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "Failed to create pthread key. container_perform_with_client_context() cannot continue; errno = %{darwin.errno}d", v3, 8u);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void container_xpc_set_outgoing_message_postprocess_block(const void *a1)
@@ -6934,7 +6867,7 @@ __n128 container_seam_notify_set_common(uint64_t a1)
 
 xpc_object_t container_entitlements_copy_container_identifiers(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v8 = xpc_array_create(0, 0);
   if (!a4)
   {
@@ -6943,8 +6876,8 @@ xpc_object_t container_entitlements_copy_container_identifiers(const char *a1, u
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v13 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v13 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "container_entitlements_copy_container_identifiers";
@@ -6954,7 +6887,7 @@ xpc_object_t container_entitlements_copy_container_identifiers(const char *a1, u
       goto LABEL_12;
     }
 
-    goto LABEL_31;
+    return v8;
   }
 
   if (a3)
@@ -6964,23 +6897,23 @@ xpc_object_t container_entitlements_copy_container_identifiers(const char *a1, u
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
     }
 
-    v9 = container_log_handle_for_category_logHandles;
-    if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+    v9 = container_log_handle_for_category_logHandles[0];
+    if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
       *&buf[4] = "container_entitlements_copy_container_identifiers";
-      v27 = 2048;
-      v28 = a3;
+      v26 = 2048;
+      v27 = a3;
       v10 = "%s: SPI MISUSE: Invalid flags specified: 0x%08llx";
 LABEL_7:
       v11 = v9;
       v12 = 22;
 LABEL_12:
       _os_log_fault_impl(&dword_1DF28A000, v11, OS_LOG_TYPE_FAULT, v10, buf, v12);
-      goto LABEL_31;
+      return v8;
     }
 
-    goto LABEL_31;
+    return v8;
   }
 
   if (a2 <= 9)
@@ -7003,20 +6936,20 @@ LABEL_12:
         *buf = v16;
         if (!v16)
         {
-          goto LABEL_31;
+          return v8;
         }
 
         _container_entitlements_append_strings_to_array(v8, v16);
         v17 = *buf;
         if (!*buf)
         {
-          goto LABEL_31;
+          return v8;
         }
 
 LABEL_30:
         xpc_release(v17);
         memset_s(buf, 8uLL, 0, 8uLL);
-        goto LABEL_31;
+        return v8;
       }
 
       goto LABEL_40;
@@ -7045,18 +6978,18 @@ LABEL_30:
     *buf = v18;
     if (!v18)
     {
-      goto LABEL_31;
+      return v8;
     }
 
     v19 = v18;
     if (xpc_BOOL_get_value(v18))
     {
-      v22 = xpc_string_create(a1);
-      __s = v22;
-      xpc_array_append_value(v8, v22);
-      if (v22)
+      v21 = xpc_string_create(a1);
+      __s = v21;
+      xpc_array_append_value(v8, v21);
+      if (v21)
       {
-        xpc_release(v22);
+        xpc_release(v21);
         memset_s(&__s, 8uLL, 0, 8uLL);
       }
     }
@@ -7068,21 +7001,21 @@ LABEL_29:
 
   if (a2 == 13)
   {
-    v23 = (*(a4 + 16))(a4, "com.apple.security.system-groups");
-    *buf = v23;
-    if (!v23)
+    v22 = (*(a4 + 16))(a4, "com.apple.security.system-groups");
+    *buf = v22;
+    if (!v22)
     {
-      v23 = (*(a4 + 16))(a4, "com.apple.security.system-group-containers");
-      *buf = v23;
-      if (!v23)
+      v22 = (*(a4 + 16))(a4, "com.apple.security.system-group-containers");
+      *buf = v22;
+      if (!v22)
       {
-        goto LABEL_31;
+        return v8;
       }
     }
 
-    v24 = v23;
-    _container_entitlements_append_strings_to_array(v8, v23);
-    v17 = v24;
+    v23 = v22;
+    _container_entitlements_append_strings_to_array(v8, v22);
+    v17 = v23;
     goto LABEL_30;
   }
 
@@ -7094,7 +7027,7 @@ LABEL_28:
     xpc_array_append_value(v8, v19);
     if (!v19)
     {
-      goto LABEL_31;
+      return v8;
     }
 
     goto LABEL_29;
@@ -7106,19 +7039,17 @@ LABEL_40:
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v9 = container_log_handle_for_category_logHandles;
-  if (os_log_type_enabled(container_log_handle_for_category_logHandles, OS_LOG_TYPE_FAULT))
+  v9 = container_log_handle_for_category_logHandles[0];
+  if (os_log_type_enabled(container_log_handle_for_category_logHandles[0], OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
     *&buf[4] = "container_entitlements_copy_container_identifiers";
-    v27 = 2048;
-    v28 = a2;
+    v26 = 2048;
+    v27 = a2;
     v10 = "%s: SPI MISUSE: Provided container class is not a valid container class: %llu";
     goto LABEL_7;
   }
 
-LABEL_31:
-  v20 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -7152,28 +7083,33 @@ size_t _container_entitlements_append_strings_to_array(void *a1, void *a2)
 
 uint64_t _container_init()
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   _os_feature_enabled_impl();
   bzero(__value, 0x410uLL);
   result = sandbox_get_container_expected();
   if (result)
   {
-    v2 = result;
-    v4 = 0;
-    v8 = 0u;
-    v9 = 0u;
-    v6 = 0u;
-    v7 = 0u;
-    v5 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v10 = 67109120;
-    v11 = v2;
-    _os_log_send_and_compose_impl();
+    v1 = result;
+    v5 = 0;
+    memset(v6, 0, sizeof(v6));
+    v2 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v3 = 3;
+    }
+
+    else
+    {
+      v3 = 2;
+    }
+
+    v7[0] = 67109120;
+    v7[1] = v1;
+    _os_log_send_and_compose_impl(v3, &v5, v6, 80, &dword_1DF28A000, v2, 16, "_container_init(): sandbox_get_container_expected() failed: %d", v7);
     _os_crash_msg();
     __break(1u);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7465,9 +7401,9 @@ LABEL_6:
   return 0;
 }
 
-BOOL container_traverse_directory(uint64_t a1, char a2, unsigned int a3, int *a4, uint64_t a5, uint64_t a6)
+BOOL container_traverse_directory(uint64_t a1, uint64_t a2, unsigned int a3, int *a4, uint64_t a5, uint64_t a6)
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     if (container_log_handle_for_category_onceToken != -1)
@@ -7479,7 +7415,7 @@ BOOL container_traverse_directory(uint64_t a1, char a2, unsigned int a3, int *a4
     result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
     if (!result)
     {
-      goto LABEL_153;
+      return result;
     }
 
     LODWORD(buf) = 136315138;
@@ -7487,8 +7423,7 @@ BOOL container_traverse_directory(uint64_t a1, char a2, unsigned int a3, int *a4
     v18 = "%s: SPI MISUSE: path parameter is NULL";
 LABEL_24:
     _os_log_fault_impl(&dword_1DF28A000, v16, OS_LOG_TYPE_FAULT, v18, &buf, 0xCu);
-    result = 0;
-    goto LABEL_153;
+    return 0;
   }
 
   v6 = a5;
@@ -7503,7 +7438,7 @@ LABEL_24:
     result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
     if (!result)
     {
-      goto LABEL_153;
+      return result;
     }
 
     LODWORD(buf) = 136315138;
@@ -7512,9 +7447,10 @@ LABEL_24:
     goto LABEL_24;
   }
 
+  v10 = a2;
   __s = 0;
+  v77 = 0;
   v78 = 0;
-  v79 = 0;
   memset_s(&__s, 0x18uLL, 0, 0x18uLL);
   LOWORD(__s) = 5;
   if (a3)
@@ -7530,15 +7466,15 @@ LABEL_24:
   HIDWORD(__s) = v12 & 0xBDB8FFFF | (((a3 >> 1) & 7) << 16) & 0xBDBFFFFF | (((a3 >> 5) & 1) << 22) & 0xBDFFFFFF | (((a3 >> 4) & 1) << 30) | (((a3 >> 6) & 1) << 25);
   if ((a3 & 0x80) != 0)
   {
-    LODWORD(v79) = v79 | 1;
+    LODWORD(v78) = v78 | 1;
   }
 
   if ((a3 & 0x100) != 0)
   {
-    LODWORD(v79) = v79 | 4;
+    LODWORD(v78) = v78 | 4;
   }
 
-  HIDWORD(v78) = 6;
+  HIDWORD(v77) = 6;
   bzero(&buf, 0x420uLL);
   v13 = __strlcpy_chk();
   if (v13 >= 0x400)
@@ -7551,16 +7487,16 @@ LABEL_24:
     v14 = qword_1ED452B68;
     if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      *v98 = 136315138;
-      *&v98[4] = a1;
-      _os_log_error_impl(&dword_1DF28A000, v14, OS_LOG_TYPE_ERROR, "Attempted to iterate directories starting at a path that was too long: [%s]", v98, 0xCu);
+      *v97 = 136315138;
+      *&v97[4] = a1;
+      _os_log_error_impl(&dword_1DF28A000, v14, OS_LOG_TYPE_ERROR, "Attempted to iterate directories starting at a path that was too long: [%s]", v97, 0xCu);
     }
 
     v15 = 22;
     goto LABEL_151;
   }
 
-  v93 = v13;
+  v92 = v13;
   v19 = _container_traverse_continuation_create(&buf);
   if (!v19)
   {
@@ -7575,42 +7511,42 @@ LABEL_24:
       goto LABEL_34;
     }
 
-    *v98 = 0;
+    *v97 = 0;
     v58 = "Failed to create a continuation";
     goto LABEL_124;
   }
 
-  if (a2)
+  if (v10)
   {
     goto LABEL_53;
   }
 
   v20 = v19;
-  LODWORD(v81) = 0;
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
+  LODWORD(v80) = 0;
   v100 = 0u;
-  memset(v98, 0, sizeof(v98));
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
+  v101 = 0u;
+  v98 = 0u;
+  v99 = 0u;
+  memset(v97, 0, sizeof(v97));
   v86 = 0u;
-  v83 = 0u;
+  v87 = 0u;
   v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   __src = 0;
-  LOBYTE(v89) = 0;
-  continuation_fd = _container_traverse_get_continuation_fd(&buf, v19, 0, &v81);
+  LOBYTE(v88) = 0;
+  continuation_fd = _container_traverse_get_continuation_fd(&buf, v19, 0, &v80);
   if (continuation_fd == -1)
   {
 LABEL_39:
-    v15 = v81;
+    v15 = v80;
     goto LABEL_151;
   }
 
   if ((*(gCMFSSeam + 32))(continuation_fd, &__s, v20[1], 0x4000, 0) == -1)
   {
-    LODWORD(v81) = *__error();
+    LODWORD(v80) = *__error();
     if (container_log_handle_for_category_onceToken != -1)
     {
       dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
@@ -7619,37 +7555,37 @@ LABEL_39:
     v24 = qword_1ED452B68;
     if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      *v95 = 136315394;
-      *v96 = v92;
-      *&v96[8] = 1024;
-      *&v96[10] = v81;
-      _os_log_error_impl(&dword_1DF28A000, v24, OS_LOG_TYPE_ERROR, "fgetattrlist for [%s] failed; error = %{darwin.errno}d", v95, 0x12u);
+      *v94 = 136315394;
+      *v95 = v91;
+      *&v95[8] = 1024;
+      *&v95[10] = v80;
+      _os_log_error_impl(&dword_1DF28A000, v24, OS_LOG_TYPE_ERROR, "fgetattrlist for [%s] failed; error = %{darwin.errno}d", v94, 0x12u);
     }
 
     goto LABEL_39;
   }
 
-  v22 = _container_traverse_parse_attr_buf(&buf, v20[1], v98, &__src, 0, &v89);
+  v22 = _container_traverse_parse_attr_buf(&buf, v20[1], v97, &__src, 0, &v88);
   if (v22)
   {
-    LODWORD(v81) = v22;
+    LODWORD(v80) = v22;
     goto LABEL_39;
   }
 
-  if (DWORD1(v99) != 2 && (v20[3] & 0x80000000) == 0)
+  if (DWORD1(v98) != 2 && (v20[3] & 0x80000000) == 0)
   {
     (*(gCMFSSeam + 19))();
     *(v20 + 6) = -1;
   }
 
-  v25 = v93 + 24;
+  v25 = v92 + 24;
   v26 = 25;
   if (v25 < 0x19)
   {
-    v26 = v93 + 24;
+    v26 = v92 + 24;
   }
 
-  v27 = v93 + 23;
+  v27 = v92 + 23;
   do
   {
     if (v27 + 1 < 26)
@@ -7664,15 +7600,15 @@ LABEL_39:
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      v69 = qword_1ED452B68;
+      v68 = qword_1ED452B68;
       if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        *v95 = 136315138;
-        *v96 = v92;
-        _os_log_error_impl(&dword_1DF28A000, v69, OS_LOG_TYPE_ERROR, "Failed to locate last path element in [%s]", v95, 0xCu);
+        *v94 = 136315138;
+        *v95 = v91;
+        _os_log_error_impl(&dword_1DF28A000, v68, OS_LOG_TYPE_ERROR, "Failed to locate last path element in [%s]", v94, 0xCu);
       }
 
-      LODWORD(v81) = 40;
+      LODWORD(v80) = 40;
       goto LABEL_39;
     }
 
@@ -7682,13 +7618,12 @@ LABEL_39:
   while (v28 != 47);
   v26 = v27 + 2;
 LABEL_50:
-  v29 = _container_traverse_call_node_handler(-1, a2, v92, v93, &buf + v26, v25 - v26, 0, v98, &v83, __src, v6);
-  if ((v89 & 1) != 0 || DWORD1(v99) != 2 || v29 != 1)
+  v29 = _container_traverse_call_node_handler(-1, v10, v91, v92, &buf + v26, v25 - v26, 0, v97, &v82, __src, v6);
+  if ((v88 & 1) != 0 || DWORD1(v98) != 2 || v29 != 1)
   {
 LABEL_176:
     _container_traverse_state_deinit(&buf);
-    result = 1;
-    goto LABEL_153;
+    return 1;
   }
 
 LABEL_53:
@@ -7698,11 +7633,11 @@ LABEL_53:
     goto LABEL_176;
   }
 
-  v74 = a4;
+  v73 = a4;
   while (1)
   {
     *&buf = *v30;
-    --v94;
+    --v93;
     if (!*&v30[1])
     {
       attr_buf = _container_traverse_get_attr_buf(&buf);
@@ -7720,30 +7655,30 @@ LABEL_53:
           goto LABEL_34;
         }
 
-        *v98 = 0;
+        *v97 = 0;
         v58 = "Failed to locate an attr buf";
 LABEL_124:
-        _os_log_error_impl(&dword_1DF28A000, v23, OS_LOG_TYPE_ERROR, v58, v98, 2u);
+        _os_log_error_impl(&dword_1DF28A000, v23, OS_LOG_TYPE_ERROR, v58, v97, 2u);
 LABEL_34:
         v15 = 12;
         goto LABEL_151;
       }
     }
 
-    v76 = v30;
+    v75 = v30;
 LABEL_58:
-    v89 = 0;
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
+    v88 = 0;
     v100 = 0u;
-    memset(v98, 0, sizeof(v98));
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    memset(v97, 0, sizeof(v97));
     v86 = 0u;
-    v83 = 0u;
+    v87 = 0u;
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     v32 = v30[3].u16[2];
     if (!v30[3].i16[2])
     {
@@ -7755,7 +7690,7 @@ LABEL_58:
     v35 = v33 - v34;
     if (v33 < v34)
     {
-      a4 = v74;
+      a4 = v73;
       if (container_log_handle_for_category_onceToken != -1)
       {
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
@@ -7767,12 +7702,12 @@ LABEL_58:
         goto LABEL_122;
       }
 
-      v67 = v30[2].i32[0];
-      v68 = v30[2].i32[1];
-      *v95 = 67109376;
-      *v96 = v67;
-      *&v96[4] = 1024;
-      *&v96[6] = v68;
+      v66 = v30[2].i32[0];
+      v67 = v30[2].i32[1];
+      *v94 = 67109376;
+      *v95 = v66;
+      *&v95[4] = 1024;
+      *&v95[6] = v67;
       v60 = "Internal error: totalProcessedEntryCount (%u) was less than reprocessCount (%u)";
       goto LABEL_178;
     }
@@ -7821,7 +7756,7 @@ LABEL_58:
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      a4 = v74;
+      a4 = v73;
       v57 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
@@ -7830,26 +7765,26 @@ LABEL_122:
         goto LABEL_146;
       }
 
-      *v95 = 67109376;
-      *v96 = v40;
-      *&v96[4] = 1024;
-      *&v96[6] = v39;
+      *v94 = 67109376;
+      *v95 = v40;
+      *&v95[4] = 1024;
+      *&v95[6] = v39;
       v60 = "Read entry length %u for entry %hu but that put us off the end of the buffer";
 LABEL_178:
-      _os_log_error_impl(&dword_1DF28A000, v57, OS_LOG_TYPE_ERROR, v60, v95, 0xEu);
+      _os_log_error_impl(&dword_1DF28A000, v57, OS_LOG_TYPE_ERROR, v60, v94, 0xEu);
       goto LABEL_122;
     }
 
 LABEL_68:
-    v75 = v6;
+    v74 = v6;
     if (v36 < v32)
     {
       break;
     }
 
 LABEL_95:
-    LODWORD(v83) = 0;
-    v51 = _container_traverse_get_continuation_fd(&buf, v30, 1, &v83);
+    LODWORD(v82) = 0;
+    v51 = _container_traverse_get_continuation_fd(&buf, v30, 1, &v82);
     if (v51 == -1)
     {
       goto LABEL_158;
@@ -7860,35 +7795,35 @@ LABEL_95:
     {
       if (v52 == -1)
       {
-        LODWORD(v83) = *__error();
+        LODWORD(v82) = *__error();
         if (container_log_handle_for_category_onceToken != -1)
         {
           dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
         }
 
-        v65 = qword_1ED452B68;
+        v64 = qword_1ED452B68;
         if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
         {
-          v71 = v30[2].i32[0];
-          *v98 = 67109634;
-          *&v98[4] = v71;
-          *&v98[8] = 2080;
-          *&v98[10] = v92;
-          *&v98[18] = 1024;
-          *&v98[20] = v83;
-          _os_log_error_impl(&dword_1DF28A000, v65, OS_LOG_TYPE_ERROR, "getattrlistbulk failed on entry %u in [%s]; error = %{darwin.errno}d", v98, 0x18u);
+          v70 = v30[2].i32[0];
+          *v97 = 67109634;
+          *&v97[4] = v70;
+          *&v97[8] = 2080;
+          *&v97[10] = v91;
+          *&v97[18] = 1024;
+          *&v97[20] = v82;
+          _os_log_error_impl(&dword_1DF28A000, v64, OS_LOG_TYPE_ERROR, "getattrlistbulk failed on entry %u in [%s]; error = %{darwin.errno}d", v97, 0x18u);
         }
 
 LABEL_158:
-        v15 = v83;
-        v66 = v30[1];
-        if (v66)
+        v15 = v82;
+        v65 = v30[1];
+        if (v65)
         {
-          *v66 = *(&buf + 1);
-          *(&buf + 1) = v66;
+          *v65 = *(&buf + 1);
+          *(&buf + 1) = v65;
         }
 
-        a4 = v74;
+        a4 = v73;
         if ((v30[3].i32[0] & 0x80000000) == 0)
         {
           goto LABEL_149;
@@ -7902,16 +7837,16 @@ LABEL_158:
       goto LABEL_58;
     }
 
-    if (a6 && ((a2 & 1) == 0 || buf) && ((*(a6 + 16))(a6, v92) & 1) == 0)
+    if (a6 && ((v10 & 1) == 0 || buf) && ((*(a6 + 16))(a6, v91) & 1) == 0)
     {
-      v73 = v30[1];
-      if (v73)
+      v72 = v30[1];
+      if (v72)
       {
-        *v73 = *(&buf + 1);
-        *(&buf + 1) = v73;
+        *v72 = *(&buf + 1);
+        *(&buf + 1) = v72;
       }
 
-      v30 = v76;
+      v30 = v75;
 LABEL_173:
       if ((v30[3].i32[0] & 0x80000000) == 0)
       {
@@ -7919,19 +7854,19 @@ LABEL_173:
         v30[3].i32[0] = -1;
       }
 
-      *v30 = v91;
-      v91 = v30;
+      *v30 = v90;
+      v90 = v30;
       goto LABEL_176;
     }
 
-    v53 = v93;
-    a4 = v74;
-    if (v93)
+    v53 = v92;
+    a4 = v73;
+    if (v92)
     {
       do
       {
         v54 = v53 - 1;
-        v55 = v92[v53 - 1] == 47 || v53 == 1;
+        v55 = v91[v53 - 1] == 47 || v53 == 1;
         --v53;
       }
 
@@ -7939,8 +7874,8 @@ LABEL_173:
       v53 = v54;
     }
 
-    v92[v53] = 0;
-    v93 = v53;
+    v91[v53] = 0;
+    v92 = v53;
     v56 = v30[1];
     if (v56)
     {
@@ -7954,8 +7889,8 @@ LABEL_173:
       v30[3].i32[0] = -1;
     }
 
-    *v30 = v91;
-    v91 = v30;
+    *v30 = v90;
+    v90 = v30;
 LABEL_117:
     v30 = buf;
     if (!buf)
@@ -7966,15 +7901,15 @@ LABEL_117:
 
   while (1)
   {
-    v81 = 0;
-    __src = 0;
     v80 = 0;
-    v41 = _container_traverse_parse_attr_buf(&buf, (*&v37 + v38), &v83, &v81, &__src, &v80);
+    __src = 0;
+    v79 = 0;
+    v41 = _container_traverse_parse_attr_buf(&buf, (*&v37 + v38), &v82, &v80, &__src, &v79);
     if (v41)
     {
       v15 = v41;
 LABEL_145:
-      a4 = v74;
+      a4 = v73;
       goto LABEL_146;
     }
 
@@ -7989,18 +7924,18 @@ LABEL_145:
       v59 = qword_1ED452B68;
       if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        *v95 = 67109378;
-        *v96 = v36;
-        *&v96[4] = 2080;
-        *&v96[6] = v92;
-        _os_log_error_impl(&dword_1DF28A000, v59, OS_LOG_TYPE_ERROR, "Entry %hu in %s did not include name information even though we requested it.", v95, 0x12u);
+        *v94 = 67109378;
+        *v95 = v36;
+        *&v95[4] = 2080;
+        *&v95[6] = v91;
+        _os_log_error_impl(&dword_1DF28A000, v59, OS_LOG_TYPE_ERROR, "Entry %hu in %s did not include name information even though we requested it.", v94, 0x12u);
       }
 
       v15 = 40;
       goto LABEL_145;
     }
 
-    v38 += v83;
+    v38 += v82;
     if (v38 > 0x4000)
     {
       if (container_log_handle_for_category_onceToken != -1)
@@ -8008,14 +7943,14 @@ LABEL_145:
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
       }
 
-      a4 = v74;
+      a4 = v73;
       v57 = qword_1ED452B68;
       if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        *v95 = 67109376;
-        *v96 = v83;
-        *&v96[4] = 1024;
-        *&v96[6] = v36;
+        *v94 = 67109376;
+        *v95 = v82;
+        *&v95[4] = 1024;
+        *&v95[6] = v36;
         v60 = "Read entry length %u for entry %hu but that put us off the end of the buffer";
         goto LABEL_178;
       }
@@ -8023,7 +7958,7 @@ LABEL_145:
       goto LABEL_122;
     }
 
-    if (DWORD2(v84))
+    if (DWORD2(v83))
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8033,24 +7968,24 @@ LABEL_145:
       v61 = qword_1ED452B68;
       if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        *v95 = 67109634;
-        *v96 = v36;
-        *&v96[4] = 2080;
-        *&v96[6] = v92;
-        *&v96[14] = 1024;
-        *&v96[16] = DWORD2(v84);
-        _os_log_error_impl(&dword_1DF28A000, v61, OS_LOG_TYPE_ERROR, "got error while processing entry %hu in [%s]; error = %{darwin.errno}d", v95, 0x18u);
+        *v94 = 67109634;
+        *v95 = v36;
+        *&v95[4] = 2080;
+        *&v95[6] = v91;
+        *&v95[14] = 1024;
+        *&v95[16] = DWORD2(v83);
+        _os_log_error_impl(&dword_1DF28A000, v61, OS_LOG_TYPE_ERROR, "got error while processing entry %hu in [%s]; error = %{darwin.errno}d", v94, 0x18u);
       }
 
-      v15 = DWORD2(v84);
+      v15 = DWORD2(v83);
       goto LABEL_145;
     }
 
-    v43 = (v85 - 1);
-    v44 = v43 + v93 + 1;
+    v43 = (v84 - 1);
+    v44 = v43 + v92 + 1;
     if (v44 >= 0x400)
     {
-      v30 = v76;
+      v30 = v75;
       if (container_log_handle_for_category_onceToken != -1)
       {
         dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
@@ -8059,27 +7994,27 @@ LABEL_145:
       v62 = qword_1ED452B68;
       if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        *v95 = 136315650;
-        *v96 = __src;
-        *&v96[8] = 2048;
-        *&v96[10] = v43;
-        *&v96[18] = 2080;
-        v97 = v92;
-        _os_log_error_impl(&dword_1DF28A000, v62, OS_LOG_TYPE_ERROR, "Could not append element [%s] of length %zu to path [%s] because it would make the path longer than MAXPATHLEN", v95, 0x20u);
+        *v94 = 136315650;
+        *v95 = __src;
+        *&v95[8] = 2048;
+        *&v95[10] = v43;
+        *&v95[18] = 2080;
+        v96 = v91;
+        _os_log_error_impl(&dword_1DF28A000, v62, OS_LOG_TYPE_ERROR, "Could not append element [%s] of length %zu to path [%s] because it would make the path longer than MAXPATHLEN", v94, 0x20u);
       }
 
       v15 = 63;
       goto LABEL_145;
     }
 
-    v92[v93] = 47;
-    memcpy(&v92[v93 + 1], v42, v43);
-    v93 = v44;
-    v92[v44] = 0;
-    v45 = v94;
+    v91[v92] = 47;
+    memcpy(&v91[v92 + 1], v42, v43);
+    v92 = v44;
+    v91[v44] = 0;
+    v45 = v93;
     if ((a3 & 0x200) != 0)
     {
-      v46 = _container_traverse_get_continuation_fd(&buf, v76, 1, &v89);
+      v46 = _container_traverse_get_continuation_fd(&buf, v75, 1, &v88);
       v42 = __src;
     }
 
@@ -8088,17 +8023,17 @@ LABEL_145:
       v46 = -1;
     }
 
-    v6 = v75;
-    v47 = _container_traverse_call_node_handler(v46, a2, v92, v93, v42, v43, v45 + 1, &v83, v98, v81, v75);
+    v6 = v74;
+    v47 = _container_traverse_call_node_handler(v46, v10, v91, v92, v42, v43, v45 + 1, &v82, v97, v80, v74);
     if (v47 == 3)
     {
-      v80 = 1;
-      v30 = v76;
+      v79 = 1;
+      v30 = v75;
     }
 
     else
     {
-      v30 = v76;
+      v30 = v75;
       if (v47 == 2)
       {
         goto LABEL_171;
@@ -8107,19 +8042,19 @@ LABEL_145:
 
     ++v30[3].i16[3];
     v30[2] = vadd_s32(v30[2], 0x100000001);
-    if (DWORD1(v85) == 2)
+    if (DWORD1(v84) == 2)
     {
       break;
     }
 
 LABEL_85:
-    v48 = v93;
-    if (v93)
+    v48 = v92;
+    if (v92)
     {
       do
       {
         v49 = v48 - 1;
-        v50 = v92[v48 - 1] == 47 || v48 == 1;
+        v50 = v91[v48 - 1] == 47 || v48 == 1;
         --v48;
       }
 
@@ -8128,24 +8063,24 @@ LABEL_85:
     }
 
     ++v36;
-    v92[v48] = 0;
-    v93 = v48;
+    v91[v48] = 0;
+    v92 = v48;
     if (v36 >= v30[3].u16[2])
     {
       goto LABEL_95;
     }
   }
 
-  if (v80)
+  if (v79)
   {
-    if (a6 && !(*(a6 + 16))(a6, v92))
+    if (a6 && !(*(a6 + 16))(a6, v91))
     {
 LABEL_171:
-      v70 = v30[1];
-      if (v70)
+      v69 = v30[1];
+      if (v69)
       {
-        *v70 = *(&buf + 1);
-        *(&buf + 1) = v70;
+        *v69 = *(&buf + 1);
+        *(&buf + 1) = v69;
       }
 
       goto LABEL_173;
@@ -8156,10 +8091,10 @@ LABEL_171:
 
   *v30 = buf;
   *&buf = v30;
-  ++v94;
+  ++v93;
   if (_container_traverse_continuation_create(&buf))
   {
-    a4 = v74;
+    a4 = v73;
     goto LABEL_117;
   }
 
@@ -8168,16 +8103,16 @@ LABEL_171:
     dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v72 = qword_1ED452B68;
+  v71 = qword_1ED452B68;
   if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
   {
-    *v95 = 0;
-    _os_log_error_impl(&dword_1DF28A000, v72, OS_LOG_TYPE_ERROR, "Failed to create a continuation", v95, 2u);
+    *v94 = 0;
+    _os_log_error_impl(&dword_1DF28A000, v71, OS_LOG_TYPE_ERROR, "Failed to create a continuation", v94, 2u);
   }
 
   v15 = 12;
-  a4 = v74;
-  v30 = v76;
+  a4 = v73;
+  v30 = v75;
 LABEL_146:
   v63 = v30[1];
   if (v63)
@@ -8194,8 +8129,8 @@ LABEL_149:
   }
 
 LABEL_150:
-  *v30 = v91;
-  v91 = v30;
+  *v30 = v90;
+  v90 = v30;
 LABEL_151:
   _container_traverse_state_deinit(&buf);
   result = 0;
@@ -8204,14 +8139,12 @@ LABEL_151:
     *a4 = v15;
   }
 
-LABEL_153:
-  v64 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t _container_traverse_get_continuation_fd(uint64_t a1, uint64_t a2, int a3, int *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   result = *(a2 + 24);
   if (result == -1)
   {
@@ -8230,7 +8163,7 @@ uint64_t _container_traverse_get_continuation_fd(uint64_t a1, uint64_t a2, int a
     if ((result & 0x80000000) == 0)
     {
       *(a2 + 24) = result;
-      goto LABEL_14;
+      return result;
     }
 
     v10 = *__error();
@@ -8247,14 +8180,14 @@ uint64_t _container_traverse_get_continuation_fd(uint64_t a1, uint64_t a2, int a
     v11 = qword_1ED452B68;
     if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = v9;
-      v15 = 1024;
-      v16 = v10;
-      _os_log_error_impl(&dword_1DF28A000, v11, OS_LOG_TYPE_ERROR, "Failed to open [%s]; error = %{darwin.errno}d", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = v9;
+      v14 = 1024;
+      v15 = v10;
+      _os_log_error_impl(&dword_1DF28A000, v11, OS_LOG_TYPE_ERROR, "Failed to open [%s]; error = %{darwin.errno}d", &v12, 0x12u);
       if (!a4)
       {
-        goto LABEL_13;
+        return 0xFFFFFFFFLL;
       }
     }
 
@@ -8263,24 +8196,20 @@ uint64_t _container_traverse_get_continuation_fd(uint64_t a1, uint64_t a2, int a
 LABEL_11:
       if (!a4)
       {
-LABEL_13:
-        result = 0xFFFFFFFFLL;
-        goto LABEL_14;
+        return 0xFFFFFFFFLL;
       }
     }
 
     *a4 = v10;
-    goto LABEL_13;
+    return 0xFFFFFFFFLL;
   }
 
-LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t _container_traverse_parse_attr_buf(uint64_t a1, unsigned int *a2, char *__s, int **a4, uint64_t *a5, _BYTE *a6)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (__s)
   {
     memset_s(__s, 0x60uLL, 0, 0x60uLL);
@@ -8298,23 +8227,23 @@ uint64_t _container_traverse_parse_attr_buf(uint64_t a1, unsigned int *a2, char 
     v13 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_160;
+      return 40;
     }
 
     v14 = *__s;
     *buf = 136315906;
-    v46 = a1 + 24;
-    v47 = 2048;
-    *v48 = a2;
-    *&v48[8] = 1024;
-    *v49 = v14;
-    *&v49[4] = 2048;
-    *&v49[6] = 4;
+    v45 = a1 + 24;
+    v46 = 2048;
+    *v47 = a2;
+    *&v47[8] = 1024;
+    *v48 = v14;
+    *&v48[4] = 2048;
+    *&v48[6] = 4;
     v15 = "Malformed attrlist on entry in [%s]; length field exceeds reported buffer length; start = %p, length = %u, sizeof(length) = %zu";
     goto LABEL_14;
   }
 
-  v16 = a2 + v12;
+  v16 = (a2 + v12);
   if (__CFADD__(a2, v12))
   {
     if (container_log_handle_for_category_onceToken != -1)
@@ -8325,30 +8254,28 @@ uint64_t _container_traverse_parse_attr_buf(uint64_t a1, unsigned int *a2, char 
     v13 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_160;
+      return 40;
     }
 
     v17 = *__s;
     *buf = 136315906;
-    v46 = a1 + 24;
-    v47 = 2048;
-    *v48 = a2;
-    *&v48[8] = 1024;
-    *v49 = v17;
-    *&v49[4] = 2048;
-    *&v49[6] = 4;
+    v45 = a1 + 24;
+    v46 = 2048;
+    *v47 = a2;
+    *&v47[8] = 1024;
+    *v48 = v17;
+    *&v48[4] = 2048;
+    *&v48[6] = 4;
     v15 = "Malformed attrlist on entry in [%s]; length field too large; start = %p, length = %u, sizeof(length) = %zu";
 LABEL_14:
     v18 = v13;
     v19 = 38;
 LABEL_159:
     _os_log_error_impl(&dword_1DF28A000, v18, OS_LOG_TYPE_ERROR, v15, buf, v19);
-LABEL_160:
-    result = 40;
-    goto LABEL_161;
+    return 40;
   }
 
-  if ((a2 + 1) >= 0xFFFFFFFFFFFFFFECLL || (a2 + 6) > v16)
+  if ((a2 + 1) >= 0xFFFFFFFFFFFFFFECLL || a2 + 6 > v16)
   {
     if (container_log_handle_for_category_onceToken != -1)
     {
@@ -8358,17 +8285,17 @@ LABEL_160:
     v25 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_160;
+      return 40;
     }
 
     *buf = 136315906;
-    v46 = a1 + 24;
-    v47 = 2048;
-    *v48 = a2 + 1;
+    v45 = a1 + 24;
+    v46 = 2048;
+    *v47 = a2 + 1;
+    *&v47[8] = 2048;
+    *v48 = v16;
     *&v48[8] = 2048;
-    *v49 = v16;
-    *&v49[8] = 2048;
-    *&v49[10] = 20;
+    *&v48[10] = 20;
     v15 = "Malformed attrlist on entry in [%s]; [returned] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(returned) = %zu";
     v18 = v25;
     goto LABEL_158;
@@ -8377,11 +8304,11 @@ LABEL_160:
   v20 = a2[5];
   *(__s + 4) = *(a2 + 1);
   *(__s + 5) = v20;
-  v21 = (a2 + 6);
+  v21 = a2 + 6;
   v22 = *(__s + 1);
   if ((v22 & 0x20000000) != 0)
   {
-    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || (a2 + 7) > v16)
+    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || a2 + 7 > v16)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8391,23 +8318,23 @@ LABEL_160:
       v33 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_160;
+        return 40;
       }
 
       *buf = 136315906;
-      v46 = a1 + 24;
-      v47 = 2048;
-      *v48 = a2 + 6;
+      v45 = a1 + 24;
+      v46 = 2048;
+      *v47 = a2 + 6;
+      *&v47[8] = 2048;
+      *v48 = v16;
       *&v48[8] = 2048;
-      *v49 = v16;
-      *&v49[8] = 2048;
-      *&v49[10] = 4;
+      *&v48[10] = 4;
       v15 = "Malformed attrlist on entry in [%s]; [error] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(error) = %zu";
       goto LABEL_157;
     }
 
     *(__s + 6) = a2[6];
-    v21 = (a2 + 7);
+    v21 = a2 + 7;
   }
 
   if ((v22 & 1) == 0)
@@ -8421,7 +8348,7 @@ LABEL_160:
     goto LABEL_23;
   }
 
-  if (v21 >= 0xFFFFFFFFFFFFFFF8 || (v21 + 1) > v16)
+  if (v21 >= 0xFFFFFFFFFFFFFFF8 || v21 + 2 > v16)
   {
     if (container_log_handle_for_category_onceToken != -1)
     {
@@ -8431,17 +8358,17 @@ LABEL_160:
     v33 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_160;
+      return 40;
     }
 
     *buf = 136315906;
-    v46 = a1 + 24;
-    v47 = 2048;
-    *v48 = v21;
+    v45 = a1 + 24;
+    v46 = 2048;
+    *v47 = v21;
+    *&v47[8] = 2048;
+    *v48 = v16;
     *&v48[8] = 2048;
-    *v49 = v16;
-    *&v49[8] = 2048;
-    *&v49[10] = 8;
+    *&v48[10] = 8;
     v15 = "Malformed attrlist on entry in [%s]; [itemNameInfo] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(itemNameInfo) = %zu";
     goto LABEL_157;
   }
@@ -8454,16 +8381,16 @@ LABEL_160:
     result = *buf;
     if (*buf)
     {
-      goto LABEL_161;
+      return result;
     }
   }
 
-  ++v21;
+  v21 += 2;
   v22 = *(__s + 1);
   if ((v22 & 8) != 0)
   {
 LABEL_23:
-    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 4 > v16)
+    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 1 > v16)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8473,30 +8400,29 @@ LABEL_23:
       v33 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_160;
+        return 40;
       }
 
       *buf = 136315906;
-      v46 = a1 + 24;
-      v47 = 2048;
-      *v48 = v21;
+      v45 = a1 + 24;
+      v46 = 2048;
+      *v47 = v21;
+      *&v47[8] = 2048;
+      *v48 = v16;
       *&v48[8] = 2048;
-      *v49 = v16;
-      *&v49[8] = 2048;
-      *&v49[10] = 4;
+      *&v48[10] = 4;
       v15 = "Malformed attrlist on entry in [%s]; [type] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(type) = %zu";
       goto LABEL_157;
     }
 
-    v24 = *v21;
-    v21 = (v21 + 4);
+    v24 = *v21++;
     *(__s + 9) = v24;
   }
 
 LABEL_35:
   if ((v22 & 0x8000) != 0)
   {
-    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 4 > v16)
+    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 1 > v16)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8506,29 +8432,28 @@ LABEL_35:
       v33 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_160;
+        return 40;
       }
 
       *buf = 136315906;
-      v46 = a1 + 24;
-      v47 = 2048;
-      *v48 = v21;
+      v45 = a1 + 24;
+      v46 = 2048;
+      *v47 = v21;
+      *&v47[8] = 2048;
+      *v48 = v16;
       *&v48[8] = 2048;
-      *v49 = v16;
-      *&v49[8] = 2048;
-      *&v49[10] = 4;
+      *&v48[10] = 4;
       v15 = "Malformed attrlist on entry in [%s]; [uid] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(uid) = %zu";
       goto LABEL_157;
     }
 
-    v27 = *v21;
-    v21 = (v21 + 4);
+    v27 = *v21++;
     *(__s + 10) = v27;
   }
 
   if ((v22 & 0x10000) != 0)
   {
-    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 4 > v16)
+    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 1 > v16)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8538,29 +8463,28 @@ LABEL_35:
       v33 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_160;
+        return 40;
       }
 
       *buf = 136315906;
-      v46 = a1 + 24;
-      v47 = 2048;
-      *v48 = v21;
+      v45 = a1 + 24;
+      v46 = 2048;
+      *v47 = v21;
+      *&v47[8] = 2048;
+      *v48 = v16;
       *&v48[8] = 2048;
-      *v49 = v16;
-      *&v49[8] = 2048;
-      *&v49[10] = 4;
+      *&v48[10] = 4;
       v15 = "Malformed attrlist on entry in [%s]; [gid] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(gid) = %zu";
       goto LABEL_157;
     }
 
-    v28 = *v21;
-    v21 = (v21 + 4);
+    v28 = *v21++;
     *(__s + 11) = v28;
   }
 
   if ((v22 & 0x20000) != 0)
   {
-    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 4 > v16)
+    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 1 > v16)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8570,29 +8494,28 @@ LABEL_35:
       v33 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_160;
+        return 40;
       }
 
       *buf = 136315906;
-      v46 = a1 + 24;
-      v47 = 2048;
-      *v48 = v21;
+      v45 = a1 + 24;
+      v46 = 2048;
+      *v47 = v21;
+      *&v47[8] = 2048;
+      *v48 = v16;
       *&v48[8] = 2048;
-      *v49 = v16;
-      *&v49[8] = 2048;
-      *&v49[10] = 4;
+      *&v48[10] = 4;
       v15 = "Malformed attrlist on entry in [%s]; [mode] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(mode) = %zu";
       goto LABEL_157;
     }
 
-    v29 = *v21;
-    v21 = (v21 + 4);
+    v29 = *v21++;
     *(__s + 12) = v29;
   }
 
   if ((v22 & 0x40000) != 0)
   {
-    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 4 > v16)
+    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 1 > v16)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8602,23 +8525,22 @@ LABEL_35:
       v33 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_160;
+        return 40;
       }
 
       *buf = 136315906;
-      v46 = a1 + 24;
-      v47 = 2048;
-      *v48 = v21;
+      v45 = a1 + 24;
+      v46 = 2048;
+      *v47 = v21;
+      *&v47[8] = 2048;
+      *v48 = v16;
       *&v48[8] = 2048;
-      *v49 = v16;
-      *&v49[8] = 2048;
-      *&v49[10] = 4;
+      *&v48[10] = 4;
       v15 = "Malformed attrlist on entry in [%s]; [flags] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(flags) = %zu";
       goto LABEL_157;
     }
 
-    v30 = *v21;
-    v21 = (v21 + 4);
+    v30 = *v21++;
     *(__s + 13) = v30;
   }
 
@@ -8633,7 +8555,7 @@ LABEL_35:
     goto LABEL_53;
   }
 
-  if (v21 >= 0xFFFFFFFFFFFFFFF8 || (v21 + 1) > v16)
+  if (v21 >= 0xFFFFFFFFFFFFFFF8 || v21 + 2 > v16)
   {
     if (container_log_handle_for_category_onceToken != -1)
     {
@@ -8643,30 +8565,30 @@ LABEL_35:
     v33 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_160;
+      return 40;
     }
 
     *buf = 136315906;
-    v46 = a1 + 24;
-    v47 = 2048;
-    *v48 = v21;
+    v45 = a1 + 24;
+    v46 = 2048;
+    *v47 = v21;
+    *&v47[8] = 2048;
+    *v48 = v16;
     *&v48[8] = 2048;
-    *v49 = v16;
-    *&v49[8] = 2048;
-    *&v49[10] = 8;
+    *&v48[10] = 8;
     v15 = "Malformed attrlist on entry in [%s]; [aclInfo] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(aclInfo) = %zu";
     goto LABEL_157;
   }
 
   *(__s + 7) = *v21;
-  v44 = 0;
-  v31 = _container_traverse_parse_attrreference_buf(a1, "aclInfo", v21, v16, 0x2CuLL, __s + 14, &v44);
+  v43 = 0;
+  v31 = _container_traverse_parse_attrreference_buf(a1, "aclInfo", v21, v16, 0x2CuLL, __s + 14, &v43);
   if (!v31)
   {
-    result = v44;
-    if (v44)
+    result = v43;
+    if (v43)
     {
-      goto LABEL_161;
+      return result;
     }
   }
 
@@ -8680,25 +8602,25 @@ LABEL_35:
     v34 = qword_1ED452B68;
     if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      v43 = *v31;
+      v42 = *v31;
       *buf = 136315650;
-      v46 = a1 + 24;
-      v47 = 1024;
-      *v48 = 19710317;
-      *&v48[4] = 1024;
-      *&v48[6] = v43;
+      v45 = a1 + 24;
+      v46 = 1024;
+      *v47 = 19710317;
+      *&v47[4] = 1024;
+      *&v47[6] = v42;
       _os_log_error_impl(&dword_1DF28A000, v34, OS_LOG_TYPE_ERROR, "Malformed attrlist on entry in [%s]; aclInfo magic mismatch; expected = 0x%x, got = 0x%x", buf, 0x18u);
     }
 
     v31 = 0;
   }
 
-  ++v21;
+  v21 += 2;
   v22 = *(__s + 1);
   if ((v22 & 0x2000000) != 0)
   {
 LABEL_53:
-    if (v21 >= 0xFFFFFFFFFFFFFFF8 || (v21 + 1) > v16)
+    if (v21 >= 0xFFFFFFFFFFFFFFF8 || v21 + 2 > v16)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8708,29 +8630,30 @@ LABEL_53:
       v33 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_160;
+        return 40;
       }
 
       *buf = 136315906;
-      v46 = a1 + 24;
-      v47 = 2048;
-      *v48 = v21;
+      v45 = a1 + 24;
+      v46 = 2048;
+      *v47 = v21;
+      *&v47[8] = 2048;
+      *v48 = v16;
       *&v48[8] = 2048;
-      *v49 = v16;
-      *&v49[8] = 2048;
-      *&v49[10] = 8;
+      *&v48[10] = 8;
       v15 = "Malformed attrlist on entry in [%s]; [fileID] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(fileID) = %zu";
       goto LABEL_157;
     }
 
-    v32 = *v21++;
+    v32 = *v21;
+    v21 += 2;
     *(__s + 8) = v32;
   }
 
 LABEL_89:
   if ((v22 & 0x40000000) != 0)
   {
-    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 4 > v16)
+    if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 1 > v16)
     {
       if (container_log_handle_for_category_onceToken != -1)
       {
@@ -8740,23 +8663,22 @@ LABEL_89:
       v33 = qword_1ED452B68;
       if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_160;
+        return 40;
       }
 
       *buf = 136315906;
-      v46 = a1 + 24;
-      v47 = 2048;
-      *v48 = v21;
+      v45 = a1 + 24;
+      v46 = 2048;
+      *v47 = v21;
+      *&v47[8] = 2048;
+      *v48 = v16;
       *&v48[8] = 2048;
-      *v49 = v16;
-      *&v49[8] = 2048;
-      *&v49[10] = 4;
+      *&v48[10] = 4;
       v15 = "Malformed attrlist on entry in [%s]; [dataProtectionClass] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(dataProtectionClass) = %zu";
       goto LABEL_157;
     }
 
-    v35 = *v21;
-    v21 = (v21 + 4);
+    v35 = *v21++;
     *(__s + 18) = v35;
   }
 
@@ -8765,7 +8687,7 @@ LABEL_89:
     v40 = *(__s + 4);
     if (v40)
     {
-      if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 4 > v16)
+      if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 1 > v16)
       {
         if (container_log_handle_for_category_onceToken != -1)
         {
@@ -8775,23 +8697,22 @@ LABEL_89:
         v33 = qword_1ED452B68;
         if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_160;
+          return 40;
         }
 
         *buf = 136315906;
-        v46 = a1 + 24;
-        v47 = 2048;
-        *v48 = v21;
+        v45 = a1 + 24;
+        v46 = 2048;
+        *v47 = v21;
+        *&v47[8] = 2048;
+        *v48 = v16;
         *&v48[8] = 2048;
-        *v49 = v16;
-        *&v49[8] = 2048;
-        *&v49[10] = 4;
+        *&v48[10] = 4;
         v15 = "Malformed attrlist on entry in [%s]; [linkCount] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(linkCount) = %zu";
         goto LABEL_157;
       }
 
-      v41 = *v21;
-      v21 = (v21 + 4);
+      v41 = *v21++;
       *(__s + 20) = v41;
     }
 
@@ -8800,7 +8721,7 @@ LABEL_89:
       goto LABEL_129;
     }
 
-    if (v21 < 0xFFFFFFFFFFFFFFF8 && (v21 + 1) <= v16)
+    if (v21 < 0xFFFFFFFFFFFFFFF8 && v21 + 2 <= v16)
     {
       *(__s + 11) = *v21;
       goto LABEL_129;
@@ -8814,17 +8735,17 @@ LABEL_89:
     v33 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_160;
+      return 40;
     }
 
     *buf = 136315906;
-    v46 = a1 + 24;
-    v47 = 2048;
-    *v48 = v21;
+    v45 = a1 + 24;
+    v46 = 2048;
+    *v47 = v21;
+    *&v47[8] = 2048;
+    *v48 = v16;
     *&v48[8] = 2048;
-    *v49 = v16;
-    *&v49[8] = 2048;
-    *&v49[10] = 8;
+    *&v48[10] = 8;
     v15 = "Malformed attrlist on entry in [%s]; [allocSize] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(allocSize) = %zu";
 LABEL_157:
     v18 = v33;
@@ -8839,7 +8760,7 @@ LABEL_158:
     goto LABEL_99;
   }
 
-  if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 4 > v16)
+  if (v21 >= 0xFFFFFFFFFFFFFFFCLL || v21 + 1 > v16)
   {
     if (container_log_handle_for_category_onceToken != -1)
     {
@@ -8849,23 +8770,22 @@ LABEL_158:
     v33 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_160;
+      return 40;
     }
 
     *buf = 136315906;
-    v46 = a1 + 24;
-    v47 = 2048;
-    *v48 = v21;
+    v45 = a1 + 24;
+    v46 = 2048;
+    *v47 = v21;
+    *&v47[8] = 2048;
+    *v48 = v16;
     *&v48[8] = 2048;
-    *v49 = v16;
-    *&v49[8] = 2048;
-    *&v49[10] = 4;
+    *&v48[10] = 4;
     v15 = "Malformed attrlist on entry in [%s]; [entryCount] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(entryCount) = %zu";
     goto LABEL_157;
   }
 
-  v37 = *v21;
-  v21 = (v21 + 4);
+  v37 = *v21++;
   *(__s + 20) = v37;
   if (!v37)
   {
@@ -8875,7 +8795,7 @@ LABEL_158:
 LABEL_99:
   if ((v36 & 4) != 0)
   {
-    if (v21 < 0xFFFFFFFFFFFFFFFCLL && v21 + 4 <= v16)
+    if (v21 < 0xFFFFFFFFFFFFFFFCLL && v21 + 1 <= v16)
     {
       v38 = *v21;
       *(__s + 21) = *v21;
@@ -8890,9 +8810,9 @@ LABEL_99:
         if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v46 = a1 + 24;
-          v47 = 2080;
-          *v48 = v23;
+          v45 = a1 + 24;
+          v46 = 2080;
+          *v47 = v23;
           _os_log_debug_impl(&dword_1DF28A000, v39, OS_LOG_TYPE_DEBUG, "skipping mount point or trigger at [%s]/[%s]", buf, 0x16u);
         }
 
@@ -8910,17 +8830,17 @@ LABEL_99:
     v33 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_160;
+      return 40;
     }
 
     *buf = 136315906;
-    v46 = a1 + 24;
-    v47 = 2048;
-    *v48 = v21;
+    v45 = a1 + 24;
+    v46 = 2048;
+    *v47 = v21;
+    *&v47[8] = 2048;
+    *v48 = v16;
     *&v48[8] = 2048;
-    *v49 = v16;
-    *&v49[8] = 2048;
-    *&v49[10] = 4;
+    *&v48[10] = 4;
     v15 = "Malformed attrlist on entry in [%s]; [mountStatus] field exceeds reported buffer length; start = %p, end = 0x%lx, sizeof(mountStatus) = %zu";
     goto LABEL_157;
   }
@@ -8937,8 +8857,6 @@ LABEL_129:
     *a5 = v23;
   }
 
-LABEL_161:
-  v42 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9025,7 +8943,7 @@ uint64_t _container_traverse_call_node_handler(int a1, char a2, uint64_t a3, uin
 
 uint64_t _container_traverse_parse_attrreference_buf(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, int *a6, _DWORD *a7)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v9 = a6[1];
   if (!v9)
   {
@@ -9037,17 +8955,17 @@ uint64_t _container_traverse_parse_attrreference_buf(uint64_t a1, uint64_t a2, u
     v17 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return 0;
     }
 
-    v28 = 136315394;
-    v29 = a1 + 24;
-    v30 = 2080;
-    v31 = a2;
+    v27 = 136315394;
+    v28 = a1 + 24;
+    v29 = 2080;
+    v30 = a2;
     v14 = "Malformed attrlist on entry in [%s]; %s.attr_length is zero";
     v15 = v17;
     v16 = 22;
-    goto LABEL_21;
+    goto LABEL_20;
   }
 
   if (v9 < a5)
@@ -9060,72 +8978,64 @@ uint64_t _container_traverse_parse_attrreference_buf(uint64_t a1, uint64_t a2, u
     v12 = qword_1ED452B68;
     if (!os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return 0;
     }
 
     v13 = a6[1];
-    v28 = 136315906;
-    v29 = a1 + 24;
-    v30 = 2080;
-    v31 = a2;
-    v32 = 2048;
-    v33 = a5;
-    v34 = 1024;
-    LODWORD(v35) = v13;
+    v27 = 136315906;
+    v28 = a1 + 24;
+    v29 = 2080;
+    v30 = a2;
+    v31 = 2048;
+    v32 = a5;
+    v33 = 1024;
+    LODWORD(v34) = v13;
     v14 = "Malformed attrlist on entry in [%s]; %s.attr_length too small; expected >= %lu, got = %u";
     v15 = v12;
     v16 = 38;
-LABEL_21:
-    _os_log_error_impl(&dword_1DF28A000, v15, OS_LOG_TYPE_ERROR, v14, &v28, v16);
-LABEL_10:
-    result = 0;
-    goto LABEL_11;
+LABEL_20:
+    _os_log_error_impl(&dword_1DF28A000, v15, OS_LOG_TYPE_ERROR, v14, &v27, v16);
+    return 0;
   }
 
-  v23 = *a6;
-  v24 = v23 + v9;
-  v25 = __CFADD__(a3, v23 + v9);
-  v26 = a3 + v23 + v9;
-  if (v25 || v26 > a4)
+  v22 = *a6;
+  v23 = v22 + v9;
+  v24 = __CFADD__(a3, v22 + v9);
+  v25 = a3 + v22 + v9;
+  if (!v24 && v25 <= a4)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v27 = qword_1ED452B68;
-    if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
-    {
-      v28 = 136316162;
-      v29 = a1 + 24;
-      v30 = 2080;
-      v31 = a2;
-      v32 = 2048;
-      v33 = a3;
-      v34 = 2048;
-      v35 = a4;
-      v36 = 2048;
-      v37 = v24;
-      _os_log_error_impl(&dword_1DF28A000, v27, OS_LOG_TYPE_ERROR, "Malformed attrlist on entry in [%s]; [%s][attr_dataoffset] field exceeds reported buffer length; start = %p, end = 0x%lx, attr_dataoffset + attr_length = %zu", &v28, 0x34u);
-    }
-
-    result = 0;
-    *a7 = 40;
+    return a3 + v22;
   }
 
-  else
+  if (container_log_handle_for_category_onceToken != -1)
   {
-    result = a3 + v23;
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-LABEL_11:
-  v19 = *MEMORY[0x1E69E9840];
+  v26 = qword_1ED452B68;
+  if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_ERROR))
+  {
+    v27 = 136316162;
+    v28 = a1 + 24;
+    v29 = 2080;
+    v30 = a2;
+    v31 = 2048;
+    v32 = a3;
+    v33 = 2048;
+    v34 = a4;
+    v35 = 2048;
+    v36 = v23;
+    _os_log_error_impl(&dword_1DF28A000, v26, OS_LOG_TYPE_ERROR, "Malformed attrlist on entry in [%s]; [%s][attr_dataoffset] field exceeds reported buffer length; start = %p, end = 0x%lx, attr_dataoffset + attr_length = %zu", &v27, 0x34u);
+  }
+
+  result = 0;
+  *a7 = 40;
   return result;
 }
 
 const char *container_traverse_node_get_path(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (a2)
@@ -9133,7 +9043,7 @@ const char *container_traverse_node_get_path(uint64_t a1, void *a2)
       *a2 = *(a1 + 24);
     }
 
-    result = *(a1 + 16);
+    return *(a1 + 16);
   }
 
   else
@@ -9146,21 +9056,18 @@ const char *container_traverse_node_get_path(uint64_t a1, void *a2)
     v3 = qword_1ED452B68;
     if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
     {
-      v5 = 136315138;
-      v6 = "container_traverse_node_get_path";
-      _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "container_traverse_node_get_path";
+      _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
     }
 
-    result = "<NULL>";
+    return "<NULL>";
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 const char *container_traverse_node_get_name(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (a2)
@@ -9168,7 +9075,7 @@ const char *container_traverse_node_get_name(uint64_t a1, void *a2)
       *a2 = *(a1 + 40);
     }
 
-    result = *(a1 + 32);
+    return *(a1 + 32);
   }
 
   else
@@ -9181,368 +9088,151 @@ const char *container_traverse_node_get_name(uint64_t a1, void *a2)
     v3 = qword_1ED452B68;
     if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
     {
-      v5 = 136315138;
-      v6 = "container_traverse_node_get_name";
-      _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "container_traverse_node_get_name";
+      _os_log_fault_impl(&dword_1DF28A000, v3, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
     }
 
-    result = "<NULL>";
+    return "<NULL>";
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t container_traverse_node_get_subordinate_count(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    result = *(a1 + 60);
+    return *(a1 + 60);
   }
 
-  else
+  if (container_log_handle_for_category_onceToken != -1)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
-    if (result)
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_subordinate_count";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-      result = 0;
-    }
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = qword_1ED452B68;
+  result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
+  if (result)
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_subordinate_count";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 
 uint64_t container_traverse_node_get_depth_from_origin(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    result = *(a1 + 87);
+    return *(a1 + 87);
   }
 
-  else
+  if (container_log_handle_for_category_onceToken != -1)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
-    if (result)
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_depth_from_origin";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-      result = 0;
-    }
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = qword_1ED452B68;
+  result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
+  if (result)
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_depth_from_origin";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 
 BOOL container_traverse_node_is_directory(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    result = *(a1 + 56) == 2;
+    return *(a1 + 56) == 2;
   }
 
-  else
+  if (container_log_handle_for_category_onceToken != -1)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
-    if (result)
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_is_directory";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-      result = 0;
-    }
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = qword_1ED452B68;
+  result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
+  if (result)
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_is_directory";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 
 BOOL container_traverse_node_is_symlink(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    result = *(a1 + 56) == 5;
+    return *(a1 + 56) == 5;
   }
 
-  else
+  if (container_log_handle_for_category_onceToken != -1)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
-    if (result)
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_is_symlink";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-      result = 0;
-    }
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = qword_1ED452B68;
+  result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
+  if (result)
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_is_symlink";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 
 BOOL container_traverse_node_is_regular_file(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    result = *(a1 + 56) == 1;
+    return *(a1 + 56) == 1;
   }
 
-  else
+  if (container_log_handle_for_category_onceToken != -1)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
-    if (result)
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_is_regular_file";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-      result = 0;
-    }
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = qword_1ED452B68;
+  result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
+  if (result)
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_is_regular_file";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 
-uint64_t container_traverse_node_get_optional_file_id(uint64_t *a1)
+uint64_t container_traverse_node_get_optional_file_id(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    result = *a1;
-  }
-
-  else
-  {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_optional_file_id";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-    }
-
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t container_traverse_node_get_optional_alloc_size(uint64_t a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    result = *(a1 + 8);
-  }
-
-  else
-  {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_optional_alloc_size";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-    }
-
-    result = -1;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t container_traverse_node_get_optional_flags(uint64_t a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    result = *(a1 + 48);
-  }
-
-  else
-  {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_optional_flags";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-    }
-
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t container_traverse_node_get_optional_dp_class(uint64_t a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    result = *(a1 + 64);
-  }
-
-  else
-  {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_optional_dp_class";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-    }
-
-    result = 0xFFFFFFFFLL;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t container_traverse_node_get_optional_uid(uint64_t a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    result = *(a1 + 68);
-  }
-
-  else
-  {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_optional_uid";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-    }
-
-    result = 4294967294;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t container_traverse_node_get_optional_gid(uint64_t a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    result = *(a1 + 72);
-  }
-
-  else
-  {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_optional_gid";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-    }
-
-    result = 4294967294;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t container_traverse_node_get_optional_link_count(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    v1 = *(a1 + 76);
-    if (v1 < 0x10000)
-    {
-      goto LABEL_9;
-    }
-
-    v8 = 0u;
-    v9 = 0u;
-    v6 = 0u;
-    v7 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    return *a1;
   }
 
   if (container_log_handle_for_category_onceToken != -1)
@@ -9553,50 +9243,216 @@ uint64_t container_traverse_node_get_optional_link_count(uint64_t a1)
   v2 = qword_1ED452B68;
   if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
   {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_optional_file_id";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+  }
+
+  return 0;
+}
+
+uint64_t container_traverse_node_get_optional_alloc_size(uint64_t a1)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    return *(a1 + 8);
+  }
+
+  if (container_log_handle_for_category_onceToken != -1)
+  {
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
+  }
+
+  v2 = qword_1ED452B68;
+  if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_optional_alloc_size";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+  }
+
+  return -1;
+}
+
+uint64_t container_traverse_node_get_optional_flags(uint64_t a1)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    return *(a1 + 48);
+  }
+
+  if (container_log_handle_for_category_onceToken != -1)
+  {
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
+  }
+
+  v2 = qword_1ED452B68;
+  if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_optional_flags";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+  }
+
+  return 0;
+}
+
+uint64_t container_traverse_node_get_optional_dp_class(uint64_t a1)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    return *(a1 + 64);
+  }
+
+  if (container_log_handle_for_category_onceToken != -1)
+  {
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
+  }
+
+  v2 = qword_1ED452B68;
+  if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_optional_dp_class";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+uint64_t container_traverse_node_get_optional_uid(uint64_t a1)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    return *(a1 + 68);
+  }
+
+  if (container_log_handle_for_category_onceToken != -1)
+  {
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
+  }
+
+  v2 = qword_1ED452B68;
+  if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_optional_uid";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+  }
+
+  return 4294967294;
+}
+
+uint64_t container_traverse_node_get_optional_gid(uint64_t a1)
+{
+  v5 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    return *(a1 + 72);
+  }
+
+  if (container_log_handle_for_category_onceToken != -1)
+  {
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
+  }
+
+  v2 = qword_1ED452B68;
+  if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_optional_gid";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+  }
+
+  return 4294967294;
+}
+
+uint64_t container_traverse_node_get_optional_link_count(uint64_t a1)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    v1 = *(a1 + 76);
+    if (v1 < 0x10000)
+    {
+      return v1;
+    }
+
+    v7 = 0;
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    *buf = 0u;
+    v2 = MEMORY[0x1E69E9C10];
+    v3 = v1;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v4 = 3;
+    }
+
+    else
+    {
+      v4 = 2;
+    }
+
+    v8[0] = 67109120;
+    v8[1] = v3;
+    _os_log_send_and_compose_impl(v4, &v7, buf, 80, &dword_1DF28A000, v2, 16, "Overflowed link count [%u]", v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  if (container_log_handle_for_category_onceToken != -1)
+  {
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
+  }
+
+  v5 = qword_1ED452B68;
+  if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
+  {
     *buf = 136315138;
     *&buf[4] = "container_traverse_node_get_optional_link_count";
-    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", buf, 0xCu);
+    _os_log_fault_impl(&dword_1DF28A000, v5, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", buf, 0xCu);
   }
 
   LOWORD(v1) = 0;
-LABEL_9:
-  v3 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 uint64_t container_traverse_node_get_optional_mode(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    result = *(a1 + 84);
+    return *(a1 + 84);
   }
 
-  else
+  if (container_log_handle_for_category_onceToken != -1)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
-    if (result)
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_optional_mode";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-      result = 0;
-    }
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = qword_1ED452B68;
+  result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
+  if (result)
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_optional_mode";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 
 uint64_t container_traverse_node_optional_has_acl(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v1 = *(a1 + 86);
@@ -9612,65 +9468,60 @@ uint64_t container_traverse_node_optional_has_acl(uint64_t a1)
     v2 = qword_1ED452B68;
     if (os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT))
     {
-      v5 = 136315138;
-      v6 = "container_traverse_node_optional_has_acl";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "container_traverse_node_optional_has_acl";
+      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
     }
 
     v1 = 0;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v1 & 1;
 }
 
 uint64_t container_traverse_node_get_optional_parent_fd(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    result = *(a1 + 80);
+    return *(a1 + 80);
   }
 
-  else
+  if (container_log_handle_for_category_onceToken != -1)
   {
-    if (container_log_handle_for_category_onceToken != -1)
-    {
-      dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
-    }
-
-    v2 = qword_1ED452B68;
-    result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
-    if (result)
-    {
-      v4 = 136315138;
-      v5 = "container_traverse_node_get_optional_parent_fd";
-      _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v4, 0xCu);
-      result = 0;
-    }
+    dispatch_once(&container_log_handle_for_category_onceToken, &__block_literal_global_572);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = qword_1ED452B68;
+  result = os_log_type_enabled(qword_1ED452B68, OS_LOG_TYPE_FAULT);
+  if (result)
+  {
+    v3 = 136315138;
+    v4 = "container_traverse_node_get_optional_parent_fd";
+    _os_log_fault_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_FAULT, "%s: SPI MISUSE: node parameter is NULL", &v3, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 
-char *container_traverse_node_copy_unlocalized_description(uint64_t a1)
+char *container_traverse_node_copy_unlocalized_description(__int128 *a1)
 {
   v17 = 0;
   if (a1)
   {
-    v2 = *(a1 + 32);
-    v3 = *(a1 + 16);
+    v2 = *(a1 + 4);
+    v3 = *(a1 + 2);
     v16 = *a1;
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 60);
-    v6 = *(a1 + 64);
-    v7 = *(a1 + 68);
-    v8 = *(a1 + 72);
+    v4 = *(a1 + 6);
+    v5 = *(a1 + 15);
+    v6 = *(a1 + 16);
+    v7 = *(a1 + 17);
+    v8 = *(a1 + 18);
     optional_link_count = container_traverse_node_get_optional_link_count(a1);
     v10 = &unk_1DF2BBE1A;
     v11 = "DIR";
-    v12 = *(a1 + 56);
+    v12 = *(a1 + 14);
     if (v12 != 2)
     {
       v11 = &unk_1DF2BBE1A;
@@ -9697,7 +9548,7 @@ char *container_traverse_node_copy_unlocalized_description(uint64_t a1)
       v14 = "false";
     }
 
-    asprintf(&v17, "(%04u:0x%08llx:0x%08llx:0x%04lx:%02d:%04u:%04u:%04u:O%06o:%03d:%s%s%s:%s:%03d)[%s][%s]", v5, v16, *(&v16 + 1), v4, v6, v7, v8, optional_link_count, *(a1 + 84), *(a1 + 87), v11, v13, v10, v14, *(a1 + 80), v2, v3);
+    asprintf(&v17, "(%04u:0x%08llx:0x%08llx:0x%04lx:%02d:%04u:%04u:%04u:O%06o:%03d:%s%s%s:%s:%03d)[%s][%s]", v5, v16, *(&v16 + 1), v4, v6, v7, v8, optional_link_count, *(a1 + 42), *(a1 + 87), v11, v13, v10, v14, *(a1 + 20), v2, v3);
     return v17;
   }
 
@@ -9708,7 +9559,7 @@ char *container_traverse_node_copy_unlocalized_description(uint64_t a1)
   }
 }
 
-char **container_traverse_node_copy(_OWORD *a1)
+char **container_traverse_node_copy(const char **a1)
 {
   if (!a1)
   {
@@ -9719,19 +9570,19 @@ char **container_traverse_node_copy(_OWORD *a1)
   v3 = v2;
   if (v2)
   {
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     *v2 = *a1;
     *(v2 + 1) = v4;
-    v5 = a1[2];
-    v6 = a1[3];
-    v7 = a1[5];
-    *(v2 + 4) = a1[4];
+    v5 = *(a1 + 2);
+    v6 = *(a1 + 3);
+    v7 = *(a1 + 5);
+    *(v2 + 4) = *(a1 + 4);
     *(v2 + 5) = v7;
     *(v2 + 2) = v5;
     *(v2 + 3) = v6;
-    asprintf(v2 + 2, "%s", *(a1 + 2));
+    asprintf(v2 + 2, "%s", a1[2]);
     *(v3 + 88) = 1;
-    asprintf(v3 + 4, "%s", *(a1 + 4));
+    asprintf(v3 + 4, "%s", a1[4]);
     *(v3 + 89) = 1;
     *(v3 + 20) = -1;
     v8 = *(a1 + 20);
@@ -9786,7 +9637,7 @@ uint64_t container_traverse_node_free(uint64_t result)
 
 void container_xpc_set_use_shared_connection(int a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (gContainerXPCUsesSharedConnection != a1)
   {
     if (container_log_handle_for_category_onceToken != -1)
@@ -9803,15 +9654,13 @@ void container_xpc_set_use_shared_connection(int a1)
         v3 = "Enabling";
       }
 
-      v5 = 136446210;
-      v6 = v3;
-      _os_log_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s connection sharing", &v5, 0xCu);
+      v4 = 136446210;
+      v5 = v3;
+      _os_log_impl(&dword_1DF28A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s connection sharing", &v4, 0xCu);
     }
 
     gContainerXPCUsesSharedConnection = a1;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t container_internal_get_first_boot_uuid(void *a1)
@@ -9838,15 +9687,15 @@ LABEL_3:
 
 uint64_t __container_internal_get_first_boot_uuid_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  memset(v2, 0, sizeof(v2));
+  v2 = *MEMORY[0x1E69E9840];
+  memset(v1, 0, sizeof(v1));
   container_internal_get_first_boot_uuid_length = 38;
-  if ((sysctlbyname("kern.bootsessionuuid", v2, &container_internal_get_first_boot_uuid_length, 0, 0) & 0x80000000) == 0)
+  if ((sysctlbyname("kern.bootsessionuuid", v1, &container_internal_get_first_boot_uuid_length, 0, 0) & 0x80000000) == 0)
   {
-    result = strndup(v2, container_internal_get_first_boot_uuid_length);
+    result = strndup(v1, container_internal_get_first_boot_uuid_length);
 LABEL_3:
     container_internal_get_first_boot_uuid_uuid = result;
-    goto LABEL_6;
+    return result;
   }
 
   result = __error();
@@ -9877,7 +9726,137 @@ LABEL_3:
     }
   }
 
-LABEL_6:
-  v1 = *MEMORY[0x1E69E9840];
+  return result;
+}
+
+BOOL container_class_supports_randomized_path(int a1, uint64_t a2, char a3)
+{
+  if ((a3 & 1) != 0 || a1 != 6 && a1 != 1)
+  {
+    return 1;
+  }
+
+  return a2 != 2 && a2 != 7;
+}
+
+BOOL container_class_supports_randomized_path_on_current_platform(uint64_t a1, char a2)
+{
+  active_platform = dyld_get_active_platform();
+  if ((a2 & 1) != 0 || active_platform != 6 && active_platform != 1)
+  {
+    return 1;
+  }
+
+  return a1 != 2 && a1 != 7;
+}
+
+uint64_t container_class_for_each_normalized_class(uint64_t result)
+{
+  v1 = result;
+  for (i = 0; i != 15; ++i)
+  {
+    if (i)
+    {
+      result = (*(v1 + 16))(v1, i);
+    }
+  }
+
+  return result;
+}
+
+uint64_t container_persona_collect_all_ids(void *a1, size_t a2, void **a3, size_t *a4)
+{
+  v7 = 0;
+  __src = a1;
+  for (i = 1; i != 8; ++i)
+  {
+    if ((kpersona_find_by_type() & 0x80000000) != 0)
+    {
+      v9 = 0;
+    }
+
+    else
+    {
+      v9 = a2 - v7;
+    }
+
+    v7 += v9;
+  }
+
+  qsort_b(__src, v7, 4uLL, &__block_literal_global_564);
+  *a3 = __src;
+  *a4 = v7;
+  return 1;
+}
+
+uint64_t __container_persona_collect_all_ids_block_invoke(uint64_t a1, _DWORD *a2, _DWORD *a3)
+{
+  if (*a2 < *a3)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    return *a3 < *a2;
+  }
+}
+
+uint64_t container_persona_foreach(uint64_t a1)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  __s = 0;
+  result = container_persona_collect_all_ids(v33, 0x40uLL, &__s, &v8);
+  v4 = v8;
+  v3 = __s;
+  if (v8)
+  {
+    v5 = __s;
+    do
+    {
+      v32 = 0;
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
+      v11 = 0u;
+      v10 = 2;
+      v6 = kpersona_info();
+      if (v6)
+      {
+        LODWORD(v11) = *v5;
+      }
+
+      result = (*(a1 + 16))(a1, v6 == 0, &v10);
+      ++v5;
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  if (v3 != v33 && v3 != 0)
+  {
+    free(v3);
+    return memset_s(&__s, 8uLL, 0, 8uLL);
+  }
+
   return result;
 }

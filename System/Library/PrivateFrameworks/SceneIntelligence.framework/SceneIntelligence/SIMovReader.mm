@@ -12,18 +12,18 @@
 
 - (id)initReaderWithVideoURL:(id)l trackList:(id)list
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   lCopy = l;
   listCopy = list;
-  v62.receiver = self;
-  v62.super_class = SIMovReader;
-  v7 = [(SIMovReader *)&v62 init];
+  v64.receiver = self;
+  v64.super_class = SIMovReader;
+  v7 = [(SIMovReader *)&v64 init];
   if (v7)
   {
-    v49 = listCopy;
-    v61 = 0;
-    v8 = [objc_alloc(MEMORY[0x277D256C0]) initWithURL:lCopy error:&v61];
-    v50 = v61;
+    v51 = listCopy;
+    v63 = 0;
+    v8 = [objc_alloc(MEMORY[0x277D256C0]) initWithURL:lCopy error:&v63];
+    v52 = v63;
     [(SIMovReader *)v7 setReader:v8];
 
     reader = [(SIMovReader *)v7 reader];
@@ -31,20 +31,20 @@
 
     if (v8)
     {
-      v46 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v49 = __SceneIntelligenceLogSharedInstance(v10);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         *buf = 136381187;
-        v66 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovReader.mm";
-        v67 = 1025;
-        v68 = 76;
-        v69 = 2113;
-        v70 = v50;
-        _os_log_impl(&dword_21DE0D000, v46, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Couldn't open video track with error %{private}@ ***", buf, 0x1Cu);
+        v68 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovReader.mm";
+        v69 = 1025;
+        v70 = 76;
+        v71 = 2113;
+        v72 = v52;
+        _os_log_impl(&dword_21DE0D000, v49, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Couldn't open video track with error %{private}@ ***", buf, 0x1Cu);
       }
 
 LABEL_31:
-      v44 = 0;
+      v47 = 0;
     }
 
     else
@@ -52,89 +52,93 @@ LABEL_31:
       v7->_readCount = 0;
       v7->_bufferEOFCount = 0;
       v7->_lcmfps = 1;
-      v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
       trackInfos = v7->trackInfos;
-      v7->trackInfos = v10;
+      v7->trackInfos = v11;
 
+      v61 = 0u;
+      v62 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      obj = v49;
-      v12 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
-      if (v12)
+      obj = v51;
+      v13 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+      if (v13)
       {
-        v13 = *v58;
+        v14 = *v60;
         while (2)
         {
-          for (i = 0; i != v12; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v58 != v13)
+            if (*v60 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v57 + 1) + 8 * i);
+            v16 = *(*(&v59 + 1) + 8 * i);
             reader2 = [(SIMovReader *)v7 reader];
-            v17 = [reader2 containsStream:v15];
+            v18 = [reader2 containsStream:v16];
 
-            if (!v17)
+            if (!v18)
             {
-              v45 = __SceneIntelligenceLogSharedInstance();
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+              v48 = __SceneIntelligenceLogSharedInstance(v19);
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136381187;
-                v66 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovReader.mm";
-                v67 = 1025;
-                v68 = 95;
-                v69 = 2113;
-                v70 = v15;
-                _os_log_impl(&dword_21DE0D000, v45, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** video doesn't contain steam %{private}@ ***", buf, 0x1Cu);
+                v68 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovReader.mm";
+                v69 = 1025;
+                v70 = 95;
+                v71 = 2113;
+                v72 = v16;
+                _os_log_impl(&dword_21DE0D000, v48, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** video doesn't contain steam %{private}@ ***", buf, 0x1Cu);
               }
 
               goto LABEL_31;
             }
 
             reader3 = [(SIMovReader *)v7 reader];
-            [reader3 getFrameRateForStream:v15];
-            v20 = v19;
+            [reader3 getFrameRateForStream:v16];
+            v22 = v21;
 
             reader4 = [(SIMovReader *)v7 reader];
-            [reader4 getSizeForStream:v15];
-            v23 = v22;
+            [reader4 getSizeForStream:v16];
             v25 = v24;
+            v27 = v26;
 
-            v26 = [SIMovStreamInfo alloc];
+            v28 = [SIMovStreamInfo alloc];
             reader5 = [(SIMovReader *)v7 reader];
-            v28 = llround(v20);
-            v29 = -[SIMovStreamInfo initInfoWithTrackName:frameRate:pixelBufferFormat:resolution:](v26, "initInfoWithTrackName:frameRate:pixelBufferFormat:resolution:", v15, [reader5 getOutputPixelFormatForStream:v15], v28, v23, v25);
-            [(NSMutableDictionary *)v7->trackInfos setObject:v29 forKeyedSubscript:v15];
+            v30 = llround(v22);
+            v31 = -[SIMovStreamInfo initInfoWithTrackName:frameRate:pixelBufferFormat:resolution:](v28, "initInfoWithTrackName:frameRate:pixelBufferFormat:resolution:", v16, [reader5 getOutputPixelFormatForStream:v16], v30, v25, v27);
+            [(NSMutableDictionary *)v7->trackInfos setObject:v31 forKeyedSubscript:v16];
 
-            LOBYTE(v30) = 0;
-            if (v28 && v7->_lcmfps)
+            LOBYTE(v33) = 0;
+            if (v30)
             {
               lcmfps = v7->_lcmfps;
-              v30 = lcmfps / std::__gcd<unsigned char>(lcmfps, v28) * v28;
+              if (v7->_lcmfps)
+              {
+                v32 = std::__gcd<unsigned char>(v7->_lcmfps, v30);
+                v33 = lcmfps / v32 * v30;
+              }
             }
 
-            v7->_lcmfps = v30;
-            v32 = __SceneIntelligenceLogSharedInstance();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+            v7->_lcmfps = v33;
+            v35 = __SceneIntelligenceLogSharedInstance(v32);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
-              v33 = [(NSMutableDictionary *)v7->trackInfos objectForKeyedSubscript:v15];
-              v34 = [v33 description];
+              v36 = [(NSMutableDictionary *)v7->trackInfos objectForKeyedSubscript:v16];
+              v37 = [v36 description];
               *buf = 136381187;
-              v66 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovReader.mm";
-              v67 = 1025;
-              v68 = 93;
-              v69 = 2113;
-              v70 = v34;
-              _os_log_impl(&dword_21DE0D000, v32, OS_LOG_TYPE_DEBUG, " %{private}s:%{private}d *** reading track from video: \n %{private}@ ***", buf, 0x1Cu);
+              v68 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovReader.mm";
+              v69 = 1025;
+              v70 = 93;
+              v71 = 2113;
+              v72 = v37;
+              _os_log_impl(&dword_21DE0D000, v35, OS_LOG_TYPE_DEBUG, " %{private}s:%{private}d *** reading track from video: \n %{private}@ ***", buf, 0x1Cu);
             }
           }
 
-          v12 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
-          if (v12)
+          v13 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+          if (v13)
           {
             continue;
           }
@@ -143,63 +147,61 @@ LABEL_31:
         }
       }
 
+      v57 = 0u;
+      v58 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v35 = v7->trackInfos;
-      v36 = [(NSMutableDictionary *)v35 countByEnumeratingWithState:&v53 objects:v63 count:16];
-      if (v36)
+      v38 = v7->trackInfos;
+      v39 = [(NSMutableDictionary *)v38 countByEnumeratingWithState:&v55 objects:v65 count:16];
+      if (v39)
       {
-        v37 = *v54;
+        v40 = *v56;
         do
         {
-          for (j = 0; j != v36; ++j)
+          for (j = 0; j != v39; ++j)
           {
-            if (*v54 != v37)
+            if (*v56 != v40)
             {
-              objc_enumerationMutation(v35);
+              objc_enumerationMutation(v38);
             }
 
-            v39 = *(*(&v53 + 1) + 8 * j);
-            v40 = v7->_lcmfps;
-            v41 = [(NSMutableDictionary *)v7->trackInfos objectForKeyedSubscript:v39];
-            frameRate = [v41 frameRate];
-            v43 = [(NSMutableDictionary *)v7->trackInfos objectForKeyedSubscript:v39];
-            [v43 setReadCycle:v40 / frameRate];
+            v42 = *(*(&v55 + 1) + 8 * j);
+            v43 = v7->_lcmfps;
+            v44 = [(NSMutableDictionary *)v7->trackInfos objectForKeyedSubscript:v42];
+            frameRate = [v44 frameRate];
+            v46 = [(NSMutableDictionary *)v7->trackInfos objectForKeyedSubscript:v42];
+            [v46 setReadCycle:v43 / frameRate];
           }
 
-          v36 = [(NSMutableDictionary *)v35 countByEnumeratingWithState:&v53 objects:v63 count:16];
+          v39 = [(NSMutableDictionary *)v38 countByEnumeratingWithState:&v55 objects:v65 count:16];
         }
 
-        while (v36);
+        while (v39);
       }
 
-      v44 = v7;
+      v47 = v7;
     }
 
-    listCopy = v49;
+    listCopy = v51;
   }
 
   else
   {
-    v44 = 0;
+    v47 = 0;
   }
 
-  v47 = *MEMORY[0x277D85DE8];
-  return v44;
+  return v47;
 }
 
 - (id)initReaderWithVideoURL:(id)l andTrackName:(id)name
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   nameCopy = name;
-  v12[0] = nameCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = nameCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v9 = [(SIMovReader *)self initReaderWithVideoURL:lCopy trackList:v8];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -235,7 +237,7 @@ LABEL_31:
   trackCopy = track;
   std::string::basic_string[abi:nn200100]<0>(__p, [trackCopy UTF8String]);
   v9 = __p;
-  v5 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_pixelBufferMap.__table_.__bucket_list_.__ptr_, __p)[5];
+  v5 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_pixelBufferMap.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v9)[5];
   if (v8 < 0)
   {
     operator delete(__p[0]);
@@ -280,7 +282,7 @@ LABEL_31:
           v13 = v9;
           std::string::basic_string[abi:nn200100]<0>(__p, [v9 UTF8String]);
           v38 = __p;
-          v14 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_pixelBufferMap.__table_.__bucket_list_.__ptr_, __p);
+          v14 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_pixelBufferMap.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v38);
           CVPixelBufferRelease(v14[5]);
           if (v42 < 0)
           {
@@ -297,7 +299,7 @@ LABEL_31:
           v20 = v9;
           std::string::basic_string[abi:nn200100]<0>(__p, [v9 UTF8String]);
           v38 = __p;
-          std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_pixelBufferMap.__table_.__bucket_list_.__ptr_, __p)[5] = v18;
+          std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_pixelBufferMap.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v38)[5] = v18;
           if (v42 < 0)
           {
             operator delete(*__p);
@@ -306,11 +308,12 @@ LABEL_31:
           v21 = v9;
           std::string::basic_string[abi:nn200100]<0>(__p, [v9 UTF8String]);
           v38 = __p;
-          v22 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_pixelBufferMap.__table_.__bucket_list_.__ptr_, __p)[5];
+          v22 = std::__hash_table<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,e5rt_execution_stream_operation *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,e5rt_execution_stream_operation *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_pixelBufferMap.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v38);
+          v23 = v22[5];
           if (v42 < 0)
           {
             operator delete(*__p);
-            if (v22)
+            if (v23)
             {
 LABEL_13:
               v7 = 0;
@@ -320,21 +323,21 @@ LABEL_19:
             }
           }
 
-          else if (v22)
+          else if (v23)
           {
             goto LABEL_13;
           }
 
           if (v19)
           {
-            v23 = __SceneIntelligenceLogSharedInstance();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v24 = __SceneIntelligenceLogSharedInstance(v22);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *__p = v29;
               *&__p[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovReader.mm";
               v40 = 1025;
               v41 = 150;
-              _os_log_impl(&dword_21DE0D000, v23, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to read the buffer. ***", __p, 0x12u);
+              _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to read the buffer. ***", __p, 0x12u);
             }
 
             v7 = 2;
@@ -351,9 +354,9 @@ LABEL_20:
       }
 
       while (v5 != v8);
-      v24 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v34 objects:v43 count:16];
-      v5 = v24;
-      if (!v24)
+      v25 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v34 objects:v43 count:16];
+      v5 = v25;
+      if (!v25)
       {
         goto LABEL_26;
       }
@@ -367,16 +370,15 @@ LABEL_26:
   self->_readCount = (self->_readCount + 1) % self->_lcmfps;
   if ([(NSMutableDictionary *)self->trackInfos count]== bufferEOFCount)
   {
-    v26 = 3;
+    v27 = 3;
   }
 
   else
   {
-    v26 = v7;
+    v27 = v7;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v27;
 }
 
 - (id).cxx_construct

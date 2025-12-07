@@ -6,6 +6,7 @@
 - (void)reloadSpecifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CSLPRFSelectedActionCompanionSettingsListController
@@ -33,6 +34,44 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"ACTION" value:&stru_C380 table:@"LocalizableSettings-N199"];
   [(CSLPRFSelectedActionCompanionSettingsListController *)self setTitle:v4];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v20.receiver = self;
+  v20.super_class = CSLPRFSelectedActionCompanionSettingsListController;
+  [(CSLPRFSelectedActionCompanionSettingsListController *)&v20 viewWillAppear:appear];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  v6 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"STING_TITLE" table:@"Localizable-N199" locale:v5 bundleURL:bundleURL];
+
+  specifierID = [(CSLPRFSelectedActionCompanionSettingsListController *)self specifierID];
+  LODWORD(v6) = [specifierID isEqualToString:@"StingSystemSettingsChooseActionTypeItem"];
+
+  if (v6)
+  {
+    v10 = @"CHOOSE_ACTION";
+  }
+
+  else
+  {
+    v10 = @"ACTION";
+  }
+
+  v11 = [_NSLocalizedStringResource alloc];
+  v12 = +[NSLocale currentLocale];
+  v13 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL2 = [v13 bundleURL];
+  v15 = [v11 initWithKey:v10 table:@"LocalizableSettings-N199" locale:v12 bundleURL:bundleURL2];
+
+  v21 = v8;
+  v16 = [NSArray arrayWithObjects:&v21 count:1];
+  specifierID2 = [(CSLPRFSelectedActionCompanionSettingsListController *)self specifierID];
+  v18 = [NSString stringWithFormat:@"bridge:root=ACTION_BUTTON_ID&path=%@", specifierID2];
+  v19 = [NSURL URLWithString:v18];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACTION_BUTTON_ID" title:v15 localizedNavigationComponents:v16 deepLink:v19];
 }
 
 - (id)specifiers

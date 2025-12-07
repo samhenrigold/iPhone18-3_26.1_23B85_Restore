@@ -174,7 +174,7 @@ LABEL_16:
   items = [(AVTimedMetadataGroup *)self items];
   if (self)
   {
-    [(AVTimedMetadataGroup *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else
@@ -193,7 +193,7 @@ LABEL_16:
   v6 = *MEMORY[0x1E695E480];
   if (self)
   {
-    [(AVTimedMetadataGroup *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else
@@ -221,14 +221,14 @@ LABEL_16:
       memset(&v15, 0, sizeof(v15));
       if (self)
       {
-        [(AVTimedMetadataGroup *)self timeRange];
+        objc_msgSend_timeRange(self);
         v7 = 0uLL;
       }
 
       *&v14.start.epoch = v7;
       *&v14.duration.timescale = v7;
       *&v14.start.value = v7;
-      [equal timeRange];
+      objc_msgSend_timeRange(equal);
       items = [(AVTimedMetadataGroup *)self items];
       items2 = [equal items];
       range1 = v15;
@@ -263,7 +263,7 @@ LABEL_16:
   v7 = 0u;
   if (self)
   {
-    [(AVTimedMetadataGroup *)self timeRange];
+    objc_msgSend_timeRange(self, a2);
   }
 
   *&v6.value = v7;
@@ -318,7 +318,7 @@ LABEL_16:
   }
 
   obj = [(AVTimedMetadataGroup *)self items];
-  [(AVTimedMetadataGroup *)self timeRange];
+  objc_msgSend_timeRange(self);
   cf = 0;
   v66 = 0;
   if (!description)
@@ -535,7 +535,7 @@ LABEL_32:
 
 LABEL_39:
   v11 = FigBoxedMetadataEndConstruction();
-  if (v11 || (BlockBuffer = FigBoxedMetadataGetBlockBuffer(), *&sampleTimingArray.duration.value = v58, sampleTimingArray.duration.epoch = v59, sampleTimingArray.presentationTimeStamp = v57, sampleTimingArray.decodeTimeStamp = **&MEMORY[0x1E6960C70], v68[0] = CMBlockBufferGetDataLength(BlockBuffer), (v11 = CMSampleBufferCreate(v10, BlockBuffer, 1u, 0, 0, formatDescription, 1, 1, &sampleTimingArray, 1, v68, &v66)) != 0))
+  if (v11 || (BlockBuffer = FigBoxedMetadataGetBlockBuffer(), *&sampleTimingArray.duration.value = v58, sampleTimingArray.duration.epoch = v59, sampleTimingArray.presentationTimeStamp = v57, sampleTimingArray.decodeTimeStamp = **&MEMORY[0x1E6960C70], v68[0] = CMBlockBufferGetDataLength(BlockBuffer), v11 = CMSampleBufferCreate(v10, BlockBuffer, 1u, 0, 0, formatDescription, 1, 1, &sampleTimingArray, 1, v68, &v66), v11))
   {
 LABEL_41:
     v9 = AVLocalizedErrorWithUnderlyingOSStatus(v11, 0);

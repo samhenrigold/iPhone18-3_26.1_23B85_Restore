@@ -18,7 +18,7 @@
   }
 
   selfCopy = self;
-  v4 = TipUICollectionViewCell.backgroundColor.getter();
+  v4 = TipUICollectionViewCell.backgroundColor.getter(selfCopy);
 
   return v4;
 }

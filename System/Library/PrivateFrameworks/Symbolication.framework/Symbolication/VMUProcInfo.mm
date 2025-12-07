@@ -148,7 +148,7 @@ LABEL_7:
 
 - (id)procTableName
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self->_procTableName)
   {
     goto LABEL_11;
@@ -169,19 +169,19 @@ LABEL_11:
   }
 
   size = 0;
-  *v17 = 0xE00000001;
+  *v16 = 0xE00000001;
   pid = self->_pid;
-  v18 = 1;
-  v19 = pid;
-  if (sysctl(v17, 4u, 0, &size, 0, 0) < 0)
+  v17 = 1;
+  v18 = pid;
+  if (sysctl(v16, 4u, 0, &size, 0, 0) < 0)
   {
-    v15 = "Failure calling sysctl to get buf size";
+    v14 = "Failure calling sysctl to get buf size";
   }
 
   else
   {
     v9 = malloc_type_calloc(1uLL, size, 0x10B2040B74D5165uLL);
-    if ((sysctl(v17, 4u, v9, &size, 0, 0) & 0x80000000) == 0)
+    if ((sysctl(v16, 4u, v9, &size, 0, 0) & 0x80000000) == 0)
     {
       if (v9[10] == self->_pid)
       {
@@ -201,13 +201,12 @@ LABEL_11:
     }
 
     free(v9);
-    v15 = "Failure calling sysctl to get proc buf";
+    v14 = "Failure calling sysctl to get proc buf";
   }
 
-  perror(v15);
+  perror(v14);
   v12 = 0;
 LABEL_12:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -267,12 +266,12 @@ LABEL_12:
 
 + (id)getProcessIds
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11 = 0;
+  v11 = *MEMORY[0x1E69E9840];
+  v10 = 0;
   size = 0;
-  *v10 = 0xE00000001;
+  *v9 = 0xE00000001;
   array = [MEMORY[0x1E695DF70] array];
-  if (sysctl(v10, 3u, 0, &size, 0, 0) < 0)
+  if (sysctl(v9, 3u, 0, &size, 0, 0) < 0)
   {
     perror("Failure calling sysctl to get process list buffer size");
   }
@@ -280,7 +279,7 @@ LABEL_12:
   else
   {
     v3 = malloc_type_calloc(1uLL, size, 0x10B2040B74D5165uLL);
-    if ((sysctl(v10, 3u, v3, &size, 0, 0) & 0x80000000) == 0 && (size / 0x288) >= 1)
+    if ((sysctl(v9, 3u, v3, &size, 0, 0) & 0x80000000) == 0 && (size / 0x288) >= 1)
     {
       v4 = (size / 0x288) & 0x7FFFFFFF;
       v5 = v3 + 10;
@@ -299,36 +298,31 @@ LABEL_12:
     free(v3);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 + (int)processParentId:(int)id
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = 648;
-  v6 = 1;
-  v7 = 0x10000000ELL;
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = 648;
+  v5 = 1;
+  v6 = 0x10000000ELL;
   idCopy = id;
-  sysctl(&v6, 4u, v9, &v5, 0, 0);
-  if (v5 == 648)
+  sysctl(&v5, 4u, v8, &v4, 0, 0);
+  if (v4 == 648)
   {
-    result = v10;
+    return v9;
   }
 
   else
   {
-    result = -1;
+    return -1;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (timeval)startTime
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   p_startTime = &self->_startTime;
   tv_sec = self->_startTime.tv_sec;
   if (tv_sec)
@@ -336,76 +330,73 @@ LABEL_12:
     goto LABEL_4;
   }
 
-  if (!self->_startTime.tv_usec)
+  if (self->_startTime.tv_usec)
   {
-    vmuTask = self->_vmuTask;
-    if (vmuTask && [(VMUTask *)vmuTask isCore])
+    tv_sec = 0;
+LABEL_4:
+    v5 = *&self->_startTime.tv_usec;
+    goto LABEL_21;
+  }
+
+  vmuTask = self->_vmuTask;
+  if (vmuTask && [(VMUTask *)vmuTask isCore])
+  {
+    *v13 = 0;
+    memoryCache = [(VMUTask *)self->_vmuTask memoryCache];
+    if ([VMUTaskMemoryCache getCoreFileProcStarttimeSec:memoryCache])
     {
-      *v14 = 0;
-      memoryCache = [(VMUTask *)self->_vmuTask memoryCache];
-      if ([VMUTaskMemoryCache getCoreFileProcStarttimeSec:memoryCache])
-      {
-      }
-
-      else
-      {
-        memoryCache2 = [(VMUTask *)self->_vmuTask memoryCache];
-        v11 = [VMUTaskMemoryCache getCoreFileProcStarttimeUSec:memoryCache2];
-
-        if (!v11)
-        {
-          tv_sec = *v14;
-          self->_startTime.tv_sec = *v14;
-          self->_startTime.tv_usec = 0;
-          goto LABEL_4;
-        }
-      }
-
-      goto LABEL_20;
-    }
-
-    size = 0;
-    *v14 = 1;
-    *&v14[4] = 0x10000000ELL;
-    pid = self->_pid;
-    if (sysctl(v14, 4u, 0, &size, 0, 0) < 0)
-    {
-      v12 = "Failure calling sysctl to get buf size";
     }
 
     else
     {
-      v9 = malloc_type_calloc(1uLL, size, 0x10B2040B74D5165uLL);
-      if ((sysctl(v14, 4u, v9, &size, 0, 0) & 0x80000000) == 0)
+      memoryCache2 = [(VMUTask *)self->_vmuTask memoryCache];
+      v10 = [VMUTaskMemoryCache getCoreFileProcStarttimeUSec:memoryCache2];
+
+      if (!v10)
       {
-        if (v9[2].tv_usec == self->_pid)
-        {
-          *p_startTime = *v9;
-          free(v9);
-          tv_sec = p_startTime->tv_sec;
-          goto LABEL_4;
-        }
-
-        free(v9);
-LABEL_20:
-        v5 = 0;
-        tv_sec = 0;
-        goto LABEL_5;
+        tv_sec = *v13;
+        self->_startTime.tv_sec = *v13;
+        self->_startTime.tv_usec = 0;
+        goto LABEL_4;
       }
-
-      free(v9);
-      v12 = "Failure calling sysctl to get proc buf";
     }
 
-    perror(v12);
     goto LABEL_20;
   }
 
+  size = 0;
+  *v13 = 1;
+  *&v13[4] = 0x10000000ELL;
+  pid = self->_pid;
+  if (sysctl(v13, 4u, 0, &size, 0, 0) < 0)
+  {
+    v11 = "Failure calling sysctl to get buf size";
+LABEL_19:
+    perror(v11);
+    goto LABEL_20;
+  }
+
+  v8 = malloc_type_calloc(1uLL, size, 0x10B2040B74D5165uLL);
+  if (sysctl(v13, 4u, v8, &size, 0, 0) < 0)
+  {
+    free(v8);
+    v11 = "Failure calling sysctl to get proc buf";
+    goto LABEL_19;
+  }
+
+  if (v8[2].tv_usec == self->_pid)
+  {
+    *p_startTime = *v8;
+    free(v8);
+    tv_sec = p_startTime->tv_sec;
+    goto LABEL_4;
+  }
+
+  free(v8);
+LABEL_20:
+  v5 = 0;
   tv_sec = 0;
-LABEL_4:
-  v5 = *&self->_startTime.tv_usec;
-LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
+LABEL_21:
   result.tv_usec = v5;
   result.tv_sec = tv_sec;
   return result;
@@ -413,7 +404,7 @@ LABEL_5:
 
 - (id)_infoFromCommandLine:(int)line
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   size = 0;
   if ((line - 3) > 1)
   {
@@ -428,8 +419,8 @@ LABEL_5:
   vmuTask = self->_vmuTask;
   if (vmuTask && [(VMUTask *)vmuTask isCore])
   {
-    *v35 = 0;
-    v33 = 0;
+    *v34 = 0;
+    v32 = 0;
     memoryCache = [(VMUTask *)self->_vmuTask memoryCache];
     if ([VMUTaskMemoryCache getCoreFileUserstack:memoryCache])
     {
@@ -446,42 +437,42 @@ LABEL_5:
       }
     }
 
+    v30 = 0;
     v31 = 0;
-    v32 = 0;
     memoryCache3 = [(VMUTask *)self->_vmuTask memoryCache];
-    v12 = [memoryCache3 mapAddress:*v35 - v33 size:v33 returnedAddress:&v32 returnedSize:&v31];
+    v12 = [memoryCache3 mapAddress:*v34 - v32 size:v32 returnedAddress:&v31 returnedSize:&v30];
 
     if (v12)
     {
       goto LABEL_13;
     }
 
-    size = v31;
-    v17 = malloc_type_malloc(v31, 0x8A07D299uLL);
-    if (!v17)
+    size = v30;
+    v16 = malloc_type_malloc(v30, 0x8A07D299uLL);
+    if (!v16)
     {
       goto LABEL_13;
     }
 
-    v8 = v17;
-    memcpy(v17, v32, size);
+    v8 = v16;
+    memcpy(v16, v31, size);
   }
 
   else
   {
-    *v35 = 0x800000001;
-    v32 = 8;
-    if (sysctl(v35, 2u, &size, &v32, 0, 0))
+    *v34 = 0x800000001;
+    v31 = 8;
+    if (sysctl(v34, 2u, &size, &v31, 0, 0))
     {
 LABEL_13:
       v13 = v5;
       goto LABEL_14;
     }
 
-    *v35 = 0x3100000001;
+    *v34 = 0x3100000001;
     pid = self->_pid;
     v8 = malloc_type_malloc(size, 0x100004077774924uLL);
-    if (sysctl(v35, 3u, v8, &size, 0, 0))
+    if (sysctl(v34, 3u, v8, &size, 0, 0))
     {
 LABEL_10:
       free(v8);
@@ -492,37 +483,37 @@ LABEL_10:
   *(v8 + size - 1) = 0;
   if (!line)
   {
-    v20 = MEMORY[0x1E696AEC0];
-    v21 = v8 + 1;
+    v19 = MEMORY[0x1E696AEC0];
+    v20 = v8 + 1;
 LABEL_29:
-    v22 = [v20 stringWithUTF8String:v21];
+    v21 = [v19 stringWithUTF8String:v20];
 
     free(v8);
-    v13 = v22;
+    v13 = v21;
     goto LABEL_14;
   }
 
-  v18 = size;
-  v19 = 4;
+  v17 = size;
+  v18 = 4;
   if (size >= 5)
   {
-    while (*(v8 + v19))
+    while (*(v8 + v18))
     {
-      if (size == ++v19)
+      if (size == ++v18)
       {
         goto LABEL_10;
       }
     }
   }
 
-  if (v19 >= size)
+  if (v18 >= size)
   {
     goto LABEL_10;
   }
 
-  while (!*(v8 + v19))
+  while (!*(v8 + v18))
   {
-    if (size == ++v19)
+    if (size == ++v18)
     {
       goto LABEL_10;
     }
@@ -530,62 +521,62 @@ LABEL_29:
 
   if (line == 1)
   {
-    v20 = MEMORY[0x1E696AEC0];
-    v21 = (v8 + v19);
+    v19 = MEMORY[0x1E696AEC0];
+    v20 = (v8 + v18);
     goto LABEL_29;
   }
 
-  if (v19 < size)
+  if (v18 < size)
   {
-    while (*(v8 + v19))
+    while (*(v8 + v18))
     {
-      if (++v19 >= size)
+      if (++v18 >= size)
       {
         goto LABEL_10;
       }
     }
   }
 
-  if (v19 >= size)
+  if (v18 >= size)
   {
     goto LABEL_10;
   }
 
-  while (!*(v8 + v19))
+  while (!*(v8 + v18))
   {
-    if (size == ++v19)
+    if (size == ++v18)
     {
       goto LABEL_10;
     }
   }
 
-  v23 = *v8 - (*v8 > 0);
-  if (v23 >= 1 && v19 < size)
+  v22 = *v8 - (*v8 > 0);
+  if (v22 >= 1 && v18 < size)
   {
-    v27 = 0;
+    v26 = 0;
     while (1)
     {
-      v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8 + v19];
-      v29 = v28;
-      if (v28)
+      v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8 + v18];
+      v28 = v27;
+      if (v27)
       {
-        v30 = [(__CFString *)v28 length];
+        v29 = [(__CFString *)v27 length];
       }
 
       else
       {
-        NSLog(&cfstr_ArgumentNumDUt.isa, v27, v8 + v19);
-        v30 = strlen(v8 + v19);
+        NSLog(&cfstr_ArgumentNumDUt.isa, v26, v8 + v18);
+        v29 = strlen(v8 + v18);
       }
 
-      v19 += v30;
-      if (v19 < size)
+      v18 += v29;
+      if (v18 < size)
       {
-        while (!*(v8 + v19))
+        while (!*(v8 + v18))
         {
-          if (++v19 >= size)
+          if (++v18 >= size)
           {
-            v19 = size;
+            v18 = size;
             break;
           }
         }
@@ -596,14 +587,14 @@ LABEL_29:
         break;
       }
 
-      if (line == 3 && v29)
+      if (line == 3 && v28)
       {
-        [(__CFString *)v5 addObject:v29];
+        [(__CFString *)v5 addObject:v28];
       }
 
-      v27 = (v27 + 1);
-      v18 = size;
-      if (v27 >= v23 || v19 >= size)
+      v26 = (v26 + 1);
+      v17 = size;
+      if (v26 >= v22 || v18 >= size)
       {
         goto LABEL_45;
       }
@@ -613,48 +604,46 @@ LABEL_29:
   }
 
 LABEL_45:
-  if ((line & 0xFFFFFFFE) != 2 && v19 < v18)
+  if ((line & 0xFFFFFFFE) != 2 && v18 < v17)
   {
     if (line == 4)
     {
       do
       {
-        if (*(v8 + v19))
+        if (*(v8 + v18))
         {
-          v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8 + v19];
-          if ([v25 length] && objc_msgSend(v25, "rangeOfString:", @"=") != 0x7FFFFFFFFFFFFFFFLL)
+          v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8 + v18];
+          if ([v24 length] && objc_msgSend(v24, "rangeOfString:", @"=") != 0x7FFFFFFFFFFFFFFFLL)
           {
-            [(__CFString *)v5 addObject:v25];
-            v26 = [v25 length];
+            [(__CFString *)v5 addObject:v24];
+            v25 = [v24 length];
           }
 
           else
           {
-            v26 = strlen(v8 + v19);
+            v25 = strlen(v8 + v18);
           }
 
-          v19 += v26;
+          v18 += v25;
 
-          v18 = size;
+          v17 = size;
         }
 
-        ++v19;
+        ++v18;
       }
 
-      while (v19 < v18);
+      while (v18 < v17);
     }
 
     goto LABEL_10;
   }
 
-  v29 = v5;
+  v28 = v5;
 LABEL_72:
   free(v8);
-  v13 = v29;
+  v13 = v28;
 LABEL_14:
   v14 = v13;
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -739,7 +728,7 @@ LABEL_14:
 
 - (id)valueForEnvVar:(id)var
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   varCopy = var;
   v5 = objc_autoreleasePoolPush();
   v6 = [varCopy length];
@@ -747,27 +736,27 @@ LABEL_14:
   {
     v7 = v6;
     varCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@=", varCopy];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     envVars = [(VMUProcInfo *)self envVars];
-    v10 = [envVars countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [envVars countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(envVars);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
+          v15 = *(*(&v18 + 1) + 8 * i);
           if ([v15 hasPrefix:varCopy])
           {
             v16 = [v15 substringFromIndex:v7 + 1];
@@ -776,7 +765,7 @@ LABEL_14:
           }
         }
 
-        v11 = [envVars countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [envVars countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -795,8 +784,6 @@ LABEL_14:
     objc_autoreleasePoolPop(v5);
     v12 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -866,76 +853,69 @@ LABEL_14:
 
 - (int)cpuType
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v11 = -1;
+  v14 = *MEMORY[0x1E69E9840];
+  v10 = -1;
   vmuTask = self->_vmuTask;
   if (vmuTask && [(VMUTask *)vmuTask isCore])
   {
     memoryCache = [(VMUTask *)self->_vmuTask memoryCache];
-    v5 = [memoryCache getCoreFileCPUType:&v11];
+    v5 = [memoryCache getCoreFileCPUType:&v10];
 
     if (v5)
     {
-      result = -1;
+      return -1;
     }
 
     else
     {
-      result = v11;
+      return v10;
     }
   }
 
   else
   {
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    *v12 = 0u;
-    v10 = 12;
-    if (sysctlnametomib("sysctl.proc_cputype", v12, &v10) != -1)
+    *v11 = 0u;
+    v9 = 12;
+    if (sysctlnametomib("sysctl.proc_cputype", v11, &v9) != -1)
     {
-      v7 = v10;
-      v12[v10] = self->_pid;
-      v9 = 4;
-      v10 = v7 + 1;
-      if (sysctl(v12, v7 + 1, &v11, &v9, 0, 0) == -1)
+      v7 = v9;
+      v11[v9] = self->_pid;
+      v8 = 4;
+      v9 = v7 + 1;
+      if (sysctl(v11, v7 + 1, &v10, &v8, 0, 0) == -1)
       {
-        v11 = -1;
+        return -1;
       }
     }
 
-    result = v11;
+    return v10;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (BOOL)isNative
 {
   vmuTask = self->_vmuTask;
-  if (vmuTask && [(VMUTask *)vmuTask isCore])
+  if (!vmuTask || ![(VMUTask *)vmuTask isCore])
   {
-    memoryCache = [(VMUTask *)self->_vmuTask memoryCache];
-    taskIsTranslated = [memoryCache taskIsTranslated];
-
-    return taskIsTranslated;
-  }
-
-  else
-  {
-    task = self->_task;
     return CSTaskIsTranslated() ^ 1;
   }
+
+  memoryCache = [(VMUTask *)self->_vmuTask memoryCache];
+  taskIsTranslated = [memoryCache taskIsTranslated];
+
+  return taskIsTranslated;
 }
 
 - (unsigned)platform
 {
-  v8 = 0;
+  v7 = 0;
   vmuTask = self->_vmuTask;
   if (vmuTask && [(VMUTask *)vmuTask isCore])
   {
     memoryCache = [(VMUTask *)self->_vmuTask memoryCache];
-    v5 = [memoryCache getPlatform:&v8];
+    v5 = [memoryCache getPlatform:&v7];
 
     if (v5)
     {
@@ -944,13 +924,12 @@ LABEL_14:
 
     else
     {
-      return v8;
+      return v7;
     }
   }
 
   else
   {
-    task = self->_task;
 
     return CSPlatformForTask();
   }
@@ -1006,33 +985,33 @@ void __36__VMUProcInfo_isSemiCriticalProcess__block_invoke()
 
 - (BOOL)isZombie
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   vmuTask = self->_vmuTask;
   if (!vmuTask || ![(VMUTask *)vmuTask isCore])
   {
-    isZombie = 1;
+    v4 = 1;
     if (self->_isZombie)
     {
-      goto LABEL_9;
+      return v4;
     }
 
     size = 0;
-    *v11 = 0xE00000001;
+    *v10 = 0xE00000001;
     pid = self->_pid;
-    v12 = 1;
-    v13 = pid;
-    if (sysctl(v11, 4u, 0, &size, 0, 0) < 0)
+    v11 = 1;
+    v12 = pid;
+    if (sysctl(v10, 4u, 0, &size, 0, 0) < 0)
     {
-      v9 = "Failure calling sysctl to get buf size";
+      v8 = "Failure calling sysctl to get buf size";
     }
 
     else
     {
       v6 = malloc_type_calloc(1uLL, size, 0x10B2040B74D5165uLL);
-      if (sysctl(v11, 4u, v6, &size, 0, 0) < 0)
+      if (sysctl(v10, 4u, v6, &size, 0, 0) < 0)
       {
         free(v6);
-        v9 = "Failure calling sysctl to get proc buf";
+        v8 = "Failure calling sysctl to get proc buf";
       }
 
       else
@@ -1041,22 +1020,18 @@ void __36__VMUProcInfo_isSemiCriticalProcess__block_invoke()
         {
           self->_isZombie = *(v6 + 36) == 5;
           free(v6);
-          isZombie = self->_isZombie;
-          goto LABEL_9;
+          return self->_isZombie;
         }
 
         free(v6);
-        v9 = "Process exited";
+        v8 = "Process exited";
       }
     }
 
-    perror(v9);
+    perror(v8);
   }
 
-  isZombie = 0;
-LABEL_9:
-  v7 = *MEMORY[0x1E69E9840];
-  return isZombie;
+  return 0;
 }
 
 void __38__VMUProcInfo_shouldAnalyzeWithCorpse__block_invoke()

@@ -52,7 +52,7 @@
 
 - (SPBeaconRoleCategory)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"categoryId"];
   self->_categoryId = [v5 integerValue];
@@ -62,16 +62,15 @@
   self->_category = v6;
 
   v8 = MEMORY[0x277CBEB98];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"roles"];
 
   roles = self->_roles;
   self->_roles = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
   return self;
 }
 

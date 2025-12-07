@@ -116,27 +116,28 @@ LABEL_9:
 void __29__FBProcessWatchdog_activate__block_invoke_2(uint64_t a1)
 {
   v29 = *MEMORY[0x1E69E9840];
-  if ([*(a1 + 32) signal])
+  v2 = [*(a1 + 32) signal];
+  if (v2)
   {
-    v2 = FBLogProcess();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = FBLogProcess(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 40);
-      v4 = NSStringFromProcessWatchdogEvent(*(a1 + 64));
-      v5 = *(a1 + 72);
+      v4 = *(a1 + 40);
+      v5 = NSStringFromProcessWatchdogEvent(*(a1 + 64));
+      v6 = *(a1 + 72);
       *buf = 138543874;
-      *&buf[4] = v3;
+      *&buf[4] = v4;
       *&buf[12] = 2114;
-      *&buf[14] = v4;
+      *&buf[14] = v5;
       *&buf[22] = 2048;
-      v27 = v5;
-      _os_log_impl(&dword_1A89DD000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Watchdog for %{public}@ is still active after %.1fs, notifying Unblock.", buf, 0x20u);
+      v27 = v6;
+      _os_log_impl(&dword_1A89DD000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Watchdog for %{public}@ is still active after %.1fs, notifying Unblock.", buf, 0x20u);
     }
 
     v21 = 0;
     v22 = &v21;
     v23 = 0x2050000000;
-    v6 = getUBStuckServiceClass_softClass;
+    v7 = getUBStuckServiceClass_softClass;
     v24 = getUBStuckServiceClass_softClass;
     if (!getUBStuckServiceClass_softClass)
     {
@@ -146,16 +147,16 @@ void __29__FBProcessWatchdog_activate__block_invoke_2(uint64_t a1)
       v27 = &unk_1E783B178;
       v28 = &v21;
       __getUBStuckServiceClass_block_invoke(buf);
-      v6 = v22[3];
+      v7 = v22[3];
     }
 
-    v7 = v6;
+    v8 = v7;
     _Block_object_dispose(&v21, 8);
-    v8 = [[v6 alloc] initForPid:*(a1 + 80) threadID:1 timeElapsed:0 incidentUUID:*(a1 + 72)];
+    v9 = [[v7 alloc] initForPid:*(a1 + 80) threadID:1 timeElapsed:0 incidentUUID:*(a1 + 72)];
     v21 = 0;
     v22 = &v21;
     v23 = 0x2050000000;
-    v9 = getUBUnblockClientClass_softClass;
+    v10 = getUBUnblockClientClass_softClass;
     v24 = getUBUnblockClientClass_softClass;
     if (!getUBUnblockClientClass_softClass)
     {
@@ -165,15 +166,15 @@ void __29__FBProcessWatchdog_activate__block_invoke_2(uint64_t a1)
       v27 = &unk_1E783B178;
       v28 = &v21;
       __getUBUnblockClientClass_block_invoke(buf);
-      v9 = v22[3];
+      v10 = v22[3];
     }
 
-    v10 = v9;
+    v11 = v10;
     _Block_object_dispose(&v21, 8);
-    v11 = objc_alloc_init(v9);
-    v25 = v8;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    v13 = +[FBProcess userInitiatedWorkloop];
+    v12 = objc_alloc_init(v10);
+    v25 = v9;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+    v14 = +[FBProcess userInitiatedWorkloop];
     v16[0] = MEMORY[0x1E69E9820];
     v16[1] = 3221225472;
     v16[2] = __29__FBProcessWatchdog_activate__block_invoke_7;
@@ -181,14 +182,12 @@ void __29__FBProcessWatchdog_activate__block_invoke_2(uint64_t a1)
     v17 = *(a1 + 40);
     objc_copyWeak(&v20, (a1 + 56));
     v18 = *(a1 + 48);
-    v14 = v11;
-    v19 = v14;
-    [v14 recover:v12 stackshotData:0 replyQueue:v13 callback:v16];
+    v15 = v12;
+    v19 = v15;
+    [v15 recover:v13 stackshotData:0 replyQueue:v14 callback:v16];
 
     objc_destroyWeak(&v20);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (FBProcessWatchdog)initWithProcess:(id)process context:(id)context policy:(id)policy
@@ -223,158 +222,157 @@ uint64_t __29__FBProcessWatchdog_activate__block_invoke()
 
 void __29__FBProcessWatchdog_activate__block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v5 = a2;
+  v6 = v5;
   if (v5)
   {
-    v6 = FBLogProcess();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = FBLogProcess(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = [v5 descriptionWithMultilinePrefix:0];
+      v8 = *(a1 + 32);
+      v9 = [v6 descriptionWithMultilinePrefix:0];
       *buf = 138543618;
-      v36 = v7;
-      v37 = 2114;
-      v38 = v8;
-      _os_log_impl(&dword_1A89DD000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Unblock returned an error: %{public}@", buf, 0x16u);
+      v37 = v8;
+      v38 = 2114;
+      v39 = v9;
+      _os_log_impl(&dword_1A89DD000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Unblock returned an error: %{public}@", buf, 0x16u);
     }
   }
 
   else
   {
-    v9 = [a3 firstObject];
-    v6 = v9;
-    if (v9)
+    v10 = [a3 firstObject];
+    v7 = v10;
+    if (v10)
     {
-      v10 = [v9 issueType];
-      v11 = [v6 recoveryStatus];
-      v12 = [v6 recoveryConfidence];
-      v13 = FBLogProcess();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v11 = [v10 issueType];
+      v12 = [v7 recoveryStatus];
+      v13 = [v7 recoveryConfidence];
+      v14 = FBLogProcess(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 32);
-        v15 = _FBSNSStringFromUBIssueType(v10);
-        v30 = v10;
-        if (v12 >= 4)
+        v15 = *(a1 + 32);
+        v16 = _FBSNSStringFromUBIssueType(v11);
+        v31 = v11;
+        if (v13 >= 4)
         {
-          v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown - %ld)", v12];
+          v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown - %ld)", v13];
         }
 
         else
         {
-          v16 = off_1E783B8E0[v12];
+          v17 = off_1E783B8E0[v13];
         }
 
-        v19 = v16;
-        if (v11 >= 5)
+        v20 = v17;
+        if (v12 >= 5)
         {
-          v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown - %ld)", v11];
+          v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown - %ld)", v12];
         }
 
         else
         {
-          v20 = off_1E783B900[v11];
+          v21 = off_1E783B900[v12];
         }
 
         *buf = 138544130;
-        v36 = v14;
-        v37 = 2114;
-        v38 = v15;
-        v39 = 2114;
-        v40 = v19;
-        v41 = 2114;
-        v42 = v20;
-        _os_log_impl(&dword_1A89DD000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ Unblock returned with issue: %{public}@; confidence: %{public}@; status: %{public}@", buf, 0x2Au);
+        v37 = v15;
+        v38 = 2114;
+        v39 = v16;
+        v40 = 2114;
+        v41 = v20;
+        v42 = 2114;
+        v43 = v21;
+        _os_log_impl(&dword_1A89DD000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ Unblock returned with issue: %{public}@; confidence: %{public}@; status: %{public}@", buf, 0x2Au);
 
-        v10 = v30;
+        v11 = v31;
       }
 
       WeakRetained = objc_loadWeakRetained((a1 + 56));
-      if ([WeakRetained isActive]&& v11 == 3 && v12 == 1)
+      if ([WeakRetained isActive]&& v12 == 3 && v13 == 1)
       {
-        v21 = *(a1 + 40);
-        v34 = 0;
-        v22 = [v21 _watchdog:WeakRetained shouldTerminateWithDeclineReason:&v34];
-        v23 = v34;
-        if (v22)
+        v22 = *(a1 + 40);
+        v35 = 0;
+        v23 = [v22 _watchdog:WeakRetained shouldTerminateWithDeclineReason:&v35];
+        v24 = v35;
+        v25 = v24;
+        if (v23)
         {
-          v24 = FBLogProcess();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v26 = FBLogProcess(v24);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            __29__FBProcessWatchdog_activate__block_invoke_7_cold_1(a1, v24);
+            __29__FBProcessWatchdog_activate__block_invoke_7_cold_1(a1, v26);
           }
 
-          v25 = MEMORY[0x1E696ABC0];
-          v26 = *MEMORY[0x1E699F9B0];
-          v31[0] = MEMORY[0x1E69E9820];
-          v31[1] = 3221225472;
-          v31[2] = __29__FBProcessWatchdog_activate__block_invoke_9;
-          v31[3] = &unk_1E783B858;
-          v32 = *(a1 + 40);
-          v33 = v10;
-          v27 = [v25 bs_errorWithDomain:v26 code:2 configuration:v31];
-          v28 = [*(a1 + 40) _watchdog:WeakRetained terminationRequestForError:v27];
-          [*(a1 + 40) _terminateWithRequest:v28 forWatchdog:WeakRetained];
+          v27 = MEMORY[0x1E696ABC0];
+          v28 = *MEMORY[0x1E699F9B0];
+          v32[0] = MEMORY[0x1E69E9820];
+          v32[1] = 3221225472;
+          v32[2] = __29__FBProcessWatchdog_activate__block_invoke_9;
+          v32[3] = &unk_1E783B858;
+          v33 = *(a1 + 40);
+          v34 = v11;
+          v29 = [v27 bs_errorWithDomain:v28 code:2 configuration:v32];
+          v30 = [*(a1 + 40) _watchdog:WeakRetained terminationRequestForError:v29];
+          [*(a1 + 40) _terminateWithRequest:v30 forWatchdog:WeakRetained];
         }
       }
     }
 
     else
     {
-      WeakRetained = FBLogProcess();
+      WeakRetained = FBLogProcess(0);
       if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *(a1 + 32);
+        v19 = *(a1 + 32);
         *buf = 138543362;
-        v36 = v18;
+        v37 = v19;
         _os_log_impl(&dword_1A89DD000, WeakRetained, OS_LOG_TYPE_DEFAULT, "%{public}@ Unblock returned no result.", buf, 0xCu);
       }
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __29__FBProcessWatchdog_activate__block_invoke_9(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v6 = FBSProcessPrettyDescription();
-  v5 = _FBSNSStringFromUBIssueType(*(a1 + 40));
-  [v4 setFailureReason:{@"%@ is stuck (%@)", v6, v5}];
+  v3 = a2;
+  v5 = FBSProcessPrettyDescription();
+  v4 = _FBSNSStringFromUBIssueType(*(a1 + 40));
+  [v3 setFailureReason:{@"%@ is stuck (%@)", v5, v4}];
 }
 
 - (void)_getPolicyWallTime:(double *)time cpuTime:(double *)cpuTime
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   policy = [(FBSProcessWatchdog *)self policy];
   provisions = [policy provisions];
 
-  v8 = [provisions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [provisions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     v11 = 0.0;
     v12 = 0.0;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(provisions);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         type = [v14 type];
         if (v14)
         {
-          [v14 allowance];
+          objc_msgSend_allowance(v14);
         }
 
         FBSProcessResourceAllowanceGetValue();
@@ -390,7 +388,7 @@ void __29__FBProcessWatchdog_activate__block_invoke_9(uint64_t a1, void *a2)
         }
       }
 
-      v9 = [provisions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [provisions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -411,18 +409,15 @@ void __29__FBProcessWatchdog_activate__block_invoke_9(uint64_t a1, void *a2)
   {
     *cpuTime = v11;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __29__FBProcessWatchdog_activate__block_invoke_7_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "%{public}@ Terminating stuck process.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "%{public}@ Terminating stuck process.", &v3, 0xCu);
 }
 
 @end

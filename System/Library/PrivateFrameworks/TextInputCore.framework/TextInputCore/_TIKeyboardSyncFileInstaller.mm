@@ -19,12 +19,12 @@
 {
   entry = self->_entry;
   self->_entry = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, entry);
 }
 
 - (void)execute
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_entry)
   {
     [TILanguageModelLoaderManager dropResourcesExcludingInputModes:MEMORY[0x277CBEBF8]];
@@ -38,9 +38,9 @@
       v3 = TIOSLogFacility();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Restoring %@", "-[_TIKeyboardSyncFileInstaller execute]", self->_entry];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Restoring %@", "-[_TIKeyboardSyncFileInstaller execute]", self->_entry];
         *buf = 138412290;
-        v9 = v7;
+        v8 = v6;
         _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -51,8 +51,6 @@
 
     [(_TIKeyboardSyncFileInstaller *)self invalidate];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (_TIKeyboardSyncFileInstaller)initWithEntry:(id)entry

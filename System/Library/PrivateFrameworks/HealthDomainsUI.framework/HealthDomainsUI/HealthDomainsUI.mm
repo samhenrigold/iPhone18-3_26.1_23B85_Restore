@@ -38,16 +38,14 @@ void *DomainUI.init(domain:primaryColor:backgroundColor:reportHeroImage:)(uint64
   return v4;
 }
 
-uint64_t DomainUI.deinit()
+id *DomainUI.deinit()
 {
-  v1 = *(v0 + 16);
 
   return v0;
 }
 
 uint64_t DomainUI.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8D8](v0, 48, 7);
 }
@@ -62,12 +60,12 @@ uint64_t ConstellationUI.constellation.getter@<X0>(uint64_t a1@<X8>)
 
 id ConstellationUI.primaryColor.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for ConstellationUI() + 20));
+  v1 = *(v0 + *(type metadata accessor for ConstellationUI(0) + 20));
 
   return v1;
 }
 
-uint64_t type metadata accessor for ConstellationUI()
+uint64_t type metadata accessor for ConstellationUI(uint64_t a1)
 {
   result = qword_27F453580;
   if (!qword_27F453580)
@@ -80,14 +78,14 @@ uint64_t type metadata accessor for ConstellationUI()
 
 id ConstellationUI.backgroundColor.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for ConstellationUI() + 24));
+  v1 = *(v0 + *(type metadata accessor for ConstellationUI(0) + 24));
 
   return v1;
 }
 
 id ConstellationUI.reportHeroImage.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for ConstellationUI() + 28));
+  v1 = *(v0 + *(type metadata accessor for ConstellationUI(0) + 28));
 
   return v1;
 }
@@ -96,7 +94,7 @@ int *ConstellationUI.init(constellation:primaryColor:backgroundColor:reportHeroI
 {
   v10 = sub_25167D188();
   (*(*(v10 - 8) + 32))(a5, a1, v10);
-  result = type metadata accessor for ConstellationUI();
+  result = type metadata accessor for ConstellationUI(0);
   *(a5 + result[5]) = a2;
   *(a5 + result[6]) = a3;
   *(a5 + result[7]) = a4;
@@ -145,16 +143,16 @@ uint64_t sub_25167C6AC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_25167C764()
+uint64_t sub_25167C764(uint64_t a1)
 {
   result = sub_25167D188();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = sub_25167C820(319, &qword_27F453590, 0x277D75348);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = sub_25167C820(319, &qword_27F453598, 0x277D755B8);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
         return 0;
@@ -165,12 +163,11 @@ uint64_t sub_25167C764()
   return result;
 }
 
-uint64_t sub_25167C820(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_25167C820(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -196,10 +193,9 @@ uint64_t sub_25167C908(__int128 *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t BuiltinDomainUIRegistry.domain(for:)()
+uint64_t BuiltinDomainUIRegistry.domain(for:)(uint64_t a1)
 {
-  v1 = v0[6];
-  __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
+  __swift_project_boxed_opaque_existential_1((v1 + 16), *(v1 + 40));
   sub_25167D1A8();
 
   return 0;
@@ -215,10 +211,9 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t BuiltinDomainUIRegistry.measure(for:)()
+uint64_t BuiltinDomainUIRegistry.measure(for:)(uint64_t a1)
 {
-  v1 = v0[6];
-  __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
+  __swift_project_boxed_opaque_existential_1((v1 + 16), *(v1 + 40));
   sub_25167D1B8();
   sub_25167CC0C(v3, &qword_27F4535A0, sub_25167CA38);
   return 0;
@@ -236,22 +231,20 @@ unint64_t sub_25167CA38()
   return result;
 }
 
-uint64_t BuiltinDomainUIRegistry.constellation(for:)@<X0>(uint64_t a1@<X8>)
+uint64_t BuiltinDomainUIRegistry.constellation(for:)@<X0>(uint64_t a2@<X8>)
 {
-  v3 = MEMORY[0x277D10C10];
+  v4 = MEMORY[0x277D10C10];
   sub_25167CBB8(0, &qword_27F4535B0, MEMORY[0x277D10C10]);
-  v5 = (*(*(v4 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x28223BE20]();
-  v7 = &v11 - v6;
-  v8 = v1[6];
-  __swift_project_boxed_opaque_existential_1(v1 + 2, v1[5]);
+  v6 = &v9 - v5;
+  __swift_project_boxed_opaque_existential_1((v2 + 16), *(v2 + 40));
   sub_25167D198();
-  sub_25167CC0C(v7, &qword_27F4535B0, v3);
-  v9 = type metadata accessor for ConstellationUI();
-  return (*(*(v9 - 8) + 56))(a1, 1, 1, v9);
+  sub_25167CC0C(v6, &qword_27F4535B0, v4);
+  v7 = type metadata accessor for ConstellationUI(0);
+  return (*(*(v7 - 8) + 56))(a2, 1, 1, v7);
 }
 
-void sub_25167CBB8(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_25167CBB8(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -264,22 +257,24 @@ void sub_25167CBB8(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-uint64_t sub_25167CC0C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_25167CC0C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   sub_25167CBB8(0, a2, a3);
   (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t BuiltinDomainUIRegistry.__deallocating_deinit()
@@ -289,37 +284,33 @@ uint64_t BuiltinDomainUIRegistry.__deallocating_deinit()
   return MEMORY[0x2821FE8D8](v0, 56, 7);
 }
 
-uint64_t sub_25167CD0C()
+uint64_t sub_25167CD0C(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  __swift_project_boxed_opaque_existential_1((*v0 + 16), *(*v0 + 40));
+  __swift_project_boxed_opaque_existential_1((*v1 + 16), *(*v1 + 40));
   sub_25167D1A8();
 
   return 0;
 }
 
-uint64_t sub_25167CD64()
+uint64_t sub_25167CD64(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  __swift_project_boxed_opaque_existential_1((*v0 + 16), *(*v0 + 40));
+  __swift_project_boxed_opaque_existential_1((*v1 + 16), *(*v1 + 40));
   sub_25167D1B8();
   sub_25167CC0C(v3, &qword_27F4535A0, sub_25167CA38);
   return 0;
 }
 
-uint64_t sub_25167CDE8@<X0>(uint64_t a1@<X8>)
+uint64_t sub_25167CDE8@<X0>(uint64_t a2@<X8>)
 {
-  v3 = MEMORY[0x277D10C10];
+  v4 = MEMORY[0x277D10C10];
   sub_25167CBB8(0, &qword_27F4535B0, MEMORY[0x277D10C10]);
-  v5 = (*(*(v4 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x28223BE20]();
-  v7 = &v11 - v6;
-  v8 = *(*v1 + 48);
-  __swift_project_boxed_opaque_existential_1((*v1 + 16), *(*v1 + 40));
+  v6 = &v9 - v5;
+  __swift_project_boxed_opaque_existential_1((*v2 + 16), *(*v2 + 40));
   sub_25167D198();
-  sub_25167CC0C(v7, &qword_27F4535B0, v3);
-  v9 = type metadata accessor for ConstellationUI();
-  return (*(*(v9 - 8) + 56))(a1, 1, 1, v9);
+  sub_25167CC0C(v6, &qword_27F4535B0, v4);
+  v7 = type metadata accessor for ConstellationUI(0);
+  return (*(*(v7 - 8) + 56))(a2, 1, 1, v7);
 }
 
 uint64_t sub_25167CF64(uint64_t a1, uint64_t a2)

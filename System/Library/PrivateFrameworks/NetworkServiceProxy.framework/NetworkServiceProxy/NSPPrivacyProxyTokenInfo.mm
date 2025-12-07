@@ -100,7 +100,7 @@
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (!self->_proxyURL)
   {
@@ -115,33 +115,32 @@
   }
 
   PBDataWriterWriteDataField();
-  v25 = 0u;
-  v26 = 0u;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = self->_unactivatedTokenLists;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * v10);
         PBDataWriterWriteDataField();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v8);
@@ -152,39 +151,36 @@
     PBDataWriterWriteStringField();
   }
 
-  v21 = 0u;
-  v22 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v12 = self->_tokenRequestLists;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
-  if (v13)
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_tokenRequestLists;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v14 = v13;
-    v15 = *v20;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      v16 = 0;
+      v15 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * v16);
         PBDataWriterWriteDataField();
-        ++v16;
+        ++v15;
       }
 
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v14);
+    while (v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -230,7 +226,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_proxyURL copyWithZone:zone];
   v7 = v5[1];
@@ -240,34 +236,34 @@
   v9 = v5[2];
   v5[2] = v8;
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v10 = self->_unactivatedTokenLists;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v31;
+    v13 = *v30;
     do
     {
       v14 = 0;
       do
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v30 + 1) + 8 * v14) copyWithZone:zone];
+        v15 = [*(*(&v29 + 1) + 8 * v14) copyWithZone:zone];
         [v5 addUnactivatedTokenList:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v12);
@@ -277,40 +273,39 @@
   v17 = v5[5];
   v5[5] = v16;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v18 = self->_tokenRequestLists;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v27;
+    v21 = *v26;
     do
     {
       v22 = 0;
       do
       {
-        if (*v27 != v21)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [*(*(&v26 + 1) + 8 * v22) copyWithZone:{zone, v26}];
+        v23 = [*(*(&v25 + 1) + 8 * v22) copyWithZone:{zone, v25}];
         [v5 addTokenRequestList:v23];
 
         ++v22;
       }
 
       while (v20 != v22);
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v20);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -350,7 +345,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 1))
   {
@@ -362,29 +357,29 @@
     [(NSPPrivacyProxyTokenInfo *)self setTokenKeyID:?];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = *(fromCopy + 4);
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NSPPrivacyProxyTokenInfo *)self addUnactivatedTokenList:*(*(&v20 + 1) + 8 * i)];
+        [(NSPPrivacyProxyTokenInfo *)self addUnactivatedTokenList:*(*(&v19 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
@@ -395,35 +390,33 @@
     [(NSPPrivacyProxyTokenInfo *)self setVendor:?];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = *(fromCopy + 3);
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(NSPPrivacyProxyTokenInfo *)self addTokenRequestList:*(*(&v16 + 1) + 8 * j), v16];
+        [(NSPPrivacyProxyTokenInfo *)self addTokenRequestList:*(*(&v15 + 1) + 8 * j), v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

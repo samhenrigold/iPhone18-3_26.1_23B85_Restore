@@ -11,9 +11,9 @@
     +[NSOperationQueue(RelevanceEngineUtilities) re_sharedSerialOperationQueue];
   }
 
-  v1 = re_sharedSerialOperationQueue_queue;
+  v2 = re_sharedSerialOperationQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 @end

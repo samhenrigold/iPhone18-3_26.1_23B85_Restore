@@ -76,21 +76,18 @@
     __assert_rtn("[WOHealthBridgeSyncIdentity writeTo:]", "WOHealthBridgeSyncIdentity.m", 94, "nil != self->_hardwareIdentifier");
   }
 
-  hardwareIdentifier = selfCopy->_hardwareIdentifier;
   PBDataWriterWriteDataField();
   if (!selfCopy->_databaseIdentifier)
   {
     __assert_rtn("[WOHealthBridgeSyncIdentity writeTo:]", "WOHealthBridgeSyncIdentity.m", 99, "nil != self->_databaseIdentifier");
   }
 
-  databaseIdentifier = selfCopy->_databaseIdentifier;
   PBDataWriterWriteDataField();
   if (!selfCopy->_instanceDiscriminator)
   {
     __assert_rtn("[WOHealthBridgeSyncIdentity writeTo:]", "WOHealthBridgeSyncIdentity.m", 104, "nil != self->_instanceDiscriminator");
   }
 
-  instanceDiscriminator = selfCopy->_instanceDiscriminator;
   PBDataWriterWriteStringField();
   objc_storeStrong(location, 0);
 }

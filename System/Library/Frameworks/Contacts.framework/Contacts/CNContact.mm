@@ -1031,7 +1031,7 @@ LABEL_11:
 {
   v3 = sub_19565CFAC();
   v4 = *(v3 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v3);
   v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   identifier = [(CNContact *)selfCopy identifier];
@@ -4244,25 +4244,26 @@ uint64_t __58__CNContact_CoreRecents__isCoreRecentsAcceptedIdentifier___block_in
 
 - (BOOL)isCoreRecentsAccepted
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v3 = getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_1;
-  v13 = getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_1;
+  v14 = getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_1;
   if (!getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_1)
   {
     v4 = CoreRecentsLibrary_0();
-    v11[3] = dlsym(v4, "CRRecentsDomainAcceptedIntroductions");
-    getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_1 = v11[3];
-    v3 = v11[3];
+    v12[3] = dlsym(v4, "CRRecentsDomainAcceptedIntroductions");
+    getCRRecentsDomainAcceptedIntroductionsSymbolLoc_ptr_1 = v12[3];
+    v3 = v12[3];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   if (!v3)
   {
-    MDItemUniqueIdentifier_cold_1 = getMDItemUniqueIdentifier_cold_1();
-    _Block_object_dispose(&v10, 8);
-    _Unwind_Resume(MDItemUniqueIdentifier_cold_1);
+    getMDItemUniqueIdentifier_cold_1();
+    v10 = v9;
+    _Block_object_dispose(&v11, 8);
+    _Unwind_Resume(v10);
   }
 
   if (!*v3)

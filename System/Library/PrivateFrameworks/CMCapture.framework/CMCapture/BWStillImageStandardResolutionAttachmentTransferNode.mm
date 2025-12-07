@@ -182,7 +182,7 @@
     if (*(dimensions + 192) >= 1 && v14 >= 1)
     {
       v16 = *(dimensions + 144);
-      v17 = OUTLINED_FUNCTION_2_131(v6, v7, v8, v9, v10, v11, v12, v13, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v97, v99, v101, v103, v105, v107, v109, v111);
+      v17 = OUTLINED_FUNCTION_2_131(v6, v7, v8, v9, v10, v11, v12, v13, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108);
       if (v17)
       {
         v18 = v17;
@@ -212,7 +212,7 @@
             }
           }
 
-          v18 = OUTLINED_FUNCTION_2_131(v24, v25, v26, v27, v28, v29, v30, v31, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v95, v98, v100, v102, v104, v106, v108, v110, v112);
+          v18 = OUTLINED_FUNCTION_2_131(v24, v25, v26, v27, v28, v29, v30, v31, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v95, v97, v99, v101, v103, v105, v107, v109);
         }
 
         while (v18);
@@ -232,7 +232,7 @@
     CMSetAttachment(v37, @"AttachedMedia", v36, 1u);
 
     v38 = *(dimensions + 152);
-    v47 = OUTLINED_FUNCTION_1_3(v39, v40, v41, v42, v43, v44, v45, v46, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, 0);
+    v47 = OUTLINED_FUNCTION_1_3(v39, v40, v41, v42, v43, v44, v45, v46, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92);
     if (v47)
     {
       v48 = v47;
@@ -249,7 +249,7 @@
           CMSetAttachment(*(dimensions + 168), *(8 * j), [*(dimensions + 152) objectForKeyedSubscript:*(8 * j)], 1u);
         }
 
-        v48 = OUTLINED_FUNCTION_1_3(v51, v52, v53, v54, v55, v56, v57, v58, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v96);
+        v48 = OUTLINED_FUNCTION_1_3(v51, v52, v53, v54, v55, v56, v57, v58, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93);
       }
 
       while (v48);

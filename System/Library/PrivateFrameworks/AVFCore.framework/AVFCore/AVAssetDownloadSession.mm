@@ -587,7 +587,7 @@ LABEL_7:
   _Block_object_dispose(&v5, 8);
 }
 
-uint64_t __31__AVAssetDownloadSession_start__block_invoke(uint64_t a1)
+void *__31__AVAssetDownloadSession_start__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _startOnQueue];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -607,9 +607,9 @@ uint64_t __31__AVAssetDownloadSession_start__block_invoke(uint64_t a1)
   [(AVAssetDownloadSession *)self didChangeValueForKey:@"status"];
 }
 
-uint64_t __31__AVAssetDownloadSession_pause__block_invoke(uint64_t result)
+void *__31__AVAssetDownloadSession_pause__block_invoke(void *result)
 {
-  v5 = *(*(result + 32) + 8);
+  v5 = *(result[4] + 8);
   if (v5[6] == 1)
   {
     v13 = v2;
@@ -620,7 +620,7 @@ uint64_t __31__AVAssetDownloadSession_pause__block_invoke(uint64_t result)
     {
       VTable = CMBaseObjectGetVTable();
       v9 = *(VTable + 16);
-      result = VTable + 16;
+      result = (VTable + 16);
       v10 = *(v9 + 16);
       if (v10)
       {
@@ -640,11 +640,11 @@ uint64_t __31__AVAssetDownloadSession_pause__block_invoke(uint64_t result)
           v12(FigBaseObject, *MEMORY[0x1E69728F8], *MEMORY[0x1E695E4C0]);
         }
 
-        result = [*(v6 + 32) cancelAndReleaseProgressTimerOnQueue];
+        result = [v6[4] cancelAndReleaseProgressTimerOnQueue];
       }
     }
 
-    *(*(*(v6 + 32) + 8) + 48) = 2;
+    *(*(v6[4] + 8) + 48) = 2;
   }
 
   return result;
@@ -663,9 +663,9 @@ uint64_t __31__AVAssetDownloadSession_pause__block_invoke(uint64_t result)
   [(AVAssetDownloadSession *)self didChangeValueForKey:@"status"];
 }
 
-uint64_t __30__AVAssetDownloadSession_stop__block_invoke(uint64_t result)
+void *__30__AVAssetDownloadSession_stop__block_invoke(void *result)
 {
-  v5 = *(*(result + 32) + 8);
+  v5 = *(result[4] + 8);
   if (v5[6] <= 2)
   {
     v13 = v2;
@@ -676,7 +676,7 @@ uint64_t __30__AVAssetDownloadSession_stop__block_invoke(uint64_t result)
     {
       VTable = CMBaseObjectGetVTable();
       v9 = *(VTable + 16);
-      result = VTable + 16;
+      result = (VTable + 16);
       v10 = *(v9 + 24);
       if (v10)
       {
@@ -696,11 +696,11 @@ uint64_t __30__AVAssetDownloadSession_stop__block_invoke(uint64_t result)
           v12(FigBaseObject, *MEMORY[0x1E69728F8], *MEMORY[0x1E695E4C0]);
         }
 
-        result = [*(v6 + 32) cancelAndReleaseProgressTimerOnQueue];
+        result = [v6[4] cancelAndReleaseProgressTimerOnQueue];
       }
     }
 
-    *(*(*(v6 + 32) + 8) + 48) = 5;
+    *(*(v6[4] + 8) + 48) = 5;
   }
 
   return result;
@@ -1682,7 +1682,7 @@ LABEL_10:
 
     else
     {
-      v6 = -12782;
+      v6 = 4294954514;
     }
 
     result = 0;
@@ -1732,7 +1732,7 @@ LABEL_10:
       v19 = *(*(CMBaseObjectGetVTable() + 16) + 48);
       if (!v19)
       {
-        v6 = -12782;
+        v6 = 4294954514;
         valuePtr = -12782;
 LABEL_42:
         result = 0;
@@ -1803,7 +1803,7 @@ LABEL_44:
   }
 
   result = 0;
-  v6 = -12782;
+  v6 = 4294954514;
 LABEL_6:
   valuePtr = v6;
 LABEL_7:
@@ -1859,7 +1859,7 @@ LABEL_7:
 
       else
       {
-        v9 = -12782;
+        v9 = 4294954514;
       }
 
       [(AVAssetDownloadSession(AVAssetDownloadSession_Local) *)v9 _startOnQueue];
@@ -1921,7 +1921,7 @@ LABEL_9:
   _Block_object_dispose(v6, 8);
 }
 
-uint64_t __90__AVAssetDownloadSession_AVAssetDownloadSession_Local___transitionToTerminalStatus_error___block_invoke(uint64_t a1)
+void *__90__AVAssetDownloadSession_AVAssetDownloadSession_Local___transitionToTerminalStatus_error___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) willChangeValueForKey:@"status"];
   result = [*(a1 + 32) willChangeValueForKey:@"error"];
@@ -2119,7 +2119,7 @@ void *__82__AVAssetDownloadSession_AVAssetDownloadSession_Local___primeCacheOnDi
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (!v4)
   {
-    v5 = -12782;
+    v5 = 4294954514;
     goto LABEL_7;
   }
 

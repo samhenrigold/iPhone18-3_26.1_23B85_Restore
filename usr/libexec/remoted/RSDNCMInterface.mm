@@ -1,6 +1,7 @@
 @interface RSDNCMInterface
 - (BOOL)activate;
 - (BOOL)address;
+- (RSDNCMInterface)initWithService:(unsigned int)service notificationPort:(IONotificationPort *)port queue:(id)queue;
 - (void)addressWithRetry;
 - (void)advanceState:(unint64_t)state;
 - (void)deactivate;
@@ -9,50 +10,83 @@
 
 @implementation RSDNCMInterface
 
+- (RSDNCMInterface)initWithService:(unsigned int)service notificationPort:(IONotificationPort *)port queue:(id)queue
+{
+  v6 = *&service;
+  queueCopy = queue;
+  selfCopy = 0;
+  if (v6 && port)
+  {
+    v12.receiver = self;
+    v12.super_class = RSDNCMInterface;
+    v10 = [(RSDNCMInterface *)&v12 init];
+    self = v10;
+    if (v10)
+    {
+      [(RSDNCMInterface *)v10 setService:v6];
+      IOObjectRetain([(RSDNCMInterface *)self service]);
+      [(RSDNCMInterface *)self setState:0];
+      [(RSDNCMInterface *)self setNotification_port:port];
+      [(RSDNCMInterface *)self setQueue:queueCopy];
+      self = self;
+      selfCopy = self;
+    }
+
+    else
+    {
+      selfCopy = 0;
+    }
+  }
+
+  return selfCopy;
+}
+
 - (BOOL)activate
 {
   notification = 0;
   v3 = IOServiceAddInterestNotification([(RSDNCMInterface *)self notification_port], [(RSDNCMInterface *)self service], "IOGeneralInterest", sub_100001328, self, &notification);
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000012E4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1000012E4(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10004398C(v3, v4);
+      sub_10004398C(v4, v5);
     }
   }
 
   else
   {
     [(RSDNCMInterface *)self setNotification:notification];
-    v9 = 0;
-    if (sub_100012B08([(RSDNCMInterface *)self service], &v9))
+    v12 = 0;
+    v6 = sub_100012B08([(RSDNCMInterface *)self service], &v12);
+    if (v6)
     {
-      v5 = sub_1000012E4();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_1000012E4(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        if ((v9 - 1) > 2)
+        if ((v12 - 1) > 2)
         {
-          v6 = "<unknown>";
+          v8 = "<unknown>";
         }
 
         else
         {
-          v6 = (&off_10005E098)[v9 - 1];
+          v8 = (&off_10005E098)[v12 - 1];
         }
 
         *buf = 136446210;
-        v12 = v6;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "initial linkstatus: %{public}s", buf, 0xCu);
+        v15 = v8;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "initial linkstatus: %{public}s", buf, 0xCu);
       }
 
-      if (v9 == 3)
+      if (v12 == 3)
       {
-        v7 = sub_1000012E4();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v10 = sub_1000012E4(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "arming the connected device", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "arming the connected device", buf, 2u);
         }
 
         [(RSDNCMInterface *)self advanceState:1];
@@ -60,7 +94,7 @@
     }
   }
 
-  return v3 == 0;
+  return v4 == 0;
 }
 
 - (void)deactivate
@@ -76,18 +110,19 @@
 - (BOOL)address
 {
   memset(__s1, 170, sizeof(__s1));
-  WORD2(v14) = -21846;
-  LODWORD(v14) = -1431655766;
-  v3 = sub_1000012E4();
+  WORD2(v16) = -21846;
+  LODWORD(v16) = -1431655766;
+  v3 = sub_1000012E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100043A7C();
   }
 
-  if (!sub_100012C1C([(RSDNCMInterface *)self service], __s1))
+  v4 = sub_100012C1C([(RSDNCMInterface *)self service], __s1);
+  if (!v4)
   {
-    v13 = sub_1000012E4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_1000012E4(v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100043AF0();
     }
@@ -97,42 +132,43 @@
 
   if (*__s1 != 28261 && *__s1 != 1768975969)
   {
-    sub_100043B58(&v15, buf);
+    sub_100043B58(&v17, buf);
   }
 
-  v4 = sub_1000012E4();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_1000012E4(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy3 = self;
-    v19 = 2082;
-    *v20 = __s1;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[%p] ifname: %{public}s", buf, 0x16u);
+    v21 = 2082;
+    *v22 = __s1;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%p] ifname: %{public}s", buf, 0x16u);
   }
 
-  v5 = if_nametoindex(__s1);
-  if (!v5)
+  v6 = if_nametoindex(__s1);
+  if (!v6)
   {
-    sub_100043C2C(&v15, buf);
+    sub_100043C2C(&v17, buf);
   }
 
-  v6 = v5;
-  v7 = sub_1000012E4();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v7 = v6;
+  v8 = sub_1000012E4(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
     selfCopy3 = self;
-    v19 = 1024;
-    *v20 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%p] ifindex: %d", buf, 0x12u);
+    v21 = 1024;
+    *v22 = v7;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%p] ifindex: %d", buf, 0x12u);
   }
 
-  v8 = sub_1000130A4([(RSDNCMInterface *)self service], &v14);
-  v9 = sub_1000012E4();
+  v9 = sub_1000130A4([(RSDNCMInterface *)self service], &v16);
   v10 = v9;
-  if (!v8)
+  v11 = sub_1000012E4(v9);
+  v12 = v11;
+  if (!v10)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100043BC4();
     }
@@ -140,31 +176,31 @@
     return 0;
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219520;
     selfCopy3 = self;
-    v19 = 1024;
-    *v20 = v14;
-    *&v20[4] = 1024;
-    *&v20[6] = BYTE1(v14);
     v21 = 1024;
-    v22 = BYTE2(v14);
+    *v22 = v16;
+    *&v22[4] = 1024;
+    *&v22[6] = BYTE1(v16);
     v23 = 1024;
-    v24 = BYTE3(v14);
+    v24 = BYTE2(v16);
     v25 = 1024;
-    v26 = BYTE4(v14);
+    v26 = BYTE3(v16);
     v27 = 1024;
-    v28 = BYTE5(v14);
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%p] MAC Address: %02x:%02x:%02x:%02x:%02x:%02x", buf, 0x30u);
+    v28 = BYTE4(v16);
+    v29 = 1024;
+    v30 = BYTE5(v16);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%p] MAC Address: %02x:%02x:%02x:%02x:%02x:%02x", buf, 0x30u);
   }
 
   if (_dispatch_is_multithreaded())
   {
     while (1)
     {
-      v11 = strdup(__s1);
-      if (v11)
+      v13 = strdup(__s1);
+      if (v13)
       {
         break;
       }
@@ -175,15 +211,15 @@
 
   else
   {
-    v11 = strdup(__s1);
-    if (!v11)
+    v13 = strdup(__s1);
+    if (!v13)
     {
-      sub_100041274(__s1, &v15, buf);
+      sub_100041274(__s1, &v17, buf);
     }
   }
 
-  [(RSDNCMInterface *)self setName:v11, v14];
-  [(RSDNCMInterface *)self setIndex:v6];
+  [(RSDNCMInterface *)self setName:v13, v16];
+  [(RSDNCMInterface *)self setIndex:v7];
   [(RSDNCMInterface *)self setMac_addr:memdup2_np()];
   return 1;
 }
@@ -227,7 +263,7 @@
   }
 
   v6 = state;
-  v7 = sub_1000012E4();
+  v7 = sub_1000012E4(state);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218496;
@@ -358,7 +394,7 @@ LABEL_28:
 
 - (void)dealloc
 {
-  v3 = sub_1000012E4();
+  v3 = sub_1000012E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100043E5C();

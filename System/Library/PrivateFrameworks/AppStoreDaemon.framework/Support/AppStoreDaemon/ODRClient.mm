@@ -48,7 +48,7 @@
     *(&buf + 1) = &buf;
     v19 = 0x2020000000;
     v20 = 1;
-    v8 = sub_100208FBC();
+    v8 = sub_100208FBC(ODRDatabaseStore);
     v15[0] = _NSConcreteStackBlock;
     v15[1] = 3221225472;
     v15[2] = sub_10026B380;
@@ -150,7 +150,7 @@ LABEL_18:
       v31 = sub_10026ACD4;
       v32 = sub_10026ACE4;
       v33 = 0;
-      v11 = sub_100208FBC();
+      v11 = sub_100208FBC(ODRDatabaseStore);
       v24[0] = _NSConcreteStackBlock;
       v24[1] = 3221225472;
       v24[2] = sub_10026BA78;
@@ -165,7 +165,7 @@ LABEL_18:
         v13 = sub_100280C74(v12);
         if (v13)
         {
-          v14 = sub_1003DC0F4();
+          v14 = sub_1003DC0F4(ODRServiceDelegate);
           v15 = v14;
           if (v14)
           {
@@ -268,7 +268,7 @@ LABEL_18:
       v43 = sub_10026ACD4;
       v44 = sub_10026ACE4;
       v45 = 0;
-      v12 = sub_100208FBC();
+      v12 = sub_100208FBC(ODRDatabaseStore);
       v30[0] = _NSConcreteStackBlock;
       v30[1] = 3221225472;
       v30[2] = sub_10026C200;
@@ -283,7 +283,7 @@ LABEL_18:
         v14 = sub_100280C74(v13);
         if (v14)
         {
-          v15 = sub_1003DC0F4();
+          v15 = sub_1003DC0F4(ODRServiceDelegate);
           v16 = v15;
           if (v15)
           {
@@ -430,7 +430,7 @@ LABEL_18:
         v37 = sub_10026ACD4;
         v38 = sub_10026ACE4;
         v39 = 0;
-        v17 = sub_100208FBC();
+        v17 = sub_100208FBC(ODRDatabaseStore);
         v34[0] = _NSConcreteStackBlock;
         v34[1] = 3221225472;
         v34[2] = sub_10026C850;
@@ -532,7 +532,7 @@ LABEL_18:
 
     v14 = self->_readyLock;
     [(NSLock *)v14 lock];
-    v17 = sub_100220330();
+    v17 = sub_100220330(ODRManager);
     v18[0] = _NSConcreteStackBlock;
     v18[1] = 3221225472;
     v18[2] = sub_10026CB14;
@@ -603,7 +603,7 @@ LABEL_18:
       *(v31 + 24) = 1;
     }
 
-    v16 = sub_100220330();
+    v16 = sub_100220330(ODRManager);
     v20[0] = _NSConcreteStackBlock;
     v20[1] = 3221225472;
     v20[2] = sub_10026E2C4;
@@ -646,7 +646,7 @@ LABEL_18:
   {
     v8 = self->_readyLock;
     [(NSLock *)v8 lock];
-    v9 = sub_100220330();
+    v9 = sub_100220330(ODRManager);
     v10[0] = _NSConcreteStackBlock;
     v10[1] = 3221225472;
     v10[2] = sub_10026EE20;
@@ -688,7 +688,7 @@ LABEL_18:
 
     v12 = self->_readyLock;
     [(NSLock *)v12 lock];
-    v15 = sub_100220330();
+    v15 = sub_100220330(ODRManager);
     v16 = _NSConcreteStackBlock;
     v17 = 3221225472;
     v18 = sub_10026F298;
@@ -722,7 +722,7 @@ LABEL_18:
   {
     v5 = self->_readyLock;
     [(NSLock *)v5 lock];
-    v6 = sub_100220330();
+    v6 = sub_100220330(ODRManager);
     v7 = _NSConcreteStackBlock;
     v8 = 3221225472;
     v9 = sub_10026FBE8;
@@ -753,7 +753,7 @@ LABEL_18:
   {
     v8 = self->_readyLock;
     [(NSLock *)v8 lock];
-    v9 = sub_100208FBC();
+    v9 = sub_100208FBC(ODRDatabaseStore);
     v10[0] = _NSConcreteStackBlock;
     v10[1] = 3221225472;
     v10[2] = sub_10026FEF0;
@@ -785,7 +785,7 @@ LABEL_18:
   {
     v8 = self->_readyLock;
     [(NSLock *)v8 lock];
-    v9 = sub_100208FBC();
+    v9 = sub_100208FBC(ODRDatabaseStore);
     v10[0] = _NSConcreteStackBlock;
     v10[1] = 3221225472;
     v10[2] = sub_100270434;

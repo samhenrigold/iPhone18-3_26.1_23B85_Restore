@@ -7,33 +7,33 @@
 
 - (PFApplicationStateMonitor)init
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v39.receiver = self;
-  v39.super_class = PFApplicationStateMonitor;
-  v2 = [(PFApplicationStateMonitor *)&v39 init];
+  v42 = *MEMORY[0x1E69E9840];
+  v38.receiver = self;
+  v38.super_class = PFApplicationStateMonitor;
+  v2 = [(PFApplicationStateMonitor *)&v38 init];
   if (v2)
   {
     if (_PF_USE_IOS_PLATFORM == 1)
     {
       v3 = [objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
-      v4 = [v3 countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v4 = [v3 countByEnumeratingWithState:&v34 objects:v41 count:16];
       if (v4)
       {
-        v5 = *v36;
+        v5 = *v35;
         while (2)
         {
           for (i = 0; i != v4; ++i)
           {
-            if (*v36 != v5)
+            if (*v35 != v5)
             {
               objc_enumerationMutation(v3);
             }
 
-            v7 = *(*(&v35 + 1) + 8 * i);
+            v7 = *(*(&v34 + 1) + 8 * i);
             if (([v7 isEqualToString:@"audio"] & 1) != 0 || (objc_msgSend(v7, "isEqualToString:", @"bluetooth-central") & 1) != 0 || (objc_msgSend(v7, "isEqualToString:", @"bluetooth-peripheral") & 1) != 0 || (objc_msgSend(v7, "isEqualToString:", @"external-accessory") & 1) != 0 || (objc_msgSend(v7, "isEqualToString:", @"fetch") & 1) != 0 || (objc_msgSend(v7, "isEqualToString:", @"location") & 1) != 0 || (objc_msgSend(v7, "isEqualToString:", @"processing") & 1) != 0 || objc_msgSend(v7, "isEqualToString:", @"voip"))
             {
               v2->_backgroundTimeout = 30;
@@ -41,7 +41,7 @@
             }
           }
 
-          v4 = [v3 countByEnumeratingWithState:&v35 objects:v42 count:16];
+          v4 = [v3 countByEnumeratingWithState:&v34 objects:v41 count:16];
           if (v4)
           {
             continue;
@@ -55,12 +55,12 @@
 LABEL_20:
     objc_initWeak(&location, v2);
     v8 = [PFCloudKitThrottledNotificationObserver alloc];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __33__PFApplicationStateMonitor_init__block_invoke;
-    v32[3] = &unk_1E6EC5250;
-    objc_copyWeak(&v33, &location);
-    v9 = [(PFCloudKitThrottledNotificationObserver *)v8 initWithLabel:@"AppActivateObserver" handlerBlock:v32];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __33__PFApplicationStateMonitor_init__block_invoke;
+    v31[3] = &unk_1E6EC5250;
+    objc_copyWeak(&v32, &location);
+    v9 = [(PFCloudKitThrottledNotificationObserver *)v8 initWithLabel:@"AppActivateObserver" handlerBlock:v31];
     v2->_appActivateLifecycleObserver = v9;
     if (v9)
     {
@@ -68,12 +68,12 @@ LABEL_20:
     }
 
     v10 = [PFCloudKitThrottledNotificationObserver alloc];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __33__PFApplicationStateMonitor_init__block_invoke_2;
-    v30[3] = &unk_1E6EC5250;
-    objc_copyWeak(&v31, &location);
-    v11 = [(PFCloudKitThrottledNotificationObserver *)v10 initWithLabel:@"AppDeactivateObserver" handlerBlock:v30];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __33__PFApplicationStateMonitor_init__block_invoke_2;
+    v29[3] = &unk_1E6EC5250;
+    objc_copyWeak(&v30, &location);
+    v11 = [(PFCloudKitThrottledNotificationObserver *)v10 initWithLabel:@"AppDeactivateObserver" handlerBlock:v29];
     v2->_appDeactivateLifecycleObserver = v11;
     if (v11)
     {
@@ -81,20 +81,20 @@ LABEL_20:
     }
 
     atomic_store(0, &v2->_transitionCounter);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v12 = +[_PFRoutines applicationActivateLifecyleNotifications];
-    v13 = [v12 countByEnumeratingWithState:&v26 objects:v41 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v25 objects:v40 count:16];
     if (v13)
     {
-      v14 = *v27;
+      v14 = *v26;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v12);
           }
@@ -102,26 +102,26 @@ LABEL_20:
           [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v26 objects:v41 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v25 objects:v40 count:16];
       }
 
       while (v13);
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v16 = +[_PFRoutines applicationDeactivateLifecyleNotifications];
-    v17 = [v16 countByEnumeratingWithState:&v22 objects:v40 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v21 objects:v39 count:16];
     if (v17)
     {
-      v18 = *v23;
+      v18 = *v22;
       do
       {
         for (k = 0; k != v17; ++k)
         {
-          if (*v23 != v18)
+          if (*v22 != v18)
           {
             objc_enumerationMutation(v16);
           }
@@ -129,18 +129,17 @@ LABEL_20:
           [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v22 objects:v40 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v21 objects:v39 count:16];
       }
 
       while (v17);
     }
 
-    objc_destroyWeak(&v31);
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(&location);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

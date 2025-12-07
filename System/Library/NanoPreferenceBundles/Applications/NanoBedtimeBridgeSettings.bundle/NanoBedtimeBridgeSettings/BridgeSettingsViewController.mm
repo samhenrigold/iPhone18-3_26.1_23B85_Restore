@@ -160,9 +160,8 @@
 {
   v4 = sub_113FC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_117CC();
   sub_117BC();
   sub_117AC();
@@ -172,14 +171,14 @@
   }
 
   selfCopy = self;
-  v10 = HKSPSleepURL();
-  if (v10)
+  v9 = HKSPSleepURL();
+  if (v9)
   {
-    v11 = v10;
+    v10 = v9;
     sub_113DC();
 
     sub_903C();
-    (*(v5 + 8))(v8, v4);
+    (*(v5 + 8))(v7, v4);
   }
 
   else
@@ -283,7 +282,7 @@ LABEL_6:
   if (change)
   {
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_D954(&qword_1D510, type metadata accessor for NSKeyValueChangeKey);
+    sub_D954(&qword_1D510, type metadata accessor for NSKeyValueChangeKey, &unk_12640);
     v17 = sub_1167C();
   }
 

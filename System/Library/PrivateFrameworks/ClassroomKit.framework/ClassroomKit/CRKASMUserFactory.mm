@@ -154,7 +154,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [CRKASMUserFactory isUser:suitableForPerson:];
+      [CRKASMUserFactory isUser:v7 suitableForPerson:?];
     }
 
     backingPersonInitialModificationDate = [v7 backingPersonInitialModificationDate];
@@ -269,15 +269,15 @@ LABEL_16:
   return v21;
 }
 
-- (void)isUser:suitableForPerson:.cold.1()
+- (void)isUser:(uint64_t)a1 suitableForPerson:.cold.1(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKASMUserFactory isUser:suitableForPerson:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CRKASMUserFactory.m" lineNumber:91 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKASMUserFactory isUser:suitableForPerson:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CRKASMUserFactory.m" lineNumber:91 description:{@"expected %@, got %@", v3, v5}];
 }
 
 @end

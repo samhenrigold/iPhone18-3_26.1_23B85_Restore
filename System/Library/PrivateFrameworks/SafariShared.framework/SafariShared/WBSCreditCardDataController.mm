@@ -167,7 +167,7 @@
 
 + (BOOL)hasCreditCardData
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v13[5] = *MEMORY[0x1E69E9840];
   safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
   if ([safari_browserDefaults BOOLForKey:@"WBSDebugIgnoreCardsFromKeychain"])
   {
@@ -177,27 +177,27 @@
   else
   {
     v4 = *MEMORY[0x1E697AEB0];
-    v11[0] = *MEMORY[0x1E697ABD0];
-    v11[1] = v4;
-    v12[0] = @"com.apple.safari.credit-cards";
-    v12[1] = MEMORY[0x1E695E118];
+    v12[0] = *MEMORY[0x1E697ABD0];
+    v12[1] = v4;
+    v13[0] = @"com.apple.safari.credit-cards";
+    v13[1] = MEMORY[0x1E695E118];
     v5 = *MEMORY[0x1E697B008];
     v6 = *MEMORY[0x1E697AE88];
-    v11[2] = *MEMORY[0x1E697AFF8];
-    v11[3] = v6;
-    v12[2] = v5;
-    v12[3] = @"SafariCreditCardEntries";
-    v11[4] = *MEMORY[0x1E697B260];
-    v12[4] = *MEMORY[0x1E697B270];
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
+    v12[2] = *MEMORY[0x1E697AFF8];
+    v12[3] = v6;
+    v13[2] = v5;
+    v13[3] = @"SafariCreditCardEntries";
+    v12[4] = *MEMORY[0x1E697B260];
+    v13[4] = *MEMORY[0x1E697B270];
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:5];
     v8 = SecItemCopyMatching(v7, 0);
     v3 = v8 == 0;
     if (v8 != -25300)
     {
       if (v8)
       {
-        v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           +[WBSCreditCardDataController hasCreditCardData];
         }
@@ -210,7 +210,7 @@
 
 - (id)_creditCardData
 {
-  v32[7] = *MEMORY[0x1E69E9840];
+  v33[7] = *MEMORY[0x1E69E9840];
   safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
   if ([safari_browserDefaults BOOLForKey:@"WBSDebugIgnoreCardsFromKeychain"])
   {
@@ -219,79 +219,79 @@
   }
 
   v2 = *MEMORY[0x1E697AEB0];
-  v31[0] = *MEMORY[0x1E697ABD0];
-  v31[1] = v2;
-  v32[0] = @"com.apple.safari.credit-cards";
-  v32[1] = MEMORY[0x1E695E118];
+  v32[0] = *MEMORY[0x1E697ABD0];
+  v32[1] = v2;
+  v33[0] = @"com.apple.safari.credit-cards";
+  v33[1] = MEMORY[0x1E695E118];
   v3 = *MEMORY[0x1E697B008];
   v4 = *MEMORY[0x1E697AE88];
-  v31[2] = *MEMORY[0x1E697AFF8];
-  v31[3] = v4;
-  v32[2] = v3;
-  v32[3] = @"SafariCreditCardEntries";
+  v32[2] = *MEMORY[0x1E697AFF8];
+  v32[3] = v4;
+  v33[2] = v3;
+  v33[3] = @"SafariCreditCardEntries";
   v5 = *MEMORY[0x1E697B268];
   v6 = *MEMORY[0x1E697B320];
-  v31[4] = *MEMORY[0x1E697B260];
-  v31[5] = v6;
-  v32[4] = v5;
-  v32[5] = MEMORY[0x1E695E118];
-  v31[6] = *MEMORY[0x1E697B318];
-  v32[6] = MEMORY[0x1E695E118];
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:7];
-  v21 = result = 0;
-  v7 = SecItemCopyMatching(v21, &result);
+  v32[4] = *MEMORY[0x1E697B260];
+  v32[5] = v6;
+  v33[4] = v5;
+  v33[5] = MEMORY[0x1E695E118];
+  v32[6] = *MEMORY[0x1E697B318];
+  v33[6] = MEMORY[0x1E695E118];
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:7];
+  v22 = result = 0;
+  v7 = SecItemCopyMatching(v22, &result);
   if (v7 != -25300)
   {
     if (!v7)
     {
-      v8 = result;
+      v9 = result;
       array = [MEMORY[0x1E695DF70] array];
-      v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
-      v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
-      if (v10)
+      v27 = 0u;
+      v10 = v9;
+      v11 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      if (v11)
       {
-        v11 = *v26;
-        v12 = *MEMORY[0x1E697B3C8];
-        v13 = *MEMORY[0x1E697B3C0];
+        v12 = *v27;
+        v13 = *MEMORY[0x1E697B3C8];
+        v14 = *MEMORY[0x1E697B3C0];
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v26 != v11)
+            if (*v27 != v12)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v25 + 1) + 8 * i);
-            v16 = [v15 objectForKeyedSubscript:v12];
-            v17 = [v15 objectForKeyedSubscript:v13];
-            if (v17)
+            v16 = *(*(&v26 + 1) + 8 * i);
+            v17 = [v16 objectForKeyedSubscript:v13];
+            v18 = [v16 objectForKeyedSubscript:v14];
+            if (v18)
             {
-              v18 = [[WBSCreditCardData alloc] initWithKeychainRepresentation:v17];
-              if (v18)
+              v19 = [[WBSCreditCardData alloc] initWithKeychainRepresentation:v18];
+              if (v19)
               {
-                [(NSMapTable *)self->_creditCardDataKeychainReferences setObject:v16 forKey:v18];
-                [array addObject:v18];
+                [(NSMapTable *)self->_creditCardDataKeychainReferences setObject:v17 forKey:v19];
+                [array addObject:v19];
               }
             }
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
-        while (v10);
+        while (v11);
       }
 
       [(WBSCreditCardDataController *)self _sortCreditCardDataArray:array];
       goto LABEL_20;
     }
 
-    v19 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       +[WBSCreditCardDataController hasCreditCardData];
     }
@@ -646,48 +646,49 @@ void __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardD
 
 void __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_2(id *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 7);
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v4 = [a1[4] count];
+      v6 = [a1[4] count];
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v4;
-      _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_INFO, "Number of active credit cards is %lu", &buf, 0xCu);
+      *(&buf + 4) = v6;
+      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Number of active credit cards is %lu", &buf, 0xCu);
     }
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_47;
-    v15[3] = &unk_1E7FC4B00;
-    v5 = a1[4];
-    v16 = a1[5];
-    v6 = [v5 safari_filterObjectsUsingBlock:v15];
-    v7 = [WeakRetained _cardDataFromCardDescriptors:v6];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_47;
+    v17[3] = &unk_1E7FC4B00;
+    v7 = a1[4];
+    v18 = a1[5];
+    v8 = [v7 safari_filterObjectsUsingBlock:v17];
+    v9 = [v4 _cardDataFromCardDescriptors:v8];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy__8;
-    v20 = __Block_byref_object_dispose__8;
-    v21 = 0;
-    v8 = WeakRetained[2];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_2_49;
-    v12[3] = &unk_1E7FC4B50;
-    v12[4] = WeakRetained;
-    v13 = a1[5];
+    v20 = 0x3032000000;
+    v21 = __Block_byref_object_copy__8;
+    v22 = __Block_byref_object_dispose__8;
+    v23 = 0;
+    v10 = v4[2];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_2_49;
+    v14[3] = &unk_1E7FC4B50;
+    v14[4] = v4;
+    v15 = a1[5];
     p_buf = &buf;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_53;
-    v9[3] = &unk_1E7FC4B78;
-    v10 = a1[6];
-    v11 = &buf;
-    [v7 safari_enumerateAsynchronouslyOnQueue:v8 enumerationBlock:v12 completionBlock:v9];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_53;
+    v11[3] = &unk_1E7FC4B78;
+    v12 = a1[6];
+    v13 = &buf;
+    [v9 safari_enumerateAsynchronouslyOnQueue:v10 enumerationBlock:v14 completionBlock:v11];
 
     _Block_object_dispose(&buf, 8);
   }
@@ -712,41 +713,42 @@ void __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardD
 {
   v6 = a2;
   v7 = a4;
-  v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Fetching credential for credit card", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Fetching credential for credit card", buf, 2u);
   }
 
-  v9 = *(*(a1 + 32) + 24);
-  v10 = [v6 cardDescriptor];
-  v11 = [*(a1 + 32) creditCardFieldsToRequest];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_50;
-  v16[3] = &unk_1E7FC4B28;
-  v12 = v7;
-  v19 = v12;
-  v13 = *(a1 + 40);
-  v14 = *(a1 + 48);
-  v17 = v13;
-  v20 = v14;
-  v15 = v6;
-  v18 = v15;
-  [v9 credentialForFPANCard:v10 authorization:0 options:v11 merchantHost:0 completion:v16];
+  v10 = *(*(a1 + 32) + 24);
+  v11 = [v6 cardDescriptor];
+  v12 = [*(a1 + 32) creditCardFieldsToRequest];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_50;
+  v17[3] = &unk_1E7FC4B28;
+  v13 = v7;
+  v20 = v13;
+  v14 = *(a1 + 40);
+  v15 = *(a1 + 48);
+  v18 = v14;
+  v21 = v15;
+  v16 = v6;
+  v19 = v16;
+  [v10 credentialForFPANCard:v11 authorization:0 options:v12 merchantHost:0 completion:v17];
 }
 
 void __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_50(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_50_cold_1();
     }
@@ -754,16 +756,16 @@ void __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardD
 
   else
   {
-    v8 = [v5 primaryAccountNumber];
-    v9 = [*(a1 + 32) cardNumber];
-    v10 = [v8 isEqualToString:v9];
+    v10 = [v5 primaryAccountNumber];
+    v11 = [*(a1 + 32) cardNumber];
+    v12 = [v10 isEqualToString:v11];
 
-    if (v10)
+    if (v12)
     {
-      v11 = [[WBSCreditCardData alloc] initWithCreditCardCredential:v5 creditCard:*(a1 + 40)];
-      v12 = *(*(a1 + 56) + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = v11;
+      v13 = [[WBSCreditCardData alloc] initWithCreditCardCredential:v5 creditCard:*(a1 + 40)];
+      v14 = *(*(a1 + 56) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
     }
   }
 
@@ -792,20 +794,21 @@ void __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardD
 
 void __84__WBSCreditCardDataController__getCreditCardDataWithAllowedTypes_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(WeakRetained, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = 134217984;
-      v8 = [v3 count];
-      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Number of active credit cards is %lu", &v7, 0xCu);
+      v9 = 134217984;
+      v10 = [v3 count];
+      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Number of active credit cards is %lu", &v9, 0xCu);
     }
 
-    v6 = [WeakRetained _cardDataFromCardDescriptors:v3];
+    v8 = [v6 _cardDataFromCardDescriptors:v3];
     (*(*(a1 + 32) + 16))();
   }
 
@@ -866,30 +869,31 @@ void __84__WBSCreditCardDataController__getCreditCardDataWithAllowedTypes_comple
 
 void __70__WBSCreditCardDataController_getCreditCardDataWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(WeakRetained, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v13 = [v3 count];
-      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Number of active virtual cards is %lu", buf, 0xCu);
+      v15 = [v3 count];
+      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Number of active virtual cards is %lu", buf, 0xCu);
     }
 
-    v6 = WeakRetained[2];
-    v7 = *(a1 + 48);
+    v8 = v6[2];
+    v9 = *(a1 + 48);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __70__WBSCreditCardDataController_getCreditCardDataWithCompletionHandler___block_invoke_64;
     block[3] = &unk_1E7FB7CC0;
-    block[4] = WeakRetained;
-    v10 = v3;
-    v11 = *(a1 + 32);
-    v8 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v7, 0, block);
-    dispatch_async(v6, v8);
+    block[4] = v6;
+    v12 = v3;
+    v13 = *(a1 + 32);
+    v10 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v9, 0, block);
+    dispatch_async(v8, v10);
   }
 
   else
@@ -933,30 +937,31 @@ void __70__WBSCreditCardDataController_getCreditCardDataWithCompletionHandler___
   handlerCopy = handler;
   if (([MEMORY[0x1E69C8880] isKeychainCardsInWalletEnabled] & 1) == 0)
   {
-    if ([(WBSCreditCardDataController *)self shouldOfferVirtualCards])
+    shouldOfferVirtualCards = [(WBSCreditCardDataController *)self shouldOfferVirtualCards];
+    if (shouldOfferVirtualCards)
     {
       objc_initWeak(location, self);
       virtualCardManager = self->_virtualCardManager;
       virtualCardFieldsToRequest = [(WBSCreditCardDataController *)self virtualCardFieldsToRequest];
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __68__WBSCreditCardDataController_getVirtualCardsWithCompletionHandler___block_invoke;
-      v8[3] = &unk_1E7FC4C18;
-      objc_copyWeak(&v10, location);
-      v9 = handlerCopy;
-      [(PKVirtualCardManager *)virtualCardManager activeVirtualCardsWithOptions:virtualCardFieldsToRequest completion:v8];
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __68__WBSCreditCardDataController_getVirtualCardsWithCompletionHandler___block_invoke;
+      v10[3] = &unk_1E7FC4C18;
+      objc_copyWeak(&v12, location);
+      v11 = handlerCopy;
+      [(PKVirtualCardManager *)virtualCardManager activeVirtualCardsWithOptions:virtualCardFieldsToRequest completion:v10];
 
-      objc_destroyWeak(&v10);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(location);
     }
 
     else
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(shouldOfferVirtualCards, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         LOWORD(location[0]) = 0;
-        _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Should not offer virtual cards", location, 2u);
+        _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Should not offer virtual cards", location, 2u);
       }
 
       (*(handlerCopy + 2))(handlerCopy, 0);
@@ -966,19 +971,19 @@ void __70__WBSCreditCardDataController_getCreditCardDataWithCompletionHandler___
 
 void __68__WBSCreditCardDataController_getVirtualCardsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
-    v9 = [v3 count];
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Number of active virtual cards is %lu", &v8, 0xCu);
+    v9 = 134217984;
+    v10 = [v3 count];
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Number of active virtual cards is %lu", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v6 = [v3 allObjects];
-  v7 = [WeakRetained _virtualCardDataFromPKVirtualCards:v6];
+  v7 = [v3 allObjects];
+  v8 = [WeakRetained _virtualCardDataFromPKVirtualCards:v7];
 
   (*(*(a1 + 32) + 16))();
 }
@@ -1067,12 +1072,12 @@ void __123__WBSCreditCardDataController_processQueueOfVirtualCardsToFetchDetails
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-_BYTE *__123__WBSCreditCardDataController_processQueueOfVirtualCardsToFetchDetailsForWithExternalizedContext_blockToUpdateCardDetails___block_invoke_3(uint64_t a1)
+_BYTE *__123__WBSCreditCardDataController_processQueueOfVirtualCardsToFetchDetailsForWithExternalizedContext_blockToUpdateCardDetails___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32) || !*(a1 + 40))
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXAutoFill(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [*(a1 + 32) safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
@@ -1084,16 +1089,16 @@ _BYTE *__123__WBSCreditCardDataController_processQueueOfVirtualCardsToFetchDetai
 
   else
   {
-    v3 = [[WBSCreditCardData alloc] initWithVirtualCardCredentials:*(a1 + 40) virtualCard:*(a1 + 48)];
-    if (v3)
+    v4 = [[WBSCreditCardData alloc] initWithVirtualCardCredentials:*(a1 + 40) virtualCard:*(a1 + 48)];
+    if (v4)
     {
       (*(*(a1 + 72) + 16))();
     }
   }
 
-  v4 = [*(*(a1 + 56) + 48) count];
+  v5 = [*(*(a1 + 56) + 48) count];
   result = *(a1 + 56);
-  if (v4)
+  if (v5)
   {
     return [result processQueueOfVirtualCardsToFetchDetailsForWithExternalizedContext:*(a1 + 64) blockToUpdateCardDetails:*(a1 + 72)];
   }
@@ -1133,56 +1138,57 @@ _BYTE *__123__WBSCreditCardDataController_processQueueOfVirtualCardsToFetchDetai
 
 void __121__WBSCreditCardDataController_getVirtualCardCredentialsWithExternalizedContext_shouldIncludeVPANCards_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v14 = v3;
+  v16 = v3;
   if (WeakRetained)
   {
     v5 = [v3 allObjects];
+    v7 = v5;
     if ((*(a1 + 48) & 1) == 0)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v8 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Filtering out VPAN enabled cards from Safari UI because Touch ID is not available", buf, 2u);
+        _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Filtering out VPAN enabled cards from Safari UI because Touch ID is not available", buf, 2u);
       }
 
-      v7 = [v5 safari_filterObjectsUsingBlock:&__block_literal_global_71];
+      v9 = [v7 safari_filterObjectsUsingBlock:&__block_literal_global_71];
 
-      v5 = v7;
+      v7 = v9;
     }
 
-    if ([v5 count])
+    if ([v7 count])
     {
-      v8 = [MEMORY[0x1E695DF70] array];
+      v10 = [MEMORY[0x1E695DF70] array];
+      v19 = 0u;
+      v20 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v9 = v5;
-      v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
-      if (v10)
+      v11 = v7;
+      v12 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      if (v12)
       {
-        v11 = *v16;
+        v13 = *v18;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v16 != v11)
+            if (*v18 != v13)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v11);
             }
 
-            v13 = [[WBSCreditCardData alloc] initWithVirtualCard:*(*(&v15 + 1) + 8 * i)];
-            [v8 addObject:v13];
+            v15 = [[WBSCreditCardData alloc] initWithVirtualCard:*(*(&v17 + 1) + 8 * i)];
+            [v10 addObject:v15];
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
         }
 
-        while (v10);
+        while (v12);
       }
 
       (*(*(a1 + 32) + 16))();
@@ -1231,26 +1237,26 @@ void __121__WBSCreditCardDataController_getVirtualCardCredentialsWithExternalize
       goto LABEL_12;
     }
 
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __98__WBSCreditCardDataController_getCreditCardDataToFill_host_externalizedContext_completionHandler___block_invoke;
-    v31[3] = &unk_1E7FC4CD8;
-    v33 = handlerCopy;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __98__WBSCreditCardDataController_getCreditCardDataToFill_host_externalizedContext_completionHandler___block_invoke;
+    v33[3] = &unk_1E7FC4CD8;
+    v35 = handlerCopy;
     v15 = fillCopy;
-    v32 = v15;
-    v16 = MEMORY[0x1BFB13CE0](v31);
-    v17 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v34 = v15;
+    v16 = MEMORY[0x1BFB13CE0](v33);
+    v18 = WBS_LOG_CHANNEL_PREFIXAutoFill(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v17, OS_LOG_TYPE_INFO, "Fetching credential for credit card", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_INFO, "Fetching credential for credit card", buf, 2u);
     }
 
     autoFillCardManager = self->_autoFillCardManager;
     cardDescriptor2 = [v15 cardDescriptor];
     [(PKAutoFillCardManager *)autoFillCardManager credentialForFPANCard:cardDescriptor2 authorization:contextCopy options:[(WBSCreditCardDataController *)self creditCardFieldsToRequest] merchantHost:hostCopy completion:v16];
-    v20 = &v33;
-    v21 = &v32;
+    v21 = &v35;
+    v22 = &v34;
   }
 
   else
@@ -1262,24 +1268,24 @@ void __121__WBSCreditCardDataController_getVirtualCardCredentialsWithExternalize
       goto LABEL_13;
     }
 
-    v24 = MEMORY[0x1E69E9820];
-    v25 = 3221225472;
-    v26 = __98__WBSCreditCardDataController_getCreditCardDataToFill_host_externalizedContext_completionHandler___block_invoke_73;
-    v27 = &unk_1E7FC4D00;
-    v29 = handlerCopy;
+    v26 = MEMORY[0x1E69E9820];
+    v27 = 3221225472;
+    v28 = __98__WBSCreditCardDataController_getCreditCardDataToFill_host_externalizedContext_completionHandler___block_invoke_73;
+    v29 = &unk_1E7FC4D00;
+    v31 = handlerCopy;
     cardDescriptor = virtualCard;
-    v28 = cardDescriptor;
-    v16 = MEMORY[0x1BFB13CE0](&v24);
-    v23 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v30 = cardDescriptor;
+    v16 = MEMORY[0x1BFB13CE0](&v26);
+    v25 = WBS_LOG_CHANNEL_PREFIXAutoFill(v16, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v23, OS_LOG_TYPE_INFO, "Fetching credentials for virtual card", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v25, OS_LOG_TYPE_INFO, "Fetching credentials for virtual card", buf, 2u);
     }
 
-    [(PKVirtualCardManager *)self->_virtualCardManager credentialsForVirtualCard:cardDescriptor authorization:contextCopy options:[(WBSCreditCardDataController *)self virtualCardFieldsToRequest:v24] merchantHost:hostCopy completion:v16];
-    v20 = &v29;
-    v21 = &v28;
+    [(PKVirtualCardManager *)self->_virtualCardManager credentialsForVirtualCard:cardDescriptor authorization:contextCopy options:[(WBSCreditCardDataController *)self virtualCardFieldsToRequest:v26] merchantHost:hostCopy completion:v16];
+    v21 = &v31;
+    v22 = &v30;
   }
 
 LABEL_12:
@@ -1324,12 +1330,13 @@ void __98__WBSCreditCardDataController_getCreditCardDataToFill_host_externalized
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __98__WBSCreditCardDataController__getCreditCardDataFromWalletMatchingCardData_withCompletionHandler___block_invoke_50_cold_1();
     }
@@ -1339,7 +1346,7 @@ void __98__WBSCreditCardDataController_getCreditCardDataToFill_host_externalized
 
   else
   {
-    v8 = [[WBSCreditCardData alloc] initWithCreditCardCredential:v5 creditCard:*(a1 + 32)];
+    v10 = [[WBSCreditCardData alloc] initWithCreditCardCredential:v5 creditCard:*(a1 + 32)];
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -1381,12 +1388,13 @@ void __98__WBSCreditCardDataController_getCreditCardDataToFill_host_externalized
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __123__WBSCreditCardDataController_processQueueOfVirtualCardsToFetchDetailsForWithExternalizedContext_blockToUpdateCardDetails___block_invoke_3_cold_1();
     }
@@ -1396,7 +1404,7 @@ void __98__WBSCreditCardDataController_getCreditCardDataToFill_host_externalized
 
   else
   {
-    v8 = [[WBSCreditCardData alloc] initWithVirtualCardCredentials:v5 virtualCard:*(a1 + 32)];
+    v10 = [[WBSCreditCardData alloc] initWithVirtualCardCredentials:v5 virtualCard:*(a1 + 32)];
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -1905,15 +1913,16 @@ LABEL_76:
 
 void __52__WBSCreditCardDataController_removeCreditCardData___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 8) objectForKey:*(a1 + 40)];
-  v5 = *MEMORY[0x1E697B3C8];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  if (SecItemDelete(v3))
+  v7 = *MEMORY[0x1E697B3C8];
+  v8[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v4 = SecItemDelete(v3);
+  if (v4)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXAutoFill(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __52__WBSCreditCardDataController_removeCreditCardData___block_invoke_cold_1();
     }
@@ -1942,20 +1951,21 @@ void __52__WBSCreditCardDataController_removeCreditCardData___block_invoke(uint6
 
 void __62__WBSCreditCardDataController_replaceCreditCardData_withCard___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 8) objectForKey:*(a1 + 40)];
   if (v2)
   {
     v3 = [*(a1 + 48) keychainRepresentationByMigratingExistingKeychainData:*(a1 + 40)];
-    v8 = *MEMORY[0x1E697B3C8];
-    v9[0] = v2;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-    v6 = *MEMORY[0x1E697B3C0];
-    v7 = v3;
-    if (SecItemUpdate(v4, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:&v6 count:1]))
+    v10 = *MEMORY[0x1E697B3C8];
+    v11[0] = v2;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v8 = *MEMORY[0x1E697B3C0];
+    v9 = v3;
+    v5 = SecItemUpdate(v4, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1]);
+    if (v5)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __62__WBSCreditCardDataController_replaceCreditCardData_withCard___block_invoke_cold_1();
       }
@@ -2008,12 +2018,13 @@ LABEL_8:
 void __68__WBSCreditCardDataController_markCreditCardDataAsMostRecentlyUsed___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __68__WBSCreditCardDataController_markCreditCardDataAsMostRecentlyUsed___block_invoke_cold_1();
     }
@@ -2056,21 +2067,22 @@ void __68__WBSCreditCardDataController_markCreditCardDataAsMostRecentlyUsed___bl
 void __68__WBSCreditCardDataController_saveCreditCardData_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __68__WBSCreditCardDataController_saveCreditCardData_completionHandler___block_invoke_cold_1();
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v5 + 16))();
+    (*(v7 + 16))();
   }
 }
 
@@ -2139,11 +2151,11 @@ LABEL_5:
 LABEL_6:
 }
 
-uint64_t __59__WBSCreditCardDataController_saveCreditCardDataIfAllowed___block_invoke(uint64_t result, uint64_t a2)
+id *__59__WBSCreditCardDataController_saveCreditCardDataIfAllowed___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) saveCreditCardData:*(result + 40) completionHandler:0];
+    return [result[4] saveCreditCardData:result[5] completionHandler:0];
   }
 
   return result;
@@ -2333,12 +2345,13 @@ void __66__WBSCreditCardDataController__canSaveCardData_completionHandler___bloc
 void __78__WBSCreditCardDataController__updateCreditCardDataWithDescriptor_credential___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingError];
+      [v4 safari_privacyPreservingError];
       objc_claimAutoreleasedReturnValue();
       __78__WBSCreditCardDataController__updateCreditCardDataWithDescriptor_credential___block_invoke_cold_1();
     }
@@ -2364,23 +2377,24 @@ void __78__WBSCreditCardDataController__updateCreditCardDataWithDescriptor_crede
 
 void __50__WBSCreditCardDataController_clearCreditCardData__block_invoke(uint64_t a1)
 {
-  v8[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E697AEB0];
-  v7[0] = *MEMORY[0x1E697ABD0];
-  v7[1] = v2;
+  v9[0] = *MEMORY[0x1E697ABD0];
+  v9[1] = v2;
   v3 = *MEMORY[0x1E695E4D0];
-  v8[0] = @"com.apple.safari.credit-cards";
-  v8[1] = v3;
+  v10[0] = @"com.apple.safari.credit-cards";
+  v10[1] = v3;
   v4 = *MEMORY[0x1E697AE88];
-  v7[2] = *MEMORY[0x1E697AFF8];
-  v7[3] = v4;
-  v8[2] = *MEMORY[0x1E697B008];
-  v8[3] = @"SafariCreditCardEntries";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:4];
-  if (SecItemDelete(v5))
+  v9[2] = *MEMORY[0x1E697AFF8];
+  v9[3] = v4;
+  v10[2] = *MEMORY[0x1E697B008];
+  v10[3] = @"SafariCreditCardEntries";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v6 = SecItemDelete(v5);
+  if (v6)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXAutoFill(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __52__WBSCreditCardDataController_removeCreditCardData___block_invoke_cold_1();
     }
@@ -2405,10 +2419,11 @@ void __50__WBSCreditCardDataController_clearCreditCardData__block_invoke(uint64_
 
 - (BOOL)isVirtualCard:(id)card previouslyFilledVirtualCardNumbers:(id)numbers
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   cardCopy = card;
   numbersCopy = numbers;
-  if ([(WBSCreditCardDataController *)self shouldOfferVirtualCards])
+  shouldOfferVirtualCards = [(WBSCreditCardDataController *)self shouldOfferVirtualCards];
+  if (shouldOfferVirtualCards)
   {
     cardDescriptor = [cardCopy cardDescriptor];
     if (cardDescriptor)
@@ -2419,42 +2434,42 @@ void __50__WBSCreditCardDataController_clearCreditCardData__block_invoke(uint64_
       if (type == 2)
       {
 LABEL_17:
-        v18 = 1;
+        v20 = 1;
         goto LABEL_18;
       }
     }
 
+    v24 = 0u;
+    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v11 = numbersCopy;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
-    if (v12)
+    v13 = numbersCopy;
+    v14 = [v13 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    if (v14)
     {
-      v13 = *v21;
+      v15 = *v23;
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v13)
+          if (*v23 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v13);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v17 = *(*(&v22 + 1) + 8 * i);
           cardNumber = [cardCopy cardNumber];
-          LOBYTE(v15) = [cardNumber isEqualToString:v15];
+          LOBYTE(v17) = [cardNumber isEqualToString:v17];
 
-          if (v15)
+          if (v17)
           {
 
             goto LABEL_17;
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
-        if (v12)
+        v14 = [v13 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        if (v14)
         {
           continue;
         }
@@ -2466,34 +2481,35 @@ LABEL_17:
 
   else
   {
-    v17 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v19 = WBS_LOG_CHANNEL_PREFIXAutoFill(shouldOfferVirtualCards, v9);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v17, OS_LOG_TYPE_INFO, "isVirtualCard: not offering virtual cards", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v19, OS_LOG_TYPE_INFO, "isVirtualCard: not offering virtual cards", buf, 2u);
     }
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_18:
 
-  return v18;
+  return v20;
 }
 
 - (void)isVirtualCard:(id)card previouslyFilledVirtualCardNumbers:(id)numbers completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   cardCopy = card;
   numbersCopy = numbers;
   completionCopy = completion;
   shouldOfferVirtualCards = [(WBSCreditCardDataController *)self shouldOfferVirtualCards];
-  if (!shouldOfferVirtualCards)
+  v13 = shouldOfferVirtualCards;
+  if ((shouldOfferVirtualCards & 1) == 0)
   {
-    v20 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = WBS_LOG_CHANNEL_PREFIXAutoFill(shouldOfferVirtualCards, v12);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v20, OS_LOG_TYPE_INFO, "isVirtualCard: not offering virtual cards", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_INFO, "isVirtualCard: not offering virtual cards", buf, 2u);
     }
 
     goto LABEL_14;
@@ -2504,45 +2520,45 @@ LABEL_18:
   if (virtualCard)
   {
 LABEL_14:
-    completionCopy[2](completionCopy, shouldOfferVirtualCards);
+    completionCopy[2](completionCopy, v13);
     goto LABEL_15;
   }
 
+  v28 = 0u;
+  v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v13 = numbersCopy;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v14)
+  v15 = numbersCopy;
+  v16 = [v15 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v16)
   {
-    v15 = *v25;
+    v17 = *v27;
     while (2)
     {
-      v16 = 0;
+      v18 = 0;
       do
       {
-        if (*v25 != v15)
+        if (*v27 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v15);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * v16);
+        v19 = *(*(&v26 + 1) + 8 * v18);
         cardNumber = [cardCopy cardNumber];
-        LODWORD(v17) = [cardNumber isEqual:v17];
+        LODWORD(v19) = [cardNumber isEqual:v19];
 
-        if (v17)
+        if (v19)
         {
           completionCopy[2](completionCopy, 1);
           goto LABEL_17;
         }
 
-        ++v16;
+        ++v18;
       }
 
-      while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
-      if (v14)
+      while (v16 != v18);
+      v16 = [v15 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      if (v16)
       {
         continue;
       }
@@ -2552,15 +2568,15 @@ LABEL_14:
   }
 
   virtualCardManager = self->_virtualCardManager;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __91__WBSCreditCardDataController_isVirtualCard_previouslyFilledVirtualCardNumbers_completion___block_invoke;
-  v21[3] = &unk_1E7FC4DF0;
-  v22 = cardCopy;
-  v23 = completionCopy;
-  [(PKVirtualCardManager *)virtualCardManager activeVirtualCardsWithOptions:1 completion:v21];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __91__WBSCreditCardDataController_isVirtualCard_previouslyFilledVirtualCardNumbers_completion___block_invoke;
+  v23[3] = &unk_1E7FC4DF0;
+  v24 = cardCopy;
+  v25 = completionCopy;
+  [(PKVirtualCardManager *)virtualCardManager activeVirtualCardsWithOptions:1 completion:v23];
 
-  v13 = v22;
+  v15 = v24;
 LABEL_17:
 
 LABEL_15:
@@ -2568,37 +2584,38 @@ LABEL_15:
 
 void __91__WBSCreditCardDataController_isVirtualCard_previouslyFilledVirtualCardNumbers_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) cardNumber];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v18;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v13 + 1) + 8 * v8) isEqualToSafariEntryWithPrimaryAccountNumber:v4 expirationDate:{0, v13}])
+        v9 = [*(*(&v17 + 1) + 8 * v8) isEqualToSafariEntryWithPrimaryAccountNumber:v4 expirationDate:{0, v17}];
+        if (v9)
         {
-          v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+          v15 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            v12 = [v5 count];
+            v16 = [v5 count];
             *buf = 134217984;
-            v18 = v12;
-            _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "isVirtualCard: compared card against %zu virtual cards and found a match.", buf, 0xCu);
+            v22 = v16;
+            _os_log_impl(&dword_1BB6F3000, v15, OS_LOG_TYPE_INFO, "isVirtualCard: compared card against %zu virtual cards and found a match.", buf, 0xCu);
           }
 
           (*(*(a1 + 40) + 16))();
@@ -2609,7 +2626,7 @@ void __91__WBSCreditCardDataController_isVirtualCard_previouslyFilledVirtualCard
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v6)
       {
         continue;
@@ -2619,13 +2636,13 @@ void __91__WBSCreditCardDataController_isVirtualCard_previouslyFilledVirtualCard
     }
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v10 = [v5 count];
+    v14 = [v5 count];
     *buf = 134217984;
-    v18 = v10;
-    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "isVirtualCard: compared card against %zu virtual cards but found no match.", buf, 0xCu);
+    v22 = v14;
+    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "isVirtualCard: compared card against %zu virtual cards but found no match.", buf, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -2725,12 +2742,13 @@ LABEL_22:
 void __108__WBSCreditCardDataController_sendCardholderNameEnteredInFormToWalletIfNecessary_lastFilledVirtualCardData___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __108__WBSCreditCardDataController_sendCardholderNameEnteredInFormToWalletIfNecessary_lastFilledVirtualCardData___block_invoke_cold_1();
     }
@@ -2821,7 +2839,7 @@ id __81__WBSCreditCardDataController_fieldsToObscureWhenFillingCreditCard_formMe
 
 - (void)exportCreditCardDataToFileWithURL:(id)l completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
   if ([MEMORY[0x1E69C8880] isKeychainCardsInWalletEnabled])
@@ -2831,16 +2849,16 @@ id __81__WBSCreditCardDataController_fieldsToObscureWhenFillingCreditCard_formMe
 
   else
   {
-    v39 = 0;
-    v7 = [objc_alloc(MEMORY[0x1E69C8858]) initWithURL:lCopy error:&v39];
-    v8 = v39;
-    v25 = v8;
+    v40 = 0;
+    v7 = [objc_alloc(MEMORY[0x1E69C8858]) initWithURL:lCopy error:&v40];
+    v8 = v40;
+    v26 = v8;
     if (!v7 || v8)
     {
-      v29 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        [v25 safari_privacyPreservingDescription];
+        [v26 safari_privacyPreservingDescription];
         objc_claimAutoreleasedReturnValue();
         [WBSCreditCardDataController exportCreditCardDataToFileWithURL:completionHandler:];
       }
@@ -2848,77 +2866,77 @@ id __81__WBSCreditCardDataController_fieldsToObscureWhenFillingCreditCard_formMe
 
     else
     {
-      v9 = objc_alloc(MEMORY[0x1E695DEE8]);
-      v29 = [v9 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
-      v37 = 0u;
+      v10 = objc_alloc(MEMORY[0x1E695DEE8]);
+      v30 = [v10 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
       v38 = 0u;
-      v35 = 0u;
+      v39 = 0u;
       v36 = 0u;
-      v10 = +[WBSCreditCardDataController creditCardDataController];
-      obj = [v10 creditCardData];
+      v37 = 0u;
+      v11 = +[WBSCreditCardDataController creditCardDataController];
+      obj = [v11 creditCardData];
 
-      v11 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-      if (v11)
+      v12 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      if (v12)
       {
-        v30 = *v36;
-        v33 = v7;
+        v31 = *v37;
+        v34 = v7;
         do
         {
-          v12 = 0;
-          v31 = v11;
+          v13 = 0;
+          v32 = v12;
           do
           {
-            if (*v36 != v30)
+            if (*v37 != v31)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v35 + 1) + 8 * v12);
-            expirationDate = [v13 expirationDate];
-            v15 = expirationDate == 0;
+            v14 = *(*(&v36 + 1) + 8 * v13);
+            expirationDate = [v14 expirationDate];
+            v16 = expirationDate == 0;
 
-            if (v15)
+            if (v16)
             {
-              v17 = 0;
+              v18 = 0;
             }
 
             else
             {
-              expirationDate2 = [v13 expirationDate];
-              v17 = [v29 components:12 fromDate:expirationDate2];
+              expirationDate2 = [v14 expirationDate];
+              v18 = [v30 components:12 fromDate:expirationDate2];
             }
 
-            cardNumber = [v13 cardNumber];
-            cardName = [v13 cardName];
-            cardholderName = [v13 cardholderName];
-            month = [v17 month];
+            cardNumber = [v14 cardNumber];
+            cardName = [v14 cardName];
+            cardholderName = [v14 cardholderName];
+            month = [v18 month];
             if (month)
             {
-              v32 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v17, "month")}];
-              v21 = v32;
+              v33 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v18, "month")}];
+              v22 = v33;
             }
 
             else
             {
-              v21 = 0;
+              v22 = 0;
             }
 
-            year = [v17 year];
+            year = [v18 year];
             if (year)
             {
-              v4 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v17, "year")}];
-              v23 = v4;
+              v4 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v18, "year")}];
+              v24 = v4;
             }
 
             else
             {
-              v23 = 0;
+              v24 = 0;
             }
 
-            lastUsedDate = [v13 lastUsedDate];
-            [v33 addEntryWithCardNumber:cardNumber cardName:cardName cardholderName:cardholderName cardExpirationMonth:v21 cardExpirationYear:v23 lastUsedDate:lastUsedDate];
+            lastUsedDate = [v14 lastUsedDate];
+            [v34 addEntryWithCardNumber:cardNumber cardName:cardName cardholderName:cardholderName cardExpirationMonth:v22 cardExpirationYear:v24 lastUsedDate:lastUsedDate];
 
-            v7 = v33;
+            v7 = v34;
             if (year)
             {
             }
@@ -2927,14 +2945,14 @@ id __81__WBSCreditCardDataController_fieldsToObscureWhenFillingCreditCard_formMe
             {
             }
 
-            ++v12;
+            ++v13;
           }
 
-          while (v31 != v12);
-          v11 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+          while (v32 != v13);
+          v12 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
-        while (v11);
+        while (v12);
       }
 
       [v7 finishWithCompletionHandler:handlerCopy];
@@ -2944,52 +2962,52 @@ id __81__WBSCreditCardDataController_fieldsToObscureWhenFillingCreditCard_formMe
 
 - (void)_exportCreditCardDataToFileWithURL:(id)l completionHandler:(id)handler
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
-  v21[0] = 0;
-  v8 = [objc_alloc(MEMORY[0x1E69C8858]) initWithURL:lCopy error:v21];
-  v9 = v21[0];
-  v10 = v9;
+  v22 = 0;
+  v8 = [objc_alloc(MEMORY[0x1E69C8858]) initWithURL:lCopy error:&v22];
+  v9 = v22;
+  v11 = v9;
   if (v8)
   {
-    v11 = v9 == 0;
+    v12 = v9 == 0;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (v11)
+  if (v12)
   {
-    v13 = objc_alloc(MEMORY[0x1E695DEE8]);
-    v12 = [v13 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
+    v14 = objc_alloc(MEMORY[0x1E695DEE8]);
+    v13 = [v14 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
     if ([MEMORY[0x1E69C8880] isKeychainCardsInWalletEnabled])
     {
-      v14 = +[WBSCreditCardDataController creditCardDataController];
-      v15 = [MEMORY[0x1E695DFD8] setWithObject:&unk_1F3A9ABF8];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __84__WBSCreditCardDataController__exportCreditCardDataToFileWithURL_completionHandler___block_invoke;
-      v17[3] = &unk_1E7FC4EB0;
-      v17[4] = self;
-      v16 = v12;
-      v18 = v16;
-      v19 = v8;
-      v20 = handlerCopy;
-      [v14 _getCreditCardDataWithAllowedTypes:v15 completionHandler:v17];
+      v15 = +[WBSCreditCardDataController creditCardDataController];
+      v16 = [MEMORY[0x1E695DFD8] setWithObject:&unk_1F3A9ABF8];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __84__WBSCreditCardDataController__exportCreditCardDataToFileWithURL_completionHandler___block_invoke;
+      v18[3] = &unk_1E7FC4EB0;
+      v18[4] = self;
+      v17 = v13;
+      v19 = v17;
+      v20 = v8;
+      v21 = handlerCopy;
+      [v15 _getCreditCardDataWithAllowedTypes:v16 completionHandler:v18];
 
-      v12 = v16;
+      v13 = v17;
     }
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [v10 safari_privacyPreservingDescription];
+      [v11 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       [WBSCreditCardDataController exportCreditCardDataToFileWithURL:completionHandler:];
     }

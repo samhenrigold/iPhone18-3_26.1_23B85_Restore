@@ -11,65 +11,65 @@
 
 - (CGRect)_separatorFrame
 {
-  v24.receiver = self;
-  v24.super_class = DirectionsStartEndTableViewCell;
-  [(DirectionsStartEndTableViewCell *)&v24 _separatorFrame];
+  v23.receiver = self;
+  v23.super_class = DirectionsStartEndTableViewCell;
+  [(DirectionsStartEndTableViewCell *)&v23 _separatorFrame];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
   if ([(DirectionsStartEndTableViewCell *)self alignSeparatorWithLeadingText])
   {
-    v23 = 0u;
+    v22 = 0u;
     v11 = objc_opt_class();
     v12 = [(DirectionsStartEndTableViewCell *)self traitCollection:0];
-    userInterfaceIdiom = [v12 userInterfaceIdiom];
+    [v12 userInterfaceIdiom];
     if (v11)
     {
-      [v11 cellMetricsForIdiom:userInterfaceIdiom];
+      objc_msgSend_cellMetricsForIdiom_(v11);
     }
 
     else
     {
-      v23 = 0u;
+      v22 = 0u;
     }
 
-    v14 = *&v23 + 0.0 + *(&v23 + 1);
+    v13 = *&v22 + 0.0 + *(&v22 + 1);
     if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:[(DirectionsStartEndTableViewCell *)self semanticContentAttribute]])
     {
       contentView = [(DirectionsStartEndTableViewCell *)self contentView];
       [contentView bounds];
-      MaxX = CGRectGetMaxX(v25);
-      v26.origin.x = v4;
-      v26.origin.y = v6;
-      v26.size.width = v8;
-      v26.size.height = v10;
-      v17 = CGRectGetMaxX(v26);
+      MaxX = CGRectGetMaxX(v24);
+      v25.origin.x = v4;
+      v25.origin.y = v6;
+      v25.size.width = v8;
+      v25.size.height = v10;
+      v16 = CGRectGetMaxX(v25);
 
-      v18 = v14 - MaxX + v17;
+      v17 = v13 - MaxX + v16;
     }
 
     else
     {
-      v27.origin.x = v4;
-      v27.origin.y = v6;
-      v27.size.width = v8;
-      v27.size.height = v10;
-      v18 = v14 - CGRectGetMinX(v27);
-      v4 = v18 + v4;
+      v26.origin.x = v4;
+      v26.origin.y = v6;
+      v26.size.width = v8;
+      v26.size.height = v10;
+      v17 = v13 - CGRectGetMinX(v26);
+      v4 = v17 + v4;
     }
 
-    v8 = v8 - v18;
+    v8 = v8 - v17;
   }
 
-  v19 = v4;
-  v20 = v6;
-  v21 = v8;
-  v22 = v10;
-  result.size.height = v22;
-  result.size.width = v21;
-  result.origin.y = v20;
-  result.origin.x = v19;
+  v18 = v4;
+  v19 = v6;
+  v20 = v8;
+  v21 = v10;
+  result.size.height = v21;
+  result.size.width = v20;
+  result.origin.y = v19;
+  result.origin.x = v18;
   return result;
 }
 
@@ -137,7 +137,7 @@
   if (result)
   {
 
-    return [($8452678F12DBC466148836A9D382CAFC *)result cellMetricsForIdiom:a4];
+    return objc_msgSend_cellMetricsForIdiom_(result);
   }
 
   else

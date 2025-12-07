@@ -80,7 +80,7 @@
 
 - (id)runAction
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E698C8D8]);
   messageServiceType = [(AMSUIWebEngagementAction *)self messageServiceType];
   if (messageServiceType)
@@ -98,12 +98,12 @@
       v12 = [v7 initWithServiceType:messageServiceType2 placements:v11];
 
       v13 = [v3 enqueueMessageEvent:v12];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __37__AMSUIWebEngagementAction_runAction__block_invoke;
-      v27[3] = &unk_1E7F26028;
-      v27[4] = self;
-      messageServiceType = [v13 thenWithBlock:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __37__AMSUIWebEngagementAction_runAction__block_invoke;
+      v26[3] = &unk_1E7F26028;
+      v26[4] = self;
+      messageServiceType = [v13 thenWithBlock:v26];
     }
 
     else
@@ -118,12 +118,12 @@
   {
     event2 = [(AMSUIWebEngagementAction *)self event];
     v16 = [v3 enqueueData:event2];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __37__AMSUIWebEngagementAction_runAction__block_invoke_2;
-    v26[3] = &unk_1E7F26050;
-    v26[4] = self;
-    v17 = [v16 thenWithBlock:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __37__AMSUIWebEngagementAction_runAction__block_invoke_2;
+    v25[3] = &unk_1E7F26050;
+    v25[4] = self;
+    v17 = [v16 thenWithBlock:v25];
   }
 
   else
@@ -138,15 +138,15 @@
     v19 = [MEMORY[0x1E698CAD0] promiseWithResult:MEMORY[0x1E695E0F8]];
   }
 
-  v28[0] = v19;
+  v27[0] = v19;
   v20 = v17;
   if (!v17)
   {
     v20 = [MEMORY[0x1E698CAD0] promiseWithResult:MEMORY[0x1E695E0F8]];
   }
 
-  v28[1] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[1] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v22 = [v18 promiseWithAll:v21];
 
   if (v17)
@@ -169,40 +169,38 @@
 LABEL_14:
   v23 = [v22 thenWithBlock:&__block_literal_global_22];
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v23;
 }
 
 id __37__AMSUIWebEngagementAction_runAction__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = [v3 messageActions];
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(a1 + 32) _resultFromMessageResponse:*(*(&v15 + 1) + 8 * i)];
+        v10 = [*(a1 + 32) _resultFromMessageResponse:*(*(&v14 + 1) + 8 * i)];
         [v4 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -211,8 +209,6 @@ id __37__AMSUIWebEngagementAction_runAction__block_invoke(uint64_t a1, void *a2)
   v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [v11 setObject:v4 forKeyedSubscript:@"messageActions"];
   v12 = [MEMORY[0x1E698CAD0] promiseWithResult:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -241,46 +237,44 @@ id __37__AMSUIWebEngagementAction_runAction__block_invoke_2(uint64_t a1, void *a
 
 id __37__AMSUIWebEngagementAction_runAction__block_invoke_3(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __37__AMSUIWebEngagementAction_runAction__block_invoke_4;
-        v13[3] = &unk_1E7F24C88;
-        v14 = v3;
-        [v9 enumerateKeysAndObjectsUsingBlock:v13];
+        v9 = *(*(&v14 + 1) + 8 * i);
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __37__AMSUIWebEngagementAction_runAction__block_invoke_4;
+        v12[3] = &unk_1E7F24C88;
+        v13 = v3;
+        [v9 enumerateKeysAndObjectsUsingBlock:v12];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   v10 = [MEMORY[0x1E698CAD0] promiseWithResult:v3];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

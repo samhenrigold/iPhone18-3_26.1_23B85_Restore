@@ -12,6 +12,8 @@
 - (BOOL)areAtomBatchFileNameRowsPresent;
 - (BOOL)ckRecordExists:(id)exists zoneName:(id)name recordType:(unint64_t)type;
 - (BOOL)ckZoneExists:(id)exists;
+- (BOOL)ckZoneSetAttemptedRecoveryDate:(id)date state:(int)state forZoneName:(id)name;
+- (BOOL)ckZoneSetAttemptingRecoveryForZoneName:(id)name state:(int)state;
 - (BOOL)ckZoneSetZoneVersionUUID:(id)d forZoneName:(id)name;
 - (BOOL)clearCKMergeableRecordValueServerMergeableValuesForRecordName:(id)name zoneName:(id)zoneName;
 - (BOOL)clearCKMergeableRecordValueServerMergeableValuesForZoneName:(id)name;
@@ -44,6 +46,7 @@
 - (BOOL)updateLocationState:(unint64_t)state forLocation:(id)location;
 - (BOOL)upsertCKRecordWithLocation:(id)location inStream:(id)stream;
 - (BOOL)upsertLocation:(id)location;
+- (BOOL)upsertSyncDevicePeer:(id)peer isMe:(BOOL)me;
 - (BOOL)vacuumWithShouldContinueBlock:(id)block;
 - (NSDate)dateOfLastVacuum;
 - (NSDate)lastCloudKitSyncAttemptDate;
@@ -118,7 +121,9 @@
 - (void)enumerateZonesWithBlock:(id)block;
 - (void)markCKRecordsAtOrBeforeLocationToBeDeletedOnSync:(id)sync;
 - (void)recordAtomMergeResult:(unint64_t)result inStream:(id)stream sessionID:(id)d messageID:(unint64_t)iD ownerSite:(id)site originatingSite:(id)originatingSite eventCreatedAt:(double)at;
+- (void)recordMessageToDeviceIdentifier:(id)identifier sessionID:(id)d messageID:(unint64_t)iD reachable:(BOOL)reachable bytes:(unint64_t)bytes isReciprocal:(BOOL)reciprocal;
 - (void)recordSessionEnd:(id)end timeSincePreviousSync:(double)sync;
+- (void)recordSessionStart:(id)start transport:(unint64_t)transport reason:(unint64_t)reason isReciprocal:(BOOL)reciprocal;
 - (void)resetMetadataForRecord:(id)record zoneName:(id)name;
 - (void)runMetricsCollectionTask:(id)task;
 - (void)runVacuumingTask:(id)task;
@@ -824,6 +829,131 @@
   return fmdb;
 }
 
+- (BOOL)upsertSyncDevicePeer:(id)peer isMe:(BOOL)me
+{
+  meCopy = me;
+  peerCopy = peer;
+  queue = self->_queue;
+  if (queue)
+  {
+    dispatch_assert_queue_V2(queue);
+  }
+
+  deviceIdentifier = [peerCopy deviceIdentifier];
+  v9 = [(BMSyncDatabase *)self deviceWithIdentifier:deviceIdentifier];
+
+  fmdb = self->_fmdb;
+  v34 = v9;
+  if (v9)
+  {
+    v36[0] = @"device_identifier";
+    deviceIdentifier2 = [peerCopy deviceIdentifier];
+    v37[0] = deviceIdentifier2;
+    v36[1] = @"ids_device_identifier";
+    idsDeviceIdentifier = [peerCopy idsDeviceIdentifier];
+    v33 = idsDeviceIdentifier;
+    if (idsDeviceIdentifier)
+    {
+      v11 = idsDeviceIdentifier;
+    }
+
+    else
+    {
+      v11 = &stru_100079C10;
+    }
+
+    v37[1] = v11;
+    v36[2] = @"name";
+    metadata = [peerCopy metadata];
+    name = [metadata name];
+    v13 = name;
+    if (name)
+    {
+      v14 = name;
+    }
+
+    else
+    {
+      v14 = &stru_100079C10;
+    }
+
+    v37[2] = v14;
+    v36[3] = @"model";
+    metadata2 = [peerCopy metadata];
+    model = [metadata2 model];
+    v37[3] = model;
+    v36[4] = @"platform";
+    metadata3 = [peerCopy metadata];
+    metadata4 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [metadata3 platform]);
+    v37[4] = metadata4;
+    v36[5] = @"protocol_version";
+    v18 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [peerCopy protocolVersion]);
+    v37[5] = v18;
+    v19 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:6];
+    v35[0] = @"device_identifier = ?";
+    deviceIdentifier3 = [peerCopy deviceIdentifier];
+    v35[1] = deviceIdentifier3;
+    v21 = [NSArray arrayWithObjects:v35 count:2];
+    v22 = [(_bmFMDatabase *)fmdb UPDATE:@"DevicePeer" SET:v19 WHERE:v21];
+
+    deviceIdentifier4 = deviceIdentifier2;
+  }
+
+  else
+  {
+    v38[0] = @"device_identifier";
+    deviceIdentifier4 = [peerCopy deviceIdentifier];
+    v39[0] = deviceIdentifier4;
+    v38[1] = @"ids_device_identifier";
+    idsDeviceIdentifier2 = [peerCopy idsDeviceIdentifier];
+    v33 = idsDeviceIdentifier2;
+    if (idsDeviceIdentifier2)
+    {
+      v25 = idsDeviceIdentifier2;
+    }
+
+    else
+    {
+      v25 = &stru_100079C10;
+    }
+
+    v39[1] = v25;
+    v38[2] = @"name";
+    metadata = [peerCopy metadata];
+    name2 = [metadata name];
+    v13 = name2;
+    if (name2)
+    {
+      v27 = name2;
+    }
+
+    else
+    {
+      v27 = &stru_100079C10;
+    }
+
+    v39[2] = v27;
+    v38[3] = @"me";
+    metadata2 = [NSNumber numberWithBool:meCopy];
+    v39[3] = metadata2;
+    v38[4] = @"model";
+    model = [peerCopy metadata];
+    metadata3 = [model model];
+    v39[4] = metadata3;
+    v38[5] = @"platform";
+    metadata4 = [peerCopy metadata];
+    v18 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [metadata4 platform]);
+    v39[5] = v18;
+    v38[6] = @"protocol_version";
+    v19 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [peerCopy protocolVersion]);
+    v39[6] = v19;
+    deviceIdentifier3 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:7];
+    v22 = [(_bmFMDatabase *)fmdb INSERT_INTO:@"DevicePeer" VALUES:deviceIdentifier3];
+  }
+
+  return v22;
+}
+
 - (id)deviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -985,6 +1115,51 @@
   return v9;
 }
 
+- (BOOL)ckZoneSetAttemptingRecoveryForZoneName:(id)name state:(int)state
+{
+  v4 = *&state;
+  nameCopy = name;
+  queue = self->_queue;
+  if (queue)
+  {
+    dispatch_assert_queue_V2(queue);
+  }
+
+  v8 = [(BMSyncDatabase *)self ckZoneExists:nameCopy];
+  fmdb = self->_fmdb;
+  if (v8)
+  {
+    v19 = @"recovery_state";
+    v10 = [NSNumber numberWithInt:v4];
+    v20 = v10;
+    v11 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18[0] = @"zone_name = ?";
+    v18[1] = nameCopy;
+    v12 = [NSArray arrayWithObjects:v18 count:2];
+    v13 = [(_bmFMDatabase *)fmdb UPDATE:@"CKZone" SET:v11 WHERE:v12];
+  }
+
+  else
+  {
+    v17[0] = nameCopy;
+    v16[0] = @"zone_name";
+    v16[1] = @"recovery_state";
+    v10 = [NSNumber numberWithInt:v4];
+    v17[1] = v10;
+    v17[2] = @"UUID not set";
+    v16[2] = @"zone_uuid";
+    v16[3] = @"attempted_recovery_date";
+    v11 = +[NSDate distantPast];
+    v17[3] = v11;
+    v12 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:4];
+    v13 = [(_bmFMDatabase *)fmdb INSERT_INTO:@"CKZone" VALUES:v12];
+  }
+
+  v14 = v13;
+
+  return v14;
+}
+
 - (BOOL)ckZoneSetZoneVersionUUID:(id)d forZoneName:(id)name
 {
   dCopy = d;
@@ -1026,6 +1201,51 @@
   v14 = v13;
 
   return v14;
+}
+
+- (BOOL)ckZoneSetAttemptedRecoveryDate:(id)date state:(int)state forZoneName:(id)name
+{
+  v6 = *&state;
+  dateCopy = date;
+  nameCopy = name;
+  queue = self->_queue;
+  if (queue)
+  {
+    dispatch_assert_queue_V2(queue);
+  }
+
+  v11 = [(BMSyncDatabase *)self ckZoneExists:nameCopy];
+  fmdb = self->_fmdb;
+  if (v11)
+  {
+    v21[0] = @"recovery_state";
+    v13 = [NSNumber numberWithInt:v6];
+    v21[1] = @"attempted_recovery_date";
+    v22[0] = v13;
+    v22[1] = dateCopy;
+    v14 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v20[0] = @"zone_name = ?";
+    v20[1] = nameCopy;
+    v15 = [NSArray arrayWithObjects:v20 count:2];
+    v16 = [(_bmFMDatabase *)fmdb UPDATE:@"CKZone" SET:v14 WHERE:v15];
+  }
+
+  else
+  {
+    v19[0] = nameCopy;
+    v18[0] = @"zone_name";
+    v18[1] = @"recovery_state";
+    v13 = [NSNumber numberWithInt:v6];
+    v19[1] = v13;
+    v19[2] = @"UUID not set";
+    v18[2] = @"zone_uuid";
+    v18[3] = @"attempted_recovery_date";
+    v19[3] = dateCopy;
+    v14 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:4];
+    v16 = [(_bmFMDatabase *)fmdb INSERT_INTO:@"CKZone" VALUES:v14];
+  }
+
+  return v16;
 }
 
 - (void)enumerateZonesWithBlock:(id)block
@@ -4105,13 +4325,13 @@ LABEL_4:
     {
       if (v12)
       {
-        sub_10004CB64(self);
+        sub_10004CB64();
       }
     }
 
     else if (v12)
     {
-      sub_10004CBD0(self);
+      sub_10004CBD0();
     }
 
     goto LABEL_18;
@@ -4122,7 +4342,7 @@ LABEL_4:
     v11 = __biome_log_for_category();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      sub_10004CC48(self);
+      sub_10004CC48();
     }
 
 LABEL_18:
@@ -4135,7 +4355,7 @@ LABEL_18:
     v11 = __biome_log_for_category();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10004CCC4(self);
+      sub_10004CCC4();
     }
 
     goto LABEL_18;
@@ -4698,10 +4918,10 @@ LABEL_126:
       goto LABEL_12;
     }
 
-    v4 = 3;
+    v3 = 3;
     if (internalState != 9)
     {
-      v4 = 0;
+      v3 = 0;
     }
 
     if (internalState == 6)
@@ -4711,7 +4931,7 @@ LABEL_126:
 
     else
     {
-      return v4;
+      return v3;
     }
   }
 
@@ -4730,10 +4950,10 @@ LABEL_126:
       }
 
 LABEL_12:
-      v6 = __biome_log_for_category();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v5 = __biome_log_for_category();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        sub_10004CD84(self);
+        sub_10004CD84();
       }
 
       return 0;
@@ -4887,6 +5107,42 @@ LABEL_12:
   return v16 & v15 & [(_bmFMDatabase *)self->_fmdb executeStatements:@"PRAGMA foreign_keys=ON"];
 }
 
+- (void)recordSessionStart:(id)start transport:(unint64_t)transport reason:(unint64_t)reason isReciprocal:(BOOL)reciprocal
+{
+  reciprocalCopy = reciprocal;
+  startCopy = start;
+  queue = self->_queue;
+  if (queue)
+  {
+    dispatch_assert_queue_V2(queue);
+  }
+
+  v12 = __biome_log_for_category();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v23 = startCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "recordSessionStart: %@", buf, 0xCu);
+  }
+
+  Current = CFAbsoluteTimeGetCurrent();
+  fmdb = self->_fmdb;
+  v21[0] = startCopy;
+  v15 = [NSNumber numberWithUnsignedInteger:transport, @"session_id", @"transport"];
+  v21[1] = v15;
+  v20[2] = @"reason";
+  v16 = [NSNumber numberWithUnsignedInteger:reason];
+  v21[2] = v16;
+  v20[3] = @"is_reciprocal";
+  v17 = [NSNumber numberWithBool:reciprocalCopy];
+  v21[3] = v17;
+  v20[4] = @"start_timestamp";
+  v18 = [NSNumber numberWithDouble:Current];
+  v21[4] = v18;
+  v19 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:5];
+  [(_bmFMDatabase *)fmdb INSERT_INTO:@"SyncSessionLog" VALUES:v19];
+}
+
 - (void)recordSessionEnd:(id)end timeSincePreviousSync:(double)sync
 {
   endCopy = end;
@@ -4917,6 +5173,51 @@ LABEL_12:
   v15[1] = endCopy;
   v14 = [NSArray arrayWithObjects:v15 count:2];
   [(_bmFMDatabase *)fmdb UPDATE:@"SyncSessionLog" SET:v13 WHERE:v14];
+}
+
+- (void)recordMessageToDeviceIdentifier:(id)identifier sessionID:(id)d messageID:(unint64_t)iD reachable:(BOOL)reachable bytes:(unint64_t)bytes isReciprocal:(BOOL)reciprocal
+{
+  reciprocalCopy = reciprocal;
+  reachableCopy = reachable;
+  identifierCopy = identifier;
+  dCopy = d;
+  queue = self->_queue;
+  if (queue)
+  {
+    dispatch_assert_queue_V2(queue);
+  }
+
+  v17 = __biome_log_for_category();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v29 = identifierCopy;
+    v30 = 2112;
+    v31 = dCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "recordMessageToDeviceIdentifier: %@, %@", buf, 0x16u);
+  }
+
+  Current = CFAbsoluteTimeGetCurrent();
+  fmdb = self->_fmdb;
+  v27[0] = dCopy;
+  v20 = [NSNumber numberWithUnsignedInteger:iD, @"session_id", @"message_id"];
+  v27[1] = v20;
+  v27[2] = identifierCopy;
+  v26[2] = @"device_identifier";
+  v26[3] = @"reachable";
+  v21 = [NSNumber numberWithBool:reachableCopy];
+  v27[3] = v21;
+  v26[4] = @"atom_batch_bytes";
+  v22 = [NSNumber numberWithUnsignedInteger:bytes];
+  v27[4] = v22;
+  v26[5] = @"is_reciprocal";
+  v23 = [NSNumber numberWithBool:reciprocalCopy];
+  v27[5] = v23;
+  v26[6] = @"timestamp";
+  v24 = [NSNumber numberWithDouble:Current];
+  v27[6] = v24;
+  v25 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:7];
+  [(_bmFMDatabase *)fmdb INSERT_INTO:@"SyncMessageLog" VALUES:v25];
 }
 
 - (void)recordAtomMergeResult:(unint64_t)result inStream:(id)stream sessionID:(id)d messageID:(unint64_t)iD ownerSite:(id)site originatingSite:(id)originatingSite eventCreatedAt:(double)at

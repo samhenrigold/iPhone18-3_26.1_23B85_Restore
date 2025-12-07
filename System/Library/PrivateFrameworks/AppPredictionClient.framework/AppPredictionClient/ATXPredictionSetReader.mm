@@ -44,7 +44,7 @@
           v8->_predictionCount = v16;
           if (v16 < 0)
           {
-            v20 = __atxlog_handle_default();
+            v20 = __atxlog_handle_default(bytes);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               [ATXPredictionSetReader initWithData:v20 predictedItemClass:?];
@@ -64,7 +64,7 @@
     else if (v14 != -1813681383 && v14 != -1789354849)
     {
 LABEL_16:
-      v18 = __atxlog_handle_default();
+      v18 = __atxlog_handle_default(bytes);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [ATXPredictionSetReader initWithData:v13 predictedItemClass:v18];
@@ -105,7 +105,7 @@ LABEL_22:
 
 - (id)_scoredPredictionFromData:(id)data score:(float)score
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   predictedItemClass = self->_predictedItemClass;
   if (predictedItemClass == objc_opt_class())
@@ -116,7 +116,7 @@ LABEL_22:
       goto LABEL_5;
     }
 
-    v11 = __atxlog_handle_default();
+    v11 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [(ATXPredictionSetReader *)self _scoredPredictionFromData:dataCopy score:v11];
@@ -127,41 +127,41 @@ LABEL_22:
   {
     v8 = objc_autoreleasePoolPush();
     v9 = self->_predictedItemClass;
-    v20 = 0;
-    v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:v9 fromData:dataCopy error:&v20];
-    v11 = v20;
+    v21 = 0;
+    v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:v9 fromData:dataCopy error:&v21];
+    v11 = v21;
     objc_autoreleasePoolPop(v8);
     if (v10)
     {
 
       v11 = v10;
 LABEL_5:
-      v12 = [ATXScoredPrediction alloc];
-      *&v13 = score;
-      v14 = [(ATXScoredPrediction *)v12 initWithPredictedItem:v11 score:v13];
+      v13 = [ATXScoredPrediction alloc];
+      *&v14 = score;
+      v15 = [(ATXScoredPrediction *)v13 initWithPredictedItem:v11 score:v14];
       goto LABEL_12;
     }
 
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_default(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = NSStringFromClass(self->_predictedItemClass);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = NSStringFromClass(self->_predictedItemClass);
       *buf = 138412802;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v11;
-      _os_log_fault_impl(&dword_1BF549000, v15, OS_LOG_TYPE_FAULT, "%@ - error unarchiving action with predictedItemClass: %@, err: %@", buf, 0x20u);
+      v23 = v19;
+      v24 = 2112;
+      v25 = v20;
+      v26 = 2112;
+      v27 = v11;
+      _os_log_fault_impl(&dword_1BF549000, v16, OS_LOG_TYPE_FAULT, "%@ - error unarchiving action with predictedItemClass: %@, err: %@", buf, 0x20u);
     }
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_12:
 
-  return v14;
+  return v15;
 }
 
 - (id)readScoredPredictionsWithLimit:(int)limit filterPredicate:(id)predicate

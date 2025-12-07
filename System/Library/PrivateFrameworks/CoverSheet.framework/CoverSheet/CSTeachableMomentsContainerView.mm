@@ -7376,8 +7376,7 @@ LABEL_601:
       currentDevice5 = [*(v115 + 1048) currentDevice];
       if ([currentDevice5 userInterfaceIdiom] != 1)
       {
-        *&v415[44] = 0;
-        *&v415[48] = 1;
+        *&v415[44] = 0x100000000;
         goto LABEL_610;
       }
     }
@@ -7441,8 +7440,7 @@ LABEL_610:
       currentDevice6 = [*(v115 + 1048) currentDevice];
       if ([currentDevice6 userInterfaceIdiom] != 1)
       {
-        *&v415[36] = 0;
-        *&v415[40] = 1;
+        *&v415[36] = 0x100000000;
         goto LABEL_620;
       }
     }

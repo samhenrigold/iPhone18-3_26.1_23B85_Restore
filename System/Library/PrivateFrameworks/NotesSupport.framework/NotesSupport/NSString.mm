@@ -48,17 +48,17 @@ uint64_t __44__NSString_IC__ic_uniqueWordsWithMinLength___block_invoke_133(uint6
   return [v3 appendString:@" "];
 }
 
-void __63__NSString_IC__ic_containsNonWhitespaceAndAttachmentCharacters__block_invoke()
+void __63__NSString_IC__ic_containsNonWhitespaceAndAttachmentCharacters__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-  v4 = [v0 mutableCopy];
+  v1 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
+  v5 = [v1 mutableCopy];
 
-  v1 = [objc_opt_class() ic_attachmentCharacterString];
-  [v4 addCharactersInString:v1];
+  v2 = [objc_opt_class() ic_attachmentCharacterString];
+  [v5 addCharactersInString:v2];
 
-  v2 = [v4 invertedSet];
-  v3 = ic_containsNonWhitespaceAndAttachmentCharacters_invertedWhitespaceAndAttachmentCharacters;
-  ic_containsNonWhitespaceAndAttachmentCharacters_invertedWhitespaceAndAttachmentCharacters = v2;
+  v3 = [v5 invertedSet];
+  v4 = ic_containsNonWhitespaceAndAttachmentCharacters_invertedWhitespaceAndAttachmentCharacters;
+  ic_containsNonWhitespaceAndAttachmentCharacters_invertedWhitespaceAndAttachmentCharacters = v3;
 }
 
 void __58__NSString_IC__ic_stringByReplacingCharactersInStringMap___block_invoke(uint64_t a1, void *a2)
@@ -129,7 +129,7 @@ NSUInteger __41__NSString_IC__ic_sentenceRangeForRange___block_invoke(uint64_t a
   return v12.location;
 }
 
-unint64_t __38__NSString_IC__ic_lengthOfLongestLine__block_invoke(uint64_t a1, void *a2)
+void *__38__NSString_IC__ic_lengthOfLongestLine__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 length];

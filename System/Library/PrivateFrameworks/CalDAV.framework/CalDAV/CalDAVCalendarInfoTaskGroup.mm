@@ -25,10 +25,10 @@
 
 - (id)_copyContainerParserMappings
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = CalDAVCalendarInfoTaskGroup;
-  _copyContainerParserMappings = [(CoreDAVContainerInfoTaskGroup *)&v27 _copyContainerParserMappings];
+  v28 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = CalDAVCalendarInfoTaskGroup;
+  _copyContainerParserMappings = [(CoreDAVContainerInfoTaskGroup *)&v26 _copyContainerParserMappings];
   v4 = +[CalDAVContainer copyPropertyMappingsForParser];
   v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithSet:_copyContainerParserMappings];
   if ([(CalDAVCalendarInfoTaskGroup *)self fetchSharees])
@@ -36,12 +36,12 @@
     [v5 CDVAddItemParserMappingWithNameSpace:*MEMORY[0x277CFDE90] name:@"invite" parseClass:objc_opt_class()];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (!v7)
   {
 
@@ -50,22 +50,22 @@
   }
 
   v8 = v7;
-  v20 = v4;
-  v21 = _copyContainerParserMappings;
-  v22 = 0;
-  v9 = *v24;
+  v19 = v4;
+  v20 = _copyContainerParserMappings;
+  v21 = 0;
+  v9 = *v23;
   v10 = *MEMORY[0x277CFDEF8];
   v11 = *MEMORY[0x277CFDFE0];
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v24 != v9)
+      if (*v23 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v13 = *(*(&v23 + 1) + 8 * i);
+      v13 = *(*(&v22 + 1) + 8 * i);
       nameSpace = [v13 nameSpace];
       if ([nameSpace isEqualToString:v10])
       {
@@ -77,28 +77,27 @@
           continue;
         }
 
-        nameSpace = v22;
-        v22 = v13;
+        nameSpace = v21;
+        v21 = v13;
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
   }
 
   while (v8);
 
-  v4 = v20;
-  _copyContainerParserMappings = v21;
-  v17 = v22;
-  if (v22)
+  v4 = v19;
+  _copyContainerParserMappings = v20;
+  v17 = v21;
+  if (v21)
   {
-    [v6 removeObject:v22];
+    [v6 removeObject:v21];
   }
 
 LABEL_17:
   [v6 unionSet:v4];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -113,39 +112,39 @@ LABEL_17:
 
 - (id)containerForURL:(id)l
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   lCopy = l;
   absoluteString = [lCopy absoluteString];
   appendSlashIfNeeded = [absoluteString appendSlashIfNeeded];
 
-  v27 = lCopy;
+  v26 = lCopy;
   uRLWithoutUsername = [lCopy URLWithoutUsername];
   absoluteString2 = [uRLWithoutUsername absoluteString];
   appendSlashIfNeeded2 = [absoluteString2 appendSlashIfNeeded];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = *(&self->super.super.super.isa + *MEMORY[0x277CFDCC0]);
-  v30 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (!v30)
+  v29 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (!v29)
   {
     v10 = 0;
     goto LABEL_22;
   }
 
-  v31 = *v34;
+  v30 = *v33;
   while (2)
   {
-    for (i = 0; i != v30; ++i)
+    for (i = 0; i != v29; ++i)
     {
-      if (*v34 != v31)
+      if (*v33 != v30)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v33 + 1) + 8 * i);
+      v10 = *(*(&v32 + 1) + 8 * i);
       v11 = [v10 url];
       absoluteString3 = [v11 absoluteString];
       appendSlashIfNeeded3 = [absoluteString3 appendSlashIfNeeded];
@@ -184,19 +183,19 @@ LABEL_19:
       v21 = v20;
       if (v20)
       {
-        v28 = v10;
+        v27 = v10;
       }
 
       if (v21)
       {
-        v10 = v28;
+        v10 = v27;
         goto LABEL_22;
       }
     }
 
     v10 = 0;
-    v30 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-    if (v30)
+    v29 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v29)
     {
       continue;
     }
@@ -205,8 +204,6 @@ LABEL_19:
   }
 
 LABEL_22:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

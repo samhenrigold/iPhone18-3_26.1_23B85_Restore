@@ -378,9 +378,9 @@ LABEL_15:
     v5 = [v2 URLsForDirectory:13 inDomains:1];
     if (![v5 count])
     {
-      sub_10038801C(buf);
+      sub_10038801C();
 
-      abort_report_np();
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 213, "+[CLIndoorServiceDelegate defaultWorkdir]");
       goto LABEL_29;
     }
 
@@ -392,93 +392,93 @@ LABEL_15:
 
   if (!v9)
   {
-    sub_1003883F0(buf);
+    sub_1003883F0();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 218, "+[CLIndoorServiceDelegate defaultWorkdir]");
     goto LABEL_29;
   }
 
-  v28 = 0;
-  [v2 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v28];
-  v10 = v28;
+  v33 = 0;
+  [v2 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v33];
+  v10 = v33;
   if (v10)
   {
-    v16 = v10;
-    v17 = sub_100374178();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v17 = v10;
+    v18 = sub_100374178(v10, v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      localizedDescription = [v16 localizedDescription];
-      v19 = localizedDescription;
+      localizedDescription = [v17 localizedDescription];
+      v20 = localizedDescription;
       uTF8String = [localizedDescription UTF8String];
       *buf = 68289795;
       *&buf[4] = 0;
-      v30 = 2082;
-      v31 = "";
-      v32 = 2081;
-      v33 = uTF8String;
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "error == nullptr";
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Failed to create directory:, error:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+      v35 = 2082;
+      v36 = "";
+      v37 = 2081;
+      v38 = uTF8String;
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "error == nullptr";
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Failed to create directory:, error:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
     }
 
-    v21 = sub_100374178();
-    if (os_signpost_enabled(v21))
+    v24 = sub_100374178(v22, v23);
+    if (os_signpost_enabled(v24))
     {
-      localizedDescription2 = [v16 localizedDescription];
-      v23 = localizedDescription2;
+      localizedDescription2 = [v17 localizedDescription];
+      v26 = localizedDescription2;
       uTF8String2 = [localizedDescription2 UTF8String];
       *buf = 68289795;
       *&buf[4] = 0;
-      v30 = 2082;
-      v31 = "";
-      v32 = 2081;
-      v33 = uTF8String2;
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "error == nullptr";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to create directory:", "{msg%{public}.0s:Failed to create directory:, error:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+      v35 = 2082;
+      v36 = "";
+      v37 = 2081;
+      v38 = uTF8String2;
+      v39 = 2082;
+      v40 = "assert";
+      v41 = 2081;
+      v42 = "error == nullptr";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to create directory:", "{msg%{public}.0s:Failed to create directory:, error:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
     }
 
-    v25 = sub_100374178();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v30 = sub_100374178(v28, v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      localizedDescription3 = [v16 localizedDescription];
-      v27 = localizedDescription3;
-      sub_100388130([localizedDescription3 UTF8String], buf, v25, localizedDescription3);
+      localizedDescription3 = [v17 localizedDescription];
+      v32 = localizedDescription3;
+      sub_100388130([localizedDescription3 UTF8String], buf, v30, localizedDescription3);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 223, "+[CLIndoorServiceDelegate defaultWorkdir]");
 LABEL_29:
     __break(1u);
   }
 
-  v11 = v9;
-  v12 = realpath_DARWIN_EXTSN([v9 fileSystemRepresentation], 0);
-  if (!v12)
+  v12 = v9;
+  v13 = realpath_DARWIN_EXTSN([v9 fileSystemRepresentation], 0);
+  if (!v13)
   {
-    sub_1003882DC(buf);
+    sub_1003882DC();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 225, "+[CLIndoorServiceDelegate defaultWorkdir]");
     goto LABEL_29;
   }
 
-  v13 = [NSString stringWithUTF8String:v12];
-  v14 = [NSURL fileURLWithPath:v13];
+  v14 = [NSString stringWithUTF8String:v13];
+  v15 = [NSURL fileURLWithPath:v14];
 
-  if (!v14)
+  if (!v15)
   {
-    sub_1003881C8(buf);
+    sub_1003881C8();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 228, "+[CLIndoorServiceDelegate defaultWorkdir]");
     goto LABEL_29;
   }
 
-  free(v12);
+  free(v13);
 
-  return v14;
+  return v15;
 }
 
 - (CLIndoorServiceDelegate)initWithWorkdir:(id)workdir
@@ -551,9 +551,9 @@ LABEL_7:
     return v26;
   }
 
-  sub_100388504(to);
+  sub_100388504();
 
-  result = abort_report_np();
+  result = abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 261, "[CLIndoorServiceDelegate initWithWorkdir:]");
   __break(1u);
   return result;
 }
@@ -590,22 +590,19 @@ LABEL_7:
 
   if (workdir)
   {
-    sub_100388640(&v23);
+    sub_100388640();
 
-    v18 = 344;
-    v19 = "[CLIndoorServiceDelegate _setWorkingdir:]";
-    v17 = "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 344, "[CLIndoorServiceDelegate _setWorkingdir:]");
     __break(1u);
 LABEL_21:
     sub_100388618();
     goto LABEL_13;
   }
 
-  sub_100375374(&v23);
-  if (v23 == 1)
+  sub_100375374(&v20);
+  if (v20 == 1)
   {
-    if (v25 >= 0)
+    if (v22 >= 0)
     {
       p_p = &__p;
     }
@@ -636,9 +633,9 @@ LABEL_21:
   }
 
   path2 = [workingdirCopy path];
-  v20 = 0;
-  v14 = [workdir createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v20];
-  v3 = v20;
+  v17 = 0;
+  v14 = [workdir createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v17];
+  v3 = v17;
 
   if (v14)
   {
@@ -656,14 +653,14 @@ LABEL_13:
   {
     v16 = [v3 description];
     *buf = 138477827;
-    v22 = v16;
+    v19 = v16;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failure to create working directory, %{private}@", buf, 0xCu);
   }
 
 LABEL_16:
-  [(CLIndoorServiceDelegate *)self setWorkdir:workingdirCopy, v17, v18, v19];
+  [(CLIndoorServiceDelegate *)self setWorkdir:workingdirCopy];
 
-  if (v23 == 1 && v25 < 0)
+  if (v20 == 1 && v22 < 0)
   {
     operator delete(__p);
   }
@@ -958,15 +955,15 @@ LABEL_4:
               operator new();
             }
 
-            v42[23] = v13;
+            *(v42 + 23) = v13;
             if (v13)
             {
               memmove(v11, v12, v13);
             }
 
             *(v11 + v14) = 0;
-            v11[6] = priority;
-            v15 = (v11 + 8);
+            *(v11 + 6) = priority;
+            v15 = v11 + 4;
             v5 = v35;
           }
 
@@ -1426,9 +1423,9 @@ LABEL_50:
         v16 = qword_10045B078;
         if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_ERROR))
         {
-          v19 = 67109120;
-          LODWORD(v20) = context;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Unimplemented CLPipelinedLocationContext %d, default to indoor...", &v19, 8u);
+          v18 = 67109120;
+          LODWORD(v19[0]) = context;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Unimplemented CLPipelinedLocationContext %d, default to indoor...", &v18, 8u);
         }
 
         sub_100218AE4(&self->_tileStorageLimits);
@@ -1439,8 +1436,7 @@ LABEL_50:
         sub_100218AE4(&self->_tileStorageLimits);
       }
 
-      ptr = self->_fsDb.__ptr_;
-      sub_1001181E4(&v19, floor);
+      sub_1001181E4(&v18, floor);
     }
 
     if (qword_10045B070 != -1)
@@ -1452,7 +1448,7 @@ LABEL_50:
     v11 = os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_ERROR);
     if (v11)
     {
-      LOWORD(v19) = 0;
+      LOWORD(v18) = 0;
       v12 = "Attempt to prefetch before first unlock";
       v13 = v15;
       v14 = 2;
@@ -1471,13 +1467,13 @@ LABEL_50:
     v11 = os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_ERROR);
     if (v11)
     {
-      v19 = 136315138;
-      v20 = "[CLIndoorServiceDelegate tilePrefetchShouldPrefetchMetadataForFloor:withLocationContext:]";
+      v18 = 136315138;
+      v19[0] = "[CLIndoorServiceDelegate tilePrefetchShouldPrefetchMetadataForFloor:withLocationContext:]";
       v12 = "%s Got delegate call from prefetcher while shutting down. Ignoring";
       v13 = v10;
       v14 = 12;
 LABEL_14:
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v12, &v19, v14);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v12, &v18, v14);
       LOBYTE(v11) = 0;
     }
   }
@@ -1499,8 +1495,7 @@ LABEL_14:
     if (self->_fsDb.__ptr_)
     {
       std::chrono::system_clock::now();
-      ptr = self->_fsDb.__ptr_;
-      sub_1001181E4(&v16, floor);
+      sub_1001181E4(&v15, floor);
     }
 
     if (qword_10045B070 != -1)
@@ -1508,14 +1503,14 @@ LABEL_14:
       sub_100388008();
     }
 
-    v14 = qword_10045B078;
-    v10 = os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_ERROR);
-    if (v10)
+    v13 = qword_10045B078;
+    v9 = os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_ERROR);
+    if (v9)
     {
-      LOWORD(v16) = 0;
-      v11 = "Attempt to prefetch before first unlock";
-      v12 = v14;
-      v13 = 2;
+      LOWORD(v15) = 0;
+      v10 = "Attempt to prefetch before first unlock";
+      v11 = v13;
+      v12 = 2;
       goto LABEL_12;
     }
   }
@@ -1527,22 +1522,22 @@ LABEL_14:
       sub_100388008();
     }
 
-    v9 = qword_10045B078;
-    v10 = os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_ERROR);
-    if (v10)
+    v8 = qword_10045B078;
+    v9 = os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_ERROR);
+    if (v9)
     {
-      v16 = 136315138;
-      v17 = "[CLIndoorServiceDelegate tilePrefetchShouldPrefetchTileDataForFloor:]";
-      v11 = "%s Got delegate call from prefetcher while shutting down. Ignoring";
-      v12 = v9;
-      v13 = 12;
+      v15 = 136315138;
+      v16 = "[CLIndoorServiceDelegate tilePrefetchShouldPrefetchTileDataForFloor:]";
+      v10 = "%s Got delegate call from prefetcher while shutting down. Ignoring";
+      v11 = v8;
+      v12 = 12;
 LABEL_12:
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, v11, &v16, v13);
-      LOBYTE(v10) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, v10, &v15, v12);
+      LOBYTE(v9) = 0;
     }
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)tilePrefetchDidDownload:(const void *)download forRequest:(id)request
@@ -1564,7 +1559,7 @@ LABEL_12:
       v12 = venueUuid;
       if (venueUuid)
       {
-        [venueUuid ps_STLString];
+        objc_msgSend_ps_STLString(venueUuid);
       }
 
       else
@@ -1578,7 +1573,7 @@ LABEL_12:
       v19 = floorUuid;
       if (floorUuid)
       {
-        [floorUuid ps_STLString];
+        objc_msgSend_ps_STLString(floorUuid);
       }
 
       else
@@ -2050,9 +2045,9 @@ LABEL_14:
   workdir = [(CLIndoorServiceDelegate *)self workdir];
   if (!workdir)
   {
-    sub_10038877C(buf);
+    sub_10038877C();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 835, "[CLIndoorServiceDelegate initializeDb:]");
     __break(1u);
 LABEL_32:
     sub_100388008();
@@ -2080,7 +2075,7 @@ LABEL_18:
   ptr = self->_fsDb.__ptr_;
   if (!ptr)
   {
-    [(CLIndoorServiceDelegate *)self createLocalizerDbWithRootDir:0 relativeTo:workdir];
+    objc_msgSend_createLocalizerDbWithRootDir_relativeTo_(self);
     v12 = *buf;
     memset(buf, 0, 16);
     cntrl = self->_fsDb.__cntrl_;
@@ -2101,12 +2096,11 @@ LABEL_18:
     {
       objc_alloc_init(CLIndoorTileEvictionPolicy);
       CFAbsoluteTimeGetCurrent();
-      v14 = self->_fsDb.__ptr_;
       operator new();
     }
 
 LABEL_28:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_30;
   }
 
@@ -2121,7 +2115,7 @@ LABEL_28:
 
     if (!v8)
     {
-      [(CLIndoorServiceDelegate *)self createLocalizerDbWithRootDir:1 relativeTo:workdir];
+      objc_msgSend_createLocalizerDbWithRootDir_relativeTo_(self);
       if (buf[0])
       {
         v9 = buf[1];
@@ -2148,10 +2142,10 @@ LABEL_28:
     }
   }
 
-  v15 = 1;
+  v14 = 1;
 LABEL_30:
 
-  return v15;
+  return v14;
 }
 
 - (shared_ptr<ITileDb>)createLocalizerDbWithRootDir:(BOOL)dir relativeTo:(id)to
@@ -2251,9 +2245,9 @@ LABEL_31:
 
         if ((hasAnyOpenTransaction & 1) == 0)
         {
-          sub_100388890(&buf);
+          sub_100388890();
 
-          abort_report_np();
+          abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 912, "[CLIndoorServiceDelegate createDbAtBasedir:rootdir:relativeTo:]");
           goto LABEL_127;
         }
 
@@ -2262,7 +2256,7 @@ LABEL_31:
 
         if (path)
         {
-          [path ps_STLString];
+          objc_msgSend_ps_STLString(path);
         }
 
         else
@@ -2470,9 +2464,9 @@ LABEL_116:
               sub_100007E34();
             }
 
-            sub_1003889A4(&buf);
+            sub_1003889A4();
 
-            abort_report_np();
+            abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorServiceDelegate.mm", 950, "[CLIndoorServiceDelegate createDbAtBasedir:rootdir:relativeTo:]");
 LABEL_127:
             __break(1u);
             JUMPOUT(0x100379FD0);
@@ -2563,7 +2557,7 @@ LABEL_103:
 
         if (path2)
         {
-          [path2 ps_STLString];
+          objc_msgSend_ps_STLString(path2);
           if ((SHIBYTE(v58) & 0x80000000) == 0)
           {
 LABEL_40:
@@ -2698,7 +2692,7 @@ LABEL_11:
 {
   tilesCopy = tiles;
   [(CLIndoorServiceDelegate *)self initializeDb];
-  [(CLIndoorServiceDelegate *)self onQueueDbsToClear];
+  objc_msgSend_onQueueDbsToClear(self);
   if (v25 == v26)
   {
     if (qword_10045B070 != -1)
@@ -2849,12 +2843,12 @@ LABEL_11:
   }
 
   context = objc_autoreleasePoolPush();
-  *(&v30.__r_.__value_.__s + 23) = 3;
-  LODWORD(v30.__r_.__value_.__l.__data_) = 6645601;
+  *(&v29.__r_.__value_.__s + 23) = 3;
+  LODWORD(v29.__r_.__value_.__l.__data_) = 6645601;
   [tilesCopy maxModifiedAge];
   if (v10 == -1.79769313e308)
   {
-    std::string::assign(&v30, "privacy");
+    std::string::assign(&v29, "privacy");
   }
 
   var0 = std->var0;
@@ -2879,65 +2873,64 @@ LABEL_11:
         v16 = *v15;
       }
 
-      v17 = &v30;
-      if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v17 = &v29;
+      if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v17 = v30.__r_.__value_.__r.__words[0];
+        v17 = v29.__r_.__value_.__r.__words[0];
       }
 
       buf = 136380931;
       buf_4 = v16;
-      v34 = 2082;
-      v35 = v17;
+      v33 = 2082;
+      v34 = v17;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "TileEvict, fromDB, %{private}s, trigger, %{public}s", &buf, 0x16u);
     }
 
     Current = CFAbsoluteTimeGetCurrent();
-    v28 = 0;
-    v18 = *var0;
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    v27 = 0;
+    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
     {
-      sub_100003228(&__p, v30.__r_.__value_.__l.__data_, v30.__r_.__value_.__l.__size_);
+      sub_100003228(&__p, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v30;
+      __p = v29;
     }
 
-    v36 = 0;
+    v35 = 0;
     operator new();
   }
 
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v30.__r_.__value_.__l.__data_);
+    operator delete(v29.__r_.__value_.__l.__data_);
   }
 
   objc_autoreleasePoolPop(context);
   activity = [tilesCopy activity];
-  v20 = activity == 0;
+  v19 = activity == 0;
 
-  if (!v20)
+  if (!v19)
   {
     activity2 = [tilesCopy activity];
-    v22 = xpc_activity_set_state(activity2, 5);
+    v21 = xpc_activity_set_state(activity2, 5);
 
-    if (!v22)
+    if (!v21)
     {
       if (qword_10045B070 != -1)
       {
         sub_100388618();
       }
 
-      v23 = qword_10045B078;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v22 = qword_10045B078;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         activity3 = [tilesCopy activity];
         state = xpc_activity_get_state(activity3);
         buf = 134349056;
         buf_4 = state;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "failed to mark tile cleanup activity as done.  current state is %{public}ld", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "failed to mark tile cleanup activity as done.  current state is %{public}ld", &buf, 0xCu);
       }
     }
   }

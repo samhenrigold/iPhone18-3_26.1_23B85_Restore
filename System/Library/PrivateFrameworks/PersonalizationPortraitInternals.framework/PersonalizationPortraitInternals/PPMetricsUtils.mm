@@ -32,35 +32,33 @@
 
 + (id)filterGroupIdAllowance:(id)allowance
 {
-  v21[9] = *MEMORY[0x277D85DE8];
+  v20[9] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3A6F0];
-  v13[0] = *MEMORY[0x277D3A6E8];
-  v13[1] = v3;
-  v21[0] = v13[0];
-  v21[1] = v3;
+  v12[0] = *MEMORY[0x277D3A6E8];
+  v12[1] = v3;
+  v20[0] = v12[0];
+  v20[1] = v3;
   v4 = *MEMORY[0x277D3A700];
-  v14 = *MEMORY[0x277D3A6F8];
-  v15 = v4;
-  v21[2] = v14;
-  v21[3] = v4;
+  v13 = *MEMORY[0x277D3A6F8];
+  v14 = v4;
+  v20[2] = v13;
+  v20[3] = v4;
   v5 = *MEMORY[0x277D3A718];
-  v16 = *MEMORY[0x277D3A708];
-  v17 = v5;
-  v21[4] = v16;
-  v21[5] = v5;
+  v15 = *MEMORY[0x277D3A708];
+  v16 = v5;
+  v20[4] = v15;
+  v20[5] = v5;
   v6 = *MEMORY[0x277D3A710];
-  v18 = *MEMORY[0x277D3A720];
-  v19 = v6;
-  v21[6] = v18;
-  v21[7] = v6;
-  v20 = *MEMORY[0x277D3A728];
-  v21[8] = v20;
+  v17 = *MEMORY[0x277D3A720];
+  v18 = v6;
+  v20[6] = v17;
+  v20[7] = v6;
+  v19 = *MEMORY[0x277D3A728];
+  v20[8] = v19;
   v7 = MEMORY[0x277CBEAC0];
   allowanceCopy = allowance;
-  v9 = [v7 dictionaryWithObjects:v21 forKeys:v13 count:9];
+  v9 = [v7 dictionaryWithObjects:v20 forKeys:v12 count:9];
   v10 = [v9 objectForKeyedSubscript:allowanceCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -154,7 +152,7 @@
 
 + (int)sourceForBundleId:(id)id
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (sourceForBundleId___pasOnceToken3 != -1)
   {
@@ -171,26 +169,26 @@ LABEL_17:
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v6 = [*MEMORY[0x277D3A6C8] objectForKeyedSubscript:{idCopy, 0}];
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [v4 objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
+          v11 = [v4 objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i)];
           if (v11)
           {
             v5 = v11;
@@ -199,7 +197,7 @@ LABEL_17:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
         if (v8)
         {
           continue;
@@ -224,84 +222,82 @@ LABEL_17:
 
     else
     {
-      v15 = pp_default_log_handle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = pp_default_log_handle();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138739971;
-        v21 = idCopy;
-        _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEFAULT, "PPMetricsUtils: unknown first-party source %{sensitive}@", buf, 0xCu);
+        v20 = idCopy;
+        _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_DEFAULT, "PPMetricsUtils: unknown first-party source %{sensitive}@", buf, 0xCu);
       }
 
       intValue = 16;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 void __36__PPMetricsUtils_sourceForBundleId___block_invoke()
 {
-  v15[21] = *MEMORY[0x277D85DE8];
+  v14[21] = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
   v1 = *MEMORY[0x277D3A668];
-  v14[0] = *MEMORY[0x277D3A698];
-  v14[1] = v1;
-  v15[0] = &unk_284784428;
-  v15[1] = &unk_284784440;
+  v13[0] = *MEMORY[0x277D3A698];
+  v13[1] = v1;
+  v14[0] = &unk_284784428;
+  v14[1] = &unk_284784440;
   v2 = *MEMORY[0x277D3A658];
-  v14[2] = *MEMORY[0x277D3A648];
-  v14[3] = v2;
-  v15[2] = &unk_284784458;
-  v15[3] = &unk_284784470;
+  v13[2] = *MEMORY[0x277D3A648];
+  v13[3] = v2;
+  v14[2] = &unk_284784458;
+  v14[3] = &unk_284784470;
   v3 = *MEMORY[0x277D3A680];
-  v14[4] = *MEMORY[0x277D3A6A8];
-  v14[5] = v3;
-  v15[4] = &unk_284784488;
-  v15[5] = &unk_2847844A0;
+  v13[4] = *MEMORY[0x277D3A6A8];
+  v13[5] = v3;
+  v14[4] = &unk_284784488;
+  v14[5] = &unk_2847844A0;
   v4 = *MEMORY[0x277D3A688];
-  v14[6] = *MEMORY[0x277D3A618];
-  v14[7] = v4;
-  v15[6] = &unk_2847844B8;
-  v15[7] = &unk_2847844D0;
+  v13[6] = *MEMORY[0x277D3A618];
+  v13[7] = v4;
+  v14[6] = &unk_2847844B8;
+  v14[7] = &unk_2847844D0;
   v5 = *MEMORY[0x277D3A678];
-  v14[8] = *MEMORY[0x277D3A5F0];
-  v14[9] = v5;
-  v15[8] = &unk_2847844E8;
-  v15[9] = &unk_284784500;
+  v13[8] = *MEMORY[0x277D3A5F0];
+  v13[9] = v5;
+  v14[8] = &unk_2847844E8;
+  v14[9] = &unk_284784500;
   v6 = *MEMORY[0x277D3A650];
-  v14[10] = *MEMORY[0x277D3A670];
-  v14[11] = v6;
-  v15[10] = &unk_284784518;
-  v15[11] = &unk_284784530;
+  v13[10] = *MEMORY[0x277D3A670];
+  v13[11] = v6;
+  v14[10] = &unk_284784518;
+  v14[11] = &unk_284784530;
   v7 = *MEMORY[0x277D3A690];
-  v14[12] = *MEMORY[0x277D3A600];
-  v14[13] = v7;
-  v15[12] = &unk_284784548;
-  v15[13] = &unk_284784560;
+  v13[12] = *MEMORY[0x277D3A600];
+  v13[13] = v7;
+  v14[12] = &unk_284784548;
+  v14[13] = &unk_284784560;
   v8 = *MEMORY[0x277D3A5F8];
-  v14[14] = *MEMORY[0x277D3A608];
-  v14[15] = v8;
-  v15[14] = &unk_284784578;
-  v15[15] = &unk_284784590;
+  v13[14] = *MEMORY[0x277D3A608];
+  v13[15] = v8;
+  v14[14] = &unk_284784578;
+  v14[15] = &unk_284784590;
   v9 = *MEMORY[0x277D3A610];
-  v14[16] = *MEMORY[0x277D3A6D0];
-  v14[17] = v9;
-  v15[16] = &unk_2847845A8;
-  v15[17] = &unk_2847845C0;
+  v13[16] = *MEMORY[0x277D3A6D0];
+  v13[17] = v9;
+  v14[16] = &unk_2847845A8;
+  v14[17] = &unk_2847845C0;
   v10 = *MEMORY[0x277D3A6B8];
-  v14[18] = *MEMORY[0x277D3A660];
-  v14[19] = v10;
-  v15[18] = &unk_2847845D8;
-  v15[19] = &unk_2847845F0;
-  v14[20] = *MEMORY[0x277D3A6C0];
-  v15[20] = &unk_284784608;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:21];
+  v13[18] = *MEMORY[0x277D3A660];
+  v13[19] = v10;
+  v14[18] = &unk_2847845D8;
+  v14[19] = &unk_2847845F0;
+  v13[20] = *MEMORY[0x277D3A6C0];
+  v14[20] = &unk_284784608;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:21];
   v12 = sourceForBundleId___pasExprOnceResult;
   sourceForBundleId___pasExprOnceResult = v11;
 
   objc_autoreleasePoolPop(v0);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)filterBundleId:(id)id

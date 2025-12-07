@@ -1,4 +1,4 @@
-void init_notification_matching(uint64_t a1)
+void init_notification_matching(uint64_t result)
 {
   if (qword_41C8 != -1)
   {
@@ -10,11 +10,9 @@ void init_notification_matching(uint64_t a1)
   do
   {
     v4 = v3;
-    v5 = &(&off_4148)[4 * v2];
-    if (v5[2])
+    if ((&off_4148)[4 * v2 + 2])
     {
-      *malloc_type_calloc(1uLL, 0x20uLL, 0xE0040EC2F7C6DuLL) = a1;
-      v6 = *v5;
+      *malloc_type_calloc(1uLL, 0x20uLL, 0xE0040EC2F7C6DuLL) = result;
       xpc_event_provider_create();
     }
 
@@ -138,25 +136,23 @@ CFStringRef sub_9E0(void *a1, const char *a2)
 
 void sub_A60(uint64_t a1, uint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5)
 {
-  v9 = xpc_dictionary_create(0, 0, 0);
+  v8 = xpc_dictionary_create(0, 0, 0);
   Length = CFStringGetLength(a3);
   MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-  v12 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x32828DDCuLL);
-  if (v12)
+  v11 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x32828DDCuLL);
+  if (v11)
   {
-    v13 = v12;
-    if (CFStringGetCString(a3, v12, MaximumSizeForEncoding + 1, 0x8000100u))
+    v12 = v11;
+    if (CFStringGetCString(a3, v11, MaximumSizeForEncoding + 1, 0x8000100u))
     {
-      xpc_dictionary_set_string(v9, "Name", v13);
+      xpc_dictionary_set_string(v8, "Name", v12);
     }
 
-    free(v13);
+    free(v12);
   }
 
-  sub_BF0(v9, "Object", a4);
-  sub_BF0(v9, "UserInfo", a5);
-  v14 = *(a2 + 8);
-  v15 = *(a2 + 16);
+  sub_BF0(v8, "Object", a4);
+  sub_BF0(v8, "UserInfo", a5);
   xpc_event_provider_token_fire();
 }
 

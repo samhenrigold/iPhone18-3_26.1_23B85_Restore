@@ -12,7 +12,6 @@
 - (CBConnection)initWithXPCObject:(id)object error:(id *)error;
 - (NSString)description;
 - (id)_ensureXPCStarted;
-- (uint64_t)dealloc;
 - (void)_abortReadsWithError:(id)error;
 - (void)_abortWritesWithError:(id)error;
 - (void)_activateWithCompletion:(id)completion;
@@ -28,6 +27,7 @@
 - (void)_pairingPerformActionBLE:(int)e withOptions:(id)options completionHandler:(id)handler;
 - (void)_pairingPerformActionClassic:(int)classic completionHandler:(id)handler;
 - (void)_pairingPerformActionClassic:(int)classic withOptions:(id)options completionHandler:(id)handler;
+- (void)_pairingSetOOBEnabled:(BOOL)enabled completionHandler:(id)handler;
 - (void)_prepareReadRequest:(id)request;
 - (void)_processReads:(BOOL)reads;
 - (void)_processWrites;
@@ -89,8 +89,8 @@
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v5 = [(CBConnection *)self dealloc];
-    [(CBConnection *)v5 encodeWithXPCObject:v6, v7];
+    [(CBConnection *)self dealloc];
+    [(CBConnection *)v4 encodeWithXPCObject:v5, v6];
   }
 
   else
@@ -101,16 +101,15 @@
       if ((ucat->var3 & 0x40000) != 0)
       {
         selfCopy = self;
-        v4 = self->_ucat;
         LogCategory_Remove();
         self = selfCopy;
         selfCopy->_ucat = 0;
       }
     }
 
-    v8.receiver = self;
-    v8.super_class = CBConnection;
-    [(CBConnection *)&v8 dealloc];
+    v7.receiver = self;
+    v7.super_class = CBConnection;
+    [(CBConnection *)&v7 dealloc];
   }
 }
 
@@ -142,7 +141,6 @@
     xpc_dictionary_set_uint64(xdict, "intF", internalFlags);
   }
 
-  peerDevice = self->_peerDevice;
   CUXPCEncodeObject();
   if (self->_blePSM)
   {
@@ -155,7 +153,6 @@
     xpc_dictionary_set_uint64(xdict, "svFl", serviceFlags);
   }
 
-  remoteDevice = self->_remoteDevice;
   CUXPCEncodeObject();
   socketFD = self->_socketFD;
   if (socketFD)
@@ -169,7 +166,6 @@
     xpc_dictionary_set_uint64(xdict, "ucas", useCase);
   }
 
-  useCaseClientIDs = self->_useCaseClientIDs;
   CUXPCEncodeNSArrayOfNSString();
 }
 
@@ -199,131 +195,1018 @@
     v4 = identifier2;
   }
 
-  NSAppendPrintF_safe();
-  v9 = 0;
+  v63 = 0;
+  NSAppendPrintF_safe(&v63, "CBConnection");
+  v9 = v63;
   v10 = v9;
   label = self->_label;
   if (label)
   {
-    v43 = v9;
-    v36 = label;
-    NSAppendPrintF_safe();
-    v12 = v43;
+    v62 = v9;
+    v12 = label;
+    NSAppendPrintF_safe(&v62, "-%@", v12);
+    v13 = v62;
 
-    v10 = v12;
+    v10 = v13;
   }
 
-  NSAppendPrintF_safe();
-  v13 = v10;
+  v61 = v10;
+  NSAppendPrintF_safe(&v61, ": Peer %@", v4);
+  v14 = v61;
 
-  clientID = self->_clientID;
-  NSAppendPrintF_safe();
-  v14 = v13;
+  v60 = v14;
+  NSAppendPrintF_safe(&v60, ", CID 0x%X", self->_clientID);
+  v15 = v60;
 
+  blePSM = self->_blePSM;
   if (self->_blePSM)
   {
-    NSAppendPrintF_safe();
-    v15 = v14;
+    v59 = v15;
+    NSAppendPrintF_safe(&v59, ", PSM 0x%X", blePSM);
+    v17 = v59;
 
-    v14 = v15;
+    v15 = v17;
   }
 
   if (self->_connectionFlags)
   {
-    v38 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v16 = v14;
+    v58 = v15;
+    v18 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v58, ", CF %@", v18);
+    v19 = v58;
 
-    v14 = v16;
+    v15 = v19;
   }
 
   connectionLatency = self->_connectionLatency;
   if (connectionLatency != -99)
   {
-    CBCentralManagerConnectionLatencyToString(connectionLatency);
-    NSAppendPrintF_safe();
-    v18 = v14;
+    v57 = v15;
+    v21 = CBCentralManagerConnectionLatencyToString(connectionLatency);
+    NSAppendPrintF_safe(&v57, ", CL %s", v21);
+    v22 = v57;
 
-    v14 = v18;
+    v15 = v22;
   }
 
   if (self->_serviceFlags)
   {
-    v39 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v19 = v14;
+    v56 = v15;
+    v23 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v56, ", SF %@", v23);
+    v24 = v56;
 
-    v14 = v19;
+    v15 = v24;
   }
 
   remoteDevice = self->_remoteDevice;
   if (remoteDevice)
   {
-    v40 = remoteDevice;
-    NSAppendPrintF_safe();
-    v21 = v14;
+    v55 = v15;
+    v26 = remoteDevice;
+    NSAppendPrintF_safe(&v55, ", Remote %@", v26);
+    v27 = v55;
 
-    v14 = v21;
+    v15 = v27;
   }
 
-  if (self->_connectTimeoutSeconds != 0.0)
+  connectTimeoutSeconds = self->_connectTimeoutSeconds;
+  if (connectTimeoutSeconds != 0.0)
   {
-    NSAppendPrintF_safe();
-    v22 = v14;
+    v54 = v15;
+    NSAppendPrintF_safe(&v54, ", CnTO %.3f secs", connectTimeoutSeconds);
+    v29 = v54;
 
-    v14 = v22;
+    v15 = v29;
   }
 
   serviceUUIDs = self->_serviceUUIDs;
   if (serviceUUIDs)
   {
-    v24 = serviceUUIDs;
-    v41 = CUPrintNSObjectOneLine();
-    NSAppendPrintF_safe();
-    v25 = v14;
+    v53 = v15;
+    v31 = serviceUUIDs;
+    v32 = CUPrintNSObjectOneLine();
+    NSAppendPrintF_safe(&v53, ", SrvU %@", v32);
+    v33 = v53;
 
-    v14 = v25;
+    v15 = v33;
   }
 
-  if (self->_socketFD)
+  socketFD = self->_socketFD;
+  if (socketFD)
   {
-    NSAppendPrintF_safe();
-    v26 = v14;
+    v52 = v15;
+    NSAppendPrintF_safe(&v52, ", Socket %d", socketFD);
+    v35 = v52;
 
-    v14 = v26;
+    v15 = v35;
   }
 
-  if (self->_useCase)
+  useCase = self->_useCase;
+  if (useCase)
   {
-    NSAppendPrintF_safe();
-    v28 = v14;
+    v51 = v15;
+    if (useCase < 0x20000)
+    {
+      v38 = useCase - 1;
+      v37 = "HealthKit";
+      switch(v38)
+      {
+        case 0:
+          goto LABEL_233;
+        case 1:
+          v37 = "HomeKit";
+          break;
+        case 2:
+          v37 = "FindMyObjectConnection";
+          break;
+        case 3:
+          v37 = "FindMyObjectConnectionTransient";
+          break;
+        case 4:
+          v37 = "MIDI";
+          break;
+        case 5:
+          v37 = "Continuity";
+          break;
+        case 6:
+          v37 = "InstantHotSpot";
+          break;
+        case 7:
+          v37 = "NearBy";
+          break;
+        case 8:
+          v37 = "Sharing";
+          break;
+        case 9:
+          v37 = "HearingSupport";
+          break;
+        case 10:
+          v37 = "Magnet";
+          break;
+        case 11:
+          v37 = "HID";
+          break;
+        case 12:
+          v37 = "LEA";
+          break;
+        case 13:
+          v37 = "External";
+          break;
+        case 14:
+          v37 = "ExternalMedical";
+          break;
+        case 15:
+          v37 = "ExternalLock";
+          break;
+        case 16:
+          v37 = "ExternalWatch";
+          break;
+        case 17:
+          v37 = "SmartRouting";
+          break;
+        case 18:
+          v37 = "DigitalID";
+          break;
+        case 19:
+          v37 = "DigitalKey";
+          break;
+        case 20:
+          v37 = "DigitalCarKey";
+          break;
+        case 21:
+          v37 = "HeySiri";
+          break;
+        case 22:
+          v37 = "ThirdPartyApp";
+          break;
+        case 23:
+          v37 = "CNJ";
+          break;
+        case 24:
+        case 25:
+        case 26:
+        case 27:
+        case 28:
+        case 29:
+        case 30:
+        case 31:
+        case 32:
+        case 33:
+        case 34:
+        case 35:
+        case 36:
+        case 37:
+        case 38:
+        case 39:
+        case 40:
+        case 41:
+        case 42:
+        case 43:
+        case 44:
+        case 45:
+        case 46:
+        case 47:
+        case 48:
+        case 49:
+        case 50:
+        case 51:
+        case 52:
+        case 53:
+        case 54:
+        case 55:
+        case 56:
+        case 57:
+        case 58:
+        case 59:
+        case 60:
+        case 61:
+        case 62:
+        case 63:
+        case 64:
+        case 65:
+        case 66:
+        case 67:
+        case 68:
+        case 69:
+        case 70:
+        case 71:
+        case 72:
+        case 73:
+        case 74:
+        case 75:
+        case 76:
+        case 77:
+        case 78:
+        case 79:
+        case 80:
+        case 81:
+        case 82:
+        case 83:
+        case 84:
+        case 85:
+        case 86:
+        case 87:
+        case 88:
+        case 89:
+        case 90:
+        case 91:
+        case 92:
+        case 93:
+        case 94:
+        case 95:
+        case 96:
+        case 97:
+        case 98:
+        case 99:
+        case 100:
+        case 101:
+        case 102:
+        case 103:
+        case 104:
+        case 105:
+        case 106:
+        case 107:
+        case 108:
+        case 109:
+        case 110:
+        case 111:
+        case 112:
+        case 113:
+        case 114:
+        case 115:
+        case 116:
+        case 117:
+        case 118:
+        case 119:
+        case 120:
+        case 121:
+        case 122:
+        case 123:
+        case 124:
+        case 125:
+        case 126:
+        case 127:
+        case 128:
+        case 129:
+        case 130:
+        case 131:
+        case 132:
+        case 133:
+        case 134:
+        case 135:
+        case 136:
+        case 137:
+        case 138:
+        case 139:
+        case 140:
+        case 141:
+        case 142:
+        case 143:
+        case 144:
+        case 145:
+        case 146:
+        case 147:
+        case 148:
+        case 149:
+        case 150:
+        case 151:
+        case 152:
+        case 153:
+        case 154:
+        case 155:
+        case 156:
+        case 157:
+        case 158:
+        case 159:
+        case 160:
+        case 161:
+        case 162:
+        case 163:
+        case 164:
+        case 165:
+        case 166:
+        case 167:
+        case 168:
+        case 169:
+        case 170:
+        case 171:
+        case 172:
+        case 173:
+        case 174:
+        case 175:
+        case 176:
+        case 177:
+        case 178:
+        case 179:
+        case 180:
+        case 181:
+        case 182:
+        case 183:
+        case 184:
+        case 185:
+        case 186:
+        case 187:
+        case 188:
+        case 189:
+        case 190:
+        case 191:
+        case 192:
+        case 193:
+        case 194:
+        case 195:
+        case 196:
+        case 197:
+        case 198:
+        case 199:
+        case 200:
+        case 201:
+        case 202:
+        case 203:
+        case 204:
+        case 205:
+        case 206:
+        case 207:
+        case 208:
+        case 209:
+        case 210:
+        case 211:
+        case 212:
+        case 213:
+        case 214:
+        case 215:
+        case 216:
+        case 217:
+        case 218:
+        case 219:
+        case 220:
+        case 221:
+        case 222:
+        case 223:
+        case 224:
+        case 225:
+        case 226:
+        case 227:
+        case 228:
+        case 229:
+        case 230:
+        case 231:
+        case 232:
+        case 233:
+        case 234:
+        case 235:
+        case 236:
+        case 237:
+        case 238:
+        case 239:
+        case 240:
+        case 241:
+        case 242:
+        case 243:
+        case 244:
+        case 245:
+        case 246:
+        case 247:
+        case 248:
+        case 249:
+        case 250:
+        case 251:
+        case 252:
+        case 253:
+        case 254:
+        case 260:
+        case 261:
+          goto LABEL_95;
+        case 255:
+          v37 = "DevicePresenceDetection";
+          break;
+        case 256:
+          v37 = "AudioBox";
+          break;
+        case 257:
+          v37 = "SIMTransfer";
+          break;
+        case 258:
+          v37 = "ProximityScreenOnLeechScan";
+          break;
+        case 259:
+          v37 = "MacMigrate";
+          break;
+        case 262:
+          v37 = "HIDUARTService";
+          break;
+        case 263:
+          v37 = "AccessibilitySwitchControlPairing";
+          break;
+        case 264:
+          v37 = "BaseBandFastConnect";
+          break;
+        case 265:
+          v37 = "SafetyAlerts";
+          break;
+        case 266:
+          v37 = "LECarPlay";
+          break;
+        case 267:
+          v37 = "TCCBluetooth";
+          break;
+        case 268:
+          v37 = "AOPBufferLeech";
+          break;
+        case 269:
+          v37 = "HighPriorityScanWiFi";
+          break;
+        default:
+          switch("HealthKit")
+          {
+            case 0x10000u:
+              v37 = "FindMyAction";
+              break;
+            case 0x10001u:
+              v37 = "FindMyBackground";
+              break;
+            case 0x10002u:
+              v37 = "FindMyActionHELE";
+              break;
+            case 0x10003u:
+              v37 = "FindMyBackgroundHELE";
+              break;
+            case 0x10004u:
+              v37 = "FindMyActionTransient";
+              break;
+            case 0x10005u:
+              v37 = "FindMyBackgroundTransient";
+              break;
+            case 0x10006u:
+              v37 = "FindMyActionHELETransient";
+              break;
+            case 0x10007u:
+              v37 = "FindMyBackgroundHELETransient";
+              break;
+            case 0x10008u:
+              v37 = "FindMyNotOptedIn";
+              break;
+            case 0x10009u:
+              v37 = "FindMyOptedIn";
+              break;
+            case 0x1000Au:
+              v37 = "FindMySepAlertsEnabled";
+              break;
+            case 0x1000Bu:
+              v37 = "FindMyTemporaryAggressiveLegacy";
+              break;
+            case 0x1000Cu:
+              v37 = "FindMyTemporaryLongAggressive";
+              break;
+            case 0x1000Du:
+              v37 = "FindMyBTFindingUserInitiated";
+              break;
+            case 0x1000Eu:
+              v37 = "FindMyHELE";
+              break;
+            case 0x1000Fu:
+              v37 = "FindMyBeaconOnDemand";
+              break;
+            case 0x10010u:
+              v37 = "FindMyWildTimedScan";
+              break;
+            case 0x10011u:
+              v37 = "FindMyBackgroundLeechScan";
+              break;
+            case 0x10012u:
+              v37 = "FindMySnifferMode";
+              break;
+            case 0x10013u:
+              v37 = "FindMyUnpair";
+              break;
+            case 0x10014u:
+              v37 = "FindMyUnpairHELE";
+              break;
+            case 0x10015u:
+              v37 = "FindMyPlaySound";
+              break;
+            case 0x10016u:
+              v37 = "FindMyPlaySoundHELE";
+              break;
+            case 0x10017u:
+              v37 = "FindMyNotOptedInBeepOnMoveWaking";
+              break;
+            case 0x10018u:
+              v37 = "FindMyUTTransient";
+              break;
+            case 0x10019u:
+              v37 = "FindMyUTHELETransient";
+              break;
+            case 0x1001Au:
+              v37 = "FindMyActionExtendedRange";
+              break;
+            case 0x1001Bu:
+              v37 = "FindMyActionExtendedRangeLE2M";
+              break;
+            case 0x1001Cu:
+              v37 = "FindMyActionExtendedRangeTransient";
+              break;
+            case 0x1001Du:
+              v37 = "FindMyPlaySoundExtendedRange";
+              break;
+            case 0x1001Eu:
+              v37 = "FindMyPair";
+              break;
+            case 0x1001Fu:
+              v37 = "FindMyTemporaryAggressiveLegacyExtendedRange";
+              break;
+            default:
+              goto LABEL_95;
+          }
 
-    v14 = v28;
+          break;
+      }
+
+      goto LABEL_233;
+    }
+
+    if (useCase > 0x80000)
+    {
+      if (useCase < 0x100000)
+      {
+        if (useCase <= 851968)
+        {
+          if (useCase >= 655360)
+          {
+            if (useCase <= 720896)
+            {
+              if (useCase == 655360)
+              {
+                v37 = "AccessDigitalHomeKey";
+                goto LABEL_233;
+              }
+
+              if (useCase == 720896)
+              {
+                v37 = "SoftwareUpdateBTWake";
+                goto LABEL_233;
+              }
+            }
+
+            else
+            {
+              switch(useCase)
+              {
+                case 720897:
+                  v37 = "SofrwareUpdateOutboxControllerAuth";
+                  goto LABEL_233;
+                case 786432:
+                  v37 = "ProxControlDeviceClose";
+                  goto LABEL_233;
+                case 851968:
+                  v37 = "DCTProtocolTelephony";
+                  goto LABEL_233;
+              }
+            }
+          }
+
+          else
+          {
+            if (useCase <= 524290)
+            {
+              if (useCase == 524289)
+              {
+                v37 = "ADPDBuffer";
+              }
+
+              else
+              {
+                v37 = "MicroLocation";
+              }
+
+              goto LABEL_233;
+            }
+
+            switch(useCase)
+            {
+              case 524291:
+                v37 = "MicroLocationLeech";
+                goto LABEL_233;
+              case 589824:
+                v37 = "FindNearbyRemote";
+                goto LABEL_233;
+              case 589825:
+                v37 = "FindNearbyPencil";
+                goto LABEL_233;
+            }
+          }
+        }
+
+        else if (useCase <= 983041)
+        {
+          if (useCase <= 917504)
+          {
+            if (useCase == 851969)
+            {
+              v37 = "DCTProtocolDataAndTelephony";
+              goto LABEL_233;
+            }
+
+            if (useCase == 917504)
+            {
+              v37 = "NearbyFaceTime";
+              goto LABEL_233;
+            }
+          }
+
+          else
+          {
+            switch(useCase)
+            {
+              case 917505:
+                v37 = "NearbyFaceTimeData";
+                goto LABEL_233;
+              case 983040:
+                v37 = "SOSBeaconPartA";
+                goto LABEL_233;
+              case 983041:
+                v37 = "SOSBeaconPartB";
+                goto LABEL_233;
+            }
+          }
+        }
+
+        else
+        {
+          if (useCase <= 983044)
+          {
+            if (useCase == 983042)
+            {
+              v37 = "SOSBeaconPrecisionFindResponse";
+            }
+
+            else if (useCase == 983043)
+            {
+              v37 = "SOSBeaconPrecisionFindRequest";
+            }
+
+            else
+            {
+              v37 = "SOSBeaconScan";
+            }
+
+            goto LABEL_233;
+          }
+
+          switch(useCase)
+          {
+            case 983045:
+              v37 = "SOSBeaconActivateScan";
+              goto LABEL_233;
+            case 983046:
+              v37 = "SOSBeaconActivateAdvA";
+              goto LABEL_233;
+            case 983047:
+              v37 = "SOSBeaconActivateAdvB";
+              goto LABEL_233;
+          }
+        }
+      }
+
+      else
+      {
+        if (useCase > 2147418111)
+        {
+          switch(useCase)
+          {
+            case 2147418112:
+              v37 = "InternalTestNoLockScan";
+              break;
+            case 2147418113:
+              v37 = "InternalTestNoScreenOffScan";
+              break;
+            case 2147418114:
+              v37 = "InternalTestScanWithNoDups";
+              break;
+            case 2147418115:
+              v37 = "InternalTestScanWithDups";
+              break;
+            case 2147418116:
+              v37 = "InternalTestScanFor20Seconds";
+              break;
+            case 2147418117:
+              v37 = "InternalTestActiveScan";
+              break;
+            case 2147418118:
+              v37 = "InternalTestUUIDScan";
+              break;
+            case 2147418119:
+              v37 = "InternalTestScanFor10ClockSeconds";
+              break;
+            case 2147418120:
+              v37 = "InternalTestScanBoost";
+              break;
+            case 2147418121:
+              v37 = "InternalTestDiscoveryScanWithMRC";
+              break;
+            case 2147418122:
+              v37 = "InternalTestAdvWithHigherPower";
+              break;
+            case 2147418123:
+              v37 = "InternalTestScanLowDutyCycleMCOnly";
+              break;
+            case 2147418124:
+              v37 = "InternalTestUUIDScanWithMinRSSI";
+              break;
+            case 2147418125:
+              v37 = "InternalTestUUIDScanWithMinRSSIMediumLow";
+              break;
+            case 2147418126:
+              v37 = "InternalTestAdvWithHigherPowerServiceDataConnectable";
+              break;
+            case 2147418127:
+              v37 = "InternalTestAdvWithHigherPowerServiceDataNonConnectable";
+              break;
+            case 2147418128:
+              v37 = "InternalTestAdvWithHigherPowerServiceDataS2";
+              break;
+            case 2147418129:
+              v37 = "InternalTestAdvWithHigherPowerServiceDataS8";
+              break;
+            case 2147418130:
+              v37 = "InternalTestDiscoveryScanCodedPHY";
+              break;
+            default:
+              goto LABEL_95;
+          }
+
+          goto LABEL_233;
+        }
+
+        switch(useCase)
+        {
+          case 1048576:
+            v37 = "DOS";
+            goto LABEL_233;
+          case 1048577:
+            v37 = "DOD";
+            goto LABEL_233;
+          case 1114112:
+            v37 = "ProximityServiceDeviceSetup";
+            goto LABEL_233;
+        }
+      }
+    }
+
+    else
+    {
+      if (useCase < 196608)
+      {
+        switch(useCase)
+        {
+          case 131072:
+            v37 = "SharingDefault";
+            break;
+          case 131073:
+            v37 = "SharingPhoneAutoUnlock";
+            break;
+          case 131074:
+            v37 = "SharingSiriWatchAuth";
+            break;
+          case 131075:
+            v37 = "SharingMacAutoUnlock";
+            break;
+          case 131076:
+            v37 = "SharingEDTScreenOn";
+            break;
+          case 131077:
+            v37 = "SharingEDTWiFiDisabled";
+            break;
+          case 131078:
+            v37 = "SharingEDTWombatEligibleAsDefaultCamera";
+            break;
+          case 131079:
+            v37 = "SharingEDTWombatCameraPicker";
+            break;
+          case 131080:
+            v37 = "SharingWombatBackground";
+            break;
+          case 131081:
+            v37 = "SharingUniversalControl";
+            break;
+          case 131082:
+            v37 = "SharingPeopleProximity";
+            break;
+          case 131083:
+            v37 = "SharingEDTEnsembleOpenDisplayPrefs";
+            break;
+          case 131084:
+            v37 = "SharingEDTNearbydMotionStopped";
+            break;
+          case 131085:
+            v37 = "SharingDoubleBoostGenericScan";
+            break;
+          case 131086:
+            v37 = "SharingEDTIncomingAdvertisement ";
+            break;
+          case 131087:
+            v37 = "SharingEDTWombatStreamStart";
+            break;
+          case 131088:
+            v37 = "SharingOYAutoUnlock";
+            break;
+          case 131090:
+            v37 = "SharingAirDrop";
+            break;
+          case 131091:
+            v37 = "SharingNearbyInvitationHost";
+            break;
+          case 131092:
+            v37 = "SharingNearbyInvitationParticipant";
+            break;
+          case 131093:
+            v37 = "SharingAirDropAskToAirDrop";
+            break;
+          case 131094:
+            v37 = "SharingAirDropTempIdentity";
+            break;
+          case 131095:
+            v37 = "SharingAirDropNeedsCLink";
+            break;
+          case 131096:
+            v37 = "SharingRemoteWidgetUpdate";
+            break;
+          case 131097:
+            v37 = "SharingCountryCodeUpdate";
+            break;
+          case 131098:
+            v37 = "SharingMacPhoneAutoUnlock";
+            break;
+          case 131099:
+            v37 = "SharingVisionProDiscovery";
+            break;
+          case 131100:
+            v37 = "SharingVisionProStateChange";
+            break;
+          case 131101:
+            v37 = "SharingContinuityScreen";
+            break;
+          case 131102:
+            v37 = "SharingEDTRemoteDisplay";
+            break;
+          case 131103:
+            v37 = "SharingHomePodSetup";
+            break;
+          default:
+            goto LABEL_95;
+        }
+
+        goto LABEL_233;
+      }
+
+      if (useCase > 393218)
+      {
+        if (useCase > 458752)
+        {
+          switch(useCase)
+          {
+            case 0x70001:
+              v37 = "PrecisionFindingFindee";
+              goto LABEL_233;
+            case 0x70002:
+              v37 = "SpatialHandoffHome";
+              goto LABEL_233;
+            case 0x80000:
+              v37 = "ADPD";
+              goto LABEL_233;
+          }
+        }
+
+        else
+        {
+          switch(useCase)
+          {
+            case 393219:
+              v37 = "AppleIDSignIn";
+              goto LABEL_233;
+            case 393220:
+              v37 = "AppleIDSignInSettings";
+              goto LABEL_233;
+            case 458752:
+              v37 = "PrecisionFindingFinder";
+              goto LABEL_233;
+          }
+        }
+      }
+
+      else
+      {
+        if (useCase >= 393216)
+        {
+          if (useCase == 393216)
+          {
+            v37 = "CaptiveNetworkJoin";
+          }
+
+          else if (useCase == 393217)
+          {
+            v37 = "UseCaseSIMTransfer";
+          }
+
+          else
+          {
+            v37 = "MacSetup";
+          }
+
+          goto LABEL_233;
+        }
+
+        switch(useCase)
+        {
+          case 196608:
+            v37 = "DigitalIDTSA";
+            goto LABEL_233;
+          case 262144:
+            v37 = "DigitalCarKeyThirdParty";
+            goto LABEL_233;
+          case 327680:
+            v37 = "RapportThirdParty";
+LABEL_233:
+            NSAppendPrintF_safe(&v51, ", ucas %s", v37);
+            v39 = v51;
+
+            v15 = v39;
+            goto LABEL_234;
+        }
+      }
+    }
+
+LABEL_95:
+    v37 = "?";
+    goto LABEL_233;
   }
 
+LABEL_234:
   useCaseClientIDs = self->_useCaseClientIDs;
   if (useCaseClientIDs)
   {
-    v30 = useCaseClientIDs;
+    v50 = v15;
+    v41 = useCaseClientIDs;
     v42 = CUPrintNSObjectOneLine();
-    NSAppendPrintF_safe();
-    v31 = v14;
+    NSAppendPrintF_safe(&v50, ", ucid %@", v42);
+    v43 = v50;
 
-    v14 = v31;
+    v15 = v43;
   }
 
   dispatchQueue = self->_dispatchQueue;
   if (dispatchQueue)
   {
-    dispatch_queue_get_label(dispatchQueue);
-    v33 = dispatchQueue;
-    NSAppendPrintF_safe();
-    v34 = v14;
+    v49 = v15;
+    v45 = dispatch_queue_get_label(dispatchQueue);
+    v46 = dispatchQueue;
+    NSAppendPrintF_safe(&v49, ", DspQ %s", v45);
+    v47 = v49;
 
-    v14 = v34;
+    v15 = v47;
   }
 
-  return v14;
+  return v15;
 }
 
 - (CBConnection)initWithXPCEventRepresentation:(id)representation error:(id *)error
@@ -334,15 +1217,15 @@
   {
     if (error)
     {
-      v27 = "CBConnection init failed";
+      v26 = "CBConnection init failed";
 LABEL_20:
-      CBErrorF(-6756, v27, v7, v8, v9, v10, v11, v12, v29);
-      *error = v25 = 0;
+      CBErrorF(-6756, v26, v7, v8, v9, v10, v11, v12, v27);
+      *error = v24 = 0;
       goto LABEL_15;
     }
 
 LABEL_21:
-    v25 = 0;
+    v24 = 0;
     goto LABEL_15;
   }
 
@@ -350,7 +1233,7 @@ LABEL_21:
   {
     if (error)
     {
-      v27 = "XPC non-dict";
+      v26 = "XPC non-dict";
       goto LABEL_20;
     }
 
@@ -358,75 +1241,54 @@ LABEL_21:
   }
 
   string = xpc_dictionary_get_string(representationCopy, "deviceID");
-  if (string)
+  if (string && (v15 = string, v16 = objc_alloc(MEMORY[0x1E696AFB0]), [MEMORY[0x1E696AEC0] stringWithUTF8String:v15], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "initWithUUIDString:", v17), blePeerUUID = v13->_blePeerUUID, v13->_blePeerUUID = v18, blePeerUUID, v17, !v13->_blePeerUUID))
   {
-    v15 = string;
-    v16 = objc_alloc(MEMORY[0x1E696AFB0]);
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
-    v18 = [v16 initWithUUIDString:v17];
-    blePeerUUID = v13->_blePeerUUID;
-    v13->_blePeerUUID = v18;
-
-    if (!v13->_blePeerUUID)
-    {
-      [(CBConnection *)error initWithXPCEventRepresentation:v15 error:&v30];
-      v25 = v30;
-      goto LABEL_15;
-    }
-  }
-
-  int64 = xpc_dictionary_get_int64(representationCopy, "psm");
-  if (int64)
-  {
-    v13->_blePSM = int64;
-  }
-
-  v21 = xpc_dictionary_get_value(representationCopy, "socketFD");
-  v22 = v21;
-  if (!v21)
-  {
-    goto LABEL_14;
-  }
-
-  if (MEMORY[0x1C68DFDD0](v21) == MEMORY[0x1E69E9EA0])
-  {
-    v13->_socketFD = xpc_fd_dup(v22);
+    [(CBConnection *)error initWithXPCEventRepresentation:v15 error:&v28];
+    v24 = v28;
   }
 
   else
   {
-    var0 = v13->_ucat->var0;
-    if (var0 <= 90)
+    int64 = xpc_dictionary_get_int64(representationCopy, "psm");
+    if (int64)
     {
-      if (var0 == -1)
-      {
-        ucat = v13->_ucat;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_14;
-        }
+      v13->_blePSM = int64;
+    }
 
-        v28 = v13->_ucat;
+    v21 = xpc_dictionary_get_value(representationCopy, "socketFD");
+    v22 = v21;
+    if (v21)
+    {
+      if (MEMORY[0x1C68DFDD0](v21) == MEMORY[0x1E69E9EA0])
+      {
+        v13->_socketFD = xpc_fd_dup(v22);
       }
 
-      LogPrintF_safe();
+      else
+      {
+        var0 = v13->_ucat->var0;
+        if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF_safe();
+        }
+      }
     }
+
+    v24 = v13;
   }
 
-LABEL_14:
-  v25 = v13;
-
 LABEL_15:
-  return v25;
+
+  return v24;
 }
 
 - (void)setLabel:(id)label
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  v4 = labelCopy;
-  [labelCopy UTF8String];
-  LogCategoryReplaceF();
+  v5 = qword_1EBE51A38;
+  v6 = labelCopy;
+  LogCategoryReplaceF(&self->_ucat, "%s-%s", v5, [labelCopy UTF8String]);
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -446,29 +1308,35 @@ LABEL_15:
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__3;
-  v23 = __Block_byref_object_dispose__3;
-  v24 = 0;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __40__CBConnection__activateWithCompletion___block_invoke;
-  v16[3] = &unk_1E811D350;
-  v18 = &v19;
-  v16[4] = self;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__3;
+  v22 = __Block_byref_object_dispose__3;
+  v23 = 0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __40__CBConnection__activateWithCompletion___block_invoke;
+  v15[3] = &unk_1E811D350;
+  v17 = &v18;
+  v15[4] = self;
   v5 = completionCopy;
-  v17 = v5;
-  v6 = MEMORY[0x1C68DF720](v16);
-  if (self->_activateCalled || self->_invalidateCalled)
+  v16 = v5;
+  v6 = MEMORY[0x1C68DF720](v15);
+  if (self->_activateCalled)
   {
-    v12 = *MEMORY[0x1E696A768];
-    v13 = NSErrorF_safe();
-    v14 = v20[5];
-    v20[5] = v13;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960575, "activate already called");
+    v12 = LABEL_21:;
+    v13 = v19[5];
+    v19[5] = v12;
 
     goto LABEL_18;
+  }
+
+  if (self->_invalidateCalled)
+  {
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "activate after invalidate");
+    goto LABEL_21;
   }
 
   self->_activateCalled = 1;
@@ -516,9 +1384,9 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v15 = 0;
-  [(CBConnection *)self activateDirectAndReturnError:&v15];
-  v10 = v15;
+  v14 = 0;
+  [(CBConnection *)self activateDirectAndReturnError:&v14];
+  v10 = v14;
   if (v10)
   {
     v11 = self->_activateCompletion;
@@ -530,66 +1398,50 @@ LABEL_17:
 LABEL_18:
   v6[2](v6);
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
 void *__40__CBConnection__activateWithCompletion___block_invoke(void *result)
 {
-  v1 = result[6];
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(result[6] + 8) + 40))
   {
-    return result;
-  }
-
-  v2 = **(result[4] + 152);
-  if (v2 <= 90)
-  {
-    v3 = result;
-    if (v2 == -1)
+    v1 = **(result[4] + 152);
+    if (v1 <= 90)
     {
-      v4 = *(result[4] + 152);
-      v5 = _LogCategory_Initialize();
-      result = v3;
-      v1 = v3[6];
-      if (!v5)
+      v2 = result;
+      if (v1 != -1 || (v3 = _LogCategory_Initialize(), result = v2, v3))
       {
-        goto LABEL_7;
-      }
+        v5 = CUPrintNSError();
+        LogPrintF_safe();
 
-      v8 = *(v3[4] + 152);
-      v9 = *(*(v1 + 8) + 40);
+        result = v2;
+      }
     }
 
-    v10 = CUPrintNSError();
-    LogPrintF_safe();
+    v4 = *(result[5] + 16);
 
-    result = v3;
-    v1 = v3[6];
+    return v4();
   }
 
-LABEL_7:
-  v6 = *(*(v1 + 8) + 40);
-  v7 = *(result[5] + 16);
-
-  return v7();
+  return result;
 }
 
 - (BOOL)activateDirectAndReturnError:(id *)error
 {
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__3;
-  v64 = __Block_byref_object_dispose__3;
-  v65 = 0;
-  v59[0] = MEMORY[0x1E69E9820];
-  v59[1] = 3221225472;
-  v59[2] = __45__CBConnection_activateDirectAndReturnError___block_invoke;
-  v59[3] = &unk_1E811D4B8;
-  v59[4] = self;
-  v59[5] = &v60;
-  v59[6] = error;
-  v5 = MEMORY[0x1C68DF720](v59, a2);
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__3;
+  v56 = __Block_byref_object_dispose__3;
+  v57 = 0;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __45__CBConnection_activateDirectAndReturnError___block_invoke;
+  v51[3] = &unk_1E811D4B8;
+  v51[4] = self;
+  v51[5] = &v52;
+  v51[6] = error;
+  v5 = MEMORY[0x1C68DF720](v51, a2);
   l2capChannel = self->_l2capChannel;
   if (l2capChannel)
   {
@@ -604,28 +1456,7 @@ LABEL_7:
       var0 = self->_ucat->var0;
       if (var0 > 30)
       {
-LABEL_20:
-        v20 = (v61 + 5);
-        obj = v61[5];
-        blePSM = [(CBConnection *)self _setupIOAndReturnError:&obj, v52, blePSM];
-        objc_storeStrong(v20, obj);
-        if (blePSM)
-        {
-          writeRequests = MEMORY[0x1C68DF720](self->_activateCompletion);
-          activateCompletion = self->_activateCompletion;
-          self->_activateCompletion = 0;
-
-          if (writeRequests)
-          {
-            (writeRequests[2].super.super.isa)(writeRequests, 0);
-          }
-
-          goto LABEL_36;
-        }
-
-LABEL_44:
-        v36 = 0;
-        goto LABEL_38;
+        goto LABEL_20;
       }
     }
 
@@ -645,20 +1476,35 @@ LABEL_44:
       }
     }
 
-    if (var0 == -1)
+    if (var0 != -1 || _LogCategory_Initialize())
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_20;
-      }
-
-      ucat = self->_ucat;
+      v44 = self->_blePeerUUID;
+      blePSM = self->_blePSM;
+      LogPrintF_safe();
     }
 
-    v52 = self->_blePeerUUID;
-    blePSM = self->_blePSM;
-    LogPrintF_safe();
-    goto LABEL_20;
+LABEL_20:
+    v20 = (v53 + 5);
+    obj = v53[5];
+    blePSM = [(CBConnection *)self _setupIOAndReturnError:&obj, v44, blePSM];
+    objc_storeStrong(v20, obj);
+    if (blePSM)
+    {
+      writeRequests = MEMORY[0x1C68DF720](self->_activateCompletion);
+      activateCompletion = self->_activateCompletion;
+      self->_activateCompletion = 0;
+
+      if (writeRequests)
+      {
+        (writeRequests[2].super.super.isa)(writeRequests, 0);
+      }
+
+      goto LABEL_36;
+    }
+
+LABEL_44:
+    v36 = 0;
+    goto LABEL_38;
   }
 
   if (self->_socketFD && self->_blePeerUUID)
@@ -668,26 +1514,7 @@ LABEL_44:
       v11 = self->_ucat->var0;
       if (v11 > 30)
       {
-LABEL_33:
-        v30 = (v61 + 5);
-        v57 = v61[5];
-        socketFD = [(CBConnection *)self _setupIOAndReturnError:&v57, v52, blePSM, socketFD];
-        objc_storeStrong(v30, v57);
-        if (socketFD)
-        {
-          writeRequests = MEMORY[0x1C68DF720](self->_activateCompletion);
-          v32 = self->_activateCompletion;
-          self->_activateCompletion = 0;
-
-          if (writeRequests)
-          {
-            (writeRequests[2].super.super.isa)(writeRequests, 0);
-          }
-
-          goto LABEL_36;
-        }
-
-        goto LABEL_44;
+        goto LABEL_33;
       }
     }
 
@@ -707,31 +1534,43 @@ LABEL_33:
       }
     }
 
-    if (v11 == -1)
+    if (v11 != -1 || _LogCategory_Initialize())
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_33;
-      }
-
-      v50 = self->_ucat;
+      blePSM = self->_blePSM;
+      socketFD = self->_socketFD;
+      v44 = self->_blePeerUUID;
+      LogPrintF_safe();
     }
 
-    blePSM = self->_blePSM;
-    socketFD = self->_socketFD;
-    v52 = self->_blePeerUUID;
-    LogPrintF_safe();
-    goto LABEL_33;
+LABEL_33:
+    v30 = (v53 + 5);
+    v49 = v53[5];
+    socketFD = [(CBConnection *)self _setupIOAndReturnError:&v49, v44, blePSM, socketFD];
+    objc_storeStrong(v30, v49);
+    if (socketFD)
+    {
+      writeRequests = MEMORY[0x1C68DF720](self->_activateCompletion);
+      v32 = self->_activateCompletion;
+      self->_activateCompletion = 0;
+
+      if (writeRequests)
+      {
+        (writeRequests[2].super.super.isa)(writeRequests, 0);
+      }
+
+      goto LABEL_36;
+    }
+
+    goto LABEL_44;
   }
 
   v15 = self->_peerDevice;
   if (!v15)
   {
-    v40 = *MEMORY[0x1E696A768];
-    v41 = NSErrorF_safe();
+    v39 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No peer device");
     v36 = 0;
-    writeRequests = v61[5];
-    v61[5] = v41;
+    writeRequests = v53[5];
+    v53[5] = v39;
     goto LABEL_37;
   }
 
@@ -739,10 +1578,9 @@ LABEL_33:
   identifier2 = [(CBDevice *)v15 identifier];
   if (!identifier2)
   {
-    v42 = *MEMORY[0x1E696A768];
-    v43 = NSErrorF_safe();
-    v44 = v61[5];
-    v61[5] = v43;
+    v40 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No peer ID");
+    v41 = v53[5];
+    v53[5] = v40;
 
     v36 = 0;
     goto LABEL_37;
@@ -751,10 +1589,9 @@ LABEL_33:
   v18 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:identifier2];
   if (!v18)
   {
-    v45 = *MEMORY[0x1E696A768];
-    v46 = NSErrorF_safe();
-    v47 = v61[5];
-    v61[5] = v46;
+    v42 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "Bad peer ID: %@", identifier2);
+    v43 = v53[5];
+    v53[5] = v42;
 
 LABEL_43:
     v36 = 0;
@@ -763,53 +1600,29 @@ LABEL_43:
 
   objc_storeStrong(&self->_blePeerUUID, v18);
   v19 = self->_ucat->var0;
-  if (v19 <= 30)
+  if (v19 <= 30 && (v19 != -1 || _LogCategory_Initialize()))
   {
-    if (v19 != -1)
-    {
-LABEL_18:
-      v52 = self->_blePeerUUID;
-      blePSM = self->_blePSM;
-      LogPrintF_safe();
-      goto LABEL_27;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      v49 = self->_ucat;
-      goto LABEL_18;
-    }
+    v44 = self->_blePeerUUID;
+    blePSM = self->_blePSM;
+    LogPrintF_safe();
   }
 
-LABEL_27:
-  v56 = 0;
-  blePSM2 = [(CBConnection *)self _startConnectingAndReturnError:&v56, v52, blePSM];
-  v27 = v56;
+  v48 = 0;
+  blePSM2 = [(CBConnection *)self _startConnectingAndReturnError:&v48, v44, blePSM];
+  v27 = v48;
   v28 = v27;
   if (!blePSM2)
   {
     v29 = self->_ucat->var0;
-    if (v29 <= 90)
+    if (v29 <= 90 && (v29 != -1 || _LogCategory_Initialize()))
     {
-      if (v29 == -1)
-      {
-        v38 = self->_ucat;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_40;
-        }
-
-        v51 = self->_ucat;
-      }
-
-      v53 = CUPrintNSError();
+      v45 = CUPrintNSError();
       LogPrintF_safe();
     }
 
-LABEL_40:
     if (error)
     {
-      v39 = v28;
+      v38 = v28;
       *error = v28;
     }
 
@@ -830,7 +1643,7 @@ LABEL_37:
 LABEL_38:
   v5[2](v5);
 
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v52, 8);
   return v36;
 }
 
@@ -839,33 +1652,16 @@ void __45__CBConnection_activateDirectAndReturnError___block_invoke(uint64_t a1)
   if (*(*(*(a1 + 40) + 8) + 40))
   {
     v2 = **(*(a1 + 32) + 152);
-    if (v2 > 90)
+    if (v2 <= 90 && (v2 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_6;
+      v3 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    if (v2 == -1)
+    if (*(a1 + 48))
     {
-      v3 = *(*(a1 + 32) + 152);
-      if (!_LogCategory_Initialize())
-      {
-LABEL_6:
-        if (*(a1 + 48))
-        {
-          **(a1 + 48) = *(*(*(a1 + 40) + 8) + 40);
-        }
-
-        return;
-      }
-
-      v4 = *(*(a1 + 32) + 152);
-      v5 = *(*(*(a1 + 40) + 8) + 40);
+      **(a1 + 48) = *(*(*(a1 + 40) + 8) + 40);
     }
-
-    v6 = CUPrintNSError();
-    LogPrintF_safe();
-
-    goto LABEL_6;
   }
 }
 
@@ -874,46 +1670,21 @@ LABEL_6:
   var0 = self->_ucat->var0;
   if (start)
   {
-    if (var0 <= 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_12;
-        }
-
-        ucat = self->_ucat;
-      }
-
-      clientID = self->_clientID;
-      peerDevice = self->_peerDevice;
-      goto LABEL_8;
+LABEL_7:
+      LogPrintF_safe();
     }
   }
 
-  else if (var0 <= 30)
+  else if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_12;
-      }
-
-      v9 = self->_ucat;
-    }
-
-    v11 = self->_clientID;
-    v13 = self->_peerDevice;
-LABEL_8:
-    LogPrintF_safe();
+    goto LABEL_7;
   }
 
-LABEL_12:
-  v6 = xpc_dictionary_create(0, 0, 0);
-  [(CBConnection *)self encodeWithXPCObject:v6];
-  xpc_dictionary_set_string(v6, "mTyp", "CnxA");
+  v5 = xpc_dictionary_create(0, 0, 0);
+  [(CBConnection *)self encodeWithXPCObject:v5];
+  xpc_dictionary_set_string(v5, "mTyp", "CnxA");
   _ensureXPCStarted = [(CBConnection *)self _ensureXPCStarted];
   dispatchQueue = self->_dispatchQueue;
   handler[0] = MEMORY[0x1E69E9820];
@@ -921,74 +1692,44 @@ LABEL_12:
   handler[2] = __34__CBConnection__activateXPCStart___block_invoke;
   handler[3] = &unk_1E811D158;
   handler[4] = self;
-  xpc_connection_send_message_with_reply(_ensureXPCStarted, v6, dispatchQueue, handler);
+  xpc_connection_send_message_with_reply(_ensureXPCStarted, v5, dispatchQueue, handler);
 }
 
 - (void)_activateXPCCompleted:(id)completed
 {
   v4 = CUXPCDecodeNSErrorIfNeeded();
   var0 = self->_ucat->var0;
-  v17 = v4;
-  if (!v4)
+  v11 = v4;
+  if (v4)
   {
-    if (var0 > 30)
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_11;
+      v10 = CUPrintNSError();
+      LogPrintF_safe();
     }
-
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_11;
-      }
-
-      ucat = self->_ucat;
-    }
-
-    clientID = self->_clientID;
-    peerDevice = self->_peerDevice;
-    LogPrintF_safe();
-    goto LABEL_11;
   }
 
-  if (var0 > 90)
+  else if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_11;
-  }
-
-  if (var0 != -1)
-  {
-    goto LABEL_4;
-  }
-
-  if (_LogCategory_Initialize())
-  {
-    v8 = self->_ucat;
-LABEL_4:
-    v6 = self->_peerDevice;
-    v7 = self->_clientID;
-    v16 = CUPrintNSError();
     LogPrintF_safe();
   }
 
-LABEL_11:
-  v9 = MEMORY[0x1C68DF720](self->_activateCompletion);
+  v6 = MEMORY[0x1C68DF720](self->_activateCompletion);
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
 
-  if (v9)
+  if (v6)
   {
-    (v9)[2](v9, v17);
+    (v6)[2](v6, v11);
   }
 
   else
   {
-    v11 = MEMORY[0x1C68DF720](self->_errorHandler);
-    v12 = v11;
-    if (v11)
+    v8 = MEMORY[0x1C68DF720](self->_errorHandler);
+    v9 = v8;
+    if (v8)
     {
-      (*(v11 + 16))(v11, v17);
+      (*(v8 + 16))(v8, v11);
     }
   }
 }
@@ -1022,11 +1763,11 @@ void __41__CBConnection_disconnectWithCompletion___block_invoke(uint64_t a1)
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __41__CBConnection_disconnectWithCompletion___block_invoke_2(uint64_t a1)
+void __41__CBConnection_disconnectWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (id)_ensureXPCStarted
@@ -1082,42 +1823,29 @@ void *__33__CBConnection__ensureXPCStarted__block_invoke(uint64_t a1, uint64_t a
 
 - (void)_interrupted
 {
-  if (self->_invalidateCalled)
+  if (!self->_invalidateCalled)
   {
-    return;
-  }
-
-  var0 = self->_ucat->var0;
-  if (var0 <= 90)
-  {
-    if (var0 == -1)
+    var0 = self->_ucat->var0;
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_6;
-      }
-
-      ucat = self->_ucat;
+      LogPrintF_safe();
     }
 
-    LogPrintF_safe();
-  }
+    v5 = MEMORY[0x1C68DF720](self->_interruptionHandler);
+    v6 = v5;
+    if (v5)
+    {
+      (*(v5 + 16))(v5);
+    }
 
-LABEL_6:
-  v5 = MEMORY[0x1C68DF720](self->_interruptionHandler);
-  v6 = v5;
-  if (v5)
-  {
-    (*(v5 + 16))(v5);
-  }
-
-  self->_bluetoothState = 1;
-  v7 = MEMORY[0x1C68DF720](self->_bluetoothStateChangedHandler);
-  if (v7)
-  {
-    v9 = v7;
-    v7[2]();
-    v7 = v9;
+    self->_bluetoothState = 1;
+    v7 = MEMORY[0x1C68DF720](self->_bluetoothStateChangedHandler);
+    if (v7)
+    {
+      v8 = v7;
+      v7[2]();
+      v7 = v8;
+    }
   }
 }
 
@@ -1134,165 +1862,137 @@ LABEL_6:
 
 - (void)_invalidate
 {
-  if (self->_invalidateCalled)
+  if (!self->_invalidateCalled)
   {
-    return;
-  }
-
-  v22 = v3;
-  v23 = v2;
-  self->_invalidateCalled = 1;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    v20 = v3;
+    v21 = v2;
+    self->_invalidateCalled = 1;
+    var0 = self->_ucat->var0;
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
+      LogPrintF_safe();
+    }
+
+    connectTimeoutTimer = self->_connectTimeoutTimer;
+    if (connectTimeoutTimer)
+    {
+      v9 = connectTimeoutTimer;
+      dispatch_source_cancel(v9);
+      v10 = self->_connectTimeoutTimer;
+      self->_connectTimeoutTimer = 0;
+    }
+
+    if (self->_peripheral)
+    {
+      self->_guardConnected = 0;
+      [(CBCentralManager *)self->_centralManager cancelPeripheralConnection:?];
+    }
+
+    [(CBCentralManager *)self->_centralManager setDelegate:0, v20, v21, v4];
+    centralManager = self->_centralManager;
+    self->_centralManager = 0;
+
+    errorHandler = self->_errorHandler;
+    self->_errorHandler = 0;
+
+    [(CBPeripheral *)self->_peripheral setDelegate:0];
+    peripheral = self->_peripheral;
+    self->_peripheral = 0;
+
+    v14 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "Invalidated (I)");
+    [(CBConnection *)self _reportError:v14];
+
+    readSource = self->_readSource;
+    if (readSource)
+    {
+      dispatch_source_cancel(readSource);
+      if (self->_readSuspended)
       {
-        goto LABEL_6;
+        dispatch_resume(self->_readSource);
+        self->_readSuspended = 0;
       }
 
-      ucat = self->_ucat;
+      v16 = self->_readSource;
+      self->_readSource = 0;
     }
 
-    LogPrintF_safe();
-  }
-
-LABEL_6:
-  connectTimeoutTimer = self->_connectTimeoutTimer;
-  if (connectTimeoutTimer)
-  {
-    v9 = connectTimeoutTimer;
-    dispatch_source_cancel(v9);
-    v10 = self->_connectTimeoutTimer;
-    self->_connectTimeoutTimer = 0;
-  }
-
-  if (self->_peripheral)
-  {
-    self->_guardConnected = 0;
-    [(CBCentralManager *)self->_centralManager cancelPeripheralConnection:?];
-  }
-
-  [(CBCentralManager *)self->_centralManager setDelegate:0, v22, v23, v4];
-  centralManager = self->_centralManager;
-  self->_centralManager = 0;
-
-  errorHandler = self->_errorHandler;
-  self->_errorHandler = 0;
-
-  [(CBPeripheral *)self->_peripheral setDelegate:0];
-  peripheral = self->_peripheral;
-  self->_peripheral = 0;
-
-  v14 = *MEMORY[0x1E696A768];
-  v15 = NSErrorF_safe();
-  [(CBConnection *)self _reportError:v15];
-
-  readSource = self->_readSource;
-  if (readSource)
-  {
-    dispatch_source_cancel(readSource);
-    if (self->_readSuspended)
+    writeSource = self->_writeSource;
+    if (writeSource)
     {
-      dispatch_resume(self->_readSource);
-      self->_readSuspended = 0;
+      dispatch_source_cancel(writeSource);
+      if (self->_writeSuspended)
+      {
+        dispatch_resume(self->_writeSource);
+        self->_writeSuspended = 0;
+      }
+
+      v18 = self->_writeSource;
+      self->_writeSource = 0;
     }
 
-    v17 = self->_readSource;
-    self->_readSource = 0;
-  }
-
-  writeSource = self->_writeSource;
-  if (writeSource)
-  {
-    dispatch_source_cancel(writeSource);
-    if (self->_writeSuspended)
+    xpcCnx = self->_xpcCnx;
+    if (xpcCnx)
     {
-      dispatch_resume(self->_writeSource);
-      self->_writeSuspended = 0;
+      xpc_connection_cancel(xpcCnx);
     }
 
-    v19 = self->_writeSource;
-    self->_writeSource = 0;
+    [(CBConnection *)self _invalidated];
   }
-
-  xpcCnx = self->_xpcCnx;
-  if (xpcCnx)
-  {
-    xpc_connection_cancel(xpcCnx);
-  }
-
-  [(CBConnection *)self _invalidated];
 }
 
 - (void)_invalidated
 {
-  if (self->_invalidateDone || self->_readSource || self->_writeSource || self->_readRequestCurrent || [(NSMutableArray *)self->_readRequests count]|| self->_writeRequestCurrent || [(NSMutableArray *)self->_writeRequests count]|| self->_xpcCnx)
+  if (!self->_invalidateDone && !self->_readSource && !self->_writeSource && !self->_readRequestCurrent && ![(NSMutableArray *)self->_readRequests count]&& !self->_writeRequestCurrent && ![(NSMutableArray *)self->_writeRequests count]&& !self->_xpcCnx)
   {
-    return;
-  }
+    v15 = MEMORY[0x1C68DF720](self->_invalidationHandler);
+    v3 = MEMORY[0x1C68DF720](self->_serverInvalidationHandler);
+    activateCompletion = self->_activateCompletion;
+    self->_activateCompletion = 0;
 
-  v16 = MEMORY[0x1C68DF720](self->_invalidationHandler);
-  v3 = MEMORY[0x1C68DF720](self->_serverInvalidationHandler);
-  activateCompletion = self->_activateCompletion;
-  self->_activateCompletion = 0;
+    bluetoothStateChangedHandler = self->_bluetoothStateChangedHandler;
+    self->_bluetoothStateChangedHandler = 0;
 
-  bluetoothStateChangedHandler = self->_bluetoothStateChangedHandler;
-  self->_bluetoothStateChangedHandler = 0;
+    errorHandler = self->_errorHandler;
+    self->_errorHandler = 0;
 
-  errorHandler = self->_errorHandler;
-  self->_errorHandler = 0;
+    interruptionHandler = self->_interruptionHandler;
+    self->_interruptionHandler = 0;
 
-  interruptionHandler = self->_interruptionHandler;
-  self->_interruptionHandler = 0;
+    invalidationHandler = self->_invalidationHandler;
+    self->_invalidationHandler = 0;
 
-  invalidationHandler = self->_invalidationHandler;
-  self->_invalidationHandler = 0;
+    pairingCompletedHandler = self->_pairingCompletedHandler;
+    self->_pairingCompletedHandler = 0;
 
-  pairingCompletedHandler = self->_pairingCompletedHandler;
-  self->_pairingCompletedHandler = 0;
+    pairingPromptHandler = self->_pairingPromptHandler;
+    self->_pairingPromptHandler = 0;
 
-  pairingPromptHandler = self->_pairingPromptHandler;
-  self->_pairingPromptHandler = 0;
+    serverInvalidationHandler = self->_serverInvalidationHandler;
+    self->_serverInvalidationHandler = 0;
 
-  serverInvalidationHandler = self->_serverInvalidationHandler;
-  self->_serverInvalidationHandler = 0;
+    xpcForwardMessageReceiveHandler = self->_xpcForwardMessageReceiveHandler;
+    self->_xpcForwardMessageReceiveHandler = 0;
 
-  xpcForwardMessageReceiveHandler = self->_xpcForwardMessageReceiveHandler;
-  self->_xpcForwardMessageReceiveHandler = 0;
+    xpcSendEventHandler = self->_xpcSendEventHandler;
+    self->_xpcSendEventHandler = 0;
 
-  xpcSendEventHandler = self->_xpcSendEventHandler;
-  self->_xpcSendEventHandler = 0;
-
-  if (v16)
-  {
-    v16[2](v16);
-  }
-
-  if (v3)
-  {
-    v3[2](v3);
-  }
-
-  self->_invalidateDone = 1;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    if (v15)
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_18;
-      }
-
-      ucat = self->_ucat;
+      v15[2](v15);
     }
 
-    LogPrintF_safe();
-  }
+    if (v3)
+    {
+      v3[2](v3);
+    }
 
-LABEL_18:
+    self->_invalidateDone = 1;
+    var0 = self->_ucat->var0;
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF_safe();
+    }
+  }
 }
 
 - (BOOL)updateWithXPCSubscriberInfo:(id)info
@@ -1477,203 +2177,146 @@ void __34__CBConnection_xpcForwardMessage___block_invoke(uint64_t a1)
 {
   xpc_dictionary_get_int64(*(a1 + 32), "kCBMsgId");
   v2 = **(*(a1 + 40) + 152);
-  if (v2 > 10)
+  if (v2 <= 10 && (v2 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_5;
-  }
-
-  if (v2 != -1)
-  {
-    goto LABEL_3;
-  }
-
-  v3 = *(*(a1 + 40) + 152);
-  if (_LogCategory_Initialize())
-  {
-    v7 = *(*(a1 + 40) + 152);
-LABEL_3:
     LogPrintF_safe();
   }
 
-LABEL_5:
   xdict = xpc_dictionary_create(0, 0, 0);
   [*(a1 + 40) encodeWithXPCObject:xdict];
   xpc_dictionary_set_string(xdict, "mTyp", "CnxF");
   xpc_dictionary_set_value(xdict, "fwdM", *(a1 + 32));
-  v4 = MEMORY[0x1C68DF720](*(*(a1 + 40) + 392));
-  v5 = v4;
-  if (v4)
+  v3 = MEMORY[0x1C68DF720](*(*(a1 + 40) + 392));
+  v4 = v3;
+  if (v3)
   {
-    (*(v4 + 16))(v4, xdict);
+    (*(v3 + 16))(v3, xdict);
   }
 
   else
   {
-    v6 = [*(a1 + 40) _ensureXPCStarted];
-    xpc_connection_send_message(v6, xdict);
+    v5 = [*(a1 + 40) _ensureXPCStarted];
+    xpc_connection_send_message(v5, xdict);
   }
 }
 
 - (void)xpcReceivedForwardedEvent:(id)event
 {
   v4 = xpc_dictionary_get_value(event, "fwdM");
-  v9 = v4;
+  v8 = v4;
   if (v4)
   {
     xpc_dictionary_get_int64(v4, "kCBMsgId");
     var0 = self->_ucat->var0;
-    if (var0 <= 10)
+    if (var0 <= 10 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_6;
-        }
-
-        ucat = self->_ucat;
-      }
-
       LogPrintF_safe();
     }
 
-LABEL_6:
     v6 = MEMORY[0x1C68DF720](self->_xpcForwardMessageReceiveHandler);
     v7 = v6;
     if (v6)
     {
-      (*(v6 + 16))(v6, v9);
+      (*(v6 + 16))(v6, v8);
     }
 
     else
     {
       [CBConnection xpcReceivedForwardedEvent:?];
     }
-
-    goto LABEL_9;
   }
 
-  [CBConnection xpcReceivedForwardedEvent:?];
-LABEL_9:
+  else
+  {
+    [CBConnection xpcReceivedForwardedEvent:?];
+  }
 }
 
 - (void)xpcReceivedMessage:(id)message
 {
   messageCopy = message;
   var0 = self->_ucat->var0;
-  v27 = messageCopy;
+  v24 = messageCopy;
   if (var0 <= 9)
   {
-    if (var0 != -1)
+    if (var0 != -1 || (v6 = _LogCategory_Initialize(), messageCopy = v24, v6))
     {
-LABEL_3:
-      v25 = CUPrintXPC();
+      v22 = CUPrintXPC();
       LogPrintF_safe();
 
-      messageCopy = v27;
-      goto LABEL_5;
-    }
-
-    v6 = _LogCategory_Initialize();
-    messageCopy = v27;
-    if (v6)
-    {
-      ucat = self->_ucat;
-      goto LABEL_3;
+      messageCopy = v24;
     }
   }
 
-LABEL_5:
   if (MEMORY[0x1C68DFDD0](messageCopy) == MEMORY[0x1E69E9E80])
   {
-    [(CBConnection *)self _xpcReceivedMessage:v27];
+    [(CBConnection *)self _xpcReceivedMessage:v24];
     goto LABEL_26;
   }
 
-  if (v27 == MEMORY[0x1E69E9E18])
+  if (v24 == MEMORY[0x1E69E9E18])
   {
     [(CBConnection *)self _interrupted];
     goto LABEL_26;
   }
 
-  if (v27 == MEMORY[0x1E69E9E20])
+  if (v24 != MEMORY[0x1E69E9E20])
   {
-    if (self->_invalidateCalled)
+    v7 = CUXPCDecodeNSErrorIfNeeded();
+    v14 = v7;
+    if (v7)
     {
-      goto LABEL_25;
-    }
+      v15 = v7;
 
-    v17 = self->_ucat->var0;
-    if (v17 > 90)
-    {
-      goto LABEL_25;
-    }
-
-    if (v17 == -1)
-    {
-      if (!_LogCategory_Initialize())
+      v16 = self->_ucat->var0;
+      if (v16 > 90)
       {
-        goto LABEL_25;
+        goto LABEL_21;
       }
-
-      v24 = self->_ucat;
     }
 
-    LogPrintF_safe();
-LABEL_25:
-    xpcCnx = self->_xpcCnx;
-    self->_xpcCnx = 0;
-
-    [(CBConnection *)self _invalidated];
-    goto LABEL_26;
-  }
-
-  v7 = CUXPCDecodeNSErrorIfNeeded();
-  v14 = v7;
-  if (v7)
-  {
-    v15 = v7;
-
-    v16 = self->_ucat->var0;
-    if (v16 > 90)
+    else
     {
-      goto LABEL_21;
-    }
-  }
+      v15 = CBErrorF(-6700, "XPC event error", v8, v9, v10, v11, v12, v13, v22);
 
-  else
-  {
-    v15 = CBErrorF(-6700, "XPC event error", v8, v9, v10, v11, v12, v13, v25);
-
-    v16 = self->_ucat->var0;
-    if (v16 > 90)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  if (v16 == -1)
-  {
-    if (!_LogCategory_Initialize())
-    {
-      goto LABEL_21;
-    }
-
-    v23 = self->_ucat;
-  }
-
-  v18 = CUPrintNSError();
-  v26 = CUPrintXPC();
-  LogPrintF_safe();
-
+      v16 = self->_ucat->var0;
+      if (v16 > 90)
+      {
 LABEL_21:
-  v19 = MEMORY[0x1C68DF720](self->_errorHandler);
-  v20 = v19;
-  if (v19)
-  {
-    (*(v19 + 16))(v19, v15);
+        v19 = MEMORY[0x1C68DF720](self->_errorHandler);
+        v20 = v19;
+        if (v19)
+        {
+          (*(v19 + 16))(v19, v15);
+        }
+
+        goto LABEL_26;
+      }
+    }
+
+    if (v16 != -1 || _LogCategory_Initialize())
+    {
+      v18 = CUPrintNSError();
+      v23 = CUPrintXPC();
+      LogPrintF_safe();
+    }
+
+    goto LABEL_21;
   }
 
+  if (!self->_invalidateCalled)
+  {
+    v17 = self->_ucat->var0;
+    if (v17 <= 90 && (v17 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF_safe();
+    }
+  }
+
+  xpcCnx = self->_xpcCnx;
+  self->_xpcCnx = 0;
+
+  [(CBConnection *)self _invalidated];
 LABEL_26:
 }
 
@@ -1684,27 +2327,12 @@ LABEL_26:
   if (!string)
   {
     var0 = self->_ucat->var0;
-    if (var0 > 90)
-    {
-      goto LABEL_11;
-    }
-
-    if (var0 != -1)
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
       goto LABEL_10;
     }
 
-    if (_LogCategory_Initialize())
-    {
-      ucat = self->_ucat;
-LABEL_10:
-      LogPrintF_safe();
-    }
-
-LABEL_11:
-    v8 = messageCopy;
-
-    goto LABEL_13;
+    goto LABEL_11;
   }
 
   v5 = string;
@@ -1725,23 +2353,16 @@ LABEL_11:
     if (strcmp(v5, "PrPm"))
     {
       v6 = self->_ucat->var0;
-      if (v6 > 90)
+      if (v6 <= 90 && (v6 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_11;
+LABEL_10:
+        LogPrintF_safe();
       }
 
-      if (v6 != -1)
-      {
-        goto LABEL_10;
-      }
+LABEL_11:
+      v8 = messageCopy;
 
-      if (_LogCategory_Initialize())
-      {
-        v10 = self->_ucat;
-        goto LABEL_10;
-      }
-
-      goto LABEL_11;
+      goto LABEL_13;
     }
 
     [(CBConnection *)self xpcReceivedPairingPrompt:messageCopy];
@@ -1754,36 +2375,23 @@ LABEL_13:
 - (void)xpcReceivedPairingCompleted:(id)completed
 {
   completedCopy = completed;
-  if (MEMORY[0x1C68DFDD0]() != MEMORY[0x1E69E9E80])
+  if (MEMORY[0x1C68DFDD0]() == MEMORY[0x1E69E9E80])
+  {
+    objc_opt_class();
+    CUXPCDecodeObject();
+    v5 = 0;
+    var0 = self->_ucat->var0;
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
+    {
+      v7 = CUPrintNSError();
+      LogPrintF_safe();
+    }
+  }
+
+  else
   {
     [CBConnection xpcReceivedPairingCompleted:?];
-    goto LABEL_4;
   }
-
-  objc_opt_class();
-  CUXPCDecodeObject();
-  v5 = 0;
-  var0 = self->_ucat->var0;
-  if (var0 <= 90)
-  {
-    if (var0 == -1)
-    {
-      ucat = self->_ucat;
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_3;
-      }
-
-      v9 = self->_ucat;
-    }
-
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
-  }
-
-LABEL_3:
-
-LABEL_4:
 }
 
 - (void)xpcReceivedPairingPrompt:(id)prompt
@@ -1795,62 +2403,42 @@ LABEL_4:
     CUXPCDecodeObject();
     v5 = 0;
     var0 = self->_ucat->var0;
-    if (var0 > 90)
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_3;
+      v7 = CUPrintNSError();
+      LogPrintF_safe();
     }
-
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_3;
-      }
-
-      ucat = self->_ucat;
-    }
-
-    else
-    {
-      v7 = self->_ucat;
-    }
-
-    v8 = CUPrintNSError();
-    LogPrintF_safe();
-
-LABEL_3:
-    return;
   }
 
-  [CBConnection xpcReceivedPairingPrompt:?];
+  else
+  {
+    [CBConnection xpcReceivedPairingPrompt:?];
+  }
 }
 
 - (BOOL)_startConnectingAndReturnError:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   if (!self->_blePeerUUID)
   {
     if (error)
     {
-      v18 = *MEMORY[0x1E696A768];
-LABEL_14:
-      v20 = NSErrorF_safe();
-      v21 = v20;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No peer UUID");
+      v17 = LABEL_13:;
+      v18 = v17;
       result = 0;
-      *error = v20;
-      goto LABEL_9;
+      *error = v17;
+      return result;
     }
 
-LABEL_15:
-    result = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v5 = [CBCentralManager alloc];
   dispatchQueue = self->_dispatchQueue;
-  v24 = @"kCBManagerNeedsRestrictedStateOperation";
-  v25[0] = MEMORY[0x1E695E118];
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v21 = @"kCBManagerNeedsRestrictedStateOperation";
+  v22[0] = MEMORY[0x1E695E118];
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v8 = [(CBCentralManager *)v5 initWithDelegate:self queue:dispatchQueue options:v7];
   centralManager = self->_centralManager;
   self->_centralManager = v8;
@@ -1860,11 +2448,11 @@ LABEL_15:
   {
     if (error)
     {
-      v19 = *MEMORY[0x1E696A768];
-      goto LABEL_14;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Create CBCentralManager failed");
+      goto LABEL_13;
     }
 
-    goto LABEL_15;
+    return 0;
   }
 
   if ((self->_connectionFlags & 0x80) != 0 || (internalFlags = self->_internalFlags, (internalFlags & 0x100) != 0))
@@ -1877,29 +2465,26 @@ LABEL_15:
 
   if ((internalFlags & 0x20) != 0)
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __47__CBConnection__startConnectingAndReturnError___block_invoke;
-    v23[3] = &unk_1E811D158;
-    v23[4] = self;
-    v13 = MEMORY[0x1C68DF720](v23);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __47__CBConnection__startConnectingAndReturnError___block_invoke;
+    v20[3] = &unk_1E811D158;
+    v20[4] = self;
+    v13 = MEMORY[0x1C68DF720](v20);
     xpcForwardMessageReceiveHandler = self->_xpcForwardMessageReceiveHandler;
     self->_xpcForwardMessageReceiveHandler = v13;
 
     v15 = self->_centralManager;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __47__CBConnection__startConnectingAndReturnError___block_invoke_2;
-    v22[3] = &unk_1E811D158;
-    v22[4] = self;
-    [(CBManager *)v15 setWHBMsgReplyHandler:v22];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __47__CBConnection__startConnectingAndReturnError___block_invoke_2;
+    v19[3] = &unk_1E811D158;
+    v19[4] = self;
+    [(CBManager *)v15 setWHBMsgReplyHandler:v19];
   }
 
   [(CBConnection *)self _run];
-  result = 1;
-LABEL_9:
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 void __47__CBConnection__startConnectingAndReturnError___block_invoke(uint64_t a1, void *a2)
@@ -1907,16 +2492,16 @@ void __47__CBConnection__startConnectingAndReturnError___block_invoke(uint64_t a
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = **(v4 + 152);
-  v10 = v3;
+  v9 = v3;
   if (v5 <= 30)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
-      v9 = *(v4 + 24);
+      v7 = v3;
+      v8 = *(v4 + 24);
       LogPrintF_safe();
-      v3 = v10;
+      v3 = v9;
       v4 = *(a1 + 32);
       goto LABEL_6;
     }
@@ -1925,24 +2510,23 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = *(v4 + 152);
-      v3 = v10;
+      v3 = v9;
       goto LABEL_3;
     }
 
-    v3 = v10;
+    v3 = v9;
   }
 
 LABEL_6:
-  [*(v4 + 32) didReceiveForwardedMessageForCBManager:{v3, v8, v9}];
+  [*(v4 + 32) didReceiveForwardedMessageForCBManager:{v3, v7, v8}];
 }
 
 - (BOOL)_setupIOAndReturnError:(id *)error
 {
   l2capChannel = self->_l2capChannel;
-  if (!l2capChannel)
+  if (l2capChannel)
   {
-    socketFD = self->_socketFD;
+    socketFD = [(CBL2CAPChannel *)l2capChannel socketFD];
     if ((socketFD & 0x80000000) == 0)
     {
       goto LABEL_3;
@@ -1954,15 +2538,13 @@ LABEL_12:
       return 0;
     }
 
-    v17 = *MEMORY[0x1E696A768];
-    v21 = self->_l2capChannel;
-LABEL_16:
-    NSErrorF_safe();
-    *error = v14 = 0;
-    return v14;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No L2CAP socket: %@", self->_l2capChannel);
+LABEL_17:
+    *error = v16 = 0;
+    return v16;
   }
 
-  socketFD = [(CBL2CAPChannel *)l2capChannel socketFD];
+  socketFD = self->_socketFD;
   if ((socketFD & 0x80000000) != 0)
   {
     goto LABEL_12;
@@ -1970,40 +2552,55 @@ LABEL_16:
 
 LABEL_3:
   self->_socketFD = socketFD;
-  v26 = 1;
-  if (setsockopt(socketFD, 0xFFFF, 4130, &v26, 4u) && (!*__error() || *__error()))
+  v23 = 1;
+  if (!setsockopt(socketFD, 0xFFFF, 4130, &v23, 4u))
+  {
+    goto LABEL_6;
+  }
+
+  if (!*__error())
+  {
+    v7 = 4294960596;
+    goto LABEL_15;
+  }
+
+  v7 = *__error();
+  if (v7)
+  {
+LABEL_15:
+    if (!error)
+    {
+      return 0;
+    }
+
+    NSErrorF_safe(*MEMORY[0x1E696A768], v7, "Set SO_NOSIGPIPE failed");
+    goto LABEL_17;
+  }
+
+LABEL_6:
+  v8 = SocketSetNonBlocking();
+  if (v8)
   {
     if (!error)
     {
       return 0;
     }
 
-    v18 = *MEMORY[0x1E696A768];
-    goto LABEL_16;
+    NSErrorF_safe(*MEMORY[0x1E696A768], v8, "Make non-blocking failed");
+    goto LABEL_17;
   }
 
-  if (SocketSetNonBlocking())
-  {
-    if (!error)
-    {
-      return 0;
-    }
-
-    v19 = *MEMORY[0x1E696A768];
-    goto LABEL_16;
-  }
-
-  v7 = dispatch_source_create(MEMORY[0x1E69E96F8], socketFD, 0, self->_dispatchQueue);
+  v9 = dispatch_source_create(MEMORY[0x1E69E96F8], socketFD, 0, self->_dispatchQueue);
   readSource = self->_readSource;
-  self->_readSource = v7;
+  self->_readSource = v9;
 
-  v9 = self->_readSource;
-  if (!v9)
+  v11 = self->_readSource;
+  if (!v11)
   {
     if (error)
     {
-      v20 = *MEMORY[0x1E696A768];
-      goto LABEL_16;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960550, "Create read source failed");
+      goto LABEL_17;
     }
 
     return 0;
@@ -2014,36 +2611,36 @@ LABEL_3:
   handler[2] = __39__CBConnection__setupIOAndReturnError___block_invoke;
   handler[3] = &unk_1E811D130;
   handler[4] = self;
-  dispatch_source_set_event_handler(v9, handler);
-  v10 = self->_readSource;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __39__CBConnection__setupIOAndReturnError___block_invoke_2;
-  v24[3] = &unk_1E811D130;
-  v24[4] = self;
-  dispatch_source_set_cancel_handler(v10, v24);
+  dispatch_source_set_event_handler(v11, handler);
+  v12 = self->_readSource;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __39__CBConnection__setupIOAndReturnError___block_invoke_2;
+  v21[3] = &unk_1E811D130;
+  v21[4] = self;
+  dispatch_source_set_cancel_handler(v12, v21);
   dispatch_resume(self->_readSource);
-  v11 = dispatch_source_create(MEMORY[0x1E69E9730], socketFD, 0, self->_dispatchQueue);
+  v13 = dispatch_source_create(MEMORY[0x1E69E9730], socketFD, 0, self->_dispatchQueue);
   writeSource = self->_writeSource;
-  self->_writeSource = v11;
+  self->_writeSource = v13;
 
-  v13 = self->_writeSource;
-  v14 = v13 != 0;
-  if (v13)
+  v15 = self->_writeSource;
+  v16 = v15 != 0;
+  if (v15)
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __39__CBConnection__setupIOAndReturnError___block_invoke_3;
-    v23[3] = &unk_1E811D130;
-    v23[4] = self;
-    dispatch_source_set_event_handler(v13, v23);
-    v15 = self->_writeSource;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __39__CBConnection__setupIOAndReturnError___block_invoke_4;
-    v22[3] = &unk_1E811D130;
-    v22[4] = self;
-    dispatch_source_set_cancel_handler(v15, v22);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __39__CBConnection__setupIOAndReturnError___block_invoke_3;
+    v20[3] = &unk_1E811D130;
+    v20[4] = self;
+    dispatch_source_set_event_handler(v15, v20);
+    v17 = self->_writeSource;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __39__CBConnection__setupIOAndReturnError___block_invoke_4;
+    v19[3] = &unk_1E811D130;
+    v19[4] = self;
+    dispatch_source_set_cancel_handler(v17, v19);
     self->_writeSuspended = 1;
   }
 
@@ -2052,7 +2649,7 @@ LABEL_3:
     [CBConnection _setupIOAndReturnError:error];
   }
 
-  return v14;
+  return v16;
 }
 
 uint64_t __39__CBConnection__setupIOAndReturnError___block_invoke_2(uint64_t a1)
@@ -2083,50 +2680,36 @@ uint64_t __39__CBConnection__setupIOAndReturnError___block_invoke_4(uint64_t a1)
   if (!self->_invalidateCalled)
   {
     var0 = self->_ucat->var0;
-    if (var0 <= 90)
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 != -1)
-      {
-LABEL_4:
-        v11 = CUPrintNSError();
-        LogPrintF_safe();
-
-        goto LABEL_6;
-      }
-
-      ucat = self->_ucat;
-      if (_LogCategory_Initialize())
-      {
-        v10 = self->_ucat;
-        goto LABEL_4;
-      }
+      v9 = CUPrintNSError();
+      LogPrintF_safe();
     }
   }
 
-LABEL_6:
   self->_state = 3;
-  v6 = MEMORY[0x1C68DF720](self->_activateCompletion);
+  v5 = MEMORY[0x1C68DF720](self->_activateCompletion);
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
 
-  if (v6)
+  if (v5)
   {
-    (v6)[2](v6, errorCopy);
+    (v5)[2](v5, errorCopy);
   }
 
   else
   {
-    v8 = MEMORY[0x1C68DF720](self->_errorHandler);
+    v7 = MEMORY[0x1C68DF720](self->_errorHandler);
     errorHandler = self->_errorHandler;
     self->_errorHandler = 0;
 
-    if (v8)
+    if (v7)
     {
-      (v8)[2](v8, errorCopy);
+      (v7)[2](v7, errorCopy);
     }
   }
 
-  [(CBConnection *)self _abortReadsWithError:errorCopy, v11];
+  [(CBConnection *)self _abortReadsWithError:errorCopy, v9];
   [(CBConnection *)self _abortWritesWithError:errorCopy];
 }
 
@@ -2137,277 +2720,230 @@ LABEL_6:
     while (1)
     {
       state = self->_state;
-      if (state > 13)
+      if (state <= 13)
       {
-        if (state <= 15)
-        {
-          if (state == 14)
-          {
-            if (self->_blePSM)
-            {
-              [(CBPeripheral *)self->_peripheral openL2CAPChannel:?];
-              goto LABEL_36;
-            }
-
-            self->_state = 18;
-          }
-
-          else
-          {
-            if (!self->_l2capChannel)
-            {
-              goto LABEL_37;
-            }
-
-            self->_state = 16;
-          }
-        }
-
-        else
-        {
-          if (state != 16)
-          {
-            if (state != 17)
-            {
-              if (state == 18)
-              {
-                v4 = MEMORY[0x1C68DF720](self->_activateCompletion, a2);
-                activateCompletion = self->_activateCompletion;
-                self->_activateCompletion = 0;
-
-                if (v4)
-                {
-                  v4[2](v4, 0);
-                }
-
-                if (self->_blePSM)
-                {
-                  [(CBConnection *)self _processReads:0];
-                  [(CBConnection *)self _processWrites];
-                }
-
-                if (self->_state == 18)
-                {
-                  return;
-                }
-
-                goto LABEL_38;
-              }
-
-              goto LABEL_37;
-            }
-
-            if (![(CBConnection *)self _runSetupChannel])
-            {
-LABEL_37:
-              if (self->_state == state)
-              {
-                return;
-              }
-
-              goto LABEL_38;
-            }
-
-LABEL_36:
-            ++self->_state;
-            goto LABEL_37;
-          }
-
-          self->_state = 17;
-        }
+        break;
       }
 
-      else if (state <= 10)
+      if (state <= 15)
       {
-        if (state)
+        if (state != 14)
         {
-          if (state != 10)
+          if (self->_l2capChannel)
           {
-            goto LABEL_37;
+            self->_state = 16;
+            goto LABEL_38;
           }
 
-          state = [(CBManager *)self->_centralManager state];
-          if (state != 10 && state != CBManagerStatePoweredOn)
-          {
-            goto LABEL_37;
-          }
+          goto LABEL_37;
+        }
 
+        if (!self->_blePSM)
+        {
+          self->_state = 18;
+          goto LABEL_38;
+        }
+
+        [(CBPeripheral *)self->_peripheral openL2CAPChannel:?];
+        goto LABEL_36;
+      }
+
+      if (state == 16)
+      {
+        self->_state = 17;
+        goto LABEL_38;
+      }
+
+      if (state == 17)
+      {
+        if ([(CBConnection *)self _runSetupChannel])
+        {
           goto LABEL_36;
         }
 
-        self->_state = 10;
+LABEL_37:
+        if (self->_state == state)
+        {
+          return;
+        }
+
+        goto LABEL_38;
+      }
+
+      if (state != 18)
+      {
+        goto LABEL_37;
+      }
+
+      v4 = MEMORY[0x1C68DF720](self->_activateCompletion, a2);
+      activateCompletion = self->_activateCompletion;
+      self->_activateCompletion = 0;
+
+      if (v4)
+      {
+        v4[2](v4, 0);
+      }
+
+      if (self->_blePSM)
+      {
+        [(CBConnection *)self _processReads:0];
+        [(CBConnection *)self _processWrites];
+      }
+
+      if (self->_state == 18)
+      {
+        return;
+      }
+
+LABEL_38:
+      var0 = self->_ucat->var0;
+      if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF_safe();
+      }
+    }
+
+    if (state > 10)
+    {
+      if (state == 11)
+      {
+        if ([(CBConnection *)self _runConnectStart])
+        {
+          goto LABEL_36;
+        }
       }
 
       else
       {
-        if (state == 11)
-        {
-          if (![(CBConnection *)self _runConnectStart])
-          {
-            goto LABEL_37;
-          }
-
-          goto LABEL_36;
-        }
-
         if (state != 12)
         {
           self->_connectedTime = CFAbsoluteTimeGetCurrent();
           goto LABEL_36;
         }
 
-        if (!self->_guardConnected)
+        if (self->_guardConnected)
         {
-          goto LABEL_37;
-        }
-
-        self->_state = 13;
-      }
-
-LABEL_38:
-      var0 = self->_ucat->var0;
-      if (var0 <= 30)
-      {
-        if (var0 != -1)
-        {
-          if (state > 0x12)
-          {
-            goto LABEL_42;
-          }
-
-LABEL_41:
-          v8 = off_1E81205C8[state];
-          goto LABEL_42;
-        }
-
-        if (_LogCategory_Initialize())
-        {
-          ucat = self->_ucat;
-          if (state <= 0x12)
-          {
-            goto LABEL_41;
-          }
-
-LABEL_42:
-          v9 = self->_state;
-          if (v9 <= 0x12)
-          {
-            v10 = off_1E81205C8[v9];
-          }
-
-          LogPrintF_safe();
+          self->_state = 13;
+          goto LABEL_38;
         }
       }
+
+      goto LABEL_37;
     }
+
+    if (!state)
+    {
+      self->_state = 10;
+      goto LABEL_38;
+    }
+
+    if (state != 10)
+    {
+      goto LABEL_37;
+    }
+
+    state = [(CBManager *)self->_centralManager state];
+    if (state != 10 && state != CBManagerStatePoweredOn)
+    {
+      goto LABEL_37;
+    }
+
+LABEL_36:
+    ++self->_state;
+    goto LABEL_37;
   }
 }
 
 - (BOOL)_runConnectStart
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v3 = self->_blePeerUUID;
   centralManager = self->_centralManager;
-  v27[0] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v23[0] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   v6 = [(CBCentralManager *)centralManager retrievePeripheralsWithIdentifiers:v5];
 
   firstObject = [v6 firstObject];
-  if (!firstObject)
+  if (firstObject)
   {
-    v16 = *MEMORY[0x1E696A768];
-    v9 = NSErrorF_safe();
-    [(CBConnection *)self _reportError:v9, v3];
-    goto LABEL_24;
-  }
-
-  objc_storeStrong(&self->_peripheral, firstObject);
-  [(CBPeripheral *)self->_peripheral setDelegate:self];
-  v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v9 = v8;
-  clientBundleID = self->_clientBundleID;
-  if (clientBundleID)
-  {
-    [v8 setObject:clientBundleID forKeyedSubscript:@"kCBConnectOptionClientBundleID"];
-  }
-
-  if (self->_clientUseCase)
-  {
-    v11 = [MEMORY[0x1E696AD98] numberWithInteger:?];
-    [v9 setObject:v11 forKeyedSubscript:@"kCBOptionUseCase"];
-  }
-
-  if (self->_useCase)
-  {
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-    [v9 setObject:v12 forKeyedSubscript:@"kCBOptionUseCase"];
-  }
-
-  if ((_os_feature_enabled_impl() & 1) != 0 && self->_useCase == 720897)
-  {
-    tempLTK = self->_tempLTK;
-    if (tempLTK)
+    objc_storeStrong(&self->_peripheral, firstObject);
+    [(CBPeripheral *)self->_peripheral setDelegate:self];
+    v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v9 = v8;
+    clientBundleID = self->_clientBundleID;
+    if (clientBundleID)
     {
-      [v9 setObject:tempLTK forKeyedSubscript:@"kCBConnectOptionsTemporaryLTK"];
+      [v8 setObject:clientBundleID forKeyedSubscript:@"kCBConnectOptionClientBundleID"];
     }
-  }
 
-  if ((self->_connectionFlags & 0x40) != 0)
-  {
-    [v9 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"kCBConnectOptionDoNoDisconnectOnEncryptionFailure"];
-  }
-
-  v14 = [MEMORY[0x1E696AD98] numberWithInteger:self->_connectionScanDutyCycle];
-  [v9 setObject:v14 forKeyedSubscript:@"kCBConnectOptionConnectionScanDutyCycle"];
-
-  if ((self->_connectionFlags & 0x800) != 0 || self->_useCase == 720897)
-  {
-    [v9 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"kCBConnectOptionsDisableLeGATT"];
-  }
-
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
-  {
-    if (var0 != -1)
+    if (self->_clientUseCase)
     {
-LABEL_19:
+      v11 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+      [v9 setObject:v11 forKeyedSubscript:@"kCBOptionUseCase"];
+    }
+
+    if (self->_useCase)
+    {
+      v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+      [v9 setObject:v12 forKeyedSubscript:@"kCBOptionUseCase"];
+    }
+
+    if ((_os_feature_enabled_impl() & 1) != 0 && self->_useCase == 720897)
+    {
+      tempLTK = self->_tempLTK;
+      if (tempLTK)
+      {
+        [v9 setObject:tempLTK forKeyedSubscript:@"kCBConnectOptionsTemporaryLTK"];
+      }
+    }
+
+    if ((self->_connectionFlags & 0x40) != 0)
+    {
+      [v9 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"kCBConnectOptionDoNoDisconnectOnEncryptionFailure"];
+    }
+
+    v14 = [MEMORY[0x1E696AD98] numberWithInteger:self->_connectionScanDutyCycle];
+    [v9 setObject:v14 forKeyedSubscript:@"kCBConnectOptionConnectionScanDutyCycle"];
+
+    if ((self->_connectionFlags & 0x800) != 0 || self->_useCase == 720897)
+    {
+      [v9 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"kCBConnectOptionsDisableLeGATT"];
+    }
+
+    var0 = self->_ucat->var0;
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
+    {
       CUPrintNSObjectOneLine();
-      v25 = v24 = v3;
+      v21 = v20 = v3;
       LogPrintF_safe();
-
-      goto LABEL_22;
     }
 
-    ucat = self->_ucat;
-    if (_LogCategory_Initialize())
+    [(CBCentralManager *)self->_centralManager connectPeripheral:firstObject options:v9, v20, v21];
+    if (self->_connectTimeoutSeconds > 0.0)
     {
-      v23 = self->_ucat;
-      goto LABEL_19;
+      v16 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+      connectTimeoutTimer = self->_connectTimeoutTimer;
+      self->_connectTimeoutTimer = v16;
+      v18 = v16;
+
+      handler[0] = MEMORY[0x1E69E9820];
+      handler[1] = 3221225472;
+      handler[2] = __32__CBConnection__runConnectStart__block_invoke;
+      handler[3] = &unk_1E811CF50;
+      handler[4] = v18;
+      handler[5] = self;
+      dispatch_source_set_event_handler(v18, handler);
+      CUDispatchTimerSet();
+      dispatch_activate(v18);
     }
   }
 
-LABEL_22:
-  [(CBCentralManager *)self->_centralManager connectPeripheral:firstObject options:v9, v24, v25];
-  if (self->_connectTimeoutSeconds > 0.0)
+  else
   {
-    v18 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-    connectTimeoutTimer = self->_connectTimeoutTimer;
-    self->_connectTimeoutTimer = v18;
-    v20 = v18;
-
-    handler[0] = MEMORY[0x1E69E9820];
-    handler[1] = 3221225472;
-    handler[2] = __32__CBConnection__runConnectStart__block_invoke;
-    handler[3] = &unk_1E811CF50;
-    handler[4] = v20;
-    handler[5] = self;
-    dispatch_source_set_event_handler(v20, handler);
-    CUDispatchTimerSet();
-    dispatch_activate(v20);
+    v9 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960569, "No peripheral %@", v3);
+    [(CBConnection *)self _reportError:v9];
   }
 
-LABEL_24:
-
-  v21 = *MEMORY[0x1E69E9840];
   return firstObject != 0;
 }
 
@@ -2462,27 +2998,27 @@ void __32__CBConnection__runConnectStart__block_invoke(uint64_t a1, uint64_t a2,
 - (void)_pairingGenerateOOBDataWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__3;
-  v58 = __Block_byref_object_dispose__3;
-  v59 = 0;
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __61__CBConnection__pairingGenerateOOBDataWithCompletionHandler___block_invoke;
-  v51[3] = &unk_1E811D350;
-  v53 = &v54;
-  v51[4] = self;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__3;
+  v56 = __Block_byref_object_dispose__3;
+  v57 = 0;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __61__CBConnection__pairingGenerateOOBDataWithCompletionHandler___block_invoke;
+  v49[3] = &unk_1E811D350;
+  v51 = &v52;
+  v49[4] = self;
   v5 = handlerCopy;
-  v52 = v5;
-  v12 = MEMORY[0x1C68DF720](v51);
+  v50 = v5;
+  v12 = MEMORY[0x1C68DF720](v49);
   if (self->_invalidateCalled)
   {
-    v43 = CBErrorF(-71148, "Use after invalidate", v6, v7, v8, v9, v10, v11, v47);
+    v42 = CBErrorF(-71148, "Use after invalidate", v6, v7, v8, v9, v10, v11, v45);
 LABEL_21:
-    peer = v55[5];
-    v55[5] = v43;
+    peer = v53[5];
+    v53[5] = v42;
     goto LABEL_18;
   }
 
@@ -2496,123 +3032,95 @@ LABEL_21:
   peer = [(CBL2CAPChannel *)self->_l2capChannel peer];
   if (!peer)
   {
-    v43 = CBErrorF(-6705, "No peer", v14, v15, v16, v17, v18, v19, v47);
+    v42 = CBErrorF(-6705, "No peer", v14, v15, v16, v17, v18, v19, v45);
     goto LABEL_21;
   }
 
 LABEL_5:
   centralManager = self->_centralManager;
-  if (centralManager)
+  if (!centralManager)
   {
-    sharedPairingAgent = [(CBManager *)centralManager sharedPairingAgent];
-    v29 = sharedPairingAgent;
-    if (sharedPairingAgent)
+    server = self->_server;
+    if (server)
     {
-      v36 = [sharedPairingAgent retrieveOOBDataForPeer:peer];
-      if (!v36)
-      {
-        v44 = CBErrorF(-6700, "Generate OOB data failed", v30, v31, v32, v33, v34, v35, v47);
-        v45 = v55[5];
-        v55[5] = v44;
-
-        goto LABEL_17;
-      }
-
-      objc_storeStrong(&self->_pairingOOBData, v36);
-      var0 = self->_ucat->var0;
-      if (var0 <= 30)
-      {
-        if (var0 == -1)
-        {
-          ucat = self->_ucat;
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_16;
-          }
-
-          v46 = self->_ucat;
-        }
-
-        identifier = [(CBPeer *)peer identifier];
-        v48 = CUPrintNSDataHex();
-        LogPrintF_safe();
-      }
-
-LABEL_16:
-      (*(v5 + 2))(v5, v36, 0);
-LABEL_17:
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __61__CBConnection__pairingGenerateOOBDataWithCompletionHandler___block_invoke_2;
+      v47[3] = &unk_1E81204E0;
+      v47[4] = self;
+      v48 = v5;
+      [(CBServer *)server pairingGenerateOOBDataForPeer:peer completionHandler:v47];
 
       goto LABEL_18;
     }
 
-    v40 = CBErrorF(-6705, "No pairing agent", v23, v24, v25, v26, v27, v28, v47);
-    goto LABEL_14;
-  }
-
-  server = self->_server;
-  if (!server)
-  {
-    v40 = CBErrorF(-6700, "No central or server", v14, v15, v16, v17, v18, v19, v47);
+    v40 = CBErrorF(-6700, "No central or server", v14, v15, v16, v17, v18, v19, v45);
 LABEL_14:
-    v41 = v55[5];
-    v55[5] = v40;
+    v41 = v53[5];
+    v53[5] = v40;
 
     goto LABEL_18;
   }
 
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __61__CBConnection__pairingGenerateOOBDataWithCompletionHandler___block_invoke_2;
-  v49[3] = &unk_1E81204E0;
-  v49[4] = self;
-  v50 = v5;
-  [(CBServer *)server pairingGenerateOOBDataForPeer:peer completionHandler:v49];
+  sharedPairingAgent = [(CBManager *)centralManager sharedPairingAgent];
+  v29 = sharedPairingAgent;
+  if (!sharedPairingAgent)
+  {
+    v40 = CBErrorF(-6705, "No pairing agent", v23, v24, v25, v26, v27, v28, v45);
+    goto LABEL_14;
+  }
+
+  v36 = [sharedPairingAgent retrieveOOBDataForPeer:peer];
+  if (v36)
+  {
+    objc_storeStrong(&self->_pairingOOBData, v36);
+    var0 = self->_ucat->var0;
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
+    {
+      identifier = [(CBPeer *)peer identifier];
+      v46 = CUPrintNSDataHex();
+      LogPrintF_safe();
+    }
+
+    (*(v5 + 2))(v5, v36, 0);
+  }
+
+  else
+  {
+    v43 = CBErrorF(-6700, "Generate OOB data failed", v30, v31, v32, v33, v34, v35, v45);
+    v44 = v53[5];
+    v53[5] = v43;
+  }
 
 LABEL_18:
   v12[2](v12);
 
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v52, 8);
 }
 
 void *__61__CBConnection__pairingGenerateOOBDataWithCompletionHandler___block_invoke(void *result)
 {
-  v1 = result[6];
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(result[6] + 8) + 40))
   {
-    return result;
-  }
-
-  v2 = **(result[4] + 152);
-  if (v2 <= 90)
-  {
-    v3 = result;
-    if (v2 == -1)
+    v1 = **(result[4] + 152);
+    if (v1 <= 90)
     {
-      v4 = *(result[4] + 152);
-      v5 = _LogCategory_Initialize();
-      result = v3;
-      v1 = v3[6];
-      if (!v5)
+      v2 = result;
+      if (v1 != -1 || (v3 = _LogCategory_Initialize(), result = v2, v3))
       {
-        goto LABEL_7;
-      }
+        v5 = CUPrintNSError();
+        LogPrintF_safe();
 
-      v8 = *(v3[4] + 152);
-      v9 = *(*(v1 + 8) + 40);
+        result = v2;
+      }
     }
 
-    v10 = CUPrintNSError();
-    LogPrintF_safe();
+    v4 = *(result[5] + 16);
 
-    result = v3;
-    v1 = v3[6];
+    return v4();
   }
 
-LABEL_7:
-  v6 = *(*(v1 + 8) + 40);
-  v7 = *(result[5] + 16);
-
-  return v7();
+  return result;
 }
 
 void __61__CBConnection__pairingGenerateOOBDataWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2642,47 +3150,122 @@ void __61__CBConnection__pairingGenerateOOBDataWithCompletionHandler___block_inv
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __56__CBConnection__pairingSetOOBEnabled_completionHandler___block_invoke(uint64_t result)
+- (void)_pairingSetOOBEnabled:(BOOL)enabled completionHandler:(id)handler
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__3;
+  v48 = __Block_byref_object_dispose__3;
+  v49 = 0;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __56__CBConnection__pairingSetOOBEnabled_completionHandler___block_invoke;
+  v40[3] = &unk_1E8120530;
+  v42 = &v44;
+  v40[4] = self;
+  v43 = enabledCopy;
+  v7 = handlerCopy;
+  v41 = v7;
+  v14 = MEMORY[0x1C68DF720](v40);
+  if (self->_invalidateCalled)
   {
-    return result;
+    v36 = CBErrorF(-71148, "Use after invalidate", v8, v9, v10, v11, v12, v13, v39);
+    peer = v45[5];
+    v45[5] = v36;
+    goto LABEL_17;
   }
 
-  v2 = **(*(result + 32) + 152);
-  if (v2 <= 90)
+  peripheral = self->_peripheral;
+  if (peripheral)
   {
-    if (v2 == -1)
+    peer = peripheral;
+  }
+
+  else
+  {
+    peer = [(CBL2CAPChannel *)self->_l2capChannel peer];
+    if (!peer)
     {
-      v4 = result;
-      v5 = *(*(result + 32) + 152);
-      v6 = _LogCategory_Initialize();
-      result = v4;
-      v1 = *(v4 + 48);
-      if (!v6)
+      v35 = CBErrorF(-6705, "No peer", v16, v17, v18, v19, v20, v21, v39);
+      peer = 0;
+      goto LABEL_13;
+    }
+  }
+
+  centralManager = self->_centralManager;
+  if (centralManager)
+  {
+    sharedPairingAgent = [(CBManager *)centralManager sharedPairingAgent];
+    v31 = sharedPairingAgent;
+    if (sharedPairingAgent)
+    {
+      [sharedPairingAgent setDelegate:self];
+      [v31 setOOBPairingEnabled:1 forPeer:peer];
+      var0 = self->_ucat->var0;
+      if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_7;
+        identifier = [(CBPeer *)peer identifier];
+        LogPrintF_safe();
       }
 
-      v9 = *(*(v4 + 32) + 152);
-      v10 = *(*(v1 + 8) + 40);
+      (*(v7 + 2))(v7, 0);
     }
 
-    *(result + 56);
-    v3 = result;
-    v11 = CUPrintNSError();
-    LogPrintF_safe();
+    else
+    {
+      v37 = CBErrorF(-6705, "No pairing agent", v25, v26, v27, v28, v29, v30, v39);
+      v38 = v45[5];
+      v45[5] = v37;
+    }
 
-    result = v3;
-    v1 = *(v3 + 48);
+    goto LABEL_16;
   }
 
-LABEL_7:
-  v7 = *(*(v1 + 8) + 40);
-  v8 = *(*(result + 40) + 16);
+  server = self->_server;
+  if (!server)
+  {
+    v35 = CBErrorF(-6700, "No central or server", v16, v17, v18, v19, v20, v21, v39);
+LABEL_13:
+    v31 = v45[5];
+    v45[5] = v35;
+LABEL_16:
 
-  return v8();
+    goto LABEL_17;
+  }
+
+  [(CBServer *)server pairingSetOOBEnabled:enabledCopy peer:peer completionHandler:v7];
+LABEL_17:
+
+  v14[2](v14);
+  _Block_object_dispose(&v44, 8);
+}
+
+void *__56__CBConnection__pairingSetOOBEnabled_completionHandler___block_invoke(void *result)
+{
+  if (*(*(result[6] + 8) + 40))
+  {
+    v1 = **(result[4] + 152);
+    if (v1 <= 90)
+    {
+      if (v1 != -1 || (v3 = result, v4 = _LogCategory_Initialize(), result = v3, v4))
+      {
+        v2 = result;
+        v6 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v2;
+      }
+    }
+
+    v5 = *(result[5] + 16);
+
+    return v5();
+  }
+
+  return result;
 }
 
 - (void)pairingPerformAction:(int)action completionHandler:(id)handler
@@ -2777,99 +3360,78 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
 {
   optionsCopy = options;
   handlerCopy = handler;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__3;
+  v50 = __Block_byref_object_dispose__3;
   v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__3;
-  v55 = __Block_byref_object_dispose__3;
-  v56 = 0;
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __71__CBConnection__pairingPerformActionBLE_withOptions_completionHandler___block_invoke;
-  v47[3] = &unk_1E8120580;
-  v49 = &v51;
-  v47[4] = self;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __71__CBConnection__pairingPerformActionBLE_withOptions_completionHandler___block_invoke;
+  v42[3] = &unk_1E8120580;
+  v44 = &v46;
+  v42[4] = self;
   eCopy = e;
   v10 = handlerCopy;
-  v48 = v10;
-  v11 = MEMORY[0x1C68DF720](v47);
+  v43 = v10;
+  v11 = MEMORY[0x1C68DF720](v42);
   sharedPairingAgent = [(CBManager *)self->_centralManager sharedPairingAgent];
-  if (!sharedPairingAgent)
+  if (sharedPairingAgent)
   {
-    v44 = CBErrorF(-6705, "No pairing agent", v12, v13, v14, v15, v16, v17, v46);
-    v25 = v52[5];
-    v52[5] = v44;
-    goto LABEL_17;
-  }
-
-  v25 = self->_peripheral;
-  if (v25)
-  {
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    v25 = self->_peripheral;
+    if (v25)
     {
-      if (var0 != -1)
+      var0 = self->_ucat->var0;
+      if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
       {
-LABEL_5:
         identifier = [(CBPeer *)v25 identifier];
-        v28 = identifier;
-        if (e <= 3)
-        {
-          v29 = off_1E8120660[e];
-        }
-
-        v46 = identifier;
         LogPrintF_safe();
-
-        goto LABEL_10;
       }
 
-      ucat = self->_ucat;
-      if (_LogCategory_Initialize())
+      v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      if ([optionsCopy count])
       {
-        v31 = self->_ucat;
-        goto LABEL_5;
+        v34 = MEMORY[0x1E696AD98];
+        v35 = [optionsCopy objectForKeyedSubscript:@"kCBMsgArgPairingPasskey"];
+        v36 = [v34 numberWithInteger:{objc_msgSend(v35, "integerValue")}];
+        [v27 setObject:v36 forKeyedSubscript:@"kCBMsgArgPairingPasskey"];
       }
-    }
 
-LABEL_10:
-    v32 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    if ([optionsCopy count])
-    {
-      v39 = MEMORY[0x1E696AD98];
-      v40 = [optionsCopy objectForKeyedSubscript:@"kCBMsgArgPairingPasskey"];
-      v41 = [v39 numberWithInteger:{objc_msgSend(v40, "integerValue")}];
-      [v32 setObject:v41 forKeyedSubscript:@"kCBMsgArgPairingPasskey"];
-    }
+      if ((e - 1) > 2)
+      {
+        v37 = CBErrorF(-6705, "Bad pairing action", v28, v29, v30, v31, v32, v33, identifier);
+        v38 = v47[5];
+        v47[5] = v37;
+      }
 
-    if ((e - 1) > 2)
-    {
-      v42 = CBErrorF(-6705, "Bad pairing action", v33, v34, v35, v36, v37, v38, v46);
-      v43 = v52[5];
-      v52[5] = v42;
+      else
+      {
+        [sharedPairingAgent respondToPairingRequest:v25 type:self->_pairingType accept:1u >> ((e - 1) & 7) data:v27];
+        if (v10)
+        {
+          (*(v10 + 2))(v10, 0);
+        }
+      }
     }
 
     else
     {
-      [sharedPairingAgent respondToPairingRequest:v25 type:self->_pairingType accept:1u >> ((e - 1) & 7) data:v32];
-      if (v10)
-      {
-        (*(v10 + 2))(v10, 0);
-      }
+      v40 = CBErrorF(-6705, "No peripheral", v19, v20, v21, v22, v23, v24, identifier);
+      v27 = v47[5];
+      v47[5] = v40;
     }
-
-    goto LABEL_16;
   }
 
-  v45 = CBErrorF(-6705, "No peripheral", v19, v20, v21, v22, v23, v24, v46);
-  v32 = v52[5];
-  v52[5] = v45;
-LABEL_16:
+  else
+  {
+    v39 = CBErrorF(-6705, "No pairing agent", v12, v13, v14, v15, v16, v17, identifier);
+    v25 = v47[5];
+    v47[5] = v39;
+  }
 
-LABEL_17:
   v11[2](v11);
-
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v46, 8);
 }
 
 void *__71__CBConnection__pairingPerformActionBLE_withOptions_completionHandler___block_invoke(void *result)
@@ -2882,54 +3444,41 @@ void *__71__CBConnection__pairingPerformActionBLE_withOptions_completionHandler_
   v1 = result;
   v2 = result[4];
   v3 = **(v2 + 152);
-  if (v3 > 90)
+  if (v3 <= 90)
   {
-    goto LABEL_7;
-  }
-
-  if (v3 != -1)
-  {
-    goto LABEL_4;
-  }
-
-  v7 = *(v2 + 152);
-  if (!_LogCategory_Initialize())
-  {
-LABEL_7:
-    result = v1[5];
-    if (!result)
+    if (v3 != -1)
     {
-      return result;
+LABEL_4:
+      v4 = [*(v2 + 304) identifier];
+      v6 = CUPrintNSError();
+      LogPrintF_safe();
+
+      result = v1[5];
+      if (!result)
+      {
+        return result;
+      }
+
+      goto LABEL_7;
     }
 
-    goto LABEL_8;
+    if (_LogCategory_Initialize())
+    {
+      v2 = v1[4];
+      goto LABEL_4;
+    }
   }
-
-  v2 = v1[4];
-  v11 = *(v2 + 152);
-LABEL_4:
-  v4 = [*(v2 + 304) identifier];
-  v5 = *(v1 + 14);
-  if (v5 <= 3)
-  {
-    v6 = off_1E8120660[v5];
-  }
-
-  v10 = *(*(v1[6] + 8) + 40);
-  v12 = CUPrintNSError();
-  LogPrintF_safe();
 
   result = v1[5];
-  if (result)
+  if (!result)
   {
-LABEL_8:
-    v8 = *(*(v1[6] + 8) + 40);
-    v9 = result[2];
-
-    return v9();
+    return result;
   }
 
-  return result;
+LABEL_7:
+  v5 = result[2];
+
+  return v5();
 }
 
 - (void)_pairingPerformActionClassic:(int)classic completionHandler:(id)handler
@@ -2982,11 +3531,11 @@ LABEL_8:
 LABEL_10:
 }
 
-void __63__CBConnection__pairingPerformActionClassic_completionHandler___block_invoke(uint64_t a1)
+void __63__CBConnection__pairingPerformActionClassic_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (void)_pairingPerformActionClassic:(int)classic withOptions:(id)options completionHandler:(id)handler
@@ -3046,11 +3595,11 @@ void __63__CBConnection__pairingPerformActionClassic_completionHandler___block_i
 LABEL_12:
 }
 
-void __75__CBConnection__pairingPerformActionClassic_withOptions_completionHandler___block_invoke(uint64_t a1)
+void __75__CBConnection__pairingPerformActionClassic_withOptions_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (void)pairWithOOBData:(id)data
@@ -3070,76 +3619,66 @@ void __75__CBConnection__pairingPerformActionClassic_withOptions_completionHandl
 - (void)_pairWithOOBData:(id)data
 {
   dataCopy = data;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__3;
-  v43 = __Block_byref_object_dispose__3;
-  v44 = 0;
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __33__CBConnection__pairWithOOBData___block_invoke;
-  v38[3] = &unk_1E811D378;
-  v38[4] = self;
-  v38[5] = &v39;
-  v12 = MEMORY[0x1C68DF720](v38);
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__3;
+  v41 = __Block_byref_object_dispose__3;
+  v42 = 0;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __33__CBConnection__pairWithOOBData___block_invoke;
+  v36[3] = &unk_1E811D378;
+  v36[4] = self;
+  v36[5] = &v37;
+  v12 = MEMORY[0x1C68DF720](v36);
   if (self->_invalidateCalled)
   {
-    v31 = CBErrorF(-71148, "Use after invalidate", v6, v7, v8, v9, v10, v11, v36);
-    v19 = v40[5];
-    v40[5] = v31;
-    goto LABEL_10;
+    v30 = CBErrorF(-71148, "Use after invalidate", v6, v7, v8, v9, v10, v11, v34);
+    v19 = v38[5];
+    v38[5] = v30;
   }
 
-  v19 = self->_peripheral;
-  if (!v19)
+  else
   {
-    v32 = CBErrorF(-6705, "No peer", v13, v14, v15, v16, v17, v18, v36);
-    v27 = v40[5];
-    v40[5] = v32;
-    goto LABEL_9;
-  }
-
-  sharedPairingAgent = [(CBManager *)self->_centralManager sharedPairingAgent];
-  v27 = sharedPairingAgent;
-  if (!sharedPairingAgent)
-  {
-    v33 = CBErrorF(-6705, "No pairing agent", v21, v22, v23, v24, v25, v26, v36);
-    v34 = v40[5];
-    v40[5] = v33;
-
-    goto LABEL_9;
-  }
-
-  [sharedPairingAgent setDelegate:self];
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    v19 = self->_peripheral;
+    if (v19)
     {
-      ucat = self->_ucat;
-      if (!_LogCategory_Initialize())
+      sharedPairingAgent = [(CBManager *)self->_centralManager sharedPairingAgent];
+      v27 = sharedPairingAgent;
+      if (sharedPairingAgent)
       {
-        goto LABEL_8;
+        [sharedPairingAgent setDelegate:self];
+        var0 = self->_ucat->var0;
+        if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
+        {
+          identifier = [(CBPeer *)v19 identifier];
+          v35 = CUPrintNSDataHex();
+          LogPrintF_safe();
+        }
+
+        objc_storeStrong(&self->_pairingOOBData, data);
+        [v27 pairPeer:v19];
       }
 
-      v35 = self->_ucat;
+      else
+      {
+        v32 = CBErrorF(-6705, "No pairing agent", v21, v22, v23, v24, v25, v26, v34);
+        v33 = v38[5];
+        v38[5] = v32;
+      }
     }
 
-    identifier = [(CBPeer *)v19 identifier];
-    v37 = CUPrintNSDataHex();
-    LogPrintF_safe();
+    else
+    {
+      v31 = CBErrorF(-6705, "No peer", v13, v14, v15, v16, v17, v18, v34);
+      v27 = v38[5];
+      v38[5] = v31;
+    }
   }
 
-LABEL_8:
-  objc_storeStrong(&self->_pairingOOBData, data);
-  [v27 pairPeer:v19];
-LABEL_9:
-
-LABEL_10:
   v12[2](v12);
-
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v37, 8);
 }
 
 void __33__CBConnection__pairWithOOBData___block_invoke(uint64_t a1)
@@ -3147,21 +3686,9 @@ void __33__CBConnection__pairWithOOBData___block_invoke(uint64_t a1)
   if (*(*(*(a1 + 40) + 8) + 40))
   {
     v1 = **(*(a1 + 32) + 152);
-    if (v1 <= 90)
+    if (v1 <= 90 && (v1 != -1 || _LogCategory_Initialize()))
     {
-      if (v1 == -1)
-      {
-        v3 = *(*(a1 + 32) + 152);
-        if (!_LogCategory_Initialize())
-        {
-          return;
-        }
-
-        v4 = *(*(a1 + 32) + 152);
-        v5 = *(*(*(a1 + 40) + 8) + 40);
-      }
-
-      v6 = CUPrintNSError();
+      v2 = CUPrintNSError();
       LogPrintF_safe();
     }
   }
@@ -3187,20 +3714,19 @@ void __38__CBConnection_readWithCBReadRequest___block_invoke(uint64_t a1)
   if (*(v1 + 49) == 1)
   {
     v2 = *(a1 + 40);
-    v3 = *MEMORY[0x1E696A768];
-    v7 = NSErrorF_safe();
-    [v1 _completeReadRequest:v2 error:v7];
+    v6 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "Invalidated (R)");
+    [v1 _completeReadRequest:v2 error:v6];
   }
 
   else
   {
-    v4 = *(v1 + 104);
-    [v4 addObject:*(a1 + 40)];
-    v6 = *(a1 + 32);
-    if ((v6[28] & 0x80000000) == 0)
+    v3 = *(v1 + 104);
+    [v3 addObject:*(a1 + 40)];
+    v5 = *(a1 + 32);
+    if ((v5[28] & 0x80000000) == 0)
     {
 
-      [v6 _processReads:0];
+      [v5 _processReads:0];
     }
   }
 }
@@ -3213,29 +3739,32 @@ void __38__CBConnection_readWithCBReadRequest___block_invoke(uint64_t a1)
   while (1)
   {
     v6 = self->_readRequestCurrent;
-    if (v6)
+    if (!v6)
     {
-      goto LABEL_5;
-    }
+      firstObject = [(NSMutableArray *)self->_readRequests firstObject];
+      if (firstObject)
+      {
+        obja = firstObject;
+        [(NSMutableArray *)self->_readRequests removeObjectAtIndex:0];
+        [(CBConnection *)self _prepareReadRequest:obja];
+        objc_storeStrong(&self->_readRequestCurrent, obja);
+        v6 = obja;
+        goto LABEL_5;
+      }
 
-    firstObject = [(NSMutableArray *)self->_readRequests firstObject];
-    if (!firstObject)
-    {
       if (readsCopy)
       {
         if (v4)
         {
           if (!self->_readSuspended)
           {
-            goto LABEL_35;
+            goto LABEL_38;
           }
 
-          goto LABEL_34;
+          goto LABEL_37;
         }
 
-        _processReadStatus = [(CBConnection *)self _processReadStatus];
-        readSuspended = self->_readSuspended;
-        if (_processReadStatus)
+        if ([(CBConnection *)self _processReadStatus])
         {
           if (!self->_readSuspended)
           {
@@ -3243,76 +3772,54 @@ void __38__CBConnection_readWithCBReadRequest___block_invoke(uint64_t a1)
             dispatch_suspend(self->_readSource);
           }
 
-          goto LABEL_35;
+          goto LABEL_38;
         }
 
         if (self->_readSuspended)
         {
-LABEL_34:
+LABEL_37:
           self->_readSuspended = 0;
           dispatch_resume(self->_readSource);
         }
       }
 
-LABEL_35:
-      v25 = 0;
-      goto LABEL_18;
+LABEL_38:
+      v20 = 0;
+      goto LABEL_21;
     }
 
-    obja = firstObject;
-    [(NSMutableArray *)self->_readRequests removeObjectAtIndex:0];
-    [(CBConnection *)self _prepareReadRequest:obja];
-    objc_storeStrong(&self->_readRequestCurrent, obja);
-    v6 = obja;
 LABEL_5:
     v8 = *(&v6->super.isa + *v5);
-    socketFD = self->_socketFD;
-    bufferPtr = v6->_bufferPtr;
     obj = v6;
-    [(CBReadRequest *)v6 minLength:v29];
+    [(CBReadRequest *)v6 minLength:v22];
     [(CBReadRequest *)obj maxLength];
-    v11 = *v5;
     Data = SocketReadDataEx();
     var0 = self->_ucat->var0;
-    if (var0 > 9)
+    if (var0 <= 9 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_9;
-    }
-
-    if (var0 != -1)
-    {
-      goto LABEL_7;
-    }
-
-    ucat = self->_ucat;
-    if (_LogCategory_Initialize())
-    {
-      v22 = self->_ucat;
-LABEL_7:
-      v36 = self->_socketFD;
+      socketFD = self->_socketFD;
       minLength = [(CBReadRequest *)obj minLength];
       maxLength = [(CBReadRequest *)obj maxLength];
-      v16 = v5;
-      v17 = *(&obj->super.isa + *v5);
+      v13 = v5;
+      v14 = *(&obj->super.isa + *v5);
       CUPrintErrorCode();
-      v34 = v33 = v17;
-      v5 = v16;
-      v31 = maxLength;
-      v32 = v8;
-      v29 = v36;
-      v30 = minLength;
+      v27 = v26 = v14;
+      v5 = v13;
+      v24 = maxLength;
+      v25 = v8;
+      v22 = socketFD;
+      v23 = minLength;
       LogPrintF_safe();
     }
 
-LABEL_9:
     if (Data)
     {
       break;
     }
 
-    v19 = *(&obj->super.isa + *v5);
+    v15 = *(&obj->super.isa + *v5);
     bufferData = [(CBReadRequest *)obj bufferData];
-    [bufferData setLength:v19];
+    [bufferData setLength:v15];
 
     readRequestCurrent = self->_readRequestCurrent;
     self->_readRequestCurrent = 0;
@@ -3343,13 +3850,22 @@ LABEL_9:
 
   else
   {
-    v23 = *MEMORY[0x1E696A768];
-    v24 = NSErrorF_safe();
-    [(CBConnection *)self _abortReadsWithError:v24];
+    v18 = *MEMORY[0x1E696A768];
+    if (Data == -6753)
+    {
+      NSErrorF_safe(v18, Data, "Read EOF", v22, v23, v24, v25, v26, v27);
+    }
+
+    else
+    {
+      NSErrorF_safe(v18, Data, "Read error", v22, v23, v24, v25, v26, v27);
+    }
+    v19 = ;
+    [(CBConnection *)self _abortReadsWithError:v19];
   }
 
-  v25 = obj;
-LABEL_18:
+  v20 = obj;
+LABEL_21:
 }
 
 - (void)_prepareReadRequest:(id)request
@@ -3377,10 +3893,8 @@ LABEL_18:
       goto LABEL_3;
     }
 
-    ucat = self->_ucat;
     if (_LogCategory_Initialize())
     {
-      v12 = self->_ucat;
       v9 = requestCopy;
 LABEL_3:
       [v9 minLength];
@@ -3399,74 +3913,60 @@ LABEL_5:
 
 - (void)_abortReadsWithError:(id)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self->_readRequestCurrent || [(NSMutableArray *)self->_readRequests count])
   {
     var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 != -1)
-      {
-LABEL_5:
-        v20 = CUPrintNSError();
-        LogPrintF_safe();
-
-        goto LABEL_7;
-      }
-
-      ucat = self->_ucat;
-      if (_LogCategory_Initialize())
-      {
-        v19 = self->_ucat;
-        goto LABEL_5;
-      }
+      v17 = CUPrintNSError();
+      LogPrintF_safe();
     }
   }
 
-LABEL_7:
-  v7 = self->_readRequestCurrent;
-  if (v7)
+  v6 = self->_readRequestCurrent;
+  if (v6)
   {
     readRequestCurrent = self->_readRequestCurrent;
     self->_readRequestCurrent = 0;
 
-    [(CBConnection *)self _completeReadRequest:v7 error:errorCopy];
+    [(CBConnection *)self _completeReadRequest:v6 error:errorCopy];
   }
 
-  v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v9 = self->_readRequests;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v10)
+  v18 = 0u;
+  v19 = 0u;
+  v8 = self->_readRequests;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v22;
+    v10 = v9;
+    v11 = *v19;
     do
     {
-      v13 = 0;
-      v14 = v7;
+      v12 = 0;
+      v13 = v6;
       do
       {
-        if (*v22 != v12)
+        if (*v19 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * v13);
+        v6 = *(*(&v18 + 1) + 8 * v12);
 
-        [(CBConnection *)self _completeReadRequest:v7 error:errorCopy];
-        ++v13;
-        v14 = v7;
+        [(CBConnection *)self _completeReadRequest:v6 error:errorCopy];
+        ++v12;
+        v13 = v6;
       }
 
-      while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      while (v10 != v12);
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v11);
+    while (v10);
   }
 
   [(NSMutableArray *)self->_readRequests removeAllObjects];
@@ -3477,39 +3977,36 @@ LABEL_7:
     dispatch_suspend(readSource);
   }
 
-  v16 = MEMORY[0x1C68DF720](self->_errorHandler);
+  v15 = MEMORY[0x1C68DF720](self->_errorHandler);
   errorHandler = self->_errorHandler;
   self->_errorHandler = 0;
 
-  if (v16)
+  if (v15)
   {
-    (v16)[2](v16, errorCopy);
+    (v15)[2](v15, errorCopy);
   }
 
   [(CBConnection *)self _invalidated];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_processReadStatus
 {
   do
   {
-    v14 = 0;
-    v3 = recv(self->_socketFD, &v14, 1uLL, 2);
+    v12 = 0;
+    v3 = recv(self->_socketFD, &v12, 1uLL, 2);
     if ((v3 & 0x8000000000000000) == 0)
     {
       if (!v3)
       {
-        v10 = MEMORY[0x1C68DF720](self->_errorHandler);
+        v9 = MEMORY[0x1C68DF720](self->_errorHandler);
         errorHandler = self->_errorHandler;
         self->_errorHandler = 0;
 
-        if (v10)
+        if (v9)
         {
-          v12 = *MEMORY[0x1E696A768];
-          v13 = NSErrorF_safe();
-          (v10)[2](v10, v13);
+          v11 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960543, "Read status EOF");
+          (v9)[2](v9, v11);
         }
 
         return 1;
@@ -3520,7 +4017,8 @@ LABEL_7:
 
     if (!*__error())
     {
-      goto LABEL_9;
+      v4 = 4294960596;
+      goto LABEL_10;
     }
 
     v4 = *__error();
@@ -3537,16 +4035,15 @@ LABEL_7:
     return 0;
   }
 
-LABEL_9:
+LABEL_10:
   v6 = MEMORY[0x1C68DF720](self->_errorHandler);
   v7 = self->_errorHandler;
   self->_errorHandler = 0;
 
   if (v6)
   {
-    v8 = *MEMORY[0x1E696A768];
-    v9 = NSErrorF_safe();
-    (v6)[2](v6, v9);
+    v8 = NSErrorF_safe(*MEMORY[0x1E696A768], v4, "Read status error");
+    (v6)[2](v6, v8);
   }
 
   return 1;
@@ -3564,23 +4061,21 @@ LABEL_9:
     {
 LABEL_3:
       [v8 length];
-      v13 = CUPrintNSError();
+      v11 = CUPrintNSError();
       LogPrintF_safe();
 
       goto LABEL_5;
     }
 
-    ucat = self->_ucat;
     if (_LogCategory_Initialize())
     {
-      v12 = self->_ucat;
       v8 = requestCopy;
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  v10 = requestCopy[2];
+  v9 = requestCopy[2];
   requestCopy[2] = errorCopy;
 
   completion = [requestCopy completion];
@@ -3611,20 +4106,19 @@ void __40__CBConnection_writeWithCBWriteRequest___block_invoke(uint64_t a1)
   if (*(v1 + 49) == 1)
   {
     v2 = *(a1 + 40);
-    v3 = *MEMORY[0x1E696A768];
-    v7 = NSErrorF_safe();
-    [v1 _completeWriteRequest:v2 error:v7];
+    v6 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "Invalidated (W)");
+    [v1 _completeWriteRequest:v2 error:v6];
   }
 
   else
   {
-    v4 = *(v1 + 144);
-    [v4 addObject:*(a1 + 40)];
-    v6 = *(a1 + 32);
-    if ((v6[28] & 0x80000000) == 0)
+    v3 = *(v1 + 144);
+    [v3 addObject:*(a1 + 40)];
+    v5 = *(a1 + 32);
+    if ((v5[28] & 0x80000000) == 0)
     {
 
-      [v6 _processWrites];
+      [v5 _processWrites];
     }
   }
 }
@@ -3658,7 +4152,7 @@ void __45__CBConnection_writeEndOfDataWithCompletion___block_invoke(uint64_t a1)
 - (void)_processWrites
 {
   v3 = 4;
-  v24 = *MEMORY[0x1E696A768];
+  v21 = *MEMORY[0x1E696A768];
   do
   {
     v6 = self->_writeRequestCurrent;
@@ -3677,50 +4171,35 @@ void __45__CBConnection_writeEndOfDataWithCompletion___block_invoke(uint64_t a1)
       }
 
       v6 = 0;
-      goto LABEL_35;
+      goto LABEL_37;
     }
 
     v6 = firstObject;
     [(NSMutableArray *)self->_writeRequests removeObjectAtIndex:0];
-    v25 = 0;
-    [(CBConnection *)self _prepareWriteRequest:v6 error:&v25];
-    v14 = v25;
-    if (!v14)
+    v22 = 0;
+    [(CBConnection *)self _prepareWriteRequest:v6 error:&v22];
+    v13 = v22;
+    if (!v13)
     {
       objc_storeStrong(&self->_writeRequestCurrent, v6);
 LABEL_6:
       ion = v6->_ion;
-      socketFD = self->_socketFD;
-      v9 = SocketWriteData();
+      v8 = SocketWriteData();
       var0 = self->_ucat->var0;
-      if (var0 <= 9)
+      if (var0 <= 9 && (var0 != -1 || _LogCategory_Initialize()))
       {
-        if (var0 != -1)
-        {
-LABEL_8:
-          v11 = v6->_ion;
-          v12 = self->_socketFD;
-          CUPrintErrorCode();
-          v23 = v22 = v11;
-          v20 = v12;
-          v21 = ion;
-          LogPrintF_safe();
-
-          goto LABEL_13;
-        }
-
-        ucat = self->_ucat;
-        if (_LogCategory_Initialize())
-        {
-          v17 = self->_ucat;
-          goto LABEL_8;
-        }
+        v10 = v6->_ion;
+        socketFD = self->_socketFD;
+        CUPrintErrorCode();
+        v20 = v19 = v10;
+        v17 = socketFD;
+        v18 = ion;
+        LogPrintF_safe();
       }
 
-LABEL_13:
-      if (v9)
+      if (v8)
       {
-        if (v9 == 35)
+        if (v8 == 35)
         {
           if (self->_writeSuspended)
           {
@@ -3731,11 +4210,11 @@ LABEL_13:
 
         else
         {
-          v19 = NSErrorF_safe();
-          [(CBConnection *)self _abortWritesWithError:v19];
+          v16 = NSErrorF_safe(v21, v8, "Write failed");
+          [(CBConnection *)self _abortWritesWithError:v16];
         }
 
-LABEL_35:
+LABEL_37:
 
         return;
       }
@@ -3745,42 +4224,45 @@ LABEL_35:
         goto LABEL_2;
       }
 
-      v16 = self->_ucat->var0;
-      if (v16 <= 9)
+      v14 = self->_ucat->var0;
+      if (v14 <= 9 && (v14 != -1 || _LogCategory_Initialize()))
       {
-        if (v16 == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_20;
-          }
-
-          v18 = self->_ucat;
-        }
-
-        v20 = self->_socketFD;
+        v17 = self->_socketFD;
         LogPrintF_safe();
       }
 
-LABEL_20:
-      if (shutdown(self->_socketFD, 1) && (!*__error() || *__error()))
+      if (!shutdown(self->_socketFD, 1))
       {
-        v4 = NSErrorF_safe();
-        goto LABEL_3;
+        goto LABEL_2;
       }
 
+      if (*__error())
+      {
+        v15 = *__error();
+        if (!v15)
+        {
 LABEL_2:
-      v4 = 0;
+          v4 = 0;
 LABEL_3:
-      writeRequestCurrent = self->_writeRequestCurrent;
-      self->_writeRequestCurrent = 0;
+          writeRequestCurrent = self->_writeRequestCurrent;
+          self->_writeRequestCurrent = 0;
 
-      goto LABEL_4;
+          goto LABEL_4;
+        }
+      }
+
+      else
+      {
+        v15 = 4294960596;
+      }
+
+      v4 = NSErrorF_safe(v21, v15, "shutdown() failed", v17, v18, v19, v20);
+      goto LABEL_3;
     }
 
-    v4 = v14;
+    v4 = v13;
 LABEL_4:
-    [(CBConnection *)self _completeWriteRequest:v6 error:v4, v20, v21, v22, v23];
+    [(CBConnection *)self _completeWriteRequest:v6 error:v4, v17];
 
     --v3;
   }
@@ -3795,7 +4277,7 @@ LABEL_4:
 
 - (BOOL)_prepareWriteRequest:(id)request error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   dataArray = [requestCopy dataArray];
   v8 = [dataArray count];
@@ -3808,32 +4290,32 @@ LABEL_4:
   {
     selfCopy = self;
     v9 = requestCopy + 16;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = dataArray;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           *v9 = [v15 bytes];
           *(v9 + 1) = [v15 length];
           v9 += 16;
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -3851,80 +4333,65 @@ LABEL_4:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8 < 0x11;
 }
 
 - (void)_abortWritesWithError:(id)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self->_writeRequestCurrent || [(NSMutableArray *)self->_writeRequests count])
   {
     var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 != -1)
-      {
-LABEL_5:
-        v20 = CUPrintNSError();
-        LogPrintF_safe();
-
-        goto LABEL_7;
-      }
-
-      ucat = self->_ucat;
-      if (_LogCategory_Initialize())
-      {
-        v19 = self->_ucat;
-        goto LABEL_5;
-      }
+      v17 = CUPrintNSError();
+      LogPrintF_safe();
     }
   }
 
-LABEL_7:
-  v7 = self->_writeRequestCurrent;
-  if (v7)
+  v6 = self->_writeRequestCurrent;
+  if (v6)
   {
     writeRequestCurrent = self->_writeRequestCurrent;
     self->_writeRequestCurrent = 0;
 
-    [(CBConnection *)self _completeWriteRequest:v7 error:errorCopy];
+    [(CBConnection *)self _completeWriteRequest:v6 error:errorCopy];
   }
 
-  v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v9 = self->_writeRequests;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v10)
+  v18 = 0u;
+  v19 = 0u;
+  v8 = self->_writeRequests;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v22;
+    v10 = v9;
+    v11 = *v19;
     do
     {
-      v13 = 0;
-      v14 = v7;
+      v12 = 0;
+      v13 = v6;
       do
       {
-        if (*v22 != v12)
+        if (*v19 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * v13);
+        v6 = *(*(&v18 + 1) + 8 * v12);
 
-        [(CBConnection *)self _completeWriteRequest:v7 error:errorCopy];
-        ++v13;
-        v14 = v7;
+        [(CBConnection *)self _completeWriteRequest:v6 error:errorCopy];
+        ++v12;
+        v13 = v6;
       }
 
-      while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      while (v10 != v12);
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v11);
+    while (v10);
   }
 
   [(NSMutableArray *)self->_writeRequests removeAllObjects];
@@ -3935,18 +4402,16 @@ LABEL_7:
     dispatch_suspend(writeSource);
   }
 
-  v16 = MEMORY[0x1C68DF720](self->_errorHandler);
+  v15 = MEMORY[0x1C68DF720](self->_errorHandler);
   errorHandler = self->_errorHandler;
   self->_errorHandler = 0;
 
-  if (v16)
+  if (v15)
   {
-    (v16)[2](v16, errorCopy);
+    (v15)[2](v15, errorCopy);
   }
 
   [(CBConnection *)self _invalidated];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_completeWriteRequest:(id)request error:(id)error
@@ -3954,27 +4419,13 @@ LABEL_7:
   requestCopy = request;
   errorCopy = error;
   var0 = self->_ucat->var0;
-  if (var0 <= 9)
+  if (var0 <= 9 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
-    {
-LABEL_3:
-      v12 = CUPrintNSError();
-      LogPrintF_safe();
-
-      goto LABEL_5;
-    }
-
-    ucat = self->_ucat;
-    if (_LogCategory_Initialize())
-    {
-      v11 = self->_ucat;
-      goto LABEL_3;
-    }
+    v10 = CUPrintNSError();
+    LogPrintF_safe();
   }
 
-LABEL_5:
-  v9 = requestCopy[1];
+  v8 = requestCopy[1];
   requestCopy[1] = errorCopy;
 
   completion = [requestCopy completion];
@@ -4010,7 +4461,7 @@ LABEL_5:
 LABEL_17:
       v6 = "?";
 LABEL_18:
-      v12 = v6;
+      v9 = v6;
       LogPrintF_safe();
       if (state > 4)
       {
@@ -4022,7 +4473,6 @@ LABEL_18:
 
     if (_LogCategory_Initialize())
     {
-      ucat = self->_ucat;
       if (state <= 0xA)
       {
         goto LABEL_5;
@@ -4038,7 +4488,7 @@ LABEL_19:
     if (state == 10 || state == 5)
     {
       [(CBConnection *)self _run];
-      v10 = stateCopy;
+      v8 = stateCopy;
 
       goto LABEL_15;
     }
@@ -4049,7 +4499,7 @@ LABEL_19:
 LABEL_8:
   if (state == 1)
   {
-    v8 = *MEMORY[0x1E696A768];
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294896145, "Bluetooth reset", v9);
   }
 
   else
@@ -4059,14 +4509,13 @@ LABEL_8:
       goto LABEL_13;
     }
 
-    v7 = *MEMORY[0x1E696A768];
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294896144, "Bluetooth powered off", v9);
   }
-
-  v9 = NSErrorF_safe();
-  [(CBConnection *)self _reportError:v9];
+  v7 = ;
+  [(CBConnection *)self _reportError:v7];
 
 LABEL_13:
-  v10 = stateCopy;
+  v8 = stateCopy;
 
 LABEL_15:
 }
@@ -4082,113 +4531,86 @@ LABEL_15:
     blePeerUUID = self->_blePeerUUID;
     v9 = identifier;
     v10 = blePeerUUID;
-    if (v9 == v10)
+    if (v9 != v10)
     {
-
-      var0 = self->_ucat->var0;
-      if (var0 > 30)
+      if ((v9 != 0) != (v10 == 0))
       {
-        goto LABEL_15;
-      }
+        v11 = v10;
+        v12 = [(NSUUID *)v9 isEqual:v10];
 
-      goto LABEL_8;
-    }
-
-    if ((v9 != 0) != (v10 == 0))
-    {
-      v11 = v10;
-      v12 = [(NSUUID *)v9 isEqual:v10];
-
-      if (v12)
-      {
-        var0 = self->_ucat->var0;
-        if (var0 > 30)
+        if (v12)
         {
-LABEL_15:
-          connectTimeoutTimer = self->_connectTimeoutTimer;
-          if (connectTimeoutTimer)
-          {
-            v16 = connectTimeoutTimer;
-            dispatch_source_cancel(v16);
-            v17 = self->_connectTimeoutTimer;
-            self->_connectTimeoutTimer = 0;
-          }
-
-          connectionLatency = self->_connectionLatency;
-          if (connectionLatency == -99)
-          {
-            goto LABEL_25;
-          }
-
-          v19 = self->_ucat->var0;
-          if (v19 <= 30)
-          {
-            if (v19 != -1)
-            {
-LABEL_20:
-              v28 = CBCentralManagerConnectionLatencyToString(connectionLatency);
-              LogPrintF_safe();
-              [managerCopy setDesiredConnectionLatency:self->_connectionLatency forPeripheral:{peripheralCopy, v9, v28}];
-LABEL_25:
-              self->_guardConnected = 1;
-              [(CBConnection *)self _run];
-              goto LABEL_26;
-            }
-
-            ucat = self->_ucat;
-            v22 = _LogCategory_Initialize();
-            connectionLatency = self->_connectionLatency;
-            if (v22)
-            {
-              v24 = self->_ucat;
-              goto LABEL_20;
-            }
-          }
-
-          [managerCopy setDesiredConnectionLatency:connectionLatency forPeripheral:{peripheralCopy, v25, v26}];
-          goto LABEL_25;
-        }
-
-LABEL_8:
-        if (var0 == -1)
-        {
-          if (!_LogCategory_Initialize())
+          var0 = self->_ucat->var0;
+          if (var0 > 30)
           {
             goto LABEL_15;
           }
 
-          v23 = self->_ucat;
+          goto LABEL_8;
         }
-
-        v25 = v9;
-        LogPrintF_safe();
-        goto LABEL_15;
       }
-    }
 
-    else
-    {
-    }
-
-    v14 = self->_ucat->var0;
-    if (v14 <= 60)
-    {
-      if (v14 == -1)
+      else
       {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_26;
-        }
-
-        v20 = self->_ucat;
       }
 
-      v27 = self->_blePeerUUID;
+      v14 = self->_ucat->var0;
+      if (v14 <= 60 && (v14 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF_safe();
+      }
+
+      goto LABEL_26;
+    }
+
+    var0 = self->_ucat->var0;
+    if (var0 > 30)
+    {
+LABEL_15:
+      connectTimeoutTimer = self->_connectTimeoutTimer;
+      if (connectTimeoutTimer)
+      {
+        v16 = connectTimeoutTimer;
+        dispatch_source_cancel(v16);
+        v17 = self->_connectTimeoutTimer;
+        self->_connectTimeoutTimer = 0;
+      }
+
+      connectionLatency = self->_connectionLatency;
+      if (connectionLatency != -99)
+      {
+        v19 = self->_ucat->var0;
+        if (v19 <= 30 && (v19 != -1 || (v20 = _LogCategory_Initialize(), connectionLatency = self->_connectionLatency, v20)))
+        {
+          v23 = CBCentralManagerConnectionLatencyToString(connectionLatency);
+          LogPrintF_safe();
+          [managerCopy setDesiredConnectionLatency:self->_connectionLatency forPeripheral:{peripheralCopy, v9, v23}];
+        }
+
+        else
+        {
+          [managerCopy setDesiredConnectionLatency:connectionLatency forPeripheral:{peripheralCopy, v21, v22}];
+        }
+      }
+
+      self->_guardConnected = 1;
+      [(CBConnection *)self _run];
+LABEL_26:
+
+      goto LABEL_27;
+    }
+
+LABEL_8:
+    if (var0 != -1 || _LogCategory_Initialize())
+    {
+      v21 = v9;
       LogPrintF_safe();
     }
 
-LABEL_26:
+    goto LABEL_15;
   }
+
+LABEL_27:
 }
 
 - (void)centralManager:(id)manager didFailToConnectPeripheral:(id)peripheral error:(id)error
@@ -4202,115 +4624,98 @@ LABEL_26:
     blePeerUUID = self->_blePeerUUID;
     v10 = identifier;
     v11 = blePeerUUID;
-    if (v10 == v11)
+    if (v10 != v11)
     {
-
-      var0 = self->_ucat->var0;
-      if (var0 > 90)
+      if ((v10 != 0) != (v11 == 0))
       {
-        goto LABEL_15;
-      }
+        v12 = v11;
+        v13 = [(NSUUID *)v10 isEqual:v11];
 
-      goto LABEL_8;
-    }
-
-    if ((v10 != 0) != (v11 == 0))
-    {
-      v12 = v11;
-      v13 = [(NSUUID *)v10 isEqual:v11];
-
-      if (v13)
-      {
-        var0 = self->_ucat->var0;
-        if (var0 > 90)
+        if (v13)
         {
+          var0 = self->_ucat->var0;
+          if (var0 > 90)
+          {
 LABEL_15:
-          if (errorCopy)
-          {
-            [(CBConnection *)self _reportError:errorCopy];
-          }
+            if (errorCopy)
+            {
+              [(CBConnection *)self _reportError:errorCopy];
+            }
 
-          else
-          {
-            v17 = *MEMORY[0x1E696A768];
-            v18 = NSErrorF_safe();
-            [(CBConnection *)self _reportError:v18];
-          }
-
-          goto LABEL_19;
-        }
-
-LABEL_8:
-        if (var0 == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_15;
-          }
-
-          ucat = self->_ucat;
-        }
-
-        v22 = CUPrintNSError();
-        LogPrintF_safe();
-
-        goto LABEL_15;
-      }
-    }
-
-    else
-    {
-    }
-
-    v15 = self->_ucat->var0;
-    if (v15 <= 60)
-    {
-      if (v15 == -1)
-      {
-        v19 = self->_ucat;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_19;
-        }
-
-        v21 = self->_ucat;
-      }
-
-      v16 = self->_blePeerUUID;
-      v23 = CUPrintNSError();
-      LogPrintF_safe();
-    }
+            else
+            {
+              v16 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960543, "Connect failed without error");
+              [(CBConnection *)self _reportError:v16];
+            }
 
 LABEL_19:
+
+            goto LABEL_20;
+          }
+
+LABEL_8:
+          if (var0 != -1 || _LogCategory_Initialize())
+          {
+            v17 = CUPrintNSError();
+            LogPrintF_safe();
+          }
+
+          goto LABEL_15;
+        }
+      }
+
+      else
+      {
+      }
+
+      v15 = self->_ucat->var0;
+      if (v15 <= 60 && (v15 != -1 || _LogCategory_Initialize()))
+      {
+        v18 = CUPrintNSError();
+        LogPrintF_safe();
+      }
+
+      goto LABEL_19;
+    }
+
+    var0 = self->_ucat->var0;
+    if (var0 > 90)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_8;
   }
+
+LABEL_20:
 }
 
 - (void)pairingAgent:(id)agent peerDidRequestPairing:(id)pairing type:(int64_t)type passkey:(id)passkey
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   agentCopy = agent;
   pairingCopy = pairing;
   passkeyCopy = passkey;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v57 = pairingCopy;
+  v50 = pairingCopy;
   identifier = [pairingCopy identifier];
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = __Block_byref_object_copy__3;
-  v66 = __Block_byref_object_dispose__3;
-  v67 = 0;
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = __64__CBConnection_pairingAgent_peerDidRequestPairing_type_passkey___block_invoke;
-  v58[3] = &unk_1E81205A8;
-  v58[4] = self;
-  v58[5] = identifier;
-  v60 = &v62;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__3;
+  v59 = __Block_byref_object_dispose__3;
+  v60 = 0;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __64__CBConnection_pairingAgent_peerDidRequestPairing_type_passkey___block_invoke;
+  v51[3] = &unk_1E81205A8;
+  v51[4] = self;
+  v51[5] = identifier;
+  v53 = &v55;
   typeCopy = type;
   v13 = passkeyCopy;
-  v59 = v13;
-  v14 = MEMORY[0x1C68DF720](v58);
+  v52 = v13;
+  v14 = MEMORY[0x1C68DF720](v51);
   identifier2 = [(CBPeer *)self->_peripheral identifier];
   v16 = identifier2;
   if (identifier2)
@@ -4326,9 +4731,9 @@ LABEL_19:
 
   if (([identifier isEqual:identifier3] & 1) == 0)
   {
-    v48 = CBErrorF(-6727, "peer not found", v19, v20, v21, v22, v23, v24, v52);
-    v31 = v63[5];
-    v63[5] = v48;
+    v44 = CBErrorF(-6727, "peer not found", v19, v20, v21, v22, v23, v24, v45);
+    v31 = v56[5];
+    v56[5] = v44;
     goto LABEL_47;
   }
 
@@ -4338,13 +4743,11 @@ LABEL_19:
   {
     if (var0 == -1)
     {
-      ucat = self->_ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_16;
       }
 
-      v36 = self->_ucat;
       if (type <= 5)
       {
 LABEL_8:
@@ -4359,10 +4762,10 @@ LABEL_9:
 LABEL_13:
         v34 = @"nil";
 LABEL_14:
-        v54 = v13;
-        v55 = v34;
-        v52 = identifier;
-        v53 = v33;
+        v47 = v13;
+        v48 = v34;
+        v45 = identifier;
+        v46 = v33;
         LogPrintF_safe();
         if (v31)
         {
@@ -4388,204 +4791,137 @@ LABEL_14:
 
 LABEL_16:
   self->_pairingType = type;
-  if (!type)
+  if (type)
+  {
+    if (type == 5)
+    {
+      if (v31)
+      {
+        v35 = self->_ucat->var0;
+        if (v35 <= 30 && (v35 != -1 || _LogCategory_Initialize()))
+        {
+          CUPrintNSDataHex();
+          v47 = v46 = "OOB";
+          v45 = identifier;
+          LogPrintF_safe();
+        }
+
+        v63 = @"kCBMsgArgPairingData";
+        v64[0] = v31;
+        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:{1, v45, v46, v47, v48}];
+        [agentCopy respondToPairingRequest:v50 type:5 accept:1 data:v36];
+        goto LABEL_44;
+      }
+
+      v41 = CBErrorF(-6745, "No OOB data", v25, v26, v27, v28, v29, v30, v45);
+LABEL_34:
+      v36 = v56[5];
+      v56[5] = v41;
+LABEL_44:
+
+      goto LABEL_47;
+    }
+
+    if (type > 4 || ((1 << type) & 0x16) == 0)
+    {
+      v41 = CBErrorF(-6735, "Unsupported pairing type", v25, v26, v27, v28, v29, v30, v45);
+      goto LABEL_34;
+    }
+
+    v38 = MEMORY[0x1C68DF720](self->_pairingPromptHandler);
+    if (v38)
+    {
+      v39 = objc_alloc_init(CBPairingInfo);
+      [(CBPairingInfo *)v39 setDevice:self->_peerDevice];
+      [(CBPairingInfo *)v39 setPairingType:type];
+      if (log10([v13 intValue]) < 4.0)
+      {
+        [MEMORY[0x1E696AEC0] stringWithFormat:@"%04d", objc_msgSend(v13, "intValue")];
+      }
+
+      else
+      {
+        [MEMORY[0x1E696AEC0] stringWithFormat:@"%06d", objc_msgSend(v13, "intValue")];
+      }
+      v42 = ;
+      [(CBPairingInfo *)v39 setPin:v42];
+
+      (v38)[2](v38, v39);
+    }
+
+    if (type == 1 && (self->_connectionFlags & 0x200) != 0)
+    {
+      v43 = self->_ucat->var0;
+      if (v43 <= 30 && (v43 != -1 || _LogCategory_Initialize()))
+      {
+        v45 = identifier;
+        v46 = "Display";
+        LogPrintF_safe();
+      }
+
+      if (v13)
+      {
+        v61 = @"kCBMsgArgPairingPasskey";
+        v62 = v13;
+        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+      }
+
+      else
+      {
+        v36 = MEMORY[0x1E695E0F8];
+      }
+
+      [agentCopy respondToPairingRequest:v50 type:1 accept:1 data:{v36, v45, v46, v47, v48}];
+      goto LABEL_44;
+    }
+  }
+
+  else
   {
     if ((self->_connectionFlags & 0x80) == 0)
     {
-      v38 = MEMORY[0x1C68DF720](self->_pairingPromptHandler);
-      if (v38)
+      v36 = MEMORY[0x1C68DF720](self->_pairingPromptHandler);
+      if (v36)
       {
-        v39 = objc_alloc_init(CBPairingInfo);
-        [(CBPairingInfo *)v39 setDevice:self->_peerDevice];
-        [(CBPairingInfo *)v39 setPairingType:0];
-        (v38)[2](v38, v39);
+        v37 = objc_alloc_init(CBPairingInfo);
+        [(CBPairingInfo *)v37 setDevice:self->_peerDevice];
+        [(CBPairingInfo *)v37 setPairingType:0];
+        (v36)[2](v36, v37);
       }
 
       goto LABEL_44;
     }
 
-    v42 = self->_ucat->var0;
-    if (v42 <= 30)
+    v40 = self->_ucat->var0;
+    if (v40 <= 30 && (v40 != -1 || _LogCategory_Initialize()))
     {
-      if (v42 != -1)
-      {
-LABEL_32:
-        LogPrintF_safe();
-        [agentCopy respondToPairingRequest:v57 type:0 accept:1 data:{MEMORY[0x1E695E0F8], identifier, "JustWorks", v54, v55}];
-        goto LABEL_47;
-      }
-
-      if (_LogCategory_Initialize())
-      {
-        v50 = self->_ucat;
-        goto LABEL_32;
-      }
-    }
-
-    [agentCopy respondToPairingRequest:v57 type:0 accept:1 data:{MEMORY[0x1E695E0F8], v52, v53, v54, v55}];
-    goto LABEL_47;
-  }
-
-  if (type == 5)
-  {
-    if (v31)
-    {
-      v37 = self->_ucat->var0;
-      if (v37 <= 30)
-      {
-        if (v37 == -1)
-        {
-          v46 = self->_ucat;
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_43;
-          }
-
-          v49 = self->_ucat;
-        }
-
-        CUPrintNSDataHex();
-        v54 = v53 = "OOB";
-        v52 = identifier;
-        LogPrintF_safe();
-      }
-
-LABEL_43:
-      v70 = @"kCBMsgArgPairingData";
-      v71[0] = v31;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:&v70 count:{1, v52, v53, v54, v55}];
-      [agentCopy respondToPairingRequest:v57 type:5 accept:1 data:v38];
-      goto LABEL_44;
-    }
-
-    v43 = CBErrorF(-6745, "No OOB data", v25, v26, v27, v28, v29, v30, v52);
-LABEL_34:
-    v38 = v63[5];
-    v63[5] = v43;
-LABEL_44:
-
-    goto LABEL_47;
-  }
-
-  if (type > 4 || ((1 << type) & 0x16) == 0)
-  {
-    v43 = CBErrorF(-6735, "Unsupported pairing type", v25, v26, v27, v28, v29, v30, v52);
-    goto LABEL_34;
-  }
-
-  v40 = MEMORY[0x1C68DF720](self->_pairingPromptHandler);
-  if (v40)
-  {
-    v41 = objc_alloc_init(CBPairingInfo);
-    [(CBPairingInfo *)v41 setDevice:self->_peerDevice];
-    [(CBPairingInfo *)v41 setPairingType:type];
-    if (log10([v13 intValue]) < 4.0)
-    {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"%04d", objc_msgSend(v13, "intValue")];
-    }
-
-    else
-    {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"%06d", objc_msgSend(v13, "intValue")];
-    }
-    v44 = ;
-    [(CBPairingInfo *)v41 setPin:v44];
-
-    (v40)[2](v40, v41);
-  }
-
-  if (type == 1 && (self->_connectionFlags & 0x200) != 0)
-  {
-    v45 = self->_ucat->var0;
-    if (v45 <= 30)
-    {
-      if (v45 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_49;
-        }
-
-        v51 = self->_ucat;
-      }
-
-      v52 = identifier;
-      v53 = "Display";
       LogPrintF_safe();
-    }
-
-LABEL_49:
-    if (v13)
-    {
-      v68 = @"kCBMsgArgPairingPasskey";
-      v69 = v13;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+      [agentCopy respondToPairingRequest:v50 type:0 accept:1 data:{MEMORY[0x1E695E0F8], identifier, "JustWorks", v47, v48}];
     }
 
     else
     {
-      v38 = MEMORY[0x1E695E0F8];
+      [agentCopy respondToPairingRequest:v50 type:0 accept:1 data:{MEMORY[0x1E695E0F8], v45, v46, v47, v48}];
     }
-
-    [agentCopy respondToPairingRequest:v57 type:1 accept:1 data:{v38, v52, v53, v54, v55}];
-    goto LABEL_44;
   }
 
 LABEL_47:
 
   v14[2](v14);
-  _Block_object_dispose(&v62, 8);
-
-  v47 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v55, 8);
 }
 
-void __64__CBConnection_pairingAgent_peerDidRequestPairing_type_passkey___block_invoke(void *a1)
+void __64__CBConnection_pairingAgent_peerDidRequestPairing_type_passkey___block_invoke(uint64_t a1)
 {
-  if (!*(*(a1[7] + 8) + 40))
+  if (*(*(*(a1 + 56) + 8) + 40))
   {
-    return;
-  }
-
-  v1 = **(a1[4] + 152);
-  if (v1 > 90)
-  {
-    return;
-  }
-
-  if (v1 == -1)
-  {
-    v5 = a1;
-    v6 = *(a1[4] + 152);
-    if (!_LogCategory_Initialize())
+    v1 = **(*(a1 + 32) + 152);
+    if (v1 <= 90 && (v1 != -1 || _LogCategory_Initialize()))
     {
-      return;
+      v2 = CUPrintNSError();
+      LogPrintF_safe();
     }
-
-    a1 = v5;
-    v7 = *(v5[4] + 152);
-    v8 = v5[5];
-    v3 = a1[8];
-    if (v3 > 5)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_5;
   }
-
-  v2 = a1[5];
-  v3 = a1[8];
-  if (v3 <= 5)
-  {
-LABEL_5:
-    v4 = off_1E81206D8[v3];
-  }
-
-LABEL_9:
-  v9 = a1[6];
-  v10 = *(*(a1[7] + 8) + 40);
-  v11 = CUPrintNSError();
-  LogPrintF_safe();
 }
 
 - (void)pairingAgent:(id)agent peerDidCompletePairing:(id)pairing
@@ -4610,48 +4946,35 @@ LABEL_9:
 
   v11 = [identifier isEqual:identifier3];
   var0 = self->_ucat->var0;
-  if ((v11 & 1) == 0)
+  if (v11)
   {
-    ucat = self->_ucat;
-    [CBConnection pairingAgent:? peerDidCompletePairing:?];
-    goto LABEL_14;
-  }
-
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      v13 = self->_ucat;
-      if (!_LogCategory_Initialize())
+      LogPrintF_safe();
+    }
+
+    pairingOOBData = self->_pairingOOBData;
+    self->_pairingOOBData = 0;
+
+    v14 = MEMORY[0x1C68DF720](self->_pairingCompletedHandler);
+    if (v14)
+    {
+      v15 = self->_peerDevice;
+      if (!v15)
       {
-        goto LABEL_9;
+        v15 = objc_alloc_init(CBDevice);
+        uUIDString = [identifier UUIDString];
+        [(CBDevice *)v15 setIdentifier:uUIDString];
       }
 
-      v19 = self->_ucat;
+      (v14)[2](v14, v15, 0);
     }
-
-    LogPrintF_safe();
   }
 
-LABEL_9:
-  pairingOOBData = self->_pairingOOBData;
-  self->_pairingOOBData = 0;
-
-  v15 = MEMORY[0x1C68DF720](self->_pairingCompletedHandler);
-  if (v15)
+  else
   {
-    v16 = self->_peerDevice;
-    if (!v16)
-    {
-      v16 = objc_alloc_init(CBDevice);
-      uUIDString = [identifier UUIDString];
-      [(CBDevice *)v16 setIdentifier:uUIDString];
-    }
-
-    (v15)[2](v15, v16, 0);
+    [CBConnection pairingAgent:self->_ucat peerDidCompletePairing:?];
   }
-
-LABEL_14:
 }
 
 - (void)pairingAgent:(id)agent peerDidFailToCompletePairing:(id)pairing error:(id)error
@@ -4677,49 +5000,36 @@ LABEL_14:
 
   v14 = [identifier isEqual:identifier3];
   var0 = self->_ucat->var0;
-  if ((v14 & 1) == 0)
+  if (v14)
   {
-    ucat = self->_ucat;
-    [CBConnection pairingAgent:? peerDidFailToCompletePairing:? error:?];
-    goto LABEL_14;
-  }
-
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      v16 = self->_ucat;
-      if (!_LogCategory_Initialize())
+      v20 = CUPrintNSError();
+      LogPrintF_safe();
+    }
+
+    pairingOOBData = self->_pairingOOBData;
+    self->_pairingOOBData = 0;
+
+    v17 = MEMORY[0x1C68DF720](self->_pairingCompletedHandler);
+    if (v17)
+    {
+      v18 = self->_peerDevice;
+      if (!v18)
       {
-        goto LABEL_9;
+        v18 = objc_alloc_init(CBDevice);
+        uUIDString = [identifier UUIDString];
+        [(CBDevice *)v18 setIdentifier:uUIDString];
       }
 
-      v22 = self->_ucat;
+      (v17)[2](v17, v18, errorCopy);
     }
-
-    v23 = CUPrintNSError();
-    LogPrintF_safe();
   }
 
-LABEL_9:
-  pairingOOBData = self->_pairingOOBData;
-  self->_pairingOOBData = 0;
-
-  v18 = MEMORY[0x1C68DF720](self->_pairingCompletedHandler);
-  if (v18)
+  else
   {
-    v19 = self->_peerDevice;
-    if (!v19)
-    {
-      v19 = objc_alloc_init(CBDevice);
-      uUIDString = [identifier UUIDString];
-      [(CBDevice *)v19 setIdentifier:uUIDString];
-    }
-
-    (v18)[2](v18, v19, errorCopy);
+    [CBConnection pairingAgent:self->_ucat peerDidFailToCompletePairing:? error:?];
   }
-
-LABEL_14:
 }
 
 - (void)pairingAgent:(id)agent peerDidUnpair:(id)unpair
@@ -4746,32 +5056,16 @@ LABEL_14:
   var0 = self->_ucat->var0;
   if (v11)
   {
-    if (var0 > 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_9;
-    }
-
-    if (var0 != -1)
-    {
-      goto LABEL_7;
-    }
-
-    ucat = self->_ucat;
-    if (_LogCategory_Initialize())
-    {
-      v15 = self->_ucat;
-LABEL_7:
       LogPrintF_safe();
     }
   }
 
   else
   {
-    v14 = self->_ucat;
-    [CBConnection pairingAgent:? peerDidUnpair:?];
+    [CBConnection pairingAgent:self->_ucat peerDidUnpair:?];
   }
-
-LABEL_9:
 }
 
 - (void)peripheral:(id)peripheral didOpenL2CAPChannel:(id)channel error:(id)error
@@ -4785,167 +5079,104 @@ LABEL_9:
     goto LABEL_25;
   }
 
-  if (self->_l2capChannel)
+  if (!self->_l2capChannel)
   {
-    var0 = self->_ucat->var0;
-    if (var0 > 60)
+    identifier = [peripheralCopy identifier];
+    blePeerUUID = self->_blePeerUUID;
+    v14 = identifier;
+    v15 = blePeerUUID;
+    if (v14 == v15)
     {
-      goto LABEL_25;
     }
 
-    if (var0 == -1)
+    else
     {
-      ucat = self->_ucat;
-      if (!_LogCategory_Initialize())
+      if ((v14 != 0) == (v15 == 0))
       {
+
+LABEL_18:
+        var0 = self->_ucat->var0;
+        if (var0 <= 60 && (var0 != -1 || _LogCategory_Initialize()))
+        {
+          identifier2 = [peripheralCopy identifier];
+          v27 = CUPrintNSError();
+          LogPrintF_safe();
+
+          goto LABEL_24;
+        }
+
         goto LABEL_25;
       }
 
-      v20 = self->_ucat;
-    }
+      v16 = v15;
+      v17 = [(NSUUID *)v14 isEqual:v15];
 
-    identifier3 = CUPrintNSError();
-LABEL_6:
-    LogPrintF_safe();
-LABEL_24:
-
-    goto LABEL_25;
-  }
-
-  identifier = [peripheralCopy identifier];
-  blePeerUUID = self->_blePeerUUID;
-  v14 = identifier;
-  v15 = blePeerUUID;
-  if (v14 == v15)
-  {
-
-    goto LABEL_12;
-  }
-
-  if ((v14 != 0) != (v15 == 0))
-  {
-    v16 = v15;
-    v17 = [(NSUUID *)v14 isEqual:v15];
-
-    if ((v17 & 1) == 0)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_12:
-    v18 = self->_ucat->var0;
-    if (v18 > 30)
-    {
-      goto LABEL_22;
-    }
-
-    if (v18 == -1)
-    {
-      v23 = self->_ucat;
-      if (!_LogCategory_Initialize())
+      if ((v17 & 1) == 0)
       {
-LABEL_22:
-        if (errorCopy)
-        {
-          identifier3 = NSErrorNestedF();
-          [(CBConnection *)self _reportError:identifier3];
-          goto LABEL_24;
-        }
+        goto LABEL_18;
+      }
+    }
 
-        v24 = channelCopy;
-        identifier3 = v24;
-        if (!v24)
-        {
-          v29 = *MEMORY[0x1E696A768];
-          v30 = NSErrorF_safe();
-          [(CBConnection *)self _reportError:v30];
+    v18 = self->_ucat->var0;
+    if (v18 <= 30 && (v18 != -1 || _LogCategory_Initialize()))
+    {
+      CUPrintNSError();
+      v26 = identifier3 = channelCopy;
+      LogPrintF_safe();
+    }
 
-          goto LABEL_24;
-        }
+    if (errorCopy)
+    {
+      identifier2 = NSErrorNestedF();
+      [(CBConnection *)self _reportError:identifier2];
+      goto LABEL_24;
+    }
 
-        if ([v24 PSM] != self->_blePSM)
-        {
-          v31 = self->_ucat->var0;
-          if (v31 > 60)
-          {
-            goto LABEL_24;
-          }
+    v20 = channelCopy;
+    identifier2 = v20;
+    if (!v20)
+    {
+      v23 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "L2CAP open channel null");
+      [(CBConnection *)self _reportError:v23];
 
-          if (v31 == -1)
-          {
-            v33 = self->_ucat;
-            if (!_LogCategory_Initialize())
-            {
-              goto LABEL_24;
-            }
+      goto LABEL_24;
+    }
 
-            v34 = self->_ucat;
-          }
-
-          [identifier3 PSM];
-          blePSM = self->_blePSM;
-          goto LABEL_6;
-        }
-
-        objc_storeStrong(&self->_l2capChannel, channel);
-        v25 = self->_ucat->var0;
-        if (v25 <= 30)
-        {
-          if (v25 == -1)
-          {
-            v32 = self->_ucat;
-            if (!_LogCategory_Initialize())
-            {
-              goto LABEL_40;
-            }
-
-            v36 = self->_ucat;
-          }
-
-          peer = [identifier3 peer];
-          identifier2 = [peer identifier];
-          v38 = [identifier3 PSM];
-          LogPrintF_safe();
-        }
-
-LABEL_40:
-        [(CBConnection *)self _run:identifier2];
-        goto LABEL_24;
+    if ([v20 PSM] == self->_blePSM)
+    {
+      objc_storeStrong(&self->_l2capChannel, channel);
+      v21 = self->_ucat->var0;
+      if (v21 <= 30 && (v21 != -1 || _LogCategory_Initialize()))
+      {
+        peer = [identifier2 peer];
+        identifier3 = [peer identifier];
+        v26 = [identifier2 PSM];
+        LogPrintF_safe();
       }
 
-      v35 = self->_ucat;
+      [(CBConnection *)self _run:identifier3];
+      goto LABEL_24;
     }
 
-    CUPrintNSError();
-    v38 = identifier2 = channelCopy;
+    v24 = self->_ucat->var0;
+    if (v24 > 60 || v24 == -1 && !_LogCategory_Initialize())
+    {
+LABEL_24:
+
+      goto LABEL_25;
+    }
+
+    [identifier2 PSM];
+LABEL_6:
     LogPrintF_safe();
-
-    goto LABEL_22;
-  }
-
-LABEL_18:
-  v21 = self->_ucat->var0;
-  if (v21 > 60)
-  {
-    goto LABEL_25;
-  }
-
-  if (v21 != -1)
-  {
-    goto LABEL_20;
-  }
-
-  v27 = self->_ucat;
-  if (_LogCategory_Initialize())
-  {
-    v28 = self->_ucat;
-LABEL_20:
-    identifier3 = [peripheralCopy identifier];
-    v22 = self->_blePeerUUID;
-    v40 = CUPrintNSError();
-    LogPrintF_safe();
-
     goto LABEL_24;
+  }
+
+  v10 = self->_ucat->var0;
+  if (v10 <= 60 && (v10 != -1 || _LogCategory_Initialize()))
+  {
+    identifier2 = CUPrintNSError();
+    goto LABEL_6;
   }
 
 LABEL_25:
@@ -5039,39 +5270,29 @@ void __33__CBConnection_writeWithRequest___block_invoke(uint64_t a1)
       goto LABEL_35;
     }
 
-    v23 = "CBConnection init failed";
+    v29 = "CBConnection init failed";
 LABEL_34:
-    CBErrorF(-6756, v23, v7, v8, v9, v10, v11, v12, v24);
-    *error = v21 = 0;
+    CBErrorF(-6756, v29, v7, v8, v9, v10, v11, v12, v30);
+    *error = v27 = 0;
     goto LABEL_29;
   }
 
-  if (MEMORY[0x1C68DFDD0](objectCopy) != MEMORY[0x1E69E9E80])
+  v14 = MEMORY[0x1C68DFDD0](objectCopy);
+  if (v14 != MEMORY[0x1E69E9E80])
   {
     if (!error)
     {
       goto LABEL_35;
     }
 
-    v23 = "XPC non-dict";
+    v29 = "XPC non-dict";
     goto LABEL_34;
   }
 
-  v14 = OUTLINED_FUNCTION_0_6();
-  if (v14 == 6)
-  {
-    v13->_clientID = 0;
-  }
-
-  else if (v14 == 5)
-  {
-    goto LABEL_35;
-  }
-
-  v15 = OUTLINED_FUNCTION_0_6();
+  v15 = OUTLINED_FUNCTION_0_6(v14, "cid", v7);
   if (v15 == 6)
   {
-    v13->_connectionFlags = 0;
+    v13->_clientID = 0;
   }
 
   else if (v15 == 5)
@@ -5079,32 +5300,10 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  if (!CUXPCDecodeDouble())
-  {
-    goto LABEL_35;
-  }
-
-  v16 = OUTLINED_FUNCTION_0_6();
-  if (v16 == 6)
-  {
-    v13->_internalFlags = 0;
-  }
-
-  else if (v16 == 5)
-  {
-    goto LABEL_35;
-  }
-
-  objc_opt_class();
-  if (!CUXPCDecodeObject())
-  {
-    goto LABEL_35;
-  }
-
-  v17 = CUXPCDecodeUInt64RangedEx();
+  v17 = OUTLINED_FUNCTION_0_6(v15, "CnFl", v16);
   if (v17 == 6)
   {
-    v13->_blePSM = 0;
+    v13->_connectionFlags = 0;
   }
 
   else if (v17 == 5)
@@ -5112,13 +5311,19 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v18 = OUTLINED_FUNCTION_0_6();
-  if (v18 == 6)
+  v18 = CUXPCDecodeDouble();
+  if (!v18)
   {
-    v13->_serviceFlags = 0;
+    goto LABEL_35;
   }
 
-  else if (v18 == 5)
+  v20 = OUTLINED_FUNCTION_0_6(v18, "intF", v19);
+  if (v20 == 6)
+  {
+    v13->_internalFlags = 0;
+  }
+
+  else if (v20 == 5)
   {
     goto LABEL_35;
   }
@@ -5129,28 +5334,56 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v19 = CUXPCDecodeSInt64RangedEx();
-  if (v19 == 6)
+  v21 = CUXPCDecodeUInt64RangedEx();
+  if (v21 == 6)
   {
-    v13->_socketFD = 0;
+    v13->_blePSM = 0;
   }
 
-  else if (v19 == 5)
+  else if (v21 == 5)
   {
     goto LABEL_35;
   }
 
-  v20 = OUTLINED_FUNCTION_0_6();
-  if (v20 == 6)
+  v23 = OUTLINED_FUNCTION_0_6(v21, "svFl", v22);
+  if (v23 == 6)
+  {
+    v13->_serviceFlags = 0;
+  }
+
+  else if (v23 == 5)
+  {
+    goto LABEL_35;
+  }
+
+  objc_opt_class();
+  if (!CUXPCDecodeObject())
+  {
+    goto LABEL_35;
+  }
+
+  v24 = CUXPCDecodeSInt64RangedEx();
+  if (v24 == 6)
+  {
+    v13->_socketFD = 0;
+  }
+
+  else if (v24 == 5)
+  {
+    goto LABEL_35;
+  }
+
+  v26 = OUTLINED_FUNCTION_0_6(v24, "ucas", v25);
+  if (v26 == 6)
   {
     v13->_useCase = 0;
     goto LABEL_27;
   }
 
-  if (v20 == 5)
+  if (v26 == 5)
   {
 LABEL_35:
-    v21 = 0;
+    v27 = 0;
     goto LABEL_29;
   }
 
@@ -5160,17 +5393,10 @@ LABEL_27:
     goto LABEL_35;
   }
 
-  v21 = v13;
+  v27 = v13;
 LABEL_29:
 
-  return v21;
-}
-
-- (uint64_t)dealloc
-{
-  v1 = *(self + 152);
-  v2 = CUFatalErrorF();
-  return [CBConnection initWithXPCEventRepresentation:v2 error:?];
+  return v27;
 }
 
 - (void)initWithXPCEventRepresentation:(void *)a3 error:.cold.1(void *a1, uint64_t a2, void *a3)
@@ -5197,7 +5423,6 @@ LABEL_29:
     result = _LogCategory_Initialize();
     if (result)
     {
-      v3 = *a1;
       return LogPrintF_safe();
     }
   }
@@ -5208,20 +5433,13 @@ LABEL_29:
 - (uint64_t)xpcReceivedForwardedEvent:(uint64_t)a1 .cold.2(uint64_t a1)
 {
   result = OUTLINED_FUNCTION_1_7(a1);
-  if (v5 ^ v6 | v4)
+  if (v4 ^ v5 | v3)
   {
-    if (v3 == -1)
+    if (v2 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = _LogCategory_Initialize();
-      if (!result)
-      {
-        return result;
-      }
 
-      v7 = *(v1 + 152);
+      return LogPrintF_safe();
     }
-
-    return LogPrintF_safe();
   }
 
   return result;
@@ -5230,20 +5448,13 @@ LABEL_29:
 - (uint64_t)xpcReceivedPairingCompleted:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   result = OUTLINED_FUNCTION_1_7(a1);
-  if (v5 ^ v6 | v4)
+  if (v4 ^ v5 | v3)
   {
-    if (v3 == -1)
+    if (v2 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = _LogCategory_Initialize();
-      if (!result)
-      {
-        return result;
-      }
 
-      v7 = *(v1 + 152);
+      return LogPrintF_safe();
     }
-
-    return LogPrintF_safe();
   }
 
   return result;
@@ -5252,20 +5463,13 @@ LABEL_29:
 - (uint64_t)xpcReceivedPairingPrompt:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   result = OUTLINED_FUNCTION_1_7(a1);
-  if (v5 ^ v6 | v4)
+  if (v4 ^ v5 | v3)
   {
-    if (v3 == -1)
+    if (v2 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = _LogCategory_Initialize();
-      if (!result)
-      {
-        return result;
-      }
 
-      v7 = *(v1 + 152);
+      return LogPrintF_safe();
     }
-
-    return LogPrintF_safe();
   }
 
   return result;
@@ -5276,8 +5480,7 @@ LABEL_29:
   if (result)
   {
     v1 = result;
-    v2 = *MEMORY[0x1E696A768];
-    result = NSErrorF_safe();
+    result = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960549, "Create write source failed");
     *v1 = result;
   }
 
@@ -5286,20 +5489,18 @@ LABEL_29:
 
 void __55__CBConnection_pairingPerformAction_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *(a1 + 40);
-  CBErrorF(-71148, "Use after invalidate", a3, a4, a5, a6, a7, a8, v11);
+  CBErrorF(-71148, "Use after invalidate", a3, a4, a5, a6, a7, a8, v10);
   objc_claimAutoreleasedReturnValue();
-  v9 = OUTLINED_FUNCTION_2_7();
-  v10(v9);
+  v8 = OUTLINED_FUNCTION_2_7();
+  v9(v8);
 }
 
 void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *(a1 + 48);
-  CBErrorF(-71148, "Use after invalidate", a3, a4, a5, a6, a7, a8, v11);
+  CBErrorF(-71148, "Use after invalidate", a3, a4, a5, a6, a7, a8, v10);
   objc_claimAutoreleasedReturnValue();
-  v9 = OUTLINED_FUNCTION_2_7();
-  v10(v9);
+  v8 = OUTLINED_FUNCTION_2_7();
+  v9(v8);
 }
 
 - (void)_prepareWriteRequest:(void *)result error:.cold.1(void *result)
@@ -5307,8 +5508,7 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
   if (result)
   {
     v1 = result;
-    v2 = *MEMORY[0x1E696A768];
-    result = NSErrorF_safe();
+    result = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960532, "Too many write elements (%zu max)", 0x10uLL);
     *v1 = result;
   }
 
@@ -5317,54 +5517,54 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
 
 - (int)_prepareWriteRequest:(uint64_t)a1 error:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 280);
-  if (v4)
+  v2 = *(a1 + 280);
+  if (v2)
   {
-    v5 = *(a1 + 272);
-    v6 = (v4 - 1) & 0xFFFFFFFFFFFFFFFLL;
-    if (v6 > 3)
+    v3 = *(a1 + 272);
+    v4 = (v2 - 1) & 0xFFFFFFFFFFFFFFFLL;
+    if (v4 > 3)
     {
-      v9 = v6 + 1;
-      v10 = v9 & 3;
-      if ((v9 & 3) == 0)
+      v7 = v4 + 1;
+      v8 = v7 & 3;
+      if ((v7 & 3) == 0)
       {
-        v10 = 4;
+        v8 = 4;
       }
 
-      v11 = v9 - v10;
-      v8 = v5 + 16 * v11;
-      v12 = (v5 + 40);
-      v13 = 0uLL;
-      v14 = 0uLL;
+      v9 = v7 - v8;
+      v6 = v3 + 16 * v9;
+      v10 = (v3 + 40);
+      v11 = 0uLL;
+      v12 = 0uLL;
       do
       {
-        v15 = v12 - 4;
-        v16 = vld2q_f64(v15);
-        v17 = vld2q_f64(v12);
-        v13 = vaddq_s64(v16, v13);
-        v14 = vaddq_s64(v17, v14);
-        v12 += 8;
-        v11 -= 4;
+        v13 = v10 - 4;
+        v14 = vld2q_f64(v13);
+        v15 = vld2q_f64(v10);
+        v11 = vaddq_s64(v14, v11);
+        v12 = vaddq_s64(v15, v12);
+        v10 += 8;
+        v9 -= 4;
       }
 
-      while (v11);
-      v7 = vaddvq_s64(vaddq_s64(v14, v13));
+      while (v9);
+      v5 = vaddvq_s64(vaddq_s64(v12, v11));
     }
 
     else
     {
-      v7 = 0;
-      v8 = *(a1 + 272);
+      v5 = 0;
+      v6 = *(a1 + 272);
     }
 
-    v18 = v5 + 16 * v4;
+    v16 = v3 + 16 * v2;
     do
     {
-      v7 += *(v8 + 8);
-      v8 += 16;
+      v5 += *(v6 + 8);
+      v6 += 16;
     }
 
-    while (v8 != v18);
+    while (v6 != v16);
   }
 
   result = *(a2 + 152);
@@ -5378,8 +5578,6 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
     result = _LogCategory_Initialize();
     if (result)
     {
-      v20 = *(a2 + 152);
-      v21 = *(a1 + 280);
       return LogPrintF_safe();
     }
   }
@@ -5387,7 +5585,7 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
   return result;
 }
 
-- (uint64_t)pairingAgent:(uint64_t)result peerDidCompletePairing:.cold.1(uint64_t result)
+- (uint64_t)pairingAgent:(uint64_t)result peerDidCompletePairing:(uint64_t)a2 .cold.1(uint64_t result, uint64_t a2)
 {
   if (result <= 90)
   {
@@ -5396,10 +5594,9 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
       return OUTLINED_FUNCTION_4_3();
     }
 
-    result = OUTLINED_FUNCTION_3_6();
+    result = OUTLINED_FUNCTION_3_6(result, a2);
     if (result)
     {
-      v2 = *v1;
       return OUTLINED_FUNCTION_4_3();
     }
   }
@@ -5407,7 +5604,7 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
   return result;
 }
 
-- (uint64_t)pairingAgent:(uint64_t)result peerDidFailToCompletePairing:error:.cold.1(uint64_t result)
+- (uint64_t)pairingAgent:(uint64_t)result peerDidFailToCompletePairing:(uint64_t)a2 error:.cold.1(uint64_t result, uint64_t a2)
 {
   if (result <= 90)
   {
@@ -5416,10 +5613,9 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
       return OUTLINED_FUNCTION_4_3();
     }
 
-    result = OUTLINED_FUNCTION_3_6();
+    result = OUTLINED_FUNCTION_3_6(result, a2);
     if (result)
     {
-      v2 = *v1;
       return OUTLINED_FUNCTION_4_3();
     }
   }
@@ -5427,7 +5623,7 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
   return result;
 }
 
-- (uint64_t)pairingAgent:(uint64_t)result peerDidUnpair:.cold.1(uint64_t result)
+- (uint64_t)pairingAgent:(uint64_t)result peerDidUnpair:(uint64_t)a2 .cold.1(uint64_t result, uint64_t a2)
 {
   if (result <= 90)
   {
@@ -5436,10 +5632,9 @@ void __67__CBConnection_pairingPerformAction_withOptions_completionHandler___blo
       return OUTLINED_FUNCTION_4_3();
     }
 
-    result = OUTLINED_FUNCTION_3_6();
+    result = OUTLINED_FUNCTION_3_6(result, a2);
     if (result)
     {
-      v2 = *v1;
       return OUTLINED_FUNCTION_4_3();
     }
   }

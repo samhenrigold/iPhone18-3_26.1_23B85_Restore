@@ -381,7 +381,7 @@ uint64_t __93__PKUserNotificationAuthorizationExplanationViewController_explanat
   return [v1 dismissViewControllerAnimated:1 completion:v3];
 }
 
-uint64_t __93__PKUserNotificationAuthorizationExplanationViewController_explanationViewDidSelectContinue___block_invoke_3(uint64_t a1)
+void *__93__PKUserNotificationAuthorizationExplanationViewController_explanationViewDidSelectContinue___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _reportNotificationAuthorizationButtonTapped:*(a1 + 40)];
   *(*(a1 + 32) + 1184) = 0;

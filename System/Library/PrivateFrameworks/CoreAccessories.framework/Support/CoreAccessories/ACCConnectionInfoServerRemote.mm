@@ -13,6 +13,7 @@
 - (void)cancelUserKeyErase:(id)erase withReply:(id)reply;
 - (void)cancelVendorKeyErase:(id)erase withReply:(id)reply;
 - (void)configStreamCategoriesRequest:(id)request connection:(id)connection;
+- (void)configStreamPropertyRequest:(unsigned __int8)request forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection;
 - (void)configStreamPropertySetValue:(id)value forProperty:(unsigned __int8)property forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection;
 - (void)continueUserKeyErase:(id)erase withSignature:(id)signature andAccessoryNonce:(id)nonce forEndpoint:(id)endpoint withReply:(id)reply;
 - (void)continueVendorKeyErase:(id)erase withSignature:(id)signature andAccessoryNonce:(id)nonce forEndpoint:(id)endpoint withReply:(id)reply;
@@ -540,6 +541,60 @@
   platform_connectionInfo_configStreamGetCategories(v10, connectionCopy, requestCopy);
 }
 
+- (void)configStreamPropertyRequest:(unsigned __int8)request forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection
+{
+  categoryCopy = category;
+  requestCopy = request;
+  endpointCopy = endpoint;
+  connectionCopy = connection;
+  v12 = +[ACCConnectionInfoServer sharedServer];
+  WeakRetained = objc_loadWeakRetained(&self->_clientInfo);
+  v14 = [v12 copyClientUID:WeakRetained];
+
+  if (gLogObjects)
+  {
+    v15 = gNumLogObjects < 9;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  if (v15)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v17 = &_os_log_default;
+    v16 = &_os_log_default;
+  }
+
+  else
+  {
+    v17 = *(gLogObjects + 64);
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    v18[0] = 67110146;
+    v18[1] = requestCopy;
+    v19 = 1024;
+    v20 = categoryCopy;
+    v21 = 2112;
+    v22 = endpointCopy;
+    v23 = 2112;
+    v24 = connectionCopy;
+    v25 = 2112;
+    v26 = v14;
+    _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "ConnectionInfo configStreamPropertyRequest: %u forCategory: 0x%x forEndpoint: %@ connection: %@ client: %@", v18, 0x2Cu);
+  }
+
+  platform_connectionInfo_configStreamPropertyRequest(v14, connectionCopy, endpointCopy, categoryCopy, requestCopy);
+}
+
 - (void)configStreamPropertySetValue:(id)value forProperty:(unsigned __int8)property forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection
 {
   categoryCopy = category;
@@ -985,7 +1040,6 @@ LABEL_7:
     goto LABEL_5;
   }
 
-  v9 = EndpointWithUUID[1];
   PairingStatus = platform_connectionInfo_getPairingStatus();
   (*(replyCopy + 2))(replyCopy, PairingStatus, 0);
 LABEL_5:
@@ -1561,7 +1615,8 @@ LABEL_7:
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo getAccessoryUserName: error", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo getAccessoryUserName: error", v4, v5, v6, v7, v10);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1584,7 +1639,8 @@ LABEL_7:
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo setAccessoryUserName: error", v4, v5, v6, v7, 0);
+    v11 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo setAccessoryUserName: error", v4, v5, v6, v7, v11);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1599,7 +1655,8 @@ LABEL_7:
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ACCConnectionInfoServerRemote provisionAccessoryForFindMy: error", v4, v5, v6, v7, 0);
+    v11 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ACCConnectionInfoServerRemote provisionAccessoryForFindMy: error", v4, v5, v6, v7, v11);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1621,42 +1678,49 @@ LABEL_7:
 
 - (void)getPairingStatus:withReply:.cold.2()
 {
+  v0 = gLogObjects;
+  v1 = gNumLogObjects;
   if (gLogObjects)
   {
-    v0 = gNumLogObjects < 9;
+    v2 = gNumLogObjects < 9;
   }
 
   else
   {
-    v0 = 1;
+    v2 = 1;
   }
 
-  if (v0)
+  if (v2)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v1, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v2, v3, v4, v5, 0);
+      LODWORD(v20) = 134218240;
+      *(&v20 + 4) = v0;
+      WORD6(v20) = 1024;
+      HIWORD(v20) = v1;
+      OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v3, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v4, v5, v6, v7, v20, HIWORD(v1));
     }
 
-    v7 = &_os_log_default;
-    v6 = &_os_log_default;
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
   }
 
   else
   {
-    v7 = *(gLogObjects + 64);
+    v9 = *(gLogObjects + 64);
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v8, v9, "ACCConnectionInfoServerRemote getPairingStatus: error", v10, v11, v12, v13, 0);
+    LOWORD(v19) = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v10, v11, "ACCConnectionInfoServerRemote getPairingStatus: error", v12, v13, v14, v15, v19);
   }
 
   OUTLINED_FUNCTION_6_27();
-  [v14 errorWithDomain:? code:? userInfo:?];
+  [v16 errorWithDomain:? code:? userInfo:?];
   objc_claimAutoreleasedReturnValue();
-  v15 = OUTLINED_FUNCTION_1_29();
-  v16(v15, 0, v7);
+  v17 = OUTLINED_FUNCTION_1_29();
+  v18(v17, 0, v9);
 }
 
 - (void)resetPairingInformation:withReply:.cold.2()
@@ -1664,7 +1728,8 @@ LABEL_7:
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo resetPairingInformation: error", v4, v5, v6, v7, 0);
+    v11 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo resetPairingInformation: error", v4, v5, v6, v7, v11);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1679,7 +1744,8 @@ LABEL_7:
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo getPrivateNVMKeyValues: error", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo getPrivateNVMKeyValues: error", v4, v5, v6, v7, v10);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1702,7 +1768,8 @@ void __78__ACCConnectionInfoServerRemote_getPrivateNVMKeyValues_forEndpoint_with
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo setPrivateNVMKeyValues: error", v4, v5, v6, v7, 0);
+    v11 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo setPrivateNVMKeyValues: error", v4, v5, v6, v7, v11);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1727,7 +1794,8 @@ void __78__ACCConnectionInfoServerRemote_getPrivateNVMKeyValues_forEndpoint_with
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo getPublicNVMKeyValues: error", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo getPublicNVMKeyValues: error", v4, v5, v6, v7, v10);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1750,7 +1818,8 @@ void __77__ACCConnectionInfoServerRemote_getPublicNVMKeyValues_forEndpoint_withR
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo setPublicNVMKeyValues: error", v4, v5, v6, v7, 0);
+    v11 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo setPublicNVMKeyValues: error", v4, v5, v6, v7, v11);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1765,7 +1834,8 @@ void __77__ACCConnectionInfoServerRemote_getPublicNVMKeyValues_forEndpoint_withR
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo beginVendorKeyErase: error", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo beginVendorKeyErase: error", v4, v5, v6, v7, v10);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1781,7 +1851,8 @@ void __77__ACCConnectionInfoServerRemote_getPublicNVMKeyValues_forEndpoint_withR
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo continueVendorKeyErase: error", v4, v5, v6, v7, 0);
+    v11 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo continueVendorKeyErase: error", v4, v5, v6, v7, v11);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1796,7 +1867,8 @@ void __77__ACCConnectionInfoServerRemote_getPublicNVMKeyValues_forEndpoint_withR
   v0 = logObjectForModule_32();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    OUTLINED_FUNCTION_9_21(&_mh_execute_header, v1, v2, "ConnectionInfo cancelVendorKeyErase: error", v3, v4, v5, v6, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_9_21(&_mh_execute_header, v1, v2, "ConnectionInfo cancelVendorKeyErase: error", v3, v4, v5, v6, v10);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1811,7 +1883,8 @@ void __77__ACCConnectionInfoServerRemote_getPublicNVMKeyValues_forEndpoint_withR
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo beginUserKeyErase: error", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo beginUserKeyErase: error", v4, v5, v6, v7, v10);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1827,7 +1900,8 @@ void __77__ACCConnectionInfoServerRemote_getPublicNVMKeyValues_forEndpoint_withR
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo continueUserKeyErase: error", v4, v5, v6, v7, 0);
+    v11 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo continueUserKeyErase: error", v4, v5, v6, v7, v11);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1842,7 +1916,8 @@ void __77__ACCConnectionInfoServerRemote_getPublicNVMKeyValues_forEndpoint_withR
   v0 = logObjectForModule_32();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    OUTLINED_FUNCTION_9_21(&_mh_execute_header, v1, v2, "ConnectionInfo cancelUserKeyErase: error", v3, v4, v5, v6, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_9_21(&_mh_execute_header, v1, v2, "ConnectionInfo cancelUserKeyErase: error", v3, v4, v5, v6, v10);
   }
 
   OUTLINED_FUNCTION_6_27();
@@ -1857,7 +1932,8 @@ void __77__ACCConnectionInfoServerRemote_getPublicNVMKeyValues_forEndpoint_withR
   v1 = logObjectForModule_32();
   if (OUTLINED_FUNCTION_21_0(v1))
   {
-    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo copyUserPrivateKey: error", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_5_5(&_mh_execute_header, v2, v3, "ConnectionInfo copyUserPrivateKey: error", v4, v5, v6, v7, v10);
   }
 
   OUTLINED_FUNCTION_6_27();

@@ -46,7 +46,7 @@
 
 + (id)youProposedString
 {
-  v2 = CalSystemSolariumEnabled(self, a2);
+  v2 = CalSystemSolariumEnabled();
   v3 = CUIKBundle();
   v4 = v3;
   if (v2)

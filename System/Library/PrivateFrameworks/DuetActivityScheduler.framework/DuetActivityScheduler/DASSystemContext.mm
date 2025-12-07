@@ -5,7 +5,6 @@
 
 uint64_t __35___DASSystemContext_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance = objc_opt_new();
 
   return MEMORY[0x1EEE66BB8]();

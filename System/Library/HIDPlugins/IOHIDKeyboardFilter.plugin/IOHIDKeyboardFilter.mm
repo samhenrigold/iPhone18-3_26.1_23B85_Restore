@@ -1,27 +1,26 @@
 void IOHIDKeyboardFilter::setPropertyForClient(IOHIDKeyboardFilter *this, const __CFString *a2, const __CFBoolean *a3, __CFString *a4)
 {
-  v82 = *MEMORY[0x29EDCA608];
-  v4 = *MEMORY[0x29EDB8EF8];
+  v75 = *MEMORY[0x29EDCA608];
   if (a3)
   {
-    v5 = a3;
+    v4 = a3;
   }
 
   else
   {
-    v5 = *MEMORY[0x29EDB8EF8];
+    v4 = *MEMORY[0x29EDB8EF8];
   }
 
   if (!a2)
   {
-    goto LABEL_68;
+    return;
   }
 
-  v7 = a3;
-  v10 = *(this + 89);
-  v11 = *(this + 90);
-  v12 = _IOHIDLogCategory();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v6 = a3;
+  v9 = *(this + 89);
+  v10 = *(this + 90);
+  v11 = _IOHIDLogCategory();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     RegistryID = *(this + 3);
     if (RegistryID)
@@ -34,45 +33,18 @@ void IOHIDKeyboardFilter::setPropertyForClient(IOHIDKeyboardFilter *this, const 
     *&buf[12] = 2112;
     *&buf[14] = a2;
     *&buf[22] = 2112;
-    *&buf[24] = v7;
-    v80 = 2112;
-    v81 = a4;
-    _os_log_debug_impl(&dword_29D42A000, v12, OS_LOG_TYPE_DEBUG, "[%@] IOHIDKeyboardFilter::setPropertyForClient: %@  %@  %@\n", buf, 0x2Au);
+    *&buf[24] = v6;
+    v73 = 2112;
+    v74 = a4;
+    _os_log_debug_impl(&dword_29D42A000, v11, OS_LOG_TYPE_DEBUG, "[%@] IOHIDKeyboardFilter::setPropertyForClient: %@  %@  %@\n", buf, 0x2Au);
   }
 
-  v13 = (this + 360);
+  v12 = (this + 360);
   if (CFStringCompare(a2, @"HIDStickyKeysDisabled", 0) == kCFCompareEqualTo)
   {
-    if (v7)
+    if (v6)
     {
-      v11 = CFBooleanGetValue(v7) != 0;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    v15 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-    {
-      v17 = *(this + 3);
-      if (v17)
-      {
-        v17 = IOHIDServiceGetRegistryID();
-      }
-
-      sub_29D433B2C(v17, this + 90);
-    }
-
-    goto LABEL_57;
-  }
-
-  if (CFStringCompare(a2, @"HIDStickyKeysOn", 0) == kCFCompareEqualTo)
-  {
-    if (v7)
-    {
-      v10 = CFBooleanGetValue(v7) != 0;
+      v10 = CFBooleanGetValue(v6) != 0;
     }
 
     else
@@ -80,33 +52,58 @@ void IOHIDKeyboardFilter::setPropertyForClient(IOHIDKeyboardFilter *this, const 
       v10 = 0;
     }
 
+    v14 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      if (*(this + 3))
+      {
+        IOHIDServiceGetRegistryID();
+      }
+
+      sub_29D433B2C();
+    }
+
+    goto LABEL_57;
+  }
+
+  if (CFStringCompare(a2, @"HIDStickyKeysOn", 0) == kCFCompareEqualTo)
+  {
+    if (v6)
+    {
+      v9 = CFBooleanGetValue(v6) != 0;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
     goto LABEL_58;
   }
 
   if (CFStringCompare(a2, @"HIDStickyKeysShiftToggles", 0) == kCFCompareEqualTo)
   {
-    if (v7)
+    if (v6)
     {
-      v16 = CFBooleanGetValue(v7) != 0;
+      v15 = CFBooleanGetValue(v6) != 0;
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    *(this + 88) = v16;
+    *(this + 88) = v15;
     *(this + 77) = 0;
-    v15 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v20 = *(this + 3);
-      if (v20)
+      if (*(this + 3))
       {
-        v20 = IOHIDServiceGetRegistryID();
+        IOHIDServiceGetRegistryID();
       }
 
-      sub_29D433AF4(v20, this + 88);
+      sub_29D433AF4();
     }
 
     goto LABEL_57;
@@ -114,16 +111,16 @@ void IOHIDKeyboardFilter::setPropertyForClient(IOHIDKeyboardFilter *this, const 
 
   if (CFStringCompare(a2, @"HIDInitialKeyRepeat", 0) == kCFCompareEqualTo)
   {
-    if (!v7)
+    if (!v6)
     {
       goto LABEL_58;
     }
 
     valuePtr[0] = 0;
-    CFNumberGetValue(v7, kCFNumberSInt64Type, valuePtr);
-    *(this + 47) = valuePtr[0] / 0xF4240uLL;
-    v18 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    CFNumberGetValue(v6, kCFNumberSInt64Type, valuePtr);
+    *(this + 47) = valuePtr[0] / 0xF4240;
+    v16 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       if (*(this + 3))
       {
@@ -138,16 +135,16 @@ void IOHIDKeyboardFilter::setPropertyForClient(IOHIDKeyboardFilter *this, const 
 
   if (CFStringCompare(a2, @"HIDKeyRepeat", 0) == kCFCompareEqualTo)
   {
-    if (!v7)
+    if (!v6)
     {
       goto LABEL_58;
     }
 
     valuePtr[0] = 0;
-    CFNumberGetValue(v7, kCFNumberSInt64Type, valuePtr);
-    *(this + 48) = valuePtr[0] / 0xF4240uLL;
-    v18 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    CFNumberGetValue(v6, kCFNumberSInt64Type, valuePtr);
+    *(this + 48) = valuePtr[0] / 0xF4240;
+    v16 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       if (*(this + 3))
       {
@@ -164,33 +161,33 @@ LABEL_41:
 
   if (CFStringCompare(a2, @"HIDCapsLockState", 0) == kCFCompareEqualTo)
   {
-    if (v7)
+    if (v6)
     {
       TypeID = CFBooleanGetTypeID();
-      LODWORD(v7) = TypeID == CFGetTypeID(v7) && CFBooleanGetValue(v7) != 0;
+      LODWORD(v6) = TypeID == CFGetTypeID(v6) && CFBooleanGetValue(v6) != 0;
     }
 
     if (a4)
     {
-      v31 = a4;
+      v26 = a4;
     }
 
     else
     {
-      v31 = @"HIDCapsLockState";
+      v26 = @"HIDCapsLockState";
     }
 
-    IOHIDKeyboardFilter::setCapsLockState(this, v7, v31);
-    v15 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    IOHIDKeyboardFilter::setCapsLockState(this, v6, v26);
+    v14 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v32 = *(this + 3);
-      if (v32)
+      v27 = *(this + 3);
+      if (v27)
       {
-        v32 = IOHIDServiceGetRegistryID();
+        v27 = IOHIDServiceGetRegistryID();
       }
 
-      sub_29D433A14(v32, buf);
+      sub_29D433A14(v27, buf);
     }
 
     goto LABEL_57;
@@ -198,20 +195,20 @@ LABEL_41:
 
   if (CFEqual(a2, *MEMORY[0x29EDBB0E0]))
   {
-    if (v7)
+    if (v6)
     {
       *(this + 57) = *MEMORY[0x29EDBB0E8];
-      v14 = *MEMORY[0x29EDBB100];
-      if (CFEqual(v7, *MEMORY[0x29EDBB100]) || (v14 = *MEMORY[0x29EDBB0F8], CFEqual(v7, *MEMORY[0x29EDBB0F8])) || (v14 = *MEMORY[0x29EDBB0F0], CFEqual(v7, *MEMORY[0x29EDBB0F0])))
+      v13 = *MEMORY[0x29EDBB100];
+      if (CFEqual(v6, *MEMORY[0x29EDBB100]) || (v13 = *MEMORY[0x29EDBB0F8], CFEqual(v6, *MEMORY[0x29EDBB0F8])) || (v13 = *MEMORY[0x29EDBB0F0], CFEqual(v6, *MEMORY[0x29EDBB0F0])))
       {
-        *(this + 57) = v14;
+        *(this + 57) = v13;
       }
 
       IOHIDKeyboardFilter::updateCapslockLED(this, a4);
     }
 
-    v15 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       if (*(this + 3))
       {
@@ -228,18 +225,17 @@ LABEL_57:
 
   if (CFStringCompare(a2, @"HIDCapsLockLEDInhibit", 0) == kCFCompareEqualTo)
   {
-    *(this + 112) = CFBooleanGetValue(v5);
+    *(this + 112) = CFBooleanGetValue(v4);
     IOHIDKeyboardFilter::updateCapslockLED(this, a4);
-    v15 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v33 = *(this + 3);
-      if (v33)
+      if (*(this + 3))
       {
-        v33 = IOHIDServiceGetRegistryID();
+        IOHIDServiceGetRegistryID();
       }
 
-      sub_29D4339DC(v33, this + 112);
+      sub_29D4339DC();
     }
 
     goto LABEL_57;
@@ -247,17 +243,16 @@ LABEL_57:
 
   if (CFStringCompare(a2, @"HIDCapsLockLEDDarkWakeInhibit", 0) == kCFCompareEqualTo)
   {
-    *(this + 113) = CFBooleanGetValue(v5);
-    v15 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    *(this + 113) = CFBooleanGetValue(v4);
+    v14 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v34 = *(this + 3);
-      if (v34)
+      if (*(this + 3))
       {
-        v34 = IOHIDServiceGetRegistryID();
+        IOHIDServiceGetRegistryID();
       }
 
-      sub_29D4339A4(v34, this + 113);
+      sub_29D4339A4();
     }
 
     goto LABEL_57;
@@ -265,78 +260,78 @@ LABEL_57:
 
   if (CFStringCompare(a2, @"HIDKeyboardModifierMappingPairs", 0) == kCFCompareEqualTo)
   {
-    if (!v7)
+    if (!v6)
     {
       goto LABEL_58;
     }
 
-    v35 = CFGetTypeID(v7);
-    v36 = CFArrayGetTypeID();
-    if (v35 != v36)
+    v28 = CFGetTypeID(v6);
+    v29 = CFArrayGetTypeID();
+    if (v28 != v29)
     {
       goto LABEL_58;
     }
 
-    if (!IOHIDKeyboardFilter::allowRemapping(v36, v7, a4))
+    if (!IOHIDKeyboardFilter::allowRemapping(v29, v6, a4))
     {
-      goto LABEL_68;
+      return;
     }
 
     memset(buf, 170, 24);
-    IOHIDKeyboardFilter::createMapFromArrayOfPairs(v7, buf);
+    IOHIDKeyboardFilter::createMapFromArrayOfPairs(buf, v6);
     IOHIDKeyboardFilter::resetModifiedKeyState(this);
-    sub_29D432ABC(v76, buf);
-    IOHIDKeyboardFilter::resetModifiedKeyState(this, v76);
-    sub_29D431EF4(v76, v76[1]);
+    sub_29D432ABC(v68, buf);
+    IOHIDKeyboardFilter::resetModifiedKeyState(this, v68);
+    sub_29D431EF4(v68, v69);
     if (this + 112 != buf)
     {
       sub_29D432DE4(this + 14, *buf, &buf[8]);
     }
 
-    v37 = *(this + 15);
-    if (v37)
+    v30 = *(this + 15);
+    if (v30)
     {
-      v38 = (this + 120);
+      v31 = (this + 120);
       do
       {
-        v39 = v37[4];
-        v40 = v39 >= 0x700000039;
-        v41 = v39 < 0x700000039;
-        if (v40)
+        v32 = v30[4];
+        v33 = v32 >= 0x700000039;
+        v34 = v32 < 0x700000039;
+        if (v33)
         {
-          v38 = v37;
+          v31 = v30;
         }
 
-        v37 = v37[v41];
+        v30 = v30[v34];
       }
 
-      while (v37);
-      if (v38 != (this + 120) && v38[4] < 0x70000003AuLL)
+      while (v30);
+      if (v31 != (this + 120) && v31[4] < 0x70000003AuLL)
       {
         if (a4)
         {
-          v42 = a4;
+          v35 = a4;
         }
 
         else
         {
-          v42 = @"HIDKeyboardModifierMappingPairs";
+          v35 = @"HIDKeyboardModifierMappingPairs";
         }
 
-        IOHIDKeyboardFilter::setCapsLockState(this, 0, v42);
+        IOHIDKeyboardFilter::setCapsLockState(this, 0, v35);
       }
     }
 
-    v43 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+    v36 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      v44 = *(this + 3);
-      if (v44)
+      v37 = *(this + 3);
+      if (v37)
       {
-        v44 = IOHIDServiceGetRegistryID();
+        v37 = IOHIDServiceGetRegistryID();
       }
 
-      sub_29D43396C(v44, v78);
+      sub_29D43396C(v37, v71);
     }
 
     goto LABEL_148;
@@ -344,29 +339,29 @@ LABEL_57:
 
   if (CFStringCompare(a2, @"HIDFKeyMode", 0) == kCFCompareEqualTo)
   {
-    if (v7)
+    if (v6)
     {
-      v45 = CFGetTypeID(v7);
-      if (v45 == CFNumberGetTypeID())
+      v38 = CFGetTypeID(v6);
+      if (v38 == CFNumberGetTypeID())
       {
-        CFNumberGetValue(v7, kCFNumberSInt32Type, this + 288);
-        v46 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+        CFNumberGetValue(v6, kCFNumberSInt32Type, this + 288);
+        v39 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
-          v47 = *(this + 3);
-          if (v47)
+          v40 = *(this + 3);
+          if (v40)
           {
-            v47 = IOHIDServiceGetRegistryID();
+            v40 = IOHIDServiceGetRegistryID();
           }
 
-          v48 = *(this + 72);
+          v41 = *(this + 72);
           *buf = 138412802;
-          *&buf[4] = v47;
+          *&buf[4] = v40;
           *&buf[12] = 1024;
-          *&buf[14] = v48;
+          *&buf[14] = v41;
           *&buf[18] = 2112;
           *&buf[20] = a4;
-          _os_log_impl(&dword_29D42A000, v46, OS_LOG_TYPE_INFO, "[%@] IOHIDKeyboardFilter::setPropertyForClient _fnKeyMode: %x %@\n", buf, 0x1Cu);
+          _os_log_impl(&dword_29D42A000, v39, OS_LOG_TYPE_INFO, "[%@] IOHIDKeyboardFilter::setPropertyForClient _fnKeyMode: %x %@\n", buf, 0x1Cu);
         }
       }
     }
@@ -376,44 +371,44 @@ LABEL_57:
 
   if (CFStringCompare(a2, @"UserKeyMapping", 0) == kCFCompareEqualTo)
   {
-    if (!v7)
+    if (!v6)
     {
       goto LABEL_58;
     }
 
-    v49 = CFGetTypeID(v7);
-    v50 = CFArrayGetTypeID();
-    if (v49 != v50)
+    v42 = CFGetTypeID(v6);
+    v43 = CFArrayGetTypeID();
+    if (v42 != v43)
     {
       goto LABEL_58;
     }
 
-    if (!IOHIDKeyboardFilter::allowRemapping(v50, v7, a4))
+    if (!IOHIDKeyboardFilter::allowRemapping(v43, v6, a4))
     {
-      goto LABEL_68;
+      return;
     }
 
     memset(buf, 170, 24);
-    IOHIDKeyboardFilter::createMapFromArrayOfPairs(v7, buf);
+    IOHIDKeyboardFilter::createMapFromArrayOfPairs(buf, v6);
     IOHIDKeyboardFilter::resetModifiedKeyState(this);
-    sub_29D432ABC(v75, buf);
-    IOHIDKeyboardFilter::resetModifiedKeyState(this, v75);
-    sub_29D431EF4(v75, v75[1]);
+    sub_29D432ABC(v66, buf);
+    IOHIDKeyboardFilter::resetModifiedKeyState(this, v66);
+    sub_29D431EF4(v66, v67);
     if (this + 264 != buf)
     {
       sub_29D432DE4(this + 33, *buf, &buf[8]);
     }
 
-    v51 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+    v44 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
-      v52 = *(this + 3);
-      if (v52)
+      v45 = *(this + 3);
+      if (v45)
       {
-        v52 = IOHIDServiceGetRegistryID();
+        v45 = IOHIDServiceGetRegistryID();
       }
 
-      sub_29D433934(v52, v78);
+      sub_29D433934(v45, v71);
     }
 
     goto LABEL_148;
@@ -425,22 +420,21 @@ LABEL_57:
     {
       if (CFStringCompare(a2, @"CapsLockDelayOverride", 0) == kCFCompareEqualTo)
       {
-        if (v7)
+        if (v6)
         {
-          v60 = CFGetTypeID(v7);
-          if (v60 == CFNumberGetTypeID())
+          v51 = CFGetTypeID(v6);
+          if (v51 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v7, kCFNumberSInt32Type, this + 404);
-            v61 = _IOHIDLogCategory();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+            CFNumberGetValue(v6, kCFNumberSInt32Type, this + 404);
+            v52 = _IOHIDLogCategory();
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
             {
-              v62 = *(this + 3);
-              if (v62)
+              if (*(this + 3))
               {
-                v62 = IOHIDServiceGetRegistryID();
+                IOHIDServiceGetRegistryID();
               }
 
-              sub_29D43388C(v62, this + 101);
+              sub_29D43388C();
             }
 
             if (*(this + 100) == *(this + 101))
@@ -453,34 +447,33 @@ LABEL_57:
         goto LABEL_58;
       }
 
-      v26 = CFEqual(a2, @"LockKeyDelay");
-      v27 = v7 == 0;
-      if (!v26)
+      v22 = CFEqual(a2, @"LockKeyDelay");
+      v23 = v6 == 0;
+      if (!v22)
       {
-        v27 = 1;
+        v23 = 1;
       }
 
-      if (!v27)
+      if (!v23)
       {
-        CFNumberGetValue(v7, kCFNumberSInt32Type, this + 424);
-        v28 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        CFNumberGetValue(v6, kCFNumberSInt32Type, this + 424);
+        v24 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          v29 = *(this + 3);
-          if (v29)
+          if (*(this + 3))
           {
-            v29 = IOHIDServiceGetRegistryID();
+            IOHIDServiceGetRegistryID();
           }
 
-          sub_29D433854(v29, this + 106);
+          sub_29D433854();
         }
 
         if (!*(this + 106))
         {
-          v30 = *(this + 52);
-          if (v30)
+          v25 = *(this + 52);
+          if (v25)
           {
-            CFRelease(v30);
+            CFRelease(v25);
             *(this + 52) = 0;
           }
         }
@@ -490,63 +483,63 @@ LABEL_57:
 
       if (CFEqual(a2, @"UnifiedKeyMapping"))
       {
-        v63 = v7 != 0;
+        v53 = v6 != 0;
       }
 
       else
       {
-        v63 = 0;
+        v53 = 0;
       }
 
-      if (v63)
+      if (v53)
       {
         goto LABEL_58;
       }
 
-      v64 = CFEqual(a2, @"CtrlKeyboardUsageMap");
-      v65 = v7 == 0;
-      if (!v64)
+      v54 = CFEqual(a2, @"CtrlKeyboardUsageMap");
+      v55 = v6 == 0;
+      if (!v54)
       {
-        v65 = 1;
+        v55 = 1;
       }
 
-      if (v65)
+      if (v55)
       {
         goto LABEL_58;
       }
 
-      v66 = CFGetTypeID(v7);
-      v67 = CFStringGetTypeID();
-      if (v66 != v67)
+      v56 = CFGetTypeID(v6);
+      v57 = CFStringGetTypeID();
+      if (v56 != v57)
       {
         goto LABEL_58;
       }
 
-      if (!IOHIDKeyboardFilter::allowRemapping(v67, v7, a4))
+      if (!IOHIDKeyboardFilter::allowRemapping(v57, v6, a4))
       {
-        goto LABEL_68;
+        return;
       }
 
       memset(buf, 170, 24);
-      IOHIDKeyboardFilter::createMapFromStringMap(v7, buf);
+      IOHIDKeyboardFilter::createMapFromStringMap(buf, v6);
       IOHIDKeyboardFilter::resetModifiedKeyState(this);
-      sub_29D432ABC(v74, buf);
-      IOHIDKeyboardFilter::resetModifiedKeyState(this, v74);
-      sub_29D431EF4(v74, v74[1]);
-      v78[0] = 1;
-      valuePtr[0] = v78;
-      v68 = sub_29D431FA8(this + 192, v78);
-      sub_29D4325A8((v68 + 5), buf);
-      v69 = _IOHIDLogCategory();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+      sub_29D432ABC(v64, buf);
+      IOHIDKeyboardFilter::resetModifiedKeyState(this, v64);
+      sub_29D431EF4(v64, v65);
+      v71[0] = 1;
+      valuePtr[0] = v71;
+      v58 = sub_29D431FA8(this + 192, v71, &std::piecewise_construct, valuePtr);
+      sub_29D4325A8(v58 + 5, buf);
+      v59 = _IOHIDLogCategory();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
-        v70 = *(this + 3);
-        if (v70)
+        v60 = *(this + 3);
+        if (v60)
         {
-          v70 = IOHIDServiceGetRegistryID();
+          v60 = IOHIDServiceGetRegistryID();
         }
 
-        sub_29D43381C(v70, v78);
+        sub_29D43381C(v60, v71);
       }
 
 LABEL_148:
@@ -554,28 +547,27 @@ LABEL_148:
       goto LABEL_58;
     }
 
-    if (!v7)
+    if (!v6)
     {
       goto LABEL_58;
     }
 
-    v57 = CFGetTypeID(v7);
-    if (v57 != CFNumberGetTypeID())
+    v49 = CFGetTypeID(v6);
+    if (v49 != CFNumberGetTypeID())
     {
       goto LABEL_58;
     }
 
-    CFNumberGetValue(v7, kCFNumberSInt32Type, this + 400);
-    v58 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+    CFNumberGetValue(v6, kCFNumberSInt32Type, this + 400);
+    v50 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
-      v59 = *(this + 3);
-      if (v59)
+      if (*(this + 3))
       {
-        v59 = IOHIDServiceGetRegistryID();
+        IOHIDServiceGetRegistryID();
       }
 
-      sub_29D4338C4(v59, this + 100);
+      sub_29D4338C4();
     }
 
     if (*(this + 100))
@@ -583,8 +575,8 @@ LABEL_148:
       goto LABEL_58;
     }
 
-    v56 = *(this + 49);
-    if (!v56)
+    v48 = *(this + 49);
+    if (!v48)
     {
       goto LABEL_58;
     }
@@ -592,86 +584,82 @@ LABEL_148:
     goto LABEL_166;
   }
 
-  if (v7)
+  if (v6)
   {
-    v53 = CFGetTypeID(v7);
-    if (v53 == CFNumberGetTypeID())
+    v46 = CFGetTypeID(v6);
+    if (v46 == CFNumberGetTypeID())
     {
-      CFNumberGetValue(v7, kCFNumberSInt32Type, this + 304);
-      v54 = _IOHIDLogCategory();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      CFNumberGetValue(v6, kCFNumberSInt32Type, this + 304);
+      v47 = _IOHIDLogCategory();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
-        v55 = *(this + 3);
-        if (v55)
+        if (*(this + 3))
         {
-          v55 = IOHIDServiceGetRegistryID();
+          IOHIDServiceGetRegistryID();
         }
 
-        sub_29D4338FC(v55, this + 76);
+        sub_29D4338FC();
       }
 
       if (!*(this + 76))
       {
-        v71 = *(this + 37);
-        if (v71)
+        v61 = *(this + 37);
+        if (v61)
         {
-          CFRelease(v71);
+          CFRelease(v61);
           *(this + 37) = 0;
         }
 
         goto LABEL_58;
       }
 
-      v56 = *(this + 49);
-      if (v56)
+      v48 = *(this + 49);
+      if (v48)
       {
 LABEL_166:
-        CFRelease(v56);
+        CFRelease(v48);
         *(this + 49) = 0;
       }
     }
   }
 
 LABEL_58:
-  if (v11 != *v13)
+  if (v10 != *v12)
   {
-    *v13 = v11;
-    if (v11)
+    *v12 = v10;
+    if (v10)
     {
-      v10 = 0;
+      v9 = 0;
     }
   }
 
-  if (v10 != *(this + 89))
+  if (v9 != *(this + 89))
   {
-    *(this + 89) = v10;
-    v21 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    *(this + 89) = v9;
+    v18 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v22 = *(this + 3);
-      if (v22)
+      v19 = *(this + 3);
+      if (v19)
       {
-        v22 = IOHIDServiceGetRegistryID();
+        v19 = IOHIDServiceGetRegistryID();
       }
 
-      sub_29D433B64(v22, valuePtr);
+      sub_29D433B64(v19, valuePtr);
     }
 
-    v23 = *(this + 62);
-    if (v23)
+    v20 = *(this + 62);
+    if (v20)
     {
-      v72[0] = MEMORY[0x29EDCA5F8];
-      v72[1] = 3221225472;
-      v72[2] = sub_29D42EC38;
-      v72[3] = &unk_29F34F1C8;
-      v72[4] = this;
-      v73 = v10;
-      dispatch_async(v23, v72);
+      v62[0] = MEMORY[0x29EDCA5F8];
+      v62[1] = 3221225472;
+      v62[2] = sub_29D42EC38;
+      v62[3] = &unk_29F34F1C8;
+      v62[4] = this;
+      v63 = v9;
+      dispatch_async(v20, v62);
     }
   }
-
-LABEL_68:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 BOOL Key::isModifier(Key *this)
@@ -793,7 +781,7 @@ void *IOHIDKeyboardFilter::setEventCallback(void *result, void (*a2)(uint64_t a1
 
 void IOHIDKeyboardFilter::IOHIDKeyboardFilter(IOHIDKeyboardFilter *this, CFTypeRef cf)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   *this = &IOHIDKeyboardFilter::sIOHIDKeyboardFilterFtbl;
   *(this + 1) = CFRetain(cf);
   *(this + 2) = 1;
@@ -854,27 +842,26 @@ void IOHIDKeyboardFilter::IOHIDKeyboardFilter(IOHIDKeyboardFilter *this, CFTypeR
   *(this + 33) = this + 272;
   CFPlugInAddInstanceForFactory(cf);
   memset_pattern16(this + 312, &unk_29D434610, 0x28uLL);
-  v8 = 0x70000004FLL;
-  v9 = 0;
-  v10 = 0x70000004DLL;
-  v11 = 0;
-  v12 = 0x700000050;
-  v13 = 0;
-  v14 = 0x70000004ALL;
-  v15 = 0;
-  v16 = 0x700000051;
-  v17 = 0;
-  v18 = 0x70000004ELL;
-  v19 = 0;
-  v20 = 0x700000052;
-  v21 = 0;
-  v22 = 0x70000004BLL;
-  v23 = 0;
-  v6 = 1;
-  v7 = &v6;
-  v4 = sub_29D431FA8(this + 192, &v6);
-  sub_29D43227C(v4 + 5, &v8, &v24);
-  v5 = *MEMORY[0x29EDCA608];
+  v7 = 0x70000004FLL;
+  v8 = 0;
+  v9 = 0x70000004DLL;
+  v10 = 0;
+  v11 = 0x700000050;
+  v12 = 0;
+  v13 = 0x70000004ALL;
+  v14 = 0;
+  v15 = 0x700000051;
+  v16 = 0;
+  v17 = 0x70000004ELL;
+  v18 = 0;
+  v19 = 0x700000052;
+  v20 = 0;
+  v21 = 0x70000004BLL;
+  v22 = 0;
+  v5 = 1;
+  v6 = &v5;
+  v4 = sub_29D431FA8(this + 192, &v5, &std::piecewise_construct, &v6);
+  sub_29D43227C(v4 + 5, &v7, &v23);
 }
 
 void sub_29D42C378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -961,32 +948,26 @@ uint64_t IOHIDKeyboardFilter::Release(IOHIDKeyboardFilter *this)
 
 void IOHIDKeyboardFilter::setEjectKeyProperty(IOHIDKeyboardFilter *this, unsigned int a2)
 {
-  v4 = *(this + 3);
+  v3 = IOHIDServiceCopyProperty();
+  v4 = IOHIDServiceCopyProperty();
   v5 = IOHIDServiceCopyProperty();
-  v6 = *(this + 3);
-  v7 = IOHIDServiceCopyProperty();
-  v8 = *(this + 3);
-  v9 = IOHIDServiceCopyProperty();
-  if ([v5 unsignedIntValue] == 1 && objc_msgSend(v7, "unsignedIntValue") == 6 && objc_msgSend(v9, "unsignedIntValue") == 1452)
+  if ([v3 unsignedIntValue] == 1 && objc_msgSend(v4, "unsignedIntValue") == 6 && objc_msgSend(v5, "unsignedIntValue") == 1452)
   {
-    v10 = *(this + 3);
-    v11 = IOHIDServiceCopyProperty();
-    if (v11)
+    v6 = IOHIDServiceCopyProperty();
+    if (v6)
     {
       goto LABEL_10;
     }
 
     if (a2 - 195 < 7 || a2 < 0x1F || a2 - 40 <= 2)
     {
-      v12 = *(this + 3);
-      v13 = *MEMORY[0x29EDB8F00];
       IOHIDServiceSetProperty();
     }
   }
 
-  v11 = 0;
+  v6 = 0;
 LABEL_10:
-  v14 = v11;
+  v7 = v6;
 }
 
 void IOHIDKeyboardFilter::setDoNotDisturbState(IOHIDKeyboardFilter *this)
@@ -995,14 +976,13 @@ void IOHIDKeyboardFilter::setDoNotDisturbState(IOHIDKeyboardFilter *this)
   if (v2 == (this + 144))
   {
 LABEL_9:
-    v6 = *(this + 3);
-    v7 = IOHIDServiceCopyProperty();
-    if (v7)
+    v6 = IOHIDServiceCopyProperty();
+    if (v6)
     {
-      v8 = v7;
-      *(this + 122) = CFBooleanGetValue(v7);
+      v7 = v6;
+      *(this + 122) = CFBooleanGetValue(v6);
 
-      CFRelease(v8);
+      CFRelease(v7);
     }
   }
 
@@ -1057,265 +1037,257 @@ void IOHIDKeyboardFilter::open(IOHIDKeyboardFilter *this, __IOHIDService *a2)
   *(this + 59) = v5;
 
   valuePtr = 0;
-  v7 = *(this + 3);
-  v8 = IOHIDServiceCopyProperty();
-  if (!v8)
+  v7 = IOHIDServiceCopyProperty();
+  if (!v7)
   {
     valuePtr = IOHIDKeyboardFilter::getKeyboardID(this);
-    v9 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt32Type, &valuePtr);
-    if (!v9)
+    v8 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt32Type, &valuePtr);
+    if (!v8)
     {
       goto LABEL_5;
     }
 
-    v8 = v9;
-    v10 = *(this + 3);
+    v7 = v8;
     IOHIDServiceSetProperty();
   }
 
-  CFNumberGetValue(v8, kCFNumberSInt32Type, &valuePtr);
-  CFRelease(v8);
+  CFNumberGetValue(v7, kCFNumberSInt32Type, &valuePtr);
+  CFRelease(v7);
 LABEL_5:
-  v11 = *(this + 3);
+  v9 = IOHIDServiceCopyProperty();
+  if (v9)
+  {
+    v10 = v9;
+    v11 = CFGetTypeID(v9);
+    if (v11 == CFNumberGetTypeID())
+    {
+      CFNumberGetValue(v10, kCFNumberSInt32Type, this + 292);
+    }
+
+    CFRelease(v10);
+  }
+
   v12 = IOHIDServiceCopyProperty();
   if (v12)
   {
     v13 = v12;
     v14 = CFGetTypeID(v12);
-    if (v14 == CFNumberGetTypeID())
+    if (v14 == CFStringGetTypeID())
     {
-      CFNumberGetValue(v13, kCFNumberSInt32Type, this + 292);
+      IOHIDKeyboardFilter::createMapFromStringMap(&v74, v13);
+      v15 = this + 144;
+      sub_29D431EF4(this + 136, *(this + 18));
+      v16 = v75;
+      *(this + 17) = v74;
+      *(this + 18) = v16;
+      v17 = v76;
+      *(this + 19) = v76;
+      if (v17)
+      {
+        v16[2] = v15;
+        v74 = &v75;
+        v75 = 0;
+        v76 = 0;
+        v16 = 0;
+      }
+
+      else
+      {
+        *(this + 17) = v15;
+      }
+
+      sub_29D431EF4(&v74, v16);
     }
 
     CFRelease(v13);
   }
 
-  v15 = *(this + 3);
-  v16 = IOHIDServiceCopyProperty();
-  if (v16)
+  v18 = IOHIDServiceCopyProperty();
+  if (v18)
   {
-    v17 = v16;
-    v18 = CFGetTypeID(v16);
-    if (v18 == CFStringGetTypeID())
+    v19 = v18;
+    v20 = CFGetTypeID(v18);
+    if (v20 == CFStringGetTypeID())
     {
-      IOHIDKeyboardFilter::createMapFromStringMap(v17, &v83);
-      v19 = this + 144;
-      sub_29D431EF4(this + 136, *(this + 18));
-      v20 = v84;
-      *(this + 17) = v83;
-      *(this + 18) = v20;
-      v21 = v85;
-      *(this + 19) = v85;
-      if (v21)
+      IOHIDKeyboardFilter::createMapFromStringMap(&v74, v19);
+      v73 = 512;
+      v78 = &v73;
+      v21 = sub_29D431FA8(this + 168, &v73, &std::piecewise_construct, &v78);
+      v22 = v21 + 6;
+      v23 = v21 + 5;
+      sub_29D431EF4((v21 + 5), v21[6]);
+      v24 = v75;
+      *(v22 - 1) = v74;
+      *v22 = v24;
+      v25 = v76;
+      v22[1] = v76;
+      if (v25)
       {
-        v20[2] = v19;
-        v83 = &v84;
-        v84 = 0;
-        v85 = 0;
-        v20 = 0;
+        v24[2] = v22;
+        v74 = &v75;
+        v75 = 0;
+        v76 = 0;
+        v24 = 0;
       }
 
       else
       {
-        *(this + 17) = v19;
+        *v23 = v22;
       }
 
-      sub_29D431EF4(&v83, v20);
-    }
-
-    CFRelease(v17);
-  }
-
-  v22 = *(this + 3);
-  v23 = IOHIDServiceCopyProperty();
-  if (v23)
-  {
-    v24 = v23;
-    v25 = CFGetTypeID(v23);
-    if (v25 == CFStringGetTypeID())
-    {
-      IOHIDKeyboardFilter::createMapFromStringMap(v24, &v83);
-      v82 = 512;
-      v87 = &v82;
-      v26 = sub_29D431FA8(this + 168, &v82);
-      v27 = v26 + 6;
-      v28 = v26 + 5;
-      sub_29D431EF4((v26 + 5), v26[6]);
-      v29 = v84;
-      *(v27 - 1) = v83;
-      *v27 = v29;
-      v30 = v85;
-      v27[1] = v85;
-      if (v30)
-      {
-        v29[2] = v27;
-        v83 = &v84;
-        v84 = 0;
-        v85 = 0;
-        v29 = 0;
-      }
-
-      else
-      {
-        *v28 = v27;
-      }
-
-      sub_29D431EF4(&v83, v29);
-      LODWORD(v87) = 512;
-      v83 = &v87;
-      v31 = sub_29D431FA8(this + 168, &v87)[5];
-      LODWORD(v87) = 512;
-      v83 = &v87;
-      if (v31 != sub_29D431FA8(this + 168, &v87) + 6)
+      sub_29D431EF4(&v74, v24);
+      LODWORD(v78) = 512;
+      v74 = &v78;
+      v26 = sub_29D431FA8(this + 168, &v78, &std::piecewise_construct, &v74)[5];
+      LODWORD(v78) = 512;
+      v74 = &v78;
+      if (v26 != sub_29D431FA8(this + 168, &v78, &std::piecewise_construct, &v74) + 6)
       {
         do
         {
-          v32 = *(v31 + 8);
-          v33 = v31;
-          if (v32)
+          v27 = *(v26 + 8);
+          v28 = v26;
+          if (v27)
           {
             do
             {
-              v34 = v32;
-              v32 = *v32;
+              v29 = v27;
+              v27 = *v27;
             }
 
-            while (v32);
+            while (v27);
           }
 
           else
           {
             do
             {
-              v34 = *(v33 + 16);
-              v35 = *v34 == v33;
-              v33 = v34;
+              v29 = *(v28 + 16);
+              v30 = *v29 == v28;
+              v28 = v29;
             }
 
-            while (!v35);
+            while (!v30);
           }
 
-          if (*(v31 + 36) == 7 && (*(v31 + 32) - 79) <= 3)
+          if (*(v26 + 36) == 7 && (*(v26 + 32) - 79) <= 3)
           {
-            LODWORD(v87) = 512;
-            v83 = &v87;
-            v37 = sub_29D431FA8(this + 168, &v87);
-            sub_29D432614(v37 + 5, v31);
-            operator delete(v31);
+            LODWORD(v78) = 512;
+            v74 = &v78;
+            v32 = sub_29D431FA8(this + 168, &v78, &std::piecewise_construct, &v74);
+            sub_29D432614(v32 + 5, v26);
+            operator delete(v26);
           }
 
-          LODWORD(v87) = 512;
-          v83 = &v87;
-          v31 = v34;
+          LODWORD(v78) = 512;
+          v74 = &v78;
+          v26 = v29;
         }
 
-        while (v34 != sub_29D431FA8(this + 168, &v87) + 6);
+        while (v29 != sub_29D431FA8(this + 168, &v78, &std::piecewise_construct, &v74) + 6);
       }
     }
 
-    CFRelease(v24);
+    CFRelease(v19);
   }
 
-  v38 = *(this + 3);
-  v39 = IOHIDServiceCopyProperty();
-  if (v39)
+  v33 = IOHIDServiceCopyProperty();
+  if (v33)
   {
-    v40 = v39;
-    v41 = CFGetTypeID(v39);
-    if (v41 == CFStringGetTypeID())
+    v34 = v33;
+    v35 = CFGetTypeID(v33);
+    if (v35 == CFStringGetTypeID())
     {
-      IOHIDKeyboardFilter::createMapFromStringMap(v40, &v83);
-      v82 = 1;
-      v87 = &v82;
-      v42 = sub_29D431FA8(this + 192, &v82);
-      v43 = v42 + 6;
-      v44 = v42 + 5;
-      sub_29D431EF4((v42 + 5), v42[6]);
-      v45 = v84;
-      *(v43 - 1) = v83;
-      *v43 = v45;
-      v46 = v85;
-      v43[1] = v85;
+      IOHIDKeyboardFilter::createMapFromStringMap(&v74, v34);
+      v73 = 1;
+      v78 = &v73;
+      v36 = sub_29D431FA8(this + 192, &v73, &std::piecewise_construct, &v78);
+      v37 = v36 + 6;
+      v38 = v36 + 5;
+      sub_29D431EF4((v36 + 5), v36[6]);
+      v39 = v75;
+      *(v37 - 1) = v74;
+      *v37 = v39;
+      v40 = v76;
+      v37[1] = v76;
+      if (v40)
+      {
+        v39[2] = v37;
+        v74 = &v75;
+        v75 = 0;
+        v76 = 0;
+        v39 = 0;
+      }
+
+      else
+      {
+        *v38 = v37;
+      }
+
+      sub_29D431EF4(&v74, v39);
+    }
+
+    CFRelease(v34);
+  }
+
+  v41 = IOHIDServiceCopyProperty();
+  if (v41)
+  {
+    v42 = v41;
+    v43 = CFGetTypeID(v41);
+    if (v43 == CFStringGetTypeID())
+    {
+      IOHIDKeyboardFilter::createMapFromStringMap(&v74, v42);
+      v44 = this + 248;
+      sub_29D431EF4(this + 240, *(this + 31));
+      v45 = v75;
+      *(this + 30) = v74;
+      *(this + 31) = v45;
+      v46 = v76;
+      *(this + 32) = v76;
       if (v46)
       {
-        v45[2] = v43;
-        v83 = &v84;
-        v84 = 0;
-        v85 = 0;
+        v45[2] = v44;
+        v74 = &v75;
+        v75 = 0;
+        v76 = 0;
         v45 = 0;
       }
 
       else
       {
-        *v44 = v43;
+        *(this + 30) = v44;
       }
 
-      sub_29D431EF4(&v83, v45);
+      sub_29D431EF4(&v74, v45);
     }
 
-    CFRelease(v40);
-  }
-
-  v47 = *(this + 3);
-  v48 = IOHIDServiceCopyProperty();
-  if (v48)
-  {
-    v49 = v48;
-    v50 = CFGetTypeID(v48);
-    if (v50 == CFStringGetTypeID())
-    {
-      IOHIDKeyboardFilter::createMapFromStringMap(v49, &v83);
-      v51 = this + 248;
-      sub_29D431EF4(this + 240, *(this + 31));
-      v52 = v84;
-      *(this + 30) = v83;
-      *(this + 31) = v52;
-      v53 = v85;
-      *(this + 32) = v85;
-      if (v53)
-      {
-        v52[2] = v51;
-        v83 = &v84;
-        v84 = 0;
-        v85 = 0;
-        v52 = 0;
-      }
-
-      else
-      {
-        *(this + 30) = v51;
-      }
-
-      sub_29D431EF4(&v83, v52);
-    }
-
-    CFRelease(v49);
+    CFRelease(v42);
   }
 
   IOHIDKeyboardFilter::setDoNotDisturbState(this);
-  v54 = IOHIDPreferencesCopyDomain();
-  if (v54)
+  v47 = IOHIDPreferencesCopyDomain();
+  if (v47)
   {
-    v55 = v54;
-    v56 = (this + 452);
-    *(this + 113) = CFBooleanGetValue(v54);
-    CFRelease(v55);
+    v48 = v47;
+    v49 = (this + 452);
+    *(this + 113) = CFBooleanGetValue(v47);
+    CFRelease(v48);
   }
 
   else
   {
-    v56 = (this + 452);
+    v49 = (this + 452);
     *(this + 113) = 1;
   }
 
-  v57 = *(this + 3);
-  v58 = IOHIDServiceCopyProperty();
-  v59 = v58;
+  v50 = IOHIDServiceCopyProperty();
+  v51 = v50;
   if (*(this + 113))
   {
-    if (v58)
+    if (v50)
     {
-      Value = CFBooleanGetValue(v58);
+      Value = CFBooleanGetValue(v50);
     }
 
     else
@@ -1323,256 +1295,252 @@ LABEL_5:
       Value = 1;
     }
 
-    *v56 = Value;
+    *v49 = Value;
   }
 
-  if (v59)
+  if (v51)
   {
-    CFRelease(v59);
+    CFRelease(v51);
   }
 
-  v61 = *(this + 3);
-  v62 = IOHIDServiceCopyProperty();
-  if (v62)
+  v53 = IOHIDServiceCopyProperty();
+  if (v53)
   {
-    v63 = v62;
-    v64 = CFDictionaryGetValue(v62, @"HIDCapsLockStateCache");
-    if (v64)
+    v54 = v53;
+    v55 = CFDictionaryGetValue(v53, @"HIDCapsLockStateCache");
+    if (v55)
     {
-      LODWORD(v64) = CFBooleanGetValue(v64);
+      LODWORD(v55) = CFBooleanGetValue(v55);
     }
 
-    *(this + 110) = v64;
-    *(this + 111) = v64;
-    v65 = CFDictionaryGetValue(v63, @"HIDCapsLockLEDInhibit");
-    if (v65)
+    *(this + 110) = v55;
+    *(this + 111) = v55;
+    v56 = CFDictionaryGetValue(v54, @"HIDCapsLockLEDInhibit");
+    if (v56)
     {
-      LODWORD(v65) = CFBooleanGetValue(v65);
+      LODWORD(v56) = CFBooleanGetValue(v56);
     }
 
-    v66 = MEMORY[0x29EDBB0E8];
-    *(this + 112) = v65;
-    *(this + 57) = *v66;
-    v67 = CFDictionaryGetValue(v63, *MEMORY[0x29EDBB0E0]);
-    if (v67)
+    v57 = MEMORY[0x29EDBB0E8];
+    *(this + 112) = v56;
+    *(this + 57) = *v57;
+    v58 = CFDictionaryGetValue(v54, *MEMORY[0x29EDBB0E0]);
+    if (v58)
     {
-      v68 = v67;
-      v69 = *MEMORY[0x29EDBB100];
-      if (CFEqual(v67, *MEMORY[0x29EDBB100]) || (v69 = *MEMORY[0x29EDBB0F8], CFEqual(v68, *MEMORY[0x29EDBB0F8])) || (v69 = *MEMORY[0x29EDBB0F0], CFEqual(v68, *MEMORY[0x29EDBB0F0])))
+      v59 = v58;
+      v60 = *MEMORY[0x29EDBB100];
+      if (CFEqual(v58, *MEMORY[0x29EDBB100]) || (v60 = *MEMORY[0x29EDBB0F8], CFEqual(v59, *MEMORY[0x29EDBB0F8])) || (v60 = *MEMORY[0x29EDBB0F0], CFEqual(v59, *MEMORY[0x29EDBB0F0])))
       {
-        *(this + 57) = v69;
+        *(this + 57) = v60;
       }
     }
 
-    v70 = CFDictionaryGetValue(v63, @"HIDKeyboardModifierMappingPairs");
-    if (v70)
+    v61 = CFDictionaryGetValue(v54, @"HIDKeyboardModifierMappingPairs");
+    if (v61)
     {
-      v71 = v70;
-      v72 = CFGetTypeID(v70);
-      if (v72 == CFArrayGetTypeID())
+      v62 = v61;
+      v63 = CFGetTypeID(v61);
+      if (v63 == CFArrayGetTypeID())
       {
-        IOHIDKeyboardFilter::createMapFromArrayOfPairs(v71, &v83);
-        v73 = this + 120;
+        IOHIDKeyboardFilter::createMapFromArrayOfPairs(&v74, v62);
+        v64 = this + 120;
         sub_29D431EF4(this + 112, *(this + 15));
-        v74 = v84;
-        *(this + 14) = v83;
-        *(this + 15) = v74;
-        v75 = v85;
-        *(this + 16) = v85;
-        if (v75)
+        v65 = v75;
+        *(this + 14) = v74;
+        *(this + 15) = v65;
+        v66 = v76;
+        *(this + 16) = v76;
+        if (v66)
         {
-          v74[2] = v73;
-          v83 = &v84;
-          v84 = 0;
-          v85 = 0;
-          v74 = 0;
+          v65[2] = v64;
+          v74 = &v75;
+          v75 = 0;
+          v76 = 0;
+          v65 = 0;
         }
 
         else
         {
-          *(this + 14) = v73;
+          *(this + 14) = v64;
         }
 
-        sub_29D431EF4(&v83, v74);
+        sub_29D431EF4(&v74, v65);
       }
     }
 
-    v76 = CFDictionaryGetValue(v63, @"HIDSlowKeysDelay");
-    if (v76)
+    v67 = CFDictionaryGetValue(v54, @"HIDSlowKeysDelay");
+    if (v67)
     {
-      CFNumberGetValue(v76, kCFNumberSInt32Type, this + 304);
+      CFNumberGetValue(v67, kCFNumberSInt32Type, this + 304);
     }
 
-    v77 = CFDictionaryGetValue(v63, @"HIDInitialKeyRepeat");
-    if (v77)
+    v68 = CFDictionaryGetValue(v54, @"HIDInitialKeyRepeat");
+    if (v68)
     {
-      v83 = 0;
-      CFNumberGetValue(v77, kCFNumberSInt64Type, &v83);
-      *(this + 47) = v83 / 0xF4240;
+      v74 = 0;
+      CFNumberGetValue(v68, kCFNumberSInt64Type, &v74);
+      *(this + 47) = v74 / 0xF4240;
     }
 
-    v78 = CFDictionaryGetValue(v63, @"HIDKeyRepeat");
-    if (v78)
+    v69 = CFDictionaryGetValue(v54, @"HIDKeyRepeat");
+    if (v69)
     {
-      v83 = 0;
-      CFNumberGetValue(v78, kCFNumberSInt64Type, &v83);
-      *(this + 48) = v83 / 0xF4240;
+      v74 = 0;
+      CFNumberGetValue(v69, kCFNumberSInt64Type, &v74);
+      *(this + 48) = v74 / 0xF4240;
     }
 
-    v79 = CFDictionaryGetValue(v63, @"CapsLockDelay");
-    if (v79)
+    v70 = CFDictionaryGetValue(v54, @"CapsLockDelay");
+    if (v70)
     {
-      CFNumberGetValue(v79, kCFNumberSInt32Type, this + 400);
+      CFNumberGetValue(v70, kCFNumberSInt32Type, this + 400);
     }
 
-    v80 = CFDictionaryGetValue(v63, @"CapsLockDelayOverride");
-    if (v80)
+    v71 = CFDictionaryGetValue(v54, @"CapsLockDelayOverride");
+    if (v71)
     {
-      CFNumberGetValue(v80, kCFNumberSInt32Type, this + 404);
+      CFNumberGetValue(v71, kCFNumberSInt32Type, this + 404);
     }
 
-    v81 = CFDictionaryGetValue(v63, @"LockKeyDelay");
-    if (v81)
+    v72 = CFDictionaryGetValue(v54, @"LockKeyDelay");
+    if (v72)
     {
-      CFNumberGetValue(v81, kCFNumberSInt32Type, this + 424);
+      CFNumberGetValue(v72, kCFNumberSInt32Type, this + 424);
     }
 
-    CFRelease(v63);
+    CFRelease(v54);
   }
 }
 
 uint64_t IOHIDKeyboardFilter::getKeyboardID(IOHIDKeyboardFilter *this)
 {
   valuePtr = 3;
-  v2 = *(this + 3);
-  v3 = IOHIDServiceCopyProperty();
-  if (v3 && (v4 = v3, v5 = CFGetTypeID(v3), v5 == CFNumberGetTypeID()))
+  v1 = IOHIDServiceCopyProperty();
+  if (v1 && (v2 = v1, v3 = CFGetTypeID(v1), v3 == CFNumberGetTypeID()))
   {
-    CFNumberGetValue(v4, kCFNumberSInt32Type, &valuePtr);
-    CFRelease(v4);
+    CFNumberGetValue(v2, kCFNumberSInt32Type, &valuePtr);
+    CFRelease(v2);
     return valuePtr;
   }
 
   else
   {
-    v17 = -1;
-    v16 = -1;
-    v7 = *(this + 3);
-    v8 = IOHIDServiceCopyProperty();
-    if (v8)
+    v13 = -1;
+    v12 = -1;
+    v5 = IOHIDServiceCopyProperty();
+    if (v5)
     {
-      v9 = v8;
-      v10 = CFGetTypeID(v8);
-      if (v10 == CFNumberGetTypeID())
+      v6 = v5;
+      v7 = CFGetTypeID(v5);
+      if (v7 == CFNumberGetTypeID())
       {
-        CFNumberGetValue(v9, kCFNumberSInt16Type, &v17);
-        CFRelease(v9);
+        CFNumberGetValue(v6, kCFNumberSInt16Type, &v13);
+        CFRelease(v6);
       }
     }
 
-    v11 = *(this + 3);
     TypeID = IOHIDServiceCopyProperty();
-    if (TypeID && (v13 = TypeID, v14 = CFGetTypeID(TypeID), TypeID = CFNumberGetTypeID(), v14 == TypeID))
+    if (TypeID && (v9 = TypeID, v10 = CFGetTypeID(TypeID), TypeID = CFNumberGetTypeID(), v10 == TypeID))
     {
-      CFNumberGetValue(v13, kCFNumberSInt16Type, &v16);
-      CFRelease(v13);
-      v15 = v16;
+      CFNumberGetValue(v9, kCFNumberSInt16Type, &v12);
+      CFRelease(v9);
+      v11 = v12;
     }
 
     else
     {
-      v15 = 0xFFFF;
+      v11 = 0xFFFF;
     }
 
-    return IOHIDKeyboardFilter::getKeyboardID(TypeID, v17, v15);
+    return IOHIDKeyboardFilter::getKeyboardID(TypeID, v13, v11);
   }
 }
 
-void IOHIDKeyboardFilter::createMapFromStringMap(CFStringRef theString@<X1>, void *a2@<X8>)
+void IOHIDKeyboardFilter::createMapFromStringMap(uint64_t *__return_ptr a1@<X8>, CFStringRef theString@<X1>)
 {
-  a2[2] = 0;
-  a2[1] = 0;
-  *a2 = a2 + 1;
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
   if (theString)
   {
     CStringPtr = CFStringGetCStringPtr(theString, 0);
-    v5 = CStringPtr;
+    v4 = CStringPtr;
     if (CStringPtr)
     {
-      *&v6 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v22[8] = v6;
-      v22[9] = v6;
-      v22[6] = v6;
-      v22[7] = v6;
-      v22[4] = v6;
-      v22[5] = v6;
-      v22[2] = v6;
-      v22[3] = v6;
-      v22[0] = v6;
-      v22[1] = v6;
-      *v20 = v6;
-      v21 = v6;
-      v19[2] = v6;
-      v19[3] = v6;
-      v19[0] = v6;
-      v19[1] = v6;
-      v18 = v6;
-      v7 = strlen(CStringPtr);
-      if (v7 >= 0x7FFFFFFFFFFFFFF8)
+      *&v5 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v21[8] = v5;
+      v21[9] = v5;
+      v21[6] = v5;
+      v21[7] = v5;
+      v21[4] = v5;
+      v21[5] = v5;
+      v21[2] = v5;
+      v21[3] = v5;
+      v21[0] = v5;
+      v21[1] = v5;
+      *v19 = v5;
+      v20 = v5;
+      v18[2] = v5;
+      v18[3] = v5;
+      v18[0] = v5;
+      v18[1] = v5;
+      v17 = v5;
+      v6 = strlen(CStringPtr);
+      if (v6 >= 0x7FFFFFFFFFFFFFF8)
       {
         sub_29D431E4C();
       }
 
-      v8 = v7;
-      if (v7 >= 0x17)
+      v7 = v6;
+      if (v6 >= 0x17)
       {
         operator new();
       }
 
-      *(&__p.__r_.__value_.__s + 23) = v7;
-      if (v7)
+      *(&__p.__r_.__value_.__s + 23) = v6;
+      if (v6)
       {
-        memmove(&__p, v5, v7);
+        memmove(&__p, v4, v6);
       }
 
-      __p.__r_.__value_.__s.__data_[v8] = 0;
-      sub_29D430200(&v18, &__p, 8);
+      __p.__r_.__value_.__s.__data_[v7] = 0;
+      sub_29D430200(&v17, &__p, 8);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      memset(&v17, 0, sizeof(v17));
+      memset(&v16, 0, sizeof(v16));
       memset(&__str, 0, sizeof(__str));
       while (1)
       {
-        v9 = sub_29D430384(&v18, &v17, 0x2Cu);
+        v8 = sub_29D430384(&v17, &v16, 0x2Cu);
+        if ((*(v8 + *(*v8 - 24) + 32) & 5) != 0)
+        {
+          break;
+        }
+
+        v9 = sub_29D430384(&v17, &__str, 0x2Cu);
         if ((*(v9 + *(*v9 - 24) + 32) & 5) != 0)
         {
           break;
         }
 
-        v10 = sub_29D430384(&v18, &__str, 0x2Cu);
-        if ((*(v10 + *(*v10 - 24) + 32) & 5) != 0)
+        v10 = std::stoul(&__str, 0, 0);
+        if (v10)
         {
-          break;
-        }
-
-        v11 = std::stoul(&__str, 0, 0);
-        if (v11)
-        {
-          v12 = std::stoul(&v17, 0, 0);
-          LODWORD(__p.__r_.__value_.__l.__data_) = v12;
-          HIDWORD(__p.__r_.__value_.__r.__words[0]) = v12 >> 16;
+          v11 = std::stoul(&v16, 0, 0);
+          LODWORD(__p.__r_.__value_.__l.__data_) = v11;
+          HIDWORD(__p.__r_.__value_.__r.__words[0]) = v11 >> 16;
           __p.__r_.__value_.__s.__data_[8] = 0;
           *(&__p.__r_.__value_.__r.__words[1] + 1) = -1431655766;
           HIDWORD(__p.__r_.__value_.__r.__words[1]) = -1431655766;
-          LODWORD(__p.__r_.__value_.__r.__words[2]) = v11;
-          HIDWORD(__p.__r_.__value_.__r.__words[2]) = v11 >> 16;
-          v14 = 0;
-          memset(v15, 170, sizeof(v15));
-          sub_29D4324DC(a2, &__p);
+          LODWORD(__p.__r_.__value_.__r.__words[2]) = v10;
+          HIDWORD(__p.__r_.__value_.__r.__words[2]) = v10 >> 16;
+          v13 = 0;
+          memset(v14, 170, sizeof(v14));
+          sub_29D4324DC(a1, &__p, &__p);
         }
       }
 
@@ -1581,23 +1549,23 @@ void IOHIDKeyboardFilter::createMapFromStringMap(CFStringRef theString@<X1>, voi
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v17.__r_.__value_.__l.__data_);
+        operator delete(v16.__r_.__value_.__l.__data_);
       }
 
-      *&v18 = *MEMORY[0x29EDC9530];
-      *(&v19[-1] + *(v18 - 24)) = *(MEMORY[0x29EDC9530] + 24);
-      *&v19[0] = MEMORY[0x29EDC9570] + 16;
-      if (SBYTE7(v21) < 0)
+      *&v17 = *MEMORY[0x29EDC9530];
+      *(&v18[-1] + *(v17 - 24)) = *(MEMORY[0x29EDC9530] + 24);
+      *&v18[0] = MEMORY[0x29EDC9570] + 16;
+      if (SBYTE7(v20) < 0)
       {
-        operator delete(v20[0]);
+        operator delete(v19[0]);
       }
 
-      *&v19[0] = MEMORY[0x29EDC9568] + 16;
-      std::locale::~locale(v19 + 1);
+      *&v18[0] = MEMORY[0x29EDC9568] + 16;
+      std::locale::~locale(v18 + 1);
       std::istream::~istream();
-      MEMORY[0x29ED578A0](v22 + 8);
+      MEMORY[0x29ED578A0](v21 + 8);
     }
   }
 }
@@ -1613,37 +1581,37 @@ void sub_29D42D5A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void IOHIDKeyboardFilter::createMapFromArrayOfPairs(CFArrayRef theArray@<X1>, void *a2@<X8>)
+void IOHIDKeyboardFilter::createMapFromArrayOfPairs(uint64_t *__return_ptr a1@<X8>, CFArrayRef theArray@<X1>)
 {
-  a2[2] = 0;
-  a2[1] = 0;
-  *a2 = a2 + 1;
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
   if (theArray && CFArrayGetCount(theArray))
   {
     for (i = 0; i < CFArrayGetCount(theArray); ++i)
     {
-      v15 = 0;
+      v13 = 0;
       valuePtr = 0;
       ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
-      v7 = ValueAtIndex;
+      v6 = ValueAtIndex;
       if (ValueAtIndex)
       {
-        v8 = CFGetTypeID(ValueAtIndex);
-        if (v8 == CFDictionaryGetTypeID())
+        v7 = CFGetTypeID(ValueAtIndex);
+        if (v7 == CFDictionaryGetTypeID())
         {
-          Value = CFDictionaryGetValue(v7, @"HIDKeyboardModifierMappingSrc");
+          Value = CFDictionaryGetValue(v6, @"HIDKeyboardModifierMappingSrc");
           if (Value)
           {
             CFNumberGetValue(Value, kCFNumberSInt64Type, &valuePtr);
-            v10 = CFDictionaryGetValue(v7, @"HIDKeyboardModifierMappingDst");
-            if (v10)
+            v9 = CFDictionaryGetValue(v6, @"HIDKeyboardModifierMappingDst");
+            if (v9)
             {
-              CFNumberGetValue(v10, kCFNumberSInt64Type, &v15);
-              v11 = valuePtr;
+              CFNumberGetValue(v9, kCFNumberSInt64Type, &v13);
+              *&v10 = valuePtr;
+              BYTE8(v10) = 0;
+              v11 = v13;
               v12 = 0;
-              v13 = v15;
-              v14 = 0;
-              sub_29D4324DC(a2, &v11);
+              sub_29D4324DC(a1, &v10, &v10);
             }
           }
         }
@@ -1654,7 +1622,7 @@ void IOHIDKeyboardFilter::createMapFromArrayOfPairs(CFArrayRef theArray@<X1>, vo
 
 void IOHIDKeyboardFilter::scheduleWithDispatchQueue(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v4 = a2;
   objc_storeStrong((a1 + 496), a2);
   v5 = [[StickyKeyHandler alloc] initWithFilter:a1 service:*(a1 + 24)];
@@ -1685,12 +1653,12 @@ void IOHIDKeyboardFilter::scheduleWithDispatchQueue(uint64_t a1, void *a2)
   v12 = *(a1 + 512);
   if (v12)
   {
-    v32[0] = MEMORY[0x29EDCA5F8];
-    v32[1] = 3221225472;
-    v32[2] = sub_29D42DC34;
-    v32[3] = &unk_29F34F180;
-    v32[4] = a1;
-    dispatch_source_set_event_handler(v12, v32);
+    v30[0] = MEMORY[0x29EDCA5F8];
+    v30[1] = 3221225472;
+    v30[2] = sub_29D42DC34;
+    v30[3] = &unk_29F34F180;
+    v30[4] = a1;
+    dispatch_source_set_event_handler(v12, v30);
     dispatch_source_set_timer(*(a1 + 512), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
     dispatch_resume(*(a1 + 512));
   }
@@ -1702,12 +1670,12 @@ void IOHIDKeyboardFilter::scheduleWithDispatchQueue(uint64_t a1, void *a2)
   v15 = *(a1 + 520);
   if (v15)
   {
-    v31[0] = MEMORY[0x29EDCA5F8];
-    v31[1] = 3221225472;
-    v31[2] = sub_29D42DD04;
-    v31[3] = &unk_29F34F180;
-    v31[4] = a1;
-    dispatch_source_set_event_handler(v15, v31);
+    v29[0] = MEMORY[0x29EDCA5F8];
+    v29[1] = 3221225472;
+    v29[2] = sub_29D42DD04;
+    v29[3] = &unk_29F34F180;
+    v29[4] = a1;
+    dispatch_source_set_event_handler(v15, v29);
     dispatch_source_set_timer(*(a1 + 520), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
     dispatch_resume(*(a1 + 520));
   }
@@ -1719,12 +1687,12 @@ void IOHIDKeyboardFilter::scheduleWithDispatchQueue(uint64_t a1, void *a2)
   v18 = *(a1 + 528);
   if (v18)
   {
-    v30[0] = MEMORY[0x29EDCA5F8];
-    v30[1] = 3221225472;
-    v30[2] = sub_29D42DDC0;
-    v30[3] = &unk_29F34F180;
-    v30[4] = a1;
-    dispatch_source_set_event_handler(v18, v30);
+    v28[0] = MEMORY[0x29EDCA5F8];
+    v28[1] = 3221225472;
+    v28[2] = sub_29D42DDC0;
+    v28[3] = &unk_29F34F180;
+    v28[4] = a1;
+    dispatch_source_set_event_handler(v18, v28);
     dispatch_source_set_timer(*(a1 + 528), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
     dispatch_resume(*(a1 + 528));
   }
@@ -1736,12 +1704,12 @@ void IOHIDKeyboardFilter::scheduleWithDispatchQueue(uint64_t a1, void *a2)
   v21 = *(a1 + 432);
   if (v21)
   {
-    v29[0] = MEMORY[0x29EDCA5F8];
-    v29[1] = 3221225472;
-    v29[2] = sub_29D42DE68;
-    v29[3] = &unk_29F34F180;
-    v29[4] = a1;
-    dispatch_source_set_event_handler(v21, v29);
+    v27[0] = MEMORY[0x29EDCA5F8];
+    v27[1] = 3221225472;
+    v27[2] = sub_29D42DE68;
+    v27[3] = &unk_29F34F180;
+    v27[4] = a1;
+    dispatch_source_set_event_handler(v21, v27);
     dispatch_source_set_timer(*(a1 + 432), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
     dispatch_resume(*(a1 + 432));
   }
@@ -1763,12 +1731,11 @@ void IOHIDKeyboardFilter::scheduleWithDispatchQueue(uint64_t a1, void *a2)
         }
 
         *buf = 138412290;
-        v35 = RegistryID;
+        v33 = RegistryID;
         _os_log_impl(&dword_29D42A000, v24, OS_LOG_TYPE_INFO, "[%@] Restoring capslock state\n", buf, 0xCu);
       }
 
       mach_absolute_time();
-      v26 = *MEMORY[0x29EDB8ED8];
       KeyboardEvent = IOHIDEventCreateKeyboardEvent();
       if (KeyboardEvent)
       {
@@ -1777,8 +1744,6 @@ void IOHIDKeyboardFilter::scheduleWithDispatchQueue(uint64_t a1, void *a2)
       }
     }
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29D42DBFC(uint64_t a1)
@@ -2096,40 +2061,55 @@ void *IOHIDKeyboardFilter::serialize(IOHIDKeyboardFilter *this, __CFDictionary *
   return sub_29D431A1C(&v7);
 }
 
-void sub_29D42E4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_29D42E4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   sub_29D431D60(&a9);
-  sub_29D431A1C(&a11);
+  sub_29D431A1C(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t IOHIDKeyboardFilter::allowRemapping(IOHIDKeyboardFilter *this, const void *a2, const void *a3)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  if (a3 && _IOHIDIsRestrictedRemappingProperty() && !IOHIDEventSystemConnectionHasEntitlement() && (*&v3 = -1, *(&v3 + 1) = -1, v8[0] = v3, v8[1] = v3, IOHIDEventSystemConnectionGetAuditToken(), (IOHIDAccessCheckAuditToken() & 1) == 0))
+  v8 = *MEMORY[0x29EDCA608];
+  if (!a3)
   {
-    v6 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      UUID = IOHIDEventSystemConnectionGetUUID();
-      sub_29D43378C(UUID, v8);
-    }
-
-    result = 0;
+    return 1;
   }
 
-  else
+  if (!_IOHIDIsRestrictedRemappingProperty())
   {
-    result = 1;
+    return 1;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  if (IOHIDEventSystemConnectionHasEntitlement())
+  {
+    return 1;
+  }
+
+  *&v3 = -1;
+  *(&v3 + 1) = -1;
+  v7[0] = v3;
+  v7[1] = v3;
+  IOHIDEventSystemConnectionGetAuditToken();
+  if (IOHIDAccessCheckAuditToken())
+  {
+    return 1;
+  }
+
+  v5 = _IOHIDLogCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    UUID = IOHIDEventSystemConnectionGetUUID();
+    sub_29D43378C(UUID, v7);
+  }
+
+  return 0;
 }
 
 void IOHIDKeyboardFilter::setCapsLockState(IOHIDKeyboardFilter *this, int a2, const void *a3)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (*(this + 110) != a2)
   {
     *(this + 110) = a2;
@@ -2145,31 +2125,29 @@ void IOHIDKeyboardFilter::setCapsLockState(IOHIDKeyboardFilter *this, int a2, co
         RegistryID = IOHIDServiceGetRegistryID();
       }
 
-      v10 = 138412802;
-      v11 = RegistryID;
-      v12 = 1024;
-      v13 = a2;
-      v14 = 2112;
-      v15 = a3;
-      _os_log_impl(&dword_29D42A000, v7, OS_LOG_TYPE_INFO, "[%@] Set capslock state: %d client: %@\n", &v10, 0x1Cu);
+      v9 = 138412802;
+      v10 = RegistryID;
+      v11 = 1024;
+      v12 = a2;
+      v13 = 2112;
+      v14 = a3;
+      _os_log_impl(&dword_29D42A000, v7, OS_LOG_TYPE_INFO, "[%@] Set capslock state: %d client: %@\n", &v9, 0x1Cu);
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void IOHIDKeyboardFilter::updateCapslockLED(IOHIDKeyboardFilter *this, const void *a2)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   if ((*(this + 295) & 1) == 0)
   {
-    goto LABEL_18;
+    return;
   }
 
   v4 = *(this + 111);
   if (CFEqual(*(this + 57), *MEMORY[0x29EDBB0F0]))
   {
-    goto LABEL_19;
+    goto LABEL_17;
   }
 
   *(this + 111) = *(this + 110);
@@ -2188,29 +2166,19 @@ LABEL_8:
   }
 
 LABEL_9:
-  if (*(this + 3))
+  if (!*(this + 3))
   {
-    v6 = *(this + 111);
-    IOHIDServiceSetElementValue();
-    v7 = *(this + 3);
-    v8 = *MEMORY[0x29EDBB108];
-    v9 = MEMORY[0x29EDB8F00];
-    if (!*(this + 111))
-    {
-      v9 = MEMORY[0x29EDB8EF8];
-    }
-
-    v10 = *v9;
-    IOHIDServiceSetProperty();
-    v11 = 1;
-    goto LABEL_13;
+LABEL_17:
+    v6 = 0;
+    goto LABEL_11;
   }
 
-LABEL_19:
-  v11 = 0;
-LABEL_13:
-  v12 = _IOHIDLogCategory();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  IOHIDServiceSetElementValue();
+  IOHIDServiceSetProperty();
+  v6 = 1;
+LABEL_11:
+  v7 = _IOHIDLogCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     RegistryID = *(this + 3);
     if (RegistryID)
@@ -2218,45 +2186,39 @@ LABEL_13:
       RegistryID = IOHIDServiceGetRegistryID();
     }
 
-    v14 = *(this + 111);
-    v15 = *(this + 57);
-    v16 = *(this + 110);
-    v18 = 138413826;
-    v19 = RegistryID;
+    v9 = *(this + 111);
+    v10 = *(this + 57);
+    v11 = *(this + 110);
+    v12 = 138413826;
+    v13 = RegistryID;
+    v14 = 1024;
+    v15 = v4 != 0;
+    v16 = 1024;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
     v20 = 1024;
-    v21 = v4 != 0;
-    v22 = 1024;
-    v23 = v14;
-    v24 = 2112;
-    v25 = v15;
-    v26 = 1024;
-    v27 = v16;
-    v28 = 2112;
-    v29 = a2;
-    v30 = 1024;
-    v31 = v11;
-    _os_log_impl(&dword_29D42A000, v12, OS_LOG_TYPE_INFO, "[%@] updateCapslockLED:%d->%d capsLockLED:%@ capsLockState:%d client:%@, didUpdateCapsLockLEDState:%d\n", &v18, 0x38u);
+    v21 = v11;
+    v22 = 2112;
+    v23 = a2;
+    v24 = 1024;
+    v25 = v6;
+    _os_log_impl(&dword_29D42A000, v7, OS_LOG_TYPE_INFO, "[%@] updateCapslockLED:%d->%d capsLockLED:%@ capsLockState:%d client:%@, didUpdateCapsLockLEDState:%d\n", &v12, 0x38u);
   }
-
-LABEL_18:
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 void IOHIDKeyboardFilter::resetModifiedKeyState(IOHIDKeyboardFilter *this)
 {
-  memset(v10, 170, sizeof(v10));
-  sub_29D433250(v10, this + 64);
-  v2 = v10[0];
-  if (v10[0] != &v10[1])
+  memset(v7, 170, sizeof(v7));
+  sub_29D433250(v7, this + 64);
+  v2 = v7[0];
+  if (v7[0] != &v7[1])
   {
-    v3 = *MEMORY[0x29EDB8ED8];
     do
     {
       if (*(v2 + 40) == 1)
       {
         mach_absolute_time();
-        v5 = *(v2 + 8);
-        v4 = *(v2 + 9);
         KeyboardEvent = IOHIDEventCreateKeyboardEvent();
         if (KeyboardEvent)
         {
@@ -2265,37 +2227,37 @@ void IOHIDKeyboardFilter::resetModifiedKeyState(IOHIDKeyboardFilter *this)
         }
       }
 
-      v7 = v2[1];
-      if (v7)
+      v4 = v2[1];
+      if (v4)
       {
         do
         {
-          v8 = v7;
-          v7 = *v7;
+          v5 = v4;
+          v4 = *v4;
         }
 
-        while (v7);
+        while (v4);
       }
 
       else
       {
         do
         {
-          v8 = v2[2];
-          v9 = *v8 == v2;
-          v2 = v8;
+          v5 = v2[2];
+          v6 = *v5 == v2;
+          v2 = v5;
         }
 
-        while (!v9);
+        while (!v6);
       }
 
-      v2 = v8;
+      v2 = v5;
     }
 
-    while (v8 != &v10[1]);
+    while (v5 != &v7[1]);
   }
 
-  sub_29D431EF4(v10, v10[1]);
+  sub_29D431EF4(v7, v7[1]);
 }
 
 void IOHIDKeyboardFilter::resetModifiedKeyState(uint64_t a1, void *a2)
@@ -2305,71 +2267,68 @@ void IOHIDKeyboardFilter::resetModifiedKeyState(uint64_t a1, void *a2)
   if (*a2 != a2 + 1)
   {
     v5 = (a1 + 72);
-    v6 = *MEMORY[0x29EDB8ED8];
     do
     {
-      v7 = *v5;
+      v6 = *v5;
       if (*v5)
       {
-        v8 = v3[4];
-        v9 = v5;
+        v7 = v3[4];
+        v8 = v5;
         do
         {
-          v10 = v7[4];
-          v11 = v10 >= v8;
-          v12 = v10 < v8;
-          if (v11)
+          v9 = v6[4];
+          v10 = v9 >= v7;
+          v11 = v9 < v7;
+          if (v10)
           {
-            v9 = v7;
+            v8 = v6;
           }
 
-          v7 = v7[v12];
+          v6 = v6[v11];
         }
 
-        while (v7);
-        if (v9 != v5 && v8 >= v9[4])
+        while (v6);
+        if (v8 != v5 && v7 >= v8[4])
         {
           mach_absolute_time();
-          v14 = *(v3 + 8);
-          v13 = *(v3 + 9);
           KeyboardEvent = IOHIDEventCreateKeyboardEvent();
           if (KeyboardEvent)
           {
-            v16 = KeyboardEvent;
+            v13 = KeyboardEvent;
             (*(a1 + 32))(*(a1 + 40), *(a1 + 48), a1, KeyboardEvent, 0);
-            CFRelease(v16);
+            CFRelease(v13);
           }
         }
       }
 
-      v17 = v3[1];
-      if (v17)
+      v14 = v3[1];
+      if (v14)
       {
         do
         {
-          v18 = v17;
-          v17 = *v17;
+          v15 = v14;
+          v14 = *v14;
         }
 
-        while (v17);
+        while (v14);
       }
 
       else
       {
         do
         {
-          v18 = v3[2];
-          v19 = *v18 == v3;
-          v3 = v18;
+          v15 = v3[2];
+          v16 = *v15 == v3;
+          v3 = v15;
         }
 
-        while (!v19);
+        while (!v16);
       }
 
-      v3 = v18;
+      v3 = v15;
     }
 
-    while (v18 != v2);
+    while (v15 != v2);
   }
 }
 
@@ -2419,19 +2378,16 @@ void sub_29D42EC38(uint64_t a1)
 
 void IOHIDKeyboardFilter::startStickyKey(IOHIDKeyboardFilter *this)
 {
-  memset(v10, 170, sizeof(v10));
-  sub_29D433250(v10, this + 64);
-  v2 = v10[0];
-  if (v10[0] != &v10[1])
+  memset(v7, 170, sizeof(v7));
+  sub_29D433250(v7, this + 64);
+  v2 = v7[0];
+  if (v7[0] != &v7[1])
   {
-    v3 = *MEMORY[0x29EDB8ED8];
     do
     {
       if (Key::isModifier((v2 + 4)))
       {
         mach_absolute_time();
-        v5 = *(v2 + 8);
-        v4 = *(v2 + 9);
         KeyboardEvent = IOHIDEventCreateKeyboardEvent();
         if (KeyboardEvent)
         {
@@ -2441,42 +2397,42 @@ void IOHIDKeyboardFilter::startStickyKey(IOHIDKeyboardFilter *this)
         }
       }
 
-      v7 = v2[1];
-      if (v7)
+      v4 = v2[1];
+      if (v4)
       {
         do
         {
-          v8 = v7;
-          v7 = *v7;
+          v5 = v4;
+          v4 = *v4;
         }
 
-        while (v7);
+        while (v4);
       }
 
       else
       {
         do
         {
-          v8 = v2[2];
-          v9 = *v8 == v2;
-          v2 = v8;
+          v5 = v2[2];
+          v6 = *v5 == v2;
+          v2 = v5;
         }
 
-        while (!v9);
+        while (!v6);
       }
 
-      v2 = v8;
+      v2 = v5;
     }
 
-    while (v8 != &v10[1]);
+    while (v5 != &v7[1]);
   }
 
-  sub_29D431EF4(v10, v10[1]);
+  sub_29D431EF4(v7, v7[1]);
 }
 
 uint64_t IOHIDKeyboardFilter::match(IOHIDKeyboardFilter *this, __IOHIDService *a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v3 = 300;
   if (!IOHIDServiceConformsTo())
   {
@@ -2496,25 +2452,23 @@ uint64_t IOHIDKeyboardFilter::match(IOHIDKeyboardFilter *this, __IOHIDService *a
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     RegistryID = IOHIDServiceGetRegistryID();
-    v8 = *(this + 5);
-    v9 = 134218498;
-    v10 = this;
-    v11 = 2112;
-    v12 = RegistryID;
-    v13 = 1024;
-    v14 = v8;
-    _os_log_debug_impl(&dword_29D42A000, v4, OS_LOG_TYPE_DEBUG, "(%p) for ServiceID %@ with score %d\n", &v9, 0x1Cu);
+    v7 = *(this + 5);
+    v8 = 134218498;
+    v9 = this;
+    v10 = 2112;
+    v11 = RegistryID;
+    v12 = 1024;
+    v13 = v7;
+    _os_log_debug_impl(&dword_29D42A000, v4, OS_LOG_TYPE_DEBUG, "(%p) for ServiceID %@ with score %d\n", &v8, 0x1Cu);
   }
 
-  result = *(this + 5);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return *(this + 5);
 }
 
 const void *IOHIDKeyboardFilter::filter(uint64_t a1, const void *a2)
 {
   v2 = a2;
-  v13[3] = *MEMORY[0x29EDCA608];
+  v12[3] = *MEMORY[0x29EDCA608];
   if (a2 && IOHIDEventGetType() == 3)
   {
     EventFlags = IOHIDEventGetEventFlags();
@@ -2571,14 +2525,13 @@ const void *IOHIDKeyboardFilter::filter(uint64_t a1, const void *a2)
           RegistryID = IOHIDServiceGetRegistryID();
         }
 
-        sub_29D433BAC(RegistryID, v13);
+        sub_29D433BAC(RegistryID, v12);
       }
 
-      v2 = 0;
+      return 0;
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -2590,14 +2543,13 @@ void IOHIDKeyboardFilter::dispatchEventCopy(uint64_t a1, uint64_t a2)
     if (IOHIDEventGetIntegerValue() == 7 && IntegerValue == 57)
     {
       IOHIDEventGetIntegerValue();
-      v4 = *MEMORY[0x29EDB8ED8];
       mach_absolute_time();
       VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
       if (VendorDefinedEvent)
       {
-        v6 = VendorDefinedEvent;
+        v5 = VendorDefinedEvent;
         (*(a1 + 32))(*(a1 + 40), *(a1 + 48), a1, VendorDefinedEvent, 0);
-        CFRelease(v6);
+        CFRelease(v5);
       }
     }
   }
@@ -2611,33 +2563,32 @@ uint64_t IOHIDKeyboardFilter::processKeyMappings(uint64_t a1, uint64_t a2)
     IntegerValue = IOHIDEventGetIntegerValue();
     v5 = IOHIDEventGetIntegerValue();
     EventFlags = IOHIDEventGetEventFlags();
-    if (!*(a1 + 368) || IntegerValue != IOHIDEventGetIntegerValue() || (v7 = *(a1 + 368), v5 != IOHIDEventGetIntegerValue()))
+    if (!*(a1 + 368) || IntegerValue != IOHIDEventGetIntegerValue() || v5 != IOHIDEventGetIntegerValue())
     {
-      v8 = _IOHIDEventCopyAttachment();
-      Copy = v8;
-      if (v8 == *MEMORY[0x29EDB8F00])
+      v7 = _IOHIDEventCopyAttachment();
+      Copy = v7;
+      if (v7 == *MEMORY[0x29EDB8F00])
       {
 LABEL_16:
         CFRelease(Copy);
         return v2;
       }
 
-      if (v8)
+      if (v7)
       {
-        CFRelease(v8);
+        CFRelease(v7);
       }
 
-      if ((EventFlags & 0x6F0000) == 0 && !IOHIDEventGetIntegerValue() && !IOHIDKeyboardFilter::isDelayedEvent())
+      if ((EventFlags & 0x6F0000) == 0 && !IOHIDEventGetIntegerValue() && !IOHIDKeyboardFilter::isDelayedEvent(0, v2))
       {
-        v10 = IOHIDKeyboardFilter::remapKey(a1, IntegerValue | (v5 << 32), 0xAAAAAAAAAAAAAA00);
-        if (!v10)
+        v9 = IOHIDKeyboardFilter::remapKey(a1, IntegerValue | (v5 << 32));
+        if (!v9)
         {
           return 0;
         }
 
-        if (v10 != __PAIR64__(v5, IntegerValue))
+        if (v9 != __PAIR64__(v5, IntegerValue))
         {
-          v11 = *MEMORY[0x29EDB8ED8];
           Copy = IOHIDEventCreateCopy();
           Children = IOHIDEventGetChildren();
           if (Children)
@@ -2658,7 +2609,7 @@ LABEL_16:
   return v2;
 }
 
-void IOHIDKeyboardFilter::processModifiedKeyState(uint64_t a1, uint64_t a2)
+void IOHIDKeyboardFilter::processModifiedKeyState(uint64_t result, uint64_t a2)
 {
   if (a2 && !IOHIDEventGetIntegerValue())
   {
@@ -2685,90 +2636,86 @@ void IOHIDKeyboardFilter::processModifiedKeyState(uint64_t a1, uint64_t a2)
       v7 = v8;
     }
 
-    memset(v24, 170, sizeof(v24));
-    sub_29D433250(v24, a1 + 64);
-    v9 = v24[0];
-    if (v24[0] != &v24[1])
+    memset(v20, 170, sizeof(v20));
+    sub_29D433250(v20, result + 64);
+    v9 = v20[0];
+    if (v20[0] != &v20[1])
     {
-      v10 = (a1 + 96);
-      v11 = *MEMORY[0x29EDB8ED8];
-      v12 = *MEMORY[0x29EDB8F00];
+      v10 = (result + 96);
       do
       {
         if (*(v9 + 40) == 1 && !Key::modifierMask((v9 + 4)) || v7 && *(v9 + 9) == 7 && (*(v9 + 8) - 58) < 0xC)
         {
-          v13 = *v10;
+          v11 = *v10;
           if (!*v10)
           {
             goto LABEL_32;
           }
 
-          v14 = v9[4];
-          v15 = (a1 + 96);
+          v12 = v9[4];
+          v13 = (result + 96);
           do
           {
-            v16 = v13[4];
-            v17 = v16 >= v14;
-            v18 = v16 < v14;
-            if (v17)
+            v14 = v11[4];
+            v15 = v14 >= v12;
+            v16 = v14 < v12;
+            if (v15)
             {
-              v15 = v13;
+              v13 = v11;
             }
 
-            v13 = v13[v18];
+            v11 = v11[v16];
           }
 
-          while (v13);
-          if (v15 == v10 || v14 < v15[4])
+          while (v11);
+          if (v13 == v10 || v12 < v13[4])
           {
 LABEL_32:
-            sub_29D4333D8(a1 + 88, v9 + 4);
+            sub_29D4333D8(result + 88, v9 + 4, v9 + 2);
             mach_absolute_time();
-            v20 = *(v9 + 8);
-            v19 = *(v9 + 9);
             KeyboardEvent = IOHIDEventCreateKeyboardEvent();
             if (KeyboardEvent)
             {
               _IOHIDEventSetAttachment();
-              (*(a1 + 32))(*(a1 + 40), *(a1 + 48), a1, KeyboardEvent, 0);
+              (*(result + 32))(*(result + 40), *(result + 48), result, KeyboardEvent, 0);
               CFRelease(KeyboardEvent);
             }
 
-            sub_29D4334A4((a1 + 88), v9 + 4);
+            sub_29D4334A4((result + 88), v9 + 4);
           }
         }
 
-        v22 = v9[1];
-        if (v22)
+        v18 = v9[1];
+        if (v18)
         {
           do
           {
-            v23 = v22;
-            v22 = *v22;
+            v19 = v18;
+            v18 = *v18;
           }
 
-          while (v22);
+          while (v18);
         }
 
         else
         {
           do
           {
-            v23 = v9[2];
-            v8 = *v23 == v9;
-            v9 = v23;
+            v19 = v9[2];
+            v8 = *v19 == v9;
+            v9 = v19;
           }
 
           while (!v8);
         }
 
-        v9 = v23;
+        v9 = v19;
       }
 
-      while (v23 != &v24[1]);
+      while (v19 != &v20[1]);
     }
 
-    sub_29D431EF4(v24, v24[1]);
+    sub_29D431EF4(v20, v20[1]);
   }
 }
 
@@ -2795,27 +2742,19 @@ const void *IOHIDKeyboardFilter::processSlowKeys(uint64_t a1, const void *a2)
       return 0;
     }
 
-    else if (*(a1 + 296))
+    else if (*(a1 + 296) && IOHIDEventGetIntegerValue() == IntegerValue && IOHIDEventGetIntegerValue() == v5)
     {
-      if (IOHIDEventGetIntegerValue() == IntegerValue)
+      dispatch_source_set_timer(*(a1 + 512), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
+      if ((IOHIDEventGetEventFlags() & 0x10000) == 0)
       {
-        v10 = *(a1 + 296);
-        if (IOHIDEventGetIntegerValue() == v5)
-        {
-          dispatch_source_set_timer(*(a1 + 512), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
-          v11 = *(a1 + 296);
-          if ((IOHIDEventGetEventFlags() & 0x10000) == 0)
-          {
-            v2 = 0;
-          }
+        v2 = 0;
+      }
 
-          v12 = *(a1 + 296);
-          if (v12)
-          {
-            CFRelease(v12);
-            *(a1 + 296) = 0;
-          }
-        }
+      v10 = *(a1 + 296);
+      if (v10)
+      {
+        CFRelease(v10);
+        *(a1 + 296) = 0;
       }
     }
   }
@@ -2834,7 +2773,7 @@ const void *IOHIDKeyboardFilter::processCapsLockDelay(uint64_t a1, const void *a
     if (v5 == 7 && IntegerValue == 57)
     {
       v7 = v6;
-      if (IOHIDKeyboardFilter::isDelayedEvent())
+      if (IOHIDKeyboardFilter::isDelayedEvent(v6, v2))
       {
         _IOHIDEventRemoveAttachment();
         return v2;
@@ -2860,7 +2799,6 @@ const void *IOHIDKeyboardFilter::processCapsLockDelay(uint64_t a1, const void *a
         v10 = *(a1 + 528);
         v11 = dispatch_time(0, 1000000 * v8);
         dispatch_source_set_timer(v10, v11, 0xFFFFFFFFFFFFFFFFLL, 0);
-        v12 = *MEMORY[0x29EDB8F00];
         _IOHIDEventSetAttachment();
         *(a1 + 392) = v2;
         CFRetain(v2);
@@ -2946,21 +2884,20 @@ const void *IOHIDKeyboardFilter::processLockKeyDelay(uint64_t a1, const void *a2
   v2 = a2;
   if (a2)
   {
-    if ((IntegerValue = IOHIDEventGetIntegerValue(), v5 = IOHIDEventGetIntegerValue(), v6 = IOHIDEventGetIntegerValue(), v5 == 12) && IntegerValue == 414 || (v7 = *(a1 + 24), v8 = IOHIDServiceConformsTo(), v5 == 12) && v8 && IntegerValue == 48)
+    if ((IntegerValue = IOHIDEventGetIntegerValue(), v5 = IOHIDEventGetIntegerValue(), v6 = IOHIDEventGetIntegerValue(), v7 = v6, v5 == 12) && IntegerValue == 414 || (v6 = IOHIDServiceConformsTo(), v5 == 12) && v6 && IntegerValue == 48)
     {
-      if (IOHIDKeyboardFilter::isDelayedEvent())
+      if (IOHIDKeyboardFilter::isDelayedEvent(v6, v2))
       {
         _IOHIDEventRemoveAttachment();
       }
 
       else
       {
-        if (v6)
+        if (v7)
         {
-          v9 = *(a1 + 432);
-          v10 = dispatch_time(0, 1000000 * *(a1 + 424));
-          dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0);
-          v11 = *MEMORY[0x29EDB8F00];
+          v8 = *(a1 + 432);
+          v9 = dispatch_time(0, 1000000 * *(a1 + 424));
+          dispatch_source_set_timer(v8, v9, 0xFFFFFFFFFFFFFFFFLL, 0);
           _IOHIDEventSetAttachment();
           *(a1 + 416) = v2;
           CFRetain(v2);
@@ -2974,10 +2911,10 @@ const void *IOHIDKeyboardFilter::processLockKeyDelay(uint64_t a1, const void *a2
           }
 
           dispatch_source_set_timer(*(a1 + 432), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
-          v13 = *(a1 + 416);
-          if (v13)
+          v11 = *(a1 + 416);
+          if (v11)
           {
-            CFRelease(v13);
+            CFRelease(v11);
             v2 = 0;
             *(a1 + 416) = 0;
             return v2;
@@ -3091,7 +3028,7 @@ LABEL_28:
   return v2;
 }
 
-uint64_t IOHIDKeyboardFilter::processCapsLockState(uint64_t result, uint64_t a2)
+IOHIDKeyboardFilter *IOHIDKeyboardFilter::processCapsLockState(IOHIDKeyboardFilter *result, uint64_t a2)
 {
   if (a2)
   {
@@ -3107,19 +3044,7 @@ uint64_t IOHIDKeyboardFilter::processCapsLockState(uint64_t result, uint64_t a2)
         result = IOHIDEventGetIntegerValue();
         if (v4 == 7 && IntegerValue == 57 && result)
         {
-          IOHIDKeyboardFilter::setCapsLockState(v2, *(v2 + 440) == 0, @"Keyboard");
-          v5 = *(v2 + 24);
-          if (*(v2 + 440))
-          {
-            v6 = MEMORY[0x29EDB8F00];
-          }
-
-          else
-          {
-            v6 = MEMORY[0x29EDB8EF8];
-          }
-
-          v7 = *v6;
+          IOHIDKeyboardFilter::setCapsLockState(v2, *(v2 + 110) == 0, @"Keyboard");
 
           return IOHIDServiceSetProperty();
         }
@@ -3150,9 +3075,9 @@ const void *IOHIDKeyboardFilter::processKeyRepeats(uint64_t a1, const void *a2, 
   IntegerValue = IOHIDEventGetIntegerValue();
   v9 = IOHIDEventGetIntegerValue();
   v10 = IOHIDEventGetIntegerValue();
-  v19 = IntegerValue | (v9 << 32);
-  v20 = 0;
-  if (Key::isModifier(&v19))
+  v18 = IntegerValue | (v9 << 32);
+  v19 = 0;
+  if (Key::isModifier(&v18))
   {
     return a2;
   }
@@ -3232,18 +3157,11 @@ LABEL_22:
     dispatch_source_set_timer(v15, v17, 0xFFFFFFFFFFFFFFFFLL, 0);
   }
 
-  else if (v14)
+  else if (v14 && IntegerValue == IOHIDEventGetIntegerValue() && v9 == IOHIDEventGetIntegerValue())
   {
-    if (IntegerValue == IOHIDEventGetIntegerValue())
-    {
-      v18 = *(a1 + 368);
-      if (v9 == IOHIDEventGetIntegerValue())
-      {
-        dispatch_source_set_timer(*(a1 + 520), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
-        CFRelease(*(a1 + 368));
-        *(a1 + 368) = 0;
-      }
-    }
+    dispatch_source_set_timer(*(a1 + 520), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
+    CFRelease(*(a1 + 368));
+    *(a1 + 368) = 0;
   }
 
   return a2;
@@ -3269,10 +3187,9 @@ void IOHIDKeyboardFilter::processKeyState(uint64_t a1, uint64_t a2)
     {
       v15 = v9;
       v16 = v8;
-      v17[0] = -1431655766;
-      *(v17 + 3) = -1431655766;
-      *(&v17[1] + 3) = EventFlags;
-      sub_29D433528(a1 + 64, &v15);
+      memset(v17, 170, sizeof(v17));
+      v18 = EventFlags;
+      sub_29D433528(a1 + 64, &v15, &v15);
     }
 
     else
@@ -3452,254 +3369,249 @@ LABEL_9:
   return v5 != v2;
 }
 
-BOOL IOHIDKeyboardFilter::isDelayedEvent()
+BOOL IOHIDKeyboardFilter::isDelayedEvent(uint64_t a1, uint64_t a2)
 {
-  v0 = _IOHIDEventCopyAttachment();
-  if (!v0)
+  v2 = _IOHIDEventCopyAttachment();
+  if (!v2)
   {
     return 0;
   }
 
-  v1 = v0 == *MEMORY[0x29EDB8F00];
-  CFRelease(v0);
-  return v1;
+  v3 = v2 == *MEMORY[0x29EDB8F00];
+  CFRelease(v2);
+  return v3;
 }
 
-uint64_t IOHIDKeyboardFilter::remapKey(uint64_t a1, unint64_t a2, unint64_t a3)
+uint64_t IOHIDKeyboardFilter::remapKey(uint64_t a1, unint64_t a2)
 {
-  v4 = a2;
+  v2 = a2;
   result = 0x70000003ELL;
   if (a2 != 0x70000003ELL)
   {
     goto LABEL_16;
   }
 
-  v7 = a1 + 72;
-  v8 = *(a1 + 72);
-  if (!v8)
+  v5 = a1 + 72;
+  v6 = *(a1 + 72);
+  if (!v6)
   {
     goto LABEL_16;
   }
 
-  v9 = a1 + 72;
-  v10 = a1 + 72;
-  v11 = *(a1 + 72);
+  v7 = a1 + 72;
+  v8 = a1 + 72;
+  v9 = *(a1 + 72);
   do
   {
-    v12 = *(v11 + 32);
-    v13 = v12 >= 0x7000000E3;
-    v14 = v12 < 0x7000000E3;
-    if (v13)
+    v10 = *(v9 + 32);
+    v11 = v10 >= 0x7000000E3;
+    v12 = v10 < 0x7000000E3;
+    if (v11)
     {
-      v10 = v11;
+      v8 = v9;
     }
 
-    v11 = *(v11 + 8 * v14);
+    v9 = *(v9 + 8 * v12);
   }
 
-  while (v11);
-  if (v10 == v7 || *(v10 + 32) >= 0x7000000E4uLL)
+  while (v9);
+  if (v8 == v5 || *(v8 + 32) >= 0x7000000E4uLL)
   {
     do
     {
-      v15 = *(v8 + 32);
-      v13 = v15 >= 0x7000000E7;
-      v16 = v15 < 0x7000000E7;
-      if (v13)
+      v13 = *(v6 + 32);
+      v11 = v13 >= 0x7000000E7;
+      v14 = v13 < 0x7000000E7;
+      if (v11)
       {
-        v9 = v8;
+        v7 = v6;
       }
 
-      v8 = *(v8 + 8 * v16);
+      v6 = *(v6 + 8 * v14);
     }
 
-    while (v8);
-    if (v9 == v7 || *(v9 + 32) >= 0x7000000E8uLL)
+    while (v6);
+    if (v7 == v5 || *(v7 + 32) >= 0x7000000E8uLL)
     {
 LABEL_16:
       ActiveModifiers = IOHIDKeyboardFilter::getActiveModifiers(a1);
       if ((*(a1 + 288) != 0) != ((ActiveModifiers & 0x200) == 0))
       {
-        v18 = *(a1 + 144);
-        if (v18)
+        v16 = *(a1 + 144);
+        if (v16)
         {
-          v19 = a1 + 144;
+          v17 = a1 + 144;
           do
           {
-            v20 = *(v18 + 32);
-            v13 = v20 >= v4;
-            v21 = v20 < v4;
-            if (v13)
+            v18 = *(v16 + 32);
+            v11 = v18 >= v2;
+            v19 = v18 < v2;
+            if (v11)
             {
-              v19 = v18;
+              v17 = v16;
             }
 
-            v18 = *(v18 + 8 * v21);
+            v16 = *(v16 + 8 * v19);
           }
 
-          while (v18);
-          if (v19 != a1 + 144 && v4 >= *(v19 + 32))
+          while (v16);
+          if (v17 != a1 + 144 && v2 >= *(v17 + 32))
           {
-            v4 = *(v19 + 48);
-            a3 = a3 & 0xFFFFFFFFFFFFFF00 | *(v19 + 56);
+            v2 = *(v17 + 48);
           }
         }
       }
 
-      v22 = *(a1 + 160);
-      v25 = *v22;
-      v23 = v22 + 1;
-      v24 = v25;
-      if (v25 != v23)
+      v20 = *(a1 + 160);
+      v23 = *v20;
+      v21 = v20 + 1;
+      v22 = v23;
+      if (v23 != v21)
       {
         while (1)
         {
-          if ((v24[4] & ActiveModifiers) != 0)
+          if ((v22[4] & ActiveModifiers) != 0)
           {
-            v26 = v24[6];
-            if (v26)
+            v24 = v22[6];
+            if (v24)
             {
-              v27 = v24 + 6;
+              v25 = v22 + 6;
               do
               {
-                v28 = v26[4];
-                v13 = v28 >= v4;
-                v29 = v28 < v4;
-                if (v13)
+                v26 = v24[4];
+                v11 = v26 >= v2;
+                v27 = v26 < v2;
+                if (v11)
                 {
-                  v27 = v26;
+                  v25 = v24;
                 }
 
-                v26 = v26[v29];
+                v24 = v24[v27];
               }
 
-              while (v26);
-              if (v27 != v24 + 6 && v4 >= v27[4])
+              while (v24);
+              if (v25 != v22 + 6 && v2 >= v25[4])
               {
                 break;
               }
             }
           }
 
-          v30 = v24[1];
-          if (v30)
+          v28 = v22[1];
+          if (v28)
           {
             do
             {
-              v31 = v30;
-              v30 = *v30;
+              v29 = v28;
+              v28 = *v28;
             }
 
-            while (v30);
+            while (v28);
           }
 
           else
           {
             do
             {
-              v31 = v24[2];
-              v32 = *v31 == v24;
-              v24 = v31;
+              v29 = v22[2];
+              v30 = *v29 == v22;
+              v22 = v29;
             }
 
-            while (!v32);
+            while (!v30);
           }
 
-          v24 = v31;
-          if (v31 == v23)
+          v22 = v29;
+          if (v29 == v21)
           {
             goto LABEL_42;
           }
         }
 
-        v4 = v27[6];
-        a3 = a3 & 0xFFFFFFFFFFFFFF00 | *(v27 + 56);
+        v2 = v25[6];
       }
 
 LABEL_42:
       if (*(a1 + 408))
       {
-        v33 = *(a1 + 248);
-        if (v33)
+        v31 = *(a1 + 248);
+        if (v31)
         {
-          v34 = a1 + 248;
+          v32 = a1 + 248;
           do
           {
-            v35 = *(v33 + 32);
-            v13 = v35 >= v4;
-            v36 = v35 < v4;
-            if (v13)
+            v33 = *(v31 + 32);
+            v11 = v33 >= v2;
+            v34 = v33 < v2;
+            if (v11)
             {
-              v34 = v33;
+              v32 = v31;
             }
 
-            v33 = *(v33 + 8 * v36);
+            v31 = *(v31 + 8 * v34);
           }
 
-          while (v33);
-          if (v34 != a1 + 248 && v4 >= *(v34 + 32))
+          while (v31);
+          if (v32 != a1 + 248 && v2 >= *(v32 + 32))
           {
-            v4 = *(v34 + 48);
-            a3 = a3 & 0xFFFFFFFFFFFFFF00 | *(v34 + 56);
+            v2 = *(v32 + 48);
           }
         }
       }
 
-      v37 = *(a1 + 120);
-      if (v37)
+      v35 = *(a1 + 120);
+      if (v35)
       {
-        v38 = a1 + 120;
+        v36 = a1 + 120;
         do
         {
-          v39 = *(v37 + 32);
-          v13 = v39 >= v4;
-          v40 = v39 < v4;
-          if (v13)
+          v37 = *(v35 + 32);
+          v11 = v37 >= v2;
+          v38 = v37 < v2;
+          if (v11)
           {
-            v38 = v37;
+            v36 = v35;
           }
 
-          v37 = *(v37 + 8 * v40);
+          v35 = *(v35 + 8 * v38);
         }
 
-        while (v37);
-        if (v38 != a1 + 120 && v4 >= *(v38 + 32))
+        while (v35);
+        if (v36 != a1 + 120 && v2 >= *(v36 + 32))
         {
-          v4 = *(v38 + 48);
-          a3 = a3 & 0xFFFFFFFFFFFFFF00 | *(v38 + 56);
+          v2 = *(v36 + 48);
         }
       }
 
-      v41 = *(a1 + 272);
-      if (!v41)
+      v39 = *(a1 + 272);
+      if (!v39)
       {
-        return v4;
+        return v2;
       }
 
-      v42 = a1 + 272;
+      v40 = a1 + 272;
       do
       {
-        v43 = *(v41 + 32);
-        v13 = v43 >= v4;
-        v44 = v43 < v4;
-        if (v13)
+        v41 = *(v39 + 32);
+        v11 = v41 >= v2;
+        v42 = v41 < v2;
+        if (v11)
         {
-          v42 = v41;
+          v40 = v39;
         }
 
-        v41 = *(v41 + 8 * v44);
+        v39 = *(v39 + 8 * v42);
       }
 
-      while (v41);
-      if (v42 != a1 + 272 && v4 >= *(v42 + 32))
+      while (v39);
+      if (v40 != a1 + 272 && v2 >= *(v40 + 32))
       {
-        result = *(v42 + 48);
-        v45 = a3 & 0xFFFFFFFFFFFFFF00 | *(v42 + 56);
+        return *(v40 + 48);
       }
 
       else
       {
-        return v4;
+        return v2;
       }
     }
   }
@@ -3780,7 +3692,7 @@ uint64_t IOHIDKeyboardFilter::getStickyKeyState(IOHIDKeyboardFilter *this, int a
 
 void IOHIDKeyboardFilter::setStickyKeyState(IOHIDKeyboardFilter *this, int a2, unsigned int a3, int a4)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (a3 == 57)
   {
     v6 = 0;
@@ -3812,23 +3724,22 @@ void IOHIDKeyboardFilter::setStickyKeyState(IOHIDKeyboardFilter *this, int a2, u
       RegistryID = IOHIDServiceGetRegistryID();
     }
 
-    v12 = *(v9 + 78);
-    v13 = 138412802;
-    v14 = RegistryID;
-    v15 = 1024;
-    v16 = v12;
-    v17 = 1024;
-    v18 = a4;
-    _os_log_debug_impl(&dword_29D42A000, v8, OS_LOG_TYPE_DEBUG, "[%@] StickyKey state %x -> %x\n", &v13, 0x18u);
+    v11 = *(v9 + 78);
+    v12 = 138412802;
+    v13 = RegistryID;
+    v14 = 1024;
+    v15 = v11;
+    v16 = 1024;
+    v17 = a4;
+    _os_log_debug_impl(&dword_29D42A000, v8, OS_LOG_TYPE_DEBUG, "[%@] StickyKey state %x -> %x\n", &v12, 0x18u);
   }
 
   *(v9 + 78) = a4;
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t IOHIDKeyboardFilter::processStickyKeyDown(IOHIDKeyboardFilter *this, int a2, unsigned int a3, unsigned int *a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (a3 == 57)
   {
     v7 = 0;
@@ -3877,13 +3788,13 @@ uint64_t IOHIDKeyboardFilter::processStickyKeyDown(IOHIDKeyboardFilter *this, in
           RegistryID = IOHIDServiceGetRegistryID();
         }
 
-        v17 = 138412802;
-        v18 = RegistryID;
-        v19 = 1024;
-        v20 = a2;
-        v21 = 1024;
-        v22 = a3;
-        _os_log_error_impl(&dword_29D42A000, v11, OS_LOG_TYPE_ERROR, "[%@] StickyKey DOWN in bad state for 0x%x:0x%x\n", &v17, 0x18u);
+        v16 = 138412802;
+        v17 = RegistryID;
+        v18 = 1024;
+        v19 = a2;
+        v20 = 1024;
+        v21 = a3;
+        _os_log_error_impl(&dword_29D42A000, v11, OS_LOG_TYPE_ERROR, "[%@] StickyKey DOWN in bad state for 0x%x:0x%x\n", &v16, 0x18u);
       }
 
       v10 = 0;
@@ -3894,30 +3805,29 @@ uint64_t IOHIDKeyboardFilter::processStickyKeyDown(IOHIDKeyboardFilter *this, in
   v12 = _IOHIDLogCategory();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(this + 3);
-    if (v15)
+    v14 = *(this + 3);
+    if (v14)
     {
-      v15 = IOHIDServiceGetRegistryID();
+      v14 = IOHIDServiceGetRegistryID();
     }
 
-    v17 = 138413058;
-    v18 = v15;
-    v19 = 1024;
-    v20 = a3;
-    v21 = 1024;
-    v22 = a2;
-    v23 = 1024;
-    v24 = v10;
-    _os_log_debug_impl(&dword_29D42A000, v12, OS_LOG_TYPE_DEBUG, "[%@] StickyKey DOWN 0x%x:0x%x phase 0x%x\n", &v17, 0x1Eu);
+    v16 = 138413058;
+    v17 = v14;
+    v18 = 1024;
+    v19 = a3;
+    v20 = 1024;
+    v21 = a2;
+    v22 = 1024;
+    v23 = v10;
+    _os_log_debug_impl(&dword_29D42A000, v12, OS_LOG_TYPE_DEBUG, "[%@] StickyKey DOWN 0x%x:0x%x phase 0x%x\n", &v16, 0x1Eu);
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
 uint64_t IOHIDKeyboardFilter::processStickyKeyUp(IOHIDKeyboardFilter *this, int a2, unsigned int a3, unsigned int *a4)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   if (a3 == 57)
   {
     v7 = 0;
@@ -3984,13 +3894,13 @@ LABEL_16:
       RegistryID = IOHIDServiceGetRegistryID();
     }
 
-    v18 = 138412802;
-    v19 = RegistryID;
-    v20 = 1024;
-    v21 = a2;
-    v22 = 1024;
-    v23 = a3;
-    _os_log_error_impl(&dword_29D42A000, v12, OS_LOG_TYPE_ERROR, "[%@] StickyKey UP in bad state for 0x%x:0x%x\n", &v18, 0x18u);
+    v17 = 138412802;
+    v18 = RegistryID;
+    v19 = 1024;
+    v20 = a2;
+    v21 = 1024;
+    v22 = a3;
+    _os_log_error_impl(&dword_29D42A000, v12, OS_LOG_TYPE_ERROR, "[%@] StickyKey UP in bad state for 0x%x:0x%x\n", &v17, 0x18u);
   }
 
   v9 = 0;
@@ -3998,24 +3908,23 @@ LABEL_21:
   v13 = _IOHIDLogCategory();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v16 = *(this + 3);
-    if (v16)
+    v15 = *(this + 3);
+    if (v15)
     {
-      v16 = IOHIDServiceGetRegistryID();
+      v15 = IOHIDServiceGetRegistryID();
     }
 
-    v18 = 138413058;
-    v19 = v16;
-    v20 = 1024;
-    v21 = a3;
-    v22 = 1024;
-    v23 = a2;
-    v24 = 1024;
-    v25 = v9;
-    _os_log_debug_impl(&dword_29D42A000, v13, OS_LOG_TYPE_DEBUG, "[%@] StickyKey UP 0x%x:0x%x phase 0x%x\n", &v18, 0x1Eu);
+    v17 = 138413058;
+    v18 = v15;
+    v19 = 1024;
+    v20 = a3;
+    v21 = 1024;
+    v22 = a2;
+    v23 = 1024;
+    v24 = v9;
+    _os_log_debug_impl(&dword_29D42A000, v13, OS_LOG_TYPE_DEBUG, "[%@] StickyKey UP 0x%x:0x%x phase 0x%x\n", &v17, 0x1Eu);
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -4114,87 +4023,85 @@ void IOHIDKeyboardFilter::dispatchStickyKeys(IOHIDKeyboardFilter *this, int a2)
 {
   v4 = 0;
   v5 = this + 312;
-  v6 = *MEMORY[0x29EDB8ED8];
   do
   {
-    v7 = v4;
-    v8 = v4 + 223;
-    v9 = v4 - 37;
+    v6 = v4;
+    v7 = v4 + 223;
+    v8 = v4 - 37;
     if (v4 <= 4)
     {
-      v9 = v4 - 33;
+      v8 = v4 - 33;
     }
 
-    v10 = (v9 + 33);
+    v9 = (v8 + 33);
     if (v4 == 9)
     {
-      v8 = 3;
-      v11 = 255;
+      v7 = 3;
+      v10 = 255;
     }
 
     else
     {
-      v11 = 7;
+      v10 = 7;
     }
 
     if (v4 == 9)
     {
-      v10 = 9;
+      v9 = 9;
     }
 
     if (v4)
     {
-      v12 = v8;
+      v11 = v7;
     }
 
     else
     {
-      v12 = 57;
+      v11 = 57;
     }
 
     if (v4)
     {
-      v13 = v11;
+      v12 = v10;
     }
 
     else
     {
-      v13 = 7;
+      v12 = 7;
     }
 
     if (v4)
     {
-      v14 = v10;
+      v13 = v9;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    if ((*&v5[4 * v14] & a2) != 0)
+    if ((*&v5[4 * v13] & a2) != 0)
     {
       mach_absolute_time();
       KeyboardEvent = IOHIDEventCreateKeyboardEvent();
       if (KeyboardEvent)
       {
-        v16 = KeyboardEvent;
+        v15 = KeyboardEvent;
         IOHIDEventSetIntegerValue();
-        (*(this + 4))(*(this + 5), *(this + 6), this, v16, 0);
-        CFRelease(v16);
-        IOHIDKeyboardFilter::setStickyKeyState(this, v13, v12, 1);
+        (*(this + 4))(*(this + 5), *(this + 6), this, v15, 0);
+        CFRelease(v15);
+        IOHIDKeyboardFilter::setStickyKeyState(this, v12, v11, 1);
       }
     }
 
-    v4 = v7 + 1;
+    v4 = v6 + 1;
   }
 
-  while (v7 != 9);
+  while (v6 != 9);
 }
 
 void IOHIDKeyboardFilter::processShiftKey(IOHIDKeyboardFilter *this)
 {
-  v11 = *MEMORY[0x29EDCA608];
   if (*(this + 88))
   {
     v2 = *(this + 77);
@@ -4223,14 +4130,6 @@ void IOHIDKeyboardFilter::processShiftKey(IOHIDKeyboardFilter *this)
         sub_29D433BE4();
       }
 
-      v7 = *(this + 3);
-      v8 = MEMORY[0x29EDB8F00];
-      if (!*(this + 89))
-      {
-        v8 = MEMORY[0x29EDB8EF8];
-      }
-
-      v9 = *v8;
       IOHIDServiceSetProperty();
       if (*(this + 89))
       {
@@ -4243,8 +4142,6 @@ void IOHIDKeyboardFilter::processShiftKey(IOHIDKeyboardFilter *this)
       }
     }
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void *IOHIDKeyboardFilter::serializeMapper@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
@@ -4369,15 +4266,15 @@ void *IOHIDKeyboardFilter::serializeModifierMappings@<X0>(uint64_t a1@<X1>, uint
   return result;
 }
 
-void sub_29D4316A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29D4316A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   sub_29D431D60(va);
   sub_29D431A1C(va1);
-  sub_29D431D60(v3);
+  sub_29D431D60(v5);
   _Unwind_Resume(a1);
 }
 
@@ -4609,48 +4506,48 @@ void sub_29D431F48(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *sub_29D431FA8(uint64_t a1, unsigned int *a2)
+uint64_t *sub_29D431FA8(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *sub_29D432088(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_29D432088(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -4676,12 +4573,12 @@ uint64_t *sub_29D4320E0(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4695,22 +4592,22 @@ uint64_t *sub_29D4320E0(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4744,13 +4641,13 @@ uint64_t *sub_29D4320E0(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4792,15 +4689,15 @@ uint64_t *sub_29D4320E0(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t **sub_29D43227C(uint64_t **result, unint64_t *a2, unint64_t *a3)
+void *sub_29D43227C(void *result, unint64_t *a2, unint64_t *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -4853,24 +4750,24 @@ uint64_t **sub_29D43227C(uint64_t **result, unint64_t *a2, unint64_t *a3)
 
   while (a2 != a3)
   {
-    result = sub_29D4324DC(v5, a2);
+    result = sub_29D4324DC(v5, a2, a2);
     a2 += 4;
   }
 
   return result;
 }
 
-void sub_29D432370(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D432370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29D432484(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t **sub_29D432384(uint64_t **a1, unint64_t *a2, uint64_t a3)
+uint64_t **sub_29D432384(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v4 = a1 + 1;
-  v5 = a1[1];
+  v4 = (a1 + 8);
+  v5 = *(a1 + 8);
   if (v5)
   {
     v6 = *a2;
@@ -4909,7 +4806,7 @@ uint64_t **sub_29D432384(uint64_t **a1, unint64_t *a2, uint64_t a3)
 
   else
   {
-    v7 = a1 + 1;
+    v7 = (a1 + 8);
 LABEL_10:
     v9 = *a2;
     *(a3 + 40) = *(a2 + 8);
@@ -4993,57 +4890,57 @@ uint64_t sub_29D432484(uint64_t a1)
   return a1;
 }
 
-void *sub_29D4324DC(uint64_t a1, unint64_t *a2)
+void *sub_29D4324DC(uint64_t a1, unint64_t *a2, _OWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void sub_29D4325A8(uint64_t a1, void *a2)
+void sub_29D4325A8(void *a1, void *a2)
 {
-  v4 = (a1 + 8);
-  sub_29D431EF4(a1, *(a1 + 8));
+  v4 = a1 + 1;
+  sub_29D431EF4(a1, a1[1]);
   *a1 = *a2;
   v5 = a2 + 1;
   v6 = a2[1];
   *v4 = v6;
   v7 = a2[2];
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   if (v7)
   {
     *(v6 + 16) = v4;
@@ -5188,31 +5085,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -5221,173 +5117,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -5424,7 +5320,7 @@ uint64_t sub_29D432B14(uint64_t result, void *a2, void *a3)
     v5 = result;
     do
     {
-      result = sub_29D432B9C(v5, v5 + 1, v4 + 4);
+      result = sub_29D432B9C(v5, (v5 + 8), v4 + 4, v4 + 2);
       v6 = v4[1];
       if (v6)
       {
@@ -5458,17 +5354,17 @@ uint64_t sub_29D432B14(uint64_t result, void *a2, void *a3)
   return result;
 }
 
-uint64_t sub_29D432B9C(void *a1, void *a2, unint64_t *a3)
+uint64_t sub_29D432B9C(uint64_t **a1, void *a2, unint64_t *a3, _OWORD *a4)
 {
-  v5 = 0xAAAAAAAAAAAAAAAALL;
   v6 = 0xAAAAAAAAAAAAAAAALL;
-  v3 = *sub_29D432C3C(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v7 = 0xAAAAAAAAAAAAAAAALL;
+  v4 = *sub_29D432C3C(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *sub_29D432C3C(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -5662,15 +5558,15 @@ LABEL_48:
   return a4;
 }
 
-uint64_t **sub_29D432DE4(uint64_t **result, void *a2, void *a3)
+void *sub_29D432DE4(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -5749,23 +5645,23 @@ uint64_t **sub_29D432DE4(uint64_t **result, void *a2, void *a3)
 
   if (a2 != a3)
   {
-    sub_29D432FD0();
+    sub_29D432FD0(v5, a2 + 2);
   }
 
   return result;
 }
 
-void sub_29D432F4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D432F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29D432484(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29D432F60(uint64_t **a1, uint64_t *a2)
+uint64_t *sub_29D432F60(uint64_t a1, uint64_t *a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -5795,7 +5691,7 @@ uint64_t *sub_29D432F60(uint64_t **a1, uint64_t *a2)
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -5916,7 +5812,7 @@ uint64_t sub_29D4332A8(uint64_t result, void *a2, void *a3)
     v5 = result;
     do
     {
-      result = sub_29D433330(v5, v5 + 1, v4 + 4);
+      result = sub_29D433330(v5, (v5 + 8), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -5950,54 +5846,54 @@ uint64_t sub_29D4332A8(uint64_t result, void *a2, void *a3)
   return result;
 }
 
-uint64_t sub_29D433330(void *a1, void *a2, unint64_t *a3)
+uint64_t sub_29D433330(uint64_t **a1, void *a2, unint64_t *a3, uint64_t a4)
 {
-  v5 = 0xAAAAAAAAAAAAAAAALL;
   v6 = 0xAAAAAAAAAAAAAAAALL;
-  v3 = *sub_29D432C3C(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v7 = 0xAAAAAAAAAAAAAAAALL;
+  v4 = *sub_29D432C3C(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-void *sub_29D4333D8(uint64_t a1, unint64_t *a2)
+void *sub_29D4333D8(uint64_t a1, unint64_t *a2, _OWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6038,41 +5934,41 @@ uint64_t sub_29D4334A4(uint64_t **a1, unint64_t *a2)
   return 1;
 }
 
-void *sub_29D433528(uint64_t a1, unint64_t *a2)
+void *sub_29D433528(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6125,63 +6021,61 @@ void sub_29D4336EC(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
 
 void sub_29D433714(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_29D42A000, a2, OS_LOG_TYPE_DEBUG, "Event dropped: %@\n", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_29D42A000, a2, OS_LOG_TYPE_DEBUG, "Event dropped: %@\n", &v2, 0xCu);
 }
 
 void sub_29D4337D0()
 {
   sub_29D4336D4();
-  v1 = *(v0 + 456);
-  v4 = sub_29D4336C8(v2, 5.778e-34, v0, v3);
-  sub_29D433708(v4, v5, v6);
+  v3 = sub_29D4336C8(v0, 5.778e-34, v1, v2);
+  sub_29D433708(v3, v4, v5);
   sub_29D4336BC();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x16u);
+  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
-void sub_29D433854(uint64_t a1, unsigned int *a2)
+void sub_29D433854()
 {
-  sub_29D433690(a1, a2);
-  sub_29D433678(v2, 5.778e-34, v3, v4);
-  sub_29D4336A0(&dword_29D42A000, "[%@] _lockKeyDelayMS: %d\n", v5, v6);
+  sub_29D433690();
+  sub_29D433678(v0, 5.778e-34, v1, v2);
+  sub_29D4336A0(&dword_29D42A000, "[%@] _lockKeyDelayMS: %d\n", v3, v4);
 }
 
-void sub_29D43388C(uint64_t a1, unsigned int *a2)
+void sub_29D43388C()
 {
-  sub_29D433690(a1, a2);
-  sub_29D433678(v2, 5.778e-34, v3, v4);
-  sub_29D4336A0(&dword_29D42A000, "[%@] _capsLockDelayOverrideMS: %d\n", v5, v6);
+  sub_29D433690();
+  sub_29D433678(v0, 5.778e-34, v1, v2);
+  sub_29D4336A0(&dword_29D42A000, "[%@] _capsLockDelayOverrideMS: %d\n", v3, v4);
 }
 
-void sub_29D4338C4(uint64_t a1, unsigned int *a2)
+void sub_29D4338C4()
 {
-  sub_29D433690(a1, a2);
-  sub_29D433678(v2, 5.778e-34, v3, v4);
-  sub_29D4336A0(&dword_29D42A000, "[%@] _capsLockDelayMS: %d\n", v5, v6);
+  sub_29D433690();
+  sub_29D433678(v0, 5.778e-34, v1, v2);
+  sub_29D4336A0(&dword_29D42A000, "[%@] _capsLockDelayMS: %d\n", v3, v4);
 }
 
-void sub_29D4338FC(uint64_t a1, unsigned int *a2)
+void sub_29D4338FC()
 {
-  sub_29D433690(a1, a2);
-  sub_29D433678(v2, 5.778e-34, v3, v4);
-  sub_29D4336A0(&dword_29D42A000, "[%@] _slowKeysDelayMS = %d\n", v5, v6);
+  sub_29D433690();
+  sub_29D433678(v0, 5.778e-34, v1, v2);
+  sub_29D4336A0(&dword_29D42A000, "[%@] _slowKeysDelayMS = %d\n", v3, v4);
 }
 
-void sub_29D4339A4(uint64_t a1, unsigned int *a2)
+void sub_29D4339A4()
 {
-  sub_29D433690(a1, a2);
-  sub_29D433678(v2, 5.778e-34, v3, v4);
-  sub_29D4336A0(&dword_29D42A000, "[%@] _capsLockDarkWakeLEDInhibit: %d\n", v5, v6);
+  sub_29D433690();
+  sub_29D433678(v0, 5.778e-34, v1, v2);
+  sub_29D4336A0(&dword_29D42A000, "[%@] _capsLockDarkWakeLEDInhibit: %d\n", v3, v4);
 }
 
-void sub_29D4339DC(uint64_t a1, unsigned int *a2)
+void sub_29D4339DC()
 {
-  sub_29D433690(a1, a2);
-  sub_29D433678(v2, 5.778e-34, v3, v4);
-  sub_29D4336A0(&dword_29D42A000, "[%@] _capsLockLEDInhibit: %d\n", v5, v6);
+  sub_29D433690();
+  sub_29D433678(v0, 5.778e-34, v1, v2);
+  sub_29D4336A0(&dword_29D42A000, "[%@] _capsLockLEDInhibit: %d\n", v3, v4);
 }
 
 void sub_29D433A14(uint64_t a1, uint64_t a2)
@@ -6195,35 +6089,33 @@ void sub_29D433A14(uint64_t a1, uint64_t a2)
 void sub_29D433A5C()
 {
   sub_29D4336D4();
-  v1 = *v0;
-  v4 = sub_29D4336C8(v2, 5.778e-34, v0, v3);
-  sub_29D433708(v4, v5, v6);
+  v3 = sub_29D4336C8(v0, 5.778e-34, v1, v2);
+  sub_29D433708(v3, v4, v5);
   sub_29D4336BC();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x16u);
+  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void sub_29D433AA8()
 {
   sub_29D4336D4();
-  v1 = *v0;
-  v4 = sub_29D4336C8(v2, 5.778e-34, v0, v3);
-  sub_29D433708(v4, v5, v6);
+  v3 = sub_29D4336C8(v0, 5.778e-34, v1, v2);
+  sub_29D433708(v3, v4, v5);
   sub_29D4336BC();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x16u);
+  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
-void sub_29D433AF4(uint64_t a1, unsigned int *a2)
+void sub_29D433AF4()
 {
-  sub_29D433690(a1, a2);
-  sub_29D433678(v2, 5.778e-34, v3, v4);
-  sub_29D4336A0(&dword_29D42A000, "[%@] _stickyKeyToggle: %d\n", v5, v6);
+  sub_29D433690();
+  sub_29D433678(v0, 5.778e-34, v1, v2);
+  sub_29D4336A0(&dword_29D42A000, "[%@] _stickyKeyToggle: %d\n", v3, v4);
 }
 
-void sub_29D433B2C(uint64_t a1, unsigned int *a2)
+void sub_29D433B2C()
 {
-  sub_29D433690(a1, a2);
-  sub_29D433678(v2, 5.778e-34, v3, v4);
-  sub_29D4336A0(&dword_29D42A000, "[%@] _stickyKeyDisable: %d\n", v5, v6);
+  sub_29D433690();
+  sub_29D433678(v0, 5.778e-34, v1, v2);
+  sub_29D4336A0(&dword_29D42A000, "[%@] _stickyKeyDisable: %d\n", v3, v4);
 }
 
 void sub_29D433B64(uint64_t a1, uint64_t a2)
@@ -6237,8 +6129,7 @@ void sub_29D433B64(uint64_t a1, uint64_t a2)
 void sub_29D433BE4()
 {
   sub_29D4336D4();
-  *v0;
-  v3 = sub_29D4336C8(v1, 5.778e-34, v0, v2);
+  v3 = sub_29D4336C8(v0, 5.778e-34, v1, v2);
   sub_29D433708(v3, v4, v5);
   sub_29D4336BC();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);

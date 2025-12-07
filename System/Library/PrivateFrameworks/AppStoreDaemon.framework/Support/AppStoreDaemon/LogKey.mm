@@ -19,7 +19,7 @@
 
 - (_TtC9appstored6LogKey)initWithBaseUUID:(id)d
 {
-  v4 = sub_100085D40(&unk_10059EED0);
+  v4 = sub_100085D40(&unk_10059EED0, &qword_100435668);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   if (d)
@@ -41,7 +41,7 @@
 - (_TtC9appstored6LogKey)init
 {
   swift_getObjectType();
-  v2 = sub_100004BAC(0, 0xE000000000000000, "/", 1, 2, 0, 0xE000000000000000, 0, 0, 0);
+  v2 = sub_100004BAC(0, 0xE000000000000000, "/", 1, 2u, 0, 0xE000000000000000, 0, 0, 0);
   swift_deallocPartialClassInstance();
   return v2;
 }
@@ -77,7 +77,7 @@
   v9 = *(&self->super.isa + OBJC_IVAR____TtC9appstored6LogKey_activity);
   swift_unknownObjectRetain();
 
-  v10 = sub_100006078(v4, v6, "/", 1, 2, 0, 0xE000000000000000, v7, v8, 0, 0, v9);
+  v10 = sub_100006078(v4, v6, "/", 1, 2u, 0, 0xE000000000000000, v7, v8, 0, 0, v9);
   swift_unknownObjectRelease();
 
   return v10;
@@ -85,7 +85,7 @@
 
 - (_TtC9appstored6LogKey)initWithBatchLogKey:(id)key logCode:(id)code externalID:(id)d bundleID:(id)iD itemID:(id)itemID
 {
-  v12 = sub_100085D40(&unk_10059EED0);
+  v12 = sub_100085D40(&unk_10059EED0, &qword_100435668);
   v13 = __chkstk_darwin(v12 - 8);
   v15 = &v32 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v13);
@@ -116,7 +116,7 @@
   }
 
   swift_getObjectType();
-  sub_1000044A4(v17, v15, &unk_10059EED0);
+  sub_1000044A4(v17, v15, &unk_10059EED0, &qword_100435668);
   if (itemID)
   {
     v32 = 0;
@@ -139,7 +139,7 @@
 
   v30 = sub_100118A70(key, code, v15, v20, v22, v26, v27);
 
-  sub_100005518(v17, &unk_10059EED0);
+  sub_100005518(v17, &unk_10059EED0, &qword_100435668);
   swift_deallocPartialClassInstance();
   return v30;
 }
@@ -186,7 +186,7 @@
 
   v6 = sub_1001BE7A4(v8);
 
-  sub_100005518(v8, &unk_10059CC50);
+  sub_100005518(v8, &unk_10059CC50, &qword_100435D80);
   return v6 & 1;
 }
 
@@ -277,7 +277,7 @@ LABEL_8:
     v15 = v11;
   }
 
-  v18 = sub_100006078(0, 0xE000000000000000, "/", 1, 2, v14, v16, v17, v15, d, v13, 0);
+  v18 = sub_100006078(0, 0xE000000000000000, "/", 1, 2u, v14, v16, v17, v15, d, v13, 0);
   swift_deallocPartialClassInstance();
   return v18;
 }
@@ -297,7 +297,7 @@ LABEL_8:
   }
 
   swift_getObjectType();
-  v6 = sub_100004BAC(v3, v5, "/", 1, 2, 0, 0xE000000000000000, 0, 0, 0);
+  v6 = sub_100004BAC(v3, v5, "/", 1, 2u, 0, 0xE000000000000000, 0, 0, 0);
   swift_deallocPartialClassInstance();
   return v6;
 }
@@ -317,14 +317,14 @@ LABEL_8:
   }
 
   swift_getObjectType();
-  v6 = sub_100004BAC(0, 0xE000000000000000, "/", 1, 2, v3, v5, 0, 0, 0);
+  v6 = sub_100004BAC(0, 0xE000000000000000, "/", 1, 2u, v3, v5, 0, 0, 0);
   swift_deallocPartialClassInstance();
   return v6;
 }
 
 - (_TtC9appstored6LogKey)initWithCategory:(id)category baseUUID:(id)d
 {
-  v6 = sub_100085D40(&unk_10059EED0);
+  v6 = sub_100085D40(&unk_10059EED0, &qword_100435668);
   __chkstk_darwin(v6 - 8);
   v8 = &v14 - v7;
   if (!category)

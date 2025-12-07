@@ -385,9 +385,9 @@
       secondaryRepresentedStrings = [keyCopy secondaryRepresentedStrings];
       firstObject = [secondaryRepresentedStrings firstObject];
       representedString = [keyCopy representedString];
-      v12 = [firstObject isEqualToString:representedString];
+      isEqualToString = objc_msgSend_isEqualToString_(firstObject);
 
-      if ((v12 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         secondaryDisplayStrings = [v5 secondaryDisplayStrings];
         v14 = [secondaryDisplayStrings objectAtIndex:0];

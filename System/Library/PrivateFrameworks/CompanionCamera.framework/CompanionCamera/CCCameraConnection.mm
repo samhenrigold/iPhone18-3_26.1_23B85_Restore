@@ -40,6 +40,7 @@
 - (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidBegin:(id)begin;
 - (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidEnd:(id)end;
 - (void)cameraViewfinderSession:(id)session didCapturePhotoWithStatus:(int)status thumbnailData:(id)data timestamp:(id *)timestamp;
+- (void)cameraViewfinderSession:(id)session previewStreamDidCloseWithStatus:(int)status;
 - (void)cameraViewfinderSessionPreviewStreamDidOpen:(id)open;
 - (void)captureDeviceDidChange;
 - (void)captureDeviceDidChange:(int64_t)change;
@@ -51,6 +52,7 @@
 - (void)didStopCapture;
 - (void)didUpdateShallowDepthOfFieldStatus:(int64_t)status;
 - (void)didUpdateStereoCaptureStatus:(int64_t)status;
+- (void)didUpdateThumbnailWithData:(id)data isVideo:(BOOL)video;
 - (void)flashModeDidChange;
 - (void)hdrModeDidChange;
 - (void)irisModeDidChange;
@@ -89,22 +91,22 @@
 
 - (CCCameraConnection)init
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v21 = "[CCCameraConnection init]";
-    v22 = 2080;
-    v23 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v24 = 1024;
-    v25 = 89;
+    v20 = "[CCCameraConnection init]";
+    v21 = 2080;
+    v22 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v23 = 1024;
+    v24 = 89;
     _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
-  v19.receiver = self;
-  v19.super_class = CCCameraConnection;
-  v4 = [(CCCameraConnection *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = CCCameraConnection;
+  v4 = [(CCCameraConnection *)&v18 init];
   if (v4)
   {
     v5 = objc_alloc_init(CCCameraConnectionInternal);
@@ -124,48 +126,47 @@
     handler[1] = 3221225472;
     handler[2] = __26__CCCameraConnection_init__block_invoke;
     handler[3] = &unk_278DEF0C0;
-    objc_copyWeak(&v18, buf);
+    objc_copyWeak(&v17, buf);
     dispatch_source_set_event_handler(v9, handler);
     dispatch_resume(*(v4 + 11));
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __26__CCCameraConnection_init__block_invoke_2;
-    v15[3] = &unk_278DEF0E8;
-    objc_copyWeak(&v16, buf);
-    notify_register_dispatch("com.apple.companion.camera.device-connected", v4 + 26, MEMORY[0x277D85CD0], v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __26__CCCameraConnection_init__block_invoke_2;
+    v14[3] = &unk_278DEF0E8;
+    objc_copyWeak(&v15, buf);
+    notify_register_dispatch("com.apple.companion.camera.device-connected", v4 + 26, MEMORY[0x277D85CD0], v14);
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __26__CCCameraConnection_init__block_invoke_6;
-    v13[3] = &unk_278DEF0E8;
-    objc_copyWeak(&v14, buf);
-    notify_register_dispatch("com.apple.companion.camera.device-disconnected", v4 + 27, MEMORY[0x277D85CD0], v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __26__CCCameraConnection_init__block_invoke_6;
+    v12[3] = &unk_278DEF0E8;
+    objc_copyWeak(&v13, buf);
+    notify_register_dispatch("com.apple.companion.camera.device-disconnected", v4 + 27, MEMORY[0x277D85CD0], v12);
 
     v10 = +[CCCameraConnectionReliabilityMonitor sharedInstance];
     [v10 incrementInstanceCount];
 
-    objc_destroyWeak(&v14);
-    objc_destroyWeak(&v16);
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)_connect
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v32 = "[CCCameraConnection _connect]";
-    v33 = 2080;
-    v34 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v35 = 1024;
-    v36 = 147;
+    v31 = "[CCCameraConnection _connect]";
+    v32 = 2080;
+    v33 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v34 = 1024;
+    v35 = 147;
     _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
@@ -180,9 +181,9 @@
 
     [(FigCameraViewfinder *)self->_remoteViewfinder setDelegate:self queue:MEMORY[0x277D85CD0]];
     v7 = self->_remoteViewfinder;
-    v29 = *MEMORY[0x277CF3B48];
-    v30 = &unk_2856ED530;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CF3B48];
+    v29 = &unk_2856ED530;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     [(FigCameraViewfinder *)v7 startWithOptions:v8];
 
     v9 = +[ViewfinderReliability sharedInstance];
@@ -212,38 +213,36 @@
     [(NSXPCConnection *)self->_xpc setRemoteObjectInterface:v19];
 
     objc_initWeak(&location, self);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __30__CCCameraConnection__connect__block_invoke;
-    v26[3] = &unk_278DEF0C0;
-    objc_copyWeak(&v27, &location);
-    [(NSXPCConnection *)self->_xpc setInterruptionHandler:v26];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __30__CCCameraConnection__connect__block_invoke_2;
-    v24[3] = &unk_278DEF0C0;
-    objc_copyWeak(&v25, &location);
-    [(NSXPCConnection *)self->_xpc setInvalidationHandler:v24];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __30__CCCameraConnection__connect__block_invoke;
+    v25[3] = &unk_278DEF0C0;
+    objc_copyWeak(&v26, &location);
+    [(NSXPCConnection *)self->_xpc setInterruptionHandler:v25];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __30__CCCameraConnection__connect__block_invoke_2;
+    v23[3] = &unk_278DEF0C0;
+    objc_copyWeak(&v24, &location);
+    [(NSXPCConnection *)self->_xpc setInvalidationHandler:v23];
     [(NSXPCConnection *)self->_xpc resume];
     v20 = nanocamera_log_control();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = self->_xpc;
       *buf = 138412290;
-      v32 = v21;
+      v31 = v21;
       _os_log_impl(&dword_243CBC000, v20, OS_LOG_TYPE_DEFAULT, "Resumed xpc connection %@", buf, 0xCu);
     }
 
     [(CCCameraConnection *)self _checkin];
-    objc_destroyWeak(&v25);
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
   }
 
   v22 = +[CCCameraConnectionReliabilityMonitor sharedInstance];
   [v22 didConnect];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)open
@@ -258,23 +257,21 @@
 
 - (void)_checkin
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "[CCCameraConnection _checkin]";
-    v8 = 2080;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v10 = 1024;
-    v11 = 196;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "[CCCameraConnection _checkin]";
+    v7 = 2080;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v9 = 1024;
+    v10 = 196;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v5, 0x1Cu);
   }
 
   v4 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global];
   [v4 checkin];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __30__CCCameraConnection__connect__block_invoke_2(uint64_t a1)
@@ -341,16 +338,16 @@ void __26__CCCameraConnection_init__block_invoke_6(uint64_t a1)
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v8 = "[CCCameraConnection dealloc]";
-    v9 = 2080;
-    v10 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v11 = 1024;
-    v12 = 124;
+    v7 = "[CCCameraConnection dealloc]";
+    v8 = 2080;
+    v9 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v10 = 1024;
+    v11 = 124;
     _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
@@ -360,10 +357,9 @@ void __26__CCCameraConnection_init__block_invoke_6(uint64_t a1)
   v4 = +[CCCameraConnectionReliabilityMonitor sharedInstance];
   [v4 decrementInstanceCount];
 
-  v6.receiver = self;
-  v6.super_class = CCCameraConnection;
-  [(CCCameraConnection *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = CCCameraConnection;
+  [(CCCameraConnection *)&v5 dealloc];
 }
 
 void __30__CCCameraConnection__connect__block_invoke(uint64_t a1)
@@ -408,17 +404,17 @@ void __30__CCCameraConnection__checkin__block_invoke(uint64_t a1, void *a2)
 
 - (void)_disconnect
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315650;
-    v13 = "[CCCameraConnection _disconnect]";
-    v14 = 2080;
-    v15 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v16 = 1024;
-    v17 = 216;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v12, 0x1Cu);
+    v11 = 136315650;
+    v12 = "[CCCameraConnection _disconnect]";
+    v13 = 2080;
+    v14 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v15 = 1024;
+    v16 = 216;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v11, 0x1Cu);
   }
 
   if (self->_burstInProgress)
@@ -453,8 +449,23 @@ void __30__CCCameraConnection__checkin__block_invoke(uint64_t a1, void *a2)
   [(CCCameraConnection *)self _closePreview];
   v10 = +[CCCameraConnectionReliabilityMonitor sharedInstance];
   [v10 didDisconnect];
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)didUpdateThumbnailWithData:(id)data isVideo:(BOOL)video
+{
+  videoCopy = video;
+  dataCopy = data;
+  v7 = nanocamera_log_control();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [(CCCameraConnection *)self didUpdateThumbnailWithData:v7 isVideo:v8, v9, v10, v11, v12, v13];
+  }
+
+  if ([(CCCameraConnection *)self _shouldReportEvent])
+  {
+    v14 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_96];
+    [v14 xpc_didUpdateThumbnailWithData:dataCopy isVideo:videoCopy];
+  }
 }
 
 void __57__CCCameraConnection_didUpdateThumbnailWithData_isVideo___block_invoke(uint64_t a1, void *a2)
@@ -469,17 +480,17 @@ void __57__CCCameraConnection_didUpdateThumbnailWithData_isVideo___block_invoke(
 
 - (void)burstCaptureWillStart
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "[CCCameraConnection burstCaptureWillStart]";
-    v8 = 2080;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v10 = 1024;
-    v11 = 264;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "[CCCameraConnection burstCaptureWillStart]";
+    v7 = 2080;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v9 = 1024;
+    v10 = 264;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v5, 0x1Cu);
   }
 
   if ([(CCCameraConnection *)self _shouldReportEvent])
@@ -487,8 +498,6 @@ void __57__CCCameraConnection_didUpdateThumbnailWithData_isVideo___block_invoke(
     v4 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_98];
     [v4 xpc_burstCaptureWillStart];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CCCameraConnection_burstCaptureWillStart__block_invoke(uint64_t a1, void *a2)
@@ -522,17 +531,17 @@ void __58__CCCameraConnection_burstCaptureNumberOfPhotosDidChange___block_invoke
 
 - (void)burstCaptureDidStop
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "[CCCameraConnection burstCaptureDidStop]";
-    v8 = 2080;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v10 = 1024;
-    v11 = 286;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "[CCCameraConnection burstCaptureDidStop]";
+    v7 = 2080;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v9 = 1024;
+    v10 = 286;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v5, 0x1Cu);
   }
 
   if ([(CCCameraConnection *)self _shouldReportEvent])
@@ -540,8 +549,6 @@ void __58__CCCameraConnection_burstCaptureNumberOfPhotosDidChange___block_invoke
     v4 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_102];
     [v4 xpc_burstCaptureDidStop];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __41__CCCameraConnection_burstCaptureDidStop__block_invoke(uint64_t a1, void *a2)
@@ -556,17 +563,17 @@ void __41__CCCameraConnection_burstCaptureDidStop__block_invoke(uint64_t a1, voi
 
 - (void)willStartCapturing
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315650;
-    v9 = "[CCCameraConnection willStartCapturing]";
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v12 = 1024;
-    v13 = 297;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "[CCCameraConnection willStartCapturing]";
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v11 = 1024;
+    v12 = 297;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v7, 0x1Cu);
   }
 
   self->_capturing = 1;
@@ -582,8 +589,6 @@ void __41__CCCameraConnection_burstCaptureDidStop__block_invoke(uint64_t a1, voi
     v6 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_104];
     [v6 xpc_willStartCapturing];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CCCameraConnection_willStartCapturing__block_invoke(uint64_t a1, void *a2)
@@ -598,17 +603,17 @@ void __40__CCCameraConnection_willStartCapturing__block_invoke(uint64_t a1, void
 
 - (void)didStartCaptureTimer
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[CCCameraConnection didStartCaptureTimer]";
-    v11 = 2080;
-    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v13 = 1024;
-    v14 = 314;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v9, 0x1Cu);
+    v8 = 136315650;
+    v9 = "[CCCameraConnection didStartCaptureTimer]";
+    v10 = 2080;
+    v11 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v12 = 1024;
+    v13 = 314;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v8, 0x1Cu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
@@ -624,8 +629,6 @@ void __40__CCCameraConnection_willStartCapturing__block_invoke(uint64_t a1, void
     v7 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_107];
     [v7 xpc_didStartCaptureTimerWithDate:self->_captureStartDate];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__CCCameraConnection_didStartCaptureTimer__block_invoke(uint64_t a1, void *a2)
@@ -640,18 +643,18 @@ void __42__CCCameraConnection_didStartCaptureTimer__block_invoke(uint64_t a1, vo
 
 - (void)didPauseCaptureTimerWithPauseTime:(id)time
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   v6 = nanocamera_log_control();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[CCCameraConnection didPauseCaptureTimerWithPauseTime:]";
-    v11 = 2080;
-    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v13 = 1024;
-    v14 = 329;
-    _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v9, 0x1Cu);
+    v8 = 136315650;
+    v9 = "[CCCameraConnection didPauseCaptureTimerWithPauseTime:]";
+    v10 = 2080;
+    v11 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v12 = 1024;
+    v13 = 329;
+    _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v8, 0x1Cu);
   }
 
   self->_capturingPaused = 1;
@@ -661,8 +664,6 @@ void __42__CCCameraConnection_didStartCaptureTimer__block_invoke(uint64_t a1, vo
     v7 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_109];
     [v7 xpc_didPauseCaptureTimerWithDate:self->_capturePauseDate];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CCCameraConnection_didPauseCaptureTimerWithPauseTime___block_invoke(uint64_t a1, void *a2)
@@ -677,18 +678,18 @@ void __56__CCCameraConnection_didPauseCaptureTimerWithPauseTime___block_invoke(u
 
 - (void)didResumeCaptureTimerWithNewStartTime:(id)time
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   v6 = nanocamera_log_control();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315650;
-    v11 = "[CCCameraConnection didResumeCaptureTimerWithNewStartTime:]";
-    v12 = 2080;
-    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v14 = 1024;
-    v15 = 343;
-    _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v10, 0x1Cu);
+    v9 = 136315650;
+    v10 = "[CCCameraConnection didResumeCaptureTimerWithNewStartTime:]";
+    v11 = 2080;
+    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v13 = 1024;
+    v14 = 343;
+    _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v9, 0x1Cu);
   }
 
   objc_storeStrong(&self->_captureStartDate, time);
@@ -701,8 +702,6 @@ void __56__CCCameraConnection_didPauseCaptureTimerWithPauseTime___block_invoke(u
     v8 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_111];
     [v8 xpc_didResumeCaptureTimerWithDate:timeCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __60__CCCameraConnection_didResumeCaptureTimerWithNewStartTime___block_invoke(uint64_t a1, void *a2)
@@ -717,17 +716,17 @@ void __60__CCCameraConnection_didResumeCaptureTimerWithNewStartTime___block_invo
 
 - (void)didStopCapture
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315650;
-    v9 = "[CCCameraConnection didStopCapture]";
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v12 = 1024;
-    v13 = 358;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "[CCCameraConnection didStopCapture]";
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v11 = 1024;
+    v12 = 358;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v7, 0x1Cu);
   }
 
   self->_capturing = 0;
@@ -743,8 +742,6 @@ void __60__CCCameraConnection_didResumeCaptureTimerWithNewStartTime___block_invo
     v6 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_113];
     [v6 xpc_didStopCapture];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CCCameraConnection_didStopCapture__block_invoke(uint64_t a1, void *a2)
@@ -842,17 +839,17 @@ void __42__CCCameraConnection_switchedOrientation___block_invoke(uint64_t a1, vo
 
 - (void)countdownCanceled
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "[CCCameraConnection countdownCanceled]";
-    v8 = 2080;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v10 = 1024;
-    v11 = 412;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "[CCCameraConnection countdownCanceled]";
+    v7 = 2080;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v9 = 1024;
+    v10 = 412;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v5, 0x1Cu);
   }
 
   if ([(CCCameraConnection *)self _shouldReportEvent])
@@ -860,8 +857,6 @@ void __42__CCCameraConnection_switchedOrientation___block_invoke(uint64_t a1, vo
     v4 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_121];
     [v4 xpc_countdownCanceled];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__CCCameraConnection_countdownCanceled__block_invoke(uint64_t a1, void *a2)
@@ -1065,18 +1060,18 @@ void __48__CCCameraConnection_sharedLibraryModeDidChange__block_invoke(uint64_t 
 
 - (void)xpc_ensureSwitchedToOneOfSupportedCaptureModes:(id)modes reply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   modesCopy = modes;
   replyCopy = reply;
   v8 = nanocamera_log_control();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v16 = "[CCCameraConnection xpc_ensureSwitchedToOneOfSupportedCaptureModes:reply:]";
-    v17 = 2080;
-    v18 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v19 = 1024;
-    v20 = 533;
+    v15 = "[CCCameraConnection xpc_ensureSwitchedToOneOfSupportedCaptureModes:reply:]";
+    v16 = 2080;
+    v17 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v18 = 1024;
+    v19 = 533;
     _os_log_impl(&dword_243CBC000, v8, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
@@ -1085,18 +1080,16 @@ void __48__CCCameraConnection_sharedLibraryModeDidChange__block_invoke(uint64_t 
   block[2] = __75__CCCameraConnection_xpc_ensureSwitchedToOneOfSupportedCaptureModes_reply___block_invoke;
   block[3] = &unk_278DEF130;
   block[4] = self;
-  v13 = modesCopy;
-  v14 = replyCopy;
+  v12 = modesCopy;
+  v13 = replyCopy;
   v9 = replyCopy;
   v10 = modesCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__CCCameraConnection_xpc_ensureSwitchedToOneOfSupportedCaptureModes_reply___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _captureMode];
   v3 = *(a1 + 40);
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:v2];
@@ -1128,7 +1121,7 @@ uint64_t __75__CCCameraConnection_xpc_ensureSwitchedToOneOfSupportedCaptureModes
         }
 
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_243CBC000, v9, OS_LOG_TYPE_DEFAULT, "Forcing mode to %@", buf, 0xCu);
       }
 
@@ -1146,36 +1139,34 @@ uint64_t __75__CCCameraConnection_xpc_ensureSwitchedToOneOfSupportedCaptureModes
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)takePhotoWithCountdown:(unint64_t)countdown
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = nanocamera_log_control();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v9 = "[CCCameraConnection takePhotoWithCountdown:]";
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v12 = 1024;
-    v13 = 559;
+    v8 = "[CCCameraConnection takePhotoWithCountdown:]";
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v11 = 1024;
+    v12 = 559;
     _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __45__CCCameraConnection_takePhotoWithCountdown___block_invoke;
-  v7[3] = &unk_278DEF158;
-  v7[4] = self;
-  v7[5] = countdown;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __45__CCCameraConnection_takePhotoWithCountdown___block_invoke;
+  v6[3] = &unk_278DEF158;
+  v6[4] = self;
+  v6[5] = countdown;
+  dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
 void __45__CCCameraConnection_takePhotoWithCountdown___block_invoke(uint64_t a1)
@@ -1186,30 +1177,28 @@ void __45__CCCameraConnection_takePhotoWithCountdown___block_invoke(uint64_t a1)
 
 - (void)xpc_beginBurstCaptureWithReply:(id)reply
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = nanocamera_log_control();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "[CCCameraConnection xpc_beginBurstCaptureWithReply:]";
-    v12 = 2080;
-    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v14 = 1024;
-    v15 = 568;
+    v10 = "[CCCameraConnection xpc_beginBurstCaptureWithReply:]";
+    v11 = 2080;
+    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v13 = 1024;
+    v14 = 568;
     _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __53__CCCameraConnection_xpc_beginBurstCaptureWithReply___block_invoke;
-  v8[3] = &unk_278DEF180;
-  v8[4] = self;
-  v9 = replyCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __53__CCCameraConnection_xpc_beginBurstCaptureWithReply___block_invoke;
+  v7[3] = &unk_278DEF180;
+  v7[4] = self;
+  v8 = replyCopy;
   v6 = replyCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 uint64_t __53__CCCameraConnection_xpc_beginBurstCaptureWithReply___block_invoke(uint64_t a1)
@@ -1241,30 +1230,28 @@ uint64_t __53__CCCameraConnection_xpc_beginBurstCaptureWithReply___block_invoke(
 
 - (void)xpc_endBurstCaptureWithReply:(id)reply
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = nanocamera_log_control();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "[CCCameraConnection xpc_endBurstCaptureWithReply:]";
-    v12 = 2080;
-    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v14 = 1024;
-    v15 = 586;
+    v10 = "[CCCameraConnection xpc_endBurstCaptureWithReply:]";
+    v11 = 2080;
+    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v13 = 1024;
+    v14 = 586;
     _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __51__CCCameraConnection_xpc_endBurstCaptureWithReply___block_invoke;
-  v8[3] = &unk_278DEF180;
-  v8[4] = self;
-  v9 = replyCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __51__CCCameraConnection_xpc_endBurstCaptureWithReply___block_invoke;
+  v7[3] = &unk_278DEF180;
+  v7[4] = self;
+  v8 = replyCopy;
   v6 = replyCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 uint64_t __51__CCCameraConnection_xpc_endBurstCaptureWithReply___block_invoke(uint64_t a1)
@@ -1296,17 +1283,17 @@ uint64_t __51__CCCameraConnection_xpc_endBurstCaptureWithReply___block_invoke(ui
 
 - (void)xpc_setCaptureDevice:(int64_t)device reply:(id)reply
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v7 = nanocamera_log_control();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v14 = "[CCCameraConnection xpc_setCaptureDevice:reply:]";
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v17 = 1024;
-    v18 = 604;
+    v13 = "[CCCameraConnection xpc_setCaptureDevice:reply:]";
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v16 = 1024;
+    v17 = 604;
     _os_log_impl(&dword_243CBC000, v7, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
@@ -1314,13 +1301,11 @@ uint64_t __51__CCCameraConnection_xpc_endBurstCaptureWithReply___block_invoke(ui
   block[1] = 3221225472;
   block[2] = __49__CCCameraConnection_xpc_setCaptureDevice_reply___block_invoke;
   block[3] = &unk_278DEF1A8;
-  v11 = replyCopy;
+  v10 = replyCopy;
   deviceCopy = device;
   block[4] = self;
   v8 = replyCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__CCCameraConnection_xpc_setCaptureDevice_reply___block_invoke(void *a1)
@@ -1347,17 +1332,17 @@ uint64_t __49__CCCameraConnection_xpc_setCaptureDevice_reply___block_invoke(void
 
 - (void)xpc_setCaptureMode:(int64_t)mode reply:(id)reply
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v7 = nanocamera_log_control();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v14 = "[CCCameraConnection xpc_setCaptureMode:reply:]";
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v17 = 1024;
-    v18 = 619;
+    v13 = "[CCCameraConnection xpc_setCaptureMode:reply:]";
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v16 = 1024;
+    v17 = 619;
     _os_log_impl(&dword_243CBC000, v7, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
@@ -1365,13 +1350,11 @@ uint64_t __49__CCCameraConnection_xpc_setCaptureDevice_reply___block_invoke(void
   block[1] = 3221225472;
   block[2] = __47__CCCameraConnection_xpc_setCaptureMode_reply___block_invoke;
   block[3] = &unk_278DEF1A8;
-  v11 = replyCopy;
+  v10 = replyCopy;
   modeCopy = mode;
   block[4] = self;
   v8 = replyCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__CCCameraConnection_xpc_setCaptureMode_reply___block_invoke(void *a1)
@@ -1398,17 +1381,17 @@ uint64_t __47__CCCameraConnection_xpc_setCaptureMode_reply___block_invoke(void *
 
 - (void)xpc_startCaptureWithMode:(int64_t)mode reply:(id)reply
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v7 = nanocamera_log_control();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v14 = "[CCCameraConnection xpc_startCaptureWithMode:reply:]";
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v17 = 1024;
-    v18 = 634;
+    v13 = "[CCCameraConnection xpc_startCaptureWithMode:reply:]";
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v16 = 1024;
+    v17 = 634;
     _os_log_impl(&dword_243CBC000, v7, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
@@ -1416,13 +1399,11 @@ uint64_t __47__CCCameraConnection_xpc_setCaptureMode_reply___block_invoke(void *
   block[1] = 3221225472;
   block[2] = __53__CCCameraConnection_xpc_startCaptureWithMode_reply___block_invoke;
   block[3] = &unk_278DEF1A8;
-  v11 = replyCopy;
+  v10 = replyCopy;
   modeCopy = mode;
   block[4] = self;
   v8 = replyCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__CCCameraConnection_xpc_startCaptureWithMode_reply___block_invoke(uint64_t a1)
@@ -1457,30 +1438,28 @@ uint64_t __53__CCCameraConnection_xpc_startCaptureWithMode_reply___block_invoke(
 
 - (void)xpc_pauseCaptureWithReply:(id)reply
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = nanocamera_log_control();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "[CCCameraConnection xpc_pauseCaptureWithReply:]";
-    v12 = 2080;
-    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v14 = 1024;
-    v15 = 653;
+    v10 = "[CCCameraConnection xpc_pauseCaptureWithReply:]";
+    v11 = 2080;
+    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v13 = 1024;
+    v14 = 653;
     _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__CCCameraConnection_xpc_pauseCaptureWithReply___block_invoke;
-  v8[3] = &unk_278DEF180;
-  v8[4] = self;
-  v9 = replyCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __48__CCCameraConnection_xpc_pauseCaptureWithReply___block_invoke;
+  v7[3] = &unk_278DEF180;
+  v7[4] = self;
+  v8 = replyCopy;
   v6 = replyCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 uint64_t __48__CCCameraConnection_xpc_pauseCaptureWithReply___block_invoke(uint64_t a1)
@@ -1507,30 +1486,28 @@ uint64_t __48__CCCameraConnection_xpc_pauseCaptureWithReply___block_invoke(uint6
 
 - (void)xpc_resumeCaptureWithReply:(id)reply
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = nanocamera_log_control();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "[CCCameraConnection xpc_resumeCaptureWithReply:]";
-    v12 = 2080;
-    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v14 = 1024;
-    v15 = 668;
+    v10 = "[CCCameraConnection xpc_resumeCaptureWithReply:]";
+    v11 = 2080;
+    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v13 = 1024;
+    v14 = 668;
     _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__CCCameraConnection_xpc_resumeCaptureWithReply___block_invoke;
-  v8[3] = &unk_278DEF180;
-  v8[4] = self;
-  v9 = replyCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __49__CCCameraConnection_xpc_resumeCaptureWithReply___block_invoke;
+  v7[3] = &unk_278DEF180;
+  v7[4] = self;
+  v8 = replyCopy;
   v6 = replyCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 uint64_t __49__CCCameraConnection_xpc_resumeCaptureWithReply___block_invoke(uint64_t a1)
@@ -1557,30 +1534,28 @@ uint64_t __49__CCCameraConnection_xpc_resumeCaptureWithReply___block_invoke(uint
 
 - (void)xpc_stopCaptureWithReply:(id)reply
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = nanocamera_log_control();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "[CCCameraConnection xpc_stopCaptureWithReply:]";
-    v12 = 2080;
-    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v14 = 1024;
-    v15 = 683;
+    v10 = "[CCCameraConnection xpc_stopCaptureWithReply:]";
+    v11 = 2080;
+    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v13 = 1024;
+    v14 = 683;
     _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __47__CCCameraConnection_xpc_stopCaptureWithReply___block_invoke;
-  v8[3] = &unk_278DEF180;
-  v8[4] = self;
-  v9 = replyCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __47__CCCameraConnection_xpc_stopCaptureWithReply___block_invoke;
+  v7[3] = &unk_278DEF180;
+  v7[4] = self;
+  v8 = replyCopy;
   v6 = replyCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 uint64_t __47__CCCameraConnection_xpc_stopCaptureWithReply___block_invoke(uint64_t a1)
@@ -1612,16 +1587,16 @@ uint64_t __47__CCCameraConnection_xpc_stopCaptureWithReply___block_invoke(uint64
 
 - (void)xpc_suspend
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v7 = "[CCCameraConnection xpc_suspend]";
-    v8 = 2080;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v10 = 1024;
-    v11 = 701;
+    v6 = "[CCCameraConnection xpc_suspend]";
+    v7 = 2080;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v9 = 1024;
+    v10 = 701;
     _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
@@ -1631,7 +1606,6 @@ uint64_t __47__CCCameraConnection_xpc_stopCaptureWithReply___block_invoke(uint64
   block[3] = &unk_278DEF1D0;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __33__CCCameraConnection_xpc_suspend__block_invoke(uint64_t a1)
@@ -1648,30 +1622,28 @@ void __33__CCCameraConnection_xpc_suspend__block_invoke(uint64_t a1)
 
 - (void)xpc_setPreviewEndpoint:(id)endpoint
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
-  v5 = nanocamera_log_preview();
+  v5 = nanocamera_log_preview(endpointCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "[CCCameraConnection xpc_setPreviewEndpoint:]";
-    v12 = 2080;
-    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v14 = 1024;
-    v15 = 712;
+    v10 = "[CCCameraConnection xpc_setPreviewEndpoint:]";
+    v11 = 2080;
+    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v13 = 1024;
+    v14 = 712;
     _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", buf, 0x1Cu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __45__CCCameraConnection_xpc_setPreviewEndpoint___block_invoke;
-  v8[3] = &unk_278DEF1F8;
-  v8[4] = self;
-  v9 = endpointCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __45__CCCameraConnection_xpc_setPreviewEndpoint___block_invoke;
+  v7[3] = &unk_278DEF1F8;
+  v7[4] = self;
+  v8 = endpointCopy;
   v6 = endpointCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 uint64_t __45__CCCameraConnection_xpc_setPreviewEndpoint___block_invoke(uint64_t a1)
@@ -2189,9 +2161,9 @@ void __40__CCCameraConnection_xpc_setFocusPoint___block_invoke(uint64_t a1)
 
 void __80__CCCameraConnection_xpc_fetchCurrentStateIncludingSupportedCaptureModes_reply___block_invoke(uint64_t a1)
 {
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _supportedCaptureDevices];
-  v84 = [*(a1 + 32) _captureDevice];
+  v83 = [*(a1 + 32) _captureDevice];
   if (*(a1 + 48) == 1)
   {
     v3 = [*(a1 + 32) _supportedCaptureModes];
@@ -2202,19 +2174,19 @@ void __80__CCCameraConnection_xpc_fetchCurrentStateIncludingSupportedCaptureMode
     v3 = 0;
   }
 
-  v83 = [*(a1 + 32) _captureMode];
+  v82 = [*(a1 + 32) _captureMode];
   v4 = *(a1 + 32);
-  v82 = *(v4 + 113);
+  v81 = *(v4 + 113);
   v5 = *(v4 + 120);
   v6 = *(a1 + 32);
-  v81 = *(v6 + 128);
+  v80 = *(v6 + 128);
   v7 = *(v6 + 136);
-  v80 = [*(a1 + 32) _currentOrientation];
-  v79 = [*(a1 + 32) _toggleCameraDeviceSupport];
-  v78 = [*(a1 + 32) _zoomSupport];
+  v79 = [*(a1 + 32) _currentOrientation];
+  v78 = [*(a1 + 32) _toggleCameraDeviceSupport];
+  v77 = [*(a1 + 32) _zoomSupport];
   [*(a1 + 32) _zoomAmount];
   v9 = v8;
-  v77 = [*(a1 + 32) _supportsZoomMagnification];
+  v76 = [*(a1 + 32) _supportsZoomMagnification];
   [*(a1 + 32) _minimumZoomMagnification];
   v11 = v10;
   [*(a1 + 32) _maximumZoomMagnification];
@@ -2222,285 +2194,283 @@ void __80__CCCameraConnection_xpc_fetchCurrentStateIncludingSupportedCaptureMode
   v14 = [*(a1 + 32) _significantZoomMagnifications];
   [*(a1 + 32) _currentZoomMagnification];
   v16 = v15;
-  v76 = [*(a1 + 32) _flashSupport];
-  v75 = [*(a1 + 32) _flashMode];
-  v74 = [*(a1 + 32) _hdrSupport];
-  v73 = [*(a1 + 32) _hdrMode];
-  v72 = [*(a1 + 32) _irisSupport];
-  v71 = [*(a1 + 32) _irisMode];
-  v70 = [*(a1 + 32) _sharedLibrarySupport];
-  v69 = [*(a1 + 32) _sharedLibraryMode];
-  v68 = [*(a1 + 32) _supportsMomentCapture];
+  v75 = [*(a1 + 32) _flashSupport];
+  v74 = [*(a1 + 32) _flashMode];
+  v73 = [*(a1 + 32) _hdrSupport];
+  v72 = [*(a1 + 32) _hdrMode];
+  v71 = [*(a1 + 32) _irisSupport];
+  v70 = [*(a1 + 32) _irisMode];
+  v69 = [*(a1 + 32) _sharedLibrarySupport];
+  v68 = [*(a1 + 32) _sharedLibraryMode];
+  v67 = [*(a1 + 32) _supportsMomentCapture];
   v17 = [*(a1 + 32) _burstSupport];
   v18 = *(a1 + 32);
-  v67 = v18[7];
+  v66 = v18[7];
   v19 = v18[18];
   v20 = v18[19];
   v21 = nanocamera_log_control();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v24 = _ncCaptureDeviceFromCCCaptureDevice(v84);
-    if (v24)
+    v23 = _ncCaptureDeviceFromCCCaptureDevice(v83);
+    if (v23)
     {
-      if (v24)
+      if (v23)
       {
-        v25 = @"Front";
+        v24 = @"Front";
       }
 
       else
       {
-        v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v24];
+        v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v23];
       }
     }
 
     else
     {
-      v25 = @"Back";
+      v24 = @"Back";
     }
 
-    v59 = v25;
-    v26 = @"not-included";
+    v58 = v24;
+    v25 = @"not-included";
     if (v3)
     {
-      v26 = v3;
+      v25 = v3;
     }
 
-    v55 = v26;
-    v27 = _ncCaptureModeFromCCCaptureMode(v83);
-    if (v27 < 0xD && ((0x1FABu >> v27) & 1) != 0)
+    v54 = v25;
+    v26 = _ncCaptureModeFromCCCaptureMode(v82);
+    if (v26 < 0xD && ((0x1FABu >> v26) & 1) != 0)
     {
-      v28 = off_278DEF290[v27];
-    }
-
-    else
-    {
-      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v27];
-    }
-
-    v66 = v28;
-    v29 = _ncOrientationFromDeviceOrientation(v80);
-    if (v29 >= 5)
-    {
-      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v29];
+      v27 = off_278DEF290[v26];
     }
 
     else
     {
-      v30 = off_278DEF2F8[v29];
+      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v26];
     }
 
-    v58 = v30;
-    v31 = _ncFlashSupportFromCCFlashSupport(v76);
-    if (v31 >= 3)
+    v65 = v27;
+    v28 = _ncOrientationFromDeviceOrientation(v79);
+    if (v28 >= 5)
     {
-      v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v31];
-    }
-
-    else
-    {
-      v32 = off_278DEF340[v31];
-    }
-
-    v65 = v32;
-    v33 = _ncFlashModeFromCCFlashMode(v75);
-    if (v33 >= 3)
-    {
-      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v33];
+      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v28];
     }
 
     else
     {
-      v34 = off_278DEF358[v33];
+      v29 = off_278DEF2F8[v28];
     }
 
-    v64 = v34;
-    v35 = _ncHDRSupportFromCCHDRSupport(v74);
-    if (v35 >= 4)
+    v57 = v29;
+    v30 = _ncFlashSupportFromCCFlashSupport(v75);
+    if (v30 >= 3)
     {
-      v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v35];
-    }
-
-    else
-    {
-      v36 = off_278DEF320[v35];
-    }
-
-    v63 = v36;
-    v37 = _ncHDRModeFromCCHDRMode(v73);
-    if (v37 >= 3)
-    {
-      v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v37];
+      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v30];
     }
 
     else
     {
-      v38 = off_278DEF358[v37];
+      v31 = off_278DEF340[v30];
     }
 
-    v62 = v38;
-    v39 = _ncIrisSupportFromCCIrisSupport(v72);
-    if (v39 >= 3)
+    v64 = v31;
+    v32 = _ncFlashModeFromCCFlashMode(v74);
+    if (v32 >= 3)
     {
-      v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v39];
-    }
-
-    else
-    {
-      v40 = off_278DEF340[v39];
-    }
-
-    v61 = v40;
-    v41 = _ncIrisModeFromCCIrisMode(v71);
-    if (v41 >= 3)
-    {
-      v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v41];
+      v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v32];
     }
 
     else
     {
-      v42 = off_278DEF358[v41];
+      v33 = off_278DEF358[v32];
     }
 
-    v60 = v42;
-    v43 = _ncSharedLibrarySupportFromCCSharedLibrarySupport(v70);
-    if (v43)
+    v63 = v33;
+    v34 = _ncHDRSupportFromCCHDRSupport(v73);
+    if (v34 >= 4)
     {
-      if (v43)
+      v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v34];
+    }
+
+    else
+    {
+      v35 = off_278DEF320[v34];
+    }
+
+    v62 = v35;
+    v36 = _ncHDRModeFromCCHDRMode(v72);
+    if (v36 >= 3)
+    {
+      v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v36];
+    }
+
+    else
+    {
+      v37 = off_278DEF358[v36];
+    }
+
+    v61 = v37;
+    v38 = _ncIrisSupportFromCCIrisSupport(v71);
+    if (v38 >= 3)
+    {
+      v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v38];
+    }
+
+    else
+    {
+      v39 = off_278DEF340[v38];
+    }
+
+    v60 = v39;
+    v40 = _ncIrisModeFromCCIrisMode(v70);
+    if (v40 >= 3)
+    {
+      v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v40];
+    }
+
+    else
+    {
+      v41 = off_278DEF358[v40];
+    }
+
+    v59 = v41;
+    v42 = _ncSharedLibrarySupportFromCCSharedLibrarySupport(v69);
+    if (v42)
+    {
+      if (v42)
       {
-        v44 = @"OnOff";
+        v43 = @"OnOff";
       }
 
       else
       {
-        v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v43];
+        v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v42];
       }
     }
 
     else
     {
-      v44 = @"None";
+      v43 = @"None";
     }
 
-    v57 = v44;
-    v45 = _ncSharedLibraryModeFromCCSharedLibraryMode(v69);
-    if (v45)
+    v56 = v43;
+    v44 = _ncSharedLibraryModeFromCCSharedLibraryMode(v68);
+    if (v44)
     {
-      if (v45)
+      if (v44)
       {
-        v46 = @"On";
+        v45 = @"On";
       }
 
       else
       {
-        v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v45];
+        v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v44];
       }
     }
 
     else
     {
-      v46 = @"Off";
+      v45 = @"Off";
     }
 
-    v56 = v46;
-    v47 = _ncShallowDepthOfFieldStatusFromCCShallowDepthOfFieldStatus(v19);
-    if (v47 >= 0x10)
+    v55 = v45;
+    v46 = _ncShallowDepthOfFieldStatusFromCCShallowDepthOfFieldStatus(v19);
+    if (v46 >= 0x10)
     {
-      v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v47];
+      v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v46];
     }
 
     else
     {
-      v48 = off_278DEF370[v47];
+      v47 = off_278DEF370[v46];
     }
 
-    v54 = v48;
-    v49 = _ncStereoCaptureStatusFromCCStereoCaptureStatus(v20);
-    if (v49 < 5 && ((0x17u >> v49) & 1) != 0)
+    v53 = v47;
+    v48 = _ncStereoCaptureStatusFromCCStereoCaptureStatus(v20);
+    if (v48 < 5 && ((0x17u >> v48) & 1) != 0)
     {
-      v50 = off_278DEF3F0[v49];
+      v49 = off_278DEF3F0[v48];
     }
 
     else
     {
-      v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v49];
+      v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v48];
     }
 
-    v53 = v50;
+    v52 = v49;
     *buf = 138419714;
-    v86 = v2;
-    v87 = 2112;
-    v88 = v59;
-    v89 = 2112;
-    v90 = v55;
-    v91 = 2112;
-    v92 = v66;
-    v93 = 1024;
-    v94 = v82;
-    v95 = 2112;
-    v96 = v5;
-    v97 = 1024;
-    v98 = v81;
-    v99 = 2112;
-    v100 = v7;
-    v101 = 2112;
-    v102 = v58;
-    v103 = 1024;
-    v104 = v79;
-    v105 = 1024;
-    v106 = v78;
-    v107 = 2048;
-    v108 = v9;
-    v109 = 1024;
-    v110 = v77;
-    v111 = 2048;
-    v112 = v11;
-    v113 = 2048;
-    v114 = v13;
-    v115 = 2112;
-    v116 = v14;
-    v117 = 2048;
-    v118 = v16;
-    v119 = 2112;
-    v120 = v65;
-    v121 = 2112;
-    v122 = v64;
-    v123 = 2112;
-    v124 = v63;
-    v125 = 2112;
-    v126 = v62;
-    v127 = 2112;
-    v128 = v61;
-    v129 = 2112;
-    v130 = v60;
-    v131 = 2112;
-    v132 = v57;
-    v133 = 2112;
-    v134 = v56;
-    v135 = 1024;
-    v136 = v68;
-    v137 = 1024;
-    v138 = v17;
-    v139 = 2048;
-    v140 = v67;
-    v141 = 2112;
-    v142 = v54;
-    v143 = 2112;
-    v144 = v50;
+    v85 = v2;
+    v86 = 2112;
+    v87 = v58;
+    v88 = 2112;
+    v89 = v54;
+    v90 = 2112;
+    v91 = v65;
+    v92 = 1024;
+    v93 = v81;
+    v94 = 2112;
+    v95 = v5;
+    v96 = 1024;
+    v97 = v80;
+    v98 = 2112;
+    v99 = v7;
+    v100 = 2112;
+    v101 = v57;
+    v102 = 1024;
+    v103 = v78;
+    v104 = 1024;
+    v105 = v77;
+    v106 = 2048;
+    v107 = v9;
+    v108 = 1024;
+    v109 = v76;
+    v110 = 2048;
+    v111 = v11;
+    v112 = 2048;
+    v113 = v13;
+    v114 = 2112;
+    v115 = v14;
+    v116 = 2048;
+    v117 = v16;
+    v118 = 2112;
+    v119 = v64;
+    v120 = 2112;
+    v121 = v63;
+    v122 = 2112;
+    v123 = v62;
+    v124 = 2112;
+    v125 = v61;
+    v126 = 2112;
+    v127 = v60;
+    v128 = 2112;
+    v129 = v59;
+    v130 = 2112;
+    v131 = v56;
+    v132 = 2112;
+    v133 = v55;
+    v134 = 1024;
+    v135 = v67;
+    v136 = 1024;
+    v137 = v17;
+    v138 = 2048;
+    v139 = v66;
+    v140 = 2112;
+    v141 = v53;
+    v142 = 2112;
+    v143 = v49;
     _os_log_debug_impl(&dword_243CBC000, v21, OS_LOG_TYPE_DEBUG, "supportedCaptureDevices:%@ captureDevice:%@ supportedCaptureModes:%@ captureMode:%@ capturing:%d captureStartDate:%@ capturingPaused:%d capturePauseDate:%@ orientation:%@ toggleCameraDeviceSupport:%d zoomSupport:%d zoomAmount:%f zoomMagnificationSupport:%d minimumZoomMagnification:%f maximumZoomMagnification:%f significantZoomMagnifications:%@ currentZoomMagnification:%f flashSupport:%@ flashMode:%@ hdrSupport:%@ hdrMode:%@ irisSupport:%@ irisMode:%@ sharedLibrarySupport:%@ sharedLibraryMode:%@ supportsMomentCapture:%d burstSupport:%d viewfinderSessionState:%lu shallowDepthOfFieldStatus:%@ stereoCaptureStatus:%@", buf, 0x112u);
   }
 
   v22 = *(a1 + 40);
   if (v22)
   {
-    HIBYTE(v52) = v17;
-    LOBYTE(v52) = v68;
-    BYTE2(v51) = v77;
-    BYTE1(v51) = v78;
-    LOBYTE(v51) = v79;
-    (*(v22 + 16))(v22, v2, v84, v3, v83, v82, v5, v81, v9, v11, v13, v16, v7, v80, v51, v14, v76, v75, v74, v73, v72, v71, v70, v69, v52, v67, v19, v20);
+    HIBYTE(v51) = v17;
+    LOBYTE(v51) = v67;
+    BYTE2(v50) = v76;
+    BYTE1(v50) = v77;
+    LOBYTE(v50) = v78;
+    (*(v22 + 16))(v22, v2, v83, v3, v82, v81, v5, v80, v9, v11, v13, v16, v7, v79, v50, v14, v75, v74, v73, v72, v71, v70, v69, v68, v51, v66, v19, v20);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpc_cancelCountdown
@@ -2730,48 +2700,46 @@ void __44__CCCameraConnection_xpc_toggleCameraDevice__block_invoke(uint64_t a1)
 
 - (void)_openPreview
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = nanocamera_log_preview();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = nanocamera_log_preview(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315650;
-    v6 = "[CCCameraConnection _openPreview]";
-    v7 = 2080;
-    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v9 = 1024;
-    v10 = 1068;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "[CCCameraConnection _openPreview]";
+    v6 = 2080;
+    v7 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v8 = 1024;
+    v9 = 1068;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v4, 0x1Cu);
   }
 
   self->_desiredPreviewState = 2;
   [(CCCameraConnection *)self _performPreviewStateTransitionsIfNeeded];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closePreview
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = nanocamera_log_preview();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = nanocamera_log_preview(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315650;
-    v6 = "[CCCameraConnection _closePreview]";
-    v7 = 2080;
-    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v9 = 1024;
-    v10 = 1076;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "[CCCameraConnection _closePreview]";
+    v6 = 2080;
+    v7 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v8 = 1024;
+    v9 = 1076;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v4, 0x1Cu);
   }
 
   self->_desiredPreviewState = 0;
   [(CCCameraConnection *)self _performPreviewStateTransitionsIfNeeded];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performPreviewStateTransitionsIfNeeded
 {
   v22 = *MEMORY[0x277D85DE8];
-  v3 = nanocamera_log_preview();
+  v3 = nanocamera_log_preview(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     desiredPreviewState = self->_desiredPreviewState;
@@ -2783,13 +2751,13 @@ void __44__CCCameraConnection_xpc_toggleCameraDevice__block_invoke(uint64_t a1)
     _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "Preview desired state: %d, current state: %d", buf, 0xEu);
   }
 
-  v6 = self->_desiredPreviewState;
-  if (v6)
+  v7 = self->_desiredPreviewState;
+  if (v7)
   {
-    if (v6 == 2 && !self->_currentPreviewState && self->_remoteViewfinderSession && self->_previewEndpoint)
+    if (v7 == 2 && !self->_currentPreviewState && self->_remoteViewfinderSession && self->_previewEndpoint)
     {
-      v7 = nanocamera_log_preview();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = nanocamera_log_preview(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         previewEndpoint = self->_previewEndpoint;
         remoteViewfinderSession = self->_remoteViewfinderSession;
@@ -2797,18 +2765,18 @@ void __44__CCCameraConnection_xpc_toggleCameraDevice__block_invoke(uint64_t a1)
         *v20 = previewEndpoint;
         *&v20[8] = 2112;
         v21 = remoteViewfinderSession;
-        _os_log_impl(&dword_243CBC000, v7, OS_LOG_TYPE_DEFAULT, "Opening preview stream, destination: %@, session:%@", buf, 0x16u);
+        _os_log_impl(&dword_243CBC000, v8, OS_LOG_TYPE_DEFAULT, "Opening preview stream, destination: %@, session:%@", buf, 0x16u);
       }
 
-      v10 = +[ViewfinderReliability sharedInstance];
-      [v10 logEvent:12];
+      v11 = +[ViewfinderReliability sharedInstance];
+      [v11 logEvent:12];
 
-      v11 = self->_remoteViewfinderSession;
-      v12 = self->_previewEndpoint;
+      v12 = self->_remoteViewfinderSession;
+      v13 = self->_previewEndpoint;
       v17 = *MEMORY[0x277CF3B50];
-      v18 = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-      [(FigCameraViewfinderSession *)v11 openPreviewStreamWithOptions:v13];
+      v18 = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+      [(FigCameraViewfinderSession *)v12 openPreviewStreamWithOptions:v14];
 
       self->_currentPreviewState = 1;
     }
@@ -2816,65 +2784,52 @@ void __44__CCCameraConnection_xpc_toggleCameraDevice__block_invoke(uint64_t a1)
 
   else if (self->_currentPreviewState == 2 && self->_remoteViewfinderSession)
   {
-    v14 = nanocamera_log_preview();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = nanocamera_log_preview(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = self->_remoteViewfinderSession;
+      v16 = self->_remoteViewfinderSession;
       *buf = 138412290;
-      *v20 = v15;
-      _os_log_impl(&dword_243CBC000, v14, OS_LOG_TYPE_DEFAULT, "Closing preview stream, session:%@", buf, 0xCu);
+      *v20 = v16;
+      _os_log_impl(&dword_243CBC000, v15, OS_LOG_TYPE_DEFAULT, "Closing preview stream, session:%@", buf, 0xCu);
     }
 
     [(FigCameraViewfinderSession *)self->_remoteViewfinderSession closePreviewStream];
     self->_currentPreviewState = 3;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPreviewConnected
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = nanocamera_log_preview();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = nanocamera_log_preview(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "[CCCameraConnection isPreviewConnected]";
-    v8 = 2080;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v10 = 1024;
-    v11 = 1104;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "[CCCameraConnection isPreviewConnected]";
+    v7 = 2080;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v9 = 1024;
+    v10 = 1104;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v5, 0x1Cu);
   }
 
-  if (self->_remoteViewfinderSession)
-  {
-    result = self->_previewEndpoint != 0;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_remoteViewfinderSession && self->_previewEndpoint != 0;
 }
 
 - (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidBegin:(id)begin
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
-  v7 = nanocamera_log_preview();
+  v7 = nanocamera_log_preview(beginCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315650;
-    v12 = "[CCCameraConnection cameraViewfinder:viewfinderSessionDidBegin:]";
-    v13 = 2080;
-    v14 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v15 = 1024;
-    v16 = 1111;
-    _os_log_impl(&dword_243CBC000, v7, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "[CCCameraConnection cameraViewfinder:viewfinderSessionDidBegin:]";
+    v12 = 2080;
+    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v14 = 1024;
+    v15 = 1111;
+    _os_log_impl(&dword_243CBC000, v7, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v10, 0x1Cu);
   }
 
   v8 = +[ViewfinderReliability sharedInstance];
@@ -2890,8 +2845,6 @@ void __44__CCCameraConnection_xpc_toggleCameraDevice__block_invoke(uint64_t a1)
 
   self->_currentPreviewState = 0;
   [(CCCameraConnection *)self _performPreviewStateTransitionsIfNeeded];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __65__CCCameraConnection_cameraViewfinder_viewfinderSessionDidBegin___block_invoke(uint64_t a1, void *a2)
@@ -2908,7 +2861,7 @@ void __65__CCCameraConnection_cameraViewfinder_viewfinderSessionDidBegin___block
 {
   v17 = *MEMORY[0x277D85DE8];
   endCopy = end;
-  v6 = nanocamera_log_preview();
+  v6 = nanocamera_log_preview(endCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315650;
@@ -2926,10 +2879,10 @@ void __65__CCCameraConnection_cameraViewfinder_viewfinderSessionDidBegin___block
   remoteViewfinderSession = self->_remoteViewfinderSession;
   if (remoteViewfinderSession != endCopy)
   {
-    v9 = nanocamera_log_preview();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = nanocamera_log_preview(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [CCCameraConnection cameraViewfinder:? viewfinderSessionDidEnd:?];
+      [CCCameraConnection cameraViewfinder:viewfinderSessionDidEnd:];
     }
 
     goto LABEL_6;
@@ -2943,13 +2896,11 @@ void __65__CCCameraConnection_cameraViewfinder_viewfinderSessionDidBegin___block
     self->_remoteViewfinderSessionState = 2;
     if ([(CCCameraConnection *)self _shouldReportEvent])
     {
-      v9 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_230];
-      [v9 xpc_viewfinderSessionStateDidChange:self->_remoteViewfinderSessionState];
+      v10 = [(NSXPCConnection *)self->_xpc remoteObjectProxyWithErrorHandler:&__block_literal_global_230];
+      [v10 xpc_viewfinderSessionStateDidChange:self->_remoteViewfinderSessionState];
 LABEL_6:
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __63__CCCameraConnection_cameraViewfinder_viewfinderSessionDidEnd___block_invoke(uint64_t a1, void *a2)
@@ -2964,42 +2915,39 @@ void __63__CCCameraConnection_cameraViewfinder_viewfinderSessionDidEnd___block_i
 
 - (void)cameraViewfinderSession:(id)session didCapturePhotoWithStatus:(int)status thumbnailData:(id)data timestamp:(id *)timestamp
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v6 = nanocamera_log_preview();
+  v13 = *MEMORY[0x277D85DE8];
+  v6 = nanocamera_log_preview(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315650;
-    v9 = "[CCCameraConnection cameraViewfinderSession:didCapturePhotoWithStatus:thumbnailData:timestamp:]";
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v12 = 1024;
-    v13 = 1154;
-    _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "[CCCameraConnection cameraViewfinderSession:didCapturePhotoWithStatus:thumbnailData:timestamp:]";
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v11 = 1024;
+    v12 = 1154;
+    _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v7, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cameraViewfinderSessionPreviewStreamDidOpen:(id)open
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   openCopy = open;
-  v5 = nanocamera_log_preview();
+  v5 = nanocamera_log_preview(openCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315650;
-    v12 = "[CCCameraConnection cameraViewfinderSessionPreviewStreamDidOpen:]";
-    v13 = 2080;
-    v14 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v15 = 1024;
-    v16 = 1159;
-    _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "[CCCameraConnection cameraViewfinderSessionPreviewStreamDidOpen:]";
+    v12 = 2080;
+    v13 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v14 = 1024;
+    v15 = 1159;
+    _os_log_impl(&dword_243CBC000, v5, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v10, 0x1Cu);
   }
 
   v6 = +[ViewfinderReliability sharedInstance];
   [v6 logEvent:13];
 
-  p_remoteViewfinderSession = &self->_remoteViewfinderSession;
   remoteViewfinderSession = self->_remoteViewfinderSession;
   if (!remoteViewfinderSession || remoteViewfinderSession == openCopy)
   {
@@ -3009,29 +2957,74 @@ void __63__CCCameraConnection_cameraViewfinder_viewfinderSessionDidEnd___block_i
 
   else
   {
-    v9 = nanocamera_log_preview();
+    v9 = nanocamera_log_preview(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [CCCameraConnection cameraViewfinderSessionPreviewStreamDidOpen:?];
+      [CCCameraConnection cameraViewfinderSessionPreviewStreamDidOpen:];
+    }
+  }
+}
+
+- (void)cameraViewfinderSession:(id)session previewStreamDidCloseWithStatus:(int)status
+{
+  v4 = *&status;
+  v14 = *MEMORY[0x277D85DE8];
+  sessionCopy = session;
+  v7 = nanocamera_log_preview(sessionCopy);
+  v8 = v7;
+  if (v4)
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [CCCameraConnection cameraViewfinderSession:v4 previewStreamDidCloseWithStatus:v8];
+    }
+
+    [ViewfinderErrorReporter report:100 status:v4];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v13[0] = 67109120;
+      v13[1] = 0;
+      _os_log_impl(&dword_243CBC000, v8, OS_LOG_TYPE_DEFAULT, "previewStreamDidCloseWithStatus: %d", v13, 8u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = +[ViewfinderReliability sharedInstance];
+  [v9 logEvent:14];
+
+  remoteViewfinderSession = self->_remoteViewfinderSession;
+  if (!remoteViewfinderSession || remoteViewfinderSession == sessionCopy)
+  {
+    self->_currentPreviewState = 0;
+    [(CCCameraConnection *)self _performPreviewStateTransitionsIfNeeded];
+  }
+
+  else
+  {
+    v12 = nanocamera_log_preview(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [CCCameraConnection cameraViewfinderSession:previewStreamDidCloseWithStatus:];
+    }
+  }
 }
 
 - (void)_handleInterruption
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315650;
-    v9 = "[CCCameraConnection _handleInterruption]";
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v12 = 1024;
-    v13 = 1194;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "[CCCameraConnection _handleInterruption]";
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v11 = 1024;
+    v12 = 1194;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v7, 0x1Cu);
   }
 
   ++self->_interruptionCount;
@@ -3039,9 +3032,9 @@ void __63__CCCameraConnection_cameraViewfinder_viewfinderSessionDidEnd___block_i
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     interruptionCount = self->_interruptionCount;
-    v8 = 134217984;
-    v9 = interruptionCount;
-    _os_log_impl(&dword_243CBC000, v4, OS_LOG_TYPE_DEFAULT, "Connection interrupted %lu times", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = interruptionCount;
+    _os_log_impl(&dword_243CBC000, v4, OS_LOG_TYPE_DEFAULT, "Connection interrupted %lu times", &v7, 0xCu);
   }
 
   if (self->_interruptionCount < 0xA)
@@ -3054,27 +3047,25 @@ void __63__CCCameraConnection_cameraViewfinder_viewfinderSessionDidEnd___block_i
     v6 = nanocamera_log_control();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "Connection interruption limit reached", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "Connection interruption limit reached", &v7, 2u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInvalidation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = nanocamera_log_control();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "[CCCameraConnection _handleInvalidation]";
-    v9 = 2080;
-    v10 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
-    v11 = 1024;
-    v12 = 1209;
-    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v7, 0x1Cu);
+    v6 = 136315650;
+    v7 = "[CCCameraConnection _handleInvalidation]";
+    v8 = 2080;
+    v9 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/CompanionCamera/CCCameraConnection.m";
+    v10 = 1024;
+    v11 = 1209;
+    _os_log_impl(&dword_243CBC000, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v6, 0x1Cu);
   }
 
   self->_interruptionCount = 0;
@@ -3085,7 +3076,6 @@ void __63__CCCameraConnection_cameraViewfinder_viewfinderSessionDidEnd___block_i
   self->_previewEndpoint = 0;
 
   [(CCCameraConnection *)self _closePreview];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CCCameraConnectionDelegate)delegate
@@ -3095,41 +3085,16 @@ void __63__CCCameraConnection_cameraViewfinder_viewfinderSessionDidEnd___block_i
   return WeakRetained;
 }
 
-void __30__CCCameraConnection__checkin__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CBC000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)didUpdateThumbnailWithData:(uint64_t)a3 isVideo:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 16));
-  OUTLINED_FUNCTION_4(&dword_243CBC000, a2, a3, "_xpc is %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)captureDeviceDidChange:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_243CBC000, v0, v1, "captureDevice: %lu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)modeSelected:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_243CBC000, v0, v1, "captureMode: %lu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 16);
+  OUTLINED_FUNCTION_4(&dword_243CBC000, a2, a3, "_xpc is %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)switchedOrientation:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _ncOrientationFromDeviceOrientation(a1);
   if (v3 > 4)
   {
@@ -3142,67 +3107,28 @@ void __30__CCCameraConnection__checkin__block_invoke_cold_1()
   }
 
   *buf = 138412290;
-  v7 = v4;
+  v6 = v4;
   _os_log_debug_impl(&dword_243CBC000, a2, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)xpc_setFocusPoint:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CBC000, v0, v1, "Passed invalid focusPoint parameter %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpc_setFocusPoint:(uint64_t *)a1 .cold.2(uint64_t *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a1[1];
-  v5 = 134218240;
-  v6 = v2;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_debug_impl(&dword_243CBC000, a2, OS_LOG_TYPE_DEBUG, "Focus Point: {%.4f, %.4f}", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cameraViewfinder:(uint64_t *)a1 viewfinderSessionDidEnd:.cold.1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_243CBC000, v2, v3, "[lifecycle] Skipping sessionDidEnd (mismatch) stored=%@ eventSession=%@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cameraViewfinderSessionPreviewStreamDidOpen:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_243CBC000, v2, v3, "[lifecycle] Skipping streamDidOpen (mismatch) stored=%@ eventSession=%@");
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v2;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_debug_impl(&dword_243CBC000, a2, OS_LOG_TYPE_DEBUG, "Focus Point: {%.4f, %.4f}", &v4, 0x16u);
 }
 
 - (void)cameraViewfinderSession:(int)a1 previewStreamDidCloseWithStatus:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_243CBC000, a2, OS_LOG_TYPE_ERROR, "previewStreamDidCloseWithStatus: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cameraViewfinderSession:(uint64_t *)a1 previewStreamDidCloseWithStatus:.cold.2(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_243CBC000, v2, v3, "[lifecycle] Skipping streamDidCloseWithStatus (mismatch) stored=%@ eventSession=%@");
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_243CBC000, a2, OS_LOG_TYPE_ERROR, "previewStreamDidCloseWithStatus: %d", v2, 8u);
 }
 
 @end

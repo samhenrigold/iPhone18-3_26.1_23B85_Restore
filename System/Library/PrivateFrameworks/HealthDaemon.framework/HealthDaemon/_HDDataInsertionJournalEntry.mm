@@ -18,7 +18,7 @@
     self = v8;
     if (v8)
     {
-      objc_storeStrong((v8 + 8), a2);
+      objc_storeStrong(v8 + 1, a2);
       objc_storeStrong(self + 2, object);
     }
   }
@@ -38,39 +38,39 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
   deviceManager = [profileCopy deviceManager];
-  v88 = 0;
-  v71 = [deviceManager deviceEntityForNoDeviceWithError:&v88];
-  v7 = v88;
+  v87 = 0;
+  v70 = [deviceManager deviceEntityForNoDeviceWithError:&v87];
+  v7 = v87;
 
-  v72 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v69 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
   obj = entriesCopy;
-  v9 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
-  v74 = v8;
+  v9 = [obj countByEnumeratingWithState:&v83 objects:v93 count:16];
+  v73 = v8;
   if (v9)
   {
     v10 = v9;
-    v75 = *v85;
+    v74 = *v84;
     do
     {
       v11 = 0;
       do
       {
-        if (*v85 != v75)
+        if (*v84 != v74)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v84 + 1) + 8 * v11);
+        v12 = *(*(&v83 + 1) + 8 * v11);
         if (v12)
         {
           v13 = *(v12 + 16);
@@ -95,9 +95,9 @@
         }
 
         sourceManager = [profileCopy sourceManager];
-        v83 = v7;
-        v20 = [sourceManager localSourceForBundleIdentifier:_sourceBundleIdentifier error:&v83];
-        v18 = v83;
+        v82 = v7;
+        v20 = [sourceManager localSourceForBundleIdentifier:_sourceBundleIdentifier error:&v82];
+        v18 = v82;
 
         if (v20)
         {
@@ -109,7 +109,7 @@ LABEL_12:
 
           if (!deviceID)
           {
-            if (!v71)
+            if (!v70)
             {
               _HKInitializeLogging();
               v34 = *MEMORY[0x277CCC2A0];
@@ -119,11 +119,11 @@ LABEL_12:
                 _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "missing no device entity!", buf, 2u);
               }
 
-              [MEMORY[0x277CCACA8] stringWithFormat:@"%@", objc_opt_class(), v69];
+              [MEMORY[0x277CCACA8] stringWithFormat:@"%@", objc_opt_class(), v68];
               goto LABEL_29;
             }
 
-            v23 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v71, "persistentID")}];
+            v23 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v70, "persistentID")}];
             [v13 setDeviceID:v23];
           }
 
@@ -156,12 +156,12 @@ LABEL_33:
                 [v8 setObject:daemon forKeyedSubscript:v26];
               }
 
-              autoBugCaptureReporter = [v72 objectForKeyedSubscript:v26];
+              autoBugCaptureReporter = [v71 objectForKeyedSubscript:v26];
               if (!autoBugCaptureReporter)
               {
                 autoBugCaptureReporter = objc_alloc_init(MEMORY[0x277CBEB18]);
-                [v72 setObject:autoBugCaptureReporter forKeyedSubscript:v26];
-                [v70 setObject:v13 forKeyedSubscript:v26];
+                [v71 setObject:autoBugCaptureReporter forKeyedSubscript:v26];
+                [v69 setObject:v13 forKeyedSubscript:v26];
               }
 
               if (v12)
@@ -191,9 +191,9 @@ LABEL_33:
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v91 = _sourceBundleIdentifier;
-            v92 = 2114;
-            v93 = v18;
+            v90 = _sourceBundleIdentifier;
+            v91 = 2114;
+            v92 = v18;
             v31 = v30;
             v32 = "Missing source for %{public}@: %{public}@.";
 LABEL_43:
@@ -209,9 +209,9 @@ LABEL_43:
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v91 = _sourceBundleIdentifier;
-          v92 = 2114;
-          v93 = v18;
+          v90 = _sourceBundleIdentifier;
+          v91 = 2114;
+          v92 = v18;
           v31 = v33;
           v32 = "missing source for %{public}@: %{public}@";
           goto LABEL_43;
@@ -237,7 +237,7 @@ LABEL_25:
         v39 = [v36 numberWithLongLong:{objc_msgSend(v38, "syncProvenance")}];
         [autoBugCaptureReporter reportJournalFailureWithErrorDescription:v26 provenance:v39 error:v18];
 
-        v8 = v74;
+        v8 = v73;
 LABEL_39:
 
 LABEL_40:
@@ -247,50 +247,50 @@ LABEL_40:
       }
 
       while (v10 != v11);
-      v43 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
+      v43 = [obj countByEnumeratingWithState:&v83 objects:v93 count:16];
       v10 = v43;
     }
 
     while (v43);
   }
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
-  allKeys = [v72 allKeys];
-  v44 = [allKeys countByEnumeratingWithState:&v79 objects:v89 count:16];
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  allKeys = [v71 allKeys];
+  v44 = [allKeys countByEnumeratingWithState:&v78 objects:v88 count:16];
   if (v44)
   {
     v45 = v44;
-    v46 = *v80;
+    v46 = *v79;
     while (2)
     {
       v47 = 0;
       v48 = v7;
       do
       {
-        if (*v80 != v46)
+        if (*v79 != v46)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v49 = *(*(&v79 + 1) + 8 * v47);
+        v49 = *(*(&v78 + 1) + 8 * v47);
         _HKInitializeLogging();
         v50 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
         {
           v65 = v50;
-          v66 = [v72 objectForKeyedSubscript:v49];
+          v66 = [v71 objectForKeyedSubscript:v49];
           v67 = [v66 count];
           *buf = 134218242;
-          v91 = v67;
-          v92 = 2112;
-          v93 = v49;
+          v90 = v67;
+          v91 = 2112;
+          v92 = v49;
           _os_log_debug_impl(&dword_228986000, v65, OS_LOG_TYPE_DEBUG, "Inserting %ld objects for source: %@", buf, 0x16u);
         }
 
-        v51 = [v70 objectForKeyedSubscript:v49];
+        v51 = [v69 objectForKeyedSubscript:v49];
         if ([v51 syncIdentity] == -1)
         {
           syncIdentityManager = [profileCopy syncIdentityManager];
@@ -300,10 +300,10 @@ LABEL_40:
         }
 
         dataManager = [profileCopy dataManager];
-        v56 = [v72 objectForKeyedSubscript:v49];
-        v78 = v48;
-        v57 = [dataManager insertDataObjects:v56 withProvenance:v51 creationDate:1 skipInsertionFilter:1 updateSourceOrder:0 resolveAssociations:&v78 error:2.22507386e-308];
-        v7 = v78;
+        v56 = [v71 objectForKeyedSubscript:v49];
+        v77 = v48;
+        v57 = [dataManager insertDataObjects:v56 withProvenance:v51 creationDate:1 skipInsertionFilter:1 updateSourceOrder:0 resolveAssociations:&v77 error:2.22507386e-308];
+        v7 = v77;
 
         if ((v57 & 1) == 0)
         {
@@ -312,16 +312,16 @@ LABEL_40:
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v91 = v49;
-            v92 = 2114;
-            v93 = v7;
+            v90 = v49;
+            v91 = 2114;
+            v92 = v7;
             _os_log_error_impl(&dword_228986000, v58, OS_LOG_TYPE_ERROR, "Failed to apply for source: %@: %{public}@", buf, 0x16u);
           }
 
           if ([v7 hk_isTransactionInterruptedError])
           {
 
-            v8 = v74;
+            v8 = v73;
             goto LABEL_66;
           }
 
@@ -329,18 +329,18 @@ LABEL_40:
           daemon2 = [profileCopy daemon];
           autoBugCaptureReporter2 = [daemon2 autoBugCaptureReporter];
           v62 = MEMORY[0x277CCABB0];
-          v63 = [v70 objectForKeyedSubscript:v49];
+          v63 = [v69 objectForKeyedSubscript:v49];
           v64 = [v62 numberWithLongLong:{objc_msgSend(v63, "syncProvenance")}];
           [autoBugCaptureReporter2 reportJournalFailureWithErrorDescription:v59 provenance:v64 error:v7];
         }
 
         ++v47;
         v48 = v7;
-        v8 = v74;
+        v8 = v73;
       }
 
       while (v45 != v47);
-      v45 = [allKeys countByEnumeratingWithState:&v79 objects:v89 count:16];
+      v45 = [allKeys countByEnumeratingWithState:&v78 objects:v88 count:16];
       if (v45)
       {
         continue;
@@ -351,8 +351,6 @@ LABEL_40:
   }
 
 LABEL_66:
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (_HDDataInsertionJournalEntry)initWithCoder:(id)coder

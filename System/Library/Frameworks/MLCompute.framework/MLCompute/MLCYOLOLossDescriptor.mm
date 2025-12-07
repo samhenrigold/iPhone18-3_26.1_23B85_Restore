@@ -1,6 +1,7 @@
 @interface MLCYOLOLossDescriptor
 + (MLCYOLOLossDescriptor)descriptorWithAnchorBoxes:(NSData *)anchorBoxes anchorBoxCount:(NSUInteger)anchorBoxCount;
 - (BOOL)isEqual:(id)equal;
+- (MLCYOLOLossDescriptor)initWithLossDescriptorWithSpatialPositionLossType:(int)type spatialSizeLossType:(int)lossType confidenceLossType:(int)confidenceLossType classesLossType:(int)classesLossType reductionType:(int)reductionType anchorBoxCount:(unint64_t)count anchorBoxes:(id)boxes;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)hash;
@@ -14,6 +15,64 @@
   v7 = [[self alloc] initWithLossDescriptorWithSpatialPositionLossType:1 spatialSizeLossType:6 confidenceLossType:3 classesLossType:2 reductionType:1 anchorBoxCount:anchorBoxCount anchorBoxes:v6];
 
   return v7;
+}
+
+- (MLCYOLOLossDescriptor)initWithLossDescriptorWithSpatialPositionLossType:(int)type spatialSizeLossType:(int)lossType confidenceLossType:(int)confidenceLossType classesLossType:(int)classesLossType reductionType:(int)reductionType anchorBoxCount:(unint64_t)count anchorBoxes:(id)boxes
+{
+  v10 = *&reductionType;
+  v11 = *&classesLossType;
+  v12 = *&confidenceLossType;
+  v13 = *&lossType;
+  v14 = *&type;
+  boxesCopy = boxes;
+  if (v10 >= 3)
+  {
+    v29 = +[MLCLog framework];
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      [MLCYOLOLossDescriptor initWithLossDescriptorWithSpatialPositionLossType:a2 spatialSizeLossType:v10 confidenceLossType:v29 classesLossType:? reductionType:? anchorBoxCount:? anchorBoxes:?];
+    }
+
+    selfCopy = 0;
+  }
+
+  else
+  {
+    v31.receiver = self;
+    v31.super_class = MLCYOLOLossDescriptor;
+    v18 = [(MLCYOLOLossDescriptor *)&v31 init];
+    v19 = v18;
+    if (v18)
+    {
+      v18->_anchorBoxCount = count;
+      objc_storeStrong(&v18->_anchorBoxes, boxes);
+      *&v19->_scaleSpatialPositionLoss = xmmword_238D45EE0;
+      *&v19->_scaleClassLoss = 0x3F33333340000000;
+      v19->_shouldRescore = 1;
+      v19->_maximumIOUForObjectAbsence = 0.3;
+      v19->_reductionType = v10;
+      v20 = [MLCLossDescriptor descriptorWithType:v14 reductionType:v10];
+      spatialPositionLossDescriptor = v19->_spatialPositionLossDescriptor;
+      v19->_spatialPositionLossDescriptor = v20;
+
+      v22 = [MLCLossDescriptor descriptorWithType:v13 reductionType:v10];
+      spatialSizeLossDescriptor = v19->_spatialSizeLossDescriptor;
+      v19->_spatialSizeLossDescriptor = v22;
+
+      v24 = [MLCLossDescriptor descriptorWithType:v12 reductionType:v10];
+      confidenceLossDescriptor = v19->_confidenceLossDescriptor;
+      v19->_confidenceLossDescriptor = v24;
+
+      v26 = [MLCLossDescriptor descriptorWithType:v11 reductionType:v10];
+      classesLossDescriptor = v19->_classesLossDescriptor;
+      v19->_classesLossDescriptor = v26;
+    }
+
+    self = v19;
+    selfCopy = self;
+  }
+
+  return selfCopy;
 }
 
 - (id)description
@@ -56,61 +115,7 @@
     {
       anchorBoxes = [v5 anchorBoxes];
       anchorBoxes2 = [(MLCYOLOLossDescriptor *)self anchorBoxes];
-      if (![anchorBoxes isEqualToData:anchorBoxes2])
-      {
-        goto LABEL_19;
-      }
-
-      shouldRescore = [v5 shouldRescore];
-      if (shouldRescore != [(MLCYOLOLossDescriptor *)self shouldRescore])
-      {
-        goto LABEL_19;
-      }
-
-      [v5 scaleSpatialPositionLoss];
-      v11 = v10;
-      [(MLCYOLOLossDescriptor *)self scaleSpatialPositionLoss];
-      if (v11 != v12)
-      {
-        goto LABEL_19;
-      }
-
-      [v5 scaleSpatialSizeLoss];
-      v14 = v13;
-      [(MLCYOLOLossDescriptor *)self scaleSpatialSizeLoss];
-      if (v14 != v15)
-      {
-        goto LABEL_19;
-      }
-
-      [v5 scaleNoObjectConfidenceLoss];
-      v17 = v16;
-      [(MLCYOLOLossDescriptor *)self scaleNoObjectConfidenceLoss];
-      if (v17 != v18)
-      {
-        goto LABEL_19;
-      }
-
-      [v5 scaleObjectConfidenceLoss];
-      v20 = v19;
-      [(MLCYOLOLossDescriptor *)self scaleObjectConfidenceLoss];
-      if (v20 != v21)
-      {
-        goto LABEL_19;
-      }
-
-      [v5 scaleClassLoss];
-      v23 = v22;
-      [(MLCYOLOLossDescriptor *)self scaleClassLoss];
-      if (v23 != v24)
-      {
-        goto LABEL_19;
-      }
-
-      [v5 minimumIOUForObjectPresence];
-      v26 = v25;
-      [(MLCYOLOLossDescriptor *)self minimumIOUForObjectPresence];
-      if (v26 == v27 && ([v5 maximumIOUForObjectAbsence], v29 = v28, -[MLCYOLOLossDescriptor maximumIOUForObjectAbsence](self, "maximumIOUForObjectAbsence"), v29 == v30))
+      if ([anchorBoxes isEqualToData:anchorBoxes2] && (v9 = objc_msgSend(v5, "shouldRescore"), v9 == -[MLCYOLOLossDescriptor shouldRescore](self, "shouldRescore")) && (objc_msgSend(v5, "scaleSpatialPositionLoss"), v11 = v10, -[MLCYOLOLossDescriptor scaleSpatialPositionLoss](self, "scaleSpatialPositionLoss"), v11 == v12) && (objc_msgSend(v5, "scaleSpatialSizeLoss"), v14 = v13, -[MLCYOLOLossDescriptor scaleSpatialSizeLoss](self, "scaleSpatialSizeLoss"), v14 == v15) && (objc_msgSend(v5, "scaleNoObjectConfidenceLoss"), v17 = v16, -[MLCYOLOLossDescriptor scaleNoObjectConfidenceLoss](self, "scaleNoObjectConfidenceLoss"), v17 == v18) && (objc_msgSend(v5, "scaleObjectConfidenceLoss"), v20 = v19, -[MLCYOLOLossDescriptor scaleObjectConfidenceLoss](self, "scaleObjectConfidenceLoss"), v20 == v21) && (objc_msgSend(v5, "scaleClassLoss"), v23 = v22, -[MLCYOLOLossDescriptor scaleClassLoss](self, "scaleClassLoss"), v23 == v24) && (objc_msgSend(v5, "minimumIOUForObjectPresence"), v26 = v25, -[MLCYOLOLossDescriptor minimumIOUForObjectPresence](self, "minimumIOUForObjectPresence"), v26 == v27) && (objc_msgSend(v5, "maximumIOUForObjectAbsence"), v29 = v28, -[MLCYOLOLossDescriptor maximumIOUForObjectAbsence](self, "maximumIOUForObjectAbsence"), v29 == v30))
       {
         spatialPositionLossDescriptor = [v5 spatialPositionLossDescriptor];
         spatialPositionLossDescriptor2 = [(MLCYOLOLossDescriptor *)self spatialPositionLossDescriptor];
@@ -162,7 +167,6 @@
 
       else
       {
-LABEL_19:
         v40 = 0;
       }
     }
@@ -242,15 +246,13 @@ LABEL_19:
 
 - (void)initWithLossDescriptorWithSpatialPositionLossType:(NSObject *)a3 spatialSizeLossType:confidenceLossType:classesLossType:reductionType:anchorBoxCount:anchorBoxes:.cold.1(const char *a1, int a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: failure to create yolo loss descriptor with reduceType = %d", &v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 1024;
+  v9 = a2;
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: failure to create yolo loss descriptor with reduceType = %d", &v6, 0x12u);
 }
 
 @end

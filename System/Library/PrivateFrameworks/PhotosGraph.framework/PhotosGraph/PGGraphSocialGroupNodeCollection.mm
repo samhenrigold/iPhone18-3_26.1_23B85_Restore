@@ -80,19 +80,17 @@
 
 + (id)socialGroupNodesForPersistedUUIDs:(id)ds inGraph:(id)graph
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   dsCopy = ds;
   v8 = +[PGGraphSocialGroupNode filter];
-  v14 = @"persistedUUID";
-  v15[0] = dsCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"persistedUUID";
+  v14[0] = dsCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v10 = [v8 filterBySettingProperties:v9];
 
   v11 = [self nodesMatchingFilter:v10 inGraph:graphCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

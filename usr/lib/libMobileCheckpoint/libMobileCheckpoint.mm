@@ -214,11 +214,11 @@ LABEL_10:
 
 id getResponseForCommand(uint64_t a1, uint64_t a2)
 {
-  v8[1] = *MEMORY[0x29EDCA608];
-  v7 = @"command";
+  v7[1] = *MEMORY[0x29EDCA608];
+  v6 = @"command";
   v2 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:a2];
-  v8[0] = v2;
-  v3 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   if (MOXPCTransportSendMessage())
   {
@@ -229,8 +229,6 @@ id getResponseForCommand(uint64_t a1, uint64_t a2)
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 
   return v4;
 }

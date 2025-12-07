@@ -2,9 +2,11 @@
 - (BOOL)getFeatureWithNSString:(id)string;
 - (id)getPropertyWithNSString:(id)string;
 - (id)setupParser;
+- (void)charactersWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)dealloc;
 - (void)endDocument;
 - (void)endElementWithNSString:(id)string;
+- (void)ignorableWhitespaceWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)parseWithNSString:(id)string;
 - (void)parseWithOrgXmlSaxInputSource:(id)source;
 - (void)processingInstructionWithNSString:(id)string withNSString:(id)sString;
@@ -557,6 +559,24 @@ LABEL_23:
   intern = [string intern];
 
   [(OrgXmlSaxContentHandler *)contentHandler endElementWithNSString:&stru_100484358 withNSString:&stru_100484358 withNSString:intern];
+}
+
+- (void)charactersWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  contentHandler = self->contentHandler_;
+  if (contentHandler)
+  {
+    [(OrgXmlSaxContentHandler *)contentHandler charactersWithCharArray:array withInt:*&int withInt:*&withInt];
+  }
+}
+
+- (void)ignorableWhitespaceWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  contentHandler = self->contentHandler_;
+  if (contentHandler)
+  {
+    [(OrgXmlSaxContentHandler *)contentHandler ignorableWhitespaceWithCharArray:array withInt:*&int withInt:*&withInt];
+  }
 }
 
 - (void)processingInstructionWithNSString:(id)string withNSString:(id)sString

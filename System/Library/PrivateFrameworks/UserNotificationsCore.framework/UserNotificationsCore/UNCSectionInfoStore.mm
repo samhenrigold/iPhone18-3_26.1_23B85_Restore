@@ -2,6 +2,7 @@
 - (UNCSectionInfoStore)initWithEffectiveSettings:(id)settings persistence:(id)persistence;
 - (id)_queue_effectiveSectionInfoForSectionInfo:(id)info;
 - (id)_queue_sectionInfoForSectionID:(id)d effective:(BOOL)effective;
+- (id)_queue_sortedSectionInfoForSectionIDs:(id)ds effective:(BOOL)effective;
 - (id)activeSectionIDs;
 - (id)allSortedActiveSections:(BOOL)sections;
 - (id)allSortedSectionInfo:(BOOL)info;
@@ -76,20 +77,20 @@
 
 void __61__UNCSectionInfoStore_initWithEffectiveSettings_persistence___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 64) activeSectionIDs];
   v3 = [v2 mutableCopy];
 
   v4 = *(a1 + 32);
   v5 = v4[1];
-  v12 = MEMORY[0x1E69E9820];
-  v13 = 3221225472;
-  v14 = __61__UNCSectionInfoStore_initWithEffectiveSettings_persistence___block_invoke_2;
-  v15 = &unk_1E85D6E70;
-  v16 = v4;
+  v11 = MEMORY[0x1E69E9820];
+  v12 = 3221225472;
+  v13 = __61__UNCSectionInfoStore_initWithEffectiveSettings_persistence___block_invoke_2;
+  v14 = &unk_1E85D6E70;
+  v15 = v4;
   v6 = v3;
-  v17 = v6;
-  dispatch_async(v5, &v12);
+  v16 = v6;
+  dispatch_async(v5, &v11);
   v7 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
@@ -97,11 +98,9 @@ void __61__UNCSectionInfoStore_initWithEffectiveSettings_persistence___block_inv
     v9 = v7;
     v10 = [v8 count];
     *buf = 134217984;
-    v19 = v10;
+    v18 = v10;
     _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "Initial fetch of activeSectionIDs count: %lu", buf, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __61__UNCSectionInfoStore_initWithEffectiveSettings_persistence___block_invoke_2(uint64_t a1)
@@ -176,12 +175,56 @@ void __61__UNCSectionInfoStore_initWithEffectiveSettings_persistence___block_inv
 
 uint64_t __57__UNCSectionInfoStore_sectionInfoForSectionID_effective___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_sectionInfoForSectionID:*(a1 + 40) effective:*(a1 + 56)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_sectionInfoForSectionID:*(a1 + 40) effective:*(a1 + 56)];
 
   return MEMORY[0x1EEE66BB8]();
+}
+
+- (id)_queue_sortedSectionInfoForSectionIDs:(id)ds effective:(BOOL)effective
+{
+  effectiveCopy = effective;
+  v23 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  dispatch_assert_queue_V2(self->_queue);
+  array = [MEMORY[0x1E695DF70] array];
+  v8 = MEMORY[0x1E695DF70];
+  allObjects = [dsCopy allObjects];
+  v10 = [v8 arrayWithArray:allObjects];
+
+  [(UNCSectionInfoStore *)self _queue_sortSectionIDs:v10 usingGuideArray:self->_queue_sortedSectionIDs];
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v11 = v10;
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v19;
+    do
+    {
+      for (i = 0; i != v13; ++i)
+      {
+        if (*v19 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v16 = [(UNCSectionInfoStore *)self _queue_sectionInfoForSectionID:*(*(&v18 + 1) + 8 * i) effective:effectiveCopy, v18];
+        if (v16)
+        {
+          [array addObject:v16];
+        }
+      }
+
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    }
+
+    while (v13);
+  }
+
+  return array;
 }
 
 - (id)sortedSectionInfoForSectionIDs:(id)ds effective:(BOOL)effective
@@ -213,10 +256,7 @@ uint64_t __57__UNCSectionInfoStore_sectionInfoForSectionID_effective___block_inv
 
 uint64_t __64__UNCSectionInfoStore_sortedSectionInfoForSectionIDs_effective___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_sortedSectionInfoForSectionIDs:*(a1 + 40) effective:*(a1 + 56)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_sortedSectionInfoForSectionIDs:*(a1 + 40) effective:*(a1 + 56)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -245,41 +285,39 @@ uint64_t __64__UNCSectionInfoStore_sortedSectionInfoForSectionIDs_effective___bl
 
 void __63__UNCSectionInfoStore_sectionInfosByIDForSectionIDs_effective___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        v8 = [*(a1 + 40) _queue_sectionInfoForSectionID:v7 effective:{*(a1 + 56), v10}];
+        v7 = *(*(&v9 + 1) + 8 * i);
+        v8 = [*(a1 + 40) _queue_sectionInfoForSectionID:v7 effective:{*(a1 + 56), v9}];
         if (v8)
         {
           [*(a1 + 48) setObject:v8 forKey:v7];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queue_effectiveSectionInfoForSectionInfo:(id)info
@@ -339,10 +377,7 @@ void __63__UNCSectionInfoStore_sectionInfosByIDForSectionIDs_effective___block_i
 
 uint64_t __58__UNCSectionInfoStore_effectiveSectionInfoForSectionInfo___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_effectiveSectionInfoForSectionInfo:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_effectiveSectionInfoForSectionInfo:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -417,7 +452,7 @@ uint64_t __51__UNCSectionInfoStore_setSectionInfo_forSectionID___block_invoke(vo
   dispatch_sync(queue, v7);
 }
 
-uint64_t __42__UNCSectionInfoStore_addActiveSectionID___block_invoke(uint64_t a1)
+void *__42__UNCSectionInfoStore_addActiveSectionID___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 32) addObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 40) containsObject:*(a1 + 40)];
@@ -479,10 +514,7 @@ uint64_t __42__UNCSectionInfoStore_addActiveSectionID___block_invoke(uint64_t a1
 
 uint64_t __47__UNCSectionInfoStore_allSortedActiveSections___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_sortedSectionInfoForSectionIDs:*(*(a1 + 32) + 32) effective:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_sortedSectionInfoForSectionIDs:*(*(a1 + 32) + 32) effective:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -511,7 +543,7 @@ uint64_t __47__UNCSectionInfoStore_allSortedActiveSections___block_invoke(uint64
 
 - (void)_queue_sortSectionIDs:(id)ds usingGuideArray:(id)array
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   arrayCopy = array;
   selfCopy = self;
@@ -523,60 +555,60 @@ uint64_t __47__UNCSectionInfoStore_allSortedActiveSections___block_invoke(uint64
     {
       if (v8)
       {
-        v35 = arrayCopy;
+        v34 = arrayCopy;
         v9 = [MEMORY[0x1E695DFD8] setWithArray:arrayCopy];
         v10 = [MEMORY[0x1E695DFD8] setWithArray:dsCopy];
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        v44 = [dsCopy mutableCopy];
+        v43 = [dsCopy mutableCopy];
+        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
         v58 = 0u;
-        v59 = 0u;
-        v34 = dsCopy;
+        v33 = dsCopy;
         obj = dsCopy;
-        v40 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
-        if (v40)
+        v39 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+        if (v39)
         {
-          v37 = *v57;
+          v36 = *v56;
           v11 = MEMORY[0x1E69833A0];
           do
           {
-            for (i = 0; i != v40; ++i)
+            for (i = 0; i != v39; ++i)
             {
-              if (*v57 != v37)
+              if (*v56 != v36)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v45 = *(*(&v56 + 1) + 8 * i);
+              v44 = *(*(&v55 + 1) + 8 * i);
               v13 = [UNCSectionInfoStore _queue_sectionInfoForSectionID:selfCopy effective:"_queue_sectionInfoForSectionID:effective:"];
               dataProviderIDs = [v13 dataProviderIDs];
               if ([dataProviderIDs count])
               {
-                v42 = v13;
-                v43 = i;
+                v41 = v13;
+                v42 = i;
                 array = [MEMORY[0x1E695DF70] array];
+                v51 = 0u;
                 v52 = 0u;
                 v53 = 0u;
                 v54 = 0u;
-                v55 = 0u;
-                v41 = dataProviderIDs;
+                v40 = dataProviderIDs;
                 v16 = dataProviderIDs;
-                v17 = [v16 countByEnumeratingWithState:&v52 objects:v65 count:16];
+                v17 = [v16 countByEnumeratingWithState:&v51 objects:v64 count:16];
                 if (v17)
                 {
                   v18 = v17;
-                  v19 = *v53;
+                  v19 = *v52;
                   do
                   {
                     for (j = 0; j != v18; ++j)
                     {
-                      if (*v53 != v19)
+                      if (*v52 != v19)
                       {
                         objc_enumerationMutation(v16);
                       }
 
-                      v21 = *(*(&v52 + 1) + 8 * j);
+                      v21 = *(*(&v51 + 1) + 8 * j);
                       if ([v10 containsObject:v21])
                       {
                         if (([v9 containsObject:v21] & 1) == 0)
@@ -591,15 +623,15 @@ uint64_t __47__UNCSectionInfoStore_allSortedActiveSections___block_invoke(uint64
                         if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138412546;
-                          v62 = v21;
-                          v63 = 2112;
-                          v64 = v45;
+                          v61 = v21;
+                          v62 = 2112;
+                          v63 = v44;
                           _os_log_error_impl(&dword_1DA7A9000, v22, OS_LOG_TYPE_ERROR, "UNCSectionInfoStore: unknown subsection %@ (of %@) cannot be sorted.", buf, 0x16u);
                         }
                       }
                     }
 
-                    v18 = [v16 countByEnumeratingWithState:&v52 objects:v65 count:16];
+                    v18 = [v16 countByEnumeratingWithState:&v51 objects:v64 count:16];
                   }
 
                   while (v18);
@@ -607,61 +639,61 @@ uint64_t __47__UNCSectionInfoStore_allSortedActiveSections___block_invoke(uint64
 
                 if ([array count])
                 {
-                  [dictionary setObject:array forKey:v45];
-                  [v44 removeObjectsInArray:array];
+                  [dictionary setObject:array forKey:v44];
+                  [v43 removeObjectsInArray:array];
                 }
 
-                v13 = v42;
-                i = v43;
-                dataProviderIDs = v41;
+                v13 = v41;
+                i = v42;
+                dataProviderIDs = v40;
               }
             }
 
-            v40 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+            v39 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
           }
 
-          while (v40);
+          while (v39);
         }
 
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __61__UNCSectionInfoStore__queue_sortSectionIDs_usingGuideArray___block_invoke;
-        v50[3] = &unk_1E85D7EE0;
-        v51 = v35;
-        [v44 sortUsingComparator:v50];
+        v49[0] = MEMORY[0x1E69E9820];
+        v49[1] = 3221225472;
+        v49[2] = __61__UNCSectionInfoStore__queue_sortSectionIDs_usingGuideArray___block_invoke;
+        v49[3] = &unk_1E85D7EE0;
+        v50 = v34;
+        [v43 sortUsingComparator:v49];
         v23 = dictionary;
         if ([dictionary count])
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
+          v48 = 0u;
+          v45 = 0u;
+          v46 = 0u;
           allKeys = [dictionary allKeys];
-          v25 = [allKeys countByEnumeratingWithState:&v46 objects:v60 count:16];
+          v25 = [allKeys countByEnumeratingWithState:&v45 objects:v59 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v47;
+            v27 = *v46;
             do
             {
               for (k = 0; k != v26; ++k)
               {
-                if (*v47 != v27)
+                if (*v46 != v27)
                 {
                   objc_enumerationMutation(allKeys);
                 }
 
-                v29 = *(*(&v46 + 1) + 8 * k);
+                v29 = *(*(&v45 + 1) + 8 * k);
                 v30 = [dictionary objectForKey:v29];
-                v31 = [v44 indexOfObject:v29];
+                v31 = [v43 indexOfObject:v29];
                 if (v31 != 0x7FFFFFFFFFFFFFFFLL)
                 {
                   v32 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{v31 + 1, objc_msgSend(v30, "count")}];
-                  [v44 insertObjects:v30 atIndexes:v32];
+                  [v43 insertObjects:v30 atIndexes:v32];
                 }
               }
 
-              v26 = [allKeys countByEnumeratingWithState:&v46 objects:v60 count:16];
+              v26 = [allKeys countByEnumeratingWithState:&v45 objects:v59 count:16];
             }
 
             while (v26);
@@ -671,20 +703,18 @@ uint64_t __47__UNCSectionInfoStore_allSortedActiveSections___block_invoke(uint64
         }
 
         [obj removeAllObjects];
-        [obj addObjectsFromArray:v44];
+        [obj addObjectsFromArray:v43];
 
-        dsCopy = v34;
-        arrayCopy = v35;
+        dsCopy = v33;
+        arrayCopy = v34;
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__UNCSectionInfoStore__queue_sortSectionIDs_usingGuideArray___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v5 isEqual:v6])
@@ -694,27 +724,27 @@ uint64_t __61__UNCSectionInfoStore__queue_sortSectionIDs_usingGuideArray___block
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = *(a1 + 32);
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
-          if ([v13 isEqual:{v5, v16}])
+          v13 = *(*(&v15 + 1) + 8 * i);
+          if ([v13 isEqual:{v5, v15}])
           {
             v7 = -1;
             goto LABEL_16;
@@ -727,7 +757,7 @@ uint64_t __61__UNCSectionInfoStore__queue_sortSectionIDs_usingGuideArray___block
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         v7 = 0;
         if (v10)
         {
@@ -746,7 +776,6 @@ uint64_t __61__UNCSectionInfoStore__queue_sortSectionIDs_usingGuideArray___block
 LABEL_16:
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -774,10 +803,7 @@ LABEL_16:
 
 uint64_t __48__UNCSectionInfoStore_allUnsortedSectionInfoIDs__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 24) allKeys];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) allKeys];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -838,10 +864,7 @@ void __44__UNCSectionInfoStore_allSortedSectionInfo___block_invoke(uint64_t a1)
 
 uint64_t __38__UNCSectionInfoStore_sectionInfoByID__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 24) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -862,10 +885,7 @@ uint64_t __38__UNCSectionInfoStore_sectionInfoByID__block_invoke(uint64_t a1)
 
 uint64_t __42__UNCSectionInfoStore_setSectionInfoByID___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) mutableCopy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  *(*(a1 + 32) + 24) = [*(a1 + 40) mutableCopy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -898,10 +918,7 @@ uint64_t __42__UNCSectionInfoStore_setSectionInfoByID___block_invoke(uint64_t a1
 
 uint64_t __47__UNCSectionInfoStore_clearedInfoForSectionID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 48) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 48) objectForKey:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -981,23 +998,19 @@ uint64_t __51__UNCSectionInfoStore_setClearedInfo_forSectionID___block_invoke(vo
 
 uint64_t __46__UNCSectionInfoStore_setClearedSectionsByID___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) mutableCopy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 48);
-  *(v3 + 48) = v2;
+  *(*(a1 + 32) + 48) = [*(a1 + 40) mutableCopy];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (void)_queue_sectionInfoForSectionID:(os_log_t)log effective:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1DA7A9000, log, OS_LOG_TYPE_ERROR, "Produced invalid sectionInfo without ID for %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1DA7A9000, log, OS_LOG_TYPE_ERROR, "Produced invalid sectionInfo without ID for %@: %@", &v3, 0x16u);
 }
 
 @end

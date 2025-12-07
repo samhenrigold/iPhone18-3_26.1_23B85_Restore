@@ -51,7 +51,7 @@
 
 - (void)acknowledgeiCloudIdentity
 {
-  v3 = sub_100002660();
+  v3 = sub_100002660(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;

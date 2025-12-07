@@ -12,18 +12,15 @@
 
 - (NSDictionary)ephemeralAuthResults
 {
-  v2 = *(self + OBJC_IVAR___FARequestEphemeralSigner_ephemeralAuthResults);
 
-  v3 = sub_1B715DFD0();
+  v2 = sub_1B715DFD0();
 
-  return v3;
+  return v2;
 }
 
 - (void)setEphemeralAuthResults:(id)results
 {
-  v4 = sub_1B715DFE0();
-  v5 = *(self + OBJC_IVAR___FARequestEphemeralSigner_ephemeralAuthResults);
-  *(self + OBJC_IVAR___FARequestEphemeralSigner_ephemeralAuthResults) = v4;
+  *(self + OBJC_IVAR___FARequestEphemeralSigner_ephemeralAuthResults) = sub_1B715DFE0();
 }
 
 - (FARequestEphemeralSigner)initWithEphemeralAuthResults:(id)results

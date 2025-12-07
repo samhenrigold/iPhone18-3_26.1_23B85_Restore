@@ -10,6 +10,7 @@
 - (void)loadView;
 - (void)setFormURL:(id)l;
 - (void)setWebsiteTitle:(id)title;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PMSafariAutoFillEditingStrongPasswordInformationViewController
@@ -103,48 +104,45 @@
 {
   v3 = sub_21CB80BE4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  v8 = OBJC_IVAR___PMSafariAutoFillEditingStrongPasswordInformationViewController__anyFormURL;
+  v6 = v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  v7 = OBJC_IVAR___PMSafariAutoFillEditingStrongPasswordInformationViewController__anyFormURL;
   swift_beginAccess();
-  sub_21C7A3394(self + v8, v12);
+  sub_21C7A3394(self + v7, v11);
   swift_dynamicCast();
-  v9 = sub_21CB80B74();
-  (*(v4 + 8))(v7, v3);
+  v8 = sub_21CB80B74();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 - (void)setFormURL:(id)l
 {
   v4 = sub_21CB80BE4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB80B94();
-  v14 = v4;
-  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v13);
-  (*(v5 + 32))(boxed_opaque_existential_0, v8, v4);
-  v10 = OBJC_IVAR___PMSafariAutoFillEditingStrongPasswordInformationViewController__anyFormURL;
+  v13 = v4;
+  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v12);
+  (*(v5 + 32))(boxed_opaque_existential_0, v7, v4);
+  v9 = OBJC_IVAR___PMSafariAutoFillEditingStrongPasswordInformationViewController__anyFormURL;
   swift_beginAccess();
   selfCopy = self;
-  __swift_destroy_boxed_opaque_existential_0((self + v10));
-  sub_21C731A9C(v13, (self + v10));
+  __swift_destroy_boxed_opaque_existential_0((self + v9));
+  sub_21C731A9C(&v12, (self + v9));
   swift_endAccess();
 }
 
 - (PMSafariAutoFillEditingStrongPasswordInformationViewController)initWithWebsiteTitle:(id)title url:(id)url
 {
   v4 = sub_21CB80BE4();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_21CB855C4();
-  v10 = v9;
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_21CB855C4();
+  v9 = v8;
   sub_21CB80B94();
-  return PMSafariAutoFillEditingStrongPasswordInformationViewController.init(websiteTitle:url:)(v8, v10, v7);
+  return PMSafariAutoFillEditingStrongPasswordInformationViewController.init(websiteTitle:url:)(v7, v9, v6);
 }
 
 - (PMSafariAutoFillEditingStrongPasswordInformationViewController)initWithCoder:(id)coder
@@ -159,6 +157,13 @@
 {
   selfCopy = self;
   PMSafariAutoFillEditingStrongPasswordInformationViewController.loadView()();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PMSafariAutoFillEditingStrongPasswordInformationViewController;
+  [(PMSafariAutoFillEditingStrongPasswordInformationViewController *)&v3 viewWillAppear:appear];
 }
 
 - (PMSafariAutoFillEditingStrongPasswordInformationViewController)initWithNibName:(id)name bundle:(id)bundle

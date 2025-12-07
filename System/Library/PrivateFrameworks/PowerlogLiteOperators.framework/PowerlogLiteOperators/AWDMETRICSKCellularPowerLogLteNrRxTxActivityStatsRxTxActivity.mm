@@ -1,8 +1,11 @@
 @interface AWDMETRICSKCellularPowerLogLteNrRxTxActivityStatsRxTxActivity
 - (BOOL)isEqual:(id)equal;
+- (id)actStateAsString:(int)string;
+- (id)caStateAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ratDplAsString:(int)string;
 - (int)StringAsActState:(id)state;
 - (int)StringAsCaState:(id)state;
 - (int)StringAsRatDpl:(id)dpl;
@@ -46,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)ratDplAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261140[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRatDpl:(id)dpl
@@ -107,6 +125,21 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)caStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261160[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCaState:(id)state
 {
   stateCopy = state;
@@ -144,6 +177,21 @@
   {
     return 1;
   }
+}
+
+- (id)actStateAsString:(int)string
+{
+  if ((string - 1) >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261178[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsActState:(id)state
@@ -315,7 +363,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    ratDpl = self->_ratDpl;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -335,7 +382,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  caState = self->_caState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -350,12 +396,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  actState = self->_actState;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    count = self->_count;
     PBDataWriterWriteUint32Field();
   }
 

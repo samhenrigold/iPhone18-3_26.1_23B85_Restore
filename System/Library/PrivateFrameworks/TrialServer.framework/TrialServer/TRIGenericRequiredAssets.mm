@@ -80,39 +80,8 @@ LABEL_3:
 {
   assetsCopy = assets;
   v5 = assetsCopy;
-  if (!assetsCopy)
+  if (!assetsCopy || (v6 = self->_cloudKit == 0, [assetsCopy cloudKit], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (cloudKit = self->_cloudKit) != 0 && (objc_msgSend(v5, "cloudKit"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSArray isEqual:](cloudKit, "isEqual:", v10), v10, !v11) || (v12 = self->_mobileAsset == 0, objc_msgSend(v5, "mobileAsset"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_cloudKit == 0;
-  cloudKit = [assetsCopy cloudKit];
-  v8 = cloudKit != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  cloudKit = self->_cloudKit;
-  if (cloudKit)
-  {
-    cloudKit2 = [v5 cloudKit];
-    v11 = [(NSArray *)cloudKit isEqual:cloudKit2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_mobileAsset == 0;
-  mobileAsset = [v5 mobileAsset];
-  v14 = mobileAsset != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -121,8 +90,8 @@ LABEL_8:
     mobileAsset = self->_mobileAsset;
     if (mobileAsset)
     {
-      mobileAsset2 = [v5 mobileAsset];
-      v17 = [(NSArray *)mobileAsset isEqual:mobileAsset2];
+      mobileAsset = [v5 mobileAsset];
+      v17 = [(NSArray *)mobileAsset isEqual:mobileAsset];
     }
 
     else

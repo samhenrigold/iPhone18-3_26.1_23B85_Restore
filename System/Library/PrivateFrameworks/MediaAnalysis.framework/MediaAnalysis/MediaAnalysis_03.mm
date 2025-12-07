@@ -1,10 +1,12 @@
-void sub_1001277D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, void *a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, const void *a53, uint64_t a54, char a55)
+void sub_1001277D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, void *a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, const void *a53, uint64_t a54, ...)
 {
-  sub_100002CBC(&a53);
+  va_start(va, a54);
 
-  _Block_object_dispose((v60 - 176), 8);
-  _Block_object_dispose(&a55, 8);
-  _Block_object_dispose((v60 - 256), 8);
+  sub_100002CBC(&a53);
+  _Block_object_dispose((v59 - 176), 8);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v59 - 256), 8);
 
   _Unwind_Resume(a1);
 }
@@ -672,12 +674,13 @@ void sub_10012D50C(uint64_t a1)
   }
 }
 
-void sub_10012DD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_10012DD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 256), 8);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v40 - 256), 8);
 
-  _Block_object_dispose((v41 - 208), 8);
+  _Block_object_dispose((v40 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1393,13 +1396,15 @@ void sub_1001360A0(uint64_t a1, void *a2)
   }
 }
 
-void sub_1001378EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, void *a25, void *a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, const void *a55, uint64_t a56, char a57)
+void sub_1001378EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, void *a25, void *a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, const void *a55, uint64_t a56, ...)
 {
-  sub_100002CBC(&a55);
+  va_start(va, a56);
 
-  _Block_object_dispose((v62 - 176), 8);
-  _Block_object_dispose(&a57, 8);
-  _Block_object_dispose((v62 - 256), 8);
+  sub_100002CBC(&a55);
+  _Block_object_dispose((v61 - 176), 8);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v61 - 256), 8);
 
   _Unwind_Resume(a1);
 }
@@ -2199,16 +2204,16 @@ void MADBMSendPECProcessedCounts(void *a1, void *a2)
   [v23 exitKnownTimeoutRisk];
 }
 
-id _sceneThresholdsForVideoDataCollection()
+id _sceneThresholdsForVideoDataCollection(uint64_t a1)
 {
   if (qword_1002B8450 != -1)
   {
     sub_100146F60();
   }
 
-  v1 = qword_1002B8448;
+  v2 = qword_1002B8448;
 
-  return v1;
+  return v2;
 }
 
 void sub_1001423CC(id a1)
@@ -2274,45 +2279,45 @@ void sub_10014257C(uint64_t a1, void *a2)
 
 void _MADBMSendPerLibraryData(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, double a18, double a19, double a20, double a21, double a22, double a23, double a24, double a25, double a26, double a27, double a28, double a29)
 {
-  v59 = a1;
-  v67 = [BMMediaAnalysisPerLibrary alloc];
-  v79 = [NSNumber numberWithUnsignedInteger:a2];
-  v78 = [NSNumber numberWithUnsignedInteger:a3];
-  v76 = [NSNumber numberWithUnsignedInteger:a4];
-  v73 = [NSNumber numberWithDouble:a8];
-  v71 = [NSNumber numberWithUnsignedInteger:a5];
-  v77 = [NSNumber numberWithUnsignedInteger:a6];
-  v75 = [NSNumber numberWithUnsignedInteger:a7];
-  v74 = [NSNumber numberWithDouble:a9];
-  v56 = [NSNumber numberWithDouble:a10];
-  v72 = [NSNumber numberWithDouble:a11];
-  v70 = [NSNumber numberWithDouble:a12];
-  v69 = [NSNumber numberWithDouble:a13];
-  v66 = [NSNumber numberWithDouble:a14];
-  v64 = [NSNumber numberWithDouble:a15];
-  v62 = [NSNumber numberWithDouble:a16];
-  v54 = [NSNumber numberWithDouble:a17];
-  v61 = [NSNumber numberWithDouble:a18];
-  v60 = [NSNumber numberWithDouble:a19];
-  v55 = [NSNumber numberWithDouble:a20];
-  v57 = [NSNumber numberWithDouble:a21];
-  v42 = [NSNumber numberWithDouble:a22];
-  v58 = [NSNumber numberWithDouble:a23];
-  v43 = [NSNumber numberWithDouble:a24];
-  v44 = [NSNumber numberWithDouble:a25];
-  v45 = [NSNumber numberWithDouble:a26];
-  v46 = [NSNumber numberWithDouble:a27];
-  v47 = [NSNumber numberWithDouble:a28];
-  v48 = [NSNumber numberWithDouble:a29];
-  v68 = [v67 initWithLibraryType:v59 imageAssetCount:v79 livePhotoAssetCount:v78 movieAssetCount:v76 movieAssetDurations:v73 editedMovieCount:v71 sharedMovieCount:v77 favoritedMovieCount:v75 spatialMoviePercentage:v74 cinematicMoviePercentage:v56 slomoMoviePercentage:v72 timelapsePercentage:v70 portraitModePercentage:v69 landscapeModePercentage:v66 withHighlightsPercentage:v64 withPeoplePercentage:v62 withPetsPercentage:v54 withNatureOrNaturalLandmarksPercentage:v61 withSkylinePercentage:v60 wthLandmarksPercentage:v55 withActionPercentage:v57 withHighMotionPercentage:v42 highlightsWithPeoplePercentage:v58 highlightsWithPetsPercentage:v43 highlightsWithNatureOrNaturalLandmarksPercentage:v44 highlightsWithSkylinePercentage:v45 highlightsWithLandmarksPercentage:v46 highlightsWithActionPercentage:v47 highlightsWithHighMotionPercentage:v48];
+  v58 = a1;
+  v66 = [BMMediaAnalysisPerLibrary alloc];
+  v78 = [NSNumber numberWithUnsignedInteger:a2];
+  v77 = [NSNumber numberWithUnsignedInteger:a3];
+  v75 = [NSNumber numberWithUnsignedInteger:a4];
+  v72 = [NSNumber numberWithDouble:a8];
+  v70 = [NSNumber numberWithUnsignedInteger:a5];
+  v76 = [NSNumber numberWithUnsignedInteger:a6];
+  v74 = [NSNumber numberWithUnsignedInteger:a7];
+  v73 = [NSNumber numberWithDouble:a9];
+  v55 = [NSNumber numberWithDouble:a10];
+  v71 = [NSNumber numberWithDouble:a11];
+  v69 = [NSNumber numberWithDouble:a12];
+  v68 = [NSNumber numberWithDouble:a13];
+  v65 = [NSNumber numberWithDouble:a14];
+  v63 = [NSNumber numberWithDouble:a15];
+  v61 = [NSNumber numberWithDouble:a16];
+  v53 = [NSNumber numberWithDouble:a17];
+  v60 = [NSNumber numberWithDouble:a18];
+  v59 = [NSNumber numberWithDouble:a19];
+  v54 = [NSNumber numberWithDouble:a20];
+  v56 = [NSNumber numberWithDouble:a21];
+  v41 = [NSNumber numberWithDouble:a22];
+  v57 = [NSNumber numberWithDouble:a23];
+  v42 = [NSNumber numberWithDouble:a24];
+  v43 = [NSNumber numberWithDouble:a25];
+  v44 = [NSNumber numberWithDouble:a26];
+  v45 = [NSNumber numberWithDouble:a27];
+  v46 = [NSNumber numberWithDouble:a28];
+  v47 = [NSNumber numberWithDouble:a29];
+  v67 = [v66 initWithLibraryType:v58 imageAssetCount:v78 livePhotoAssetCount:v77 movieAssetCount:v75 movieAssetDurations:v72 editedMovieCount:v70 sharedMovieCount:v76 favoritedMovieCount:v74 spatialMoviePercentage:v73 cinematicMoviePercentage:v55 slomoMoviePercentage:v71 timelapsePercentage:v69 portraitModePercentage:v68 landscapeModePercentage:v65 withHighlightsPercentage:v63 withPeoplePercentage:v61 withPetsPercentage:v53 withNatureOrNaturalLandmarksPercentage:v60 withSkylinePercentage:v59 wthLandmarksPercentage:v54 withActionPercentage:v56 withHighMotionPercentage:v41 highlightsWithPeoplePercentage:v57 highlightsWithPetsPercentage:v42 highlightsWithNatureOrNaturalLandmarksPercentage:v43 highlightsWithSkylinePercentage:v44 highlightsWithLandmarksPercentage:v45 highlightsWithActionPercentage:v46 highlightsWithHighMotionPercentage:v47];
 
-  v49 = BiomeLibrary();
-  v50 = [v49 MediaAnalysis];
-  v51 = [v50 VideoAnalysis];
-  v52 = [v51 PerLibrary];
+  v48 = BiomeLibrary();
+  v49 = [v48 MediaAnalysis];
+  v50 = [v49 VideoAnalysis];
+  v51 = [v50 PerLibrary];
 
-  v53 = [v52 source];
-  [v53 sendEvent:v68];
+  v52 = [v51 source];
+  [v52 sendEvent:v67];
 }
 
 void _sendPerAssetData(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8, double a9, double a10, double a11, unsigned __int8 a12, unsigned __int8 a13, unsigned __int8 a14, unsigned __int8 a15, unsigned __int8 a16, unsigned __int8 a17, unsigned __int8 a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
@@ -2356,10 +2361,10 @@ uint64_t _reportPerLibraryDataToBiome(void *a1, void *a2)
   v132 = a1;
   v3 = a2;
   v4 = v3;
-  if (!v3 || ((v3[2])(v3) & 1) == 0)
+  if (!v3 || (v3 = (*(v3 + 16))(v3), (v3 & 1) == 0))
   {
     v183 = v4;
-    v6 = _sceneThresholdsForVideoDataCollection();
+    v6 = _sceneThresholdsForVideoDataCollection(v3);
     v239 = 0;
     v240 = &v239;
     v241 = 0x2020000000;
@@ -3136,9 +3141,9 @@ LABEL_8:
   _Block_object_dispose(&v12, 8);
 }
 
-void sub_100144740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100144740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3291,7 +3296,7 @@ uint64_t _reportPerAssetDataToBiome(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = _sceneThresholdsForVideoDataCollection();
+  v5 = _sceneThresholdsForVideoDataCollection(v4);
   if (v4 && (v4[2](v4) & 1) != 0)
   {
     v6 = 4294967168;
@@ -3686,9 +3691,9 @@ void sub_100145AC0(uint64_t a1, void *a2, void *a3)
   _Block_object_dispose(&v11, 8);
 }
 
-void sub_100145BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100145BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4479,14 +4484,14 @@ void sub_10014A4FC(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10014A8C4()
+void sub_10014A8C4(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = qword_1002B8468;
-  qword_1002B8468 = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = qword_1002B8468;
+  qword_1002B8468 = v1;
 }
 
-void sub_10014B2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id a37)
+void sub_10014B2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id a37)
 {
   _Block_object_dispose(&a32, 8);
 
@@ -4971,19 +4976,19 @@ void sub_10014EDC4(id a1)
   [v1 pet];
 }
 
-void sub_100150F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100150F00(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPMovieChangeEntry;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_100152A9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100152A9C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = VCPPhotosAssetChangeManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6072,10 +6077,10 @@ void sub_10016B910(uint64_t a1, void *a2)
   }
 }
 
-void sub_10016C388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10016C388(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VCPPhotosMaintenanceProcessingTask;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6359,7 +6364,7 @@ void sub_100172260(id a1)
   [v1 pet];
 }
 
-const __CFString *VCPCoreAnalyticsFieldForFull(char a1, uint64_t a2, uint64_t a3, uint64_t a4)
+const __CFString *VCPCoreAnalyticsFieldForFull(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 <= 1)
   {
@@ -8459,9 +8464,9 @@ void sub_10017BA74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10017BEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10017BEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);

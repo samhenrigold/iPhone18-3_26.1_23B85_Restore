@@ -16,7 +16,9 @@
 - (void)_applyParallaxEffectWithTransitionProgress:(double)progress;
 - (void)_loadAndCacheViewControllersBeforeAndAfterIndex:(int64_t)index;
 - (void)_rearrangeCachedViewControllersWithNewCurrentPageIndex:(int64_t)index;
+- (void)_setCurrentPageIndex:(unint64_t)index direction:(int64_t)direction animated:(BOOL)animated completion:(id)completion;
 - (void)_setUp;
+- (void)_setViewControllers:(id)controllers direction:(int64_t)direction animated:(BOOL)animated completion:(id)completion;
 - (void)_unsetParallaxEffect;
 - (void)clearInternalCache;
 - (void)pageViewController:(id)controller didFinishAnimating:(BOOL)animating previousViewControllers:(id)controllers transitionCompleted:(BOOL)completed;
@@ -25,9 +27,11 @@
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)scrollViewWillBeginDragging:(id)dragging;
 - (void)scrollViewWillEndDragging:(id)dragging withVelocity:(CGPoint)velocity targetContentOffset:(CGPoint *)offset;
+- (void)setCurrentPageIndex:(unint64_t)index animated:(BOOL)animated;
 - (void)setDataSource:(id)source;
 - (void)setDelegate:(id)delegate;
 - (void)setViewControllers:(id)controllers direction:(int64_t)direction animated:(BOOL)animated completion:(id)completion;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation QLPageViewController
@@ -60,6 +64,75 @@
 
   [(QLPageViewController *)v12 _setUp];
   return v12;
+}
+
+- (void)setCurrentPageIndex:(unint64_t)index animated:(BOOL)animated
+{
+  if (!self->_isTransitioning)
+  {
+    animatedCopy = animated;
+    scrollView = [(QLPageViewController *)self scrollView];
+    [scrollView setUserInteractionEnabled:0];
+
+    v8 = [(QLPageViewController *)self currentPageIndex]>= index;
+    currentPageIndex = [(QLPageViewController *)self currentPageIndex];
+    pages = self->_pages;
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:currentPageIndex];
+    v12 = [(NSMapTable *)pages objectForKey:v11];
+
+    v13 = self->_pages;
+    v14 = [MEMORY[0x277CCABB0] numberWithInteger:index];
+    v15 = [(NSMapTable *)v13 objectForKey:v14];
+    v16 = v15;
+    if (v15)
+    {
+      v17 = v15;
+    }
+
+    else
+    {
+      v17 = [(QLPageViewController *)self _viewControllerAtIndex:index offset:0];
+    }
+
+    v18 = v17;
+
+    if (!v12)
+    {
+      currentPageIndex = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    if (currentPageIndex != index)
+    {
+      delegate = [(QLPageViewController *)self delegate];
+      v20 = objc_opt_respondsToSelector();
+
+      if (v20)
+      {
+        delegate2 = [(QLPageViewController *)self delegate];
+        [delegate2 pageViewController:self willTransitionFromPage:v12 withIndex:currentPageIndex toPage:v18 withIndex:index animated:animatedCopy];
+      }
+    }
+
+    self->_isTransitioning = 1;
+    objc_initWeak(&location, self);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __53__QLPageViewController_setCurrentPageIndex_animated___block_invoke;
+    v24[3] = &unk_278B58060;
+    objc_copyWeak(v27, &location);
+    v27[1] = currentPageIndex;
+    v27[2] = index;
+    v24[4] = self;
+    v22 = v12;
+    v25 = v22;
+    v23 = v18;
+    v26 = v23;
+    v28 = animatedCopy;
+    [(QLPageViewController *)self _setCurrentPageIndex:index direction:v8 animated:animatedCopy completion:v24];
+
+    objc_destroyWeak(v27);
+    objc_destroyWeak(&location);
+  }
 }
 
 void __53__QLPageViewController_setCurrentPageIndex_animated___block_invoke(uint64_t a1, int a2)
@@ -127,6 +200,14 @@ void __53__QLPageViewController_setCurrentPageIndex_animated___block_invoke(uint
   return WeakRetained;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QLPageViewController;
+  [(QLPageViewController *)&v4 viewWillAppear:appear];
+  [(QLPageViewController *)self _unsetParallaxEffect];
+}
+
 - (void)_setUp
 {
   self->_currentPageIndex = 0x7FFFFFFFFFFFFFFFLL;
@@ -169,29 +250,29 @@ void __53__QLPageViewController_setCurrentPageIndex_animated___block_invoke(uint
 
 - (void)_rearrangeCachedViewControllersWithNewCurrentPageIndex:(int64_t)index
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v5 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   keyEnumerator = [(NSMapTable *)self->_pages keyEnumerator];
-  v7 = [keyEnumerator countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v7 = [keyEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         longValue = [v11 longValue];
         v13 = longValue - index;
         if (longValue - index < 0)
@@ -205,68 +286,66 @@ void __53__QLPageViewController_setCurrentPageIndex_animated___block_invoke(uint
         }
       }
 
-      v8 = [keyEnumerator countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [keyEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v8);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v14 = v5;
-  v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(NSMapTable *)self->_pages removeObjectForKey:*(*(&v20 + 1) + 8 * j), v20];
+        [(NSMapTable *)self->_pages removeObjectForKey:*(*(&v19 + 1) + 8 * j), v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_indexOfViewController:(id)controller
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_pages;
-  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [(NSMapTable *)self->_pages objectForKey:v10, v15];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [(NSMapTable *)self->_pages objectForKey:v10, v14];
 
         if (v11 == controllerCopy)
         {
@@ -275,7 +354,7 @@ void __53__QLPageViewController_setCurrentPageIndex_animated___block_invoke(uint
         }
       }
 
-      v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -288,7 +367,6 @@ void __53__QLPageViewController_setCurrentPageIndex_animated___block_invoke(uint
   unsignedIntegerValue = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 
@@ -341,7 +419,55 @@ LABEL_11:
   return index;
 }
 
-uint64_t __75__QLPageViewController__setCurrentPageIndex_direction_animated_completion___block_invoke(uint64_t a1)
+- (void)_setCurrentPageIndex:(unint64_t)index direction:(int64_t)direction animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v26[1] = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  v11 = [(QLPageViewController *)self _viewControllerAtIndex:index offset:0];
+  if (v11)
+  {
+    objc_initWeak(&location, self);
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __75__QLPageViewController__setCurrentPageIndex_direction_animated_completion___block_invoke;
+    aBlock[3] = &unk_278B58088;
+    objc_copyWeak(v23, &location);
+    aBlock[4] = self;
+    v23[1] = index;
+    v12 = _Block_copy(aBlock);
+    v13 = v12;
+    if (!animatedCopy)
+    {
+      (*(v12 + 2))(v12);
+    }
+
+    v26[0] = v11;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __75__QLPageViewController__setCurrentPageIndex_direction_animated_completion___block_invoke_2;
+    v18[3] = &unk_278B580B0;
+    v21 = animatedCopy;
+    v15 = v13;
+    v19 = v15;
+    v20 = completionCopy;
+    [(QLPageViewController *)self _setViewControllers:v14 direction:direction animated:animatedCopy completion:v18];
+
+    objc_destroyWeak(v23);
+    objc_destroyWeak(&location);
+  }
+
+  else
+  {
+    v16 = objc_opt_new();
+    v25 = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    [(QLPageViewController *)self _setViewControllers:v17 direction:direction animated:animatedCopy completion:&__block_literal_global_5];
+  }
+}
+
+void *__75__QLPageViewController__setCurrentPageIndex_direction_animated_completion___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained willChangeValueForKey:@"currentPageIndex"];
@@ -359,19 +485,42 @@ uint64_t __75__QLPageViewController__setCurrentPageIndex_direction_animated_comp
 {
   if (*(a1 + 48) == 1)
   {
-    v2 = *(a1 + 32);
     (*(*(a1 + 32) + 16))();
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
+}
+
+- (void)_setViewControllers:(id)controllers direction:(int64_t)direction animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllersCopy = controllers;
+  completionCopy = completion;
+  firstObject = [controllersCopy firstObject];
+  currentPage = [(QLPageViewController *)self currentPage];
+
+  if (firstObject == currentPage)
+  {
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, 0);
+    }
+  }
+
+  else
+  {
+    v14.receiver = self;
+    v14.super_class = QLPageViewController;
+    [(QLPageViewController *)&v14 setViewControllers:controllersCopy direction:direction animated:animatedCopy completion:completionCopy];
+  }
 }
 
 - (void)_applyParallaxEffectWithTransitionProgress:(double)progress

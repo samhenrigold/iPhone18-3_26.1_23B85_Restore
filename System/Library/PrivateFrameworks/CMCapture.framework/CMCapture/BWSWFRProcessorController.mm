@@ -200,35 +200,35 @@
         v3 = *(v1 + 64);
         v4 = [objc_msgSend(v1 "configuration")];
         v5 = [objc_msgSend(v1 "configuration")];
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __58__BWSWFRProcessorController__loadSetupAndPrepareProcessor__block_invoke;
-        v17[3] = &unk_1E7991C78;
-        v17[4] = v1;
-        return BWLoadCreateAndSetupMetalImageBufferProcessor(@"NRF", v2, @"CMI", @"SoftwareFlashRendering", v3, &unk_1F22C4628, 1, v4, v5, v17, (v1 + 72));
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __58__BWSWFRProcessorController__loadSetupAndPrepareProcessor__block_invoke;
+        v20[3] = &unk_1E7991C78;
+        v20[4] = v1;
+        return BWLoadCreateAndSetupMetalImageBufferProcessor(@"NRF", v2, @"CMI", @"SoftwareFlashRendering", v3, &unk_1F22C4628, 1, v4, v5, v20, (v1 + 72));
       }
 
       else
       {
         FigCaptureGetFrameworkRadarComponent();
-        v24 = 0;
-        v23 = 0;
+        v27[0] = 0;
+        v26 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
         v7 = *(v1 + 64);
         nrfVersion = [+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters nrfVersion];
-        v18[0] = 67109632;
-        v18[1] = v7;
-        v19 = 1024;
-        v20 = v2;
-        v21 = 1024;
-        v22 = nrfVersion;
-        v9 = OUTLINED_FUNCTION_6_0();
+        v21[0] = 67109632;
+        v21[1] = v7;
+        v22 = 1024;
+        v23 = v2;
+        v24 = 1024;
+        v25 = nrfVersion;
+        v12 = OUTLINED_FUNCTION_6_0(nrfVersion, v9, v10, v11, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
         OUTLINED_FUNCTION_11();
         OUTLINED_FUNCTION_10();
-        FigCapturePleaseFileRadar(v10, v11, v12, v13, v14, 508, v15, v16, v18);
-        free(v9);
+        FigCapturePleaseFileRadar(v13, v14, v15, v16, v17, 508, v18, v19, v21);
+        free(v12);
         return 4294954516;
       }
     }

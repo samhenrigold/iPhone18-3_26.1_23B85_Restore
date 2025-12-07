@@ -34,17 +34,17 @@
   if (formulaCopy)
   {
     v9._lower = &v10;
-    v8 = sub_221485B74(&self->_formulas.__table_.__bucket_list_.__ptr_, &v10);
+    v8 = sub_221485B74(&self->_formulas.__table_.__bucket_list_.__ptr_, &v10, &unk_2217E1E09, &v9);
     objc_storeStrong(v8 + 5, formula);
   }
 
   else if (!sub_221244B44(&self->_formulas.__table_.__bucket_list_.__ptr_, &v10))
   {
-    sub_2214858FC(&self->_nonFormulaCells.__table_.__bucket_list_.__ptr_, &v10);
+    sub_2214858FC(&self->_nonFormulaCells.__table_.__bucket_list_.__ptr_, &v10, &v10);
   }
 
   v9 = ref->_tableUID;
-  sub_2211D6484(&self->_formulaOwnerUIDs.__table_.__bucket_list_.__ptr_, &v9);
+  sub_2211D6484(&self->_formulaOwnerUIDs.__table_.__bucket_list_.__ptr_, &v9, &v9);
 }
 
 - (void)foreachFormula:(id)formula
@@ -73,20 +73,20 @@
 {
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
-  v8 = objc_msgSend_stringWithFormat_(v3, v5, @"<%@>:\n", v6, v7, v4);
+  v7 = objc_msgSend_stringWithFormat_(v3, v5, @"<%@>:\n", v6, v4);
   for (i = self->_formulas.__table_.__first_node_.__next_; i; i = *i)
   {
-    v10 = TSCECellRef::description((i + 16));
-    objc_msgSend_appendFormat_(v8, v11, @"  %@ = %@\n", v12, v13, v10, *(i + 5));
+    v9 = TSCECellRef::description((i + 16));
+    objc_msgSend_appendFormat_(v7, v10, @"  %@ = %@\n", v11, v9, *(i + 5));
   }
 
   for (j = self->_nonFormulaCells.__table_.__first_node_.__next_; j; j = *j)
   {
-    v15 = TSCECellRef::description((j + 16));
-    objc_msgSend_appendFormat_(v8, v16, @"  %@ = null\n", v17, v18, v15);
+    v13 = TSCECellRef::description((j + 16));
+    objc_msgSend_appendFormat_(v7, v14, @"  %@ = null\n", v15, v13);
   }
 
-  return v8;
+  return v7;
 }
 
 - (id).cxx_construct

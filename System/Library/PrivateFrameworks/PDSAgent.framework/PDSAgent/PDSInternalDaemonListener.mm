@@ -151,32 +151,32 @@
 
 - (void)kvStateDumpWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   kvStore = [(PDSInternalDaemonListener *)self kvStore];
   allStoredValues = [kvStore allStoredValues];
 
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = allStoredValues;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [v7 objectForKeyedSubscript:v12];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -208,14 +208,13 @@
 LABEL_13:
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
   completionCopy[2](completionCopy, v6, 0);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithKVStore:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

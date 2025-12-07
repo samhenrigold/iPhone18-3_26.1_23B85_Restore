@@ -2,6 +2,7 @@
 + (id)syncQueue;
 - (BOOL)isValidSettings:(id)settings;
 - (DefaultGKViceroyNATObserver)init;
+- (void)NATTypeDidChange:(int)change;
 - (void)_getNATTypeWithNATSettings:(id)settings completionHandler:(id)handler;
 - (void)dealloc;
 - (void)getNATTypeWithNATSettings:(id)settings completionHandler:(id)handler;
@@ -95,28 +96,28 @@ uint64_t __40__DefaultGKViceroyNATObserver_syncQueue__block_invoke()
 
 - (BOOL)isValidSettings:(id)settings
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = +[GKViceroyNATConfiguration settingsKeys];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [settingsCopy objectForKey:v9];
 
         if (!v10)
@@ -137,7 +138,7 @@ uint64_t __40__DefaultGKViceroyNATObserver_syncQueue__block_invoke()
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -150,13 +151,12 @@ uint64_t __40__DefaultGKViceroyNATObserver_syncQueue__block_invoke()
   v11 = 1;
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)_getNATTypeWithNATSettings:(id)settings completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   handlerCopy = handler;
   if ([(DefaultGKViceroyNATObserver *)self natType])
@@ -188,18 +188,18 @@ LABEL_2:
     {
       if (!os_log_GKGeneral)
       {
-        v15 = GKOSLoggers();
+        v14 = GKOSLoggers();
       }
 
-      v16 = os_log_GKMatch;
+      v15 = os_log_GKMatch;
       if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_INFO))
       {
-        v17 = MEMORY[0x277CCABB0];
-        v18 = v16;
-        v19 = [v17 numberWithUnsignedInt:{-[DefaultGKViceroyNATObserver natType](self, "natType")}];
-        v20 = 138412290;
-        v21 = v19;
-        _os_log_impl(&dword_227904000, v18, OS_LOG_TYPE_INFO, "[GKViceroyNATObserver] Done waiting for valid NAT type: %@", &v20, 0xCu);
+        v16 = MEMORY[0x277CCABB0];
+        v17 = v15;
+        v18 = [v16 numberWithUnsignedInt:{-[DefaultGKViceroyNATObserver natType](self, "natType")}];
+        v19 = 138412290;
+        v20 = v18;
+        _os_log_impl(&dword_227904000, v17, OS_LOG_TYPE_INFO, "[GKViceroyNATObserver] Done waiting for valid NAT type: %@", &v19, 0xCu);
       }
 
       goto LABEL_2;
@@ -235,8 +235,6 @@ LABEL_2:
   }
 
 LABEL_20:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)teardown
@@ -264,13 +262,74 @@ LABEL_20:
   }
 }
 
+- (void)NATTypeDidChange:(int)change
+{
+  v3 = *&change;
+  v14 = *MEMORY[0x277D85DE8];
+  if (!os_log_GKGeneral)
+  {
+    v5 = GKOSLoggers();
+  }
+
+  v6 = os_log_GKMatch;
+  if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_INFO))
+  {
+    v13[0] = 67109120;
+    v13[1] = v3;
+    _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "[GKViceroyNATObserver] Received NAT type %d", v13, 8u);
+  }
+
+  natSemaphore = [(DefaultGKViceroyNATObserver *)self natSemaphore];
+  v8 = dispatch_semaphore_wait(natSemaphore, 0);
+
+  if (v8)
+  {
+    if (v3)
+    {
+      [(DefaultGKViceroyNATObserver *)self setNatType:v3];
+      standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+      [standardUserDefaults setInteger:v3 forKey:@"natType"];
+
+      natSemaphore2 = [(DefaultGKViceroyNATObserver *)self natSemaphore];
+      dispatch_semaphore_signal(natSemaphore2);
+    }
+
+    else
+    {
+      if (!os_log_GKGeneral)
+      {
+        v12 = GKOSLoggers();
+      }
+
+      if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_DEBUG))
+      {
+        [DefaultGKViceroyNATObserver NATTypeDidChange:];
+      }
+    }
+  }
+
+  else
+  {
+    if (!os_log_GKGeneral)
+    {
+      v11 = GKOSLoggers();
+    }
+
+    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_DEBUG))
+    {
+      [DefaultGKViceroyNATObserver NATTypeDidChange:];
+    }
+
+    [(DefaultGKViceroyNATObserver *)self teardown];
+  }
+}
+
 - (void)isValidSettings:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "[GKViceroyNATObserver] Missing required setting: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "[GKViceroyNATObserver] Missing required setting: %@", &v2, 0xCu);
 }
 
 @end

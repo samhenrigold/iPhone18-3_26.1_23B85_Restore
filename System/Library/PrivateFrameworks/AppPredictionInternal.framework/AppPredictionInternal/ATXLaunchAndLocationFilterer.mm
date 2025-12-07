@@ -11,7 +11,7 @@
 
 + (BOOL)locationIsStaleOrNotAccurateEnough:(id)enough now:(id)now
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   enoughCopy = enough;
   nowCopy = now;
   timestamp = [enoughCopy timestamp];
@@ -20,42 +20,41 @@
 
   if (v9 <= 100.0)
   {
-    [enoughCopy horizontalAccuracy];
-    if (v12 <= 100.0)
+    horizontalAccuracy = [enoughCopy horizontalAccuracy];
+    if (v14 <= 100.0)
     {
-      v14 = 0;
+      v16 = 0;
       goto LABEL_10;
     }
 
-    v10 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_hero(horizontalAccuracy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       [enoughCopy horizontalAccuracy];
-      v17 = 134217984;
-      v18 = v13;
-      v11 = ": Location uncertainty too large, horizontalAccuracy, %f. Ignoring.";
+      v18 = 134217984;
+      v19 = v15;
+      v12 = ": Location uncertainty too large, horizontalAccuracy, %f. Ignoring.";
       goto LABEL_7;
     }
   }
 
   else
   {
-    v10 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_hero(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 134217984;
-      v18 = v9;
-      v11 = ": Location is stale. Age: %f. Ignoring.";
+      v18 = 134217984;
+      v19 = v9;
+      v12 = ": Location is stale. Age: %f. Ignoring.";
 LABEL_7:
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, v11, &v17, 0xCu);
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, v12, &v18, 0xCu);
     }
   }
 
-  v14 = 1;
+  v16 = 1;
 LABEL_10:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v16;
 }
 
 + (BOOL)appBundleIdIsBlacklisted:(id)blacklisted blacklist:(id)blacklist
@@ -63,59 +62,58 @@ LABEL_10:
   v12 = *MEMORY[0x277D85DE8];
   blacklistedCopy = blacklisted;
   v6 = [blacklist containsObject:blacklistedCopy];
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_hero(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412290;
       v11 = blacklistedCopy;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, ": Bundle Id is blacklisted. Bundle Id: %@. Ignoring.", &v10, 0xCu);
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, ": Bundle Id is blacklisted. Bundle Id: %@. Ignoring.", &v10, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 + (BOOL)genreIdIsBlacklistedGivenAppBundleId:(id)id blacklist:(id)blacklist
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   idCopy = id;
   blacklistCopy = blacklist;
   v7 = +[_ATXAppInfoManager sharedInstance];
   v8 = [v7 genreIdForBundleId:idCopy];
 
-  v9 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = __atxlog_handle_hero(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = v8;
-    v16 = 2112;
-    v17 = idCopy;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "GenreId: %@, BundleId: %@.", &v14, 0x16u);
+    v15 = 138412546;
+    v16 = v8;
+    v17 = 2112;
+    v18 = idCopy;
+    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "GenreId: %@, BundleId: %@.", &v15, 0x16u);
   }
 
-  if (v8 && ![blacklistCopy containsObject:v8])
+  if (v8 && (v11 = [blacklistCopy containsObject:v8], !v11))
   {
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v10 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_hero(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, ": Genre Id is blacklisted. Genre Id: %@. Ignoring.", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = v8;
+      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, ": Genre Id is blacklisted. Genre Id: %@. Ignoring.", &v15, 0xCu);
     }
 
-    v11 = 1;
+    v13 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v13;
 }
 
 + (BOOL)shouldSampleWithCounterKey:(id)key date:(id)date samplingRate:(double)rate maxSamples:(unint64_t)samples
@@ -131,62 +129,63 @@ LABEL_10:
 
   v17 = [v14 integerForKey:v16];
   v18 = [v14 stringForKey:v15];
+  v19 = v18;
   if (v18)
   {
-    v19 = 1;
+    v20 = 1;
   }
 
   else
   {
-    v19 = v17 == 0;
+    v20 = v17 == 0;
   }
 
-  if (v19)
+  if (v20)
   {
-    v20 = [self _formattedStringForDate:dateCopy];
-    v21 = v20;
-    if (v18)
+    v21 = [self _formattedStringForDate:dateCopy];
+    v22 = v21;
+    if (v19)
     {
-      v22 = [v20 isEqualToString:v18];
-      v23 = [_ATXAggregateLogger yesWithProbability:rate];
-      if (v22)
+      v23 = [v21 isEqualToString:v19];
+      v24 = [_ATXAggregateLogger yesWithProbability:rate];
+      if (v23)
       {
-        v24 = v17 >= samples;
+        v25 = v17 >= samples;
       }
 
       else
       {
-        v24 = 0;
+        v25 = 0;
       }
 
-      if (v24)
+      if (v25)
       {
-        v25 = __atxlog_handle_hero();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v26 = __atxlog_handle_hero(v24);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           v32 = 134217984;
           rateCopy = *&v17;
-          v26 = ": Already reached per device max daily samples: %lu. Ignoring.";
+          v27 = ": Already reached per device max daily samples: %lu. Ignoring.";
           goto LABEL_21;
         }
 
 LABEL_22:
 
-        v29 = 0;
+        v30 = 0;
         goto LABEL_23;
       }
 
-      if (!v23)
+      if ((v24 & 1) == 0)
       {
 LABEL_12:
-        v25 = __atxlog_handle_hero();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v26 = __atxlog_handle_hero(v24);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           v32 = 134217984;
           rateCopy = rate;
-          v26 = ": Did not pass sampling. Sampling rate: %f. Ignoring.";
+          v27 = ": Did not pass sampling. Sampling rate: %f. Ignoring.";
 LABEL_21:
-          _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, v26, &v32, 0xCu);
+          _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEFAULT, v27, &v32, 0xCu);
           goto LABEL_22;
         }
 
@@ -194,34 +193,37 @@ LABEL_21:
       }
     }
 
-    else if (![_ATXAggregateLogger yesWithProbability:rate])
+    else
     {
-      goto LABEL_12;
+      v24 = [_ATXAggregateLogger yesWithProbability:rate];
+      if ((v24 & 1) == 0)
+      {
+        goto LABEL_12;
+      }
     }
 
-    v29 = 1;
+    v30 = 1;
 LABEL_23:
 
     goto LABEL_24;
   }
 
-  v27 = __atxlog_handle_default();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v28 = __atxlog_handle_default(v18);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    [ATXLaunchAndLocationFilterer shouldSampleWithCounterKey:v27 date:? samplingRate:? maxSamples:?];
+    [ATXLaunchAndLocationFilterer shouldSampleWithCounterKey:v28 date:? samplingRate:? maxSamples:?];
   }
 
   [v14 setInteger:0 forKey:v16];
-  v29 = 0;
+  v30 = 0;
 LABEL_24:
 
-  v30 = *MEMORY[0x277D85DE8];
-  return v29;
+  return v30;
 }
 
 + (void)incrementOnDeviceDailySamplesWithCounterKey:(id)key date:(id)date
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEBD0];
   dateCopy = date;
   keyCopy = key;
@@ -236,36 +238,32 @@ LABEL_24:
   if (v13 && [v14 isEqualToString:v13])
   {
     v15 = [v10 integerForKey:v12] + 1;
-    [v10 setInteger:v15 forKey:v12];
-    v16 = __atxlog_handle_hero();
+    v16 = __atxlog_handle_hero([v10 setInteger:v15 forKey:v12]);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 134217984;
-      v22 = v15;
+      v20 = 134217984;
+      v21 = v15;
       v17 = ": Increased daily sample count to: %lu";
       v18 = v16;
       v19 = 12;
 LABEL_7:
-      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, v17, &v21, v19);
+      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, v17, &v20, v19);
     }
   }
 
   else
   {
     [v10 setInteger:1 forKey:v12];
-    [v10 setObject:v14 forKey:v11];
-    v16 = __atxlog_handle_hero();
+    v16 = __atxlog_handle_hero([v10 setObject:v14 forKey:v11]);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
+      LOWORD(v20) = 0;
       v17 = ": Received first sample of the day. Set daily sample count to 1.";
       v18 = v16;
       v19 = 2;
       goto LABEL_7;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_formattedStringForDate:(id)date

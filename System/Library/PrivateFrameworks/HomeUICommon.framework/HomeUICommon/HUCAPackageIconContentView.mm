@@ -6,6 +6,7 @@
 - (HUCAPackageIconContentView)initWithFrame:(CGRect)frame;
 - (void)_applyModifiers;
 - (void)_tryRenouncePackageForIconDescriptor:(id)descriptor;
+- (void)_updateStateAnimated:(BOOL)animated;
 - (void)_updateWithPackage:(id)package animated:(BOOL)animated;
 - (void)dealloc;
 - (void)layoutRootLayer;
@@ -14,6 +15,8 @@
 - (void)renounceIconIfPossible;
 - (void)setState:(id)state animated:(BOOL)animated;
 - (void)stateController:(id)controller transitionDidStart:(id)start speed:(float)speed;
+- (void)stateController:(id)controller transitionDidStop:(id)stop completed:(BOOL)completed;
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated;
 @end
 
 @implementation HUCAPackageIconContentView
@@ -122,7 +125,7 @@
 - (void)setState:(id)state animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   stateController = [(HUCAPackageIconContentView *)self stateController];
   rootLayer = [(HUCAPackageIconContentView *)self rootLayer];
@@ -169,11 +172,11 @@ LABEL_8:
     {
       iconDescriptor = [(HUIconContentView *)self iconDescriptor];
       identifier = [iconDescriptor identifier];
-      v26 = 138412546;
-      v27 = stateCopy;
-      v28 = 2112;
-      v29 = identifier;
-      _os_log_error_impl(&dword_254573000, v19, OS_LOG_TYPE_ERROR, "Failed to identify state named: %@ for iconDescriptor: %@", &v26, 0x16u);
+      v25 = 138412546;
+      v26 = stateCopy;
+      v27 = 2112;
+      v28 = identifier;
+      _os_log_error_impl(&dword_254573000, v19, OS_LOG_TYPE_ERROR, "Failed to identify state named: %@ for iconDescriptor: %@", &v25, 0x16u);
     }
 
     v12 = 0;
@@ -197,8 +200,6 @@ LABEL_12:
       [stateController5 setState:v12 ofLayer:rootLayer2];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWithPackage:(id)package animated:(BOOL)animated
@@ -354,6 +355,13 @@ HUCAPackageLayer *__58__HUCAPackageIconContentView__updateWithPackage_animated__
   return v9;
 }
 
+- (void)_updateStateAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  stateName = [(HUCAPackageIconContentView *)self stateName];
+  [(HUCAPackageIconContentView *)self setState:stateName animated:animatedCopy];
+}
+
 - (void)_applyModifiers
 {
   objc_opt_class();
@@ -441,6 +449,98 @@ LABEL_7:
 LABEL_8:
 }
 
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  descriptorCopy = descriptor;
+  iconDescriptor = [(HUIconContentView *)self iconDescriptor];
+  identifier = [iconDescriptor identifier];
+  identifier2 = [descriptorCopy identifier];
+  v12 = [identifier isEqualToString:identifier2];
+
+  v29.receiver = self;
+  v29.super_class = HUCAPackageIconContentView;
+  [(HUIconContentView *)&v29 updateWithIconDescriptor:descriptorCopy displayStyle:style animated:animatedCopy];
+  objc_opt_class();
+  v13 = descriptorCopy;
+  if (objc_opt_isKindOfClass())
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = v14;
+
+  if (v15)
+  {
+    styleCopy = style;
+    v16 = animatedCopy;
+    identifier3 = [v13 identifier];
+    renouncedPackageDescriptor = [(HUCAPackageIconContentView *)self renouncedPackageDescriptor];
+    identifier4 = [renouncedPackageDescriptor identifier];
+    v20 = [identifier3 isEqualToString:identifier4];
+
+    if (!v12 || v20)
+    {
+      [(HUCAPackageIconContentView *)self _tryRenouncePackageForIconDescriptor:iconDescriptor];
+      if (v20)
+      {
+        package = [(HUCAPackageIconContentView *)self package];
+      }
+
+      else
+      {
+        package = 0;
+      }
+
+      v21 = v16;
+      -[HUCAPackageIconContentView _updateWithPackage:animated:](self, "_updateWithPackage:animated:", package, [MEMORY[0x277D14438] iconDescriptorShouldAlwaysAnimate:v15]);
+      v22 = styleCopy;
+      if (v20)
+      {
+      }
+
+      if (iconDescriptor)
+      {
+        v21 = [MEMORY[0x277D14438] iconDescriptorShouldAlwaysAnimate:v15];
+      }
+    }
+
+    else
+    {
+      v21 = v16;
+      v22 = styleCopy;
+    }
+
+    state = [v15 state];
+    if (v22 == 2)
+    {
+      v25 = HFVibrantStateForHFCAPackageState();
+      [(HUCAPackageIconContentView *)self setStateName:v25];
+    }
+
+    else
+    {
+      [(HUCAPackageIconContentView *)self setStateName:state];
+    }
+
+    [(HUCAPackageIconContentView *)self _updateStateAnimated:v21];
+    CGAffineTransformMakeScale(&v28, 1.0, 1.0);
+    v27 = v28;
+    [(HUCAPackageIconContentView *)self setTransform:&v27];
+    [(HUCAPackageIconContentView *)self _applyModifiers];
+  }
+
+  else
+  {
+    NSLog(&cfstr_NoCaPackageDes.isa);
+  }
+}
+
 - (void)reclaimIconIfPossible
 {
   iconDescriptor = [(HUIconContentView *)self iconDescriptor];
@@ -476,6 +576,12 @@ LABEL_8:
 {
   v5 = [(HUCAPackageIconContentView *)self rootLayer:controller];
   [v5 setShouldRasterize:0];
+}
+
+- (void)stateController:(id)controller transitionDidStop:(id)stop completed:(BOOL)completed
+{
+  v5 = [(HUCAPackageIconContentView *)self rootLayer:controller];
+  [v5 setShouldRasterize:1];
 }
 
 - (CGSize)assetSize

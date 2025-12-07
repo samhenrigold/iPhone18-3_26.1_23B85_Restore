@@ -24,14 +24,15 @@
 
 - (id)proxyServiceEndpointFromSource:(id)source serviceIdentifier:(id)identifier error:(id *)error
 {
-  sub_251A4928C();
+  v7 = sub_251A4928C();
+  v9 = v8;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_251A3C660();
+  v11 = sub_251A3C660(source, v7, v9);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v11;
 }
 
 - (_TtC20HealthRecordServices32HealthRecordsDaemonProxyProvider)initWithSource:(id)source serviceIdentifier:(id)identifier exportedObject:(id)object exportedInterface:(id)interface remoteInterface:(id)remoteInterface

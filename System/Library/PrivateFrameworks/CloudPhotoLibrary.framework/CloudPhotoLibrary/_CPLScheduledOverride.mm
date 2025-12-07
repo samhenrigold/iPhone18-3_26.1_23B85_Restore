@@ -99,7 +99,7 @@ LABEL_10:
 
 - (BOOL)scheduleEndOfOverride
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   expirationDateStorageKey = self->_expirationDateStorageKey;
   if (expirationDateStorageKey)
@@ -108,24 +108,24 @@ LABEL_10:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v24 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v23 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v25 = NSStringFromSelector(a2);
-          v26 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
+          v24 = NSStringFromSelector(a2);
+          v25 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
           *buf = 138412546;
-          v32 = *&v25;
-          v33 = 2112;
-          v34 = v26;
-          _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "%@ called to many times for %@", buf, 0x16u);
+          v31 = *&v24;
+          v32 = 2112;
+          v33 = v25;
+          _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "%@ called to many times for %@", buf, 0x16u);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSystemMonitor.m"];
-      v29 = NSStringFromSelector(a2);
-      v30 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
-      [currentHandler handleFailureInMethod:a2 object:self file:v28 lineNumber:1274 description:{@"%@ called to many times for %@", v29, v30}];
+      v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSystemMonitor.m"];
+      v28 = NSStringFromSelector(a2);
+      v29 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
+      [currentHandler handleFailureInMethod:a2 object:self file:v27 lineNumber:1274 description:{@"%@ called to many times for %@", v28, v29}];
 
       abort();
     }
@@ -153,9 +153,9 @@ LABEL_10:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        v32 = v6;
-        v33 = 2048;
-        v34 = 0x40F5180000000000;
+        v31 = v6;
+        v32 = 2048;
+        v33 = 0x40F5180000000000;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Override duration is too long (%.0fs) - will cap at %.0fs", buf, 0x16u);
       }
     }
@@ -206,180 +206,174 @@ LABEL_10:
     [(_CPLScheduledOverride *)self _scheduleEndWithTimeInterval:v7];
   }
 
-  result = expirationDateStorageKey != 0;
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return expirationDateStorageKey != 0;
 }
 
 - (BOOL)scheduleEndFromPersistedOverride
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  if (self->_expirationDateStorageKey)
+  if (!self->_expirationDateStorageKey)
   {
-    if (self->_endDate)
+    return 0;
+  }
+
+  if (self->_endDate)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
     {
-      if ((_CPLSilentLogging & 1) == 0)
+      v27 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v28 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-        {
-          v29 = NSStringFromSelector(a2);
-          v30 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
-          *buf = 138412546;
-          v36 = v29;
-          v37 = 2112;
-          v38 = v30;
-          _os_log_impl(&dword_1DC05A000, v28, OS_LOG_TYPE_ERROR, "%@ called to many times for %@", buf, 0x16u);
-        }
+        v28 = NSStringFromSelector(a2);
+        v29 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
+        *buf = 138412546;
+        v35 = v28;
+        v36 = 2112;
+        v37 = v29;
+        _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_ERROR, "%@ called to many times for %@", buf, 0x16u);
       }
-
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSystemMonitor.m"];
-      v33 = NSStringFromSelector(a2);
-      v34 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
-      [currentHandler handleFailureInMethod:a2 object:self file:v32 lineNumber:1225 description:{@"%@ called to many times for %@", v33, v34}];
-
-      abort();
     }
 
-    standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-    v5 = [standardUserDefaults objectForKey:self->_expirationDateStorageKey];
-    endDate = self->_endDate;
-    self->_endDate = v5;
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSystemMonitor.m"];
+    v32 = NSStringFromSelector(a2);
+    v33 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
+    [currentHandler handleFailureInMethod:a2 object:self file:v31 lineNumber:1225 description:{@"%@ called to many times for %@", v32, v33}];
 
-    standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v8 = [standardUserDefaults2 objectForKey:self->_overrideReasonKey];
+    abort();
+  }
 
-    if (self->_endDate && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  v5 = [standardUserDefaults objectForKey:self->_expirationDateStorageKey];
+  endDate = self->_endDate;
+  self->_endDate = v5;
+
+  standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
+  v8 = [standardUserDefaults2 objectForKey:self->_overrideReasonKey];
+
+  if (self->_endDate && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v12 = __CPLSystemMonitorOSLogDomain();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        expirationDateStorageKey = self->_expirationDateStorageKey;
+        v14 = self->_endDate;
+        *buf = 138543874;
+        v35 = expirationDateStorageKey;
+        v36 = 2112;
+        v37 = v14;
+        v38 = 2114;
+        v39 = objc_opt_class();
+        v15 = v39;
+        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Incorrect value for %{public}@: %@ (%{public}@)", buf, 0x20u);
+      }
+    }
+
+    v16 = self->_endDate;
+    self->_endDate = 0;
+  }
+
+  else if (v8)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      if (self->_endDate)
+      {
+        v9 = self->_reason - 1;
+        v10 = v9 > 3 ? @"forced by user" : off_1E861FD50[v9];
+        if ([(__CFString *)v10 isEqualToString:v8])
+        {
+          [(NSDate *)self->_endDate timeIntervalSinceNow];
+          if (v20 <= 0.0)
+          {
+            standardUserDefaults3 = [MEMORY[0x1E695E000] standardUserDefaults];
+            [standardUserDefaults3 removeObjectForKey:self->_expirationDateStorageKey];
+
+            standardUserDefaults4 = [MEMORY[0x1E695E000] standardUserDefaults];
+            [standardUserDefaults4 removeObjectForKey:self->_overrideReasonKey];
+          }
+
+          else
+          {
+            v21 = v20;
+            v22 = 86400.0;
+            if (v20 <= 86400.0)
+            {
+              v22 = v20;
+            }
+
+            else if ((_CPLSilentLogging & 1) == 0)
+            {
+              v23 = __CPLSystemMonitorOSLogDomain();
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 134218240;
+                v35 = *&v21;
+                v36 = 2048;
+                v37 = 0x40F5180000000000;
+                _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "Override duration is too long (%.0fs) - will cap at %.0fs", buf, 0x16u);
+              }
+            }
+
+            [(_CPLScheduledOverride *)self _scheduleEndWithTimeInterval:v22];
+          }
+        }
+      }
+    }
+
+    else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v12 = __CPLSystemMonitorOSLogDomain();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v17 = __CPLSystemMonitorOSLogDomain();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          expirationDateStorageKey = self->_expirationDateStorageKey;
-          v14 = self->_endDate;
+          overrideReasonKey = self->_overrideReasonKey;
           *buf = 138543874;
-          v36 = expirationDateStorageKey;
-          v37 = 2112;
-          v38 = v14;
-          v39 = 2114;
-          v40 = objc_opt_class();
-          v15 = v40;
-          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Incorrect value for %{public}@: %@ (%{public}@)", buf, 0x20u);
+          v35 = overrideReasonKey;
+          v36 = 2112;
+          v37 = v8;
+          v38 = 2114;
+          v39 = objc_opt_class();
+          v19 = v39;
+          _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Incorrect value for %{public}@: %@ (%{public}@)", buf, 0x20u);
         }
       }
 
-      v16 = self->_endDate;
-      self->_endDate = 0;
+      v8 = 0;
     }
-
-    else if (v8)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        if (self->_endDate)
-        {
-          v9 = self->_reason - 1;
-          v10 = v9 > 3 ? @"forced by user" : off_1E861FD50[v9];
-          if ([(__CFString *)v10 isEqualToString:v8])
-          {
-            [(NSDate *)self->_endDate timeIntervalSinceNow];
-            if (v20 <= 0.0)
-            {
-              standardUserDefaults3 = [MEMORY[0x1E695E000] standardUserDefaults];
-              [standardUserDefaults3 removeObjectForKey:self->_expirationDateStorageKey];
-
-              standardUserDefaults4 = [MEMORY[0x1E695E000] standardUserDefaults];
-              [standardUserDefaults4 removeObjectForKey:self->_overrideReasonKey];
-            }
-
-            else
-            {
-              v21 = v20;
-              v22 = 86400.0;
-              if (v20 <= 86400.0)
-              {
-                v22 = v20;
-              }
-
-              else if ((_CPLSilentLogging & 1) == 0)
-              {
-                v23 = __CPLSystemMonitorOSLogDomain();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 134218240;
-                  v36 = *&v21;
-                  v37 = 2048;
-                  v38 = 0x40F5180000000000;
-                  _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "Override duration is too long (%.0fs) - will cap at %.0fs", buf, 0x16u);
-                }
-              }
-
-              [(_CPLScheduledOverride *)self _scheduleEndWithTimeInterval:v22];
-            }
-          }
-        }
-      }
-
-      else
-      {
-        if ((_CPLSilentLogging & 1) == 0)
-        {
-          v17 = __CPLSystemMonitorOSLogDomain();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-          {
-            overrideReasonKey = self->_overrideReasonKey;
-            *buf = 138543874;
-            v36 = overrideReasonKey;
-            v37 = 2112;
-            v38 = v8;
-            v39 = 2114;
-            v40 = objc_opt_class();
-            v19 = v40;
-            _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Incorrect value for %{public}@: %@ (%{public}@)", buf, 0x20u);
-          }
-        }
-
-        v8 = 0;
-      }
-    }
-
-    v11 = self->_timer != 0;
   }
 
-  else
-  {
-    v11 = 0;
-  }
+  v11 = self->_timer != 0;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)_scheduleEndWithTimeInterval:(double)interval
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self->_timer)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
+        v13 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
         *buf = 138412290;
-        v22 = v14;
-        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Timer for end of system budget override %@ called too many times", buf, 0xCu);
+        v21 = v13;
+        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Timer for end of system budget override %@ called too many times", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSystemMonitor.m"];
-    v17 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
-    [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:1200 description:{@"Timer for end of system budget override %@ called too many times", v17}];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSystemMonitor.m"];
+    v16 = [CPLEngineSystemMonitor descriptionForBudget:self->_budget];
+    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:1200 description:{@"Timer for end of system budget override %@ called too many times", v16}];
 
     abort();
   }
@@ -390,7 +384,7 @@ LABEL_10:
   handler[2] = __54___CPLScheduledOverride__scheduleEndWithTimeInterval___block_invoke;
   handler[3] = &unk_1E861B290;
   v6 = v5;
-  v19 = v6;
+  v18 = v6;
   selfCopy = self;
   dispatch_source_set_event_handler(v6, handler);
   intervalCopy = interval;
@@ -405,8 +399,6 @@ LABEL_10:
   timer = self->_timer;
   self->_timer = v6;
   v10 = v6;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (_CPLScheduledOverride)initWithBudget:(unint64_t)budget withReason:(unint64_t)reason queue:(id)queue
@@ -468,21 +460,19 @@ LABEL_10:
 
 + (id)_expirationDateStorageKeyForBudget:(unint64_t)budget
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (budget > 15)
   {
     if (budget > 2047)
     {
       if (budget == 2048)
       {
-        result = @"CPLOverrideThermalModerateExpirationDate";
-        goto LABEL_25;
+        return @"CPLOverrideThermalModerateExpirationDate";
       }
 
       if (budget == 0x4000)
       {
-        result = @"CPLOverrideAllOtherExpirationDate";
-        goto LABEL_25;
+        return @"CPLOverrideAllOtherExpirationDate";
       }
     }
 
@@ -490,14 +480,12 @@ LABEL_10:
     {
       if (budget == 16)
       {
-        result = @"CPLOverrideLowDataModeBudgetExpirationDate";
-        goto LABEL_25;
+        return @"CPLOverrideLowDataModeBudgetExpirationDate";
       }
 
       if (budget == 32)
       {
-        result = @"CPLOverrideLowPowerModeBudgetExpirationDate";
-        goto LABEL_25;
+        return @"CPLOverrideLowPowerModeBudgetExpirationDate";
       }
     }
   }
@@ -506,14 +494,12 @@ LABEL_10:
   {
     if (budget == 4)
     {
-      result = @"CPLOverrideSignificantWorkBudgetExpirationDate";
-      goto LABEL_25;
+      return @"CPLOverrideSignificantWorkBudgetExpirationDate";
     }
 
     if (budget == 8)
     {
-      result = @"CPLOverrideForegroundBudgetExpirationDate";
-      goto LABEL_25;
+      return @"CPLOverrideForegroundBudgetExpirationDate";
     }
   }
 
@@ -521,14 +507,12 @@ LABEL_10:
   {
     if (budget == 1)
     {
-      result = @"CPLOverrideDataBudgetExpirationDate";
-      goto LABEL_25;
+      return @"CPLOverrideDataBudgetExpirationDate";
     }
 
     if (budget == 2)
     {
-      result = @"CPLOverrideEnergyBudgetExpirationDate";
-      goto LABEL_25;
+      return @"CPLOverrideEnergyBudgetExpirationDate";
     }
   }
 
@@ -538,16 +522,13 @@ LABEL_10:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = [CPLEngineSystemMonitor descriptionForBudget:budget];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Unknown system budget %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Unknown system budget %{public}@", &v7, 0xCu);
     }
   }
 
-  result = 0;
-LABEL_25:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 + (id)budgetOverrideReasonStorageKeyForBudget:(unint64_t)budget

@@ -12,8 +12,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"isFocused";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"isFocused";
   isFocused = self->_isFocused;
   null = isFocused;
   if (!isFocused)
@@ -21,13 +21,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!isFocused)
   {
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -8,12 +8,10 @@
 
 - (NSString)collaborationIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC17SharedWithYouCore21SWClearMessagesAction_collaborationIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC17SharedWithYouCore21SWClearMessagesAction_collaborationIdentifier + 8);
 
-  v4 = sub_1D2C307A8();
+  v2 = sub_1D2C307A8();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC17SharedWithYouCore21SWClearMessagesAction)initWithCollaborationIdentifier:(id)identifier

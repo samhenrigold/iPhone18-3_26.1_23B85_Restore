@@ -296,7 +296,8 @@
         objc_opt_class();
         objc_opt_isKindOfClass();
         traitCollection = [(UICollectionView *)self->super._collectionView traitCollection];
-        +[DirectionsStepTableViewCell cellMetricsForIdiom:](DirectionsStepTableViewCell, "cellMetricsForIdiom:", [traitCollection userInterfaceIdiom]);
+        [traitCollection userInterfaceIdiom];
+        objc_msgSend_cellMetricsForIdiom_(DirectionsStepTableViewCell);
         v6 = v18 + v16 + v17;
       }
 

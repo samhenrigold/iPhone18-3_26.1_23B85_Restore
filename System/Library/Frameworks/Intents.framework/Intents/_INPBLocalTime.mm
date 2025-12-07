@@ -91,38 +91,38 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
+  v12 = 0;
+  if ([equalCopy isMemberOfClass:objc_opt_class()])
   {
-    goto LABEL_15;
-  }
-
-  hasHourOfDay = [(_INPBLocalTime *)self hasHourOfDay];
-  if (hasHourOfDay != [equalCopy hasHourOfDay])
-  {
-    goto LABEL_15;
-  }
-
-  if ([(_INPBLocalTime *)self hasHourOfDay])
-  {
-    if ([equalCopy hasHourOfDay])
+    hasHourOfDay = [(_INPBLocalTime *)self hasHourOfDay];
+    if (hasHourOfDay == [equalCopy hasHourOfDay])
     {
-      hourOfDay = self->_hourOfDay;
-      if (hourOfDay != [equalCopy hourOfDay])
+      if (!-[_INPBLocalTime hasHourOfDay](self, "hasHourOfDay") || ![equalCopy hasHourOfDay] || (hourOfDay = self->_hourOfDay, hourOfDay == objc_msgSend(equalCopy, "hourOfDay")))
       {
-        goto LABEL_15;
+        hasMillisOfSecond = [(_INPBLocalTime *)self hasMillisOfSecond];
+        if (hasMillisOfSecond == [equalCopy hasMillisOfSecond])
+        {
+          if (!-[_INPBLocalTime hasMillisOfSecond](self, "hasMillisOfSecond") || ![equalCopy hasMillisOfSecond] || (millisOfSecond = self->_millisOfSecond, millisOfSecond == objc_msgSend(equalCopy, "millisOfSecond")))
+          {
+            hasMinuteOfHour = [(_INPBLocalTime *)self hasMinuteOfHour];
+            if (hasMinuteOfHour == [equalCopy hasMinuteOfHour])
+            {
+              if (!-[_INPBLocalTime hasMinuteOfHour](self, "hasMinuteOfHour") || ![equalCopy hasMinuteOfHour] || (minuteOfHour = self->_minuteOfHour, minuteOfHour == objc_msgSend(equalCopy, "minuteOfHour")))
+              {
+                hasSecondOfMinute = [(_INPBLocalTime *)self hasSecondOfMinute];
+                if (hasSecondOfMinute == [equalCopy hasSecondOfMinute])
+                {
+                  if (!-[_INPBLocalTime hasSecondOfMinute](self, "hasSecondOfMinute") || ![equalCopy hasSecondOfMinute] || (secondOfMinute = self->_secondOfMinute, secondOfMinute == objc_msgSend(equalCopy, "secondOfMinute")))
+                  {
+                    v12 = 1;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
-  }
-
-  if ((v7 = -[_INPBLocalTime hasMillisOfSecond](self, "hasMillisOfSecond"), v7 == [equalCopy hasMillisOfSecond]) && (!-[_INPBLocalTime hasMillisOfSecond](self, "hasMillisOfSecond") || !objc_msgSend(equalCopy, "hasMillisOfSecond") || (millisOfSecond = self->_millisOfSecond, millisOfSecond == objc_msgSend(equalCopy, "millisOfSecond"))) && (v9 = -[_INPBLocalTime hasMinuteOfHour](self, "hasMinuteOfHour"), v9 == objc_msgSend(equalCopy, "hasMinuteOfHour")) && (!-[_INPBLocalTime hasMinuteOfHour](self, "hasMinuteOfHour") || !objc_msgSend(equalCopy, "hasMinuteOfHour") || (minuteOfHour = self->_minuteOfHour, minuteOfHour == objc_msgSend(equalCopy, "minuteOfHour"))) && (v11 = -[_INPBLocalTime hasSecondOfMinute](self, "hasSecondOfMinute"), v11 == objc_msgSend(equalCopy, "hasSecondOfMinute")) && (!-[_INPBLocalTime hasSecondOfMinute](self, "hasSecondOfMinute") || !objc_msgSend(equalCopy, "hasSecondOfMinute") || (secondOfMinute = self->_secondOfMinute, secondOfMinute == objc_msgSend(equalCopy, "secondOfMinute"))))
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_15:
-    v12 = 0;
   }
 
   return v12;
@@ -183,25 +183,21 @@ LABEL_15:
   toCopy = to;
   if ([(_INPBLocalTime *)self hasHourOfDay])
   {
-    hourOfDay = self->_hourOfDay;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_INPBLocalTime *)self hasMillisOfSecond])
   {
-    millisOfSecond = self->_millisOfSecond;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_INPBLocalTime *)self hasMinuteOfHour])
   {
-    minuteOfHour = self->_minuteOfHour;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_INPBLocalTime *)self hasSecondOfMinute])
   {
-    secondOfMinute = self->_secondOfMinute;
     PBDataWriterWriteInt64Field();
   }
 }

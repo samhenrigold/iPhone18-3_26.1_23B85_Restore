@@ -150,27 +150,27 @@
   return v5;
 }
 
-uint64_t __44__PKDashboardBankConnectItem__payActionFor___block_invoke()
+uint64_t __44__PKDashboardBankConnectItem__payActionFor___block_invoke(uint64_t a1)
 {
-  v8[3] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E69B8540];
-  v1 = *MEMORY[0x1E69BB6F8];
-  v2 = *MEMORY[0x1E69BA6F0];
-  v3 = *MEMORY[0x1E69BA440];
-  v7[0] = *MEMORY[0x1E69BA680];
-  v7[1] = v3;
-  v4 = *MEMORY[0x1E69BACB8];
-  v8[0] = v2;
+  v9[3] = *MEMORY[0x1E69E9840];
+  v1 = MEMORY[0x1E69B8540];
+  v2 = *MEMORY[0x1E69BB6F8];
+  v3 = *MEMORY[0x1E69BA6F0];
+  v4 = *MEMORY[0x1E69BA440];
+  v8[0] = *MEMORY[0x1E69BA680];
   v8[1] = v4;
-  v7[2] = *MEMORY[0x1E69BABE8];
-  v8[2] = *MEMORY[0x1E69BA3C8];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
-  [v0 subject:v1 sendEvent:v5];
+  v5 = *MEMORY[0x1E69BACB8];
+  v9[0] = v3;
+  v9[1] = v5;
+  v8[2] = *MEMORY[0x1E69BABE8];
+  v9[2] = *MEMORY[0x1E69BA3C8];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  [v1 subject:v2 sendEvent:v6];
 
   return PKOpenURL();
 }
 
-void __44__PKDashboardBankConnectItem__payActionFor___block_invoke_2(uint64_t a1, char a2)
+void __44__PKDashboardBankConnectItem__payActionFor___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {

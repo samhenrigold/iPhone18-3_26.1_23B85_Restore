@@ -124,7 +124,7 @@ LABEL_3:
 
 - (id)updateValue:(id)value
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   homeKitSettingsVendor = [(HFAccessorySettingItem *)self homeKitSettingsVendor];
   hf_settingsValueManager = [homeKitSettingsVendor hf_settingsValueManager];
@@ -138,13 +138,13 @@ LABEL_3:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     setting = [(HFAccessorySettingItem *)self setting];
-    v14 = 138412802;
+    v13 = 138412802;
     selfCopy = self;
-    v16 = 2112;
-    v17 = setting;
-    v18 = 2112;
-    v19 = valueCopy;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Updating setting item '%@/%@' to value: %@", &v14, 0x20u);
+    v15 = 2112;
+    v16 = setting;
+    v17 = 2112;
+    v18 = valueCopy;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Updating setting item '%@/%@' to value: %@", &v13, 0x20u);
   }
 
   if (hf_settingsValueManager)
@@ -160,8 +160,6 @@ LABEL_3:
     [v10 futureWithError:setting2];
   }
   v11 = ;
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -309,14 +307,14 @@ LABEL_15:
 
 - (void)_decorateOutcomeWithAccessorySettingResultKeys:(id)keys
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   homeKitSettingsVendor = [(HFAccessorySettingItem *)self homeKitSettingsVendor];
   hf_settingsValueManager = [homeKitSettingsVendor hf_settingsValueManager];
 
   entity = [(HFAccessorySettingItem *)self entity];
   setting = [(HFAccessorySettingItem *)self setting];
-  v73 = hf_settingsValueManager;
+  v72 = hf_settingsValueManager;
   v9 = [hf_settingsValueManager valueForSetting:setting];
   if (v9)
   {
@@ -379,7 +377,7 @@ LABEL_15:
     [keysCopy setObject:v22 forKeyedSubscript:@"HFAccessorySettingNumberValueMinKey"];
   }
 
-  v72 = entity;
+  v71 = entity;
   if (!entity)
   {
     userInfo = MEMORY[0x277CBEC10];
@@ -472,7 +470,7 @@ LABEL_34:
   objc_opt_class();
   v45 = objc_opt_isKindOfClass();
 
-  v71 = userInfo;
+  v70 = userInfo;
   if (v45)
   {
     objc_opt_class();
@@ -549,8 +547,8 @@ LABEL_34:
 
   v62 = MEMORY[0x277D755D0];
   systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
-  v74[0] = systemGrayColor;
-  v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:1];
+  v73[0] = systemGrayColor;
+  v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
   v65 = [v62 _configurationWithHierarchicalColors:v64];
 
   v66 = [MEMORY[0x277D755D0] configurationWithTextStyle:*MEMORY[0x277D76A08]];
@@ -558,7 +556,7 @@ LABEL_34:
   if (v51)
   {
     v68 = [[HFImageIconDescriptor alloc] initWithSystemImageNamed:v56 configuration:v67];
-    v69 = v72;
+    v69 = v71;
     if (!v68)
     {
       goto LABEL_55;
@@ -567,7 +565,7 @@ LABEL_34:
     goto LABEL_54;
   }
 
-  v69 = v72;
+  v69 = v71;
   if (v54)
   {
     v68 = [[HFImageIconDescriptor alloc] initWithSystemImageNamed:v55];
@@ -579,8 +577,6 @@ LABEL_54:
   }
 
 LABEL_55:
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_decorateOutcomeWithResultKeys:(id)keys
@@ -807,7 +803,7 @@ LABEL_45:
 
 - (void)_decorateHiddenOrDisabled:(id)disabled
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   disabledCopy = disabled;
   entity = [(HFAccessorySettingItem *)self entity];
   homeKitSettingsVendor = [(HFAccessorySettingItem *)self homeKitSettingsVendor];
@@ -825,33 +821,33 @@ LABEL_45:
   v15 = [usageOptions objectForKeyedSubscript:?];
   bOOLValue = [v15 BOOLValue];
 
-  v91 = objc_opt_new();
   v90 = objc_opt_new();
+  v89 = objc_opt_new();
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __52__HFAccessorySettingItem__decorateHiddenOrDisabled___block_invoke;
   aBlock[3] = &unk_277DF3DD8;
   aBlock[4] = self;
   v17 = entity;
-  v94 = v17;
-  v92 = _Block_copy(aBlock);
+  v93 = v17;
+  v91 = _Block_copy(aBlock);
   v18 = off_277DF0000;
-  v88 = hf_currentUserIsAdministrator;
+  v87 = hf_currentUserIsAdministrator;
   if ((hf_currentUserIsAdministrator & 1) == 0 && !bOOLValue)
   {
     v19 = 0;
     v20 = @"Current User is not administrator.";
-    v21 = v91;
+    v21 = v90;
 LABEL_34:
-    v92[2](v92, v21, v20);
-    v89 = 1;
+    v91[2](v91, v21, v20);
+    v88 = 1;
     goto LABEL_37;
   }
 
   if ([(HFAccessorySettingItem *)self _validateKeyPathDependencies])
   {
     v19 = 0;
-    v89 = 0;
+    v88 = 0;
   }
 
   else
@@ -860,9 +856,9 @@ LABEL_34:
     v23 = MEMORY[0x277CCACA8];
     bOOLeanKeyPathDependencies = [v17 BOOLeanKeyPathDependencies];
     v25 = [v23 stringWithFormat:@"KeyPath dependencies possess one or more failed cases: %@", bOOLeanKeyPathDependencies];
-    v89 = requiresDependenciesToShowSetting;
+    v88 = requiresDependenciesToShowSetting;
     v19 = requiresDependenciesToShowSetting ^ 1;
-    (v92[2])();
+    (v91[2])();
   }
 
   if ((isWritable & isControllable & 1) == 0)
@@ -882,7 +878,7 @@ LABEL_34:
       }
 
       v33 = [v26 stringWithFormat:@"Setting '%@' is readonly: %@/%@", keyPath, setting3, v32];
-      v92[2](v92, v90, v33);
+      v91[2](v91, v89, v33);
     }
 
     if ((isControllable & 1) == 0)
@@ -893,7 +889,7 @@ LABEL_34:
       homeKitSettingsVendor3 = [(HFAccessorySettingItem *)self homeKitSettingsVendor];
       settings2 = [homeKitSettingsVendor3 settings];
       v39 = [v34 stringWithFormat:@"Setting '%@' is not controllable: %@/%@", keyPath2, settings2, @"NOT CONTROLLABLE"];
-      v92[2](v92, v90, v39);
+      v91[2](v91, v89, v39);
     }
 
     v19 = 1;
@@ -901,7 +897,7 @@ LABEL_34:
 
   setting6 = [(HFAccessorySettingItem *)self setting];
   keyPath3 = [setting6 keyPath];
-  v87 = [keyPath3 isEqualToString:@"root.announce.enabled"];
+  v86 = [keyPath3 isEqualToString:@"root.announce.enabled"];
 
   homeKitSettingsVendor4 = [(HFAccessorySettingItem *)self homeKitSettingsVendor];
   objc_opt_class();
@@ -980,12 +976,12 @@ LABEL_20:
 LABEL_28:
   v58 = 1;
 LABEL_29:
-  if ((v87 & v58) == 1)
+  if ((v86 & v58) == 1)
   {
     v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"Announce settings should be hidden since containsHomePod = %{BOOL}d isAMac = %{BOOL}d", v50, +[HFUtilities isAMac](HFUtilities, "isAMac")];
-    v92[2](v92, v91, v59);
+    v91[2](v91, v90, v59);
 
-    v89 = 1;
+    v88 = 1;
   }
 
   setting7 = [(HFAccessorySettingItem *)self setting];
@@ -994,7 +990,7 @@ LABEL_29:
 
   if (v62)
   {
-    v21 = v91;
+    v21 = v90;
     if ((v50 & supportsAudioAnalysis & 1) == 0)
     {
       v20 = @"Audio Analysis settings should be hidden";
@@ -1005,7 +1001,7 @@ LABEL_29:
 
   else
   {
-    v21 = v91;
+    v21 = v90;
   }
 
   v18 = off_277DF0000;
@@ -1050,12 +1046,12 @@ LABEL_37:
         v75 = [v71 numberWithInteger:v74];
         [disabledCopy setObject:v75 forKeyedSubscript:@"state"];
 
-        v21 = v91;
+        v21 = v90;
       }
     }
   }
 
-  v76 = [MEMORY[0x277CCABB0] numberWithBool:v89];
+  v76 = [MEMORY[0x277CCABB0] numberWithBool:v88];
   [disabledCopy setObject:v76 forKeyedSubscript:@"hidden"];
 
   v77 = [MEMORY[0x277CCABB0] numberWithBool:v19];
@@ -1073,16 +1069,16 @@ LABEL_37:
     }
   }
 
-  if ([v90 count])
+  if ([v89 count])
   {
     v81 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
     {
       keyPath5 = [v17 keyPath];
       *buf = 138412546;
-      v96 = keyPath5;
-      v97 = 2112;
-      v98 = v90;
+      v95 = keyPath5;
+      v96 = 2112;
+      v97 = v89;
       _os_log_impl(&dword_20D9BF000, v81, OS_LOG_TYPE_DEFAULT, "Setting Item @ keypath '%@' is disabled for reasons: %@", buf, 0x16u);
     }
   }
@@ -1094,18 +1090,17 @@ LABEL_37:
     {
       keyPath6 = [v17 keyPath];
       *buf = 138412546;
-      v96 = keyPath6;
-      v97 = 2112;
-      v98 = v21;
+      v95 = keyPath6;
+      v96 = 2112;
+      v97 = v21;
       _os_log_impl(&dword_20D9BF000, v83, OS_LOG_TYPE_DEFAULT, "Setting Item @ keypath '%@' is hidden for reasons: %@", buf, 0x16u);
     }
   }
 
-  v85 = [MEMORY[0x277CCABB0] numberWithBool:v88];
+  v85 = [MEMORY[0x277CCABB0] numberWithBool:v87];
   [disabledCopy setObject:v85 forKeyedSubscript:@"administrator"];
 
   [disabledCopy setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"remoteAccessDependency"];
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HFAccessorySettingItem__decorateHiddenOrDisabled___block_invoke(uint64_t a1, void *a2, void *a3)

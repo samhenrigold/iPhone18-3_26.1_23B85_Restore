@@ -12,53 +12,62 @@
 
 - (T1SupervisoryBlock)initWithData:(id)data
 {
-  v8.receiver = self;
-  v8.super_class = T1SupervisoryBlock;
-  v3 = [(T1TPDUBlock *)&v8 initWithData:data needAck:0];
+  v11.receiver = self;
+  v11.super_class = T1SupervisoryBlock;
+  v3 = [(T1TPDUBlock *)&v11 initWithData:data needAck:0];
   v4 = v3;
   if (v3)
   {
-    if ([(T1SupervisoryBlock *)v3 operation]>= 4)
+    operation = [(T1SupervisoryBlock *)v3 operation];
+    if (operation >= 4)
     {
-      v5 = sub_10000BF14();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = sub_10000BF14(operation);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         sub_100016DB4(v4);
       }
 
 LABEL_16:
 
-      v6 = 0;
+      v9 = 0;
       goto LABEL_17;
     }
 
-    if (([(T1SupervisoryBlock *)v4 operation]== 1 || [(T1SupervisoryBlock *)v4 operation]== 3) && [(T1TPDUBlock *)v4 lengthByte]!= 1)
+    if ([(T1SupervisoryBlock *)v4 operation]== 1 || [(T1SupervisoryBlock *)v4 operation]== 3)
     {
-      v5 = sub_10000BF14();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      lengthByte = [(T1TPDUBlock *)v4 lengthByte];
+      if (lengthByte != 1)
       {
-        sub_100016CC4(v4);
-      }
+        v6 = sub_10000BF14(lengthByte);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        {
+          sub_100016CC4(v4);
+        }
 
-      goto LABEL_16;
+        goto LABEL_16;
+      }
     }
 
-    if ([(T1SupervisoryBlock *)v4 operation]!= 1 && [(T1SupervisoryBlock *)v4 operation]!= 3 && [(T1TPDUBlock *)v4 lengthByte])
+    if ([(T1SupervisoryBlock *)v4 operation]!= 1 && [(T1SupervisoryBlock *)v4 operation]!= 3)
     {
-      v5 = sub_10000BF14();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      lengthByte2 = [(T1TPDUBlock *)v4 lengthByte];
+      if (lengthByte2)
       {
-        sub_100016D3C(v4);
-      }
+        v6 = sub_10000BF14(lengthByte2);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        {
+          sub_100016D3C(v4);
+        }
 
-      goto LABEL_16;
+        goto LABEL_16;
+      }
     }
   }
 
-  v6 = v4;
+  v9 = v4;
 LABEL_17:
 
-  return v6;
+  return v9;
 }
 
 - (id)operationStr

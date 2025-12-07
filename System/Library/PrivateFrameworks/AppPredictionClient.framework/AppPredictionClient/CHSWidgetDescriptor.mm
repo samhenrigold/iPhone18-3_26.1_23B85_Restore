@@ -3,7 +3,7 @@
 
 @implementation CHSWidgetDescriptor
 
-uint64_t __59__CHSWidgetDescriptor_ATX__atx_hasHomeScreenWidgetFamilies__block_invoke(uint64_t a1)
+uint64_t __59__CHSWidgetDescriptor_ATX__atx_hasHomeScreenWidgetFamilies__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = CHSWidgetFamilyIsAccessory();
   if ((result & 1) == 0)
@@ -14,7 +14,7 @@ uint64_t __59__CHSWidgetDescriptor_ATX__atx_hasHomeScreenWidgetFamilies__block_i
   return result;
 }
 
-uint64_t __63__CHSWidgetDescriptor_ATX__atx_hasHomeScreenWidgetFamiliesOnly__block_invoke(uint64_t a1)
+uint64_t __63__CHSWidgetDescriptor_ATX__atx_hasHomeScreenWidgetFamiliesOnly__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = CHSWidgetFamilyIsAccessory();
   if (result)
@@ -25,7 +25,7 @@ uint64_t __63__CHSWidgetDescriptor_ATX__atx_hasHomeScreenWidgetFamiliesOnly__blo
   return result;
 }
 
-uint64_t __62__CHSWidgetDescriptor_ATX__atx_hasAccessoryWidgetFamiliesOnly__block_invoke(uint64_t a1)
+uint64_t __62__CHSWidgetDescriptor_ATX__atx_hasAccessoryWidgetFamiliesOnly__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = CHSWidgetFamilyIsAccessory();
   if ((result & 1) == 0)

@@ -14,6 +14,7 @@
 - (id)copyUserDomainConceptByMergingInConcept:(id)concept;
 - (id)copyUserDomainConceptByMergingInPropertyCollection:(id)collection;
 - (id)copyUserDomainConceptBySettingProperties:(id)properties;
+- (id)descriptionAllowedForPublic:(BOOL)public;
 - (id)firstAdhocCoding;
 - (id)firstConceptIdentifier;
 - (id)firstOntologyCoding;
@@ -60,7 +61,7 @@
     v18 = v17;
     if (v17)
     {
-      [v17 currentOSVersionStruct];
+      objc_msgSend_currentOSVersionStruct(v17);
     }
 
     else
@@ -90,6 +91,80 @@
   }
 
   return v11;
+}
+
+- (id)descriptionAllowedForPublic:(BOOL)public
+{
+  v4 = [(HKUserDomainConcept *)self _dataDescriptionAllowedForPublic:public];
+  v25 = v4;
+  if (v4)
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@" %@", v4];
+  }
+
+  else
+  {
+    v5 = &stru_1F05FF230;
+  }
+
+  v24 = MEMORY[0x1E696AD60];
+  v23 = objc_opt_class();
+  schema = [(HKUserDomainConceptTypeIdentifier *)self->_identifier schema];
+  code = [(HKUserDomainConceptTypeIdentifier *)self->_identifier code];
+  hk_shortRepresentation = [(NSUUID *)self->_UUID hk_shortRepresentation];
+  creationDate = [(HKUserDomainConcept *)self creationDate];
+  v9 = HKDiagnosticStringFromDate(creationDate);
+  modificationDate = [(HKUserDomainConcept *)self modificationDate];
+  v11 = HKDiagnosticStringFromDate(modificationDate);
+  build = self->_build;
+  v26 = *&self->_operatingSystemVersion.majorVersion;
+  patchVersion = self->_operatingSystemVersion.patchVersion;
+  v13 = HKNSOperatingSystemVersionString(&v26);
+  v14 = [v24 stringWithFormat:@"<%@ %@ %ld %@%@, (%@), (%@), %@ (%@)", v23, schema, code, hk_shortRepresentation, v5, v9, v11, build, v13];
+
+  v15 = [(HKMedicalCodingCollection *)self->_codingCollection count];
+  v16 = "s";
+  if (v15 >= 1)
+  {
+    if (v15 == 1)
+    {
+      v17 = "";
+    }
+
+    else
+    {
+      v17 = "s";
+    }
+
+    [v14 appendFormat:@", %ld coding%s", v15, v17];
+  }
+
+  v18 = [(HKUserDomainConceptLinkCollection *)self->_linkCollection count];
+  if (v18 >= 1)
+  {
+    if (v18 == 1)
+    {
+      v16 = "";
+    }
+
+    [v14 appendFormat:@", %ld link%s %ld", v18, v16, -[HKUserDomainConceptLinkCollection epoch](self->_linkCollection, "epoch")];
+  }
+
+  v19 = [(HKUserDomainConceptPropertyCollection *)self->_propertyCollection count];
+  if (v19 >= 1)
+  {
+    v20 = @"properties";
+    if (v19 == 1)
+    {
+      v20 = @"property";
+    }
+
+    [v14 appendFormat:@", %ld %@", v19, v20];
+  }
+
+  [v14 appendString:@">"];
+
+  return v14;
 }
 
 - (id)_init
@@ -256,7 +331,7 @@ LABEL_13:
   v4 = v3;
   if (v3)
   {
-    [v3 currentOSVersionStruct];
+    objc_msgSend_currentOSVersionStruct(v3);
   }
 
   else
@@ -396,16 +471,16 @@ LABEL_13:
 
 - (id)_firstCodingForSystem:(id)system
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   systemCopy = system;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   codingCollection = [(HKUserDomainConcept *)self codingCollection];
   codings = [codingCollection codings];
 
-  v7 = [codings countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [codings countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (!v7)
   {
     v9 = 0;
@@ -414,17 +489,17 @@ LABEL_13:
 
   v8 = v7;
   v9 = 0;
-  v10 = *v23;
+  v10 = *v22;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v23 != v10)
+      if (*v22 != v10)
       {
         objc_enumerationMutation(codings);
       }
 
-      v12 = *(*(&v22 + 1) + 8 * i);
+      v12 = *(*(&v21 + 1) + 8 * i);
       codingSystem = [v12 codingSystem];
       v14 = codingSystem;
       if (codingSystem == systemCopy)
@@ -470,13 +545,11 @@ LABEL_13:
 LABEL_14:
     }
 
-    v8 = [codings countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [codings countByEnumeratingWithState:&v21 objects:v25 count:16];
   }
 
   while (v8);
 LABEL_19:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -583,7 +656,7 @@ LABEL_19:
   build = self->_build;
   self->_build = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, build);
 }
 
 - (void)_setCodingCollection:(id)collection
@@ -592,7 +665,7 @@ LABEL_19:
   codingCollection = self->_codingCollection;
   self->_codingCollection = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, codingCollection);
 }
 
 - (void)_setLinkCollection:(id)collection
@@ -601,7 +674,7 @@ LABEL_19:
   linkCollection = self->_linkCollection;
   self->_linkCollection = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, linkCollection);
 }
 
 - (void)_setPropertyCollection:(id)collection
@@ -610,7 +683,7 @@ LABEL_19:
   propertyCollection = self->_propertyCollection;
   self->_propertyCollection = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, propertyCollection);
 }
 
 - (BOOL)unitTesting_isIdentical:(id)identical ignoreModificationTimestamp:(BOOL)timestamp

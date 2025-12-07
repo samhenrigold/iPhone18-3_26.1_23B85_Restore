@@ -131,51 +131,51 @@
 - (void)drawBackground:(CGRect)background
 {
   CurrentContext = UIGraphicsGetCurrentContext();
-  v9 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:self->_overlayRect.origin.x cornerRadius:{self->_overlayRect.origin.y, self->_overlayRect.size.width, self->_overlayRect.size.height, 9.0}];
-  [v9 setLineWidth:0.2];
-  v11.width = 0.0;
-  v11.height = 5.0;
-  CGContextSetShadow(CurrentContext, v11, 7.0);
+  v11 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:self->_overlayRect.origin.x cornerRadius:{self->_overlayRect.origin.y, self->_overlayRect.size.width, self->_overlayRect.size.height, 9.0}];
+  [v11 setLineWidth:0.2];
+  v13.width = 0.0;
+  v13.height = 5.0;
+  CGContextSetShadow(CurrentContext, v13, 7.0);
   if (self->_interfaceStyle == 2)
   {
-    darkBackgroundColor();
+    darkBackgroundColor(v5);
   }
 
   else
   {
     [MEMORY[0x277D75348] whiteColor];
   }
-  v5 = ;
-  [v5 set];
+  v6 = ;
+  [v6 set];
 
-  [v9 fill];
-  v12.width = 0.0;
-  v12.height = 0.0;
-  CGContextSetShadowWithColor(CurrentContext, v12, 0.0, 0);
+  [v11 fill];
+  v14.width = 0.0;
+  v14.height = 0.0;
+  CGContextSetShadowWithColor(CurrentContext, v14, 0.0, 0);
   if (self->_interfaceStyle == 2)
   {
-    darkBackgroundColor();
+    darkBackgroundColor(v7);
   }
 
   else
   {
     [MEMORY[0x277D75348] lightGrayColor];
   }
-  v6 = ;
-  [v6 set];
+  v8 = ;
+  [v8 set];
 
-  [v9 stroke];
+  [v11 stroke];
   selectedIndex = self->_selectedIndex;
   if (selectedIndex < self->_numEmojiToShow)
   {
-    v8 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:selectedIndex * 36.0 + 10.0 + (selectedIndex + 1) * 4.0 + self->_overlayRect.origin.x cornerRadius:{self->_overlayRect.origin.y + 6.0, 36.0, 43.0, 6.0}];
+    v10 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:selectedIndex * 36.0 + 10.0 + (selectedIndex + 1) * 4.0 + self->_overlayRect.origin.x cornerRadius:{self->_overlayRect.origin.y + 6.0, 36.0, 43.0, 6.0}];
     if (selectionColor_onceToken != -1)
     {
       [EMKOverlayView drawBackground:];
     }
 
     [selectionColor_color set];
-    [v8 fill];
+    [v10 fill];
   }
 }
 

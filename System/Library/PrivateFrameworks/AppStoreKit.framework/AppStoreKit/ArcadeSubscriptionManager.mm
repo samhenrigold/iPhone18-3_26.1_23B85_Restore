@@ -33,7 +33,7 @@
 
 - (void)paymentQueue:(id)queue updatedTransactions:(id)transactions
 {
-  sub_1E13006E4(0, &unk_1ECEB6AE8);
+  sub_1E13006E4(0, &unk_1ECEB6AE8, 0x1E697BA90);
   v6 = sub_1E1AF621C();
   queueCopy = queue;
   selfCopy = self;

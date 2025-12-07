@@ -2,6 +2,7 @@
 - (ICNAEventReporter)eventReporter;
 - (void)dealloc;
 - (void)eventReporterLostSession:(id)session;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ICNAViewController
@@ -14,6 +15,22 @@
   v4.receiver = self;
   v4.super_class = ICNAViewController;
   [(ICNAViewController *)&v4 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  view = [(ICNAViewController *)self view];
+  window = [view window];
+
+  if (window)
+  {
+    [(ICNAViewController *)self eventReporter];
+  }
+
+  v7.receiver = self;
+  v7.super_class = ICNAViewController;
+  [(ICNAViewController *)&v7 viewDidAppear:appearCopy];
 }
 
 - (ICNAEventReporter)eventReporter

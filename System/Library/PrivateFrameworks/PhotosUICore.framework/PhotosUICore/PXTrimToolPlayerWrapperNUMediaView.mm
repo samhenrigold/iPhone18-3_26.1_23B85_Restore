@@ -128,7 +128,7 @@ uint64_t __67__PXTrimToolPlayerWrapperNUMediaView_setShowsUntrimmed_completion__
   if (mediaPlayer)
   {
     v6 = mediaPlayer;
-    [mediaPlayer currentTime];
+    objc_msgSend_currentTime(mediaPlayer);
     mediaPlayer = v6;
   }
 
@@ -220,7 +220,7 @@ uint64_t __67__PXTrimToolPlayerWrapperNUMediaView_setShowsUntrimmed_completion__
   untrimmedCopy = untrimmed;
   v11 = time->var2 & 0x11;
   memset(&v27, 0, sizeof(v27));
-  [(PXTrimToolPlayerWrapperNUMediaView *)self seekTime];
+  objc_msgSend_seekTime(self, a2);
   flags = v27.flags;
   time1 = *time;
   [(PXTrimToolPlayerWrapperNUMediaView *)self setSeekTime:&time1];
@@ -266,7 +266,7 @@ uint64_t __67__PXTrimToolPlayerWrapperNUMediaView_setShowsUntrimmed_completion__
     goto LABEL_18;
   }
 
-  [(PXTrimToolPlayerWrapperNUMediaView *)self trimRange];
+  objc_msgSend_trimRange(self);
   if (!untrimmedCopy && (v25.flags & 0x1D) == 1)
   {
     time2 = *time;
@@ -345,7 +345,7 @@ void __75__PXTrimToolPlayerWrapperNUMediaView_seekToTime_untrimmed_exact_forceSe
   v15 = *MEMORY[0x1E69E9840];
   if (self->_delegateFlags.respondsToTimeChanged)
   {
-    [(PXTrimToolPlayerWrapperNUMediaView *)self trimRange];
+    objc_msgSend_trimRange(self, a2);
     v13 = v9;
     v14 = v10;
     if (![(PXTrimToolPlayerWrapperNUMediaView *)self showsUntrimmed]&& (v11 & 0x1D) == 1)
@@ -447,7 +447,7 @@ void __68__PXTrimToolPlayerWrapperNUMediaView__registerTimeMediaViewObserver__bl
   v11 = 0;
   if (v5)
   {
-    [v5 currentSeekTime];
+    objc_msgSend_currentSeekTime(v5);
     if (BYTE12(v10))
     {
       *a3 = v10;

@@ -4,6 +4,9 @@
 - (void)_notifyAirPortSettingsVisible:(BOOL)visible;
 - (void)handleURL:(id)l;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willBecomeActive;
 - (void)willResignActive;
 @end
@@ -93,6 +96,39 @@
 
     [(APNetworksController *)self setDeferredURL:0];
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = APNetworksController;
+  [(APNetworksController *)&v5 viewDidAppear:appear];
+  airportController = [(APNetworksController *)self airportController];
+  [airportController startScanning];
+
+  [(APNetworksController *)self _notifyAirPortSettingsVisible:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v7.receiver = self;
+  v7.super_class = APNetworksController;
+  [(APNetworksController *)&v7 viewDidDisappear:?];
+  airportController = [(APNetworksController *)self airportController];
+  viewController = [airportController viewController];
+  [viewController viewDidDisappear:disappearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = APNetworksController;
+  [(APNetworksController *)&v5 viewWillDisappear:disappear];
+  airportController = [(APNetworksController *)self airportController];
+  [airportController stopScanning];
+
+  [(APNetworksController *)self _notifyAirPortSettingsVisible:0];
 }
 
 - (void)willResignActive

@@ -3,7 +3,7 @@
 
 @implementation VTTemporalFilterRemote
 
-uint64_t __VTTemporalFilterRemote_CopyList_block_invoke(void *a1, mach_port_t a2)
+uint64_t __VTTemporalFilterRemote_CopyList_block_invoke(void *a1, uint64_t a2)
 {
   v9 = 0;
   v4 = a1[6];

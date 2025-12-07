@@ -5,48 +5,49 @@
 
 uint64_t __23___DKMotionMonitor_log__block_invoke()
 {
-  log_log = os_log_create("com.apple.coreduet.monitors", "_DKMotionMonitor");
+  v0 = os_log_create("com.apple.coreduet.monitors", "_DKMotionMonitor");
+  v1 = log_log;
+  log_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __25___DKMotionMonitor_start__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [WeakRetained addMotionActivity:{*(*(&v11 + 1) + 8 * v9++), v11}];
+        [WeakRetained addMotionActivity:{*(*(&v10 + 1) + 8 * v9++), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [WeakRetained computeDominantMotionState];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __25___DKMotionMonitor_start__block_invoke_2(uint64_t a1, void *a2)
@@ -164,7 +165,7 @@ void __46___DKMotionMonitor_computeDominantMotionState__block_invoke_47(uint64_t
 
 void __26___DKMotionMonitor_update__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) lastUpdate];
   if (!v2)
   {
@@ -173,39 +174,37 @@ void __26___DKMotionMonitor_update__block_invoke(uint64_t a1)
 
   v3 = [MEMORY[0x277CBEAA8] date];
   objc_initWeak(&location, *(a1 + 32));
-  v8 = MEMORY[0x277D85DD0];
-  v9 = 3221225472;
-  v10 = __26___DKMotionMonitor_update__block_invoke_2;
-  v11 = &unk_27856F150;
-  objc_copyWeak(&v14, &location);
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __26___DKMotionMonitor_update__block_invoke_2;
+  v10 = &unk_27856F150;
+  objc_copyWeak(&v13, &location);
   v4 = v3;
-  v12 = v4;
-  v13 = *(a1 + 40);
-  v5 = MEMORY[0x22AA6AF50](&v8);
+  v11 = v4;
+  v12 = *(a1 + 40);
+  v5 = MEMORY[0x22AA6AF50](&v7);
   if (*(*(a1 + 32) + 152) == 1)
   {
-    v6 = [_DKMotionMonitor log:v8];
+    v6 = [_DKMotionMonitor log:v7];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v2;
-      v18 = 2112;
-      v19 = v4;
+      v16 = v2;
+      v17 = 2112;
+      v18 = v4;
       _os_log_impl(&dword_22595A000, v6, OS_LOG_TYPE_DEFAULT, "Starting CoreMotion query for date range %@ - %@", buf, 0x16u);
     }
 
     [*(*(a1 + 32) + 168) queryActivityStartingFromDate:v2 toDate:v4 toQueue:*(*(a1 + 32) + 176) withHandler:v5];
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __26___DKMotionMonitor_update__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -216,9 +215,9 @@ void __26___DKMotionMonitor_update__block_invoke_2(uint64_t a1, void *a2, void *
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v43 = [v5 count];
-      v44 = 2112;
-      v45 = v6;
+      v42 = [v5 count];
+      v43 = 2112;
+      v44 = v6;
       _os_log_impl(&dword_22595A000, v9, OS_LOG_TYPE_DEFAULT, "Completed CoreMotion query with %lu results, error %@", buf, 0x16u);
     }
 
@@ -227,39 +226,39 @@ void __26___DKMotionMonitor_update__block_invoke_2(uint64_t a1, void *a2, void *
       if ([v5 count] >= 2)
       {
         v10 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
-        v41 = v10;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+        v40 = v10;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
         v12 = [v5 sortedArrayUsingDescriptors:v11];
 
         v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v12, "count")}];
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
         obj = v12;
-        v14 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v14 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
         if (v14)
         {
           v15 = v14;
-          v35 = v13;
-          v30 = v8;
-          v31 = a1;
-          v32 = WeakRetained;
-          v33 = v5;
+          v34 = v13;
+          v29 = v8;
+          v30 = a1;
+          v31 = WeakRetained;
+          v32 = v5;
           v16 = 0;
-          v17 = *v37;
+          v17 = *v36;
           do
           {
             v18 = 0;
             v19 = v16;
             do
             {
-              if (*v37 != v17)
+              if (*v36 != v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v20 = *(*(&v36 + 1) + 8 * v18);
+              v20 = *(*(&v35 + 1) + 8 * v18);
               if (v19)
               {
                 v21 = objc_autoreleasePoolPush();
@@ -268,7 +267,7 @@ void __26___DKMotionMonitor_update__block_invoke_2(uint64_t a1, void *a2, void *
                 v24 = [v20 startDate];
                 v25 = [_DKMotionMonitor _eventWithState:v22 startDate:v23 endDate:v24];
 
-                [v35 addObject:v25];
+                [v34 addObject:v25];
                 objc_autoreleasePoolPop(v21);
               }
 
@@ -279,17 +278,17 @@ void __26___DKMotionMonitor_update__block_invoke_2(uint64_t a1, void *a2, void *
             }
 
             while (v15 != v18);
-            v15 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+            v15 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
           }
 
           while (v15);
 
           v6 = 0;
-          v5 = v33;
-          a1 = v31;
-          WeakRetained = v32;
-          v8 = v30;
-          v13 = v35;
+          v5 = v32;
+          a1 = v30;
+          WeakRetained = v31;
+          v8 = v29;
+          v13 = v34;
         }
 
         v26 = [WeakRetained historicalHandler];
@@ -321,8 +320,6 @@ void __26___DKMotionMonitor_update__block_invoke_2(uint64_t a1, void *a2, void *
       __26___DKMotionMonitor_update__block_invoke_2_cold_1(v28);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -41,7 +41,7 @@
 
 - (ASDTestFlightServiceExtensionPushMessage)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(ASDTestFlightServiceExtensionPushMessage *)self init];
   if (v5)
@@ -50,21 +50,20 @@
     timestamp = v5->_timestamp;
     v5->_timestamp = v6;
 
+    v13 = objc_opt_class();
     v14 = objc_opt_class();
     v15 = objc_opt_class();
     v16 = objc_opt_class();
     v17 = objc_opt_class();
     v18 = objc_opt_class();
     v19 = objc_opt_class();
-    v20 = objc_opt_class();
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:7];
-    v9 = [MEMORY[0x1E695DFD8] setWithArray:{v8, v14, v15, v16, v17, v18, v19}];
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:7];
+    v9 = [MEMORY[0x1E695DFD8] setWithArray:{v8, v13, v14, v15, v16, v17, v18}];
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"userInfo"];
     userInfo = v5->_userInfo;
     v5->_userInfo = v10;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

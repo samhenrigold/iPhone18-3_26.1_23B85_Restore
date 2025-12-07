@@ -56,7 +56,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_25BDA8480(v8);
+  sub_25BDA8480(v8, v9);
 }
 
 - (id)refreshSpecifiers
@@ -142,7 +142,7 @@
   *v7 = sub_25BDD1CDC;
   v7[1] = v5;
   v10 = v6;
-  sub_25BDA8480(v8);
+  sub_25BDA8480(v8, v9);
 
   return v10;
 }

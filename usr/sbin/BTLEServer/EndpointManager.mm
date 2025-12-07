@@ -23,6 +23,7 @@
 - (void)scalablePipeManager:(id)manager pipeDidConnect:(id)connect;
 - (void)scalablePipeManager:(id)manager pipeDidDisconnect:(id)disconnect error:(id)error;
 - (void)scalablePipeManagerDidUpdateState:(id)state;
+- (void)setPersist:(BOOL)persist;
 - (void)storeDeviceSettings:(id)settings inEarEnable:(id)enable doubleTapMode:(id)mode deviceSettings:(id)deviceSettings deviceName:(id)name device:(id)device;
 - (void)unexpectedDisconnection:(id)disconnection;
 @end
@@ -39,6 +40,13 @@
   v3 = qword_1000DDA60;
 
   return v3;
+}
+
+- (void)setPersist:(BOOL)persist
+{
+  [(EndpointManager *)self setShouldPersist:persist];
+
+  [(EndpointManager *)self refreshPersistanceAssertion];
 }
 
 - (void)connectDevice:(id)device quickDisconnectEnabled:(id)enabled

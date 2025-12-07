@@ -8,9 +8,9 @@
 {
   v2 = MEMORY[0x277CCACA8];
   languageCode = [self languageCode];
-  v4 = [languageCode stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+  v4 = [languageCode stringByReplacingOccurrencesOfString:? withString:?];
   resourceVersion = [self resourceVersion];
-  v6 = [v2 stringWithFormat:@"%@:%@", v4, resourceVersion];
+  v6 = [v2 stringWithFormat:v4, resourceVersion];
 
   return v6;
 }

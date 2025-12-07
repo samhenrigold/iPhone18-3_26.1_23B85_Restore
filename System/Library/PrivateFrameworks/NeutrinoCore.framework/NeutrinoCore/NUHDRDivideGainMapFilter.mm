@@ -22,9 +22,11 @@
 
 uint64_t __51__NUHDRDivideGainMapFilter_lightMapDivideRGBKernel__block_invoke()
 {
-  lightMapDivideRGBKernel_s_lightMapDivideRGBKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 lightMapDivideRGB(__sample im, __sample lm) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float iml = dot(im.rgb, weq); \n  float imx = max(max(im.r, im.g), im.b); \n  float luma = 0.5 * (iml + imx); \n  float lml = dot(lm.rgb, weq); \n  float lmx = max(max(lm.r, lm.g), lm.b); \n  float light = 0.5 * (lml + lmx); \n  light = min(light, luma); \n  const float e = 0.01; \n  luma = (1 - e) * luma + e; \n  float gain = light/luma; \n  gain = (gain - e)/(1 - e); \n  return vec4(gain, gain, gain, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 lightMapDivideRGB(__sample im, __sample lm) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float iml = dot(im.rgb, weq); \n  float imx = max(max(im.r, im.g), im.b); \n  float luma = 0.5 * (iml + imx); \n  float lml = dot(lm.rgb, weq); \n  float lmx = max(max(lm.r, lm.g), lm.b); \n  float light = 0.5 * (lml + lmx); \n  light = min(light, luma); \n  const float e = 0.01; \n  luma = (1 - e) * luma + e; \n  float gain = light/luma; \n  gain = (gain - e)/(1 - e); \n  return vec4(gain, gain, gain, 1.0); \n}\n"}];;
+  v1 = lightMapDivideRGBKernel_s_lightMapDivideRGBKernel;
+  lightMapDivideRGBKernel_s_lightMapDivideRGBKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)lightMapDivideKernel
@@ -41,9 +43,11 @@ uint64_t __51__NUHDRDivideGainMapFilter_lightMapDivideRGBKernel__block_invoke()
 
 uint64_t __48__NUHDRDivideGainMapFilter_lightMapDivideKernel__block_invoke()
 {
-  lightMapDivideKernel_s_lightMapDivideKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 lightMapDivide(__sample im, __sample lm) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float luma = dot(im.rgb, weq); \n  float maxRGB = max(max(im.r, im.g), im.b); \n  luma = 0.5 * (luma + maxRGB); \n  float light = lm.r; \n  light = min(light, luma); \n  const float e = 0.01; \n  luma = (1.f - e) * luma + e; \n  float gain = light/luma; \n  gain = (gain - e)/(1.f - e); \n  return vec4(gain, gain, gain, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 lightMapDivide(__sample im, __sample lm) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float luma = dot(im.rgb, weq); \n  float maxRGB = max(max(im.r, im.g), im.b); \n  luma = 0.5 * (luma + maxRGB); \n  float light = lm.r; \n  light = min(light, luma); \n  const float e = 0.01; \n  luma = (1.f - e) * luma + e; \n  float gain = light/luma; \n  gain = (gain - e)/(1.f - e); \n  return vec4(gain, gain, gain, 1.0); \n}\n"}];;
+  v1 = lightMapDivideKernel_s_lightMapDivideKernel;
+  lightMapDivideKernel_s_lightMapDivideKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)lightMapLogDivideRGBKernel
@@ -60,9 +64,11 @@ uint64_t __48__NUHDRDivideGainMapFilter_lightMapDivideKernel__block_invoke()
 
 uint64_t __54__NUHDRDivideGainMapFilter_lightMapLogDivideRGBKernel__block_invoke()
 {
-  lightMapLogDivideRGBKernel_s_lightMapDivideRGBKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 lightMapDivideRGB(__sample im, __sample lm, float2 a) \n{ \n  float3 color = log2(1.0 + im.rgb) \n  float3 light = log2(1.0 + lm.rgb); \n  float3 glog2 = a.x * light + a.y * color; \n  float3 gain = exp2(glog2) - 1.0; \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0); \n  float g = dot(gain, weq); \n  return vec4(g, g, g, 1.0); \n }\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 lightMapDivideRGB(__sample im, __sample lm, float2 a) \n{ \n  float3 color = log2(1.0 + im.rgb) \n  float3 light = log2(1.0 + lm.rgb); \n  float3 glog2 = a.x * light + a.y * color; \n  float3 gain = exp2(glog2) - 1.0; \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0); \n  float g = dot(gain, weq); \n  return vec4(g, g, g, 1.0); \n }\n"}];;
+  v1 = lightMapLogDivideRGBKernel_s_lightMapDivideRGBKernel;
+  lightMapLogDivideRGBKernel_s_lightMapDivideRGBKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)lightMapLogDivideKernel
@@ -79,9 +85,11 @@ uint64_t __54__NUHDRDivideGainMapFilter_lightMapLogDivideRGBKernel__block_invoke
 
 uint64_t __51__NUHDRDivideGainMapFilter_lightMapLogDivideKernel__block_invoke()
 {
-  lightMapLogDivideKernel_s_lightMapDivideKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 lightMapDivide(__sample im, __sample lm, float2 a) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float luma = dot(im.rgb, weq); \n  float maxRGB = max(max(im.r, im.g), im.b); \n  luma = 0.5 * (luma + maxRGB); \n  luma = log2(1.0 + luma); \n  float light = dot(lm.rgb, weq); \n  light = log2(1.0 +light); \n  float glog2 = a.x * light + a.y * luma; \n  float g = exp2(glog2) - 1.0; \n  return vec4(g, g, g, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 lightMapDivide(__sample im, __sample lm, float2 a) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float luma = dot(im.rgb, weq); \n  float maxRGB = max(max(im.r, im.g), im.b); \n  luma = 0.5 * (luma + maxRGB); \n  luma = log2(1.0 + luma); \n  float light = dot(lm.rgb, weq); \n  light = log2(1.0 +light); \n  float glog2 = a.x * light + a.y * luma; \n  float g = exp2(glog2) - 1.0; \n  return vec4(g, g, g, 1.0); \n}\n"}];;
+  v1 = lightMapLogDivideKernel_s_lightMapDivideKernel;
+  lightMapLogDivideKernel_s_lightMapDivideKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)outputImage
@@ -125,10 +133,10 @@ uint64_t __51__NUHDRDivideGainMapFilter_lightMapLogDivideKernel__block_invoke()
     }
     v13 = ;
     v14 = v13;
-    [v5 extent];
+    objc_msgSend_extent(v5);
     v16 = v15;
     v18 = v17;
-    [inputImage extent];
+    objc_msgSend_extent(inputImage);
     CGAffineTransformMakeScale(&v27, v16 / v19, v18 / v20);
     v21 = [inputImage imageByApplyingTransform:&v27];
     v22 = v21;
@@ -149,7 +157,7 @@ uint64_t __51__NUHDRDivideGainMapFilter_lightMapLogDivideKernel__block_invoke()
       v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
     }
 
-    [v5 extent];
+    objc_msgSend_extent(v5);
     v6 = [v14 applyWithExtent:v25 arguments:?];
   }
 

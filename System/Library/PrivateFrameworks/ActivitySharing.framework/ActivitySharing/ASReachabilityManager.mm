@@ -60,103 +60,102 @@ uint64_t __60__ASReachabilityManager_sharedInstanceForServiceIdentifier___block_
 
 - (void)_addDestinationsToQuery:(id)query updateHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  ASLoggingInitialize();
-  v11 = ASLogDefault;
+  ASLoggingInitialize(completionHandlerCopy, v11);
+  v12 = ASLogDefault;
   if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
+    v13 = v12;
     *buf = 134217984;
-    v40 = [queryCopy count];
-    _os_log_impl(&dword_23E4FA000, v12, OS_LOG_TYPE_DEFAULT, "Reachability: Request for %lu destinations", buf, 0xCu);
+    v42 = [queryCopy count];
+    _os_log_impl(&dword_23E4FA000, v13, OS_LOG_TYPE_DEFAULT, "Reachability: Request for %lu destinations", buf, 0xCu);
   }
 
-  v13 = [(ASReachabilityStatusCache *)self->_statusCache statusesForDestinations:queryCopy];
-  if ([v13 count])
+  v14 = [(ASReachabilityStatusCache *)self->_statusCache statusesForDestinations:queryCopy];
+  v15 = [v14 count];
+  if (v15)
   {
-    ASLoggingInitialize();
-    v14 = ASLogDefault;
+    ASLoggingInitialize(v15, v16);
+    v17 = ASLogDefault;
     if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = v14;
-      v16 = [v13 count];
+      v18 = v17;
+      v19 = [v14 count];
       *buf = 134217984;
-      v40 = v16;
-      _os_log_impl(&dword_23E4FA000, v15, OS_LOG_TYPE_DEFAULT, "Reachability: Hit %lu destinations in cache first pass", buf, 0xCu);
+      v42 = v19;
+      _os_log_impl(&dword_23E4FA000, v18, OS_LOG_TYPE_DEFAULT, "Reachability: Hit %lu destinations in cache first pass", buf, 0xCu);
     }
 
-    handlerCopy[2](handlerCopy, v13);
+    handlerCopy[2](handlerCopy, v14);
   }
 
-  v17 = MEMORY[0x277CCAC30];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __81__ASReachabilityManager__addDestinationsToQuery_updateHandler_completionHandler___block_invoke;
-  v36[3] = &unk_278C462A0;
-  v18 = v13;
-  v37 = v18;
-  v19 = [v17 predicateWithBlock:v36];
-  v20 = [queryCopy filteredSetUsingPredicate:v19];
+  v20 = MEMORY[0x277CCAC30];
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __81__ASReachabilityManager__addDestinationsToQuery_updateHandler_completionHandler___block_invoke;
+  v38[3] = &unk_278C462A0;
+  v21 = v14;
+  v39 = v21;
+  v22 = [v20 predicateWithBlock:v38];
+  v23 = [queryCopy filteredSetUsingPredicate:v22];
 
-  if ([v20 count])
+  if ([v23 count])
   {
-    v21 = objc_alloc_init(ASReachabilityQueryOperation);
-    [(ASReachabilityQueryOperation *)v21 setUpdateHandler:handlerCopy];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __81__ASReachabilityManager__addDestinationsToQuery_updateHandler_completionHandler___block_invoke_2;
-    v33[3] = &unk_278C462C8;
-    v34 = v18;
-    v28 = completionHandlerCopy;
-    v35 = completionHandlerCopy;
-    [(ASReachabilityQueryOperation *)v21 setCompletionHandler:v33];
-    [(ASReachabilityQueryOperation *)v21 setDestinations:v20];
-    [(ASReachabilityQueryOperation *)v21 setStatusCache:self->_statusCache];
-    [(ASReachabilityQueryOperation *)v21 setServiceIdentifier:self->_serviceIdentifier];
-    [(ASReachabilityQueryOperation *)v21 setQueuePriority:8];
+    v24 = objc_alloc_init(ASReachabilityQueryOperation);
+    [(ASReachabilityQueryOperation *)v24 setUpdateHandler:handlerCopy];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __81__ASReachabilityManager__addDestinationsToQuery_updateHandler_completionHandler___block_invoke_2;
+    v35[3] = &unk_278C462C8;
+    v36 = v21;
+    v30 = completionHandlerCopy;
+    v37 = completionHandlerCopy;
+    [(ASReachabilityQueryOperation *)v24 setCompletionHandler:v35];
+    [(ASReachabilityQueryOperation *)v24 setDestinations:v23];
+    [(ASReachabilityQueryOperation *)v24 setStatusCache:self->_statusCache];
+    [(ASReachabilityQueryOperation *)v24 setServiceIdentifier:self->_serviceIdentifier];
+    [(ASReachabilityQueryOperation *)v24 setQueuePriority:8];
+    v33 = 0u;
+    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
     operations = [(NSOperationQueue *)self->_queryOperationQueue operations];
-    v23 = [operations countByEnumeratingWithState:&v29 objects:v38 count:16];
-    if (v23)
+    v26 = [operations countByEnumeratingWithState:&v31 objects:v40 count:16];
+    if (v26)
     {
-      v24 = v23;
-      v25 = *v30;
+      v27 = v26;
+      v28 = *v32;
       do
       {
-        v26 = 0;
+        v29 = 0;
         do
         {
-          if (*v30 != v25)
+          if (*v32 != v28)
           {
             objc_enumerationMutation(operations);
           }
 
-          [*(*(&v29 + 1) + 8 * v26++) setQueuePriority:-4];
+          [*(*(&v31 + 1) + 8 * v29++) setQueuePriority:-4];
         }
 
-        while (v24 != v26);
-        v24 = [operations countByEnumeratingWithState:&v29 objects:v38 count:16];
+        while (v27 != v29);
+        v27 = [operations countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
-      while (v24);
+      while (v27);
     }
 
-    [(NSOperationQueue *)self->_queryOperationQueue addOperation:v21];
-    completionHandlerCopy = v28;
+    [(NSOperationQueue *)self->_queryOperationQueue addOperation:v24];
+    completionHandlerCopy = v30;
   }
 
   else
   {
-    (*(completionHandlerCopy + 2))(completionHandlerCopy, v18);
+    (*(completionHandlerCopy + 2))(completionHandlerCopy, v21);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __81__ASReachabilityManager__addDestinationsToQuery_updateHandler_completionHandler___block_invoke(uint64_t a1, uint64_t a2)

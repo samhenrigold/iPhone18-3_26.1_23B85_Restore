@@ -20,16 +20,15 @@
 
 - (id)stringForLogging
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = NviLogContextFacility;
   if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[NviSignalData stringForLogging]";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Abstract Impl. Returning nil", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[NviSignalData stringForLogging]";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Abstract Impl. Returning nil", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -72,16 +71,15 @@
 
 + (id)headerString
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = NviLogContextFacility;
   if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "+[NviSignalData headerString]";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Abstract Impl. Returning nil", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[NviSignalData headerString]";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Abstract Impl. Returning nil", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

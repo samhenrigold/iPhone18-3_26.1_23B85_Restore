@@ -4,6 +4,10 @@
 + (id)easeQuadInTimingFunction;
 + (id)easeQuadOutTimingFunction;
 + (id)factoryWithTimingFunction:(id)function;
++ (void)backOutTimingFunction;
++ (void)easeQuadInOutTimingFunction;
++ (void)easeQuadInTimingFunction;
++ (void)easeQuadOutTimingFunction;
 @end
 
 @implementation SKUISimpleAnimationFactory
@@ -116,6 +120,36 @@
   v13[1] = functionCopy;
 
   return v13;
+}
+
++ (void)backOutTimingFunction
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISimpleAnimationFactory backOutTimingFunction]";
+}
+
++ (void)easeQuadInTimingFunction
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISimpleAnimationFactory easeQuadInTimingFunction]";
+}
+
++ (void)easeQuadInOutTimingFunction
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISimpleAnimationFactory easeQuadInOutTimingFunction]";
+}
+
++ (void)easeQuadOutTimingFunction
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISimpleAnimationFactory easeQuadOutTimingFunction]";
+}
+
++ (void)factoryWithTimingFunction:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISimpleAnimationFactory factoryWithTimingFunction:]";
 }
 
 @end

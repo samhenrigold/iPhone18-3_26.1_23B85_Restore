@@ -17,9 +17,9 @@
     dispatch_once(&qword_1ED44FDC0, &__block_literal_global_11);
   }
 
-  v0 = _MergedGlobals_11;
+  v1 = _MergedGlobals_11;
 
-  return v0;
+  return v1;
 }
 
 void __48__BSXPCConnectionListenerManager_sharedInstance__block_invoke()
@@ -32,7 +32,7 @@ void __48__BSXPCConnectionListenerManager_sharedInstance__block_invoke()
     v1 = objc_msgSendSuper2(&v11, sel_init);
     if (v1)
     {
-      v2 = BSDispatchQueueCreateWithQualityOfService("com.apple.baseboard.xpc.connectionListening", 0, QOS_CLASS_USER_INTERACTIVE, 0);
+      v2 = BSDispatchQueueCreateWithQualityOfService("com.apple.baseboard.xpc.connectionListening", 0, 33, 0);
       v3 = v1[1];
       v1[1] = v2;
 
@@ -44,7 +44,7 @@ void __48__BSXPCConnectionListenerManager_sharedInstance__block_invoke()
       v7 = v1[3];
       v1[3] = v6;
 
-      v8 = BSDispatchQueueCreateWithQualityOfService("com.apple.baseboard.xpc.connectionListening", 0, QOS_CLASS_USER_INITIATED, 0);
+      v8 = BSDispatchQueueCreateWithQualityOfService("com.apple.baseboard.xpc.connectionListening", 0, 25, 0);
       v9 = v1[4];
       v1[4] = v8;
     }

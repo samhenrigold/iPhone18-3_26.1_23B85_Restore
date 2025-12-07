@@ -55,19 +55,19 @@
 
 + (id)bundleIdentifiersInstalledForPredicate:(id)predicate inContext:(id)context error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v7 = +[STInstalledApp fetchRequest];
   [v7 setResultType:2];
   [v7 setReturnsDistinctResults:1];
-  v19[0] = @"bundleIdentifier";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = @"bundleIdentifier";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   [v7 setPropertiesToFetch:v8];
 
   [v7 setPredicate:predicateCopy];
-  v18 = 0;
-  v9 = [v7 execute:&v18];
-  v10 = v18;
+  v17 = 0;
+  v9 = [v7 execute:&v17];
+  v10 = v17;
   v11 = v10;
   if (v9)
   {
@@ -86,8 +86,6 @@
       *error = v11;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -181,7 +179,7 @@
 
 - (BOOL)updateWithDictionaryRepresentation:(id)representation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy objectForKeyedSubscript:@"adamID"];
   [(STInstalledApp *)self setAdamID:v5];
@@ -223,9 +221,9 @@
     v15 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %@", @"uniqueIdentifier", v13];
     [v14 setPredicate:v15];
 
-    v25 = 0;
-    v16 = [v14 execute:&v25];
-    v17 = v25;
+    v24 = 0;
+    v16 = [v14 execute:&v24];
+    v17 = v24;
     firstObject = [v16 firstObject];
     [(STInstalledApp *)self setUserDeviceState:firstObject];
   }
@@ -250,8 +248,8 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v27 = "[STInstalledApp updateWithDictionaryRepresentation:]";
-      v28 = 2112;
+      v26 = "[STInstalledApp updateWithDictionaryRepresentation:]";
+      v27 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1B831F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}s: Deleting installed app (%@)", buf, 0x16u);
     }
@@ -260,7 +258,6 @@
     [managedObjectContext deleteObject:self];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -301,18 +298,18 @@
 
 - (void)updateIconDataWithURL:(id)l
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   MGGetFloat32Answer();
   v6 = v5;
   v7 = v5;
   v8 = 87.0 / v5;
-  v24 = 29 * v5;
+  v23 = 29 * v5;
   v9 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithURL:lCopy];
 
   v10 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:v8 scale:{v8, v7}];
-  v27[0] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v26[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
   [v9 prepareImagesForImageDescriptors:v11];
 
   v12 = [v9 imageForDescriptor:v10];
@@ -324,7 +321,7 @@
   valuePtr = v6 * 72.0;
   v17 = *MEMORY[0x1E695E480];
   v18 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &valuePtr);
-  v19 = CFNumberCreate(v17, kCFNumberLongType, &v24);
+  v19 = CFNumberCreate(v17, kCFNumberLongType, &v23);
   v20 = *MEMORY[0x1E696D880];
   keys[0] = *MEMORY[0x1E696D888];
   keys[1] = v20;
@@ -340,21 +337,17 @@
   CGImageDestinationFinalize(v16);
   [(STInstalledApp *)self setIconData:v14];
   CFRelease(v16);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithDictionaryRepresentation:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 uniqueIdentifier];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_1B831F000, a3, OS_LOG_TYPE_ERROR, "Deleted orphaned InstalledApp %@ without a UserDeviceState: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_1B831F000, a3, OS_LOG_TYPE_ERROR, "Deleted orphaned InstalledApp %@ without a UserDeviceState: %{public}@", &v6, 0x16u);
 }
 
 @end

@@ -1,3 +1,1404 @@
+void sub_23CC405D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  absl::lts_20240722::log_internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23CC405E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  absl::lts_20240722::log_internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t operations_research::sat::LinearProgrammingConstraint::PropagateExactDualRay(operations_research::sat::LinearProgrammingConstraint *this)
+{
+  v64 = *MEMORY[0x277D85DE8];
+  v53[0] = 0;
+  DualRay = operations_research::glop::RevisedSimplex::GetDualRay((this + 1368));
+  v3 = DualRay[1];
+  if (v3 != *DualRay)
+  {
+    if (((v3 - *DualRay) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+  }
+
+  *(this + 2946) = *(this + 2945);
+  operations_research::sat::LinearProgrammingConstraint::ScaleLpMultiplier(this, 0, 1, this + 2945, v53, 0x7FFFFFFFFFFFFFFFLL, &v55);
+  v4 = *(this + 2948);
+  if (v4)
+  {
+    *(this + 2949) = v4;
+    operator delete(v4);
+    *(this + 2948) = 0;
+    *(this + 2949) = 0;
+    *(this + 2950) = 0;
+  }
+
+  v5 = v55;
+  *(this + 2948) = v55;
+  v6 = v56;
+  *(this + 23592) = v56;
+  if (v53[0])
+  {
+    v52 = 0;
+    if ((operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<false>(this, v5, (v6 - v5) >> 4, this + 2920, &v52) & 1) == 0)
+    {
+      v15 = absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(&v55, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 2297);
+      absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongInt64<operations_research::sat::Coefficient_integer_tag_>,0>(v15, v53);
+      absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(&v55);
+    }
+
+    operations_research::sat::LinearProgrammingConstraint::AdjustNewLinearConstraint(this, this + 2948, this + 23360, &v52);
+    v7 = *(this + 2954);
+    LOBYTE(v55) = 0;
+    BYTE8(v56) = 0;
+    operations_research::sat::ScatteredIntegerVector::ConvertToLinearConstraint(this + 23360, v7, v52, &v55, v49);
+    memset(&__p, 0, sizeof(__p));
+    if (dword_2810C09D0 >= 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&off_2810C09C8, dword_2810C09D0))
+    {
+      v16 = v50;
+      if (v50 < 1)
+      {
+        v17 = 0;
+        v18 = 0;
+      }
+
+      else
+      {
+        v17 = 0;
+        v18 = 0;
+        v20 = *(&v51 + 1);
+        v19 = v51;
+        v21 = *(*(this + 2965) + 40);
+        do
+        {
+          while (1)
+          {
+            v27 = *v20++;
+            v26 = v27;
+            LODWORD(v27) = *v19++;
+            v28 = 8 * v27;
+            if (v26 < 1)
+            {
+              break;
+            }
+
+            v22 = *(v21 + v28);
+            v23 = (v22 * v26) >> 64;
+            v24 = v22 * v26;
+            v25 = __CFADD__(v24, v17);
+            v17 += v24;
+            v18 += v25 + v23;
+            if (!--v16)
+            {
+              goto LABEL_37;
+            }
+          }
+
+          v29 = -*(v21 + (v28 ^ 8));
+          v30 = (v29 * v26) >> 64;
+          v31 = v29 * v26;
+          v25 = __CFADD__(v31, v17);
+          v17 += v31;
+          v18 += v25 + v30;
+          --v16;
+        }
+
+        while (v16);
+      }
+
+LABEL_37:
+      v46[0] = v17;
+      v46[1] = v18;
+      v44[0] = 0;
+      v44[1] = 0;
+      v45 = 0;
+      v36 = absl::lts_20240722::strings_internal::ExtractStringification<absl::lts_20240722::int128>(v44, v46);
+      v38 = v37;
+      v40 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v49[1], v54, v39);
+      v53[1] = v54;
+      v53[2] = v40 - v54;
+      v55 = "LP exact dual ray not infeasible,";
+      *&v56 = 33;
+      *(&v56 + 1) = " implied_lb: ";
+      v57 = 13;
+      v58 = v36;
+      v59 = v38;
+      v60 = " ub: ";
+      v61 = 5;
+      v62 = v54;
+      v63 = v40 - v54;
+      absl::lts_20240722::strings_internal::CatPieces(&v55, 5, &v47);
+      __p = v47;
+      *(&v47.__r_.__value_.__s + 23) = 0;
+      v47.__r_.__value_.__s.__data_[0] = 0;
+      if (SHIBYTE(v45) < 0)
+      {
+        operator delete(v44[0]);
+      }
+    }
+
+    v41 = *v49;
+    v42 = v50;
+    v8 = v51;
+    v51 = 0uLL;
+    v43 = v8;
+    v9 = operations_research::sat::LinearProgrammingConstraint::PropagateLpConstraint(this, &v41);
+    v10 = *(&v43 + 1);
+    *(&v43 + 1) = 0;
+    if (v10)
+    {
+      MEMORY[0x23EED9440](v10, 0x1000C8000313F17);
+    }
+
+    v11 = v43;
+    *&v43 = 0;
+    if (v11)
+    {
+      MEMORY[0x23EED9440](v11, 0x1000C8052888210);
+    }
+
+    if ((v9 & 1) != 0 && dword_2810C09E8 >= 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&off_2810C09E0, dword_2810C09E8))
+    {
+      v34 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v55, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 2318);
+      v35 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v34, 1);
+      absl::lts_20240722::log_internal::LogMessage::operator<<(v35, &__p);
+      absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v55);
+    }
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    v12 = *(&v51 + 1);
+    *(&v51 + 1) = 0;
+    if (v12)
+    {
+      MEMORY[0x23EED9440](v12, 0x1000C8000313F17);
+    }
+
+    v13 = v51;
+    *&v51 = 0;
+    if (v13)
+    {
+      MEMORY[0x23EED9440](v13, 0x1000C8052888210);
+    }
+  }
+
+  else
+  {
+    if (dword_2810C09B8 >= 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&off_2810C09B0, dword_2810C09B8))
+    {
+      v32 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v55, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 2291);
+      v33 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v32, 1);
+      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v33, "Isse while computing the exact dual ray reason. Aborting.", 0x39uLL);
+      absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v55);
+    }
+
+    return 1;
+  }
+
+  return v9;
+}
+
+void sub_23CC40AF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33)
+{
+  if (a31 < 0)
+  {
+    operator delete(__p);
+  }
+
+  operations_research::sat::LinearConstraint::~LinearConstraint(&a33);
+  v35 = a1;
+  if (v33)
+  {
+    operator delete(v33);
+    v35 = a1;
+  }
+
+  _Unwind_Resume(v35);
+}
+
+uint64_t operations_research::sat::LinearProgrammingConstraint::UpdateSimplexIterationLimit(uint64_t this, uint64_t a2, uint64_t a3)
+{
+  if (*(*(this + 23696) + 572) >= 2)
+  {
+    v5 = this;
+    ProblemNumCols = operations_research::glop::RevisedSimplex::GetProblemNumCols((this + 1368));
+    if (ProblemNumCols < 1)
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v7 = 0;
+      v8 = 0;
+      v9 = ProblemNumCols;
+      do
+      {
+        if (operations_research::glop::RevisedSimplex::GetReducedCost(v5 + 1368, v7) == 0.0 && operations_research::glop::RevisedSimplex::GetVariableStatus(v5 + 1368, v7))
+        {
+          ++v8;
+        }
+
+        ++v7;
+      }
+
+      while (v9 != v7);
+    }
+
+    *(v5 + 24640) = operations_research::glop::RevisedSimplex::GetProblemNumCols((v5 + 1368)) * 0.3 <= v8;
+    this = operations_research::glop::RevisedSimplex::GetProblemNumCols((v5 + 1368));
+    if (this >= 1)
+    {
+      v10 = this;
+      v11 = 10 * v8 / this;
+      this = operations_research::glop::RevisedSimplex::GetProblemStatus((v5 + 1368));
+      if (this == 8)
+      {
+        if (*(v5 + 24640) == 1)
+        {
+          if (v11 <= 1)
+          {
+            v12 = 1;
+          }
+
+          else
+          {
+            v12 = v11;
+          }
+
+LABEL_22:
+          v13 = *(v5 + 21928) / v12;
+          goto LABEL_24;
+        }
+
+        v13 = 2 * *(v5 + 21928);
+      }
+
+      else
+      {
+        this = operations_research::glop::RevisedSimplex::GetProblemStatus((v5 + 1368));
+        if (!this)
+        {
+          if (*(v5 + 24640) != 1)
+          {
+            v13 = v10 / 0x28;
+            goto LABEL_24;
+          }
+
+          v12 = 2 * v11;
+          if (2 * v11 <= 1)
+          {
+            v12 = 1;
+          }
+
+          goto LABEL_22;
+        }
+
+        v13 = *(v5 + 21928);
+      }
+
+LABEL_24:
+      if (v13 >= a3)
+      {
+        v13 = a3;
+      }
+
+      if (v13 <= a2)
+      {
+        v13 = a2;
+      }
+
+      *(v5 + 21928) = v13;
+    }
+  }
+
+  return this;
+}
+
+uint64_t operations_research::sat::LinearProgrammingConstraint::PropagateExactLpReason(operations_research::sat::LinearProgrammingConstraint *this)
+{
+  *(this + 3017) = *(this + 3016);
+  *(this + 3020) = *(this + 3019);
+  *(this + 3023) = *(this + 3022);
+  ProblemNumRows = operations_research::glop::RevisedSimplex::GetProblemNumRows((this + 1368));
+  *(this + 2946) = *(this + 2945);
+  if (ProblemNumRows < 1)
+  {
+    return 1;
+  }
+
+  v4 = 0;
+  v5 = ProblemNumRows;
+  do
+  {
+    DualValue = operations_research::glop::RevisedSimplex::GetDualValue(this + 1368, v4);
+    if (fabs(DualValue) >= 1.0e-12)
+    {
+      *v68 = v4;
+      *&v68[8] = -DualValue;
+      std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100](this + 23560, v68);
+    }
+
+    ++v4;
+  }
+
+  while (v5 != v4);
+  if (*(this + 2945) == *(this + 2946))
+  {
+    return 1;
+  }
+
+  v8 = *(this + 2957);
+  if (v8 <= 1)
+  {
+    if (*(this + 2958) < 2uLL || *(this + 5918) != *(this + 5923))
+    {
+      goto LABEL_19;
+    }
+
+    v9 = *(this + 60);
+    v10 = *(this + 61) - v9;
+    if (v10 == 16)
+    {
+      v11 = (this + 23672);
+      if (!&absl::lts_20240722::container_internal::kSooControl)
+      {
+        goto LABEL_12;
+      }
+
+LABEL_29:
+      if (*v9 != v11[1])
+      {
+        operations_research::sat::LinearProgrammingConstraint::PropagateExactLpReason(v9, v11 + 1, v68);
+      }
+
+      v66[0] = 1;
+      if (*(v9 + 8) != 1)
+      {
+        operations_research::sat::LinearProgrammingConstraint::PropagateExactLpReason((v9 + 8), v66, v68);
+      }
+
+      v25 = 0;
+      goto LABEL_32;
+    }
+
+    goto LABEL_69;
+  }
+
+  v12 = 0;
+  _X13 = *(this + 2959);
+  __asm { PRFM            #4, [X13] }
+
+  v19 = *(this + 5923);
+  v20 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v19) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v19));
+  v21 = vdup_n_s8(v20 & 0x7F);
+  v22 = ((v20 >> 7) ^ (_X13 >> 12)) & v8;
+  v23 = *(_X13 + v22);
+  v24 = vceq_s8(v23, v21);
+  if (!v24)
+  {
+    goto LABEL_16;
+  }
+
+  do
+  {
+LABEL_14:
+    if (*(*(this + 2960) + 8 * ((v22 + (__clz(__rbit64(v24)) >> 3)) & v8)) == v19)
+    {
+      v9 = *(this + 60);
+      v10 = *(this + 61) - v9;
+      if (v10 == 16)
+      {
+        v26 = 0;
+        _X8 = *(this + 2959);
+        __asm { PRFM            #4, [X8] }
+
+        v29 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v19) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v19));
+        v30 = vdup_n_s8(v29 & 0x7F);
+        v31 = ((v29 >> 7) ^ (_X8 >> 12)) & v8;
+        v32 = *(_X8 + v31);
+        v33 = vceq_s8(v32, v30);
+        if (!v33)
+        {
+          goto LABEL_25;
+        }
+
+LABEL_22:
+        v34 = *(this + 2960);
+        while (1)
+        {
+          v35 = (v31 + (__clz(__rbit64(v33)) >> 3)) & v8;
+          if (*(v34 + 8 * v35) == v19)
+          {
+            break;
+          }
+
+          v33 &= ((v33 & 0x8080808080808080) - 1) & 0x8080808080808080;
+          if (!v33)
+          {
+LABEL_25:
+            while (!*&vceq_s8(v32, 0x8080808080808080))
+            {
+              v26 += 8;
+              v31 = (v26 + v31) & v8;
+              v32 = *(_X8 + v31);
+              v33 = vceq_s8(v32, v30);
+              if (v33)
+              {
+                goto LABEL_22;
+              }
+            }
+
+LABEL_12:
+            absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", v6);
+          }
+        }
+
+        v11 = (v34 + 8 * v35);
+        if (!(_X8 + v35))
+        {
+          goto LABEL_12;
+        }
+
+        goto LABEL_29;
+      }
+
+LABEL_69:
+      operations_research::sat::LinearProgrammingConstraint::PropagateExactLpReason(v10, v68);
+    }
+
+    v24 &= ((v24 & 0x8080808080808080) - 1) & 0x8080808080808080;
+  }
+
+  while (v24);
+LABEL_16:
+  while (!*&vceq_s8(v23, 0x8080808080808080))
+  {
+    v12 += 8;
+    v22 = (v12 + v22) & v8;
+    v23 = *(_X13 + v22);
+    v24 = vceq_s8(v23, v21);
+    if (v24)
+    {
+      goto LABEL_14;
+    }
+  }
+
+LABEL_19:
+  v25 = 1;
+LABEL_32:
+  v71 = 0;
+  operations_research::sat::LinearProgrammingConstraint::ScaleLpMultiplier(this, v25, 1, this + 2945, &v71, 0x7FFFFFFFFFFFFFFFLL, v68);
+  v36 = *(this + 2948);
+  if (v36)
+  {
+    *(this + 2949) = v36;
+    operator delete(v36);
+    *(this + 2948) = 0;
+    *(this + 2949) = 0;
+    *(this + 2950) = 0;
+  }
+
+  v37 = *v68;
+  *(this + 2948) = *v68;
+  v38 = *&v68[8];
+  *(this + 23592) = *&v68[8];
+  v39 = v71;
+  if (!v71)
+  {
+    if (dword_2810C0988 > 0 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&off_2810C0980, dword_2810C0988))
+    {
+      absl::lts_20240722::log_internal::LogMessage::LogMessage(v68, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 2229);
+      v61 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v68, 1);
+      LOBYTE(v66[0]) = operations_research::glop::RevisedSimplex::GetProblemStatus((this + 1368));
+      absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::glop::ProblemStatus,0>(v61, v66);
+      absl::lts_20240722::log_internal::LogMessage::~LogMessage(v68);
+    }
+
+    if (dword_2810C09A0 >= 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&off_2810C0998, dword_2810C09A0))
+    {
+      absl::lts_20240722::log_internal::LogMessage::LogMessage(v68, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 2230);
+      v62 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v68, 1);
+      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v62, "Issue while computing the exact LP reason. Aborting.", 0x34uLL);
+      absl::lts_20240722::log_internal::LogMessage::~LogMessage(v68);
+    }
+
+    return 1;
+  }
+
+  v70 = 0;
+  if ((operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<false>(this, v37, (v38 - v37) >> 4, this + 2920, &v70) & 1) == 0)
+  {
+    operations_research::sat::LinearProgrammingConstraint::PropagateExactLpReason(v68);
+  }
+
+  if (v25)
+  {
+    v40 = *(this + 54);
+    *(this + 55) = v40;
+    v41 = *(this + 57);
+    *(this + 58) = v41;
+    v42 = *(this + 60);
+    v43 = *(this + 61);
+    if (v42 == v43)
+    {
+      v46 = v41;
+      v45 = v40;
+    }
+
+    else
+    {
+      do
+      {
+        v44 = *v42++;
+        *v68 = v44;
+        std::vector<int>::push_back[abi:ne200100](this + 432, v68);
+        std::vector<long long>::push_back[abi:ne200100](this + 456, &v68[8]);
+      }
+
+      while (v42 != v43);
+      v45 = *(this + 54);
+      v40 = *(this + 55);
+      v46 = *(this + 57);
+    }
+
+    if ((operations_research::sat::ScatteredIntegerVector::AddLinearExpressionMultiple<false>(this + 23360, v39, v45, v40 - v45, v46) & 1) == 0)
+    {
+      operations_research::sat::LinearProgrammingConstraint::PropagateExactLpReason(v68);
+    }
+
+    v1 = -v39;
+    v52 = *(this + 63);
+    if ((-v39 * v52) >> 64 == -(v39 * v52) >> 63)
+    {
+      v53 = -(v39 * v52);
+    }
+
+    else
+    {
+      v53 = ((v52 ^ -v39) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    if (v53 - 0x7FFFFFFFFFFFFFFFLL < 2)
+    {
+      goto LABEL_68;
+    }
+
+    v54 = (v53 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+    _VF = __OFADD__(v53, v70);
+    v55 = v53 + v70;
+    if (_VF)
+    {
+      v55 = v54;
+    }
+
+    if ((v55 + 0x7FFFFFFFFFFFFFFFLL) >= 0xFFFFFFFFFFFFFFFELL)
+    {
+LABEL_68:
+      operations_research::sat::LinearProgrammingConstraint::PropagateExactLpReason(v68);
+    }
+
+    v70 = v55;
+    v51 = *(this + 5923) & 0xFFFFFF00;
+    v50 = *(this + 5923);
+    v49 = 1;
+  }
+
+  else
+  {
+    v49 = 0;
+    v50 = 0;
+    v51 = 0;
+  }
+
+  operations_research::sat::LinearProgrammingConstraint::AdjustNewLinearConstraint(this, this + 2948, this + 23360, &v70);
+  v56 = *(this + 2954);
+  LODWORD(v66[0]) = v51 | v50;
+  v66[1] = v1;
+  v67 = v49;
+  operations_research::sat::ScatteredIntegerVector::ConvertToLinearConstraint(this + 23360, v56, v70, v66, v68);
+  if (*&v68[16])
+  {
+    v63 = *v68;
+    v64 = *&v68[16];
+    v57 = v69;
+    v69 = 0uLL;
+    v65 = v57;
+    v47 = operations_research::sat::LinearProgrammingConstraint::PropagateLpConstraint(this, &v63);
+    if (*(&v65 + 1))
+    {
+      MEMORY[0x23EED9440](*(&v65 + 1), 0x1000C8000313F17);
+    }
+
+    if (v65)
+    {
+      MEMORY[0x23EED9440](v65, 0x1000C8052888210);
+    }
+
+    v58 = *(&v69 + 1);
+    *(&v69 + 1) = 0;
+    if (v58)
+    {
+LABEL_62:
+      MEMORY[0x23EED9440](v58, 0x1000C8000313F17);
+    }
+  }
+
+  else
+  {
+    v60 = *(this + 2966);
+    v60[15] = 0;
+    v60[10] = v60[9];
+    v47 = *&v68[8] >= 0;
+    v58 = *(&v69 + 1);
+    *(&v69 + 1) = 0;
+    if (v58)
+    {
+      goto LABEL_62;
+    }
+  }
+
+  v59 = v69;
+  *&v69 = 0;
+  if (v59)
+  {
+    MEMORY[0x23EED9440](v59, 0x1000C8052888210);
+  }
+
+  return v47;
+}
+
+void sub_23CC413C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  absl::lts_20240722::log_internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23CC413DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  absl::lts_20240722::log_internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23CC413F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  absl::lts_20240722::log_internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23CC41404(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  operations_research::sat::LinearConstraint::~LinearConstraint(&a9);
+  operations_research::sat::LinearConstraint::~LinearConstraint(va);
+  _Unwind_Resume(a1);
+}
+
+void operations_research::sat::LinearProgrammingConstraint::ReducedCostStrengtheningDeductions(operations_research::sat::LinearProgrammingConstraint *this, double a2)
+{
+  *(this + 3020) = *(this + 3019);
+  v10 = *(this + 2955) - *(this + 2954);
+  if ((v10 >> 2) >= 1)
+  {
+    v27 = v9;
+    v28 = v8;
+    v29 = v7;
+    v30 = v6;
+    v31 = v5;
+    v32 = v4;
+    v33 = v2;
+    v34 = v3;
+    v12 = 0;
+    v13 = (v10 >> 2) & 0x7FFFFFFF;
+    v14 = a2 / *(this + 165);
+    do
+    {
+      v15 = *(*(this + 2954) + 4 * v12);
+      ReducedCost = operations_research::glop::RevisedSimplex::GetReducedCost(this + 1368, v12);
+      VariableValue = operations_research::glop::RevisedSimplex::GetVariableValue(this + 1368, v12);
+      if (ReducedCost != 0.0)
+      {
+        v18 = operations_research::glop::LpScalingHelper::UnscaleVariableValue(this + 21936, v12, VariableValue + v14 / ReducedCost);
+        if (ReducedCost <= 0.000001)
+        {
+          if (ReducedCost >= -0.000001)
+          {
+            goto LABEL_4;
+          }
+
+          v23 = *(*(*(this + 2965) + 40) + 8 * v15);
+          v24 = v23;
+          if (v23 < 0x8000000000000003)
+          {
+            v24 = -INFINITY;
+          }
+
+          if (v23 > 0x7FFFFFFFFFFFFFFDLL)
+          {
+            v24 = INFINITY;
+          }
+
+          v25 = ceil(v18 + -0.0001);
+          if (v25 <= v24)
+          {
+            goto LABEL_4;
+          }
+
+          v22 = v25;
+          *&v26 = v15;
+        }
+
+        else
+        {
+          v19 = -*(*(*(this + 2965) + 40) + ((8 * v15) ^ 8));
+          v20 = v19;
+          if (v19 < 0x8000000000000003)
+          {
+            v20 = -INFINITY;
+          }
+
+          if (v19 > 0x7FFFFFFFFFFFFFFDLL)
+          {
+            v20 = INFINITY;
+          }
+
+          v21 = floor(v18 + 0.0001);
+          if (v21 >= v20)
+          {
+            goto LABEL_4;
+          }
+
+          if (v21 >= 0x8000000000000002)
+          {
+            v22 = -v21;
+          }
+
+          else
+          {
+            v22 = 0x7FFFFFFFFFFFFFFFLL;
+          }
+
+          *&v26 = v15 ^ 1;
+        }
+
+        *(&v26 + 1) = v22;
+        std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100](this + 24152, &v26);
+      }
+
+LABEL_4:
+      ++v12;
+    }
+
+    while (v13 != v12);
+  }
+}
+
+uint64_t operations_research::sat::LinearProgrammingConstraint::UpdateAverageReducedCosts(std::vector<int> *this)
+{
+  p_end = &this[853].__end_;
+  v3 = this[985].__begin_ - this[984].__end_cap_.__value_;
+  v4 = v3 >> 2;
+  v5 = (this[1018].__end_ - this[1018].__begin_) >> 3;
+  v6 = (v3 >> 2);
+  if (v6 > v5)
+  {
+    *&v59 = 0;
+    std::vector<double>::__append(&this[1018], v6 - v5, &v59);
+    LODWORD(v59) = 0;
+    begin = this[1020].__begin_;
+    v8 = this[1020].__end_ - begin;
+    if (v6 <= v8)
+    {
+      if (v6 < v8)
+      {
+        this[1020].__end_ = &begin[v6];
+      }
+    }
+
+    else
+    {
+      std::vector<int>::__append(this + 1020, v6 - v8, &v59);
+    }
+
+    *&v59 = 0;
+    v9 = this[1017].__begin_;
+    v10 = (this[1017].__end_ - v9) >> 3;
+    if (v6 <= v10)
+    {
+      if (v6 < v10)
+      {
+        this[1017].__end_ = &v9[2 * v6];
+      }
+    }
+
+    else
+    {
+      std::vector<double>::__append(&this[1017], v6 - v10, &v59);
+    }
+
+    LODWORD(v59) = 0;
+    v11 = this[1019].__begin_;
+    v12 = this[1019].__end_ - v11;
+    if (v6 <= v12)
+    {
+      if (v6 < v12)
+      {
+        this[1019].__end_ = &v11[v6];
+      }
+    }
+
+    else
+    {
+      std::vector<int>::__append(this + 1019, v6 - v12, &v59);
+    }
+
+    *&v59 = 0;
+    v13 = this[1021].__begin_;
+    v14 = (this[1021].__end_ - v13) >> 3;
+    if (v6 <= v14)
+    {
+      if (v6 < v14)
+      {
+        this[1021].__end_ = &v13[2 * v6];
+      }
+    }
+
+    else
+    {
+      std::vector<double>::__append(&this[1021], v6 - v14, &v59);
+    }
+  }
+
+  v15 = *(p_end + 981) + 1;
+  *(p_end + 981) = v15;
+  v16 = (v3 >> 2) & 0x7FFFFFFF;
+  if (v15 == 10000)
+  {
+    if (v4 >= 1)
+    {
+      v17 = this[1017].__begin_;
+      v18 = this[1019].__begin_;
+      v19 = this[1018].__begin_;
+      v20 = this[1020].__begin_;
+      if (v16 > 3)
+      {
+        v21 = 0;
+        _CF = v18 >= &v20[v16] || v20 >= &v18[v16];
+        v23 = !_CF;
+        if ((v19 >= &v17[2 * v16] || v17 >= &v19[2 * v16]) && (v23 & 1) == 0)
+        {
+          v25 = (v3 >> 2) & 3;
+          v21 = v16 - v25;
+          __asm { FMOV            V0.2D, #0.5 }
+
+          v30 = v16 - v25;
+          v31 = this[1020].__begin_;
+          v32 = this[1018].__begin_;
+          v33 = this[1019].__begin_;
+          v34 = this[1017].__begin_;
+          do
+          {
+            v35 = vmulq_f64(v34[1], _Q0);
+            *v34 = vmulq_f64(*v34, _Q0);
+            v34[1] = v35;
+            v34 += 2;
+            *v33 = vshrq_n_s32(vsraq_n_u32(*v33, *v33, 0x1FuLL), 1uLL);
+            ++v33;
+            v36 = vmulq_f64(v32[1], _Q0);
+            *v32 = vmulq_f64(*v32, _Q0);
+            v32[1] = v36;
+            v32 += 2;
+            *v31 = vshrq_n_s32(vsraq_n_u32(*v31, *v31, 0x1FuLL), 1uLL);
+            ++v31;
+            v30 -= 4;
+          }
+
+          while (v30);
+          if (!v25)
+          {
+            goto LABEL_40;
+          }
+        }
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      v37 = &v20[v21];
+      v38 = &v19[2 * v21];
+      v39 = &v18[v21];
+      v40 = &v17[2 * v21];
+      v41 = v21 - v16;
+      do
+      {
+        *v40 = *v40 * 0.5;
+        ++v40;
+        *v39++ /= 2;
+        *v38 = *v38 * 0.5;
+        ++v38;
+        *v37++ /= 2;
+        _CF = __CFADD__(v41++, 1);
+      }
+
+      while (!_CF);
+    }
+
+LABEL_40:
+    *(p_end + 981) = 0;
+  }
+
+  if (v4 >= 1)
+  {
+    v42 = 0;
+    value = this[984].__end_cap_.__value_;
+    v44 = *(this[988].__end_ + 5);
+    do
+    {
+      v46 = 8 * value[v42];
+      if (*(v44 + v46) + *(v44 + (v46 ^ 8)))
+      {
+        v47 = *&this[1012].__begin_[2 * v42];
+        if (fabs(v47) >= 0.0001)
+        {
+          if (v47 < 0.0)
+          {
+            *&this[1018].__begin_[2 * v42] = *&this[1018].__begin_[2 * v42] - v47;
+            v45 = this + 1020;
+          }
+
+          else
+          {
+            *&this[1017].__begin_[2 * v42] = v47 + *&this[1017].__begin_[2 * v42];
+            v45 = this + 1019;
+          }
+
+          ++v45->__begin_[v42];
+        }
+      }
+
+      ++v42;
+    }
+
+    while (v16 != v42);
+  }
+
+  operations_research::RevRepository<int>::SetLevel(&this[1022].__end_, 0);
+  operations_research::RevRepository<int>::SetLevel(&this[1022].__end_, this[988].__end_cap_.__value_[2] & 0xFFFFFFF);
+  *(p_end + 1012) = 0;
+  end = this[1025].__begin_;
+  this[1025].__end_ = end;
+  if (v4 >= 1)
+  {
+    v49 = 0;
+    while (1)
+    {
+      v50 = this[1019].__begin_[v49];
+      if (v50 < 1)
+      {
+        v51 = 0.0;
+        v52 = this[1020].__begin_[v49];
+        if (v52 <= 0)
+        {
+LABEL_61:
+          v54 = this[1021].__begin_;
+          v53 = 0.0;
+          goto LABEL_62;
+        }
+      }
+
+      else
+      {
+        v51 = *&this[1017].__begin_[2 * v49] / v50;
+        v52 = this[1020].__begin_[v49];
+        if (v52 <= 0)
+        {
+          goto LABEL_61;
+        }
+      }
+
+      v53 = *&this[1018].__begin_[2 * v49] / v52;
+      v54 = this[1021].__begin_;
+      if (v50 >= 1)
+      {
+        if (v53 < v51)
+        {
+          v51 = v53;
+        }
+
+        *&v54[2 * v49] = v51;
+        if (v51 <= 0.0)
+        {
+          goto LABEL_52;
+        }
+
+LABEL_63:
+        *&v59 = -v51;
+        DWORD2(v59) = v49;
+        std::vector<operations_research::sat::ProbingRectangle::IntervalPoint>::push_back[abi:ne200100](&this[1025], &v59);
+        goto LABEL_52;
+      }
+
+LABEL_62:
+      v51 = (v51 + v53) * 0.5;
+      *&v54[2 * v49] = v51;
+      if (v51 > 0.0)
+      {
+        goto LABEL_63;
+      }
+
+LABEL_52:
+      if (v16 == ++v49)
+      {
+        v55 = this[1025].__begin_;
+        end = this[1025].__end_;
+        goto LABEL_66;
+      }
+    }
+  }
+
+  v55 = end;
+LABEL_66:
+  v56 = 126 - 2 * __clz((end - v55) >> 4);
+  if (end == v55)
+  {
+    v57 = 0;
+  }
+
+  else
+  {
+    v57 = v56;
+  }
+
+  return std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<double,int> *,false>(v55, end, &v59, v57, 1);
+}
+
+uint64_t operations_research::sat::LinearProgrammingConstraint::PreprocessCut(uint64_t a1, int a2, operations_research::sat::CutData *this)
+{
+  operations_research::sat::CutData::ComplementForPositiveCoefficients(this);
+  v6 = *(this + 1);
+  if ((v6 & 0x8000000000000000) != 0)
+  {
+    goto LABEL_15;
+  }
+
+  v60 = a2;
+  v7 = *this;
+  v8.f64[0] = NAN;
+  v8.f64[1] = NAN;
+  v9 = vnegq_f64(v8);
+  *(a1 + 24672) = v9;
+  *(a1 + 24688) = v9;
+  *(a1 + 24704) = v9;
+  *(a1 + 24720) = v9;
+  *(a1 + 24656) = xmmword_23CE4C6E0;
+  *(a1 + 24736) = 0;
+  v10 = *(this + 2);
+  v58 = (this + 16);
+  v11 = *(this + 3);
+  if (v10 == v11)
+  {
+    v12 = 0x7FFFFFFFFFFFFFFFLL;
+    v13 = (a1 + 24736);
+    if (__PAIR128__(v6, v7) >= 0x7FFFFFFFFFFFFFFFLL)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    do
+    {
+      operations_research::sat::FirstFewValues<10>::Add(a1 + 24656, *(v10 + 8));
+      v10 += 56;
+    }
+
+    while (v10 != v11);
+    v7 = *this;
+    v12 = *(a1 + 24728);
+    v13 = (a1 + 24736);
+    if (*this >= v12)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  if (v12 > v7)
+  {
+    v14 = 10;
+    v15 = (a1 + 24656);
+    do
+    {
+      v16 = v14 >> 1;
+      v17 = &v15[v14 >> 1];
+      v19 = *v17;
+      v18 = v17 + 1;
+      v14 += ~(v14 >> 1);
+      if (v19 < v7)
+      {
+        v15 = v18;
+      }
+
+      else
+      {
+        v14 = v16;
+      }
+    }
+
+    while (v14);
+    if (v15 == v13 || *v15 > v7)
+    {
+LABEL_15:
+      v20 = 0;
+      *(a1 + 23280) = 1;
+      return v20 & 1;
+    }
+  }
+
+LABEL_16:
+  v21 = *(this + 2);
+  v61 = *(this + 3);
+  if (v21 == v61)
+  {
+    v20 = 0;
+  }
+
+  else
+  {
+    v59 = 0;
+    v62 = 0;
+    do
+    {
+      while (1)
+      {
+        v27 = *(v21 + 8);
+        v25 = *(v21 + 16);
+        v28 = (v25 * v27) >> 64;
+        v29 = v25 * v27;
+        v64 = v25;
+        v31 = *this;
+        v30 = *(this + 1);
+        if (*this >= v25 * v27)
+        {
+          v32 = v25;
+        }
+
+        else
+        {
+          v32 = __divti3();
+          v64 = v32;
+          v28 = (v32 * v27) >> 64;
+          v29 = v32 * v27;
+        }
+
+        v34 = (__PAIR128__(v30, v31) - __PAIR128__(v28, v29)) >> 64;
+        v33 = v31 - v29;
+        v35 = *(a1 + 24728);
+        if (__PAIR128__(v34, v33) < v35)
+        {
+          do
+          {
+            if (v35 <= v33)
+            {
+              break;
+            }
+
+            v36 = (a1 + 24656);
+            v37 = 10;
+            do
+            {
+              v38 = v37 >> 1;
+              v39 = &v36[v37 >> 1];
+              v41 = *v39;
+              v40 = v39 + 1;
+              v37 += ~(v37 >> 1);
+              if (v41 < v33)
+              {
+                v36 = v40;
+              }
+
+              else
+              {
+                v37 = v38;
+              }
+            }
+
+            while (v37);
+            if (v36 != v13 && *v36 <= v33)
+            {
+              break;
+            }
+
+            ++*(a1 + 24824);
+            if (v32-- < 1)
+            {
+              operations_research::sat::LinearProgrammingConstraint::PreprocessCut(&v64, v63);
+            }
+
+            v64 = v32;
+            v34 = (__PAIR128__(v34, v33) + v27) >> 64;
+            v33 += v27;
+          }
+
+          while (__PAIR128__(v34, v33) < v35);
+          v25 = *(v21 + 16);
+        }
+
+        if (v32 < v25)
+        {
+          *(v21 + 16) = v32;
+          v24 = *(v21 + 32);
+          if (v24 >= v60)
+          {
+            v44 = *(*(a1 + 23512) + 4 * ((v24 - v60) / 2));
+            v45 = *(v21 + 40);
+            if (v45 == 1)
+            {
+              v46 = v32 - *(v21 + 24);
+              if (operations_research::sat::LinearConstraintManager::UpdateConstraintUb(a1 + 16, v44, v46))
+              {
+                *(*(a1 + 520) + 32 * v44 + 8) = v46;
+              }
+            }
+
+            else
+            {
+              if (v45 != -1)
+              {
+                operations_research::sat::LinearProgrammingConstraint::PreprocessCut(v21, v63);
+              }
+
+              v47 = *(v21 + 24) - v32;
+              if (operations_research::sat::LinearConstraintManager::UpdateConstraintLb(a1 + 16, v44, v47))
+              {
+                *(*(a1 + 520) + 32 * v44) = v47;
+              }
+            }
+          }
+
+          else
+          {
+            ++*(a1 + 24816);
+            v43 = *(v21 + 40);
+            if (v43 == 1)
+            {
+              v22 = *(a1 + 23720);
+              if (*(v21 + 16) - *(v21 + 24) >= 0x8000000000000002)
+              {
+                v23 = *(v21 + 24) - *(v21 + 16);
+              }
+
+              else
+              {
+                v23 = 0x7FFFFFFFFFFFFFFFLL;
+              }
+
+              v24 ^= 1uLL;
+            }
+
+            else
+            {
+              if (v43 != -1)
+              {
+                operations_research::sat::LinearProgrammingConstraint::PreprocessCut(v21, v63);
+              }
+
+              v22 = *(a1 + 23720);
+              v23 = *(v21 + 24) - *(v21 + 16);
+            }
+
+            if ((operations_research::sat::IntegerTrail::Enqueue(v22, v24, v23, 0, 0, 0, 0) & 1) == 0)
+            {
+              goto LABEL_15;
+            }
+          }
+
+          v25 = *(v21 + 16);
+        }
+
+        if (!v25)
+        {
+          break;
+        }
+
+        v26 = *v21;
+        v21 += 56;
+        v62 |= v26 > 0.01;
+        if (v21 == v61)
+        {
+          goto LABEL_54;
+        }
+      }
+
+      v59 = 1;
+      v21 += 56;
+    }
+
+    while (v21 != v61);
+LABEL_54:
+    if (v59)
+    {
+      v48 = *(this + 2);
+      v49 = *(this + 3);
+      if (v48 != v49)
+      {
+        v50 = 0;
+        do
+        {
+          if (*(v48 + 2))
+          {
+            v51 = *v58 + 56 * v50++;
+            v52 = *v48;
+            v53 = v48[1];
+            v54 = v48[2];
+            *(v51 + 48) = *(v48 + 6);
+            *(v51 + 16) = v53;
+            *(v51 + 32) = v54;
+            *v51 = v52;
+          }
+
+          v48 = (v48 + 56);
+        }
+
+        while (v48 != v49);
+        v55 = *(this + 2);
+        v56 = 0x6DB6DB6DB6DB6DB7 * ((*(this + 3) - v55) >> 3);
+        if (v50 <= v56)
+        {
+          if (v50 < v56)
+          {
+            *(this + 3) = v55 + 56 * v50;
+          }
+        }
+
+        else
+        {
+          std::vector<operations_research::sat::CutTerm>::__append(v58, v50 - v56);
+        }
+      }
+    }
+
+    v20 = v62;
+  }
+
+  return v20 & 1;
+}
+
 __n128 operations_research::sat::FirstFewValues<10>::Add(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 72) > a2)
@@ -107,33 +1508,33 @@ LABEL_18:
   return result;
 }
 
-uint64_t operations_research::sat::LinearProgrammingConstraint::AddCutFromConstraints(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t operations_research::sat::LinearProgrammingConstraint::AddCutFromConstraints(__n128 *a1, uint64_t a2, uint64_t a3, __int128 **a4)
 {
-  *&v61 = a2;
-  *(&v61 + 1) = a3;
-  v73 = *MEMORY[0x277D85DE8];
-  v64 = 0;
-  if ((operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<true>(a1, *a4, (a4[1] - *a4) >> 4, (a1 + 23360), &v64) & 1) == 0)
+  *&v60 = a2;
+  *(&v60 + 1) = a3;
+  v72 = *MEMORY[0x277D85DE8];
+  v63 = 0;
+  if ((operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<true>(a1, *a4, a4[1] - *a4, &a1[1460], &v63) & 1) == 0)
   {
-    ++*(a1 + 24848);
+    ++a1[1553].n128_u64[0];
     if (dword_27E25D148 >= 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&operations_research::sat::LinearProgrammingConstraint::AddCutFromConstraints(std::string_view,std::vector<std::pair<operations_research::StrongIndex<operations_research::glop::RowIndex_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>> const&)::$_0::operator() const(void)::site, dword_27E25D148))
     {
-      v54 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v67, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 989);
-      v55 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v54, 1);
-      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v55, "Issue, overflow!", 0x10uLL);
-      absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v67);
+      v53 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v66, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 989);
+      v54 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v53, 1);
+      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v54, "Issue, overflow!", 0x10uLL);
+      absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v66);
     }
 
-    goto LABEL_32;
+    return 0;
   }
 
-  v60 = (a1 + 23296);
-  operations_research::sat::ScatteredIntegerVector::ConvertToCutData(a1 + 23360, v64, v64 >> 63, (a1 + 23632), (a1 + 24264), *(a1 + 23720), a1 + 23296);
-  v6 = *(a1 + 23312);
-  v7 = *(a1 + 23320);
+  v59 = &a1[1456];
+  operations_research::sat::ScatteredIntegerVector::ConvertToCutData(&a1[1460], v63, v63 >> 63, a1[1477].n128_u64, &a1[1516].n128_u64[1], a1[1482].n128_i64[1], &a1[1456]);
+  v6 = a1[1457].n128_u64[0];
+  v7 = a1[1457].n128_u64[1];
   if (v6 == v7)
   {
-    goto LABEL_32;
+    return 0;
   }
 
   v8 = 0;
@@ -148,62 +1549,62 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::AddCutFromConstr
 
   while (v6 != v7);
   v11 = v9 & v8;
-  v12 = (v11 & 1) != 0 ? a1 + 23984 : 0;
+  v12 = (v11 & 1) != 0 ? &a1[1499] : 0;
   if ((v9 & 1) == 0)
   {
-    goto LABEL_32;
+    return 0;
   }
 
-  v57 = v11;
-  v56 = (a1 + 23984);
-  v13 = (*(*(a1 + 24360) + 8) - **(a1 + 24360)) >> 3;
-  v58 = v12;
-  v59 = *(*(a1 + 24360) + 8) - **(a1 + 24360);
+  v56 = v11;
+  v55 = a1 + 1499;
+  v13 = (*(a1[1522].n128_u64[1] + 8) - *a1[1522].n128_u64[1]) >> 3;
+  v57 = v12;
+  v58 = *(a1[1522].n128_u64[1] + 8) - *a1[1522].n128_u64[1];
   if (v13 >= 0)
   {
-    v14 = ((*(*(a1 + 24360) + 8) - **(a1 + 24360)) & 8) != 0;
+    v14 = ((*(a1[1522].n128_u64[1] + 8) - *a1[1522].n128_u64[1]) & 8) != 0;
   }
 
   else
   {
-    v14 = -(((*(*(a1 + 24360) + 8) - **(a1 + 24360)) & 8) != 0);
+    v14 = -(((*(a1[1522].n128_u64[1] + 8) - *a1[1522].n128_u64[1]) & 8) != 0);
   }
 
   if (v14)
   {
-    operations_research::sat::LinearProgrammingConstraint::AddCutFromConstraints(v14);
+    operations_research::sat::LinearProgrammingConstraint::AddCutFromConstraints(v14, &v66);
   }
 
-  *(a1 + 23520) = *(a1 + 23512);
+  a1[1470].n128_u64[0] = a1[1469].n128_u64[1];
   v16 = *a4;
   v15 = a4[1];
   if (*a4 != v15)
   {
     do
     {
-      v71 = *v16;
-      v17 = v71;
-      v18 = (*(a1 + 520) + 32 * v71);
+      v70 = *v16;
+      v17 = v70;
+      v18 = (a1[32].n128_u64[1] + 32 * v70);
       if (*v18 != v18[1])
       {
-        v70 = 0;
+        v69 = 0;
+        v67 = 0u;
         v68 = 0u;
-        v69 = 0u;
-        v19 = *(&v71 + 1);
-        if (v71 < 0)
+        v19 = *(&v70 + 1);
+        if (v70 < 0)
         {
-          v19 = -*(&v71 + 1);
+          v19 = -*(&v70 + 1);
         }
 
-        *&v67 = 0;
-        *(&v67 + 1) = v19;
-        *&v68 = v18[1] - *v18;
-        LODWORD(v69) = (((*(a1 + 23520) - *(a1 + 23512)) >> 1) & 0xFFFFFFFE) + v13;
-        v70 = 0;
-        ConstraintActivity = operations_research::glop::RevisedSimplex::GetConstraintActivity(a1 + 1368, v71);
-        v21 = operations_research::glop::LpScalingHelper::UnscaleConstraintActivity(a1 + 21936, v17, ConstraintActivity);
-        v22 = (*(a1 + 520) + 32 * v71);
-        if (*(&v71 + 1) < 1)
+        *&v66 = 0;
+        *(&v66 + 1) = v19;
+        *&v67 = v18[1] - *v18;
+        LODWORD(v68) = (((a1[1470].n128_u64[0] - a1[1469].n128_u64[1]) >> 1) & 0xFFFFFFFE) + v13;
+        v69 = 0;
+        ConstraintActivity = operations_research::glop::RevisedSimplex::GetConstraintActivity(&a1[85].n128_i64[1], v70);
+        v21 = operations_research::glop::LpScalingHelper::UnscaleConstraintActivity(&a1[1371], v17, ConstraintActivity);
+        v22 = (a1[32].n128_u64[1] + 32 * v70);
+        if (*(&v70 + 1) < 1)
         {
           v26 = *v22;
           if (*v22 < 0x8000000000000003)
@@ -216,8 +1617,8 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::AddCutFromConstr
             v26 = INFINITY;
           }
 
-          *&v67 = v21 - v26;
-          *(&v69 + 1) = 1;
+          *&v66 = v21 - v26;
+          *(&v68 + 1) = 1;
           v25 = -*v22;
         }
 
@@ -235,14 +1636,14 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::AddCutFromConstr
             v24 = INFINITY;
           }
 
-          *&v67 = v24 - v21;
-          *(&v69 + 1) = -1;
+          *&v66 = v24 - v21;
+          *(&v68 + 1) = -1;
           v25 = v22[1];
         }
 
-        *(&v68 + 1) = v25;
-        std::vector<operations_research::sat::CutTerm>::push_back[abi:ne200100](a1 + 23312, &v67);
-        std::vector<int>::push_back[abi:ne200100](a1 + 23512, &v71);
+        *(&v67 + 1) = v25;
+        std::vector<operations_research::sat::CutTerm>::push_back[abi:ne200100](&a1[1457], &v66);
+        std::vector<int>::push_back[abi:ne200100](&a1[1469].n128_i64[1], &v70);
       }
 
       ++v16;
@@ -251,31 +1652,29 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::AddCutFromConstr
     while (v16 != v15);
   }
 
-  v30 = v59 >> 3;
-  if ((operations_research::sat::LinearProgrammingConstraint::PreprocessCut(a1, v30, v60) & 1) == 0 || !(*(a1 + 23296) ^ 1 | *(a1 + 23304)))
+  v29 = v58 >> 3;
+  if ((operations_research::sat::LinearProgrammingConstraint::PreprocessCut(a1, v29, v59) & 1) == 0 || !(a1[1456].n128_u64[0] ^ 1 | a1[1456].n128_u64[1]))
   {
-LABEL_32:
-    v27 = 0;
-    goto LABEL_33;
+    return 0;
   }
 
-  if (a4[1] - *a4 == 16 && *(*(a1 + 23696) + 724) == 1 && operations_research::sat::BoolRLTCutHelper::TrySimpleSeparation((a1 + 23792), v60))
+  if (a4[1] - *a4 == 16 && *(a1[1481].n128_u64[0] + 724) == 1 && operations_research::sat::BoolRLTCutHelper::TrySimpleSeparation(&a1[1487], v59))
   {
-    v67 = v61;
-    *&v71 = "_RLT";
-    *(&v71 + 1) = 4;
-    absl::lts_20240722::StrCat(&v67, &v71, v66);
+    v66 = v60;
+    *&v70 = "_RLT";
+    *(&v70 + 1) = 4;
+    absl::lts_20240722::StrCat(&v66, &v70, v65);
     *(&__p[0].__r_.__value_.__s + 23) = 0;
     __p[0].__r_.__value_.__s.__data_[0] = 0;
-    v27 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, v66, __p, v30, (a1 + 23872));
+    v27 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, v65, __p, v29, &a1[1492]);
     if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p[0].__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v66[0].__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v65[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v66[0].__r_.__value_.__l.__data_);
+      operator delete(v65[0].__r_.__value_.__l.__data_);
     }
   }
 
@@ -284,165 +1683,163 @@ LABEL_32:
     v27 = 0;
   }
 
-  if (operations_research::sat::CoverCutHelper::TrySingleNodeFlow((a1 + 22208), v60, v58))
+  if (operations_research::sat::CoverCutHelper::TrySingleNodeFlow(a1 + 1388, v59, v57))
   {
-    *&v66[0].__r_.__value_.__l.__data_ = v61;
+    *&v65[0].__r_.__value_.__l.__data_ = v60;
     __p[0].__r_.__value_.__r.__words[0] = "_FF";
     __p[0].__r_.__value_.__l.__size_ = 3;
-    absl::lts_20240722::StrCat(&v66[0].__r_.__value_.__l.__data_, __p, &v63);
-    *&v67 = "lift=";
-    *(&v67 + 1) = 5;
-    v32 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(a1 + 22440), v72, v31);
-    *&v71 = v72;
-    *(&v71 + 1) = v32 - v72;
-    absl::lts_20240722::StrCat(&v67, &v71, &v62);
-    v33 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, &v63, &v62, v30, (a1 + 22208));
-    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+    absl::lts_20240722::StrCat(&v65[0].__r_.__value_.__l.__data_, __p, &v62);
+    *&v66 = "lift=";
+    *(&v66 + 1) = 5;
+    v31 = absl::lts_20240722::numbers_internal::FastIntToBuffer(a1[1402].n128_u64[1], v71, v30);
+    *&v70 = v71;
+    *(&v70 + 1) = v31 - v71;
+    absl::lts_20240722::StrCat(&v66, &v70, &v61);
+    v32 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, &v62, &v61, v29, &a1[1388]);
+    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
     {
-      v34 = v33;
-      operator delete(v62.__r_.__value_.__l.__data_);
-      v33 = v34;
+      v33 = v32;
+      operator delete(v61.__r_.__value_.__l.__data_);
+      v32 = v33;
     }
 
-    v27 = v27 | v33;
-    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+    v27 = v27 | v32;
+    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v63.__r_.__value_.__l.__data_);
+      operator delete(v62.__r_.__value_.__l.__data_);
     }
   }
 
-  if (operations_research::sat::CoverCutHelper::TrySimpleKnapsack((a1 + 22208), v60, v58))
+  if (operations_research::sat::CoverCutHelper::TrySimpleKnapsack(a1 + 1388, v59, v57))
   {
-    *&v66[0].__r_.__value_.__l.__data_ = v61;
+    *&v65[0].__r_.__value_.__l.__data_ = v60;
     __p[0].__r_.__value_.__r.__words[0] = "_K";
     __p[0].__r_.__value_.__l.__size_ = 2;
-    absl::lts_20240722::StrCat(&v66[0].__r_.__value_.__l.__data_, __p, &v63);
-    *&v67 = "lift=";
-    *(&v67 + 1) = 5;
-    v36 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(a1 + 22440), v72, v35);
-    *&v71 = v72;
-    *(&v71 + 1) = v36 - v72;
-    absl::lts_20240722::StrCat(&v67, &v71, &v62);
-    v37 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, &v63, &v62, v30, (a1 + 22208));
-    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+    absl::lts_20240722::StrCat(&v65[0].__r_.__value_.__l.__data_, __p, &v62);
+    *&v66 = "lift=";
+    *(&v66 + 1) = 5;
+    v35 = absl::lts_20240722::numbers_internal::FastIntToBuffer(a1[1402].n128_u64[1], v71, v34);
+    *&v70 = v71;
+    *(&v70 + 1) = v35 - v71;
+    absl::lts_20240722::StrCat(&v66, &v70, &v61);
+    v36 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, &v62, &v61, v29, &a1[1388]);
+    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
     {
-      v38 = v37;
-      operator delete(v62.__r_.__value_.__l.__data_);
-      v37 = v38;
+      v37 = v36;
+      operator delete(v61.__r_.__value_.__l.__data_);
+      v36 = v37;
     }
 
-    v27 = v27 | v37;
-    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+    v27 = v27 | v36;
+    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v63.__r_.__value_.__l.__data_);
+      operator delete(v62.__r_.__value_.__l.__data_);
     }
   }
 
-  if (operations_research::sat::CoverCutHelper::TryWithLetchfordSouliLifting((a1 + 22208), v60, v58))
+  if (operations_research::sat::CoverCutHelper::TryWithLetchfordSouliLifting(&a1[1388], v59, v57))
   {
-    *&v66[0].__r_.__value_.__l.__data_ = v61;
+    *&v65[0].__r_.__value_.__l.__data_ = v60;
     __p[0].__r_.__value_.__r.__words[0] = "_KL";
     __p[0].__r_.__value_.__l.__size_ = 3;
-    absl::lts_20240722::StrCat(&v66[0].__r_.__value_.__l.__data_, __p, &v63);
-    *&v67 = "lift=";
-    *(&v67 + 1) = 5;
-    v40 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(a1 + 22440), v72, v39);
-    *&v71 = v72;
-    *(&v71 + 1) = v40 - v72;
-    absl::lts_20240722::StrCat(&v67, &v71, &v62);
-    v41 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, &v63, &v62, v30, (a1 + 22208));
-    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+    absl::lts_20240722::StrCat(&v65[0].__r_.__value_.__l.__data_, __p, &v62);
+    *&v66 = "lift=";
+    *(&v66 + 1) = 5;
+    v39 = absl::lts_20240722::numbers_internal::FastIntToBuffer(a1[1402].n128_u64[1], v71, v38);
+    *&v70 = v71;
+    *(&v70 + 1) = v39 - v71;
+    absl::lts_20240722::StrCat(&v66, &v70, &v61);
+    v40 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, &v62, &v61, v29, &a1[1388]);
+    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
     {
-      v42 = v41;
-      operator delete(v62.__r_.__value_.__l.__data_);
-      v41 = v42;
+      v41 = v40;
+      operator delete(v61.__r_.__value_.__l.__data_);
+      v40 = v41;
     }
 
-    v27 = v27 | v41;
-    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+    v27 = v27 | v40;
+    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v63.__r_.__value_.__l.__data_);
+      operator delete(v62.__r_.__value_.__l.__data_);
     }
   }
 
-  operations_research::sat::CutData::ComplementForSmallerLpValues(v60);
-  v43 = *(*(a1 + 23696) + 600);
-  if (operations_research::sat::IntegerRoundingCutHelper::ComputeCut(a1 + 22864, v43, 256, v60, v58))
+  operations_research::sat::CutData::ComplementForSmallerLpValues(v59);
+  v42 = *(a1[1481].n128_u64[0] + 600);
+  if (operations_research::sat::IntegerRoundingCutHelper::ComputeCut(&a1[1429], v42, 256, v59, v57))
   {
-    *&v66[0].__r_.__value_.__l.__data_ = v61;
+    *&v65[0].__r_.__value_.__l.__data_ = v60;
     __p[0].__r_.__value_.__r.__words[0] = "_R";
     __p[0].__r_.__value_.__l.__size_ = 2;
-    absl::lts_20240722::StrCat(&v66[0].__r_.__value_.__l.__data_, __p, &v63);
-    *&v67 = "ib_lift=";
-    *(&v67 + 1) = 8;
-    v45 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(a1 + 22960), v72, v44);
-    *&v71 = v72;
-    *(&v71 + 1) = v45 - v72;
-    absl::lts_20240722::StrCat(&v67, &v71, &v62);
-    v46 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, &v63, &v62, v30, (a1 + 23072));
+    absl::lts_20240722::StrCat(&v65[0].__r_.__value_.__l.__data_, __p, &v62);
+    *&v66 = "ib_lift=";
+    *(&v66 + 1) = 8;
+    v44 = absl::lts_20240722::numbers_internal::FastIntToBuffer(a1[1435].n128_u64[0], v71, v43);
+    *&v70 = v71;
+    *(&v70 + 1) = v44 - v71;
+    absl::lts_20240722::StrCat(&v66, &v70, &v61);
+    v45 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, &v62, &v61, v29, &a1[1442]);
+    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v46 = v45;
+      operator delete(v61.__r_.__value_.__l.__data_);
+      v45 = v46;
+    }
+
+    v27 = v27 | v45;
     if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
     {
-      v47 = v46;
       operator delete(v62.__r_.__value_.__l.__data_);
-      v46 = v47;
-    }
-
-    v27 = v27 | v46;
-    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v63.__r_.__value_.__l.__data_);
     }
   }
 
-  if (v57)
+  if (v56)
   {
-    if (operations_research::sat::IntegerRoundingCutHelper::ComputeCut(a1 + 22864, v43, 1, v60, v56))
+    if (operations_research::sat::IntegerRoundingCutHelper::ComputeCut(&a1[1429], v42, 1, v59, v55))
     {
-      v67 = v61;
-      *&v71 = "_RB";
-      *(&v71 + 1) = 3;
-      absl::lts_20240722::StrCat(&v67, &v71, v66);
-      operations_research::sat::IntegerRoundingCutHelper::Info((a1 + 22864), v48, __p);
-      v49 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, v66, __p, v30, (a1 + 23072));
+      v66 = v60;
+      *&v70 = "_RB";
+      *(&v70 + 1) = 3;
+      absl::lts_20240722::StrCat(&v66, &v70, v65);
+      operations_research::sat::IntegerRoundingCutHelper::Info(__p, &a1[1429], v47);
+      v48 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, v65, __p, v29, &a1[1442]);
       if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        v50 = v49;
+        v49 = v48;
         operator delete(__p[0].__r_.__value_.__l.__data_);
-        v49 = v50;
+        v48 = v49;
       }
 
-      v27 = v27 | v49;
-      if (SHIBYTE(v66[0].__r_.__value_.__r.__words[2]) < 0)
+      v27 = v27 | v48;
+      if (SHIBYTE(v65[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v66[0].__r_.__value_.__l.__data_);
+        operator delete(v65[0].__r_.__value_.__l.__data_);
       }
     }
 
-    if (operations_research::sat::IntegerRoundingCutHelper::ComputeCut(a1 + 22864, v43, 257, v60, v56))
+    if (operations_research::sat::IntegerRoundingCutHelper::ComputeCut(&a1[1429], v42, 257, v59, v55))
     {
-      v67 = v61;
-      *&v71 = "_RBP";
-      *(&v71 + 1) = 4;
-      absl::lts_20240722::StrCat(&v67, &v71, v66);
-      operations_research::sat::IntegerRoundingCutHelper::Info((a1 + 22864), v51, __p);
-      v52 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, v66, __p, v30, (a1 + 23072));
+      v66 = v60;
+      *&v70 = "_RBP";
+      *(&v70 + 1) = 4;
+      absl::lts_20240722::StrCat(&v66, &v70, v65);
+      operations_research::sat::IntegerRoundingCutHelper::Info(__p, &a1[1429], v50);
+      v51 = operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(a1, v65, __p, v29, &a1[1442]);
       if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        v53 = v52;
+        v52 = v51;
         operator delete(__p[0].__r_.__value_.__l.__data_);
-        v52 = v53;
+        v51 = v52;
       }
 
-      v27 = v27 | v52;
-      if (SHIBYTE(v66[0].__r_.__value_.__r.__words[2]) < 0)
+      v27 = v27 | v51;
+      if (SHIBYTE(v65[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v66[0].__r_.__value_.__l.__data_);
+        operator delete(v65[0].__r_.__value_.__l.__data_);
       }
     }
   }
 
-LABEL_33:
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -467,7 +1864,7 @@ LABEL_6:
   _Unwind_Resume(exception_object);
 }
 
-uint64_t operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<true>(void *a1, uint64_t a2, uint64_t a3, int64x2_t **this, uint64_t *a5)
+uint64_t operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<true>(void *a1, uint64_t a2, uint64_t a3, unint64_t **this, uint64_t *a5)
 {
   *a5 = 0;
   operations_research::sat::ScatteredIntegerVector::ClearAndResize(this, (a1[2955] - a1[2954]) >> 2);
@@ -481,11 +1878,11 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::ComputeNewLinear
   while (1)
   {
     v12 = *a2;
-    v22 = v12;
+    v23 = v12;
     v13 = (a1[66] - v11) >> 5;
     if (v12 >= v13)
     {
-      operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<true>(&v22, v13);
+      operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<true>(&v23, v13, v22);
     }
 
     v14 = *(a2 + 8);
@@ -536,27 +1933,26 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::PostprocessAndAd
       goto LABEL_3;
     }
 
-    v72 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v88, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1151);
-    v73 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v72, 2);
-    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v73, "RHS overflow ", 0xDuLL);
-    v74 = absl::lts_20240722::log_internal::LogMessage::operator<<(v73, a2);
-    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v74, " ", 1uLL);
-    absl::lts_20240722::log_internal::LogMessage::operator<<(v74, a3);
+    v70 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v86, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1151);
+    v71 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v70, 2);
+    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v71, "RHS overflow ", 0xDuLL);
+    v72 = absl::lts_20240722::log_internal::LogMessage::operator<<(v71, a2);
+    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v72, " ", 1uLL);
+    absl::lts_20240722::log_internal::LogMessage::operator<<(v72, a3);
     goto LABEL_87;
   }
 
-  operations_research::sat::CutData::ComputeViolation(this);
-  if (v9 < 0.0001)
+  if (operations_research::sat::CutData::ComputeViolation(this) < 0.0001)
   {
     if (dword_2810C0928 >= 2 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled2(&off_2810C0920, dword_2810C0928))
     {
-      v75 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v88, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1161);
-      v76 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v75, 2);
-      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v76, "Bad cut ", 8uLL);
-      v77 = absl::lts_20240722::log_internal::LogMessage::operator<<(v76, a2);
-      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v77, " ", 1uLL);
-      absl::lts_20240722::log_internal::LogMessage::operator<<(v77, a3);
-      absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v88);
+      v73 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v86, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1161);
+      v74 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v73, 2);
+      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v74, "Bad cut ", 8uLL);
+      v75 = absl::lts_20240722::log_internal::LogMessage::operator<<(v74, a2);
+      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v75, " ", 1uLL);
+      absl::lts_20240722::log_internal::LogMessage::operator<<(v75, a3);
+      absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v86);
     }
 
     result = 0;
@@ -565,225 +1961,224 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::PostprocessAndAd
   }
 
   operations_research::sat::ScatteredIntegerVector::ClearAndResize((a1 + 23360), (*(a1 + 23640) - *(a1 + 23632)) >> 2);
-  v10 = *this;
-  v12 = *(this + 2);
-  v11 = *(this + 3);
-  if (v12 == v11)
+  v9 = *this;
+  v11 = *(this + 2);
+  v10 = *(this + 3);
+  if (v11 == v10)
   {
 LABEL_57:
-    v56 = *(a1 + 23632);
-    v57 = (*(a1 + 23640) - v56) >> 2;
-    v87[0] = 0;
-    v87[16] = 0;
-    operations_research::sat::ScatteredIntegerVector::ConvertToLinearConstraint(a1 + 23360, v56, v10, v87, &v88);
-    v84 = v88;
-    v85 = v89;
-    v58 = v90;
-    v90 = 0uLL;
-    v86 = v58;
+    v55 = *(a1 + 23632);
+    v85[0] = 0;
+    v85[16] = 0;
+    operations_research::sat::ScatteredIntegerVector::ConvertToLinearConstraint(a1 + 23360, v55, v9, v85, &v86);
+    v82 = v86;
+    v83 = v87;
+    v56 = v88;
+    v88 = 0uLL;
+    v84 = v56;
     if (*(a2 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v83, *a2, *(a2 + 8));
+      std::string::__init_copy_ctor_external(&v81, *a2, *(a2 + 8));
     }
 
     else
     {
-      v83 = *a2;
+      v81 = *a2;
     }
 
     if (*(a3 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v82, *a3, *(a3 + 8));
+      std::string::__init_copy_ctor_external(&v80, *a3, *(a3 + 8));
     }
 
     else
     {
-      v82 = *a3;
+      v80 = *a3;
     }
 
-    result = operations_research::sat::LinearConstraintManager::AddCut(a1 + 16, &v84, &v83, &v82);
-    v63 = result;
-    if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
+    result = operations_research::sat::LinearConstraintManager::AddCut(a1 + 16, &v82, &v81, &v80);
+    v61 = result;
+    if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v82.__r_.__value_.__l.__data_);
-      result = v63;
+      operator delete(v80.__r_.__value_.__l.__data_);
+      result = v61;
     }
 
-    if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v83.__r_.__value_.__l.__data_);
-      result = v63;
+      operator delete(v81.__r_.__value_.__l.__data_);
+      result = v61;
     }
 
-    v64 = *(&v86 + 1);
-    *(&v86 + 1) = 0;
+    v62 = *(&v84 + 1);
+    *(&v84 + 1) = 0;
+    if (v62)
+    {
+      MEMORY[0x23EED9440](v62, 0x1000C8000313F17);
+      result = v61;
+    }
+
+    v63 = v84;
+    *&v84 = 0;
+    if (v63)
+    {
+      MEMORY[0x23EED9440](v63, 0x1000C8052888210);
+      result = v61;
+    }
+
+    v64 = *(&v88 + 1);
+    *(&v88 + 1) = 0;
     if (v64)
     {
       MEMORY[0x23EED9440](v64, 0x1000C8000313F17);
-      result = v63;
+      result = v61;
     }
 
-    v65 = v86;
-    *&v86 = 0;
+    v65 = v88;
+    *&v88 = 0;
     if (v65)
     {
       MEMORY[0x23EED9440](v65, 0x1000C8052888210);
-      result = v63;
-    }
-
-    v66 = *(&v90 + 1);
-    *(&v90 + 1) = 0;
-    if (v66)
-    {
-      MEMORY[0x23EED9440](v66, 0x1000C8000313F17);
-      result = v63;
-    }
-
-    v67 = v90;
-    *&v90 = 0;
-    if (v67)
-    {
-      MEMORY[0x23EED9440](v67, 0x1000C8052888210);
-      return v63;
+      return v61;
     }
 
     return result;
   }
 
-  v81 = (a1 + 23672);
-  v78 = *(this + 3);
+  v79 = (a1 + 23672);
+  v76 = *(this + 3);
   while (1)
   {
-    v13 = *(v12 + 8);
-    if (v13)
+    v12 = *(v11 + 8);
+    if (v12)
     {
       break;
     }
 
 LABEL_10:
-    v12 += 56;
-    if (v12 == v11)
+    v11 += 56;
+    if (v11 == v10)
     {
       goto LABEL_57;
     }
   }
 
-  v14 = -v13;
-  v15 = *(v12 + 24);
-  v16 = ((v15 ^ -v13) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-  v17 = -(v13 * v15);
-  if ((v14 * v15) >> 64 != v17 >> 63)
+  v13 = -v12;
+  v14 = *(v11 + 24);
+  v15 = ((v14 ^ -v12) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+  v16 = -(v12 * v14);
+  if ((v13 * v14) >> 64 != v16 >> 63)
   {
-    v17 = v16;
+    v16 = v15;
   }
 
-  if ((v17 - 0x7FFFFFFFFFFFFFFFLL) < 2 || ((v18 = (v17 >> 63) + 0x7FFFFFFFFFFFFFFFLL, _VF = __OFADD__(v17, v10), v20 = v17 + v10, !_VF) ? (v10 = v20) : (v10 = v18), (v10 + 0x7FFFFFFFFFFFFFFFLL) > 0xFFFFFFFFFFFFFFFDLL))
+  if ((v16 - 0x7FFFFFFFFFFFFFFFLL) < 2 || ((v17 = (v16 >> 63) + 0x7FFFFFFFFFFFFFFFLL, _VF = __OFADD__(v16, v9), v19 = v16 + v9, !_VF) ? (v9 = v19) : (v9 = v17), (v9 + 0x7FFFFFFFFFFFFFFFLL) > 0xFFFFFFFFFFFFFFFDLL))
   {
     if (dword_2810C0940 < 2 || !absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled2(&off_2810C0938, dword_2810C0940))
     {
       goto LABEL_3;
     }
 
-    v68 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v88, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1172);
-    v69 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v68, 2);
-    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v69, "Overflow in conversion", 0x16uLL);
+    v66 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v86, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1172);
+    v67 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v66, 2);
+    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v67, "Overflow in conversion", 0x16uLL);
 LABEL_87:
-    absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v88);
+    absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v86);
     goto LABEL_3;
   }
 
-  v21 = 0;
-  v22 = 1;
+  v20 = 0;
+  v21 = 1;
   while (1)
   {
-    v24 = v22;
-    v25 = *(v12 + 40 + 8 * v21);
-    if (!v25)
+    v23 = v21;
+    v24 = *(v11 + 40 + 8 * v20);
+    if (!v24)
     {
       goto LABEL_21;
     }
 
-    v26 = *(v12 + 8);
-    if ((v26 * v25) >> 64 == (v26 * v25) >> 63)
+    v25 = *(v11 + 8);
+    if ((v25 * v24) >> 64 == (v25 * v24) >> 63)
     {
-      v27 = v26 * v25;
+      v26 = v25 * v24;
     }
 
     else
     {
-      v27 = ((v26 ^ v25) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+      v26 = ((v25 ^ v24) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    if (v27 - 0x7FFFFFFFFFFFFFFFLL <= 1)
+    if ((v26 - 0x7FFFFFFFFFFFFFFFLL) <= 1)
     {
       if (dword_2810C0958 >= 2 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled2(&off_2810C0950, dword_2810C0958))
       {
-        v59 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v88, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1182);
-        v60 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v59, 2);
-        absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v60, "Overflow in conversion", 0x16uLL);
+        v57 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v86, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1182);
+        v58 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v57, 2);
+        absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v58, "Overflow in conversion", 0x16uLL);
         goto LABEL_87;
       }
 
       goto LABEL_3;
     }
 
-    v28 = *(v12 + 32 + 4 * v21);
-    if (v28 >= a4)
+    v27 = *(v11 + 32 + 4 * v20);
+    if (v27 >= a4)
     {
       break;
     }
 
-    v29 = v28 & 0xFFFFFFFE;
-    v30 = *(a1 + 23656);
-    if (v30 > 1)
+    v28 = v27 & 0xFFFFFFFE;
+    v29 = *(a1 + 23656);
+    if (v29 > 1)
     {
-      v31 = 0;
-      _X11 = *v81;
+      v30 = 0;
+      _X11 = *v79;
       __asm { PRFM            #4, [X11] }
 
-      v36 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v29) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v29));
-      v37 = vdup_n_s8(v36 & 0x7F);
-      v38 = ((v36 >> 7) ^ (*v81 >> 12)) & v30;
-      v39 = *(*v81 + v38);
-      v40 = vceq_s8(v39, v37);
-      if (!v40)
+      v35 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v28) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v28));
+      v36 = vdup_n_s8(v35 & 0x7F);
+      v37 = ((v35 >> 7) ^ (*v79 >> 12)) & v29;
+      v38 = *(*v79 + v37);
+      v39 = vceq_s8(v38, v36);
+      if (!v39)
       {
         goto LABEL_35;
       }
 
 LABEL_32:
-      v41 = *(a1 + 23680);
+      v40 = *(a1 + 23680);
       while (1)
       {
-        v42 = (v38 + (__clz(__rbit64(v40)) >> 3)) & v30;
-        if (*(v41 + 8 * v42) == v29)
+        v41 = (v37 + (__clz(__rbit64(v39)) >> 3)) & v29;
+        if (*(v40 + 8 * v41) == v28)
         {
           break;
         }
 
-        v40 &= ((v40 & 0x8080808080808080) - 1) & 0x8080808080808080;
-        if (!v40)
+        v39 &= ((v39 & 0x8080808080808080) - 1) & 0x8080808080808080;
+        if (!v39)
         {
 LABEL_35:
-          while (!*&vceq_s8(v39, 0x8080808080808080))
+          while (!*&vceq_s8(v38, 0x8080808080808080))
           {
-            v31 += 8;
-            v38 = (v31 + v38) & v30;
-            v39 = *(_X11 + v38);
-            v40 = vceq_s8(v39, v37);
-            if (v40)
+            v30 += 8;
+            v37 = (v30 + v37) & v29;
+            v38 = *(_X11 + v37);
+            v39 = vceq_s8(v38, v36);
+            if (v39)
             {
               goto LABEL_32;
             }
           }
 
 LABEL_90:
-          absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", v27);
+          absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", v26);
         }
       }
 
-      v43 = v41 + 8 * v42;
-      if (!(_X11 + v42))
+      v42 = v40 + 8 * v41;
+      if (!(_X11 + v41))
       {
         goto LABEL_90;
       }
@@ -796,44 +2191,44 @@ LABEL_90:
         goto LABEL_90;
       }
 
-      _ZF = *v81 == v29;
-      if (*v81 == v29)
+      _ZF = *v79 == v28;
+      if (*v79 == v28)
       {
-        v43 = a1 + 23672;
+        v42 = a1 + 23672;
       }
 
       else
       {
-        v43 = v28;
+        v42 = v27;
       }
 
-      v45 = &absl::lts_20240722::container_internal::kSooControl;
+      v44 = &absl::lts_20240722::container_internal::kSooControl;
       if (!_ZF)
       {
-        v45 = 0;
+        v44 = 0;
       }
 
-      if (!v45)
+      if (!v44)
       {
         goto LABEL_90;
       }
     }
 
-    v46 = *(v43 + 4);
-    if (v28)
+    v45 = *(v42 + 4);
+    if (v27)
     {
-      LODWORD(v88) = v46;
-      v47 = *(a1 + 23416);
-      v48 = 8 * v46;
-      v51 = *(v47 + v48);
-      _VF = __OFADD__(-v27, v51);
-      v50 = v51 - v27;
+      LODWORD(v86) = v45;
+      v46 = *(a1 + 23416);
+      v47 = 8 * v45;
+      v50 = *(v46 + v47);
+      _VF = __OFADD__(-v26, v50);
+      v49 = v50 - v26;
       if (_VF)
       {
-        v50 = (v27 > 0) + 0x7FFFFFFFFFFFFFFFLL;
+        v49 = (v26 > 0) + 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      if ((v50 + 0x7FFFFFFFFFFFFFFFLL) > 0xFFFFFFFFFFFFFFFDLL)
+      if ((v49 + 0x7FFFFFFFFFFFFFFFLL) > 0xFFFFFFFFFFFFFFFDLL)
       {
         goto LABEL_21;
       }
@@ -841,58 +2236,58 @@ LABEL_90:
 
     else
     {
-      LODWORD(v88) = v46;
-      v47 = *(a1 + 23416);
-      v48 = 8 * v46;
-      v49 = *(v47 + v48);
-      _VF = __OFADD__(v27, v49);
-      v50 = v27 + v49;
+      LODWORD(v86) = v45;
+      v46 = *(a1 + 23416);
+      v47 = 8 * v45;
+      v48 = *(v46 + v47);
+      _VF = __OFADD__(v26, v48);
+      v49 = v26 + v48;
       if (_VF)
       {
-        v50 = (v27 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+        v49 = (v26 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      if ((v50 + 0x7FFFFFFFFFFFFFFFLL) > 0xFFFFFFFFFFFFFFFDLL)
+      if ((v49 + 0x7FFFFFFFFFFFFFFFLL) > 0xFFFFFFFFFFFFFFFDLL)
       {
         goto LABEL_21;
       }
     }
 
-    *(v47 + v48) = v50;
+    *(v46 + v47) = v49;
     if (*(a1 + 23360) == 1)
     {
-      v52 = *(a1 + 23392);
-      v53 = v46 >> 6;
-      v54 = 1 << v46;
-      v55 = *(v52 + 8 * v53);
-      if ((v55 & v54) != 0)
+      v51 = *(a1 + 23392);
+      v52 = v45 >> 6;
+      v53 = 1 << v45;
+      v54 = *(v51 + 8 * v52);
+      if ((v54 & v53) != 0)
       {
-        *(v52 + 8 * v53) = v55 & ~v54;
-        std::vector<int>::push_back[abi:ne200100](a1 + 23368, &v88);
+        *(v51 + 8 * v52) = v54 & ~v53;
+        std::vector<int>::push_back[abi:ne200100](a1 + 23368, &v86);
       }
     }
 
 LABEL_21:
-    v22 = 0;
-    v21 = 1;
-    if ((v24 & 1) == 0)
+    v21 = 0;
+    v20 = 1;
+    if ((v23 & 1) == 0)
     {
-      v11 = v78;
+      v10 = v76;
       goto LABEL_10;
     }
   }
 
-  v23 = *(a1 + 520) + 32 * *(*(a1 + 23512) + 4 * ((v28 - a4) / 2));
-  if (operations_research::sat::ScatteredIntegerVector::AddLinearExpressionMultiple<true>(a1 + 23360, v27, (*(a1 + 384) + 4 * *(v23 + 16)), *(v23 + 20), (*(a1 + 408) + 8 * *(v23 + 16))))
+  v22 = *(a1 + 520) + 32 * *(*(a1 + 23512) + 4 * ((v27 - a4) / 2));
+  if (operations_research::sat::ScatteredIntegerVector::AddLinearExpressionMultiple<true>(a1 + 23360, v26, (*(a1 + 384) + 4 * *(v22 + 16)), *(v22 + 20), (*(a1 + 408) + 8 * *(v22 + 16))))
   {
     goto LABEL_21;
   }
 
   if (dword_2810C0970 >= 2 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled2(&off_2810C0968, dword_2810C0970))
   {
-    v61 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v88, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1203);
-    v62 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v61, 2);
-    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v62, "Overflow in slack removal", 0x19uLL);
+    v59 = absl::lts_20240722::log_internal::LogMessage::LogMessage(&v86, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_programming_constraint.cc", 1203);
+    v60 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v59, 2);
+    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v60, "Overflow in slack removal", 0x19uLL);
     goto LABEL_87;
   }
 
@@ -917,20 +2312,18 @@ void sub_23CC43338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void **operations_research::sat::IntegerRoundingCutHelper::Info@<X0>(operations_research::sat::IntegerRoundingCutHelper *this@<X0>, char *a2@<X2>, std::string *a3@<X8>)
+const void **operations_research::sat::IntegerRoundingCutHelper::Info@<X0>(std::string *__return_ptr a1@<X8>, operations_research::sat::IntegerRoundingCutHelper *this@<X0>, char *a3@<X2>)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
-  v9[0] = "ib_lift=";
-  v9[1] = 8;
-  v4 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(this + 12), v8, a2);
-  v7[0] = v8;
-  v7[1] = v4 - v8;
-  result = absl::lts_20240722::StrCat(v9, v7, a3);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v8[6] = *MEMORY[0x277D85DE8];
+  v8[0] = "ib_lift=";
+  v8[1] = 8;
+  v4 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(this + 12), v7, a3);
+  v6[0] = v7;
+  v6[1] = v4 - v7;
+  return absl::lts_20240722::StrCat(v8, v6, a1);
 }
 
-uint64_t operations_research::sat::ScatteredIntegerVector::AddLinearExpressionMultiple<true>(uint64_t a1, unint64_t a2, int *a3, int a4, unint64_t *a5)
+uint64_t operations_research::sat::ScatteredIntegerVector::AddLinearExpressionMultiple<true>(uint64_t a1, uint64_t a2, int *a3, int a4, unint64_t *a5)
 {
   v9 = *(a1 + 56);
   if (*a1 != 1 || (v10 = ((*(a1 + 64) - v9) >> 3) * 0.1, v10 <= a4))
@@ -1176,11 +2569,11 @@ LABEL_33:
   }
 }
 
-void operations_research::sat::LinearProgrammingConstraint::ScaleLpMultiplier(void *a1@<X0>, int a2@<W1>, char a3@<W2>, uint64_t *a4@<X3>, void *a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>)
+void operations_research::sat::LinearProgrammingConstraint::ScaleLpMultiplier(void *a1@<X0>, int a2@<W1>, char a3@<W2>, double **a4@<X3>, void *a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v32 = a2;
-  v31 = a6;
+  v32 = *MEMORY[0x277D85DE8];
+  v31 = a2;
+  v30 = a6;
   *a5 = 0;
   a1[2952] = a1[2951];
   v11 = *a4;
@@ -1198,9 +2591,9 @@ void operations_research::sat::LinearProgrammingConstraint::ScaleLpMultiplier(vo
           if ((v13 <= 0.0 || (*(a1[65] + 32 * v14 + 25) & 1) == 0) && (v13 >= 0.0 || (*(a1[65] + 32 * v14 + 24) & 1) == 0))
           {
             v15 = operations_research::glop::LpScalingHelper::UnscaleDualValue((a1 + 2742), *v11, v13);
-            LODWORD(v30) = v14;
-            *(&v30 + 1) = v15;
-            std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100]((a1 + 2951), &v30);
+            LODWORD(v29) = v14;
+            *(&v29 + 1) = v15;
+            std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100]((a1 + 2951), &v29);
           }
         }
 
@@ -1219,9 +2612,9 @@ void operations_research::sat::LinearProgrammingConstraint::ScaleLpMultiplier(vo
         {
           v17 = *v11;
           v18 = operations_research::glop::LpScalingHelper::UnscaleDualValue((a1 + 2742), *v11, v16);
-          LODWORD(v30) = v17;
-          *(&v30 + 1) = v18;
-          std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100]((a1 + 2951), &v30);
+          LODWORD(v29) = v17;
+          *(&v29 + 1) = v18;
+          std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100]((a1 + 2951), &v29);
         }
 
         v11 += 16;
@@ -1274,13 +2667,11 @@ void operations_research::sat::LinearProgrammingConstraint::ScaleLpMultiplier(vo
 
     ++a1[3108];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23CC43DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23CC43DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::function<BOOL ()(int)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -1298,13 +2689,13 @@ void sub_23CC43DCC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void operations_research::sat::LinearProgrammingConstraint::AddObjectiveCut(operations_research::sat::LinearProgrammingConstraint *this)
+void operations_research::sat::LinearProgrammingConstraint::AddObjectiveCut(__n128 *this)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  if (*(this + 61) - *(this + 60) >= 0x11uLL)
+  v43 = *MEMORY[0x277D85DE8];
+  if (this[30].n128_u64[1] - this[30].n128_u64[0] >= 0x11)
   {
-    ObjectiveValue = operations_research::glop::RevisedSimplex::GetObjectiveValue((this + 1368));
-    v3 = (*(*(this + 2965) + 152) + 24 * *(this + 5923));
+    ObjectiveValue = operations_research::glop::RevisedSimplex::GetObjectiveValue(&this[85].n128_i8[8]);
+    v3 = (*(this[1482].n128_u64[1] + 152) + 24 * this[1480].n128_i32[3]);
     v4 = ObjectiveValue + 1.0;
     v5 = *v3;
     if (*v3 < 0x8000000000000003)
@@ -1319,13 +2710,13 @@ void operations_research::sat::LinearProgrammingConstraint::AddObjectiveCut(oper
 
     if (v4 < v5)
     {
-      v37 = 0;
-      v38 = 0uLL;
-      v36 = 0x8000000000000002;
-      *(&v36 + 1) = *(this + 63) - *v3;
-      operations_research::sat::LinearConstraint::resize(&v36, (*(this + 61) - *(this + 60)) >> 4);
-      v6 = *(this + 60);
-      v7 = *(this + 61);
+      v36 = 0;
+      v37 = 0uLL;
+      v35 = 0x8000000000000002;
+      *(&v35 + 1) = this[31].n128_u64[1] - *v3;
+      operations_research::sat::LinearConstraint::resize(&v35, (this[30].n128_u64[1] - this[30].n128_u64[0]) >> 4);
+      v6 = this[30].n128_u64[0];
+      v7 = this[30].n128_u64[1];
       if (v6 == v7)
       {
         v13 = 1;
@@ -1335,8 +2726,8 @@ void operations_research::sat::LinearProgrammingConstraint::AddObjectiveCut(oper
       {
         v8 = 0;
         v9 = 0;
-        v10 = *(this + 2954);
-        v11 = v38;
+        v10 = this[1477].n128_u64[0];
+        v11 = v37;
         do
         {
           *(v11 + 4 * v8) = *(v10 + 4 * *v6);
@@ -1360,7 +2751,7 @@ void operations_research::sat::LinearProgrammingConstraint::AddObjectiveCut(oper
         v13 = v9 < 1000000000;
       }
 
-      if ((operations_research::sat::CutData::FillFromLinearConstraint(this + 23296, &v36, *(this + 3045), *(this + 2965)) & 1) == 0)
+      if ((operations_research::sat::CutData::FillFromLinearConstraint(&this[1456], &v35, this[1522].n128_u64[1], this[1482].n128_i64[1]) & 1) == 0)
       {
         goto LABEL_35;
       }
@@ -1368,89 +2759,89 @@ void operations_research::sat::LinearProgrammingConstraint::AddObjectiveCut(oper
       if (!v13)
       {
 LABEL_25:
-        operations_research::sat::CutData::ComplementForPositiveCoefficients(this + 23296);
-        if (operations_research::sat::CoverCutHelper::TrySimpleKnapsack((this + 22208), (this + 23296), 0))
+        operations_research::sat::CutData::ComplementForPositiveCoefficients(&this[1456]);
+        if (operations_research::sat::CoverCutHelper::TrySimpleKnapsack(this + 1388, this + 1456, 0))
         {
-          v28 = 11;
-          strcpy(v27, "Objective_K");
-          v42 = "lift=";
-          v43 = 5;
-          v19 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(this + 2805), v41, v18);
-          v39 = v41;
-          v40 = v19 - v41;
-          absl::lts_20240722::StrCat(&v42, &v39, &__p);
-          operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(this, v27, &__p, 0x7FFFFFFF, (this + 22208));
+          v27 = 11;
+          strcpy(v26, "Objective_K");
+          v41 = "lift=";
+          v42 = 5;
+          v19 = absl::lts_20240722::numbers_internal::FastIntToBuffer(this[1402].n128_u64[1], v40, v18);
+          v38 = v40;
+          v39 = v19 - v40;
+          absl::lts_20240722::StrCat(&v41, &v38, &__p);
+          operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(this, v26, &__p, 0x7FFFFFFF, &this[1388]);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (v28 < 0)
+          if (v27 < 0)
           {
-            operator delete(v27[0]);
+            operator delete(v26[0]);
           }
         }
 
-        v20 = *(*(this + 2962) + 600);
-        operations_research::sat::CutData::ComplementForSmallerLpValues(this + 23296);
-        if (operations_research::sat::IntegerRoundingCutHelper::ComputeCut(this + 22864, v20, 257, this + 23296, this + 2998))
+        v20 = *(this[1481].n128_u64[0] + 600);
+        operations_research::sat::CutData::ComplementForSmallerLpValues(&this[1456]);
+        if (operations_research::sat::IntegerRoundingCutHelper::ComputeCut(&this[1429], v20, 257, &this[1456], this[1499].n128_u64))
         {
-          v28 = 11;
-          strcpy(v27, "Objective_R");
-          v42 = "ib_lift=";
-          v43 = 8;
-          v22 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(this + 2870), v41, v21);
-          v39 = v41;
-          v40 = v22 - v41;
-          absl::lts_20240722::StrCat(&v42, &v39, &__p);
-          operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(this, v27, &__p, 0x7FFFFFFF, (this + 23072));
+          v27 = 11;
+          strcpy(v26, "Objective_R");
+          v41 = "ib_lift=";
+          v42 = 8;
+          v22 = absl::lts_20240722::numbers_internal::FastIntToBuffer(this[1435].n128_u64[0], v40, v21);
+          v38 = v40;
+          v39 = v22 - v40;
+          absl::lts_20240722::StrCat(&v41, &v38, &__p);
+          operations_research::sat::LinearProgrammingConstraint::PostprocessAndAddCut(this, v26, &__p, 0x7FFFFFFF, &this[1442]);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (v28 < 0)
+          if (v27 < 0)
           {
-            operator delete(v27[0]);
+            operator delete(v26[0]);
           }
         }
 
 LABEL_35:
-        v23 = *(&v38 + 1);
-        *(&v38 + 1) = 0;
+        v23 = *(&v37 + 1);
+        *(&v37 + 1) = 0;
         if (v23)
         {
           MEMORY[0x23EED9440](v23, 0x1000C8000313F17);
         }
 
-        v24 = v38;
-        *&v38 = 0;
+        v24 = v37;
+        *&v37 = 0;
         if (v24)
         {
           MEMORY[0x23EED9440](v24, 0x1000C8052888210);
         }
 
-        goto LABEL_39;
+        return;
       }
 
+      v32 = v35;
       v33 = v36;
-      v34 = v37;
-      v14 = v38;
-      v38 = 0uLL;
-      v35 = v14;
-      v32 = 9;
-      strcpy(&v31, "Objective");
-      v30 = 0;
-      LOBYTE(v29) = 0;
-      v15 = operations_research::sat::LinearConstraintManager::AddCut(this + 16, &v33, &v31, &v29);
-      if (v30 < 0)
+      v14 = v37;
+      v37 = 0uLL;
+      v34 = v14;
+      v31 = 9;
+      strcpy(&v30, "Objective");
+      v29 = 0;
+      LOBYTE(v28) = 0;
+      v15 = operations_research::sat::LinearConstraintManager::AddCut(&this[1], &v32, &v30, &v28);
+      if (v29 < 0)
       {
-        operator delete(v29);
-        if ((v32 & 0x80000000) == 0)
+        operator delete(v28);
+        if ((v31 & 0x80000000) == 0)
         {
 LABEL_20:
-          v16 = *(&v35 + 1);
-          *(&v35 + 1) = 0;
+          v16 = *(&v34 + 1);
+          *(&v34 + 1) = 0;
           if (!v16)
           {
             goto LABEL_22;
@@ -1460,19 +2851,19 @@ LABEL_20:
         }
       }
 
-      else if ((v32 & 0x80000000) == 0)
+      else if ((v31 & 0x80000000) == 0)
       {
         goto LABEL_20;
       }
 
-      operator delete(v31);
-      v16 = *(&v35 + 1);
-      *(&v35 + 1) = 0;
+      operator delete(v30);
+      v16 = *(&v34 + 1);
+      *(&v34 + 1) = 0;
       if (!v16)
       {
 LABEL_22:
-        v17 = v35;
-        *&v35 = 0;
+        v17 = v34;
+        *&v34 = 0;
         if (v17)
         {
           MEMORY[0x23EED9440](v17, 0x1000C8052888210);
@@ -1491,9 +2882,6 @@ LABEL_21:
       goto LABEL_22;
     }
   }
-
-LABEL_39:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CC44238(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
@@ -1519,9 +2907,37 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
+void sub_23CC442E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  operations_research::sat::LinearConstraint::~LinearConstraint(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23CC442F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  operations_research::sat::LinearConstraint::~LinearConstraint(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23CC4430C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  operations_research::sat::LinearConstraint::~LinearConstraint(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23CC44320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  operations_research::sat::LinearConstraint::~LinearConstraint(va);
+  _Unwind_Resume(a1);
+}
+
 void operations_research::sat::LinearProgrammingConstraint::AddMirCuts(operations_research::sat::LinearProgrammingConstraint *this)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = *(this + 2955) - *(this + 2954);
   if (v1)
   {
@@ -1544,19 +2960,18 @@ void operations_research::sat::LinearProgrammingConstraint::AddMirCuts(operation
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
+  v12 = 0;
   v13 = 0;
   v14 = 0;
-  v15 = 0;
+  v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = 0;
+  v6 = 0;
   v7 = 0;
   v8 = 0;
-  v9 = 0;
+  v3 = 0;
   v4 = 0;
   v5 = 0;
-  v6 = 0;
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CC45AB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, void *a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, void *a46)
@@ -1603,34 +3018,32 @@ void operations_research::sat::LinearProgrammingConstraint::AddZeroHalfCuts(oper
       v7 = *(this + 2933);
       v2 = *(this + 2934);
       v8 = *(this + 2936);
-      v9 = *(this + 2937);
     }
 
     operations_research::sat::ZeroHalfCutHelper::ProcessVariables(this + 2751, this + 23440, v7, (v2 - v7) >> 3, v8);
     if (((*(this + 66) - *(this + 65)) >> 5) >= 1)
     {
+      v9 = 0;
       v10 = 0;
-      v11 = 0;
       do
       {
-        if ((operations_research::glop::RevisedSimplex::GetConstraintStatus(this + 1368, v11) | 4) != 4)
+        if ((operations_research::glop::RevisedSimplex::GetConstraintStatus(this + 1368, v10) | 4) != 4)
         {
-          v12 = *(this + 65) + v10;
-          operations_research::sat::ZeroHalfCutHelper::AddOneConstraint(this + 22008, v11, (*(this + 48) + 4 * *(v12 + 16)), *(v12 + 20), (*(this + 51) + 8 * *(v12 + 16)), *(v12 + 20), *v12, *(v12 + 8));
+          v11 = *(this + 65) + v9;
+          operations_research::sat::ZeroHalfCutHelper::AddOneConstraint(this + 22008, v10, (*(this + 48) + 4 * *(v11 + 16)), *(v11 + 20), (*(this + 51) + 8 * *(v11 + 16)), *(v11 + 20), *v11, *(v11 + 8));
         }
 
-        ++v11;
-        v10 += 32;
+        ++v10;
+        v9 += 32;
       }
 
-      while (v11 < ((*(this + 66) - *(this + 65)) >> 5));
+      while (v10 < ((*(this + 66) - *(this + 65)) >> 5));
     }
 
-    v13 = *(this + 2972);
-    operations_research::sat::ZeroHalfCutHelper::InterestingCandidates((this + 22008), &__p);
-    v14 = __p;
-    v15 = v22;
-    if (__p != v22)
+    operations_research::sat::ZeroHalfCutHelper::InterestingCandidates(&__p, (this + 22008));
+    v12 = __p;
+    v13 = v20;
+    if (__p != v20)
     {
       do
       {
@@ -1639,48 +3052,48 @@ void operations_research::sat::LinearProgrammingConstraint::AddZeroHalfCuts(oper
           break;
         }
 
-        operations_research::sat::LinearProgrammingConstraint::AddCutFromConstraints(this, "ZERO_HALF", 9, v14);
-        v14 += 3;
+        operations_research::sat::LinearProgrammingConstraint::AddCutFromConstraints(this, "ZERO_HALF", 9, v12);
+        v12 += 3;
       }
 
-      while (v14 != v15);
-      v14 = __p;
+      while (v12 != v13);
+      v12 = __p;
     }
 
-    if (v14)
+    if (v12)
     {
-      v16 = v22;
-      v17 = v14;
-      if (v22 != v14)
+      v14 = v20;
+      v15 = v12;
+      if (v20 != v12)
       {
-        v18 = v22;
+        v16 = v20;
         do
         {
-          v20 = *(v18 - 3);
-          v18 -= 3;
-          v19 = v20;
-          if (v20)
+          v18 = *(v16 - 3);
+          v16 -= 3;
+          v17 = v18;
+          if (v18)
           {
-            *(v16 - 2) = v19;
-            operator delete(v19);
+            *(v14 - 2) = v17;
+            operator delete(v17);
           }
 
-          v16 = v18;
+          v14 = v16;
         }
 
-        while (v18 != v14);
-        v17 = __p;
+        while (v16 != v12);
+        v15 = __p;
       }
 
-      v22 = v14;
-      operator delete(v17);
+      v20 = v12;
+      operator delete(v15);
     }
   }
 }
 
-void sub_23CC45FCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CC45FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<int>>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2351,14 +3764,14 @@ uint64_t operations_research::sat::ScatteredIntegerVector::AddLinearExpressionMu
   return 1;
 }
 
-uint64_t operations_research::sat::LinearProgrammingConstraint::PropagateLpConstraint(uint64_t a1, uint64_t a2)
+uint64_t operations_research::sat::LinearProgrammingConstraint::PropagateLpConstraint(uint64_t a1, __int128 *a2)
 {
-  if (*(a2 + 16))
+  if (*(a2 + 4))
   {
     operator new();
   }
 
-  if ((*(a2 + 8) & 0x8000000000000000) == 0)
+  if ((*(a2 + 1) & 0x8000000000000000) == 0)
   {
     return 1;
   }
@@ -2373,25 +3786,25 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::PropagateLpConst
   return 0;
 }
 
-void sub_23CC46F68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_23CC46F68(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    (*(*a16 + 8))(a16);
+    (*(*a16 + 8))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23CC46FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23CC46FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   operations_research::sat::LinearConstraint::~LinearConstraint(va);
-  MEMORY[0x23EED9460](v3, v4);
+  MEMORY[0x23EED9460](v5, v6);
   _Unwind_Resume(a1);
 }
 
-uint64_t operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<false>(void *a1, uint64_t a2, uint64_t a3, int64x2_t **this, uint64_t *a5)
+uint64_t operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<false>(void *a1, uint64_t a2, uint64_t a3, unint64_t **this, uint64_t *a5)
 {
   *a5 = 0;
   operations_research::sat::ScatteredIntegerVector::ClearAndResize(this, (a1[2955] - a1[2954]) >> 2);
@@ -2405,11 +3818,11 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::ComputeNewLinear
   while (1)
   {
     v12 = *a2;
-    v22 = v12;
+    v23 = v12;
     v13 = (a1[66] - v11) >> 5;
     if (v12 >= v13)
     {
-      operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<true>(&v22, v13);
+      operations_research::sat::LinearProgrammingConstraint::ComputeNewLinearConstraint<true>(&v23, v13, v22);
     }
 
     v14 = *(a2 + 8);
@@ -2451,11 +3864,11 @@ uint64_t operations_research::sat::LinearProgrammingConstraint::ComputeNewLinear
   return 0;
 }
 
-uint64_t operations_research::sat::LinearProgrammingConstraint::HeuristicLpReducedCostAverageBranching@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *operations_research::sat::LinearProgrammingConstraint::HeuristicLpReducedCostAverageBranching@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  *a2 = &unk_284F43A70;
-  a2[1] = this;
-  a2[3] = a2;
+  *a1 = &unk_284F43A70;
+  a1[1] = this;
+  a1[3] = a1;
   return this;
 }
 
@@ -3201,7 +4614,7 @@ LABEL_7:
   _Unwind_Resume(a1);
 }
 
-void **absl::StrongVector<operations_research::StrongIndex<operations_research::sat::LinearConstraintManager::ConstraintIndex_index_tag_>,operations_research::sat::LinearConstraintManager::ConstraintInfo,std::allocator<operations_research::sat::LinearConstraintManager::ConstraintInfo>>::~StrongVector(void **a1)
+char **absl::StrongVector<operations_research::StrongIndex<operations_research::sat::LinearConstraintManager::ConstraintIndex_index_tag_>,operations_research::sat::LinearConstraintManager::ConstraintInfo,std::allocator<operations_research::sat::LinearConstraintManager::ConstraintInfo>>::~StrongVector(char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -3240,7 +4653,7 @@ void **absl::StrongVector<operations_research::StrongIndex<operations_research::
   return a1;
 }
 
-int64_t operations_research::sat::ImpliedBoundsProcessor::ImpliedBoundsProcessor(int64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+unint64_t operations_research::sat::ImpliedBoundsProcessor::ImpliedBoundsProcessor(unint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = 4 * a3;
   if (4 * a3 == 28)
@@ -3293,16 +4706,16 @@ void sub_23CC478EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>::raw_hash_set(_OWORD *a1, unint64_t a2)
+double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>::raw_hash_set(unint64_t *result, unint64_t a2)
 {
-  *&result = 1;
-  *a1 = xmmword_23CE306D0;
+  *&v2 = 1;
+  *result = xmmword_23CE306D0;
   if (a2 >= 2)
   {
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>::resize_impl(a1, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>::resize_impl(result, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
   }
 
-  return result;
+  return v2;
 }
 
 void operations_research::sat::ImpliedBoundsProcessor::~ImpliedBoundsProcessor(operations_research::sat::ImpliedBoundsProcessor *this)
@@ -3467,13 +4880,13 @@ void operations_research::sat::ZeroHalfCutHelper::~ZeroHalfCutHelper(operations_
   }
 }
 
-int64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::sat::LinearProgrammingConstraint *>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::sat::LinearProgrammingConstraint *>>>::find_or_prepare_insert<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>@<X0>(int64_t result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::sat::LinearProgrammingConstraint *>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::sat::LinearProgrammingConstraint *>>>::find_or_prepare_insert<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>@<X0>(unint64_t *result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
-  if (*result > 1uLL)
+  if (*result > 1)
   {
     v6 = 0;
-    _X10 = *(result + 16);
+    _X10 = result[2];
     __asm { PRFM            #4, [X10] }
 
     v13 = *a2;
@@ -3488,7 +4901,7 @@ int64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722:
     }
 
 LABEL_5:
-    v19 = *(result + 24);
+    v19 = result[3];
     do
     {
       v20 = (v16 + (__clz(__rbit64(v18)) >> 3)) & v3;
@@ -3525,20 +4938,20 @@ LABEL_8:
 
     v22 = result;
     result = absl::lts_20240722::container_internal::PrepareInsertNonSoo(result, v14, (v16 + (__clz(__rbit64(v21)) >> 3)) & v3, v6, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::sat::LinearProgrammingConstraint *>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::sat::LinearProgrammingConstraint *>>>::GetPolicyFunctions(void)::value);
-    v24 = *(v22 + 24) + 16 * result;
-    *a3 = *(v22 + 16) + result;
+    v24 = v22[3] + 16 * result;
+    *a3 = result + v22[2];
     *(a3 + 8) = v24;
     *(a3 + 16) = 1;
   }
 
   else
   {
-    if (*(result + 8) > 1uLL)
+    if (result[1] > 1)
     {
-      v4 = (result + 16);
-      if (*(result + 16) != *a2)
+      v4 = result + 2;
+      if (*(result + 4) != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::sat::LinearProgrammingConstraint *>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::sat::LinearProgrammingConstraint *>>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::sat::LinearProgrammingConstraint *>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::sat::LinearProgrammingConstraint *>>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -3546,8 +4959,8 @@ LABEL_8:
 
     else
     {
-      *(result + 8) = 2;
-      v4 = (result + 16);
+      result[1] = 2;
+      v4 = result + 2;
       v5 = 1;
     }
 
@@ -3559,23 +4972,28 @@ LABEL_8:
   return result;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::sat::LinearProgrammingConstraint *>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::sat::LinearProgrammingConstraint *>>>::resize_impl(uint64_t a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::sat::LinearProgrammingConstraint *>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::sat::LinearProgrammingConstraint *>>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 8);
-  v5 = *a1 < 2uLL && v3 > 1;
+  v3 = a1[1];
+  v5 = *a1 < 2 && v3 > 1;
   if (v5)
   {
-    v6 = &absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 16);
+    v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 4)) * 0x9DDFEA08EB382D69) >> 64) ^ (105 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 4)))) & 0x7F;
+  }
+
+  else
+  {
+    v6 = 0x80;
   }
 
   v8 = *a1;
   v9 = v3 & 1;
   v10 = v2 < 2;
   v11 = v5;
-  v7 = *(a1 + 16);
+  v7 = *(a1 + 1);
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(&v7, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(&v7, a1, v6);
 }
 
 void std::vector<operations_research::sat::LinearProgrammingConstraint::LinearConstraintInternal>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
@@ -3729,9 +5147,9 @@ LABEL_16:
   return result;
 }
 
-void sub_23CC48838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CC48838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<operations_research::sat::CutGenerator>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4217,7 +5635,7 @@ void sub_23CC49260(_Unwind_Exception *a1)
     if (!v6)
     {
 LABEL_3:
-      absl::StrongVector<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>,absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>,std::allocator<absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>>>::~StrongVector(v3 + 17);
+      absl::StrongVector<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>,absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>,std::allocator<absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>>>::~StrongVector((v3 + 136));
       v7 = *(v1 + 168);
       if (!v7)
       {
@@ -4239,12 +5657,12 @@ LABEL_3:
 
   *(v1 + 240) = v6;
   operator delete(v6);
-  absl::StrongVector<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>,absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>,std::allocator<absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>>>::~StrongVector(v3 + 17);
+  absl::StrongVector<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>,absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>,std::allocator<absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>>>::~StrongVector((v3 + 136));
   v7 = *(v1 + 168);
   if (!v7)
   {
 LABEL_4:
-    absl::StrongVector<operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>,std::allocator<std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>>>::~StrongVector(v3 + 9);
+    absl::StrongVector<operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>,std::allocator<std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>>>::~StrongVector((v3 + 72));
     v8 = *(v1 + 120);
     if (!v8)
     {
@@ -4257,7 +5675,7 @@ LABEL_4:
 LABEL_11:
   *(v1 + 176) = v7;
   operator delete(v7);
-  absl::StrongVector<operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>,std::allocator<std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>>>::~StrongVector(v3 + 9);
+  absl::StrongVector<operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>,std::allocator<std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>>>::~StrongVector((v3 + 72));
   v8 = *(v1 + 120);
   if (!v8)
   {
@@ -4318,7 +5736,7 @@ LABEL_15:
   _Unwind_Resume(a1);
 }
 
-void **absl::StrongVector<operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>,std::allocator<std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>>>::~StrongVector(void **a1)
+char **absl::StrongVector<operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>,std::allocator<std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>>>::~StrongVector(char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -4413,7 +5831,7 @@ uint64_t operations_research::sat::EnforcementPropagator::Propagate(operations_r
             v45 = v7;
             if (v15 == v7)
             {
-              operations_research::sat::EnforcementPropagator::Propagate(&v46, &v45);
+              operations_research::sat::EnforcementPropagator::Propagate(&v46, &v45, &v47);
             }
 
             v16 = (*(this + 26) + 32 * v15);
@@ -4426,7 +5844,7 @@ uint64_t operations_research::sat::EnforcementPropagator::Propagate(operations_r
               if (v17 >> 1 == v16[2])
               {
 LABEL_22:
-                absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v16);
+                absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v16, &v48);
               }
             }
 
@@ -4589,7 +6007,7 @@ uint64_t operations_research::sat::EnforcementPropagator::ProcessIdOnTrue(void *
     v31 = 2;
     if (v5 != 2)
     {
-      operations_research::sat::EnforcementPropagator::ProcessIdOnTrue(&v29, &v31);
+      operations_research::sat::EnforcementPropagator::ProcessIdOnTrue(&v29, &v31, v28);
     }
 
     if ((*(a1[5] + 8) & 0xFFFFFFF) != 0)
@@ -4612,7 +6030,7 @@ LABEL_6:
   v15 = *v14 != a2;
   if (v14[*v14 != a2] != a2)
   {
-    operations_research::sat::EnforcementPropagator::ProcessIdOnTrue(&v14[*v14 != a2], &v30);
+    operations_research::sat::EnforcementPropagator::ProcessIdOnTrue(&v14[*v14 != a2], &v30, v28);
   }
 
   v16 = v14[*v14 == a2];
@@ -4673,7 +6091,7 @@ LABEL_11:
     v31 = 1;
     if (v5 != 1)
     {
-      operations_research::sat::EnforcementPropagator::ProcessIdOnTrue(&v29, &v31);
+      operations_research::sat::EnforcementPropagator::ProcessIdOnTrue(&v29, &v31, v28);
     }
 
     if ((*(a1[5] + 8) & 0xFFFFFFF) != 0)
@@ -4813,8 +6231,8 @@ uint64_t operations_research::sat::EnforcementPropagator::Register(uint64_t a1, 
     v11 = *(*(a1 + 40) + 8) & 0xFFFFFFF;
     while (1)
     {
-      LODWORD(v91[0]) = *v7;
-      v12 = (LODWORD(v91[0]) | 1) + 1;
+      LODWORD(v90[0]) = *v7;
+      v12 = (LODWORD(v90[0]) | 1) + 1;
       v14 = *(a1 + 208);
       v13 = *(a1 + 216);
       v15 = (v13 - v14) >> 5;
@@ -4853,10 +6271,10 @@ uint64_t operations_research::sat::EnforcementPropagator::Register(uint64_t a1, 
         }
       }
 
-      v19 = *(*(*(a1 + 48) + 8) + ((SLODWORD(v91[0]) >> 3) & 0x1FFFFFFFFFFFFFF8));
-      if ((v19 >> SLOBYTE(v91[0])))
+      v19 = *(*(*(a1 + 48) + 8) + ((SLODWORD(v90[0]) >> 3) & 0x1FFFFFFFFFFFFFF8));
+      if ((v19 >> SLOBYTE(v90[0])))
       {
-        if (!v11 || (*(*(*(a1 + 40) + 96) + 8 * (SLODWORD(v91[0]) >> 1)) & 0xFFFFFFF) == 0)
+        if (!v11 || (*(*(*(a1 + 40) + 96) + 8 * (SLODWORD(v90[0]) >> 1)) & 0xFFFFFFF) == 0)
         {
           goto LABEL_4;
         }
@@ -4864,9 +6282,9 @@ uint64_t operations_research::sat::EnforcementPropagator::Register(uint64_t a1, 
         ++v8;
       }
 
-      else if ((v19 >> (v91[0] & 0x3F ^ 1u)))
+      else if ((v19 >> (v90[0] & 0x3F ^ 1u)))
       {
-        if (!v11 || (*(*(*(a1 + 40) + 96) + 8 * (SLODWORD(v91[0]) >> 1)) & 0xFFFFFFF) == 0)
+        if (!v11 || (*(*(*(a1 + 40) + 96) + 8 * (SLODWORD(v90[0]) >> 1)) & 0xFFFFFFF) == 0)
         {
           v20 = 0;
           goto LABEL_25;
@@ -4875,7 +6293,7 @@ uint64_t operations_research::sat::EnforcementPropagator::Register(uint64_t a1, 
         ++v9;
       }
 
-      std::vector<int>::push_back[abi:ne200100](v6, v91);
+      std::vector<int>::push_back[abi:ne200100](v6, v90);
 LABEL_4:
       if (++v7 == v10)
       {
@@ -4902,7 +6320,7 @@ LABEL_25:
     v24 = v23;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::StrongIndex<operations_research::glop::ColIndex_index_tag_> *,false>(v21, v22, v91, v24, 1);
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::StrongIndex<operations_research::glop::ColIndex_index_tag_> *,false>(v21, v22, v90, v24, 1);
   v26 = *(a1 + 232);
   v25 = *(a1 + 240);
   if (v26 != v25)
@@ -4944,10 +6362,10 @@ LABEL_25:
     v37 = *(a4 + 24);
     if (v37)
     {
-      LODWORD(v91[0]) = -1;
-      v93 = 0;
+      LODWORD(v90[0]) = -1;
+      v92 = 0;
 LABEL_50:
-      (*(*v37 + 48))(v37, v91, &v93);
+      (*(*v37 + 48))(v37, v90, &v92);
     }
 
     return -1;
@@ -4958,8 +6376,8 @@ LABEL_50:
     v37 = *(a4 + 24);
     if (v37)
     {
-      LODWORD(v91[0]) = -1;
-      v93 = 3;
+      LODWORD(v90[0]) = -1;
+      v92 = 3;
       goto LABEL_50;
     }
 
@@ -4969,7 +6387,7 @@ LABEL_50:
   v33 = *(a1 + 152);
   v32 = (a1 + 144);
   v34 = *(a1 + 160);
-  v92 = (v33 - *(a1 + 144)) >> 5;
+  v91 = (v33 - *(a1 + 144)) >> 5;
   if (v33 >= v34)
   {
     v39 = std::vector<std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>>::__emplace_back_slow_path<std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>>((a1 + 144), a4);
@@ -5000,75 +6418,74 @@ LABEL_57:
   v39 = v33 + 32;
 LABEL_58:
   *(a1 + 152) = v39;
-  v40 = *(a1 + 232);
-  v41 = *(a1 + 240);
-  v42 = *(a1 + 232);
-  if (v42 == v41)
+  v40 = *(a1 + 240);
+  v41 = *(a1 + 232);
+  if (v41 == v40)
   {
-    operations_research::sat::EnforcementPropagator::Register(v91);
+    operations_research::sat::EnforcementPropagator::Register(v90);
   }
 
-  std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(a1 + 96, *(a1 + 104), v42, v41, (v41 - v42) >> 2);
-  LODWORD(v91[0]) = (*(a1 + 104) - *(a1 + 96)) >> 2;
-  std::vector<int>::push_back[abi:ne200100](a1 + 72, v91);
+  std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(a1 + 96, *(a1 + 104), v41, v40, (v40 - v41) >> 2);
+  LODWORD(v90[0]) = (*(a1 + 104) - *(a1 + 96)) >> 2;
+  std::vector<int>::push_back[abi:ne200100](a1 + 72, v90);
   if (*(a1 + 240) - *(a1 + 232) == 4)
   {
-    v43 = 2;
+    v42 = 2;
   }
 
   else
   {
-    v43 = 1;
+    v42 = 1;
   }
 
-  LODWORD(v91[0]) = v43;
-  std::vector<int>::push_back[abi:ne200100](a1 + 120, v91);
-  v44 = *(a1 + 232);
-  if (*(a1 + 240) - v44 == 4)
+  LODWORD(v90[0]) = v42;
+  std::vector<int>::push_back[abi:ne200100](a1 + 120, v90);
+  v43 = *(a1 + 232);
+  if (*(a1 + 240) - v43 == 4)
   {
-    v45 = (*(a1 + 208) + 32 * *v44);
-    v47 = v45 + 1;
-    v46 = *v45;
-    if ((*v45 & 1) == 0)
+    v44 = (*(a1 + 208) + 32 * *v43);
+    v46 = v44 + 1;
+    v45 = *v44;
+    if ((*v44 & 1) == 0)
     {
 LABEL_64:
-      v48 = 6;
+      v47 = 6;
       goto LABEL_88;
     }
   }
 
   else
   {
-    if ((v92 & 0x80000000) != 0)
+    if ((v91 & 0x80000000) != 0)
     {
-      v51 = 0;
+      v50 = 0;
     }
 
     else
     {
-      v49 = *(a1 + 72);
-      v50 = *(v49 + 4 * v92);
-      v51 = (*(a1 + 96) + 4 * v50);
-      v52 = *(v49 + (((v92 << 32) + 0x100000000) >> 30)) - v50;
-      if (v52)
+      v48 = *(a1 + 72);
+      v49 = *(v48 + 4 * v91);
+      v50 = (*(a1 + 96) + 4 * v49);
+      v51 = *(v48 + (((v91 << 32) + 0x100000000) >> 30)) - v49;
+      if (v51)
       {
-        v53 = 0;
-        v54 = *(*(a1 + 48) + 8);
-        v55 = 1;
+        v52 = 0;
+        v53 = *(*(a1 + 48) + 8);
+        v54 = 1;
         while (1)
         {
-          v56 = v51[v53];
-          v57 = (1 << v56) & *(v54 + ((v56 >> 3) & 0x1FFFFFFFFFFFFFF8));
-          if (!v57)
+          v55 = v50[v52];
+          v56 = (1 << v55) & *(v53 + ((v55 >> 3) & 0x1FFFFFFFFFFFFFF8));
+          if (!v56)
           {
             break;
           }
 
-          v53 = v55;
-          if (v52 <= v55++)
+          v52 = v54;
+          if (v51 <= v54++)
           {
 LABEL_75:
-            if (v57)
+            if (v56)
             {
               goto LABEL_82;
             }
@@ -5077,27 +6494,27 @@ LABEL_75:
           }
         }
 
-        v59 = *v51;
-        *v51 = v56;
-        v51[v53] = v59;
-        if (v52 <= v55)
+        v58 = *v50;
+        *v50 = v55;
+        v50[v52] = v58;
+        if (v51 <= v54)
         {
 LABEL_76:
-          if (v52 >= 3)
+          if (v51 >= 3)
           {
-            v62 = *(*(a1 + 40) + 96);
-            v63 = *(v62 + 8 * (v51[1] >> 1)) & 0xFFFFFFF;
-            v64 = 2;
-            for (i = 2; i < v52; v64 = i)
+            v61 = *(*(a1 + 40) + 96);
+            v62 = *(v61 + 8 * (v50[1] >> 1)) & 0xFFFFFFF;
+            v63 = 2;
+            for (i = 2; i < v51; v63 = i)
             {
-              v66 = v51[v64];
-              v67 = *(v62 + 8 * (v66 >> 1)) & 0xFFFFFFF;
-              if (v67 > v63)
+              v65 = v50[v63];
+              v66 = *(v61 + 8 * (v65 >> 1)) & 0xFFFFFFF;
+              if (v66 > v62)
               {
-                v68 = v51[1];
-                v51[1] = v66;
-                v51[v64] = v68;
-                v63 = v67;
+                v67 = v50[1];
+                v50[1] = v65;
+                v50[v63] = v67;
+                v62 = v66;
               }
 
               ++i;
@@ -5109,128 +6526,128 @@ LABEL_76:
 
         while (1)
         {
-          v60 = v55;
-          v61 = v51[v55];
-          if (((*(v54 + ((v61 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v61) & 1) == 0)
+          v59 = v54;
+          v60 = v50[v54];
+          if (((*(v53 + ((v60 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v60) & 1) == 0)
           {
             break;
           }
 
-          v55 = v60 + 1;
-          if (v52 <= v60 + 1)
+          v54 = v59 + 1;
+          if (v51 <= v59 + 1)
           {
             goto LABEL_75;
           }
         }
 
-        v69 = v51[1];
-        v51[1] = v61;
-        v51[v60] = v69;
+        v68 = v50[1];
+        v50[1] = v60;
+        v50[v59] = v68;
       }
     }
 
 LABEL_82:
-    v70 = *(a1 + 208);
-    v71 = (v70 + 32 * *v51);
-    v73 = v71 + 1;
-    v72 = *v71;
-    if (*v71)
+    v69 = *(a1 + 208);
+    v70 = (v69 + 32 * *v50);
+    v72 = v70 + 1;
+    v71 = *v70;
+    if (*v70)
     {
-      v73 = v71[1];
-      v74 = v71[2];
+      v72 = v70[1];
+      v73 = v70[2];
     }
 
     else
     {
-      v74 = 6;
+      v73 = 6;
     }
 
-    if (v72 >> 1 == v74)
+    if (v71 >> 1 == v73)
     {
-      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v71);
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v70, &v91);
     }
 
-    *(v73 + (v72 >> 1)) = v92;
-    *v71 = v72 + 2;
-    v45 = (v70 + 32 * v51[1]);
-    v47 = v45 + 1;
-    v46 = *v45;
-    if ((*v45 & 1) == 0)
+    *(v72 + (v71 >> 1)) = v91;
+    *v70 = v71 + 2;
+    v44 = (v69 + 32 * v50[1]);
+    v46 = v44 + 1;
+    v45 = *v44;
+    if ((*v44 & 1) == 0)
     {
       goto LABEL_64;
     }
   }
 
-  v47 = v45[1];
-  v48 = v45[2];
+  v46 = v44[1];
+  v47 = v44[2];
 LABEL_88:
-  if (v46 >> 1 == v48)
+  if (v45 >> 1 == v47)
   {
-    absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v45);
+    absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v44, &v91);
   }
 
-  *(v47 + (v46 >> 1)) = v92;
-  *v45 = v46 + 2;
+  *(v46 + (v45 >> 1)) = v91;
+  *v44 = v45 + 2;
   if (v9 < 1)
   {
-    v80 = (*(a1 + 240) - *(a1 + 232)) >> 2;
-    if (v80 == v8)
+    v79 = (*(a1 + 240) - *(a1 + 232)) >> 2;
+    if (v79 == v8)
     {
-      v81 = v92;
-      v82 = *(a1 + 120);
-      v83 = 4 * v92;
-      v84 = *(v82 + v83);
-      if (v84 != 3)
+      v80 = v91;
+      v81 = *(a1 + 120);
+      v82 = 4 * v91;
+      v83 = *(v81 + v82);
+      if (v83 != 3)
       {
         if ((*(*(a1 + 40) + 8) & 0xFFFFFFF) != 0)
         {
-          v91[0] = __PAIR64__(v84, v92);
-          std::vector<long long>::push_back[abi:ne200100](a1 + 168, v91);
-          v82 = *(a1 + 120);
+          v90[0] = __PAIR64__(v83, v91);
+          std::vector<long long>::push_back[abi:ne200100](a1 + 168, v90);
+          v81 = *(a1 + 120);
         }
 
-        *(v82 + v83) = 3;
-        v79 = *(*v32 + 32 * v81 + 24);
-        if (v79)
+        *(v81 + v82) = 3;
+        v78 = *(*v32 + 32 * v80 + 24);
+        if (v78)
         {
-          LODWORD(v91[0]) = v81;
-          v93 = 3;
+          LODWORD(v90[0]) = v80;
+          v92 = 3;
           goto LABEL_95;
         }
       }
     }
 
-    else if (v80 == v8 + 1)
+    else if (v79 == v8 + 1)
     {
-      v85 = v92;
-      v86 = *(a1 + 120);
-      v87 = 4 * v92;
-      v88 = *(v86 + v87);
-      if (v88 != 2)
+      v84 = v91;
+      v85 = *(a1 + 120);
+      v86 = 4 * v91;
+      v87 = *(v85 + v86);
+      if (v87 != 2)
       {
         if ((*(*(a1 + 40) + 8) & 0xFFFFFFF) != 0)
         {
-          v91[0] = __PAIR64__(v88, v92);
-          std::vector<long long>::push_back[abi:ne200100](a1 + 168, v91);
-          v86 = *(a1 + 120);
+          v90[0] = __PAIR64__(v87, v91);
+          std::vector<long long>::push_back[abi:ne200100](a1 + 168, v90);
+          v85 = *(a1 + 120);
         }
 
-        *(v86 + v87) = 2;
-        v89 = *(*v32 + 32 * v85 + 24);
-        if (v89)
+        *(v85 + v86) = 2;
+        v88 = *(*v32 + 32 * v84 + 24);
+        if (v88)
         {
-          LODWORD(v91[0]) = v85;
-          v93 = 2;
-          (*(*v89 + 48))(v89, v91, &v93);
+          LODWORD(v90[0]) = v84;
+          v92 = 2;
+          (*(*v88 + 48))(v88, v90, &v92);
         }
       }
 
       if (*(a1 + 240) - *(a1 + 232) == 4)
       {
-        v90 = *v32 + 32 * v92;
-        if (*(v90 + 24))
+        v89 = *v32 + 32 * v91;
+        if (*(v89 + 24))
         {
-          std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>::operator()(v90, v92, 2);
+          std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>::operator()(v89, v91, 2);
         }
       }
     }
@@ -5238,51 +6655,51 @@ LABEL_88:
 
   else
   {
-    v75 = v92;
-    v76 = *(a1 + 120);
-    v77 = 4 * v92;
-    v78 = *(v76 + v77);
-    if (v78)
+    v74 = v91;
+    v75 = *(a1 + 120);
+    v76 = 4 * v91;
+    v77 = *(v75 + v76);
+    if (v77)
     {
       if ((*(*(a1 + 40) + 8) & 0xFFFFFFF) != 0)
       {
-        v91[0] = __PAIR64__(v78, v92);
-        std::vector<long long>::push_back[abi:ne200100](a1 + 168, v91);
-        v76 = *(a1 + 120);
+        v90[0] = __PAIR64__(v77, v91);
+        std::vector<long long>::push_back[abi:ne200100](a1 + 168, v90);
+        v75 = *(a1 + 120);
       }
 
-      *(v76 + v77) = 0;
-      v79 = *(*v32 + 32 * v75 + 24);
-      if (v79)
+      *(v75 + v76) = 0;
+      v78 = *(*v32 + 32 * v74 + 24);
+      if (v78)
       {
-        LODWORD(v91[0]) = v75;
-        v93 = 0;
+        LODWORD(v90[0]) = v74;
+        v92 = 0;
 LABEL_95:
-        (*(*v79 + 48))(v79, v91, &v93);
+        (*(*v78 + 48))(v78, v90, &v92);
       }
     }
   }
 
-  return v92;
+  return v91;
 }
 
-uint64_t operations_research::sat::EnforcementPropagator::PropagateWhenFalse(uint64_t a1, unsigned int a2, char *__src, uint64_t a4, char *a5, uint64_t a6)
+uint64_t operations_research::sat::EnforcementPropagator::PropagateWhenFalse(void *a1, signed int a2, char *__src, uint64_t a4, char *a5, uint64_t a6)
 {
-  v12 = *(a1 + 256);
-  *(a1 + 264) = v12;
+  v12 = a1[32];
+  a1[33] = v12;
   if ((a2 & 0x80000000) == 0)
   {
-    v13 = *(a1 + 72);
+    v13 = a1[9];
     v14 = *(v13 + ((((a2 & 0x7FFFFFFF) << 32) + 0x100000000) >> 30));
     v15 = *(v13 + 4 * (a2 & 0x7FFFFFFF));
     if (v14 != v15)
     {
-      v25 = (*(a1 + 96) + 4 * v15);
+      v25 = (a1[12] + 4 * v15);
       v26 = 4 * (v14 - v15);
       v16 = -1;
       while (1)
       {
-        v27 = *(*(*(a1 + 48) + 8) + ((*v25 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v27 = *(*(a1[6] + 8) + ((*v25 >> 3) & 0x1FFFFFFFFFFFFFF8));
         if ((v27 >> (*v25 & 0x3F ^ 1u)))
         {
           return 1;
@@ -5291,7 +6708,7 @@ uint64_t operations_research::sat::EnforcementPropagator::PropagateWhenFalse(uin
         if ((v27 >> (*v25 & 0x3F)))
         {
           LODWORD(v29) = *v25 ^ 1;
-          std::vector<int>::push_back[abi:ne200100](a1 + 256, &v29);
+          std::vector<int>::push_back[abi:ne200100]((a1 + 32), &v29);
         }
 
         else
@@ -5308,7 +6725,7 @@ uint64_t operations_research::sat::EnforcementPropagator::PropagateWhenFalse(uin
         v26 -= 4;
         if (!v26)
         {
-          v12 = *(a1 + 264);
+          v12 = a1[33];
           goto LABEL_4;
         }
       }
@@ -5317,22 +6734,22 @@ uint64_t operations_research::sat::EnforcementPropagator::PropagateWhenFalse(uin
 
   v16 = -1;
 LABEL_4:
-  std::vector<operations_research::sat::Literal>::__insert_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>(a1 + 256, v12, __src, &__src[4 * a4], (4 * a4) >> 2);
+  std::vector<operations_research::sat::Literal>::__insert_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>((a1 + 32), v12, __src, &__src[4 * a4], (4 * a4) >> 2);
   if (v16 != -1)
   {
-    v17 = *(a1 + 120);
+    v17 = a1[15];
     v18 = *(v17 + 4 * a2);
     if (v18)
     {
-      if ((*(*(a1 + 40) + 8) & 0xFFFFFFF) != 0)
+      if ((*(a1[5] + 8) & 0xFFFFFFF) != 0)
       {
         v29 = __PAIR64__(v18, a2);
-        std::vector<long long>::push_back[abi:ne200100](a1 + 168, &v29);
-        v17 = *(a1 + 120);
+        std::vector<long long>::push_back[abi:ne200100]((a1 + 21), &v29);
+        v17 = a1[15];
       }
 
       *(v17 + 4 * a2) = 0;
-      v19 = *(*(a1 + 144) + 32 * a2 + 24);
+      v19 = *(a1[18] + 32 * a2 + 24);
       if (v19)
       {
         LODWORD(v29) = a2;
@@ -5341,13 +6758,13 @@ LABEL_4:
       }
     }
 
-    operations_research::sat::IntegerTrail::EnqueueLiteral(*(a1 + 56), v16 ^ 1, *(a1 + 256), (*(a1 + 264) - *(a1 + 256)) >> 2, a5, a6);
+    operations_research::sat::IntegerTrail::EnqueueLiteral(a1[7], v16 ^ 1, a1[32], (a1[33] - a1[32]) >> 2, a5, a6);
     return 1;
   }
 
-  v21 = *(a1 + 56);
-  v22 = *(a1 + 256);
-  v23 = *(a1 + 264);
+  v21 = a1[7];
+  v22 = a1[32];
+  v23 = a1[33];
   v24 = *(v21 + 840);
   *(v24 + 120) = 0;
   std::vector<operations_research::sat::Literal>::__assign_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>((v24 + 72), v22, v23, (v23 - v22) >> 2);
@@ -5357,7 +6774,7 @@ LABEL_4:
 
 operations_research::sat::LinearPropagator *operations_research::sat::LinearPropagator::LinearPropagator(operations_research::sat::LinearPropagator *this, operations_research::sat::Model *a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   v4 = this + 8;
   *this = &unk_284F43B40;
   *(this + 1) = &unk_284F43B78;
@@ -5397,9 +6814,9 @@ operations_research::sat::LinearPropagator *operations_research::sat::LinearProp
   *(this + 24) = 0u;
   *(this + 25) = 0u;
   v6 = *(this + 10);
-  v13[0] = &unk_284F43C28;
-  v13[1] = this;
-  v13[3] = v13;
+  v12[0] = &unk_284F43C28;
+  v12[1] = this;
+  v12[3] = v12;
   *(this + 56) = 0;
   *(this + 57) = v6;
   *(this + 61) = this + 464;
@@ -5444,14 +6861,13 @@ operations_research::sat::LinearPropagator *operations_research::sat::LinearProp
   *(this + 50) = 0u;
   v7 = *(this + 3);
   v8 = (*(v7 + 48) - *(v7 + 40)) >> 3;
-  v12 = this + 104;
+  v11 = this + 104;
   operations_research::SparseBitset<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>::ClearAndResize(this + 104, v8);
-  std::vector<absl::lts_20240722::LogSink *>::push_back[abi:ne200100](v7 + 744, &v12);
+  std::vector<absl::lts_20240722::LogSink *>::push_back[abi:ne200100](v7 + 744, &v11);
   v9 = *(this + 3);
-  v12 = v4;
-  std::vector<absl::lts_20240722::LogSink *>::push_back[abi:ne200100](v9 + 768, &v12);
+  v11 = v4;
+  std::vector<absl::lts_20240722::LogSink *>::push_back[abi:ne200100](v9 + 768, &v11);
   operations_research::sat::GenericLiteralWatcher::SetPropagatorPriority(*(this + 5), *(this + 24), 0);
-  v10 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -5703,7 +7119,7 @@ LABEL_31:
   _Unwind_Resume(a1);
 }
 
-uint64_t operations_research::sat::Model::GetOrCreate<operations_research::sat::EnforcementPropagator>(void *a1)
+operations_research::sat::EnforcementPropagator *operations_research::sat::Model::GetOrCreate<operations_research::sat::EnforcementPropagator>(void *a1)
 {
   v1 = a1[3];
   if (v1 > 1)
@@ -6234,7 +7650,7 @@ void operations_research::sat::LinearPropagator::OnVariableChange(uint64_t a1, u
 
     else
     {
-      v38 = a2;
+      v37 = a2;
       v11 = a2 >> 6;
       v13 = *(a1 + 800);
       v14 = *(v13 + 8 * v11);
@@ -6244,7 +7660,7 @@ void operations_research::sat::LinearPropagator::OnVariableChange(uint64_t a1, u
         *(v13 + 8 * v11) = v14 | v12;
         v15 = a3;
         v16 = a4;
-        std::vector<int>::push_back[abi:ne200100](a1 + 824, &v38);
+        std::vector<int>::push_back[abi:ne200100](a1 + 824, &v37);
         a4 = v16;
         a3 = v15;
         v10 = *(v8 + v9);
@@ -6297,32 +7713,31 @@ void operations_research::sat::LinearPropagator::OnVariableChange(uint64_t a1, u
         v31 = *(v23 + 8 * v30);
         if (((1 << *v26) & v31) == 0)
         {
-          v32 = *(a1 + 416);
-          v33 = *(a1 + 424);
-          v34 = *(a1 + 416);
+          v32 = *(a1 + 424);
+          v33 = *(a1 + 416);
           *(v23 + 8 * v30) = (1 << v29) | v31;
-          if (v33 == v34)
+          if (v32 == v33)
           {
-            v35 = 0;
+            v34 = 0;
           }
 
           else
           {
-            v35 = ((v33 - v34) << 7) - 1;
+            v34 = ((v32 - v33) << 7) - 1;
           }
 
-          v36 = *(a1 + 448);
-          v37 = v36 + *(a1 + 440);
-          if (v35 == v37)
+          v35 = *(a1 + 448);
+          v36 = v35 + *(a1 + 440);
+          if (v34 == v36)
           {
             std::deque<int>::__add_back_capacity((a1 + 408));
-            v34 = *(a1 + 416);
-            v36 = *(a1 + 448);
-            v37 = *(a1 + 440) + v36;
+            v33 = *(a1 + 416);
+            v35 = *(a1 + 448);
+            v36 = *(a1 + 440) + v35;
           }
 
-          *(*(v34 + ((v37 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v37 & 0x3FF)) = v29;
-          *(a1 + 448) = v36 + 1;
+          *(*(v33 + ((v36 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v36 & 0x3FF)) = v29;
+          *(a1 + 448) = v35 + 1;
         }
 
         ++v26;
@@ -6336,7 +7751,6 @@ void operations_research::sat::LinearPropagator::OnVariableChange(uint64_t a1, u
 
 BOOL operations_research::sat::LinearPropagator::Propagate(operations_research::sat::LinearPropagator *this)
 {
-  v83 = *MEMORY[0x277D85DE8];
   v2 = *(this + 17);
   v3 = *(this + 18);
   while (v2 != v3)
@@ -6351,8 +7765,8 @@ BOOL operations_research::sat::LinearPropagator::Propagate(operations_research::
   }
 
   *(this + 121) = 0;
-  v76 = *(this + 48);
-  v75 = *(*(this + 2) + 12);
+  v75 = *(this + 48);
+  v74 = *(*(this + 2) + 12);
   do
   {
 LABEL_7:
@@ -6377,10 +7791,10 @@ LABEL_7:
       }
 
       v9 = 1 << v7;
-      v81 = v7 >> 6;
-      *(v76 + 8 * v81) &= ~(1 << v7);
+      v80 = v7 >> 6;
+      *(v75 + 8 * v80) &= ~(1 << v7);
       v10 = operations_research::sat::LinearPropagator::AnalyzeConstraint(this, v7);
-      v79 = v10;
+      v78 = v10;
       if (v10 < 0)
       {
         v15 = *(*(this + 21) + 8 * ((*(this + 24) + v7) / 0xAAuLL)) + 24 * ((*(this + 24) + v7) % 0xAAuLL);
@@ -6478,7 +7892,7 @@ LABEL_7:
               *(this + 39) = v54;
               std::vector<long long>::push_back[abi:ne200100](this + 328, v17);
               v50 = *v15;
-              v10 = v79;
+              v10 = v78;
             }
 
             ++v52;
@@ -6498,7 +7912,7 @@ LABEL_7:
           goto LABEL_74;
         }
 
-        if (*(*(this + 2) + 12) > v75)
+        if (*(*(this + 2) + 12) > v74)
         {
           goto LABEL_72;
         }
@@ -6520,8 +7934,8 @@ LABEL_7:
 
         v18 = (*(this + 26) + 4 * v13);
         v19 = v11 & 0x7FFFFFFF;
-        v77 = v7;
-        v78 = 1 << v7;
+        v76 = v7;
+        v77 = 1 << v7;
         while (1)
         {
           v21 = *v18++;
@@ -6543,25 +7957,25 @@ LABEL_7:
           v31 = v26 >> 29;
           if (*(v30 + (v26 >> 29)) < v25)
           {
-            v82 = v18;
+            v81 = v18;
             v32 = v26 >> 30;
 LABEL_38:
             *(v30 + v31) = v25;
             *(*(this + 66) + v32) = v7;
             v42 = *(this + 80);
-            v18 = v82;
-            v43 = *(v42 + 8 * v81);
+            v18 = v81;
+            v43 = *(v42 + 8 * v80);
             if ((v43 & v9) == 0)
             {
-              *(v42 + 8 * v81) = v43 | v9;
+              *(v42 + 8 * v80) = v43 | v9;
               v44 = *(this + 87);
               if (!v44)
               {
-                std::deque<int>::__add_front_capacity(this + 664);
+                std::deque<int>::__add_front_capacity(this + 83);
                 v44 = *(this + 87);
-                v10 = v79;
-                v7 = v77;
-                v18 = v82;
+                v10 = v78;
+                v7 = v76;
+                v18 = v81;
               }
 
               v45 = *(this + 84);
@@ -6593,8 +8007,8 @@ LABEL_38:
           }
         }
 
-        v82 = v18;
-        v80 = v14;
+        v81 = v18;
+        v79 = v14;
         *(v28 + 8 * v27) = v29 | (1 << v24);
         v33 = *(this + 76);
         v34 = *(this + 75);
@@ -6648,8 +8062,8 @@ LABEL_38:
             operator delete(v34);
           }
 
-          v10 = v79;
-          v7 = v77;
+          v10 = v78;
+          v7 = v76;
         }
 
         else
@@ -6658,11 +8072,11 @@ LABEL_38:
           v37 = (v33 + 4);
         }
 
-        v9 = v78;
+        v9 = v77;
         *(this + 76) = v37;
         v30 = *(this + 69);
         v31 = v26 >> 29;
-        v14 = v80;
+        v14 = v79;
         goto LABEL_38;
       }
     }
@@ -6680,8 +8094,8 @@ LABEL_38:
       goto LABEL_74;
     }
 
-    v72 = *(*(this + 2) + 12) <= v75;
-    v75 = *(*(this + 2) + 12);
+    v72 = *(*(this + 2) + 12) <= v74;
+    v74 = *(*(this + 2) + 12);
   }
 
   while (v72);
@@ -6691,7 +8105,6 @@ LABEL_72:
 LABEL_74:
   *(*(this + 6) + 112) = *(*(this + 6) + 112) + *(this + 121) * 0.000000001;
   operations_research::SparseBitset<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>::ClearAndResize(this + 104, (*(*(this + 3) + 48) - *(*(this + 3) + 40)) >> 3);
-  v73 = *MEMORY[0x277D85DE8];
   return v71;
 }
 
@@ -7193,80 +8606,80 @@ LABEL_45:
 
 uint64_t operations_research::sat::LinearPropagator::PropagateOneConstraint(operations_research::sat::LinearPropagator *this, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = operations_research::sat::LinearPropagator::AnalyzeConstraint(this, a2);
-  if ((v5 & 0x8000000000000000) == 0)
+  if (v5 < 0)
+  {
+
+    return operations_research::sat::LinearPropagator::PropagateInfeasibleConstraint(this, a2, v5);
+  }
+
+  else
   {
     v6 = v4;
-    if (v4)
+    if (!v4)
     {
-      v7 = (*(*(this + 21) + 8 * ((*(this + 24) + a2) / 0xAAuLL)) + 24 * ((*(this + 24) + a2) % 0xAAuLL));
-      v8 = v7[2];
-      v18 = v7;
-      v9 = *v7;
-      if ((v9 & 4) != 0)
-      {
-        v10 = *(this + 32);
-      }
+      return 1;
+    }
 
-      else
-      {
-        v10 = (*(this + 29) + 8 * v8);
-      }
+    v7 = (*(*(this + 21) + 8 * ((*(this + 24) + a2) / 0xAAuLL)) + 24 * ((*(this + 24) + a2) % 0xAAuLL));
+    v8 = v7[2];
+    v16 = v7;
+    v9 = *v7;
+    if ((v9 & 4) != 0)
+    {
+      v10 = *(this + 32);
+    }
 
-      if ((v9 & 3) != 3)
-      {
-        operations_research::sat::LinearPropagator::PropagateOneConstraint(v9 & 3);
-      }
+    else
+    {
+      v10 = *(this + 29) + 8 * v8;
+    }
 
-      v13 = *(this + 26);
-      result = operations_research::sat::LinearPropagator::DisassembleSubtree(this, a2, v4);
-      if (!result)
-      {
-        goto LABEL_18;
-      }
+    if ((v9 & 3) != 3)
+    {
+      operations_research::sat::LinearPropagator::PropagateOneConstraint(v9 & 3, &v17);
+    }
 
+    v12 = *(this + 26);
+    result = operations_research::sat::LinearPropagator::DisassembleSubtree(this, a2, v4);
+    if (result)
+    {
       if (v6 >= 1)
       {
-        v14 = (v13 + 4 * v8);
-        v15 = v6 & 0x7FFFFFFF;
+        v13 = (v12 + 4 * v8);
+        v14 = v6 & 0x7FFFFFFF;
         do
         {
-          v16 = *v14;
-          if (((*(*(this + 63) + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v16 ^ 1u)) & 1) != 0 && *(*(this + 66) + 4 * (v16 ^ 1)) == a2)
+          v15 = *v13;
+          if (((*(*(this + 63) + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v15 ^ 1u)) & 1) != 0 && *(*(this + 66) + 4 * (v15 ^ 1)) == a2)
           {
             ++*(this + 122);
-            v19 = *v18;
-            *(*(*(this + 3) + 40) + 8 * v16);
-            *v10;
-            v20 = *(v18 + 2);
+            v17 = *v16;
+            v18 = *(v16 + 2);
+            v19 = 0;
             operator new();
           }
 
           ++*(this + 130);
-          ++v10;
-          ++v14;
-          --v15;
+          v10 += 8;
+          ++v13;
+          --v14;
         }
 
-        while (v15);
+        while (v14);
       }
-    }
 
-    result = 1;
-LABEL_18:
-    v17 = *MEMORY[0x277D85DE8];
-    return result;
+      return 1;
+    }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return operations_research::sat::LinearPropagator::PropagateInfeasibleConstraint(this, a2, v5);
+  return result;
 }
 
-void sub_23CC4CFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_23CC4CFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   std::function<void ()(operations_research::sat::IntegerLiteral,int,std::vector<operations_research::sat::Literal> *,std::vector<int> *)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -7288,148 +8701,410 @@ _BYTE *absl::lts_20240722::Cleanup<absl::lts_20240722::cleanup_internal::Tag,ope
 
 double operations_research::sat::LinearPropagator::AddConstraint(uint64_t a1, int *a2, uint64_t a3, char *a4, unint64_t a5, char *a6, uint64_t a7, uint64_t a8)
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   if (!a5)
   {
-LABEL_14:
-    v24 = *MEMORY[0x277D85DE8];
     return result;
   }
 
   v16 = *(a1 + 16);
-  if ((*(v16 + 8) & 0xFFFFFFF) == 0 && (a3 & 0x3FFFFFFFFFFFFFFFLL) != 0)
+  v17 = (*(v16 + 8) & 0xFFFFFFF) != 0 || (a3 & 0x3FFFFFFFFFFFFFFFLL) == 0;
+  if (v17)
   {
-    v21 = *(v16 + 24);
-    v22 = 4 * a3;
-    v23 = a2;
-    while (((*(v21 + ((*v23 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (*v23 & 0x3F ^ 1u)) & 1) == 0)
+LABEL_7:
+    if (a5 >> 29)
     {
-      ++v23;
-      v22 -= 4;
-      if (!v22)
+      operations_research::sat::LinearPropagator::AddConstraint(a5, __x);
+    }
+
+    v18 = (*(a1 + 288) - *(a1 + 280)) >> 3;
+    if (a5 > v18)
+    {
+      *__x = 0;
+      std::vector<unsigned long long>::__append(a1 + 280, a5 - v18, __x);
+      *__x = 1;
+      v19 = *(a1 + 256);
+      v20 = (*(a1 + 264) - v19) >> 3;
+      if (a5 <= v20)
       {
-        goto LABEL_7;
+        if (a5 < v20)
+        {
+          *(a1 + 264) = v19 + 8 * a5;
+        }
+      }
+
+      else
+      {
+        std::vector<unsigned long long>::__append(a1 + 256, a5 - v20, __x);
       }
     }
 
-    goto LABEL_14;
-  }
-
-LABEL_7:
-  if (a5 >> 29)
-  {
-    operations_research::sat::LinearPropagator::AddConstraint(a5);
-  }
-
-  v18 = (*(a1 + 288) - *(a1 + 280)) >> 3;
-  if (a5 > v18)
-  {
-    *__x = 0;
-    std::vector<unsigned long long>::__append(a1 + 280, a5 - v18, __x);
-    *__x = 1;
-    v19 = *(a1 + 256);
-    v20 = (*(a1 + 264) - v19) >> 3;
-    if (a5 <= v20)
+    if (a5 != a7)
     {
-      if (a5 < v20)
+      operations_research::sat::LinearPropagator::AddConstraint(a5, a7, __x);
+    }
+
+    v24 = *(a1 + 208);
+    v25 = *(a1 + 176);
+    v26 = *(a1 + 168);
+    v27 = 170 * ((v25 - v26) >> 3) - 1;
+    v17 = v25 == v26;
+    v29 = *(a1 + 192);
+    v28 = *(a1 + 200);
+    v107 = v28;
+    v30 = *(a1 + 216);
+    if (v17)
+    {
+      v27 = 0;
+    }
+
+    v31 = v29 + v28;
+    if (v27 == v31)
+    {
+      std::deque<operations_research::sat::LinearPropagator::ConstraintInfo>::__add_back_capacity((a1 + 160));
+      v26 = *(a1 + 168);
+      v31 = *(a1 + 200) + *(a1 + 192);
+    }
+
+    v32 = *(v26 + 8 * (v31 / 0xAA)) + 24 * (v31 % 0xAA);
+    *v32 = (8 * a5);
+    *(v32 + 8) = (v30 - v24) >> 2;
+    *(v32 + 12) = a5;
+    *(v32 + 16) = a8;
+    ++*(a1 + 200);
+    __x[0] = 0;
+    std::vector<int>::push_back[abi:ne200100](a1 + 872, __x);
+    std::vector<operations_research::sat::Literal>::__insert_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>(a1 + 208, *(a1 + 216), a4, &a4[4 * a5], (4 * a5) >> 2);
+    std::vector<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>::__insert_with_size[abi:ne200100]<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_> const*,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_> const*>(a1 + 232, *(a1 + 240), a6, &a6[8 * a5], (8 * a5) >> 3);
+    v33 = *(a1 + 192);
+    v34 = *(a1 + 168);
+    v35 = (*(v34 + 8 * ((v33 + v107) / 0xAAuLL)) + 24 * ((v33 + v107) % 0xAAuLL));
+    v36 = *v35;
+    if ((v36 & 4) != 0)
+    {
+      v38 = *(a1 + 256);
+      v37 = v35[2];
+      if (v36 < 8)
       {
-        *(a1 + 264) = v19 + 8 * a5;
+        goto LABEL_26;
       }
     }
 
     else
     {
-      std::vector<unsigned long long>::__append(a1 + 256, a5 - v20, __x);
+      v37 = v35[2];
+      v38 = (*(a1 + 232) + 8 * v37);
+      if (v36 < 8)
+      {
+        goto LABEL_26;
+      }
     }
-  }
 
-  if (a5 != a7)
-  {
-    operations_research::sat::LinearPropagator::AddConstraint(a5, a7);
-  }
-
-  v25 = *(a1 + 208);
-  v26 = *(a1 + 168);
-  v27 = *(a1 + 176);
-  v28 = *(a1 + 168);
-  v29 = 170 * ((v27 - v28) >> 3) - 1;
-  v108 = *(a1 + 200);
-  v30 = *(a1 + 216);
-  if (v27 == v28)
-  {
-    v29 = 0;
-  }
-
-  v31 = *(a1 + 192) + *(a1 + 200);
-  if (v29 == v31)
-  {
-    std::deque<operations_research::sat::LinearPropagator::ConstraintInfo>::__add_back_capacity((a1 + 160));
-    v28 = *(a1 + 168);
-    v31 = *(a1 + 200) + *(a1 + 192);
-  }
-
-  v32 = *(v28 + 8 * (v31 / 0xAA)) + 24 * (v31 % 0xAA);
-  *v32 = (8 * a5);
-  *(v32 + 8) = (v30 - v25) >> 2;
-  *(v32 + 12) = a5;
-  *(v32 + 16) = a8;
-  ++*(a1 + 200);
-  __x[0] = 0;
-  std::vector<int>::push_back[abi:ne200100](a1 + 872, __x);
-  std::vector<operations_research::sat::Literal>::__insert_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>(a1 + 208, *(a1 + 216), a4, &a4[4 * a5], (4 * a5) >> 2);
-  std::vector<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>::__insert_with_size[abi:ne200100]<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_> const*,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_> const*>(a1 + 232, *(a1 + 240), a6, &a6[8 * a5], (8 * a5) >> 3);
-  v33 = *(a1 + 192);
-  v34 = *(a1 + 168);
-  v35 = (*(v34 + 8 * ((v33 + v108) / 0xAAuLL)) + 24 * ((v33 + v108) % 0xAAuLL));
-  v36 = *v35;
-  if ((v36 & 4) != 0)
-  {
-    v38 = *(a1 + 256);
-    v37 = v35[2];
-    if (v36 < 8)
+    v42 = (*(a1 + 208) + 4 * v37);
+    v43 = v36 >> 3;
+    do
     {
-      goto LABEL_26;
-    }
-  }
+      if ((*v38 & 0x8000000000000000) != 0)
+      {
+        *v38 = -*v38;
+        *v42 ^= 1u;
+      }
 
-  else
-  {
-    v37 = v35[2];
-    v38 = (*(a1 + 232) + 8 * v37);
-    if (v36 < 8)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  v42 = (*(a1 + 208) + 4 * v37);
-  v43 = v36 >> 3;
-  do
-  {
-    if ((*v38 & 0x8000000000000000) != 0)
-    {
-      *v38 = -*v38;
-      *v42 ^= 1u;
+      ++v42;
+      ++v38;
+      --v43;
     }
 
-    ++v42;
-    ++v38;
-    --v43;
-  }
-
-  while (v43);
+    while (v43);
 LABEL_26:
-  v39 = (*(v34 + 8 * ((*(a1 + 200) + v33 - 1) / 0xAAuLL)) + 24 * ((*(a1 + 200) + v33 - 1) % 0xAAuLL));
-  v40 = *v39;
-  if ((v40 & 4) == 0)
-  {
-    v41 = (*(a1 + 232) + 8 * v39[2]);
-    if (v40 < 8)
+    v39 = (*(v34 + 8 * ((*(a1 + 200) + v33 - 1) / 0xAAuLL)) + 24 * ((*(a1 + 200) + v33 - 1) % 0xAAuLL));
+    v40 = *v39;
+    if ((v40 & 4) != 0)
     {
-      goto LABEL_37;
+      v41 = *(a1 + 256);
+      if (v40 < 8)
+      {
+LABEL_37:
+        *v39 = v40 | 4;
+LABEL_38:
+        v45 = *(a1 + 376);
+        v46 = (v45 + 1) & ~((v45 + 1) >> 31);
+        if (v45 <= 0x7FFFFFFE && v46 < v45)
+        {
+          v49 = v45 + 64;
+          v50 = -2 << v45;
+          v48 = *(a1 + 384);
+          *(v48 + ((v49 >> 3) & 0x3FFFFFF8) - 8) &= ~v50;
+        }
+
+        else
+        {
+          v48 = *(a1 + 384);
+        }
+
+        *(a1 + 376) = v46;
+        v51 = (v46 + 63) >> 6;
+        *__x = 0;
+        v52 = (*(a1 + 392) - v48) >> 3;
+        if (v51 <= v52)
+        {
+          if (v51 < v52)
+          {
+            *(a1 + 392) = v48 + 8 * v51;
+          }
+        }
+
+        else
+        {
+          std::vector<unsigned long long>::__append(a1 + 384, v51 - v52, __x);
+        }
+
+        if (a3)
+        {
+          v53 = *(a1 + 200) + *(a1 + 192) - 1;
+          v54 = *(*(a1 + 168) + 8 * (v53 / 0xAA));
+          *(v54 + 24 * (v53 % 0xAA)) = *(v54 + 24 * (v53 % 0xAA)) & 0xFFFFFFFC | 1;
+          v55 = *(a1 + 32);
+          v109[0] = &unk_284F43CB8;
+          v109[1] = a1;
+          v109[2] = v107;
+          v110 = v109;
+          v56 = operations_research::sat::EnforcementPropagator::Register(v55, a2, a3, v109);
+          v57 = *(a1 + 200) + *(a1 + 192) - 1;
+          *(*(*(a1 + 168) + 8 * (v57 / 0xAA)) + 24 * (v57 % 0xAA) + 4) = v56;
+          if (v110 == v109)
+          {
+            (*(*v110 + 32))(v110);
+          }
+
+          else if (v110)
+          {
+            (*(*v110 + 40))();
+          }
+        }
+
+        else
+        {
+          v58 = v107;
+          v59 = v107 >> 6;
+          v60 = *(a1 + 384);
+          v61 = *(v60 + 8 * v59);
+          if (((1 << v107) & v61) == 0)
+          {
+            v62 = *(a1 + 424);
+            v63 = *(a1 + 416);
+            *(v60 + 8 * v59) = (1 << v107) | v61;
+            if (v62 == v63)
+            {
+              v64 = 0;
+            }
+
+            else
+            {
+              v64 = ((v62 - v63) << 7) - 1;
+            }
+
+            v65 = *(a1 + 448);
+            v66 = v65 + *(a1 + 440);
+            if (v64 == v66)
+            {
+              std::deque<int>::__add_back_capacity((a1 + 408));
+              v63 = *(a1 + 416);
+              v65 = *(a1 + 448);
+              v66 = *(a1 + 440) + v65;
+            }
+
+            *(*(v63 + ((v66 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v66 & 0x3FF)) = v58;
+            *(a1 + 448) = v65 + 1;
+          }
+
+          v67 = *(a1 + 200) + *(a1 + 192) - 1;
+          v68 = (*(*(a1 + 168) + 8 * (v67 / 0xAA)) + 24 * (v67 % 0xAA));
+          *v68 |= 3u;
+          v68[1] = -1;
+        }
+
+        operations_research::sat::ConstraintPropagationOrder::Resize((a1 + 456), (*(a1 + 776) - *(a1 + 768)) >> 5, *(a1 + 376));
+        v69 = v107;
+        v70 = (*(*(a1 + 168) + 8 * ((*(a1 + 192) + v107) / 0xAAuLL)) + 24 * ((*(a1 + 192) + v107) % 0xAAuLL));
+        v71 = *v70;
+        if (v71 >= 8)
+        {
+          v72 = (*(a1 + 208) + 4 * v70[2]);
+          v73 = (v72 + ((v71 >> 1) & 0x7FFFFFFC));
+          v74 = (a1 + 744);
+          do
+          {
+            v75 = *v72;
+            v76 = v75;
+            v77 = *(a1 + 776);
+            v78 = *(a1 + 768);
+            v79 = (v77 - v78) >> 5;
+            if (v75 >= v79)
+            {
+              v80 = ((v75 | 1) + 1);
+              if (v80 <= v79)
+              {
+                if (v80 < v79)
+                {
+                  v81 = v78 + 32 * v80;
+                  if (v77 != v81)
+                  {
+                    v82 = *(a1 + 776);
+                    do
+                    {
+                      v83 = *(v82 - 32);
+                      v82 -= 32;
+                      if (v83)
+                      {
+                        operator delete(*(v77 - 24));
+                      }
+
+                      v77 = v82;
+                    }
+
+                    while (v82 != v81);
+                  }
+
+                  *(a1 + 776) = v81;
+                }
+              }
+
+              else
+              {
+                std::vector<absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>>::__append((a1 + 768), v80 - v79);
+              }
+
+              __x[0] = -1;
+              v84 = *(a1 + 848);
+              v85 = (*(a1 + 856) - v84) >> 2;
+              if (v80 <= v85)
+              {
+                if (v80 < v85)
+                {
+                  *(a1 + 856) = v84 + 4 * v80;
+                }
+              }
+
+              else
+              {
+                std::vector<int>::__append((a1 + 848), v80 - v85, __x);
+              }
+
+              operations_research::SparseBitset<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>::Resize(a1 + 792, v80);
+              std::vector<BOOL>::resize(a1 + 744, ((v75 | 1) + 1), 0);
+              operations_research::sat::ConstraintPropagationOrder::Resize((a1 + 456), (v75 | 1) + 1, *(a1 + 376));
+              v78 = *(a1 + 768);
+            }
+
+            v86 = v75 << 32;
+            v87 = (v78 + 32 * v75);
+            v89 = v87 + 1;
+            v88 = *v87;
+            if (*v87)
+            {
+              v89 = v87[1];
+              v90 = v87[2];
+            }
+
+            else
+            {
+              v90 = 6;
+            }
+
+            if (v88 >> 1 == v90)
+            {
+              absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v87, &v107);
+            }
+
+            *(v89 + (v88 >> 1)) = v107;
+            *v87 = v88 + 2;
+            v91 = *(*v74 + 8 * (v75 >> 6));
+            if ((v91 & (1 << v75)) == 0)
+            {
+              *(*v74 + 8 * (v75 >> 6)) = v91 | (1 << v75);
+              if (v75 != -1)
+              {
+                v92 = *(a1 + 40);
+                v94 = (v92 + 88);
+                v93 = *(v92 + 88);
+                v95 = *(a1 + 96);
+                v96 = *(v92 + 96);
+                v97 = 0xAAAAAAAAAAAAAAABLL * ((v96 - v93) >> 3);
+                if (v97 <= v76)
+                {
+                  v98 = (v86 + 0x100000000) >> 32;
+                  if (v98 <= v97)
+                  {
+                    if (v98 < v97)
+                    {
+                      v99 = v93 + 24 * v98;
+                      if (v96 != v99)
+                      {
+                        v100 = *(v92 + 96);
+                        do
+                        {
+                          v102 = *(v100 - 24);
+                          v100 -= 24;
+                          v101 = v102;
+                          if (v102)
+                          {
+                            *(v96 - 16) = v101;
+                            operator delete(v101);
+                          }
+
+                          v96 = v100;
+                        }
+
+                        while (v100 != v99);
+                      }
+
+                      *(v92 + 96) = v99;
+                    }
+                  }
+
+                  else
+                  {
+                    std::vector<std::vector<operations_research::sat::GenericLiteralWatcher::WatchData>>::__append(v94, v98 - v97);
+                  }
+                }
+
+                __x[0] = v95;
+                __x[1] = -1;
+                v103 = (*v94 + 24 * v76);
+                v104 = v103[1];
+                if (*v103 == v104 || *(v104 - 8) != v95 || *(v104 - 4) != -1)
+                {
+                  std::vector<long long>::push_back[abi:ne200100](v103, __x);
+                }
+              }
+            }
+
+            ++v72;
+          }
+
+          while (v72 != v73);
+          v69 = v107;
+        }
+
+        *(a1 + 968) = 0;
+        operations_research::sat::LinearPropagator::PropagateOneConstraint(a1, v69);
+        v105 = *(a1 + 48);
+        result = *(v105 + 112) + *(a1 + 968) * 0.000000001;
+        *(v105 + 112) = result;
+        return result;
+      }
     }
 
-LABEL_34:
+    else
+    {
+      v41 = (*(a1 + 232) + 8 * v39[2]);
+      if (v40 < 8)
+      {
+        goto LABEL_37;
+      }
+    }
+
     v44 = 8 * (v40 >> 3);
     while (*v41 == 1)
     {
@@ -7444,287 +9119,25 @@ LABEL_34:
     goto LABEL_38;
   }
 
-  v41 = *(a1 + 256);
-  if (v40 >= 8)
+  v21 = *(v16 + 24);
+  v22 = 4 * a3;
+  v23 = a2;
+  while (((*(v21 + ((*v23 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (*v23 & 0x3F ^ 1u)) & 1) == 0)
   {
-    goto LABEL_34;
-  }
-
-LABEL_37:
-  *v39 = v40 | 4;
-LABEL_38:
-  v45 = *(a1 + 376);
-  v46 = (v45 + 1) & ~((v45 + 1) >> 31);
-  if (v45 <= 0x7FFFFFFE && v46 < v45)
-  {
-    v49 = v45 + 64;
-    v50 = -2 << v45;
-    v48 = *(a1 + 384);
-    *(v48 + ((v49 >> 3) & 0x3FFFFFF8) - 8) &= ~v50;
-  }
-
-  else
-  {
-    v48 = *(a1 + 384);
-  }
-
-  *(a1 + 376) = v46;
-  v51 = (v46 + 63) >> 6;
-  *__x = 0;
-  v52 = (*(a1 + 392) - v48) >> 3;
-  if (v51 <= v52)
-  {
-    if (v51 < v52)
+    ++v23;
+    v22 -= 4;
+    if (!v22)
     {
-      *(a1 + 392) = v48 + 8 * v51;
+      goto LABEL_7;
     }
   }
 
-  else
-  {
-    std::vector<unsigned long long>::__append(a1 + 384, v51 - v52, __x);
-  }
-
-  if (a3)
-  {
-    v53 = *(a1 + 200) + *(a1 + 192) - 1;
-    v54 = *(*(a1 + 168) + 8 * (v53 / 0xAA));
-    *(v54 + 24 * (v53 % 0xAA)) = *(v54 + 24 * (v53 % 0xAA)) & 0xFFFFFFFC | 1;
-    v55 = *(a1 + 32);
-    v110[0] = &unk_284F43CB8;
-    v110[1] = a1;
-    v110[2] = v108;
-    v111 = v110;
-    v56 = operations_research::sat::EnforcementPropagator::Register(v55, a2, a3, v110);
-    v57 = *(a1 + 200) + *(a1 + 192) - 1;
-    *(*(*(a1 + 168) + 8 * (v57 / 0xAA)) + 24 * (v57 % 0xAA) + 4) = v56;
-    if (v111 == v110)
-    {
-      (*(*v111 + 32))(v111);
-    }
-
-    else if (v111)
-    {
-      (*(*v111 + 40))();
-    }
-  }
-
-  else
-  {
-    v58 = v108 >> 6;
-    v59 = *(a1 + 384);
-    v60 = *(v59 + 8 * v58);
-    if (((1 << v108) & v60) == 0)
-    {
-      v61 = *(a1 + 416);
-      v62 = *(a1 + 424);
-      v63 = *(a1 + 416);
-      *(v59 + 8 * v58) = (1 << v108) | v60;
-      if (v62 == v63)
-      {
-        v64 = 0;
-      }
-
-      else
-      {
-        v64 = ((v62 - v63) << 7) - 1;
-      }
-
-      v65 = *(a1 + 448);
-      v66 = v65 + *(a1 + 440);
-      if (v64 == v66)
-      {
-        std::deque<int>::__add_back_capacity((a1 + 408));
-        v63 = *(a1 + 416);
-        v65 = *(a1 + 448);
-        v66 = *(a1 + 440) + v65;
-      }
-
-      *(*(v63 + ((v66 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v66 & 0x3FF)) = v108;
-      *(a1 + 448) = v65 + 1;
-    }
-
-    v67 = *(a1 + 200) + *(a1 + 192) - 1;
-    v68 = (*(*(a1 + 168) + 8 * (v67 / 0xAA)) + 24 * (v67 % 0xAA));
-    *v68 |= 3u;
-    v68[1] = -1;
-  }
-
-  operations_research::sat::ConstraintPropagationOrder::Resize((a1 + 456), (*(a1 + 776) - *(a1 + 768)) >> 5, *(a1 + 376));
-  v69 = v108;
-  v70 = (*(*(a1 + 168) + 8 * ((*(a1 + 192) + v108) / 0xAAuLL)) + 24 * ((*(a1 + 192) + v108) % 0xAAuLL));
-  v71 = *v70;
-  if (v71 >= 8)
-  {
-    v72 = (*(a1 + 208) + 4 * v70[2]);
-    v73 = (v72 + ((v71 >> 1) & 0x7FFFFFFC));
-    v74 = (a1 + 744);
-    do
-    {
-      v75 = *v72;
-      v76 = v75;
-      v77 = *(a1 + 776);
-      v78 = *(a1 + 768);
-      v79 = (v77 - v78) >> 5;
-      if (v75 >= v79)
-      {
-        v80 = ((v75 | 1) + 1);
-        if (v80 <= v79)
-        {
-          if (v80 < v79)
-          {
-            v81 = v78 + 32 * v80;
-            if (v77 != v81)
-            {
-              v82 = *(a1 + 776);
-              do
-              {
-                v83 = *(v82 - 32);
-                v82 -= 32;
-                if (v83)
-                {
-                  operator delete(*(v77 - 24));
-                }
-
-                v77 = v82;
-              }
-
-              while (v82 != v81);
-            }
-
-            *(a1 + 776) = v81;
-          }
-        }
-
-        else
-        {
-          std::vector<absl::lts_20240722::InlinedVector<int,6ul,std::allocator<int>>>::__append((a1 + 768), v80 - v79);
-        }
-
-        __x[0] = -1;
-        v84 = *(a1 + 848);
-        v85 = (*(a1 + 856) - v84) >> 2;
-        if (v80 <= v85)
-        {
-          if (v80 < v85)
-          {
-            *(a1 + 856) = v84 + 4 * v80;
-          }
-        }
-
-        else
-        {
-          std::vector<int>::__append((a1 + 848), v80 - v85, __x);
-        }
-
-        operations_research::SparseBitset<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>::Resize(a1 + 792, v80);
-        std::vector<BOOL>::resize(a1 + 744, ((v75 | 1) + 1), 0);
-        operations_research::sat::ConstraintPropagationOrder::Resize((a1 + 456), (v75 | 1) + 1, *(a1 + 376));
-        v78 = *(a1 + 768);
-      }
-
-      v86 = v75 << 32;
-      v87 = (v78 + 32 * v75);
-      v89 = v87 + 1;
-      v88 = *v87;
-      if (*v87)
-      {
-        v89 = v87[1];
-        v90 = v87[2];
-      }
-
-      else
-      {
-        v90 = 6;
-      }
-
-      if (v88 >> 1 == v90)
-      {
-        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v87);
-      }
-
-      *(v89 + (v88 >> 1)) = v108;
-      *v87 = v88 + 2;
-      v91 = *(*v74 + 8 * (v75 >> 6));
-      if ((v91 & (1 << v75)) == 0)
-      {
-        *(*v74 + 8 * (v75 >> 6)) = v91 | (1 << v75);
-        if (v75 != -1)
-        {
-          v92 = *(a1 + 40);
-          v94 = (v92 + 88);
-          v93 = *(v92 + 88);
-          v95 = *(a1 + 96);
-          v96 = *(v92 + 96);
-          v97 = 0xAAAAAAAAAAAAAAABLL * ((v96 - v93) >> 3);
-          if (v97 <= v76)
-          {
-            v98 = (v86 + 0x100000000) >> 32;
-            if (v98 <= v97)
-            {
-              if (v98 < v97)
-              {
-                v99 = v93 + 24 * v98;
-                if (v96 != v99)
-                {
-                  v100 = *(v92 + 96);
-                  do
-                  {
-                    v102 = *(v100 - 24);
-                    v100 -= 24;
-                    v101 = v102;
-                    if (v102)
-                    {
-                      *(v96 - 16) = v101;
-                      operator delete(v101);
-                    }
-
-                    v96 = v100;
-                  }
-
-                  while (v100 != v99);
-                }
-
-                *(v92 + 96) = v99;
-              }
-            }
-
-            else
-            {
-              std::vector<std::vector<operations_research::sat::GenericLiteralWatcher::WatchData>>::__append(v94, v98 - v97);
-            }
-          }
-
-          __x[0] = v95;
-          __x[1] = -1;
-          v103 = (*v94 + 24 * v76);
-          v104 = v103[1];
-          if (*v103 == v104 || *(v104 - 8) != v95 || *(v104 - 4) != -1)
-          {
-            std::vector<long long>::push_back[abi:ne200100](v103, __x);
-          }
-        }
-      }
-
-      ++v72;
-    }
-
-    while (v72 != v73);
-    v69 = v108;
-  }
-
-  *(a1 + 968) = 0;
-  operations_research::sat::LinearPropagator::PropagateOneConstraint(a1, v69);
-  v105 = *(a1 + 48);
-  result = *(v105 + 112) + *(a1 + 968) * 0.000000001;
-  *(v105 + 112) = result;
-  v107 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_23CC4D970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CC4D970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::function<void ()(operations_research::StrongIndex<operations_research::sat::EnforcementId_index_tag_>,operations_research::sat::EnforcementStatus)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -7762,7 +9175,7 @@ void operations_research::sat::ConstraintPropagationOrder::Resize(std::vector<in
     if (SLODWORD(this[1].__end_cap_.__value_) > a2)
     {
       v7 = this[2].__begin_ + (((a2 + 63) >> 3) & 0x1FFFFFF8);
-      *(v7 - 8) &= ~(-2 << (a2 + 63));
+      *(v7 - 1) &= ~(-2 << (a2 + 63));
       v6 = a2;
     }
   }
@@ -7863,7 +9276,7 @@ void operations_research::sat::ConstraintPropagationOrder::Resize(std::vector<in
   }
 }
 
-uint64_t operations_research::sat::LinearPropagator::DisassembleSubtree(operations_research::sat::LinearPropagator *this, int a2, int a3)
+uint64_t operations_research::sat::LinearPropagator::DisassembleSubtree(operations_research::sat::LinearPropagator *this, int a2, unsigned int a3)
 {
   *(this + 113) = *(this + 112);
   *(this + 116) = *(this + 115);
@@ -7879,11 +9292,11 @@ uint64_t operations_research::sat::LinearPropagator::DisassembleSubtree(operatio
   v7 = a3;
   do
   {
-    LODWORD(v109[0]) = v3;
+    LODWORD(v110[0]) = v3;
     v8 = *v6++;
-    DWORD1(v109[0]) = v8 ^ 1;
-    *(&v109[0] + 1) = 1;
-    std::vector<std::pair<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::push_back[abi:ne200100](v5, v109);
+    DWORD1(v110[0]) = v8 ^ 1;
+    *(&v110[0] + 1) = 1;
+    std::vector<std::pair<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::push_back[abi:ne200100](v5, v110);
     --v7;
   }
 
@@ -7899,15 +9312,15 @@ uint64_t operations_research::sat::LinearPropagator::DisassembleSubtree(operatio
   v97 = v5;
   while (1)
   {
-    v109[0] = *(v9 - 16);
+    v110[0] = *(v9 - 16);
     v10 = *(this + 116);
     if (*(this + 115) == v10)
     {
       break;
     }
 
-    v11 = DWORD1(v109[0]);
-    if (*(v10 - 16) != LODWORD(v109[0]) || *(v10 - 12) != DWORD1(v109[0]))
+    v11 = DWORD1(v110[0]);
+    if (*(v10 - 16) != LODWORD(v110[0]) || *(v10 - 12) != DWORD1(v110[0]))
     {
       goto LABEL_13;
     }
@@ -7922,11 +9335,11 @@ LABEL_7:
     }
   }
 
-  v11 = DWORD1(v109[0]);
+  v11 = DWORD1(v110[0]);
 LABEL_13:
-  v108.n128_u64[0] = __PAIR64__(v11, v109[0]);
-  v108.n128_u64[1] = *(&v109[0] + 1);
-  std::vector<std::pair<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::push_back[abi:ne200100](this + 920, &v108);
+  v109.n128_u64[0] = __PAIR64__(v11, v110[0]);
+  v109.n128_u64[1] = *(&v110[0] + 1);
+  std::vector<std::pair<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::push_back[abi:ne200100](this + 920, &v109);
   v12 = (*(this + 96) + 32 * v11);
   v15 = *v12;
   v14 = v12 + 1;
@@ -8093,14 +9506,14 @@ LABEL_117:
 
       v105 = 1 << v31;
       v107 = v30 >> 6;
-      if ((v39 * *(&v109[0] + 1)) >> 64 == (v39 * *(&v109[0] + 1)) >> 63)
+      if ((v39 * *(&v110[0] + 1)) >> 64 == (v39 * *(&v110[0] + 1)) >> 63)
       {
-        v57 = v39 * *(&v109[0] + 1);
+        v57 = v39 * *(&v110[0] + 1);
       }
 
       else
       {
-        v57 = ((*(&v109[0] + 1) ^ v39) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+        v57 = ((*(&v110[0] + 1) ^ v39) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
       }
 
       v99 = v57;
@@ -8266,7 +9679,7 @@ LABEL_97:
               v88 = *(this + 87);
               if (!v88)
               {
-                std::deque<int>::__add_front_capacity(this + 664);
+                std::deque<int>::__add_front_capacity(this + 83);
                 v88 = *(this + 87);
               }
 
@@ -8305,22 +9718,22 @@ LABEL_97:
     v18 = *(this + 115);
     if (v18 == *(this + 116))
     {
-      operations_research::sat::LinearPropagator::DisassembleSubtree(&v108);
+      operations_research::sat::LinearPropagator::DisassembleSubtree(&v109);
     }
 
     v19 = *v18;
-    v108 = *v18;
-    if (v108.n128_u32[0] != v3)
+    v109 = *v18;
+    if (v109.n128_u32[0] != v3)
     {
-      operations_research::sat::LinearPropagator::DisassembleSubtree(v108.n128_i32[0], v94);
+      operations_research::sat::LinearPropagator::DisassembleSubtree(v109.n128_i32[0], v94, v108);
     }
 
-    if (v11 == v108.n128_u32[1])
+    if (v11 == v109.n128_u32[1])
     {
-      operations_research::sat::LinearPropagator::DisassembleSubtree(v109 + 1, &v108.n128_u32[1]);
+      operations_research::sat::LinearPropagator::DisassembleSubtree(v110 + 1, &v109.n128_u32[1], v108);
     }
 
-    if ((v108.n128_u32[1] ^ v11) == 1)
+    if ((v109.n128_u32[1] ^ v11) == 1)
     {
       goto LABEL_17;
     }
@@ -8348,14 +9761,14 @@ LABEL_25:
         if (v29 == v11)
         {
           v25 = *v23;
-          if ((v28 ^ v108.n128_u32[1]) == 1)
+          if ((v28 ^ v109.n128_u32[1]) == 1)
           {
 LABEL_31:
             v24 = *v23;
           }
         }
 
-        else if ((v28 ^ v108.n128_u32[1]) == 1)
+        else if ((v28 ^ v109.n128_u32[1]) == 1)
         {
           goto LABEL_31;
         }
@@ -8379,7 +9792,7 @@ LABEL_106:
     v25 = 0;
     v24 = 0;
 LABEL_107:
-    v92 = (v108.n128_i64[1] * v25) >> 64 == (v108.n128_u64[1] * v25) >> 63 ? v108.n128_u64[1] * v25 : ((v108.n128_u64[1] ^ v25) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+    v92 = (v109.n128_i64[1] * v25) >> 64 == (v109.n128_u64[1] * v25) >> 63 ? v109.n128_u64[1] * v25 : ((v109.n128_u64[1] ^ v25) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
     if (v92 >= v24)
     {
       break;
@@ -8398,1428 +9811,4 @@ LABEL_17:
 
   ++*(this + 124);
   return operations_research::sat::LinearPropagator::ReportConflictingCycle(this, v19);
-}
-
-std::string *operations_research::sat::LinearPropagator::ConstraintDebugString@<X0>(operations_research::sat::LinearPropagator *this@<X0>, int a2@<W1>, char *a3@<X2>, std::string *a4@<X8>)
-{
-  v4 = this;
-  v39 = *MEMORY[0x277D85DE8];
-  a4->__r_.__value_.__r.__words[0] = 0;
-  a4->__r_.__value_.__l.__size_ = 0;
-  a4->__r_.__value_.__r.__words[2] = 0;
-  v5 = (*(*(this + 21) + 8 * ((*(this + 24) + a2) / 0xAAuLL)) + 24 * ((*(this + 24) + a2) % 0xAAuLL));
-  v6 = *v5;
-  if ((*v5 & 4) == 0)
-  {
-    v7 = v5[2];
-    v27 = *(this + 29) + 8 * v7;
-    if (v6 >= 8)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_10:
-    v10 = 0;
-    v9 = 0;
-    goto LABEL_11;
-  }
-
-  v27 = *(this + 32);
-  v7 = v5[2];
-  if (v6 < 8)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_3:
-  v8 = 0;
-  v9 = 0;
-  v10 = 0;
-  v11 = *(this + 26) + 4 * v7;
-  do
-  {
-    v12 = *(v27 + 8 * v8);
-    v13 = *(*(*(v4 + 3) + 40) + 8 * *(v11 + 4 * v8)) * v12;
-    if (v8 >= v5[3])
-    {
-      v14 = *(*(*(v4 + 3) + 40) + 8 * *(v11 + 4 * v8)) * v12;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v37 = " +";
-    v38 = 2;
-    v15 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v12, v36, a3);
-    v34 = v36;
-    v35 = v15 - v36;
-    v32 = "*X";
-    v33 = 2;
-    v17 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(v11 + 4 * v8), v31, v16);
-    v29 = v31;
-    v30 = v17 - v31;
-    absl::lts_20240722::StrAppend(a4, &v37, &v34, &v32, &v29);
-    v10 += v14;
-    v9 += v13;
-    ++v8;
-    v4 = this;
-  }
-
-  while (v8 < *v5 >> 3);
-LABEL_11:
-  v18 = *(v5 + 2) + v10;
-  v37 = " <= ";
-  v38 = 4;
-  v19 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v18, v36, a3);
-  v34 = v36;
-  v35 = v19 - v36;
-  v32 = " slack=";
-  v33 = 7;
-  v21 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v18 - v9, v31, v20);
-  v29 = v31;
-  v30 = v21 - v31;
-  absl::lts_20240722::StrAppend(a4, &v37, &v34, &v32, &v29);
-  v37 = " enf=";
-  v38 = 5;
-  v23 = absl::lts_20240722::numbers_internal::FastIntToBuffer((*v5 & 3), v36, v22);
-  v34 = v36;
-  v35 = v23 - v36;
-  result = absl::lts_20240722::StrAppend(a4, &v37, &v34);
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_23CC4E75C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  if (*(a12 + 23) < 0)
-  {
-    operator delete(*a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t operations_research::sat::LinearPropagator::ReportConflictingCycle(operations_research::sat::LinearPropagator *this, __n128 a2)
-{
-  *(this + 45) = *(this + 44);
-  *(this + 39) = *(this + 38);
-  *&__p.__r_.__value_.__l.__data_ = 0uLL;
-  __p.__r_.__value_.__r.__words[2] = &unk_23CE31C20;
-  v3 = *(this + 115);
-  v173 = *(this + 116);
-  if (v3 == v173)
-  {
-    goto LABEL_87;
-  }
-
-  v4 = 0;
-  v5 = 0;
-  do
-  {
-    *&v175 = v4;
-    *(&v175 + 1) = v5;
-    v174 = v3;
-    v7 = *(this + 24) + *v3;
-    v8 = (*(*(this + 21) + 8 * (v7 / 0xAA)) + 24 * (v7 % 0xAA));
-    v9 = v8[1];
-    if ((v9 & 0x80000000) == 0)
-    {
-      v10 = *(this + 4);
-      v11 = *(v10 + 72);
-      v12 = *(v11 + (((v9 << 32) + 0x100000000) >> 30));
-      v13 = *(v11 + 4 * v9);
-      if (v12 != v13)
-      {
-        v14 = (*(v10 + 96) + 4 * v13);
-        v15 = *(this + 45);
-        v16 = 4 * (v12 - v13);
-        do
-        {
-          while (1)
-          {
-            v17 = *v14 ^ 1;
-            v18 = *(this + 46);
-            if (v15 >= v18)
-            {
-              break;
-            }
-
-            *v15++ = v17;
-            *(this + 45) = v15;
-            ++v14;
-            v16 -= 4;
-            if (!v16)
-            {
-              goto LABEL_22;
-            }
-          }
-
-          v19 = *(this + 44);
-          v20 = v15 - v19;
-          v21 = (v15 - v19) >> 2;
-          v22 = v21 + 1;
-          if ((v21 + 1) >> 62)
-          {
-            std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
-          }
-
-          v23 = v18 - v19;
-          if (v23 >> 1 > v22)
-          {
-            v22 = v23 >> 1;
-          }
-
-          if (v23 >= 0x7FFFFFFFFFFFFFFCLL)
-          {
-            v24 = 0x3FFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v24 = v22;
-          }
-
-          if (v24)
-          {
-            if (!(v24 >> 62))
-            {
-              operator new();
-            }
-
-            std::__throw_bad_array_new_length[abi:ne200100]();
-          }
-
-          v25 = (v15 - v19) >> 2;
-          v26 = (4 * v21);
-          v27 = (4 * v21 - 4 * v25);
-          *v26 = v17;
-          v15 = v26 + 1;
-          memcpy(v27, v19, v20);
-          *(this + 44) = v27;
-          *(this + 45) = v15;
-          *(this + 46) = 0;
-          if (v19)
-          {
-            operator delete(v19);
-          }
-
-          *(this + 45) = v15;
-          ++v14;
-          v16 -= 4;
-        }
-
-        while (v16);
-      }
-    }
-
-LABEL_22:
-    v28 = *v8;
-    if ((*v8 & 4) != 0)
-    {
-      v30 = *(this + 32);
-      v29 = v8[2];
-      if (v28 < 8)
-      {
-        goto LABEL_3;
-      }
-
-LABEL_26:
-      v31 = 0;
-      v6 = 0;
-      v32 = *(this + 26) + 4 * v29;
-      while (1)
-      {
-        while (v31 >= v8[3])
-        {
-          v36 = *(v32 + 4 * v31);
-          v6 += *(*(*(this + 3) + 40) + 8 * v36) * *(v30 + 8 * v31);
-          v37 = *(v30 + 8 * v31);
-          v38 = 0;
-          if (v36)
-          {
-            goto LABEL_31;
-          }
-
-LABEL_38:
-          _X9 = __p.__r_.__value_.__r.__words[2];
-          __asm { PRFM            #4, [X9] }
-
-          v54 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v36) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v36));
-          a2.n128_u64[0] = vdup_n_s8(v54 & 0x7F);
-          v55 = ((v54 >> 7) ^ (__p.__r_.__value_.__r.__words[2] >> 12)) & __p.__r_.__value_.__r.__words[0];
-          v56 = *(__p.__r_.__value_.__r.__words[2] + v55);
-          v57 = vceq_s8(v56, a2.n128_u64[0]);
-          if (!v57)
-          {
-            goto LABEL_41;
-          }
-
-          do
-          {
-LABEL_39:
-            v58 = (v55 + (__clz(__rbit64(v57)) >> 3)) & __p.__r_.__value_.__r.__words[0];
-            if (v182[8 * v58] == v36)
-            {
-              v33 = &v182[8 * v58];
-              v35 = *(v33 + 2);
-              v34 = *(v33 + 3);
-              goto LABEL_28;
-            }
-
-            v57 &= ((v57 & 0x8080808080808080) - 1) & 0x8080808080808080;
-          }
-
-          while (v57);
-LABEL_41:
-          while (1)
-          {
-            v59 = vceq_s8(v56, 0x8080808080808080);
-            if (v59)
-            {
-              break;
-            }
-
-            v38 += 8;
-            v55 = (v38 + v55) & __p.__r_.__value_.__r.__words[0];
-            v56 = *(__p.__r_.__value_.__r.__words[2] + v55);
-            v57 = vceq_s8(v56, a2.n128_u64[0]);
-            if (v57)
-            {
-              goto LABEL_39;
-            }
-          }
-
-          inserted = absl::lts_20240722::container_internal::PrepareInsertNonSoo(&__p, v54, (v55 + (__clz(__rbit64(v59)) >> 3)) & __p.__r_.__value_.__r.__words[0], v38, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,absl::lts_20240722::int128>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,absl::lts_20240722::int128>>>::GetPolicyFunctions(void)::value);
-          v35 = 0;
-          v34 = 0;
-          v33 = &v182[8 * inserted];
-          *v33 = *(v32 + 4 * v31);
-          *(v33 + 2) = 0;
-          *(v33 + 3) = 0;
-LABEL_28:
-          *(v33 + 1) = __PAIR128__(v34, v35) + v37;
-          if (++v31 >= *v8 >> 3)
-          {
-            goto LABEL_4;
-          }
-        }
-
-        v36 = *(v32 + 4 * v31);
-        v37 = *(v30 + 8 * v31);
-        v38 = 0;
-        if ((v36 & 1) == 0)
-        {
-          goto LABEL_38;
-        }
-
-LABEL_31:
-        v39 = v36 & 0xFFFFFFFE;
-        _X8 = __p.__r_.__value_.__r.__words[2];
-        __asm { PRFM            #4, [X8] }
-
-        v46 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v39) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v39));
-        a2.n128_u64[0] = vdup_n_s8(v46 & 0x7F);
-        v47 = ((v46 >> 7) ^ (__p.__r_.__value_.__r.__words[2] >> 12)) & __p.__r_.__value_.__r.__words[0];
-        v48 = *(__p.__r_.__value_.__r.__words[2] + v47);
-        v49 = vceq_s8(v48, a2.n128_u64[0]);
-        if (!v49)
-        {
-          goto LABEL_34;
-        }
-
-        do
-        {
-LABEL_32:
-          v50 = (v47 + (__clz(__rbit64(v49)) >> 3)) & __p.__r_.__value_.__r.__words[0];
-          if (v182[8 * v50] == v39)
-          {
-            v60 = &v182[8 * v50];
-            v62 = *(v60 + 2);
-            v61 = *(v60 + 3);
-            goto LABEL_46;
-          }
-
-          v49 &= ((v49 & 0x8080808080808080) - 1) & 0x8080808080808080;
-        }
-
-        while (v49);
-LABEL_34:
-        while (1)
-        {
-          v51 = vceq_s8(v48, 0x8080808080808080);
-          if (v51)
-          {
-            break;
-          }
-
-          v38 += 8;
-          v47 = (v38 + v47) & __p.__r_.__value_.__r.__words[0];
-          v48 = *(__p.__r_.__value_.__r.__words[2] + v47);
-          v49 = vceq_s8(v48, a2.n128_u64[0]);
-          if (v49)
-          {
-            goto LABEL_32;
-          }
-        }
-
-        v63 = absl::lts_20240722::container_internal::PrepareInsertNonSoo(&__p, v46, (v47 + (__clz(__rbit64(v51)) >> 3)) & __p.__r_.__value_.__r.__words[0], v38, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,absl::lts_20240722::int128>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,absl::lts_20240722::int128>>>::GetPolicyFunctions(void)::value);
-        v62 = 0;
-        v61 = 0;
-        v60 = &v182[8 * v63];
-        *v60 = v39;
-        *(v60 + 2) = 0;
-        *(v60 + 3) = 0;
-LABEL_46:
-        *(v60 + 1) = __PAIR128__(v61, v62) - v37;
-        if (++v31 >= *v8 >> 3)
-        {
-          goto LABEL_4;
-        }
-      }
-    }
-
-    v29 = v8[2];
-    v30 = *(this + 29) + 8 * v29;
-    if (v28 >= 8)
-    {
-      goto LABEL_26;
-    }
-
-LABEL_3:
-    v6 = 0;
-LABEL_4:
-    v5 = (v175 + *(v8 + 2) + v6) >> 64;
-    v4 = v175 + *(v8 + 2) + v6;
-    v3 = v174 + 4;
-  }
-
-  while (v174 + 4 != v173);
-  v176 = (v175 + *(v8 + 2) + v6) >> 64;
-  if (__p.__r_.__value_.__l.__size_ >= 2)
-  {
-    v65 = __p.__r_.__value_.__r.__words[2];
-    v66 = v182;
-    if (*__p.__r_.__value_.__r.__words[2] <= -2)
-    {
-      do
-      {
-        v67 = __clz(__rbit64((*v65 | ~(*v65 >> 7)) & 0x101010101010101)) >> 3;
-        v65 = (v65 + v67);
-        v66 += 8 * v67;
-      }
-
-      while (*v65 < -1);
-    }
-
-    v68 = 0;
-    v69 = 0;
-    while (1)
-    {
-      v70 = *v66;
-      v72 = *(v66 + 2);
-      v71 = *(v66 + 3);
-      if (__PAIR128__(v71, v72) < 1)
-      {
-        if ((v71 & 0x8000000000000000) == 0)
-        {
-          goto LABEL_59;
-        }
-
-        v85 = *(this + 3);
-        v86 = *(*(v85 + 64) + 4 * (v70 ^ 1));
-        v88 = v85 + 40;
-        v87 = *(v85 + 40);
-        if (v86 >= (*(v88 + 8) - v87) >> 3)
-        {
-          v89 = (8 * v70) ^ 8;
-          v90 = *(v87 + v89);
-          if (v90 - 1 > 0x7FFFFFFFFFFFFFFDLL)
-          {
-            v90 = 0x7FFFFFFFFFFFFFFFLL;
-          }
-
-          *v180 = v70 ^ 1;
-          *&v180[2] = v90;
-          std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100](this + 304, v180);
-          v87 = *(*(this + 3) + 40);
-        }
-
-        else
-        {
-          v89 = (8 * v70) ^ 8;
-        }
-
-        v91 = *(v87 + v89);
-        v80 = (__PAIR128__(v71, v72) * -v91) >> 64;
-        v81 = -(v91 * v72);
-      }
-
-      else
-      {
-        v73 = *(this + 3);
-        v74 = *(*(v73 + 64) + 4 * v70);
-        v76 = v73 + 40;
-        v75 = *(v73 + 40);
-        v77 = 8 * v70;
-        if (v74 >= (*(v76 + 8) - v75) >> 3)
-        {
-          v78 = *(v75 + 8 * v70);
-          *v180 = *v66;
-          *&v180[2] = v78;
-          std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100](this + 304, v180);
-          v75 = *(*(this + 3) + 40);
-        }
-
-        v79 = *(v75 + v77);
-        v80 = (__PAIR128__(v71, v72) * v79) >> 64;
-        v81 = v72 * v79;
-      }
-
-      _CF = __CFADD__(v81, v68);
-      v68 += v81;
-      v69 += _CF + v80;
-LABEL_59:
-      v83 = *(v65 + 1);
-      v65 = (v65 + 1);
-      LOBYTE(v82) = v83;
-      v66 += 8;
-      if (v83 <= -2)
-      {
-        do
-        {
-          v84 = __clz(__rbit64((*v65 | ~(*v65 >> 7)) & 0x101010101010101)) >> 3;
-          v65 = (v65 + v84);
-          v66 += 8 * v84;
-          v82 = *v65;
-        }
-
-        while (v82 < -1);
-      }
-
-      if (v82 == 255)
-      {
-        goto LABEL_72;
-      }
-    }
-  }
-
-  v68 = 0;
-  v69 = 0;
-LABEL_72:
-  if (__PAIR128__(v176, v4) >= __PAIR128__(v69, v68))
-  {
-LABEL_87:
-    v112 = 0;
-    if (!__p.__r_.__value_.__r.__words[0])
-    {
-      goto LABEL_89;
-    }
-
-    goto LABEL_88;
-  }
-
-  v92 = *(this + 38);
-  v93 = *(this + 39);
-  v94 = 126 - 2 * __clz((v93 - v92) >> 4);
-  if (v93 == v92)
-  {
-    v95 = 0;
-  }
-
-  else
-  {
-    v95 = v94;
-  }
-
-  std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::LinearPropagator::ReportConflictingCycle(void)::$_0 &,operations_research::sat::IntegerLiteral *,false>(v92, v93, v95, 1, a2);
-  v97 = __PAIR128__(v69, v68) - __PAIR128__(v176, v4);
-  if ((__PAIR128__(v69, v68) - __PAIR128__(v176, v4)) >= 2)
-  {
-    v98 = *(this + 41);
-    *(this + 42) = v98;
-    v99 = *(this + 38);
-    v100 = *(this + 39);
-    if (v99 != v100)
-    {
-      while (1)
-      {
-        v101 = 0;
-        v102 = *v99 & 0xFFFFFFFE;
-        _X10 = __p.__r_.__value_.__r.__words[2];
-        __asm { PRFM            #4, [X10] }
-
-        v105 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v102) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v102));
-        v106 = vdup_n_s8(v105 & 0x7F);
-        v107 = ((v105 >> 7) ^ (__p.__r_.__value_.__r.__words[2] >> 12)) & __p.__r_.__value_.__r.__words[0];
-        v108 = *(__p.__r_.__value_.__r.__words[2] + v107);
-        for (i = vceq_s8(v108, v106); !i; i = vceq_s8(v108, v106))
-        {
-LABEL_81:
-          if (vceq_s8(v108, 0x8080808080808080))
-          {
-            absl::lts_20240722::base_internal::ThrowStdOutOfRange("absl::container_internal::raw_hash_map<>::at", v96);
-          }
-
-          v101 += 8;
-          v107 = (v101 + v107) & __p.__r_.__value_.__r.__words[0];
-          v108 = *(__p.__r_.__value_.__r.__words[2] + v107);
-        }
-
-        while (1)
-        {
-          v110 = (v107 + (__clz(__rbit64(i)) >> 3)) & __p.__r_.__value_.__r.__words[0];
-          if (v182[8 * v110] == v102)
-          {
-            break;
-          }
-
-          i &= ((i & 0x8080808080808080) - 1) & 0x8080808080808080;
-          if (!i)
-          {
-            goto LABEL_81;
-          }
-        }
-
-        if ((*&v182[8 * v110 + 4] ^ (*&v182[8 * v110 + 6] >> 63)) - (*&v182[8 * v110 + 6] >> 63) > 0x7FFFFFFFFFFFFFFELL)
-        {
-          goto LABEL_133;
-        }
-
-        *v180 = (*&v182[8 * v110 + 4] ^ (*&v182[8 * v110 + 6] >> 63)) - (*&v182[8 * v110 + 6] >> 63);
-        std::vector<long long>::push_back[abi:ne200100](this + 328, v180);
-        v99 += 4;
-        if (v99 == v100)
-        {
-          v111 = *(this + 41);
-          v98 = *(this + 42);
-          goto LABEL_130;
-        }
-      }
-    }
-
-    v111 = v98;
-LABEL_130:
-    v163 = 0x7FFFFFFFFFFFFFFFLL;
-    if (v97 < 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v163 = v97;
-    }
-
-    operations_research::sat::IntegerTrail::RelaxLinearReason(*(this + 3), v163 - 1, v111, (v98 - v111) >> 3, this + 38);
-  }
-
-LABEL_133:
-  ++*(this + 126);
-  if (dword_2810C0A00 >= 2 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled2(&_MergedGlobals_23, dword_2810C0A00))
-  {
-    absl::lts_20240722::log_internal::LogMessage::LogMessage(v180, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_propagation.cc", 1093);
-    v171 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v180, 2);
-    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v171, "Simplified ", 0xBuLL);
-    v183 = (*(this + 39) - *(this + 38)) >> 4;
-    v172 = absl::lts_20240722::log_internal::LogMessage::operator<<<unsigned long,0>(v171, &v183);
-    absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v172, " slack ", 7uLL);
-    v179 = v97;
-    absl::lts_20240722::log_internal::LogMessage::operator<<<absl::lts_20240722::int128,0>(v172, &v179);
-    absl::lts_20240722::log_internal::LogMessage::~LogMessage(v180);
-  }
-
-  v164 = *(this + 3);
-  v165 = *(this + 44);
-  v166 = *(this + 45);
-  v167 = *(this + 38);
-  v168 = *(this + 39);
-  v169 = *(v164 + 840);
-  *(v169 + 120) = 0;
-  std::vector<operations_research::sat::Literal>::__assign_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>((v169 + 72), v165, v166, (v166 - v165) >> 2);
-  operations_research::sat::IntegerTrail::MergeReasonInto(v164, v167, (v168 - v167) >> 4, (v169 + 72));
-  v112 = 1;
-  if (__p.__r_.__value_.__r.__words[0])
-  {
-LABEL_88:
-    operator delete((__p.__r_.__value_.__r.__words[2] - (__p.__r_.__value_.__s.__data_[8] & 1) - 8));
-  }
-
-LABEL_89:
-  if ((v112 & 1) == 0)
-  {
-    if (dword_2810C0A18 >= 2 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled2(&off_2810C0A10, dword_2810C0A18))
-    {
-      absl::lts_20240722::log_internal::LogMessage::LogMessage(&__p, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_propagation.cc", 1103);
-      v170 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(&__p, 2);
-      absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v170, "Cycle", 5uLL);
-      absl::lts_20240722::log_internal::LogMessage::~LogMessage(&__p);
-    }
-
-    v113 = *(this + 44);
-    *(this + 45) = v113;
-    v114 = *(this + 38);
-    *(this + 39) = v114;
-    v115 = *(this + 115);
-    v116 = *(this + 116);
-    if (v115 == v116)
-    {
-      v158 = v114;
-      v157 = v113;
-    }
-
-    else
-    {
-      v117 = -1;
-      v177 = *(this + 116);
-      do
-      {
-        *v180 = *v115;
-        v118 = *(this + 24) + v180[0];
-        v119 = *(this + 21);
-        v120 = v118 / 0xAA;
-        v121 = v118 % 0xAA;
-        v122 = *(*(v119 + 8 * v120) + 24 * v121 + 4);
-        if ((v122 & 0x80000000) == 0)
-        {
-          v123 = *(this + 4);
-          v124 = *(v123 + 72);
-          v125 = *(v124 + (((v122 << 32) + 0x100000000) >> 30));
-          v126 = *(v124 + 4 * v122);
-          if (v125 != v126)
-          {
-            v127 = (*(v123 + 96) + 4 * v126);
-            v128 = *(this + 45);
-            v129 = 4 * (v125 - v126);
-            do
-            {
-              v130 = *v127 ^ 1;
-              v131 = *(this + 46);
-              if (v128 < v131)
-              {
-                *v128++ = v130;
-              }
-
-              else
-              {
-                v132 = *(this + 44);
-                v133 = v128 - v132;
-                v134 = (v128 - v132) >> 2;
-                v135 = v134 + 1;
-                if ((v134 + 1) >> 62)
-                {
-                  std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
-                }
-
-                v136 = v131 - v132;
-                if (v136 >> 1 > v135)
-                {
-                  v135 = v136 >> 1;
-                }
-
-                if (v136 >= 0x7FFFFFFFFFFFFFFCLL)
-                {
-                  v137 = 0x3FFFFFFFFFFFFFFFLL;
-                }
-
-                else
-                {
-                  v137 = v135;
-                }
-
-                if (v137)
-                {
-                  if (!(v137 >> 62))
-                  {
-                    operator new();
-                  }
-
-                  std::__throw_bad_array_new_length[abi:ne200100]();
-                }
-
-                v138 = v134;
-                v139 = (4 * v134);
-                v140 = &v139[-v138];
-                *v139 = v130;
-                v128 = v139 + 1;
-                memcpy(v140, v132, v133);
-                *(this + 44) = v140;
-                *(this + 45) = v128;
-                *(this + 46) = 0;
-                if (v132)
-                {
-                  operator delete(v132);
-                }
-              }
-
-              *(this + 45) = v128;
-              ++v127;
-              v129 -= 4;
-            }
-
-            while (v129);
-            v119 = *(this + 21);
-            v141 = *(this + 24) + v180[0];
-            v120 = v141 / 0xAA;
-            v121 = v141 % 0xAA;
-            v116 = v177;
-          }
-        }
-
-        v142 = (*(v119 + 8 * v120) + 24 * v121);
-        v143 = *v142;
-        if (v143 >= 8)
-        {
-          v144 = (*(this + 26) + 4 * v142[2]);
-          v145 = 4 * (v143 >> 3);
-          do
-          {
-            v146 = *v144;
-            if (*v144 != v117 && (v180[1] ^ v146) != 1)
-            {
-              v147 = *(this + 3);
-              v148 = *(*(v147 + 64) + 4 * v146);
-              v150 = v147 + 40;
-              v149 = *(v147 + 40);
-              if (v148 >= (*(v150 + 8) - v149) >> 3)
-              {
-                v151 = *(v149 + 8 * v146);
-                __p.__r_.__value_.__r.__words[0] = *v144;
-                __p.__r_.__value_.__l.__size_ = v151;
-                std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100](this + 304, &__p);
-              }
-            }
-
-            ++v144;
-            v145 -= 4;
-          }
-
-          while (v145);
-        }
-
-        v117 = v180[1];
-        if (dword_2810C0A30 > 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled2(&off_2810C0A28, dword_2810C0A30))
-        {
-          absl::lts_20240722::log_internal::LogMessage::LogMessage(&v179, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/linear_propagation.cc", 1125);
-          v152 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(&v179, 2);
-          v153 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,0>(v152, &v180[1]);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v153, " [", 2uLL);
-          v183 = *(*(*(this + 3) + 40) + 8 * v180[1]);
-          v154 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongInt64<operations_research::sat::Coefficient_integer_tag_>,0>(v153, &v183);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v154, ",", 1uLL);
-          v178 = -*(*(*(this + 3) + 40) + ((8 * v180[1]) ^ 8));
-          v155 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongInt64<operations_research::sat::Coefficient_integer_tag_>,0>(v154, &v178);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v155, "] : ", 4uLL);
-          operations_research::sat::LinearPropagator::ConstraintDebugString(this, v180[0], v156, &__p);
-          absl::lts_20240722::log_internal::LogMessage::operator<<(v155, &__p);
-          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__p.__r_.__value_.__l.__data_);
-          }
-
-          absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v179);
-        }
-
-        ++v115;
-      }
-
-      while (v115 != v116);
-      v157 = *(this + 44);
-      v113 = *(this + 45);
-      v158 = *(this + 38);
-      v114 = *(this + 39);
-    }
-
-    ++*(this + 127);
-    v159 = *(this + 3);
-    v160 = (v114 - v158) >> 4;
-    v161 = *(v159 + 840);
-    *(v161 + 120) = 0;
-    std::vector<operations_research::sat::Literal>::__assign_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>((v161 + 72), v157, v113, (v113 - v157) >> 2);
-    operations_research::sat::IntegerTrail::MergeReasonInto(v159, v158, v160, (v161 + 72));
-  }
-
-  return 0;
-}
-
-void sub_23CC4F52C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22)
-{
-  absl::lts_20240722::log_internal::LogMessage::~LogMessage(&a17);
-  v23 = a1;
-  if (__p)
-  {
-    operator delete((a22 - (a21 & 1) - 8));
-    v23 = a1;
-  }
-
-  _Unwind_Resume(v23);
-}
-
-uint64_t absl::lts_20240722::log_internal::LogMessage::operator<<<absl::lts_20240722::int128,0>(uint64_t a1, void *a2)
-{
-  v3 = a2[1];
-  v8[0] = *a2;
-  v8[1] = v3;
-  absl::lts_20240722::int128::ToString(v8, &__p);
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    p_p = &__p;
-  }
-
-  else
-  {
-    p_p = __p.__r_.__value_.__r.__words[0];
-  }
-
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = __p.__r_.__value_.__l.__size_;
-  }
-
-  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)1>(a1, p_p, size);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  return a1;
-}
-
-void sub_23CC4F664(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void operations_research::sat::EnforcementPropagator::~EnforcementPropagator(operations_research::sat::EnforcementPropagator *this)
-{
-  operations_research::sat::EnforcementPropagator::~EnforcementPropagator(this);
-
-  JUMPOUT(0x23EED9460);
-}
-
-{
-  *this = &unk_284F43B00;
-  v2 = *(this + 32);
-  if (v2)
-  {
-    *(this + 33) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 29);
-  if (v3)
-  {
-    *(this + 30) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(this + 26);
-  if (v4)
-  {
-    v5 = *(this + 27);
-    v6 = *(this + 26);
-    if (v5 != v4)
-    {
-      v7 = *(this + 27);
-      do
-      {
-        v8 = *(v7 - 32);
-        v7 -= 32;
-        if (v8)
-        {
-          operator delete(*(v5 - 24));
-        }
-
-        v5 = v7;
-      }
-
-      while (v7 != v4);
-      v6 = *(this + 26);
-    }
-
-    *(this + 27) = v4;
-    operator delete(v6);
-  }
-
-  v9 = *(this + 21);
-  if (v9)
-  {
-    *(this + 22) = v9;
-    operator delete(v9);
-  }
-
-  v10 = *(this + 18);
-  if (v10)
-  {
-    v11 = *(this + 19);
-    v12 = *(this + 18);
-    if (v11 != v10)
-    {
-      v13 = v11 - 32;
-      do
-      {
-        v14 = *(v11 - 8);
-        v11 -= 32;
-        if (v11 == v14)
-        {
-          (*(*v14 + 32))(v14);
-        }
-
-        else if (v14)
-        {
-          (*(*v14 + 40))(v14);
-        }
-
-        v13 -= 32;
-      }
-
-      while (v11 != v10);
-      v12 = *(this + 18);
-    }
-
-    *(this + 19) = v10;
-    operator delete(v12);
-  }
-
-  v15 = *(this + 15);
-  if (v15)
-  {
-    *(this + 16) = v15;
-    operator delete(v15);
-  }
-
-  v16 = *(this + 12);
-  if (v16)
-  {
-    *(this + 13) = v16;
-    operator delete(v16);
-  }
-
-  v17 = *(this + 9);
-  if (v17)
-  {
-    *(this + 10) = v17;
-    operator delete(v17);
-  }
-
-  *this = &unk_284F3BCC8;
-  if (*(this + 31) < 0)
-  {
-    operator delete(*(this + 1));
-  }
-}
-
-void absl::lts_20240722::log_internal::MakeCheckOpString<operations_research::sat::EnforcementStatus const&,operations_research::sat::EnforcementStatus const&>(unsigned int *a1, unsigned int *a2, char *a3)
-{
-  absl::lts_20240722::log_internal::CheckOpMessageBuilder::CheckOpMessageBuilder(&v8, a3);
-  v5 = *a1;
-  if (v5 <= 3)
-  {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, off_278BC3DB8[v5], *&asc_23CE4D1F8[8 * v5]);
-  }
-
-  v6 = absl::lts_20240722::log_internal::CheckOpMessageBuilder::ForVar2(&v8);
-  v7 = *a2;
-  if (v7 <= 3)
-  {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, off_278BC3DB8[v7], *&asc_23CE4D1F8[8 * v7]);
-  }
-
-  absl::lts_20240722::log_internal::CheckOpMessageBuilder::NewString(&v8);
-}
-
-void sub_23CC4F864(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::ostringstream::~ostringstream(va);
-  _Unwind_Resume(a1);
-}
-
-void operations_research::sat::ConstraintPropagationOrder::~ConstraintPropagationOrder(operations_research::sat::ConstraintPropagationOrder *this)
-{
-  std::deque<int>::~deque[abi:ne200100](this + 208);
-  v2 = *(this + 23);
-  if (v2)
-  {
-    *(this + 24) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 18);
-  if (v3)
-  {
-    *(this + 19) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(this + 15);
-  if (v4)
-  {
-    *(this + 16) = v4;
-    operator delete(v4);
-  }
-
-  v5 = *(this + 12);
-  if (v5)
-  {
-    *(this + 13) = v5;
-    operator delete(v5);
-  }
-
-  v6 = *(this + 9);
-  if (v6)
-  {
-    *(this + 10) = v6;
-    operator delete(v6);
-  }
-
-  v7 = *(this + 6);
-  if (v7)
-  {
-    *(this + 7) = v7;
-    operator delete(v7);
-  }
-
-  v8 = *(this + 4);
-  if (v8 == (this + 8))
-  {
-    (*(*v8 + 32))(v8);
-  }
-
-  else if (v8)
-  {
-    (*(*v8 + 40))(v8);
-  }
-}
-
-const void **std::deque<int>::__add_front_capacity(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
-  v3 = v2 - v1;
-  if (v2 == v1)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = ((v2 - v1) << 7) - 1;
-  }
-
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x400)
-  {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
-    {
-      if (v1 != v8)
-      {
-        operator new();
-      }
-
-      operator new();
-    }
-
-    if (v7 == v8)
-    {
-      v10 = 1;
-    }
-
-    else
-    {
-      v10 = v9 >> 2;
-    }
-
-    if (!(v10 >> 61))
-    {
-      operator new();
-    }
-
-    std::__throw_bad_array_new_length[abi:ne200100]();
-  }
-
-  *(a1 + 32) = v5 + 1024;
-  v11 = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<int *>::emplace_front<int *>(a1, &v11);
-}
-
-void sub_23CC4FD24(_Unwind_Exception *a1)
-{
-  operator delete(v1);
-  operator delete(v2);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<int>::resize(void *a1, unint64_t a2)
-{
-  v3 = a1[5];
-  if (a2 > v3)
-  {
-    v4 = a2 - v3;
-
-    std::deque<int>::__append(a1, v4);
-    return;
-  }
-
-  if (a2 >= v3)
-  {
-    return;
-  }
-
-  v5 = a1[4];
-  v7 = a1[1];
-  v6 = a1[2];
-  v8 = (v7 + 8 * (v5 >> 10));
-  if (v6 == v7)
-  {
-    v9 = 0;
-    if (!a2)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  else
-  {
-    v9 = *v8 + 4 * (a1[4] & 0x3FFLL);
-    if (!a2)
-    {
-LABEL_12:
-      v11 = v5 + v3;
-      v12 = (v7 + 8 * ((v5 + v3) >> 10));
-      v13 = v6 - v7;
-      if (v6 != v7)
-      {
-        goto LABEL_13;
-      }
-
-      goto LABEL_21;
-    }
-  }
-
-  v10 = a2 + ((v9 - *v8) >> 2);
-  if (v10 >= 1)
-  {
-    v8 += 8 * (v10 >> 10);
-    v9 = *v8 + 4 * (v10 & 0x3FF);
-    goto LABEL_12;
-  }
-
-  v15 = 1023 - v10;
-  v16 = 2046 - v10;
-  if (v15 >= 0)
-  {
-    v16 = v15;
-  }
-
-  v8 -= 8 * (v16 >> 10);
-  v17 = v15 & 0x3FF;
-  v19 = -v15;
-  v18 = v19 < 0;
-  v20 = v19 & 0x3FF;
-  if (v18)
-  {
-    v21 = v17;
-  }
-
-  else
-  {
-    v21 = -v20;
-  }
-
-  v9 = *v8 + 4 * (1023 - v21);
-  v11 = v5 + v3;
-  v12 = (v7 + 8 * ((v5 + v3) >> 10));
-  v13 = v6 - v7;
-  if (v6 != v7)
-  {
-LABEL_13:
-    v14 = *v12 + 4 * (v11 & 0x3FF);
-    if (v14 == v9)
-    {
-      return;
-    }
-
-    goto LABEL_22;
-  }
-
-LABEL_21:
-  v14 = 0;
-  if (!v9)
-  {
-    return;
-  }
-
-LABEL_22:
-  v22 = ((v14 - *v12) >> 2) + ((v12 - v8) << 7) - ((v9 - *v8) >> 2);
-  if (v22 >= 1)
-  {
-    v23 = v6 == v7 ? 0 : (v13 << 7) - 1;
-    v24 = v3 - v22;
-    a1[5] = v24;
-    if (v23 - v5 - v24 >= 0x800)
-    {
-      do
-      {
-        operator delete(*(v6 - 8));
-        v25 = a1[1];
-        v6 = a1[2] - 8;
-        a1[2] = v6;
-        if (v6 == v25)
-        {
-          v26 = 0;
-        }
-
-        else
-        {
-          v26 = ((v6 - v25) << 7) - 1;
-        }
-      }
-
-      while ((v26 - (a1[5] + a1[4])) > 0x7FF);
-    }
-  }
-}
-
-void std::deque<int>::__append(void *a1, unint64_t a2)
-{
-  v4 = a1[1];
-  v5 = a1[2];
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = ((v5 - v4) << 7) - 1;
-  }
-
-  v7 = a1[5];
-  v8 = v7 + a1[4];
-  v9 = v6 - v8;
-  v10 = a2 > v9;
-  v11 = a2 - v9;
-  if (v10)
-  {
-    std::deque<int>::__add_back_capacity(a1, v11);
-    v7 = a1[5];
-    v4 = a1[1];
-    v5 = a1[2];
-    v8 = a1[4] + v7;
-  }
-
-  v12 = (v4 + 8 * (v8 >> 10));
-  if (v5 != v4)
-  {
-    v13 = (*v12 + 4 * (v8 & 0x3FF));
-    v14 = v13;
-    if (a2)
-    {
-      goto LABEL_9;
-    }
-
-LABEL_13:
-    v16 = (v4 + 8 * (v8 >> 10));
-    if (v13 != v14)
-    {
-      goto LABEL_21;
-    }
-
-    return;
-  }
-
-  v13 = 0;
-  v14 = 0;
-  if (!a2)
-  {
-    goto LABEL_13;
-  }
-
-LABEL_9:
-  v15 = a2 + ((v14 - *v12) >> 2);
-  if (v15 < 1)
-  {
-    v17 = 1023 - v15;
-    v18 = 2046 - v15;
-    if (v17 >= 0)
-    {
-      v18 = v17;
-    }
-
-    v16 = &v12[-(v18 >> 10)];
-    v19 = v17 & 0x3FF;
-    v21 = -v17;
-    v20 = v21 < 0;
-    v22 = v21 & 0x3FF;
-    if (v20)
-    {
-      v23 = v19;
-    }
-
-    else
-    {
-      v23 = -v22;
-    }
-
-    v14 = *v16 + 4 * (1023 - v23);
-    if (v13 != v14)
-    {
-      do
-      {
-LABEL_21:
-        v24 = v14;
-        if (v12 != v16)
-        {
-          v24 = *v12 + 4096;
-        }
-
-        if (v13 == v24)
-        {
-          if (v12 == v16)
-          {
-            break;
-          }
-        }
-
-        else
-        {
-          v25 = ((v24 - v13 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4;
-          bzero(v13, v25);
-          v7 += v25 >> 2;
-          if (v12 == v16)
-          {
-            break;
-          }
-        }
-
-        v26 = v12[1];
-        ++v12;
-        v13 = v26;
-      }
-
-      while (v26 != v14);
-      a1[5] = v7;
-    }
-  }
-
-  else
-  {
-    v16 = &v12[v15 >> 10];
-    v14 = *v16 + 4 * (v15 & 0x3FF);
-    if (v13 != v14)
-    {
-      goto LABEL_21;
-    }
-  }
 }

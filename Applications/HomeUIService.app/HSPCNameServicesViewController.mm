@@ -26,6 +26,7 @@
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)textFieldDidBeginEditing:(id)editing;
 - (void)textFieldDidEndEditing:(id)editing;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -246,6 +247,44 @@
   [(HSPCNameServicesViewController *)&v4 viewDidLoad];
   tableView = [(HSPCNameServicesViewController *)self tableView];
   [tableView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = HSPCNameServicesViewController;
+  [(HSPCNameServicesViewController *)&v16 viewDidAppear:appear];
+  services = [(HSPCNameServicesViewController *)self services];
+  v5 = [services count];
+
+  if (v5 >= 1)
+  {
+    v6 = 0;
+    do
+    {
+      services2 = [(HSPCNameServicesViewController *)self services];
+      v8 = [services2 objectAtIndexedSubscript:v6];
+
+      enabledServices = [(HSPCNameServicesViewController *)self enabledServices];
+      v10 = [enabledServices containsObject:v8];
+
+      if (v10)
+      {
+        v11 = [NSIndexPath indexPathForRow:v6 inSection:0];
+        tableView = [(HSPCNameServicesViewController *)self tableView];
+        [tableView selectRowAtIndexPath:v11 animated:0 scrollPosition:0];
+
+        tableView2 = [(HSPCNameServicesViewController *)self tableView];
+        [(HSPCNameServicesViewController *)self tableView:tableView2 didSelectRowAtIndexPath:v11];
+      }
+
+      ++v6;
+      services3 = [(HSPCNameServicesViewController *)self services];
+      v15 = [services3 count];
+    }
+
+    while (v6 < v15);
+  }
 }
 
 - (void)textFieldDidBeginEditing:(id)editing

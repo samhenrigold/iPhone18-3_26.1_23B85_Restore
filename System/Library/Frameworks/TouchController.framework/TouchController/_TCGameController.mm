@@ -10,18 +10,18 @@
 
 - (_TCGameController)init
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCB0A0]) initWithIdentifier:@"Touch Controller"];
   [v3 setProductCategory:@"Touch Controller"];
   [v3 setVendorName:@"Touch Controller"];
-  memset(v29, 0, sizeof(v29));
   memset(v28, 0, sizeof(v28));
-  v26 = 0u;
   memset(v27, 0, sizeof(v27));
-  v24 = 0u;
   v25 = 0u;
+  memset(v26, 0, sizeof(v26));
   v23 = 0u;
-  memset(v22, 0, sizeof(v22));
+  v24 = 0u;
+  v22 = 0u;
+  memset(v21, 0, sizeof(v21));
   GCExtendedGamepadInitInfoMake();
   v4 = 0;
   v5 = xmmword_23AAEE020;
@@ -34,34 +34,34 @@
   {
     if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(v9, v8)), *v5.i8), *v5.i8).u8[0])
     {
-      BYTE8(v22[v4 / 8]) = 0;
+      BYTE8(v21[v4 / 8]) = 0;
     }
 
     if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x16uLL), *&v8)), *&v5), *&v5).i8[1])
     {
-      LOBYTE(v22[v4 / 8 + 5]) = 0;
+      LOBYTE(v21[v4 / 8 + 5]) = 0;
     }
 
     if (vuzp1_s8(vuzp1_s16(*&v5, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x16uLL), *&v7))), *&v5).i8[2])
     {
-      BYTE8(v27[v4 / 8]) = 0;
-      LOBYTE(v28[v4 / 8]) = 0;
+      BYTE8(v26[v4 / 8]) = 0;
+      LOBYTE(v27[v4 / 8]) = 0;
     }
 
     if (vuzp1_s8(*&v5, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x16uLL), *&v6)), *&v5)).i32[1])
     {
-      BYTE8(v28[v4 / 8 + 4]) = 0;
+      BYTE8(v27[v4 / 8 + 4]) = 0;
     }
 
     if (vuzp1_s8(*&v5, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x16uLL), *&v6)), *&v5)).i8[5])
     {
-      LOBYTE(v29[v4 / 8]) = 0;
+      LOBYTE(v28[v4 / 8]) = 0;
     }
 
     if (vuzp1_s8(*&v5, vuzp1_s16(*&v5, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x16uLL), *&v5)))).i8[6])
     {
-      BYTE8(v29[v4 / 8 + 4]) = 0;
-      LOBYTE(v30[v4]) = 0;
+      BYTE8(v28[v4 / 8 + 4]) = 0;
+      LOBYTE(v29[v4]) = 0;
     }
 
     v6 = vaddq_s64(v6, v10);
@@ -72,40 +72,40 @@
   }
 
   while (v4 != 864);
-  LOWORD(v23) = 1;
-  WORD4(v27[0]) = 1;
+  LOWORD(v22) = 1;
+  WORD4(v26[0]) = 1;
+  LOWORD(v27[0]) = 1;
+  WORD4(v27[4]) = 1;
+  v29[144] = 1;
+  v29[180] = 1;
+  v29[72] = 1;
+  v29[108] = 1;
+  v29[0] = 1;
+  v29[36] = 1;
+  v29[324] = 1;
+  v29[360] = 1;
+  v29[252] = 1;
+  v29[288] = 1;
+  v29[536] = 257;
+  WORD4(v21[0]) = 1;
   LOWORD(v28[0]) = 1;
   WORD4(v28[4]) = 1;
-  v30[144] = 1;
-  v30[180] = 1;
-  v30[72] = 1;
-  v30[108] = 1;
-  v30[0] = 1;
-  v30[36] = 1;
-  v30[324] = 1;
-  v30[360] = 1;
-  v30[252] = 1;
-  v30[288] = 1;
-  v30[536] = 257;
-  WORD4(v22[0]) = 1;
-  LOWORD(v29[0]) = 1;
-  WORD4(v29[4]) = 1;
-  v30[396] = 1;
-  v30[432] = 1;
-  v30[468] = 1;
-  v30[504] = 1;
-  v11 = [objc_alloc(MEMORY[0x277CCB060]) initWithController:0 initInfo:v22];
+  v29[396] = 1;
+  v29[432] = 1;
+  v29[468] = 1;
+  v29[504] = 1;
+  v11 = [objc_alloc(MEMORY[0x277CCB060]) initWithController:0 initInfo:v21];
   for (i = 0; i != 1584; i += 72)
   {
-    __destructor_8_s0_s48_s56_s64(v22 + i);
+    __destructor_8_s0_s48_s56_s64(v21 + i);
   }
 
-  v31[0] = v3;
-  v31[1] = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
-  v21.receiver = self;
-  v21.super_class = _TCGameController;
-  v14 = [(GCController *)&v21 initWithComponents:v13];
+  v30[0] = v3;
+  v30[1] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v20.receiver = self;
+  v20.super_class = _TCGameController;
+  v14 = [(GCController *)&v20 initWithComponents:v13];
 
   extendedGamepad = v14->_extendedGamepad;
   v14->_extendedGamepad = v11;
@@ -115,7 +115,6 @@
   event = v14->_event;
   v14->_event = v17;
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -447,18 +446,16 @@ LABEL_9:
     physicalInputProfile2 = [(GCController *)self physicalInputProfile];
     v18 = [physicalInputProfile2 _buttonWithDescription:allKeys];
 
-    v19 = getTCLogger();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = getTCLogger(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       physicalInputProfile3 = [(GCController *)self physicalInputProfile];
       elements2 = [physicalInputProfile3 elements];
       *buf = 138412290;
       v28 = elements2;
-      _os_log_impl(&dword_23AADD000, v19, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      _os_log_impl(&dword_23AADD000, v20, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDirectionPadWithLabel:(id)label
@@ -521,18 +518,16 @@ LABEL_9:
     physicalInputProfile2 = [(GCController *)self physicalInputProfile];
     v18 = [physicalInputProfile2 _directionPadWithDescription:allKeys];
 
-    v19 = getTCLogger();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = getTCLogger(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       physicalInputProfile3 = [(GCController *)self physicalInputProfile];
       elements2 = [physicalInputProfile3 elements];
       *buf = 138412290;
       v28 = elements2;
-      _os_log_impl(&dword_23AADD000, v19, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      _os_log_impl(&dword_23AADD000, v20, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

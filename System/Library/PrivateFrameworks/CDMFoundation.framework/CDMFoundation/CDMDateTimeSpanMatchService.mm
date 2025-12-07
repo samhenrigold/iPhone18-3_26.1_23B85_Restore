@@ -6,18 +6,18 @@
 
 - (id)setupSpanMatcher:(id)matcher
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   matcherCopy = matcher;
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     dynamicConfig = [matcherCopy dynamicConfig];
     languageCode = [dynamicConfig languageCode];
-    v18 = 136315394;
-    v19 = "[CDMDateTimeSpanMatchService setupSpanMatcher:]";
-    v20 = 2112;
-    v21 = languageCode;
-    _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s Initializing CDMDateTimeSpanMatcher for locale %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CDMDateTimeSpanMatchService setupSpanMatcher:]";
+    v19 = 2112;
+    v20 = languageCode;
+    _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s Initializing CDMDateTimeSpanMatcher for locale %@", &v17, 0x16u);
   }
 
   dynamicConfig2 = [matcherCopy dynamicConfig];
@@ -39,8 +39,6 @@
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

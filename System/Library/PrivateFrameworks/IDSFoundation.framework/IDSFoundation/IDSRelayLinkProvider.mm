@@ -7,7 +7,7 @@
 
 - (void)setLocalCandidates:(id)candidates
 {
-  sub_1A7CC79C8(0, &qword_1EB2B28F0);
+  sub_1A7CC79C8(0, &qword_1EB2B28F0, off_1E77DC130);
   v4 = sub_1A7E22530();
   if (*(&self->super.isa + OBJC_IVAR___IDSRelayLinkProvider_provider))
   {
@@ -19,7 +19,7 @@
 
 - (void)setRemoteCandidates:(id)candidates withRelaySessionID:(id)d
 {
-  sub_1A7CC79C8(0, &qword_1EB2B28F0);
+  sub_1A7CC79C8(0, &qword_1EB2B28F0, off_1E77DC130);
   v6 = sub_1A7E22530();
   if (d)
   {

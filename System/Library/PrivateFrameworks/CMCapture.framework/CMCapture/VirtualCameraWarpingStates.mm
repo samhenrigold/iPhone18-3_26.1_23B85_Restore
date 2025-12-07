@@ -24,12 +24,12 @@
   v13 = objc_msgSendSuper2(&v15, sel_init);
   if (v13)
   {
-    *(v13 + 1) = a2;
-    *(v13 + 2) = camera;
-    v13[3] = outputCamera;
-    v13[4] = i;
-    v13[5] = a6;
-    v13[6] = a7;
+    v13[1] = a2;
+    v13[2] = camera;
+    *(v13 + 3) = outputCamera;
+    *(v13 + 4) = i;
+    *(v13 + 5) = a6;
+    *(v13 + 6) = a7;
   }
 
   return v13;

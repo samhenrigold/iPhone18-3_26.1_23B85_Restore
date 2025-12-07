@@ -162,9 +162,12 @@ void __53__CAMPersistenceController__pathForIncomingDirectory__block_invoke()
 
 uint64_t __42__CAMPersistenceController_resultDelegate__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 32));
+  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v4);
 }
 
 - (CAMThumbnailGenerator)_remotePersistenceThumbnailGenerator
@@ -1680,7 +1683,7 @@ LABEL_137:
     v22 = v21;
     memset(&v135, 0, sizeof(v135));
     v115 = v17;
-    [(CAMPersistenceController *)self _affineTransformForRotationDegrees:v13 mirrored:v17];
+    objc_msgSend__affineTransformForRotationDegrees_mirrored_(self);
     v23 = fabs(0.0 * v22 + 0.0 * v20);
     v24 = [MEMORY[0x1E696AD98] numberWithDouble:v23];
     [v14 setObject:v24 forKeyedSubscript:*MEMORY[0x1E696DED8]];
@@ -3041,7 +3044,7 @@ void __136__CAMPersistenceController_videoPersistenceCoordinator_requestsTimeout
   v39 = 0;
   if (resultCopy)
   {
-    [resultCopy duration];
+    objc_msgSend_duration(resultCopy);
   }
 
   stillPersistenceUUID = [resultCopy stillPersistenceUUID];
@@ -3049,7 +3052,7 @@ void __136__CAMPersistenceController_videoPersistenceCoordinator_requestsTimeout
   v37 = 0;
   if (resultCopy)
   {
-    [resultCopy stillDisplayTime];
+    objc_msgSend_stillDisplayTime(resultCopy);
   }
 
   v30 = creationDate;
@@ -3059,8 +3062,7 @@ void __136__CAMPersistenceController_videoPersistenceCoordinator_requestsTimeout
   v31 = stillPersistenceUUID;
   if (type)
   {
-    [resultCopy dimensions];
-    CAMSizeForDimensions();
+    CAMSizeForDimensions([resultCopy dimensions], v12);
   }
 
   else
@@ -3494,7 +3496,7 @@ uint64_t __54__CAMPersistenceController_videoMetadataDateFormatter__block_invoke
   v100 = 0;
   if (resultCopy)
   {
-    [resultCopy duration];
+    objc_msgSend_duration(resultCopy);
   }
 
   v75 = [(CAMPersistenceController *)self _stillPersistenceUUIDForRequest:requestCopy withVideoResult:resultCopy];
@@ -3502,7 +3504,7 @@ uint64_t __54__CAMPersistenceController_videoMetadataDateFormatter__block_invoke
   v98 = 0;
   if (resultCopy)
   {
-    [resultCopy stillDisplayTime];
+    objc_msgSend_stillDisplayTime(resultCopy);
   }
 
   captureDate = [resultCopy captureDate];
@@ -4001,7 +4003,7 @@ LABEL_18:
   memset(&v81, 0, sizeof(v81));
   if (resultCopy)
   {
-    [resultCopy duration];
+    objc_msgSend_duration(resultCopy);
   }
 
   time = v81;
@@ -4022,8 +4024,7 @@ LABEL_18:
   v37 = PLExifOrientationFromImageOrientation();
   if ([requestCopy type])
   {
-    [resultCopy dimensions];
-    CAMSizeForDimensions();
+    CAMSizeForDimensions([resultCopy dimensions], v37);
   }
 
   else
@@ -4084,7 +4085,7 @@ LABEL_18:
     memset(&time, 0, sizeof(time));
     if (resultCopy)
     {
-      [resultCopy stillDisplayTime];
+      objc_msgSend_stillDisplayTime(resultCopy);
     }
 
     v79 = time;

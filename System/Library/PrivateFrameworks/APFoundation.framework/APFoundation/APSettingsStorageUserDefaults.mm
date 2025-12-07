@@ -75,7 +75,7 @@ LABEL_8:
 
 - (void)setValue:(id)value forKey:(id)key error:(id *)error
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   if (objc_msgSend_isAppleInternalInstall(APSystemInternal, v9, v10, v11))
@@ -94,15 +94,13 @@ LABEL_8:
     else
     {
       objc_msgSend_setObject_forKey_(v15, v29, valueCopy, keyCopy);
-      v38 = @"Key";
-      v39[0] = keyCopy;
-      v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v39, &v38, 1);
+      v37 = @"Key";
+      v38[0] = keyCopy;
+      v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v38, &v37, 1);
       v35 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v32, v33, v34);
       objc_msgSend_postNotificationName_object_userInfo_(v35, v36, @"com.apple.AdPlatforms.defaultsDidChange", self, v31);
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 @end

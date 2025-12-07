@@ -8,10 +8,10 @@
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
   nameCopy = name;
-  mpsFileLoc("[MPSGraphVariableFromTensorOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphVariableFromTensorOp.mm", v25);
+  mpsFileLoc(v26, "[MPSGraphVariableFromTensorOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphVariableFromTensorOp.mm");
   v11 = nameCopy;
   v31 = 260;
-  v30[0] = v25;
+  v30[0] = v26;
   StringAttr = mlir::Builder::getStringAttr(builder, v30);
   v13 = mlir::FileLineColLoc::get(StringAttr, 0x1Du, 0);
   if (!v11)
@@ -26,52 +26,52 @@
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v17 = v15;
+  v18 = v15;
   if (v15 >= 0x17)
   {
     operator new();
   }
 
-  HIBYTE(v29) = v15;
+  *(&__dst.__r_.__value_.__s + 23) = v15;
   if (v15)
   {
     memmove(&__dst, uTF8String, v15);
   }
 
-  *(&__dst + v17) = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v16, &__p);
+  __dst.__r_.__value_.__s.__data_[v18] = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &__p, v16, v17);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v19 = 1;
+  v20 = 1;
   HIBYTE(v31) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
     v30[0] = p_p;
-    v19 = 3;
+    v20 = 3;
   }
 
-  LOBYTE(v31) = v19;
-  v20 = mlir::Builder::getStringAttr(builder, v30);
-  v21 = mlir::NameLoc::get(v20, v13);
+  LOBYTE(v31) = v20;
+  v21 = mlir::Builder::getStringAttr(builder, v30);
+  v22 = mlir::NameLoc::get(v21, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v29) & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_15:
 
-      if ((v26 & 0x80000000) == 0)
+      if ((v27 & 0x80000000) == 0)
       {
         goto LABEL_16;
       }
 
 LABEL_20:
-      operator delete(v25[0]);
-      v22 = *values;
+      operator delete(v26[0]);
+      v23 = *values;
       if (*(values + 1) != *values)
       {
         goto LABEL_17;
@@ -82,27 +82,27 @@ LABEL_21:
     }
   }
 
-  else if ((SHIBYTE(v29) & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_15;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 
-  if (v26 < 0)
+  if (v27 < 0)
   {
     goto LABEL_20;
   }
 
 LABEL_16:
-  v22 = *values;
+  v23 = *values;
   if (*(values + 1) == *values)
   {
     goto LABEL_21;
   }
 
 LABEL_17:
-  v30[0] = mlir::OpBuilder::create<mlir::mps::VariableFromTensorOp,mlir::Value>(builder, v21, v22) - 16;
+  v30[0] = (mlir::OpBuilder::create<mlir::mps::VariableFromTensorOp,mlir::Value>(builder, v22, v23) - 16);
   DefiningOp = mlir::Value::getDefiningOp(v30);
 
   return DefiningOp;

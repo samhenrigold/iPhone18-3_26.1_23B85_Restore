@@ -25,6 +25,7 @@
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d;
 - (void)service:(id)service activeAccountsChanged:(id)changed;
 - (void)service:(id)service devicesChanged:(id)changed;
+- (void)setShouldUseDevAPNS:(BOOL)s;
 - (void)setUpPushConnection;
 - (void)simulateProblemResolution;
 - (void)simulateRAPStatusChange;
@@ -299,77 +300,76 @@ LABEL_22:
   v7 = messageCopy;
   if (messageCopy)
   {
-    v21 = messageCopy;
-    v38[0] = @"GenericIDSMessageData";
-    v38[1] = @"GenericIDSMessageType";
-    v39[0] = messageCopy;
+    v20 = messageCopy;
+    v37[0] = @"GenericIDSMessageData";
+    v37[1] = @"GenericIDSMessageType";
+    v38[0] = messageCopy;
     v8 = [NSNumber numberWithInteger:type];
-    v39[1] = v8;
-    v9 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v38[1] = v8;
+    v9 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = [(IDSService *)self->_service devices];
-    v25 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
-    if (v25)
+    v24 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+    if (v24)
     {
-      v24 = *v28;
-      v23 = IDSSendMessageOptionEncryptPayloadKey;
+      v23 = *v27;
+      v22 = IDSSendMessageOptionEncryptPayloadKey;
       do
       {
-        for (i = 0; i != v25; i = i + 1)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v28 != v24)
+          if (*v27 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v27 + 1) + 8 * i);
-          v12 = IDSCopyForDevice();
-          v13 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v11 = IDSCopyForDevice();
+          v12 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v34 = v9;
-            v35 = 2112;
-            v36 = v12;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Sending message: %@ to destination: %@", buf, 0x16u);
+            v33 = v9;
+            v34 = 2112;
+            v35 = v11;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Sending message: %@ to destination: %@", buf, 0x16u);
           }
 
           service = self->_service;
-          v15 = [NSSet setWithObject:v12];
+          v14 = [NSSet setWithObject:v11];
           typeCopy = type;
-          v17 = [(MapsPushManager *)self _priorityForMessageOfType:type];
-          v31 = v23;
-          v32 = &__kCFBooleanTrue;
-          v18 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-          v26 = 0;
-          LOBYTE(service) = [(IDSService *)service sendMessage:v9 toDestinations:v15 priority:v17 options:v18 identifier:0 error:&v26];
-          v19 = v26;
+          v16 = [(MapsPushManager *)self _priorityForMessageOfType:type];
+          v30 = v22;
+          v31 = &__kCFBooleanTrue;
+          v17 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+          v25 = 0;
+          LOBYTE(service) = [(IDSService *)service sendMessage:v9 toDestinations:v14 priority:v16 options:v17 identifier:0 error:&v25];
+          v18 = v25;
 
           if ((service & 1) == 0)
           {
-            v20 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v19 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v34 = v19;
-              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Error sending message: %@", buf, 0xCu);
+              v33 = v18;
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Error sending message: %@", buf, 0xCu);
             }
           }
 
           type = typeCopy;
         }
 
-        v25 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v24 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
       }
 
-      while (v25);
+      while (v24);
     }
 
-    v7 = v21;
+    v7 = v20;
   }
 
   else
@@ -579,6 +579,15 @@ LABEL_16:
   v5 = _CFPreferencesGetAppBooleanValueWithContainer() != 0;
 
   return v5;
+}
+
+- (void)setShouldUseDevAPNS:(BOOL)s
+{
+  [NSNumber numberWithBool:s];
+  v5 = +[NSFileManager defaultManager];
+  v3 = [v5 containerURLForSecurityApplicationGroupIdentifier:@"group.com.apple.Maps"];
+  path = [v3 path];
+  _CFPreferencesSetAppValueWithContainer();
 }
 
 - (id)devicePushToken

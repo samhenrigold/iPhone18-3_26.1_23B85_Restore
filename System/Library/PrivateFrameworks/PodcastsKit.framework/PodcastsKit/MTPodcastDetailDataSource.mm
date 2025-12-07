@@ -72,7 +72,6 @@
     savedSections = [(MTPodcastDetailDataSource *)self unplayedSections];
   }
 
-  sections = self->_sections;
   self->_sections = savedSections;
 
   MEMORY[0x2821F96F8]();
@@ -97,42 +96,36 @@
 
 - (id)unplayedSections
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   createSectionForUnplayed = [(MTPodcastDetailDataSource *)self createSectionForUnplayed];
-  v10[0] = createSectionForUnplayed;
+  v9[0] = createSectionForUnplayed;
   createSectionForOtherEpisodes = [(MTPodcastDetailDataSource *)self createSectionForOtherEpisodes];
-  v10[1] = createSectionForOtherEpisodes;
+  v9[1] = createSectionForOtherEpisodes;
   createSectionForEmptyOverlay = [(MTPodcastDetailDataSource *)self createSectionForEmptyOverlay];
-  v10[2] = createSectionForEmptyOverlay;
+  v9[2] = createSectionForEmptyOverlay;
   createSectionForPlayedToBeDeleted = [(MTPodcastDetailDataSource *)self createSectionForPlayedToBeDeleted];
-  v10[3] = createSectionForPlayedToBeDeleted;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[3] = createSectionForPlayedToBeDeleted;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
 
   return v7;
 }
 
 - (id)feedSections
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   createSectionForFeed = [(MTPodcastDetailDataSource *)self createSectionForFeed];
-  v6[0] = createSectionForFeed;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = createSectionForFeed;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (id)savedSections
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   createSectionForIsFromiTunesSync = [(MTPodcastDetailDataSource *)self createSectionForIsFromiTunesSync];
-  v6[0] = createSectionForIsFromiTunesSync;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = createSectionForIsFromiTunesSync;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }

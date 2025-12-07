@@ -8,10 +8,10 @@
 
 - (BlastDoorDrawingStroke)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = BlastDoorDrawingStroke;
-  v2 = [(BlastDoorDrawingStroke *)&v7 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = BlastDoorDrawingStroke;
+  v2 = [(BlastDoorDrawingStroke *)&v6 init];
   if (v2)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -19,92 +19,89 @@
     v2->_strokePoints = array;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)createDKStroke:(id)stroke
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   strokeCopy = stroke;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2050000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2050000000;
   v4 = getDKDrawingStrokeClass_softClass;
-  v19 = getDKDrawingStrokeClass_softClass;
+  v18 = getDKDrawingStrokeClass_softClass;
   if (!getDKDrawingStrokeClass_softClass)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __getDKDrawingStrokeClass_block_invoke;
-    v15[3] = &unk_2781764E8;
-    v15[4] = &v16;
-    __getDKDrawingStrokeClass_block_invoke(v15);
-    v4 = v17[3];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __getDKDrawingStrokeClass_block_invoke;
+    v14[3] = &unk_2781764E8;
+    v14[4] = &v15;
+    __getDKDrawingStrokeClass_block_invoke(v14);
+    v4 = v16[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   v6 = [[v4 alloc] init];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = strokeCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        createDKStrokePoint = [*(*(&v21 + 1) + 8 * i) createDKStrokePoint];
+        createDKStrokePoint = [*(*(&v20 + 1) + 8 * i) createDKStrokePoint];
         strokePoints = [v6 strokePoints];
         [strokePoints addObject:createDKStrokePoint];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v20 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)createBDStroke:(id)stroke
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   strokeCopy = stroke;
   v4 = objc_alloc_init(BlastDoorDrawingStroke);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   strokePoints = [strokeCopy strokePoints];
-  v6 = [strokePoints countByEnumeratingWithState:&v16 objects:v15 count:16];
+  v6 = [strokePoints countByEnumeratingWithState:&v15 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(strokePoints);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = objc_alloc_init(BlastDoorDrawingStrokePoint);
         [v10 location];
         [(BlastDoorDrawingStrokePoint *)v11 setLocation:?];
@@ -116,13 +113,11 @@
         [strokePoints2 addObject:v11];
       }
 
-      v7 = [strokePoints countByEnumeratingWithState:&v16 objects:v15 count:16];
+      v7 = [strokePoints countByEnumeratingWithState:&v15 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

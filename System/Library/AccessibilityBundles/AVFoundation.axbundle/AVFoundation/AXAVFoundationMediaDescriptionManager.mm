@@ -55,7 +55,7 @@ uint64_t __54__AXAVFoundationMediaDescriptionManager_sharedManager__block_invoke
 
 - (BOOL)beginObservingPlayer:(id)player
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   playerCopy = player;
   if (playerCopy)
   {
@@ -68,32 +68,31 @@ uint64_t __54__AXAVFoundationMediaDescriptionManager_sharedManager__block_invoke
     block[3] = &unk_29F2989F0;
     block[4] = self;
     v8 = playerCopy;
-    v18 = v8;
+    v17 = v8;
     v9 = v6;
-    v19 = v9;
+    v18 = v9;
     dispatch_sync(queue, block);
     [v9 addResultHandler:&__block_literal_global_294];
     engine = self->_engine;
-    v15[0] = MEMORY[0x29EDCA5F8];
-    v15[1] = 3221225472;
-    v15[2] = __62__AXAVFoundationMediaDescriptionManager_beginObservingPlayer___block_invoke_296;
-    v15[3] = &unk_29F298A38;
-    v15[4] = self;
-    v16 = v9;
+    v14[0] = MEMORY[0x29EDCA5F8];
+    v14[1] = 3221225472;
+    v14[2] = __62__AXAVFoundationMediaDescriptionManager_beginObservingPlayer___block_invoke_296;
+    v14[3] = &unk_29F298A38;
+    v14[4] = self;
+    v15 = v9;
     v11 = v9;
-    [(AXMVisionEngine *)engine updateEngineConfiguration:v15];
+    [(AXMVisionEngine *)engine updateEngineConfiguration:v14];
     v12 = AXMediaLogCaptionDescriptions();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v21 = v8;
+      v20 = v8;
       _os_log_impl(&dword_29BAC0000, v12, OS_LOG_TYPE_INFO, "Will begin observing player: %@", buf, 0xCu);
     }
 
     [v8 addObserver:self forKeyPath:@"currentItem" options:15 context:AXMediaPlayerObserverContext];
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return playerCopy != 0;
 }
 
@@ -136,64 +135,59 @@ void __62__AXAVFoundationMediaDescriptionManager_beginObservingPlayer___block_in
 
 - (void)endObservingPlayer:(id)player
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   playerCopy = player;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 3221225472;
   block[2] = __60__AXAVFoundationMediaDescriptionManager_endObservingPlayer___block_invoke;
   block[3] = &unk_29F298A60;
-  v15 = &v16;
+  v14 = &v15;
   block[4] = self;
   v6 = playerCopy;
-  v14 = v6;
+  v13 = v6;
   dispatch_sync(queue, block);
-  if (v17[5])
+  if (v16[5])
   {
     engine = self->_engine;
-    v12[0] = MEMORY[0x29EDCA5F8];
-    v12[1] = 3221225472;
-    v12[2] = __60__AXAVFoundationMediaDescriptionManager_endObservingPlayer___block_invoke_2;
-    v12[3] = &unk_29F298A88;
-    v12[4] = self;
-    v12[5] = &v16;
-    [(AXMVisionEngine *)engine updateEngineConfiguration:v12];
-    v8 = self->_queue;
     v11[0] = MEMORY[0x29EDCA5F8];
     v11[1] = 3221225472;
-    v11[2] = __60__AXAVFoundationMediaDescriptionManager_endObservingPlayer___block_invoke_3;
+    v11[2] = __60__AXAVFoundationMediaDescriptionManager_endObservingPlayer___block_invoke_2;
     v11[3] = &unk_29F298A88;
     v11[4] = self;
-    v11[5] = &v16;
-    dispatch_sync(v8, v11);
+    v11[5] = &v15;
+    [(AXMVisionEngine *)engine updateEngineConfiguration:v11];
+    v8 = self->_queue;
+    v10[0] = MEMORY[0x29EDCA5F8];
+    v10[1] = 3221225472;
+    v10[2] = __60__AXAVFoundationMediaDescriptionManager_endObservingPlayer___block_invoke_3;
+    v10[3] = &unk_29F298A88;
+    v10[4] = self;
+    v10[5] = &v15;
+    dispatch_sync(v8, v10);
   }
 
   v9 = AXMediaLogCaptionDescriptions();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v23 = v6;
+    v22 = v6;
     _os_log_impl(&dword_29BAC0000, v9, OS_LOG_TYPE_INFO, "Will end observing player: %@", buf, 0xCu);
   }
 
   [v6 removeObserver:self forKeyPath:@"currentItem" context:AXMediaPlayerObserverContext];
-  _Block_object_dispose(&v16, 8);
-
-  v10 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v15, 8);
 }
 
 uint64_t __60__AXAVFoundationMediaDescriptionManager_endObservingPlayer___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_itemNodeForPlayer:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_itemNodeForPlayer:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -219,34 +213,34 @@ uint64_t __60__AXAVFoundationMediaDescriptionManager_endObservingPlayer___block_
 
 void __67__AXAVFoundationMediaDescriptionManager_isTappingMediaDescriptions__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
+  v12 = *MEMORY[0x29EDCA608];
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = [*(*(a1 + 32) + 24) keyEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isTriggeringLegibilityEvents])
+        if ([*(*(&v7 + 1) + 8 * i) isTriggeringLegibilityEvents])
         {
           *(*(*(a1 + 40) + 8) + 24) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v4)
       {
         continue;
@@ -257,34 +251,32 @@ void __67__AXAVFoundationMediaDescriptionManager_isTappingMediaDescriptions__blo
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_queue_itemNodeForPlayer:(id)player
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   playerCopy = player;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   keyEnumerator = [(NSMapTable *)self->_queue_nodeToPlayerMap keyEnumerator];
-  v6 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [(NSMapTable *)self->_queue_nodeToPlayerMap objectForKey:v10];
         v12 = v11;
         if (v11 == playerCopy)
@@ -295,7 +287,7 @@ LABEL_11:
         }
       }
 
-      v7 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -308,14 +300,12 @@ LABEL_11:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x29EDCA608];
-
   return v13;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -329,25 +319,25 @@ LABEL_11:
       *&buf[12] = 2112;
       *&buf[14] = objectCopy;
       *&buf[22] = 2112;
-      v36 = changeCopy;
+      v35 = changeCopy;
       _os_log_impl(&dword_29BAC0000, v13, OS_LOG_TYPE_INFO, "Did observe change on. path:'%@' object:%@ change:%@", buf, 0x20u);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v36 = __Block_byref_object_copy_;
-    v37 = __Block_byref_object_dispose_;
-    v38 = 0;
+    v35 = __Block_byref_object_copy_;
+    v36 = __Block_byref_object_dispose_;
+    v37 = 0;
     queue = self->_queue;
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 3221225472;
     block[2] = __88__AXAVFoundationMediaDescriptionManager_observeValueForKeyPath_ofObject_change_context___block_invoke;
     block[3] = &unk_29F298A60;
-    v32 = buf;
+    v31 = buf;
     block[4] = self;
     v15 = objectCopy;
-    v31 = v15;
+    v30 = v15;
     dispatch_sync(queue, block);
     if (*(*&buf[8] + 40))
     {
@@ -372,33 +362,33 @@ LABEL_11:
         {
           if ([(AXAVFoundationMediaDescriptionManager *)self _shouldAttachLegibilityOutputToItem:v18])
           {
-            v20 = AXMediaLogCaptionDescriptions();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+            v19 = AXMediaLogCaptionDescriptions();
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
-              *v33 = 138412290;
-              v34 = v18;
-              _os_log_impl(&dword_29BAC0000, v20, OS_LOG_TYPE_INFO, "Will attach legibility node to item: %@", v33, 0xCu);
+              *v32 = 138412290;
+              v33 = v18;
+              _os_log_impl(&dword_29BAC0000, v19, OS_LOG_TYPE_INFO, "Will attach legibility node to item: %@", v32, 0xCu);
             }
 
-            v23 = MEMORY[0x29EDCA5F8];
-            v24 = 3221225472;
-            v25 = __88__AXAVFoundationMediaDescriptionManager_observeValueForKeyPath_ofObject_change_context___block_invoke_301;
-            v26 = &unk_29F298AB0;
+            v22 = MEMORY[0x29EDCA5F8];
+            v23 = 3221225472;
+            v24 = __88__AXAVFoundationMediaDescriptionManager_observeValueForKeyPath_ofObject_change_context___block_invoke_301;
+            v25 = &unk_29F298AB0;
             selfCopy = self;
-            v29 = buf;
+            v28 = buf;
             v18 = v18;
-            v28 = v18;
+            v27 = v18;
             AXPerformBlockOnMainThread();
           }
 
           else
           {
-            v21 = AXMediaLogCaptionDescriptions();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+            v20 = AXMediaLogCaptionDescriptions();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
             {
-              *v33 = 138412290;
-              v34 = v18;
-              _os_log_impl(&dword_29BAC0000, v21, OS_LOG_TYPE_INFO, "Will NOT attach legibility node to item: %@", v33, 0xCu);
+              *v32 = 138412290;
+              v33 = v18;
+              _os_log_impl(&dword_29BAC0000, v20, OS_LOG_TYPE_INFO, "Will NOT attach legibility node to item: %@", v32, 0xCu);
             }
           }
         }
@@ -410,9 +400,9 @@ LABEL_11:
       v18 = AXMediaLogCaptionDescriptions();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 138412290;
-        v34 = v15;
-        _os_log_impl(&dword_29BAC0000, v18, OS_LOG_TYPE_DEFAULT, "No legibility node found for player: %@", v33, 0xCu);
+        *v32 = 138412290;
+        v33 = v15;
+        _os_log_impl(&dword_29BAC0000, v18, OS_LOG_TYPE_DEFAULT, "No legibility node found for player: %@", v32, 0xCu);
       }
     }
 
@@ -421,25 +411,20 @@ LABEL_11:
 
   else
   {
-    v22.receiver = self;
-    v22.super_class = AXAVFoundationMediaDescriptionManager;
-    [(AXAVFoundationMediaDescriptionManager *)&v22 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v21.receiver = self;
+    v21.super_class = AXAVFoundationMediaDescriptionManager;
+    [(AXAVFoundationMediaDescriptionManager *)&v21 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __88__AXAVFoundationMediaDescriptionManager_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_itemNodeForPlayer:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_itemNodeForPlayer:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __88__AXAVFoundationMediaDescriptionManager_observeValueForKeyPath_ofObject_change_context___block_invoke_301(uint64_t a1)
+void *__88__AXAVFoundationMediaDescriptionManager_observeValueForKeyPath_ofObject_change_context___block_invoke_301(uint64_t a1)
 {
   if (UIAccessibilityIsVoiceOverRunning() || (result = [*(a1 + 32) isVoiceOverInTheTripleClickMenu], result))
   {
@@ -466,23 +451,20 @@ uint64_t __88__AXAVFoundationMediaDescriptionManager_observeValueForKeyPath_ofOb
 
 void __62__AXAVFoundationMediaDescriptionManager_beginObservingPlayer___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_29BAC0000, a2, OS_LOG_TYPE_DEBUG, "handling engine legibility result: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x29EDCA608];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_29BAC0000, a2, OS_LOG_TYPE_DEBUG, "handling engine legibility result: %@", &v3, 0xCu);
 }
 
 void __62__AXAVFoundationMediaDescriptionManager_beginObservingPlayer___block_invoke_3_cold_2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v3 = [a1 ax_nonRedundantDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_29BAC0000, a2, OS_LOG_TYPE_ERROR, "Failed to archive data: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_29BAC0000, a2, OS_LOG_TYPE_ERROR, "Failed to archive data: %@", &v4, 0xCu);
 }
 
 @end

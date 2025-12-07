@@ -63,23 +63,21 @@
 
 - (NSArray)requiredEntitlements
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = +[_HKBehavior sharedBehavior];
   isCompanionCapable = [v2 isCompanionCapable];
 
   if (isCompanionCapable)
   {
     v4 = +[HKFeatureAvailabilityRequirementEntitlement nanoRegistryGeneralAccessEntitlement];
-    v8[0] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x1E695E0F0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -76,7 +76,7 @@
   memset(&v32, 0, sizeof(v32));
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   v31 = v32;

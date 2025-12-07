@@ -11,10 +11,10 @@
 {
   controllerCopy = controller;
   swift_unknownObjectRetain();
-  v5 = sub_100C84B18();
+  v7 = sub_100C84B18(controller, mediator);
 
   swift_unknownObjectRelease();
-  return v5;
+  return v7;
 }
 
 - (void)handleHoverGesture:(id)gesture

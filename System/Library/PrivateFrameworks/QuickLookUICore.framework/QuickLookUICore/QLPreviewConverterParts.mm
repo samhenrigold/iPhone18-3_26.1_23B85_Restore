@@ -7,6 +7,7 @@
 - (id)newAttachmentURLWithID:(id)d properties:(id)properties;
 - (id)previewRequest;
 - (id)safeRequestForRequest:(id)request;
+- (void)appendData:(id)data forURL:(id)l lastChunk:(BOOL)chunk;
 - (void)computePreviewInThread;
 - (void)dealloc;
 - (void)registerURL:(id)l mimeType:(id)type textEncoding:(id)encoding;
@@ -34,7 +35,7 @@
 
 + (void)registerPreview:(id)preview
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   previewCopy = preview;
   objc_sync_enter(previewCopy);
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -57,20 +58,18 @@
   {
     previewURL = [previewCopy previewURL];
     v11 = [previewURL description];
-    v13 = 138412290;
-    v14 = v11;
-    _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_DEFAULT, "%@ #Conversion", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v11;
+    _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_DEFAULT, "%@ #Conversion", &v12, 0xCu);
   }
 
   [QLPreviewConverterURLProtocol registerPreview:previewCopy];
   objc_sync_exit(previewCopy);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)unregisterPreview:(id)preview
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   previewCopy = preview;
   v4 = MEMORY[0x277D43EF8];
   v5 = *MEMORY[0x277D43EF8];
@@ -85,9 +84,9 @@
     v6 = v5;
     previewURL = [previewCopy previewURL];
     v8 = [previewURL description];
-    v13 = 138412290;
-    v14 = v8;
-    _os_log_impl(&dword_261653000, v6, OS_LOG_TYPE_DEFAULT, "%@ #Conversion", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v8;
+    _os_log_impl(&dword_261653000, v6, OS_LOG_TYPE_DEFAULT, "%@ #Conversion", &v12, 0xCu);
   }
 
   v9 = previewCopy;
@@ -101,7 +100,6 @@
   v9[15] = 0;
 
   objc_sync_exit(v9);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -154,38 +152,13 @@
         objc_sync_enter(selfCopy);
         previewURL = [(QLPreviewParts *)selfCopy previewURL];
 
-        if (!previewURL)
+        if (previewURL && ((-[QLPreviewParts previewURL](selfCopy, "previewURL"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v5 isEqual:v15], v15, (v16 & 1) != 0) || objc_msgSend(objc_msgSend(objc_opt_class(), "urlProtocolClass"), "isSafeRequest:", requestCopy) && ((objc_msgSend(v5, "host"), v18 = objc_claimAutoreleasedReturnValue(), -[QLPreviewParts previewURL](selfCopy, "previewURL"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "host"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v18, "isEqual:", v20), v20, v19, v18, (v21 & 1) != 0) || (-[QLPreviewParts registeredURLs](selfCopy, "registeredURLs"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "containsObject:", v5), v22, (v23 & 1) != 0))))
         {
-          goto LABEL_23;
-        }
-
-        previewURL2 = [(QLPreviewParts *)selfCopy previewURL];
-        v16 = [v5 isEqual:previewURL2];
-
-        if (v16)
-        {
-          goto LABEL_19;
-        }
-
-        if (![objc_msgSend(objc_opt_class() "urlProtocolClass")])
-        {
-          goto LABEL_23;
-        }
-
-        host = [v5 host];
-        previewURL3 = [(QLPreviewParts *)selfCopy previewURL];
-        host2 = [previewURL3 host];
-        v21 = [host isEqual:host2];
-
-        if (v21 & 1) != 0 || (-[QLPreviewParts registeredURLs](selfCopy, "registeredURLs"), v22 = objc_claimAutoreleasedReturnValue(), v23 = [v22 containsObject:v5], v22, (v23))
-        {
-LABEL_19:
           voidRequest2 = requestCopy;
         }
 
         else
         {
-LABEL_23:
           voidRequest2 = [(QLPreviewParts *)selfCopy voidRequest];
         }
 
@@ -225,7 +198,7 @@ LABEL_14:
 
 - (void)computePreviewInThread
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
   [(QLPreviewParts *)self setOutstandingURLs:v3];
 
@@ -298,14 +271,14 @@ LABEL_14:
       {
         url = obj->_url;
         *buf = 138412290;
-        v66 = url;
+        v64 = url;
         _os_log_impl(&dword_261653000, v14, OS_LOG_TYPE_DEFAULT, "Deleting temporary file created for the conversion %@. #Conversion", buf, 0xCu);
       }
 
       v16 = obj->_url;
-      v63 = 0;
-      v17 = [defaultManager removeItemAtURL:v16 error:&v63];
-      v18 = v63;
+      v61 = 0;
+      v17 = [defaultManager removeItemAtURL:v16 error:&v61];
+      v18 = v61;
       if ((v17 & 1) == 0)
       {
         v19 = *v8;
@@ -318,7 +291,7 @@ LABEL_14:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v66 = v18;
+          v64 = v18;
           _os_log_impl(&dword_261653000, v19, OS_LOG_TYPE_DEFAULT, "Problem deleting the temporary file for the preview converter (%@) #Conversion", buf, 0xCu);
         }
       }
@@ -357,65 +330,65 @@ LABEL_14:
       {
 LABEL_41:
         outstandingURLs2 = [(QLPreviewParts *)v22 outstandingURLs];
-        v41 = [outstandingURLs2 count] == 0;
+        v40 = [outstandingURLs2 count] == 0;
 
-        if (!v41)
+        if (!v40)
         {
-          v42 = +[QLPreviewConverterURLProtocol _errorForNoPreview];
-          v61 = 0u;
-          v62 = 0u;
+          v41 = +[QLPreviewConverterURLProtocol _errorForNoPreview];
           v59 = 0u;
           v60 = 0u;
+          v57 = 0u;
+          v58 = 0u;
           obja = [(QLPreviewParts *)v22 outstandingURLs];
-          v43 = [obja countByEnumeratingWithState:&v59 objects:v64 count:16];
-          if (v43)
+          v42 = [obja countByEnumeratingWithState:&v57 objects:v62 count:16];
+          if (v42)
           {
-            v44 = *v60;
+            v43 = *v58;
             do
             {
-              for (i = 0; i != v43; ++i)
+              for (i = 0; i != v42; ++i)
               {
-                if (*v60 != v44)
+                if (*v58 != v43)
                 {
                   objc_enumerationMutation(obja);
                 }
 
-                v46 = *(*(&v59 + 1) + 8 * i);
+                v45 = *(*(&v57 + 1) + 8 * i);
                 previewURL4 = [(QLPreviewParts *)v22 previewURL];
-                v48 = [v46 isEqual:previewURL4];
+                v47 = [v45 isEqual:previewURL4];
 
-                if (v48)
+                if (v47)
                 {
                   mainError = v22->mainError;
                   if (!mainError)
                   {
-                    mainError = v42;
+                    mainError = v41;
                   }
 
-                  v50 = mainError;
-                  [(QLPreviewURLProtocol *)QLPreviewConverterURLProtocol setError:v50 forURL:v46];
+                  v49 = mainError;
+                  [(QLPreviewURLProtocol *)QLPreviewConverterURLProtocol setError:v49 forURL:v45];
                   WeakRetained = objc_loadWeakRetained(&v22->_delegate);
-                  v52 = objc_opt_respondsToSelector();
+                  v51 = objc_opt_respondsToSelector();
 
-                  if (v52)
+                  if (v51)
                   {
-                    v53 = [[QLThreadInvoker alloc] initWithConnection:v22->_connection data:0 error:v50];
+                    v52 = [[QLThreadInvoker alloc] initWithConnection:v22->_connection data:0 error:v49];
                     delegateCallbackThread = v22->delegateCallbackThread;
-                    v55 = objc_loadWeakRetained(&v22->_delegate);
-                    [(QLThreadInvoker *)v53 performSelector:sel_connectionDidFailWithError_ onThread:delegateCallbackThread withObject:v55 waitUntilDone:0];
+                    v54 = objc_loadWeakRetained(&v22->_delegate);
+                    [(QLThreadInvoker *)v52 performSelector:sel_connectionDidFailWithError_ onThread:delegateCallbackThread withObject:v54 waitUntilDone:0];
                   }
                 }
 
                 else
                 {
-                  [(QLPreviewURLProtocol *)QLPreviewConverterURLProtocol setError:v42 forURL:v46];
+                  [(QLPreviewURLProtocol *)QLPreviewConverterURLProtocol setError:v41 forURL:v45];
                 }
               }
 
-              v43 = [obja countByEnumeratingWithState:&v59 objects:v64 count:16];
+              v42 = [obja countByEnumeratingWithState:&v57 objects:v62 count:16];
             }
 
-            while (v43);
+            while (v42);
           }
         }
 
@@ -426,45 +399,44 @@ LABEL_41:
           v22->computed = 1;
         }
 
-        v56 = *MEMORY[0x277D85DE8];
         return;
       }
     }
 
-    v30 = *v8;
+    v29 = *v8;
     if (!*v8)
     {
       QLSInitLogging();
-      v30 = *v8;
+      v29 = *v8;
     }
 
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_261653000, v30, OS_LOG_TYPE_DEFAULT, "Preview failed #Conversion", buf, 2u);
+      _os_log_impl(&dword_261653000, v29, OS_LOG_TYPE_DEFAULT, "Preview failed #Conversion", buf, 2u);
     }
 
-    v31 = v22->mainError;
-    if (v31)
+    v30 = v22->mainError;
+    if (v30)
     {
-      v32 = v31;
+      v31 = v30;
     }
 
     else
     {
-      v32 = +[QLPreviewConverterURLProtocol _errorForNoPreview];
+      v31 = +[QLPreviewConverterURLProtocol _errorForNoPreview];
     }
 
-    v33 = v32;
-    localizedDescription = [(NSError *)v32 localizedDescription];
-    localizedRecoverySuggestion = [(NSError *)v33 localizedRecoverySuggestion];
-    v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"<html><meta name=viewport content=width=device-width, minimum-scale=1.0, maximum-scale=1.6><style type=text/css> div {font-family: Arialfont-size: 18;}</style><body><div align=center><br><b>%@</b></div><br><div align=center>%@</div></body></html>", localizedDescription, localizedRecoverySuggestion];;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{@"text/html", @"MimeType", @"UTF-8", @"TextEncoding", 0}];
+    v32 = v31;
+    localizedDescription = [(NSError *)v31 localizedDescription];
+    localizedRecoverySuggestion = [(NSError *)v32 localizedRecoverySuggestion];
+    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"<html><meta name=viewport content=width=device-width, minimum-scale=1.0, maximum-scale=1.6><style type=text/css> div {font-family: Arialfont-size: 18;}</style><body><div align=center><br><b>%@</b></div><br><div align=center>%@</div></body></html>", localizedDescription, localizedRecoverySuggestion];;
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{@"text/html", @"MimeType", @"UTF-8", @"TextEncoding", 0}];
     identifier = [*MEMORY[0x277CE1DA0] identifier];
-    [(QLPreviewConverterParts *)v22 startDataRepresentationWithContentType:identifier properties:v37];
+    [(QLPreviewConverterParts *)v22 startDataRepresentationWithContentType:identifier properties:v36];
 
-    v39 = [v36 dataUsingEncoding:4];
-    [(QLPreviewConverterParts *)v22 appendData:v39 forURL:0 lastChunk:0];
+    v38 = [v35 dataUsingEncoding:4];
+    [(QLPreviewConverterParts *)v22 appendData:v38 forURL:0 lastChunk:0];
 
     goto LABEL_41;
   }
@@ -472,7 +444,6 @@ LABEL_41:
   [(QLPreviewParts *)obj setOutstandingURLs:0];
   [(QLPreviewParts *)obj setEncodingsForURLs:0];
   objc_sync_exit(obj);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCancelled
@@ -510,7 +481,7 @@ LABEL_41:
 
 - (void)startDataRepresentationWithContentType:(id)type properties:(id)properties
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   propertiesCopy = properties;
   v7 = MEMORY[0x277D43EF8];
@@ -524,13 +495,13 @@ LABEL_41:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v50 = typeCopy;
-    v51 = 2112;
-    v52 = propertiesCopy;
+    v49 = typeCopy;
+    v50 = 2112;
+    v51 = propertiesCopy;
     _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_DEFAULT, "contentType = %@, properties = %@ #Conversion", buf, 0x16u);
   }
 
-  v41 = propertiesCopy;
+  v40 = propertiesCopy;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   obj = selfCopy;
@@ -542,7 +513,7 @@ LABEL_41:
     v11 = 134217984;
     if (!propertiesCopy)
     {
-      v38 = 0;
+      v37 = 0;
       theString = 0;
       goto LABEL_24;
     }
@@ -562,7 +533,7 @@ LABEL_41:
       }
     }
 
-    v38 = [propertiesCopy objectForKey:@"MimeType"];
+    v37 = [propertiesCopy objectForKey:@"MimeType"];
     v13 = [propertiesCopy objectForKey:@"HTMLPageCount"];
     v14 = v13;
     if (v13)
@@ -610,27 +581,27 @@ LABEL_24:
         [encodingsForURLs setObject:v22 forKey:previewURL2];
 
         previewURL3 = [(QLPreviewParts *)obj previewURL];
-        [(QLPreviewConverterParts *)obj registerURL:previewURL3 mimeType:v38 textEncoding:theString];
+        [(QLPreviewConverterParts *)obj registerURL:previewURL3 mimeType:v37 textEncoding:theString];
 
         [propertiesCopy objectForKey:@"Attachments"];
+        v45 = 0u;
         v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
-        v25 = v45 = 0u;
-        v26 = [v25 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v43 = 0u;
+        v25 = v44 = 0u;
+        v26 = [v25 countByEnumeratingWithState:&v43 objects:v47 count:16];
         if (v26)
         {
-          v42 = *v45;
+          v41 = *v44;
           do
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v45 != v42)
+              if (*v44 != v41)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v28 = *(*(&v44 + 1) + 8 * i);
+              v28 = *(*(&v43 + 1) + 8 * i);
               v29 = [v25 objectForKey:v28];
               v30 = [v29 objectForKey:@"MimeType"];
               v31 = [v29 objectForKey:@"TextEncoding"];
@@ -647,7 +618,7 @@ LABEL_24:
               }
             }
 
-            v26 = [v25 countByEnumeratingWithState:&v44 objects:v48 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v43 objects:v47 count:16];
           }
 
           while (v26);
@@ -665,8 +636,6 @@ LABEL_24:
 
 LABEL_34:
   objc_sync_exit(obj);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)newAttachmentURLWithID:(id)d properties:(id)properties
@@ -678,6 +647,110 @@ LABEL_34:
 
   v10 = [(QLPreviewParts *)self newAttachmentURLWithID:dCopy mimeType:v9 textEncoding:v8];
   return v10;
+}
+
+- (void)appendData:(id)data forURL:(id)l lastChunk:(BOOL)chunk
+{
+  chunkCopy = chunk;
+  v27 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  lCopy = l;
+  v10 = MEMORY[0x277D43EF8];
+  v11 = *MEMORY[0x277D43EF8];
+  if (!*MEMORY[0x277D43EF8])
+  {
+    QLSInitLogging();
+    v11 = *v10;
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = v11;
+    v13 = [lCopy description];
+    v14 = v13;
+    v15 = &stru_2873E9F50;
+    if (chunkCopy)
+    {
+      v15 = @"(last chunk)";
+    }
+
+    v23 = 138412546;
+    v24 = v13;
+    v25 = 2112;
+    v26 = v15;
+    _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_DEFAULT, "%@ %@ #Conversion", &v23, 0x16u);
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  previewURL = [(QLPreviewParts *)selfCopy previewURL];
+  v18 = previewURL == 0;
+
+  if (!v18)
+  {
+    previewURL2 = lCopy;
+    if (!lCopy)
+    {
+      previewURL2 = [(QLPreviewParts *)selfCopy previewURL];
+    }
+
+    WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
+    objc_sync_exit(selfCopy);
+
+    [(QLPreviewURLProtocol *)QLPreviewConverterURLProtocol appendData:dataCopy forURL:previewURL2 lastChunk:chunkCopy];
+    if (lCopy)
+    {
+      if (!chunkCopy)
+      {
+        goto LABEL_24;
+      }
+
+LABEL_22:
+      selfCopy = [(QLPreviewParts *)selfCopy outstandingURLs];
+      [(QLPreviewConverterParts *)selfCopy removeObject:previewURL2];
+      lCopy = previewURL2;
+      goto LABEL_23;
+    }
+
+    if (objc_opt_respondsToSelector())
+    {
+      v21 = &selRef_connectionDidReceiveDataLengthReceived_;
+    }
+
+    else
+    {
+      if ((objc_opt_respondsToSelector() & 1) == 0)
+      {
+LABEL_19:
+        if (!chunkCopy)
+        {
+LABEL_24:
+          lCopy = previewURL2;
+          goto LABEL_25;
+        }
+
+        if (objc_opt_respondsToSelector())
+        {
+          [WeakRetained performSelector:sel_connectionDidFinishLoading_ onThread:selfCopy->delegateCallbackThread withObject:selfCopy->_connection waitUntilDone:0];
+        }
+
+        goto LABEL_22;
+      }
+
+      v21 = &selRef_connectionDidReceiveData_;
+    }
+
+    v22 = [[QLThreadInvoker alloc] initWithConnection:selfCopy->_connection data:dataCopy error:0];
+    [(QLThreadInvoker *)v22 performSelector:*v21 onThread:selfCopy->delegateCallbackThread withObject:WeakRetained waitUntilDone:0];
+
+    goto LABEL_19;
+  }
+
+  objc_sync_exit(selfCopy);
+  WeakRetained = 0;
+LABEL_23:
+
+LABEL_25:
 }
 
 - (void)setError:(id)error

@@ -1,12 +1,12 @@
 @interface NSString(WebKitExtras)
-+ (uint64_t)_webkit_localCacheDirectoryWithBundleIdentifier:()WebKitExtras;
++ (NSString)_webkit_localCacheDirectoryWithBundleIdentifier:()WebKitExtras;
+- (NSString)_web_stringByAbbreviatingWithTildeInPath;
 - (__CFString)_webkit_stringByTrimmingWhitespace;
-- (uint64_t)_web_stringByAbbreviatingWithTildeInPath;
 @end
 
 @implementation NSString(WebKitExtras)
 
-- (uint64_t)_web_stringByAbbreviatingWithTildeInPath
+- (NSString)_web_stringByAbbreviatingWithTildeInPath
 {
   stringByResolvingSymlinksInPath = [(NSString *)NSHomeDirectory() stringByResolvingSymlinksInPath];
   if ([self hasPrefix:stringByResolvingSymlinksInPath])
@@ -34,7 +34,7 @@
   return v1;
 }
 
-+ (uint64_t)_webkit_localCacheDirectoryWithBundleIdentifier:()WebKitExtras
++ (NSString)_webkit_localCacheDirectoryWithBundleIdentifier:()WebKitExtras
 {
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v5 = [standardUserDefaults objectForKey:WebKitLocalCacheDefaultsKey];

@@ -117,10 +117,9 @@ void __73__CacheDeleteNotificationObserver__onQueueConfigurePurgeMarkerForVolume
 
 void __77__CacheDeleteNotificationObserver__onQueueSubscribeToNotificationsForVolume___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  objc_copyWeak(&v2, (a1 + 40));
+  objc_copyWeak(&v1, (a1 + 40));
   CacheDeleteEnumerateRemovedFilesInDirectories();
-  objc_destroyWeak(&v2);
+  objc_destroyWeak(&v1);
 }
 
 void __77__CacheDeleteNotificationObserver__onQueueSubscribeToNotificationsForVolume___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -136,31 +135,31 @@ void __77__CacheDeleteNotificationObserver__onQueueSubscribeToNotificationsForVo
 
 - (void)_onQueueProcessNotifications:(__CFArray *)notifications
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v5 = [(__CFArray *)notificationsCopy countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v5 = [(__CFArray *)notificationsCopy countByEnumeratingWithState:&v22 objects:v32 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v24;
+    v8 = *v23;
     *&v6 = 138412802;
-    v22 = v6;
+    v21 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(notificationsCopy);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
-        v11 = [v10 objectForKeyedSubscript:{@"historyDone", v22}];
+        v10 = *(*(&v22 + 1) + 8 * v9);
+        v11 = [v10 objectForKeyedSubscript:{@"historyDone", v21}];
 
         if (v11)
         {
@@ -179,12 +178,12 @@ void __77__CacheDeleteNotificationObserver__onQueueSubscribeToNotificationsForVo
             v18 = _MTLogCategoryDownload();
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v22;
-              v28 = v16;
-              v29 = 2112;
-              v30 = v17;
-              v31 = 2112;
-              v32 = WeakRetained;
+              *buf = v21;
+              v27 = v16;
+              v28 = 2112;
+              v29 = v17;
+              v30 = 2112;
+              v31 = WeakRetained;
               _os_log_impl(&dword_1D8CEC000, v18, OS_LOG_TYPE_DEFAULT, "Found cache deleted file ('%@' => %@): (%@)", buf, 0x20u);
             }
 
@@ -198,7 +197,7 @@ void __77__CacheDeleteNotificationObserver__onQueueSubscribeToNotificationsForVo
             if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v28 = v10;
+              v27 = v10;
               _os_log_impl(&dword_1D8CEC000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Unhandled CacheDeleteEvent: %@", buf, 0xCu);
             }
           }
@@ -208,14 +207,12 @@ void __77__CacheDeleteNotificationObserver__onQueueSubscribeToNotificationsForVo
       }
 
       while (v7 != v9);
-      v20 = [(__CFArray *)notificationsCopy countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v20 = [(__CFArray *)notificationsCopy countByEnumeratingWithState:&v22 objects:v32 count:16];
       v7 = v20;
     }
 
     while (v20);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (CacheDeleteNotificationObserverDelegate)delegate

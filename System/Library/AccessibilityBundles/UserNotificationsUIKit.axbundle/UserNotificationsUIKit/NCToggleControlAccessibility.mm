@@ -5,6 +5,7 @@
 - (id)accessibilityCustomActions;
 - (id)accessibilityLabel;
 - (id)accessibilityValue;
+- (void)_axSetPreviewInteractionAncestorsModal:(BOOL)modal;
 - (void)clickInteractionPresenterDidDismiss:(id)dismiss;
 - (void)clickInteractionPresenterDidPresent:(id)present;
 @end
@@ -90,7 +91,7 @@ LABEL_7:
 
 - (id)accessibilityCustomActions
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v3 = [(NCToggleControlAccessibility *)self safeValueForKey:@"_previewInteractionPlatterPresenter"];
   v4 = [v3 safeValueForKey:@"_presentedControl"];
   accessibilityLabel = [v4 accessibilityLabel];
@@ -98,16 +99,14 @@ LABEL_7:
   if (accessibilityLabel)
   {
     v6 = [objc_alloc(MEMORY[0x29EDC78E0]) initWithName:accessibilityLabel target:self selector:sel__axPerformPreviewInteractionAction];
-    v10[0] = v6;
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return v7;
 }
@@ -122,6 +121,20 @@ LABEL_7:
 
   [v5 sendActionsForControlEvents:64];
   return 1;
+}
+
+- (void)_axSetPreviewInteractionAncestorsModal:(BOOL)modal
+{
+  modalCopy = modal;
+  v5 = [(NCToggleControlAccessibility *)self safeValueForKey:@"_previewInteractionPlatterPresenter"];
+  v8 = [v5 safeValueForKey:@"_containerView"];
+
+  [v8 setAccessibilityViewIsModal:modalCopy];
+  v6 = [(NCToggleControlAccessibility *)self _accessibilityAncestorIsKindOf:NSClassFromString(&cfstr_Sbfpagedscroll.isa)];
+  [v6 setAccessibilityViewIsModal:modalCopy];
+
+  v7 = [(NCToggleControlAccessibility *)self _accessibilityFindAncestor:&__block_literal_global_11 startWithSelf:0];
+  [v7 setAccessibilityViewIsModal:modalCopy];
 }
 
 uint64_t __71__NCToggleControlAccessibility__axSetPreviewInteractionAncestorsModal___block_invoke(uint64_t a1, void *a2)

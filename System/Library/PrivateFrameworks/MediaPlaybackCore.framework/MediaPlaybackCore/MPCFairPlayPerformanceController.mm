@@ -31,7 +31,7 @@
 
 - (void)accountManager:(id)manager didChangeAccounts:(id)accounts
 {
-  sub_1C5C64D74(0, &unk_1EC1A8BB0);
+  sub_1C5C64D74(0, &unk_1EC1A8BB0, off_1E822D740);
   sub_1C6016B10();
   managerCopy = manager;
   selfCopy = self;

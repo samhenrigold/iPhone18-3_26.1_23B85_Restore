@@ -25,7 +25,7 @@
   v14 = [contextCopy executeFetchRequest:v8 error:&v31];
   v15 = v31;
   selfCopy = self;
-  v16 = -[PLModelMigrationActionCore cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:](self, "cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:", [v14 count], 0);
+  v16 = [(PLModelMigrationActionCore *)self cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(v14) pendingParentUnitCount:0];
   v17 = v16;
   if (v14)
   {

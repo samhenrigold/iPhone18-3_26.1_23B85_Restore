@@ -63,7 +63,7 @@
 
 - (NSSet)editorialTags
 {
-  MSSuggestion.editorialTags.getter();
+  MSSuggestion.editorialTags.getter(self);
   v2 = sub_22CA20FB0();
 
   return v2;

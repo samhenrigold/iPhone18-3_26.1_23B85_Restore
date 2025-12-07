@@ -15,6 +15,8 @@
 + (id)rootURLForProviderDomainID:(id)d cachePolicy:(unint64_t)policy error:(id *)error;
 + (void)_t_discardCache;
 + (void)_t_forceReadCacheFromDisk;
++ (void)_t_ignoreUpdateNotifications:(BOOL)notifications;
++ (void)_t_loadCacheOnHandlerAdding:(BOOL)adding;
 + (void)accumulatedSizeOfItemsInDomain:(id)domain completion:(id)completion;
 + (void)accumulatedSizeOfPinnedItemsInDomain:(id)domain completion:(id)completion;
 + (void)endMonitoringProviderDomainChanges:(id)changes;
@@ -22,6 +24,7 @@
 + (void)fetchProviderDomainWithID:(id)d completionHandler:(id)handler;
 + (void)removeDomainAndPreserveDataWithID:(id)d mode:(unint64_t)mode completionHandler:(id)handler;
 + (void)removeDomainWithID:(id)d mode:(unint64_t)mode completionHandler:(id)handler;
++ (void)selectNewProviderDomain:(id)domain knownFolders:(unint64_t)folders skipReleasePrompt:(BOOL)prompt completionHandler:(id)handler;
 - (BOOL)isDataSeparatedDomain;
 - (BOOL)isDefaultDomain;
 - (BOOL)isEnterpriseDomain;
@@ -44,6 +47,9 @@
 - (void)domainStateWithCompletionHandler:(id)handler;
 - (void)encodeWithCoder:(id)coder;
 - (void)reconnectAndReimportDomainWithCompletionHandler:(id)handler;
+- (void)setEnabled:(BOOL)enabled completionHandler:(id)handler;
+- (void)setHiddenByUser:(BOOL)user completionHandler:(id)handler;
+- (void)setIndexingEnabled:(BOOL)enabled completionHandler:(id)handler;
 @end
 
 @implementation FPProviderDomain
@@ -65,7 +71,7 @@
 
 - (id)description
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   testingModes = [(FPProviderDomain *)self testingModes];
   backingStoreIdentity = [(NSFileProviderDomain *)self->_domain backingStoreIdentity];
 
@@ -73,45 +79,45 @@
   {
     v5 = objc_alloc(MEMORY[0x1E696AEC0]);
     backingStoreIdentity2 = [(NSFileProviderDomain *)self->_domain backingStoreIdentity];
-    v80 = [v5 initWithData:backingStoreIdentity2 encoding:4];
+    v79 = [v5 initWithData:backingStoreIdentity2 encoding:4];
   }
 
   else
   {
-    v80 = 0;
+    v79 = 0;
   }
 
   if (self->_errorGenerationCount)
   {
-    v79 = [MEMORY[0x1E696AEC0] stringWithFormat:@" errorGenCount:%lld", self->_errorGenerationCount];
+    v78 = [MEMORY[0x1E696AEC0] stringWithFormat:@" errorGenCount:%lld", self->_errorGenerationCount];
   }
 
   else
   {
-    v79 = &stru_1F1F94B20;
+    v78 = &stru_1F1F94B20;
   }
 
   v7 = objc_opt_new();
+  v80 = 0u;
   v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v84 = 0u;
   v8 = self->_storageURLs;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v81 objects:v85 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v80 objects:v84 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v82;
+    v11 = *v81;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v82 != v11)
+        if (*v81 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v81 + 1) + 8 * i);
+        v13 = *(*(&v80 + 1) + 8 * i);
         if ([v7 length])
         {
           [v7 appendString:{@", "}];
@@ -121,7 +127,7 @@
         [v7 appendString:fp_shortDescription];
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v81 objects:v85 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v80 objects:v84 count:16];
     }
 
     while (v10);
@@ -150,13 +156,13 @@
     v20 = "disabled";
   }
 
-  v73 = v20;
-  v74 = v19;
+  v72 = v20;
+  v73 = v19;
   v21 = self->_disconnectionState - 1;
-  v77 = v15;
-  v78 = fp_obfuscatedProviderDomainID;
-  v75 = v16;
-  v76 = fp_obfuscatedFilename;
+  v76 = v15;
+  v77 = fp_obfuscatedProviderDomainID;
+  v74 = v16;
+  v75 = fp_obfuscatedFilename;
   if (v21 > 8)
   {
     v22 = ",unknown";
@@ -167,7 +173,7 @@
     v22 = *(&off_1E793C540 + v21);
   }
 
-  v72 = v22;
+  v71 = v22;
   if (self->_owningApplicationIsHidden)
   {
     v23 = ",appHidden";
@@ -188,8 +194,8 @@
     v24 = "";
   }
 
-  v70 = v24;
-  v71 = v23;
+  v69 = v24;
+  v70 = v23;
   if (self->_hiddenByUser)
   {
     v25 = ",userHidden";
@@ -200,7 +206,7 @@
     v25 = "";
   }
 
-  v69 = v25;
+  v68 = v25;
   if (self->_backgroundActivityIsPaused)
   {
     v26 = ",backgroundPaused";
@@ -221,8 +227,8 @@
     v27 = "";
   }
 
-  v67 = v26;
-  v68 = v27;
+  v66 = v26;
+  v67 = v27;
   if (testingModes)
   {
     v28 = ",test:alwaysEnabled";
@@ -239,8 +245,8 @@
     v29 = "";
   }
 
-  v65 = v29;
-  v66 = v28;
+  v64 = v29;
+  v65 = v28;
   if (self->_supportsEnumeration)
   {
     v30 = "enum";
@@ -261,8 +267,8 @@
     v31 = "";
   }
 
-  v63 = v31;
-  v64 = v30;
+  v62 = v31;
+  v63 = v30;
   if (self->_canDisable)
   {
     v32 = ",disable";
@@ -283,8 +289,8 @@
     v33 = "";
   }
 
-  v61 = v33;
-  v62 = v32;
+  v60 = v33;
+  v61 = v32;
   if (self->_usesUniqueItemIdentifiersAcrossDevices)
   {
     v34 = ",uniqueID";
@@ -305,8 +311,8 @@
     v35 = "";
   }
 
-  v59 = v35;
-  v60 = v34;
+  v58 = v35;
+  v59 = v34;
   if (self->_readOnly)
   {
     v36 = ",RO";
@@ -317,7 +323,7 @@
     v36 = "";
   }
 
-  v58 = v36;
+  v57 = v36;
   if ([(NSFileProviderDomain *)self->_domain isErasable])
   {
     v37 = ",erasable";
@@ -338,8 +344,8 @@
     v38 = "";
   }
 
-  v56 = v38;
-  v57 = v37;
+  v55 = v38;
+  v56 = v37;
   if (self->_supportedSearchFilters)
   {
     v39 = ",searchFilt";
@@ -360,8 +366,8 @@
     v40 = "";
   }
 
-  v54 = v40;
-  v55 = v39;
+  v53 = v40;
+  v54 = v39;
   if (self->_allowsSystemDeleteAlerts)
   {
     v41 = "";
@@ -372,7 +378,7 @@
     v41 = ",noDeleteAlert";
   }
 
-  v53 = v41;
+  v52 = v41;
   if (self->_allowsContextualMenuDownloadEntry)
   {
     v42 = ",downloadAllow";
@@ -435,9 +441,7 @@
 
   v48 = FPKnownFoldersDescription(@" supportedKF:", self->_supportedKnownFolders);
   v49 = FPKnownFoldersDescription(@" replicatedKF:", [(NSFileProviderDomain *)self->_domain replicatedKnownFolders]);
-  v50 = [v77 stringWithFormat:@"<%@:%p id:%@ name:%@ urls(%d%s):%@ db:%@%@ state:%s%s%s%s%s%s%s%s features:%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%@%@>", v75, self, v78, v76, v74, v68, v7, v80, v79, v73, v67, v69, v70, v71, v72, v66, v65, v64, v63, v62, v61, v60, v59, v58, v57, v56, v55, v54, v53, v42, v43, v44, v45, v46, v47, v48, v49];
-
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = [v76 stringWithFormat:@"<%@:%p id:%@ name:%@ urls(%d%s):%@ db:%@%@ state:%s%s%s%s%s%s%s%s features:%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%@%@>", v74, self, v77, v75, v73, v67, v7, v79, v78, v72, v66, v68, v69, v70, v71, v65, v64, v63, v62, v61, v60, v59, v58, v57, v56, v55, v54, v53, v52, v42, v43, v44, v45, v46, v47, v48, v49];
 
   return v50;
 }
@@ -611,16 +615,16 @@ LABEL_15:
 
 void __43__FPProviderDomain_hasProviderDomainAccess__block_invoke()
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   Default = CFAllocatorGetDefault();
   v1 = SecTaskCreateFromSelf(Default);
   if (v1)
   {
     v2 = v1;
-    v8[0] = @"com.apple.fileprovider.acl-read";
-    v8[1] = @"com.apple.fileprovider.acl-write";
-    v8[2] = @"com.apple.fileprovider.enumerate";
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
+    v7[0] = @"com.apple.fileprovider.acl-read";
+    v7[1] = @"com.apple.fileprovider.acl-write";
+    v7[2] = @"com.apple.fileprovider.enumerate";
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
     error = 0;
     v4 = SecTaskCopyValuesForEntitlements(v2, v3, &error);
     CFRelease(v2);
@@ -652,8 +656,6 @@ void __43__FPProviderDomain_hasProviderDomainAccess__block_invoke()
       __43__FPProviderDomain_hasProviderDomainAccess__block_invoke_cold_2(v3);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)usesDSCopyEngine
@@ -751,6 +753,20 @@ void __43__FPProviderDomain_hasProviderDomainAccess__block_invoke()
 {
   v2 = +[FPProviderDomainChangesReceiver sharedChangesReceiver];
   [v2 _t_forceReadCacheFromDisk];
+}
+
++ (void)_t_loadCacheOnHandlerAdding:(BOOL)adding
+{
+  addingCopy = adding;
+  v4 = +[FPProviderDomainChangesReceiver sharedChangesReceiver];
+  [v4 _t_loadCacheOnHandlerAdding:addingCopy];
+}
+
++ (void)_t_ignoreUpdateNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v4 = +[FPProviderDomainChangesReceiver sharedChangesReceiver];
+  [v4 _t_ignoreUpdateNotifications:notificationsCopy];
 }
 
 - (FPProviderDomain)initWithProviderID:(id)d domain:(id)domain
@@ -1057,21 +1073,35 @@ LABEL_26:
   return v9;
 }
 
++ (void)selectNewProviderDomain:(id)domain knownFolders:(unint64_t)folders skipReleasePrompt:(BOOL)prompt completionHandler:(id)handler
+{
+  promptCopy = prompt;
+  handlerCopy = handler;
+  domainCopy = domain;
+  v11 = +[FPDaemonConnection sharedConnectionProxy];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __93__FPProviderDomain_selectNewProviderDomain_knownFolders_skipReleasePrompt_completionHandler___block_invoke;
+  v13[3] = &unk_1E7939100;
+  v14 = handlerCopy;
+  v12 = handlerCopy;
+  [v11 selectNewProviderDomain:domainCopy knownFolders:folders skipReleasePrompt:promptCopy completionHandler:v13];
+}
+
 void __93__FPProviderDomain_selectNewProviderDomain_knownFolders_skipReleasePrompt_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *MEMORY[0x1E696A250];
-  v9 = @"NSFileProviderErrorDomain";
-  v10 = v3;
-  v11 = *MEMORY[0x1E696A798];
+  v8 = @"NSFileProviderErrorDomain";
+  v9 = v3;
+  v10 = *MEMORY[0x1E696A798];
   v4 = MEMORY[0x1E695DEC8];
   v5 = a2;
-  v6 = [v4 arrayWithObjects:&v9 count:3];
-  v7 = [v5 fp_unwrappedErrorForDomains:{v6, v9, v10, v11, v12}];
+  v6 = [v4 arrayWithObjects:&v8 count:3];
+  v7 = [v5 fp_unwrappedErrorForDomains:{v6, v8, v9, v10, v11}];
 
   (*(v2 + 16))(v2, v7);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -1091,6 +1121,68 @@ void __93__FPProviderDomain_selectNewProviderDomain_knownFolders_skipReleaseProm
   }
 
   return v7;
+}
+
+- (void)setEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  self->_enabled = enabled;
+  handlerCopy = handler;
+  v10 = +[FPDaemonConnection sharedConnectionProxy];
+  identifier = [(NSFileProviderDomain *)self->_domain identifier];
+  v8 = identifier;
+  if (identifier)
+  {
+    v9 = identifier;
+  }
+
+  else
+  {
+    v9 = @"NSFileProviderDomainDefaultIdentifier";
+  }
+
+  [v10 setEnabled:enabledCopy forDomainIdentifier:v9 providerIdentifier:self->_providerID completionHandler:handlerCopy];
+}
+
+- (void)setHiddenByUser:(BOOL)user completionHandler:(id)handler
+{
+  userCopy = user;
+  self->_hiddenByUser = user;
+  handlerCopy = handler;
+  v10 = [FPDaemonConnection remoteObjectProxyWithErrorHandler:handlerCopy];
+  identifier = [(NSFileProviderDomain *)self->_domain identifier];
+  v8 = identifier;
+  if (identifier)
+  {
+    v9 = identifier;
+  }
+
+  else
+  {
+    v9 = @"NSFileProviderDomainDefaultIdentifier";
+  }
+
+  [v10 setHiddenByUser:userCopy forDomainIdentifier:v9 providerIdentifier:self->_providerID completionHandler:handlerCopy];
+}
+
+- (void)setIndexingEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  v10 = [FPDaemonConnection remoteObjectProxyWithErrorHandler:handlerCopy];
+  identifier = [(NSFileProviderDomain *)self->_domain identifier];
+  v8 = identifier;
+  if (identifier)
+  {
+    v9 = identifier;
+  }
+
+  else
+  {
+    v9 = @"NSFileProviderDomainDefaultIdentifier";
+  }
+
+  [v10 setIndexingEnabled:enabledCopy forDomainIdentifier:v9 providerIdentifier:self->_providerID completionHandler:handlerCopy];
 }
 
 - (BOOL)isMainiCloudDriveDomain
@@ -1126,7 +1218,7 @@ void __93__FPProviderDomain_selectNewProviderDomain_knownFolders_skipReleaseProm
   v16 = 0;
   if ([lCopy fp_matchesFileProviderHeuristics:geteuid()])
   {
-    FPPrecheckTCCReadAccess(lCopy);
+    FPPrecheckTCCReadAccess();
     v6 = +[FPDaemonConnection synchronousSharedConnectionProxy];
     v10[0] = MEMORY[0x1E69E9820];
     v10[1] = 3221225472;
@@ -1455,12 +1547,12 @@ void __77__FPProviderDomain_removeDomainAndPreserveDataWithID_mode_completionHan
 
 - (void)domainStateWithCompletionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v32 = 0;
+  v31 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   personaIdentifier = [(FPProviderDomain *)self personaIdentifier];
   v9 = personaIdentifier;
@@ -1480,11 +1572,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v31 = 0;
-  v12 = [currentPersona copyCurrentPersonaContextWithError:&v31];
-  v13 = v31;
-  v14 = v32;
-  v32 = v12;
+  v30 = 0;
+  v12 = [currentPersona copyCurrentPersonaContextWithError:&v30];
+  v13 = v30;
+  v14 = v31;
+  v31 = v12;
 
   if (v13)
   {
@@ -1509,26 +1601,25 @@ LABEL_13:
   }
 
 LABEL_14:
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __53__FPProviderDomain_domainStateWithCompletionHandler___block_invoke;
-  v29[3] = &unk_1E7939EA8;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __53__FPProviderDomain_domainStateWithCompletionHandler___block_invoke;
+  v28[3] = &unk_1E7939EA8;
   v20 = handlerCopy;
-  v30 = v20;
-  v21 = [FPFrameworkOverridesIterator newIteratorWithNotFoundHandler:v29];
+  v29 = v20;
+  v21 = [FPFrameworkOverridesIterator newIteratorWithNotFoundHandler:v28];
   identifier = [(FPProviderDomain *)self identifier];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __53__FPProviderDomain_domainStateWithCompletionHandler___block_invoke_2;
-  v26[3] = &unk_1E793C4F8;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __53__FPProviderDomain_domainStateWithCompletionHandler___block_invoke_2;
+  v25[3] = &unk_1E793C4F8;
   v23 = v21;
-  v27 = v23;
+  v26 = v23;
   v24 = v20;
-  v28 = v24;
-  [v23 FPStateForDomainWithID:identifier completionHandler:v26];
+  v27 = v24;
+  [v23 FPStateForDomainWithID:identifier completionHandler:v25];
 
-  _FPRestorePersona(&v32);
-  v25 = *MEMORY[0x1E69E9840];
+  _FPRestorePersona(&v31);
 }
 
 uint64_t __53__FPProviderDomain_domainStateWithCompletionHandler___block_invoke(uint64_t a1)
@@ -1583,7 +1674,7 @@ void __53__FPProviderDomain_domainStateWithCompletionHandler___block_invoke_2(ui
 
 + (id)_generateDomainIDFromDSID:(id)d
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = fp_current_or_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -1640,41 +1731,41 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v17 = objc_autoreleasePoolPush();
+  v16 = objc_autoreleasePoolPush();
   defaultStore = [MEMORY[0x1E6959A48] defaultStore];
-  v19 = [defaultStore accountTypeWithAccountTypeIdentifier:*MEMORY[0x1E69597F8]];
-  [defaultStore accountsWithAccountType:v19];
+  v18 = [defaultStore accountTypeWithAccountTypeIdentifier:*MEMORY[0x1E69597F8]];
+  [defaultStore accountsWithAccountType:v18];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v20 = v32 = 0u;
-  identifier = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v19 = v31 = 0u;
+  identifier = [v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (identifier)
   {
-    v27 = v19;
-    v28 = v17;
-    v22 = *v30;
+    v26 = v18;
+    v27 = v16;
+    v21 = *v29;
     while (2)
     {
       for (i = 0; i != identifier; i = i + 1)
       {
-        if (*v30 != v22)
+        if (*v29 != v21)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v29 + 1) + 8 * i);
-        aa_personID = [v24 aa_personID];
-        v26 = [aa_personID isEqualToString:v12];
+        v23 = *(*(&v28 + 1) + 8 * i);
+        aa_personID = [v23 aa_personID];
+        v25 = [aa_personID isEqualToString:v12];
 
-        if (v26)
+        if (v25)
         {
-          identifier = [v24 identifier];
+          identifier = [v23 identifier];
           goto LABEL_31;
         }
       }
 
-      identifier = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      identifier = [v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (identifier)
       {
         continue;
@@ -1684,11 +1775,11 @@ LABEL_13:
     }
 
 LABEL_31:
-    v19 = v27;
-    v17 = v28;
+    v18 = v26;
+    v16 = v27;
   }
 
-  objc_autoreleasePoolPop(v17);
+  objc_autoreleasePoolPop(v16);
   if (identifier)
   {
     v14 = [MEMORY[0x1E696AEC0] fp_providerDomainIDFromProviderID:@"com.apple.CloudDocs.iCloudDriveFileProvider" domainIdentifier:identifier];
@@ -1700,7 +1791,6 @@ LABEL_31:
   }
 
 LABEL_14:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1804,12 +1894,11 @@ LABEL_9:
 
 - (void)domainFullDisplayName
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(self + 64);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_fault_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_FAULT, "[CRIT] providerDisplayName was empty in domainFullDisplayName, providerId: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_FAULT, "[CRIT] providerDisplayName was empty in domainFullDisplayName, providerId: %{public}@", &v3, 0xCu);
 }
 
 + (void)fetchProviderDomainWithID:completionHandler:.cold.1()
@@ -1830,23 +1919,21 @@ LABEL_9:
 
 void __43__FPProviderDomain_hasProviderDomainAccess__block_invoke_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] Cannot fetch entitlements from SecureTask %{public}@ error: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] Cannot fetch entitlements from SecureTask %{public}@ error: %{public}@", &v4, 0x16u);
 }
 
 - (void)domainStateWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] won't restore persona: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] won't restore persona: %@", &v2, 0xCu);
 }
 
 - (void)domainStateWithCompletionHandler:(uint8_t *)buf .cold.2(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -1860,24 +1947,21 @@ void __43__FPProviderDomain_hasProviderDomainAccess__block_invoke_cold_1(uint64_
 
 + (void)_generateDomainIDFromDSID:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [a1 path];
   v4 = [v3 fp_prettyPath];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Generating domainID for %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Generating domainID for %@", &v5, 0xCu);
 }
 
 + (void)_generateDomainIDFromDSID:(NSObject *)a1 .cold.2(NSObject *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_1AAAE1000, a1, OS_LOG_TYPE_ERROR, "[ERROR] Failed opening URL: %d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_1AAAE1000, a1, OS_LOG_TYPE_ERROR, "[ERROR] Failed opening URL: %d", v3, 8u);
 }
 
 @end

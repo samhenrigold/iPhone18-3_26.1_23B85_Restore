@@ -48,47 +48,45 @@
 
 - (void)loadView
 {
-  v29[4] = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = WFWebViewController;
-  [(WFWebViewController *)&v28 loadView];
+  v28[4] = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = WFWebViewController;
+  [(WFWebViewController *)&v27 loadView];
   webView = [(WFWebViewController *)self webView];
   [webView setTranslatesAutoresizingMaskIntoConstraints:0];
   view = [(WFWebViewController *)self view];
   [view addSubview:webView];
 
-  v27 = objc_opt_new();
-  [v27 configureWithOpaqueBackground];
+  v26 = objc_opt_new();
+  [v26 configureWithOpaqueBackground];
   navigationController = [(WFWebViewController *)self navigationController];
   navigationBar = [navigationController navigationBar];
-  [navigationBar setScrollEdgeAppearance:v27];
+  [navigationBar setScrollEdgeAppearance:v26];
 
-  v18 = MEMORY[0x277CCAAD0];
+  v17 = MEMORY[0x277CCAAD0];
   topAnchor = [webView topAnchor];
   view2 = [(WFWebViewController *)self view];
   safeAreaLayoutGuide = [view2 safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
-  v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v29[0] = v22;
+  v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v28[0] = v21;
   bottomAnchor = [webView bottomAnchor];
   view3 = [(WFWebViewController *)self view];
   bottomAnchor2 = [view3 bottomAnchor];
-  v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v29[1] = v17;
+  v16 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v28[1] = v16;
   leadingAnchor = [webView leadingAnchor];
   view4 = [(WFWebViewController *)self view];
   leadingAnchor2 = [view4 leadingAnchor];
   v10 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v29[2] = v10;
+  v28[2] = v10;
   trailingAnchor = [webView trailingAnchor];
   view5 = [(WFWebViewController *)self view];
   trailingAnchor2 = [view5 trailingAnchor];
   v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v29[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
-  [v18 activateConstraints:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v28[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+  [v17 activateConstraints:v15];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -192,7 +190,7 @@ LABEL_7:
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action preferences:(id)preferences decisionHandler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   preferencesCopy = preferences;
   handlerCopy = handler;
@@ -208,9 +206,9 @@ LABEL_7:
       request = [actionCopy request];
       v15 = [request URL];
       *buf = 136315394;
-      v39 = "[WFWebViewController webView:decidePolicyForNavigationAction:preferences:decisionHandler:]";
-      v40 = 2112;
-      v41 = v15;
+      v38 = "[WFWebViewController webView:decidePolicyForNavigationAction:preferences:decisionHandler:]";
+      v39 = 2112;
+      v40 = v15;
       _os_log_impl(&dword_23E342000, v13, OS_LOG_TYPE_DEBUG, "%s Disabled JavaScript for iframe navigation to: %@", buf, 0x16u);
     }
   }
@@ -229,26 +227,26 @@ LABEL_7:
 
     v20 = MEMORY[0x277CFC220];
     v21 = WFLocalizedString(@"Submit");
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __91__WFWebViewController_webView_decidePolicyForNavigationAction_preferences_decisionHandler___block_invoke;
-    v35[3] = &unk_278C375C8;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __91__WFWebViewController_webView_decidePolicyForNavigationAction_preferences_decisionHandler___block_invoke;
+    v34[3] = &unk_278C375C8;
     v22 = handlerCopy;
-    v37 = v22;
+    v36 = v22;
     v23 = preferencesCopy;
-    v36 = v23;
-    v24 = [v20 buttonWithTitle:v21 style:0 handler:v35];
+    v35 = v23;
+    v24 = [v20 buttonWithTitle:v21 style:0 handler:v34];
     [v16 addButton:v24];
 
     v25 = MEMORY[0x277CFC220];
-    v29 = MEMORY[0x277D85DD0];
-    v30 = 3221225472;
-    v31 = __91__WFWebViewController_webView_decidePolicyForNavigationAction_preferences_decisionHandler___block_invoke_2;
-    v32 = &unk_278C375C8;
-    v34 = v22;
-    v33 = v23;
-    v26 = [v25 cancelButtonWithHandler:&v29];
-    [v16 addButton:{v26, v29, v30, v31, v32}];
+    v28 = MEMORY[0x277D85DD0];
+    v29 = 3221225472;
+    v30 = __91__WFWebViewController_webView_decidePolicyForNavigationAction_preferences_decisionHandler___block_invoke_2;
+    v31 = &unk_278C375C8;
+    v33 = v22;
+    v32 = v23;
+    v26 = [v25 cancelButtonWithHandler:&v28];
+    [v16 addButton:{v26, v28, v29, v30, v31}];
 
     v27 = WFUserInterfaceFromViewController();
     [v27 presentAlert:v16];
@@ -258,8 +256,6 @@ LABEL_7:
   {
     (*(handlerCopy + 2))(handlerCopy, 1, preferencesCopy);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (WFWebViewController)initWithWebView:(id)view

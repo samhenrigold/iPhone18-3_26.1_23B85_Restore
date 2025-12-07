@@ -42,16 +42,16 @@
 
 - (void)gestureActivatedForType:(int64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [(SBProductivityGestureEducationController *)self _itemTypeForType:?];
-  v6 = SBLogSystemGesture();
+  v6 = SBLogSystemGesture(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134218240;
+    v15 = 134218240;
     typeCopy2 = type;
-    v16 = 2048;
-    v17 = v5;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Received education suggestion for education type %lu, itemType %lu", &v14, 0x16u);
+    v17 = 2048;
+    v18 = v5;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Received education suggestion for education type %lu, itemType %lu", &v15, 0x16u);
   }
 
   if (v5)
@@ -61,35 +61,35 @@
 
     if (type == v5)
     {
-      v9 = SBLogSystemGesture();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogSystemGesture(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 134217984;
+        v15 = 134217984;
         typeCopy2 = type;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring education suggestion because currently showing education suggestion for education type %lu", &v14, 0xCu);
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring education suggestion because currently showing education suggestion for education type %lu", &v15, 0xCu);
       }
     }
 
     else
     {
       [(SBProductivityGestureEducationController *)self _loadItemMap];
-      v9 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
-      v10 = [(NSDictionary *)self->_educationItemMap objectForKeyedSubscript:v9];
-      if (!v10)
+      v10 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
+      v11 = [(NSDictionary *)self->_educationItemMap objectForKeyedSubscript:v10];
+      if (!v11)
       {
-        v10 = [[SBProductivityGestureEducationItem alloc] initWithType:v5];
-        v11 = [(NSDictionary *)self->_educationItemMap mutableCopy];
-        [v11 setObject:v10 forKeyedSubscript:v9];
-        v12 = [v11 copy];
+        v11 = [[SBProductivityGestureEducationItem alloc] initWithType:v5];
+        v12 = [(NSDictionary *)self->_educationItemMap mutableCopy];
+        [v12 setObject:v11 forKeyedSubscript:v10];
+        v13 = [v12 copy];
         educationItemMap = self->_educationItemMap;
-        self->_educationItemMap = v12;
+        self->_educationItemMap = v13;
 
         [(SBProductivityGestureEducationController *)self _itemMapUpdated];
       }
 
-      if ([(SBProductivityGestureEducationItem *)v10 isValidWithActivationForType:type])
+      if ([(SBProductivityGestureEducationItem *)v11 isValidWithActivationForType:type])
       {
-        [(SBProductivityGestureEducationController *)self _presentBannerWithEducationItem:v10];
+        [(SBProductivityGestureEducationController *)self _presentBannerWithEducationItem:v11];
       }
     }
   }
@@ -117,7 +117,7 @@
 
 - (void)_loadItemMap
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_educationItemMap)
   {
     return;
@@ -130,41 +130,41 @@
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v8 = [standardUserDefaults objectForKey:@"SBProductivityGestureEducationItemMap"];
 
-  v17 = 0;
-  v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v6 fromData:v8 error:&v17];
-  v10 = v17;
+  v18 = 0;
+  v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v6 fromData:v8 error:&v18];
+  v10 = v18;
   educationItemMap = self->_educationItemMap;
   self->_educationItemMap = v9;
 
-  v12 = SBLogSystemGesture();
-  v13 = v12;
+  v13 = SBLogSystemGesture(v12);
+  v14 = v13;
   if (v10)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = _SBFLoggingMethodProem();
+      v15 = _SBFLoggingMethodProem();
       *buf = 138543618;
-      v19 = v14;
-      v20 = 2114;
-      v21 = v10;
-      _os_log_error_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_ERROR, "%{public}@ error unarchive educationItemMap: %{public}@", buf, 0x16u);
+      v20 = v15;
+      v21 = 2114;
+      v22 = v10;
+      _os_log_error_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_ERROR, "%{public}@ error unarchive educationItemMap: %{public}@", buf, 0x16u);
 LABEL_7:
     }
   }
 
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = _SBFLoggingMethodProem();
+    v15 = _SBFLoggingMethodProem();
     *buf = 138543362;
-    v19 = v14;
-    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "%{public}@ successfully unarchive educationItemMap", buf, 0xCu);
+    v20 = v15;
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "%{public}@ successfully unarchive educationItemMap", buf, 0xCu);
     goto LABEL_7;
   }
 
   if (!self->_educationItemMap)
   {
     dictionary = [MEMORY[0x277CBEAC0] dictionary];
-    v16 = self->_educationItemMap;
+    v17 = self->_educationItemMap;
     self->_educationItemMap = dictionary;
   }
 }
@@ -180,7 +180,7 @@ LABEL_7:
 
 - (void)_presentBannerWithEducationItem:(id)item
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   educationPillViewController = self->_educationPillViewController;
   itemCopy = item;
   [(SBProductivityGestureEducationController *)self _resetPillViewController:educationPillViewController];
@@ -192,20 +192,21 @@ LABEL_7:
   [(SBProductivityGestureEducationPillViewController *)self->_educationPillViewController setDelegate:self];
   bannerPoster = self->_bannerPoster;
   v9 = self->_educationPillViewController;
-  v13 = 0;
-  [(BNPosting *)bannerPoster postPresentable:v9 withOptions:1 userInfo:0 error:&v13];
-  v10 = v13;
+  v14 = 0;
+  [(BNPosting *)bannerPoster postPresentable:v9 withOptions:1 userInfo:0 error:&v14];
+  v10 = v14;
+  v11 = v10;
   if (v10)
   {
-    v11 = SBLogSystemGesture();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = SBLogSystemGesture(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = _SBFLoggingMethodProem();
+      v13 = _SBFLoggingMethodProem();
       *buf = 138543618;
-      v15 = v12;
-      v16 = 2114;
-      v17 = v10;
-      _os_log_error_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_ERROR, "%{public}@ error while presenting gesture education banner: %{public}@", buf, 0x16u);
+      v16 = v13;
+      v17 = 2114;
+      v18 = v11;
+      _os_log_error_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_ERROR, "%{public}@ error while presenting gesture education banner: %{public}@", buf, 0x16u);
     }
 
     [(SBProductivityGestureEducationController *)self _resetPillViewController:self->_educationPillViewController];
@@ -284,7 +285,7 @@ void __83__SBProductivityGestureEducationController__dismissBannerTimerWithInter
 {
   v8 = *MEMORY[0x277D85DE8];
   actionURL = [tap actionURL];
-  v5 = SBLogSystemGesture();
+  v5 = SBLogSystemGesture(actionURL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;

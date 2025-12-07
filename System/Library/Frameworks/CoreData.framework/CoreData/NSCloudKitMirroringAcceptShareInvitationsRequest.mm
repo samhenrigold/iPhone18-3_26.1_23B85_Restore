@@ -31,11 +31,10 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v7.receiver = self;
-  v7.super_class = NSCloudKitMirroringAcceptShareInvitationsRequest;
-  v4 = [-[NSCloudKitMirroringRequest description](&v7 description)];
-  shareURLsToAccept = self->_shareURLsToAccept;
-  [v4 appendFormat:@"\nshareURLs: %@\nshareMetadatas: %@", shareURLsToAccept, self->_shareMetadatasToAccept];
+  v6.receiver = self;
+  v6.super_class = NSCloudKitMirroringAcceptShareInvitationsRequest;
+  v4 = [-[NSCloudKitMirroringRequest description](&v6 description)];
+  [v4 appendFormat:@"\nshareURLs: %@\nshareMetadatas: %@", self->_shareURLsToAccept, self->_shareMetadatasToAccept];
   objc_autoreleasePoolPop(v3);
   return v4;
 }

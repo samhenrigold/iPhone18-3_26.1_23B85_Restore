@@ -46,7 +46,7 @@
 
 - (id)requestBody
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(CoreDAVXMLData);
   copyAdditionalPropElements = [(CoreDAVContainerMultiGetTask *)self copyAdditionalPropElements];
   [(CoreDAVContainerMultiGetTask *)self setAdditionalPropElements:?];
@@ -60,58 +60,58 @@
   [(CoreDAVXMLData *)v3 startElement:@"prop" inNamespace:@"DAV:" withAttributeNamesAndValues:0];
   [(CoreDAVXMLData *)v3 appendElement:@"getetag" inNamespace:@"DAV:" withStringContent:0 withAttributeNamesAndValues:0];
   [(CoreDAVXMLData *)v3 appendElement:self->_appSpecificDataProp inNamespace:self->_appSpecificNamespace withStringContent:0 withAttributeNamesAndValues:0];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   additionalPropElements = [(CoreDAVContainerMultiGetTask *)self additionalPropElements];
-  v6 = [additionalPropElements countByEnumeratingWithState:&v33 objects:v40 count:16];
+  v6 = [additionalPropElements countByEnumeratingWithState:&v32 objects:v39 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v33;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(additionalPropElements);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * i);
+        v10 = *(*(&v32 + 1) + 8 * i);
         name = [v10 name];
         nameSpace = [v10 nameSpace];
         [(CoreDAVXMLData *)v3 appendElement:name inNamespace:nameSpace withStringContent:0 withAttributeNamesAndValues:0];
       }
 
-      v7 = [additionalPropElements countByEnumeratingWithState:&v33 objects:v40 count:16];
+      v7 = [additionalPropElements countByEnumeratingWithState:&v32 objects:v39 count:16];
     }
 
     while (v7);
   }
 
   [(CoreDAVXMLData *)v3 endElement:@"prop" inNamespace:@"DAV:"];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = self->_urls;
-  v13 = [(NSSet *)obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v13 = [(NSSet *)obj countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * j);
+        v17 = *(*(&v28 + 1) + 8 * j);
         cDVRawPath = [v17 CDVRawPath];
 
         if (cDVRawPath)
@@ -130,7 +130,7 @@
           if (v22 && os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v38 = v17;
+            v37 = v17;
             _os_log_impl(&dword_2452FB000, v22, OS_LOG_TYPE_DEFAULT, "Skipping item URL, as it has no path.  URL %@", buf, 0xCu);
           }
 
@@ -138,7 +138,7 @@
         }
       }
 
-      v14 = [(NSSet *)obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v14 = [(NSSet *)obj countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v14);
@@ -152,8 +152,6 @@
 
   [(CoreDAVXMLData *)v3 endElement:self->_appSpecificMultiGetCommand inNamespace:appSpecificNamespace];
   data = [(CoreDAVXMLData *)v3 data];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -192,7 +190,7 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -210,8 +208,8 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v70 = objc_opt_class();
-          v11 = v70;
+          v69 = objc_opt_class();
+          v11 = v69;
           v12 = "%{public}@ cancelled";
           v13 = v10;
           v14 = OS_LOG_TYPE_INFO;
@@ -232,10 +230,10 @@ LABEL_34:
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v70 = objc_opt_class();
-        v71 = 2112;
-        v72 = v5;
-        v11 = v70;
+        v69 = objc_opt_class();
+        v70 = 2112;
+        v71 = v5;
+        v11 = v69;
         v12 = "%{public}@ failed: %@";
         v13 = v44;
         v14 = OS_LOG_TYPE_DEFAULT;
@@ -253,34 +251,34 @@ LABEL_35:
   }
 
   v16 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v57 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v58 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v59 = objc_alloc_init(MEMORY[0x277CBEB58]);
   [(CoreDAVTask *)self rootElement];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v56 = v67 = 0u;
-  obj = [v56 responses];
-  v62 = [obj countByEnumeratingWithState:&v64 objects:v68 count:16];
-  if (!v62)
+  v55 = v66 = 0u;
+  obj = [v55 responses];
+  v61 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+  if (!v61)
   {
-    v57 = 0;
+    v56 = 0;
     goto LABEL_38;
   }
 
-  v57 = 0;
-  v61 = *v65;
+  v56 = 0;
+  v60 = *v64;
   do
   {
     v17 = 0;
     do
     {
-      if (*v65 != v61)
+      if (*v64 != v60)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v64 + 1) + 8 * v17);
+      v18 = *(*(&v63 + 1) + 8 * v17);
       firstHref = [v18 firstHref];
       payloadAsFullURL = [firstHref payloadAsFullURL];
 
@@ -297,11 +295,11 @@ LABEL_35:
         if (v26 && os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v70 = payloadAsFullURL;
+          v69 = payloadAsFullURL;
           _os_log_impl(&dword_2452FB000, v26, OS_LOG_TYPE_DEFAULT, "Got a 404 in response to our multistatus. It looks like the item at %@ has gone away.", buf, 0xCu);
         }
 
-        [(NSSet *)v59 addObject:payloadAsFullURL];
+        [(NSSet *)v58 addObject:payloadAsFullURL];
       }
 
       successfulPropertiesToValues = [v18 successfulPropertiesToValues];
@@ -316,7 +314,7 @@ LABEL_35:
 
         if (payloadAsFullURL)
         {
-          [v58 addObject:payloadAsFullURL];
+          [v57 addObject:payloadAsFullURL];
         }
 
         v33 = objc_alloc(self->_appSpecificDataItemClass);
@@ -343,14 +341,14 @@ LABEL_35:
         if (v42 && os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v70 = v18;
+          v69 = v18;
           _os_log_impl(&dword_2452FB000, v42, OS_LOG_TYPE_DEFAULT, "Got a multi-status response with no valid property values. Response is %@", buf, 0xCu);
         }
 
         if (!self->_shouldIgnoreResponseErrors)
         {
           [MEMORY[0x277CCA9B8] errorWithDomain:@"CoreDAVErrorDomain" code:8 userInfo:0];
-          v57 = payloadAsString2 = v57;
+          v56 = payloadAsString2 = v56;
 LABEL_20:
         }
       }
@@ -358,9 +356,9 @@ LABEL_20:
       ++v17;
     }
 
-    while (v62 != v17);
-    v43 = [obj countByEnumeratingWithState:&v64 objects:v68 count:16];
-    v62 = v43;
+    while (v61 != v17);
+    v43 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+    v61 = v43;
   }
 
   while (v43);
@@ -368,14 +366,14 @@ LABEL_38:
 
   v47 = [(NSSet *)v16 count];
   v5 = 0;
-  v46 = v59;
+  v46 = v58;
   if (v47)
   {
     v48 = v47;
     if (v47 < [(NSSet *)self->_urls count])
     {
       v49 = [(NSSet *)self->_urls mutableCopy];
-      [v49 minusSet:v58];
+      [v49 minusSet:v57];
       v50 = [v49 count];
       if (v50 == [(NSSet *)self->_urls count]- v48)
       {
@@ -384,7 +382,7 @@ LABEL_38:
     }
   }
 
-  v45 = v57;
+  v45 = v56;
 LABEL_44:
   parsedContents = self->_parsedContents;
   self->_parsedContents = v16;
@@ -395,11 +393,9 @@ LABEL_44:
   v54 = v46;
 
   self->super._numDownloadedElements = [(NSSet *)v52 count];
-  v63.receiver = self;
-  v63.super_class = CoreDAVContainerMultiGetTask;
-  [(CoreDAVTask *)&v63 finishCoreDAVTaskWithError:v45];
-
-  v55 = *MEMORY[0x277D85DE8];
+  v62.receiver = self;
+  v62.super_class = CoreDAVContainerMultiGetTask;
+  [(CoreDAVTask *)&v62 finishCoreDAVTaskWithError:v45];
 }
 
 @end

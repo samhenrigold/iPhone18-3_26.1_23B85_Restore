@@ -5,10 +5,10 @@
 
 void ____NETRBClientResponseHandler_block_invoke(uint64_t a1)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2000000000;
-  v11 = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2000000000;
+  v10 = 0;
   if (__NETRBClientGetQueue_predQueue != -1)
   {
     _NETRBClientCreateInternal_cold_2();
@@ -18,26 +18,24 @@ void ____NETRBClientResponseHandler_block_invoke(uint64_t a1)
   block[1] = 0x40000000;
   block[2] = ____NETRBClientResponseHandler_block_invoke_2;
   block[3] = &unk_279EBEF48;
-  block[4] = &v8;
-  v7 = *(a1 + 56);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
+  block[4] = &v7;
+  v6 = *(a1 + 56);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 48);
   dispatch_sync(__NETRBClientGetQueue___netrbQueue, block);
-  if (!*(v9 + 6))
+  if (!*(v8 + 6))
   {
-    *(a1 + 56);
-    v2 = *(a1 + 48);
     (*(*(*(a1 + 32) + 24) + 16))();
   }
 
-  v3 = *(a1 + 48);
-  if (v3)
+  v2 = *(a1 + 48);
+  if (v2)
   {
-    xpc_release(v3);
+    xpc_release(v2);
   }
 
   CFRelease(*(a1 + 32));
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v7, 8);
 }
 
 double ____NETRBClientResponseHandler_block_invoke_2(uint64_t a1)

@@ -15,7 +15,7 @@
 
 - (id)sha256hex
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   uTF8String = [self UTF8String];
   v2 = strlen(uTF8String);
   CC_SHA256(uTF8String, v2, md);
@@ -24,8 +24,6 @@
   {
     [v3 appendFormat:@"%02x", md[i]];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

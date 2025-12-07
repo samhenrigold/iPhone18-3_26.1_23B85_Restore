@@ -53,9 +53,11 @@
 
 uint64_t __46__NMSMusicRecommendationManager_sharedManager__block_invoke()
 {
-  sharedManager___sharedManager = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedManager___sharedManager;
+  sharedManager___sharedManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (NMSMusicRecommendationManager)init
@@ -122,10 +124,10 @@ uint64_t __46__NMSMusicRecommendationManager_sharedManager__block_invoke()
   dispatch_async(queue, v4);
 }
 
-uint64_t __56__NMSMusicRecommendationManager_setWantsContentsUpdate___block_invoke(uint64_t result)
+void *__56__NMSMusicRecommendationManager_setWantsContentsUpdate___block_invoke(void *result)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(*(result + 32) + 56) != *(result + 40))
+  v7 = *MEMORY[0x277D85DE8];
+  if (*(result[4] + 56) != *(result + 40))
   {
     v1 = result;
     v2 = NMLogForCategory(5);
@@ -141,14 +143,14 @@ uint64_t __56__NMSMusicRecommendationManager_setWantsContentsUpdate___block_invo
         v3 = @"NO";
       }
 
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "[Recommendation] set wantsContentsUpdate: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "[Recommendation] set wantsContentsUpdate: %@", &v5, 0xCu);
     }
 
-    *(*(v1 + 32) + 56) = *(v1 + 40);
-    [*(v1 + 32) _removeLegacyRecommendationsDefaultsIfNecessary];
-    v4 = *(v1 + 32);
+    *(v1[4] + 56) = *(v1 + 40);
+    [v1[4] _removeLegacyRecommendationsDefaultsIfNecessary];
+    v4 = v1[4];
     if (v4[56] == 1)
     {
       [v4 _registerForPairingFinishedNotification];
@@ -159,10 +161,9 @@ uint64_t __56__NMSMusicRecommendationManager_setWantsContentsUpdate___block_invo
       [v4 _unregisterForPairingFinishedNotification];
     }
 
-    result = [*(v1 + 32) _reloadRecommendationContentsIfNecessary];
+    return [v1[4] _reloadRecommendationContentsIfNecessary];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -182,7 +183,7 @@ uint64_t __56__NMSMusicRecommendationManager_setWantsContentsUpdate___block_invo
 
 - (void)fetchRecommendationsWithQueue:(id)queue completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   completionCopy = completion;
   uUID = [MEMORY[0x277CCAD78] UUID];
@@ -191,34 +192,32 @@ uint64_t __56__NMSMusicRecommendationManager_setWantsContentsUpdate___block_invo
   {
     v10 = MEMORY[0x25F865990](completionCopy);
     *buf = 138412802;
-    v22 = uUID;
-    v23 = 2112;
-    v24 = queueCopy;
-    v25 = 2112;
-    v26 = v10;
+    v21 = uUID;
+    v22 = 2112;
+    v23 = queueCopy;
+    v24 = 2112;
+    v25 = v10;
     _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_DEFAULT, "[Recommendation] Will fetch recommendations for request: %@, queue: %@, completion: %@", buf, 0x20u);
   }
 
   queue = self->_queue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke;
-  v16[3] = &unk_27993E978;
-  v17 = queueCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke;
+  v15[3] = &unk_27993E978;
+  v16 = queueCopy;
   selfCopy = self;
-  v19 = uUID;
-  v20 = completionCopy;
+  v18 = uUID;
+  v19 = completionCopy;
   v12 = completionCopy;
   v13 = uUID;
   v14 = queueCopy;
-  dispatch_async(queue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v15);
 }
 
 void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -239,7 +238,7 @@ void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completio
     {
       v7 = *(a1 + 48);
       *buf = 138412290;
-      v39 = v7;
+      v38 = v7;
       _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[Recommendation] Will return existing recommendations for request: %@", buf, 0xCu);
     }
 
@@ -250,10 +249,10 @@ void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completio
       block[1] = 3221225472;
       block[2] = __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_79;
       block[3] = &unk_27993E8A8;
-      v35 = *(a1 + 48);
+      v34 = *(a1 + 48);
       v9 = *(a1 + 56);
-      v36 = v8;
-      v37 = v9;
+      v35 = v8;
+      v36 = v9;
       v10 = v8;
       dispatch_async(v4, block);
     }
@@ -270,7 +269,7 @@ void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completio
       {
         v15 = *(a1 + 48);
         *buf = 138412290;
-        v39 = v15;
+        v38 = v15;
         _os_log_impl(&dword_25B27B000, v12, OS_LOG_TYPE_DEFAULT, "[Recommendation] Initial fetch started for request: %@", buf, 0xCu);
       }
 
@@ -278,21 +277,21 @@ void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completio
       dispatch_group_enter(v16);
       objc_initWeak(buf, *(a1 + 40));
       v17 = *(a1 + 40);
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_80;
-      v30[3] = &unk_27993E950;
-      v31 = *(a1 + 48);
-      objc_copyWeak(&v33, buf);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_80;
+      v29[3] = &unk_27993E950;
+      v30 = *(a1 + 48);
+      objc_copyWeak(&v32, buf);
       v18 = v16;
-      v32 = v18;
-      [v17 _reloadRecommendationsFromDefaultsWithCompletion:v30];
+      v31 = v18;
+      [v17 _reloadRecommendationsFromDefaultsWithCompletion:v29];
       v19 = *(a1 + 40);
       v20 = *(v19 + 32);
       *(v19 + 32) = v18;
       v21 = v18;
 
-      objc_destroyWeak(&v33);
+      objc_destroyWeak(&v32);
       objc_destroyWeak(buf);
     }
 
@@ -302,7 +301,7 @@ void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completio
       {
         v14 = *(a1 + 48);
         *buf = 138412290;
-        v39 = v14;
+        v38 = v14;
         _os_log_impl(&dword_25B27B000, v12, OS_LOG_TYPE_DEFAULT, "[Recommendation] Will wait for initial fetch to complete for request: %@", buf, 0xCu);
       }
     }
@@ -312,49 +311,44 @@ void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completio
       v22 = *(a1 + 40);
       v23 = *(v22 + 32);
       v24 = *(v22 + 16);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_82;
-      v26[3] = &unk_27993E978;
-      v26[4] = v22;
-      v27 = v4;
-      v28 = *(a1 + 48);
-      v29 = *(a1 + 56);
-      dispatch_group_notify(v23, v24, v26);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_82;
+      v25[3] = &unk_27993E978;
+      v25[4] = v22;
+      v26 = v4;
+      v27 = *(a1 + 48);
+      v28 = *(a1 + 56);
+      dispatch_group_notify(v23, v24, v25);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_79(void *a1)
+uint64_t __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_79(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = NMLogForCategory(5);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = a1[4];
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "[Recommendation] Calling completion handler with existing recommendations for request: %@", &v7, 0xCu);
-  }
-
-  v4 = a1[5];
-  result = (*(a1[6] + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_80(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "[Recommendation] Initial fetch complete for request: %@", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "[Recommendation] Calling completion handler with existing recommendations for request: %@", &v5, 0xCu);
+  }
+
+  return (*(*(a1 + 48) + 16))();
+}
+
+void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_80(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = NMLogForCategory(5);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "[Recommendation] Initial fetch complete for request: %@", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -365,8 +359,6 @@ void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completio
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_82(uint64_t a1)
@@ -385,22 +377,19 @@ void __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completio
   dispatch_async(v3, block);
 }
 
-uint64_t __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_2(void *a1)
+uint64_t __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "[Recommendation] Calling completion handler with newly fetched recommendations for request: %@", &v7, 0xCu);
+    v3 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "[Recommendation] Calling completion handler with newly fetched recommendations for request: %@", &v5, 0xCu);
   }
 
-  v4 = a1[5];
-  result = (*(a1[6] + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (BOOL)hasSelectedRecommendationWithIdentifier:(id)identifier
@@ -425,13 +414,13 @@ uint64_t __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_compl
 
 - (void)persistRecommendationsSelections:(id)selections
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   selectionsCopy = selections;
   v4 = NMLogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = selectionsCopy;
+    v23 = selectionsCopy;
     _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Recommendation] Persisting recommendation selections for: %@", buf, 0xCu);
   }
 
@@ -439,32 +428,32 @@ uint64_t __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_compl
   musicRecommendationDict = [v5 musicRecommendationDict];
   v7 = [musicRecommendationDict mutableCopy];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = selectionsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v13, "isSelected", v18)}];
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v13, "isSelected", v17)}];
         identifier = [v13 identifier];
         [v7 setObject:v14 forKeyedSubscript:identifier];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -472,8 +461,6 @@ uint64_t __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_compl
 
   v16 = [v7 copy];
   [v5 setMusicRecommendationDict:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSubscriptionStatusDidChangeNotification:(id)notification
@@ -496,7 +483,7 @@ uint64_t __74__NMSMusicRecommendationManager_fetchRecommendationsWithQueue_compl
 
 void __80__NMSMusicRecommendationManager__handleSubscriptionStatusDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = +[NMSSubscriptionManager sharedManager];
   v3 = [v2 hasCapability:1];
 
@@ -507,29 +494,27 @@ void __80__NMSMusicRecommendationManager__handleSubscriptionStatusDidChangeNotif
     {
       v5 = +[NMSSubscriptionManager sharedManager];
       *buf = 134217984;
-      v10 = [v5 subscriptionCapabilities];
+      v9 = [v5 subscriptionCapabilities];
       _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Recommendation] Subscription capabilities changed to %lu. Removing recommendations defaults.", buf, 0xCu);
     }
 
     [*(a1 + 32) _removePreviousRecommendationDefaults];
     [*(a1 + 32) _removePreviousCachedRecommendationsResponses];
     v6 = *(a1 + 32);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __80__NMSMusicRecommendationManager__handleSubscriptionStatusDidChangeNotification___block_invoke_86;
-    v8[3] = &unk_27993E9A0;
-    v8[4] = v6;
-    [v6 _reloadRecommendationsFromDefaultsWithCompletion:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __80__NMSMusicRecommendationManager__handleSubscriptionStatusDidChangeNotification___block_invoke_86;
+    v7[3] = &unk_27993E9A0;
+    v7[4] = v6;
+    [v6 _reloadRecommendationsFromDefaultsWithCompletion:v7];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __80__NMSMusicRecommendationManager__handleSubscriptionStatusDidChangeNotification___block_invoke_86(uint64_t result, int a2)
+id *__80__NMSMusicRecommendationManager__handleSubscriptionStatusDidChangeNotification___block_invoke_86(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _notifyMusicRecommendationsDidUpdateNotification];
+    return [result[4] _notifyMusicRecommendationsDidUpdateNotification];
   }
 
   return result;
@@ -566,11 +551,11 @@ uint64_t __75__NMSMusicRecommendationManager__handleActiveAccountDidChangeNotifi
   return [v3 _reloadRecommendationsFromDefaultsWithCompletion:v5];
 }
 
-uint64_t __75__NMSMusicRecommendationManager__handleActiveAccountDidChangeNotification___block_invoke_87(uint64_t result, int a2)
+id *__75__NMSMusicRecommendationManager__handleActiveAccountDidChangeNotification___block_invoke_87(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _notifyMusicRecommendationsDidUpdateNotification];
+    return [result[4] _notifyMusicRecommendationsDidUpdateNotification];
   }
 
   return result;
@@ -638,11 +623,11 @@ void __89__NMSMusicRecommendationManager__handleRecommendationStoreContentsDidCh
   }
 }
 
-uint64_t __89__NMSMusicRecommendationManager__handleRecommendationStoreContentsDidChangeNotification___block_invoke_88(uint64_t result, int a2)
+id *__89__NMSMusicRecommendationManager__handleRecommendationStoreContentsDidChangeNotification___block_invoke_88(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _notifyMusicRecommendationsDidUpdateNotification];
+    return [result[4] _notifyMusicRecommendationsDidUpdateNotification];
   }
 
   return result;
@@ -662,7 +647,7 @@ uint64_t __89__NMSMusicRecommendationManager__handleRecommendationStoreContentsD
   dispatch_async(queue, v7);
 }
 
-uint64_t __86__NMSMusicRecommendationManager__handleRecommendationSelectionsDidChangeNotification___block_invoke(uint64_t a1)
+void *__86__NMSMusicRecommendationManager__handleRecommendationSelectionsDidChangeNotification___block_invoke(uint64_t a1)
 {
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -723,11 +708,11 @@ uint64_t __74__NMSMusicRecommendationManager__handleMediaLibraryDidChangeNotific
   return [v3 _reloadRecommendationsFromDefaultsWithCompletion:v5];
 }
 
-uint64_t __74__NMSMusicRecommendationManager__handleMediaLibraryDidChangeNotification___block_invoke_89(uint64_t result, int a2)
+id *__74__NMSMusicRecommendationManager__handleMediaLibraryDidChangeNotification___block_invoke_89(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _notifyMusicRecommendationsDidUpdateNotification];
+    return [result[4] _notifyMusicRecommendationsDidUpdateNotification];
   }
 
   return result;
@@ -762,11 +747,11 @@ uint64_t __91__NMSMusicRecommendationManager__handleMediaLibraryDynamicPropertie
   return [v3 _reloadRecommendationsFromDefaultsWithCompletion:v5];
 }
 
-uint64_t __91__NMSMusicRecommendationManager__handleMediaLibraryDynamicPropertiesDidChangeNotification___block_invoke_90(uint64_t result, int a2)
+id *__91__NMSMusicRecommendationManager__handleMediaLibraryDynamicPropertiesDidChangeNotification___block_invoke_90(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _notifyMusicRecommendationsDidUpdateNotification];
+    return [result[4] _notifyMusicRecommendationsDidUpdateNotification];
   }
 
   return result;
@@ -801,11 +786,11 @@ uint64_t __91__NMSMusicRecommendationManager__handleCloudControllerIsCloudEnable
   return [v3 _reloadRecommendationsFromDefaultsWithCompletion:v5];
 }
 
-uint64_t __91__NMSMusicRecommendationManager__handleCloudControllerIsCloudEnabledDidChangeNotification___block_invoke_91(uint64_t result, int a2)
+id *__91__NMSMusicRecommendationManager__handleCloudControllerIsCloudEnabledDidChangeNotification___block_invoke_91(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _notifyMusicRecommendationsDidUpdateNotification];
+    return [result[4] _notifyMusicRecommendationsDidUpdateNotification];
   }
 
   return result;
@@ -864,11 +849,11 @@ uint64_t __80__NMSMusicRecommendationManager__handlePairedDeviceDidBecomeActiveN
   return [v3 _reloadRecommendationsFromDefaultsWithCompletion:v5];
 }
 
-uint64_t __80__NMSMusicRecommendationManager__handlePairedDeviceDidBecomeActiveNotification___block_invoke_92(uint64_t result, int a2)
+id *__80__NMSMusicRecommendationManager__handlePairedDeviceDidBecomeActiveNotification___block_invoke_92(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _notifyMusicRecommendationsDidUpdateNotification];
+    return [result[4] _notifyMusicRecommendationsDidUpdateNotification];
   }
 
   return result;
@@ -1004,7 +989,7 @@ void __82__NMSMusicRecommendationManager__reloadRecommendationsFromDefaultsWithC
 
 - (void)_reloadLibraryRecommendations
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _isLibraryRecommendationExpired = [(NMSMusicRecommendationManager *)self _isLibraryRecommendationExpired];
   v4 = NMLogForCategory(5);
@@ -1020,25 +1005,25 @@ void __82__NMSMusicRecommendationManager__reloadRecommendationsFromDefaultsWithC
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
     _sortedContainersBasedOnRecency = [(NMSMusicRecommendationManager *)self _sortedContainersBasedOnRecency];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v9 = [_sortedContainersBasedOnRecency countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v9 = [_sortedContainersBasedOnRecency countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v27;
+      v11 = *v26;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(_sortedContainersBasedOnRecency);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
+          v13 = *(*(&v25 + 1) + 8 * i);
           type = [v13 type];
           v15 = array;
           if (type)
@@ -1055,7 +1040,7 @@ void __82__NMSMusicRecommendationManager__reloadRecommendationsFromDefaultsWithC
           [v15 addObject:persistentID];
         }
 
-        v10 = [_sortedContainersBasedOnRecency countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v10 = [_sortedContainersBasedOnRecency countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v10);
@@ -1098,141 +1083,139 @@ void __82__NMSMusicRecommendationManager__reloadRecommendationsFromDefaultsWithC
       v19 = +[NMSyncDefaults sharedDefaults];
       libraryRecommendationExpirationDate = [v19 libraryRecommendationExpirationDate];
       *buf = 138543362;
-      v32 = libraryRecommendationExpirationDate;
+      v31 = libraryRecommendationExpirationDate;
       _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Recommendation] NOT evaluating library music recommendations; expiration date is: %{public}@.", buf, 0xCu);
     }
 
     [(NMSMusicRecommendationManager *)self _scheduleNextLibraryRecommendationReloadIfNecessary];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sortedContainersBasedOnRecency
 {
-  v78[5] = *MEMORY[0x277D85DE8];
+  v77[5] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   autoupdatingSharedLibrary = [MEMORY[0x277D2B5F8] autoupdatingSharedLibrary];
   v4 = MEMORY[0x277D2B5A8];
   v5 = MEMORY[0x277CBEC28];
   v6 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B4C0] equalToValue:MEMORY[0x277CBEC28]];
-  v78[0] = v6;
+  v77[0] = v6;
   v7 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B4B0] equalToValue:MEMORY[0x277CBEC38]];
-  v78[1] = v7;
+  v77[1] = v7;
   v8 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B4F0] equalToValue:v5];
-  v78[2] = v8;
+  v77[2] = v8;
   v9 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B4E8] equalToValue:v5];
-  v78[3] = v9;
+  v77[3] = v9;
   v10 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B4B8] equalToValue:v5];
-  v78[4] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:5];
+  v77[4] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:5];
   v12 = [v4 predicateMatchingPredicates:v11];
 
-  v57 = v12;
+  v56 = v12;
   v13 = [MEMORY[0x277D2B5C8] unrestrictedQueryWithLibrary:autoupdatingSharedLibrary predicate:v12 orderingTerms:0];
   v14 = *MEMORY[0x277D2B4A8];
-  v77[0] = *MEMORY[0x277D2B4D8];
-  v77[1] = v14;
+  v76[0] = *MEMORY[0x277D2B4D8];
+  v76[1] = v14;
   v15 = *MEMORY[0x277D2B4E0];
-  v77[2] = *MEMORY[0x277D2B4A0];
-  v77[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:4];
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__block_invoke;
-  v70[3] = &unk_27993EA18;
+  v76[2] = *MEMORY[0x277D2B4A0];
+  v76[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:4];
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__block_invoke;
+  v69[3] = &unk_27993EA18;
   v17 = autoupdatingSharedLibrary;
-  v71 = v17;
+  v70 = v17;
   v18 = array;
-  v72 = v18;
-  v56 = v13;
-  [v13 enumeratePersistentIDsAndProperties:v16 usingBlock:v70];
+  v71 = v18;
+  v55 = v13;
+  [v13 enumeratePersistentIDsAndProperties:v16 usingBlock:v69];
 
   v19 = [MEMORY[0x277CBEB58] set];
-  v54 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B580] equalToValue:&unk_286C8D718];
+  v53 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B580] equalToValue:&unk_286C8D718];
   v20 = [MEMORY[0x277D2B620] unrestrictedQueryWithLibrary:v17 predicate:? orderingTerms:?];
-  v76 = *MEMORY[0x277D2B530];
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v76 count:1];
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__block_invoke_107;
-  v68[3] = &unk_27993EA40;
+  v75 = *MEMORY[0x277D2B530];
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v75 count:1];
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__block_invoke_107;
+  v67[3] = &unk_27993EA40;
   v22 = v19;
-  v69 = v22;
-  v53 = v20;
-  [v20 enumeratePersistentIDsAndProperties:v21 usingBlock:v68];
+  v68 = v22;
+  v52 = v20;
+  [v20 enumeratePersistentIDsAndProperties:v21 usingBlock:v67];
 
-  v52 = [MEMORY[0x277D2B5D0] predicateWithProperty:*MEMORY[0x277D2B490] values:v22];
+  v51 = [MEMORY[0x277D2B5D0] predicateWithProperty:*MEMORY[0x277D2B490] values:v22];
   v23 = [MEMORY[0x277D2B5A0] unrestrictedAllItemsQueryWithlibrary:v17 predicate:? orderingTerms:?];
   v24 = *MEMORY[0x277D2B478];
-  v75[0] = *MEMORY[0x277D2B480];
-  v75[1] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__block_invoke_2;
-  v66[3] = &unk_27993EA40;
+  v74[0] = *MEMORY[0x277D2B480];
+  v74[1] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__block_invoke_2;
+  v65[3] = &unk_27993EA40;
   v26 = array2;
-  v67 = v26;
-  v51 = v23;
-  [v23 enumeratePersistentIDsAndProperties:v25 usingBlock:v66];
+  v66 = v26;
+  v50 = v23;
+  [v23 enumeratePersistentIDsAndProperties:v25 usingBlock:v65];
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v27 = v18;
-  v28 = [v27 countByEnumeratingWithState:&v62 objects:v74 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v61 objects:v73 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v63;
+    v30 = *v62;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v63 != v30)
+        if (*v62 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v62 + 1) + 8 * i);
+        v32 = *(*(&v61 + 1) + 8 * i);
         v33 = [(NMSMusicRecommendationManager *)self _fetchAddedDateForContainer:v32];
         [v32 setAddedDate:v33];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v61 objects:v73 count:16];
     }
 
     while (v29);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v34 = v26;
-  v35 = [v34 countByEnumeratingWithState:&v58 objects:v73 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v57 objects:v72 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v59;
+    v37 = *v58;
     do
     {
       for (j = 0; j != v36; ++j)
       {
-        if (*v59 != v37)
+        if (*v58 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v58 + 1) + 8 * j);
+        v39 = *(*(&v57 + 1) + 8 * j);
         v40 = [(NMSMusicRecommendationManager *)self _fetchAddedDateForContainer:v39];
         [v39 setAddedDate:v40];
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v58 objects:v73 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v57 objects:v72 count:16];
     }
 
     while (v36);
@@ -1257,8 +1240,6 @@ void __82__NMSMusicRecommendationManager__reloadRecommendationsFromDefaultsWithC
   }
 
   v47 = [v41 subarrayWithRange:{0, v46}];
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v47;
 }
@@ -1342,7 +1323,7 @@ uint64_t __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__bl
 
 - (id)_fetchAddedDateForContainer:(id)container
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   containerCopy = container;
   type = [containerCopy type];
   v5 = MEMORY[0x277D2B538];
@@ -1360,11 +1341,11 @@ uint64_t __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__bl
   autoupdatingSharedLibrary = [MEMORY[0x277D2B5F8] autoupdatingSharedLibrary];
   v12 = [v10 unrestrictedAllItemsQueryWithlibrary:autoupdatingSharedLibrary predicate:v9 orderingTerms:0];
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__6;
-  v25 = __Block_byref_object_dispose__6;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__6;
+  v24 = __Block_byref_object_dispose__6;
   addedDate = [containerCopy addedDate];
   v14 = addedDate;
   v15 = &unk_286C8D730;
@@ -1373,21 +1354,19 @@ uint64_t __64__NMSMusicRecommendationManager__sortedContainersBasedOnRecency__bl
     v15 = addedDate;
   }
 
-  v26 = v15;
+  v25 = v15;
 
-  v27[0] = *MEMORY[0x277D2B540];
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __61__NMSMusicRecommendationManager__fetchAddedDateForContainer___block_invoke;
-  v20[3] = &unk_27993EA88;
-  v20[4] = &v21;
-  [v12 enumeratePersistentIDsAndProperties:v16 usingBlock:v20];
+  v26[0] = *MEMORY[0x277D2B540];
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __61__NMSMusicRecommendationManager__fetchAddedDateForContainer___block_invoke;
+  v19[3] = &unk_27993EA88;
+  v19[4] = &v20;
+  [v12 enumeratePersistentIDsAndProperties:v16 usingBlock:v19];
 
-  v17 = v22[5];
-  _Block_object_dispose(&v21, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = v21[5];
+  _Block_object_dispose(&v20, 8);
 
   return v17;
 }
@@ -1431,32 +1410,32 @@ void __61__NMSMusicRecommendationManager__fetchAddedDateForContainer___block_inv
 
 - (BOOL)_updateWithRecommendations:(id)recommendations
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   recommendationsCopy = recommendations;
   dispatch_assert_queue_V2(self->_queue);
   v5 = +[NMSyncDefaults sharedDefaults];
   musicRecommendationDict = [v5 musicRecommendationDict];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = recommendationsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
+        v12 = *(*(&v21 + 1) + 8 * i);
         identifier = [v12 identifier];
         v14 = [musicRecommendationDict objectForKeyedSubscript:identifier];
 
@@ -1466,7 +1445,7 @@ void __61__NMSMusicRecommendationManager__fetchAddedDateForContainer___block_inv
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v9);
@@ -1484,47 +1463,46 @@ void __61__NMSMusicRecommendationManager__fetchAddedDateForContainer___block_inv
     {
       v19 = self->_recommendations;
       *buf = 138412290;
-      v27 = v19;
+      v26 = v19;
       _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "[Recommendation] Recommendations contents updated: %@", buf, 0xCu);
     }
 
     [(NMSMusicRecommendationManager *)self persistRecommendationsSelections:self->_recommendations];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return !v15;
 }
 
 - (BOOL)_updateRecommendationsSelections
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = +[NMSyncDefaults sharedDefaults];
   musicRecommendationDict = [v3 musicRecommendationDict];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_recommendations;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
   v7 = v6 != 0;
   if (v6)
   {
     v8 = v6;
-    v19 = v6 != 0;
+    v18 = v6 != 0;
     v9 = 0;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         identifier = [v12 identifier];
         v14 = [musicRecommendationDict objectForKeyedSubscript:identifier];
 
@@ -1542,7 +1520,7 @@ void __61__NMSMusicRecommendationManager__fetchAddedDateForContainer___block_inv
         [v12 setSelected:bOOLValue];
       }
 
-      v8 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v8 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v8);
@@ -1558,50 +1536,49 @@ void __61__NMSMusicRecommendationManager__fetchAddedDateForContainer___block_inv
     {
       recommendations = self->_recommendations;
       *buf = 138412290;
-      v25 = recommendations;
+      v24 = recommendations;
       _os_log_impl(&dword_25B27B000, &v5->super, OS_LOG_TYPE_DEFAULT, "[Recommendation] Recommendations selections updated: %@", buf, 0xCu);
     }
 
-    v7 = v19;
+    v7 = v18;
   }
 
 LABEL_17:
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)_persistUpdatedRecommendationsWithResponse:(id)response
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dispatch_assert_queue_V2(self->_queue);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = self->_recommendations;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
-        v12 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v11, "isSelected", v21)}];
+        v11 = *(*(&v20 + 1) + 8 * i);
+        v12 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v11, "isSelected", v20)}];
         identifier = [v11 identifier];
         [dictionary setObject:v12 forKeyedSubscript:identifier];
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -1631,37 +1608,36 @@ LABEL_17:
   [v17 setCatalogRecommendationsLastUpdateDate:date];
 
   [v17 endBatchUpdates];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removePreviousRecommendationDefaults
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_wantsContentsUpdate)
   {
-    v17 = +[NMSyncDefaults sharedDefaults];
+    v16 = +[NMSyncDefaults sharedDefaults];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v4 = self->_recommendations;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           identifier = [v9 identifier];
           v11 = [identifier isEqualToString:NMSRecommendationRecentMusicIdentifier];
 
@@ -1673,41 +1649,38 @@ LABEL_17:
           }
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v6);
     }
 
-    [v17 beginBatchUpdates];
+    [v16 beginBatchUpdates];
     v14 = [dictionary copy];
-    [v17 setMusicRecommendationDict:v14];
+    [v16 setMusicRecommendationDict:v14];
 
-    [v17 setCachedRecommendationsData:0];
-    [v17 setCatalogRecommendationsLastUpdateDate:0];
-    [v17 setLibraryRecommendationExpirationDate:0];
-    [v17 endBatchUpdates];
+    [v16 setCachedRecommendationsData:0];
+    [v16 setCatalogRecommendationsLastUpdateDate:0];
+    [v16 setLibraryRecommendationExpirationDate:0];
+    [v16 endBatchUpdates];
     v15 = [[NMSMutableMediaSyncInfo alloc] initWithTarget:3];
     [(NMSMutableMediaSyncInfo *)v15 synchronize];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removePreviousCachedRecommendationsResponses
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25B27B000, log, OS_LOG_TYPE_ERROR, "[Recommendation] Failed to remove data from disk at url: %@ due to read error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25B27B000, log, OS_LOG_TYPE_ERROR, "[Recommendation] Failed to remove data from disk at url: %@ due to read error: %@", &v3, 0x16u);
 }
 
 - (void)_scheduleNextLibraryRecommendationReloadIfNecessary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_wantsContentsUpdate)
   {
@@ -1726,7 +1699,7 @@ LABEL_17:
       if (v9)
       {
         *buf = 138412290;
-        v19 = libraryRecommendationExpirationDate;
+        v18 = libraryRecommendationExpirationDate;
         _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Reload) Skipped scheduling library reload with expiration date: %@", buf, 0xCu);
       }
     }
@@ -1736,9 +1709,9 @@ LABEL_17:
       if (v9)
       {
         *buf = 138412546;
-        v19 = libraryRecommendationExpirationDate;
-        v20 = 2048;
-        v21 = v7;
+        v18 = libraryRecommendationExpirationDate;
+        v19 = 2048;
+        v20 = v7;
         _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Reload) Scheduling library expiration timer with date: %@ (in %f seconds)", buf, 0x16u);
       }
 
@@ -1755,15 +1728,13 @@ LABEL_17:
       handler[1] = 3221225472;
       handler[2] = __84__NMSMusicRecommendationManager__scheduleNextLibraryRecommendationReloadIfNecessary__block_invoke;
       handler[3] = &unk_27993DC58;
-      objc_copyWeak(&v17, buf);
+      objc_copyWeak(&v16, buf);
       dispatch_source_set_event_handler(v14, handler);
       dispatch_resume(self->_libraryRecommendationExpirationTimer);
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(buf);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __84__NMSMusicRecommendationManager__scheduleNextLibraryRecommendationReloadIfNecessary__block_invoke(uint64_t a1)
@@ -1829,18 +1800,16 @@ void __84__NMSMusicRecommendationManager__scheduleNextLibraryRecommendationReloa
 
 - (void)_persistUpdatedRecommendationsWithResponse:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 length];
   v4 = [MEMORY[0x277D7FB30] sharedAccountStore];
   v5 = [v4 activeStoreAccountWithError:0];
   v6 = [v5 ic_storefront];
-  v8 = 134218242;
-  v9 = v3;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_fault_impl(&dword_25B27B000, a2, OS_LOG_TYPE_FAULT, "[Recommendation] Response exceeds expected size - response data length: %lu, storefront: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218242;
+  v8 = v3;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_fault_impl(&dword_25B27B000, a2, OS_LOG_TYPE_FAULT, "[Recommendation] Response exceeds expected size - response data length: %lu, storefront: %@", &v7, 0x16u);
 }
 
 @end

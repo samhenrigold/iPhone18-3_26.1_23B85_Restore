@@ -137,15 +137,15 @@ void __40__FLLogger_runOnStoreForBundleID_block___block_invoke(void *a1)
 
 - (void)runOnStoreForBundleID:(id)d directoryPath:(id)path block:(id)block
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
   v10 = MEMORY[0x277CCACA8];
-  v25[0] = path;
-  v25[1] = @"data.sqlite";
+  v24[0] = path;
+  v24[1] = @"data.sqlite";
   v11 = MEMORY[0x277CBEA60];
   pathCopy = path;
-  v13 = [v11 arrayWithObjects:v25 count:2];
+  v13 = [v11 arrayWithObjects:v24 count:2];
   v14 = [v10 pathWithComponents:v13];
 
   context = [(FLLogger *)self context];
@@ -155,15 +155,13 @@ void __40__FLLogger_runOnStoreForBundleID_block___block_invoke(void *a1)
   block[2] = __54__FLLogger_runOnStoreForBundleID_directoryPath_block___block_invoke;
   block[3] = &unk_278FF8B68;
   block[4] = self;
-  v22 = dCopy;
-  v23 = v14;
-  v24 = blockCopy;
+  v21 = dCopy;
+  v22 = v14;
+  v23 = blockCopy;
   v17 = blockCopy;
   v18 = v14;
   v19 = dCopy;
   dispatch_sync(queue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __54__FLLogger_runOnStoreForBundleID_directoryPath_block___block_invoke(void *a1)
@@ -182,7 +180,7 @@ void __54__FLLogger_runOnStoreForBundleID_directoryPath_block___block_invoke(voi
 
 - (void)reportDataPlatformSingleEvent:(id)event forBundleID:(id)d ofSchema:(id)schema completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dCopy = d;
   schemaCopy = schema;
@@ -214,16 +212,16 @@ LABEL_9:
 
     v20 = [FLDPGBatchFactory makeBatchWithPayload:eventCopy bundleID:dCopy schema:schemaCopy];
     bundleID = [v20 bundleID];
-    v31 = v20;
+    v30 = v20;
     payload = [v20 payload];
     v23 = os_transaction_create();
     v24 = [(FLLogger *)self log];
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v38 = bundleID;
-      v39 = 2048;
-      v40 = [payload length];
+      v37 = bundleID;
+      v38 = 2048;
+      v39 = [payload length];
       _os_log_impl(&dword_24AB3F000, v24, OS_LOG_TYPE_DEFAULT, "Received persist data request for store (%@) for %lu bytes", buf, 0x16u);
     }
 
@@ -234,10 +232,10 @@ LABEL_9:
     block[2] = __74__FLLogger_reportDataPlatformSingleEvent_forBundleID_ofSchema_completion___block_invoke;
     block[3] = &unk_278FF8B40;
     block[4] = self;
-    v33 = bundleID;
-    v34 = payload;
-    v35 = v23;
-    v36 = completionCopy;
+    v32 = bundleID;
+    v33 = payload;
+    v34 = v23;
+    v35 = completionCopy;
     v27 = v23;
     v28 = payload;
     v29 = bundleID;
@@ -257,13 +255,11 @@ LABEL_9:
   }
 
 LABEL_13:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __74__FLLogger_reportDataPlatformSingleEvent_forBundleID_ofSchema_completion___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) __dispatched_persistentStoreWithId:*(a1 + 40) category:&unk_285E1AE38];
   v3 = [v2 persistUploadPayload:*(a1 + 48)];
 
@@ -273,18 +269,18 @@ void __74__FLLogger_reportDataPlatformSingleEvent_forBundleID_ofSchema_completio
     v5 = *(a1 + 40);
     v6 = [*(a1 + 48) length];
     v7 = @"failed";
-    v10 = 138412802;
-    v11 = v5;
+    v9 = 138412802;
+    v10 = v5;
     if (!v3)
     {
       v7 = @"completed successfully";
     }
 
-    v12 = 2048;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_24AB3F000, v4, OS_LOG_TYPE_DEFAULT, "Persist data request for store (%@) for %lu bytes %@", &v10, 0x20u);
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_24AB3F000, v4, OS_LOG_TYPE_DEFAULT, "Persist data request for store (%@) for %lu bytes %@", &v9, 0x20u);
   }
 
   v8 = *(a1 + 64);
@@ -292,13 +288,11 @@ void __74__FLLogger_reportDataPlatformSingleEvent_forBundleID_ofSchema_completio
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportDataPlatformBatchedEvent:(id)event forBundleID:(id)d ofSchema:(id)schema completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dCopy = d;
   schemaCopy = schema;
@@ -310,22 +304,22 @@ void __74__FLLogger_reportDataPlatformSingleEvent_forBundleID_ofSchema_completio
       -[FLLogger reportCAIncomingPayloadFromBundleID:category:size:](self, "reportCAIncomingPayloadFromBundleID:category:size:", dCopy, &unk_285E1AE38, [eventCopy length]);
       if ([FLDPGBatchFactory allowDPGBundleID:dCopy])
       {
-        v16 = [FLDPGBatchFactory makeBatchWithPayload:eventCopy bundleID:dCopy schema:schemaCopy];
-        payload = [v16 payload];
-        bundleID = [v16 bundleID];
-        v18 = [(FLLogger *)self siriStoreIdForBundleId:bundleID];
+        v15 = [FLDPGBatchFactory makeBatchWithPayload:eventCopy bundleID:dCopy schema:schemaCopy];
+        payload = [v15 payload];
+        bundleID = [v15 bundleID];
+        v17 = [(FLLogger *)self siriStoreIdForBundleId:bundleID];
 
         writeTransaction = [(FLLogger *)self writeTransaction];
-        v20 = [(FLLogger *)self log];
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v19 = [(FLLogger *)self log];
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v28 = v18;
-          v29 = 2112;
-          v30 = &unk_285E1AE38;
-          v31 = 2048;
-          v32 = [payload length];
-          _os_log_impl(&dword_24AB3F000, v20, OS_LOG_TYPE_DEFAULT, "Received persist request for store (%@, %@) for %lu bytes", buf, 0x20u);
+          v27 = v17;
+          v28 = 2112;
+          v29 = &unk_285E1AE38;
+          v30 = 2048;
+          v31 = [payload length];
+          _os_log_impl(&dword_24AB3F000, v19, OS_LOG_TYPE_DEFAULT, "Received persist request for store (%@, %@) for %lu bytes", buf, 0x20u);
         }
 
         context = [(FLLogger *)self context];
@@ -335,18 +329,18 @@ void __74__FLLogger_reportDataPlatformSingleEvent_forBundleID_ofSchema_completio
         block[2] = __75__FLLogger_reportDataPlatformBatchedEvent_forBundleID_ofSchema_completion___block_invoke;
         block[3] = &unk_278FF8B40;
         block[4] = self;
-        block[5] = v18;
+        block[5] = v17;
         block[6] = payload;
         block[7] = writeTransaction;
-        v26 = completionCopy;
+        v25 = completionCopy;
         dispatch_async(queue, block);
       }
 
       else
       {
         -[FLLogger reportCADroppedBeforePersistPayloadFromBundleID:category:size:](self, "reportCADroppedBeforePersistPayloadFromBundleID:category:size:", dCopy, &unk_285E1AE38, [eventCopy length]);
-        v23 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"FLErrorDomain" code:-9 userInfo:0];
-        (*(completionCopy + 2))(completionCopy, v23);
+        v22 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"FLErrorDomain" code:-9 userInfo:0];
+        (*(completionCopy + 2))(completionCopy, v22);
       }
     }
 
@@ -367,8 +361,6 @@ void __74__FLLogger_reportDataPlatformSingleEvent_forBundleID_ofSchema_completio
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __75__FLLogger_reportDataPlatformBatchedEvent_forBundleID_ofSchema_completion___block_invoke(uint64_t a1)
@@ -384,7 +376,7 @@ void __75__FLLogger_reportDataPlatformBatchedEvent_forBundleID_ofSchema_completi
 
 - (void)reportDataUploadEvent:(id)event application:(id)application completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   applicationCopy = application;
   completionCopy = completion;
@@ -396,9 +388,9 @@ void __75__FLLogger_reportDataPlatformBatchedEvent_forBundleID_ofSchema_completi
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v26 = applicationCopy;
-      v27 = 2048;
-      v28 = [data length];
+      v25 = applicationCopy;
+      v26 = 2048;
+      v27 = [data length];
       _os_log_impl(&dword_24AB3F000, v13, OS_LOG_TYPE_DEFAULT, "Received persist data request for store (%@) for %lu bytes", buf, 0x16u);
     }
 
@@ -410,10 +402,10 @@ void __75__FLLogger_reportDataPlatformBatchedEvent_forBundleID_ofSchema_completi
     block[2] = __57__FLLogger_reportDataUploadEvent_application_completion___block_invoke;
     block[3] = &unk_278FF8B40;
     block[4] = self;
-    v21 = applicationCopy;
-    v22 = data;
-    v23 = v11;
-    v24 = completionCopy;
+    v20 = applicationCopy;
+    v21 = data;
+    v22 = v11;
+    v23 = completionCopy;
     v16 = v11;
     v17 = data;
     dispatch_async(queue, block);
@@ -430,13 +422,11 @@ void __75__FLLogger_reportDataPlatformBatchedEvent_forBundleID_ofSchema_completi
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __57__FLLogger_reportDataUploadEvent_application_completion___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) __dispatched_persistentStoreWithId:*(a1 + 40) category:&unk_285E1AE38];
   v3 = [v2 persistUploadPayload:*(a1 + 48)];
 
@@ -446,18 +436,18 @@ void __57__FLLogger_reportDataUploadEvent_application_completion___block_invoke(
     v5 = *(a1 + 40);
     v6 = [*(a1 + 48) length];
     v7 = @"failed";
-    v10 = 138412802;
-    v11 = v5;
+    v9 = 138412802;
+    v10 = v5;
     if (!v3)
     {
       v7 = @"completed successfully";
     }
 
-    v12 = 2048;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_24AB3F000, v4, OS_LOG_TYPE_DEFAULT, "Persist data request for store (%@) for %lu bytes %@", &v10, 0x20u);
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_24AB3F000, v4, OS_LOG_TYPE_DEFAULT, "Persist data request for store (%@) for %lu bytes %@", &v9, 0x20u);
   }
 
   v8 = *(a1 + 64);
@@ -465,8 +455,6 @@ void __57__FLLogger_reportDataUploadEvent_application_completion___block_invoke(
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSiriInstrumentationObserver:(id)observer
@@ -604,19 +592,19 @@ void __40__FLLogger_siriReadingStoreForBundleID___block_invoke(void *a1)
 
 - (id)siriReadingStoreForBundleID:(id)d directoryPath:(id)path
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   pathCopy = path;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
-  v27 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = 0;
   v8 = MEMORY[0x277CCACA8];
-  v28[0] = pathCopy;
-  v28[1] = @"data.sqlite";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  v27[0] = pathCopy;
+  v27[1] = @"data.sqlite";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
   v10 = [v8 pathWithComponents:v9];
 
   context = [(FLLogger *)self context];
@@ -626,17 +614,15 @@ void __40__FLLogger_siriReadingStoreForBundleID___block_invoke(void *a1)
   block[2] = __54__FLLogger_siriReadingStoreForBundleID_directoryPath___block_invoke;
   block[3] = &unk_278FF8AF0;
   block[4] = self;
-  v19 = dCopy;
-  v20 = v10;
-  v21 = &v22;
+  v18 = dCopy;
+  v19 = v10;
+  v20 = &v21;
   v13 = v10;
   v14 = dCopy;
   dispatch_sync(queue, block);
 
-  v15 = v23[5];
-  _Block_object_dispose(&v22, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = v22[5];
+  _Block_object_dispose(&v21, 8);
 
   return v15;
 }
@@ -1070,7 +1056,7 @@ void __45__FLLogger_parsecPersistentStoreForBundleID___block_invoke(uint64_t a1)
 
 - (void)write:(id)write category:(id)category toStoreWithID:(id)d completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   categoryCopy = category;
   dCopy = d;
@@ -1080,34 +1066,32 @@ void __45__FLLogger_parsecPersistentStoreForBundleID___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v30 = dCopy;
-    v31 = 2112;
-    v32 = categoryCopy;
-    v33 = 2048;
-    v34 = [writeCopy length];
+    v29 = dCopy;
+    v30 = 2112;
+    v31 = categoryCopy;
+    v32 = 2048;
+    v33 = [writeCopy length];
     _os_log_impl(&dword_24AB3F000, v15, OS_LOG_TYPE_DEFAULT, "Received persist request for store (%@, %@) for %lu bytes", buf, 0x20u);
   }
 
   -[FLLogger reportCAIncomingPayloadFromBundleID:category:size:](self, "reportCAIncomingPayloadFromBundleID:category:size:", dCopy, categoryCopy, [writeCopy length]);
   context = [(FLLogger *)self context];
   queue = [context queue];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __52__FLLogger_write_category_toStoreWithID_completion___block_invoke;
-  v23[3] = &unk_278FF8AA0;
-  v23[4] = self;
-  v24 = dCopy;
-  v25 = categoryCopy;
-  v26 = writeCopy;
-  v27 = writeTransaction;
-  v28 = completionCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __52__FLLogger_write_category_toStoreWithID_completion___block_invoke;
+  v22[3] = &unk_278FF8AA0;
+  v22[4] = self;
+  v23 = dCopy;
+  v24 = categoryCopy;
+  v25 = writeCopy;
+  v26 = writeTransaction;
+  v27 = completionCopy;
   v18 = completionCopy;
   v19 = writeCopy;
   v20 = categoryCopy;
   v21 = dCopy;
-  dispatch_async(queue, v23);
-
-  v22 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v22);
 }
 
 void __52__FLLogger_write_category_toStoreWithID_completion___block_invoke(uint64_t a1)
@@ -1118,7 +1102,7 @@ void __52__FLLogger_write_category_toStoreWithID_completion___block_invoke(uint6
 
 - (void)write:(id)write store:(id)store preferredBatchSize:(unint64_t)size completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   storeCopy = store;
   completionCopy = completion;
@@ -1162,13 +1146,13 @@ LABEL_9:
     }
 
     storeIdentifier = [storeCopy storeIdentifier];
-    v24 = 138412802;
-    v25 = storeIdentifier;
-    v26 = 2048;
-    v27 = [writeCopy length];
-    v28 = 2112;
-    v29 = v19;
-    _os_log_error_impl(&dword_24AB3F000, v21, OS_LOG_TYPE_ERROR, "Persist request for store (%@) for %lu bytes failed with error %@.", &v24, 0x20u);
+    v23 = 138412802;
+    v24 = storeIdentifier;
+    v25 = 2048;
+    v26 = [writeCopy length];
+    v27 = 2112;
+    v28 = v19;
+    _os_log_error_impl(&dword_24AB3F000, v21, OS_LOG_TYPE_ERROR, "Persist request for store (%@) for %lu bytes failed with error %@.", &v23, 0x20u);
   }
 
   else
@@ -1179,11 +1163,11 @@ LABEL_9:
     }
 
     storeIdentifier = [storeCopy storeIdentifier];
-    v24 = 138412546;
-    v25 = storeIdentifier;
-    v26 = 2048;
-    v27 = [writeCopy length];
-    _os_log_impl(&dword_24AB3F000, v21, OS_LOG_TYPE_DEFAULT, "Persist request for store (%@) for %lu bytes completed successfully.", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = storeIdentifier;
+    v25 = 2048;
+    v26 = [writeCopy length];
+    _os_log_impl(&dword_24AB3F000, v21, OS_LOG_TYPE_DEFAULT, "Persist request for store (%@) for %lu bytes completed successfully.", &v23, 0x16u);
   }
 
 LABEL_15:
@@ -1191,8 +1175,6 @@ LABEL_15:
   {
     completionCopy[2](completionCopy, v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleImmediateUpload
@@ -1311,42 +1293,41 @@ uint64_t __35__FLLogger_scheduleImmediateUpload__block_invoke(uint64_t a1)
 
 void __37__FLLogger_closeOpenBatchesAndStores__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) persistentStores];
   v3 = [v2 allValues];
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) forceCloseOpenBatches];
+        [*(*(&v9 + 1) + 8 * v8++) forceCloseOpenBatches];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   [*(a1 + 32) _closeAllStores];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)closeAllStores
@@ -1376,7 +1357,7 @@ void __37__FLLogger_closeOpenBatchesAndStores__block_invoke(uint64_t a1)
 
 - (void)_scheduleStoreCacheTimer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   context = [(FLLogger *)self context];
   queue = [context queue];
   dispatch_assert_queue_V2(queue);
@@ -1395,14 +1376,14 @@ void __37__FLLogger_closeOpenBatchesAndStores__block_invoke(uint64_t a1)
     {
       context2 = [(FLLogger *)self context];
       queue2 = [context2 queue];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __36__FLLogger__scheduleStoreCacheTimer__block_invoke;
-      v16[3] = &unk_278FF8A50;
-      objc_copyWeak(&v17, &location);
-      dispatch_async(queue2, v16);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __36__FLLogger__scheduleStoreCacheTimer__block_invoke;
+      v15[3] = &unk_278FF8A50;
+      objc_copyWeak(&v16, &location);
+      dispatch_async(queue2, v15);
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
     }
 
     else
@@ -1411,7 +1392,7 @@ void __37__FLLogger_closeOpenBatchesAndStores__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v20 = v9;
+        v19 = v9;
         _os_log_impl(&dword_24AB3F000, v10, OS_LOG_TYPE_DEFAULT, "Scheduling store cache TTL timer for %f seconds from now.", buf, 0xCu);
       }
 
@@ -1422,8 +1403,6 @@ void __37__FLLogger_closeOpenBatchesAndStores__block_invoke(uint64_t a1)
 
     objc_destroyWeak(&location);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __36__FLLogger__scheduleStoreCacheTimer__block_invoke(uint64_t a1)
@@ -1639,13 +1618,13 @@ LABEL_10:
 
 - (void)closeStoreForBundleID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(FLLogger *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = dCopy;
+    v16 = dCopy;
     _os_log_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_DEFAULT, "Received notification to close stores for %@", buf, 0xCu);
   }
 
@@ -1656,43 +1635,41 @@ LABEL_10:
   block[1] = 3221225472;
   block[2] = __34__FLLogger_closeStoreForBundleID___block_invoke;
   block[3] = &unk_278FF8A28;
-  v13 = dCopy;
+  v12 = dCopy;
   selfCopy = self;
-  v15 = v6;
+  v14 = v6;
   v9 = v6;
   v10 = dCopy;
   dispatch_async(queue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __34__FLLogger_closeStoreForBundleID___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-", *(a1 + 32)];
   v3 = [*(a1 + 40) persistentStores];
   v4 = [v3 allKeys];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if ([v10 hasPrefix:v2])
         {
           v11 = [*(a1 + 40) persistentStores];
@@ -1704,13 +1681,11 @@ void __34__FLLogger_closeStoreForBundleID___block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)__dispatched_persistentStoreWithId:(id)id category:(id)category storePath:(id)path
@@ -1848,7 +1823,7 @@ void __34__FLLogger_closeStoreForBundleID___block_invoke(uint64_t a1)
 
 - (void)_scheduleWriteTransactionTTLTimer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   writeTransactionTTLTimer = self->_writeTransactionTTLTimer;
   v4 = [(FLLogger *)self log];
   v5 = v4;
@@ -1856,9 +1831,9 @@ void __34__FLLogger_closeStoreForBundleID___block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v8 = 134217984;
       writeTransactionTTL = [(FLLogger *)self writeTransactionTTL];
-      _os_log_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_DEFAULT, "Scheduling the write transaction TTL timer for %lu seconds from now.", &v9, 0xCu);
+      _os_log_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_DEFAULT, "Scheduling the write transaction TTL timer for %lu seconds from now.", &v8, 0xCu);
     }
 
     v6 = self->_writeTransactionTTLTimer;
@@ -1870,12 +1845,10 @@ void __34__FLLogger_closeStoreForBundleID___block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v9) = 0;
-      _os_log_error_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_ERROR, "TTL timer scheduling was requested, but no timer was found.", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_error_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_ERROR, "TTL timer scheduling was requested, but no timer was found.", &v8, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupWriteTransactionTTLTimer
@@ -1955,16 +1928,14 @@ void __42__FLLogger__setupWriteTransactionTTLTimer__block_invoke(uint64_t a1)
 
 - (void)_claimWriteTransaction
 {
-  v3 = objc_alloc_init(FLWriteTransaction);
-  writeTransaction = self->_writeTransaction;
-  self->_writeTransaction = v3;
+  self->_writeTransaction = objc_alloc_init(FLWriteTransaction);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)reportCADroppedBeforePersistPayloadFromBundleID:(id)d category:(id)category size:(unint64_t)size
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   dCopy = d;
   context = [(FLLogger *)self context];
@@ -1974,8 +1945,8 @@ void __42__FLLogger__setupWriteTransactionTTLTimer__block_invoke(uint64_t a1)
     v11 = dCopy;
   }
 
-  v16[0] = @"bundle_id";
-  v16[1] = @"category";
+  v15[0] = @"bundle_id";
+  v15[1] = @"category";
   if (categoryCopy)
   {
     v12 = categoryCopy;
@@ -1986,22 +1957,21 @@ void __42__FLLogger__setupWriteTransactionTTLTimer__block_invoke(uint64_t a1)
     v12 = &unk_285E1AE38;
   }
 
-  v17[0] = v11;
-  v17[1] = v12;
-  v17[2] = &unk_285E1AE68;
-  v16[2] = @"outcome";
-  v16[3] = @"size";
+  v16[0] = v11;
+  v16[1] = v12;
+  v16[2] = &unk_285E1AE68;
+  v15[2] = @"outcome";
+  v15[3] = @"size";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:(size + 1023) >> 10];
-  v17[3] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   [context reportTelemetry:@"com.apple.parsec-fbf.batchUploadOutcome" payload:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportCAIncomingPayloadFromBundleID:(id)d category:(id)category size:(unint64_t)size
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   dCopy = d;
   context = [(FLLogger *)self context];
@@ -2011,8 +1981,8 @@ void __42__FLLogger__setupWriteTransactionTTLTimer__block_invoke(uint64_t a1)
     v11 = dCopy;
   }
 
-  v16[0] = @"bundle_id";
-  v16[1] = @"category";
+  v15[0] = @"bundle_id";
+  v15[1] = @"category";
   if (categoryCopy)
   {
     v12 = categoryCopy;
@@ -2023,17 +1993,16 @@ void __42__FLLogger__setupWriteTransactionTTLTimer__block_invoke(uint64_t a1)
     v12 = &unk_285E1AE38;
   }
 
-  v17[0] = v11;
-  v17[1] = v12;
-  v17[2] = &unk_285E1AE50;
-  v16[2] = @"outcome";
-  v16[3] = @"size";
+  v16[0] = v11;
+  v16[1] = v12;
+  v16[2] = &unk_285E1AE50;
+  v15[2] = @"outcome";
+  v15[3] = @"size";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:(size + 1023) >> 10];
-  v17[3] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   [context reportTelemetry:@"com.apple.parsec-fbf.batchUploadOutcome" payload:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (FLLogger)initWithPersistenceConfiguration:(unint64_t)configuration

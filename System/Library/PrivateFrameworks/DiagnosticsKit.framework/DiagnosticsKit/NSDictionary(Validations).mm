@@ -106,7 +106,7 @@ LABEL_12:
 
 - (id)dk_numberFromKey:()Validations lowerBound:upperBound:defaultValue:failed:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v12 = a3;
   v13 = a4;
   v14 = a5;
@@ -130,13 +130,13 @@ LABEL_12:
       v23 = DiagnosticsKitLogHandleForCategory(2);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v26 = 138412802;
-        v27 = v12;
-        v28 = 2112;
-        v29 = v14;
-        v30 = 2112;
-        v31 = v17;
-        _os_log_error_impl(&dword_248B9D000, v23, OS_LOG_TYPE_ERROR, "Input validation failed; value for key %@ must not be greater than %@, but is %@", &v26, 0x20u);
+        v25 = 138412802;
+        v26 = v12;
+        v27 = 2112;
+        v28 = v14;
+        v29 = 2112;
+        v30 = v17;
+        _os_log_error_impl(&dword_248B9D000, v23, OS_LOG_TYPE_ERROR, "Input validation failed; value for key %@ must not be greater than %@, but is %@", &v25, 0x20u);
       }
 
       if (v20 < 2)
@@ -154,13 +154,13 @@ LABEL_12:
     v22 = DiagnosticsKitLogHandleForCategory(2);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v26 = 138412802;
-      v27 = v12;
-      v28 = 2112;
-      v29 = v13;
-      v30 = 2112;
-      v31 = v17;
-      _os_log_error_impl(&dword_248B9D000, v22, OS_LOG_TYPE_ERROR, "Input validation failed; value for key %@ must not be less than %@, but is %@", &v26, 0x20u);
+      v25 = 138412802;
+      v26 = v12;
+      v27 = 2112;
+      v28 = v13;
+      v29 = 2112;
+      v30 = v17;
+      _os_log_error_impl(&dword_248B9D000, v22, OS_LOG_TYPE_ERROR, "Input validation failed; value for key %@ must not be less than %@, but is %@", &v25, 0x20u);
     }
   }
 
@@ -182,8 +182,6 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -282,7 +280,7 @@ LABEL_17:
 
 - (NSObject)dk_arrayFromKey:()Validations types:maxLength:defaultValue:failed:validator:
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v14 = a3;
   v15 = a4;
   v16 = a6;
@@ -313,11 +311,11 @@ LABEL_17:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v37 = v14;
-      v38 = 2048;
-      v39 = a5;
-      v40 = 2048;
-      v41 = [v19 count];
+      v36 = v14;
+      v37 = 2048;
+      v38 = a5;
+      v39 = 2048;
+      v40 = [v19 count];
       _os_log_error_impl(&dword_248B9D000, v20, OS_LOG_TYPE_ERROR, "Input validation failed; value for key %@ must have a count less than %lu, but is %lu", buf, 0x20u);
     }
 
@@ -332,26 +330,26 @@ LABEL_26:
     goto LABEL_28;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v20 = v19;
-  v30 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v30)
+  v29 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v29)
   {
-    v21 = *v32;
-    v29 = *v32;
+    v21 = *v31;
+    v28 = *v31;
     while (2)
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v32 != v21)
+        if (*v31 != v21)
         {
           objc_enumerationMutation(v20);
         }
 
-        v23 = *(*(&v31 + 1) + 8 * i);
+        v23 = *(*(&v30 + 1) + 8 * i);
         v24 = objc_opt_class();
         if (!v24)
         {
@@ -388,11 +386,11 @@ LABEL_25:
           goto LABEL_25;
         }
 
-        v21 = v29;
+        v21 = v28;
       }
 
-      v30 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
-      if (v30)
+      v29 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      if (v29)
       {
         continue;
       }
@@ -402,14 +400,13 @@ LABEL_25:
   }
 
 LABEL_28:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (NSObject)dk_arrayFromKey:()Validations inSet:maxLength:defaultValue:failed:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v12 = a3;
   v13 = a4;
   v14 = a6;
@@ -439,11 +436,11 @@ LABEL_28:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v31 = v12;
-      v32 = 2048;
-      v33 = a5;
-      v34 = 2048;
-      v35 = [v16 count];
+      v30 = v12;
+      v31 = 2048;
+      v32 = a5;
+      v33 = 2048;
+      v34 = [v16 count];
       _os_log_error_impl(&dword_248B9D000, v17, OS_LOG_TYPE_ERROR, "Input validation failed; value for key %@ must not have a count greater than %lu, but is %lu", buf, 0x20u);
     }
 
@@ -458,26 +455,26 @@ LABEL_21:
     goto LABEL_23;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v26;
+    v20 = *v25;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v26 != v20)
+        if (*v25 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        if (([v13 containsObject:{*(*(&v25 + 1) + 8 * i), v25}] & 1) == 0)
+        if (([v13 containsObject:{*(*(&v24 + 1) + 8 * i), v24}] & 1) == 0)
         {
           v22 = DiagnosticsKitLogHandleForCategory(2);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -489,7 +486,7 @@ LABEL_21:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v19)
       {
         continue;
@@ -500,14 +497,13 @@ LABEL_21:
   }
 
 LABEL_23:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (id)dk_dataFromKey:()Validations minLength:maxLength:defaultValue:failed:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v12 = a3;
   v13 = a6;
   v14 = [self objectForKey:v12];
@@ -538,12 +534,12 @@ LABEL_23:
       goto LABEL_9;
     }
 
-    v21 = 138412802;
-    v22 = v12;
-    v23 = 2048;
-    v24 = a5;
-    v25 = 2048;
-    v26 = [v15 length];
+    v20 = 138412802;
+    v21 = v12;
+    v22 = 2048;
+    v23 = a5;
+    v24 = 2048;
+    v25 = [v15 length];
     v17 = "Input validation failed; value for key %@ must not have a length greater than %lu, but is %lu";
     goto LABEL_17;
   }
@@ -557,15 +553,15 @@ LABEL_23:
   v16 = DiagnosticsKitLogHandleForCategory(2);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v21 = 138412802;
-    v22 = v12;
-    v23 = 2048;
-    v24 = a4;
-    v25 = 2048;
-    v26 = [v15 length];
+    v20 = 138412802;
+    v21 = v12;
+    v22 = 2048;
+    v23 = a4;
+    v24 = 2048;
+    v25 = [v15 length];
     v17 = "Input validation failed; value for key %@ must not have a length less than %lu, but is %lu";
 LABEL_17:
-    _os_log_error_impl(&dword_248B9D000, v16, OS_LOG_TYPE_ERROR, v17, &v21, 0x20u);
+    _os_log_error_impl(&dword_248B9D000, v16, OS_LOG_TYPE_ERROR, v17, &v20, 0x20u);
   }
 
 LABEL_9:
@@ -577,8 +573,6 @@ LABEL_9:
   }
 
 LABEL_11:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -758,101 +752,68 @@ LABEL_11:
 - (void)dk_stringFromKey:()Validations maxLength:defaultValue:failed:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_1(v1 v2)];
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = [OUTLINED_FUNCTION_1(v0 v1)];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_248B9D000, v6, v7, "Input validation failed; value for key %@ must be of class NSString, but is %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_248B9D000, v5, v6, "Input validation failed; value for key %@ must be of class NSString, but is %@", v7, v8, v9, v10);
 }
 
 - (void)dk_stringFromKey:()Validations maxLength:defaultValue:failed:.cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2048;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_4(&dword_248B9D000, a2, a3, "Input validation failed; value for key %@ is longer than max length %lu", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2048;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4(&dword_248B9D000, a2, a3, "Input validation failed; value for key %@ is longer than max length %lu", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)dk_numberFromKey:()Validations lowerBound:upperBound:defaultValue:failed:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_1(v1 v2)];
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = [OUTLINED_FUNCTION_1(v0 v1)];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_248B9D000, v6, v7, "Input validation failed; value for key %@ must be of class NSNumber, but is %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_248B9D000, v5, v6, "Input validation failed; value for key %@ must be of class NSNumber, but is %@", v7, v8, v9, v10);
 }
 
 - (void)dk_dictionaryFromKey:()Validations defaultValue:failed:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_1(v1 v2)];
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = [OUTLINED_FUNCTION_1(v0 v1)];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_248B9D000, v6, v7, "Input validation failed; value for key %@ must be of class NSDictionary, but is %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_248B9D000, v5, v6, "Input validation failed; value for key %@ must be of class NSDictionary, but is %@", v7, v8, v9, v10);
 }
 
 - (void)dk_arrayFromKey:()Validations types:maxLength:defaultValue:failed:validator:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_1(v1 v2)];
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = [OUTLINED_FUNCTION_1(v0 v1)];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_248B9D000, v6, v7, "Input validation failed; value for key %@ must be of class NSArray, but is %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_248B9D000, v5, v6, "Input validation failed; value for key %@ must be of class NSArray, but is %@", v7, v8, v9, v10);
 }
 
 - (void)dk_arrayFromKey:()Validations types:maxLength:defaultValue:failed:validator:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Input validation failed; value for key %@ custom validation failed", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)dk_arrayFromKey:()Validations types:maxLength:defaultValue:failed:validator:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_4(&dword_248B9D000, v0, v1, "Input validation failed; values in array with key %@ must be of types %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)dk_arrayFromKey:()Validations inSet:maxLength:defaultValue:failed:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_4(&dword_248B9D000, v0, v1, "Input validation failed; value for key %@ contains an unspecified element %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Input validation failed; value for key %@ custom validation failed", &v2, 0xCu);
 }
 
 - (void)dk_dataFromKey:()Validations minLength:maxLength:defaultValue:failed:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_1(v1 v2)];
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = [OUTLINED_FUNCTION_1(v0 v1)];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_248B9D000, v6, v7, "Input validation failed; value for key %@ must be of class NSData, but is %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_248B9D000, v5, v6, "Input validation failed; value for key %@ must be of class NSData, but is %@", v7, v8, v9, v10);
 }
 
 @end

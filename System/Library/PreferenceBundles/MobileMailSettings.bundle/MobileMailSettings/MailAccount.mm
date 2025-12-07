@@ -7,6 +7,7 @@
 - (id)_treeOfAllMailboxesIncludingLocals:(BOOL)locals withOutbox:(id)outbox hideInbox:(BOOL)inbox hideNotes:(BOOL)notes;
 - (id)nano_emailAddressesAndAliasesList;
 - (id)treeOfAllGenericMailboxes;
+- (id)treeOfAllMailboxUidsSortedWithSpecialsAtTopIncludingLocals:(BOOL)locals client:(id)client outbox:(id)outbox;
 - (void)_addGenericChildrenToMailboxTree:(id)tree forNode:(id)node hideNotes:(BOOL)notes;
 - (void)_addSpecialMailbox:(id)mailbox toTree:(id)tree;
 - (void)_putMailboxesRootedAt:(id)at intoArray:(id)array hideNotes:(BOOL)notes;
@@ -452,6 +453,27 @@ LABEL_20:
   [(MailAccount *)self _putMailboxesRootedAt:rootMailbox intoArray:v10 hideNotes:v22];
 
   return v10;
+}
+
+- (id)treeOfAllMailboxUidsSortedWithSpecialsAtTopIncludingLocals:(BOOL)locals client:(id)client outbox:(id)outbox
+{
+  localsCopy = locals;
+  clientCopy = client;
+  outboxCopy = outbox;
+  v10 = +[MailAccount log];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    ef_publicDescription = [(MailAccount *)self ef_publicDescription];
+    v14 = 138543618;
+    v15 = ef_publicDescription;
+    v16 = 2114;
+    v17 = clientCopy;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> client:%{public}@", &v14, 0x16u);
+  }
+
+  v12 = -[MailAccount _treeOfAllMailboxesIncludingLocals:withOutbox:hideInbox:hideNotes:](self, "_treeOfAllMailboxesIncludingLocals:withOutbox:hideInbox:hideNotes:", localsCopy, outboxCopy, [clientCopy shouldHideInbox], objc_msgSend(clientCopy, "shouldHideNotesForAccount:", self));
+
+  return v12;
 }
 
 - (id)treeOfAllGenericMailboxes

@@ -63,7 +63,7 @@
 
 - (BOOL)containsMessageHash:(id)hash
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -80,25 +80,25 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v20 = 0x2020000000;
-  v21 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_254739714;
-  v14[3] = &unk_279782458;
+  v19 = 0x2020000000;
+  v20 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_254739714;
+  v13[3] = &unk_279782458;
   p_buf = &buf;
-  v14[4] = self;
+  v13[4] = self;
   v6 = hashCopy;
-  v15 = v6;
-  sub_254738470(v14);
+  v14 = v6;
+  sub_254738470(v13);
   if (*(*(&buf + 1) + 24) == 1)
   {
     v7 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 138412290;
-      v18 = v6;
-      _os_log_impl(&dword_254737000, v7, OS_LOG_TYPE_DEFAULT, "Database reports that this message hash %@ has been seen before", v17, 0xCu);
+      *v16 = 138412290;
+      v17 = v6;
+      _os_log_impl(&dword_254737000, v7, OS_LOG_TYPE_DEFAULT, "Database reports that this message hash %@ has been seen before", v16, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
@@ -122,7 +122,6 @@
   }
 
   _Block_object_dispose(&buf, 8);
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 

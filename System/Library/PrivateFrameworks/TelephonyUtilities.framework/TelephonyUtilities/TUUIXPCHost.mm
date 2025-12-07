@@ -48,7 +48,7 @@
 {
   v32 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v6 = TUDefaultLog();
+  v6 = TUDefaultLog(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -56,33 +56,35 @@
     _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "Asked to accept new connection from %@", buf, 0xCu);
   }
 
-  v7 = [connectionCopy valueForEntitlement:@"com.apple.telephonyutilities.callservicesd"];
-  if (v7)
+  isKindOfClass = [connectionCopy valueForEntitlement:@"com.apple.telephonyutilities.callservicesd"];
+  v8 = isKindOfClass;
+  if (isKindOfClass)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       v27 = 0u;
       v28 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v8 = v7;
-      v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
-      if (v9)
+      v9 = v8;
+      v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      if (v10)
       {
-        v10 = v9;
-        v11 = *v26;
+        v11 = v10;
+        v12 = *v26;
         while (2)
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v26 != v11)
+            if (*v26 != v12)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v9);
             }
 
-            v13 = *(*(&v25 + 1) + 8 * i);
-            if ([v13 isEqual:@"modify-calls"] & 1) != 0 || (objc_msgSend(v13, "isEqual:", @"access-ui-data-source"))
+            v14 = *(*(&v25 + 1) + 8 * i);
+            if ([v14 isEqual:@"modify-calls"] & 1) != 0 || (objc_msgSend(v14, "isEqual:", @"access-ui-data-source"))
             {
 
               v18 = [TUUIXPCHostConnection alloc];
@@ -97,16 +99,16 @@
               v23[3] = &unk_1E7424898;
               v23[4] = self;
               v24 = v21;
-              v14 = v21;
+              v15 = v21;
               dispatch_async(queue2, v23);
 
-              v15 = 1;
+              v16 = 1;
               goto LABEL_18;
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
-          if (v10)
+          v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          if (v11)
           {
             continue;
           }
@@ -117,19 +119,18 @@
     }
   }
 
-  v14 = TUDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = TUDefaultLog(isKindOfClass);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v31 = connectionCopy;
-    _os_log_impl(&dword_1956FD000, v14, OS_LOG_TYPE_DEFAULT, "[WARN] New connection is missing entitlement to access UIXPC so declining the connection %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "[WARN] New connection is missing entitlement to access UIXPC so declining the connection %@", buf, 0xCu);
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_18:
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v16;
 }
 
 void __50__TUUIXPCHost_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
@@ -140,7 +141,7 @@ void __50__TUUIXPCHost_listener_shouldAcceptNewConnection___block_invoke(uint64_
 
 - (void)dealloc
 {
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

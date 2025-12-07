@@ -19,7 +19,7 @@
   v9 = v8;
   [(PUTileLayoutInfo *)self alpha];
   v11 = v10;
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   [(PUTileLayoutInfo *)self zPosition];
   v13 = v12;
   [(PUTileLayoutInfo *)self hitTestOutset];

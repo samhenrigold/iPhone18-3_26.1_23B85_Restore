@@ -72,13 +72,13 @@ void __63__ATXActionPredictionBlacklist_initWithAppPredictionBlacklist___block_i
   return v3;
 }
 
-uint64_t __75__ATXActionPredictionBlacklist_sharedInstanceWithoutAppPredictionBlacklist__block_invoke()
+uint64_t __75__ATXActionPredictionBlacklist_sharedInstanceWithoutAppPredictionBlacklist__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstanceWithoutAppPredictionBlacklist_instance;
-  sharedInstanceWithoutAppPredictionBlacklist_instance = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstanceWithoutAppPredictionBlacklist_instance;
+  sharedInstanceWithoutAppPredictionBlacklist_instance = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 + (id)sharedInstanceWithAppPredictionBlacklist
@@ -114,7 +114,7 @@ void __72__ATXActionPredictionBlacklist_sharedInstanceWithAppPredictionBlacklist
 
 - (void)setBlacklistFromAssetData:(id)data predictionBlacklist:(id)blacklist shortcutBlacklist:(id)shortcutBlacklist primaryShortcutBlacklist:(id)primaryShortcutBlacklist
 {
-  v68[2] = *MEMORY[0x277D85DE8];
+  v67[2] = *MEMORY[0x277D85DE8];
   primaryShortcutBlacklistCopy = primaryShortcutBlacklist;
   shortcutBlacklistCopy = shortcutBlacklist;
   blacklistCopy = blacklist;
@@ -122,74 +122,72 @@ void __72__ATXActionPredictionBlacklist_sharedInstanceWithAppPredictionBlacklist
   v10 = objc_opt_new();
   v11 = objc_opt_new();
   v12 = objc_opt_new();
-  v38 = objc_opt_new();
+  v37 = objc_opt_new();
   v13 = objc_opt_new();
   v14 = objc_opt_new();
+  v40 = objc_opt_new();
   v41 = objc_opt_new();
   v42 = objc_opt_new();
-  v43 = objc_opt_new();
-  v68[0] = v10;
-  v68[1] = v38;
-  v40 = v10;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
-  v67[0] = v11;
-  v67[1] = v13;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
-  v66[0] = v12;
-  v66[1] = v14;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+  v67[0] = v10;
+  v67[1] = v37;
+  v39 = v10;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+  v66[0] = v11;
+  v66[1] = v13;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+  v65[0] = v12;
+  v65[1] = v14;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
   [(ATXActionPredictionBlacklist *)self addToBlacklists:dataCopy blacklistAppList:v15 blacklistActionList:v16 blacklistAppAndActionList:v17];
 
-  v65 = v10;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
-  v64 = v11;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
-  v63 = v12;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+  v64 = v10;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
+  v63 = v11;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+  v62 = v12;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
   [(ATXActionPredictionBlacklist *)self addToBlacklists:blacklistCopy blacklistAppList:v18 blacklistActionList:v19 blacklistAppAndActionList:v20];
 
-  v62 = v38;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
-  v61 = v13;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
-  v60 = v14;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+  v61 = v37;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+  v60 = v13;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+  v59 = v14;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
   [(ATXActionPredictionBlacklist *)self addToBlacklists:shortcutBlacklistCopy blacklistAppList:v21 blacklistActionList:v22 blacklistAppAndActionList:v23];
 
-  v59 = v41;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
-  v58 = v42;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
-  v57 = v43;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+  v58 = v40;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+  v57 = v41;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+  v56 = v42;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
   [(ATXActionPredictionBlacklist *)self addToBlacklists:primaryShortcutBlacklistCopy blacklistAppList:v24 blacklistActionList:v25 blacklistAppAndActionList:v26];
 
   lock = self->_lock;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __121__ATXActionPredictionBlacklist_setBlacklistFromAssetData_predictionBlacklist_shortcutBlacklist_primaryShortcutBlacklist___block_invoke;
-  v47[3] = &unk_27859E400;
-  v48 = v40;
-  v49 = v11;
-  v50 = v12;
-  v51 = v38;
-  v52 = v13;
-  v53 = v14;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __121__ATXActionPredictionBlacklist_setBlacklistFromAssetData_predictionBlacklist_shortcutBlacklist_primaryShortcutBlacklist___block_invoke;
+  v46[3] = &unk_27859E400;
+  v47 = v39;
+  v48 = v11;
+  v49 = v12;
+  v50 = v37;
+  v51 = v13;
+  v52 = v14;
+  v53 = v40;
   v54 = v41;
   v55 = v42;
-  v56 = v43;
-  v46 = v43;
-  v28 = v42;
-  v29 = v41;
+  v45 = v42;
+  v28 = v41;
+  v29 = v40;
   v30 = v14;
   v31 = v13;
-  v32 = v38;
-  v33 = v50;
-  v34 = v49;
-  v35 = v40;
-  [(_PASLock *)lock runWithLockAcquired:v47];
-
-  v36 = *MEMORY[0x277D85DE8];
+  v32 = v37;
+  v33 = v49;
+  v34 = v48;
+  v35 = v39;
+  [(_PASLock *)lock runWithLockAcquired:v46];
 }
 
 void __121__ATXActionPredictionBlacklist_setBlacklistFromAssetData_predictionBlacklist_shortcutBlacklist_primaryShortcutBlacklist___block_invoke(uint64_t a1, void *a2)
@@ -235,61 +233,61 @@ void __121__ATXActionPredictionBlacklist_setBlacklistFromAssetData_predictionBla
 
 - (void)addToBlacklists:(id)blacklists blacklistAppList:(id)list blacklistActionList:(id)actionList blacklistAppAndActionList:(id)andActionList
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   blacklistsCopy = blacklists;
   listCopy = list;
   actionListCopy = actionList;
   andActionListCopy = andActionList;
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   obj = blacklistsCopy;
-  v10 = [blacklistsCopy countByEnumeratingWithState:&v57 objects:v64 count:16];
+  v10 = [blacklistsCopy countByEnumeratingWithState:&v56 objects:v63 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v58;
+    v12 = *v57;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v58 != v12)
+        if (*v57 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v57 + 1) + 8 * i);
+        v14 = *(*(&v56 + 1) + 8 * i);
         second = [v14 second];
         v16 = [second isEqualToString:@"_"];
 
         if (v16)
         {
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
           v54 = 0u;
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
           v17 = listCopy;
-          v18 = [v17 countByEnumeratingWithState:&v53 objects:v63 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v52 objects:v62 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v54;
+            v20 = *v53;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v54 != v20)
+                if (*v53 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v22 = *(*(&v53 + 1) + 8 * j);
+                v22 = *(*(&v52 + 1) + 8 * j);
                 first = [v14 first];
                 [v22 addObject:first];
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v53 objects:v63 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v52 objects:v62 count:16];
             }
 
             while (v19);
@@ -303,31 +301,31 @@ void __121__ATXActionPredictionBlacklist_setBlacklistFromAssetData_predictionBla
 
           if (v25)
           {
-            v51 = 0u;
-            v52 = 0u;
-            v49 = 0u;
             v50 = 0u;
+            v51 = 0u;
+            v48 = 0u;
+            v49 = 0u;
             v17 = actionListCopy;
-            v26 = [v17 countByEnumeratingWithState:&v49 objects:v62 count:16];
+            v26 = [v17 countByEnumeratingWithState:&v48 objects:v61 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v50;
+              v28 = *v49;
               do
               {
                 for (k = 0; k != v27; ++k)
                 {
-                  if (*v50 != v28)
+                  if (*v49 != v28)
                   {
                     objc_enumerationMutation(v17);
                   }
 
-                  v30 = *(*(&v49 + 1) + 8 * k);
+                  v30 = *(*(&v48 + 1) + 8 * k);
                   second2 = [v14 second];
                   [v30 addObject:second2];
                 }
 
-                v27 = [v17 countByEnumeratingWithState:&v49 objects:v62 count:16];
+                v27 = [v17 countByEnumeratingWithState:&v48 objects:v61 count:16];
               }
 
               while (v27);
@@ -341,29 +339,29 @@ void __121__ATXActionPredictionBlacklist_setBlacklistFromAssetData_predictionBla
             second3 = [v14 second];
             v17 = [v32 initWithFirst:first3 second:second3];
 
-            v47 = 0u;
-            v48 = 0u;
-            v45 = 0u;
             v46 = 0u;
+            v47 = 0u;
+            v44 = 0u;
+            v45 = 0u;
             v35 = andActionListCopy;
-            v36 = [v35 countByEnumeratingWithState:&v45 objects:v61 count:16];
+            v36 = [v35 countByEnumeratingWithState:&v44 objects:v60 count:16];
             if (v36)
             {
               v37 = v36;
-              v38 = *v46;
+              v38 = *v45;
               do
               {
                 for (m = 0; m != v37; ++m)
                 {
-                  if (*v46 != v38)
+                  if (*v45 != v38)
                   {
                     objc_enumerationMutation(v35);
                   }
 
-                  [*(*(&v45 + 1) + 8 * m) addObject:v17];
+                  [*(*(&v44 + 1) + 8 * m) addObject:v17];
                 }
 
-                v37 = [v35 countByEnumeratingWithState:&v45 objects:v61 count:16];
+                v37 = [v35 countByEnumeratingWithState:&v44 objects:v60 count:16];
               }
 
               while (v37);
@@ -372,13 +370,11 @@ void __121__ATXActionPredictionBlacklist_setBlacklistFromAssetData_predictionBla
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
+      v11 = [obj countByEnumeratingWithState:&v56 objects:v63 count:16];
     }
 
     while (v11);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (id)disabledBundlesInSettings
@@ -440,27 +436,24 @@ void __121__ATXActionPredictionBlacklist_setBlacklistFromAssetData_predictionBla
 
 void __50__ATXActionPredictionBlacklist__handlePrefsChange__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) _prefsDisabledApps];
   v5 = v3[10];
   v3[10] = v4;
 
-  v6 = __atxlog_handle_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_default(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
     v10 = v3[10];
-    v12 = 138412546;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%@ - new action blacklist: %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - new action blacklist: %@", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isBundleIdBlacklisted:(id)blacklisted

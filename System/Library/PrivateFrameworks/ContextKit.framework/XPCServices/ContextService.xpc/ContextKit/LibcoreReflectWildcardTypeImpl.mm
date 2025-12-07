@@ -40,19 +40,20 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  if (![JavaLangReflectWildcardType_class_() isInstance:equal])
+  v5 = [JavaLangReflectWildcardType_class_(self a2)];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = JavaLangReflectWildcardType_class_();
+  v7 = JavaLangReflectWildcardType_class_(v5, v6);
   if (!equal)
   {
     [(LibcoreReflectWildcardTypeImpl *)self getLowerBounds];
     JreThrowNullPointerException();
   }
 
-  if (([v5 isInstance:equal] & 1) == 0)
+  if (([v7 isInstance:equal] & 1) == 0)
   {
     JreThrowClassCastException();
   }
@@ -87,15 +88,15 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v7 = getResolvedTypes;
-    v8 = getResolvedTypes[2];
-    if (v8 <= 0)
+    v8 = getResolvedTypes;
+    v9 = getResolvedTypes[2];
+    if (v9 <= 0)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v8, 0);
+      IOSArray_throwOutOfBoundsWithMsg(v9, 0);
     }
 
-    v9 = *(v7 + 3);
-    if (v9 != NSObject_class_())
+    v10 = *(v8 + 3);
+    if (v10 != NSObject_class_(v9, v7))
     {
       goto LABEL_7;
     }
@@ -104,8 +105,8 @@ LABEL_17:
   if ([(LibcoreReflectListOfTypes *)*p_extendsBound length]>= 2)
   {
 LABEL_7:
-    v10 = [(JavaLangStringBuilder *)v3 appendWithNSString:@" extends "];
-    if (!v10)
+    v11 = [(JavaLangStringBuilder *)v3 appendWithNSString:@" extends "];
+    if (!v11)
     {
       goto LABEL_17;
     }
@@ -115,23 +116,23 @@ LABEL_7:
 
   superBound = self->superBound_;
   p_superBound = &self->superBound_;
-  v11 = superBound;
+  v12 = superBound;
   if (!superBound)
   {
     goto LABEL_17;
   }
 
-  if ([(LibcoreReflectListOfTypes *)v11 length]>= 1)
+  if ([(LibcoreReflectListOfTypes *)v12 length]>= 1)
   {
-    v10 = [(JavaLangStringBuilder *)v3 appendWithNSString:@" super "];
-    if (!v10)
+    v11 = [(JavaLangStringBuilder *)v3 appendWithNSString:@" super "];
+    if (!v11)
     {
       goto LABEL_17;
     }
 
     p_extendsBound = p_superBound;
 LABEL_13:
-    [v10 appendWithId:*p_extendsBound];
+    [v11 appendWithId:*p_extendsBound];
   }
 
   return [(JavaLangStringBuilder *)v3 description];

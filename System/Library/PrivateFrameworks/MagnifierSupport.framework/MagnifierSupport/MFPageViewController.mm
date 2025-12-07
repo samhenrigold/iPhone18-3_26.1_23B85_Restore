@@ -11,7 +11,7 @@
   if (options)
   {
     type metadata accessor for OptionsKey(0);
-    sub_257BE3CDC(&qword_27F8F5098, type metadata accessor for OptionsKey);
+    sub_257BE3CDC(&qword_27F8F5098, type metadata accessor for OptionsKey, &unk_257ED99F0);
     sub_257ECF3D0();
     options = sub_257ECF3C0();
   }

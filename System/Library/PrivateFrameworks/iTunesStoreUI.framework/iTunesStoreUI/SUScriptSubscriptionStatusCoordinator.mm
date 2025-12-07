@@ -10,8 +10,8 @@
 
 - (void)invalidateLastKnownStatus
 {
-  autoupdatingActiveAccount = [(objc_class *)getICUserIdentityClass() autoupdatingActiveAccount];
-  v3 = [(objc_class *)getICMusicSubscriptionStatusMonitorClass() sharedMonitorForIdentity:autoupdatingActiveAccount];
+  v2 = [getICUserIdentityClass(self a2)];
+  v3 = [(objc_class *)getICMusicSubscriptionStatusMonitorClass() sharedMonitorForIdentity:v2];
 
   [v3 refreshSubscriptionStatus];
 }

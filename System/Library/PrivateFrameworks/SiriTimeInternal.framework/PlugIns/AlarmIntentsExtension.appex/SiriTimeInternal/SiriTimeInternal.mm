@@ -38,11 +38,11 @@ unint64_t sub_10000137C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-id sub_100001590()
+id sub_100001590(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for IntentHandler();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for IntentHandler();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 void *sub_1000015E8(void *result, uint64_t a2)
@@ -104,7 +104,6 @@ uint64_t sub_100001764(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -114,14 +113,11 @@ uint64_t sub_100001764(uint64_t *a1, uint64_t *a2)
 
 uint64_t *sub_1000017AC(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

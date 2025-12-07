@@ -167,10 +167,9 @@ uint64_t __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke_2(u
 
 void __57__HMDHomeAdministratorConfigurationOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_173622;
-  logCategory__hmf_once_v2_173622 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_173622;
+  logCategory__hmf_once_v2_173622 = v0;
 }
 
 + (double)timeout

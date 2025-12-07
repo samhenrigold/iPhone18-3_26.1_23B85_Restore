@@ -28,7 +28,7 @@
   if (result)
   {
 
-    return [(SCNMatrix4 *)result transform];
+    return objc_msgSend_transform(result);
   }
 
   else
@@ -48,7 +48,7 @@
   if (result)
   {
 
-    return [(SCNMatrix4 *)result worldTransform];
+    return objc_msgSend_worldTransform(result);
   }
 
   else
@@ -106,21 +106,29 @@
   [(SCNNode *)clone opacity];
   [(SCNNode *)clone setOpacity:v4 * 0.5];
   [(SCNNode *)clone setGizmo:1];
-  memset(&v8, 0, sizeof(v8));
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   node = [(SCNManipulableItem *)self node];
   if (node)
   {
-    v7 = SCNMatrix4Identity;
-    [(SCNNode *)node convertTransform:&v7 toNode:0];
+    objc_msgSend_convertTransform_toNode_(node, *&SCNMatrix4Identity.m11, *&SCNMatrix4Identity.m13, *&SCNMatrix4Identity.m21, *&SCNMatrix4Identity.m23, *&SCNMatrix4Identity.m31, *&SCNMatrix4Identity.m33, *&SCNMatrix4Identity.m41, *&SCNMatrix4Identity.m43);
   }
 
   else
   {
-    memset(&v8, 0, sizeof(v8));
+    v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
   }
 
-  v7 = v8;
-  [(SCNNode *)clone setTransform:&v7];
+  v7[0] = v8;
+  v7[1] = v9;
+  v7[2] = v10;
+  v7[3] = v11;
+  [(SCNNode *)clone setTransform:v7];
   [(SCNManipulableItem *)self screenSize];
   return [SCNNodeManipulableItem nodeManipulatorItemWithNode:clone screenSize:?];
 }

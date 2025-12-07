@@ -1,8 +1,10 @@
 @interface PDDPEEPayload
 - (BOOL)isEqual:(id)equal;
+- (id)actionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsAction:(id)action;
 - (int)StringAsType:(id)type;
 - (int)action;
@@ -43,6 +45,21 @@
   {
     return 0;
   }
+}
+
+- (id)actionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100206560 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsAction:(id)action
@@ -102,6 +119,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 0xE)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100206580 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -364,12 +396,11 @@ LABEL_14:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    payloadSize = self->_payloadSize;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -388,106 +419,104 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  action = self->_action;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_status)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_requestZone)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_responseZone)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_location)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_person)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_classInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_classMember)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_role)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_tempObjectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_tempParentObjectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_organization)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_adminRequest)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_adminRequestAccount)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_groupInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_groupMember)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -730,7 +759,6 @@ LABEL_5:
     goto LABEL_47;
   }
 
-  v5 = *(equalCopy + 148);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 148) & 2) == 0 || self->_payloadSize != *(equalCopy + 20))
@@ -742,7 +770,7 @@ LABEL_5:
   else if ((*(equalCopy + 148) & 2) != 0)
   {
 LABEL_47:
-    v21 = 0;
+    v20 = 0;
     goto LABEL_48;
   }
 
@@ -898,17 +926,17 @@ LABEL_47:
   groupMember = self->_groupMember;
   if (groupMember | *(equalCopy + 7))
   {
-    v21 = [(PDDPGroupMember *)groupMember isEqual:?];
+    v20 = [(PDDPGroupMember *)groupMember isEqual:?];
   }
 
   else
   {
-    v21 = 1;
+    v20 = 1;
   }
 
 LABEL_48:
 
-  return v21;
+  return v20;
 }
 
 - (unint64_t)hash

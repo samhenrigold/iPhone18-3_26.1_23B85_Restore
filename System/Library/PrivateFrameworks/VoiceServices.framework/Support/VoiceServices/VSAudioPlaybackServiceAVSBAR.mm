@@ -1,6 +1,7 @@
 @interface VSAudioPlaybackServiceAVSBAR
 - (AudioStreamBasicDescription)asbd;
 - (BOOL)getAveragePower:(float *)power andPeakPower:(float *)peakPower;
+- (VSAudioPlaybackServiceAVSBAR)initWithAudioSessionID:(unsigned int)d asbd:(AudioStreamBasicDescription *)asbd;
 - (_opaque_pthread_mutex_t)audioQueueBufferLock;
 - (_opaque_pthread_mutex_t)stateLock;
 - (double)duration:(id)duration;
@@ -119,24 +120,19 @@
 - (id)addBoundaryTimeObserverForTimes:(id)times usingBlock:(id)block
 {
   blockCopy = block;
-  v7 = [times sortedArrayUsingComparator:&__block_literal_global];
+  v7 = [times sortedArrayUsingComparator:?];
   objc_initWeak(&location, self);
   synchronizer = self->_synchronizer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __75__VSAudioPlaybackServiceAVSBAR_addBoundaryTimeObserverForTimes_usingBlock___block_invoke_2;
-  v13[3] = &unk_279E4B4B0;
-  objc_copyWeak(&v16, &location);
-  v9 = v7;
-  v14 = v9;
-  v10 = blockCopy;
-  v15 = v10;
-  v11 = [(AVSampleBufferRenderSynchronizer *)synchronizer addBoundaryTimeObserverForTimes:v9 queue:0 usingBlock:v13];
+  v11 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v14, &location);
+  v12 = v7;
+  v13 = blockCopy;
+  v9 = [(AVSampleBufferRenderSynchronizer *)synchronizer addBoundaryTimeObserverForTimes:v11 queue:3221225472 usingBlock:__75__VSAudioPlaybackServiceAVSBAR_addBoundaryTimeObserverForTimes_usingBlock___block_invoke_2, &unk_279E4B4B0];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 
-  return v11;
+  return v9;
 }
 
 void __75__VSAudioPlaybackServiceAVSBAR_addBoundaryTimeObserverForTimes_usingBlock___block_invoke_2(uint64_t a1)
@@ -145,43 +141,35 @@ void __75__VSAudioPlaybackServiceAVSBAR_addBoundaryTimeObserverForTimes_usingBlo
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    v10 = 0uLL;
-    v11 = 0;
-    v4 = *(WeakRetained + 4);
-    if (v4)
+    v6 = 0uLL;
+    v7 = 0;
+    if (*(WeakRetained + 4))
     {
-      [v4 currentTime];
+      [&v6 currentTime];
     }
 
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __75__VSAudioPlaybackServiceAVSBAR_addBoundaryTimeObserverForTimes_usingBlock___block_invoke_3;
-    v6[3] = &unk_279E4B488;
-    v8 = v10;
-    v9 = v11;
-    v5 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    [v5 enumerateObjectsWithOptions:2 usingBlock:v6];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    [v4 enumerateObjectsWithOptions:? usingBlock:?];
   }
 }
 
 void __75__VSAudioPlaybackServiceAVSBAR_addBoundaryTimeObserverForTimes_usingBlock___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = a2;
-  v7 = v6;
-  memset(&v11, 0, sizeof(v11));
+  memset(&v10, 0, sizeof(v10));
   if (v6)
   {
-    [v6 CMTimeValue];
+    [&v10 CMTimeValue];
   }
 
-  time1 = v11;
-  v9 = *(a1 + 40);
-  if (CMTimeCompare(&time1, &v9) <= 0)
+  time1 = v10;
+  v8 = *(a1 + 40);
+  if (CMTimeCompare(&time1, &v8) <= 0)
   {
-    v8 = *(*(a1 + 32) + 16);
-    time1 = v11;
-    v8();
+    v7 = *(*(a1 + 32) + 16);
+    time1 = v10;
+    v7();
     *a4 = 1;
   }
 }
@@ -204,14 +192,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v4 CMTimeValue];
+  [&time1 CMTimeValue];
   if (!v6)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [v6 CMTimeValue];
+  [&v9 CMTimeValue];
 LABEL_6:
   v7 = CMTimeCompare(&time1, &v9);
 
@@ -220,7 +208,7 @@ LABEL_6:
 
 - (void)freeAudioQueue
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->_audioQueueBufferLock);
   if ([(NSMutableArray *)self->_enqueuedMappedAudioInfo count])
   {
@@ -229,41 +217,33 @@ LABEL_6:
     {
       v4 = [(NSMutableArray *)self->_enqueuedMappedAudioInfo count];
       *buf = 134217984;
-      v18 = v4;
+      v12 = v4;
       _os_log_impl(&dword_2727E4000, v3, OS_LOG_TYPE_DEFAULT, "#AVSBAR Dropping %lu enqueued data", buf, 0xCu);
     }
 
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
     v5 = self->_enqueuedMappedAudioInfo;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [NSMutableArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:0];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = MEMORY[0];
       do
       {
-        v9 = 0;
-        do
+        for (i = 0; i != v7; i = (i + 1))
         {
-          if (*v13 != v8)
+          if (MEMORY[0] != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(*(&v12 + 1) + 8 * v9) + 8);
+          v10 = *(*(8 * i) + 8);
           if (v10)
           {
             CFRelease(v10);
           }
-
-          ++v9;
         }
 
-        while (v7 != v9);
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [NSMutableArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v7);
@@ -273,17 +253,16 @@ LABEL_6:
   }
 
   pthread_mutex_unlock(&self->_audioQueueBufferLock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pause
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11.value) = 0;
-    _os_log_impl(&dword_2727E4000, v3, OS_LOG_TYPE_DEFAULT, "Pausing synchronizer", &v11, 2u);
+    LOWORD(v9.value) = 0;
+    _os_log_impl(&dword_2727E4000, v3, OS_LOG_TYPE_DEFAULT, "Pausing synchronizer", &v9, 2u);
   }
 
   pthread_mutex_lock(&self->_stateLock);
@@ -292,45 +271,42 @@ LABEL_6:
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    synchronizer = self->_synchronizer;
-    if (synchronizer)
+    if (self->_synchronizer)
     {
-      [(AVSampleBufferRenderSynchronizer *)synchronizer currentTime];
+      [&v9 currentTime];
     }
 
     else
     {
-      memset(&v11, 0, sizeof(v11));
+      memset(&v9, 0, sizeof(v9));
     }
 
-    Seconds = CMTimeGetSeconds(&v11);
-    LODWORD(v11.value) = 134217984;
-    *(&v11.value + 4) = Seconds;
-    _os_log_impl(&dword_2727E4000, v4, OS_LOG_TYPE_DEFAULT, "#AVSBAR synchronizer.rate will be set to 0 (at current time: %f).", &v11, 0xCu);
+    Seconds = CMTimeGetSeconds(&v9);
+    LODWORD(v9.value) = 134217984;
+    *(&v9.value + 4) = Seconds;
+    _os_log_impl(&dword_2727E4000, v4, OS_LOG_TYPE_DEFAULT, "#AVSBAR synchronizer.rate will be set to 0 (at current time: %f).", &v9, 0xCu);
   }
 
   mach_absolute_time();
-  [(AVSampleBufferRenderSynchronizer *)self->_synchronizer setRate:0.0];
+  [(AVSampleBufferRenderSynchronizer *)self->_synchronizer setRate:?];
   mach_absolute_time();
   VSAbsoluteTimeToSecond();
-  if (v7 > 0.25)
+  if (v6 > 0.25)
   {
-    v8 = VSGetLogDefault();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = VSGetLogDefault();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       VSAbsoluteTimeToSecond();
-      LODWORD(v11.value) = 134217984;
-      *(&v11.value + 4) = v10;
-      _os_log_error_impl(&dword_2727E4000, v8, OS_LOG_TYPE_ERROR, "_synchronizer pause rate high latency: %.3f sec", &v11, 0xCu);
+      LODWORD(v9.value) = 134217984;
+      *(&v9.value + 4) = v8;
+      _os_log_error_impl(&dword_2727E4000, v7, OS_LOG_TYPE_ERROR, "_synchronizer pause rate high latency: %.3f sec", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -346,10 +322,9 @@ LABEL_6:
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    synchronizer = self->_synchronizer;
-    if (synchronizer)
+    if (self->_synchronizer)
     {
-      [(AVSampleBufferRenderSynchronizer *)synchronizer currentTime];
+      [&buf currentTime];
     }
 
     else
@@ -364,41 +339,39 @@ LABEL_6:
   }
 
   mach_absolute_time();
-  v7 = self->_synchronizer;
+  synchronizer = self->_synchronizer;
   buf = **&MEMORY[0x277CC08F0];
-  [(AVSampleBufferRenderSynchronizer *)v7 setRate:&buf time:0.0];
+  [AVSampleBufferRenderSynchronizer setRate:"setRate:time:" time:?];
   mach_absolute_time();
   VSAbsoluteTimeToSecond();
-  if (v8 > 0.25)
+  if (v7 > 0.25)
   {
-    v9 = VSGetLogDefault();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = VSGetLogDefault();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       VSAbsoluteTimeToSecond();
       LODWORD(buf.value) = 134217984;
-      *(&buf.value + 4) = v14;
-      _os_log_error_impl(&dword_2727E4000, v9, OS_LOG_TYPE_ERROR, "_synchronizer stop rate high latency: %.3f sec", &buf, 0xCu);
+      *(&buf.value + 4) = v12;
+      _os_log_error_impl(&dword_2727E4000, v8, OS_LOG_TYPE_ERROR, "_synchronizer stop rate high latency: %.3f sec", &buf, 0xCu);
     }
   }
 
-  v10 = VSGetLogDefault();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v9 = VSGetLogDefault();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     [(AVSampleBufferRenderSynchronizer *)self->_synchronizer rate];
     LODWORD(buf.value) = 134217984;
-    *(&buf.value + 4) = v11;
-    _os_log_impl(&dword_2727E4000, v10, OS_LOG_TYPE_INFO, "#AVSBAR synchronizer.rate was set to 0. Current rate: %f", &buf, 0xCu);
+    *(&buf.value + 4) = v10;
+    _os_log_impl(&dword_2727E4000, v9, OS_LOG_TYPE_INFO, "#AVSBAR synchronizer.rate was set to 0. Current rate: %f", &buf, 0xCu);
   }
 
-  v12 = dispatch_get_global_queue(33, 0);
+  v11 = dispatch_get_global_queue(33, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __36__VSAudioPlaybackServiceAVSBAR_stop__block_invoke;
   block[3] = &unk_279E4BAC8;
   block[4] = self;
-  dispatch_async(v12, block);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(v11, block);
 }
 
 void __36__VSAudioPlaybackServiceAVSBAR_stop__block_invoke(uint64_t a1)
@@ -434,7 +407,7 @@ void __36__VSAudioPlaybackServiceAVSBAR_stop__block_invoke(uint64_t a1)
 
 - (void)flushAndStop
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -458,34 +431,32 @@ void __36__VSAudioPlaybackServiceAVSBAR_stop__block_invoke(uint64_t a1)
     block[4] = self;
     dispatch_sync(dataQueue, block);
     memset(&buf, 0, sizeof(buf));
-    synchronizer = self->_synchronizer;
-    if (synchronizer)
+    if (self->_synchronizer)
     {
-      [(AVSampleBufferRenderSynchronizer *)synchronizer currentTime];
-      v8 = self->_synchronizer;
+      [&buf currentTime];
+      synchronizer = self->_synchronizer;
     }
 
     else
     {
-      v8 = 0;
+      synchronizer = 0;
     }
 
     mappedAudioQueuedTimeStamp = self->_mappedAudioQueuedTimeStamp;
-    v9 = [MEMORY[0x277CCAE60] valueWithBytes:&mappedAudioQueuedTimeStamp objCType:"{?=qiIq}"];
-    v42[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
-    v11 = self->_dataQueue;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __44__VSAudioPlaybackServiceAVSBAR_flushAndStop__block_invoke_2;
-    v33[3] = &unk_279E4BAC8;
+    v8 = [MEMORY[0x277CCAE60] valueWithBytes:? objCType:?];
+    v40 = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v30 = MEMORY[0x277D85DD0];
+    v31 = 3221225472;
+    v32 = __44__VSAudioPlaybackServiceAVSBAR_flushAndStop__block_invoke_2;
+    v33 = &unk_279E4BAC8;
     v4 = v5;
     v34 = v4;
-    v12 = [(AVSampleBufferRenderSynchronizer *)v8 addBoundaryTimeObserverForTimes:v10 queue:v11 usingBlock:v33];
+    v10 = [AVSampleBufferRenderSynchronizer addBoundaryTimeObserverForTimes:"addBoundaryTimeObserverForTimes:queue:usingBlock:" queue:? usingBlock:?];
 
-    v13 = 0.0;
-    *&v14 = 134218240;
-    v31 = v14;
+    v11 = 0.0;
+    *&v12 = 134218240;
+    v28 = v12;
     while (1)
     {
       time1 = buf;
@@ -495,63 +466,63 @@ void __36__VSAudioPlaybackServiceAVSBAR_stop__block_invoke(uint64_t a1)
         break;
       }
 
-      v15 = VSGetLogDefault();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v13 = VSGetLogDefault();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         time1 = buf;
         Seconds = CMTimeGetSeconds(&time1);
         time1 = mappedAudioQueuedTimeStamp;
-        v17 = CMTimeGetSeconds(&time1);
-        LODWORD(time1.value) = v31;
+        v15 = CMTimeGetSeconds(&time1);
+        LODWORD(time1.value) = v28;
         *(&time1.value + 4) = Seconds;
         LOWORD(time1.flags) = 2048;
-        *(&time1.flags + 2) = v17;
-        _os_log_impl(&dword_2727E4000, v15, OS_LOG_TYPE_DEFAULT, "#AVSBAR Waiting for synchronizer finishing playing between current %f sec and until %f sec", &time1, 0x16u);
+        *(&time1.flags + 2) = v15;
+        _os_log_impl(&dword_2727E4000, v13, OS_LOG_TYPE_DEFAULT, "#AVSBAR Waiting for synchronizer finishing playing between current %f sec and until %f sec", &time1, 0x16u);
       }
 
-      v18 = dispatch_time(0, 1000000000);
-      if (!dispatch_semaphore_wait(v4, v18) || !self->_noRemainTasks)
+      v16 = dispatch_time(0, 1000000000);
+      if (!dispatch_semaphore_wait(v4, v16) || !self->_noRemainTasks)
       {
         break;
       }
 
       memset(&time1, 0, sizeof(time1));
-      v19 = self->_synchronizer;
-      if (v19)
+      v17 = self->_synchronizer;
+      if (v17)
       {
-        [(AVSampleBufferRenderSynchronizer *)v19 currentTime];
-        v19 = self->_synchronizer;
+        [&time1 currentTime];
+        v17 = self->_synchronizer;
       }
 
-      [(AVSampleBufferRenderSynchronizer *)v19 rate];
-      if (v20 <= 0.0 || (time2 = time1, v32 = buf, CMTimeCompare(&time2, &v32) <= 0))
+      [(AVSampleBufferRenderSynchronizer *)v17 rate];
+      if (v18 <= 0.0 || (time2 = time1, v29 = buf, CMTimeCompare(&time2, &v29) <= 0))
       {
         if (self->_state != 1)
         {
-          v13 = v13 + 1.0;
-          if (v13 >= 5.0)
+          v11 = v11 + 1.0;
+          if (v11 >= 5.0)
           {
-            v21 = VSGetLogDefault();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v19 = VSGetLogDefault();
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               [(AVSampleBufferRenderSynchronizer *)self->_synchronizer rate];
-              v29 = v28;
+              v26 = v25;
               time2 = time1;
-              v30 = CMTimeGetSeconds(&time2);
-              LODWORD(time2.value) = v31;
-              *(&time2.value + 4) = v29;
+              v27 = CMTimeGetSeconds(&time2);
+              LODWORD(time2.value) = v28;
+              *(&time2.value + 4) = v26;
               LOWORD(time2.flags) = 2048;
-              *(&time2.flags + 2) = v30;
-              _os_log_error_impl(&dword_2727E4000, v21, OS_LOG_TYPE_ERROR, "#AVSBAR Synchronizer is stalled with rate %f at time %f.", &time2, 0x16u);
+              *(&time2.flags + 2) = v27;
+              _os_log_error_impl(&dword_2727E4000, v19, OS_LOG_TYPE_ERROR, "#AVSBAR Synchronizer is stalled with rate %f at time %f.", &time2, 0x16u);
             }
 
-            v22 = MEMORY[0x277CCA9B8];
-            v38 = *MEMORY[0x277CCA450];
-            v39 = @"Timeout waiting for AVSampleBufferRenderSynchronizer";
-            v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-            v24 = [v22 errorWithDomain:@"VoiceServicesErrorDomain" code:450 userInfo:v23];
+            v20 = MEMORY[0x277CCA9B8];
+            block[5] = *MEMORY[0x277CCA450];
+            block[6] = @"Timeout waiting for AVSampleBufferRenderSynchronizer";
+            v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+            v22 = [v20 errorWithDomain:? code:? userInfo:?];
             error = self->_error;
-            self->_error = v24;
+            self->_error = v22;
 
             break;
           }
@@ -561,7 +532,7 @@ void __36__VSAudioPlaybackServiceAVSBAR_stop__block_invoke(uint64_t a1)
       buf = time1;
     }
 
-    [(AVSampleBufferRenderSynchronizer *)self->_synchronizer removeTimeObserver:v12, v31];
+    [(AVSampleBufferRenderSynchronizer *)self->_synchronizer removeTimeObserver:v28];
     noRemainTasks = self->_noRemainTasks;
     self->_noRemainTasks = 0;
 
@@ -578,8 +549,6 @@ void __36__VSAudioPlaybackServiceAVSBAR_stop__block_invoke(uint64_t a1)
       _os_log_error_impl(&dword_2727E4000, v4, OS_LOG_TYPE_ERROR, "#AVSBAR already stopped or waiting for finish", &buf, 2u);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __44__VSAudioPlaybackServiceAVSBAR_flushAndStop__block_invoke_2(uint64_t a1)
@@ -596,7 +565,7 @@ intptr_t __44__VSAudioPlaybackServiceAVSBAR_flushAndStop__block_invoke_2(uint64_
 
 - (void)provideMoreData
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_enqueuedMappedAudioInfo count])
   {
     v3 = VSGetLogDefault();
@@ -612,7 +581,7 @@ intptr_t __44__VSAudioPlaybackServiceAVSBAR_flushAndStop__block_invoke_2(uint64_
   if ([(AVSampleBufferAudioRenderer *)self->_renderer isReadyForMoreMediaData])
   {
     *&v4 = 134217984;
-    v27 = v4;
+    v26 = v4;
     while (1)
     {
       pthread_mutex_lock(&self->_audioQueueBufferLock);
@@ -623,8 +592,8 @@ intptr_t __44__VSAudioPlaybackServiceAVSBAR_flushAndStop__block_invoke_2(uint64_
       }
 
       v6 = firstObject;
-      [(NSMutableArray *)self->_enqueuedMappedAudioInfo removeObjectAtIndex:0];
-      [(VSAudioPlaybackServiceAVSBAR *)self createSampleBufferIdNeeded:v6];
+      [(NSMutableArray *)self->_enqueuedMappedAudioInfo removeObjectAtIndex:?];
+      [(VSAudioPlaybackServiceAVSBAR *)self createSampleBufferIdNeeded:?];
       pthread_mutex_unlock(&self->_audioQueueBufferLock);
       v7 = v6[1];
       if (v7)
@@ -644,7 +613,7 @@ intptr_t __44__VSAudioPlaybackServiceAVSBAR_flushAndStop__block_invoke_2(uint64_
 
         mach_absolute_time();
         renderer = [(VSAudioPlaybackServiceAVSBAR *)self renderer];
-        [renderer enqueueSampleBuffer:v6[1]];
+        [renderer enqueueSampleBuffer:?];
 
         mach_absolute_time();
         VSAbsoluteTimeToSecond();
@@ -654,7 +623,7 @@ intptr_t __44__VSAudioPlaybackServiceAVSBAR_flushAndStop__block_invoke_2(uint64_
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             VSAbsoluteTimeToSecond();
-            LODWORD(time.value) = v27;
+            LODWORD(time.value) = v26;
             *(&time.value + 4) = v14;
             _os_log_error_impl(&dword_2727E4000, v13, OS_LOG_TYPE_ERROR, "_renderer enqueueSampleBuffer high latency: %.3f sec", &time, 0xCu);
           }
@@ -692,29 +661,25 @@ LABEL_19:
     if (self->_state == 3)
     {
       pthread_mutex_lock(&self->_audioQueueBufferLock);
-      v28 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
       v18 = self->_enqueuedMappedAudioInfo;
-      v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v19 = [NSMutableArray countByEnumeratingWithState:v18 objects:"countByEnumeratingWithState:objects:count:" count:?];
       if (v19)
       {
         v20 = v19;
-        v21 = *v29;
+        v21 = MEMORY[0];
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v20; i = (i + 1))
           {
-            if (*v29 != v21)
+            if (MEMORY[0] != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            [(VSAudioPlaybackServiceAVSBAR *)self createSampleBufferIdNeeded:*(*(&v28 + 1) + 8 * i)];
+            [(VSAudioPlaybackServiceAVSBAR *)self createSampleBufferIdNeeded:?];
           }
 
-          v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v20 = [NSMutableArray countByEnumeratingWithState:v18 objects:"countByEnumeratingWithState:objects:count:" count:?];
         }
 
         while (v20);
@@ -733,8 +698,6 @@ LABEL_19:
       [(VSAudioPlaybackServiceAVSBAR *)self _play];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEndOfDataAttachment
@@ -744,123 +707,108 @@ LABEL_19:
   if (lastObject)
   {
     v4 = lastObject;
-    [(VSAudioMappedInfoAVSBAR *)lastObject setEndOfSiriTTSUtterance:1];
+    [(VSAudioMappedInfoAVSBAR *)lastObject setEndOfSiriTTSUtterance:?];
   }
 
   else
   {
     v4 = objc_alloc_init(VSAudioMappedInfoAVSBAR);
-    v5 = [(VSMappedData *)self->_mappedData appendData:0];
-    [(VSAudioMappedInfoAVSBAR *)v4 setAudioBytesRange:v5, v6];
-    [(VSAudioMappedInfoAVSBAR *)v4 setPacketCount:0];
-    v7 = [(VSMappedData *)self->_mappedData appendData:0];
-    [(VSAudioMappedInfoAVSBAR *)v4 setPacketDescriptionsRange:v7, v8];
-    [(VSAudioMappedInfoAVSBAR *)v4 setEndOfSiriTTSUtterance:1];
-    [(NSMutableArray *)self->_enqueuedMappedAudioInfo addObject:v4];
+    [(VSMappedData *)self->_mappedData appendData:?];
+    [(VSAudioMappedInfoAVSBAR *)v4 setAudioBytesRange:?];
+    [(VSAudioMappedInfoAVSBAR *)v4 setPacketCount:?];
+    [(VSMappedData *)self->_mappedData appendData:?];
+    [(VSAudioMappedInfoAVSBAR *)v4 setPacketDescriptionsRange:?];
+    [(VSAudioMappedInfoAVSBAR *)v4 setEndOfSiriTTSUtterance:?];
+    [(NSMutableArray *)self->_enqueuedMappedAudioInfo addObject:?];
   }
 
   pthread_mutex_unlock(&self->_audioQueueBufferLock);
-  v9 = VSGetLogDefault();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v5 = VSGetLogDefault();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_2727E4000, v9, OS_LOG_TYPE_INFO, "#AVSBAR EndOfDataAttachment ready for enqueuing", v10, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2727E4000, v5, OS_LOG_TYPE_INFO, "#AVSBAR EndOfDataAttachment ready for enqueuing", v6, 2u);
   }
 }
 
 - (opaqueCMSampleBuffer)createSilenceEndBuffer
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   asbd.mSampleRate = 48000.0;
   *&asbd.mFormatID = xmmword_272832680;
   *&asbd.mBytesPerFrame = xmmword_272832690;
   v3 = malloc_type_calloc(2uLL, 0x800uLL, 0x12761BA8uLL);
   blockBufferOut = 0;
   v4 = *MEMORY[0x277CBECE8];
-  v5 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v3, 0x1000uLL, *MEMORY[0x277CBECF0], 0, 0, 0x1000uLL, 0, &blockBufferOut);
-  if (v5)
+  if (CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v3, 0x1000uLL, *MEMORY[0x277CBECF0], 0, 0, 0x1000uLL, 0, &blockBufferOut))
   {
-    v6 = v5;
-    v7 = VSGetLogDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = VSGetLogDefault();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       LOWORD(presentationTimeStamp.value) = 0;
-      _os_log_error_impl(&dword_2727E4000, v7, OS_LOG_TYPE_ERROR, "Error in creating block buffer for Silence buffer", &presentationTimeStamp, 2u);
+      _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Error in creating block buffer for Silence buffer", &presentationTimeStamp, 2u);
     }
 
-    v8 = MEMORY[0x277CCA9B8];
-    v9 = *MEMORY[0x277CCA590];
-    v39 = *MEMORY[0x277CCA450];
-    v40[0] = @"Error in creating block buffer for Silence buffer";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
-    v11 = [v8 errorWithDomain:v9 code:v6 userInfo:v10];
+    v6 = MEMORY[0x277CCA9B8];
+    v31 = *MEMORY[0x277CCA450];
+    v32 = @"Error in creating block buffer for Silence buffer";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v8 = [v6 errorWithDomain:? code:? userInfo:?];
     error = self->_error;
-    self->_error = v11;
+    self->_error = v8;
 
     free(v3);
+    return 0;
   }
 
-  else
+  formatDescriptionOut = 0;
+  if (CMAudioFormatDescriptionCreate(v4, &asbd, 0, 0, 0, 0, 0, &formatDescriptionOut))
   {
-    formatDescriptionOut = 0;
-    v13 = CMAudioFormatDescriptionCreate(v4, &asbd, 0, 0, 0, 0, 0, &formatDescriptionOut);
-    if (v13)
+    v10 = VSGetLogDefault();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = v13;
-      v15 = VSGetLogDefault();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        LOWORD(presentationTimeStamp.value) = 0;
-        _os_log_error_impl(&dword_2727E4000, v15, OS_LOG_TYPE_ERROR, "Error in CMAudioFormatDescriptionCreate from Silence buffer creation", &presentationTimeStamp, 2u);
-      }
-
-      v16 = MEMORY[0x277CCA9B8];
-      v17 = *MEMORY[0x277CCA590];
-      v37 = *MEMORY[0x277CCA450];
-      v38 = @"Error in CMAudioFormatDescriptionCreate from Silence buffer creation";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-      v19 = [v16 errorWithDomain:v17 code:v14 userInfo:v18];
-      v20 = self->_error;
-      self->_error = v19;
-
-      CFRelease(blockBufferOut);
+      LOWORD(presentationTimeStamp.value) = 0;
+      _os_log_error_impl(&dword_2727E4000, v10, OS_LOG_TYPE_ERROR, "Error in CMAudioFormatDescriptionCreate from Silence buffer creation", &presentationTimeStamp, 2u);
     }
 
-    else
-    {
-      presentationTimeStamp = self->_mappedAudioQueuedTimeStamp;
-      v31 = 0;
-      v21 = CMAudioSampleBufferCreateWithPacketDescriptions(v4, blockBufferOut, 1u, 0, 0, formatDescriptionOut, 0x1000 / asbd.mBytesPerFrame, &presentationTimeStamp, 0, &v31);
-      CFRelease(blockBufferOut);
-      CFRelease(formatDescriptionOut);
-      if (!v21)
-      {
-        result = v31;
-        goto LABEL_14;
-      }
+    v11 = MEMORY[0x277CCA9B8];
+    v29 = *MEMORY[0x277CCA450];
+    v30 = @"Error in CMAudioFormatDescriptionCreate from Silence buffer creation";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v13 = [v11 errorWithDomain:? code:? userInfo:?];
+    v14 = self->_error;
+    self->_error = v13;
 
-      v22 = VSGetLogDefault();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-      {
-        LOWORD(presentationTimeStamp.value) = 0;
-        _os_log_error_impl(&dword_2727E4000, v22, OS_LOG_TYPE_ERROR, "Error in CMAudioSampleBufferCreateWithPacketDescriptions from silence buffer", &presentationTimeStamp, 2u);
-      }
-
-      v23 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA590];
-      v35 = *MEMORY[0x277CCA450];
-      v36 = @"Error in CMAudioSampleBufferCreateWithPacketDescriptions from silence buffer";
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-      v26 = [v23 errorWithDomain:v24 code:v21 userInfo:v25];
-      v27 = self->_error;
-      self->_error = v26;
-    }
+    CFRelease(blockBufferOut);
+    return 0;
   }
 
-  result = 0;
-LABEL_14:
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  presentationTimeStamp = self->_mappedAudioQueuedTimeStamp;
+  v23 = 0;
+  v15 = CMAudioSampleBufferCreateWithPacketDescriptions(v4, blockBufferOut, 1u, 0, 0, formatDescriptionOut, 0x1000 / asbd.mBytesPerFrame, &presentationTimeStamp, 0, &v23);
+  CFRelease(blockBufferOut);
+  CFRelease(formatDescriptionOut);
+  if (v15)
+  {
+    v16 = VSGetLogDefault();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(presentationTimeStamp.value) = 0;
+      _os_log_error_impl(&dword_2727E4000, v16, OS_LOG_TYPE_ERROR, "Error in CMAudioSampleBufferCreateWithPacketDescriptions from silence buffer", &presentationTimeStamp, 2u);
+    }
+
+    v17 = MEMORY[0x277CCA9B8];
+    v27 = *MEMORY[0x277CCA450];
+    v28 = @"Error in CMAudioSampleBufferCreateWithPacketDescriptions from silence buffer";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v19 = [v17 errorWithDomain:? code:? userInfo:?];
+    v20 = self->_error;
+    self->_error = v19;
+
+    return 0;
+  }
+
+  return v23;
 }
 
 - (void)_startProvidingData
@@ -875,14 +823,10 @@ LABEL_14:
 
     objc_initWeak(&location, self);
     renderer = self->_renderer;
-    dataQueue = self->_dataQueue;
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __51__VSAudioPlaybackServiceAVSBAR__startProvidingData__block_invoke;
-    v5[3] = &unk_279E4B7A0;
-    objc_copyWeak(&v6, &location);
-    [(AVSampleBufferAudioRenderer *)renderer requestMediaDataWhenReadyOnQueue:dataQueue usingBlock:v5];
-    objc_destroyWeak(&v6);
+    v4 = MEMORY[0x277D85DD0];
+    objc_copyWeak(&v5, &location);
+    [(AVSampleBufferAudioRenderer *)renderer requestMediaDataWhenReadyOnQueue:v4 usingBlock:3221225472, __51__VSAudioPlaybackServiceAVSBAR__startProvidingData__block_invoke, &unk_279E4B7A0];
+    objc_destroyWeak(&v5);
     objc_destroyWeak(&location);
   }
 }
@@ -895,7 +839,7 @@ void __51__VSAudioPlaybackServiceAVSBAR__startProvidingData__block_invoke(uint64
 
 - (void)enqueue:(id)enqueue packetCount:(int64_t)count packetDescriptions:(id)descriptions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   enqueueCopy = enqueue;
   descriptionsCopy = descriptions;
   if ((self->_state - 3) > 1)
@@ -903,33 +847,33 @@ void __51__VSAudioPlaybackServiceAVSBAR__startProvidingData__block_invoke(uint64
     if ([enqueueCopy length])
     {
       pthread_mutex_lock(&self->_audioQueueBufferLock);
-      v10 = objc_alloc_init(VSAudioMappedInfoAVSBAR);
-      v12 = [(VSMappedData *)self->_mappedData appendData:enqueueCopy];
-      [(VSAudioMappedInfoAVSBAR *)v10 setAudioBytesRange:v12, v13];
-      [(VSAudioMappedInfoAVSBAR *)v10 setPacketCount:count];
-      v14 = [(VSMappedData *)self->_mappedData appendData:descriptionsCopy];
-      [(VSAudioMappedInfoAVSBAR *)v10 setPacketDescriptionsRange:v14, v15];
-      v16 = VSGetLogDefault();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v9 = objc_alloc_init(VSAudioMappedInfoAVSBAR);
+      [(VSMappedData *)self->_mappedData appendData:?];
+      [(VSAudioMappedInfoAVSBAR *)v9 setAudioBytesRange:?];
+      [(VSAudioMappedInfoAVSBAR *)v9 setPacketCount:?];
+      [(VSMappedData *)self->_mappedData appendData:?];
+      [(VSAudioMappedInfoAVSBAR *)v9 setPacketDescriptionsRange:?];
+      v11 = VSGetLogDefault();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        [(VSAudioPlaybackServiceAVSBAR *)self duration:v10];
-        v19 = 134217984;
-        v20 = v17;
-        _os_log_impl(&dword_2727E4000, v16, OS_LOG_TYPE_INFO, "Adding to enqueuedMappedAudioInfo: %f sec", &v19, 0xCu);
+        [(VSAudioPlaybackServiceAVSBAR *)self duration:?];
+        v13 = 134217984;
+        v14 = v12;
+        _os_log_impl(&dword_2727E4000, v11, OS_LOG_TYPE_INFO, "Adding to enqueuedMappedAudioInfo: %f sec", &v13, 0xCu);
       }
 
-      [(NSMutableArray *)self->_enqueuedMappedAudioInfo addObject:v10];
+      [(NSMutableArray *)self->_enqueuedMappedAudioInfo addObject:?];
       pthread_mutex_unlock(&self->_audioQueueBufferLock);
       [(VSAudioPlaybackServiceAVSBAR *)self _startProvidingData];
     }
 
     else
     {
-      v10 = VSGetLogDefault();
-      if (os_log_type_enabled(&v10->super, OS_LOG_TYPE_ERROR))
+      v9 = VSGetLogDefault();
+      if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19) = 0;
-        v11 = "#AVSBAR empty audio data: will not enqueue it";
+        LOWORD(v13) = 0;
+        v10 = "#AVSBAR empty audio data: will not enqueue it";
         goto LABEL_11;
       }
     }
@@ -937,17 +881,15 @@ void __51__VSAudioPlaybackServiceAVSBAR__startProvidingData__block_invoke(uint64
 
   else
   {
-    v10 = VSGetLogDefault();
-    if (os_log_type_enabled(&v10->super, OS_LOG_TYPE_ERROR))
+    v9 = VSGetLogDefault();
+    if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v19) = 0;
-      v11 = "#AVSBAR already stopped or waiting for finish: will not enqueue more";
+      LOWORD(v13) = 0;
+      v10 = "#AVSBAR already stopped or waiting for finish: will not enqueue more";
 LABEL_11:
-      _os_log_error_impl(&dword_2727E4000, &v10->super, OS_LOG_TYPE_ERROR, v11, &v19, 2u);
+      _os_log_error_impl(&dword_2727E4000, &v9->super, OS_LOG_TYPE_ERROR, v10, &v13, 2u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (double)duration:(id)duration
@@ -981,13 +923,17 @@ LABEL_11:
 
 - (opaqueCMSampleBuffer)createSampleBuffer:(id)buffer
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
-  v47 = 0;
-  -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", [bufferCopy audioBytesRange]);
+  v39 = 0;
+  mappedData = self->_mappedData;
+  [bufferCopy audioBytesRange];
+  [(VSMappedData *)mappedData bytesAtOffset:?];
   if ([bufferCopy packetCount])
   {
-    packetDescriptions = -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", [bufferCopy packetDescriptionsRange]);
+    v6 = self->_mappedData;
+    [bufferCopy packetDescriptionsRange];
+    packetDescriptions = [(VSMappedData *)v6 bytesAtOffset:?];
   }
 
   else
@@ -996,12 +942,10 @@ LABEL_11:
   }
 
   [bufferCopy audioBytesRange];
-  v7 = v6;
-  v8 = *MEMORY[0x277CBECE8];
-  BlockBufferCopyingMemoryBlock = FigCreateBlockBufferCopyingMemoryBlock();
-  if (BlockBufferCopyingMemoryBlock)
+  v9 = v8;
+  v10 = *MEMORY[0x277CBECE8];
+  if (FigCreateBlockBufferCopyingMemoryBlock())
   {
-    v10 = BlockBufferCopyingMemoryBlock;
     v11 = VSGetLogDefault();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
@@ -1010,103 +954,93 @@ LABEL_11:
     }
 
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA590];
-    v52 = *MEMORY[0x277CCA450];
-    v53[0] = @"Error in creating block buffer for Sample buffer";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
-    v15 = v12;
-    v16 = v13;
-    v17 = v10;
+    v44 = *MEMORY[0x277CCA450];
+    v45 = @"Error in creating block buffer for Sample buffer";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v14 = v12;
   }
 
   else
   {
     formatDescriptionOut = 0;
-    v20 = CMAudioFormatDescriptionCreate(v8, &self->_asbd, 0, 0, 0, 0, 0, &formatDescriptionOut);
-    if (v20)
+    if (CMAudioFormatDescriptionCreate(v10, &self->_asbd, 0, 0, 0, 0, 0, &formatDescriptionOut))
     {
-      v21 = v20;
-      v22 = VSGetLogDefault();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v17 = VSGetLogDefault();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         LOWORD(presentationTimeStamp.value) = 0;
-        _os_log_error_impl(&dword_2727E4000, v22, OS_LOG_TYPE_ERROR, "Error in CMAudioFormatDescriptionCreate", &presentationTimeStamp, 2u);
+        _os_log_error_impl(&dword_2727E4000, v17, OS_LOG_TYPE_ERROR, "Error in CMAudioFormatDescriptionCreate", &presentationTimeStamp, 2u);
       }
 
-      v23 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA590];
-      v50 = *MEMORY[0x277CCA450];
-      v51 = @"Error in CMAudioFormatDescriptionCreate";
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-      v26 = [v23 errorWithDomain:v24 code:v21 userInfo:v25];
+      v18 = MEMORY[0x277CCA9B8];
+      v42 = *MEMORY[0x277CCA450];
+      v43 = @"Error in CMAudioFormatDescriptionCreate";
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      v20 = [v18 errorWithDomain:? code:? userInfo:?];
       error = self->_error;
-      self->_error = v26;
+      self->_error = v20;
 
-      CFRelease(v47);
+      CFRelease(v39);
       goto LABEL_13;
     }
 
-    v45 = 0;
-    v31 = formatDescriptionOut;
-    v32 = v47;
+    v37 = 0;
+    v24 = formatDescriptionOut;
+    v25 = v39;
     if (packetDescriptions)
     {
       packetCount = [bufferCopy packetCount];
       presentationTimeStamp = self->_mappedAudioQueuedTimeStamp;
-      v34 = CMAudioSampleBufferCreateWithPacketDescriptions(v8, v32, 1u, 0, 0, v31, packetCount, &presentationTimeStamp, packetDescriptions, &v45);
+      v27 = CMAudioSampleBufferCreateWithPacketDescriptions(v10, v25, 1u, 0, 0, v24, packetCount, &presentationTimeStamp, packetDescriptions, &v37);
     }
 
     else
     {
       mBytesPerFrame = self->_asbd.mBytesPerFrame;
       presentationTimeStamp = self->_mappedAudioQueuedTimeStamp;
-      v34 = CMAudioSampleBufferCreateWithPacketDescriptions(v8, v47, 1u, 0, 0, formatDescriptionOut, v7 / mBytesPerFrame, &presentationTimeStamp, 0, &v45);
+      v27 = CMAudioSampleBufferCreateWithPacketDescriptions(v10, v39, 1u, 0, 0, formatDescriptionOut, v9 / mBytesPerFrame, &presentationTimeStamp, 0, &v37);
     }
 
-    v36 = v34;
-    CFRelease(v47);
+    v29 = v27;
+    CFRelease(v39);
     CFRelease(formatDescriptionOut);
-    if (!v36)
+    if (!v29)
     {
       memset(&presentationTimeStamp, 0, sizeof(presentationTimeStamp));
-      CMSampleBufferGetOutputPresentationTimeStamp(&presentationTimeStamp, v45);
-      memset(&v43, 0, sizeof(v43));
-      CMSampleBufferGetOutputDuration(&v43, v45);
+      CMSampleBufferGetOutputPresentationTimeStamp(&presentationTimeStamp, v37);
+      memset(&v35, 0, sizeof(v35));
+      CMSampleBufferGetOutputDuration(&v35, v37);
       lhs = presentationTimeStamp;
-      rhs = v43;
-      CMTimeAdd(&v42, &lhs, &rhs);
-      self->_mappedAudioQueuedTimeStamp = v42;
-      v28 = v45;
+      rhs = v35;
+      CMTimeAdd(&v34, &lhs, &rhs);
+      self->_mappedAudioQueuedTimeStamp = v34;
+      v22 = v37;
       goto LABEL_14;
     }
 
-    v37 = VSGetLogDefault();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v30 = VSGetLogDefault();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       LOWORD(presentationTimeStamp.value) = 0;
-      _os_log_error_impl(&dword_2727E4000, v37, OS_LOG_TYPE_ERROR, "Error in CMAudioSampleBufferCreateWithPacketDescriptions", &presentationTimeStamp, 2u);
+      _os_log_error_impl(&dword_2727E4000, v30, OS_LOG_TYPE_ERROR, "Error in CMAudioSampleBufferCreateWithPacketDescriptions", &presentationTimeStamp, 2u);
     }
 
-    v38 = MEMORY[0x277CCA9B8];
-    v39 = *MEMORY[0x277CCA590];
-    v48 = *MEMORY[0x277CCA450];
-    v49 = @"Error in CMAudioSampleBufferCreateWithPacketDescriptions";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    v15 = v38;
-    v16 = v39;
-    v17 = v36;
+    v31 = MEMORY[0x277CCA9B8];
+    v40 = *MEMORY[0x277CCA450];
+    v41 = @"Error in CMAudioSampleBufferCreateWithPacketDescriptions";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v14 = v31;
   }
 
-  v18 = [v15 errorWithDomain:v16 code:v17 userInfo:v14];
-  v19 = self->_error;
-  self->_error = v18;
+  v15 = [v14 errorWithDomain:? code:? userInfo:?];
+  v16 = self->_error;
+  self->_error = v15;
 
 LABEL_13:
-  v28 = 0;
+  v22 = 0;
 LABEL_14:
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v28;
+  return v22;
 }
 
 - (void)createSampleBufferIdNeeded:(id)needed
@@ -1121,7 +1055,7 @@ LABEL_14:
   [(CMAttachmentBearerRef *)neededCopy audioBytesRange];
   if (v6)
   {
-    v7 = [(VSAudioPlaybackServiceAVSBAR *)self createSampleBuffer:v5];
+    v7 = [(VSAudioPlaybackServiceAVSBAR *)self createSampleBuffer:?];
     v5[1] = v7;
     if (!v7)
     {
@@ -1171,16 +1105,16 @@ LABEL_2:
 
 - (void)_play
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     rendererEnqueuedAudioDuration = self->_rendererEnqueuedAudioDuration;
     [(AVSampleBufferRenderSynchronizer *)self->_synchronizer rate];
     *buf = 134218240;
-    v10 = rendererEnqueuedAudioDuration;
-    v11 = 2048;
-    v12 = v5;
+    v9 = rendererEnqueuedAudioDuration;
+    v10 = 2048;
+    v11 = v5;
     _os_log_impl(&dword_2727E4000, v3, OS_LOG_TYPE_DEFAULT, "#AVSBAR synchronizer.rate will be set to 1 with enqueued audio duration %f sec. Previous rate: %f", buf, 0x16u);
   }
 
@@ -1191,20 +1125,18 @@ LABEL_2:
   block[3] = &unk_279E4BAC8;
   block[4] = self;
   dispatch_async(v6, block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __37__VSAudioPlaybackServiceAVSBAR__play__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) state] == 4 || objc_msgSend(*(a1 + 32), "state") == 1)
   {
     v2 = VSGetLogDefault();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_2727E4000, v2, OS_LOG_TYPE_INFO, "#AVSBAR already stopped or paused: will not resume rate", &v11, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_2727E4000, v2, OS_LOG_TYPE_INFO, "#AVSBAR already stopped or paused: will not resume rate", &v9, 2u);
     }
   }
 
@@ -1212,35 +1144,32 @@ void __37__VSAudioPlaybackServiceAVSBAR__play__block_invoke(uint64_t a1)
   {
     mach_absolute_time();
     v3 = [*(a1 + 32) synchronizer];
-    LODWORD(v4) = 1.0;
-    [v3 setRate:v4];
+    [v3 setRate:?];
 
     mach_absolute_time();
     VSAbsoluteTimeToSecond();
-    if (v5 > 0.25)
+    if (v4 > 0.25)
     {
-      v6 = VSGetLogDefault();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = VSGetLogDefault();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         VSAbsoluteTimeToSecond();
-        v11 = 134217984;
-        v12 = v10;
-        _os_log_error_impl(&dword_2727E4000, v6, OS_LOG_TYPE_ERROR, "_synchronizer play rate high latency: %.3f sec", &v11, 0xCu);
+        v9 = 134217984;
+        v10 = v8;
+        _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "_synchronizer play rate high latency: %.3f sec", &v9, 0xCu);
       }
     }
 
     v2 = VSGetLogDefault();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v7 = [*(a1 + 32) synchronizer];
-      [v7 rate];
-      v11 = 134217984;
-      v12 = v8;
-      _os_log_impl(&dword_2727E4000, v2, OS_LOG_TYPE_INFO, "#AVSBAR synchronizer.rate was set to 1. Current rate: %f", &v11, 0xCu);
+      v6 = [*(a1 + 32) synchronizer];
+      [v6 rate];
+      v9 = 134217984;
+      v10 = v7;
+      _os_log_impl(&dword_2727E4000, v2, OS_LOG_TYPE_INFO, "#AVSBAR synchronizer.rate was set to 1. Current rate: %f", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)start
@@ -1271,13 +1200,169 @@ void __37__VSAudioPlaybackServiceAVSBAR__play__block_invoke(uint64_t a1)
 - (void)dealloc
 {
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter removeObserver:self];
+  [defaultCenter removeObserver:?];
 
   [(VSAudioPlaybackServiceAVSBAR *)self stopWaiting];
   [(VSAudioPlaybackServiceAVSBAR *)self freeAudioQueue];
   v4.receiver = self;
   v4.super_class = VSAudioPlaybackServiceAVSBAR;
   [(VSAudioPlaybackServiceAVSBAR *)&v4 dealloc];
+}
+
+- (VSAudioPlaybackServiceAVSBAR)initWithAudioSessionID:(unsigned int)d asbd:(AudioStreamBasicDescription *)asbd
+{
+  v47 = *MEMORY[0x277D85DE8];
+  mach_absolute_time();
+  v43.receiver = self;
+  v43.super_class = VSAudioPlaybackServiceAVSBAR;
+  v7 = [(VSAudioPlaybackServiceAVSBAR *)&v43 init];
+  v8 = v7;
+  if (!v7)
+  {
+LABEL_15:
+    mach_absolute_time();
+    v36 = VSGetLogDefault();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    {
+      VSAbsoluteTimeToSecond();
+      *buf = 134218240;
+      *v45 = v8;
+      *&v45[8] = 2048;
+      v46 = v37;
+      _os_log_impl(&dword_2727E4000, v36, OS_LOG_TYPE_INFO, "VSAudioPlaybackService %p init latency: %.3f", buf, 0x16u);
+    }
+
+    v38 = v8;
+    goto LABEL_21;
+  }
+
+  *(v7 + 6) = 1;
+  v9 = *&asbd->mSampleRate;
+  v10 = *&asbd->mBytesPerPacket;
+  *(v7 + 19) = *&asbd->mBitsPerChannel;
+  *(v7 + 136) = v10;
+  *(v7 + 120) = v9;
+  if (d)
+  {
+    *(v7 + 3) = d;
+    v11 = v7 + 12;
+  }
+
+  else
+  {
+    mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
+    *(v8 + 3) = [mEMORY[0x277CB83F8] opaqueSessionID];
+    v11 = v8 + 12;
+  }
+
+  v13 = [MEMORY[0x277CB83F8] retrieveSessionWithID:?];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = objc_alloc_init(MEMORY[0x277D79948]);
+    v16 = *(v8 + 9);
+    *(v8 + 9) = v15;
+
+    array = [MEMORY[0x277CBEB18] array];
+    v18 = *(v8 + 10);
+    *(v8 + 10) = array;
+
+    v19 = MEMORY[0x277CC08F0];
+    *(v8 + 6) = *MEMORY[0x277CC08F0];
+    *(v8 + 14) = *(v19 + 16);
+    v20 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UNSPECIFIED, 0);
+    v21 = dispatch_queue_create("VSAudioPlaybackServiceAVSBARQueue", v20);
+    v22 = *(v8 + 5);
+    *(v8 + 5) = v21;
+
+    v23 = sLastSynchronizer;
+    v24 = sLastSynchronizer;
+    renderers = [v24 renderers];
+    firstObject = [renderers firstObject];
+
+    v27 = &OBJC_IVAR___VSAudioPlaybackServiceAT__discontinuedDuringPlayback;
+    if (firstObject)
+    {
+      audioSession = [firstObject audioSession];
+      if ([audioSession opaqueSessionID] != *v11)
+      {
+LABEL_10:
+
+        v27 = &OBJC_IVAR___VSAudioPlaybackServiceAT__discontinuedDuringPlayback;
+        goto LABEL_11;
+      }
+
+      if (v24)
+      {
+        [v42 currentTime];
+        if (v42[0])
+        {
+          goto LABEL_10;
+        }
+      }
+
+      else
+      {
+        memset(v42, 0, sizeof(v42));
+      }
+
+      v41 = sLastSynchronizerStartedProvidingData;
+
+      v27 = &OBJC_IVAR___VSAudioPlaybackServiceAT__discontinuedDuringPlayback;
+      if ((v41 & 1) == 0)
+      {
+        objc_storeStrong(v8 + 3, firstObject);
+        objc_storeStrong(v8 + 4, v23);
+        goto LABEL_12;
+      }
+    }
+
+LABEL_11:
+    v29 = objc_alloc_init(MEMORY[0x277CE6608]);
+    v30 = *(v8 + 3);
+    *(v8 + 3) = v29;
+
+    [*(v8 + 3) setAudioSession:?];
+    v31 = objc_alloc_init(MEMORY[0x277CE6620]);
+    v32 = *(v8 + 4);
+    *(v8 + 4) = v31;
+
+    [*(v8 + 4) setDelaysRateChangeUntilHasSufficientMediaData:?];
+    [*(v8 + 4) addRenderer:?];
+    objc_storeStrong(&sLastSynchronizer, *(v8 + 4));
+    *(v27 + 1888) = 0;
+LABEL_12:
+    pthread_mutex_init((v8 + 224), 0);
+    pthread_mutex_init((v8 + 160), 0);
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter addObserver:? selector:? name:? object:?];
+
+    v34 = VSGetLogDefault();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    {
+      v35 = *(v8 + 4) == v24;
+      *buf = 67109376;
+      *v45 = d;
+      *&v45[4] = 1024;
+      *&v45[6] = v35;
+      _os_log_impl(&dword_2727E4000, v34, OS_LOG_TYPE_DEFAULT, "#AVSBAR initialized with session ID: %d, reusing previous synchronizer: %{BOOL}d", buf, 0xEu);
+    }
+
+    goto LABEL_15;
+  }
+
+  v39 = VSGetLogDefault();
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109120;
+    *v45 = d;
+    _os_log_error_impl(&dword_2727E4000, v39, OS_LOG_TYPE_ERROR, "Can't retrieve session with ID: %d", buf, 8u);
+  }
+
+  v38 = 0;
+LABEL_21:
+
+  return v38;
 }
 
 @end

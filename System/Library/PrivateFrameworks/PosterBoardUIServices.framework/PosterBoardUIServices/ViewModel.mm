@@ -45,14 +45,14 @@ LABEL_3:
   {
 LABEL_4:
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_1CAEEEC14(&qword_1EC481808, type metadata accessor for NSKeyValueChangeKey);
+    sub_1CAEEEC14(&qword_1EC481808, type metadata accessor for NSKeyValueChangeKey, &unk_1CAF03360);
     sub_1CAEFA49C();
   }
 
 LABEL_7:
   sub_1CAEEEAAC(v9, v11);
 
-  sub_1CAEB3344(v16, &unk_1EC482110);
+  sub_1CAEB3344(v16, &unk_1EC482110, &qword_1CAF03480);
 }
 
 - (_TtC21PosterBoardUIServicesP33_6566E723EB1314FCC9387EF6739CF4379ViewModel)init

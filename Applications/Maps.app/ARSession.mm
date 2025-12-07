@@ -8,8 +8,8 @@
 
 - (void)updateCameraFocusLensPosition:(float)position
 {
-  configuration = [(ARSession *)self configuration];
-  isAutoFocusEnabled = [configuration isAutoFocusEnabled];
+  v5 = objc_msgSend_configuration(self, a2);
+  isAutoFocusEnabled = [v5 isAutoFocusEnabled];
 
   v7 = sub_100CE7EE8();
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
@@ -134,8 +134,8 @@ LABEL_23:
     }
   }
 
-  configuration = [(ARSession *)self configuration];
-  isVLF = [configuration isVLF];
+  v5 = objc_msgSend_configuration(self);
+  isVLF = [v5 isVLF];
 
   return isVLF;
 }
@@ -153,8 +153,8 @@ LABEL_23:
     }
   }
 
-  configuration = [(ARSession *)self configuration];
-  isVIO = [configuration isVIO];
+  v5 = objc_msgSend_configuration(self);
+  isVIO = [v5 isVIO];
 
   return isVIO;
 }

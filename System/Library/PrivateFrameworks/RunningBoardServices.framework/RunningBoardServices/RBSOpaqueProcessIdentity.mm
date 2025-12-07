@@ -2,6 +2,7 @@
 - (RBSOpaqueProcessIdentity)initWithDecodeFromJob:(id)job uuid:(id)uuid;
 - (RBSOpaqueProcessIdentity)initWithRBSXPCCoder:(id)coder;
 - (id)_initOpaqueWithPid:(int)pid auid:(unsigned int)auid description:(id)description;
+- (id)_initOpaqueWithPid:(int)pid name:(id)name auid:(unsigned int)auid;
 - (id)encodeForJob;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 @end
@@ -25,6 +26,16 @@
     *(v9 + 3) = v9[2];
     v12 = v9;
   }
+
+  return v9;
+}
+
+- (id)_initOpaqueWithPid:(int)pid name:(id)name auid:(unsigned int)auid
+{
+  v5 = *&auid;
+  v6 = *&pid;
+  name = [MEMORY[0x1E696AEC0] stringWithFormat:@"anon<%@>", name];
+  v9 = [(RBSOpaqueProcessIdentity *)self _initOpaqueWithPid:v6 auid:v5 description:name];
 
   return v9;
 }
@@ -65,12 +76,13 @@
 {
   jobCopy = job;
   uuidCopy = uuid;
+  v8 = uuidCopy;
   if (uuidCopy)
   {
-    v8 = rbs_general_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = rbs_general_log(uuidCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [RBSOpaqueProcessIdentity initWithDecodeFromJob:uuidCopy uuid:v8];
+      [RBSOpaqueProcessIdentity initWithDecodeFromJob:v8 uuid:v9];
     }
   }
 
@@ -78,26 +90,25 @@
   string = xpc_dictionary_get_string(jobCopy, "d");
   if (string)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = [(RBSOpaqueProcessIdentity *)self _initOpaqueWithPid:int64 auid:0 description:v11];
+  v13 = [(RBSOpaqueProcessIdentity *)self _initOpaqueWithPid:int64 auid:0 description:v12];
 
-  return v12;
+  return v13;
 }
 
 - (void)initWithDecodeFromJob:(uint64_t)a1 uuid:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "There is no reason an opaque identity should have a UUID %@:", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "There is no reason an opaque identity should have a UUID %@:", &v2, 0xCu);
 }
 
 @end

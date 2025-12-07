@@ -20,7 +20,7 @@
 
 - (NSString)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = pk_General_log();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
@@ -29,24 +29,23 @@
     v4 = pk_General_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136446722;
-      v8 = "[NPKRemotePassActionResponse identifier]";
-      v9 = 2082;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKitUI/NPKRemotePassActionResponse.m";
-      v11 = 2048;
-      v12 = 63;
-      _os_log_impl(&dword_25B64D000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v7, 0x20u);
+      v6 = 136446722;
+      v7 = "[NPKRemotePassActionResponse identifier]";
+      v8 = 2082;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKitUI/NPKRemotePassActionResponse.m";
+      v10 = 2048;
+      v11 = 63;
+      _os_log_impl(&dword_25B64D000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v6, 0x20u);
     }
   }
 
   _NPKAssertAbort();
-  v5 = *MEMORY[0x277D85DE8];
   return &stru_286CE7B58;
 }
 
 - (int)result
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = pk_General_log();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
@@ -55,24 +54,23 @@
     v4 = pk_General_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136446722;
-      v8 = "[NPKRemotePassActionResponse result]";
-      v9 = 2082;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKitUI/NPKRemotePassActionResponse.m";
-      v11 = 2048;
-      v12 = 69;
-      _os_log_impl(&dword_25B64D000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v7, 0x20u);
+      v6 = 136446722;
+      v7 = "[NPKRemotePassActionResponse result]";
+      v8 = 2082;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKitUI/NPKRemotePassActionResponse.m";
+      v10 = 2048;
+      v11 = 69;
+      _os_log_impl(&dword_25B64D000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v6, 0x20u);
     }
   }
 
   _NPKAssertAbort();
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (PKCurrencyAmount)currencyAmount
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = pk_General_log();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
@@ -81,18 +79,17 @@
     v4 = pk_General_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136446722;
-      v8 = "[NPKRemotePassActionResponse currencyAmount]";
-      v9 = 2082;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKitUI/NPKRemotePassActionResponse.m";
-      v11 = 2048;
-      v12 = 75;
-      _os_log_impl(&dword_25B64D000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v7, 0x20u);
+      v6 = 136446722;
+      v7 = "[NPKRemotePassActionResponse currencyAmount]";
+      v8 = 2082;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKitUI/NPKRemotePassActionResponse.m";
+      v10 = 2048;
+      v11 = 75;
+      _os_log_impl(&dword_25B64D000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Subclasses must override)", &v6, 0x20u);
     }
   }
 
   _NPKAssertAbort();
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

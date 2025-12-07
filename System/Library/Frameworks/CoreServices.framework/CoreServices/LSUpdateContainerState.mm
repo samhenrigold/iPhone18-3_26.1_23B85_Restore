@@ -18,9 +18,7 @@ void ___LSUpdateContainerState_block_invoke(uint64_t a1)
   else
   {
     [(_LSDatabase *)v2 store];
-    v6 = *([(_LSDatabase *)*(a1 + 32) schema]+ 1580);
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 40) + 8) + 48;
+    [(_LSDatabase *)*(a1 + 32) schema];
 
     _CSStoreWriteToUnit();
   }

@@ -8,8 +8,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorAPSUserPayloadDeliveryContext_aPSUserPayloadDeliveryContext);
-  v5 = self->aPSUserPayloadDeliveryContext[OBJC_IVAR___BlastDoorAPSUserPayloadDeliveryContext_aPSUserPayloadDeliveryContext];
   sub_2146D9608();
   v2 = sub_2146D9588();
 

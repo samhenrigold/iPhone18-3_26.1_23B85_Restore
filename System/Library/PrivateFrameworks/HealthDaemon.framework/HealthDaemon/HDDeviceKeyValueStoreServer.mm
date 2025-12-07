@@ -24,7 +24,7 @@
   v11 = [(HDStandardTaskServer *)&v15 initWithUUID:d configuration:configurationCopy client:client delegate:delegate];
   if (v11)
   {
-    v12 = [configurationCopy copy];
+    v12 = objc_msgSend_copy(configurationCopy);
     configuration = v11->_configuration;
     v11->_configuration = v12;
   }
@@ -85,20 +85,20 @@
 
 - (void)remote_mostRecentEntryForDomain:(id)domain key:(id)key protectionCategory:(int64_t)category completion:(id)completion
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   keyCopy = key;
   domainCopy = domain;
   profile = [(HDStandardTaskServer *)self profile];
   deviceKeyValueStoreManager = [profile deviceKeyValueStoreManager];
-  v21 = 0;
-  v15 = [deviceKeyValueStoreManager mostRecentEntryForDomain:domainCopy key:keyCopy protectionCategory:category error:&v21];
+  v20 = 0;
+  v15 = [deviceKeyValueStoreManager mostRecentEntryForDomain:domainCopy key:keyCopy protectionCategory:category error:&v20];
 
-  v16 = v21;
+  v16 = v20;
   if (v15)
   {
-    v22[0] = v15;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = v15;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     v18 = [(HDDeviceKeyValueStoreServer *)self _storageGroupForGroup:v17];
     firstObject = [v18 firstObject];
     completionCopy[2](completionCopy, firstObject, 0);
@@ -108,8 +108,6 @@
   {
     (completionCopy)[2](completionCopy, 0, v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_setNumber:(id)number forKey:(id)key domainName:(id)name protectionCategory:(int64_t)category completion:(id)completion
@@ -205,7 +203,7 @@ id __53__HDDeviceKeyValueStoreServer__storageGroupForGroup___block_invoke(uint64
   v15 = v14;
   if (v14)
   {
-    [v14 currentOSVersion];
+    objc_msgSend_currentOSVersion(v14);
   }
 
   else
@@ -261,19 +259,19 @@ id __53__HDDeviceKeyValueStoreServer__storageGroupForGroup___block_invoke_2(uint
 
 - (void)deviceKeyValueStoreDidUpdateForStorageGroup:(id)group domain:(id)domain
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   domainCopy = domain;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __82__HDDeviceKeyValueStoreServer_deviceKeyValueStoreDidUpdateForStorageGroup_domain___block_invoke;
-  v16[3] = &unk_27862E630;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __82__HDDeviceKeyValueStoreServer_deviceKeyValueStoreDidUpdateForStorageGroup_domain___block_invoke;
+  v15[3] = &unk_27862E630;
+  v15[4] = self;
   v8 = groupCopy;
-  v17 = v8;
+  v16 = v8;
   v9 = domainCopy;
-  v18 = v9;
-  v10 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v16];
+  v17 = v9;
+  v10 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v15];
   domain = [(HKDeviceKeyValueStoreTaskConfiguration *)self->_configuration domain];
   v12 = [domain isEqual:v9];
 
@@ -285,43 +283,39 @@ id __53__HDDeviceKeyValueStoreServer__storageGroupForGroup___block_invoke_2(uint
     {
       *buf = 138543874;
       selfCopy = self;
-      v21 = 2114;
-      v22 = v9;
-      v23 = 2114;
-      v24 = v8;
+      v20 = 2114;
+      v21 = v9;
+      v22 = 2114;
+      v23 = v8;
       _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_INFO, "%{public}@: Notify client of domain %{public}@ updated device key value pairs for storageGroup %{public}@", buf, 0x20u);
     }
 
     v14 = [(HDDeviceKeyValueStoreServer *)self _storageGroupForGroup:v8];
     [v10 clientRemote_deviceKeyValueStoreDidUpdateForStorageGroup:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HDDeviceKeyValueStoreServer_deviceKeyValueStoreDidUpdateForStorageGroup_domain___block_invoke(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v6 = a1[4];
-    v7 = a1[5];
-    v8 = a1[6];
-    v9 = 138544130;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Unable to notify client domain %{public}@ for updated device key value pairs for storageGroup %{public}@: %{public}@", &v9, 0x2Au);
+    v5 = a1[4];
+    v6 = a1[5];
+    v7 = a1[6];
+    v8 = 138544130;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Unable to notify client domain %{public}@ for updated device key value pairs for storageGroup %{public}@: %{public}@", &v8, 0x2Au);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -3,6 +3,7 @@
 - (HDDemoDataPerson)initWithFirstName:(id)name lastName:(id)lastName description:(id)description birthDateComponents:(id)components biologicalSex:(int64_t)sex;
 - (id)fullName;
 - (void)applyProfileType:(int64_t)type;
+- (void)setHighFidelityGeneration:(BOOL)generation;
 - (void)updateMedicalIDData;
 @end
 
@@ -35,7 +36,7 @@
 
 + (id)defaultPersonWithBiologicalSex:(int64_t)sex
 {
-  v94[7] = *MEMORY[0x277D85DE8];
+  v93[7] = *MEMORY[0x277D85DE8];
   v4 = sex == 2;
   if (sex == 2)
   {
@@ -100,14 +101,14 @@
     v12 = 200.0;
   }
 
-  v64 = v12;
+  v63 = v12;
   v13 = 250.0;
   if (sex != 2)
   {
     v13 = 200.0;
   }
 
-  v66 = v13;
+  v65 = v13;
   if (sex == 2)
   {
     v14 = 80.0;
@@ -124,15 +125,15 @@
     v15 = 7.0;
   }
 
-  v68 = v14;
-  v70 = v15;
+  v67 = v14;
+  v69 = v15;
   v16 = 6.0;
   if (sex == 2)
   {
     v16 = 4.0;
   }
 
-  v72 = v16;
+  v71 = v16;
   if (sex == 2)
   {
     v17 = 3.3;
@@ -149,8 +150,8 @@
     v18 = 2.5;
   }
 
-  v74 = v17;
-  v76 = v18;
+  v73 = v17;
+  v75 = v18;
   if (sex == 2)
   {
     v19 = 31;
@@ -169,7 +170,7 @@
   [v22 setYear:v8];
   [v22 setEra:1];
   hk_gregorianCalendarWithUTCTimeZone = [MEMORY[0x277CBEA80] hk_gregorianCalendarWithUTCTimeZone];
-  v78 = v22;
+  v77 = v22;
   [v22 setCalendar:hk_gregorianCalendarWithUTCTimeZone];
 
   v24 = [[HDDemoDataPerson alloc] initWithFirstName:v21 lastName:v20 description:@"Default Person" birthDateComponents:v22 biologicalSex:sex];
@@ -271,17 +272,17 @@
   [(HDDemoDataPerson *)v24 setRunningGroundContactTimeMean:200.0];
   [(HDDemoDataPerson *)v24 setRunningGroundContactTimeMeanStdDev:25.0];
   [(HDDemoDataPerson *)v24 setSwimmingStrokesPerYard:0.727272727];
-  [(HDDemoDataPerson *)v24 setCyclingPowerMean:v64];
+  [(HDDemoDataPerson *)v24 setCyclingPowerMean:v63];
   [(HDDemoDataPerson *)v24 setCyclingPowerMeanStdDev:40.0];
-  [(HDDemoDataPerson *)v24 setCyclingFTPMean:v66];
+  [(HDDemoDataPerson *)v24 setCyclingFTPMean:v65];
   [(HDDemoDataPerson *)v24 setCyclingFTPMeanStdDev:50.0];
-  [(HDDemoDataPerson *)v24 setCyclingCadenceMean:v68];
+  [(HDDemoDataPerson *)v24 setCyclingCadenceMean:v67];
   [(HDDemoDataPerson *)v24 setCyclingCadenceMeanStdDev:20.0];
   [(HDDemoDataPerson *)v24 setSpeedMeanStdDev:0.5];
-  [(HDDemoDataPerson *)v24 setCyclingSpeedMean:v70];
-  [(HDDemoDataPerson *)v24 setCrossCountrySkiingSpeedMean:v72];
-  [(HDDemoDataPerson *)v24 setRowingSpeedMean:v74];
-  [(HDDemoDataPerson *)v24 setPaddleSportsSpeedMean:v76];
+  [(HDDemoDataPerson *)v24 setCyclingSpeedMean:v69];
+  [(HDDemoDataPerson *)v24 setCrossCountrySkiingSpeedMean:v71];
+  [(HDDemoDataPerson *)v24 setRowingSpeedMean:v73];
+  [(HDDemoDataPerson *)v24 setPaddleSportsSpeedMean:v75];
   [(HDDemoDataPerson *)v24 setUnderwaterDivingWaterTemperatureMean:25.0];
   [(HDDemoDataPerson *)v24 setUnderwaterDivingWaterTemperatureStdDev:1.0];
   [(HDDemoDataPerson *)v24 setExerciseIntensityPercentage:0.8];
@@ -335,89 +336,89 @@
   [(HDDemoDataPerson *)v24 setMoveGoal:800.0];
   [(HDDemoDataPerson *)v24 setExerciseGoal:*MEMORY[0x277CCDF08]];
   [(HDDemoDataPerson *)v24 setStandGoal:*MEMORY[0x277CCDF00]];
-  v93[0] = &unk_283CB0E10;
-  v77 = +[HDDemoDataWorkoutPrototype HIITPrototype];
-  v91[0] = v77;
-  v75 = +[HDDemoDataWorkoutPrototype functionalStrengthTrainingPrototype];
-  v91[1] = v75;
-  v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
-  v71 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v73];
-  v92 = v71;
-  v69 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
-  v94[0] = v69;
-  v93[1] = &unk_283CB0E28;
-  v67 = +[HDDemoDataWorkoutPrototype dancePrototype];
-  v89[0] = v67;
-  v65 = +[HDDemoDataWorkoutPrototype yogaPrototype];
-  v89[1] = v65;
-  v63 = +[HDDemoDataWorkoutPrototype rowingPrototype];
-  v89[2] = v63;
-  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:3];
-  v61 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v62];
-  v90 = v61;
-  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
-  v94[1] = v60;
-  v93[2] = &unk_283CB0E40;
-  v59 = +[HDDemoDataWorkoutPrototype swimmingPrototype];
-  v87[0] = v59;
-  v58 = +[HDDemoDataWorkoutPrototype coolDownPrototype];
-  v87[1] = v58;
-  v57 = +[HDDemoDataWorkoutPrototype skatingSportsPrototype];
-  v87[2] = v57;
-  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:3];
-  v55 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v56];
-  v88 = v55;
-  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:1];
-  v94[2] = v54;
-  v93[3] = &unk_283CB0E58;
-  v53 = +[HDDemoDataWorkoutPrototype runningPrototype];
-  v85[0] = v53;
-  v52 = +[HDDemoDataWorkoutPrototype walkingPrototype];
-  v85[1] = v52;
-  v51 = +[HDDemoDataWorkoutPrototype soccerPrototype];
-  v85[2] = v51;
-  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:3];
-  v49 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v50];
-  v86 = v49;
-  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
-  v94[3] = v48;
-  v93[4] = &unk_283CB0E70;
-  v47 = +[HDDemoDataWorkoutPrototype ellipticalPrototype];
-  v83[0] = v47;
-  v46 = +[HDDemoDataWorkoutPrototype coreTrainingPrototype];
-  v83[1] = v46;
-  v45 = +[HDDemoDataWorkoutPrototype golfPrototype];
-  v83[2] = v45;
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:3];
-  v43 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v44];
-  v84 = v43;
-  v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
-  v94[4] = v42;
-  v93[5] = &unk_283CB0E88;
-  v41 = +[HDDemoDataWorkoutPrototype cyclingPrototype];
-  v81[0] = v41;
-  v40 = +[HDDemoDataWorkoutPrototype paddleSportsPrototype];
-  v81[1] = v40;
-  v39 = +[HDDemoDataWorkoutPrototype downhillSnowSportsPrototype];
-  v81[2] = v39;
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:3];
-  v25 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v38];
-  v82 = v25;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:1];
-  v94[5] = v26;
-  v93[6] = &unk_283CB0EA0;
+  v92[0] = &unk_283CB0E10;
+  v76 = +[HDDemoDataWorkoutPrototype HIITPrototype];
+  v90[0] = v76;
+  v74 = +[HDDemoDataWorkoutPrototype functionalStrengthTrainingPrototype];
+  v90[1] = v74;
+  v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
+  v70 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v72];
+  v91 = v70;
+  v68 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
+  v93[0] = v68;
+  v92[1] = &unk_283CB0E28;
+  v66 = +[HDDemoDataWorkoutPrototype dancePrototype];
+  v88[0] = v66;
+  v64 = +[HDDemoDataWorkoutPrototype yogaPrototype];
+  v88[1] = v64;
+  v62 = +[HDDemoDataWorkoutPrototype rowingPrototype];
+  v88[2] = v62;
+  v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:3];
+  v60 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v61];
+  v89 = v60;
+  v59 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
+  v93[1] = v59;
+  v92[2] = &unk_283CB0E40;
+  v58 = +[HDDemoDataWorkoutPrototype swimmingPrototype];
+  v86[0] = v58;
+  v57 = +[HDDemoDataWorkoutPrototype coolDownPrototype];
+  v86[1] = v57;
+  v56 = +[HDDemoDataWorkoutPrototype skatingSportsPrototype];
+  v86[2] = v56;
+  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:3];
+  v54 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v55];
+  v87 = v54;
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+  v93[2] = v53;
+  v92[3] = &unk_283CB0E58;
+  v52 = +[HDDemoDataWorkoutPrototype runningPrototype];
+  v84[0] = v52;
+  v51 = +[HDDemoDataWorkoutPrototype walkingPrototype];
+  v84[1] = v51;
+  v50 = +[HDDemoDataWorkoutPrototype soccerPrototype];
+  v84[2] = v50;
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:3];
+  v48 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v49];
+  v85 = v48;
+  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
+  v93[3] = v47;
+  v92[4] = &unk_283CB0E70;
+  v46 = +[HDDemoDataWorkoutPrototype ellipticalPrototype];
+  v82[0] = v46;
+  v45 = +[HDDemoDataWorkoutPrototype coreTrainingPrototype];
+  v82[1] = v45;
+  v44 = +[HDDemoDataWorkoutPrototype golfPrototype];
+  v82[2] = v44;
+  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:3];
+  v42 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v43];
+  v83 = v42;
+  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
+  v93[4] = v41;
+  v92[5] = &unk_283CB0E88;
+  v40 = +[HDDemoDataWorkoutPrototype cyclingPrototype];
+  v80[0] = v40;
+  v39 = +[HDDemoDataWorkoutPrototype paddleSportsPrototype];
+  v80[1] = v39;
+  v38 = +[HDDemoDataWorkoutPrototype downhillSnowSportsPrototype];
+  v80[2] = v38;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:3];
+  v25 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v37];
+  v81 = v25;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v81 count:1];
+  v93[5] = v26;
+  v92[6] = &unk_283CB0EA0;
   v27 = +[HDDemoDataWorkoutPrototype hikingPrototype];
-  v79[0] = v27;
+  v78[0] = v27;
   v28 = +[HDDemoDataWorkoutPrototype underwaterDivingPrototype];
-  v79[1] = v28;
+  v78[1] = v28;
   v29 = +[HDDemoDataWorkoutPrototype crossCountrySkiingPrototype];
-  v79[2] = v29;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:3];
+  v78[2] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:3];
   v31 = [HDDemoDataWorkoutPrototype pickRandomWorkoutFrom:v30];
-  v80 = v31;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
-  v94[6] = v32;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:7];
+  v79 = v31;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
+  v93[6] = v32;
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:7];
   [(HDDemoDataPerson *)v24 setWorkoutPrototypesByCalendarDay:v33];
 
   [(HDDemoDataPerson *)v24 setMealTimeSampleNoiseStdDev:0.03125];
@@ -469,8 +470,6 @@
   [(HDDemoDataPerson *)v24 setNutritionTrackingType:1];
   [(HDDemoDataPerson *)v24 setResultsTrackingType:1];
   [(HDDemoDataPerson *)v24 updateMedicalIDData];
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -529,9 +528,41 @@
   }
 }
 
+- (void)setHighFidelityGeneration:(BOOL)generation
+{
+  generationCopy = generation;
+  v5 = 0.0204050926;
+  if (generation)
+  {
+    v5 = 0.00998842593;
+    v6 = 0.00304398148;
+  }
+
+  else
+  {
+    v6 = 0.00555555556;
+  }
+
+  if (generation)
+  {
+    v7 = 0.0000347222222;
+  }
+
+  else
+  {
+    v7 = 0.0138888889;
+  }
+
+  [(HDDemoDataPerson *)self setTimeIncrement:v5];
+  [(HDDemoDataPerson *)self setHeartRateSampleFrequency:v6];
+  [(HDDemoDataPerson *)self setHeartRateSampleFrequencyStdDev:v7];
+
+  [(HDDemoDataPerson *)self setCreateHighFidelityData:generationCopy];
+}
+
 - (void)updateMedicalIDData
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCD7E8];
   v4 = [MEMORY[0x277CCDAB0] meterUnitWithMetricPrefix:5];
   [(HDDemoDataPerson *)self heightTargetInCm];
@@ -572,8 +603,8 @@
   [v14 setName:v15];
   [v14 setPhoneNumber:@"(555) 555-0100"];
   [v14 setRelationship:@"spouse"];
-  v32[0] = v14;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v31[0] = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   medicalIDData2 = [(HDDemoDataPerson *)self medicalIDData];
   [medicalIDData2 setEmergencyContacts:v16];
 
@@ -616,8 +647,6 @@
 
   medicalIDData11 = [(HDDemoDataPerson *)self medicalIDData];
   [medicalIDData11 setPrimaryLanguageCode:v29];
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

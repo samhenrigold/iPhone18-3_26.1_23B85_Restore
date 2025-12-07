@@ -10,11 +10,11 @@
 
 - (DVTStreamManager)initWithStream:(id)stream
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
-  v12.receiver = self;
-  v12.super_class = DVTStreamManager;
-  v6 = [(DVTStreamManager *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = DVTStreamManager;
+  v6 = [(DVTStreamManager *)&v11 init];
   v7 = v6;
   if (v6)
   {
@@ -27,7 +27,6 @@
     v7->_currentStreamSize = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

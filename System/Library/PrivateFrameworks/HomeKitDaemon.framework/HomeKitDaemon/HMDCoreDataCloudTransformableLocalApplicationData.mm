@@ -6,7 +6,7 @@
 
 + (BOOL)exportUpdateWithObjectID:(id)d updatedProperties:(id)properties additionalUpdates:(id)updates context:(id)context
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dCopy = d;
   propertiesCopy = properties;
   updatesCopy = updates;
@@ -17,9 +17,9 @@
 
   if (v16)
   {
-    v44 = 0;
-    v17 = [contextCopy existingObjectWithID:dCopy error:&v44];
-    v18 = v44;
+    v43 = 0;
+    v17 = [contextCopy existingObjectWithID:dCopy error:&v43];
+    v18 = v43;
     if (v17)
     {
       home = [v17 home];
@@ -28,9 +28,9 @@
       {
         home2 = [v17 home];
         objectID = [home2 objectID];
-        v50 = @"applicationData";
+        v49 = @"applicationData";
         v22 = MEMORY[0x277CBEA60];
-        v23 = &v50;
+        v23 = &v49;
 LABEL_17:
         v35 = [v22 arrayWithObjects:v23 count:1];
         [self addToUpdates:updatesCopy objectID:objectID properties:v35];
@@ -44,9 +44,9 @@ LABEL_17:
       {
         home2 = [v17 actionSet];
         objectID = [home2 objectID];
-        v49 = @"applicationData";
+        v48 = @"applicationData";
         v22 = MEMORY[0x277CBEA60];
-        v23 = &v49;
+        v23 = &v48;
         goto LABEL_17;
       }
 
@@ -56,9 +56,9 @@ LABEL_17:
       {
         home2 = [v17 room];
         objectID = [home2 objectID];
-        v48 = @"applicationData";
+        v47 = @"applicationData";
         v22 = MEMORY[0x277CBEA60];
-        v23 = &v48;
+        v23 = &v47;
         goto LABEL_17;
       }
 
@@ -68,9 +68,9 @@ LABEL_17:
       {
         home2 = [v17 accessory];
         objectID = [home2 objectID];
-        v47 = @"applicationData";
+        v46 = @"applicationData";
         v22 = MEMORY[0x277CBEA60];
-        v23 = &v47;
+        v23 = &v46;
         goto LABEL_17;
       }
 
@@ -81,9 +81,9 @@ LABEL_17:
         service2 = [v17 service];
         accessory2 = [service2 accessory];
         objectID2 = [accessory2 objectID];
-        v46 = @"services_";
-        v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
-        [self addToUpdates:updatesCopy objectID:objectID2 properties:v41];
+        v45 = @"services_";
+        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+        [self addToUpdates:updatesCopy objectID:objectID2 properties:v40];
 
         goto LABEL_18;
       }
@@ -94,9 +94,9 @@ LABEL_17:
       {
         home2 = [v17 serviceGroup];
         objectID = [home2 objectID];
-        v45 = @"applicationData";
+        v44 = @"applicationData";
         v22 = MEMORY[0x277CBEA60];
-        v23 = &v45;
+        v23 = &v44;
         goto LABEL_17;
       }
 
@@ -107,9 +107,9 @@ LABEL_17:
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v52 = v27;
-        v53 = 2114;
-        v54 = dCopy;
+        v51 = v27;
+        v52 = 2114;
+        v53 = dCopy;
         v29 = "%{public}@Failed to determine app data container for object with objectID %{public}@";
         v30 = v26;
         v31 = 22;
@@ -128,16 +128,16 @@ LABEL_9:
         v27 = HMFGetLogIdentifier();
         v28 = @"not found";
         *buf = 138543874;
-        v52 = v27;
+        v51 = v27;
         if (v18)
         {
           v28 = v18;
         }
 
-        v53 = 2114;
-        v54 = dCopy;
-        v55 = 2114;
-        v56 = v28;
+        v52 = 2114;
+        v53 = dCopy;
+        v54 = 2114;
+        v55 = v28;
         v29 = "%{public}@Failed to fetch object with objectID %{public}@: %{public}@";
         v30 = v26;
         v31 = 32;
@@ -149,7 +149,6 @@ LABEL_9:
 LABEL_18:
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

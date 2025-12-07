@@ -222,7 +222,7 @@
   [v9 tracePlaybackTimeFraction];
   v12 = v11;
   tracePlayer2 = [(NavigationDebugViewsController *)self tracePlayer];
-  [tracePlayer2 duration];
+  objc_msgSend_duration(tracePlayer2);
   [v10 jumpToTime:v14 * v12];
 
   if (self->_isPresentingModallyPickerVC)
@@ -525,7 +525,7 @@ LABEL_5:
   [v10 setAltitude:?];
 
   tracePlayer = [(NavigationDebugViewsController *)self tracePlayer];
-  [tracePlayer duration];
+  objc_msgSend_duration(tracePlayer);
   v19 = 0.0;
   v20 = 0.0;
   if (v21 > 0.0)
@@ -534,7 +534,7 @@ LABEL_5:
     [tracePlayer2 position];
     v24 = v23;
     tracePlayer3 = [(NavigationDebugViewsController *)self tracePlayer];
-    [tracePlayer3 duration];
+    objc_msgSend_duration(tracePlayer3);
     v20 = v24 / v26;
   }
 

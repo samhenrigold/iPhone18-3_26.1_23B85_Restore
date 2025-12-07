@@ -20,10 +20,10 @@ void __44___UINavigationBarTitleRenamer_renameServer__block_invoke(uint64_t a1)
 
 uint64_t __54___UINavigationBarTitleRenamer_sessionWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 sessionIdentifier];
-  v4 = [v3 isEqual:*(a1 + 32)];
+  v2 = [a2 sessionIdentifier];
+  isEqual = objc_msgSend_isEqual_(v2);
 
-  return v4;
+  return isEqual;
 }
 
 @end

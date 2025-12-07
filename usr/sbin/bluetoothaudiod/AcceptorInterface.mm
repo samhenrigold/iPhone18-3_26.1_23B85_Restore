@@ -1,8 +1,15 @@
 @interface AcceptorInterface
 + (void)initialize;
 - (AcceptorInterface)initWithPeripheral:(id)peripheral;
+- (BOOL)isCISMuxed:(unsigned __int8)muxed withDirection:(BOOL)direction;
+- (BOOL)setAbsoluteVolume:(unsigned __int8)volume;
+- (BOOL)setCoordinatedSetLock:(unsigned __int8)lock;
+- (BOOL)setMicrophoneGainSetting:(char)setting inputType:(unsigned __int8)type;
+- (BOOL)setMicrophoneMute:(unsigned __int8)mute;
 - (BOOL)setRelativeVolumeDown;
 - (BOOL)setRelativeVolumeUp;
+- (BOOL)setVolumeMute:(BOOL)mute;
+- (BOOL)setVolumeOffset:(signed __int16)offset audioLocation:(unsigned int)location;
 - (ClientCommonAudioProfile)parentCAP;
 - (id)clientServiceForUUID:(id)d;
 - (id)getAudioStreamEndpoints;
@@ -27,6 +34,7 @@
 - (void)clientServiceDidStart:(id)start;
 - (void)dealloc;
 - (void)handleActivePresetIndexEvent:(id)event;
+- (void)handleCaptureEvent:(id)event withServiceEvent:(unsigned __int8)serviceEvent;
 - (void)handleCreateCISDataPathEvent:(id)event;
 - (void)handleCsisAttAvailableEvent:(id)event;
 - (void)handleDeviceAttributeUpdateEvent:(id)event;
@@ -43,6 +51,8 @@
 - (void)handleReadPresetsRequestEvent:(id)event;
 - (void)handleReadPresetsResponseEvent:(id)event;
 - (void)handleRemoveCISDataPathEvent:(id)event;
+- (void)handleRenderingEvent:(id)event withServiceEvent:(unsigned __int8)serviceEvent;
+- (void)handleServiceEvent:(unsigned __int8)event withEventObj:(id)obj;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
 - (void)peripheral:(id)peripheral didDiscoverDescriptorsForCharacteristic:(id)characteristic error:(id)error;
 - (void)peripheral:(id)peripheral didDiscoverIncludedServicesForService:(id)service error:(id)error;
@@ -55,14 +65,20 @@
 - (void)sendReadActivePresetIndex;
 - (void)sendReadAvailableContexts;
 - (void)sendReadHearingAidFeatures;
+- (void)sendReadPresetsRequest:(unsigned __int8)request withNumPresets:(unsigned __int8)presets;
+- (void)sendReadSinkASE:(unsigned __int8)e;
 - (void)sendReadSinkAudioLocations;
+- (void)sendReadSourceASE:(unsigned __int8)e;
 - (void)sendReadSourceAudioLocations;
 - (void)sendReadSupportedContexts;
+- (void)sendSetActivePreset:(unsigned __int8)preset;
+- (void)sendSetActivePresetSyncLocally:(unsigned __int8)locally;
 - (void)sendSetNextPreset;
 - (void)sendSetNextPresetSyncLocally;
 - (void)sendSetPreviousPreset;
 - (void)sendSetPreviousPresetSyncLocally;
 - (void)sendWriteASEControlPoint;
+- (void)sendWritePresetName:(unsigned __int8)name withName:(id)withName;
 - (void)sendWriteSinkAudioLocations;
 - (void)sendWriteSourceAudioLocations;
 - (void)startAcceptorServices;
@@ -1115,6 +1131,29 @@ LABEL_9:
   return v12;
 }
 
+- (BOOL)isCISMuxed:(unsigned __int8)muxed withDirection:(BOOL)direction
+{
+  if (muxed < 2u)
+  {
+    return 0;
+  }
+
+  directionCopy = direction;
+  pacsInterface = [(AcceptorInterface *)self pacsInterface];
+  if ([pacsInterface getSupportedAudioChannelCountMask:directionCopy] < 2)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    pacsInterface2 = [(AcceptorInterface *)self pacsInterface];
+    v8 = [pacsInterface2 getNumOfChanLocSet:directionCopy] > 1;
+  }
+
+  return v8;
+}
+
 - (unsigned)sendCodecConfigRequestWithAudioConfig:(id)config
 {
   configCopy = config;
@@ -1724,6 +1763,24 @@ LABEL_11:
   return v26;
 }
 
+- (BOOL)setAbsoluteVolume:(unsigned __int8)volume
+{
+  volumeCopy = volume;
+  vcsInterface = [(AcceptorInterface *)self vcsInterface];
+  LOBYTE(volumeCopy) = [vcsInterface setAbsoluteVolume:volumeCopy];
+
+  return volumeCopy;
+}
+
+- (BOOL)setVolumeMute:(BOOL)mute
+{
+  muteCopy = mute;
+  vcsInterface = [(AcceptorInterface *)self vcsInterface];
+  LOBYTE(muteCopy) = [vcsInterface setMute:muteCopy];
+
+  return muteCopy;
+}
+
 - (BOOL)setRelativeVolumeUp
 {
   vcsInterface = [(AcceptorInterface *)self vcsInterface];
@@ -1738,6 +1795,237 @@ LABEL_11:
   setRelativeVolumeDown = [vcsInterface setRelativeVolumeDown];
 
   return setRelativeVolumeDown;
+}
+
+- (BOOL)setVolumeOffset:(signed __int16)offset audioLocation:(unsigned int)location
+{
+  v4 = *&location;
+  offsetCopy = offset;
+  vcsInterface = [(AcceptorInterface *)self vcsInterface];
+  LOBYTE(v4) = [vcsInterface sendVolumeOffset:offsetCopy audioLocation:v4];
+
+  return v4;
+}
+
+- (BOOL)setMicrophoneMute:(unsigned __int8)mute
+{
+  muteCopy = mute;
+  micsInterface = [(AcceptorInterface *)self micsInterface];
+  LOBYTE(muteCopy) = [micsInterface sendMute:muteCopy];
+
+  return muteCopy;
+}
+
+- (BOOL)setMicrophoneGainSetting:(char)setting inputType:(unsigned __int8)type
+{
+  typeCopy = type;
+  settingCopy = setting;
+  micsInterface = [(AcceptorInterface *)self micsInterface];
+  LOBYTE(typeCopy) = [micsInterface sendGainSetting:settingCopy inputType:typeCopy];
+
+  return typeCopy;
+}
+
+- (void)sendReadPresetsRequest:(unsigned __int8)request withNumPresets:(unsigned __int8)presets
+{
+  presetsCopy = presets;
+  requestCopy = request;
+  v7 = [DataOutputStream outputStreamWithByteOrder:1];
+  hasInterface = [(AcceptorInterface *)self hasInterface];
+  v17 = v7;
+  [hasInterface buildReadPresetsRequest:requestCopy numPresets:presetsCopy withRequestData:&v17];
+  v9 = v17;
+
+  v10 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v10;
+    peripheral = [(AcceptorInterface *)self peripheral];
+    identifier = [peripheral identifier];
+    *buf = 138412290;
+    v19 = identifier;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Sending Read Presets Request to peripheral %@ ", buf, 0xCu);
+  }
+
+  data = [v9 data];
+  v15 = [data mutableCopy];
+
+  hasInterface2 = [(AcceptorInterface *)self hasInterface];
+  [hasInterface2 sendControlPointOperation:v15];
+}
+
+- (void)sendWritePresetName:(unsigned __int8)name withName:(id)withName
+{
+  nameCopy = name;
+  withNameCopy = withName;
+  hasInterface = [(AcceptorInterface *)self hasInterface];
+  v8 = [hasInterface presetNameWritable:nameCopy];
+
+  if (!v8)
+  {
+    v19 = qword_1000A9FE0;
+    if (!os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_11;
+    }
+
+    *buf = 67109120;
+    LODWORD(v26) = nameCopy;
+    v20 = "Name of preset %d not writable";
+    v21 = v19;
+    v22 = 8;
+LABEL_10:
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
+    goto LABEL_11;
+  }
+
+  if (![withNameCopy length])
+  {
+    v23 = qword_1000A9FE0;
+    if (!os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_11;
+    }
+
+    *buf = 0;
+    v20 = "Preset name must be at least 1 octet";
+    v21 = v23;
+    v22 = 2;
+    goto LABEL_10;
+  }
+
+  v9 = [DataOutputStream outputStreamWithByteOrder:1];
+  hasInterface2 = [(AcceptorInterface *)self hasInterface];
+  v24 = v9;
+  [hasInterface2 buildWritePresetName:nameCopy withName:withNameCopy withRequestData:&v24];
+  v11 = v24;
+
+  v12 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v12;
+    peripheral = [(AcceptorInterface *)self peripheral];
+    identifier = [peripheral identifier];
+    *buf = 138412290;
+    v26 = identifier;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Sending Write Preset Name to peripheral %@ ", buf, 0xCu);
+  }
+
+  data = [v11 data];
+  v17 = [data mutableCopy];
+
+  hasInterface3 = [(AcceptorInterface *)self hasInterface];
+  [hasInterface3 sendControlPointOperation:v17];
+
+LABEL_11:
+}
+
+- (void)sendSetActivePreset:(unsigned __int8)preset
+{
+  presetCopy = preset;
+  hasInterface = [(AcceptorInterface *)self hasInterface];
+  v6 = [hasInterface presetAvailable:presetCopy];
+
+  if (v6)
+  {
+    v7 = [DataOutputStream outputStreamWithByteOrder:1];
+    hasInterface2 = [(AcceptorInterface *)self hasInterface];
+    v18 = v7;
+    [hasInterface2 buildSetActivePreset:presetCopy withRequestData:&v18];
+    v9 = v18;
+
+    v10 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v10;
+      peripheral = [(AcceptorInterface *)self peripheral];
+      identifier = [peripheral identifier];
+      *buf = 138412290;
+      v20 = identifier;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Sending Set Active Preset request to peripheral %@ ", buf, 0xCu);
+    }
+
+    data = [v9 data];
+    v15 = [data mutableCopy];
+
+    hasInterface3 = [(AcceptorInterface *)self hasInterface];
+    [hasInterface3 sendControlPointOperation:v15];
+  }
+
+  else
+  {
+    v17 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      LODWORD(v20) = presetCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Preset %d not available", buf, 8u);
+    }
+  }
+}
+
+- (void)sendSetActivePresetSyncLocally:(unsigned __int8)locally
+{
+  locallyCopy = locally;
+  hasInterface = [(AcceptorInterface *)self hasInterface];
+  v6 = [hasInterface presetAvailable:locallyCopy];
+
+  if (v6)
+  {
+    hasInterface2 = [(AcceptorInterface *)self hasInterface];
+    presetSyncSupported = [hasInterface2 presetSyncSupported];
+
+    if (presetSyncSupported)
+    {
+      v9 = [DataOutputStream outputStreamWithByteOrder:1];
+      hasInterface3 = [(AcceptorInterface *)self hasInterface];
+      v24 = v9;
+      [hasInterface3 buildSetActivePresetSyncLocally:locallyCopy withRequestData:&v24];
+      v11 = v24;
+
+      v12 = qword_1000A9FE0;
+      if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = v12;
+        peripheral = [(AcceptorInterface *)self peripheral];
+        identifier = [peripheral identifier];
+        *buf = 138412290;
+        v26 = identifier;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Sending Set Active Preset - Synchronized Locally request to peripheral %@ ", buf, 0xCu);
+      }
+
+      data = [v11 data];
+      v17 = [data mutableCopy];
+
+      hasInterface4 = [(AcceptorInterface *)self hasInterface];
+      [hasInterface4 sendControlPointOperation:v17];
+    }
+
+    else
+    {
+      v20 = qword_1000A9FE0;
+      if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = v20;
+        peripheral2 = [(AcceptorInterface *)self peripheral];
+        identifier2 = [peripheral2 identifier];
+        *buf = 138412290;
+        v26 = identifier2;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Preset Synchronization is not supported by peripheral %@ ", buf, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    v19 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      LODWORD(v26) = locallyCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Preset %d not available", buf, 8u);
+    }
+  }
 }
 
 - (void)sendSetNextPreset
@@ -1892,6 +2180,22 @@ LABEL_11:
   return getLock;
 }
 
+- (BOOL)setCoordinatedSetLock:(unsigned __int8)lock
+{
+  lockCopy = lock;
+  csisInterface = [(AcceptorInterface *)self csisInterface];
+
+  if (!csisInterface)
+  {
+    return 0;
+  }
+
+  csisInterface2 = [(AcceptorInterface *)self csisInterface];
+  v7 = [csisInterface2 setLock:lockCopy];
+
+  return v7;
+}
+
 - (unsigned)getCoordinatedSetMemberRank
 {
   csisInterface = [(AcceptorInterface *)self csisInterface];
@@ -1940,6 +2244,18 @@ LABEL_11:
   }
 }
 
+- (void)sendReadSinkASE:(unsigned __int8)e
+{
+  eCopy = e;
+  ascsInterface = [(AcceptorInterface *)self ascsInterface];
+
+  if (ascsInterface)
+  {
+    ascsInterface2 = [(AcceptorInterface *)self ascsInterface];
+    [ascsInterface2 readSinkASE:eCopy];
+  }
+}
+
 - (void)sendWriteASEControlPoint
 {
   ascsInterface = [(AcceptorInterface *)self ascsInterface];
@@ -1948,6 +2264,18 @@ LABEL_11:
   {
     ascsInterface2 = [(AcceptorInterface *)self ascsInterface];
     [ascsInterface2 writeASEControlPoint];
+  }
+}
+
+- (void)sendReadSourceASE:(unsigned __int8)e
+{
+  eCopy = e;
+  ascsInterface = [(AcceptorInterface *)self ascsInterface];
+
+  if (ascsInterface)
+  {
+    ascsInterface2 = [(AcceptorInterface *)self ascsInterface];
+    [ascsInterface2 readSourceASE:eCopy];
   }
 }
 
@@ -2014,6 +2342,112 @@ LABEL_11:
   {
     pacsInterface2 = [(AcceptorInterface *)self pacsInterface];
     [pacsInterface2 readSupportedContexts];
+  }
+}
+
+- (void)handleServiceEvent:(unsigned __int8)event withEventObj:(id)obj
+{
+  eventCopy = event;
+  objCopy = obj;
+  v7 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    v9 = [(AcceptorInterface *)self serviceEventToString:eventCopy];
+    v11 = 136315394;
+    v12 = "[AcceptorInterface handleServiceEvent:withEventObj:]";
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s event: %@", &v11, 0x16u);
+  }
+
+  switch(eventCopy)
+  {
+    case 0:
+      [(AcceptorInterface *)self clientServiceDidStart:objCopy];
+      break;
+    case 2:
+      [(AcceptorInterface *)self handleCreateCISDataPathEvent:objCopy];
+      break;
+    case 3:
+      [(AcceptorInterface *)self handleRemoveCISDataPathEvent:objCopy];
+      break;
+    case 4:
+      [(AcceptorInterface *)self handleDisconnectCISEvent:objCopy];
+      break;
+    case 5:
+      break;
+    case 6:
+    case 7:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+      [(AcceptorInterface *)self handleCaptureEvent:objCopy withServiceEvent:eventCopy];
+      break;
+    case 8:
+    case 9:
+    case 10:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22:
+      [(AcceptorInterface *)self handleRenderingEvent:objCopy withServiceEvent:eventCopy];
+      break;
+    case 23:
+      [(AcceptorInterface *)self handleLockStateNotifyEvent:objCopy];
+      break;
+    case 24:
+      [(AcceptorInterface *)self handleLockRequestResultEvent:objCopy];
+      break;
+    case 25:
+      [(AcceptorInterface *)self handleCsisAttAvailableEvent:objCopy];
+      break;
+    case 26:
+      [(AcceptorInterface *)self handleDeviceAttributeUpdateEvent:objCopy];
+      break;
+    case 27:
+      [(AcceptorInterface *)self handlePresetControlPointResultEvent:objCopy];
+      break;
+    case 28:
+      [(AcceptorInterface *)self handleHearingAidFeaturesEvent:objCopy];
+      break;
+    case 29:
+      [(AcceptorInterface *)self handleActivePresetIndexEvent:objCopy];
+      break;
+    case 30:
+      [(AcceptorInterface *)self handleReadPresetsRequestEvent:objCopy];
+      break;
+    case 31:
+      [(AcceptorInterface *)self handleReadPresetsResponseEvent:objCopy];
+      break;
+    case 32:
+      [(AcceptorInterface *)self handlePresetNameChangedEvent:objCopy];
+      break;
+    case 33:
+      [(AcceptorInterface *)self handlePresetRecordAddedEvent:objCopy];
+      break;
+    case 34:
+      [(AcceptorInterface *)self handlePresetRecordDeletedEvent:objCopy];
+      break;
+    case 35:
+      [(AcceptorInterface *)self handlePresetRecordAvailableEvent:objCopy];
+      break;
+    case 36:
+      [(AcceptorInterface *)self handlePresetRecordUnavailableEvent:objCopy];
+      break;
+    default:
+      v10 = qword_1000A9FE0;
+      if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+      {
+        sub_10005ECD8(eventCopy, v10);
+      }
+
+      break;
   }
 }
 
@@ -2095,6 +2529,54 @@ LABEL_11:
   (cisDisconnectHandler)[2](cisDisconnectHandler, unsignedCharValue, unsignedCharValue2);
 }
 
+- (void)handleCaptureEvent:(id)event withServiceEvent:(unsigned __int8)serviceEvent
+{
+  serviceEventCopy = serviceEvent;
+  eventCopy = event;
+  v7 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 136315394;
+    v12 = "[AcceptorInterface handleCaptureEvent:withServiceEvent:]";
+    v13 = 2112;
+    v14 = eventCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s with %@", &v11, 0x16u);
+  }
+
+  v8 = [[NSMutableDictionary alloc] initWithDictionary:eventCopy];
+  captureHandler = [(AcceptorInterface *)self captureHandler];
+
+  if (captureHandler)
+  {
+    captureHandler2 = [(AcceptorInterface *)self captureHandler];
+    (captureHandler2)[2](captureHandler2, serviceEventCopy, v8);
+  }
+}
+
+- (void)handleRenderingEvent:(id)event withServiceEvent:(unsigned __int8)serviceEvent
+{
+  serviceEventCopy = serviceEvent;
+  eventCopy = event;
+  v7 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 136315394;
+    v12 = "[AcceptorInterface handleRenderingEvent:withServiceEvent:]";
+    v13 = 2112;
+    v14 = eventCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s with %@", &v11, 0x16u);
+  }
+
+  v8 = [[NSMutableDictionary alloc] initWithDictionary:eventCopy];
+  renderingHandler = [(AcceptorInterface *)self renderingHandler];
+
+  if (renderingHandler)
+  {
+    renderingHandler2 = [(AcceptorInterface *)self renderingHandler];
+    (renderingHandler2)[2](renderingHandler2, serviceEventCopy, v8);
+  }
+}
+
 - (void)handleLockStateNotifyEvent:(id)event
 {
   eventCopy = event;
@@ -2169,25 +2651,14 @@ LABEL_12:
     {
       parentCAP = [(AcceptorInterface *)self parentCAP];
 
-      if (parentCAP)
+      if (parentCAP || (+[ConnectionManager instance](ConnectionManager, "instance"), v12 = objc_claimAutoreleasedReturnValue(), -[AcceptorInterface csisInterface](self, "csisInterface"), v13 = objc_claimAutoreleasedReturnValue(), [v13 getSirk], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v12, "matchingCapSetWithSirk:withSirk:", self, v14), v14, v13, v12, v15))
       {
-        goto LABEL_9;
-      }
-
-      v12 = +[ConnectionManager instance];
-      csisInterface3 = [(AcceptorInterface *)self csisInterface];
-      getSirk2 = [csisInterface3 getSirk];
-      v15 = [v12 matchingCapSetWithSirk:self withSirk:getSirk2];
-
-      if (v15)
-      {
-LABEL_9:
         csisInterface = [(AcceptorInterface *)self parentCAP];
-        csisInterface4 = [(AcceptorInterface *)self csisInterface];
-        getSirk3 = [csisInterface4 getSirk];
+        csisInterface3 = [(AcceptorInterface *)self csisInterface];
+        getSirk2 = [csisInterface3 getSirk];
         peripheral = [(AcceptorInterface *)self peripheral];
         identifier = [peripheral identifier];
-        [csisInterface setSIRK:getSirk3 withIdentifier:identifier];
+        [csisInterface setSIRK:getSirk2 withIdentifier:identifier];
 
         goto LABEL_12;
       }
@@ -2197,8 +2668,8 @@ LABEL_9:
   else if ([v6 isEqual:CBUUIDCoordinatedSetSizeCharacteristicString])
   {
     csisInterface = [(AcceptorInterface *)self parentCAP];
-    csisInterface5 = [(AcceptorInterface *)self csisInterface];
-    [csisInterface setCoordinateSetSize:{objc_msgSend(csisInterface5, "getSetSize")}];
+    csisInterface4 = [(AcceptorInterface *)self csisInterface];
+    [csisInterface setCoordinateSetSize:{objc_msgSend(csisInterface4, "getSetSize")}];
 
     goto LABEL_12;
   }

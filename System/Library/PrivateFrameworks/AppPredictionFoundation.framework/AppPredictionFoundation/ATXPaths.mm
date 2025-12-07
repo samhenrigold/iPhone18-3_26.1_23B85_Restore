@@ -1,4 +1,5 @@
 @interface ATXPaths
++ (id)_getDirectoryCreating:(BOOL)creating clientIdentifier:(id)identifier;
 + (id)appPredictionBackupDirectory;
 + (id)appPredictionCacheDirectory;
 + (id)appPredictionDirectoryFile:(id)file;
@@ -62,54 +63,52 @@
 
 + (void)createDirectoriesIfNeeded
 {
-  v16[12] = *MEMORY[0x277D85DE8];
+  v15[12] = *MEMORY[0x277D85DE8];
   v3 = [self _getDirectoryCreating:1 clientIdentifier:0];
-  v16[0] = @"MagicalMoments";
-  v16[1] = @"caches";
-  v16[2] = @"ClientModelCaches";
-  v16[3] = @"UICaches";
-  v16[4] = @"feedback";
-  v16[5] = @"streams";
-  v16[6] = @"metrics";
-  v16[7] = @"models";
-  v16[8] = @"ModeCaches";
-  v16[9] = @"Bookmarks";
-  v16[10] = @"WidgetPredictionModelDirectory";
-  v16[11] = @"ScoreNormalizationModel";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:12];
+  v15[0] = @"MagicalMoments";
+  v15[1] = @"caches";
+  v15[2] = @"ClientModelCaches";
+  v15[3] = @"UICaches";
+  v15[4] = @"feedback";
+  v15[5] = @"streams";
+  v15[6] = @"metrics";
+  v15[7] = @"models";
+  v15[8] = @"ModeCaches";
+  v15[9] = @"Bookmarks";
+  v15[10] = @"WidgetPredictionModelDirectory";
+  v15[11] = @"ScoreNormalizationModel";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:12];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = v13 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [v3 stringByAppendingPathComponent:{*(*(&v11 + 1) + 8 * v8), v11}];
+        v9 = [v3 stringByAppendingPathComponent:{*(*(&v10 + 1) + 8 * v8), v10}];
         [self _recursivelyCreateDirectoryWithErrorHandlingAtPath:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_recursivelyCreateDirectoryWithErrorHandlingAtPath:(id)path
@@ -123,7 +122,7 @@
   if ((v5 & 1) == 0)
   {
     code = [v6 code];
-    v8 = __atxlog_handle_default();
+    v8 = __atxlog_handle_default(code);
     v9 = v8;
     if (code == 640)
     {
@@ -165,6 +164,19 @@ uint64_t __58__ATXPaths_appPredictionDirectoryForClientWithIdentifier___block_in
   return MEMORY[0x2821F96F8]();
 }
 
++ (id)_getDirectoryCreating:(BOOL)creating clientIdentifier:(id)identifier
+{
+  creatingCopy = creating;
+  _getDirectoryBase = [self _getDirectoryBase];
+  if (creatingCopy)
+  {
+    [self _recursivelyCreateDirectoryWithErrorHandlingAtPath:_getDirectoryBase];
+    [ATXPaths createDataVault:_getDirectoryBase];
+  }
+
+  return _getDirectoryBase;
+}
+
 + (void)createDataVault:(id)vault
 {
   vaultCopy = vault;
@@ -172,9 +184,10 @@ uint64_t __58__ATXPaths_appPredictionDirectoryForClientWithIdentifier___block_in
   v5 = rootless_check_datavault_flag();
   if (v5 == 1)
   {
-    if (chmod(uTF8String, 0x1C0u))
+    v11 = chmod(uTF8String, 0x1C0u);
+    if (v11)
     {
-      v6 = __atxlog_handle_default();
+      v6 = __atxlog_handle_default(v11);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         +[ATXPaths createDataVault:];
@@ -183,25 +196,26 @@ uint64_t __58__ATXPaths_appPredictionDirectoryForClientWithIdentifier___block_in
 
     else
     {
-      v11 = rootless_convert_to_datavault();
-      v12 = __atxlog_handle_default();
-      v6 = v12;
-      if (!v11)
+      v12 = rootless_convert_to_datavault();
+      v13 = v12;
+      v14 = __atxlog_handle_default(v12);
+      v6 = v14;
+      if (!v13)
       {
-        if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_11;
         }
 
-        v13 = 0;
+        v15 = 0;
         v7 = "Directory successfully converted to Data Vault";
-        v8 = &v13;
+        v8 = &v15;
         v9 = v6;
         v10 = OS_LOG_TYPE_DEFAULT;
         goto LABEL_5;
       }
 
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         +[ATXPaths createDataVault:];
       }
@@ -210,7 +224,7 @@ uint64_t __58__ATXPaths_appPredictionDirectoryForClientWithIdentifier___block_in
 
   else if (v5)
   {
-    v6 = __atxlog_handle_default();
+    v6 = __atxlog_handle_default(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[ATXPaths createDataVault:];
@@ -219,7 +233,7 @@ uint64_t __58__ATXPaths_appPredictionDirectoryForClientWithIdentifier___block_in
 
   else
   {
-    v6 = __atxlog_handle_default();
+    v6 = __atxlog_handle_default(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -374,87 +388,78 @@ LABEL_11:
 {
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v10 = 0;
-  v5 = [defaultManager attributesOfItemAtPath:pathCopy error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [defaultManager attributesOfItemAtPath:pathCopy error:&v11];
+  v6 = v11;
 
   if (v6)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[ATXPaths modificationDateOfFileAtPath:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = [v5 objectForKeyedSubscript:*MEMORY[0x277CCA150]];
+    v9 = [v5 objectForKeyedSubscript:*MEMORY[0x277CCA150]];
   }
 
-  return v8;
+  return v9;
 }
 
 + (void)_recursivelyCreateDirectoryWithErrorHandlingAtPath:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(&dword_226368000, v0, OS_LOG_TYPE_FAULT, "Could not create directory: %@ path: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_226368000, v0, OS_LOG_TYPE_FAULT, "Could not create directory: %@ path: %@", v1, 0x16u);
 }
 
 + (void)_recursivelyCreateDirectoryWithErrorHandlingAtPath:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "Could not create directory (out of space): %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "Could not create directory (out of space): %@", &v2, 0xCu);
 }
 
 + (void)createDataVault:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
 }
 
 + (void)createDataVault:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 + (void)createDataVault:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 + (void)modificationDateOfFileAtPath:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_226368000, v0, OS_LOG_TYPE_ERROR, "Encountered error getting file age for path: %@. Error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_226368000, v0, OS_LOG_TYPE_ERROR, "Encountered error getting file age for path: %@. Error: %@", v1, 0x16u);
 }
 
 @end

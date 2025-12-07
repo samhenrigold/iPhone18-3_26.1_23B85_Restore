@@ -3,10 +3,10 @@
 - (id)sendMessageIntentExtension;
 - (uint64_t)disconnectedReasonRequiresCallBackUI;
 - (uint64_t)hasSendCustomMessageCapability;
-- (uint64_t)shouldPlayInCallSounds;
 - (uint64_t)shouldShowAutomaticTelephonyCallFallback;
 - (uint64_t)shouldShowFailureAlert;
 - (uint64_t)supportsSendMessageIntent;
+- (void)shouldPlayInCallSounds;
 @end
 
 @implementation TUCall(PHUIUtilities)
@@ -35,7 +35,7 @@
   v3 = 0;
   if (disconnectedReason > 0x18 || ((1 << disconnectedReason) & 0x1C2C020) == 0)
   {
-    goto LABEL_14;
+    return v3 & 1;
   }
 
   mEMORY[0x277D6EDF8] = [MEMORY[0x277D6EDF8] sharedInstance];
@@ -53,7 +53,8 @@
   }
 
   v8 = +[PHInCallUIUtilities isSpringBoardPasscodeLocked];
-  if (![self isIncoming])
+  isIncoming = [self isIncoming];
+  if (!isIncoming)
   {
     if (v8)
     {
@@ -61,11 +62,13 @@
     }
 
 LABEL_10:
-    v3 = [self isConversation] ^ 1 | isOneToOneModeEnabled;
+    isIncoming = [self isConversation];
+    v3 = isIncoming ^ 1 | isOneToOneModeEnabled;
     goto LABEL_11;
   }
 
-  if (!(v8 | (([self isConnecting] & 1) == 0)))
+  isIncoming = [self isConnecting];
+  if (!v8 && (isIncoming & 1) != 0)
   {
     goto LABEL_10;
   }
@@ -73,15 +76,15 @@ LABEL_10:
 LABEL_8:
   v3 = 0;
 LABEL_11:
-  v9 = PHDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PHDefaultLog(isIncoming);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110912;
     v13 = v3 & 1;
     v14 = 1024;
     disconnectedReason2 = [self disconnectedReason];
     v16 = 1024;
-    isIncoming = [self isIncoming];
+    isIncoming2 = [self isIncoming];
     v18 = 1024;
     isConnecting = [self isConnecting];
     v20 = 1024;
@@ -92,11 +95,9 @@ LABEL_11:
     v25 = isOneToOneModeEnabled;
     v26 = 1024;
     v27 = v5 == 0;
-    _os_log_impl(&dword_2429BC000, v9, OS_LOG_TYPE_DEFAULT, "disconnectedReasonRequiresCallBackUI = %d (disconnectedReason: %d, isIncoming: %d, isConnecting: %d, isSpringBoardPasscodeLocked: %d, isConversation: %d, isOneToOneModeEnabled: %d, conversationIsNil: %d)", buf, 0x32u);
+    _os_log_impl(&dword_2429BC000, v10, OS_LOG_TYPE_DEFAULT, "disconnectedReasonRequiresCallBackUI = %d (disconnectedReason: %d, isIncoming: %d, isConnecting: %d, isSpringBoardPasscodeLocked: %d, isConversation: %d, isOneToOneModeEnabled: %d, conversationIsNil: %d)", buf, 0x32u);
   }
 
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
@@ -156,7 +157,7 @@ LABEL_14:
   return v4;
 }
 
-- (uint64_t)shouldPlayInCallSounds
+- (void)shouldPlayInCallSounds
 {
   result = [self needsManualInCallSounds];
   if (result)
@@ -183,38 +184,44 @@ LABEL_14:
   v16 = 0u;
   v5 = v4;
   v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v7 = v6;
   if (v6)
   {
-    v7 = *v16;
+    v8 = *v16;
     while (2)
     {
-      for (i = 0; i != v6; ++i)
+      v9 = 0;
+      do
       {
-        if (*v16 != v7)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v10 = PHDefaultLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v10 = *(*(&v15 + 1) + 8 * v9);
+        v11 = PHDefaultLog(v6);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v20 = v9;
-          _os_log_impl(&dword_2429BC000, v10, OS_LOG_TYPE_DEFAULT, "application %@", buf, 0xCu);
+          v20 = v10;
+          _os_log_impl(&dword_2429BC000, v11, OS_LOG_TYPE_DEFAULT, "application %@", buf, 0xCu);
         }
 
-        bundleIdentifier2 = [v9 bundleIdentifier];
-        v12 = [bundleIdentifier2 isEqualToString:bundleIdentifier];
+        bundleIdentifier2 = [v10 bundleIdentifier];
+        v13 = [bundleIdentifier2 isEqualToString:bundleIdentifier];
 
-        if (v12)
+        if (v13)
         {
-          v6 = 1;
+          v7 = 1;
           goto LABEL_13;
         }
+
+        ++v9;
       }
 
+      while (v7 != v9);
       v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = v6;
       if (v6)
       {
         continue;
@@ -226,8 +233,7 @@ LABEL_14:
 
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (uint64_t)hasSendCustomMessageCapability
@@ -254,7 +260,7 @@ LABEL_13:
   {
 
 LABEL_13:
-    v18 = 0;
+    v19 = 0;
     goto LABEL_14;
   }
 
@@ -292,7 +298,7 @@ LABEL_13:
     v31 = __Block_byref_object_dispose__0;
     v32 = 0;
     v12 = dispatch_semaphore_create(0);
-    v13 = PHDefaultLog();
+    v13 = PHDefaultLog(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -309,27 +315,26 @@ LABEL_13:
     v15 = v12;
     v25 = v15;
     [v14 extensionsWithMatchingAttributes:v8 completion:&v21];
-    dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
-    v16 = PHDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v16 = dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
+    v17 = PHDefaultLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v28[5];
+      v18 = v28[5];
       *buf = 138412546;
-      v34 = v17;
+      v34 = v18;
       v35 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_2429BC000, v16, OS_LOG_TYPE_DEFAULT, "Found send message intent extension %@ for call %@", buf, 0x16u);
+      _os_log_impl(&dword_2429BC000, v17, OS_LOG_TYPE_DEFAULT, "Found send message intent extension %@ for call %@", buf, 0x16u);
     }
 
     [sendMessageIntentExtension_sendMessageIntentExtensionsCache setObject:v28[5] forKey:{self, v21, v22, v23, v24}];
     _Block_object_dispose(&v27, 8);
   }
 
-  v18 = [sendMessageIntentExtension_sendMessageIntentExtensionsCache objectForKey:self];
+  v19 = [sendMessageIntentExtension_sendMessageIntentExtensionsCache objectForKey:self];
 LABEL_14:
-  v19 = *MEMORY[0x277D85DE8];
 
-  return v18;
+  return v19;
 }
 
 @end

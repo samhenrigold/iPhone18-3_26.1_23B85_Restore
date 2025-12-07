@@ -504,26 +504,26 @@ LABEL_3:
 - (BOOL)isDefaultAdjustedSlomo
 {
   adjustmentFormatIdentifier = [(PLAssetJournalEntryPayload *)self adjustmentFormatIdentifier];
-  v4 = [adjustmentFormatIdentifier isEqualToString:@"com.apple.video.slomo"];
+  isEqualToString = objc_msgSend_isEqualToString_(adjustmentFormatIdentifier);
 
   adjustmentFormatVersion = [(PLAssetJournalEntryPayload *)self adjustmentFormatVersion];
   v6 = adjustmentFormatVersion;
-  if (v4)
+  if (isEqualToString)
   {
-    if ([adjustmentFormatVersion isEqualToString:@"1.1"])
+    if (objc_msgSend_isEqualToString_(adjustmentFormatVersion))
     {
-      LOBYTE(v4) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else
     {
-      LOBYTE(v4) = [v6 isEqualToString:@"1.0"];
+      LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v6);
     }
   }
 
   isVideo = [(PLAssetJournalEntryPayload *)self isVideo];
 
-  return isVideo & v4;
+  return isVideo & isEqualToString;
 }
 
 - (unsigned)playbackVariation
@@ -1172,7 +1172,7 @@ LABEL_39:
           [v42 setCodecName:plVideoCodecName];
 
           uuid2 = [MEMORY[0x1E69C0708] tracksWithMediaType:*MEMORY[0x1E6987608] forAsset:v109];
-          if ([uuid2 count])
+          if (objc_msgSend_count(uuid2))
           {
             [uuid2 objectAtIndex:0];
             v112 = v158 = objectCopy;
@@ -1226,7 +1226,7 @@ LABEL_129:
       v61 = [(NSMutableDictionary *)self->super._payloadAttributes objectForKeyedSubscript:@"keywords"];
       v62 = [(PLManagedObjectJournalEntryPayload *)self setForUUIDEncodedData:v61];
 
-      if ([v62 count])
+      if (objc_msgSend_count(v62))
       {
         v161 = keyCopy;
         v156 = propertyCopy;
@@ -1399,7 +1399,7 @@ LABEL_69:
         v175[4] = bestCPLResourceTypeForAdjustedFingerPrint;
         v96 = [v95 indexesOfObjectsPassingTest:v175];
         v97 = objectCopy;
-        v98 = [v96 count];
+        v98 = objc_msgSend_count(v96);
         if (v98 == 1)
         {
           self = [v95 objectAtIndexedSubscript:{objc_msgSend(v96, "firstIndex")}];
@@ -1581,7 +1581,7 @@ BOOL __97__PLAssetJournalEntryPayload_applyPayloadProperty_toManagedObject_key_p
   keyCopy = key;
   valueCopy = value;
   builderCopy = builder;
-  if ([keyCopy isEqualToString:@"resource"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     style = [builderCopy style];
     indent = [builderCopy indent];
@@ -1604,9 +1604,9 @@ BOOL __97__PLAssetJournalEntryPayload_applyPayloadProperty_toManagedObject_key_p
     goto LABEL_6;
   }
 
-  if (![keyCopy isEqualToString:@"resources"])
+  if (!objc_msgSend_isEqualToString_(keyCopy))
   {
-    if ([keyCopy isEqualToString:@"keywords"])
+    if (objc_msgSend_isEqualToString_(keyCopy))
     {
       v14 = [(PLManagedObjectJournalEntryPayload *)self setForUUIDEncodedData:valueCopy];
       v45.receiver = self;
@@ -1615,7 +1615,7 @@ BOOL __97__PLAssetJournalEntryPayload_applyPayloadProperty_toManagedObject_key_p
       goto LABEL_7;
     }
 
-    if (![keyCopy isEqualToString:@"libraryScopeAssetContributorsToUpdate"])
+    if (!objc_msgSend_isEqualToString_(keyCopy))
     {
       v43.receiver = self;
       v43.super_class = PLAssetJournalEntryPayload;
@@ -1743,7 +1743,7 @@ LABEL_30:
     {
       v13 = [dictionaryValueCopy description];
       v14 = [PLUniformTypeIdentifierIntegratedLookup identifierFromCompactRepresentation:v13];
-      LOBYTE(v15) = [v14 isEqualToString:valueCopy];
+      LOBYTE(v15) = objc_msgSend_isEqualToString_(v14);
 
       goto LABEL_15;
     }
@@ -2300,9 +2300,9 @@ LABEL_30:
   nameCopy = name;
   dictionaryCopy = dictionary;
   v7 = +[PLInternalResource entityName];
-  v8 = [nameCopy isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v8)
+  if (isEqualToString)
   {
     v9 = [dictionaryCopy objectForKeyedSubscript:@"recipeID"];
 
@@ -4158,9 +4158,9 @@ LABEL_16:
               uniformTypeIdentifierString = [v8 uniformTypeIdentifierString];
               v9 = *MEMORY[0x1E6982F80];
               identifier2 = [*MEMORY[0x1E6982F80] identifier];
-              v12 = [uniformTypeIdentifierString isEqualToString:identifier2];
+              isEqualToString = objc_msgSend_isEqualToString_(uniformTypeIdentifierString);
 
-              if ((v12 & 1) == 0)
+              if ((isEqualToString & 1) == 0)
               {
                 [(NSMutableDictionary *)self->super._payloadAttributes setObject:&unk_1F0FBDD50 forKeyedSubscript:@"deferredProcessingNeeded"];
               }

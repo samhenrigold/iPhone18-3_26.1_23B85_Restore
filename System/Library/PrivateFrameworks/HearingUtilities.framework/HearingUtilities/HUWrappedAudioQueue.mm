@@ -327,7 +327,7 @@ uint64_t __67__HUWrappedAudioQueue_scheduleBuffer_completionHandler_lastBuffer__
 
 void __56__HUWrappedAudioQueue_scheduleBuffer_completionHandler___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) inflightBuffers];
   *(*(*(a1 + 40) + 8) + 24) = [v2 count] == 0;
 
@@ -336,27 +336,27 @@ void __56__HUWrappedAudioQueue_scheduleBuffer_completionHandler___block_invoke(u
 
   if (v4)
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v5 = [*(a1 + 32) availableBuffers];
-    v6 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v37;
+      v9 = *v36;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v37 != v9)
+          if (*v36 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v36 + 1) + 8 * i);
+          v11 = *(*(&v35 + 1) + 8 * i);
           if ([v11 byteSize] >= *(a1 + 64))
           {
             if ([v11 byteSize] == *(a1 + 64))
@@ -385,7 +385,7 @@ void __56__HUWrappedAudioQueue_scheduleBuffer_completionHandler___block_invoke(u
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v35 objects:v39 count:16];
         if (v7)
         {
           continue;
@@ -434,7 +434,7 @@ LABEL_26:
         v33 = [*(a1 + 32) inflightBuffers];
         [v33 addObject:*(*(*(a1 + 48) + 8) + 40)];
 
-        goto LABEL_34;
+        return;
       }
     }
 
@@ -479,9 +479,6 @@ LABEL_26:
     v24 = [*(a1 + 32) inflightBuffers];
     [v24 addObject:*(*(*(a1 + 48) + 8) + 40)];
   }
-
-LABEL_34:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__HUWrappedAudioQueue_scheduleBuffer_completionHandler___block_invoke_2(uint64_t a1)
@@ -569,7 +566,7 @@ uint64_t __41__HUWrappedAudioQueue__attemptQueueStart__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __39__HUWrappedAudioQueue__buildAudioQueue__block_invoke(uint64_t a1)
+void *__39__HUWrappedAudioQueue__buildAudioQueue__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) aqRef];
   if (!result)
@@ -781,12 +778,11 @@ void __44__HUWrappedAudioQueue__scheduleDeferredStop__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __44__HUWrappedAudioQueue__scheduleDeferredStop__block_invoke_2(uint64_t a1)
+void *__44__HUWrappedAudioQueue__scheduleDeferredStop__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) state];
   if (!result)
   {
-    v3 = *(a1 + 32);
     return AX_PERFORM_WITH_LOCK();
   }
 

@@ -257,33 +257,33 @@ LABEL_8:
 
 + (void)reportScores:(id)scores whileScreeningChallenges:(BOOL)challenges withEligibleChallenges:(id)eligibleChallenges withCompletionHandler:(id)handler
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   eligibleChallengesCopy = eligibleChallenges;
   handlerCopy = handler;
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v9 = [scoresCopy countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v9 = [scoresCopy countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = @"GKInvalidArgumentException";
-    v12 = *v46;
-    v36 = *v46;
+    v12 = *v45;
+    v35 = *v45;
     do
     {
       v13 = 0;
-      v37 = v10;
+      v36 = v10;
       do
       {
-        if (*v46 != v12)
+        if (*v45 != v12)
         {
           objc_enumerationMutation(scoresCopy);
         }
 
-        v14 = *(*(&v45 + 1) + 8 * v13);
+        v14 = *(*(&v44 + 1) + 8 * v13);
         leaderboardIdentifier = [v14 leaderboardIdentifier];
         if (leaderboardIdentifier)
         {
@@ -339,8 +339,8 @@ LABEL_8:
               scoresCopy = v22;
             }
 
-            v12 = v36;
-            v10 = v37;
+            v12 = v35;
+            v10 = v36;
           }
         }
 
@@ -349,7 +349,7 @@ LABEL_22:
       }
 
       while (v10 != v13);
-      v10 = [scoresCopy countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v10 = [scoresCopy countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
     while (v10);
@@ -360,18 +360,18 @@ LABEL_22:
 
   if (!isStoreDemoModeEnabled)
   {
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_2;
-    v38[3] = &unk_2785DFFA0;
-    v31 = &v39;
-    v39 = scoresCopy;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_2;
+    v37[3] = &unk_2785DFFA0;
+    v31 = &v38;
+    v38 = scoresCopy;
     challengesCopy = challenges;
     v29 = eligibleChallengesCopy;
-    v40 = eligibleChallengesCopy;
+    v39 = eligibleChallengesCopy;
     v30 = handlerCopy;
-    v41 = handlerCopy;
-    gk_dispatch_as_group(v38);
+    v40 = handlerCopy;
+    gk_dispatch_as_group(v37);
 
     goto LABEL_28;
   }
@@ -384,13 +384,11 @@ LABEL_22:
     block[1] = 3221225472;
     block[2] = __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke;
     block[3] = &unk_2785DD710;
-    v31 = &v44;
-    v44 = handlerCopy;
+    v31 = &v43;
+    v43 = handlerCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
 LABEL_28:
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -463,13 +461,12 @@ uint64_t __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallen
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 32) + 16))();
   }
 
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 void __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_4(uint64_t a1, void *a2)
@@ -491,13 +488,12 @@ uint64_t __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallen
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 32) + 16))();
   }
 
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 uint64_t __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_6(uint64_t a1)
@@ -672,24 +668,22 @@ uint64_t __94__GKScore_reportScores_whileScreeningChallenges_withEligibleChallen
 
 - (void)initWithLeaderboardIdentifier:(os_log_t)log forPlayer:.cold.1(os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = 136446722;
-  v3 = "[GKScore initWithLeaderboardIdentifier:forPlayer:]";
-  v4 = 2114;
-  v5 = @"14.0";
-  v6 = 2114;
-  v7 = @"11.0";
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v2, 0x20u);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = 136446722;
+  v2 = "[GKScore initWithLeaderboardIdentifier:forPlayer:]";
+  v3 = 2114;
+  v4 = @"14.0";
+  v5 = 2114;
+  v6 = @"11.0";
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v1, 0x20u);
 }
 
 - (void)player
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "<GKScore %p> has a nil or invalid internal player, will return a nil player", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "<GKScore %p> has a nil or invalid internal player, will return a nil player", &v2, 0xCu);
 }
 
 @end

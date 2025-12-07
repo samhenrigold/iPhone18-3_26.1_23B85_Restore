@@ -114,29 +114,26 @@ LABEL_8:
 
 - (void)deleteCache
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Cleared RK cache with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Cleared RK cache with error: %@", &v2, 0xCu);
 }
 
 - (void)cacheRecoveryKey:(os_log_t)log forAltDSID:error:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Cached RK with error: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Cached RK with error: %@", &v1, 0xCu);
 }
 
 - (void)fetchRecoveryKeyFromCacheForAltDSID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch RK from cache: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch RK from cache: %@", &v2, 0xCu);
 }
 
 @end

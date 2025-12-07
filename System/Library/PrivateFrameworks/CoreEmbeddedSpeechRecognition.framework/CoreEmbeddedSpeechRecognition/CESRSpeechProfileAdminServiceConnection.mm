@@ -30,51 +30,47 @@
 
 uint64_t __57__CESRSpeechProfileAdminServiceConnection_endEvaluation___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) _isCustomerInstall:*(a1 + 48)];
-  if (result)
+  if ((result & 1) == 0)
   {
-    goto LABEL_11;
-  }
+    v3 = +[CESRSpeechProfileEvaluationStatus sharedStatus];
+    v4 = [v3 isEvaluationEnabled];
 
-  v3 = +[CESRSpeechProfileEvaluationStatus sharedStatus];
-  v4 = [v3 isEvaluationEnabled];
-
-  if ((v4 & 1) == 0)
-  {
-    v8 = *MEMORY[0x277CEF0E8];
-    if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
+    if (v4)
     {
-      v10 = 136315138;
-      v11 = "[CESRSpeechProfileAdminServiceConnection endEvaluation:]_block_invoke";
-      _os_log_error_impl(&dword_225EEB000, v8, OS_LOG_TYPE_ERROR, "%s Evaluation is not enabled. Use the beginEvaluation API to enable evaluation.", &v10, 0xCu);
+      [*(a1 + 32) _clearAllState];
+      v5 = +[CESRSpeechProfileEvaluationStatus sharedStatus];
+      [v5 setEvaluationEnabled:0];
+
+      result = *(a1 + 48);
+      if (result)
+      {
+        v6 = *(result + 16);
+
+        return v6();
+      }
     }
 
-    result = *(a1 + 48);
-    if (result)
+    else
     {
-      result = (*(result + 16))(result, 2);
+      v7 = *MEMORY[0x277CEF0E8];
+      if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
+      {
+        v8 = 136315138;
+        v9 = "[CESRSpeechProfileAdminServiceConnection endEvaluation:]_block_invoke";
+        _os_log_error_impl(&dword_225EEB000, v7, OS_LOG_TYPE_ERROR, "%s Evaluation is not enabled. Use the beginEvaluation API to enable evaluation.", &v8, 0xCu);
+      }
+
+      result = *(a1 + 48);
+      if (result)
+      {
+        return (*(result + 16))(result, 2);
+      }
     }
-
-    goto LABEL_11;
   }
 
-  [*(a1 + 32) _clearAllState];
-  v5 = +[CESRSpeechProfileEvaluationStatus sharedStatus];
-  [v5 setEvaluationEnabled:0];
-
-  result = *(a1 + 48);
-  if (!result)
-  {
-LABEL_11:
-    v9 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v6 = *(result + 16);
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v6();
+  return result;
 }
 
 - (void)beginEvaluationWithSetEnumerator:(id)enumerator completion:(id)completion
@@ -99,51 +95,47 @@ LABEL_11:
 
 uint64_t __87__CESRSpeechProfileAdminServiceConnection_beginEvaluationWithSetEnumerator_completion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) _isCustomerInstall:*(a1 + 56)];
-  if (result)
+  if ((result & 1) == 0)
   {
-    goto LABEL_11;
-  }
+    v3 = +[CESRSpeechProfileEvaluationStatus sharedStatus];
+    v4 = [v3 isEvaluationEnabled];
 
-  v3 = +[CESRSpeechProfileEvaluationStatus sharedStatus];
-  v4 = [v3 isEvaluationEnabled];
-
-  if (v4)
-  {
-    v5 = *MEMORY[0x277CEF0E8];
-    if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
+    if (v4)
     {
-      v10 = 136315138;
-      v11 = "[CESRSpeechProfileAdminServiceConnection beginEvaluationWithSetEnumerator:completion:]_block_invoke";
-      _os_log_error_impl(&dword_225EEB000, v5, OS_LOG_TYPE_ERROR, "%s Evaluation is already enabled. Use the endEvaluation API to disable evaluation.", &v10, 0xCu);
+      v5 = *MEMORY[0x277CEF0E8];
+      if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
+      {
+        v8 = 136315138;
+        v9 = "[CESRSpeechProfileAdminServiceConnection beginEvaluationWithSetEnumerator:completion:]_block_invoke";
+        _os_log_error_impl(&dword_225EEB000, v5, OS_LOG_TYPE_ERROR, "%s Evaluation is already enabled. Use the endEvaluation API to disable evaluation.", &v8, 0xCu);
+      }
+
+      result = *(a1 + 56);
+      if (result)
+      {
+        return (*(result + 16))(result, 2);
+      }
     }
 
-    result = *(a1 + 56);
-    if (result)
+    else
     {
-      result = (*(result + 16))(result, 2);
+      v6 = +[CESRSpeechProfileEvaluationStatus sharedStatus];
+      [v6 setEvaluationEnabled:1];
+
+      [*(*(a1 + 32) + 16) rebuildAllSpeechProfilesWithSetEnumerator:*(a1 + 48)];
+      result = *(a1 + 56);
+      if (result)
+      {
+        v7 = *(result + 16);
+
+        return v7();
+      }
     }
-
-    goto LABEL_11;
   }
 
-  v6 = +[CESRSpeechProfileEvaluationStatus sharedStatus];
-  [v6 setEvaluationEnabled:1];
-
-  [*(*(a1 + 32) + 16) rebuildAllSpeechProfilesWithSetEnumerator:*(a1 + 48)];
-  result = *(a1 + 56);
-  if (!result)
-  {
-LABEL_11:
-    v9 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v7 = *(result + 16);
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v7();
+  return result;
 }
 
 - (void)rebuildSpeechProfileForUserId:(id)id completion:(id)completion
@@ -205,7 +197,7 @@ uint64_t __84__CESRSpeechProfileAdminServiceConnection_rebuildSpeechProfileForUs
 
 - (BOOL)_isCustomerInstall:(id)install
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   installCopy = install;
   v4 = +[CESRUtilities isCustomerInstall];
   if (v4)
@@ -213,9 +205,9 @@ uint64_t __84__CESRSpeechProfileAdminServiceConnection_rebuildSpeechProfileForUs
     v5 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "[CESRSpeechProfileAdminServiceConnection _isCustomerInstall:]";
-      _os_log_impl(&dword_225EEB000, v5, OS_LOG_TYPE_INFO, "%s Admin operations are not supported on customer installs.", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CESRSpeechProfileAdminServiceConnection _isCustomerInstall:]";
+      _os_log_impl(&dword_225EEB000, v5, OS_LOG_TYPE_INFO, "%s Admin operations are not supported on customer installs.", &v7, 0xCu);
     }
 
     if (installCopy)
@@ -224,13 +216,12 @@ uint64_t __84__CESRSpeechProfileAdminServiceConnection_rebuildSpeechProfileForUs
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (int64_t)_deleteUserExclusiveSitesWithUserId:(id)id
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (![idCopy length])
   {
@@ -242,15 +233,15 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v13 = 136315394;
-    v14 = "[CESRSpeechProfileAdminServiceConnection _deleteUserExclusiveSitesWithUserId:]";
-    v15 = 2112;
-    v16 = idCopy;
+    v12 = 136315394;
+    v13 = "[CESRSpeechProfileAdminServiceConnection _deleteUserExclusiveSitesWithUserId:]";
+    v14 = 2112;
+    v15 = idCopy;
     v7 = "%s Invalid userId: %@";
     v8 = v6;
     v9 = 22;
 LABEL_10:
-    _os_log_error_impl(&dword_225EEB000, v8, OS_LOG_TYPE_ERROR, v7, &v13, v9);
+    _os_log_error_impl(&dword_225EEB000, v8, OS_LOG_TYPE_ERROR, v7, &v12, v9);
     goto LABEL_7;
   }
 
@@ -262,8 +253,8 @@ LABEL_10:
       goto LABEL_7;
     }
 
-    v13 = 136315138;
-    v14 = "[CESRSpeechProfileAdminServiceConnection _deleteUserExclusiveSitesWithUserId:]";
+    v12 = 136315138;
+    v13 = "[CESRSpeechProfileAdminServiceConnection _deleteUserExclusiveSitesWithUserId:]";
     v7 = "%s Clear failed.";
     v8 = v10;
     v9 = 12;
@@ -273,23 +264,21 @@ LABEL_10:
   v5 = 1;
 LABEL_8:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_clearAllState
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[CESRSpeechProfileAdminServiceConnection _clearAllState]";
-    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Resetting all state across all modules.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CESRSpeechProfileAdminServiceConnection _clearAllState]";
+    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Resetting all state across all modules.", &v4, 0xCu);
   }
 
   [(CESRSpeechProfileSiteManager *)self->_speechProfileSiteManager clearAllState];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (CESRSpeechProfileAdminServiceConnection)initWithServiceQueue:(id)queue speechProfileSiteManager:(id)manager

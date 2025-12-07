@@ -1036,7 +1036,9 @@ LABEL_8:
 + (void)_createHandImageWithSize:(double)a1 paths:(double)a2 colors:.cold.1(double a1, double a2)
 {
   v2 = NSStringFromCGSize(*&a1);
-  OUTLINED_FUNCTION_0_2(&dword_1E49C8000, v3, v4, "cannot create hand image with size: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_2(&dword_1E49C8000, v3, v4, "cannot create hand image with size: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

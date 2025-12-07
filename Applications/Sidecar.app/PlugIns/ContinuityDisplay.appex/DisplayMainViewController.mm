@@ -106,7 +106,7 @@
 
 - (void)receivedItems:(id)items
 {
-  sub_100005A1C(0, &unk_10007FAA0);
+  sub_100005A1C(0, &unk_10007FAA0, SidecarItem_ptr);
   sub_100057BF0();
 }
 

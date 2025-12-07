@@ -39,24 +39,22 @@
 
 - (id)description
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v16.receiver = self;
-  v16.super_class = SASPreheatOptions;
-  v4 = [(SASPreheatOptions *)&v16 description];
+  v15.receiver = self;
+  v15.super_class = SASPreheatOptions;
+  v4 = [(SASPreheatOptions *)&v15 description];
   v5 = objc_alloc(MEMORY[0x1E696AEC0]);
   v6 = [(SASPreheatRequest *)self->_preheatRequest description];
   v7 = [v5 initWithFormat:@"preheatRequest = %@", v6];
-  v17[0] = v7;
+  v16[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E696AEC0]);
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_lockState];
   v10 = [v8 initWithFormat:@"lockState = %@", v9];
-  v17[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v12 = [v11 componentsJoinedByString:{@", "}];
   v13 = [v3 initWithFormat:@"%@ {%@}", v4, v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

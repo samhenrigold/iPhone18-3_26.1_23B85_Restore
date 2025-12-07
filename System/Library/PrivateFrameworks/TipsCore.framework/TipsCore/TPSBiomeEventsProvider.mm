@@ -38,26 +38,26 @@
 
 - (void)queryEvents:(id)events
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = events;
-  v22 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v21)
   {
-    v21 = *v30;
+    v20 = *v29;
     while (2)
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v30 != v21)
+        if (*v29 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v29 + 1) + 8 * i);
+        v5 = *(*(&v28 + 1) + 8 * i);
         v6 = [objc_opt_class() _limitForContextualBiomeEvent:v5];
         if (v6 == -1)
         {
@@ -80,23 +80,23 @@
         block[1] = 3221225472;
         block[2] = __38__TPSBiomeEventsProvider_queryEvents___block_invoke;
         block[3] = &unk_1E8102828;
-        objc_copyWeak(v27, &location);
+        objc_copyWeak(v26, &location);
         block[4] = v5;
-        v24 = v12;
-        v25 = sinkBookmark;
-        v26 = dictionary;
-        v27[1] = v7;
+        v23 = v12;
+        v24 = sinkBookmark;
+        v25 = dictionary;
+        v26[1] = v7;
         v16 = dictionary;
         v17 = sinkBookmark;
         v18 = v12;
         dispatch_async(v15, block);
 
-        objc_destroyWeak(v27);
+        objc_destroyWeak(v26);
         objc_destroyWeak(&location);
       }
 
-      v22 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (v22)
+      v21 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v21)
       {
         continue;
       }
@@ -106,8 +106,6 @@
   }
 
 LABEL_11:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __38__TPSBiomeEventsProvider_queryEvents___block_invoke(uint64_t a1)
@@ -165,7 +163,7 @@ void __38__TPSBiomeEventsProvider_queryEvents___block_invoke(uint64_t a1)
 
 void __38__TPSBiomeEventsProvider_queryEvents___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [TPSContextualBiomeEventBookmark bookmarkWithSinkBookmark:a3];
   v7 = *(*(a1 + 48) + 8);
@@ -180,11 +178,11 @@ void __38__TPSBiomeEventsProvider_queryEvents___block_invoke_2(uint64_t a1, void
     {
       v11 = [v5 error];
       v13 = [*(a1 + 32) identifier];
-      v15 = 138412546;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_1C00A7000, v10, OS_LOG_TYPE_INFO, "Sink completed with error: %@ for event: %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_1C00A7000, v10, OS_LOG_TYPE_INFO, "Sink completed with error: %@ for event: %@", &v14, 0x16u);
 
       goto LABEL_7;
     }
@@ -201,11 +199,11 @@ LABEL_8:
     {
       v11 = [*(a1 + 32) identifier];
       v12 = [*(a1 + 40) count];
-      v15 = 138412546;
-      v16 = v11;
-      v17 = 2048;
-      v18 = v12;
-      _os_log_impl(&dword_1C00A7000, v10, OS_LOG_TYPE_INFO, "Sink completed for event: %@ (%lu events found)", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v11;
+      v16 = 2048;
+      v17 = v12;
+      _os_log_impl(&dword_1C00A7000, v10, OS_LOG_TYPE_INFO, "Sink completed for event: %@ (%lu events found)", &v14, 0x16u);
 LABEL_7:
 
       goto LABEL_8;
@@ -215,8 +213,6 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __38__TPSBiomeEventsProvider_queryEvents___block_invoke_6(uint64_t a1, void *a2)
@@ -227,18 +223,17 @@ BOOL __38__TPSBiomeEventsProvider_queryEvents___block_invoke_6(uint64_t a1, void
   v5 = [v3 UUID];
   v6 = [v5 UUIDString];
 
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() observationDateFromEvent:v4];
+  v7 = [objc_opt_class() observationDateFromEvent:v4];
 
-  [*(a1 + 40) setObject:v8 forKeyedSubscript:v6];
-  v9 = *(*(*(a1 + 48) + 8) + 24) < *(a1 + 56);
+  [*(a1 + 40) setObject:v7 forKeyedSubscript:v6];
+  v8 = *(*(*(a1 + 48) + 8) + 24) < *(a1 + 56);
 
-  return v9;
+  return v8;
 }
 
 - (void)_processProviderResults:(id)results bookmark:(id)bookmark forEvent:(id)event
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   eventCopy = event;
   bookmarkCopy = bookmark;
@@ -263,76 +258,72 @@ BOOL __38__TPSBiomeEventsProvider_queryEvents___block_invoke_6(uint64_t a1, void
   [(TPSEventProviderResult *)v11 setResultDate:date];
 
   delegate = [(TPSEventsProvider *)self delegate];
-  v18[0] = v11;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v11;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   [delegate dataProvider:self didFinishQueryWithResults:v16];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deregisterEventsForCallback:(id)callback
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [callbackCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [callbackCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(callbackCopy);
         }
 
-        v9 = [(TPSBiomeEventsProvider *)self _registrationIDForEvent:*(*(&v11 + 1) + 8 * v8)];
+        v9 = [(TPSBiomeEventsProvider *)self _registrationIDForEvent:*(*(&v10 + 1) + 8 * v8)];
         [(TPSBiomeDataProvider *)self->_biomeDataProvider deregisterWakingForRegistrationID:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [callbackCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [callbackCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerToGetNotifiedWithEvents:(id)events clientIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   identifierCopy = identifier;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = eventsCopy;
-  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         objc_initWeak(&location, self);
         if (identifierCopy)
         {
@@ -345,37 +336,35 @@ BOOL __38__TPSBiomeEventsProvider_queryEvents___block_invoke_6(uint64_t a1, void
         }
         v12 = ;
         biomeDataProvider = self->_biomeDataProvider;
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __76__TPSBiomeEventsProvider__registerToGetNotifiedWithEvents_clientIdentifier___block_invoke;
-        v16[3] = &unk_1E8102850;
-        objc_copyWeak(&v17, &location);
-        v16[4] = v11;
-        [(TPSBiomeDataProvider *)biomeDataProvider registerWakingForEventWithEvent:v11 registrationID:v12 clientIdentifier:identifierCopy completion:v16];
-        objc_destroyWeak(&v17);
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __76__TPSBiomeEventsProvider__registerToGetNotifiedWithEvents_clientIdentifier___block_invoke;
+        v15[3] = &unk_1E8102850;
+        objc_copyWeak(&v16, &location);
+        v15[4] = v11;
+        [(TPSBiomeDataProvider *)biomeDataProvider registerWakingForEventWithEvent:v11 registrationID:v12 clientIdentifier:identifierCopy completion:v15];
+        objc_destroyWeak(&v16);
 
         objc_destroyWeak(&location);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __76__TPSBiomeEventsProvider__registerToGetNotifiedWithEvents_clientIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = +[TPSLogger default];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&dword_1C00A7000, v5, OS_LOG_TYPE_INFO, "Got waking callback for identifier: %@", buf, 0xCu);
   }
 
@@ -383,16 +372,14 @@ void __76__TPSBiomeEventsProvider__registerToGetNotifiedWithEvents_clientIdentif
   v7 = [MEMORY[0x1E695DF00] date];
   v8 = [*(a1 + 32) identifier];
   [(TPSEventProviderResult *)v6 setIdentifier:v8];
-  v12 = v8;
-  v13 = v7;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v11 = v8;
+  v12 = v7;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   [(TPSEventProviderResult *)v6 setObservationMap:v9];
 
   [(TPSEventProviderResult *)v6 setResultDate:v7];
   v10 = [WeakRetained delegate];
   [v10 dataProvider:WeakRetained didReceiveCallbackWithResult:v6];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_registrationIDForEvent:(id)event

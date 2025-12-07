@@ -1,7350 +1,20 @@
-uint64_t sub_10020F000(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured(0);
-  v10 = result;
-  v11 = v5 + *(result + 20);
-  if (*(v11 + 8))
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v12 = *v11;
-    result = dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  v13 = (v5 + *(v10 + 24));
-  if ((v13[1] & 1) == 0)
-  {
-    v14 = *v13;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v15 = (v5 + *(v10 + 28));
-  if ((v15[1] & 1) == 0)
-  {
-    v16 = *v15;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_10020F100(v5, a1, a2, a3);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_10020F100(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F68, &qword_100383438);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_CellInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured(0);
-  sub_10000A0A4(a1 + *(v14 + 32), v8, &qword_100423F68, &qword_100383438);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F68, &qword_100383438);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-  sub_100256CB4(&qword_100424D18, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-}
-
-uint64_t sub_10020F368@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[6];
-  v5 = a2 + a1[5];
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = a2 + v4;
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = a1[7];
-  v8 = a1[8];
-  v9 = a2 + v7;
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = type metadata accessor for Proto_Gnss_Emergency_CellInfo(0);
-  v11 = *(*(v10 - 8) + 56);
-
-  return v11(a2 + v8, 1, 1, v10);
-}
-
-uint64_t sub_10020F43C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A6C8, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10020F4DC(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424D30, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10020F548()
-{
-  sub_100256CB4(&qword_100424D30, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10020F5F0()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004344E0);
-  sub_100005DF0(v0, qword_1004344E0);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C800;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "ref_frame_msb";
-  *(v6 + 8) = 13;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "ref_frame_number";
-  *(v10 + 1) = 16;
-  v10[16] = 2;
-  v9();
-  v11 = v5 + 2 * v2 + v1[14];
-  *(v5 + 2 * v2) = 3;
-  *v11 = "cell_info";
-  *(v11 + 8) = 9;
-  *(v11 + 16) = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10020F84C()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      switch(result)
-      {
-        case 3:
-          v3 = *(type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0) + 28);
-          type metadata accessor for Proto_Gnss_Emergency_CellInfo(0);
-          sub_100256CB4(&qword_100424D18, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-          goto LABEL_5;
-        case 2:
-          v4 = v0;
-          v6 = *(type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0) + 24);
-          break;
-        case 1:
-          v4 = v0;
-          v5 = *(type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0) + 20);
-          break;
-        default:
-          goto LABEL_5;
-      }
-
-      v0 = v4;
-      dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-LABEL_5:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10020F984(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0);
-  v10 = result;
-  v11 = (v5 + *(result + 20));
-  if (v11[1])
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v12 = *v11;
-    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  v13 = (v5 + *(v10 + 24));
-  if ((v13[1] & 1) == 0)
-  {
-    v14 = *v13;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_10020FA5C(v5, a1, a2, a3);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_10020FA5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F68, &qword_100383438);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_CellInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0);
-  sub_10000A0A4(a1 + *(v14 + 28), v8, &qword_100423F68, &qword_100383438);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F68, &qword_100383438);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-  sub_100256CB4(&qword_100424D18, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_CellInfo);
-}
-
-uint64_t sub_10020FCC4@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[6];
-  v5 = a2 + a1[5];
-  *v5 = 0;
-  *(v5 + 4) = 1;
-  v6 = a2 + v4;
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = a1[7];
-  v8 = type metadata accessor for Proto_Gnss_Emergency_CellInfo(0);
-  v9 = *(*(v8 - 8) + 56);
-
-  return v9(a2 + v7, 1, 1, v8);
-}
-
-uint64_t sub_10020FD8C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A6C0, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10020FE2C(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424D48, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10020FE98()
-{
-  sub_100256CB4(&qword_100424D48, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10020FF3C()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004344F8);
-  sub_100005DF0(v0, qword_1004344F8);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v28 = swift_allocObject();
-  *(v28 + 16) = xmmword_10036D7C0;
-  v4 = v28 + v3;
-  v5 = v28 + v3 + v1[14];
-  *(v28 + v3) = 1;
-  *v5 = "physical_cell_id";
-  *(v5 + 8) = 16;
-  *(v5 + 16) = 2;
-  v6 = enum case for _NameMap.NameDescription.standard(_:);
-  v7 = type metadata accessor for _NameMap.NameDescription();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v4 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "earfcn";
-  *(v9 + 8) = 6;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v4 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "sfn";
-  *(v11 + 1) = 3;
-  v11[16] = 2;
-  v8();
-  v12 = (v4 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "cgi_info_present";
-  *(v13 + 1) = 16;
-  v13[16] = 2;
-  v8();
-  v14 = (v4 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "plmn";
-  *(v15 + 1) = 4;
-  v15[16] = 2;
-  v8();
-  v16 = (v4 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "eutran_cell_id";
-  *(v17 + 1) = 14;
-  v17[16] = 2;
-  v8();
-  v18 = (v4 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "sec_from_frame_start";
-  *(v19 + 1) = 20;
-  v19[16] = 2;
-  v8();
-  v20 = (v4 + 7 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 8;
-  *v21 = "frac_sec_from_frame_start";
-  *(v21 + 1) = 25;
-  v21[16] = 2;
-  v8();
-  v22 = v4 + 8 * v2 + v1[14];
-  *(v4 + 8 * v2) = 9;
-  *v22 = "frame_drift";
-  *(v22 + 8) = 11;
-  *(v22 + 16) = 2;
-  v8();
-  v23 = (v4 + 9 * v2);
-  v24 = v23 + v1[14];
-  *v23 = 10;
-  *v24 = "ref_time_uncertainty";
-  *(v24 + 1) = 20;
-  v24[16] = 2;
-  v8();
-  v25 = (v4 + 10 * v2);
-  v26 = v25 + v1[14];
-  *v25 = 11;
-  *v26 = "bs_align";
-  *(v26 + 1) = 8;
-  v26[16] = 2;
-  v8();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021039C()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result <= 5)
-      {
-        if (result <= 2)
-        {
-          if (result == 1)
-          {
-            v3 = v0;
-            v4 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 20);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            goto LABEL_6;
-          }
-
-          if (result == 2)
-          {
-            v3 = v0;
-            v8 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 24);
-            goto LABEL_5;
-          }
-        }
-
-        else
-        {
-          if (result == 3)
-          {
-            v3 = v0;
-            v12 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 28);
-            goto LABEL_5;
-          }
-
-          if (result == 4)
-          {
-            v3 = v0;
-            v9 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 32);
-            goto LABEL_5;
-          }
-
-          v6 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 36);
-          type metadata accessor for Proto_Gnss_Emergency_Plmn(0);
-          sub_100256CB4(&qword_100424C28, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-        }
-      }
-
-      else
-      {
-        if (result <= 8)
-        {
-          if (result == 6)
-          {
-            v3 = v0;
-            v13 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 40);
-          }
-
-          else
-          {
-            v3 = v0;
-            if (result == 7)
-            {
-              v10 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 44);
-            }
-
-            else
-            {
-              v5 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 48);
-            }
-          }
-
-          goto LABEL_5;
-        }
-
-        switch(result)
-        {
-          case 9:
-            v14 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 52);
-            dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
-            break;
-          case 10:
-            v3 = v0;
-            v11 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 56);
-            goto LABEL_5;
-          case 11:
-            v3 = v0;
-            v7 = *(type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0) + 60);
-            goto LABEL_5;
-        }
-      }
-
-LABEL_6:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1002105E4(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
-  v10 = result;
-  v11 = (v5 + *(result + 20));
-  if (v11[1])
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v12 = *v11;
-    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  v13 = (v5 + v10[6]);
-  if ((v13[1] & 1) == 0)
-  {
-    v14 = *v13;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v15 = (v5 + v10[7]);
-  if ((v15[1] & 1) == 0)
-  {
-    v16 = *v15;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v17 = (v5 + v10[8]);
-  if ((v17[1] & 1) == 0)
-  {
-    v18 = *v17;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_100210830(v5, a1, a2, a3);
-  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  sub_100210A4C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  sub_1001FCF44(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  sub_100210AD0(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
-  sub_100210B54(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  sub_10023645C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_100210830(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F60, &qword_100383430);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_Plmn(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
-  sub_10000A0A4(a1 + *(v14 + 36), v8, &qword_100423F60, &qword_100383430);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F60, &qword_100383430);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-  sub_100256CB4(&qword_100424C28, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_Plmn);
-}
-
-uint64_t sub_100210A4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
-{
-  result = a5(0);
-  v7 = (a1 + *(result + 44));
-  if ((v7[1] & 1) == 0)
-  {
-    v8 = *v7;
-    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_100210AD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
-{
-  result = a5(0);
-  v11 = (a1 + *(result + 52));
-  if ((v11[1] & 1) == 0)
-  {
-    return a6(*v11, 9, a3, a4);
-  }
-
-  return result;
-}
-
-uint64_t sub_100210B54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
-{
-  result = a5(0);
-  v7 = (a1 + *(result + 56));
-  if ((v7[1] & 1) == 0)
-  {
-    v8 = *v7;
-    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_100210C1C@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[6];
-  v5 = a2 + a1[5];
-  *v5 = 0;
-  *(v5 + 4) = 1;
-  v6 = a2 + v4;
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = a1[8];
-  v8 = a2 + a1[7];
-  *v8 = 0;
-  *(v8 + 4) = 1;
-  v9 = a2 + v7;
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a1[9];
-  v11 = type metadata accessor for Proto_Gnss_Emergency_Plmn(0);
-  result = (*(*(v11 - 8) + 56))(a2 + v10, 1, 1, v11);
-  v13 = a1[11];
-  v14 = a2 + a1[10];
-  *v14 = 0;
-  *(v14 + 4) = 1;
-  v15 = a2 + v13;
-  *v15 = 0;
-  *(v15 + 4) = 1;
-  v16 = a1[13];
-  v17 = a2 + a1[12];
-  *v17 = 0;
-  *(v17 + 4) = 1;
-  v18 = a2 + v16;
-  *v18 = 0;
-  *(v18 + 4) = 1;
-  v19 = a1[15];
-  v20 = a2 + a1[14];
-  *v20 = 0;
-  *(v20 + 4) = 1;
-  v21 = a2 + v19;
-  *v21 = 0;
-  *(v21 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_100210D50(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A6B8, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100210DF0(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424340, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100210E5C()
-{
-  sub_100256CB4(&qword_100424340, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100210F00()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434510);
-  sub_100005DF0(v0, qword_100434510);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C800;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "utran_time";
-  *(v6 + 8) = 10;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "geran_time";
-  *(v10 + 1) = 10;
-  v10[16] = 2;
-  v9();
-  v11 = v5 + 2 * v2 + v1[14];
-  *(v5 + 2 * v2) = 3;
-  *v11 = "eutran_time";
-  *(v11 + 8) = 11;
-  *(v11 + 16) = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021115C()
-{
-  v0 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured._StorageClass(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  v4 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__utranTime;
-  v5 = type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured(0);
-  (*(*(v5 - 8) + 56))(v3 + v4, 1, 1, v5);
-  v6 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__geranTime;
-  v7 = type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0);
-  (*(*(v7 - 8) + 56))(v3 + v6, 1, 1, v7);
-  v8 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__eutranTime;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
-  result = (*(*(v9 - 8) + 56))(v3 + v8, 1, 1, v9);
-  qword_100461238 = v3;
-  return result;
-}
-
-uint64_t sub_100211270(uint64_t a1)
-{
-  v3 = sub_100024A2C(&qword_100423F80, &qword_100383450);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v25[-v5];
-  v7 = sub_100024A2C(&qword_100423F78, &qword_100383448);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v10 = &v25[-v9];
-  v11 = sub_100024A2C(&qword_100423F70, &qword_100383440);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = &v25[-v13];
-  v15 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__utranTime;
-  v16 = type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured(0);
-  (*(*(v16 - 8) + 56))(v1 + v15, 1, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__geranTime;
-  v18 = type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0);
-  (*(*(v18 - 8) + 56))(v1 + v17, 1, 1, v18);
-  v19 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__eutranTime;
-  v20 = type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
-  (*(*(v20 - 8) + 56))(v1 + v19, 1, 1, v20);
-  v21 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__utranTime;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v21, v14, &qword_100423F70, &qword_100383440);
-  swift_beginAccess();
-  sub_10000AD64(v14, v1 + v15, &qword_100423F70, &qword_100383440);
-  swift_endAccess();
-  v22 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__geranTime;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v22, v10, &qword_100423F78, &qword_100383448);
-  swift_beginAccess();
-  sub_10000AD64(v10, v1 + v17, &qword_100423F78, &qword_100383448);
-  swift_endAccess();
-  v23 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__eutranTime;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v23, v6, &qword_100423F80, &qword_100383450);
-
-  swift_beginAccess();
-  sub_10000AD64(v6, v1 + v19, &qword_100423F80, &qword_100383450);
-  swift_endAccess();
-  return v1;
-}
-
-uint64_t sub_1002115C8()
-{
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__utranTime, &qword_100423F70, &qword_100383440);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__geranTime, &qword_100423F78, &qword_100383448);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__eutranTime, &qword_100423F80, &qword_100383450);
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
-
-  return _swift_deallocClassInstance(v0, v1, v2);
-}
-
-uint64_t sub_10021167C()
-{
-  v2 = v0;
-  v3 = *(type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured(0) + 20);
-  v4 = *(v0 + v3);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v7 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    sub_100211270(v6);
-    *(v2 + v3) = v10;
-  }
-
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
-  {
-    while (1)
-    {
-      if (v12)
-      {
-        return result;
-      }
-
-      if (result == 3)
-      {
-        v13 = v1;
-        swift_beginAccess();
-        type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
-        v14 = type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell;
-        v15 = &qword_100424340;
-        goto LABEL_7;
-      }
-
-      if (result == 2)
-      {
-        break;
-      }
-
-      if (result == 1)
-      {
-        v13 = v1;
-        swift_beginAccess();
-        type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured(0);
-        v14 = type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured;
-        v15 = &qword_100424D30;
-        goto LABEL_7;
-      }
-
-LABEL_8:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-
-    v13 = v1;
-    swift_beginAccess();
-    type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0);
-    v14 = type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured;
-    v15 = &qword_100424D48;
-LABEL_7:
-    sub_100256CB4(v15, v14);
-    v1 = v13;
-    dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-    swift_endAccess();
-    goto LABEL_8;
-  }
-
-  return result;
-}
-
-uint64_t sub_1002118C0(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v8 = *(v3 + *(type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured(0) + 20));
-  result = sub_100211968(v8, a1, a2, a3);
-  if (!v4)
-  {
-    sub_100211B90(v8, a1, a2, a3);
-    sub_100211DB8(v8, a1, a2, a3);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_100211968(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423F70, &qword_100383440);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__utranTime;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423F70, &qword_100383440);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F70, &qword_100383440);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-  sub_100256CB4(&qword_100424D30, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-}
-
-uint64_t sub_100211B90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423F78, &qword_100383448);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__geranTime;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423F78, &qword_100383448);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F78, &qword_100383448);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-  sub_100256CB4(&qword_100424D48, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-}
-
-uint64_t sub_100211DB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423F80, &qword_100383450);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__eutranTime;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423F80, &qword_100383450);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F80, &qword_100383450);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  sub_100256CB4(&qword_100424340, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-}
-
-BOOL sub_100212024(uint64_t a1, uint64_t a2)
-{
-  v88 = a2;
-  v76 = type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
-  v75 = *(v76 - 8);
-  v3 = *(v75 + 64);
-  __chkstk_darwin(v76);
-  v72 = &v72 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v74 = sub_100024A2C(&qword_10042AA58, &qword_100390D70);
-  v5 = *(*(v74 - 8) + 64);
-  __chkstk_darwin(v74);
-  v77 = &v72 - v6;
-  v7 = sub_100024A2C(&qword_100423F80, &qword_100383450);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = __chkstk_darwin(v7 - 8);
-  v85 = &v72 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v84 = &v72 - v11;
-  v82 = type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured(0);
-  v81 = *(v82 - 8);
-  v12 = *(v81 + 64);
-  __chkstk_darwin(v82);
-  v73 = &v72 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v80 = sub_100024A2C(&qword_10042AA60, &qword_100390D78);
-  v14 = *(*(v80 - 8) + 64);
-  __chkstk_darwin(v80);
-  v83 = &v72 - v15;
-  v16 = sub_100024A2C(&qword_100423F78, &qword_100383448);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = __chkstk_darwin(v16 - 8);
-  v78 = &v72 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v87 = &v72 - v20;
-  v21 = type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured(0);
-  v22 = *(v21 - 8);
-  v23 = *(v22 + 64);
-  __chkstk_darwin(v21);
-  v79 = &v72 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = sub_100024A2C(&qword_10042AA68, &qword_100390D80);
-  v26 = v25 - 8;
-  v27 = *(*(v25 - 8) + 64);
-  __chkstk_darwin(v25);
-  v29 = &v72 - v28;
-  v30 = sub_100024A2C(&qword_100423F70, &qword_100383440);
-  v31 = *(*(v30 - 8) + 64);
-  v32 = __chkstk_darwin(v30 - 8);
-  v86 = &v72 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v32);
-  v35 = &v72 - v34;
-  v36 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__utranTime;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v36, v35, &qword_100423F70, &qword_100383440);
-  v37 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__utranTime;
-  v38 = v88;
-  swift_beginAccess();
-  v39 = *(v26 + 56);
-  sub_10000A0A4(v35, v29, &qword_100423F70, &qword_100383440);
-  sub_10000A0A4(v38 + v37, &v29[v39], &qword_100423F70, &qword_100383440);
-  v40 = *(v22 + 48);
-  if (v40(v29, 1, v21) == 1)
-  {
-
-    sub_1000059A8(v35, &qword_100423F70, &qword_100383440);
-    v41 = a1;
-    if (v40(&v29[v39], 1, v21) == 1)
-    {
-      sub_1000059A8(v29, &qword_100423F70, &qword_100383440);
-      goto LABEL_8;
-    }
-
-LABEL_6:
-    v43 = &qword_10042AA68;
-    v44 = &qword_100390D80;
-    v45 = v29;
-LABEL_14:
-    sub_1000059A8(v45, v43, v44);
-    goto LABEL_15;
-  }
-
-  v41 = a1;
-  v42 = v86;
-  sub_10000A0A4(v29, v86, &qword_100423F70, &qword_100383440);
-  if (v40(&v29[v39], 1, v21) == 1)
-  {
-
-    sub_1000059A8(v35, &qword_100423F70, &qword_100383440);
-    sub_100246490(v42, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-    goto LABEL_6;
-  }
-
-  v46 = v79;
-  sub_1002463C0(&v29[v39], v79, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-
-  v47 = sub_10024BF8C(v42, v46);
-  sub_100246490(v46, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-  sub_1000059A8(v35, &qword_100423F70, &qword_100383440);
-  sub_100246490(v42, type metadata accessor for Proto_Gnss_Emergency_UtranGanssTimeMeasured);
-  sub_1000059A8(v29, &qword_100423F70, &qword_100383440);
-  if ((v47 & 1) == 0)
-  {
-    goto LABEL_15;
-  }
-
-LABEL_8:
-  v48 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__geranTime;
-  swift_beginAccess();
-  v49 = v87;
-  sub_10000A0A4(v41 + v48, v87, &qword_100423F78, &qword_100383448);
-  v50 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__geranTime;
-  swift_beginAccess();
-  v51 = *(v80 + 48);
-  v52 = v83;
-  sub_10000A0A4(v49, v83, &qword_100423F78, &qword_100383448);
-  sub_10000A0A4(v38 + v50, v52 + v51, &qword_100423F78, &qword_100383448);
-  v53 = *(v81 + 48);
-  v54 = v82;
-  if (v53(v52, 1, v82) != 1)
-  {
-    v58 = v78;
-    sub_10000A0A4(v52, v78, &qword_100423F78, &qword_100383448);
-    v59 = v53(v52 + v51, 1, v54);
-    v56 = v85;
-    v57 = v84;
-    if (v59 == 1)
-    {
-      sub_1000059A8(v87, &qword_100423F78, &qword_100383448);
-      sub_100246490(v58, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-      goto LABEL_13;
-    }
-
-    v61 = v52 + v51;
-    v62 = v73;
-    sub_1002463C0(v61, v73, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-    v63 = sub_100249EC4(v58, v62);
-    sub_100246490(v62, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-    sub_1000059A8(v87, &qword_100423F78, &qword_100383448);
-    sub_100246490(v58, type metadata accessor for Proto_Gnss_Emergency_GeranGanssTimeMeasured);
-    sub_1000059A8(v52, &qword_100423F78, &qword_100383448);
-    if (v63)
-    {
-      goto LABEL_19;
-    }
-
-LABEL_15:
-
-    return 0;
-  }
-
-  sub_1000059A8(v49, &qword_100423F78, &qword_100383448);
-  v55 = v53(v52 + v51, 1, v54);
-  v56 = v85;
-  v57 = v84;
-  if (v55 != 1)
-  {
-LABEL_13:
-    v43 = &qword_10042AA60;
-    v44 = &qword_100390D78;
-    v45 = v52;
-    goto LABEL_14;
-  }
-
-  sub_1000059A8(v52, &qword_100423F78, &qword_100383448);
-LABEL_19:
-  v64 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__eutranTime;
-  swift_beginAccess();
-  sub_10000A0A4(v41 + v64, v57, &qword_100423F80, &qword_100383450);
-  v65 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_GanssTimeMeasuredP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__eutranTime;
-  swift_beginAccess();
-  v66 = *(v74 + 48);
-  v67 = v77;
-  sub_10000A0A4(v57, v77, &qword_100423F80, &qword_100383450);
-  sub_10000A0A4(v38 + v65, v67 + v66, &qword_100423F80, &qword_100383450);
-  v68 = *(v75 + 48);
-  v69 = v76;
-  if (v68(v67, 1, v76) == 1)
-  {
-
-    sub_1000059A8(v57, &qword_100423F80, &qword_100383450);
-    if (v68(v67 + v66, 1, v69) == 1)
-    {
-      sub_1000059A8(v67, &qword_100423F80, &qword_100383450);
-      return 1;
-    }
-
-    goto LABEL_24;
-  }
-
-  sub_10000A0A4(v67, v56, &qword_100423F80, &qword_100383450);
-  if (v68(v67 + v66, 1, v69) == 1)
-  {
-
-    sub_1000059A8(v57, &qword_100423F80, &qword_100383450);
-    sub_100246490(v56, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-LABEL_24:
-    sub_1000059A8(v67, &qword_10042AA58, &qword_100390D70);
-    return 0;
-  }
-
-  v70 = v72;
-  sub_1002463C0(v67 + v66, v72, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  v71 = sub_10025180C(v56, v70);
-
-  sub_100246490(v70, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  sub_1000059A8(v57, &qword_100423F80, &qword_100383450);
-  sub_100246490(v56, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell);
-  sub_1000059A8(v67, &qword_100423F80, &qword_100383450);
-  return (v71 & 1) != 0;
-}
-
-uint64_t sub_100212C7C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A6B0, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100212D1C(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424D70, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100212D88()
-{
-  sub_100256CB4(&qword_100424D70, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100212E2C()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434528);
-  sub_100005DF0(v0, qword_100434528);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "ganss_time_measured_type";
-  *(v6 + 8) = 24;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "ganss_time_measured";
-  *(v10 + 1) = 19;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021303C()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while ((v2 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        v3 = *(type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams(0) + 20);
-        sub_1002687E0();
-        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-      }
-
-      else if (result == 2)
-      {
-        v4 = *(type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams(0) + 24);
-        type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured(0);
-        sub_100256CB4(&qword_100424D70, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1002131D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F88, &qword_100383458);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams(0);
-  sub_10000A0A4(a1 + *(v14 + 24), v8, &qword_100423F88, &qword_100383458);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F88, &qword_100383458);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-  sub_100256CB4(&qword_100424D70, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasured);
-}
-
-uint64_t sub_100213454@<X0>(uint64_t a1@<X0>, char a2@<W2>, uint64_t (*a3)(void)@<X3>, uint64_t a4@<X8>)
-{
-  UnknownStorage.init()();
-  v8 = *(a1 + 20);
-  v9 = *(a1 + 24);
-  *(a4 + v8) = a2;
-  v10 = a3(0);
-  v11 = *(*(v10 - 8) + 56);
-
-  return v11(a4 + v9, 1, 1, v10);
-}
-
-uint64_t sub_1002134FC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A6A8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021359C(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424D88, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100213608()
-{
-  sub_100256CB4(&qword_100424D88, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_1002136B0()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434540);
-  sub_100005DF0(v0, qword_100434540);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C7E0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "time_id";
-  *(v6 + 8) = 7;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "ganss_tod";
-  *(v10 + 8) = 9;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "ganss_tod_frac";
-  *(v12 + 1) = 14;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "ganss_tod_uncertainty";
-  *(v14 + 1) = 21;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "fix_type";
-  *(v16 + 1) = 8;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "reference_gnss";
-  *(v18 + 1) = 14;
-  v18[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_1002139C4()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result > 3)
-      {
-        switch(result)
-        {
-          case 4:
-            v3 = v0;
-            v4 = *(type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0) + 32);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            break;
-          case 5:
-            v7 = v0;
-            v10 = *(type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0) + 36);
-            sub_100268834();
-            goto LABEL_20;
-          case 6:
-            v3 = v0;
-            v6 = *(type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0) + 40);
-            goto LABEL_5;
-        }
-      }
-
-      else
-      {
-        switch(result)
-        {
-          case 1:
-            v7 = v0;
-            v8 = *(type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0) + 20);
-            sub_10026878C();
-LABEL_20:
-            v0 = v7;
-            dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-            break;
-          case 2:
-            v3 = v0;
-            v9 = *(type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0) + 24);
-            goto LABEL_5;
-          case 3:
-            v3 = v0;
-            v5 = *(type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0) + 28);
-            goto LABEL_5;
-        }
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100213B38(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0);
-  v10 = result;
-  if (*(v5 + *(result + 20)) == 6)
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v17 = *(v5 + *(result + 20));
-    sub_10026878C();
-    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  v11 = (v5 + v10[6]);
-  if ((v11[1] & 1) == 0)
-  {
-    v12 = *v11;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v13 = (v5 + v10[7]);
-  if ((v13[1] & 1) == 0)
-  {
-    v14 = *v13;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v15 = (v5 + v10[8]);
-  if ((v15[1] & 1) == 0)
-  {
-    v16 = *v15;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_100213CAC(v5);
-  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_100213CAC(uint64_t a1)
-{
-  result = type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0);
-  if (*(a1 + *(result + 36)) != 4)
-  {
-    v3 = *(a1 + *(result + 36));
-    sub_100268834();
-    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_100213D84@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  result = UnknownStorage.init()();
-  v5 = a1[6];
-  *(a2 + a1[5]) = 6;
-  v6 = a2 + v5;
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = a1[8];
-  v8 = a2 + a1[7];
-  *v8 = 0;
-  *(v8 + 4) = 1;
-  v9 = a2 + v7;
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a1[10];
-  *(a2 + a1[9]) = 4;
-  v11 = a2 + v10;
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_100213E2C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A6A0, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100213ECC(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424DA0, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100213F38()
-{
-  sub_100256CB4(&qword_100424DA0, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100213FE0()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434558);
-  sub_100005DF0(v0, qword_100434558);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "latitude";
-  *(v6 + 8) = 8;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.same(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "longitude";
-  *(v10 + 1) = 9;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_1002142E8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A698, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100214388(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_1002143F4()
-{
-  sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021449C()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434570);
-  sub_100005DF0(v0, qword_100434570);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "point";
-  *(v6 + 8) = 5;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.same(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "uncertain_radius";
-  *(v10 + 1) = 16;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100214720(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F90, &qword_100383460);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle(0);
-  sub_10000A0A4(a1 + *(v14 + 20), v8, &qword_100423F90, &qword_100383460);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F90, &qword_100383460);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-}
-
-uint64_t sub_1002149B4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A690, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100214A54(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424DC8, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100214AC0()
-{
-  sub_100256CB4(&qword_100424DC8, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100214B68()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434588);
-  sub_100005DF0(v0, qword_100434588);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v16 = swift_allocObject();
-  *(v16 + 16) = xmmword_10036D780;
-  v4 = v16 + v3;
-  v5 = v16 + v3 + v1[14];
-  *(v16 + v3) = 1;
-  *v5 = "point";
-  *(v5 + 8) = 5;
-  *(v5 + 16) = 2;
-  v6 = enum case for _NameMap.NameDescription.same(_:);
-  v7 = type metadata accessor for _NameMap.NameDescription();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v4 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "semi_major_axis";
-  *(v9 + 8) = 15;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v4 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "semi_minor_axis";
-  *(v11 + 1) = 15;
-  v11[16] = 2;
-  v8();
-  v12 = (v4 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "orientation_angle";
-  *(v13 + 1) = 17;
-  v13[16] = 2;
-  v8();
-  v14 = v4 + 4 * v2 + v1[14];
-  *(v4 + 4 * v2) = 5;
-  *v14 = "confidence";
-  *(v14 + 8) = 10;
-  *(v14 + 16) = 2;
-  v8();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100214E4C()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result <= 2)
-      {
-        if (result == 1)
-        {
-          v8 = *(type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0) + 20);
-          type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-          sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-        }
-
-        else if (result == 2)
-        {
-          v3 = v0;
-          v6 = *(type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0) + 24);
-          goto LABEL_5;
-        }
-      }
-
-      else
-      {
-        switch(result)
-        {
-          case 3:
-            v3 = v0;
-            v4 = *(type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0) + 28);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            break;
-          case 4:
-            v3 = v0;
-            v7 = *(type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0) + 32);
-            goto LABEL_5;
-          case 5:
-            v3 = v0;
-            v5 = *(type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0) + 36);
-            goto LABEL_5;
-        }
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100214FC4(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = sub_100215104(v5, a1, a2, a3);
-  if (!v4)
-  {
-    v10 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0);
-    v11 = (v5 + v10[6]);
-    if ((v11[1] & 1) == 0)
-    {
-      v12 = *v11;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    v13 = (v5 + v10[7]);
-    if ((v13[1] & 1) == 0)
-    {
-      v14 = *v13;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    v15 = (v5 + v10[8]);
-    if ((v15[1] & 1) == 0)
-    {
-      v16 = *v15;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_100215104(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F90, &qword_100383460);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0);
-  sub_10000A0A4(a1 + *(v14 + 20), v8, &qword_100423F90, &qword_100383460);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F90, &qword_100383460);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-}
-
-uint64_t sub_10021536C@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[5];
-  v5 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  result = (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
-  v7 = a1[7];
-  v8 = a2 + a1[6];
-  *v8 = 0;
-  *(v8 + 4) = 1;
-  v9 = a2 + v7;
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a1[9];
-  v11 = a2 + a1[8];
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  v12 = a2 + v10;
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_10021544C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A688, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_1002154EC(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424DE0, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100215558()
-{
-  sub_100256CB4(&qword_100424DE0, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_1002155FC()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004345A0);
-  sub_100005DF0(v0, qword_1004345A0);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v20 = swift_allocObject();
-  *(v20 + 16) = xmmword_10036C820;
-  v4 = v20 + v3 + v1[14];
-  *(v20 + v3) = 1;
-  *v4 = "point";
-  *(v4 + 8) = 5;
-  *(v4 + 16) = 2;
-  v5 = enum case for _NameMap.NameDescription.same(_:);
-  v6 = type metadata accessor for _NameMap.NameDescription();
-  v7 = *(*(v6 - 8) + 104);
-  (v7)(v4, v5, v6);
-  v8 = v20 + v3 + v2 + v1[14];
-  *(v20 + v3 + v2) = 2;
-  *v8 = "altitude";
-  *(v8 + 8) = 8;
-  *(v8 + 16) = 2;
-  v7();
-  v9 = (v20 + v3 + 2 * v2);
-  v10 = v9 + v1[14];
-  *v9 = 3;
-  *v10 = "semi_major_axis";
-  *(v10 + 1) = 15;
-  v10[16] = 2;
-  v7();
-  v11 = (v20 + v3 + 3 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 4;
-  *v12 = "semi_minor_axis";
-  *(v12 + 1) = 15;
-  v12[16] = 2;
-  v7();
-  v13 = (v20 + v3 + 4 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 5;
-  *v14 = "orientation_angle";
-  *(v14 + 1) = 17;
-  v14[16] = 2;
-  v7();
-  v15 = (v20 + v3 + 5 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 6;
-  *v16 = "uncertain_altitude";
-  *(v16 + 1) = 18;
-  v16[16] = 2;
-  v7();
-  v17 = (v20 + v3 + 6 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 7;
-  *v18 = "confidence";
-  *(v18 + 1) = 10;
-  v18[16] = 2;
-  v7();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100215954()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result <= 3)
-      {
-        switch(result)
-        {
-          case 1:
-            v8 = *(type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0) + 20);
-            type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-            sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-            dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-            break;
-          case 2:
-            v3 = v0;
-            v10 = *(type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0) + 24);
-            goto LABEL_5;
-          case 3:
-            v3 = v0;
-            v6 = *(type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0) + 28);
-            goto LABEL_5;
-        }
-      }
-
-      else
-      {
-        if (result <= 5)
-        {
-          v3 = v0;
-          if (result == 4)
-          {
-            v9 = *(type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0) + 32);
-          }
-
-          else
-          {
-            v5 = *(type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0) + 36);
-          }
-
-          goto LABEL_5;
-        }
-
-        if (result == 6)
-        {
-          v3 = v0;
-          v4 = *(type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0) + 40);
-LABEL_5:
-          v0 = v3;
-          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-          goto LABEL_6;
-        }
-
-        if (result == 7)
-        {
-          v3 = v0;
-          v7 = *(type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0) + 44);
-          goto LABEL_5;
-        }
-      }
-
-LABEL_6:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100215B0C(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = sub_100215CAC(v5, a1, a2, a3);
-  if (!v4)
-  {
-    v10 = type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0);
-    v11 = (v5 + v10[6]);
-    if ((v11[1] & 1) == 0)
-    {
-      v12 = *v11;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    v13 = (v5 + v10[7]);
-    if ((v13[1] & 1) == 0)
-    {
-      v14 = *v13;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    v15 = (v5 + v10[8]);
-    if ((v15[1] & 1) == 0)
-    {
-      v16 = *v15;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-    sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-    sub_100210A4C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_100215CAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F90, &qword_100383460);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0);
-  sub_10000A0A4(a1 + *(v14 + 20), v8, &qword_100423F90, &qword_100383460);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F90, &qword_100383460);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-}
-
-uint64_t sub_100215F14@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[5];
-  v5 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  result = (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
-  v7 = a1[7];
-  v8 = a2 + a1[6];
-  *v8 = 0;
-  *(v8 + 4) = 1;
-  v9 = a2 + v7;
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a1[9];
-  v11 = a2 + a1[8];
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  v12 = a2 + v10;
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  v13 = a1[11];
-  v14 = a2 + a1[10];
-  *v14 = 0;
-  *(v14 + 4) = 1;
-  v15 = a2 + v13;
-  *v15 = 0;
-  *(v15 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_100216010(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A680, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_1002160B0(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424DF8, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021611C()
-{
-  sub_100256CB4(&qword_100424DF8, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_1002161C0()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004345B8);
-  sub_100005DF0(v0, qword_1004345B8);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C7E0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "point";
-  *(v6 + 8) = 5;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.same(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "inner_radius";
-  *(v10 + 8) = 12;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "uncertain_radius";
-  *(v12 + 1) = 16;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "offset_angle";
-  *(v14 + 1) = 12;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "included_angle";
-  *(v16 + 1) = 14;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "confidence";
-  *(v18 + 1) = 10;
-  v18[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_1002164E4()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result > 3)
-      {
-        switch(result)
-        {
-          case 4:
-            v3 = v0;
-            v4 = *(type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0) + 32);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            break;
-          case 5:
-            v3 = v0;
-            v9 = *(type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0) + 36);
-            goto LABEL_5;
-          case 6:
-            v3 = v0;
-            v6 = *(type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0) + 40);
-            goto LABEL_5;
-        }
-      }
-
-      else
-      {
-        switch(result)
-        {
-          case 1:
-            v7 = *(type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0) + 20);
-            type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-            sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-            dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-            break;
-          case 2:
-            v3 = v0;
-            v8 = *(type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0) + 24);
-            goto LABEL_5;
-          case 3:
-            v3 = v0;
-            v5 = *(type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0) + 28);
-            goto LABEL_5;
-        }
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100216678(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = sub_1002167E8(v5, a1, a2, a3);
-  if (!v4)
-  {
-    v10 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0);
-    v11 = (v5 + v10[6]);
-    if ((v11[1] & 1) == 0)
-    {
-      v12 = *v11;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    v13 = (v5 + v10[7]);
-    if ((v13[1] & 1) == 0)
-    {
-      v14 = *v13;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    v15 = (v5 + v10[8]);
-    if ((v15[1] & 1) == 0)
-    {
-      v16 = *v15;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-    sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_1002167E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F90, &qword_100383460);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0);
-  sub_10000A0A4(a1 + *(v14 + 20), v8, &qword_100423F90, &qword_100383460);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F90, &qword_100383460);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-}
-
-uint64_t sub_100216A50@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[5];
-  v5 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  result = (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
-  v7 = a1[7];
-  v8 = a2 + a1[6];
-  *v8 = 0;
-  *(v8 + 4) = 1;
-  v9 = a2 + v7;
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a1[9];
-  v11 = a2 + a1[8];
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  v12 = a2 + v10;
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  v13 = a2 + a1[10];
-  *v13 = 0;
-  *(v13 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_100216B40(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A678, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100216BE0(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424E10, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100216C4C()
-{
-  sub_100256CB4(&qword_100424E10, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100216CF0()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004345D0);
-  sub_100005DF0(v0, qword_1004345D0);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "point";
-  *(v6 + 8) = 5;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.same(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "altitude";
-  *(v10 + 1) = 8;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100216F2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v4)
-  {
-    while ((v7 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        v8 = *(a4(0) + 20);
-        type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-        sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-      }
-
-      else if (result == 2)
-      {
-        v9 = *(a4(0) + 24);
-        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10021709C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t (*a5)(void))
-{
-  result = a4(v5, a1, a2, a3);
-  if (!v6)
-  {
-    v9 = (v5 + *(a5(0) + 24));
-    if ((v9[1] & 1) == 0)
-    {
-      v10 = *v9;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_100217158(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423F90, &qword_100383460);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_PointAltitude(0);
-  sub_10000A0A4(a1 + *(v14 + 20), v8, &qword_100423F90, &qword_100383460);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F90, &qword_100383460);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-}
-
-uint64_t sub_1002173F0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = *(a1 + 20);
-  v5 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  result = (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
-  v7 = a2 + *(a1 + 24);
-  *v7 = 0;
-  *(v7 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_100217478(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A670, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100217518(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424E28, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100217584()
-{
-  sub_100256CB4(&qword_100424E28, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100217628()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004345E8);
-  sub_100005DF0(v0, qword_1004345E8);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "no_of_points";
-  *(v6 + 8) = 12;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "points";
-  *(v10 + 1) = 6;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100217840()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while ((v2 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        v3 = *(type metadata accessor for Proto_Gnss_Emergency_Polygon(0) + 24);
-        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-      }
-
-      else if (result == 2)
-      {
-        type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-        sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-        dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100217950()
-{
-  result = type metadata accessor for Proto_Gnss_Emergency_Polygon(0);
-  v3 = result;
-  v4 = (v0 + *(result + 24));
-  if (v4[1])
-  {
-    if (v1)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v5 = *v4;
-    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    if (v1)
-    {
-      return result;
-    }
-  }
-
-  if (*(*v0 + 16))
-  {
-    type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-    sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-    dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
-  }
-
-  v6 = v0 + *(v3 + 20);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_100217AF0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A668, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100217B90(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424E40, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100217BFC()
-{
-  sub_100256CB4(&qword_100424E40, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100217CA0()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434600);
-  sub_100005DF0(v0, qword_100434600);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036D790;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "point_uncertain_circle";
-  *(v6 + 8) = 22;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "point_uncertain_ellipse";
-  *(v10 + 8) = 23;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "point_altitude_uncertain_ellipsoid";
-  *(v12 + 1) = 34;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "ellipsoid_arc";
-  *(v14 + 1) = 13;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "ellipsoid_point";
-  *(v16 + 1) = 15;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "point_altitude";
-  *(v18 + 1) = 14;
-  v18[16] = 2;
-  v9();
-  v19 = (v5 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "polygon";
-  *(v20 + 1) = 7;
-  v20[16] = 2;
-  v9();
-  v21 = (v5 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "no_location";
-  *(v22 + 1) = 11;
-  v22[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021803C()
-{
-  v0 = type metadata accessor for Proto_Gnss_Emergency_ShapeInfo._StorageClass(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  v4 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainCircle;
-  v5 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle(0);
-  (*(*(v5 - 8) + 56))(v3 + v4, 1, 1, v5);
-  v6 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainEllipse;
-  v7 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0);
-  (*(*(v7 - 8) + 56))(v3 + v6, 1, 1, v7);
-  v8 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitudeUncertainEllipsoid;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0);
-  (*(*(v9 - 8) + 56))(v3 + v8, 1, 1, v9);
-  v10 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidArc;
-  v11 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0);
-  (*(*(v11 - 8) + 56))(v3 + v10, 1, 1, v11);
-  v12 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidPoint;
-  v13 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  (*(*(v13 - 8) + 56))(v3 + v12, 1, 1, v13);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitude;
-  v15 = type metadata accessor for Proto_Gnss_Emergency_PointAltitude(0);
-  (*(*(v15 - 8) + 56))(v3 + v14, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__polygon;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_Polygon(0);
-  result = (*(*(v17 - 8) + 56))(v3 + v16, 1, 1, v17);
-  v19 = v3 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__noLocation;
-  *v19 = 0;
-  *(v19 + 4) = 1;
-  qword_100461298 = v3;
-  return result;
-}
-
-uint64_t sub_100218290()
-{
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainCircle, &qword_100423F98, &qword_100383468);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainEllipse, &qword_100423FA0, &qword_100383470);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitudeUncertainEllipsoid, &qword_100423FA8, &qword_100383478);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidArc, &qword_100423FB0, &qword_100383480);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidPoint, &qword_100423F90, &qword_100383460);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitude, &qword_100423FB8, &qword_100383488);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__polygon, &qword_100423FC0, &qword_100383490);
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
-
-  return _swift_deallocClassInstance(v0, v1, v2);
-}
-
-uint64_t sub_1002183C4()
-{
-  v2 = v0;
-  v3 = *(type metadata accessor for Proto_Gnss_Emergency_ShapeInfo(0) + 20);
-  v4 = *(v0 + v3);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v7 = type metadata accessor for Proto_Gnss_Emergency_ShapeInfo._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    sub_100246E4C(v6);
-
-    *(v2 + v3) = v10;
-  }
-
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
-  {
-    while (1)
-    {
-      if (v12)
-      {
-        return result;
-      }
-
-      if (result <= 4)
-      {
-        if (result > 2)
-        {
-          v13 = v1;
-          if (result == 3)
-          {
-            swift_beginAccess();
-            type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0);
-            v14 = type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid;
-            v15 = &qword_100424DF8;
-          }
-
-          else
-          {
-            swift_beginAccess();
-            type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0);
-            v14 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc;
-            v15 = &qword_100424E10;
-          }
-        }
-
-        else if (result == 1)
-        {
-          v13 = v1;
-          swift_beginAccess();
-          type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle(0);
-          v14 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle;
-          v15 = &qword_100424DC8;
-        }
-
-        else
-        {
-          if (result != 2)
-          {
-            goto LABEL_25;
-          }
-
-          v13 = v1;
-          swift_beginAccess();
-          type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0);
-          v14 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse;
-          v15 = &qword_100424DE0;
-        }
-
-        goto LABEL_23;
-      }
-
-      if (result <= 6)
-      {
-        break;
-      }
-
-      if (result == 7)
-      {
-        v13 = v1;
-        swift_beginAccess();
-        type metadata accessor for Proto_Gnss_Emergency_Polygon(0);
-        v14 = type metadata accessor for Proto_Gnss_Emergency_Polygon;
-        v15 = &qword_100424E40;
-LABEL_23:
-        sub_100256CB4(v15, v14);
-        v1 = v13;
-        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-        goto LABEL_24;
-      }
-
-      if (result != 8)
-      {
-        goto LABEL_25;
-      }
-
-      swift_beginAccess();
-      dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-LABEL_24:
-      swift_endAccess();
-LABEL_25:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-
-    v13 = v1;
-    if (result == 5)
-    {
-      swift_beginAccess();
-      type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-      v14 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint;
-      v15 = &qword_100424248;
-    }
-
-    else
-    {
-      swift_beginAccess();
-      type metadata accessor for Proto_Gnss_Emergency_PointAltitude(0);
-      v14 = type metadata accessor for Proto_Gnss_Emergency_PointAltitude;
-      v15 = &qword_100424E28;
-    }
-
-    goto LABEL_23;
-  }
-
-  return result;
-}
-
-uint64_t sub_10021880C(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v8 = *(v3 + *(type metadata accessor for Proto_Gnss_Emergency_ShapeInfo(0) + 20));
-  result = sub_10021894C(v8, a1, a2, a3);
-  if (!v4)
-  {
-    sub_100218B74(v8, a1, a2, a3);
-    sub_100218D9C(v8, a1, a2, a3);
-    sub_100218FC4(v8, a1, a2, a3);
-    sub_1002191EC(v8, a1, a2, a3);
-    sub_100219414(v8, a1, a2, a3);
-    sub_10021963C(v8, a1, a2, a3);
-    sub_100228210(v8, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__noLocation, 8, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_10021894C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423F98, &qword_100383468);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainCircle;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423F98, &qword_100383468);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F98, &qword_100383468);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-  sub_100256CB4(&qword_100424DC8, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-}
-
-uint64_t sub_100218B74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423FA0, &qword_100383470);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainEllipse;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423FA0, &qword_100383470);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FA0, &qword_100383470);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-  sub_100256CB4(&qword_100424DE0, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-}
-
-uint64_t sub_100218D9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423FA8, &qword_100383478);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitudeUncertainEllipsoid;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423FA8, &qword_100383478);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FA8, &qword_100383478);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-  sub_100256CB4(&qword_100424DF8, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-}
-
-uint64_t sub_100218FC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423FB0, &qword_100383480);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidArc;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423FB0, &qword_100383480);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FB0, &qword_100383480);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-  sub_100256CB4(&qword_100424E10, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-}
-
-uint64_t sub_1002191EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423F90, &qword_100383460);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidPoint;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423F90, &qword_100383460);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F90, &qword_100383460);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_100256CB4(&qword_100424248, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-}
-
-uint64_t sub_100219414(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423FB8, &qword_100383488);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_PointAltitude(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitude;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423FB8, &qword_100383488);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FB8, &qword_100383488);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-  sub_100256CB4(&qword_100424E28, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-}
-
-uint64_t sub_10021963C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423FC0, &qword_100383490);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_Polygon(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__polygon;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423FC0, &qword_100383490);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FC0, &qword_100383490);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-  sub_100256CB4(&qword_100424E40, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-}
-
-uint64_t sub_1002198A8(uint64_t a1, uint64_t a2)
-{
-  v214 = a2;
-  v3 = type metadata accessor for Proto_Gnss_Emergency_Polygon(0);
-  v173 = *(v3 - 8);
-  v174 = v3;
-  v4 = *(v173 + 64);
-  __chkstk_darwin(v3);
-  v169 = (&v168 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v172 = sub_100024A2C(&qword_10042AA18, &qword_100390D30);
-  v6 = *(*(v172 - 8) + 64);
-  __chkstk_darwin(v172);
-  v175 = &v168 - v7;
-  v8 = sub_100024A2C(&qword_100423FC0, &qword_100383490);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = __chkstk_darwin(v8 - 8);
-  v170 = (&v168 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v10);
-  v177 = &v168 - v12;
-  v13 = type metadata accessor for Proto_Gnss_Emergency_PointAltitude(0);
-  v180 = *(v13 - 8);
-  v181 = v13;
-  v14 = *(v180 + 64);
-  __chkstk_darwin(v13);
-  v171 = &v168 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v179 = sub_100024A2C(&qword_10042AA20, &qword_100390D38);
-  v16 = *(*(v179 - 8) + 64);
-  __chkstk_darwin(v179);
-  v182 = &v168 - v17;
-  v18 = sub_100024A2C(&qword_100423FB8, &qword_100383488);
-  v19 = *(*(v18 - 8) + 64);
-  v20 = __chkstk_darwin(v18 - 8);
-  v176 = &v168 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v20);
-  v184 = &v168 - v22;
-  v23 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint(0);
-  v187 = *(v23 - 8);
-  v188 = v23;
-  v24 = *(v187 + 64);
-  __chkstk_darwin(v23);
-  v178 = &v168 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v186 = sub_100024A2C(&qword_10042AA28, &qword_100390D40);
-  v26 = *(*(v186 - 8) + 64);
-  __chkstk_darwin(v186);
-  v189 = &v168 - v27;
-  v28 = sub_100024A2C(&qword_100423F90, &qword_100383460);
-  v29 = *(*(v28 - 8) + 64);
-  v30 = __chkstk_darwin(v28 - 8);
-  v183 = &v168 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v30);
-  v191 = &v168 - v32;
-  v33 = type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc(0);
-  v194 = *(v33 - 8);
-  v195 = v33;
-  v34 = *(v194 + 64);
-  __chkstk_darwin(v33);
-  v185 = &v168 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v193 = sub_100024A2C(&qword_10042AA30, &qword_100390D48);
-  v36 = *(*(v193 - 8) + 64);
-  __chkstk_darwin(v193);
-  v196 = &v168 - v37;
-  v38 = sub_100024A2C(&qword_100423FB0, &qword_100383480);
-  v39 = *(*(v38 - 8) + 64);
-  v40 = __chkstk_darwin(v38 - 8);
-  v190 = &v168 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v40);
-  v202 = &v168 - v42;
-  v43 = type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid(0);
-  v199 = *(v43 - 8);
-  v200 = v43;
-  v44 = *(v199 + 64);
-  __chkstk_darwin(v43);
-  v192 = &v168 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v198 = sub_100024A2C(&qword_10042AA38, &qword_100390D50);
-  v46 = *(*(v198 - 8) + 64);
-  __chkstk_darwin(v198);
-  v201 = &v168 - v47;
-  v48 = sub_100024A2C(&qword_100423FA8, &qword_100383478);
-  v49 = *(*(v48 - 8) + 64);
-  v50 = __chkstk_darwin(v48 - 8);
-  v210 = &v168 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v50);
-  v209 = &v168 - v52;
-  v53 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse(0);
-  v206 = *(v53 - 8);
-  v207 = v53;
-  v54 = *(v206 + 64);
-  __chkstk_darwin(v53);
-  v197 = &v168 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v205 = sub_100024A2C(&qword_10042AA40, &qword_100390D58);
-  v56 = *(*(v205 - 8) + 64);
-  __chkstk_darwin(v205);
-  v208 = &v168 - v57;
-  v58 = sub_100024A2C(&qword_100423FA0, &qword_100383470);
-  v59 = *(*(v58 - 8) + 64);
-  v60 = __chkstk_darwin(v58 - 8);
-  v203 = &v168 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v60);
-  v212 = &v168 - v62;
-  v213 = type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle(0);
-  v63 = *(v213 - 8);
-  v64 = *(v63 + 64);
-  __chkstk_darwin(v213);
-  v204 = &v168 - ((v65 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v66 = sub_100024A2C(&qword_10042AA48, &qword_100390D60);
-  v67 = v66 - 8;
-  v68 = *(*(v66 - 8) + 64);
-  __chkstk_darwin(v66);
-  v70 = &v168 - v69;
-  v71 = sub_100024A2C(&qword_100423F98, &qword_100383468);
-  v72 = *(*(v71 - 8) + 64);
-  v73 = __chkstk_darwin(v71 - 8);
-  v211 = &v168 - ((v74 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v73);
-  v76 = &v168 - v75;
-  v77 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainCircle;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v77, v76, &qword_100423F98, &qword_100383468);
-  v78 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainCircle;
-  v79 = v214;
-  swift_beginAccess();
-  v80 = *(v67 + 56);
-  sub_10000A0A4(v76, v70, &qword_100423F98, &qword_100383468);
-  v81 = v79 + v78;
-  v82 = v213;
-  sub_10000A0A4(v81, &v70[v80], &qword_100423F98, &qword_100383468);
-  v83 = *(v63 + 48);
-  if (v83(v70, 1, v82) == 1)
-  {
-
-    sub_1000059A8(v76, &qword_100423F98, &qword_100383468);
-    if (v83(&v70[v80], 1, v82) == 1)
-    {
-      sub_1000059A8(v70, &qword_100423F98, &qword_100383468);
-      goto LABEL_8;
-    }
-
-LABEL_6:
-    v85 = &qword_10042AA48;
-    v86 = &qword_100390D60;
-LABEL_14:
-    v101 = v70;
-LABEL_15:
-    sub_1000059A8(v101, v85, v86);
-    goto LABEL_16;
-  }
-
-  v84 = v211;
-  sub_10000A0A4(v70, v211, &qword_100423F98, &qword_100383468);
-  if (v83(&v70[v80], 1, v82) == 1)
-  {
-
-    sub_1000059A8(v76, &qword_100423F98, &qword_100383468);
-    sub_100246490(v84, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-    goto LABEL_6;
-  }
-
-  v87 = v204;
-  sub_1002463C0(&v70[v80], v204, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-
-  v88 = sub_100255634(v84, v87, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-  sub_100246490(v87, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-  sub_1000059A8(v76, &qword_100423F98, &qword_100383468);
-  sub_100246490(v84, type metadata accessor for Proto_Gnss_Emergency_PointUncertainCircle);
-  sub_1000059A8(v70, &qword_100423F98, &qword_100383468);
-  if ((v88 & 1) == 0)
-  {
-LABEL_16:
-
-    return 0;
-  }
-
-LABEL_8:
-  v89 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainEllipse;
-  swift_beginAccess();
-  v90 = v212;
-  sub_10000A0A4(a1 + v89, v212, &qword_100423FA0, &qword_100383470);
-  v91 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointUncertainEllipse;
-  swift_beginAccess();
-  v92 = *(v205 + 48);
-  v70 = v208;
-  sub_10000A0A4(v90, v208, &qword_100423FA0, &qword_100383470);
-  sub_10000A0A4(v79 + v91, &v70[v92], &qword_100423FA0, &qword_100383470);
-  v93 = v207;
-  v94 = *(v206 + 48);
-  if (v94(v70, 1, v207) == 1)
-  {
-    sub_1000059A8(v90, &qword_100423FA0, &qword_100383470);
-    v95 = v94(&v70[v92], 1, v93);
-    v96 = v209;
-    v97 = v210;
-    if (v95 == 1)
-    {
-      sub_1000059A8(v70, &qword_100423FA0, &qword_100383470);
-      goto LABEL_20;
-    }
-
-    goto LABEL_13;
-  }
-
-  v98 = v203;
-  sub_10000A0A4(v70, v203, &qword_100423FA0, &qword_100383470);
-  v99 = v94(&v70[v92], 1, v93);
-  v96 = v209;
-  v100 = v210;
-  if (v99 == 1)
-  {
-    sub_1000059A8(v212, &qword_100423FA0, &qword_100383470);
-    sub_100246490(v98, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-LABEL_13:
-    v85 = &qword_10042AA40;
-    v86 = &qword_100390D58;
-    goto LABEL_14;
-  }
-
-  v103 = &v70[v92];
-  v104 = v197;
-  sub_1002463C0(v103, v197, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-  LODWORD(v214) = sub_10024A7DC(v98, v104);
-  sub_100246490(v104, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-  sub_1000059A8(v212, &qword_100423FA0, &qword_100383470);
-  sub_100246490(v98, type metadata accessor for Proto_Gnss_Emergency_PointUncertainEllipse);
-  sub_1000059A8(v70, &qword_100423FA0, &qword_100383470);
-  v97 = v100;
-  if ((v214 & 1) == 0)
-  {
-    goto LABEL_16;
-  }
-
-LABEL_20:
-  v105 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitudeUncertainEllipsoid;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v105, v96, &qword_100423FA8, &qword_100383478);
-  v106 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitudeUncertainEllipsoid;
-  swift_beginAccess();
-  v107 = *(v198 + 48);
-  v108 = v201;
-  sub_10000A0A4(v96, v201, &qword_100423FA8, &qword_100383478);
-  v109 = v108;
-  sub_10000A0A4(v79 + v106, v108 + v107, &qword_100423FA8, &qword_100383478);
-  v110 = v200;
-  v111 = *(v199 + 48);
-  if (v111(v108, 1, v200) == 1)
-  {
-    sub_1000059A8(v96, &qword_100423FA8, &qword_100383478);
-    v112 = v111(v108 + v107, 1, v110);
-    v113 = v202;
-    if (v112 == 1)
-    {
-      sub_1000059A8(v109, &qword_100423FA8, &qword_100383478);
-      goto LABEL_27;
-    }
-
-LABEL_25:
-    v85 = &qword_10042AA38;
-    v86 = &qword_100390D50;
-LABEL_54:
-    v101 = v109;
-    goto LABEL_15;
-  }
-
-  sub_10000A0A4(v108, v97, &qword_100423FA8, &qword_100383478);
-  v114 = v111(v108 + v107, 1, v110);
-  v113 = v202;
-  if (v114 == 1)
-  {
-    sub_1000059A8(v96, &qword_100423FA8, &qword_100383478);
-    sub_100246490(v97, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-    goto LABEL_25;
-  }
-
-  v115 = v109 + v107;
-  v116 = v192;
-  sub_1002463C0(v115, v192, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-  LODWORD(v214) = sub_10024991C(v97, v116);
-  sub_100246490(v116, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-  sub_1000059A8(v96, &qword_100423FA8, &qword_100383478);
-  sub_100246490(v97, type metadata accessor for Proto_Gnss_Emergency_PointAltitudeUncertainEllipsoid);
-  sub_1000059A8(v109, &qword_100423FA8, &qword_100383478);
-  if ((v214 & 1) == 0)
-  {
-    goto LABEL_16;
-  }
-
-LABEL_27:
-  v117 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidArc;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v117, v113, &qword_100423FB0, &qword_100383480);
-  v118 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidArc;
-  swift_beginAccess();
-  v119 = *(v193 + 48);
-  v120 = v113;
-  v121 = v113;
-  v122 = v196;
-  sub_10000A0A4(v120, v196, &qword_100423FB0, &qword_100383480);
-  v109 = v122;
-  sub_10000A0A4(v79 + v118, v122 + v119, &qword_100423FB0, &qword_100383480);
-  v123 = v195;
-  v124 = *(v194 + 48);
-  if (v124(v122, 1, v195) == 1)
-  {
-    sub_1000059A8(v121, &qword_100423FB0, &qword_100383480);
-    if (v124(v122 + v119, 1, v123) == 1)
-    {
-      sub_1000059A8(v122, &qword_100423FB0, &qword_100383480);
-      goto LABEL_34;
-    }
-
-    goto LABEL_32;
-  }
-
-  v125 = v190;
-  sub_10000A0A4(v122, v190, &qword_100423FB0, &qword_100383480);
-  if (v124(v122 + v119, 1, v123) == 1)
-  {
-    sub_1000059A8(v202, &qword_100423FB0, &qword_100383480);
-    sub_100246490(v125, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-LABEL_32:
-    v85 = &qword_10042AA30;
-    v86 = &qword_100390D48;
-    goto LABEL_54;
-  }
-
-  v126 = v122 + v119;
-  v127 = v185;
-  sub_1002463C0(v126, v185, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-  v128 = sub_100253010(v125, v127);
-  sub_100246490(v127, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-  sub_1000059A8(v202, &qword_100423FB0, &qword_100383480);
-  sub_100246490(v125, type metadata accessor for Proto_Gnss_Emergency_EllipsoidArc);
-  sub_1000059A8(v122, &qword_100423FB0, &qword_100383480);
-  if ((v128 & 1) == 0)
-  {
-    goto LABEL_16;
-  }
-
-LABEL_34:
-  v129 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidPoint;
-  swift_beginAccess();
-  v130 = v191;
-  sub_10000A0A4(a1 + v129, v191, &qword_100423F90, &qword_100383460);
-  v131 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ellipsoidPoint;
-  swift_beginAccess();
-  v132 = *(v186 + 48);
-  v109 = v189;
-  sub_10000A0A4(v130, v189, &qword_100423F90, &qword_100383460);
-  sub_10000A0A4(v79 + v131, v109 + v132, &qword_100423F90, &qword_100383460);
-  v133 = v188;
-  v134 = *(v187 + 48);
-  if (v134(v109, 1, v188) == 1)
-  {
-    sub_1000059A8(v130, &qword_100423F90, &qword_100383460);
-    if (v134(v109 + v132, 1, v133) == 1)
-    {
-      sub_1000059A8(v109, &qword_100423F90, &qword_100383460);
-      goto LABEL_41;
-    }
-
-    goto LABEL_39;
-  }
-
-  v135 = v183;
-  sub_10000A0A4(v109, v183, &qword_100423F90, &qword_100383460);
-  if (v134(v109 + v132, 1, v133) == 1)
-  {
-    sub_1000059A8(v191, &qword_100423F90, &qword_100383460);
-    sub_100246490(v135, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-LABEL_39:
-    v85 = &qword_10042AA28;
-    v86 = &qword_100390D40;
-    goto LABEL_54;
-  }
-
-  v136 = v109 + v132;
-  v137 = v178;
-  sub_1002463C0(v136, v178, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  v138 = sub_100255534(v135, v137, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_100246490(v137, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_1000059A8(v191, &qword_100423F90, &qword_100383460);
-  sub_100246490(v135, type metadata accessor for Proto_Gnss_Emergency_EllipsoidPoint);
-  sub_1000059A8(v109, &qword_100423F90, &qword_100383460);
-  if ((v138 & 1) == 0)
-  {
-    goto LABEL_16;
-  }
-
-LABEL_41:
-  v139 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitude;
-  swift_beginAccess();
-  v140 = v184;
-  sub_10000A0A4(a1 + v139, v184, &qword_100423FB8, &qword_100383488);
-  v141 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__pointAltitude;
-  swift_beginAccess();
-  v142 = *(v179 + 48);
-  v143 = v182;
-  sub_10000A0A4(v140, v182, &qword_100423FB8, &qword_100383488);
-  v109 = v143;
-  sub_10000A0A4(v79 + v141, v143 + v142, &qword_100423FB8, &qword_100383488);
-  v144 = v181;
-  v145 = *(v180 + 48);
-  if (v145(v143, 1, v181) == 1)
-  {
-    sub_1000059A8(v140, &qword_100423FB8, &qword_100383488);
-    if (v145(v143 + v142, 1, v144) == 1)
-    {
-      sub_1000059A8(v143, &qword_100423FB8, &qword_100383488);
-      goto LABEL_48;
-    }
-
-    goto LABEL_46;
-  }
-
-  v146 = v176;
-  sub_10000A0A4(v143, v176, &qword_100423FB8, &qword_100383488);
-  if (v145(v143 + v142, 1, v144) == 1)
-  {
-    sub_1000059A8(v184, &qword_100423FB8, &qword_100383488);
-    sub_100246490(v146, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-LABEL_46:
-    v85 = &qword_10042AA20;
-    v86 = &qword_100390D38;
-    goto LABEL_54;
-  }
-
-  v147 = v143 + v142;
-  v148 = v171;
-  sub_1002463C0(v147, v171, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-  v149 = sub_100255634(v146, v148, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-  sub_100246490(v148, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-  sub_1000059A8(v184, &qword_100423FB8, &qword_100383488);
-  sub_100246490(v146, type metadata accessor for Proto_Gnss_Emergency_PointAltitude);
-  sub_1000059A8(v143, &qword_100423FB8, &qword_100383488);
-  if ((v149 & 1) == 0)
-  {
-    goto LABEL_16;
-  }
-
-LABEL_48:
-  v150 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__polygon;
-  swift_beginAccess();
-  v151 = v177;
-  sub_10000A0A4(a1 + v150, v177, &qword_100423FC0, &qword_100383490);
-  v152 = OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__polygon;
-  swift_beginAccess();
-  v153 = *(v172 + 48);
-  v154 = v175;
-  sub_10000A0A4(v151, v175, &qword_100423FC0, &qword_100383490);
-  v109 = v154;
-  sub_10000A0A4(v79 + v152, v154 + v153, &qword_100423FC0, &qword_100383490);
-  v155 = v174;
-  v156 = *(v173 + 48);
-  if (v156(v154, 1, v174) == 1)
-  {
-    sub_1000059A8(v151, &qword_100423FC0, &qword_100383490);
-    if (v156(v154 + v153, 1, v155) == 1)
-    {
-      sub_1000059A8(v154, &qword_100423FC0, &qword_100383490);
-      goto LABEL_56;
-    }
-
-    goto LABEL_53;
-  }
-
-  v157 = v170;
-  sub_10000A0A4(v154, v170, &qword_100423FC0, &qword_100383490);
-  if (v156(v154 + v153, 1, v155) == 1)
-  {
-    sub_1000059A8(v177, &qword_100423FC0, &qword_100383490);
-    sub_100246490(v157, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-LABEL_53:
-    v85 = &qword_10042AA18;
-    v86 = &qword_100390D30;
-    goto LABEL_54;
-  }
-
-  v158 = v154 + v153;
-  v159 = v169;
-  sub_1002463C0(v158, v169, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-  v160 = sub_100255DEC(v157, v159);
-  sub_100246490(v159, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-  sub_1000059A8(v177, &qword_100423FC0, &qword_100383490);
-  sub_100246490(v157, type metadata accessor for Proto_Gnss_Emergency_Polygon);
-  sub_1000059A8(v154, &qword_100423FC0, &qword_100383490);
-  if ((v160 & 1) == 0)
-  {
-    goto LABEL_16;
-  }
-
-LABEL_56:
-  v161 = (a1 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__noLocation);
-  swift_beginAccess();
-  v162 = *v161;
-  v163 = *(v161 + 4);
-
-  v164 = (v79 + OBJC_IVAR____TtCV10ALProtobuf30Proto_Gnss_Emergency_ShapeInfoP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__noLocation);
-  swift_beginAccess();
-  v165 = *v164;
-  v166 = *(v164 + 4);
-
-  if (v163)
-  {
-    if (v166)
-    {
-      return 1;
-    }
-  }
-
-  else
-  {
-    if (v162 == v165)
-    {
-      v167 = v166;
-    }
-
-    else
-    {
-      v167 = 1;
-    }
-
-    if ((v167 & 1) == 0)
-    {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t sub_10021B2D4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A660, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021B374(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424E58, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021B3E0()
-{
-  sub_100256CB4(&qword_100424E58, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021B484()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434618);
-  sub_100005DF0(v0, qword_100434618);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "shape_type";
-  *(v6 + 8) = 10;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "shape";
-  *(v10 + 1) = 5;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021B69C()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while ((v2 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        v3 = *(type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0) + 20);
-        sub_100268738();
-        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-      }
-
-      else if (result == 2)
-      {
-        v4 = *(type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0) + 24);
-        type metadata accessor for Proto_Gnss_Emergency_ShapeInfo(0);
-        sub_100256CB4(&qword_100424E58, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10021B7D4(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0);
-  if (*(v5 + *(result + 20)) == 9)
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v10 = *(v5 + *(result + 20));
-    sub_100268738();
-    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  sub_10021B894(v5, a1, a2, a3);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_10021B894(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423FC8, &qword_100383498);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_ShapeInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0);
-  sub_10000A0A4(a1 + *(v14 + 24), v8, &qword_100423FC8, &qword_100383498);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FC8, &qword_100383498);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-  sub_100256CB4(&qword_100424E58, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_ShapeInfo);
-}
-
-uint64_t sub_10021BB48(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A658, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021BBE8(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424E70, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021BC54()
-{
-  sub_100256CB4(&qword_100424E70, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021BCF8()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434630);
-  sub_100005DF0(v0, qword_100434630);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "bearing";
-  *(v6 + 8) = 7;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.same(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "horizontal_speed";
-  *(v10 + 1) = 16;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021C008(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A650, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021C0A8(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424E88, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021C114()
-{
-  sub_100256CB4(&qword_100424E88, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021C1BC()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434648);
-  sub_100005DF0(v0, qword_100434648);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036D7B0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "bearing";
-  *(v6 + 8) = 7;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.same(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "horizontal_speed";
-  *(v10 + 8) = 16;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "vertical_speed";
-  *(v12 + 1) = 14;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "vertical_speed_direction";
-  *(v14 + 1) = 24;
-  v14[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021C52C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A648, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021C5CC(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424EA0, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021C638()
-{
-  sub_100256CB4(&qword_100424EA0, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021C6DC()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434660);
-  sub_100005DF0(v0, qword_100434660);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C800;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "bearing";
-  *(v6 + 8) = 7;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.same(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "horizontal_speed";
-  *(v10 + 1) = 16;
-  v10[16] = 2;
-  v9();
-  v11 = v5 + 2 * v2 + v1[14];
-  *(v5 + 2 * v2) = 3;
-  *v11 = "uncertainty_speed";
-  *(v11 + 8) = 17;
-  *(v11 + 16) = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021CA14(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A640, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021CAB4(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424EB8, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021CB20()
-{
-  sub_100256CB4(&qword_100424EB8, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021CBC4()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434678);
-  sub_100005DF0(v0, qword_100434678);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C7E0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "bearing";
-  *(v6 + 8) = 7;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.same(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "horizontal_speed";
-  *(v10 + 8) = 16;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "vertical_speed";
-  *(v12 + 1) = 14;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "vertical_speed_direction";
-  *(v14 + 1) = 24;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "horiz_uncertainty_speed";
-  *(v16 + 1) = 23;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "vert_uncertainty_speed";
-  *(v18 + 1) = 22;
-  v18[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021CEE4()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result > 3)
-      {
-        switch(result)
-        {
-          case 4:
-            v3 = v0;
-            v7 = *(type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0) + 32);
-            break;
-          case 5:
-            v3 = v0;
-            v9 = *(type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0) + 36);
-            break;
-          case 6:
-            v3 = v0;
-            v5 = *(type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0) + 40);
-            break;
-          default:
-            goto LABEL_17;
-        }
-      }
-
-      else
-      {
-        switch(result)
-        {
-          case 1:
-            v3 = v0;
-            v6 = *(type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0) + 20);
-            break;
-          case 2:
-            v3 = v0;
-            v8 = *(type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0) + 24);
-            break;
-          case 3:
-            v3 = v0;
-            v4 = *(type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0) + 28);
-            break;
-          default:
-            goto LABEL_17;
-        }
-      }
-
-      v0 = v3;
-      dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-LABEL_17:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10021D008(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0);
-  v10 = result;
-  v11 = (v5 + *(result + 20));
-  if (v11[1])
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v12 = *v11;
-    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  v13 = (v5 + v10[6]);
-  if ((v13[1] & 1) == 0)
-  {
-    v14 = *v13;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v15 = (v5 + v10[7]);
-  if ((v15[1] & 1) == 0)
-  {
-    v16 = *v15;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v17 = (v5 + v10[8]);
-  if ((v17[1] & 1) == 0)
-  {
-    v18 = *v17;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_10021D1D4@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  result = UnknownStorage.init()();
-  v5 = a1[6];
-  v6 = a2 + a1[5];
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = a2 + v5;
-  *v7 = 0;
-  *(v7 + 4) = 1;
-  v8 = a1[8];
-  v9 = a2 + a1[7];
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a2 + v8;
-  *v10 = 0;
-  *(v10 + 4) = 1;
-  v11 = a1[10];
-  v12 = a2 + a1[9];
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  v13 = a2 + v11;
-  *v13 = 0;
-  *(v13 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_10021D284(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A638, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021D324(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424ED0, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021D390()
-{
-  sub_100256CB4(&qword_100424ED0, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021D434()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434690);
-  sub_100005DF0(v0, qword_100434690);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036D7B0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "_horizontal";
-  *(v6 + 8) = 11;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "_horiz_with_vert";
-  *(v10 + 8) = 16;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "_horiz_with_uncertainty";
-  *(v12 + 1) = 23;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "_horiz_with_vert_uncertainty";
-  *(v14 + 1) = 28;
-  v14[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021D6C4()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result > 2)
-      {
-        if (result == 3)
-        {
-          v3 = v0;
-          v4 = *(type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0) + 28);
-          type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity(0);
-          v5 = type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity;
-          v6 = &qword_100424EB8;
-          goto LABEL_5;
-        }
-
-        if (result == 4)
-        {
-          v3 = v0;
-          v8 = *(type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0) + 32);
-          type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0);
-          v5 = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity;
-          v6 = &qword_100424ED0;
-LABEL_5:
-          sub_100256CB4(v6, v5);
-          v0 = v3;
-LABEL_6:
-          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-        }
-      }
-
-      else
-      {
-        if (result == 1)
-        {
-          v9 = *(type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0) + 20);
-          type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity(0);
-          sub_100256CB4(&qword_100424E88, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-          goto LABEL_6;
-        }
-
-        if (result == 2)
-        {
-          v3 = v0;
-          v7 = *(type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0) + 24);
-          type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity(0);
-          v5 = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity;
-          v6 = &qword_100424EA0;
-          goto LABEL_5;
-        }
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10021D8DC(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = sub_10021D97C(v3, a1, a2, a3);
-  if (!v4)
-  {
-    sub_10021DB98(v3, a1, a2, a3);
-    sub_10021DDB4(v3, a1, a2, a3);
-    sub_10021DFD0(v3, a1, a2, a3);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_10021D97C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423FD0, &qword_1003834A0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0);
-  sub_10000A0A4(a1 + *(v14 + 20), v8, &qword_100423FD0, &qword_1003834A0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FD0, &qword_1003834A0);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-  sub_100256CB4(&qword_100424E88, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity);
-}
-
-uint64_t sub_10021DB98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423FD8, &qword_1003834A8);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0);
-  sub_10000A0A4(a1 + *(v14 + 24), v8, &qword_100423FD8, &qword_1003834A8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FD8, &qword_1003834A8);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-  sub_100256CB4(&qword_100424EA0, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity);
-}
-
-uint64_t sub_10021DDB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423FE0, &qword_1003834B0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0);
-  sub_10000A0A4(a1 + *(v14 + 28), v8, &qword_100423FE0, &qword_1003834B0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FE0, &qword_1003834B0);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-  sub_100256CB4(&qword_100424EB8, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity);
-}
-
-uint64_t sub_10021DFD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423FE8, &qword_1003834B8);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0);
-  sub_10000A0A4(a1 + *(v14 + 32), v8, &qword_100423FE8, &qword_1003834B8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FE8, &qword_1003834B8);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-  sub_100256CB4(&qword_100424ED0, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity);
-}
-
-uint64_t sub_10021E238@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[5];
-  v5 = type metadata accessor for Proto_Gnss_Emergency_HorizontalVelocity(0);
-  (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
-  v6 = a1[6];
-  v7 = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertVelocity(0);
-  (*(*(v7 - 8) + 56))(a2 + v6, 1, 1, v7);
-  v8 = a1[7];
-  v9 = type metadata accessor for Proto_Gnss_Emergency_HorizWithUncertaintyVelocity(0);
-  (*(*(v9 - 8) + 56))(a2 + v8, 1, 1, v9);
-  v10 = a1[8];
-  v11 = type metadata accessor for Proto_Gnss_Emergency_HorizWithVertUncertaintyVelocity(0);
-  v12 = *(*(v11 - 8) + 56);
-
-  return v12(a2 + v10, 1, 1, v11);
-}
-
-uint64_t sub_10021E3B4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A630, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021E454(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424EE8, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021E4C0()
-{
-  sub_100256CB4(&qword_100424EE8, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021E564()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004346A8);
-  sub_100005DF0(v0, qword_1004346A8);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "velocity_type";
-  *(v6 + 8) = 13;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "velocity";
-  *(v10 + 1) = 8;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021E77C()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while ((v2 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        v3 = *(type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate(0) + 20);
-        sub_1002686E4();
-        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-      }
-
-      else if (result == 2)
-      {
-        v4 = *(type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate(0) + 24);
-        type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0);
-        sub_100256CB4(&qword_100424EE8, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10021E910(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100423FF0, &qword_1003834C0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_VelocityInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate(0);
-  sub_10000A0A4(a1 + *(v14 + 24), v8, &qword_100423FF0, &qword_1003834C0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FF0, &qword_1003834C0);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-  sub_100256CB4(&qword_100424EE8, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_VelocityInfo);
-}
-
-uint64_t sub_10021EBAC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A628, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10021EC4C(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424F00, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10021ECB8()
-{
-  sub_100256CB4(&qword_100424F00, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10021ED5C()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004346C0);
-  sub_100005DF0(v0, qword_1004346C0);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v23 = swift_allocObject();
-  *(v23 + 16) = xmmword_10036D790;
-  v4 = v23 + v3;
-  v5 = v23 + v3 + v1[14];
-  *(v23 + v3) = 1;
-  *v5 = "result";
-  *(v5 + 8) = 6;
-  *(v5 + 16) = 2;
-  v6 = enum case for _NameMap.NameDescription.same(_:);
-  v7 = type metadata accessor for _NameMap.NameDescription();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v4 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "response_type";
-  *(v9 + 8) = 13;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v4 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "session_info";
-  *(v11 + 1) = 12;
-  v11[16] = 2;
-  v8();
-  v12 = (v4 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "location_info";
-  *(v13 + 1) = 13;
-  v13[16] = 2;
-  v8();
-  v14 = (v4 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "ganss_location_info";
-  *(v15 + 1) = 19;
-  v15[16] = 2;
-  v8();
-  v16 = (v4 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "loc_estimate";
-  *(v17 + 1) = 12;
-  v17[16] = 2;
-  v8();
-  v18 = (v4 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "velocity_estimate";
-  *(v19 + 1) = 17;
-  v19[16] = 2;
-  v8();
-  v20 = (v4 + 7 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 8;
-  *v21 = "technology_source";
-  *(v21 + 1) = 17;
-  v21[16] = 2;
-  v8();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10021F0F4()
-{
-  v0 = type metadata accessor for Proto_Gnss_Emergency_PositionReport._StorageClass(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  *(v3 + 16) = 9;
-  *(v3 + 20) = 0;
-  *(v3 + 24) = 1;
-  v4 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
-  v5 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-  (*(*(v5 - 8) + 56))(v3 + v4, 1, 1, v5);
-  v6 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationInfo;
-  v7 = type metadata accessor for Proto_Gnss_Emergency_LocationInfo(0);
-  (*(*(v7 - 8) + 56))(v3 + v6, 1, 1, v7);
-  v8 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssLocationInfo;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0);
-  (*(*(v9 - 8) + 56))(v3 + v8, 1, 1, v9);
-  v10 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locEstimate;
-  v11 = type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0);
-  (*(*(v11 - 8) + 56))(v3 + v10, 1, 1, v11);
-  v12 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__velocityEstimate;
-  v13 = type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate(0);
-  result = (*(*(v13 - 8) + 56))(v3 + v12, 1, 1, v13);
-  v15 = v3 + OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__technologySource;
-  *v15 = 0;
-  *(v15 + 4) = 1;
-  qword_1004612E8 = v3;
-  return result;
-}
-
-uint64_t sub_10021F2C8()
-{
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo, &qword_100423FF8, &qword_1003834C8);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationInfo, &qword_100424000, &qword_1003834D0);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssLocationInfo, &qword_100424008, &qword_1003834D8);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locEstimate, &qword_100424010, &qword_1003834E0);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__velocityEstimate, &qword_100424018, &qword_1003834E8);
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
-
-  return _swift_deallocClassInstance(v0, v1, v2);
-}
-
-uint64_t sub_10021F3BC()
-{
-  v2 = v0;
-  v3 = *(type metadata accessor for Proto_Gnss_Emergency_PositionReport(0) + 20);
-  v4 = *(v0 + v3);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v7 = type metadata accessor for Proto_Gnss_Emergency_PositionReport._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    sub_1002477BC(v6);
-
-    *(v2 + v3) = v10;
-  }
-
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
-  {
-    while (1)
-    {
-      if (v12)
-      {
-        return result;
-      }
-
-      if (result > 4)
-      {
-        if (result <= 6)
-        {
-          v13 = v1;
-          if (result == 5)
-          {
-            swift_beginAccess();
-            type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0);
-            v14 = type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo;
-            v15 = &qword_100424DA0;
-          }
-
-          else
-          {
-            swift_beginAccess();
-            type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0);
-            v14 = type metadata accessor for Proto_Gnss_Emergency_LocEstimate;
-            v15 = &qword_100424E70;
-          }
-
-          goto LABEL_23;
-        }
-
-        if (result == 7)
-        {
-          v13 = v1;
-          swift_beginAccess();
-          type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate(0);
-          v14 = type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate;
-          v15 = &qword_100424F00;
-LABEL_23:
-          sub_100256CB4(v15, v14);
-          v1 = v13;
-          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-          goto LABEL_24;
-        }
-
-        if (result != 8)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      else
-      {
-        if (result > 2)
-        {
-          v13 = v1;
-          if (result == 3)
-          {
-            swift_beginAccess();
-            type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-            v14 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo;
-            v15 = &qword_100424C40;
-          }
-
-          else
-          {
-            swift_beginAccess();
-            type metadata accessor for Proto_Gnss_Emergency_LocationInfo(0);
-            v14 = type metadata accessor for Proto_Gnss_Emergency_LocationInfo;
-            v15 = &qword_100424D00;
-          }
-
-          goto LABEL_23;
-        }
-
-        if (result == 1)
-        {
-          swift_beginAccess();
-          sub_100268B28();
-          dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-          goto LABEL_24;
-        }
-
-        if (result != 2)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      swift_beginAccess();
-      dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
-LABEL_24:
-      swift_endAccess();
-LABEL_25:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10021F7A8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  v9 = *(v5 + *(type metadata accessor for Proto_Gnss_Emergency_PositionReport(0) + 20));
-  result = swift_beginAccess();
-  if (*(v9 + 16) == 9)
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v12 = *(v9 + 16);
-    sub_100268B28();
-    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  swift_beginAccess();
-  if ((*(v9 + 24) & 1) == 0)
-  {
-    v11 = *(v9 + 20);
-    dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
-  }
-
-  sub_10021F964(v9, a1, a2, a3);
-  sub_10021FB8C(v9, a1, a2, a3);
-  sub_10021FDB4(v9, a1, a2, a3);
-  sub_10021FFDC(v9, a1, a2, a3);
-  sub_100220204(v9, a1, a2, a3);
-  sub_100228210(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__technologySource, 8, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_10021F964(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423FF8, &qword_1003834C8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423FF8, &qword_1003834C8);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-  sub_100256CB4(&qword_100424C40, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-}
-
-uint64_t sub_10021FB8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100424000, &qword_1003834D0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_LocationInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationInfo;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424000, &qword_1003834D0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100424000, &qword_1003834D0);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_LocationInfo);
-  sub_100256CB4(&qword_100424D00, type metadata accessor for Proto_Gnss_Emergency_LocationInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_LocationInfo);
-}
-
-uint64_t sub_10021FDB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100424008, &qword_1003834D8);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssLocationInfo;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424008, &qword_1003834D8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100424008, &qword_1003834D8);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-  sub_100256CB4(&qword_100424DA0, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-}
-
-uint64_t sub_10021FFDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100424010, &qword_1003834E0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locEstimate;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424010, &qword_1003834E0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100424010, &qword_1003834E0);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-  sub_100256CB4(&qword_100424E70, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-}
-
-uint64_t sub_100220204(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100424018, &qword_1003834E8);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__velocityEstimate;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424018, &qword_1003834E8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100424018, &qword_1003834E8);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-  sub_100256CB4(&qword_100424F00, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-}
-
-BOOL sub_100220470(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate(0);
-  v146 = *(v4 - 8);
-  v147 = v4;
-  v5 = *(v146 + 64);
-  __chkstk_darwin(v4);
-  v142 = &v139 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v145 = sub_100024A2C(&qword_10042A9C8, &qword_100390CE0);
-  v7 = *(*(v145 - 8) + 64);
-  __chkstk_darwin(v145);
-  v9 = &v139 - v8;
-  v10 = sub_100024A2C(&qword_100424018, &qword_1003834E8);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = __chkstk_darwin(v10 - 8);
-  v143 = &v139 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v154 = &v139 - v14;
-  v15 = type metadata accessor for Proto_Gnss_Emergency_LocEstimate(0);
-  v151 = *(v15 - 8);
-  v152 = v15;
-  v16 = *(v151 + 64);
-  __chkstk_darwin(v15);
-  v144 = &v139 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v150 = sub_100024A2C(&qword_10042A9D0, &qword_100390CE8);
-  v18 = *(*(v150 - 8) + 64);
-  __chkstk_darwin(v150);
-  v153 = &v139 - v19;
-  v20 = sub_100024A2C(&qword_100424010, &qword_1003834E0);
-  v21 = *(*(v20 - 8) + 64);
-  v22 = __chkstk_darwin(v20 - 8);
-  v148 = &v139 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v22);
-  v160 = &v139 - v24;
-  v25 = type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo(0);
-  v157 = *(v25 - 8);
-  v158 = v25;
-  v26 = *(v157 + 64);
-  __chkstk_darwin(v25);
-  v149 = &v139 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v156 = sub_100024A2C(&qword_10042A9D8, &qword_100390CF0);
-  v28 = *(*(v156 - 8) + 64);
-  __chkstk_darwin(v156);
-  v159 = &v139 - v29;
-  v30 = sub_100024A2C(&qword_100424008, &qword_1003834D8);
-  v31 = *(*(v30 - 8) + 64);
-  v32 = __chkstk_darwin(v30 - 8);
-  v167 = &v139 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v32);
-  v168 = &v139 - v34;
-  v35 = type metadata accessor for Proto_Gnss_Emergency_LocationInfo(0);
-  v164 = *(v35 - 8);
-  v165 = v35;
-  v36 = *(v164 + 64);
-  __chkstk_darwin(v35);
-  v155 = &v139 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v163 = sub_100024A2C(&qword_10042A9E0, &qword_100390CF8);
-  v38 = *(*(v163 - 8) + 64);
-  __chkstk_darwin(v163);
-  v166 = &v139 - v39;
-  v40 = sub_100024A2C(&qword_100424000, &qword_1003834D0);
-  v41 = *(*(v40 - 8) + 64);
-  v42 = __chkstk_darwin(v40 - 8);
-  v161 = &v139 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v42);
-  v169 = &v139 - v44;
-  v45 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-  v170 = *(v45 - 8);
-  v46 = *(v170 + 64);
-  __chkstk_darwin(v45);
-  v162 = &v139 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v48 = sub_100024A2C(&qword_10042A908, &qword_100390C20);
-  v49 = *(*(v48 - 8) + 64);
-  __chkstk_darwin(v48);
-  v51 = &v139 - v50;
-  v52 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
-  v53 = *(*(v52 - 8) + 64);
-  v54 = __chkstk_darwin(v52 - 8);
-  v56 = &v139 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v54);
-  v58 = &v139 - v57;
-  swift_beginAccess();
-  v59 = *(a1 + 16);
-  swift_beginAccess();
-  v60 = *(a2 + 16);
-  if (v59 == 9)
-  {
-    if (v60 != 9)
-    {
-      return 0;
-    }
-
-LABEL_6:
-    swift_beginAccess();
-    v62 = *(a1 + 20);
-    v141 = a1;
-    v63 = *(a1 + 24);
-    swift_beginAccess();
-    v64 = *(a2 + 24);
-    if (v63)
-    {
-      if (!*(a2 + 24))
-      {
-        return 0;
-      }
-    }
-
-    else
-    {
-      if (v62 != *(a2 + 20))
-      {
-        v64 = 1;
-      }
-
-      if (v64)
-      {
-        return 0;
-      }
-    }
-
-    v140 = v9;
-    v171 = a2;
-    v65 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
-    v66 = v141;
-    swift_beginAccess();
-    sub_10000A0A4(v66 + v65, v58, &qword_100423FF8, &qword_1003834C8);
-    v67 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
-    swift_beginAccess();
-    v68 = *(v48 + 48);
-    sub_10000A0A4(v58, v51, &qword_100423FF8, &qword_1003834C8);
-    sub_10000A0A4(v171 + v67, &v51[v68], &qword_100423FF8, &qword_1003834C8);
-    v69 = *(v170 + 48);
-    if (v69(v51, 1, v45) == 1)
-    {
-
-      sub_1000059A8(v58, &qword_100423FF8, &qword_1003834C8);
-      if (v69(&v51[v68], 1, v45) == 1)
-      {
-        sub_1000059A8(v51, &qword_100423FF8, &qword_1003834C8);
-LABEL_19:
-        v75 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationInfo;
-        swift_beginAccess();
-        v76 = v169;
-        sub_10000A0A4(v66 + v75, v169, &qword_100424000, &qword_1003834D0);
-        v77 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationInfo;
-        swift_beginAccess();
-        v78 = *(v163 + 48);
-        v79 = v166;
-        sub_10000A0A4(v76, v166, &qword_100424000, &qword_1003834D0);
-        sub_10000A0A4(v171 + v77, v79 + v78, &qword_100424000, &qword_1003834D0);
-        v80 = v165;
-        v81 = *(v164 + 48);
-        if (v81(v79, 1, v165) == 1)
-        {
-          sub_1000059A8(v76, &qword_100424000, &qword_1003834D0);
-          v82 = v81(v79 + v78, 1, v80);
-          v84 = v167;
-          v83 = v168;
-          if (v82 == 1)
-          {
-            sub_1000059A8(v79, &qword_100424000, &qword_1003834D0);
-            goto LABEL_26;
-          }
-        }
-
-        else
-        {
-          v85 = v161;
-          sub_10000A0A4(v79, v161, &qword_100424000, &qword_1003834D0);
-          v86 = v81(v79 + v78, 1, v80);
-          v87 = v167;
-          v83 = v168;
-          if (v86 != 1)
-          {
-            v88 = v79 + v78;
-            v89 = v155;
-            sub_1002463C0(v88, v155, type metadata accessor for Proto_Gnss_Emergency_LocationInfo);
-            LODWORD(v170) = sub_100252BAC(v85, v89);
-            sub_100246490(v89, type metadata accessor for Proto_Gnss_Emergency_LocationInfo);
-            sub_1000059A8(v169, &qword_100424000, &qword_1003834D0);
-            sub_100246490(v85, type metadata accessor for Proto_Gnss_Emergency_LocationInfo);
-            sub_1000059A8(v79, &qword_100424000, &qword_1003834D0);
-            v84 = v87;
-            if ((v170 & 1) == 0)
-            {
-              goto LABEL_48;
-            }
-
-LABEL_26:
-            v90 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssLocationInfo;
-            swift_beginAccess();
-            sub_10000A0A4(v66 + v90, v83, &qword_100424008, &qword_1003834D8);
-            v91 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssLocationInfo;
-            v92 = v171;
-            swift_beginAccess();
-            v93 = *(v156 + 48);
-            v94 = v83;
-            v95 = v83;
-            v96 = v159;
-            sub_10000A0A4(v94, v159, &qword_100424008, &qword_1003834D8);
-            v97 = v96;
-            sub_10000A0A4(v92 + v91, v96 + v93, &qword_100424008, &qword_1003834D8);
-            v98 = v158;
-            v99 = *(v157 + 48);
-            if (v99(v96, 1, v158) == 1)
-            {
-              sub_1000059A8(v95, &qword_100424008, &qword_1003834D8);
-              v100 = v99(v96 + v93, 1, v98);
-              v101 = v160;
-              if (v100 == 1)
-              {
-                sub_1000059A8(v96, &qword_100424008, &qword_1003834D8);
-LABEL_33:
-                v106 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locEstimate;
-                swift_beginAccess();
-                sub_10000A0A4(v66 + v106, v101, &qword_100424010, &qword_1003834E0);
-                v107 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locEstimate;
-                v108 = v101;
-                v109 = v171;
-                swift_beginAccess();
-                v110 = *(v150 + 48);
-                v111 = v153;
-                sub_10000A0A4(v108, v153, &qword_100424010, &qword_1003834E0);
-                v97 = v111;
-                sub_10000A0A4(v109 + v107, v111 + v110, &qword_100424010, &qword_1003834E0);
-                v112 = v152;
-                v113 = *(v151 + 48);
-                if (v113(v111, 1, v152) == 1)
-                {
-                  sub_1000059A8(v108, &qword_100424010, &qword_1003834E0);
-                  v114 = v113(v111 + v110, 1, v112);
-                  v115 = v154;
-                  if (v114 == 1)
-                  {
-                    sub_1000059A8(v111, &qword_100424010, &qword_1003834E0);
-LABEL_40:
-                    v121 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__velocityEstimate;
-                    swift_beginAccess();
-                    sub_10000A0A4(v66 + v121, v115, &qword_100424018, &qword_1003834E8);
-                    v122 = OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__velocityEstimate;
-                    v123 = v171;
-                    swift_beginAccess();
-                    v124 = *(v145 + 48);
-                    v125 = v140;
-                    sub_10000A0A4(v115, v140, &qword_100424018, &qword_1003834E8);
-                    v97 = v125;
-                    sub_10000A0A4(v123 + v122, v125 + v124, &qword_100424018, &qword_1003834E8);
-                    v126 = v147;
-                    v127 = *(v146 + 48);
-                    if (v127(v125, 1, v147) == 1)
-                    {
-                      sub_1000059A8(v115, &qword_100424018, &qword_1003834E8);
-                      if (v127(v125 + v124, 1, v126) == 1)
-                      {
-                        sub_1000059A8(v125, &qword_100424018, &qword_1003834E8);
-LABEL_52:
-                        v132 = (v66 + OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__technologySource);
-                        swift_beginAccess();
-                        v133 = *v132;
-                        v134 = *(v132 + 4);
-
-                        v135 = (v171 + OBJC_IVAR____TtCV10ALProtobuf35Proto_Gnss_Emergency_PositionReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__technologySource);
-                        swift_beginAccess();
-                        v136 = *v135;
-                        v137 = *(v135 + 4);
-
-                        if ((v134 & 1) == 0)
-                        {
-                          if (v133 == v136)
-                          {
-                            v138 = v137;
-                          }
-
-                          else
-                          {
-                            v138 = 1;
-                          }
-
-                          return (v138 & 1) == 0;
-                        }
-
-                        return v137 != 0;
-                      }
-
-                      goto LABEL_45;
-                    }
-
-                    v128 = v143;
-                    sub_10000A0A4(v125, v143, &qword_100424018, &qword_1003834E8);
-                    if (v127(v125 + v124, 1, v126) == 1)
-                    {
-                      sub_1000059A8(v154, &qword_100424018, &qword_1003834E8);
-                      sub_100246490(v128, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-LABEL_45:
-                      v70 = &qword_10042A9C8;
-                      v71 = &qword_100390CE0;
-                      goto LABEL_46;
-                    }
-
-                    v129 = v125 + v124;
-                    v130 = v142;
-                    sub_1002463C0(v129, v142, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-                    v131 = sub_10024CF28(v128, v130);
-                    sub_100246490(v130, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-                    sub_1000059A8(v154, &qword_100424018, &qword_1003834E8);
-                    sub_100246490(v128, type metadata accessor for Proto_Gnss_Emergency_VelocityEstimate);
-                    sub_1000059A8(v125, &qword_100424018, &qword_1003834E8);
-                    if (v131)
-                    {
-                      goto LABEL_52;
-                    }
-
-LABEL_48:
-
-                    return 0;
-                  }
-                }
-
-                else
-                {
-                  v116 = v148;
-                  sub_10000A0A4(v111, v148, &qword_100424010, &qword_1003834E0);
-                  v117 = v113(v111 + v110, 1, v112);
-                  v115 = v154;
-                  if (v117 != 1)
-                  {
-                    v118 = v111 + v110;
-                    v119 = v144;
-                    sub_1002463C0(v118, v144, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-                    v120 = sub_1002541E4(v116, v119);
-                    sub_100246490(v119, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-                    sub_1000059A8(v160, &qword_100424010, &qword_1003834E0);
-                    sub_100246490(v116, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-                    sub_1000059A8(v111, &qword_100424010, &qword_1003834E0);
-                    if ((v120 & 1) == 0)
-                    {
-                      goto LABEL_48;
-                    }
-
-                    goto LABEL_40;
-                  }
-
-                  sub_1000059A8(v160, &qword_100424010, &qword_1003834E0);
-                  sub_100246490(v116, type metadata accessor for Proto_Gnss_Emergency_LocEstimate);
-                }
-
-                v70 = &qword_10042A9D0;
-                v71 = &qword_100390CE8;
-LABEL_46:
-                v72 = v97;
-                goto LABEL_47;
-              }
-            }
-
-            else
-            {
-              sub_10000A0A4(v96, v84, &qword_100424008, &qword_1003834D8);
-              v102 = v99(v96 + v93, 1, v98);
-              v101 = v160;
-              if (v102 != 1)
-              {
-                v103 = v96 + v93;
-                v104 = v149;
-                sub_1002463C0(v103, v149, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-                v105 = sub_1002507D4(v84, v104);
-                sub_100246490(v104, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-                sub_1000059A8(v168, &qword_100424008, &qword_1003834D8);
-                sub_100246490(v84, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-                sub_1000059A8(v96, &qword_100424008, &qword_1003834D8);
-                if ((v105 & 1) == 0)
-                {
-                  goto LABEL_48;
-                }
-
-                goto LABEL_33;
-              }
-
-              sub_1000059A8(v168, &qword_100424008, &qword_1003834D8);
-              sub_100246490(v84, type metadata accessor for Proto_Gnss_Emergency_GanssLocationInfo);
-            }
-
-            v70 = &qword_10042A9D8;
-            v71 = &qword_100390CF0;
-            goto LABEL_46;
-          }
-
-          sub_1000059A8(v169, &qword_100424000, &qword_1003834D0);
-          sub_100246490(v85, type metadata accessor for Proto_Gnss_Emergency_LocationInfo);
-        }
-
-        v70 = &qword_10042A9E0;
-        v71 = &qword_100390CF8;
-        v72 = v79;
-LABEL_47:
-        sub_1000059A8(v72, v70, v71);
-        goto LABEL_48;
-      }
-    }
-
-    else
-    {
-      sub_10000A0A4(v51, v56, &qword_100423FF8, &qword_1003834C8);
-      if (v69(&v51[v68], 1, v45) != 1)
-      {
-        v73 = v162;
-        sub_1002463C0(&v51[v68], v162, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-        v66 = v141;
-
-        v74 = sub_1002540CC(v56, v73);
-        sub_100246490(v73, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-        sub_1000059A8(v58, &qword_100423FF8, &qword_1003834C8);
-        sub_100246490(v56, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-        sub_1000059A8(v51, &qword_100423FF8, &qword_1003834C8);
-        if ((v74 & 1) == 0)
-        {
-          goto LABEL_48;
-        }
-
-        goto LABEL_19;
-      }
-
-      sub_1000059A8(v58, &qword_100423FF8, &qword_1003834C8);
-      sub_100246490(v56, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-    }
-
-    v70 = &qword_10042A908;
-    v71 = &qword_100390C20;
-    v72 = v51;
-    goto LABEL_47;
-  }
-
-  result = 0;
-  if (v60 != 9 && v59 == v60)
-  {
-    goto LABEL_6;
-  }
-
-  return result;
-}
-
-uint64_t sub_100221874(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A620, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100221914(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424F18, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100221980()
-{
-  sub_100256CB4(&qword_100424F18, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100221A24()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004346D8);
-  sub_100005DF0(v0, qword_1004346D8);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_10036C810;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
-  *v5 = "doppler";
-  *(v5 + 8) = 7;
-  *(v5 + 16) = 2;
-  v6 = enum case for _NameMap.NameDescription.same(_:);
-  v7 = type metadata accessor for _NameMap.NameDescription();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v4 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "satellite_id";
-  *(v9 + 8) = 12;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v4 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "cn_ratio";
-  *(v11 + 1) = 8;
-  v11[16] = 2;
-  v8();
-  v12 = (v4 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "pseudo_range_rms_error";
-  *(v13 + 1) = 22;
-  v13[16] = 2;
-  v8();
-  v14 = (v4 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "multi_path";
-  *(v15 + 1) = 10;
-  v15[16] = 2;
-  v8();
-  v16 = (v4 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "code_phase";
-  *(v17 + 1) = 10;
-  v17[16] = 2;
-  v8();
-  v18 = (v4 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "integer_code_phase";
-  *(v19 + 1) = 18;
-  v19[16] = 2;
-  v8();
-  v20 = (v4 + 7 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 8;
-  *v21 = "carrier_quality_ind";
-  *(v21 + 1) = 19;
-  v21[16] = 2;
-  v8();
-  v22 = v4 + 8 * v2 + v1[14];
-  *(v4 + 8 * v2) = 9;
-  *v22 = "adr";
-  *(v22 + 8) = 3;
-  *(v22 + 16) = 2;
-  v8();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100221E04()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result <= 4)
-      {
-        if (result > 2)
-        {
-          v4 = v0;
-          if (result == 3)
-          {
-            v3 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 28);
-          }
-
-          else
-          {
-            v7 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 32);
-          }
-
-          goto LABEL_5;
-        }
-
-        if (result == 1)
-        {
-          v9 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 20);
-          dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
-        }
-
-        else if (result == 2)
-        {
-          v4 = v0;
-          v6 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 24);
-          goto LABEL_5;
-        }
-      }
-
-      else if (result <= 6)
-      {
-        if (result != 5)
-        {
-          v4 = v0;
-          v8 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 40);
-          goto LABEL_5;
-        }
-
-        v11 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 36);
-        sub_100268690();
-        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-      }
-
-      else
-      {
-        switch(result)
-        {
-          case 7:
-            v4 = v0;
-            v10 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 44);
-            goto LABEL_5;
-          case 8:
-            v4 = v0;
-            v12 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 48);
-            goto LABEL_5;
-          case 9:
-            v4 = v0;
-            v5 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0) + 52);
-LABEL_5:
-            v0 = v4;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            break;
-        }
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100221FDC(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0);
-  v10 = result;
-  v11 = (v5 + *(result + 20));
-  if (v11[1])
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v12 = *v11;
-    result = dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  v13 = (v5 + v10[6]);
-  if ((v13[1] & 1) == 0)
-  {
-    v14 = *v13;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v15 = (v5 + v10[7]);
-  if ((v15[1] & 1) == 0)
-  {
-    v16 = *v15;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v17 = (v5 + v10[8]);
-  if ((v17[1] & 1) == 0)
-  {
-    v18 = *v17;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_1002221D0(v5);
-  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement);
-  sub_100210A4C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement);
-  sub_1001FCF44(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement);
-  sub_100210AD0(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_1002221D0(uint64_t a1)
-{
-  result = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0);
-  if (*(a1 + *(result + 36)) != 6)
-  {
-    v3 = *(a1 + *(result + 36));
-    sub_100268690();
-    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_1002222A8@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  result = UnknownStorage.init()();
-  v5 = a1[6];
-  v6 = a2 + a1[5];
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = a2 + v5;
-  *v7 = 0;
-  *(v7 + 4) = 1;
-  v8 = a1[8];
-  v9 = a2 + a1[7];
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a2 + v8;
-  *v10 = 0;
-  *(v10 + 4) = 1;
-  v11 = a1[10];
-  *(a2 + a1[9]) = 6;
-  v12 = a2 + v11;
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  v13 = a1[12];
-  v14 = a2 + a1[11];
-  *v14 = 0;
-  *(v14 + 4) = 1;
-  v15 = a2 + v13;
-  *v15 = 0;
-  *(v15 + 4) = 1;
-  v16 = a2 + a1[13];
-  *v16 = 0;
-  *(v16 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_100222380(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A618, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100222420(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_1004242A8, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_10022248C()
-{
-  sub_100256CB4(&qword_1004242A8, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100222534()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_1004346F0);
-  sub_100005DF0(v0, qword_1004346F0);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036D7B0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "signal_id";
-  *(v6 + 8) = 9;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "code_phase_ambiguity";
-  *(v10 + 8) = 20;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "measurement_count";
-  *(v12 + 1) = 17;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "measurement";
-  *(v14 + 1) = 11;
-  v14[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_1002227CC()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result > 2)
-      {
-        if (result == 3)
-        {
-          v3 = v0;
-          v4 = *(type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo(0) + 32);
-LABEL_5:
-          v0 = v3;
-          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-          goto LABEL_6;
-        }
-
-        if (result == 4)
-        {
-          type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0);
-          sub_100256CB4(&qword_1004242A8, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement);
-          dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
-        }
-      }
-
-      else
-      {
-        if (result == 1)
-        {
-          v3 = v0;
-          v6 = *(type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo(0) + 24);
-          goto LABEL_5;
-        }
-
-        if (result == 2)
-        {
-          v3 = v0;
-          v5 = *(type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo(0) + 28);
-          goto LABEL_5;
-        }
-      }
-
-LABEL_6:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_10022291C()
-{
-  result = type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo(0);
-  v3 = result;
-  v4 = (v0 + *(result + 24));
-  if (v4[1])
-  {
-    if (v1)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v5 = *v4;
-    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    if (v1)
-    {
-      return result;
-    }
-  }
-
-  v6 = (v0 + v3[7]);
-  if ((v6[1] & 1) == 0)
-  {
-    v7 = *v6;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v8 = (v0 + v3[8]);
-  if ((v8[1] & 1) == 0)
-  {
-    v9 = *v8;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  if (*(*v0 + 16))
-  {
-    type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement(0);
-    sub_100256CB4(&qword_1004242A8, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementElement);
-    dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
-  }
-
-  v10 = v0 + v3[5];
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_100222AE0@<X0>(int *a1@<X0>, void *a2@<X8>)
-{
-  *a2 = &_swiftEmptyArrayStorage;
-  v4 = a2 + a1[5];
-  result = UnknownStorage.init()();
-  v6 = a1[7];
-  v7 = a2 + a1[6];
-  *v7 = 0;
-  v7[4] = 1;
-  v8 = a2 + v6;
-  *v8 = 0;
-  v8[4] = 1;
-  v9 = a2 + a1[8];
-  *v9 = 0;
-  v9[4] = 1;
-  return result;
-}
-
-uint64_t sub_100222B7C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A610, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100222C1C(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424F40, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100222C88()
-{
-  sub_100256CB4(&qword_100424F40, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100222D30()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434708);
-  sub_100005DF0(v0, qword_100434708);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_10036C830;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "ganss_id";
-  *(v6 + 8) = 8;
-  *(v6 + 16) = 2;
-  v7 = enum case for _NameMap.NameDescription.standard(_:);
-  v8 = type metadata accessor for _NameMap.NameDescription();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "signal_measurement_info";
-  *(v10 + 1) = 23;
-  v10[16] = 2;
-  v9();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100222F40()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while ((v2 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        v3 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0) + 20);
-        sub_10026863C();
-        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-      }
-
-      else if (result == 2)
-      {
-        v4 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0) + 24);
-        type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo(0);
-        sub_100256CB4(&qword_100424F40, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100223078(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0);
-  if (*(v5 + *(result + 20)) == 7)
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v10 = *(v5 + *(result + 20));
-    sub_10026863C();
-    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  sub_100223138(v5, a1, a2, a3);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_100223138(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100424020, &qword_1003834F0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0);
-  sub_10000A0A4(a1 + *(v14 + 24), v8, &qword_100424020, &qword_1003834F0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100424020, &qword_1003834F0);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-  sub_100256CB4(&qword_100424F40, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssSignalMeasurementInfo);
-}
-
-uint64_t sub_1002233EC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A608, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_10022348C(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424F58, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_1002234F8()
-{
-  sub_100256CB4(&qword_100424F58, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_10022359C()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434720);
-  sub_100005DF0(v0, qword_100434720);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v23 = swift_allocObject();
-  *(v23 + 16) = xmmword_10036D790;
-  v4 = v23 + v3;
-  v5 = v23 + v3 + v1[14];
-  *(v23 + v3) = 1;
-  *v5 = "time_id";
-  *(v5 + 8) = 7;
-  *(v5 + 16) = 2;
-  v6 = enum case for _NameMap.NameDescription.standard(_:);
-  v7 = type metadata accessor for _NameMap.NameDescription();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v4 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "ganss_tod";
-  *(v9 + 8) = 9;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v4 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "ganss_tod_frac";
-  *(v11 + 1) = 14;
-  v11[16] = 2;
-  v8();
-  v12 = (v4 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "tod_delta";
-  *(v13 + 1) = 9;
-  v13[16] = 2;
-  v8();
-  v14 = (v4 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "ganss_tod_uncertainity";
-  *(v15 + 1) = 22;
-  v15[16] = 2;
-  v8();
-  v16 = (v4 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "measured_time_params";
-  *(v17 + 1) = 20;
-  v17[16] = 2;
-  v8();
-  v18 = (v4 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "ganss_measurements_count";
-  *(v19 + 1) = 24;
-  v19[16] = 2;
-  v8();
-  v20 = (v4 + 7 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 8;
-  *v21 = "ganss_measurement";
-  *(v21 + 1) = 17;
-  v21[16] = 2;
-  v8();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_10022392C()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result > 4)
-      {
-        if (result <= 6)
-        {
-          if (result == 5)
-          {
-            v3 = v0;
-            v13 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0) + 36);
-            goto LABEL_5;
-          }
-
-          v6 = v0;
-          v7 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0) + 40);
-          type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams(0);
-          v8 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams;
-          v9 = &qword_100424D88;
-          goto LABEL_21;
-        }
-
-        if (result == 7)
-        {
-          v3 = v0;
-          v4 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0) + 44);
-LABEL_5:
-          v0 = v3;
-          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-          goto LABEL_6;
-        }
-
-        if (result == 8)
-        {
-          v6 = v0;
-          v11 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0) + 48);
-          type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0);
-          v8 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss;
-          v9 = &qword_100424F58;
-LABEL_21:
-          sub_100256CB4(v9, v8);
-          v0 = v6;
-          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-        }
-      }
-
-      else
-      {
-        if (result > 2)
-        {
-          v3 = v0;
-          if (result == 3)
-          {
-            v14 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0) + 28);
-          }
-
-          else
-          {
-            v10 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0) + 32);
-          }
-
-          goto LABEL_5;
-        }
-
-        if (result == 1)
-        {
-          v12 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0) + 20);
-          sub_10026878C();
-          dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-        }
-
-        else if (result == 2)
-        {
-          v3 = v0;
-          v5 = *(type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0) + 24);
-          goto LABEL_5;
-        }
-      }
-
-LABEL_6:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100223B78(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
-  v10 = result;
-  if (*(v5 + *(result + 20)) == 6)
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v17 = *(v5 + *(result + 20));
-    sub_10026878C();
-    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  v11 = (v5 + v10[6]);
-  if ((v11[1] & 1) == 0)
-  {
-    v12 = *v11;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v13 = (v5 + v10[7]);
-  if ((v13[1] & 1) == 0)
-  {
-    v14 = *v13;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v15 = (v5 + v10[8]);
-  if ((v15[1] & 1) == 0)
-  {
-    v16 = *v15;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-  sub_100223D44(v5, a1, a2, a3);
-  sub_100210A4C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
-  sub_100223F60(v5, a1, a2, a3);
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_100223D44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100424028, &qword_1003834F8);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
-  sub_10000A0A4(a1 + *(v14 + 40), v8, &qword_100424028, &qword_1003834F8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100424028, &qword_1003834F8);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-  sub_100256CB4(&qword_100424D88, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams);
-}
-
-uint64_t sub_100223F60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = sub_100024A2C(&qword_100424030, &qword_100383500);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
-  sub_10000A0A4(a1 + *(v14 + 48), v8, &qword_100424030, &qword_100383500);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100424030, &qword_100383500);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-  sub_100256CB4(&qword_100424F58, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss);
-}
-
-uint64_t sub_1002241C8@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[6];
-  *(a2 + a1[5]) = 6;
-  v5 = a2 + v4;
-  *v5 = 0;
-  *(v5 + 4) = 1;
-  v6 = a1[8];
-  v7 = a2 + a1[7];
-  *v7 = 0;
-  *(v7 + 4) = 1;
-  v8 = a2 + v6;
-  *v8 = 0;
-  *(v8 + 4) = 1;
-  v9 = a1[10];
-  v10 = a2 + a1[9];
-  *v10 = 0;
-  *(v10 + 4) = 1;
-  v11 = type metadata accessor for Proto_Gnss_Emergency_GanssTimeMeasuredParams(0);
-  (*(*(v11 - 8) + 56))(a2 + v9, 1, 1, v11);
-  v12 = a1[11];
-  v13 = a1[12];
-  v14 = a2 + v12;
-  *v14 = 0;
-  *(v14 + 4) = 1;
-  v15 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurementsForSingleGanss(0);
-  v16 = *(*(v15 - 8) + 56);
-
-  return v16(a2 + v13, 1, 1, v15);
-}
-
-uint64_t sub_10022430C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A600, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_1002243AC(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424F70, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100224418()
-{
-  sub_100256CB4(&qword_100424F70, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_1002244BC()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434738);
-  sub_100005DF0(v0, qword_100434738);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_10036C810;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
-  *v5 = "doppler";
-  *(v5 + 8) = 7;
-  *(v5 + 16) = 2;
-  v6 = enum case for _NameMap.NameDescription.same(_:);
-  v7 = type metadata accessor for _NameMap.NameDescription();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v4 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "whole_chips";
-  *(v9 + 8) = 11;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v4 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "frac_chips";
-  *(v11 + 1) = 10;
-  v11[16] = 2;
-  v8();
-  v12 = (v4 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "satellite_id";
-  *(v13 + 1) = 12;
-  v13[16] = 2;
-  v8();
-  v14 = (v4 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "cn_ratio";
-  *(v15 + 1) = 8;
-  v15[16] = 2;
-  v8();
-  v16 = (v4 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "pseudo_range_rms_error";
-  *(v17 + 1) = 22;
-  v17[16] = 2;
-  v8();
-  v18 = (v4 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "multi_path";
-  *(v19 + 1) = 10;
-  v19[16] = 2;
-  v8();
-  v20 = (v4 + 7 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 8;
-  *v21 = "code_phase";
-  *(v21 + 1) = 10;
-  v21[16] = 2;
-  v8();
-  v22 = v4 + 8 * v2 + v1[14];
-  *(v4 + 8 * v2) = 9;
-  *v22 = "integer_code_phase";
-  *(v22 + 8) = 18;
-  *(v22 + 16) = 2;
-  v8();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100224898()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while (1)
-    {
-      if (v2)
-      {
-        return result;
-      }
-
-      if (result <= 4)
-      {
-        if (result > 2)
-        {
-          v4 = v0;
-          if (result == 3)
-          {
-            v3 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 28);
-          }
-
-          else
-          {
-            v7 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 32);
-          }
-
-          goto LABEL_5;
-        }
-
-        if (result == 1)
-        {
-          v9 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 20);
-          dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
-        }
-
-        else if (result == 2)
-        {
-          v4 = v0;
-          v6 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 24);
-          goto LABEL_5;
-        }
-      }
-
-      else
-      {
-        if (result <= 6)
-        {
-          v4 = v0;
-          if (result == 5)
-          {
-            v11 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 36);
-          }
-
-          else
-          {
-            v8 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 40);
-          }
-
-          goto LABEL_5;
-        }
-
-        switch(result)
-        {
-          case 7:
-            v10 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 44);
-            sub_100268690();
-            dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-            break;
-          case 8:
-            v4 = v0;
-            v12 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 48);
-            goto LABEL_5;
-          case 9:
-            v4 = v0;
-            v5 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0) + 52);
-LABEL_5:
-            v0 = v4;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            break;
-        }
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100224A70(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0);
-  v10 = result;
-  v11 = (v5 + *(result + 20));
-  if (v11[1])
-  {
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v12 = *v11;
-    result = dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
-    if (v4)
-    {
-      return result;
-    }
-  }
-
-  v13 = (v5 + v10[6]);
-  if ((v13[1] & 1) == 0)
-  {
-    v14 = *v13;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v15 = (v5 + v10[7]);
-  if ((v15[1] & 1) == 0)
-  {
-    v16 = *v15;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v17 = (v5 + v10[8]);
-  if ((v17[1] & 1) == 0)
-  {
-    v18 = *v17;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement);
-  sub_100235660(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement, sub_100268690);
-  sub_1001FCF44(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement);
-  sub_100210AD0(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-  return UnknownStorage.traverse<A>(visitor:)();
-}
-
-uint64_t sub_100224CF0@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  result = UnknownStorage.init()();
-  v5 = a1[6];
-  v6 = a2 + a1[5];
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = a2 + v5;
-  *v7 = 0;
-  *(v7 + 4) = 1;
-  v8 = a1[8];
-  v9 = a2 + a1[7];
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a2 + v8;
-  *v10 = 0;
-  *(v10 + 4) = 1;
-  v11 = a1[10];
-  v12 = a2 + a1[9];
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  v13 = a2 + v11;
-  *v13 = 0;
-  *(v13 + 4) = 1;
-  v14 = a1[12];
-  *(a2 + a1[11]) = 6;
-  v15 = a2 + v14;
-  *v15 = 0;
-  *(v15 + 4) = 1;
-  v16 = a2 + a1[13];
-  *v16 = 0;
-  *(v16 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_100224DC8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_100256CB4(&qword_10042A5F8, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement);
-
-  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
-}
-
-uint64_t sub_100224E68(uint64_t a1)
-{
-  v2 = sub_100256CB4(&qword_100424F88, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement);
-
-  return Message.debugDescription.getter(a1, v2);
-}
-
-uint64_t sub_100224ED4()
-{
-  sub_100256CB4(&qword_100424F88, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement);
-
-  return Message.hash(into:)();
-}
-
-uint64_t sub_100224F7C()
-{
-  v0 = type metadata accessor for _NameMap();
-  sub_100036108(v0, qword_100434750);
-  sub_100005DF0(v0, qword_100434750);
-  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
-  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_10036C810;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
-  *v5 = "gps_tow";
-  *(v5 + 8) = 7;
-  *(v5 + 16) = 2;
-  v6 = enum case for _NameMap.NameDescription.standard(_:);
-  v7 = type metadata accessor for _NameMap.NameDescription();
-  v8 = *(*(v7 - 8) + 104);
-  (v8)(v5, v6, v7);
-  v9 = v24 + v3 + v2 + v1[14];
-  *(v4 + v2) = 2;
-  *v9 = "gps_week";
-  *(v9 + 8) = 8;
-  *(v9 + 16) = 2;
-  v8();
-  v10 = (v24 + v3 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "gps_time_uncertainty";
-  *(v11 + 1) = 20;
-  v11[16] = 2;
-  v8();
-  v12 = (v24 + v3 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "nr_of_sats";
-  *(v13 + 1) = 10;
-  v13[16] = 2;
-  v8();
-  v14 = (v24 + v3 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "measurements";
-  *(v15 + 1) = 12;
-  v15[16] = 2;
-  v8();
-  v16 = (v24 + v3 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "measured_time_params";
-  *(v17 + 1) = 20;
-  v17[16] = 2;
-  v8();
-  v18 = (v24 + v3 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "code_phase_ambiguity";
-  *(v19 + 1) = 20;
-  v19[16] = 2;
-  v8();
-  v20 = (v24 + v3 + 7 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 8;
-  *v21 = "gps_todpresent";
-  *(v21 + 1) = 14;
-  v21[16] = 2;
-  v8();
-  v22 = v24 + v3 + 8 * v2 + v1[14];
-  *(v4 + 8 * v2) = 9;
-  *v22 = "gps_tod";
-  *(v22 + 8) = 7;
-  *(v22 + 16) = 2;
-  v8();
-  return _NameMap.init(dictionaryLiteral:)();
-}
-
-uint64_t sub_100225350()
-{
-  v0 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements._StorageClass(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  *(v3 + 16) = 0;
-  *(v3 + 20) = 1;
-  *(v3 + 24) = 0;
-  *(v3 + 28) = 1;
-  *(v3 + 32) = 0;
-  *(v3 + 36) = 1;
-  *(v3 + 40) = 0;
-  *(v3 + 44) = 1;
-  *(v3 + 48) = &_swiftEmptyArrayStorage;
-  v4 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__measuredTimeParams;
-  v5 = type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams(0);
-  (*(*(v5 - 8) + 56))(v3 + v4, 1, 1, v5);
-  v6 = v3 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__codePhaseAmbiguity;
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = v3 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTodpresent;
-  *v7 = 0;
-  *(v7 + 4) = 1;
-  v8 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTod;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GpsTOD(0);
-  result = (*(*(v9 - 8) + 56))(v3 + v8, 1, 1, v9);
-  qword_100461328 = v3;
-  return result;
-}
-
-uint64_t sub_10022547C(uint64_t a1)
-{
-  v3 = sub_100024A2C(&qword_100423F58, &qword_100383428);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v35 = &v30 - v5;
-  v6 = sub_100024A2C(&qword_100424038, &qword_100383508);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v31 = &v30 - v8;
-  *(v1 + 16) = 0;
-  *(v1 + 20) = 1;
-  *(v1 + 24) = 0;
-  *(v1 + 28) = 1;
-  *(v1 + 32) = 0;
-  *(v1 + 36) = 1;
-  *(v1 + 40) = 0;
-  *(v1 + 44) = 1;
-  *(v1 + 48) = &_swiftEmptyArrayStorage;
-  v9 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__measuredTimeParams;
-  v30 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__measuredTimeParams;
-  v10 = type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams(0);
-  (*(*(v10 - 8) + 56))(v1 + v9, 1, 1, v10);
-  v11 = v1 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__codePhaseAmbiguity;
-  v32 = v1 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__codePhaseAmbiguity;
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  v12 = v1 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTodpresent;
-  v33 = v1 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTodpresent;
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  v13 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTod;
-  v34 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTod;
-  v14 = type metadata accessor for Proto_Gnss_Emergency_GpsTOD(0);
-  (*(*(v14 - 8) + 56))(v1 + v13, 1, 1, v14);
-  swift_beginAccess();
-  v15 = *(a1 + 16);
-  LOBYTE(v13) = *(a1 + 20);
-  swift_beginAccess();
-  *(v1 + 16) = v15;
-  *(v1 + 20) = v13;
-  swift_beginAccess();
-  LODWORD(v13) = *(a1 + 24);
-  LOBYTE(v15) = *(a1 + 28);
-  swift_beginAccess();
-  *(v1 + 24) = v13;
-  *(v1 + 28) = v15;
-  swift_beginAccess();
-  LODWORD(v13) = *(a1 + 32);
-  v16 = *(a1 + 36);
-  swift_beginAccess();
-  *(v1 + 32) = v13;
-  *(v1 + 36) = v16;
-  swift_beginAccess();
-  LODWORD(v13) = *(a1 + 40);
-  v17 = *(a1 + 44);
-  swift_beginAccess();
-  *(v1 + 40) = v13;
-  *(v1 + 44) = v17;
-  swift_beginAccess();
-  v18 = *(a1 + 48);
-  swift_beginAccess();
-  *(v1 + 48) = v18;
-  v19 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__measuredTimeParams;
-  swift_beginAccess();
-  v20 = v31;
-  sub_10000A0A4(a1 + v19, v31, &qword_100424038, &qword_100383508);
-  v21 = v30;
-  swift_beginAccess();
-
-  sub_10000AD64(v20, v1 + v21, &qword_100424038, &qword_100383508);
-  swift_endAccess();
-  v22 = a1 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__codePhaseAmbiguity;
-  swift_beginAccess();
-  LODWORD(v19) = *v22;
-  LOBYTE(v22) = *(v22 + 4);
-  v23 = v32;
-  swift_beginAccess();
-  *v23 = v19;
-  *(v23 + 4) = v22;
-  v24 = a1 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTodpresent;
-  swift_beginAccess();
-  LODWORD(v22) = *v24;
-  LOBYTE(v24) = *(v24 + 4);
-  v25 = v33;
-  swift_beginAccess();
-  *v25 = v22;
-  *(v25 + 4) = v24;
-  v26 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTod;
-  swift_beginAccess();
-  v27 = v35;
-  sub_10000A0A4(a1 + v26, v35, &qword_100423F58, &qword_100383428);
-
-  v28 = v34;
-  swift_beginAccess();
-  sub_10000AD64(v27, v1 + v28, &qword_100423F58, &qword_100383428);
-  swift_endAccess();
-  return v1;
-}
-
-uint64_t sub_100225918()
-{
-  v1 = v0[6];
-
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__measuredTimeParams, &qword_100424038, &qword_100383508);
-  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTod, &qword_100423F58, &qword_100383428);
-  v2 = *(*v0 + 48);
-  v3 = *(*v0 + 52);
-
-  return _swift_deallocClassInstance(v0, v2, v3);
-}
-
-uint64_t sub_1002259B4()
-{
-  v2 = v0;
-  v3 = *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0) + 20);
-  v4 = *(v0 + v3);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v7 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    sub_10022547C(v6);
-    *(v2 + v3) = v10;
-  }
-
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
-  {
-    while (1)
-    {
-      if (v12)
-      {
-        return result;
-      }
-
-      if (result > 4)
-      {
-        break;
-      }
-
-      if (result > 2 || result == 1 || result == 2)
-      {
-        goto LABEL_23;
-      }
-
-LABEL_25:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-
-    if (result <= 6)
-    {
-      if (result == 5)
-      {
-        swift_beginAccess();
-        type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0);
-        sub_100256CB4(&qword_100424F88, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement);
-        dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
-        goto LABEL_24;
-      }
-
-      v13 = v1;
-      swift_beginAccess();
-      type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams(0);
-      v14 = type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams;
-      v15 = &qword_100424CD0;
-    }
-
-    else
-    {
-      if (result == 7 || result == 8)
-      {
-LABEL_23:
-        swift_beginAccess();
-        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-        goto LABEL_24;
-      }
-
-      if (result != 9)
-      {
-        goto LABEL_25;
-      }
-
-      v13 = v1;
-      swift_beginAccess();
-      type metadata accessor for Proto_Gnss_Emergency_GpsTOD(0);
-      v14 = type metadata accessor for Proto_Gnss_Emergency_GpsTOD;
-      v15 = &qword_100424CE8;
-    }
-
-    sub_100256CB4(v15, v14);
-    v1 = v13;
-    dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-LABEL_24:
-    swift_endAccess();
-    goto LABEL_25;
-  }
-
-  return result;
-}
-
-uint64_t sub_100225D24(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  v9 = *(v5 + *(type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0) + 20));
-  result = swift_beginAccess();
-  if ((*(v9 + 20) & 1) == 0)
-  {
-    v11 = *(v9 + 16);
-    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  if (!v4)
-  {
-    swift_beginAccess();
-    if ((*(v9 + 28) & 1) == 0)
-    {
-      v12 = *(v9 + 24);
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    swift_beginAccess();
-    if ((*(v9 + 36) & 1) == 0)
-    {
-      v13 = *(v9 + 32);
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    swift_beginAccess();
-    if ((*(v9 + 44) & 1) == 0)
-    {
-      v14 = *(v9 + 40);
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    swift_beginAccess();
-    if (*(*(v9 + 48) + 16))
-    {
-      type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement(0);
-      sub_100256CB4(&qword_100424F88, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement);
-
-      dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
-    }
-
-    sub_100225FF8(v9, a1, a2, a3);
-    v15 = (v9 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__codePhaseAmbiguity);
-    swift_beginAccess();
-    if ((v15[1] & 1) == 0)
-    {
-      v16 = *v15;
-      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    }
-
-    sub_100228210(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTodpresent, 8, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
-    sub_100226220(v9, a1, a2, a3);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t sub_100225FF8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100424038, &qword_100383508);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__measuredTimeParams;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424038, &qword_100383508);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100424038, &qword_100383508);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams);
-  sub_100256CB4(&qword_100424CD0, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams);
-}
-
-uint64_t sub_100226220(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = sub_100024A2C(&qword_100423F58, &qword_100383428);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GpsTOD(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTod;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423F58, &qword_100383428);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1000059A8(v8, &qword_100423F58, &qword_100383428);
-  }
-
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-  sub_100256CB4(&qword_100424CE8, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-}
-
-BOOL sub_10022648C(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsTOD(0);
-  v73 = *(v4 - 8);
-  v74 = v4;
-  v5 = *(v73 + 64);
-  __chkstk_darwin(v4);
-  v71 = &v69 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v72 = sub_100024A2C(&qword_10042A910, &qword_100390C28);
-  v7 = *(*(v72 - 8) + 64);
-  __chkstk_darwin(v72);
-  v75 = &v69 - v8;
-  v9 = sub_100024A2C(&qword_100423F58, &qword_100383428);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = __chkstk_darwin(v9 - 8);
-  v76 = &v69 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v77 = &v69 - v13;
-  v14 = type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams(0);
-  v78 = *(v14 - 8);
-  v15 = *(v78 + 64);
-  __chkstk_darwin(v14);
-  v17 = &v69 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = sub_100024A2C(&qword_10042A918, &qword_100390C30);
-  v19 = *(*(v18 - 8) + 64);
-  __chkstk_darwin(v18);
-  v79 = &v69 - v20;
-  v21 = sub_100024A2C(&qword_100424038, &qword_100383508);
-  v22 = *(*(v21 - 8) + 64);
-  v23 = __chkstk_darwin(v21 - 8);
-  v25 = &v69 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v23);
-  v27 = &v69 - v26;
-  swift_beginAccess();
-  v28 = *(a1 + 16);
-  v29 = *(a1 + 20);
-  swift_beginAccess();
-  v30 = *(a2 + 20);
-  if (v29)
-  {
-    if (!*(a2 + 20))
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (v28 != *(a2 + 16))
-    {
-      v30 = 1;
-    }
-
-    if (v30)
-    {
-      return 0;
-    }
-  }
-
-  swift_beginAccess();
-  v31 = *(a1 + 24);
-  v32 = *(a1 + 28);
-  swift_beginAccess();
-  v33 = *(a2 + 28);
-  if (v32)
-  {
-    if (!*(a2 + 28))
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (v31 != *(a2 + 24))
-    {
-      v33 = 1;
-    }
-
-    if (v33)
-    {
-      return 0;
-    }
-  }
-
-  swift_beginAccess();
-  v34 = *(a1 + 32);
-  v35 = *(a1 + 36);
-  swift_beginAccess();
-  v36 = *(a2 + 36);
-  if (v35)
-  {
-    if (!*(a2 + 36))
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (v34 != *(a2 + 32))
-    {
-      v36 = 1;
-    }
-
-    if (v36)
-    {
-      return 0;
-    }
-  }
-
-  swift_beginAccess();
-  v37 = *(a1 + 40);
-  v38 = *(a1 + 44);
-  swift_beginAccess();
-  v39 = *(a2 + 44);
-  if (v38)
-  {
-    if (!*(a2 + 44))
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (v37 != *(a2 + 40))
-    {
-      v39 = 1;
-    }
-
-    if (v39)
-    {
-      return 0;
-    }
-  }
-
-  swift_beginAccess();
-  v40 = *(a1 + 48);
-  swift_beginAccess();
-  v41 = *(a2 + 48);
-
-  LODWORD(v70) = sub_100245798(v40, v41, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurementElement, sub_10025019C);
-
-  if ((v70 & 1) == 0)
-  {
-    goto LABEL_32;
-  }
-
-  v42 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__measuredTimeParams;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v42, v27, &qword_100424038, &qword_100383508);
-  v43 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__measuredTimeParams;
-  swift_beginAccess();
-  v44 = *(v18 + 48);
-  v45 = v79;
-  sub_10000A0A4(v27, v79, &qword_100424038, &qword_100383508);
-  v70 = v44;
-  sub_10000A0A4(a2 + v43, v45 + v44, &qword_100424038, &qword_100383508);
-  v46 = *(v78 + 48);
-  if (v46(v45, 1, v14) == 1)
-  {
-    sub_1000059A8(v27, &qword_100424038, &qword_100383508);
-    if (v46(v45 + v70, 1, v14) == 1)
-    {
-      sub_1000059A8(v45, &qword_100424038, &qword_100383508);
-      goto LABEL_35;
-    }
-
-LABEL_31:
-    sub_1000059A8(v45, &qword_10042A918, &qword_100390C30);
-    goto LABEL_32;
-  }
-
-  sub_10000A0A4(v45, v25, &qword_100424038, &qword_100383508);
-  if (v46(v45 + v70, 1, v14) == 1)
-  {
-    sub_1000059A8(v27, &qword_100424038, &qword_100383508);
-    sub_100246490(v25, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams);
-    goto LABEL_31;
-  }
-
-  sub_1002463C0(v45 + v70, v17, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams);
-  v48 = sub_10024AD88(v25, v17);
-  sub_100246490(v17, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams);
-  sub_1000059A8(v27, &qword_100424038, &qword_100383508);
-  sub_100246490(v25, type metadata accessor for Proto_Gnss_Emergency_GpsTimeMeasuredParams);
-  sub_1000059A8(v45, &qword_100424038, &qword_100383508);
-  if ((v48 & 1) == 0)
-  {
-    goto LABEL_32;
-  }
-
-LABEL_35:
-  v49 = (a1 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__codePhaseAmbiguity);
-  swift_beginAccess();
-  v50 = *v49;
-  v51 = *(v49 + 4);
-  v52 = a2 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__codePhaseAmbiguity;
-  swift_beginAccess();
-  v53 = *(v52 + 4);
-  if (v51)
-  {
-    v54 = v76;
-    v55 = v77;
-    if ((*(v52 + 4) & 1) == 0)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  else
-  {
-    v54 = v76;
-    v55 = v77;
-    if ((*(v52 + 4) & 1) != 0 || v50 != *v52)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  v56 = (a1 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTodpresent);
-  swift_beginAccess();
-  v57 = *v56;
-  v58 = *(v56 + 4);
-  v59 = a2 + OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTodpresent;
-  swift_beginAccess();
-  v60 = *(v59 + 4);
-  if (v58)
-  {
-    if (*(v59 + 4))
-    {
-      goto LABEL_45;
-    }
-
-LABEL_32:
-
-    return 0;
-  }
-
-  if ((*(v59 + 4) & 1) != 0 || v57 != *v59)
-  {
-    goto LABEL_32;
-  }
-
-LABEL_45:
-  v61 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTod;
-  swift_beginAccess();
-  sub_10000A0A4(a1 + v61, v55, &qword_100423F58, &qword_100383428);
-  v62 = OBJC_IVAR____TtCV10ALProtobuf36Proto_Gnss_Emergency_GpsMeasurementsP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsTod;
-  swift_beginAccess();
-  v63 = *(v72 + 48);
-  v64 = v75;
-  sub_10000A0A4(v55, v75, &qword_100423F58, &qword_100383428);
-  sub_10000A0A4(a2 + v62, v64 + v63, &qword_100423F58, &qword_100383428);
-  v65 = v74;
-  v66 = *(v73 + 48);
-  if (v66(v64, 1, v74) != 1)
-  {
-    sub_10000A0A4(v64, v54, &qword_100423F58, &qword_100383428);
-    if (v66(v64 + v63, 1, v65) == 1)
-    {
-
-      sub_1000059A8(v77, &qword_100423F58, &qword_100383428);
-      sub_100246490(v54, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-      goto LABEL_50;
-    }
-
-    v67 = v71;
-    sub_1002463C0(v64 + v63, v71, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-    v68 = sub_100255EF8(v54, v67, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-
-    sub_100246490(v67, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-    sub_1000059A8(v77, &qword_100423F58, &qword_100383428);
-    sub_100246490(v54, type metadata accessor for Proto_Gnss_Emergency_GpsTOD);
-    sub_1000059A8(v64, &qword_100423F58, &qword_100383428);
-    return (v68 & 1) != 0;
-  }
-
-  sub_1000059A8(v55, &qword_100423F58, &qword_100383428);
-  if (v66(v64 + v63, 1, v65) != 1)
-  {
-LABEL_50:
-    sub_1000059A8(v64, &qword_10042A910, &qword_100390C28);
-    return 0;
-  }
-
-  sub_1000059A8(v64, &qword_100423F58, &qword_100383428);
-  return 1;
-}
-
 uint64_t sub_100226F84(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5F0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+  v4 = sub_100256CB4(&qword_10042A5F0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements, &unk_10038BAC8);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_100227024(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100424FA0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+  v2 = sub_100256CB4(&qword_100424FA0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements, &unk_10038BA50);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_100227090()
+uint64_t sub_100227090(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100424FA0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+  sub_100256CB4(&qword_100424FA0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements, &unk_10038BA50);
 
   return Message.hash(into:)();
 }
@@ -7416,27 +86,25 @@ uint64_t sub_100227134()
 
 uint64_t sub_100227490()
 {
-  v0 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReport._StorageClass(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  *(v3 + 16) = 9;
-  *(v3 + 20) = 0;
-  *(v3 + 24) = 1;
-  v4 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
-  v5 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-  (*(*(v5 - 8) + 56))(v3 + v4, 1, 1, v5);
-  v6 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
-  v7 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
-  (*(*(v7 - 8) + 56))(v3 + v6, 1, 1, v7);
-  v8 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssMeasurements;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
-  result = (*(*(v9 - 8) + 56))(v3 + v8, 1, 1, v9);
-  v11 = v3 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__moreGanssMeasurements;
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  *(v3 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime) = 2;
-  qword_100461340 = v3;
+  type metadata accessor for Proto_Gnss_Emergency_MeasurementReport._StorageClass(0);
+  v0 = swift_allocObject();
+  *(v0 + 16) = 9;
+  *(v0 + 20) = 0;
+  *(v0 + 24) = 1;
+  v1 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+  v2 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  (*(*(v2 - 8) + 56))(v0 + v1, 1, 1, v2);
+  v3 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
+  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
+  (*(*(v4 - 8) + 56))(v0 + v3, 1, 1, v4);
+  v5 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssMeasurements;
+  v6 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
+  result = (*(*(v6 - 8) + 56))(v0 + v5, 1, 1, v6);
+  v8 = v0 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__moreGanssMeasurements;
+  *v8 = 0;
+  *(v8 + 4) = 1;
+  *(v0 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime) = 2;
+  qword_100461340 = v0;
   return result;
 }
 
@@ -7451,30 +119,27 @@ uint64_t sub_1002275E4()
   return _swift_deallocClassInstance(v0, v1, v2);
 }
 
-uint64_t sub_100227698()
+uint64_t sub_100227698(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = v0;
-  v3 = *(type metadata accessor for Proto_Gnss_Emergency_MeasurementReport(0) + 20);
-  v4 = *(v0 + v3);
+  v5 = v3;
+  v6 = *(type metadata accessor for Proto_Gnss_Emergency_MeasurementReport(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
+  v8 = *(v3 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v7 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReport._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    sub_100247F54(v6);
+    type metadata accessor for Proto_Gnss_Emergency_MeasurementReport._StorageClass(0);
+    v9 = swift_allocObject();
+    sub_100247F54(v8);
 
-    *(v2 + v3) = v10;
+    *(v5 + v6) = v9;
   }
 
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
+  if (!v4)
   {
     while (1)
     {
-      if (v12)
+      if (v11)
       {
         return result;
       }
@@ -7493,10 +158,11 @@ uint64_t sub_100227698()
             goto LABEL_22;
           }
 
-          v13 = v1;
+          v12 = v4;
           swift_beginAccess();
           type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-          v14 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo;
+          v13 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo;
+          v14 = &unk_100388648;
           v15 = &qword_100424C40;
           goto LABEL_19;
         }
@@ -7510,12 +176,13 @@ uint64_t sub_100227698()
       {
         if (result <= 5)
         {
-          v13 = v1;
+          v12 = v4;
           if (result == 4)
           {
             swift_beginAccess();
             type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
-            v14 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements;
+            v13 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements;
+            v14 = &unk_10038BA50;
             v15 = &qword_100424FA0;
           }
 
@@ -7523,13 +190,14 @@ uint64_t sub_100227698()
           {
             swift_beginAccess();
             type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
-            v14 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements;
+            v13 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements;
+            v14 = &unk_10038B780;
             v15 = &qword_100424F70;
           }
 
 LABEL_19:
-          sub_100256CB4(v15, v14);
-          v1 = v13;
+          sub_100256CB4(v15, v13, v14);
+          v4 = v12;
           dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
           goto LABEL_21;
         }
@@ -7576,7 +244,6 @@ uint64_t sub_1002279EC(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v12 = *(v9 + 16);
     sub_100268B28();
     result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
     if (v4)
@@ -7588,7 +255,6 @@ uint64_t sub_1002279EC(uint64_t a1, uint64_t a2, uint64_t a3)
   swift_beginAccess();
   if ((*(v9 + 24) & 1) == 0)
   {
-    v11 = *(v9 + 20);
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
@@ -7602,86 +268,80 @@ uint64_t sub_1002279EC(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_100227B98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
   swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100423FF8, &qword_1003834C8);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_10000A0A4(a1 + v12, v7, &qword_100423FF8, &qword_1003834C8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1000059A8(v8, &qword_100423FF8, &qword_1003834C8);
+    return sub_1000059A8(v7, &qword_100423FF8, &qword_1003834C8);
   }
 
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-  sub_100256CB4(&qword_100424C40, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+  sub_100256CB4(&qword_100424C40, type metadata accessor for Proto_Gnss_Emergency_SessionInfo, &unk_100388648);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
 }
 
 uint64_t sub_100227DC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = sub_100024A2C(&qword_100424040, &qword_100383510);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
   swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424040, &qword_100383510);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_10000A0A4(a1 + v12, v7, &qword_100424040, &qword_100383510);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1000059A8(v8, &qword_100424040, &qword_100383510);
+    return sub_1000059A8(v7, &qword_100424040, &qword_100383510);
   }
 
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
-  sub_100256CB4(&qword_100424FA0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+  sub_100256CB4(&qword_100424FA0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements, &unk_10038BA50);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
 }
 
 uint64_t sub_100227FE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = sub_100024A2C(&qword_100424048, &qword_100383518);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssMeasurements;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssMeasurements;
   swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424048, &qword_100383518);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_10000A0A4(a1 + v12, v7, &qword_100424048, &qword_100383518);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1000059A8(v8, &qword_100424048, &qword_100383518);
+    return sub_1000059A8(v7, &qword_100424048, &qword_100383518);
   }
 
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
-  sub_100256CB4(&qword_100424F70, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
+  sub_100256CB4(&qword_100424F70, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements, &unk_10038B780);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
 }
 
 uint64_t sub_100228210(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t (*a7)(void, uint64_t, uint64_t, uint64_t))
@@ -7699,71 +359,62 @@ uint64_t sub_100228210(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
 BOOL sub_1002282F4(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements(0);
-  v108 = *(v4 - 8);
-  v109 = v4;
-  v5 = *(v108 + 64);
+  v97 = *(v4 - 8);
+  v98 = v4;
   __chkstk_darwin(v4);
-  v104 = &v101 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v107 = sub_100024A2C(&qword_10042A9A8, &qword_100390CC0);
-  v7 = *(*(v107 - 8) + 64);
-  __chkstk_darwin(v107);
-  v9 = &v101 - v8;
-  v10 = sub_100024A2C(&qword_100424048, &qword_100383518);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = __chkstk_darwin(v10 - 8);
-  v105 = &v101 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v93 = &v90 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v96 = sub_100024A2C(&qword_10042A9A8, &qword_100390CC0);
+  __chkstk_darwin(v96);
+  v7 = &v90 - v6;
+  v8 = sub_100024A2C(&qword_100424048, &qword_100383518);
+  v9 = __chkstk_darwin(v8 - 8);
+  v94 = &v90 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v105 = &v90 - v11;
+  v12 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
+  v102 = *(v12 - 8);
+  v103 = v12;
   __chkstk_darwin(v12);
-  v116 = &v101 - v14;
-  v15 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
-  v113 = *(v15 - 8);
-  v114 = v15;
-  v16 = *(v113 + 64);
-  __chkstk_darwin(v15);
-  v106 = &v101 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v112 = sub_100024A2C(&qword_10042A900, &qword_100390C18);
-  v18 = *(*(v112 - 8) + 64);
-  __chkstk_darwin(v112);
-  v115 = &v101 - v19;
-  v20 = sub_100024A2C(&qword_100424040, &qword_100383510);
-  v21 = *(*(v20 - 8) + 64);
-  v22 = __chkstk_darwin(v20 - 8);
-  v110 = &v101 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v22);
-  v118 = &v101 - v24;
-  v25 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
-  v119 = *(v25 - 8);
-  v26 = *(v119 + 64);
+  v95 = &v90 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v101 = sub_100024A2C(&qword_10042A900, &qword_100390C18);
+  __chkstk_darwin(v101);
+  v104 = &v90 - v14;
+  v15 = sub_100024A2C(&qword_100424040, &qword_100383510);
+  v16 = __chkstk_darwin(v15 - 8);
+  v99 = &v90 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v16);
+  v107 = &v90 - v18;
+  v19 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  v108 = *(v19 - 8);
+  __chkstk_darwin(v19);
+  v100 = &v90 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = sub_100024A2C(&qword_10042A908, &qword_100390C20);
+  __chkstk_darwin(v21);
+  v23 = &v90 - v22;
+  v24 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
+  v25 = __chkstk_darwin(v24 - 8);
+  v27 = &v90 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v25);
-  v111 = &v101 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = sub_100024A2C(&qword_10042A908, &qword_100390C20);
-  v29 = *(*(v28 - 8) + 64);
-  __chkstk_darwin(v28);
-  v31 = &v101 - v30;
-  v32 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
-  v33 = *(*(v32 - 8) + 64);
-  v34 = __chkstk_darwin(v32 - 8);
-  v36 = &v101 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v34);
-  v38 = &v101 - v37;
+  v29 = &v90 - v28;
   swift_beginAccess();
-  v39 = *(a1 + 16);
+  v30 = *(a1 + 16);
   swift_beginAccess();
-  v40 = *(a2 + 16);
-  if (v39 == 9)
+  v31 = *(a2 + 16);
+  if (v30 == 9)
   {
-    if (v40 != 9)
+    if (v31 != 9)
     {
       return 0;
     }
 
 LABEL_6:
     swift_beginAccess();
-    v42 = *(a1 + 20);
-    v103 = a1;
-    v43 = *(a1 + 24);
+    v33 = *(a1 + 20);
+    v92 = a1;
+    v34 = *(a1 + 24);
     swift_beginAccess();
-    v44 = *(a2 + 24);
-    if (v43)
+    v35 = *(a2 + 24);
+    if (v34)
     {
       if (!*(a2 + 24))
       {
@@ -7773,136 +424,135 @@ LABEL_6:
 
     else
     {
-      if (v42 != *(a2 + 20))
+      if (v33 != *(a2 + 20))
       {
-        v44 = 1;
+        v35 = 1;
       }
 
-      if (v44)
+      if (v35)
       {
         return 0;
       }
     }
 
-    v102 = v9;
-    v117 = a2;
-    v45 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
-    v46 = v103;
+    v91 = v7;
+    v106 = a2;
+    v36 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+    v37 = v92;
     swift_beginAccess();
-    sub_10000A0A4(v46 + v45, v38, &qword_100423FF8, &qword_1003834C8);
-    v47 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+    sub_10000A0A4(v37 + v36, v29, &qword_100423FF8, &qword_1003834C8);
+    v38 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
     swift_beginAccess();
-    v48 = *(v28 + 48);
-    sub_10000A0A4(v38, v31, &qword_100423FF8, &qword_1003834C8);
-    v49 = v117 + v47;
-    v50 = v117;
-    sub_10000A0A4(v49, &v31[v48], &qword_100423FF8, &qword_1003834C8);
-    v51 = *(v119 + 48);
-    if (v51(v31, 1, v25) == 1)
+    v39 = *(v21 + 48);
+    sub_10000A0A4(v29, v23, &qword_100423FF8, &qword_1003834C8);
+    v40 = v106 + v38;
+    v41 = v106;
+    sub_10000A0A4(v40, &v23[v39], &qword_100423FF8, &qword_1003834C8);
+    v42 = *(v108 + 48);
+    if (v42(v23, 1, v19) == 1)
     {
 
-      sub_1000059A8(v38, &qword_100423FF8, &qword_1003834C8);
-      if (v51(&v31[v48], 1, v25) == 1)
+      sub_1000059A8(v29, &qword_100423FF8, &qword_1003834C8);
+      if (v42(&v23[v39], 1, v19) == 1)
       {
-        sub_1000059A8(v31, &qword_100423FF8, &qword_1003834C8);
+        sub_1000059A8(v23, &qword_100423FF8, &qword_1003834C8);
         goto LABEL_20;
       }
     }
 
     else
     {
-      sub_10000A0A4(v31, v36, &qword_100423FF8, &qword_1003834C8);
-      if (v51(&v31[v48], 1, v25) != 1)
+      sub_10000A0A4(v23, v27, &qword_100423FF8, &qword_1003834C8);
+      if (v42(&v23[v39], 1, v19) != 1)
       {
-        v52 = v111;
-        sub_1002463C0(&v31[v48], v111, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-        v46 = v103;
+        v43 = v100;
+        sub_1002463C0(&v23[v39], v100, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        v37 = v92;
 
-        v53 = sub_1002540CC(v36, v52);
-        sub_100246490(v52, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-        sub_1000059A8(v38, &qword_100423FF8, &qword_1003834C8);
-        sub_100246490(v36, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
-        sub_1000059A8(v31, &qword_100423FF8, &qword_1003834C8);
-        if ((v53 & 1) == 0)
+        v44 = sub_1002540CC(v27, v43);
+        sub_100246490(v43, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        sub_1000059A8(v29, &qword_100423FF8, &qword_1003834C8);
+        sub_100246490(v27, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        sub_1000059A8(v23, &qword_100423FF8, &qword_1003834C8);
+        if ((v44 & 1) == 0)
         {
           goto LABEL_41;
         }
 
 LABEL_20:
-        v54 = v50;
-        v55 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
+        v45 = v41;
+        v46 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
         swift_beginAccess();
-        v56 = v118;
-        sub_10000A0A4(v46 + v55, v118, &qword_100424040, &qword_100383510);
-        v57 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
+        v47 = v107;
+        sub_10000A0A4(v37 + v46, v107, &qword_100424040, &qword_100383510);
+        v48 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
         swift_beginAccess();
-        v58 = *(v112 + 48);
-        v59 = v115;
-        sub_10000A0A4(v56, v115, &qword_100424040, &qword_100383510);
-        sub_10000A0A4(v54 + v57, v59 + v58, &qword_100424040, &qword_100383510);
-        v60 = v114;
-        v61 = *(v113 + 48);
-        if (v61(v59, 1, v114) == 1)
+        v49 = *(v101 + 48);
+        v50 = v104;
+        sub_10000A0A4(v47, v104, &qword_100424040, &qword_100383510);
+        sub_10000A0A4(v45 + v48, v50 + v49, &qword_100424040, &qword_100383510);
+        v51 = v103;
+        v52 = *(v102 + 48);
+        if (v52(v50, 1, v103) == 1)
         {
-          sub_1000059A8(v56, &qword_100424040, &qword_100383510);
-          v62 = v61(v59 + v58, 1, v60);
-          v63 = v116;
-          if (v62 == 1)
+          sub_1000059A8(v47, &qword_100424040, &qword_100383510);
+          v53 = v52(v50 + v49, 1, v51);
+          v54 = v105;
+          if (v53 == 1)
           {
-            sub_1000059A8(v59, &qword_100424040, &qword_100383510);
+            sub_1000059A8(v50, &qword_100424040, &qword_100383510);
 LABEL_29:
-            v77 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssMeasurements;
+            v67 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssMeasurements;
             swift_beginAccess();
-            sub_10000A0A4(v46 + v77, v63, &qword_100424048, &qword_100383518);
-            v78 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssMeasurements;
-            v79 = v117;
+            sub_10000A0A4(v37 + v67, v54, &qword_100424048, &qword_100383518);
+            v68 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssMeasurements;
+            v69 = v106;
             swift_beginAccess();
-            v80 = *(v107 + 48);
-            v81 = v102;
-            sub_10000A0A4(v63, v102, &qword_100424048, &qword_100383518);
-            v82 = v79 + v78;
-            v83 = v81;
-            sub_10000A0A4(v82, v81 + v80, &qword_100424048, &qword_100383518);
-            v84 = v109;
-            v85 = *(v108 + 48);
-            if (v85(v81, 1, v109) == 1)
+            v70 = *(v96 + 48);
+            v71 = v91;
+            sub_10000A0A4(v54, v91, &qword_100424048, &qword_100383518);
+            v72 = v69 + v68;
+            v73 = v71;
+            sub_10000A0A4(v72, v71 + v70, &qword_100424048, &qword_100383518);
+            v74 = v98;
+            v75 = *(v97 + 48);
+            if (v75(v71, 1, v98) == 1)
             {
-              sub_1000059A8(v63, &qword_100424048, &qword_100383518);
-              if (v85(v81 + v80, 1, v84) == 1)
+              sub_1000059A8(v54, &qword_100424048, &qword_100383518);
+              if (v75(v71 + v70, 1, v74) == 1)
               {
-                sub_1000059A8(v81, &qword_100424048, &qword_100383518);
+                sub_1000059A8(v71, &qword_100424048, &qword_100383518);
 LABEL_36:
-                v91 = (v46 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__moreGanssMeasurements);
+                v81 = v37 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__moreGanssMeasurements;
                 swift_beginAccess();
-                v92 = *v91;
-                v93 = *(v91 + 4);
-                v94 = v117;
-                v95 = v117 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__moreGanssMeasurements;
+                v82 = *v81;
+                v83 = *(v81 + 4);
+                v84 = v106;
+                v85 = v106 + OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__moreGanssMeasurements;
                 swift_beginAccess();
-                v96 = *(v95 + 4);
-                if (v93)
+                if (v83)
                 {
-                  if (*(v95 + 4))
+                  if (*(v85 + 4))
                   {
 LABEL_46:
-                    v97 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime;
+                    v86 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime;
                     swift_beginAccess();
-                    v98 = *(v46 + v97);
+                    v87 = *(v37 + v86);
 
-                    v99 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime;
+                    v88 = OBJC_IVAR____TtCV10ALProtobuf38Proto_Gnss_Emergency_MeasurementReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime;
                     swift_beginAccess();
-                    v100 = *(v94 + v99);
+                    v89 = *(v84 + v88);
 
-                    if (v98 != 2)
+                    if (v87 != 2)
                     {
-                      return v100 != 2 && ((v98 ^ v100) & 1) == 0;
+                      return v89 != 2 && ((v87 ^ v89) & 1) == 0;
                     }
 
-                    return v100 == 2;
+                    return v89 == 2;
                   }
                 }
 
-                else if ((*(v95 + 4) & 1) == 0 && v92 == *v95)
+                else if ((*(v85 + 4) & 1) == 0 && v82 == *v85)
                 {
                   goto LABEL_46;
                 }
@@ -7915,20 +565,20 @@ LABEL_41:
 
             else
             {
-              v86 = v81;
-              v87 = v105;
-              sub_10000A0A4(v86, v105, &qword_100424048, &qword_100383518);
-              if (v85(v83 + v80, 1, v84) != 1)
+              v76 = v71;
+              v77 = v94;
+              sub_10000A0A4(v76, v94, &qword_100424048, &qword_100383518);
+              if (v75(v73 + v70, 1, v74) != 1)
               {
-                v88 = v83 + v80;
-                v89 = v104;
-                sub_1002463C0(v88, v104, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
-                v90 = sub_10024C7D8(v87, v89);
-                sub_100246490(v89, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
-                sub_1000059A8(v63, &qword_100424048, &qword_100383518);
-                sub_100246490(v87, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
-                sub_1000059A8(v83, &qword_100424048, &qword_100383518);
-                if ((v90 & 1) == 0)
+                v78 = v73 + v70;
+                v79 = v93;
+                sub_1002463C0(v78, v93, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
+                v80 = sub_10024C7D8(v77, v79);
+                sub_100246490(v79, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
+                sub_1000059A8(v54, &qword_100424048, &qword_100383518);
+                sub_100246490(v77, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
+                sub_1000059A8(v73, &qword_100424048, &qword_100383518);
+                if ((v80 & 1) == 0)
                 {
                   goto LABEL_41;
                 }
@@ -7936,59 +586,58 @@ LABEL_41:
                 goto LABEL_36;
               }
 
-              sub_1000059A8(v63, &qword_100424048, &qword_100383518);
-              sub_100246490(v87, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
+              sub_1000059A8(v54, &qword_100424048, &qword_100383518);
+              sub_100246490(v77, type metadata accessor for Proto_Gnss_Emergency_GanssMeasurements);
             }
 
-            v66 = &qword_10042A9A8;
-            v67 = &qword_100390CC0;
-            v68 = v83;
+            v57 = &qword_10042A9A8;
+            v58 = &qword_100390CC0;
+            v59 = v73;
 LABEL_40:
-            sub_1000059A8(v68, v66, v67);
+            sub_1000059A8(v59, v57, v58);
             goto LABEL_41;
           }
         }
 
         else
         {
-          v64 = v110;
-          sub_10000A0A4(v59, v110, &qword_100424040, &qword_100383510);
-          v65 = v61(v59 + v58, 1, v60);
-          v63 = v116;
-          if (v65 != 1)
+          v55 = v99;
+          sub_10000A0A4(v50, v99, &qword_100424040, &qword_100383510);
+          v56 = v52(v50 + v49, 1, v51);
+          v54 = v105;
+          if (v56 != 1)
           {
-            v69 = v59 + v58;
-            v70 = v106;
-            sub_1002463C0(v69, v106, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
-            v71 = *(v60 + 20);
-            v72 = *(v64 + v71);
-            v73 = *(v70 + v71);
-            if (v72 != v73)
+            v60 = v50 + v49;
+            v61 = v95;
+            sub_1002463C0(v60, v95, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+            v62 = *(v51 + 20);
+            v63 = *(v55 + v62);
+            v64 = *(v61 + v62);
+            if (v63 != v64)
             {
-              v74 = *(v64 + v71);
 
-              v75 = sub_10022648C(v72, v73);
+              v65 = sub_10022648C(v63, v64);
 
-              if (!v75)
+              if (!v65)
               {
-                sub_100246490(v70, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
-                sub_1000059A8(v118, &qword_100424040, &qword_100383510);
-                sub_100246490(v64, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
-                v68 = v59;
-                v66 = &qword_100424040;
-                v67 = &qword_100383510;
+                sub_100246490(v61, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+                sub_1000059A8(v107, &qword_100424040, &qword_100383510);
+                sub_100246490(v55, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+                v59 = v50;
+                v57 = &qword_100424040;
+                v58 = &qword_100383510;
                 goto LABEL_40;
               }
             }
 
             type metadata accessor for UnknownStorage();
-            sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage);
-            v76 = dispatch thunk of static Equatable.== infix(_:_:)();
-            sub_100246490(v70, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
-            sub_1000059A8(v118, &qword_100424040, &qword_100383510);
-            sub_100246490(v64, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
-            sub_1000059A8(v59, &qword_100424040, &qword_100383510);
-            if ((v76 & 1) == 0)
+            sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+            v66 = dispatch thunk of static Equatable.== infix(_:_:)();
+            sub_100246490(v61, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+            sub_1000059A8(v107, &qword_100424040, &qword_100383510);
+            sub_100246490(v55, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+            sub_1000059A8(v50, &qword_100424040, &qword_100383510);
+            if ((v66 & 1) == 0)
             {
               goto LABEL_41;
             }
@@ -7996,26 +645,26 @@ LABEL_40:
             goto LABEL_29;
           }
 
-          sub_1000059A8(v118, &qword_100424040, &qword_100383510);
-          sub_100246490(v64, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+          sub_1000059A8(v107, &qword_100424040, &qword_100383510);
+          sub_100246490(v55, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
         }
 
-        v66 = &qword_10042A900;
-        v67 = &qword_100390C18;
-        v68 = v59;
+        v57 = &qword_10042A900;
+        v58 = &qword_100390C18;
+        v59 = v50;
         goto LABEL_40;
       }
 
-      sub_1000059A8(v38, &qword_100423FF8, &qword_1003834C8);
-      sub_100246490(v36, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+      sub_1000059A8(v29, &qword_100423FF8, &qword_1003834C8);
+      sub_100246490(v27, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
     }
 
-    sub_1000059A8(v31, &qword_10042A908, &qword_100390C20);
+    sub_1000059A8(v23, &qword_10042A908, &qword_100390C20);
     goto LABEL_41;
   }
 
   result = 0;
-  if (v40 != 9 && v39 == v40)
+  if (v31 != 9 && v30 == v31)
   {
     goto LABEL_6;
   }
@@ -8025,21 +674,21 @@ LABEL_40:
 
 uint64_t sub_100229124(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5E8, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+  v4 = sub_100256CB4(&qword_10042A5E8, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport, &unk_10038BC30);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_1002291C4(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100424FB8, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+  v2 = sub_100256CB4(&qword_100424FB8, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport, &unk_10038BBB8);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_100229230()
+uint64_t sub_100229230(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100424FB8, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+  sub_100256CB4(&qword_100424FB8, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport, &unk_10038BBB8);
 
   return Message.hash(into:)();
 }
@@ -8108,32 +757,21 @@ uint64_t sub_1002292D4()
   return _NameMap.init(dictionaryLiteral:)();
 }
 
-uint64_t sub_100229624()
+uint64_t sub_100229624(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v3 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       return result;
     }
 
     if (result <= 3)
     {
-      switch(result)
+      if (result == 1 || result == 2 || result == 3)
       {
-        case 1:
-          v1 = *(type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0) + 28);
-          goto LABEL_3;
-        case 2:
-          v7 = *(type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0) + 32);
-LABEL_3:
-          v0 = 0;
-          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-          break;
-        case 3:
-          v4 = *(type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0) + 36);
-          goto LABEL_3;
+        goto LABEL_2;
       }
     }
 
@@ -8141,13 +779,14 @@ LABEL_3:
     {
       if (result == 6)
       {
-        goto LABEL_18;
+        goto LABEL_17;
       }
 
       if (result == 7)
       {
-        v5 = *(type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0) + 44);
-        goto LABEL_3;
+LABEL_2:
+        type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0);
+        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
       }
     }
 
@@ -8155,22 +794,20 @@ LABEL_3:
     {
       if (result == 4)
       {
-        v6 = *(type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0) + 40);
-        goto LABEL_3;
+        goto LABEL_2;
       }
 
-LABEL_18:
+LABEL_17:
       dispatch thunk of Decoder.decodeRepeatedUInt32Field(value:)();
     }
   }
 }
 
-uint64_t sub_100229760(uint64_t a1, uint64_t a2, uint64_t a3)
+int *sub_100229760(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0);
   v9 = result;
-  v10 = (v3 + *(result + 28));
-  if (v10[1])
+  if (*(v3 + result[7] + 4))
   {
     if (v4)
     {
@@ -8180,7 +817,6 @@ uint64_t sub_100229760(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = *v10;
     result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
     if (v4)
     {
@@ -8188,24 +824,18 @@ uint64_t sub_100229760(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  v12 = (v3 + v9[8]);
-  if ((v12[1] & 1) == 0)
+  if ((*(v3 + v9[8] + 4) & 1) == 0)
   {
-    v13 = *v12;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v14 = (v3 + v9[9]);
-  if ((v14[1] & 1) == 0)
+  if ((*(v3 + v9[9] + 4) & 1) == 0)
   {
-    v15 = *v14;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v16 = (v3 + v9[10]);
-  if ((v16[1] & 1) == 0)
+  if ((*(v3 + v9[10] + 4) & 1) == 0)
   {
-    v17 = *v16;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
@@ -8219,28 +849,27 @@ uint64_t sub_100229760(uint64_t a1, uint64_t a2, uint64_t a3)
     dispatch thunk of Visitor.visitRepeatedUInt32Field(value:fieldNumber:)();
   }
 
-  sub_100210A4C(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
-  v18 = v3 + v9[6];
+  sub_100210A4C(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest, 7);
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
 uint64_t sub_100229984(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5E0, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+  v4 = sub_100256CB4(&qword_10042A5E0, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest, &unk_10038BD98);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_100229A24(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100424FD0, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+  v2 = sub_100256CB4(&qword_100424FD0, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest, &unk_10038BD20);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_100229A90()
+uint64_t sub_100229A90(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100424FD0, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+  sub_100256CB4(&qword_100424FD0, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest, &unk_10038BD20);
 
   return Message.hash(into:)();
 }
@@ -8277,21 +906,21 @@ uint64_t sub_100229B34()
 
 uint64_t sub_100229E3C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5D8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem);
+  v4 = sub_100256CB4(&qword_10042A5D8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem, &unk_10038BF00);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_100229EDC(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100424FE8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem);
+  v2 = sub_100256CB4(&qword_100424FE8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem, &unk_10038BE88);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_100229F48()
+uint64_t sub_100229F48(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100424FE8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem);
+  sub_100256CB4(&qword_100424FE8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem, &unk_10038BE88);
 
   return Message.hash(into:)();
 }
@@ -8353,59 +982,43 @@ uint64_t sub_100229FEC()
   return _NameMap.init(dictionaryLiteral:)();
 }
 
-uint64_t sub_10022A2F8()
+uint64_t sub_10022A2F8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v3 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       return result;
     }
 
     if (result > 3)
     {
-      switch(result)
+      if (result == 4 || result == 5)
       {
-        case 4:
-          v1 = *(type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0) + 36);
-          goto LABEL_3;
-        case 5:
-          v7 = *(type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0) + 40);
-LABEL_3:
-          v0 = 0;
-          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-          break;
-        case 6:
-          dispatch thunk of Decoder.decodeRepeatedUInt32Field(value:)();
-          break;
+LABEL_2:
+        type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
+        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+      }
+
+      else if (result == 6)
+      {
+        dispatch thunk of Decoder.decodeRepeatedUInt32Field(value:)();
       }
     }
 
-    else
+    else if (result == 1 || result == 2 || result == 3)
     {
-      switch(result)
-      {
-        case 1:
-          v5 = *(type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0) + 24);
-          goto LABEL_3;
-        case 2:
-          v6 = *(type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0) + 28);
-          goto LABEL_3;
-        case 3:
-          v4 = *(type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0) + 32);
-          goto LABEL_3;
-      }
+      goto LABEL_2;
     }
   }
 }
 
-uint64_t sub_10022A41C(uint64_t a1, uint64_t a2, uint64_t a3)
+int *sub_10022A41C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
   v9 = result;
-  v10 = (v3 + *(result + 24));
-  if (v10[1])
+  if (*(v3 + result[6] + 4))
   {
     if (v4)
     {
@@ -8415,7 +1028,6 @@ uint64_t sub_10022A41C(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = *v10;
     result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
     if (v4)
     {
@@ -8423,79 +1035,71 @@ uint64_t sub_10022A41C(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  v12 = (v3 + v9[7]);
-  if ((v12[1] & 1) == 0)
+  if ((*(v3 + v9[7] + 4) & 1) == 0)
   {
-    v13 = *v12;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v14 = (v3 + v9[8]);
-  if ((v14[1] & 1) == 0)
+  if ((*(v3 + v9[8] + 4) & 1) == 0)
   {
-    v15 = *v14;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v16 = (v3 + v9[9]);
-  if ((v16[1] & 1) == 0)
+  if ((*(v3 + v9[9] + 4) & 1) == 0)
   {
-    v17 = *v16;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  sub_1001FCE34(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+  sub_1001FCE34(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist, 5);
   if (*(*v3 + 16))
   {
     dispatch thunk of Visitor.visitRepeatedUInt32Field(value:fieldNumber:)();
   }
 
-  v18 = v3 + v9[5];
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
 uint64_t sub_10022A5E8@<X0>(int *a1@<X0>, void *a2@<X8>)
 {
   *a2 = &_swiftEmptyArrayStorage;
-  v4 = a2 + a1[5];
   result = UnknownStorage.init()();
-  v6 = a1[7];
-  v7 = a2 + a1[6];
+  v5 = a1[7];
+  v6 = a2 + a1[6];
+  *v6 = 0;
+  v6[4] = 1;
+  v7 = a2 + v5;
   *v7 = 0;
   v7[4] = 1;
-  v8 = a2 + v6;
-  *v8 = 0;
-  v8[4] = 1;
-  v9 = a1[9];
-  v10 = a2 + a1[8];
+  v8 = a1[9];
+  v9 = a2 + a1[8];
+  *v9 = 0;
+  v9[4] = 1;
+  v10 = a2 + v8;
   *v10 = 0;
   v10[4] = 1;
-  v11 = a2 + v9;
+  v11 = a2 + a1[10];
   *v11 = 0;
   v11[4] = 1;
-  v12 = a2 + a1[10];
-  *v12 = 0;
-  v12[4] = 1;
   return result;
 }
 
 uint64_t sub_10022A6A0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5D0, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+  v4 = sub_100256CB4(&qword_10042A5D0, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist, &unk_10038C068);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_10022A740(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100425000, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+  v2 = sub_100256CB4(&qword_100425000, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist, &unk_10038BFF0);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_10022A7AC()
+uint64_t sub_10022A7AC(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100425000, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+  sub_100256CB4(&qword_100425000, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist, &unk_10038BFF0);
 
   return Message.hash(into:)();
 }
@@ -8532,21 +1136,21 @@ uint64_t sub_10022A850()
 
 uint64_t sub_10022AB58(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5C8, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem);
+  v4 = sub_100256CB4(&qword_10042A5C8, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem, &unk_10038C1D0);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_10022ABF8(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100424300, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem);
+  v2 = sub_100256CB4(&qword_100424300, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem, &unk_10038C158);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_10022AC64()
+uint64_t sub_10022AC64(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100424300, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem);
+  sub_100256CB4(&qword_100424300, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem, &unk_10038C158);
 
   return Message.hash(into:)();
 }
@@ -8601,55 +1205,40 @@ uint64_t sub_10022AD08()
   return _NameMap.init(dictionaryLiteral:)();
 }
 
-uint64_t sub_10022AFE4()
+uint64_t sub_10022AFE4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
 
       if (result <= 2)
       {
-        if (result == 1)
+        if (result == 1 || result == 2)
         {
-          v3 = v0;
-          v7 = *(type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0) + 24);
-          goto LABEL_5;
-        }
-
-        if (result == 2)
-        {
-          v3 = v0;
-          v5 = *(type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0) + 28);
-          goto LABEL_5;
+LABEL_4:
+          type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
         }
       }
 
       else
       {
-        switch(result)
+        if (result == 3 || result == 4)
         {
-          case 3:
-            v3 = v0;
-            v4 = *(type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0) + 32);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            break;
-          case 4:
-            v3 = v0;
-            v6 = *(type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0) + 36);
-            goto LABEL_5;
-          case 5:
-            type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem(0);
-            sub_100256CB4(&qword_100424300, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem);
-            dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
-            break;
+          goto LABEL_4;
+        }
+
+        if (result == 5)
+        {
+          type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem(0);
+          sub_100256CB4(&qword_100424300, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem, &unk_10038C158);
+          dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
         }
       }
 
@@ -8660,14 +1249,13 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_10022B150()
+int *sub_10022B150(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
-  v3 = result;
-  v4 = (v0 + *(result + 24));
-  if (v4[1])
+  v6 = result;
+  if (*(v3 + result[6] + 4))
   {
-    if (v1)
+    if (v4)
     {
       return result;
     }
@@ -8675,85 +1263,76 @@ uint64_t sub_10022B150()
 
   else
   {
-    v5 = *v4;
     result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-    if (v1)
+    if (v4)
     {
       return result;
     }
   }
 
-  v6 = (v0 + v3[7]);
-  if ((v6[1] & 1) == 0)
+  if ((*(v3 + v6[7] + 4) & 1) == 0)
   {
-    v7 = *v6;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v8 = (v0 + v3[8]);
-  if ((v8[1] & 1) == 0)
+  if ((*(v3 + v6[8] + 4) & 1) == 0)
   {
-    v9 = *v8;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v10 = (v0 + v3[9]);
-  if ((v10[1] & 1) == 0)
+  if ((*(v3 + v6[9] + 4) & 1) == 0)
   {
-    v11 = *v10;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  if (*(*v0 + 16))
+  if (*(*v3 + 16))
   {
     type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem(0);
-    sub_100256CB4(&qword_100424300, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem);
+    sub_100256CB4(&qword_100424300, type metadata accessor for Proto_Gnss_Emergency_GanssStoredSatDataElem, &unk_10038C158);
     dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
   }
 
-  v12 = v0 + v3[5];
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
 uint64_t sub_10022B340@<X0>(int *a1@<X0>, void *a2@<X8>)
 {
   *a2 = &_swiftEmptyArrayStorage;
-  v4 = a2 + a1[5];
   result = UnknownStorage.init()();
-  v6 = a1[7];
-  v7 = a2 + a1[6];
+  v5 = a1[7];
+  v6 = a2 + a1[6];
+  *v6 = 0;
+  v6[4] = 1;
+  v7 = a2 + v5;
   *v7 = 0;
   v7[4] = 1;
-  v8 = a2 + v6;
-  *v8 = 0;
-  v8[4] = 1;
-  v9 = a1[9];
-  v10 = a2 + a1[8];
+  v8 = a1[9];
+  v9 = a2 + a1[8];
+  *v9 = 0;
+  v9[4] = 1;
+  v10 = a2 + v8;
   *v10 = 0;
   v10[4] = 1;
-  v11 = a2 + v9;
-  *v11 = 0;
-  v11[4] = 1;
   return result;
 }
 
 uint64_t sub_10022B3E8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5C0, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+  v4 = sub_100256CB4(&qword_10042A5C0, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData, &unk_10038C338);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_10022B488(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100425028, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+  v2 = sub_100256CB4(&qword_100425028, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData, &unk_10038C2C0);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_10022B4F4()
+uint64_t sub_10022B4F4(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100425028, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+  sub_100256CB4(&qword_100425028, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData, &unk_10038C2C0);
 
   return Message.hash(into:)();
 }
@@ -8816,44 +1395,19 @@ uint64_t sub_10022B854(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(voi
 
       if (result > 2)
       {
-        if (result == 3)
+        if (result == 3 || result == 4)
         {
-          v8 = v4;
-          v12 = *(a4(0) + 28);
-        }
-
-        else
-        {
-          if (result != 4)
-          {
-            goto LABEL_13;
-          }
-
-          v8 = v4;
-          v10 = *(a4(0) + 32);
+LABEL_9:
+          a4(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
         }
       }
 
-      else if (result == 1)
+      else if (result == 1 || result == 2)
       {
-        v8 = v4;
-        v11 = *(a4(0) + 20);
+        goto LABEL_9;
       }
 
-      else
-      {
-        if (result != 2)
-        {
-          goto LABEL_13;
-        }
-
-        v8 = v4;
-        v9 = *(a4(0) + 24);
-      }
-
-      v4 = v8;
-      dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-LABEL_13:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
   }
@@ -8861,12 +1415,11 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10022B980(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+int *sub_10022B980(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
   result = a4(0);
   v7 = result;
-  v8 = (v4 + *(result + 20));
-  if (v8[1])
+  if (*(v4 + result[5] + 4))
   {
     if (v5)
     {
@@ -8876,7 +1429,6 @@ uint64_t sub_10022B980(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(voi
 
   else
   {
-    v9 = *v8;
     result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
     if (v5)
     {
@@ -8884,24 +1436,18 @@ uint64_t sub_10022B980(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(voi
     }
   }
 
-  v10 = (v4 + v7[6]);
-  if ((v10[1] & 1) == 0)
+  if ((*(v4 + v7[6] + 4) & 1) == 0)
   {
-    v11 = *v10;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v12 = (v4 + v7[7]);
-  if ((v12[1] & 1) == 0)
+  if ((*(v4 + v7[7] + 4) & 1) == 0)
   {
-    v13 = *v12;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
-  v14 = (v4 + v7[8]);
-  if ((v14[1] & 1) == 0)
+  if ((*(v4 + v7[8] + 4) & 1) == 0)
   {
-    v15 = *v14;
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
@@ -8930,21 +1476,21 @@ uint64_t sub_10022BB0C@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_10022BB70(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5B8, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+  v4 = sub_100256CB4(&qword_10042A5B8, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices, &unk_10038C4A0);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_10022BC10(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100425040, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+  v2 = sub_100256CB4(&qword_100425040, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices, &unk_10038C428);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_10022BC7C()
+uint64_t sub_10022BC7C(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100425040, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+  sub_100256CB4(&qword_100425040, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices, &unk_10038C428);
 
   return Message.hash(into:)();
 }
@@ -9016,142 +1562,133 @@ uint64_t sub_10022BD20()
 
 uint64_t sub_10022C070()
 {
-  v0 = type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss._StorageClass(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  *(v3 + 16) = 7;
-  *(v3 + 20) = 0;
-  *(v3 + 24) = 1;
-  *(v3 + 28) = 0;
-  *(v3 + 32) = 1;
-  *(v3 + 40) = &_swiftEmptyArrayStorage;
-  v4 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
-  v5 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
-  (*(*(v5 - 8) + 56))(v3 + v4, 1, 1, v5);
-  v6 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
-  v7 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
-  (*(*(v7 - 8) + 56))(v3 + v6, 1, 1, v7);
-  v8 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices(0);
-  result = (*(*(v9 - 8) + 56))(v3 + v8, 1, 1, v9);
-  qword_100461388 = v3;
+  type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss._StorageClass(0);
+  v0 = swift_allocObject();
+  *(v0 + 16) = 7;
+  *(v0 + 20) = 0;
+  *(v0 + 24) = 1;
+  *(v0 + 28) = 0;
+  *(v0 + 32) = 1;
+  *(v0 + 40) = &_swiftEmptyArrayStorage;
+  v1 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
+  v2 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
+  (*(*(v2 - 8) + 56))(v0 + v1, 1, 1, v2);
+  v3 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
+  v4 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
+  (*(*(v4 - 8) + 56))(v0 + v3, 1, 1, v4);
+  v5 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
+  v6 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices(0);
+  result = (*(*(v6 - 8) + 56))(v0 + v5, 1, 1, v6);
+  qword_100461388 = v0;
   return result;
 }
 
 uint64_t sub_10022C1AC(uint64_t a1)
 {
   v3 = sub_100024A2C(&qword_100424060, &qword_100383530);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v33 = &v29 - v5;
-  v6 = sub_100024A2C(&qword_100424058, &qword_100383528);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v32 = &v29 - v8;
-  v9 = sub_100024A2C(&qword_100424050, &qword_100383520);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v30 = &v29 - v11;
+  v30 = &v26 - v4;
+  v5 = sub_100024A2C(&qword_100424058, &qword_100383528);
+  __chkstk_darwin(v5 - 8);
+  v29 = &v26 - v6;
+  v7 = sub_100024A2C(&qword_100424050, &qword_100383520);
+  __chkstk_darwin(v7 - 8);
+  v27 = &v26 - v8;
   *(v1 + 16) = 7;
   *(v1 + 20) = 0;
   *(v1 + 24) = 1;
   *(v1 + 28) = 0;
   *(v1 + 32) = 1;
   *(v1 + 40) = &_swiftEmptyArrayStorage;
-  v12 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
-  v13 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
-  (*(*(v13 - 8) + 56))(v1 + v12, 1, 1, v13);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
-  v15 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
-  (*(*(v15 - 8) + 56))(v1 + v14, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
-  v31 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
-  v17 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices(0);
-  (*(*(v17 - 8) + 56))(v1 + v16, 1, 1, v17);
+  v9 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
+  v10 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
+  (*(*(v10 - 8) + 56))(v1 + v9, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
+  v12 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
+  (*(*(v12 - 8) + 56))(v1 + v11, 1, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
+  v28 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
+  v14 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices(0);
+  (*(*(v14 - 8) + 56))(v1 + v13, 1, 1, v14);
   swift_beginAccess();
-  LOBYTE(v16) = *(a1 + 16);
+  LOBYTE(v13) = *(a1 + 16);
   swift_beginAccess();
-  *(v1 + 16) = v16;
+  *(v1 + 16) = v13;
   swift_beginAccess();
-  LODWORD(v16) = *(a1 + 20);
-  v18 = *(a1 + 24);
+  LODWORD(v13) = *(a1 + 20);
+  v15 = *(a1 + 24);
   swift_beginAccess();
-  *(v1 + 20) = v16;
-  *(v1 + 24) = v18;
+  *(v1 + 20) = v13;
+  *(v1 + 24) = v15;
   swift_beginAccess();
-  v19 = *(a1 + 28);
-  LOBYTE(v16) = *(a1 + 32);
+  v16 = *(a1 + 28);
+  LOBYTE(v13) = *(a1 + 32);
   swift_beginAccess();
-  *(v1 + 28) = v19;
-  *(v1 + 32) = v16;
+  *(v1 + 28) = v16;
+  *(v1 + 32) = v13;
   swift_beginAccess();
-  v20 = *(a1 + 40);
+  v17 = *(a1 + 40);
   swift_beginAccess();
-  *(v1 + 40) = v20;
-  v21 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
+  *(v1 + 40) = v17;
+  v18 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
   swift_beginAccess();
-  v22 = v30;
-  sub_10000A0A4(a1 + v21, v30, &qword_100424050, &qword_100383520);
+  v19 = v27;
+  sub_10000A0A4(a1 + v18, v27, &qword_100424050, &qword_100383520);
   swift_beginAccess();
 
-  sub_10000AD64(v22, v1 + v12, &qword_100424050, &qword_100383520);
+  sub_10000AD64(v19, v1 + v9, &qword_100424050, &qword_100383520);
   swift_endAccess();
-  v23 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
+  v20 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
   swift_beginAccess();
-  v24 = v32;
-  sub_10000A0A4(a1 + v23, v32, &qword_100424058, &qword_100383528);
+  v21 = v29;
+  sub_10000A0A4(a1 + v20, v29, &qword_100424058, &qword_100383528);
   swift_beginAccess();
-  sub_10000AD64(v24, v1 + v14, &qword_100424058, &qword_100383528);
+  sub_10000AD64(v21, v1 + v11, &qword_100424058, &qword_100383528);
   swift_endAccess();
-  v25 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
+  v22 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
   swift_beginAccess();
-  v26 = v33;
-  sub_10000A0A4(a1 + v25, v33, &qword_100424060, &qword_100383530);
+  v23 = v30;
+  sub_10000A0A4(a1 + v22, v30, &qword_100424060, &qword_100383530);
 
-  v27 = v31;
+  v24 = v28;
   swift_beginAccess();
-  sub_10000AD64(v26, v1 + v27, &qword_100424060, &qword_100383530);
+  sub_10000AD64(v23, v1 + v24, &qword_100424060, &qword_100383530);
   swift_endAccess();
   return v1;
 }
 
 uint64_t sub_10022C640()
 {
-  v1 = v0[5];
 
   sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist, &qword_100424050, &qword_100383520);
   sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData, &qword_100424058, &qword_100383528);
   sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices, &qword_100424060, &qword_100383530);
-  v2 = *(*v0 + 48);
-  v3 = *(*v0 + 52);
+  v1 = *(*v0 + 48);
+  v2 = *(*v0 + 52);
 
-  return _swift_deallocClassInstance(v0, v2, v3);
+  return _swift_deallocClassInstance(v0, v1, v2);
 }
 
-uint64_t sub_10022C6FC()
+uint64_t sub_10022C6FC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = v0;
-  v3 = *(type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss(0) + 20);
-  v4 = *(v0 + v3);
+  v5 = v3;
+  v6 = *(type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
+  v8 = *(v3 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v7 = type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    sub_10022C1AC(v6);
-    *(v2 + v3) = v10;
+    type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss._StorageClass(0);
+    v9 = swift_allocObject();
+    sub_10022C1AC(v8);
+    *(v5 + v6) = v9;
   }
 
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
+  if (!v4)
   {
     while (1)
     {
-      if (v12)
+      if (v11)
       {
         return result;
       }
@@ -9186,10 +1723,11 @@ LABEL_23:
     {
       if (result == 6)
       {
-        v13 = v1;
+        v12 = v4;
         swift_beginAccess();
         type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
-        v14 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData;
+        v13 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData;
+        v14 = &unk_10038C2C0;
         v15 = &qword_100425028;
       }
 
@@ -9200,10 +1738,11 @@ LABEL_23:
           goto LABEL_23;
         }
 
-        v13 = v1;
+        v12 = v4;
         swift_beginAccess();
         type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices(0);
-        v14 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices;
+        v13 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices;
+        v14 = &unk_10038C428;
         v15 = &qword_100425040;
       }
     }
@@ -9214,20 +1753,21 @@ LABEL_23:
       {
         swift_beginAccess();
         type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem(0);
-        sub_100256CB4(&qword_100424FE8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem);
+        sub_100256CB4(&qword_100424FE8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem, &unk_10038BE88);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
         goto LABEL_22;
       }
 
-      v13 = v1;
+      v12 = v4;
       swift_beginAccess();
       type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
-      v14 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist;
+      v13 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist;
+      v14 = &unk_10038BFF0;
       v15 = &qword_100425000;
     }
 
-    sub_100256CB4(v15, v14);
-    v1 = v13;
+    sub_100256CB4(v15, v13, v14);
+    v4 = v12;
     dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
     goto LABEL_22;
   }
@@ -9250,7 +1790,6 @@ uint64_t sub_10022CA84(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v13 = *(v9 + 16);
     sub_100256CFC();
     result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
     if (v4)
@@ -9262,14 +1801,12 @@ uint64_t sub_10022CA84(uint64_t a1, uint64_t a2, uint64_t a3)
   swift_beginAccess();
   if ((*(v9 + 24) & 1) == 0)
   {
-    v11 = *(v9 + 20);
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   swift_beginAccess();
   if ((*(v9 + 32) & 1) == 0)
   {
-    v12 = *(v9 + 28);
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
@@ -9277,7 +1814,7 @@ uint64_t sub_10022CA84(uint64_t a1, uint64_t a2, uint64_t a3)
   if (*(*(v9 + 40) + 16))
   {
     type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem(0);
-    sub_100256CB4(&qword_100424FE8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem);
+    sub_100256CB4(&qword_100424FE8, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem, &unk_10038BE88);
 
     dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
   }
@@ -9290,156 +1827,141 @@ uint64_t sub_10022CA84(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_10022CCBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = sub_100024A2C(&qword_100424050, &qword_100383520);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
   swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424050, &qword_100383520);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_10000A0A4(a1 + v12, v7, &qword_100424050, &qword_100383520);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1000059A8(v8, &qword_100424050, &qword_100383520);
+    return sub_1000059A8(v7, &qword_100424050, &qword_100383520);
   }
 
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
-  sub_100256CB4(&qword_100425000, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+  sub_100256CB4(&qword_100425000, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist, &unk_10038BFF0);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
 }
 
 uint64_t sub_10022CEE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = sub_100024A2C(&qword_100424058, &qword_100383528);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
   swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424058, &qword_100383528);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_10000A0A4(a1 + v12, v7, &qword_100424058, &qword_100383528);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1000059A8(v8, &qword_100424058, &qword_100383528);
+    return sub_1000059A8(v7, &qword_100424058, &qword_100383528);
   }
 
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
-  sub_100256CB4(&qword_100425028, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+  sub_100256CB4(&qword_100425028, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData, &unk_10038C2C0);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
 }
 
 uint64_t sub_10022D10C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = sub_100024A2C(&qword_100424060, &qword_100383530);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
   swift_beginAccess();
-  sub_10000A0A4(a1 + v14, v8, &qword_100424060, &qword_100383530);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_10000A0A4(a1 + v12, v7, &qword_100424060, &qword_100383530);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1000059A8(v8, &qword_100424060, &qword_100383530);
+    return sub_1000059A8(v7, &qword_100424060, &qword_100383530);
   }
 
-  sub_1002463C0(v8, v13, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
-  sub_100256CB4(&qword_100425040, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+  sub_100256CB4(&qword_100425040, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices, &unk_10038C428);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return sub_100246490(v13, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
 }
 
 BOOL sub_10022D378(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices(0);
-  v95 = *(v4 - 8);
-  v96 = v4;
-  v5 = *(v95 + 64);
+  v86 = *(v4 - 8);
+  v87 = v4;
   __chkstk_darwin(v4);
-  v92 = &v88 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v94 = sub_100024A2C(&qword_10042A990, &qword_100390CA8);
-  v7 = *(*(v94 - 8) + 64);
-  __chkstk_darwin(v94);
-  v9 = &v88 - v8;
-  v10 = sub_100024A2C(&qword_100424060, &qword_100383530);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = __chkstk_darwin(v10 - 8);
-  v104 = &v88 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v83 = &v79 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v85 = sub_100024A2C(&qword_10042A990, &qword_100390CA8);
+  __chkstk_darwin(v85);
+  v7 = &v79 - v6;
+  v8 = sub_100024A2C(&qword_100424060, &qword_100383530);
+  v9 = __chkstk_darwin(v8 - 8);
+  v95 = &v79 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v94 = &v79 - v11;
+  v12 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
+  v91 = *(v12 - 8);
+  v92 = v12;
   __chkstk_darwin(v12);
-  v103 = &v88 - v14;
-  v15 = type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData(0);
-  v100 = *(v15 - 8);
-  v101 = v15;
-  v16 = *(v100 + 64);
-  __chkstk_darwin(v15);
-  v93 = (&v88 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v99 = sub_100024A2C(&qword_10042A998, &qword_100390CB0);
-  v18 = *(*(v99 - 8) + 64);
-  __chkstk_darwin(v99);
-  v102 = &v88 - v19;
-  v20 = sub_100024A2C(&qword_100424058, &qword_100383528);
-  v21 = *(*(v20 - 8) + 64);
-  v22 = __chkstk_darwin(v20 - 8);
-  v97 = (&v88 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v22);
-  v105 = &v88 - v24;
-  v25 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
-  v106 = *(v25 - 8);
-  v26 = *(v106 + 64);
+  v84 = (&v79 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v90 = sub_100024A2C(&qword_10042A998, &qword_100390CB0);
+  __chkstk_darwin(v90);
+  v93 = &v79 - v14;
+  v15 = sub_100024A2C(&qword_100424058, &qword_100383528);
+  v16 = __chkstk_darwin(v15 - 8);
+  v88 = (&v79 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v16);
+  v96 = &v79 - v18;
+  v19 = type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist(0);
+  v97 = *(v19 - 8);
+  __chkstk_darwin(v19);
+  v89 = (&v79 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v21 = sub_100024A2C(&qword_10042A9A0, &qword_100390CB8);
+  __chkstk_darwin(v21);
+  v23 = &v79 - v22;
+  v24 = sub_100024A2C(&qword_100424050, &qword_100383520);
+  v25 = __chkstk_darwin(v24 - 8);
+  v27 = (&v79 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin(v25);
-  v98 = (&v88 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v28 = sub_100024A2C(&qword_10042A9A0, &qword_100390CB8);
-  v29 = *(*(v28 - 8) + 64);
-  __chkstk_darwin(v28);
-  v31 = &v88 - v30;
-  v32 = sub_100024A2C(&qword_100424050, &qword_100383520);
-  v33 = *(*(v32 - 8) + 64);
-  v34 = __chkstk_darwin(v32 - 8);
-  v36 = (&v88 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v34);
-  v38 = &v88 - v37;
+  v29 = &v79 - v28;
   swift_beginAccess();
-  v39 = *(a1 + 16);
+  v30 = *(a1 + 16);
   swift_beginAccess();
-  v40 = *(a2 + 16);
-  if (v39 == 7)
+  v31 = *(a2 + 16);
+  if (v30 == 7)
   {
-    if (v40 != 7)
+    if (v31 != 7)
     {
       return 0;
     }
 
 LABEL_6:
-    v91 = v9;
+    v82 = v7;
     swift_beginAccess();
-    v42 = *(a1 + 20);
-    v43 = *(a1 + 24);
+    v33 = *(a1 + 20);
+    v34 = *(a1 + 24);
     swift_beginAccess();
-    v44 = *(a2 + 24);
-    if (v43)
+    v35 = *(a2 + 24);
+    if (v34)
     {
       if (!*(a2 + 24))
       {
@@ -9449,23 +1971,23 @@ LABEL_6:
 
     else
     {
-      if (v42 != *(a2 + 20))
+      if (v33 != *(a2 + 20))
       {
-        v44 = 1;
+        v35 = 1;
       }
 
-      if (v44)
+      if (v35)
       {
         return 0;
       }
     }
 
     swift_beginAccess();
-    v45 = *(a1 + 28);
-    v46 = *(a1 + 32);
+    v36 = *(a1 + 28);
+    v37 = *(a1 + 32);
     swift_beginAccess();
-    v47 = *(a2 + 32);
-    if (v46)
+    v38 = *(a2 + 32);
+    if (v37)
     {
       if (!*(a2 + 32))
       {
@@ -9475,150 +1997,150 @@ LABEL_6:
 
     else
     {
-      if (v45 != *(a2 + 28))
+      if (v36 != *(a2 + 28))
       {
-        v47 = 1;
+        v38 = 1;
       }
 
-      if (v47)
+      if (v38)
       {
         return 0;
       }
     }
 
     swift_beginAccess();
-    v48 = a2;
-    v49 = *(a1 + 40);
+    v39 = a2;
+    v40 = *(a1 + 40);
     swift_beginAccess();
-    v50 = *(v48 + 40);
+    v41 = *(v39 + 40);
 
-    v90 = v48;
+    v81 = v39;
 
-    LOBYTE(v48) = sub_100245934(v49, v50, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem);
+    LOBYTE(v39) = sub_100245934(v40, v41, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem, type metadata accessor for Proto_Gnss_Emergency_GanssTimeModelElem);
 
-    if ((v48 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
       goto LABEL_34;
     }
 
-    v51 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
+    v42 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
     swift_beginAccess();
-    sub_10000A0A4(a1 + v51, v38, &qword_100424050, &qword_100383520);
-    v52 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
-    v53 = v90;
+    sub_10000A0A4(a1 + v42, v29, &qword_100424050, &qword_100383520);
+    v43 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssDataBitAssist;
+    v44 = v81;
     swift_beginAccess();
-    v54 = *(v28 + 48);
-    sub_10000A0A4(v38, v31, &qword_100424050, &qword_100383520);
-    v89 = v54;
-    sub_10000A0A4(v53 + v52, &v31[v54], &qword_100424050, &qword_100383520);
-    v55 = *(v106 + 48);
-    if (v55(v31, 1, v25) == 1)
+    v45 = *(v21 + 48);
+    sub_10000A0A4(v29, v23, &qword_100424050, &qword_100383520);
+    v80 = v45;
+    sub_10000A0A4(v44 + v43, &v23[v45], &qword_100424050, &qword_100383520);
+    v46 = *(v97 + 48);
+    if (v46(v23, 1, v19) == 1)
     {
-      sub_1000059A8(v38, &qword_100424050, &qword_100383520);
-      v56 = v55(&v31[v89], 1, v25);
-      v57 = v53;
-      if (v56 == 1)
+      sub_1000059A8(v29, &qword_100424050, &qword_100383520);
+      v47 = v46(&v23[v80], 1, v19);
+      v48 = v44;
+      if (v47 == 1)
       {
-        sub_1000059A8(v31, &qword_100424050, &qword_100383520);
+        sub_1000059A8(v23, &qword_100424050, &qword_100383520);
 LABEL_27:
-        v64 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
+        v55 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
         swift_beginAccess();
-        v65 = v105;
-        sub_10000A0A4(a1 + v64, v105, &qword_100424058, &qword_100383528);
-        v66 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
+        v56 = v96;
+        sub_10000A0A4(a1 + v55, v96, &qword_100424058, &qword_100383528);
+        v57 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssNavModelAddData;
         swift_beginAccess();
-        v67 = *(v99 + 48);
-        v68 = v102;
-        sub_10000A0A4(v65, v102, &qword_100424058, &qword_100383528);
-        sub_10000A0A4(v57 + v66, v68 + v67, &qword_100424058, &qword_100383528);
-        v69 = v101;
-        v70 = *(v100 + 48);
-        if (v70(v68, 1, v101) == 1)
+        v58 = *(v90 + 48);
+        v59 = v93;
+        sub_10000A0A4(v56, v93, &qword_100424058, &qword_100383528);
+        sub_10000A0A4(v48 + v57, v59 + v58, &qword_100424058, &qword_100383528);
+        v60 = v92;
+        v61 = *(v91 + 48);
+        if (v61(v59, 1, v92) == 1)
         {
-          sub_1000059A8(v65, &qword_100424058, &qword_100383528);
-          v71 = v70(v68 + v67, 1, v69);
-          v73 = v103;
-          v72 = v104;
-          if (v71 == 1)
+          sub_1000059A8(v56, &qword_100424058, &qword_100383528);
+          v62 = v61(v59 + v58, 1, v60);
+          v64 = v94;
+          v63 = v95;
+          if (v62 == 1)
           {
-            sub_1000059A8(v68, &qword_100424058, &qword_100383528);
+            sub_1000059A8(v59, &qword_100424058, &qword_100383528);
 LABEL_38:
-            v80 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
+            v71 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
             swift_beginAccess();
-            sub_10000A0A4(a1 + v80, v73, &qword_100424060, &qword_100383530);
-            v81 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
+            sub_10000A0A4(a1 + v71, v64, &qword_100424060, &qword_100383530);
+            v72 = OBJC_IVAR____TtCV10ALProtobuf44Proto_Gnss_Emergency_GanssAidRequestPerGanssP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAddAssistDataChoices;
             swift_beginAccess();
-            v82 = *(v94 + 48);
-            v83 = v91;
-            sub_10000A0A4(v73, v91, &qword_100424060, &qword_100383530);
-            sub_10000A0A4(v57 + v81, v83 + v82, &qword_100424060, &qword_100383530);
-            v84 = v96;
-            v85 = *(v95 + 48);
-            if (v85(v83, 1, v96) == 1)
+            v73 = *(v85 + 48);
+            v74 = v82;
+            sub_10000A0A4(v64, v82, &qword_100424060, &qword_100383530);
+            sub_10000A0A4(v48 + v72, v74 + v73, &qword_100424060, &qword_100383530);
+            v75 = v87;
+            v76 = *(v86 + 48);
+            if (v76(v74, 1, v87) == 1)
             {
 
-              sub_1000059A8(v73, &qword_100424060, &qword_100383530);
-              if (v85(v83 + v82, 1, v84) == 1)
+              sub_1000059A8(v64, &qword_100424060, &qword_100383530);
+              if (v76(v74 + v73, 1, v75) == 1)
               {
-                sub_1000059A8(v83, &qword_100424060, &qword_100383530);
+                sub_1000059A8(v74, &qword_100424060, &qword_100383530);
                 return 1;
               }
 
               goto LABEL_43;
             }
 
-            sub_10000A0A4(v83, v72, &qword_100424060, &qword_100383530);
-            if (v85(v83 + v82, 1, v84) == 1)
+            sub_10000A0A4(v74, v63, &qword_100424060, &qword_100383530);
+            if (v76(v74 + v73, 1, v75) == 1)
             {
 
-              sub_1000059A8(v73, &qword_100424060, &qword_100383530);
-              sub_100246490(v72, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+              sub_1000059A8(v64, &qword_100424060, &qword_100383530);
+              sub_100246490(v63, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
 LABEL_43:
-              sub_1000059A8(v83, &qword_10042A990, &qword_100390CA8);
+              sub_1000059A8(v74, &qword_10042A990, &qword_100390CA8);
               return 0;
             }
 
-            v86 = v92;
-            sub_1002463C0(v83 + v82, v92, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
-            v87 = sub_10024AC20(v72, v86, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+            v77 = v83;
+            sub_1002463C0(v74 + v73, v83, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+            v78 = sub_10024AC20(v63, v77, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
 
-            sub_100246490(v86, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
-            sub_1000059A8(v73, &qword_100424060, &qword_100383530);
-            sub_100246490(v72, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
-            sub_1000059A8(v83, &qword_100424060, &qword_100383530);
-            return (v87 & 1) != 0;
+            sub_100246490(v77, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+            sub_1000059A8(v64, &qword_100424060, &qword_100383530);
+            sub_100246490(v63, type metadata accessor for Proto_Gnss_Emergency_GanssAddAssistDataChoices);
+            sub_1000059A8(v74, &qword_100424060, &qword_100383530);
+            return (v78 & 1) != 0;
           }
 
           goto LABEL_32;
         }
 
-        v74 = v97;
-        sub_10000A0A4(v68, v97, &qword_100424058, &qword_100383528);
-        v75 = v70(v68 + v67, 1, v69);
-        v76 = v103;
-        v77 = v104;
-        if (v75 == 1)
+        v65 = v88;
+        sub_10000A0A4(v59, v88, &qword_100424058, &qword_100383528);
+        v66 = v61(v59 + v58, 1, v60);
+        v67 = v94;
+        v68 = v95;
+        if (v66 == 1)
         {
-          sub_1000059A8(v105, &qword_100424058, &qword_100383528);
-          sub_100246490(v74, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+          sub_1000059A8(v96, &qword_100424058, &qword_100383528);
+          sub_100246490(v65, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
 LABEL_32:
-          v59 = &qword_10042A998;
-          v60 = &qword_100390CB0;
-          v61 = v68;
+          v50 = &qword_10042A998;
+          v51 = &qword_100390CB0;
+          v52 = v59;
           goto LABEL_33;
         }
 
-        v78 = v68 + v67;
-        v79 = v93;
-        sub_1002463C0(v78, v93, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
-        LODWORD(v106) = sub_10024B40C(v74, v79);
-        sub_100246490(v79, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
-        sub_1000059A8(v105, &qword_100424058, &qword_100383528);
-        sub_100246490(v74, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
-        sub_1000059A8(v68, &qword_100424058, &qword_100383528);
-        v72 = v77;
-        v73 = v76;
-        if (v106)
+        v69 = v59 + v58;
+        v70 = v84;
+        sub_1002463C0(v69, v84, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+        LODWORD(v97) = sub_10024B40C(v65, v70);
+        sub_100246490(v70, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+        sub_1000059A8(v96, &qword_100424058, &qword_100383528);
+        sub_100246490(v65, type metadata accessor for Proto_Gnss_Emergency_GanssNavModelAddData);
+        sub_1000059A8(v59, &qword_100424058, &qword_100383528);
+        v63 = v68;
+        v64 = v67;
+        if (v97)
         {
           goto LABEL_38;
         }
@@ -9631,20 +2153,20 @@ LABEL_34:
 
     else
     {
-      sub_10000A0A4(v31, v36, &qword_100424050, &qword_100383520);
-      v58 = v89;
-      if (v55(&v31[v89], 1, v25) != 1)
+      sub_10000A0A4(v23, v27, &qword_100424050, &qword_100383520);
+      v49 = v80;
+      if (v46(&v23[v80], 1, v19) != 1)
       {
-        v62 = &v31[v58];
-        v63 = v98;
-        sub_1002463C0(v62, v98, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
-        LODWORD(v106) = sub_10024BA80(v36, v63);
-        sub_100246490(v63, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
-        sub_1000059A8(v38, &qword_100424050, &qword_100383520);
-        sub_100246490(v36, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
-        v57 = v53;
-        sub_1000059A8(v31, &qword_100424050, &qword_100383520);
-        if ((v106 & 1) == 0)
+        v53 = &v23[v49];
+        v54 = v89;
+        sub_1002463C0(v53, v89, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+        LODWORD(v97) = sub_10024BA80(v27, v54);
+        sub_100246490(v54, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+        sub_1000059A8(v29, &qword_100424050, &qword_100383520);
+        sub_100246490(v27, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+        v48 = v44;
+        sub_1000059A8(v23, &qword_100424050, &qword_100383520);
+        if ((v97 & 1) == 0)
         {
           goto LABEL_34;
         }
@@ -9652,20 +2174,20 @@ LABEL_34:
         goto LABEL_27;
       }
 
-      sub_1000059A8(v38, &qword_100424050, &qword_100383520);
-      sub_100246490(v36, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
+      sub_1000059A8(v29, &qword_100424050, &qword_100383520);
+      sub_100246490(v27, type metadata accessor for Proto_Gnss_Emergency_GanssDataBitAssist);
     }
 
-    v59 = &qword_10042A9A0;
-    v60 = &qword_100390CB8;
-    v61 = v31;
+    v50 = &qword_10042A9A0;
+    v51 = &qword_100390CB8;
+    v52 = v23;
 LABEL_33:
-    sub_1000059A8(v61, v59, v60);
+    sub_1000059A8(v52, v50, v51);
     goto LABEL_34;
   }
 
   result = 0;
-  if (v40 != 7 && v39 == v40)
+  if (v31 != 7 && v30 == v31)
   {
     goto LABEL_6;
   }
@@ -9675,21 +2197,21 @@ LABEL_33:
 
 uint64_t sub_10022E0EC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100256CB4(&qword_10042A5B0, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+  v4 = sub_100256CB4(&qword_10042A5B0, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss, &unk_10038C608);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_10022E18C(uint64_t a1)
 {
-  v2 = sub_100256CB4(&qword_100424328, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+  v2 = sub_100256CB4(&qword_100424328, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss, &unk_10038C590);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_10022E1F8()
+uint64_t sub_10022E1F8(uint64_t a1, uint64_t a2)
 {
-  sub_100256CB4(&qword_100424328, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+  sub_100256CB4(&qword_100424328, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss, &unk_10038C590);
 
   return Message.hash(into:)();
 }
@@ -9759,70 +2281,370 @@ uint64_t sub_10022E29C()
   return _NameMap.init(dictionaryLiteral:)();
 }
 
-uint64_t sub_10022E5EC()
+uint64_t sub_10022E5EC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
 
       if (result <= 3)
       {
-        switch(result)
+        if (result == 1 || result == 2)
         {
-          case 1:
-            v3 = v0;
-            v4 = *(type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0) + 28);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-            break;
-          case 2:
-            v3 = v0;
-            v8 = *(type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0) + 32);
-            goto LABEL_5;
-          case 3:
-            sub_100256CFC();
-            dispatch thunk of Decoder.decodeRepeatedEnumField<A>(value:)();
-            break;
+LABEL_4:
+          type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+          goto LABEL_5;
+        }
+
+        if (result == 3)
+        {
+          sub_100256CFC();
+          dispatch thunk of Decoder.decodeRepeatedEnumField<A>(value:)();
         }
       }
 
       else
       {
-        if (result <= 5)
+        if (result <= 6)
         {
-          v3 = v0;
-          if (result == 4)
-          {
-            v6 = *(type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0) + 36);
-          }
-
-          else
-          {
-            v5 = *(type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0) + 40);
-          }
-
-          goto LABEL_5;
-        }
-
-        if (result == 6)
-        {
-          v3 = v0;
-          v7 = *(type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0) + 44);
-          goto LABEL_5;
+          goto LABEL_4;
         }
 
         if (result == 7)
         {
           type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss(0);
-          sub_100256CB4(&qword_100424328, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+          sub_100256CB4(&qword_100424328, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss, &unk_10038C590);
           dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
+        }
+      }
+
+LABEL_5:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *sub_10022E7B8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0);
+  v9 = result;
+  if (*(v3 + result[7] + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v3 + v9[8] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if (*(*v3 + 16))
+  {
+    sub_100256CFC();
+    dispatch thunk of Visitor.visitRepeatedEnumField<A>(value:fieldNumber:)();
+  }
+
+  if ((*(v3 + v9[9] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v3 + v9[10] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_100210A4C(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest, 6);
+  if (*(v3[1] + 16))
+  {
+    type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss(0);
+    sub_100256CB4(&qword_100424328, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss, &unk_10038C590);
+    dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10022EA20@<X0>(int *a1@<X0>, void *a2@<X8>)
+{
+  *a2 = &_swiftEmptyArrayStorage;
+  a2[1] = &_swiftEmptyArrayStorage;
+  result = UnknownStorage.init()();
+  v5 = a1[8];
+  v6 = a2 + a1[7];
+  *v6 = 0;
+  v6[4] = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  v7[4] = 1;
+  v8 = a1[10];
+  v9 = a2 + a1[9];
+  *v9 = 0;
+  v9[4] = 1;
+  v10 = a2 + v8;
+  *v10 = 0;
+  v10[4] = 1;
+  v11 = a2 + a1[11];
+  *v11 = 0;
+  v11[4] = 1;
+  return result;
+}
+
+uint64_t sub_10022EAD8(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A5A8, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest, &unk_10038C770);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10022EB78(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425068, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest, &unk_10038C6F8);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10022EBE4(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425068, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest, &unk_10038C6F8);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10022EC8C()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434840);
+  sub_100005DF0(v0, qword_100434840);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036D780;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "result";
+  *(v6 + 8) = 6;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.same(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "response_type";
+  *(v10 + 8) = 13;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "session_info";
+  *(v12 + 1) = 12;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "assistance_request";
+  *(v14 + 1) = 18;
+  v14[16] = 2;
+  v9();
+  v15 = v5 + 4 * v2 + v1[14];
+  *(v5 + 4 * v2) = 5;
+  *v15 = "ganss_assistance_request";
+  *(v15 + 8) = 24;
+  *(v15 + 16) = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10022EF74()
+{
+  type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport._StorageClass(0);
+  v0 = swift_allocObject();
+  *(v0 + 16) = 9;
+  *(v0 + 20) = 0;
+  *(v0 + 24) = 1;
+  v1 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+  v2 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  (*(*(v2 - 8) + 56))(v0 + v1, 1, 1, v2);
+  v3 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__assistanceRequest;
+  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0);
+  (*(*(v4 - 8) + 56))(v0 + v3, 1, 1, v4);
+  v5 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAssistanceRequest;
+  v6 = type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0);
+  result = (*(*(v6 - 8) + 56))(v0 + v5, 1, 1, v6);
+  qword_1004613A8 = v0;
+  return result;
+}
+
+uint64_t sub_10022F09C(uint64_t a1)
+{
+  v3 = sub_100024A2C(&qword_100424070, &qword_100383540);
+  __chkstk_darwin(v3 - 8);
+  v25 = &v25 - v4;
+  v5 = sub_100024A2C(&qword_100424068, &qword_100383538);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v25 - v6;
+  v8 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
+  __chkstk_darwin(v8 - 8);
+  v10 = &v25 - v9;
+  *(v1 + 16) = 9;
+  *(v1 + 20) = 0;
+  *(v1 + 24) = 1;
+  v11 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+  v12 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  (*(*(v12 - 8) + 56))(v1 + v11, 1, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__assistanceRequest;
+  v14 = type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0);
+  (*(*(v14 - 8) + 56))(v1 + v13, 1, 1, v14);
+  v15 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAssistanceRequest;
+  v16 = type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0);
+  (*(*(v16 - 8) + 56))(v1 + v15, 1, 1, v16);
+  swift_beginAccess();
+  v17 = *(a1 + 16);
+  swift_beginAccess();
+  *(v1 + 16) = v17;
+  swift_beginAccess();
+  v18 = *(a1 + 20);
+  v19 = *(a1 + 24);
+  swift_beginAccess();
+  *(v1 + 20) = v18;
+  *(v1 + 24) = v19;
+  v20 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+  swift_beginAccess();
+  sub_10000A0A4(a1 + v20, v10, &qword_100423FF8, &qword_1003834C8);
+  swift_beginAccess();
+  sub_10000AD64(v10, v1 + v11, &qword_100423FF8, &qword_1003834C8);
+  swift_endAccess();
+  v21 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__assistanceRequest;
+  swift_beginAccess();
+  sub_10000A0A4(a1 + v21, v7, &qword_100424068, &qword_100383538);
+  swift_beginAccess();
+  sub_10000AD64(v7, v1 + v13, &qword_100424068, &qword_100383538);
+  swift_endAccess();
+  v22 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAssistanceRequest;
+  swift_beginAccess();
+  v23 = v25;
+  sub_10000A0A4(a1 + v22, v25, &qword_100424070, &qword_100383540);
+
+  swift_beginAccess();
+  sub_10000AD64(v23, v1 + v15, &qword_100424070, &qword_100383540);
+  swift_endAccess();
+  return v1;
+}
+
+uint64_t sub_10022F490()
+{
+  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo, &qword_100423FF8, &qword_1003834C8);
+  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__assistanceRequest, &qword_100424068, &qword_100383538);
+  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAssistanceRequest, &qword_100424070, &qword_100383540);
+  v1 = *(*v0 + 48);
+  v2 = *(*v0 + 52);
+
+  return _swift_deallocClassInstance(v0, v1, v2);
+}
+
+uint64_t sub_10022F544(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  v6 = *(type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v3 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport._StorageClass(0);
+    v9 = swift_allocObject();
+    sub_10022F09C(v8);
+    *(v5 + v6) = v9;
+  }
+
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v4)
+  {
+    while (1)
+    {
+      if (v11)
+      {
+        return result;
+      }
+
+      if (result <= 2)
+      {
+        if (result == 1)
+        {
+          swift_beginAccess();
+          sub_100268B28();
+          dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+          goto LABEL_8;
+        }
+
+        if (result == 2)
+        {
+          swift_beginAccess();
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+          goto LABEL_8;
+        }
+      }
+
+      else
+      {
+        switch(result)
+        {
+          case 3:
+            v12 = v4;
+            swift_beginAccess();
+            type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+            v13 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo;
+            v14 = &unk_100388648;
+            v15 = &qword_100424C40;
+LABEL_7:
+            sub_100256CB4(v15, v13, v14);
+            v4 = v12;
+            dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+LABEL_8:
+            swift_endAccess();
+            break;
+          case 4:
+            v12 = v4;
+            swift_beginAccess();
+            type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0);
+            v13 = type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest;
+            v14 = &unk_10038BD20;
+            v15 = &qword_100424FD0;
+            goto LABEL_7;
+          case 5:
+            v12 = v4;
+            swift_beginAccess();
+            type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0);
+            v13 = type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest;
+            v14 = &unk_10038C6F8;
+            v15 = &qword_100425068;
+            goto LABEL_7;
         }
       }
 
@@ -9833,12 +2655,12 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_10022E7B8(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10022F818(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0);
-  v9 = result;
-  v10 = (v3 + *(result + 28));
-  if (v10[1])
+  v5 = v3;
+  v9 = *(v5 + *(type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport(0) + 20));
+  result = swift_beginAccess();
+  if (*(v9 + 16) == 9)
   {
     if (v4)
     {
@@ -9848,7 +2670,446 @@ uint64_t sub_10022E7B8(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = *v10;
+    sub_100268B28();
+    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  swift_beginAccess();
+  if ((*(v9 + 24) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_10022F96C(v9, a1, a2, a3);
+  sub_10022FB94(v9, a1, a2, a3);
+  sub_10022FDBC(v9, a1, a2, a3);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10022F96C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+  swift_beginAccess();
+  sub_10000A0A4(a1 + v12, v7, &qword_100423FF8, &qword_1003834C8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100423FF8, &qword_1003834C8);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+  sub_100256CB4(&qword_100424C40, type metadata accessor for Proto_Gnss_Emergency_SessionInfo, &unk_100388648);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+}
+
+uint64_t sub_10022FB94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = sub_100024A2C(&qword_100424068, &qword_100383538);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__assistanceRequest;
+  swift_beginAccess();
+  sub_10000A0A4(a1 + v12, v7, &qword_100424068, &qword_100383538);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424068, &qword_100383538);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+  sub_100256CB4(&qword_100424FD0, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest, &unk_10038BD20);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+}
+
+uint64_t sub_10022FDBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = sub_100024A2C(&qword_100424070, &qword_100383540);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAssistanceRequest;
+  swift_beginAccess();
+  sub_10000A0A4(a1 + v12, v7, &qword_100424070, &qword_100383540);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424070, &qword_100383540);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest);
+  sub_100256CB4(&qword_100425068, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest, &unk_10038C6F8);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest);
+}
+
+BOOL sub_100230028(uint64_t a1, uint64_t a2)
+{
+  v76 = type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest(0);
+  v84 = *(v76 - 8);
+  __chkstk_darwin(v76);
+  v73 = (&v68 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v75 = sub_100024A2C(&qword_10042A980, &qword_100390C98);
+  __chkstk_darwin(v75);
+  v6 = &v68 - v5;
+  v7 = sub_100024A2C(&qword_100424070, &qword_100383540);
+  v8 = __chkstk_darwin(v7 - 8);
+  v83 = (&v68 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v8);
+  v82 = &v68 - v10;
+  v80 = type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest(0);
+  v79 = *(v80 - 8);
+  __chkstk_darwin(v80);
+  v74 = (&v68 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v78 = sub_100024A2C(&qword_10042A988, &qword_100390CA0);
+  __chkstk_darwin(v78);
+  v81 = &v68 - v12;
+  v13 = sub_100024A2C(&qword_100424068, &qword_100383538);
+  v14 = __chkstk_darwin(v13 - 8);
+  v77 = (&v68 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v14);
+  v85 = &v68 - v16;
+  v17 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  v86 = *(v17 - 8);
+  __chkstk_darwin(v17);
+  v19 = &v68 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = sub_100024A2C(&qword_10042A908, &qword_100390C20);
+  __chkstk_darwin(v20);
+  v22 = &v68 - v21;
+  v23 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
+  v24 = __chkstk_darwin(v23 - 8);
+  v26 = &v68 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v24);
+  v28 = &v68 - v27;
+  swift_beginAccess();
+  v29 = *(a1 + 16);
+  swift_beginAccess();
+  v30 = *(a2 + 16);
+  if (v29 == 9)
+  {
+    if (v30 != 9)
+    {
+      return 0;
+    }
+
+LABEL_6:
+    v70 = v6;
+    swift_beginAccess();
+    v32 = *(a1 + 20);
+    v72 = a1;
+    v33 = *(a1 + 24);
+    swift_beginAccess();
+    v34 = *(a2 + 24);
+    if (v33)
+    {
+      if (!*(a2 + 24))
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (v32 != *(a2 + 20))
+      {
+        v34 = 1;
+      }
+
+      if (v34)
+      {
+        return 0;
+      }
+    }
+
+    v69 = v19;
+    v71 = a2;
+    v35 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+    v36 = v72;
+    swift_beginAccess();
+    sub_10000A0A4(v36 + v35, v28, &qword_100423FF8, &qword_1003834C8);
+    v37 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+    v38 = v71;
+    swift_beginAccess();
+    v39 = *(v20 + 48);
+    sub_10000A0A4(v28, v22, &qword_100423FF8, &qword_1003834C8);
+    sub_10000A0A4(v38 + v37, &v22[v39], &qword_100423FF8, &qword_1003834C8);
+    v40 = *(v86 + 48);
+    if (v40(v22, 1, v17) == 1)
+    {
+
+      sub_1000059A8(v28, &qword_100423FF8, &qword_1003834C8);
+      if (v40(&v22[v39], 1, v17) == 1)
+      {
+        sub_1000059A8(v22, &qword_100423FF8, &qword_1003834C8);
+LABEL_19:
+        v44 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__assistanceRequest;
+        swift_beginAccess();
+        v45 = v85;
+        sub_10000A0A4(v36 + v44, v85, &qword_100424068, &qword_100383538);
+        v46 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__assistanceRequest;
+        swift_beginAccess();
+        v47 = *(v78 + 48);
+        v48 = v81;
+        sub_10000A0A4(v45, v81, &qword_100424068, &qword_100383538);
+        sub_10000A0A4(v71 + v46, v48 + v47, &qword_100424068, &qword_100383538);
+        v49 = *(v79 + 48);
+        v50 = v80;
+        if (v49(v48, 1, v80) == 1)
+        {
+          sub_1000059A8(v45, &qword_100424068, &qword_100383538);
+          v51 = v49(v48 + v47, 1, v50);
+          v52 = v84;
+          v53 = v83;
+          v54 = v82;
+          if (v51 == 1)
+          {
+            sub_1000059A8(v48, &qword_100424068, &qword_100383538);
+LABEL_30:
+            v60 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAssistanceRequest;
+            swift_beginAccess();
+            sub_10000A0A4(v36 + v60, v54, &qword_100424070, &qword_100383540);
+            v61 = OBJC_IVAR____TtCV10ALProtobuf43Proto_Gnss_Emergency_AssistanceNeededReportP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__ganssAssistanceRequest;
+            swift_beginAccess();
+            v62 = *(v75 + 48);
+            v63 = v70;
+            sub_10000A0A4(v54, v70, &qword_100424070, &qword_100383540);
+            sub_10000A0A4(v71 + v61, v63 + v62, &qword_100424070, &qword_100383540);
+            v64 = *(v52 + 48);
+            v65 = v76;
+            if (v64(v63, 1, v76) == 1)
+            {
+
+              sub_1000059A8(v54, &qword_100424070, &qword_100383540);
+              if (v64(v63 + v62, 1, v65) == 1)
+              {
+                sub_1000059A8(v63, &qword_100424070, &qword_100383540);
+                return 1;
+              }
+
+              goto LABEL_35;
+            }
+
+            sub_10000A0A4(v63, v53, &qword_100424070, &qword_100383540);
+            if (v64(v63 + v62, 1, v65) == 1)
+            {
+
+              sub_1000059A8(v54, &qword_100424070, &qword_100383540);
+              sub_100246490(v53, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest);
+LABEL_35:
+              sub_1000059A8(v63, &qword_10042A980, &qword_100390C98);
+              return 0;
+            }
+
+            v66 = v73;
+            sub_1002463C0(v63 + v62, v73, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest);
+            v67 = sub_10024A28C(v53, v66);
+
+            sub_100246490(v66, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest);
+            sub_1000059A8(v54, &qword_100424070, &qword_100383540);
+            sub_100246490(v53, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest);
+            sub_1000059A8(v63, &qword_100424070, &qword_100383540);
+            return (v67 & 1) != 0;
+          }
+        }
+
+        else
+        {
+          v55 = v77;
+          sub_10000A0A4(v48, v77, &qword_100424068, &qword_100383538);
+          v56 = v49(v48 + v47, 1, v50);
+          v52 = v84;
+          v57 = v83;
+          v54 = v82;
+          if (v56 != 1)
+          {
+            v58 = v48 + v47;
+            v59 = v74;
+            sub_1002463C0(v58, v74, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+            LODWORD(v86) = sub_10024B244(v55, v59);
+            sub_100246490(v59, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+            sub_1000059A8(v85, &qword_100424068, &qword_100383538);
+            sub_100246490(v55, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+            v36 = v72;
+            sub_1000059A8(v48, &qword_100424068, &qword_100383538);
+            v53 = v57;
+            if (v86)
+            {
+              goto LABEL_30;
+            }
+
+            goto LABEL_25;
+          }
+
+          sub_1000059A8(v85, &qword_100424068, &qword_100383538);
+          sub_100246490(v55, type metadata accessor for Proto_Gnss_Emergency_GpsAssistanceRequest);
+        }
+
+        sub_1000059A8(v48, &qword_10042A988, &qword_100390CA0);
+LABEL_25:
+
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+      sub_10000A0A4(v22, v26, &qword_100423FF8, &qword_1003834C8);
+      if (v40(&v22[v39], 1, v17) != 1)
+      {
+        v41 = v69;
+        sub_1002463C0(&v22[v39], v69, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        v42 = v72;
+
+        v43 = sub_1002540CC(v26, v41);
+        sub_100246490(v41, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        sub_1000059A8(v28, &qword_100423FF8, &qword_1003834C8);
+        v36 = v42;
+        sub_100246490(v26, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        sub_1000059A8(v22, &qword_100423FF8, &qword_1003834C8);
+        if ((v43 & 1) == 0)
+        {
+          goto LABEL_25;
+        }
+
+        goto LABEL_19;
+      }
+
+      sub_1000059A8(v28, &qword_100423FF8, &qword_1003834C8);
+      sub_100246490(v26, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+    }
+
+    sub_1000059A8(v22, &qword_10042A908, &qword_100390C20);
+
+LABEL_26:
+
+    return 0;
+  }
+
+  result = 0;
+  if (v30 != 9 && v29 == v30)
+  {
+    goto LABEL_6;
+  }
+
+  return result;
+}
+
+uint64_t sub_100230DBC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A5A0, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport, &unk_10038C8D8);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100230E5C(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425080, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport, &unk_10038C860);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100230EC8(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425080, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport, &unk_10038C860);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100230F6C()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434858);
+  sub_100005DF0(v0, qword_100434858);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C830;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "no_of_cells";
+  *(v6 + 8) = 11;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "eutran_cell_info";
+  *(v10 + 1) = 16;
+  v10[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023117C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while ((v5 & 1) == 0)
+    {
+      if (result == 1)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_EutranCellTime(0);
+        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+      }
+
+      else if (result == 2)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
+        sub_100256CB4(&qword_100424340, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell, &unk_100389728);
+        dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10023128C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_EutranCellTime(0);
+  if (*(v3 + *(result + 24) + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
     result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
     if (v4)
     {
@@ -9856,41 +3117,6861 @@ uint64_t sub_10022E7B8(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  v12 = (v3 + v9[8]);
-  if ((v12[1] & 1) == 0)
+  if (*(*v3 + 16))
   {
-    v13 = *v12;
+    type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell(0);
+    sub_100256CB4(&qword_100424340, type metadata accessor for Proto_Gnss_Emergency_ClsEutranCell, &unk_100389728);
+    dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_1002313F8@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  *a2 = &_swiftEmptyArrayStorage;
+  result = UnknownStorage.init()();
+  v5 = a2 + *(a1 + 24);
+  *v5 = 0;
+  v5[4] = 1;
+  return result;
+}
+
+uint64_t sub_100231478(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A598, type metadata accessor for Proto_Gnss_Emergency_EutranCellTime, &unk_10038CA40);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100231518(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425098, type metadata accessor for Proto_Gnss_Emergency_EutranCellTime, &unk_10038C9C8);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100231584(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425098, type metadata accessor for Proto_Gnss_Emergency_EutranCellTime, &unk_10038C9C8);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100231628()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434870);
+  sub_100005DF0(v0, qword_100434870);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C820;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "bsic";
+  *(v6 + 8) = 4;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.same(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "time_slot";
+  *(v10 + 8) = 9;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "bit_number";
+  *(v12 + 1) = 10;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "bcch_carrier";
+  *(v14 + 1) = 12;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "ref_frame";
+  *(v16 + 1) = 9;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "timing_advance";
+  *(v18 + 1) = 14;
+  v18[16] = 2;
+  v9();
+  v19 = (v5 + 6 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 7;
+  *v20 = "obit_number";
+  *(v20 + 1) = 11;
+  v20[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100231984(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result <= 3)
+      {
+        if (result == 1 || result == 2 || result == 3)
+        {
+LABEL_11:
+          type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+        }
+      }
+
+      else if (result <= 6 || result == 7)
+      {
+        goto LABEL_11;
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *sub_100231ACC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime(0);
+  v10 = result;
+  if (*(v5 + result[5] + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v5 + v10[6] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[7] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[8] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
+  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime, 6);
+  sub_100210A4C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime, 7);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_100231CC8@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = UnknownStorage.init()();
+  v5 = a1[6];
+  v6 = a2 + a1[5];
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  *(v7 + 4) = 1;
+  v8 = a1[8];
+  v9 = a2 + a1[7];
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  v10 = a2 + v8;
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  v11 = a1[10];
+  v12 = a2 + a1[9];
+  *v12 = 0;
+  *(v12 + 4) = 1;
+  v13 = a2 + v11;
+  *v13 = 0;
+  *(v13 + 4) = 1;
+  v14 = a2 + a1[11];
+  *v14 = 0;
+  *(v14 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_100231D88(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A590, type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime, &unk_10038CBA8);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100231E28(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004250B0, type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime, &unk_10038CB30);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100231E94(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004250B0, type metadata accessor for Proto_Gnss_Emergency_ClsGeranCellTime, &unk_10038CB30);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100231F38()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434888);
+  sub_100005DF0(v0, qword_100434888);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C830;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "int_part";
+  *(v6 + 8) = 8;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "frac_part";
+  *(v10 + 1) = 9;
+  v10[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100232240(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A588, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime, &unk_10038CD10);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_1002322E0(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004250C8, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime, &unk_10038CC98);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023234C(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004250C8, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime, &unk_10038CC98);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_1002323F4()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_1004348A0);
+  sub_100005DF0(v0, qword_1004348A0);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C800;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "physical_cell_id";
+  *(v6 + 8) = 16;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "earfcn";
+  *(v10 + 1) = 6;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 3;
+  *v11 = "sfnk";
+  *(v11 + 8) = 4;
+  *(v11 + 16) = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023272C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A580, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime, &unk_10038CE78);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_1002327CC(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004250E0, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime, &unk_10038CE00);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100232838(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004250E0, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime, &unk_10038CE00);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_1002328E0()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_1004348B8);
+  sub_100005DF0(v0, qword_1004348B8);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C800;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "cdma_tow";
+  *(v6 + 8) = 8;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "week_num";
+  *(v10 + 1) = 8;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 3;
+  *v11 = "absolute_rms_acc";
+  *(v11 + 8) = 16;
+  *(v11 + 16) = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100232B3C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while ((v5 & 1) == 0)
+    {
+      if (result == 3 || result == 2)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime(0);
+        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+      }
+
+      else if (result == 1)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime(0);
+        type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime(0);
+        sub_100256CB4(&qword_1004250C8, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime, &unk_10038CC98);
+        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_100232C74(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = sub_100232D64(v3, a1, a2, a3);
+  if (!v4)
+  {
+    v6 = type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime(0);
+    if ((*(v3 + *(v6 + 24) + 4) & 1) == 0)
+    {
+      v7 = v6;
+      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+      v6 = v7;
+    }
+
+    if ((*(v3 + *(v6 + 28) + 4) & 1) == 0)
+    {
+      dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    }
+
+    return UnknownStorage.traverse<A>(visitor:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100232D64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_100424078, &qword_100383548);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime(0);
+  sub_10000A0A4(a1 + *(v12 + 20), v7, &qword_100424078, &qword_100383548);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424078, &qword_100383548);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime);
+  sub_100256CB4(&qword_1004250C8, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime, &unk_10038CC98);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime);
+}
+
+uint64_t sub_100232FCC@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  UnknownStorage.init()();
+  v4 = a1[5];
+  v5 = type metadata accessor for Proto_Gnss_Emergency_GpsTowCdmaCellTime(0);
+  result = (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
+  v7 = a1[7];
+  v8 = a2 + a1[6];
+  *v8 = 0;
+  *(v8 + 4) = 1;
+  v9 = a2 + v7;
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_100233090(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A578, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime, &unk_10038CFE0);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100233130(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004250F8, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime, &unk_10038CF68);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023319C(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004250F8, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime, &unk_10038CF68);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100233240()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_1004348D0);
+  sub_100005DF0(v0, qword_1004348D0);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C830;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "eutran_time";
+  *(v6 + 8) = 11;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "cdma_time";
+  *(v10 + 1) = 9;
+  v10[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100233450(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result == 1)
+      {
+        break;
+      }
+
+      if (result == 2)
+      {
+        v6 = v3;
+        type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+        type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime(0);
+        v7 = type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime;
+        v8 = &unk_10038CF68;
+        v9 = &qword_1004250F8;
+        goto LABEL_5;
+      }
+
+LABEL_6:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+
+    v6 = v3;
+    type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+    type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime(0);
+    v7 = type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime;
+    v8 = &unk_10038CE00;
+    v9 = &qword_1004250E0;
+LABEL_5:
+    sub_100256CB4(v9, v7, v8);
+    v3 = v6;
+    dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+    goto LABEL_6;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002335DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_100424080, &qword_100383550);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+  sub_10000A0A4(a1 + *(v12 + 20), v7, &qword_100424080, &qword_100383550);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424080, &qword_100383550);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime);
+  sub_100256CB4(&qword_1004250E0, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime, &unk_10038CE00);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_CtsEutranCellTime);
+}
+
+uint64_t sub_1002337F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_100424088, &qword_100383558);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+  sub_10000A0A4(a1 + *(v12 + 24), v7, &qword_100424088, &qword_100383558);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424088, &qword_100383558);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime);
+  sub_100256CB4(&qword_1004250F8, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime, &unk_10038CF68);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_CtsCdmaCellTime);
+}
+
+uint64_t sub_100233A8C@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t (*a3)(void)@<X3>, uint64_t a4@<X8>)
+{
+  UnknownStorage.init()();
+  v8 = *(a1 + 20);
+  v9 = a2(0);
+  (*(*(v9 - 8) + 56))(a4 + v8, 1, 1, v9);
+  v10 = *(a1 + 24);
+  v11 = a3(0);
+  v12 = *(*(v11 - 8) + 56);
+
+  return v12(a4 + v10, 1, 1, v11);
+}
+
+uint64_t sub_100233B80(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A570, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, &unk_10038D148);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100233C20(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425110, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, &unk_10038D0D0);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100233C8C(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425110, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, &unk_10038D0D0);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100233D30()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_1004348E8);
+  sub_100005DF0(v0, qword_1004348E8);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C830;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "cell_time_assistance_type";
+  *(v6 + 8) = 25;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "cell_time_data";
+  *(v10 + 1) = 14;
+  v10[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100233F40(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while ((v5 & 1) == 0)
+    {
+      if (result == 1)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance(0);
+        sub_1002687E0();
+        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+      }
+
+      else if (result == 2)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance(0);
+        type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+        sub_100256CB4(&qword_100425110, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, &unk_10038D0D0);
+        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1002340D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t))
+{
+  v11 = v7;
+  result = a4(0);
+  if (*(v11 + *(result + 20)) == 6)
+  {
+    if (v8)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    a5();
+    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+    if (v8)
+    {
+      return result;
+    }
+  }
+
+  a7(v11, a1, a2, a3);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_1002341B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_100424090, &qword_100383560);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance(0);
+  sub_10000A0A4(a1 + *(v12 + 24), v7, &qword_100424090, &qword_100383560);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424090, &qword_100383560);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
+  sub_100256CB4(&qword_100425110, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, &unk_10038D0D0);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
+}
+
+uint64_t sub_100234454(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A568, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance, &unk_10038D2B0);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_1002344F4(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425128, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance, &unk_10038D238);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100234560(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425128, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance, &unk_10038D238);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100234608()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434900);
+  sub_100005DF0(v0, qword_100434900);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036D780;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "tlm_msg";
+  *(v6 + 8) = 7;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "sat_id";
+  *(v10 + 8) = 6;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "anti_spoof";
+  *(v12 + 1) = 10;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "alert";
+  *(v14 + 1) = 5;
+  v14[16] = 2;
+  v9();
+  v15 = v5 + 4 * v2 + v1[14];
+  *(v5 + 4 * v2) = 5;
+  *v15 = "tlm_reserved";
+  *(v15 + 8) = 12;
+  *(v15 + 16) = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_1002348E8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result <= 2)
+      {
+        if (result == 1 || result == 2)
+        {
+LABEL_10:
+          type metadata accessor for Proto_Gnss_Emergency_TowAssist(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+        }
+      }
+
+      else if (result == 3 || result == 4 || result == 5)
+      {
+        goto LABEL_10;
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *sub_1002349F0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Emergency_TowAssist(0);
+  v10 = result;
+  if (*(v5 + result[5] + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v5 + v10[6] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[7] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[8] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_TowAssist, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_100234B8C@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = UnknownStorage.init()();
+  v5 = a1[6];
+  v6 = a2 + a1[5];
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  *(v7 + 4) = 1;
+  v8 = a1[8];
+  v9 = a2 + a1[7];
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  v10 = a2 + v8;
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  v11 = a2 + a1[9];
+  *v11 = 0;
+  *(v11 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_100234C30(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A560, type metadata accessor for Proto_Gnss_Emergency_TowAssist, &unk_10038D418);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100234CD0(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100424388, type metadata accessor for Proto_Gnss_Emergency_TowAssist, &unk_10038D3A0);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100234D3C(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100424388, type metadata accessor for Proto_Gnss_Emergency_TowAssist, &unk_10038D3A0);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100234DE0()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434918);
+  sub_100005DF0(v0, qword_100434918);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_10036C810;
+  v4 = v24 + v3;
+  v5 = v24 + v3 + v1[14];
+  *(v24 + v3) = 1;
+  *v5 = "gps_tow";
+  *(v5 + 8) = 7;
+  *(v5 + 16) = 2;
+  v6 = enum case for _NameMap.NameDescription.standard(_:);
+  v7 = type metadata accessor for _NameMap.NameDescription();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "gps_week";
+  *(v9 + 8) = 8;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "gps_time_uncertainty";
+  *(v11 + 1) = 20;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "nr_of_sats";
+  *(v13 + 1) = 10;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "tow_assist";
+  *(v15 + 1) = 10;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "gps_week_cycle_number";
+  *(v17 + 1) = 21;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "session_protocol";
+  *(v19 + 1) = 16;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "pos_protocol";
+  *(v21 + 1) = 12;
+  v21[16] = 2;
+  v8();
+  v22 = v4 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 9;
+  *v22 = "session_id";
+  *(v22 + 8) = 10;
+  *(v22 + 16) = 2;
+  v8();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_1002351B4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result <= 4)
+      {
+        if (result > 2 || result == 1 || result == 2)
+        {
+LABEL_4:
+          type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+        }
+      }
+
+      else if (result <= 6)
+      {
+        if (result != 5)
+        {
+          goto LABEL_4;
+        }
+
+        type metadata accessor for Proto_Gnss_Emergency_TowAssist(0);
+        sub_100256CB4(&qword_100424388, type metadata accessor for Proto_Gnss_Emergency_TowAssist, &unk_10038D3A0);
+        dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
+      }
+
+      else
+      {
+        switch(result)
+        {
+          case 7:
+            v6 = v3;
+            type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
+            sub_100268A80();
+LABEL_23:
+            v3 = v6;
+            dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+            break;
+          case 8:
+            v6 = v3;
+            type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
+            sub_100268A2C();
+            goto LABEL_23;
+          case 9:
+            goto LABEL_4;
+        }
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *sub_1002353EC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
+  v9 = result;
+  if (*(v3 + result[6] + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v3 + v9[7] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v3 + v9[8] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v3 + v9[9] + 4) & 1) == 0)
+  {
     dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   if (*(*v3 + 16))
   {
-    sub_100256CFC();
-    dispatch thunk of Visitor.visitRepeatedEnumField<A>(value:fieldNumber:)();
-  }
-
-  v14 = (v3 + v9[9]);
-  if ((v14[1] & 1) == 0)
-  {
-    v15 = *v14;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  v16 = (v3 + v9[10]);
-  if ((v16[1] & 1) == 0)
-  {
-    v17 = *v16;
-    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
-  }
-
-  sub_100210A4C(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GanssAssistanceRequest);
-  if (*(v3[1] + 16))
-  {
-    type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss(0);
-    sub_100256CB4(&qword_100424328, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+    type metadata accessor for Proto_Gnss_Emergency_TowAssist(0);
+    sub_100256CB4(&qword_100424388, type metadata accessor for Proto_Gnss_Emergency_TowAssist, &unk_10038D3A0);
     dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
   }
 
-  v18 = v3 + v9[6];
+  sub_1001FCE34(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime, 6);
+  sub_100235660(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime, sub_100268A80, &type metadata for Proto_Gnss_Emergency_SessionProtocol);
+  sub_100235704(v3, a1, a2, a3);
+  sub_100210AD0(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
   return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_100235660(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t a7)
+{
+  result = a5(0);
+  if (*(a1 + *(result + 44)) != 6)
+  {
+    a6();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100235704(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
+  if (*(a1 + *(result + 48)) != 7)
+  {
+    sub_100268A2C();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002357DC@<X0>(int *a1@<X0>, void *a2@<X8>)
+{
+  *a2 = &_swiftEmptyArrayStorage;
+  result = UnknownStorage.init()();
+  v5 = a1[7];
+  v6 = a2 + a1[6];
+  *v6 = 0;
+  v6[4] = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  v7[4] = 1;
+  v8 = a1[9];
+  v9 = a2 + a1[8];
+  *v9 = 0;
+  v9[4] = 1;
+  v10 = a2 + v8;
+  *v10 = 0;
+  v10[4] = 1;
+  v11 = a1[11];
+  v12 = a2 + a1[10];
+  *v12 = 0;
+  v12[4] = 1;
+  *(a2 + v11) = 6;
+  v13 = a1[13];
+  *(a2 + a1[12]) = 7;
+  v14 = a2 + v13;
+  *v14 = 0;
+  v14[4] = 1;
+  return result;
+}
+
+uint64_t sub_1002358B4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A558, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime, &unk_10038D580);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100235954(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425150, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime, &unk_10038D508);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_1002359C0(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425150, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime, &unk_10038D508);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100235A64()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434930);
+  sub_100005DF0(v0, qword_100434930);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v34 = swift_allocObject();
+  *(v34 + 16) = xmmword_10036D7E0;
+  v4 = v34 + v3;
+  v5 = v34 + v3 + v1[14];
+  *(v34 + v3) = 1;
+  *v5 = "shape_type";
+  *(v5 + 8) = 10;
+  *(v5 + 16) = 2;
+  v6 = enum case for _NameMap.NameDescription.standard(_:);
+  v7 = type metadata accessor for _NameMap.NameDescription();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "hemisphere";
+  *(v9 + 8) = 10;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "altitude";
+  *(v11 + 1) = 8;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "latitude";
+  *(v13 + 1) = 8;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "longitude";
+  *(v15 + 1) = 9;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "direction_of_alt";
+  *(v17 + 1) = 16;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "semi_major_uncert";
+  *(v19 + 1) = 17;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "semi_minor_uncert";
+  *(v21 + 1) = 17;
+  v21[16] = 2;
+  v8();
+  v22 = v4 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 9;
+  *v22 = "major_axis";
+  *(v22 + 8) = 10;
+  *(v22 + 16) = 2;
+  v8();
+  v23 = (v4 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "alt_uncert";
+  *(v24 + 1) = 10;
+  v24[16] = 2;
+  v8();
+  v25 = (v4 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "confidence";
+  *(v26 + 1) = 10;
+  v26[16] = 2;
+  v8();
+  v27 = (v4 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "session_protocol";
+  *(v28 + 1) = 16;
+  v28[16] = 2;
+  v8();
+  v29 = (v4 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "pos_protocol";
+  *(v30 + 1) = 12;
+  v30[16] = 2;
+  v8();
+  v31 = (v4 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "session_id";
+  *(v32 + 1) = 10;
+  v32[16] = 2;
+  v8();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100235F84(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while ((v5 & 1) == 0)
+    {
+      switch(result)
+      {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 14:
+          type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+          break;
+        case 5:
+          type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
+          dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
+          break;
+        case 12:
+          type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
+          sub_100268A80();
+          goto LABEL_11;
+        case 13:
+          type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
+          sub_100268A2C();
+LABEL_11:
+          dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+          break;
+        default:
+          break;
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *sub_100236170(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
+  v10 = result;
+  if (*(v5 + result[5] + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v5 + v10[6] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[7] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[8] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation, 6);
+  sub_100210A4C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation, 7);
+  sub_1001FCF44(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
+  sub_100210AD0(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
+  sub_100210B54(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
+  sub_10023645C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
+  sub_1002364D8(v5, a1, a2, a3);
+  sub_10023CA1C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation, sub_100268A2C, &type metadata for Proto_Gnss_Emergency_PosProtocol);
+  sub_100236564(v5, a1, a2, a3);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023645C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+{
+  result = a5(0);
+  if ((*(a1 + *(result + 60) + 4) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002364D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
+  if (*(a1 + *(result + 64)) != 6)
+  {
+    sub_100268A80();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100236564(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
+  if ((*(a1 + *(result + 72) + 4) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10023665C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A550, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation, &unk_10038D6E8);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_1002366FC(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425168, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation, &unk_10038D670);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100236768(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425168, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation, &unk_10038D670);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023680C()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434948);
+  sub_100005DF0(v0, qword_100434948);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v72 = swift_allocObject();
+  *(v72 + 16) = xmmword_100383390;
+  v4 = v72 + v3;
+  v5 = v72 + v3 + v1[14];
+  *(v72 + v3) = 1;
+  *v5 = "ephem_af0";
+  *(v5 + 8) = 9;
+  *(v5 + 16) = 2;
+  v6 = enum case for _NameMap.NameDescription.standard(_:);
+  v7 = type metadata accessor for _NameMap.NameDescription();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "ephem_m0";
+  *(v9 + 8) = 8;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "ephem_e";
+  *(v11 + 1) = 7;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "ephem_apower_half";
+  *(v13 + 1) = 17;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "ephem_omega_a0";
+  *(v15 + 1) = 14;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "ephem_i0";
+  *(v17 + 1) = 8;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "ephem_w";
+  *(v19 + 1) = 7;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "ephem_omega_dot";
+  *(v21 + 1) = 15;
+  v21[16] = 2;
+  v8();
+  v22 = v4 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 9;
+  *v22 = "ephem_iodc";
+  *(v22 + 8) = 10;
+  *(v22 + 16) = 2;
+  v8();
+  v23 = (v4 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "ephem_toc";
+  *(v24 + 1) = 9;
+  v24[16] = 2;
+  v8();
+  v25 = (v4 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "ephem_af1";
+  *(v26 + 1) = 9;
+  v26[16] = 2;
+  v8();
+  v27 = (v4 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "ephem_crs";
+  *(v28 + 1) = 9;
+  v28[16] = 2;
+  v8();
+  v29 = (v4 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "ephem_delta_n";
+  *(v30 + 1) = 13;
+  v30[16] = 2;
+  v8();
+  v31 = (v4 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "ephem_cuc";
+  *(v32 + 1) = 9;
+  v32[16] = 2;
+  v8();
+  v33 = (v4 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 15;
+  *v34 = "ephem_cus";
+  *(v34 + 1) = 9;
+  v34[16] = 2;
+  v8();
+  v35 = (v4 + 15 * v2);
+  v36 = v35 + v1[14];
+  *v35 = 16;
+  *v36 = "toe";
+  *(v36 + 1) = 3;
+  v36[16] = 2;
+  v8();
+  v37 = v4 + 16 * v2 + v1[14];
+  *(v4 + 16 * v2) = 17;
+  *v37 = "ephem_cic";
+  *(v37 + 8) = 9;
+  *(v37 + 16) = 2;
+  v8();
+  v38 = (v4 + 17 * v2);
+  v39 = v38 + v1[14];
+  *v38 = 18;
+  *v39 = "ephem_cis";
+  *(v39 + 1) = 9;
+  v39[16] = 2;
+  v8();
+  v40 = (v4 + 18 * v2);
+  v41 = v40 + v1[14];
+  *v40 = 19;
+  *v41 = "ephem_crc";
+  *(v41 + 1) = 9;
+  v41[16] = 2;
+  v8();
+  v42 = (v4 + 19 * v2);
+  v43 = v42 + v1[14];
+  *v42 = 20;
+  *v43 = "ephem_idot";
+  *(v43 + 1) = 10;
+  v43[16] = 2;
+  v8();
+  v44 = (v4 + 20 * v2);
+  v45 = v44 + v1[14];
+  *v44 = 21;
+  *v45 = "sat_id";
+  *(v45 + 1) = 6;
+  v45[16] = 2;
+  v8();
+  v46 = (v4 + 21 * v2);
+  v47 = v46 + v1[14];
+  *v46 = 22;
+  *v47 = "ephem_ura";
+  *(v47 + 1) = 9;
+  v47[16] = 2;
+  v8();
+  v48 = (v4 + 22 * v2);
+  v49 = v48 + v1[14];
+  *v48 = 23;
+  *v49 = "ephem_sv_health";
+  *(v49 + 1) = 15;
+  v49[16] = 2;
+  v8();
+  v50 = (v4 + 23 * v2);
+  v51 = v50 + v1[14];
+  *v50 = 24;
+  *v51 = "ephem_af2";
+  *(v51 + 1) = 9;
+  v51[16] = 2;
+  v8();
+  v52 = (v4 + 24 * v2);
+  v53 = v52 + v1[14];
+  *v52 = 25;
+  *v53 = "sat_status";
+  *(v53 + 1) = 10;
+  v53[16] = 2;
+  v8();
+  v54 = (v4 + 25 * v2);
+  v55 = v54 + v1[14];
+  *v54 = 26;
+  *v55 = "ephem_code_on_l2";
+  *(v55 + 1) = 16;
+  v55[16] = 2;
+  v8();
+  v56 = (v4 + 26 * v2);
+  v57 = v56 + v1[14];
+  *v56 = 27;
+  *v57 = "ephem_l2_pflag";
+  *(v57 + 1) = 14;
+  v57[16] = 2;
+  v8();
+  v58 = (v4 + 27 * v2);
+  v59 = v58 + v1[14];
+  *v58 = 28;
+  *v59 = "ephem_tgd";
+  *(v59 + 1) = 9;
+  v59[16] = 2;
+  v8();
+  v60 = (v4 + 28 * v2);
+  v61 = v60 + v1[14];
+  *v60 = 29;
+  *v61 = "ephem_fit_flag";
+  *(v61 + 1) = 14;
+  v61[16] = 2;
+  v8();
+  v62 = (v4 + 29 * v2);
+  v63 = v62 + v1[14];
+  *v62 = 30;
+  *v63 = "ephem_aodo";
+  *(v63 + 1) = 10;
+  v63[16] = 2;
+  v8();
+  v64 = (v4 + 30 * v2);
+  v65 = v64 + v1[14];
+  *v64 = 31;
+  *v65 = "reserved1";
+  *(v65 + 1) = 9;
+  v65[16] = 2;
+  v8();
+  v66 = (v4 + 31 * v2);
+  v67 = v66 + v1[14];
+  *v66 = 32;
+  *v67 = "reserved2";
+  *(v67 + 1) = 9;
+  v67[16] = 2;
+  v8();
+  v68 = v4 + 32 * v2 + v1[14];
+  *(v4 + 32 * v2) = 33;
+  *v68 = "reserved3";
+  *(v68 + 8) = 9;
+  *(v68 + 16) = 2;
+  v8();
+  v69 = (v4 + 33 * v2);
+  v70 = v69 + v1[14];
+  *v69 = 34;
+  *v70 = "reserved4";
+  *(v70 + 1) = 9;
+  v70[16] = 2;
+  v8();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_1002371E0()
+{
+  type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris._StorageClass();
+  result = swift_allocObject();
+  *(result + 16) = 0;
+  *(result + 20) = 1;
+  *(result + 24) = 0;
+  *(result + 28) = 1;
+  *(result + 32) = 0;
+  *(result + 36) = 1;
+  *(result + 40) = 0;
+  *(result + 44) = 1;
+  *(result + 48) = 0;
+  *(result + 52) = 1;
+  *(result + 56) = 0;
+  *(result + 60) = 1;
+  *(result + 64) = 0;
+  *(result + 68) = 1;
+  *(result + 72) = 0;
+  *(result + 76) = 1;
+  *(result + 80) = 0;
+  *(result + 84) = 1;
+  *(result + 88) = 0;
+  *(result + 92) = 1;
+  *(result + 96) = 0;
+  *(result + 100) = 1;
+  *(result + 104) = 0;
+  *(result + 108) = 1;
+  *(result + 112) = 0;
+  *(result + 116) = 1;
+  *(result + 120) = 0;
+  *(result + 124) = 1;
+  *(result + 128) = 0;
+  *(result + 132) = 1;
+  *(result + 136) = 0;
+  *(result + 140) = 1;
+  *(result + 144) = 0;
+  *(result + 148) = 1;
+  *(result + 152) = 0;
+  *(result + 156) = 1;
+  *(result + 160) = 0;
+  *(result + 164) = 1;
+  *(result + 168) = 0;
+  *(result + 172) = 1;
+  *(result + 176) = 0;
+  *(result + 180) = 1;
+  *(result + 184) = 0;
+  *(result + 188) = 1;
+  *(result + 192) = 0;
+  *(result + 196) = 1;
+  *(result + 200) = 0;
+  *(result + 204) = 1;
+  *(result + 208) = 0;
+  *(result + 212) = 1;
+  *(result + 216) = 0;
+  *(result + 220) = 1;
+  *(result + 224) = 0;
+  *(result + 228) = 1;
+  *(result + 232) = 0;
+  *(result + 236) = 1;
+  *(result + 240) = 0;
+  *(result + 244) = 1;
+  *(result + 248) = 0;
+  *(result + 252) = 1;
+  *(result + 256) = 0;
+  *(result + 260) = 1;
+  *(result + 264) = 0;
+  *(result + 268) = 1;
+  *(result + 272) = 0;
+  *(result + 276) = 1;
+  *(result + 280) = 0;
+  *(result + 284) = 1;
+  qword_100461410 = result;
+  return result;
+}
+
+uint64_t sub_100237330(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  v6 = *(type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v3 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris._StorageClass();
+    v9 = swift_allocObject();
+    sub_1002486DC(v8);
+
+    *(v5 + v6) = v9;
+  }
+
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v4 || (v11 & 1) != 0)
+    {
+      return result;
+    }
+
+    switch(result)
+    {
+      case 1:
+      case 2:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+      case 15:
+      case 17:
+      case 18:
+      case 19:
+      case 20:
+      case 24:
+      case 28:
+        swift_beginAccess();
+        dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
+        goto LABEL_8;
+      case 3:
+      case 4:
+      case 9:
+      case 10:
+      case 16:
+      case 21:
+      case 22:
+      case 23:
+      case 25:
+      case 26:
+      case 27:
+      case 29:
+      case 30:
+      case 31:
+      case 32:
+      case 33:
+      case 34:
+        swift_beginAccess();
+        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+LABEL_8:
+        swift_endAccess();
+        break;
+      default:
+        continue;
+    }
+  }
+}
+
+uint64_t sub_10023780C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  v9 = *(v5 + *(type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris(0) + 20));
+  result = swift_beginAccess();
+  if (v9[20])
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  swift_beginAccess();
+  if ((v9[28] & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+  }
+
+  swift_beginAccess();
+  if ((v9[36] & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  swift_beginAccess();
+  if ((v9[44] & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_100237D10(v9, a1, a2, a3);
+  sub_100237D94(v9, a1, a2, a3, 6, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_100237E30(v9, a1, a2, a3, 7, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_100237ECC(v9, a1, a2, a3, 8, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_100237F68(v9, a1, a2, a3, 9);
+  sub_100237FF4(v9, a1, a2, a3, 10);
+  sub_100238080(v9, a1, a2, a3, 11, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_10023811C(v9, a1, a2, a3, 12, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_1002381B8(v9, a1, a2, a3, 13, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_100238254(v9, a1, a2, a3, 14, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_1002382F0(v9, a1, a2, a3, 15, &dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:));
+  sub_10023838C(v9, a1, a2, a3);
+  sub_100238410(v9, a1, a2, a3);
+  sub_100238494(v9, a1, a2, a3);
+  sub_100238518(v9, a1, a2, a3);
+  sub_10023859C(v9, a1, a2, a3);
+  sub_100238620(v9, a1, a2, a3);
+  sub_1002386A4(v9, a1, a2, a3);
+  sub_100238728(v9, a1, a2, a3);
+  sub_1002387AC(v9, a1, a2, a3);
+  sub_100238830(v9, a1, a2, a3);
+  sub_1002388B4(v9, a1, a2, a3);
+  sub_100238938(v9, a1, a2, a3);
+  sub_1002389BC(v9, a1, a2, a3);
+  sub_100238A40(v9, a1, a2, a3);
+  sub_100238AC4(v9, a1, a2, a3);
+  sub_100238B48(v9, a1, a2, a3);
+  sub_100238BD0(v9, a1, a2, a3);
+  sub_100238C58(v9, a1, a2, a3);
+  sub_100238CE0(v9, a1, a2, a3);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_100237D10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 52) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100237D94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 60) & 1) == 0)
+  {
+    return a6(*(a1 + 56), a5, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t sub_100237E30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 68) & 1) == 0)
+  {
+    return a6(*(a1 + 64), a5, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t sub_100237ECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 76) & 1) == 0)
+  {
+    return a6(*(a1 + 72), a5, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t sub_100237F68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 84) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100237FF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 92) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238080(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 100) & 1) == 0)
+  {
+    return a6(*(a1 + 96), a5, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t sub_10023811C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 108) & 1) == 0)
+  {
+    return a6(*(a1 + 104), a5, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002381B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 116) & 1) == 0)
+  {
+    return a6(*(a1 + 112), a5, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t sub_100238254(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 124) & 1) == 0)
+  {
+    return a6(*(a1 + 120), a5, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002382F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t))
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 132) & 1) == 0)
+  {
+    return a6(*(a1 + 128), a5, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t sub_10023838C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 140) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238410(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 148) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238494(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 156) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238518(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 164) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10023859C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 172) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238620(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 180) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002386A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 188) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238728(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 196) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002387AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 204) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238830(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 212) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002388B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 220) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 228) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002389BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 236) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238A40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 244) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238AC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 252) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238B48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 260) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238BD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 268) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238C58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 276) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238CE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift_beginAccess();
+  if ((*(a1 + 284) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100238D94(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
+{
+  v7 = a3(0);
+  if (*(a1 + *(v7 + 20)) != *(a2 + *(v7 + 20)) && (a4() & 1) == 0)
+  {
+    return 0;
+  }
+
+  type metadata accessor for UnknownStorage();
+  sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+}
+
+uint64_t sub_100238E54(uint64_t a1, uint64_t a2)
+{
+  swift_beginAccess();
+  v4 = *(a1 + 16);
+  v5 = *(a1 + 20);
+  swift_beginAccess();
+  v6 = *(a2 + 20);
+  if (v5)
+  {
+    if (!*(a2 + 20))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v4 != *(a2 + 16))
+    {
+      v6 = 1;
+    }
+
+    if (v6)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v7 = *(a1 + 24);
+  v8 = *(a1 + 28);
+  swift_beginAccess();
+  v9 = *(a2 + 28);
+  if (v8)
+  {
+    if (!*(a2 + 28))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v7 != *(a2 + 24))
+    {
+      v9 = 1;
+    }
+
+    if (v9)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 36);
+  swift_beginAccess();
+  v12 = *(a2 + 36);
+  if (v11)
+  {
+    if (!*(a2 + 36))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v10 != *(a2 + 32))
+    {
+      v12 = 1;
+    }
+
+    if (v12)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v13 = *(a1 + 40);
+  v14 = *(a1 + 44);
+  swift_beginAccess();
+  v15 = *(a2 + 44);
+  if (v14)
+  {
+    if (!*(a2 + 44))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v13 != *(a2 + 40))
+    {
+      v15 = 1;
+    }
+
+    if (v15)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v16 = *(a1 + 48);
+  v17 = *(a1 + 52);
+  swift_beginAccess();
+  v18 = *(a2 + 52);
+  if (v17)
+  {
+    if (!*(a2 + 52))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v16 != *(a2 + 48))
+    {
+      v18 = 1;
+    }
+
+    if (v18)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v19 = *(a1 + 56);
+  v20 = *(a1 + 60);
+  swift_beginAccess();
+  v21 = *(a2 + 60);
+  if (v20)
+  {
+    if (!*(a2 + 60))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v19 != *(a2 + 56))
+    {
+      v21 = 1;
+    }
+
+    if (v21)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v22 = *(a1 + 64);
+  v23 = *(a1 + 68);
+  swift_beginAccess();
+  v24 = *(a2 + 68);
+  if (v23)
+  {
+    if (!*(a2 + 68))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v22 != *(a2 + 64))
+    {
+      v24 = 1;
+    }
+
+    if (v24)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v25 = *(a1 + 72);
+  v26 = *(a1 + 76);
+  swift_beginAccess();
+  v27 = *(a2 + 76);
+  if (v26)
+  {
+    if (!*(a2 + 76))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v25 != *(a2 + 72))
+    {
+      v27 = 1;
+    }
+
+    if (v27)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v28 = *(a1 + 80);
+  v29 = *(a1 + 84);
+  swift_beginAccess();
+  v30 = *(a2 + 84);
+  if (v29)
+  {
+    if (!*(a2 + 84))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v28 != *(a2 + 80))
+    {
+      v30 = 1;
+    }
+
+    if (v30)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v31 = *(a1 + 88);
+  v32 = *(a1 + 92);
+  swift_beginAccess();
+  v33 = *(a2 + 92);
+  if (v32)
+  {
+    if (!*(a2 + 92))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v31 != *(a2 + 88))
+    {
+      v33 = 1;
+    }
+
+    if (v33)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v34 = *(a1 + 96);
+  v35 = *(a1 + 100);
+  swift_beginAccess();
+  v36 = *(a2 + 100);
+  if (v35)
+  {
+    if (!*(a2 + 100))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v34 != *(a2 + 96))
+    {
+      v36 = 1;
+    }
+
+    if (v36)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v37 = *(a1 + 104);
+  v38 = *(a1 + 108);
+  swift_beginAccess();
+  v39 = *(a2 + 108);
+  if (v38)
+  {
+    if (!*(a2 + 108))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v37 != *(a2 + 104))
+    {
+      v39 = 1;
+    }
+
+    if (v39)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v40 = *(a1 + 112);
+  v41 = *(a1 + 116);
+  swift_beginAccess();
+  v42 = *(a2 + 116);
+  if (v41)
+  {
+    if (!*(a2 + 116))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v40 != *(a2 + 112))
+    {
+      v42 = 1;
+    }
+
+    if (v42)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v43 = *(a1 + 120);
+  v44 = *(a1 + 124);
+  swift_beginAccess();
+  v45 = *(a2 + 124);
+  if (v44)
+  {
+    if (!*(a2 + 124))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v43 != *(a2 + 120))
+    {
+      v45 = 1;
+    }
+
+    if (v45)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v46 = *(a1 + 128);
+  v47 = *(a1 + 132);
+  swift_beginAccess();
+  v48 = *(a2 + 132);
+  if (v47)
+  {
+    if (!*(a2 + 132))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v46 != *(a2 + 128))
+    {
+      v48 = 1;
+    }
+
+    if (v48)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v49 = *(a1 + 136);
+  v50 = *(a1 + 140);
+  swift_beginAccess();
+  v51 = *(a2 + 140);
+  if (v50)
+  {
+    if (!*(a2 + 140))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v49 != *(a2 + 136))
+    {
+      v51 = 1;
+    }
+
+    if (v51)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v52 = *(a1 + 144);
+  v53 = *(a1 + 148);
+  swift_beginAccess();
+  v54 = *(a2 + 148);
+  if (v53)
+  {
+    if (!*(a2 + 148))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v52 != *(a2 + 144))
+    {
+      v54 = 1;
+    }
+
+    if (v54)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v55 = *(a1 + 152);
+  v56 = *(a1 + 156);
+  swift_beginAccess();
+  v57 = *(a2 + 156);
+  if (v56)
+  {
+    if (!*(a2 + 156))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v55 != *(a2 + 152))
+    {
+      v57 = 1;
+    }
+
+    if (v57)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v58 = *(a1 + 160);
+  v59 = *(a1 + 164);
+  swift_beginAccess();
+  v60 = *(a2 + 164);
+  if (v59)
+  {
+    if (!*(a2 + 164))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v58 != *(a2 + 160))
+    {
+      v60 = 1;
+    }
+
+    if (v60)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v61 = *(a1 + 168);
+  v62 = *(a1 + 172);
+  swift_beginAccess();
+  v63 = *(a2 + 172);
+  if (v62)
+  {
+    if (!*(a2 + 172))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v61 != *(a2 + 168))
+    {
+      v63 = 1;
+    }
+
+    if (v63)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v64 = *(a1 + 176);
+  v65 = *(a1 + 180);
+  swift_beginAccess();
+  v66 = *(a2 + 180);
+  if (v65)
+  {
+    if (!*(a2 + 180))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v64 != *(a2 + 176))
+    {
+      v66 = 1;
+    }
+
+    if (v66)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v67 = *(a1 + 184);
+  v68 = *(a1 + 188);
+  swift_beginAccess();
+  v69 = *(a2 + 188);
+  if (v68)
+  {
+    if (!*(a2 + 188))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v67 != *(a2 + 184))
+    {
+      v69 = 1;
+    }
+
+    if (v69)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v70 = *(a1 + 192);
+  v71 = *(a1 + 196);
+  swift_beginAccess();
+  v72 = *(a2 + 196);
+  if (v71)
+  {
+    if (!*(a2 + 196))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v70 != *(a2 + 192))
+    {
+      v72 = 1;
+    }
+
+    if (v72)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v73 = *(a1 + 200);
+  v74 = *(a1 + 204);
+  swift_beginAccess();
+  v75 = *(a2 + 204);
+  if (v74)
+  {
+    if (!*(a2 + 204))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v73 != *(a2 + 200))
+    {
+      v75 = 1;
+    }
+
+    if (v75)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v76 = *(a1 + 208);
+  v77 = *(a1 + 212);
+  swift_beginAccess();
+  v78 = *(a2 + 212);
+  if (v77)
+  {
+    if (!*(a2 + 212))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v76 != *(a2 + 208))
+    {
+      v78 = 1;
+    }
+
+    if (v78)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v79 = *(a1 + 216);
+  v80 = *(a1 + 220);
+  swift_beginAccess();
+  v81 = *(a2 + 220);
+  if (v80)
+  {
+    if (!*(a2 + 220))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v79 != *(a2 + 216))
+    {
+      v81 = 1;
+    }
+
+    if (v81)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v82 = *(a1 + 224);
+  v83 = *(a1 + 228);
+  swift_beginAccess();
+  v84 = *(a2 + 228);
+  if (v83)
+  {
+    if (!*(a2 + 228))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v82 != *(a2 + 224))
+    {
+      v84 = 1;
+    }
+
+    if (v84)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v85 = *(a1 + 232);
+  v86 = *(a1 + 236);
+  swift_beginAccess();
+  v87 = *(a2 + 236);
+  if (v86)
+  {
+    if (!*(a2 + 236))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v85 != *(a2 + 232))
+    {
+      v87 = 1;
+    }
+
+    if (v87)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v88 = *(a1 + 240);
+  v89 = *(a1 + 244);
+  swift_beginAccess();
+  v90 = *(a2 + 244);
+  if (v89)
+  {
+    if (!*(a2 + 244))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v88 != *(a2 + 240))
+    {
+      v90 = 1;
+    }
+
+    if (v90)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v91 = *(a1 + 248);
+  v92 = *(a1 + 252);
+  swift_beginAccess();
+  v93 = *(a2 + 252);
+  if (v92)
+  {
+    if (!*(a2 + 252))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v91 != *(a2 + 248))
+    {
+      v93 = 1;
+    }
+
+    if (v93)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v94 = *(a1 + 256);
+  v95 = *(a1 + 260);
+  swift_beginAccess();
+  v96 = *(a2 + 260);
+  if (v95)
+  {
+    if (!*(a2 + 260))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v94 != *(a2 + 256))
+    {
+      v96 = 1;
+    }
+
+    if (v96)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v97 = *(a1 + 264);
+  v98 = *(a1 + 268);
+  swift_beginAccess();
+  v99 = *(a2 + 268);
+  if (v98)
+  {
+    if (!*(a2 + 268))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v97 != *(a2 + 264))
+    {
+      v99 = 1;
+    }
+
+    if (v99)
+    {
+      return 0;
+    }
+  }
+
+  swift_beginAccess();
+  v100 = *(a1 + 272);
+  v101 = *(a1 + 276);
+  swift_beginAccess();
+  v102 = *(a2 + 276);
+  if (v101)
+  {
+    if (*(a2 + 276))
+    {
+      goto LABEL_199;
+    }
+
+    return 0;
+  }
+
+  if (v100 != *(a2 + 272))
+  {
+    v102 = 1;
+  }
+
+  if (v102)
+  {
+    return 0;
+  }
+
+LABEL_199:
+  swift_beginAccess();
+  v103 = *(a1 + 280);
+  v104 = *(a1 + 284);
+  swift_beginAccess();
+  v105 = *(a2 + 284);
+  if (v104)
+  {
+    if (!*(a2 + 284))
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v103 != *(a2 + 280))
+    {
+      v105 = 1;
+    }
+
+    if (v105)
+    {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
+uint64_t sub_1002399E4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A548, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris, &unk_10038D850);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100239A84(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004243A8, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris, &unk_10038D7D8);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100239AF0(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004243A8, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris, &unk_10038D7D8);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100239B84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+{
+  if (*(a1 + *(a3 + 20)) != *(a2 + *(a3 + 20)) && (a5() & 1) == 0)
+  {
+    return 0;
+  }
+
+  type metadata accessor for UnknownStorage();
+  sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+}
+
+uint64_t sub_100239C5C()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434960);
+  sub_100005DF0(v0, qword_100434960);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036D780;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "nr_of_sats";
+  *(v6 + 8) = 10;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "ephemeris";
+  *(v10 + 8) = 9;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "session_protocol";
+  *(v12 + 1) = 16;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "pos_protocol";
+  *(v14 + 1) = 12;
+  v14[16] = 2;
+  v9();
+  v15 = v5 + 4 * v2 + v1[14];
+  *(v5 + 4 * v2) = 5;
+  *v15 = "session_id";
+  *(v15 + 8) = 10;
+  *(v15 + 16) = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100239F40(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result <= 2)
+      {
+        if (result == 1)
+        {
+          goto LABEL_17;
+        }
+
+        if (result == 2)
+        {
+          type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris(0);
+          sub_100256CB4(&qword_1004243A8, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris, &unk_10038D7D8);
+          dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
+        }
+      }
+
+      else
+      {
+        switch(result)
+        {
+          case 3:
+            v6 = v3;
+            type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
+            sub_100268A80();
+LABEL_5:
+            v3 = v6;
+            dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+            break;
+          case 4:
+            v6 = v3;
+            type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
+            sub_100268A2C();
+            goto LABEL_5;
+          case 5:
+LABEL_17:
+            type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
+            dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+            break;
+        }
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *sub_10023A0F8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
+  v6 = result;
+  if (*(v3 + result[6] + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if (*(*v3 + 16))
+  {
+    type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris(0);
+    sub_100256CB4(&qword_1004243A8, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris, &unk_10038D7D8);
+    dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
+  }
+
+  if (*(v3 + v6[7]) != 6)
+  {
+    sub_100268A80();
+    dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  if (*(v3 + v6[8]) != 7)
+  {
+    sub_100268A2C();
+    dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  if ((*(v3 + v6[9] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023A330@<X0>(int *a1@<X0>, void *a2@<X8>)
+{
+  *a2 = &_swiftEmptyArrayStorage;
+  result = UnknownStorage.init()();
+  v5 = a1[7];
+  v6 = a2 + a1[6];
+  *v6 = 0;
+  v6[4] = 1;
+  *(a2 + v5) = 6;
+  v7 = a1[9];
+  *(a2 + a1[8]) = 7;
+  v8 = a2 + v7;
+  *v8 = 0;
+  v8[4] = 1;
+  return result;
+}
+
+uint64_t sub_10023A3D0(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A540, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel, &unk_10038D9B8);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023A470(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425190, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel, &unk_10038D940);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023A4DC(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425190, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel, &unk_10038D940);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023A5E0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v3 || (v5 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 1)
+    {
+      type metadata accessor for Proto_Gnss_Emergency_CplaneConfig(0);
+      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10023A66C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_CplaneConfig(0);
+  if (*(v3 + *(result + 20)) == 2)
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023A780(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A538, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig, &unk_10038DB20);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023A820(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004251A8, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig, &unk_10038DAA8);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023A88C(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004251A8, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig, &unk_10038DAA8);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023A930()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434990);
+  sub_100005DF0(v0, qword_100434990);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C830;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "config";
+  *(v6 + 8) = 6;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.same(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "cdma_context";
+  *(v10 + 1) = 12;
+  v10[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023AB48(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result == 1)
+      {
+        break;
+      }
+
+      if (result == 2)
+      {
+        v6 = v3;
+        type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
+        type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext(0);
+        v7 = type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext;
+        v8 = &unk_10038EE58;
+        v9 = &qword_1004252F0;
+        goto LABEL_5;
+      }
+
+LABEL_6:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+
+    v6 = v3;
+    type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
+    type metadata accessor for Proto_Gnss_Emergency_Configuration(0);
+    v7 = type metadata accessor for Proto_Gnss_Emergency_Configuration;
+    v8 = &unk_100386A28;
+    v9 = &qword_100424A80;
+LABEL_5:
+    sub_100256CB4(v9, v7, v8);
+    v3 = v6;
+    dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+    goto LABEL_6;
+  }
+
+  return result;
+}
+
+uint64_t sub_10023ACD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t))
+{
+  result = a4(v5, a1, a2, a3);
+  if (!v6)
+  {
+    a5(v5, a1, a2, a3);
+    return UnknownStorage.traverse<A>(visitor:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10023AD54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_100423F10, &qword_1003833E0);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_Configuration(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
+  sub_10000A0A4(a1 + *(v12 + 20), v7, &qword_100423F10, &qword_1003833E0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100423F10, &qword_1003833E0);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_Configuration);
+  sub_100256CB4(&qword_100424A80, type metadata accessor for Proto_Gnss_Emergency_Configuration, &unk_100386A28);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_Configuration);
+}
+
+uint64_t sub_10023AF70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_100424098, &qword_100383568);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
+  sub_10000A0A4(a1 + *(v12 + 24), v7, &qword_100424098, &qword_100383568);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424098, &qword_100383568);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext);
+  sub_100256CB4(&qword_1004252F0, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext, &unk_10038EE58);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext);
+}
+
+uint64_t sub_10023B21C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A530, type metadata accessor for Proto_Gnss_Emergency_CplaneContext, &unk_10038DC88);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023B2BC(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004251C0, type metadata accessor for Proto_Gnss_Emergency_CplaneContext, &unk_10038DC10);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023B328(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004251C0, type metadata accessor for Proto_Gnss_Emergency_CplaneContext, &unk_10038DC10);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023B3CC()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_1004349A8);
+  sub_100005DF0(v0, qword_1004349A8);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036D7B0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "helo_enabled";
+  *(v6 + 8) = 12;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "imsi";
+  *(v10 + 8) = 4;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "cplane_config";
+  *(v12 + 1) = 13;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "supl_config";
+  *(v14 + 1) = 11;
+  v14[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023B664(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result > 2)
+      {
+        if (result == 3)
+        {
+          v6 = v3;
+          type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
+          type metadata accessor for Proto_Gnss_Emergency_CplaneConfig(0);
+          v7 = type metadata accessor for Proto_Gnss_Emergency_CplaneConfig;
+          v8 = &unk_10038DAA8;
+          v9 = &qword_1004251A8;
+        }
+
+        else
+        {
+          if (result != 4)
+          {
+            goto LABEL_5;
+          }
+
+          v6 = v3;
+          type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
+          type metadata accessor for Proto_Gnss_Emergency_SuplConfig(0);
+          v7 = type metadata accessor for Proto_Gnss_Emergency_SuplConfig;
+          v8 = &unk_100386CF8;
+          v9 = &qword_100424AB0;
+        }
+
+        sub_100256CB4(v9, v7, v8);
+        v3 = v6;
+        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+      }
+
+      else if (result == 1)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
+        dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+      }
+
+      else if (result == 2)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
+        dispatch thunk of Decoder.decodeSingularStringField(value:)();
+      }
+
+LABEL_5:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10023B820(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
+  v10 = result;
+  if (*(v5 + *(result + 20)) == 2)
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if (*(v5 + *(v10 + 24) + 8))
+  {
+    dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
+  }
+
+  sub_10023B910(v5, a1, a2, a3);
+  sub_10023BB2C(v5, a1, a2, a3);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023B910(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_1004240A0, &qword_100383570);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CplaneConfig(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
+  sub_10000A0A4(a1 + *(v12 + 28), v7, &qword_1004240A0, &qword_100383570);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_1004240A0, &qword_100383570);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig);
+  sub_100256CB4(&qword_1004251A8, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig, &unk_10038DAA8);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_CplaneConfig);
+}
+
+uint64_t sub_10023BB2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_1004240A8, &qword_100383578);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SuplConfig(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
+  sub_10000A0A4(a1 + *(v12 + 32), v7, &qword_1004240A8, &qword_100383578);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_1004240A8, &qword_100383578);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_SuplConfig);
+  sub_100256CB4(&qword_100424AB0, type metadata accessor for Proto_Gnss_Emergency_SuplConfig, &unk_100386CF8);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_SuplConfig);
+}
+
+uint64_t sub_10023BD94@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  UnknownStorage.init()();
+  v4 = a1[6];
+  *(a2 + a1[5]) = 2;
+  v5 = (a2 + v4);
+  *v5 = 0;
+  v5[1] = 0;
+  v6 = a1[7];
+  v7 = type metadata accessor for Proto_Gnss_Emergency_CplaneConfig(0);
+  (*(*(v7 - 8) + 56))(a2 + v6, 1, 1, v7);
+  v8 = a1[8];
+  v9 = type metadata accessor for Proto_Gnss_Emergency_SuplConfig(0);
+  v10 = *(*(v9 - 8) + 56);
+
+  return v10(a2 + v8, 1, 1, v9);
+}
+
+uint64_t sub_10023BE9C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A528, type metadata accessor for Proto_Gnss_Emergency_EmergConfig, &unk_10038DDF0);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023BF3C(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004251D8, type metadata accessor for Proto_Gnss_Emergency_EmergConfig, &unk_10038DD78);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023BFA8(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004251D8, type metadata accessor for Proto_Gnss_Emergency_EmergConfig, &unk_10038DD78);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023C04C()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_1004349C0);
+  sub_100005DF0(v0, qword_1004349C0);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v32 = swift_allocObject();
+  *(v32 + 16) = xmmword_10036D7A0;
+  v4 = v32 + v3;
+  v5 = v32 + v3 + v1[14];
+  *(v32 + v3) = 1;
+  *v5 = "code_phase";
+  *(v5 + 8) = 10;
+  *(v5 + 16) = 2;
+  v6 = enum case for _NameMap.NameDescription.standard(_:);
+  v7 = type metadata accessor for _NameMap.NameDescription();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "doppler0";
+  *(v9 + 8) = 8;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "doppler1";
+  *(v11 + 1) = 8;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "doppler_uncer";
+  *(v13 + 1) = 13;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "int_code_phase";
+  *(v15 + 1) = 14;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "gps_bit_number";
+  *(v17 + 1) = 14;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "code_phase_search_window";
+  *(v19 + 1) = 24;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "azimuth";
+  *(v21 + 1) = 7;
+  v21[16] = 2;
+  v8();
+  v22 = v4 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 9;
+  *v22 = "elevation";
+  *(v22 + 8) = 9;
+  *(v22 + 16) = 2;
+  v8();
+  v23 = (v4 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "sat_id";
+  *(v24 + 1) = 6;
+  v24[16] = 2;
+  v8();
+  v25 = (v4 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "azimuth_lsb";
+  *(v26 + 1) = 11;
+  v26[16] = 2;
+  v8();
+  v27 = (v4 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "elevation_lsb";
+  *(v28 + 1) = 13;
+  v28[16] = 2;
+  v8();
+  v29 = (v4 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "doppler_uncer_ext";
+  *(v30 + 1) = 17;
+  v30[16] = 2;
+  v8();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023C524(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while ((v5 & 1) == 0)
+    {
+      switch(result)
+      {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+          type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+          break;
+        case 13:
+          type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement(0);
+          sub_10026839C();
+          dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+          break;
+        default:
+          break;
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *sub_10023C6D0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement(0);
+  v10 = result;
+  if (*(v5 + result[5] + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v5 + v10[6] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[7] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[8] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
+  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, 6);
+  sub_100210A4C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, 7);
+  sub_1001FCF44(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement);
+  sub_100210AD0(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
+  sub_100210B54(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement);
+  sub_10023645C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement);
+  sub_10023C9A4(v5, a1, a2, a3);
+  sub_10023CA1C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, sub_10026839C, &type metadata for Proto_Gnss_Emergency_GpsDopplerUncMpsExt);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023C9A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement(0);
+  if ((*(a1 + *(result + 64) + 4) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10023CA1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t a7)
+{
+  result = a5(0);
+  if (*(a1 + *(result + 68)) != 7)
+  {
+    a6();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10023CB0C@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = UnknownStorage.init()();
+  v5 = a1[6];
+  v6 = a2 + a1[5];
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  *(v7 + 4) = 1;
+  v8 = a1[8];
+  v9 = a2 + a1[7];
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  v10 = a2 + v8;
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  v11 = a1[10];
+  v12 = a2 + a1[9];
+  *v12 = 0;
+  *(v12 + 4) = 1;
+  v13 = a2 + v11;
+  *v13 = 0;
+  *(v13 + 4) = 1;
+  v14 = a1[12];
+  v15 = a2 + a1[11];
+  *v15 = 0;
+  *(v15 + 4) = 1;
+  v16 = a2 + v14;
+  *v16 = 0;
+  *(v16 + 4) = 1;
+  v17 = a1[14];
+  v18 = a2 + a1[13];
+  *v18 = 0;
+  *(v18 + 4) = 1;
+  v19 = a2 + v17;
+  *v19 = 0;
+  *(v19 + 4) = 1;
+  v20 = a1[16];
+  v21 = a2 + a1[15];
+  *v21 = 0;
+  *(v21 + 4) = 1;
+  v22 = a2 + v20;
+  *v22 = 0;
+  *(v22 + 4) = 1;
+  *(a2 + a1[17]) = 7;
+  return result;
+}
+
+uint64_t sub_10023CC1C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A520, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, &unk_10038DF58);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023CCBC(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004243D8, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, &unk_10038DEE0);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023CD28(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004243D8, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, &unk_10038DEE0);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023CDCC()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_1004349D8);
+  sub_100005DF0(v0, qword_1004349D8);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_10036D790;
+  v4 = v23 + v3;
+  v5 = v23 + v3 + v1[14];
+  *(v23 + v3) = 1;
+  *v5 = "gps_tow";
+  *(v5 + 8) = 7;
+  *(v5 + 16) = 2;
+  v6 = enum case for _NameMap.NameDescription.standard(_:);
+  v7 = type metadata accessor for _NameMap.NameDescription();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "nr_of_sats";
+  *(v9 + 8) = 10;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "cell_time_assistance";
+  *(v11 + 1) = 20;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "acquisition";
+  *(v13 + 1) = 11;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "confidence";
+  *(v15 + 1) = 10;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "session_protocol";
+  *(v17 + 1) = 16;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "pos_protocol";
+  *(v19 + 1) = 12;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "session_id";
+  *(v21 + 1) = 10;
+  v21[16] = 2;
+  v8();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023D16C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result > 4)
+      {
+        if (result <= 6)
+        {
+          if (result == 5)
+          {
+            goto LABEL_4;
+          }
+
+          v6 = v3;
+          type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
+          sub_100268A80();
+          goto LABEL_22;
+        }
+
+        if (result == 7)
+        {
+          v6 = v3;
+          type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
+          sub_100268A2C();
+LABEL_22:
+          v3 = v6;
+          dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+          goto LABEL_5;
+        }
+
+        if (result == 8)
+        {
+          goto LABEL_4;
+        }
+      }
+
+      else if (result > 2)
+      {
+        if (result == 3)
+        {
+          type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
+          type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance(0);
+          sub_100256CB4(&qword_100425128, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance, &unk_10038D238);
+          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+        }
+
+        else
+        {
+          type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement(0);
+          sub_100256CB4(&qword_1004243D8, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, &unk_10038DEE0);
+          dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
+        }
+      }
+
+      else if (result == 1 || result == 2)
+      {
+LABEL_4:
+        type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
+        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+      }
+
+LABEL_5:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10023D3EC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
+  v9 = result;
+  if (*(v3 + *(result + 24) + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v3 + *(v9 + 28) + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_10023D5DC(v3, a1, a2, a3);
+  if (*(*v3 + 16))
+  {
+    type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement(0);
+    sub_100256CB4(&qword_1004243D8, type metadata accessor for Proto_Gnss_Emergency_GpsAcqElement, &unk_10038DEE0);
+    dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
+  }
+
+  if ((*(v3 + *(v9 + 36) + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_10023D7F8(v3, a1, a2, a3);
+  sub_10023D884(v3, a1, a2, a3);
+  sub_1001FCF44(v3, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023D5DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_1004240B0, &qword_100383580);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
+  sub_10000A0A4(a1 + *(v12 + 32), v7, &qword_1004240B0, &qword_100383580);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_1004240B0, &qword_100383580);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance);
+  sub_100256CB4(&qword_100425128, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance, &unk_10038D238);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance);
+}
+
+uint64_t sub_10023D7F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
+  if (*(a1 + *(result + 40)) != 6)
+  {
+    sub_100268A80();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10023D884(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
+  if (*(a1 + *(result + 44)) != 7)
+  {
+    sub_100268A2C();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10023D95C@<X0>(int *a1@<X0>, char *a2@<X8>)
+{
+  *a2 = &_swiftEmptyArrayStorage;
+  UnknownStorage.init()();
+  v4 = a1[7];
+  v5 = &a2[a1[6]];
+  *v5 = 0;
+  v5[4] = 1;
+  v6 = &a2[v4];
+  *v6 = 0;
+  v6[4] = 1;
+  v7 = a1[8];
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CellTimeAssistance(0);
+  result = (*(*(v8 - 8) + 56))(&a2[v7], 1, 1, v8);
+  v10 = a1[10];
+  v11 = &a2[a1[9]];
+  *v11 = 0;
+  v11[4] = 1;
+  a2[v10] = 6;
+  v12 = a1[12];
+  a2[a1[11]] = 7;
+  v13 = &a2[v12];
+  *v13 = 0;
+  v13[4] = 1;
+  return result;
+}
+
+uint64_t sub_10023DA64(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A518, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance, &unk_10038E0C0);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023DB04(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425200, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance, &unk_10038E048);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023DB70(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425200, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance, &unk_10038E048);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023DC2C(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v7 = type metadata accessor for _NameMap();
+  sub_100036108(v7, a2);
+  sub_100005DF0(v7, a2);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v8 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v9 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_100374440;
+  v11 = v10 + v9 + v8[14];
+  *(v10 + v9) = 1;
+  *v11 = a3;
+  *(v11 + 8) = a4;
+  *(v11 + 16) = 2;
+  v12 = enum case for _NameMap.NameDescription.standard(_:);
+  v13 = type metadata accessor for _NameMap.NameDescription();
+  (*(*(v13 - 8) + 104))(v11, v12, v13);
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023DDE0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while ((v5 & 1) == 0)
+    {
+      if (result == 1)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest(0);
+        sub_1002687E0();
+        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10023DE94(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest(0);
+  if (*(v3 + *(result + 20)) == 6)
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    sub_1002687E0();
+    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023DF48(uint64_t a1, uint64_t a2)
+{
+  v4 = *(type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest(0) + 20);
+  v5 = *(a1 + v4);
+  v6 = *(a2 + v4);
+  if (v5 == 6)
+  {
+    if (v6 != 6)
+    {
+      return 0;
+    }
+  }
+
+  else if (v5 != v6)
+  {
+    return 0;
+  }
+
+  type metadata accessor for UnknownStorage();
+  sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+}
+
+uint64_t sub_10023E04C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = UnknownStorage.init()();
+  *(a2 + *(a1 + 20)) = 6;
+  return result;
+}
+
+uint64_t sub_10023E0B0(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A510, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest, &unk_10038E228);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023E150(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425218, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest, &unk_10038E1B0);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023E1BC(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425218, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest, &unk_10038E1B0);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023E238(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a3 + 20);
+  v4 = *(a1 + v3);
+  v5 = *(a2 + v3);
+  if (v4 == 6)
+  {
+    if (v5 != 6)
+    {
+      return 0;
+    }
+  }
+
+  else if (v4 != v5)
+  {
+    return 0;
+  }
+
+  type metadata accessor for UnknownStorage();
+  sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+}
+
+uint64_t sub_10023E314()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434A08);
+  sub_100005DF0(v0, qword_100434A08);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C800;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "result";
+  *(v6 + 8) = 6;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.same(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "network_type";
+  *(v10 + 1) = 12;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 3;
+  *v11 = "cell_time";
+  *(v11 + 8) = 9;
+  *(v11 + 16) = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023E57C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      switch(result)
+      {
+        case 3:
+          type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
+          type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+          sub_100256CB4(&qword_100425110, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, &unk_10038D0D0);
+          dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+          goto LABEL_5;
+        case 2:
+          v6 = v3;
+          type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
+          sub_1002687E0();
+          break;
+        case 1:
+          v6 = v3;
+          type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
+          sub_1000361C0();
+          break;
+        default:
+          goto LABEL_5;
+      }
+
+      v3 = v6;
+      dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+LABEL_5:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10023E6E4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
+  v10 = result;
+  if (*(v5 + *(result + 20)) == 10)
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    sub_1000361C0();
+    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if (*(v5 + *(v10 + 24)) != 6)
+  {
+    sub_1002687E0();
+    dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  sub_10023E7F4(v5, a1, a2, a3);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023E7F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_100424090, &qword_100383560);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
+  sub_10000A0A4(a1 + *(v12 + 28), v7, &qword_100424090, &qword_100383560);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424090, &qword_100383560);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
+  sub_100256CB4(&qword_100425110, type metadata accessor for Proto_Gnss_Emergency_CellTimeData, &unk_10038D0D0);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_CellTimeData);
+}
+
+uint64_t sub_10023EA5C@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  UnknownStorage.init()();
+  v4 = a1[6];
+  *(a2 + a1[5]) = 10;
+  *(a2 + v4) = 6;
+  v5 = a1[7];
+  v6 = type metadata accessor for Proto_Gnss_Emergency_CellTimeData(0);
+  v7 = *(*(v6 - 8) + 56);
+
+  return v7(a2 + v5, 1, 1, v6);
+}
+
+uint64_t sub_10023EB18(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A508, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance, &unk_10038E390);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023EBB8(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425230, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance, &unk_10038E318);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023EC24(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425230, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance, &unk_10038E318);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023ECC8()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434A20);
+  sub_100005DF0(v0, qword_100434A20);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_10036C820;
+  v4 = v20 + v3 + v1[14];
+  *(v20 + v3) = 1;
+  *v4 = "latitude_degrees";
+  *(v4 + 8) = 16;
+  *(v4 + 16) = 2;
+  v5 = enum case for _NameMap.NameDescription.standard(_:);
+  v6 = type metadata accessor for _NameMap.NameDescription();
+  v7 = *(*(v6 - 8) + 104);
+  (v7)(v4, v5, v6);
+  v8 = v20 + v3 + v2 + v1[14];
+  *(v20 + v3 + v2) = 2;
+  *v8 = "longitude_degrees";
+  *(v8 + 8) = 17;
+  *(v8 + 16) = 2;
+  v7();
+  v9 = (v20 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 3;
+  *v10 = "altitude_meters";
+  *(v10 + 1) = 15;
+  v10[16] = 2;
+  v7();
+  v11 = (v20 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 4;
+  *v12 = "ver_uncert_meters";
+  *(v12 + 1) = 17;
+  v12[16] = 2;
+  v7();
+  v13 = (v20 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "horz_uncert_meters";
+  *(v14 + 1) = 18;
+  v14[16] = 2;
+  v7();
+  v15 = (v20 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "horz_confidence";
+  *(v16 + 1) = 15;
+  v16[16] = 2;
+  v7();
+  v17 = (v20 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 7;
+  *v18 = "vert_confidence";
+  *(v18 + 1) = 15;
+  v18[16] = 2;
+  v7();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023F00C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v3 || (v5 & 1) != 0)
+    {
+      return result;
+    }
+
+    if (result <= 3)
+    {
+      if (result == 1 || result == 2 || result == 3)
+      {
+LABEL_2:
+        type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation(0);
+        dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
+      }
+    }
+
+    else
+    {
+      if (result <= 5)
+      {
+        goto LABEL_2;
+      }
+
+      if (result == 6 || result == 7)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation(0);
+        dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+      }
+    }
+  }
+}
+
+int *sub_10023F168(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation(0);
+  v10 = result;
+  if (*(v5 + result[5] + 8))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v5 + v10[6] + 8) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[7] + 8) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[8] + 8) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  sub_10023F2F0(v5, a1, a2, a3);
+  sub_1001FCE34(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation, 6);
+  sub_100210A4C(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation, 7);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023F2F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation(0);
+  if ((*(a1 + *(result + 36) + 8) & 1) == 0)
+  {
+    return dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10023F3B4@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = UnknownStorage.init()();
+  v5 = a1[6];
+  v6 = a2 + a1[5];
+  *v6 = 0;
+  *(v6 + 8) = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  *(v7 + 8) = 1;
+  v8 = a1[8];
+  v9 = a2 + a1[7];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = a2 + v8;
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1[10];
+  v12 = a2 + a1[9];
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  v13 = a2 + v11;
+  *v13 = 0;
+  *(v13 + 4) = 1;
+  v14 = a2 + a1[11];
+  *v14 = 0;
+  *(v14 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_10023F474(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A500, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation, &unk_10038E4F8);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023F514(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425248, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation, &unk_10038E480);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023F580(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425248, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceLocation, &unk_10038E480);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023F628()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434A38);
+  sub_100005DF0(v0, qword_100434A38);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C800;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "gps_tow_seconds";
+  *(v6 + 8) = 15;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "gps_week";
+  *(v10 + 1) = 8;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 3;
+  *v11 = "gps_time_uncertainty";
+  *(v11 + 8) = 20;
+  *(v11 + 16) = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023F884(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v3 || (v5 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 3)
+    {
+      type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceTime(0);
+      dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
+    }
+
+    else if (result == 2 || result == 1)
+    {
+      type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceTime(0);
+      dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10023F95C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceTime(0);
+  v6 = result;
+  if (*(v3 + *(result + 20) + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v3 + *(v6 + 24) + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v3 + *(v6 + 28) + 8) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_10023FA90@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = UnknownStorage.init()();
+  v5 = a1[6];
+  v6 = a2 + a1[5];
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  *(v7 + 4) = 1;
+  v8 = a2 + a1[7];
+  *v8 = 0;
+  *(v8 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_10023FB18(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A4F8, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceTime, &unk_10038E660);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10023FBB8(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425260, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceTime, &unk_10038E5E8);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_10023FC24(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425260, type metadata accessor for Proto_Gnss_Emergency_NetworkReferenceTime, &unk_10038E5E8);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10023FCC8()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434A50);
+  sub_100005DF0(v0, qword_100434A50);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C800;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "horz";
+  *(v6 + 8) = 4;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.same(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "heading";
+  *(v10 + 1) = 7;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 3;
+  *v11 = "vertical";
+  *(v11 + 8) = 8;
+  *(v11 + 16) = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_10023FFF4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A4F0, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo, &unk_10038E7C8);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100240094(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425278, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo, &unk_10038E750);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100240100(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425278, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo, &unk_10038E750);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_1002401A8()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434A68);
+  sub_100005DF0(v0, qword_100434A68);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C830;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "bias";
+  *(v6 + 8) = 4;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.same(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "drift";
+  *(v10 + 1) = 5;
+  v10[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_1002404B0(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A4E8, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo, &unk_10038E930);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100240550(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_100425290, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo, &unk_10038E8B8);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_1002405BC(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_100425290, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo, &unk_10038E8B8);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100240660()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434A80);
+  sub_100005DF0(v0, qword_100434A80);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C830;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "altitude";
+  *(v6 + 8) = 8;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.same(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "altitude_unc";
+  *(v10 + 1) = 12;
+  v10[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100240970@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = UnknownStorage.init()();
+  v5 = *(a1 + 24);
+  v6 = a2 + *(a1 + 20);
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a2 + v5;
+  *v7 = 0;
+  *(v7 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_1002409B8(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A4E0, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo, &unk_10038EA98);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100240A58(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004252A8, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo, &unk_10038EA20);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100240AC4(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004252A8, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo, &unk_10038EA20);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100240B68()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434A98);
+  sub_100005DF0(v0, qword_100434A98);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v30 = swift_allocObject();
+  *(v30 + 16) = xmmword_1003833A0;
+  v4 = v30 + v3;
+  v5 = v30 + v3 + v1[14];
+  *(v30 + v3) = 1;
+  *v5 = "latitude";
+  *(v5 + 8) = 8;
+  *(v5 + 16) = 2;
+  v6 = enum case for _NameMap.NameDescription.same(_:);
+  v7 = type metadata accessor for _NameMap.NameDescription();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "longitude";
+  *(v9 + 8) = 9;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "loc_unc_ang";
+  *(v11 + 1) = 11;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "loc_unc_a";
+  *(v13 + 1) = 9;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "loc_unc_p";
+  *(v15 + 1) = 9;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "fix_type";
+  *(v17 + 1) = 8;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "velocity_included";
+  *(v19 + 1) = 17;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "velocity";
+  *(v21 + 1) = 8;
+  v21[16] = 2;
+  v8();
+  v22 = v4 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 9;
+  *v22 = "clock_included";
+  *(v22 + 8) = 14;
+  *(v22 + 16) = 2;
+  v8();
+  v23 = (v4 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "clock";
+  *(v24 + 1) = 5;
+  v24[16] = 2;
+  v8();
+  v25 = (v4 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "altitude_included";
+  *(v26 + 1) = 17;
+  v26[16] = 2;
+  v8();
+  v27 = (v4 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "altitude";
+  *(v28 + 1) = 8;
+  v28[16] = 2;
+  v8();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100240FF8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result > 6)
+      {
+        break;
+      }
+
+      if (result > 3)
+      {
+        if (result == 4 || result == 5)
+        {
+LABEL_4:
+          type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+          goto LABEL_5;
+        }
+
+        type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+        sub_100268834();
+        dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+      }
+
+      else if (result == 1 || result == 2 || result == 3)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_5:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+
+    if (result > 9)
+    {
+      if (result == 10)
+      {
+        v6 = v3;
+        type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+        type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo(0);
+        v7 = type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo;
+        v8 = &unk_10038E8B8;
+        v9 = &qword_100425290;
+        goto LABEL_27;
+      }
+
+      if (result != 11)
+      {
+        if (result != 12)
+        {
+          goto LABEL_5;
+        }
+
+        v6 = v3;
+        type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+        type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo(0);
+        v7 = type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo;
+        v8 = &unk_10038EA20;
+        v9 = &qword_1004252A8;
+LABEL_27:
+        sub_100256CB4(v9, v7, v8);
+        v3 = v6;
+LABEL_30:
+        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+        goto LABEL_5;
+      }
+    }
+
+    else
+    {
+      if (result == 7)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+LABEL_33:
+        dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+        goto LABEL_5;
+      }
+
+      if (result == 8)
+      {
+        type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+        type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo(0);
+        sub_100256CB4(&qword_100425278, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo, &unk_10038E750);
+        goto LABEL_30;
+      }
+    }
+
+    type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+    goto LABEL_33;
+  }
+
+  return result;
+}
+
+int *sub_100241324(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  v10 = result;
+  if (*(v5 + result[5] + 4))
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if ((*(v5 + v10[6] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[7] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  if ((*(v5 + v10[8] + 4) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_1001FC468(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd, &dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:));
+  sub_100241544(v5, a1, a2, a3);
+  sub_1002415D0(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd);
+  sub_10024164C(v5, a1, a2, a3);
+  sub_100241868(v5, a1, a2, a3, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd);
+  sub_1002418E4(v5, a1, a2, a3);
+  sub_100241B00(v5, a1, a2, a3);
+  sub_100241B78(v5, a1, a2, a3);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_100241544(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  if (*(a1 + *(result + 40)) != 4)
+  {
+    sub_100268834();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002415D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+{
+  result = a5(0);
+  if (*(a1 + *(result + 44)) != 2)
+  {
+    return dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_10024164C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_1004240B8, &qword_100383588);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  sub_10000A0A4(a1 + *(v12 + 48), v7, &qword_1004240B8, &qword_100383588);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_1004240B8, &qword_100383588);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo);
+  sub_100256CB4(&qword_100425278, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo, &unk_10038E750);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo);
+}
+
+uint64_t sub_100241868(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+{
+  result = a5(0);
+  if (*(a1 + *(result + 52)) != 2)
+  {
+    return dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002418E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_1004240C0, &qword_100383590);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  sub_10000A0A4(a1 + *(v12 + 56), v7, &qword_1004240C0, &qword_100383590);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_1004240C0, &qword_100383590);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo);
+  sub_100256CB4(&qword_100425290, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo, &unk_10038E8B8);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo);
+}
+
+uint64_t sub_100241B00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  if (*(a1 + *(result + 60)) != 2)
+  {
+    return dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100241B78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = sub_100024A2C(&qword_1004240C8, &qword_100383598);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  sub_10000A0A4(a1 + *(v12 + 64), v7, &qword_1004240C8, &qword_100383598);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_1004240C8, &qword_100383598);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo);
+  sub_100256CB4(&qword_1004252A8, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo, &unk_10038EA20);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo);
+}
+
+uint64_t sub_100241DE0@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+{
+  UnknownStorage.init()();
+  v4 = a1[6];
+  v5 = a2 + a1[5];
+  *v5 = 0;
+  *(v5 + 4) = 1;
+  v6 = a2 + v4;
+  *v6 = 0;
+  *(v6 + 4) = 1;
+  v7 = a1[8];
+  v8 = a2 + a1[7];
+  *v8 = 0;
+  *(v8 + 4) = 1;
+  v9 = a2 + v7;
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  v10 = a1[10];
+  v11 = a2 + a1[9];
+  *v11 = 0;
+  *(v11 + 4) = 1;
+  *(a2 + v10) = 4;
+  v12 = a1[12];
+  *(a2 + a1[11]) = 2;
+  v13 = type metadata accessor for Proto_Gnss_Emergency_Is801VelocityInfo(0);
+  (*(*(v13 - 8) + 56))(a2 + v12, 1, 1, v13);
+  v14 = a1[14];
+  *(a2 + a1[13]) = 2;
+  v15 = type metadata accessor for Proto_Gnss_Emergency_Is801ClockInfo(0);
+  (*(*(v15 - 8) + 56))(a2 + v14, 1, 1, v15);
+  v16 = a1[15];
+  v17 = a1[16];
+  *(a2 + v16) = 2;
+  v18 = type metadata accessor for Proto_Gnss_Emergency_Is801HeightInfo(0);
+  v19 = *(*(v18 - 8) + 56);
+
+  return v19(a2 + v17, 1, 1, v18);
+}
+
+uint64_t sub_100241F7C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A4D8, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd, &unk_10038EC00);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10024201C(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004252C0, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd, &unk_10038EB88);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_100242088(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004252C0, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd, &unk_10038EB88);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_10024212C()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434AB0);
+  sub_100005DF0(v0, qword_100434AB0);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036C820;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "result";
+  *(v6 + 8) = 6;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.same(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "response_type";
+  *(v10 + 8) = 13;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "session_info";
+  *(v12 + 1) = 12;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "gps_measurements";
+  *(v14 + 1) = 16;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "location_indication";
+  *(v16 + 1) = 19;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "aflt_action";
+  *(v18 + 1) = 11;
+  v18[16] = 2;
+  v9();
+  v19 = (v5 + 6 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 7;
+  *v20 = "is_meas_in_cdma_time";
+  *(v20 + 1) = 20;
+  v20[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_100242488()
+{
+  type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate._StorageClass(0);
+  v0 = swift_allocObject();
+  *(v0 + 16) = 9;
+  *(v0 + 20) = 0;
+  *(v0 + 24) = 1;
+  v1 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+  v2 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  (*(*(v2 - 8) + 56))(v0 + v1, 1, 1, v2);
+  v3 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
+  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
+  (*(*(v4 - 8) + 56))(v0 + v3, 1, 1, v4);
+  v5 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationIndication;
+  v6 = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  result = (*(*(v6 - 8) + 56))(v0 + v5, 1, 1, v6);
+  *(v0 + OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__afltAction) = 4;
+  *(v0 + OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime) = 2;
+  qword_100461498 = v0;
+  return result;
+}
+
+uint64_t sub_1002425D0()
+{
+  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo, &qword_100423FF8, &qword_1003834C8);
+  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements, &qword_100424040, &qword_100383510);
+  sub_1000059A8(v0 + OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationIndication, &qword_1004240D0, &qword_1003835A0);
+  v1 = *(*v0 + 48);
+  v2 = *(*v0 + 52);
+
+  return _swift_deallocClassInstance(v0, v1, v2);
+}
+
+uint64_t sub_100242684(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  v6 = *(type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v3 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate._StorageClass(0);
+    v9 = swift_allocObject();
+    sub_1002492C0(v8);
+
+    *(v5 + v6) = v9;
+  }
+
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v4)
+  {
+    while (1)
+    {
+      if (v11)
+      {
+        return result;
+      }
+
+      if (result <= 3)
+      {
+        break;
+      }
+
+      if (result <= 5)
+      {
+        v12 = v4;
+        if (result == 4)
+        {
+          swift_beginAccess();
+          type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
+          v13 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements;
+          v14 = &unk_10038BA50;
+          v15 = &qword_100424FA0;
+        }
+
+        else
+        {
+          swift_beginAccess();
+          type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+          v13 = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd;
+          v14 = &unk_10038EB88;
+          v15 = &qword_1004252C0;
+        }
+
+LABEL_19:
+        sub_100256CB4(v15, v13, v14);
+        v4 = v12;
+        dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+        goto LABEL_23;
+      }
+
+      if (result == 6)
+      {
+        v16 = v4;
+        swift_beginAccess();
+        sub_1002682F4();
+        goto LABEL_21;
+      }
+
+      if (result != 7)
+      {
+        goto LABEL_24;
+      }
+
+      swift_beginAccess();
+      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+LABEL_23:
+      swift_endAccess();
+LABEL_24:
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+
+    if (result == 1)
+    {
+      v16 = v4;
+      swift_beginAccess();
+      sub_100268B28();
+LABEL_21:
+      v4 = v16;
+      dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+      goto LABEL_23;
+    }
+
+    if (result == 2)
+    {
+      swift_beginAccess();
+      dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
+      goto LABEL_23;
+    }
+
+    if (result != 3)
+    {
+      goto LABEL_24;
+    }
+
+    v12 = v4;
+    swift_beginAccess();
+    type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+    v13 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo;
+    v14 = &unk_100388648;
+    v15 = &qword_100424C40;
+    goto LABEL_19;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002429EC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  v9 = *(v5 + *(type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate(0) + 20));
+  result = swift_beginAccess();
+  if (*(v9 + 16) == 9)
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    sub_100268B28();
+    result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  swift_beginAccess();
+  if ((*(v9 + 24) & 1) == 0)
+  {
+    dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
+  }
+
+  sub_100242B78(v9, a1, a2, a3);
+  sub_100242DA0(v9, a1, a2, a3);
+  sub_100242FC8(v9, a1, a2, a3);
+  sub_1002431F0(v9, a1, a2, a3);
+  sub_100243294(v9, a1, a2, a3, &OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime);
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+uint64_t sub_100242B78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+  swift_beginAccess();
+  sub_10000A0A4(a1 + v12, v7, &qword_100423FF8, &qword_1003834C8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100423FF8, &qword_1003834C8);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+  sub_100256CB4(&qword_100424C40, type metadata accessor for Proto_Gnss_Emergency_SessionInfo, &unk_100388648);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+}
+
+uint64_t sub_100242DA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = sub_100024A2C(&qword_100424040, &qword_100383510);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
+  swift_beginAccess();
+  sub_10000A0A4(a1 + v12, v7, &qword_100424040, &qword_100383510);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_100424040, &qword_100383510);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+  sub_100256CB4(&qword_100424FA0, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements, &unk_10038BA50);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+}
+
+uint64_t sub_100242FC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
+  v5 = sub_100024A2C(&qword_1004240D0, &qword_1003835A0);
+  __chkstk_darwin(v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationIndication;
+  swift_beginAccess();
+  sub_10000A0A4(a1 + v12, v7, &qword_1004240D0, &qword_1003835A0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1000059A8(v7, &qword_1004240D0, &qword_1003835A0);
+  }
+
+  sub_1002463C0(v7, v11, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd);
+  sub_100256CB4(&qword_1004252C0, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd, &unk_10038EB88);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return sub_100246490(v11, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd);
+}
+
+uint64_t sub_1002431F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__afltAction;
+  result = swift_beginAccess();
+  if (*(a1 + v5) != 4)
+  {
+    sub_1002682F4();
+    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+uint64_t sub_100243294(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+{
+  v6 = *a5;
+  result = swift_beginAccess();
+  if (*(a1 + v6) != 2)
+  {
+    return dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+  }
+
+  return result;
+}
+
+BOOL sub_100243364(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd(0);
+  v97 = *(v4 - 8);
+  v98 = v4;
+  __chkstk_darwin(v4);
+  v93 = &v90 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v96 = sub_100024A2C(&qword_10042A8F8, &qword_100390C10);
+  __chkstk_darwin(v96);
+  v7 = &v90 - v6;
+  v8 = sub_100024A2C(&qword_1004240D0, &qword_1003835A0);
+  v9 = __chkstk_darwin(v8 - 8);
+  v94 = &v90 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v105 = &v90 - v11;
+  v12 = type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements(0);
+  v102 = *(v12 - 8);
+  v103 = v12;
+  __chkstk_darwin(v12);
+  v95 = &v90 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v101 = sub_100024A2C(&qword_10042A900, &qword_100390C18);
+  __chkstk_darwin(v101);
+  v104 = &v90 - v14;
+  v15 = sub_100024A2C(&qword_100424040, &qword_100383510);
+  v16 = __chkstk_darwin(v15 - 8);
+  v99 = &v90 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v16);
+  v107 = &v90 - v18;
+  v19 = type metadata accessor for Proto_Gnss_Emergency_SessionInfo(0);
+  v108 = *(v19 - 8);
+  __chkstk_darwin(v19);
+  v100 = &v90 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = sub_100024A2C(&qword_10042A908, &qword_100390C20);
+  __chkstk_darwin(v21);
+  v23 = &v90 - v22;
+  v24 = sub_100024A2C(&qword_100423FF8, &qword_1003834C8);
+  v25 = __chkstk_darwin(v24 - 8);
+  v27 = &v90 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v25);
+  v29 = &v90 - v28;
+  swift_beginAccess();
+  v30 = *(a1 + 16);
+  swift_beginAccess();
+  v31 = *(a2 + 16);
+  if (v30 == 9)
+  {
+    if (v31 != 9)
+    {
+      return 0;
+    }
+
+LABEL_6:
+    swift_beginAccess();
+    v33 = *(a1 + 20);
+    v92 = a1;
+    v34 = *(a1 + 24);
+    swift_beginAccess();
+    v35 = *(a2 + 24);
+    if (v34)
+    {
+      if (!*(a2 + 24))
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (v33 != *(a2 + 20))
+      {
+        v35 = 1;
+      }
+
+      if (v35)
+      {
+        return 0;
+      }
+    }
+
+    v91 = v7;
+    v106 = a2;
+    v36 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+    v37 = v92;
+    swift_beginAccess();
+    sub_10000A0A4(v37 + v36, v29, &qword_100423FF8, &qword_1003834C8);
+    v38 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__sessionInfo;
+    swift_beginAccess();
+    v39 = *(v21 + 48);
+    sub_10000A0A4(v29, v23, &qword_100423FF8, &qword_1003834C8);
+    v40 = v106 + v38;
+    v41 = v106;
+    sub_10000A0A4(v40, &v23[v39], &qword_100423FF8, &qword_1003834C8);
+    v42 = *(v108 + 48);
+    if (v42(v23, 1, v19) == 1)
+    {
+
+      sub_1000059A8(v29, &qword_100423FF8, &qword_1003834C8);
+      if (v42(&v23[v39], 1, v19) == 1)
+      {
+        sub_1000059A8(v23, &qword_100423FF8, &qword_1003834C8);
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      sub_10000A0A4(v23, v27, &qword_100423FF8, &qword_1003834C8);
+      if (v42(&v23[v39], 1, v19) != 1)
+      {
+        v43 = v100;
+        sub_1002463C0(&v23[v39], v100, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        v37 = v92;
+
+        v44 = sub_1002540CC(v27, v43);
+        sub_100246490(v43, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        sub_1000059A8(v29, &qword_100423FF8, &qword_1003834C8);
+        sub_100246490(v27, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+        sub_1000059A8(v23, &qword_100423FF8, &qword_1003834C8);
+        if ((v44 & 1) == 0)
+        {
+          goto LABEL_41;
+        }
+
+LABEL_20:
+        v45 = v41;
+        v46 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
+        swift_beginAccess();
+        v47 = v107;
+        sub_10000A0A4(v37 + v46, v107, &qword_100424040, &qword_100383510);
+        v48 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__gpsMeasurements;
+        swift_beginAccess();
+        v49 = *(v101 + 48);
+        v50 = v104;
+        sub_10000A0A4(v47, v104, &qword_100424040, &qword_100383510);
+        sub_10000A0A4(v45 + v48, v50 + v49, &qword_100424040, &qword_100383510);
+        v51 = v103;
+        v52 = *(v102 + 48);
+        if (v52(v50, 1, v103) == 1)
+        {
+          sub_1000059A8(v47, &qword_100424040, &qword_100383510);
+          v53 = v52(v50 + v49, 1, v51);
+          v54 = v105;
+          if (v53 == 1)
+          {
+            sub_1000059A8(v50, &qword_100424040, &qword_100383510);
+LABEL_29:
+            v67 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationIndication;
+            swift_beginAccess();
+            sub_10000A0A4(v37 + v67, v54, &qword_1004240D0, &qword_1003835A0);
+            v68 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__locationIndication;
+            v69 = v106;
+            swift_beginAccess();
+            v70 = *(v96 + 48);
+            v71 = v91;
+            sub_10000A0A4(v54, v91, &qword_1004240D0, &qword_1003835A0);
+            v72 = v69 + v68;
+            v73 = v71;
+            sub_10000A0A4(v72, v71 + v70, &qword_1004240D0, &qword_1003835A0);
+            v74 = v98;
+            v75 = *(v97 + 48);
+            if (v75(v71, 1, v98) == 1)
+            {
+              sub_1000059A8(v54, &qword_1004240D0, &qword_1003835A0);
+              if (v75(v71 + v70, 1, v74) == 1)
+              {
+                sub_1000059A8(v71, &qword_1004240D0, &qword_1003835A0);
+                v76 = v106;
+LABEL_36:
+                v82 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__afltAction;
+                swift_beginAccess();
+                v83 = *(v37 + v82);
+                v84 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__afltAction;
+                swift_beginAccess();
+                v85 = *(v76 + v84);
+                if (v83 == 4)
+                {
+                  if (v85 == 4)
+                  {
+LABEL_46:
+                    v86 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime;
+                    swift_beginAccess();
+                    v87 = *(v37 + v86);
+
+                    v88 = OBJC_IVAR____TtCV10ALProtobuf50Proto_Gnss_Emergency_MeasurementReportWithEstimateP33_A557130C73F8FFB56F85D28EDB16AF9913_StorageClass__isMeasInCdmaTime;
+                    swift_beginAccess();
+                    v89 = *(v76 + v88);
+
+                    if (v87 != 2)
+                    {
+                      return v89 != 2 && ((v87 ^ v89) & 1) == 0;
+                    }
+
+                    return v89 == 2;
+                  }
+                }
+
+                else if (v85 != 4 && v83 == v85)
+                {
+                  goto LABEL_46;
+                }
+
+LABEL_41:
+
+                return 0;
+              }
+            }
+
+            else
+            {
+              v77 = v71;
+              v78 = v94;
+              sub_10000A0A4(v77, v94, &qword_1004240D0, &qword_1003835A0);
+              if (v75(v73 + v70, 1, v74) != 1)
+              {
+                v79 = v73 + v70;
+                v80 = v93;
+                sub_1002463C0(v79, v93, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd);
+                v81 = sub_10024D2B4(v78, v80);
+                sub_100246490(v80, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd);
+                sub_1000059A8(v54, &qword_1004240D0, &qword_1003835A0);
+                sub_100246490(v78, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd);
+                sub_1000059A8(v73, &qword_1004240D0, &qword_1003835A0);
+                v76 = v106;
+                if ((v81 & 1) == 0)
+                {
+                  goto LABEL_41;
+                }
+
+                goto LABEL_36;
+              }
+
+              sub_1000059A8(v54, &qword_1004240D0, &qword_1003835A0);
+              sub_100246490(v78, type metadata accessor for Proto_Gnss_Emergency_Is801LocationInd);
+            }
+
+            v57 = &qword_10042A8F8;
+            v58 = &qword_100390C10;
+            v59 = v73;
+LABEL_40:
+            sub_1000059A8(v59, v57, v58);
+            goto LABEL_41;
+          }
+        }
+
+        else
+        {
+          v55 = v99;
+          sub_10000A0A4(v50, v99, &qword_100424040, &qword_100383510);
+          v56 = v52(v50 + v49, 1, v51);
+          v54 = v105;
+          if (v56 != 1)
+          {
+            v60 = v50 + v49;
+            v61 = v95;
+            sub_1002463C0(v60, v95, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+            v62 = *(v51 + 20);
+            v63 = *(v55 + v62);
+            v64 = *(v61 + v62);
+            if (v63 != v64)
+            {
+
+              v65 = sub_10022648C(v63, v64);
+
+              if (!v65)
+              {
+                sub_100246490(v61, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+                sub_1000059A8(v107, &qword_100424040, &qword_100383510);
+                sub_100246490(v55, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+                v59 = v50;
+                v57 = &qword_100424040;
+                v58 = &qword_100383510;
+                goto LABEL_40;
+              }
+            }
+
+            type metadata accessor for UnknownStorage();
+            sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+            v66 = dispatch thunk of static Equatable.== infix(_:_:)();
+            sub_100246490(v61, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+            sub_1000059A8(v107, &qword_100424040, &qword_100383510);
+            sub_100246490(v55, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+            sub_1000059A8(v50, &qword_100424040, &qword_100383510);
+            if ((v66 & 1) == 0)
+            {
+              goto LABEL_41;
+            }
+
+            goto LABEL_29;
+          }
+
+          sub_1000059A8(v107, &qword_100424040, &qword_100383510);
+          sub_100246490(v55, type metadata accessor for Proto_Gnss_Emergency_GpsMeasurements);
+        }
+
+        v57 = &qword_10042A900;
+        v58 = &qword_100390C18;
+        v59 = v50;
+        goto LABEL_40;
+      }
+
+      sub_1000059A8(v29, &qword_100423FF8, &qword_1003834C8);
+      sub_100246490(v27, type metadata accessor for Proto_Gnss_Emergency_SessionInfo);
+    }
+
+    sub_1000059A8(v23, &qword_10042A908, &qword_100390C20);
+    goto LABEL_41;
+  }
+
+  result = 0;
+  if (v31 != 9 && v30 == v31)
+  {
+    goto LABEL_6;
+  }
+
+  return result;
+}
+
+uint64_t sub_100244194(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A4D0, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate, &unk_10038ED68);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_100244234(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004252D8, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate, &unk_10038ECF0);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_1002442A0(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004252D8, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate, &unk_10038ECF0);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100244344()
+{
+  v0 = type metadata accessor for _NameMap();
+  sub_100036108(v0, qword_100434AC8);
+  sub_100005DF0(v0, qword_100434AC8);
+  sub_100024A2C(&qword_100418BE8, &unk_100373D70);
+  v1 = (sub_100024A2C(&qword_100418BF0, &qword_10036D6C0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_10036D7B0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "include1x_msb";
+  *(v6 + 8) = 13;
+  *(v6 + 16) = 2;
+  v7 = enum case for _NameMap.NameDescription.standard(_:);
+  v8 = type metadata accessor for _NameMap.NameDescription();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "optimize_gnss_meas_with1x_msb";
+  *(v10 + 8) = 29;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "optimize_aflt_meas_with1x_msb";
+  *(v12 + 1) = 29;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "use_cdma_time_for_meas";
+  *(v14 + 1) = 22;
+  v14[16] = 2;
+  v9();
+  return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t sub_1002445DC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result > 2)
+      {
+        if (result == 3 || result == 4)
+        {
+LABEL_9:
+          type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext(0);
+          dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+        }
+      }
+
+      else if (result == 1 || result == 2)
+      {
+        goto LABEL_9;
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
+}
+
+int *sub_1002446C8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext(0);
+  v6 = result;
+  if (*(v3 + result[5]) == 2)
+  {
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+    if (v4)
+    {
+      return result;
+    }
+  }
+
+  if (*(v3 + v6[6]) != 2)
+  {
+    dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+  }
+
+  if (*(v3 + v6[7]) != 2)
+  {
+    dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+  }
+
+  if (*(v3 + v6[8]) != 2)
+  {
+    dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
+  }
+
+  return UnknownStorage.traverse<A>(visitor:)();
+}
+
+Swift::Int sub_100244824(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
+{
+  Hasher.init(_seed:)();
+  a1(0);
+  sub_100256CB4(a2, a3, a4);
+  dispatch thunk of Hashable.hash(into:)();
+  return Hasher._finalize()();
+}
+
+uint64_t sub_1002448DC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100256CB4(&qword_10042A4C8, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext, &unk_10038EED0);
+
+  return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
+}
+
+uint64_t sub_10024497C(uint64_t a1)
+{
+  v2 = sub_100256CB4(&qword_1004252F0, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext, &unk_10038EE58);
+
+  return Message.debugDescription.getter(a1, v2);
+}
+
+uint64_t sub_1002449E8(uint64_t a1, uint64_t a2)
+{
+  sub_100256CB4(&qword_1004252F0, type metadata accessor for Proto_Gnss_Emergency_Cdma1xContext, &unk_10038EE58);
+
+  return Message.hash(into:)();
+}
+
+uint64_t sub_100244A64(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 16);
+  if (v2 != *(a2 + 16))
+  {
+    return 0;
+  }
+
+  if (!v2 || result == a2)
+  {
+    return 1;
+  }
+
+  v3 = (result + 32);
+  v4 = (a2 + 32);
+  while (v2)
+  {
+    v6 = *v3++;
+    v5 = v6;
+    v7 = *v4++;
+    result = v5 == v7;
+    if (v5 != v7 || v2-- == 1)
+    {
+      return result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_100244AC0(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss(0);
+  v5 = __chkstk_darwin(v4);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v10 = &v21 - v9;
+  v11 = *(a1 + 16);
+  if (v11 == *(a2 + 16))
+  {
+    if (!v11 || a1 == a2)
+    {
+      return 1;
+    }
+
+    v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+    v13 = a1 + v12;
+    v14 = a2 + v12;
+    v15 = *(v8 + 72);
+    while (1)
+    {
+      sub_100246428(v13, v10, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+      sub_100246428(v14, v7, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+      v16 = *(v4 + 20);
+      v17 = *&v10[v16];
+      v18 = *&v7[v16];
+      if (v17 != v18)
+      {
+
+        v19 = sub_10022D378(v17, v18);
+
+        if (!v19)
+        {
+          break;
+        }
+      }
+
+      type metadata accessor for UnknownStorage();
+      sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+      if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
+      {
+        break;
+      }
+
+      sub_100246490(v7, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+      sub_100246490(v10, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+      v14 += v15;
+      v13 += v15;
+      if (!--v11)
+      {
+        return 1;
+      }
+    }
+
+    sub_100246490(v7, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+    sub_100246490(v10, type metadata accessor for Proto_Gnss_Emergency_GanssAidRequestPerGanss);
+  }
+
+  return 0;
+}
+
+uint64_t sub_100244D30(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris(0);
+  v5 = __chkstk_darwin(v4);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v10 = &v20 - v9;
+  v11 = *(a1 + 16);
+  if (v11 == *(a2 + 16))
+  {
+    if (!v11 || a1 == a2)
+    {
+      return 1;
+    }
+
+    v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+    v13 = a1 + v12;
+    v14 = a2 + v12;
+    v15 = *(v8 + 72);
+    while (1)
+    {
+      sub_100246428(v13, v10, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris);
+      sub_100246428(v14, v7, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris);
+      v16 = *(v4 + 20);
+      v17 = *&v10[v16];
+      v18 = *&v7[v16];
+      if (v17 != v18 && (sub_100238E54(v17, v18) & 1) == 0)
+      {
+        break;
+      }
+
+      type metadata accessor for UnknownStorage();
+      sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+      if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
+      {
+        break;
+      }
+
+      sub_100246490(v7, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris);
+      sub_100246490(v10, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris);
+      v14 += v15;
+      v13 += v15;
+      if (!--v11)
+      {
+        return 1;
+      }
+    }
+
+    sub_100246490(v7, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris);
+    sub_100246490(v10, type metadata accessor for Proto_Gnss_Emergency_GpsEphemeris);
+  }
+
+  return 0;
+}
+
+uint64_t sub_100244F78(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for Proto_Gnss_Emergency_TowAssist(0);
+  v5 = __chkstk_darwin(v4);
+  v7 = &v43 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v10 = &v43 - v9;
+  v11 = *(a1 + 16);
+  if (v11 == *(a2 + 16))
+  {
+    if (v11 && a1 != a2)
+    {
+      v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+      v13 = a1 + v12;
+      v14 = a2 + v12;
+      v15 = *(v8 + 72);
+      while (1)
+      {
+        sub_100246428(v13, v10, type metadata accessor for Proto_Gnss_Emergency_TowAssist);
+        sub_100246428(v14, v7, type metadata accessor for Proto_Gnss_Emergency_TowAssist);
+        v16 = v4[5];
+        v17 = &v10[v16];
+        v18 = v10[v16 + 4];
+        v19 = &v7[v16];
+        v20 = v7[v16 + 4];
+        if (v18)
+        {
+          if (!v20)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        else
+        {
+          if (*v17 != *v19)
+          {
+            LOBYTE(v20) = 1;
+          }
+
+          if (v20)
+          {
+LABEL_39:
+            sub_100246490(v7, type metadata accessor for Proto_Gnss_Emergency_TowAssist);
+            sub_100246490(v10, type metadata accessor for Proto_Gnss_Emergency_TowAssist);
+            goto LABEL_40;
+          }
+        }
+
+        v21 = v4[6];
+        v22 = &v10[v21];
+        v23 = v10[v21 + 4];
+        v24 = &v7[v21];
+        v25 = v7[v21 + 4];
+        if (v23)
+        {
+          if (!v25)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        else
+        {
+          if (*v22 != *v24)
+          {
+            LOBYTE(v25) = 1;
+          }
+
+          if (v25)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        v26 = v4[7];
+        v27 = &v10[v26];
+        v28 = v10[v26 + 4];
+        v29 = &v7[v26];
+        v30 = v7[v26 + 4];
+        if (v28)
+        {
+          if (!v30)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        else
+        {
+          if (*v27 != *v29)
+          {
+            LOBYTE(v30) = 1;
+          }
+
+          if (v30)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        v31 = v4[8];
+        v32 = &v10[v31];
+        v33 = v10[v31 + 4];
+        v34 = &v7[v31];
+        v35 = v7[v31 + 4];
+        if (v33)
+        {
+          if (!v35)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        else
+        {
+          if (*v32 != *v34)
+          {
+            LOBYTE(v35) = 1;
+          }
+
+          if (v35)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        v36 = v4[9];
+        v37 = &v10[v36];
+        v38 = v10[v36 + 4];
+        v39 = &v7[v36];
+        v40 = v7[v36 + 4];
+        if (v38)
+        {
+          if (!v40)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        else
+        {
+          if (*v37 != *v39)
+          {
+            LOBYTE(v40) = 1;
+          }
+
+          if (v40)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        type metadata accessor for UnknownStorage();
+        sub_100256CB4(&qword_100418BA8, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+        v41 = dispatch thunk of static Equatable.== infix(_:_:)();
+        sub_100246490(v7, type metadata accessor for Proto_Gnss_Emergency_TowAssist);
+        sub_100246490(v10, type metadata accessor for Proto_Gnss_Emergency_TowAssist);
+        if (v41)
+        {
+          v14 += v15;
+          v13 += v15;
+          if (--v11)
+          {
+            continue;
+          }
+        }
+
+        return v41 & 1;
+      }
+    }
+
+    v41 = 1;
+  }
+
+  else
+  {
+LABEL_40:
+    v41 = 0;
+  }
+
+  return v41 & 1;
 }

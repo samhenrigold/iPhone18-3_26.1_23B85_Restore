@@ -1,5 +1,6 @@
 @interface PCPComputeRequest
 - (BOOL)isEqual:(id)equal;
+- (id)completionStatusAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -25,6 +26,21 @@
   {
     return 0;
   }
+}
+
+- (id)completionStatusAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B85B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCompletionStatus:(id)status
@@ -121,27 +137,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_input)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    completionStatus = self->_completionStatus;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    receivedInterruptRequest = self->_receivedInterruptRequest;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

@@ -24,24 +24,24 @@
 
 - (WBSPasswordWarningHideMarker)initWithDictionaryRepresentation:(id)representation
 {
-  v4 = [representation objectForKeyedSubscript:@"issueTypes"];
-  if (v4)
+  v5 = [representation objectForKeyedSubscript:@"issueTypes"];
+  if (v5)
   {
-    v5 = -[WBSPasswordWarningHideMarker initWithIssueTypes:]([WBSPasswordWarningHideMarker alloc], "initWithIssueTypes:", [v4 unsignedIntegerValue]);
+    v6 = -[WBSPasswordWarningHideMarker initWithIssueTypes:]([WBSPasswordWarningHideMarker alloc], "initWithIssueTypes:", [v5 unsignedIntegerValue]);
   }
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXKeychain(0, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [WBSPasswordWarningHideMarker initWithDictionaryRepresentation:v6];
+      [WBSPasswordWarningHideMarker initWithDictionaryRepresentation:v7];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -72,13 +72,11 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"issueTypes";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"issueTypes";
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_issueTypes];
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

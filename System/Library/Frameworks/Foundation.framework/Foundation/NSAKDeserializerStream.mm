@@ -34,7 +34,7 @@
 
 - (id)initFromPath:(id)path
 {
-  if ([path isEqualToString:&stru_1EEEFDF90] || (v5 = objc_msgSend(objc_allocWithZone(MEMORY[0x1E695DEF0]), "initWithContentsOfFile:options:error:", path, 1, 0)) == 0)
+  if (objc_msgSend_isEqualToString_(path, a2, &stru_1EEEFDF90) || (v5 = [objc_allocWithZone(MEMORY[0x1E695DEF0]) initWithContentsOfFile:path options:1 error:0]) == 0)
   {
     [(NSAKDeserializerStream *)self dealloc];
     return 0;

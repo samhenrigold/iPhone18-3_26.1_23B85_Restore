@@ -135,7 +135,7 @@
     v52 = 0u;
     if (sampleBufferDisplayLayer)
     {
-      [sampleBufferDisplayLayer affineTransform];
+      objc_msgSend_affineTransform(sampleBufferDisplayLayer);
       v37 = 0;
       v38 = &v37;
       v39 = 0xA010000000;
@@ -148,7 +148,7 @@
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      [sampleBufferDisplayLayer transform];
+      objc_msgSend_transform(sampleBufferDisplayLayer);
       v25 = 0;
       v26 = &v25;
       v27 = 0xA010000000;
@@ -161,7 +161,7 @@
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      [sampleBufferDisplayLayer sublayerTransform];
+      objc_msgSend_sublayerTransform(sampleBufferDisplayLayer);
     }
 
     else
@@ -253,7 +253,7 @@ void __63__AVSampleBufferDisplayLayerPlayerController__startObservation__block_i
       v77.origin.y = v8;
       v77.size.width = v9;
       v77.size.height = v10;
-      if (!CGRectEqualToRect(v6[1], v77) || (v11 = *(*(a1 + 40) + 8), [v5 bounds], v78.origin.x = v12, v78.origin.y = v13, v78.size.width = v14, v78.size.height = v15, !CGRectEqualToRect(v11[1], v78)) || (v16 = *(*(a1 + 48) + 8), objc_msgSend(v5, "affineTransform"), v17 = v16[3], *&t1.m11 = v16[2], *&t1.m13 = v17, *&t1.m21 = v16[4], !CGAffineTransformEqualToTransform(&t1, &t2)) || (v18 = *(*(a1 + 56) + 8), objc_msgSend(v5, "transform"), v19 = v18[7], *&t1.m31 = v18[6], *&t1.m33 = v19, v20 = v18[9], *&t1.m41 = v18[8], *&t1.m43 = v20, v21 = v18[3], *&t1.m11 = v18[2], *&t1.m13 = v21, v22 = v18[5], *&t1.m21 = v18[4], *&t1.m23 = v22, !CATransform3DEqualToTransform(&t1, &t2)) || (v23 = *(*(a1 + 64) + 8), objc_msgSend(v5, "sublayerTransform"), v24 = v23[7], *&t1.m31 = v23[6], *&t1.m33 = v24, v25 = v23[9], *&t1.m41 = v23[8], *&t1.m43 = v25, v26 = v23[3], *&t1.m11 = v23[2], *&t1.m13 = v26, v27 = v23[5], *&t1.m21 = v23[4], *&t1.m23 = v27, !CATransform3DEqualToTransform(&t1, &t2)))
+      if (!CGRectEqualToRect(v6[1], v77) || (v11 = *(*(a1 + 40) + 8), [v5 bounds], v78.origin.x = v12, v78.origin.y = v13, v78.size.width = v14, v78.size.height = v15, !CGRectEqualToRect(v11[1], v78)) || (v16 = *(*(a1 + 48) + 8), objc_msgSend_affineTransform(v5), v17 = v16[3], *&t1.m11 = v16[2], *&t1.m13 = v17, *&t1.m21 = v16[4], !CGAffineTransformEqualToTransform(&t1, &t2)) || (v18 = *(*(a1 + 56) + 8), objc_msgSend_transform(v5), v19 = v18[7], *&t1.m31 = v18[6], *&t1.m33 = v19, v20 = v18[9], *&t1.m41 = v18[8], *&t1.m43 = v20, v21 = v18[3], *&t1.m11 = v18[2], *&t1.m13 = v21, v22 = v18[5], *&t1.m21 = v18[4], *&t1.m23 = v22, !CATransform3DEqualToTransform(&t1, &t2)) || (v23 = *(*(a1 + 64) + 8), objc_msgSend_sublayerTransform(v5), v24 = v23[7], *&t1.m31 = v23[6], *&t1.m33 = v24, v25 = v23[9], *&t1.m41 = v23[8], *&t1.m43 = v25, v26 = v23[3], *&t1.m11 = v23[2], *&t1.m13 = v26, v27 = v23[5], *&t1.m21 = v23[4], *&t1.m23 = v27, !CATransform3DEqualToTransform(&t1, &t2)))
       {
         [v5 frame];
         v28 = *(*(a1 + 32) + 8);
@@ -267,14 +267,14 @@ void __63__AVSampleBufferDisplayLayerPlayerController__startObservation__block_i
         v33[5] = v35;
         v33[6] = v36;
         v33[7] = v37;
-        [v5 affineTransform];
+        objc_msgSend_affineTransform(v5);
         v38 = *(*(a1 + 48) + 8);
         v40 = v73;
         v39 = v74;
         v38[2] = v72;
         v38[3] = v40;
         v38[4] = v39;
-        [v5 transform];
+        objc_msgSend_transform(v5);
         v41 = *(*(a1 + 56) + 8);
         v43 = v66;
         v42 = v67;
@@ -290,7 +290,7 @@ void __63__AVSampleBufferDisplayLayerPlayerController__startObservation__block_i
         v41[9] = v45;
         v41[4] = v43;
         v41[5] = v42;
-        [v5 sublayerTransform];
+        objc_msgSend_sublayerTransform(v5);
         v48 = *(*(a1 + 64) + 8);
         v50 = v58;
         v49 = v59;
@@ -385,8 +385,8 @@ uint64_t __63__AVSampleBufferDisplayLayerPlayerController__startObservation__blo
   v10 = 1;
   if (!v9 && v7)
   {
-    [(AVSampleBufferDisplayLayerPlayerController *)self contentTimeRange];
-    if ((v14 & 1) == 0 || ([(AVSampleBufferDisplayLayerPlayerController *)self contentTimeRange], (v13 & 1) == 0) || ([(AVSampleBufferDisplayLayerPlayerController *)self contentTimeRange], v12) || ([(AVSampleBufferDisplayLayerPlayerController *)self contentTimeRange], v11 < 0))
+    objc_msgSend_contentTimeRange(self);
+    if ((v14 & 1) == 0 || (objc_msgSend_contentTimeRange(self), (v13 & 1) == 0) || (objc_msgSend_contentTimeRange(self), v12) || (objc_msgSend_contentTimeRange(self), v11 < 0))
     {
       v10 = 1;
     }
@@ -442,10 +442,10 @@ uint64_t __63__AVSampleBufferDisplayLayerPlayerController__startObservation__blo
 
 - (BOOL)hasLiveStreamingContent
 {
-  [(AVSampleBufferDisplayLayerPlayerController *)self contentTimeRange];
+  objc_msgSend_contentTimeRange(self, a2);
   if (v6)
   {
-    [(AVSampleBufferDisplayLayerPlayerController *)self contentTimeRange];
+    objc_msgSend_contentTimeRange(self);
     return (v5 >> 2) & 1;
   }
 
@@ -526,7 +526,7 @@ uint64_t __63__AVSampleBufferDisplayLayerPlayerController__startObservation__blo
     [(AVSampleBufferDisplayLayerPlayerController *)self setOldPictureInPictureAvailableState:[(AVSampleBufferDisplayLayerPlayerController *)self isPictureInPictureAvailable]];
   }
 
-  return [(AVSampleBufferDisplayLayerPlayerController *)self status]!= 3 && [(AVSampleBufferDisplayLayerPlayerController *)self isPictureInPictureAvailable];
+  return [(AVSampleBufferDisplayLayerPlayerController *)self status:*v9]!= 3 && [(AVSampleBufferDisplayLayerPlayerController *)self isPictureInPictureAvailable];
 }
 
 - (void)setPictureInPictureInterrupted:(BOOL)interrupted
@@ -699,7 +699,7 @@ void __96__AVSampleBufferDisplayLayerPlayerController_seekByTimeInterval_toleran
     pictureInPictureController2 = [(AVSampleBufferDisplayLayerPlayerController *)self pictureInPictureController];
     if (playbackDelegateAdapter2)
     {
-      [playbackDelegateAdapter2 pictureInPictureControllerTimeRangeForPlayback:pictureInPictureController2];
+      objc_msgSend_pictureInPictureControllerTimeRangeForPlayback_(playbackDelegateAdapter2);
     }
 
     else
@@ -715,14 +715,14 @@ void __96__AVSampleBufferDisplayLayerPlayerController_seekByTimeInterval_toleran
     [(AVSampleBufferDisplayLayerPlayerController *)self setContentTimeRange:v22];
 
     memset(v22, 0, 24);
-    [(AVSampleBufferDisplayLayerPlayerController *)self _currentSBDLTime];
-    [(AVSampleBufferDisplayLayerPlayerController *)self contentTimeRange];
+    objc_msgSend__currentSBDLTime(self);
+    objc_msgSend_contentTimeRange(self);
     rhs = v15;
     CMTimeSubtract(v22, &lhs, &rhs);
     v9 = [AVPictureInPicturePlaybackState alloc];
     lhs = *v22;
     Seconds = CMTimeGetSeconds(&lhs);
-    [(AVSampleBufferDisplayLayerPlayerController *)self contentTimeRange];
+    objc_msgSend_contentTimeRange(self);
     lhs = v14;
     v11 = CMTimeGetSeconds(&lhs);
     [(AVSampleBufferDisplayLayerPlayerController *)self _effectiveRate];

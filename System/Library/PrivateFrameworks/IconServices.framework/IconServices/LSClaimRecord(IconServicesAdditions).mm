@@ -6,37 +6,37 @@
 
 - (id)_IS_iconProvideingRecord
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   typeIdentifiers = [self typeIdentifiers];
   claimingBundleRecord = [self claimingBundleRecord];
   exportedTypeRecords = [claimingBundleRecord exportedTypeRecords];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = typeIdentifiers;
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * v8);
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __64__LSClaimRecord_IconServicesAdditions___IS_iconProvideingRecord__block_invoke;
-        v19[3] = &unk_1E77C6560;
-        v19[4] = v9;
-        v10 = [exportedTypeRecords objectsPassingTest:v19];
+        v9 = *(*(&v19 + 1) + 8 * v8);
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __64__LSClaimRecord_IconServicesAdditions___IS_iconProvideingRecord__block_invoke;
+        v18[3] = &unk_1E77C6560;
+        v18[4] = v9;
+        v10 = [exportedTypeRecords objectsPassingTest:v18];
         anyObject = [v10 anyObject];
 
         if (anyObject)
@@ -52,7 +52,7 @@
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v6)
       {
         continue;
@@ -68,7 +68,6 @@
 LABEL_11:
   v15 = v13;
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

@@ -54,26 +54,24 @@ LABEL_3:
 
 + (NSDictionary)properties
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v11[0] = @"reportMessage";
+  v11[5] = *MEMORY[0x1E69E9840];
+  v10[0] = @"reportMessage";
   v2 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v12[0] = v2;
-  v11[1] = @"reportReason";
+  v11[0] = v2;
+  v10[1] = @"reportReason";
   v3 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v12[1] = v3;
-  v11[2] = @"shortcut";
+  v11[1] = v3;
+  v10[2] = @"shortcut";
   v4 = [WFCloudKitItemProperty itemReferencePropertyWithName:@"shortcut" itemClass:objc_opt_class()];
-  v12[2] = v4;
-  v11[3] = @"shortcutContent";
+  v11[2] = v4;
+  v10[3] = @"shortcutContent";
   v5 = [MEMORY[0x1E69E0AF8] typeWithString:@"com.apple.shortcuts.workflow-file"];
   v6 = [WFCloudKitItemProperty assetPropertyWithName:@"shortcutContent" fileType:v5];
-  v12[3] = v6;
-  v11[4] = @"status";
+  v11[3] = v6;
+  v10[4] = @"status";
   v7 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

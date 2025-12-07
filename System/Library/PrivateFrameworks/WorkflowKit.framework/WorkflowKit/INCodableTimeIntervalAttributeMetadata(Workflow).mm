@@ -78,7 +78,7 @@ LABEL_8:
 
 - (uint64_t)wf_processParameterValue:()Workflow forParameter:parameterState:codableAttribute:completionHandler:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a7;
   v10 = objc_opt_class();
@@ -119,16 +119,16 @@ LABEL_14:
     v18 = getWFGeneralLogObject();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      v24 = 136315906;
-      v25 = "WFEnforceClass";
-      v26 = 2114;
-      v27 = v11;
-      v28 = 2114;
-      v29 = objc_opt_class();
-      v30 = 2114;
-      v31 = v10;
-      v19 = v29;
-      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v24, 0x2Au);
+      v23 = 136315906;
+      v24 = "WFEnforceClass";
+      v25 = 2114;
+      v26 = v11;
+      v27 = 2114;
+      v28 = objc_opt_class();
+      v29 = 2114;
+      v30 = v10;
+      v19 = v28;
+      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v23, 0x2Au);
     }
   }
 
@@ -137,28 +137,27 @@ LABEL_14:
 LABEL_15:
   v9[2](v9, v21, 0);
 
-  v22 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)wf_updatedParameterDefinition:()Workflow forCodableAttribute:localizer:
 {
   selfCopy = self;
-  v17[4] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = &off_1F4B04770;
-  v2 = objc_msgSendSuper2(&v15, sel_wf_updatedParameterDefinition_forCodableAttribute_localizer_);
+  v16[4] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = &off_1F4B04770;
+  v2 = objc_msgSendSuper2(&v14, sel_wf_updatedParameterDefinition_forCodableAttribute_localizer_);
   v3 = [selfCopy unitNamesWithMinimumUnit:objc_msgSend(selfCopy maximumUnit:{"minimumUnit"), objc_msgSend(selfCopy, "maximumUnit")}];
-  v17[0] = v3;
-  v16[0] = @"PossibleUnits";
-  v16[1] = @"DefaultUnit";
+  v16[0] = v3;
+  v15[0] = @"PossibleUnits";
+  v15[1] = @"DefaultUnit";
   firstObject = [v3 firstObject];
-  v17[1] = firstObject;
-  v16[2] = @"DefaultValue";
+  v16[1] = firstObject;
+  v15[2] = @"DefaultValue";
   defaultValue = [selfCopy defaultValue];
   stringValue = [defaultValue stringValue];
-  v17[2] = stringValue;
-  v16[3] = @"AllowsNegativeNumbers";
+  v16[2] = stringValue;
+  v15[3] = @"AllowsNegativeNumbers";
   v7 = MEMORY[0x1E696AD98];
   minimumValue = [selfCopy minimumValue];
   if (minimumValue)
@@ -173,15 +172,13 @@ LABEL_15:
   }
 
   v10 = [v7 numberWithInt:v9];
-  v17[3] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
   v12 = [v2 definitionByAddingEntriesInDictionary:v11];
 
   if (minimumValue)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

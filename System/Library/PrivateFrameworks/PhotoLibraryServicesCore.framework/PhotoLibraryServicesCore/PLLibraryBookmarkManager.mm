@@ -292,7 +292,7 @@ void __91__PLLibraryBookmarkManager_sandboxExtensionsByPathForClient_pathManager
   v7 = *(a1 + 40);
   if (v7)
   {
-    [v7 clientAuditToken];
+    objc_msgSend_clientAuditToken(v7);
   }
 
   else

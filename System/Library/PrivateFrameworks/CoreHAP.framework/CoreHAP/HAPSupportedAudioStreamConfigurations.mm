@@ -69,58 +69,58 @@
 
 - (id)serializeWithError:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v52 = *MEMORY[0x277D85DE8];
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
+  v35 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v31 = 0u;
   TLV8BufferInit();
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   configurations = [(HAPSupportedAudioStreamConfigurations *)self configurations];
-  v6 = [configurations countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [configurations countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (!v6)
   {
 LABEL_17:
 
-    v19 = [MEMORY[0x277CBEA90] dataWithBytes:v32 length:?];
+    v19 = [MEMORY[0x277CBEA90] dataWithBytes:v31 length:?];
     v20 = 0;
     goto LABEL_23;
   }
 
   v7 = v6;
-  v8 = *v28;
+  v8 = *v27;
   v9 = 1;
   errorCopy = error;
   while (1)
   {
     v10 = 0;
 LABEL_4:
-    if (*v28 != v8)
+    if (*v27 != v8)
     {
       objc_enumerationMutation(configurations);
     }
 
-    v11 = *(*(&v27 + 1) + 8 * v10);
+    v11 = *(*(&v26 + 1) + 8 * v10);
     if ((v9 & 1) == 0)
     {
       v12 = TLV8BufferAppend();
@@ -142,9 +142,9 @@ LABEL_19:
       }
     }
 
-    v26 = 0;
-    v13 = [v11 serializeWithError:{&v26, errorCopy}];
-    v14 = v26;
+    v25 = 0;
+    v13 = [v11 serializeWithError:{&v25, errorCopy}];
+    v14 = v25;
     if (v14)
     {
       break;
@@ -183,7 +183,7 @@ LABEL_19:
       goto LABEL_4;
     }
 
-    v7 = [configurations countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v7 = [configurations countByEnumeratingWithState:&v26 objects:v30 count:16];
     v9 = 0;
     if (!v7)
     {
@@ -200,13 +200,11 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v24 = v20;
+  v23 = v20;
   v19 = 0;
   *errorCopy = v20;
 LABEL_23:
   TLV8BufferFree();
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

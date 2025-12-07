@@ -47,17 +47,15 @@
 
 - (void)mismatchError:(id)error
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v4 = vm_imap_log();
+  v4 = vm_imap_log(errorCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = errorCopy;
-    _os_log_impl(&dword_2720B1000, v4, OS_LOG_TYPE_DEFAULT, "Ignoring unmatched </%@> command", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = errorCopy;
+    _os_log_impl(&dword_2720B1000, v4, OS_LOG_TYPE_DEFAULT, "Ignoring unmatched </%@> command", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -508,12 +506,15 @@ LABEL_86:
   {
     parenSet = [objc_opt_class() parenSet];
     v6 = _copyNextToken(self, parenSet);
+    v7 = v6;
     if (v6)
     {
-      [(MFMimeEnrichedReader *)self parseParameterString:v6];
+      v10 = v6;
+      v6 = [(MFMimeEnrichedReader *)self parseParameterString:v6];
+      v7 = v10;
     }
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v6, v7);
   }
 
   else
@@ -527,13 +528,13 @@ LABEL_86:
     if ([command->var0 isEqualToString:@"lt"])
     {
       outputBuffer = self->_outputBuffer;
-      v8 = @"&lt;";
+      v9 = @"&lt;";
     }
 
     else if ([command->var0 isEqualToString:@"np"])
     {
       outputBuffer = self->_outputBuffer;
-      v8 = @"\f";
+      v9 = @"\f";
     }
 
     else
@@ -544,10 +545,10 @@ LABEL_86:
       }
 
       outputBuffer = self->_outputBuffer;
-      v8 = @"\n";
+      v9 = @"\n";
     }
 
-    [(NSMutableString *)outputBuffer appendString:v8];
+    [(NSMutableString *)outputBuffer appendString:v9];
   }
 }
 
@@ -1218,7 +1219,7 @@ LABEL_15:
 
 - (void)convertEnrichedString:(id)string intoOutputString:(id)outputString
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   outputStringCopy = outputString;
   Current = CFAbsoluteTimeGetCurrent();
@@ -1232,9 +1233,9 @@ LABEL_15:
       while (1)
       {
         v11 = v9;
-        v18 = v9;
-        v12 = [(MFMimeEnrichedReader *)self readTokenInto:&v18];
-        v9 = v18;
+        v17 = v9;
+        v12 = [(MFMimeEnrichedReader *)self readTokenInto:&v17];
+        v9 = v17;
 
         if (v12 != 3)
         {
@@ -1268,23 +1269,20 @@ LABEL_15:
   }
 
   [(MFMimeEnrichedReader *)self nowWouldBeAGoodTimeToAppendToTheAttributedString];
-  [(MFMimeEnrichedReader *)self closeUpQuoting];
-  v13 = vm_imap_log();
+  v13 = vm_imap_log([(MFMimeEnrichedReader *)self closeUpQuoting]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = CFAbsoluteTimeGetCurrent() - Current;
     inputLength = self->_inputLength;
     v16 = [self->_outputString length];
     *buf = 134218496;
-    v20 = v14;
-    v21 = 2048;
-    v22 = inputLength;
-    v23 = 2048;
-    v24 = v16;
+    v19 = v14;
+    v20 = 2048;
+    v21 = inputLength;
+    v22 = 2048;
+    v23 = v16;
     _os_log_impl(&dword_2720B1000, v13, OS_LOG_TYPE_DEFAULT, "elapsed time %gs (input length=%ld, output length=%lu)", buf, 0x20u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -1300,8 +1298,7 @@ LABEL_15:
       for (i = 0; i != Count; ++i)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(self->_commandStack, i);
-        v8 = **ValueAtIndex;
-        [v3 appendFormat:@"\n\t\t[%@ parameter=%@]", v8, ValueAtIndex[1]];
+        [v3 appendFormat:@"\n\t\t[%@ parameter=%@]", **ValueAtIndex, ValueAtIndex[1]];
       }
     }
   }

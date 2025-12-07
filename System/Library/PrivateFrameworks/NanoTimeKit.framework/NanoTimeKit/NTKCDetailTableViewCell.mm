@@ -92,9 +92,9 @@
 
 - (void)layoutSubviews
 {
-  v85.receiver = self;
-  v85.super_class = NTKCDetailTableViewCell;
-  [(NTKCDetailTableViewCell *)&v85 layoutSubviews];
+  v87.receiver = self;
+  v87.super_class = NTKCDetailTableViewCell;
+  [(NTKCDetailTableViewCell *)&v87 layoutSubviews];
   contentView = [(NTKCDetailTableViewCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -102,11 +102,11 @@
   v9 = v8;
   v11 = v10;
 
-  v12 = NTKCScreenEdgeMargin();
+  v14 = NTKCScreenEdgeMargin(v12, v13);
   textLabel = [(NTKCDetailTableViewCell *)self textLabel];
   font = [textLabel font];
   [font _scaledValueForValue:28.0];
-  v16 = v15;
+  v18 = v17;
 
   IsRTL = CLKLayoutIsRTL();
   textLabel2 = [(NTKCDetailTableViewCell *)self textLabel];
@@ -118,114 +118,114 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v83 = v11;
+  v85 = v11;
   rect = v9;
   ignoresRTLCorrection = self->_ignoresRTLCorrection;
 
   if (!ignoresRTLCorrection)
   {
-    v82 = v7;
+    v84 = v7;
     textLabel3 = [(NTKCDetailTableViewCell *)self textLabel];
     [textLabel3 frame];
-    v23 = v22;
     v25 = v24;
     v27 = v26;
     v29 = v28;
+    v31 = v30;
 
-    v30 = v12;
+    v32 = v14;
     if (IsRTL)
     {
-      v86.origin.x = v5;
-      v86.origin.y = v82;
-      v86.size.height = v83;
-      v86.size.width = rect;
-      Width = CGRectGetWidth(v86);
-      v87.origin.x = v23;
-      v87.origin.y = v25;
-      v87.size.width = v27;
-      v87.size.height = v29;
-      v30 = Width - CGRectGetWidth(v87) - v12;
+      v88.origin.x = v5;
+      v88.origin.y = v84;
+      v88.size.height = v85;
+      v88.size.width = rect;
+      Width = CGRectGetWidth(v88);
+      v89.origin.x = v25;
+      v89.origin.y = v27;
+      v89.size.width = v29;
+      v89.size.height = v31;
+      v32 = Width - CGRectGetWidth(v89) - v14;
     }
 
     textLabel4 = [(NTKCDetailTableViewCell *)self textLabel];
     [textLabel4 _lastLineBaseline];
-    v34 = v16 - v33;
+    v36 = v18 - v35;
 
-    v88.origin.x = v30;
-    v88.origin.y = v34;
-    v88.size.width = v27;
-    v88.size.height = v29;
-    if (CGRectGetMinY(v88) < 0.0)
+    v90.origin.x = v32;
+    v90.origin.y = v36;
+    v90.size.width = v29;
+    v90.size.height = v31;
+    if (CGRectGetMinY(v90) < 0.0)
     {
-      v34 = 0.0;
+      v36 = 0.0;
     }
 
     textLabel5 = [(NTKCDetailTableViewCell *)self textLabel];
-    [textLabel5 setFrame:{v30, v34, v27, v29}];
+    [textLabel5 setFrame:{v32, v36, v29, v31}];
 
     detailTextLabel = [(NTKCDetailTableViewCell *)self detailTextLabel];
     text2 = [detailTextLabel text];
-    v38 = [text2 length];
+    v40 = [text2 length];
 
-    if (v38)
+    if (v40)
     {
-      v89.origin.x = v5;
-      v89.origin.y = v82;
-      v89.size.height = v83;
-      v89.size.width = rect;
-      v39 = CGRectGetWidth(v89) + v12 * -2.0;
-      v90.origin.x = v30;
-      v90.origin.y = v34;
-      v90.size.width = v27;
-      v90.size.height = v29;
-      v40 = v39 - CGRectGetWidth(v90) + -16.0;
+      v91.origin.x = v5;
+      v91.origin.y = v84;
+      v91.size.height = v85;
+      v91.size.width = rect;
+      v41 = CGRectGetWidth(v91) + v14 * -2.0;
+      v92.origin.x = v32;
+      v92.origin.y = v36;
+      v92.size.width = v29;
+      v92.size.height = v31;
+      v42 = v41 - CGRectGetWidth(v92) + -16.0;
       detailTextLabel2 = [(NTKCDetailTableViewCell *)self detailTextLabel];
       [detailTextLabel2 frame];
-      v43 = v42;
       v45 = v44;
       v47 = v46;
+      v49 = v48;
 
       detailTextLabel3 = [(NTKCDetailTableViewCell *)self detailTextLabel];
       [detailTextLabel3 _lastLineBaseline];
-      v50 = v16 - v49;
+      v52 = v18 - v51;
 
-      v91.origin.x = v43;
-      v91.origin.y = v50;
-      v91.size.width = v45;
-      v91.size.height = v47;
-      v51 = CGRectGetWidth(v91);
-      v52 = 0.0;
-      if (v40 >= 0.0)
+      v93.origin.x = v45;
+      v93.origin.y = v52;
+      v93.size.width = v47;
+      v93.size.height = v49;
+      v53 = CGRectGetWidth(v93);
+      v54 = 0.0;
+      if (v42 >= 0.0)
       {
-        v52 = v40;
+        v54 = v42;
       }
 
-      if (v51 <= v40)
+      if (v53 <= v42)
       {
-        v53 = v45;
+        v55 = v47;
       }
 
       else
       {
-        v53 = v52;
+        v55 = v54;
       }
 
       if ((IsRTL & 1) == 0)
       {
-        v92.origin.x = v5;
-        v92.origin.y = v82;
-        v92.size.height = v83;
-        v92.size.width = rect;
-        v54 = CGRectGetWidth(v92) - v12;
-        v93.origin.x = v43;
-        v93.origin.y = v50;
-        v93.size.width = v53;
-        v93.size.height = v47;
-        v12 = v54 - CGRectGetWidth(v93);
+        v94.origin.x = v5;
+        v94.origin.y = v84;
+        v94.size.height = v85;
+        v94.size.width = rect;
+        v56 = CGRectGetWidth(v94) - v14;
+        v95.origin.x = v45;
+        v95.origin.y = v52;
+        v95.size.width = v55;
+        v95.size.height = v49;
+        v14 = v56 - CGRectGetWidth(v95);
       }
 
       textLabel2 = [(NTKCDetailTableViewCell *)self detailTextLabel];
-      [textLabel2 setFrame:{v12, v50, v53, v47}];
+      [textLabel2 setFrame:{v14, v52, v55, v49}];
       goto LABEL_17;
     }
   }
@@ -233,48 +233,48 @@ LABEL_17:
 LABEL_18:
   [(NTKCDetailTableViewCell *)self bringSubviewToFront:self->_separatorView];
   [(UIView *)self->_separatorView frame];
-  v56 = v55;
   v58 = v57;
   v60 = v59;
-  [(NTKCDetailTableViewCell *)self bounds];
   v62 = v61;
+  [(NTKCDetailTableViewCell *)self bounds];
   v64 = v63;
   v66 = v65;
   v68 = v67;
+  v70 = v69;
   [(NTKCDetailTableViewCell *)self separatorInset];
-  v70 = v64 + v69;
-  v73 = v66 - (v71 + v72);
-  v94.size.height = v68 - (v69 + v74);
-  v94.origin.x = v62 + v71;
-  v94.origin.y = v70;
-  v94.size.width = v73;
-  v75 = CGRectGetWidth(v94);
+  v72 = v66 + v71;
+  v75 = v68 - (v73 + v74);
+  v96.size.height = v70 - (v71 + v76);
+  v96.origin.x = v64 + v73;
+  v96.origin.y = v72;
+  v96.size.width = v75;
+  v77 = CGRectGetWidth(v96);
   if (IsRTL)
   {
     [(NTKCDetailTableViewCell *)self bounds];
-    v76 = CGRectGetWidth(v95);
-    v96.origin.x = v56;
-    v96.origin.y = v58;
-    v96.size.width = v75;
-    v96.size.height = v60;
-    v77 = v76 - CGRectGetWidth(v96);
+    v78 = CGRectGetWidth(v97);
+    v98.origin.x = v58;
+    v98.origin.y = v60;
+    v98.size.width = v77;
+    v98.size.height = v62;
+    v79 = v78 - CGRectGetWidth(v98);
     [(NTKCDetailTableViewCell *)self separatorInset];
-    v79 = v77 - v78;
+    v81 = v79 - v80;
   }
 
   else
   {
     [(NTKCDetailTableViewCell *)self separatorInset];
-    v79 = v80;
+    v81 = v82;
   }
 
   [(NTKCDetailTableViewCell *)self bounds];
-  Height = CGRectGetHeight(v97);
-  v98.origin.x = v79;
-  v98.origin.y = v58;
-  v98.size.width = v75;
-  v98.size.height = v60;
-  [(UIView *)self->_separatorView setFrame:v79, Height - CGRectGetHeight(v98), v75, v60];
+  Height = CGRectGetHeight(v99);
+  v100.origin.x = v81;
+  v100.origin.y = v60;
+  v100.size.width = v77;
+  v100.size.height = v62;
+  [(UIView *)self->_separatorView setFrame:v81, Height - CGRectGetHeight(v100), v77, v62];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated

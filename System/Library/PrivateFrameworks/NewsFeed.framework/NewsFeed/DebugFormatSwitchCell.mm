@@ -39,12 +39,13 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8NewsFeed21DebugFormatSwitchCell_onChangeBlock);
   if (v2)
   {
-    v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8NewsFeed21DebugFormatSwitchCell_switchControl);
+    v3 = *(&self->super.super.super._responderFlags + OBJC_IVAR____TtC8NewsFeed21DebugFormatSwitchCell_onChangeBlock);
+    v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8NewsFeed21DebugFormatSwitchCell_switchControl);
     selfCopy = self;
-    sub_1D5DEA510(v2);
-    v2([v3 isOn]);
+    sub_1D5DEA510(v2, v3);
+    v2([v4 isOn]);
 
-    sub_1D5B74328(v2);
+    sub_1D5B74328(v2, v3);
   }
 }
 

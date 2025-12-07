@@ -1,5 +1,6 @@
 @interface TISKCharKeyEvent
 - (id)description;
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order;
 - (int64_t)_metricWordKeyPostion:(int64_t)postion;
 - (void)reportInterKeyTiming:(id)timing previousEvent:(id)event;
 - (void)reportToSession:(id)session;
@@ -11,22 +12,21 @@
 {
   v3 = MEMORY[0x277CCACA8];
   input = [(TISKInputEvent *)self input];
-  string = [input string];
-  v6 = string;
-  wordPosition = self->_wordPosition;
+  v5 = objc_msgSend_string(input);
+  v6 = v5;
   if (self->_isShortWord)
   {
-    v8 = &stru_283FDFAF8;
+    v7 = &stru_283FDFAF8;
   }
 
   else
   {
-    v8 = @":l";
+    v7 = @":l";
   }
 
-  v9 = [v3 stringWithFormat:@"%@:%ld%@", string, self->_wordPosition, v8];
+  v8 = [v3 stringWithFormat:@"%@:%ld%@", v5, self->_wordPosition, v7];
 
-  return v9;
+  return v8;
 }
 
 - (void)reportInterKeyTiming:(id)timing previousEvent:(id)event
@@ -187,6 +187,20 @@ LABEL_20:
   {
     return postion;
   }
+}
+
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order
+{
+  v6.receiver = self;
+  v6.super_class = TISKCharKeyEvent;
+  result = [(TISKInputEvent *)&v6 init:init type:0 emojiSearchMode:mode order:order];
+  if (result)
+  {
+    *(result + 9) = -1;
+    *(result + 64) = 1;
+  }
+
+  return result;
 }
 
 @end

@@ -36,29 +36,27 @@
 
 - (id)jsonDictionary
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMessagesSearchEventPageAttribute pageType](self, "pageType")}];
-  v7 = @"pageType";
+  v6 = @"pageType";
   null = v2;
   if (!v2)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!v2)
   {
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (BMMessagesSearchEventPageAttribute)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v6 = [dictionary objectForKeyedSubscript:@"pageType"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -87,13 +85,13 @@ LABEL_8:
 
   if (error)
   {
-    v11 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v12 = *MEMORY[0x1E698F240];
-    v15 = *MEMORY[0x1E696A578];
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"pageType"];
-    v16[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    *error = [v11 initWithDomain:v12 code:2 userInfo:v14];
+    v10 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v11 = *MEMORY[0x1E698F240];
+    v14 = *MEMORY[0x1E696A578];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"pageType"];
+    v15[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    *error = [v10 initWithDomain:v11 code:2 userInfo:v13];
 
     error = 0;
   }
@@ -101,7 +99,6 @@ LABEL_8:
   selfCopy = 0;
 LABEL_10:
 
-  v9 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -271,24 +268,20 @@ LABEL_37:
 
 + (id)protoFields
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pageType" number:1 type:4 subMessageClass:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 + (id)columns
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pageType" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

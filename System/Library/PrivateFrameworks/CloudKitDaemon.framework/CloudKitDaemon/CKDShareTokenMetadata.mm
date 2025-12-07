@@ -47,14 +47,12 @@
 
 - (NSData)shortSharingTokenHashData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_shortSharingToken(self, a2, v2, 0, 0, 0, 0);
   v6 = objc_msgSend_UTF8String(v3, v4, v5);
   v8 = objc_msgSend_lengthOfBytesUsingEncoding_(v3, v7, 4);
-  CC_SHA256(v6, v8, &v13);
-  v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v9, &v13, 32);
-
-  v11 = *MEMORY[0x277D85DE8];
+  CC_SHA256(v6, v8, &v12);
+  v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v9, &v12, 32);
 
   return v10;
 }

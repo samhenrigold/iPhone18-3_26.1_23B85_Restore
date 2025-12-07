@@ -20,15 +20,16 @@
 
 uint64_t __43__HMMTRSyncClusterSmokeCOAlarm_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v19 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19;
+  logCategory__hmf_once_v19 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)updatedValuePluginStatusActiveForAttributeReport:(id)report responseHandler:(id)handler
 {
-  v116 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   handlerCopy = handler;
   v8 = [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
@@ -67,30 +68,30 @@ uint64_t __43__HMMTRSyncClusterSmokeCOAlarm_logCategory__block_invoke()
   if (v17)
   {
     HMFGetLogIdentifier();
-    v19 = v104 = v13;
+    v19 = v103 = v13;
     [v10 endpoint];
-    v20 = v99 = handlerCopy;
+    v20 = v98 = handlerCopy;
     [v10 cluster];
-    v21 = v96 = selfCopy;
+    v21 = v95 = selfCopy;
     attribute = [v10 attribute];
     v23 = *v18;
     v24 = [reportCopy objectForKeyedSubscript:*v18];
     *buf = 138544386;
-    v107 = v19;
-    v108 = 2112;
-    v109 = v20;
-    v110 = 2112;
-    v111 = v21;
-    v112 = 2112;
-    v113 = attribute;
-    v114 = 2112;
-    v115 = v24;
+    v106 = v19;
+    v107 = 2112;
+    v108 = v20;
+    v109 = 2112;
+    v110 = v21;
+    v111 = 2112;
+    v112 = attribute;
+    v113 = 2112;
+    v114 = v24;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Handling Attribute report endpoint:%@ cluster:%@ attribute:%@ value:%@", buf, 0x34u);
 
-    selfCopy = v96;
-    handlerCopy = v99;
+    selfCopy = v95;
+    handlerCopy = v98;
 
-    v13 = v104;
+    v13 = v103;
   }
 
   else
@@ -132,13 +133,13 @@ uint64_t __43__HMMTRSyncClusterSmokeCOAlarm_logCategory__block_invoke()
 
       if (![v32 BOOLValue])
       {
-        v105 = v13;
+        v104 = v13;
         v34 = objc_alloc_init(MEMORY[0x277CD54D8]);
         v35 = [(MTRClusterSmokeCOAlarm *)selfCopy readAttributeEndOfServiceAlertWithParams:v34];
         v36 = v35;
         if (!v35)
         {
-          v100 = v10;
+          v99 = v10;
           v37 = handlerCopy;
           v61 = objc_autoreleasePoolPush();
           v62 = selfCopy;
@@ -148,7 +149,7 @@ uint64_t __43__HMMTRSyncClusterSmokeCOAlarm_logCategory__block_invoke()
             HMFGetLogIdentifier();
             v65 = v64 = v34;
             *buf = 138543362;
-            v107 = v65;
+            v106 = v65;
             _os_log_impl(&dword_22AEAE000, v63, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read EndOfService Alert attribute", buf, 0xCu);
 
             v34 = v64;
@@ -157,11 +158,11 @@ uint64_t __43__HMMTRSyncClusterSmokeCOAlarm_logCategory__block_invoke()
           objc_autoreleasePoolPop(v61);
           v41 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
           v37[2](v37, 0, v41);
-          v10 = v100;
+          v10 = v99;
           goto LABEL_56;
         }
 
-        v97 = v34;
+        v96 = v34;
         v37 = handlerCopy;
         v38 = *MEMORY[0x277CD51A0];
         v39 = [v35 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
@@ -185,11 +186,11 @@ uint64_t __43__HMMTRSyncClusterSmokeCOAlarm_logCategory__block_invoke()
           {
             v37[2](v37, MEMORY[0x277CBEC28], 0);
 LABEL_55:
-            v34 = v97;
+            v34 = v96;
             goto LABEL_56;
           }
 
-          v34 = v97;
+          v34 = v96;
           if (!unsignedIntValue)
           {
             v37[2](v37, MEMORY[0x277CBEC38], 0);
@@ -197,11 +198,11 @@ LABEL_56:
 
             handlerCopy = v37;
 LABEL_64:
-            v13 = v105;
+            v13 = v104;
             goto LABEL_65;
           }
 
-          v101 = v10;
+          v100 = v10;
           v79 = objc_autoreleasePoolPush();
           v80 = selfCopy;
           v81 = HMFGetOSLogHandle();
@@ -209,9 +210,9 @@ LABEL_64:
           {
             v82 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v107 = v82;
-            v108 = 2112;
-            v109 = v41;
+            v106 = v82;
+            v107 = 2112;
+            v108 = v41;
             _os_log_impl(&dword_22AEAE000, v81, OS_LOG_TYPE_ERROR, "%{public}@EndOfService Alert was read with unexpected value %@", buf, 0x16u);
           }
 
@@ -222,24 +223,24 @@ LABEL_64:
 
         else
         {
-          v101 = v10;
+          v100 = v10;
           v66 = objc_autoreleasePoolPush();
           v67 = selfCopy;
           v68 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v69 = v94 = v66;
+            v69 = v93 = v66;
             v70 = [v36 objectForKeyedSubscript:v38];
             v71 = objc_opt_class();
             *buf = 138543618;
-            v107 = v69;
-            v108 = 2112;
-            v109 = v71;
+            v106 = v69;
+            v107 = 2112;
+            v108 = v71;
             v72 = v71;
             _os_log_impl(&dword_22AEAE000, v68, OS_LOG_TYPE_ERROR, "%{public}@EndOfService Alert was read with unexpected class type %@", buf, 0x16u);
 
-            v66 = v94;
+            v66 = v93;
           }
 
           objc_autoreleasePoolPop(v66);
@@ -249,7 +250,7 @@ LABEL_64:
           v41 = 0;
         }
 
-        v10 = v101;
+        v10 = v100;
         goto LABEL_55;
       }
 
@@ -269,14 +270,14 @@ LABEL_65:
       unsignedIntValue2 = [v33 unsignedIntValue];
       if (!unsignedIntValue2)
       {
-        v105 = v13;
+        v104 = v13;
         v46 = handlerCopy;
         v47 = objc_alloc_init(MEMORY[0x277CD54D8]);
         v48 = [(MTRClusterSmokeCOAlarm *)selfCopy readAttributeHardwareFaultAlertWithParams:v47];
         v49 = v48;
         if (v48)
         {
-          v98 = v47;
+          v97 = v47;
           v50 = *MEMORY[0x277CD51A0];
           v51 = [v48 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
           objc_opt_class();
@@ -310,26 +311,26 @@ LABEL_65:
 
           else
           {
-            v103 = v10;
+            v102 = v10;
             v84 = objc_autoreleasePoolPush();
             v85 = selfCopy;
             v86 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
             {
               HMFGetLogIdentifier();
-              v87 = v95 = v84;
+              v87 = v94 = v84;
               v88 = [v49 objectForKeyedSubscript:v50];
               v89 = objc_opt_class();
               *buf = 138543618;
-              v107 = v87;
-              v108 = 2112;
-              v109 = v89;
+              v106 = v87;
+              v107 = 2112;
+              v108 = v89;
               v90 = v85;
               v91 = v89;
               _os_log_impl(&dword_22AEAE000, v86, OS_LOG_TYPE_ERROR, "%{public}@Hardware Fault Alert was read with unexpected class type %@", buf, 0x16u);
 
               v85 = v90;
-              v84 = v95;
+              v84 = v94;
             }
 
             objc_autoreleasePoolPop(v84);
@@ -338,15 +339,15 @@ LABEL_65:
             v46[2](v46, 0, v92);
 
             v53 = 0;
-            v10 = v103;
+            v10 = v102;
           }
 
-          v47 = v98;
+          v47 = v97;
         }
 
         else
         {
-          v102 = v10;
+          v101 = v10;
           v74 = objc_autoreleasePoolPush();
           v75 = selfCopy;
           v76 = HMFGetOSLogHandle();
@@ -355,7 +356,7 @@ LABEL_65:
             HMFGetLogIdentifier();
             v78 = v77 = v47;
             *buf = 138543362;
-            v107 = v78;
+            v106 = v78;
             _os_log_impl(&dword_22AEAE000, v76, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read Hardware Fault Alert attribute", buf, 0xCu);
 
             v47 = v77;
@@ -365,7 +366,7 @@ LABEL_65:
           v53 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
           handlerCopy = v46;
           v46[2](v46, 0, v53);
-          v10 = v102;
+          v10 = v101;
         }
 
         goto LABEL_64;
@@ -381,9 +382,9 @@ LABEL_65:
         {
           v59 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v107 = v59;
-          v108 = 2112;
-          v109 = v33;
+          v106 = v59;
+          v107 = 2112;
+          v108 = v33;
           _os_log_impl(&dword_22AEAE000, v58, OS_LOG_TYPE_ERROR, "%{public}@EndOfService Alert was read with unexpected value %@", buf, 0x16u);
         }
 
@@ -401,13 +402,11 @@ LABEL_65:
 
   handlerCopy[2](handlerCopy, 0, v13);
 LABEL_66:
-
-  v93 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePluginStatusActiveWithParams:(id)params
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterSmokeCOAlarm *)self readAttributeHardwareFaultAlertWithParams:v5];
@@ -439,10 +438,10 @@ LABEL_66:
         v21 = HMFGetLogIdentifier();
         v22 = [v7 objectForKeyedSubscript:v8];
         *buf = 138543618;
-        v59 = v21;
-        v60 = 2112;
-        v61 = objc_opt_class();
-        v23 = v61;
+        v58 = v21;
+        v59 = 2112;
+        v60 = objc_opt_class();
+        v23 = v60;
         _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@Hardware Fault Alert was read with unexpected class type %@", buf, 0x16u);
       }
 
@@ -454,11 +453,11 @@ LABEL_66:
     if ([v11 BOOLValue])
     {
       v12 = *MEMORY[0x277CD50C0];
-      v56[0] = *MEMORY[0x277CD5188];
-      v56[1] = v8;
-      v57[0] = v12;
-      v57[1] = MEMORY[0x277CBEC28];
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
+      v55[0] = *MEMORY[0x277CD5188];
+      v55[1] = v8;
+      v56[0] = v12;
+      v56[1] = MEMORY[0x277CBEC28];
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
 LABEL_36:
 
       goto LABEL_37;
@@ -475,7 +474,7 @@ LABEL_36:
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v59 = v37;
+        v58 = v37;
         _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read EndOfService Alert attribute", buf, 0xCu);
       }
 
@@ -504,26 +503,26 @@ LABEL_36:
       if (unsignedIntValue == 1)
       {
         v43 = *MEMORY[0x277CD50C0];
-        v52[0] = *MEMORY[0x277CD5188];
-        v52[1] = v8;
-        v53[0] = v43;
-        v53[1] = MEMORY[0x277CBEC28];
+        v51[0] = *MEMORY[0x277CD5188];
+        v51[1] = v8;
+        v52[0] = v43;
+        v52[1] = MEMORY[0x277CBEC28];
         v31 = MEMORY[0x277CBEAC0];
-        v32 = v53;
-        v33 = v52;
+        v32 = v52;
+        v33 = v51;
         goto LABEL_29;
       }
 
       if (!unsignedIntValue)
       {
         v30 = *MEMORY[0x277CD50C0];
-        v54[0] = *MEMORY[0x277CD5188];
-        v54[1] = v8;
-        v55[0] = v30;
-        v55[1] = MEMORY[0x277CBEC38];
+        v53[0] = *MEMORY[0x277CD5188];
+        v53[1] = v8;
+        v54[0] = v30;
+        v54[1] = MEMORY[0x277CBEC38];
         v31 = MEMORY[0x277CBEAC0];
-        v32 = v55;
-        v33 = v54;
+        v32 = v54;
+        v33 = v53;
 LABEL_29:
         v13 = [v31 dictionaryWithObjects:v32 forKeys:v33 count:2];
 LABEL_34:
@@ -539,9 +538,9 @@ LABEL_35:
       {
         v47 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v59 = v47;
-        v60 = 2112;
-        v61 = v28;
+        v58 = v47;
+        v59 = 2112;
+        v60 = v28;
         _os_log_impl(&dword_22AEAE000, v46, OS_LOG_TYPE_ERROR, "%{public}@EndOfService Alert was read with unexpected value %@", buf, 0x16u);
       }
 
@@ -550,22 +549,22 @@ LABEL_35:
 
     else
     {
-      v51 = objc_autoreleasePoolPush();
+      v50 = objc_autoreleasePoolPush();
       selfCopy4 = self;
       v39 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        v50 = HMFGetLogIdentifier();
+        v49 = HMFGetLogIdentifier();
         v40 = [v25 objectForKeyedSubscript:v8];
         *buf = 138543618;
-        v59 = v50;
-        v60 = 2112;
-        v61 = objc_opt_class();
-        v41 = v61;
+        v58 = v49;
+        v59 = 2112;
+        v60 = objc_opt_class();
+        v41 = v60;
         _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_ERROR, "%{public}@EndOfService Alert was read with unexpected class type %@", buf, 0x16u);
       }
 
-      v42 = v51;
+      v42 = v50;
     }
 
     objc_autoreleasePoolPop(v42);
@@ -580,15 +579,13 @@ LABEL_35:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v59 = v17;
+    v58 = v17;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read Hardware Fault Alert attribute", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v14);
   v13 = 0;
 LABEL_37:
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

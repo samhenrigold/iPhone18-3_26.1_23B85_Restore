@@ -2,10 +2,13 @@
 - (MSVSegmentedEncoder)initWithCodingPackage:(id)package userInfo:(id)info;
 - (id)_coderForKey:(id)key;
 - (id)msv_userInfo;
+- (void)encodeBool:(BOOL)bool forKey:(id)key;
 - (void)encodeBytes:(const char *)bytes length:(unint64_t)length forKey:(id)key;
 - (void)encodeDouble:(double)double forKey:(id)key;
 - (void)encodeFloat:(float)float forKey:(id)key;
+- (void)encodeInt32:(int)int32 forKey:(id)key;
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key;
+- (void)encodeInt:(int)int forKey:(id)key;
 - (void)encodeObject:(id)object forKey:(id)key;
 - (void)encodeRootObject:(id)object;
 - (void)finishEncoding;
@@ -89,6 +92,30 @@
   keyCopy = key;
   v7 = [(MSVSegmentedEncoder *)self _coderForKey:keyCopy];
   [v7 encodeInt64:int64 forKey:keyCopy];
+}
+
+- (void)encodeInt32:(int)int32 forKey:(id)key
+{
+  v4 = *&int32;
+  keyCopy = key;
+  v7 = [(MSVSegmentedEncoder *)self _coderForKey:keyCopy];
+  [v7 encodeInt32:v4 forKey:keyCopy];
+}
+
+- (void)encodeInt:(int)int forKey:(id)key
+{
+  v4 = *&int;
+  keyCopy = key;
+  v7 = [(MSVSegmentedEncoder *)self _coderForKey:keyCopy];
+  [v7 encodeInt:v4 forKey:keyCopy];
+}
+
+- (void)encodeBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  v7 = [(MSVSegmentedEncoder *)self _coderForKey:keyCopy];
+  [v7 encodeBool:boolCopy forKey:keyCopy];
 }
 
 - (void)encodeObject:(id)object forKey:(id)key

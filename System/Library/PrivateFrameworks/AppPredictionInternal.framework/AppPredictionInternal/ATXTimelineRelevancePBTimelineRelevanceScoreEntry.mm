@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)suggestionMappingReasonAsString:(int)string;
 - (int)StringAsSuggestionMappingReason:(id)reason;
 - (int)suggestionMappingReason;
 - (unint64_t)hash;
@@ -72,6 +73,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)suggestionMappingReasonAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859FDC8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSuggestionMappingReason:(id)reason
@@ -201,7 +217,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    relevanceScore = self->_relevanceScore;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -221,12 +236,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    timestamp = self->_timestamp;
     PBDataWriterWriteInt64Field();
   }
 
@@ -238,7 +251,6 @@ LABEL_5:
 
   if ((*&self->_has & 8) != 0)
   {
-    suggestionMappingReason = self->_suggestionMappingReason;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -352,7 +364,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 44);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_relevanceScore != *(equalCopy + 2))
@@ -398,14 +409,14 @@ LABEL_5:
     if (![(NSString *)suggestionID isEqual:?])
     {
 LABEL_24:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_25;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 44) & 8) == 0;
+  v7 = (*(equalCopy + 44) & 8) == 0;
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 44) & 8) == 0 || self->_suggestionMappingReason != *(equalCopy + 10))
@@ -413,12 +424,12 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_25:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

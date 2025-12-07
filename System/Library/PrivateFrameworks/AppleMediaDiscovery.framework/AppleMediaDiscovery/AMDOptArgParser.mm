@@ -177,7 +177,6 @@ LABEL_14:
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -393,7 +392,6 @@ LABEL_26:
 
   MEMORY[0x277D82BD8](obj);
   printf("End of help text\n");
-  *MEMORY[0x277D85DE8];
 }
 
 @end

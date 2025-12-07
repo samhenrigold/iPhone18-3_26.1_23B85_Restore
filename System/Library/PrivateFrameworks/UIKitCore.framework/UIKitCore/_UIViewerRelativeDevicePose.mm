@@ -58,27 +58,27 @@
       acceleratedOutputRange = self->_acceleratedOutputRange;
       if (acceleratedOutputRange | *(v6 + 1))
       {
-        v9 = [(_UIMotionEffectAcceleratedOutputRange *)acceleratedOutputRange isEqual:?];
+        isEqual = objc_msgSend_isEqual_(acceleratedOutputRange);
       }
 
       else
       {
-        v9 = 1;
+        isEqual = 1;
       }
     }
 
     else
     {
-      v9 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
   }
 
-  return v9;
+  return isEqual;
 }
 
 - (_UIViewerRelativeDevicePose)initWithCoder:(id)coder

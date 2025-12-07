@@ -18,7 +18,7 @@
   objc_msgSend_init(self, a2, device, descriptor, v4, v5, v6, v7);
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x6C9, @"Cannot call this initializer on this class.\n", v8, v9, v10, v11);
   }
 
   return 0;
@@ -29,7 +29,7 @@
   objc_msgSend_init(self, a2, device, descriptor, array, v5, v6, v7);
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x6D2, @"Cannot call this initializer on this class.\n", v8, v9, v10, v11);
   }
 
   return 0;

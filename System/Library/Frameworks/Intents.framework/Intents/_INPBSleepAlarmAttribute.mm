@@ -146,7 +146,6 @@ LABEL_10:
 
   if ([(_INPBSleepAlarmAttribute *)self hasOverride])
   {
-    override = self->_override;
     PBDataWriterWriteBOOLField();
   }
 }

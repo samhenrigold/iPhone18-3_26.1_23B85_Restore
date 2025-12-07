@@ -31,10 +31,10 @@
 
 - (id)runAction
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = AMSUIWebOTPAction;
-  runAction = [(AMSUIWebAction *)&v20 runAction];
+  v26 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = AMSUIWebOTPAction;
+  runAction = [(AMSUIWebAction *)&v19 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -48,11 +48,11 @@
     v7 = AMSLogKey();
     enabled = [(AMSUIWebOTPAction *)self enabled];
     *buf = 138543874;
-    v22 = v6;
-    v23 = 2114;
-    v24 = v7;
-    v25 = 1024;
-    v26 = enabled;
+    v21 = v6;
+    v22 = 2114;
+    v23 = v7;
+    v24 = 1024;
+    v25 = enabled;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running action. (enabled: %d)", buf, 0x1Cu);
   }
 
@@ -83,8 +83,6 @@
     v17 = AMSError();
     v15 = [v16 promiseWithError:v17];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

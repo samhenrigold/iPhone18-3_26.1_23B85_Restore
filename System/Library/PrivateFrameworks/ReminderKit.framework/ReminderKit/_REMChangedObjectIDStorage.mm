@@ -139,14 +139,12 @@ LABEL_13:
 
 - (void)initWithUUID:(NSObject *)a3 entityName:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [a1 UUIDString];
   OUTLINED_FUNCTION_2();
-  v8 = 2114;
-  v9 = a2;
-  _os_log_fault_impl(&dword_19A0DB000, a3, OS_LOG_TYPE_FAULT, "_REMChangedObjectIDStorage: nil value passed to non-nil parameter. Something must have gone wrong. {uuid: %{public}@, entityName: %{public}@}", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = 2114;
+  v8 = a2;
+  _os_log_fault_impl(&dword_19A0DB000, a3, OS_LOG_TYPE_FAULT, "_REMChangedObjectIDStorage: nil value passed to non-nil parameter. Something must have gone wrong. {uuid: %{public}@, entityName: %{public}@}", v6, 0x16u);
 }
 
 @end

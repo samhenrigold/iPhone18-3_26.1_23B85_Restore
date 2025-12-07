@@ -124,7 +124,7 @@
     Layout = GSKeyboardGetLayout();
     v13 = GSKeyboardGetHWKeyboardType() - 202;
     v14 = v13 > 5 ? -1 : dword_18A679980[v13];
-    if (![(NSString *)self->_lastLayout isEqualToString:Layout]|| force || self->_lastKeyboardType != v14)
+    if (!objc_msgSend_isEqualToString_(self->_lastLayout) || force || self->_lastKeyboardType != v14)
     {
       keyEquivalent = [(_UIMenuLeafKeyCombination *)self->_baseKeyCombination keyEquivalent];
       v16 = [keyEquivalent length];
@@ -180,7 +180,7 @@
             v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:3];
             v38 = [v33 localizedKeyboardShortcut:v30 forKeyboardLayout:v34 withAttributes:v37];
 
-            if ([v30 isEqual:v38])
+            if (objc_msgSend_isEqual_(v30))
             {
               v27 = 0;
               v29 = v54;
@@ -214,7 +214,7 @@ LABEL_45:
             v43 = v45;
             if (v44 == v45)
             {
-              v46 = 1;
+              isEqual = 1;
               v28 = v54;
             }
 
@@ -227,10 +227,10 @@ LABEL_45:
                 goto LABEL_58;
               }
 
-              v46 = [v44 isEqual:v45];
+              isEqual = objc_msgSend_isEqual_(v44);
             }
 
-            if (!v46 || modifierFlags != modifierFlags2)
+            if (!isEqual || modifierFlags != modifierFlags2)
             {
               goto LABEL_61;
             }
@@ -246,7 +246,7 @@ LABEL_45:
 
             if (v44 && v47)
             {
-              v49 = [v44 isEqual:v47];
+              v49 = objc_msgSend_isEqual_(v44);
 
               if (!v49)
               {
@@ -310,7 +310,7 @@ LABEL_43:
 
           else
           {
-            if ([@"US" isEqualToString:Layout])
+            if (objc_msgSend_isEqualToString_(@"US"))
             {
               v27 = 0;
               v28 = v54;
@@ -408,7 +408,7 @@ LABEL_62:
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v12 = 1;
+    isEqual = 1;
   }
 
   else
@@ -425,26 +425,26 @@ LABEL_62:
       v11 = v10;
       if (v9 == v10)
       {
-        v12 = 1;
+        isEqual = 1;
       }
 
       else
       {
-        v12 = 0;
+        isEqual = 0;
         if (v9 && v10)
         {
-          v12 = [(_UIMenuLeafKeyCombination *)v9 isEqual:v10];
+          isEqual = objc_msgSend_isEqual_(v9);
         }
       }
     }
 
     else
     {
-      v12 = 0;
+      isEqual = 0;
     }
   }
 
-  return v12;
+  return isEqual;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

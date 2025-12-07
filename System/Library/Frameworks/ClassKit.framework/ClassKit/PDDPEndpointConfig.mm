@@ -235,25 +235,24 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v13 = toCopy;
+  v6 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v6;
   }
 
   if (self->_url)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    payloadLimitItems = self->_payloadLimitItems;
     PBDataWriterWriteInt32Field();
-    toCopy = v13;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -272,9 +271,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  payloadLimitBytes = self->_payloadLimitBytes;
   PBDataWriterWriteInt32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -288,9 +286,8 @@ LABEL_8:
   }
 
 LABEL_21:
-  responseTTLSeconds = self->_responseTTLSeconds;
   PBDataWriterWriteInt32Field();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -304,9 +301,8 @@ LABEL_9:
   }
 
 LABEL_22:
-  requiresAuth = self->_requiresAuth;
   PBDataWriterWriteBOOLField();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -320,29 +316,26 @@ LABEL_10:
   }
 
 LABEL_23:
-  mescalSignRequests = self->_mescalSignRequests;
   PBDataWriterWriteBOOLField();
-  toCopy = v13;
+  toCopy = v6;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_11:
-    mescalVerifyResponses = self->_mescalVerifyResponses;
     PBDataWriterWriteBOOLField();
-    toCopy = v13;
+    toCopy = v6;
   }
 
 LABEL_12:
   if (self->_serviceId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    isInternal = self->_isInternal;
     PBDataWriterWriteBOOLField();
-    toCopy = v13;
+    toCopy = v6;
   }
 }
 
@@ -629,7 +622,6 @@ LABEL_8:
       goto LABEL_54;
     }
 
-    v11 = *(equalCopy + 51);
     if (self->_requiresAuth)
     {
       if ((*(equalCopy + 51) & 1) == 0)
@@ -656,7 +648,6 @@ LABEL_8:
       goto LABEL_54;
     }
 
-    v12 = *(equalCopy + 49);
     if (self->_mescalSignRequests)
     {
       if ((*(equalCopy + 49) & 1) == 0)
@@ -683,7 +674,6 @@ LABEL_8:
       goto LABEL_54;
     }
 
-    v13 = *(equalCopy + 50);
     if (self->_mescalVerifyResponses)
     {
       if ((*(equalCopy + 50) & 1) == 0)

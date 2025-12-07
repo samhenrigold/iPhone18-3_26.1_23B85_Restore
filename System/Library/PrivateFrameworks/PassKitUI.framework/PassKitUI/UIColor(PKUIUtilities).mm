@@ -22,11 +22,11 @@
 
 + (id)pkui_blendFromColor:()PKUIUtilities toColor:withProgress:
 {
-  v5 = a4;
-  pkui_extendedLinearColor = [a3 pkui_extendedLinearColor];
-  pkui_extendedLinearColor2 = [v5 pkui_extendedLinearColor];
+  v6 = a5;
+  pkui_extendedLinearColor = [a4 pkui_extendedLinearColor];
+  pkui_extendedLinearColor2 = [v6 pkui_extendedLinearColor];
 
-  v8 = 0;
+  v9 = 0;
   if (pkui_extendedLinearColor && pkui_extendedLinearColor2)
   {
     [pkui_extendedLinearColor CGColor];
@@ -34,22 +34,22 @@
     BlendedLinearColor = PKColorCreateBlendedLinearColor();
     if (BlendedLinearColor)
     {
-      v10 = BlendedLinearColor;
-      v8 = [MEMORY[0x1E69DC888] colorWithCGColor:BlendedLinearColor];
-      CFRelease(v10);
-      if (v8)
+      v11 = BlendedLinearColor;
+      v9 = [MEMORY[0x1E69DC888] colorWithCGColor:BlendedLinearColor];
+      CFRelease(v11);
+      if (v9)
       {
-        objc_setAssociatedObject(v8, &PKUIExtendedLinearColorKey, v8, 0);
+        objc_setAssociatedObject(v9, &PKUIExtendedLinearColorKey, v9, 0);
       }
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)pkui_linearColor

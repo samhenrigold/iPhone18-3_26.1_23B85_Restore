@@ -58,7 +58,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_schemaVersion != *(equalCopy + 4))
@@ -70,7 +69,7 @@
   else if (*(equalCopy + 32))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -83,17 +82,17 @@ LABEL_11:
   activeTreatments = self->_activeTreatments;
   if (activeTreatments | *(equalCopy + 1))
   {
-    v8 = [(NSString *)activeTreatments isEqual:?];
+    v7 = [(NSString *)activeTreatments isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -143,24 +142,23 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    schemaVersion = self->_schemaVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_tableName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_activeTreatments)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

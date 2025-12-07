@@ -115,18 +115,19 @@
 - (HKSPSleepSettings)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11.receiver = self;
-  v11.super_class = HKSPSleepSettings;
-  v5 = [(HKSPSleepSettings *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = HKSPSleepSettings;
+  v5 = [(HKSPSleepSettings *)&v13 init];
   v6 = v5;
   if (v5)
   {
     HKSPDecodeObjectWithCoder(v5, coderCopy);
-    if (([coderCopy hksp_serializationOptions] & 1) == 0)
+    hksp_serializationOptions = [coderCopy hksp_serializationOptions];
+    if ((hksp_serializationOptions & 1) == 0)
     {
-      v7 = [coderCopy decodeObjectOfClass:HKSPSyncAnchorClass() forKey:@"HKSPSettingsSyncAnchor"];
+      v9 = [coderCopy decodeObjectOfClass:HKSPSyncAnchorClass(hksp_serializationOptions forKey:{v8), @"HKSPSettingsSyncAnchor"}];
       syncAnchor = v6->_syncAnchor;
-      v6->_syncAnchor = v7;
+      v6->_syncAnchor = v9;
     }
 
     if ([(HKSPSleepSettings *)v6 _needsMigrationForCoder:coderCopy])
@@ -134,7 +135,7 @@
       [(HKSPSleepSettings *)v6 _migrateForCoder:coderCopy];
     }
 
-    v9 = v6;
+    v11 = v6;
   }
 
   return v6;

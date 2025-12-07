@@ -68,16 +68,16 @@ uint64_t __80__NCExpandedPlatterViewAccessibility__accessibilityLoadAccessibilit
   return 1;
 }
 
-void __80__NCExpandedPlatterViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3(uint64_t a1)
+void __80__NCExpandedPlatterViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = __UIAccessibilityCastAsClass();
+  v4 = __UIAccessibilityCastAsClass();
 
-  v4 = [MEMORY[0x29EDC7DA8] viewControllerForView:v3];
-  v5 = [v4 safeValueForKey:@"_delegate"];
-  v6 = objc_loadWeakRetained((a1 + 32));
-  [v5 expandedPlatterViewController:v6 requestsDismissalWithReason:@"dismissalReasonHomeAction" userInfo:0];
+  v5 = [MEMORY[0x29EDC7DA8] viewControllerForView:v4];
+  v6 = [v5 safeValueForKey:@"_delegate"];
+  v7 = objc_loadWeakRetained((a1 + 32));
+  [v6 expandedPlatterViewController:v7 requestsDismissalWithReason:@"dismissalReasonHomeAction" userInfo:0];
 }
 
 @end

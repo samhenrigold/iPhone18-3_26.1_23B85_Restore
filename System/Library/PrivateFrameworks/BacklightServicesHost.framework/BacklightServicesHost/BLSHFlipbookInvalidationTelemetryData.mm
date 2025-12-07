@@ -32,15 +32,14 @@
 - (id)description
 {
   v3 = [MEMORY[0x277CF0C00] builderWithObject:self];
-  timestamp = self->_timestamp;
-  v5 = BLSShortLoggingStringForContinuousMachTime();
-  v6 = [v3 appendObject:v5 withName:@"timestamp"];
+  v4 = BLSShortLoggingStringForContinuousMachTime();
+  v5 = [v3 appendObject:v4 withName:@"timestamp"];
 
-  v7 = [v3 appendObject:self->_reason withName:@"reason"];
-  v8 = [v3 appendObject:self->_source withName:@"source"];
-  v9 = [v3 appendBool:self->_didClearDateSpecifiers withName:@"didClearDateSpecifiers"];
-  v10 = [v3 appendBool:self->_wasReset withName:@"wasReset"];
-  v11 = [v3 appendObject:self->_invalidatedFramesHistogram withName:@"histogram"];
+  v6 = [v3 appendObject:self->_reason withName:@"reason"];
+  v7 = [v3 appendObject:self->_source withName:@"source"];
+  v8 = [v3 appendBool:self->_didClearDateSpecifiers withName:@"didClearDateSpecifiers"];
+  v9 = [v3 appendBool:self->_wasReset withName:@"wasReset"];
+  v10 = [v3 appendObject:self->_invalidatedFramesHistogram withName:@"histogram"];
   [v3 appendArraySection:self->_environmentIdentifiers withName:@"environments" skipIfEmpty:1];
   build = [v3 build];
 

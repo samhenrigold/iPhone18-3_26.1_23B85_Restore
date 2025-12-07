@@ -19,96 +19,96 @@ void __93__GKPlayer_UIPrivate__showConfirmationAlertWithTitle_message_buttonTitl
   v2 = [v3 _gkPresentConfirmationAlertWithTitle:a1[4] message:a1[5] buttonTitle:a1[6] block:a1[7] cancelAction:a1[8]];
 }
 
-void __61__GKPlayer_UIPrivate__renderingScopeForPhotoSize_colorIndex___block_invoke()
+void __61__GKPlayer_UIPrivate__renderingScopeForPhotoSize_colorIndex___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v20 = [MEMORY[0x277CBEB18] array];
-  v21 = 0u;
+  v29 = *MEMORY[0x277D85DE8];
+  v21 = [MEMORY[0x277CBEB18] array];
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   obj = [MEMORY[0x277D3A1C0] availableColors];
-  v0 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
-  if (v0)
+  v1 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+  if (v1)
   {
-    v1 = v0;
-    v2 = *v22;
+    v2 = v1;
+    v3 = *v23;
     do
     {
-      v3 = 0;
+      v4 = 0;
       do
       {
-        if (*v22 != v2)
+        if (*v23 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v21 + 1) + 8 * v3);
-        v5 = [MEMORY[0x277D0C8A8] sharedController];
-        [v5 greatestScreenScale];
-        v7 = v6;
+        v5 = *(*(&v22 + 1) + 8 * v4);
+        v6 = [MEMORY[0x277D0C8A8] sharedController];
+        [v6 greatestScreenScale];
+        v8 = v7;
 
-        v8 = GKShouldLayoutRTL();
-        v9 = [objc_opt_class() sizeForPhotoSize:0];
-        v10 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v8 scale:0 rightToLeft:v4 style:v9 color:{v9, v7}];
-        v11 = [objc_opt_class() sizeForPhotoSize:1];
-        v12 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v8 scale:0 rightToLeft:v4 style:v11 color:{v11, v7}];
-        v13 = [objc_opt_class() sizeForPhotoSize:0x10000];
-        v14 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v8 scale:0 rightToLeft:v4 style:v13 color:{v13, v7}];
-        v15 = [objc_opt_class() sizeForPhotoSize:65537];
-        v16 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v8 scale:0 rightToLeft:v4 style:v15 color:{v15, v7}];
-        v25[0] = &unk_2861895A0;
-        v25[1] = &unk_2861895B8;
-        v26[0] = v10;
-        v26[1] = v12;
-        v25[2] = &unk_2861895D0;
-        v25[3] = &unk_2861895E8;
-        v26[2] = v14;
-        v26[3] = v16;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
-        [v20 addObject:v17];
+        v9 = GKShouldLayoutRTL();
+        v10 = [objc_opt_class() sizeForPhotoSize:0];
+        v11 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v9 scale:0 rightToLeft:v5 style:v10 color:{v10, v8}];
+        v12 = [objc_opt_class() sizeForPhotoSize:1];
+        v13 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v9 scale:0 rightToLeft:v5 style:v12 color:{v12, v8}];
+        v14 = [objc_opt_class() sizeForPhotoSize:0x10000];
+        v15 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v9 scale:0 rightToLeft:v5 style:v14 color:{v14, v8}];
+        v16 = [objc_opt_class() sizeForPhotoSize:65537];
+        v17 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v9 scale:0 rightToLeft:v5 style:v16 color:{v16, v8}];
+        v26[0] = &unk_2861895A0;
+        v26[1] = &unk_2861895B8;
+        v27[0] = v11;
+        v27[1] = v13;
+        v26[2] = &unk_2861895D0;
+        v26[3] = &unk_2861895E8;
+        v27[2] = v15;
+        v27[3] = v17;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+        [v21 addObject:v18];
 
-        ++v3;
+        ++v4;
       }
 
-      while (v1 != v3);
-      v1 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+      while (v2 != v4);
+      v2 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
-    while (v1);
+    while (v2);
   }
 
-  v18 = renderingScopeForPhotoSize_colorIndex__sAvatarImageRenderingScopes;
-  renderingScopeForPhotoSize_colorIndex__sAvatarImageRenderingScopes = v20;
+  v19 = renderingScopeForPhotoSize_colorIndex__sAvatarImageRenderingScopes;
+  renderingScopeForPhotoSize_colorIndex__sAvatarImageRenderingScopes = v21;
 }
 
-void __50__GKPlayer_UIPrivate__renderingScopeForPhotoSize___block_invoke()
+void __50__GKPlayer_UIPrivate__renderingScopeForPhotoSize___block_invoke(uint64_t a1)
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277D0C8A8] sharedController];
-  [v0 greatestScreenScale];
-  v2 = v1;
+  v16[4] = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277D0C8A8] sharedController];
+  [v1 greatestScreenScale];
+  v3 = v2;
 
-  v3 = GKShouldLayoutRTL();
-  v4 = [objc_opt_class() sizeForPhotoSize:0];
-  v5 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v3 scale:0 rightToLeft:v4 style:{v4, v2}];
-  v6 = [objc_opt_class() sizeForPhotoSize:1];
-  v7 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v3 scale:0 rightToLeft:v6 style:{v6, v2}];
-  v8 = [objc_opt_class() sizeForPhotoSize:0x10000];
-  v9 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v3 scale:0 rightToLeft:v8 style:{v8, v2}];
-  v10 = [objc_opt_class() sizeForPhotoSize:65537];
-  v11 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v3 scale:0 rightToLeft:v10 style:{v10, v2}];
-  v14[0] = &unk_2861895A0;
-  v14[1] = &unk_2861895B8;
-  v15[0] = v5;
-  v15[1] = v7;
-  v14[2] = &unk_2861895D0;
-  v14[3] = &unk_2861895E8;
-  v15[2] = v9;
-  v15[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
-  v13 = renderingScopeForPhotoSize__sAvatarImageRenderingScopes;
-  renderingScopeForPhotoSize__sAvatarImageRenderingScopes = v12;
+  v4 = GKShouldLayoutRTL();
+  v5 = [objc_opt_class() sizeForPhotoSize:0];
+  v6 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v4 scale:0 rightToLeft:v5 style:{v5, v3}];
+  v7 = [objc_opt_class() sizeForPhotoSize:1];
+  v8 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v4 scale:0 rightToLeft:v7 style:{v7, v3}];
+  v9 = [objc_opt_class() sizeForPhotoSize:0x10000];
+  v10 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v4 scale:0 rightToLeft:v9 style:{v9, v3}];
+  v11 = [objc_opt_class() sizeForPhotoSize:65537];
+  v12 = [MEMORY[0x277CBDBE0] scopeWithPointSize:v4 scale:0 rightToLeft:v11 style:{v11, v3}];
+  v15[0] = &unk_2861895A0;
+  v15[1] = &unk_2861895B8;
+  v16[0] = v6;
+  v16[1] = v8;
+  v15[2] = &unk_2861895D0;
+  v15[3] = &unk_2861895E8;
+  v16[2] = v10;
+  v16[3] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v14 = renderingScopeForPhotoSize__sAvatarImageRenderingScopes;
+  renderingScopeForPhotoSize__sAvatarImageRenderingScopes = v13;
 }
 
 void __42__GKPlayer_UIPrivate__avatarImageRenderer__block_invoke()

@@ -16,11 +16,11 @@
 
 - (STGenericIntent)initWithCoder:(id)coder
 {
-  v22[7] = *MEMORY[0x277D85DE8];
+  v21[7] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = STGenericIntent;
-  v5 = [(STGenericIntent *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = STGenericIntent;
+  v5 = [(STGenericIntent *)&v20 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_name"];
@@ -36,14 +36,14 @@
     v5->_attributes = v10;
 
     v12 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v22[2] = objc_opt_class();
-    v22[3] = objc_opt_class();
-    v22[4] = objc_opt_class();
-    v22[5] = objc_opt_class();
-    v22[6] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:7];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v21[2] = objc_opt_class();
+    v21[3] = objc_opt_class();
+    v21[4] = objc_opt_class();
+    v21[5] = objc_opt_class();
+    v21[6] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:7];
     v14 = [v12 setWithArray:v13];
 
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"parameters"];
@@ -56,7 +56,6 @@
     v5->_siriTask = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -9425,11 +9425,12 @@ LABEL_201:
     if (!isDisabledModifiedDate2)
     {
       isDisabled = [(_HKMedicalIDData *)self isDisabled];
-      if (isDisabled != [(_HKMedicalIDData *)mergeCopy isDisabled])
+      isDisabled2 = [(_HKMedicalIDData *)mergeCopy isDisabled];
+      if (isDisabled != isDisabled2)
       {
-        _HKInitializeLogging();
-        v20 = HKLogMedicalID;
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(isDisabled2, v25);
+        v22 = HKLogMedicalID;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -9438,7 +9439,7 @@ LABEL_201:
       }
 
 LABEL_16:
-      isDisabled2 = [(_HKMedicalIDData *)self isDisabled];
+      isDisabled3 = [(_HKMedicalIDData *)self isDisabled];
       goto LABEL_17;
     }
   }
@@ -9448,9 +9449,9 @@ LABEL_16:
   if (!isDisabledModifiedDate3)
   {
 LABEL_7:
-    isDisabled3 = [(_HKMedicalIDData *)mergeCopy isDisabled];
+    isDisabled4 = [(_HKMedicalIDData *)mergeCopy isDisabled];
     v14 = objc_opt_self();
-    [v14 setIsDisabled:isDisabled3];
+    [v14 setIsDisabled:isDisabled4];
 
     selfCopy = mergeCopy;
     goto LABEL_18;
@@ -9476,14 +9477,15 @@ LABEL_7:
   isDisabledModifiedDate8 = [(_HKMedicalIDData *)mergeCopy isDisabledModifiedDate];
   v18 = [isDisabledModifiedDate7 hk_isAfterDate:isDisabledModifiedDate8];
 
-  isDisabled2 = [(_HKMedicalIDData *)self isDisabled];
+  isDisabled3 = [(_HKMedicalIDData *)self isDisabled];
   if (!v18)
   {
-    if (isDisabled2 != [(_HKMedicalIDData *)mergeCopy isDisabled])
+    isDisabled5 = [(_HKMedicalIDData *)mergeCopy isDisabled];
+    if (isDisabled3 != isDisabled5)
     {
-      _HKInitializeLogging();
-      v20 = HKLogMedicalID;
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(isDisabled5, v21);
+      v22 = HKLogMedicalID;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [_HKMedicalIDData merge:];
       }
@@ -9497,14 +9499,14 @@ LABEL_15:
   }
 
 LABEL_17:
-  v22 = objc_opt_self();
-  [v22 setIsDisabled:isDisabled2];
+  v26 = objc_opt_self();
+  [v26 setIsDisabled:isDisabled3];
 
   selfCopy = self;
 LABEL_18:
   isDisabledModifiedDate9 = [(_HKMedicalIDData *)selfCopy isDisabledModifiedDate];
-  v24 = objc_opt_self();
-  [v24 setIsDisabledModifiedDate:isDisabledModifiedDate9];
+  v28 = objc_opt_self();
+  [v28 setIsDisabledModifiedDate:isDisabledModifiedDate9];
 
   shareDuringEmergencyModifiedDate = [(_HKMedicalIDData *)self shareDuringEmergencyModifiedDate];
   if (shareDuringEmergencyModifiedDate)
@@ -9530,28 +9532,29 @@ LABEL_21:
       {
         shareDuringEmergencyModifiedDate5 = [(_HKMedicalIDData *)self shareDuringEmergencyModifiedDate];
         shareDuringEmergencyModifiedDate6 = [(_HKMedicalIDData *)mergeCopy shareDuringEmergencyModifiedDate];
-        v32 = [shareDuringEmergencyModifiedDate5 hk_isBeforeDate:shareDuringEmergencyModifiedDate6];
+        v36 = [shareDuringEmergencyModifiedDate5 hk_isBeforeDate:shareDuringEmergencyModifiedDate6];
 
         selfCopy6 = mergeCopy;
-        if ((v32 & 1) == 0)
+        if ((v36 & 1) == 0)
         {
           shareDuringEmergencyModifiedDate7 = [(_HKMedicalIDData *)self shareDuringEmergencyModifiedDate];
           shareDuringEmergencyModifiedDate8 = [(_HKMedicalIDData *)mergeCopy shareDuringEmergencyModifiedDate];
-          v35 = [shareDuringEmergencyModifiedDate7 hk_isAfterDate:shareDuringEmergencyModifiedDate8];
+          v39 = [shareDuringEmergencyModifiedDate7 hk_isAfterDate:shareDuringEmergencyModifiedDate8];
 
           shareDuringEmergency = [(_HKMedicalIDData *)self shareDuringEmergency];
           selfCopy6 = self;
-          if (v35)
+          if (v39)
           {
             goto LABEL_33;
           }
 
+          shareDuringEmergency2 = [(_HKMedicalIDData *)mergeCopy shareDuringEmergency];
           selfCopy6 = self;
-          if (shareDuringEmergency != [(_HKMedicalIDData *)mergeCopy shareDuringEmergency])
+          if (shareDuringEmergency != shareDuringEmergency2)
           {
-            _HKInitializeLogging();
-            v37 = HKLogMedicalID;
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            _HKInitializeLogging(shareDuringEmergency2, v42);
+            v43 = HKLogMedicalID;
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
               [_HKMedicalIDData merge:];
             }
@@ -9568,13 +9571,14 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  shareDuringEmergency2 = [(_HKMedicalIDData *)self shareDuringEmergency];
+  shareDuringEmergency3 = [(_HKMedicalIDData *)self shareDuringEmergency];
+  shareDuringEmergency4 = [(_HKMedicalIDData *)mergeCopy shareDuringEmergency];
   selfCopy6 = self;
-  if (shareDuringEmergency2 != [(_HKMedicalIDData *)mergeCopy shareDuringEmergency])
+  if (shareDuringEmergency3 != shareDuringEmergency4)
   {
-    _HKInitializeLogging();
-    v37 = HKLogMedicalID;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(shareDuringEmergency4, v46);
+    v43 = HKLogMedicalID;
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       [_HKMedicalIDData merge:];
     }
@@ -9585,12 +9589,12 @@ LABEL_31:
 LABEL_32:
   shareDuringEmergency = [(_HKMedicalIDData *)selfCopy6 shareDuringEmergency];
 LABEL_33:
-  v39 = objc_opt_self();
-  [v39 setShareDuringEmergency:shareDuringEmergency];
+  v47 = objc_opt_self();
+  [v47 setShareDuringEmergency:shareDuringEmergency];
 
   shareDuringEmergencyModifiedDate9 = [(_HKMedicalIDData *)selfCopy6 shareDuringEmergencyModifiedDate];
-  v41 = objc_opt_self();
-  [v41 setShareDuringEmergencyModifiedDate:shareDuringEmergencyModifiedDate9];
+  v49 = objc_opt_self();
+  [v49 setShareDuringEmergencyModifiedDate:shareDuringEmergencyModifiedDate9];
 
   pictureDataModifiedDate = [(_HKMedicalIDData *)self pictureDataModifiedDate];
   if (pictureDataModifiedDate)
@@ -9608,9 +9612,9 @@ LABEL_33:
 
       if (pictureData != pictureData2)
       {
-        _HKInitializeLogging();
-        v56 = HKLogMedicalID;
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v64, v65);
+        v66 = HKLogMedicalID;
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -9629,12 +9633,12 @@ LABEL_33:
         }
 
         pictureData5 = [(_HKMedicalIDData *)self pictureData];
-        v60 = objc_opt_self();
-        [v60 setPictureData:pictureData5];
+        v70 = objc_opt_self();
+        [v70 setPictureData:pictureData5];
 
         pictureData3 = [(_HKMedicalIDData *)self pictureDataModifiedDate];
-        v61 = objc_opt_self();
-        [v61 setPictureDataModifiedDate:pictureData3];
+        v71 = objc_opt_self();
+        [v71 setPictureDataModifiedDate:pictureData3];
       }
 
       selfCopy11 = mergeCopy;
@@ -9656,17 +9660,17 @@ LABEL_49:
     {
       pictureDataModifiedDate5 = [(_HKMedicalIDData *)self pictureDataModifiedDate];
       pictureDataModifiedDate6 = [(_HKMedicalIDData *)mergeCopy pictureDataModifiedDate];
-      v49 = [pictureDataModifiedDate5 hk_isBeforeDate:pictureDataModifiedDate6];
+      v57 = [pictureDataModifiedDate5 hk_isBeforeDate:pictureDataModifiedDate6];
 
       selfCopy11 = mergeCopy;
-      if ((v49 & 1) == 0)
+      if ((v57 & 1) == 0)
       {
         pictureDataModifiedDate7 = [(_HKMedicalIDData *)self pictureDataModifiedDate];
         pictureDataModifiedDate8 = [(_HKMedicalIDData *)mergeCopy pictureDataModifiedDate];
-        v52 = [pictureDataModifiedDate7 hk_isAfterDate:pictureDataModifiedDate8];
+        v60 = [pictureDataModifiedDate7 hk_isAfterDate:pictureDataModifiedDate8];
 
         pictureData6 = [(_HKMedicalIDData *)self pictureData];
-        if (v52)
+        if (v60)
         {
           selfCopy11 = self;
           goto LABEL_51;
@@ -9677,9 +9681,9 @@ LABEL_49:
         selfCopy11 = self;
         if (pictureData6 != pictureData7)
         {
-          _HKInitializeLogging();
-          v548 = HKLogMedicalID;
-          if (os_log_type_enabled(v548, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v606, v607);
+          v608 = HKLogMedicalID;
+          if (os_log_type_enabled(v608, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -9689,7 +9693,7 @@ LABEL_49:
           selfCopy11 = self;
           if (!pictureData8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v610, v611);
             pictureData3 = HKLogMedicalID;
             if (os_log_type_enabled(pictureData3, OS_LOG_TYPE_ERROR))
             {
@@ -9707,12 +9711,12 @@ LABEL_49:
 LABEL_50:
   pictureData6 = [(_HKMedicalIDData *)selfCopy11 pictureData];
 LABEL_51:
-  v62 = objc_opt_self();
-  [v62 setPictureData:pictureData6];
+  v72 = objc_opt_self();
+  [v72 setPictureData:pictureData6];
 
   pictureDataModifiedDate9 = [(_HKMedicalIDData *)selfCopy11 pictureDataModifiedDate];
-  v64 = objc_opt_self();
-  [v64 setPictureDataModifiedDate:pictureDataModifiedDate9];
+  v74 = objc_opt_self();
+  [v74 setPictureDataModifiedDate:pictureDataModifiedDate9];
 
   nameModifiedDate = [(_HKMedicalIDData *)self nameModifiedDate];
   if (nameModifiedDate)
@@ -9730,9 +9734,9 @@ LABEL_51:
 
       if (name != name2)
       {
-        _HKInitializeLogging();
-        v79 = HKLogMedicalID;
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v89, v90);
+        v91 = HKLogMedicalID;
+        if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -9751,12 +9755,12 @@ LABEL_51:
         }
 
         name5 = [(_HKMedicalIDData *)self name];
-        v83 = objc_opt_self();
-        [v83 setName:name5];
+        v95 = objc_opt_self();
+        [v95 setName:name5];
 
         name3 = [(_HKMedicalIDData *)self nameModifiedDate];
-        v84 = objc_opt_self();
-        [v84 setNameModifiedDate:name3];
+        v96 = objc_opt_self();
+        [v96 setNameModifiedDate:name3];
       }
 
       selfCopy16 = mergeCopy;
@@ -9778,17 +9782,17 @@ LABEL_67:
     {
       nameModifiedDate5 = [(_HKMedicalIDData *)self nameModifiedDate];
       nameModifiedDate6 = [(_HKMedicalIDData *)mergeCopy nameModifiedDate];
-      v72 = [nameModifiedDate5 hk_isBeforeDate:nameModifiedDate6];
+      v82 = [nameModifiedDate5 hk_isBeforeDate:nameModifiedDate6];
 
       selfCopy16 = mergeCopy;
-      if ((v72 & 1) == 0)
+      if ((v82 & 1) == 0)
       {
         nameModifiedDate7 = [(_HKMedicalIDData *)self nameModifiedDate];
         nameModifiedDate8 = [(_HKMedicalIDData *)mergeCopy nameModifiedDate];
-        v75 = [nameModifiedDate7 hk_isAfterDate:nameModifiedDate8];
+        v85 = [nameModifiedDate7 hk_isAfterDate:nameModifiedDate8];
 
         name6 = [(_HKMedicalIDData *)self name];
-        if (v75)
+        if (v85)
         {
           selfCopy16 = self;
           goto LABEL_69;
@@ -9799,9 +9803,9 @@ LABEL_67:
         selfCopy16 = self;
         if (name6 != name7)
         {
-          _HKInitializeLogging();
-          v551 = HKLogMedicalID;
-          if (os_log_type_enabled(v551, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v613, v614);
+          v615 = HKLogMedicalID;
+          if (os_log_type_enabled(v615, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -9811,7 +9815,7 @@ LABEL_67:
           selfCopy16 = self;
           if (!name8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v617, v618);
             name3 = HKLogMedicalID;
             if (os_log_type_enabled(name3, OS_LOG_TYPE_ERROR))
             {
@@ -9829,12 +9833,12 @@ LABEL_67:
 LABEL_68:
   name6 = [(_HKMedicalIDData *)selfCopy16 name];
 LABEL_69:
-  v85 = objc_opt_self();
-  [v85 setName:name6];
+  v97 = objc_opt_self();
+  [v97 setName:name6];
 
   nameModifiedDate9 = [(_HKMedicalIDData *)selfCopy16 nameModifiedDate];
-  v87 = objc_opt_self();
-  [v87 setNameModifiedDate:nameModifiedDate9];
+  v99 = objc_opt_self();
+  [v99 setNameModifiedDate:nameModifiedDate9];
 
   gregorianBirthdayModifiedDate = [(_HKMedicalIDData *)self gregorianBirthdayModifiedDate];
   if (gregorianBirthdayModifiedDate)
@@ -9852,9 +9856,9 @@ LABEL_69:
 
       if (gregorianBirthday != gregorianBirthday2)
       {
-        _HKInitializeLogging();
-        v102 = HKLogMedicalID;
-        if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v114, v115);
+        v116 = HKLogMedicalID;
+        if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -9873,12 +9877,12 @@ LABEL_69:
         }
 
         gregorianBirthday5 = [(_HKMedicalIDData *)self gregorianBirthday];
-        v106 = objc_opt_self();
-        [v106 setGregorianBirthday:gregorianBirthday5];
+        v120 = objc_opt_self();
+        [v120 setGregorianBirthday:gregorianBirthday5];
 
         gregorianBirthday3 = [(_HKMedicalIDData *)self gregorianBirthdayModifiedDate];
-        v107 = objc_opt_self();
-        [v107 setGregorianBirthdayModifiedDate:gregorianBirthday3];
+        v121 = objc_opt_self();
+        [v121 setGregorianBirthdayModifiedDate:gregorianBirthday3];
       }
 
       selfCopy21 = mergeCopy;
@@ -9900,17 +9904,17 @@ LABEL_85:
     {
       gregorianBirthdayModifiedDate5 = [(_HKMedicalIDData *)self gregorianBirthdayModifiedDate];
       gregorianBirthdayModifiedDate6 = [(_HKMedicalIDData *)mergeCopy gregorianBirthdayModifiedDate];
-      v95 = [gregorianBirthdayModifiedDate5 hk_isBeforeDate:gregorianBirthdayModifiedDate6];
+      v107 = [gregorianBirthdayModifiedDate5 hk_isBeforeDate:gregorianBirthdayModifiedDate6];
 
       selfCopy21 = mergeCopy;
-      if ((v95 & 1) == 0)
+      if ((v107 & 1) == 0)
       {
         gregorianBirthdayModifiedDate7 = [(_HKMedicalIDData *)self gregorianBirthdayModifiedDate];
         gregorianBirthdayModifiedDate8 = [(_HKMedicalIDData *)mergeCopy gregorianBirthdayModifiedDate];
-        v98 = [gregorianBirthdayModifiedDate7 hk_isAfterDate:gregorianBirthdayModifiedDate8];
+        v110 = [gregorianBirthdayModifiedDate7 hk_isAfterDate:gregorianBirthdayModifiedDate8];
 
         gregorianBirthday6 = [(_HKMedicalIDData *)self gregorianBirthday];
-        if (v98)
+        if (v110)
         {
           selfCopy21 = self;
           goto LABEL_87;
@@ -9921,9 +9925,9 @@ LABEL_85:
         selfCopy21 = self;
         if (gregorianBirthday6 != gregorianBirthday7)
         {
-          _HKInitializeLogging();
-          v554 = HKLogMedicalID;
-          if (os_log_type_enabled(v554, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v620, v621);
+          v622 = HKLogMedicalID;
+          if (os_log_type_enabled(v622, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -9933,7 +9937,7 @@ LABEL_85:
           selfCopy21 = self;
           if (!gregorianBirthday8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v624, v625);
             gregorianBirthday3 = HKLogMedicalID;
             if (os_log_type_enabled(gregorianBirthday3, OS_LOG_TYPE_ERROR))
             {
@@ -9951,12 +9955,12 @@ LABEL_85:
 LABEL_86:
   gregorianBirthday6 = [(_HKMedicalIDData *)selfCopy21 gregorianBirthday];
 LABEL_87:
-  v108 = objc_opt_self();
-  [v108 setGregorianBirthday:gregorianBirthday6];
+  v122 = objc_opt_self();
+  [v122 setGregorianBirthday:gregorianBirthday6];
 
   gregorianBirthdayModifiedDate9 = [(_HKMedicalIDData *)selfCopy21 gregorianBirthdayModifiedDate];
-  v110 = objc_opt_self();
-  [v110 setGregorianBirthdayModifiedDate:gregorianBirthdayModifiedDate9];
+  v124 = objc_opt_self();
+  [v124 setGregorianBirthdayModifiedDate:gregorianBirthdayModifiedDate9];
 
   primaryLanguageCodeModifiedDate = [(_HKMedicalIDData *)self primaryLanguageCodeModifiedDate];
   if (primaryLanguageCodeModifiedDate)
@@ -9974,9 +9978,9 @@ LABEL_87:
 
       if (primaryLanguageCode != primaryLanguageCode2)
       {
-        _HKInitializeLogging();
-        v125 = HKLogMedicalID;
-        if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v139, v140);
+        v141 = HKLogMedicalID;
+        if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -9995,12 +9999,12 @@ LABEL_87:
         }
 
         primaryLanguageCode5 = [(_HKMedicalIDData *)self primaryLanguageCode];
-        v129 = objc_opt_self();
-        [v129 setPrimaryLanguageCode:primaryLanguageCode5];
+        v145 = objc_opt_self();
+        [v145 setPrimaryLanguageCode:primaryLanguageCode5];
 
         primaryLanguageCode3 = [(_HKMedicalIDData *)self primaryLanguageCodeModifiedDate];
-        v130 = objc_opt_self();
-        [v130 setPrimaryLanguageCodeModifiedDate:primaryLanguageCode3];
+        v146 = objc_opt_self();
+        [v146 setPrimaryLanguageCodeModifiedDate:primaryLanguageCode3];
       }
 
       selfCopy26 = mergeCopy;
@@ -10022,17 +10026,17 @@ LABEL_103:
     {
       primaryLanguageCodeModifiedDate5 = [(_HKMedicalIDData *)self primaryLanguageCodeModifiedDate];
       primaryLanguageCodeModifiedDate6 = [(_HKMedicalIDData *)mergeCopy primaryLanguageCodeModifiedDate];
-      v118 = [primaryLanguageCodeModifiedDate5 hk_isBeforeDate:primaryLanguageCodeModifiedDate6];
+      v132 = [primaryLanguageCodeModifiedDate5 hk_isBeforeDate:primaryLanguageCodeModifiedDate6];
 
       selfCopy26 = mergeCopy;
-      if ((v118 & 1) == 0)
+      if ((v132 & 1) == 0)
       {
         primaryLanguageCodeModifiedDate7 = [(_HKMedicalIDData *)self primaryLanguageCodeModifiedDate];
         primaryLanguageCodeModifiedDate8 = [(_HKMedicalIDData *)mergeCopy primaryLanguageCodeModifiedDate];
-        v121 = [primaryLanguageCodeModifiedDate7 hk_isAfterDate:primaryLanguageCodeModifiedDate8];
+        v135 = [primaryLanguageCodeModifiedDate7 hk_isAfterDate:primaryLanguageCodeModifiedDate8];
 
         primaryLanguageCode6 = [(_HKMedicalIDData *)self primaryLanguageCode];
-        if (v121)
+        if (v135)
         {
           selfCopy26 = self;
           goto LABEL_105;
@@ -10043,9 +10047,9 @@ LABEL_103:
         selfCopy26 = self;
         if (primaryLanguageCode6 != primaryLanguageCode7)
         {
-          _HKInitializeLogging();
-          v557 = HKLogMedicalID;
-          if (os_log_type_enabled(v557, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v627, v628);
+          v629 = HKLogMedicalID;
+          if (os_log_type_enabled(v629, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -10055,7 +10059,7 @@ LABEL_103:
           selfCopy26 = self;
           if (!primaryLanguageCode8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v631, v632);
             primaryLanguageCode3 = HKLogMedicalID;
             if (os_log_type_enabled(primaryLanguageCode3, OS_LOG_TYPE_ERROR))
             {
@@ -10073,12 +10077,12 @@ LABEL_103:
 LABEL_104:
   primaryLanguageCode6 = [(_HKMedicalIDData *)selfCopy26 primaryLanguageCode];
 LABEL_105:
-  v131 = objc_opt_self();
-  [v131 setPrimaryLanguageCode:primaryLanguageCode6];
+  v147 = objc_opt_self();
+  [v147 setPrimaryLanguageCode:primaryLanguageCode6];
 
   primaryLanguageCodeModifiedDate9 = [(_HKMedicalIDData *)selfCopy26 primaryLanguageCodeModifiedDate];
-  v133 = objc_opt_self();
-  [v133 setPrimaryLanguageCodeModifiedDate:primaryLanguageCodeModifiedDate9];
+  v149 = objc_opt_self();
+  [v149 setPrimaryLanguageCodeModifiedDate:primaryLanguageCodeModifiedDate9];
 
   heightModifiedDate = [(_HKMedicalIDData *)self heightModifiedDate];
   if (heightModifiedDate)
@@ -10096,9 +10100,9 @@ LABEL_105:
 
       if (height != height2)
       {
-        _HKInitializeLogging();
-        v148 = HKLogMedicalID;
-        if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v164, v165);
+        v166 = HKLogMedicalID;
+        if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -10117,12 +10121,12 @@ LABEL_105:
         }
 
         height5 = [(_HKMedicalIDData *)self height];
-        v152 = objc_opt_self();
-        [v152 setHeight:height5];
+        v170 = objc_opt_self();
+        [v170 setHeight:height5];
 
         height3 = [(_HKMedicalIDData *)self heightModifiedDate];
-        v153 = objc_opt_self();
-        [v153 setHeightModifiedDate:height3];
+        v171 = objc_opt_self();
+        [v171 setHeightModifiedDate:height3];
       }
 
       selfCopy31 = mergeCopy;
@@ -10144,17 +10148,17 @@ LABEL_121:
     {
       heightModifiedDate5 = [(_HKMedicalIDData *)self heightModifiedDate];
       heightModifiedDate6 = [(_HKMedicalIDData *)mergeCopy heightModifiedDate];
-      v141 = [heightModifiedDate5 hk_isBeforeDate:heightModifiedDate6];
+      v157 = [heightModifiedDate5 hk_isBeforeDate:heightModifiedDate6];
 
       selfCopy31 = mergeCopy;
-      if ((v141 & 1) == 0)
+      if ((v157 & 1) == 0)
       {
         heightModifiedDate7 = [(_HKMedicalIDData *)self heightModifiedDate];
         heightModifiedDate8 = [(_HKMedicalIDData *)mergeCopy heightModifiedDate];
-        v144 = [heightModifiedDate7 hk_isAfterDate:heightModifiedDate8];
+        v160 = [heightModifiedDate7 hk_isAfterDate:heightModifiedDate8];
 
         height6 = [(_HKMedicalIDData *)self height];
-        if (v144)
+        if (v160)
         {
           selfCopy31 = self;
           goto LABEL_123;
@@ -10165,9 +10169,9 @@ LABEL_121:
         selfCopy31 = self;
         if (height6 != height7)
         {
-          _HKInitializeLogging();
-          v560 = HKLogMedicalID;
-          if (os_log_type_enabled(v560, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v634, v635);
+          v636 = HKLogMedicalID;
+          if (os_log_type_enabled(v636, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -10177,7 +10181,7 @@ LABEL_121:
           selfCopy31 = self;
           if (!height8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v638, v639);
             height3 = HKLogMedicalID;
             if (os_log_type_enabled(height3, OS_LOG_TYPE_ERROR))
             {
@@ -10195,12 +10199,12 @@ LABEL_121:
 LABEL_122:
   height6 = [(_HKMedicalIDData *)selfCopy31 height];
 LABEL_123:
-  v154 = objc_opt_self();
-  [v154 setHeight:height6];
+  v172 = objc_opt_self();
+  [v172 setHeight:height6];
 
   heightModifiedDate9 = [(_HKMedicalIDData *)selfCopy31 heightModifiedDate];
-  v156 = objc_opt_self();
-  [v156 setHeightModifiedDate:heightModifiedDate9];
+  v174 = objc_opt_self();
+  [v174 setHeightModifiedDate:heightModifiedDate9];
 
   weightModifiedDate = [(_HKMedicalIDData *)self weightModifiedDate];
   if (weightModifiedDate)
@@ -10218,9 +10222,9 @@ LABEL_123:
 
       if (weight != weight2)
       {
-        _HKInitializeLogging();
-        v171 = HKLogMedicalID;
-        if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v189, v190);
+        v191 = HKLogMedicalID;
+        if (os_log_type_enabled(v191, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -10239,12 +10243,12 @@ LABEL_123:
         }
 
         weight5 = [(_HKMedicalIDData *)self weight];
-        v175 = objc_opt_self();
-        [v175 setWeight:weight5];
+        v195 = objc_opt_self();
+        [v195 setWeight:weight5];
 
         weight3 = [(_HKMedicalIDData *)self weightModifiedDate];
-        v176 = objc_opt_self();
-        [v176 setWeightModifiedDate:weight3];
+        v196 = objc_opt_self();
+        [v196 setWeightModifiedDate:weight3];
       }
 
       selfCopy36 = mergeCopy;
@@ -10266,17 +10270,17 @@ LABEL_139:
     {
       weightModifiedDate5 = [(_HKMedicalIDData *)self weightModifiedDate];
       weightModifiedDate6 = [(_HKMedicalIDData *)mergeCopy weightModifiedDate];
-      v164 = [weightModifiedDate5 hk_isBeforeDate:weightModifiedDate6];
+      v182 = [weightModifiedDate5 hk_isBeforeDate:weightModifiedDate6];
 
       selfCopy36 = mergeCopy;
-      if ((v164 & 1) == 0)
+      if ((v182 & 1) == 0)
       {
         weightModifiedDate7 = [(_HKMedicalIDData *)self weightModifiedDate];
         weightModifiedDate8 = [(_HKMedicalIDData *)mergeCopy weightModifiedDate];
-        v167 = [weightModifiedDate7 hk_isAfterDate:weightModifiedDate8];
+        v185 = [weightModifiedDate7 hk_isAfterDate:weightModifiedDate8];
 
         weight6 = [(_HKMedicalIDData *)self weight];
-        if (v167)
+        if (v185)
         {
           selfCopy36 = self;
           goto LABEL_141;
@@ -10287,9 +10291,9 @@ LABEL_139:
         selfCopy36 = self;
         if (weight6 != weight7)
         {
-          _HKInitializeLogging();
-          v563 = HKLogMedicalID;
-          if (os_log_type_enabled(v563, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v641, v642);
+          v643 = HKLogMedicalID;
+          if (os_log_type_enabled(v643, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -10299,7 +10303,7 @@ LABEL_139:
           selfCopy36 = self;
           if (!weight8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v645, v646);
             weight3 = HKLogMedicalID;
             if (os_log_type_enabled(weight3, OS_LOG_TYPE_ERROR))
             {
@@ -10317,12 +10321,12 @@ LABEL_139:
 LABEL_140:
   weight6 = [(_HKMedicalIDData *)selfCopy36 weight];
 LABEL_141:
-  v177 = objc_opt_self();
-  [v177 setWeight:weight6];
+  v197 = objc_opt_self();
+  [v197 setWeight:weight6];
 
   weightModifiedDate9 = [(_HKMedicalIDData *)selfCopy36 weightModifiedDate];
-  v179 = objc_opt_self();
-  [v179 setWeightModifiedDate:weightModifiedDate9];
+  v199 = objc_opt_self();
+  [v199 setWeightModifiedDate:weightModifiedDate9];
 
   isOrganDonorModifiedDate = [(_HKMedicalIDData *)self isOrganDonorModifiedDate];
   if (isOrganDonorModifiedDate)
@@ -10340,9 +10344,9 @@ LABEL_141:
 
       if (isOrganDonor != isOrganDonor2)
       {
-        _HKInitializeLogging();
-        v194 = HKLogMedicalID;
-        if (os_log_type_enabled(v194, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v214, v215);
+        v216 = HKLogMedicalID;
+        if (os_log_type_enabled(v216, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -10361,12 +10365,12 @@ LABEL_141:
         }
 
         isOrganDonor5 = [(_HKMedicalIDData *)self isOrganDonor];
-        v198 = objc_opt_self();
-        [v198 setIsOrganDonor:isOrganDonor5];
+        v220 = objc_opt_self();
+        [v220 setIsOrganDonor:isOrganDonor5];
 
         isOrganDonor3 = [(_HKMedicalIDData *)self isOrganDonorModifiedDate];
-        v199 = objc_opt_self();
-        [v199 setIsOrganDonorModifiedDate:isOrganDonor3];
+        v221 = objc_opt_self();
+        [v221 setIsOrganDonorModifiedDate:isOrganDonor3];
       }
 
       selfCopy41 = mergeCopy;
@@ -10388,17 +10392,17 @@ LABEL_157:
     {
       isOrganDonorModifiedDate5 = [(_HKMedicalIDData *)self isOrganDonorModifiedDate];
       isOrganDonorModifiedDate6 = [(_HKMedicalIDData *)mergeCopy isOrganDonorModifiedDate];
-      v187 = [isOrganDonorModifiedDate5 hk_isBeforeDate:isOrganDonorModifiedDate6];
+      v207 = [isOrganDonorModifiedDate5 hk_isBeforeDate:isOrganDonorModifiedDate6];
 
       selfCopy41 = mergeCopy;
-      if ((v187 & 1) == 0)
+      if ((v207 & 1) == 0)
       {
         isOrganDonorModifiedDate7 = [(_HKMedicalIDData *)self isOrganDonorModifiedDate];
         isOrganDonorModifiedDate8 = [(_HKMedicalIDData *)mergeCopy isOrganDonorModifiedDate];
-        v190 = [isOrganDonorModifiedDate7 hk_isAfterDate:isOrganDonorModifiedDate8];
+        v210 = [isOrganDonorModifiedDate7 hk_isAfterDate:isOrganDonorModifiedDate8];
 
         isOrganDonor6 = [(_HKMedicalIDData *)self isOrganDonor];
-        if (v190)
+        if (v210)
         {
           selfCopy41 = self;
           goto LABEL_159;
@@ -10409,9 +10413,9 @@ LABEL_157:
         selfCopy41 = self;
         if (isOrganDonor6 != isOrganDonor7)
         {
-          _HKInitializeLogging();
-          v566 = HKLogMedicalID;
-          if (os_log_type_enabled(v566, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v648, v649);
+          v650 = HKLogMedicalID;
+          if (os_log_type_enabled(v650, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -10421,7 +10425,7 @@ LABEL_157:
           selfCopy41 = self;
           if (!isOrganDonor8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v652, v653);
             isOrganDonor3 = HKLogMedicalID;
             if (os_log_type_enabled(isOrganDonor3, OS_LOG_TYPE_ERROR))
             {
@@ -10439,12 +10443,12 @@ LABEL_157:
 LABEL_158:
   isOrganDonor6 = [(_HKMedicalIDData *)selfCopy41 isOrganDonor];
 LABEL_159:
-  v200 = objc_opt_self();
-  [v200 setIsOrganDonor:isOrganDonor6];
+  v222 = objc_opt_self();
+  [v222 setIsOrganDonor:isOrganDonor6];
 
   isOrganDonorModifiedDate9 = [(_HKMedicalIDData *)selfCopy41 isOrganDonorModifiedDate];
-  v202 = objc_opt_self();
-  [v202 setIsOrganDonorModifiedDate:isOrganDonorModifiedDate9];
+  v224 = objc_opt_self();
+  [v224 setIsOrganDonorModifiedDate:isOrganDonorModifiedDate9];
 
   bloodTypeModifiedDate = [(_HKMedicalIDData *)self bloodTypeModifiedDate];
   if (bloodTypeModifiedDate)
@@ -10470,28 +10474,29 @@ LABEL_162:
       {
         bloodTypeModifiedDate5 = [(_HKMedicalIDData *)self bloodTypeModifiedDate];
         bloodTypeModifiedDate6 = [(_HKMedicalIDData *)mergeCopy bloodTypeModifiedDate];
-        v210 = [bloodTypeModifiedDate5 hk_isBeforeDate:bloodTypeModifiedDate6];
+        v232 = [bloodTypeModifiedDate5 hk_isBeforeDate:bloodTypeModifiedDate6];
 
         selfCopy46 = mergeCopy;
-        if ((v210 & 1) == 0)
+        if ((v232 & 1) == 0)
         {
           bloodTypeModifiedDate7 = [(_HKMedicalIDData *)self bloodTypeModifiedDate];
           bloodTypeModifiedDate8 = [(_HKMedicalIDData *)mergeCopy bloodTypeModifiedDate];
-          v213 = [bloodTypeModifiedDate7 hk_isAfterDate:bloodTypeModifiedDate8];
+          v235 = [bloodTypeModifiedDate7 hk_isAfterDate:bloodTypeModifiedDate8];
 
           bloodType = [(_HKMedicalIDData *)self bloodType];
           selfCopy46 = self;
-          if (v213)
+          if (v235)
           {
             goto LABEL_174;
           }
 
+          bloodType2 = [(_HKMedicalIDData *)mergeCopy bloodType];
           selfCopy46 = self;
-          if (bloodType != [(_HKMedicalIDData *)mergeCopy bloodType])
+          if (bloodType != bloodType2)
           {
-            _HKInitializeLogging();
-            v215 = HKLogMedicalID;
-            if (os_log_type_enabled(v215, OS_LOG_TYPE_ERROR))
+            _HKInitializeLogging(bloodType2, v238);
+            v239 = HKLogMedicalID;
+            if (os_log_type_enabled(v239, OS_LOG_TYPE_ERROR))
             {
               [_HKMedicalIDData merge:];
             }
@@ -10508,13 +10513,14 @@ LABEL_172:
     goto LABEL_173;
   }
 
-  bloodType2 = [(_HKMedicalIDData *)self bloodType];
+  bloodType3 = [(_HKMedicalIDData *)self bloodType];
+  bloodType4 = [(_HKMedicalIDData *)mergeCopy bloodType];
   selfCopy46 = self;
-  if (bloodType2 != [(_HKMedicalIDData *)mergeCopy bloodType])
+  if (bloodType3 != bloodType4)
   {
-    _HKInitializeLogging();
-    v215 = HKLogMedicalID;
-    if (os_log_type_enabled(v215, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(bloodType4, v242);
+    v239 = HKLogMedicalID;
+    if (os_log_type_enabled(v239, OS_LOG_TYPE_ERROR))
     {
       [_HKMedicalIDData merge:];
     }
@@ -10525,12 +10531,12 @@ LABEL_172:
 LABEL_173:
   bloodType = [(_HKMedicalIDData *)selfCopy46 bloodType];
 LABEL_174:
-  v217 = objc_opt_self();
-  [v217 setBloodType:bloodType];
+  v243 = objc_opt_self();
+  [v243 setBloodType:bloodType];
 
   bloodTypeModifiedDate9 = [(_HKMedicalIDData *)selfCopy46 bloodTypeModifiedDate];
-  v219 = objc_opt_self();
-  [v219 setBloodTypeModifiedDate:bloodTypeModifiedDate9];
+  v245 = objc_opt_self();
+  [v245 setBloodTypeModifiedDate:bloodTypeModifiedDate9];
 
   emergencyContactsModifiedDate = [(_HKMedicalIDData *)self emergencyContactsModifiedDate];
   if (emergencyContactsModifiedDate)
@@ -10548,9 +10554,9 @@ LABEL_174:
 
       if (emergencyContacts != emergencyContacts2)
       {
-        _HKInitializeLogging();
-        v234 = HKLogMedicalID;
-        if (os_log_type_enabled(v234, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v260, v261);
+        v262 = HKLogMedicalID;
+        if (os_log_type_enabled(v262, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -10569,12 +10575,12 @@ LABEL_174:
         }
 
         emergencyContacts5 = [(_HKMedicalIDData *)self emergencyContacts];
-        v238 = objc_opt_self();
-        [v238 setEmergencyContacts:emergencyContacts5];
+        v266 = objc_opt_self();
+        [v266 setEmergencyContacts:emergencyContacts5];
 
         emergencyContacts3 = [(_HKMedicalIDData *)self emergencyContactsModifiedDate];
-        v239 = objc_opt_self();
-        [v239 setEmergencyContactsModifiedDate:emergencyContacts3];
+        v267 = objc_opt_self();
+        [v267 setEmergencyContactsModifiedDate:emergencyContacts3];
       }
 
       selfCopy51 = mergeCopy;
@@ -10596,17 +10602,17 @@ LABEL_190:
     {
       emergencyContactsModifiedDate5 = [(_HKMedicalIDData *)self emergencyContactsModifiedDate];
       emergencyContactsModifiedDate6 = [(_HKMedicalIDData *)mergeCopy emergencyContactsModifiedDate];
-      v227 = [emergencyContactsModifiedDate5 hk_isBeforeDate:emergencyContactsModifiedDate6];
+      v253 = [emergencyContactsModifiedDate5 hk_isBeforeDate:emergencyContactsModifiedDate6];
 
       selfCopy51 = mergeCopy;
-      if ((v227 & 1) == 0)
+      if ((v253 & 1) == 0)
       {
         emergencyContactsModifiedDate7 = [(_HKMedicalIDData *)self emergencyContactsModifiedDate];
         emergencyContactsModifiedDate8 = [(_HKMedicalIDData *)mergeCopy emergencyContactsModifiedDate];
-        v230 = [emergencyContactsModifiedDate7 hk_isAfterDate:emergencyContactsModifiedDate8];
+        v256 = [emergencyContactsModifiedDate7 hk_isAfterDate:emergencyContactsModifiedDate8];
 
         emergencyContacts6 = [(_HKMedicalIDData *)self emergencyContacts];
-        if (v230)
+        if (v256)
         {
           selfCopy51 = self;
           goto LABEL_192;
@@ -10617,9 +10623,9 @@ LABEL_190:
         selfCopy51 = self;
         if (emergencyContacts6 != emergencyContacts7)
         {
-          _HKInitializeLogging();
-          v569 = HKLogMedicalID;
-          if (os_log_type_enabled(v569, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v655, v656);
+          v657 = HKLogMedicalID;
+          if (os_log_type_enabled(v657, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -10629,7 +10635,7 @@ LABEL_190:
           selfCopy51 = self;
           if (!emergencyContacts8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v659, v660);
             emergencyContacts3 = HKLogMedicalID;
             if (os_log_type_enabled(emergencyContacts3, OS_LOG_TYPE_ERROR))
             {
@@ -10647,12 +10653,12 @@ LABEL_190:
 LABEL_191:
   emergencyContacts6 = [(_HKMedicalIDData *)selfCopy51 emergencyContacts];
 LABEL_192:
-  v240 = objc_opt_self();
-  [v240 setEmergencyContacts:emergencyContacts6];
+  v268 = objc_opt_self();
+  [v268 setEmergencyContacts:emergencyContacts6];
 
   emergencyContactsModifiedDate9 = [(_HKMedicalIDData *)selfCopy51 emergencyContactsModifiedDate];
-  v242 = objc_opt_self();
-  [v242 setEmergencyContactsModifiedDate:emergencyContactsModifiedDate9];
+  v270 = objc_opt_self();
+  [v270 setEmergencyContactsModifiedDate:emergencyContactsModifiedDate9];
 
   clinicalContactsModifiedDate = [(_HKMedicalIDData *)self clinicalContactsModifiedDate];
   if (clinicalContactsModifiedDate)
@@ -10670,9 +10676,9 @@ LABEL_192:
 
       if (clinicalContacts != clinicalContacts2)
       {
-        _HKInitializeLogging();
-        v257 = HKLogMedicalID;
-        if (os_log_type_enabled(v257, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v285, v286);
+        v287 = HKLogMedicalID;
+        if (os_log_type_enabled(v287, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -10691,12 +10697,12 @@ LABEL_192:
         }
 
         clinicalContacts5 = [(_HKMedicalIDData *)self clinicalContacts];
-        v261 = objc_opt_self();
-        [v261 setClinicalContacts:clinicalContacts5];
+        v291 = objc_opt_self();
+        [v291 setClinicalContacts:clinicalContacts5];
 
         clinicalContacts3 = [(_HKMedicalIDData *)self clinicalContactsModifiedDate];
-        v262 = objc_opt_self();
-        [v262 setClinicalContactsModifiedDate:clinicalContacts3];
+        v292 = objc_opt_self();
+        [v292 setClinicalContactsModifiedDate:clinicalContacts3];
       }
 
       selfCopy56 = mergeCopy;
@@ -10718,17 +10724,17 @@ LABEL_208:
     {
       clinicalContactsModifiedDate5 = [(_HKMedicalIDData *)self clinicalContactsModifiedDate];
       clinicalContactsModifiedDate6 = [(_HKMedicalIDData *)mergeCopy clinicalContactsModifiedDate];
-      v250 = [clinicalContactsModifiedDate5 hk_isBeforeDate:clinicalContactsModifiedDate6];
+      v278 = [clinicalContactsModifiedDate5 hk_isBeforeDate:clinicalContactsModifiedDate6];
 
       selfCopy56 = mergeCopy;
-      if ((v250 & 1) == 0)
+      if ((v278 & 1) == 0)
       {
         clinicalContactsModifiedDate7 = [(_HKMedicalIDData *)self clinicalContactsModifiedDate];
         clinicalContactsModifiedDate8 = [(_HKMedicalIDData *)mergeCopy clinicalContactsModifiedDate];
-        v253 = [clinicalContactsModifiedDate7 hk_isAfterDate:clinicalContactsModifiedDate8];
+        v281 = [clinicalContactsModifiedDate7 hk_isAfterDate:clinicalContactsModifiedDate8];
 
         clinicalContacts6 = [(_HKMedicalIDData *)self clinicalContacts];
-        if (v253)
+        if (v281)
         {
           selfCopy56 = self;
           goto LABEL_210;
@@ -10739,9 +10745,9 @@ LABEL_208:
         selfCopy56 = self;
         if (clinicalContacts6 != clinicalContacts7)
         {
-          _HKInitializeLogging();
-          v572 = HKLogMedicalID;
-          if (os_log_type_enabled(v572, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v662, v663);
+          v664 = HKLogMedicalID;
+          if (os_log_type_enabled(v664, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -10751,7 +10757,7 @@ LABEL_208:
           selfCopy56 = self;
           if (!clinicalContacts8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v666, v667);
             clinicalContacts3 = HKLogMedicalID;
             if (os_log_type_enabled(clinicalContacts3, OS_LOG_TYPE_ERROR))
             {
@@ -10769,12 +10775,12 @@ LABEL_208:
 LABEL_209:
   clinicalContacts6 = [(_HKMedicalIDData *)selfCopy56 clinicalContacts];
 LABEL_210:
-  v263 = objc_opt_self();
-  [v263 setClinicalContacts:clinicalContacts6];
+  v293 = objc_opt_self();
+  [v293 setClinicalContacts:clinicalContacts6];
 
   clinicalContactsModifiedDate9 = [(_HKMedicalIDData *)selfCopy56 clinicalContactsModifiedDate];
-  v265 = objc_opt_self();
-  [v265 setClinicalContactsModifiedDate:clinicalContactsModifiedDate9];
+  v295 = objc_opt_self();
+  [v295 setClinicalContactsModifiedDate:clinicalContactsModifiedDate9];
 
   medicalConditionsModifiedDate = [(_HKMedicalIDData *)self medicalConditionsModifiedDate];
   if (medicalConditionsModifiedDate)
@@ -10792,9 +10798,9 @@ LABEL_210:
 
       if (medicalConditions != medicalConditions2)
       {
-        _HKInitializeLogging();
-        v280 = HKLogMedicalID;
-        if (os_log_type_enabled(v280, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v310, v311);
+        v312 = HKLogMedicalID;
+        if (os_log_type_enabled(v312, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -10813,12 +10819,12 @@ LABEL_210:
         }
 
         medicalConditions5 = [(_HKMedicalIDData *)self medicalConditions];
-        v284 = objc_opt_self();
-        [v284 setMedicalConditions:medicalConditions5];
+        v316 = objc_opt_self();
+        [v316 setMedicalConditions:medicalConditions5];
 
         medicalConditions3 = [(_HKMedicalIDData *)self medicalConditionsModifiedDate];
-        v285 = objc_opt_self();
-        [v285 setMedicalConditionsModifiedDate:medicalConditions3];
+        v317 = objc_opt_self();
+        [v317 setMedicalConditionsModifiedDate:medicalConditions3];
       }
 
       selfCopy61 = mergeCopy;
@@ -10840,17 +10846,17 @@ LABEL_226:
     {
       medicalConditionsModifiedDate5 = [(_HKMedicalIDData *)self medicalConditionsModifiedDate];
       medicalConditionsModifiedDate6 = [(_HKMedicalIDData *)mergeCopy medicalConditionsModifiedDate];
-      v273 = [medicalConditionsModifiedDate5 hk_isBeforeDate:medicalConditionsModifiedDate6];
+      v303 = [medicalConditionsModifiedDate5 hk_isBeforeDate:medicalConditionsModifiedDate6];
 
       selfCopy61 = mergeCopy;
-      if ((v273 & 1) == 0)
+      if ((v303 & 1) == 0)
       {
         medicalConditionsModifiedDate7 = [(_HKMedicalIDData *)self medicalConditionsModifiedDate];
         medicalConditionsModifiedDate8 = [(_HKMedicalIDData *)mergeCopy medicalConditionsModifiedDate];
-        v276 = [medicalConditionsModifiedDate7 hk_isAfterDate:medicalConditionsModifiedDate8];
+        v306 = [medicalConditionsModifiedDate7 hk_isAfterDate:medicalConditionsModifiedDate8];
 
         medicalConditions6 = [(_HKMedicalIDData *)self medicalConditions];
-        if (v276)
+        if (v306)
         {
           selfCopy61 = self;
           goto LABEL_228;
@@ -10861,9 +10867,9 @@ LABEL_226:
         selfCopy61 = self;
         if (medicalConditions6 != medicalConditions7)
         {
-          _HKInitializeLogging();
-          v575 = HKLogMedicalID;
-          if (os_log_type_enabled(v575, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v669, v670);
+          v671 = HKLogMedicalID;
+          if (os_log_type_enabled(v671, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -10873,7 +10879,7 @@ LABEL_226:
           selfCopy61 = self;
           if (!medicalConditions8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v673, v674);
             medicalConditions3 = HKLogMedicalID;
             if (os_log_type_enabled(medicalConditions3, OS_LOG_TYPE_ERROR))
             {
@@ -10891,12 +10897,12 @@ LABEL_226:
 LABEL_227:
   medicalConditions6 = [(_HKMedicalIDData *)selfCopy61 medicalConditions];
 LABEL_228:
-  v286 = objc_opt_self();
-  [v286 setMedicalConditions:medicalConditions6];
+  v318 = objc_opt_self();
+  [v318 setMedicalConditions:medicalConditions6];
 
   medicalConditionsModifiedDate9 = [(_HKMedicalIDData *)selfCopy61 medicalConditionsModifiedDate];
-  v288 = objc_opt_self();
-  [v288 setMedicalConditionsModifiedDate:medicalConditionsModifiedDate9];
+  v320 = objc_opt_self();
+  [v320 setMedicalConditionsModifiedDate:medicalConditionsModifiedDate9];
 
   medicalNotesModifiedDate = [(_HKMedicalIDData *)self medicalNotesModifiedDate];
   if (medicalNotesModifiedDate)
@@ -10914,9 +10920,9 @@ LABEL_228:
 
       if (medicalNotes != medicalNotes2)
       {
-        _HKInitializeLogging();
-        v303 = HKLogMedicalID;
-        if (os_log_type_enabled(v303, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v335, v336);
+        v337 = HKLogMedicalID;
+        if (os_log_type_enabled(v337, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -10935,12 +10941,12 @@ LABEL_228:
         }
 
         medicalNotes5 = [(_HKMedicalIDData *)self medicalNotes];
-        v307 = objc_opt_self();
-        [v307 setMedicalNotes:medicalNotes5];
+        v341 = objc_opt_self();
+        [v341 setMedicalNotes:medicalNotes5];
 
         medicalNotes3 = [(_HKMedicalIDData *)self medicalNotesModifiedDate];
-        v308 = objc_opt_self();
-        [v308 setMedicalNotesModifiedDate:medicalNotes3];
+        v342 = objc_opt_self();
+        [v342 setMedicalNotesModifiedDate:medicalNotes3];
       }
 
       selfCopy66 = mergeCopy;
@@ -10962,17 +10968,17 @@ LABEL_244:
     {
       medicalNotesModifiedDate5 = [(_HKMedicalIDData *)self medicalNotesModifiedDate];
       medicalNotesModifiedDate6 = [(_HKMedicalIDData *)mergeCopy medicalNotesModifiedDate];
-      v296 = [medicalNotesModifiedDate5 hk_isBeforeDate:medicalNotesModifiedDate6];
+      v328 = [medicalNotesModifiedDate5 hk_isBeforeDate:medicalNotesModifiedDate6];
 
       selfCopy66 = mergeCopy;
-      if ((v296 & 1) == 0)
+      if ((v328 & 1) == 0)
       {
         medicalNotesModifiedDate7 = [(_HKMedicalIDData *)self medicalNotesModifiedDate];
         medicalNotesModifiedDate8 = [(_HKMedicalIDData *)mergeCopy medicalNotesModifiedDate];
-        v299 = [medicalNotesModifiedDate7 hk_isAfterDate:medicalNotesModifiedDate8];
+        v331 = [medicalNotesModifiedDate7 hk_isAfterDate:medicalNotesModifiedDate8];
 
         medicalNotes6 = [(_HKMedicalIDData *)self medicalNotes];
-        if (v299)
+        if (v331)
         {
           selfCopy66 = self;
           goto LABEL_246;
@@ -10983,9 +10989,9 @@ LABEL_244:
         selfCopy66 = self;
         if (medicalNotes6 != medicalNotes7)
         {
-          _HKInitializeLogging();
-          v578 = HKLogMedicalID;
-          if (os_log_type_enabled(v578, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v676, v677);
+          v678 = HKLogMedicalID;
+          if (os_log_type_enabled(v678, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -10995,7 +11001,7 @@ LABEL_244:
           selfCopy66 = self;
           if (!medicalNotes8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v680, v681);
             medicalNotes3 = HKLogMedicalID;
             if (os_log_type_enabled(medicalNotes3, OS_LOG_TYPE_ERROR))
             {
@@ -11013,12 +11019,12 @@ LABEL_244:
 LABEL_245:
   medicalNotes6 = [(_HKMedicalIDData *)selfCopy66 medicalNotes];
 LABEL_246:
-  v309 = objc_opt_self();
-  [v309 setMedicalNotes:medicalNotes6];
+  v343 = objc_opt_self();
+  [v343 setMedicalNotes:medicalNotes6];
 
   medicalNotesModifiedDate9 = [(_HKMedicalIDData *)selfCopy66 medicalNotesModifiedDate];
-  v311 = objc_opt_self();
-  [v311 setMedicalNotesModifiedDate:medicalNotesModifiedDate9];
+  v345 = objc_opt_self();
+  [v345 setMedicalNotesModifiedDate:medicalNotesModifiedDate9];
 
   allergyInfoModifiedDate = [(_HKMedicalIDData *)self allergyInfoModifiedDate];
   if (allergyInfoModifiedDate)
@@ -11036,9 +11042,9 @@ LABEL_246:
 
       if (allergyInfo != allergyInfo2)
       {
-        _HKInitializeLogging();
-        v326 = HKLogMedicalID;
-        if (os_log_type_enabled(v326, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v360, v361);
+        v362 = HKLogMedicalID;
+        if (os_log_type_enabled(v362, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -11057,12 +11063,12 @@ LABEL_246:
         }
 
         allergyInfo5 = [(_HKMedicalIDData *)self allergyInfo];
-        v330 = objc_opt_self();
-        [v330 setAllergyInfo:allergyInfo5];
+        v366 = objc_opt_self();
+        [v366 setAllergyInfo:allergyInfo5];
 
         allergyInfo3 = [(_HKMedicalIDData *)self allergyInfoModifiedDate];
-        v331 = objc_opt_self();
-        [v331 setAllergyInfoModifiedDate:allergyInfo3];
+        v367 = objc_opt_self();
+        [v367 setAllergyInfoModifiedDate:allergyInfo3];
       }
 
       selfCopy71 = mergeCopy;
@@ -11084,17 +11090,17 @@ LABEL_262:
     {
       allergyInfoModifiedDate5 = [(_HKMedicalIDData *)self allergyInfoModifiedDate];
       allergyInfoModifiedDate6 = [(_HKMedicalIDData *)mergeCopy allergyInfoModifiedDate];
-      v319 = [allergyInfoModifiedDate5 hk_isBeforeDate:allergyInfoModifiedDate6];
+      v353 = [allergyInfoModifiedDate5 hk_isBeforeDate:allergyInfoModifiedDate6];
 
       selfCopy71 = mergeCopy;
-      if ((v319 & 1) == 0)
+      if ((v353 & 1) == 0)
       {
         allergyInfoModifiedDate7 = [(_HKMedicalIDData *)self allergyInfoModifiedDate];
         allergyInfoModifiedDate8 = [(_HKMedicalIDData *)mergeCopy allergyInfoModifiedDate];
-        v322 = [allergyInfoModifiedDate7 hk_isAfterDate:allergyInfoModifiedDate8];
+        v356 = [allergyInfoModifiedDate7 hk_isAfterDate:allergyInfoModifiedDate8];
 
         allergyInfo6 = [(_HKMedicalIDData *)self allergyInfo];
-        if (v322)
+        if (v356)
         {
           selfCopy71 = self;
           goto LABEL_264;
@@ -11105,9 +11111,9 @@ LABEL_262:
         selfCopy71 = self;
         if (allergyInfo6 != allergyInfo7)
         {
-          _HKInitializeLogging();
-          v581 = HKLogMedicalID;
-          if (os_log_type_enabled(v581, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v683, v684);
+          v685 = HKLogMedicalID;
+          if (os_log_type_enabled(v685, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -11117,7 +11123,7 @@ LABEL_262:
           selfCopy71 = self;
           if (!allergyInfo8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v687, v688);
             allergyInfo3 = HKLogMedicalID;
             if (os_log_type_enabled(allergyInfo3, OS_LOG_TYPE_ERROR))
             {
@@ -11135,12 +11141,12 @@ LABEL_262:
 LABEL_263:
   allergyInfo6 = [(_HKMedicalIDData *)selfCopy71 allergyInfo];
 LABEL_264:
-  v332 = objc_opt_self();
-  [v332 setAllergyInfo:allergyInfo6];
+  v368 = objc_opt_self();
+  [v368 setAllergyInfo:allergyInfo6];
 
   allergyInfoModifiedDate9 = [(_HKMedicalIDData *)selfCopy71 allergyInfoModifiedDate];
-  v334 = objc_opt_self();
-  [v334 setAllergyInfoModifiedDate:allergyInfoModifiedDate9];
+  v370 = objc_opt_self();
+  [v370 setAllergyInfoModifiedDate:allergyInfoModifiedDate9];
 
   medicationInfoModifiedDate = [(_HKMedicalIDData *)self medicationInfoModifiedDate];
   if (medicationInfoModifiedDate)
@@ -11158,9 +11164,9 @@ LABEL_264:
 
       if (medicationInfo != medicationInfo2)
       {
-        _HKInitializeLogging();
-        v349 = HKLogMedicalID;
-        if (os_log_type_enabled(v349, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v385, v386);
+        v387 = HKLogMedicalID;
+        if (os_log_type_enabled(v387, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -11179,12 +11185,12 @@ LABEL_264:
         }
 
         medicationInfo5 = [(_HKMedicalIDData *)self medicationInfo];
-        v353 = objc_opt_self();
-        [v353 setMedicationInfo:medicationInfo5];
+        v391 = objc_opt_self();
+        [v391 setMedicationInfo:medicationInfo5];
 
         medicationInfo3 = [(_HKMedicalIDData *)self medicationInfoModifiedDate];
-        v354 = objc_opt_self();
-        [v354 setMedicationInfoModifiedDate:medicationInfo3];
+        v392 = objc_opt_self();
+        [v392 setMedicationInfoModifiedDate:medicationInfo3];
       }
 
       selfCopy76 = mergeCopy;
@@ -11206,17 +11212,17 @@ LABEL_280:
     {
       medicationInfoModifiedDate5 = [(_HKMedicalIDData *)self medicationInfoModifiedDate];
       medicationInfoModifiedDate6 = [(_HKMedicalIDData *)mergeCopy medicationInfoModifiedDate];
-      v342 = [medicationInfoModifiedDate5 hk_isBeforeDate:medicationInfoModifiedDate6];
+      v378 = [medicationInfoModifiedDate5 hk_isBeforeDate:medicationInfoModifiedDate6];
 
       selfCopy76 = mergeCopy;
-      if ((v342 & 1) == 0)
+      if ((v378 & 1) == 0)
       {
         medicationInfoModifiedDate7 = [(_HKMedicalIDData *)self medicationInfoModifiedDate];
         medicationInfoModifiedDate8 = [(_HKMedicalIDData *)mergeCopy medicationInfoModifiedDate];
-        v345 = [medicationInfoModifiedDate7 hk_isAfterDate:medicationInfoModifiedDate8];
+        v381 = [medicationInfoModifiedDate7 hk_isAfterDate:medicationInfoModifiedDate8];
 
         medicationInfo6 = [(_HKMedicalIDData *)self medicationInfo];
-        if (v345)
+        if (v381)
         {
           selfCopy76 = self;
           goto LABEL_282;
@@ -11227,9 +11233,9 @@ LABEL_280:
         selfCopy76 = self;
         if (medicationInfo6 != medicationInfo7)
         {
-          _HKInitializeLogging();
-          v584 = HKLogMedicalID;
-          if (os_log_type_enabled(v584, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v690, v691);
+          v692 = HKLogMedicalID;
+          if (os_log_type_enabled(v692, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -11239,7 +11245,7 @@ LABEL_280:
           selfCopy76 = self;
           if (!medicationInfo8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v694, v695);
             medicationInfo3 = HKLogMedicalID;
             if (os_log_type_enabled(medicationInfo3, OS_LOG_TYPE_ERROR))
             {
@@ -11257,12 +11263,12 @@ LABEL_280:
 LABEL_281:
   medicationInfo6 = [(_HKMedicalIDData *)selfCopy76 medicationInfo];
 LABEL_282:
-  v355 = objc_opt_self();
-  [v355 setMedicationInfo:medicationInfo6];
+  v393 = objc_opt_self();
+  [v393 setMedicationInfo:medicationInfo6];
 
   medicationInfoModifiedDate9 = [(_HKMedicalIDData *)selfCopy76 medicationInfoModifiedDate];
-  v357 = objc_opt_self();
-  [v357 setMedicationInfoModifiedDate:medicationInfoModifiedDate9];
+  v395 = objc_opt_self();
+  [v395 setMedicationInfoModifiedDate:medicationInfoModifiedDate9];
 
   pregnancyStartDateModifiedDate = [(_HKMedicalIDData *)self pregnancyStartDateModifiedDate];
   if (pregnancyStartDateModifiedDate)
@@ -11280,9 +11286,9 @@ LABEL_282:
 
       if (pregnancyStartDate != pregnancyStartDate2)
       {
-        _HKInitializeLogging();
-        v372 = HKLogMedicalID;
-        if (os_log_type_enabled(v372, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v410, v411);
+        v412 = HKLogMedicalID;
+        if (os_log_type_enabled(v412, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -11301,12 +11307,12 @@ LABEL_282:
         }
 
         pregnancyStartDate5 = [(_HKMedicalIDData *)self pregnancyStartDate];
-        v376 = objc_opt_self();
-        [v376 setPregnancyStartDate:pregnancyStartDate5];
+        v416 = objc_opt_self();
+        [v416 setPregnancyStartDate:pregnancyStartDate5];
 
         pregnancyStartDate3 = [(_HKMedicalIDData *)self pregnancyStartDateModifiedDate];
-        v377 = objc_opt_self();
-        [v377 setPregnancyStartDateModifiedDate:pregnancyStartDate3];
+        v417 = objc_opt_self();
+        [v417 setPregnancyStartDateModifiedDate:pregnancyStartDate3];
       }
 
       selfCopy81 = mergeCopy;
@@ -11328,17 +11334,17 @@ LABEL_298:
     {
       pregnancyStartDateModifiedDate5 = [(_HKMedicalIDData *)self pregnancyStartDateModifiedDate];
       pregnancyStartDateModifiedDate6 = [(_HKMedicalIDData *)mergeCopy pregnancyStartDateModifiedDate];
-      v365 = [pregnancyStartDateModifiedDate5 hk_isBeforeDate:pregnancyStartDateModifiedDate6];
+      v403 = [pregnancyStartDateModifiedDate5 hk_isBeforeDate:pregnancyStartDateModifiedDate6];
 
       selfCopy81 = mergeCopy;
-      if ((v365 & 1) == 0)
+      if ((v403 & 1) == 0)
       {
         pregnancyStartDateModifiedDate7 = [(_HKMedicalIDData *)self pregnancyStartDateModifiedDate];
         pregnancyStartDateModifiedDate8 = [(_HKMedicalIDData *)mergeCopy pregnancyStartDateModifiedDate];
-        v368 = [pregnancyStartDateModifiedDate7 hk_isAfterDate:pregnancyStartDateModifiedDate8];
+        v406 = [pregnancyStartDateModifiedDate7 hk_isAfterDate:pregnancyStartDateModifiedDate8];
 
         pregnancyStartDate6 = [(_HKMedicalIDData *)self pregnancyStartDate];
-        if (v368)
+        if (v406)
         {
           selfCopy81 = self;
           goto LABEL_300;
@@ -11349,9 +11355,9 @@ LABEL_298:
         selfCopy81 = self;
         if (pregnancyStartDate6 != pregnancyStartDate7)
         {
-          _HKInitializeLogging();
-          v587 = HKLogMedicalID;
-          if (os_log_type_enabled(v587, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v697, v698);
+          v699 = HKLogMedicalID;
+          if (os_log_type_enabled(v699, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -11361,7 +11367,7 @@ LABEL_298:
           selfCopy81 = self;
           if (!pregnancyStartDate8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v701, v702);
             pregnancyStartDate3 = HKLogMedicalID;
             if (os_log_type_enabled(pregnancyStartDate3, OS_LOG_TYPE_ERROR))
             {
@@ -11379,12 +11385,12 @@ LABEL_298:
 LABEL_299:
   pregnancyStartDate6 = [(_HKMedicalIDData *)selfCopy81 pregnancyStartDate];
 LABEL_300:
-  v378 = objc_opt_self();
-  [v378 setPregnancyStartDate:pregnancyStartDate6];
+  v418 = objc_opt_self();
+  [v418 setPregnancyStartDate:pregnancyStartDate6];
 
   pregnancyStartDateModifiedDate9 = [(_HKMedicalIDData *)selfCopy81 pregnancyStartDateModifiedDate];
-  v380 = objc_opt_self();
-  [v380 setPregnancyStartDateModifiedDate:pregnancyStartDateModifiedDate9];
+  v420 = objc_opt_self();
+  [v420 setPregnancyStartDateModifiedDate:pregnancyStartDateModifiedDate9];
 
   pregnancyEstimatedDueDateModifiedDate = [(_HKMedicalIDData *)self pregnancyEstimatedDueDateModifiedDate];
   if (pregnancyEstimatedDueDateModifiedDate)
@@ -11402,9 +11408,9 @@ LABEL_300:
 
       if (pregnancyEstimatedDueDate != pregnancyEstimatedDueDate2)
       {
-        _HKInitializeLogging();
-        v395 = HKLogMedicalID;
-        if (os_log_type_enabled(v395, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v435, v436);
+        v437 = HKLogMedicalID;
+        if (os_log_type_enabled(v437, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -11423,12 +11429,12 @@ LABEL_300:
         }
 
         pregnancyEstimatedDueDate5 = [(_HKMedicalIDData *)self pregnancyEstimatedDueDate];
-        v399 = objc_opt_self();
-        [v399 setPregnancyEstimatedDueDate:pregnancyEstimatedDueDate5];
+        v441 = objc_opt_self();
+        [v441 setPregnancyEstimatedDueDate:pregnancyEstimatedDueDate5];
 
         pregnancyEstimatedDueDate3 = [(_HKMedicalIDData *)self pregnancyEstimatedDueDateModifiedDate];
-        v400 = objc_opt_self();
-        [v400 setPregnancyEstimatedDueDateModifiedDate:pregnancyEstimatedDueDate3];
+        v442 = objc_opt_self();
+        [v442 setPregnancyEstimatedDueDateModifiedDate:pregnancyEstimatedDueDate3];
       }
 
       selfCopy86 = mergeCopy;
@@ -11450,17 +11456,17 @@ LABEL_316:
     {
       pregnancyEstimatedDueDateModifiedDate5 = [(_HKMedicalIDData *)self pregnancyEstimatedDueDateModifiedDate];
       pregnancyEstimatedDueDateModifiedDate6 = [(_HKMedicalIDData *)mergeCopy pregnancyEstimatedDueDateModifiedDate];
-      v388 = [pregnancyEstimatedDueDateModifiedDate5 hk_isBeforeDate:pregnancyEstimatedDueDateModifiedDate6];
+      v428 = [pregnancyEstimatedDueDateModifiedDate5 hk_isBeforeDate:pregnancyEstimatedDueDateModifiedDate6];
 
       selfCopy86 = mergeCopy;
-      if ((v388 & 1) == 0)
+      if ((v428 & 1) == 0)
       {
         pregnancyEstimatedDueDateModifiedDate7 = [(_HKMedicalIDData *)self pregnancyEstimatedDueDateModifiedDate];
         pregnancyEstimatedDueDateModifiedDate8 = [(_HKMedicalIDData *)mergeCopy pregnancyEstimatedDueDateModifiedDate];
-        v391 = [pregnancyEstimatedDueDateModifiedDate7 hk_isAfterDate:pregnancyEstimatedDueDateModifiedDate8];
+        v431 = [pregnancyEstimatedDueDateModifiedDate7 hk_isAfterDate:pregnancyEstimatedDueDateModifiedDate8];
 
         pregnancyEstimatedDueDate6 = [(_HKMedicalIDData *)self pregnancyEstimatedDueDate];
-        if (v391)
+        if (v431)
         {
           selfCopy86 = self;
           goto LABEL_318;
@@ -11471,9 +11477,9 @@ LABEL_316:
         selfCopy86 = self;
         if (pregnancyEstimatedDueDate6 != pregnancyEstimatedDueDate7)
         {
-          _HKInitializeLogging();
-          v590 = HKLogMedicalID;
-          if (os_log_type_enabled(v590, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v704, v705);
+          v706 = HKLogMedicalID;
+          if (os_log_type_enabled(v706, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -11483,7 +11489,7 @@ LABEL_316:
           selfCopy86 = self;
           if (!pregnancyEstimatedDueDate8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v708, v709);
             pregnancyEstimatedDueDate3 = HKLogMedicalID;
             if (os_log_type_enabled(pregnancyEstimatedDueDate3, OS_LOG_TYPE_ERROR))
             {
@@ -11501,12 +11507,12 @@ LABEL_316:
 LABEL_317:
   pregnancyEstimatedDueDate6 = [(_HKMedicalIDData *)selfCopy86 pregnancyEstimatedDueDate];
 LABEL_318:
-  v401 = objc_opt_self();
-  [v401 setPregnancyEstimatedDueDate:pregnancyEstimatedDueDate6];
+  v443 = objc_opt_self();
+  [v443 setPregnancyEstimatedDueDate:pregnancyEstimatedDueDate6];
 
   pregnancyEstimatedDueDateModifiedDate9 = [(_HKMedicalIDData *)selfCopy86 pregnancyEstimatedDueDateModifiedDate];
-  v403 = objc_opt_self();
-  [v403 setPregnancyEstimatedDueDateModifiedDate:pregnancyEstimatedDueDateModifiedDate9];
+  v445 = objc_opt_self();
+  [v445 setPregnancyEstimatedDueDateModifiedDate:pregnancyEstimatedDueDateModifiedDate9];
 
   medicationsListModifiedDate = [(_HKMedicalIDData *)self medicationsListModifiedDate];
   if (medicationsListModifiedDate)
@@ -11524,9 +11530,9 @@ LABEL_318:
 
       if (medicationsList != medicationsList2)
       {
-        _HKInitializeLogging();
-        v418 = HKLogMedicalID;
-        if (os_log_type_enabled(v418, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v460, v461);
+        v462 = HKLogMedicalID;
+        if (os_log_type_enabled(v462, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -11545,12 +11551,12 @@ LABEL_318:
         }
 
         medicationsList5 = [(_HKMedicalIDData *)self medicationsList];
-        v422 = objc_opt_self();
-        [v422 setMedicationsList:medicationsList5];
+        v466 = objc_opt_self();
+        [v466 setMedicationsList:medicationsList5];
 
         medicationsList3 = [(_HKMedicalIDData *)self medicationsListModifiedDate];
-        v423 = objc_opt_self();
-        [v423 setMedicationsListModifiedDate:medicationsList3];
+        v467 = objc_opt_self();
+        [v467 setMedicationsListModifiedDate:medicationsList3];
       }
 
       selfCopy91 = mergeCopy;
@@ -11572,17 +11578,17 @@ LABEL_334:
     {
       medicationsListModifiedDate5 = [(_HKMedicalIDData *)self medicationsListModifiedDate];
       medicationsListModifiedDate6 = [(_HKMedicalIDData *)mergeCopy medicationsListModifiedDate];
-      v411 = [medicationsListModifiedDate5 hk_isBeforeDate:medicationsListModifiedDate6];
+      v453 = [medicationsListModifiedDate5 hk_isBeforeDate:medicationsListModifiedDate6];
 
       selfCopy91 = mergeCopy;
-      if ((v411 & 1) == 0)
+      if ((v453 & 1) == 0)
       {
         medicationsListModifiedDate7 = [(_HKMedicalIDData *)self medicationsListModifiedDate];
         medicationsListModifiedDate8 = [(_HKMedicalIDData *)mergeCopy medicationsListModifiedDate];
-        v414 = [medicationsListModifiedDate7 hk_isAfterDate:medicationsListModifiedDate8];
+        v456 = [medicationsListModifiedDate7 hk_isAfterDate:medicationsListModifiedDate8];
 
         medicationsList6 = [(_HKMedicalIDData *)self medicationsList];
-        if (v414)
+        if (v456)
         {
           selfCopy91 = self;
           goto LABEL_336;
@@ -11593,9 +11599,9 @@ LABEL_334:
         selfCopy91 = self;
         if (medicationsList6 != medicationsList7)
         {
-          _HKInitializeLogging();
-          v593 = HKLogMedicalID;
-          if (os_log_type_enabled(v593, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v711, v712);
+          v713 = HKLogMedicalID;
+          if (os_log_type_enabled(v713, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -11605,7 +11611,7 @@ LABEL_334:
           selfCopy91 = self;
           if (!medicationsList8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v715, v716);
             medicationsList3 = HKLogMedicalID;
             if (os_log_type_enabled(medicationsList3, OS_LOG_TYPE_ERROR))
             {
@@ -11623,12 +11629,12 @@ LABEL_334:
 LABEL_335:
   medicationsList6 = [(_HKMedicalIDData *)selfCopy91 medicationsList];
 LABEL_336:
-  v424 = objc_opt_self();
-  [v424 setMedicationsList:medicationsList6];
+  v468 = objc_opt_self();
+  [v468 setMedicationsList:medicationsList6];
 
   medicationsListModifiedDate9 = [(_HKMedicalIDData *)selfCopy91 medicationsListModifiedDate];
-  v426 = objc_opt_self();
-  [v426 setMedicationsListModifiedDate:medicationsListModifiedDate9];
+  v470 = objc_opt_self();
+  [v470 setMedicationsListModifiedDate:medicationsListModifiedDate9];
 
   medicationsListVersionModifiedDate = [(_HKMedicalIDData *)self medicationsListVersionModifiedDate];
   if (medicationsListVersionModifiedDate)
@@ -11646,9 +11652,9 @@ LABEL_336:
 
       if (medicationsListVersion != medicationsListVersion2)
       {
-        _HKInitializeLogging();
-        v441 = HKLogMedicalID;
-        if (os_log_type_enabled(v441, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v485, v486);
+        v487 = HKLogMedicalID;
+        if (os_log_type_enabled(v487, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -11667,12 +11673,12 @@ LABEL_336:
         }
 
         medicationsListVersion5 = [(_HKMedicalIDData *)self medicationsListVersion];
-        v445 = objc_opt_self();
-        [v445 setMedicationsListVersion:medicationsListVersion5];
+        v491 = objc_opt_self();
+        [v491 setMedicationsListVersion:medicationsListVersion5];
 
         medicationsListVersion3 = [(_HKMedicalIDData *)self medicationsListVersionModifiedDate];
-        v446 = objc_opt_self();
-        [v446 setMedicationsListVersionModifiedDate:medicationsListVersion3];
+        v492 = objc_opt_self();
+        [v492 setMedicationsListVersionModifiedDate:medicationsListVersion3];
       }
 
       selfCopy96 = mergeCopy;
@@ -11694,17 +11700,17 @@ LABEL_352:
     {
       medicationsListVersionModifiedDate5 = [(_HKMedicalIDData *)self medicationsListVersionModifiedDate];
       medicationsListVersionModifiedDate6 = [(_HKMedicalIDData *)mergeCopy medicationsListVersionModifiedDate];
-      v434 = [medicationsListVersionModifiedDate5 hk_isBeforeDate:medicationsListVersionModifiedDate6];
+      v478 = [medicationsListVersionModifiedDate5 hk_isBeforeDate:medicationsListVersionModifiedDate6];
 
       selfCopy96 = mergeCopy;
-      if ((v434 & 1) == 0)
+      if ((v478 & 1) == 0)
       {
         medicationsListVersionModifiedDate7 = [(_HKMedicalIDData *)self medicationsListVersionModifiedDate];
         medicationsListVersionModifiedDate8 = [(_HKMedicalIDData *)mergeCopy medicationsListVersionModifiedDate];
-        v437 = [medicationsListVersionModifiedDate7 hk_isAfterDate:medicationsListVersionModifiedDate8];
+        v481 = [medicationsListVersionModifiedDate7 hk_isAfterDate:medicationsListVersionModifiedDate8];
 
         medicationsListVersion6 = [(_HKMedicalIDData *)self medicationsListVersion];
-        if (v437)
+        if (v481)
         {
           selfCopy96 = self;
           goto LABEL_354;
@@ -11715,9 +11721,9 @@ LABEL_352:
         selfCopy96 = self;
         if (medicationsListVersion6 != medicationsListVersion7)
         {
-          _HKInitializeLogging();
-          v596 = HKLogMedicalID;
-          if (os_log_type_enabled(v596, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v718, v719);
+          v720 = HKLogMedicalID;
+          if (os_log_type_enabled(v720, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -11727,7 +11733,7 @@ LABEL_352:
           selfCopy96 = self;
           if (!medicationsListVersion8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v722, v723);
             medicationsListVersion3 = HKLogMedicalID;
             if (os_log_type_enabled(medicationsListVersion3, OS_LOG_TYPE_ERROR))
             {
@@ -11745,12 +11751,12 @@ LABEL_352:
 LABEL_353:
   medicationsListVersion6 = [(_HKMedicalIDData *)selfCopy96 medicationsListVersion];
 LABEL_354:
-  v447 = objc_opt_self();
-  [v447 setMedicationsListVersion:medicationsListVersion6];
+  v493 = objc_opt_self();
+  [v493 setMedicationsListVersion:medicationsListVersion6];
 
   medicationsListVersionModifiedDate9 = [(_HKMedicalIDData *)selfCopy96 medicationsListVersionModifiedDate];
-  v449 = objc_opt_self();
-  [v449 setMedicationsListVersionModifiedDate:medicationsListVersionModifiedDate9];
+  v495 = objc_opt_self();
+  [v495 setMedicationsListVersionModifiedDate:medicationsListVersionModifiedDate9];
 
   allergiesListModifiedDate = [(_HKMedicalIDData *)self allergiesListModifiedDate];
   if (allergiesListModifiedDate)
@@ -11768,9 +11774,9 @@ LABEL_354:
 
       if (allergiesList != allergiesList2)
       {
-        _HKInitializeLogging();
-        v464 = HKLogMedicalID;
-        if (os_log_type_enabled(v464, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v510, v511);
+        v512 = HKLogMedicalID;
+        if (os_log_type_enabled(v512, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -11789,12 +11795,12 @@ LABEL_354:
         }
 
         allergiesList5 = [(_HKMedicalIDData *)self allergiesList];
-        v468 = objc_opt_self();
-        [v468 setAllergiesList:allergiesList5];
+        v516 = objc_opt_self();
+        [v516 setAllergiesList:allergiesList5];
 
         allergiesList3 = [(_HKMedicalIDData *)self allergiesListModifiedDate];
-        v469 = objc_opt_self();
-        [v469 setAllergiesListModifiedDate:allergiesList3];
+        v517 = objc_opt_self();
+        [v517 setAllergiesListModifiedDate:allergiesList3];
       }
 
       selfCopy101 = mergeCopy;
@@ -11816,17 +11822,17 @@ LABEL_370:
     {
       allergiesListModifiedDate5 = [(_HKMedicalIDData *)self allergiesListModifiedDate];
       allergiesListModifiedDate6 = [(_HKMedicalIDData *)mergeCopy allergiesListModifiedDate];
-      v457 = [allergiesListModifiedDate5 hk_isBeforeDate:allergiesListModifiedDate6];
+      v503 = [allergiesListModifiedDate5 hk_isBeforeDate:allergiesListModifiedDate6];
 
       selfCopy101 = mergeCopy;
-      if ((v457 & 1) == 0)
+      if ((v503 & 1) == 0)
       {
         allergiesListModifiedDate7 = [(_HKMedicalIDData *)self allergiesListModifiedDate];
         allergiesListModifiedDate8 = [(_HKMedicalIDData *)mergeCopy allergiesListModifiedDate];
-        v460 = [allergiesListModifiedDate7 hk_isAfterDate:allergiesListModifiedDate8];
+        v506 = [allergiesListModifiedDate7 hk_isAfterDate:allergiesListModifiedDate8];
 
         allergiesList6 = [(_HKMedicalIDData *)self allergiesList];
-        if (v460)
+        if (v506)
         {
           selfCopy101 = self;
           goto LABEL_372;
@@ -11837,9 +11843,9 @@ LABEL_370:
         selfCopy101 = self;
         if (allergiesList6 != allergiesList7)
         {
-          _HKInitializeLogging();
-          v599 = HKLogMedicalID;
-          if (os_log_type_enabled(v599, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v725, v726);
+          v727 = HKLogMedicalID;
+          if (os_log_type_enabled(v727, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -11849,7 +11855,7 @@ LABEL_370:
           selfCopy101 = self;
           if (!allergiesList8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v729, v730);
             allergiesList3 = HKLogMedicalID;
             if (os_log_type_enabled(allergiesList3, OS_LOG_TYPE_ERROR))
             {
@@ -11867,12 +11873,12 @@ LABEL_370:
 LABEL_371:
   allergiesList6 = [(_HKMedicalIDData *)selfCopy101 allergiesList];
 LABEL_372:
-  v470 = objc_opt_self();
-  [v470 setAllergiesList:allergiesList6];
+  v518 = objc_opt_self();
+  [v518 setAllergiesList:allergiesList6];
 
   allergiesListModifiedDate9 = [(_HKMedicalIDData *)selfCopy101 allergiesListModifiedDate];
-  v472 = objc_opt_self();
-  [v472 setAllergiesListModifiedDate:allergiesListModifiedDate9];
+  v520 = objc_opt_self();
+  [v520 setAllergiesListModifiedDate:allergiesListModifiedDate9];
 
   allergiesListVersionModifiedDate = [(_HKMedicalIDData *)self allergiesListVersionModifiedDate];
   if (allergiesListVersionModifiedDate)
@@ -11890,9 +11896,9 @@ LABEL_372:
 
       if (allergiesListVersion != allergiesListVersion2)
       {
-        _HKInitializeLogging();
-        v487 = HKLogMedicalID;
-        if (os_log_type_enabled(v487, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v535, v536);
+        v537 = HKLogMedicalID;
+        if (os_log_type_enabled(v537, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -11911,12 +11917,12 @@ LABEL_372:
         }
 
         allergiesListVersion5 = [(_HKMedicalIDData *)self allergiesListVersion];
-        v491 = objc_opt_self();
-        [v491 setAllergiesListVersion:allergiesListVersion5];
+        v541 = objc_opt_self();
+        [v541 setAllergiesListVersion:allergiesListVersion5];
 
         allergiesListVersion3 = [(_HKMedicalIDData *)self allergiesListVersionModifiedDate];
-        v492 = objc_opt_self();
-        [v492 setAllergiesListVersionModifiedDate:allergiesListVersion3];
+        v542 = objc_opt_self();
+        [v542 setAllergiesListVersionModifiedDate:allergiesListVersion3];
       }
 
       selfCopy106 = mergeCopy;
@@ -11938,17 +11944,17 @@ LABEL_388:
     {
       allergiesListVersionModifiedDate5 = [(_HKMedicalIDData *)self allergiesListVersionModifiedDate];
       allergiesListVersionModifiedDate6 = [(_HKMedicalIDData *)mergeCopy allergiesListVersionModifiedDate];
-      v480 = [allergiesListVersionModifiedDate5 hk_isBeforeDate:allergiesListVersionModifiedDate6];
+      v528 = [allergiesListVersionModifiedDate5 hk_isBeforeDate:allergiesListVersionModifiedDate6];
 
       selfCopy106 = mergeCopy;
-      if ((v480 & 1) == 0)
+      if ((v528 & 1) == 0)
       {
         allergiesListVersionModifiedDate7 = [(_HKMedicalIDData *)self allergiesListVersionModifiedDate];
         allergiesListVersionModifiedDate8 = [(_HKMedicalIDData *)mergeCopy allergiesListVersionModifiedDate];
-        v483 = [allergiesListVersionModifiedDate7 hk_isAfterDate:allergiesListVersionModifiedDate8];
+        v531 = [allergiesListVersionModifiedDate7 hk_isAfterDate:allergiesListVersionModifiedDate8];
 
         allergiesListVersion6 = [(_HKMedicalIDData *)self allergiesListVersion];
-        if (v483)
+        if (v531)
         {
           selfCopy106 = self;
           goto LABEL_390;
@@ -11959,9 +11965,9 @@ LABEL_388:
         selfCopy106 = self;
         if (allergiesListVersion6 != allergiesListVersion7)
         {
-          _HKInitializeLogging();
-          v602 = HKLogMedicalID;
-          if (os_log_type_enabled(v602, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v732, v733);
+          v734 = HKLogMedicalID;
+          if (os_log_type_enabled(v734, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -11971,7 +11977,7 @@ LABEL_388:
           selfCopy106 = self;
           if (!allergiesListVersion8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v736, v737);
             allergiesListVersion3 = HKLogMedicalID;
             if (os_log_type_enabled(allergiesListVersion3, OS_LOG_TYPE_ERROR))
             {
@@ -11989,12 +11995,12 @@ LABEL_388:
 LABEL_389:
   allergiesListVersion6 = [(_HKMedicalIDData *)selfCopy106 allergiesListVersion];
 LABEL_390:
-  v493 = objc_opt_self();
-  [v493 setAllergiesListVersion:allergiesListVersion6];
+  v543 = objc_opt_self();
+  [v543 setAllergiesListVersion:allergiesListVersion6];
 
   allergiesListVersionModifiedDate9 = [(_HKMedicalIDData *)selfCopy106 allergiesListVersionModifiedDate];
-  v495 = objc_opt_self();
-  [v495 setAllergiesListVersionModifiedDate:allergiesListVersionModifiedDate9];
+  v545 = objc_opt_self();
+  [v545 setAllergiesListVersionModifiedDate:allergiesListVersionModifiedDate9];
 
   conditionsListModifiedDate = [(_HKMedicalIDData *)self conditionsListModifiedDate];
   if (conditionsListModifiedDate)
@@ -12012,9 +12018,9 @@ LABEL_390:
 
       if (conditionsList != conditionsList2)
       {
-        _HKInitializeLogging();
-        v510 = HKLogMedicalID;
-        if (os_log_type_enabled(v510, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v560, v561);
+        v562 = HKLogMedicalID;
+        if (os_log_type_enabled(v562, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -12033,12 +12039,12 @@ LABEL_390:
         }
 
         conditionsList5 = [(_HKMedicalIDData *)self conditionsList];
-        v514 = objc_opt_self();
-        [v514 setConditionsList:conditionsList5];
+        v566 = objc_opt_self();
+        [v566 setConditionsList:conditionsList5];
 
         conditionsList3 = [(_HKMedicalIDData *)self conditionsListModifiedDate];
-        v515 = objc_opt_self();
-        [v515 setConditionsListModifiedDate:conditionsList3];
+        v567 = objc_opt_self();
+        [v567 setConditionsListModifiedDate:conditionsList3];
       }
 
       selfCopy111 = mergeCopy;
@@ -12060,17 +12066,17 @@ LABEL_406:
     {
       conditionsListModifiedDate5 = [(_HKMedicalIDData *)self conditionsListModifiedDate];
       conditionsListModifiedDate6 = [(_HKMedicalIDData *)mergeCopy conditionsListModifiedDate];
-      v503 = [conditionsListModifiedDate5 hk_isBeforeDate:conditionsListModifiedDate6];
+      v553 = [conditionsListModifiedDate5 hk_isBeforeDate:conditionsListModifiedDate6];
 
       selfCopy111 = mergeCopy;
-      if ((v503 & 1) == 0)
+      if ((v553 & 1) == 0)
       {
         conditionsListModifiedDate7 = [(_HKMedicalIDData *)self conditionsListModifiedDate];
         conditionsListModifiedDate8 = [(_HKMedicalIDData *)mergeCopy conditionsListModifiedDate];
-        v506 = [conditionsListModifiedDate7 hk_isAfterDate:conditionsListModifiedDate8];
+        v556 = [conditionsListModifiedDate7 hk_isAfterDate:conditionsListModifiedDate8];
 
         conditionsList6 = [(_HKMedicalIDData *)self conditionsList];
-        if (v506)
+        if (v556)
         {
           selfCopy111 = self;
           goto LABEL_408;
@@ -12081,9 +12087,9 @@ LABEL_406:
         selfCopy111 = self;
         if (conditionsList6 != conditionsList7)
         {
-          _HKInitializeLogging();
-          v605 = HKLogMedicalID;
-          if (os_log_type_enabled(v605, OS_LOG_TYPE_ERROR))
+          _HKInitializeLogging(v739, v740);
+          v741 = HKLogMedicalID;
+          if (os_log_type_enabled(v741, OS_LOG_TYPE_ERROR))
           {
             [_HKMedicalIDData merge:];
           }
@@ -12093,7 +12099,7 @@ LABEL_406:
           selfCopy111 = self;
           if (!conditionsList8)
           {
-            _HKInitializeLogging();
+            _HKInitializeLogging(v743, v744);
             conditionsList3 = HKLogMedicalID;
             if (os_log_type_enabled(conditionsList3, OS_LOG_TYPE_ERROR))
             {
@@ -12111,12 +12117,12 @@ LABEL_406:
 LABEL_407:
   conditionsList6 = [(_HKMedicalIDData *)selfCopy111 conditionsList];
 LABEL_408:
-  v516 = objc_opt_self();
-  [v516 setConditionsList:conditionsList6];
+  v568 = objc_opt_self();
+  [v568 setConditionsList:conditionsList6];
 
   conditionsListModifiedDate9 = [(_HKMedicalIDData *)selfCopy111 conditionsListModifiedDate];
-  v518 = objc_opt_self();
-  [v518 setConditionsListModifiedDate:conditionsListModifiedDate9];
+  v570 = objc_opt_self();
+  [v570 setConditionsListModifiedDate:conditionsListModifiedDate9];
 
   conditionsListVersionModifiedDate = [(_HKMedicalIDData *)self conditionsListVersionModifiedDate];
   if (conditionsListVersionModifiedDate)
@@ -12134,9 +12140,9 @@ LABEL_408:
 
       if (conditionsListVersion != conditionsListVersion2)
       {
-        _HKInitializeLogging();
-        v537 = HKLogMedicalID;
-        if (os_log_type_enabled(v537, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v593, v594);
+        v595 = HKLogMedicalID;
+        if (os_log_type_enabled(v595, OS_LOG_TYPE_ERROR))
         {
           [_HKMedicalIDData merge:];
         }
@@ -12155,12 +12161,12 @@ LABEL_408:
         }
 
         conditionsListVersion5 = [(_HKMedicalIDData *)self conditionsListVersion];
-        v540 = objc_opt_self();
-        [v540 setConditionsListVersion:conditionsListVersion5];
+        v598 = objc_opt_self();
+        [v598 setConditionsListVersion:conditionsListVersion5];
 
         conditionsListVersion3 = [(_HKMedicalIDData *)self conditionsListVersionModifiedDate];
-        v541 = objc_opt_self();
-        [v541 setConditionsListVersionModifiedDate:conditionsListVersion3];
+        v599 = objc_opt_self();
+        [v599 setConditionsListVersionModifiedDate:conditionsListVersion3];
       }
 
       self = mergeCopy;
@@ -12189,10 +12195,10 @@ LABEL_430:
 
   conditionsListVersionModifiedDate5 = [(_HKMedicalIDData *)self conditionsListVersionModifiedDate];
   conditionsListVersionModifiedDate6 = [(_HKMedicalIDData *)mergeCopy conditionsListVersionModifiedDate];
-  v526 = [conditionsListVersionModifiedDate5 hk_isBeforeDate:conditionsListVersionModifiedDate6];
+  v578 = [conditionsListVersionModifiedDate5 hk_isBeforeDate:conditionsListVersionModifiedDate6];
 
   selfCopy112 = mergeCopy;
-  if (v526)
+  if (v578)
   {
 LABEL_431:
     conditionsListVersion6 = [(_HKMedicalIDData *)selfCopy112 conditionsListVersion];
@@ -12202,10 +12208,10 @@ LABEL_431:
 
   conditionsListVersionModifiedDate7 = [(_HKMedicalIDData *)self conditionsListVersionModifiedDate];
   conditionsListVersionModifiedDate8 = [(_HKMedicalIDData *)mergeCopy conditionsListVersionModifiedDate];
-  v529 = [conditionsListVersionModifiedDate7 hk_isAfterDate:conditionsListVersionModifiedDate8];
+  v581 = [conditionsListVersionModifiedDate7 hk_isAfterDate:conditionsListVersionModifiedDate8];
 
   conditionsListVersion6 = [(_HKMedicalIDData *)self conditionsListVersion];
-  if ((v529 & 1) == 0)
+  if ((v581 & 1) == 0)
   {
     conditionsListVersion7 = [(_HKMedicalIDData *)mergeCopy conditionsListVersion];
 
@@ -12214,9 +12220,9 @@ LABEL_431:
       goto LABEL_430;
     }
 
-    _HKInitializeLogging();
-    v532 = HKLogMedicalID;
-    if (os_log_type_enabled(v532, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v584, v585);
+    v586 = HKLogMedicalID;
+    if (os_log_type_enabled(v586, OS_LOG_TYPE_ERROR))
     {
       [_HKMedicalIDData merge:];
     }
@@ -12228,7 +12234,7 @@ LABEL_431:
       goto LABEL_430;
     }
 
-    _HKInitializeLogging();
+    _HKInitializeLogging(v588, v589);
     conditionsListVersion3 = HKLogMedicalID;
     if (os_log_type_enabled(conditionsListVersion3, OS_LOG_TYPE_ERROR))
     {
@@ -12239,20 +12245,20 @@ LABEL_431:
   }
 
 LABEL_432:
-  v542 = objc_opt_self();
-  [v542 setConditionsListVersion:conditionsListVersion6];
+  v600 = objc_opt_self();
+  [v600 setConditionsListVersion:conditionsListVersion6];
 
   conditionsListVersionModifiedDate9 = [(_HKMedicalIDData *)self conditionsListVersionModifiedDate];
-  v544 = objc_opt_self();
-  [v544 setConditionsListVersionModifiedDate:conditionsListVersionModifiedDate9];
+  v602 = objc_opt_self();
+  [v602 setConditionsListVersionModifiedDate:conditionsListVersionModifiedDate9];
 
-  v545 = v5;
+  v603 = v5;
   return v5;
 }
 
 - (id)consolidatedSOSContactsWithSOSContactsManager:(id)manager
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   legacyContactsManager = [manager legacyContactsManager];
   sOSLegacyContacts = [legacyContactsManager SOSLegacyContacts];
   emergencyContacts = [(_HKMedicalIDData *)self emergencyContacts];
@@ -12268,35 +12274,35 @@ LABEL_432:
     array = [MEMORY[0x1E695DF70] array];
   }
 
-  v34 = array;
+  v33 = array;
 
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   emergencyContacts2 = [(_HKMedicalIDData *)self emergencyContacts];
-  v11 = [emergencyContacts2 countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v11 = [emergencyContacts2 countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v40;
+    v13 = *v39;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v40 != v13)
+        if (*v39 != v13)
         {
           objc_enumerationMutation(emergencyContacts2);
         }
 
-        v15 = *(*(&v39 + 1) + 8 * i);
+        v15 = *(*(&v38 + 1) + 8 * i);
         v16 = objc_alloc_init(_HKEmergencyContactWrapper);
         [(_HKEmergencyContactWrapper *)v16 setContact:v15];
         [orderedSet addObject:v16];
       }
 
-      v12 = [emergencyContacts2 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v12 = [emergencyContacts2 countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v12);
@@ -12305,27 +12311,27 @@ LABEL_432:
   v17 = sOSLegacyContacts;
   if ([sOSLegacyContacts count])
   {
-    v32 = legacyContactsManager;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v31 = legacyContactsManager;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v18 = sOSLegacyContacts;
-    v19 = [v18 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v36;
+      v21 = *v35;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v36 != v21)
+          if (*v35 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v35 + 1) + 8 * j);
+          v23 = *(*(&v34 + 1) + 8 * j);
           v24 = objc_alloc_init(_HKEmergencyContact);
           name = [v23 name];
           [(_HKEmergencyContact *)v24 setName:name];
@@ -12343,23 +12349,21 @@ LABEL_432:
           [(_HKEmergencyContactWrapper *)v29 setContact:v24];
           if (([orderedSet containsObject:v29] & 1) == 0)
           {
-            [v34 addObject:v24];
+            [v33 addObject:v24];
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v20);
     }
 
-    legacyContactsManager = v32;
+    legacyContactsManager = v31;
     v17 = sOSLegacyContacts;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v34;
+  return v33;
 }
 
 - (void)setGregorianBirthday:.cold.1()
@@ -12372,853 +12376,646 @@ LABEL_432:
 - (void)merge:.cold.1()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Disabled");
   v2 = [OUTLINED_FUNCTION_4_2() isDisabledModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.2()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Disabled");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.3()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Share During Emergency");
   v2 = [OUTLINED_FUNCTION_4_2() shareDuringEmergencyModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.4()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Share During Emergency");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.5()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Picture");
   v2 = [OUTLINED_FUNCTION_4_2() pictureDataModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.6()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Picture");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.7()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Picture");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.8()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Name");
   v2 = [OUTLINED_FUNCTION_4_2() nameModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.9()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Name");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.10()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Name");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.11()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Gregorian Birthday");
   v2 = [OUTLINED_FUNCTION_4_2() gregorianBirthdayModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.12()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Gregorian Birthday");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.13()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Gregorian Birthday");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.14()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Primary Language Code");
   v2 = [OUTLINED_FUNCTION_4_2() primaryLanguageCodeModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.15()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Primary Language Code");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.16()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Primary Language Code");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.17()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Height");
   v2 = [OUTLINED_FUNCTION_4_2() heightModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.18()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Height");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.19()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Height");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.20()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Weight");
   v2 = [OUTLINED_FUNCTION_4_2() weightModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.21()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Weight");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.22()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Weight");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.23()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Organ Donor");
   v2 = [OUTLINED_FUNCTION_4_2() isOrganDonorModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.24()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Organ Donor");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.25()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Organ Donor");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.26()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Blood Type");
   v2 = [OUTLINED_FUNCTION_4_2() bloodTypeModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.27()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Blood Type");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.28()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Emergency Contacts");
   v2 = [OUTLINED_FUNCTION_4_2() emergencyContactsModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.29()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Emergency Contacts");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.30()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Emergency Contacts");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.31()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Clinical Contacts");
   v2 = [OUTLINED_FUNCTION_4_2() clinicalContactsModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.32()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Clinical Contacts");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.33()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Clinical Contacts");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.34()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Medical Conditions");
   v2 = [OUTLINED_FUNCTION_4_2() medicalConditionsModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.35()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medical Conditions");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.36()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medical Conditions");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.37()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Medical Notes");
   v2 = [OUTLINED_FUNCTION_4_2() medicalNotesModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.38()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medical Notes");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.39()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medical Notes");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.40()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Allergy");
   v2 = [OUTLINED_FUNCTION_4_2() allergyInfoModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.41()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Allergy");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.42()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Allergy");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.43()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Medication");
   v2 = [OUTLINED_FUNCTION_4_2() medicationInfoModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.44()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medication");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.45()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medication");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.46()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Pregnancy Start Date");
   v2 = [OUTLINED_FUNCTION_4_2() pregnancyStartDateModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.47()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Pregnancy Start Date");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.48()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Pregnancy Start Date");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.49()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Pregnancy Estimated Due Date");
   v2 = [OUTLINED_FUNCTION_4_2() pregnancyEstimatedDueDateModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.50()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Pregnancy Estimated Due Date");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.51()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Pregnancy Estimated Due Date");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.52()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Medications List");
   v2 = [OUTLINED_FUNCTION_4_2() medicationsListModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.53()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medications List");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.54()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medications List");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.55()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Medications List Version");
   v2 = [OUTLINED_FUNCTION_4_2() medicationsListVersionModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.56()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medications List Version");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.57()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Medications List Version");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.58()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Allergies List");
   v2 = [OUTLINED_FUNCTION_4_2() allergiesListModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.59()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Allergies List");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.60()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Allergies List");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.61()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Allergies List Version");
   v2 = [OUTLINED_FUNCTION_4_2() allergiesListVersionModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.62()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Allergies List Version");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.63()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Allergies List Version");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.64()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Conditions List");
   v2 = [OUTLINED_FUNCTION_4_2() conditionsListModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.65()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Conditions List");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.66()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Conditions List");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.67()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = HKSensitiveLogItem(@"Conditions List Version");
   v2 = [OUTLINED_FUNCTION_4_2() conditionsListVersionModifiedDate];
   OUTLINED_FUNCTION_0_22();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.68()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Conditions List Version");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)merge:.cold.69()
 {
   OUTLINED_FUNCTION_0_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = HKSensitiveLogItem(@"Conditions List Version");
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

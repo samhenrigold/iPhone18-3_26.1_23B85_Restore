@@ -3,8 +3,11 @@
 - (AirDropBrowserViewController)initWithCoder:(id)coder;
 - (AirDropBrowserViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (AirDropBrowserViewControllerDelegate)airDropDelegate;
+- (BOOL)addAttributedString:(id)string withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
+- (BOOL)addData:(id)data ofType:(id)type withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
 - (BOOL)addImage:(id)image withAttachmentName:(id)name description:(id)description previewImage:(id)previewImage itemIndex:(int)index;
 - (BOOL)addItemProvider:(id)provider withDataType:(id)type attachmentName:(id)name description:(id)description previewImage:(id)image;
+- (BOOL)addString:(id)string withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
 - (BOOL)addURL:(id)l withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
 - (BOOL)collectionView:(id)view shouldHighlightItemAtIndexPath:(id)path;
 - (BOOL)collectionView:(id)view shouldSelectItemAtIndexPath:(id)path;
@@ -16,7 +19,6 @@
 - (void)_collectTelemetryForPeople:(id)people;
 - (void)_emitTelemetryForPerson:(id)person;
 - (void)_startTelemetry;
-- (void)_stopTelemetry;
 - (void)browserDidUpdateMePeople:(id)people knownPeople:(id)knownPeople unknownPeople:(id)unknownPeople;
 - (void)cancelTransferForCell:(id)cell;
 - (void)collectionView:(id)view didDeselectItemAtIndexPath:(id)path;
@@ -25,8 +27,10 @@
 - (void)dealloc;
 - (void)donePressed;
 - (void)generateSpecialPreviewPhotoForRequestID:(int64_t)d;
+- (void)handleImageItemProvider:(id)provider withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
 - (void)handleLivePhotoItemProvider:(id)provider withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
 - (void)handleOtherItemProvider:(id)provider withDataType:(id)type attachmentName:(id)name description:(id)description previewImage:(id)image;
+- (void)layoutAirDropCollectionViewAnimated:(BOOL)animated;
 - (void)magicHeadViewControllerDidFinishTransferForNode:(id)node;
 - (void)magicHeadViewControllerDidStartTransferForNode:(id)node;
 - (void)magicHeadViewControllerDidTerminateTransferForNode:(id)node;
@@ -44,8 +48,11 @@
 - (void)subscribedProgress:(id)progress forPersonWithRealName:(id)name;
 - (void)unpublishedProgressForPersonWithRealName:(id)name;
 - (void)unsubscribeToProgresses;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewLayoutMarginsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator;
 - (void)wirelessSettingsDidChange:(id)change;
@@ -470,6 +477,47 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = AirDropBrowserViewController;
+  [(AirDropBrowserViewController *)&v8 viewWillAppear:appear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 addObserver:self selector:"didEnterBackground:" name:UIApplicationDidEnterBackgroundNotification object:0];
+  [v4 addObserver:self selector:"willEnterForeground:" name:UIApplicationWillEnterForegroundNotification object:0];
+  airDropDelegate = [(AirDropBrowserViewController *)self airDropDelegate];
+  _hostApplicationBundleIdentifier = [airDropDelegate _hostApplicationBundleIdentifier];
+  sendingAppBundleID = self->_sendingAppBundleID;
+  self->_sendingAppBundleID = _hostApplicationBundleIdentifier;
+
+  [(AirDropBrowserViewController *)self subscribeToProgresses];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = AirDropBrowserViewController;
+  [(AirDropBrowserViewController *)&v5 viewDidAppear:appear];
+  v3 = airdrop_ui_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "AirDropBrowserViewController did appear", v4, 2u);
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:0];
+  [v5 removeObserver:self name:UIApplicationWillEnterForegroundNotification object:0];
+  [(AirDropBrowserViewController *)self stopBrowsing];
+  v6.receiver = self;
+  v6.super_class = AirDropBrowserViewController;
+  [(AirDropBrowserViewController *)&v6 viewDidDisappear:disappearCopy];
+}
+
 - (void)viewLayoutMarginsDidChange
 {
   v5.receiver = self;
@@ -685,6 +733,195 @@
   [v22 addObjectsFromArray:unknownPeople2];
 
   [(AirDropBrowserViewController *)self _collectTelemetryForPeople:v22];
+}
+
+- (void)layoutAirDropCollectionViewAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = objc_alloc_init(NSDiffableDataSourceSnapshot);
+  mePeople = [(AirDropBrowserViewController *)self mePeople];
+  if ([mePeople count])
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    knownPeople = [(AirDropBrowserViewController *)self knownPeople];
+    if ([knownPeople count])
+    {
+      v7 = 0;
+    }
+
+    else
+    {
+      unknownPeople = [(AirDropBrowserViewController *)self unknownPeople];
+      v7 = [unknownPeople count] == 0;
+    }
+  }
+
+  isWifiEnabled = [(SFWirelessSettingsController *)self->_wirelessSettingsController isWifiEnabled];
+  objc_initWeak(&location, self);
+  if (v7)
+  {
+    if (![(AirDropBrowserViewController *)self canShowNoContentView]&& (isWifiEnabled & 1) != 0)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else if (isWifiEnabled)
+  {
+    goto LABEL_16;
+  }
+
+  v11 = airdrop_ui_log();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v43 = v7;
+    v44 = animatedCopy;
+    mePeople2 = [(AirDropBrowserViewController *)self mePeople];
+    v13 = [mePeople2 count];
+    knownPeople2 = [(AirDropBrowserViewController *)self knownPeople];
+    v15 = [knownPeople2 count];
+    unknownPeople2 = [(AirDropBrowserViewController *)self unknownPeople];
+    v17 = [unknownPeople2 count];
+    v18 = @"off";
+    *buf = 134218754;
+    v53 = v13;
+    v54 = 2048;
+    if (isWifiEnabled)
+    {
+      v18 = @"on";
+    }
+
+    v55 = v15;
+    v56 = 2048;
+    v57 = v17;
+    v58 = 2112;
+    v59 = v18;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Showing AirDrop no content view, found %lu mePeople, %lu knownPeople, %lu unknownPeople when wifi is %@", buf, 0x2Au);
+
+    v7 = v43;
+    animatedCopy = v44;
+  }
+
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_10000508C;
+  v48[3] = &unk_10002CFF0;
+  objc_copyWeak(&v49, &location);
+  [UIView animateWithDuration:v48 animations:0.25];
+  objc_destroyWeak(&v49);
+LABEL_16:
+  magicHeadVC = [(AirDropBrowserViewController *)self magicHeadVC];
+  if ([magicHeadVC shouldBeHidden])
+  {
+LABEL_22:
+
+    goto LABEL_23;
+  }
+
+  magicHeadUUID = [(AirDropBrowserViewController *)self magicHeadUUID];
+  v21 = magicHeadUUID;
+  if (!magicHeadUUID || v7)
+  {
+
+    goto LABEL_22;
+  }
+
+  v22 = [(SFWirelessSettingsController *)self->_wirelessSettingsController ultraWideBandStatus]== 1;
+
+  if (!v22)
+  {
+    magicHeadVC2 = [(AirDropBrowserViewController *)self magicHeadVC];
+    [magicHeadVC2 setEnabled:1];
+
+    [v5 appendSectionsWithIdentifiers:&off_10002E1A0];
+    magicHeadUUID2 = [(AirDropBrowserViewController *)self magicHeadUUID];
+    v51 = magicHeadUUID2;
+    v25 = [NSArray arrayWithObjects:&v51 count:1];
+    [v5 appendItemsWithIdentifiers:v25 intoSectionWithIdentifier:@"OtherSection"];
+
+    goto LABEL_24;
+  }
+
+LABEL_23:
+  magicHeadUUID2 = [(AirDropBrowserViewController *)self magicHeadVC];
+  [magicHeadUUID2 setEnabled:0];
+LABEL_24:
+
+  knownPeople3 = [(AirDropBrowserViewController *)self knownPeople];
+  v27 = [knownPeople3 count];
+
+  if (v27)
+  {
+    [v5 appendSectionsWithIdentifiers:&off_10002E1B8];
+    knownPeople4 = [(AirDropBrowserViewController *)self knownPeople];
+    v29 = [knownPeople4 valueForKey:@"nodeIdentifier"];
+    [v5 appendItemsWithIdentifiers:v29 intoSectionWithIdentifier:@"AIRDROP_HEADER_KNOWN_PEOPLE"];
+  }
+
+  mePeople3 = [(AirDropBrowserViewController *)self mePeople];
+  v31 = [mePeople3 count];
+
+  if (v31)
+  {
+    [v5 appendSectionsWithIdentifiers:&off_10002E1D0];
+    mePeople4 = [(AirDropBrowserViewController *)self mePeople];
+    v33 = [mePeople4 valueForKey:@"nodeIdentifier"];
+    [v5 appendItemsWithIdentifiers:v33 intoSectionWithIdentifier:@"AIRDROP_HEADER_YOUR_DEVICES"];
+  }
+
+  unknownPeople3 = [(AirDropBrowserViewController *)self unknownPeople];
+  v35 = [unknownPeople3 count];
+
+  if (v35)
+  {
+    [v5 appendSectionsWithIdentifiers:&off_10002E1E8];
+    unknownPeople4 = [(AirDropBrowserViewController *)self unknownPeople];
+    v37 = [unknownPeople4 valueForKey:@"nodeIdentifier"];
+    [v5 appendItemsWithIdentifiers:v37 intoSectionWithIdentifier:@"AIRDROP_HEADER_UNKNOWN_DEVICES"];
+  }
+
+  currentSnapshot = [(AirDropBrowserViewController *)self currentSnapshot];
+  v39 = v5;
+  v40 = v39;
+  if (currentSnapshot == v39)
+  {
+  }
+
+  else
+  {
+    if ((v39 == 0) != (currentSnapshot != 0))
+    {
+      v41 = [currentSnapshot isEqual:v39];
+
+      if (v41)
+      {
+        goto LABEL_37;
+      }
+    }
+
+    else
+    {
+    }
+
+    [(AirDropBrowserViewController *)self setCurrentSnapshot:v40];
+    dataSource = [(AirDropBrowserViewController *)self dataSource];
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_10000511C;
+    v45[3] = &unk_10002D040;
+    v47 = v7;
+    objc_copyWeak(&v46, &location);
+    [dataSource applySnapshot:v40 animatingDifferences:animatedCopy completion:v45];
+
+    objc_destroyWeak(&v46);
+  }
+
+LABEL_37:
+  objc_destroyWeak(&location);
 }
 
 - (void)scrollViewDidScroll:(id)scroll
@@ -915,70 +1152,69 @@ LABEL_26:
 {
   payloadCopy = payload;
   personCopy = person;
+  v71 = 0;
   v72 = 0;
-  v73 = 0;
   SFFakeFilesAndItemsArrayForURLs();
   v8 = 0;
   v9 = 0;
-  v71 = 0;
   v70 = 0;
-  v58 = SFContentTypes();
-  v56 = 0;
-  v57 = v9;
+  v69 = 0;
+  v57 = SFContentTypes();
+  v55 = 0;
+  v56 = v9;
   if (([personCopy supportsPasses] & 1) == 0)
   {
-    v59 = personCopy;
-    v54 = payloadCopy;
-    v55 = v8;
+    v58 = personCopy;
+    v53 = payloadCopy;
+    v54 = v8;
     firstObject = [v8 firstObject];
     v21 = [firstObject objectForKeyedSubscript:kSFOperationFileNameKey];
     pathExtension = [v21 pathExtension];
 
-    [v58 allKeys];
+    [v57 allKeys];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
-    obj = v69 = 0u;
-    v22 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
+    obj = v68 = 0u;
+    v22 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v67;
+      v24 = *v66;
       v25 = 1;
       do
       {
-        for (i = 0; i != v23; i = i + 1)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v67 != v24)
+          if (*v66 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v66 + 1) + 8 * i);
           if (SFIsPass())
           {
-            isUnknown = [v59 isUnknown];
-            v29 = @"TRANSFER_TO_PERSON_NO_WALLET_TEXT";
+            isUnknown = [v58 isUnknown];
+            v28 = @"TRANSFER_TO_PERSON_NO_WALLET_TEXT";
             if (isUnknown)
             {
-              v29 = @"TRANSFER_TO_DEVICE_NO_WALLET_TEXT";
+              v28 = @"TRANSFER_TO_DEVICE_NO_WALLET_TEXT";
             }
 
-            v30 = v29;
-            v31 = SFLocalizedStringForKey();
+            v29 = v28;
+            v30 = SFLocalizedStringForKey();
             SFLocalizedStringForKey();
-            v33 = v32 = pathExtension;
+            v32 = v31 = pathExtension;
 
-            displayName = [v59 displayName];
-            v35 = [NSString stringWithFormat:v33, displayName];
-            *message = [NSString stringWithFormat:v31, v35];
+            displayName = [v58 displayName];
+            v34 = [NSString stringWithFormat:v32, displayName];
+            *message = [NSString stringWithFormat:v30, v34];
 
-            pathExtension = v32;
+            pathExtension = v31;
             v25 = 0;
           }
         }
 
-        v23 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
+        v23 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
       }
 
       while (v23);
@@ -989,7 +1225,7 @@ LABEL_26:
       v25 = 1;
     }
 
-    payloadCopy = v54;
+    payloadCopy = v53;
     goto LABEL_27;
   }
 
@@ -1004,20 +1240,20 @@ LABEL_26:
       MyFriendsLink = SFIsCredential();
       if (MyFriendsLink)
       {
-        firstObject3 = [v57 firstObject];
+        firstObject3 = [v56 firstObject];
         SFIsPasskeyCredentialLink();
 
         v15 = SFLocalizedStringForKey();
         v16 = SFLocalizedStringForKeyInStringsFileNamed();
         *message = [NSString stringWithFormat:v15, v16];
 
-        v75[0] = @"supportsCredentials";
+        v74[0] = @"supportsCredentials";
         v17 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [personCopy supportsCredentials]);
-        v75[1] = @"unknownPeer";
-        v76[0] = v17;
+        v74[1] = @"unknownPeer";
+        v75[0] = v17;
         v18 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [personCopy isUnknown]);
-        v76[1] = v18;
-        v19 = [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:2];
+        v75[1] = v18;
+        v19 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:2];
 
         SFMetricsLog();
 LABEL_23:
@@ -1028,43 +1264,43 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     pathExtension = payloadCopy;
-    v46 = [pathExtension countByEnumeratingWithState:&v62 objects:v74 count:16];
-    if (!v46)
+    v45 = [pathExtension countByEnumeratingWithState:&v61 objects:v73 count:16];
+    if (!v45)
     {
       v25 = 1;
       goto LABEL_28;
     }
 
-    v47 = v46;
-    v55 = v8;
-    v59 = personCopy;
-    v48 = *v63;
+    v46 = v45;
+    v54 = v8;
+    v58 = personCopy;
+    v47 = *v62;
     while (2)
     {
-      for (j = 0; j != v47; j = j + 1)
+      for (j = 0; j != v46; j = j + 1)
       {
-        if (*v63 != v48)
+        if (*v62 != v47)
         {
           objc_enumerationMutation(pathExtension);
         }
 
-        v50 = *(*(&v62 + 1) + 8 * j);
-        v51 = +[LSApplicationWorkspace defaultWorkspace];
-        if ([v51 isApplicationAvailableToOpenURL:v50 error:0])
+        v49 = *(*(&v61 + 1) + 8 * j);
+        v50 = +[LSApplicationWorkspace defaultWorkspace];
+        if ([v50 isApplicationAvailableToOpenURL:v49 error:0])
         {
         }
 
         else
         {
-          v52 = +[LSApplicationWorkspace defaultWorkspace];
-          v53 = [v52 isApplicationAvailableToOpenURL:v50 includePrivateURLSchemes:1 error:0];
+          v51 = +[LSApplicationWorkspace defaultWorkspace];
+          v52 = [v51 isApplicationAvailableToOpenURL:v49 includePrivateURLSchemes:1 error:0];
 
-          if (v53)
+          if (v52)
           {
             [pathExtension count];
             SFLocalizedStringForKey();
@@ -1074,9 +1310,9 @@ LABEL_23:
         }
       }
 
-      v47 = [pathExtension countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v46 = [pathExtension countByEnumeratingWithState:&v61 objects:v73 count:16];
       v25 = 1;
-      if (v47)
+      if (v46)
       {
         continue;
       }
@@ -1085,8 +1321,8 @@ LABEL_23:
     }
 
 LABEL_27:
-    personCopy = v59;
-    v8 = v55;
+    personCopy = v58;
+    v8 = v54;
     goto LABEL_28;
   }
 
@@ -1098,22 +1334,22 @@ LABEL_27:
   if (MyFriendsLink)
   {
     isUnknown2 = [personCopy isUnknown];
-    v39 = @"TRANSFER_TO_PERSON_NO_FMF_TEXT";
+    v38 = @"TRANSFER_TO_PERSON_NO_FMF_TEXT";
     if (isUnknown2)
     {
-      v39 = @"TRANSFER_TO_DEVICE_NO_FMF_TEXT";
+      v38 = @"TRANSFER_TO_DEVICE_NO_FMF_TEXT";
     }
 
-    v40 = pathExtension;
-    v41 = v39;
+    v39 = pathExtension;
+    v40 = v38;
     v19 = SFLocalizedStringForKey();
-    v42 = SFLocalizedStringForKey();
+    v41 = SFLocalizedStringForKey();
 
     displayName2 = [personCopy displayName];
-    v44 = [NSString stringWithFormat:v42, displayName2];
-    *message = [NSString stringWithFormat:v19, v44];
+    v43 = [NSString stringWithFormat:v41, displayName2];
+    *message = [NSString stringWithFormat:v19, v43];
 
-    pathExtension = v40;
+    pathExtension = v39;
     goto LABEL_23;
   }
 
@@ -1966,6 +2202,68 @@ LABEL_28:
   return 1;
 }
 
+- (BOOL)addData:(id)data ofType:(id)type withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index
+{
+  v8 = *&index;
+  dataCopy = data;
+  typeCopy = type;
+  nameCopy = name;
+  descriptionCopy = description;
+  imageCopy = image;
+  v19 = airdrop_ui_log();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  {
+    v25 = [dataCopy length];
+    [imageCopy size];
+    v26 = NSStringFromCGSize(v41);
+    *buf = 134219522;
+    v28 = dataCopy;
+    v29 = 2048;
+    v30 = v25;
+    v31 = 2112;
+    v32 = typeCopy;
+    v33 = 2112;
+    v34 = nameCopy;
+    v35 = 2112;
+    v36 = descriptionCopy;
+    v37 = 2112;
+    v38 = imageCopy;
+    v39 = 2112;
+    v40 = v26;
+    _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "addData:[%p]-length:[%lu] ofType:[%@] withAttachmentName:[%@] description:[%@] previewImage:[%@]-size:[%@]", buf, 0x48u);
+  }
+
+  self->_itemsReady = 0;
+  v20 = imageCopy;
+  v21 = v20;
+  if (!v20)
+  {
+    if (UTTypeConformsTo(typeCopy, kUTTypeImage))
+    {
+      v21 = [UIImage imageWithData:dataCopy];
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+  }
+
+  if (nameCopy)
+  {
+    v22 = nameCopy;
+  }
+
+  else
+  {
+    v22 = descriptionCopy;
+  }
+
+  v23 = [(AirDropBrowserViewController *)self createURLPayloadForData:dataCopy ofType:typeCopy withAttachmentName:v22 description:descriptionCopy previewImage:v21 itemIndex:v8 completion:0];
+
+  return v23;
+}
+
 - (BOOL)createURLPayloadForData:(id)data ofType:(id)type withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index completion:(id)completion
 {
   dataCopy = data;
@@ -2052,6 +2350,120 @@ LABEL_28:
   return 1;
 }
 
+- (BOOL)addString:(id)string withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index
+{
+  v7 = *&index;
+  stringCopy = string;
+  nameCopy = name;
+  descriptionCopy = description;
+  imageCopy = image;
+  v17 = airdrop_ui_log();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    [imageCopy size];
+    v23 = NSStringFromCGSize(v34);
+    *buf = 138413314;
+    v25 = stringCopy;
+    v26 = 2112;
+    v27 = nameCopy;
+    v28 = 2112;
+    v29 = descriptionCopy;
+    v30 = 2112;
+    v31 = imageCopy;
+    v32 = 2112;
+    v33 = v23;
+    _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "addString:[%@] withAttachmentName:[%@] description:[%@] previewImage:[%@]-size:[%@]", buf, 0x34u);
+  }
+
+  if (byte_100033A80)
+  {
+    v18 = 1;
+  }
+
+  else
+  {
+    v19 = [stringCopy dataUsingEncoding:4];
+    if (descriptionCopy)
+    {
+      v20 = airdrop_ui_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = NSStringFromSelector(a2);
+        *buf = 138412290;
+        v25 = v21;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ discarding description", buf, 0xCu);
+      }
+    }
+
+    v18 = [(AirDropBrowserViewController *)self createURLPayloadForData:v19 ofType:kUTTypePlainText withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:v7 completion:&stru_10002D278];
+  }
+
+  return v18;
+}
+
+- (BOOL)addAttributedString:(id)string withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index
+{
+  v7 = *&index;
+  stringCopy = string;
+  nameCopy = name;
+  descriptionCopy = description;
+  imageCopy = image;
+  v16 = airdrop_ui_log();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    [imageCopy size];
+    v26 = NSStringFromCGSize(v40);
+    *buf = 138413314;
+    v31 = stringCopy;
+    v32 = 2112;
+    v33 = nameCopy;
+    v34 = 2112;
+    v35 = descriptionCopy;
+    v36 = 2112;
+    v37 = imageCopy;
+    v38 = 2112;
+    v39 = v26;
+    _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "addAttributedString:[%@] withAttachmentName:[%@] description:[%@] previewImage:[%@]-size:[%@]", buf, 0x34u);
+  }
+
+  if (byte_100033A80)
+  {
+    v17 = 1;
+  }
+
+  else
+  {
+    v18 = [stringCopy length];
+    v28 = NSDocumentTypeDocumentAttribute;
+    v29 = NSHTMLTextDocumentType;
+    v19 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = 0;
+    v20 = [stringCopy dataFromRange:0 documentAttributes:v18 error:{v19, &v27}];
+    v21 = v27;
+
+    if (v21)
+    {
+      v22 = airdrop_ui_log();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        sub_10001DA78();
+      }
+
+      string = [stringCopy string];
+    }
+
+    else
+    {
+      string = [[NSString alloc] initWithData:v20 encoding:4];
+    }
+
+    v24 = string;
+    v17 = [(AirDropBrowserViewController *)self addString:string withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:v7];
+  }
+
+  return v17;
+}
+
 - (void)handleLivePhotoItemProvider:(id)provider withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index
 {
   providerCopy = provider;
@@ -2104,6 +2516,38 @@ LABEL_28:
   _Block_object_dispose(&v36, 8);
 }
 
+- (void)handleImageItemProvider:(id)provider withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index
+{
+  v7 = *&index;
+  providerCopy = provider;
+  nameCopy = name;
+  descriptionCopy = description;
+  imageCopy = image;
+  v16 = dispatch_semaphore_create(0);
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_100009804;
+  v27 = sub_100009814;
+  v28 = 0;
+  v29 = NSItemProviderOptionsDispatchModeKey;
+  v30 = NSItemProviderOptionsDispatchModeAsynchronous;
+  v17 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100009C28;
+  v20[3] = &unk_10002D2F0;
+  v22 = &v23;
+  v18 = v16;
+  v21 = v18;
+  [providerCopy loadItemForTypeIdentifier:kUTTypeImage options:v17 completionHandler:v20];
+  v19 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v18, v19);
+  [(AirDropBrowserViewController *)self addImage:v24[5] withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:v7];
+
+  _Block_object_dispose(&v23, 8);
+}
+
 - (void)handleOtherItemProvider:(id)provider withDataType:(id)type attachmentName:(id)name description:(id)description previewImage:(id)image
 {
   providerCopy = provider;
@@ -2111,12 +2555,12 @@ LABEL_28:
   nameCopy = name;
   descriptionCopy = description;
   imageCopy = image;
-  v65[0] = kUTTypeURL;
-  v65[1] = kUTTypeImage;
-  v65[2] = kUTTypeRTF;
-  v65[3] = kUTTypePlainText;
-  v65[4] = kUTTypeData;
-  v14 = [NSArray arrayWithObjects:v65 count:5];
+  v60[0] = kUTTypeURL;
+  v60[1] = kUTTypeImage;
+  v60[2] = kUTTypeRTF;
+  v60[3] = kUTTypePlainText;
+  v60[4] = kUTTypeData;
+  v14 = [NSArray arrayWithObjects:v60 count:5];
   v15 = v14;
   if (typeCopy)
   {
@@ -2125,107 +2569,102 @@ LABEL_28:
     v15 = v16;
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v58 objects:v64 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v53 objects:v59 count:16];
   if (!v18)
   {
     goto LABEL_38;
   }
 
-  v19 = *v59;
+  v19 = *v54;
   while (2)
   {
     for (i = 0; i != v18; i = i + 1)
     {
-      if (*v59 != v19)
+      if (*v54 != v19)
       {
         objc_enumerationMutation(v17);
       }
 
-      v21 = *(*(&v58 + 1) + 8 * i);
+      v21 = *(*(&v53 + 1) + 8 * i);
       if ([providerCopy hasItemConformingToTypeIdentifier:v21])
       {
         v22 = dispatch_semaphore_create(0);
+        v47 = 0;
+        v48 = &v47;
+        v49 = 0x3032000000;
+        v50 = sub_100009804;
+        v51 = sub_100009814;
         v52 = 0;
-        v53 = &v52;
-        v54 = 0x3032000000;
-        v55 = sub_100009804;
-        v56 = sub_100009814;
-        v57 = 0;
-        v62 = NSItemProviderOptionsDispatchModeKey;
-        v63 = NSItemProviderOptionsDispatchModeAsynchronous;
-        v23 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-        v49[0] = _NSConcreteStackBlock;
-        v49[1] = 3221225472;
-        v49[2] = sub_10000A290;
-        v49[3] = &unk_10002D318;
-        v51 = &v52;
+        v57 = NSItemProviderOptionsDispatchModeKey;
+        v58 = NSItemProviderOptionsDispatchModeAsynchronous;
+        v23 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+        v44[0] = _NSConcreteStackBlock;
+        v44[1] = 3221225472;
+        v44[2] = sub_10000A290;
+        v44[3] = &unk_10002D318;
+        v46 = &v47;
         v24 = v22;
-        v50 = v24;
-        [providerCopy loadItemForTypeIdentifier:v21 options:v23 completionHandler:v49];
-        v45 = v23;
+        v45 = v24;
+        [providerCopy loadItemForTypeIdentifier:v21 options:v23 completionHandler:v44];
+        v40 = v23;
         v25 = dispatch_time(0, 5000000000);
         dispatch_semaphore_wait(v24, v25);
-        v26 = v53[5];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         if (isKindOfClass)
         {
-          string = v53[5];
+          string = v48[5];
         }
 
         else
         {
-          v29 = v53[5];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 LABEL_22:
-            v33 = v53[5];
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) != 0 && (byte_100033A80 & 1) == 0)
             {
-              v40 = v53[5];
+              v35 = v48[5];
               ++self->_sharedItemsCount;
-              [(AirDropBrowserViewController *)self addString:v40 withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:?];
+              [(AirDropBrowserViewController *)self addString:v35 withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:?];
             }
 
             else
             {
-              v34 = v53[5];
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) != 0 && (byte_100033A80 & 1) == 0)
               {
-                v41 = v53[5];
+                v36 = v48[5];
                 ++self->_sharedItemsCount;
-                [(AirDropBrowserViewController *)self addAttributedString:v41 withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:?];
+                [(AirDropBrowserViewController *)self addAttributedString:v36 withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:?];
               }
 
               else
               {
-                v35 = v53[5];
                 objc_opt_class();
-                v36 = objc_opt_isKindOfClass();
-                v37 = v53[5];
-                if (v36)
+                v31 = objc_opt_isKindOfClass();
+                v32 = v48[5];
+                if (v31)
                 {
                   ++self->_sharedItemsCount;
-                  [(AirDropBrowserViewController *)self addURL:v37 withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:?];
+                  [(AirDropBrowserViewController *)self addURL:v32 withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:?];
                 }
 
                 else
                 {
                   objc_opt_class();
-                  v38 = objc_opt_isKindOfClass();
-                  v39 = v53[5];
-                  if (v38)
+                  v33 = objc_opt_isKindOfClass();
+                  v34 = v48[5];
+                  if (v33)
                   {
                     ++self->_sharedItemsCount;
-                    [(AirDropBrowserViewController *)self addImage:v39 withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:?];
+                    [(AirDropBrowserViewController *)self addImage:v34 withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:?];
                   }
 
                   else
@@ -2244,35 +2683,35 @@ LABEL_22:
                         firstObject = [registeredTypeIdentifiers firstObject];
                       }
 
-                      v44 = v53[5];
+                      v39 = v48[5];
                       ++self->_sharedItemsCount;
-                      [(AirDropBrowserViewController *)self addData:v44 ofType:firstObject withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:v45];
+                      [(AirDropBrowserViewController *)self addData:v39 ofType:firstObject withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:v40];
                     }
                   }
                 }
               }
             }
 
-            _Block_object_dispose(&v52, 8);
+            _Block_object_dispose(&v47, 8);
             goto LABEL_38;
           }
 
-          string = [v53[5] string];
+          string = [v48[5] string];
         }
 
-        v30 = [NSURL URLWithString:string, v45];
+        v28 = [NSURL URLWithString:string, v40];
         if ((isKindOfClass & 1) == 0)
         {
         }
 
-        if (v30)
+        if (v28)
         {
-          scheme = [v30 scheme];
-          v32 = scheme == 0;
+          scheme = [v28 scheme];
+          v30 = scheme == 0;
 
-          if (!v32)
+          if (!v30)
           {
-            objc_storeStrong(v53 + 5, v30);
+            objc_storeStrong(v48 + 5, v28);
           }
         }
 
@@ -2280,7 +2719,7 @@ LABEL_22:
       }
     }
 
-    v18 = [v17 countByEnumeratingWithState:&v58 objects:v64 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v53 objects:v59 count:16];
     if (v18)
     {
       continue;
@@ -2332,25 +2771,25 @@ LABEL_38:
   v7 = [(NSMutableOrderedSet *)self->_cachedSharedItems copy];
   objc_sync_exit(v6);
 
-  v36 = 0u;
-  v37 = 0u;
+  v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v9)
   {
-    v10 = *v35;
+    v10 = *v32;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v35 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         if ([v12 identifer] == d)
         {
           v13 = [v12 URL];
@@ -2371,7 +2810,7 @@ LABEL_38:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v9);
@@ -2379,25 +2818,25 @@ LABEL_38:
 
   if ([v4 count] >= 2)
   {
-    v32 = 0u;
-    v33 = 0u;
+    v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = v5;
-    v18 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v18 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v18)
     {
-      v19 = *v31;
+      v19 = *v28;
       while (2)
       {
         for (j = 0; j != v18; j = j + 1)
         {
-          if (*v31 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          pathExtension = [*(*(&v30 + 1) + 8 * j) pathExtension];
+          pathExtension = [*(*(&v27 + 1) + 8 * j) pathExtension];
           PreferredIdentifierForTag = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension, 0);
           if ((SFIsImage() & 1) == 0 && (SFIsVideo() & 1) == 0 && (SFIsLivePhotos() & 1) == 0)
           {
@@ -2406,7 +2845,7 @@ LABEL_38:
           }
         }
 
-        v18 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v18 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v18)
         {
           continue;
@@ -2418,9 +2857,7 @@ LABEL_38:
 
     v23 = +[UIScreen mainScreen];
     [v23 scale];
-    v25 = v24 == 2.0;
 
-    v26 = qword_100022BE0[v25];
     obj = SFImageStackFromImages();
     sharedItemsRequestIDToPreviewPhoto = self->_sharedItemsRequestIDToPreviewPhoto;
     pathExtension = [NSNumber numberWithInteger:d];
@@ -2438,17 +2875,8 @@ LABEL_25:
 - (void)_startTelemetry
 {
   self->_peopleStartTimestamp = mach_continuous_time();
-  v3 = +[NSMapTable weakToStrongObjectsMapTable];
-  realNameToFirstSeenTimestamp = self->_realNameToFirstSeenTimestamp;
-  self->_realNameToFirstSeenTimestamp = v3;
+  self->_realNameToFirstSeenTimestamp = +[NSMapTable weakToStrongObjectsMapTable];
 
-  _objc_release_x1();
-}
-
-- (void)_stopTelemetry
-{
-  realNameToFirstSeenTimestamp = self->_realNameToFirstSeenTimestamp;
-  self->_realNameToFirstSeenTimestamp = 0;
   _objc_release_x1();
 }
 

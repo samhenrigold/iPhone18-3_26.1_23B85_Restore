@@ -4,6 +4,7 @@
 - (void)numFloors:(id)floors;
 - (void)onQueueEraseEverything:(id)everything;
 - (void)onQueueNumFloors:(id)floors;
+- (void)onQueuePrefetch:(id)prefetch callback:(id)callback when:(unsigned __int8)when;
 - (void)onQueueShutdown;
 - (void)prefetch:(id)prefetch;
 - (void)prefetchSynchronous:(id)synchronous;
@@ -37,7 +38,7 @@
 
 - (void)prefetch:(id)prefetch
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   prefetchCopy = prefetch;
   if (qword_28144B270 != -1)
   {
@@ -48,20 +49,20 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134349056;
-    v23 = objc_msgSend_count(prefetchCopy, v6, v7, v8, v9);
+    v22 = objc_msgSend_count(prefetchCopy, v6, v7, v8, v9);
     _os_log_impl(&dword_245A2E000, v5, OS_LOG_TYPE_DEBUG, "Sending request to prefetch %{public}zu venues", buf, 0xCu);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3321888768;
-  v19[2] = sub_245A719C0;
-  v19[3] = &unk_28589FA98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3321888768;
+  v18[2] = sub_245A719C0;
+  v18[3] = &unk_28589FA98;
   selfCopy = self;
   v11 = prefetchCopy;
   v12 = selfCopy;
-  v20 = v12;
-  v21 = v11;
-  objc_msgSend_doSynchronousXPC_description_waitForever_(v12, v13, v14, v15, v16, v19, "prefetch:", 0);
+  v19 = v12;
+  v20 = v11;
+  objc_msgSend_doSynchronousXPC_description_waitForever_(v12, v13, v14, v15, v16, v18, "prefetch:", 0);
 
   if (qword_28144B270 != -1)
   {
@@ -74,13 +75,32 @@
     *buf = 0;
     _os_log_impl(&dword_245A2E000, v17, OS_LOG_TYPE_DEBUG, "Prefetch request finished", buf, 2u);
   }
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)onQueuePrefetch:(id)prefetch callback:(id)callback when:(unsigned __int8)when
+{
+  whenCopy = when;
+  prefetchCopy = prefetch;
+  callbackCopy = callback;
+  if (whenCopy == 1)
+  {
+    v13 = @"prefetchSynchronous:";
+  }
+
+  else
+  {
+    v13 = @"prefetch:";
+  }
+
+  connection = self->super._connection;
+  v15 = objc_msgSend__defaultErrHandler_forCaller_(self, v8, v10, v11, v12, callbackCopy, v13);
+  v20 = objc_msgSend_remoteObjectProxyWithErrorHandler_(connection, v16, v17, v18, v19, v15);
+  objc_msgSend_prefetch_callback_when_(v20, v21, v22, v23, v24, prefetchCopy, callbackCopy, whenCopy);
 }
 
 - (void)prefetchSynchronous:(id)synchronous
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   synchronousCopy = synchronous;
   if (qword_28144B270 != -1)
   {
@@ -91,20 +111,20 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v23 = objc_msgSend_count(synchronousCopy, v6, v7, v8, v9);
+    v22 = objc_msgSend_count(synchronousCopy, v6, v7, v8, v9);
     _os_log_impl(&dword_245A2E000, v5, OS_LOG_TYPE_DEBUG, "Sending request to prefetch %zu venues synchronously", buf, 0xCu);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3321888768;
-  v19[2] = sub_245A71D48;
-  v19[3] = &unk_28589FAC8;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3321888768;
+  v18[2] = sub_245A71D48;
+  v18[3] = &unk_28589FAC8;
   selfCopy = self;
   v11 = synchronousCopy;
   v12 = selfCopy;
-  v20 = v12;
-  v21 = v11;
-  objc_msgSend_doSynchronousXPC_description_waitForever_(v12, v13, v14, v15, v16, v19, "prefetch:", 1);
+  v19 = v12;
+  v20 = v11;
+  objc_msgSend_doSynchronousXPC_description_waitForever_(v12, v13, v14, v15, v16, v18, "prefetch:", 1);
 
   if (qword_28144B270 != -1)
   {
@@ -117,25 +137,23 @@
     *buf = 0;
     _os_log_impl(&dword_245A2E000, v17, OS_LOG_TYPE_DEBUG, "Synchronous prefetch request finished", buf, 2u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doSynchronousXPC:(id)c description:(const char *)description waitForever:(BOOL)forever
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   cCopy = c;
   v9 = dispatch_semaphore_create(0);
   frameworkQueue = self->super._frameworkQueue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_245A71F84;
-  v16[3] = &unk_278E8AA20;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_245A71F84;
+  v15[3] = &unk_278E8AA20;
   v11 = cCopy;
-  v18 = v11;
+  v17 = v11;
   v12 = v9;
-  v17 = v12;
-  dispatch_async(frameworkQueue, v16);
+  v16 = v12;
+  dispatch_async(frameworkQueue, v15);
   if (forever)
   {
     if (!dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL))
@@ -167,8 +185,6 @@
   }
 
 LABEL_9:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eraseEverything

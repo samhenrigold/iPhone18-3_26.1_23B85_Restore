@@ -112,19 +112,116 @@ void __60__STKCarrierSubscriptionMonitor_subscriptionContextForSlot___block_invo
 
 - (void)subscriptionInfoDidChange
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_262BB4000, v0, v1, "STKAlertSessionManager: subscriptionInfoDidChange: failed to get subscription info [error] %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
+  BSDispatchQueueAssert();
+  [(NSMutableDictionary *)self->_subscriptionInfo removeAllObjects];
+  [(NSMutableDictionary *)self->_subscriptionContext removeAllObjects];
+  telephonyClient = self->_telephonyClient;
+  v34 = 0;
+  v4 = [(CoreTelephonyClient *)telephonyClient getSubscriptionInfoWithError:&v34];
+  v5 = v34;
+  v6 = v5;
+  if (v4)
+  {
+    v7 = v5 == 0;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+    v23 = v5;
+    subscriptionsInUse = [v4 subscriptionsInUse];
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v9 = [subscriptionsInUse countByEnumeratingWithState:&v30 objects:v36 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v31;
+      do
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v31 != v11)
+          {
+            objc_enumerationMutation(subscriptionsInUse);
+          }
+
+          v13 = *(*(&v30 + 1) + 8 * i);
+          queue = self->_queue;
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = __58__STKCarrierSubscriptionMonitor_subscriptionInfoDidChange__block_invoke;
+          block[3] = &unk_279B4C4C8;
+          block[4] = self;
+          block[5] = v13;
+          dispatch_async(queue, block);
+        }
+
+        v10 = [subscriptionsInUse countByEnumeratingWithState:&v30 objects:v36 count:16];
+      }
+
+      while (v10);
+    }
+
+    v24 = v4;
+    subscriptions = [v4 subscriptions];
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v16 = [subscriptions countByEnumeratingWithState:&v25 objects:v35 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v26;
+      do
+      {
+        for (j = 0; j != v17; ++j)
+        {
+          if (*v26 != v18)
+          {
+            objc_enumerationMutation(subscriptions);
+          }
+
+          v20 = *(*(&v25 + 1) + 8 * j);
+          subscriptionContext = self->_subscriptionContext;
+          v22 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v20, "slotID")}];
+          [(NSMutableDictionary *)subscriptionContext setObject:v20 forKeyedSubscript:v22];
+        }
+
+        v17 = [subscriptions countByEnumeratingWithState:&v25 objects:v35 count:16];
+      }
+
+      while (v17);
+    }
+
+    v6 = v23;
+    v4 = v24;
+  }
+
+  else
+  {
+    subscriptionsInUse = STKCommonLog(v5);
+    if (os_log_type_enabled(subscriptionsInUse, OS_LOG_TYPE_ERROR))
+    {
+      [STKCarrierSubscriptionMonitor subscriptionInfoDidChange];
+    }
+  }
 }
 
 - (void)carrierBundleChange:(id)change
 {
   v45 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  v6 = STKCommonLog();
+  v5 = BSDispatchQueueAssert();
+  v6 = STKCommonLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -140,40 +237,42 @@ void __60__STKCarrierSubscriptionMonitor_subscriptionContextForSlot___block_invo
   if (v10)
   {
     v11 = v10;
-    v12 = STKCommonLog();
+    v12 = STKCommonLog(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [STKCarrierSubscriptionMonitor carrierBundleChange:];
     }
   }
 
-  if (objc_opt_respondsToSelector())
+  bOOLValue = objc_opt_respondsToSelector();
+  if (bOOLValue)
   {
     bOOLValue = [v9 BOOLValue];
+    v14 = bOOLValue;
   }
 
   else
   {
-    bOOLValue = 0;
+    v14 = 0;
   }
 
-  v14 = STKClass0SMSLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = STKClass0SMSLog(bOOLValue);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v44) = bOOLValue;
-    _os_log_impl(&dword_262BB4000, v14, OS_LOG_TYPE_DEFAULT, "Carrier bundle value changed: showClass0SMSOverInCallAlerts = %d", buf, 8u);
+    LODWORD(v44) = v14;
+    _os_log_impl(&dword_262BB4000, v15, OS_LOG_TYPE_DEFAULT, "Carrier bundle value changed: showClass0SMSOverInCallAlerts = %d", buf, 8u);
   }
 
-  v15 = self->_telephonyClient;
+  v16 = self->_telephonyClient;
   v41 = 0;
-  v16 = [(CoreTelephonyClient *)v15 copyCarrierBundleValueWithDefault:changeCopy key:@"ShowClass0SMSFromField" bundleType:v7 error:&v41];
-  v17 = v41;
-  if (v17)
+  v17 = [(CoreTelephonyClient *)v16 copyCarrierBundleValueWithDefault:changeCopy key:@"ShowClass0SMSFromField" bundleType:v7 error:&v41];
+  v18 = v41;
+  if (v18)
   {
-    v18 = v17;
-    v19 = STKCommonLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v19 = v18;
+    v20 = STKCommonLog(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [STKCarrierSubscriptionMonitor carrierBundleChange:];
     }
@@ -181,7 +280,7 @@ void __60__STKCarrierSubscriptionMonitor_subscriptionContextForSlot___block_invo
 
   if (objc_opt_respondsToSelector())
   {
-    bOOLValue2 = [v16 BOOLValue];
+    bOOLValue2 = [v17 BOOLValue];
   }
 
   else
@@ -189,15 +288,15 @@ void __60__STKCarrierSubscriptionMonitor_subscriptionContextForSlot___block_invo
     bOOLValue2 = 0;
   }
 
-  v21 = self->_telephonyClient;
+  v22 = self->_telephonyClient;
   v40 = 0;
-  v22 = [(CoreTelephonyClient *)v21 copyCarrierBundleValueWithDefault:changeCopy key:@"USSDFilterPatterns" bundleType:v7 error:&v40];
-  v23 = v40;
-  if (v23)
+  v23 = [(CoreTelephonyClient *)v22 copyCarrierBundleValueWithDefault:changeCopy key:@"USSDFilterPatterns" bundleType:v7 error:&v40];
+  v24 = v40;
+  if (v24)
   {
-    v24 = v23;
-    v25 = STKCommonLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v25 = v24;
+    v26 = STKCommonLog(v24);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [STKCarrierSubscriptionMonitor carrierBundleChange:];
     }
@@ -206,32 +305,32 @@ void __60__STKCarrierSubscriptionMonitor_subscriptionContextForSlot___block_invo
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v26 = v22;
-    if ([v26 bs_containsObjectPassingTest:&__block_literal_global_2])
+    v27 = v23;
+    if ([v27 bs_containsObjectPassingTest:&__block_literal_global_2])
     {
-      v27 = MEMORY[0x277CBEBF8];
+      v28 = MEMORY[0x277CBEBF8];
     }
 
     else
     {
-      v27 = v26;
+      v28 = v27;
     }
   }
 
   else
   {
-    v27 = MEMORY[0x277CBEBF8];
+    v28 = MEMORY[0x277CBEBF8];
   }
 
-  v28 = self->_telephonyClient;
+  v29 = self->_telephonyClient;
   v39 = 0;
-  v29 = [(CoreTelephonyClient *)v28 copyCarrierBundleValueWithDefault:changeCopy key:@"USSDFilterSometimesPatterns" bundleType:v7 error:&v39];
-  v30 = v39;
-  if (v30)
+  v30 = [(CoreTelephonyClient *)v29 copyCarrierBundleValueWithDefault:changeCopy key:@"USSDFilterSometimesPatterns" bundleType:v7 error:&v39];
+  v31 = v39;
+  if (v31)
   {
-    v31 = v30;
-    v32 = STKCommonLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v32 = v31;
+    v33 = STKCommonLog(v31);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       [STKCarrierSubscriptionMonitor carrierBundleChange:];
     }
@@ -240,29 +339,27 @@ void __60__STKCarrierSubscriptionMonitor_subscriptionContextForSlot___block_invo
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v33 = v29;
-    if ([v33 bs_containsObjectPassingTest:&__block_literal_global_25])
+    v34 = v30;
+    if ([v34 bs_containsObjectPassingTest:&__block_literal_global_25])
     {
-      v34 = MEMORY[0x277CBEBF8];
+      v35 = MEMORY[0x277CBEBF8];
     }
 
     else
     {
-      v34 = v33;
+      v35 = v34;
     }
   }
 
   else
   {
-    v34 = MEMORY[0x277CBEBF8];
+    v35 = MEMORY[0x277CBEBF8];
   }
 
-  v35 = [[STKCarrierSubscriptionInfo alloc] initWithShowClass0SMSFromField:bOOLValue2 canShowClass0SMSOverInCallAlerts:bOOLValue ussdAlwaysFilteredPatterns:v27 ussdSometimesFilteredPatterns:v34];
+  v36 = [[STKCarrierSubscriptionInfo alloc] initWithShowClass0SMSFromField:bOOLValue2 canShowClass0SMSOverInCallAlerts:v14 ussdAlwaysFilteredPatterns:v28 ussdSometimesFilteredPatterns:v35];
   subscriptionInfo = self->_subscriptionInfo;
-  v37 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(changeCopy, "slotID")}];
-  [(NSMutableDictionary *)subscriptionInfo setObject:v35 forKeyedSubscript:v37];
-
-  v38 = *MEMORY[0x277D85DE8];
+  v38 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(changeCopy, "slotID")}];
+  [(NSMutableDictionary *)subscriptionInfo setObject:v36 forKeyedSubscript:v38];
 }
 
 BOOL __53__STKCarrierSubscriptionMonitor_carrierBundleChange___block_invoke(uint64_t a1, void *a2)
@@ -281,38 +378,6 @@ BOOL __53__STKCarrierSubscriptionMonitor_carrierBundleChange___block_invoke_23(u
   isKindOfClass = objc_opt_isKindOfClass();
 
   return (isKindOfClass & 1) == 0;
-}
-
-- (void)carrierBundleChange:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_262BB4000, v0, v1, "STKAlertSessionManager: carrierBundleChange: failed to get ShowClass0SMSOverInCallAlerts [error] %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)carrierBundleChange:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_262BB4000, v0, v1, "STKAlertSessionManager: carrierBundleChange: failed to get ShowClass0SMSFromField [error] %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)carrierBundleChange:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_262BB4000, v0, v1, "STKAlertSessionManager: carrierBundleChange: failed to get USSDFilterPatterns [error] %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)carrierBundleChange:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_262BB4000, v0, v1, "STKAlertSessionManager: carrierBundleChange: failed to get USSDFilterSometimesPatterns [error] %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -6,12 +6,12 @@
 
 - (SCLHistoryDayDataSource)initWithListController:(id)controller viewModel:(id)model historyGroup:(id)group title:(id)title
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   groupCopy = group;
   titleCopy = title;
-  v29.receiver = self;
-  v29.super_class = SCLHistoryDayDataSource;
-  v12 = [(SCLSpecifierDataSource *)&v29 initWithListController:controller viewModel:model];
+  v28.receiver = self;
+  v28.super_class = SCLHistoryDayDataSource;
+  v12 = [(SCLSpecifierDataSource *)&v28 initWithListController:controller viewModel:model];
   if (v12)
   {
     v13 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"HISTORY_CELL_GROUP" name:titleCopy];
@@ -36,14 +36,13 @@
     [v25 setProperty:objc_opt_class() forKey:v18];
     [v25 setProperty:groupCopy forKey:v22];
     [(SCLHistoryDayDataSource *)v12 setItemSpecifier:v25];
-    v30[0] = v13;
-    v30[1] = v16;
-    v30[2] = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+    v29[0] = v13;
+    v29[1] = v16;
+    v29[2] = v25;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
     [(SCLSpecifierDataSource *)v12 setSpecifiers:v26];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

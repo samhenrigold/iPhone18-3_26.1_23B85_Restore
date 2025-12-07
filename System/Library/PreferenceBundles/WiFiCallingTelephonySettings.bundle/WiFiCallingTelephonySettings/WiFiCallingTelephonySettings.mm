@@ -1,4 +1,4 @@
-uint64_t TPSWiFiCallingLog()
+uint64_t TPSWiFiCallingLog(uint64_t a1, uint64_t a2)
 {
   if (qword_D178 != -1)
   {
@@ -8,61 +8,61 @@ uint64_t TPSWiFiCallingLog()
   return qword_D170;
 }
 
-void sub_393C(uint64_t a1)
+void sub_393C(uint64_t a1, uint64_t a2)
 {
-  v2 = TPSWiFiCallingLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = TPSWiFiCallingLog(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Not consenting to location/privacy alert.", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Not consenting to location/privacy alert.", v6, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = [v3 mainSwitchSpecifier];
-  [v3 reloadSpecifier:v4 animated:1];
+  v4 = *(a1 + 32);
+  v5 = [v4 mainSwitchSpecifier];
+  [v4 reloadSpecifier:v5 animated:1];
 }
 
-void sub_39D0(uint64_t a1)
+void sub_39D0(uint64_t a1, uint64_t a2)
 {
-  v2 = TPSWiFiCallingLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = TPSWiFiCallingLog(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Consenting to location/privacy alert.", buf, 2u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Consenting to location/privacy alert.", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) emergencyAddressURLController];
-  v4 = [v3 shouldEnableCapability];
+  v4 = [*(a1 + 32) emergencyAddressURLController];
+  v5 = [v4 shouldEnableCapability];
 
-  v5 = TPSWiFiCallingLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  v8 = TPSWiFiCallingLog(v6, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v9)
     {
-      *v13 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "WiFi Calling service is provisioned; enabling Wi-Fi Calling.", v13, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "WiFi Calling service is provisioned; enabling Wi-Fi Calling.", v16, 2u);
     }
 
-    v7 = [*(a1 + 32) emergencyAddressURLController];
-    [v7 enableCapability];
+    v10 = [*(a1 + 32) emergencyAddressURLController];
+    [v10 enableCapability];
   }
 
   else
   {
-    if (v6)
+    if (v9)
     {
-      *v12 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "WiFi Calling service is not provisioned; presenting provisioning.", v12, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "WiFi Calling service is not provisioned; presenting provisioning.", v15, 2u);
     }
 
-    v8 = [*(a1 + 32) callingController];
-    v9 = [v8 subscriptionCapabilities];
-    [v9 invalidateAndRefreshWiFiCallingProvisioningURL];
+    v11 = [*(a1 + 32) callingController];
+    v12 = [v11 subscriptionCapabilities];
+    [v12 invalidateAndRefreshWiFiCallingProvisioningURL];
 
-    v10 = *(a1 + 32);
-    v7 = [v10 emergencyAddressURLController];
-    v11 = [v7 provisionCapabilityController];
-    [v10 presentOrUpdateViewController:v11];
+    v13 = *(a1 + 32);
+    v10 = [v13 emergencyAddressURLController];
+    v14 = [v10 provisionCapabilityController];
+    [v13 presentOrUpdateViewController:v14];
   }
 }

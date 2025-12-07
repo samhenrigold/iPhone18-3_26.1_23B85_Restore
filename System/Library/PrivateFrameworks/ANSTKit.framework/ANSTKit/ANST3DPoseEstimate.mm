@@ -56,31 +56,7 @@
     v15 = NSStringFromSelector(sel_roll);
     v17 = objc_msgSend_decodeObjectOfClass_forKey_(v13, v16, v14, v15);
 
-    if (!v17)
-    {
-      goto LABEL_7;
-    }
-
-    v5->_roll = objc_msgSend_integerValue(v17, v18, v19);
-
-    v20 = v13;
-    v21 = objc_opt_class();
-    v22 = NSStringFromSelector(sel_refinedYaw);
-    v24 = objc_msgSend_decodeObjectOfClass_forKey_(v20, v23, v21, v22);
-
-    if (!v24)
-    {
-      goto LABEL_7;
-    }
-
-    v5->_refinedYaw = objc_msgSend_integerValue(v24, v25, v26);
-
-    v27 = v20;
-    v28 = objc_opt_class();
-    v29 = NSStringFromSelector(sel_refinedRoll);
-    v31 = objc_msgSend_decodeObjectOfClass_forKey_(v27, v30, v28, v29);
-
-    if (v31)
+    if (v17 && (v5->_roll = objc_msgSend_integerValue(v17, v18, v19), v17, v20 = v13, v21 = objc_opt_class(), NSStringFromSelector(sel_refinedYaw), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v20, v23, v21, v22), v24 = objc_claimAutoreleasedReturnValue(), v20, v22, v24) && (v5->_refinedYaw = objc_msgSend_integerValue(v24, v25, v26), v24, v27 = v20, v28 = objc_opt_class(), NSStringFromSelector(sel_refinedRoll), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v27, v30, v28, v29), v31 = objc_claimAutoreleasedReturnValue(), v27, v29, v31))
     {
       v5->_refinedRoll = objc_msgSend_integerValue(v31, v32, v33);
 
@@ -99,7 +75,6 @@
 
     else
     {
-LABEL_7:
       v10 = 0;
     }
   }

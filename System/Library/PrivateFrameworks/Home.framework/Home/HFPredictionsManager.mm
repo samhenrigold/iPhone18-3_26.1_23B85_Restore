@@ -47,29 +47,28 @@
 {
   ObjectType = swift_getObjectType();
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8443F0, &qword_20DD93820);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   sub_20D9D7510(0, &unk_280E01F40, 0x277CD1EE8);
-  v9 = sub_20DD64FD4();
+  v8 = sub_20DD64FD4();
   selfCopy = self;
   if ([(HFPredictionsManager *)selfCopy submitsAnalytics])
   {
-    v10 = sub_20DD65114();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
-    v11 = swift_allocObject();
-    v11[2] = 0;
-    v11[3] = 0;
-    v11[4] = v9;
-    v11[5] = selfCopy;
-    v11[6] = ObjectType;
-    sub_20DA1C514(0, 0, v8, &unk_20DD94AD8, v11);
+    v9 = sub_20DD65114();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+    v10 = swift_allocObject();
+    v10[2] = 0;
+    v10[3] = 0;
+    v10[4] = v8;
+    v10[5] = selfCopy;
+    v10[6] = ObjectType;
+    sub_20DA1C514(0, 0, v7, &unk_20DD94AD8, v10);
   }
 
   else
   {
 
-    v12 = selfCopy;
+    v11 = selfCopy;
   }
 }
 
@@ -130,8 +129,8 @@
 
 - (void)prepopulateWithCache
 {
-  home = [(HFPredictionsManager *)self home];
-  cachedPredictions = [home cachedPredictions];
+  v3 = objc_msgSend_home(self, a2);
+  cachedPredictions = [v3 cachedPredictions];
 
   if ([(HFPredictionsManager *)self submitsAnalytics])
   {
@@ -255,7 +254,7 @@ uint64_t __49__HFPredictionsManager_predictionIndexForObject___block_invoke(uint
 
 id __74__HFPredictionsManager_fetchUserActionPredictionsAndWaitForInitialUpdate___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained initialPredictionUpdateFuture];
   v4 = [v3 isFinished];
@@ -268,10 +267,10 @@ id __74__HFPredictionsManager_fetchUserActionPredictionsAndWaitForInitialUpdate_
   v5 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [WeakRetained home];
-    v17 = 138412290;
-    v18 = v6;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Fetch in-progress for %@", &v17, 0xCu);
+    v6 = objc_msgSend_home(WeakRetained);
+    v16 = 138412290;
+    v17 = v6;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Fetch in-progress for %@", &v16, 0xCu);
   }
 
   [WeakRetained setWasQueriedForInFlightPredictions:1];
@@ -280,10 +279,10 @@ id __74__HFPredictionsManager_fetchUserActionPredictionsAndWaitForInitialUpdate_
     v8 = HFLogForCategory(0x38uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [WeakRetained home];
-      v17 = 138412290;
-      v18 = v9;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Awaiting full fetch for %@", &v17, 0xCu);
+      v9 = objc_msgSend_home(WeakRetained);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Awaiting full fetch for %@", &v16, 0xCu);
     }
 
     v10 = [WeakRetained initialPredictionUpdateFuture];
@@ -295,10 +294,10 @@ LABEL_9:
     v11 = HFLogForCategory(0x38uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [WeakRetained home];
-      v17 = 138412290;
-      v18 = v12;
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Returning current predictions for %@", &v17, 0xCu);
+      v12 = objc_msgSend_home(WeakRetained);
+      v16 = 138412290;
+      v17 = v12;
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Returning current predictions for %@", &v16, 0xCu);
     }
 
     v13 = MEMORY[0x277D2C900];
@@ -306,28 +305,25 @@ LABEL_9:
     v10 = [v13 futureWithResult:v14];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)invalidateUserActionPredictions
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    home = [(HFPredictionsManager *)self home];
-    v7 = 138412290;
-    v8 = home;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating predictions and performing full fetch for %@", &v7, 0xCu);
+    v4 = objc_msgSend_home(self);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating predictions and performing full fetch for %@", &v6, 0xCu);
   }
 
   v5 = objc_alloc_init(MEMORY[0x277D2C900]);
   [(HFPredictionsManager *)self setInitialPredictionUpdateFuture:v5];
 
   [(HFPredictionsManager *)self _queryUserActionPredictions];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryUserActionPredictions
@@ -362,31 +358,30 @@ void __51__HFPredictionsManager__queryUserActionPredictions__block_invoke(uint64
 
 - (void)_queryUserActionPredictionsOnQueue
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   v3 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    home = [(HFPredictionsManager *)self home];
+    v4 = objc_msgSend_home(self);
     *buf = 138412290;
-    v14 = home;
+    v13 = v4;
     _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Performing full fetch for %@", buf, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   predictionsController = [(HFPredictionsManager *)self predictionsController];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __58__HFPredictionsManager__queryUserActionPredictionsOnQueue__block_invoke;
-  v9[3] = &unk_277DF9D18;
-  objc_copyWeak(&v11, &location);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __58__HFPredictionsManager__queryUserActionPredictionsOnQueue__block_invoke;
+  v8[3] = &unk_277DF9D18;
+  objc_copyWeak(&v10, &location);
   v7 = date;
-  v10 = v7;
-  [predictionsController fetchPredictionsWithCompletion:v9];
+  v9 = v7;
+  [predictionsController fetchPredictionsWithCompletion:v8];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HFPredictionsManager__queryUserActionPredictionsOnQueue__block_invoke(uint64_t a1, void *a2)
@@ -402,7 +397,7 @@ void __58__HFPredictionsManager__queryUserActionPredictionsOnQueue__block_invoke
       v4 = 2 * v5;
     }
 
-    v6 = [WeakRetained home];
+    v6 = objc_msgSend_home(WeakRetained);
     v7 = [v10 subarrayWithRange:{0, v4}];
     [v6 setCachedPredictions:v7];
   }
@@ -419,7 +414,7 @@ void __58__HFPredictionsManager__queryUserActionPredictionsOnQueue__block_invoke
 
 - (void)_didReceivePredictions:(id)predictions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   objc_initWeak(&location, self);
   if ([(HFPredictionsManager *)self submitsAnalytics])
@@ -431,34 +426,32 @@ void __58__HFPredictionsManager__queryUserActionPredictionsOnQueue__block_invoke
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [predictionsCopy count];
-    home = [(HFPredictionsManager *)self home];
+    v7 = objc_msgSend_home(self);
     hf_prettyDescription = [predictionsCopy hf_prettyDescription];
     *buf = 134218498;
-    v20 = v6;
-    v21 = 2112;
-    v22 = home;
-    v23 = 2112;
-    v24 = hf_prettyDescription;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v7;
+    v22 = 2112;
+    v23 = hf_prettyDescription;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Fetched %lu predictions for home %@: %@", buf, 0x20u);
   }
 
   v9 = [(HFPredictionsManager *)self _processUserActionPredictions:predictionsCopy];
   mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __47__HFPredictionsManager__didReceivePredictions___block_invoke;
-  v14[3] = &unk_277DF6458;
-  objc_copyWeak(&v17, &location);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __47__HFPredictionsManager__didReceivePredictions___block_invoke;
+  v13[3] = &unk_277DF6458;
+  objc_copyWeak(&v16, &location);
   v11 = predictionsCopy;
-  v15 = v11;
+  v14 = v11;
   v12 = v9;
-  v16 = v12;
-  [mainThreadScheduler performBlock:v14];
+  v15 = v12;
+  [mainThreadScheduler performBlock:v13];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HFPredictionsManager__didReceivePredictions___block_invoke(uint64_t a1)
@@ -504,37 +497,37 @@ void __47__HFPredictionsManager__didReceivePredictions___block_invoke(uint64_t a
 
 - (id)_processUserActionPredictions:(id)predictions
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
-  v39 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[HFPredictionsManager predictionLimit](self, "predictionLimit")}];
+  v38 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[HFPredictionsManager predictionLimit](self, "predictionLimit")}];
   v5 = [MEMORY[0x277CBEB58] setWithCapacity:{-[HFPredictionsManager predictionLimit](self, "predictionLimit")}];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = predictionsCopy;
-  v6 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v6 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v41;
+    v8 = *v40;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v41 != v8)
+        if (*v40 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v40 + 1) + 8 * i);
+        v10 = *(*(&v39 + 1) + 8 * i);
         v11 = HFLogForCategory(0x38uLL);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           hf_prettyDescription = [v10 hf_prettyDescription];
           *buf = 138412290;
-          v45 = hf_prettyDescription;
+          v44 = hf_prettyDescription;
           _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Processing user action prediction: %@", buf, 0xCu);
         }
 
@@ -555,7 +548,7 @@ void __47__HFPredictionsManager__didReceivePredictions___block_invoke(uint64_t a
             {
               predictionType = [v10 predictionType];
               *buf = 134217984;
-              v45 = predictionType;
+              v44 = predictionType;
               _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "Skipping prediction that does not match any of the filtered types: %lu", buf, 0xCu);
             }
 
@@ -630,7 +623,7 @@ LABEL_25:
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v45 = v26;
+              v44 = v26;
               _os_log_impl(&dword_20D9BF000, v29, OS_LOG_TYPE_DEFAULT, "HomeKit object %@ already added, skipping", buf, 0xCu);
             }
           }
@@ -638,7 +631,7 @@ LABEL_25:
           else
           {
             [v5 addObject:uUIDString];
-            [v39 addObject:v26];
+            [v38 addObject:v26];
             v30 = MEMORY[0x277CCABB0];
             [v10 predictionScore];
             v29 = [v30 numberWithDouble:?];
@@ -656,23 +649,23 @@ LABEL_31:
           goto LABEL_36;
         }
 
-        uUIDString = [(HFPredictionsManager *)self home];
+        uUIDString = objc_msgSend_home(self);
         *buf = 138412546;
-        v45 = v10;
-        v46 = 2112;
-        v47 = uUIDString;
+        v44 = v10;
+        v45 = 2112;
+        v46 = uUIDString;
         _os_log_error_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_ERROR, "Prediction %@ couldn't be mapped to a HomeKit object in home: %@", buf, 0x16u);
 LABEL_35:
 
 LABEL_36:
-        v32 = [v39 count];
+        v32 = [v38 count];
         if (v32 >= [(HFPredictionsManager *)self predictionLimit])
         {
           goto LABEL_39;
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v7 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v7);
@@ -683,46 +676,42 @@ LABEL_39:
   v33 = [dictionary copy];
   [(HFPredictionsManager *)self setPredictionConfidence:v33];
 
-  v34 = [MEMORY[0x277CBEA60] arrayWithArray:v39];
-
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = [MEMORY[0x277CBEA60] arrayWithArray:v38];
 
   return v34;
 }
 
 - (id)_homeKitObjectForSceneUUID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  home = [(HFPredictionsManager *)self home];
-  v6 = [home hf_actionSetWithUUID:dCopy];
+  v5 = objc_msgSend_home(self);
+  v6 = [v5 hf_actionSetWithUUID:dCopy];
 
   v7 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found scene object: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found scene object: %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)_homeKitObjectForServiceUUID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  home = [(HFPredictionsManager *)self home];
-  v6 = [home hf_serviceWithIdentifier:dCopy];
+  v5 = objc_msgSend_home(self);
+  v6 = [v5 hf_serviceWithIdentifier:dCopy];
 
   v7 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found initial service object: %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found initial service object: %@", &v24, 0xCu);
   }
 
   if ([v6 hf_isChildService])
@@ -732,9 +721,9 @@ LABEL_39:
     v9 = HFLogForCategory(0x38uLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138412290;
-      v26 = hf_parentService;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Child service - using parent service instead: %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = hf_parentService;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Child service - using parent service instead: %@", &v24, 0xCu);
     }
   }
 
@@ -748,9 +737,9 @@ LABEL_39:
     v14 = HFLogForCategory(0x38uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138412290;
-      v26 = hf_parentService;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Service %@ is non visible, so skipping this service entirely", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = hf_parentService;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Service %@ is non visible, so skipping this service entirely", &v24, 0xCu);
     }
 
     goto LABEL_16;
@@ -770,11 +759,11 @@ LABEL_39:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         accessory3 = [hf_parentService accessory];
-        v25 = 138412290;
-        v26 = accessory3;
+        v24 = 138412290;
+        v25 = accessory3;
         v16 = "Service is normally shown as accessory, but accessory %@ is a camera, so skipping this service entirely";
 LABEL_28:
-        _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, v16, &v25, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, v16, &v24, 0xCu);
 
         goto LABEL_16;
       }
@@ -786,14 +775,14 @@ LABEL_28:
     hf_isVisibleAccessory = [accessory4 hf_isVisibleAccessory];
 
     v14 = HFLogForCategory(0x38uLL);
-    v23 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v22 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if ((hf_isVisibleAccessory & 1) == 0)
     {
-      if (v23)
+      if (v22)
       {
         accessory3 = [hf_parentService accessory];
-        v25 = 138412290;
-        v26 = accessory3;
+        v24 = 138412290;
+        v25 = accessory3;
         v16 = "Service is normally shown as accessory, but accessory %@ is non visible, so skipping this service entirely";
         goto LABEL_28;
       }
@@ -804,12 +793,12 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    if (v23)
+    if (v22)
     {
       accessory5 = [hf_parentService accessory];
-      v25 = 138412290;
-      v26 = accessory5;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Service is normally shown as accessory, using accessory %@ instead", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = accessory5;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Service is normally shown as accessory, using accessory %@ instead", &v24, 0xCu);
     }
 
     accessory6 = [hf_parentService accessory];
@@ -823,44 +812,40 @@ LABEL_16:
   v17 = accessory6;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_homeKitObjectForServiceGroupUUID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  home = [(HFPredictionsManager *)self home];
-  v6 = [home hf_serviceGroupWithIdentifier:dCopy];
+  v5 = objc_msgSend_home(self);
+  v6 = [v5 hf_serviceGroupWithIdentifier:dCopy];
 
   v7 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found service group object: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found service group object: %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)_homeKitObjectForAccessoryUUID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  home = [(HFPredictionsManager *)self home];
-  v6 = [home hf_accessoryWithIdentifier:dCopy];
+  v5 = objc_msgSend_home(self);
+  v6 = [v5 hf_accessoryWithIdentifier:dCopy];
 
   v7 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found accessory object: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found accessory object: %@", &v11, 0xCu);
   }
 
   if ([v6 hf_showsAsAccessoryInControlCentre])
@@ -873,42 +858,38 @@ LABEL_17:
     v9 = HFLogForCategory(0x38uLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Accessory %@ is non visible, so skipping this service entirely", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Accessory %@ is non visible, so skipping this service entirely", &v11, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_homeKitObjectForMediaSystemUUID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  home = [(HFPredictionsManager *)self home];
-  v6 = [home hf_mediaSystemWithIdentifier:dCopy];
+  v5 = objc_msgSend_home(self);
+  v6 = [v5 hf_mediaSystemWithIdentifier:dCopy];
 
   v7 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found media system object: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Found media system object: %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)userActionPredictionController:(id)controller didUpdatePredictions:(id)predictions
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   v6 = HFLogForCategory(0x38uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -916,25 +897,24 @@ LABEL_17:
     v7 = [predictionsCopy count];
     hf_prettyDescription = [predictionsCopy hf_prettyDescription];
     *buf = 134218242;
-    v15 = v7;
-    v16 = 2112;
-    v17 = hf_prettyDescription;
+    v14 = v7;
+    v15 = 2112;
+    v16 = hf_prettyDescription;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Predictions manager updated with %lu predictions: %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __76__HFPredictionsManager_userActionPredictionController_didUpdatePredictions___block_invoke;
-  v11[3] = &unk_277DF3A68;
-  objc_copyWeak(&v13, buf);
-  v12 = predictionsCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __76__HFPredictionsManager_userActionPredictionController_didUpdatePredictions___block_invoke;
+  v10[3] = &unk_277DF3A68;
+  objc_copyWeak(&v12, buf);
+  v11 = predictionsCopy;
   v9 = predictionsCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v11);
+  dispatch_async(MEMORY[0x277D85CD0], v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HFPredictionsManager_userActionPredictionController_didUpdatePredictions___block_invoke(uint64_t a1)

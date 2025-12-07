@@ -20,33 +20,30 @@
 
 - (HMEvent)init
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"kEventUUIDKey";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"kEventUUIDKey";
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  v9[0] = uUID;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = uUID;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [(HMEvent *)self initWithDict:v4];
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)_serializeForAdd
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10[0] = @"kEventUUIDKey";
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9[0] = @"kEventUUIDKey";
   uuid = [(HMEvent *)self uuid];
   uUIDString = [uuid UUIDString];
-  v11[0] = uUIDString;
-  v10[1] = @"kEventTriggerEndEvent";
+  v10[0] = uUIDString;
+  v9[1] = @"kEventTriggerEndEvent";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMEvent isEndEvent](self, "isEndEvent")}];
-  v11[1] = v5;
-  v10[2] = @"kEventTriggerTypeKey";
+  v10[1] = v5;
+  v9[2] = @"kEventTriggerTypeKey";
   triggerType = [(HMEvent *)self triggerType];
-  v11[2] = triggerType;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[2] = triggerType;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }
@@ -73,23 +70,23 @@
 
 - (void)_updateEventWithPayload:(id)payload completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   handlerCopy = handler;
   context = [(HMEvent *)self context];
   if (context)
   {
     uuid = [(HMEvent *)self uuid];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __53__HMEvent__updateEventWithPayload_completionHandler___block_invoke;
-    v16[3] = &unk_1E754E480;
-    v17 = context;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __53__HMEvent__updateEventWithPayload_completionHandler___block_invoke;
+    v15[3] = &unk_1E754E480;
+    v16 = context;
     selfCopy = self;
-    v19 = handlerCopy;
-    [(_HMContext *)v17 sendMessage:uuid target:payloadCopy payload:v16 responseHandler:?];
+    v18 = handlerCopy;
+    [(_HMContext *)v16 sendMessage:uuid target:payloadCopy payload:v15 responseHandler:?];
 
-    v10 = v17;
+    v10 = v16;
 LABEL_7:
 
     goto LABEL_8;
@@ -102,9 +99,9 @@ LABEL_7:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v14;
-    v22 = 2080;
-    v23 = "[HMEvent _updateEventWithPayload:completionHandler:]";
+    v20 = v14;
+    v21 = 2080;
+    v22 = "[HMEvent _updateEventWithPayload:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
   }
 
@@ -117,8 +114,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __53__HMEvent__updateEventWithPayload_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -280,7 +275,7 @@ void __53__HMEvent__updateEventWithPayload_completionHandler___block_invoke(uint
 
 - (void)_unconfigure
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   context = self->_context;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -291,9 +286,9 @@ void __53__HMEvent__updateEventWithPayload_completionHandler___block_invoke(uint
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring event", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring event", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -308,15 +303,13 @@ void __53__HMEvent__updateEventWithPayload_completionHandler___block_invoke(uint
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (HMEvent)initWithDict:(id)dict
@@ -348,33 +341,33 @@ void __53__HMEvent__updateEventWithPayload_completionHandler___block_invoke(uint
 
 + (BOOL)sharedTriggerActivationSupportedForHome:(id)home
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   residentDevices = [home residentDevices];
-  v4 = [residentDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [residentDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(residentDevices);
         }
 
-        if (([*(*(&v9 + 1) + 8 * i) capabilities] & 8) != 0)
+        if (([*(*(&v8 + 1) + 8 * i) capabilities] & 8) != 0)
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [residentDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [residentDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -386,7 +379,6 @@ void __53__HMEvent__updateEventWithPayload_completionHandler___block_invoke(uint
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

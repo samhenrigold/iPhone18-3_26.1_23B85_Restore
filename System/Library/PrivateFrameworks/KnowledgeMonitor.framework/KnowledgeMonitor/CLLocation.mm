@@ -49,20 +49,20 @@
 
 - (uint64_t)sha256HashForGeohash:(void *)geohash salt:
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = a2;
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = a2;
   geohashCopy = geohash;
   if (self)
   {
     v5 = objc_opt_new();
-    [v5 appendBytes:&v9 length:8];
+    [v5 appendBytes:&v8 length:8];
     if (geohashCopy)
     {
       [v5 appendData:geohashCopy];
     }
 
     *md = 0u;
-    v11 = 0u;
+    v10 = 0u;
     CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), md);
     v6 = *md;
   }
@@ -72,7 +72,6 @@
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

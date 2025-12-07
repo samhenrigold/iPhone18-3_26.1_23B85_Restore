@@ -1,159 +1,4 @@
-void ashp::refcounted_ptr<dispatch_queue_s *,ashp::dispatch::refcount_policy>::reset(void *a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-  if (*a1)
-  {
-    v5 = ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(a1, a2, a3, a4);
-    dispatch_release(*v5);
-    *a1 = 0;
-  }
-}
-
-void ashp::direct_monitor::cancel(ashp::direct_monitor *this)
-{
-  os_unfair_lock_lock(this + 16);
-  if ((*(this + 81) & 1) == 0)
-  {
-    *(this + 81) = 1;
-    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(this + 9, v2, v3, v4);
-    ashp::monitor::cancel(*(this + 9));
-    ashp::async_notifier::cancel(this + 22, v5, v6, v7);
-  }
-
-  os_unfair_lock_unlock(this + 16);
-}
-
-void ashp::direct_monitor::resume(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 16);
-  if (HIBYTE(this[34]._os_unfair_lock_opaque) == 1)
-  {
-    HIBYTE(this[34]._os_unfair_lock_opaque) = 0;
-    ashp::async_notifier::resume(this + 22, v2, v3, v4);
-    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&this[18]._os_unfair_lock_opaque, v5, v6, v7);
-    v8 = *&this[18]._os_unfair_lock_opaque;
-    os_unfair_lock_lock((v8 + 16));
-    if ((*(v8 + 120) & 1) == 0 && *(v8 + 320) == 1)
-    {
-      v12 = *(v8 + 112);
-      if (v12)
-      {
-        ashp::async_notifier::trigger(v12, v9, v10, v11);
-      }
-    }
-
-    os_unfair_lock_unlock((v8 + 16));
-  }
-
-  os_unfair_lock_unlock(this + 16);
-}
-
-void sub_23EC9B478(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock(v3 + 4);
-  os_unfair_lock_unlock(v1 + 16);
-  _Unwind_Resume(a1);
-}
-
-void ashp::direct_monitor::suspend(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 16);
-  if ((this[34]._os_unfair_lock_opaque & 0x1000000) == 0)
-  {
-    HIBYTE(this[34]._os_unfair_lock_opaque) = 1;
-    ashp::async_notifier::suspend(this + 22, v2, v3, v4);
-  }
-
-  os_unfair_lock_unlock(this + 16);
-}
-
-void ashp::direct_monitor::activate(ashp::direct_monitor *this)
-{
-  os_unfair_lock_lock(this + 16);
-  if (*(this + 80) == 1)
-  {
-    ashp::detail::control_flow::log_guard_else_failure("direct_monitor.cpp", 0x3B, "activate", v4);
-    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to activate active monitor", "direct_monitor.cpp", 0x3B, "activate", v8);
-    _os_crash();
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  if (*(this + 81) == 1)
-  {
-LABEL_11:
-    ashp::detail::control_flow::log_guard_else_failure("direct_monitor.cpp", 0x3C, "activate", v4);
-    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to activate canceled monitor", "direct_monitor.cpp", 0x3C, "activate", v9);
-    _os_crash();
-    __break(1u);
-    goto LABEL_12;
-  }
-
-  *(this + 80) = 1;
-  if ((*(this + 137) & 1) != 0 || *(this + 138) == 1)
-  {
-    if (*(this + 136))
-    {
-      ashp::async_notifier::activate(this + 22, v2, v3, v4);
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(this + 9, v5, v6, v7);
-      ashp::monitor::set_notifier(*(this + 9), this + 22);
-      goto LABEL_7;
-    }
-
-LABEL_12:
-    ashp::detail::control_flow::log_guard_else_failure("direct_monitor.cpp", 0x40, "activate", v4);
-    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to activate monitor with event handlers but without queue", "direct_monitor.cpp", 0x40, "activate", v10);
-    _os_crash();
-    __break(1u);
-    return;
-  }
-
-LABEL_7:
-
-  os_unfair_lock_unlock(this + 16);
-}
-
-void ashp::direct_monitor::set_cancel_handler(uint64_t a1, uint64_t a2)
-{
-  os_unfair_lock_lock((a1 + 64));
-  if (*(a1 + 80) == 1)
-  {
-    ashp::detail::control_flow::log_guard_else_failure("direct_monitor.cpp", 0x32, "set_cancel_handler", v5);
-    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to reconfigure active monitor", "direct_monitor.cpp", 0x32, "set_cancel_handler", v6);
-    _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    ashp::async_notifier::set_cancel_handler((a1 + 88), a2, v4, v5);
-    *(a1 + 138) = a2 != 0;
-
-    os_unfair_lock_unlock((a1 + 64));
-  }
-}
-
-void ashp::direct_monitor::set_event_handler(uint64_t a1, uint64_t a2)
-{
-  os_unfair_lock_lock((a1 + 64));
-  if (*(a1 + 80) == 1)
-  {
-    ashp::detail::control_flow::log_guard_else_failure("direct_monitor.cpp", 0x29, "set_event_handler", v5);
-    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to reconfigure active monitor", "direct_monitor.cpp", 0x29, "set_event_handler", v6);
-    _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    ashp::async_notifier::set_event_handler((a1 + 88), a2, v4, v5);
-    *(a1 + 137) = a2 != 0;
-
-    os_unfair_lock_unlock((a1 + 64));
-  }
-}
-
-void ashp::direct_monitor::set_queue(os_unfair_lock_s *this, dispatch_queue_s *a2)
+void ashp::direct_monitor::set_queue(os_unfair_lock_s *this, NSObject *a2)
 {
   os_unfair_lock_lock(this + 16);
   if (LOBYTE(this[20]._os_unfair_lock_opaque) == 1)
@@ -315,7 +160,7 @@ void ashp::driver_client::terminate(os_unfair_lock_s *this)
   os_unfair_lock_unlock(this + 2);
 }
 
-void ashp::driver_client::bind_active_object(os_unfair_lock_s *this, ashp::driver_object *a2)
+void ashp::driver_client::bind_active_object(const os_unfair_lock *this, ashp::driver_object *a2)
 {
   os_unfair_lock_assert_owner(this + 2);
   if (LOBYTE(this[8]._os_unfair_lock_opaque) == 1)
@@ -328,13 +173,13 @@ void ashp::driver_client::bind_active_object(os_unfair_lock_s *this, ashp::drive
   else
   {
 
-    ashp::driver_object_termination_list::insert(this + 16, a2);
+    ashp::driver_object_termination_list::insert(&this[16], a2);
   }
 }
 
 void ashp::driver_client::acquire_resource(ashp::boxed::string,unsigned int)::$_1::operator()<>(ashp::detail::logging *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   log_level = ashp::detail::logging::get_log_level(a1);
   if (log_level >= 1)
   {
@@ -342,11 +187,11 @@ void ashp::driver_client::acquire_resource(ashp::boxed::string,unsigned int)::$_
     if (log_level)
     {
       *buf = 136446722;
-      v4 = "driver_client.cpp";
-      v5 = 1024;
-      v6 = 77;
-      v7 = 2082;
-      v8 = "acquire_resource";
+      v3 = "driver_client.cpp";
+      v4 = 1024;
+      v5 = 77;
+      v6 = 2082;
+      v7 = "acquire_resource";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] failed to get resource", buf, 0x1Cu);
     }
   }
@@ -360,8 +205,6 @@ void ashp::driver_client::acquire_resource(ashp::boxed::string,unsigned int)::$_
 
     ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] failed to get resource", "driver_client.cpp", 77, "acquire_resource");
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ashp::driver_client::get_owned_resource(uint64_t a1, const __CFString *a2, int a3)
@@ -414,7 +257,7 @@ LABEL_13:
 
 void ashp::driver_client::create_resource_monitor(ashp::boxed::string,unsigned int)::$_0::operator()<>(ashp::detail::logging *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   log_level = ashp::detail::logging::get_log_level(a1);
   if (log_level >= 1)
   {
@@ -422,11 +265,11 @@ void ashp::driver_client::create_resource_monitor(ashp::boxed::string,unsigned i
     if (log_level)
     {
       *buf = 136446722;
-      v4 = "driver_client.cpp";
-      v5 = 1024;
-      v6 = 102;
-      v7 = 2082;
-      v8 = "create_resource_monitor";
+      v3 = "driver_client.cpp";
+      v4 = 1024;
+      v5 = 102;
+      v6 = 2082;
+      v7 = "create_resource_monitor";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] failed to get resource", buf, 0x1Cu);
     }
   }
@@ -440,8 +283,6 @@ void ashp::driver_client::create_resource_monitor(ashp::boxed::string,unsigned i
 
     ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] failed to get resource", "driver_client.cpp", 102, "create_resource_monitor");
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23EC9C1A8(_Unwind_Exception *a1)
@@ -525,27 +366,25 @@ uint64_t ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>
 void ashp_log_helper::log(os_unfair_lock_t lock, const char *a2, ...)
 {
   va_start(va, a2);
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
   }
 
-  v8 = mach_continuous_time();
-  if (vsnprintf(v9, 0x80uLL, a2, va) < 0)
+  v7 = mach_continuous_time();
+  if (vsnprintf(v8, 0x80uLL, a2, va) < 0)
   {
     ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "logging.cpp", 0x2C, "log", v6);
     _os_crash();
     __break(1u);
   }
 
-  ashp::driver_debug_object<ashp_log_info>::append_record(lock + 2, &v8, v4, v5);
+  ashp::driver_debug_object<ashp_log_info>::append_record(lock + 2, &v7, v4, v5);
   if (lock)
   {
     os_unfair_lock_unlock(lock);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23EC9C498(_Unwind_Exception *exception_object)
@@ -615,20 +454,20 @@ void ashp::driver_debug_object<ashp_log_info>::append_record(os_unfair_lock_t lo
 void ashp_log_helper::hexdump(os_unfair_lock_t lock, unsigned __int8 *a2, unint64_t a3, const char *a4, ...)
 {
   va_start(va, a4);
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
   }
 
-  v26 = mach_continuous_time();
-  v8 = vsnprintf(v27, 0x80uLL, a4, va);
+  v25 = mach_continuous_time();
+  v8 = vsnprintf(v26, 0x80uLL, a4, va);
   if ((v8 & 0x80000000) != 0)
   {
     goto LABEL_32;
   }
 
-  v25 = lock;
+  v24 = lock;
   v12 = 0;
   v13 = 0;
   if (v8 >= 0x80)
@@ -663,10 +502,10 @@ void ashp_log_helper::hexdump(os_unfair_lock_t lock, unsigned __int8 *a2, unint6
     {
       if (v12)
       {
-        ashp::driver_debug_object<ashp_log_info>::append_record(v25 + 2, &v26, v9, v10);
+        ashp::driver_debug_object<ashp_log_info>::append_record(v24 + 2, &v25, v9, v10);
       }
 
-      v17 = snprintf(&v27[v14], 128 - v14, "0x%08x:", v12);
+      v17 = snprintf(&v26[v14], 128 - v14, "0x%08x:", v12);
       if ((v17 & 0x80000000) != 0)
       {
         goto LABEL_31;
@@ -685,7 +524,7 @@ void ashp_log_helper::hexdump(os_unfair_lock_t lock, unsigned __int8 *a2, unint6
       v13 = v19 + v14;
     }
 
-    v20 = snprintf(&v27[v13], 128 - v13, " %02x", a2[v12]);
+    v20 = snprintf(&v26[v13], 128 - v13, " %02x", a2[v12]);
     if ((v20 & 0x80000000) != 0)
     {
       ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "logging.cpp", 0x51, "hexdump", v21);
@@ -726,13 +565,11 @@ LABEL_32:
   }
 
   while (v16 != v12);
-  ashp::driver_debug_object<ashp_log_info>::append_record(v25 + 2, &v26, v9, v10);
-  if (v25)
+  ashp::driver_debug_object<ashp_log_info>::append_record(v24 + 2, &v25, v9, v10);
+  if (v24)
   {
-    os_unfair_lock_unlock(v25);
+    os_unfair_lock_unlock(v24);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23EC9C818(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -745,14 +582,13 @@ void sub_23EC9C818(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-ashp::detail::logging::ktrace_helper *ashp::detail::logging::ktrace_helper::ktrace_helper(ashp::detail::logging::ktrace_helper *this, int a2)
+ashp::detail::logging::ktrace_helper *ashp::detail::logging::ktrace_helper::ktrace_helper(ashp::detail::logging::ktrace_helper *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *this = a2;
   *(this + 8) = 0u;
   *(this + 24) = 0u;
   if (kdebug_is_enabled())
   {
-    v3 = *this;
     kdebug_trace();
   }
 
@@ -761,14 +597,8 @@ ashp::detail::logging::ktrace_helper *ashp::detail::logging::ktrace_helper::ktra
 
 void ashp::detail::logging::ktrace_helper::~ktrace_helper(ashp::detail::logging::ktrace_helper *this)
 {
-  v2 = *this;
   if (kdebug_is_enabled())
   {
-    v3 = *this;
-    v4 = *(this + 1);
-    v5 = *(this + 2);
-    v6 = *(this + 3);
-    v7 = *(this + 4);
     kdebug_trace();
   }
 }
@@ -804,7 +634,7 @@ uint64_t ___ZN4ashp6detail7logging13get_log_levelEv_block_invoke()
   return result;
 }
 
-uint64_t *ashp::refcounted_ptr<dispatch_queue_s *,ashp::dispatch::refcount_policy>::refcounted_ptr(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4)
+dispatch_object_t *ashp::refcounted_ptr<dispatch_queue_s *,ashp::dispatch::refcount_policy>::refcounted_ptr(dispatch_object_t *a1, NSObject *a2, uint64_t a3, const char *a4)
 {
   *a1 = a2;
   if (a2)
@@ -884,7 +714,7 @@ void ___ZN4ashp5acipc12ring_managerC2EPNS0_12acipc_driverEP16dispatch_queue_s_bl
   JUMPOUT(0x23EF204E0);
 }
 
-uint64_t ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::cr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::cr_context>,&ashp::acipc::detail::ring_manager::cr_context::manager_link>::~intrusive_list_impl(void **a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::cr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::cr_context>,&ashp::acipc::detail::ring_manager::cr_context::manager_link>::~intrusive_list_impl(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   for (i = *a1; *a1; i = *a1)
   {
@@ -894,7 +724,7 @@ uint64_t ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::
   return ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::cr_context>::~intrusive_list_link(a1, i, a3, a4);
 }
 
-uint64_t ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::~intrusive_list_impl(void **a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::~intrusive_list_impl(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   for (i = *a1; *a1; i = *a1)
   {
@@ -951,191 +781,185 @@ uint64_t ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::cr_context
   return result;
 }
 
-uint64_t ashp::acipc::ring_manager::finalize_tr_settlement_if_ready(const os_unfair_lock *this, ashp::acipc::detail::ring_manager::tr_context *a2)
+uint64_t ashp::acipc::ring_manager::finalize_tr_settlement_if_ready(os_unfair_lock_s *this, ashp::acipc::detail::ring_manager::tr_context *a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
-  if (__PAIR64__(*(a2 + 36), *(a2 + 8)) == 0x100000000)
+  if (__PAIR64__(*(a2 + 36), *(a2 + 8)) != 0x100000000)
   {
-    os_unfair_lock_lock(&this[1]);
-    v4 = *(a2 + 37);
-    os_unfair_lock_unlock(&this[1]);
-    if ((v4 & 1) == 0)
+    return 0;
+  }
+
+  os_unfair_lock_lock(this + 1);
+  v4 = *(a2 + 37);
+  os_unfair_lock_unlock(this + 1);
+  if ((v4 & 1) == 0)
+  {
+    *(a2 + 36) = 0;
+    for (i = *&this[130]._os_unfair_lock_opaque; i; i = *(i + 8))
     {
-      *(a2 + 36) = 0;
-      for (i = *&this[130]._os_unfair_lock_opaque; i; i = *(i + 8))
+      is_cr_completion_context_for_tr = ashp::acipc::ring_manager::is_cr_completion_context_for_tr(this, i, a2);
+      if (is_cr_completion_context_for_tr)
       {
-        is_cr_completion_context_for_tr = ashp::acipc::ring_manager::is_cr_completion_context_for_tr(this, i, a2);
-        if (is_cr_completion_context_for_tr)
+        log_level = ashp::detail::logging::get_log_level(is_cr_completion_context_for_tr);
+        if (log_level >= 4)
         {
-          log_level = ashp::detail::logging::get_log_level(is_cr_completion_context_for_tr);
-          if (log_level >= 4)
+          log_level = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+          if (log_level)
           {
-            log_level = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-            if (log_level)
-            {
-              v8 = *(i + 96);
-              v9 = *(a2 + 48);
-              *buf = 136447234;
-              *&buf[4] = "ring_manager.cpp";
-              v45 = 1024;
-              v46 = 688;
-              v47 = 2082;
-              v48 = "finalize_tr_settlement_if_ready";
-              v49 = 1024;
-              v50 = v8;
-              v51 = 1024;
-              v52 = v9;
-              _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] notifying crid %hu that trid %hu is settled", buf, 0x28u);
-            }
+            v8 = *(i + 96);
+            v9 = *(a2 + 48);
+            *buf = 136447234;
+            *&buf[4] = "ring_manager.cpp";
+            v44 = 1024;
+            v45 = 688;
+            v46 = 2082;
+            v47 = "finalize_tr_settlement_if_ready";
+            v48 = 1024;
+            v49 = v8;
+            v50 = 1024;
+            v51 = v9;
+            _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] notifying crid %hu that trid %hu is settled", buf, 0x28u);
+          }
+        }
+
+        if (ashp::detail::logging::get_log_level(log_level))
+        {
+          if (airship_platform_get_global_logger::once != -1)
+          {
+            dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
           }
 
-          if (ashp::detail::logging::get_log_level(log_level))
-          {
-            if (airship_platform_get_global_logger::once != -1)
-            {
-              dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
-            }
+          ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] notifying crid %hu that trid %hu is settled", "ring_manager.cpp", 688, "finalize_tr_settlement_if_ready", *(i + 96), *(a2 + 48));
+        }
 
-            ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] notifying crid %hu that trid %hu is settled", "ring_manager.cpp", 688, "finalize_tr_settlement_if_ready", *(i + 96), *(a2 + 48));
-          }
-
-          v10 = *i;
-          v11 = *a2;
-          os_unfair_lock_lock((*i + 16));
-          if ((v10[126]._os_unfair_lock_opaque & 0x100) == 0)
-          {
-            ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "cr_controller.cpp", 0x21F, "transfer_ring_settled", v15);
-            _os_crash();
-            __break(1u);
+        v10 = *i;
+        v11 = *a2;
+        os_unfair_lock_lock((*i + 16));
+        if ((v10[126]._os_unfair_lock_opaque & 0x100) == 0)
+        {
+          ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "cr_controller.cpp", 0x21F, "transfer_ring_settled", v15);
+          _os_crash();
+          __break(1u);
+LABEL_39:
+          ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x22B, "erase", v21);
+          ashp::detail::base::log_pre_crash_message("BUG in Airship: bad array access", "dynamic_array.hpp", 0x22B, "erase", v39);
+          _os_crash();
+          __break(1u);
 LABEL_40:
-            ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x22B, "erase", v21);
-            ashp::detail::base::log_pre_crash_message("BUG in Airship: bad array access", "dynamic_array.hpp", 0x22B, "erase", v40);
-            _os_crash();
-            __break(1u);
+          ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "cr_controller.cpp", 0x234, "transfer_ring_settled", v15);
+          _os_crash();
+          __break(1u);
 LABEL_41:
-            ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "cr_controller.cpp", 0x234, "transfer_ring_settled", v15);
-            _os_crash();
-            __break(1u);
-LABEL_42:
-            ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x22C, "erase", v21);
-            ashp::detail::base::log_pre_crash_message("BUG in Airship: bad array access", "dynamic_array.hpp", 0x22C, "erase", v41);
-            _os_crash();
-            __break(1u);
-          }
+          ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x22C, "erase", v21);
+          ashp::detail::base::log_pre_crash_message("BUG in Airship: bad array access", "dynamic_array.hpp", 0x22C, "erase", v40);
+          _os_crash();
+          __break(1u);
+        }
 
-          if ((v10[8]._os_unfair_lock_opaque & 1) == 0)
+        if ((v10[8]._os_unfair_lock_opaque & 1) == 0)
+        {
+          v16 = *&v10[290]._os_unfair_lock_opaque;
+          if (v16)
           {
-            v16 = *&v10[290]._os_unfair_lock_opaque;
-            if (v16)
+            v17 = 0;
+            v18 = v10 + 290;
+            v19 = *&v10[294]._os_unfair_lock_opaque;
+            while (*v19 != v11)
             {
-              v17 = 0;
-              v18 = v10 + 290;
-              v19 = *&v10[294]._os_unfair_lock_opaque;
-              while (*v19 != v11)
+              ++v17;
+              v19 += 2;
+              if (v16 == v17)
               {
-                ++v17;
-                v19 += 2;
-                if (v16 == v17)
-                {
-                  goto LABEL_18;
-                }
+                goto LABEL_18;
+              }
+            }
+
+            *buf = v17;
+            buf[8] = 1;
+            ashp::optional<unsigned long long,void>::value(buf, v12, v13, v14);
+            v23 = *buf;
+            v24 = *buf + 1;
+            if (*buf == -1)
+            {
+              goto LABEL_39;
+            }
+
+            if (*&v18->_os_unfair_lock_opaque < v24)
+            {
+              goto LABEL_41;
+            }
+
+            if (*&v18->_os_unfair_lock_opaque > v24)
+            {
+              v25 = 16 * *buf;
+              do
+              {
+                v29 = v23 + 1;
+                v26 = (*&v10[294]._os_unfair_lock_opaque + v25);
+                v27 = *v26;
+                *v26 = v26[1];
+                v26[1] = v27;
+                v25 += 16;
+                v28 = v23 + 2;
+                ++v23;
               }
 
-              *buf = v17;
-              buf[8] = 1;
-              ashp::optional<unsigned long long,void>::value(buf, v12, v13, v14);
-              v23 = *buf;
-              v24 = *buf + 1;
-              if (*buf == -1)
-              {
-                goto LABEL_40;
-              }
-
-              if (*&v18->_os_unfair_lock_opaque < v24)
-              {
-                goto LABEL_42;
-              }
-
-              if (*&v18->_os_unfair_lock_opaque > v24)
-              {
-                v25 = 16 * *buf;
-                do
-                {
-                  v29 = v23 + 1;
-                  v26 = (*&v10[294]._os_unfair_lock_opaque + v25);
-                  v27 = *v26;
-                  *v26 = v26[1];
-                  v26[1] = v27;
-                  v25 += 16;
-                  v28 = v23 + 2;
-                  ++v23;
-                }
-
-                while (v28 < *&v10[290]._os_unfair_lock_opaque);
-              }
-
-              else
-              {
-                v29 = *buf;
-              }
-
-              ashp::dynamic_array<ashp::acipc::cr_controller::tr_association>::truncate(&v10[290]._os_unfair_lock_opaque, v29, v20, v21, v22);
+              while (v28 < *&v10[290]._os_unfair_lock_opaque);
             }
 
             else
             {
-LABEL_18:
-              buf[8] = 0;
+              v29 = *buf;
             }
 
-            v30 = *&v10[296]._os_unfair_lock_opaque;
-            if (v30)
-            {
-              v31 = 0;
-              v32 = *&v10[300]._os_unfair_lock_opaque;
-              while (*v32 != v11)
-              {
-                ++v31;
-                v32 += 2;
-                if (v30 == v31)
-                {
-                  goto LABEL_33;
-                }
-              }
-
-              v42 = v31;
-              v43 = 1;
-              if ((buf[8] & 1) == 0)
-              {
-                goto LABEL_41;
-              }
-
-              ashp::acipc::tr_controller::completion_ring_did_flush(v11, v10);
-              ashp::optional<unsigned long long,void>::value(&v42, v33, v34, v35);
-              ashp::dynamic_array<ashp::acipc::cr_controller::flush_tracker>::erase<int,0>(&v10[296]._os_unfair_lock_opaque, v42, v42 + 1, v36, v37);
-            }
+            ashp::dynamic_array<ashp::acipc::cr_controller::tr_association>::truncate(&v10[290]._os_unfair_lock_opaque, v29, v20, v21, v22);
           }
 
-LABEL_33:
-          os_unfair_lock_unlock(v10 + 4);
+          else
+          {
+LABEL_18:
+            buf[8] = 0;
+          }
+
+          v30 = *&v10[296]._os_unfair_lock_opaque;
+          if (v30)
+          {
+            v31 = 0;
+            v32 = *&v10[300]._os_unfair_lock_opaque;
+            while (*v32 != v11)
+            {
+              ++v31;
+              v32 += 2;
+              if (v30 == v31)
+              {
+                goto LABEL_33;
+              }
+            }
+
+            v41 = v31;
+            v42 = 1;
+            if ((buf[8] & 1) == 0)
+            {
+              goto LABEL_40;
+            }
+
+            ashp::acipc::tr_controller::completion_ring_did_flush(v11, v10);
+            ashp::optional<unsigned long long,void>::value(&v41, v33, v34, v35);
+            ashp::dynamic_array<ashp::acipc::cr_controller::flush_tracker>::erase<int,0>(&v10[296]._os_unfair_lock_opaque, v41, v41 + 1, v36, v37);
+          }
         }
+
+LABEL_33:
+        os_unfair_lock_unlock(v10 + 4);
       }
     }
-
-    result = v4 ^ 1u;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v39 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4 ^ 1u;
 }
 
-void ashp::acipc::ring_manager::recompute_closed_ring_availability(const os_unfair_lock *this)
+void ashp::acipc::ring_manager::recompute_closed_ring_availability(os_unfair_lock *this)
 {
   os_unfair_lock_assert_owner(this);
   for (i = *&this[124]._os_unfair_lock_opaque; i; i = *(i + 8))
@@ -1159,7 +983,7 @@ void ashp::acipc::ring_manager::recompute_closed_ring_availability(const os_unfa
 
 void ashp::acipc::ring_manager::recompute_tr_availability(const os_unfair_lock *this, ashp::acipc::detail::ring_manager::tr_context *a2)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   if (this[8]._os_unfair_lock_opaque)
   {
@@ -1219,16 +1043,16 @@ void ashp::acipc::ring_manager::recompute_tr_availability(const os_unfair_lock *
                 v56 = *(i + 96);
                 *buf = 136447490;
                 *&buf[4] = "ring_manager.cpp";
-                v86 = 1024;
-                v87 = 818;
-                v88 = 2082;
-                v89 = "does_tr_conflict_with_any_open_tr";
-                v90 = 2080;
-                *v91 = v32;
-                *&v91[8] = 1024;
-                *&v91[10] = v55;
-                *&v91[14] = 1024;
-                *&v91[16] = v56;
+                v85 = 1024;
+                v86 = 818;
+                v87 = 2082;
+                v88 = "does_tr_conflict_with_any_open_tr";
+                v89 = 2080;
+                *v90 = v32;
+                *&v90[8] = 1024;
+                *&v90[10] = v55;
+                *&v90[14] = 1024;
+                *&v90[16] = v56;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] tr name %s is shared by trid %hu and trid %hu", buf, 0x32u);
               }
             }
@@ -1299,16 +1123,16 @@ void ashp::acipc::ring_manager::recompute_tr_availability(const os_unfair_lock *
                 v60 = *(a2 + 48);
                 *buf = 136447490;
                 *&buf[4] = "ring_manager.cpp";
-                v86 = 1024;
-                v87 = 824;
-                v88 = 2082;
-                v89 = "does_tr_conflict_with_any_open_tr";
-                v90 = 1024;
-                *v91 = v60;
-                *&v91[4] = 2080;
-                *&v91[6] = v38;
-                *&v91[14] = 2080;
-                *&v91[16] = v58;
+                v85 = 1024;
+                v86 = 824;
+                v87 = 2082;
+                v88 = "does_tr_conflict_with_any_open_tr";
+                v89 = 1024;
+                *v90 = v60;
+                *&v90[4] = 2080;
+                *&v90[6] = v38;
+                *&v90[14] = 2080;
+                *&v90[16] = v58;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] trid %hu is shared by tr %s and tr %s", buf, 0x36u);
               }
             }
@@ -1379,16 +1203,16 @@ void ashp::acipc::ring_manager::recompute_tr_availability(const os_unfair_lock *
                 v64 = *(a2 + 49);
                 *buf = 136447490;
                 *&buf[4] = "ring_manager.cpp";
-                v86 = 1024;
-                v87 = 830;
-                v88 = 2082;
-                v89 = "does_tr_conflict_with_any_open_tr";
-                v90 = 1024;
-                *v91 = v64;
-                *&v91[4] = 2080;
-                *&v91[6] = v44;
-                *&v91[14] = 2080;
-                *&v91[16] = v62;
+                v85 = 1024;
+                v86 = 830;
+                v87 = 2082;
+                v88 = "does_tr_conflict_with_any_open_tr";
+                v89 = 1024;
+                *v90 = v64;
+                *&v90[4] = 2080;
+                *&v90[6] = v44;
+                *&v90[14] = 2080;
+                *&v90[16] = v62;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] tr index array vector %hu is shared by tr %s and tr %s", buf, 0x36u);
               }
             }
@@ -1480,16 +1304,16 @@ void ashp::acipc::ring_manager::recompute_tr_availability(const os_unfair_lock *
               {
                 *buf = 136447490;
                 *&buf[4] = "ring_manager.cpp";
-                v86 = 1024;
-                v87 = 836;
-                v88 = 2082;
-                v89 = "does_tr_conflict_with_any_open_tr";
-                v90 = 2080;
-                *v91 = v53;
-                *&v91[8] = 2080;
-                *&v91[10] = v70;
-                *&v91[18] = 2080;
-                *&v91[20] = v72;
+                v85 = 1024;
+                v86 = 836;
+                v87 = 2082;
+                v88 = "does_tr_conflict_with_any_open_tr";
+                v89 = 2080;
+                *v90 = v53;
+                *&v90[8] = 2080;
+                *&v90[10] = v70;
+                *&v90[18] = 2080;
+                *&v90[20] = v72;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] tr exclusive doorbell %s is shared by tr %s and tr %s", buf, 0x3Au);
               }
             }
@@ -1526,18 +1350,18 @@ void ashp::acipc::ring_manager::recompute_tr_availability(const os_unfair_lock *
 
           if (*(a2 + 144) == 1)
           {
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v83, *(v15 + 56), v16, v17);
-            v84 = *(v15 + 64);
-            BYTE2(v87) = 0;
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v82, *(v15 + 56), v16, v17);
+            v83 = *(v15 + 64);
+            BYTE2(v86) = 0;
             ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(buf, v18, v19, v20);
-            v21 = v83;
-            v83 = 0;
+            v21 = v82;
+            v82 = 0;
             *buf = v21;
-            *&buf[8] = v84;
-            BYTE2(v87) = 1;
+            *&buf[8] = v83;
+            BYTE2(v86) = 1;
             v24 = ashp::operator==<int,0>(a2 + 128, buf, v22, v23);
             ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(buf, v25, v26, v27);
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v83, v28, v29, v30);
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v82, v28, v29, v30);
             if (v24)
             {
               if (*(v15 + 144))
@@ -1616,14 +1440,14 @@ LABEL_109:
       v80 = *(v76 + 208);
       *buf = 136447234;
       *&buf[4] = "tr_controller.cpp";
-      v87 = 547;
-      v88 = 2082;
-      v86 = 1024;
-      v89 = "set_availability_blockers";
-      v90 = 1024;
-      *v91 = v80;
-      *&v91[4] = 1024;
-      *&v91[6] = v4;
+      v86 = 547;
+      v87 = 2082;
+      v85 = 1024;
+      v88 = "set_availability_blockers";
+      v89 = 1024;
+      *v90 = v80;
+      *&v90[4] = 1024;
+      *&v90[6] = v4;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] (trid %hu) new availability blockers 0x%08x", buf, 0x28u);
     }
   }
@@ -1647,12 +1471,11 @@ LABEL_116:
   v81 = ashp::acipc::ring_controller::compute_state((v76 + 648));
   ashp::acipc::tr_controller::update_state_monitor_target(v76, v81);
   os_unfair_lock_unlock((v76 + 16));
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_manager::recompute_cr_availability(const os_unfair_lock *this, ashp::acipc::detail::ring_manager::cr_context *a2)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   if (this[8]._os_unfair_lock_opaque)
   {
@@ -1728,15 +1551,15 @@ LABEL_25:
               {
                 v43 = *(a2 + 16);
                 *buf = 136447234;
-                v75 = "ring_manager.cpp";
-                v76 = 1024;
-                v77 = 909;
-                v78 = 2082;
-                v79 = "does_cr_conflict_with_any_open_cr";
-                v80 = 2080;
-                *v81 = v20;
-                *&v81[8] = 1024;
-                *&v81[10] = v43;
+                v74 = "ring_manager.cpp";
+                v75 = 1024;
+                v76 = 909;
+                v77 = 2082;
+                v78 = "does_cr_conflict_with_any_open_cr";
+                v79 = 2080;
+                *v80 = v20;
+                *&v80[8] = 1024;
+                *&v80[10] = v43;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] cr %s[%u] already exists in a non-closed state", buf, 0x2Cu);
               }
             }
@@ -1812,21 +1635,21 @@ LABEL_95:
                 v48 = *(a2 + 16);
                 v49 = *(v8 + 64);
                 *buf = 136448002;
-                v75 = "ring_manager.cpp";
-                v76 = 1024;
-                v77 = 915;
-                v78 = 2082;
-                v79 = "does_cr_conflict_with_any_open_cr";
-                v80 = 1024;
-                *v81 = v47;
-                *&v81[4] = 2080;
-                *&v81[6] = v26;
-                *&v81[14] = 1024;
-                *&v81[16] = v48;
-                LOWORD(v82) = 2080;
-                *(&v82 + 2) = v45;
-                WORD5(v82) = 1024;
-                HIDWORD(v82) = v49;
+                v74 = "ring_manager.cpp";
+                v75 = 1024;
+                v76 = 915;
+                v77 = 2082;
+                v78 = "does_cr_conflict_with_any_open_cr";
+                v79 = 1024;
+                *v80 = v47;
+                *&v80[4] = 2080;
+                *&v80[6] = v26;
+                *&v80[14] = 1024;
+                *&v80[16] = v48;
+                LOWORD(v81) = 2080;
+                *(&v81 + 2) = v45;
+                WORD5(v81) = 1024;
+                HIDWORD(v81) = v49;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu is shared by %s[%u] and non-closed %s[%u]", buf, 0x42u);
               }
             }
@@ -1898,21 +1721,21 @@ LABEL_95:
                 v54 = *(a2 + 16);
                 v55 = *(v8 + 64);
                 *buf = 136448002;
-                v75 = "ring_manager.cpp";
-                v76 = 1024;
-                v77 = 921;
-                v78 = 2082;
-                v79 = "does_cr_conflict_with_any_open_cr";
-                v80 = 1024;
-                *v81 = v53;
-                *&v81[4] = 2080;
-                *&v81[6] = v32;
-                *&v81[14] = 1024;
-                *&v81[16] = v54;
-                LOWORD(v82) = 2080;
-                *(&v82 + 2) = v51;
-                WORD5(v82) = 1024;
-                HIDWORD(v82) = v55;
+                v74 = "ring_manager.cpp";
+                v75 = 1024;
+                v76 = 921;
+                v77 = 2082;
+                v78 = "does_cr_conflict_with_any_open_cr";
+                v79 = 1024;
+                *v80 = v53;
+                *&v80[4] = 2080;
+                *&v80[6] = v32;
+                *&v80[14] = 1024;
+                *&v80[16] = v54;
+                LOWORD(v81) = 2080;
+                *(&v81 + 2) = v51;
+                WORD5(v81) = 1024;
+                HIDWORD(v81) = v55;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] cr index array vector %u is shared by %s[%u] and non-closed %s[%u]", buf, 0x42u);
               }
             }
@@ -2005,21 +1828,21 @@ LABEL_95:
                 v65 = *(a2 + 16);
                 v66 = *(v8 + 64);
                 *buf = 136448002;
-                v75 = "ring_manager.cpp";
-                v76 = 1024;
-                v77 = 927;
-                v78 = 2082;
-                v79 = "does_cr_conflict_with_any_open_cr";
-                v80 = 2080;
-                *v81 = v41;
-                *&v81[8] = 2080;
-                *&v81[10] = v61;
-                *&v81[18] = 1024;
-                LODWORD(v82) = v65;
-                WORD2(v82) = 2080;
-                *(&v82 + 6) = v63;
-                HIWORD(v82) = 1024;
-                v83 = v66;
+                v74 = "ring_manager.cpp";
+                v75 = 1024;
+                v76 = 927;
+                v77 = 2082;
+                v78 = "does_cr_conflict_with_any_open_cr";
+                v79 = 2080;
+                *v80 = v41;
+                *&v80[8] = 2080;
+                *&v80[10] = v61;
+                *&v80[18] = 1024;
+                LODWORD(v81) = v65;
+                WORD2(v81) = 2080;
+                *(&v81 + 6) = v63;
+                HIWORD(v81) = 1024;
+                v82 = v66;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] cr exclusive doorbell %s is shared by %s[%u] and %s[%u]", buf, 0x46u);
               }
             }
@@ -2067,15 +1890,15 @@ LABEL_96:
     {
       v71 = *(v67 + 208);
       *buf = 136447234;
-      v75 = "cr_controller.cpp";
-      v77 = 411;
-      v78 = 2082;
-      v76 = 1024;
-      v79 = "set_availability_blockers";
-      v80 = 1024;
-      *v81 = v71;
-      *&v81[4] = 1024;
-      *&v81[6] = v4;
+      v74 = "cr_controller.cpp";
+      v76 = 411;
+      v77 = 2082;
+      v75 = 1024;
+      v78 = "set_availability_blockers";
+      v79 = 1024;
+      *v80 = v71;
+      *&v80[4] = 1024;
+      *&v80[6] = v4;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] (crid %hu) new availability blockers 0x%08x", buf, 0x28u);
     }
   }
@@ -2099,7 +1922,6 @@ LABEL_103:
   v72 = ashp::acipc::ring_controller::compute_state((v67 + 520));
   ashp::acipc::cr_controller::update_state_monitor_target(v67, v72);
   os_unfair_lock_unlock((v67 + 16));
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 BOOL ashp::acipc::ring_manager::is_tr_supported_in_current_exec_stage(uint64_t a1, uint64_t a2)
@@ -2235,7 +2057,7 @@ LABEL_13:
   os_unfair_lock_unlock(v6);
   *(this + 68) = 0;
   ashp::async_notifier::cancel(this + 138, v7, v8, v9);
-  ashp::async_notifier::~async_notifier((this + 552), v10, v11, v12);
+  ashp::async_notifier::~async_notifier(this + 138, v10, v11, v12);
   ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::cr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::cr_context>,&ashp::acipc::detail::ring_manager::cr_context::manager_link>::~intrusive_list_impl(this + 65, v13, v14, v15);
   ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::~intrusive_list_impl(this + 62, v16, v17, v18);
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(this + 61, v19, v20, v21);
@@ -2264,10 +2086,10 @@ LABEL_13:
   ashp::refcounted_ptr<dispatch_queue_s *,ashp::dispatch::refcount_policy>::reset(this + 3, v22, v23, v24);
 }
 
-void ashp::acipc::ring_manager::stop_tr(const os_unfair_lock *a1, uint64_t *a2, int a3)
+void ashp::acipc::ring_manager::stop_tr(const os_unfair_lock *a1, uint64_t *a2, const char *a3)
 {
   LODWORD(v5) = a3;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
   if ((*(a2 + 39) & 1) == 0)
   {
@@ -2285,15 +2107,15 @@ void ashp::acipc::ring_manager::stop_tr(const os_unfair_lock *a1, uint64_t *a2, 
     {
       v10 = *(a2 + 48);
       *buf = 136447234;
-      v24 = "ring_manager.cpp";
-      v26 = 541;
-      v27 = 2082;
-      v25 = 1024;
-      v28 = "stop_tr";
-      v29 = 1024;
-      v30 = v10;
-      v31 = 1024;
-      v32 = v5;
+      v23 = "ring_manager.cpp";
+      v25 = 541;
+      v26 = 2082;
+      v24 = 1024;
+      v27 = "stop_tr";
+      v28 = 1024;
+      v29 = v10;
+      v30 = 1024;
+      v31 = v5;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] stopping trid %hu for reason %u", buf, 0x28u);
     }
   }
@@ -2339,13 +2161,13 @@ LABEL_19:
     {
       v14 = *(a2 + 104);
       *buf = 136446978;
-      v24 = "tr_controller.cpp";
-      v25 = 1024;
-      v26 = 537;
-      v27 = 2082;
-      v28 = "stop";
-      v29 = 1024;
-      v30 = v14;
+      v23 = "tr_controller.cpp";
+      v24 = 1024;
+      v25 = 537;
+      v26 = 2082;
+      v27 = "stop";
+      v28 = 1024;
+      v29 = v14;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] (trid %hu) stopping controller", buf, 0x22u);
     }
   }
@@ -2363,13 +2185,12 @@ LABEL_19:
   ashp::acipc::ring_controller::stop((a2 + 81), v5, v15, v16, v17);
   ashp::acipc::doorbell_participant::deregister_doorbell((a2 + 169), v18, v19, v20, v21);
   os_unfair_lock_unlock(a2 + 4);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_manager::set_tr_closed(const os_unfair_lock *this, os_unfair_lock_s **a2)
 {
   v3 = this;
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   log_level = ashp::detail::logging::get_log_level(v4);
   if (log_level >= 4)
@@ -2379,13 +2200,13 @@ void ashp::acipc::ring_manager::set_tr_closed(const os_unfair_lock *this, os_unf
     {
       v6 = *(a2 + 48);
       *buf = 136446978;
-      v92 = "ring_manager.cpp";
-      v93 = 1024;
-      v94 = 550;
-      v95 = 2082;
-      v96 = "set_tr_closed";
-      v97 = 1024;
-      v98 = v6;
+      v91 = "ring_manager.cpp";
+      v92 = 1024;
+      v93 = 550;
+      v94 = 2082;
+      v95 = "set_tr_closed";
+      v96 = 1024;
+      v97 = v6;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] setting trid %hu closed", buf, 0x22u);
     }
   }
@@ -2412,7 +2233,7 @@ LABEL_7:
     *(a2 + 8) = 0;
     os_unfair_lock_assert_owner(v3);
     os_unfair_lock_lock(v3 + 1);
-    *(v3 + 600) = 1;
+    LOBYTE(v3[150]._os_unfair_lock_opaque) = 1;
     os_unfair_lock_unlock(v3 + 1);
     os_unfair_lock_assert_owner(v3);
     if (*(a2 + 8))
@@ -2446,7 +2267,7 @@ LABEL_121:
     if (*(a2 + 40) == 1)
     {
       *(a2 + 40) = 0;
-      v9 = *(v3 + 65);
+      v9 = *&v3[130]._os_unfair_lock_opaque;
       if (v9)
       {
         while (1)
@@ -2474,15 +2295,15 @@ LABEL_48:
             v12 = *(v9 + 96);
             v13 = *(a2 + 48);
             *buf = 136447234;
-            v92 = "ring_manager.cpp";
-            v93 = 1024;
-            v94 = 666;
-            v95 = 2082;
-            v96 = "setup_tr_settlement_tracking";
-            v97 = 1024;
-            v98 = v12;
-            v99 = 1024;
-            v100 = v13;
+            v91 = "ring_manager.cpp";
+            v92 = 1024;
+            v93 = 666;
+            v94 = 2082;
+            v95 = "setup_tr_settlement_tracking";
+            v96 = 1024;
+            v97 = v12;
+            v98 = 1024;
+            v99 = v13;
             _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] adding crid %hu flush tracking for trid %hu", buf, 0x28u);
           }
         }
@@ -2501,24 +2322,24 @@ LABEL_48:
         v15 = *v9;
         v16 = *a2 + 4;
         os_unfair_lock_lock(v16);
-        if ((v14[158]._os_unfair_lock_opaque & 1) == 0)
+        if ((*(v14 + 632) & 1) == 0)
         {
           goto LABEL_110;
         }
 
-        if (!v14[162]._os_unfair_lock_opaque)
+        if (!*(v14 + 648))
         {
           goto LABEL_111;
         }
 
-        v19 = *&v14[358]._os_unfair_lock_opaque;
+        v19 = *(v14 + 1432);
         v20 = v19 + 1;
         if (v19 == -1)
         {
           goto LABEL_112;
         }
 
-        v21 = *&v14[360]._os_unfair_lock_opaque;
+        v21 = *(v14 + 1440);
         if (v20 > v21)
         {
           if (v21 <= 8)
@@ -2528,7 +2349,7 @@ LABEL_48:
 
           else
           {
-            v22 = *&v14[360]._os_unfair_lock_opaque;
+            v22 = *(v14 + 1440);
           }
 
           if (v20 >= 9)
@@ -2567,25 +2388,25 @@ LABEL_48:
               goto LABEL_117;
             }
 
-            v25 = *&v14[358]._os_unfair_lock_opaque;
+            v25 = *(v14 + 1432);
             if (v25)
             {
               for (i = 0; i != v25; ++i)
               {
-                v23[i] = *(*&v14[362]._os_unfair_lock_opaque + 8 * i);
+                v23[i] = *(*(v14 + 1448) + 8 * i);
               }
             }
 
-            *&v14[360]._os_unfair_lock_opaque = v22;
-            v27 = *&v14[362]._os_unfair_lock_opaque;
-            *&v14[362]._os_unfair_lock_opaque = v23;
+            *(v14 + 1440) = v22;
+            v27 = *(v14 + 1448);
+            *(v14 + 1448) = v23;
             if (v27)
             {
               free(v27);
             }
 
-            v19 = *&v14[358]._os_unfair_lock_opaque;
-            v21 = *&v14[360]._os_unfair_lock_opaque;
+            v19 = *(v14 + 1432);
+            v21 = *(v14 + 1440);
           }
         }
 
@@ -2594,7 +2415,7 @@ LABEL_48:
           goto LABEL_113;
         }
 
-        v28 = *&v14[362]._os_unfair_lock_opaque;
+        v28 = *(v14 + 1448);
         if (!v28)
         {
 LABEL_109:
@@ -2609,7 +2430,7 @@ LABEL_111:
           __break(1u);
 LABEL_112:
           ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v17);
-          ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v79);
+          ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v78);
           _os_crash();
           __break(1u);
 LABEL_113:
@@ -2626,13 +2447,13 @@ LABEL_115:
           __break(1u);
 LABEL_116:
           ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x56, "buffer", v17);
-          ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x56, "buffer", v80);
+          ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x56, "buffer", v79);
           _os_crash();
           __break(1u);
 LABEL_117:
           v3 = "buffer";
           ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v24);
-          ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v81);
+          ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v80);
           _os_crash();
           __break(1u);
 LABEL_118:
@@ -2643,23 +2464,23 @@ LABEL_118:
         }
 
         *(v28 + 8 * v19) = v15;
-        *&v14[358]._os_unfair_lock_opaque = v19 + 1;
+        *(v14 + 1432) = v19 + 1;
         os_unfair_lock_unlock(v16);
         v29 = *v9;
-        v90 = *a2;
+        v89 = *a2;
         os_unfair_lock_lock((v29 + 16));
         if ((*(v29 + 505) & 1) == 0)
         {
           goto LABEL_114;
         }
 
-        v88[0] = &v90;
-        v88[1] = v29;
-        v89 = 1;
+        v87[0] = &v89;
+        v87[1] = v29;
+        v88 = 1;
         if (*(v29 + 32))
         {
 LABEL_47:
-          ashp::deferred_action<ashp::acipc::cr_controller::notify_transfer_ring_when_flushed(ashp::acipc::tr_controller *)::$_0>::~deferred_action(v88);
+          ashp::deferred_action<ashp::acipc::cr_controller::notify_transfer_ring_when_flushed(ashp::acipc::tr_controller *)::$_0>::~deferred_action(v87);
           os_unfair_lock_unlock((v29 + 16));
           goto LABEL_48;
         }
@@ -2672,11 +2493,11 @@ LABEL_47:
             goto LABEL_47;
           }
 
-          v87 = 0;
+          v86 = 0;
           head_index = ashp::acipc::ring_controller::read_head_index(v34, v30, v31, v32, v33);
-          if ((v87 & 1) == 0)
+          if ((v86 & 1) == 0)
           {
-            v87 = 1;
+            v86 = 1;
           }
 
           ashp::optional<ashp::acipc::tr_ring,void>::value(v29 + 928, v35, v36, v37);
@@ -2693,15 +2514,15 @@ LABEL_47:
               {
                 v50 = *(v29 + 208);
                 *buf = 136447234;
-                v92 = "cr_controller.cpp";
-                v93 = 1024;
-                v94 = 585;
-                v95 = 2082;
-                v96 = "notify_transfer_ring_when_flushed";
-                v97 = 1024;
-                v98 = v50;
-                v99 = 1024;
-                v100 = head_index;
+                v91 = "cr_controller.cpp";
+                v92 = 1024;
+                v93 = 585;
+                v94 = 2082;
+                v95 = "notify_transfer_ring_when_flushed";
+                v96 = 1024;
+                v97 = v50;
+                v98 = 1024;
+                v99 = head_index;
                 _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] (crid %hu) invalid hi: %hu", buf, 0x28u);
               }
             }
@@ -2728,33 +2549,33 @@ LABEL_47:
             goto LABEL_47;
           }
 
-          v87 = 0;
+          v86 = 0;
         }
 
         ashp::optional<ashp::acipc::tr_ring,void>::value(v29 + 928, v30, v31, v32);
         *buf = *(v29 + 940);
         buf[2] = 1;
-        if ((v87 & 1) == 0 || (ashp::optional<unsigned short,void>::value(&head_index, v51, v52, v53), v54 = head_index, ashp::optional<unsigned short,void>::value(buf, v55, v56, v57), v54 != *buf))
+        if ((v86 & 1) == 0 || (ashp::optional<unsigned short,void>::value(&head_index, v51, v52, v53), v54 = head_index, ashp::optional<unsigned short,void>::value(buf, v55, v56, v57), v54 != *buf))
         {
-          if (v89 == 1)
+          if (v88 == 1)
           {
-            v89 = 0;
+            v88 = 0;
           }
 
-          v58 = v87;
-          v59 = v85;
-          if (v87)
+          v58 = v86;
+          v59 = v84;
+          if (v86)
           {
             v59 = head_index;
           }
 
-          v85 = v59;
+          v84 = v59;
           v60 = *(v29 + 1184);
           v61 = v60 + 1;
           if (v60 == -1)
           {
             ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v53);
-            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v82);
+            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v81);
             _os_crash();
             __break(1u);
 LABEL_125:
@@ -2767,17 +2588,17 @@ LABEL_126:
             __break(1u);
 LABEL_127:
             ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x56, "buffer", v53);
-            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x56, "buffer", v83);
+            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x56, "buffer", v82);
             _os_crash();
             __break(1u);
 LABEL_128:
             ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v66);
-            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v84);
+            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v83);
             _os_crash();
             __break(1u);
           }
 
-          v62 = v90;
+          v62 = v89;
           v63 = *(v29 + 1192);
           if (v61 > v63)
           {
@@ -2883,7 +2704,7 @@ LABEL_128:
           *(v72 + 10) = 0;
           if (v58)
           {
-            *(v72 + 8) = v85;
+            *(v72 + 8) = v84;
             *(v72 + 10) = 1;
           }
 
@@ -2898,12 +2719,12 @@ LABEL_107:
     ashp::acipc::tr_controller::set_device_ring_status(*a2, 0);
     os_unfair_lock_assert_owner(v3);
     os_unfair_lock_lock(v3 + 1);
-    *(v3 + 600) = 0;
+    LOBYTE(v3[150]._os_unfair_lock_opaque) = 0;
     os_unfair_lock_unlock(v3 + 1);
     ashp::acipc::ring_manager::finalize_tr_settlement_if_ready(v3, a2);
     v73 = *a2;
-    os_unfair_lock_lock(v73 + 4);
-    if (v73[158]._os_unfair_lock_opaque)
+    os_unfair_lock_lock((v73 + 16));
+    if (*(v73 + 632))
     {
       break;
     }
@@ -2917,23 +2738,22 @@ LABEL_123:
     dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
   }
 
-  ashp::acipc::ring_controller::clear_indices(&v73[162], v74, v75, v76, v77);
-  os_unfair_lock_unlock(v73 + 4);
-  v78 = *MEMORY[0x277D85DE8];
+  ashp::acipc::ring_controller::clear_indices(v73 + 648, v74, v75, v76, v77);
+  os_unfair_lock_unlock((v73 + 16));
 }
 
-void sub_23EC9F844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23EC9F844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   ashp::deferred_action<ashp::acipc::cr_controller::notify_transfer_ring_when_flushed(ashp::acipc::tr_controller *)::$_0>::~deferred_action(va);
-  os_unfair_lock_unlock(v11);
+  os_unfair_lock_unlock(v18);
   _Unwind_Resume(a1);
 }
 
-void ashp::acipc::ring_manager::stop_cr(const os_unfair_lock *a1, uint64_t *a2, int a3)
+void ashp::acipc::ring_manager::stop_cr(const os_unfair_lock *a1, uint64_t *a2, const char *a3)
 {
   LODWORD(v5) = a3;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
   if ((*(a2 + 37) & 1) == 0)
   {
@@ -2952,15 +2772,15 @@ void ashp::acipc::ring_manager::stop_cr(const os_unfair_lock *a1, uint64_t *a2, 
     {
       v10 = *(a2 + 48);
       *buf = 136447234;
-      v24 = "ring_manager.cpp";
-      v26 = 599;
-      v27 = 2082;
-      v25 = 1024;
-      v28 = "stop_cr";
-      v29 = 1024;
-      v30 = v10;
-      v31 = 1024;
-      v32 = v5;
+      v23 = "ring_manager.cpp";
+      v25 = 599;
+      v26 = 2082;
+      v24 = 1024;
+      v27 = "stop_cr";
+      v28 = 1024;
+      v29 = v10;
+      v30 = 1024;
+      v31 = v5;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] stopping crid %hu for reason %u", buf, 0x28u);
     }
   }
@@ -3005,13 +2825,13 @@ LABEL_19:
     {
       v14 = *(a2 + 104);
       *buf = 136446978;
-      v24 = "cr_controller.cpp";
-      v25 = 1024;
-      v26 = 401;
-      v27 = 2082;
-      v28 = "stop";
-      v29 = 1024;
-      v30 = v14;
+      v23 = "cr_controller.cpp";
+      v24 = 1024;
+      v25 = 401;
+      v26 = 2082;
+      v27 = "stop";
+      v28 = 1024;
+      v29 = v14;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] (crid %hu) stopping controller", buf, 0x22u);
     }
   }
@@ -3029,12 +2849,11 @@ LABEL_19:
   ashp::acipc::ring_controller::stop((a2 + 65), v5, v15, v16, v17);
   ashp::acipc::doorbell_participant::deregister_doorbell((a2 + 135), v18, v19, v20, v21);
   os_unfair_lock_unlock(a2 + 4);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_manager::set_cr_closed(const os_unfair_lock *this, os_unfair_lock_s **a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   log_level = ashp::detail::logging::get_log_level(v3);
   if (log_level >= 4)
@@ -3044,13 +2863,13 @@ void ashp::acipc::ring_manager::set_cr_closed(const os_unfair_lock *this, os_unf
     {
       v5 = *(a2 + 48);
       *buf = 136446978;
-      v14 = "ring_manager.cpp";
-      v15 = 1024;
-      v16 = 607;
-      v17 = 2082;
-      v18 = "set_cr_closed";
-      v19 = 1024;
-      v20 = v5;
+      v13 = "ring_manager.cpp";
+      v14 = 1024;
+      v15 = 607;
+      v16 = 2082;
+      v17 = "set_cr_closed";
+      v18 = 1024;
+      v19 = v5;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] setting crid %hu closed", buf, 0x22u);
     }
   }
@@ -3081,7 +2900,7 @@ LABEL_7:
     ashp::acipc::cr_controller::set_device_ring_status(*a2, 0);
     v7 = *a2;
     os_unfair_lock_lock(*a2 + 4);
-    if ((v7[126]._os_unfair_lock_opaque & 0x100) != 0)
+    if (*(v7 + 505))
     {
       break;
     }
@@ -3095,9 +2914,8 @@ LABEL_12:
     dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
   }
 
-  ashp::acipc::ring_controller::clear_indices(&v7[130], v8, v9, v10, v11);
-  os_unfair_lock_unlock(v7 + 4);
-  v12 = *MEMORY[0x277D85DE8];
+  ashp::acipc::ring_controller::clear_indices(v7 + 520, v8, v9, v10, v11);
+  os_unfair_lock_unlock((v7 + 16));
 }
 
 void ashp::unsafe_storage<ashp::acipc::index_array_signaler>::storage::emplace<ashp::acipc::acipc_driver *&,unsigned short *,unsigned short &>(ashp::acipc::index_array_signaler *this, uint64_t *a2, uint64_t *a3, const char *a4)
@@ -3227,9 +3045,9 @@ uint64_t ashp::optional<ashp::acipc::index_array_signaler,void>::value(uint64_t 
   return result;
 }
 
-uint64_t ashp::acipc::ring_manager::request_tr_close(const os_unfair_lock *a1, uint64_t a2, int a3)
+uint64_t ashp::acipc::ring_manager::request_tr_close(os_unfair_lock *a1, uint64_t a2, const char *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
   v6 = *(a2 + 32);
   log_level = ashp::detail::logging::get_log_level(v7);
@@ -3240,15 +3058,15 @@ uint64_t ashp::acipc::ring_manager::request_tr_close(const os_unfair_lock *a1, u
     {
       v9 = *(a2 + 96);
       *buf = 136447234;
-      v26 = "ring_manager.cpp";
-      v28 = 332;
-      v29 = 2082;
-      v27 = 1024;
-      v30 = "request_tr_close";
-      v31 = 1024;
-      v32 = v9;
-      v33 = 1024;
-      v34 = v6;
+      v25 = "ring_manager.cpp";
+      v27 = 332;
+      v28 = 2082;
+      v26 = 1024;
+      v29 = "request_tr_close";
+      v30 = 1024;
+      v31 = v9;
+      v32 = 1024;
+      v33 = v6;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] trid %hu status %u", buf, 0x28u);
     }
   }
@@ -3277,13 +3095,13 @@ uint64_t ashp::acipc::ring_manager::request_tr_close(const os_unfair_lock *a1, u
         {
           v22 = *(a2 + 96);
           *buf = 136446978;
-          v26 = "ring_manager.cpp";
-          v27 = 1024;
-          v28 = 355;
-          v29 = 2082;
-          v30 = "request_tr_close";
-          v31 = 1024;
-          v32 = v22;
+          v25 = "ring_manager.cpp";
+          v26 = 1024;
+          v27 = 355;
+          v28 = 2082;
+          v29 = "request_tr_close";
+          v30 = 1024;
+          v31 = v22;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] requesting close for trid %hu", buf, 0x22u);
         }
       }
@@ -3302,7 +3120,7 @@ uint64_t ashp::acipc::ring_manager::request_tr_close(const os_unfair_lock *a1, u
       ashp::acipc::ring_manager::stop_tr(a1, a2, a3);
     }
 
-    goto LABEL_53;
+    return 0;
   }
 
   if (v11 == 4)
@@ -3315,13 +3133,13 @@ uint64_t ashp::acipc::ring_manager::request_tr_close(const os_unfair_lock *a1, u
       {
         v20 = *(a2 + 96);
         *buf = 136446978;
-        v26 = "ring_manager.cpp";
-        v27 = 1024;
-        v28 = 360;
-        v29 = 2082;
-        v30 = "request_tr_close";
-        v31 = 1024;
-        v32 = v20;
+        v25 = "ring_manager.cpp";
+        v26 = 1024;
+        v27 = 360;
+        v28 = 2082;
+        v29 = "request_tr_close";
+        v30 = 1024;
+        v31 = v20;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] trid %hu in limbo", buf, 0x22u);
       }
     }
@@ -3338,7 +3156,7 @@ uint64_t ashp::acipc::ring_manager::request_tr_close(const os_unfair_lock *a1, u
 
     if (a3 != 1)
     {
-      goto LABEL_53;
+      return 0;
     }
 
     goto LABEL_52;
@@ -3346,9 +3164,7 @@ uint64_t ashp::acipc::ring_manager::request_tr_close(const os_unfair_lock *a1, u
 
   if (v11 != 2)
   {
-LABEL_53:
-    result = 0;
-    goto LABEL_54;
+    return 0;
   }
 
   v12 = ashp::detail::logging::get_log_level(v10);
@@ -3359,13 +3175,13 @@ LABEL_53:
     {
       v13 = *(a2 + 96);
       *buf = 136446978;
-      v26 = "ring_manager.cpp";
-      v27 = 1024;
-      v28 = 336;
-      v29 = 2082;
-      v30 = "request_tr_close";
-      v31 = 1024;
-      v32 = v13;
+      v25 = "ring_manager.cpp";
+      v26 = 1024;
+      v27 = 336;
+      v28 = 2082;
+      v29 = "request_tr_close";
+      v30 = 1024;
+      v31 = v13;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] closing trid %hu", buf, 0x22u);
     }
   }
@@ -3392,13 +3208,13 @@ LABEL_53:
       {
         v23 = *(a2 + 96);
         *buf = 136446978;
-        v26 = "ring_manager.cpp";
-        v27 = 1024;
-        v28 = 347;
-        v29 = 2082;
-        v30 = "request_tr_close";
-        v31 = 1024;
-        v32 = v23;
+        v25 = "ring_manager.cpp";
+        v26 = 1024;
+        v27 = 347;
+        v28 = 2082;
+        v29 = "request_tr_close";
+        v30 = 1024;
+        v31 = v23;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] sending close message for trid %hu", buf, 0x22u);
       }
     }
@@ -3417,7 +3233,7 @@ LABEL_52:
     *(a2 + 32) = 3;
     ashp::acipc::tr_controller::set_device_ring_status(*a2, 3);
     ashp::acipc::ring_manager::send_tr_close_message(a1, a2);
-    goto LABEL_53;
+    return 0;
   }
 
   if (v16 >= 4)
@@ -3427,13 +3243,13 @@ LABEL_52:
     {
       v17 = *(a2 + 96);
       *buf = 136446978;
-      v26 = "ring_manager.cpp";
-      v27 = 1024;
-      v28 = 340;
-      v29 = 2082;
-      v30 = "request_tr_close";
-      v31 = 1024;
-      v32 = v17;
+      v25 = "ring_manager.cpp";
+      v26 = 1024;
+      v27 = 340;
+      v28 = 2082;
+      v29 = "request_tr_close";
+      v30 = 1024;
+      v31 = v17;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] trid %hu has unmessaged lifecycle, closing", buf, 0x22u);
     }
   }
@@ -3450,34 +3266,31 @@ LABEL_52:
 
   ashp::acipc::ring_manager::set_tr_closed(a1, a2);
   ashp::acipc::ring_manager::check_all_cr_close_requests(a1);
-  result = 1;
-LABEL_54:
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-uint64_t ashp::acipc::ring_manager::request_cr_close(const os_unfair_lock *a1, uint64_t a2, int a3)
+uint64_t ashp::acipc::ring_manager::request_cr_close(os_unfair_lock *a1, void *a2, const char *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
-  v6 = *(a2 + 32);
+  v6 = *(a2 + 8);
   log_level = ashp::detail::logging::get_log_level(v7);
   if (log_level >= 4)
   {
     log_level = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     if (log_level)
     {
-      v9 = *(a2 + 96);
+      v9 = *(a2 + 48);
       *buf = 136447234;
-      v26 = "ring_manager.cpp";
-      v28 = 458;
-      v29 = 2082;
-      v27 = 1024;
-      v30 = "request_cr_close";
-      v31 = 1024;
-      v32 = v9;
-      v33 = 1024;
-      v34 = v6;
+      v25 = "ring_manager.cpp";
+      v27 = 458;
+      v28 = 2082;
+      v26 = 1024;
+      v29 = "request_cr_close";
+      v30 = 1024;
+      v31 = v9;
+      v32 = 1024;
+      v33 = v6;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu status %u", buf, 0x28u);
     }
   }
@@ -3490,10 +3303,10 @@ uint64_t ashp::acipc::ring_manager::request_cr_close(const os_unfair_lock *a1, u
       dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
     }
 
-    ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu status %u", "ring_manager.cpp", 458, "request_cr_close", *(a2 + 96), v6);
+    ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu status %u", "ring_manager.cpp", 458, "request_cr_close", *(a2 + 48), v6);
   }
 
-  v11 = *(a2 + 32);
+  v11 = *(a2 + 8);
   if (v11 == 1)
   {
     if ((*(a2 + 36) & 1) == 0)
@@ -3504,15 +3317,15 @@ uint64_t ashp::acipc::ring_manager::request_cr_close(const os_unfair_lock *a1, u
         v18 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
         if (v18)
         {
-          v19 = *(a2 + 96);
+          v19 = *(a2 + 48);
           *buf = 136446978;
-          v26 = "ring_manager.cpp";
-          v27 = 1024;
-          v28 = 484;
-          v29 = 2082;
-          v30 = "request_cr_close";
-          v31 = 1024;
-          v32 = v19;
+          v25 = "ring_manager.cpp";
+          v26 = 1024;
+          v27 = 484;
+          v28 = 2082;
+          v29 = "request_cr_close";
+          v30 = 1024;
+          v31 = v19;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] requesting close for crid %hu", buf, 0x22u);
         }
       }
@@ -3524,14 +3337,14 @@ uint64_t ashp::acipc::ring_manager::request_cr_close(const os_unfair_lock *a1, u
           dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
         }
 
-        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] requesting close for crid %hu", "ring_manager.cpp", 484, "request_cr_close", *(a2 + 96));
+        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] requesting close for crid %hu", "ring_manager.cpp", 484, "request_cr_close", *(a2 + 48));
       }
 
       *(a2 + 36) = 1;
       ashp::acipc::ring_manager::stop_cr(a1, a2, a3);
     }
 
-    goto LABEL_39;
+    return 0;
   }
 
   if (v11 == 4)
@@ -3542,15 +3355,15 @@ uint64_t ashp::acipc::ring_manager::request_cr_close(const os_unfair_lock *a1, u
       v16 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
       if (v16)
       {
-        v17 = *(a2 + 96);
+        v17 = *(a2 + 48);
         *buf = 136446978;
-        v26 = "ring_manager.cpp";
-        v27 = 1024;
-        v28 = 489;
-        v29 = 2082;
-        v30 = "request_cr_close";
-        v31 = 1024;
-        v32 = v17;
+        v25 = "ring_manager.cpp";
+        v26 = 1024;
+        v27 = 489;
+        v28 = 2082;
+        v29 = "request_cr_close";
+        v30 = 1024;
+        v31 = v17;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu in limbo", buf, 0x22u);
       }
     }
@@ -3562,22 +3375,22 @@ uint64_t ashp::acipc::ring_manager::request_cr_close(const os_unfair_lock *a1, u
         dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
       }
 
-      ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu in limbo", "ring_manager.cpp", 489, "request_cr_close", *(a2 + 96));
+      ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu in limbo", "ring_manager.cpp", 489, "request_cr_close", *(a2 + 48));
     }
 
     if (a3 == 1)
     {
-      *(a2 + 32) = 3;
+      *(a2 + 8) = 3;
       ashp::acipc::cr_controller::set_device_ring_status(*a2, 3);
       ashp::acipc::ring_manager::send_cr_close_message(a1, a2);
     }
 
-    goto LABEL_39;
+    return 0;
   }
 
   if (v11 != 2)
   {
-    goto LABEL_39;
+    return 0;
   }
 
   v12 = ashp::detail::logging::get_log_level(v10);
@@ -3586,15 +3399,15 @@ uint64_t ashp::acipc::ring_manager::request_cr_close(const os_unfair_lock *a1, u
     v12 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     if (v12)
     {
-      v13 = *(a2 + 96);
+      v13 = *(a2 + 48);
       *buf = 136446978;
-      v26 = "ring_manager.cpp";
-      v27 = 1024;
-      v28 = 462;
-      v29 = 2082;
-      v30 = "request_cr_close";
-      v31 = 1024;
-      v32 = v13;
+      v25 = "ring_manager.cpp";
+      v26 = 1024;
+      v27 = 462;
+      v28 = 2082;
+      v29 = "request_cr_close";
+      v30 = 1024;
+      v31 = v13;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] closing crid %hu", buf, 0x22u);
     }
   }
@@ -3606,14 +3419,12 @@ uint64_t ashp::acipc::ring_manager::request_cr_close(const os_unfair_lock *a1, u
       dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
     }
 
-    ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] closing crid %hu", "ring_manager.cpp", 462, "request_cr_close", *(a2 + 96));
+    ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] closing crid %hu", "ring_manager.cpp", 462, "request_cr_close", *(a2 + 48));
   }
 
   if (*(a2 + 36))
   {
-LABEL_39:
-    result = 0;
-    goto LABEL_40;
+    return 0;
   }
 
   ashp::acipc::ring_manager::stop_cr(a1, a2, a3);
@@ -3626,36 +3437,36 @@ LABEL_39:
 
   else
   {
-    v21 = *(a2 + 48);
-    v22 = ashp::detail::logging::get_log_level(is_cr_required_completion_context_for_any_open_tr);
-    if (v21 == 1)
+    v20 = *(a2 + 48);
+    v21 = ashp::detail::logging::get_log_level(is_cr_required_completion_context_for_any_open_tr);
+    if (v20 == 1)
     {
-      if (v22 >= 4)
+      if (v21 >= 4)
       {
-        v22 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-        if (v22)
+        v21 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+        if (v21)
         {
-          v23 = *(a2 + 96);
+          v22 = *(a2 + 48);
           *buf = 136446978;
-          v26 = "ring_manager.cpp";
-          v27 = 1024;
-          v28 = 471;
-          v29 = 2082;
-          v30 = "request_cr_close";
-          v31 = 1024;
-          v32 = v23;
+          v25 = "ring_manager.cpp";
+          v26 = 1024;
+          v27 = 471;
+          v28 = 2082;
+          v29 = "request_cr_close";
+          v30 = 1024;
+          v31 = v22;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu has unmessaged lifecycle, closing", buf, 0x22u);
         }
       }
 
-      if (ashp::detail::logging::get_log_level(v22))
+      if (ashp::detail::logging::get_log_level(v21))
       {
         if (airship_platform_get_global_logger::once != -1)
         {
           dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
         }
 
-        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu has unmessaged lifecycle, closing", "ring_manager.cpp", 471, "request_cr_close", *(a2 + 96));
+        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu has unmessaged lifecycle, closing", "ring_manager.cpp", 471, "request_cr_close", *(a2 + 48));
       }
 
       ashp::acipc::ring_manager::set_cr_closed(a1, a2);
@@ -3663,50 +3474,48 @@ LABEL_39:
 
     else
     {
-      if (v22 >= 4)
+      if (v21 >= 4)
       {
-        v22 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-        if (v22)
+        v21 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+        if (v21)
         {
-          v24 = *(a2 + 96);
+          v23 = *(a2 + 48);
           *buf = 136446978;
-          v26 = "ring_manager.cpp";
-          v27 = 1024;
-          v28 = 476;
-          v29 = 2082;
-          v30 = "request_cr_close";
-          v31 = 1024;
-          v32 = v24;
+          v25 = "ring_manager.cpp";
+          v26 = 1024;
+          v27 = 476;
+          v28 = 2082;
+          v29 = "request_cr_close";
+          v30 = 1024;
+          v31 = v23;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] sending close message for crid %hu", buf, 0x22u);
         }
       }
 
-      if (ashp::detail::logging::get_log_level(v22))
+      if (ashp::detail::logging::get_log_level(v21))
       {
         if (airship_platform_get_global_logger::once != -1)
         {
           dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
         }
 
-        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] sending close message for crid %hu", "ring_manager.cpp", 476, "request_cr_close", *(a2 + 96));
+        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] sending close message for crid %hu", "ring_manager.cpp", 476, "request_cr_close", *(a2 + 48));
       }
 
-      *(a2 + 32) = 3;
+      *(a2 + 8) = 3;
       ashp::acipc::cr_controller::set_device_ring_status(*a2, 3);
       ashp::acipc::ring_manager::send_cr_close_message(a1, a2);
     }
 
-    result = 1;
+    return 1;
   }
 
-LABEL_40:
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ashp::acipc::ring_manager::is_cr_required_completion_context_for_any_open_tr(uint64_t a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
   v5 = *(a1 + 496);
   if (v5)
@@ -3738,15 +3547,15 @@ uint64_t ashp::acipc::ring_manager::is_cr_required_completion_context_for_any_op
         v10 = *(a2 + 96);
         v11 = *(v5 + 96);
         *buf = 136447234;
-        v22 = "ring_manager.cpp";
-        v24 = 981;
-        v25 = 2082;
-        v23 = 1024;
-        v26 = "is_cr_required_completion_context_for_any_open_tr";
-        v27 = 1024;
-        v28 = v10;
-        v29 = 1024;
-        v30 = v11;
+        v19 = "ring_manager.cpp";
+        v21 = 981;
+        v22 = 2082;
+        v20 = 1024;
+        v23 = "is_cr_required_completion_context_for_any_open_tr";
+        v24 = 1024;
+        v25 = v10;
+        v26 = 1024;
+        v27 = v11;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu is associated with trid %hu", buf, 0x28u);
       }
     }
@@ -3761,67 +3570,67 @@ uint64_t ashp::acipc::ring_manager::is_cr_required_completion_context_for_any_op
       ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu is associated with trid %hu", "ring_manager.cpp", 981, "is_cr_required_completion_context_for_any_open_tr", *(a2 + 96), *(v5 + 96));
     }
 
-    if ((*(a2 + 144) & 1) == 0 || (v12 = *(a1 + 520)) == 0)
+    if ((*(a2 + 144) & 1) != 0 && (v12 = *(a1 + 520)) != 0)
     {
-LABEL_27:
-      result = 1;
-      goto LABEL_28;
-    }
-
-    while (1)
-    {
-      if (v12 != a2)
+      while (1)
       {
-        os_unfair_lock_assert_owner(a1);
-        if (*(a2 + 32) == 2 && (*(a2 + 36) & 1) == 0)
+        if (v12 != a2)
         {
-          v15 = ashp::operator==<int,0>(a2 + 128, v12 + 128, v13, v14);
-          if (v15)
+          os_unfair_lock_assert_owner(a1);
+          if (*(a2 + 32) == 2 && (*(a2 + 36) & 1) == 0)
           {
-            break;
+            v15 = ashp::operator==<int,0>(a2 + 128, v12 + 128, v13, v14);
+            if (v15)
+            {
+              break;
+            }
           }
+        }
+
+        v12 = *(v12 + 8);
+        if (!v12)
+        {
+          return 1;
         }
       }
 
-      v12 = *(v12 + 8);
-      if (!v12)
+      v16 = ashp::detail::logging::get_log_level(v15);
+      if (v16 >= 4)
       {
-        goto LABEL_27;
+        v16 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+        if (v16)
+        {
+          v17 = *(a2 + 96);
+          *buf = 136447234;
+          v19 = "ring_manager.cpp";
+          v21 = 1000;
+          v22 = 2082;
+          v20 = 1024;
+          v23 = "is_cr_required_completion_context_for_any_open_tr";
+          v24 = 1024;
+          v25 = v17;
+          v26 = 1024;
+          v27 = v17;
+          _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu belongs to the same group as %hu", buf, 0x28u);
+        }
+      }
+
+      result = ashp::detail::logging::get_log_level(v16);
+      if (result)
+      {
+        if (airship_platform_get_global_logger::once != -1)
+        {
+          dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
+        }
+
+        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu belongs to the same group as %hu");
+        return 0;
       }
     }
 
-    v17 = ashp::detail::logging::get_log_level(v15);
-    if (v17 >= 4)
+    else
     {
-      v17 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-      if (v17)
-      {
-        v18 = *(a2 + 96);
-        *buf = 136447234;
-        v22 = "ring_manager.cpp";
-        v24 = 1000;
-        v25 = 2082;
-        v23 = 1024;
-        v26 = "is_cr_required_completion_context_for_any_open_tr";
-        v27 = 1024;
-        v28 = v18;
-        v29 = 1024;
-        v30 = v18;
-        _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu belongs to the same group as %hu", buf, 0x28u);
-      }
-    }
-
-    result = ashp::detail::logging::get_log_level(v17);
-    if (result)
-    {
-      if (airship_platform_get_global_logger::once != -1)
-      {
-        dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
-      }
-
-      v20 = *(a2 + 96);
-      ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu belongs to the same group as %hu");
-      goto LABEL_12;
+      return 1;
     }
   }
 
@@ -3836,13 +3645,13 @@ LABEL_5:
       {
         v7 = *(a2 + 96);
         *buf = 136446978;
-        v22 = "ring_manager.cpp";
-        v23 = 1024;
-        v24 = 988;
-        v25 = 2082;
-        v26 = "is_cr_required_completion_context_for_any_open_tr";
-        v27 = 1024;
-        v28 = v7;
+        v19 = "ring_manager.cpp";
+        v20 = 1024;
+        v21 = 988;
+        v22 = 2082;
+        v23 = "is_cr_required_completion_context_for_any_open_tr";
+        v24 = 1024;
+        v25 = v7;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu is not associated with any open trs", buf, 0x22u);
       }
     }
@@ -3855,21 +3664,17 @@ LABEL_5:
         dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
       }
 
-      v19 = *(a2 + 96);
       ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] crid %hu is not associated with any open trs");
-LABEL_12:
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_28:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ashp::acipc::ring_manager::send_cr_close_message(const os_unfair_lock *this, ashp::acipc::detail::ring_manager::cr_context *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   if (LOBYTE(this[8]._os_unfair_lock_opaque) == 1)
   {
@@ -3889,8 +3694,8 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v13 = 4;
-  HIWORD(v13) = *(a2 + 48);
+  v12 = 4;
+  HIWORD(v12) = *(a2 + 48);
   log_level = ashp::detail::logging::get_log_level(v4);
   if (log_level >= 4)
   {
@@ -3899,13 +3704,13 @@ LABEL_11:
     {
       v7 = *(a2 + 48);
       *buf = 136446978;
-      v15 = "ring_manager.cpp";
-      v16 = 1024;
-      v17 = 1311;
-      v18 = 2082;
-      v19 = "send_cr_close_message";
-      v20 = 1024;
-      v21 = v7;
+      v14 = "ring_manager.cpp";
+      v15 = 1024;
+      v16 = 1311;
+      v17 = 2082;
+      v18 = "send_cr_close_message";
+      v19 = 1024;
+      v20 = v7;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] sending close message for crid %hu", buf, 0x22u);
     }
   }
@@ -3927,8 +3732,7 @@ LABEL_12:
 LABEL_9:
   v11 = *&this[4]._os_unfair_lock_opaque;
   ashp::optional<ashp::acipc::messenger,void>::value(v11 + 4944, v8, v9, v10);
-  ashp::acipc::messenger::send_message(v11 + 4944, &v13, 4, 0, 0, this, a2, ashp::acipc::ring_manager::cr_close_message_completed);
-  v12 = *MEMORY[0x277D85DE8];
+  ashp::acipc::messenger::send_message(v11 + 4944, &v12, 4, 0, 0, this, a2, ashp::acipc::ring_manager::cr_close_message_completed);
 }
 
 uint64_t ashp::optional<ashp::acipc::messenger,void>::value(uint64_t result, uint64_t a2, uint64_t a3, const char *a4)
@@ -3946,7 +3750,7 @@ uint64_t ashp::optional<ashp::acipc::messenger,void>::value(uint64_t result, uin
 
 void ashp::acipc::ring_manager::cr_close_message_completed(os_unfair_lock_t lock, char *a2, int a3, uint64_t a4, const char *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -3976,15 +3780,15 @@ LABEL_19:
     {
       v9 = *(a2 + 48);
       *buf = 136447234;
-      v13 = "ring_manager.cpp";
-      v15 = 1437;
-      v16 = 2082;
-      v14 = 1024;
-      v17 = "cr_close_message_completed";
-      v18 = 1024;
-      v19 = v9;
-      v20 = 1024;
-      v21 = a3;
+      v12 = "ring_manager.cpp";
+      v14 = 1437;
+      v15 = 2082;
+      v13 = 1024;
+      v16 = "cr_close_message_completed";
+      v17 = 1024;
+      v18 = v9;
+      v19 = 1024;
+      v20 = a3;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu close message result %u", buf, 0x28u);
     }
   }
@@ -4023,12 +3827,11 @@ LABEL_15:
 
 LABEL_17:
   os_unfair_lock_unlock(lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void ashp::acipc::ring_manager::check_all_cr_close_requests(const os_unfair_lock *this)
+void ashp::acipc::ring_manager::check_all_cr_close_requests(os_unfair_lock *this)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   log_level = ashp::detail::logging::get_log_level(v2);
   if (log_level >= 4)
@@ -4037,11 +3840,11 @@ void ashp::acipc::ring_manager::check_all_cr_close_requests(const os_unfair_lock
     if (log_level)
     {
       *buf = 136446722;
-      v13 = "ring_manager.cpp";
-      v14 = 1024;
-      v15 = 618;
-      v16 = 2082;
-      v17 = "check_all_cr_close_requests";
+      v12 = "ring_manager.cpp";
+      v13 = 1024;
+      v14 = 618;
+      v15 = 2082;
+      v16 = "check_all_cr_close_requests";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] updating cr close requests", buf, 0x1Cu);
     }
   }
@@ -4079,13 +3882,13 @@ void ashp::acipc::ring_manager::check_all_cr_close_requests(const os_unfair_lock
               {
                 v9 = *(v4 + 96);
                 *buf = 136446978;
-                v13 = "ring_manager.cpp";
-                v14 = 1024;
-                v15 = 627;
-                v16 = 2082;
-                v17 = "check_all_cr_close_requests";
-                v18 = 1024;
-                v19 = v9;
+                v12 = "ring_manager.cpp";
+                v13 = 1024;
+                v14 = 627;
+                v15 = 2082;
+                v16 = "check_all_cr_close_requests";
+                v17 = 1024;
+                v18 = v9;
                 _os_log_impl(&dword_23EC8B000, v5, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu has unmessaged lifecycle, setting closed", buf, 0x22u);
               }
             }
@@ -4113,13 +3916,13 @@ void ashp::acipc::ring_manager::check_all_cr_close_requests(const os_unfair_lock
               {
                 v10 = *(v4 + 96);
                 *buf = 136446978;
-                v13 = "ring_manager.cpp";
-                v14 = 1024;
-                v15 = 633;
-                v16 = 2082;
-                v17 = "check_all_cr_close_requests";
-                v18 = 1024;
-                v19 = v10;
+                v12 = "ring_manager.cpp";
+                v13 = 1024;
+                v14 = 633;
+                v15 = 2082;
+                v16 = "check_all_cr_close_requests";
+                v17 = 1024;
+                v18 = v10;
                 _os_log_impl(&dword_23EC8B000, v5, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] sending close message for crid %hu", buf, 0x22u);
               }
             }
@@ -4146,13 +3949,11 @@ void ashp::acipc::ring_manager::check_all_cr_close_requests(const os_unfair_lock
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_manager::send_tr_close_message(const os_unfair_lock *this, ashp::acipc::detail::ring_manager::tr_context *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   if (LOBYTE(this[8]._os_unfair_lock_opaque) == 1)
   {
@@ -4172,8 +3973,8 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v13 = 3;
-  HIWORD(v13) = *(a2 + 48);
+  v12 = 3;
+  HIWORD(v12) = *(a2 + 48);
   log_level = ashp::detail::logging::get_log_level(v4);
   if (log_level >= 4)
   {
@@ -4182,13 +3983,13 @@ LABEL_11:
     {
       v7 = *(a2 + 48);
       *buf = 136446978;
-      v15 = "ring_manager.cpp";
-      v16 = 1024;
-      v17 = 1192;
-      v18 = 2082;
-      v19 = "send_tr_close_message";
-      v20 = 1024;
-      v21 = v7;
+      v14 = "ring_manager.cpp";
+      v15 = 1024;
+      v16 = 1192;
+      v17 = 2082;
+      v18 = "send_tr_close_message";
+      v19 = 1024;
+      v20 = v7;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] sending close message for trid %hu", buf, 0x22u);
     }
   }
@@ -4210,13 +4011,12 @@ LABEL_12:
 LABEL_9:
   v11 = *&this[4]._os_unfair_lock_opaque;
   ashp::optional<ashp::acipc::messenger,void>::value(v11 + 4944, v8, v9, v10);
-  ashp::acipc::messenger::send_message(v11 + 4944, &v13, 4, 0, 0, this, a2, ashp::acipc::ring_manager::tr_close_message_completed);
-  v12 = *MEMORY[0x277D85DE8];
+  ashp::acipc::messenger::send_message(v11 + 4944, &v12, 4, 0, 0, this, a2, ashp::acipc::ring_manager::tr_close_message_completed);
 }
 
 void ashp::acipc::ring_manager::tr_close_message_completed(os_unfair_lock_t lock, char *a2, int a3, uint64_t a4, const char *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -4246,15 +4046,15 @@ LABEL_19:
     {
       v9 = *(a2 + 48);
       *buf = 136447234;
-      v13 = "ring_manager.cpp";
-      v15 = 1368;
-      v16 = 2082;
-      v14 = 1024;
-      v17 = "tr_close_message_completed";
-      v18 = 1024;
-      v19 = v9;
-      v20 = 1024;
-      v21 = a3;
+      v12 = "ring_manager.cpp";
+      v14 = 1368;
+      v15 = 2082;
+      v13 = 1024;
+      v16 = "tr_close_message_completed";
+      v17 = 1024;
+      v18 = v9;
+      v19 = 1024;
+      v20 = a3;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] trid %hu close message result %u", buf, 0x28u);
     }
   }
@@ -4294,10 +4094,9 @@ LABEL_15:
 
 LABEL_17:
   os_unfair_lock_unlock(lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void ashp::acipc::ring_manager::check_tr_settlement_tracking_for_tr(const os_unfair_lock *this, ashp::acipc::detail::ring_manager::tr_context *a2)
+void ashp::acipc::ring_manager::check_tr_settlement_tracking_for_tr(os_unfair_lock_s *this, ashp::acipc::detail::ring_manager::tr_context *a2)
 {
   os_unfair_lock_assert_owner(this);
   if (ashp::acipc::ring_manager::finalize_tr_settlement_if_ready(this, a2))
@@ -4322,7 +4121,7 @@ uint64_t ashp::optional<ashp::acipc::ring_manager::tr_open_parameters,void>::val
 
 void ashp::acipc::ring_manager::set_tr_open(const os_unfair_lock *this, ashp::acipc::detail::ring_manager::tr_context *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   log_level = ashp::detail::logging::get_log_level(v4);
   if (log_level >= 4)
@@ -4332,13 +4131,13 @@ void ashp::acipc::ring_manager::set_tr_open(const os_unfair_lock *this, ashp::ac
     {
       v6 = *(a2 + 48);
       *buf = 136446978;
-      v34 = "ring_manager.cpp";
-      v35 = 1024;
-      v36 = 516;
-      v37 = 2082;
-      v38 = "set_tr_open";
-      v39 = 1024;
-      v40 = v6;
+      v33 = "ring_manager.cpp";
+      v34 = 1024;
+      v35 = 516;
+      v36 = 2082;
+      v37 = "set_tr_open";
+      v38 = 1024;
+      v39 = v6;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] setting trid %hu open", buf, 0x22u);
     }
   }
@@ -4420,15 +4219,15 @@ LABEL_27:
               v30 = *(v26 + 96);
               v31 = *(a2 + 48);
               *buf = 136447234;
-              v34 = "ring_manager.cpp";
-              v35 = 1024;
-              v36 = 529;
-              v37 = 2082;
-              v38 = "set_tr_open";
-              v39 = 1024;
-              v40 = v30;
-              v41 = 1024;
-              v42 = v31;
+              v33 = "ring_manager.cpp";
+              v34 = 1024;
+              v35 = 529;
+              v36 = 2082;
+              v37 = "set_tr_open";
+              v38 = 1024;
+              v39 = v30;
+              v40 = 1024;
+              v41 = v31;
               _os_log_impl(&dword_23EC8B000, v27, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] associating crid %hu <-> trid %hu", buf, 0x28u);
             }
           }
@@ -4455,7 +4254,6 @@ LABEL_27:
 
   *(a2 + 40) = 1;
   ashp::acipc::tr_controller::set_device_ring_status(*a2, 2);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(uint64_t result, uint64_t a2, uint64_t a3, const char *a4)
@@ -4512,7 +4310,7 @@ __int16 *ashp::optional<unsigned short,ashp::optional_sentinel<65535,false>>::va
 
 void ashp::acipc::ring_manager::tr_open_message_completed(os_unfair_lock_t lock, char *a2, int a3, uint64_t a4, const char *a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -4540,15 +4338,15 @@ void ashp::acipc::ring_manager::tr_open_message_completed(os_unfair_lock_t lock,
     {
       v9 = *(a2 + 48);
       *buf = 136447234;
-      v21 = "ring_manager.cpp";
-      v23 = 1324;
-      v24 = 2082;
-      v22 = 1024;
-      v25 = "tr_open_message_completed";
-      v26 = 1024;
-      v27 = v9;
-      v28 = 1024;
-      v29 = a3;
+      v20 = "ring_manager.cpp";
+      v22 = 1324;
+      v23 = 2082;
+      v21 = 1024;
+      v24 = "tr_open_message_completed";
+      v25 = 1024;
+      v26 = v9;
+      v27 = 1024;
+      v28 = a3;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] trid %hu open message result %u", buf, 0x28u);
     }
   }
@@ -4594,13 +4392,13 @@ LABEL_11:
         {
           v13 = *(a2 + 48);
           *buf = 136446978;
-          v21 = "ring_manager.cpp";
-          v22 = 1024;
-          v23 = 1345;
-          v24 = 2082;
-          v25 = "tr_open_message_completed";
-          v26 = 1024;
-          v27 = v13;
+          v20 = "ring_manager.cpp";
+          v21 = 1024;
+          v22 = 1345;
+          v23 = 2082;
+          v24 = "tr_open_message_completed";
+          v25 = 1024;
+          v26 = v13;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] stopping trid %hu", buf, 0x22u);
         }
       }
@@ -4634,13 +4432,13 @@ LABEL_11:
       {
         v15 = *(a2 + 48);
         *buf = 136446978;
-        v21 = "ring_manager.cpp";
-        v22 = 1024;
-        v23 = 1330;
-        v24 = 2082;
-        v25 = "tr_open_message_completed";
-        v26 = 1024;
-        v27 = v15;
+        v20 = "ring_manager.cpp";
+        v21 = 1024;
+        v22 = 1330;
+        v23 = 2082;
+        v24 = "tr_open_message_completed";
+        v25 = 1024;
+        v26 = v15;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] trid %hu close message requested", buf, 0x22u);
       }
     }
@@ -4672,13 +4470,13 @@ LABEL_11:
       {
         v18 = *(a2 + 48);
         *buf = 136446978;
-        v21 = "ring_manager.cpp";
-        v22 = 1024;
-        v23 = 1339;
-        v24 = 2082;
-        v25 = "tr_open_message_completed";
-        v26 = 1024;
-        v27 = v18;
+        v20 = "ring_manager.cpp";
+        v21 = 1024;
+        v22 = 1339;
+        v23 = 2082;
+        v24 = "tr_open_message_completed";
+        v25 = 1024;
+        v26 = v18;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] trid %hu set as open", buf, 0x22u);
       }
     }
@@ -4696,12 +4494,11 @@ LABEL_11:
 
 LABEL_41:
   os_unfair_lock_unlock(lock);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_manager::close_tr(os_unfair_lock_t lock, ashp::acipc::tr_controller **a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -4724,13 +4521,13 @@ void ashp::acipc::ring_manager::close_tr(os_unfair_lock_t lock, ashp::acipc::tr_
     {
       v8 = *(a2 + 508);
       *buf = 136446978;
-      v13 = "ring_manager.cpp";
-      v14 = 1024;
-      v15 = 319;
-      v16 = 2082;
-      v17 = "close_tr";
-      v18 = 1024;
-      v19 = v8;
+      v12 = "ring_manager.cpp";
+      v13 = 1024;
+      v14 = 319;
+      v15 = 2082;
+      v16 = "close_tr";
+      v17 = 1024;
+      v18 = v8;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] closing trid %hu", buf, 0x22u);
     }
   }
@@ -4760,11 +4557,11 @@ LABEL_10:
       if (v10)
       {
         *buf = 136446722;
-        v13 = "ring_manager.cpp";
-        v14 = 1024;
-        v15 = 323;
-        v16 = 2082;
-        v17 = "close_tr";
+        v12 = "ring_manager.cpp";
+        v13 = 1024;
+        v14 = 323;
+        v15 = 2082;
+        v16 = "close_tr";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] availability change", buf, 0x1Cu);
       }
     }
@@ -4786,8 +4583,6 @@ LABEL_10:
   {
     os_unfair_lock_unlock(lock);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23ECA2DD0(_Unwind_Exception *exception_object)
@@ -4815,7 +4610,7 @@ uint64_t ashp::optional<ashp::acipc::ring_manager::cr_open_parameters,void>::val
 
 void ashp::acipc::ring_manager::set_cr_open(const os_unfair_lock *this, ashp::acipc::detail::ring_manager::cr_context *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   log_level = ashp::detail::logging::get_log_level(v4);
   if (log_level >= 4)
@@ -4825,13 +4620,13 @@ void ashp::acipc::ring_manager::set_cr_open(const os_unfair_lock *this, ashp::ac
     {
       v6 = *(a2 + 48);
       *buf = 136446978;
-      v34 = "ring_manager.cpp";
-      v35 = 1024;
-      v36 = 574;
-      v37 = 2082;
-      v38 = "set_cr_open";
-      v39 = 1024;
-      v40 = v6;
+      v33 = "ring_manager.cpp";
+      v34 = 1024;
+      v35 = 574;
+      v36 = 2082;
+      v37 = "set_cr_open";
+      v38 = 1024;
+      v39 = v6;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] setting crid %hu open", buf, 0x22u);
     }
   }
@@ -4913,15 +4708,15 @@ LABEL_27:
               v30 = *(a2 + 48);
               v31 = *(v26 + 96);
               *buf = 136447234;
-              v34 = "ring_manager.cpp";
-              v35 = 1024;
-              v36 = 587;
-              v37 = 2082;
-              v38 = "set_cr_open";
-              v39 = 1024;
-              v40 = v30;
-              v41 = 1024;
-              v42 = v31;
+              v33 = "ring_manager.cpp";
+              v34 = 1024;
+              v35 = 587;
+              v36 = 2082;
+              v37 = "set_cr_open";
+              v38 = 1024;
+              v39 = v30;
+              v40 = 1024;
+              v41 = v31;
               _os_log_impl(&dword_23EC8B000, v27, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] associating crid %hu <-> trid %hu", buf, 0x28u);
             }
           }
@@ -4947,12 +4742,11 @@ LABEL_27:
   }
 
   ashp::acipc::cr_controller::set_device_ring_status(*a2, 2);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_manager::cr_open_message_completed(os_unfair_lock_t lock, char *a2, int a3, uint64_t a4, const char *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -4980,15 +4774,15 @@ void ashp::acipc::ring_manager::cr_open_message_completed(os_unfair_lock_t lock,
     {
       v9 = *(a2 + 48);
       *buf = 136447234;
-      v13 = "ring_manager.cpp";
-      v15 = 1395;
-      v16 = 2082;
-      v14 = 1024;
-      v17 = "cr_open_message_completed";
-      v18 = 1024;
-      v19 = v9;
-      v20 = 1024;
-      v21 = a3;
+      v12 = "ring_manager.cpp";
+      v14 = 1395;
+      v15 = 2082;
+      v13 = 1024;
+      v16 = "cr_open_message_completed";
+      v17 = 1024;
+      v18 = v9;
+      v19 = 1024;
+      v20 = a3;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] crid %hu open message result %u", buf, 0x28u);
     }
   }
@@ -5050,12 +4844,11 @@ LABEL_11:
 
 LABEL_21:
   os_unfair_lock_unlock(lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_manager::close_cr(os_unfair_lock_t lock, ashp::acipc::cr_controller **a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -5078,13 +4871,13 @@ void ashp::acipc::ring_manager::close_cr(os_unfair_lock_t lock, ashp::acipc::cr_
     {
       v8 = *(a2 + 420);
       *buf = 136446978;
-      v13 = "ring_manager.cpp";
-      v14 = 1024;
-      v15 = 445;
-      v16 = 2082;
-      v17 = "close_cr";
-      v18 = 1024;
-      v19 = v8;
+      v12 = "ring_manager.cpp";
+      v13 = 1024;
+      v14 = 445;
+      v15 = 2082;
+      v16 = "close_cr";
+      v17 = 1024;
+      v18 = v8;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] closing crid %hu", buf, 0x22u);
     }
   }
@@ -5104,7 +4897,7 @@ LABEL_23:
   }
 
 LABEL_10:
-  v9 = ashp::acipc::ring_manager::request_cr_close(lock, (a2 + 93), 1);
+  v9 = ashp::acipc::ring_manager::request_cr_close(lock, a2 + 93, 1);
   if (v9)
   {
     v10 = ashp::detail::logging::get_log_level(v9);
@@ -5114,11 +4907,11 @@ LABEL_10:
       if (v10)
       {
         *buf = 136446722;
-        v13 = "ring_manager.cpp";
-        v14 = 1024;
-        v15 = 449;
-        v16 = 2082;
-        v17 = "close_cr";
+        v12 = "ring_manager.cpp";
+        v13 = 1024;
+        v14 = 449;
+        v15 = 2082;
+        v16 = "close_cr";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] availability change", buf, 0x1Cu);
       }
     }
@@ -5140,8 +4933,6 @@ LABEL_10:
   {
     os_unfair_lock_unlock(lock);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23ECA3784(_Unwind_Exception *exception_object)
@@ -5157,7 +4948,7 @@ void sub_23ECA3784(_Unwind_Exception *exception_object)
 void ashp::acipc::ring_manager::append_state_dump(os_unfair_lock_t lock, debug_info_capture *a2)
 {
   v3 = lock;
-  v538 = *MEMORY[0x277D85DE8];
+  v536 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -5167,7 +4958,7 @@ void ashp::acipc::ring_manager::append_state_dump(os_unfair_lock_t lock, debug_i
   *locka = xmmword_23ED06070;
   *&locka[16] = 0;
   *&locka[32] = 0;
-  v534 = 0;
+  v532 = 0;
   *&locka[24] = 0;
   v8 = ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::size(*&v3[124]._os_unfair_lock_opaque, v4, v5, v6, v7);
   os_unfair_lock_lock(locka);
@@ -5182,7 +4973,7 @@ void ashp::acipc::ring_manager::append_state_dump(os_unfair_lock_t lock, debug_i
     goto LABEL_13;
   }
 
-  v529 = v10;
+  v527 = v10;
   v11 = 319 * v8;
   if ((v11 & 7) != 0)
   {
@@ -5198,10 +4989,10 @@ void ashp::acipc::ring_manager::append_state_dump(os_unfair_lock_t lock, debug_i
   v16 = v13;
   if (v13)
   {
-    v10 = v529;
+    v10 = v527;
     do
     {
-      if (v10 >= *(&v529 + 1))
+      if (v10 >= *(&v527 + 1))
       {
 LABEL_461:
         ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "dynamic_array.hpp", 0x128, "emplace_back", v15);
@@ -5238,10 +5029,10 @@ LABEL_461:
     while (v9);
 LABEL_13:
     v18 = *&locka[24];
-    v19 = v534;
+    v19 = v532;
     j = locka;
     *&locka[24] = v10;
-    v534 = v16;
+    v532 = v16;
     if (v18 && !v19)
     {
       goto LABEL_492;
@@ -5298,7 +5089,7 @@ LABEL_13:
       os_unfair_lock_lock(locka);
       if (*&locka[4])
       {
-        v37 = ashp::dynamic_array<ashp::acipc::detail::driver_debug::tr_context_debug_info>::operator[](*&locka[24], v534, *&locka[8], v36);
+        v37 = ashp::dynamic_array<ashp::acipc::detail::driver_debug::tr_context_debug_info>::operator[](*&locka[24], v532, *&locka[8], v36);
         memcpy(v37, __src, 0x13FuLL);
         if (*&locka[8] == -1)
         {
@@ -5336,7 +5127,7 @@ LABEL_13:
   }
 
   ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v14);
-  ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v515);
+  ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v513);
   _os_crash();
   __break(1u);
 LABEL_480:
@@ -5375,7 +5166,7 @@ LABEL_488:
       v48 = 1;
       do
       {
-        v49 = ashp::dynamic_array<ashp::acipc::detail::driver_debug::tr_context_debug_info>::operator[](v45, v534, v46, v40);
+        v49 = ashp::dynamic_array<ashp::acipc::detail::driver_debug::tr_context_debug_info>::operator[](v45, v532, v46, v40);
         memcpy(v47 + 319 * v46, v49, 0x13FuLL);
         v46 = v48;
         v45 = *&locka[24];
@@ -5390,9 +5181,9 @@ LABEL_488:
   *(a2 + 3) = v51;
   if (HIDWORD(v51))
   {
-    v503 = "advance_buffer_pointer";
-    v504 = 108;
-    v505 = "debug_infra.hpp";
+    v501 = "advance_buffer_pointer";
+    v502 = 108;
+    v503 = "debug_infra.hpp";
     goto LABEL_469;
   }
 
@@ -5400,7 +5191,7 @@ LABEL_488:
   {
     os_unfair_lock_unlock(locka);
     os_unfair_lock_lock(locka);
-    if (*&locka[24] && !v534)
+    if (*&locka[24] && !v532)
     {
       goto LABEL_492;
     }
@@ -5409,23 +5200,23 @@ LABEL_488:
     os_unfair_lock_unlock(locka);
     if (*&locka[24])
     {
-      if (!v534)
+      if (!v532)
       {
         goto LABEL_492;
       }
     }
 
     *&locka[24] = 0;
-    if (v534)
+    if (v532)
     {
-      free(v534);
+      free(v532);
     }
 
     os_unfair_lock_assert_owner(v3);
     *locka = xmmword_23ED06080;
     *&locka[16] = 0;
     *&locka[32] = 0;
-    v534 = 0;
+    v532 = 0;
     *&locka[24] = 0;
     v56 = ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::size(*&v3[130]._os_unfair_lock_opaque, v52, v53, v54, v55);
     os_unfair_lock_lock(locka);
@@ -5436,7 +5227,7 @@ LABEL_488:
     *(&v58 + 1) = v56;
     if (v56)
     {
-      v529 = v58;
+      v527 = v58;
       v59 = 221 * v56;
       if ((v59 & 7) != 0)
       {
@@ -5452,8 +5243,8 @@ LABEL_488:
       v64 = v61;
       if (v61)
       {
-        v58 = v529;
-        while (v58 < *(&v529 + 1))
+        v58 = v527;
+        while (v58 < *(&v527 + 1))
         {
           v65 = &v61[221 * v58];
           *(v65 + 205) = 0uLL;
@@ -5486,7 +5277,7 @@ LABEL_462:
 
       v57 = "dynamic_array.hpp";
       ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v62);
-      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v516);
+      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v514);
       _os_crash();
       __break(1u);
 LABEL_482:
@@ -5498,9 +5289,9 @@ LABEL_482:
     v64 = 0;
 LABEL_59:
     v66 = *&locka[24];
-    v67 = v534;
+    v67 = v532;
     *(j + 24) = v58;
-    v534 = v64;
+    v532 = v64;
     if (v66 && !v67)
     {
       goto LABEL_492;
@@ -5527,7 +5318,7 @@ LABEL_59:
         os_unfair_lock_lock(locka);
         if (*&locka[4])
         {
-          v70 = ashp::dynamic_array<ashp::acipc::detail::driver_debug::cr_context_debug_info>::operator[](*&locka[24], v534, *&locka[8], v69);
+          v70 = ashp::dynamic_array<ashp::acipc::detail::driver_debug::cr_context_debug_info>::operator[](*&locka[24], v532, *&locka[8], v69);
           v71 = __src[1];
           *v70 = __src[0];
           v70[1] = v71;
@@ -5592,11 +5383,11 @@ LABEL_74:
     v85 = v84 + 16;
     if (v84 >= 0xFFFFFFF0)
     {
-      v506 = "copy_debug_info";
-      v507 = 77;
-      v508 = "driver_debug_object.hpp";
+      v504 = "copy_debug_info";
+      v505 = 77;
+      v506 = "driver_debug_object.hpp";
 LABEL_472:
-      ashp::detail::control_flow::log_guard_else_failure(v508, v507, v506, v83);
+      ashp::detail::control_flow::log_guard_else_failure(v506, v505, v504, v83);
       goto LABEL_83;
     }
 
@@ -5625,7 +5416,7 @@ LABEL_472:
         LODWORD(v57) = 1;
         do
         {
-          v89 = ashp::dynamic_array<ashp::acipc::detail::driver_debug::cr_context_debug_info>::operator[](v87, v534, v88, v83);
+          v89 = ashp::dynamic_array<ashp::acipc::detail::driver_debug::cr_context_debug_info>::operator[](v87, v532, v88, v83);
           v90 = (v9 + 221 * v88);
           v91 = v89[1];
           *v90 = *v89;
@@ -5665,16 +5456,16 @@ LABEL_472:
     *(a2 + 3) = v101;
     if (HIDWORD(v101))
     {
-      v506 = "advance_buffer_pointer";
-      v507 = 108;
-      v508 = "debug_infra.hpp";
+      v504 = "advance_buffer_pointer";
+      v505 = 108;
+      v506 = "debug_infra.hpp";
       goto LABEL_472;
     }
 
 LABEL_83:
     os_unfair_lock_unlock(locka);
     os_unfair_lock_lock(locka);
-    if (*&locka[24] && !v534)
+    if (*&locka[24] && !v532)
     {
       goto LABEL_492;
     }
@@ -5683,20 +5474,20 @@ LABEL_83:
     os_unfair_lock_unlock(locka);
     if (*&locka[24])
     {
-      if (!v534)
+      if (!v532)
       {
         goto LABEL_492;
       }
     }
 
     *&locka[24] = 0;
-    if (v534)
+    if (v532)
     {
-      free(v534);
+      free(v532);
     }
 
     os_unfair_lock_assert_owner(v3);
-    v521 = v3;
+    v519 = v3;
     for (j = *&v3[124]._os_unfair_lock_opaque; j; j = *(j + 8))
     {
       v3 = *j;
@@ -5705,13 +5496,13 @@ LABEL_83:
         os_unfair_lock_lock(v3 + 4);
         if (LOBYTE(v3[94]._os_unfair_lock_opaque) == 1 && LOBYTE(v3[336]._os_unfair_lock_opaque) == 1)
         {
-          v535 = 0uLL;
-          v536 = 0;
+          v533 = 0uLL;
+          v534 = 0;
           ashp::optional<ashp::acipc::transfer_queue,void>::value(&v3[292], v102, v103, v104);
           os_unfair_lock_opaque_low = LOWORD(v3[296]._os_unfair_lock_opaque);
           if (LOWORD(v3[296]._os_unfair_lock_opaque))
           {
-            ashp::detail::dynamic_array::storage<ashp::acipc::detail::driver_debug::acipc_pending_transfer_debug_info>::set_capacity(&v535, os_unfair_lock_opaque_low, v105, v106, v107);
+            ashp::detail::dynamic_array::storage<ashp::acipc::detail::driver_debug::acipc_pending_transfer_debug_info>::set_capacity(&v533, os_unfair_lock_opaque_low, v105, v106, v107);
           }
 
           for (k = 0; ; ++k)
@@ -5743,15 +5534,15 @@ LABEL_83:
               {
                 v126 = 0;
                 memset(locka, 0, 32);
-                v528 = WORD6(__src[2]);
-                LOWORD(v529) = v3[292]._os_unfair_lock_opaque;
+                v526 = WORD6(__src[2]);
+                LOWORD(v527) = v3[292]._os_unfair_lock_opaque;
                 v9 = BYTE13(__src[3]);
-                v526 = BYTE4(__src[3]);
-                v527 = BYTE12(__src[3]);
-                v524 = v117;
-                v525 = HIWORD(__src[3]);
+                v524 = BYTE4(__src[3]);
+                v525 = BYTE12(__src[3]);
+                v522 = v117;
+                v523 = HIWORD(__src[3]);
                 v57 = *(&__src[4] + 1);
-                v523 = DWORD2(__src[2]);
+                v521 = DWORD2(__src[2]);
               }
 
               BYTE8(__src[3]) = 0;
@@ -5770,39 +5561,39 @@ LABEL_83:
               {
                 v126 = 0;
                 memset(locka, 0, 32);
-                v528 = WORD6(__src[2]);
-                LOWORD(v529) = v3[292]._os_unfair_lock_opaque;
+                v526 = WORD6(__src[2]);
+                LOWORD(v527) = v3[292]._os_unfair_lock_opaque;
                 v9 = BYTE13(__src[3]);
-                v524 = v117;
-                v525 = HIWORD(__src[3]);
-                v526 = -1;
-                v527 = BYTE12(__src[3]);
+                v522 = v117;
+                v523 = HIWORD(__src[3]);
+                v524 = -1;
+                v525 = BYTE12(__src[3]);
                 v57 = *(&__src[4] + 1);
-                v523 = DWORD2(__src[2]);
+                v521 = DWORD2(__src[2]);
               }
             }
 
             ashp::device_accessible_memory::release_obj((__src + 8), v122, v123, v124, v125);
             if ((v126 & 1) == 0)
             {
-              v128 = v535;
-              v129 = v535 + 1;
-              if (v535 == -1)
+              v128 = v533;
+              v129 = v533 + 1;
+              if (v533 == -1)
               {
                 goto LABEL_459;
               }
 
-              v130 = *(&v535 + 1);
-              if (v129 > *(&v535 + 1))
+              v130 = *(&v533 + 1);
+              if (v129 > *(&v533 + 1))
               {
-                if (*(&v535 + 1) <= 8uLL)
+                if (*(&v533 + 1) <= 8uLL)
                 {
                   os_unfair_lock_opaque_low = 8;
                 }
 
                 else
                 {
-                  os_unfair_lock_opaque_low = *(&v535 + 1);
+                  os_unfair_lock_opaque_low = *(&v533 + 1);
                 }
 
                 if (v129 >= 9)
@@ -5816,18 +5607,18 @@ LABEL_83:
 
                     else
                     {
-                      os_unfair_lock_opaque_low = v535 + 1;
+                      os_unfair_lock_opaque_low = v533 + 1;
                     }
                   }
 
                   while (os_unfair_lock_opaque_low < v129);
                 }
 
-                if (*(&v535 + 1) < os_unfair_lock_opaque_low)
+                if (*(&v533 + 1) < os_unfair_lock_opaque_low)
                 {
-                  ashp::detail::dynamic_array::storage<ashp::acipc::detail::driver_debug::acipc_pending_transfer_debug_info>::set_capacity(&v535, os_unfair_lock_opaque_low, v105, v106, v127);
-                  v130 = *(&v535 + 1);
-                  v128 = v535;
+                  ashp::detail::dynamic_array::storage<ashp::acipc::detail::driver_debug::acipc_pending_transfer_debug_info>::set_capacity(&v533, os_unfair_lock_opaque_low, v105, v106, v127);
+                  v130 = *(&v533 + 1);
+                  v128 = v533;
                 }
               }
 
@@ -5836,37 +5627,37 @@ LABEL_83:
                 goto LABEL_460;
               }
 
-              if (!v536)
+              if (!v534)
               {
                 goto LABEL_492;
               }
 
-              v131 = &v536[56 * v128];
-              *v131 = v529;
-              *(v131 + 1) = v528;
-              v131[4] = v524;
+              v131 = &v534[56 * v128];
+              *v131 = v527;
+              *(v131 + 1) = v526;
+              v131[4] = v522;
               v131[5] = v9;
-              v131[6] = v526;
-              v131[7] = v527;
+              v131[6] = v524;
+              v131[7] = v525;
               v131[8] = v9;
               v131[9] = 0;
-              *(v131 + 5) = v525;
-              *(v131 + 3) = v523;
+              *(v131 + 5) = v523;
+              *(v131 + 3) = v521;
               *(v131 + 2) = v57;
               *(v131 + 24) = *locka;
               *(v131 + 40) = *&locka[16];
-              *&v535 = v128 + 1;
+              *&v533 = v128 + 1;
             }
           }
 
-          v132 = v535;
-          if (v535)
+          v132 = v533;
+          if (v533)
           {
             __src[0] = xmmword_23ED06090;
             LODWORD(__src[1]) = 0;
             __src[2] = 0uLL;
             *(&__src[1] + 1) = 0;
-            if (v535 >= 0xFFFFFFFF)
+            if (v533 >= 0xFFFFFFFF)
             {
               goto LABEL_466;
             }
@@ -5940,7 +5731,7 @@ LABEL_139:
                 DWORD2(__src[0]) = 0;
                 os_unfair_lock_unlock(__src);
                 v146 = 0;
-                v145 = v536;
+                v145 = v534;
                 v147 = 56 * v132;
                 do
                 {
@@ -5993,8 +5784,8 @@ LABEL_139:
 
                 else
                 {
-                  v520 = v156 + 16;
-                  if (debug_info_capture::validate_buffer_bounds(a2, v520, v154, v155))
+                  v518 = v156 + 16;
+                  if (debug_info_capture::validate_buffer_bounds(a2, v518, v154, v155))
                   {
                     v157 = (*a2 + *(a2 + 3));
                     v157->i32[0] = __src[1];
@@ -6037,7 +5828,7 @@ LABEL_139:
                     }
                   }
 
-                  v168 = *(a2 + 3) + v520;
+                  v168 = *(a2 + 3) + v518;
                   *(a2 + 3) = v168;
                   if (!HIDWORD(v168))
                   {
@@ -6085,7 +5876,7 @@ LABEL_492:
             __break(1u);
 LABEL_459:
             ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v106);
-            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v502);
+            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v500);
             _os_crash();
             __break(1u);
 LABEL_460:
@@ -6095,8 +5886,8 @@ LABEL_460:
             goto LABEL_461;
           }
 
-          v145 = v536;
-          if (v536)
+          v145 = v534;
+          if (v534)
           {
             goto LABEL_165;
           }
@@ -6107,8 +5898,8 @@ LABEL_166:
       }
     }
 
-    os_unfair_lock_assert_owner(v521);
-    v172 = *&v521[124]._os_unfair_lock_opaque;
+    os_unfair_lock_assert_owner(v519);
+    v172 = *&v519[124]._os_unfair_lock_opaque;
     if (v172)
     {
       j = "debug_infra.hpp";
@@ -6193,31 +5984,31 @@ LABEL_184:
     }
 
 LABEL_191:
-    v3 = v521;
-    os_unfair_lock_assert_owner(v521);
-    if (LOBYTE(v521[16]._os_unfair_lock_opaque) == 1)
+    v3 = v519;
+    os_unfair_lock_assert_owner(v519);
+    if (LOBYTE(v519[16]._os_unfair_lock_opaque) == 1)
     {
       __src[0] = xmmword_23ED060A0;
       LODWORD(__src[1]) = 0;
       __src[2] = 0uLL;
       *(&__src[1] + 1) = 0;
-      ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v521[10], v195, v196, v197);
-      ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::set_debug_object_capacity_and_type(__src, LOWORD(v521[10]._os_unfair_lock_opaque), 0x107u);
+      ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v519[10], v195, v196, v197);
+      ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::set_debug_object_capacity_and_type(__src, LOWORD(v519[10]._os_unfair_lock_opaque), 0x107u);
       for (m = 0; ; ++m)
       {
-        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v521[10], v198, v199, v200);
-        if (m >= LOWORD(v521[10]._os_unfair_lock_opaque))
+        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v519[10], v198, v199, v200);
+        if (m >= LOWORD(v519[10]._os_unfair_lock_opaque))
         {
           break;
         }
 
         memset(&locka[2], 0, 18);
-        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v521[10], v202, v203, v204);
-        *locka = *(*&v521[12]._os_unfair_lock_opaque + 2 * m);
-        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v521[10], v205, v206, v207);
-        *&locka[2] = *(*&v521[14]._os_unfair_lock_opaque + 2 * m);
-        os_unfair_lock_assert_owner(v521);
-        v210 = *&v521[124]._os_unfair_lock_opaque;
+        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v519[10], v202, v203, v204);
+        *locka = *(*&v519[12]._os_unfair_lock_opaque + 2 * m);
+        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v519[10], v205, v206, v207);
+        *&locka[2] = *(*&v519[14]._os_unfair_lock_opaque + 2 * m);
+        os_unfair_lock_assert_owner(v519);
+        v210 = *&v519[124]._os_unfair_lock_opaque;
         if (v210)
         {
           while (1)
@@ -6267,12 +6058,12 @@ LABEL_200:
       }
     }
 
-    os_unfair_lock_assert_owner(v521);
+    os_unfair_lock_assert_owner(v519);
     __src[0] = xmmword_23ED060B0;
     LODWORD(__src[1]) = 0;
     __src[2] = 0uLL;
     *(&__src[1] + 1) = 0;
-    v219 = ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::size(*&v521[124]._os_unfair_lock_opaque, v215, v216, v217, v218);
+    v219 = ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::size(*&v519[124]._os_unfair_lock_opaque, v215, v216, v217, v218);
     os_unfair_lock_lock(__src);
     DWORD1(__src[0]) = v219;
     LODWORD(__src[1]) = 270;
@@ -6281,7 +6072,7 @@ LABEL_200:
     *(&v220 + 1) = v219;
     if (v219)
     {
-      v529 = v220;
+      v527 = v220;
       if (((18 * v219) & 6) != 0)
       {
         v221 = ((18 * v219) & 0x1FFFFFFFF8) + 8;
@@ -6296,8 +6087,8 @@ LABEL_200:
       v225 = v222;
       if (v222)
       {
-        v220 = v529;
-        while (v220 < *(&v529 + 1))
+        v220 = v527;
+        while (v220 < *(&v527 + 1))
         {
           v226 = &v222[18 * v220];
           *v226 = 0;
@@ -6318,7 +6109,7 @@ LABEL_463:
       }
 
       ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v223);
-      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v517);
+      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v515);
       _os_crash();
       __break(1u);
 LABEL_484:
@@ -6345,7 +6136,7 @@ LABEL_215:
 
     DWORD2(__src[0]) = 0;
     os_unfair_lock_unlock(__src);
-    for (n = *&v521[124]._os_unfair_lock_opaque; n; n = n[1])
+    for (n = *&v519[124]._os_unfair_lock_opaque; n; n = n[1])
     {
       v230 = *n;
       if (*n)
@@ -6421,11 +6212,11 @@ LABEL_236:
     v250 = v249 + 16;
     if (v249 >= 0xFFFFFFF0)
     {
-      v509 = "copy_debug_info";
-      v510 = 77;
-      v511 = "driver_debug_object.hpp";
+      v507 = "copy_debug_info";
+      v508 = 77;
+      v509 = "driver_debug_object.hpp";
 LABEL_475:
-      ashp::detail::control_flow::log_guard_else_failure(v511, v510, v509, v248);
+      ashp::detail::control_flow::log_guard_else_failure(v509, v508, v507, v248);
       goto LABEL_245;
     }
 
@@ -6472,9 +6263,9 @@ LABEL_475:
     *(a2 + 3) = v260;
     if (HIDWORD(v260))
     {
-      v509 = "advance_buffer_pointer";
-      v510 = 108;
-      v511 = "debug_infra.hpp";
+      v507 = "advance_buffer_pointer";
+      v508 = 108;
+      v509 = "debug_infra.hpp";
       goto LABEL_475;
     }
 
@@ -6502,8 +6293,8 @@ LABEL_245:
       free(*(&__src[2] + 1));
     }
 
-    os_unfair_lock_assert_owner(v521);
-    v261 = *&v521[124]._os_unfair_lock_opaque;
+    os_unfair_lock_assert_owner(v519);
+    v261 = *&v519[124]._os_unfair_lock_opaque;
     if (v261)
     {
       while (1)
@@ -6583,31 +6374,31 @@ LABEL_261:
     }
 
 LABEL_267:
-    v3 = v521;
-    os_unfair_lock_assert_owner(v521);
-    if (LOBYTE(v521[72]._os_unfair_lock_opaque) == 1)
+    v3 = v519;
+    os_unfair_lock_assert_owner(v519);
+    if (LOBYTE(v519[72]._os_unfair_lock_opaque) == 1)
     {
       __src[0] = xmmword_23ED060A0;
       LODWORD(__src[1]) = 0;
       __src[2] = 0uLL;
       *(&__src[1] + 1) = 0;
-      ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v521[66], v280, v281, v282);
-      ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::set_debug_object_capacity_and_type(__src, LOWORD(v521[66]._os_unfair_lock_opaque), 0x108u);
+      ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v519[66], v280, v281, v282);
+      ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::set_debug_object_capacity_and_type(__src, LOWORD(v519[66]._os_unfair_lock_opaque), 0x108u);
       for (ii = 0; ; ++ii)
       {
-        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v521[66], v283, v284, v285);
-        if (ii >= LOWORD(v521[66]._os_unfair_lock_opaque))
+        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v519[66], v283, v284, v285);
+        if (ii >= LOWORD(v519[66]._os_unfair_lock_opaque))
         {
           break;
         }
 
         memset(locka, 0, 20);
-        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v521[66], v287, v288, v289);
-        *&locka[2] = *(*&v521[70]._os_unfair_lock_opaque + 2 * ii);
-        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v521[66], v290, v291, v292);
-        *locka = *(*&v521[68]._os_unfair_lock_opaque + 2 * ii);
-        os_unfair_lock_assert_owner(v521);
-        v295 = *&v521[130]._os_unfair_lock_opaque;
+        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v519[66], v287, v288, v289);
+        *&locka[2] = *(*&v519[70]._os_unfair_lock_opaque + 2 * ii);
+        ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(&v519[66], v290, v291, v292);
+        *locka = *(*&v519[68]._os_unfair_lock_opaque + 2 * ii);
+        os_unfair_lock_assert_owner(v519);
+        v295 = *&v519[130]._os_unfair_lock_opaque;
         if (v295)
         {
           while (1)
@@ -6657,12 +6448,12 @@ LABEL_276:
       }
     }
 
-    os_unfair_lock_assert_owner(v521);
+    os_unfair_lock_assert_owner(v519);
     __src[0] = xmmword_23ED060C0;
     LODWORD(__src[1]) = 0;
     __src[2] = 0uLL;
     *(&__src[1] + 1) = 0;
-    v304 = ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::size(*&v521[130]._os_unfair_lock_opaque, v300, v301, v302, v303);
+    v304 = ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::detail::ring_manager::tr_context,ashp::intrusive_list_link<ashp::acipc::detail::ring_manager::tr_context>,&ashp::acipc::detail::ring_manager::tr_context::manager_link>::size(*&v519[130]._os_unfair_lock_opaque, v300, v301, v302, v303);
     os_unfair_lock_lock(__src);
     DWORD1(__src[0]) = v304;
     LODWORD(__src[1]) = 265;
@@ -6674,13 +6465,13 @@ LABEL_276:
       break;
     }
 
-    v529 = v305;
+    v527 = v305;
     v306 = malloc_type_aligned_alloc(8uLL, 48 * v304, 0x1000040EED21634uLL);
     v309 = v306;
     if (!v306)
     {
       ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v307);
-      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v518);
+      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v516);
       _os_crash();
       __break(1u);
 LABEL_486:
@@ -6689,8 +6480,8 @@ LABEL_486:
       goto LABEL_322;
     }
 
-    v305 = v529;
-    while (v305 < *(&v529 + 1))
+    v305 = v527;
+    while (v305 < *(&v527 + 1))
     {
       v310 = &v306[48 * v305];
       *(v310 + 1) = 0uLL;
@@ -6716,11 +6507,11 @@ LABEL_466:
     _os_crash();
     __break(1u);
 LABEL_467:
-    v503 = "copy_debug_info";
-    v504 = 77;
-    v505 = "driver_debug_object.hpp";
+    v501 = "copy_debug_info";
+    v502 = 77;
+    v503 = "driver_debug_object.hpp";
 LABEL_469:
-    ashp::detail::control_flow::log_guard_else_failure(v505, v504, v503, v40);
+    ashp::detail::control_flow::log_guard_else_failure(v503, v502, v501, v40);
   }
 
   v309 = 0;
@@ -6741,7 +6532,7 @@ LABEL_288:
 
   DWORD2(__src[0]) = 0;
   os_unfair_lock_unlock(__src);
-  v313 = *&v521[130]._os_unfair_lock_opaque;
+  v313 = *&v519[130]._os_unfair_lock_opaque;
   if (v313)
   {
     while (2)
@@ -6749,9 +6540,9 @@ LABEL_288:
       v314 = *v313;
       if (*v313)
       {
-        v535 = 0uLL;
+        v533 = 0uLL;
         j = v314 + 16;
-        v537 = 0uLL;
+        v535 = 0uLL;
         os_unfair_lock_lock((v314 + 16));
         if (*(v314 + 32) == 1)
         {
@@ -6806,11 +6597,11 @@ LABEL_288:
         {
           ashp::optional<ashp::acipc::tr_ring,void>::value(v314 + 928, v316, v317, v318);
           ashp::optional<ashp::acipc::tr_ring,void>::value(v314 + 928, v325, v326, v327);
-          ashp::acipc::cr_ring::copy_descriptor((v314 + 928), *(v314 + 940), locka, &v531, &v530);
+          ashp::acipc::cr_ring::copy_descriptor((v314 + 928), *(v314 + 940), locka, &v529, &v528);
           v321 = *(v314 + 208);
           ashp::optional<ashp::acipc::tr_ring,void>::value(v314 + 928, v328, v329, v330);
           v322 = *(v314 + 940);
-          v535 = *locka;
+          v533 = *locka;
           v323 = 1;
         }
 
@@ -6829,7 +6620,7 @@ LABEL_307:
           v336 = ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(v331, v333, v334, v335);
           v337 = *(v336 + 2);
           ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(v336, v338, v339, v340);
-          v537 = *(v314 + 1217);
+          v535 = *(v314 + 1217);
           v341 = 1;
           v342 = 1;
         }
@@ -6853,13 +6644,13 @@ LABEL_311:
           *(v344 + 4) = 0;
           *(v344 + 6) = 0;
           *(v344 + 7) = v323;
-          *(v344 + 8) = v535;
+          *(v344 + 8) = v533;
           *(v344 + 24) = v332;
           *(v344 + 26) = v337;
           *(v344 + 28) = v341;
           *(v344 + 30) = 0;
           *(v344 + 31) = v342;
-          *(v344 + 32) = v537;
+          *(v344 + 32) = v535;
           if (DWORD2(__src[0]) == -1)
           {
             v345 = DWORD1(__src[0]);
@@ -6906,16 +6697,16 @@ LABEL_322:
   v349 = v348 + 16;
   if (v348 >= 0xFFFFFFF0)
   {
-    v512 = "copy_debug_info";
-    v513 = 77;
-    v514 = "driver_debug_object.hpp";
-    v350 = v521;
+    v510 = "copy_debug_info";
+    v511 = 77;
+    v512 = "driver_debug_object.hpp";
+    v350 = v519;
 LABEL_478:
-    ashp::detail::control_flow::log_guard_else_failure(v514, v513, v512, v347);
+    ashp::detail::control_flow::log_guard_else_failure(v512, v511, v510, v347);
     goto LABEL_331;
   }
 
-  v350 = v521;
+  v350 = v519;
   if (debug_info_capture::validate_buffer_bounds(a2, v348 + 16, v346, v347))
   {
     v351 = (*a2 + *(a2 + 3));
@@ -6961,9 +6752,9 @@ LABEL_478:
   *(a2 + 3) = v361;
   if (HIDWORD(v361))
   {
-    v512 = "advance_buffer_pointer";
-    v513 = 108;
-    v514 = "debug_infra.hpp";
+    v510 = "advance_buffer_pointer";
+    v511 = 108;
+    v512 = "debug_infra.hpp";
     goto LABEL_478;
   }
 
@@ -6996,7 +6787,7 @@ LABEL_331:
   if (v362)
   {
     v3 = __src;
-    LOWORD(v529) = 0;
+    LOWORD(v527) = 0;
     while (1)
     {
       v9 = *v362;
@@ -7060,7 +6851,7 @@ LABEL_393:
             v43 = "dynamic_array.hpp";
             v42 = "buffer";
             ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v383);
-            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v519);
+            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v517);
             _os_crash();
             __break(1u);
             goto LABEL_488;
@@ -7269,9 +7060,9 @@ LABEL_392:
   }
 
 LABEL_400:
-  v433 = v521;
-  os_unfair_lock_assert_owner(v521);
-  for (kk = *&v521[130]._os_unfair_lock_opaque; kk; kk = kk[1])
+  v433 = v519;
+  os_unfair_lock_assert_owner(v519);
+  for (kk = *&v519[130]._os_unfair_lock_opaque; kk; kk = kk[1])
   {
     v435 = *kk;
     if (*kk)
@@ -7360,8 +7151,8 @@ LABEL_400:
     }
   }
 
-  os_unfair_lock_assert_owner(v521);
-  for (mm = *&v521[130]._os_unfair_lock_opaque; mm; mm = mm[1])
+  os_unfair_lock_assert_owner(v519);
+  for (mm = *&v519[130]._os_unfair_lock_opaque; mm; mm = mm[1])
   {
     v477 = *mm;
     if (*mm)
@@ -7376,12 +7167,11 @@ LABEL_400:
     }
   }
 
-  os_unfair_lock_assert_owner(v521);
-  v480 = *&v521[130]._os_unfair_lock_opaque;
+  os_unfair_lock_assert_owner(v519);
+  v480 = *&v519[130]._os_unfair_lock_opaque;
   if (!v480)
   {
 LABEL_454:
-    v500 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(v433);
     return;
@@ -7460,13 +7250,11 @@ LABEL_448:
     break;
   }
 
-  v433 = v521;
-  if (v521)
+  v433 = v519;
+  if (v519)
   {
     goto LABEL_454;
   }
-
-  v501 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ashp::dynamic_array<ashp::acipc::detail::driver_debug::completion_desc_debug_info>::operator[](unint64_t a1, uint64_t a2, unint64_t a3, const char *a4)
@@ -7570,7 +7358,7 @@ LABEL_24:
   os_unfair_lock_unlock(lock);
 }
 
-void ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::copy_debug_info(os_unfair_lock_t lock, unsigned int *a2, uint64_t a3, const char *a4)
+void ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::copy_debug_info(os_unfair_lock_t lock, debug_info_capture *a2, uint64_t a3, const char *a4)
 {
   if (lock)
   {
@@ -7589,7 +7377,7 @@ void ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_de
 
   if (debug_info_capture::validate_buffer_bounds(a2, v9, v7, v8))
   {
-    v12 = *a2 + a2[3];
+    v12 = *a2 + *(a2 + 3);
     *v12 = lock[4];
     *(v12 + 4) = ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::get_debug_object_alloc_size(lock, v10, v11, v8);
     v14 = *&lock[6]._os_unfair_lock_opaque;
@@ -7613,8 +7401,8 @@ void ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_de
     }
   }
 
-  v22 = a2[3] + v9;
-  a2[3] = v22;
+  v22 = *(a2 + 3) + v9;
+  *(a2 + 3) = v22;
   if (HIDWORD(v22))
   {
     v23 = "advance_buffer_pointer";
@@ -7716,7 +7504,7 @@ uint64_t ashp::dynamic_array<ashp::acipc::detail::driver_debug::index_array_debu
   return result;
 }
 
-uint64_t ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::get_debug_object_alloc_size(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+unint64_t ashp::driver_debug_object<ashp::acipc::detail::driver_debug::index_array_debug_info>::get_debug_object_alloc_size(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   if (!*(a1 + 4))
   {
@@ -7781,139 +7569,139 @@ uint64_t ashp::dynamic_array<ashp::acipc::transfer_comp_info>::operator[](unint6
 
 void ashp::acipc::ring_manager::update_debug_ring_state(const os_unfair_lock *a1, uint64_t *a2, _OWORD *a3, int a4)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
   if (a3)
   {
     if (a4)
     {
-      v89[0] = *(a2 + 8);
-      *&v89[1] = *(a2 + 19);
-      *&v89[3] = *(a2 + 11);
-      *&v89[7] = *(a2 + 24);
-      memset(&v89[11], 0, 116);
+      v88[0] = *(a2 + 8);
+      *&v88[1] = *(a2 + 19);
+      *&v88[3] = *(a2 + 11);
+      *&v88[7] = *(a2 + 24);
+      memset(&v88[11], 0, 116);
       v11 = *a2;
       if (*a2)
       {
-        *&v89[15] = *(v11 + 220);
+        *&v88[15] = *(v11 + 220);
         v12 = *(v11 + 228);
         LODWORD(v11) = *(v11 + 232);
-        *&v89[23] = v12;
+        *&v88[23] = v12;
       }
 
       else
       {
-        *&v89[19] = 0;
+        *&v88[19] = 0;
       }
 
-      *&v89[27] = v11;
-      ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v83, a2[7], v9, v10);
-      v84 = *(a2 + 16);
-      v87 = 0;
-      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v85, v38, v39, v40);
-      v41 = v83;
-      v83 = 0;
-      v85 = v41;
-      v86 = v84;
-      v87 = 1;
-      ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v85, &v89[31]);
-      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v85, v42, v43, v44);
-      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v83, v45, v46, v47);
+      *&v88[27] = v11;
+      ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v82, a2[7], v9, v10);
+      v83 = *(a2 + 16);
+      v86 = 0;
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v84, v38, v39, v40);
+      v41 = v82;
+      v82 = 0;
+      v84 = v41;
+      v85 = v83;
+      v86 = 1;
+      ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v84, &v88[31]);
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v84, v42, v43, v44);
+      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v82, v45, v46, v47);
       v51 = *a2;
       if (*a2)
       {
-        v82 = 0;
+        v81 = 0;
         if (*(v51 + 360) == 1)
         {
-          ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v80, v48, v49, v50);
-          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v80, *(v51 + 344), v52, v53);
-          v81 = *(v51 + 352);
-          v82 = 1;
+          ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v79, v48, v49, v50);
+          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v79, *(v51 + 344), v52, v53);
+          v80 = *(v51 + 352);
+          v81 = 1;
         }
 
-        ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v80, &v89[95]);
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v80, v54, v55, v56);
+        ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v79, &v88[95]);
+        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v79, v54, v55, v56);
         v60 = *a2;
-        v79 = 0;
+        v78 = 0;
         if (*(v60 + 320) == 1)
         {
-          ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v77, v57, v58, v59);
-          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v77, *(v60 + 304), v61, v62);
-          v78 = *(v60 + 312);
-          v79 = 1;
+          ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v76, v57, v58, v59);
+          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v76, *(v60 + 304), v61, v62);
+          v77 = *(v60 + 312);
+          v78 = 1;
         }
 
-        ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v77, &v89[63]);
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v77, v63, v64, v65);
+        ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v76, &v88[63]);
+        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v76, v63, v64, v65);
       }
 
-      v66 = *&v89[80];
-      a3[4] = *&v89[64];
+      v66 = *&v88[80];
+      a3[4] = *&v88[64];
       a3[5] = v66;
-      a3[6] = *&v89[96];
-      *(a3 + 111) = *&v89[111];
-      v67 = *&v89[16];
-      *a3 = *v89;
+      a3[6] = *&v88[96];
+      *(a3 + 111) = *&v88[111];
+      v67 = *&v88[16];
+      *a3 = *v88;
       a3[1] = v67;
-      v36 = *&v89[32];
-      v37 = *&v89[48];
+      v36 = *&v88[32];
+      v37 = *&v88[48];
     }
 
     else
     {
-      memset(&v88[31], 0, 96);
-      v88[0] = *(a2 + 8);
-      *&v88[1] = *(a2 + 18);
-      *&v88[3] = *(a2 + 10);
-      *&v88[7] = *(a2 + 24);
-      *&v88[11] = 0;
-      *&v88[19] = 0;
+      memset(&v87[31], 0, 96);
+      v87[0] = *(a2 + 8);
+      *&v87[1] = *(a2 + 18);
+      *&v87[3] = *(a2 + 10);
+      *&v87[7] = *(a2 + 24);
+      *&v87[11] = 0;
+      *&v87[19] = 0;
       v14 = *a2;
       if (*a2)
       {
         LODWORD(v14) = *(v14 + 220);
       }
 
-      *&v88[23] = v14;
-      *&v88[27] = 0;
-      ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v72, a2[7], v9, v10);
-      v73 = *(a2 + 16);
-      v76 = 0;
-      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v74, v15, v16, v17);
-      v18 = v72;
-      v72 = 0;
-      v74 = v18;
-      v75 = v73;
-      v76 = 1;
-      ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v74, &v88[31]);
-      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v74, v19, v20, v21);
-      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v72, v22, v23, v24);
+      *&v87[23] = v14;
+      *&v87[27] = 0;
+      ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v71, a2[7], v9, v10);
+      v72 = *(a2 + 16);
+      v75 = 0;
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v73, v15, v16, v17);
+      v18 = v71;
+      v71 = 0;
+      v73 = v18;
+      v74 = v72;
+      v75 = 1;
+      ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v73, &v87[31]);
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v73, v19, v20, v21);
+      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v71, v22, v23, v24);
       v28 = *a2;
       if (v28)
       {
-        v71 = 0;
+        v70 = 0;
         if (*(v28 + 312) == 1)
         {
-          ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v69, v25, v26, v27);
-          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v69, *(v28 + 296), v29, v30);
-          v70 = *(v28 + 304);
-          v71 = 1;
+          ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v68, v25, v26, v27);
+          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v68, *(v28 + 296), v29, v30);
+          v69 = *(v28 + 304);
+          v70 = 1;
         }
 
-        ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v69, &v88[95]);
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v69, v31, v32, v33);
+        ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v68, &v87[95]);
+        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v68, v31, v32, v33);
       }
 
-      v34 = *&v88[80];
-      a3[4] = *&v88[64];
+      v34 = *&v87[80];
+      a3[4] = *&v87[64];
       a3[5] = v34;
-      a3[6] = *&v88[96];
-      *(a3 + 111) = *&v88[111];
-      v35 = *&v88[16];
-      *a3 = *v88;
+      a3[6] = *&v87[96];
+      *(a3 + 111) = *&v87[111];
+      v35 = *&v87[16];
+      *a3 = *v87;
       a3[1] = v35;
-      v36 = *&v88[32];
-      v37 = *&v88[48];
+      v36 = *&v87[32];
+      v37 = *&v87[48];
     }
 
     a3[2] = v36;
@@ -7929,11 +7717,11 @@ void ashp::acipc::ring_manager::update_debug_ring_state(const os_unfair_lock *a1
       if (log_level)
       {
         *buf = 136446722;
-        v91 = "ring_manager.cpp";
-        v92 = 1024;
-        v93 = 1480;
-        v94 = 2082;
-        v95 = "update_debug_ring_state";
+        v90 = "ring_manager.cpp";
+        v91 = 1024;
+        v92 = 1480;
+        v93 = 2082;
+        v94 = "update_debug_ring_state";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] invalid params", buf, 0x1Cu);
       }
     }
@@ -7948,128 +7736,131 @@ void ashp::acipc::ring_manager::update_debug_ring_state(const os_unfair_lock *a1
       ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] invalid params", "ring_manager.cpp", 1480, "update_debug_ring_state");
     }
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23ECA6D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23ECA6D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a15);
+  va_start(va, a19);
   ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
 void ashp::acipc::ring_manager::update_debug_client_overrides(const os_unfair_lock *a1, os_unfair_lock_s **a2, _OWORD *a3, int a4, _BYTE *a5)
 {
-  v104[3] = *MEMORY[0x277D85DE8];
+  v103[3] = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
   if (a3)
   {
     v11 = *a2;
     if (a4)
     {
-      if (v11)
+      if (!v11)
       {
-        ashp::acipc::tr_controller::get_client_overrides(buf, v11);
-        if (buf[2])
+        return;
+      }
+
+      ashp::acipc::tr_controller::get_client_overrides(buf, v11);
+      if (buf[2])
+      {
+        v15 = *buf;
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      *v95 = v15;
+      *&v95[2] = *v97;
+      v95[4] = 0;
+      *&v95[5] = *&v97[4];
+      memset(&v95[13], 0, 80);
+      v93 = 0;
+      if (v98 == 1)
+      {
+        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v91, v12, v13, v14);
+        ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v91, *&v97[12], v16, v17);
+        v92 = *&v97[20];
+        v93 = 1;
+      }
+
+      ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v91, &v95[13]);
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v91, v18, v19, v20);
+      v90 = 0;
+      if (v101[0] == 1)
+      {
+        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v88, v21, v22, v23);
+        ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v88, v99, v24, v25);
+        v89 = v100;
+        v90 = 1;
+      }
+
+      ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v88, &v95[45]);
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v88, v26, v27, v28);
+      if (v102[0])
+      {
+        *a5 |= 2u;
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v102, v29, v30, v31);
+        v35 = ashp::boxed::data::length(v102[0], v32, v33, v34);
+        if (v35 >= 0x10)
         {
-          v15 = *buf;
+          v39 = 16;
         }
 
         else
         {
-          v15 = 0;
+          v39 = v35;
         }
 
-        *v96 = v15;
-        *&v96[2] = *v98;
-        v96[4] = 0;
-        *&v96[5] = *&v98[4];
-        memset(&v96[13], 0, 80);
-        v94 = 0;
-        if (v99 == 1)
-        {
-          ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v92, v12, v13, v14);
-          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v92, *&v98[12], v16, v17);
-          v93 = *&v98[20];
-          v94 = 1;
-        }
-
-        ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v92, &v96[13]);
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v92, v18, v19, v20);
-        v91 = 0;
-        if (v102[0] == 1)
-        {
-          ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v89, v21, v22, v23);
-          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v89, v100, v24, v25);
-          v90 = v101;
-          v91 = 1;
-        }
-
-        ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v89, &v96[45]);
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v89, v26, v27, v28);
-        if (v103[0])
-        {
-          *a5 |= 2u;
-          ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v103, v29, v30, v31);
-          v35 = ashp::boxed::data::length(v103[0], v32, v33, v34);
-          if (v35 >= 0x10)
-          {
-            v39 = 16;
-          }
-
-          else
-          {
-            v39 = v35;
-          }
-
-          ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v103, v36, v37, v38);
-          v43 = ashp::boxed::data::bytes(v103[0], v40, v41, v42);
-          memcpy(&v96[77], v43, v39);
-        }
-
-        v44 = *&v96[48];
-        a3[2] = *&v96[32];
-        a3[3] = v44;
-        a3[4] = *&v96[64];
-        *(a3 + 77) = *&v96[77];
-        v45 = *&v96[16];
-        *a3 = *v96;
-        a3[1] = v45;
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(v104, v29, v30, v31);
-        ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v103, v46, v47, v48);
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v100, v49, v50, v51);
-        v55 = &v98[12];
-LABEL_33:
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(v55, v52, v53, v54);
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v102, v36, v37, v38);
+        v43 = ashp::boxed::data::bytes(v102[0], v40, v41, v42);
+        memcpy(&v95[77], v43, v39);
       }
+
+      v44 = *&v95[48];
+      a3[2] = *&v95[32];
+      a3[3] = v44;
+      a3[4] = *&v95[64];
+      *(a3 + 77) = *&v95[77];
+      v45 = *&v95[16];
+      *a3 = *v95;
+      a3[1] = v45;
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(v103, v29, v30, v31);
+      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v102, v46, v47, v48);
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v99, v49, v50, v51);
+      v55 = &v97[12];
     }
 
-    else if (v11)
+    else
     {
-      ashp::acipc::cr_controller::get_client_overrides(buf, v11);
-      *v95 = 0;
-      *&v95[2] = *buf;
-      v95[4] = v99;
-      *&v95[5] = 0;
-      *&v95[9] = *v98;
-      memset(&v95[13], 0, 80);
-      v88 = 0;
-      if (v98[20] == 1)
+      if (!v11)
       {
-        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v86, v57, v58, v59);
-        ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v86, *&v98[4], v60, v61);
-        v87 = *&v98[12];
-        v88 = 1;
+        return;
       }
 
-      ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v86, &v95[45]);
-      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v86, v62, v63, v64);
-      if (v100)
+      ashp::acipc::cr_controller::get_client_overrides(buf, v11);
+      *v94 = 0;
+      *&v94[2] = *buf;
+      v94[4] = v98;
+      *&v94[5] = 0;
+      *&v94[9] = *v97;
+      memset(&v94[13], 0, 80);
+      v87 = 0;
+      if (v97[20] == 1)
+      {
+        ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v85, v57, v58, v59);
+        ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v85, *&v97[4], v60, v61);
+        v86 = *&v97[12];
+        v87 = 1;
+      }
+
+      ashp::acipc::ring_manager::get_flattened_name_sel_string(a1, &v85, &v94[45]);
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(&v85, v62, v63, v64);
+      if (v99)
       {
         *a5 |= 2u;
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v100, v65, v66, v67);
-        v71 = ashp::boxed::data::length(v100, v68, v69, v70);
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v99, v65, v66, v67);
+        v71 = ashp::boxed::data::length(v99, v68, v69, v70);
         if (v71 >= 0x10)
         {
           v75 = 16;
@@ -8080,24 +7871,25 @@ LABEL_33:
           v75 = v71;
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v100, v72, v73, v74);
-        v79 = ashp::boxed::data::bytes(v100, v76, v77, v78);
-        memcpy(&v95[77], v79, v75);
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v99, v72, v73, v74);
+        v79 = ashp::boxed::data::bytes(v99, v76, v77, v78);
+        memcpy(&v94[77], v79, v75);
       }
 
-      v80 = *&v95[48];
-      a3[2] = *&v95[32];
+      v80 = *&v94[48];
+      a3[2] = *&v94[32];
       a3[3] = v80;
-      a3[4] = *&v95[64];
-      *(a3 + 77) = *&v95[77];
-      v81 = *&v95[16];
-      *a3 = *v95;
+      a3[4] = *&v94[64];
+      *(a3 + 77) = *&v94[77];
+      v81 = *&v94[16];
+      *a3 = *v94;
       a3[1] = v81;
-      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(v102, v65, v66, v67);
-      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v100, v82, v83, v84);
-      v55 = &v98[4];
-      goto LABEL_33;
+      ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(v101, v65, v66, v67);
+      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v99, v82, v83, v84);
+      v55 = &v97[4];
     }
+
+    ashp::unsafe_storage<ashp::acipc::name_and_selector>::storage::reset(v55, v52, v53, v54);
   }
 
   else
@@ -8109,11 +7901,11 @@ LABEL_33:
       if (log_level)
       {
         *buf = 136446722;
-        *v98 = "ring_manager.cpp";
-        *&v98[8] = 1024;
-        *&v98[10] = 1535;
-        *&v98[14] = 2082;
-        *&v98[16] = "update_debug_client_overrides";
+        *v97 = "ring_manager.cpp";
+        *&v97[8] = 1024;
+        *&v97[10] = 1535;
+        *&v97[14] = 2082;
+        *&v97[16] = "update_debug_client_overrides";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] invalid params", buf, 0x1Cu);
       }
     }
@@ -8128,8 +7920,6 @@ LABEL_33:
       ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] invalid params", "ring_manager.cpp", 1535, "update_debug_client_overrides");
     }
   }
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ashp::dynamic_array<ashp::acipc::detail::driver_debug::cr_context_debug_info>::operator[](unint64_t a1, uint64_t a2, unint64_t a3, const char *a4)
@@ -8148,7 +7938,7 @@ uint64_t ashp::dynamic_array<ashp::acipc::detail::driver_debug::cr_context_debug
 
 void ashp::acipc::ring_manager::get_flattened_name_sel_string(const os_unfair_lock *a1, uint64_t a2, char *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
   if (*(a2 + 16) == 1)
   {
@@ -8176,11 +7966,11 @@ void ashp::acipc::ring_manager::get_flattened_name_sel_string(const os_unfair_lo
         if (log_level)
         {
           *buf = 136446722;
-          v21 = "ring_manager.cpp";
-          v22 = 1024;
-          v23 = 1596;
-          v24 = 2082;
-          v25 = "get_flattened_name_sel_string";
+          v20 = "ring_manager.cpp";
+          v21 = 1024;
+          v22 = 1596;
+          v23 = 2082;
+          v24 = "get_flattened_name_sel_string";
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] failed to flatten name/sel into string", buf, 0x1Cu);
         }
       }
@@ -8196,8 +7986,6 @@ void ashp::acipc::ring_manager::get_flattened_name_sel_string(const os_unfair_lo
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::cr_controller::client_overrides::~client_overrides(ashp::acipc::cr_controller::client_overrides *this, uint64_t a2, uint64_t a3, const char *a4)
@@ -8560,7 +8348,7 @@ void ashp::reaper::~reaper(ashp::reaper *this)
   {
     ashp::detail::intrusive_list::intrusive_list_impl<ashp::reaper_target,ashp::intrusive_list_link<ashp::reaper_target>,&ashp::reaper_target::_reaper_link>::~intrusive_list_impl(this + 11, v6, v7, v8);
     ashp::detail::intrusive_list::intrusive_list_impl<ashp::reaper_target,ashp::intrusive_list_link<ashp::reaper_target>,&ashp::reaper_target::_reaper_link>::~intrusive_list_impl(this + 8, v10, v11, v12);
-    ashp::async_notifier::~async_notifier((this + 8), v13, v14, v15);
+    ashp::async_notifier::~async_notifier(this + 2, v13, v14, v15);
     return;
   }
 
@@ -8571,7 +8359,7 @@ void ashp::reaper::~reaper(ashp::reaper *this)
 
 void airship_platform_set_crash_reason(ashp::detail::logging *a1, const char *a2, int a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   airship_platform_crash_reason = a1;
   airship_platform_crash_file_name = a2;
   airship_platform_crash_line_num = a3;
@@ -8582,11 +8370,11 @@ void airship_platform_set_crash_reason(ashp::detail::logging *a1, const char *a2
     if (log_level)
     {
       *buf = 136315650;
-      v9 = a1;
-      v10 = 2080;
-      v11 = a2;
-      v12 = 1024;
-      v13 = a3;
+      v8 = a1;
+      v9 = 2080;
+      v10 = a2;
+      v11 = 1024;
+      v12 = a3;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship %s %s@%u", buf, 0x1Cu);
     }
   }
@@ -8600,8 +8388,6 @@ void airship_platform_set_crash_reason(ashp::detail::logging *a1, const char *a2
 
     ashp_log_helper::log(airship_global_logger, "%s %s@%u", a1, a2, a3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t airship_platform_get_global_logger()
@@ -8686,7 +8472,7 @@ uint64_t airship_platform_get_fallback_queue()
   return airship_platform_fallback_queue;
 }
 
-uint64_t __airship_platform_get_fallback_queue_block_invoke()
+dispatch_queue_t __airship_platform_get_fallback_queue_block_invoke()
 {
   result = dispatch_queue_create("com.apple.airship.global-fallback", 0);
   airship_platform_fallback_queue = result;
@@ -8750,7 +8536,7 @@ pthread_rwlock_t **airship_device_transport_resume(uint64_t a1)
 
 __CFDictionary *airship_driver_probe_device(uint64_t a1, int a2, int a3)
 {
-  v191 = *MEMORY[0x277D85DE8];
+  v190 = *MEMORY[0x277D85DE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
@@ -8758,13 +8544,13 @@ __CFDictionary *airship_driver_probe_device(uint64_t a1, int a2, int a3)
     v12 = "with_capacity";
     ashp::detail::control_flow::log_guard_else_failure("boxed_types.cpp", 0x397, "with_capacity", v9);
     v14 = "ALLOCATION FAILURE (or BUG) in Airship";
-    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "boxed_types.cpp", 0x397, "with_capacity", v176);
+    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "boxed_types.cpp", 0x397, "with_capacity", v175);
     _os_crash();
     __break(1u);
     goto LABEL_48;
   }
 
-  v179 = Mutable;
+  v178 = Mutable;
   proxima_platform = ashp::get_proxima_platform(Mutable);
   LODWORD(v11) = proxima_platform;
   v5 = a2 | (a3 << 16);
@@ -8802,16 +8588,16 @@ __CFDictionary *airship_driver_probe_device(uint64_t a1, int a2, int a3)
     {
       *buf = 136447490;
       *&buf[4] = "device_classifier.cpp";
-      v181 = 1024;
-      v182 = 142;
-      v183 = 2082;
-      v184 = "swizzle_proxima_viddid_for_platform";
-      v185 = 1024;
-      v186 = v11;
-      v187 = 1024;
-      v188 = v5;
-      v189 = 1024;
-      v190 = v12;
+      v180 = 1024;
+      v181 = 142;
+      v182 = 2082;
+      v183 = "swizzle_proxima_viddid_for_platform";
+      v184 = 1024;
+      v185 = v11;
+      v186 = 1024;
+      v187 = v5;
+      v188 = 1024;
+      v189 = v12;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] platform_config=%u, probed viddid=0x%#x,  proxima_viddid=0x%#x", buf, 0x2Eu);
     }
   }
@@ -8842,12 +8628,12 @@ LABEL_16:
     {
       *buf = 136446978;
       *&buf[4] = v14;
-      v181 = 1024;
-      v182 = 47;
-      v183 = 2082;
-      v184 = "probe";
-      v185 = 1024;
-      v186 = v12;
+      v180 = 1024;
+      v181 = 47;
+      v182 = 2082;
+      v183 = "probe";
+      v184 = 1024;
+      v185 = v12;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] viddid=%#x", buf, 0x22u);
     }
   }
@@ -8867,16 +8653,16 @@ LABEL_16:
   {
     if (v12 == 50336963 || v12 == 134223043)
     {
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v18, v19, v20);
-      v102 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v18, v19, v20);
+      v102 = v178;
       *buf = @"Dale";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v103, v104, v105);
       CFRetain(*buf);
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v106, v107, v108);
       ashp::boxed::mutable_dictionary::set_value(v102, @"Vendor", *buf, v109);
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v110, v111, v112);
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v113, v114, v115);
-      v116 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v113, v114, v115);
+      v116 = v178;
       *buf = @"dal25";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v117, v118, v119);
       CFRetain(@"dal25");
@@ -8897,12 +8683,12 @@ LABEL_34:
         {
           *buf = 136446978;
           *&buf[4] = v14;
-          v181 = 1024;
-          v182 = 94;
-          v183 = 2082;
-          v184 = "probe";
-          v185 = 1024;
-          v186 = v12;
+          v180 = 1024;
+          v181 = 94;
+          v182 = 2082;
+          v183 = "probe";
+          v184 = 1024;
+          v185 = v12;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] unknown device viddid=%#x", buf, 0x22u);
         }
       }
@@ -8918,7 +8704,7 @@ LABEL_34:
       }
 
       v131 = 0;
-      v177 = 0;
+      v176 = 0;
       goto LABEL_46;
     }
 
@@ -8929,24 +8715,24 @@ LABEL_34:
   {
     case 0x1901106B:
 LABEL_32:
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v18, v19, v20);
-      v63 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v18, v19, v20);
+      v63 = v178;
       *buf = @"Centauri";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v64, v65, v66);
       CFRetain(*buf);
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v67, v68, v69);
       ashp::boxed::mutable_dictionary::set_value(v63, @"Vendor", *buf, v70);
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v71, v72, v73);
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v74, v75, v76);
-      v77 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v74, v75, v76);
+      v77 = v178;
       *buf = @"t2026";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v78, v79, v80);
       CFRetain(*buf);
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v81, v82, v83);
       ashp::boxed::mutable_dictionary::set_value(v77, @"Chipset", *buf, v84);
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v85, v86, v87);
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v88, v89, v90);
-      v91 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v88, v89, v90);
+      v91 = v178;
       *buf = @"CentauriControl";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v92, v93, v94);
       CFRetain(@"CentauriControl");
@@ -8955,24 +8741,24 @@ LABEL_32:
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v99, v100, v101);
       break;
     case 0x1902106B:
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v18, v19, v20);
-      v132 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v18, v19, v20);
+      v132 = v178;
       *buf = @"Centauri";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v133, v134, v135);
       CFRetain(*buf);
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v136, v137, v138);
       ashp::boxed::mutable_dictionary::set_value(v132, @"Vendor", *buf, v139);
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v140, v141, v142);
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v143, v144, v145);
-      v146 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v143, v144, v145);
+      v146 = v178;
       *buf = @"t2026";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v147, v148, v149);
       CFRetain(*buf);
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v150, v151, v152);
       ashp::boxed::mutable_dictionary::set_value(v146, @"Chipset", *buf, v153);
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v154, v155, v156);
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v157, v158, v159);
-      v160 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v157, v158, v159);
+      v160 = v178;
       *buf = @"CentauriAlpha";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v161, v162, v163);
       CFRetain(@"CentauriAlpha");
@@ -8981,24 +8767,24 @@ LABEL_32:
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v168, v169, v170);
       break;
     case 0x1903106B:
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v18, v19, v20);
-      v21 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v18, v19, v20);
+      v21 = v178;
       *buf = @"Centauri";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v22, v23, v24);
       CFRetain(*buf);
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v25, v26, v27);
       ashp::boxed::mutable_dictionary::set_value(v21, @"Vendor", *buf, v28);
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v29, v30, v31);
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v32, v33, v34);
-      v35 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v32, v33, v34);
+      v35 = v178;
       *buf = @"t2026";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v36, v37, v38);
       CFRetain(*buf);
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v39, v40, v41);
       ashp::boxed::mutable_dictionary::set_value(v35, @"Chipset", *buf, v42);
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(buf, v43, v44, v45);
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v179, v46, v47, v48);
-      v49 = v179;
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v178, v46, v47, v48);
+      v49 = v178;
       *buf = @"CentauriBeta";
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v50, v51, v52);
       CFRetain(@"CentauriBeta");
@@ -9011,27 +8797,26 @@ LABEL_32:
   }
 
 LABEL_43:
-  v131 = v179;
-  v178 = v179;
-  v179 = 0;
-  if (v178)
+  v131 = v178;
+  v177 = v178;
+  v178 = 0;
+  if (v177)
   {
-    v178 = 0;
+    v177 = 0;
     *buf = v131;
     ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v60, v61, v62);
   }
 
-  v177 = v131;
-  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v178, v60, v61, v62);
+  v176 = v131;
+  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v177, v60, v61, v62);
 LABEL_46:
-  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v179, v128, v129, v130);
-  v177 = 0;
-  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v177, v171, v172, v173);
-  v174 = *MEMORY[0x277D85DE8];
+  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v178, v128, v129, v130);
+  v176 = 0;
+  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v176, v171, v172, v173);
   return v131;
 }
 
-uint64_t airship_driver_create(const __CFString *a1)
+void *airship_driver_create(const __CFString *a1)
 {
   if (a1 && CFStringCompare(a1, @"acipc", 0) == kCFCompareEqualTo)
   {
@@ -9104,7 +8889,7 @@ void airship_driver_set_configuration(uint64_t a1, CFTypeRef a2)
   }
 }
 
-void airship_driver_set_queue(uint64_t a1, const __CFString *a2, uint64_t a3)
+void airship_driver_set_queue(uint64_t a1, const __CFString *a2, NSObject *a3)
 {
   os_unfair_lock_lock((a1 + 8));
   if (*(a1 + 12) == 1)
@@ -9320,7 +9105,7 @@ LABEL_42:
   __break(1u);
 }
 
-void airship_driver_set_exec_stage_change_handler(uint64_t a1, uint64_t a2)
+void airship_driver_set_exec_stage_change_handler(uint64_t a1, void *a2)
 {
   os_unfair_lock_lock((a1 + 8));
   if (*(a1 + 12) == 1)
@@ -9342,7 +9127,7 @@ void airship_driver_set_exec_stage_change_handler(uint64_t a1, uint64_t a2)
   }
 }
 
-void airship_driver_set_power_state_change_handler(uint64_t a1, uint64_t a2)
+void airship_driver_set_power_state_change_handler(uint64_t a1, void *a2)
 {
   os_unfair_lock_lock((a1 + 8));
   if (*(a1 + 12) == 1)
@@ -9364,7 +9149,7 @@ void airship_driver_set_power_state_change_handler(uint64_t a1, uint64_t a2)
   }
 }
 
-void airship_driver_set_ipc_error_handler(uint64_t a1, uint64_t a2)
+void airship_driver_set_ipc_error_handler(uint64_t a1, void *a2)
 {
   os_unfair_lock_lock((a1 + 8));
   if (*(a1 + 12) == 1)
@@ -9386,9 +9171,9 @@ void airship_driver_set_ipc_error_handler(uint64_t a1, uint64_t a2)
   }
 }
 
-const char *airship_driver_activate(uint64_t a1)
+ashp::detail::logging *airship_driver_activate(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   log_level = ashp::detail::logging::get_log_level(a1);
   if (log_level >= 1)
   {
@@ -9397,10 +9182,10 @@ const char *airship_driver_activate(uint64_t a1)
     {
       buf[0] = 136446722;
       *&buf[1] = "driver.cpp";
-      v17 = 1024;
-      v18 = 185;
-      v19 = 2082;
-      v20 = "activate";
+      v16 = 1024;
+      v17 = 185;
+      v18 = 2082;
+      v19 = "activate";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] activate", buf, 0x1Cu);
     }
   }
@@ -9419,7 +9204,7 @@ const char *airship_driver_activate(uint64_t a1)
   if (*(a1 + 12) == 1)
   {
     ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0xBC, "activate", v3);
-    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to activate active driver", "driver.cpp", 0xBC, "activate", v10);
+    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to activate active driver", "driver.cpp", 0xBC, "activate", v9);
     _os_crash();
     __break(1u);
   }
@@ -9440,8 +9225,8 @@ const char *airship_driver_activate(uint64_t a1)
     *(a1 + 368) = 0u;
     *(a1 + 368) = a1 + 360;
     *(a1 + 384) = 1;
-    (*(*a1 + 16))(&v15, a1);
-    ashp::driver::get_queue(a1, v15);
+    (*(*a1 + 16))(&v14, a1);
+    ashp::driver::get_queue(a1, v14);
     if (*(a1 + 536) == 1)
     {
       *(a1 + 536) = 0;
@@ -9463,17 +9248,16 @@ const char *airship_driver_activate(uint64_t a1)
   }
 
   ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0xBD, "activate", v3);
-  ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to activate terminated driver", "driver.cpp", 0xBD, "activate", v11);
+  ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to activate terminated driver", "driver.cpp", 0xBD, "activate", v10);
   _os_crash();
   __break(1u);
-  ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v12);
-  ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v13);
+  ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v11);
+  ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v12);
   _os_crash();
   __break(1u);
-  ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0xCF, "activate", v14);
+  ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0xCF, "activate", v13);
   *(a1 + 13) = 0;
   os_unfair_lock_unlock((a1 + 8));
-  v8 = *MEMORY[0x277D85DE8];
   return "driver.cpp";
 }
 
@@ -9521,7 +9305,7 @@ LABEL_9:
 
 void airship_driver_exit_reset(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((a1 + 8));
   LODWORD(v2) = *(a1 + 24);
   LODWORD(v3) = *(a1 + 13);
@@ -9532,15 +9316,15 @@ void airship_driver_exit_reset(uint64_t a1)
     if (log_level)
     {
       *buf = 136447234;
-      v11 = "driver.cpp";
-      v13 = 238;
-      v14 = 2082;
-      v12 = 1024;
-      v15 = "exit_reset";
-      v16 = 1024;
-      v17 = v2;
-      v18 = 1024;
-      v19 = v3;
+      v10 = "driver.cpp";
+      v12 = 238;
+      v13 = 2082;
+      v11 = 1024;
+      v14 = "exit_reset";
+      v15 = 1024;
+      v16 = v2;
+      v17 = 1024;
+      v18 = v3;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] in_reset %u, activated %u", buf, 0x28u);
     }
   }
@@ -9562,7 +9346,7 @@ LABEL_7:
     if ((*(a1 + 13) & 1) == 0)
     {
       ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0xEF, "exit_reset", v6);
-      ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to access inactive driver", "driver.cpp", 0xEF, "exit_reset", v8);
+      ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to access inactive driver", "driver.cpp", 0xEF, "exit_reset", v7);
       _os_crash();
       __break(1u);
       goto LABEL_13;
@@ -9577,7 +9361,7 @@ LABEL_13:
     v2 = "driver.cpp";
     v3 = "exit_reset";
     ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0xF0, "exit_reset", v6);
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to access terminated driver", "driver.cpp", 0xF0, "exit_reset", v9);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to access terminated driver", "driver.cpp", 0xF0, "exit_reset", v8);
     _os_crash();
     __break(1u);
 LABEL_14:
@@ -9594,7 +9378,6 @@ LABEL_14:
   }
 
   os_unfair_lock_unlock((a1 + 8));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t airship_driver_set_transport(uint64_t a1, uint64_t a2)
@@ -9718,11 +9501,11 @@ LABEL_22:
   return result;
 }
 
-void sub_23ECAAA18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23ECAAA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ashp::lock_guard<ashp::rw_mutex_writer<ashp::rw_mutex>,ashp::guard_locker<ashp::rw_mutex_writer<ashp::rw_mutex>>,0>::~lock_guard(va);
-  os_unfair_lock_unlock(v2 + 2);
+  os_unfair_lock_unlock(v3 + 2);
   _Unwind_Resume(a1);
 }
 
@@ -9784,4 +9567,381 @@ void airship_driver_clear_transport(uint64_t a1)
     ashp::lock_guard<ashp::rw_mutex_writer<ashp::rw_mutex>,ashp::guard_locker<ashp::rw_mutex_writer<ashp::rw_mutex>>,0>::~lock_guard(&v15);
     os_unfair_lock_unlock((a1 + 8));
   }
+}
+
+uint64_t airship_driver_get_exec_stage(os_unfair_lock_s *a1)
+{
+  os_unfair_lock_lock(a1 + 63);
+  os_unfair_lock_opaque = a1[65]._os_unfair_lock_opaque;
+  os_unfair_lock_unlock(a1 + 63);
+  return os_unfair_lock_opaque;
+}
+
+void airship_driver_probe_exec_stage(uint64_t a1)
+{
+  os_unfair_lock_lock((a1 + 8));
+  if ((*(a1 + 13) & 1) == 0)
+  {
+    ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0x15C, "probe_exec_stage", v2);
+    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to access inactive driver", "driver.cpp", 0x15C, "probe_exec_stage", v3);
+    _os_crash();
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  if (*(a1 + 14) == 1)
+  {
+LABEL_7:
+    ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0x15D, "probe_exec_stage", v2);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to access terminated driver", "driver.cpp", 0x15D, "probe_exec_stage", v4);
+    _os_crash();
+    __break(1u);
+    return;
+  }
+
+  (*(*a1 + 72))(a1);
+
+  os_unfair_lock_unlock((a1 + 8));
+}
+
+void airship_driver_set_power_target(uint64_t a1, int a2)
+{
+  os_unfair_lock_lock((a1 + 8));
+  if (*(a1 + 14) == 1)
+  {
+    ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0x165, "set_power_target", v4);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to access terminated driver", "driver.cpp", 0x165, "set_power_target", v5);
+    _os_crash();
+    __break(1u);
+  }
+
+  else
+  {
+    if (*(a1 + 240) != a2)
+    {
+      *(a1 + 240) = a2;
+      (*(*a1 + 80))(a1);
+    }
+
+    os_unfair_lock_unlock((a1 + 8));
+  }
+}
+
+uint64_t airship_driver_get_power_state(os_unfair_lock_s *a1)
+{
+  os_unfair_lock_lock(a1 + 63);
+  os_unfair_lock_opaque = a1[80]._os_unfair_lock_opaque;
+  os_unfair_lock_unlock(a1 + 63);
+  return os_unfair_lock_opaque;
+}
+
+uint64_t airship_driver_get_error_state(os_unfair_lock_s *a1)
+{
+  os_unfair_lock_lock(a1 + 63);
+  os_unfair_lock_opaque = a1[84]._os_unfair_lock_opaque;
+  os_unfair_lock_unlock(a1 + 63);
+  return os_unfair_lock_opaque;
+}
+
+uint64_t airship_driver_set_interrupt_handler(uint64_t a1, const __CFString *a2, const char *a3, void *a4)
+{
+  v48 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_lock((a1 + 8));
+  if ((*(a1 + 13) & 1) == 0)
+  {
+    ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0x1CB, "set_interrupt_handler", v10);
+    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to set external interrupt handler for inactive driver", "driver.cpp", 0x1CB, "set_interrupt_handler", v37);
+    _os_crash();
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  if (*(a1 + 14) == 1)
+  {
+LABEL_17:
+    v15 = "set_interrupt_handler";
+    ashp::detail::control_flow::log_guard_else_failure("driver.cpp", 0x1CC, "set_interrupt_handler", v10);
+    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to set external interrupt handler for terminated driver", "driver.cpp", 0x1CC, "set_interrupt_handler", v38);
+    _os_crash();
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  ashp::optional<ashp::interrupt_manager,void>::value(a1 + 632, v8, v9, v10);
+  ashp::interrupt_manager::get_vector_for_interrupt(&v39, (a1 + 632), a2, a3, v11);
+  v15 = 3758097090;
+  if (v40)
+  {
+    ashp::optional<ashp::interrupt_manager,void>::value(a1 + 632, v12, v13, v14);
+    ashp::optional<unsigned int,void>::value(&v39, v16, v17, v18);
+    v19 = v39;
+    os_unfair_lock_lock((a1 + 632));
+    log_level = ashp::detail::logging::get_log_level(v20);
+    if (log_level >= 3)
+    {
+      log_level = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+      if (log_level)
+      {
+        *buf = 136446978;
+        *&buf[4] = "interrupt.cpp";
+        v42 = 1024;
+        v43 = 174;
+        v44 = 2082;
+        v45 = "set_external_handler";
+        v46 = 1024;
+        v47 = v19;
+        _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] setting external interrupt handler for vector %u", buf, 0x22u);
+      }
+    }
+
+    if (ashp::detail::logging::get_log_level(log_level))
+    {
+      if (airship_platform_get_global_logger::once != -1)
+      {
+        dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
+      }
+
+      ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] setting external interrupt handler for vector %u", "interrupt.cpp", 174, "set_external_handler", v19);
+    }
+
+    if (v19 < 0x20)
+    {
+      v26 = ashp::static_array<ashp::optional<ashp::interrupt_manager::interrupt_context,void>,32ul>::operator[](a1 + 848, v19, v22, v23);
+      if (*(v26 + 64))
+      {
+        pthread_rwlock_wrlock((a1 + 640));
+        ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::refcounted_ptr(buf, a4, v27, v28);
+        ashp::optional<ashp::acipc::ring_manager::cr_open_parameters,void>::value(v26, v29, v30, v31);
+        v32 = *(v26 + 56);
+        *(v26 + 56) = *buf;
+        *buf = v32;
+        ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::reset(buf, v33, v34, v35);
+        pthread_rwlock_unlock((a1 + 640));
+        *(a1 + 14 * v19 + 3284) = 1;
+        ashp::interrupt_manager::recompute_source_registration_and_suspension((a1 + 632));
+        v15 = 0;
+LABEL_14:
+        os_unfair_lock_unlock((a1 + 632));
+        goto LABEL_15;
+      }
+
+LABEL_19:
+      ashp::detail::control_flow::log_guard_else_failure("interrupt.cpp", 0xB2, "set_external_handler", v25);
+      goto LABEL_14;
+    }
+
+LABEL_18:
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "interrupt.cpp", 0xAF, "set_external_handler", v24);
+    _os_crash();
+    __break(1u);
+    goto LABEL_19;
+  }
+
+LABEL_15:
+  os_unfair_lock_unlock((a1 + 8));
+  return v15;
+}
+
+void sub_23ECAB1E8(_Unwind_Exception *a1)
+{
+  os_unfair_lock_unlock(v1 + 158);
+  os_unfair_lock_unlock(v1 + 2);
+  _Unwind_Resume(a1);
+}
+
+uint64_t airship_driver_retrieve_state_dump(uint64_t a1, debug_info_capture *a2)
+{
+  v53 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_lock((a1 + 8));
+  if (*(a1 + 3720) != 1)
+  {
+    goto LABEL_14;
+  }
+
+  ashp::optional<ashp::interrupt_manager,void>::value(a1 + 632, v4, v5, v6);
+  os_unfair_lock_lock((a1 + 632));
+  if (!a2)
+  {
+    a2 = "BUG in Airship: ";
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "interrupt.cpp", 0x3C7, "append_state_dump", v7);
+    _os_crash();
+    __break(1u);
+    goto LABEL_39;
+  }
+
+  os_unfair_lock_assert_owner((a1 + 632));
+  os_unfair_lock_lock((a1 + 3224));
+  debug_object_alloc_size = ashp::driver_debug_object<ashp::debug::interrupt::interrupt_debug_info>::get_debug_object_alloc_size(a1 + 3224, v8, v9, v10);
+  v14 = debug_object_alloc_size + 16;
+  if (debug_object_alloc_size >= 0xFFFFFFF0)
+  {
+LABEL_39:
+    v45 = "copy_debug_info";
+    v46 = 77;
+    v47 = "driver_debug_object.hpp";
+    goto LABEL_41;
+  }
+
+  if (debug_info_capture::validate_buffer_bounds(a2, v14, v12, v13))
+  {
+    v17 = (*a2 + *(a2 + 3));
+    v17->i32[0] = *(a1 + 3240);
+    v17->i32[1] = ashp::driver_debug_object<ashp::debug::interrupt::interrupt_debug_info>::get_debug_object_alloc_size(a1 + 3224, v15, v16, v13);
+    v17[1] = vrev64_s32(*(a1 + 3232));
+    if (*(a1 + 3248))
+    {
+      v19 = 0;
+      v20 = v17 + 2;
+      v21 = 1;
+      do
+      {
+        v22 = ashp::dynamic_array<ashp::debug::interrupt::interrupt_debug_info>::operator[]((a1 + 3248), v19, v18, v13);
+        v23 = v20 + 12 * v19;
+        v24 = *v22;
+        *(v23 + 2) = *(v22 + 8);
+        *v23 = v24;
+        v19 = v21;
+      }
+
+      while (*(a1 + 3248) > v21++);
+    }
+  }
+
+  v26 = *(a2 + 3) + v14;
+  *(a2 + 3) = v26;
+  if (!HIDWORD(v26))
+  {
+    goto LABEL_9;
+  }
+
+  v45 = "advance_buffer_pointer";
+  v46 = 108;
+  v47 = "debug_infra.hpp";
+LABEL_41:
+  ashp::detail::control_flow::log_guard_else_failure(v47, v46, v45, v13);
+LABEL_9:
+  os_unfair_lock_unlock((a1 + 3224));
+  os_unfair_lock_assert_owner((a1 + 632));
+  if (debug_info_capture::validate_buffer_bounds(a2, 464, v27, v28))
+  {
+    v30 = (*a2 + *(a2 + 3));
+    *v30 = xmmword_23ED06130;
+    memcpy(v30 + 1, (a1 + 3272), 0x1C0uLL);
+  }
+
+  v31 = *(a2 + 3);
+  *(a2 + 3) = v31 + 464;
+  if (v31 >= 0xFFFFFE30)
+  {
+    ashp::detail::control_flow::log_guard_else_failure("debug_infra.hpp", 0x6C, "advance_buffer_pointer", v29);
+  }
+
+  os_unfair_lock_assert_owner((a1 + 632));
+  os_unfair_lock_unlock((a1 + 632));
+LABEL_14:
+  v32 = *(a1 + 232);
+  if (v32)
+  {
+    *buf = v32 + 8;
+    pthread_rwlock_rdlock((v32 + 8));
+    (*(*v32 + 128))(v32, a2);
+    ashp::lock_guard<ashp::rw_mutex_reader<ashp::rw_mutex>,ashp::guard_locker<ashp::rw_mutex_reader<ashp::rw_mutex>>,0>::~lock_guard(buf);
+  }
+
+  os_unfair_lock_assert_owner((a1 + 8));
+  v33 = (*(*a1 + 96))(a1, a2);
+  if (*(a1 + 3816) == 1)
+  {
+    ashp::optional<ashp::acipc::tr_ring,void>::value(a1 + 3784, v34, v35, v36);
+    os_unfair_lock_lock((a1 + 3784));
+    v39 = *(a1 + 3792);
+    if (v39)
+    {
+      while (1)
+      {
+        v40 = v39[1];
+        if (!v40)
+        {
+          break;
+        }
+
+        (*(v40 + 16))(v40, *v39, a2);
+        v39 = v39[2];
+        if (!v39)
+        {
+          goto LABEL_28;
+        }
+      }
+
+      a2 = "BUG in Airship: ";
+      ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "state_dump_manager.cpp", 0x3C, "populate_state_dump_info", v38);
+      _os_crash();
+      __break(1u);
+      goto LABEL_37;
+    }
+
+    log_level = ashp::detail::logging::get_log_level(v37);
+    if (log_level >= 4)
+    {
+      log_level = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+      if (log_level)
+      {
+        *buf = 136446722;
+        *&buf[4] = "state_dump_manager.cpp";
+        v49 = 1024;
+        v50 = 56;
+        v51 = 2082;
+        v52 = "populate_state_dump_info";
+        _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] no custom statedump handlers registered", buf, 0x1Cu);
+      }
+    }
+
+    if (ashp::detail::logging::get_log_level(log_level))
+    {
+      if (airship_platform_get_global_logger::once != -1)
+      {
+        dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
+      }
+
+      ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] no custom statedump handlers registered", "state_dump_manager.cpp", 56, "populate_state_dump_info");
+    }
+
+LABEL_28:
+    os_unfair_lock_unlock((a1 + 3784));
+  }
+
+  v42 = ashp::detail::logging::get_log_level(v33);
+  if (v42 >= 3)
+  {
+    v42 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+    if (v42)
+    {
+      *buf = 136446722;
+      *&buf[4] = "driver.cpp";
+      v49 = 1024;
+      v50 = 437;
+      v51 = 2082;
+      v52 = "retrieve_state_dump";
+      _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] IPC driver state_dump complete", buf, 0x1Cu);
+    }
+  }
+
+  if (ashp::detail::logging::get_log_level(v42))
+  {
+    if (airship_platform_get_global_logger::once == -1)
+    {
+LABEL_34:
+      ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] IPC driver state_dump complete", "driver.cpp", 437, "retrieve_state_dump");
+      goto LABEL_35;
+    }
+
+LABEL_37:
+    dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
+    goto LABEL_34;
+  }
+
+LABEL_35:
+  v43 = *(a2 + 3);
+  os_unfair_lock_unlock((a1 + 8));
+  return v43;
 }

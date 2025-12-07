@@ -1,6 +1,7 @@
 @interface FPDaemonConnection
 + (BOOL)runningInSyncBubble;
 + (NSString)disallowedConnectionReason;
++ (id)connectionForUser:(unsigned int)user;
 + (id)remoteObjectProxyWithErrorHandler:(id)handler;
 + (id)sharedConnection;
 + (id)sharedConnectionProxy;
@@ -11,12 +12,14 @@
 - (id)bookmarkableStringFromDocumentURL:(id)l error:(id *)error;
 - (id)connectionProxy;
 - (id)documentURLFromBookmarkableString:(id)string error:(id *)error;
+- (id)evictItemAtURL:(id)l evenIfEnumeratingFP:(BOOL)p andClearACLForConsumer:(id)consumer completionHandler:(id)handler;
 - (id)listOfMonitoredAppsWithError:(id *)error;
 - (id)newXPCConnection;
 - (id)nonErrorCheckingConnection;
 - (id)valuesForAttributes:(id)attributes forItemAtURL:(id)l error:(id *)error;
 - (void)_test_callFileProviderManagerAPIs:(id)is;
 - (void)_test_retrieveItemWithName:(id)name completionHandler:(id)handler;
+- (void)_test_setDocIDResolutionPolicy:(BOOL)policy completionHandler:(id)handler;
 - (void)attachItemWithID:(id)d options:(unint64_t)options completionHandler:(id)handler;
 - (void)attachKnownFolders:(id)folders options:(unint64_t)options completionHandler:(id)handler;
 - (void)backUpUserURL:(id)l outputUserURL:(id)rL completionHandler:(id)handler;
@@ -25,13 +28,16 @@
 - (void)checkErrorAgainstDiagnosticsJson:(id)json inputError:(id)error errorDirection:(id)direction jobCode:(id)code underlying:(id)underlying completionHandler:(id)handler;
 - (void)clearDiagnosticsState:(id)state completionHandler:(id)handler;
 - (void)copyDatabaseForFPCKStartingAtPath:(id)path completionHandler:(id)handler;
+- (void)createItemBasedOnTemplate:(id)template fields:(unint64_t)fields urlWrapper:(id)wrapper options:(unint64_t)options bounceOnCollision:(BOOL)collision completionHandler:(id)handler;
 - (void)detachItemWithID:(id)d relocatingAtURL:(id)l options:(unint64_t)options completionHandler:(id)handler;
 - (void)detachKnownFolders:(id)folders completionHandler:(id)handler;
 - (void)documentURLFromBookmarkableString:(id)string completionHandler:(id)handler;
+- (void)dumpDatabaseAt:(id)at fullDump:(BOOL)dump writeTo:(id)to completionHandler:(id)handler;
 - (void)dumpIndexerInfoFor:(id)for withName:(id)name to:(id)to completionHandler:(id)handler;
 - (void)dumpStateTo:(id)to providerFilter:(id)filter options:(unint64_t)options completionHandler:(id)handler;
 - (void)dumpTelemetryTo:(id)to providerFilter:(id)filter completionHandler:(id)handler;
 - (void)enumerateSearchResultForRequest:(id)request providerDomainID:(id)d completionHandler:(id)handler;
+- (void)evictItemWithID:(id)d evictionReason:(unsigned int)reason completionHandler:(id)handler;
 - (void)extendBookmarkForFileURL:(id)l toConsumerID:(id)d completionHandler:(id)handler;
 - (void)extendSandboxAndCreatePlaceholderForFileURL:(id)l fromProviderID:(id)d toConsumerID:(id)iD completionHandler:(id)handler;
 - (void)extendSandboxForFileURL:(id)l fromProviderID:(id)d toConsumerID:(id)iD completionHandler:(id)handler;
@@ -49,14 +55,17 @@
 - (void)providerDomainsCompletionHandler:(id)handler;
 - (void)providersCompletionHandler:(id)handler;
 - (void)resolveConflictAtURL:(id)l completionHandler:(id)handler;
+- (void)restoreUserURL:(id)l cleanupOnSuccess:(BOOL)success completionHandler:(id)handler;
 - (void)restoreUserURL:(id)l fromBuild:(id)build restoreType:(id)type completionHandler:(id)handler;
 - (void)resumeIndexingFor:(id)for completionHandler:(id)handler;
 - (void)runFPCKForDomainWithID:(id)d databasesBackupsPath:(id)path options:(unint64_t)options reason:(unint64_t)reason completionHandler:(id)handler;
 - (void)runFPCKForDomainWithID:(id)d domainRootURL:(id)l databaseBackupPath:(id)path options:(unint64_t)options reason:(unint64_t)reason launchType:(unint64_t)type contentBarrier:(int64_t)barrier completionHandler:(id)self0;
+- (void)setIndexingEnabled:(BOOL)enabled forDomainIdentifier:(id)identifier providerIdentifier:(id)providerIdentifier completionHandler:(id)handler;
 - (void)spotlightReindexAllItemsForBundleID:(id)d protectionClass:(id)class completionHandler:(id)handler;
 - (void)spotlightReindexItemsWithIdentifiers:(id)identifiers bundleID:(id)d protectionClass:(id)class completionHandler:(id)handler;
 - (void)startProvidingItemAtURL:(id)l fromProviderID:(id)d forConsumerID:(id)iD completionHandler:(id)handler;
 - (void)stateForDomainWithID:(id)d completionHandler:(id)handler;
+- (void)triggerDiagnosticsFor:(id)for triggeringError:(id)error uiOnly:(BOOL)only useDiagnostic:(BOOL)diagnostic completionHandler:(id)handler;
 - (void)unpinItemWithID:(id)d completionHandler:(id)handler;
 - (void)updateLastUsedDateForFileURL:(id)l completionHandler:(id)handler;
 - (void)validateDiagnosticsJson:(id)json completionHandler:(id)handler;
@@ -68,7 +77,7 @@
 
 + (id)sharedConnection
 {
-  v2 = fp_default_log();
+  v2 = fp_default_log(self);
   if (sharedConnection_onceToken != -1)
   {
     +[FPDaemonConnection sharedConnection];
@@ -81,9 +90,11 @@
 
 uint64_t __38__FPDaemonConnection_sharedConnection__block_invoke()
 {
-  sharedConnection_connection = [[FPDaemonConnection alloc] initWithUser:0];
+  v0 = [[FPDaemonConnection alloc] initWithUser:0];
+  v1 = sharedConnection_connection;
+  sharedConnection_connection = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)nonErrorCheckingConnection
@@ -212,11 +223,41 @@ uint64_t __38__FPDaemonConnection_sharedConnection__block_invoke()
   return v7;
 }
 
++ (id)connectionForUser:(unsigned int)user
+{
+  v3 = *&user;
+  v4 = fp_default_log(self);
+  if (connectionForUser__onceToken != -1)
+  {
+    +[FPDaemonConnection connectionForUser:];
+  }
+
+  v5 = connectionForUser__connectionByUID;
+  objc_sync_enter(v5);
+  v6 = connectionForUser__connectionByUID;
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  v8 = [v6 objectForKeyedSubscript:v7];
+
+  if (!v8)
+  {
+    v8 = [[FPDaemonConnection alloc] initWithUser:v3];
+    v9 = connectionForUser__connectionByUID;
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+    [v9 setObject:v8 forKeyedSubscript:v10];
+  }
+
+  objc_sync_exit(v5);
+
+  return v8;
+}
+
 uint64_t __40__FPDaemonConnection_connectionForUser___block_invoke()
 {
-  connectionForUser__connectionByUID = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = connectionForUser__connectionByUID;
+  connectionForUser__connectionByUID = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (FPDaemonConnection)initWithUser:(unsigned int)user
@@ -369,9 +410,30 @@ void __53__FPDaemonConnection_wakeUpForURL_completionHandler___block_invoke(uint
   (*(handler + 2))(handlerCopy, v8);
 }
 
+- (id)evictItemAtURL:(id)l evenIfEnumeratingFP:(BOOL)p andClearACLForConsumer:(id)consumer completionHandler:(id)handler
+{
+  pCopy = p;
+  lCopy = l;
+  handlerCopy = handler;
+  consumerCopy = consumer;
+  FPPrecheckTCCReadAccess();
+  connectionProxy = [(FPDaemonConnection *)self connectionProxy];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __98__FPDaemonConnection_evictItemAtURL_evenIfEnumeratingFP_andClearACLForConsumer_completionHandler___block_invoke;
+  v18[3] = &unk_1E7939170;
+  v19 = lCopy;
+  v20 = handlerCopy;
+  v14 = handlerCopy;
+  v15 = lCopy;
+  v16 = [connectionProxy evictItemAtURL:v15 evenIfEnumeratingFP:pCopy andClearACLForConsumer:consumerCopy completionHandler:v18];
+
+  return v16;
+}
+
 void __98__FPDaemonConnection_evictItemAtURL_evenIfEnumeratingFP_andClearACLForConsumer_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -385,10 +447,10 @@ void __98__FPDaemonConnection_evictItemAtURL_evenIfEnumeratingFP_andClearACLForC
   if (*(a1 + 40))
   {
     v5 = *MEMORY[0x1E696A250];
-    v17[0] = @"NSFileProviderErrorDomain";
-    v17[1] = v5;
-    v17[2] = *MEMORY[0x1E696A798];
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
+    v16[0] = @"NSFileProviderErrorDomain";
+    v16[1] = v5;
+    v16[2] = *MEMORY[0x1E696A798];
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:3];
     v7 = [v3 fp_unwrappedErrorForDomains:v6];
 
     if ([v7 fp_isPOSIXErrorCode:16])
@@ -398,9 +460,9 @@ void __98__FPDaemonConnection_evictItemAtURL_evenIfEnumeratingFP_andClearACLForC
 
       v10 = *(a1 + 40);
       v11 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696AA08];
-      v16 = v7;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x1E696AA08];
+      v15 = v7;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
       v13 = [v11 errorWithDomain:v5 code:255 userInfo:v12];
       (*(v10 + 16))(v10, v13);
     }
@@ -410,8 +472,23 @@ void __98__FPDaemonConnection_evictItemAtURL_evenIfEnumeratingFP_andClearACLForC
       (*(*(a1 + 40) + 16))();
     }
   }
+}
 
-  v14 = *MEMORY[0x1E69E9840];
+- (void)evictItemWithID:(id)d evictionReason:(unsigned int)reason completionHandler:(id)handler
+{
+  v6 = *&reason;
+  dCopy = d;
+  handlerCopy = handler;
+  connectionProxy = [(FPDaemonConnection *)self connectionProxy];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __71__FPDaemonConnection_evictItemWithID_evictionReason_completionHandler___block_invoke;
+  v13[3] = &unk_1E7939170;
+  v14 = dCopy;
+  v15 = handlerCopy;
+  v11 = handlerCopy;
+  v12 = dCopy;
+  [connectionProxy evictItemWithID:v12 evictionReason:v6 completionHandler:v13];
 }
 
 void __71__FPDaemonConnection_evictItemWithID_evictionReason_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -729,7 +806,7 @@ void __74__FPDaemonConnection_forceLatestVersionOnDiskForItemID_completionHandle
 
 void __81__FPDaemonConnection_detachItemWithID_relocatingAtURL_options_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -768,12 +845,10 @@ void __81__FPDaemonConnection_detachItemWithID_relocatingAtURL_options_completio
     }
 
     v16 = *(a1 + 48);
-    v22[0] = v15;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = v15;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
     [v16 detachKnownFolders:v17 completionHandler:*(a1 + 56)];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)detachKnownFolders:(id)folders completionHandler:(id)handler
@@ -810,7 +885,7 @@ void __81__FPDaemonConnection_detachItemWithID_relocatingAtURL_options_completio
 
 void __90__FPDaemonConnection_importDetachedFolder_parentID_logicalName_options_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -838,12 +913,10 @@ void __90__FPDaemonConnection_importDetachedFolder_parentID_logicalName_options_
 
     v13 = [[NSFileProviderKnownFolderDescriptor alloc] initWithKnownFolder:*(a1 + 48) logicalLocation:v12 detachOptions:*(a1 + 72)];
     v14 = *(a1 + 56);
-    v20[0] = v13;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v13;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
     [v14 detachKnownFolders:v15 completionHandler:*(a1 + 64)];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)attachItemWithID:(id)d options:(unint64_t)options completionHandler:(id)handler
@@ -866,7 +939,7 @@ void __90__FPDaemonConnection_importDetachedFolder_parentID_logicalName_options_
 
 void __65__FPDaemonConnection_attachItemWithID_options_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -891,12 +964,10 @@ void __65__FPDaemonConnection_attachItemWithID_options_completionHandler___block
   {
     v11 = *(a1 + 40);
     v12 = [v7 url];
-    v18[0] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
     [v11 attachKnownFolders:v13 options:*(a1 + 56) completionHandler:*(a1 + 48)];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)attachKnownFolders:(id)folders options:(unint64_t)options completionHandler:(id)handler
@@ -905,6 +976,21 @@ void __65__FPDaemonConnection_attachItemWithID_options_completionHandler___block
   foldersCopy = folders;
   connectionProxy = [(FPDaemonConnection *)self connectionProxy];
   [connectionProxy attachKnownFolders:foldersCopy options:options completionHandler:handlerCopy];
+}
+
+- (void)createItemBasedOnTemplate:(id)template fields:(unint64_t)fields urlWrapper:(id)wrapper options:(unint64_t)options bounceOnCollision:(BOOL)collision completionHandler:(id)handler
+{
+  collisionCopy = collision;
+  templateCopy = template;
+  wrapperCopy = wrapper;
+  handlerCopy = handler;
+  if (!handlerCopy)
+  {
+    [FPDaemonConnection createItemBasedOnTemplate:fields:urlWrapper:options:bounceOnCollision:completionHandler:];
+  }
+
+  connectionProxy = [(FPDaemonConnection *)self connectionProxy];
+  [connectionProxy createItemBasedOnTemplate:templateCopy fields:fields urlWrapper:wrapperCopy options:options bounceOnCollision:collisionCopy completionHandler:handlerCopy];
 }
 
 - (void)bookmarkableStringFromDocumentURL:(id)l completionHandler:(id)handler
@@ -1228,7 +1314,7 @@ void __51__FPDaemonConnection_listOfMonitoredAppsWithError___block_invoke(uint64
 void __74__FPDaemonConnection_copyDatabaseForFPCKStartingAtPath_completionHandler___block_invoke(void *a1, void *a2, id obj)
 {
   objc_storeStrong((*(a1[5] + 8) + 40), obj);
-  v12 = obj;
+  v10 = obj;
   v6 = a2;
   v7 = [v6 copy];
 
@@ -1236,8 +1322,6 @@ void __74__FPDaemonConnection_copyDatabaseForFPCKStartingAtPath_completionHandle
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
 
-  v10 = *(*(a1[6] + 8) + 40);
-  v11 = *(*(a1[5] + 8) + 40);
   (*(a1[4] + 16))();
 }
 
@@ -1269,6 +1353,14 @@ void __74__FPDaemonConnection_copyDatabaseForFPCKStartingAtPath_completionHandle
   connectionProxy = [(FPDaemonConnection *)self connectionProxy];
   synchronousRemoteObjectProxy = [connectionProxy synchronousRemoteObjectProxy];
   [synchronousRemoteObjectProxy spotlightReindexItemsWithIdentifiers:identifiersCopy bundleID:dCopy protectionClass:classCopy completionHandler:handlerCopy];
+}
+
+- (void)_test_setDocIDResolutionPolicy:(BOOL)policy completionHandler:(id)handler
+{
+  policyCopy = policy;
+  handlerCopy = handler;
+  connectionProxy = [(FPDaemonConnection *)self connectionProxy];
+  [connectionProxy _test_setDocIDResolutionPolicy:policyCopy completionHandler:handlerCopy];
 }
 
 - (void)_test_retrieveItemWithName:(id)name completionHandler:(id)handler
@@ -1411,6 +1503,15 @@ LABEL_17:
   [connectionProxy restoreUserURL:lCopy fromBuild:buildCopy restoreType:typeCopy cleanupOnSuccess:1 completionHandler:handlerCopy];
 }
 
+- (void)restoreUserURL:(id)l cleanupOnSuccess:(BOOL)success completionHandler:(id)handler
+{
+  successCopy = success;
+  handlerCopy = handler;
+  lCopy = l;
+  connectionProxy = [(FPDaemonConnection *)self connectionProxy];
+  [connectionProxy restoreUserURL:lCopy fromBuild:0 restoreType:@"fileproviderctl" cleanupOnSuccess:successCopy completionHandler:handlerCopy];
+}
+
 - (void)stateForDomainWithID:(id)d completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -1470,6 +1571,16 @@ uint64_t __61__FPDaemonConnection_stateForDomainWithID_completionHandler___block
   [connectionProxy runFPCKForDomainWithID:dCopy domainRootURL:lCopy databaseBackupPath:pathCopy options:options reason:reason launchType:type contentBarrier:barrier completionHandler:handlerCopy];
 }
 
+- (void)dumpDatabaseAt:(id)at fullDump:(BOOL)dump writeTo:(id)to completionHandler:(id)handler
+{
+  dumpCopy = dump;
+  handlerCopy = handler;
+  toCopy = to;
+  atCopy = at;
+  connectionProxy = [(FPDaemonConnection *)self connectionProxy];
+  [connectionProxy dumpDatabaseAt:atCopy fullDump:dumpCopy writeTo:toCopy completionHandler:handlerCopy];
+}
+
 - (void)calculateNonPurgeableSpaceUsageOfDomain:(id)domain completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -1482,7 +1593,7 @@ uint64_t __61__FPDaemonConnection_stateForDomainWithID_completionHandler___block
 {
   handlerCopy = handler;
   lCopy = l;
-  FPPrecheckTCCReadAccess(lCopy);
+  FPPrecheckTCCReadAccess();
   connectionProxy = [(FPDaemonConnection *)self connectionProxy];
   [connectionProxy resolveConflictAtURL:lCopy completionHandler:handlerCopy];
 }
@@ -1520,6 +1631,28 @@ uint64_t __61__FPDaemonConnection_stateForDomainWithID_completionHandler___block
   forCopy = for;
   connectionProxy = [(FPDaemonConnection *)self connectionProxy];
   [connectionProxy resumeIndexingFor:forCopy completionHandler:handlerCopy];
+}
+
+- (void)setIndexingEnabled:(BOOL)enabled forDomainIdentifier:(id)identifier providerIdentifier:(id)providerIdentifier completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  providerIdentifierCopy = providerIdentifier;
+  identifierCopy = identifier;
+  connectionProxy = [(FPDaemonConnection *)self connectionProxy];
+  [connectionProxy setIndexingEnabled:enabledCopy forDomainIdentifier:identifierCopy providerIdentifier:providerIdentifierCopy completionHandler:handlerCopy];
+}
+
+- (void)triggerDiagnosticsFor:(id)for triggeringError:(id)error uiOnly:(BOOL)only useDiagnostic:(BOOL)diagnostic completionHandler:(id)handler
+{
+  diagnosticCopy = diagnostic;
+  onlyCopy = only;
+  handlerCopy = handler;
+  errorCopy = error;
+  forCopy = for;
+  FPPrecheckTCCReadAccess();
+  connectionProxy = [(FPDaemonConnection *)self connectionProxy];
+  [connectionProxy triggerDiagnosticsFor:forCopy triggeringError:errorCopy uiOnly:onlyCopy useDiagnostic:diagnosticCopy completionHandler:handlerCopy];
 }
 
 - (void)getSavedDiagnosticsFor:(id)for completionHandler:(id)handler
@@ -1569,72 +1702,52 @@ uint64_t __61__FPDaemonConnection_stateForDomainWithID_completionHandler___block
 
 void __53__FPDaemonConnection_wakeUpForURL_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __98__FPDaemonConnection_evictItemAtURL_evenIfEnumeratingFP_andClearACLForConsumer_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) fp_shortDescription];
   v4 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FPDaemonConnection_evictItemWithID_evictionReason_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __55__FPDaemonConnection_providerDomainsCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __69__FPDaemonConnection_fetchDomainServicerForProviderDomainID_handler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __78__FPDaemonConnection_extendBookmarkForFileURL_toConsumerID_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) fp_shortDescription];
   v4 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLastUsedDateForFileURL:completionHandler:.cold.1()
@@ -1653,28 +1766,12 @@ void __78__FPDaemonConnection_extendBookmarkForFileURL_toConsumerID_completionHa
   [v0 handleFailureInMethod:@"completionHandler" object:? file:? lineNumber:? description:?];
 }
 
-void __64__FPDaemonConnection_forceIngestionForItemID_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, v0, v1, "[ERROR] Cannot forceIngestionOnDomainForItemID. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)forceIngestionForItemIDs:completionHandler:.cold.1()
 {
   OUTLINED_FUNCTION_6_0();
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_6();
   [v0 handleFailureInMethod:@"completionHandler" object:? file:? lineNumber:? description:?];
-}
-
-void __65__FPDaemonConnection_forceIngestionForItemIDs_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, v0, v1, "[ERROR] Cannot forceIngestionForItems. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceLatestVersionOnDiskForItemID:completionHandler:.cold.1()
@@ -1687,13 +1784,10 @@ void __65__FPDaemonConnection_forceIngestionForItemIDs_completionHandler___block
 
 void __74__FPDaemonConnection_forceLatestVersionOnDiskForItemID_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createItemBasedOnTemplate:fields:urlWrapper:options:bounceOnCollision:completionHandler:.cold.1()
@@ -1706,30 +1800,12 @@ void __74__FPDaemonConnection_forceLatestVersionOnDiskForItemID_completionHandle
 
 void __61__FPDaemonConnection_valuesForAttributes_forItemAtURL_error___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [*(a1 + 32) fp_shortDescription];
   OUTLINED_FUNCTION_2();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] returning URL properties for %@\n value: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__FPDaemonConnection_backUpUserURL_outputUserURL_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, v0, v1, "[ERROR] backup failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__FPDaemonConnection_backUpUserURL_outputUserURL_completionHandler___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, v0, v1, "[ERROR] backup cleanup failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] returning URL properties for %@\n value: %@", v6, 0x16u);
 }
 
 - (void)runFPCKForDomainWithID:databasesBackupsPath:options:reason:completionHandler:.cold.1()

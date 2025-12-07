@@ -44,16 +44,16 @@
   v5 = [(_ICQFollowupSpecification *)self init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"followUpInfo"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     [(_ICQFollowupSpecification *)v5 setServerDict:v6];
 
-    v7 = [dictionaryCopy objectForKeyedSubscript:@"badgeApp"];
+    v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     v5->_badgeApp = _ICQBooleanForServerObjectDefault(v7, 1);
 
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"isPremiumOffer"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     v5->_premiumOffer = _ICQBooleanForServerObjectDefault(v8, 0);
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"isEventOffer"];
+    v9 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     v5->_eventOffer = _ICQBooleanForServerObjectDefault(v9, 0);
 
     v10 = _ICQStringForKey(dictionaryCopy, @"offerId");
@@ -88,13 +88,13 @@
 
 - (id)followupActionForLink:(id)link needsFlow:(BOOL)flow
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   linkCopy = link;
   parameters = [linkCopy parameters];
-  v7 = [parameters objectForKeyedSubscript:@"skipCFU"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(parameters);
 
   parameters2 = [linkCopy parameters];
-  v9 = [parameters2 objectForKeyedSubscript:@"dismissLockScreen"];
+  v9 = objc_msgSend_objectForKeyedSubscript_(parameters2);
 
   if ([v7 isEqualToString:@"true"])
   {
@@ -112,11 +112,11 @@
     v15 = [MEMORY[0x277CCAD18] queryItemWithName:@"dismissLockScreen" value:v9];
     v16 = [MEMORY[0x277CCAD18] queryItemWithName:@"ServerLinkId" value:@"lockscreen"];
     v17 = [MEMORY[0x277CBEBC0] URLWithString:@"https://icq.icloud.com"];
-    v30[0] = v11;
-    v30[1] = v14;
-    v30[2] = v15;
-    v30[3] = v16;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+    v29[0] = v11;
+    v29[1] = v14;
+    v29[2] = v15;
+    v29[3] = v16;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
     v19 = [v17 icq_URLByAppendingQueryItems:v18];
   }
 
@@ -130,41 +130,39 @@
   v22 = [v20 actionWithLabel:text url:v19];
 
   v23 = _ICQStringForAction([linkCopy action]);
-  v28[0] = @"ICQLinkAction";
-  v28[1] = @"ICQLinkParameters";
-  v29[0] = v23;
+  v27[0] = @"ICQLinkAction";
+  v27[1] = @"ICQLinkParameters";
+  v28[0] = v23;
   parameters3 = [linkCopy parameters];
-  v29[1] = parameters3;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v28[1] = parameters3;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   [v22 setUserInfo:v25];
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 - (NSURL)serverUIURL
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_links;
-  serverUIURL2 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  serverUIURL2 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (serverUIURL2)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != serverUIURL2; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         serverUIURL = [v6 serverUIURL];
 
         if (serverUIURL)
@@ -174,7 +172,7 @@
         }
       }
 
-      serverUIURL2 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      serverUIURL2 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (serverUIURL2)
       {
         continue;
@@ -186,33 +184,31 @@
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return serverUIURL2;
 }
 
 - (NSURL)dynamicUIRouteURL
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_links;
-  dynamicUIRouteURL2 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  dynamicUIRouteURL2 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (dynamicUIRouteURL2)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != dynamicUIRouteURL2; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         dynamicUIRouteURL = [v6 dynamicUIRouteURL];
 
         if (dynamicUIRouteURL)
@@ -222,7 +218,7 @@ LABEL_11:
         }
       }
 
-      dynamicUIRouteURL2 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      dynamicUIRouteURL2 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (dynamicUIRouteURL2)
       {
         continue;
@@ -234,33 +230,31 @@ LABEL_11:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return dynamicUIRouteURL2;
 }
 
 - (NSString)purchaseAttribution
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_links;
-  purchaseAttribution2 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  purchaseAttribution2 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (purchaseAttribution2)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != purchaseAttribution2; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         purchaseAttribution = [v6 purchaseAttribution];
 
         if (purchaseAttribution)
@@ -270,7 +264,7 @@ LABEL_11:
         }
       }
 
-      purchaseAttribution2 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      purchaseAttribution2 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (purchaseAttribution2)
       {
         continue;
@@ -282,53 +276,49 @@ LABEL_11:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return purchaseAttribution2;
 }
 
 - (void)postFollowupWithController:(id)controller
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   identifierPrefix = [(_ICQFollowupSpecification *)self identifierPrefix];
-  v20[0] = identifierPrefix;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = identifierPrefix;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   [controllerCopy clearPendingFollowUpItemsWithUniqueIdentifiers:v6 error:0];
 
   _buildFollowupItem = [(_ICQFollowupSpecification *)self _buildFollowupItem];
-  v13 = 0;
-  [controllerCopy postFollowUpItem:_buildFollowupItem error:&v13];
+  v12 = 0;
+  [controllerCopy postFollowUpItem:_buildFollowupItem error:&v12];
 
-  v8 = v13;
+  v8 = v12;
   v9 = _ICQGetLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     title = [_buildFollowupItem title];
     groupIdentifier = [_buildFollowupItem groupIdentifier];
     *buf = 138412802;
-    v15 = title;
-    v16 = 2112;
-    v17 = groupIdentifier;
-    v18 = 2112;
-    v19 = v8;
+    v14 = title;
+    v15 = 2112;
+    v16 = groupIdentifier;
+    v17 = 2112;
+    v18 = v8;
     _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "Posted ICQFollowup item (title:%@ group:%@) with error: %@", buf, 0x20u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postFollowupWithController:(id)controller replaceExisting:(BOOL)existing completion:(id)completion
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   completionCopy = completion;
   v10 = completionCopy;
   if (existing)
   {
     identifierPrefix = [(_ICQFollowupSpecification *)self identifierPrefix];
-    v17[0] = identifierPrefix;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = identifierPrefix;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     [controllerCopy clearPendingFollowUpItemsWithUniqueIdentifiers:v12 error:0];
 
     [(_ICQFollowupSpecification *)self _postFollowupWithController:controllerCopy completion:v10];
@@ -336,17 +326,15 @@ LABEL_11:
 
   else
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __83___ICQFollowupSpecification_postFollowupWithController_replaceExisting_completion___block_invoke;
-    v14[3] = &unk_27A652E00;
-    v14[4] = self;
-    v16 = completionCopy;
-    v15 = controllerCopy;
-    [v15 pendingFollowUpItemsWithCompletion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __83___ICQFollowupSpecification_postFollowupWithController_replaceExisting_completion___block_invoke;
+    v13[3] = &unk_27A652E00;
+    v13[4] = self;
+    v15 = completionCopy;
+    v14 = controllerCopy;
+    [v14 pendingFollowUpItemsWithCompletion:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postFollowupWithController:(id)controller completion:(id)completion
@@ -367,7 +355,7 @@ LABEL_11:
 
 - (id)_buildFollowupItem
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = _ICQGetLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -376,32 +364,32 @@ LABEL_11:
   }
 
   v4 = objc_opt_new();
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   links = [(_ICQFollowupSpecification *)self links];
-  v6 = [links countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v6 = [links countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v51;
+    v8 = *v50;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v51 != v8)
+        if (*v50 != v8)
         {
           objc_enumerationMutation(links);
         }
 
-        v10 = *(*(&v50 + 1) + 8 * i);
+        v10 = *(*(&v49 + 1) + 8 * i);
         noteActivateLink = [(_ICQFollowupSpecification *)self noteActivateLink];
         v12 = [(_ICQFollowupSpecification *)self followupActionForLink:v10 needsFlow:v10 == noteActivateLink];
         [v4 addObject:v12];
       }
 
-      v7 = [links countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v7 = [links countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
     while (v7);
@@ -487,10 +475,10 @@ LABEL_19:
 
   else
   {
-    v56 = @"offerId";
+    v55 = @"offerId";
     offerId2 = [(_ICQFollowupSpecification *)self offerId];
-    v57 = offerId2;
-    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+    v56 = offerId2;
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
     [v28 setUserInfo:v38];
   }
 
@@ -533,7 +521,7 @@ LABEL_19:
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v55 = v42;
+      v54 = v42;
       _os_log_impl(&dword_275572000, v43, OS_LOG_TYPE_DEFAULT, "Setting CFU group identifier to %@", buf, 0xCu);
     }
 
@@ -556,14 +544,12 @@ LABEL_19:
     [v28 setRepresentingBundlePath:sfSymbolBundlePath2];
   }
 
-  v48 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 + (void)clearLegacyFollowupWithController:(id)controller
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   if ([_ICQHelperFunctions userDefaultsBoolValueForKey:@"_ICQLegacyQuotaFollowupCleanup.2"])
   {
@@ -580,22 +566,20 @@ LABEL_19:
     v5 = _ICQGetLogSystem();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Clearing legacy ICQFollowup items", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Clearing legacy ICQFollowup items", v6, 2u);
     }
 
-    v8[0] = @"com.apple.iCloudQuotaDaemon.ICQFollowup";
-    v8[1] = @"com.apple.iCloudQuotaDaemon.StorageManagement.followup";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+    v7[0] = @"com.apple.iCloudQuotaDaemon.ICQFollowup";
+    v7[1] = @"com.apple.iCloudQuotaDaemon.StorageManagement.followup";
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
     [controllerCopy clearPendingFollowUpItemsWithUniqueIdentifiers:v4 completion:&__block_literal_global_20];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)clearFollowupWithController:(id)controller offerType:(int64_t)type completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   controllerCopy = controller;
   v9 = _ICQGetLogSystem();
@@ -603,16 +587,14 @@ LABEL_19:
   {
     v10 = [_ICQHelperFunctions _getOfferDescriptionFromRequestType:type];
     *buf = 138412290;
-    v16 = v10;
+    v15 = v10;
     _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "Clearing ICQFollowup items for offerType %@", buf, 0xCu);
   }
 
   v11 = [_ICQHelperFunctions followUpIdentifierPrefixForRequestType:type];
-  v14 = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   [controllerCopy clearPendingFollowUpItemsWithUniqueIdentifiers:v12 completion:completionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedFollowUpController
@@ -647,13 +629,13 @@ LABEL_19:
 
 - (void)setServerDict:(id)dict
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   objc_storeStrong(&self->_serverDict, dict);
-  v6 = [dictCopy objectForKeyedSubscript:@"title"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   [(_ICQFollowupSpecification *)self setTitle:v6];
 
-  v7 = [dictCopy objectForKeyedSubscript:@"mesg"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   if (v7)
   {
     [(_ICQFollowupSpecification *)self setMessage:v7];
@@ -661,11 +643,11 @@ LABEL_19:
 
   else
   {
-    v8 = [dictCopy objectForKeyedSubscript:@"message"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
     [(_ICQFollowupSpecification *)self setMessage:v8];
   }
 
-  v9 = [dictCopy objectForKeyedSubscript:@"altMesg"];
+  v9 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   if (v9)
   {
     [(_ICQFollowupSpecification *)self setAltMessage:v9];
@@ -673,7 +655,7 @@ LABEL_19:
 
   else
   {
-    v10 = [dictCopy objectForKeyedSubscript:@"altMessage"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
     [(_ICQFollowupSpecification *)self setAltMessage:v10];
   }
 
@@ -694,9 +676,9 @@ LABEL_19:
         Name = class_getName(v15);
         message3 = [(_ICQFollowupSpecification *)self message];
         *buf = 136315394;
-        v91 = Name;
-        v92 = 2112;
-        v93 = message3;
+        v90 = Name;
+        v91 = 2112;
+        v92 = message3;
         _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
     }
@@ -721,9 +703,9 @@ LABEL_19:
         v23 = class_getName(v22);
         altMessage3 = [(_ICQFollowupSpecification *)self altMessage];
         *buf = 136315394;
-        v91 = v23;
-        v92 = 2112;
-        v93 = altMessage3;
+        v90 = v23;
+        v91 = 2112;
+        v92 = altMessage3;
         _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
     }
@@ -731,7 +713,7 @@ LABEL_19:
     [(_ICQFollowupSpecification *)self setAltMessage:0];
   }
 
-  v25 = [dictCopy objectForKeyedSubscript:@"actions"];
+  v25 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   v26 = v25;
   if (v25)
   {
@@ -740,45 +722,45 @@ LABEL_19:
 
   else
   {
-    v27 = [dictCopy objectForKeyedSubscript:@"Actions"];
+    v27 = objc_msgSend_objectForKeyedSubscript_(dictCopy);
   }
 
   v28 = v27;
   selfCopy = self;
-  v82 = dictCopy;
+  v81 = dictCopy;
 
   v29 = v28;
-  v85 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v29, "count")}];
+  v84 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v29, "count")}];
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   v30 = v29;
-  v31 = [v30 countByEnumeratingWithState:&v86 objects:buf count:16];
-  v84 = v30;
+  v31 = [v30 countByEnumeratingWithState:&v85 objects:buf count:16];
+  v83 = v30;
   if (v31)
   {
     v32 = v31;
-    v83 = 0;
+    v82 = 0;
     v33 = 0;
-    v34 = *v87;
+    v34 = *v86;
     while (1)
     {
       v35 = 0;
       do
       {
-        if (*v87 != v34)
+        if (*v86 != v34)
         {
           objc_enumerationMutation(v30);
         }
 
-        v36 = *(*(&v86 + 1) + 8 * v35);
+        v36 = *(*(&v85 + 1) + 8 * v35);
         v37 = _ICQLinkForServerMessageParameter(v36);
         if (v37)
         {
-          [v85 addObject:v37];
+          [v84 addObject:v37];
           v38 = v36;
-          v39 = [v38 objectForKeyedSubscript:@"btnDefault"];
+          v39 = objc_msgSend_objectForKeyedSubscript_(v38);
           v40 = v39;
           if (v39)
           {
@@ -787,7 +769,7 @@ LABEL_19:
 
           else
           {
-            v41 = [v38 objectForKeyedSubscript:@"BtnDefault"];
+            v41 = objc_msgSend_objectForKeyedSubscript_(v38);
           }
 
           v42 = v41;
@@ -799,7 +781,7 @@ LABEL_19:
             if (bOOLValue)
             {
               v44 = v37;
-              v83 = v37;
+              v82 = v37;
             }
           }
 
@@ -808,13 +790,13 @@ LABEL_19:
           }
 
           v45 = v38;
-          v46 = [v45 objectForKeyedSubscript:@"btnId"];
+          v46 = objc_msgSend_objectForKeyedSubscript_(v45);
           if ([v46 isEqualToString:@"dlCancel"])
           {
             goto LABEL_38;
           }
 
-          v47 = [v45 objectForKeyedSubscript:@"btnId"];
+          v47 = objc_msgSend_objectForKeyedSubscript_(v45);
           if ([v47 isEqualToString:@"cancelled"])
           {
 
@@ -826,10 +808,10 @@ LABEL_39:
           }
 
           v49 = v33;
-          v50 = [v45 objectForKeyedSubscript:@"btnAction"];
+          v50 = objc_msgSend_objectForKeyedSubscript_(v45);
           v51 = [v50 isEqualToString:@"DISMISS_ALERT"];
 
-          v30 = v84;
+          v30 = v83;
           if (v51)
           {
             goto LABEL_39;
@@ -844,7 +826,7 @@ LABEL_40:
       }
 
       while (v32 != v35);
-      v52 = [v30 countByEnumeratingWithState:&v86 objects:buf count:16];
+      v52 = [v30 countByEnumeratingWithState:&v85 objects:buf count:16];
       v32 = v52;
       if (!v52)
       {
@@ -853,20 +835,20 @@ LABEL_40:
     }
   }
 
-  v83 = 0;
+  v82 = 0;
   v33 = 0;
 LABEL_47:
 
-  v53 = [v85 copy];
-  v54 = v83;
+  v53 = [v84 copy];
+  v54 = v82;
   v55 = v33;
   v56 = selfCopy;
   [(_ICQFollowupSpecification *)selfCopy setLinks:v53];
 
-  v57 = [v82 objectForKeyedSubscript:@"lockTitle"];
+  v57 = objc_msgSend_objectForKeyedSubscript_(v81);
   [(_ICQFollowupSpecification *)selfCopy setNoteTitle:v57];
 
-  v58 = [v82 objectForKeyedSubscript:@"lockMesg"];
+  v58 = objc_msgSend_objectForKeyedSubscript_(v81);
   if (v58)
   {
     [(_ICQFollowupSpecification *)selfCopy setNoteMessage:v58];
@@ -874,11 +856,11 @@ LABEL_47:
 
   else
   {
-    v59 = [v82 objectForKeyedSubscript:@"lockMessage"];
+    v59 = objc_msgSend_objectForKeyedSubscript_(v81);
     [(_ICQFollowupSpecification *)selfCopy setNoteMessage:v59];
   }
 
-  v60 = [v82 objectForKeyedSubscript:@"altLockMesg"];
+  v60 = objc_msgSend_objectForKeyedSubscript_(v81);
   if (v60)
   {
     [(_ICQFollowupSpecification *)selfCopy setAltNoteMessage:v60];
@@ -886,7 +868,7 @@ LABEL_47:
 
   else
   {
-    v61 = [v82 objectForKeyedSubscript:@"altLockMessage"];
+    v61 = objc_msgSend_objectForKeyedSubscript_(v81);
     [(_ICQFollowupSpecification *)selfCopy setAltNoteMessage:v61];
   }
 
@@ -907,9 +889,9 @@ LABEL_47:
         v67 = class_getName(v66);
         noteMessage3 = [(_ICQFollowupSpecification *)selfCopy noteMessage];
         *buf = 136315394;
-        v91 = v67;
-        v92 = 2112;
-        v93 = noteMessage3;
+        v90 = v67;
+        v91 = 2112;
+        v92 = noteMessage3;
         _os_log_impl(&dword_275572000, v65, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
     }
@@ -934,9 +916,9 @@ LABEL_47:
         v74 = class_getName(v73);
         altNoteMessage3 = [(_ICQFollowupSpecification *)v56 altNoteMessage];
         *buf = 136315394;
-        v91 = v74;
-        v92 = 2112;
-        v93 = altNoteMessage3;
+        v90 = v74;
+        v91 = 2112;
+        v92 = altNoteMessage3;
         _os_log_impl(&dword_275572000, v72, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
       }
     }
@@ -957,41 +939,39 @@ LABEL_47:
     [(_ICQFollowupSpecification *)v56 setNoteClearLink:v77];
   }
 
-  v78 = [v82 objectForKeyedSubscript:@"enableDirectAction"];
+  v78 = objc_msgSend_objectForKeyedSubscript_(v81);
   [(_ICQFollowupSpecification *)v56 setZeroAction:_ICQBooleanForServerObjectDefault(v78, 0)];
 
-  v79 = [v82 objectForKeyedSubscript:@"groupIdentifier"];
+  v79 = objc_msgSend_objectForKeyedSubscript_(v81);
   [(_ICQFollowupSpecification *)v56 setGroupIdentifier:v79];
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)primaryAction
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   links = [(_ICQFollowupSpecification *)self links];
-  v3 = [links countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [links countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
     action2 = 0;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(links);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         parameters = [v8 parameters];
-        v10 = [parameters objectForKeyedSubscript:@"btnId"];
+        v10 = objc_msgSend_objectForKeyedSubscript_(parameters);
         v11 = [v10 isEqualToString:@"followUpOkBtnId"];
 
         action = [v8 action];
@@ -1007,7 +987,7 @@ LABEL_47:
         }
       }
 
-      v4 = [links countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [links countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v4)
       {
         continue;
@@ -1024,35 +1004,31 @@ LABEL_47:
 
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
   return action2;
 }
 
 - (void)addNotifyingAppIdForItem:(id)item
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   notifyingAppId = [(_ICQFollowupSpecification *)self notifyingAppId];
 
   if (notifyingAppId)
   {
-    v9 = ICQFollowupNotifyingAppIdKey;
+    v8 = ICQFollowupNotifyingAppIdKey;
     notifyingAppId2 = [(_ICQFollowupSpecification *)self notifyingAppId];
-    v10[0] = notifyingAppId2;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = notifyingAppId2;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [itemCopy setUserInfo:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)followupActionForLink:(uint64_t)a1 needsFlow:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "Skipping CFU for lockscreen link: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "Skipping CFU for lockscreen link: %@", &v2, 0xCu);
 }
 
 @end

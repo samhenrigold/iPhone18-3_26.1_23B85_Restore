@@ -39,7 +39,7 @@
           v18 = trimAdjustmentController2;
           if (trimAdjustmentController2)
           {
-            [trimAdjustmentController2 endTime];
+            objc_msgSend_endTime(trimAdjustmentController2);
           }
 
           else
@@ -52,7 +52,7 @@
           v20 = trimAdjustmentController3;
           if (trimAdjustmentController3)
           {
-            [trimAdjustmentController3 startTime];
+            objc_msgSend_startTime(trimAdjustmentController3);
           }
 
           else

@@ -6,12 +6,12 @@
 - (PKXPCService)initWithMachServiceName:(id)name remoteObjectInterface:(id)interface exportedObjectInterface:(id)objectInterface exportedObject:(id)object serviceResumedNotificationName:(id)notificationName options:(unint64_t)options;
 - (PKXPCServiceDelegate)delegate;
 - (id)_connection;
+- (id)_newWrappedErrorHandlerForHandler:(id *)handler;
 - (id)existingRemoteObjectProxyWithErrorHandler:(id)handler;
 - (id)existingSynchronousRemoteObjectProxyWithErrorHandler:(id)handler;
 - (id)remoteObjectProxyWithErrorHandler:(id)handler;
 - (id)remoteObjectProxyWithFailureHandler:(id)handler;
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
-- (uint64_t)_newWrappedErrorHandlerForHandler:(uint64_t)handler;
 - (void)_createConnectionIfPossible:(uint64_t)possible;
 - (void)_establishServiceConnection;
 - (void)_sendResumed;
@@ -313,24 +313,24 @@
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
 {
-  v4 = [(PKXPCService *)self _newWrappedErrorHandlerForHandler:handler];
+  v4 = [(PKXPCService *)&self->super.isa _newWrappedErrorHandlerForHandler:handler];
   _connection = [(PKXPCService *)self _connection];
   v6 = [_connection remoteObjectProxyWithErrorHandler:v4];
 
   if (!v6 && v4)
   {
-    v4[2](v4, 0);
+    (v4[2])(v4, 0);
   }
 
   return v6;
 }
 
-- (uint64_t)_newWrappedErrorHandlerForHandler:(uint64_t)handler
+- (id)_newWrappedErrorHandlerForHandler:(id *)handler
 {
   v3 = a2;
   if (handler)
   {
-    v4 = *(handler + 24);
+    v4 = handler[3];
     v8 = MEMORY[0x1E69E9820];
     v9 = 3221225472;
     v10 = __50__PKXPCService__newWrappedErrorHandlerForHandler___block_invoke;
@@ -351,13 +351,13 @@
   os_unfair_lock_lock(&self->_lock);
   v5 = self->_connection;
   os_unfair_lock_unlock(&self->_lock);
-  v6 = [(PKXPCService *)self _newWrappedErrorHandlerForHandler:handlerCopy];
+  v6 = [(PKXPCService *)&self->super.isa _newWrappedErrorHandlerForHandler:handlerCopy];
 
   v7 = [(NSXPCConnection *)v5 remoteObjectProxyWithErrorHandler:v6];
 
   if (v6 && !v7)
   {
-    v6[2](v6, 0);
+    (v6[2])(v6, 0);
   }
 
   return v7;
@@ -365,13 +365,13 @@
 
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler
 {
-  v4 = [(PKXPCService *)self _newWrappedErrorHandlerForHandler:handler];
+  v4 = [(PKXPCService *)&self->super.isa _newWrappedErrorHandlerForHandler:handler];
   _connection = [(PKXPCService *)self _connection];
   v6 = [_connection synchronousRemoteObjectProxyWithErrorHandler:v4];
 
   if (!v6 && v4)
   {
-    v4[2](v4, 0);
+    (v4[2])(v4, 0);
   }
 
   return v6;
@@ -383,7 +383,7 @@
   os_unfair_lock_lock(&self->_lock);
   v5 = self->_connection;
   os_unfair_lock_unlock(&self->_lock);
-  v6 = [(PKXPCService *)self _newWrappedErrorHandlerForHandler:handlerCopy];
+  v6 = [(PKXPCService *)&self->super.isa _newWrappedErrorHandlerForHandler:handlerCopy];
 
   v7 = [(NSXPCConnection *)v5 synchronousRemoteObjectProxyWithErrorHandler:v6];
 

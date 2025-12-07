@@ -209,167 +209,165 @@
 
 - (id)countAllSharingGroupAndItems:(Class)items withError:(id *)error
 {
-  v34[0] = &off_100363F10;
-  v34[1] = &off_100363F40;
-  v35[0] = &off_100363F28;
-  v35[1] = &off_100363F28;
-  v34[2] = &off_100363F58;
-  v34[3] = &off_100363F70;
-  v35[2] = &off_100363F28;
-  v35[3] = &off_100363F28;
-  v7 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:4];
+  v33[0] = &off_100363F10;
+  v33[1] = &off_100363F40;
+  v34[0] = &off_100363F28;
+  v34[1] = &off_100363F28;
+  v33[2] = &off_100363F58;
+  v33[3] = &off_100363F70;
+  v34[2] = &off_100363F28;
+  v34[3] = &off_100363F28;
+  v7 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:4];
   v8 = [v7 mutableCopy];
 
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10003D8E8;
-  v21[3] = &unk_100334550;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10003D8E8;
+  v20[3] = &unk_100334550;
   itemsCopy = items;
-  v21[4] = self;
+  v20[4] = self;
   v9 = v8;
-  v22 = v9;
-  if ([(KCSharingStore *)self withConnection:v21 error:error])
+  v21 = v9;
+  if ([(KCSharingStore *)self withConnection:v20 error:error])
   {
     allValues = [v9 allValues];
     v11 = [allValues valueForKeyPath:@"@sum.self"];
     integerValue = [v11 integerValue];
 
-    loggingIdentifier = self->_loggingIdentifier;
-    v14 = KCSharingLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v13 = KCSharingLogObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v15 = [v9 objectForKeyedSubscript:&off_100363F10];
-      v16 = [v9 objectForKeyedSubscript:&off_100363F40];
-      v17 = [v9 objectForKeyedSubscript:&off_100363F58];
-      v18 = [v9 objectForKeyedSubscript:&off_100363F70];
+      v14 = [v9 objectForKeyedSubscript:&off_100363F10];
+      v15 = [v9 objectForKeyedSubscript:&off_100363F40];
+      v16 = [v9 objectForKeyedSubscript:&off_100363F58];
+      v17 = [v9 objectForKeyedSubscript:&off_100363F70];
       *buf = 138413315;
-      v25 = v15;
-      v26 = 2113;
-      v27 = v16;
-      v28 = 2113;
-      v29 = v17;
-      v30 = 2113;
-      v31 = v18;
-      v32 = 2048;
-      v33 = integerValue;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Final counts - Unknown: %@, Passkey: %{private}@, Password: %{private}@, Share: %{private}@, Sum: %lu", buf, 0x34u);
+      v24 = v14;
+      v25 = 2113;
+      v26 = v15;
+      v27 = 2113;
+      v28 = v16;
+      v29 = 2113;
+      v30 = v17;
+      v31 = 2048;
+      v32 = integerValue;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Final counts - Unknown: %@, Passkey: %{private}@, Password: %{private}@, Share: %{private}@, Sum: %lu", buf, 0x34u);
     }
 
-    v19 = v9;
+    v18 = v9;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  return v19;
+  return v18;
 }
 
 - (BOOL)resetMetadataInTransaction:(__OpaqueSecDbConnection *)transaction error:(id *)error
 {
-  loggingIdentifier = self->_loggingIdentifier;
-  v8 = KCSharingLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = KCSharingLogObject();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Wiping local metadata...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Wiping local metadata...", buf, 2u);
   }
 
-  v33 = 0;
-  v9 = sub_100007604(@"genp", &qword_10039E090, &unk_10039E088);
-  v10 = sub_100007698(v9, 0, 0, 0, &v33);
-  if (v10)
+  v32 = 0;
+  v8 = sub_100007604(@"genp", &qword_10039E090, &unk_10039E088);
+  v9 = sub_100007698(v8, 0, 0, 0, &v32);
+  if (v9)
   {
-    v11 = v10;
+    v10 = v9;
     accessGroups = [(KCSharingStore *)self accessGroups];
     entryAccessGroup = [accessGroups entryAccessGroup];
-    sub_1000079A0(kSecAttrAccessGroup, entryAccessGroup, v11);
+    sub_1000079A0(kSecAttrAccessGroup, entryAccessGroup, v10);
 
     metadataDomain = [(KCSharingStore *)self metadataDomain];
-    sub_1000079A0(kSecAttrService, metadataDomain, v11);
+    sub_1000079A0(kSecAttrService, metadataDomain, v10);
 
     *buf = 0;
-    v30 = buf;
-    v31 = 0x2020000000;
-    v32 = 1;
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2020000000;
-    v28 = 0;
-    v23 = v11;
+    v29 = buf;
+    v30 = 0x2020000000;
+    v31 = 1;
     v24 = 0;
-    v21[6] = transaction;
-    v22.isa = _NSConcreteStackBlock;
-    *&v22.flags = 3221225472;
-    v22.invoke = sub_10003DE7C;
-    v22.descriptor = &unk_100334508;
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_10003DEBC;
-    v21[3] = &unk_100334AE8;
-    v21[4] = &v25;
-    v21[5] = buf;
-    v15 = sub_100014718(v11, transaction, &v24, &stru_1003344E8, &v22, 0, 0, v21);
-    sub_10000DF70(v11, 0);
-    if (v15)
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
+    v22 = v10;
+    v23 = 0;
+    v20[6] = transaction;
+    v21.isa = _NSConcreteStackBlock;
+    *&v21.flags = 3221225472;
+    v21.invoke = sub_10003DE7C;
+    v21.descriptor = &unk_100334508;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10003DEBC;
+    v20[3] = &unk_100334AE8;
+    v20[4] = &v24;
+    v20[5] = buf;
+    v14 = sub_100014718(v10, transaction, &v23, &stru_1003344E8, &v21, 0, 0, v20);
+    sub_10000DF70(v10, 0);
+    if (v14)
     {
-      if (v30[24])
+      if (v29[24])
       {
-        v16 = 1;
+        v15 = 1;
 LABEL_21:
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v24, 8);
         _Block_object_dispose(buf, 8);
-        return v16;
+        return v15;
       }
 
-      v19 = v26[3];
+      v18 = v25[3];
       if (error)
       {
-        v16 = 0;
-        *error = v19;
-        v26[3] = 0;
+        v15 = 0;
+        *error = v18;
+        v25[3] = 0;
         goto LABEL_21;
       }
 
-      if (v19)
+      if (v18)
       {
-        v26[3] = 0;
-        CFRelease(v19);
+        v25[3] = 0;
+        CFRelease(v18);
       }
     }
 
     else
     {
-      v18 = v24;
+      v17 = v23;
       if (error)
       {
-        v16 = 0;
-        *error = v24;
+        v15 = 0;
+        *error = v23;
         goto LABEL_21;
       }
 
-      if (v24)
+      if (v23)
       {
-        v24 = 0;
-        CFRelease(v18);
+        v23 = 0;
+        CFRelease(v17);
       }
     }
 
-    v16 = 0;
+    v15 = 0;
     goto LABEL_21;
   }
 
-  v17 = v33;
+  v16 = v32;
   if (error)
   {
-    *error = v33;
+    *error = v32;
   }
 
-  else if (v33)
+  else if (v32)
   {
-    v33 = 0;
-    CFRelease(v17);
+    v32 = 0;
+    CFRelease(v16);
   }
 
   return 1;
@@ -377,52 +375,51 @@ LABEL_21:
 
 - (BOOL)resetSyncTablesInTransaction:(__OpaqueSecDbConnection *)transaction error:(id *)error
 {
-  loggingIdentifier = self->_loggingIdentifier;
-  v8 = KCSharingLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = KCSharingLogObject();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Wiping sync tables...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Wiping sync tables...", buf, 2u);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v23[0] = @"DELETE FROM sharingIncomingQueue WHERE agrp = ?";
-  v23[1] = @"DELETE FROM sharingMirror WHERE agrp = ?";
-  v23[2] = @"DELETE FROM sharingOutgoingQueue WHERE agrp = ?";
-  v9 = [NSArray arrayWithObjects:v23 count:3];
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
-  if (v10)
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v22[0] = @"DELETE FROM sharingIncomingQueue WHERE agrp = ?";
+  v22[1] = @"DELETE FROM sharingMirror WHERE agrp = ?";
+  v22[2] = @"DELETE FROM sharingOutgoingQueue WHERE agrp = ?";
+  v8 = [NSArray arrayWithObjects:v22 count:3];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v19;
+    v10 = v9;
+    v11 = *v18;
     while (2)
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v10; i = i + 1)
       {
-        if (*v19 != v12)
+        if (*v18 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        v17[0] = _NSConcreteStackBlock;
-        v17[1] = 3221225472;
-        v17[2] = sub_10003E134;
-        v17[3] = &unk_100333E70;
-        v17[4] = self;
-        v17[5] = transaction;
-        if (!sub_100069BC0(transaction, v14, error, v17))
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v16[0] = _NSConcreteStackBlock;
+        v16[1] = 3221225472;
+        v16[2] = sub_10003E134;
+        v16[3] = &unk_100333E70;
+        v16[4] = self;
+        v16[5] = transaction;
+        if (!sub_100069BC0(transaction, v13, error, v16))
         {
-          v15 = 0;
+          v14 = 0;
           goto LABEL_13;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
-      if (v11)
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      if (v10)
       {
         continue;
       }
@@ -431,46 +428,44 @@ LABEL_21:
     }
   }
 
-  v15 = 1;
+  v14 = 1;
 LABEL_13:
 
-  return v15;
+  return v14;
 }
 
 - (BOOL)wipeLocalPasswordsInTransaction:(__OpaqueSecDbConnection *)transaction error:(id *)error
 {
-  loggingIdentifier = self->_loggingIdentifier;
-  v7 = KCSharingLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v6 = KCSharingLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Wiping local passwords...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Wiping local passwords...", buf, 2u);
   }
 
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10003E2D4;
-  v9[3] = &unk_100334488;
-  v9[4] = transaction;
-  return sub_100069BC0(transaction, @"DELETE FROM inet WHERE ggrp <> ''", error, v9);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10003E2D4;
+  v8[3] = &unk_100334488;
+  v8[4] = transaction;
+  return sub_100069BC0(transaction, @"DELETE FROM inet WHERE ggrp <> ''", error, v8);
 }
 
 - (BOOL)wipeLocalPrivateKeysInTransaction:(__OpaqueSecDbConnection *)transaction error:(id *)error
 {
-  loggingIdentifier = self->_loggingIdentifier;
-  v7 = KCSharingLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v6 = KCSharingLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Wiping local private keys...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Wiping local private keys...", buf, 2u);
   }
 
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10003E3D0;
-  v9[3] = &unk_100334488;
-  v9[4] = transaction;
-  return sub_100069BC0(transaction, @"DELETE FROM keys WHERE ggrp <> ''", error, v9);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10003E3D0;
+  v8[3] = &unk_100334488;
+  v8[4] = transaction;
+  return sub_100069BC0(transaction, @"DELETE FROM keys WHERE ggrp <> ''", error, v8);
 }
 
 - (BOOL)wipeWithError:(id *)error

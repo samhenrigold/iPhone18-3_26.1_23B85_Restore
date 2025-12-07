@@ -20,8 +20,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v19[8] = *MEMORY[0x1E69E9840];
-  v18[0] = @"completionUserActivity";
+  v18[8] = *MEMORY[0x1E69E9840];
+  v17[0] = @"completionUserActivity";
   completionUserActivity = self->_completionUserActivity;
   null = completionUserActivity;
   if (!completionUserActivity)
@@ -29,17 +29,17 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[0] = null;
-  v18[1] = @"completed";
-  v17 = [MEMORY[0x1E696AD98] numberWithBool:{self->_completed, null}];
-  v19[1] = v17;
-  v18[2] = @"isCanceled";
+  v18[0] = null;
+  v17[1] = @"completed";
+  v16 = [MEMORY[0x1E696AD98] numberWithBool:{self->_completed, null}];
+  v18[1] = v16;
+  v17[2] = @"isCanceled";
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[INRideCompletionStatus isCompleted](self, "isCompleted") ^ 1}];
-  v19[2] = v5;
-  v18[3] = @"missedPickup";
+  v18[2] = v5;
+  v17[3] = @"missedPickup";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:self->_missedPickup];
-  v19[3] = v6;
-  v18[4] = @"paymentAmount";
+  v18[3] = v6;
+  v17[4] = @"paymentAmount";
   paymentAmount = self->_paymentAmount;
   null2 = paymentAmount;
   if (!paymentAmount)
@@ -47,8 +47,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[4] = null2;
-  v18[5] = @"defaultTippingOptions";
+  v18[4] = null2;
+  v17[5] = @"defaultTippingOptions";
   defaultTippingOptions = self->_defaultTippingOptions;
   null3 = defaultTippingOptions;
   if (!defaultTippingOptions)
@@ -56,14 +56,14 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[5] = null3;
-  v18[6] = @"feedbackType";
+  v18[5] = null3;
+  v17[6] = @"feedbackType";
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_feedbackType];
-  v19[6] = v11;
-  v18[7] = @"outstanding";
+  v18[6] = v11;
+  v17[7] = @"outstanding";
   v12 = [MEMORY[0x1E696AD98] numberWithBool:self->_outstanding];
-  v19[7] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:8];
+  v18[7] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:8];
 
   if (defaultTippingOptions)
   {
@@ -86,8 +86,6 @@ LABEL_9:
   if (!completionUserActivity)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

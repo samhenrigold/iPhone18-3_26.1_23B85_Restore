@@ -179,40 +179,41 @@
   v2 = [NSBundle bundleForClass:objc_opt_class()];
   v3 = [v2 pathForResource:@"AEAssetShare" ofType:@"css"];
 
-  v10 = 0;
-  v4 = [NSString stringWithContentsOfFile:v3 encoding:4 error:&v10];
-  v5 = v10;
+  v12 = 0;
+  v4 = [NSString stringWithContentsOfFile:v3 encoding:4 error:&v12];
+  v5 = v12;
+  v6 = v5;
   if (v4)
   {
-    v6 = [NSString stringWithFormat:@"<style type=text/css>%@</style>", v4];
+    v7 = [NSString stringWithFormat:@"<style type=text/css>%@</style>", v4];
   }
 
   else
   {
-    v7 = BCIMLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      *buf = 136315650;
-      v12 = "[AEAssetHTMLGenerator styleSection]";
-      v13 = 2080;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Sharing/Annotations/Private/AEAssetHTMLGenerator.m";
-      v15 = 1024;
-      v16 = 212;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
-    }
-
-    v8 = BCIMLog();
+    v8 = BCIMLog(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *buf = 138412290;
-      v12 = v3;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "@Failed to load CSS at Path {%@}", buf, 0xCu);
+      *buf = 136315650;
+      v14 = "[AEAssetHTMLGenerator styleSection]";
+      v15 = 2080;
+      v16 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Sharing/Annotations/Private/AEAssetHTMLGenerator.m";
+      v17 = 1024;
+      v18 = 212;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
     }
 
-    v6 = 0;
+    v10 = BCIMLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v14 = v3;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "@Failed to load CSS at Path {%@}", buf, 0xCu);
+    }
+
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)bookInfoSection
@@ -227,7 +228,7 @@
 - (id)disclaimerSection
 {
   v2 = [NSMutableString stringWithString:@"<div class=disclaimer><!-- %%NOTADDEDTOMAILLIST%% --></div>"];
-  v3 = IMCommonCoreBundle();
+  v3 = IMCommonCoreBundle(v2);
   v4 = [v3 localizedStringForKey:@"Please note that you have not been added to any email lists." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   [v2 AEReplaceTemplatePlaceholder:@"<!-- %%NOTADDEDTOMAILLIST%% -->" withString:v4];
@@ -302,20 +303,21 @@
 - (id)storeLink
 {
   storeURL = [(AEAssetHTMLGenerator *)self storeURL];
+  v3 = storeURL;
   if (storeURL)
   {
-    v3 = IMCommonCoreBundle();
-    v4 = [v3 localizedStringForKey:@"Available in Apple Books" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v4 = IMCommonCoreBundle(storeURL);
+    v5 = [v4 localizedStringForKey:@"Available in Apple Books" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-    v5 = [NSString stringWithFormat:@"<a href=%@>%@</a>", storeURL, v4];
+    v6 = [NSString stringWithFormat:@"<a href=%@>%@</a>", v3, v5];
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)templateStringForName:(id)name
@@ -334,32 +336,32 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v15 = 0;
-  v7 = [NSString stringWithContentsOfFile:v6 encoding:4 error:&v15];
-  v8 = v15;
+  v16 = 0;
+  v7 = [NSString stringWithContentsOfFile:v6 encoding:4 error:&v16];
+  v8 = v16;
   v9 = v8;
   if (!v7)
   {
-    v11 = BCIMLog();
+    v11 = BCIMLog(v8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v17 = "[AEAssetHTMLGenerator templateStringForName:]";
-      v18 = 2080;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Sharing/Annotations/Private/AEAssetHTMLGenerator.m";
-      v20 = 1024;
-      v21 = 291;
+      v18 = "[AEAssetHTMLGenerator templateStringForName:]";
+      v19 = 2080;
+      v20 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Sharing/Annotations/Private/AEAssetHTMLGenerator.m";
+      v21 = 1024;
+      v22 = 291;
       _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
     }
 
-    v12 = BCIMLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = BCIMLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "@Failed to load e-mail template {%@} -- %@", buf, 0x16u);
+      v18 = v6;
+      v19 = 2112;
+      v20 = v9;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "@Failed to load e-mail template {%@} -- %@", buf, 0x16u);
     }
 
     goto LABEL_9;
@@ -367,7 +369,7 @@ LABEL_9:
 
   v10 = [NSMutableString stringWithString:v7];
 LABEL_10:
-  v13 = v10;
+  v14 = v10;
 
   return v10;
 }

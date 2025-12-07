@@ -8,17 +8,17 @@
 
 - (MTNextAlarmManager)init
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = MTNextAlarmManager;
-  v2 = [(MTNextAlarmManager *)&v10 init];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = MTNextAlarmManager;
+  v2 = [(MTNextAlarmManager *)&v9 init];
   if (v2)
   {
     v3 = MTLogForCategory(3);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v12 = v2;
+      v11 = v2;
       _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@...", buf, 0xCu);
     }
 
@@ -38,7 +38,6 @@
     [defaultCenter addObserver:v2 selector:sel__handleAlarmsDidChange name:@"MTAlarmManagerAlarmsChanged" object:v2->_alarmManager];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -55,7 +54,7 @@
 
 void __41__MTNextAlarmManager_calculateNextAlarms__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) alarmManager];
   v3 = [v2 alarmsSyncIncludingSleepAlarm:1];
   v4 = [v3 na_filter:&__block_literal_global_28];
@@ -74,22 +73,20 @@ void __41__MTNextAlarmManager_calculateNextAlarms__block_invoke(uint64_t a1)
     {
       v10 = *(a1 + 32);
       v11 = [v10 nextAlarms];
-      v15 = 138543618;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v11;
-      _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ calling update handler with %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v11;
+      _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ calling update handler with %{public}@", &v14, 0x16u);
     }
 
     v12 = [*(a1 + 32) updateHandler];
     v13 = [*(a1 + 32) nextAlarms];
     (v12)[2](v12, v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-id __41__MTNextAlarmManager_calculateNextAlarms__block_invoke_3(uint64_t a1, void *a2)
+MTNextAlarm *__41__MTNextAlarmManager_calculateNextAlarms__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = objc_opt_new();
@@ -109,17 +106,16 @@ id __41__MTNextAlarmManager_calculateNextAlarms__block_invoke_3(uint64_t a1, voi
 
 - (void)_handleAlarmsDidChange
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ _handleAlarmsDidChange", &v5, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ _handleAlarmsDidChange", &v4, 0xCu);
   }
 
   [(MTNextAlarmManager *)self calculateNextAlarms];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

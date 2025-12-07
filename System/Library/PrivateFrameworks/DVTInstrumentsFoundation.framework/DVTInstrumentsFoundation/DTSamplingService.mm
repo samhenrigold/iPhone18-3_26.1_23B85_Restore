@@ -89,11 +89,10 @@
 - (void)startSampling
 {
   self->_doCollectData = 1;
-  task = self->_task;
   self->_context = create_sampling_context_for_task();
-  v4 = MEMORY[0x277CCACC8];
+  v2 = MEMORY[0x277CCACC8];
 
-  MEMORY[0x2821F9670](v4, sel_detachNewThreadSelector_toTarget_withObject_);
+  MEMORY[0x2821F9670](v2, sel_detachNewThreadSelector_toTarget_withObject_);
 }
 
 - (void)_outputData
@@ -173,7 +172,6 @@
 
 - (void)addSampleWithTimeInfo:(__CFDictionary *)info useZeroDelta:(BOOL)delta
 {
-  deltaCopy = delta;
   act_list = 0;
   act_listCnt = 0;
   if (!task_threads(self->_task, &act_list, &act_listCnt))
@@ -181,12 +179,12 @@
     backtraceBufferSize = self->_backtraceBufferSize;
     if (self->_backtraceBufferUsedSize + 1568 >= backtraceBufferSize)
     {
-      v8 = malloc_type_realloc(self->_backtraceBuffer, 2 * backtraceBufferSize, 0xBC6F9FA2uLL);
-      if (v8)
+      v7 = malloc_type_realloc(self->_backtraceBuffer, 2 * backtraceBufferSize, 0xBC6F9FA2uLL);
+      if (v7)
       {
-        v9 = v8;
-        self->_backtraceBufferSize = malloc_size(v8);
-        self->_backtraceBuffer = v9;
+        v8 = v7;
+        self->_backtraceBufferSize = malloc_size(v7);
+        self->_backtraceBuffer = v8;
       }
 
       else
@@ -199,79 +197,61 @@
 
     backtraceBuffer = self->_backtraceBuffer;
     ++*backtraceBuffer;
-    v11 = act_listCnt;
+    v10 = act_listCnt;
     backtraceBufferUsedSize = self->_backtraceBufferUsedSize;
     self->_backtraceBufferUsedSize = backtraceBufferUsedSize + 1;
-    backtraceBuffer[backtraceBufferUsedSize] = v11;
+    backtraceBuffer[backtraceBufferUsedSize] = v10;
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    v14 = self->_backtraceBuffer;
-    v15 = self->_backtraceBufferUsedSize;
-    self->_backtraceBufferUsedSize = v15 + 1;
-    v14[v15] = (v13 * 1000000.0);
+    v13 = self->_backtraceBuffer;
+    v14 = self->_backtraceBufferUsedSize;
+    self->_backtraceBufferUsedSize = v14 + 1;
+    v13[v14] = (v12 * 1000000.0);
     thread_info_outCnt = 10;
-    v31 = 0;
+    v25 = 0;
     *thread_info_out = 0u;
-    v30 = 0u;
+    v24 = 0u;
     value = 0;
     if (act_listCnt)
     {
-      v16 = 0;
-      v27 = deltaCopy;
+      v15 = 0;
       infoCopy = info;
       do
       {
-        v18 = act_list[v16];
-        thread_info(act_list[v16], 3u, thread_info_out, &thread_info_outCnt);
-        if (CFDictionaryGetValueIfPresent(info, v18, &value))
+        v17 = act_list[v15];
+        thread_info(act_list[v15], 3u, thread_info_out, &thread_info_outCnt);
+        if (CFDictionaryGetValueIfPresent(info, v17, &value))
         {
-          mach_port_deallocate(*MEMORY[0x277D85F48], v18);
+          mach_port_deallocate(*MEMORY[0x277D85F48], v17);
         }
 
         else
         {
-          v19 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
-          value = v19;
-          *v19 = 0;
-          CFDictionarySetValue(info, v18, v19);
+          v18 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
+          value = v18;
+          *v18 = 0;
+          CFDictionarySetValue(info, v17, v18);
         }
 
-        if (deltaCopy)
-        {
-          v20 = value;
-        }
-
-        else
-        {
-          v20 = value;
-          if ((BYTE12(v30) & 2) == 0 && DWORD2(v30) == 1)
-          {
-            v21 = thread_info_out[1] + 1000000 * (thread_info_out[0] - *value) - *(value + 1);
-          }
-        }
-
-        *v20 = *thread_info_out;
-        thread_suspend(v18);
-        context = self->_context;
+        *value = *thread_info_out;
+        thread_suspend(v17);
         sample_remote_thread();
-        thread_resume(v18);
-        v23 = self->_backtraceBuffer;
-        v24 = self->_backtraceBufferUsedSize;
-        v25 = &v23[v24];
-        v24 += 2;
-        self->_backtraceBufferUsedSize = v24;
-        *v25 = 0;
-        v25[1] = 0;
+        thread_resume(v17);
+        v19 = self->_backtraceBuffer;
+        v20 = self->_backtraceBufferUsedSize;
+        v21 = &v19[v20];
+        v20 += 2;
+        self->_backtraceBufferUsedSize = v20;
+        *v21 = 0;
+        v21[1] = 0;
         info = infoCopy;
-        self->_backtraceBufferUsedSize = v24 + 1;
-        v23[v24] = v18;
-        ++v16;
-        deltaCopy = v27;
+        self->_backtraceBufferUsedSize = v20 + 1;
+        v19[v20] = v17;
+        ++v15;
       }
 
-      while (v16 < act_listCnt);
+      while (v15 < act_listCnt);
     }
 
-    v26 = self->_context;
     sampling_context_clear_cache();
     if (act_listCnt)
     {

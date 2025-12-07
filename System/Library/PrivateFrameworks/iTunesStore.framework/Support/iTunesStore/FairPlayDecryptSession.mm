@@ -29,15 +29,21 @@
       shouldLog = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v7 = shouldLog | 2;
+        LODWORD(v7) = shouldLog | 2;
       }
 
       else
       {
-        v7 = shouldLog;
+        LODWORD(v7) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [v5 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = v7;
+      }
+
+      else
       {
         v7 &= 2u;
       }
@@ -46,13 +52,12 @@
       {
         v12 = 138412290;
         v13 = objc_opt_class();
-        LODWORD(v11) = 12;
-        v8 = _os_log_send_and_compose_impl();
-        if (v8)
+        v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@] No DPInfo provided", &v12, 12);
+        if (v9)
         {
-          v9 = v8;
-          [NSString stringWithCString:v8 encoding:4, &v12, v11];
-          free(v9);
+          v10 = v9;
+          [NSString stringWithCString:v9 encoding:4];
+          free(v10);
           SSFileLog();
         }
       }
@@ -80,12 +85,12 @@
 
 - (id)decryptBytes:(id)bytes error:(id *)error
 {
-  v24 = 0;
+  v26 = 0;
   p_decryptSession = &self->_decryptSession;
   decryptSession = self->_decryptSession;
   if (decryptSession)
   {
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   if (!sub_1000B277C(self->_dpInfo, p_decryptSession))
@@ -99,32 +104,36 @@
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      v25 = 138412290;
-      v26 = objc_opt_class();
-      LODWORD(v23) = 12;
-      v22 = &v25;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v27 = 138412290;
+      v28 = objc_opt_class();
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not begin decrypt", &v27, 12);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v25, v23];
-        free(v13);
-        v22 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v24 = v15;
         SSFileLog();
       }
     }
@@ -139,43 +148,49 @@
   decryptSession = self->_decryptSession;
   if (decryptSession)
   {
-LABEL_16:
-    if ((sub_1000B282C(decryptSession, bytes, &v24) & 1) == 0)
+LABEL_17:
+    if ((sub_1000B282C(decryptSession, bytes, &v26) & 1) == 0)
     {
-      v15 = +[SSLogConfig sharedDaemonConfig];
-      if (!v15)
+      v16 = +[SSLogConfig sharedDaemonConfig];
+      if (!v16)
       {
-        v15 = +[SSLogConfig sharedConfig];
+        v16 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v15 shouldLog];
-      if ([v15 shouldLogToDisk])
+      shouldLog2 = [v16 shouldLog];
+      if ([v16 shouldLogToDisk])
       {
-        v17 = shouldLog2 | 2;
+        LODWORD(v18) = shouldLog2 | 2;
       }
 
       else
       {
-        v17 = shouldLog2;
+        LODWORD(v18) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v15 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v16 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v17 &= 2u;
+        v18 = v18;
       }
 
-      if (v17)
+      else
       {
-        v18 = objc_opt_class();
-        v25 = 138412290;
-        v26 = v18;
-        LODWORD(v23) = 12;
-        v19 = _os_log_send_and_compose_impl();
-        if (v19)
+        v18 &= 2u;
+      }
+
+      if (v18)
+      {
+        v20 = objc_opt_class();
+        v27 = 138412290;
+        v28 = v20;
+        LODWORD(v25) = 12;
+        v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Decrypt failed", &v27, v25);
+        if (v21)
         {
-          v20 = v19;
-          [NSString stringWithCString:v19 encoding:4, &v25, v23];
-          free(v20);
+          v22 = v21;
+          [NSString stringWithCString:v21 encoding:4];
+          free(v22);
           SSFileLog();
         }
       }
@@ -187,7 +202,7 @@ LABEL_16:
     }
   }
 
-  return v24;
+  return v26;
 }
 
 - (id)identifier

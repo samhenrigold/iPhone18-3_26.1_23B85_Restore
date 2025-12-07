@@ -61,10 +61,10 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
 
   if (!defaultShellEndpoint___DefaultShellEndpoint)
   {
-    v6 = FBLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = FBLogCommon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __36__FBSWorkspace_defaultShellEndpoint__block_invoke_cold_1(v2, v6, v7, v8, v9, v10, v11, v12);
+      __36__FBSWorkspace_defaultShellEndpoint__block_invoke_cold_1(v2, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 }
@@ -158,13 +158,14 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to find workspace-service defining domain"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = self;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -182,7 +183,7 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
 
   else
   {
-    v2 = FBLogCommon();
+    v2 = FBLogCommon(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [(FBSWorkspace *)v2 _startWorkspaceListener:v3];
@@ -256,7 +257,7 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
   v9 = couplerCopy;
   if (!v9)
   {
-    [FBSWorkspace _initWithCoupler:a2 options:?];
+    [FBSWorkspace _initWithCoupler:a2 options:self];
   }
 
   v10 = v9;
@@ -278,9 +279,9 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
     [FBSWorkspace _initWithCoupler:a2 options:?];
   }
 
-  v38.receiver = self;
-  v38.super_class = FBSWorkspace;
-  v12 = [(FBSWorkspace *)&v38 init];
+  v40.receiver = self;
+  v40.super_class = FBSWorkspace;
+  v12 = [(FBSWorkspace *)&v40 init];
   if (v12)
   {
     delegate2 = [optionsCopy delegate];
@@ -322,12 +323,13 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
     v12->_psuedoSceneUpdater = v28;
 
     v12->_isSingleton = [v10 _isSharedInstance];
-    if ([optionsCopy isEndpointMonitoringEnabled])
+    isEndpointMonitoringEnabled = [optionsCopy isEndpointMonitoringEnabled];
+    if (isEndpointMonitoringEnabled)
     {
-      v30 = +[FBSWorkspaceServiceSpecification identifier];
-      v31 = [off_1E76BCA38 monitorForService:v30];
+      v31 = +[FBSWorkspaceServiceSpecification identifier];
+      v32 = [off_1E76BCA38 monitorForService:v31];
       connectionEndpointMonitor = v12->_connectionEndpointMonitor;
-      v12->_connectionEndpointMonitor = v31;
+      v12->_connectionEndpointMonitor = v32;
 
       [(BSServiceConnectionEndpointMonitor *)v12->_connectionEndpointMonitor setDelegate:v12];
       [(BSServiceConnectionEndpointMonitor *)v12->_connectionEndpointMonitor activate];
@@ -335,28 +337,29 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
 
     else
     {
-      v33 = FBLogCommon();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v34 = FBLogCommon(isEndpointMonitoringEnabled);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        *v37 = 0;
-        _os_log_impl(&dword_1A2DBB000, v33, OS_LOG_TYPE_DEFAULT, "FBSWorkspace: endpoint monitoring is disabled.", v37, 2u);
+        *v39 = 0;
+        _os_log_impl(&dword_1A2DBB000, v34, OS_LOG_TYPE_DEFAULT, "FBSWorkspace: endpoint monitoring is disabled.", v39, 2u);
       }
     }
 
-    if ([optionsCopy isDefaultShellEndpointEnabled])
+    isDefaultShellEndpointEnabled = [optionsCopy isDefaultShellEndpointEnabled];
+    if (isDefaultShellEndpointEnabled)
     {
-      v34 = +[FBSWorkspace defaultShellEndpoint];
+      v36 = +[FBSWorkspace defaultShellEndpoint];
       defaultShellEndpoint = v12->_defaultShellEndpoint;
-      v12->_defaultShellEndpoint = v34;
+      v12->_defaultShellEndpoint = v36;
     }
 
     else
     {
-      defaultShellEndpoint = FBLogCommon();
+      defaultShellEndpoint = FBLogCommon(isDefaultShellEndpointEnabled);
       if (os_log_type_enabled(defaultShellEndpoint, OS_LOG_TYPE_DEFAULT))
       {
-        *v37 = 0;
-        _os_log_impl(&dword_1A2DBB000, defaultShellEndpoint, OS_LOG_TYPE_DEFAULT, "FBSWorkspace: default shell endpoint is disabled.", v37, 2u);
+        *v39 = 0;
+        _os_log_impl(&dword_1A2DBB000, defaultShellEndpoint, OS_LOG_TYPE_DEFAULT, "FBSWorkspace: default shell endpoint is disabled.", v39, 2u);
       }
     }
 
@@ -375,13 +378,14 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must invalidate before dealloc"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = self;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -398,7 +402,7 @@ void __36__FBSWorkspace_defaultShellEndpoint__block_invoke()
   }
 
   v6 = completionCopy;
-  v7 = FBLogCommon();
+  v7 = FBLogCommon(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -806,7 +810,7 @@ void __36__FBSWorkspace__registerSourcePeer___block_invoke(uint64_t a1)
   v28 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 73) == 1)
   {
-    v2 = FBLogCommon();
+    v2 = FBLogCommon(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __36__FBSWorkspace__registerSourcePeer___block_invoke_cold_2(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -832,7 +836,7 @@ void __36__FBSWorkspace__registerSourcePeer___block_invoke(uint64_t a1)
     if (v14)
     {
       v15 = [v14 identifier];
-      v16 = FBLogCommon();
+      v16 = FBLogCommon(v15);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -845,7 +849,7 @@ void __36__FBSWorkspace__registerSourcePeer___block_invoke(uint64_t a1)
 
     else
     {
-      v17 = FBLogCommon();
+      v17 = FBLogCommon(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __36__FBSWorkspace__registerSourcePeer___block_invoke_cold_1(v12, v17, v18, v19, v20, v21, v22, v23);
@@ -876,7 +880,7 @@ void __32__FBSWorkspace__registerSource___block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   if (v2[73] == 1)
   {
-    v3 = FBLogCommon();
+    v3 = FBLogCommon(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [*(a1 + 40) identifier];
@@ -923,21 +927,21 @@ void __32__FBSWorkspace__registerSource___block_invoke(uint64_t a1)
 
 - (void)_queue_registerSource:(id)source
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
-  [(BSServiceDispatchQueue *)self->_queue assertBarrierOnQueue];
+  assertBarrierOnQueue = [(BSServiceDispatchQueue *)self->_queue assertBarrierOnQueue];
   if (self->_queue_invalidated)
   {
     [FBSWorkspace _queue_registerSource:a2];
   }
 
-  v6 = FBLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = FBLogCommon(assertBarrierOnQueue);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [sourceCopy identifier];
-    v10 = 138412290;
-    v11 = identifier;
-    _os_log_impl(&dword_1A2DBB000, v6, OS_LOG_TYPE_DEFAULT, "FBSWorkspace registering source: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = identifier;
+    _os_log_impl(&dword_1A2DBB000, v7, OS_LOG_TYPE_DEFAULT, "FBSWorkspace registering source: %@", &v11, 0xCu);
   }
 
   queue_identifierToScenesSource = self->_queue_identifierToScenesSource;
@@ -949,8 +953,7 @@ void __32__FBSWorkspace__registerSource___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
-  [(BSServiceDispatchQueue *)self->_queue assertBarrierOnQueue];
-  v5 = FBLogCommon();
+  v5 = FBLogCommon([(BSServiceDispatchQueue *)self->_queue assertBarrierOnQueue]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [sourceCopy identifier];
@@ -998,7 +1001,7 @@ void __32__FBSWorkspace__registerSource___block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
-  v5 = FBLogCommon();
+  v5 = FBLogCommon(endpointCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1187,10 +1190,10 @@ uint64_t __54__FBSWorkspace_descriptionBuilderWithMultilinePrefix___block_invoke
   return build;
 }
 
-uint64_t __41__FBSWorkspace__scenesClientForEndpoint___block_invoke(uint64_t a1)
+uint64_t __41__FBSWorkspace__scenesClientForEndpoint___block_invoke(void *a1)
 {
-  v2 = [(FBSWorkspace *)*(a1 + 32) _queue_scenesClientForEndpoint:1 creatingIfNecessary:?];
-  v3 = *(*(a1 + 48) + 8);
+  v2 = [(FBSWorkspace *)a1[4] _queue_scenesClientForEndpoint:1 creatingIfNecessary:?];
+  v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
@@ -1267,7 +1270,7 @@ uint64_t __41__FBSWorkspace__scenesClientForEndpoint___block_invoke(uint64_t a1)
           goto LABEL_15;
         }
 
-        v13 = FBLogCommon();
+        v13 = FBLogCommon(0);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           [(FBSWorkspace *)v5 _queue_scenesClientForEndpoint:v13 creatingIfNecessary:v14, v15, v16, v17, v18, v19];
@@ -1328,15 +1331,14 @@ LABEL_16:
 
 - (void)_initWithCoupler:(char *)a1 options:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[options delegate]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[options delegate]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1345,38 +1347,37 @@ LABEL_16:
 
 - (void)_initWithCoupler:(char *)a1 options:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"options"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"options", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)_initWithCoupler:(const char *)a1 options:.cold.4(const char *a1)
+- (void)_initWithCoupler:(const char *)a1 options:(uint64_t)a2 .cold.4(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"coupler", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, @"coupler", v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -1385,60 +1386,79 @@ LABEL_16:
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"this instance may not invalidate"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
+}
+
+void __36__FBSWorkspace_defaultShellEndpoint__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a2, a3, "Failed to resolve default shell endpoint for %{public}@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_findDomainSpecification
 {
   OUTLINED_FUNCTION_9_0();
-  NSStringFromSelector(v1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(v1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_registerSourceEndpoint:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"endpoint"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"endpoint", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
+void __36__FBSWorkspace__registerSourcePeer___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a2, a3, "FBSWorkspace cannot connect peer because it is corrupted (likely crashed before the connect was processed) : %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __36__FBSWorkspace__registerSourcePeer___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a2, a3, "FBSWorkspace cannot connect peer due to previous invalidation : %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)pseudoSceneWithIdentifier:(void *)a1 specification:(char *)a2 .cold.1(void *a1, char *a2)
 {
-  v3 = [a1 stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [a1 stringWithFormat:@"Invalid condition not satisfying: %@", @"specification"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"specification", v11, v12);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -1447,15 +1467,14 @@ LABEL_16:
 
 - (void)pseudoSceneWithIdentifier:(char *)a1 specification:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identifier", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1467,13 +1486,14 @@ LABEL_16:
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"after invalidation, we should be killing all internal registration attempts before we get here"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -1482,15 +1502,14 @@ LABEL_16:
 
 - (void)_calloutQueue_executeCalloutFromSource:(char *)a1 withBlock:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"callout"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"callout", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1502,23 +1521,31 @@ LABEL_16:
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"source must be registered immediately"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
+- (void)_queue_scenesClientForEndpoint:(uint64_t)a3 creatingIfNecessary:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a2, a3, "Unable to connect to endpoint : %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_queue_scenesClientForEndpoint:(uint64_t)a1 creatingIfNecessary:(uint64_t)a2 .cold.3(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v4 = FBLogCommon();
+  v4 = FBLogCommon(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;

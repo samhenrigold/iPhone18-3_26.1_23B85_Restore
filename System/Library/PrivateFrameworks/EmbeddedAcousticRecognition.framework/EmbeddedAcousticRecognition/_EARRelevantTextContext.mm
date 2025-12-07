@@ -55,7 +55,7 @@
   leftContextCopy = leftContext;
   if (contextCopy)
   {
-    [contextCopy ear_toString];
+    objc_msgSend_ear_toString(contextCopy);
   }
 
   quasar::keepLastNCodePoints();
@@ -67,7 +67,7 @@
   rightContextCopy = rightContext;
   if (contextCopy)
   {
-    [contextCopy ear_toString];
+    objc_msgSend_ear_toString(contextCopy);
   }
 
   quasar::keepFirstNCodePoints();
@@ -107,7 +107,7 @@
 
 - (void)appendToLeftContext:(id)context preItnLeftContext:(id)leftContext
 {
-  v18 = *MEMORY[0x1E69E9840];
+  *&v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   leftContextCopy = leftContext;
   os_unfair_lock_lock(&self->_contextUpdateLock);
@@ -115,26 +115,29 @@
   leftContext = self->_leftContext;
   if (leftContext)
   {
-    [(NSString *)leftContext ear_toString];
+    objc_msgSend_ear_toString(leftContext);
   }
 
   else
   {
-    memset(v17, 0, 24);
+    v17 = 0uLL;
+    v18 = 0;
   }
 
   if (contextCopy)
   {
-    [contextCopy ear_toString];
+    objc_msgSend_ear_toString(contextCopy);
   }
 
   else
   {
-    memset(&v17[3], 0, 24);
+    v19[0] = 0;
+    v19[1] = 0;
+    v20 = 0;
   }
 
   memset(&v14, 0, sizeof(v14));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v14, v17, &v18, 2uLL);
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v14, &v17, &v21, 2uLL);
   quasar::joinAndAutoSpace(&v14, &__p);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -156,9 +159,9 @@
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v16);
   for (i = 0; i != -6; i -= 3)
   {
-    if (SHIBYTE(v17[i + 5]) < 0)
+    if (*(&v20 + i * 8 + 7) < 0)
     {
-      operator delete(v17[i + 3]);
+      operator delete(v19[i]);
     }
   }
 

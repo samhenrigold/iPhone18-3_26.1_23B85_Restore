@@ -93,20 +93,22 @@
 
 - (id)description
 {
+  v6 = 0;
   action = self->_action;
-  if (action <= 5)
+  if (action > 5)
+  {
+    v3 = "?";
+  }
+
+  else
   {
     v3 = off_278CDDF48[action];
   }
 
-  reason = self->_reason;
-  wxInfo = self->_wxInfo;
-  deviceAddress = self->_deviceAddress;
-  error = self->_error;
-  clientID = self->_clientID;
-  NSAppendPrintF();
+  NSAppendPrintF(&v6, "BTAudioRoutingResponse, CID 0x%X, actn %s, dAdr %@, err %{error}, reason %@, wxInfo %@", self->_clientID, v3, self->_deviceAddress, self->_error, self->_reason, self->_wxInfo);
+  v4 = v6;
 
-  return 0;
+  return v4;
 }
 
 @end

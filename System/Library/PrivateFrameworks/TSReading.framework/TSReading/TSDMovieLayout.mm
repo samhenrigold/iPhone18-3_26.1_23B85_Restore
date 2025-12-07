@@ -101,7 +101,7 @@
   v9 = 0u;
   if (tracker)
   {
-    [tracker rotateTransform];
+    objc_msgSend_rotateTransform(tracker);
   }
 
   else
@@ -111,7 +111,7 @@
     v6 = 0uLL;
   }
 
-  [(TSDLayout *)self layoutTransformInInfoSpace:&v6];
+  objc_msgSend_layoutTransformInInfoSpace_(self, v6, v7, v8);
   geometry = [(TSDInfo *)[(TSDLayout *)self info] geometry];
   v6 = v9;
   v7 = v10;
@@ -212,7 +212,7 @@
       [v20 setSize:{v17, v19}];
       if (v20)
       {
-        [v20 transform];
+        objc_msgSend_transform(v20);
       }
 
       else
@@ -275,7 +275,7 @@
   geometry = [(TSDAbstractLayout *)self geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry fullTransform];
+    objc_msgSend_fullTransform(geometry);
     if (!rootCopy)
     {
       goto LABEL_10;
@@ -296,7 +296,7 @@
     parent = [(TSDAbstractLayout *)self parent];
     if (parent)
     {
-      [(TSDAbstractLayout *)parent transformInRoot];
+      objc_msgSend_transformInRoot(parent);
     }
 
     else

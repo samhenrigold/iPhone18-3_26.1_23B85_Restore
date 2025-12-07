@@ -114,7 +114,7 @@ void __74__WFPodcastEpisodeContentItem_generateFileRepresentation_options_forTyp
   v6 = MEMORY[0x277CFC3C8];
   v7 = MEMORY[0x277D79F68];
   v8 = *MEMORY[0x277CE1D90];
-  v16 = a4;
+  v15 = a4;
   v9 = a2;
   v10 = [v7 typeWithUTType:v8];
   v11 = [*(a1 + 32) name];
@@ -124,7 +124,6 @@ void __74__WFPodcastEpisodeContentItem_generateFileRepresentation_options_forTyp
   v14 = *(v13 + 40);
   *(v13 + 40) = v12;
 
-  v15 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -281,59 +280,57 @@ void __56__WFPodcastEpisodeContentItem_getListThumbnail_forSize___block_invoke_2
 
 + (id)propertyBuilders
 {
-  v36[10] = *MEMORY[0x277D85DE8];
+  v35[10] = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == self)
   {
     v3 = MEMORY[0x277CFC338];
-    v35 = WFLocalizedContentPropertyNameMarker(@"Store ID");
-    v34 = [v3 keyPath:@"episode.identifier" name:v35 class:objc_opt_class()];
-    v36[0] = v34;
+    v34 = WFLocalizedContentPropertyNameMarker(@"Store ID");
+    v33 = [v3 keyPath:@"episode.identifier" name:v34 class:objc_opt_class()];
+    v35[0] = v33;
     v4 = MEMORY[0x277CFC338];
-    v33 = WFLocalizedContentPropertyNameMarker(@"Store URL");
-    v32 = [v4 keyPath:@"episode.viewURL" name:v33 class:objc_opt_class()];
-    v36[1] = v32;
+    v32 = WFLocalizedContentPropertyNameMarker(@"Store URL");
+    v31 = [v4 keyPath:@"episode.viewURL" name:v32 class:objc_opt_class()];
+    v35[1] = v31;
     v5 = MEMORY[0x277CFC338];
-    v31 = WFLocalizedContentPropertyNameMarker(@"Title");
-    v30 = [v5 keyPath:@"episode.title" name:v31 class:objc_opt_class()];
-    v36[2] = v30;
+    v30 = WFLocalizedContentPropertyNameMarker(@"Title");
+    v29 = [v5 keyPath:@"episode.title" name:v30 class:objc_opt_class()];
+    v35[2] = v29;
     v6 = MEMORY[0x277CFC338];
-    v29 = WFLocalizedContentPropertyNameMarker(@"Author");
-    v28 = [v6 keyPath:@"episode.author" name:v29 class:objc_opt_class()];
-    v36[3] = v28;
+    v28 = WFLocalizedContentPropertyNameMarker(@"Author");
+    v27 = [v6 keyPath:@"episode.author" name:v28 class:objc_opt_class()];
+    v35[3] = v27;
     v7 = MEMORY[0x277CFC338];
-    v27 = WFLocalizedContentPropertyNameMarker(@"Description");
-    v26 = [v7 keyPath:@"episode.descriptionText" name:v27 class:objc_opt_class()];
-    v36[4] = v26;
+    v26 = WFLocalizedContentPropertyNameMarker(@"Description");
+    v25 = [v7 keyPath:@"episode.descriptionText" name:v26 class:objc_opt_class()];
+    v35[4] = v25;
     v8 = MEMORY[0x277CFC338];
-    v25 = WFLocalizedContentPropertyNameMarker(@"Release Date");
-    v24 = [v8 keyPath:@"episode.releaseDate" name:v25 class:objc_opt_class()];
-    v36[5] = v24;
+    v24 = WFLocalizedContentPropertyNameMarker(@"Release Date");
+    v23 = [v8 keyPath:@"episode.releaseDate" name:v24 class:objc_opt_class()];
+    v35[5] = v23;
     v9 = MEMORY[0x277CFC338];
-    v23 = WFLocalizedContentPropertyNameMarker(@"Genres");
-    v10 = [v9 keyPath:@"episode.genres" name:v23 class:objc_opt_class()];
+    v22 = WFLocalizedContentPropertyNameMarker(@"Genres");
+    v10 = [v9 keyPath:@"episode.genres" name:v22 class:objc_opt_class()];
     v11 = [v10 multipleValues:1];
-    v36[6] = v11;
+    v35[6] = v11;
     v12 = MEMORY[0x277CFC338];
     v13 = WFLocalizedContentPropertyNameMarker(@"Duration");
     v14 = [v12 keyPath:@"episode.duration" name:v13 class:objc_opt_class()];
-    v36[7] = v14;
+    v35[7] = v14;
     v15 = MEMORY[0x277CFC338];
     v16 = WFLocalizedContentPropertyNameMarker(@"Artwork");
     v17 = [v15 block:&__block_literal_global_22082 name:v16 class:objc_opt_class()];
-    v36[8] = v17;
+    v35[8] = v17;
     v18 = MEMORY[0x277CFC338];
     v19 = WFLocalizedContentPropertyNameMarker(@"Artwork URL");
     v20 = [v18 block:&__block_literal_global_260 name:v19 class:objc_opt_class()];
-    v36[9] = v20;
-    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:10];
+    v35[9] = v20;
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:10];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

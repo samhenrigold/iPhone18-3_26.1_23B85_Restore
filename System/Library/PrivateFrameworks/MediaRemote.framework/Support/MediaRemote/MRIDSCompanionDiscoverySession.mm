@@ -13,6 +13,7 @@
 - (void)_syncClientStateToConnection:(id)connection;
 - (void)clientConnection:(id)connection didReceiveMessage:(id)message;
 - (void)handleUpdateOutputDevicesMessage:(id)message forClient:(id)client;
+- (void)setDiscoveryMode:(unsigned int)mode;
 @end
 
 @implementation MRIDSCompanionDiscoverySession
@@ -64,6 +65,63 @@
   v7 = [v3 initWithFormat:@"%@\nIDSCompanion: %@\navailableDevices = %@\n", v4, v5, availableOutputDevices];
 
   return v7;
+}
+
+- (void)setDiscoveryMode:(unsigned int)mode
+{
+  v3 = *&mode;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (selfCopy->_discoveryMode != v3)
+  {
+    v5 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+
+    if (v5)
+    {
+      v6 = _MRLogForCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
+        v9 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+        v10 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+        v16 = 138544130;
+        v17 = v8;
+        v18 = 2114;
+        v19 = @"discoveryMode";
+        v20 = 2112;
+        v21 = v9;
+        v22 = 2112;
+        v23 = v10;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Set: %{public}@ setting %{public}@ from <%@> to <%@>", &v16, 0x2Au);
+      }
+    }
+
+    else
+    {
+      v6 = _MRLogForCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
+        v13 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+        v16 = 138543874;
+        v17 = v12;
+        v18 = 2114;
+        v19 = @"discoveryMode";
+        v20 = 2112;
+        v21 = v13;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Set: %{public}@ setting %{public}@ to <%@>", &v16, 0x20u);
+      }
+    }
+
+    selfCopy->_discoveryMode = v3;
+    v14 = [[MRSetDiscoveryModeMessage alloc] initWithMode:v3 features:{-[MRIDSCompanionDiscoverySession endpointFeatures](selfCopy, "endpointFeatures")}];
+    discoveryChannel = [(MRIDSCompanionDiscoverySession *)selfCopy discoveryChannel];
+    [discoveryChannel sendMessage:v14];
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 - (unsigned)discoveryMode

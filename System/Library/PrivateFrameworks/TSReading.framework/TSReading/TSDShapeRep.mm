@@ -107,7 +107,7 @@
     v8 = shapeLayout;
     if (shapeLayout)
     {
-      [shapeLayout transformInRoot];
+      objc_msgSend_transformInRoot(shapeLayout);
     }
 
     else
@@ -628,7 +628,7 @@
         [objc_msgSend(shapeInfo "geometry")];
         if (geometry)
         {
-          [geometry transformBasedOnRect:{0.0, 0.0, v17, v18}];
+          objc_msgSend_transformBasedOnRect_(geometry, 0.0, 0.0, v17, v18);
         }
 
         else
@@ -987,7 +987,7 @@ LABEL_23:
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -1490,7 +1490,7 @@ LABEL_23:
     layout = [(TSDRep *)self layout];
     if (layout)
     {
-      [(TSDAbstractLayout *)layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -1582,7 +1582,7 @@ LABEL_23:
   v9 = [-[TSDShapeRep shapeInfo](self "shapeInfo")];
   if (v9)
   {
-    [v9 pathFlipTransform];
+    objc_msgSend_pathFlipTransform(v9);
   }
 
   else
@@ -1732,7 +1732,7 @@ LABEL_23:
   {
     if (shapeLayout)
     {
-      [shapeLayout transformInRoot];
+      objc_msgSend_transformInRoot(shapeLayout);
       if (v5)
       {
         goto LABEL_14;
@@ -1760,7 +1760,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  [shapeLayout originalTransformInRoot];
+  objc_msgSend_originalTransformInRoot(shapeLayout);
   if (!v5)
   {
     goto LABEL_12;

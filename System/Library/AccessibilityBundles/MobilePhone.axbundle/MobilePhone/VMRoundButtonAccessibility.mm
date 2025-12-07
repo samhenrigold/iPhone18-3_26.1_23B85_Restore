@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (id)accessibilityLabel;
 - (void)configureButtonUsingAudioRoute:(id)route;
+- (void)setButtonType:(unint64_t)type enabled:(BOOL)enabled;
 @end
 
 @implementation VMRoundButtonAccessibility
@@ -29,6 +30,14 @@
   }
 
   return v3;
+}
+
+- (void)setButtonType:(unint64_t)type enabled:(BOOL)enabled
+{
+  v5.receiver = self;
+  v5.super_class = VMRoundButtonAccessibility;
+  [(VMRoundButtonAccessibility *)&v5 setButtonType:type enabled:enabled];
+  [(VMRoundButtonAccessibility *)self setAccessibilityValue:0];
 }
 
 - (void)configureButtonUsingAudioRoute:(id)route

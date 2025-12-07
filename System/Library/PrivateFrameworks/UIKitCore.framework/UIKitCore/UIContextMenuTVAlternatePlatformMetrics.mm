@@ -3,7 +3,7 @@
 
 @implementation UIContextMenuTVAlternatePlatformMetrics
 
-id __54___UIContextMenuTVAlternatePlatformMetrics_Glass_init__block_invoke(uint64_t a1, void *a2)
+_UIContextMenuBackgroundDescriptor *__54___UIContextMenuTVAlternatePlatformMetrics_Glass_init__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = objc_opt_new();
@@ -40,7 +40,7 @@ UIColor *__54___UIContextMenuTVAlternatePlatformMetrics_Glass_init__block_invoke
   return [UIColor colorWithWhite:v3 alpha:0.08];
 }
 
-id __48___UIContextMenuTVAlternatePlatformMetrics_init__block_invoke(uint64_t a1, void *a2)
+_UIContextMenuBackgroundDescriptor *__48___UIContextMenuTVAlternatePlatformMetrics_init__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = objc_opt_new();

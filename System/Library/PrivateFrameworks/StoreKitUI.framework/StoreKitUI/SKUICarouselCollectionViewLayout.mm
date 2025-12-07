@@ -69,28 +69,8 @@
 
 - (void)prepareLayout
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUICarouselCollectionViewLayout *)v3 prepareLayout:v4];
-      }
-    }
-  }
-
-  v15.receiver = self;
-  v15.super_class = SKUICarouselCollectionViewLayout;
-  [(UICollectionViewFlowLayout *)&v15 prepareLayout];
-  collectionView = [(SKUICarouselCollectionViewLayout *)self collectionView];
-  panGestureRecognizer = [collectionView panGestureRecognizer];
-  [panGestureRecognizer removeTarget:self action:0];
-
-  collectionView2 = [(SKUICarouselCollectionViewLayout *)self collectionView];
-  panGestureRecognizer2 = [collectionView2 panGestureRecognizer];
-  [panGestureRecognizer2 addTarget:self action:sel__panGestureRecognized_];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICarouselCollectionViewLayout prepareLayout]";
 }
 
 - (void)prepareForTransitionToLayout:(id)layout
@@ -134,9 +114,9 @@
     }
   }
 
-  v53.receiver = self;
-  v53.super_class = SKUICarouselCollectionViewLayout;
-  [(SKUICarouselCollectionViewLayout *)&v53 targetContentOffsetForProposedContentOffset:v7 withScrollingVelocity:v6, x, y];
+  v55.receiver = self;
+  v55.super_class = SKUICarouselCollectionViewLayout;
+  [(SKUICarouselCollectionViewLayout *)&v55 targetContentOffsetForProposedContentOffset:v7 withScrollingVelocity:v6, x, y];
   v18 = v17;
   collectionView = [(SKUICarouselCollectionViewLayout *)self collectionView];
   [collectionView bounds];
@@ -154,19 +134,19 @@
 
   v33 = (v21 - v25) * 0.5;
   v34 = floorf(v33);
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
-  v36 = ShouldReverseLayoutDirection;
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v35, v36);
+  v38 = ShouldReverseLayoutDirection;
   if (ShouldReverseLayoutDirection)
   {
-    v37 = x > 0.0;
+    v39 = x > 0.0;
   }
 
   else
   {
-    v37 = x < 0.0;
+    v39 = x < 0.0;
   }
 
-  if (v37)
+  if (v39)
   {
     item2 = [startScrollingIndexPath item] - 1;
   }
@@ -175,15 +155,15 @@
   {
     if (ShouldReverseLayoutDirection)
     {
-      v39 = x < 0.0;
+      v41 = x < 0.0;
     }
 
     else
     {
-      v39 = x > 0.0;
+      v41 = x > 0.0;
     }
 
-    if (v39)
+    if (v41)
     {
       item2 = [startScrollingIndexPath item] + 1;
     }
@@ -193,46 +173,46 @@
       item = [v32 item];
       if (item == [startScrollingIndexPath item])
       {
-        v41 = startScrollingIndexPath;
+        v43 = startScrollingIndexPath;
       }
 
       else
       {
-        v41 = v32;
+        v43 = v32;
       }
 
-      item2 = [v41 item];
+      item2 = [v43 item];
     }
   }
 
-  v42 = -(v34 - item2 * v25);
-  if (v36)
+  v44 = -(v34 - item2 * v25);
+  if (v38)
   {
     [collectionView contentSize];
-    v44 = v43;
+    v46 = v45;
     [collectionView bounds];
-    v42 = v44 - CGRectGetWidth(v55) - v42;
+    v44 = v46 - CGRectGetWidth(v57) - v44;
   }
 
   [collectionView contentSize];
-  v46 = v45;
+  v48 = v47;
   [collectionView contentInset];
-  v48 = v46 + v47;
+  v50 = v48 + v49;
   [collectionView bounds];
-  if (v42 >= v48 - v49)
+  if (v44 >= v50 - v51)
   {
-    v50 = v48 - v49;
+    v52 = v50 - v51;
   }
 
   else
   {
-    v50 = v42;
+    v52 = v44;
   }
 
-  v51 = v50;
-  v52 = v18;
-  result.y = v52;
-  result.x = v51;
+  v53 = v52;
+  v54 = v18;
+  result.y = v54;
+  result.x = v53;
   return result;
 }
 
@@ -273,6 +253,24 @@
 
     [(SKUICarouselCollectionViewLayout *)self setStartScrollingIndexPath:v9];
   }
+}
+
+- (void)layoutAttributesForElementsInRect:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICarouselCollectionViewLayout layoutAttributesForElementsInRect:]";
+}
+
+- (void)prepareForTransitionToLayout:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICarouselCollectionViewLayout prepareForTransitionToLayout:]";
+}
+
+- (void)targetContentOffsetForProposedContentOffset:(uint64_t)a3 withScrollingVelocity:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICarouselCollectionViewLayout targetContentOffsetForProposedContentOffset:withScrollingVelocity:]";
 }
 
 @end

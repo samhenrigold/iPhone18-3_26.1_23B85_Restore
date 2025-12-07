@@ -576,7 +576,7 @@ LABEL_20:
     v10 = [resourceManager compositionControllerWithoutSource:adjustmentsCopy originalComposition:0 editorBundleID:&v18];
     v11 = v18;
 
-    if ((opaqueAdjustments || v10) && ([v11 isEqualToString:@"com.apple.camera"] & 1) == 0)
+    if ((opaqueAdjustments || v10) && (objc_msgSend_isEqualToString_(v11) & 1) == 0)
     {
       resourceManager2 = [(PEAdjustmentPresetManager *)self resourceManager];
       v14 = [resourceManager2 originalCompositionControllerWithoutSource:adjustmentsCopy reconstructIfMissing:1];
@@ -772,9 +772,11 @@ LABEL_13:
 
 uint64_t __48__PEAdjustmentPresetManager_sharedPresetManager__block_invoke()
 {
-  sharedPresetManager_presetManager = objc_alloc_init(PEAdjustmentPresetManager);
+  v0 = objc_alloc_init(PEAdjustmentPresetManager);
+  v1 = sharedPresetManager_presetManager;
+  sharedPresetManager_presetManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

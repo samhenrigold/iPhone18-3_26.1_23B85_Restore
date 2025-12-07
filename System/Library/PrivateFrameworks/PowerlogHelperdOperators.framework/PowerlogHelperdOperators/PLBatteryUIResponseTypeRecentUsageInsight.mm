@@ -25,105 +25,103 @@
   [v8 doubleValue];
   [(PLBatteryUIResponseTypeRecentUsageInsight *)self setLastUpgradeTimestamp:?];
 
-  v9 = *MEMORY[0x277CBF040];
-  v10 = *MEMORY[0x277CBF030];
   +[PLUtilities containerPath];
-  v11 = _CFPreferencesCopyValueWithContainer();
-  v12 = v11;
-  if (v11)
+  v9 = _CFPreferencesCopyValueWithContainer();
+  v10 = v9;
+  if (v9)
   {
-    [v11 doubleValue];
-    v14 = v13;
+    [v9 doubleValue];
+    v12 = v11;
   }
 
   else
   {
-    v14 = 864000.0;
+    v12 = 864000.0;
   }
 
-  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMaxTimeValBeforeUpgrade:v14];
+  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMaxTimeValBeforeUpgrade:v12];
   +[PLUtilities containerPath];
-  v15 = _CFPreferencesCopyValueWithContainer();
-  v16 = v15;
-  if (v15)
+  v13 = _CFPreferencesCopyValueWithContainer();
+  v14 = v13;
+  if (v13)
   {
-    [v15 doubleValue];
-    v18 = v17;
+    [v13 doubleValue];
+    v16 = v15;
   }
 
   else
   {
-    v18 = 259200.0;
+    v16 = 259200.0;
   }
 
-  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMinTimeValBeforeUpgrade:v18];
+  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMinTimeValBeforeUpgrade:v16];
   +[PLUtilities containerPath];
-  v19 = _CFPreferencesCopyValueWithContainer();
-  v20 = v19;
-  if (v19)
+  v17 = _CFPreferencesCopyValueWithContainer();
+  v18 = v17;
+  if (v17)
   {
-    [v19 doubleValue];
-    v22 = v21;
+    [v17 doubleValue];
+    v20 = v19;
   }
 
   else
   {
-    v22 = 864000.0;
+    v20 = 864000.0;
   }
 
-  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMaxTimeValAfterUpgrade:v22];
+  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMaxTimeValAfterUpgrade:v20];
   +[PLUtilities containerPath];
-  v23 = _CFPreferencesCopyValueWithContainer();
-  v24 = v23;
-  if (v23)
+  v21 = _CFPreferencesCopyValueWithContainer();
+  v22 = v21;
+  if (v21)
   {
-    [v23 doubleValue];
-    v26 = v25;
+    [v21 doubleValue];
+    v24 = v23;
   }
 
   else
   {
-    v26 = 86400.0;
+    v24 = 86400.0;
   }
 
-  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMinTimeValAfterUpgrade:v26];
+  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMinTimeValAfterUpgrade:v24];
   +[PLUtilities containerPath];
-  v27 = _CFPreferencesCopyValueWithContainer();
-  v28 = v27;
-  if (v27)
+  v25 = _CFPreferencesCopyValueWithContainer();
+  v26 = v25;
+  if (v25)
   {
-    [v27 doubleValue];
-    v30 = v29;
+    [v25 doubleValue];
+    v28 = v27;
   }
 
   else
   {
-    v30 = 0.3;
+    v28 = 0.3;
   }
 
-  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMinDrainPercentBeforeUpgrade:v30];
+  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setMinDrainPercentBeforeUpgrade:v28];
   +[PLUtilities containerPath];
-  v31 = _CFPreferencesCopyValueWithContainer();
-  v32 = v31;
-  v33 = 1.3;
-  v34 = 1.3;
-  if (v31)
+  v29 = _CFPreferencesCopyValueWithContainer();
+  v30 = v29;
+  v31 = 1.3;
+  v32 = 1.3;
+  if (v29)
   {
-    [v31 doubleValue];
-    v34 = v35;
+    [v29 doubleValue];
+    v32 = v33;
   }
 
-  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setEnergyThresholdForUpgradeInsight:v34];
+  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setEnergyThresholdForUpgradeInsight:v32];
   +[PLUtilities containerPath];
-  v36 = _CFPreferencesCopyValueWithContainer();
-  v37 = v36;
-  if (v36)
+  v34 = _CFPreferencesCopyValueWithContainer();
+  v35 = v34;
+  if (v34)
   {
-    [v36 doubleValue];
-    v33 = v38;
+    [v34 doubleValue];
+    v31 = v36;
   }
 
-  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setForegroundTimeThresholdForUpgradeInsight:v33];
+  [(PLBatteryUIResponseTypeRecentUsageInsight *)self setForegroundTimeThresholdForUpgradeInsight:v31];
 }
 
 - (void)run
@@ -160,11 +158,11 @@
   [(PLBatteryUIResponseTypeRecentUsageInsight *)self lastUpgradeTimestamp];
   v7 = v6;
 
-  [(PLBatteryUIResponseTypeRecentUsageInsight *)self lastUpgradeTimestamp];
-  if (v8 == 0.0)
+  lastUpgradeTimestamp = [(PLBatteryUIResponseTypeRecentUsageInsight *)self lastUpgradeTimestamp];
+  if (v9 == 0.0)
   {
-    v9 = PLLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = PLLogCommon(lastUpgradeTimestamp);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [PLBatteryUIResponseTypeRecentUsageInsight didUpgrade];
     }
@@ -172,12 +170,12 @@
 
   else
   {
-    v10 = v5 - v7;
-    [(PLBatteryUIResponseTypeRecentUsageInsight *)self minTimeValAfterUpgrade];
-    if (v10 <= v11 || ([(PLBatteryUIResponseTypeRecentUsageInsight *)self maxTimeValAfterUpgrade], v10 >= v12))
+    v11 = v5 - v7;
+    minTimeValAfterUpgrade = [(PLBatteryUIResponseTypeRecentUsageInsight *)self minTimeValAfterUpgrade];
+    if (v11 <= v13 || (minTimeValAfterUpgrade = [(PLBatteryUIResponseTypeRecentUsageInsight *)self maxTimeValAfterUpgrade], v11 >= v14))
     {
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = PLLogCommon(minTimeValAfterUpgrade);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypeRecentUsageInsight didUpgrade];
       }
@@ -186,17 +184,17 @@
     else
     {
       [(PLBatteryUIResponseTypeRecentUsageInsight *)self lastUpgradeTimestamp];
-      v14 = v13;
+      v16 = v15;
       [(PLBatteryUIResponseTypeRecentUsageInsight *)self firstEntryTimestamp];
-      v16 = v14 - v15;
-      [(PLBatteryUIResponseTypeRecentUsageInsight *)self minTimeValBeforeUpgrade];
-      if (v16 > v17)
+      v18 = v16 - v17;
+      minTimeValBeforeUpgrade = [(PLBatteryUIResponseTypeRecentUsageInsight *)self minTimeValBeforeUpgrade];
+      if (v18 > v20)
       {
         return 1;
       }
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = PLLogCommon(minTimeValBeforeUpgrade);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [PLBatteryUIResponseTypeRecentUsageInsight didUpgrade];
       }
@@ -213,16 +211,16 @@
   v5 = [MEMORY[0x277D3F128] entryKeyForType:v3 andName:*MEMORY[0x277D3F318]];
   v6 = [MEMORY[0x277D3F128] entryKeyForType:v3 andName:*MEMORY[0x277D3F2F0]];
   responderService = [(PLBatteryUIResponseTypeRecentUsageInsight *)self responderService];
-  storage = [responderService storage];
-  v9 = [storage entryForKey:v4 withID:1];
+  v8 = objc_msgSend_storage(responderService);
+  v9 = [v8 entryForKey:v4 withID:1];
 
   responderService2 = [(PLBatteryUIResponseTypeRecentUsageInsight *)self responderService];
-  storage2 = [responderService2 storage];
-  v12 = [storage2 entryForKey:v5 withID:1];
+  v11 = objc_msgSend_storage(responderService2);
+  v12 = [v11 entryForKey:v5 withID:1];
 
   responderService3 = [(PLBatteryUIResponseTypeRecentUsageInsight *)self responderService];
-  storage3 = [responderService3 storage];
-  v15 = [storage3 entryForKey:v6 withID:1];
+  v14 = objc_msgSend_storage(responderService3);
+  v15 = [v14 entryForKey:v6 withID:1];
 
   v16 = 9.22337204e18;
   if (v9 && v12 && v15)

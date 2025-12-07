@@ -14,26 +14,25 @@
   propertiesCopy = properties;
   pathCopy = path;
   generatorCopy = generator;
-  v24.receiver = self;
-  v24.super_class = LPEmailCompatibleHTMLVerticalTextStackComponent;
-  v15 = [(LPHTMLComponent *)&v24 initWithTagName:@"div" themePath:pathCopy generator:generatorCopy];
-  v17 = v15;
+  v22.receiver = self;
+  v22.super_class = LPEmailCompatibleHTMLVerticalTextStackComponent;
+  v15 = [(LPHTMLComponent *)&v22 initWithTagName:@"div" themePath:pathCopy generator:generatorCopy];
   if (v15)
   {
-    LPWebLock(v15, v16);
-    objc_storeStrong(&v17->_style, style);
-    objc_storeStrong(&v17->_presentationProperties, properties);
-    [(LPEmailCompatibleHTMLVerticalTextStackComponent *)v17 buildComponents];
+    LPWebLock();
+    objc_storeStrong(&v15->_style, style);
+    objc_storeStrong(&v15->_presentationProperties, properties);
+    [(LPEmailCompatibleHTMLVerticalTextStackComponent *)v15 buildComponents];
     cssResolver = [generatorCopy cssResolver];
-    themePath = [(LPHTMLComponent *)v17 themePath];
-    v20 = [@"lp-rich-link-" stringByAppendingString:themePath];
-    element = [(LPHTMLComponent *)v17 element];
-    [cssResolver addStyle:v20 toElement:element inComponent:v17];
+    themePath = [(LPHTMLComponent *)v15 themePath];
+    v18 = [@"lp-rich-link-" stringByAppendingString:themePath];
+    element = [(LPHTMLComponent *)v15 element];
+    [cssResolver addStyle:v18 toElement:element inComponent:v15];
 
-    v22 = v17;
+    v20 = v15;
   }
 
-  return v17;
+  return v15;
 }
 
 - (id)componentForRow:(id)row style:(id)style name:(id)name
@@ -57,7 +56,7 @@
 - (void)buildComponents
 {
   v15[2] = *MEMORY[0x1E69E9840];
-  LPWebLock(self, a2);
+  LPWebLock();
   v3 = [(LPCaptionBarPresentationProperties *)self->_presentationProperties top];
   v15[0] = v3;
   bottom = [(LPCaptionBarPresentationProperties *)self->_presentationProperties bottom];

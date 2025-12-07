@@ -15,7 +15,7 @@
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews29LargeLockupCollectionViewCell_objectGraph) = 0;
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews29LargeLockupCollectionViewCell_deletionButton) = 0;
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews29LargeLockupCollectionViewCell_itemIsDeletable) = 0;
-  v3 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews29LargeLockupCollectionViewCell_deletionUITriggered);
+  v3 = (self + OBJC_IVAR____TtC23ShelfKitCollectionViews29LargeLockupCollectionViewCell_deletionUITriggered);
   *v3 = UINavigationBar.overrideBackButtonStyle.setter;
   v3[1] = 0;
   result = sub_30D648();

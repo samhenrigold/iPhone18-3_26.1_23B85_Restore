@@ -34,41 +34,41 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v25 = *MEMORY[0x29EDCA608];
-  v23.receiver = self;
-  v23.super_class = SKUIHorizontalListViewAccessibility;
-  [(SKUIHorizontalListViewAccessibility *)&v23 _accessibilityLoadAccessibilityInformation];
-  v22 = 0;
+  v24 = *MEMORY[0x29EDCA608];
+  v22.receiver = self;
+  v22.super_class = SKUIHorizontalListViewAccessibility;
+  [(SKUIHorizontalListViewAccessibility *)&v22 _accessibilityLoadAccessibilityInformation];
+  v21 = 0;
   objc_opt_class();
   v3 = [(SKUIHorizontalListViewAccessibility *)self safeValueForKey:@"_imageViewToImageResourceCacheKey"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
-        v22 = 0;
+        v10 = *(*(&v17 + 1) + 8 * i);
+        v21 = 0;
         objc_opt_class();
-        v11 = [v5 objectForKey:{v10, v18}];
+        v11 = [v5 objectForKey:{v10, v17}];
         v12 = __UIAccessibilityCastAsClass();
 
-        if (v22 == 1)
+        if (v21 == 1)
         {
           abort();
         }
@@ -82,13 +82,11 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 @end

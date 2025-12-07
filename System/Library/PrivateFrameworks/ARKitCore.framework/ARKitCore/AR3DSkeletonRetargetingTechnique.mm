@@ -38,7 +38,7 @@
 {
   v32 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v5 = _ARLogGeneral_2();
+  v5 = _ARLogGeneral_2(dataCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = objc_opt_class();
@@ -59,7 +59,7 @@
     v11 = [v9 initWithCapacity:{objc_msgSend(detectedSkeletons, "count")}];
 
     v12 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.bodytracking.multipleBodyAnchors"];
-    [v8 timestamp];
+    objc_msgSend_timestamp(v8);
     kdebug_trace();
     v23 = 0u;
     v24 = 0u;
@@ -105,7 +105,7 @@ LABEL_6:
       }
     }
 
-    [v8 timestamp];
+    objc_msgSend_timestamp(v8);
     kdebug_trace();
     dispatch_semaphore_wait(self->_resultSemaphore, 0xFFFFFFFFFFFFFFFFLL);
     v20 = objc_opt_new();
@@ -195,7 +195,7 @@ LABEL_6:
 
 - (id)_retargetSkeleton:(id)skeleton
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   skeletonCopy = skeleton;
   v5 = objc_alloc(MEMORY[0x1E698A918]);
   joints = [skeletonCopy joints];
@@ -204,52 +204,54 @@ LABEL_6:
   v9 = [v5 initWithJoints:joints numberOfJoints:jointCount referenceDetectionResult:skeletonDetectionResult2D];
 
   v10 = [(ABPKRetargeting *)self->_abpkRetargeting processData:v9];
-  [v10 jointTransformCount];
-  MEMORY[0x1EEE9AC00]();
-  v12 = &buf[-16 * v11 - 16];
-  if ([v10 jointTransformCount])
+  jointTransformCount = [v10 jointTransformCount];
+  MEMORY[0x1EEE9AC00](jointTransformCount, v12, v13, v14, v15);
+  v17 = &buf[-16 * v16 - 16];
+  jointTransformCount2 = [v10 jointTransformCount];
+  if (jointTransformCount2)
   {
-    v13 = 0;
-    v14 = 0;
-    v15 = v12 + 16;
+    v19 = 0;
+    v20 = 0;
+    v21 = v17 + 16;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v33 = _Q0;
+    v39 = _Q0;
     do
     {
-      v15[1] = *([v10 localJointTransformsSRT] + v13 + 32);
-      v21 = *([v10 localJointTransformsSRT] + v13 + 16);
-      *(v15 - 1) = v33;
-      *v15 = v21;
-      ++v14;
-      v15 += 3;
-      v13 += 48;
+      v21[1] = *([v10 localJointTransformsSRT] + v19 + 32);
+      v27 = *([v10 localJointTransformsSRT] + v19 + 16);
+      *(v21 - 1) = v39;
+      *v21 = v27;
+      ++v20;
+      jointTransformCount2 = [v10 jointTransformCount];
+      v21 += 3;
+      v19 += 48;
     }
 
-    while (v14 < [v10 jointTransformCount]);
+    while (v20 < jointTransformCount2);
   }
 
-  v22 = _ARLogGeneral_2();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v28 = _ARLogGeneral_2(jointTransformCount2);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    v23 = objc_opt_class();
-    v24 = NSStringFromClass(v23);
+    v29 = objc_opt_class();
+    v30 = NSStringFromClass(v29);
     *buf = 138543618;
-    v35 = v24;
-    v36 = 2048;
+    v41 = v30;
+    v42 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Creating result", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v28, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Creating result", buf, 0x16u);
   }
 
-  v25 = [ARCoreRESkeletonResult alloc];
+  v31 = [ARCoreRESkeletonResult alloc];
   jointModelTransforms = [v10 jointModelTransforms];
-  jointTransformCount = [v10 jointTransformCount];
-  LODWORD(v28) = 981668463;
-  v29 = [skeletonCopy createResultScaledByFactor:v28];
+  jointTransformCount3 = [v10 jointTransformCount];
+  LODWORD(v34) = 981668463;
+  v35 = [skeletonCopy createResultScaledByFactor:v34];
   identifier = [v10 identifier];
-  v31 = [(ARCoreRESkeletonResult *)v25 initWithModelJointTransforms:jointModelTransforms localJointTransformsSRT:v12 numberOfTransforms:jointTransformCount liftedSkeletonData:v29 identifier:identifier];
+  v37 = [(ARCoreRESkeletonResult *)v31 initWithModelJointTransforms:jointModelTransforms localJointTransformsSRT:v17 numberOfTransforms:jointTransformCount3 liftedSkeletonData:v35 identifier:identifier];
 
-  return v31;
+  return v37;
 }
 
 - (BOOL)isEqual:(id)equal

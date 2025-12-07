@@ -22,33 +22,31 @@
 
 void __47__EKPersistentCalendar_defaultPropertiesToLoad__block_invoke()
 {
-  v10[14] = *MEMORY[0x1E69E9840];
+  v9[14] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992890];
-  v10[0] = *MEMORY[0x1E6992730];
-  v10[1] = v0;
+  v9[0] = *MEMORY[0x1E6992730];
+  v9[1] = v0;
   v1 = *MEMORY[0x1E6992870];
-  v10[2] = *MEMORY[0x1E6992740];
-  v10[3] = v1;
+  v9[2] = *MEMORY[0x1E6992740];
+  v9[3] = v1;
   v2 = *MEMORY[0x1E6992718];
-  v10[4] = *MEMORY[0x1E6992760];
-  v10[5] = v2;
+  v9[4] = *MEMORY[0x1E6992760];
+  v9[5] = v2;
   v3 = *MEMORY[0x1E6992868];
-  v10[6] = *MEMORY[0x1E6992B08];
-  v10[7] = v3;
+  v9[6] = *MEMORY[0x1E6992B08];
+  v9[7] = v3;
   v4 = *MEMORY[0x1E6992778];
-  v10[8] = *MEMORY[0x1E6992850];
-  v10[9] = v4;
+  v9[8] = *MEMORY[0x1E6992850];
+  v9[9] = v4;
   v5 = *MEMORY[0x1E69928A8];
-  v10[10] = *MEMORY[0x1E69927F8];
-  v10[11] = v5;
+  v9[10] = *MEMORY[0x1E69927F8];
+  v9[11] = v5;
   v6 = *MEMORY[0x1E6992B10];
-  v10[12] = *MEMORY[0x1E6992898];
-  v10[13] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:14];
+  v9[12] = *MEMORY[0x1E6992898];
+  v9[13] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:14];
   v8 = defaultPropertiesToLoad_defaultPropertiesToLoad_0;
   defaultPropertiesToLoad_defaultPropertiesToLoad_0 = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)relations

@@ -41,7 +41,7 @@
   cache = self->_cache;
   self->_cache = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, cache);
 }
 
 ATXComplicationSuggestionHeuristicsCache *__49__ATXComplicationSuggestionHeuristics_flushCache__block_invoke()
@@ -92,7 +92,7 @@ ATXComplicationSuggestionHeuristicsCache *__49__ATXComplicationSuggestionHeurist
 
 - (id)description
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 appendString:@"\nHeurstics scores:\n\n"];
   v4 = +[ATXComplicationWidgetPersonalities batteryComplicationWidgetPersonality];
@@ -102,11 +102,11 @@ ATXComplicationSuggestionHeuristicsCache *__49__ATXComplicationSuggestionHeurist
 
   v8 = MEMORY[0x277CCACA8];
   extensionBundleId = [v4 extensionBundleId];
-  v66 = v4;
+  v65 = v4;
   kind = [v4 kind];
   v11 = [v8 stringWithFormat:@"Extension BundleId: %@\nKind: %@\nScore: %lu\nBluetooth connections over last week: %lu\n\n", extensionBundleId, kind, v5, numBluetoothConnectionsOverLastWeek];
 
-  v65 = v11;
+  v64 = v11;
   [v3 appendString:v11];
   v12 = +[ATXComplicationWidgetPersonalities calendarNextEventComplicationWidgetPersonality];
   v13 = [objc_opt_class() scoreFromConfidence:{-[ATXComplicationSuggestionHeuristics _calendarHeuristic](self, "_calendarHeuristic")}];
@@ -115,11 +115,11 @@ ATXComplicationSuggestionHeuristicsCache *__49__ATXComplicationSuggestionHeurist
 
   v16 = MEMORY[0x277CCACA8];
   extensionBundleId2 = [v12 extensionBundleId];
-  v64 = v12;
+  v63 = v12;
   kind2 = [v12 kind];
   v19 = [v16 stringWithFormat:@"Extension BundleId: %@\nKind: %@\nScore: %lu\nCalendar events over last and next week: %lu\n\n", extensionBundleId2, kind2, v13, numCalendarEventsOverLastAndNextWeek];
 
-  v63 = v19;
+  v62 = v19;
   [v3 appendString:v19];
   v20 = +[ATXComplicationWidgetPersonalities remindersComplicationWidgetPersonality];
   _reminderHeuristic = [(ATXComplicationSuggestionHeuristics *)self _reminderHeuristic];
@@ -129,26 +129,26 @@ ATXComplicationSuggestionHeuristicsCache *__49__ATXComplicationSuggestionHeurist
   v24 = [objc_opt_class() scoreFromConfidence:_reminderHeuristic];
   v25 = MEMORY[0x277CCACA8];
   extensionBundleId3 = [v20 extensionBundleId];
-  v62 = v20;
+  v61 = v20;
   kind3 = [v20 kind];
   v28 = [v25 stringWithFormat:@"Extension BundleId: %@\nKind: %@\nScore: %lu\nReminders over last week: %lu\n\n", extensionBundleId3, kind3, v24, numRemindersOverLastWeek];
 
-  v61 = v28;
+  v60 = v28;
   [v3 appendString:v28];
   v29 = +[ATXComplicationWidgetPersonalities weatherConditionsComplicationWidgetPersonality];
   v30 = [objc_opt_class() scoreFromConfidence:4];
   v31 = MEMORY[0x277CCACA8];
   extensionBundleId4 = [v29 extensionBundleId];
-  v60 = v29;
+  v59 = v29;
   kind4 = [v29 kind];
   v34 = [v31 stringWithFormat:@"Extension BundleId: %@\nKind: %@\nScore: %lu\n\n", extensionBundleId4, kind4, v30];
 
-  v59 = v34;
+  v58 = v34;
   [v3 appendString:v34];
   _countedHomeAccessoryEvents = [objc_opt_class() _countedHomeAccessoryEvents];
   v36 = [objc_opt_class() getClimateCountGivenHomeCounts:_countedHomeAccessoryEvents];
   v37 = [objc_opt_class() getLightCountGivenHomeCounts:_countedHomeAccessoryEvents];
-  v58 = _countedHomeAccessoryEvents;
+  v57 = _countedHomeAccessoryEvents;
   v38 = [objc_opt_class() getSecurityCountGivenHomeCounts:_countedHomeAccessoryEvents];
   [v3 appendString:@"Home Heuristics \n"];
   v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Climate Count: %lu\n", v36];
@@ -163,25 +163,25 @@ ATXComplicationSuggestionHeuristicsCache *__49__ATXComplicationSuggestionHeurist
   v42 = v3;
   [v3 appendString:@"Scores: \n"];
   _homeHeuristics = [(ATXComplicationSuggestionHeuristics *)self _homeHeuristics];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  v44 = [_homeHeuristics countByEnumeratingWithState:&v67 objects:v71 count:16];
+  v44 = [_homeHeuristics countByEnumeratingWithState:&v66 objects:v70 count:16];
   if (v44)
   {
     v45 = v44;
-    v46 = *v68;
+    v46 = *v67;
     do
     {
       for (i = 0; i != v45; ++i)
       {
-        if (*v68 != v46)
+        if (*v67 != v46)
         {
           objc_enumerationMutation(_homeHeuristics);
         }
 
-        v48 = *(*(&v67 + 1) + 8 * i);
+        v48 = *(*(&v66 + 1) + 8 * i);
         v49 = objc_opt_class();
         v50 = [_homeHeuristics objectForKeyedSubscript:v48];
         v51 = [v49 scoreFromConfidence:{objc_msgSend(v50, "unsignedIntegerValue")}];
@@ -192,7 +192,7 @@ ATXComplicationSuggestionHeuristicsCache *__49__ATXComplicationSuggestionHeurist
         [v42 appendString:v54];
       }
 
-      v45 = [_homeHeuristics countByEnumeratingWithState:&v67 objects:v71 count:16];
+      v45 = [_homeHeuristics countByEnumeratingWithState:&v66 objects:v70 count:16];
     }
 
     while (v45);
@@ -200,8 +200,6 @@ ATXComplicationSuggestionHeuristicsCache *__49__ATXComplicationSuggestionHeurist
 
   [v42 appendString:@"\n"];
   v55 = [v42 copy];
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return v55;
 }
@@ -568,8 +566,8 @@ void __75__ATXComplicationSuggestionHeuristics__numBluetoothConnectionsOverLastW
 
   if (v3)
   {
-    v4 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_lock_screen(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __75__ATXComplicationSuggestionHeuristics__numBluetoothConnectionsOverLastWeek__block_invoke_cold_1(v2);
     }
@@ -665,14 +663,14 @@ void __75__ATXComplicationSuggestionHeuristics__numBluetoothConnectionsOverLastW
   v11 = v10;
   v26 = v11;
   [v8 fetchEventCountsInRange:v9 inCalendars:0 exclusionOptions:0 completion:v25];
-  [MEMORY[0x277D425A0] waitForSemaphore:v11 timeoutSeconds:5.0];
-  v12 = v29[5];
-  if (!v12)
+  v12 = [MEMORY[0x277D425A0] waitForSemaphore:v11 timeoutSeconds:5.0];
+  v13 = v29[5];
+  if (!v13)
   {
-    v13 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_lock_screen(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [ATXComplicationSuggestionHeuristics _fetchNumberOfCalendarEventsForStartDate:v13 endDate:?];
+      [ATXComplicationSuggestionHeuristics _fetchNumberOfCalendarEventsForStartDate:v14 endDate:?];
     }
 
     goto LABEL_12;
@@ -682,42 +680,41 @@ void __75__ATXComplicationSuggestionHeuristics__numBluetoothConnectionsOverLastW
   v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v34 count:16];
-  if (!v14)
+  v14 = v13;
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v34 count:16];
+  if (!v15)
   {
 LABEL_12:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_13;
   }
 
   v20 = v7;
-  v15 = 0;
-  v16 = *v22;
+  v16 = 0;
+  v17 = *v22;
   do
   {
-    for (i = 0; i != v14; ++i)
+    for (i = 0; i != v15; ++i)
     {
-      if (*v22 != v16)
+      if (*v22 != v17)
       {
-        objc_enumerationMutation(v13);
+        objc_enumerationMutation(v14);
       }
 
-      v15 += [v29[5] countForObject:*(*(&v21 + 1) + 8 * i)];
+      v16 += [v29[5] countForObject:*(*(&v21 + 1) + 8 * i)];
     }
 
-    v14 = [v13 countByEnumeratingWithState:&v21 objects:v34 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v34 count:16];
   }
 
-  while (v14);
+  while (v15);
   v7 = v20;
 LABEL_13:
 
   _Block_object_dispose(&v28, 8);
   objc_autoreleasePoolPop(v7);
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 void __88__ATXComplicationSuggestionHeuristics__fetchNumberOfCalendarEventsForStartDate_endDate___block_invoke(uint64_t a1, void *a2)
@@ -754,8 +751,8 @@ void __66__ATXComplicationSuggestionHeuristics__countedHomeAccessoryEvents__bloc
 
   if (v3)
   {
-    v4 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_lock_screen(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __66__ATXComplicationSuggestionHeuristics__countedHomeAccessoryEvents__block_invoke_cold_1(v2);
     }
@@ -771,21 +768,21 @@ void __66__ATXComplicationSuggestionHeuristics__countedHomeAccessoryEvents__bloc
 
   if (isKindOfClass)
   {
-    v6 = [v3 eventBody];
-    v7 = [v6 serviceType];
+    v7 = [v3 eventBody];
+    v8 = [v7 serviceType];
 
-    if (v7)
+    if (v8)
     {
-      v8 = *(a1 + 32);
-      v9 = [v6 serviceType];
-      [v8 addObject:v9];
+      v9 = *(a1 + 32);
+      v10 = [v7 serviceType];
+      [v9 addObject:v10];
     }
   }
 
   else
   {
-    v10 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_lock_screen(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __66__ATXComplicationSuggestionHeuristics__countedHomeAccessoryEvents__block_invoke_152_cold_1(v3);
     }
@@ -794,31 +791,28 @@ void __66__ATXComplicationSuggestionHeuristics__countedHomeAccessoryEvents__bloc
 
 void __75__ATXComplicationSuggestionHeuristics__numBluetoothConnectionsOverLastWeek__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not query Bluetooth connected events for complication heuristics: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not query Bluetooth connected events for complication heuristics: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __66__ATXComplicationSuggestionHeuristics__countedHomeAccessoryEvents__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not fetch Home accessory events: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not fetch Home accessory events: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __66__ATXComplicationSuggestionHeuristics__countedHomeAccessoryEvents__block_invoke_152_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventBody];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v4, v5, "Incorrect class received while fetching home accessory events: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 138412290;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v4, v5, "Incorrect class received while fetching home accessory events: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

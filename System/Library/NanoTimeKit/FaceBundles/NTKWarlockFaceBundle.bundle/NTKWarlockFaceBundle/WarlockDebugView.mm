@@ -10,7 +10,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20NTKWarlockFaceBundle16WarlockDebugView_radius) = 0x4024000000000000;
   v4 = OBJC_IVAR____TtC20NTKWarlockFaceBundle16WarlockDebugView_headShapeLayer;
   *(&self->super.super.super.isa + v4) = [objc_allocWithZone(CAShapeLayer) init];
-  *(&self->super.super.super.isa + OBJC_IVAR____TtC20NTKWarlockFaceBundle16WarlockDebugView_ambientShapeLayers) = &_swiftEmptyArrayStorage;
+  *(&self->super.super.super.isa + OBJC_IVAR____TtC20NTKWarlockFaceBundle16WarlockDebugView_ambientShapeLayers) = _swiftEmptyArrayStorage;
   result = sub_37A30();
   __break(1u);
   return result;

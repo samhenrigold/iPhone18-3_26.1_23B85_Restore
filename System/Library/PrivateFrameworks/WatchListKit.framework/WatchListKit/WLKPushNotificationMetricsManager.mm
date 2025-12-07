@@ -8,12 +8,12 @@
 
 - (WLKPushNotificationMetricsManager)initWithNotificationSettings:(id)settings notificationSettingsForTopic:(id)topic
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   topicCopy = topic;
-  v30.receiver = self;
-  v30.super_class = WLKPushNotificationMetricsManager;
-  v8 = [(WLKPushNotificationMetricsManager *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = WLKPushNotificationMetricsManager;
+  v8 = [(WLKPushNotificationMetricsManager *)&v29 init];
   if (v8)
   {
     v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -26,50 +26,49 @@
 
     if (topicCopy && [topicCopy count])
     {
-      v24 = v11;
-      v25 = settingsCopy;
+      v23 = v11;
+      v24 = settingsCopy;
       v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       keyEnumerator = [topicCopy keyEnumerator];
-      v15 = [keyEnumerator countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v15 = [keyEnumerator countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v27;
+        v17 = *v26;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v27 != v17)
+            if (*v26 != v17)
             {
               objc_enumerationMutation(keyEnumerator);
             }
 
-            v19 = *(*(&v26 + 1) + 8 * i);
-            v20 = [topicCopy objectForKeyedSubscript:{v19, v24}];
+            v19 = *(*(&v25 + 1) + 8 * i);
+            v20 = [topicCopy objectForKeyedSubscript:{v19, v23}];
             v21 = [(WLKPushNotificationMetricsManager *)v8 _createDisplayCriteriaFromSettings:v20];
             [v13 setObject:v21 forKeyedSubscript:v19];
           }
 
-          v16 = [keyEnumerator countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v16 = [keyEnumerator countByEnumeratingWithState:&v25 objects:v30 count:16];
         }
 
         while (v16);
       }
 
-      v11 = v24;
-      [v24 setObject:v13 forKeyedSubscript:@"subsections"];
+      v11 = v23;
+      [v23 setObject:v13 forKeyedSubscript:@"subsections"];
 
-      settingsCopy = v25;
+      settingsCopy = v24;
     }
 
-    [(NSMutableDictionary *)v8->_displayCriteria setObject:v11 forKeyedSubscript:@"displayCriteria", v24];
+    [(NSMutableDictionary *)v8->_displayCriteria setObject:v11 forKeyedSubscript:@"displayCriteria", v23];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

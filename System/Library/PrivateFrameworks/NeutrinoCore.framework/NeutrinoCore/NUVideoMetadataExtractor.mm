@@ -92,7 +92,7 @@ LABEL_51:
 
         if (firstObject)
         {
-          [firstObject time];
+          objc_msgSend_time(firstObject);
         }
 
         else

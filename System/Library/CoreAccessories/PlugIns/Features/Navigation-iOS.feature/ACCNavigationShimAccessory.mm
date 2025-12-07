@@ -1,7 +1,6 @@
 @interface ACCNavigationShimAccessory
 - (ACCNavigationShimAccessory)init;
 - (id)create_xpc_representation;
-- (void)create_xpc_representation;
 - (void)dealloc;
 @end
 
@@ -47,7 +46,7 @@
 
 - (id)create_xpc_representation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v3 = gNumLogObjects < 1;
@@ -84,26 +83,26 @@
   xpc_dictionary_set_uint64(xdict, "identifier", connectionID);
   v7 = xpc_array_create(0, 0);
   componentList = [(ACCNavigationAccessory *)self->_navigationAccessory componentList];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = [componentList allKeys];
-  v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [componentList objectForKey:{*(*(&v20 + 1) + 8 * i), xdict}];
+        v13 = [componentList objectForKey:{*(*(&v19 + 1) + 8 * i), xdict}];
         v14 = xpc_dictionary_create(0, 0, 0);
         xpc_dictionary_set_BOOL(v14, "isEnabled", [v13 isEnabled]);
         xpc_dictionary_set_uint64(v14, "identifier", [v13 identifier]);
@@ -123,24 +122,15 @@
         xpc_array_append_value(v7, v14);
       }
 
-      v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
 
   xpc_dictionary_set_value(xdict, "components", v7);
-  v16 = *MEMORY[0x277D85DE8];
 
   return xdict;
-}
-
-- (void)create_xpc_representation
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2335F7000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

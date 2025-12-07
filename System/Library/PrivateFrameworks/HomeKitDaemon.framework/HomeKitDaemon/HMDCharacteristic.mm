@@ -79,7 +79,7 @@
 
 - (NSDictionary)bulletinContext
 {
-  v38[12] = *MEMORY[0x277D85DE8];
+  v37[12] = *MEMORY[0x277D85DE8];
   service = [(HMDCharacteristic *)self service];
   accessory = [(HMDCharacteristic *)self accessory];
   home = [accessory home];
@@ -87,51 +87,51 @@
   room = [accessory room];
   name2 = [room name];
   v9 = HMDLocalizedStringForKey(@"BULLETIN_ACTION_ROOM_SERVICE");
-  v27 = [HMDServiceNameComponents componentsWithRawServiceName:name rawRoomName:name2 localizedFormat:v9];
+  v26 = [HMDServiceNameComponents componentsWithRawServiceName:name rawRoomName:name2 localizedFormat:v9];
 
-  v37[0] = @"home";
+  v36[0] = @"home";
   contextID = [home contextID];
-  v38[0] = contextID;
-  v37[1] = @"accessory";
+  v37[0] = contextID;
+  v36[1] = @"accessory";
   contextID2 = [accessory contextID];
-  v38[1] = contextID2;
-  v37[2] = @"service";
+  v37[1] = contextID2;
+  v36[2] = @"service";
   contextID3 = [service contextID];
-  v38[2] = contextID3;
-  v37[3] = @"characteristic";
+  v37[2] = contextID3;
+  v36[3] = @"characteristic";
   contextID4 = [(HMDCharacteristic *)self contextID];
-  v38[3] = contextID4;
-  v37[4] = @"serviceType";
+  v37[3] = contextID4;
+  v36[4] = @"serviceType";
   type = [service type];
-  v38[4] = type;
-  v37[5] = @"characteristicType";
+  v37[4] = type;
+  v36[5] = @"characteristicType";
   type2 = [(HMDCharacteristic *)self type];
-  v38[5] = type2;
-  v37[6] = *MEMORY[0x277CCF328];
+  v37[5] = type2;
+  v36[6] = *MEMORY[0x277CCF328];
   contextSPIUniqueIdentifier = [home contextSPIUniqueIdentifier];
   uUIDString = [contextSPIUniqueIdentifier UUIDString];
-  v38[6] = uUIDString;
-  v37[7] = *MEMORY[0x277CCF318];
-  v35 = accessory;
+  v37[6] = uUIDString;
+  v36[7] = *MEMORY[0x277CCF318];
+  v34 = accessory;
   contextSPIUniqueIdentifier2 = [accessory contextSPIUniqueIdentifier];
   uUIDString2 = [contextSPIUniqueIdentifier2 UUIDString];
-  v38[7] = uUIDString2;
-  v37[8] = *MEMORY[0x277CCF340];
-  v36 = service;
+  v37[7] = uUIDString2;
+  v36[8] = *MEMORY[0x277CCF340];
+  v35 = service;
   contextSPIUniqueIdentifier3 = [service contextSPIUniqueIdentifier];
   uUIDString3 = [contextSPIUniqueIdentifier3 UUIDString];
-  v38[8] = uUIDString3;
-  v37[9] = *MEMORY[0x277CCF320];
+  v37[8] = uUIDString3;
+  v36[9] = *MEMORY[0x277CCF320];
   contextSPIUniqueIdentifier4 = [(HMDCharacteristic *)self contextSPIUniqueIdentifier];
   uUIDString4 = [contextSPIUniqueIdentifier4 UUIDString];
-  v38[9] = uUIDString4;
-  v37[10] = *MEMORY[0x277CCF330];
+  v37[9] = uUIDString4;
+  v36[10] = *MEMORY[0x277CCF330];
   name3 = [home name];
-  v38[10] = name3;
-  v37[11] = *MEMORY[0x277CCF338];
-  composedName = [v27 composedName];
-  v38[11] = composedName;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:12];
+  v37[10] = name3;
+  v36[11] = *MEMORY[0x277CCF338];
+  composedName = [v26 composedName];
+  v37[11] = composedName;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:12];
   v17 = [v16 mutableCopy];
 
   stateNumber = [(HMDCharacteristic *)self stateNumber];
@@ -148,14 +148,12 @@
   lastKnownValueUpdateTime = [(HMDCharacteristic *)self lastKnownValueUpdateTime];
   [v17 setObject:lastKnownValueUpdateTime forKeyedSubscript:@"characteristicValueUpdatedTime"];
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (NSUUID)contextSPIUniqueIdentifier
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = +[HMDProcessInfo privateClientIdentifierSalt];
   v4 = MEMORY[0x277CCAD78];
   service = [(HMDCharacteristic *)self service];
@@ -163,11 +161,9 @@
   v7 = MEMORY[0x277CCACA8];
   instanceID = [(HMDCharacteristic *)self instanceID];
   v9 = [v7 stringWithFormat:@"%@", instanceID];
-  v14[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v11 = [v4 hm_deriveUUIDFromBaseUUID:contextSPIUniqueIdentifier identifierSalt:v3 withSalts:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -192,46 +188,44 @@
 
 - (id)attributeDescriptions
 {
-  v34[8] = *MEMORY[0x277D85DE8];
+  v33[8] = *MEMORY[0x277D85DE8];
   accessory = [(HMDCharacteristic *)self accessory];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   type = [(HMDCharacteristic *)self type];
-  v32 = HAPShortUUIDType();
-  v30 = [v3 initWithName:@"Type Prefix" value:v32];
-  v34[0] = v30;
+  v31 = HAPShortUUIDType();
+  v29 = [v3 initWithName:@"Type Prefix" value:v31];
+  v33[0] = v29;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [accessory uuid];
   shortDescription = [uuid shortDescription];
-  v27 = [v4 initWithName:@"Accessory UUID" value:shortDescription];
-  v34[1] = v27;
+  v26 = [v4 initWithName:@"Accessory UUID" value:shortDescription];
+  v33[1] = v26;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   service = [(HMDCharacteristic *)self service];
   instanceID = [service instanceID];
-  v24 = [v5 initWithName:@"Service ID" value:instanceID];
-  v34[2] = v24;
+  v23 = [v5 initWithName:@"Service ID" value:instanceID];
+  v33[2] = v23;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   instanceID2 = [(HMDCharacteristic *)self instanceID];
   v7 = [v6 initWithName:@"Instance ID" value:instanceID2];
-  v34[3] = v7;
+  v33[3] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   lastKnownValue = [(HMDCharacteristic *)self lastKnownValue];
   v10 = [v8 initWithName:@"Last Known Value" value:lastKnownValue];
-  v34[4] = v10;
+  v33[4] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   lastKnownValueUpdateTime = [(HMDCharacteristic *)self lastKnownValueUpdateTime];
   v13 = [v11 initWithName:@"Last Known Value Update Time" value:lastKnownValueUpdateTime];
-  v34[5] = v13;
+  v33[5] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   previousValue = [(HMDCharacteristic *)self previousValue];
   v16 = [v14 initWithName:@"Previous Value" value:previousValue];
-  v34[6] = v16;
+  v33[6] = v16;
   v17 = objc_alloc(MEMORY[0x277D0F778]);
   stateNumber = [(HMDCharacteristic *)self stateNumber];
   v19 = [v17 initWithName:@"State" value:stateNumber];
-  v34[7] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:8];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v33[7] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:8];
 
   return v20;
 }
@@ -472,7 +466,7 @@ LABEL_6:
 
 - (id)_initWithCoder:(id)coder
 {
-  v36[2] = *MEMORY[0x277D85DE8];
+  v35[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(HMDCharacteristic *)self initWithCharacteristic:0 service:0];
   if (v5)
@@ -496,9 +490,9 @@ LABEL_6:
     v5->_metadata = v13;
 
     v15 = MEMORY[0x277CBEB98];
-    v36[0] = objc_opt_class();
-    v36[1] = objc_opt_class();
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+    v35[0] = objc_opt_class();
+    v35[1] = objc_opt_class();
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
     v17 = [v15 setWithArray:v16];
 
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:*MEMORY[0x277CD2178]];
@@ -562,7 +556,6 @@ LABEL_6:
     }
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -606,7 +599,7 @@ HMDCharacteristicThresholdRegistration *__36__HMDCharacteristic__initWithCoder__
 
 - (id)contextDataForWriteRequestWithIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([(HMDCharacteristic *)self supportsNotificationContext])
   {
@@ -614,9 +607,9 @@ HMDCharacteristicThresholdRegistration *__36__HMDCharacteristic__initWithCoder__
     v6 = [objc_alloc(MEMORY[0x277CFEC98]) initWithValue:identifierCopy];
     v7 = [v5 initWithContextIdentifier:v6];
 
-    v19 = 0;
-    v8 = [v7 serializeWithError:&v19];
-    v9 = v19;
+    v18 = 0;
+    v8 = [v7 serializeWithError:&v18];
+    v9 = v18;
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
     v12 = HMFGetOSLogHandle();
@@ -627,13 +620,13 @@ HMDCharacteristicThresholdRegistration *__36__HMDCharacteristic__initWithCoder__
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v21 = v14;
-        v22 = 2112;
-        v23 = v7;
-        v24 = 2112;
-        v25 = v9;
-        v26 = 2112;
-        v27 = identifierCopy;
+        v20 = v14;
+        v21 = 2112;
+        v22 = v7;
+        v23 = 2112;
+        v24 = v9;
+        v25 = 2112;
+        v26 = identifierCopy;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode context data:%@ with error:%@ identifier:%@", buf, 0x2Au);
       }
 
@@ -647,11 +640,11 @@ HMDCharacteristicThresholdRegistration *__36__HMDCharacteristic__initWithCoder__
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v8;
-        v24 = 2112;
-        v25 = identifierCopy;
+        v20 = v16;
+        v21 = 2112;
+        v22 = v8;
+        v23 = 2112;
+        v24 = identifierCopy;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Context data:%@ for write request with identifier:%@", buf, 0x20u);
       }
 
@@ -665,31 +658,29 @@ HMDCharacteristicThresholdRegistration *__36__HMDCharacteristic__initWithCoder__
     v15 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (BOOL)supportsNotificationContext
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ((self->_characteristicProperties & 0x100) != 0)
   {
-    v9 = objc_autoreleasePoolPush();
+    v8 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = selfCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Notification context is supported for characteristic:%@", &v14, 0x16u);
+      v11 = HMFGetLogIdentifier();
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = selfCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Notification context is supported for characteristic:%@", &v12, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v9);
-    result = 1;
+    objc_autoreleasePoolPop(v8);
+    return 1;
   }
 
   else
@@ -703,15 +694,14 @@ HMDCharacteristicThresholdRegistration *__36__HMDCharacteristic__initWithCoder__
       v6 = [service findCharacteristicWithType:*MEMORY[0x277CFE608]];
 
       LOBYTE(service) = [v6 supportsNotificationContext];
-      v7 = *MEMORY[0x277D85DE8];
       return service;
     }
 
-    result = 0;
+    else
+    {
+      return 0;
+    }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)shouldIgnoreCacheValueForRead
@@ -777,7 +767,7 @@ HMDCharacteristicThresholdRegistration *__36__HMDCharacteristic__initWithCoder__
 - (BOOL)setNotificationEnabled:(BOOL)enabled forClientIdentifier:(id)identifier changeThreshold:(id)threshold removeLast:(BOOL)last
 {
   enabledCopy = enabled;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   thresholdCopy = threshold;
   if (identifierCopy)
@@ -794,11 +784,11 @@ HMDCharacteristicThresholdRegistration *__36__HMDCharacteristic__initWithCoder__
         v16 = HMFGetLogIdentifier();
         [thresholdCopy floatValue];
         *buf = 138543874;
-        v35 = v16;
-        v36 = 2112;
-        v37 = identifierCopy;
-        v38 = 2048;
-        v39 = v17;
+        v34 = v16;
+        v35 = 2112;
+        v36 = identifierCopy;
+        v37 = 2048;
+        v38 = v17;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Adding notification registration for client identifier: %@ threshold : %f", buf, 0x20u);
       }
 
@@ -844,9 +834,9 @@ LABEL_22:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v27;
-      v36 = 2112;
-      v37 = identifierCopy;
+      v34 = v27;
+      v35 = 2112;
+      v36 = identifierCopy;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Removing notification registration for client identifier: %@", buf, 0x16u);
     }
 
@@ -878,34 +868,33 @@ LABEL_21:
   v21 = 0;
 LABEL_23:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (NSNumber)changeThresholdForNonHomeClientEnabledNotifications
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   notificationRegistrations = [(HMDCharacteristic *)self notificationRegistrations];
-  v3 = [notificationRegistrations countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [notificationRegistrations countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v19;
+    v6 = *v18;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(notificationRegistrations);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         clientID = [v8 clientID];
         v10 = [clientID isEqual:@"com.apple.HomeKitDaemon.homeNotifications"];
 
@@ -940,7 +929,7 @@ LABEL_23:
         }
       }
 
-      v4 = [notificationRegistrations countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [notificationRegistrations countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v4)
       {
         continue;
@@ -956,35 +945,33 @@ LABEL_16:
     v5 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (NSNumber)changeThresholdForEnabledNotifications
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   notificationRegistrations = [(HMDCharacteristic *)self notificationRegistrations];
-  v3 = [notificationRegistrations countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [notificationRegistrations countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v17;
+    v6 = *v16;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(notificationRegistrations);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         updateThreshold = [v8 updateThreshold];
 
         if (!updateThreshold)
@@ -1013,7 +1000,7 @@ LABEL_16:
         }
       }
 
-      v4 = [notificationRegistrations countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [notificationRegistrations countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v4)
       {
         continue;
@@ -1028,8 +1015,6 @@ LABEL_16:
 LABEL_15:
     v5 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1382,7 +1367,7 @@ uint64_t __48__HMDCharacteristic_isClientNotificationEnabled__block_invoke(uint6
 
 - (BOOL)shouldUpdateValueFromHAPCharacteristic:(id)characteristic
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   os_unfair_lock_lock_with_options();
   v5 = self->_lastKnownValue;
@@ -1405,8 +1390,8 @@ uint64_t __48__HMDCharacteristic_isClientNotificationEnabled__block_invoke(uint6
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v19 = HMFGetLogIdentifier();
-        v28 = 138543362;
-        v29 = v19;
+        v27 = 138543362;
+        v28 = v19;
         v20 = "%{public}@Declaring the value as different because update time is earlier than hap update time";
         goto LABEL_12;
       }
@@ -1429,8 +1414,8 @@ LABEL_13:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v19 = HMFGetLogIdentifier();
-        v28 = 138543362;
-        v29 = v19;
+        v27 = 138543362;
+        v28 = v19;
         v20 = "%{public}@Declaring the value as different because characteristic generates notification on configuration";
         goto LABEL_12;
       }
@@ -1452,11 +1437,11 @@ LABEL_13:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v19;
+      v27 = 138543362;
+      v28 = v19;
       v20 = "%{public}@Declaring the value as different because Characteristic does not support caching";
 LABEL_12:
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, v20, &v28, 0xCu);
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, v20, &v27, 0xCu);
 
       goto LABEL_13;
     }
@@ -1467,33 +1452,32 @@ LABEL_12:
   v22 = 0;
 LABEL_14:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (void)updateLastKnownValue
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v3 = self->_hapCharacteristicTuples;
-  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v4)
   {
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
         lastKnownValueUpdateTime = self->_lastKnownValueUpdateTime;
         hapCharacteristic = [v7 hapCharacteristic];
         valueUpdatedTime = [hapCharacteristic valueUpdatedTime];
@@ -1519,14 +1503,13 @@ LABEL_14:
         }
       }
 
-      v4 = [(NSSet *)v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v4 = [(NSSet *)v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v4);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLastKnownValueUpdateTime:(id *)time stateNumber:(id *)number notificationContext:(id *)context
@@ -1552,7 +1535,7 @@ LABEL_14:
 
 - (void)updateValue:(id)value updatedTime:(id)time stateNumber:(id)number notificationContext:(id)context
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   obj = value;
   valueCopy = value;
   timeCopy = time;
@@ -1561,7 +1544,7 @@ LABEL_14:
   contextCopy = context;
   contextCopy2 = context;
   os_unfair_lock_lock_with_options();
-  v43 = numberCopy2;
+  v41 = numberCopy2;
   v14 = [(NSNumber *)self->_stateNumber isEqual:numberCopy2]^ 1;
   if (!timeCopy)
   {
@@ -1569,81 +1552,80 @@ LABEL_14:
   }
 
   v15 = (v14 & 1) == 0 && [(NSDate *)self->_lastKnownValueUpdateTime compare:timeCopy, numberCopy, contextCopy, obj]== NSOrderedDescending;
-  if (v43)
+  if (v41)
   {
-    stateNumber = self->_stateNumber;
-    v17 = HAPCompareStateNumberWithRollover() == 1 || v15;
-    if (v17 == 1)
+    v16 = HAPCompareStateNumberWithRollover() == 1 || v15;
+    if (v16 == 1)
     {
-      v18 = objc_autoreleasePoolPush();
+      v17 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v20 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v19 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        obja = v18;
-        v21 = HMFGetLogIdentifier();
+        obja = v17;
+        v20 = HMFGetLogIdentifier();
         lastKnownValue = selfCopy->_lastKnownValue;
-        v42 = self->_stateNumber;
+        stateNumber = self->_stateNumber;
         lastKnownValueUpdateTime = selfCopy->_lastKnownValueUpdateTime;
         WeakRetained = objc_loadWeakRetained(&selfCopy->_service);
         accessory = [WeakRetained accessory];
         identifier = [accessory identifier];
         *buf = 138545154;
-        v50 = v21;
+        v48 = v20;
+        v49 = 2112;
+        v50 = valueCopy;
         v51 = 2112;
-        v52 = valueCopy;
+        v52 = v41;
         v53 = 2112;
-        v54 = v43;
+        v54 = timeCopy;
         v55 = 2112;
-        v56 = timeCopy;
+        v56 = lastKnownValue;
         v57 = 2112;
-        v58 = lastKnownValue;
+        v58 = stateNumber;
         v59 = 2112;
-        v60 = v42;
+        v60 = lastKnownValueUpdateTime;
         v61 = 2112;
-        v62 = lastKnownValueUpdateTime;
-        v63 = 2112;
-        v64 = identifier;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring stale characteristic update value: %@, state number: %@, updated time: %@ Current value: %@ state number: %@, updated time: %@, accessory: %@", buf, 0x52u);
+        v62 = identifier;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring stale characteristic update value: %@, state number: %@, updated time: %@ Current value: %@ state number: %@, updated time: %@, accessory: %@", buf, 0x52u);
 
-        v18 = obja;
+        v17 = obja;
       }
 
-      objc_autoreleasePoolPop(v18);
+      objc_autoreleasePoolPop(v17);
       goto LABEL_34;
     }
   }
 
-  v46 = 0u;
-  v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v25 = self->_hapCharacteristicTuples;
-  v26 = [(NSSet *)v25 countByEnumeratingWithState:&v44 objects:v48 count:16];
-  if (v26)
+  v42 = 0u;
+  v43 = 0u;
+  v24 = self->_hapCharacteristicTuples;
+  v25 = [(NSSet *)v24 countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v25)
   {
-    v27 = *v45;
+    v26 = *v43;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v45 != v27)
+        if (*v43 != v26)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v44 + 1) + 8 * i);
-        hapCharacteristic = [v29 hapCharacteristic];
+        v28 = *(*(&v42 + 1) + 8 * i);
+        hapCharacteristic = [v28 hapCharacteristic];
         [hapCharacteristic setValue:valueCopy];
 
-        hapCharacteristic2 = [v29 hapCharacteristic];
+        hapCharacteristic2 = [v28 hapCharacteristic];
         [hapCharacteristic2 setNotificationContext:contextCopy2];
       }
 
-      v26 = [(NSSet *)v25 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v25 = [(NSSet *)v24 countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   if (timeCopy && -[NSDate compare:](self->_lastKnownValueUpdateTime, "compare:", timeCopy) == NSOrderedSame && [self->_lastKnownValue isEqual:valueCopy])
@@ -1666,19 +1648,19 @@ LABEL_14:
       {
         [MEMORY[0x277CBEAA8] distantPast];
       }
-      v34 = ;
-      objc_storeStrong(&self->_lastKnownValueUpdateTime, v34);
-      v33 = v34;
+      v33 = ;
+      objc_storeStrong(&self->_lastKnownValueUpdateTime, v33);
+      v32 = v33;
       goto LABEL_31;
     }
   }
 
-  v32 = timeCopy;
-  v33 = self->_lastKnownValueUpdateTime;
-  self->_lastKnownValueUpdateTime = v32;
+  v31 = timeCopy;
+  v32 = self->_lastKnownValueUpdateTime;
+  self->_lastKnownValueUpdateTime = v31;
 LABEL_31:
 
-  if (v43)
+  if (v41)
   {
     objc_storeStrong(&self->_stateNumber, numberCopy);
   }
@@ -1686,21 +1668,19 @@ LABEL_31:
   objc_storeStrong(&self->_notificationContext, contextCopy);
 LABEL_34:
   os_unfair_lock_unlock(&self->_lock);
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)value
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v4 = self->_hapCharacteristicTuples;
-  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (!v5)
   {
 
@@ -1710,17 +1690,17 @@ LABEL_15:
   }
 
   v6 = 0;
-  v7 = *v26;
+  v7 = *v25;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v26 != v7)
+      if (*v25 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      hapCharacteristic = [*(*(&v25 + 1) + 8 * i) hapCharacteristic];
+      hapCharacteristic = [*(*(&v24 + 1) + 8 * i) hapCharacteristic];
       valueUpdatedTime = [hapCharacteristic valueUpdatedTime];
       v11 = [distantPast compare:valueUpdatedTime] == -1;
 
@@ -1735,7 +1715,7 @@ LABEL_15:
       }
     }
 
-    v5 = [(NSSet *)v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v5 = [(NSSet *)v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   }
 
   while (v5);
@@ -1764,11 +1744,10 @@ LABEL_15:
   self->_notificationContext = notificationContext;
 
   value3 = [v6 value];
-  v22 = [value3 copy];
+  v22 = objc_msgSend_copy(value3);
 
 LABEL_16:
   os_unfair_lock_unlock(&self->_lock);
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -1849,7 +1828,7 @@ LABEL_11:
 - (NSNumber)instanceID
 {
   characteristicInstanceID = [(HMDCharacteristic *)self characteristicInstanceID];
-  v3 = [characteristicInstanceID copy];
+  v3 = objc_msgSend_copy(characteristicInstanceID);
 
   return v3;
 }
@@ -1857,7 +1836,7 @@ LABEL_11:
 - (NSString)type
 {
   characteristicType = [(HMDCharacteristic *)self characteristicType];
-  v3 = [characteristicType copy];
+  v3 = objc_msgSend_copy(characteristicType);
 
   return v3;
 }
@@ -2042,28 +2021,28 @@ LABEL_11:
 
 - (id)hapCharacteristicTupleWithIdentifier:(id)identifier linkType:(int64_t)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   hapCharacteristicTuples = [(HMDCharacteristic *)self hapCharacteristicTuples];
-  v8 = [hapCharacteristicTuples countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [hapCharacteristicTuples countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(hapCharacteristicTuples);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if ([v12 linkType] == type)
         {
           serverIdentifier = [v12 serverIdentifier];
@@ -2077,7 +2056,7 @@ LABEL_11:
         }
       }
 
-      v9 = [hapCharacteristicTuples countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [hapCharacteristicTuples countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -2089,8 +2068,6 @@ LABEL_11:
 
   v15 = 0;
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -2274,17 +2251,15 @@ void __47__HMDCharacteristic_dumpStateWithPrivacyLevel___block_invoke(uint64_t a
 
 - (NSUUID)spiClientIdentifier
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   service = [(HMDCharacteristic *)self service];
   spiClientIdentifier = [service spiClientIdentifier];
   v5 = MEMORY[0x277CCACA8];
   instanceID = [(HMDCharacteristic *)self instanceID];
   v7 = [v5 stringWithFormat:@"%@", instanceID];
-  v12[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v9 = spiClientIdentifierForUUIDAndSalts(spiClientIdentifier, v8);
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2304,7 +2279,7 @@ void __47__HMDCharacteristic_dumpStateWithPrivacyLevel___block_invoke(uint64_t a
   notificationRegistrations = self->_notificationRegistrations;
   if (notificationRegistrations)
   {
-    v4 = [(NSMutableSet *)notificationRegistrations copy];
+    v4 = objc_msgSend_copy(notificationRegistrations);
   }
 
   else
@@ -2526,42 +2501,40 @@ void __47__HMDCharacteristic_dumpStateWithPrivacyLevel___block_invoke(uint64_t a
 
 void __60__HMDCharacteristic_currentTargetStateCharacteristicTypeMap__block_invoke()
 {
-  v16[9] = *MEMORY[0x277D85DE8];
+  v15[9] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCFB68];
   v1 = *MEMORY[0x277CCF818];
-  v15[0] = *MEMORY[0x277CCF868];
-  v15[1] = v1;
+  v14[0] = *MEMORY[0x277CCF868];
+  v14[1] = v1;
   v2 = *MEMORY[0x277CCFB20];
-  v16[0] = v0;
-  v16[1] = v2;
+  v15[0] = v0;
+  v15[1] = v2;
   v3 = *MEMORY[0x277CCFB58];
   v4 = *MEMORY[0x277CCF800];
-  v15[2] = *MEMORY[0x277CCF850];
-  v15[3] = v4;
+  v14[2] = *MEMORY[0x277CCF850];
+  v14[3] = v4;
   v5 = *MEMORY[0x277CCFB08];
-  v16[2] = v3;
-  v16[3] = v5;
+  v15[2] = v3;
+  v15[3] = v5;
   v6 = *MEMORY[0x277CCFB40];
   v7 = *MEMORY[0x277CCF820];
-  v15[4] = *MEMORY[0x277CCF838];
-  v15[5] = v7;
+  v14[4] = *MEMORY[0x277CCF838];
+  v14[5] = v7;
   v8 = *MEMORY[0x277CCFB28];
-  v16[4] = v6;
-  v16[5] = v8;
+  v15[4] = v6;
+  v15[5] = v8;
   v9 = *MEMORY[0x277CCFB50];
   v10 = *MEMORY[0x277CCF858];
-  v15[6] = *MEMORY[0x277CCF848];
-  v15[7] = v10;
+  v14[6] = *MEMORY[0x277CCF848];
+  v14[7] = v10;
   v11 = *MEMORY[0x277CCFB60];
-  v16[6] = v9;
-  v16[7] = v11;
-  v15[8] = *MEMORY[0x277CCF878];
-  v16[8] = *MEMORY[0x277CCFB78];
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:9];
+  v15[6] = v9;
+  v15[7] = v11;
+  v14[8] = *MEMORY[0x277CCF878];
+  v15[8] = *MEMORY[0x277CCFB78];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:9];
   v13 = currentTargetStateCharacteristicTypeMap_characteristicsMap;
   currentTargetStateCharacteristicTypeMap_characteristicsMap = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -2578,10 +2551,9 @@ void __60__HMDCharacteristic_currentTargetStateCharacteristicTypeMap__block_invo
 
 void __32__HMDCharacteristic_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v44_117442;
-  logCategory__hmf_once_v44_117442 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v44_117442;
+  logCategory__hmf_once_v44_117442 = v0;
 }
 
 uint64_t __62__HMDCharacteristic_sortComparatorForCharacteristicDictionary__block_invoke(uint64_t a1, void *a2, void *a3)

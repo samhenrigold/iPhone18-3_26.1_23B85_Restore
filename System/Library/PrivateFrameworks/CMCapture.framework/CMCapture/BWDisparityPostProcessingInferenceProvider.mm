@@ -243,7 +243,7 @@ uint64_t __128__BWDisparityPostProcessingInferenceProvider_submitForSampleBuffer
 LABEL_9:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -260,10 +260,10 @@ LABEL_6:
 - (int)submitForSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withSubmissionTime:(id *)time workQueue:(id)queue completionHandler:(id)handler
 {
   selfCopy = self;
-  v11 = MEMORY[0x1E695FF58];
+  v12 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    self = OUTLINED_FUNCTION_2_80();
+    self = OUTLINED_FUNCTION_2_80(822152321);
   }
 
   if (selfCopy->_resetTemporalStateOnAspectRatioChange)
@@ -288,55 +288,57 @@ LABEL_6:
     selfCopy->_previousAspectRatioIsLandscape = selfCopy2;
   }
 
-  v13 = OUTLINED_FUNCTION_1_90(self, selfCopy->_disparityInputRequirement, buffer, selfCopy->_disparityInputDescriptor);
-  if (!v13)
+  v14 = OUTLINED_FUNCTION_1_90(self, selfCopy->_disparityInputRequirement, buffer, selfCopy->_disparityInputDescriptor);
+  if (!v14)
   {
-    v23 = 0;
-    v16 = 0;
+    v24 = 0;
+    v17 = 0;
 LABEL_21:
-    v22 = 0;
-    v19 = 0;
+    v23 = 0;
+    v20 = 0;
     goto LABEL_24;
   }
 
-  v14 = [(BWDisparityPostProcessingInferenceProvider *)selfCopy newTextureWithRequirement:storage usingStorage:selfCopy->_disparityOutputDescriptor descriptor:1 isOutput:?];
-  v16 = v14;
-  if (!v14)
+  v15 = [(BWDisparityPostProcessingInferenceProvider *)selfCopy newTextureWithRequirement:storage usingStorage:selfCopy->_disparityOutputDescriptor descriptor:1 isOutput:?];
+  v17 = v15;
+  if (!v15)
   {
-    v23 = 0;
+    v24 = 0;
     goto LABEL_21;
   }
 
-  v17 = OUTLINED_FUNCTION_1_90(v14, selfCopy->_stateInputRequirement, v15, selfCopy->_stateInDescriptor);
-  v19 = v17;
-  if (!v17)
+  v18 = OUTLINED_FUNCTION_1_90(v15, selfCopy->_stateInputRequirement, v16, selfCopy->_stateInDescriptor);
+  v20 = v18;
+  if (!v18)
   {
-    v23 = 0;
-    v22 = 0;
-    goto LABEL_24;
-  }
-
-  v20 = OUTLINED_FUNCTION_1_90(v17, selfCopy->_stateOutputRequirement, v18, selfCopy->_stateOutDescriptor);
-  v22 = v20;
-  if (!v20)
-  {
+    v24 = 0;
     v23 = 0;
     goto LABEL_24;
   }
 
-  v23 = OUTLINED_FUNCTION_1_90(v20, selfCopy->_displacementInputRequirement, v21, selfCopy->_displacementDescriptor);
-  if (!v23)
+  v21 = OUTLINED_FUNCTION_1_90(v18, selfCopy->_stateOutputRequirement, v19, selfCopy->_stateOutDescriptor);
+  v23 = v21;
+  if (!v21)
+  {
+    v24 = 0;
+    goto LABEL_24;
+  }
+
+  v24 = OUTLINED_FUNCTION_1_90(v21, selfCopy->_displacementInputRequirement, v22, selfCopy->_displacementDescriptor);
+  if (!v24)
   {
 LABEL_24:
-    v26 = 4294935578;
+    v28 = 4294935578;
     goto LABEL_25;
   }
 
-  if ([(PTDisparityPostProcessing *)selfCopy->_disparityPostProcessor temporalDisparityFilter:v23 inStatePrev:v19 inDisparity:v13 outDisparityFiltered:v16 outState:v22])
+  v25 = [(PTDisparityPostProcessing *)selfCopy->_disparityPostProcessor temporalDisparityFilter:v24 inStatePrev:v20 inDisparity:v14 outDisparityFiltered:v17 outState:v23];
+  if (v25)
   {
+    v30 = v25;
     fig_log_get_emitter();
-    FigDebugAssert3();
-    v26 = 4294935586;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v30, v7, v35, v36, v37, v38, v39, v40);
+    v28 = 4294935586;
   }
 
   else
@@ -344,56 +346,42 @@ LABEL_24:
     commandBuffer = [(MTLCommandQueue *)[(BWMetalInferenceContext *)selfCopy->_metalInferenceContext commandQueue] commandBuffer];
     if (commandBuffer)
     {
-      v25 = commandBuffer;
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __128__BWDisparityPostProcessingInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke;
-      v28[3] = &unk_1E798FB70;
-      v29 = 0;
-      v28[4] = selfCopy;
-      v28[5] = handler;
-      [commandBuffer addScheduledHandler:v28];
-      [v25 addCompletedHandler:&__block_literal_global_85];
-      [v25 commit];
-      LODWORD(v26) = 0;
+      v27 = commandBuffer;
+      v36 = MEMORY[0x1E69E9820];
+      v37 = 3221225472;
+      v38 = __128__BWDisparityPostProcessingInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke;
+      v39 = &unk_1E798FB70;
+      v42 = 0;
+      v40 = selfCopy;
+      handlerCopy = handler;
+      [commandBuffer addScheduledHandler:&v36];
+      [v27 addCompletedHandler:&__block_literal_global_85];
+      [v27 commit];
+      LODWORD(v28) = 0;
       goto LABEL_18;
     }
 
     fig_log_get_emitter();
-    FigDebugAssert3();
-    fig_log_get_emitter();
-    FigSignalErrorAtGM();
-    v26 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v7, v35, v36, v37, v38, v39, v40);
+    emitter = fig_log_get_emitter();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFEE107, "<<<< BWDisparityPostProcessingInferenceProvider >>>>", 0x112, v7, v32, v33, v34);
+    v28 = 0;
   }
 
 LABEL_25:
   if (handler)
   {
-    (*(handler + 2))(handler, v26, selfCopy);
+    (*(handler + 2))(handler, v28, selfCopy);
   }
 
-  if (*v11 == 1)
+  if (*v12 == 1)
   {
-    OUTLINED_FUNCTION_2_80();
+    OUTLINED_FUNCTION_2_80(822152322);
   }
 
 LABEL_18:
 
-  return v26;
-}
-
-- (uint64_t)prepareForSubmissionWithWorkQueue:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)propagateInferenceResultsToInferenceDictionary:usingStorage:inputSampleBuffer:propagationSampleBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  return v28;
 }
 
 @end

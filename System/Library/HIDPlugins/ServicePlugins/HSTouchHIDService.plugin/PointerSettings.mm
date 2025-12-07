@@ -172,56 +172,57 @@ LABEL_12:
   if ((v11 & 1) == 0)
   {
 LABEL_8:
-    v15 = 0;
+    v17 = 0;
     goto LABEL_17;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v16 = MTLoggingPlugin();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = MTLoggingPlugin(isKindOfClass, v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v25 = 136316418;
-      v26 = "[Error] ";
-      v27 = 2080;
-      v28 = "";
+      v27 = 136316418;
+      v28 = "[Error] ";
       v29 = 2080;
-      v30 = "[PointerSettings updatePreferenceKey:to:]";
-      v31 = 2114;
-      v32 = objc_opt_class();
+      v30 = "";
+      v31 = 2080;
+      v32 = "[PointerSettings updatePreferenceKey:to:]";
       v33 = 2114;
-      v34 = v9;
+      v34 = objc_opt_class();
       v35 = 2114;
-      v36 = keyCopy;
-      v17 = v32;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Invalid value(%{public}@) of %{public}@ was provided for preference %{public}@", &v25, 0x3Eu);
+      v36 = v9;
+      v37 = 2114;
+      v38 = keyCopy;
+      v19 = v34;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Invalid value(%{public}@) of %{public}@ was provided for preference %{public}@", &v27, 0x3Eu);
     }
 
     goto LABEL_8;
   }
 
-  v12 = v9;
+  v14 = v9;
   preferences = [(PointerSettings *)self preferences];
-  v14 = [preferences objectForKeyedSubscript:v8];
+  v16 = [preferences objectForKeyedSubscript:v8];
 
-  if ([v14 isEqualToNumber:v12])
+  if ([v16 isEqualToNumber:v14])
   {
-    v15 = 0;
+    v17 = 0;
   }
 
   else
   {
     preferences2 = [(PointerSettings *)self preferences];
-    v19 = [preferences2 mutableCopy];
+    v21 = [preferences2 mutableCopy];
 
-    [v19 setObject:v12 forKeyedSubscript:v8];
+    [v21 setObject:v14 forKeyedSubscript:v8];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = [TrackpadSettings alloc];
-      v21 = [v19 copy];
-      v22 = [(TrackpadSettings *)v20 initWithPreferences:v21 service:[(PointerSettings *)self service]];
+      v22 = [TrackpadSettings alloc];
+      v23 = [v21 copy];
+      v24 = [(TrackpadSettings *)v22 initWithPreferences:v23 service:[(PointerSettings *)self service]];
     }
 
     else
@@ -229,24 +230,24 @@ LABEL_8:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v23 = [MouseSettings alloc];
+        v25 = [MouseSettings alloc];
       }
 
       else
       {
-        v23 = [PointerSettings alloc];
+        v25 = [PointerSettings alloc];
       }
 
-      v21 = [v19 copy];
-      v22 = [(MouseSettings *)v23 initWithPreferences:v21 service:[(PointerSettings *)self service]];
+      v23 = [v21 copy];
+      v24 = [(MouseSettings *)v25 initWithPreferences:v23 service:[(PointerSettings *)self service]];
     }
 
-    v15 = v22;
+    v17 = v24;
   }
 
 LABEL_17:
 
-  return v15;
+  return v17;
 }
 
 - (void)encodeToMap:(void *)map
@@ -371,7 +372,7 @@ LABEL_17:
   v10 = v5;
   v11 = v5;
   v9 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v9);
+  HSUtil::Decoder::decodeMap(&v9, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));
@@ -407,51 +408,58 @@ LABEL_17:
 
 - (void)decodeFromMap:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.4()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.5()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.6()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

@@ -211,7 +211,7 @@
 
 + (void)printX509Certificate:()HMMTRAdditions
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [MEMORY[0x277CD5230] convertX509Certificate:v4];
   if (v5)
@@ -226,20 +226,18 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Failed to convert X509 certificate", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Failed to convert X509 certificate", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)printMatterCertificate:()HMMTRAdditions
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [objc_alloc(MEMORY[0x277CD5228]) initWithTLVBytes:v3];
   v5 = objc_autoreleasePoolPush();
@@ -250,11 +248,11 @@
     notBefore = [v4 notBefore];
     notAfter = [v4 notAfter];
     *buf = 138543874;
-    v48 = v7;
-    v49 = 2112;
-    v50 = notBefore;
-    v51 = 2112;
-    v52 = notAfter;
+    v47 = v7;
+    v48 = 2112;
+    v49 = notBefore;
+    v50 = 2112;
+    v51 = notAfter;
     _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Certificate valid between %@ and %@", buf, 0x20u);
   }
 
@@ -273,30 +271,30 @@
       nodeID = [issuer2 nodeID];
       issuer3 = [v4 issuer];
       [issuer3 fabricID];
-      v16 = v39 = v11;
+      v16 = v38 = v11;
       issuer4 = [v4 issuer];
       rootCACertificateID = [issuer4 rootCACertificateID];
       issuer5 = [v4 issuer];
       intermediateCACertificateID = [issuer5 intermediateCACertificateID];
       [v4 issuer];
-      v20 = v45 = v3;
+      v20 = v44 = v3;
       caseAuthenticatedTags = [v20 caseAuthenticatedTags];
       *buf = 138544642;
-      v48 = v14;
-      v49 = 2112;
-      v50 = nodeID;
-      v51 = 2112;
-      v52 = v16;
-      v53 = 2112;
-      v54 = rootCACertificateID;
-      v55 = 2112;
-      v56 = intermediateCACertificateID;
-      v57 = 2112;
-      v58 = caseAuthenticatedTags;
+      v47 = v14;
+      v48 = 2112;
+      v49 = nodeID;
+      v50 = 2112;
+      v51 = v16;
+      v52 = 2112;
+      v53 = rootCACertificateID;
+      v54 = 2112;
+      v55 = intermediateCACertificateID;
+      v56 = 2112;
+      v57 = caseAuthenticatedTags;
       _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Certificate issuer node ID = %@, fabricID = %@, root certificate ID = %@, intermediate certificate ID = %@, CATs = %@", buf, 0x3Eu);
 
-      v3 = v45;
-      v11 = v39;
+      v3 = v44;
+      v11 = v38;
     }
   }
 
@@ -304,7 +302,7 @@
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v48 = v22;
+    v47 = v22;
     _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Certificate issuer = nil", buf, 0xCu);
   }
 
@@ -323,30 +321,30 @@
       nodeID2 = [subject2 nodeID];
       subject3 = [v4 subject];
       [subject3 fabricID];
-      v29 = v40 = v24;
+      v29 = v39 = v24;
       subject4 = [v4 subject];
       rootCACertificateID2 = [subject4 rootCACertificateID];
       subject5 = [v4 subject];
       intermediateCACertificateID2 = [subject5 intermediateCACertificateID];
       [v4 subject];
-      v33 = v46 = v3;
+      v33 = v45 = v3;
       caseAuthenticatedTags2 = [v33 caseAuthenticatedTags];
       *buf = 138544642;
-      v48 = v27;
-      v49 = 2112;
-      v50 = nodeID2;
-      v51 = 2112;
-      v52 = v29;
-      v53 = 2112;
-      v54 = rootCACertificateID2;
-      v55 = 2112;
-      v56 = intermediateCACertificateID2;
-      v57 = 2112;
-      v58 = caseAuthenticatedTags2;
+      v47 = v27;
+      v48 = 2112;
+      v49 = nodeID2;
+      v50 = 2112;
+      v51 = v29;
+      v52 = 2112;
+      v53 = rootCACertificateID2;
+      v54 = 2112;
+      v55 = intermediateCACertificateID2;
+      v56 = 2112;
+      v57 = caseAuthenticatedTags2;
       _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_INFO, "%{public}@Certificate subject node ID = %@, fabricID = %@, root certificate ID = %@, intermediate certificate ID = %@, CATs = %@", buf, 0x3Eu);
 
-      v3 = v46;
-      v24 = v40;
+      v3 = v45;
+      v24 = v39;
     }
   }
 
@@ -354,12 +352,11 @@
   {
     v35 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v48 = v35;
+    v47 = v35;
     _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_INFO, "%{public}@Certificate subject = nil", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v24);
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 @end

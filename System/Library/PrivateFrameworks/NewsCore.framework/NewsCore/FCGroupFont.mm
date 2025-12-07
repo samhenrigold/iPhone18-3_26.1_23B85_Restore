@@ -33,20 +33,20 @@
 
 - (FCGroupFont)initWithName:(id)name urlString:(id)string
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   stringCopy = string;
   if (!nameCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "name"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "name"];
     *buf = 136315906;
-    v17 = "[FCGroupFont initWithName:urlString:]";
-    v18 = 2080;
-    v19 = "FCForYouConfig.m";
-    v20 = 1024;
-    v21 = 394;
-    v22 = 2114;
-    v23 = v13;
+    v16 = "[FCGroupFont initWithName:urlString:]";
+    v17 = 2080;
+    v18 = "FCForYouConfig.m";
+    v19 = 1024;
+    v20 = 394;
+    v21 = 2114;
+    v22 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (stringCopy)
@@ -62,22 +62,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "urlString"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "urlString"];
     *buf = 136315906;
-    v17 = "[FCGroupFont initWithName:urlString:]";
-    v18 = 2080;
-    v19 = "FCForYouConfig.m";
-    v20 = 1024;
-    v21 = 395;
-    v22 = 2114;
-    v23 = v14;
+    v16 = "[FCGroupFont initWithName:urlString:]";
+    v17 = 2080;
+    v18 = "FCForYouConfig.m";
+    v19 = 1024;
+    v20 = 395;
+    v21 = 2114;
+    v22 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v15.receiver = self;
-  v15.super_class = FCGroupFont;
-  v9 = [(FCGroupFont *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = FCGroupFont;
+  v9 = [(FCGroupFont *)&v14 init];
   v10 = v9;
   if (v9)
   {
@@ -94,7 +94,6 @@ LABEL_6:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

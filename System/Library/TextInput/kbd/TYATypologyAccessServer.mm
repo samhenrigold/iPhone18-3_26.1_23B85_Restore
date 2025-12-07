@@ -62,58 +62,58 @@
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
   {
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
   }
 
-  v9 = [(TYATypologyAccessServer *)self _checkEntitlementForAddEntryStringWithAuditToken:&v16];
+  v9 = [(TYATypologyAccessServer *)self _checkEntitlementForAddEntryStringWithAuditToken:&v17];
+  v10 = v9;
   if (v9)
   {
-    v10 = TYALog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = TYALog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       processIdentifier = [v8 processIdentifier];
-      LODWORD(v16) = 67109120;
-      DWORD1(v16) = processIdentifier;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Server is accepting new connection to client (pid=%d).", &v16, 8u);
+      LODWORD(v17) = 67109120;
+      DWORD1(v17) = processIdentifier;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Server is accepting new connection to client (pid=%d).", &v17, 8u);
     }
 
-    v12 = [TYATypologyAccessSession alloc];
+    v13 = [TYATypologyAccessSession alloc];
     if (v8)
     {
-      [v8 auditToken];
+      objc_msgSend_auditToken(v8);
     }
 
     else
     {
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
     }
 
-    v13 = [(TYATypologyAccessSession *)v12 initWithAuditToken:&v16];
-    [v8 setExportedObject:v13];
-    v14 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___TYATypologyAccessProtocol_WithTestSupport];
-    [v8 setExportedInterface:v14];
+    v14 = [(TYATypologyAccessSession *)v13 initWithAuditToken:&v17];
+    [v8 setExportedObject:v14];
+    v15 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___TYATypologyAccessProtocol_WithTestSupport];
+    [v8 setExportedInterface:v15];
 
     [v8 resume];
   }
 
   else
   {
-    [v8 invalidate];
-    v13 = TYALog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = TYALog([v8 invalidate]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_10000DB20(v13);
+      sub_10000DB20(v14);
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)_checkEntitlementForAddEntryStringWithAuditToken:(id *)token
@@ -142,7 +142,7 @@
   {
     if (*cf.val)
     {
-      v10 = TYALog();
+      v10 = TYALog(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10000DB64(&cf, v10);

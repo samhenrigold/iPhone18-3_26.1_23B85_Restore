@@ -59,18 +59,18 @@
 
 - (id)_dictionaryRepresentation
 {
-  v24[7] = *MEMORY[0x1E69E9840];
+  v23[7] = *MEMORY[0x1E69E9840];
   payee = self->_payee;
-  v22 = payee;
-  v23[0] = @"payee";
+  v21 = payee;
+  v22[0] = @"payee";
   if (!payee)
   {
     payee = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = payee;
-  v24[0] = payee;
-  v23[1] = @"payer";
+  v20 = payee;
+  v23[0] = payee;
+  v22[1] = @"payer";
   payer = self->_payer;
   null = payer;
   if (!payer)
@@ -78,9 +78,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v24[1] = null;
-  v23[2] = @"currencyAmount";
+  v19 = null;
+  v23[1] = null;
+  v22[2] = @"currencyAmount";
   currencyAmount = self->_currencyAmount;
   null2 = currencyAmount;
   if (!currencyAmount)
@@ -88,9 +88,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null2;
-  v24[2] = null2;
-  v23[3] = @"note";
+  v17 = null2;
+  v23[2] = null2;
+  v22[3] = @"note";
   note = self->_note;
   null3 = note;
   if (!note)
@@ -98,11 +98,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[3] = null3;
-  v23[4] = @"status";
-  v10 = [MEMORY[0x1E696AD98] numberWithInteger:{self->_status, v18}];
-  v24[4] = v10;
-  v23[5] = @"paymentMethod";
+  v23[3] = null3;
+  v22[4] = @"status";
+  v10 = [MEMORY[0x1E696AD98] numberWithInteger:{self->_status, v17}];
+  v23[4] = v10;
+  v22[5] = @"paymentMethod";
   paymentMethod = self->_paymentMethod;
   null4 = paymentMethod;
   if (!paymentMethod)
@@ -110,8 +110,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[5] = null4;
-  v23[6] = @"feeAmount";
+  v23[5] = null4;
+  v22[6] = @"feeAmount";
   feeAmount = self->_feeAmount;
   null5 = feeAmount;
   if (!feeAmount)
@@ -119,8 +119,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[6] = null5;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:7];
+  v23[6] = null5;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:7];
   if (feeAmount)
   {
     if (paymentMethod)
@@ -170,11 +170,9 @@ LABEL_17:
 LABEL_27:
 
 LABEL_18:
-  if (!v22)
+  if (!v21)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -34,18 +34,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPOccurrenceBackingOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 

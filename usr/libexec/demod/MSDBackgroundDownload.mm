@@ -5,6 +5,7 @@
 - (void)_pauseBackgroundDownloadForReason:(id)reason;
 - (void)_resumeBackgroundDownload;
 - (void)_sendDownloadStatusUpdateNotification;
+- (void)didReceiveNewPauseStatus:(BOOL)status forReason:(id)reason;
 - (void)kickOffBackgroundDownload;
 - (void)quitBackgroundDownload;
 @end
@@ -27,11 +28,12 @@
 {
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if ([(MSDBackgroundDownload *)selfCopy isBackgroundDownloadQueueEmpty])
+  isBackgroundDownloadQueueEmpty = [(MSDBackgroundDownload *)selfCopy isBackgroundDownloadQueueEmpty];
+  if (isBackgroundDownloadQueueEmpty)
   {
     [(MSDBackgroundDownload *)selfCopy setIsBackgroundDownloadQueueEmpty:0];
-    v3 = +[MSDWorkQueueSet sharedInstance];
-    backgroundDownloadQueue = [v3 backgroundDownloadQueue];
+    v4 = +[MSDWorkQueueSet sharedInstance];
+    backgroundDownloadQueue = [v4 backgroundDownloadQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000794E8;
@@ -42,11 +44,11 @@
 
   else
   {
-    v3 = sub_100063A54();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100063A54(isBackgroundDownloadQueueEmpty);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Background download is already scheduled, skipping call to schedule background donwload", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Background download is already scheduled, skipping call to schedule background donwload", buf, 2u);
     }
   }
 
@@ -55,7 +57,7 @@
 
 - (void)quitBackgroundDownload
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1000DB388(self, v3);
@@ -81,11 +83,11 @@
     device3 = [(MSDBackgroundDownload *)selfCopy device];
     [device3 setBackgroundDownloadActive:0];
 
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Aborting background download...", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Aborting background download...", v11, 2u);
     }
 
     if ([(MSDBackgroundDownload *)selfCopy freezeBackgroundDownload])
@@ -113,8 +115,7 @@
 
     if (bundleState == 1)
     {
-      [(MSDBackgroundDownload *)selfCopy setFreezeBackgroundDownload:1];
-      v8 = sub_100063A54();
+      v8 = sub_100063A54([(MSDBackgroundDownload *)selfCopy setFreezeBackgroundDownload:1]);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v13 = 138543362;
@@ -150,8 +151,7 @@
 
     if (bundleState == 1)
     {
-      [(MSDBackgroundDownload *)selfCopy setFreezeBackgroundDownload:0];
-      v5 = sub_100063A54();
+      v5 = sub_100063A54([(MSDBackgroundDownload *)selfCopy setFreezeBackgroundDownload:0]);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *v14 = 0;
@@ -188,6 +188,19 @@
   [v5 postNotificationName:@"MSDNotificationPauseDownload" object:0 userInfo:v4];
 }
 
+- (void)didReceiveNewPauseStatus:(BOOL)status forReason:(id)reason
+{
+  if (status)
+  {
+    [(MSDBackgroundDownload *)self _pauseBackgroundDownloadForReason:reason];
+  }
+
+  else
+  {
+    [(MSDBackgroundDownload *)self _resumeBackgroundDownload];
+  }
+}
+
 - (id)initiateBackgroundDownload
 {
   device = [(MSDBackgroundDownload *)self device];
@@ -201,26 +214,26 @@
       device2 = [(MSDBackgroundDownload *)self device];
       [device2 cleanUpBackgroundState:1];
 
-      v10 = +[MSDProgressUpdater sharedInstance];
-      [v10 startBundleUpdateMonitor:retrieveSignedManifest inMode:1];
-
       v11 = +[MSDProgressUpdater sharedInstance];
-      backgroundBundle = [v11 backgroundBundle];
+      [v11 startBundleUpdateMonitor:retrieveSignedManifest inMode:1];
+
+      v12 = +[MSDProgressUpdater sharedInstance];
+      backgroundBundle = [v12 backgroundBundle];
       [(MSDBackgroundDownload *)self setBundleDownloadInProgress:backgroundBundle];
 
       device3 = [(MSDBackgroundDownload *)self device];
       [device3 setBackgroundDownloadActive:1];
     }
 
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100063A54(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
-      v18 = retrieveSignedManifest;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "signedManifest in background download: %{public}@", &v17, 0xCu);
+      v18 = 138543362;
+      v19 = retrieveSignedManifest;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "signedManifest in background download: %{public}@", &v18, 0xCu);
     }
 
-    v15 = retrieveSignedManifest;
+    v16 = retrieveSignedManifest;
   }
 
   return retrieveSignedManifest;

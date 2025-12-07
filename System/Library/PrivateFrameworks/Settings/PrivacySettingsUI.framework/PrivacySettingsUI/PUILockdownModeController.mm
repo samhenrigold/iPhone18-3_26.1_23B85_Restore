@@ -8,7 +8,6 @@
 - (void)didTapEnableLockdownModeButton:(id)button;
 - (void)didTapOnboardingLockdownModeButton;
 - (void)getEligibleDevicesWithCompletion:(id)completion;
-- (void)init;
 - (void)openLearnMorePage;
 - (void)presentConfirmationAlert:(id)alert hasPairedWatch:(BOOL)watch;
 - (void)presentErrorAlert;
@@ -16,17 +15,20 @@
 - (void)provideNavigationDonations;
 - (void)refreshLinkStatusInParent;
 - (void)set2GEnabled:(id)enabled specifier:(id)specifier;
+- (void)setLockdownModeEnabled:(BOOL)enabled forAllDevices:(BOOL)devices;
 - (void)updateSpecifiersForImposedSettings;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PUILockdownModeController
 
 - (PUILockdownModeController)init
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = PUILockdownModeController;
-  v2 = [(PUILockdownModeController *)&v16 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = PUILockdownModeController;
+  v2 = [(PUILockdownModeController *)&v17 init];
   if (v2)
   {
     [(PUILockdownModeController *)v2 setLockdownModeEnabled:+[PUILockdownModeUtilities isLockdownModeEnabled]];
@@ -36,15 +38,15 @@
       [(PUILockdownModeController *)v2 setClient:v3];
 
       client = [(PUILockdownModeController *)v2 client];
-      v15 = 0;
-      v5 = [client get2GSwitchEnabledSync:&v15];
-      v6 = v15;
+      v16 = 0;
+      v5 = [client get2GSwitchEnabledSync:&v16];
+      v6 = v16;
       [(PUILockdownModeController *)v2 setHas2GSupport:v5];
 
       if (v6)
       {
-        v7 = _PUILoggingFacility();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = _PUILoggingFacility(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           [PUILockdownModeController init];
         }
@@ -53,38 +55,53 @@
       if ([(PUILockdownModeController *)v2 has2GSupport])
       {
         client2 = [(PUILockdownModeController *)v2 client];
-        v14 = v6;
-        v9 = [client2 get2GUserPreferenceSync:&v14];
-        v10 = v14;
+        v15 = v6;
+        v10 = [client2 get2GUserPreferenceSync:&v15];
+        v11 = v15;
 
-        [(PUILockdownModeController *)v2 set_2GEnabled:v9];
-        if (v10)
+        [(PUILockdownModeController *)v2 set_2GEnabled:v10];
+        if (v11)
         {
-          v11 = _PUILoggingFacility();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v13 = _PUILoggingFacility(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v18 = v10;
-            _os_log_impl(&dword_2657FE000, v11, OS_LOG_TYPE_DEFAULT, "Error getting if 2G is enabled: %@", buf, 0xCu);
+            v19 = v11;
+            _os_log_impl(&dword_2657FE000, v13, OS_LOG_TYPE_DEFAULT, "Error getting if 2G is enabled: %@", buf, 0xCu);
           }
         }
       }
 
       else
       {
-        v10 = v6;
+        v11 = v6;
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUILockdownModeController;
+  [(PUILockdownModeController *)&v4 viewWillAppear:appear];
+  [(PUILockdownModeController *)self updateSpecifiersForImposedSettings];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUILockdownModeController;
+  [(PUILockdownModeController *)&v4 viewDidAppear:appear];
+  [(PUILockdownModeController *)self provideNavigationDonations];
 }
 
 - (void)provideNavigationDonations
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v3 = PUI_BundleForPrivacySettingsFramework();
+  v13[1] = *MEMORY[0x277D85DE8];
+  v3 = PUI_BundleForPrivacySettingsFramework(self);
   bundleURL = [v3 bundleURL];
 
   v5 = objc_alloc(MEMORY[0x277CCAEB8]);
@@ -95,12 +112,10 @@
   currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
   v10 = [v8 initWithKey:@"PRIVACY" table:@"Privacy" locale:currentLocale2 bundleURL:bundleURL];
 
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity/LOCKDOWN_MODE"];
   [(PUILockdownModeController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.privacy" title:v7 localizedNavigationComponents:v11 deepLink:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshLinkStatusInParent
@@ -157,7 +172,7 @@ void __42__PUILockdownModeController_dataDidChange__block_invoke(uint64_t a1)
       [v11 setObject:objc_opt_class() forKeyedSubscript:*MEMORY[0x277D3FE58]];
       v12 = MEMORY[0x277CCACA8];
       v13 = PUI_LocalizedStringForLockdownMode(@"ONBOARDING_CELL_DETAIL");
-      v14 = getLocalizedDeviceName();
+      v14 = getLocalizedDeviceName(v13);
       v15 = [v12 stringWithFormat:v13, v14];
 
       v16 = PUI_LocalizedStringForLockdownMode(@"ONBOARDING_CELL_LINK");
@@ -215,82 +230,81 @@ void __39__PUILockdownModeController_specifiers__block_invoke(uint64_t a1)
 
 - (id)lockdownModeOptionsSpecifiers
 {
-  v62[8] = *MEMORY[0x277D85DE8];
+  v61[8] = *MEMORY[0x277D85DE8];
   _lockdownModeOptionsSpecifiers = [(PUILockdownModeController *)self _lockdownModeOptionsSpecifiers];
 
   if (!_lockdownModeOptionsSpecifiers)
   {
-    v48 = objc_opt_new();
-    v50 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"LOCKDOWN_MODE_OPTIONS_GROUP"];
-    [v48 addObject:?];
-    v4 = getLocalizedDeviceName();
-    v47 = PUI_LocalizedStringForLockdownMode(@"SECTION_MESSAGES_HEADER");
-    v61[0] = v47;
-    v46 = PUI_LocalizedStringForLockdownMode(@"SECTION_MESSAGES_CONTENT");
-    v61[1] = v46;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
-    v62[0] = v45;
-    v44 = PUI_LocalizedStringForLockdownMode(@"SECTION_FACETIME_HEADER");
-    v60[0] = v44;
-    v43 = PUI_LocalizedStringForLockdownMode(@"SECTION_FACETIME_CONTENT");
-    v60[1] = v43;
-    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
-    v62[1] = v42;
-    v41 = PUI_LocalizedStringForLockdownMode(@"SECTION_WEB_HEADER");
-    v59[0] = v41;
-    v40 = PUI_LocalizedStringForLockdownMode(@"SECTION_WEB_CONTENT");
-    v59[1] = v40;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
-    v62[2] = v39;
-    v38 = PUI_LocalizedStringForLockdownMode(@"SECTION_SHARED_ALBUMS_HEADER");
-    v58[0] = v38;
-    v37 = PUI_LocalizedStringForLockdownMode(@"SECTION_SHARED_ALBUMS_CONTENT");
-    v58[1] = v37;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
-    v62[3] = v36;
-    v35 = PUI_LocalizedStringForLockdownMode(@"SECTION_USB_HEADER");
-    v57[0] = v35;
+    v47 = objc_opt_new();
+    v49 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"LOCKDOWN_MODE_OPTIONS_GROUP"];
+    v4 = getLocalizedDeviceName([v47 addObject:?]);
+    v46 = PUI_LocalizedStringForLockdownMode(@"SECTION_MESSAGES_HEADER");
+    v60[0] = v46;
+    v45 = PUI_LocalizedStringForLockdownMode(@"SECTION_MESSAGES_CONTENT");
+    v60[1] = v45;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+    v61[0] = v44;
+    v43 = PUI_LocalizedStringForLockdownMode(@"SECTION_FACETIME_HEADER");
+    v59[0] = v43;
+    v42 = PUI_LocalizedStringForLockdownMode(@"SECTION_FACETIME_CONTENT");
+    v59[1] = v42;
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+    v61[1] = v41;
+    v40 = PUI_LocalizedStringForLockdownMode(@"SECTION_WEB_HEADER");
+    v58[0] = v40;
+    v39 = PUI_LocalizedStringForLockdownMode(@"SECTION_WEB_CONTENT");
+    v58[1] = v39;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+    v61[2] = v38;
+    v37 = PUI_LocalizedStringForLockdownMode(@"SECTION_SHARED_ALBUMS_HEADER");
+    v57[0] = v37;
+    v36 = PUI_LocalizedStringForLockdownMode(@"SECTION_SHARED_ALBUMS_CONTENT");
+    v57[1] = v36;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+    v61[3] = v35;
+    v34 = PUI_LocalizedStringForLockdownMode(@"SECTION_USB_HEADER");
+    v56[0] = v34;
     v5 = MEMORY[0x277CCACA8];
-    v34 = PUI_LocalizedStringForLockdownMode(@"SECTION_USB_CONTENT");
-    v33 = [v5 stringWithFormat:v34, v4];
-    v57[1] = v33;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
-    v62[4] = v32;
-    v31 = PUI_LocalizedStringForLockdownMode(@"SECTION_WIRELESS_CONNECTIVITY_HEADER");
-    v56[0] = v31;
+    v33 = PUI_LocalizedStringForLockdownMode(@"SECTION_USB_CONTENT");
+    v32 = [v5 stringWithFormat:v33, v4];
+    v56[1] = v32;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+    v61[4] = v31;
+    v30 = PUI_LocalizedStringForLockdownMode(@"SECTION_WIRELESS_CONNECTIVITY_HEADER");
+    v55[0] = v30;
     [(PUILockdownModeController *)self has2GSupport];
-    v30 = SFLocalizableWAPIStringKeyForKey();
-    v29 = PUI_LocalizedStringForLockdownMode(v30);
-    v56[1] = v29;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
-    v62[5] = v6;
+    v29 = SFLocalizableWAPIStringKeyForKey();
+    v28 = PUI_LocalizedStringForLockdownMode(v29);
+    v55[1] = v28;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+    v61[5] = v6;
     v7 = PUI_LocalizedStringForLockdownMode(@"SECTION_REMOTE_HEADER");
-    v55[0] = v7;
+    v54[0] = v7;
     v8 = MEMORY[0x277CCACA8];
     v9 = PUI_LocalizedStringForLockdownMode(@"SECTION_REMOTE_CONTENT");
-    v49 = v4;
+    v48 = v4;
     v10 = [v8 stringWithFormat:v9, v4];
-    v55[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
-    v62[6] = v11;
+    v54[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+    v61[6] = v11;
     v12 = PUI_LocalizedStringForLockdownMode(@"SECTION_PROFILES_HEADER");
-    v54[0] = v12;
+    v53[0] = v12;
     v13 = PUI_LocalizedStringForLockdownMode(@"SECTION_PROFILES_CONTENT");
-    v54[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
-    v62[7] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:8];
+    v53[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+    v61[7] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:8];
 
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __58__PUILockdownModeController_lockdownModeOptionsSpecifiers__block_invoke;
-    v51[3] = &unk_279BA0B78;
-    v51[4] = self;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __58__PUILockdownModeController_lockdownModeOptionsSpecifiers__block_invoke;
+    v50[3] = &unk_279BA0B78;
+    v50[4] = self;
     v16 = v15;
-    v52 = v16;
-    v17 = v48;
-    v53 = v17;
-    [v16 enumerateObjectsUsingBlock:v51];
+    v51 = v16;
+    v17 = v47;
+    v52 = v17;
+    [v16 enumerateObjectsUsingBlock:v50];
     v18 = MEMORY[0x277D3FAD8];
     v19 = PUI_LocalizedStringForLockdownMode(@"WEB_CONTENT");
     v20 = [v18 preferenceSpecifierNamed:v19 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
@@ -316,12 +330,11 @@ void __39__PUILockdownModeController_specifiers__block_invoke(uint64_t a1)
   }
 
   _lockdownModeOptionsSpecifiers2 = [(PUILockdownModeController *)self _lockdownModeOptionsSpecifiers];
-  v27 = *MEMORY[0x277D85DE8];
 
   return _lockdownModeOptionsSpecifiers2;
 }
 
-void __58__PUILockdownModeController_lockdownModeOptionsSpecifiers__block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __58__PUILockdownModeController_lockdownModeOptionsSpecifiers__block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   v8 = [v5 objectAtIndexedSubscript:0];
@@ -479,10 +492,11 @@ void __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke(id *a
 void __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke_2_cold_1();
     }
@@ -503,10 +517,11 @@ void __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke_148(u
 void __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke_2_149(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke_2_149_cold_1();
     }
@@ -537,7 +552,7 @@ void __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke_2_149
 
 - (void)presentOnboardingController
 {
-  v3 = getLocalizedDeviceName();
+  v3 = getLocalizedDeviceName(self);
   v4 = objc_alloc(MEMORY[0x277D37688]);
   v5 = PUI_LocalizedStringForLockdownMode(@"LOCKDOWN_MODE");
   v6 = MEMORY[0x277CCACA8];
@@ -620,119 +635,119 @@ void __56__PUILockdownModeController_presentOnboardingController__block_invoke(u
   watchCopy = watch;
   alertCopy = alert;
   lockdownModeEnabled = [(PUILockdownModeController *)self lockdownModeEnabled];
-  v34 = !lockdownModeEnabled;
+  v35 = !lockdownModeEnabled;
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   sf_isiPhone = [currentDevice sf_isiPhone];
 
-  v10 = getLocalizedDeviceName();
+  v11 = getLocalizedDeviceName(v10);
   if (lockdownModeEnabled)
   {
-    v11 = @"CONFIRM_ALERT_DISABLE_TITLE";
+    v12 = @"CONFIRM_ALERT_DISABLE_TITLE";
   }
 
   else
   {
-    v11 = @"CONFIRM_ALERT_ENABLE_TITLE";
+    v12 = @"CONFIRM_ALERT_ENABLE_TITLE";
   }
 
-  v12 = PUI_LocalizedStringForLockdownMode(v11);
+  v13 = PUI_LocalizedStringForLockdownMode(v12);
   if (alertCopy && [alertCopy count])
   {
-    v13 = watchCopy & sf_isiPhone;
-    v14 = @"CONFIRM_ALERT_ENABLE_ALL_DEVICES_MESSAGE";
-    v15 = MEMORY[0x277CCACA8];
-    v16 = !lockdownModeEnabled;
-    v17 = @"CONFIRM_ALERT_ENABLE_ALL_DEVICES_WITH_WATCH_MESSAGE";
+    v14 = watchCopy & sf_isiPhone;
+    v15 = @"CONFIRM_ALERT_ENABLE_ALL_DEVICES_MESSAGE";
+    v16 = MEMORY[0x277CCACA8];
+    v17 = !lockdownModeEnabled;
+    v18 = @"CONFIRM_ALERT_ENABLE_ALL_DEVICES_WITH_WATCH_MESSAGE";
     if (lockdownModeEnabled)
     {
-      v14 = @"CONFIRM_ALERT_DISABLE_ALL_DEVICES_MESSAGE";
+      v15 = @"CONFIRM_ALERT_DISABLE_ALL_DEVICES_MESSAGE";
     }
 
-    v18 = @"CONFIRM_ALERT_DISABLE_ALL_DEVICES_WITH_WATCH_MESSAGE";
+    v19 = @"CONFIRM_ALERT_DISABLE_ALL_DEVICES_WITH_WATCH_MESSAGE";
   }
 
   else
   {
-    v13 = watchCopy & sf_isiPhone;
-    v14 = @"CONFIRM_ALERT_ENABLE_MESSAGE";
-    v15 = MEMORY[0x277CCACA8];
-    v16 = !lockdownModeEnabled;
-    v17 = @"CONFIRM_ALERT_ENABLE_WITH_WATCH_MESSAGE";
+    v14 = watchCopy & sf_isiPhone;
+    v15 = @"CONFIRM_ALERT_ENABLE_MESSAGE";
+    v16 = MEMORY[0x277CCACA8];
+    v17 = !lockdownModeEnabled;
+    v18 = @"CONFIRM_ALERT_ENABLE_WITH_WATCH_MESSAGE";
     if (lockdownModeEnabled)
     {
-      v14 = @"CONFIRM_ALERT_DISABLE_MESSAGE";
+      v15 = @"CONFIRM_ALERT_DISABLE_MESSAGE";
     }
 
-    v18 = @"CONFIRM_ALERT_DISABLE_WITH_WATCH_MESSAGE";
+    v19 = @"CONFIRM_ALERT_DISABLE_WITH_WATCH_MESSAGE";
   }
 
-  if (v16)
-  {
-    v18 = v17;
-  }
-
-  if (v13 == 1)
+  if (v17)
   {
     v19 = v18;
   }
 
-  else
+  if (v14 == 1)
   {
-    v19 = v14;
+    v20 = v19;
   }
 
-  v20 = PUI_LocalizedStringForLockdownMode(v19);
-  v21 = [v15 stringWithFormat:v20, v10];
+  else
+  {
+    v20 = v15;
+  }
 
-  v22 = [MEMORY[0x277D75110] alertControllerWithTitle:v12 message:v21 preferredStyle:1];
+  v21 = PUI_LocalizedStringForLockdownMode(v20);
+  v22 = [v16 stringWithFormat:v21, v11];
+
+  v23 = [MEMORY[0x277D75110] alertControllerWithTitle:v13 message:v22 preferredStyle:1];
   if (lockdownModeEnabled)
   {
-    v23 = @"CONFIRM_ALERT_DISABLE_BUTTON";
+    v24 = @"CONFIRM_ALERT_DISABLE_BUTTON";
   }
 
   else
   {
-    v23 = @"CONFIRM_ALERT_ENABLE_BUTTON";
+    v24 = @"CONFIRM_ALERT_ENABLE_BUTTON";
   }
 
   if (lockdownModeEnabled)
   {
-    v24 = 2;
+    v25 = 2;
   }
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
-  v25 = PUI_LocalizedStringForLockdownMode(v23);
-  v26 = MEMORY[0x277D750F8];
-  v27 = [MEMORY[0x277CCACA8] stringWithFormat:v25, v10];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __69__PUILockdownModeController_presentConfirmationAlert_hasPairedWatch___block_invoke;
-  v35[3] = &unk_279BA0C68;
-  v35[4] = self;
-  v36 = v34;
-  v28 = [v26 actionWithTitle:v27 style:v24 handler:v35];
-  [v22 addAction:v28];
+  v26 = PUI_LocalizedStringForLockdownMode(v24);
+  v27 = MEMORY[0x277D750F8];
+  v28 = [MEMORY[0x277CCACA8] stringWithFormat:v26, v11];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __69__PUILockdownModeController_presentConfirmationAlert_hasPairedWatch___block_invoke;
+  v36[3] = &unk_279BA0C68;
+  v36[4] = self;
+  v37 = v35;
+  v29 = [v27 actionWithTitle:v28 style:v25 handler:v36];
+  [v23 addAction:v29];
 
-  v29 = MEMORY[0x277D750F8];
-  v30 = PUI_LocalizedStringForLockdownMode(@"CANCEL");
-  v31 = [v29 actionWithTitle:v30 style:1 handler:0];
-  [v22 addAction:v31];
+  v30 = MEMORY[0x277D750F8];
+  v31 = PUI_LocalizedStringForLockdownMode(@"CANCEL");
+  v32 = [v30 actionWithTitle:v31 style:1 handler:0];
+  [v23 addAction:v32];
 
   presentedViewController = [(PUILockdownModeController *)self presentedViewController];
 
   if (presentedViewController)
   {
     presentedViewController2 = [(PUILockdownModeController *)self presentedViewController];
-    [presentedViewController2 presentViewController:v22 animated:1 completion:0];
+    [presentedViewController2 presentViewController:v23 animated:1 completion:0];
   }
 
   else
   {
-    [(PUILockdownModeController *)self presentViewController:v22 animated:1 completion:0];
+    [(PUILockdownModeController *)self presentViewController:v23 animated:1 completion:0];
   }
 }
 
@@ -763,7 +778,7 @@ void __56__PUILockdownModeController_presentOnboardingController__block_invoke(u
   v17 = PUI_LocalizedStringForLockdownMode(v5);
   v7 = MEMORY[0x277CCACA8];
   v8 = PUI_LocalizedStringForLockdownMode(v6);
-  v9 = getLocalizedDeviceName();
+  v9 = getLocalizedDeviceName(v8);
   v10 = [v7 stringWithFormat:v8, v9];
 
   v11 = [MEMORY[0x277D75110] alertControllerWithTitle:v17 message:v10 preferredStyle:1];
@@ -786,13 +801,24 @@ void __56__PUILockdownModeController_presentOnboardingController__block_invoke(u
   }
 }
 
+- (void)setLockdownModeEnabled:(BOOL)enabled forAllDevices:(BOOL)devices
+{
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __66__PUILockdownModeController_setLockdownModeEnabled_forAllDevices___block_invoke;
+  v4[3] = &unk_279BA0C90;
+  v4[4] = self;
+  [PUILockdownModeUtilities setLockdownModeEnabled:enabled forAllDevices:devices completion:v4];
+}
+
 void __66__PUILockdownModeController_setLockdownModeEnabled_forAllDevices___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __66__PUILockdownModeController_setLockdownModeEnabled_forAllDevices___block_invoke_cold_1();
     }
@@ -808,7 +834,7 @@ void __66__PUILockdownModeController_setLockdownModeEnabled_forAllDevices___bloc
 
 - (void)getEligibleDevicesWithCompletion:(id)completion
 {
-  v69[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   defaultStore = [MEMORY[0x277CB8F48] defaultStore];
   aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
@@ -824,24 +850,24 @@ void __66__PUILockdownModeController_setLockdownModeEnabled_forAllDevices___bloc
       goto LABEL_14;
     }
 
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x2050000000;
+    v56 = 0;
+    v57 = &v56;
+    v58 = 0x2050000000;
     v11 = getAKAccountManagerClass_softClass;
-    v68 = getAKAccountManagerClass_softClass;
+    v59 = getAKAccountManagerClass_softClass;
     if (!getAKAccountManagerClass_softClass)
     {
-      v60 = MEMORY[0x277D85DD0];
-      v61 = 3221225472;
-      v62 = __getAKAccountManagerClass_block_invoke;
-      v63 = &unk_279BA0D08;
-      v64 = &v65;
-      __getAKAccountManagerClass_block_invoke(&v60);
-      v11 = v66[3];
+      v51 = MEMORY[0x277D85DD0];
+      v52 = 3221225472;
+      v53 = __getAKAccountManagerClass_block_invoke;
+      v54 = &unk_279BA0D08;
+      v55 = &v56;
+      __getAKAccountManagerClass_block_invoke(&v51);
+      v11 = v57[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v65, 8);
+    _Block_object_dispose(&v56, 8);
     sharedInstance = [v11 sharedInstance];
     v14 = [sharedInstance securityLevelForAccount:v10] == 4;
 
@@ -853,117 +879,117 @@ LABEL_14:
 
     else
     {
-      v65 = 0;
-      v66 = &v65;
-      v67 = 0x2050000000;
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x2050000000;
       v15 = getAKDeviceListRequestContextClass_softClass;
-      v68 = getAKDeviceListRequestContextClass_softClass;
+      v59 = getAKDeviceListRequestContextClass_softClass;
       if (!getAKDeviceListRequestContextClass_softClass)
       {
-        v60 = MEMORY[0x277D85DD0];
-        v61 = 3221225472;
-        v62 = __getAKDeviceListRequestContextClass_block_invoke;
-        v63 = &unk_279BA0D08;
-        v64 = &v65;
-        __getAKDeviceListRequestContextClass_block_invoke(&v60);
-        v15 = v66[3];
+        v51 = MEMORY[0x277D85DD0];
+        v52 = 3221225472;
+        v53 = __getAKDeviceListRequestContextClass_block_invoke;
+        v54 = &unk_279BA0D08;
+        v55 = &v56;
+        __getAKDeviceListRequestContextClass_block_invoke(&v51);
+        v15 = v57[3];
       }
 
       v16 = v15;
-      _Block_object_dispose(&v65, 8);
-      v47 = objc_alloc_init(v15);
-      [v47 setAltDSID:aa_altDSID];
-      [v47 setIncludeFamilyDevices:0];
-      [v47 setIncludeUntrustedDevices:0];
-      v65 = 0;
-      v66 = &v65;
-      v67 = 0x2020000000;
+      _Block_object_dispose(&v56, 8);
+      v38 = objc_alloc_init(v15);
+      [v38 setAltDSID:aa_altDSID];
+      [v38 setIncludeFamilyDevices:0];
+      [v38 setIncludeUntrustedDevices:0];
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x2020000000;
       v17 = getAKServiceNameiCloudSymbolLoc_ptr;
-      v68 = getAKServiceNameiCloudSymbolLoc_ptr;
+      v59 = getAKServiceNameiCloudSymbolLoc_ptr;
       if (!getAKServiceNameiCloudSymbolLoc_ptr)
       {
-        v60 = MEMORY[0x277D85DD0];
-        v61 = 3221225472;
-        v62 = __getAKServiceNameiCloudSymbolLoc_block_invoke;
-        v63 = &unk_279BA0D08;
-        v64 = &v65;
+        v51 = MEMORY[0x277D85DD0];
+        v52 = 3221225472;
+        v53 = __getAKServiceNameiCloudSymbolLoc_block_invoke;
+        v54 = &unk_279BA0D08;
+        v55 = &v56;
         v18 = AuthKitLibrary();
         v19 = dlsym(v18, "AKServiceNameiCloud");
-        *(v64[1] + 24) = v19;
-        getAKServiceNameiCloudSymbolLoc_ptr = *(v64[1] + 24);
-        v17 = v66[3];
+        *(v55[1] + 24) = v19;
+        getAKServiceNameiCloudSymbolLoc_ptr = *(v55[1] + 24);
+        v17 = v57[3];
       }
 
-      _Block_object_dispose(&v65, 8);
+      _Block_object_dispose(&v56, 8);
       if (!v17)
       {
         [PUILockdownModeController getEligibleDevicesWithCompletion:];
         __break(1u);
       }
 
-      v69[0] = *v17;
+      v60[0] = *v17;
       v20 = MEMORY[0x277CBEA60];
-      v21 = v69[0];
-      v22 = [v20 arrayWithObjects:v69 count:1];
+      v21 = v60[0];
+      v22 = [v20 arrayWithObjects:v60 count:1];
 
-      [v47 setServices:v22];
-      [v47 setOperatingSystems:&unk_28772B5A0];
+      [v38 setServices:v22];
+      [v38 setOperatingSystems:&unk_28772B5A0];
       v23 = MGCopyAnswer();
-      v46 = v8;
-      v58[0] = 0;
-      v58[1] = v58;
-      v58[2] = 0x2020000000;
-      v59 = 0;
+      v37 = v8;
+      v49[0] = 0;
+      v49[1] = v49;
+      v49[2] = 0x2020000000;
+      v50 = 0;
       array = [MEMORY[0x277CBEB18] array];
-      v45 = aa_altDSID;
-      v32 = dispatch_semaphore_create(0);
-      v65 = 0;
-      v66 = &v65;
-      v67 = 0x2050000000;
-      v33 = getAKAppleIDAuthenticationControllerClass_softClass;
-      v68 = getAKAppleIDAuthenticationControllerClass_softClass;
+      v36 = aa_altDSID;
+      v25 = dispatch_semaphore_create(0);
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x2050000000;
+      v26 = getAKAppleIDAuthenticationControllerClass_softClass;
+      v59 = getAKAppleIDAuthenticationControllerClass_softClass;
       if (!getAKAppleIDAuthenticationControllerClass_softClass)
       {
-        v60 = MEMORY[0x277D85DD0];
-        v61 = 3221225472;
-        v62 = __getAKAppleIDAuthenticationControllerClass_block_invoke;
-        v63 = &unk_279BA0D08;
-        v64 = &v65;
-        __getAKAppleIDAuthenticationControllerClass_block_invoke(&v60, v25, v26, v27, v28, v29, v30, v31, v43);
-        v33 = v66[3];
+        v51 = MEMORY[0x277D85DD0];
+        v52 = 3221225472;
+        v53 = __getAKAppleIDAuthenticationControllerClass_block_invoke;
+        v54 = &unk_279BA0D08;
+        v55 = &v56;
+        __getAKAppleIDAuthenticationControllerClass_block_invoke(&v51);
+        v26 = v57[3];
       }
 
-      v34 = array;
-      v35 = v23;
-      v36 = v33;
-      _Block_object_dispose(&v65, 8);
-      v37 = objc_alloc_init(v33);
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke;
-      v53[3] = &unk_279BA0CB8;
-      v38 = v32;
-      v54 = v38;
-      v44 = v35;
-      v55 = v44;
-      v39 = v34;
-      v56 = v39;
-      v57 = v58;
-      [v37 fetchDeviceListWithContext:v47 completion:v53];
+      v27 = array;
+      v28 = v23;
+      v29 = v26;
+      _Block_object_dispose(&v56, 8);
+      v30 = objc_alloc_init(v26);
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke;
+      v44[3] = &unk_279BA0CB8;
+      v31 = v25;
+      v45 = v31;
+      v35 = v28;
+      v46 = v35;
+      v32 = v27;
+      v47 = v32;
+      v48 = v49;
+      [v30 fetchDeviceListWithContext:v38 completion:v44];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke_237;
       block[3] = &unk_279BA0CE0;
-      v49 = v38;
-      v50 = v39;
-      v51 = completionCopy;
-      v52 = v46;
-      v40 = v39;
-      v41 = v38;
+      v40 = v31;
+      v41 = v32;
+      v42 = completionCopy;
+      v43 = v37;
+      v33 = v32;
+      v34 = v31;
       dispatch_async(MEMORY[0x277D85CD0], block);
 
-      aa_altDSID = v45;
-      _Block_object_dispose(v58, 8);
+      aa_altDSID = v36;
+      _Block_object_dispose(v49, 8);
     }
   }
 
@@ -971,8 +997,6 @@ LABEL_14:
   {
     completionCopy[2](completionCopy, 0, v6 != 0);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -980,10 +1004,11 @@ void __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_in
   v58 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _PUILoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PUILoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke_cold_1();
     }
@@ -993,137 +1018,118 @@ void __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_in
 
   else
   {
-    v8 = [MEMORY[0x277CBEB38] dictionary];
+    v9 = [MEMORY[0x277CBEB38] dictionary];
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v45 = v5;
-    v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v52 objects:v57 count:16];
-    v46 = v8;
-    if (v10)
+    v10 = v5;
+    v11 = [v10 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v46 = v9;
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v53;
+      v12 = v11;
+      v13 = *v53;
       do
       {
-        v13 = 0;
-        v47 = v11;
+        v14 = 0;
+        v47 = v12;
         do
         {
-          if (*v53 != v12)
+          if (*v53 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v52 + 1) + 8 * v13);
-          v15 = [v14 serialNumber];
-          v16 = v15;
-          if (v15 && ([v15 isEqualToString:*(a1 + 40)] & 1) == 0)
+          v15 = *(*(&v52 + 1) + 8 * v14);
+          v16 = [v15 serialNumber];
+          v17 = v16;
+          if (v16 && ([v16 isEqualToString:*(a1 + 40)] & 1) == 0)
           {
-            v17 = [v8 objectForKeyedSubscript:*(a1 + 40)];
-            if (!v17)
+            v18 = [v9 objectForKeyedSubscript:*(a1 + 40)];
+            if (!v18 || ([v15 lastUpdatedDate], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "lastUpdatedDate"), v20 = v13, v21 = a1, v22 = v10, v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v19, "compare:", v23), v23, v10 = v22, a1 = v21, v13 = v20, v12 = v47, v19, v9 = v46, v24 == 1))
             {
-              goto LABEL_14;
-            }
-
-            v18 = [v14 lastUpdatedDate];
-            [v17 lastUpdatedDate];
-            v19 = v12;
-            v20 = a1;
-            v22 = v21 = v9;
-            v23 = [v18 compare:v22];
-
-            v9 = v21;
-            a1 = v20;
-            v12 = v19;
-            v11 = v47;
-
-            v8 = v46;
-            if (v23 == 1)
-            {
-LABEL_14:
-              [v8 setObject:v14 forKeyedSubscript:v16];
+              [v9 setObject:v15 forKeyedSubscript:v17];
             }
           }
 
-          ++v13;
+          ++v14;
         }
 
-        while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        while (v12 != v14);
+        v12 = [v10 countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     v50 = 0u;
     v51 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v24 = [v8 allValues];
-    v25 = [v24 countByEnumeratingWithState:&v48 objects:v56 count:16];
-    if (v25)
+    v25 = [v9 allValues];
+    v26 = [v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
+    if (v26)
     {
-      v26 = v25;
-      v27 = *v49;
+      v27 = v26;
+      v28 = *v49;
       do
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v27; ++i)
         {
-          if (*v49 != v27)
+          if (*v49 != v28)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v25);
           }
 
-          v29 = *(*(&v48 + 1) + 8 * i);
-          v30 = [v29 lastUpdatedDate];
-          [v30 timeIntervalSinceNow];
-          v32 = v31 / 86400.0;
+          v30 = *(*(&v48 + 1) + 8 * i);
+          v31 = [v30 lastUpdatedDate];
+          [v31 timeIntervalSinceNow];
+          v33 = v32 / 86400.0;
 
-          if (v32 <= 7.0)
+          if (v33 <= 7.0)
           {
-            v33 = [v29 operatingSystemVersion];
-            v34 = [v33 componentsSeparatedByString:@"."];
+            v34 = [v30 operatingSystemVersion];
+            v35 = [v34 componentsSeparatedByString:@"."];
 
-            v35 = [v34 firstObject];
-            v36 = [v35 integerValue];
+            v36 = [v35 firstObject];
+            v37 = [v36 integerValue];
 
-            v37 = [v29 operatingSystemName];
-            v38 = [v37 isEqualToString:@"iOS"];
+            v38 = [v30 operatingSystemName];
+            v39 = [v38 isEqualToString:@"iOS"];
 
-            if (v38)
+            if (v39)
             {
-              v39 = v36 < 17;
+              v40 = v37 < 17;
             }
 
             else
             {
-              v39 = 1;
+              v40 = 1;
             }
 
-            if (!v39)
+            if (!v40)
             {
-              [*(a1 + 48) addObject:v29];
+              [*(a1 + 48) addObject:v30];
             }
 
-            v40 = [v29 operatingSystemName];
-            v41 = [v40 isEqualToString:@"macOS"];
+            v41 = [v30 operatingSystemName];
+            v42 = [v41 isEqualToString:@"macOS"];
 
-            if (v41 && v36 >= 14)
+            if (v42 && v37 >= 14)
             {
-              [*(a1 + 48) addObject:v29];
+              [*(a1 + 48) addObject:v30];
             }
 
-            v42 = [v29 operatingSystemName];
-            if ([v42 isEqualToString:@"watchOS"] && v36 >= 10)
+            v43 = [v30 operatingSystemName];
+            if ([v43 isEqualToString:@"watchOS"] && v37 >= 10)
             {
-              v43 = *(*(*(a1 + 56) + 8) + 24);
+              v44 = *(*(*(a1 + 56) + 8) + 24);
 
-              if ((v43 & 1) == 0)
+              if ((v44 & 1) == 0)
               {
-                [*(a1 + 48) addObject:v29];
+                [*(a1 + 48) addObject:v30];
                 *(*(*(a1 + 56) + 8) + 24) = 1;
               }
             }
@@ -1134,34 +1140,31 @@ LABEL_14:
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v48 objects:v56 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
       }
 
-      while (v26);
+      while (v27);
     }
 
     dispatch_semaphore_signal(*(a1 + 32));
-    v6 = 0;
+    v7 = 0;
     v5 = v45;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke_237(uint64_t a1)
 {
   v2 = dispatch_time(0, 2000000000);
-  if (dispatch_semaphore_wait(*(a1 + 32), v2))
+  v3 = dispatch_semaphore_wait(*(a1 + 32), v2);
+  if (v3)
   {
-    v3 = _PUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke_237_cold_1(v3);
+      __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke_237_cold_1(v4);
     }
   }
 
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 56);
   return (*(*(a1 + 48) + 16))();
 }
 
@@ -1192,51 +1195,11 @@ uint64_t __62__PUILockdownModeController_getEligibleDevicesWithCompletion___bloc
   return v7;
 }
 
-- (void)init
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2657FE000, v0, v1, "Error getting if 2G is supported: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2657FE000, v0, v1, "Error enabling 2G: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__PUILockdownModeController_set2GEnabled_specifier___block_invoke_2_149_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2657FE000, v0, v1, "Error disabling 2G: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__PUILockdownModeController_setLockdownModeEnabled_forAllDevices___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2657FE000, v0, v1, "Error setting Lockdown Mode state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)getEligibleDevicesWithCompletion:.cold.1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke_cold_1();
-}
-
-void __62__PUILockdownModeController_getEligibleDevicesWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2657FE000, v0, v1, "Error fetching device list: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

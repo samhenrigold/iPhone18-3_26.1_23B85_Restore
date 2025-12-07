@@ -22,13 +22,12 @@
 
 - (void)_prepare
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[ATXFaceSuggestionConfiguredHomeScreenWidgetSignal _prepare]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[ATXFaceSuggestionConfiguredHomeScreenWidgetSignal _prepare]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: error loading home screen page configurations: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: error loading home screen page configurations: %@", &v2, 0x16u);
 }
 
 - (double)valueForDescriptor:(id)descriptor
@@ -38,35 +37,36 @@
   if (containerBundleIdentifier)
   {
     v5 = [(NSMutableSet *)self->_configuredWidgetContainerBundleIdentifiers containsObject:containerBundleIdentifier];
-    v6 = __atxlog_handle_lock_screen();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    if (v5)
+    v6 = v5;
+    v7 = __atxlog_handle_lock_screen(v5);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v6)
     {
-      v8 = 1.0;
-      if (v7)
+      v9 = 1.0;
+      if (v8)
       {
         v14 = 136315394;
         v15 = "[ATXFaceSuggestionConfiguredHomeScreenWidgetSignal valueForDescriptor:]";
         v16 = 2112;
         v17 = containerBundleIdentifier;
-        v9 = "%s: containerBundleId contains widgets on home screen: %@";
+        v10 = "%s: containerBundleId contains widgets on home screen: %@";
 LABEL_9:
-        v10 = v6;
-        v11 = 22;
+        v11 = v7;
+        v12 = 22;
         goto LABEL_10;
       }
     }
 
     else
     {
-      v8 = 0.0;
-      if (v7)
+      v9 = 0.0;
+      if (v8)
       {
         v14 = 136315394;
         v15 = "[ATXFaceSuggestionConfiguredHomeScreenWidgetSignal valueForDescriptor:]";
         v16 = 2112;
         v17 = containerBundleIdentifier;
-        v9 = "%s: containerBundleId does not contain widgets on home screen: %@";
+        v10 = "%s: containerBundleId does not contain widgets on home screen: %@";
         goto LABEL_9;
       }
     }
@@ -74,22 +74,21 @@ LABEL_9:
 
   else
   {
-    v6 = __atxlog_handle_lock_screen();
-    v8 = 0.0;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_lock_screen(0);
+    v9 = 0.0;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 136315138;
       v15 = "[ATXFaceSuggestionConfiguredHomeScreenWidgetSignal valueForDescriptor:]";
-      v9 = "%s: no containerBundleId";
-      v10 = v6;
-      v11 = 12;
+      v10 = "%s: no containerBundleId";
+      v11 = v7;
+      v12 = 12;
 LABEL_10:
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, v10, &v14, v12);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 @end

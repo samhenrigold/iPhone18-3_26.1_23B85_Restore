@@ -31,17 +31,18 @@
 {
   requiredCopy = required;
   keyCopy = key;
-  v8 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:keyCopy];
-  if (v8)
+  v9 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:keyCopy];
+  if (v9)
   {
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v9 = v8;
+      v12 = v9;
       goto LABEL_11;
     }
 
-    v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(isKindOfClass, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [WBSPasswordBreachConfigurationDictionaryUnpacker _valueOfClass:forKey:required:];
     }
@@ -51,22 +52,22 @@
 
   if (requiredCopy)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [WBSPasswordBreachConfigurationDictionaryUnpacker _valueOfClass:forKey:required:];
     }
 
 LABEL_9:
-    v9 = 0;
+    v12 = 0;
     self->_errorOccurred = 1;
     goto LABEL_11;
   }
 
-  v9 = 0;
+  v12 = 0;
 LABEL_11:
 
-  return v9;
+  return v12;
 }
 
 - (id)stringForKey:(id)key minimumLength:(unint64_t)length
@@ -76,10 +77,11 @@ LABEL_11:
   v8 = v7;
   if (v7)
   {
-    if ([v7 length] < length)
+    v9 = [v7 length];
+    if (v9 < length)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [WBSPasswordBreachConfigurationDictionaryUnpacker stringForKey:minimumLength:];
       }
@@ -87,15 +89,15 @@ LABEL_11:
       self->_errorOccurred = 1;
     }
 
-    v10 = v8;
+    v12 = v8;
   }
 
   else
   {
-    v10 = &stru_1F3064D08;
+    v12 = &stru_1F3064D08;
   }
 
-  return v10;
+  return v12;
 }
 
 - (id)URLForKey:(id)key
@@ -105,33 +107,33 @@ LABEL_11:
   if (v5)
   {
     v6 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v5];
-    v7 = v6;
+    v8 = v6;
     if (v6)
     {
-      v8 = v6;
+      v9 = v6;
     }
 
     else
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [WBSPasswordBreachConfigurationDictionaryUnpacker URLForKey:];
       }
 
       self->_errorOccurred = 1;
-      v8 = objc_alloc_init(MEMORY[0x1E695DFF8]);
+      v9 = objc_alloc_init(MEMORY[0x1E695DFF8]);
     }
 
-    v9 = v8;
+    v10 = v9;
   }
 
   else
   {
-    v9 = objc_alloc_init(MEMORY[0x1E695DFF8]);
+    v10 = objc_alloc_init(MEMORY[0x1E695DFF8]);
   }
 
-  return v9;
+  return v10;
 }
 
 - (unint64_t)unsignedIntegerForKey:(id)key minimumValue:(unint64_t)value maximumValue:(unint64_t)maximumValue
@@ -142,8 +144,8 @@ LABEL_11:
   unsignedIntegerValue = [v9 unsignedIntegerValue];
   if (unsignedIntegerValue < value || unsignedIntegerValue > maximumValue)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(unsignedIntegerValue, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v16 = 138412802;
       v17 = keyCopy;
@@ -151,7 +153,7 @@ LABEL_11:
       valueCopy = value;
       v20 = 2048;
       maximumValueCopy = maximumValue;
-      _os_log_error_impl(&dword_1B8447000, v12, OS_LOG_TYPE_ERROR, "Value for configuration key %@ must be between %ld and %ld (inclusive).", &v16, 0x20u);
+      _os_log_error_impl(&dword_1B8447000, v13, OS_LOG_TYPE_ERROR, "Value for configuration key %@ must be between %ld and %ld (inclusive).", &v16, 0x20u);
     }
 
     self->_errorOccurred = 1;
@@ -159,43 +161,43 @@ LABEL_11:
 
   unsignedIntegerValue2 = [v9 unsignedIntegerValue];
 
-  v14 = *MEMORY[0x1E69E9840];
   return unsignedIntegerValue2;
 }
 
 - (id)sortedUnsignedIntegerArrayForKey:(id)key minimumValue:(unint64_t)value maximumValue:(unint64_t)maximumValue ascending:(BOOL)ascending
 {
   ascendingCopy = ascending;
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   [(WBSPasswordBreachConfigurationDictionaryUnpacker *)self _valueOfClass:objc_opt_class() forKey:keyCopy required:1];
-  v27 = 0u;
-  v28 = 0u;
   v29 = 0u;
-  v11 = v30 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v30 = 0u;
+  v31 = 0u;
+  v11 = v32 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v29 objects:v39 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = ascendingCopy - 1;
-    v15 = *v28;
-    v26 = keyCopy;
+    v15 = *v30;
+    v28 = keyCopy;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v28 != v15)
+      if (*v30 != v15)
       {
         objc_enumerationMutation(v11);
       }
 
-      v17 = *(*(&v27 + 1) + 8 * v16);
+      v17 = *(*(&v29 + 1) + 8 * v16);
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v21 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        keyCopy = v26;
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v24 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(isKindOfClass, v19);
+        keyCopy = v28;
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           [WBSPasswordBreachConfigurationDictionaryUnpacker sortedUnsignedIntegerArrayForKey:minimumValue:maximumValue:ascending:];
         }
@@ -220,9 +222,9 @@ LABEL_3:
       else if (unsignedIntegerValue > v14)
       {
 LABEL_22:
-        v23 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        keyCopy = v26;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v26 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(unsignedIntegerValue, v21);
+        keyCopy = v28;
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           [WBSPasswordBreachConfigurationDictionaryUnpacker sortedUnsignedIntegerArrayForKey:minimumValue:maximumValue:ascending:];
         }
@@ -230,14 +232,14 @@ LABEL_22:
 LABEL_24:
         self->_errorOccurred = 1;
 
-        v20 = 0;
+        v23 = 0;
         goto LABEL_25;
       }
 
       if (v13 == ++v16)
       {
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
-        keyCopy = v26;
+        v13 = [v11 countByEnumeratingWithState:&v29 objects:v39 count:16];
+        keyCopy = v28;
         if (v13)
         {
           goto LABEL_3;
@@ -247,17 +249,17 @@ LABEL_24:
       }
     }
 
-    v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    keyCopy = v26;
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v25 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(unsignedIntegerValue, v21);
+    keyCopy = v28;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v32 = v26;
-      v33 = 2048;
-      valueCopy = value;
+      v34 = v28;
       v35 = 2048;
+      valueCopy = value;
+      v37 = 2048;
       maximumValueCopy = maximumValue;
-      _os_log_error_impl(&dword_1B8447000, v22, OS_LOG_TYPE_ERROR, "Value for configuration key %@ must be between %ld and %ld (inclusive).", buf, 0x20u);
+      _os_log_error_impl(&dword_1B8447000, v25, OS_LOG_TYPE_ERROR, "Value for configuration key %@ must be between %ld and %ld (inclusive).", buf, 0x20u);
     }
 
     goto LABEL_24;
@@ -265,64 +267,60 @@ LABEL_24:
 
 LABEL_17:
 
-  v20 = v11;
+  v23 = v11;
 LABEL_25:
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v23;
 }
 
 - (id)dataFromHexStringForKey:(id)key expectedLength:(id)length
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   lengthCopy = length;
   v8 = [(WBSPasswordBreachConfigurationDictionaryUnpacker *)self _valueOfClass:objc_opt_class() forKey:keyCopy required:1];
   if ([v8 length])
   {
-    v9 = [MEMORY[0x1E695DEF0] safari_dataWithHexString:v8];
-    v10 = v9;
-    if (lengthCopy && (v11 = [v9 length], v11 != objc_msgSend(lengthCopy, "unsignedLongValue")))
+    v10 = [MEMORY[0x1E695DEF0] safari_dataWithHexString:v8];
+    v11 = v10;
+    if (lengthCopy && (v12 = [v10 length], v13 = objc_msgSend(lengthCopy, "unsignedLongValue"), v12 != v13))
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v13, v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v17 = v14;
-        v18 = 138412802;
-        v19 = keyCopy;
-        v20 = 2048;
-        unsignedLongValue = [lengthCopy unsignedLongValue];
+        v19 = v17;
+        v20 = 138412802;
+        v21 = keyCopy;
         v22 = 2048;
-        v23 = [v10 length];
-        _os_log_error_impl(&dword_1B8447000, v17, OS_LOG_TYPE_ERROR, "Value for configuration key %@ has unexpected length: %lu != %lu.", &v18, 0x20u);
+        unsignedLongValue = [lengthCopy unsignedLongValue];
+        v24 = 2048;
+        v25 = [v11 length];
+        _os_log_error_impl(&dword_1B8447000, v19, OS_LOG_TYPE_ERROR, "Value for configuration key %@ has unexpected length: %lu != %lu.", &v20, 0x20u);
       }
 
-      v12 = 0;
+      v15 = 0;
       self->_errorOccurred = 1;
     }
 
     else
     {
-      v12 = v10;
+      v15 = v11;
     }
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [WBSPasswordBreachConfigurationDictionaryUnpacker dataFromHexStringForKey:expectedLength:];
     }
 
-    v12 = 0;
+    v15 = 0;
     self->_errorOccurred = 1;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v15;
 }
 
 - (BOOL)optionalBoolForKey:(id)key defaultValue:(BOOL)value
@@ -336,62 +334,6 @@ LABEL_25:
   }
 
   return value;
-}
-
-- (void)_valueOfClass:forKey:required:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_1B8447000, v0, v1, "Value for configuration key %@ is not of expected type %@.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_valueOfClass:forKey:required:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_6(&dword_1B8447000, v0, v1, "Configuration missing required key %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)stringForKey:minimumLength:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_1B8447000, v0, v1, "Value for configuration key %@ must contain at least %lu characters.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)URLForKey:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_6(&dword_1B8447000, v0, v1, "Value for configuration key %@ is not a valid URL.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)sortedUnsignedIntegerArrayForKey:minimumValue:maximumValue:ascending:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_6(&dword_1B8447000, v0, v1, "Value for configuration key %@ contains a non-number.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)sortedUnsignedIntegerArrayForKey:minimumValue:maximumValue:ascending:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_6(&dword_1B8447000, v0, v1, "Value for configuration key %@ must be sorted.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)dataFromHexStringForKey:expectedLength:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_6(&dword_1B8447000, v0, v1, "Value for configuration key %@ is not a string.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

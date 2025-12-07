@@ -112,12 +112,12 @@
 
 void __50__PPSocialHighlightMLScorer_scoreSocialHighlight___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a1[5];
   v3 = *(a1[4] + 8);
-  v10 = 0;
-  v4 = [v3 predictionFromFeatures:v2 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [v3 predictionFromFeatures:v2 error:&v9];
+  v5 = v9;
   v6 = *(a1[6] + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v4;
@@ -128,12 +128,10 @@ void __50__PPSocialHighlightMLScorer_scoreSocialHighlight___block_invoke(void *a
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "PPSocialHighlightMLScorer: unable to score: %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (PPSocialHighlightMLScorer)initWithModel:(id)model
@@ -183,15 +181,15 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
 
 + (id)_oneHotEncodeString:(id)string columns:(id)columns prefix:(id)prefix
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   columnsCopy = columns;
   prefixCopy = prefix;
   v8 = objc_autoreleasePoolPush();
-  v33 = objc_opt_new();
-  v39 = 0;
-  v9 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_2847852E0 dataType:65600 error:&v39];
-  v10 = v39;
+  v32 = objc_opt_new();
+  v38 = 0;
+  v9 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_2847852E0 dataType:65600 error:&v38];
+  v10 = v38;
   if (v9)
   {
     [v9 setObject:&unk_284786090 atIndexedSubscript:0];
@@ -199,33 +197,33 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
     v12 = v11;
     if (v11)
     {
-      v27 = v10;
-      v30 = v8;
+      v26 = v10;
+      v29 = v8;
       [v11 setObject:&unk_2847860A0 atIndexedSubscript:0];
-      v29 = v9;
+      v28 = v9;
       v13 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v9];
-      v28 = v12;
+      v27 = v12;
       v14 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v12];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       v15 = columnsCopy;
-      v16 = [v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v36;
+        v18 = *v35;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v36 != v18)
+            if (*v35 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v35 + 1) + 8 * i);
+            v20 = *(*(&v34 + 1) + 8 * i);
             if ([stringCopy isEqual:v20])
             {
               v21 = v13;
@@ -237,33 +235,33 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
             }
 
             v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@_%@", prefixCopy, v20];
-            [v33 setObject:v21 forKeyedSubscript:v22];
+            [v32 setObject:v21 forKeyedSubscript:v22];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
         while (v17);
       }
 
-      v34 = v10;
-      v23 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:v33 error:&v34];
-      v10 = v34;
+      v33 = v10;
+      v23 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:v32 error:&v33];
+      v10 = v33;
 
-      v8 = v30;
-      v12 = v28;
+      v8 = v29;
+      v12 = v27;
       if (!v23)
       {
         v24 = pp_default_log_handle();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v42 = v10;
+          v41 = v10;
           _os_log_fault_impl(&dword_23224A000, v24, OS_LOG_TYPE_FAULT, "PPSocialHighlightMLScorer: unable to allocate one hot encoded feature provider. %@", buf, 0xCu);
         }
       }
 
-      v9 = v29;
+      v9 = v28;
     }
 
     else
@@ -272,7 +270,7 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v42 = v10;
+        v41 = v10;
         _os_log_error_impl(&dword_23224A000, v13, OS_LOG_TYPE_ERROR, "PPSocialHighlightMLScorer: unable to allocate multiarray: %@", buf, 0xCu);
       }
 
@@ -286,7 +284,7 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = v10;
+      v41 = v10;
       _os_log_error_impl(&dword_23224A000, v12, OS_LOG_TYPE_ERROR, "PPSocialHighlightMLScorer: unable to allocate multiarray: %@", buf, 0xCu);
     }
 
@@ -294,18 +292,17 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
   }
 
   objc_autoreleasePoolPop(v8);
-  v25 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
 
 + (id)_singleItemMultiArrayValueWithConstantValue:(double)value
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
-  v12 = 0;
-  v5 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_2847852C8 dataType:65600 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_2847852C8 dataType:65600 error:&v11];
+  v6 = v11;
   if (v5)
   {
     v7 = [MEMORY[0x277CCABB0] numberWithDouble:value];
@@ -320,7 +317,7 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v6;
+      v13 = v6;
       _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPSocialHighlightMLScorer: unable to allocate multiarray: %@", buf, 0xCu);
     }
 
@@ -328,14 +325,13 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
   }
 
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)clientEncodingForClientId:(id)id applicationIdentifiers:(id)identifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   idCopy = id;
   identifiersCopy = identifiers;
   if (clientEncodingForClientId_applicationIdentifiers___pasOnceToken12 != -1)
@@ -349,7 +345,7 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
   block[2] = __78__PPSocialHighlightMLScorer_clientEncodingForClientId_applicationIdentifiers___block_invoke_2;
   block[3] = &unk_2789790A8;
   v8 = v7;
-  v23 = v8;
+  v22 = v8;
   if (clientEncodingForClientId_applicationIdentifiers___pasOnceToken13 != -1)
   {
     dispatch_once(&clientEncodingForClientId_applicationIdentifiers___pasOnceToken13, block);
@@ -377,18 +373,18 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
     idCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@_%@", @"client", idCopy];
     [v12 setObject:v10 forKeyedSubscript:idCopy];
 
-    v21 = 0;
-    v14 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:v12 error:&v21];
-    v15 = v21;
+    v20 = 0;
+    v14 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:v12 error:&v20];
+    v15 = v20;
     v16 = v14;
     if (!v14)
     {
-      v20 = pp_social_highlights_log_handle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = pp_social_highlights_log_handle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v15;
-        _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "PPSocialHighlightMLScorer: failed to allocate client dictionary, returning fallback to ensure content remains hidden. %@", buf, 0xCu);
+        v24 = v15;
+        _os_log_error_impl(&dword_23224A000, v19, OS_LOG_TYPE_ERROR, "PPSocialHighlightMLScorer: failed to allocate client dictionary, returning fallback to ensure content remains hidden. %@", buf, 0xCu);
       }
 
       v16 = v9;
@@ -401,8 +397,6 @@ void __55__PPSocialHighlightMLScorer_variantEncodingForVariant___block_invoke()
   {
     v17 = v9;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -462,27 +456,25 @@ void __52__PPSocialHighlightMLScorer_sharedFirstPassInstance__block_invoke()
 
 + (id)_scorerFromModelFactorName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = +[PPTrialWrapper sharedInstance];
-  v11 = 0;
-  v5 = [v4 mlModelForModelName:nameCopy namespaceName:@"PERSONALIZATION_PORTRAIT_SOCIAL_HIGHLIGHT" error:&v11];
+  v10 = 0;
+  v5 = [v4 mlModelForModelName:nameCopy namespaceName:@"PERSONALIZATION_PORTRAIT_SOCIAL_HIGHLIGHT" error:&v10];
 
-  v6 = v11;
+  v6 = v10;
   if (!v5)
   {
     v7 = pp_social_highlights_log_handle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "PPSocialHighlightMLScorer: unable to fetch assets: %@", buf, 0xCu);
     }
   }
 
   v8 = [[PPSocialHighlightMLScorer alloc] initWithModel:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

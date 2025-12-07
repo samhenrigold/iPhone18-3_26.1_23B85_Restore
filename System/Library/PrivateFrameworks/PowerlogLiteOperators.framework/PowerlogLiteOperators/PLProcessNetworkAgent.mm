@@ -30,8 +30,10 @@
 - (void)logEventBackwardUsage;
 - (void)logEventBackwardUsageWithOutcome:(id)outcome;
 - (void)logEventForwardLowInternet;
+- (void)logEventPointConnectionEvent:(signed __int16)event forSource:(id)source;
 - (void)processesOfInterest:(id)interest;
 - (void)setLastNetworkBitmapTimestampFor:(id)for;
+- (void)timestampNetConnectEntry:(id)entry withEventType:(signed __int16)type withSource:(id)source;
 @end
 
 @implementation PLProcessNetworkAgent
@@ -47,68 +49,66 @@
 
 - (void)logEventBackwardUsage
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D6B6A8];
-  v16[0] = *MEMORY[0x277D6B6D0];
-  v16[1] = v3;
-  v17[0] = MEMORY[0x277CBEC38];
-  v17[1] = MEMORY[0x277CBEC38];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = *MEMORY[0x277D6B6D0];
+  v15[1] = v3;
+  v16[0] = MEMORY[0x277CBEC38];
+  v16[1] = MEMORY[0x277CBEC38];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   if ([MEMORY[0x277D3F258] isPowerlogHelperd] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F258], "isPerfPowerMetricd"))
   {
     usageFeed = [(PLProcessNetworkAgent *)self usageFeed];
     processes = [(PLProcessNetworkAgent *)self processes];
     v7 = *MEMORY[0x277D6B770];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __46__PLProcessNetworkAgent_logEventBackwardUsage__block_invoke_285;
-    v13[3] = &unk_27825B280;
-    v13[4] = self;
-    [usageFeed usageToDateWithOptionsFor:processes nameKind:v7 options:v4 reply:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __46__PLProcessNetworkAgent_logEventBackwardUsage__block_invoke_285;
+    v12[3] = &unk_27825B280;
+    v12[4] = self;
+    [usageFeed usageToDateWithOptionsFor:processes nameKind:v7 options:v4 reply:v12];
   }
 
   else
   {
     usageFeed2 = [(PLProcessNetworkAgent *)self usageFeed];
-    v10 = *MEMORY[0x277D6B770];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __46__PLProcessNetworkAgent_logEventBackwardUsage__block_invoke;
-    v15[3] = &unk_27825B280;
-    v15[4] = self;
-    v11 = [usageFeed2 usageToDateWithOptionsFor:0 nameKind:v10 options:v4 reply:v15];
+    v9 = *MEMORY[0x277D6B770];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __46__PLProcessNetworkAgent_logEventBackwardUsage__block_invoke;
+    v14[3] = &unk_27825B280;
+    v14[4] = self;
+    v10 = [usageFeed2 usageToDateWithOptionsFor:0 nameKind:v9 options:v4 reply:v14];
 
-    v12 = PLLogProcessNetwork();
-    usageFeed = v12;
-    if (v11)
+    v11 = PLLogProcessNetwork();
+    usageFeed = v11;
+    if (v10)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
         _os_log_impl(&dword_21A4C6000, usageFeed, OS_LOG_TYPE_DEFAULT, "successfully retrieved network usage data", buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_error_impl(&dword_21A4C6000, usageFeed, OS_LOG_TYPE_ERROR, "failed to retrieve network usage data", buf, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_5(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PLLogProcessNetwork();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Notification for sysdiagnose trigger for network bitmaps: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Notification for sysdiagnose trigger for network bitmaps: %@", &v9, 0xCu);
   }
 
   v5 = [v3 objectForKeyedSubscript:@"Source"];
@@ -124,8 +124,6 @@ void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_5(uint64
       [*(a1 + 32) logEventBackwardNetworkBitmapsSysdiagnoseTrigger];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)load
@@ -137,459 +135,437 @@ void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_5(uint64
 
 + (id)entryEventPointDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"Connection";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"Connection";
   v2 = +[PLProcessNetworkAgent entryEventPointDefinitionConnection];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventPointDefinitionConnection
 {
-  v44[2] = *MEMORY[0x277D85DE8];
-  v43[0] = *MEMORY[0x277D3F4E8];
+  v43[2] = *MEMORY[0x277D85DE8];
+  v42[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v41[0] = *MEMORY[0x277D3F568];
-  v41[1] = v2;
-  v42[0] = &unk_282C1BD98;
-  v42[1] = MEMORY[0x277CBEC28];
+  v40[0] = *MEMORY[0x277D3F568];
+  v40[1] = v2;
+  v41[0] = &unk_282C1BD98;
+  v41[1] = MEMORY[0x277CBEC28];
   v3 = *MEMORY[0x277D3F4C0];
-  v41[2] = *MEMORY[0x277D3F4C8];
-  v41[3] = v3;
-  v42[2] = &unk_282C101D0;
-  v42[3] = &unk_282C101E8;
-  v41[4] = *MEMORY[0x277D3F4A0];
-  v42[4] = MEMORY[0x277CBEC38];
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:5];
-  v44[0] = v38;
-  v43[1] = *MEMORY[0x277D3F540];
-  v39[0] = @"EventType";
+  v40[2] = *MEMORY[0x277D3F4C8];
+  v40[3] = v3;
+  v41[2] = &unk_282C101D0;
+  v41[3] = &unk_282C101E8;
+  v40[4] = *MEMORY[0x277D3F4A0];
+  v41[4] = MEMORY[0x277CBEC38];
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:5];
+  v43[0] = v37;
+  v42[1] = *MEMORY[0x277D3F540];
+  v38[0] = @"EventType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v40[0] = commonTypeDict_IntegerFormat;
-  v39[1] = @"InterfaceName";
+  v39[0] = commonTypeDict_IntegerFormat;
+  v38[1] = @"InterfaceName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v40[1] = commonTypeDict_StringFormat;
-  v39[2] = @"ProcessName";
+  v39[1] = commonTypeDict_StringFormat;
+  v38[2] = @"ProcessName";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat_withBundleID];
-  v40[2] = commonTypeDict_StringFormat_withBundleID;
-  v39[3] = @"ProcessPID";
+  v39[2] = commonTypeDict_StringFormat_withBundleID;
+  v38[3] = @"ProcessPID";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v40[3] = commonTypeDict_IntegerFormat2;
-  v39[4] = @"ProviderType";
+  v39[3] = commonTypeDict_IntegerFormat2;
+  v38[4] = @"ProviderType";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v40[4] = commonTypeDict_IntegerFormat3;
-  v39[5] = @"LocalAddress";
+  v39[4] = commonTypeDict_IntegerFormat3;
+  v38[5] = @"LocalAddress";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-  v40[5] = commonTypeDict_StringFormat2;
-  v39[6] = @"LocalPort";
+  v39[5] = commonTypeDict_StringFormat2;
+  v38[6] = @"LocalPort";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v40[6] = commonTypeDict_IntegerFormat4;
-  v39[7] = @"RemoteAddress";
+  v39[6] = commonTypeDict_IntegerFormat4;
+  v38[7] = @"RemoteAddress";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]8 commonTypeDict_StringFormat];
-  v40[7] = commonTypeDict_StringFormat3;
-  v39[8] = @"RemotePort";
+  v39[7] = commonTypeDict_StringFormat3;
+  v38[8] = @"RemotePort";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v40[8] = commonTypeDict_IntegerFormat5;
-  v39[9] = @"TrafficClass";
+  v39[8] = commonTypeDict_IntegerFormat5;
+  v38[9] = @"TrafficClass";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat4 = [mEMORY[0x277D3F198]10 commonTypeDict_StringFormat];
-  v40[9] = commonTypeDict_StringFormat4;
-  v39[10] = @"rxWifiBytes";
+  v39[9] = commonTypeDict_StringFormat4;
+  v38[10] = @"rxWifiBytes";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat];
-  v40[10] = commonTypeDict_IntegerFormat6;
-  v39[11] = @"txWifiBytes";
+  v39[10] = commonTypeDict_IntegerFormat6;
+  v38[11] = @"txWifiBytes";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat];
-  v40[11] = commonTypeDict_IntegerFormat7;
-  v39[12] = @"rxCellularBytes";
+  v39[11] = commonTypeDict_IntegerFormat7;
+  v38[12] = @"rxCellularBytes";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat];
-  v40[12] = commonTypeDict_IntegerFormat8;
-  v39[13] = @"txCellularBytes";
+  v39[12] = commonTypeDict_IntegerFormat8;
+  v38[13] = @"txCellularBytes";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat];
-  v40[13] = commonTypeDict_IntegerFormat9;
-  v39[14] = @"isChannelArch";
+  v39[13] = commonTypeDict_IntegerFormat9;
+  v38[14] = @"isChannelArch";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]15 commonTypeDict_BoolFormat];
-  v40[14] = commonTypeDict_BoolFormat;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:15];
-  v44[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v39[14] = commonTypeDict_BoolFormat;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:15];
+  v43[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
 
   return v13;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"LowInternet";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"LowInternet";
   v2 = +[PLProcessNetworkAgent entryEventForwardDefinitionLowInternet];
-  v9[0] = v2;
-  v8[1] = @"HighCellularBWTransactions";
+  v8[0] = v2;
+  v7[1] = @"HighCellularBWTransactions";
   v3 = +[PLProcessNetworkAgent entryEventForwardDefinitionHighCellularBWTransactions];
-  v9[1] = v3;
-  v8[2] = @"HighCellularBWTransactionsDetail";
+  v8[1] = v3;
+  v7[2] = @"HighCellularBWTransactionsDetail";
   v4 = +[PLProcessNetworkAgent entryEventForwardDefinitionHighCellularBWTransactionsDetail];
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 + (id)entryEventBackwardDefinitions
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"Usage";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"Usage";
   v2 = +[PLProcessNetworkAgent entryEventBackwardDefinitionUsage];
-  v7[1] = @"NetworkBitmap";
-  v8[0] = v2;
+  v6[1] = @"NetworkBitmap";
+  v7[0] = v2;
   v3 = +[PLProcessNetworkAgent entryEventBackwardDefinitionNetworkBitmap];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 + (id)entryEventIntervalDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"UsageDiff";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"UsageDiff";
   v2 = +[PLProcessNetworkAgent entryEventIntervalDefinitionUsage];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventBackwardDefinitionNetworkBitmap
 {
-  v34[2] = *MEMORY[0x277D85DE8];
-  v33[0] = *MEMORY[0x277D3F4E8];
+  v33[2] = *MEMORY[0x277D85DE8];
+  v32[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4D8];
-  v31[0] = *MEMORY[0x277D3F568];
-  v31[1] = v2;
-  v32[0] = &unk_282C1BDA8;
-  v32[1] = MEMORY[0x277CBEC38];
-  v31[2] = *MEMORY[0x277D3F4A0];
-  v32[2] = MEMORY[0x277CBEC38];
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
-  v34[0] = v20;
-  v33[1] = *MEMORY[0x277D3F540];
-  v29[0] = @"BundleName";
+  v30[0] = *MEMORY[0x277D3F568];
+  v30[1] = v2;
+  v31[0] = &unk_282C1BDA8;
+  v31[1] = MEMORY[0x277CBEC38];
+  v30[2] = *MEMORY[0x277D3F4A0];
+  v31[2] = MEMORY[0x277CBEC38];
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+  v33[0] = v19;
+  v32[1] = *MEMORY[0x277D3F540];
+  v28[0] = @"BundleName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v30[0] = commonTypeDict_StringFormat_withBundleID;
-  v29[1] = @"CurrentMachAbsoluteTime";
+  v29[0] = commonTypeDict_StringFormat_withBundleID;
+  v28[1] = @"CurrentMachAbsoluteTime";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v30[1] = commonTypeDict_IntegerFormat;
-  v29[2] = @"MachAbsoluteStartTime";
+  v29[1] = commonTypeDict_IntegerFormat;
+  v28[2] = @"MachAbsoluteStartTime";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v30[2] = commonTypeDict_IntegerFormat2;
-  v29[3] = @"MachAbsoluteEndTime";
+  v29[2] = commonTypeDict_IntegerFormat2;
+  v28[3] = @"MachAbsoluteEndTime";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v30[3] = commonTypeDict_IntegerFormat3;
-  v29[4] = *MEMORY[0x277D6B600];
-  v27 = *MEMORY[0x277D3F5A8];
-  v7 = v27;
-  v28 = &unk_282C10200;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-  v30[4] = v8;
-  v29[5] = *MEMORY[0x277D6B608];
-  v25 = v7;
-  v26 = &unk_282C10200;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-  v30[5] = v9;
-  v29[6] = *MEMORY[0x277D6B5D8];
-  v23 = v7;
-  v24 = &unk_282C10200;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-  v30[6] = v10;
-  v29[7] = *MEMORY[0x277D6B5E8];
-  v21 = v7;
-  v22 = &unk_282C10200;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v30[7] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:8];
-  v34[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v29[3] = commonTypeDict_IntegerFormat3;
+  v28[4] = *MEMORY[0x277D6B600];
+  v26 = *MEMORY[0x277D3F5A8];
+  v7 = v26;
+  v27 = &unk_282C10200;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v29[4] = v8;
+  v28[5] = *MEMORY[0x277D6B608];
+  v24 = v7;
+  v25 = &unk_282C10200;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v29[5] = v9;
+  v28[6] = *MEMORY[0x277D6B5D8];
+  v22 = v7;
+  v23 = &unk_282C10200;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v29[6] = v10;
+  v28[7] = *MEMORY[0x277D6B5E8];
+  v20 = v7;
+  v21 = &unk_282C10200;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v29[7] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:8];
+  v33[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
 
   return v13;
 }
 
 + (id)entryEventForwardDefinitionLowInternet
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F580];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1BDB8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"Mode";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1BDB8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"Mode";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11 = commonTypeDict_IntegerFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_IntegerFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventBackwardDefinitionUsage
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v32[0] = *MEMORY[0x277D3F4E8];
+  v32[2] = *MEMORY[0x277D85DE8];
+  v31[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v30[0] = *MEMORY[0x277D3F568];
-  v30[1] = v2;
-  v31[0] = &unk_282C1BDC8;
-  v31[1] = MEMORY[0x277CBEC38];
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-  v33[0] = v27;
-  v32[1] = *MEMORY[0x277D3F540];
-  v28[0] = @"ProcessName";
+  v29[0] = *MEMORY[0x277D3F568];
+  v29[1] = v2;
+  v30[0] = &unk_282C1BDC8;
+  v30[1] = MEMORY[0x277CBEC38];
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v32[0] = v26;
+  v31[1] = *MEMORY[0x277D3F540];
+  v27[0] = @"ProcessName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v29[0] = commonTypeDict_StringFormat_withBundleID;
-  v28[1] = @"BundleName";
+  v28[0] = commonTypeDict_StringFormat_withBundleID;
+  v27[1] = @"BundleName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v29[1] = commonTypeDict_StringFormat_withBundleID2;
-  v28[2] = @"ExtensionName";
+  v28[1] = commonTypeDict_StringFormat_withBundleID2;
+  v27[2] = @"ExtensionName";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID3 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat_withBundleID];
-  v29[2] = commonTypeDict_StringFormat_withBundleID3;
-  v28[3] = @"WifiIn";
+  v28[2] = commonTypeDict_StringFormat_withBundleID3;
+  v27[3] = @"WifiIn";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v29[3] = commonTypeDict_IntegerFormat;
-  v28[4] = @"WifiOut";
+  v28[3] = commonTypeDict_IntegerFormat;
+  v27[4] = @"WifiOut";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v29[4] = commonTypeDict_IntegerFormat2;
-  v28[5] = @"CellIn";
+  v28[4] = commonTypeDict_IntegerFormat2;
+  v27[5] = @"CellIn";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v29[5] = commonTypeDict_IntegerFormat3;
-  v28[6] = @"CellOut";
+  v28[5] = commonTypeDict_IntegerFormat3;
+  v27[6] = @"CellOut";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v29[6] = commonTypeDict_IntegerFormat4;
-  v28[7] = @"BTCompanionIn";
+  v28[6] = commonTypeDict_IntegerFormat4;
+  v27[7] = @"BTCompanionIn";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v29[7] = commonTypeDict_IntegerFormat5;
-  v28[8] = @"BTCompanionOut";
+  v28[7] = commonTypeDict_IntegerFormat5;
+  v27[8] = @"BTCompanionOut";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v29[8] = commonTypeDict_IntegerFormat6;
-  v28[9] = @"SinceTime";
+  v28[8] = commonTypeDict_IntegerFormat6;
+  v27[9] = @"SinceTime";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]10 commonTypeDict_DateFormat];
-  v29[9] = commonTypeDict_DateFormat;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:10];
-  v33[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v28[9] = commonTypeDict_DateFormat;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:10];
+  v32[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
   return v12;
 }
 
 + (id)entryEventIntervalDefinitionUsage
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v32[0] = *MEMORY[0x277D3F4E8];
+  v32[2] = *MEMORY[0x277D85DE8];
+  v31[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F548];
-  v30[0] = *MEMORY[0x277D3F568];
-  v30[1] = v2;
-  v31[0] = &unk_282C1BDC8;
-  v31[1] = @"logEventBackwardUsage";
-  v30[2] = *MEMORY[0x277D3F4A0];
-  v31[2] = MEMORY[0x277CBEC38];
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
-  v33[0] = v27;
-  v32[1] = *MEMORY[0x277D3F540];
-  v28[0] = @"ProcessName";
+  v29[0] = *MEMORY[0x277D3F568];
+  v29[1] = v2;
+  v30[0] = &unk_282C1BDC8;
+  v30[1] = @"logEventBackwardUsage";
+  v29[2] = *MEMORY[0x277D3F4A0];
+  v30[2] = MEMORY[0x277CBEC38];
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+  v32[0] = v26;
+  v31[1] = *MEMORY[0x277D3F540];
+  v27[0] = @"ProcessName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v29[0] = commonTypeDict_StringFormat_withBundleID;
-  v28[1] = @"BundleName";
+  v28[0] = commonTypeDict_StringFormat_withBundleID;
+  v27[1] = @"BundleName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v29[1] = commonTypeDict_StringFormat_withBundleID2;
-  v28[2] = @"ExtensionName";
+  v28[1] = commonTypeDict_StringFormat_withBundleID2;
+  v27[2] = @"ExtensionName";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID3 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat_withBundleID];
-  v29[2] = commonTypeDict_StringFormat_withBundleID3;
-  v28[3] = @"WifiIn";
+  v28[2] = commonTypeDict_StringFormat_withBundleID3;
+  v27[3] = @"WifiIn";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v29[3] = commonTypeDict_IntegerFormat;
-  v28[4] = @"WifiOut";
+  v28[3] = commonTypeDict_IntegerFormat;
+  v27[4] = @"WifiOut";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v29[4] = commonTypeDict_IntegerFormat2;
-  v28[5] = @"CellIn";
+  v28[4] = commonTypeDict_IntegerFormat2;
+  v27[5] = @"CellIn";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v29[5] = commonTypeDict_IntegerFormat3;
-  v28[6] = @"CellOut";
+  v28[5] = commonTypeDict_IntegerFormat3;
+  v27[6] = @"CellOut";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v29[6] = commonTypeDict_IntegerFormat4;
-  v28[7] = @"BTCompanionIn";
+  v28[6] = commonTypeDict_IntegerFormat4;
+  v27[7] = @"BTCompanionIn";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v29[7] = commonTypeDict_IntegerFormat5;
-  v28[8] = @"BTCompanionOut";
+  v28[7] = commonTypeDict_IntegerFormat5;
+  v27[8] = @"BTCompanionOut";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v29[8] = commonTypeDict_IntegerFormat6;
-  v28[9] = @"timestampEnd";
+  v28[8] = commonTypeDict_IntegerFormat6;
+  v27[9] = @"timestampEnd";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]10 commonTypeDict_DateFormat];
-  v29[9] = commonTypeDict_DateFormat;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:10];
-  v33[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v28[9] = commonTypeDict_DateFormat;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:10];
+  v32[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
   return v12;
 }
 
 + (id)entryEventForwardDefinitionHighCellularBWTransactions
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  v19[0] = *MEMORY[0x277D3F4E8];
-  v17 = *MEMORY[0x277D3F568];
-  v18 = &unk_282C1BDB8;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-  v20[0] = v14;
-  v19[1] = *MEMORY[0x277D3F540];
-  v15[0] = @"HighThroughputStartReason";
+  v19[2] = *MEMORY[0x277D85DE8];
+  v18[0] = *MEMORY[0x277D3F4E8];
+  v16 = *MEMORY[0x277D3F568];
+  v17 = &unk_282C1BDB8;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v19[0] = v13;
+  v18[1] = *MEMORY[0x277D3F540];
+  v14[0] = @"HighThroughputStartReason";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v16[0] = commonTypeDict_IntegerFormat;
-  v15[1] = @"HighThroughputLinkRxTputAfterStart";
+  v15[0] = commonTypeDict_IntegerFormat;
+  v14[1] = @"HighThroughputLinkRxTputAfterStart";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v16[1] = commonTypeDict_IntegerFormat2;
-  v15[2] = @"HighThroughputLinkTxTputAfterStart";
+  v15[1] = commonTypeDict_IntegerFormat2;
+  v14[2] = @"HighThroughputLinkTxTputAfterStart";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v16[2] = commonTypeDict_IntegerFormat3;
-  v15[3] = @"HighThroughputOriginators";
+  v15[2] = commonTypeDict_IntegerFormat3;
+  v14[3] = @"HighThroughputOriginators";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v16[3] = commonTypeDict_StringFormat;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
-  v20[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v15[3] = commonTypeDict_StringFormat;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v19[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
   return v11;
 }
 
 + (id)entryEventForwardDefinitionHighCellularBWTransactionsDetail
 {
-  v39[3] = *MEMORY[0x277D85DE8];
-  v38[0] = *MEMORY[0x277D3F4E8];
+  v38[3] = *MEMORY[0x277D85DE8];
+  v37[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4F8];
-  v36[0] = *MEMORY[0x277D3F568];
-  v36[1] = v2;
-  v37[0] = &unk_282C1BDB8;
-  v37[1] = MEMORY[0x277CBEC38];
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
-  v39[0] = v29;
-  v38[1] = *MEMORY[0x277D3F540];
-  v34[0] = @"HighThroughputStartReason";
+  v35[0] = *MEMORY[0x277D3F568];
+  v35[1] = v2;
+  v36[0] = &unk_282C1BDB8;
+  v36[1] = MEMORY[0x277CBEC38];
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
+  v38[0] = v28;
+  v37[1] = *MEMORY[0x277D3F540];
+  v33[0] = @"HighThroughputStartReason";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v35[0] = commonTypeDict_IntegerFormat;
-  v34[1] = @"HighThroughputLinkRxTputAfterStart";
+  v34[0] = commonTypeDict_IntegerFormat;
+  v33[1] = @"HighThroughputLinkRxTputAfterStart";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v35[1] = commonTypeDict_IntegerFormat2;
-  v34[2] = @"HighThroughputLinkTxTputAfterStart";
+  v34[1] = commonTypeDict_IntegerFormat2;
+  v33[2] = @"HighThroughputLinkTxTputAfterStart";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v35[2] = commonTypeDict_IntegerFormat3;
-  v34[3] = @"HighThroughputOriginators";
+  v34[2] = commonTypeDict_IntegerFormat3;
+  v33[3] = @"HighThroughputOriginators";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v35[3] = commonTypeDict_StringFormat;
-  v34[4] = @"HighThroughputDuration";
+  v34[3] = commonTypeDict_StringFormat;
+  v33[4] = @"HighThroughputDuration";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v35[4] = commonTypeDict_IntegerFormat4;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:5];
-  v39[1] = v18;
-  v38[2] = *MEMORY[0x277D3F500];
-  v32[0] = @"key";
-  v30[0] = @"Participant";
+  v34[4] = commonTypeDict_IntegerFormat4;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:5];
+  v38[1] = v17;
+  v37[2] = *MEMORY[0x277D3F500];
+  v31[0] = @"key";
+  v29[0] = @"Participant";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-  v31[0] = commonTypeDict_StringFormat2;
-  v30[1] = @"Duration";
+  v30[0] = commonTypeDict_StringFormat2;
+  v29[1] = @"Duration";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v31[1] = commonTypeDict_IntegerFormat5;
-  v30[2] = @"RxBytes";
+  v30[1] = commonTypeDict_IntegerFormat5;
+  v29[2] = @"RxBytes";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v31[2] = commonTypeDict_IntegerFormat6;
-  v30[3] = @"TxBytes";
+  v30[2] = commonTypeDict_IntegerFormat6;
+  v29[3] = @"TxBytes";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v31[3] = commonTypeDict_IntegerFormat7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
-  v32[1] = @"value";
-  v33[0] = v8;
+  v30[3] = commonTypeDict_IntegerFormat7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+  v31[1] = @"value";
+  v32[0] = v8;
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v33[1] = commonTypeDict_IntegerFormat8;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-  v39[2] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v32[1] = commonTypeDict_IntegerFormat8;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v38[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
 
   return v12;
 }
@@ -616,30 +592,27 @@ void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_5(uint64
 {
   if ((([MEMORY[0x277D3F180] fullMode] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "internalBuild")) && (objc_msgSend(MEMORY[0x277D3F208], "isMac") & 1) == 0)
   {
-    v3 = *MEMORY[0x277CBECE8];
     workQueue = [(PLOperator *)self workQueue];
-    v36 = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke;
-    v39 = &unk_27825B208;
+    v33 = MEMORY[0x277D85DD0];
+    v34 = 3221225472;
+    v35 = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke;
+    v36 = &unk_27825B208;
     selfCopy = self;
     [(PLProcessNetworkAgent *)self setStatManagerRef:NStatManagerCreate()];
 
     if ([(PLProcessNetworkAgent *)self statManagerRef])
     {
-      statManagerRef = self->_statManagerRef;
       NStatManagerAddAllTCP();
-      v6 = self->_statManagerRef;
       NStatManagerAddAllUDP();
     }
 
     else
     {
-      v7 = PLLogProcessNetwork();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v4 = PLLogProcessNetwork();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_ERROR, "Failed to create NStatManager, not tracking network connection statistics", buf, 2u);
+        _os_log_error_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_ERROR, "Failed to create NStatManager, not tracking network connection statistics", buf, 2u);
       }
     }
   }
@@ -648,155 +621,153 @@ void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_5(uint64
   [(PLProcessNetworkAgent *)self setCurNetworkBitmapTimestampForSysdiagnoseTrigger:-1];
   if ([(PLProcessNetworkAgent *)self hasSymptomsLogging])
   {
-    v8 = objc_alloc(MEMORY[0x277D6B4F8]);
-    v9 = [v8 initWorkspaceWithService:*MEMORY[0x277D6B698]];
-    if (v9)
+    v5 = objc_alloc(MEMORY[0x277D6B4F8]);
+    v6 = [v5 initWorkspaceWithService:*MEMORY[0x277D6B698]];
+    if (v6)
     {
-      v10 = [objc_alloc(MEMORY[0x277D6B6F8]) initWithWorkspace:v9];
-      if (v10)
+      v7 = [objc_alloc(MEMORY[0x277D6B6F8]) initWithWorkspace:v6];
+      if (v7)
       {
-        v11 = v10;
-        [(PLProcessNetworkAgent *)self setUsageFeed:v10];
+        v8 = v7;
+        [(PLProcessNetworkAgent *)self setUsageFeed:v7];
       }
 
       else
       {
-        v12 = PLLogProcessNetwork();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v9 = PLLogProcessNetwork();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_ERROR, "Failed to initialize usage feed", buf, 2u);
+          _os_log_error_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_ERROR, "Failed to initialize usage feed", buf, 2u);
         }
 
-        v11 = 0;
+        v8 = 0;
       }
     }
 
     else
     {
-      v11 = PLLogProcessNetwork();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v8 = PLLogProcessNetwork();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_ERROR, "Failed to create AnalyticsWorkspace", buf, 2u);
+        _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "Failed to create AnalyticsWorkspace", buf, 2u);
       }
     }
 
     if ([(PLOperator *)self isDebugEnabled])
     {
-      v13 = MEMORY[0x277D3F1E0];
-      v14 = [MEMORY[0x277CBEAA8] monotonicDateWithTimeIntervalSinceNow:5.0];
+      v10 = MEMORY[0x277D3F1E0];
+      v11 = [MEMORY[0x277CBEAA8] monotonicDateWithTimeIntervalSinceNow:5.0];
       workQueue2 = [(PLOperator *)self workQueue];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_214;
-      v34[3] = &unk_27825B230;
-      v34[4] = self;
-      v16 = [v13 scheduledTimerWithMonotonicFireDate:v14 withInterval:workQueue2 withQueue:v34 withBlock:5.0];
-      [(PLProcessNetworkAgent *)self setLogUsageTimer:v16];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_214;
+      v31[3] = &unk_27825B230;
+      v31[4] = self;
+      v13 = [v10 scheduledTimerWithMonotonicFireDate:v11 withInterval:workQueue2 withQueue:v31 withBlock:5.0];
+      [(PLProcessNetworkAgent *)self setLogUsageTimer:v13];
 
       if ([(PLProcessNetworkAgent *)self hasSymptomsLogging])
       {
-        v17 = objc_alloc(MEMORY[0x277D3F160]);
+        v14 = objc_alloc(MEMORY[0x277D3F160]);
         workQueue3 = [(PLOperator *)self workQueue];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_2;
-        v33[3] = &unk_2782597E8;
-        v33[4] = self;
-        v19 = [v17 initWithWorkQueue:workQueue3 forNotification:@"com.apple.powerlogd.flushNetworkBitmaps" requireState:0 withBlock:v33];
-        [(PLProcessNetworkAgent *)self setFlushNetworkBitmapsListener:v19];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_2;
+        v30[3] = &unk_2782597E8;
+        v30[4] = self;
+        v16 = [v14 initWithWorkQueue:workQueue3 forNotification:@"com.apple.powerlogd.flushNetworkBitmaps" requireState:0 withBlock:v30];
+        [(PLProcessNetworkAgent *)self setFlushNetworkBitmapsListener:v16];
       }
 
-      v20 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_3;
-      v32[3] = &unk_2782597E8;
-      v32[4] = self;
-      v20 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withBlock:v32];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_3;
+      v29[3] = &unk_2782597E8;
+      v29[4] = self;
+      v17 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withBlock:v29];
     }
 
     if ([(PLProcessNetworkAgent *)self hasSymptomsLogging])
     {
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_4;
-      v31[3] = &unk_2782597E8;
-      v31[4] = self;
-      v21 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withMaxIntervalInSecs:v31 withBlock:900.0];
-      [(PLProcessNetworkAgent *)self setBatteryLevelChangedListenerForNetworkBitmap:v21];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_4;
+      v28[3] = &unk_2782597E8;
+      v28[4] = self;
+      v18 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withMaxIntervalInSecs:v28 withBlock:900.0];
+      [(PLProcessNetworkAgent *)self setBatteryLevelChangedListenerForNetworkBitmap:v18];
 
-      v22 = objc_alloc(MEMORY[0x277D3F1F0]);
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_5;
-      v30[3] = &unk_2782597E8;
-      v30[4] = self;
-      v23 = [v22 initWithOperator:self forNotification:@"PLThermalMonitorNotification" withBlock:v30];
-      [(PLProcessNetworkAgent *)self setSysdiagnoseListener:v23];
+      v19 = objc_alloc(MEMORY[0x277D3F1F0]);
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_5;
+      v27[3] = &unk_2782597E8;
+      v27[4] = self;
+      v20 = [v19 initWithOperator:self forNotification:@"PLThermalMonitorNotification" withBlock:v27];
+      [(PLProcessNetworkAgent *)self setSysdiagnoseListener:v20];
     }
 
-    [(PLProcessNetworkAgent *)self setBatteryLevelChanged:v20];
+    [(PLProcessNetworkAgent *)self setBatteryLevelChanged:v17];
     [(PLProcessNetworkAgent *)self logEventForwardLowInternet];
     [(PLProcessNetworkAgent *)self logEventBackwardNetworkBitmaps];
-    v24 = objc_alloc(MEMORY[0x277D3F270]);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_244;
-    v29[3] = &unk_27825A1D8;
-    v29[4] = self;
-    v25 = [v24 initWithOperator:self withRegistration:&unk_282C171F8 withBlock:v29];
-    [(PLProcessNetworkAgent *)self setHighBWStartListener:v25];
+    v21 = objc_alloc(MEMORY[0x277D3F270]);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_244;
+    v26[3] = &unk_27825A1D8;
+    v26[4] = self;
+    v22 = [v21 initWithOperator:self withRegistration:&unk_282C171F8 withBlock:v26];
+    [(PLProcessNetworkAgent *)self setHighBWStartListener:v22];
 
     if ([MEMORY[0x277D3F180] fullMode])
     {
-      v26 = objc_alloc(MEMORY[0x277D3F270]);
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_253;
-      v28[3] = &unk_27825A1D8;
-      v28[4] = self;
-      v27 = [v26 initWithOperator:self withRegistration:&unk_282C17220 withBlock:v28];
-      [(PLProcessNetworkAgent *)self setHighBWEndlistener:v27];
+      v23 = objc_alloc(MEMORY[0x277D3F270]);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_253;
+      v25[3] = &unk_27825A1D8;
+      v25[4] = self;
+      v24 = [v23 initWithOperator:self withRegistration:&unk_282C17220 withBlock:v25];
+      [(PLProcessNetworkAgent *)self setHighBWEndlistener:v24];
     }
   }
 }
 
 void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_244(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogProcessNetwork();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "NetworkAdvisory-HighThroughput-Start with payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "NetworkAdvisory-HighThroughput-Start with payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) handleHighBWStartCallback:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_253(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogProcessNetwork();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "NetworkAdvisory-HighThroughput-End with payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "NetworkAdvisory-HighThroughput-End with payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) handleHighBWEndCallback:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processesOfInterest:(id)interest
@@ -850,7 +821,7 @@ void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_253(uint
 
 - (void)didSetDescriptionBlock:(id)block withDescription:(id)description
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   descriptionCopy = description;
   if (descriptionCopy)
@@ -882,9 +853,9 @@ void __49__PLProcessNetworkAgent_initOperatorDependancies__block_invoke_253(uint
           [blockCopy descriptionDictionary];
           v23 = v22 = v11;
           *buf = 138412546;
-          v40 = v23;
-          v41 = 2112;
-          v42 = descriptionCopy;
+          v39 = v23;
+          v40 = 2112;
+          v41 = descriptionCopy;
           _os_log_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEFAULT, "WARNING: new description dictionary with same process name: %@ => %@", buf, 0x16u);
 
           v11 = v22;
@@ -900,25 +871,25 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v36 = v19;
+      v35 = v19;
       v26 = v12;
       v27 = [MEMORY[0x277CCABB0] numberWithInt:0];
       v28 = v11;
       v29 = v27;
-      v38 = v28;
+      v37 = v28;
       v30 = [v28 isEqualToNumber:v27];
 
       v31 = [MEMORY[0x277CCABB0] numberWithInt:0];
-      v37 = v26;
+      v36 = v26;
       v32 = [v26 isEqualToNumber:v31];
 
       if (v30)
       {
-        v19 = v36;
+        v19 = v35;
         if (v32)
         {
           v33 = PLLogProcessNetwork();
-          v12 = v37;
+          v12 = v36;
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -934,11 +905,11 @@ LABEL_19:
 
       else
       {
-        v19 = v36;
+        v19 = v35;
         if (v32)
         {
           v33 = PLLogProcessNetwork();
-          v12 = v37;
+          v12 = v36;
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -948,7 +919,7 @@ LABEL_19:
 
 LABEL_20:
 
-          v11 = v38;
+          v11 = v37;
           goto LABEL_22;
         }
       }
@@ -956,8 +927,8 @@ LABEL_20:
       [(PLProcessNetworkAgent *)self transferSource:blockCopy fromPID:v19 toPID:v20];
       [blockCopy setDescriptionDictionary:descriptionCopy];
       [(PLProcessNetworkAgent *)self logEventPointConnectionEvent:2 forSource:blockCopy];
-      v12 = v37;
-      v11 = v38;
+      v12 = v36;
+      v11 = v37;
       goto LABEL_22;
     }
 
@@ -979,8 +950,6 @@ LABEL_20:
   }
 
 LABEL_23:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didRemoveSource:(id)source
@@ -996,65 +965,65 @@ LABEL_23:
 
 - (void)aggregateAndLogNetworkBitmaps:(id)bitmaps withStartTime:(unint64_t)time andEndTime:(unint64_t)endTime
 {
-  v86[4] = *MEMORY[0x277D85DE8];
+  v85[4] = *MEMORY[0x277D85DE8];
   bitmapsCopy = bitmaps;
   context = objc_autoreleasePoolPush();
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v60 = *MEMORY[0x277D6B5D8];
+  v59 = *MEMORY[0x277D6B5D8];
   v6 = *MEMORY[0x277D6B5D8];
-  v61 = *MEMORY[0x277D6B600];
-  v86[0] = *MEMORY[0x277D6B600];
-  v86[1] = v6;
-  v58 = *MEMORY[0x277D6B608];
+  v60 = *MEMORY[0x277D6B600];
+  v85[0] = *MEMORY[0x277D6B600];
+  v85[1] = v6;
+  v57 = *MEMORY[0x277D6B608];
   v7 = *MEMORY[0x277D6B608];
-  v59 = *MEMORY[0x277D6B5E8];
-  v86[2] = *MEMORY[0x277D6B5E8];
-  v86[3] = v7;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:4];
+  v58 = *MEMORY[0x277D6B5E8];
+  v85[2] = *MEMORY[0x277D6B5E8];
+  v85[3] = v7;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:4];
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
-  obj = v80 = 0u;
-  v56 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
-  if (v56)
+  obj = v79 = 0u;
+  v55 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
+  if (v55)
   {
-    v53 = *v78;
+    v52 = *v77;
     v8 = *MEMORY[0x277D6B610];
     do
     {
       v9 = 0;
       do
       {
-        if (*v78 != v53)
+        if (*v77 != v52)
         {
           objc_enumerationMutation(obj);
         }
 
-        v62 = v9;
-        v64 = *(*(&v77 + 1) + 8 * v9);
+        v61 = v9;
+        v63 = *(*(&v76 + 1) + 8 * v9);
         v10 = [bitmapsCopy objectForKeyedSubscript:?];
         v11 = v10;
         if (v10)
         {
-          v75 = 0u;
-          v76 = 0u;
-          v73 = 0u;
           v74 = 0u;
-          v12 = [v10 countByEnumeratingWithState:&v73 objects:v82 count:16];
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
+          v12 = [v10 countByEnumeratingWithState:&v72 objects:v81 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v74;
+            v14 = *v73;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v74 != v14)
+                if (*v73 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v73 + 1) + 8 * i);
+                v16 = *(*(&v72 + 1) + 8 * i);
                 v17 = [v11 objectForKeyedSubscript:v16];
                 v18 = [dictionary objectForKeyedSubscript:v16];
 
@@ -1070,11 +1039,11 @@ LABEL_23:
                 if (v21)
                 {
                   v22 = [dictionary objectForKeyedSubscript:v16];
-                  [v22 setObject:v21 forKeyedSubscript:v64];
+                  [v22 setObject:v21 forKeyedSubscript:v63];
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v73 objects:v82 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v72 objects:v81 count:16];
             }
 
             while (v13);
@@ -1087,70 +1056,70 @@ LABEL_23:
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v84 = v64;
+            v83 = v63;
             _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@ interface does not exist in outcome dict from symptoms.", buf, 0xCu);
           }
         }
 
-        v9 = v62 + 1;
+        v9 = v61 + 1;
       }
 
-      while (v62 + 1 != v56);
-      v56 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+      while (v61 + 1 != v55);
+      v55 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
     }
 
-    while (v56);
+    while (v55);
   }
 
-  v57 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"NetworkBitmap"];
+  v56 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"NetworkBitmap"];
+  v70 = 0;
   v71 = 0;
-  v72 = 0;
-  [MEMORY[0x277D3F258] getCurrentMonotonicAndMachAbsTime:&v71 machAbsTime:&v72 machContTime:0];
-  v54 = v71;
+  [MEMORY[0x277D3F258] getCurrentMonotonicAndMachAbsTime:&v70 machAbsTime:&v71 machContTime:0];
+  v53 = v70;
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   v24 = dictionary;
-  v65 = [v24 countByEnumeratingWithState:&v67 objects:v81 count:16];
-  if (v65)
+  v64 = [v24 countByEnumeratingWithState:&v66 objects:v80 count:16];
+  if (v64)
   {
-    v63 = *v68;
+    v62 = *v67;
     do
     {
       v25 = 0;
       do
       {
-        if (*v68 != v63)
+        if (*v67 != v62)
         {
           objc_enumerationMutation(v24);
         }
 
-        v26 = *(*(&v67 + 1) + 8 * v25);
+        v26 = *(*(&v66 + 1) + 8 * v25);
         v27 = PLLogProcessNetwork();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v84 = v26;
+          v83 = v26;
           _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "Process %@'s network bitmaps", buf, 0xCu);
         }
 
         v28 = [v24 objectForKeyedSubscript:v26];
-        v29 = [v28 objectForKeyedSubscript:v61];
+        v29 = [v28 objectForKeyedSubscript:v60];
         if (v29)
         {
           goto LABEL_36;
         }
 
         v29 = [v24 objectForKeyedSubscript:v26];
-        v30 = [v29 objectForKeyedSubscript:v60];
+        v30 = [v29 objectForKeyedSubscript:v59];
         if (v30)
         {
           goto LABEL_35;
         }
 
         v31 = [v24 objectForKeyedSubscript:v26];
-        v32 = [v31 objectForKeyedSubscript:v59];
+        v32 = [v31 objectForKeyedSubscript:v58];
         if (v32)
         {
 
@@ -1159,9 +1128,9 @@ LABEL_35:
 
 LABEL_36:
 LABEL_37:
-          v33 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v57];
-          [v33 setEntryDate:v54];
-          v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v72];
+          v33 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v56];
+          [v33 setEntryDate:v53];
+          v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v71];
           [v33 setObject:v34 forKeyedSubscript:@"CurrentMachAbsoluteTime"];
 
           [v33 setObject:v26 forKeyedSubscript:@"BundleName"];
@@ -1172,27 +1141,27 @@ LABEL_37:
           [v33 setObject:v36 forKeyedSubscript:@"MachAbsoluteEndTime"];
 
           v37 = [v24 objectForKeyedSubscript:v26];
-          v38 = [v37 objectForKeyedSubscript:v61];
-          [v33 setObject:v38 forKeyedSubscript:v61];
+          v38 = [v37 objectForKeyedSubscript:v60];
+          [v33 setObject:v38 forKeyedSubscript:v60];
 
           v39 = [v24 objectForKeyedSubscript:v26];
-          v40 = [v39 objectForKeyedSubscript:v58];
-          [v33 setObject:v40 forKeyedSubscript:v58];
+          v40 = [v39 objectForKeyedSubscript:v57];
+          [v33 setObject:v40 forKeyedSubscript:v57];
 
           v41 = [v24 objectForKeyedSubscript:v26];
-          v42 = [v41 objectForKeyedSubscript:v60];
-          [v33 setObject:v42 forKeyedSubscript:v60];
+          v42 = [v41 objectForKeyedSubscript:v59];
+          [v33 setObject:v42 forKeyedSubscript:v59];
 
           v43 = [v24 objectForKeyedSubscript:v26];
-          v44 = [v43 objectForKeyedSubscript:v59];
-          [v33 setObject:v44 forKeyedSubscript:v59];
+          v44 = [v43 objectForKeyedSubscript:v58];
+          [v33 setObject:v44 forKeyedSubscript:v58];
 
           [(PLOperator *)self logEntry:v33];
           goto LABEL_38;
         }
 
         v45 = [v24 objectForKeyedSubscript:v26];
-        v46 = [v45 objectForKeyedSubscript:v58];
+        v46 = [v45 objectForKeyedSubscript:v57];
 
         if (v46)
         {
@@ -1203,7 +1172,7 @@ LABEL_37:
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v84 = v26;
+          v83 = v26;
           _os_log_debug_impl(&dword_21A4C6000, v33, OS_LOG_TYPE_DEBUG, "Process %@'s network bitmaps on all interfaces are empty.", buf, 0xCu);
         }
 
@@ -1212,16 +1181,15 @@ LABEL_38:
         ++v25;
       }
 
-      while (v65 != v25);
-      v47 = [v24 countByEnumeratingWithState:&v67 objects:v81 count:16];
-      v65 = v47;
+      while (v64 != v25);
+      v47 = [v24 countByEnumeratingWithState:&v66 objects:v80 count:16];
+      v64 = v47;
     }
 
     while (v47);
   }
 
   objc_autoreleasePoolPop(context);
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (id)compressNetworkBitmap:(id)bitmap
@@ -1292,26 +1260,296 @@ LABEL_16:
   return v8;
 }
 
+- (void)logEventPointConnectionEvent:(signed __int16)event forSource:(id)source
+{
+  eventCopy = event;
+  v74 = *MEMORY[0x277D85DE8];
+  sourceCopy = source;
+  v7 = MEMORY[0x277D3F1F8];
+  descriptionDictionary = [sourceCopy descriptionDictionary];
+  v9 = [descriptionDictionary objectForCFString:*MEMORY[0x277D2CAC8]];
+  v10 = [v7 interfaceNameForIndex:v9];
+
+  descriptionDictionary2 = [sourceCopy descriptionDictionary];
+  v12 = [descriptionDictionary2 objectForCFString:*MEMORY[0x277D2CAE0]];
+  if ([v12 BOOLValue])
+  {
+
+    goto LABEL_4;
+  }
+
+  descriptionDictionary3 = [sourceCopy descriptionDictionary];
+  v14 = [descriptionDictionary3 objectForCFString:*MEMORY[0x277D2CAE8]];
+  bOOLValue = [v14 BOOLValue];
+
+  if (bOOLValue)
+  {
+LABEL_4:
+    descriptionDictionary4 = [sourceCopy descriptionDictionary];
+    v17 = [descriptionDictionary4 objectForCFString:*MEMORY[0x277D2CB10]];
+
+    if (v17)
+    {
+      if ([v17 length])
+      {
+        if ([v17 isEqualToString:@"mDNSResponder"])
+        {
+          descriptionDictionary5 = [sourceCopy descriptionDictionary];
+          v19 = [descriptionDictionary5 objectForCFString:*MEMORY[0x277D2CAE8]];
+          bOOLValue2 = [v19 BOOLValue];
+
+          if (bOOLValue2)
+          {
+            goto LABEL_21;
+          }
+        }
+
+        selfCopy = self;
+        descriptionDictionary6 = [sourceCopy descriptionDictionary];
+        v22 = MEMORY[0x277D2CB00];
+        v23 = [descriptionDictionary6 objectForCFString:*MEMORY[0x277D2CB00]];
+
+        descriptionDictionary7 = [sourceCopy descriptionDictionary];
+        v25 = MEMORY[0x277D2CB20];
+        v26 = [descriptionDictionary7 objectForCFString:*MEMORY[0x277D2CB20]];
+
+        if (v23 && v26)
+        {
+          v68 = v26;
+          v27 = MEMORY[0x277D3F1F8];
+          descriptionDictionary8 = [sourceCopy descriptionDictionary];
+          v29 = [descriptionDictionary8 objectForCFString:*v22];
+          v30 = [v27 sockaddrToNSDictionary:CFDataGetBytePtr(v29)];
+
+          v31 = MEMORY[0x277D3F1F8];
+          descriptionDictionary9 = [sourceCopy descriptionDictionary];
+          v33 = *v25;
+          v34 = v30;
+          v35 = [descriptionDictionary9 objectForCFString:v33];
+          v66 = [v31 sockaddrToNSDictionary:CFDataGetBytePtr(v35)];
+
+          v67 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"Connection"];
+          v36 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v67];
+          [(PLProcessNetworkAgent *)selfCopy timestampNetConnectEntry:v36 withEventType:eventCopy withSource:sourceCopy];
+          [v36 setObject:v17 forKeyedSubscript:@"ProcessName"];
+          [v36 setObject:v10 forKeyedSubscript:@"InterfaceName"];
+          descriptionDictionary10 = [sourceCopy descriptionDictionary];
+          v38 = [descriptionDictionary10 objectForCFString:*MEMORY[0x277D2CB40]];
+          [v36 setObject:v38 forKeyedSubscript:@"rxWifiBytes"];
+
+          descriptionDictionary11 = [sourceCopy descriptionDictionary];
+          v40 = [descriptionDictionary11 objectForCFString:*MEMORY[0x277D2CB70]];
+          [v36 setObject:v40 forKeyedSubscript:@"txWifiBytes"];
+
+          descriptionDictionary12 = [sourceCopy descriptionDictionary];
+          v42 = [descriptionDictionary12 objectForCFString:*MEMORY[0x277D2CB30]];
+          [v36 setObject:v42 forKeyedSubscript:@"rxCellularBytes"];
+
+          descriptionDictionary13 = [sourceCopy descriptionDictionary];
+          v44 = [descriptionDictionary13 objectForCFString:*MEMORY[0x277D2CB60]];
+          [v36 setObject:v44 forKeyedSubscript:@"txCellularBytes"];
+
+          v45 = [v34 objectForKey:@"address"];
+          [v36 setObject:v45 forKeyedSubscript:@"LocalAddress"];
+
+          v46 = [v34 objectForKey:@"port"];
+          [v36 setObject:v46 forKeyedSubscript:@"LocalPort"];
+
+          v47 = [v66 objectForKey:@"address"];
+          [v36 setObject:v47 forKeyedSubscript:@"RemoteAddress"];
+
+          v48 = [v66 objectForKey:@"port"];
+          [v36 setObject:v48 forKeyedSubscript:@"RemotePort"];
+
+          descriptionDictionary14 = [sourceCopy descriptionDictionary];
+          v50 = [descriptionDictionary14 objectForCFString:*MEMORY[0x277D2CB08]];
+          [v36 setObject:v50 forKeyedSubscript:@"ProcessPID"];
+
+          v51 = MEMORY[0x277D3F1F8];
+          descriptionDictionary15 = [sourceCopy descriptionDictionary];
+          v53 = [descriptionDictionary15 objectForCFString:*MEMORY[0x277D2CB50]];
+          v54 = [v51 stringFromTrafficClass:{objc_msgSend(v53, "intValue")}];
+          [v36 setObject:v54 forKeyedSubscript:@"TrafficClass"];
+
+          descriptionDictionary16 = [sourceCopy descriptionDictionary];
+          v56 = MEMORY[0x277D2CAB8];
+          v57 = [descriptionDictionary16 objectForCFString:*MEMORY[0x277D2CAB8]];
+
+          if (v57)
+          {
+            descriptionDictionary17 = [sourceCopy descriptionDictionary];
+            v59 = [descriptionDictionary17 objectForCFString:*v56];
+            bOOLValue3 = [v59 BOOLValue];
+          }
+
+          else
+          {
+            bOOLValue3 = 0;
+          }
+
+          v64 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue3];
+          [v36 setObject:v64 forKeyedSubscript:@"isChannelArch"];
+
+          [(PLOperator *)selfCopy logEntry:v36];
+          v26 = v68;
+        }
+
+        else
+        {
+          v63 = PLLogProcessNetwork();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+          {
+            className = [(PLOperator *)selfCopy className];
+            *buf = 138412546;
+            v71 = className;
+            v72 = 2112;
+            v73 = v17;
+            _os_log_debug_impl(&dword_21A4C6000, v63, OS_LOG_TYPE_DEBUG, "%@: statsrckeylocal or statsrckeylocal is null for processName=%@", buf, 0x16u);
+          }
+        }
+      }
+
+      else
+      {
+        v23 = PLLogProcessNetwork();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        {
+          className2 = [(PLOperator *)self className];
+          descriptionDictionary18 = [sourceCopy descriptionDictionary];
+          *buf = 138412546;
+          v71 = className2;
+          v72 = 2112;
+          v73 = descriptionDictionary18;
+          _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@: processName length == 0 detected, source = %@", buf, 0x16u);
+        }
+      }
+    }
+
+LABEL_21:
+  }
+}
+
+- (void)timestampNetConnectEntry:(id)entry withEventType:(signed __int16)type withSource:(id)source
+{
+  typeCopy = type;
+  v47 = *MEMORY[0x277D85DE8];
+  entryCopy = entry;
+  sourceCopy = source;
+  v9 = mach_continuous_time();
+  monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
+  v11 = [MEMORY[0x277CCABB0] numberWithShort:typeCopy];
+  [entryCopy setObject:v11 forKeyedSubscript:@"EventType"];
+
+  [entryCopy setEntryDate:monotonicDate];
+  if (typeCopy <= 1)
+  {
+    descriptionDictionary = [sourceCopy descriptionDictionary];
+    v13 = MEMORY[0x277D2CB48];
+    v14 = [descriptionDictionary objectForCFString:*MEMORY[0x277D2CB48]];
+
+    if (!v14)
+    {
+      v29 = PLLogProcessNetwork();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      {
+        descriptionDictionary2 = [sourceCopy descriptionDictionary];
+        v37 = 138412290;
+        v38 = descriptionDictionary2;
+        _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "Flow %@ had no start timestamp", &v37, 0xCu);
+      }
+
+      v30 = &unk_282C10248;
+      goto LABEL_17;
+    }
+
+    descriptionDictionary3 = [sourceCopy descriptionDictionary];
+    v16 = [descriptionDictionary3 objectForCFString:*v13];
+    unsignedLongLongValue = [v16 unsignedLongLongValue];
+
+    if (typeCopy == 1)
+    {
+      descriptionDictionary4 = [sourceCopy descriptionDictionary];
+      v19 = MEMORY[0x277D2CAC0];
+      v20 = [descriptionDictionary4 objectForCFString:*MEMORY[0x277D2CAC0]];
+
+      if (!v20)
+      {
+        v32 = PLLogProcessNetwork();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        {
+          descriptionDictionary5 = [sourceCopy descriptionDictionary];
+          v37 = 138412290;
+          v38 = descriptionDictionary5;
+          _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "Flow %@ closed, but had no duration", &v37, 0xCu);
+        }
+
+        v30 = &unk_282C10260;
+        goto LABEL_17;
+      }
+
+      descriptionDictionary6 = [sourceCopy descriptionDictionary];
+      v22 = [descriptionDictionary6 objectForCFString:*v19];
+      integerValue = [v22 integerValue];
+
+      unsignedLongLongValue += integerValue;
+    }
+
+    [MEMORY[0x277D3F258] secondsFromMachTime:v9];
+    v25 = v24;
+    [MEMORY[0x277D3F258] secondsFromMachTime:unsignedLongLongValue];
+    v27 = v25 - v26;
+    if (v27 >= 0.0)
+    {
+      v28 = [monotonicDate dateByAddingTimeInterval:-v27];
+      [entryCopy setEntryDate:v28];
+
+      goto LABEL_18;
+    }
+
+    v31 = PLLogProcessNetwork();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    {
+      descriptionDictionary7 = [sourceCopy descriptionDictionary];
+      v35 = [monotonicDate dateByAddingTimeInterval:-v27];
+      v37 = 138413314;
+      v38 = descriptionDictionary7;
+      v39 = 2112;
+      v40 = monotonicDate;
+      v41 = 2112;
+      v42 = v35;
+      v43 = 2048;
+      v44 = v9;
+      v45 = 2048;
+      v46 = unsignedLongLongValue;
+      _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "Flow from %@ ends in the future -- Now: %@ End Date: %@ currentMachTime: %llu providedMachTime: %llu", &v37, 0x34u);
+    }
+
+    v30 = &unk_282C10278;
+LABEL_17:
+    [entryCopy setObject:v30 forKeyedSubscript:@"EventType"];
+  }
+
+LABEL_18:
+}
+
 void __46__PLProcessNetworkAgent_logEventBackwardUsage__block_invoke_285(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PLLogProcessNetwork();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v8 = [*(a1 + 32) processes];
-    v9 = 138412546;
-    v10 = v8;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "[self processes]=%@, outcome=%@", &v9, 0x16u);
+    v7 = [*(a1 + 32) processes];
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "[self processes]=%@, outcome=%@", &v8, 0x16u);
   }
 
   v5 = *(a1 + 32);
   v6 = [v3 copy];
   [v5 logEventBackwardUsageWithOutcome:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventForwardLowInternet
@@ -1331,36 +1569,36 @@ void __46__PLProcessNetworkAgent_logEventBackwardUsage__block_invoke_285(uint64_
 
 - (BOOL)outcomeHasDataUsage:(id)usage
 {
-  v21[6] = *MEMORY[0x277D85DE8];
+  v20[6] = *MEMORY[0x277D85DE8];
   usageCopy = usage;
   v4 = *MEMORY[0x277D6B740];
-  v21[0] = *MEMORY[0x277D6B738];
-  v21[1] = v4;
+  v20[0] = *MEMORY[0x277D6B738];
+  v20[1] = v4;
   v5 = *MEMORY[0x277D6B730];
-  v21[2] = *MEMORY[0x277D6B728];
-  v21[3] = v5;
+  v20[2] = *MEMORY[0x277D6B728];
+  v20[3] = v5;
   v6 = *MEMORY[0x277D6B750];
-  v21[4] = *MEMORY[0x277D6B748];
-  v21[5] = v6;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:6];
+  v20[4] = *MEMORY[0x277D6B748];
+  v20[5] = v6;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:6];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = v19 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = v18 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [usageCopy valueForKey:{*(*(&v16 + 1) + 8 * i), v16}];
+        v11 = [usageCopy valueForKey:{*(*(&v15 + 1) + 8 * i), v15}];
         [v11 doubleValue];
         v13 = v12;
 
@@ -1371,7 +1609,7 @@ void __46__PLProcessNetworkAgent_logEventBackwardUsage__block_invoke_285(uint64_
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -1383,17 +1621,16 @@ void __46__PLProcessNetworkAgent_logEventBackwardUsage__block_invoke_285(uint64_
 
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)logEventBackwardUsageWithOutcome:(id)outcome
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   outcomeCopy = outcome;
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
-  v49 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"UsageDiff"];
-  v61 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"Usage"];
+  v48 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"UsageDiff"];
+  v60 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"Usage"];
   if (outcomeCopy && [outcomeCopy count])
   {
     v3 = PLLogProcessNetwork();
@@ -1406,58 +1643,58 @@ LABEL_11:
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     array = [MEMORY[0x277CBEB18] array];
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
     v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
     obj = outcomeCopy;
-    v4 = [obj countByEnumeratingWithState:&v78 objects:v90 count:16];
+    v4 = [obj countByEnumeratingWithState:&v77 objects:v89 count:16];
     if (v4)
     {
-      v59 = *MEMORY[0x277D6B770];
-      v60 = *v79;
-      v58 = *MEMORY[0x277D6B760];
-      v56 = *MEMORY[0x277D6B738];
-      v57 = *MEMORY[0x277D6B768];
-      v54 = *MEMORY[0x277D6B728];
-      v55 = *MEMORY[0x277D6B740];
-      v53 = *MEMORY[0x277D6B730];
-      v52 = *MEMORY[0x277D6B718];
+      v58 = *MEMORY[0x277D6B770];
+      v59 = *v78;
+      v57 = *MEMORY[0x277D6B760];
+      v55 = *MEMORY[0x277D6B738];
+      v56 = *MEMORY[0x277D6B768];
+      v53 = *MEMORY[0x277D6B728];
+      v54 = *MEMORY[0x277D6B740];
+      v52 = *MEMORY[0x277D6B730];
+      v51 = *MEMORY[0x277D6B718];
       v5 = *MEMORY[0x277D6B720];
       v6 = *MEMORY[0x277D6B778];
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v79 != v60)
+          if (*v78 != v59)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v78 + 1) + 8 * i);
+          v8 = *(*(&v77 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
-          v10 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v61 withDate:monotonicDate];
-          v11 = [v8 valueForKey:v59];
+          v10 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v60 withDate:monotonicDate];
+          v11 = [v8 valueForKey:v58];
           [v10 setObject:v11 forKeyedSubscript:@"ProcessName"];
-          v12 = [v8 valueForKey:v58];
+          v12 = [v8 valueForKey:v57];
           [v10 setObject:v12 forKeyedSubscript:@"BundleName"];
 
-          v13 = [v8 valueForKey:v57];
+          v13 = [v8 valueForKey:v56];
           [v10 setObject:v13 forKeyedSubscript:@"ExtensionName"];
 
-          v14 = [v8 valueForKey:v56];
+          v14 = [v8 valueForKey:v55];
           [v10 setObject:v14 forKeyedSubscript:@"WifiIn"];
 
-          v15 = [v8 valueForKey:v55];
+          v15 = [v8 valueForKey:v54];
           [v10 setObject:v15 forKeyedSubscript:@"WifiOut"];
 
-          v16 = [v8 valueForKey:v54];
+          v16 = [v8 valueForKey:v53];
           [v10 setObject:v16 forKeyedSubscript:@"CellIn"];
 
-          v17 = [v8 valueForKey:v53];
+          v17 = [v8 valueForKey:v52];
           [v10 setObject:v17 forKeyedSubscript:@"CellOut"];
 
-          v18 = [v8 valueForKey:v52];
+          v18 = [v8 valueForKey:v51];
           [v10 setObject:v18 forKeyedSubscript:@"BTCompanionIn"];
 
           v19 = [v8 valueForKey:v5];
@@ -1468,17 +1705,17 @@ LABEL_11:
 
           *&buf = 0;
           *(&buf + 1) = &buf;
-          v88 = 0x2020000000;
-          v89 = 0;
+          v87 = 0x2020000000;
+          v88 = 0;
           dictionary2 = [v10 dictionary];
-          v75[0] = MEMORY[0x277D85DD0];
-          v75[1] = 3221225472;
-          v75[2] = __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke;
-          v75[3] = &unk_27825B2A8;
+          v74[0] = MEMORY[0x277D85DD0];
+          v74[1] = 3221225472;
+          v74[2] = __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke;
+          v74[3] = &unk_27825B2A8;
           p_buf = &buf;
           v22 = v10;
-          v76 = v22;
-          [dictionary2 enumerateKeysAndObjectsUsingBlock:v75];
+          v75 = v22;
+          [dictionary2 enumerateKeysAndObjectsUsingBlock:v74];
 
           if (*(*(&buf + 1) + 24) > 0.0)
           {
@@ -1490,7 +1727,7 @@ LABEL_11:
             {
               v25 = objc_alloc(MEMORY[0x277D3F190]);
               lastEntryDate2 = [(PLProcessNetworkAgent *)self lastEntryDate];
-              v27 = [v25 initWithEntryKey:v49 withDate:lastEntryDate2];
+              v27 = [v25 initWithEntryKey:v48 withDate:lastEntryDate2];
 
               [v27 setObject:monotonicDate forKeyedSubscript:@"timestampEnd"];
               [v27 setObject:v11 forKeyedSubscript:@"ProcessName"];
@@ -1501,37 +1738,37 @@ LABEL_11:
               [v27 setObject:v29 forKeyedSubscript:@"ExtensionName"];
 
               dictionary3 = [v22 dictionary];
-              v72[0] = MEMORY[0x277D85DD0];
-              v72[1] = 3221225472;
-              v72[2] = __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke_2;
-              v72[3] = &unk_27825B2D0;
+              v71[0] = MEMORY[0x277D85DD0];
+              v71[1] = 3221225472;
+              v71[2] = __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke_2;
+              v71[3] = &unk_27825B2D0;
               v31 = v27;
-              v73 = v31;
-              v74 = v22;
-              [dictionary3 enumerateKeysAndObjectsUsingBlock:v72];
+              v72 = v31;
+              v73 = v22;
+              [dictionary3 enumerateKeysAndObjectsUsingBlock:v71];
 
               lastProcessNameToNetworkUsageEntry = [(PLProcessNetworkAgent *)self lastProcessNameToNetworkUsageEntry];
               v33 = [lastProcessNameToNetworkUsageEntry objectForKeyedSubscript:v11];
 
-              v68 = 0;
-              v69 = &v68;
+              v67 = 0;
+              v68 = &v67;
               v34 = *(*(&buf + 1) + 24);
-              v70 = 0x2020000000;
-              v71 = v34;
+              v69 = 0x2020000000;
+              v70 = v34;
               if (v33)
               {
-                v71 = 0.0;
+                v70 = 0.0;
                 dictionary4 = [v33 dictionary];
-                v64[0] = MEMORY[0x277D85DD0];
-                v64[1] = 3221225472;
-                v64[2] = __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke_3;
-                v64[3] = &unk_27825B2F8;
-                v65 = v31;
-                v66 = v33;
-                v67 = &v68;
-                [dictionary4 enumerateKeysAndObjectsUsingBlock:v64];
+                v63[0] = MEMORY[0x277D85DD0];
+                v63[1] = 3221225472;
+                v63[2] = __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke_3;
+                v63[3] = &unk_27825B2F8;
+                v64 = v31;
+                v65 = v33;
+                v66 = &v67;
+                [dictionary4 enumerateKeysAndObjectsUsingBlock:v63];
 
-                v34 = v69[3];
+                v34 = v68[3];
               }
 
               if (v34 > 0.0)
@@ -1539,7 +1776,7 @@ LABEL_11:
                 [array addObject:v31];
               }
 
-              _Block_object_dispose(&v68, 8);
+              _Block_object_dispose(&v67, 8);
             }
           }
 
@@ -1547,7 +1784,7 @@ LABEL_11:
           objc_autoreleasePoolPop(v9);
         }
 
-        v4 = [obj countByEnumeratingWithState:&v78 objects:v90 count:16];
+        v4 = [obj countByEnumeratingWithState:&v77 objects:v89 count:16];
       }
 
       while (v4);
@@ -1555,11 +1792,11 @@ LABEL_11:
 
     if (-[PLOperator isDebugEnabled](self, "isDebugEnabled") && ([MEMORY[0x277D3F258] isPowerlogHelperd] & 1) == 0 && (objc_msgSend(MEMORY[0x277D3F258], "isPerfPowerMetricd") & 1) == 0)
     {
-      v85 = v61;
+      v84 = v60;
       allValues = [dictionary allValues];
-      v86 = allValues;
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
-      [(PLOperator *)self logEntries:v37 withGroupID:v61];
+      v85 = allValues;
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+      [(PLOperator *)self logEntries:v37 withGroupID:v60];
     }
 
     lastEntryDate3 = [(PLProcessNetworkAgent *)self lastEntryDate];
@@ -1570,17 +1807,17 @@ LABEL_11:
       {
         v39 = objc_alloc(MEMORY[0x277D3F190]);
         lastEntryDate4 = [(PLProcessNetworkAgent *)self lastEntryDate];
-        v41 = [v39 initWithEntryKey:v49 withDate:lastEntryDate4];
+        v41 = [v39 initWithEntryKey:v48 withDate:lastEntryDate4];
 
-        v84 = v41;
-        v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
+        v83 = v41;
+        v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
         [(PLOperator *)self postEntries:v42];
       }
 
-      v82 = v49;
-      v83 = array;
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-      [(PLOperator *)self logEntries:v43 withGroupID:v49];
+      v81 = v48;
+      v82 = array;
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+      [(PLOperator *)self logEntries:v43 withGroupID:v48];
 
       lastEntryDate5 = [(PLProcessNetworkAgent *)self lastEntryDate];
       [(PLProcessNetworkAgent *)self accountWithNetworkUsageDiffEntries:array withStartDate:lastEntryDate5 withEndDate:monotonicDate];
@@ -1599,13 +1836,11 @@ LABEL_11:
       _os_log_error_impl(&dword_21A4C6000, v45, OS_LOG_TYPE_ERROR, "NetworkUsage outcome has no payload", &buf, 2u);
     }
 
-    dictionary = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v49 withDate:monotonicDate];
+    dictionary = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v48 withDate:monotonicDate];
     [dictionary setIsErrorEntry:1];
     [dictionary setObject:@"NetworkUsage outcome has no payload" forKeyedSubscript:@"__PLEntryErrorString__"];
     [(PLOperator *)self logEntry:dictionary];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1661,7 +1896,7 @@ void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke
 
 - (void)setLastNetworkBitmapTimestampFor:(id)for
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   forCopy = for;
   if ([MEMORY[0x277D3F258] deviceRebooted])
   {
@@ -1673,14 +1908,14 @@ void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke
     v6 = PLLogProcessNetwork();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = forCopy;
-      _os_log_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEFAULT, "[%@]: Detected that powerlog restarted", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = forCopy;
+      _os_log_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEFAULT, "[%@]: Detected that powerlog restarted", &v20, 0xCu);
     }
 
     v7 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"NetworkBitmap"];
-    storage = [(PLOperator *)self storage];
-    v9 = [storage lastEntryForKey:v7];
+    v8 = objc_msgSend_storage(self);
+    v9 = [v8 lastEntryForKey:v7];
 
     if (v9 && ([MEMORY[0x277D3F258] deviceBootTime], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "entryDate"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "compare:", v11), v11, v10, v12 == -1))
     {
@@ -1688,11 +1923,11 @@ void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v15 = [v9 objectForKeyedSubscript:@"MachAbsoluteEndTime"];
-        v21 = 138412546;
-        v22 = forCopy;
-        v23 = 2112;
-        v24 = v15;
-        _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEFAULT, "[%@]: Recovered last entry's mach time: %@", &v21, 0x16u);
+        v20 = 138412546;
+        v21 = forCopy;
+        v22 = 2112;
+        v23 = v15;
+        _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEFAULT, "[%@]: Recovered last entry's mach time: %@", &v20, 0x16u);
       }
 
       v13 = [v9 objectForKeyedSubscript:@"MachAbsoluteEndTime"];
@@ -1704,9 +1939,9 @@ void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke
       v13 = PLLogProcessNetwork();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = forCopy;
-        _os_log_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEFAULT, "[%@]: Last entry's mach time not available", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = forCopy;
+        _os_log_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEFAULT, "[%@]: Last entry's mach time not available", &v20, 0xCu);
       }
 
       unsignedLongLongValue = 0;
@@ -1730,19 +1965,17 @@ void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke
   v19 = PLLogProcessNetwork();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = forCopy;
-    v23 = 2048;
-    v24 = v18;
-    _os_log_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEFAULT, "[%@]: Network bitmaps initialized start time: %llu.", &v21, 0x16u);
+    v20 = 138412546;
+    v21 = forCopy;
+    v22 = 2048;
+    v23 = v18;
+    _os_log_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEFAULT, "[%@]: Network bitmaps initialized start time: %llu.", &v20, 0x16u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNetWorkBitmapForEndTime:(unint64_t)time andSysdiagnoseTrigger:(BOOL)trigger
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   if (trigger)
   {
     v7 = @"Sysdiagnose Bitmap";
@@ -1753,19 +1986,19 @@ void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke
     v7 = @"Bitmap";
   }
 
-  v21 = *MEMORY[0x277D6B5F0];
-  v22[0] = MEMORY[0x277CBEC38];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v20 = *MEMORY[0x277D6B5F0];
+  v21[0] = MEMORY[0x277CBEC38];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   usageFeed = [(PLProcessNetworkAgent *)self usageFeed];
   lastNetworkBitmapTimestamp = [(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __74__PLProcessNetworkAgent_getNetWorkBitmapForEndTime_andSysdiagnoseTrigger___block_invoke;
-  v15[3] = &unk_27825B320;
-  v16 = v7;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __74__PLProcessNetworkAgent_getNetWorkBitmapForEndTime_andSysdiagnoseTrigger___block_invoke;
+  v14[3] = &unk_27825B320;
+  v15 = v7;
   selfCopy = self;
   triggerCopy = trigger;
-  v11 = [usageFeed networkBitmapsToDateWithOptionsFor:0 startTime:lastNetworkBitmapTimestamp endTime:time options:v8 reply:v15];
+  v11 = [usageFeed networkBitmapsToDateWithOptionsFor:0 startTime:lastNetworkBitmapTimestamp endTime:time options:v8 reply:v14];
 
   v12 = PLLogProcessNetwork();
   v13 = v12;
@@ -1774,7 +2007,7 @@ void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEFAULT, "[%@]: successfully obtained network bitmaps", buf, 0xCu);
     }
   }
@@ -1782,16 +2015,14 @@ void __58__PLProcessNetworkAgent_logEventBackwardUsageWithOutcome___block_invoke
   else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v20 = v7;
+    v19 = v7;
     _os_log_error_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_ERROR, "[%@]: failed to retrieve network bitmaps", buf, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __74__PLProcessNetworkAgent_getNetWorkBitmapForEndTime_andSysdiagnoseTrigger___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1804,16 +2035,16 @@ LABEL_3:
       goto LABEL_4;
     }
 
-    v25 = *(a1 + 32);
-    v28 = 138412546;
-    v29 = v25;
-    v30 = 2112;
-    v31 = v6;
-    v18 = "[%@]: error in network bitmap callback: %@";
-    v19 = v7;
-    v20 = 22;
+    v24 = *(a1 + 32);
+    v27 = 138412546;
+    v28 = v24;
+    v29 = 2112;
+    v30 = v6;
+    v17 = "[%@]: error in network bitmap callback: %@";
+    v18 = v7;
+    v19 = 22;
 LABEL_26:
-    _os_log_error_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_ERROR, v18, &v28, v20);
+    _os_log_error_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_ERROR, v17, &v27, v19);
     goto LABEL_3;
   }
 
@@ -1825,66 +2056,66 @@ LABEL_26:
       goto LABEL_3;
     }
 
-    v17 = *(a1 + 32);
-    v28 = 138412290;
-    v29 = v17;
-    v18 = "[%@]: network bitmap dict is empty";
-    v19 = v7;
-    v20 = 12;
+    v16 = *(a1 + 32);
+    v27 = 138412290;
+    v28 = v16;
+    v17 = "[%@]: network bitmap dict is empty";
+    v18 = v7;
+    v19 = 12;
     goto LABEL_26;
   }
 
-  v9 = [v5 objectForKeyedSubscript:*MEMORY[0x277D6B5F8]];
-  v10 = [v9 unsignedLongLongValue];
+  v8 = [v5 objectForKeyedSubscript:*MEMORY[0x277D6B5F8]];
+  v9 = [v8 unsignedLongLongValue];
 
-  v11 = [v5 objectForKeyedSubscript:*MEMORY[0x277D6B5E0]];
-  v12 = [v11 unsignedLongLongValue];
+  v10 = [v5 objectForKeyedSubscript:*MEMORY[0x277D6B5E0]];
+  v11 = [v10 unsignedLongLongValue];
 
-  v13 = PLLogProcessNetwork();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v12 = PLLogProcessNetwork();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 32);
-    v28 = 138412802;
-    v29 = v14;
-    v30 = 2048;
-    v31 = v12;
-    v32 = 2048;
-    v33 = v10;
-    _os_log_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEFAULT, "[%@]: Network bitmaps endtime from symptoms: %llu, start time: %llu", &v28, 0x20u);
+    v13 = *(a1 + 32);
+    v27 = 138412802;
+    v28 = v13;
+    v29 = 2048;
+    v30 = v11;
+    v31 = 2048;
+    v32 = v9;
+    _os_log_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEFAULT, "[%@]: Network bitmaps endtime from symptoms: %llu, start time: %llu", &v27, 0x20u);
   }
 
-  if (v12 <= v10)
+  if (v11 <= v9)
   {
-    v21 = PLLogProcessNetwork();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = PLLogProcessNetwork();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(a1 + 32);
-      v27 = [*(a1 + 40) lastNetworkBitmapTimestamp];
-      v28 = 138412802;
-      v29 = v26;
-      v30 = 2048;
-      v31 = v12;
-      v32 = 2048;
-      v33 = v27;
-      _os_log_error_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_ERROR, "[%@]: End time %llu smaller than start time %llu.", &v28, 0x20u);
+      v25 = *(a1 + 32);
+      v26 = [*(a1 + 40) lastNetworkBitmapTimestamp];
+      v27 = 138412802;
+      v28 = v25;
+      v29 = 2048;
+      v30 = v11;
+      v31 = 2048;
+      v32 = v26;
+      _os_log_error_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_ERROR, "[%@]: End time %llu smaller than start time %llu.", &v27, 0x20u);
     }
   }
 
   else
   {
-    [*(a1 + 40) aggregateAndLogNetworkBitmaps:v5 withStartTime:v10 andEndTime:v12];
-    [*(a1 + 40) setLastNetworkBitmapTimestamp:v12];
+    [*(a1 + 40) aggregateAndLogNetworkBitmaps:v5 withStartTime:v9 andEndTime:v11];
+    [*(a1 + 40) setLastNetworkBitmapTimestamp:v11];
     if (*(a1 + 48))
     {
-      if (v12 < [*(a1 + 40) curNetworkBitmapTimestampForSysdiagnoseTrigger] && objc_msgSend(*(a1 + 40), "curNetworkBitmapTimestampForSysdiagnoseTrigger") - v12 >= 8)
+      if (v11 < [*(a1 + 40) curNetworkBitmapTimestampForSysdiagnoseTrigger] && objc_msgSend(*(a1 + 40), "curNetworkBitmapTimestampForSysdiagnoseTrigger") - v11 >= 8)
       {
-        v15 = PLLogProcessNetwork();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v14 = PLLogProcessNetwork();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = *(a1 + 32);
-          v28 = 138412290;
-          v29 = v16;
-          _os_log_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEFAULT, "[%@]: trying to retrieve more network bitmaps", &v28, 0xCu);
+          v15 = *(a1 + 32);
+          v27 = 138412290;
+          v28 = v15;
+          _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEFAULT, "[%@]: trying to retrieve more network bitmaps", &v27, 0xCu);
         }
 
         [*(a1 + 40) logEventBackwardNetworkBitmapsSysdiagnoseTrigger];
@@ -1893,16 +2124,16 @@ LABEL_26:
 
     else
     {
-      v22 = [MEMORY[0x277D3F258] getCurrMachAbsTimeInSecs];
-      if (v22 > v12 && v22 - v12 >= 0x800)
+      v21 = [MEMORY[0x277D3F258] getCurrMachAbsTimeInSecs];
+      if (v21 > v11 && v21 - v11 >= 0x800)
       {
-        v23 = PLLogProcessNetwork();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = PLLogProcessNetwork();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = *(a1 + 32);
-          v28 = 138412290;
-          v29 = v24;
-          _os_log_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEFAULT, "[%@]: trying to retrieve more network bitmaps", &v28, 0xCu);
+          v23 = *(a1 + 32);
+          v27 = 138412290;
+          v28 = v23;
+          _os_log_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEFAULT, "[%@]: trying to retrieve more network bitmaps", &v27, 0xCu);
         }
 
         [*(a1 + 40) logEventBackwardNetworkBitmaps];
@@ -1911,13 +2142,11 @@ LABEL_26:
   }
 
 LABEL_4:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventBackwardNetworkBitmapsSysdiagnoseTrigger
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lastNetworkBitmapTimestamp = [(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp];
   v4 = PLLogProcessNetwork();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -1925,8 +2154,8 @@ LABEL_4:
   {
     if (v5)
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: initialize last network bitmap log timestamp", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: initialize last network bitmap log timestamp", &v19, 2u);
     }
 
     [(PLProcessNetworkAgent *)self setLastNetworkBitmapTimestampFor:@"Sysdiagnose Bitmap"];
@@ -1937,9 +2166,9 @@ LABEL_4:
   {
     if (v5)
     {
-      v20 = 134217984;
+      v19 = 134217984;
       lastNetworkBitmapTimestamp2 = [(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp];
-      _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Network bitmaps start time: %llu.", &v20, 0xCu);
+      _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Network bitmaps start time: %llu.", &v19, 0xCu);
     }
 
     v6 = [(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp]+ 1024;
@@ -1950,9 +2179,9 @@ LABEL_4:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         curNetworkBitmapTimestampForSysdiagnoseTrigger = [(PLProcessNetworkAgent *)self curNetworkBitmapTimestampForSysdiagnoseTrigger];
-        v20 = 134217984;
+        v19 = 134217984;
         lastNetworkBitmapTimestamp2 = curNetworkBitmapTimestampForSysdiagnoseTrigger;
-        _os_log_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Setting network bitmaps current time for sysdiagnose trigger: %llu.", &v20, 0xCu);
+        _os_log_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Setting network bitmaps current time for sysdiagnose trigger: %llu.", &v19, 0xCu);
       }
     }
 
@@ -1960,11 +2189,11 @@ LABEL_4:
     v10 = PLLogProcessNetwork();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 134218240;
+      v19 = 134218240;
       lastNetworkBitmapTimestamp2 = v6;
-      v22 = 2048;
-      v23 = curNetworkBitmapTimestampForSysdiagnoseTrigger2;
-      _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Network bitmaps end time: %llu, curr time: %llu.", &v20, 0x16u);
+      v21 = 2048;
+      v22 = curNetworkBitmapTimestampForSysdiagnoseTrigger2;
+      _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Network bitmaps end time: %llu, curr time: %llu.", &v19, 0x16u);
     }
 
     if (curNetworkBitmapTimestampForSysdiagnoseTrigger2 > v6)
@@ -1973,18 +2202,18 @@ LABEL_4:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         lastNetworkBitmapTimestamp3 = [(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp];
-        v20 = 134218240;
+        v19 = 134218240;
         lastNetworkBitmapTimestamp2 = lastNetworkBitmapTimestamp3;
-        v22 = 2048;
-        v23 = v6;
-        _os_log_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Requesting network bitmaps from symptoms with start time: %llu, end time: %llu.", &v20, 0x16u);
+        v21 = 2048;
+        v22 = v6;
+        _os_log_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Requesting network bitmaps from symptoms with start time: %llu, end time: %llu.", &v19, 0x16u);
       }
 
       selfCopy2 = self;
       v14 = v6;
 LABEL_21:
       [(PLProcessNetworkAgent *)selfCopy2 getNetWorkBitmapForEndTime:v14 andSysdiagnoseTrigger:1];
-      goto LABEL_25;
+      return;
     }
 
     v15 = curNetworkBitmapTimestampForSysdiagnoseTrigger2 - [(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp];
@@ -1995,11 +2224,11 @@ LABEL_21:
       if (v17)
       {
         lastNetworkBitmapTimestamp4 = [(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp];
-        v20 = 134218240;
+        v19 = 134218240;
         lastNetworkBitmapTimestamp2 = lastNetworkBitmapTimestamp4;
-        v22 = 2048;
-        v23 = curNetworkBitmapTimestampForSysdiagnoseTrigger2;
-        _os_log_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Requesting network bitmaps from symptoms with start time: %llu, curr time: %llu.", &v20, 0x16u);
+        v21 = 2048;
+        v22 = curNetworkBitmapTimestampForSysdiagnoseTrigger2;
+        _os_log_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Requesting network bitmaps from symptoms with start time: %llu, curr time: %llu.", &v19, 0x16u);
       }
 
       selfCopy2 = self;
@@ -2009,25 +2238,22 @@ LABEL_21:
 
     if (v17)
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Requested network bitmap is too recent.", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEFAULT, "[Sysdiagnose Bitmap]: Requested network bitmap is too recent.", &v19, 2u);
     }
   }
-
-LABEL_25:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventBackwardNetworkBitmaps
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp]== -1)
   {
     v6 = PLLogProcessNetwork();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEFAULT, "[Bitmap]: initialize last network bitmap log timestamp", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEFAULT, "[Bitmap]: initialize last network bitmap log timestamp", &v8, 2u);
     }
 
     [(PLProcessNetworkAgent *)self setLastNetworkBitmapTimestampFor:@"Bitmap"];
@@ -2041,13 +2267,13 @@ LABEL_25:
     v5 = PLLogProcessNetwork();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134218496;
+      v8 = 134218496;
       lastNetworkBitmapTimestamp = [(PLProcessNetworkAgent *)self lastNetworkBitmapTimestamp];
-      v11 = 2048;
-      v12 = v3;
-      v13 = 2048;
-      v14 = getCurrMachAbsTimeInSecs;
-      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "[Bitmap]: Requesting network bitmaps from symptoms with start time: %llu, end time: %llu, curr time: %llu.", &v9, 0x20u);
+      v10 = 2048;
+      v11 = v3;
+      v12 = 2048;
+      v13 = getCurrMachAbsTimeInSecs;
+      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "[Bitmap]: Requesting network bitmaps from symptoms with start time: %llu, end time: %llu, curr time: %llu.", &v8, 0x20u);
     }
 
     if (getCurrMachAbsTimeInSecs <= v3 || getCurrMachAbsTimeInSecs - v3 <= 0x3FF)
@@ -2055,8 +2281,8 @@ LABEL_25:
       v7 = PLLogProcessNetwork();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v9) = 0;
-        _os_log_error_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_ERROR, "[Bitmap]: Requested network bitmap is too recent.", &v9, 2u);
+        LOWORD(v8) = 0;
+        _os_log_error_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_ERROR, "[Bitmap]: Requested network bitmap is too recent.", &v8, 2u);
       }
     }
 
@@ -2065,13 +2291,11 @@ LABEL_25:
       [(PLProcessNetworkAgent *)self getNetWorkBitmapForEndTime:v3 andSysdiagnoseTrigger:0];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountWithNetworkUsageDiffEntries:(id)entries withStartDate:(id)date withEndDate:(id)endDate
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   dateCopy = date;
   endDateCopy = endDate;
@@ -2081,48 +2305,48 @@ LABEL_25:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v85 = *&entriesCopy;
-      v86 = 2112;
-      v87 = *&dateCopy;
-      v88 = 2112;
-      v89 = endDateCopy;
+      v84 = *&entriesCopy;
+      v85 = 2112;
+      v86 = *&dateCopy;
+      v87 = 2112;
+      v88 = endDateCopy;
       _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "networkUsageDiffEntries=%@, startDate=%@, endDate=%@", buf, 0x20u);
     }
 
-    v63 = endDateCopy;
-    v64 = dateCopy;
+    v62 = endDateCopy;
+    v63 = dateCopy;
 
     v11 = [&unk_282C17248 mutableCopy];
+    v77 = 0u;
     v78 = 0u;
     v79 = 0u;
     v80 = 0u;
-    v81 = 0u;
     v12 = entriesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v78 objects:v83 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v77 objects:v82 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v79;
+      v15 = *v78;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v79 != v15)
+          if (*v78 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v78 + 1) + 8 * i);
-          v75[0] = MEMORY[0x277D85DD0];
-          v75[1] = 3221225472;
-          v75[2] = __86__PLProcessNetworkAgent_accountWithNetworkUsageDiffEntries_withStartDate_withEndDate___block_invoke;
-          v75[3] = &unk_27825B2D0;
-          v76 = v11;
-          v77 = v17;
-          [v76 enumerateKeysAndObjectsUsingBlock:v75];
+          v17 = *(*(&v77 + 1) + 8 * i);
+          v74[0] = MEMORY[0x277D85DD0];
+          v74[1] = 3221225472;
+          v74[2] = __86__PLProcessNetworkAgent_accountWithNetworkUsageDiffEntries_withStartDate_withEndDate___block_invoke;
+          v74[3] = &unk_27825B2D0;
+          v75 = v11;
+          v76 = v17;
+          [v75 enumerateKeysAndObjectsUsingBlock:v74];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v78 objects:v83 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v77 objects:v82 count:16];
       }
 
       while (v14);
@@ -2146,9 +2370,9 @@ LABEL_25:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218240;
-      v85 = v23;
-      v86 = 2048;
-      v87 = v29;
+      v84 = v23;
+      v85 = 2048;
+      v86 = v29;
       _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "totalWiFiUsage=%f, totalBBUsage=%f", buf, 0x16u);
     }
 
@@ -2156,33 +2380,33 @@ LABEL_25:
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
     if (v23 + v29 > 0.0)
     {
-      v62 = entriesCopy;
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
+      v61 = entriesCopy;
       v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       obj = v12;
-      v69 = [obj countByEnumeratingWithState:&v71 objects:v82 count:16];
-      if (v69)
+      v68 = [obj countByEnumeratingWithState:&v70 objects:v81 count:16];
+      if (v68)
       {
         v31 = @"BundleName";
         v32 = @"ProcessName";
-        v66 = *v72;
+        v65 = *v71;
         do
         {
-          for (j = 0; j != v69; ++j)
+          for (j = 0; j != v68; ++j)
           {
-            if (*v72 != v66)
+            if (*v71 != v65)
             {
               objc_enumerationMutation(obj);
             }
 
-            v34 = *(*(&v71 + 1) + 8 * j);
+            v34 = *(*(&v70 + 1) + 8 * j);
             v35 = [v34 objectForKeyedSubscript:v31];
             v36 = [v34 objectForKeyedSubscript:v32];
             v37 = [v34 objectForKeyedSubscript:@"ExtensionName"];
             v38 = v37;
-            v70 = v36;
+            v69 = v36;
             if (v35)
             {
               v39 = v35;
@@ -2235,35 +2459,33 @@ LABEL_25:
             [dictionary2 setObject:v57 forKeyedSubscript:v40];
           }
 
-          v69 = [obj countByEnumeratingWithState:&v71 objects:v82 count:16];
+          v68 = [obj countByEnumeratingWithState:&v70 objects:v81 count:16];
         }
 
-        while (v69);
+        while (v68);
       }
 
-      entriesCopy = v62;
+      entriesCopy = v61;
     }
 
     v58 = PLLogProcessNetwork();
-    endDateCopy = v63;
-    dateCopy = v64;
+    endDateCopy = v62;
+    dateCopy = v63;
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v85 = *&dictionary;
-      v86 = 2112;
-      v87 = *&dictionary2;
+      v84 = *&dictionary;
+      v85 = 2112;
+      v86 = *&dictionary2;
       _os_log_debug_impl(&dword_21A4C6000, v58, OS_LOG_TYPE_DEBUG, "identifierToWeightWiFi=%@, identifierToWeightBB=%@", buf, 0x16u);
     }
 
     mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
-    [mEMORY[0x277D3F0C0] createDistributionEventIntervalWithDistributionID:37 withChildNodeNameToWeight:dictionary withStartDate:v64 withEndDate:v63];
+    [mEMORY[0x277D3F0C0] createDistributionEventIntervalWithDistributionID:37 withChildNodeNameToWeight:dictionary withStartDate:v63 withEndDate:v62];
 
     mEMORY[0x277D3F0C0]2 = [MEMORY[0x277D3F0C0] sharedInstance];
-    [mEMORY[0x277D3F0C0]2 createDistributionEventIntervalWithDistributionID:38 withChildNodeNameToWeight:dictionary2 withStartDate:v64 withEndDate:v63];
+    [mEMORY[0x277D3F0C0]2 createDistributionEventIntervalWithDistributionID:38 withChildNodeNameToWeight:dictionary2 withStartDate:v63 withEndDate:v62];
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 void __86__PLProcessNetworkAgent_accountWithNetworkUsageDiffEntries_withStartDate_withEndDate___block_invoke(uint64_t a1, void *a2)
@@ -2282,14 +2504,14 @@ void __86__PLProcessNetworkAgent_accountWithNetworkUsageDiffEntries_withStartDat
 
 - (void)handleHighBWStartCallback:(id)callback
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = PLLogProcessNetwork();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 138412290;
-    v15 = callbackCopy;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "High BW payload: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = callbackCopy;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "High BW payload: %@", &v13, 0xCu);
   }
 
   v6 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"HighCellularBWTransactions"];
@@ -2308,23 +2530,22 @@ void __86__PLProcessNetworkAgent_accountWithNetworkUsageDiffEntries_withStartDat
   [v7 setObject:v12 forKeyedSubscript:@"HighThroughputOriginators"];
 
   [(PLOperator *)self logEntry:v7];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHighBWEndCallback:(id)callback
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v4 = PLLogProcessNetwork();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v36 = callbackCopy;
+    v35 = callbackCopy;
     _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "High BW payload details: %@", buf, 0xCu);
   }
 
-  v23 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"HighCellularBWTransactionsDetail"];
-  v5 = [objc_alloc(MEMORY[0x277D3F1E8]) initWithEntryKey:v23];
+  v22 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"HighCellularBWTransactionsDetail"];
+  v5 = [objc_alloc(MEMORY[0x277D3F1E8]) initWithEntryKey:v22];
   v6 = [callbackCopy objectForKeyedSubscript:@"HighThroughputStartReason"];
   [v5 setObject:v6 forKeyedSubscript:@"HighThroughputStartReason"];
 
@@ -2339,58 +2560,57 @@ void __86__PLProcessNetworkAgent_accountWithNetworkUsageDiffEntries_withStartDat
   [v5 setObject:v10 forKeyedSubscript:@"HighThroughputOriginators"];
 
   v11 = [callbackCopy objectForKeyedSubscript:@"HighThroughputDuration"];
-  v27 = v5;
+  v26 = v5;
   [v5 setObject:v11 forKeyedSubscript:@"HighThroughputDuration"];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
-  v25 = callbackCopy;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v24 = callbackCopy;
   obj = [callbackCopy objectForKeyedSubscript:@"HighThroughputParticipants"];
-  v12 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v12 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v29;
+    v14 = *v28;
     do
     {
       v15 = 0;
       do
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * v15);
-        v32[0] = @"Participant";
+        v16 = *(*(&v27 + 1) + 8 * v15);
+        v31[0] = @"Participant";
         v17 = [v16 objectForKeyedSubscript:?];
-        v33[0] = v17;
-        v32[1] = @"Duration";
+        v32[0] = v17;
+        v31[1] = @"Duration";
         v18 = [v16 objectForKeyedSubscript:?];
-        v33[1] = v18;
-        v32[2] = @"RxBytes";
+        v32[1] = v18;
+        v31[2] = @"RxBytes";
         v19 = [v16 objectForKeyedSubscript:@"RxBytes"];
-        v33[2] = v19;
-        v32[3] = @"TxBytes";
+        v32[2] = v19;
+        v31[3] = @"TxBytes";
         v20 = [v16 objectForKeyedSubscript:@"TxBytes"];
-        v33[3] = v20;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+        v32[3] = v20;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
 
-        [v27 setObject:&unk_282C10290 forKeyedSubscript:v21];
+        [v26 setObject:&unk_282C10290 forKeyedSubscript:v21];
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v13 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v13);
   }
 
-  [(PLOperator *)self logEntry:v27];
-  v22 = *MEMORY[0x277D85DE8];
+  [(PLOperator *)self logEntry:v26];
 }
 
 @end

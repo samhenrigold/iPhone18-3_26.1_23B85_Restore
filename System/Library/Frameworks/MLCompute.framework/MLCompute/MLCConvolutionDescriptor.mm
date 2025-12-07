@@ -434,43 +434,7 @@
   {
     v5 = equalCopy;
     kernelWidth = [v5 kernelWidth];
-    if (kernelWidth != [(MLCConvolutionDescriptor *)self kernelWidth])
-    {
-      goto LABEL_15;
-    }
-
-    kernelHeight = [v5 kernelHeight];
-    if (kernelHeight != [(MLCConvolutionDescriptor *)self kernelHeight])
-    {
-      goto LABEL_15;
-    }
-
-    inputFeatureChannelCount = [v5 inputFeatureChannelCount];
-    if (inputFeatureChannelCount != [(MLCConvolutionDescriptor *)self inputFeatureChannelCount])
-    {
-      goto LABEL_15;
-    }
-
-    outputFeatureChannelCount = [v5 outputFeatureChannelCount];
-    if (outputFeatureChannelCount != [(MLCConvolutionDescriptor *)self outputFeatureChannelCount])
-    {
-      goto LABEL_15;
-    }
-
-    strideInX = [v5 strideInX];
-    if (strideInX != [(MLCConvolutionDescriptor *)self strideInX])
-    {
-      goto LABEL_15;
-    }
-
-    strideInY = [v5 strideInY];
-    if (strideInY != [(MLCConvolutionDescriptor *)self strideInY])
-    {
-      goto LABEL_15;
-    }
-
-    dilationRateInX = [v5 dilationRateInX];
-    if (dilationRateInX == -[MLCConvolutionDescriptor dilationRateInX](self, "dilationRateInX") && (v13 = [v5 dilationRateInY], v13 == -[MLCConvolutionDescriptor dilationRateInY](self, "dilationRateInY")) && (v14 = objc_msgSend(v5, "groupCount"), v14 == -[MLCConvolutionDescriptor groupCount](self, "groupCount")) && (v15 = objc_msgSend(v5, "paddingPolicy"), v15 == -[MLCConvolutionDescriptor paddingPolicy](self, "paddingPolicy")) && (v16 = objc_msgSend(v5, "paddingSizeInX"), v16 == -[MLCConvolutionDescriptor paddingSizeInX](self, "paddingSizeInX")) && (v17 = objc_msgSend(v5, "paddingSizeInY"), v17 == -[MLCConvolutionDescriptor paddingSizeInY](self, "paddingSizeInY")) && (v18 = objc_msgSend(v5, "isConvolutionTranspose"), v18 == -[MLCConvolutionDescriptor isConvolutionTranspose](self, "isConvolutionTranspose")))
+    if (kernelWidth == -[MLCConvolutionDescriptor kernelWidth](self, "kernelWidth") && (v7 = [v5 kernelHeight], v7 == -[MLCConvolutionDescriptor kernelHeight](self, "kernelHeight")) && (v8 = objc_msgSend(v5, "inputFeatureChannelCount"), v8 == -[MLCConvolutionDescriptor inputFeatureChannelCount](self, "inputFeatureChannelCount")) && (v9 = objc_msgSend(v5, "outputFeatureChannelCount"), v9 == -[MLCConvolutionDescriptor outputFeatureChannelCount](self, "outputFeatureChannelCount")) && (v10 = objc_msgSend(v5, "strideInX"), v10 == -[MLCConvolutionDescriptor strideInX](self, "strideInX")) && (v11 = objc_msgSend(v5, "strideInY"), v11 == -[MLCConvolutionDescriptor strideInY](self, "strideInY")) && (v12 = objc_msgSend(v5, "dilationRateInX"), v12 == -[MLCConvolutionDescriptor dilationRateInX](self, "dilationRateInX")) && (v13 = objc_msgSend(v5, "dilationRateInY"), v13 == -[MLCConvolutionDescriptor dilationRateInY](self, "dilationRateInY")) && (v14 = objc_msgSend(v5, "groupCount"), v14 == -[MLCConvolutionDescriptor groupCount](self, "groupCount")) && (v15 = objc_msgSend(v5, "paddingPolicy"), v15 == -[MLCConvolutionDescriptor paddingPolicy](self, "paddingPolicy")) && (v16 = objc_msgSend(v5, "paddingSizeInX"), v16 == -[MLCConvolutionDescriptor paddingSizeInX](self, "paddingSizeInX")) && (v17 = objc_msgSend(v5, "paddingSizeInY"), v17 == -[MLCConvolutionDescriptor paddingSizeInY](self, "paddingSizeInY")) && (v18 = objc_msgSend(v5, "isConvolutionTranspose"), v18 == -[MLCConvolutionDescriptor isConvolutionTranspose](self, "isConvolutionTranspose")))
     {
       usesDepthwiseConvolution = [v5 usesDepthwiseConvolution];
       v19 = usesDepthwiseConvolution ^ [(MLCConvolutionDescriptor *)self usesDepthwiseConvolution]^ 1;
@@ -478,7 +442,6 @@
 
     else
     {
-LABEL_15:
       LOBYTE(v19) = 0;
     }
   }

@@ -67,7 +67,7 @@
   v16 = 0u;
   v17 = 0u;
   v15 = 0u;
-  [(_TVMLShelfViewLayout *)self cellMetrics];
+  objc_msgSend_cellMetrics(self, a2);
   TVRowMetricsMakeWithCellMetrics(&v10, &v15);
   v12 = v17;
   v13 = v18;
@@ -95,7 +95,7 @@
   v7 = firstObject;
   if (firstObject)
   {
-    [firstObject tv_rowMetricsValue];
+    objc_msgSend_tv_rowMetricsValue(firstObject);
   }
 
   else
@@ -239,7 +239,7 @@
   v60 = 0u;
   v61 = 0u;
   v59 = 0u;
-  [(_TVMLShelfViewLayout *)self cellMetrics];
+  objc_msgSend_cellMetrics(self);
   v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{computedRowCount, TVRowMetricsMakeWithCellMetrics(v58, &v59)}];
   if (computedRowCount >= 1)
   {
@@ -266,7 +266,7 @@
           v39 = v38;
           [(_TVShelfViewLayout *)self headerBottomMargin];
           v41 = v40;
-          [(_TVMLShelfViewLayout *)self cellMetrics];
+          objc_msgSend_cellMetrics(self);
           v42 = v39 - (v41 - v57);
           v33 = 0;
           v37 = fmax(v42, 0.0);

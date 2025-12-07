@@ -6,6 +6,7 @@
 - (id)_axStringForType:(int)type;
 - (int64_t)_axNumberOfResultsInModel:(id)model;
 - (void)searchAgentUpdatedResults:(id)results;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SPUIResultsViewControllerAccessibility
@@ -177,10 +178,7 @@ LABEL_30:
 
 uint64_t __68__SPUIResultsViewControllerAccessibility_searchAgentUpdatedResults___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _axFirstResultInModel:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _axFirstResultInModel:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -231,32 +229,32 @@ uint64_t __68__SPUIResultsViewControllerAccessibility_searchAgentUpdatedResults_
 
 - (int64_t)_axNumberOfResultsInModel:(id)model
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = [(SPUIResultsViewControllerAccessibility *)self _axSectionsInModel:model, 0];
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [(SPUIResultsViewControllerAccessibility *)self _axResultsInSection:*(*(&v13 + 1) + 8 * i)];
+        v10 = [(SPUIResultsViewControllerAccessibility *)self _axResultsInSection:*(*(&v12 + 1) + 8 * i)];
         v7 += [v10 count];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -267,7 +265,6 @@ uint64_t __68__SPUIResultsViewControllerAccessibility_searchAgentUpdatedResults_
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -279,6 +276,14 @@ uint64_t __68__SPUIResultsViewControllerAccessibility_searchAgentUpdatedResults_
   firstObject2 = [v6 firstObject];
 
   return firstObject2;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SPUIResultsViewControllerAccessibility;
+  [(SPUIResultsViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(SPUIResultsViewControllerAccessibility *)self _axSetResultsFirstAppeared:1];
 }
 
 @end

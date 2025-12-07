@@ -182,10 +182,11 @@ LABEL_11:
   return !oneShotFocusScanInProgress;
 }
 
-- (void)initWithTuningParametersByPortType:(void *)a1 videoStabilizationStrength:bravoTelephotoEnabled:attachDebugFrameStatistics:.cold.1(void *a1)
+- (void)initWithTuningParametersByPortType:(const char *)a1 videoStabilizationStrength:bravoTelephotoEnabled:attachDebugFrameStatistics:.cold.1(const char *a1)
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
+  v2 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v1, v3, a1, v6, v7, vars0, vars8);
 }
 
 @end

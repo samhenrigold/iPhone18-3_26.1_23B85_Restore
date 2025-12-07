@@ -29,10 +29,10 @@
 
 - (void)viewDidLoad
 {
-  v32[5] = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = MSDLocationViewController;
-  [(OBBaseWelcomeController *)&v29 viewDidLoad];
+  v31[5] = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = MSDLocationViewController;
+  [(OBBaseWelcomeController *)&v28 viewDidLoad];
   v3 = objc_alloc_init(MEMORY[0x277CBFCF8]);
   [v3 setLabel:4];
   [v3 setIcon:0];
@@ -49,32 +49,31 @@
 
   topAnchor = [v3 topAnchor];
   topAnchor2 = [boldButton topAnchor];
-  v26 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v32[0] = v26;
+  v25 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v31[0] = v25;
   bottomAnchor = [v3 bottomAnchor];
   bottomAnchor2 = [boldButton bottomAnchor];
-  v23 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v32[1] = v23;
+  v22 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v31[1] = v22;
   leadingAnchor = [v3 leadingAnchor];
   leadingAnchor2 = [boldButton leadingAnchor];
   v8 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v32[2] = v8;
+  v31[2] = v8;
   trailingAnchor = [v3 trailingAnchor];
   trailingAnchor2 = [boldButton trailingAnchor];
   v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v32[3] = v11;
+  v31[3] = v11;
   heightAnchor = [v3 heightAnchor];
   [boldButton frame];
   v14 = [heightAnchor constraintEqualToConstant:v13];
-  v32[4] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:5];
+  v31[4] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:5];
 
-  [MEMORY[0x277CCAAD0] activateConstraints:v15];
-  v16 = defaultLogHandle();
+  v16 = defaultLogHandle([MEMORY[0x277CCAAD0] activateConstraints:v15]);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v31 = 2;
+    v30 = 2;
     _os_log_impl(&dword_259BCA000, v16, OS_LOG_TYPE_DEFAULT, "Setting location button use mode to %d...", buf, 8u);
   }
 
@@ -85,15 +84,13 @@
 
   v20 = +[MSDSetupUIController sharedInstance];
   [v20 enableLocationServices];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
   v19 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(authorizationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -107,42 +104,39 @@
     _os_log_impl(&dword_259BCA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: location authorization status changed to %d; accuracy authorization %ld", &v13, 0x1Cu);
   }
 
-  if ([authorizationCopy authorizationStatus] >= 3)
+  authorizationStatus2 = [authorizationCopy authorizationStatus];
+  if (authorizationStatus2 >= 3)
   {
-    v7 = defaultLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = defaultLogHandle(authorizationStatus2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
+      v9 = objc_opt_class();
       v13 = 138543362;
-      v14 = v8;
-      v9 = v8;
-      _os_log_impl(&dword_259BCA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: location authorized; moving to store search view controller", &v13, 0xCu);
+      v14 = v9;
+      v10 = v9;
+      _os_log_impl(&dword_259BCA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: location authorized; moving to store search view controller", &v13, 0xCu);
     }
 
-    v10 = objc_alloc_init(MSDStoreSearchViewController);
-    v11 = +[MSDSetupUIController sharedInstance];
-    [v11 pushViewController:v10 andRemoveTopmostView:1];
+    v11 = objc_alloc_init(MSDStoreSearchViewController);
+    v12 = +[MSDSetupUIController sharedInstance];
+    [v12 pushViewController:v11 andRemoveTopmostView:1];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_locationButtonTapped:(id)tapped
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(tappedCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2114;
-    v10 = tappedCopy;
-    v5 = v8;
-    _os_log_impl(&dword_259BCA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Location button tapped from: %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = tappedCopy;
+    v5 = v7;
+    _os_log_impl(&dword_259BCA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Location button tapped from: %{public}@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

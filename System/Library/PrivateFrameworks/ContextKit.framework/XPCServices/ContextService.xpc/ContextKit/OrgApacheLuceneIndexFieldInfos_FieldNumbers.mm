@@ -17,7 +17,7 @@
     objc_opt_class();
   }
 
-  if (OrgApacheLuceneIndexDocValuesTypeEnum_values_ != enum)
+  if (OrgApacheLuceneIndexDocValuesTypeEnum_values_[0] != enum)
   {
     docValuesType = self->docValuesType_;
     if (!docValuesType)
@@ -33,7 +33,7 @@
         objc_opt_class();
       }
 
-      if (v17 != enum && v17 != OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+      if (v17 != enum && v17 != OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
       {
         v18 = JreStrcat("$@$@$$C", v10, v11, v12, v13, v14, v15, v16, @"cannot change DocValues type from ");
         v19 = new_JavaLangIllegalArgumentException_initWithNSString_(v18);
@@ -157,14 +157,14 @@ LABEL_23:
     objc_opt_class();
   }
 
-  if (OrgApacheLuceneIndexDocValuesTypeEnum_values_ != enum && v19)
+  if (OrgApacheLuceneIndexDocValuesTypeEnum_values_[0] != enum && v19)
   {
     if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
     {
       objc_opt_class();
     }
 
-    if (v19 != enum && v19 != OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+    if (v19 != enum && v19 != OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
     {
       v36 = JreStrcat("$@$@$$C", v12, v13, v14, v15, v16, v17, v18, @"cannot change DocValues type from ");
       v37 = new_JavaLangIllegalArgumentException_initWithNSString_(v36);

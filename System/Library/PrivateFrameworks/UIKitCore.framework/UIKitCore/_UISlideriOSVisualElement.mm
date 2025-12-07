@@ -215,12 +215,12 @@
 - (id)pointerInteraction:(id)interaction styleForRegion:(id)region
 {
   regionCopy = region;
-  +[_UISlideriOSVisualElement drawingMetricsForPlatform];
+  objc_msgSend_drawingMetricsForPlatform(_UISlideriOSVisualElement);
   v6 = [UIBezierPath bezierPathWithOvalInRect:v16, v17, v18, v19];
   identifier = [regionCopy identifier];
-  v8 = [identifier isEqual:@"UISliderKnob"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v8)
+  if (isEqual)
   {
     if (self->_thumbIsArtworkBased)
     {
@@ -242,7 +242,7 @@
   }
 
   identifier2 = [regionCopy identifier];
-  v13 = [identifier2 isEqual:@"UISliderTrack"];
+  v13 = objc_msgSend_isEqual_(identifier2);
 
   if (v13)
   {
@@ -343,7 +343,7 @@ LABEL_10:
   if (!v10)
   {
     v11 = [UIGraphicsImageRenderer alloc];
-    +[_UISlideriOSVisualElement drawingMetricsForPlatform];
+    objc_msgSend_drawingMetricsForPlatform(_UISlideriOSVisualElement);
     v12 = [(UIGraphicsImageRenderer *)v11 initWithSize:v19, v20];
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
@@ -461,7 +461,7 @@ LABEL_6:
     else
     {
       traitCollection = [(UIView *)self traitCollection];
-      v9 = +[UIColor blackColor];
+      v9 = objc_msgSend_blackColor(UIColor);
       v22[0] = v9;
       v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
       v11 = [UIProgressViewModernVisualElement _tintedImageWithTraitCollection:traitCollection forHeight:v10 andColors:5 roundingRectCorners:v7];
@@ -813,7 +813,7 @@ LABEL_8:
 
   else
   {
-    v8 = +[UIColor blackColor];
+    v8 = objc_msgSend_blackColor(UIColor);
     v9 = 2;
   }
 
@@ -1292,7 +1292,7 @@ LABEL_8:
   width = size.width;
   v5 = *MEMORY[0x1E695F060];
   v6 = *(MEMORY[0x1E695F060] + 8);
-  [_UISlideriOSVisualElement drawingMetricsForPlatform:size.width];
+  objc_msgSend_drawingMetricsForPlatform(_UISlideriOSVisualElement, a2, size.width, size.height);
   slider = [(_UISlideriOSVisualElement *)self slider];
   v8 = [slider minimumTrackImageForState:0];
 
@@ -1609,7 +1609,7 @@ LABEL_8:
     v17 = maximumTrackTintColor;
     v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
 LABEL_14:
-    if (([(NSArray *)self->_trackColors isEqual:v7]& 1) != 0)
+    if (objc_msgSend_isEqual_(self->_trackColors))
     {
       goto LABEL_19;
     }
@@ -2552,7 +2552,7 @@ LABEL_5:
   if ([(UISliderDataModel *)self->_data showValue:bounds.origin.x])
   {
     v6 = x + width + -23.0;
-    +[_UISlideriOSVisualElement drawingMetricsForPlatform];
+    objc_msgSend_drawingMetricsForPlatform(_UISlideriOSVisualElement);
     v7 = y + floor((v11 + -15.0) * 0.5);
     v8 = 23.0;
     v9 = 15.0;

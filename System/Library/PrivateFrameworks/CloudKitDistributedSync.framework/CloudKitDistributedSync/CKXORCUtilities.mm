@@ -11,13 +11,13 @@
   rootCopy = root;
   columnCopy = column;
   blockCopy = block;
-  v33 = 0;
-  v34 = 0;
-  v35 = 0;
-  sub_2439780F8(&v33, &columnCopy);
-  v9 = v33;
-  v10 = v34;
-  if (v34 != v33)
+  v28 = 0;
+  v29 = 0;
+  v30 = 0;
+  sub_2439780F8(&v28, &columnCopy);
+  v9 = v28;
+  v10 = v29;
+  if (v29 != v28)
   {
     v11 = 0;
     do
@@ -33,7 +33,7 @@
       }
 
       v13 = *(v10 - 1);
-      v34 = (v10 - 1);
+      v29 = (v10 - 1);
       if (v11 || rootCopy)
       {
         blockCopy[2](blockCopy, v13, v11);
@@ -41,115 +41,107 @@
 
       if (v13)
       {
-        v14 = *v13;
-        v15 = **v13;
-        v16 = __dynamic_cast(v13, &unk_2856A2580, &unk_2856A25F0, 0);
-        if (v16)
+        v14 = __dynamic_cast(v13, &unk_2856A2580, &unk_2856A25F0, 0);
+        if (v14)
         {
-          v17 = v12;
+          v15 = v12;
         }
 
         else
         {
-          v17 = 0;
+          v15 = 0;
         }
 
-        if (v17 == 1)
+        if (v15 == 1)
         {
-          v18 = v16;
-          v19 = v16[10];
-          if (v19 != v16[11])
+          v16 = v14;
+          v17 = v14[10];
+          if (v17 != v14[11])
           {
             do
             {
-              sub_2439780F8(&v33, v19++);
+              sub_2439780F8(&v28, v17++);
             }
 
-            while (v19 != v18[11]);
-            v14 = *v13;
+            while (v17 != v16[11]);
           }
         }
 
-        v20 = *v14;
-        v21 = __dynamic_cast(v13, &unk_2856A2580, &unk_2856A2638, 0);
-        if (v21)
+        v18 = __dynamic_cast(v13, &unk_2856A2580, &unk_2856A2638, 0);
+        if (v18)
         {
-          v22 = v12;
+          v19 = v12;
         }
 
         else
         {
-          v22 = 0;
+          v19 = 0;
         }
 
-        if (v22 == 1)
+        if (v19 == 1)
         {
-          v23 = v21;
-          v24 = v21[20];
-          if (v24 != v21[21])
+          v20 = v18;
+          v21 = v18[20];
+          if (v21 != v18[21])
           {
             do
             {
-              sub_2439780F8(&v33, v24++);
+              sub_2439780F8(&v28, v21++);
             }
 
-            while (v24 != v23[21]);
-            v14 = *v13;
+            while (v21 != v20[21]);
           }
         }
 
-        v25 = *v14;
-        v26 = __dynamic_cast(v13, &unk_2856A2580, &unk_2856A2620, 0);
-        if (v26)
+        v22 = __dynamic_cast(v13, &unk_2856A2580, &unk_2856A2620, 0);
+        if (v22)
         {
-          v27 = v12;
+          v23 = v12;
         }
 
         else
         {
-          v27 = 0;
+          v23 = 0;
         }
 
-        if (v27 == 1)
+        if (v23 == 1)
         {
-          v28 = v26;
-          v32 = v26[15];
-          sub_2439780F8(&v33, &v32);
-          v32 = v28[16];
-          sub_2439780F8(&v33, &v32);
-          v14 = *v13;
+          v24 = v22;
+          v27 = v22[15];
+          sub_2439780F8(&v28, &v27);
+          v27 = v24[16];
+          sub_2439780F8(&v28, &v27);
         }
 
-        v29 = *v14;
-        v30 = __dynamic_cast(v13, &unk_2856A2580, &unk_2856A2608, 0);
-        if (v30)
+        v25 = __dynamic_cast(v13, &unk_2856A2580, &unk_2856A2608, 0);
+        if (v25)
         {
-          v31 = v12;
+          v26 = v12;
         }
 
         else
         {
-          v31 = 0;
+          v26 = 0;
         }
 
-        if (v31 == 1)
+        if (v26 == 1)
         {
-          v32 = v30[15];
-          sub_2439780F8(&v33, &v32);
+          v27 = v25[15];
+          sub_2439780F8(&v28, &v27);
         }
       }
 
       ++v11;
-      v9 = v33;
-      v10 = v34;
+      v9 = v28;
+      v10 = v29;
     }
 
-    while (v34 != v33);
+    while (v29 != v28);
   }
 
   if (v9)
   {
-    v34 = v9;
+    v29 = v9;
     operator delete(v9);
   }
 }
@@ -159,75 +151,74 @@
   schemaCopy = schema;
   helpersCopy = helpers;
   v19 = *(*(column + 10) + 8 * objc_msgSend_topLevelIndexForStruct_(helpersCopy, v14, struct, v15, v16, v17, v18));
-  v20 = **v19;
-  v21 = __dynamic_cast(v19, &unk_2856A2580, &unk_2856A25F0, 0);
-  v22 = 0;
-  *(v21[5] + offset) = 1;
+  v20 = __dynamic_cast(v19, &unk_2856A2580, &unk_2856A25F0, 0);
+  v21 = 0;
+  *(v20[5] + offset) = 1;
   while (1)
   {
     if (schemaCopy)
     {
-      v23 = schemaCopy[4];
-      if (struct < (schemaCopy[5] - v23) >> 1 && *(v23 + 2 * struct) == 1)
+      v22 = schemaCopy[4];
+      if (struct < (schemaCopy[5] - v22) >> 1 && *(v22 + 2 * struct) == 1)
       {
-        v24 = (*(schemaCopy[7] + 24 * struct + 8) - *(schemaCopy[7] + 24 * struct)) >> 3;
+        v23 = (*(schemaCopy[7] + 24 * struct + 8) - *(schemaCopy[7] + 24 * struct)) >> 3;
       }
 
       else
       {
-        v24 = -1;
+        v23 = -1;
       }
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
-    if (v22 >= v24)
+    if (v21 >= v23)
     {
       break;
     }
 
-    v25 = sub_24398768C(schemaCopy, v22, struct);
-    v31 = sub_243987104(schemaCopy, v25, v26, v27, v28, v29, v30);
-    if (!v31)
+    v24 = sub_24398768C(schemaCopy, v21, struct);
+    v30 = sub_243987104(schemaCopy, v24, v25, v26, v27, v28, v29);
+    if (!v30)
     {
-      v53 = objc_msgSend_valueColumnIndexForField_(helpersCopy, v32, v25, v34, v35, v36, v37);
-      v60 = v21[10];
-      if (v53 >= (v21[11] - v60) >> 3 || (v51 = *(v60 + 8 * v53)) == 0)
+      v52 = objc_msgSend_valueColumnIndexForField_(helpersCopy, v31, v24, v33, v34, v35, v36);
+      v59 = v20[10];
+      if (v52 >= (v20[11] - v59) >> 3 || (v50 = *(v59 + 8 * v52)) == 0)
       {
-        v61 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v54, v55, v56, v57, v58, v59);
-        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v61, v62, a2, self, @"CKXORCUtilities.mm", 73, @"Unexpected null value column in writer");
+        v60 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v53, v54, v55, v56, v57, v58);
+        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v60, v61, a2, self, @"CKXORCUtilities.mm", 73, @"Unexpected null value column in writer");
 
-        v51 = 0;
+        v50 = 0;
       }
 
-      v52 = sub_243987390(schemaCopy, v25, v55, v56, v57, v58, v59) ^ 1;
+      v51 = sub_243987390(schemaCopy, v24, v54, v55, v56, v57, v58) ^ 1;
 LABEL_18:
-      *(*(v51 + 40) + offset) = v52;
+      *(*(v50 + 40) + offset) = v51;
       goto LABEL_19;
     }
 
-    if (v31 == 2 && !sub_2439871D0(schemaCopy, v25, v33, v34, v35, v36, v37))
+    if (v30 == 2 && !sub_2439871D0(schemaCopy, v24, v32, v33, v34, v35, v36))
     {
-      v43 = objc_msgSend_listColumnIndexForReference_(helpersCopy, v38, v25, v39, v40, v41, v42);
-      v50 = v21[10];
-      if (v43 >= (v21[11] - v50) >> 3 || (v51 = *(v50 + 8 * v43)) == 0)
+      v42 = objc_msgSend_listColumnIndexForReference_(helpersCopy, v37, v24, v38, v39, v40, v41);
+      v49 = v20[10];
+      if (v42 >= (v20[11] - v49) >> 3 || (v50 = *(v49 + 8 * v42)) == 0)
       {
-        v63 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v44, v45, v46, v47, v48, v49);
-        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v63, v64, a2, self, @"CKXORCUtilities.mm", 90, @"Unexpected null struct list column in writer");
+        v62 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v43, v44, v45, v46, v47, v48);
+        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v62, v63, a2, self, @"CKXORCUtilities.mm", 90, @"Unexpected null struct list column in writer");
 
         __break(1u);
         return;
       }
 
-      v52 = 1;
+      v51 = 1;
       goto LABEL_18;
     }
 
 LABEL_19:
-    ++v22;
+    ++v21;
   }
 }
 

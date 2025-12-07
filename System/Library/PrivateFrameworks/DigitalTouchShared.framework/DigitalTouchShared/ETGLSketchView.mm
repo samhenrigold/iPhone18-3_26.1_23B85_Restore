@@ -4,9 +4,9 @@
 - (CGImage)createImageForTime:(double)time;
 - (CGImage)createRenderedFrameImage;
 - (ETGLSketchView)initWithFrame:(CGRect)frame;
-- (char)setControlBatches:(char *)batches;
 - (id).cxx_construct;
 - (uint64_t)controlBatches;
+- (uint64_t)setControlBatches:(void *)batches;
 - (vector<std::vector<float)vertexBatches;
 - (vector<unsigned)secondaryVertexBatchCount;
 - (vector<unsigned)vertexBatchCount;
@@ -910,15 +910,15 @@ LABEL_4:
 
 - (uint64_t)controlBatches
 {
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a2, *(self + 624), *(self + 632), (*(self + 632) - *(self + 624)) >> 3);
+  self[1] = 0;
+  self[2] = 0;
+  *self = 0;
+  return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(self, *(v1 + 624), *(v1 + 632), (*(v1 + 632) - *(v1 + 624)) >> 3);
 }
 
-- (char)setControlBatches:(char *)batches
+- (uint64_t)setControlBatches:(void *)batches
 {
-  result = (self + 624);
+  result = self + 624;
   if (result != batches)
   {
     return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(result, *batches, batches[1], (batches[1] - *batches) >> 3);

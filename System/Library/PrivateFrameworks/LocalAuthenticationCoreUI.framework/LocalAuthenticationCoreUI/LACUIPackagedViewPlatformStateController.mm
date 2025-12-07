@@ -7,6 +7,7 @@
 - (void)setState:(id)state speed:(double)speed;
 - (void)stateController:(id)controller didSetStateOfLayer:(id)layer;
 - (void)stateController:(id)controller transitionDidStart:(id)start speed:(float)speed;
+- (void)stateController:(id)controller transitionDidStop:(id)stop completed:(BOOL)completed;
 @end
 
 @implementation LACUIPackagedViewPlatformStateController
@@ -72,9 +73,60 @@
   [(CAStateController *)stateController setInitialStatesOfLayer:layer];
 }
 
+- (void)stateController:(id)controller transitionDidStop:(id)stop completed:(BOOL)completed
+{
+  completedCopy = completed;
+  v24 = *MEMORY[0x277D85DE8];
+  controllerCopy = controller;
+  stopCopy = stop;
+  if (self->_stateController != controllerCopy)
+  {
+    [LACUIPackagedViewPlatformStateController stateController:transitionDidStop:completed:];
+  }
+
+  v10 = stopCopy;
+  v11 = LA_LOG_LACUIPackagedViewPlatformStateController(stopCopy);
+  v12 = v11;
+  if (completedCopy)
+  {
+    v13 = OS_LOG_TYPE_DEBUG;
+  }
+
+  else
+  {
+    v13 = OS_LOG_TYPE_ERROR;
+  }
+
+  if (os_log_type_enabled(v11, v13))
+  {
+    if (completedCopy)
+    {
+      v14 = "finish";
+    }
+
+    else
+    {
+      v14 = "skip";
+    }
+
+    v15 = _NSStringFromCAStateTransition(v10);
+    v18 = 138543874;
+    selfCopy = self;
+    v20 = 2080;
+    v21 = v14;
+    v22 = 2114;
+    v23 = v15;
+    _os_log_impl(&dword_256063000, v12, v13, "%{public}@ did %s %{public}@", &v18, 0x20u);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  toState = [v10 toState];
+  [WeakRetained packagedViewPlatformStateController:self didTransitionToState:toState completed:completedCopy];
+}
+
 - (void)stateController:(id)controller didSetStateOfLayer:(id)layer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   layerCopy = layer;
   if (self->_stateController != controllerCopy)
@@ -83,19 +135,17 @@
   }
 
   v8 = layerCopy;
-  v9 = LA_LOG_LACUIPackagedViewPlatformStateController();
+  v9 = LA_LOG_LACUIPackagedViewPlatformStateController(layerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v11 = [(CAStateController *)self->_stateController stateOfLayer:v8];
-    name = [v11 name];
-    v13 = 138543618;
+    v10 = [(CAStateController *)self->_stateController stateOfLayer:v8];
+    name = [v10 name];
+    v12 = 138543618;
     selfCopy = self;
-    v15 = 2114;
-    v16 = name;
-    _os_log_debug_impl(&dword_256063000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ did set layer state to '%{public}@'", &v13, 0x16u);
+    v14 = 2114;
+    v15 = name;
+    _os_log_debug_impl(&dword_256063000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ did set layer state to '%{public}@'", &v12, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateController:(id)controller transitionDidStart:(id)start speed:(float)speed
@@ -108,7 +158,7 @@
   }
 
   v9 = startCopy;
-  v10 = LA_LOG_LACUIPackagedViewPlatformStateController();
+  v10 = LA_LOG_LACUIPackagedViewPlatformStateController(startCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [LACUIPackagedViewPlatformStateController stateController:v9 transitionDidStart:v10 speed:?];
@@ -124,15 +174,13 @@
 
 - (void)stateController:(uint64_t)a1 transitionDidStart:(void *)a2 speed:(NSObject *)a3 .cold.2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = _NSStringFromCAStateTransition(a2);
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_debug_impl(&dword_256063000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ will start %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_debug_impl(&dword_256063000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ will start %{public}@", &v6, 0x16u);
 }
 
 @end

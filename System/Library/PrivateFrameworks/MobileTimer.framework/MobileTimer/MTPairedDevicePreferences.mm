@@ -68,15 +68,15 @@ uint64_t __43__MTPairedDevicePreferences_sharedInstance__block_invoke()
 
 - (void)_handlePrefsChanged
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   _isPushAlertsEnabledInPreferences = [(MTPairedDevicePreferences *)self _isPushAlertsEnabledInPreferences];
   v4 = MTLogForCategory(6);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v10 = 1024;
-    v11 = _isPushAlertsEnabledInPreferences;
+    v9 = 1024;
+    v10 = _isPushAlertsEnabledInPreferences;
     _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ _handlePrefsChanged: pushAlertsEnabled = %d", buf, 0x12u);
   }
 
@@ -91,7 +91,6 @@ uint64_t __43__MTPairedDevicePreferences_sharedInstance__block_invoke()
   block[3] = &unk_1E7B0C9D8;
   block[4] = selfCopy2;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyClientsOfChange

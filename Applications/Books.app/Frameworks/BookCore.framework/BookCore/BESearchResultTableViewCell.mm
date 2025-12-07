@@ -20,9 +20,9 @@
 
 - (BESearchResultTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v36.receiver = self;
-  v36.super_class = BESearchResultTableViewCell;
-  v4 = [(BESearchResultTableViewCell *)&v36 initWithStyle:style reuseIdentifier:identifier];
+  v38.receiver = self;
+  v38.super_class = BESearchResultTableViewCell;
+  v4 = [(BESearchResultTableViewCell *)&v38 initWithStyle:style reuseIdentifier:identifier];
   if (v4)
   {
     v5 = [UIView alloc];
@@ -42,21 +42,21 @@
     [contentView2 addSubview:v9];
     leftAnchor = [v9 leftAnchor];
     leftAnchor2 = [contentView2 leftAnchor];
-    v33 = [leftAnchor constraintEqualToAnchor:leftAnchor2 constant:5.0];
-    v37[0] = v33;
+    v35 = [leftAnchor constraintEqualToAnchor:leftAnchor2 constant:5.0];
+    v39[0] = v35;
     rightAnchor = [v9 rightAnchor];
     rightAnchor2 = [contentView2 rightAnchor];
-    v30 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:-5.0];
-    v37[1] = v30;
+    v32 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:-5.0];
+    v39[1] = v32;
     topAnchor = [v9 topAnchor];
     topAnchor2 = [contentView2 topAnchor];
     v13 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:5.0];
-    v37[2] = v13;
+    v39[2] = v13;
     bottomAnchor = [v9 bottomAnchor];
     bottomAnchor2 = [contentView2 bottomAnchor];
     v16 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-5.0];
-    v37[3] = v16;
-    v17 = [NSArray arrayWithObjects:v37 count:4];
+    v39[3] = v16;
+    v17 = [NSArray arrayWithObjects:v39 count:4];
     [NSLayoutConstraint activateConstraints:v17];
 
     [(BESearchResultTableViewCell *)v4 _updateFocusShapePath];
@@ -79,29 +79,29 @@
     v23 = [UIFont systemFontOfSize:15.0];
     [(BESearchResultLabel *)v22 setFont:v23];
 
-    if (isPad())
+    if (isPad(v24, v25))
     {
-      v24 = 3;
+      v26 = 3;
     }
 
     else
     {
-      v24 = 2;
+      v26 = 2;
     }
 
-    [(BESearchResultLabel *)v22 setNumberOfLines:v24];
+    [(BESearchResultLabel *)v22 setNumberOfLines:v26];
     [(BESearchResultLabel *)v22 setHighlightedTextColor:0];
     [(BESearchResultLabel *)v22 setTranslatesAutoresizingMaskIntoConstraints:0];
     [contentView2 addSubview:v22];
     resultLabel = v4->_resultLabel;
     v4->_resultLabel = v22;
-    v26 = v22;
+    v28 = v22;
 
-    v27 = objc_alloc_init(BETableViewCellPageNumberLabel);
-    [(BETableViewCellPageNumberLabel *)v27 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [contentView2 addSubview:v27];
+    v29 = objc_alloc_init(BETableViewCellPageNumberLabel);
+    [(BETableViewCellPageNumberLabel *)v29 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [contentView2 addSubview:v29];
     pageNumberLabel = v4->_pageNumberLabel;
-    v4->_pageNumberLabel = v27;
+    v4->_pageNumberLabel = v29;
 
     [(BESearchResultTableViewCell *)v4 applyLabelFonts];
   }
@@ -535,19 +535,19 @@ LABEL_17:
 
   if (v11)
   {
-    v12 = IMCommonCoreBundle();
-    v13 = [v12 localizedStringForKey:@"Page %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v13 = IMCommonCoreBundle(v12);
+    v14 = [v13 localizedStringForKey:@"Page %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
     text6 = [(BETableViewCellPageNumberLabel *)self->_pageNumberLabel text];
-    v15 = [NSString stringWithFormat:v13, text6];
-    [v3 addObject:v15];
+    v16 = [NSString stringWithFormat:v14, text6];
+    [v3 addObject:v16];
   }
 
-  v16 = IMCommonCoreBundle();
-  v17 = [v16 localizedStringForKey:@" value:" table:{&stru_2D2930, @"BCCommonCoreLocalizable"}];
-  v18 = [v3 componentsJoinedByString:v17];
+  v17 = IMCommonCoreBundle(v12);
+  v18 = [v17 localizedStringForKey:@" value:" table:{&stru_2D2930, @"BCCommonCoreLocalizable"}];
+  v19 = [v3 componentsJoinedByString:v18];
 
-  return v18;
+  return v19;
 }
 
 @end

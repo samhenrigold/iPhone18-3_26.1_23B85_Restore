@@ -11,7 +11,7 @@
 void __68__AEActiveRestrictionUUIDFetchingProxy_setOfActiveRestrictionUUIDs___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = AECoreLog();
+  v4 = AECoreLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__AEActiveRestrictionUUIDFetchingProxy_setOfActiveRestrictionUUIDs___block_invoke_cold_1(a1, v3, v4);
@@ -105,7 +105,7 @@ void __68__AEActiveRestrictionUUIDFetchingProxy_setOfActiveRestrictionUUIDs___bl
   v30[2] = __68__AEActiveRestrictionUUIDFetchingProxy_setOfActiveRestrictionUUIDs___block_invoke;
   v30[3] = &unk_278BB7108;
   v30[4] = self;
-  v6 = [(AEXPCProxy *)xpcProxy synchronousRemoteObjectProxyWithErrorHandler:v30];
+  v6 = [(AEXPCProxy *)&xpcProxy->super.isa synchronousRemoteObjectProxyWithErrorHandler:v30];
   v7 = v6;
   if (v6)
   {
@@ -127,17 +127,17 @@ void __68__AEActiveRestrictionUUIDFetchingProxy_setOfActiveRestrictionUUIDs___bl
     v17[3] = &unk_278BB7130;
     v17[4] = &v24;
     v17[5] = &v18;
-    [v6 fetchSetOfActiveRestrictionUUIDsWithClientType:dsCopy completion:v17];
-    v8 = v25[5];
-    if (v8)
+    v8 = [v6 fetchSetOfActiveRestrictionUUIDsWithClientType:dsCopy completion:v17];
+    v9 = v25[5];
+    if (v9)
     {
-      v9 = v8;
+      v10 = v9;
     }
 
     else
     {
-      v11 = AECoreLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = AECoreLog(v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v14 = objc_opt_class();
         v15 = NSStringFromClass(v14);
@@ -146,13 +146,13 @@ void __68__AEActiveRestrictionUUIDFetchingProxy_setOfActiveRestrictionUUIDs___bl
         v32 = v15;
         v33 = 2114;
         v34 = v16;
-        _os_log_error_impl(&dword_23C1AA000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] An error occurred fetching active restriction UUIDs: %{public}@", buf, 0x16u);
+        _os_log_error_impl(&dword_23C1AA000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] An error occurred fetching active restriction UUIDs: %{public}@", buf, 0x16u);
       }
 
-      v9 = objc_opt_new();
+      v10 = objc_opt_new();
     }
 
-    v10 = v9;
+    v11 = v10;
     _Block_object_dispose(&v18, 8);
 
     _Block_object_dispose(&v24, 8);
@@ -160,27 +160,22 @@ void __68__AEActiveRestrictionUUIDFetchingProxy_setOfActiveRestrictionUUIDs___bl
 
   else
   {
-    v10 = objc_opt_new();
+    v11 = objc_opt_new();
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 void __68__AEActiveRestrictionUUIDFetchingProxy_setOfActiveRestrictionUUIDs___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v9 = 138543618;
-  v10 = v7;
-  v11 = 2114;
-  v12 = a2;
-  _os_log_error_impl(&dword_23C1AA000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] An error occurred creating synchronous remote object proxy: %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = 138543618;
+  v8 = v6;
+  v9 = 2114;
+  v10 = a2;
+  _os_log_error_impl(&dword_23C1AA000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] An error occurred creating synchronous remote object proxy: %{public}@", &v7, 0x16u);
 }
 
 @end

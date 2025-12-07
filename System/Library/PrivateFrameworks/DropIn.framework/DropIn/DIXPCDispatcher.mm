@@ -28,7 +28,7 @@
 
 - (DIDeviceListDelegate)deviceListDelegate
 {
-  v2 = sub_249DD2AE0();
+  v2 = sub_249DD2AE0(self, a2);
 
   return v2;
 }
@@ -42,7 +42,7 @@
 
 - (DIDeviceStatusDelegate)deviceStatusDelegate
 {
-  v2 = sub_249DD2C1C();
+  v2 = sub_249DD2C1C(self, a2);
 
   return v2;
 }
@@ -56,7 +56,7 @@
 
 - (DISessionStatusDelegate)sessionStatusDelegate
 {
-  v2 = sub_249DD2D58();
+  v2 = sub_249DD2D58(self, a2);
 
   return v2;
 }
@@ -70,7 +70,7 @@
 
 - (DIAudioPowerDelegate)audioPowerDelegate
 {
-  v2 = sub_249DD2E94();
+  v2 = sub_249DD2E94(self, a2);
 
   return v2;
 }
@@ -84,7 +84,7 @@
 
 - (DIAudioStatusDelegate)audioStatusDelegate
 {
-  v2 = sub_249DD2FD4();
+  v2 = sub_249DD2FD4(self, a2);
 
   return v2;
 }
@@ -175,19 +175,21 @@
 - (void)didUpdateAudioPower:(float)power
 {
   selfCopy = self;
-  sub_249DD41C0(power);
+  sub_249DD41C0(selfCopy, power);
 }
 
 - (void)didUpdateUplinkMuteStatus:(BOOL)status
 {
+  statusCopy = status;
   selfCopy = self;
-  sub_249DD430C(status);
+  sub_249DD430C(statusCopy);
 }
 
 - (void)didUpdateDownlinkMuteStatus:(BOOL)status
 {
+  statusCopy = status;
   selfCopy = self;
-  sub_249DD4374(status);
+  sub_249DD4374(statusCopy);
 }
 
 @end

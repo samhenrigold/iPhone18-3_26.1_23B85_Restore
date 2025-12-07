@@ -7,7 +7,7 @@
 
 - (void)flushEnqueuedButtonEventCompletions
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([(NSMutableArray *)self->_enqueuedButtonEventCompletions count])
   {
     v3 = *MEMORY[0x1E698D0A0];
@@ -16,33 +16,33 @@
       enqueuedButtonEventCompletions = self->_enqueuedButtonEventCompletions;
       v5 = v3;
       *buf = 136315394;
-      v20 = "[SASPresentationModel flushEnqueuedButtonEventCompletions]";
-      v21 = 2048;
-      v22 = [(NSMutableArray *)enqueuedButtonEventCompletions count];
+      v19 = "[SASPresentationModel flushEnqueuedButtonEventCompletions]";
+      v20 = 2048;
+      v21 = [(NSMutableArray *)enqueuedButtonEventCompletions count];
       _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation sending completions for %lu cached event(s)", buf, 0x16u);
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = self->_enqueuedButtonEventCompletions;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * v10);
+          v11 = *(*(&v13 + 1) + 8 * v10);
           presentationServer = [(SASPresentationModel *)self presentationServer];
           (*(v11 + 16))(v11, presentationServer);
 
@@ -50,7 +50,7 @@
         }
 
         while (v8 != v10);
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -58,8 +58,6 @@
 
     [(NSMutableArray *)self->_enqueuedButtonEventCompletions removeAllObjects];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (SASPresentationModel)initWithPresentationServer:(id)server

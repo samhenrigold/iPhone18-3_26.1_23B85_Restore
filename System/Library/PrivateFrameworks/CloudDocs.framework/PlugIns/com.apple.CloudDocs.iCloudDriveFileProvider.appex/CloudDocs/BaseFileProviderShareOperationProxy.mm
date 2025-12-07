@@ -2,9 +2,11 @@
 - (BaseFileProviderShareOperationProxy)initWithItemIdentifier:(id)identifier operationQueue:(id)queue clientPrivilegesDescriptor:(id)descriptor;
 - (id)remoteObject;
 - (void)copyCurrentUserNameAndDisplayHandleWithReply:(id)reply;
+- (void)startOperation:(id)operation toCopyDocumentURLForRecordID:(id)d syncIfNeeded:(BOOL)needed reply:(id)reply;
 - (void)startOperation:(id)operation toCopyShareURLForShare:(id)share reply:(id)reply;
 - (void)startOperation:(id)operation toLookupShareParticipants:(id)participants reply:(id)reply;
 - (void)startOperation:(id)operation toSaveSharingInfo:(id)info reply:(id)reply;
+- (void)startOperation:(id)operation toUnshareShare:(id)share forceDelete:(BOOL)delete reply:(id)reply;
 @end
 
 @implementation BaseFileProviderShareOperationProxy
@@ -146,6 +148,61 @@
   sub_100001DE4(v24);
 }
 
+- (void)startOperation:(id)operation toUnshareShare:(id)share forceDelete:(BOOL)delete reply:(id)reply
+{
+  deleteCopy = delete;
+  operationCopy = operation;
+  shareCopy = share;
+  replyCopy = reply;
+  memset(v26, 0, sizeof(v26));
+  sub_100001C50(1, "[BaseFileProviderShareOperationProxy startOperation:toUnshareShare:forceDelete:reply:]", 138, 0, v26);
+  v13 = brc_bread_crumbs();
+  v14 = brc_default_log();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134218498;
+    v28 = v26[0];
+    v29 = 2080;
+    v30 = "[BaseFileProviderShareOperationProxy startOperation:toUnshareShare:forceDelete:reply:]";
+    v31 = 2112;
+    v32 = v13;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "[INFO] ┏%llx %s %@", buf, 0x20u);
+  }
+
+  clientPrivilegesDescriptor = [(BaseFileProviderShareOperationProxy *)self clientPrivilegesDescriptor];
+  isSharingProxyEntitled = [clientPrivilegesDescriptor isSharingProxyEntitled];
+
+  if (isSharingProxyEntitled)
+  {
+    v17 = sub_100011E44(operationCopy);
+    remoteObject = [(BaseFileProviderShareOperationProxy *)self remoteObject];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100012E7C;
+    v21[3] = &unk_1000448A8;
+    v19 = v17;
+    v22 = v19;
+    v23 = replyCopy;
+    [remoteObject startOperation:v19 toUnshareShare:shareCopy forceDelete:deleteCopy reply:v21];
+
+    v20 = &v22;
+  }
+
+  else
+  {
+    v19 = [NSError br_errorWithDomain:BRCloudDocsErrorDomain code:26 description:@"%s privilege required", "isSharingProxyEntitled"];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100012D6C;
+    v24[3] = &unk_100044598;
+    v25 = replyCopy;
+    sub_100012D6C(v24, v19);
+    v20 = &v25;
+  }
+
+  sub_100001DE4(v26);
+}
+
 - (void)copyCurrentUserNameAndDisplayHandleWithReply:(id)reply
 {
   replyCopy = reply;
@@ -246,6 +303,61 @@
   }
 
   sub_100001DE4(v24);
+}
+
+- (void)startOperation:(id)operation toCopyDocumentURLForRecordID:(id)d syncIfNeeded:(BOOL)needed reply:(id)reply
+{
+  neededCopy = needed;
+  operationCopy = operation;
+  dCopy = d;
+  replyCopy = reply;
+  memset(v26, 0, sizeof(v26));
+  sub_100001C50(1, "[BaseFileProviderShareOperationProxy startOperation:toCopyDocumentURLForRecordID:syncIfNeeded:reply:]", 176, 0, v26);
+  v13 = brc_bread_crumbs();
+  v14 = brc_default_log();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134218498;
+    v28 = v26[0];
+    v29 = 2080;
+    v30 = "[BaseFileProviderShareOperationProxy startOperation:toCopyDocumentURLForRecordID:syncIfNeeded:reply:]";
+    v31 = 2112;
+    v32 = v13;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "[INFO] ┏%llx %s %@", buf, 0x20u);
+  }
+
+  clientPrivilegesDescriptor = [(BaseFileProviderShareOperationProxy *)self clientPrivilegesDescriptor];
+  isSharingPrivateInterfaceEntitled = [clientPrivilegesDescriptor isSharingPrivateInterfaceEntitled];
+
+  if (isSharingPrivateInterfaceEntitled)
+  {
+    v17 = sub_100011E44(operationCopy);
+    remoteObject = [(BaseFileProviderShareOperationProxy *)self remoteObject];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100013E30;
+    v21[3] = &unk_100044D88;
+    v19 = v17;
+    v22 = v19;
+    v23 = replyCopy;
+    [remoteObject startOperation:v19 toCopyDocumentURLForRecordID:dCopy syncIfNeeded:neededCopy reply:v21];
+
+    v20 = &v22;
+  }
+
+  else
+  {
+    v19 = [NSError br_errorWithDomain:BRCloudDocsErrorDomain code:26 description:@"%s privilege required", "isSharingPrivateInterfaceEntitled"];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100013D14;
+    v24[3] = &unk_100044598;
+    v25 = replyCopy;
+    sub_100013D14(v24, v19);
+    v20 = &v25;
+  }
+
+  sub_100001DE4(v26);
 }
 
 @end

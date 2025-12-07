@@ -1,5 +1,4 @@
 @interface MCMClientIdentityCache
-- (MCMCache)cache;
 - (MCMClientIdentityCache)init;
 - (id)clientIdentityWithAuditToken:(id *)token proximateAuditToken:(id *)auditToken personaUniqueString:(id)string error:(id *)error generator:(id)generator;
 - (void)flush;
@@ -7,27 +6,19 @@
 
 @implementation MCMClientIdentityCache
 
-- (MCMCache)cache
-{
-  result = self->_cache;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (id)clientIdentityWithAuditToken:(id *)token proximateAuditToken:(id *)auditToken personaUniqueString:(id)string error:(id *)error generator:(id)generator
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   generatorCopy = generator;
   stringCopy = string;
   v14 = [MCMClientIdentityIndex alloc];
   v15 = *&token->var0[4];
   *buf = *token->var0;
-  v33 = v15;
+  v32 = v15;
   v16 = *&auditToken->var0[4];
-  v31[0] = *auditToken->var0;
-  v31[1] = v16;
-  v17 = [(MCMClientIdentityIndex *)v14 initWithAuditToken:buf proximateAuditToken:v31 personaUniqueString:stringCopy];
+  v30[0] = *auditToken->var0;
+  v30[1] = v16;
+  v17 = [(MCMClientIdentityIndex *)v14 initWithAuditToken:buf proximateAuditToken:v30 personaUniqueString:stringCopy];
 
   if (v17)
   {
@@ -42,9 +33,9 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v30 = 0;
-    v19 = generatorCopy[2](generatorCopy, &v30);
-    v20 = v30;
+    v29 = 0;
+    v19 = generatorCopy[2](generatorCopy, &v29);
+    v20 = v29;
     if (v19)
     {
       v23 = [v19 clientIdentityByChangingCached:1];
@@ -64,9 +55,9 @@ LABEL_13:
     v21 = container_log_handle_for_category();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v28 = *&token->var0[4];
+      v27 = *&token->var0[4];
       *buf = *token->var0;
-      v33 = v28;
+      v32 = v27;
       pid = container_audit_token_get_pid();
       *buf = 67109120;
       *&buf[4] = pid;
@@ -87,24 +78,21 @@ LABEL_13:
 LABEL_14:
   v25 = v19;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (void)flush
 {
-  v4 = *MEMORY[0x1E69E9840];
   cache = [(MCMClientIdentityCache *)self cache];
   [cache removeAllObjects];
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (MCMClientIdentityCache)init
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = MCMClientIdentityCache;
-  v2 = [(MCMClientIdentityCache *)&v7 init];
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = MCMClientIdentityCache;
+  v2 = [(MCMClientIdentityCache *)&v6 init];
   if (v2)
   {
     v3 = [[MCMLRUCache alloc] initWithName:@"perPersonaClients" maxCount:30];
@@ -112,7 +100,6 @@ LABEL_14:
     v2->_cache = v3;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

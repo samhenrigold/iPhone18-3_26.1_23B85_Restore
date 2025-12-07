@@ -261,7 +261,7 @@ void __46__NTKWorldClockGraphicCircularView_initialize__block_invoke()
     [handsView setCenter:{MidX, MidY}];
   }
 
-  [(NTKWorldClockGraphicCircularView *)self layoutConstants];
+  objc_msgSend_layoutConstants(self);
   dialView = [(NTKWorldClockGraphicCircularView *)self dialView];
   device = [(NTKWorldClockGraphicCircularView *)self device];
   CLKSizeCenteredInRectForDevice();
@@ -704,7 +704,7 @@ void __46__NTKWorldClockGraphicCircularView_initialize__block_invoke()
     v10 = objc_opt_class();
     if (v10)
     {
-      [v10 _layoutConstantsForDevice:deviceCopy];
+      objc_msgSend__layoutConstantsForDevice_(v10);
     }
 
     else
@@ -1166,8 +1166,8 @@ LABEL_8:
   filterProvider = [(NTKWorldClockGraphicCircularView *)self filterProvider];
   v5 = [filterProvider colorForView:cityNameLabel accented:0];
   [(NTKWorldClockGraphicCircularView *)self tintedFraction];
-  v6 = NTKInterpolateBetweenColors();
-  [cityNameLabel setTextColor:v6];
+  v7 = NTKInterpolateBetweenColors(v6);
+  [cityNameLabel setTextColor:v7];
 }
 
 - (void)_updateHandsColor
@@ -1186,68 +1186,68 @@ LABEL_8:
   v5 = ;
   v6 = [filterProvider colorForView:handsView accented:1];
   [(NTKWorldClockGraphicCircularView *)self monochromeFraction];
-  v7 = NTKInterpolateBetweenColors();
+  v8 = NTKInterpolateBetweenColors(v7);
 
   if ([objc_opt_class() showsSecondHand])
   {
-    v8 = [filterProvider colorForView:handsView accented:1];
+    v9 = [filterProvider colorForView:handsView accented:1];
     [(NTKWorldClockGraphicCircularView *)self tintedFraction];
-    v9 = NTKInterpolateBetweenColors();
+    v11 = NTKInterpolateBetweenColors(v10);
     secondHandView = [handsView secondHandView];
-    [secondHandView setColor:v9];
+    [secondHandView setColor:v11];
 
-    v11 = [filterProvider colorForView:handsView accented:0];
+    v13 = [filterProvider colorForView:handsView accented:0];
     hourHandView = [handsView hourHandView];
-    [hourHandView setColor:v11];
+    [hourHandView setColor:v13];
 
     minuteHandView = [handsView minuteHandView];
-    [minuteHandView setColor:v11];
+    [minuteHandView setColor:v13];
   }
 
   else
   {
-    v8 = [filterProvider colorForView:handsView accented:0];
+    v9 = [filterProvider colorForView:handsView accented:0];
     [(NTKWorldClockGraphicCircularView *)self tintedFraction];
-    v11 = NTKInterpolateBetweenColors();
+    v13 = NTKInterpolateBetweenColors(v16);
     hourHandView2 = [handsView hourHandView];
-    [hourHandView2 setColor:v11];
+    [hourHandView2 setColor:v13];
 
     minuteHandView2 = [handsView minuteHandView];
-    [minuteHandView2 setColor:v11];
+    [minuteHandView2 setColor:v13];
 
-    [handsView setPegDotColor:v8];
+    [handsView setPegDotColor:v9];
   }
 
   platter = [(NTKWorldClockGraphicCircularView *)self platter];
   backgroundColor = [platter backgroundColor];
 
   useDayTimeColoring = [(NTKWorldClockGraphicCircularView *)self useDayTimeColoring];
-  v20 = 1;
+  v23 = 1;
   if (useDayTimeColoring)
   {
     if (backgroundColor)
     {
-      v23 = 0.0;
-      [backgroundColor getRed:0 green:0 blue:0 alpha:&v23];
-      v19 = v23;
-      if (v23 >= 0.7)
+      v26 = 0.0;
+      [backgroundColor getRed:0 green:0 blue:0 alpha:&v26];
+      v22 = v26;
+      if (v26 >= 0.7)
       {
         CLKContrastRatioForColors();
-        v20 = v19 > 1.7;
+        v23 = v22 > 1.7;
       }
     }
   }
 
   hourHandView3 = [handsView hourHandView];
-  [hourHandView3 setShadowsHidden:v20];
+  [hourHandView3 setShadowsHidden:v23];
 
   minuteHandView3 = [handsView minuteHandView];
-  [minuteHandView3 setShadowsHidden:v20];
+  [minuteHandView3 setShadowsHidden:v23];
 }
 
 - (void)_updateHourLabelColors
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dialView = [(NTKWorldClockGraphicCircularView *)self dialView];
   if ([(NTKWorldClockGraphicCircularView *)self useDayTimeColoring])
   {
@@ -1262,35 +1262,35 @@ LABEL_8:
   filterProvider = [(NTKWorldClockGraphicCircularView *)self filterProvider];
   v6 = [filterProvider colorForView:dialView accented:0];
   [(NTKWorldClockGraphicCircularView *)self tintedFraction];
-  v7 = NTKInterpolateBetweenColors();
-  v13 = 0u;
+  v8 = NTKInterpolateBetweenColors(v7);
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   hourLabels = [(NTKWorldClockGraphicCircularView *)self hourLabels];
-  v9 = [hourLabels countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v9)
+  v10 = [hourLabels countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v14;
+    v11 = v10;
+    v12 = *v15;
     do
     {
-      v12 = 0;
+      v13 = 0;
       do
       {
-        if (*v14 != v11)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(hourLabels);
         }
 
-        [*(*(&v13 + 1) + 8 * v12++) setTextColor:v7];
+        [*(*(&v14 + 1) + 8 * v13++) setTextColor:v8];
       }
 
-      while (v10 != v12);
-      v10 = [hourLabels countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v11 != v13);
+      v11 = [hourLabels countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 }
 
@@ -1309,9 +1309,9 @@ LABEL_8:
   }
   v3 = ;
   [(NTKWorldClockGraphicCircularView *)self tintedFraction];
-  v4 = NTKInterpolateBetweenColors();
+  v5 = NTKInterpolateBetweenColors(v4);
   platter = [(NTKWorldClockGraphicCircularView *)self platter];
-  [platter setBackgroundColor:v4];
+  [platter setBackgroundColor:v5];
 }
 
 - (void)_updateTickColor
@@ -1320,7 +1320,8 @@ LABEL_8:
   useDayTimeColoring = [(NTKWorldClockGraphicCircularView *)self useDayTimeColoring];
   filterProvider = [(NTKWorldClockGraphicCircularView *)self filterProvider];
   [(NTKWorldClockGraphicCircularView *)self tintedFraction];
-  v5 = [filterProvider colorForView:dialView accented:0];
+  v6 = v5;
+  v7 = [filterProvider colorForView:dialView accented:0];
   if (useDayTimeColoring)
   {
     [(NTKWorldClockGraphicCircularView *)self daytimeHandsLargeTickColor];
@@ -1330,8 +1331,8 @@ LABEL_8:
   {
     [(NTKWorldClockGraphicCircularView *)self nighttimeHandsLargeTickColor];
   }
-  v6 = ;
-  v7 = NTKInterpolateBetweenColors();
+  v8 = ;
+  v9 = NTKInterpolateBetweenColors(v6);
 
   if (useDayTimeColoring)
   {
@@ -1342,17 +1343,17 @@ LABEL_8:
   {
     [(NTKWorldClockGraphicCircularView *)self nighttimeHandsSmallTickColor];
   }
-  v8 = ;
-  v9 = [v5 colorWithAlphaComponent:0.75];
-  v10 = NTKInterpolateBetweenColors();
+  v10 = ;
+  v11 = [v7 colorWithAlphaComponent:0.75];
+  v12 = NTKInterpolateBetweenColors(v6);
 
   [MEMORY[0x277CD9FF0] begin];
   [MEMORY[0x277CD9FF0] setDisableActions:1];
-  cGColor = [v7 CGColor];
+  cGColor = [v9 CGColor];
   largeTickLayer = [dialView largeTickLayer];
   [largeTickLayer setBackgroundColor:cGColor];
 
-  cGColor2 = [v10 CGColor];
+  cGColor2 = [v12 CGColor];
   smallTickLayer = [dialView smallTickLayer];
   [smallTickLayer setBackgroundColor:cGColor2];
 

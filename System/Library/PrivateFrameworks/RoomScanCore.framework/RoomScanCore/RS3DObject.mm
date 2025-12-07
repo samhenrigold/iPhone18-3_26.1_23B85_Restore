@@ -19,129 +19,125 @@
 
 - (void)translateBy:(RS3DObject *)self
 {
-  v22 = v2;
-  v31 = *MEMORY[0x277D85DE8];
-  v23 = objc_opt_new();
+  v21 = v2;
+  v30 = *MEMORY[0x277D85DE8];
+  v22 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v4 = self->_boxesDict;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v25, v30, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v24, v29, 16);
   if (v7)
   {
-    v8 = *v26;
+    v8 = *v25;
     v9 = MEMORY[0x277D82678];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
-        v12 = objc_msgSend_objectForKeyedSubscript_(self->_boxesDict, v6, v11, *&v22);
-        v13 = sub_26223D51C(v12, v24);
+        v11 = *(*(&v24 + 1) + 8 * i);
+        v12 = objc_msgSend_objectForKeyedSubscript_(self->_boxesDict, v6, v11, *&v21);
+        v13 = sub_26223D51C(v12, v23);
 
         if (v13)
         {
           for (j = 0; j != 8; ++j)
           {
-            v24[j] = vaddq_f32(v24[j], v22);
+            v23[j] = vaddq_f32(v23[j], v21);
           }
 
-          v17 = sub_2622113C0(v24, v14, v15);
-          objc_msgSend_setObject_forKeyedSubscript_(v23, v18, v17, v11);
+          v17 = sub_2622113C0(v23, v14, v15);
+          objc_msgSend_setObject_forKeyedSubscript_(v22, v18, v17, v11);
         }
 
         else
         {
           sub_2621D552C(v9, "[3DOD] Warning: The corner array is not valid to convert to box3d.", 66);
           std::ios_base::getloc((v9 + *(*v9 - 24)));
-          v19 = std::locale::use_facet(&v29, MEMORY[0x277D82680]);
+          v19 = std::locale::use_facet(&v28, MEMORY[0x277D82680]);
           (v19->__vftable[2].~facet_0)(v19, 10);
-          std::locale::~locale(&v29);
+          std::locale::~locale(&v28);
           std::ostream::put();
           std::ostream::flush();
         }
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v25, v30, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v24, v29, 16);
     }
 
     while (v7);
   }
 
   boxesDict = self->_boxesDict;
-  self->_boxesDict = v23;
-
-  v21 = *MEMORY[0x277D85DE8];
+  self->_boxesDict = v22;
 }
 
 - (void)rotateAlongZAxisRightHand:(float)hand
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = __sincosf_stret(hand);
-  v24 = objc_opt_new();
+  v23 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v5 = self->_boxesDict;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v26, v31, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v25, v30, 16);
   if (v8)
   {
-    v9 = *v27;
-    v23 = xmmword_2623A7700;
+    v9 = *v26;
+    v22 = xmmword_2623A7700;
     v10 = MEMORY[0x277D82678];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
-        v13 = objc_msgSend_objectForKeyedSubscript_(self->_boxesDict, v7, v12, *&v23);
-        v14 = sub_26223D51C(v13, v25);
+        v12 = *(*(&v25 + 1) + 8 * i);
+        v13 = objc_msgSend_objectForKeyedSubscript_(self->_boxesDict, v7, v12, *&v22);
+        v14 = sub_26223D51C(v13, v24);
 
         if (v14)
         {
           for (j = 0; j != 8; ++j)
           {
-            v25[j] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(__PAIR64__(LODWORD(v4.__sinval), LODWORD(v4.__cosval)), COERCE_FLOAT(*&v25[j])), __PAIR64__(LODWORD(v4.__cosval), -v4.__sinval), v25[j].n128_u64[0], 1), v23, v25[j], 2);
+            v24[j] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(__PAIR64__(LODWORD(v4.__sinval), LODWORD(v4.__cosval)), COERCE_FLOAT(*&v24[j])), __PAIR64__(LODWORD(v4.__cosval), -v4.__sinval), v24[j].n128_u64[0], 1), v22, v24[j], 2);
           }
 
-          v18 = sub_2622113C0(v25, v15, v16);
-          objc_msgSend_setObject_forKeyedSubscript_(v24, v19, v18, v12);
+          v18 = sub_2622113C0(v24, v15, v16);
+          objc_msgSend_setObject_forKeyedSubscript_(v23, v19, v18, v12);
         }
 
         else
         {
           sub_2621D552C(v10, "[3DOD] Warning: The corner array is not valid to convert to box3d.", 66);
           std::ios_base::getloc((v10 + *(*v10 - 24)));
-          v20 = std::locale::use_facet(&v30, MEMORY[0x277D82680]);
+          v20 = std::locale::use_facet(&v29, MEMORY[0x277D82680]);
           (v20->__vftable[2].~facet_0)(v20, 10);
-          std::locale::~locale(&v30);
+          std::locale::~locale(&v29);
           std::ostream::put();
           std::ostream::flush();
         }
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v26, v31, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v25, v30, 16);
     }
 
     while (v8);
   }
 
   boxesDict = self->_boxesDict;
-  self->_boxesDict = v24;
-
-  v22 = *MEMORY[0x277D85DE8];
+  self->_boxesDict = v23;
 }
 
 - (id)description
@@ -178,82 +174,7 @@
     v9 = 0;
   }
 
-  if (!v9)
-  {
-    goto LABEL_25;
-  }
-
-  type = v5->type;
-  v5->type = v9;
-  v11 = v9;
-
-  v12 = sub_26223E290(v5->type);
-  if ((v12 & 1) == 0)
-  {
-    goto LABEL_25;
-  }
-
-  v14 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v13, @"detectionsource");
-  objc_opt_class();
-  v15 = (objc_opt_isKindOfClass() & 1) != 0 ? v14 : 0;
-
-  if (!v15)
-  {
-    goto LABEL_25;
-  }
-
-  detection_source = v5->detection_source;
-  v5->detection_source = v15;
-  v17 = v15;
-
-  v18 = sub_26223E428(v5->detection_source);
-  if ((v18 & 1) == 0)
-  {
-    goto LABEL_25;
-  }
-
-  v20 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v19, @"identifier");
-  if (!v20)
-  {
-    goto LABEL_25;
-  }
-
-  v21 = objc_alloc(MEMORY[0x277CCAD78]);
-  v23 = objc_msgSend_initWithUUIDString_(v21, v22, v20);
-  identifier = v5->identifier;
-  v5->identifier = v23;
-
-  v26 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v25, @"parent_id");
-  if (v26)
-  {
-    v27 = objc_alloc(MEMORY[0x277CCAD78]);
-    v29 = objc_msgSend_initWithUUIDString_(v27, v28, v26);
-  }
-
-  else
-  {
-    v29 = 0;
-  }
-
-  parent_id = v5->parent_id;
-  v5->parent_id = v29;
-
-  v32 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v31, @"status");
-  objc_opt_class();
-  v33 = (objc_opt_isKindOfClass() & 1) != 0 ? v32 : 0;
-
-  if (!v33)
-  {
-    goto LABEL_25;
-  }
-
-  v5->status = objc_msgSend_BOOLValue(v33, v34, v35);
-
-  v37 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v36, @"confidence");
-  objc_opt_class();
-  v38 = (objc_opt_isKindOfClass() & 1) != 0 ? v37 : 0;
-
-  if (v38)
+  if (v9 && (type = v5->type, v5->type = v9, v11 = v9, type, v12 = sub_26223E290(v5->type), v11, (v12 & 1) != 0) && ((objc_msgSend_objectForKeyedSubscript_(representationCopy, v13, @"detectionsource"), v14 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v15 = 0) : (v15 = v14), (v14, v14, v15) && (detection_source = v5->detection_source, v5->detection_source = v15, v17 = v15, detection_source, v18 = sub_26223E428(v5->detection_source), v17, (v18 & 1) != 0) && (objc_msgSend_objectForKeyedSubscript_(representationCopy, v19, @"identifier"), (v20 = objc_claimAutoreleasedReturnValue()) != 0) && ((v21 = objc_alloc(MEMORY[0x277CCAD78]), v23 = objc_msgSend_initWithUUIDString_(v21, v22, v20), identifier = v5->identifier, v5->identifier = v23, identifier, v20, objc_msgSend_objectForKeyedSubscript_(representationCopy, v25, @"parent_id"), (v26 = objc_claimAutoreleasedReturnValue()) == 0) ? (v29 = 0) : (v27 = objc_alloc(MEMORY[0x277CCAD78]), v29 = objc_msgSend_initWithUUIDString_(v27, v28, v26)), (parent_id = v5->parent_id, v5->parent_id = v29, parent_id, v26, objc_msgSend_objectForKeyedSubscript_(representationCopy, v31, @"status"), v32 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v33 = 0) : (v33 = v32), (v32, v32, v33) && ((v5->status = objc_msgSend_BOOLValue(v33, v34, v35), v33, objc_msgSend_objectForKeyedSubscript_(representationCopy, v36, @"confidence"), v37 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v38 = 0) : (v38 = v37), v37, v37, v38))))
   {
     objc_msgSend_floatValue(v38, v39, v40);
     v5->confidence = v41;
@@ -455,7 +376,6 @@
 
   else
   {
-LABEL_25:
     v45 = 0;
   }
 
@@ -485,7 +405,7 @@ LABEL_25:
 
 - (id)dictionaryRepresentation
 {
-  v57[4] = *MEMORY[0x277D85DE8];
+  v56[4] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
   objc_msgSend_setObject_forKeyedSubscript_(v4, v5, self->type, @"type");
   objc_msgSend_setObject_forKeyedSubscript_(v4, v6, self->detection_source, @"detectionsource");
@@ -506,18 +426,18 @@ LABEL_25:
   v25 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v24, self->status);
   objc_msgSend_setObject_forKeyedSubscript_(v4, v26, v25, @"status");
 
-  v56 = *self->color;
+  v55 = *self->color;
   v29 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v27, v28);
-  v57[0] = v29;
-  HIDWORD(v30) = DWORD1(v56);
-  LODWORD(v30) = DWORD1(v56);
+  v56[0] = v29;
+  HIDWORD(v30) = DWORD1(v55);
+  LODWORD(v30) = DWORD1(v55);
   v33 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v31, v32, v30);
-  v57[1] = v33;
-  v36 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v34, v35, COERCE_DOUBLE(__PAIR64__(DWORD1(v56), DWORD2(v56))));
-  v57[2] = v36;
-  v39 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v37, v38, COERCE_DOUBLE(__PAIR64__(DWORD1(v56), HIDWORD(v56))));
-  v57[3] = v39;
-  v41 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v40, v57, 4);
+  v56[1] = v33;
+  v36 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v34, v35, COERCE_DOUBLE(__PAIR64__(DWORD1(v55), DWORD2(v55))));
+  v56[2] = v36;
+  v39 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v37, v38, COERCE_DOUBLE(__PAIR64__(DWORD1(v55), HIDWORD(v55))));
+  v56[3] = v39;
+  v41 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v40, v56, 4);
 
   objc_msgSend_setObject_forKeyedSubscript_(v4, v42, v41, @"color");
   objc_msgSend_setObject_forKeyedSubscript_(v4, v43, self->_groups, @"groups");
@@ -532,7 +452,6 @@ LABEL_25:
   objc_msgSend_setObject_forKeyedSubscript_(v4, v50, v49, @"story");
 
   v53 = objc_msgSend_copy(v4, v51, v52);
-  v54 = *MEMORY[0x277D85DE8];
 
   return v53;
 }
@@ -642,7 +561,7 @@ LABEL_5:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v39[4] = *MEMORY[0x277D85DE8];
+  v38[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   objc_msgSend_encodeObject_forKey_(coderCopy, v5, self->type, @"type");
   objc_msgSend_encodeObject_forKey_(coderCopy, v6, self->detection_source, @"detectionsource");
@@ -655,18 +574,18 @@ LABEL_5:
   objc_msgSend_encodeObject_forKey_(coderCopy, v13, self->corners_status, @"corners_status");
   objc_msgSend_encodeObject_forKey_(coderCopy, v14, self->edges_status, @"edges_status");
   objc_msgSend_encodeBool_forKey_(coderCopy, v15, self->status, @"status");
-  v38 = *self->color;
+  v37 = *self->color;
   v18 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v16, v17);
-  v39[0] = v18;
-  HIDWORD(v19) = DWORD1(v38);
-  LODWORD(v19) = DWORD1(v38);
+  v38[0] = v18;
+  HIDWORD(v19) = DWORD1(v37);
+  LODWORD(v19) = DWORD1(v37);
   v22 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v20, v21, v19);
-  v39[1] = v22;
-  v25 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v23, v24, COERCE_DOUBLE(__PAIR64__(DWORD1(v38), DWORD2(v38))));
-  v39[2] = v25;
-  v28 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v26, v27, COERCE_DOUBLE(__PAIR64__(DWORD1(v38), HIDWORD(v38))));
-  v39[3] = v28;
-  v30 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v29, v39, 4);
+  v38[1] = v22;
+  v25 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v23, v24, COERCE_DOUBLE(__PAIR64__(DWORD1(v37), DWORD2(v37))));
+  v38[2] = v25;
+  v28 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v26, v27, COERCE_DOUBLE(__PAIR64__(DWORD1(v37), HIDWORD(v37))));
+  v38[3] = v28;
+  v30 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v29, v38, 4);
 
   objc_msgSend_encodeObject_forKey_(coderCopy, v31, v30, @"color");
   objc_msgSend_encodeObject_forKey_(coderCopy, v32, self->_groups, @"groups");
@@ -674,8 +593,6 @@ LABEL_5:
   objc_msgSend_encodeObject_forKey_(coderCopy, v34, self->_beautified_parts, @"beautified_parts");
   objc_msgSend_encodeObject_forKey_(coderCopy, v35, self->_boxesDict, @"boxes_dict");
   objc_msgSend_encodeInteger_forKey_(coderCopy, v36, self->storyLevel, @"story");
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (RS3DObject)initWithCoder:(id)coder
@@ -853,7 +770,7 @@ LABEL_5:
 
 - (double)transform
 {
-  hasBoxesDict = objc_msgSend_hasBoxesDict_(self, a2, @"rawdetection");
+  hasBoxesDict = objc_msgSend_hasBoxesDict_(self, v1, @"rawdetection");
   v5.i64[0] = 0;
   if (hasBoxesDict)
   {

@@ -28,14 +28,14 @@
   v3 = +[NSUserDefaults tu_defaults];
   silenceUnknownCallersEnabled = [v3 silenceUnknownCallersEnabled];
 
-  v5 = sub_100004778();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100004778(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
+    v8 = 138412546;
     selfCopy = self;
-    v9 = 1024;
-    v10 = silenceUnknownCallersEnabled;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ isSilenceUnknownCallersEnabled(Telephony): %d", &v7, 0x12u);
+    v10 = 1024;
+    v11 = silenceUnknownCallersEnabled;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ isSilenceUnknownCallersEnabled(Telephony): %d", &v8, 0x12u);
   }
 
   return silenceUnknownCallersEnabled;
@@ -46,14 +46,14 @@
   v3 = +[NSUserDefaults tu_defaults];
   silenceUnknownFaceTimeCallersEnabled = [v3 silenceUnknownFaceTimeCallersEnabled];
 
-  v5 = sub_100004778();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100004778(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
+    v8 = 138412546;
     selfCopy = self;
-    v9 = 1024;
-    v10 = silenceUnknownFaceTimeCallersEnabled;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ isSilenceUnknownFaceTimeCallersEnabled: %d", &v7, 0x12u);
+    v10 = 1024;
+    v11 = silenceUnknownFaceTimeCallersEnabled;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ isSilenceUnknownFaceTimeCallersEnabled: %d", &v8, 0x12u);
   }
 
   return silenceUnknownFaceTimeCallersEnabled;
@@ -64,14 +64,14 @@
   v3 = +[NSUserDefaults tu_defaults];
   maxJunkLevel = [v3 maxJunkLevel];
 
-  v5 = sub_100004778();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100004778(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
+    v8 = 138412546;
     selfCopy = self;
-    v9 = 2048;
-    v10 = maxJunkLevel;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ maxJunkLevel: %ld", &v7, 0x16u);
+    v10 = 2048;
+    v11 = maxJunkLevel;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ maxJunkLevel: %ld", &v8, 0x16u);
   }
 
   return maxJunkLevel;
@@ -81,15 +81,16 @@
 {
   callCopy = call;
   fromCopy = from;
-  if (([fromCopy isSystemProvider] & 1) == 0)
+  isSystemProvider = [fromCopy isSystemProvider];
+  if ((isSystemProvider & 1) == 0)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(isSystemProvider);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       uUID = [callCopy UUID];
-      v33 = 138412290;
+      v36 = 138412290;
       selfCopy3 = uUID;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Not a system call; call filter will allow update with identifier %@", &v33, 0xCu);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Not a system call; call filter will allow update with identifier %@", &v36, 0xCu);
     }
 
     goto LABEL_9;
@@ -97,18 +98,18 @@
 
   isSilenceUnknownTelephonyCallersEnabled = [(CSDUnknownCallFilter *)self isSilenceUnknownTelephonyCallersEnabled];
   isSilenceUnknownFaceTimeCallersEnabled = [(CSDUnknownCallFilter *)self isSilenceUnknownFaceTimeCallersEnabled];
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(isSilenceUnknownFaceTimeCallersEnabled);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = 138413058;
+    v36 = 138413058;
     selfCopy3 = self;
-    v35 = 2112;
-    v36 = callCopy;
-    v37 = 1024;
-    *v38 = isSilenceUnknownTelephonyCallersEnabled;
-    *&v38[4] = 1024;
-    *&v38[6] = isSilenceUnknownFaceTimeCallersEnabled;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ shouldFilterIncoming update=%@ isSilenceUnknownTelephonyCallersEnabled=%d isSilenceUnknownFaceTimeCallersEnabled=%d", &v33, 0x22u);
+    v38 = 2112;
+    v39 = callCopy;
+    v40 = 1024;
+    *v41 = isSilenceUnknownTelephonyCallersEnabled;
+    *&v41[4] = 1024;
+    *&v41[6] = isSilenceUnknownFaceTimeCallersEnabled;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@ shouldFilterIncoming update=%@ isSilenceUnknownTelephonyCallersEnabled=%d isSilenceUnknownFaceTimeCallersEnabled=%d", &v36, 0x22u);
   }
 
   if ([fromCopy isTelephonyProvider] & isSilenceUnknownTelephonyCallersEnabled)
@@ -123,21 +124,21 @@
     goto LABEL_18;
   }
 
-  v14 = +[TUCallCenter sharedInstance];
-  conversationManager = [v14 conversationManager];
+  v15 = +[TUCallCenter sharedInstance];
+  conversationManager = [v15 conversationManager];
   participantGroupUUID = [callCopy participantGroupUUID];
-  v17 = [conversationManager activeConversationWithGroupUUID:participantGroupUUID];
+  v18 = [conversationManager activeConversationWithGroupUUID:participantGroupUUID];
 
-  if (v17)
+  if (v18)
   {
-    provider = [v17 provider];
+    provider = [v18 provider];
     isDefaultProvider = [provider isDefaultProvider];
 
     if (!isDefaultProvider)
     {
 
 LABEL_9:
-      v13 = 0;
+      v14 = 0;
       goto LABEL_39;
     }
   }
@@ -150,18 +151,18 @@ LABEL_9:
 LABEL_18:
   remoteHandle = [callCopy remoteHandle];
   value = [remoteHandle value];
-  v22 = [value length];
+  v23 = [value length];
 
-  if (!v22)
+  if (!v23)
   {
-    v25 = sub_100004778();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100004778(v24);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = 138412546;
+      v36 = 138412546;
       selfCopy3 = self;
-      v35 = 2112;
-      v36 = callCopy;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%@ update does not have a valid handle, by definition this is an unknown caller update %@", &v33, 0x16u);
+      v38 = 2112;
+      v39 = callCopy;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%@ update does not have a valid handle, by definition this is an unknown caller update %@", &v36, 0x16u);
     }
 
     goto LABEL_24;
@@ -171,71 +172,73 @@ LABEL_18:
   {
 LABEL_24:
     isKnownCaller = [callCopy isKnownCaller];
-    v23 = 1;
+    v25 = 1;
     goto LABEL_25;
   }
 
-  v23 = 0;
+  v25 = 0;
   isKnownCaller = 1;
 LABEL_25:
   [callCopy setIsKnownCaller:isKnownCaller];
   if ([(TUFeatureFlags *)self->_featureFlags communicationTrustAdoption])
   {
-    v26 = [callCopy commTrustScore] == 1;
+    commTrustScore = [callCopy commTrustScore];
+    v29 = commTrustScore == 1;
   }
 
   else
   {
     maxJunkLevel = [(CSDUnknownCallFilter *)self maxJunkLevel];
-    v26 = [callCopy junkConfidence] > maxJunkLevel;
+    commTrustScore = [callCopy junkConfidence];
+    v29 = commTrustScore > maxJunkLevel;
   }
 
-  v28 = sub_100004778();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v31 = sub_100004778(commTrustScore);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = @"NO";
-    v33 = 138413314;
+    v32 = @"NO";
+    v36 = 138413314;
     selfCopy3 = self;
-    if (v23)
+    if (v25)
     {
-      v30 = @"YES";
+      v33 = @"YES";
     }
 
     else
     {
-      v30 = @"NO";
+      v33 = @"NO";
     }
 
-    v35 = 2112;
-    v36 = callCopy;
+    v38 = 2112;
+    v39 = callCopy;
     if (isSilenceUnknownTelephonyCallersEnabled)
     {
-      v31 = @"YES";
+      v34 = @"YES";
     }
 
     else
     {
-      v31 = @"NO";
+      v34 = @"NO";
     }
 
-    v37 = 2112;
-    if (v26)
-    {
-      v29 = @"YES";
-    }
-
-    *v38 = v30;
-    *&v38[8] = 2112;
-    v39 = v31;
     v40 = 2112;
-    v41 = v29;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%@ shouldFilterIncoming update=%@ unknownCaller=%@ maybeSilenceCall=%@ isJunk=%@", &v33, 0x34u);
+    if (v29)
+    {
+      v32 = @"YES";
+    }
+
+    *v41 = v33;
+    *&v41[8] = 2112;
+    v42 = v34;
+    v43 = 2112;
+    v44 = v32;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%@ shouldFilterIncoming update=%@ unknownCaller=%@ maybeSilenceCall=%@ isJunk=%@", &v36, 0x34u);
   }
 
-  v13 = v23 & (isSilenceUnknownTelephonyCallersEnabled | v26);
+  v14 = v25 & (isSilenceUnknownTelephonyCallersEnabled | v29);
 LABEL_39:
 
-  return v13;
+  return v14;
 }
 
 @end

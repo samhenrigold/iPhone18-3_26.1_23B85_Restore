@@ -9,7 +9,7 @@
 
 - (id)processInputFeatures:(id)features
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   array = [MEMORY[0x277CBEB18] array];
   cohortType = [featuresCopy cohortType];
@@ -23,7 +23,7 @@
   }
 
   v8 = MEMORY[0x277CCABB0];
-  v94 = v7;
+  v93 = v7;
   [v7 floatValue];
   v9 = [v8 numberWithFloat:?];
   [array addObject:v9];
@@ -75,26 +75,26 @@
   [array addObject:v26];
 
   v27 = MEMORY[0x277CCABB0];
-  v95 = featuresCopy;
+  v94 = featuresCopy;
   [featuresCopy sdsdRetryCount];
   v28 = [v27 numberWithFloat:?];
   [array addObject:v28];
 
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
   v102 = 0u;
+  v103 = 0u;
+  v100 = 0u;
+  v101 = 0u;
   v29 = array;
-  v30 = [v29 countByEnumeratingWithState:&v101 objects:v113 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v100 objects:v112 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v102;
+    v32 = *v101;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v102 != v32)
+        if (*v101 != v32)
         {
           objc_enumerationMutation(v29);
         }
@@ -102,18 +102,18 @@
         v34 = SLLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
         {
-          v35 = *(*(&v101 + 1) + 8 * i);
+          v35 = *(*(&v100 + 1) + 8 * i);
           v36 = v34;
           [v35 floatValue];
           *buf = 136315394;
-          v106 = "[SLUEStatisticsModule processInputFeatures:]";
-          v107 = 2048;
-          v108 = v37;
+          v105 = "[SLUEStatisticsModule processInputFeatures:]";
+          v106 = 2048;
+          v107 = v37;
           _os_log_impl(&dword_26754E000, v36, OS_LOG_TYPE_INFO, "%s num from inputFeaturesArr is %f", buf, 0x16u);
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v101 objects:v113 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v100 objects:v112 count:16];
     }
 
     while (v31);
@@ -128,9 +128,9 @@
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v106 = "[SLUEStatisticsModule processInputFeatures:]";
-    v107 = 2112;
-    v108 = v40;
+    v105 = "[SLUEStatisticsModule processInputFeatures:]";
+    v106 = 2112;
+    v107 = v40;
     _os_log_impl(&dword_26754E000, v41, OS_LOG_TYPE_INFO, "%s Input shape: %@", buf, 0x16u);
   }
 
@@ -143,18 +143,18 @@
     v75 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v86 = v75;
-      *&v87 = COERCE_DOUBLE([v29 count]);
+      v85 = v75;
+      *&v86 = COERCE_DOUBLE([v29 count]);
       *buf = 136315394;
-      v106 = "[SLUEStatisticsModule processInputFeatures:]";
-      v107 = 2048;
-      v108 = *&v87;
-      _os_log_error_impl(&dword_26754E000, v86, OS_LOG_TYPE_ERROR, "%s inputFeaturesArr shape %lu does not match input shape", buf, 0x16u);
+      v105 = "[SLUEStatisticsModule processInputFeatures:]";
+      v106 = 2048;
+      v107 = *&v86;
+      _os_log_error_impl(&dword_26754E000, v85, OS_LOG_TYPE_ERROR, "%s inputFeaturesArr shape %lu does not match input shape", buf, 0x16u);
     }
 
     v53 = 0;
     v72 = 0;
-    featuresCopy = v95;
+    featuresCopy = v94;
     goto LABEL_52;
   }
 
@@ -170,9 +170,9 @@
       {
         v49 = *(dataPointer + 4 * v46);
         *buf = 136315394;
-        v106 = "[SLUEStatisticsModule processInputFeatures:]";
-        v107 = 2048;
-        v108 = v49;
+        v105 = "[SLUEStatisticsModule processInputFeatures:]";
+        v106 = 2048;
+        v107 = v49;
         _os_log_impl(&dword_26754E000, v48, OS_LOG_TYPE_INFO, "%s num from processedInputFeatures %f", buf, 0x16u);
       }
 
@@ -187,13 +187,13 @@
     [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create Input features multiarray"];
     v50 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     v76 = SLLogContextFacilityCoreSpeech;
-    featuresCopy = v95;
+    featuresCopy = v94;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v106 = "[SLUEStatisticsModule processInputFeatures:]";
-      v107 = 2114;
-      v108 = v50;
+      v105 = "[SLUEStatisticsModule processInputFeatures:]";
+      v106 = 2114;
+      v107 = v50;
       _os_log_error_impl(&dword_26754E000, v76, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
     }
 
@@ -202,15 +202,15 @@
     goto LABEL_51;
   }
 
-  v111 = @"input_1";
-  v112 = v45;
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
+  v110 = @"input_1";
+  v111 = v45;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
   v50 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-  v100 = 0;
-  v51 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:*&v50 error:&v100];
-  v52 = v100;
+  v99 = 0;
+  v51 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:*&v50 error:&v99];
+  v52 = v99;
   v53 = v52;
-  featuresCopy = v95;
+  featuresCopy = v94;
   if (!v51 || v52)
   {
     v77 = MEMORY[0x277CCACA8];
@@ -222,9 +222,9 @@
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v106 = "[SLUEStatisticsModule processInputFeatures:]";
-      v107 = 2114;
-      v108 = v73;
+      v105 = "[SLUEStatisticsModule processInputFeatures:]";
+      v106 = 2114;
+      v107 = v73;
       _os_log_error_impl(&dword_26754E000, v79, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
     }
 
@@ -233,12 +233,12 @@
   }
 
   uesModel = selfCopy->_uesModel;
-  v99 = 0;
-  v93 = v51;
-  v55 = [(MLModel *)uesModel predictionFromFeatures:v51 error:&v99];
-  v56 = v99;
+  v98 = 0;
+  v92 = v51;
+  v55 = [(MLModel *)uesModel predictionFromFeatures:v51 error:&v98];
+  v56 = v98;
   v53 = v56;
-  v98 = *&v55;
+  v97 = *&v55;
   if (!v55 || v56)
   {
     v80 = MEMORY[0x277CCACA8];
@@ -250,32 +250,32 @@
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v106 = "[SLUEStatisticsModule processInputFeatures:]";
-      v107 = 2114;
-      v108 = v74;
+      v105 = "[SLUEStatisticsModule processInputFeatures:]";
+      v106 = 2114;
+      v107 = v74;
       _os_log_error_impl(&dword_26754E000, v82, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
     }
 
     v72 = 0;
-    v73 = v98;
+    v73 = v97;
     goto LABEL_49;
   }
 
   [v55 featureValueForName:selfCopy->_outputNodeName];
-  v90 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-  [*&v90 multiArrayValue];
-  v92 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  v89 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  [*&v89 multiArrayValue];
+  v91 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
   v57 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v106 = "[SLUEStatisticsModule processInputFeatures:]";
-    v107 = 2112;
-    v108 = v92;
+    v105 = "[SLUEStatisticsModule processInputFeatures:]";
+    v106 = 2112;
+    v107 = v91;
     _os_log_impl(&dword_26754E000, v57, OS_LOG_TYPE_DEFAULT, "%s output: %@", buf, 0x16u);
   }
 
-  v91 = v50;
+  v90 = v50;
   v58 = [(NSDictionary *)selfCopy->_outputSpecs objectForKeyedSubscript:selfCopy->_outputNodeName];
   multiArrayConstraint2 = [v58 multiArrayConstraint];
   [multiArrayConstraint2 shape];
@@ -285,31 +285,31 @@
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v106 = "[SLUEStatisticsModule processInputFeatures:]";
-    v107 = 2112;
-    v108 = *&v60;
+    v105 = "[SLUEStatisticsModule processInputFeatures:]";
+    v106 = 2112;
+    v107 = *&v60;
     _os_log_impl(&dword_26754E000, v61, OS_LOG_TYPE_INFO, "%s Output shape: %@", buf, 0x16u);
   }
 
-  shape = [*&v92 shape];
-  v97 = v60;
+  shape = [*&v91 shape];
+  v96 = v60;
   v63 = [shape isEqualToArray:v60];
 
   if (v63)
   {
-    convert1dMLMultiArrayToNSArray = [*&v92 convert1dMLMultiArrayToNSArray];
+    convert1dMLMultiArrayToNSArray = [*&v91 convert1dMLMultiArrayToNSArray];
     firstObject = [convert1dMLMultiArrayToNSArray firstObject];
     [firstObject floatValue];
     v67 = v66;
 
     v68 = SLLogContextFacilityCoreSpeech;
-    v69 = v92;
+    v69 = v91;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v106 = "[SLUEStatisticsModule processInputFeatures:]";
-      v107 = 2048;
-      v108 = v67;
+      v105 = "[SLUEStatisticsModule processInputFeatures:]";
+      v106 = 2048;
+      v107 = v67;
       _os_log_impl(&dword_26754E000, v68, OS_LOG_TYPE_INFO, "%s Score is %f", buf, 0x16u);
     }
 
@@ -324,42 +324,41 @@
     if (!os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       v72 = 0;
-      v73 = v98;
-      v74 = v90;
-      v69 = v92;
+      v73 = v97;
+      v74 = v89;
+      v69 = v91;
       goto LABEL_48;
     }
 
-    v88 = v83;
-    v69 = v92;
-    [*&v92 shape];
-    v89 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v87 = v83;
+    v69 = v91;
+    [*&v91 shape];
+    v88 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     *buf = 136315650;
-    v106 = "[SLUEStatisticsModule processInputFeatures:]";
-    v107 = 2112;
-    v108 = v89;
-    v109 = 2112;
-    v110 = v60;
-    _os_log_error_impl(&dword_26754E000, v88, OS_LOG_TYPE_ERROR, "%s Output shape %@ does not match expected shape %@", buf, 0x20u);
+    v105 = "[SLUEStatisticsModule processInputFeatures:]";
+    v106 = 2112;
+    v107 = v88;
+    v108 = 2112;
+    v109 = v60;
+    _os_log_error_impl(&dword_26754E000, v87, OS_LOG_TYPE_ERROR, "%s Output shape %@ does not match expected shape %@", buf, 0x20u);
 
     v72 = 0;
   }
 
-  v73 = v98;
-  v74 = v90;
+  v73 = v97;
+  v74 = v89;
 LABEL_48:
-  v50 = v91;
+  v50 = v90;
 
 LABEL_49:
-  v51 = v93;
+  v51 = v92;
 LABEL_50:
 
 LABEL_51:
 LABEL_52:
-  v7 = v94;
+  v7 = v93;
 
 LABEL_53:
-  v84 = *MEMORY[0x277D85DE8];
 
   return v72;
 }
@@ -392,28 +391,27 @@ LABEL_53:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SLUEStatisticsModule dealloc]";
+    v6 = "[SLUEStatisticsModule dealloc]";
     _os_log_impl(&dword_26754E000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = SLUEStatisticsModule;
-  [(SLUEStatisticsModule *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SLUEStatisticsModule;
+  [(SLUEStatisticsModule *)&v4 dealloc];
 }
 
 - (SLUEStatisticsModule)initWithConfig:(id)config error:(id *)error
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v50.receiver = self;
-  v50.super_class = SLUEStatisticsModule;
-  v7 = [(SLUEStatisticsModule *)&v50 init];
+  v49.receiver = self;
+  v49.super_class = SLUEStatisticsModule;
+  v7 = [(SLUEStatisticsModule *)&v49 init];
   if (!v7)
   {
     goto LABEL_29;
@@ -429,18 +427,18 @@ LABEL_53:
   {
     v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing config for User Engagement Stats model %@", 0];
     v30 = MEMORY[0x277CCA9B8];
-    v59 = @"reason";
-    v60[0] = v29;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+    v58 = @"reason";
+    v59[0] = v29;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
     v32 = [v30 errorWithDomain:@"com.apple.sl" code:118 userInfo:v31];
 
     v33 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v56 = "[SLUEStatisticsModule initWithConfig:error:]";
-      v57 = 2112;
-      v58 = v29;
+      v55 = "[SLUEStatisticsModule initWithConfig:error:]";
+      v56 = 2112;
+      v57 = v29;
       _os_log_error_impl(&dword_26754E000, v33, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
       if (v32)
       {
@@ -475,18 +473,18 @@ LABEL_20:
   {
     v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing output name for EUS %@", v8];
     v34 = MEMORY[0x277CCA9B8];
-    v53 = @"reason";
-    v54 = v29;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+    v52 = @"reason";
+    v53 = v29;
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
     v32 = [v34 errorWithDomain:@"com.apple.sl" code:118 userInfo:v35];
 
     v36 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v56 = "[SLUEStatisticsModule initWithConfig:error:]";
-      v57 = 2112;
-      v58 = v29;
+      v55 = "[SLUEStatisticsModule initWithConfig:error:]";
+      v56 = 2112;
+      v57 = v29;
       _os_log_error_impl(&dword_26754E000, v36, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
       if (v32)
       {
@@ -507,9 +505,9 @@ LABEL_20:
   v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14];
   v16 = objc_alloc_init(MEMORY[0x277CBFF38]);
   [v16 setComputeUnits:0];
-  v49 = 0;
-  v17 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v15 configuration:v16 error:&v49];
-  v18 = v49;
+  v48 = 0;
+  v17 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v15 configuration:v16 error:&v48];
+  v18 = v48;
   uesModel = v7->_uesModel;
   v7->_uesModel = v17;
 
@@ -520,24 +518,24 @@ LABEL_20:
   }
 
   errorCopy = error;
-  v48 = stringByDeletingLastPathComponent;
+  v47 = stringByDeletingLastPathComponent;
   v21 = MEMORY[0x277CCACA8];
   localizedDescription = [v18 localizedDescription];
   v23 = [v21 stringWithFormat:@"Unable to create model with error %@", localizedDescription];
 
   v24 = MEMORY[0x277CCA9B8];
-  v51 = @"reason";
-  v52 = v23;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v50 = @"reason";
+  v51 = v23;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
   v26 = [v24 errorWithDomain:@"com.apple.sl" code:118 userInfo:v25];
 
   v27 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v56 = "[SLUEStatisticsModule initWithConfig:error:]";
-    v57 = 2114;
-    v58 = v23;
+    v55 = "[SLUEStatisticsModule initWithConfig:error:]";
+    v56 = 2114;
+    v57 = v23;
     _os_log_error_impl(&dword_26754E000, v27, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
     if (v26)
     {
@@ -552,7 +550,7 @@ LABEL_20:
 LABEL_27:
 
     v20 = v7->_uesModel;
-    stringByDeletingLastPathComponent = v48;
+    stringByDeletingLastPathComponent = v47;
 LABEL_28:
     modelDescription = [(MLModel *)v20 modelDescription];
     inputDescriptionsByName = [modelDescription inputDescriptionsByName];
@@ -580,7 +578,6 @@ LABEL_23:
   v38 = 0;
 LABEL_30:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v38;
 }
 

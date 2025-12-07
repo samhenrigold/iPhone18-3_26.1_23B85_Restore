@@ -27,9 +27,11 @@ uint64_t __43__SPHistoricalReportManager_sharedInstance__block_invoke()
   result = isAppleInternalInstall();
   if (result)
   {
-    sharedInstance_sharedInstance = objc_alloc_init(SPHistoricalReportManager);
+    v1 = objc_alloc_init(SPHistoricalReportManager);
+    v2 = sharedInstance_sharedInstance;
+    sharedInstance_sharedInstance = v1;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v1, v2);
   }
 
   return result;
@@ -37,9 +39,9 @@ uint64_t __43__SPHistoricalReportManager_sharedInstance__block_invoke()
 
 - (SPHistoricalReportManager)init
 {
-  v16.receiver = self;
-  v16.super_class = SPHistoricalReportManager;
-  v2 = [(SPHistoricalReportManager *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = SPHistoricalReportManager;
+  v2 = [(SPHistoricalReportManager *)&v17 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.spotlightknowledge.historicalReports", 0);
@@ -59,14 +61,14 @@ uint64_t __43__SPHistoricalReportManager_sharedInstance__block_invoke()
     {
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
       v11 = v2->_reportsDirectory;
-      v15 = 0;
-      [defaultManager2 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v15];
-      v12 = v15;
+      v16 = 0;
+      [defaultManager2 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v16];
+      v12 = v16;
 
       if (v12)
       {
-        v13 = logForCSLogCategoryDefault();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = logForCSLogCategoryDefault(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [(SPHistoricalReportManager *)v12 init];
         }
@@ -263,26 +265,26 @@ void __62__SPHistoricalReportManager_saveReport_withType_errorHandler___block_in
 
 void __69__SPHistoricalReportManager_getReportsForDateInterval_reportHandler___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v33 = [MEMORY[0x277CBEB18] array];
+  v43 = *MEMORY[0x277D85DE8];
+  v32 = [MEMORY[0x277CBEB18] array];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = *(a1 + 32);
-  v42 = 0;
-  v4 = [v2 contentsOfDirectoryAtPath:v3 error:&v42];
-  v5 = v42;
+  v41 = 0;
+  v4 = [v2 contentsOfDirectoryAtPath:v3 error:&v41];
+  v5 = v41;
   v6 = v5;
   if (v4)
   {
-    v30 = v5;
-    v32 = v2;
+    v29 = v5;
+    v31 = v2;
     v7 = [*(a1 + 40) filenameDateFormatter];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v31 = v4;
+    v30 = v4;
     obj = [v4 sortedArrayUsingSelector:sel_compare_];
-    v8 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v8 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     v9 = a1;
     if (!v8)
     {
@@ -290,19 +292,19 @@ void __69__SPHistoricalReportManager_getReportsForDateInterval_reportHandler___b
     }
 
     v10 = v8;
-    v11 = *v39;
-    v35 = v7;
+    v11 = *v38;
+    v34 = v7;
     while (1)
     {
       v12 = 0;
       do
       {
-        if (*v39 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v38 + 1) + 8 * v12);
+        v13 = *(*(&v37 + 1) + 8 * v12);
         if ([v13 length] >= 0xD)
         {
           v14 = [v13 substringToIndex:13];
@@ -319,7 +321,7 @@ void __69__SPHistoricalReportManager_getReportsForDateInterval_reportHandler___b
             v18 = v9;
             v19 = [v17 compare:v15];
 
-            v7 = v35;
+            v7 = v34;
             v20 = v19 == -1;
             v9 = v18;
             if (!v20)
@@ -334,8 +336,8 @@ void __69__SPHistoricalReportManager_getReportsForDateInterval_reportHandler___b
                   goto LABEL_15;
                 }
 
-                memset(&v37, 0, sizeof(v37));
-                if (fstat(v22, &v37))
+                memset(&v36, 0, sizeof(v36));
+                if (fstat(v22, &v36))
                 {
                   flock(v22, 8);
 LABEL_15:
@@ -344,19 +346,19 @@ LABEL_15:
 
                 else
                 {
-                  st_size = v37.st_size;
-                  v24 = [MEMORY[0x277CBEB28] dataWithLength:v37.st_size];
-                  v34 = read(v22, [v24 mutableBytes], st_size);
+                  st_size = v36.st_size;
+                  v24 = [MEMORY[0x277CBEB28] dataWithLength:v36.st_size];
+                  v33 = read(v22, [v24 mutableBytes], st_size);
                   flock(v22, 8);
                   close(v22);
-                  if (v34 == st_size)
+                  if (v33 == st_size)
                   {
                     v25 = [v24 copy];
-                    [v33 addObject:v25];
+                    [v32 addObject:v25];
                   }
 
                   v9 = v18;
-                  v7 = v35;
+                  v7 = v34;
                 }
               }
 
@@ -369,7 +371,7 @@ LABEL_16:
       }
 
       while (v10 != v12);
-      v26 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v26 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
       v10 = v26;
       if (!v26)
       {
@@ -378,12 +380,12 @@ LABEL_24:
         v27 = *(v9 + 56);
         if (v27)
         {
-          (*(v27 + 16))(v27, v33, 0);
+          (*(v27 + 16))(v27, v32, 0);
         }
 
-        v4 = v31;
-        v2 = v32;
-        v6 = v30;
+        v4 = v30;
+        v2 = v31;
+        v6 = v29;
         goto LABEL_29;
       }
     }
@@ -396,48 +398,46 @@ LABEL_24:
   }
 
 LABEL_29:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupOldReports
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   reportsDirectory = self->_reportsDirectory;
-  v30 = 0;
-  v25 = defaultManager;
-  v5 = [defaultManager contentsOfDirectoryAtPath:reportsDirectory error:&v30];
-  v6 = v30;
+  v29 = 0;
+  v24 = defaultManager;
+  v5 = [defaultManager contentsOfDirectoryAtPath:reportsDirectory error:&v29];
+  v6 = v29;
   v7 = v6;
   if (v5)
   {
-    v23 = v6;
+    v22 = v6;
     date = [MEMORY[0x277CBEAA8] date];
     retentionDays = self->_retentionDays;
     filenameDateFormatter = [(SPHistoricalReportManager *)self filenameDateFormatter];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v24 = v5;
+    v23 = v5;
     v11 = v5;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = (86400 * retentionDays);
-      v15 = *v27;
+      v15 = *v26;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v15)
+          if (*v26 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v26 + 1) + 8 * i);
+          v17 = *(*(&v25 + 1) + 8 * i);
           if ([v17 length] >= 0xD)
           {
             v18 = [v17 substringToIndex:13];
@@ -448,32 +448,29 @@ LABEL_29:
               if (v20 > v14)
               {
                 v21 = [(NSString *)self->_reportsDirectory stringByAppendingPathComponent:v17];
-                [v25 removeItemAtPath:v21 error:0];
+                [v24 removeItemAtPath:v21 error:0];
               }
             }
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v13);
     }
 
-    v7 = v23;
-    v5 = v24;
+    v7 = v22;
+    v5 = v23;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "Error creating historical reports directory: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "Error creating historical reports directory: %@", &v2, 0xCu);
 }
 
 @end

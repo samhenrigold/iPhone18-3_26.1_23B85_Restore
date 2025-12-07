@@ -332,7 +332,7 @@ LABEL_9:
   self->_occluder = v36;
   [(SCNNode *)self->_node addChildNode:v36];
   v37 = [SCNBox boxWithWidth:0.2 height:0.2 length:0.2 chamferRadius:0.0];
-  -[SCNMaterialProperty setContents:](-[SCNMaterial diffuse](-[SCNGeometry firstMaterial](v37, "firstMaterial"), "diffuse"), "setContents:", [MEMORY[0x277D75348] scn_colorWithC3DColor:&C3DAuthoringEnvironmentColorYellow]);
+  -[SCNMaterialProperty setContents:](-[SCNMaterial diffuse](-[SCNGeometry firstMaterial](v37, "firstMaterial"), "diffuse"), "setContents:", [MEMORY[0x277D75348] scn_colorWithC3DColor:C3DAuthoringEnvironmentColorYellow]);
   [(SCNMaterial *)[(SCNGeometry *)v37 firstMaterial] setLightingModelName:@"SCNLightingModelConstant"];
   v38 = [SCNNode nodeWithGeometry:v37];
   self->_scaleNode = v38;
@@ -348,18 +348,18 @@ LABEL_9:
 {
   v5 = +[SCNTransaction immediateMode];
   [SCNTransaction setImmediateMode:1];
-  __computeAnchorMatrix(self, &v58);
-  v6 = v59;
-  *&self->_worldMatrix.components[1] = v58;
+  __computeAnchorMatrix(self, &v59);
+  v6 = v60;
+  *&self->_worldMatrix.components[1] = v59;
   *&self->_worldMatrix.components[5] = v6;
-  v7 = v61;
-  *&self->_worldMatrix.components[9] = v60;
+  v7 = v62;
+  *&self->_worldMatrix.components[9] = v61;
   *&self->_worldMatrix.components[13] = v7;
   [(SCNNode *)self->_node setSimdWorldTransform:*&self->_worldMatrix.components[1], *&self->_worldMatrix.components[5], *&self->_worldMatrix.components[9], *&self->_worldMatrix.components[13]];
-  C3DSizeForScreenSpaceSizeAndTransform(position);
-  v9 = v8;
+  C3DSizeForScreenSpaceSizeAndTransform(position, v8);
+  v10 = v9;
   node = self->_node;
-  if (v8 <= 0.000001)
+  if (v9 <= 0.000001)
   {
     [(SCNNode *)node setOpacity:0.0];
   }
@@ -368,10 +368,10 @@ LABEL_9:
   {
     planarTranslationLayout = self->_planarTranslationLayout;
     [(SCNNode *)node setOpacity:1.0];
-    *&v12 = v9;
-    *&v13 = v9;
-    *&v14 = v9;
-    [(SCNNode *)self->_node setScale:v12, v13, v14];
+    *&v13 = v10;
+    *&v14 = v10;
+    *&v15 = v10;
+    [(SCNNode *)self->_node setScale:v13, v14, v15];
     effectiveEditingSpace = [(SCNManipulator *)self effectiveEditingSpace];
     if (!self->_layoutLocked || effectiveEditingSpace == 3)
     {
@@ -384,88 +384,78 @@ LABEL_9:
 
       else
       {
-        v60 = 0u;
         v61 = 0u;
-        v58 = 0u;
+        v62 = 0u;
         v59 = 0u;
+        v60 = 0u;
         Matrix4x4 = C3DEngineContextGetMatrix4x4(position, 1);
-        C3DMatrix4x4Mult(&self->_worldMatrix.components[1], Matrix4x4, &v58);
-        v54 = v58;
+        C3DMatrix4x4Mult(&self->_worldMatrix.components[1], Matrix4x4, &v59);
         v55 = v59;
         v56 = v60;
         v57 = v61;
-        C3DVector3Rotate(&v54, xmmword_21C27F910);
-        v52 = v17;
-        v54 = v58;
+        v58 = v62;
+        C3DVector3Rotate(&v55, xmmword_21C27F910);
+        v53 = v18;
         v55 = v59;
         v56 = v60;
         v57 = v61;
-        *&v18 = C3DVector3Rotate(&v54, xmmword_21C27F8C0);
-        v49 = v18;
-        v54 = v58;
+        v58 = v62;
+        *&v19 = C3DVector3Rotate(&v55, xmmword_21C27F8C0);
+        v50 = v19;
         v55 = v59;
         v56 = v60;
         v57 = v61;
-        C3DVector3Rotate(&v54, xmmword_21C27F600);
-        v21 = -1.0;
-        if (v52 >= 0.0)
+        v58 = v62;
+        C3DVector3Rotate(&v55, xmmword_21C27F600);
+        v22 = -1.0;
+        if (v53 >= 0.0)
         {
-          *&v20 = 1.0;
+          *&v21 = 1.0;
         }
 
         else
         {
-          *&v20 = -1.0;
+          *&v21 = -1.0;
         }
 
-        if (*(&v49 + 2) >= 0.0)
+        if (*(&v50 + 2) >= 0.0)
+        {
+          v23 = 1.0;
+        }
+
+        else
+        {
+          v23 = -1.0;
+        }
+
+        if (v20 >= 0.0)
         {
           v22 = 1.0;
         }
 
-        else
-        {
-          v22 = -1.0;
-        }
-
-        if (v19 >= 0.0)
-        {
-          v21 = 1.0;
-        }
-
-        v23 = v20;
-        *(&v23 + 1) = v22;
-        _ZF = v22 == 1.0;
-        v25 = 1.5708;
-        v26 = 3.1416;
+        v24 = v21;
+        *(&v24 + 1) = v23;
+        _ZF = v23 == 1.0;
+        v26 = 1.5708;
+        v27 = 3.1416;
         if (_ZF)
         {
-          v27 = 0.0;
+          v28 = 0.0;
         }
 
         else
         {
-          v27 = 1.5708;
+          v28 = 1.5708;
         }
 
         if (_ZF)
         {
-          v28 = 3.1416;
+          v29 = 3.1416;
         }
 
         else
-        {
-          v28 = -1.5708;
-        }
-
-        if (_ZF)
         {
           v29 = -1.5708;
-        }
-
-        else
-        {
-          v29 = 0.0;
         }
 
         if (_ZF)
@@ -475,22 +465,22 @@ LABEL_9:
 
         else
         {
-          v30 = 1.5708;
+          v30 = 0.0;
         }
 
-        if (v21 == 1.0)
+        if (_ZF)
         {
-          v31 = v28;
+          v31 = -1.5708;
         }
 
         else
         {
-          v31 = 0.0;
+          v31 = 1.5708;
         }
 
-        if (v21 == 1.0)
+        if (v22 == 1.0)
         {
-          v32 = v27;
+          v32 = v29;
         }
 
         else
@@ -498,77 +488,87 @@ LABEL_9:
           v32 = 0.0;
         }
 
-        if (v21 == 1.0)
+        if (v22 == 1.0)
         {
-          v33 = v29;
+          v33 = v28;
         }
 
         else
         {
-          v25 = 0.0;
-          v33 = v30;
+          v33 = 0.0;
         }
 
-        if (v21 != 1.0)
+        if (v22 == 1.0)
         {
-          v26 = -1.5708;
-        }
-
-        *(&v23 + 2) = v21;
-        *self->_planarTranslationLayout = v23;
-        if (*&v20 == 1.0)
-        {
-          v34 = v26;
+          v34 = v30;
         }
 
         else
         {
-          v34 = v25;
+          v26 = 0.0;
+          v34 = v31;
         }
 
-        [(SCNNode *)self->_arcHandleXY setEulerAngles:v49];
-        *&v35 = v31;
+        if (v22 != 1.0)
+        {
+          v27 = -1.5708;
+        }
+
+        *(&v24 + 2) = v22;
+        *self->_planarTranslationLayout = v24;
+        if (*&v21 == 1.0)
+        {
+          v35 = v27;
+        }
+
+        else
+        {
+          v35 = v26;
+        }
+
+        [(SCNNode *)self->_arcHandleXY setEulerAngles:v50];
         *&v36 = v32;
         *&v37 = v33;
-        [(SCNNode *)self->_arcHandleYZ setEulerAngles:v35, v36, v37];
         *&v38 = v34;
-        [(SCNNode *)self->_arcHandleXZ setEulerAngles:0.0, v38, 0.0];
+        [(SCNNode *)self->_arcHandleYZ setEulerAngles:v36, v37, v38];
+        *&v39 = v35;
+        [(SCNNode *)self->_arcHandleXZ setEulerAngles:0.0, v39, 0.0];
       }
     }
 
-    v51 = vdupq_n_s64(0x3FD3333333333333uLL);
+    v52 = vdupq_n_s64(0x3FD3333333333333uLL);
     __asm { FMOV            V1.2D, #0.5 }
 
-    v50 = _Q1;
-    v44 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(vmulq_f64(vcvtq_f64_f32(*planarTranslationLayout), v51), _Q1)));
-    LODWORD(_Q1.f64[0]) = HIDWORD(v44);
-    [(SCNNode *)self->_planarTranslationHandleXY setPosition:v44, _Q1.f64[0], 0.0, *&v50.f64[0]];
-    v45 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(vmulq_f64(vcvtq_f64_f32(*&self->_planarTranslationLayout[4]), v51), v50)));
-    LODWORD(v46) = HIDWORD(v45);
-    [(SCNNode *)self->_planarTranslationHandleYZ setPosition:0.0, v45, v46];
-    HIDWORD(v47) = 1070805811;
-    v48 = COERCE_FLOAT(*planarTranslationLayout->f32) * 0.3 * 0.5;
-    *&v48 = v48;
-    *&v47 = COERCE_FLOAT(*&self->_planarTranslationLayout[8]) * 0.3 * 0.5;
-    [(SCNNode *)self->_planarTranslationHandleXZ setPosition:v48, 0.0, v47];
+    v51 = _Q1;
+    v45 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(vmulq_f64(vcvtq_f64_f32(*planarTranslationLayout), v52), _Q1)));
+    LODWORD(_Q1.f64[0]) = HIDWORD(v45);
+    [(SCNNode *)self->_planarTranslationHandleXY setPosition:v45, _Q1.f64[0], 0.0, *&v51.f64[0]];
+    v46 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(vmulq_f64(vcvtq_f64_f32(*&self->_planarTranslationLayout[4]), v52), v51)));
+    LODWORD(v47) = HIDWORD(v46);
+    [(SCNNode *)self->_planarTranslationHandleYZ setPosition:0.0, v46, v47];
+    HIDWORD(v48) = 1070805811;
+    v49 = COERCE_FLOAT(*planarTranslationLayout->f32) * 0.3 * 0.5;
+    *&v49 = v49;
+    *&v48 = COERCE_FLOAT(*&self->_planarTranslationLayout[8]) * 0.3 * 0.5;
+    [(SCNNode *)self->_planarTranslationHandleXZ setPosition:v49, 0.0, v48];
     if (self->_screenSpaceRotation)
     {
-      v60 = 0u;
       v61 = 0u;
-      v58 = 0u;
+      v62 = 0u;
       v59 = 0u;
-      if (C3DConstraintBillboardMatrixForNode(position, [(SCNConstraint *)self->_billboard __CFObject], [(SCNNode *)self->_screenSpaceRotation nodeRef], &v58, 1.0))
+      v60 = 0u;
+      if (C3DConstraintBillboardMatrixForNode(position, [(SCNConstraint *)self->_billboard __CFObject], [(SCNNode *)self->_screenSpaceRotation nodeRef], &v59, 1.0))
       {
-        v56 = 0u;
         v57 = 0u;
-        v54 = 0u;
+        v58 = 0u;
         v55 = 0u;
-        C3DMatrix4x4ToSCNMatrix4(&v58, &v54);
-        v53[0] = v54;
-        v53[1] = v55;
-        v53[2] = v56;
-        v53[3] = v57;
-        [(SCNNode *)self->_screenSpaceRotation setTransform:v53];
+        v56 = 0u;
+        C3DMatrix4x4ToSCNMatrix4(&v59, &v55);
+        v54[0] = v55;
+        v54[1] = v56;
+        v54[2] = v57;
+        v54[3] = v58;
+        [(SCNNode *)self->_screenSpaceRotation setTransform:v54];
       }
     }
   }
@@ -889,7 +889,7 @@ uint64_t __41__SCNManipulator__updateActionWithEvent___block_invoke(uint64_t a1,
         if (parentItem)
         {
           memset(&v45, 0, sizeof(v45));
-          [parentItem worldTransform];
+          objc_msgSend_worldTransform(parentItem);
           memset(&v44, 0, sizeof(v44));
           m = v45;
           SCNMatrix4Invert(&v44, &m);
@@ -904,7 +904,7 @@ uint64_t __41__SCNManipulator__updateActionWithEvent___block_invoke(uint64_t a1,
           memset(v37, 0, sizeof(v37));
           if (v12)
           {
-            [v12 worldTransform];
+            objc_msgSend_worldTransform(v12);
           }
 
           memset(v36, 0, sizeof(v36));
@@ -1125,11 +1125,11 @@ double __35__SCNManipulator__saveOriginalData__block_invoke(uint64_t a1, void *a
   memset(v18, 0, sizeof(v18));
   if (a2)
   {
-    [a2 worldTransform];
+    objc_msgSend_worldTransform(a2);
     v7 = *(a1 + 32);
     v6 = a1 + 32;
     v8 = *(v7 + 408);
-    [a2 transform];
+    objc_msgSend_transform(a2);
   }
 
   else
@@ -1484,7 +1484,7 @@ LABEL_76:
       authoringEnvironment = [(SCNManipulator *)self authoringEnvironment];
       if (authoringEnvironment)
       {
-        [(SCNAuthoringEnvironment *)authoringEnvironment viewMatrix];
+        objc_msgSend_viewMatrix(authoringEnvironment);
       }
 
       else
@@ -1540,7 +1540,7 @@ LABEL_37:
   }
 
 LABEL_17:
-  v35 = scn_default_log();
+  v35 = scn_default_log(self, a2);
   if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
     [SCNManipulator _applyWithEvent:v35];
@@ -1590,7 +1590,7 @@ LABEL_17:
 
 - (BOOL)mouseDown:(id *)down
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   if ([(SCNManipulator *)self readonly])
   {
     return 0;
@@ -1598,12 +1598,12 @@ LABEL_17:
 
   v5 = *&down->var4.x;
   var3 = down->var3;
-  v75 = v5;
-  v76 = *&down->var5.y;
+  v77 = v5;
+  v78 = *&down->var5.y;
   var2 = down->var2;
-  v72 = *&down->var0;
-  v73 = var2;
-  [(SCNManipulator *)self _updateActionWithEvent:&v72];
+  v74 = *&down->var0;
+  v75 = var2;
+  [(SCNManipulator *)self _updateActionWithEvent:&v74];
   if (!self->_action)
   {
     return 0;
@@ -1612,21 +1612,21 @@ LABEL_17:
   v7 = 1;
   self->_isMouseDown = 1;
   [(SCNManipulator *)self _saveOriginalData];
-  __computeAnchorMatrix(self, &v72);
-  v9 = v73;
-  *&self->_worldMatrix.components[1] = v72;
-  *&self->_worldMatrix.components[5] = v9;
-  v10 = v75;
+  __computeAnchorMatrix(self, &v74);
+  v11 = v75;
+  *&self->_worldMatrix.components[1] = v74;
+  *&self->_worldMatrix.components[5] = v11;
+  v12 = v77;
   *&self->_worldMatrix.components[9] = var3;
-  *&self->_worldMatrix.components[13] = v10;
-  v11 = *&self->_worldMatrix.components[5];
+  *&self->_worldMatrix.components[13] = v12;
+  v13 = *&self->_worldMatrix.components[5];
   *&self->_worldInitialMatrix.components[1] = *&self->_worldMatrix.components[1];
-  *&self->_worldInitialMatrix.components[5] = v11;
-  v12 = *&self->_worldMatrix.components[13];
+  *&self->_worldInitialMatrix.components[5] = v13;
+  v14 = *&self->_worldMatrix.components[13];
   *&self->_worldInitialMatrix.components[9] = *&self->_worldMatrix.components[9];
-  *&self->_worldInitialMatrix.components[13] = v12;
-  v13 = down->var2;
-  self->_originalMouseLocation = v13;
+  *&self->_worldInitialMatrix.components[13] = v14;
+  v15 = down->var2;
+  self->_originalMouseLocation = v15;
   action = self->_action;
   if (action > 2)
   {
@@ -1638,52 +1638,52 @@ LABEL_17:
       }
 
 LABEL_11:
-      v35 = scn_default_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v37 = scn_default_log(v8, v9);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        [SCNManipulator _applyWithEvent:v35];
+        [SCNManipulator _applyWithEvent:v37];
       }
 
       return 0;
     }
 
-    v52 = *&self->_worldMatrix.components[5];
-    v72 = *&self->_worldMatrix.components[1];
-    v73 = v52;
-    v55 = *&self->_worldMatrix.components[9];
+    v54 = *&self->_worldMatrix.components[5];
+    v74 = *&self->_worldMatrix.components[1];
+    v75 = v54;
+    v57 = *&self->_worldMatrix.components[9];
     _Q1 = *&self->_worldMatrix.components[13];
     selectedAxis = self->_selectedAxis;
-    var3 = v55;
-    v75 = _Q1;
+    var3 = v57;
+    v77 = _Q1;
     __asm { FMOV            V1.2S, #1.0 }
 
-    *v55.f32 = vand_s8(*&_Q1, vceq_s32(vdup_n_s32(selectedAxis), 0x200000001));
-    v56 = 0.0;
+    *v57.f32 = vand_s8(*&_Q1, vceq_s32(vdup_n_s32(selectedAxis), 0x200000001));
+    v58 = 0.0;
     if (selectedAxis == 3)
     {
-      v56 = 1.0;
+      v58 = 1.0;
     }
 
-    v55.f32[2] = v56;
-    *v57.i64 = C3DVector3RotateAndScale(&v72, v55);
-    v58 = vmulq_f32(v57, v57);
-    *&v59 = v58.f32[2] + vaddv_f32(*v58.f32);
-    *v58.f32 = vrsqrte_f32(v59);
-    *v58.f32 = vmul_f32(*v58.f32, vrsqrts_f32(v59, vmul_f32(*v58.f32, *v58.f32)));
-    v60 = vmulq_n_f32(v57, vmul_f32(*v58.f32, vrsqrts_f32(v59, vmul_f32(*v58.f32, *v58.f32))).f32[0]);
-    v58.i64[0] = *&down->var5.x;
-    v58.i32[2] = LODWORD(down->var5.z);
-    v61.i64[0] = *&down->var4.x;
-    v61.i32[2] = LODWORD(down->var4.z);
-    v62 = vmulq_f32(v60, vsubq_f32(v58, v61));
-    v58.f32[0] = vaddv_f32(*v62.f32);
-    v63 = -1.0;
-    if ((v62.f32[2] + v58.f32[0]) <= 0.0)
+    v57.f32[2] = v58;
+    *v59.i64 = C3DVector3RotateAndScale(&v74, v57);
+    v60 = vmulq_f32(v59, v59);
+    *&v61 = v60.f32[2] + vaddv_f32(*v60.f32);
+    *v60.f32 = vrsqrte_f32(v61);
+    *v60.f32 = vmul_f32(*v60.f32, vrsqrts_f32(v61, vmul_f32(*v60.f32, *v60.f32)));
+    v62 = vmulq_n_f32(v59, vmul_f32(*v60.f32, vrsqrts_f32(v61, vmul_f32(*v60.f32, *v60.f32))).f32[0]);
+    v60.i64[0] = *&down->var5.x;
+    v60.i32[2] = LODWORD(down->var5.z);
+    v63.i64[0] = *&down->var4.x;
+    v63.i32[2] = LODWORD(down->var4.z);
+    v64 = vmulq_f32(v62, vsubq_f32(v60, v63));
+    v60.f32[0] = vaddv_f32(*v64.f32);
+    v65 = -1.0;
+    if ((v64.f32[2] + v60.f32[0]) <= 0.0)
     {
-      v63 = 1.0;
+      v65 = 1.0;
     }
 
-    *self->_anon_130 = v63;
+    *self->_anon_130 = v65;
   }
 
   else
@@ -1692,103 +1692,103 @@ LABEL_11:
     {
       if (action == 2)
       {
-        v15 = self->_selectedAxis;
+        v17 = self->_selectedAxis;
         __asm { FMOV            V1.2S, #1.0 }
 
-        *v8.f32 = vand_s8(vceq_s32(vdup_n_s32(v15), 0x200000001), _D1);
-        v21 = 0.0;
-        if (v15 == 3)
+        *v10.f32 = vand_s8(vceq_s32(vdup_n_s32(v17), 0x200000001), _D1);
+        v23 = 0.0;
+        if (v17 == 3)
         {
-          v21 = 1.0;
+          v23 = 1.0;
         }
 
-        v8.f32[2] = v21;
-        v66 = v8;
-        v22 = *&self->_worldMatrix.components[5];
-        v72 = *&self->_worldMatrix.components[1];
-        v73 = v22;
-        v23 = *&self->_worldMatrix.components[13];
-        v25 = *&self->_worldMatrix.components[1];
+        v10.f32[2] = v23;
+        v68 = v10;
         v24 = *&self->_worldMatrix.components[5];
+        v74 = *&self->_worldMatrix.components[1];
+        v75 = v24;
+        v25 = *&self->_worldMatrix.components[13];
+        v27 = *&self->_worldMatrix.components[1];
+        v26 = *&self->_worldMatrix.components[5];
         var3 = *&self->_worldMatrix.components[9];
-        v75 = v23;
-        v68 = v25;
-        v69 = v24;
-        v26 = *&self->_worldMatrix.components[13];
-        v70 = *&self->_worldMatrix.components[9];
+        v77 = v25;
+        v70 = v27;
         v71 = v26;
-        *v27.i64 = C3DVector3MultMatrix4x4(&v68, 0);
-        v64 = v27;
-        v68 = v72;
-        v69 = v73;
-        v70 = var3;
+        v28 = *&self->_worldMatrix.components[13];
+        v72 = *&self->_worldMatrix.components[9];
+        v73 = v28;
+        *v29.i64 = C3DVector3MultMatrix4x4(&v70, 0);
+        v66 = v29;
+        v70 = v74;
         v71 = v75;
-        *v28.i64 = C3DVector3MultMatrix4x4(&v68, v66);
-        v29.i32[3] = v64.i32[3];
-        v30 = vsubq_f32(v28, v64);
-        *&self->_anon_130[16] = v30;
-        *&self->_anon_130[32] = v64;
-        *self->_anon_130 = v64;
-        v29.i64[0] = *&down->var4.x;
-        v29.i32[2] = LODWORD(down->var4.z);
-        v31.i64[0] = *&down->var5.x;
-        v31.i32[2] = LODWORD(down->var5.z);
-        v32 = vsubq_f32(v31, v29);
-        v33 = vmulq_f32(v30, v32);
-        v34 = vmulq_f32(v30, vsubq_f32(v64, v29));
-        *&self->_anon_130[48] = vsubq_f32(v64, vmlaq_n_f32(v29, v32, (v34.f32[2] + vaddv_f32(*v34.f32)) / (v33.f32[2] + vaddv_f32(*v33.f32))));
+        v72 = var3;
+        v73 = v77;
+        *v30.i64 = C3DVector3MultMatrix4x4(&v70, v68);
+        v31.i32[3] = v66.i32[3];
+        v32 = vsubq_f32(v30, v66);
+        *&self->_anon_130[16] = v32;
+        *&self->_anon_130[32] = v66;
+        *self->_anon_130 = v66;
+        v31.i64[0] = *&down->var4.x;
+        v31.i32[2] = LODWORD(down->var4.z);
+        v33.i64[0] = *&down->var5.x;
+        v33.i32[2] = LODWORD(down->var5.z);
+        v34 = vsubq_f32(v33, v31);
+        v35 = vmulq_f32(v32, v34);
+        v36 = vmulq_f32(v32, vsubq_f32(v66, v31));
+        *&self->_anon_130[48] = vsubq_f32(v66, vmlaq_n_f32(v31, v34, (v36.f32[2] + vaddv_f32(*v36.f32)) / (v35.f32[2] + vaddv_f32(*v35.f32))));
         return v7;
       }
 
       goto LABEL_11;
     }
 
-    v37 = self->_selectedAxis;
+    v39 = self->_selectedAxis;
     __asm { FMOV            V1.2S, #1.0 }
 
-    *v13.f32 = vand_s8(vceq_s32(vdup_n_s32(v37), 0x200000001), _D1);
-    v39 = 0.0;
-    if (v37 == 3)
+    *v15.f32 = vand_s8(vceq_s32(vdup_n_s32(v39), 0x200000001), _D1);
+    v41 = 0.0;
+    if (v39 == 3)
     {
-      v39 = 1.0;
+      v41 = 1.0;
     }
 
-    v13.f32[2] = v39;
-    v65 = vmulq_f32(v13, vdupq_n_s32(0x42C80000u));
-    v40 = *&self->_worldMatrix.components[5];
-    v72 = *&self->_worldMatrix.components[1];
-    v73 = v40;
-    v41 = *&self->_worldMatrix.components[13];
-    v42 = *&self->_worldMatrix.components[1];
-    v43 = *&self->_worldMatrix.components[5];
+    v15.f32[2] = v41;
+    v67 = vmulq_f32(v15, vdupq_n_s32(0x42C80000u));
+    v42 = *&self->_worldMatrix.components[5];
+    v74 = *&self->_worldMatrix.components[1];
+    v75 = v42;
+    v43 = *&self->_worldMatrix.components[13];
+    v44 = *&self->_worldMatrix.components[1];
+    v45 = *&self->_worldMatrix.components[5];
     var3 = *&self->_worldMatrix.components[9];
-    v75 = v41;
-    v68 = v42;
-    v69 = v43;
-    v44 = *&self->_worldMatrix.components[13];
-    v70 = *&self->_worldMatrix.components[9];
-    v71 = v44;
-    *v45.i64 = C3DVector3MultMatrix4x4(&v68, 0);
-    v67 = v45;
-    v68 = v72;
-    v69 = v73;
-    v70 = var3;
+    v77 = v43;
+    v70 = v44;
+    v71 = v45;
+    v46 = *&self->_worldMatrix.components[13];
+    v72 = *&self->_worldMatrix.components[9];
+    v73 = v46;
+    *v47.i64 = C3DVector3MultMatrix4x4(&v70, 0);
+    v69 = v47;
+    v70 = v74;
     v71 = v75;
-    *v46.i64 = C3DVector3MultMatrix4x4(&v68, v65);
-    v47 = vsubq_f32(v46, v67);
-    v48 = vmulq_f32(v47, v47);
-    *&v49 = v48.f32[2] + vaddv_f32(*v48.f32);
-    *v48.f32 = vrsqrte_f32(v49);
-    *v48.f32 = vmul_f32(*v48.f32, vrsqrts_f32(v49, vmul_f32(*v48.f32, *v48.f32)));
-    v50 = vmulq_n_f32(v47, vmul_f32(*v48.f32, vrsqrts_f32(v49, vmul_f32(*v48.f32, *v48.f32))).f32[0]);
-    *self->_anon_130 = v67;
-    *&self->_anon_130[16] = v50;
-    v50.i64[0] = *&down->var4.x;
-    v50.i32[2] = LODWORD(down->var4.z);
-    v48.i64[0] = *&down->var5.x;
-    v48.i32[2] = LODWORD(down->var5.z);
-    *v51.i64 = __resolveAxisMove(self, v50, vsubq_f32(v48, v50));
-    *&self->_anon_130[32] = vsubq_f32(v67, v51);
+    v72 = var3;
+    v73 = v77;
+    *v48.i64 = C3DVector3MultMatrix4x4(&v70, v67);
+    v49 = vsubq_f32(v48, v69);
+    v50 = vmulq_f32(v49, v49);
+    *&v51 = v50.f32[2] + vaddv_f32(*v50.f32);
+    *v50.f32 = vrsqrte_f32(v51);
+    *v50.f32 = vmul_f32(*v50.f32, vrsqrts_f32(v51, vmul_f32(*v50.f32, *v50.f32)));
+    v52 = vmulq_n_f32(v49, vmul_f32(*v50.f32, vrsqrts_f32(v51, vmul_f32(*v50.f32, *v50.f32))).f32[0]);
+    *self->_anon_130 = v69;
+    *&self->_anon_130[16] = v52;
+    v52.i64[0] = *&down->var4.x;
+    v52.i32[2] = LODWORD(down->var4.z);
+    v50.i64[0] = *&down->var5.x;
+    v50.i32[2] = LODWORD(down->var5.z);
+    *v53.i64 = __resolveAxisMove(self, v52, vsubq_f32(v50, v52));
+    *&self->_anon_130[32] = vsubq_f32(v69, v53);
   }
 
   return v7;
@@ -2013,8 +2013,8 @@ LABEL_11:
 
 - (void)_prepareSnapToAlignData:(SCNManipulator *)self minOffset:(SEL)offset maxOffset:(unsigned __int16)maxOffset
 {
-  v34 = v3;
-  v35 = v4;
+  v35 = v3;
+  v36 = v4;
   if ((maxOffset - 1) >= 3)
   {
     NSLog(&cfstr_Preparesnaptoa.isa, offset);
@@ -2036,13 +2036,13 @@ LABEL_11:
         v11 = 0;
         v12 = 0;
         v7[71] = malloc_type_calloc(0x18uLL, 5 * v9, 0xCDB5EBC1uLL);
-        v13 = *(&v34 + 2);
-        v14 = *(&v35 + 2);
-        v15 = *(&v34 + 1);
-        v16 = *(&v35 + 1);
+        v13 = *(&v35 + 2);
+        v14 = *(&v36 + 2);
+        v15 = *(&v35 + 1);
+        v16 = *(&v36 + 1);
         while (1)
         {
-          v17 = [v8 objectAtIndex:{v11, v34, v35}];
+          v17 = [v8 objectAtIndex:{v11, v35, v36}];
           if ((_itemsContainsNode(self->_targets, v17) & 1) == 0)
           {
             break;
@@ -2058,78 +2058,78 @@ LABEL_19:
         }
 
         nodeRef = [v17 nodeRef];
-        v40 = 0u;
         v41 = 0u;
-        v38 = 0u;
+        v42 = 0u;
         v39 = 0u;
+        v40 = 0u;
         if (v17)
         {
-          [v17 worldTransform];
+          objc_msgSend_worldTransform(v17);
         }
 
-        v36 = 0u;
         v37 = 0u;
-        if (C3DNodeGetLocalBoundingBox(nodeRef, &v36))
+        v38 = 0u;
+        if (C3DNodeGetLocalBoundingBox(nodeRef, &v37))
         {
-          WorldMatrix = C3DNodeGetWorldMatrix(nodeRef);
-          v20 = WorldMatrix[1];
-          v21 = WorldMatrix[2];
-          v22 = vaddq_f32(WorldMatrix[3], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v20, *v36.f32, 1), *WorldMatrix, v36.f32[0]), v21, v36, 2));
-          v22.i32[3] = 1.0;
-          v23 = v37;
-          v23.i32[1] = v37.i32[0];
-          v23.i32[2] = v37.i32[0];
-          v24 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(*WorldMatrix, v23)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v37.i8, 1), v37), v20))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v37, v37), v37), v21)));
+          WorldMatrix = C3DNodeGetWorldMatrix(nodeRef, v19);
+          v21 = *(WorldMatrix + 16);
+          v22 = *(WorldMatrix + 32);
+          v23 = vaddq_f32(*(WorldMatrix + 48), vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v21, *v37.f32, 1), *WorldMatrix, v37.f32[0]), v22, v37, 2));
+          v23.i32[3] = 1.0;
+          v24 = v38;
+          v24.i32[1] = v38.i32[0];
+          v24.i32[2] = v38.i32[0];
+          v25 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(*WorldMatrix, v24)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v38.i8, 1), v38), v21))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v38, v38), v38), v22)));
         }
 
         else
         {
-          v22 = v41;
-          v22.i32[3] = 1.0;
-          v24 = 0uLL;
+          v23 = v42;
+          v23.i32[3] = 1.0;
+          v25 = 0uLL;
         }
 
-        v36 = v22;
-        v37 = v24;
-        v25 = 3 * v12;
-        *(v7[71] + v25 + 1) = nodeRef;
-        v26 = v12 + 1;
+        v37 = v23;
+        v38 = v25;
+        v26 = 3 * v12;
+        *(v7[71] + v26 + 1) = nodeRef;
+        v27 = v12 + 1;
         *(v7[71] + 3 * v12 + 4) = nodeRef;
-        v27 = v12 + 2;
+        v28 = v12 + 2;
         *(v7[71] + 3 * v12 + 7) = nodeRef;
-        v28 = v12 + 3;
+        v29 = v12 + 3;
         *(v7[71] + 3 * v12 + 10) = nodeRef;
         *(v7[71] + 3 * v12 + 13) = nodeRef;
-        v29 = v7[71];
-        v29[2 * v25 + 4] = 0;
+        v30 = v7[71];
+        v30[2 * v26 + 4] = 0;
         switch(maxOffsetCopy)
         {
           case 3:
-            v29[6 * v12] = v41.i32[2];
-            *&v29[6 * v26] = v13 + (v36.f32[2] + *&v37.i32[2]);
-            *&v29[6 * v27] = v14 + (v36.f32[2] + *&v37.i32[2]);
-            *&v29[6 * v28] = v13 + (v36.f32[2] - *&v37.i32[2]);
-            v30 = v14 + (v36.f32[2] - *&v37.i32[2]);
-            v31 = v13;
-            v32 = v14;
+            v30[6 * v12] = v42.i32[2];
+            *&v30[6 * v27] = v13 + (v37.f32[2] + *&v38.i32[2]);
+            *&v30[6 * v28] = v14 + (v37.f32[2] + *&v38.i32[2]);
+            *&v30[6 * v29] = v13 + (v37.f32[2] - *&v38.i32[2]);
+            v31 = v14 + (v37.f32[2] - *&v38.i32[2]);
+            v32 = v13;
+            v33 = v14;
             break;
           case 2:
-            v29[6 * v12] = v41.i32[1];
-            *&v29[6 * v26] = v15 + (v36.f32[1] + *&v37.i32[1]);
-            *&v29[6 * v27] = v16 + (v36.f32[1] + *&v37.i32[1]);
-            *&v29[6 * v28] = v15 + (v36.f32[1] - *&v37.i32[1]);
-            v30 = v16 + (v36.f32[1] - *&v37.i32[1]);
-            v31 = v15;
-            v32 = v16;
+            v30[6 * v12] = v42.i32[1];
+            *&v30[6 * v27] = v15 + (v37.f32[1] + *&v38.i32[1]);
+            *&v30[6 * v28] = v16 + (v37.f32[1] + *&v38.i32[1]);
+            *&v30[6 * v29] = v15 + (v37.f32[1] - *&v38.i32[1]);
+            v31 = v16 + (v37.f32[1] - *&v38.i32[1]);
+            v32 = v15;
+            v33 = v16;
             break;
           case 1:
-            v29[6 * v12] = v41.i32[0];
-            *&v29[6 * v26] = (v36.f32[0] + *v37.i32) + *&v34;
-            *&v29[6 * v27] = (v36.f32[0] + *v37.i32) + *&v35;
-            *&v29[6 * v28] = (v36.f32[0] - *v37.i32) + *&v34;
-            v30 = (v36.f32[0] - *v37.i32) + *&v35;
-            v31 = *&v34;
+            v30[6 * v12] = v42.i32[0];
+            *&v30[6 * v27] = (v37.f32[0] + *v38.i32) + *&v35;
+            *&v30[6 * v28] = (v37.f32[0] + *v38.i32) + *&v36;
+            *&v30[6 * v29] = (v37.f32[0] - *v38.i32) + *&v35;
+            v31 = (v37.f32[0] - *v38.i32) + *&v36;
             v32 = *&v35;
+            v33 = *&v36;
             break;
           default:
 LABEL_18:
@@ -2137,12 +2137,12 @@ LABEL_18:
             goto LABEL_19;
         }
 
-        v33 = &v29[6 * v12 + 24];
-        *v33 = v30;
-        *&v29[6 * v26 + 4] = v31;
-        *&v29[6 * v27 + 4] = v32;
-        *&v29[6 * v28 + 4] = v31;
-        v33[4] = v32;
+        v34 = &v30[6 * v12 + 24];
+        *v34 = v31;
+        *&v30[6 * v27 + 4] = v32;
+        *&v30[6 * v28 + 4] = v33;
+        *&v30[6 * v29 + 4] = v32;
+        v34[4] = v33;
         goto LABEL_18;
       }
     }
@@ -2255,12 +2255,12 @@ LABEL_18:
     {
       if (self)
       {
-        [(SCNManipulator *)self transform];
-        [(SCNManipulator *)self transform];
-        [(SCNManipulator *)self transform];
-        [(SCNManipulator *)self transform];
-        [(SCNManipulator *)self transform];
-        [(SCNManipulator *)self transform];
+        objc_msgSend_transform(self, 0.0);
+        objc_msgSend_transform(self);
+        objc_msgSend_transform(self);
+        objc_msgSend_transform(self);
+        objc_msgSend_transform(self);
+        objc_msgSend_transform(self);
         v34 = vsub_f32(*v40.f32, __PAIR64__(v42, v43));
         v35 = vsub_f32(*&v38, __PAIR64__(v44, v45));
       }
@@ -2294,9 +2294,9 @@ LABEL_18:
     +[SCNTransaction lock];
     if (v4)
     {
-      C3DSceneLock(v4);
+      C3DSceneLock(v4, v5);
       [(SCNManipulator *)self prepareSnapToAlignData];
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v4, v6);
     }
 
     else

@@ -59,9 +59,11 @@
 {
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
-  *(v9 + 16) = v8;
+  v9[2] = v8;
   selfCopy = self;
   sub_1BD488E1C(category, update, sub_1BD139BD4, v9);
+
+  v9, v11, v12, v13, v14, v15, v16, v17;
 }
 
 @end

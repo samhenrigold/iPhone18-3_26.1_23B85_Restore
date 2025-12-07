@@ -59,21 +59,20 @@
 
 - (NSString)accessoryName
 {
-  v2 = (self + OBJC_IVAR___WiFiPickerConfiguration_Swift_accessoryName);
+  v2 = self + OBJC_IVAR___WiFiPickerConfiguration_Swift_accessoryName;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_2741C7E3C();
+    v3 = sub_2741C7E3C();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setAccessoryName:(id)name
@@ -92,7 +91,6 @@
 
   v7 = (self + OBJC_IVAR___WiFiPickerConfiguration_Swift_accessoryName);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -118,7 +116,7 @@
 
 - (WiFiPickerConfiguration_Swift)initWithNetworks:(id)networks currentNetwork:(id)network
 {
-  type metadata accessor for WiFiNetwork();
+  type metadata accessor for WiFiNetwork(0);
   v6 = sub_2741C7FEC();
   *(self + OBJC_IVAR___WiFiPickerConfiguration_Swift_presentationStyle) = 0;
   *(self + OBJC_IVAR___WiFiPickerConfiguration_Swift_interactionStyle) = 0;

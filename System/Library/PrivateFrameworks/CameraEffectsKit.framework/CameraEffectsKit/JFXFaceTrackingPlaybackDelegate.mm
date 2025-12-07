@@ -123,8 +123,8 @@ void __121__JFXFaceTrackingPlaybackDelegate_JFX_cachedFaceTrackingPropertiesForM
   self->_isScrubbing = 1;
   v3 = +[JFXMediaSettings timeScale];
   playableElement = [(JFXFaceTrackingPlaybackDelegate *)self playableElement];
-  CMTimeFromFrameTime([playableElement presentationTime], v3, &v19.start);
-  self->_playbackElementPlaybackPresentationOffset = v19.start;
+  CMTimeFromFrameTime([playableElement presentationTime], v3, &v20.start);
+  self->_playbackElementPlaybackPresentationOffset = v20.start;
 
   playableElement2 = [(JFXFaceTrackingPlaybackDelegate *)self playableElement];
   isStill = [playableElement2 isStill];
@@ -133,11 +133,11 @@ void __121__JFXFaceTrackingPlaybackDelegate_JFX_cachedFaceTrackingPropertiesForM
   {
     CMTimeMake(&duration, 1, +[JFXMediaSettings frameRate]);
     start = **&MEMORY[0x277CC08F0];
-    CMTimeRangeMake(&v19, &start, &duration);
-    v7 = *&v19.start.epoch;
-    *&self->_playbackElementPlaybackMediaRange.start.value = *&v19.start.value;
+    CMTimeRangeMake(&v20, &start, &duration);
+    v7 = *&v20.start.epoch;
+    *&self->_playbackElementPlaybackMediaRange.start.value = *&v20.start.value;
     *&self->_playbackElementPlaybackMediaRange.start.epoch = v7;
-    *&self->_playbackElementPlaybackMediaRange.duration.timescale = *&v19.duration.timescale;
+    *&self->_playbackElementPlaybackMediaRange.duration.timescale = *&v20.duration.timescale;
   }
 
   else
@@ -145,22 +145,23 @@ void __121__JFXFaceTrackingPlaybackDelegate_JFX_cachedFaceTrackingPropertiesForM
     playableElement3 = [(JFXFaceTrackingPlaybackDelegate *)self playableElement];
     CMTimeFromFrameTime([playableElement3 mediaStartOffset], v3, &duration);
     playableElement4 = [(JFXFaceTrackingPlaybackDelegate *)self playableElement];
-    CMTimeFromFrameTime([playableElement4 duration], v3, &start);
-    CMTimeRangeMake(&v19, &duration, &start);
-    v10 = *&v19.start.epoch;
-    *&self->_playbackElementPlaybackMediaRange.start.value = *&v19.start.value;
-    *&self->_playbackElementPlaybackMediaRange.start.epoch = v10;
-    *&self->_playbackElementPlaybackMediaRange.duration.timescale = *&v19.duration.timescale;
+    v10 = objc_msgSend_duration(playableElement4);
+    CMTimeFromFrameTime(v10, v3, &start);
+    CMTimeRangeMake(&v20, &duration, &start);
+    v11 = *&v20.start.epoch;
+    *&self->_playbackElementPlaybackMediaRange.start.value = *&v20.start.value;
+    *&self->_playbackElementPlaybackMediaRange.start.epoch = v11;
+    *&self->_playbackElementPlaybackMediaRange.duration.timescale = *&v20.duration.timescale;
   }
 
-  v11 = MEMORY[0x277CCACA8];
-  v12 = objc_opt_class();
-  v13 = NSStringFromClass(v12);
-  v14 = [v11 stringWithFormat:@"com.apple.%@.mediaDataReaderQueue", v13];
+  v12 = MEMORY[0x277CCACA8];
+  v13 = objc_opt_class();
+  v14 = NSStringFromClass(v13);
+  v15 = [v12 stringWithFormat:@"com.apple.%@.mediaDataReaderQueue", v14];
 
-  v15 = dispatch_queue_create([v14 UTF8String], 0);
+  v16 = dispatch_queue_create([v15 UTF8String], 0);
   mediaDataReaderUpdateQueue = self->_mediaDataReaderUpdateQueue;
-  self->_mediaDataReaderUpdateQueue = v15;
+  self->_mediaDataReaderUpdateQueue = v16;
 }
 
 - (void)JFX_loadMediaDataReaders
@@ -197,7 +198,7 @@ void __121__JFXFaceTrackingPlaybackDelegate_JFX_cachedFaceTrackingPropertiesForM
   {
     if (range)
     {
-      [v8 timeRange];
+      objc_msgSend_timeRange(v8);
       v9 = v18;
       *&range->var0.var0 = v12;
       *&range->var0.var3 = v13;
@@ -262,7 +263,7 @@ void __71__JFXFaceTrackingPlaybackDelegate_JFX_setMediaDataReaderScrubbingMode__
     if (sharedARMetadataReader)
     {
       [sharedARMetadataReader setIsScrubbing:{-[JFXFaceTrackingPlaybackDelegate isScrubbing](self, "isScrubbing")}];
-      [(JFXFaceTrackingPlaybackDelegate *)self playbackElementPlaybackMediaRange];
+      objc_msgSend_playbackElementPlaybackMediaRange(self);
       [sharedARMetadataReader beginReadingAtTimeRange:&v8];
       objc_storeStrong(&self->_arMetadataReader, sharedARMetadataReader);
     }
@@ -308,10 +309,10 @@ void __71__JFXFaceTrackingPlaybackDelegate_JFX_setMediaDataReaderScrubbingMode__
   else
   {
     memset(&v14, 0, sizeof(v14));
-    [(JFXFaceTrackingPlaybackDelegate *)self playbackElementPlaybackPresentationOffset];
+    objc_msgSend_playbackElementPlaybackPresentationOffset(self);
     lhs = *a4;
     CMTimeSubtract(&v14, &lhs, &rhs);
-    [(JFXFaceTrackingPlaybackDelegate *)self playbackElementPlaybackMediaRange];
+    objc_msgSend_playbackElementPlaybackMediaRange(self);
     rhs = v11;
     lhs = v14;
     return CMTimeAdd(retstr, &lhs, &rhs);
@@ -522,7 +523,7 @@ void __73__JFXFaceTrackingPlaybackDelegate_supportedTimedPropertyGroupsForEffect
   v37 = 0uLL;
   v38 = 0;
   time.start = *time;
-  [(JFXFaceTrackingPlaybackDelegate *)self jfx_mediaTimeFromPlaybackTime:&time];
+  objc_msgSend_jfx_mediaTimeFromPlaybackTime_(self, a2, &time);
   memset(&time, 0, 24);
   v7 = [(JFXFaceTrackingPlaybackDelegate *)self JFX_cachedFaceTrackingPropertiesForMediaTime:&time forDisplayingMediaAtInterfaceOrientation:orientation];
   if (!v7)

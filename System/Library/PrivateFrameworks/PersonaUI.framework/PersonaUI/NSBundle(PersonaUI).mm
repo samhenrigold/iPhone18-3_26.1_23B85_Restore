@@ -11,9 +11,9 @@
     +[NSBundle(PersonaUI) pr_personaUIBundle];
   }
 
-  v1 = pr_personaUIBundle_personaUIBundle;
+  v2 = pr_personaUIBundle_personaUIBundle;
 
-  return v1;
+  return v2;
 }
 
 @end

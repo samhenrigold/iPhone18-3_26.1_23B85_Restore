@@ -28,14 +28,14 @@
 
 - (id)tri_checkAIUseCaseEnabled:(id)enabled
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   v4 = enabledCopy;
   if (enabledCopy && ![enabledCopy isEqualToString:&stru_287FA0430])
   {
     v5 = objc_alloc_init(TRIXPCCovariateFetcher);
-    v11 = v4;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v10 = v4;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
     v8 = [(TRIXPCCovariateFetcher *)v5 appleIntelligenceStateWithUseCaseIdentifiers:v7];
 
     if (v8)
@@ -55,14 +55,13 @@
     if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v4;
+      v12 = v4;
       _os_log_error_impl(&dword_26F567000, &v5->super, OS_LOG_TYPE_ERROR, "Invalid useCaseId: %@", buf, 0xCu);
     }
 
     v6 = &unk_287FC4C30;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -87,57 +86,57 @@
 
 - (id)_sharedCovariatesFromConfiguration:(id)configuration
 {
-  v33[19] = *MEMORY[0x277D85DE8];
+  v32[19] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   sysConfig = self->_sysConfig;
   if (sysConfig)
   {
-    [(TRISystemConfiguration *)sysConfig marketingOSVersion];
+    objc_msgSend_marketingOSVersion(sysConfig);
   }
 
-  v32[0] = @"OS";
+  v31[0] = @"OS";
   osType = [configurationCopy osType];
-  v33[0] = osType;
-  v32[1] = @"OSBuild";
+  v32[0] = osType;
+  v31[1] = @"OSBuild";
   osBuild = [configurationCopy osBuild];
-  v33[1] = osBuild;
-  v32[2] = @"DeviceModelCode";
+  v32[1] = osBuild;
+  v31[2] = @"DeviceModelCode";
   deviceModelCode = [configurationCopy deviceModelCode];
-  v33[2] = deviceModelCode;
-  v32[3] = @"DeviceClass";
+  v32[2] = deviceModelCode;
+  v31[3] = @"DeviceClass";
   deviceClass = [configurationCopy deviceClass];
-  v33[3] = deviceClass;
-  v32[4] = @"IsInternalBuild";
-  v27 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "isInternalBuild")}];
-  v33[4] = v27;
-  v32[5] = @"IsBetaBuild";
-  v26 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "isBetaBuild")}];
-  v33[5] = v26;
-  v32[6] = @"MarketingOSMajor";
-  v25 = [MEMORY[0x277CCABB0] numberWithInteger:0];
-  v33[6] = v25;
-  v32[7] = @"MarketingOSMinor";
+  v32[3] = deviceClass;
+  v31[4] = @"IsInternalBuild";
+  v26 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "isInternalBuild")}];
+  v32[4] = v26;
+  v31[5] = @"IsBetaBuild";
+  v25 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "isBetaBuild")}];
+  v32[5] = v25;
+  v31[6] = @"MarketingOSMajor";
   v24 = [MEMORY[0x277CCABB0] numberWithInteger:0];
-  v33[7] = v24;
-  v32[8] = @"MarketingOSPatch";
+  v32[6] = v24;
+  v31[7] = @"MarketingOSMinor";
   v23 = [MEMORY[0x277CCABB0] numberWithInteger:0];
-  v33[8] = v23;
-  v32[9] = @"TrialVersionTag";
+  v32[7] = v23;
+  v31[8] = @"MarketingOSPatch";
+  v22 = [MEMORY[0x277CCABB0] numberWithInteger:0];
+  v32[8] = v22;
+  v31[9] = @"TrialVersionTag";
   trialVersionTag = [configurationCopy trialVersionTag];
-  v33[9] = trialVersionTag;
-  v32[10] = @"TrialVersionMajor";
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(configurationCopy, "trialVersionMajor")}];
-  v33[10] = v21;
-  v32[11] = @"TrialVersionMinor";
+  v32[9] = trialVersionTag;
+  v31[10] = @"TrialVersionMajor";
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(configurationCopy, "trialVersionMajor")}];
+  v32[10] = v20;
+  v31[11] = @"TrialVersionMinor";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(configurationCopy, "trialVersionMinor")}];
-  v33[11] = v6;
-  v32[12] = @"DiagnosticsUsageEnabled";
+  v32[11] = v6;
+  v31[12] = @"DiagnosticsUsageEnabled";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "isDiagnosticsAndUsageEnabled")}];
-  v33[12] = v7;
-  v32[13] = @"HasANE";
+  v32[12] = v7;
+  v31[13] = @"HasANE";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "hasAne")}];
-  v33[13] = v8;
-  v32[14] = @"ANEVersion";
+  v32[13] = v8;
+  v31[14] = @"ANEVersion";
   aneVersion = [configurationCopy aneVersion];
   v10 = aneVersion;
   if (aneVersion)
@@ -150,11 +149,11 @@
     v11 = &stru_287FA0430;
   }
 
-  v33[14] = v11;
-  v32[15] = @"IsAutomatedTestDevice";
+  v32[14] = v11;
+  v31[15] = @"IsAutomatedTestDevice";
   v12 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "isAutomatedTestDevice")}];
-  v33[15] = v12;
-  v32[16] = @"DeviceSystemId";
+  v32[15] = v12;
+  v31[16] = @"DeviceSystemId";
   deviceSystemId = [configurationCopy deviceSystemId];
   v14 = deviceSystemId;
   if (deviceSystemId)
@@ -167,27 +166,25 @@
     v15 = &stru_287FA0430;
   }
 
-  v33[16] = v15;
-  v32[17] = @"DeviceChipId";
+  v32[16] = v15;
+  v31[17] = @"DeviceChipId";
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(configurationCopy, "deviceChipId")}];
-  v33[17] = v16;
-  v32[18] = @"DeviceHardwareModel";
+  v32[17] = v16;
+  v31[18] = @"DeviceHardwareModel";
   deviceHardwareModel = [configurationCopy deviceHardwareModel];
-  v33[18] = deviceHardwareModel;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:19];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v32[18] = deviceHardwareModel;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:19];
 
   return v18;
 }
 
 - (id)_userSpecificCovariatesFromConfiguration:(id)configuration
 {
-  v34[15] = *MEMORY[0x277D85DE8];
-  v33[0] = @"DeviceId";
+  v33[15] = *MEMORY[0x277D85DE8];
+  v32[0] = @"DeviceId";
   configurationCopy = configuration;
   deviceId = [configurationCopy deviceId];
-  v32 = deviceId;
+  v31 = deviceId;
   if (deviceId)
   {
     v6 = deviceId;
@@ -198,17 +195,17 @@
     v6 = &stru_287FA0430;
   }
 
-  v34[0] = v6;
-  v33[1] = @"DeviceLocale";
+  v33[0] = v6;
+  v32[1] = @"DeviceLocale";
   userSettingsLanguageCode = [configurationCopy userSettingsLanguageCode];
-  v34[1] = userSettingsLanguageCode;
-  v33[2] = @"IsBetaUser";
-  v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "isBetaUserWithIsStale:", 0)}];
-  v34[2] = v30;
-  v33[3] = @"UserSettingsLanguageCode";
+  v33[1] = userSettingsLanguageCode;
+  v32[2] = @"IsBetaUser";
+  v29 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configurationCopy, "isBetaUserWithIsStale:", 0)}];
+  v33[2] = v29;
+  v32[3] = @"UserSettingsLanguageCode";
   userSettingsLanguageCode2 = [configurationCopy userSettingsLanguageCode];
-  v34[3] = userSettingsLanguageCode2;
-  v33[4] = @"UserSettingsRegionCode";
+  v33[3] = userSettingsLanguageCode2;
+  v32[4] = @"UserSettingsRegionCode";
   userSettingsRegionCode = [configurationCopy userSettingsRegionCode];
   v8 = userSettingsRegionCode;
   if (userSettingsRegionCode)
@@ -221,11 +218,11 @@
     v9 = &stru_287FA0430;
   }
 
-  v34[4] = v9;
-  v33[5] = @"UserKeyboardEnabledInputModeIdentifiers";
+  v33[4] = v9;
+  v32[5] = @"UserKeyboardEnabledInputModeIdentifiers";
   enabledInputModeIdentifiers = [configurationCopy enabledInputModeIdentifiers];
-  v34[5] = enabledInputModeIdentifiers;
-  v33[6] = @"UserSettingsSiriLocale";
+  v33[5] = enabledInputModeIdentifiers;
+  v32[6] = @"UserSettingsSiriLocale";
   userSettingsSiriLocale = [configurationCopy userSettingsSiriLocale];
   v11 = userSettingsSiriLocale;
   if (userSettingsSiriLocale)
@@ -238,17 +235,17 @@
     v12 = &stru_287FA0430;
   }
 
-  v34[6] = v12;
-  v33[7] = @"BCP47DeviceLocale";
+  v33[6] = v12;
+  v32[7] = @"BCP47DeviceLocale";
   userSettingsBCP47DeviceLocale = [configurationCopy userSettingsBCP47DeviceLocale];
-  v34[7] = userSettingsBCP47DeviceLocale;
-  v33[8] = @"CarrierBundleIdentifier";
+  v33[7] = userSettingsBCP47DeviceLocale;
+  v32[8] = @"CarrierBundleIdentifier";
   carrierBundleIdentifier = [configurationCopy carrierBundleIdentifier];
-  v34[8] = carrierBundleIdentifier;
-  v33[9] = @"CarrierCountryIsoCode";
+  v33[8] = carrierBundleIdentifier;
+  v32[9] = @"CarrierCountryIsoCode";
   carrierCountryIsoCode = [configurationCopy carrierCountryIsoCode];
-  v34[9] = carrierCountryIsoCode;
-  v33[10] = @"iCloudId";
+  v33[9] = carrierCountryIsoCode;
+  v32[10] = @"iCloudId";
   iCloudId = [configurationCopy iCloudId];
   v16 = iCloudId;
   if (iCloudId)
@@ -261,11 +258,11 @@
     v17 = &stru_287FA0430;
   }
 
-  v34[10] = v17;
-  v33[11] = @"AppleIntelligenceState";
+  v33[10] = v17;
+  v32[11] = @"AppleIntelligenceState";
   v18 = [MEMORY[0x277CCABB0] numberWithInteger:{-[TRISystemConfiguration appleIntelligenceState](self->_sysConfig, "appleIntelligenceState")}];
-  v34[11] = v18;
-  v33[12] = @"MapsBucketId";
+  v33[11] = v18;
+  v32[12] = @"MapsBucketId";
   mapsBucketId = [configurationCopy mapsBucketId];
   v20 = mapsBucketId;
   v21 = &unk_287FC4C60;
@@ -274,17 +271,15 @@
     v21 = mapsBucketId;
   }
 
-  v34[12] = v21;
-  v33[13] = @"ActiveDictationLocales";
+  v33[12] = v21;
+  v32[13] = @"ActiveDictationLocales";
   activeDictationLocales = [configurationCopy activeDictationLocales];
-  v34[13] = activeDictationLocales;
-  v33[14] = @"MapsDeviceCountryCode";
+  v33[13] = activeDictationLocales;
+  v32[14] = @"MapsDeviceCountryCode";
   mapsDeviceCountryCode = [configurationCopy mapsDeviceCountryCode];
 
-  v34[14] = mapsDeviceCountryCode;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:15];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v33[14] = mapsDeviceCountryCode;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:15];
 
   return v24;
 }

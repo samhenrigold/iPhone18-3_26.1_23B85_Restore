@@ -213,7 +213,7 @@
         v25[0] = @"start";
         if (v7)
         {
-          [v7 timeRange];
+          objc_msgSend_timeRange(v7);
         }
 
         else
@@ -227,7 +227,7 @@
         v25[1] = @"duration";
         if (v7)
         {
-          [v7 timeRange];
+          objc_msgSend_timeRange(v7);
         }
 
         else

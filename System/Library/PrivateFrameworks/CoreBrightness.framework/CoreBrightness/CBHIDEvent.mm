@@ -2,19 +2,10 @@
 + (id)newEvent:(__IOHIDEvent *)event andService:(__IOHIDServiceClient *)service;
 - (CBHIDEvent)initWithHIDEvent:(__IOHIDEvent *)event andService:(__IOHIDServiceClient *)service;
 - (NSArray)copyChildren;
-- (float)floatValueForKey:(unsigned int)key;
-- (float)timestamp;
 - (void)dealloc;
 @end
 
 @implementation CBHIDEvent
-
-- (float)timestamp
-{
-  event = self->_event;
-  TimeStamp = IOHIDEventGetTimeStamp();
-  return mach_time_to_seconds(TimeStamp);
-}
 
 - (void)dealloc
 {
@@ -44,20 +35,19 @@
 
 - (NSArray)copyChildren
 {
-  v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  event = self->_event;
+  v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   Children = IOHIDEventGetChildren();
   if (Children)
   {
     for (i = 0; i < CFArrayGetCount(Children); ++i)
     {
-      v4 = [CBHIDEvent newEvent:CFArrayGetValueAtIndex(Children andService:i), self->_service];
-      [(NSArray *)v7 addObject:v4];
-      MEMORY[0x1E69E5920](v4);
+      v3 = [CBHIDEvent newEvent:CFArrayGetValueAtIndex(Children andService:i), self->_service];
+      [(NSArray *)v6 addObject:v3];
+      MEMORY[0x1E69E5920](v3);
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (CBHIDEvent)initWithHIDEvent:(__IOHIDEvent *)event andService:(__IOHIDServiceClient *)service
@@ -207,13 +197,6 @@ LABEL_36:
   {
     return [[CBHIDEvent alloc] initWithHIDEvent:event andService:service];
   }
-}
-
-- (float)floatValueForKey:(unsigned int)key
-{
-  event = self->_event;
-  IOHIDEventGetFloatValue();
-  return v4;
 }
 
 @end

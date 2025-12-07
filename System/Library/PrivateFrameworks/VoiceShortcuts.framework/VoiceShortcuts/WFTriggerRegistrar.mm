@@ -48,11 +48,11 @@
 
 void __69__WFTriggerRegistrar_getConfiguredTriggerDescriptionsWithCompletion___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) databaseProvider];
-  v11 = 0;
-  v3 = [v2 databaseWithError:&v11];
-  v4 = v11;
+  v10 = 0;
+  v3 = [v2 databaseWithError:&v10];
+  v4 = v10;
 
   if (v3)
   {
@@ -70,9 +70,9 @@ void __69__WFTriggerRegistrar_getConfiguredTriggerDescriptionsWithCompletion___b
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[WFTriggerRegistrar getConfiguredTriggerDescriptionsWithCompletion:]_block_invoke";
-      v14 = 2114;
-      v15 = v7;
+      v12 = "[WFTriggerRegistrar getConfiguredTriggerDescriptionsWithCompletion:]_block_invoke";
+      v13 = 2114;
+      v14 = v7;
       _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_ERROR, "%s Failed to get configured trigger descriptions: %{public}@", buf, 0x16u);
     }
 
@@ -80,8 +80,6 @@ void __69__WFTriggerRegistrar_getConfiguredTriggerDescriptionsWithCompletion___b
   }
 
   v8();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __69__WFTriggerRegistrar_getConfiguredTriggerDescriptionsWithCompletion___block_invoke_208(uint64_t a1, void *a2)
@@ -339,53 +337,51 @@ void __69__WFTriggerRegistrar_unregisterTriggerWithIdentifier_triggerBacking___b
 
 void __43__WFTriggerRegistrar_unregisterAllTriggers__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) databaseProvider];
-  v16 = 0;
-  v3 = [v2 databaseWithError:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [v2 databaseWithError:&v15];
+  v4 = v15;
 
   if (v3)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v5 = [v3 allConfiguredTriggers];
     v6 = [v5 descriptors];
 
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(a1 + 32) queue_unregisterConfiguredTrigger:*(*(&v12 + 1) + 8 * v10++)];
+          [*(a1 + 32) queue_unregisterConfiguredTrigger:*(*(&v11 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_registerConfiguredTrigger:(id)trigger completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   completionCopy = completion;
   queue = [(WFTriggerRegistrar *)self queue];
@@ -398,9 +394,9 @@ void __43__WFTriggerRegistrar_unregisterAllTriggers__block_invoke(uint64_t a1)
       v12 = getWFTriggersLogObject();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 136315138;
-        v18 = "[WFTriggerRegistrar queue_registerConfiguredTrigger:completion:]";
-        _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_DEFAULT, "%s Using CoreDuet backing source", &v17, 0xCu);
+        v16 = 136315138;
+        v17 = "[WFTriggerRegistrar queue_registerConfiguredTrigger:completion:]";
+        _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_DEFAULT, "%s Using CoreDuet backing source", &v16, 0xCu);
       }
 
       coreDuetListener = [(WFTriggerRegistrar *)self coreDuetListener];
@@ -409,9 +405,9 @@ void __43__WFTriggerRegistrar_unregisterAllTriggers__block_invoke(uint64_t a1)
       v14 = getWFTriggersLogObject();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 136315138;
-        v18 = "[WFTriggerRegistrar queue_registerConfiguredTrigger:completion:]";
-        _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEFAULT, "%s Using Biome backing source", &v17, 0xCu);
+        v16 = 136315138;
+        v17 = "[WFTriggerRegistrar queue_registerConfiguredTrigger:completion:]";
+        _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEFAULT, "%s Using Biome backing source", &v16, 0xCu);
       }
 
       coreDuetListener = [(WFTriggerRegistrar *)self biomeListener];
@@ -426,8 +422,6 @@ LABEL_11:
 
       break;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerTriggerWithIdentifier:(id)identifier completion:(id)completion
@@ -449,11 +443,11 @@ LABEL_11:
 
 void __63__WFTriggerRegistrar_registerTriggerWithIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) databaseProvider];
-  v16 = 0;
-  v3 = [v2 databaseWithError:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [v2 databaseWithError:&v15];
+  v4 = v15;
 
   if (v3)
   {
@@ -476,9 +470,9 @@ void __63__WFTriggerRegistrar_registerTriggerWithIdentifier_completion___block_i
       {
         v12 = *(a1 + 40);
         *buf = 136315394;
-        v18 = "[WFTriggerRegistrar registerTriggerWithIdentifier:completion:]_block_invoke";
-        v19 = 2112;
-        v20 = v12;
+        v17 = "[WFTriggerRegistrar registerTriggerWithIdentifier:completion:]_block_invoke";
+        v18 = 2112;
+        v19 = v12;
         _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_ERROR, "%s No configured trigger for identifier: %@", buf, 0x16u);
       }
 
@@ -496,8 +490,6 @@ void __63__WFTriggerRegistrar_registerTriggerWithIdentifier_completion___block_i
     v6 = [*(a1 + 32) unableToLoadDatabaseErrorWithUnderlyingError:v4];
     (*(v10 + 16))(v10, 0, v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerAllTriggersWithCompletion:(id)completion

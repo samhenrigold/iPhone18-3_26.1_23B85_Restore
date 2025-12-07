@@ -124,7 +124,7 @@
   if (xlPtgs && (v14 = XlFormulaProcessor::toString(processor, xlPtgs, rowBaseOrOffset, columnBaseOrOffset), clearXlPtgs(&v17), v14))
   {
     v15 = [MEMORY[0x277CCACA8] stringWithOcText:v14];
-    (*(*v14 + 8))(v14);
+    (*(v14->var0 + 1))(v14);
   }
 
   else

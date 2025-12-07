@@ -36,7 +36,7 @@
 
 - (void)migrateMDMWithContext:(int)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277D035A0]) initWithReason:@"mdmd-MigrateMDM"];
   v6 = *DMCLogObjects();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -50,11 +50,11 @@
     v7 = MDMManagedNonStoreBooksSystemGroupContainer();
     v8 = [v7 stringByAppendingPathComponent:@"Managed"];
 
-    v17 = 0;
+    v16 = 0;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v10 = [defaultManager fileExistsAtPath:v8 isDirectory:&v17];
+    v10 = [defaultManager fileExistsAtPath:v8 isDirectory:&v16];
 
-    if (v10 && v17 == 1)
+    if (v10 && v16 == 1)
     {
       v11 = *DMCLogObjects();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -82,16 +82,16 @@
 
   else
   {
-    v18 = 0;
-    v12 = MDMKeybagCreateMDMEscrowWithPasscode(&stru_2868451F0, &v18);
-    v13 = v18;
+    v17 = 0;
+    v12 = MDMKeybagCreateMDMEscrowWithPasscode(&stru_2868451F0, &v17);
+    v13 = v17;
     if (!v12)
     {
       v14 = *DMCLogObjects();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v20 = v13;
+        v19 = v13;
         _os_log_impl(&dword_2561F5000, v14, OS_LOG_TYPE_ERROR, "Unable to create unlock escrow during erase-context migration: %{public}@", buf, 0xCu);
       }
     }
@@ -105,8 +105,6 @@
     *buf = 0;
     _os_log_impl(&dword_2561F5000, v15, OS_LOG_TYPE_DEFAULT, "MDM completed migration.", buf, 2u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_moveNonStoreManagedBooksToSystemGroupContainer
@@ -117,7 +115,7 @@
 
 - (void)_moveNonStoreManagedBooksToSystemGroupContainerFromLegacyPath:(id)path
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v4 = *DMCLogObjects();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -127,8 +125,8 @@
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v43 = 0;
-  v6 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v43];
+  v42 = 0;
+  v6 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v42];
   mEMORY[0x277D24640] = [MEMORY[0x277D24640] sharedConfiguration];
   userMode = [mEMORY[0x277D24640] userMode];
 
@@ -138,15 +136,15 @@
     goto LABEL_56;
   }
 
-  if (!v6 || v43 != 1)
+  if (!v6 || v42 != 1)
   {
     v13 = 0;
     goto LABEL_47;
   }
 
-  v42 = 0;
-  v9 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v42];
-  v10 = v42;
+  v41 = 0;
+  v9 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v41];
+  v10 = v41;
   if (![v9 count])
   {
     v14 = v10 != 0;
@@ -189,16 +187,16 @@ LABEL_21:
         _os_log_impl(&dword_2561F5000, v22, OS_LOG_TYPE_DEFAULT, "Removing empty legacy non-store managed books...", buf, 2u);
       }
 
-      v39 = 0;
-      [defaultManager removeItemAtPath:pathCopy error:&v39];
-      v21 = v39;
+      v38 = 0;
+      [defaultManager removeItemAtPath:pathCopy error:&v38];
+      v21 = v38;
       if (v21)
       {
         v23 = *DMCLogObjects();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v47 = v21;
+          v46 = v21;
           _os_log_impl(&dword_2561F5000, v23, OS_LOG_TYPE_ERROR, "Failed to delete empty legacy non-store managed books with error %{public}@", buf, 0xCu);
         }
       }
@@ -217,7 +215,7 @@ LABEL_21:
   }
 
   v16 = MDMManagedNonStoreBooksDirectory();
-  v41[1] = 0;
+  v40[1] = 0;
   v17 = DMCSafelyCopyItemAtPathToDestinationPath();
   v18 = 0;
 
@@ -230,7 +228,7 @@ LABEL_21:
     }
 
     *buf = 138543362;
-    v47 = v18;
+    v46 = v18;
     v20 = "Failed to move legacy non-store managed books with error %{public}@";
     goto LABEL_20;
   }
@@ -254,16 +252,16 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v41[0] = 0;
-  [defaultManager removeItemAtPath:pathCopy error:v41];
-  v18 = v41[0];
+  v40[0] = 0;
+  [defaultManager removeItemAtPath:pathCopy error:v40];
+  v18 = v40[0];
   if (v18)
   {
     v19 = *DMCLogObjects();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v47 = v18;
+      v46 = v18;
       v20 = "Failed to delete legacy non-store managed books with error %{public}@";
 LABEL_20:
       _os_log_impl(&dword_2561F5000, v19, OS_LOG_TYPE_ERROR, v20, buf, 0xCu);
@@ -276,15 +274,15 @@ LABEL_40:
 
   if (v26)
   {
-    v44 = *MEMORY[0x277CCA180];
+    v43 = *MEMORY[0x277CCA180];
     v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:511];
-    v45 = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v44 = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
 
     v29 = MDMManagedNonStoreBooksDirectory();
-    v40 = v18;
-    [defaultManager setAttributes:v28 ofItemAtPath:v29 error:&v40];
-    v21 = v40;
+    v39 = v18;
+    [defaultManager setAttributes:v28 ofItemAtPath:v29 error:&v39];
+    v21 = v39;
 
     if (v21)
     {
@@ -292,7 +290,7 @@ LABEL_40:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v47 = v21;
+        v46 = v21;
         _os_log_impl(&dword_2561F5000, v30, OS_LOG_TYPE_ERROR, "Failed to set permissions on new non-store managed books directory with error %{public}@", buf, 0xCu);
       }
     }
@@ -334,7 +332,7 @@ LABEL_47:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v47 = v35;
+        v46 = v35;
         _os_log_impl(&dword_2561F5000, v36, OS_LOG_TYPE_ERROR, "Failed to fix permissions of device's MDM managed non-store books with errors %{public}@", buf, 0xCu);
       }
     }
@@ -353,13 +351,11 @@ LABEL_56:
     *buf = 0;
     _os_log_impl(&dword_2561F5000, v37, OS_LOG_TYPE_DEFAULT, "Completed non-store managed books system group container migration.", buf, 2u);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNonStoreBooksManifestForSystemGroupContainer
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v2 = *DMCLogObjects();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -404,31 +400,31 @@ LABEL_56:
     }
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     dictionary2 = v10;
-    v12 = [dictionary2 countByEnumeratingWithState:&v52 objects:v58 count:16];
+    v12 = [dictionary2 countByEnumeratingWithState:&v51 objects:v57 count:16];
     if (v12)
     {
       v13 = v12;
-      v42 = v9;
-      v43 = defaultManager;
-      v44 = v10;
-      v45 = v8;
-      v46 = 0;
-      v14 = *v53;
+      v41 = v9;
+      v42 = defaultManager;
+      v43 = v10;
+      v44 = v8;
+      v45 = 0;
+      v14 = *v52;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v53 != v14)
+          if (*v52 != v14)
           {
             objc_enumerationMutation(dictionary2);
           }
 
-          v16 = [objc_alloc(MEMORY[0x277D24628]) initWithManifestDictionary:*(*(&v52 + 1) + 8 * i)];
+          v16 = [objc_alloc(MEMORY[0x277D24628]) initWithManifestDictionary:*(*(&v51 + 1) + 8 * i)];
           persistentID = [v16 persistentID];
 
           if (persistentID)
@@ -453,7 +449,7 @@ LABEL_56:
                 dictionary2 = v21;
                 [v16 setFullPath:v27];
 
-                v46 = 1;
+                v45 = 1;
               }
             }
 
@@ -462,56 +458,56 @@ LABEL_56:
           }
         }
 
-        v13 = [dictionary2 countByEnumeratingWithState:&v52 objects:v58 count:16];
+        v13 = [dictionary2 countByEnumeratingWithState:&v51 objects:v57 count:16];
       }
 
       while (v13);
 
-      defaultManager = v43;
-      v10 = v44;
-      if ((v46 & 1) == 0)
+      defaultManager = v42;
+      v10 = v43;
+      if ((v45 & 1) == 0)
       {
         goto LABEL_28;
       }
 
       dictionary2 = [MEMORY[0x277CBEB38] dictionary];
       v29 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(dictionary, "count")}];
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
       allValues = [dictionary allValues];
-      v31 = [allValues countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v31 = [allValues countByEnumeratingWithState:&v47 objects:v56 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v49;
+        v33 = *v48;
         do
         {
           for (j = 0; j != v32; ++j)
           {
-            if (*v49 != v33)
+            if (*v48 != v33)
             {
               objc_enumerationMutation(allValues);
             }
 
-            manifestDictionary = [*(*(&v48 + 1) + 8 * j) manifestDictionary];
+            manifestDictionary = [*(*(&v47 + 1) + 8 * j) manifestDictionary];
             [v29 addObject:manifestDictionary];
           }
 
-          v32 = [allValues countByEnumeratingWithState:&v48 objects:v57 count:16];
+          v32 = [allValues countByEnumeratingWithState:&v47 objects:v56 count:16];
         }
 
         while (v32);
       }
 
-      [dictionary2 setObject:v29 forKeyedSubscript:v42];
+      [dictionary2 setObject:v29 forKeyedSubscript:v41];
       v36 = MDMManagedNonStoreBooksManifestPath();
       [dictionary2 writeToFile:v36 atomically:1];
 
       MDMSendManagedBooksChangedNotification();
-      v10 = v44;
-      v8 = v45;
+      v10 = v43;
+      v8 = v44;
     }
 
 LABEL_28:
@@ -536,13 +532,11 @@ LABEL_38:
   }
 
 LABEL_39:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSkipBackupKeyForNonStoreBooksDirectory
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v3 = MDMManagedNonStoreBooksDirectory();
   v4 = [defaultManager fileExistsAtPath:v3];
@@ -552,8 +546,8 @@ LABEL_39:
     v5 = *DMCLogObjects();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15[0]) = 0;
-      _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_DEFAULT, "Migrating enterprise book backup flag...", v15, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_DEFAULT, "Migrating enterprise book backup flag...", v14, 2u);
     }
 
     v6 = !+[MDMMCInterface isEnterpriseBookBackupAllowed];
@@ -563,62 +557,66 @@ LABEL_39:
     v9 = *DMCLogObjects();
     if (v8)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v15[0] = 67109120;
-        v15[1] = v6;
-        v10 = "Set backup exclusion on enterprise books directory to %d";
-        v11 = v9;
-        v12 = OS_LOG_TYPE_DEFAULT;
-        v13 = 8;
-LABEL_9:
-        _os_log_impl(&dword_2561F5000, v11, v12, v10, v15, v13);
+        return;
       }
+
+      v14[0] = 67109120;
+      v14[1] = v6;
+      v10 = "Set backup exclusion on enterprise books directory to %d";
+      v11 = v9;
+      v12 = OS_LOG_TYPE_DEFAULT;
+      v13 = 8;
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    else
     {
-      LOWORD(v15[0]) = 0;
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
+      LOWORD(v14[0]) = 0;
       v10 = "Failed to set backup exclusion on enterprise books directory";
       v11 = v9;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 2;
-      goto LABEL_9;
     }
-  }
 
-  v14 = *MEMORY[0x277D85DE8];
+    _os_log_impl(&dword_2561F5000, v11, v12, v10, v14, v13);
+  }
 }
 
 - (void)_updateUnlockTokenSecretToClassDIfNeeded
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D03520];
   v3 = *MEMORY[0x277D24D00];
   v4 = *MEMORY[0x277D24958];
   mEMORY[0x277D24648] = [MEMORY[0x277D24648] sharedConfiguration];
   personaID = [mEMORY[0x277D24648] personaID];
-  v42 = 0;
-  LOBYTE(v35) = personaID != 0;
-  v7 = [v2 dataFromService:v3 account:v4 label:0 description:0 group:0 useSystemKeychain:0 enforcePersonalPersona:v35 outError:&v42];
-  v8 = v42;
+  v41 = 0;
+  LOBYTE(v34) = personaID != 0;
+  v7 = [v2 dataFromService:v3 account:v4 label:0 description:0 group:0 useSystemKeychain:0 enforcePersonalPersona:v34 outError:&v41];
+  v8 = v41;
 
   v9 = [MEMORY[0x277D03520] stringFromServiceData:v7];
   v10 = MEMORY[0x277D03520];
   v11 = *MEMORY[0x277D24800];
   mEMORY[0x277D24648]2 = [MEMORY[0x277D24648] sharedConfiguration];
   personaID2 = [mEMORY[0x277D24648]2 personaID];
-  v41 = v8;
-  LOBYTE(v36) = personaID2 != 0;
-  v38 = v11;
-  v14 = [v10 dataFromService:v3 account:v11 label:0 description:0 group:0 useSystemKeychain:0 enforcePersonalPersona:v36 outError:&v41];
-  v15 = v41;
+  v40 = v8;
+  LOBYTE(v35) = personaID2 != 0;
+  v37 = v11;
+  v14 = [v10 dataFromService:v3 account:v11 label:0 description:0 group:0 useSystemKeychain:0 enforcePersonalPersona:v35 outError:&v40];
+  v15 = v40;
 
   v16 = v9;
   v17 = [MEMORY[0x277D03520] stringFromServiceData:v14];
   if (v16)
   {
-    v39 = v7;
+    v38 = v7;
     v18 = MEMORY[0x277D03520];
     mEMORY[0x277D24648]3 = [MEMORY[0x277D24648] sharedConfiguration];
     personaID3 = [mEMORY[0x277D24648]3 personaID];
@@ -636,7 +634,7 @@ LABEL_9:
       v22 = +[MDMEvents sharedInstance];
       [v22 recordDateForEvent:@"UnlockTokenSuperseded"];
 
-      v7 = v39;
+      v7 = v38;
     }
 
     else
@@ -648,11 +646,11 @@ LABEL_9:
       v28 = *MEMORY[0x277CDBF00];
       mEMORY[0x277D24648]4 = [MEMORY[0x277D24648] sharedConfiguration];
       personaID4 = [mEMORY[0x277D24648]4 personaID];
-      v40 = v15;
-      BYTE2(v37) = personaID4 != 0;
-      LOWORD(v37) = 256;
-      LOBYTE(v25) = [v25 setData:v27 forService:v3 account:v38 label:0 description:0 access:v28 group:0 useSystemKeychain:v37 sysBound:&v40 enforcePersonalPersona:? outError:?];
-      v31 = v40;
+      v39 = v15;
+      BYTE2(v36) = personaID4 != 0;
+      LOWORD(v36) = 256;
+      LOBYTE(v25) = [v25 setData:v27 forService:v3 account:v37 label:0 description:0 access:v28 group:0 useSystemKeychain:v36 sysBound:&v39 enforcePersonalPersona:? outError:?];
+      v31 = v39;
 
       if (v25)
       {
@@ -666,13 +664,13 @@ LABEL_9:
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v44 = v31;
+          v43 = v31;
           _os_log_impl(&dword_2561F5000, v33, OS_LOG_TYPE_ERROR, "Could not set unlock token item: %{public}@", buf, 0xCu);
         }
       }
 
       v15 = v31;
-      v7 = v39;
+      v7 = v38;
       v16 = v26;
       v14 = v24;
       v17 = 0;
@@ -689,7 +687,7 @@ LABEL_14:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v44 = v15;
+      v43 = v15;
       _os_log_impl(&dword_2561F5000, v23, OS_LOG_TYPE_ERROR, "Could not get unlock token item: %{public}@", buf, 0xCu);
     }
 
@@ -697,8 +695,6 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetManagedAppRemovability
@@ -747,7 +743,7 @@ void __43__MDMMigrator__resetManagedAppRemovability__block_invoke(uint64_t a1, v
 
 void __43__MDMMigrator__resetManagedAppRemovability__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -755,15 +751,13 @@ void __43__MDMMigrator__resetManagedAppRemovability__block_invoke_2(uint64_t a1,
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_ERROR, "Could not set removability for bundle identifier: %{bundleIdentifier}@, error: %{public}@", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_ERROR, "Could not set removability for bundle identifier: %{bundleIdentifier}@, error: %{public}@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetManagedAppTapToPayScreenLock
@@ -791,7 +785,7 @@ void __43__MDMMigrator__resetManagedAppRemovability__block_invoke_2(uint64_t a1,
 
 void __49__MDMMigrator__resetManagedAppTapToPayScreenLock__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = [v5 objectForKeyedSubscript:*MEMORY[0x277D248A0]];
@@ -801,25 +795,25 @@ void __49__MDMMigrator__resetManagedAppTapToPayScreenLock__block_invoke(uint64_t
     v8 = v7;
     if (v7 && [v7 BOOLValue])
     {
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x2050000000;
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2050000000;
       v9 = getPRSettingsProviderClass_softClass;
-      v16 = getPRSettingsProviderClass_softClass;
+      v15 = getPRSettingsProviderClass_softClass;
       if (!getPRSettingsProviderClass_softClass)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v18 = __getPRSettingsProviderClass_block_invoke;
-        v19 = &unk_27982C0C0;
-        v20 = &v13;
+        v17 = __getPRSettingsProviderClass_block_invoke;
+        v18 = &unk_27982C0C0;
+        v19 = &v12;
         __getPRSettingsProviderClass_block_invoke(&buf);
-        v9 = v14[3];
+        v9 = v13[3];
       }
 
       v10 = v9;
-      _Block_object_dispose(&v13, 8);
-      [v9 setMDMAppAttribute:0 withValue:objc_msgSend(v8 forBundleID:{"BOOLValue", v13), v4}];
+      _Block_object_dispose(&v12, 8);
+      [v9 setMDMAppAttribute:0 withValue:objc_msgSend(v8 forBundleID:{"BOOLValue", v12), v4}];
       v11 = *DMCLogObjects();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
@@ -829,8 +823,6 @@ void __49__MDMMigrator__resetManagedAppTapToPayScreenLock__block_invoke(uint64_t
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateUserEnrollmentToUseRMAccount
@@ -951,36 +943,36 @@ LABEL_25:
 
 - (void)_createRMAccountWithPersonaID:(id)d managedAppleID:(id)iD profileIdentifier:(id)identifier organizationName:(id)name
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   identifierCopy = identifier;
   nameCopy = name;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__4;
-  v35 = __Block_byref_object_dispose__4;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__4;
+  v34 = __Block_byref_object_dispose__4;
+  v35 = 0;
   v13 = objc_opt_new();
   enrollmentFlowController = [MEMORY[0x277D031A0] enrollmentFlowController];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __95__MDMMigrator__createRMAccountWithPersonaID_managedAppleID_profileIdentifier_organizationName___block_invoke;
-  v28[3] = &unk_27982C070;
-  v30 = &v31;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __95__MDMMigrator__createRMAccountWithPersonaID_managedAppleID_profileIdentifier_organizationName___block_invoke;
+  v27[3] = &unk_27982C070;
+  v29 = &v30;
   v15 = v13;
-  v29 = v15;
-  [enrollmentFlowController updateMDMUserEnrollmentWithManagedAppleID:iDCopy profileIdentifier:identifierCopy organizationName:nameCopy personaID:dCopy completionHandler:v28];
+  v28 = v15;
+  [enrollmentFlowController updateMDMUserEnrollmentWithManagedAppleID:iDCopy profileIdentifier:identifierCopy organizationName:nameCopy personaID:dCopy completionHandler:v27];
   [v15 waitForCompletion];
-  if (v32[5])
+  if (v31[5])
   {
     v16 = *DMCLogObjects();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      dMCVerboseDescription = [v32[5] DMCVerboseDescription];
+      dMCVerboseDescription = [v31[5] DMCVerboseDescription];
       *buf = 138543362;
-      v38 = dMCVerboseDescription;
+      v37 = dMCVerboseDescription;
       _os_log_impl(&dword_2561F5000, v16, OS_LOG_TYPE_ERROR, "Failed to create RMAccount: %{public}@", buf, 0xCu);
     }
   }
@@ -997,19 +989,19 @@ LABEL_25:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v38 = identifier;
+        v37 = identifier;
         _os_log_impl(&dword_2561F5000, v20, OS_LOG_TYPE_DEBUG, "Created RMAccount: %{public}@", buf, 0xCu);
       }
 
       mEMORY[0x277D24648] = [MEMORY[0x277D24648] sharedConfiguration];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __95__MDMMigrator__createRMAccountWithPersonaID_managedAppleID_profileIdentifier_organizationName___block_invoke_36;
-      v26[3] = &unk_27982C098;
-      v27 = identifier;
-      v25 = 0;
-      [mEMORY[0x277D24648] updateMDMConfigurationWithUpdateBlock:v26 error:&v25];
-      v22 = v25;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __95__MDMMigrator__createRMAccountWithPersonaID_managedAppleID_profileIdentifier_organizationName___block_invoke_36;
+      v25[3] = &unk_27982C098;
+      v26 = identifier;
+      v24 = 0;
+      [mEMORY[0x277D24648] updateMDMConfigurationWithUpdateBlock:v25 error:&v24];
+      v22 = v24;
 
       if (v22)
       {
@@ -1017,15 +1009,14 @@ LABEL_25:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v38 = v22;
+          v37 = v22;
           _os_log_impl(&dword_2561F5000, v23, OS_LOG_TYPE_ERROR, "Failed to update MDM config with error: %{public}@", buf, 0xCu);
         }
       }
     }
   }
 
-  _Block_object_dispose(&v31, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __95__MDMMigrator__createRMAccountWithPersonaID_managedAppleID_profileIdentifier_organizationName___block_invoke(uint64_t a1, int a2, int a3, id obj)
@@ -1037,7 +1028,7 @@ void __95__MDMMigrator__createRMAccountWithPersonaID_managedAppleID_profileIdent
 
 - (void)_updateToMDMPropertiesForDDMActiveState
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v3 = [standardUserDefaults valueForKey:@"RMDMActive"];
 
@@ -1054,7 +1045,7 @@ void __95__MDMMigrator__createRMAccountWithPersonaID_managedAppleID_profileIdent
         v7 = v5;
         v8 = [v6 numberWithBool:bOOLValue];
         *buf = 138543362;
-        v21 = v8;
+        v20 = v8;
         _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEBUG, "MDM migration: Got old DDM active state: %{public}@", buf, 0xCu);
       }
 
@@ -1064,16 +1055,16 @@ void __95__MDMMigrator__createRMAccountWithPersonaID_managedAppleID_profileIdent
       }
 
       mEMORY[0x277D24648] = [MEMORY[0x277D24648] sharedConfiguration];
-      v19 = 0;
-      [mEMORY[0x277D24648] setPropertyForKey:@"RMDMActive" value:MEMORY[0x277CBEC38] error:&v19];
-      v10 = v19;
+      v18 = 0;
+      [mEMORY[0x277D24648] setPropertyForKey:@"RMDMActive" value:MEMORY[0x277CBEC38] error:&v18];
+      v10 = v18;
       v11 = *DMCLogObjects();
       if (v10)
       {
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v21 = v10;
+          v20 = v10;
           v12 = "MDM migration: Failed to write new DDM active state with error: %{public}@";
           v13 = v11;
           v14 = OS_LOG_TYPE_ERROR;
@@ -1109,13 +1100,11 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateForRTSIfNeeded
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   [v2 migrateAllFiles];
   if ([MEMORY[0x277D034F8] isAppleInternal])
@@ -1123,7 +1112,7 @@ LABEL_16:
     userDefaults = [v2 userDefaults];
     if ([userDefaults count])
     {
-      v23 = v2;
+      v22 = v2;
       v4 = *DMCLogObjects();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
@@ -1131,48 +1120,48 @@ LABEL_16:
         _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_DEFAULT, "Migrating user defaults for RTS...", buf, 2u);
       }
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
-      v22 = userDefaults;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v21 = userDefaults;
       v5 = userDefaults;
-      v25 = [v5 countByEnumeratingWithState:&v31 objects:v42 count:16];
-      if (v25)
+      v24 = [v5 countByEnumeratingWithState:&v30 objects:v41 count:16];
+      if (v24)
       {
-        v24 = *v32;
+        v23 = *v31;
         do
         {
           v6 = 0;
           do
           {
-            if (*v32 != v24)
+            if (*v31 != v23)
             {
               objc_enumerationMutation(v5);
             }
 
-            v26 = v6;
-            v7 = *(*(&v31 + 1) + 8 * v6);
+            v25 = v6;
+            v7 = *(*(&v30 + 1) + 8 * v6);
+            v26 = 0u;
             v27 = 0u;
             v28 = 0u;
             v29 = 0u;
-            v30 = 0u;
             v8 = [v5 objectForKeyedSubscript:v7];
-            v9 = [v8 countByEnumeratingWithState:&v27 objects:v41 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v26 objects:v40 count:16];
             if (v9)
             {
               v10 = v9;
-              v11 = *v28;
+              v11 = *v27;
               do
               {
                 for (i = 0; i != v10; ++i)
                 {
-                  if (*v28 != v11)
+                  if (*v27 != v11)
                   {
                     objc_enumerationMutation(v8);
                   }
 
-                  v13 = *(*(&v27 + 1) + 8 * i);
+                  v13 = *(*(&v26 + 1) + 8 * i);
                   v14 = *DMCLogObjects();
                   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
                   {
@@ -1180,11 +1169,11 @@ LABEL_16:
                     v16 = [v5 objectForKeyedSubscript:v7];
                     v17 = [v16 objectForKeyedSubscript:v13];
                     *buf = 138543874;
-                    v36 = v13;
-                    v37 = 2114;
-                    v38 = v17;
-                    v39 = 2114;
-                    v40 = v7;
+                    v35 = v13;
+                    v36 = 2114;
+                    v37 = v17;
+                    v38 = 2114;
+                    v39 = v7;
                     _os_log_impl(&dword_2561F5000, v15, OS_LOG_TYPE_DEBUG, "MDMMigrator setting user defaults (key: %{public}@, value: %{public}@, domain: %{public}@)", buf, 0x20u);
                   }
 
@@ -1194,28 +1183,26 @@ LABEL_16:
                   [standardUserDefaults setObject:v20 forKey:v13 inDomain:v7];
                 }
 
-                v10 = [v8 countByEnumeratingWithState:&v27 objects:v41 count:16];
+                v10 = [v8 countByEnumeratingWithState:&v26 objects:v40 count:16];
               }
 
               while (v10);
             }
 
-            v6 = v26 + 1;
+            v6 = v25 + 1;
           }
 
-          while (v26 + 1 != v25);
-          v25 = [v5 countByEnumeratingWithState:&v31 objects:v42 count:16];
+          while (v25 + 1 != v24);
+          v24 = [v5 countByEnumeratingWithState:&v30 objects:v41 count:16];
         }
 
-        while (v25);
+        while (v24);
       }
 
-      userDefaults = v22;
-      v2 = v23;
+      userDefaults = v21;
+      v2 = v22;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

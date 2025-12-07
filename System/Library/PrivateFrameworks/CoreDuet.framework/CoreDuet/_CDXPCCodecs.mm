@@ -36,30 +36,30 @@
 
 + (BOOL)addDeviceIDs:(id)ds toDictionary:(id)dictionary error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   xdict = dictionary;
   v7 = xpc_array_create(0, 0);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = dsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         uTF8String = [v13 UTF8String];
         if (uTF8String)
         {
@@ -75,7 +75,7 @@
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v30 = v13;
+              v29 = v13;
               _os_log_error_impl(&dword_191750000, v16, OS_LOG_TYPE_ERROR, "Failed to convert string to xpc string: %@", buf, 0xCu);
             }
           }
@@ -87,13 +87,13 @@
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v30 = v13;
+            v29 = v13;
             _os_log_error_impl(&dword_191750000, v15, OS_LOG_TYPE_ERROR, "Failed to convert string to UTF-8: %@", buf, 0xCu);
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v10);
@@ -125,7 +125,6 @@ LABEL_18:
 
 LABEL_19:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18 == 0;
 }
 
@@ -277,8 +276,6 @@ LABEL_17:
     *error = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
@@ -354,9 +351,9 @@ LABEL_11:
   uTF8String = [identifierCopy UTF8String];
 
   xpc_dictionary_set_string(v10, "id", uTF8String);
-  v18 = 0;
-  v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:infoCopy requiringSecureCoding:0 error:&v18];
-  v13 = v18;
+  v17 = 0;
+  v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:infoCopy requiringSecureCoding:0 error:&v17];
+  v13 = v17;
   if (v12)
   {
     xpc_dictionary_set_data(v10, "info", [v12 bytes], objc_msgSend(v12, "length"));
@@ -368,8 +365,8 @@ LABEL_11:
     goto LABEL_3;
   }
 
-  v17 = +[_CDXPCCodecs _log];
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+  v16 = +[_CDXPCCodecs _log];
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
     +[_CDXPCCodecs notificationEventWithRegistrationIdentifier:info:error:];
   }
@@ -383,8 +380,6 @@ LABEL_3:
   }
 
 LABEL_4:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -508,14 +503,12 @@ LABEL_26:
   v2 = values;
   v3 = xpc_dictionary_create(keys, &values, 1uLL);
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 + (id)fetchProxySourceDeviceUUIDReplyWithEvent:(id)event sourceDeviceUUID:(id)d error:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   errorCopy = error;
   reply = xpc_dictionary_create_reply(event);
@@ -529,12 +522,10 @@ LABEL_26:
     v11 = xpc_string_create("fetch-uuid");
     xpc_dictionary_set_value(reply, "msgtype", v11);
     *uuid = 0;
-    v15 = 0;
+    v14 = 0;
     [dCopy getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(reply, "uuid", uuid);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return reply;
 }
@@ -594,8 +585,6 @@ LABEL_13:
   v2 = values;
   v3 = xpc_dictionary_create(keys, &values, 1uLL);
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
@@ -640,38 +629,20 @@ LABEL_13:
   return v3;
 }
 
-+ (void)keepAliveFromKeepAliveEvent:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Unknown event type in dictionary: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)notificationEventWithRegistrationIdentifier:info:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_191750000, v1, OS_LOG_TYPE_FAULT, "Unable to encode info %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_191750000, v1, OS_LOG_TYPE_FAULT, "Unable to encode info %@: %@", v2, 0x16u);
 }
 
 + (void)parseNotificationEvent:registrationIdentifier:info:error:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "Unable to decode info: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)parseNotificationEvent:registrationIdentifier:info:error:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Invalid event: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "Unable to decode info: %@", v1, 0xCu);
 }
 
 @end

@@ -240,12 +240,12 @@ LABEL_16:
         mEMORY[0x277CEF368]2 = [MEMORY[0x277CEF368] sharedPreferences];
         languageCode2 = [mEMORY[0x277CEF368]2 languageCode];
 
-        allKeys = [v10 allKeys];
+        v35 = objc_msgSend_allKeys(v10);
         v65 = languageCode2;
-        v36 = allKeys;
+        v36 = v35;
         if ([v9 containsObject:languageCode2])
         {
-          v37 = [allKeys containsObject:languageCode2];
+          v37 = [v35 containsObject:languageCode2];
         }
 
         else

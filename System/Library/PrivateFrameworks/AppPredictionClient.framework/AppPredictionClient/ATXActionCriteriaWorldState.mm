@@ -99,7 +99,7 @@
   if (!self->_fake && (*(&self->_flags + 1) & 2) == 0)
   {
     currentModeSemanticType = [MEMORY[0x1E69C5AB0] currentModeSemanticType];
-    v4 = __atxlog_handle_default();
+    v4 = __atxlog_handle_default(currentModeSemanticType);
     v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     if (currentModeSemanticType)
     {

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)hdrModeAsString:(int)string;
 - (int)StringAsHdrMode:(id)mode;
 - (int)hdrMode;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)hdrModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1000350F0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsHdrMode:(id)mode
@@ -89,7 +105,6 @@
 {
   if (*&self->_has)
   {
-    hdrMode = self->_hdrMode;
     PBDataWriterWriteInt32Field();
   }
 }

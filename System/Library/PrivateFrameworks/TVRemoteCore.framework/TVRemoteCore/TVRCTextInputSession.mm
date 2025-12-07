@@ -56,85 +56,84 @@
   v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = self->_messenger;
+  v6 = v5;
   if (v5)
   {
-    v6 = _TVRCRemoteTextInputLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TVRCRemoteTextInputLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "Activate\n", buf, 2u);
+      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "Activate\n", buf, 2u);
     }
 
     v19 = *MEMORY[0x277D442E8];
     v20 = &unk_287E66A00;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     messenger = self->_messenger;
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
     v18[2] = __48__TVRCTextInputSession__activateWithCompletion___block_invoke;
     v18[3] = &unk_279D82590;
     v18[4] = self;
-    [(RPMessageable *)messenger registerEventID:@"_tiStarted" options:v7 handler:v18];
-    v9 = self->_messenger;
+    [(RPMessageable *)messenger registerEventID:@"_tiStarted" options:v8 handler:v18];
+    v10 = self->_messenger;
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
     v17[2] = __48__TVRCTextInputSession__activateWithCompletion___block_invoke_2;
     v17[3] = &unk_279D82590;
     v17[4] = self;
-    [(RPMessageable *)v9 registerEventID:@"_tiStopped" options:v7 handler:v17];
-    v10 = self->_messenger;
+    [(RPMessageable *)v10 registerEventID:@"_tiStopped" options:v8 handler:v17];
+    v11 = self->_messenger;
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
     v16[2] = __48__TVRCTextInputSession__activateWithCompletion___block_invoke_3;
     v16[3] = &unk_279D82590;
     v16[4] = self;
-    [(RPMessageable *)v10 registerEventID:@"_tiC" options:v7 handler:v16];
+    [(RPMessageable *)v11 registerEventID:@"_tiC" options:v8 handler:v16];
     self->_started = 1;
-    v11 = *MEMORY[0x277D44228];
+    v12 = *MEMORY[0x277D44228];
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
     v14[2] = __48__TVRCTextInputSession__activateWithCompletion___block_invoke_4;
     v14[3] = &unk_279D825B8;
     v14[4] = self;
     v15 = completionCopy;
-    [(RPMessageable *)v5 sendRequestID:@"_tiStart" request:MEMORY[0x277CBEC10] destinationID:v11 options:0 responseHandler:v14];
+    [(RPMessageable *)v6 sendRequestID:@"_tiStart" request:MEMORY[0x277CBEC10] destinationID:v12 options:0 responseHandler:v14];
   }
 
   else
   {
-    v7 = RPErrorF();
-    v12 = _TVRCRemoteTextInputLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v8 = RPErrorF();
+    v13 = _TVRCRemoteTextInputLog(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v7;
-      _os_log_impl(&dword_26CF7F000, v12, OS_LOG_TYPE_DEFAULT, "### Activate failed: %@\n", buf, 0xCu);
+      v22 = v8;
+      _os_log_impl(&dword_26CF7F000, v13, OS_LOG_TYPE_DEFAULT, "### Activate failed: %@\n", buf, 0xCu);
     }
 
     if (completionCopy)
     {
-      (*(completionCopy + 2))(completionCopy, v7);
+      (*(completionCopy + 2))(completionCopy, v8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __48__TVRCTextInputSession__activateWithCompletion___block_invoke_4(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = _TVRCRemoteTextInputLog();
+  v10 = _TVRCRemoteTextInputLog(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
     if (v11)
     {
-      v16 = 138412290;
-      v17 = v9;
-      _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "### TextInputStart failed: %@\n", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v9;
+      _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "### TextInputStart failed: %@\n", &v15, 0xCu);
     }
 
     v12 = *(a1 + 40);
@@ -150,8 +149,8 @@ LABEL_10:
   {
     if (v11)
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "TextInputStarted\n", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "TextInputStarted\n", &v15, 2u);
     }
 
     [*(a1 + 32) _handleTextInputChange:v7 started:1];
@@ -162,8 +161,6 @@ LABEL_10:
       goto LABEL_10;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -179,7 +176,7 @@ LABEL_10:
 
 - (void)_invalidate
 {
-  v3 = _TVRCRemoteTextInputLog();
+  v3 = _TVRCRemoteTextInputLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -208,57 +205,54 @@ LABEL_10:
 
 void __35__TVRCTextInputSession__invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a4;
-  v5 = _TVRCRemoteTextInputLog();
+  v5 = _TVRCRemoteTextInputLog(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
     if (v6)
     {
-      v11 = 138412290;
-      v12 = v4;
+      v10 = 138412290;
+      v11 = v4;
       v7 = "### TextInputStop failed: %@\n";
       v8 = v5;
       v9 = 12;
 LABEL_6:
-      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, v7, &v11, v9);
+      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, v7, &v10, v9);
     }
   }
 
   else if (v6)
   {
-    LOWORD(v11) = 0;
+    LOWORD(v10) = 0;
     v7 = "TextInputStopped\n";
     v8 = v5;
     v9 = 2;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTextInputStarted:(id)started
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   CFDataGetTypeID();
   v5 = CFDictionaryGetTypedValue();
-  v6 = _TVRCRemoteTextInputLog();
+  v6 = _TVRCRemoteTextInputLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = [v5 length];
-    _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "RTI Started: %d bytes\n", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = [v5 length];
+    _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "RTI Started: %d bytes\n", v7, 8u);
   }
 
   [(TVRCTextInputSession *)self _handleTextInputChange:startedCopy started:1];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTextInputStopped:(id)stopped
 {
-  v4 = _TVRCRemoteTextInputLog();
+  v4 = _TVRCRemoteTextInputLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -298,7 +292,7 @@ LABEL_6:
 
 void __48__TVRCTextInputSession_handleTextActionPayload___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v3 = [*(a1 + 32) data];
   v4 = *(a1 + 32);
@@ -310,52 +304,48 @@ void __48__TVRCTextInputSession_handleTextActionPayload___block_invoke(uint64_t 
 
   if (v3)
   {
-    [v2 setObject:v3 forKeyedSubscript:@"_tiD"];
+    v4 = [v2 setObject:v3 forKeyedSubscript:@"_tiD"];
   }
 
-  v6 = _TVRCRemoteTextInputLog();
+  v6 = _TVRCRemoteTextInputLog(v4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = [v3 length];
-    _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "RTI event: %d bytes\n", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = [v3 length];
+    _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "RTI event: %d bytes\n", v7, 8u);
   }
 
   [*(*(a1 + 40) + 24) sendEventID:@"_tiC" event:v2 destinationID:*MEMORY[0x277D44228] options:0 completion:&__block_literal_global_38];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __48__TVRCTextInputSession_handleTextActionPayload___block_invoke_35(uint64_t a1, void *a2)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TVRCRemoteTextInputLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _TVRCRemoteTextInputLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "### RTI send text change failed: %@\n", &v5, 0xCu);
+      v6 = v3;
+      _os_log_impl(&dword_26CF7F000, v4, OS_LOG_TYPE_DEFAULT, "### RTI send text change failed: %@\n", &v5, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performDocumentRequest:(id)request completion:(id)completion
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  v5 = _TVRCRemoteTextInputLog();
+  v5 = _TVRCRemoteTextInputLog(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = requestCopy;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "No implementation for performDocumentRequest: %@\n", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = requestCopy;
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "No implementation for performDocumentRequest: %@\n", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTextInputChange:(id)change started:(BOOL)started
@@ -367,43 +357,44 @@ void __48__TVRCTextInputSession_handleTextActionPayload___block_invoke_35(uint64
   if (v7)
   {
     v8 = [MEMORY[0x277D46158] payloadWithData:v7 version:CFDictionaryGetInt64Ranged()];
+    v9 = v8;
     if (v8)
     {
       if (!started)
       {
-        v9 = _TVRCRemoteTextInputLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = _TVRCRemoteTextInputLog(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           v17[0] = 67109120;
           v17[1] = [v7 length];
-          _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "RTI Change remote: %d bytes\n", v17, 8u);
+          _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "RTI Change remote: %d bytes\n", v17, 8u);
         }
       }
 
       rtiSession = self->_rtiSession;
       if (!rtiSession)
       {
-        v11 = objc_alloc_init(MEMORY[0x277D46178]);
-        v12 = self->_rtiSession;
-        self->_rtiSession = v11;
+        v12 = objc_alloc_init(MEMORY[0x277D46178]);
+        v13 = self->_rtiSession;
+        self->_rtiSession = v12;
 
         [(RTIInputSystemSourceSession *)self->_rtiSession setPayloadDelegate:self];
-        v13 = MEMORY[0x26D6B0B70](self->_rtiUpdatedHandler);
-        v14 = v13;
-        if (v13)
+        v14 = MEMORY[0x26D6B0B70](self->_rtiUpdatedHandler);
+        v15 = v14;
+        if (v14)
         {
-          (*(v13 + 16))(v13);
+          (*(v14 + 16))(v14);
         }
 
         rtiSession = self->_rtiSession;
       }
 
-      [(RTIInputSystemSourceSession *)rtiSession handleTextActionPayload:v8];
+      [(RTIInputSystemSourceSession *)rtiSession handleTextActionPayload:v9];
     }
 
     else
     {
-      v16 = _TVRCRemoteTextInputLog();
+      v16 = _TVRCRemoteTextInputLog(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v17[0]) = 0;
@@ -411,8 +402,6 @@ void __48__TVRCTextInputSession_handleTextActionPayload___block_invoke_35(uint64
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

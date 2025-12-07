@@ -28,7 +28,7 @@
   v7[3] = self;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1BC7182DC(sub_1BC71CC98, v7);
+  sub_1BC7182DC(sub_1BC71CC98, v7, "SensitiveContentAnalysisUI/SensitiveContentCallbacks.swift", 58, 2u, 586);
   swift_unknownObjectRelease();
 }
 

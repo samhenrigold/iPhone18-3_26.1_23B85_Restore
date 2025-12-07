@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)repeatModeAsString:(int)string;
+- (id)shuffleModeAsString:(int)string;
 - (int)StringAsRepeatMode:(id)mode;
 - (int)StringAsShuffleMode:(id)mode;
 - (int)repeatMode;
@@ -87,6 +89,21 @@
   *&self->_has = *&self->_has & 0xFDFF | v3;
 }
 
+- (id)repeatModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100049348[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRepeatMode:(id)mode
 {
   modeCopy = mode;
@@ -144,6 +161,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFBFF | v3;
+}
+
+- (id)shuffleModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100049368[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsShuffleMode:(id)mode
@@ -621,25 +653,24 @@ LABEL_30:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v23 = toCopy;
+  v8 = toCopy;
   if (self->_album)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_artist)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   has = self->_has;
   if (has)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
-    toCopy = v23;
+    toCopy = v8;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -658,9 +689,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  elapsedTime = self->_elapsedTime;
   PBDataWriterWriteDoubleField();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -674,9 +704,8 @@ LABEL_8:
   }
 
 LABEL_45:
-  playbackRate = self->_playbackRate;
   PBDataWriterWriteFloatField();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -690,9 +719,8 @@ LABEL_9:
   }
 
 LABEL_46:
-  repeatMode = self->_repeatMode;
   PBDataWriterWriteInt32Field();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x400) == 0)
   {
@@ -706,35 +734,32 @@ LABEL_10:
   }
 
 LABEL_47:
-  shuffleMode = self->_shuffleMode;
   PBDataWriterWriteInt32Field();
-  toCopy = v23;
+  toCopy = v8;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_11:
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
 LABEL_12:
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x40) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x40) != 0)
   {
-    uniqueIdentifier = self->_uniqueIdentifier;
     PBDataWriterWriteUint64Field();
-    toCopy = v23;
-    v7 = self->_has;
-    if ((v7 & 0x2000) == 0)
+    toCopy = v8;
+    v6 = self->_has;
+    if ((v6 & 0x2000) == 0)
     {
 LABEL_16:
-      if ((v7 & 0x4000) == 0)
+      if ((v6 & 0x4000) == 0)
       {
         goto LABEL_17;
       }
@@ -748,14 +773,13 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  isExplicitTrack = self->_isExplicitTrack;
   PBDataWriterWriteBOOLField();
-  toCopy = v23;
-  v7 = self->_has;
-  if ((v7 & 0x4000) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x4000) == 0)
   {
 LABEL_17:
-    if ((v7 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
       goto LABEL_19;
     }
@@ -764,47 +788,44 @@ LABEL_17:
   }
 
 LABEL_51:
-  isMusicApp = self->_isMusicApp;
   PBDataWriterWriteBOOLField();
-  toCopy = v23;
+  toCopy = v8;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_18:
-    radioStationIdentifier = self->_radioStationIdentifier;
     PBDataWriterWriteInt64Field();
-    toCopy = v23;
+    toCopy = v8;
   }
 
 LABEL_19:
   if (self->_radioStationHash)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_radioStationName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_artworkDataDigest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
-  v9 = self->_has;
-  if ((v9 & 0x1000) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x1000) != 0)
   {
-    isAlwaysLive = self->_isAlwaysLive;
     PBDataWriterWriteBOOLField();
-    toCopy = v23;
-    v9 = self->_has;
-    if ((v9 & 0x800) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((v7 & 0x800) == 0)
     {
 LABEL_27:
-      if ((v9 & 0x10) == 0)
+      if ((v7 & 0x10) == 0)
       {
         goto LABEL_28;
       }
@@ -818,14 +839,13 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  isAdvertisement = self->_isAdvertisement;
   PBDataWriterWriteBOOLField();
-  toCopy = v23;
-  v9 = self->_has;
-  if ((v9 & 0x10) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 0x10) == 0)
   {
 LABEL_28:
-    if ((v9 & 0x100) == 0)
+    if ((v7 & 0x100) == 0)
     {
       goto LABEL_30;
     }
@@ -834,47 +854,44 @@ LABEL_28:
   }
 
 LABEL_55:
-  storeSubscriptionAdamID = self->_storeSubscriptionAdamID;
   PBDataWriterWriteInt64Field();
-  toCopy = v23;
+  toCopy = v8;
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_29:
-    preferredPlaybackRate = self->_preferredPlaybackRate;
     PBDataWriterWriteFloatField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
 LABEL_30:
   if (self->_mediaType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_collectionInfoData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_artworkURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    storeAdamID = self->_storeAdamID;
     PBDataWriterWriteInt64Field();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_userInfoData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v23;
+    toCopy = v8;
   }
 }
 
@@ -1487,7 +1504,6 @@ LABEL_18:
       goto LABEL_77;
     }
 
-    v11 = *(equalCopy + 162);
     if (self->_isExplicitTrack)
     {
       if ((*(equalCopy + 162) & 1) == 0)
@@ -1514,7 +1530,6 @@ LABEL_18:
       goto LABEL_77;
     }
 
-    v12 = *(equalCopy + 163);
     if (self->_isMusicApp)
     {
       if ((*(equalCopy + 163) & 1) == 0)
@@ -1571,16 +1586,15 @@ LABEL_18:
     }
   }
 
-  v16 = self->_has;
-  v17 = *(equalCopy + 82);
-  if ((v16 & 0x1000) != 0)
+  v14 = self->_has;
+  v15 = *(equalCopy + 82);
+  if ((v14 & 0x1000) != 0)
   {
     if ((*(equalCopy + 82) & 0x1000) == 0)
     {
       goto LABEL_77;
     }
 
-    v20 = *(equalCopy + 161);
     if (self->_isAlwaysLive)
     {
       if ((*(equalCopy + 161) & 1) == 0)
@@ -1607,7 +1621,6 @@ LABEL_18:
       goto LABEL_77;
     }
 
-    v21 = *(equalCopy + 160);
     if (self->_isAdvertisement)
     {
       if ((*(equalCopy + 160) & 1) == 0)
@@ -1627,15 +1640,15 @@ LABEL_18:
     goto LABEL_77;
   }
 
-  if ((v16 & 0x10) != 0)
+  if ((v14 & 0x10) != 0)
   {
-    if ((v17 & 0x10) == 0 || self->_storeSubscriptionAdamID != *(equalCopy + 5))
+    if ((v15 & 0x10) == 0 || self->_storeSubscriptionAdamID != *(equalCopy + 5))
     {
       goto LABEL_77;
     }
   }
 
-  else if ((v17 & 0x10) != 0)
+  else if ((v15 & 0x10) != 0)
   {
     goto LABEL_77;
   }
@@ -1677,20 +1690,20 @@ LABEL_18:
     }
   }
 
-  v25 = *(equalCopy + 82);
+  v21 = *(equalCopy + 82);
   if ((*&self->_has & 8) == 0)
   {
-    if ((v25 & 8) == 0)
+    if ((v21 & 8) == 0)
     {
       goto LABEL_109;
     }
 
 LABEL_77:
-    v18 = 0;
+    v16 = 0;
     goto LABEL_78;
   }
 
-  if ((v25 & 8) == 0 || self->_storeAdamID != *(equalCopy + 4))
+  if ((v21 & 8) == 0 || self->_storeAdamID != *(equalCopy + 4))
   {
     goto LABEL_77;
   }
@@ -1699,17 +1712,17 @@ LABEL_109:
   userInfoData = self->_userInfoData;
   if (userInfoData | *(equalCopy + 19))
   {
-    v18 = [(NSData *)userInfoData isEqual:?];
+    v16 = [(NSData *)userInfoData isEqual:?];
   }
 
   else
   {
-    v18 = 1;
+    v16 = 1;
   }
 
 LABEL_78:
 
-  return v18;
+  return v16;
 }
 
 - (unint64_t)hash

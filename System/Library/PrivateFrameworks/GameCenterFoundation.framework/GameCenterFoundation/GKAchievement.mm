@@ -5,6 +5,7 @@
 + (id)descriptionForAchievement:(id)achievement achievementDescriptions:(id)descriptions;
 + (id)instanceMethodSignatureForSelector:(SEL)selector;
 + (void)loadAchievementWithID:(id)d forGame:(id)game players:(id)players complete:(id)complete;
++ (void)loadAchievementsForGameV2:(id)v2 player:(id)player includeUnreported:(BOOL)unreported includeHidden:(BOOL)hidden withCompletionHandler:(id)handler;
 + (void)loadAchievementsForGameV2:(id)v2 players:(id)players includeUnreported:(BOOL)unreported includeHidden:(BOOL)hidden withCompletionHandler:(id)handler;
 + (void)loadAchievementsWithCompletionHandler:(void *)completionHandler;
 + (void)reportAchievements:(id)achievements whileScreeningChallenges:(BOOL)challenges withEligibleChallenges:(id)eligibleChallenges withCompletionHandler:(id)handler;
@@ -26,8 +27,6 @@
 - (id)valueForUndefinedKey:(id)key;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
-- (void)player;
-- (void)playerID;
 - (void)reportAchievementWithCompletionHandler:(void *)completionHandler;
 - (void)setValue:(id)value forUndefinedKey:(id)key;
 @end
@@ -376,6 +375,28 @@ void __55__GKAchievement_loadAchievementsWithCompletionHandler___block_invoke(ui
   }
 }
 
++ (void)loadAchievementsForGameV2:(id)v2 player:(id)player includeUnreported:(BOOL)unreported includeHidden:(BOOL)hidden withCompletionHandler:(id)handler
+{
+  hiddenCopy = hidden;
+  unreportedCopy = unreported;
+  v21[1] = *MEMORY[0x277D85DE8];
+  playerCopy = player;
+  handlerCopy = handler;
+  v21[0] = playerCopy;
+  v13 = MEMORY[0x277CBEA60];
+  v2Copy = v2;
+  v15 = [v13 arrayWithObjects:v21 count:1];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __104__GKAchievement_loadAchievementsForGameV2_player_includeUnreported_includeHidden_withCompletionHandler___block_invoke;
+  v18[3] = &unk_2785DE1E0;
+  v19 = playerCopy;
+  v20 = handlerCopy;
+  v16 = playerCopy;
+  v17 = handlerCopy;
+  [GKAchievement loadAchievementsForGameV2:v2Copy players:v15 includeUnreported:unreportedCopy includeHidden:hiddenCopy withCompletionHandler:v18];
+}
+
 void __104__GKAchievement_loadAchievementsForGameV2_player_includeUnreported_includeHidden_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v3 = *(a1 + 40);
@@ -597,47 +618,47 @@ void __64__GKAchievement_loadAchievementWithID_forGame_players_complete___block_
 
 void __64__GKAchievement_loadAchievementWithID_forGame_players_complete___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v17 = a3;
+  v30 = *MEMORY[0x277D85DE8];
+  v16 = a3;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [a2 allValues];
-  v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v20)
+  v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v19)
   {
-    v19 = *v26;
+    v18 = *v25;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v26 != v19)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v25 + 1) + 8 * i);
+        v6 = *(*(&v24 + 1) + 8 * i);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         v7 = v6;
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v22;
+          v10 = *v21;
           do
           {
             for (j = 0; j != v9; ++j)
             {
-              if (*v22 != v10)
+              if (*v21 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v21 + 1) + 8 * j);
+              v12 = *(*(&v20 + 1) + 8 * j);
               v13 = [v12 identifier];
               if ([v13 isEqualToString:*(a1 + 32)])
               {
@@ -657,23 +678,21 @@ void __64__GKAchievement_loadAchievementWithID_forGame_players_complete___block_
               [*(a1 + 40) addObject:v12];
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v9);
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
-  [*(a1 + 48) setError:v17];
+  [*(a1 + 48) setError:v16];
   (*(*(a1 + 56) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __64__GKAchievement_loadAchievementWithID_forGame_players_complete___block_invoke_3(uint64_t a1)
@@ -724,7 +743,7 @@ uint64_t __56__GKAchievement_resetAchievementsWithCompletionHandler___block_invo
 
 + (void)reportAchievements:(id)achievements whileScreeningChallenges:(BOOL)challenges withEligibleChallenges:(id)eligibleChallenges withCompletionHandler:(id)handler
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   achievementsCopy = achievements;
   eligibleChallengesCopy = eligibleChallenges;
   handlerCopy = handler;
@@ -742,27 +761,27 @@ uint64_t __56__GKAchievement_resetAchievementsWithCompletionHandler___block_invo
   else
   {
     challengesCopy = challenges;
-    v35 = eligibleChallengesCopy;
-    v47 = 0u;
-    v48 = 0u;
+    v34 = eligibleChallengesCopy;
     v46 = 0u;
+    v47 = 0u;
     v45 = 0u;
+    v44 = 0u;
     v14 = achievementsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v45 objects:v51 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v44 objects:v50 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v46;
+      v17 = *v45;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v46 != v17)
+          if (*v45 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v45 + 1) + 8 * i);
+          v19 = *(*(&v44 + 1) + 8 * i);
           player = [v19 player];
           if (player)
           {
@@ -777,18 +796,18 @@ uint64_t __56__GKAchievement_resetAchievementsWithCompletionHandler___block_invo
                 v29 = GKOSLoggers();
               }
 
-              eligibleChallengesCopy = v35;
+              eligibleChallengesCopy = v34;
               if (os_log_type_enabled(os_log_GKError, OS_LOG_TYPE_ERROR))
               {
                 +[GKAchievement reportAchievements:whileScreeningChallenges:withEligibleChallenges:withCompletionHandler:];
               }
 
               v30 = MEMORY[0x277CCA9B8];
-              v49[0] = @"achievement";
-              v49[1] = @"description";
-              v50[0] = v19;
-              v50[1] = @"A GKAchievement for another player can only be submitted when ending a turn-based match.";
-              v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+              v48[0] = @"achievement";
+              v48[1] = @"description";
+              v49[0] = v19;
+              v49[1] = @"A GKAchievement for another player can only be submitted when ending a turn-based match.";
+              v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
               v32 = [v30 userErrorForCode:17 userInfo:v31];
 
               (handlerCopy)[2](handlerCopy, v32);
@@ -797,7 +816,7 @@ uint64_t __56__GKAchievement_resetAchievementsWithCompletionHandler___block_invo
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v44 objects:v50 count:16];
         if (v16)
         {
           continue;
@@ -811,34 +830,32 @@ uint64_t __56__GKAchievement_resetAchievementsWithCompletionHandler___block_invo
     v25 = [GKDispatchGroup dispatchGroupWithName:v24];
 
     v26 = +[GKLocalPlayer localPlayer];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke;
-    v39[3] = &unk_2785DE348;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke;
+    v38[3] = &unk_2785DE348;
     v27 = v26;
-    v40 = v27;
+    v39 = v27;
     v28 = v25;
-    v41 = v28;
-    v42 = v14;
-    v44 = challengesCopy;
-    eligibleChallengesCopy = v35;
-    v43 = v35;
-    [v28 perform:v39];
+    v40 = v28;
+    v41 = v14;
+    v43 = challengesCopy;
+    eligibleChallengesCopy = v34;
+    v42 = v34;
+    [v28 perform:v38];
     if (handlerCopy)
     {
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_5;
-      v36[3] = &unk_2785DDC10;
-      v38 = handlerCopy;
-      v37 = v28;
-      [v37 notifyOnMainQueueWithBlock:v36];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_5;
+      v35[3] = &unk_2785DDC10;
+      v37 = handlerCopy;
+      v36 = v28;
+      [v36 notifyOnMainQueueWithBlock:v35];
     }
   }
 
 LABEL_21:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -886,7 +903,7 @@ void __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligib
 
 void __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -896,26 +913,26 @@ void __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligib
 
   else
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v6 = *(a1 + 40);
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
+          v11 = *(*(&v23 + 1) + 8 * i);
           v12 = [GKAchievement descriptionForAchievement:v11 achievementDescriptions:*(a1 + 48)];
           if (v12)
           {
@@ -930,7 +947,7 @@ void __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligib
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v8);
@@ -941,16 +958,14 @@ void __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligib
     v17 = [*(a1 + 40) _gkValuesForKeyPath:@"internal"];
     v18 = *(a1 + 72);
     v19 = [*(a1 + 56) _gkValuesForKeyPath:@"challengeID"];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_4;
-    v21[3] = &unk_2785DD8E8;
-    v22 = *(a1 + 32);
-    v23 = *(a1 + 64);
-    [v16 submitAchievements:v17 whileScreeningChallenges:v18 withEligibleChallenges:v19 handler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_4;
+    v20[3] = &unk_2785DD8E8;
+    v21 = *(a1 + 32);
+    v22 = *(a1 + 64);
+    [v16 submitAchievements:v17 whileScreeningChallenges:v18 withEligibleChallenges:v19 handler:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligibleChallenges_withCompletionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -1026,7 +1041,7 @@ void __106__GKAchievement_reportAchievements_whileScreeningChallenges_withEligib
   return showBannerIsSupported_supportsShowBanner;
 }
 
-uint64_t __38__GKAchievement_showBannerIsSupported__block_invoke()
+void *__38__GKAchievement_showBannerIsSupported__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [objc_opt_class() instancesRespondToSelector:sel_showBanner];
   showBannerIsSupported_supportsShowBanner = result;
@@ -1225,56 +1240,22 @@ void __113__GKAchievement_shouldShowBannerOnReport_achievementDescription_report
   return v10;
 }
 
-- (void)initWithIdentifier:forPlayer:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)playerID
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)player
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)reportAchievements:whileScreeningChallenges:withEligibleChallenges:withCompletionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 + (void)descriptionForAchievement:(void *)a1 achievementDescriptions:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 identifier];
-  OUTLINED_FUNCTION_1_5(&dword_227904000, v5, v6, "More than one AchievementDescription found for Achievement with ID: %@. Using the first one found.", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_1_5(&dword_227904000, v5, v6, "More than one AchievementDescription found for Achievement with ID: %@. Using the first one found.", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 + (void)descriptionForAchievement:(void *)a1 achievementDescriptions:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 identifier];
-  OUTLINED_FUNCTION_1_5(&dword_227904000, v5, v6, "No AchievementDescription could be found for Achievement with ID: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_1_5(&dword_227904000, v5, v6, "No AchievementDescription could be found for Achievement with ID: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

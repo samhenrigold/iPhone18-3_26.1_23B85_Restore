@@ -43,10 +43,8 @@
 
 - (void)writeTo:(id)to
 {
-  activationData = self->_activationData;
   toCopy = to;
   PBDataWriterWriteDataField();
-  responseHeaders = self->_responseHeaders;
   PBDataWriterWriteDataField();
 }
 

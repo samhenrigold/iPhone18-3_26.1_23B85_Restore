@@ -5,7 +5,7 @@
 - (uint64_t)_cn_isLDAP;
 - (uint64_t)_cn_isManaged;
 - (uint64_t)_cn_isPrimaryAccount;
-- (uint64_t)_cn_isPrimaryiCloudAccount;
+- (void)_cn_isPrimaryiCloudAccount;
 - (void)setPropertiesFromDelegateInfo:()ContactsFoundation;
 @end
 
@@ -47,7 +47,7 @@
   return v4;
 }
 
-- (uint64_t)_cn_isPrimaryiCloudAccount
+- (void)_cn_isPrimaryiCloudAccount
 {
   result = [self _cn_isPrimaryAccount];
   if (result)

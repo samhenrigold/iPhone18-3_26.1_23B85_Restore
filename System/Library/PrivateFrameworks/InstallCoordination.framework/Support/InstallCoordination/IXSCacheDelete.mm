@@ -5,6 +5,7 @@
 - (IXSCacheDelete)init;
 - (id)_purge:(id)_purge urgency:(int)urgency;
 - (id)_purgeable:(id)_purgeable urgency:(int)urgency;
+- (unint64_t)_onQueue_purge:(unint64_t)queue_purge urgency:(int)urgency;
 - (unint64_t)_onQueue_sizeForPurgeableCoordinators:(id *)coordinators;
 @end
 
@@ -39,6 +40,139 @@
 
   _Block_object_dispose(&v16, 8);
   return v8;
+}
+
+- (unint64_t)_onQueue_purge:(unint64_t)queue_purge urgency:(int)urgency
+{
+  v6 = [(IXSCacheDelete *)self internalQueue:queue_purge];
+  dispatch_assert_queue_V2(v6);
+
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x2020000000;
+  v39 = 0;
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x2810000000;
+  v36[3] = &unk_1000E4B67;
+  v37 = 0;
+  dsema = dispatch_semaphore_create(0);
+  v35 = 0;
+  [(IXSCacheDelete *)self _onQueue_sizeForPurgeableCoordinators:&v35];
+  v22 = v35;
+  if ([v22 count])
+  {
+    v7 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v45 = "[IXSCacheDelete _onQueue_purge:urgency:]";
+      v46 = 2112;
+      queue_purgeCopy3 = v22;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Applying staged updates in response to disk space pressure: %@", buf, 0x16u);
+    }
+
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v8 = v22;
+    v9 = [v8 countByEnumeratingWithState:&v31 objects:v50 count:16];
+    if (v9)
+    {
+      v10 = 0;
+      v11 = *v32;
+LABEL_6:
+      v12 = 0;
+      while (1)
+      {
+        if (*v32 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v31 + 1) + 8 * v12);
+        stagedUpdateSizeOnDisk = [v13 stagedUpdateSizeOnDisk];
+        v24[0] = _NSConcreteStackBlock;
+        v24[1] = 3221225472;
+        v24[2] = sub_100009D18;
+        v24[3] = &unk_100101178;
+        v26 = v36;
+        v27 = &v40;
+        v28 = v38;
+        v29 = stagedUpdateSizeOnDisk;
+        queue_purgeCopy = queue_purge;
+        v25 = dsema;
+        [v13 applyStagedUpdateAndRunBlockWhenComplete:v24];
+        v10 += stagedUpdateSizeOnDisk;
+
+        if (v10 >= queue_purge)
+        {
+          break;
+        }
+
+        if (v9 == ++v12)
+        {
+          v9 = [v8 countByEnumeratingWithState:&v31 objects:v50 count:16];
+          if (v9)
+          {
+            goto LABEL_6;
+          }
+
+          break;
+        }
+      }
+    }
+
+    v15 = dispatch_time(0, 15000000000);
+    dispatch_semaphore_wait(dsema, v15);
+    if (v41[3] >= queue_purge)
+    {
+      v16 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = v41[3];
+        *buf = 136315650;
+        v45 = "[IXSCacheDelete _onQueue_purge:urgency:]";
+        v46 = 2048;
+        queue_purgeCopy3 = queue_purge;
+        v48 = 2048;
+        v49 = v19;
+        v18 = "%s: Purged required disk space. Required (%llu) : Achieved (%llu)";
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      v16 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = v41[3];
+        *buf = 136315650;
+        v45 = "[IXSCacheDelete _onQueue_purge:urgency:]";
+        v46 = 2048;
+        queue_purgeCopy3 = queue_purge;
+        v48 = 2048;
+        v49 = v17;
+        v18 = "%s: Failed to purge enough disk space. Required (%llu) : Achieved (%llu)";
+LABEL_17:
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v18, buf, 0x20u);
+      }
+    }
+  }
+
+  v20 = v41[3];
+
+  _Block_object_dispose(v36, 8);
+  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(&v40, 8);
+
+  return v20;
 }
 
 - (BOOL)_onQueue_validateVolumeKey:(id)key

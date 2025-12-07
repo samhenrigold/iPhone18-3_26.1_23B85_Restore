@@ -126,7 +126,7 @@
       v21 = objc_opt_class();
       if (v21)
       {
-        [v21 arrowMetricsForStyle:0];
+        objc_msgSend_arrowMetricsForStyle_(v21);
       }
 
       else
@@ -142,7 +142,7 @@
       v24 = objc_opt_class();
       if (v24)
       {
-        [v24 junctionArrowMetricsForStyle:0];
+        objc_msgSend_junctionArrowMetricsForStyle_(v24);
       }
 
       else
@@ -201,7 +201,7 @@
     v10 = objc_opt_class();
     if (v10)
     {
-      [v10 arrowMetricsForStyle:0];
+      objc_msgSend_arrowMetricsForStyle_(v10);
     }
 
     else
@@ -217,7 +217,7 @@
     v15 = objc_opt_class();
     if (v15)
     {
-      [v15 junctionArrowMetricsForStyle:0];
+      objc_msgSend_junctionArrowMetricsForStyle_(v15);
     }
 
     else

@@ -1179,7 +1179,7 @@ LABEL_7:
   v6 = v5;
   paymentApplicationIdentifierForErrors = self->_paymentApplicationIdentifierForErrors;
   applicationIdentifier = [(PKPaymentApplication *)self->_paymentApplication applicationIdentifier];
-  LODWORD(paymentApplicationIdentifierForErrors) = [(NSString *)paymentApplicationIdentifierForErrors isEqualToString:applicationIdentifier];
+  LODWORD(paymentApplicationIdentifierForErrors) = objc_msgSend_isEqualToString_(paymentApplicationIdentifierForErrors);
 
   if (!paymentApplicationIdentifierForErrors)
   {
@@ -2621,9 +2621,9 @@ LABEL_95:
 
                   if (v82 && v90)
                   {
-                    v92 = [v89 isEqualToString:v90];
+                    isEqualToString = objc_msgSend_isEqualToString_(v89);
 
-                    if (v92)
+                    if (isEqualToString)
                     {
                       goto LABEL_95;
                     }
@@ -2680,19 +2680,19 @@ uint64_t __47__PKPaymentAuthorizationDataModel__ensureItems__block_invoke(uint64
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)refreshPaymentMethods
@@ -3422,19 +3422,19 @@ uint64_t __83__PKPaymentAuthorizationDataModel__populatePeerPaymentBalanceIfNece
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)_populateFinanceKitBalancesIfNecessaryForPasses:(id)passes
@@ -3543,9 +3543,9 @@ void __83__PKPaymentAuthorizationDataModel__populateFinanceKitBalancesIfNecessar
           [v7 setBankConnectAccount:v9];
           v10 = [v7 primaryAccountIdentifier];
           v11 = [WeakRetained[20] primaryAccountIdentifier];
-          v12 = [v10 isEqualToString:v11];
+          isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-          if (v12)
+          if (isEqualToString)
           {
             [WeakRetained[20] setBankConnectAccount:v9];
           }

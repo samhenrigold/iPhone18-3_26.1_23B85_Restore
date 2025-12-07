@@ -6,35 +6,35 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   stringValue = [(TPSTargetingValidation *)self stringValue];
   [MEMORY[0x277CBEAF8] preferredLanguages];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = v15 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = v14 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) hasPrefix:{stringValue, v12}])
+        if ([*(*(&v11 + 1) + 8 * i) hasPrefix:{stringValue, v11}])
         {
           v7 = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -53,7 +53,6 @@ LABEL_11:
   }
 
   completionCopy[2](completionCopy, v7, 0);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

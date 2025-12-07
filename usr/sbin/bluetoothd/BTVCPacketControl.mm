@@ -1,5 +1,6 @@
 @interface BTVCPacketControl
 - (BTVCPacketControl)initWithParams:(id)params response:(BOOL)response;
+- (id)description;
 - (id)getCurrentPacket;
 - (void)_activate;
 - (void)_cleanupQueuedPacket:(int)packet;
@@ -53,6 +54,21 @@
   v2.receiver = self;
   v2.super_class = BTVCPacketControl;
   [(BTVCPacketControl *)&v2 dealloc];
+}
+
+- (id)description
+{
+  if (self->_responseIsNeeded)
+  {
+    v2 = "yes";
+  }
+
+  else
+  {
+    v2 = "no";
+  }
+
+  return NSPrintF("BTVCPacketControl %{ptr}@, responseIsNeeded %s", a2, self, v2);
 }
 
 - (void)setDispatchQueue:(id)queue
@@ -551,7 +567,7 @@ LABEL_14:
           {
             completion2 = [(BTVCPacket *)self->_currentPacket completion];
             packet = [(BTVCPacket *)self->_currentPacket packet];
-            v14 = CBErrorF();
+            v14 = CBErrorF(4294960574, "Timed out");
             (completion2)[2](completion2, packet, v14);
           }
 
@@ -588,7 +604,7 @@ LABEL_14:
               {
                 completion4 = [v20 completion];
                 packet2 = [v20 packet];
-                v25 = CBErrorF();
+                v25 = CBErrorF(4294960574, "Timed out");
                 (completion4)[2](completion4, packet2, v25);
               }
 

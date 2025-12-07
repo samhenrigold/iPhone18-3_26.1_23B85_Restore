@@ -23,51 +23,53 @@
 
 - (PRUISExternallyHostedPosterEditingService)init
 {
-  v20.receiver = self;
-  v20.super_class = PRUISExternallyHostedPosterEditingService;
-  v2 = [(PRUISExternallyHostedPosterEditingService *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = PRUISExternallyHostedPosterEditingService;
+  v2 = [(PRUISExternallyHostedPosterEditingService *)&v22 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = PRUISExternallyHostedPosterEditingServiceInterface();
-    v4 = MEMORY[0x1E698F498];
-    identifier = [v3 identifier];
-    v6 = [v4 endpointForMachName:@"com.apple.posterboardui.services" service:identifier instance:0];
+    v4 = PRUISExternallyHostedPosterEditingServiceInterface(v2);
+    v5 = MEMORY[0x1E698F498];
+    identifier = [v4 identifier];
+    v7 = [v5 endpointForMachName:@"com.apple.posterboardui.services" service:identifier instance:0];
 
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    if (v6)
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = v9;
+    if (v7)
     {
-      v9 = [MEMORY[0x1E698F490] connectionWithEndpoint:v6];
-      serviceConnection = v2->_serviceConnection;
-      v2->_serviceConnection = v9;
+      v11 = [MEMORY[0x1E698F490] connectionWithEndpoint:v7];
+      serviceConnection = v3->_serviceConnection;
+      v3->_serviceConnection = v11;
 
-      objc_initWeak(&location, v2);
-      v11 = v2->_serviceConnection;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __49__PRUISExternallyHostedPosterEditingService_init__block_invoke;
-      v14[3] = &unk_1E83A8D88;
-      v15 = v3;
-      v16 = v2;
-      v17 = v8;
-      objc_copyWeak(&v18, &location);
-      [(BSServiceConnectionClient *)v11 configureConnection:v14];
-      objc_destroyWeak(&v18);
+      objc_initWeak(&location, v3);
+      v13 = v3->_serviceConnection;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __49__PRUISExternallyHostedPosterEditingService_init__block_invoke;
+      v16[3] = &unk_1E83A8D88;
+      v17 = v4;
+      v18 = v3;
+      v19 = v10;
+      objc_copyWeak(&v20, &location);
+      [(BSServiceConnectionClient *)v13 configureConnection:v16];
+      objc_destroyWeak(&v20);
 
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v12 = PRUISLogRemoteEditing();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = PRUISLogRemoteEditing(v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(PRUISExternallyHostedPosterEditingService *)v8 init];
+        [(PRUISExternallyHostedPosterEditingService *)v10 init];
       }
     }
   }
 
-  return v2;
+  return v3;
 }
 
 void __49__PRUISExternallyHostedPosterEditingService_init__block_invoke(uint64_t a1, void *a2)
@@ -100,7 +102,7 @@ void __49__PRUISExternallyHostedPosterEditingService_init__block_invoke(uint64_t
 void __49__PRUISExternallyHostedPosterEditingService_init__block_invoke_2(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v2 = PRUISLogRemoteEditing();
+  v2 = PRUISLogRemoteEditing(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -115,7 +117,7 @@ void __49__PRUISExternallyHostedPosterEditingService_init__block_invoke_2(uint64
 
 void __49__PRUISExternallyHostedPosterEditingService_init__block_invoke_4(uint64_t a1)
 {
-  v2 = PRUISLogRemoteEditing();
+  v2 = PRUISLogRemoteEditing(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __49__PRUISExternallyHostedPosterEditingService_init__block_invoke_4_cold_1(a1);
@@ -152,7 +154,7 @@ void __49__PRUISExternallyHostedPosterEditingService_init__block_invoke_4(uint64
 
 - (void)beginEditingWithRequest:(id)request completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   v9 = completionCopy;
@@ -184,39 +186,40 @@ LABEL_3:
   }
 
   v12 = requestCopy;
-  v20 = 0;
-  v13 = [(PRUISExternallyHostedPosterEditingService *)self _serviceInterfaceWithError:&v20];
-  v14 = v20;
+  v21 = 0;
+  v13 = [(PRUISExternallyHostedPosterEditingService *)self _serviceInterfaceWithError:&v21];
+  v14 = v21;
+  v15 = v14;
   if (v13)
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __80__PRUISExternallyHostedPosterEditingService_beginEditingWithRequest_completion___block_invoke;
-    v17[3] = &unk_1E83A8DB0;
-    v19 = a2;
-    v17[4] = self;
-    v18 = v9;
-    [v13 beginEditingWithEntryPointWrapper:v12 completion:v17];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __80__PRUISExternallyHostedPosterEditingService_beginEditingWithRequest_completion___block_invoke;
+    v18[3] = &unk_1E83A8DB0;
+    v20 = a2;
+    v18[4] = self;
+    v19 = v9;
+    [v13 beginEditingWithEntryPointWrapper:v12 completion:v18];
   }
 
   else if (v9)
   {
-    (v9)[2](v9, v14);
+    v14 = (v9)[2](v9, v14);
   }
 
-  if (v14)
+  if (v15)
   {
-    v15 = PRUISLogRemoteEditing();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = PRUISLogRemoteEditing(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v16 = NSStringFromSelector(a2);
+      v17 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v22 = v16;
-      v23 = 2114;
+      v23 = v17;
+      v24 = 2114;
       selfCopy = self;
-      v25 = 2114;
-      v26 = v14;
-      _os_log_error_impl(&dword_1CAE63000, v15, OS_LOG_TYPE_ERROR, "calling %{public}@ on %{public}@, error: %{public}@", buf, 0x20u);
+      v26 = 2114;
+      v27 = v15;
+      _os_log_error_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_ERROR, "calling %{public}@ on %{public}@, error: %{public}@", buf, 0x20u);
     }
   }
 }
@@ -224,7 +227,7 @@ LABEL_3:
 void __80__PRUISExternallyHostedPosterEditingService_beginEditingWithRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRUISLogRemoteEditing();
+  v4 = PRUISLogRemoteEditing(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __80__PRUISExternallyHostedPosterEditingService_beginEditingWithRequest_completion___block_invoke_cold_1();
@@ -235,7 +238,7 @@ void __80__PRUISExternallyHostedPosterEditingService_beginEditingWithRequest_com
 
 - (void)sendRequestDismissalActionWithRequest:(id)request
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   if (!requestCopy)
   {
@@ -251,60 +254,61 @@ void __80__PRUISExternallyHostedPosterEditingService_beginEditingWithRequest_com
   }
 
   v8 = requestCopy;
-  v13 = 0;
-  v9 = [(PRUISExternallyHostedPosterEditingService *)self _serviceInterfaceWithError:&v13];
-  v10 = v13;
+  v14 = 0;
+  v9 = [(PRUISExternallyHostedPosterEditingService *)self _serviceInterfaceWithError:&v14];
+  v10 = v14;
+  v11 = v10;
   if (v9)
   {
-    [v9 sendRequestDismissalActionWithEntryPointWrapper:v8];
+    v10 = [v9 sendRequestDismissalActionWithEntryPointWrapper:v8];
   }
 
-  if (v10)
+  if (v11)
   {
-    v11 = PRUISLogRemoteEditing();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PRUISLogRemoteEditing(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
+      v13 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v15 = v12;
-      v16 = 2114;
+      v16 = v13;
+      v17 = 2114;
       selfCopy = self;
-      v18 = 2114;
-      v19 = v10;
-      _os_log_error_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_ERROR, "calling %{public}@ on %{public}@, error: %{public}@", buf, 0x20u);
+      v19 = 2114;
+      v20 = v11;
+      _os_log_error_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_ERROR, "calling %{public}@ on %{public}@, error: %{public}@", buf, 0x20u);
     }
   }
 }
 
 - (id)_serviceInterfaceWithError:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   p_serviceConnection = &self->_serviceConnection;
   [(BSServiceConnectionClient *)self->_serviceConnection activate];
-  v5 = *p_serviceConnection;
-  v6 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v14[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
-  v8 = [(BSServiceConnectionClient *)v5 remoteTargetWithLaunchingAssertionAttributes:v7];
+  v6 = *p_serviceConnection;
+  v7 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
+  v16[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v9 = [(BSServiceConnectionClient *)v6 remoteTargetWithLaunchingAssertionAttributes:v8];
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = PRUISLogRemoteEditing();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = PRUISLogRemoteEditing(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [PRUISExternallyHostedPosterEditingService _serviceInterfaceWithError:];
+      [PRUISExternallyHostedPosterEditingService _serviceInterfaceWithError:?];
     }
 
     if (error)
     {
-      v10 = MEMORY[0x1E696ABC0];
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      *error = [v10 errorWithDomain:v12 code:1 userInfo:0];
+      v12 = MEMORY[0x1E696ABC0];
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      *error = [v12 errorWithDomain:v14 code:1 userInfo:0];
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (PRUISExternallyHostedPosterEditingServiceDelegate)delegate
@@ -326,8 +330,13 @@ void __80__PRUISExternallyHostedPosterEditingService_beginEditingWithRequest_com
 
 void __49__PRUISExternallyHostedPosterEditingService_init__block_invoke_4_cold_1(uint64_t a1)
 {
+  v1 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  OUTLINED_FUNCTION_1_5(&dword_1CAE63000, v1, v2, "<%{public}@:%p> remotely invalidated", v3, v4, v5, v6, 2u);
+  *v9 = 138543618;
+  *&v9[4] = v1;
+  *&v9[12] = 2048;
+  *&v9[14] = WeakRetained;
+  OUTLINED_FUNCTION_1_5(&dword_1CAE63000, v3, v4, "<%{public}@:%p> remotely invalidated", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)beginEditingWithRequest:completion:.cold.1()
@@ -379,12 +388,12 @@ void __80__PRUISExternallyHostedPosterEditingService_beginEditingWithRequest_com
   [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
-- (void)_serviceInterfaceWithError:.cold.1()
+- (void)_serviceInterfaceWithError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_1_5(&dword_1CAE63000, v2, v3, "%{public}@ failed to create proxy for connection: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_1CAE63000, v3, v4, "%{public}@ failed to create proxy for connection: %{public}@", v5, v6, v7, v8);
 }
 
 @end

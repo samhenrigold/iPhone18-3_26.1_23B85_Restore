@@ -35,25 +35,25 @@
     v11 = [MEMORY[0x1E695CD58] predicateForContactsMatchingHandleStrings:v8];
     [v10 setPredicate:v11];
 
-    v12 = TUDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = TUDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v19 = 138740227;
       v20 = v10;
       v21 = 2117;
       selfCopy = self;
-      _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "Executing contact fetch request %{sensitive}@ using contact store %{sensitive}@", &v19, 0x16u);
+      _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "Executing contact fetch request %{sensitive}@ using contact store %{sensitive}@", &v19, 0x16u);
     }
 
-    v13 = [self executeFetchRequest:v10 error:a5];
-    value = [v13 value];
-    v15 = TUDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = [self executeFetchRequest:v10 error:a5];
+    value = [v14 value];
+    v16 = TUDefaultLog(value);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [value count];
+      v17 = [value count];
       v19 = 134217984;
-      v20 = v16;
-      _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "Contact fetch request returned %lu results", &v19, 0xCu);
+      v20 = v17;
+      _os_log_impl(&dword_1956FD000, v16, OS_LOG_TYPE_DEFAULT, "Contact fetch request returned %lu results", &v19, 0xCu);
     }
   }
 
@@ -61,8 +61,6 @@
   {
     value = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return value;
 }

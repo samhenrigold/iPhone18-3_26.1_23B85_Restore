@@ -69,7 +69,7 @@
 
 - (void)_submitAnalyticsEventWithCompletion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   if (WeakRetained)
@@ -84,8 +84,8 @@
       {
         v20 = logCategory;
         *buf = 138543362;
-        v36 = objc_opt_class();
-        v21 = v36;
+        v35 = objc_opt_class();
+        v21 = v35;
         _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] No analytics event provided from trigger request.", buf, 0xCu);
       }
 
@@ -101,33 +101,33 @@
       v11 = v10;
       eventName = [v6 eventName];
       *buf = 138543618;
-      v36 = v10;
-      v37 = 2114;
-      v38 = eventName;
+      v35 = v10;
+      v36 = 2114;
+      v37 = eventName;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Received daily analytics trigger, submitting.", buf, 0x16u);
     }
 
     eventSubmissionManager = self->_eventSubmissionManager;
-    v34 = 0;
-    v14 = [(HKAnalyticsEventSubmissionManager *)eventSubmissionManager submitEvent:v6 error:&v34];
-    v15 = v34;
+    v33 = 0;
+    v14 = [(HKAnalyticsEventSubmissionManager *)eventSubmissionManager submitEvent:v6 error:&v33];
+    v15 = v33;
     _HKInitializeLogging();
     v16 = self->_logCategory;
     if (v15)
     {
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v30 = v16;
-        v31 = objc_opt_class();
-        v32 = v31;
+        v29 = v16;
+        v30 = objc_opt_class();
+        v31 = v30;
         eventName2 = [v6 eventName];
         *buf = 138543874;
-        v36 = v31;
-        v37 = 2114;
-        v38 = eventName2;
-        v39 = 2114;
-        v40 = v15;
-        _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@] Metric submission failed with error: %{public}@", buf, 0x20u);
+        v35 = v30;
+        v36 = 2114;
+        v37 = eventName2;
+        v38 = 2114;
+        v39 = v15;
+        _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@] Metric submission failed with error: %{public}@", buf, 0x20u);
       }
 
       completionCopy[2](completionCopy, 0, 2, v15);
@@ -144,9 +144,9 @@
         v25 = v24;
         eventName3 = [v6 eventName];
         *buf = 138543618;
-        v36 = v24;
-        v37 = 2114;
-        v38 = eventName3;
+        v35 = v24;
+        v36 = 2114;
+        v37 = eventName3;
         v27 = "[%{public}@:%{public}@] Event submitted";
 LABEL_20:
         _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, v27, buf, 0x16u);
@@ -160,9 +160,9 @@ LABEL_20:
       v25 = v28;
       eventName3 = [v6 eventName];
       *buf = 138543618;
-      v36 = v28;
-      v37 = 2114;
-      v38 = eventName3;
+      v35 = v28;
+      v36 = 2114;
+      v37 = eventName3;
       v27 = "[%{public}@:%{public}@] Event not submitted but no error";
       goto LABEL_20;
     }
@@ -180,16 +180,14 @@ LABEL_22:
   {
     v18 = v17;
     *buf = 138543362;
-    v36 = objc_opt_class();
-    v19 = v36;
+    v35 = objc_opt_class();
+    v19 = v35;
     _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] No profile available to construct event for trigger request.", buf, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"No profile available"];
   completionCopy[2](completionCopy, 0, 1, v6);
 LABEL_23:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unitTest_setObservationReadyCompletion:(id)completion

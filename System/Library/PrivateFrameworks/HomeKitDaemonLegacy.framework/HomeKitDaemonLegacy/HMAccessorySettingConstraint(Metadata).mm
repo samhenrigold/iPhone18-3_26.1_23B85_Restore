@@ -8,7 +8,7 @@
 
 + (id)valueWithType:()Metadata representation:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = v5;
   if (!v5)
@@ -30,11 +30,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v6;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid constraint value: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v6;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid constraint value: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -70,24 +70,23 @@ LABEL_14:
 
   else
   {
-    v17 = objc_autoreleasePoolPush();
-    v18 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v16 = objc_autoreleasePoolPush();
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v19;
-      v22 = 2112;
-      v23 = v8;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid constraint value: %@", &v20, 0x16u);
+      v18 = HMFGetLogIdentifier();
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = v8;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid constraint value: %@", &v19, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
+    objc_autoreleasePoolPop(v16);
     v7 = 0;
   }
 
 LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -124,33 +123,33 @@ LABEL_15:
 
 + (id)constraintsWithArrayRepresenation:()Metadata
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a3;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = [MEMORY[0x277CD1780] constraintWithDictonaryRepresentation:{v10, v15}];
+          v11 = [MEMORY[0x277CD1780] constraintWithDictonaryRepresentation:{v10, v14}];
           if (v11)
           {
             [array addObject:v11];
@@ -158,14 +157,13 @@ LABEL_15:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
-  v12 = [array copy];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = objc_msgSend_copy(array);
 
   return v12;
 }

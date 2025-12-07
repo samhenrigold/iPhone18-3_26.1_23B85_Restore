@@ -16,20 +16,20 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v18 = *MEMORY[0x29EDCA608];
-  v16.receiver = self;
-  v16.super_class = VideosUI_CanonicalFooterViewCell;
-  [(VideosUI_CanonicalFooterViewCell *)&v16 _accessibilityLoadAccessibilityInformation];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v17 = *MEMORY[0x29EDCA608];
+  v15.receiver = self;
+  v15.super_class = VideosUI_CanonicalFooterViewCell;
+  [(VideosUI_CanonicalFooterViewCell *)&v15 _accessibilityLoadAccessibilityInformation];
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = [(VideosUI_CanonicalFooterViewCell *)self safeSwiftArrayForKey:@"sectionViews", 0];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = *MEMORY[0x29EDC7FD0];
     v8 = *MEMORY[0x29EDC7F80];
     do
@@ -37,25 +37,23 @@
       v9 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = [*(*(&v12 + 1) + 8 * v9) safeSwiftValueForKey:@"headerView"];
+        v10 = [*(*(&v11 + 1) + 8 * v9) safeSwiftValueForKey:@"headerView"];
         [v10 setAccessibilityTraits:v8 | v7];
 
         ++v9;
       }
 
       while (v5 != v9);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (void)layoutSubviews

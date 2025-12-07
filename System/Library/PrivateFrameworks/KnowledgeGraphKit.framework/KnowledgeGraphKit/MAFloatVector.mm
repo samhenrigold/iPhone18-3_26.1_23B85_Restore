@@ -102,36 +102,36 @@
 
 + (id)meanVectorWithFloatVectors:(id)vectors
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   v4 = [vectorsCopy count];
   v5 = [vectorsCopy objectAtIndexedSubscript:0];
   v6 = [v5 count];
 
   v7 = [(MAFloatVector *)MAMutableFloatVector zerosOfCount:v6];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = vectorsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v7 addVector:{*(*(&v16 + 1) + 8 * i), v16}];
+        [v7 addVector:{*(*(&v15 + 1) + 8 * i), v15}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -139,8 +139,6 @@
 
   *&v13 = v4;
   [v7 divideByScalar:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

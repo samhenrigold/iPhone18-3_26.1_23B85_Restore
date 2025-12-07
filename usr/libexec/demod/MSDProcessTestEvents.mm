@@ -51,21 +51,8 @@
 
     if (!logCache)
     {
-      if (![v4 fileExistsAtPath:v5])
+      if (![v4 fileExistsAtPath:v5] || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "attributesOfItemAtPath:error:", v5, 0), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "fileSize"), v8, v7, +[NSMutableArray arrayWithContentsOfFile:](NSMutableArray, "arrayWithContentsOfFile:", v5), v10 = objc_claimAutoreleasedReturnValue(), -[MSDProcessTestEvents setLogCache:](self, "setLogCache:", v10), v10, v9 > 0xA00000))
       {
-        goto LABEL_5;
-      }
-
-      v7 = +[NSFileManager defaultManager];
-      v8 = [v7 attributesOfItemAtPath:v5 error:0];
-      fileSize = [v8 fileSize];
-
-      v10 = [NSMutableArray arrayWithContentsOfFile:v5];
-      [(MSDProcessTestEvents *)self setLogCache:v10];
-
-      if (fileSize > 0xA00000)
-      {
-LABEL_5:
         v11 = objc_alloc_init(NSMutableArray);
         [(MSDProcessTestEvents *)self setLogCache:v11];
       }

@@ -64,16 +64,16 @@
 
 - (APSDaemon)init
 {
-  v30.receiver = self;
-  v30.super_class = APSDaemon;
-  v2 = [(APSDaemon *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = APSDaemon;
+  v2 = [(APSDaemon *)&v29 init];
   if (v2)
   {
     v3 = +[APSLog daemon];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v2;
+      v31 = v2;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "APS daemon launched %@", buf, 0xCu);
     }
 
@@ -99,7 +99,7 @@
     handler[2] = sub_10005A0C8;
     handler[3] = &unk_100186D90;
     v12 = v8;
-    v29 = v12;
+    v28 = v12;
     dispatch_source_set_event_handler(v11, handler);
     dispatch_resume(*(v2 + 6));
     signal(30, 1);
@@ -124,12 +124,12 @@
         v17 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
         v18 = dispatch_queue_create("com.apple.apsd.connection_queue", v17);
 
-        v26[0] = _NSConcreteStackBlock;
-        v26[1] = 3221225472;
-        v26[2] = sub_1000020E8;
-        v26[3] = &unk_100187700;
-        v27 = &stru_1001876B0;
-        v16 = objc_retainBlock(v26);
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = sub_1000020E8;
+        v25[3] = &unk_100187700;
+        v26 = &stru_1001876B0;
+        v16 = objc_retainBlock(v25);
       }
 
       else
@@ -141,19 +141,18 @@
       v20 = *(v2 + 4);
       *(v2 + 4) = v19;
 
-      v21 = *(v2 + 4);
       APSSetXPCConnectionContext();
       xpc_connection_resume(*(v2 + 4));
     }
 
-    v22 = sub_100051FF8();
-    v23 = *(v2 + 3);
-    *(v2 + 3) = v22;
+    v21 = sub_100051FF8();
+    v22 = *(v2 + 3);
+    *(v2 + 3) = v21;
 
     [*(v2 + 3) setResponder:v2];
     [*(v2 + 3) startup];
     +[NSDate timeIntervalSinceReferenceDate];
-    *(v2 + 14) = v24;
+    *(v2 + 14) = v23;
   }
 
   return v2;

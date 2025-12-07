@@ -46,28 +46,28 @@
 
 - (uint64_t)numberOfPredictionsWithConfidence:()ATXPredictionCacheProtocol
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   suggestions = [self suggestions];
-  v5 = [suggestions countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [suggestions countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(suggestions);
         }
 
-        scoreSpecification = [*(*(&v14 + 1) + 8 * i) scoreSpecification];
+        scoreSpecification = [*(*(&v13 + 1) + 8 * i) scoreSpecification];
         suggestedConfidenceCategory = [scoreSpecification suggestedConfidenceCategory];
 
         if (suggestedConfidenceCategory == a3)
@@ -76,7 +76,7 @@
         }
       }
 
-      v6 = [suggestions countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [suggestions countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -87,7 +87,6 @@
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

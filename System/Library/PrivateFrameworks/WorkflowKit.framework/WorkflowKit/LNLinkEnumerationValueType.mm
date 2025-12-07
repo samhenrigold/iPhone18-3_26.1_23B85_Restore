@@ -5,10 +5,10 @@
 
 uint64_t __148__LNLinkEnumerationValueType_ContentItem__wf_contentItemFromLinkValue_appBundleIdentifier_displayedBundleIdentifier_teamIdentifier_disclosureLevel___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 identifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

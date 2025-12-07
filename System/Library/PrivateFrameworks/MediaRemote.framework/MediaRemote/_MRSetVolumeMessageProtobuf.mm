@@ -52,24 +52,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    volume = self->_volume;
     PBDataWriterWriteFloatField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_outputDeviceUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_details)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -125,7 +124,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_volume != *(equalCopy + 6))
@@ -137,7 +135,7 @@
   else if (*(equalCopy + 28))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -150,17 +148,17 @@ LABEL_11:
   details = self->_details;
   if (details | *(equalCopy + 1))
   {
-    v8 = [(_MRRequestDetailsProtobuf *)details isEqual:?];
+    v7 = [(_MRRequestDetailsProtobuf *)details isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

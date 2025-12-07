@@ -42,14 +42,14 @@
   processInfo = [MEMORY[0x277CCAC38] processInfo];
   isLowPowerModeEnabled = [processInfo isLowPowerModeEnabled];
 
-  v5 = SBLogBacklight();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = SBLogBacklight(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (isLowPowerModeEnabled)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Acquiring low-power-mode always-on-disable assertion", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Acquiring low-power-mode always-on-disable assertion", buf, 2u);
     }
 
     [(BLSAssertion *)self->_alwaysOnDisabledAssertion acquireWithObserver:0];
@@ -57,10 +57,10 @@
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Releasing low-power-mode always-on-disable assertion", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Releasing low-power-mode always-on-disable assertion", v8, 2u);
     }
 
     [(BLSAssertion *)self->_alwaysOnDisabledAssertion cancel];

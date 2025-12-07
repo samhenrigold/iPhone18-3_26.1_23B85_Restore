@@ -80,15 +80,15 @@
     }
 
     v18 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input];
-    [(PAESharedDefaultBase *)self convertRelativeToImageCoordinates:&v49 withImage:input];
+    objc_msgSend_getPixelTransformForImage_(self);
+    objc_msgSend_getInversePixelTransformForImage_(self);
+    objc_msgSend_convertRelativeToImageCoordinates_withImage_(self);
     v49 = *v36;
     if (v18 && [input imageType] == 3)
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       else

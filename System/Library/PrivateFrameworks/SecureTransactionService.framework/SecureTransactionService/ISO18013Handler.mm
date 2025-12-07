@@ -3,6 +3,7 @@
 - (id)stopTransaction;
 - (void)alternativeCarrierConnectedWithStatus:(unint64_t)status;
 - (void)alternativeCarrierDisconnectedWithStatus:(unint64_t)status;
+- (void)alternativeCarrierReceived:(id)received dataPending:(BOOL)pending;
 - (void)connectionHandoverCompleted:(id)completed;
 - (void)notificationClientConnected;
 - (void)processISO18013CredentialProposals:(id)proposals readerAuthInfo:(id)info;
@@ -175,7 +176,7 @@ LABEL_6:
   v19 = &v20;
   v10 = &v12;
   os_unfair_lock_lock(&self->_lock);
-  (v14)(v10);
+  v14(v10);
   os_unfair_lock_unlock(&self->_lock);
 
   if (v21[5])
@@ -200,26 +201,36 @@ LABEL_6:
   [v8 stsSessionNotificationListenerStarted:parent];
 }
 
+- (void)alternativeCarrierReceived:(id)received dataPending:(BOOL)pending
+{
+  pendingCopy = pending;
+  receivedCopy = received;
+  sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler alternativeCarrierReceived:dataPending:]", 458, self, @"dataPending=%d", v7, v8, pendingCopy);
+  parent = [(STSTransactionHandler *)self parent];
+  v9 = sub_2653820A8(&self->super.super.super.isa);
+  [v9 stsSession:parent receivedFromAlternativeCarrier:receivedCopy dataPending:pendingCopy];
+}
+
 - (void)alternativeCarrierConnectedWithStatus:(unint64_t)status
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler alternativeCarrierConnectedWithStatus:]", 467, self, @"status=%lu", v3, v4, status);
   if (status)
   {
     v8 = MEMORY[0x277CCA9B8];
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v19[0] = *MEMORY[0x277CCA450];
+    v18[0] = *MEMORY[0x277CCA450];
     v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Unexpected Result"];
-    v20[0] = v10;
-    v20[1] = &unk_2876ED278;
-    v19[1] = @"Line";
-    v19[2] = @"Method";
+    v19[0] = v10;
+    v19[1] = &unk_2876ED278;
+    v18[1] = @"Line";
+    v18[2] = @"Method";
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v20[2] = v11;
-    v19[3] = *MEMORY[0x277CCA068];
+    v19[2] = v11;
+    v18[3] = *MEMORY[0x277CCA068];
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 471];
-    v20[3] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v19[3] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
     v14 = [v8 errorWithDomain:v9 code:10 userInfo:v13];
   }
 
@@ -247,34 +258,31 @@ LABEL_6:
     sub_265380EF8(self, 0);
     [parent fireSessionDidEndUnexpectedlyEventWithStatus:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)alternativeCarrierDisconnectedWithStatus:(unint64_t)status
 {
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v25 = sub_2653826F8;
-  v26 = &unk_279B93CB8;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v24 = sub_2653826F8;
+  v25 = &unk_279B93CB8;
   selfCopy = self;
-  v28 = &v29;
-  v5 = v24;
+  v27 = &v28;
+  v5 = v23;
   os_unfair_lock_lock(&self->_lock);
-  v25(v5);
+  v24(v5);
   os_unfair_lock_unlock(&self->_lock);
 
-  v23 = v30[3];
   sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler alternativeCarrierDisconnectedWithStatus:]", 491, self, @"status=%d, transactionState=%lu", v6, v7, status);
   parent = [(STSTransactionHandler *)self parent];
   v9 = sub_2653820A8(&self->super.super.super.isa);
   [v9 stsSessionAlternativeCarrierDisconnected:parent];
 
-  if ((v30[3] & 0xFFFFFFFFFFFFFFFELL) != 2)
+  if ((v29[3] & 0xFFFFFFFFFFFFFFFELL) != 2)
   {
     v14 = 0;
     goto LABEL_19;
@@ -374,7 +382,7 @@ LABEL_19:
     [parent fireTransactionEndEvent:v14];
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
 }
 
 - (void)processISO18013CredentialProposals:(id)proposals readerAuthInfo:(id)info
@@ -458,7 +466,7 @@ LABEL_19:
 - (void)session:(id)session fieldChange:(BOOL)change
 {
   changeCopy = change;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = sub_265398338();
   if (os_signpost_enabled(v6))
   {
@@ -468,9 +476,9 @@ LABEL_19:
       v7 = "yes";
     }
 
-    v10 = 136315138;
-    v11 = v7;
-    _os_signpost_emit_with_name_impl(&dword_26536F000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ISO18013Handler_FieldChange", "fieldPresent=%s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = v7;
+    _os_signpost_emit_with_name_impl(&dword_26536F000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ISO18013Handler_FieldChange", "fieldPresent=%s", &v9, 0xCu);
   }
 
   if (changeCopy)
@@ -487,20 +495,18 @@ LABEL_19:
 
     [(STSXPCClientNotificationListener *)stsNotificationListener sendConnectionHandoverStarted];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session fieldNotification:(id)notification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler session:fieldNotification:]", 621, self, @"field=%@", v6, v7, notificationCopy);
   v8 = sub_265398338();
   if (os_signpost_enabled(v8))
   {
     *buf = 138412290;
-    v16 = notificationCopy;
+    v15 = notificationCopy;
     _os_signpost_emit_with_name_impl(&dword_26536F000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ISO18013Handler_FieldDetect", "field=%@", buf, 0xCu);
   }
 
@@ -520,47 +526,43 @@ LABEL_19:
   block[2] = sub_265383020;
   block[3] = &unk_279B93898;
   block[4] = self;
-  v14 = v9;
+  v13 = v9;
   v11 = v9;
   dispatch_async(callbackQueue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session tnepService:(id)service
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v6 = sub_265398338();
   if (os_signpost_enabled(v6))
   {
     *buf = 138412290;
-    v11 = serviceCopy;
+    v10 = serviceCopy;
     _os_signpost_emit_with_name_impl(&dword_26536F000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ISO18013Handler_TnepService_Selected", "service=%@", buf, 0xCu);
   }
 
   sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler session:tnepService:]", 633, self, @"service=%@", v7, v8, serviceCopy);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session connectionHandoverProcessFailure:(id)failure
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   failureCopy = failure;
   v8 = sub_265398338();
   if (os_signpost_enabled(v8))
   {
     *buf = 138412290;
-    v38 = failureCopy;
+    v36 = failureCopy;
     _os_signpost_emit_with_name_impl(&dword_26536F000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ISO18013Handler_HandoverFailure", "error=%@", buf, 0xCu);
   }
 
-  if (self && (v11 = self->_transactionState, v11 >= 2))
+  if (self && (transactionState = self->_transactionState, transactionState >= 2))
   {
-    transactionState = self->_transactionState;
     sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler session:connectionHandoverProcessFailure:]", 645, self, @"error=%@, transactionState=%lu, handoverCompeted=%d", v9, v10, failureCopy);
-    if (v11 != 5)
+    if (transactionState != 5)
     {
       sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler session:connectionHandoverProcessFailure:]", 648, self, @"Handover has completed; ignore error=%{public}@", v12, v13, failureCopy);
       [(ISO18013Handler *)self connectionHandoverCompleted:sessionCopy];
@@ -649,7 +651,7 @@ LABEL_23:
 LABEL_24:
   if (!(v21 | v28) && ([v15 code] == 2 || objc_msgSend(v15, "code") == 8))
   {
-    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler session:connectionHandoverProcessFailure:]", 659, self, @"Allows reader to retry", v29, v30, v34);
+    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013Handler session:connectionHandoverProcessFailure:]", 659, self, @"Allows reader to retry", v29, v30, v33);
     v21 = 0;
   }
 
@@ -688,7 +690,6 @@ LABEL_24:
   }
 
 LABEL_38:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionHandoverCompleted:(id)completed

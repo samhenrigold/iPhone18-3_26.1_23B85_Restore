@@ -27,43 +27,45 @@
 
 - (VSSubscription)init
 {
-  v5.receiver = self;
-  v5.super_class = VSSubscription;
-  v2 = [(VSSubscription *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = VSSubscription;
+  v2 = [(VSSubscription *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = VSSubscriptionValueType();
-    VSValueTypeInit(v3, v2);
+    v4 = VSSubscriptionValueType(v2);
+    VSValueTypeInit(v4, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (VSSubscription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v8.receiver = self;
-  v8.super_class = VSSubscription;
-  v5 = [(VSSubscription *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = VSSubscription;
+  v5 = [(VSSubscription *)&v9 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = VSSubscriptionValueType();
-    VSValueTypeInitWithCoder(v6, v5, coderCopy);
+    v7 = VSSubscriptionValueType(v5);
+    VSValueTypeInitWithCoder(v7, v6, coderCopy);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = VSSubscriptionValueType();
+  v5 = VSSubscriptionValueType(coderCopy);
   VSValueTypeEncodeWithCoder(v5, self, coderCopy);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = VSSubscriptionValueType();
+  v5 = VSSubscriptionValueType(self);
   v6 = VSValueTypeCopyWithZone(v5, self, zone);
 
   return v6;
@@ -71,7 +73,7 @@
 
 - (unint64_t)hash
 {
-  v3 = VSSubscriptionValueType();
+  v3 = VSSubscriptionValueType(self);
   v4 = VSValueTypeHash(v3, self);
 
   return v4;
@@ -80,7 +82,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = VSSubscriptionValueType();
+  v5 = VSSubscriptionValueType(equalCopy);
   LOBYTE(self) = VSValueTypeIsEqual(v5, self, equalCopy);
 
   return self;
@@ -88,7 +90,7 @@
 
 - (id)description
 {
-  v3 = VSSubscriptionValueType();
+  v3 = VSSubscriptionValueType(self);
   v4 = VSValueTypeDescription(v3, self);
 
   return v4;
@@ -157,9 +159,11 @@
 
 uint64_t __60__VSSubscription_keyPathsForValuesAffectingSubscriptionInfo__block_invoke()
 {
-  keyPathsForValuesAffectingSubscriptionInfo___vs_lazy_init_variable = __60__VSSubscription_keyPathsForValuesAffectingSubscriptionInfo__block_invoke_2();
+  v0 = __60__VSSubscription_keyPathsForValuesAffectingSubscriptionInfo__block_invoke_2();
+  v1 = keyPathsForValuesAffectingSubscriptionInfo___vs_lazy_init_variable;
+  keyPathsForValuesAffectingSubscriptionInfo___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __60__VSSubscription_keyPathsForValuesAffectingSubscriptionInfo__block_invoke_2()
@@ -527,9 +531,11 @@ LABEL_55:
 
 uint64_t __55__VSSubscription_keyPathsForValuesAffectingVersionHash__block_invoke()
 {
-  keyPathsForValuesAffectingVersionHash___vs_lazy_init_variable = __55__VSSubscription_keyPathsForValuesAffectingVersionHash__block_invoke_2();
+  v0 = __55__VSSubscription_keyPathsForValuesAffectingVersionHash__block_invoke_2();
+  v1 = keyPathsForValuesAffectingVersionHash___vs_lazy_init_variable;
+  keyPathsForValuesAffectingVersionHash___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __55__VSSubscription_keyPathsForValuesAffectingVersionHash__block_invoke_2()
@@ -540,7 +546,7 @@ id __55__VSSubscription_keyPathsForValuesAffectingVersionHash__block_invoke_2()
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v1 = VSSubscriptionValueType();
+  v1 = VSSubscriptionValueType(v0);
   v2 = [v1 properties];
 
   v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
@@ -580,7 +586,7 @@ id __55__VSSubscription_keyPathsForValuesAffectingVersionHash__block_invoke_2()
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v4 = VSSubscriptionValueType();
+  v4 = VSSubscriptionValueType(v3);
   properties = [v4 properties];
 
   v6 = [properties countByEnumeratingWithState:&v12 objects:v16 count:16];

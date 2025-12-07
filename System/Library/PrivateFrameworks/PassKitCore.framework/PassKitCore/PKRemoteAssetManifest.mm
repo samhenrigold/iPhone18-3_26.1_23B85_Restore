@@ -335,11 +335,11 @@ LABEL_65:
   v7URLByDeletingPathExtension = [uRLByDeletingPathExtension URLByDeletingPathExtension];
   lastPathComponent = [v7URLByDeletingPathExtension lastPathComponent];
 
-  v11 = [pathExtension isEqualToString:@"pdf"];
-  v12 = v11;
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
+  v12 = isEqualToString;
   if (suffixCopy)
   {
-    if (v11)
+    if (isEqualToString)
     {
       v13 = [lastPathComponent stringByAppendingString:suffixCopy];
       v14 = [v13 stringByAppendingPathExtension:pathExtension];

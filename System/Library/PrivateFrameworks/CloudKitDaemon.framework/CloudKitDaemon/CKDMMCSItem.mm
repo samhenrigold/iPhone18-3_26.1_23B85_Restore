@@ -1,4 +1,6 @@
 @interface CKDMMCSItem
+- (CKDMMCSItem)initWithAsset:(id)asset temporary:(BOOL)temporary;
+- (CKDMMCSItem)initWithPackage:(id)package temporary:(BOOL)temporary;
 - (id)CKPropertiesDescription;
 - (id)_openInfo;
 - (id)clonedFileURLInDestinationDirectory:(id)directory;
@@ -26,6 +28,127 @@
   }
 
   return result;
+}
+
+- (CKDMMCSItem)initWithAsset:(id)asset temporary:(BOOL)temporary
+{
+  temporaryCopy = temporary;
+  assetCopy = asset;
+  v13 = objc_msgSend_record(assetCopy, v9, v10);
+  if (!v13)
+  {
+    v126 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v126, v127, a2, self, @"CKDMMCSItem.m", 46, @"Expected non-nil record for %@", assetCopy);
+  }
+
+  v14 = objc_msgSend_init_(self, v11, temporaryCopy);
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong((v14 + 136), asset);
+    v18 = objc_msgSend_recordID(v13, v16, v17);
+    recordID = v15->_recordID;
+    v15->_recordID = v18;
+
+    v22 = objc_msgSend_recordType(v13, v20, v21);
+    recordType = v15->_recordType;
+    v15->_recordType = v22;
+
+    v26 = objc_msgSend_recordKey(assetCopy, v24, v25);
+    recordKey = v15->_recordKey;
+    v15->_recordKey = v26;
+
+    v30 = objc_msgSend_fileURL(assetCopy, v28, v29);
+    fileURL = v15->_fileURL;
+    v15->_fileURL = v30;
+
+    v34 = objc_msgSend_deviceID(assetCopy, v32, v33);
+    deviceID = v15->_deviceID;
+    v15->_deviceID = v34;
+
+    v38 = objc_msgSend_fileID(assetCopy, v36, v37);
+    fileID = v15->_fileID;
+    v15->_fileID = v38;
+
+    v42 = objc_msgSend_generationID(assetCopy, v40, v41);
+    generationID = v15->_generationID;
+    v15->_generationID = v42;
+
+    v46 = objc_msgSend_fileHandle(assetCopy, v44, v45);
+    fileHandle = v15->_fileHandle;
+    v15->_fileHandle = v46;
+
+    v50 = objc_msgSend_signature(assetCopy, v48, v49);
+    signature = v15->_signature;
+    v15->_signature = v50;
+
+    v54 = objc_msgSend_itemTypeHint(assetCopy, v52, v53);
+    itemTypeHint = v15->_itemTypeHint;
+    v15->_itemTypeHint = v54;
+
+    v58 = objc_msgSend_contentBaseURL(assetCopy, v56, v57);
+    contentBaseURL = v15->_contentBaseURL;
+    v15->_contentBaseURL = v58;
+
+    v62 = objc_msgSend_owner(assetCopy, v60, v61);
+    owner = v15->_owner;
+    v15->_owner = v62;
+
+    v66 = objc_msgSend_requestor(assetCopy, v64, v65);
+    requestor = v15->_requestor;
+    v15->_requestor = v66;
+
+    v70 = objc_msgSend_authToken(assetCopy, v68, v69);
+    authToken = v15->_authToken;
+    v15->_authToken = v70;
+
+    v74 = objc_msgSend_downloadPreauthorization(assetCopy, v72, v73);
+    downloadPreauthorization = v15->_downloadPreauthorization;
+    v15->_downloadPreauthorization = v74;
+
+    v78 = objc_msgSend_assetKey(assetCopy, v76, v77);
+    assetKey = v15->_assetKey;
+    v15->_assetKey = v78;
+
+    v82 = objc_msgSend_wrappedAssetKey(assetCopy, v80, v81);
+    wrappedAssetKey = v15->_wrappedAssetKey;
+    v15->_wrappedAssetKey = v82;
+
+    v86 = objc_msgSend_clearAssetKey(assetCopy, v84, v85);
+    clearAssetKey = v15->_clearAssetKey;
+    v15->_clearAssetKey = v86;
+
+    v90 = objc_msgSend_boundaryKey(assetCopy, v88, v89);
+    boundaryKey = v15->_boundaryKey;
+    v15->_boundaryKey = v90;
+
+    v94 = objc_msgSend_referenceSignature(assetCopy, v92, v93);
+    referenceSignature = v15->_referenceSignature;
+    v15->_referenceSignature = v94;
+
+    v15->_shouldReadRawEncryptedData = objc_msgSend_shouldReadRawEncryptedData(assetCopy, v96, v97);
+    v15->_shouldReadAssetContentUsingClientProxy = objc_msgSend_shouldReadAssetContentUsingClientProxy(assetCopy, v98, v99);
+    v15->_downloadTokenExpiration = objc_msgSend_downloadTokenExpiration(assetCopy, v100, v101);
+    v104 = objc_msgSend_assetChunkerOptions(assetCopy, v102, v103);
+    assetChunkerOptions = v15->_assetChunkerOptions;
+    v15->_assetChunkerOptions = v104;
+
+    v108 = objc_msgSend_constructedAssetDownloadURL(assetCopy, v106, v107);
+    constructedAssetDownloadURL = v15->_constructedAssetDownloadURL;
+    v15->_constructedAssetDownloadURL = v108;
+
+    v15->_constructedAssetEstimatedSize = objc_msgSend_constructedAssetEstimatedSize(assetCopy, v110, v111);
+    v112 = [CKDAssetZoneKey alloc];
+    v115 = objc_msgSend_zoneID(v15->_recordID, v113, v114);
+    v116 = MEMORY[0x277CCABB0];
+    v119 = objc_msgSend_useMMCSEncryptionV2(assetCopy, v117, v118);
+    v121 = objc_msgSend_numberWithBool_(v116, v120, v119);
+    v123 = objc_msgSend_initWithDestinationZoneID_destinationDatabaseScope_usesMMCSEncryptionV2_(v112, v122, v115, 0, v121);
+    assetZoneKey = v15->_assetZoneKey;
+    v15->_assetZoneKey = v123;
+  }
+
+  return v15;
 }
 
 - (unint64_t)MMCSEncoding
@@ -79,6 +202,61 @@
   isPackageRereference = objc_msgSend_initWithDestinationZoneID_destinationDatabaseScope_usesMMCSEncryptionV2_sourceZoneID_sourceDatabaseScope_isPackageRereference_(v38, v56, v41, scope, v43, v49, v52, isPackageMember);
   assetZoneKey = self->_assetZoneKey;
   self->_assetZoneKey = isPackageRereference;
+}
+
+- (CKDMMCSItem)initWithPackage:(id)package temporary:(BOOL)temporary
+{
+  temporaryCopy = temporary;
+  packageCopy = package;
+  v13 = objc_msgSend_record(packageCopy, v9, v10);
+  if (!v13)
+  {
+    v48 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v48, v49, a2, self, @"CKDMMCSItem.m", 113, @"Expected non-nil record for %@", packageCopy);
+  }
+
+  v14 = objc_msgSend_init_(self, v11, temporaryCopy);
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong((v14 + 144), package);
+    v18 = objc_msgSend_recordID(v13, v16, v17);
+    recordID = v15->_recordID;
+    v15->_recordID = v18;
+
+    v22 = objc_msgSend_recordType(v13, v20, v21);
+    recordType = v15->_recordType;
+    v15->_recordType = v22;
+
+    v26 = objc_msgSend_recordKey(packageCopy, v24, v25);
+    recordKey = v15->_recordKey;
+    v15->_recordKey = v26;
+
+    if (objc_msgSend_useMMCSEncryptionV2(packageCopy, v28, v29))
+    {
+      v32 = objc_msgSend_boundaryKey(packageCopy, v30, v31);
+      boundaryKey = v15->_boundaryKey;
+      v15->_boundaryKey = v32;
+
+      if (!v15->_boundaryKey)
+      {
+        v50 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v30, v31);
+        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v50, v51, a2, v15, @"CKDMMCSItem.m", 122, @"Expected non-nil boundary key for %@", packageCopy);
+      }
+    }
+
+    v15->_shouldReadRawEncryptedData = objc_msgSend_shouldReadRawEncryptedData(packageCopy, v30, v31);
+    v34 = [CKDAssetZoneKey alloc];
+    v37 = objc_msgSend_zoneID(v15->_recordID, v35, v36);
+    v38 = MEMORY[0x277CCABB0];
+    v41 = objc_msgSend_useMMCSEncryptionV2(packageCopy, v39, v40);
+    v43 = objc_msgSend_numberWithBool_(v38, v42, v41);
+    v45 = objc_msgSend_initWithDestinationZoneID_destinationDatabaseScope_usesMMCSEncryptionV2_(v34, v44, v37, 0, v43);
+    assetZoneKey = v15->_assetZoneKey;
+    v15->_assetZoneKey = v45;
+  }
+
+  return v15;
 }
 
 - (id)CKPropertiesDescription

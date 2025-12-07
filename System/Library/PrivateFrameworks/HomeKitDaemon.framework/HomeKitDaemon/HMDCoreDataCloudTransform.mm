@@ -71,12 +71,12 @@
 
 void __75__HMDCoreDataCloudTransform_Home__countResidentsInHomeWithUUID_completion___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v14 = 0;
-  v4 = [(MKFCKModel *)MKFCKHome modelWithModelID:v2 context:v3 error:&v14];
-  v5 = v14;
+  v13 = 0;
+  v4 = [(MKFCKModel *)MKFCKHome modelWithModelID:v2 context:v3 error:&v13];
+  v5 = v13;
   if (v4)
   {
     v6 = *(a1 + 56);
@@ -94,21 +94,19 @@ void __75__HMDCoreDataCloudTransform_Home__countResidentsInHomeWithUUID_completi
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 32);
       *buf = 138544130;
-      v16 = v11;
-      v17 = 2160;
-      v18 = 1752392040;
-      v19 = 2112;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v5;
+      v15 = v11;
+      v16 = 2160;
+      v17 = 1752392040;
+      v18 = 2112;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v5;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not find the home for UUID: %{mask.hash}@. Error: %{public}@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v8);
     (*(*(a1 + 56) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCoreDataCloudTransformDelegate)delegate
@@ -120,18 +118,18 @@ void __75__HMDCoreDataCloudTransform_Home__countResidentsInHomeWithUUID_completi
 
 - (void)_processHistoryForStore:(id)store context:(id)context
 {
-  v184[2] = *MEMORY[0x277D85DE8];
+  v182[2] = *MEMORY[0x277D85DE8];
   storeCopy = store;
   contextCopy = context;
   identifier = [storeCopy identifier];
   hmd_cloudPrivateStoreIdentifier = [contextCopy hmd_cloudPrivateStoreIdentifier];
   v7 = [identifier isEqualToString:hmd_cloudPrivateStoreIdentifier];
 
-  v147 = v7;
+  v145 = v7;
   if (v7)
   {
-    v143 = 0;
-    v152 = 1;
+    v141 = 0;
+    v150 = 1;
     v8 = @"cloud private";
   }
 
@@ -143,18 +141,18 @@ void __75__HMDCoreDataCloudTransform_Home__countResidentsInHomeWithUUID_completi
 
     if (v11)
     {
-      v143 = 1;
-      v144 = @"cloud shared";
-      v152 = 1;
+      v141 = 1;
+      v142 = @"cloud shared";
+      v150 = 1;
       goto LABEL_7;
     }
 
-    v143 = 0;
-    v152 = 0;
+    v141 = 0;
+    v150 = 0;
     v8 = @"working";
   }
 
-  v144 = v8;
+  v142 = v8;
 LABEL_7:
   context = objc_autoreleasePoolPush();
   if (self)
@@ -173,13 +171,13 @@ LABEL_7:
 
   v16 = [MEMORY[0x277CBE4B0] fetchHistoryAfterToken:v15];
   [v16 setFetchBatchSize:10];
-  v170 = storeCopy;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v170 count:1];
+  v168 = storeCopy;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v168 count:1];
   [v16 setAffectedStores:v17];
 
-  v166 = 0;
-  v18 = [contextCopy executeRequest:v16 error:&v166];
-  v148 = v166;
+  v164 = 0;
+  v18 = [contextCopy executeRequest:v16 error:&v164];
+  v146 = v164;
   if (v18)
   {
     result = [v18 result];
@@ -195,7 +193,7 @@ LABEL_7:
       *&buf[12] = 2048;
       *&buf[14] = v24;
       *&buf[22] = 2114;
-      v172 = v144;
+      v170 = v142;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Fetched %zd transaction(s) for %{public}@ store", buf, 0x20u);
     }
 
@@ -214,24 +212,24 @@ LABEL_7:
       v32 = objc_alloc_init(v30);
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
-      if (v152)
+      if (v150)
       {
         *&buf[16] = __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context___block_invoke;
-        v172 = &unk_2786829F8;
-        *&v173 = selfCopy;
+        v170 = &unk_2786829F8;
+        *&v171 = selfCopy;
         v33 = v29;
-        *(&v173 + 1) = v33;
-        v174 = v32;
+        *(&v171 + 1) = v33;
+        v172 = v32;
       }
 
       else
       {
         *&buf[16] = __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context___block_invoke;
-        v172 = &unk_2786829F8;
-        *&v173 = selfCopy;
-        *(&v173 + 1) = v32;
+        v170 = &unk_2786829F8;
+        *&v171 = selfCopy;
+        *(&v171 + 1) = v32;
         v33 = v29;
-        v174 = v33;
+        v172 = v33;
       }
 
       v34 = v32;
@@ -257,11 +255,11 @@ LABEL_7:
       *buf = 138544130;
       *&buf[4] = v38;
       *&buf[12] = 2114;
-      *&buf[14] = v144;
+      *&buf[14] = v142;
       *&buf[22] = 2114;
-      v172 = v15;
-      LOWORD(v173) = 2114;
-      *(&v173 + 2) = v148;
+      v170 = v15;
+      LOWORD(v171) = 2114;
+      *(&v171 + 2) = v146;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch history for %{public}@ store with token %{public}@: %{public}@", buf, 0x2Au);
     }
 
@@ -273,20 +271,20 @@ LABEL_7:
   objc_autoreleasePoolPop(context);
   if (v18)
   {
-    v162 = 0;
-    v163 = &v162;
-    v164 = 0x2020000000;
-    v165 = 0;
-    v158[0] = MEMORY[0x277D85DD0];
-    v158[1] = 3221225472;
-    v158[2] = __61__HMDCoreDataCloudTransform__processHistoryForStore_context___block_invoke;
-    v158[3] = &unk_278678F38;
-    v158[4] = self;
-    v161 = v152;
+    v160 = 0;
+    v161 = &v160;
+    v162 = 0x2020000000;
+    v163 = 0;
+    v156[0] = MEMORY[0x277D85DD0];
+    v156[1] = 3221225472;
+    v156[2] = __61__HMDCoreDataCloudTransform__processHistoryForStore_context___block_invoke;
+    v156[3] = &unk_278678F38;
+    v156[4] = self;
+    v159 = v150;
     v39 = contextCopy;
-    v159 = v39;
-    v160 = &v162;
-    [allValues hmf_enumerateWithAutoreleasePoolUsingBlock:v158];
+    v157 = v39;
+    v158 = &v160;
+    [allValues hmf_enumerateWithAutoreleasePoolUsingBlock:v156];
     if ([v39 hmd_homeManagerApplicationDataChanged])
     {
       [v39 setHmd_homeManagerApplicationDataChanged:0];
@@ -300,23 +298,23 @@ LABEL_7:
         if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
           v45 = HMFGetLogIdentifier();
-          *v180 = 138543362;
-          *&v180[4] = v45;
-          _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Running check to see if home manager application data has changed", v180, 0xCu);
+          *v178 = 138543362;
+          *&v178[4] = v45;
+          _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Running check to see if home manager application data has changed", v178, 0xCu);
         }
 
         objc_autoreleasePoolPop(v42);
         v46 = +[MKFCKHome fetchRequest];
         [v46 setFetchBatchSize:10];
-        v184[0] = @"primaryHomeCounter";
-        v184[1] = @"homeManagerApplicationData";
-        v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v184 count:2];
+        v182[0] = @"primaryHomeCounter";
+        v182[1] = @"homeManagerApplicationData";
+        v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
         v48 = [(MKFCKModel *)MKFCKHome appendDefaultPreloadedPropertiesTo:v47];
         [v46 setPropertiesToFetch:v48];
 
-        v169 = 0;
-        v49 = [v41 executeFetchRequest:v46 error:&v169];
-        v50 = v169;
+        v167 = 0;
+        v49 = [v41 executeFetchRequest:v46 error:&v167];
+        v50 = v167;
         if (!v49)
         {
           v59 = objc_autoreleasePoolPush();
@@ -325,11 +323,11 @@ LABEL_7:
           if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
           {
             v62 = HMFGetLogIdentifier();
-            *v180 = 138543618;
-            *&v180[4] = v62;
-            *&v180[12] = 2114;
-            *&v180[14] = v50;
-            _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch homes: %{public}@", v180, 0x16u);
+            *v178 = 138543618;
+            *&v178[4] = v62;
+            *&v178[12] = 2114;
+            *&v178[14] = v50;
+            _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch homes: %{public}@", v178, 0x16u);
           }
 
           objc_autoreleasePoolPop(v59);
@@ -337,48 +335,47 @@ LABEL_7:
           goto LABEL_41;
         }
 
-        *v180 = 0;
-        *&v180[8] = v180;
-        *&v180[16] = 0x3032000000;
-        v181 = __Block_byref_object_copy__121531;
-        v182 = __Block_byref_object_dispose__121532;
-        v183 = 0;
-        v168[0] = MEMORY[0x277D85DD0];
-        v168[1] = 3221225472;
-        v168[2] = __74__HMDCoreDataCloudTransform__updateHomeManagerApplicationDataWithContext___block_invoke;
-        v168[3] = &unk_278679278;
-        v168[4] = v180;
-        [v49 hmf_enumerateWithAutoreleasePoolUsingBlock:v168];
-        v167 = v50;
-        v51 = [_MKFHomeManager fetchWithContext:v41 error:&v167];
-        v149 = v167;
+        *v178 = 0;
+        *&v178[8] = v178;
+        *&v178[16] = 0x3032000000;
+        v179 = __Block_byref_object_copy__121531;
+        v180 = __Block_byref_object_dispose__121532;
+        v181 = 0;
+        v166[0] = MEMORY[0x277D85DD0];
+        v166[1] = 3221225472;
+        v166[2] = __74__HMDCoreDataCloudTransform__updateHomeManagerApplicationDataWithContext___block_invoke;
+        v166[3] = &unk_278679278;
+        v166[4] = v178;
+        [v49 hmf_enumerateWithAutoreleasePoolUsingBlock:v166];
+        v165 = v50;
+        v51 = [_MKFHomeManager fetchWithContext:v41 error:&v165];
+        v147 = v165;
 
         if (v51)
         {
           appDataDictionary = [v51 appDataDictionary];
-          homeManagerApplicationData = [*(*&v180[8] + 40) homeManagerApplicationData];
+          homeManagerApplicationData = [*(*&v178[8] + 40) homeManagerApplicationData];
           v54 = isEqualDeepCompare(appDataDictionary, homeManagerApplicationData);
 
           if (!v54)
           {
-            homeManagerApplicationData2 = [*(*&v180[8] + 40) homeManagerApplicationData];
-            v67 = [homeManagerApplicationData2 copy];
+            homeManagerApplicationData2 = [*(*&v178[8] + 40) homeManagerApplicationData];
+            v67 = objc_msgSend_copy(homeManagerApplicationData2);
 
             hmd_homeManagerContext = [v41 hmd_homeManagerContext];
 
-            v69 = *(*&v180[8] + 40);
-            v70 = [objc_opt_class() _homeManagerContextFromContext:v41];
+            v69 = [objc_opt_class() _homeManagerContextFromContext:v41];
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __74__HMDCoreDataCloudTransform__updateHomeManagerApplicationDataWithContext___block_invoke_245;
-            v172 = &unk_278689D20;
-            v175 = v180;
-            v71 = v67;
-            *&v173 = v71;
-            v72 = v70;
-            *(&v173 + 1) = v72;
-            v174 = selfCopy3;
-            [v72 performBlockAndWait:buf];
+            v170 = &unk_278689D20;
+            v173 = v178;
+            v70 = v67;
+            *&v171 = v70;
+            v71 = v69;
+            *(&v171 + 1) = v71;
+            v172 = selfCopy3;
+            [v71 performBlockAndWait:buf];
             if (!hmd_homeManagerContext)
             {
               [v41 setHmd_homeManagerContext:0];
@@ -394,9 +391,9 @@ LABEL_7:
           if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
           {
             v58 = HMFGetLogIdentifier();
-            *v176 = 138543362;
-            v177 = v58;
-            _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_DEBUG, "%{public}@Home manager application data is unchanged", v176, 0xCu);
+            *v174 = 138543362;
+            v175 = v58;
+            _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_DEBUG, "%{public}@Home manager application data is unchanged", v174, 0xCu);
           }
         }
 
@@ -408,11 +405,11 @@ LABEL_7:
           if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             v65 = HMFGetLogIdentifier();
-            *v176 = 138543618;
-            v177 = v65;
-            v178 = 2114;
-            v179 = v149;
-            _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home manager: %{public}@", v176, 0x16u);
+            *v174 = 138543618;
+            v175 = v65;
+            v176 = 2114;
+            v177 = v147;
+            _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home manager: %{public}@", v174, 0x16u);
           }
         }
 
@@ -420,132 +417,132 @@ LABEL_7:
         v63 = 0;
 LABEL_40:
 
-        _Block_object_dispose(v180, 8);
-        v50 = v149;
+        _Block_object_dispose(v178, 8);
+        v50 = v147;
 LABEL_41:
 
-        v73 = v163;
+        v72 = v161;
         if (v63)
         {
-          *(v163 + 24) = 1;
+          *(v161 + 24) = 1;
         }
 
 LABEL_47:
-        if ((v147 | *(v73 + 24)))
+        if ((v145 | *(v72 + 24)))
         {
-          v74 = [(HMDCoreDataCloudTransform *)self _fetchOrCreateMetadataForManagedObjectContext:v39];
-          v75 = v74;
-          if (v147)
+          v73 = [(HMDCoreDataCloudTransform *)self _fetchOrCreateMetadataForManagedObjectContext:v39];
+          v74 = v73;
+          if (v145)
           {
-            historyTokenForCloudStore = [v74 historyTokenForCloudStore];
-            v77 = (historyTokenForCloudStore | token) == 0;
+            historyTokenForCloudStore = [v73 historyTokenForCloudStore];
+            v76 = (historyTokenForCloudStore | token) == 0;
 
-            if (v77)
+            if (v76)
             {
-              v150 = storeCopy;
-              v78 = v39;
-              contexta = v78;
+              v148 = storeCopy;
+              v77 = v39;
+              contexta = v77;
               if (self)
               {
-                [v78 hmd_assertIsExecuting];
-                v79 = objc_autoreleasePoolPush();
+                [v77 hmd_assertIsExecuting];
+                v78 = objc_autoreleasePoolPush();
                 selfCopy4 = self;
-                v81 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+                v80 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
                 {
-                  v82 = HMFGetLogIdentifier();
+                  v81 = HMFGetLogIdentifier();
                   *buf = 138543362;
-                  *&buf[4] = v82;
-                  _os_log_impl(&dword_229538000, v81, OS_LOG_TYPE_DEBUG, "%{public}@Fetching NSPersistentCloudKitContainerEvents for first import check", buf, 0xCu);
+                  *&buf[4] = v81;
+                  _os_log_impl(&dword_229538000, v80, OS_LOG_TYPE_DEBUG, "%{public}@Fetching NSPersistentCloudKitContainerEvents for first import check", buf, 0xCu);
                 }
 
-                objc_autoreleasePoolPop(v79);
+                objc_autoreleasePoolPop(v78);
                 fetchRequestForEvents = [MEMORY[0x277CBE488] fetchRequestForEvents];
-                v84 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(succeeded == YES) AND (type == %ld) AND (endDate != nil)", 1];
-                [fetchRequestForEvents setPredicate:v84];
+                v83 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(succeeded == YES) AND (type == %ld) AND (endDate != nil)", 1];
+                [fetchRequestForEvents setPredicate:v83];
 
-                v85 = [MEMORY[0x277CBE488] fetchEventsMatchingFetchRequest:fetchRequestForEvents];
-                [v85 setResultType:1];
-                *v180 = v150;
-                v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:1];
-                [v85 setAffectedStores:v86];
+                v84 = [MEMORY[0x277CBE488] fetchEventsMatchingFetchRequest:fetchRequestForEvents];
+                [v84 setResultType:1];
+                *v178 = v148;
+                v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:1];
+                [v84 setAffectedStores:v85];
 
-                v168[0] = 0;
-                v87 = [contexta executeRequest:v85 error:v168];
-                v142 = v168[0];
-                if (v87)
+                v166[0] = 0;
+                v86 = [contexta executeRequest:v84 error:v166];
+                v140 = v166[0];
+                if (v86)
                 {
-                  v141 = v87;
-                  result2 = [v141 result];
-                  if ([result2 count] && (objc_msgSend(result2, "firstObject"), v89 = objc_claimAutoreleasedReturnValue(), v90 = objc_msgSend(v89, "unsignedIntegerValue"), v89, v90))
+                  v139 = v86;
+                  result2 = [v139 result];
+                  if ([result2 count] && (objc_msgSend(result2, "firstObject"), v88 = objc_claimAutoreleasedReturnValue(), v89 = objc_msgSend(v88, "unsignedIntegerValue"), v88, v89))
                   {
-                    v154 = objc_autoreleasePoolPush();
-                    v91 = selfCopy4;
-                    v92 = HMFGetOSLogHandle();
-                    if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
+                    v152 = objc_autoreleasePoolPush();
+                    v90 = selfCopy4;
+                    v91 = HMFGetOSLogHandle();
+                    if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
                     {
-                      v93 = HMFGetLogIdentifier();
-                      v94 = "s";
+                      v92 = HMFGetLogIdentifier();
+                      v93 = "s";
                       *buf = 138543874;
-                      *&buf[4] = v93;
-                      if (v90 == 1)
+                      *&buf[4] = v92;
+                      if (v89 == 1)
                       {
-                        v94 = "";
+                        v93 = "";
                       }
 
                       *&buf[12] = 2048;
-                      *&buf[14] = v90;
+                      *&buf[14] = v89;
                       *&buf[22] = 2080;
-                      v172 = v94;
-                      _os_log_impl(&dword_229538000, v92, OS_LOG_TYPE_INFO, "%{public}@Found %ld import NSPersistentCloudKitContainerEvent%s, using current history token for store", buf, 0x20u);
+                      v170 = v93;
+                      _os_log_impl(&dword_229538000, v91, OS_LOG_TYPE_INFO, "%{public}@Found %ld import NSPersistentCloudKitContainerEvent%s, using current history token for store", buf, 0x20u);
                     }
 
-                    objc_autoreleasePoolPop(v154);
-                    v95 = contexta;
-                    v96 = v150;
-                    [v95 hmd_assertIsExecuting];
-                    persistentStoreCoordinator = [v95 persistentStoreCoordinator];
+                    objc_autoreleasePoolPop(v152);
+                    v94 = contexta;
+                    v95 = v148;
+                    [v94 hmd_assertIsExecuting];
+                    persistentStoreCoordinator = [v94 persistentStoreCoordinator];
 
-                    *buf = v96;
-                    v98 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
+                    *buf = v95;
+                    v97 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
 
-                    token = [persistentStoreCoordinator currentPersistentHistoryTokenFromStores:v98];
+                    token = [persistentStoreCoordinator currentPersistentHistoryTokenFromStores:v97];
                   }
 
                   else
                   {
-                    v133 = objc_autoreleasePoolPush();
-                    v134 = selfCopy4;
-                    v135 = HMFGetOSLogHandle();
-                    if (os_log_type_enabled(v135, OS_LOG_TYPE_INFO))
+                    v131 = objc_autoreleasePoolPush();
+                    v132 = selfCopy4;
+                    v133 = HMFGetOSLogHandle();
+                    if (os_log_type_enabled(v133, OS_LOG_TYPE_INFO))
                     {
-                      v136 = HMFGetLogIdentifier();
+                      v134 = HMFGetLogIdentifier();
                       *buf = 138543362;
-                      *&buf[4] = v136;
-                      _os_log_impl(&dword_229538000, v135, OS_LOG_TYPE_INFO, "%{public}@Found no import NSPersistentCloudKitContainerEvents", buf, 0xCu);
+                      *&buf[4] = v134;
+                      _os_log_impl(&dword_229538000, v133, OS_LOG_TYPE_INFO, "%{public}@Found no import NSPersistentCloudKitContainerEvents", buf, 0xCu);
                     }
 
-                    objc_autoreleasePoolPop(v133);
+                    objc_autoreleasePoolPop(v131);
                     token = 0;
                   }
                 }
 
                 else
                 {
-                  v137 = objc_autoreleasePoolPush();
-                  v138 = selfCopy4;
-                  v139 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
+                  v135 = objc_autoreleasePoolPush();
+                  v136 = selfCopy4;
+                  v137 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
                   {
-                    v140 = HMFGetLogIdentifier();
+                    v138 = HMFGetLogIdentifier();
                     *buf = 138543618;
-                    *&buf[4] = v140;
+                    *&buf[4] = v138;
                     *&buf[12] = 2114;
-                    *&buf[14] = v142;
-                    _os_log_impl(&dword_229538000, v139, OS_LOG_TYPE_ERROR, "%{public}@NSPersistentCloudKitContainerEventRequest failed: %{public}@", buf, 0x16u);
+                    *&buf[14] = v140;
+                    _os_log_impl(&dword_229538000, v137, OS_LOG_TYPE_ERROR, "%{public}@NSPersistentCloudKitContainerEventRequest failed: %{public}@", buf, 0x16u);
                   }
 
-                  objc_autoreleasePoolPop(v137);
+                  objc_autoreleasePoolPop(v135);
                   token = 0;
                 }
               }
@@ -557,7 +554,7 @@ LABEL_47:
 
               if (token)
               {
-                *(v163 + 24) = 1;
+                *(v161 + 24) = 1;
               }
 
               else
@@ -570,127 +567,127 @@ LABEL_47:
 
         else
         {
-          v75 = 0;
+          v74 = 0;
         }
 
         os_unfair_lock_lock_with_options();
-        v99 = v152;
+        v98 = v150;
         if (!self)
         {
-          v99 = 1;
+          v98 = 1;
         }
 
-        if ((v99 & 1) == 0 && [(NSMutableSet *)self->_cloudImportInProgressStoreIdentifiers count])
+        if ((v98 & 1) == 0 && [(NSMutableSet *)self->_cloudImportInProgressStoreIdentifiers count])
         {
-          v100 = objc_autoreleasePoolPush();
+          v99 = objc_autoreleasePoolPush();
           selfCopy5 = self;
-          v102 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+          v101 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
           {
-            v103 = HMFGetLogIdentifier();
+            v102 = HMFGetLogIdentifier();
             *buf = 138543362;
-            *&buf[4] = v103;
-            _os_log_impl(&dword_229538000, v102, OS_LOG_TYPE_DEFAULT, "%{public}@Cloud import is in progress, move the current export to pending and abort", buf, 0xCu);
+            *&buf[4] = v102;
+            _os_log_impl(&dword_229538000, v101, OS_LOG_TYPE_DEFAULT, "%{public}@Cloud import is in progress, move the current export to pending and abort", buf, 0xCu);
           }
 
-          objc_autoreleasePoolPop(v100);
-          v104 = selfCopy5->_pendingChangedStoreIdentifiers;
+          objc_autoreleasePoolPop(v99);
+          v103 = selfCopy5->_pendingChangedStoreIdentifiers;
           hmd_workingStoreIdentifier = [v39 hmd_workingStoreIdentifier];
-          [(NSMutableSet *)v104 addObject:hmd_workingStoreIdentifier];
+          [(NSMutableSet *)v103 addObject:hmd_workingStoreIdentifier];
           goto LABEL_96;
         }
 
-        if (*(v163 + 24) == 1)
+        if (*(v161 + 24) == 1)
         {
-          if (v147)
+          if (v145)
           {
-            historyTokenForCloudStore2 = [v75 historyTokenForCloudStore];
-            v107 = HMFEqualObjects();
+            historyTokenForCloudStore2 = [v74 historyTokenForCloudStore];
+            v106 = HMFEqualObjects();
 
-            if ((v107 & 1) == 0)
+            if ((v106 & 1) == 0)
             {
-              [v75 setHistoryTokenForCloudStore:token];
+              [v74 setHistoryTokenForCloudStore:token];
               goto LABEL_78;
             }
           }
 
-          if (v143)
+          if (v141)
           {
-            historyTokenForCloudSharedStore = [v75 historyTokenForCloudSharedStore];
-            v109 = HMFEqualObjects();
+            historyTokenForCloudSharedStore = [v74 historyTokenForCloudSharedStore];
+            v108 = HMFEqualObjects();
 
-            if ((v109 & 1) == 0)
+            if ((v108 & 1) == 0)
             {
-              [v75 setHistoryTokenForCloudSharedStore:token];
+              [v74 setHistoryTokenForCloudSharedStore:token];
               goto LABEL_78;
             }
           }
 
-          historyTokenForWorkingStore = [v75 historyTokenForWorkingStore];
-          v111 = HMFEqualObjects();
+          historyTokenForWorkingStore = [v74 historyTokenForWorkingStore];
+          v110 = HMFEqualObjects();
 
-          if ((v111 & 1) == 0)
+          if ((v110 & 1) == 0)
           {
-            [v75 setHistoryTokenForWorkingStore:token];
+            [v74 setHistoryTokenForWorkingStore:token];
 LABEL_78:
-            v112 = v39;
+            v111 = v39;
             if (self)
             {
-              v113 = @"export";
-              if (v152)
+              v112 = @"export";
+              if (v150)
               {
-                v113 = @"import";
+                v112 = @"import";
               }
 
-              v114 = v113;
-              [v112 setMergePolicy:*MEMORY[0x277CBE160]];
-              v115 = objc_autoreleasePoolPush();
+              v113 = v112;
+              [v111 setMergePolicy:*MEMORY[0x277CBE160]];
+              v114 = objc_autoreleasePoolPush();
               selfCopy6 = self;
-              v117 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v117, OS_LOG_TYPE_DEBUG))
+              v116 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v116, OS_LOG_TYPE_DEBUG))
               {
-                v118 = HMFGetLogIdentifier();
+                v117 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                *&buf[4] = v118;
+                *&buf[4] = v117;
                 *&buf[12] = 2114;
-                *&buf[14] = v114;
-                _os_log_impl(&dword_229538000, v117, OS_LOG_TYPE_DEBUG, "%{public}@Saving history tokens after processing %{public}@ changes", buf, 0x16u);
+                *&buf[14] = v113;
+                _os_log_impl(&dword_229538000, v116, OS_LOG_TYPE_DEBUG, "%{public}@Saving history tokens after processing %{public}@ changes", buf, 0x16u);
               }
 
-              objc_autoreleasePoolPop(v115);
-              *v180 = 0;
-              v119 = [v112 hmd_saveWithTransactionAuthor:4 error:v180];
-              v120 = *v180;
-              v121 = objc_autoreleasePoolPush();
-              v122 = selfCopy6;
-              v123 = HMFGetOSLogHandle();
-              v124 = v123;
-              if (v119)
+              objc_autoreleasePoolPop(v114);
+              *v178 = 0;
+              v118 = [v111 hmd_saveWithTransactionAuthor:4 error:v178];
+              v119 = *v178;
+              v120 = objc_autoreleasePoolPush();
+              v121 = selfCopy6;
+              v122 = HMFGetOSLogHandle();
+              v123 = v122;
+              if (v118)
               {
-                if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
+                if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
                 {
-                  v125 = HMFGetLogIdentifier();
+                  v124 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  *&buf[4] = v125;
+                  *&buf[4] = v124;
                   *&buf[12] = 2114;
-                  *&buf[14] = v114;
-                  _os_log_impl(&dword_229538000, v124, OS_LOG_TYPE_DEBUG, "%{public}@Finished saving history tokens after processing %{public}@ changes", buf, 0x16u);
+                  *&buf[14] = v113;
+                  _os_log_impl(&dword_229538000, v123, OS_LOG_TYPE_DEBUG, "%{public}@Finished saving history tokens after processing %{public}@ changes", buf, 0x16u);
                 }
               }
 
-              else if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+              else if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
               {
-                v126 = HMFGetLogIdentifier();
+                v125 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                *&buf[4] = v126;
+                *&buf[4] = v125;
                 *&buf[12] = 2114;
-                *&buf[14] = v114;
+                *&buf[14] = v113;
                 *&buf[22] = 2114;
-                v172 = v120;
-                _os_log_impl(&dword_229538000, v124, OS_LOG_TYPE_ERROR, "%{public}@Failed to save change tokens after processing %{public}@ changes: %{public}@", buf, 0x20u);
+                v170 = v119;
+                _os_log_impl(&dword_229538000, v123, OS_LOG_TYPE_ERROR, "%{public}@Failed to save change tokens after processing %{public}@ changes: %{public}@", buf, 0x20u);
               }
 
-              objc_autoreleasePoolPop(v121);
+              objc_autoreleasePoolPop(v120);
             }
           }
         }
@@ -700,48 +697,46 @@ LABEL_78:
 LABEL_97:
           os_unfair_lock_unlock(&self->_lock.lock);
 
-          _Block_object_dispose(&v162, 8);
+          _Block_object_dispose(&v160, 8);
           goto LABEL_98;
         }
 
-        v127 = objc_autoreleasePoolPush();
+        v126 = objc_autoreleasePoolPush();
         selfCopy7 = self;
-        v129 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v129, OS_LOG_TYPE_DEBUG))
+        v128 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v128, OS_LOG_TYPE_DEBUG))
         {
-          v130 = HMFGetLogIdentifier();
+          v129 = HMFGetLogIdentifier();
           *buf = 138543874;
-          *&buf[4] = v130;
+          *&buf[4] = v129;
           *&buf[12] = 2114;
-          *&buf[14] = v144;
+          *&buf[14] = v142;
           *&buf[22] = 2114;
-          v172 = token;
-          _os_log_impl(&dword_229538000, v129, OS_LOG_TYPE_DEBUG, "%{public}@Advancing in-memory history token for %{public}@ store: %{public}@", buf, 0x20u);
+          v170 = token;
+          _os_log_impl(&dword_229538000, v128, OS_LOG_TYPE_DEBUG, "%{public}@Advancing in-memory history token for %{public}@ store: %{public}@", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v127);
+        objc_autoreleasePoolPop(v126);
         selfCopy8 = self;
         if (self)
         {
           selfCopy8 = selfCopy7->_historyTokensByStoreIdentifier;
         }
 
-        v104 = selfCopy8;
+        v103 = selfCopy8;
         hmd_workingStoreIdentifier = [storeCopy identifier];
-        [(NSMutableSet *)v104 setObject:token forKeyedSubscript:hmd_workingStoreIdentifier];
+        [(NSMutableSet *)v103 setObject:token forKeyedSubscript:hmd_workingStoreIdentifier];
 LABEL_96:
 
         goto LABEL_97;
       }
     }
 
-    v73 = v163;
+    v72 = v161;
     goto LABEL_47;
   }
 
 LABEL_98:
-
-  v132 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__HMDCoreDataCloudTransform__processHistoryForStore_context___block_invoke(uint64_t a1, void *a2)
@@ -757,7 +752,7 @@ uint64_t __61__HMDCoreDataCloudTransform__processHistoryForStore_context___block
 
 - (MKFCloudSyncMetadata)_fetchOrCreateMetadataForManagedObjectContext:(MKFCloudSyncMetadata *)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!context)
@@ -768,9 +763,9 @@ uint64_t __61__HMDCoreDataCloudTransform__processHistoryForStore_context___block
   v5 = v3;
   v6 = +[MKFCloudSyncMetadata fetchRequest];
   [v6 setReturnsObjectsAsFaults:0];
-  v19 = 0;
-  v7 = [v5 executeFetchRequest:v6 error:&v19];
-  v8 = v19;
+  v18 = 0;
+  v7 = [v5 executeFetchRequest:v6 error:&v18];
+  v8 = v18;
   if (v7)
   {
     if ([v7 count] < 2)
@@ -785,9 +780,9 @@ uint64_t __61__HMDCoreDataCloudTransform__processHistoryForStore_context___block
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v12;
-      v22 = 2114;
-      v23 = v7;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v7;
       v13 = "%{public}@More than one metadata object (using first): %{public}@";
       v14 = v11;
       v15 = OS_LOG_TYPE_FAULT;
@@ -805,9 +800,9 @@ LABEL_8:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v12;
-      v22 = 2114;
-      v23 = v8;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v8;
       v13 = "%{public}@Failed to fetch metadata objects: %{public}@";
       v14 = v11;
       v15 = OS_LOG_TYPE_ERROR;
@@ -825,8 +820,6 @@ LABEL_10:
   }
 
 LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return context;
 }
@@ -874,13 +867,13 @@ void __74__HMDCoreDataCloudTransform__updateHomeManagerApplicationDataWithContex
 
 - (void)_saveHomeManagerChangesToWorkingStoreWithContext:(void *)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (context)
   {
-    v16 = 0;
-    v4 = [(HMDCoreDataCloudTransform *)context _saveContextToWorkingStore:v3 error:&v16];
-    v5 = v16;
+    v15 = 0;
+    v4 = [(HMDCoreDataCloudTransform *)context _saveContextToWorkingStore:v3 error:&v15];
+    v5 = v15;
     v6 = objc_autoreleasePoolPush();
     contextCopy = context;
     v8 = HMFGetOSLogHandle();
@@ -891,7 +884,7 @@ void __74__HMDCoreDataCloudTransform__updateHomeManagerApplicationDataWithContex
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v18 = v10;
+        v17 = v10;
         v11 = "%{public}@Saved home manager changes";
         v12 = v9;
         v13 = OS_LOG_TYPE_INFO;
@@ -905,9 +898,9 @@ LABEL_7:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v10;
-      v19 = 2114;
-      v20 = v5;
+      v17 = v10;
+      v18 = 2114;
+      v19 = v5;
       v11 = "%{public}@Failed to save home manager changes: %{public}@";
       v12 = v9;
       v13 = OS_LOG_TYPE_ERROR;
@@ -917,8 +910,6 @@ LABEL_7:
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_saveContextToWorkingStore:(uint64_t)store error:
@@ -933,10 +924,10 @@ LABEL_7:
 
 - (uint64_t)_processChangeSet:(int)set isImport:(void *)import context:
 {
-  v252 = *MEMORY[0x277D85DE8];
+  v250 = *MEMORY[0x277D85DE8];
   v7 = a2;
   importCopy = import;
-  v195 = v7;
+  v193 = v7;
   if (self)
   {
     v8 = @"export";
@@ -946,7 +937,7 @@ LABEL_7:
       v8 = @"import";
     }
 
-    v191 = v8;
+    v189 = v8;
     if (v7)
     {
       LOBYTE(v7) = [v7[3] count] || objc_msgSend(v7[2], "count") || objc_msgSend(v7[1], "count") != 0;
@@ -961,15 +952,15 @@ LABEL_7:
       if (v11)
       {
         v12 = HMFGetLogIdentifier();
-        if (v195)
+        if (v193)
         {
-          v13 = v195[6];
+          v13 = v193[6];
           v14 = v13;
-          v15 = v195[1];
+          v15 = v193[1];
           v16 = [v15 count];
-          v17 = v195[2];
+          v17 = v193[2];
           v18 = [v17 count];
-          v19 = v195[3];
+          v19 = v193[3];
         }
 
         else
@@ -986,25 +977,25 @@ LABEL_7:
         *buf = 138544898;
         *&buf[4] = v12;
         *&buf[12] = 2114;
-        *&buf[14] = v191;
+        *&buf[14] = v189;
         *&buf[22] = 2160;
-        v232 = 1752392040;
-        *v233 = 2112;
-        *&v233[2] = v13;
-        *&v233[10] = 2048;
-        *&v233[12] = v16;
-        *&v233[20] = 2048;
-        *&v233[22] = v18;
-        *&v233[30] = 2048;
-        v234 = [v19 count];
+        v230 = 1752392040;
+        *v231 = 2112;
+        *&v231[2] = v13;
+        *&v231[10] = 2048;
+        *&v231[12] = v16;
+        *&v231[20] = 2048;
+        *&v231[22] = v18;
+        *&v231[30] = 2048;
+        v232 = [v19 count];
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Processing %{public}@ changes for home %{mask.hash}@: %zd insert(s), %zd update(s), %zd delete(s)", buf, 0x48u);
       }
 
       objc_autoreleasePoolPop(v9);
-      [importCopy setHmd_currentChangeSet:v195];
+      [importCopy setHmd_currentChangeSet:v193];
       if (setCopy)
       {
-        v20 = v195;
+        v20 = v193;
         v21 = importCopy;
         v22 = objc_autoreleasePoolPush();
         v23 = selfCopy;
@@ -1020,32 +1011,32 @@ LABEL_7:
         }
 
         objc_autoreleasePoolPop(v22);
-        v227 = 0;
-        v228 = &v227;
-        v229 = 0x2020000000;
-        v230 = 0;
+        v225 = 0;
+        v226 = &v225;
+        v227 = 0x2020000000;
+        v228 = 0;
         inserts = [(HMDCoreDataCloudTransformChangeSet *)v20 inserts];
-        v221 = MEMORY[0x277D85DD0];
-        v222 = 3221225472;
-        v223 = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke;
-        v224 = &unk_278679020;
+        v219 = MEMORY[0x277D85DD0];
+        v220 = 3221225472;
+        v221 = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke;
+        v222 = &unk_278679020;
         v27 = v21;
-        v225 = v27;
-        v226 = &v227;
-        [inserts hmf_enumerateWithAutoreleasePoolUsingBlock:&v221];
+        v223 = v27;
+        v224 = &v225;
+        [inserts hmf_enumerateWithAutoreleasePoolUsingBlock:&v219];
 
         updates = [(HMDCoreDataCloudTransformChangeSet *)v20 updates];
-        *v248 = MEMORY[0x277D85DD0];
-        *&v248[8] = 3221225472;
-        *&v248[16] = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_2;
-        v249 = &unk_278679048;
+        *v246 = MEMORY[0x277D85DD0];
+        *&v246[8] = 3221225472;
+        *&v246[16] = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_2;
+        v247 = &unk_278679048;
         v29 = v27;
-        v250 = v29;
-        v251 = &v227;
-        [updates enumerateKeysAndObjectsUsingBlock:v248];
+        v248 = v29;
+        v249 = &v225;
+        [updates enumerateKeysAndObjectsUsingBlock:v246];
 
         [v29 processPendingChanges];
-        if (*(v228 + 24) == 1)
+        if (*(v226 + 24) == 1)
         {
           v30 = [[HMDLogEventCoreDataSignificantEvent alloc] initWithReason:4];
           [(HMDLogEventCoreDataSignificantEvent *)v30 setContext:@"DuplicateModelID"];
@@ -1053,8 +1044,8 @@ LABEL_7:
           [v31 submitLogEvent:v30];
         }
 
-        v32 = v195;
-        if (v195)
+        v32 = v193;
+        if (v193)
         {
           v33 = *(v20 + 32);
         }
@@ -1066,11 +1057,11 @@ LABEL_7:
 
         dictionary = [MEMORY[0x277CBEB38] dictionary];
         v35 = v33 & 1;
-        v217 = 0;
-        v218 = &v217;
-        v219 = 0x2020000000;
-        v220 = 1;
-        if (v195)
+        v215 = 0;
+        v216 = &v215;
+        v217 = 0x2020000000;
+        v218 = 1;
+        if (v193)
         {
           v32 = v20[3];
         }
@@ -1078,51 +1069,51 @@ LABEL_7:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_3;
-        v232 = &unk_278679070;
-        *&v233[24] = &v217;
-        *v233 = v23;
-        LOBYTE(v234) = v35;
+        v230 = &unk_278679070;
+        *&v231[24] = &v215;
+        *v231 = v23;
+        LOBYTE(v232) = v35;
         v36 = dictionary;
-        *&v233[8] = v36;
-        v187 = v29;
-        *&v233[16] = v187;
+        *&v231[8] = v36;
+        v185 = v29;
+        *&v231[16] = v185;
         [v32 enumerateKeysAndObjectsUsingBlock:buf];
 
-        if (v218[3])
+        if (v216[3])
         {
           inserts2 = [(HMDCoreDataCloudTransformChangeSet *)v20 inserts];
-          v208 = MEMORY[0x277D85DD0];
-          v209 = 3221225472;
-          v210 = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_4;
-          v211 = &unk_278679098;
-          v215 = &v217;
-          v212 = v23;
-          v216 = v35;
+          v206 = MEMORY[0x277D85DD0];
+          v207 = 3221225472;
+          v208 = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_4;
+          v209 = &unk_278679098;
+          v213 = &v215;
+          v210 = v23;
+          v214 = v35;
           v36 = v36;
-          v213 = v36;
-          v38 = v187;
-          v214 = v38;
-          [inserts2 hmf_enumerateWithAutoreleasePoolUsingBlock:&v208];
+          v211 = v36;
+          v38 = v185;
+          v212 = v38;
+          [inserts2 hmf_enumerateWithAutoreleasePoolUsingBlock:&v206];
 
-          if (v218[3])
+          if (v216[3])
           {
             updates2 = [(HMDCoreDataCloudTransformChangeSet *)v20 updates];
-            v239 = MEMORY[0x277D85DD0];
-            v240 = 3221225472;
-            v241 = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_5;
-            v242 = &unk_2786790C0;
-            v246 = &v217;
-            v243 = v23;
-            v247 = v35;
+            v237 = MEMORY[0x277D85DD0];
+            v238 = 3221225472;
+            v239 = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_5;
+            v240 = &unk_2786790C0;
+            v244 = &v215;
+            v241 = v23;
+            v245 = v35;
             v36 = v36;
-            v244 = v36;
+            v242 = v36;
             v40 = v38;
-            v245 = v40;
-            [updates2 enumerateKeysAndObjectsUsingBlock:&v239];
+            v243 = v40;
+            [updates2 enumerateKeysAndObjectsUsingBlock:&v237];
 
-            if (v218[3])
+            if (v216[3])
             {
-              v186 = 138543618;
+              v184 = 138543618;
               while ([v36 count])
               {
                 v41 = objc_autoreleasePoolPush();
@@ -1131,29 +1122,29 @@ LABEL_7:
                 if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
                 {
                   v44 = HMFGetLogIdentifier();
-                  *v235 = v186;
-                  v236 = v44;
-                  v237 = 2114;
-                  v238 = v20;
-                  _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Processing import additional updates: %{public}@", v235, 0x16u);
+                  *v233 = v184;
+                  v234 = v44;
+                  v235 = 2114;
+                  v236 = v20;
+                  _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Processing import additional updates: %{public}@", v233, 0x16u);
                 }
 
                 objc_autoreleasePoolPop(v41);
                 v45 = v36;
                 dictionary2 = [MEMORY[0x277CBEB38] dictionary];
 
-                v199 = MEMORY[0x277D85DD0];
-                v200 = 3221225472;
-                v201 = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_216;
-                v202 = &unk_2786790E8;
-                v206 = &v217;
-                v203 = v42;
-                v207 = v35;
+                v197 = MEMORY[0x277D85DD0];
+                v198 = 3221225472;
+                v199 = __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_216;
+                v200 = &unk_2786790E8;
+                v204 = &v215;
+                v201 = v42;
+                v205 = v35;
                 v36 = dictionary2;
-                v204 = v36;
-                v205 = v40;
-                [v45 enumerateKeysAndObjectsUsingBlock:&v199];
-                LOBYTE(dictionary2) = v218[3] == 0;
+                v202 = v36;
+                v203 = v40;
+                [v45 enumerateKeysAndObjectsUsingBlock:&v197];
+                LOBYTE(dictionary2) = v216[3] == 0;
 
                 if (dictionary2)
                 {
@@ -1161,7 +1152,7 @@ LABEL_7:
                 }
               }
 
-              v47 = v218[3];
+              v47 = v216[3];
             }
 
             else
@@ -1182,15 +1173,15 @@ LABEL_30:
           v47 = 0;
         }
 
-        _Block_object_dispose(&v217, 8);
-        _Block_object_dispose(&v227, 8);
+        _Block_object_dispose(&v215, 8);
+        _Block_object_dispose(&v225, 8);
       }
 
       else
       {
-        v51 = v195;
+        v51 = v193;
         v52 = importCopy;
-        if (v195 && *(v51 + 32) == 1)
+        if (v193 && *(v51 + 32) == 1)
         {
           v53 = objc_autoreleasePoolPush();
           v54 = selfCopy;
@@ -1207,54 +1198,54 @@ LABEL_30:
 
           objc_autoreleasePoolPop(v53);
           dictionary3 = [MEMORY[0x277CBEB38] dictionary];
-          v221 = 0;
-          v222 = &v221;
-          v223 = 0x2020000000;
-          v224 = 1;
+          v219 = 0;
+          v220 = &v219;
+          v221 = 0x2020000000;
+          v222 = 1;
           v58 = v51[3];
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke;
-          v232 = &unk_278679160;
-          *&v233[24] = &v221;
-          *v233 = v54;
+          v230 = &unk_278679160;
+          *&v231[24] = &v219;
+          *v231 = v54;
           v59 = dictionary3;
-          *&v233[8] = v59;
+          *&v231[8] = v59;
           v60 = v52;
-          *&v233[16] = v60;
+          *&v231[16] = v60;
           [v58 enumerateKeysAndObjectsUsingBlock:buf];
 
-          if (*(v222 + 24))
+          if (*(v220 + 24))
           {
             v61 = v51[1];
-            v208 = MEMORY[0x277D85DD0];
-            v209 = 3221225472;
-            v210 = __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_2;
-            v211 = &unk_278679188;
-            v215 = &v221;
-            v212 = v54;
+            v206 = MEMORY[0x277D85DD0];
+            v207 = 3221225472;
+            v208 = __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_2;
+            v209 = &unk_278679188;
+            v213 = &v219;
+            v210 = v54;
             v59 = v59;
-            v213 = v59;
+            v211 = v59;
             v62 = v60;
-            v214 = v62;
-            [v61 hmf_enumerateWithAutoreleasePoolUsingBlock:&v208];
+            v212 = v62;
+            [v61 hmf_enumerateWithAutoreleasePoolUsingBlock:&v206];
 
-            if (*(v222 + 24))
+            if (*(v220 + 24))
             {
               v63 = v51[2];
-              v239 = MEMORY[0x277D85DD0];
-              v240 = 3221225472;
-              v241 = __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_3;
-              v242 = &unk_2786791B0;
-              v246 = &v221;
-              v243 = v54;
+              v237 = MEMORY[0x277D85DD0];
+              v238 = 3221225472;
+              v239 = __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_3;
+              v240 = &unk_2786791B0;
+              v244 = &v219;
+              v241 = v54;
               v59 = v59;
-              v244 = v59;
+              v242 = v59;
               v64 = v62;
-              v245 = v64;
-              [v63 enumerateKeysAndObjectsUsingBlock:&v239];
+              v243 = v64;
+              [v63 enumerateKeysAndObjectsUsingBlock:&v237];
 
-              if (*(v222 + 24))
+              if (*(v220 + 24))
               {
                 while ([v59 count])
                 {
@@ -1266,11 +1257,11 @@ LABEL_30:
                     v68 = v52;
                     v69 = HMFGetLogIdentifier();
                     allKeys = [v59 allKeys];
-                    *v248 = 138543618;
-                    *&v248[4] = v69;
-                    *&v248[12] = 2114;
-                    *&v248[14] = allKeys;
-                    _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_INFO, "%{public}@Processing export additional updates: %{public}@", v248, 0x16u);
+                    *v246 = 138543618;
+                    *&v246[4] = v69;
+                    *&v246[12] = 2114;
+                    *&v246[14] = allKeys;
+                    _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_INFO, "%{public}@Processing export additional updates: %{public}@", v246, 0x16u);
 
                     v52 = v68;
                   }
@@ -1279,17 +1270,17 @@ LABEL_30:
                   v71 = v59;
                   dictionary4 = [MEMORY[0x277CBEB38] dictionary];
 
-                  v199 = MEMORY[0x277D85DD0];
-                  v200 = 3221225472;
-                  v201 = __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_223;
-                  v202 = &unk_2786791D8;
-                  v206 = &v221;
-                  v203 = v66;
+                  v197 = MEMORY[0x277D85DD0];
+                  v198 = 3221225472;
+                  v199 = __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_223;
+                  v200 = &unk_2786791D8;
+                  v204 = &v219;
+                  v201 = v66;
                   v59 = dictionary4;
-                  v204 = v59;
-                  v205 = v64;
-                  [v71 enumerateKeysAndObjectsUsingBlock:&v199];
-                  v73 = *(v222 + 24) == 0;
+                  v202 = v59;
+                  v203 = v64;
+                  [v71 enumerateKeysAndObjectsUsingBlock:&v197];
+                  v73 = *(v220 + 24) == 0;
 
                   if (v73)
                   {
@@ -1297,7 +1288,7 @@ LABEL_30:
                   }
                 }
 
-                v47 = *(v222 + 24);
+                v47 = *(v220 + 24);
               }
 
               else
@@ -1318,7 +1309,7 @@ LABEL_47:
             v47 = 0;
           }
 
-          _Block_object_dispose(&v221, 8);
+          _Block_object_dispose(&v219, 8);
         }
 
         else
@@ -1339,9 +1330,9 @@ LABEL_47:
           *buf = 138543874;
           *&buf[4] = v77;
           *&buf[12] = 2114;
-          *&buf[14] = v191;
+          *&buf[14] = v189;
           *&buf[22] = 2114;
-          v232 = v195;
+          v230 = v193;
           _os_log_impl(&dword_229538000, v76, OS_LOG_TYPE_DEFAULT, "%{public}@Rolling back managed objects after processing %{public}@ changes: %{public}@", buf, 0x20u);
         }
 
@@ -1356,9 +1347,9 @@ LABEL_47:
       {
         v81 = HMFGetLogIdentifier();
         v82 = v81;
-        if (v195)
+        if (v193)
         {
-          v83 = v195[6];
+          v83 = v193[6];
         }
 
         else
@@ -1369,39 +1360,39 @@ LABEL_47:
         *buf = 138544130;
         *&buf[4] = v81;
         *&buf[12] = 2114;
-        *&buf[14] = v191;
+        *&buf[14] = v189;
         *&buf[22] = 2160;
-        v232 = 1752392040;
-        *v233 = 2112;
-        *&v233[2] = v83;
+        v230 = 1752392040;
+        *v231 = 2112;
+        *&v231[2] = v83;
         _os_log_impl(&dword_229538000, v80, OS_LOG_TYPE_INFO, "%{public}@Finished processing %{public}@ changes for home %{mask.hash}@", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v78);
       if ([importCopy hasChanges])
       {
-        v84 = v195;
-        if (v195 && (v85 = v195[6]) != 0)
+        v84 = v193;
+        if (v193 && (v85 = v193[6]) != 0)
         {
           v86 = HMDWorkingContextNameForHomeUUID(v85);
           [importCopy setName:v86];
 
-          v193 = 0;
-          v84 = v195;
+          v191 = 0;
+          v84 = v193;
         }
 
         else
         {
-          v193 = 1;
+          v191 = 1;
         }
 
         if (setCopy)
         {
           v93 = v84;
           v94 = importCopy;
-          v208 = 0;
-          v95 = [(HMDCoreDataCloudTransform *)v79 _saveContextToWorkingStore:v94 error:&v208];
-          v96 = v208;
+          v206 = 0;
+          v95 = [(HMDCoreDataCloudTransform *)v79 _saveContextToWorkingStore:v94 error:&v206];
+          v96 = v206;
           v97 = objc_autoreleasePoolPush();
           v98 = v79;
           v99 = HMFGetOSLogHandle();
@@ -1412,7 +1403,7 @@ LABEL_47:
             {
               v101 = HMFGetLogIdentifier();
               v102 = v101;
-              if (v195)
+              if (v193)
               {
                 v103 = v93[6];
               }
@@ -1427,33 +1418,33 @@ LABEL_47:
               *&buf[12] = 2160;
               *&buf[14] = 1752392040;
               *&buf[22] = 2112;
-              v232 = v103;
+              v230 = v103;
               _os_log_impl(&dword_229538000, v100, OS_LOG_TYPE_INFO, "%{public}@Saved after processing import changes for home %{mask.hash}@", buf, 0x20u);
             }
           }
 
           else if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
           {
-            v132 = HMFGetLogIdentifier();
-            v133 = v132;
-            if (v195)
+            v131 = HMFGetLogIdentifier();
+            v132 = v131;
+            if (v193)
             {
-              v134 = v93[6];
+              v133 = v93[6];
             }
 
             else
             {
-              v134 = 0;
+              v133 = 0;
             }
 
             *buf = 138544130;
-            *&buf[4] = v132;
+            *&buf[4] = v131;
             *&buf[12] = 2160;
             *&buf[14] = 1752392040;
             *&buf[22] = 2112;
-            v232 = v134;
-            *v233 = 2114;
-            *&v233[2] = v96;
+            v230 = v133;
+            *v231 = 2114;
+            *&v231[2] = v96;
             _os_log_impl(&dword_229538000, v100, OS_LOG_TYPE_ERROR, "%{public}@Failed to save after processing import changes for home %{mask.hash}@: %{public}@", buf, 0x2Au);
           }
 
@@ -1462,14 +1453,14 @@ LABEL_47:
           if (hmd_homeManagerContext)
           {
             [v94 setHmd_homeManagerContext:0];
-            v196[0] = MEMORY[0x277D85DD0];
-            v196[1] = 3221225472;
-            v196[2] = __64__HMDCoreDataCloudTransform__processChangeSet_isImport_context___block_invoke;
-            v196[3] = &unk_278688BD0;
-            v198 = v95;
-            v196[4] = v98;
-            v197 = hmd_homeManagerContext;
-            [v197 performBlockAndWait:v196];
+            v194[0] = MEMORY[0x277D85DD0];
+            v194[1] = 3221225472;
+            v194[2] = __64__HMDCoreDataCloudTransform__processChangeSet_isImport_context___block_invoke;
+            v194[3] = &unk_278688BD0;
+            v196 = v95;
+            v194[4] = v98;
+            v195 = hmd_homeManagerContext;
+            [v195 performBlockAndWait:v194];
           }
         }
 
@@ -1483,7 +1474,7 @@ LABEL_47:
           if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
           {
             v109 = HMFGetLogIdentifier();
-            if (v195)
+            if (v193)
             {
               v110 = v104[6];
               v111 = v104[8];
@@ -1502,9 +1493,9 @@ LABEL_47:
             *&buf[12] = 2160;
             *&buf[14] = 1752392040;
             *&buf[22] = 2112;
-            v232 = v110;
-            *v233 = 2114;
-            *&v233[2] = v111;
+            v230 = v110;
+            *v231 = 2114;
+            *&v231[2] = v111;
             _os_log_impl(&dword_229538000, v108, OS_LOG_TYPE_DEBUG, "%{public}@Saving to cloud store after processing export changes for home %{mask.hash}@ on behalf of client identifier: %{public}@", buf, 0x2Au);
           }
 
@@ -1513,11 +1504,11 @@ LABEL_47:
           insertedObjects = [v105 insertedObjects];
           deletedObjects = [v105 deletedObjects];
           transactionAuthor = [v105 transactionAuthor];
-          v190 = [HMDCoreDataCloudStoreTransactionLogEvent eventForUpdates:updatedObjects inserts:insertedObjects deletes:deletedObjects transactionAuthor:transactionAuthor];
+          v188 = [HMDCoreDataCloudStoreTransactionLogEvent eventForUpdates:updatedObjects inserts:insertedObjects deletes:deletedObjects transactionAuthor:transactionAuthor];
 
-          if (v190)
+          if (v188)
           {
-            [v107[10] submitLogEvent:v190];
+            [v107[10] submitLogEvent:v188];
           }
 
           v117 = v105;
@@ -1535,100 +1526,100 @@ LABEL_47:
           v122 = v104;
           v123 = v117;
           v124 = v123;
-          if (v195 && v122[7] > 24)
+          if (v193 && v122[7] > 24)
           {
-            v136 = v123;
-            v137 = +[MKFCKAppleMediaAccessory entity];
-            v239 = v137;
-            v138 = +[MKFCKHome entity];
-            v240 = v138;
-            v139 = +[MKFCKUser entity];
-            v241 = v139;
-            v140 = [MEMORY[0x277CBEA60] arrayWithObjects:&v239 count:3];
+            v135 = v123;
+            v136 = +[MKFCKAppleMediaAccessory entity];
+            v237 = v136;
+            v137 = +[MKFCKHome entity];
+            v238 = v137;
+            v138 = +[MKFCKUser entity];
+            v239 = v138;
+            v139 = [MEMORY[0x277CBEA60] arrayWithObjects:&v237 count:3];
 
-            v141 = MEMORY[0x277CBEB58];
-            insertedObjects3 = [v136 insertedObjects];
-            v143 = [v141 setWithSet:insertedObjects3];
+            v140 = MEMORY[0x277CBEB58];
+            insertedObjects3 = [v135 insertedObjects];
+            v142 = [v140 setWithSet:insertedObjects3];
 
-            updatedObjects3 = [v136 updatedObjects];
-            [v143 unionSet:updatedObjects3];
+            updatedObjects3 = [v135 updatedObjects];
+            [v142 unionSet:updatedObjects3];
 
-            deletedObjects2 = [v136 deletedObjects];
-            [v143 unionSet:deletedObjects2];
+            deletedObjects2 = [v135 deletedObjects];
+            [v142 unionSet:deletedObjects2];
 
-            v208 = 0;
-            v209 = &v208;
-            v210 = 0x3032000000;
-            v211 = __Block_byref_object_copy__121531;
-            v212 = __Block_byref_object_dispose__121532;
-            v213 = 0;
+            v206 = 0;
+            v207 = &v206;
+            v208 = 0x3032000000;
+            v209 = __Block_byref_object_copy__121531;
+            v210 = __Block_byref_object_dispose__121532;
+            v211 = 0;
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __75__HMDCoreDataCloudTransform__fetchRequestForCriticalObjectExportInContext___block_invoke;
-            v232 = &unk_278678F88;
-            v146 = v140;
-            *v233 = v146;
-            *&v233[8] = v107;
-            *&v233[16] = &v208;
-            [v143 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
-            v147 = *(v209 + 40);
+            v230 = &unk_278678F88;
+            v145 = v139;
+            *v231 = v145;
+            *&v231[8] = v107;
+            *&v231[16] = &v206;
+            [v142 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
+            v146 = *(v207 + 40);
 
-            _Block_object_dispose(&v208, 8);
-            v188 = v147 != 0;
-            if (v147)
+            _Block_object_dispose(&v206, 8);
+            v186 = v146 != 0;
+            if (v146)
             {
-              v148 = v122[8];
-              if (v148)
+              v147 = v122[8];
+              if (v147)
               {
-                v149 = v148;
-                v150 = [@"HomeKitCloudExportVoucher/" stringByAppendingString:v149];
+                v148 = v147;
+                v149 = [@"HomeKitCloudExportVoucher/" stringByAppendingString:v148];
               }
 
               else
               {
-                v150 = @"HomeKitCloudExportVoucher/";
+                v149 = @"HomeKitCloudExportVoucher/";
               }
 
-              v186 = [HMDCoreData userInitiatedVoucherWithLabel:v150 forEventsOfType:2 affectingObjectsMatching:v147];
-              v155 = objc_autoreleasePoolPush();
-              v156 = v107;
-              v157 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
+              v184 = [HMDCoreData userInitiatedVoucherWithLabel:v149 forEventsOfType:2 affectingObjectsMatching:v146];
+              v154 = objc_autoreleasePoolPush();
+              v155 = v107;
+              v156 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
               {
-                v158 = HMFGetLogIdentifier();
-                v159 = v122[8];
+                v157 = HMFGetLogIdentifier();
+                v158 = v122[8];
                 *buf = 138543618;
-                *&buf[4] = v158;
+                *&buf[4] = v157;
                 *&buf[12] = 2114;
-                *&buf[14] = v159;
-                _os_log_impl(&dword_229538000, v157, OS_LOG_TYPE_DEFAULT, "%{public}@Applying export voucher on behalf of client identifier: %{public}@", buf, 0x16u);
+                *&buf[14] = v158;
+                _os_log_impl(&dword_229538000, v156, OS_LOG_TYPE_DEFAULT, "%{public}@Applying export voucher on behalf of client identifier: %{public}@", buf, 0x16u);
               }
 
-              objc_autoreleasePoolPop(v155);
-              coreData = [v156 coreData];
+              objc_autoreleasePoolPop(v154);
+              coreData = [v155 coreData];
               container = [coreData container];
 
-              coreData2 = [v156 coreData];
+              coreData2 = [v155 coreData];
               cloudPrivateStore = [coreData2 cloudPrivateStore];
               *buf = cloudPrivateStore;
-              v164 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
-              [container applyActivityVoucher:v186 toStores:v164];
+              v163 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
+              [container applyActivityVoucher:v184 toStores:v163];
             }
 
             else
             {
-              v151 = objc_autoreleasePoolPush();
-              v152 = v107;
-              v153 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v153, OS_LOG_TYPE_INFO))
+              v150 = objc_autoreleasePoolPush();
+              v151 = v107;
+              v152 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v152, OS_LOG_TYPE_INFO))
               {
-                v154 = HMFGetLogIdentifier();
+                v153 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                *&buf[4] = v154;
-                _os_log_impl(&dword_229538000, v153, OS_LOG_TYPE_INFO, "%{public}@No export voucher necessary since no critical object was detected", buf, 0xCu);
+                *&buf[4] = v153;
+                _os_log_impl(&dword_229538000, v152, OS_LOG_TYPE_INFO, "%{public}@No export voucher necessary since no critical object was detected", buf, 0xCu);
               }
 
-              objc_autoreleasePoolPop(v151);
+              objc_autoreleasePoolPop(v150);
             }
           }
 
@@ -1640,122 +1631,120 @@ LABEL_47:
             if (os_log_type_enabled(v127, OS_LOG_TYPE_DEBUG))
             {
               v128 = HMFGetLogIdentifier();
-              if (v195)
+              v129 = HMFQualityOfServiceToString();
+              if (v193)
               {
-                v129 = v122[7];
-                v130 = HMFQualityOfServiceToString();
-                v131 = v122[8];
+                v130 = v122[8];
               }
 
               else
               {
-                v130 = HMFQualityOfServiceToString();
-                v131 = 0;
+                v130 = 0;
               }
 
               *buf = 138543874;
               *&buf[4] = v128;
               *&buf[12] = 2112;
-              *&buf[14] = v130;
+              *&buf[14] = v129;
               *&buf[22] = 2112;
-              v232 = v131;
+              v230 = v130;
               _os_log_impl(&dword_229538000, v127, OS_LOG_TYPE_DEBUG, "%{public}@No export voucher necessary for change set with QoS %@ for clientIdentifier: %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(v125);
-            v188 = 0;
+            v186 = 0;
           }
 
           [v124 setMergePolicy:v107[4]];
-          if (v195)
+          if (v193)
           {
-            v165 = v122[8];
+            v164 = v122[8];
           }
 
           else
           {
-            v165 = 0;
+            v164 = 0;
           }
 
-          v208 = 0;
-          v166 = v165;
-          v167 = [v124 hmd_saveWithTransactionAuthor:4 clientIdentifier:v166 allowQoSEscalation:v188 error:&v208];
-          v168 = v208;
+          v206 = 0;
+          v165 = v164;
+          v166 = [v124 hmd_saveWithTransactionAuthor:4 clientIdentifier:v165 allowQoSEscalation:v186 error:&v206];
+          v167 = v206;
 
-          v169 = objc_autoreleasePoolPush();
-          v170 = v107;
-          v171 = HMFGetOSLogHandle();
-          v172 = v171;
-          if (v167)
+          v168 = objc_autoreleasePoolPush();
+          v169 = v107;
+          v170 = HMFGetOSLogHandle();
+          v171 = v170;
+          if (v166)
           {
-            if (os_log_type_enabled(v171, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v170, OS_LOG_TYPE_INFO))
             {
-              v173 = HMFGetLogIdentifier();
-              if (v195)
+              v172 = HMFGetLogIdentifier();
+              if (v193)
               {
-                v174 = v122[6];
-                v175 = v122[8];
-                v176 = v174;
+                v173 = v122[6];
+                v174 = v122[8];
+                v175 = v173;
               }
 
               else
               {
-                v174 = 0;
-                v176 = 0;
+                v173 = 0;
                 v175 = 0;
+                v174 = 0;
               }
 
               *buf = 138544130;
-              *&buf[4] = v173;
+              *&buf[4] = v172;
               *&buf[12] = 2160;
               *&buf[14] = 1752392040;
               *&buf[22] = 2112;
-              v232 = v174;
-              *v233 = 2114;
-              *&v233[2] = v175;
-              _os_log_impl(&dword_229538000, v172, OS_LOG_TYPE_INFO, "%{public}@Saved after processing export changes for home %{mask.hash}@ on behalf of client identifier %{public}@", buf, 0x2Au);
+              v230 = v173;
+              *v231 = 2114;
+              *&v231[2] = v174;
+              _os_log_impl(&dword_229538000, v171, OS_LOG_TYPE_INFO, "%{public}@Saved after processing export changes for home %{mask.hash}@ on behalf of client identifier %{public}@", buf, 0x2Au);
             }
           }
 
-          else if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v170, OS_LOG_TYPE_ERROR))
           {
-            v177 = HMFGetLogIdentifier();
-            if (v195)
+            v176 = HMFGetLogIdentifier();
+            if (v193)
             {
-              v178 = v122[6];
-              v179 = v122[8];
-              v180 = v178;
+              v177 = v122[6];
+              v178 = v122[8];
+              v179 = v177;
             }
 
             else
             {
-              v178 = 0;
-              v180 = 0;
+              v177 = 0;
               v179 = 0;
+              v178 = 0;
             }
 
             *buf = 138544386;
-            *&buf[4] = v177;
+            *&buf[4] = v176;
             *&buf[12] = 2160;
             *&buf[14] = 1752392040;
             *&buf[22] = 2112;
-            v232 = v178;
-            *v233 = 2114;
-            *&v233[2] = v179;
-            *&v233[10] = 2114;
-            *&v233[12] = v168;
-            _os_log_impl(&dword_229538000, v172, OS_LOG_TYPE_ERROR, "%{public}@Failed to save after processing export changes for home %{mask.hash}@ on behalf of client identifier %{public}@: %{public}@", buf, 0x34u);
+            v230 = v177;
+            *v231 = 2114;
+            *&v231[2] = v178;
+            *&v231[10] = 2114;
+            *&v231[12] = v167;
+            _os_log_impl(&dword_229538000, v171, OS_LOG_TYPE_ERROR, "%{public}@Failed to save after processing export changes for home %{mask.hash}@ on behalf of client identifier %{public}@: %{public}@", buf, 0x34u);
           }
 
-          objc_autoreleasePoolPop(v169);
+          objc_autoreleasePoolPop(v168);
         }
 
-        if ((v193 & 1) == 0)
+        if ((v191 & 1) == 0)
         {
           objc_opt_class();
-          v181 = objc_opt_self();
-          v182 = NSStringFromClass(v181);
-          [importCopy setName:v182];
+          v180 = objc_opt_self();
+          v181 = NSStringFromClass(v180);
+          [importCopy setName:v181];
         }
 
         hasChanges = [importCopy hasChanges];
@@ -1776,9 +1765,9 @@ LABEL_47:
         {
           v90 = HMFGetLogIdentifier();
           v91 = v90;
-          if (v195)
+          if (v193)
           {
-            v92 = v195[6];
+            v92 = v193[6];
           }
 
           else
@@ -1789,11 +1778,11 @@ LABEL_47:
           *buf = 138544130;
           *&buf[4] = v90;
           *&buf[12] = 2114;
-          *&buf[14] = v191;
+          *&buf[14] = v189;
           *&buf[22] = 2160;
-          v232 = 1752392040;
-          *v233 = 2112;
-          *&v233[2] = v92;
+          v230 = 1752392040;
+          *v231 = 2112;
+          *&v231[2] = v92;
           _os_log_impl(&dword_229538000, v89, OS_LOG_TYPE_DEBUG, "%{public}@No changes to managed objects after processing %{public}@ changes for home %{mask.hash}@", buf, 0x2Au);
         }
 
@@ -1808,9 +1797,9 @@ LABEL_47:
       {
         v48 = HMFGetLogIdentifier();
         v49 = v48;
-        if (v195)
+        if (v193)
         {
-          v50 = v195[6];
+          v50 = v193[6];
         }
 
         else
@@ -1821,11 +1810,11 @@ LABEL_47:
         *buf = 138544130;
         *&buf[4] = v48;
         *&buf[12] = 2114;
-        *&buf[14] = v191;
+        *&buf[14] = v189;
         *&buf[22] = 2160;
-        v232 = 1752392040;
-        *v233 = 2112;
-        *&v233[2] = v50;
+        v230 = 1752392040;
+        *v231 = 2112;
+        *&v231[2] = v50;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@No %{public}@ changes for home %{mask.hash}@", buf, 0x2Au);
       }
 
@@ -1834,13 +1823,12 @@ LABEL_47:
     }
   }
 
-  v184 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 void __64__HMDCoreDataCloudTransform__processChangeSet_isImport_context___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if (*(a1 + 48) == 1)
   {
@@ -1855,9 +1843,9 @@ void __64__HMDCoreDataCloudTransform__processChangeSet_isImport_context___block_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_ERROR, "%{public}@Discarding home manager changes after previous working store save failure", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_ERROR, "%{public}@Discarding home manager changes after previous working store save failure", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -1865,12 +1853,11 @@ void __64__HMDCoreDataCloudTransform__processChangeSet_isImport_context___block_
 
   [*(a1 + 40) reset];
   objc_autoreleasePoolPop(v2);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDCoreDataCloudTransform__fetchRequestForCriticalObjectExportInContext___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1900,9 +1887,9 @@ void __75__HMDCoreDataCloudTransform__fetchRequestForCriticalObjectExportInConte
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v13;
-        v26 = 2112;
-        v27 = v7;
+        v24 = v13;
+        v25 = 2112;
+        v26 = v7;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Detected dirty critical object for export: %@", buf, 0x16u);
       }
 
@@ -1923,8 +1910,6 @@ void __75__HMDCoreDataCloudTransform__fetchRequestForCriticalObjectExportInConte
       *a3 = 1;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWriterPropertiesForCloudObjects:(void *)objects timestamp:(void *)timestamp version:(void *)version
@@ -1988,7 +1973,7 @@ void __86__HMDCoreDataCloudTransform__updateWriterPropertiesForCloudObjects_time
 
 void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v8 = a1[4];
   v7 = a1[5];
   v9 = a1[6];
@@ -2023,41 +2008,41 @@ void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_inv
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v22 = v50 = a4;
+        v22 = v49 = a4;
         v23 = [v10 hmd_debugIdentifier];
-        v48 = v13;
+        v47 = v13;
         v24 = v11;
         v25 = v12;
         v26 = v23;
         *buf = 138544386;
         v27 = ": ";
-        v54 = v22;
+        v53 = v22;
         if (!v16)
         {
           v27 = "";
         }
 
-        v55 = 2112;
-        v56 = v23;
-        v57 = 2080;
+        v54 = 2112;
+        v55 = v23;
+        v56 = 2080;
         v28 = &stru_283CF9D50;
         if (v16)
         {
           v28 = v16;
         }
 
-        v58 = v27;
-        v59 = 2160;
-        v60 = 1752392040;
-        v61 = 2112;
-        v62 = v28;
+        v57 = v27;
+        v58 = 2160;
+        v59 = 1752392040;
+        v60 = 2112;
+        v61 = v28;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Skipping processing export delete for already-deleted object: <%@%s%{mask.hash}@>", buf, 0x34u);
 
         v12 = v25;
         v11 = v24;
-        v13 = v48;
+        v13 = v47;
 
-        a4 = v50;
+        a4 = v49;
       }
 
       objc_autoreleasePoolPop(v19);
@@ -2066,38 +2051,38 @@ void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_inv
 
     else
     {
-      v49 = v12;
+      v48 = v12;
       v30 = objc_opt_class();
       v31 = [v10 entity];
       v32 = [v30 exportTransformableClassFromEntity:v31];
 
       if (v32)
       {
-        v51 = a4;
+        v50 = a4;
         v33 = objc_autoreleasePoolPush();
         v34 = v8;
         v35 = HMFGetOSLogHandle();
         v36 = v35;
-        v12 = v49;
+        v12 = v48;
         if (v16)
         {
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
             v37 = HMFGetLogIdentifier();
             [v10 hmd_debugIdentifier];
-            v38 = v47 = v33;
+            v38 = v46 = v33;
             *buf = 138544130;
-            v54 = v37;
-            v55 = 2112;
-            v56 = v38;
-            v57 = 2160;
-            v58 = 1752392040;
-            v59 = 2112;
-            v60 = v16;
+            v53 = v37;
+            v54 = 2112;
+            v55 = v38;
+            v56 = 2160;
+            v57 = 1752392040;
+            v58 = 2112;
+            v59 = v16;
             _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_DEBUG, "%{public}@Processing export delete: <%@: %{mask.hash}@>", buf, 0x2Au);
 
-            v33 = v47;
-            v12 = v49;
+            v33 = v46;
+            v12 = v48;
           }
 
           objc_autoreleasePoolPop(v33);
@@ -2111,21 +2096,21 @@ void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_inv
             v44 = HMFGetLogIdentifier();
             v45 = [v10 hmd_debugIdentifier];
             *buf = 138543874;
-            v54 = v44;
-            v55 = 2112;
-            v56 = v45;
-            v57 = 2112;
-            v58 = v11;
+            v53 = v44;
+            v54 = 2112;
+            v55 = v45;
+            v56 = 2112;
+            v57 = v11;
             _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@Not processing export delete for transformable %@ due to missing modelID in tombstone: %@", buf, 0x20u);
 
-            v12 = v49;
+            v12 = v48;
           }
 
           objc_autoreleasePoolPop(v33);
           v29 = 1;
         }
 
-        a4 = v51;
+        a4 = v50;
       }
 
       else
@@ -2137,19 +2122,19 @@ void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_inv
         {
           v42 = HMFGetLogIdentifier();
           [v10 hmd_debugIdentifier];
-          v43 = v52 = a4;
+          v43 = v51 = a4;
           *buf = 138543618;
-          v54 = v42;
-          v55 = 2112;
-          v56 = v43;
+          v53 = v42;
+          v54 = 2112;
+          v55 = v43;
           _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring export delete: <%@>", buf, 0x16u);
 
-          a4 = v52;
+          a4 = v51;
         }
 
         objc_autoreleasePoolPop(v39);
         v29 = 1;
-        v12 = v49;
+        v12 = v48;
       }
     }
   }
@@ -2164,13 +2149,11 @@ void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_inv
   {
     *a4 = 1;
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_2(void *a1, void *a2, _BYTE *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v6 = a1[4];
   v5 = a1[5];
   v7 = a1[6];
@@ -2194,9 +2177,9 @@ void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_inv
         [v8 hmd_debugIdentifier];
         v19 = v18 = a3;
         *buf = 138543618;
-        v33 = v17;
-        v34 = 2112;
-        v35 = v19;
+        v32 = v17;
+        v33 = 2112;
+        v34 = v19;
         v20 = "%{public}@Skipping processing export insert for already-deleted object: <%@>";
         v21 = v16;
         v22 = OS_LOG_TYPE_INFO;
@@ -2226,9 +2209,9 @@ LABEL_11:
         [v8 hmd_debugIdentifier];
         v19 = v18 = a3;
         *buf = 138543618;
-        v33 = v17;
-        v34 = 2112;
-        v35 = v19;
+        v32 = v17;
+        v33 = 2112;
+        v34 = v19;
         v20 = "%{public}@Ignoring export insert: <%@>";
         v21 = v16;
         v22 = OS_LOG_TYPE_DEBUG;
@@ -2245,15 +2228,15 @@ LABEL_12:
     if (v26)
     {
       HMFGetLogIdentifier();
-      v27 = v31 = a3;
+      v27 = v30 = a3;
       v28 = [v8 hmd_debugIdentifier];
       *buf = 138543618;
-      v33 = v27;
-      v34 = 2112;
-      v35 = v28;
+      v32 = v27;
+      v33 = 2112;
+      v34 = v28;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Processing export insert: <%@>", buf, 0x16u);
 
-      a3 = v31;
+      a3 = v30;
     }
 
     objc_autoreleasePoolPop(v14);
@@ -2272,15 +2255,13 @@ LABEL_13:
   {
     *a3 = 1;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_3(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+uint64_t __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_3(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  result = [(HMDCoreDataCloudTransform *)*(a1 + 32) _processExportUpdateForObjectID:a2 updatedProperties:a3 additionalUpdates:*(a1 + 40) context:*(a1 + 48)];
-  *(*(*(a1 + 56) + 8) + 24) = result;
-  if (!*(*(*(a1 + 56) + 8) + 24))
+  result = [(HMDCoreDataCloudTransform *)a1[4] _processExportUpdateForObjectID:a2 updatedProperties:a3 additionalUpdates:a1[5] context:a1[6]];
+  *(*(a1[7] + 8) + 24) = result;
+  if (!*(*(a1[7] + 8) + 24))
   {
     *a4 = 1;
   }
@@ -2288,15 +2269,15 @@ uint64_t __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block
   return result;
 }
 
-void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_223(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_invoke_223(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v7 = *(a1 + 32);
+  v7 = a1[4];
   v8 = a2;
-  v9 = [a3 copy];
-  v10 = [(HMDCoreDataCloudTransform *)v7 _processExportUpdateForObjectID:v8 updatedProperties:v9 additionalUpdates:*(a1 + 40) context:*(a1 + 48)];
+  v9 = objc_msgSend_copy(a3);
+  v10 = [(HMDCoreDataCloudTransform *)v7 _processExportUpdateForObjectID:v8 updatedProperties:v9 additionalUpdates:a1[5] context:a1[6]];
 
-  *(*(*(a1 + 56) + 8) + 24) = v10;
-  if (!*(*(*(a1 + 56) + 8) + 24))
+  *(*(a1[7] + 8) + 24) = v10;
+  if (!*(*(a1[7] + 8) + 24))
   {
     *a4 = 1;
   }
@@ -2304,7 +2285,7 @@ void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_inv
 
 - (uint64_t)_processExportUpdateForObjectID:(void *)d updatedProperties:(void *)properties additionalUpdates:(void *)updates context:
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v9 = a2;
   dCopy = d;
   propertiesCopy = properties;
@@ -2329,9 +2310,9 @@ void __61__HMDCoreDataCloudTransform__processExportChangeSet_context___block_inv
       v19 = HMFGetLogIdentifier();
       hmd_debugIdentifier = [v9 hmd_debugIdentifier];
       *buf = 138543618;
-      v36 = v19;
-      v37 = 2112;
-      v38 = hmd_debugIdentifier;
+      v35 = v19;
+      v36 = 2112;
+      v37 = hmd_debugIdentifier;
       v21 = "%{public}@Skipping processing export update for already-deleted object: <%@>";
       v22 = v18;
       v23 = OS_LOG_TYPE_INFO;
@@ -2359,9 +2340,9 @@ LABEL_11:
       v19 = HMFGetLogIdentifier();
       hmd_debugIdentifier = [v9 hmd_debugIdentifier];
       *buf = 138543618;
-      v36 = v19;
-      v37 = 2112;
-      v38 = hmd_debugIdentifier;
+      v35 = v19;
+      v36 = 2112;
+      v37 = hmd_debugIdentifier;
       v21 = "%{public}@Ignoring export update: <%@>";
       v22 = v18;
       v23 = OS_LOG_TYPE_DEBUG;
@@ -2380,23 +2361,22 @@ LABEL_12:
     v28 = HMFGetLogIdentifier();
     v29 = MKFPropertyNamesFromDescriptions(dCopy);
     [v9 hmd_debugIdentifier];
-    v30 = v34 = v16;
+    v30 = v33 = v16;
     *buf = 138543874;
-    v36 = v28;
-    v37 = 2114;
-    v38 = v29;
-    v39 = 2112;
-    v40 = v30;
+    v35 = v28;
+    v36 = 2114;
+    v37 = v29;
+    v38 = 2112;
+    v39 = v30;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Processing export update [%{public}@]: <%@>", buf, 0x20u);
 
-    v16 = v34;
+    v16 = v33;
   }
 
   objc_autoreleasePoolPop(v16);
   v31 = [v26 exportUpdateWithObjectID:v9 updatedProperties:dCopy additionalUpdates:propertiesCopy context:v13];
 LABEL_13:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -2448,14 +2428,14 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
 
 void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_3(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 64);
   v8 = *(a1 + 32);
   v7 = *(a1 + 40);
   v9 = *(a1 + 48);
   v10 = a2;
   v11 = a3;
-  v38 = v7;
+  v37 = v7;
   v12 = v9;
   if (v8)
   {
@@ -2471,7 +2451,7 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
       v14 = 0;
     }
 
-    v39 = v14;
+    v38 = v14;
 
     v15 = [v12 objectWithID:v10];
     v16 = [v15 isDeleted];
@@ -2482,7 +2462,7 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
     v20 = v19;
     if (v16)
     {
-      v21 = v39;
+      v21 = v38;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v22 = HMFGetLogIdentifier();
@@ -2492,15 +2472,15 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
         *&buf[12] = 2112;
         *&buf[14] = v23;
         *&buf[22] = 2160;
-        v41 = 1752392040;
-        LOWORD(v42) = 2112;
-        *(&v42 + 2) = v39;
+        v40 = 1752392040;
+        LOWORD(v41) = 2112;
+        *(&v41 + 2) = v38;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Skipping processing import delete for already-deleted object: <%@: %{mask.hash}@>", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v17);
       v24 = 1;
-      v25 = v38;
+      v25 = v37;
       goto LABEL_21;
     }
 
@@ -2513,26 +2493,26 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
       *&buf[12] = 2112;
       *&buf[14] = v27;
       *&buf[22] = 2114;
-      v41 = v39;
+      v40 = v38;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Processing import delete: <%@: %{public}@>", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
     v28 = [v10 entity];
-    v25 = v38;
+    v25 = v37;
     if (v6)
     {
       v29 = [objc_opt_class() importTransformableClassFromEntity:v28];
       if (v29)
       {
-        if (v39)
+        if (v38)
         {
-          if (![v29 importDeleteWithObjectID:v10 modelID:v39 additionalUpdates:v38 context:v12])
+          if (![v29 importDeleteWithObjectID:v10 modelID:v38 additionalUpdates:v37 context:v12])
           {
             v24 = 0;
 LABEL_20:
 
-            v21 = v39;
+            v21 = v38;
 LABEL_21:
 
             goto LABEL_22;
@@ -2547,18 +2527,18 @@ LABEL_21:
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v33 = v36 = v31;
+            v33 = v35 = v31;
             v34 = [v10 hmd_debugIdentifier];
             *buf = 138543874;
             *&buf[4] = v33;
             *&buf[12] = 2112;
             *&buf[14] = v34;
             *&buf[22] = 2112;
-            v41 = v11;
+            v40 = v11;
             _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Not processing import delete for object <%@> due to missing modelID in tombstone: %@", buf, 0x20u);
 
-            v25 = v38;
-            v31 = v36;
+            v25 = v37;
+            v31 = v35;
           }
 
           objc_autoreleasePoolPop(v30);
@@ -2569,10 +2549,10 @@ LABEL_21:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __107__HMDCoreDataCloudTransform__processImportDeleteForObjectID_tombstone_transform_additionalUpdates_context___block_invoke;
-    v41 = &unk_278679138;
-    *&v42 = v10;
-    *(&v42 + 1) = v11;
-    v43 = v12;
+    v40 = &unk_278679138;
+    *&v41 = v10;
+    *(&v41 + 1) = v11;
+    v42 = v12;
     [(HMDCoreDataCloudTransform *)v18 _enumerateCloudChangeListenersForEntity:v28 usingBlock:buf];
 
     v24 = 1;
@@ -2580,7 +2560,7 @@ LABEL_21:
   }
 
   v24 = 0;
-  v25 = v38;
+  v25 = v37;
 LABEL_22:
 
   *(*(*(a1 + 56) + 8) + 24) = v24;
@@ -2588,13 +2568,11 @@ LABEL_22:
   {
     *a4 = 1;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_4(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 64);
   v6 = *(a1 + 32);
   v7 = *(a1 + 40);
@@ -2616,7 +2594,7 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v19 = v39 = a3;
+        v19 = v38 = a3;
         v20 = [v9 hmd_debugIdentifier];
         *buf = 138543618;
         *&buf[4] = v19;
@@ -2624,7 +2602,7 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
         *&buf[14] = v20;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Skipping processing import insert for already-deleted object: <%@>", buf, 0x16u);
 
-        a3 = v39;
+        a3 = v38;
       }
 
       objc_autoreleasePoolPop(v16);
@@ -2635,7 +2613,7 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
 
     else
     {
-      v42 = v10;
+      v41 = v10;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && (v21 = [v13 ensureCanonicalModel], v21 != 1))
       {
@@ -2645,7 +2623,7 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
         v32 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
-          v41 = v30;
+          v40 = v30;
           v33 = a3;
           v34 = HMFGetLogIdentifier();
           if ((v29 + 2) > 3)
@@ -2665,16 +2643,16 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
           *&buf[12] = 2114;
           *&buf[14] = v36;
           *&buf[22] = 2112;
-          v44 = v37;
+          v43 = v37;
           _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Skipping processing import insert for non-canonical (%{public}@) model: <%@>", buf, 0x20u);
 
           a3 = v33;
-          v30 = v41;
+          v30 = v40;
         }
 
         objc_autoreleasePoolPop(v30);
         v6 = 1;
-        v10 = v42;
+        v10 = v41;
       }
 
       else
@@ -2686,20 +2664,20 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
         {
           v25 = HMFGetLogIdentifier();
           [v9 hmd_debugIdentifier];
-          v26 = v40 = a3;
+          v26 = v39 = a3;
           *buf = 138543618;
           *&buf[4] = v25;
           *&buf[12] = 2112;
           *&buf[14] = v26;
           _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Processing import insert: <%@>", buf, 0x16u);
 
-          a3 = v40;
+          a3 = v39;
         }
 
         objc_autoreleasePoolPop(v22);
         v27 = [v9 entity];
-        v10 = v42;
-        if (v5 && (v28 = [objc_opt_class() importTransformableClassFromEntity:v27]) != 0 && !objc_msgSend(v28, "importInsertWithObjectID:additionalUpdates:context:", v9, v42, v12))
+        v10 = v41;
+        if (v5 && (v28 = [objc_opt_class() importTransformableClassFromEntity:v27]) != 0 && !objc_msgSend(v28, "importInsertWithObjectID:additionalUpdates:context:", v9, v41, v12))
         {
           v6 = 0;
         }
@@ -2709,9 +2687,9 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __97__HMDCoreDataCloudTransform__processImportInsertForObjectID_transform_additionalUpdates_context___block_invoke;
-          v44 = &unk_278679110;
-          v45 = v12;
-          v46 = v9;
+          v43 = &unk_278679110;
+          v44 = v12;
+          v45 = v9;
           [(HMDCoreDataCloudTransform *)v23 _enumerateCloudChangeListenersForEntity:v27 usingBlock:buf];
 
           v6 = 1;
@@ -2725,8 +2703,6 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
   {
     *a3 = 1;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_invoke_5(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -2745,7 +2721,7 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
 {
   v7 = *(a1 + 32);
   v8 = a2;
-  v9 = [a3 copy];
+  v9 = objc_msgSend_copy(a3);
   v10 = [(HMDCoreDataCloudTransform *)v7 _processImportUpdateForObjectID:v8 updatedProperties:v9 transform:*(a1 + 64) additionalUpdates:*(a1 + 40) context:*(a1 + 48)];
 
   *(*(*(a1 + 56) + 8) + 24) = v10;
@@ -2757,7 +2733,7 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
 
 - (uint64_t)_processImportUpdateForObjectID:(void *)d updatedProperties:(int)properties transform:(void *)transform additionalUpdates:(void *)updates context:
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v11 = a2;
   dCopy = d;
   transformCopy = transform;
@@ -2782,11 +2758,11 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
       v20 = dCopy;
       v22 = v21 = v14;
       *buf = 138543874;
-      v52 = v19;
-      v53 = 2048;
-      v54 = v21;
-      v55 = 2112;
-      v56 = v22;
+      v51 = v19;
+      v52 = 2048;
+      v53 = v21;
+      v54 = 2112;
+      v55 = v22;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Skipping processing import update [%public@] for already-deleted object: <%@>", buf, 0x20u);
 
       v14 = v21;
@@ -2807,19 +2783,19 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         HMFGetLogIdentifier();
-        v45 = dCopy;
+        v44 = dCopy;
         v30 = v29 = v14;
         hmd_debugIdentifier = [v11 hmd_debugIdentifier];
         *buf = 138543874;
-        v52 = v30;
-        v53 = 2048;
-        v54 = v29;
-        v55 = 2112;
-        v56 = hmd_debugIdentifier;
+        v51 = v30;
+        v52 = 2048;
+        v53 = v29;
+        v54 = 2112;
+        v55 = hmd_debugIdentifier;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Processing import update [%public@]: <%@>", buf, 0x20u);
 
         v14 = v29;
-        dCopy = v45;
+        dCopy = v44;
       }
 
       objc_autoreleasePoolPop(v26);
@@ -2831,14 +2807,14 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
 
       else
       {
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __115__HMDCoreDataCloudTransform__processImportUpdateForObjectID_updatedProperties_transform_additionalUpdates_context___block_invoke;
-        v47[3] = &unk_278679138;
-        v48 = updatesCopy;
-        v49 = v11;
-        v50 = dCopy;
-        [(HMDCoreDataCloudTransform *)selfCopy2 _enumerateCloudChangeListenersForEntity:entity usingBlock:v47];
+        v46[0] = MEMORY[0x277D85DD0];
+        v46[1] = 3221225472;
+        v46[2] = __115__HMDCoreDataCloudTransform__processImportUpdateForObjectID_updatedProperties_transform_additionalUpdates_context___block_invoke;
+        v46[3] = &unk_278679138;
+        v47 = updatesCopy;
+        v48 = v11;
+        v49 = dCopy;
+        [(HMDCoreDataCloudTransform *)selfCopy2 _enumerateCloudChangeListenersForEntity:entity usingBlock:v46];
 
         v24 = 1;
       }
@@ -2846,38 +2822,38 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
       goto LABEL_16;
     }
 
-    v36 = v25;
-    v37 = objc_autoreleasePoolPush();
+    v35 = v25;
+    v36 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v39 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    v38 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
-      v40 = HMFGetLogIdentifier();
-      v44 = v14;
-      if ((v36 + 2) > 3)
+      v39 = HMFGetLogIdentifier();
+      v43 = v14;
+      if ((v35 + 2) > 3)
       {
-        v41 = @"unknown";
+        v40 = @"unknown";
       }
 
       else
       {
-        v41 = off_27867D3C0[v36 + 2];
+        v40 = off_27867D3C0[v35 + 2];
       }
 
-      v42 = v41;
+      v41 = v40;
       hmd_debugIdentifier2 = [v11 hmd_debugIdentifier];
       *buf = 138543874;
-      v52 = v40;
-      v53 = 2048;
-      v54 = v42;
-      v55 = 2112;
-      v56 = hmd_debugIdentifier2;
-      _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Skipping processing import update for non-canonical (%public@) model: <%@>", buf, 0x20u);
+      v51 = v39;
+      v52 = 2048;
+      v53 = v41;
+      v54 = 2112;
+      v55 = hmd_debugIdentifier2;
+      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Skipping processing import update for non-canonical (%public@) model: <%@>", buf, 0x20u);
 
-      v14 = v44;
+      v14 = v43;
     }
 
-    v23 = v37;
+    v23 = v36;
   }
 
   objc_autoreleasePoolPop(v23);
@@ -2885,7 +2861,6 @@ void __61__HMDCoreDataCloudTransform__processImportChangeSet_context___block_inv
 LABEL_16:
 
 LABEL_17:
-  v34 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -2981,88 +2956,85 @@ void __107__HMDCoreDataCloudTransform__processImportDeleteForObjectID_tombstone_
 
 void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() transactionIsCloudStoreReset:v3 context:*(a1 + 40)];
-  v6 = *(a1 + 32);
-  if (v5)
+  v4 = [objc_opt_class() transactionIsCloudStoreReset:v3 context:*(a1 + 40)];
+  v5 = *(a1 + 32);
+  if (v4)
   {
-    v7 = *(a1 + 32);
     [objc_opt_class() wipeCoreDataStorageDueToPCSIdentityLossAndRelaunchHomeKitDaemon];
     goto LABEL_12;
   }
 
-  v8 = v3;
-  v9 = v8;
-  if (!v6)
+  v6 = v3;
+  v7 = v6;
+  if (!v5)
   {
 LABEL_8:
 
     goto LABEL_12;
   }
 
-  if ([v8 hmd_transactionAuthor])
+  if ([v6 hmd_transactionAuthor])
   {
-    v10 = objc_autoreleasePoolPush();
-    v11 = v6;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v8 = objc_autoreleasePoolPush();
+    v9 = v5;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = HMFGetLogIdentifier();
-      v14 = [v9 transactionNumber];
-      v15 = [v9 author];
+      v11 = HMFGetLogIdentifier();
+      v12 = [v7 transactionNumber];
+      v13 = [v7 author];
       *buf = 138544130;
-      v29 = v13;
-      v30 = 2048;
-      v31 = v14;
-      v32 = 2160;
-      v33 = 1752392040;
-      v34 = 2112;
-      v35 = v15;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Not importing transaction %lld with author %{mask.hash}@", buf, 0x2Au);
+      v26 = v11;
+      v27 = 2048;
+      v28 = v12;
+      v29 = 2160;
+      v30 = 1752392040;
+      v31 = 2112;
+      v32 = v13;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Not importing transaction %lld with author %{mask.hash}@", buf, 0x2Au);
     }
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v8);
     goto LABEL_8;
   }
 
-  v16 = objc_autoreleasePoolPush();
-  v17 = *(a1 + 32);
-  v18 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v14 = objc_autoreleasePoolPush();
+  v15 = *(a1 + 32);
+  v16 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v19 = HMFGetLogIdentifier();
-    v20 = [v9 transactionNumber];
-    v21 = [v9 changes];
+    v17 = HMFGetLogIdentifier();
+    v18 = [v7 transactionNumber];
+    v19 = [v7 changes];
     *buf = 138543874;
-    v29 = v19;
-    v30 = 2048;
-    v31 = v20;
-    v32 = 2048;
-    v33 = [v21 count];
-    _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Processing import transaction %lld with %zd change(s)", buf, 0x20u);
+    v26 = v17;
+    v27 = 2048;
+    v28 = v18;
+    v29 = 2048;
+    v30 = [v19 count];
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Processing import transaction %lld with %zd change(s)", buf, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v16);
-  v22 = [v9 changes];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context___block_invoke_233;
-  v25[3] = &unk_278679250;
-  v23 = *(a1 + 40);
-  v25[4] = *(a1 + 32);
-  v26 = v23;
-  v27 = *(a1 + 48);
-  [v22 hmf_enumerateWithAutoreleasePoolUsingBlock:v25];
+  objc_autoreleasePoolPop(v14);
+  v20 = [v7 changes];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context___block_invoke_233;
+  v22[3] = &unk_278679250;
+  v21 = *(a1 + 40);
+  v22[4] = *(a1 + 32);
+  v23 = v21;
+  v24 = *(a1 + 48);
+  [v20 hmf_enumerateWithAutoreleasePoolUsingBlock:v22];
 
 LABEL_12:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context___block_invoke_233(void **a1, void *a2)
 {
-  v161[1] = *MEMORY[0x277D85DE8];
+  v160[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = a1[4];
   v5 = a1[5];
@@ -3094,19 +3066,19 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
         {
           v50 = HMFGetLogIdentifier();
           [v27 entity];
-          v51 = v148 = a1;
+          v51 = v147 = a1;
           [v51 name];
           v53 = v52 = v27;
           *buf = 138543874;
           *&buf[4] = v50;
           *&buf[12] = 2114;
           *&buf[14] = v53;
-          v155 = 2114;
-          v156 = v26;
+          v154 = 2114;
+          v155 = v26;
           _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_ERROR, "%{public}@Unexpected entity type in change: %{public}@, %{public}@", buf, 0x20u);
 
           v27 = v52;
-          a1 = v148;
+          a1 = v147;
         }
 
         objc_autoreleasePoolPop(v47);
@@ -3114,11 +3086,11 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
         goto LABEL_52;
       }
 
-      v144 = v7;
+      v143 = v7;
       v31 = [v26 tombstone];
       v32 = [v31 objectForKeyedSubscript:@"flags"];
-      v140 = v32;
-      v142 = v31;
+      v139 = v32;
+      v141 = v31;
       if (v32)
       {
         v33 = v27;
@@ -3156,8 +3128,8 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
               *&buf[4] = v91;
               *&buf[12] = 2112;
               *&buf[14] = v93;
-              v155 = 2112;
-              v156 = v142;
+              v154 = 2112;
+              v155 = v141;
               _os_log_impl(&dword_229538000, v90, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring import delete of fake model: %@, %@", buf, 0x20u);
 
               a1 = v92;
@@ -3165,14 +3137,14 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
 
             objc_autoreleasePoolPop(v88);
             v38 = [HMDCoreDataCloudTransform fakeHomeChangeSetModelID];
-            v83 = v142;
-            v7 = v144;
+            v83 = v141;
+            v7 = v143;
             v27 = v33;
             goto LABEL_51;
           }
         }
 
-        v147 = a1;
+        v146 = a1;
 
         v27 = v33;
       }
@@ -3199,7 +3171,7 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
           v31 = v64;
         }
 
-        v147 = a1;
+        v146 = a1;
 
         objc_autoreleasePoolPop(v61);
       }
@@ -3209,7 +3181,7 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
       v69 = v68;
       if (v68)
       {
-        v138 = v27;
+        v137 = v27;
         v70 = v68;
         objc_opt_class();
         v71 = objc_opt_isKindOfClass() & 1;
@@ -3228,12 +3200,12 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
         if (v71)
         {
           v38 = v70;
-          v7 = v144;
+          v7 = v143;
         }
 
         else
         {
-          v136 = v73;
+          v135 = v73;
           v79 = objc_autoreleasePoolPush();
           v80 = v4;
           v81 = HMFGetOSLogHandle();
@@ -3244,18 +3216,18 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
             *&buf[4] = v82;
             *&buf[12] = 2160;
             *&buf[14] = 1752392040;
-            v155 = 2112;
-            v156 = v70;
-            v157 = 2114;
-            v158 = v26;
+            v154 = 2112;
+            v155 = v70;
+            v156 = 2114;
+            v157 = v26;
             _os_log_impl(&dword_229538000, v81, OS_LOG_TYPE_ERROR, "%{public}@Home model ID is unexpected type in tombstone: %{mask.hash}@, %{public}@", buf, 0x2Au);
           }
 
           objc_autoreleasePoolPop(v79);
           v38 = 0;
-          v7 = v144;
-          v73 = v136;
-          v27 = v138;
+          v7 = v143;
+          v73 = v135;
+          v27 = v137;
         }
       }
 
@@ -3279,12 +3251,12 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
 
         objc_autoreleasePoolPop(v74);
         v38 = 0;
-        v7 = v144;
+        v7 = v143;
       }
 
-      v83 = v142;
+      v83 = v141;
 
-      a1 = v147;
+      a1 = v146;
 LABEL_51:
 
 LABEL_52:
@@ -3296,7 +3268,7 @@ LABEL_17:
     goto LABEL_77;
   }
 
-  v146 = a1;
+  v145 = a1;
   v9 = v6;
   v10 = v7;
   v11 = [v9 changedObjectID];
@@ -3314,7 +3286,7 @@ LABEL_17:
     {
       v42 = HMFGetLogIdentifier();
       [v11 entity];
-      v145 = v11;
+      v144 = v11;
       v44 = v43 = v9;
       [v44 name];
       v46 = v45 = v7;
@@ -3322,41 +3294,41 @@ LABEL_17:
       *&buf[4] = v42;
       *&buf[12] = 2114;
       *&buf[14] = v46;
-      v155 = 2114;
-      v156 = v43;
+      v154 = 2114;
+      v155 = v43;
       _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Unexpected entity type in change: %{public}@, %{public}@", buf, 0x20u);
 
       v7 = v45;
       v9 = v43;
-      v11 = v145;
+      v11 = v144;
     }
 
     objc_autoreleasePoolPop(v39);
     v38 = 0;
-    a1 = v146;
+    a1 = v145;
     goto LABEL_76;
   }
 
-  v139 = v9;
-  v143 = v7;
+  v138 = v9;
+  v142 = v7;
   v15 = [HMDCoreDataCloudTransform _homeModelIDPropertyNameForObjectID:v11];
-  v161[0] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:1];
+  v160[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:1];
   v17 = [MKFCKModel appendDefaultPreloadedPropertiesTo:v16];
 
-  v153 = 0;
-  v137 = v10;
-  v18 = [v10 hmd_fetchExistingObjectWithID:v11 propertiesToFetch:v17 error:&v153];
-  v141 = v153;
-  if (v141)
+  v152 = 0;
+  v136 = v10;
+  v18 = [v10 hmd_fetchExistingObjectWithID:v11 propertiesToFetch:v17 error:&v152];
+  v140 = v152;
+  if (v140)
   {
-    v130 = v18;
-    v132 = v15;
-    v134 = v17;
+    v129 = v18;
+    v131 = v15;
+    v133 = v17;
     v19 = objc_autoreleasePoolPush();
     v20 = v4;
     v21 = HMFGetOSLogHandle();
-    v22 = v141;
+    v22 = v140;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
@@ -3365,24 +3337,24 @@ LABEL_17:
       *&buf[4] = v23;
       *&buf[12] = 2112;
       *&buf[14] = v24;
-      v155 = 2114;
-      v156 = v141;
+      v154 = 2114;
+      v155 = v140;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch object %@: %{public}@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v19);
     v25 = 0;
-    v7 = v143;
-    v9 = v139;
-    v15 = v132;
-    v17 = v134;
-    v18 = v130;
+    v7 = v142;
+    v9 = v138;
+    v15 = v131;
+    v17 = v133;
+    v18 = v129;
     goto LABEL_75;
   }
 
   if (v18)
   {
-    v135 = v17;
+    v134 = v17;
     v54 = v18;
     objc_opt_class();
     v55 = objc_opt_isKindOfClass() & 1;
@@ -3396,23 +3368,23 @@ LABEL_17:
       v56 = 0;
     }
 
-    v129 = v56;
+    v128 = v56;
 
-    v9 = v139;
-    v131 = v18;
-    v133 = v15;
+    v9 = v138;
+    v130 = v18;
+    v132 = v15;
     if (v55)
     {
       if (![v54 isFake])
       {
         v94 = [v54 valueForKey:v15];
-        v128 = v94;
+        v127 = v94;
         if (v94)
         {
           v95 = v94;
           objc_opt_class();
-          LODWORD(v126) = objc_opt_isKindOfClass() & 1;
-          if (v126)
+          LODWORD(v125) = objc_opt_isKindOfClass() & 1;
+          if (v125)
           {
             v96 = v95;
           }
@@ -3422,16 +3394,16 @@ LABEL_17:
             v96 = 0;
           }
 
-          v127 = v96;
+          v126 = v96;
 
-          if (v126)
+          if (v125)
           {
             v25 = v95;
           }
 
           else
           {
-            v126 = v95;
+            v125 = v95;
             v101 = objc_autoreleasePoolPush();
             v102 = v4;
             v103 = HMFGetOSLogHandle();
@@ -3442,25 +3414,25 @@ LABEL_17:
               *&buf[4] = v104;
               *&buf[12] = 2160;
               *&buf[14] = 1752392040;
-              v155 = 2112;
-              v156 = v126;
-              v157 = 2112;
-              v158 = v54;
-              v159 = 2114;
-              v160 = v139;
+              v154 = 2112;
+              v155 = v125;
+              v156 = 2112;
+              v157 = v54;
+              v158 = 2114;
+              v159 = v138;
               _os_log_impl(&dword_229538000, v103, OS_LOG_TYPE_ERROR, "%{public}@Home model ID is unexpected type (%{mask.hash}@) in object: %@, %{public}@", buf, 0x34u);
             }
 
             objc_autoreleasePoolPop(v101);
             v25 = 0;
-            v18 = v131;
-            v15 = v133;
+            v18 = v130;
+            v15 = v132;
           }
 
           v22 = 0;
 
-          v7 = v143;
-          v17 = v135;
+          v7 = v142;
+          v17 = v134;
         }
 
         else
@@ -3475,18 +3447,18 @@ LABEL_17:
             *&buf[4] = v100;
             *&buf[12] = 2112;
             *&buf[14] = v54;
-            v155 = 2114;
-            v156 = v139;
+            v154 = 2114;
+            v155 = v138;
             _os_log_impl(&dword_229538000, v99, OS_LOG_TYPE_ERROR, "%{public}@Home model ID is missing in object: %@, %{public}@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v97);
           v25 = 0;
           v22 = 0;
-          v7 = v143;
-          v15 = v133;
-          v17 = v135;
-          v18 = v131;
+          v7 = v142;
+          v15 = v132;
+          v17 = v134;
+          v18 = v130;
         }
 
         goto LABEL_74;
@@ -3521,8 +3493,8 @@ LABEL_17:
         *&buf[4] = v87;
         *&buf[12] = 2112;
         *&buf[14] = v54;
-        v155 = 2114;
-        v156 = v139;
+        v154 = 2114;
+        v155 = v138;
         _os_log_impl(&dword_229538000, v86, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type of object in change: %@, %{public}@", buf, 0x20u);
       }
 
@@ -3531,22 +3503,22 @@ LABEL_17:
     }
 
     v22 = 0;
-    v7 = v143;
-    v15 = v133;
-    v17 = v135;
-    v18 = v131;
+    v7 = v142;
+    v15 = v132;
+    v17 = v134;
+    v18 = v130;
 LABEL_74:
 
     goto LABEL_75;
   }
 
   v25 = 0;
-  v9 = v139;
+  v9 = v138;
   v22 = 0;
 LABEL_75:
 
   v38 = v25;
-  v10 = v137;
+  v10 = v136;
 LABEL_76:
 
 LABEL_77:
@@ -3569,14 +3541,14 @@ LABEL_77:
     else
     {
       v110 = [v6 updatedProperties];
-      v150[0] = MEMORY[0x277D85DD0];
-      v150[1] = 3221225472;
-      v150[2] = __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context___block_invoke_2;
-      v150[3] = &unk_278679228;
-      v150[4] = a1[4];
-      v151 = v38;
-      v152 = a1[5];
-      [v110 hmf_enumerateWithAutoreleasePoolUsingBlock:v150];
+      v149[0] = MEMORY[0x277D85DD0];
+      v149[1] = 3221225472;
+      v149[2] = __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context___block_invoke_2;
+      v149[3] = &unk_278679228;
+      v149[4] = a1[4];
+      v150 = v38;
+      v151 = a1[5];
+      [v110 hmf_enumerateWithAutoreleasePoolUsingBlock:v149];
     }
   }
 
@@ -3602,14 +3574,14 @@ LABEL_89:
   v117 = v38;
   v118 = v6;
   v120 = v119 = a1;
-  v149 = [v115 isEqualToString:v120];
+  v148 = [v115 isEqualToString:v120];
 
   a1 = v119;
   v6 = v118;
   v38 = v117;
   v105 = v116;
 
-  if (!v149)
+  if (!v148)
   {
     goto LABEL_89;
   }
@@ -3637,13 +3609,11 @@ LABEL_90:
   }
 
 LABEL_92:
-
-  v125 = *MEMORY[0x277D85DE8];
 }
 
 - (_BYTE)_changeSetForHome:(uint64_t)home isImport:(void *)import clientIdentifier:(void *)identifier qualityOfService:(void *)service cache:
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v11 = a2;
   importCopy = import;
   serviceCopy = service;
@@ -3682,32 +3652,32 @@ LABEL_92:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         HMFGetLogIdentifier();
-        v23 = v28 = v20;
+        v23 = v27 = v20;
         v24 = @"denied";
         *buf = 138544386;
-        v30 = v23;
+        v29 = v23;
         if (v19)
         {
           v24 = @"allowed";
         }
 
-        v32 = v24;
+        v31 = v24;
         v25 = @"import";
-        v31 = 2114;
-        v33 = 2114;
+        v30 = 2114;
+        v32 = 2114;
         if (!home)
         {
           v25 = @"export";
         }
 
-        v34 = v25;
-        v35 = 2160;
-        v36 = 1752392040;
-        v37 = 2112;
-        v38 = v11;
+        v33 = v25;
+        v34 = 2160;
+        v35 = 1752392040;
+        v36 = 2112;
+        v37 = v11;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Delegate has %{public}@ %{public}@ transform for home %{mask.hash}@", buf, 0x34u);
 
-        v20 = v28;
+        v20 = v27;
       }
 
       objc_autoreleasePoolPop(v20);
@@ -3730,14 +3700,13 @@ LABEL_21:
 LABEL_22:
 
 LABEL_23:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 name];
   v7 = [v6 isEqualToString:@"homeManagerApplicationData"];
@@ -3751,26 +3720,24 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromImportTransactions_context__
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
-      v14 = 138543874;
-      v15 = v11;
-      v16 = 2160;
-      v17 = 1752392040;
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Detected home manager application data change on home %{mask.hash}@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2160;
+      v16 = 1752392040;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Detected home manager application data change on home %{mask.hash}@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
     [*(a1 + 48) setHmd_homeManagerApplicationDataChanged:1];
     *a3 = 1;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_shouldProcessChange:(void *)change homeModelID:(int)d isImport:(void *)import context:
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v9 = a2;
   changeCopy = change;
   importCopy = import;
@@ -3821,9 +3788,9 @@ LABEL_6:
 
 LABEL_12:
       v28 = v9;
-      v50 = changeCopy;
-      v51 = importCopy;
-      v52 = v28;
+      v49 = changeCopy;
+      v50 = importCopy;
+      v51 = v28;
       changedObjectID2 = [v28 changedObjectID];
       entity2 = [changedObjectID2 entity];
 
@@ -3832,25 +3799,25 @@ LABEL_12:
       v32 = v31;
       if (v31 && ([v31 BOOLValue] & 1) == 0)
       {
-        v49 = objc_autoreleasePoolPush();
+        v48 = objc_autoreleasePoolPush();
         selfCopy2 = self;
         v41 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
-          v47 = HMFGetLogIdentifier();
+          v46 = HMFGetLogIdentifier();
           name = [entity2 name];
-          *v65 = 138544130;
-          *&v65[4] = v47;
-          *&v65[12] = 2112;
-          *&v65[14] = name;
-          *&v65[22] = 2112;
-          v66 = @"cloudSyncInclude";
-          LOWORD(v67) = 2112;
-          *(&v67 + 2) = v32;
-          _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring update to %@ as it is marked with '%@' = '%@'", v65, 0x2Au);
+          *v64 = 138544130;
+          *&v64[4] = v46;
+          *&v64[12] = 2112;
+          *&v64[14] = name;
+          *&v64[22] = 2112;
+          v65 = @"cloudSyncInclude";
+          LOWORD(v66) = 2112;
+          *(&v66 + 2) = v32;
+          _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring update to %@ as it is marked with '%@' = '%@'", v64, 0x2Au);
         }
 
-        objc_autoreleasePoolPop(v49);
+        objc_autoreleasePoolPop(v48);
         v16 = 0;
       }
 
@@ -3858,25 +3825,25 @@ LABEL_12:
       {
         v33 = [userInfo objectForKeyedSubscript:@"cloudSyncEntity"];
 
-        if (v33 && [v52 changeType] == 1)
+        if (v33 && [v51 changeType] == 1)
         {
-          v48 = importCopy;
-          v55 = 0;
-          v56 = &v55;
-          v57 = 0x2020000000;
-          v58 = 0;
-          updatedProperties = [v52 updatedProperties];
-          *v65 = MEMORY[0x277D85DD0];
-          *&v65[8] = 3221225472;
-          *&v65[16] = __76__HMDCoreDataCloudTransform__shouldProcessExportChange_homeModelID_context___block_invoke;
-          v66 = &unk_278678FF8;
-          *&v67 = self;
-          v46 = entity2;
-          *(&v67 + 1) = v46;
-          v68 = &v55;
-          [updatedProperties hmf_enumerateWithAutoreleasePoolUsingBlock:v65];
+          v47 = importCopy;
+          v54 = 0;
+          v55 = &v54;
+          v56 = 0x2020000000;
+          v57 = 0;
+          updatedProperties = [v51 updatedProperties];
+          *v64 = MEMORY[0x277D85DD0];
+          *&v64[8] = 3221225472;
+          *&v64[16] = __76__HMDCoreDataCloudTransform__shouldProcessExportChange_homeModelID_context___block_invoke;
+          v65 = &unk_278678FF8;
+          *&v66 = self;
+          v45 = entity2;
+          *(&v66 + 1) = v45;
+          v67 = &v54;
+          [updatedProperties hmf_enumerateWithAutoreleasePoolUsingBlock:v64];
 
-          v16 = *(v56 + 24);
+          v16 = *(v55 + 24);
           if ((v16 & 1) == 0)
           {
             context = objc_autoreleasePoolPush();
@@ -3886,13 +3853,13 @@ LABEL_12:
             {
               v37 = selfCopy3;
               v38 = HMFGetLogIdentifier();
-              name2 = [v46 name];
+              name2 = [v45 name];
               *buf = 138543874;
-              v60 = v38;
-              v61 = 2112;
-              v62 = name2;
-              v63 = 2112;
-              v64 = v52;
+              v59 = v38;
+              v60 = 2112;
+              v61 = name2;
+              v62 = 2112;
+              v63 = v51;
               _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_DEBUG, "%{public}@No relevant updates to %@, skipping change: %@", buf, 0x20u);
 
               selfCopy3 = v37;
@@ -3901,8 +3868,8 @@ LABEL_12:
             objc_autoreleasePoolPop(context);
           }
 
-          importCopy = v48;
-          _Block_object_dispose(&v55, 8);
+          importCopy = v47;
+          _Block_object_dispose(&v54, 8);
         }
 
         else
@@ -3944,7 +3911,6 @@ LABEL_11:
 LABEL_27:
 
 LABEL_28:
-  v43 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -3962,7 +3928,7 @@ LABEL_28:
 
 void __76__HMDCoreDataCloudTransform__shouldProcessExportChange_homeModelID_context___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 userInfo];
   v5 = [v4 objectForKeyedSubscript:@"cloudSyncInclude"];
@@ -4005,13 +3971,13 @@ void __76__HMDCoreDataCloudTransform__shouldProcessExportChange_homeModelID_cont
               v17 = HMFGetLogIdentifier();
               v18 = [*(a1 + 40) name];
               v19 = [v7 name];
-              v29 = 138543874;
-              v30 = v17;
-              v31 = 2112;
-              v32 = v18;
-              v33 = 2112;
-              v34 = v19;
-              _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring update to %@.%@ as it is not included in cloud sync", &v29, 0x20u);
+              v28 = 138543874;
+              v29 = v17;
+              v30 = 2112;
+              v31 = v18;
+              v32 = 2112;
+              v33 = v19;
+              _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring update to %@.%@ as it is not included in cloud sync", &v28, 0x20u);
             }
 
             objc_autoreleasePoolPop(v14);
@@ -4048,23 +4014,21 @@ LABEL_19:
     v23 = HMFGetLogIdentifier();
     v24 = [*(a1 + 40) name];
     v25 = [v3 name];
-    v29 = 138544386;
-    v30 = v23;
-    v31 = 2112;
-    v32 = v24;
-    v33 = 2112;
-    v34 = v25;
-    v35 = 2112;
-    v36 = @"cloudSyncInclude";
-    v37 = 2112;
-    v38 = v6;
-    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring update to %@.%@ as it is marked with '%@' = '%@'", &v29, 0x34u);
+    v28 = 138544386;
+    v29 = v23;
+    v30 = 2112;
+    v31 = v24;
+    v32 = 2112;
+    v33 = v25;
+    v34 = 2112;
+    v35 = @"cloudSyncInclude";
+    v36 = 2112;
+    v37 = v6;
+    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring update to %@.%@ as it is marked with '%@' = '%@'", &v28, 0x34u);
   }
 
   objc_autoreleasePoolPop(v20);
 LABEL_20:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDCoreDataCloudTransform_fakeHomeChangeSetModelID__block_invoke()
@@ -4097,7 +4061,7 @@ void __53__HMDCoreDataCloudTransform_fakeHomeChangeSetModelID__block_invoke()
 
 void __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context___block_invoke(id *a1, void *a2)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = a1[4];
   v5 = v3;
@@ -4119,9 +4083,9 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context__
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v13;
-      v51 = 2112;
-      v52 = v6;
+      v49 = v13;
+      v50 = 2112;
+      v51 = v6;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Can't process transaction with no context name: %@", buf, 0x16u);
       goto LABEL_9;
     }
@@ -4145,11 +4109,11 @@ LABEL_10:
       v14 = [v6 transactionNumber];
       v15 = [v6 author];
       *buf = 138543874;
-      v50 = v13;
-      v51 = 2048;
-      v52 = v14;
-      v53 = 2114;
-      v54 = v15;
+      v49 = v13;
+      v50 = 2048;
+      v51 = v14;
+      v52 = 2114;
+      v53 = v15;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Not exporting transaction %lld with author %{public}@", buf, 0x20u);
 
 LABEL_9:
@@ -4162,109 +4126,107 @@ LABEL_9:
   v7 = [v6 contextName];
   if ([v7 isEqualToString:@"HomeManager"])
   {
-    v18 = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
-  v18 = HMDHomeUUIDFromWorkingContextName(v7);
-  if (v18)
+  v17 = HMDHomeUUIDFromWorkingContextName(v7);
+  if (v17)
   {
 LABEL_15:
-    v19 = [v6 author];
-    v20 = [HMDCoreDataContextTransactionAuthor contextAuthorWithString:v19];
+    v18 = [v6 author];
+    v19 = [HMDCoreDataContextTransactionAuthor contextAuthorWithString:v18];
 
-    v21 = a1[4];
-    v22 = [v20 clientIdentifier];
-    v23 = -[HMDCoreDataCloudTransform _changeSetForHome:isImport:clientIdentifier:qualityOfService:cache:](v21, v18, 0, v22, [v20 qualityOfService], a1[5]);
+    v20 = a1[4];
+    v21 = [v19 clientIdentifier];
+    v22 = -[HMDCoreDataCloudTransform _changeSetForHome:isImport:clientIdentifier:qualityOfService:cache:](v20, v17, 0, v21, [v19 qualityOfService], a1[5]);
 
-    if (!v23 || (v23[32] & 1) == 0)
+    if (!v22 || (v22[32] & 1) == 0)
     {
-      v24 = objc_autoreleasePoolPush();
-      v25 = a1[4];
-      v26 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v23 = objc_autoreleasePoolPush();
+      v24 = a1[4];
+      v25 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v28 = v27 = v20;
+        v27 = v26 = v19;
         *buf = 138543874;
-        v50 = v28;
-        v51 = 2160;
-        v52 = 1752392040;
-        v53 = 2112;
-        v54 = v18;
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Delegate has denied transform for home %{mask.hash}@ but allowing transform because the transaction is a force update", buf, 0x20u);
+        v49 = v27;
+        v50 = 2160;
+        v51 = 1752392040;
+        v52 = 2112;
+        v53 = v17;
+        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Delegate has denied transform for home %{mask.hash}@ but allowing transform because the transaction is a force update", buf, 0x20u);
 
-        v20 = v27;
+        v19 = v26;
       }
 
-      objc_autoreleasePoolPop(v24);
-      if (v23)
+      objc_autoreleasePoolPop(v23);
+      if (v22)
       {
-        v23[32] = 1;
+        v22[32] = 1;
       }
     }
 
-    v29 = objc_autoreleasePoolPush();
-    v30 = a1[4];
-    v31 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v28 = objc_autoreleasePoolPush();
+    v29 = a1[4];
+    v30 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v32 = v44 = v20;
-      v33 = [v6 transactionNumber];
+      v31 = v43 = v19;
+      v32 = [v6 transactionNumber];
       [v6 changes];
-      v34 = v43 = v18;
-      v35 = [v34 count];
+      v33 = v42 = v17;
+      v34 = [v33 count];
       *buf = 138543874;
-      v50 = v32;
-      v51 = 2048;
-      v52 = v33;
-      v53 = 2048;
-      v54 = v35;
-      _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Processing export transaction %lld with %zd change(s)", buf, 0x20u);
+      v49 = v31;
+      v50 = 2048;
+      v51 = v32;
+      v52 = 2048;
+      v53 = v34;
+      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Processing export transaction %lld with %zd change(s)", buf, 0x20u);
 
-      v18 = v43;
-      v20 = v44;
+      v17 = v42;
+      v19 = v43;
     }
 
-    objc_autoreleasePoolPop(v29);
-    v36 = [v6 changes];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context___block_invoke_230;
-    v45[3] = &unk_278679200;
-    v45[4] = a1[4];
-    v46 = v18;
-    v47 = a1[6];
-    v48 = v23;
-    v37 = v23;
-    v38 = v18;
-    [v36 hmf_enumerateWithAutoreleasePoolUsingBlock:v45];
+    objc_autoreleasePoolPop(v28);
+    v35 = [v6 changes];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context___block_invoke_230;
+    v44[3] = &unk_278679200;
+    v44[4] = a1[4];
+    v45 = v17;
+    v46 = a1[6];
+    v47 = v22;
+    v36 = v22;
+    v37 = v17;
+    [v35 hmf_enumerateWithAutoreleasePoolUsingBlock:v44];
 
     goto LABEL_11;
   }
 
-  v39 = objc_autoreleasePoolPush();
-  v40 = a1[4];
-  v41 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+  v38 = objc_autoreleasePoolPush();
+  v39 = a1[4];
+  v40 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
   {
-    v42 = HMFGetLogIdentifier();
+    v41 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v50 = v42;
-    v51 = 2048;
-    v52 = [v6 transactionNumber];
-    v53 = 2160;
-    v54 = 1752392040;
-    v55 = 2112;
-    v56 = v7;
-    _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Refusing to process export transaction %lld with context name %{mask.hash}@", buf, 0x2Au);
+    v49 = v41;
+    v50 = 2048;
+    v51 = [v6 transactionNumber];
+    v52 = 2160;
+    v53 = 1752392040;
+    v54 = 2112;
+    v55 = v7;
+    _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Refusing to process export transaction %lld with context name %{mask.hash}@", buf, 0x2Au);
   }
 
-  objc_autoreleasePoolPop(v39);
+  objc_autoreleasePoolPop(v38);
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context___block_invoke_230(uint64_t a1, void *a2)
@@ -4278,7 +4240,7 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context__
 
 - (BOOL)cloudTransform:(id)transform isPermittedForHomeWithModelID:(id)d isImport:(BOOL)import
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   transformCopy = transform;
   dCopy = d;
   v9 = objc_autoreleasePoolPush();
@@ -4287,23 +4249,22 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context__
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v12 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v12;
-    v17 = 2160;
-    v18 = 1752392040;
-    v19 = 2112;
-    v20 = dCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@No delegate assigned, presuming that transform is allowed for home %{mask.hash}@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v12;
+    v16 = 2160;
+    v17 = 1752392040;
+    v18 = 2112;
+    v19 = dCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@No delegate assigned, presuming that transform is allowed for home %{mask.hash}@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)coreData:(id)data cloudKitExportFinishedForStoreWithIdentifier:(id)identifier duration:(double)duration error:(id)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   errorCopy = error;
@@ -4319,14 +4280,14 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context__
     }
 
     v17 = HMFGetLogIdentifier();
-    v26 = 138544130;
-    v27 = v17;
-    v28 = 2114;
-    v29 = identifierCopy;
-    v30 = 2048;
+    v25 = 138544130;
+    v26 = v17;
+    v27 = 2114;
+    v28 = identifierCopy;
+    v29 = 2048;
     durationCopy2 = duration;
-    v32 = 2114;
-    v33 = errorCopy;
+    v31 = 2114;
+    v32 = errorCopy;
     v18 = "%{public}@CloudKit export for store %{public}@ failed after %f seconds: %{public}@";
     v19 = v16;
     v20 = OS_LOG_TYPE_ERROR;
@@ -4341,11 +4302,11 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context__
     }
 
     v17 = HMFGetLogIdentifier();
-    v26 = 138543874;
-    v27 = v17;
-    v28 = 2114;
-    v29 = identifierCopy;
-    v30 = 2048;
+    v25 = 138543874;
+    v26 = v17;
+    v27 = 2114;
+    v28 = identifierCopy;
+    v29 = 2048;
     durationCopy2 = duration;
     v18 = "%{public}@CloudKit export for store %{public}@ finished after %f seconds";
     v19 = v16;
@@ -4353,7 +4314,7 @@ void __71__HMDCoreDataCloudTransform__changeSetsFromExportTransactions_context__
     v21 = 32;
   }
 
-  _os_log_impl(&dword_229538000, v19, v20, v18, &v26, v21);
+  _os_log_impl(&dword_229538000, v19, v20, v18, &v25, v21);
 
 LABEL_7:
   objc_autoreleasePoolPop(v13);
@@ -4370,13 +4331,11 @@ LABEL_7:
   v23 = logEventSubmitter;
   v24 = [[HMDCoreDataCloudKitOperationLogEvent alloc] initWithOperationType:2];
   [(HMMLogEventSubmitting *)v23 submitLogEvent:v24 error:errorCopy];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coreData:(id)data cloudKitExportStartedForStoreWithIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   v8 = objc_autoreleasePoolPush();
@@ -4385,20 +4344,19 @@ LABEL_7:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2114;
-    v16 = identifierCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@CloudKit export started for store %{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2114;
+    v15 = identifierCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@CloudKit export started for store %{public}@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coreData:(id)data cloudKitImportFinishedForStoreWithIdentifier:(id)identifier duration:(double)duration error:(id)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   errorCopy = error;
@@ -4420,15 +4378,15 @@ LABEL_7:
       [MEMORY[0x277CBEB68] null];
     }
     v18 = ;
-    v35 = 138413058;
-    v36 = identifierCopy;
-    v37 = 2112;
-    v38 = v16;
-    v39 = 2112;
+    v34 = 138413058;
+    v35 = identifierCopy;
+    v36 = 2112;
+    v37 = v16;
+    v38 = 2112;
     durationCopy2 = *&null;
-    v41 = 2112;
-    v42 = v18;
-    _os_signpost_emit_with_name_impl(&dword_229538000, v14, OS_SIGNPOST_INTERVAL_END, importSignpostID, "CoreDataCloudTransformImport", "storeIdentifier=%{signpost.description:attribute}@ succeeded=%{signpost.description:attribute}@ errorCode=%{signpost.description:attribute}@ errorDomain=%{signpost.description:attribute}@ ", &v35, 0x2Au);
+    v40 = 2112;
+    v41 = v18;
+    _os_signpost_emit_with_name_impl(&dword_229538000, v14, OS_SIGNPOST_INTERVAL_END, importSignpostID, "CoreDataCloudTransformImport", "storeIdentifier=%{signpost.description:attribute}@ succeeded=%{signpost.description:attribute}@ errorCode=%{signpost.description:attribute}@ errorDomain=%{signpost.description:attribute}@ ", &v34, 0x2Au);
   }
 
   self->_importSignpostID = 0;
@@ -4441,28 +4399,28 @@ LABEL_7:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v35 = 138544130;
-      v36 = v23;
-      v37 = 2114;
-      v38 = identifierCopy;
-      v39 = 2048;
+      v34 = 138544130;
+      v35 = v23;
+      v36 = 2114;
+      v37 = identifierCopy;
+      v38 = 2048;
       durationCopy2 = duration;
-      v41 = 2114;
-      v42 = errorCopy;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@CloudKit import for store %{public}@ failed after %f seconds: %{public}@", &v35, 0x2Au);
+      v40 = 2114;
+      v41 = errorCopy;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@CloudKit import for store %{public}@ failed after %f seconds: %{public}@", &v34, 0x2Au);
     }
   }
 
   else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     v24 = HMFGetLogIdentifier();
-    v35 = 138543874;
-    v36 = v24;
-    v37 = 2114;
-    v38 = identifierCopy;
-    v39 = 2048;
+    v34 = 138543874;
+    v35 = v24;
+    v36 = 2114;
+    v37 = identifierCopy;
+    v38 = 2048;
     durationCopy2 = duration;
-    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@CloudKit import for store %{public}@ finished after %f seconds", &v35, 0x20u);
+    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@CloudKit import for store %{public}@ finished after %f seconds", &v34, 0x20u);
   }
 
   objc_autoreleasePoolPop(v19);
@@ -4483,7 +4441,7 @@ LABEL_7:
   {
     _managedObjectContext = [(HMDCoreDataCloudTransform *)&selfCopy->super.super.isa _managedObjectContext];
     v31 = selfCopy->_pendingChangedStoreIdentifiers;
-    v32 = [(NSMutableSet *)v31 copy];
+    v32 = objc_msgSend_copy(v31);
 
     v33 = selfCopy->_pendingChangedStoreIdentifiers;
     [(NSMutableSet *)v33 removeAllObjects];
@@ -4491,8 +4449,6 @@ LABEL_7:
     os_unfair_lock_unlock(&selfCopy->_lock.lock);
     [(HMDCoreDataCloudTransform *)selfCopy _runTransformOnContext:_managedObjectContext storeIdentifiers:v32 completeMergeHomeModelID:0 completion:0];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cloudImportInProgressStoreIdentifiers
@@ -4591,7 +4547,7 @@ LABEL_7:
 
 void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_completeMergeHomeModelID_completion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = objc_autoreleasePoolPush();
   v4 = objc_opt_class();
@@ -4599,21 +4555,19 @@ void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_co
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Running completion handler", &v9, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Running completion handler", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *(*(*(a1 + 40) + 8) + 40);
   (*(*(a1 + 32) + 16))();
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_completeMergeHomeModelID_completion___block_invoke_125(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -4627,9 +4581,9 @@ void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_co
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         v7 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v7;
-        _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Dispatching completion handler", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v7;
+        _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Dispatching completion handler", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v4);
@@ -4652,9 +4606,9 @@ void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_co
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@HMDCoreDataCloudTransform deallocated before running transform", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@HMDCoreDataCloudTransform deallocated before running transform", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -4665,9 +4619,9 @@ void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_co
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         v17 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v17;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Dispatching completion handler", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v17;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Dispatching completion handler", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -4680,14 +4634,12 @@ void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_co
       dispatch_async(v21, *(a1 + 56));
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runTransformWhilePerformingBlockOnContext:(void *)context storeIdentifiers:(void *)identifiers completeMergeHomeModelID:
 {
-  v147[1] = *MEMORY[0x277D85DE8];
-  v108 = a2;
+  v146[1] = *MEMORY[0x277D85DE8];
+  v107 = a2;
   contextCopy = context;
   identifiersCopy = identifiers;
   if (!self)
@@ -4697,10 +4649,10 @@ void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_co
 
   if (![self badCDPState])
   {
-    v103 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"com.apple.homed.cloud-transform"];
+    v102 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"com.apple.homed.cloud-transform"];
     if (identifiersCopy)
     {
-      v105 = 0;
+      v104 = 0;
     }
 
     else
@@ -4717,19 +4669,19 @@ void __105__HMDCoreDataCloudTransform__runTransformOnContext_storeIdentifiers_co
       }
 
       v14 = [v12 arrayWithCapacity:v13];
-      persistentStoreCoordinator = [v108 persistentStoreCoordinator];
+      persistentStoreCoordinator = [v107 persistentStoreCoordinator];
       persistentStores = [persistentStoreCoordinator persistentStores];
-      v112[0] = MEMORY[0x277D85DD0];
-      v112[1] = 3221225472;
-      v112[2] = __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext_storeIdentifiers_completeMergeHomeModelID___block_invoke;
-      v112[3] = &unk_278678EE8;
-      v113 = contextCopy;
-      v114 = v108;
-      v105 = v14;
-      v115 = v105;
-      [persistentStores hmf_enumerateWithAutoreleasePoolUsingBlock:v112];
+      v111[0] = MEMORY[0x277D85DD0];
+      v111[1] = 3221225472;
+      v111[2] = __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext_storeIdentifiers_completeMergeHomeModelID___block_invoke;
+      v111[3] = &unk_278678EE8;
+      v112 = contextCopy;
+      v113 = v107;
+      v104 = v14;
+      v114 = v104;
+      [persistentStores hmf_enumerateWithAutoreleasePoolUsingBlock:v111];
 
-      if (![v105 count])
+      if (![v104 count])
       {
 LABEL_81:
 
@@ -4748,18 +4700,18 @@ LABEL_81:
       *&buf[12] = 2160;
       *&buf[14] = 1752392040;
       *&buf[22] = 2112;
-      v143 = identifiersCopy;
-      LOWORD(v144) = 2114;
-      *(&v144 + 2) = contextCopy;
+      v142 = identifiersCopy;
+      LOWORD(v143) = 2114;
+      *(&v143 + 2) = contextCopy;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Starting transform: completeMergeHomeModelID = %{mask.hash}@, storeIdentifiers = %{public}@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v17);
-    v107 = v108;
+    v106 = v107;
     currentQueryGenerationToken = [MEMORY[0x277CBE4F8] currentQueryGenerationToken];
-    v127 = 0;
-    v22 = [v107 setQueryGenerationFromToken:currentQueryGenerationToken error:&v127];
-    v23 = v127;
+    v126 = 0;
+    v22 = [v106 setQueryGenerationFromToken:currentQueryGenerationToken error:&v126];
+    v23 = v126;
 
     if ((v22 & 1) == 0)
     {
@@ -4782,13 +4734,13 @@ LABEL_81:
     if (!selfCopy[1].super.super._cd_rawData)
     {
       v28 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
-      v29 = [(HMDCoreDataCloudTransform *)selfCopy _fetchOrCreateMetadataForManagedObjectContext:v107];
+      v29 = [(HMDCoreDataCloudTransform *)selfCopy _fetchOrCreateMetadataForManagedObjectContext:v106];
       historyTokenForCloudStore = [v29 historyTokenForCloudStore];
 
       if (historyTokenForCloudStore)
       {
         historyTokenForCloudStore2 = [v29 historyTokenForCloudStore];
-        hmd_cloudPrivateStoreIdentifier = [v107 hmd_cloudPrivateStoreIdentifier];
+        hmd_cloudPrivateStoreIdentifier = [v106 hmd_cloudPrivateStoreIdentifier];
         [v28 setObject:historyTokenForCloudStore2 forKeyedSubscript:hmd_cloudPrivateStoreIdentifier];
       }
 
@@ -4797,7 +4749,7 @@ LABEL_81:
       if (historyTokenForCloudSharedStore)
       {
         historyTokenForCloudSharedStore2 = [v29 historyTokenForCloudSharedStore];
-        hmd_cloudSharedStoreIdentifier = [v107 hmd_cloudSharedStoreIdentifier];
+        hmd_cloudSharedStoreIdentifier = [v106 hmd_cloudSharedStoreIdentifier];
         [v28 setObject:historyTokenForCloudSharedStore2 forKeyedSubscript:hmd_cloudSharedStoreIdentifier];
       }
 
@@ -4806,7 +4758,7 @@ LABEL_81:
       if (historyTokenForWorkingStore)
       {
         historyTokenForWorkingStore2 = [v29 historyTokenForWorkingStore];
-        hmd_workingStoreIdentifier = [v107 hmd_workingStoreIdentifier];
+        hmd_workingStoreIdentifier = [v106 hmd_workingStoreIdentifier];
         [v28 setObject:historyTokenForWorkingStore2 forKeyedSubscript:hmd_workingStoreIdentifier];
       }
 
@@ -4830,14 +4782,14 @@ LABEL_81:
 
     if (!identifiersCopy)
     {
-      v109[0] = MEMORY[0x277D85DD0];
-      v109[1] = 3221225472;
-      v109[2] = __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext_storeIdentifiers_completeMergeHomeModelID___block_invoke_133;
-      v109[3] = &unk_278678EE8;
-      v109[4] = selfCopy;
-      v110 = v107;
-      v111 = v105;
-      [v111 hmf_enumerateWithAutoreleasePoolUsingBlock:v109];
+      v108[0] = MEMORY[0x277D85DD0];
+      v108[1] = 3221225472;
+      v108[2] = __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext_storeIdentifiers_completeMergeHomeModelID___block_invoke_133;
+      v108[3] = &unk_278678EE8;
+      v108[4] = selfCopy;
+      v109 = v106;
+      v110 = v104;
+      [v110 hmf_enumerateWithAutoreleasePoolUsingBlock:v108];
 
 LABEL_76:
       v88 = objc_autoreleasePoolPush();
@@ -4852,7 +4804,7 @@ LABEL_76:
       }
 
       objc_autoreleasePoolPop(v88);
-      [v107 reset];
+      [v106 reset];
       v92 = objc_autoreleasePoolPush();
       v93 = v89;
       v94 = HMFGetOSLogHandle();
@@ -4879,19 +4831,19 @@ LABEL_76:
       *&buf[12] = 2160;
       *&buf[14] = 1752392040;
       *&buf[22] = 2112;
-      v143 = identifiersCopy;
+      v142 = identifiersCopy;
       _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_INFO, "%{public}@Starting complete merge transform for home with modelID %{mask.hash}@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v44);
-    v48 = v107;
+    v48 = v106;
     v49 = identifiersCopy;
     [v48 hmd_assertIsExecuting];
     v50 = v49;
     v51 = v48;
     [v51 hmd_assertIsExecuting];
     hmd_coreData = [v51 hmd_coreData];
-    v102 = hmd_coreData;
+    v101 = hmd_coreData;
     if (!hmd_coreData)
     {
       v62 = objc_autoreleasePoolPush();
@@ -4910,21 +4862,21 @@ LABEL_76:
     }
 
     cloudPrivateStore = [hmd_coreData cloudPrivateStore];
-    v104 = +[MKFCKHome fetchRequest];
+    v103 = +[MKFCKHome fetchRequest];
     v53 = [(MKFCKModel *)MKFCKHome predicateWithModelID:v50];
-    [v104 setPredicate:v53];
+    [v103 setPredicate:v53];
 
     v54 = +[(MKFCKModel *)MKFCKHome];
-    [v104 setPropertiesToFetch:v54];
+    [v103 setPropertiesToFetch:v54];
 
-    v147[0] = cloudPrivateStore;
-    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v147 count:1];
-    [v104 setAffectedStores:v55];
+    v146[0] = cloudPrivateStore;
+    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v146 count:1];
+    [v103 setAffectedStores:v55];
 
-    v133 = 0;
-    v100 = [v51 executeFetchRequest:v104 error:&v133];
-    v56 = v133;
-    if (!v100)
+    v132 = 0;
+    v99 = [v51 executeFetchRequest:v103 error:&v132];
+    v56 = v132;
+    if (!v99)
     {
       v66 = objc_autoreleasePoolPush();
       v67 = v45;
@@ -4937,9 +4889,9 @@ LABEL_76:
         *&buf[12] = 2160;
         *&buf[14] = 1752392040;
         *&buf[22] = 2112;
-        v143 = v50;
-        LOWORD(v144) = 2114;
-        *(&v144 + 2) = v56;
+        v142 = v50;
+        LOWORD(v143) = 2114;
+        *(&v143 + 2) = v56;
         _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch cloud home with modelID %{mask.hash}@: %{public}@", buf, 0x2Au);
       }
 
@@ -4947,29 +4899,29 @@ LABEL_76:
       goto LABEL_72;
     }
 
-    firstObject = [v100 firstObject];
-    v127 = 0;
-    v128 = &v127;
-    v129 = 0x3032000000;
-    v130 = __Block_byref_object_copy__121531;
-    v131 = __Block_byref_object_dispose__121532;
-    v132 = 0;
-    v121 = 0;
-    v122 = &v121;
-    v123 = 0x3032000000;
-    v124 = __Block_byref_object_copy__121531;
-    v125 = __Block_byref_object_dispose__121532;
+    firstObject = [v99 firstObject];
     v126 = 0;
+    v127 = &v126;
+    v128 = 0x3032000000;
+    v129 = __Block_byref_object_copy__121531;
+    v130 = __Block_byref_object_dispose__121532;
+    v131 = 0;
+    v120 = 0;
+    v121 = &v120;
+    v122 = 0x3032000000;
+    v123 = __Block_byref_object_copy__121531;
+    v124 = __Block_byref_object_dispose__121532;
+    v125 = 0;
     if (firstObject)
     {
-      v99 = v56;
+      v98 = v56;
       goto LABEL_35;
     }
 
     v70 = +[MKFCKHome entity];
-    v120 = v56;
-    v71 = [cloudPrivateStore hmd_tombstonesForEntity:v70 duration:v51 context:&v120 error:0.0];
-    v99 = v120;
+    v119 = v56;
+    v71 = [cloudPrivateStore hmd_tombstonesForEntity:v70 duration:v51 context:&v119 error:0.0];
+    v98 = v119;
 
     if (!v71)
     {
@@ -4982,33 +4934,33 @@ LABEL_76:
         *buf = 138543618;
         *&buf[4] = v81;
         *&buf[12] = 2114;
-        *&buf[14] = v99;
+        *&buf[14] = v98;
         _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch tombstones for cloud homes: %{public}@", buf, 0x16u);
       }
 
       goto LABEL_38;
     }
 
-    v116 = 0;
-    v117 = &v116;
-    v118 = 0x2020000000;
-    v119 = 0;
+    v115 = 0;
+    v116 = &v115;
+    v117 = 0x2020000000;
+    v118 = 0;
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __83__HMDCoreDataCloudTransform__performCompleteMergeImportForHomeWithModelID_context___block_invoke;
-    v143 = &unk_278678F10;
+    v142 = &unk_278678F10;
     v72 = v50;
-    *&v144 = v72;
-    *(&v144 + 1) = &v127;
-    v145 = &v121;
-    v146 = &v116;
+    *&v143 = v72;
+    *(&v143 + 1) = &v126;
+    v144 = &v120;
+    v145 = &v115;
     [v71 enumerateKeysAndObjectsUsingBlock:buf];
-    if (v128[5])
+    if (v127[5])
     {
-      if (*(v117 + 24) != 1)
+      if (*(v116 + 24) != 1)
       {
 
-        _Block_object_dispose(&v116, 8);
+        _Block_object_dispose(&v115, 8);
 LABEL_35:
         if ([firstObject isFake])
         {
@@ -5018,21 +4970,21 @@ LABEL_35:
           if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
           {
             v61 = HMFGetLogIdentifier();
-            *v134 = 138543618;
-            v135 = v61;
-            v136 = 2112;
-            v137 = firstObject;
-            _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_ERROR, "%{public}@Refusing to merge fake home: %@", v134, 0x16u);
+            *v133 = 138543618;
+            v134 = v61;
+            v135 = 2112;
+            v136 = firstObject;
+            _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_ERROR, "%{public}@Refusing to merge fake home: %@", v133, 0x16u);
           }
 
 LABEL_38:
 
           objc_autoreleasePoolPop(v58);
 LABEL_71:
-          _Block_object_dispose(&v121, 8);
+          _Block_object_dispose(&v120, 8);
 
-          _Block_object_dispose(&v127, 8);
-          v56 = v99;
+          _Block_object_dispose(&v126, 8);
+          v56 = v98;
 LABEL_72:
 
 LABEL_73:
@@ -5047,7 +4999,7 @@ LABEL_73:
             *&buf[12] = 2160;
             *&buf[14] = 1752392040;
             *&buf[22] = 2112;
-            v143 = v50;
+            v142 = v50;
             _os_log_impl(&dword_229538000, v86, OS_LOG_TYPE_INFO, "%{public}@Finished complete merge transform for home with modelID %{mask.hash}@", buf, 0x20u);
           }
 
@@ -5092,7 +5044,7 @@ LABEL_53:
           }
         }
 
-        [(HMDCoreDataCloudTransformChangeSet *)v71 processDelete:v122[5] tombstone:?];
+        [(HMDCoreDataCloudTransformChangeSet *)v71 processDelete:v121[5] tombstone:?];
 LABEL_67:
         if (v71)
         {
@@ -5105,23 +5057,23 @@ LABEL_67:
         goto LABEL_70;
       }
 
-      v97 = v72;
+      v96 = v72;
       context = objc_autoreleasePoolPush();
       v73 = v45;
       v74 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
         v75 = HMFGetLogIdentifier();
-        v76 = v128[5];
-        *v134 = 138544130;
-        v135 = v75;
-        v136 = 2112;
-        v137 = v76;
-        v138 = 2160;
-        v139 = 1752392040;
-        v140 = 2112;
-        v141 = v97;
-        _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_ERROR, "%{public}@Refusing to merge deleted fake home: <%@: %{mask.hash}@>", v134, 0x2Au);
+        v76 = v127[5];
+        *v133 = 138544130;
+        v134 = v75;
+        v135 = 2112;
+        v136 = v76;
+        v137 = 2160;
+        v138 = 1752392040;
+        v139 = 2112;
+        v140 = v96;
+        _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_ERROR, "%{public}@Refusing to merge deleted fake home: <%@: %{mask.hash}@>", v133, 0x2Au);
       }
     }
 
@@ -5133,18 +5085,18 @@ LABEL_67:
       if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
       {
         v83 = HMFGetLogIdentifier();
-        *v134 = 138543874;
-        v135 = v83;
-        v136 = 2160;
-        v137 = 1752392040;
-        v138 = 2112;
-        v139 = v72;
-        _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_INFO, "%{public}@Didn't find home with modelID %{mask.hash}@", v134, 0x20u);
+        *v133 = 138543874;
+        v134 = v83;
+        v135 = 2160;
+        v136 = 1752392040;
+        v137 = 2112;
+        v138 = v72;
+        _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_INFO, "%{public}@Didn't find home with modelID %{mask.hash}@", v133, 0x20u);
       }
     }
 
     objc_autoreleasePoolPop(context);
-    _Block_object_dispose(&v116, 8);
+    _Block_object_dispose(&v115, 8);
 LABEL_70:
 
     goto LABEL_71;
@@ -5163,8 +5115,6 @@ LABEL_70:
 
   objc_autoreleasePoolPop(v8);
 LABEL_82:
-
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_delayContextDestruction:(uint64_t)destruction
@@ -5219,9 +5169,9 @@ LABEL_7:
 LABEL_8:
 }
 
-void __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext_storeIdentifiers_completeMergeHomeModelID___block_invoke_133(id *a1, void *a2, uint64_t a3)
+void __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext_storeIdentifiers_completeMergeHomeModelID___block_invoke_133(id *a1, void *a2, _BYTE *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
   v7 = a1[4];
@@ -5231,13 +5181,13 @@ void __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext
     v9 = HMFGetLogIdentifier();
     v10 = [v5 configurationName];
     v11 = [v5 identifier];
-    v25 = 138543874;
-    v26 = v9;
-    v27 = 2114;
-    v28 = v10;
-    v29 = 2114;
-    v30 = v11;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting transform for store [%{public}@] with identifier: %{public}@", &v25, 0x20u);
+    v24 = 138543874;
+    v25 = v9;
+    v26 = 2114;
+    v27 = v10;
+    v28 = 2114;
+    v29 = v11;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting transform for store [%{public}@] with identifier: %{public}@", &v24, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -5250,17 +5200,17 @@ void __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext
     v15 = HMFGetLogIdentifier();
     v16 = [v5 configurationName];
     v17 = [v5 identifier];
-    v25 = 138543874;
-    v26 = v15;
-    v27 = 2114;
-    v28 = v16;
-    v29 = 2114;
-    v30 = v17;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Finished transform for store [%{public}@] with identifier: %{public}@", &v25, 0x20u);
+    v24 = 138543874;
+    v25 = v15;
+    v26 = 2114;
+    v27 = v16;
+    v28 = 2114;
+    v29 = v17;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Finished transform for store [%{public}@] with identifier: %{public}@", &v24, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
-  if ([a1[6] count] - 1 != a3)
+  if (([a1[6] count] - 1) != a3)
   {
     v18 = objc_autoreleasePoolPush();
     v19 = a1[4];
@@ -5270,27 +5220,25 @@ void __114__HMDCoreDataCloudTransform__runTransformWhilePerformingBlockOnContext
       v21 = HMFGetLogIdentifier();
       v22 = [v5 configurationName];
       v23 = [v5 identifier];
-      v25 = 138543874;
-      v26 = v21;
-      v27 = 2114;
-      v28 = v22;
-      v29 = 2114;
-      v30 = v23;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Cleaning up after transform for store [%{public}@] with identifier: %{public}@", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v21;
+      v26 = 2114;
+      v27 = v22;
+      v28 = 2114;
+      v29 = v23;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Cleaning up after transform for store [%{public}@] with identifier: %{public}@", &v24, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
     [a1[5] rollback];
     [a1[5] refreshAllObjects];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HMDCoreDataCloudTransform__performCompleteMergeImportForHomeWithModelID_context___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13 = a2;
+  v15 = *MEMORY[0x277D85DE8];
+  v12 = a2;
   v8 = a3;
   v9 = [v8 hmf_UUIDForKey:@"modelID"];
   if ([v9 isEqual:a1[4]])
@@ -5302,54 +5250,51 @@ void __83__HMDCoreDataCloudTransform__performCompleteMergeImportForHomeWithModel
     v11 = v10;
     if (v10)
     {
+      v13 = 0;
       v14 = 0;
-      v15 = 0;
-      [v10 getUUIDBytes:&v14];
-      if ((v15 & 0x80000000000) != 0)
+      [v10 getUUIDBytes:&v13];
+      if ((v14 & 0x80000000000) != 0)
       {
         *(*(a1[7] + 8) + 24) = 1;
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDCoreDataCloudTransform__managedObjectContext__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 40);
   objc_opt_class();
-  v4 = objc_opt_self();
-  v5 = NSStringFromClass(v4);
-  [*(a1 + 32) setName:v5];
+  v3 = objc_opt_self();
+  v4 = NSStringFromClass(v3);
+  [*(a1 + 32) setName:v4];
 
-  v6 = [*(a1 + 48) cloudPrivateStore];
-  v7 = [v6 identifier];
-  [*(a1 + 32) setHmd_cloudPrivateStoreIdentifier:v7];
+  v5 = [*(a1 + 48) cloudPrivateStore];
+  v6 = [v5 identifier];
+  [*(a1 + 32) setHmd_cloudPrivateStoreIdentifier:v6];
 
-  v8 = [*(a1 + 48) cloudSharedStore];
-  v9 = [v8 identifier];
-  [*(a1 + 32) setHmd_cloudSharedStoreIdentifier:v9];
+  v7 = [*(a1 + 48) cloudSharedStore];
+  v8 = [v7 identifier];
+  [*(a1 + 32) setHmd_cloudSharedStoreIdentifier:v8];
 
-  v10 = [*(a1 + 48) workingStore];
-  v11 = [v10 identifier];
-  [*(a1 + 32) setHmd_workingStoreIdentifier:v11];
+  v9 = [*(a1 + 48) workingStore];
+  v10 = [v9 identifier];
+  [*(a1 + 32) setHmd_workingStoreIdentifier:v10];
 
-  v12 = *(a1 + 40);
-  if (v12)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    LOBYTE(v12) = *(v12 + 40);
+    LOBYTE(v11) = *(v11 + 40);
   }
 
-  [*(a1 + 32) setHmd_fakeRecordsEnabled:v12 & 1];
+  [*(a1 + 32) setHmd_fakeRecordsEnabled:v11 & 1];
 
   objc_autoreleasePoolPop(v2);
 }
 
 - (void)coreData:(id)data cloudKitImportStartedForStoreWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   os_unfair_lock_lock_with_options();
@@ -5363,30 +5308,28 @@ void __50__HMDCoreDataCloudTransform__managedObjectContext__block_invoke(uint64_
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = identifierCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@CloudKit import started for store %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2114;
+    v17 = identifierCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@CloudKit import started for store %{public}@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   logger = selfCopy->_logger;
   if (os_signpost_enabled(logger))
   {
-    v15 = 138412290;
-    v16 = identifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_229538000, logger, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "CoreDataCloudTransformImport", "storeIdentifier=%{signpost.description:attribute}@ ", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = identifierCopy;
+    _os_signpost_emit_with_name_impl(&dword_229538000, logger, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "CoreDataCloudTransformImport", "storeIdentifier=%{signpost.description:attribute}@ ", &v14, 0xCu);
   }
 
   selfCopy->_importSignpostID = 0xEEEEB0B5B2B2EEEELL;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coreData:(id)data persistentStoreWithIdentifierDidChange:(id)change
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   changeCopy = change;
   os_unfair_lock_lock_with_options();
@@ -5398,11 +5341,11 @@ void __50__HMDCoreDataCloudTransform__managedObjectContext__block_invoke(uint64_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v11;
-      v20 = 2114;
-      v21 = changeCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Waiting for cloud import to finish before running transform on store %{public}@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v11;
+      v19 = 2114;
+      v20 = changeCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Waiting for cloud import to finish before running transform on store %{public}@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -5424,8 +5367,6 @@ void __50__HMDCoreDataCloudTransform__managedObjectContext__block_invoke(uint64_
     os_unfair_lock_unlock(&self->_lock.lock);
     [(HMDCoreDataCloudTransform *)self _runTransformOnContext:_managedObjectContext storeIdentifiers:v15 completeMergeHomeModelID:0 completion:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)badCDPState
@@ -5487,7 +5428,7 @@ void __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___b
 
 void __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___block_invoke_3(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -5497,46 +5438,43 @@ void __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___b
     v6 = *(a1 + 40);
     v7 = [*(a1 + 48) valueForKeyPath:@"name"];
     *buf = 138543874;
-    v24 = v5;
-    v25 = 2112;
-    v26 = v6;
-    v27 = 2114;
-    v28 = v7;
+    v22 = v5;
+    v23 = 2112;
+    v24 = v6;
+    v25 = 2114;
+    v26 = v7;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Adding listener %@ for entity types %{public}@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
   v8 = *(a1 + 56);
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___block_invoke_105;
-  v20 = &unk_278678E70;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___block_invoke_105;
+  v18 = &unk_278678E70;
   v9 = *(a1 + 40);
-  v21 = *(a1 + 32);
-  v22 = v9;
-  [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:&v17];
-  v10 = *(a1 + 40);
+  v19 = *(a1 + 32);
+  v20 = v9;
+  [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:&v15];
   if (objc_opt_respondsToSelector())
   {
-    v11 = objc_autoreleasePoolPush();
-    v12 = *(a1 + 32);
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v10 = objc_autoreleasePoolPush();
+    v11 = *(a1 + 32);
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v14 = HMFGetLogIdentifier();
-      v15 = *(a1 + 40);
+      v13 = HMFGetLogIdentifier();
+      v14 = *(a1 + 40);
       *buf = 138543618;
+      v22 = v13;
+      v23 = 2112;
       v24 = v14;
-      v25 = 2112;
-      v26 = v15;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Starting listener %@", buf, 0x16u);
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Starting listener %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v11);
-    [*(a1 + 40) willStartListeningWithContext:{*(a1 + 64), v17, v18, v19, v20, v21}];
+    objc_autoreleasePoolPop(v10);
+    [*(a1 + 40) willStartListeningWithContext:{*(a1 + 64), v15, v16, v17, v18, v19}];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___block_invoke_105(uint64_t a1, void *a2)
@@ -5586,7 +5524,7 @@ void __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___b
 
 - (void)runCompleteMergeTransformForHomeWithModelID:(id)d completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -5595,21 +5533,19 @@ void __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___b
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v11;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Complete merge requested", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v11;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Complete merge requested", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
   managedObjectContext = [(HMDCoreDataCloudTransform *)selfCopy managedObjectContext];
   [(HMDCoreDataCloudTransform *)selfCopy _runTransformOnContext:managedObjectContext storeIdentifiers:0 completeMergeHomeModelID:dCopy completion:completionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runTransformWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -5617,21 +5553,19 @@ void __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___b
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Manual run requested", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Manual run requested", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   managedObjectContext = [(HMDCoreDataCloudTransform *)selfCopy managedObjectContext];
   [(HMDCoreDataCloudTransform *)selfCopy _runTransformOnContext:managedObjectContext storeIdentifiers:0 completeMergeHomeModelID:0 completion:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)runTransformWithError:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
   v6 = HMFGetOSLogHandle();
@@ -5639,20 +5573,19 @@ void __69__HMDCoreDataCloudTransform_registerCloudChangeListener_forEntities___b
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v13 = v7;
+    v12 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronous manual run requested", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   managedObjectContext = [(HMDCoreDataCloudTransform *)selfCopy managedObjectContext];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __51__HMDCoreDataCloudTransform_runTransformWithError___block_invoke;
-  v11[3] = &unk_27868A728;
-  v11[4] = selfCopy;
-  [managedObjectContext performBlockAndWait:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __51__HMDCoreDataCloudTransform_runTransformWithError___block_invoke;
+  v10[3] = &unk_27868A728;
+  v10[4] = selfCopy;
+  [managedObjectContext performBlockAndWait:v10];
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -5743,7 +5676,7 @@ void __51__HMDCoreDataCloudTransform_runTransformWithError___block_invoke(uint64
 
 + (BOOL)transactionIsCloudStoreReset:(id)reset context:(id)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   resetCopy = reset;
   contextCopy = context;
   author = [resetCopy author];
@@ -5766,11 +5699,11 @@ void __51__HMDCoreDataCloudTransform_runTransformWithError___block_invoke(uint64
       {
         v18 = HMFGetLogIdentifier();
         v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(resetCopy, "transactionNumber")}];
-        v27 = 138543618;
-        v28 = v18;
-        v29 = 2112;
-        v30 = v19;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Not processing reset on shared store : %@", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v18;
+        v28 = 2112;
+        v29 = v19;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Not processing reset on shared store : %@", &v26, 0x16u);
       }
 
       v20 = 0;
@@ -5788,13 +5721,13 @@ void __51__HMDCoreDataCloudTransform_runTransformWithError___block_invoke(uint64
       {
         v23 = HMFGetLogIdentifier();
         v24 = HMFBooleanToString();
-        v27 = 138543874;
-        v28 = v23;
-        v29 = 2112;
-        v30 = v24;
-        v31 = 2114;
-        v32 = resetCopy;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Reset detected : %@, Transaction: %{public}@", &v27, 0x20u);
+        v26 = 138543874;
+        v27 = v23;
+        v28 = 2112;
+        v29 = v24;
+        v30 = 2114;
+        v31 = resetCopy;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Reset detected : %@, Transaction: %{public}@", &v26, 0x20u);
       }
     }
 
@@ -5806,7 +5739,6 @@ void __51__HMDCoreDataCloudTransform_runTransformWithError___block_invoke(uint64
     v20 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -5853,12 +5785,12 @@ BOOL __66__HMDCoreDataCloudTransform_transactionIsCloudStoreReset_context___bloc
 
 void __68__HMDCoreDataCloudTransform_detectExcessiveHistoryPruningInContext___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = +[MKFCloudSyncMetadata fetchRequest];
   v3 = *(a1 + 32);
-  v36 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v36];
-  v5 = v36;
+  v35 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v35];
+  v5 = v35;
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
@@ -5874,9 +5806,9 @@ LABEL_5:
 
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v38 = v9;
-    v39 = 2112;
-    v40 = v5;
+    v37 = v9;
+    v38 = 2112;
+    v39 = v5;
     v10 = "%{public}@Excessive history pruning: failed to fetch cloud sync metadata: %@";
     v11 = v8;
     v12 = OS_LOG_TYPE_ERROR;
@@ -5899,7 +5831,7 @@ LABEL_4:
 
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v38 = v9;
+    v37 = v9;
     v10 = "%{public}@Excessive history pruning: No cloud sync metadata found, skipping history pruning check";
     v11 = v8;
     v12 = OS_LOG_TYPE_DEFAULT;
@@ -5952,33 +5884,32 @@ LABEL_4:
     }
   }
 
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __68__HMDCoreDataCloudTransform_detectExcessiveHistoryPruningInContext___block_invoke_188;
-  v33[3] = &unk_278678FB0;
-  v34 = *(a1 + 32);
-  v35 = *(a1 + 40);
-  [v16 enumerateKeysAndObjectsUsingBlock:v33];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __68__HMDCoreDataCloudTransform_detectExcessiveHistoryPruningInContext___block_invoke_188;
+  v32[3] = &unk_278678FB0;
+  v33 = *(a1 + 32);
+  v34 = *(a1 + 40);
+  [v16 enumerateKeysAndObjectsUsingBlock:v32];
 
 LABEL_17:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMDCoreDataCloudTransform_detectExcessiveHistoryPruningInContext___block_invoke_188(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [MEMORY[0x277CBE4B0] fetchHistoryAfterToken:v7];
-  v37[0] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+  v36[0] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
   [v9 setAffectedStores:v10];
 
   [v9 setFetchBatchSize:1];
   v11 = *(a1 + 32);
-  v28 = 0;
-  v12 = [v11 executeRequest:v9 error:&v28];
-  v13 = v28;
+  v27 = 0;
+  v12 = [v11 executeRequest:v9 error:&v27];
+  v13 = v27;
   v14 = [v13 domain];
   if ([v14 isEqual:*MEMORY[0x277CCA050]])
   {
@@ -5993,18 +5924,18 @@ void __68__HMDCoreDataCloudTransform_detectExcessiveHistoryPruningInContext___bl
       {
         v19 = HMFGetLogIdentifier();
         [v8 identifier];
-        v20 = v27 = v16;
+        v20 = v26 = v16;
         *buf = 138544130;
-        v30 = v19;
-        v31 = 2112;
-        v32 = v20;
-        v33 = 2112;
-        v34 = v7;
-        v35 = 2112;
-        v36 = v13;
+        v29 = v19;
+        v30 = 2112;
+        v31 = v20;
+        v32 = 2112;
+        v33 = v7;
+        v34 = 2112;
+        v35 = v13;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Expired token for store %@ with token %@: %@", buf, 0x2Au);
 
-        v16 = v27;
+        v16 = v26;
       }
 
       objc_autoreleasePoolPop(v16);
@@ -6028,13 +5959,13 @@ void __68__HMDCoreDataCloudTransform_detectExcessiveHistoryPruningInContext___bl
       v24 = HMFGetLogIdentifier();
       v25 = [v8 identifier];
       *buf = 138544130;
-      v30 = v24;
-      v31 = 2112;
-      v32 = v25;
-      v33 = 2112;
-      v34 = v7;
-      v35 = 2112;
-      v36 = v13;
+      v29 = v24;
+      v30 = 2112;
+      v31 = v25;
+      v32 = 2112;
+      v33 = v7;
+      v34 = 2112;
+      v35 = v13;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_FAULT, "%{public}@Fetching history for store %@ with token %@: %@", buf, 0x2Au);
     }
 
@@ -6042,13 +5973,11 @@ void __68__HMDCoreDataCloudTransform_detectExcessiveHistoryPruningInContext___bl
   }
 
 LABEL_11:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)wipeCoreDataStorageDueToPCSIdentityLossAndRelaunchHomeKitDaemon
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   defaultStore = [MEMORY[0x277CB8F48] defaultStore];
   aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
 
@@ -6061,9 +5990,9 @@ LABEL_11:
     if (v8)
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@PCS identities lost: Will be removing working, cloud, shared cloud, and client stores", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@PCS identities lost: Will be removing working, cloud, shared cloud, and client stores", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -6077,16 +6006,14 @@ LABEL_11:
     if (v8)
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@PCS identities lost: Not going to remove the CD stores as user is in the process of signing out.", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@PCS identities lost: Not going to remove the CD stores as user is in the process of signing out.", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     [HMDResetConfigPostCleanup writePostCleanupRecordWithReason:2 steps:-1];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -6103,10 +6030,9 @@ LABEL_11:
 
 void __40__HMDCoreDataCloudTransform_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v16_121808;
-  logCategory__hmf_once_v16_121808 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v16_121808;
+  logCategory__hmf_once_v16_121808 = v0;
 }
 
 + (id)localTransformableEntityFromEntity:(id)entity

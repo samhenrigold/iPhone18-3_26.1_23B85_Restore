@@ -31,7 +31,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_2457D999C();
+  sub_2457D999C(selfCopy);
 }
 
 - (void)togglePlayPause

@@ -7,15 +7,16 @@
 
 - (CGSize)vui_layoutSubviews:(CGSize)subviews computationOnly:(BOOL)only
 {
+  height = subviews.height;
   width = subviews.width;
   selfCopy = self;
-  v7 = sub_1E3FB01C8(only, width);
-  v9 = v8;
+  v8 = sub_1E3FB01C8(only, width, height);
+  v10 = v9;
 
-  v10 = v7;
-  v11 = v9;
-  result.height = v11;
-  result.width = v10;
+  v11 = v8;
+  v12 = v10;
+  result.height = v12;
+  result.width = v11;
   return result;
 }
 

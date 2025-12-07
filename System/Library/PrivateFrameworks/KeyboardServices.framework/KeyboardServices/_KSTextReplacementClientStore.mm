@@ -33,14 +33,15 @@
   entryCopy = entry;
   toEntryCopy = toEntry;
   handlerCopy = handler;
-  if ([toEntryCopy isEquivalentTo:entryCopy])
+  v11 = [toEntryCopy isEquivalentTo:entryCopy];
+  if (v11)
   {
-    v11 = KSCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = KSCategory(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v23 = "[_KSTextReplacementClientStore modifyEntry:toEntry:withCompletionHandler:]";
-      _os_log_impl(&dword_2557E2000, v11, OS_LOG_TYPE_INFO, "%s  not modifying entry as old and new are the same", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v12, OS_LOG_TYPE_INFO, "%s  not modifying entry as old and new are the same", buf, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, 0);
@@ -48,31 +49,29 @@
 
   else
   {
-    v12 = [_KSTextReplacementHelper validateTextReplacement:toEntryCopy];
-    if (v12)
+    v13 = [_KSTextReplacementHelper validateTextReplacement:toEntryCopy];
+    if (v13)
     {
-      v13 = v12;
+      v14 = v13;
       [toEntryCopy setPriorValue:entryCopy];
-      v14 = [_KSTextReplacementHelper errorWithCode:v13 forEntry:toEntryCopy];
-      (handlerCopy)[2](handlerCopy, v14);
+      v15 = [_KSTextReplacementHelper errorWithCode:v14 forEntry:toEntryCopy];
+      (handlerCopy)[2](handlerCopy, v15);
     }
 
     else
     {
       v21 = toEntryCopy;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
       v20 = entryCopy;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
       v18[0] = MEMORY[0x277D85DD0];
       v18[1] = 3221225472;
       v18[2] = __75___KSTextReplacementClientStore_modifyEntry_toEntry_withCompletionHandler___block_invoke;
       v18[3] = &unk_2797F6F98;
       v19 = handlerCopy;
-      [(_KSTextReplacementClientStore *)self addEntries:v15 removeEntries:v16 withCompletionHandler:v18];
+      [(_KSTextReplacementClientStore *)self addEntries:v16 removeEntries:v17 withCompletionHandler:v18];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEntries:(id)entries removeEntries:(id)removeEntries withCompletionHandler:(id)handler
@@ -201,39 +200,37 @@
 
 - (id)phraseShortcuts
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   textReplacementEntries = [(_KSTextReplacementClientStore *)self textReplacementEntries];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = textReplacementEntries;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [objc_opt_class() transactionFromTextReplacementEntry:*(*(&v12 + 1) + 8 * i) forDelete:{0, v12}];
+        v9 = [objc_opt_class() transactionFromTextReplacementEntry:*(*(&v11 + 1) + 8 * i) forDelete:{0, v11}];
         [array addObject:v9];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }

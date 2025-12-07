@@ -12,6 +12,7 @@
 - (void)_insertAuth:(id)auth completion:(id)completion forSessionID:(id)d;
 - (void)_insertBKSAssertion:(id)assertion forBundleID:(id)d;
 - (void)_invalidateBKSAssertionForBundleID:(id)d;
+- (void)_invokeAndDequeueCompletionForSessionID:(id)d success:(BOOL)success error:(id)error;
 - (void)_launchAndAcquireAssertionIfNecessaryForActivitySession:(id)session options:(int64_t)options completion:(id)completion;
 - (void)_launchAppForActivitySession:(id)session options:(int64_t)options completion:(id)completion;
 - (void)_launchApplicationForActivitySession:(id)session options:(int64_t)options completion:(id)completion;
@@ -146,20 +147,20 @@
 
 void __66__CPApplicationLauncher_revokeBackgroundAuthorizationForBundleID___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) length];
-  v3 = CPDefaultLog();
+  v3 = CPDefaultLog(v2);
   v4 = v3;
   if (v2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v5 = *(a1 + 32);
-      v9 = 136315394;
-      v10 = "[CPApplicationLauncher revokeBackgroundAuthorizationForBundleID:]_block_invoke";
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_1AEB26000, v4, OS_LOG_TYPE_INFO, "%s Request to remove pip authorizations for %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[CPApplicationLauncher revokeBackgroundAuthorizationForBundleID:]_block_invoke";
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1AEB26000, v4, OS_LOG_TYPE_INFO, "%s Request to remove pip authorizations for %@", &v8, 0x16u);
     }
 
     v4 = [*(a1 + 40) _authorizationsForBundleID:*(a1 + 32)];
@@ -170,15 +171,15 @@ void __66__CPApplicationLauncher_revokeBackgroundAuthorizationForBundleID___bloc
 
     else
     {
-      v6 = CPDefaultLog();
+      v6 = CPDefaultLog(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = *(a1 + 32);
-        v9 = 136315394;
-        v10 = "[CPApplicationLauncher revokeBackgroundAuthorizationForBundleID:]_block_invoke";
-        v11 = 2112;
-        v12 = v7;
-        _os_log_impl(&dword_1AEB26000, v6, OS_LOG_TYPE_INFO, "%s [PiP] No existing background pip authorizations to remove for %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[CPApplicationLauncher revokeBackgroundAuthorizationForBundleID:]_block_invoke";
+        v10 = 2112;
+        v11 = v7;
+        _os_log_impl(&dword_1AEB26000, v6, OS_LOG_TYPE_INFO, "%s [PiP] No existing background pip authorizations to remove for %@", &v8, 0x16u);
       }
     }
 
@@ -189,8 +190,6 @@ void __66__CPApplicationLauncher_revokeBackgroundAuthorizationForBundleID___bloc
   {
     __66__CPApplicationLauncher_revokeBackgroundAuthorizationForBundleID___block_invoke_cold_1();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)revokeBackgroundAuthorizationForSession:(id)session
@@ -219,15 +218,15 @@ void __66__CPApplicationLauncher_revokeBackgroundAuthorizationForBundleID___bloc
 
 void __65__CPApplicationLauncher_revokeBackgroundAuthorizationForSession___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = CPDefaultLog();
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = CPDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 136315394;
-    v15 = "[CPApplicationLauncher revokeBackgroundAuthorizationForSession:]_block_invoke";
-    v16 = 2112;
-    v17 = v3;
+    v14 = "[CPApplicationLauncher revokeBackgroundAuthorizationForSession:]_block_invoke";
+    v15 = 2112;
+    v16 = v3;
     _os_log_impl(&dword_1AEB26000, v2, OS_LOG_TYPE_INFO, "%s Request to remove pip authorizations for %@", buf, 0x16u);
   }
 
@@ -236,21 +235,21 @@ void __65__CPApplicationLauncher_revokeBackgroundAuthorizationForSession___block
   if (v4)
   {
     v6 = *(a1 + 40);
-    v13 = v4;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+    v12 = v4;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
     [v6 _revokeAuthorizations:v7];
   }
 
   else
   {
-    v7 = CPDefaultLog();
+    v7 = CPDefaultLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = *(a1 + 32);
       *buf = 136315394;
-      v15 = "[CPApplicationLauncher revokeBackgroundAuthorizationForSession:]_block_invoke";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "[CPApplicationLauncher revokeBackgroundAuthorizationForSession:]_block_invoke";
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_1AEB26000, v7, OS_LOG_TYPE_INFO, "%s No pip authorizations found for %@", buf, 0x16u);
     }
   }
@@ -259,8 +258,6 @@ void __65__CPApplicationLauncher_revokeBackgroundAuthorizationForSession___block
   v10 = [*(a1 + 32) activity];
   v11 = [v10 bundleIdentifier];
   [v9 _invalidateBKSAssertionForBundleID:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_launchAppForActivitySession:(id)session options:(int64_t)options completion:(id)completion
@@ -270,23 +267,12 @@ void __65__CPApplicationLauncher_revokeBackgroundAuthorizationForSession___block
   workQueue = [(CPApplicationLauncher *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  if ((options & 1) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  activity = [sessionCopy activity];
-  metadata = [activity metadata];
-  context = [metadata context];
-  typedIdentifier = [context typedIdentifier];
-  v15 = [typedIdentifier isEqualToString:*MEMORY[0x1E69D8F70]];
-
-  if (v15)
+  if ((options & 1) != 0 && ([sessionCopy activity], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "metadata"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "context"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "typedIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", *MEMORY[0x1E69D8F70]), v14, v13, v12, v11, v15))
   {
     v16 = [(CPApplicationLauncher *)self _sessionIDForActivity:sessionCopy];
     v17 = objc_alloc(MEMORY[0x1E69BCB58]);
-    activity2 = [sessionCopy activity];
-    bundleIdentifier = [activity2 bundleIdentifier];
+    activity = [sessionCopy activity];
+    bundleIdentifier = [activity bundleIdentifier];
     v21 = MEMORY[0x1E69E9820];
     v22 = 3221225472;
     v23 = __73__CPApplicationLauncher__launchAppForActivitySession_options_completion___block_invoke;
@@ -300,43 +286,40 @@ void __65__CPApplicationLauncher_revokeBackgroundAuthorizationForSession___block
 
   else
   {
-LABEL_4:
     [(CPApplicationLauncher *)self _launchAndAcquireAssertionIfNecessaryForActivitySession:sessionCopy options:options completion:completionCopy];
   }
 }
 
 void __73__CPApplicationLauncher__launchAppForActivitySession_options_completion___block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v6 = CPDefaultLog();
+  v6 = CPDefaultLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = stateNameForPGBackgroundPIPAuthorizationState(a3);
     v8 = [v5 activitySessionIdentifier];
     *buf = 136315650;
-    v18 = "[CPApplicationLauncher _launchAppForActivitySession:options:completion:]_block_invoke";
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v8;
+    v17 = "[CPApplicationLauncher _launchAppForActivitySession:options:completion:]_block_invoke";
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v8;
     _os_log_impl(&dword_1AEB26000, v6, OS_LOG_TYPE_INFO, "%s Got PGBackgroundPIPAuthorization authorization transitioned to state %@ for session id %@", buf, 0x20u);
   }
 
   v9 = [*(a1 + 32) workQueue];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __73__CPApplicationLauncher__launchAppForActivitySession_options_completion___block_invoke_62;
-  v13[3] = &unk_1E7A45AB0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __73__CPApplicationLauncher__launchAppForActivitySession_options_completion___block_invoke_62;
+  v12[3] = &unk_1E7A45AB0;
   v10 = *(a1 + 40);
-  v13[4] = *(a1 + 32);
-  v14 = v5;
-  v15 = v10;
-  v16 = a3;
+  v12[4] = *(a1 + 32);
+  v13 = v5;
+  v14 = v10;
+  v15 = a3;
   v11 = v5;
-  dispatch_async(v9, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  dispatch_async(v9, v12);
 }
 
 - (void)_launchApplicationForActivitySession:(id)session options:(int64_t)options completion:(id)completion
@@ -385,20 +368,20 @@ void __81__CPApplicationLauncher__launchApplicationForActivitySession_options_co
 
 uint64_t __81__CPApplicationLauncher__launchApplicationForActivitySession_options_completion___block_invoke_2(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
-  v3 = CPDefaultLog();
+  v3 = CPDefaultLog(a1);
   v4 = v3;
   if (v2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v5 = a1[5];
-      v10 = 136315394;
-      v11 = "[CPApplicationLauncher _launchApplicationForActivitySession:options:completion:]_block_invoke_2";
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_1AEB26000, v4, OS_LOG_TYPE_INFO, "%s Successfully launched application with bundle identifier %@", &v10, 0x16u);
+      v8 = 136315394;
+      v9 = "[CPApplicationLauncher _launchApplicationForActivitySession:options:completion:]_block_invoke_2";
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1AEB26000, v4, OS_LOG_TYPE_INFO, "%s Successfully launched application with bundle identifier %@", &v8, 0x16u);
     }
 
     v6 = *(a1[7] + 16);
@@ -408,16 +391,13 @@ uint64_t __81__CPApplicationLauncher__launchApplicationForActivitySession_option
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __81__CPApplicationLauncher__launchApplicationForActivitySession_options_completion___block_invoke_2_cold_1(a1);
+      __81__CPApplicationLauncher__launchApplicationForActivitySession_options_completion___block_invoke_2_cold_1();
     }
 
-    v7 = a1[6];
     v6 = *(a1[7] + 16);
   }
 
-  result = v6();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6();
 }
 
 - (id)_openApplicationOptionsForActivitySession:(id)session options:(int64_t)options
@@ -466,17 +446,7 @@ uint64_t __100__CPApplicationLauncher__launchAndAcquireAssertionIfNecessaryForAc
   v5 = a3;
   if (a2)
   {
-    if ((*(a1 + 56) & 1) == 0)
-    {
-      goto LABEL_4;
-    }
-
-    v6 = *(a1 + 32);
-    v7 = [*(a1 + 40) activity];
-    v8 = [v7 bundleIdentifier];
-    LOBYTE(v6) = [v6 _acquireAssertionForBundleID:v8];
-
-    if ((v6 & 1) == 0)
+    if ((*(a1 + 56) & 1) != 0 && (v6 = *(a1 + 32), [*(a1 + 40) activity], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "bundleIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), LOBYTE(v6) = objc_msgSend(v6, "_acquireAssertionForBundleID:", v8), v8, v7, (v6 & 1) == 0))
     {
       v12 = *(a1 + 48);
       if (!v12)
@@ -489,7 +459,6 @@ uint64_t __100__CPApplicationLauncher__launchAndAcquireAssertionIfNecessaryForAc
 
     else
     {
-LABEL_4:
       v9 = *(a1 + 48);
       if (!v9)
       {
@@ -525,6 +494,38 @@ LABEL_11:
   return uUIDString;
 }
 
+- (void)_invokeAndDequeueCompletionForSessionID:(id)d success:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  v22 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  errorCopy = error;
+  workQueue = [(CPApplicationLauncher *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  sessionIDtoCompletionMap = [(CPApplicationLauncher *)self sessionIDtoCompletionMap];
+  v12 = [sessionIDtoCompletionMap objectForKeyedSubscript:dCopy];
+
+  if (v12)
+  {
+    v14 = CPDefaultLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v16 = 136315650;
+      v17 = "[CPApplicationLauncher _invokeAndDequeueCompletionForSessionID:success:error:]";
+      v18 = 2112;
+      v19 = dCopy;
+      v20 = 2112;
+      v21 = errorCopy;
+      _os_log_impl(&dword_1AEB26000, v14, OS_LOG_TYPE_INFO, "%s Invoking completion for %@ error %@", &v16, 0x20u);
+    }
+
+    (v12)[2](v12, successCopy, errorCopy);
+    sessionIDtoCompletionMap2 = [(CPApplicationLauncher *)self sessionIDtoCompletionMap];
+    [sessionIDtoCompletionMap2 removeObjectForKey:dCopy];
+  }
+}
+
 - (void)_insertBKSAssertion:(id)assertion forBundleID:(id)d
 {
   assertionCopy = assertion;
@@ -532,7 +533,7 @@ LABEL_11:
   workQueue = [(CPApplicationLauncher *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  if (assertionCopy && [dCopy length])
+  if (assertionCopy && (v9 = [dCopy length]) != 0)
   {
     bundleIDToAssertionMap = [(CPApplicationLauncher *)self bundleIDToAssertionMap];
     [bundleIDToAssertionMap setObject:assertionCopy forKeyedSubscript:dCopy];
@@ -540,7 +541,7 @@ LABEL_11:
 
   else
   {
-    bundleIDToAssertionMap = CPDefaultLog();
+    bundleIDToAssertionMap = CPDefaultLog(v9);
     if (os_log_type_enabled(bundleIDToAssertionMap, OS_LOG_TYPE_ERROR))
     {
       [CPApplicationLauncher _insertBKSAssertion:forBundleID:];
@@ -560,11 +561,11 @@ LABEL_11:
     bundleIDToAssertionMap = [(CPApplicationLauncher *)self bundleIDToAssertionMap];
     v7 = [bundleIDToAssertionMap objectForKeyedSubscript:dCopy];
 
-    bundleIDToAssertionMap2 = CPDefaultLog();
-    v9 = os_log_type_enabled(bundleIDToAssertionMap2, OS_LOG_TYPE_INFO);
+    bundleIDToAssertionMap2 = CPDefaultLog(v8);
+    v10 = os_log_type_enabled(bundleIDToAssertionMap2, OS_LOG_TYPE_INFO);
     if (v7)
     {
-      if (v9)
+      if (v10)
       {
         v11 = 136315394;
         v12 = "[CPApplicationLauncher _invalidateBKSAssertionForBundleID:]";
@@ -578,7 +579,7 @@ LABEL_11:
       [bundleIDToAssertionMap2 removeObjectForKey:dCopy];
     }
 
-    else if (v9)
+    else if (v10)
     {
       v11 = 136315394;
       v12 = "[CPApplicationLauncher _invalidateBKSAssertionForBundleID:]";
@@ -590,14 +591,12 @@ LABEL_11:
 
   else
   {
-    v7 = CPDefaultLog();
+    v7 = CPDefaultLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CPApplicationLauncher _invalidateBKSAssertionForBundleID:];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_acquireAssertionForBundleID:(id)d
@@ -609,36 +608,35 @@ LABEL_11:
 
   v6 = [CPProcessAssertion processAssertionWithBundleIdentifier:dCopy];
   acquire = [v6 acquire];
+  v8 = acquire;
   if (acquire)
   {
-    [(CPApplicationLauncher *)self _insertBKSAssertion:v6 forBundleID:dCopy];
-    v8 = CPDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = CPDefaultLog([(CPApplicationLauncher *)self _insertBKSAssertion:v6 forBundleID:dCopy]);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = 136315394;
       v12 = "[CPApplicationLauncher _acquireAssertionForBundleID:]";
       v13 = 2112;
       v14 = dCopy;
-      _os_log_impl(&dword_1AEB26000, v8, OS_LOG_TYPE_INFO, "%s Acquired assertion for %@", &v11, 0x16u);
+      _os_log_impl(&dword_1AEB26000, v9, OS_LOG_TYPE_INFO, "%s Acquired assertion for %@", &v11, 0x16u);
     }
   }
 
   else
   {
-    v8 = CPDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CPDefaultLog(acquire);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [CPApplicationLauncher _acquireAssertionForBundleID:];
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return acquire;
+  return v8;
 }
 
 - (void)_validatePiPStartedFor:(id)for bundleID:(id)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   forCopy = for;
   dCopy = d;
   workQueue = [(CPApplicationLauncher *)self workQueue];
@@ -648,17 +646,17 @@ LABEL_11:
   v10 = [sessionIDtoAuthMap objectForKeyedSubscript:forCopy];
 
   state = [v10 state];
-  v12 = CPDefaultLog();
+  v12 = CPDefaultLog(state);
   v13 = v12;
   if (state == 3)
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315394;
-      v16 = "[CPApplicationLauncher _validatePiPStartedFor:bundleID:]";
-      v17 = 2112;
-      v18 = dCopy;
-      _os_log_impl(&dword_1AEB26000, v13, OS_LOG_TYPE_INFO, "%s [PiP] %@ started pip successfully", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[CPApplicationLauncher _validatePiPStartedFor:bundleID:]";
+      v16 = 2112;
+      v17 = dCopy;
+      _os_log_impl(&dword_1AEB26000, v13, OS_LOG_TYPE_INFO, "%s [PiP] %@ started pip successfully", &v14, 0x16u);
     }
 
     [(CPApplicationLauncher *)self _invokeAndDequeueCompletionForSessionID:forCopy success:1 error:0];
@@ -674,8 +672,6 @@ LABEL_11:
     [(CPApplicationLauncher *)self _invalidateBKSAssertionForBundleID:dCopy];
     [(CPApplicationLauncher *)self _revokeAndRemoveAuthForSessionID:forCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleStateTransitionForAuthorization:(id)authorization activitySession:(id)session state:(int64_t)state
@@ -727,21 +723,20 @@ LABEL_11:
   }
 
 LABEL_11:
-  v12 = CPDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = CPDefaultLog(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v13 = [MEMORY[0x1E696AD98] numberWithInteger:state];
+    v14 = [MEMORY[0x1E696AD98] numberWithInteger:state];
     *buf = 136315650;
     v18 = "[CPApplicationLauncher _handleStateTransitionForAuthorization:activitySession:state:]";
     v19 = 2112;
     v20 = authorizationCopy;
     v21 = 2112;
-    v22 = v13;
-    _os_log_impl(&dword_1AEB26000, v12, OS_LOG_TYPE_INFO, "%s [PiP] Got unexpected auth state %@ for authorization %@", buf, 0x20u);
+    v22 = v14;
+    _os_log_impl(&dword_1AEB26000, v13, OS_LOG_TYPE_INFO, "%s [PiP] Got unexpected auth state %@ for authorization %@", buf, 0x20u);
   }
 
 LABEL_14:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activitySession_state___block_invoke(uint64_t a1, int a2)
@@ -789,8 +784,8 @@ void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activity
 
   if (v7)
   {
-    v8 = CPDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = CPDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v12 = 136315650;
       v13 = "[CPApplicationLauncher _revokeAndRemoveAuthForSessionID:]";
@@ -798,7 +793,7 @@ void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activity
       v15 = v7;
       v16 = 2112;
       v17 = dCopy;
-      _os_log_impl(&dword_1AEB26000, v8, OS_LOG_TYPE_INFO, "%s [PiP] Revoking and removing auth %@ sessionID %@", &v12, 0x20u);
+      _os_log_impl(&dword_1AEB26000, v9, OS_LOG_TYPE_INFO, "%s [PiP] Revoking and removing auth %@ sessionID %@", &v12, 0x20u);
     }
 
     [v7 revoke];
@@ -806,10 +801,8 @@ void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activity
     [sessionIDtoAuthMap2 removeObjectForKey:dCopy];
   }
 
-  v10 = [CPError errorWithCode:23];
-  [(CPApplicationLauncher *)self _invokeAndDequeueCompletionForSessionID:dCopy success:0 error:v10];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v11 = [CPError errorWithCode:23];
+  [(CPApplicationLauncher *)self _invokeAndDequeueCompletionForSessionID:dCopy success:0 error:v11];
 }
 
 - (void)_insertAuth:(id)auth completion:(id)completion forSessionID:(id)d
@@ -826,8 +819,8 @@ void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activity
 
   if (v13)
   {
-    v14 = CPDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = CPDefaultLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v19 = 136315650;
       v20 = "[CPApplicationLauncher _insertAuth:completion:forSessionID:]";
@@ -835,7 +828,7 @@ void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activity
       v22 = v13;
       v23 = 2112;
       v24 = dCopy;
-      _os_log_impl(&dword_1AEB26000, v14, OS_LOG_TYPE_INFO, "%s [PiP] Revoking and removing auth %@ sessionID %@", &v19, 0x20u);
+      _os_log_impl(&dword_1AEB26000, v15, OS_LOG_TYPE_INFO, "%s [PiP] Revoking and removing auth %@ sessionID %@", &v19, 0x20u);
     }
 
     [v13 revoke];
@@ -846,12 +839,10 @@ void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activity
 
   if (completionCopy)
   {
-    v16 = _Block_copy(completionCopy);
+    v17 = _Block_copy(completionCopy);
     sessionIDtoCompletionMap = [(CPApplicationLauncher *)self sessionIDtoCompletionMap];
-    [sessionIDtoCompletionMap setObject:v16 forKeyedSubscript:dCopy];
+    [sessionIDtoCompletionMap setObject:v17 forKeyedSubscript:dCopy];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_sessionAlreadyAuthorizingOrAuthorizedForPiP:(id)p
@@ -900,17 +891,17 @@ void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activity
 
     if (v14)
     {
-      v15 = CPDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = CPDefaultLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
         v30 = "[CPApplicationLauncher _authorizePiPForActivity:withCompletion:]";
         v31 = 2112;
         v32 = activityCopy;
-        _os_log_impl(&dword_1AEB26000, v15, OS_LOG_TYPE_INFO, "%s [PiP] Requesting PiP auth for activity session %@", buf, 0x16u);
+        _os_log_impl(&dword_1AEB26000, v16, OS_LOG_TYPE_INFO, "%s [PiP] Requesting PiP auth for activity session %@", buf, 0x16u);
       }
 
-      v16 = objc_alloc(MEMORY[0x1E69BCB58]);
+      v17 = objc_alloc(MEMORY[0x1E69BCB58]);
       activity2 = [activityCopy activity];
       bundleIdentifier = [activity2 bundleIdentifier];
       v23 = MEMORY[0x1E69E9820];
@@ -918,38 +909,36 @@ void __86__CPApplicationLauncher__handleStateTransitionForAuthorization_activity
       v25 = __65__CPApplicationLauncher__authorizePiPForActivity_withCompletion___block_invoke;
       v26 = &unk_1E7A45AD8;
       selfCopy = self;
-      v19 = v9;
-      v28 = v19;
-      v20 = [v16 initWithActivitySessionIdentifier:v19 appBundleIdentifier:bundleIdentifier stateTransitionHandler:&v23];
+      v20 = v9;
+      v28 = v20;
+      v21 = [v17 initWithActivitySessionIdentifier:v20 appBundleIdentifier:bundleIdentifier stateTransitionHandler:&v23];
 
-      [(CPApplicationLauncher *)self _insertAuth:v20 completion:completionCopy forSessionID:v19, v23, v24, v25, v26, selfCopy];
+      [(CPApplicationLauncher *)self _insertAuth:v21 completion:completionCopy forSessionID:v20, v23, v24, v25, v26, selfCopy];
     }
 
     else
     {
-      v21 = [CPError errorWithCode:23];
-      (completionCopy)[2](completionCopy, 0, v21);
+      v22 = [CPError errorWithCode:23];
+      (completionCopy)[2](completionCopy, 0, v22);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CPApplicationLauncher__authorizePiPForActivity_withCompletion___block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v6 = CPDefaultLog();
+  v6 = CPDefaultLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = stateNameForPGBackgroundPIPAuthorizationState(a3);
     v8 = [v5 activitySessionIdentifier];
     *buf = 136315650;
-    v17 = "[CPApplicationLauncher _authorizePiPForActivity:withCompletion:]_block_invoke";
-    v18 = 2112;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v8;
+    v16 = "[CPApplicationLauncher _authorizePiPForActivity:withCompletion:]_block_invoke";
+    v17 = 2112;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v8;
     _os_log_impl(&dword_1AEB26000, v6, OS_LOG_TYPE_INFO, "%s [PiP] PGBackgroundPIPAuthorization authorization transitioned to state %@ for sessionID %@", buf, 0x20u);
   }
 
@@ -960,12 +949,10 @@ void __65__CPApplicationLauncher__authorizePiPForActivity_withCompletion___block
   block[3] = &unk_1E7A45BA0;
   v10 = *(a1 + 32);
   v11 = *(a1 + 40);
-  v15 = a3;
+  v14 = a3;
   block[4] = v10;
-  v14 = v11;
+  v13 = v11;
   dispatch_async(v9, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CPApplicationLauncher__authorizePiPForActivity_withCompletion___block_invoke_73(uint64_t a1)
@@ -1017,34 +1004,34 @@ void __65__CPApplicationLauncher__authorizePiPForActivity_withCompletion___block
 
 - (id)_authorizationsForBundleID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   workQueue = [(CPApplicationLauncher *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   sessionIDtoAuthMap = [(CPApplicationLauncher *)self sessionIDtoAuthMap];
   allValues = [sessionIDtoAuthMap allValues];
 
-  v9 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         appBundleIdentifier = [v13 appBundleIdentifier];
         v15 = [appBundleIdentifier isEqualToString:dCopy];
 
@@ -1054,14 +1041,13 @@ void __65__CPApplicationLauncher__authorizePiPForActivity_withCompletion___block
         }
       }
 
-      v10 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
   v16 = [v6 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1085,40 +1071,41 @@ void __65__CPApplicationLauncher__authorizePiPForActivity_withCompletion___block
 
 - (void)_revokeAuthorizations:(id)authorizations
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   authorizationsCopy = authorizations;
   if ([authorizationsCopy count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = authorizationsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v26 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
-        for (i = 0; i != v7; ++i)
+        v9 = 0;
+        do
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
-          v11 = CPDefaultLog();
+          v10 = *(*(&v15 + 1) + 8 * v9);
+          v11 = CPDefaultLog(v6);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
             activitySessionIdentifier = [v10 activitySessionIdentifier];
             *buf = 136315650;
-            v21 = "[CPApplicationLauncher _revokeAuthorizations:]";
-            v22 = 2112;
-            v23 = v10;
-            v24 = 2112;
-            v25 = activitySessionIdentifier;
+            v20 = "[CPApplicationLauncher _revokeAuthorizations:]";
+            v21 = 2112;
+            v22 = v10;
+            v23 = 2112;
+            v24 = activitySessionIdentifier;
             _os_log_impl(&dword_1AEB26000, v11, OS_LOG_TYPE_INFO, "%s [PiP] Revoking and removing auth %@ sessionID %@", buf, 0x20u);
           }
 
@@ -1126,71 +1113,42 @@ void __65__CPApplicationLauncher__authorizePiPForActivity_withCompletion___block
           sessionIDtoAuthMap = [(CPApplicationLauncher *)self sessionIDtoAuthMap];
           v14 = [(CPApplicationLauncher *)self _sessionIDForAuthorization:v10];
           [sessionIDtoAuthMap removeObjectForKey:v14];
+
+          ++v9;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v26 count:16];
+        while (v7 != v9);
+        v6 = [v5 countByEnumeratingWithState:&v15 objects:v25 count:16];
+        v7 = v6;
       }
 
-      while (v7);
+      while (v6);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
-}
-
-void __66__CPApplicationLauncher_revokeBackgroundAuthorizationForBundleID___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __81__CPApplicationLauncher__launchApplicationForActivitySession_options_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_insertBKSAssertion:forBundleID:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 136315650;
-  OUTLINED_FUNCTION_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_1AEB26000, v2, OS_LOG_TYPE_ERROR, "%s Error inserting assertion %@ for bundleID %@", v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_invalidateBKSAssertionForBundleID:.cold.1()
-{
   v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  v3[0] = 136315650;
+  OUTLINED_FUNCTION_0();
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_1AEB26000, v2, OS_LOG_TYPE_ERROR, "%s Error inserting assertion %@ for bundleID %@", v3, 0x20u);
 }
 
 - (void)_acquireAssertionForBundleID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_validatePiPStartedFor:bundleID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

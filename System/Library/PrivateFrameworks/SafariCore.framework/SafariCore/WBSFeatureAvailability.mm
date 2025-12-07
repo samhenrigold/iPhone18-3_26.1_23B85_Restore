@@ -55,6 +55,12 @@
 + (BOOL)scribbleRequiresVisualSimilarity;
 + (BOOL)shouldShowInternalUI;
 + (BOOL)supportsURLCredentialStorageAccessControlGroups;
++ (void)setAutomaticStrongPasswordsEnabled:(BOOL)enabled;
++ (void)setIsAutoFillDrivenByUIProcess:(BOOL)process;
++ (void)setIsAutomaticPasskeyUpgradesEnabled:(BOOL)enabled;
++ (void)setIsNetworkFetchingForPasswordsEnabled:(BOOL)enabled;
++ (void)setIsPasswordsAppFuzzySearchEnabled:(BOOL)enabled;
++ (void)setIsPromotePasskeyUpgradesEnabled:(BOOL)enabled;
 + (void)toggleShowURLsInURLAutocompleteDebugChannel;
 @end
 
@@ -192,87 +198,92 @@ uint64_t __43__WBSFeatureAvailability_isInternalInstall__block_invoke()
 
   if (keychainSyncSettingValue == 1)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = WBS_LOG_CHANNEL_PREFIXKeychain(v7, v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      v17 = 0;
-      v9 = "Ongoing credential sharing is disabled because iCloud Keychain is disabled";
-      v10 = &v17;
+      v25 = 0;
+      v11 = "Ongoing credential sharing is disabled because iCloud Keychain is disabled";
+      v12 = &v25;
       goto LABEL_18;
     }
   }
 
   else if (keychainSyncSettingValue)
   {
-    v11 = +[WBSPrimaryAppleAccountObserver sharedObserver];
-    isCurrentAppleIDManaged = [v11 isCurrentAppleIDManaged];
+    v13 = +[WBSPrimaryAppleAccountObserver sharedObserver];
+    isCurrentAppleIDManaged = [v13 isCurrentAppleIDManaged];
 
     if (isCurrentAppleIDManaged)
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if (v8)
+      v9 = WBS_LOG_CHANNEL_PREFIXKeychain(v15, v16);
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      if (v10)
       {
-        v16 = 0;
-        v9 = "Ongoing credential sharing is disabled for Managed Apple IDs";
-        v10 = &v16;
+        v24 = 0;
+        v11 = "Ongoing credential sharing is disabled for Managed Apple IDs";
+        v12 = &v24;
         goto LABEL_18;
-      }
-    }
-
-    else if (_os_feature_enabled_impl())
-    {
-      if ([self _isPasswordSharingAvailable])
-      {
-        LOBYTE(v8) = 1;
-      }
-
-      else
-      {
-        v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-        v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-        if (v8)
-        {
-          v14 = 0;
-          v9 = "Ongoing credential sharing is disabled because profile that disables Password Sharing is installed to device.";
-          v10 = &v14;
-          goto LABEL_18;
-        }
       }
     }
 
     else
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if (v8)
+      v17 = _os_feature_enabled_impl();
+      if (v17)
       {
-        v15 = 0;
-        v9 = "Ongoing credential sharing is disabled because the runtime feature flag is disabled";
-        v10 = &v15;
-        goto LABEL_18;
+        _isPasswordSharingAvailable = [self _isPasswordSharingAvailable];
+        if (_isPasswordSharingAvailable)
+        {
+          LOBYTE(v10) = 1;
+        }
+
+        else
+        {
+          v9 = WBS_LOG_CHANNEL_PREFIXKeychain(_isPasswordSharingAvailable, v20);
+          v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+          if (v10)
+          {
+            v22 = 0;
+            v11 = "Ongoing credential sharing is disabled because profile that disables Password Sharing is installed to device.";
+            v12 = &v22;
+            goto LABEL_18;
+          }
+        }
+      }
+
+      else
+      {
+        v9 = WBS_LOG_CHANNEL_PREFIXKeychain(v17, v18);
+        v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+        if (v10)
+        {
+          v23 = 0;
+          v11 = "Ongoing credential sharing is disabled because the runtime feature flag is disabled";
+          v12 = &v23;
+          goto LABEL_18;
+        }
       }
     }
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = WBS_LOG_CHANNEL_PREFIXKeychain(v7, v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      v18 = 0;
-      v9 = "Ongoing credential sharing is disabled because iCloud Keychain state is unknown";
-      v10 = &v18;
+      v26 = 0;
+      v11 = "Ongoing credential sharing is disabled because iCloud Keychain state is unknown";
+      v12 = &v26;
 LABEL_18:
-      _os_log_impl(&dword_1B8447000, v7, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
+      _os_log_impl(&dword_1B8447000, v9, OS_LOG_TYPE_DEFAULT, v11, v12, 2u);
 LABEL_19:
-      LOBYTE(v8) = 0;
+      LOBYTE(v10) = 0;
     }
   }
 
-  return v8;
+  return v10;
 }
 
 + (BOOL)isPasswordsAppInstalled
@@ -611,7 +622,7 @@ void __57__WBSFeatureAvailability__yahooSearchProviderIsAvailable__block_invoke(
   return supportsURLCredentialStorageAccessControlGroups_supportsURLCredentialStorageAccessControlGroups;
 }
 
-uint64_t __73__WBSFeatureAvailability_supportsURLCredentialStorageAccessControlGroups__block_invoke()
+void *__73__WBSFeatureAvailability_supportsURLCredentialStorageAccessControlGroups__block_invoke()
 {
   result = [MEMORY[0x1E695AC50] instancesRespondToSelector:NSSelectorFromString(&cfstr_Allcredentials.isa)];
   supportsURLCredentialStorageAccessControlGroups_supportsURLCredentialStorageAccessControlGroups = result;
@@ -695,57 +706,58 @@ void __47__WBSFeatureAvailability_isSiriReadThisEnabled__block_invoke()
 
   if (isUsingICloud)
   {
-    v5 = +[WBSPrimaryAppleAccountObserver sharedObserver];
-    isCurrentAppleIDManaged = [v5 isCurrentAppleIDManaged];
+    v7 = +[WBSPrimaryAppleAccountObserver sharedObserver];
+    isCurrentAppleIDManaged = [v7 isCurrentAppleIDManaged];
 
     if (!isCurrentAppleIDManaged)
     {
-      if ([self _isPasswordSharingAvailable])
+      _isPasswordSharingAvailable = [self _isPasswordSharingAvailable];
+      if (_isPasswordSharingAvailable)
       {
-        LOBYTE(v8) = 1;
-        return v8;
+        LOBYTE(v12) = 1;
+        return v12;
       }
 
-      v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if (!v8)
+      v11 = WBS_LOG_CHANNEL_PREFIXKeychain(_isPasswordSharingAvailable, v16);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+      if (!v12)
       {
-        return v8;
+        return v12;
       }
 
-      v12 = 0;
-      v9 = "AirDrop password sharing is disabled because profile that disables Password Sharing is installed to device.";
-      v10 = &v12;
+      v18 = 0;
+      v13 = "AirDrop password sharing is disabled because profile that disables Password Sharing is installed to device.";
+      v14 = &v18;
       goto LABEL_7;
     }
 
-    v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v11 = WBS_LOG_CHANNEL_PREFIXKeychain(v9, v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v12)
     {
-      v13 = 0;
-      v9 = "AirDrop password sharing is disabled for Managed Apple IDs";
-      v10 = &v13;
+      v19 = 0;
+      v13 = "AirDrop password sharing is disabled for Managed Apple IDs";
+      v14 = &v19;
 LABEL_7:
-      _os_log_impl(&dword_1B8447000, v7, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
-      LOBYTE(v8) = 0;
+      _os_log_impl(&dword_1B8447000, v11, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
+      LOBYTE(v12) = 0;
     }
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v11 = WBS_LOG_CHANNEL_PREFIXKeychain(v5, v6);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v12)
     {
       *buf = 0;
-      v9 = "AirDrop password sharing is disabled because user don't have iCloud";
-      v10 = buf;
+      v13 = "AirDrop password sharing is disabled because user don't have iCloud";
+      v14 = buf;
       goto LABEL_7;
     }
   }
 
-  return v8;
+  return v12;
 }
 
 + (BOOL)_isPasswordSharingAvailable
@@ -915,6 +927,13 @@ void __56__WBSFeatureAvailability_isOnDeviceSummarizationEnabled__block_invoke()
   isOnDeviceSummarizationEnabled_onDeviceSummarizationEnabled = [v0 safari_BOOLForKey:@"EnableOnDeviceSummarization" defaultValue:1];
 }
 
++ (void)setAutomaticStrongPasswordsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
+  [safari_browserDefaults setBool:enabledCopy forKey:@"EnableAutomaticStrongPasswords"];
+}
+
 + (BOOL)isAutomaticStrongPasswordsEnabled
 {
   safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
@@ -929,6 +948,13 @@ void __56__WBSFeatureAvailability_isOnDeviceSummarizationEnabled__block_invoke()
   v3 = [pm_defaults safari_BOOLForKey:@"AllowAutomaticPasskeyUpgrades" defaultValue:1];
 
   return v3;
+}
+
++ (void)setIsAutomaticPasskeyUpgradesEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  pm_defaults = [MEMORY[0x1E695E000] pm_defaults];
+  [pm_defaults setBool:enabledCopy forKey:@"AllowAutomaticPasskeyUpgrades"];
 }
 
 + (BOOL)isKeychainCardsInWalletEnabled
@@ -1045,7 +1071,7 @@ void __57__WBSFeatureAvailability_isCompletionListRedesignEnabled__block_invoke(
   isCompletionListRedesignEnabled_isCompletionListRedesignEnabled = [v0 safari_BOOLForKey:@"EnableCompletionListRedesignKey" defaultValue:1];
 }
 
-uint64_t __38__WBSFeatureAvailability_isWAPEnabled__block_invoke_2(uint64_t a1)
+void *__38__WBSFeatureAvailability_isWAPEnabled__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _isWAPEnabled];
   isWAPEnabled_isWAPEnabled = result;
@@ -1060,12 +1086,33 @@ uint64_t __38__WBSFeatureAvailability_isWAPEnabled__block_invoke_2(uint64_t a1)
   return v3;
 }
 
++ (void)setIsPasswordsAppFuzzySearchEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  pm_defaults = [MEMORY[0x1E695E000] pm_defaults];
+  [pm_defaults setBool:enabledCopy forKey:@"EnablePasswordsFuzzySearch"];
+}
+
++ (void)setIsAutoFillDrivenByUIProcess:(BOOL)process
+{
+  processCopy = process;
+  safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
+  [safari_browserDefaults setBool:processCopy forKey:@"UIProcessDrivenAutoFill"];
+}
+
 + (BOOL)isPromotePasskeyUpgradesEnabled
 {
   pm_defaults = [MEMORY[0x1E695E000] pm_defaults];
   v3 = [pm_defaults safari_BOOLForKey:@"PromotePasskeyUpgrades" defaultValue:1];
 
   return v3;
+}
+
++ (void)setIsPromotePasskeyUpgradesEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  pm_defaults = [MEMORY[0x1E695E000] pm_defaults];
+  [pm_defaults setBool:enabledCopy forKey:@"PromotePasskeyUpgrades"];
 }
 
 + (BOOL)getForcedCFPreferencesAppBoolValueForKey:(__CFString *)key applicationID:(__CFString *)d withFallbackValue:(unsigned __int8)value
@@ -1128,6 +1175,13 @@ uint64_t __38__WBSFeatureAvailability_isWAPEnabled__block_invoke_2(uint64_t a1)
   LOBYTE(self) = [pm_defaults safari_BOOLForKey:@"WBSPasswordsAppBackgroundNetworkingEnabled" defaultValue:{objc_msgSend(self, "_isLockdownModeEnabled") ^ 1}];
 
   return self;
+}
+
++ (void)setIsNetworkFetchingForPasswordsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  pm_defaults = [MEMORY[0x1E695E000] pm_defaults];
+  [pm_defaults setBool:enabledCopy forKey:@"WBSPasswordsAppBackgroundNetworkingEnabled"];
 }
 
 @end

@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)duplexAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsDuplex:(id)duplex;
 - (int)StringAsType:(id)type;
 - (int)duplex;
@@ -75,6 +77,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825C558[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -154,6 +171,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)duplexAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"TDD";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"FDD";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDuplex:(id)duplex
@@ -293,7 +333,6 @@ LABEL_20:
   has = self->_has;
   if (has)
   {
-    band = self->_band;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -313,7 +352,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  bandwidth = self->_bandwidth;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -328,7 +366,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  earfcn = self->_earfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -343,12 +380,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  type = self->_type;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    duplex = self->_duplex;
     PBDataWriterWriteInt32Field();
   }
 

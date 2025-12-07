@@ -134,31 +134,26 @@ LABEL_18:
   toCopy = to;
   if ([(_CPSearchViewAppearFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPSearchViewAppearFeedback *)self viewAppearEvent])
   {
-    viewAppearEvent = self->_viewAppearEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPSearchViewAppearFeedback *)self isOnLockScreen])
   {
-    isOnLockScreen = self->_isOnLockScreen;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchViewAppearFeedback *)self isOverApp])
   {
-    isOverApp = self->_isOverApp;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchViewAppearFeedback *)self readerTextAvailable])
   {
-    readerTextAvailable = self->_readerTextAvailable;
     PBDataWriterWriteBOOLField();
   }
 
@@ -166,7 +161,6 @@ LABEL_18:
 
   if (preexistingInput)
   {
-    preexistingInput = self->_preexistingInput;
     PBDataWriterWriteStringField();
   }
 
@@ -174,13 +168,11 @@ LABEL_18:
 
   if (originatingApp)
   {
-    originatingApp = self->_originatingApp;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPSearchViewAppearFeedback *)self isUsingLoweredSearchBar])
   {
-    isUsingLoweredSearchBar = self->_isUsingLoweredSearchBar;
     PBDataWriterWriteBOOLField();
   }
 }

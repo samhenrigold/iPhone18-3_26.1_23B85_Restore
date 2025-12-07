@@ -40,7 +40,7 @@
   if (self->_clockTimerToken)
   {
     v4 = objc_msgSend_sharedInstance(MEMORY[0x277CBB700], a2, v2);
-    objc_msgSend_stopUpdatesForToken_(v4, v5, v6, self->_clockTimerToken);
+    objc_msgSend_stopUpdatesForToken_(v4, v5, self->_clockTimerToken);
 
     clockTimerToken = self->_clockTimerToken;
     self->_clockTimerToken = 0;
@@ -77,20 +77,20 @@
   objc_initWeak(&location, self);
   v16 = objc_msgSend_sharedInstance(MEMORY[0x277CBB700], v14, v15);
   v17 = qword_23BEED780[v4];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = sub_23BED8920;
-  v23[3] = &unk_278BA1510;
-  objc_copyWeak(v25, &location);
-  v25[1] = v17;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = sub_23BED8920;
+  v22[3] = &unk_278BA1510;
+  objc_copyWeak(v24, &location);
+  v24[1] = v17;
   v18 = v7;
-  v24 = v18;
-  v25[2] = *&v12;
-  v21 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(v16, v19, v20, 2 * v4, v23, &unk_284EA8BC8);
+  v23 = v18;
+  v24[2] = *&v12;
+  v20 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(v16, v19, 2 * v4, v22, &unk_284EA8BC8);
   clockTimerToken = self->_clockTimerToken;
-  self->_clockTimerToken = v21;
+  self->_clockTimerToken = v20;
 
-  objc_destroyWeak(v25);
+  objc_destroyWeak(v24);
   objc_destroyWeak(&location);
 }
 

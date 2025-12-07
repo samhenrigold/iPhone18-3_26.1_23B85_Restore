@@ -64,13 +64,13 @@ void __66__SKUINearMeViewElement_initWithDOMElement_parent_elementFactory___bloc
 - (void)enumerateChildrenUsingBlock:(id)block
 {
   blockCopy = block;
-  v5 = SKUICoreLocationFramework();
-  v6 = [SKUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa v5)];
-  if (SKUINearMeIsEnabledForAuthorizationStatus(v6))
+  v6 = SKUICoreLocationFramework(blockCopy, v5);
+  v7 = [SKUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa v6)];
+  if (SKUINearMeIsEnabledForAuthorizationStatus(v7, v8))
   {
-    v7.receiver = self;
-    v7.super_class = SKUINearMeViewElement;
-    [(SKUIViewElement *)&v7 enumerateChildrenUsingBlock:blockCopy];
+    v9.receiver = self;
+    v9.super_class = SKUINearMeViewElement;
+    [(SKUIViewElement *)&v9 enumerateChildrenUsingBlock:blockCopy];
   }
 }
 

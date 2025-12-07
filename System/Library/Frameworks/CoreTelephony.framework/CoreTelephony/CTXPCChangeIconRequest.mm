@@ -12,25 +12,23 @@
 
 - (CTXPCChangeIconRequest)initWithContext:(id)context groupChatURI:(id)i icon:(id)icon operationID:(id)d security:(id)security
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v24[3] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   iCopy = i;
   iconCopy = icon;
   dCopy = d;
   securityCopy = security;
-  v24[0] = @"groupChatURI";
-  v24[1] = @"icon";
-  v25[0] = iCopy;
-  v25[1] = iconCopy;
-  v24[2] = @"operationID";
-  v25[2] = dCopy;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
-  v19 = objc_claimAutoreleasedReturnValue();
-  v23.receiver = self;
-  v23.super_class = CTXPCChangeIconRequest;
-  v20 = [(CTXPCSubscriptionContextRequest *)&v23 initWithContext:contextCopy namedArguments:v19];
+  v23[0] = @"groupChatURI";
+  v23[1] = @"icon";
+  v24[0] = iCopy;
+  v24[1] = iconCopy;
+  v23[2] = @"operationID";
+  v24[2] = dCopy;
+  v19 = v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v22.receiver = self;
+  v22.super_class = CTXPCChangeIconRequest;
+  v20 = [(CTXPCSubscriptionContextRequest *)&v22 initWithContext:contextCopy namedArguments:v19];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -108,18 +106,16 @@
 
 + (id)allowedClassesForArguments
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___CTXPCChangeIconRequest;
-  v2 = objc_msgSendSuper2(&v7, sel_allowedClassesForArguments);
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v8[2] = objc_opt_class();
-  v8[3] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
+  v7[4] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___CTXPCChangeIconRequest;
+  v2 = objc_msgSendSuper2(&v6, sel_allowedClassesForArguments);
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v7[2] = objc_opt_class();
+  v7[3] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:4];
   v4 = [v2 setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

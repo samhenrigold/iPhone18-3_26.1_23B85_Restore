@@ -99,12 +99,12 @@
   *v16 = v9;
   *(v16 + 1) = v10;
   v17 = errorCopy;
-  sub_1BAD31584(v9);
+  sub_1BAD31584(v9, v10);
   v20.receiver = v15;
   v20.super_class = v14;
   v18 = objc_msgSendSuper2(&v20, sel_initWithNibName_bundle_, 0, 0);
   sub_1BAD759A4(v8);
-  sub_1BAD17DC0(v9);
+  sub_1BAD17DC0(v9, v10);
 
   return v18;
 }

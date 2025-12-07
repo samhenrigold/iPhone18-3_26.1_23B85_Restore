@@ -10,6 +10,7 @@
 - (void)setOdometryUpdateInterval:(double)interval;
 - (void)setOdometryUpdateIntervalPrivate:(double)private;
 - (void)setupBIO;
+- (void)startBackgroundUpdatesPrivateUsingReferenceFrame:(unint64_t)frame enableNeuralPDR:(BOOL)r toQueue:(id)queue withHandler:(id)handler;
 - (void)startOdometryUpdatesPrivateUsingReferenceFrame:(unint64_t)frame toQueue:(id)queue withHandler:(id)handler;
 - (void)startOdometryUpdatesToQueue:(id)queue withHandler:(id)handler;
 - (void)startOdometryUpdatesUsingReferenceFrame:(unint64_t)frame toQueue:(id)queue withHandler:(id)handler;
@@ -187,7 +188,7 @@
 
 - (void)setOdometryUpdateIntervalPrivate:(double)private
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   privateCopy = 0.1;
   if (private >= 0.1)
@@ -220,24 +221,25 @@
         dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
       }
 
-      v8 = _os_log_send_and_compose_impl();
+      v11 = 134349056;
+      privateCopy3 = private;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 0, "Requesting CMOdometry updates with interval: %{public}f", &v11, 12);
+      v9 = v8;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMOdometryManager setOdometryUpdateIntervalPrivate:]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      if (v9 != buf)
       {
-        free(v8);
+        free(v9);
       }
     }
 
-    v9 = sub_19B6F7F00();
-    sub_19B44E2F8(v9, 0, *(internal + 31), internal + 256);
+    v10 = sub_19B6F7F00();
+    sub_19B44E2F8(v10, 0, *(internal + 31), internal + 256);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendOdometryToClientPrivate
 {
-  v68[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -255,42 +257,42 @@
     v11 = *(internal + 2);
     if (v11 >= *(internal + 25))
     {
-      v62 = v4;
+      v64 = v4;
       if (v11 >= *(internal + 20))
       {
         if (*(internal + 22) <= v11)
         {
           *&v7 = *(internal + 34) - *(internal + 6);
-          v60 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v5, v6, v7);
+          v62 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v5, v6, v7);
           v11 = *(internal + 2);
         }
 
         else
         {
-          v60 = 0;
+          v62 = 0;
         }
 
         if (*(internal + 23) <= v11)
         {
           *&v7 = *(internal + 35) - *(internal + 7);
-          v59 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v5, v6, v7);
+          v61 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v5, v6, v7);
           v11 = *(internal + 2);
         }
 
         else
         {
-          v59 = 0;
+          v61 = 0;
         }
 
         if (*(internal + 24) <= v11)
         {
           *&v7 = *(internal + 36) - *(internal + 8);
-          v22 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v5, v6, v7);
+          v23 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v5, v6, v7);
         }
 
         else
         {
-          v22 = 0;
+          v23 = 0;
         }
       }
 
@@ -317,29 +319,30 @@
             dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
           }
 
-          v64 = 0;
-          v21 = _os_log_send_and_compose_impl();
+          v66[0] = 0;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 1, "Position rollover", v66, 2);
+          v22 = v21;
           sub_19B6BB7CC("Generic", 1, 0, 2, "[CMOdometryManager sendOdometryToClientPrivate]", "CoreLocation: %s\n", v21);
-          if (v21 != buf)
+          if (v22 != buf)
           {
-            free(v21);
+            free(v22);
           }
         }
 
-        v22 = 0;
-        v59 = 0;
-        v60 = 0;
+        v23 = 0;
+        v61 = 0;
+        v62 = 0;
       }
 
-      v61 = v10;
+      v63 = v10;
       if (*(internal + 2) >= *(internal + 21))
       {
         *&v7 = *(internal + 37) - *(internal + 9);
-        v28 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v5, v6, v7);
-        *&v29 = *(internal + 38) - *(internal + 10);
-        v27 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v30, v31, v29);
-        *&v32 = *(internal + 39) - *(internal + 11);
-        v26 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v33, v34, v32);
+        v30 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v5, v6, v7);
+        *&v31 = *(internal + 38) - *(internal + 10);
+        v29 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v32, v33, v31);
+        *&v34 = *(internal + 39) - *(internal + 11);
+        v28 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v35, v36, v34);
       }
 
       else
@@ -349,15 +352,15 @@
           dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
         }
 
-        v23 = qword_1EAFE2A90;
+        v24 = qword_1EAFE2A90;
         if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_INFO, "Velocity rollover", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_INFO, "Velocity rollover", buf, 2u);
         }
 
-        v24 = sub_19B420058();
-        if (*(v24 + 160) > 1 || *(v24 + 164) > 1 || *(v24 + 168) > 1 || *(v24 + 152))
+        v25 = sub_19B420058();
+        if (*(v25 + 160) > 1 || *(v25 + 164) > 1 || *(v25 + 168) > 1 || *(v25 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2A88 != -1)
@@ -365,69 +368,69 @@
             dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
           }
 
-          v64 = 0;
-          v25 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMOdometryManager sendOdometryToClientPrivate]", "CoreLocation: %s\n", v25);
-          if (v25 != buf)
+          v66[0] = 0;
+          LODWORD(v60) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 1, "Velocity rollover", v66, v60);
+          v27 = v26;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMOdometryManager sendOdometryToClientPrivate]", "CoreLocation: %s\n", v26);
+          if (v27 != buf)
           {
-            free(v25);
+            free(v27);
           }
         }
 
-        v26 = 0;
-        v27 = 0;
         v28 = 0;
+        v29 = 0;
+        v30 = 0;
       }
 
-      v35 = [CMOdometry alloc];
-      LODWORD(v36) = *(internal + 52);
-      v39 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v37, v38, v36);
-      LODWORD(v40) = *(internal + 53);
-      v43 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v41, v42, v40);
-      LODWORD(v44) = *(internal + 54);
-      v47 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v45, v46, v44);
-      LODWORD(v48) = *(internal + 55);
-      v51 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v49, v50, v48);
-      LODWORD(v52) = *(internal + 56);
-      v54 = objc_msgSend_initWithDeltaPositionX_deltaPositionY_deltaPositionZ_deltaVelocityX_deltaVelocityY_deltaVelocityZ_quaternionX_quaternionY_quaternionZ_quaternionW_rotationArbitraryToTrueNorth_staticFlag_timestamp_(v35, v53, v60, v59, v22, v28, v27, v26, v52, v8, v39, v43, v47, v51, 0);
-      v16 = v54;
+      v37 = [CMOdometry alloc];
+      LODWORD(v38) = *(internal + 52);
+      v41 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v39, v40, v38);
+      LODWORD(v42) = *(internal + 53);
+      v45 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v43, v44, v42);
+      LODWORD(v46) = *(internal + 54);
+      v49 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v47, v48, v46);
+      LODWORD(v50) = *(internal + 55);
+      v53 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v51, v52, v50);
+      LODWORD(v54) = *(internal + 56);
+      v56 = objc_msgSend_initWithDeltaPositionX_deltaPositionY_deltaPositionZ_deltaVelocityX_deltaVelocityY_deltaVelocityZ_quaternionX_quaternionY_quaternionZ_quaternionW_rotationArbitraryToTrueNorth_staticFlag_timestamp_(v37, v55, v62, v61, v23, v30, v29, v28, v54, v8, v41, v45, v49, v53, 0);
+      v16 = v56;
       if (*(internal + 30) == 8)
       {
-        objc_msgSend_rotateArbitraryToTrueNorth(v54, v55, v56);
+        objc_msgSend_rotateArbitraryToTrueNorth(v56, v57, v58);
       }
 
-      v57 = *(internal + 34);
-      v63[0] = MEMORY[0x1E69E9820];
-      v63[1] = 3221225472;
-      v63[2] = sub_19B67FAF0;
-      v63[3] = &unk_1E7532B90;
-      v63[4] = v16;
-      v63[5] = v61;
-      objc_msgSend_addOperationWithBlock_(v57, v55, v63);
-      v9 = v62;
+      v59 = *(internal + 34);
+      v65[0] = MEMORY[0x1E69E9820];
+      v65[1] = 3221225472;
+      v65[2] = sub_19B67FAF0;
+      v65[3] = &unk_1E7532B90;
+      v65[4] = v16;
+      v65[5] = v63;
+      objc_msgSend_addOperationWithBlock_(v59, v57, v65);
+      v9 = v64;
     }
 
     else
     {
       v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v67 = *MEMORY[0x1E696A578];
-      v68[0] = @"Reference frame has changed for the incoming delta position updates due to unexpected DeviceMotion reinitialization.";
-      v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v68, &v67, 1);
+      v69 = *MEMORY[0x1E696A578];
+      v70[0] = @"Reference frame has changed for the incoming delta position updates due to unexpected DeviceMotion reinitialization.";
+      v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v70, &v69, 1);
       v16 = objc_msgSend_initWithDomain_code_userInfo_(v12, v15, @"CMErrorDomainPrivate", 103, v14);
       v17 = *(internal + 34);
-      v65[0] = MEMORY[0x1E69E9820];
-      v65[1] = 3221225472;
-      v65[2] = sub_19B67FAD8;
-      v65[3] = &unk_1E7532B90;
-      v65[4] = v16;
-      v65[5] = v10;
-      objc_msgSend_addOperationWithBlock_(v17, v18, v65);
+      v67[0] = MEMORY[0x1E69E9820];
+      v67[1] = 3221225472;
+      v67[2] = sub_19B67FAD8;
+      v67[3] = &unk_1E7532B90;
+      v67[4] = v16;
+      v67[5] = v10;
+      objc_msgSend_addOperationWithBlock_(v17, v18, v67);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (void)feedOdometryData:(const InertialOdometryData *)data
@@ -468,110 +471,167 @@
         dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
       }
 
-      v11 = 0;
-      v8 = _os_log_send_and_compose_impl();
+      v11[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 16, "Invalid data parameter!", v11, 2);
+      v9 = v8;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMOdometryManager feedOdometryData:]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      if (v9 != buf)
       {
-        free(v8);
+        free(v9);
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startOdometryUpdatesPrivateUsingReferenceFrame:(unint64_t)frame toQueue:(id)queue withHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
-  if (!+[CMOdometryManager isAvailable]_0())
+  if (+[CMOdometryManager isAvailable]_0())
   {
-    if (qword_1EAFE2A88 != -1)
+    if (internal[32] <= 0.0)
     {
-      dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
-    }
-
-    v17 = qword_1EAFE2A90;
-    if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "InertialOdometry not available", buf, 2u);
-    }
-
-    v18 = sub_19B420058();
-    if ((*(v18 + 160) & 0x80000000) != 0 && (*(v18 + 164) & 0x80000000) != 0 && (*(v18 + 168) & 0x80000000) != 0 && !*(v18 + 152))
-    {
-      goto LABEL_51;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2A88 == -1)
-    {
-LABEL_49:
-      v23 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMOdometryManager startOdometryUpdatesPrivateUsingReferenceFrame:toQueue:withHandler:]", "CoreLocation: %s\n", v23);
-      if (v23 != buf)
+      if (qword_1EAFE2A88 != -1)
       {
-        free(v23);
+        dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
       }
 
-      goto LABEL_51;
+      v22 = qword_1EAFE2A90;
+      if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_ERROR, "Invalid update interval", buf, 2u);
+      }
+
+      v23 = sub_19B420058();
+      if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1EAFE2A88 != -1)
+        {
+          dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+        }
+
+        LOWORD(v28[0]) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 16, "Invalid update interval", v28, 2);
+        v21 = v24;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMOdometryManager startOdometryUpdatesPrivateUsingReferenceFrame:toQueue:withHandler:]", "CoreLocation: %s\n", v24);
+        goto LABEL_53;
+      }
     }
 
-LABEL_58:
-    dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
-    goto LABEL_49;
+    else
+    {
+      if (frame == 1 || frame == 8)
+      {
+        if (qword_1EAFE2A88 != -1)
+        {
+          dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+        }
+
+        v10 = qword_1EAFE2A90;
+        if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67240192;
+          frameCopy = frame;
+          _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "Starting InertialOdometry updates with reference frame: %{public}d", buf, 8u);
+        }
+
+        v11 = sub_19B420058();
+        if (*(v11 + 160) > 1 || *(v11 + 164) > 1 || *(v11 + 168) > 1 || *(v11 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2A88 != -1)
+          {
+            dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+          }
+
+          v28[0] = 67240192;
+          v28[1] = frame;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 0, "Starting InertialOdometry updates with reference frame: %{public}d", v28, 8);
+          v13 = v12;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMOdometryManager startOdometryUpdatesPrivateUsingReferenceFrame:toQueue:withHandler:]", "CoreLocation: %s\n", v12);
+          if (v13 != buf)
+          {
+            free(v13);
+          }
+        }
+
+        *(internal + 30) = frame;
+        v14 = *(internal + 34);
+        if (v14 != queue)
+        {
+
+          *(internal + 34) = queue;
+        }
+
+        v15 = *(internal + 33);
+        if (v15 != handler)
+        {
+
+          *(internal + 33) = objc_msgSend_copy(handler, v16, v17);
+        }
+
+        if (!*(internal + 31))
+        {
+          operator new();
+        }
+
+        return;
+      }
+
+      if (qword_1EAFE2A88 != -1)
+      {
+        dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+      }
+
+      v25 = qword_1EAFE2A90;
+      if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_ERROR, "Invalid reference frame", buf, 2u);
+      }
+
+      v26 = sub_19B420058();
+      if ((*(v26 + 160) & 0x80000000) == 0 || (*(v26 + 164) & 0x80000000) == 0 || (*(v26 + 168) & 0x80000000) == 0 || *(v26 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1EAFE2A88 != -1)
+        {
+          dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+        }
+
+        LOWORD(v28[0]) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 16, "Invalid reference frame", v28, 2);
+        v21 = v27;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMOdometryManager startOdometryUpdatesPrivateUsingReferenceFrame:toQueue:withHandler:]", "CoreLocation: %s\n", v27);
+LABEL_53:
+        if (v21 != buf)
+        {
+          free(v21);
+        }
+      }
+    }
   }
 
-  if (internal[32] <= 0.0)
+  else
   {
     if (qword_1EAFE2A88 != -1)
     {
       dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
     }
 
-    v19 = qword_1EAFE2A90;
+    v18 = qword_1EAFE2A90;
     if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_ERROR, "Invalid update interval", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_ERROR, "InertialOdometry not available", buf, 2u);
     }
 
-    v20 = sub_19B420058();
-    if ((*(v20 + 160) & 0x80000000) != 0 && (*(v20 + 164) & 0x80000000) != 0 && (*(v20 + 168) & 0x80000000) != 0 && !*(v20 + 152))
-    {
-      goto LABEL_51;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2A88 == -1)
-    {
-      goto LABEL_49;
-    }
-
-    goto LABEL_58;
-  }
-
-  if (frame == 1 || frame == 8)
-  {
-    if (qword_1EAFE2A88 != -1)
-    {
-      dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
-    }
-
-    v10 = qword_1EAFE2A90;
-    if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 67240192;
-      frameCopy = frame;
-      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "Starting InertialOdometry updates with reference frame: %{public}d", buf, 8u);
-    }
-
-    v11 = sub_19B420058();
-    if (*(v11 + 160) > 1 || *(v11 + 164) > 1 || *(v11 + 168) > 1 || *(v11 + 152))
+    v19 = sub_19B420058();
+    if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2A88 != -1)
@@ -579,68 +639,18 @@ LABEL_58:
         dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
       }
 
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMOdometryManager startOdometryUpdatesPrivateUsingReferenceFrame:toQueue:withHandler:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
-      {
-        free(v12);
-      }
+      LOWORD(v28[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 16, "InertialOdometry not available", v28, 2);
+      v21 = v20;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMOdometryManager startOdometryUpdatesPrivateUsingReferenceFrame:toQueue:withHandler:]", "CoreLocation: %s\n", v20);
+      goto LABEL_53;
     }
-
-    *(internal + 30) = frame;
-    v13 = *(internal + 34);
-    if (v13 != queue)
-    {
-
-      *(internal + 34) = queue;
-    }
-
-    v14 = *(internal + 33);
-    if (v14 != handler)
-    {
-
-      *(internal + 33) = objc_msgSend_copy(handler, v15, v16);
-    }
-
-    if (!*(internal + 31))
-    {
-      operator new();
-    }
-
-    goto LABEL_51;
   }
-
-  if (qword_1EAFE2A88 != -1)
-  {
-    dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
-  }
-
-  v21 = qword_1EAFE2A90;
-  if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_ERROR, "Invalid reference frame", buf, 2u);
-  }
-
-  v22 = sub_19B420058();
-  if ((*(v22 + 160) & 0x80000000) == 0 || (*(v22 + 164) & 0x80000000) == 0 || (*(v22 + 168) & 0x80000000) == 0 || *(v22 + 152))
-  {
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2A88 == -1)
-    {
-      goto LABEL_49;
-    }
-
-    goto LABEL_58;
-  }
-
-LABEL_51:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopOdometryUpdatesPrivate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -678,24 +688,26 @@ LABEL_51:
           dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
         }
 
-        v8 = _os_log_send_and_compose_impl();
+        v12[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 0, "Stopping InertialOdometry updates", v12, 2);
+        v9 = v8;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMOdometryManager stopOdometryUpdatesPrivate]", "CoreLocation: %s\n", v8);
-        if (v8 != buf)
+        if (v9 != buf)
         {
-          free(v8);
+          free(v9);
         }
       }
     }
 
-    v9 = *(internal + 34);
-    if (v9)
+    v10 = *(internal + 34);
+    if (v10)
     {
 
       *(internal + 34) = 0;
     }
 
-    v10 = *(internal + 33);
-    if (v10)
+    v11 = *(internal + 33);
+    if (v11)
     {
 
       *(internal + 33) = 0;
@@ -717,8 +729,120 @@ LABEL_51:
     *(internal + 24) = 0u;
     *(internal + 8) = 0u;
   }
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)startBackgroundUpdatesPrivateUsingReferenceFrame:(unint64_t)frame enableNeuralPDR:(BOOL)r toQueue:(id)queue withHandler:(id)handler
+{
+  location[205] = *MEMORY[0x1E69E9840];
+  if (queue)
+  {
+    if (handler)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v18 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, frame, r);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v18, v19, a2, self, @"CMOdometryManager.mm", 450, @"Invalid parameter not satisfying: %@", @"queue");
+    if (handler)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v20 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, frame, r);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v20, v21, a2, self, @"CMOdometryManager.mm", 451, @"Invalid parameter not satisfying: %@", @"handler");
+LABEL_3:
+  if (+[CMOdometryManager isAvailable]_0())
+  {
+    if (frame == 1 || frame == 8)
+    {
+      objc_initWeak(location, self);
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = sub_19B680ADC;
+      v24[3] = &unk_1E7532A28;
+      objc_copyWeak(&v25, location);
+      xpcQueue = self->_xpcQueue;
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = sub_19B680C94;
+      block[3] = &unk_1E7533F60;
+      objc_copyWeak(v23, location);
+      block[4] = queue;
+      block[5] = handler;
+      v23[1] = frame;
+      block[6] = v24;
+      dispatch_async(xpcQueue, block);
+      objc_destroyWeak(v23);
+      objc_destroyWeak(&v25);
+      objc_destroyWeak(location);
+      return;
+    }
+
+    if (qword_1EAFE2A88 != -1)
+    {
+      dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+    }
+
+    v15 = qword_1EAFE2A90;
+    if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(location[0]) = 0;
+      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_ERROR, "Invalid reference frame", location, 2u);
+    }
+
+    v16 = sub_19B420058();
+    if ((*(v16 + 160) & 0x80000000) == 0 || (*(v16 + 164) & 0x80000000) == 0 || (*(v16 + 168) & 0x80000000) == 0 || *(v16 + 152))
+    {
+      bzero(location, 0x65CuLL);
+      if (qword_1EAFE2A88 != -1)
+      {
+        dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+      }
+
+      v26[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, location, 1628, &dword_19B41C000, qword_1EAFE2A90, 16, "Invalid reference frame", v26, 2);
+LABEL_27:
+      v17 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMOdometryManager startBackgroundUpdatesPrivateUsingReferenceFrame:enableNeuralPDR:toQueue:withHandler:]", "CoreLocation: %s\n", v14);
+      if (v17 != location)
+      {
+        free(v17);
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_1EAFE2A88 != -1)
+    {
+      dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+    }
+
+    v12 = qword_1EAFE2A90;
+    if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(location[0]) = 0;
+      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_ERROR, "Background InertialOdometry not available", location, 2u);
+    }
+
+    v13 = sub_19B420058();
+    if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
+    {
+      bzero(location, 0x65CuLL);
+      if (qword_1EAFE2A88 != -1)
+      {
+        dispatch_once(&qword_1EAFE2A88, &unk_1F0E28AE0);
+      }
+
+      v26[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, location, 1628, &dword_19B41C000, qword_1EAFE2A90, 16, "Background InertialOdometry not available", v26, 2);
+      goto LABEL_27;
+    }
+  }
 }
 
 - (void)stopBackgroundUpdatesPrivate

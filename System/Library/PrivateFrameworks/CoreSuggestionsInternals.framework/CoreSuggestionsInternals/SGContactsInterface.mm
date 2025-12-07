@@ -13,7 +13,7 @@
 
 + (BOOL)handleExistsInContactStoreForHandle:(id)handle withHandleType:(id)type
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   typeCopy = type;
   v8 = *MEMORY[0x277CBD098];
@@ -57,66 +57,65 @@ LABEL_18:
 LABEL_6:
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__11949;
-  v37 = __Block_byref_object_dispose__11950;
-  v38 = 0;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__11949;
+  v36 = __Block_byref_object_dispose__11950;
+  v37 = 0;
   resultIfAvailable = [_cache resultIfAvailable];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __74__SGContactsInterface_handleExistsInContactStoreForHandle_withHandleType___block_invoke;
-  v28[3] = &unk_278951000;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __74__SGContactsInterface_handleExistsInContactStoreForHandle_withHandleType___block_invoke;
+  v27[3] = &unk_278951000;
   p_buf = &buf;
   v13 = v11;
-  v29 = v13;
-  [resultIfAvailable runWithLockAcquired:v28];
+  v28 = v13;
+  [resultIfAvailable runWithLockAcquired:v27];
 
-  if ([*(*(&buf + 1) + 40) count])
+  if (objc_msgSend_count(*(*(&buf + 1) + 40)))
   {
     v14 = 1;
   }
 
   else
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 0;
-    v33[0] = *MEMORY[0x277CBCFC0];
-    v33[1] = v8;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
+    v26 = 0;
+    v32[0] = *MEMORY[0x277CBCFC0];
+    v32[1] = v8;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     v16 = [objc_alloc(MEMORY[0x277CBDA70]) initWithKeysToFetch:v15];
     [v16 setPredicate:v13];
     v17 = +[SGContactStoreFactory contactStore];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __74__SGContactsInterface_handleExistsInContactStoreForHandle_withHandleType___block_invoke_2;
-    v22[3] = &unk_27894D4E8;
-    v22[4] = &v24;
-    v23 = 0;
-    [self enumerateContactsWithFetchRequest:v16 usingContactStore:v17 error:&v23 usingBlock:v22];
-    v18 = v23;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __74__SGContactsInterface_handleExistsInContactStoreForHandle_withHandleType___block_invoke_2;
+    v21[3] = &unk_27894D4E8;
+    v21[4] = &v23;
+    v22 = 0;
+    [self enumerateContactsWithFetchRequest:v16 usingContactStore:v17 error:&v22 usingBlock:v21];
+    v18 = v22;
 
     if (v18)
     {
       v19 = sgLogHandle();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        *v31 = 138412290;
-        v32 = v18;
-        _os_log_debug_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEBUG, "Error enumerating contacts: %@", v31, 0xCu);
+        *v30 = 138412290;
+        v31 = v18;
+        _os_log_debug_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEBUG, "Error enumerating contacts: %@", v30, 0xCu);
       }
     }
 
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
   }
 
   _Block_object_dispose(&buf, 8);
 LABEL_19:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
@@ -228,7 +227,7 @@ uint64_t __74__SGContactsInterface_handleExistsInContactStoreForHandle_withHandl
   if ((v41[3] & 1) == 0)
   {
     proxyArray = [v17 proxyArray];
-    if ([proxyArray count] > 2 || (objc_msgSend(requestCopy, "predicate"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBDA58], "predicateForContactsWithIdentifiers:", proxyArray), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqual:", v21), v21, v20, (v22 & 1) == 0))
+    if (objc_msgSend_count(proxyArray) > 2 || ([requestCopy predicate], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBDA58], "predicateForContactsWithIdentifiers:", proxyArray), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqual:", v21), v21, v20, (v22 & 1) == 0))
     {
       result = [_cache result];
       v25[0] = MEMORY[0x277D85DD0];
@@ -250,7 +249,7 @@ LABEL_13:
 
 void __92__SGContactsInterface_enumerateContactsWithFetchRequest_usingContactStore_error_usingBlock___block_invoke(void *a1, void *a2, _BYTE *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -272,21 +271,19 @@ void __92__SGContactsInterface_enumerateContactsWithFetchRequest_usingContactSto
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = a1[4];
-      v11 = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEFAULT, "Unexpected object returned from Contact Store: %@ Retrieved From %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEFAULT, "Unexpected object returned from Contact Store: %@ Retrieved From %@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __92__SGContactsInterface_enumerateContactsWithFetchRequest_usingContactStore_error_usingBlock___block_invoke_34(uint64_t a1, void *a2)
 {
   v5 = a2;
-  if ([v5 count] >= 0x64)
+  if (objc_msgSend_count(v5) >= 0x64)
   {
     [v5 removeAllObjects];
   }
@@ -298,25 +295,25 @@ void __92__SGContactsInterface_enumerateContactsWithFetchRequest_usingContactSto
 
 + (id)identifiersPredicateFromCacheForPredicate:(id)predicate isCached:(BOOL *)cached
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__11949;
-  v24 = __Block_byref_object_dispose__11950;
-  v25 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__11949;
+  v23 = __Block_byref_object_dispose__11950;
+  v24 = 0;
   resultIfAvailable = [_cache resultIfAvailable];
   if (resultIfAvailable)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __74__SGContactsInterface_identifiersPredicateFromCacheForPredicate_isCached___block_invoke;
-    v17[3] = &unk_278951000;
-    v19 = &v20;
-    v18 = predicateCopy;
-    [resultIfAvailable runWithLockAcquired:v17];
-    v7 = v18;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __74__SGContactsInterface_identifiersPredicateFromCacheForPredicate_isCached___block_invoke;
+    v16[3] = &unk_278951000;
+    v18 = &v19;
+    v17 = predicateCopy;
+    [resultIfAvailable runWithLockAcquired:v16];
+    v7 = v17;
   }
 
   else
@@ -325,26 +322,26 @@ void __92__SGContactsInterface_enumerateContactsWithFetchRequest_usingContactSto
     v9 = objc_opt_new();
     [mEMORY[0x277D41DA8] trackScalarForMessage:v9 count:0];
 
-    v26 = @"ContactsInterfaceCacheHit";
-    v10 = [MEMORY[0x277CCABB0] numberWithInt:v21[5] != 0];
-    v27[0] = v10;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = @"ContactsInterfaceCacheHit";
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:v20[5] != 0];
+    v26[0] = v10;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
 
     AnalyticsSendEvent();
   }
 
   v11 = objc_opt_new();
-  [v11 setCacheHit:v21[5] != 0];
+  [v11 setCacheHit:v20[5] != 0];
   mEMORY[0x277D41DA8]2 = [MEMORY[0x277D41DA8] sharedInstance];
   [mEMORY[0x277D41DA8]2 trackScalarForMessage:v11];
 
-  v13 = v21;
-  if (v21[5])
+  v13 = v20;
+  if (v20[5])
   {
     *cached = 1;
-    if ([v13[5] count])
+    if (objc_msgSend_count(v13[5]))
     {
-      v14 = [MEMORY[0x277CBDA58] predicateForContactsWithIdentifiers:v21[5]];
+      v14 = [MEMORY[0x277CBDA58] predicateForContactsWithIdentifiers:v20[5]];
     }
 
     else
@@ -359,8 +356,7 @@ void __92__SGContactsInterface_enumerateContactsWithFetchRequest_usingContactSto
     *cached = 0;
   }
 
-  _Block_object_dispose(&v20, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v14;
 }
@@ -371,7 +367,7 @@ void __74__SGContactsInterface_identifiersPredicateFromCacheForPredicate_isCache
   v4 = a2;
   v5 = [v3 sharedInstance];
   v6 = objc_opt_new();
-  [v5 trackScalarForMessage:v6 count:{objc_msgSend(v4, "count")}];
+  [v5 trackScalarForMessage:v6 count:objc_msgSend_count(v4)];
 
   AnalyticsSendEvent();
   v7 = [v4 objectForKeyedSubscript:*(a1 + 32)];

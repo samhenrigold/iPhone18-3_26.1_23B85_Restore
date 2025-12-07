@@ -76,24 +76,25 @@
   v19 = v18;
   traitCollection = [(SSChromePlaceholderViewController *)self traitCollection];
   [traitCollection displayScale];
+  v38 = v21;
 
   [SSChromeHelper availableRectForFullscreenContent:0 layoutBounds:1 bleedToBottom:0 topBarHeight:v5 bottomBarHeight:v7 userInterfaceIdiom:v9 multipleScreenshots:v11, v5 + v15, v7 + v13, v9 - (v15 + v19), v11 - (v13 + v17), 0, 0];
-  SSizeToFitSizeInAspectRatioOfSize(v9, v11, v21, v22);
-  SSRoundSizeToScale();
+  v24.n128_f64[0] = SSizeToFitSizeInAspectRatioOfSize(v9, v11, v22, v23);
+  SSRoundSizeToScale(v24, v25, v38);
   UIRectCenteredIntegralRect();
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
+  v27 = v26;
+  v29 = v28;
+  v31 = v30;
+  v33 = v32;
 
-  v31 = v24;
-  v32 = v26;
-  v33 = v28;
-  v34 = v30;
-  result.size.height = v34;
-  result.size.width = v33;
-  result.origin.y = v32;
-  result.origin.x = v31;
+  v34 = v27;
+  v35 = v29;
+  v36 = v31;
+  v37 = v33;
+  result.size.height = v37;
+  result.size.width = v36;
+  result.origin.y = v35;
+  result.origin.x = v34;
   return result;
 }
 

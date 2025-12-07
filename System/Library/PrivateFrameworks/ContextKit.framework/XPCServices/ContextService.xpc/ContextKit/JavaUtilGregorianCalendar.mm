@@ -7,12 +7,19 @@
 - (JavaUtilGregorianCalendar)initWithJavaUtilTimeZone:(id)zone;
 - (JavaUtilGregorianCalendar)initWithLong:(int64_t)long;
 - (id)getGregorianChange;
+- (int)getActualMaximumWithInt:(int)int;
+- (int)getGreatestMinimumWithInt:(int)int;
+- (int)getLeastMaximumWithInt:(int)int;
+- (int)getMaximumWithInt:(int)int;
+- (int)getMinimumWithInt:(int)int;
 - (int)mod7WithLong:(int64_t)long;
 - (unint64_t)hash;
 - (void)addWithInt:(int)int withInt:(int)withInt;
 - (void)computeFields;
 - (void)computeTime;
 - (void)readObjectWithJavaIoObjectInputStream:(id)stream;
+- (void)rollWithInt:(int)int withBoolean:(BOOL)boolean;
+- (void)rollWithInt:(int)int withInt:(int)withInt;
 - (void)setGregorianChangeWithJavaUtilDate:(id)date;
 - (void)writeObjectWithJavaIoObjectOutputStream:(id)stream;
 @end
@@ -29,7 +36,7 @@
 
 - (JavaUtilGregorianCalendar)initWithLong:(int64_t)long
 {
-  JavaUtilGregorianCalendar_initWithBoolean_(self);
+  JavaUtilGregorianCalendar_initWithBoolean_(self, 0);
   [(JavaUtilCalendar *)self setTimeInMillisWithLong:long];
   return self;
 }
@@ -1796,11 +1803,228 @@ LABEL_289:
   return v5;
 }
 
+- (int)getActualMaximumWithInt:(int)int
+{
+  if (!qword_100554BF8)
+  {
+    goto LABEL_40;
+  }
+
+  v5 = *(qword_100554BF8 + 8);
+  if (int < 0 || v5 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v5, *&int);
+  }
+
+  if (!qword_100554C00)
+  {
+    goto LABEL_40;
+  }
+
+  v6 = *(qword_100554BF8 + 12 + 4 * int);
+  v7 = *(qword_100554C00 + 8);
+  if (int < 0 || v7 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v7, *&int);
+  }
+
+  if (v6 == *(qword_100554C00 + 12 + 4 * int))
+  {
+    return v6;
+  }
+
+  [(JavaUtilCalendar *)self complete];
+  v6 = 0;
+  time = self->super.time_;
+  if (int <= 4)
+  {
+    switch(int)
+    {
+      case 1:
+        clone = [(JavaUtilCalendar *)self clone];
+        objc_opt_class();
+        if (!clone)
+        {
+          [(JavaUtilCalendar *)self getWithInt:0];
+          JreThrowNullPointerException();
+        }
+
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          JreThrowClassCastException();
+        }
+
+        if ([(JavaUtilCalendar *)self getWithInt:0]== 1)
+        {
+          v16 = 0x7FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v16 = 0x8000000000000000;
+        }
+
+        [clone setTimeInMillisWithLong:v16];
+        v17 = [clone getWithInt:1];
+        [clone setWithInt:1 withInt:{-[JavaUtilCalendar getWithInt:](self, "getWithInt:", 1)}];
+        v6 = v17 - [clone beforeWithId:self];
+        goto LABEL_38;
+      case 3:
+        [(JavaUtilCalendar *)self setWithInt:5 withInt:31];
+        [(JavaUtilCalendar *)self setWithInt:2 withInt:11];
+        v6 = [(JavaUtilCalendar *)self getWithInt:3];
+        if (v6 != 1)
+        {
+LABEL_37:
+          self->super.areFieldsSet_ = 0;
+          goto LABEL_38;
+        }
+
+        [(JavaUtilCalendar *)self setWithInt:5 withInt:24];
+        selfCopy2 = self;
+        v14 = 3;
+        break;
+      case 4:
+        [(JavaUtilCalendar *)self setWithInt:5 withInt:sub_10019F944(self)];
+        selfCopy2 = self;
+        v14 = 4;
+        break;
+      default:
+LABEL_38:
+        self->super.time_ = time;
+        return v6;
+    }
+
+    v6 = [(JavaUtilCalendar *)selfCopy2 getWithInt:v14];
+    goto LABEL_37;
+  }
+
+  if (int > 7)
+  {
+    if (int == 8)
+    {
+      v18 = [(JavaUtilCalendar *)self getWithInt:8];
+      v19 = sub_10019F944(self);
+      v6 = (v19 - [(JavaUtilCalendar *)self getWithInt:5]) / 7 + v18;
+    }
+
+    else if (int == 16)
+    {
+      v6 = [(JavaUtilGregorianCalendar *)self getMaximumWithInt:16];
+    }
+
+    goto LABEL_38;
+  }
+
+  if (int != 5)
+  {
+    if (int == 6)
+    {
+      fields = self->super.fields_;
+      if (fields)
+      {
+        size = fields->super.size_;
+        if (size <= 1)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(size, 1);
+        }
+
+        v11 = fields->buffer_[0];
+
+        return sub_10019FA28(self, v11);
+      }
+
+LABEL_40:
+      JreThrowNullPointerException();
+    }
+
+    goto LABEL_38;
+  }
+
+  return sub_10019F944(self);
+}
+
+- (int)getGreatestMinimumWithInt:(int)int
+{
+  if (!qword_100554C08)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v3 = *(qword_100554C08 + 8);
+  if (int < 0 || v3 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v3, *&int);
+  }
+
+  return *(qword_100554C08 + 12 + 4 * int);
+}
+
 - (id)getGregorianChange
 {
   v2 = new_JavaUtilDate_initWithLong_(self->gregorianCutover_);
 
   return v2;
+}
+
+- (int)getLeastMaximumWithInt:(int)int
+{
+  if (int != 3 || self->gregorianCutover_ == -12219292800000)
+  {
+    if (!qword_100554C00)
+    {
+      JreThrowNullPointerException();
+    }
+
+    v7 = *(qword_100554C00 + 8);
+    if (int < 0 || v7 <= int)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v7, *&int);
+    }
+
+    return *(qword_100554C00 + 12 + 4 * int);
+  }
+
+  else
+  {
+    time = self->super.time_;
+    [(JavaUtilCalendar *)self setTimeInMillisWithLong:?];
+    v5 = [(JavaUtilGregorianCalendar *)self getActualMaximumWithInt:3];
+    [(JavaUtilCalendar *)self setTimeInMillisWithLong:time];
+    return v5;
+  }
+}
+
+- (int)getMaximumWithInt:(int)int
+{
+  if (!qword_100554BF8)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v3 = *(qword_100554BF8 + 8);
+  if (int < 0 || v3 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v3, *&int);
+  }
+
+  return *(qword_100554BF8 + 12 + 4 * int);
+}
+
+- (int)getMinimumWithInt:(int)int
+{
+  if (!qword_100554C08)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v3 = *(qword_100554C08 + 8);
+  if (int < 0 || v3 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v3, *&int);
+  }
+
+  return *(qword_100554C08 + 12 + 4 * int);
 }
 
 - (unint64_t)hash
@@ -1846,6 +2070,294 @@ LABEL_289:
   else
   {
     return long % 7;
+  }
+}
+
+- (void)rollWithInt:(int)int withInt:(int)withInt
+{
+  if (!withInt)
+  {
+    return;
+  }
+
+  v4 = *&int;
+  if (int >= 0xF)
+  {
+    v47 = new_JavaLangIllegalArgumentException_init();
+    objc_exception_throw(v47);
+  }
+
+  [(JavaUtilCalendar *)self complete];
+  if (v4 <= 6)
+  {
+    if (v4 > 2)
+    {
+      if (v4 > 4)
+      {
+        if (v4 == 5)
+        {
+          v7 = sub_10019F944(self);
+        }
+
+        else
+        {
+          fields = self->super.fields_;
+          if (!fields)
+          {
+            goto LABEL_59;
+          }
+
+          size = fields->super.size_;
+          if (size <= 1)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(size, 1);
+          }
+
+          v7 = sub_10019FA28(self, fields->buffer_[0]);
+        }
+
+        goto LABEL_46;
+      }
+
+      if (v4 != 4)
+      {
+        v46 = self->super.fields_;
+        if (v46)
+        {
+          sub_1001A0FD4(v46, self, &self->super.fields_, withInt);
+          goto LABEL_53;
+        }
+
+        goto LABEL_59;
+      }
+
+      v21 = sub_10019F944(self);
+      v22 = self->super.fields_;
+      if (!v22)
+      {
+        goto LABEL_59;
+      }
+
+      v23 = v21;
+      v24 = v22[2];
+      if (v24 < 8)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v24, 7);
+      }
+
+      v25 = v22[10];
+      v26 = v22[8];
+      v27 = v25 - (v26 + [(JavaUtilCalendar *)self getFirstDayOfWeek]) + 1;
+      if (((v27 % 7) & v27) < 0 != v28)
+      {
+        v29 = v27 % 7 + 7;
+      }
+
+      else
+      {
+        v29 = v27 % 7;
+      }
+
+      v30 = ((18725 * (v23 + v29 - 1)) >> 17) + ((18725 * (v23 + v29 - 1)) >> 31);
+      v31 = self->super.fields_;
+      v32 = v31->super.size_;
+      if (v32 < 5)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v32, 4);
+      }
+
+      v33 = ((v30 + 1) & (((withInt + v31->buffer_[3] - 1) & ((withInt + v31->buffer_[3] - 1) % (v30 + 1))) >> 31)) + (withInt + v31->buffer_[3] - 1) % (v30 + 1);
+      if (v33 == v30)
+      {
+        v34 = self->super.fields_;
+        v35 = v34[2];
+        if (v35 <= 5)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v35, 5);
+        }
+
+        if ((v34[8] - (v33 + 1 - v34[7]) + 8 * (v33 + 1 - v34[7])) > v23)
+        {
+          selfCopy4 = self;
+          v18 = 5;
+          v16 = v23;
+LABEL_52:
+          [(JavaUtilCalendar *)selfCopy4 setWithInt:v18 withInt:v16];
+          goto LABEL_53;
+        }
+      }
+
+      else if (!v33)
+      {
+        sub_1001A0ED8(&self->super.fields_, 12, v29, self);
+        goto LABEL_53;
+      }
+
+      selfCopy4 = self;
+      v18 = 4;
+      v16 = (v33 + 1);
+      goto LABEL_52;
+    }
+
+    if (v4 == 1)
+    {
+      if (!qword_100554BF8)
+      {
+        goto LABEL_59;
+      }
+
+      v19 = *(qword_100554BF8 + 8);
+      if (v19 <= 1)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v19, 1);
+      }
+
+      v7 = *(qword_100554BF8 + 16);
+      goto LABEL_46;
+    }
+
+LABEL_10:
+    v8 = self->super.fields_;
+    if (!v8)
+    {
+      goto LABEL_59;
+    }
+
+    v9 = v8->super.size_;
+    if (v9 <= v4)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v9, v4);
+    }
+
+    if (!qword_100554BF8)
+    {
+      goto LABEL_59;
+    }
+
+    v10 = *(&v8->super.size_ + v4 + 1) + withInt;
+    v11 = *(qword_100554BF8 + 8);
+    if (v11 <= v4)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v11, v4);
+    }
+
+    v12 = *(qword_100554BF8 + 12 + 4 * v4) + 1;
+    [(JavaUtilCalendar *)self setWithInt:v4 withInt:(v12 & (((v10 % v12) & v10) >> 31)) + v10 % v12];
+    if (v4 != 9)
+    {
+      if (v4 != 2)
+      {
+        goto LABEL_53;
+      }
+
+      v13 = self->super.fields_;
+      v14 = v13->super.size_;
+      if (v14 <= 5)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v14, 5);
+      }
+
+      v15 = v13->buffer_[4];
+      if (v15 <= sub_10019F944(self))
+      {
+        goto LABEL_53;
+      }
+
+      v16 = sub_10019F944(self);
+      selfCopy4 = self;
+      v18 = 5;
+      goto LABEL_52;
+    }
+
+    self->super.lastTimeFieldSet_ = 10;
+    goto LABEL_53;
+  }
+
+  if ((v4 - 9) < 6)
+  {
+    goto LABEL_10;
+  }
+
+  if (v4 == 7)
+  {
+    if (!qword_100554BF8)
+    {
+      goto LABEL_59;
+    }
+
+    v20 = *(qword_100554BF8 + 8);
+    if (v20 <= 7)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v20, 7);
+    }
+
+    v7 = *(qword_100554BF8 + 40);
+    self->super.lastDateFieldSet_ = 4;
+  }
+
+  else
+  {
+    v38 = self->super.fields_;
+    if (!v38)
+    {
+      goto LABEL_59;
+    }
+
+    v39 = v38->super.size_;
+    if (v39 <= 5)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v39, 5);
+    }
+
+    v40 = v38->buffer_[4];
+    v41 = sub_10019F944(self);
+    v42 = self->super.fields_;
+    v43 = v42->super.size_;
+    if (v43 <= 5)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v43, 5);
+    }
+
+    v7 = (~((v41 - v42->buffer_[4]) % 7) + v40 + v41 - v42->buffer_[4]) / 7 + 1;
+  }
+
+LABEL_46:
+  if (v7 != -1)
+  {
+    v44 = self->super.fields_;
+    if (v44)
+    {
+      if (v44->super.size_ <= v4)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v44->super.size_, v4);
+      }
+
+      v45 = withInt + *(&v44->super.size_ + v4 + 1) - 1;
+      v16 = v45 % v7 + (v7 & ((v45 & (v45 % v7)) >> 31)) + 1;
+      selfCopy4 = self;
+      v18 = v4;
+      goto LABEL_52;
+    }
+
+LABEL_59:
+    JreThrowNullPointerException();
+  }
+
+LABEL_53:
+
+  [(JavaUtilCalendar *)self complete];
+}
+
+- (void)rollWithInt:(int)int withBoolean:(BOOL)boolean
+{
+  if (boolean)
+  {
+    [(JavaUtilGregorianCalendar *)self rollWithInt:*&int withInt:1];
+  }
+
+  else
+  {
+    [(JavaUtilGregorianCalendar *)self rollWithInt:*&int withInt:0xFFFFFFFFLL];
   }
 }
 

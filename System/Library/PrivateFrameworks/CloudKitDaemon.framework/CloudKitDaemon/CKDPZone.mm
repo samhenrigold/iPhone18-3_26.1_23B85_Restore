@@ -139,7 +139,7 @@
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_zoneIdentifier)
   {
@@ -166,33 +166,32 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v16 = 0u;
-  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_protectionInfoKeysToRemoves;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v18, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v16, 16);
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteDataField();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v14, v18, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v12, v16, 16);
     }
 
     while (v8);
@@ -232,8 +231,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -336,7 +333,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -360,34 +357,34 @@
   v25 = v10[8];
   v10[8] = v24;
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v26 = self->_protectionInfoKeysToRemoves;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v58, v62, 16);
+  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v57, v61, 16);
   if (v28)
   {
     v30 = v28;
-    v31 = *v59;
+    v31 = *v58;
     do
     {
       v32 = 0;
       do
       {
-        if (*v59 != v31)
+        if (*v58 != v31)
         {
           objc_enumerationMutation(v26);
         }
 
-        v33 = objc_msgSend_copyWithZone_(*(*(&v58 + 1) + 8 * v32), v29, zone, v58);
+        v33 = objc_msgSend_copyWithZone_(*(*(&v57 + 1) + 8 * v32), v29, zone, v57);
         objc_msgSend_addProtectionInfoKeysToRemove_(v10, v34, v33);
 
         ++v32;
       }
 
       while (v30 != v32);
-      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v58, v62, 16);
+      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v57, v61, 16);
     }
 
     while (v30);
@@ -421,7 +418,6 @@
   v55 = v10[2];
   v10[2] = v54;
 
-  v56 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -429,102 +425,7 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
-  {
-    goto LABEL_28;
-  }
-
-  zoneIdentifier = self->_zoneIdentifier;
-  v9 = equalCopy[12];
-  if (zoneIdentifier | v9)
-  {
-    if (!objc_msgSend_isEqual_(zoneIdentifier, v7, v9))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  protectionInfo = self->_protectionInfo;
-  v11 = equalCopy[4];
-  if (protectionInfo | v11)
-  {
-    if (!objc_msgSend_isEqual_(protectionInfo, v7, v11))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  recordProtectionInfo = self->_recordProtectionInfo;
-  v13 = equalCopy[6];
-  if (recordProtectionInfo | v13)
-  {
-    if (!objc_msgSend_isEqual_(recordProtectionInfo, v7, v13))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  stableUrl = self->_stableUrl;
-  v15 = equalCopy[10];
-  if (stableUrl | v15)
-  {
-    if (!objc_msgSend_isEqual_(stableUrl, v7, v15))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  shareId = self->_shareId;
-  v17 = equalCopy[8];
-  if (shareId | v17)
-  {
-    if (!objc_msgSend_isEqual_(shareId, v7, v17))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  protectionInfoKeysToRemoves = self->_protectionInfoKeysToRemoves;
-  v19 = equalCopy[5];
-  if (protectionInfoKeysToRemoves | v19)
-  {
-    if (!objc_msgSend_isEqual_(protectionInfoKeysToRemoves, v7, v19))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  storageExpiration = self->_storageExpiration;
-  v21 = equalCopy[11];
-  if (storageExpiration | v21)
-  {
-    if (!objc_msgSend_isEqual_(storageExpiration, v7, v21))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  signedCryptoRequirements = self->_signedCryptoRequirements;
-  v23 = equalCopy[9];
-  if (signedCryptoRequirements | v23)
-  {
-    if (!objc_msgSend_isEqual_(signedCryptoRequirements, v7, v23))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  appliedCryptoFeatures = self->_appliedCryptoFeatures;
-  v25 = equalCopy[1];
-  if (appliedCryptoFeatures | v25)
-  {
-    if (!objc_msgSend_isEqual_(appliedCryptoFeatures, v7, v25))
-    {
-      goto LABEL_28;
-    }
-  }
-
-  if (((zoneProtectionInfoKeysToRemove = self->_zoneProtectionInfoKeysToRemove, v27 = equalCopy[13], !(zoneProtectionInfoKeysToRemove | v27)) || objc_msgSend_isEqual_(zoneProtectionInfoKeysToRemove, v7, v27)) && ((recordProtectionInfoKeysToRemove = self->_recordProtectionInfoKeysToRemove, v29 = equalCopy[7], !(recordProtectionInfoKeysToRemove | v29)) || objc_msgSend_isEqual_(recordProtectionInfoKeysToRemove, v7, v29)) && ((parentReference = self->_parentReference, v31 = equalCopy[3], !(parentReference | v31)) || objc_msgSend_isEqual_(parentReference, v7, v31)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5) && ((zoneIdentifier = self->_zoneIdentifier, v9 = equalCopy[12], !(zoneIdentifier | v9)) || objc_msgSend_isEqual_(zoneIdentifier, v7, v9)) && ((protectionInfo = self->_protectionInfo, v11 = equalCopy[4], !(protectionInfo | v11)) || objc_msgSend_isEqual_(protectionInfo, v7, v11)) && ((recordProtectionInfo = self->_recordProtectionInfo, v13 = equalCopy[6], !(recordProtectionInfo | v13)) || objc_msgSend_isEqual_(recordProtectionInfo, v7, v13)) && ((stableUrl = self->_stableUrl, v15 = equalCopy[10], !(stableUrl | v15)) || objc_msgSend_isEqual_(stableUrl, v7, v15)) && ((shareId = self->_shareId, v17 = equalCopy[8], !(shareId | v17)) || objc_msgSend_isEqual_(shareId, v7, v17)) && ((protectionInfoKeysToRemoves = self->_protectionInfoKeysToRemoves, v19 = equalCopy[5], !(protectionInfoKeysToRemoves | v19)) || objc_msgSend_isEqual_(protectionInfoKeysToRemoves, v7, v19)) && ((storageExpiration = self->_storageExpiration, v21 = equalCopy[11], !(storageExpiration | v21)) || objc_msgSend_isEqual_(storageExpiration, v7, v21)) && ((signedCryptoRequirements = self->_signedCryptoRequirements, v23 = equalCopy[9], !(signedCryptoRequirements | v23)) || objc_msgSend_isEqual_(signedCryptoRequirements, v7, v23)) && ((appliedCryptoFeatures = self->_appliedCryptoFeatures, v25 = equalCopy[1], !(appliedCryptoFeatures | v25)) || objc_msgSend_isEqual_(appliedCryptoFeatures, v7, v25)) && ((zoneProtectionInfoKeysToRemove = self->_zoneProtectionInfoKeysToRemove, v27 = equalCopy[13], !(zoneProtectionInfoKeysToRemove | v27)) || objc_msgSend_isEqual_(zoneProtectionInfoKeysToRemove, v7, v27)) && ((recordProtectionInfoKeysToRemove = self->_recordProtectionInfoKeysToRemove, v29 = equalCopy[7], !(recordProtectionInfoKeysToRemove | v29)) || objc_msgSend_isEqual_(recordProtectionInfoKeysToRemove, v7, v29)) && ((parentReference = self->_parentReference, v31 = equalCopy[3], !(parentReference | v31)) || objc_msgSend_isEqual_(parentReference, v7, v31)))
   {
     etag = self->_etag;
     v33 = equalCopy[2];
@@ -541,7 +442,6 @@
 
   else
   {
-LABEL_28:
     isEqual = 0;
   }
 
@@ -567,7 +467,7 @@ LABEL_28:
 
 - (void)mergeFrom:(id)from
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   zoneIdentifier = self->_zoneIdentifier;
   v7 = *(fromCopy + 12);
@@ -644,29 +544,29 @@ LABEL_28:
     objc_msgSend_setShareId_(self, v4, v15);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v16 = *(fromCopy + 5);
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v38, v42, 16);
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v37, v41, 16);
   if (v18)
   {
     v20 = v18;
-    v21 = *v39;
+    v21 = *v38;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v39 != v21)
+        if (*v38 != v21)
         {
           objc_enumerationMutation(v16);
         }
 
-        objc_msgSend_addProtectionInfoKeysToRemove_(self, v19, *(*(&v38 + 1) + 8 * i), v38);
+        objc_msgSend_addProtectionInfoKeysToRemove_(self, v19, *(*(&v37 + 1) + 8 * i), v37);
       }
 
-      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v38, v42, 16);
+      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v37, v41, 16);
     }
 
     while (v20);
@@ -767,8 +667,6 @@ LABEL_28:
   {
     objc_msgSend_setEtag_(self, v23, v36);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 @end

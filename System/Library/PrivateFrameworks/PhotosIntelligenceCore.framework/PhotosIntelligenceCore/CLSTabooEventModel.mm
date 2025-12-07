@@ -168,9 +168,7 @@ LABEL_23:
   vehicleCrashNode = self->_vehicleCrashNode;
   self->_vehicleCrashNode = v19;
 
-  v21 = [[CLSSignalNode alloc] initWithIdentifier:2147482879 name:@"TE - War" operatingPoint:0.09 highPrecisionOperatingPoint:0.16 highRecallOperatingPoint:0.02];
-  warNode = self->_warNode;
-  self->_warNode = v21;
+  self->_warNode = [[CLSSignalNode alloc] initWithIdentifier:2147482879 name:@"TE - War" operatingPoint:0.09 highPrecisionOperatingPoint:0.16 highRecallOperatingPoint:0.02];
 
   MEMORY[0x2821F96F8]();
 }
@@ -214,9 +212,7 @@ LABEL_23:
   vehicleCrashNode = self->_vehicleCrashNode;
   self->_vehicleCrashNode = v19;
 
-  v21 = [[CLSSignalNode alloc] initWithIdentifier:2147482879 name:@"TE - War" operatingPoint:0.07 highPrecisionOperatingPoint:0.07 highRecallOperatingPoint:0.03];
-  warNode = self->_warNode;
-  self->_warNode = v21;
+  self->_warNode = [[CLSSignalNode alloc] initWithIdentifier:2147482879 name:@"TE - War" operatingPoint:0.07 highPrecisionOperatingPoint:0.07 highRecallOperatingPoint:0.03];
 
   MEMORY[0x2821F96F8]();
 }
@@ -260,9 +256,7 @@ LABEL_23:
   vehicleCrashNode = self->_vehicleCrashNode;
   self->_vehicleCrashNode = v19;
 
-  v21 = [[CLSSignalNode alloc] initWithIdentifier:2147482879 name:@"TE - War" operatingPoint:0.12 highPrecisionOperatingPoint:0.36 highRecallOperatingPoint:0.08];
-  warNode = self->_warNode;
-  self->_warNode = v21;
+  self->_warNode = [[CLSSignalNode alloc] initWithIdentifier:2147482879 name:@"TE - War" operatingPoint:0.12 highPrecisionOperatingPoint:0.36 highRecallOperatingPoint:0.08];
 
   MEMORY[0x2821F96F8]();
 }
@@ -302,19 +296,17 @@ LABEL_23:
   vehicleCrashNode = self->_vehicleCrashNode;
   self->_vehicleCrashNode = v17;
 
-  v19 = [[CLSSignalNode alloc] initWithIdentifier:2147482879 name:@"TE - War" operatingPoint:0.26 highPrecisionOperatingPoint:0.26 highRecallOperatingPoint:0.26];
-  warNode = self->_warNode;
-  self->_warNode = v19;
+  self->_warNode = [[CLSSignalNode alloc] initWithIdentifier:2147482879 name:@"TE - War" operatingPoint:0.26 highPrecisionOperatingPoint:0.26 highRecallOperatingPoint:0.26];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSTabooEventModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSTabooEventModel;
-  v4 = [(CLSTabooEventModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSTabooEventModel;
+  v4 = [(CLSTabooEventModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -336,12 +328,12 @@ LABEL_23:
               v6 = objc_opt_class();
               *buf = 67109378;
               versionCopy = version;
-              v12 = 2112;
-              v13 = v6;
+              v11 = 2112;
+              v12 = v6;
               _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
             }
 
-            v5 = 0;
+            return 0;
           }
         }
 
@@ -363,7 +355,6 @@ LABEL_23:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

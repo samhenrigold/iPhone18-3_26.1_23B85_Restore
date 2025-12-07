@@ -1,6 +1,10 @@
 @interface IRSystemStateManager
+- (BOOL)_updateSystemStateWithAppInFocus:(id)focus andOpenWindowIfApplicable:(BOOL)applicable isScreenUnlockEvent:(BOOL)event;
 - (BOOL)_updateSystemStateWithAppInFocusWindowEnd;
 - (BOOL)_updateSystemStateWithDeviceWiFi:(id)fi;
+- (BOOL)_updateSystemStateWithDisplayOn:(BOOL)on;
+- (BOOL)_updateSystemStateWithIsContinuityDisplay:(BOOL)display;
+- (BOOL)_updateSystemStateWithLOIType:(int)type WithLOIIdentifier:(id)identifier;
 - (BOOL)_updateSystemStateWithMediaRoute:(id)route;
 - (BOOL)_updateSystemStateWithOutputDevice:(id)device;
 - (BOOL)_updateSystemStateWithPredictedOutputDevice:(id)device;
@@ -13,6 +17,7 @@
 - (void)_checkAndUpdateLatestPickerChoiceDateIfNeededForEvent:(id)event;
 - (void)_didUpdateContextWithReason:(id)reason;
 - (void)_initBiomeIfNeededUponAppInFocus;
+- (void)_registerToMiLo:(BOOL)lo;
 - (void)_startAppInFocusWindowTimer;
 - (void)_unregisterForBiomeEvents;
 - (void)_unregisterFromMiLo;
@@ -28,9 +33,11 @@
 - (void)monitor:(id)monitor didUpdateDisplayOn:(BOOL)on;
 - (void)monitor:(id)monitor didUpdateIsContinuityDisplay:(BOOL)display;
 - (void)onPrediction:(id)prediction;
+- (void)onUpdateLOIType:(int)type WithLOIIdentifier:(id)identifier;
 - (void)provider:(id)provider didUpdateDeviceWiFi:(id)fi;
 - (void)provider:(id)provider didUpdateMediaRoute:(id)route;
 - (void)provider:(id)provider didUpdateNearbyDevices:(id)devices;
+- (void)restartLowLatencyMiLo:(BOOL)lo;
 @end
 
 @implementation IRSystemStateManager
@@ -150,23 +157,21 @@ LABEL_14:
 
 - (void)logProviderState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     nearbyDeviceContainer = [(IRSystemStateManager *)self nearbyDeviceContainer];
-    v7 = 138412290;
-    v8 = nearbyDeviceContainer;
-    _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_DEFAULT, "#system-state-manager, Cached Nearby devices: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = nearbyDeviceContainer;
+    _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_DEFAULT, "#system-state-manager, Cached Nearby devices: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (IRSystemStateManager)initWithQueue:(id)queue contextObserver:(id)observer biomeProvider:(id)provider miloProvider:(id)miloProvider proximityProvider:(id)proximityProvider serviceStore:(id)store displayMonitor:(id)monitor audioAVOutputContextController:(id)self0 isLowLatencyMiLo:(BOOL)self1
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   observerCopy = observer;
   providerCopy = provider;
@@ -175,26 +180,26 @@ LABEL_14:
   storeCopy = store;
   monitorCopy = monitor;
   controllerCopy = controller;
-  v73.receiver = self;
-  v73.super_class = IRSystemStateManager;
-  v25 = [(IRSystemStateManager *)&v73 init];
+  v72.receiver = self;
+  v72.super_class = IRSystemStateManager;
+  v25 = [(IRSystemStateManager *)&v72 init];
   if (v25)
   {
-    v72 = controllerCopy;
+    v71 = controllerCopy;
     v26 = objc_alloc_init(MEMORY[0x277D02820]);
-    v71 = queueCopy;
+    v70 = queueCopy;
     [(IRSystemStateManager *)v25 setQueue:queueCopy];
-    v70 = observerCopy;
+    v69 = observerCopy;
     [(IRSystemStateManager *)v25 setContextObserver:observerCopy];
-    v69 = providerCopy;
+    v68 = providerCopy;
     [(IRSystemStateManager *)v25 setBiomeProvider:providerCopy];
-    v68 = miloProviderCopy;
+    v67 = miloProviderCopy;
     [(IRSystemStateManager *)v25 setMiloProvider:miloProviderCopy];
-    v66 = storeCopy;
+    v65 = storeCopy;
     [(IRSystemStateManager *)v25 setServiceStore:storeCopy];
-    v67 = proximityProviderCopy;
+    v66 = proximityProviderCopy;
     [(IRSystemStateManager *)v25 setProximityProvider:proximityProviderCopy];
-    v65 = monitorCopy;
+    v64 = monitorCopy;
     [(IRSystemStateManager *)v25 setDisplayMonitor:monitorCopy];
     [(IRSystemStateManager *)v25 setAudioAVOutputContextController:controllerCopy];
     v27 = [v26 copyMyAppleIDAndReturnError:0];
@@ -203,10 +208,10 @@ LABEL_14:
     displayMonitor = [(IRSystemStateManager *)v25 displayMonitor];
     isContinuityDisplay = [displayMonitor isContinuityDisplay];
     displayMonitor2 = [(IRSystemStateManager *)v25 displayMonitor];
-    BYTE1(v64) = [displayMonitor2 displayOn];
-    LOBYTE(v64) = isContinuityDisplay;
-    LOWORD(v63) = 0;
-    v33 = [IRSystemStateDO systemStateDOWithAppInFocusBundleID:"systemStateDOWithAppInFocusBundleID:appInFocusWindowValid:deviceWiFiSSID:locationSemanticUserSpecificPlaceType:locationSemanticLoiIdentifier:iCloudId:avInitialRouteSharingPolicy:mediaRouteGroupLeaderOutputDeviceID:timeZoneSeconds:outputDeviceName:outputDeviceType:outputDeviceSubType:predictedOutputDeviceName:predictedOutputDeviceType:predictedOutputDeviceSubType:appInFocusWindowScreenUnlockEvent:pdrFenceActive:latestPickerChoiceDate:isContinuityDisplay:displayOn:" appInFocusWindowValid:0 deviceWiFiSSID:0 locationSemanticUserSpecificPlaceType:0 locationSemanticLoiIdentifier:0 iCloudId:0 avInitialRouteSharingPolicy:v27 mediaRouteGroupLeaderOutputDeviceID:0 timeZoneSeconds:0 outputDeviceName:secondsFromGMT outputDeviceType:0 outputDeviceSubType:0 predictedOutputDeviceName:0 predictedOutputDeviceType:0 predictedOutputDeviceSubType:0 appInFocusWindowScreenUnlockEvent:0 pdrFenceActive:v63 latestPickerChoiceDate:0 isContinuityDisplay:v64 displayOn:?];
+    BYTE1(v63) = [displayMonitor2 displayOn];
+    LOBYTE(v63) = isContinuityDisplay;
+    LOWORD(v62) = 0;
+    v33 = [IRSystemStateDO systemStateDOWithAppInFocusBundleID:"systemStateDOWithAppInFocusBundleID:appInFocusWindowValid:deviceWiFiSSID:locationSemanticUserSpecificPlaceType:locationSemanticLoiIdentifier:iCloudId:avInitialRouteSharingPolicy:mediaRouteGroupLeaderOutputDeviceID:timeZoneSeconds:outputDeviceName:outputDeviceType:outputDeviceSubType:predictedOutputDeviceName:predictedOutputDeviceType:predictedOutputDeviceSubType:appInFocusWindowScreenUnlockEvent:pdrFenceActive:latestPickerChoiceDate:isContinuityDisplay:displayOn:" appInFocusWindowValid:0 deviceWiFiSSID:0 locationSemanticUserSpecificPlaceType:0 locationSemanticLoiIdentifier:0 iCloudId:0 avInitialRouteSharingPolicy:v27 mediaRouteGroupLeaderOutputDeviceID:0 timeZoneSeconds:0 outputDeviceName:secondsFromGMT outputDeviceType:0 outputDeviceSubType:0 predictedOutputDeviceName:0 predictedOutputDeviceType:0 predictedOutputDeviceSubType:0 appInFocusWindowScreenUnlockEvent:0 pdrFenceActive:v62 latestPickerChoiceDate:0 isContinuityDisplay:v63 displayOn:?];
     [(IRSystemStateManager *)v25 setSystemState:v33];
 
     v34 = [IRNearbyDeviceContainerDO alloc];
@@ -259,30 +264,29 @@ LABEL_14:
 
     v57 = dispatch_get_specific(*MEMORY[0x277D21308]);
     v58 = *MEMORY[0x277D21260];
-    providerCopy = v69;
-    observerCopy = v70;
-    monitorCopy = v65;
-    controllerCopy = v72;
+    providerCopy = v68;
+    observerCopy = v69;
+    monitorCopy = v64;
+    controllerCopy = v71;
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
     {
       v59 = v58;
       systemState = [(IRSystemStateManager *)v25 systemState];
       *buf = 136315650;
-      v75 = "#system-state-manager, ";
-      v76 = 2112;
-      v77 = v57;
-      v78 = 2112;
-      v79 = systemState;
+      v74 = "#system-state-manager, ";
+      v75 = 2112;
+      v76 = v57;
+      v77 = 2112;
+      v78 = systemState;
       _os_log_impl(&dword_25543D000, v59, OS_LOG_TYPE_DEFAULT, "%s[%@], Initial state of system state = %@", buf, 0x20u);
     }
 
-    queueCopy = v71;
-    proximityProviderCopy = v67;
-    miloProviderCopy = v68;
-    storeCopy = v66;
+    queueCopy = v70;
+    proximityProviderCopy = v66;
+    miloProviderCopy = v67;
+    storeCopy = v65;
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -349,6 +353,62 @@ LABEL_14:
   }
 }
 
+- (void)restartLowLatencyMiLo:(BOOL)lo
+{
+  loCopy = lo;
+  v16 = *MEMORY[0x277D85DE8];
+  [(IRSystemStateManager *)self setMiloProviderLslPredictionResults:0];
+  [(IRSystemStateManager *)self _unregisterFromMiLo];
+  [(IRSystemStateManager *)self _registerToMiLo:loCopy];
+  v5 = dispatch_get_specific(*MEMORY[0x277D21308]);
+  v6 = *MEMORY[0x277D21260];
+  if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
+  {
+    v7 = MEMORY[0x277CCABB0];
+    v8 = v6;
+    v9 = [v7 numberWithBool:loCopy];
+    v10 = 136315650;
+    v11 = "#system-state-manager, ";
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "%s[%@], MiLo session restarting with isLowLatencyMiLo: %@", &v10, 0x20u);
+  }
+}
+
+- (void)_registerToMiLo:(BOOL)lo
+{
+  loCopy = lo;
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = +[IRPreferences shared];
+  miloEnable = [v5 miloEnable];
+  bOOLValue = [miloEnable BOOLValue];
+
+  if (bOOLValue)
+  {
+    miloProvider = [(IRSystemStateManager *)self miloProvider];
+    contextObserver = [(IRSystemStateManager *)self contextObserver];
+    getService = [contextObserver getService];
+    serviceIdentifier = [getService serviceIdentifier];
+    [miloProvider addObserver:self withToken:serviceIdentifier isLowLatency:loCopy];
+  }
+
+  else
+  {
+    v11 = dispatch_get_specific(*MEMORY[0x277D21308]);
+    v12 = *MEMORY[0x277D21260];
+    if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      v15 = "#system-state-manager, ";
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_INFO, "%s[%@], MiLo is not enabled in user defaults", buf, 0x16u);
+    }
+  }
+}
+
 - (void)_unregisterFromMiLo
 {
   miloProvider = [(IRSystemStateManager *)self miloProvider];
@@ -391,7 +451,7 @@ void __51__IRSystemStateManager__startAppInFocusWindowTimer__block_invoke(uint64
 
 - (void)_checkAndStartPDRFenceLogicIfNeededWithEvent:(id)event andCandidate:(id)candidate
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   candidateCopy = candidate;
   pdrFenceTimer = [(IRSystemStateManager *)self pdrFenceTimer];
@@ -400,17 +460,17 @@ void __51__IRSystemStateManager__startAppInFocusWindowTimer__block_invoke(uint64
   {
     v9 = [IREventDO eventDOWithMediaType:9];
     v10 = [IREventDO eventDOWithMediaType:10];
-    v34 = [IREventDO eventDOWithMediaType:0];
-    if (([eventCopy isEqual:v9] & 1) != 0 || (objc_msgSend(eventCopy, "isEqual:", v10) & 1) != 0 || objc_msgSend(candidateCopy, "isBrokeredDevice") && objc_msgSend(eventCopy, "isEqual:", v34))
+    v33 = [IREventDO eventDOWithMediaType:0];
+    if (([eventCopy isEqual:v9] & 1) != 0 || (objc_msgSend(eventCopy, "isEqual:", v10) & 1) != 0 || objc_msgSend(candidateCopy, "isBrokeredDevice") && objc_msgSend(eventCopy, "isEqual:", v33))
     {
       v11 = dispatch_get_specific(*MEMORY[0x277D21308]);
       v12 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v40 = "#system-state-manager, ";
-        v41 = 2112;
-        v42 = v11;
+        v39 = "#system-state-manager, ";
+        v40 = 2112;
+        v41 = v11;
         _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_INFO, "%s[%@], Starting PDRFence PDR fence logic", buf, 0x16u);
       }
 
@@ -439,41 +499,39 @@ void __51__IRSystemStateManager__startAppInFocusWindowTimer__block_invoke(uint64
         v23 = v22;
 
         pdrFenceBridge3 = [(IRSystemStateManager *)self pdrFenceBridge];
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_andCandidate___block_invoke;
-        v37[3] = &unk_2797E0C18;
-        objc_copyWeak(&v38, buf);
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_andCandidate___block_invoke;
+        v36[3] = &unk_2797E0C18;
+        objc_copyWeak(&v37, buf);
         LODWORD(v25) = v23;
-        [pdrFenceBridge3 setFence:v37 withCompletion:v25];
+        [pdrFenceBridge3 setFence:v36 withCompletion:v25];
 
         v26 = +[IRPreferences shared];
         pdrFenceRadiusTimeoutInSeconds = [v26 pdrFenceRadiusTimeoutInSeconds];
         integerValue = [pdrFenceRadiusTimeoutInSeconds integerValue];
 
-        objc_destroyWeak(&v38);
+        objc_destroyWeak(&v37);
       }
 
       v28 = [IRTimer alloc];
       queue = [(IRSystemStateManager *)self queue];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_andCandidate___block_invoke_35;
-      v35[3] = &unk_2797E0C18;
-      objc_copyWeak(&v36, buf);
-      v30 = [(IRTimer *)v28 initWithInterval:0 repeats:queue queue:v35 block:integerValue];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_andCandidate___block_invoke_35;
+      v34[3] = &unk_2797E0C18;
+      objc_copyWeak(&v35, buf);
+      v30 = [(IRTimer *)v28 initWithInterval:0 repeats:queue queue:v34 block:integerValue];
       [(IRSystemStateManager *)self setPdrFenceTimer:v30];
 
       systemState = [(IRSystemStateManager *)self systemState];
       v32 = [systemState copyWithReplacementPdrFenceActive:1];
       [(IRSystemStateManager *)self setSystemState:v32];
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(buf);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_andCandidate___block_invoke(uint64_t a1)
@@ -499,26 +557,24 @@ void __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_and
 
 uint64_t __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_andCandidate___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v3 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315394;
-    v7 = "#system-state-manager, ";
-    v8 = 2112;
-    v9 = v2;
-    _os_log_impl(&dword_25543D000, v3, OS_LOG_TYPE_INFO, "%s[%@], PDR fence crossed", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "#system-state-manager, ";
+    v7 = 2112;
+    v8 = v2;
+    _os_log_impl(&dword_25543D000, v3, OS_LOG_TYPE_INFO, "%s[%@], PDR fence crossed", &v5, 0x16u);
   }
 
-  result = [*(a1 + 32) _checkAndStopPDRFenceLogicIfNeeded];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _checkAndStopPDRFenceLogicIfNeeded];
 }
 
 void __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_andCandidate___block_invoke_35(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -526,22 +582,20 @@ void __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_and
     v3 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
-      v5 = 136315394;
-      v6 = "#system-state-manager, ";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_25543D000, v3, OS_LOG_TYPE_INFO, "%s[%@], PDR fence timeout", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "#system-state-manager, ";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_25543D000, v3, OS_LOG_TYPE_INFO, "%s[%@], PDR fence timeout", &v4, 0x16u);
     }
 
     [WeakRetained _checkAndStopPDRFenceLogicIfNeeded];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkAndStopPDRFenceLogicIfNeeded
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   queue = [(IRSystemStateManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -553,11 +607,11 @@ void __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_and
     v6 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
-      v13 = 136315394;
-      v14 = "#system-state-manager, ";
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_INFO, "%s[%@], Stopping PDR fence logic", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "#system-state-manager, ";
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_INFO, "%s[%@], Stopping PDR fence logic", &v12, 0x16u);
     }
 
     pdrFenceBridge = [(IRSystemStateManager *)self pdrFenceBridge];
@@ -576,8 +630,6 @@ void __82__IRSystemStateManager__checkAndStartPDRFenceLogicIfNeededWithEvent_and
 
     [(IRSystemStateManager *)self _didUpdateContextWithReason:@"PDR fence crossed"];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provider:(id)provider didUpdateDeviceWiFi:(id)fi
@@ -626,7 +678,7 @@ void __53__IRSystemStateManager_provider_didUpdateMediaRoute___block_invoke(uint
 
 - (void)_didUpdateContextWithReason:(id)reason
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v6 = *MEMORY[0x277D21270];
@@ -638,28 +690,26 @@ void __53__IRSystemStateManager_provider_didUpdateMediaRoute___block_invoke(uint
     miloProvider = [(IRSystemStateManager *)self miloProvider];
     miloProviderLslPredictionResults = [(IRSystemStateManager *)self miloProviderLslPredictionResults];
     v12 = [miloProvider getMiloServiceStatusStringQEWithPrediction:miloProviderLslPredictionResults];
-    v15 = 136316162;
-    v16 = "#system-state-manager, ";
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2112;
-    v20 = reasonCopy;
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v12;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "%s[%@], System state might have changed due to %@:\n%@\n%@", &v15, 0x34u);
+    v14 = 136316162;
+    v15 = "#system-state-manager, ";
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2112;
+    v19 = reasonCopy;
+    v20 = 2112;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v12;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "%s[%@], System state might have changed due to %@:\n%@\n%@", &v14, 0x34u);
   }
 
   contextObserver = [(IRSystemStateManager *)self contextObserver];
   [contextObserver didUpdateContextWithReason:reasonCopy andOverrides:0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onPrediction:(id)prediction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   predictionCopy = prediction;
   queue = [(IRSystemStateManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -668,19 +718,46 @@ void __53__IRSystemStateManager_provider_didUpdateMediaRoute___block_invoke(uint
   v7 = *MEMORY[0x277D21270];
   if (os_log_type_enabled(*MEMORY[0x277D21270], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "#system-state-manager, ";
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = predictionCopy;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "%s[%@], Received MiLo prediction: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "#system-state-manager, ";
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = predictionCopy;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "%s[%@], Received MiLo prediction: %@", &v8, 0x20u);
   }
 
   [(IRSystemStateManager *)self setMiloProviderLslPredictionResults:predictionCopy];
   [(IRSystemStateManager *)self _didUpdateContextWithReason:@"MiLo prediction"];
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)onUpdateLOIType:(int)type WithLOIIdentifier:(id)identifier
+{
+  v4 = *&type;
+  v20 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  queue = [(IRSystemStateManager *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = dispatch_get_specific(*MEMORY[0x277D21308]);
+  v9 = *MEMORY[0x277D21270];
+  if (os_log_type_enabled(*MEMORY[0x277D21270], OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = v9;
+    v11 = IRLocationSemanticUserSpecificPlaceTypeToString(v4);
+    v12 = 136315906;
+    v13 = "#system-state-manager, ";
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v11;
+    v18 = 2112;
+    v19 = identifierCopy;
+    _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_DEFAULT, "%s[%@], Received MiLo LOI update with LOI type: %@ and identifier: %@", &v12, 0x2Au);
+  }
+
+  [(IRSystemStateManager *)self _updateSystemStateWithLOIType:v4 WithLOIIdentifier:identifierCopy];
+  [(IRSystemStateManager *)self _didUpdateContextWithReason:@"Location Semantic"];
 }
 
 - (void)didSpotOnLocationCompleteWithError:(id)error
@@ -688,6 +765,110 @@ void __53__IRSystemStateManager_provider_didUpdateMediaRoute___block_invoke(uint
   errorCopy = error;
   contextObserver = [(IRSystemStateManager *)self contextObserver];
   [contextObserver didSpotOnLocationComplete:errorCopy];
+}
+
+- (BOOL)_updateSystemStateWithAppInFocus:(id)focus andOpenWindowIfApplicable:(BOOL)applicable isScreenUnlockEvent:(BOOL)event
+{
+  eventCopy = event;
+  LODWORD(v6) = applicable;
+  focusCopy = focus;
+  systemState = [(IRSystemStateManager *)self systemState];
+  appInFocusBundleID = [systemState appInFocusBundleID];
+  v11 = appInFocusBundleID;
+  v12 = appInFocusBundleID != focusCopy;
+  if (appInFocusBundleID == focusCopy)
+  {
+
+LABEL_12:
+    goto LABEL_13;
+  }
+
+  systemState2 = [(IRSystemStateManager *)self systemState];
+  appInFocusBundleID2 = [systemState2 appInFocusBundleID];
+  v15 = [focusCopy isEqual:appInFocusBundleID2];
+
+  if ((v15 & 1) == 0)
+  {
+    systemState = IRAVInitialRouteSharingPolicyForBundleIdentifier(focusCopy);
+    [(IRSystemStateManager *)self _cancelAppInFocusWindowTimer];
+    if (focusCopy)
+    {
+      v6 = v6;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    if (v6 == 1)
+    {
+      [(IRSystemStateManager *)self _startAppInFocusWindowTimer];
+    }
+
+    else
+    {
+      eventCopy = 0;
+    }
+
+    systemState3 = [(IRSystemStateManager *)self systemState];
+    v17 = [systemState3 copyWithReplacementAppInFocusBundleID:focusCopy];
+    [(IRSystemStateManager *)self setSystemState:v17];
+
+    systemState4 = [(IRSystemStateManager *)self systemState];
+    v19 = [systemState4 copyWithReplacementAvInitialRouteSharingPolicy:systemState];
+    [(IRSystemStateManager *)self setSystemState:v19];
+
+    systemState5 = [(IRSystemStateManager *)self systemState];
+    v21 = [systemState5 copyWithReplacementAppInFocusWindowValid:v6];
+    [(IRSystemStateManager *)self setSystemState:v21];
+
+    systemState6 = [(IRSystemStateManager *)self systemState];
+    v23 = [systemState6 copyWithReplacementAppInFocusWindowScreenUnlockEvent:eventCopy];
+    [(IRSystemStateManager *)self setSystemState:v23];
+
+    [(IRSystemStateManager *)self _initBiomeIfNeededUponAppInFocus];
+    goto LABEL_12;
+  }
+
+  v12 = 0;
+LABEL_13:
+
+  return v12;
+}
+
+- (BOOL)_updateSystemStateWithIsContinuityDisplay:(BOOL)display
+{
+  displayCopy = display;
+  selfCopy = self;
+  systemState = [(IRSystemStateManager *)self systemState];
+  v6 = [systemState copy];
+
+  systemState2 = [(IRSystemStateManager *)selfCopy systemState];
+  v8 = [systemState2 copyWithReplacementIsContinuityDisplay:displayCopy];
+  [(IRSystemStateManager *)selfCopy setSystemState:v8];
+
+  systemState3 = [(IRSystemStateManager *)selfCopy systemState];
+  LOBYTE(selfCopy) = [systemState3 isEqual:v6];
+
+  return selfCopy ^ 1;
+}
+
+- (BOOL)_updateSystemStateWithDisplayOn:(BOOL)on
+{
+  onCopy = on;
+  selfCopy = self;
+  systemState = [(IRSystemStateManager *)self systemState];
+  v6 = [systemState copy];
+
+  systemState2 = [(IRSystemStateManager *)selfCopy systemState];
+  v8 = [systemState2 copyWithReplacementDisplayOn:onCopy];
+  [(IRSystemStateManager *)selfCopy setSystemState:v8];
+
+  systemState3 = [(IRSystemStateManager *)selfCopy systemState];
+  LOBYTE(selfCopy) = [systemState3 isEqual:v6];
+
+  return selfCopy ^ 1;
 }
 
 - (BOOL)_updateSystemStateWithDeviceWiFi:(id)fi
@@ -706,6 +887,27 @@ void __53__IRSystemStateManager_provider_didUpdateMediaRoute___block_invoke(uint
   LOBYTE(v9) = [systemState3 isEqual:v6];
 
   return v9 ^ 1;
+}
+
+- (BOOL)_updateSystemStateWithLOIType:(int)type WithLOIIdentifier:(id)identifier
+{
+  v4 = *&type;
+  identifierCopy = identifier;
+  systemState = [(IRSystemStateManager *)self systemState];
+  v8 = [systemState copy];
+
+  systemState2 = [(IRSystemStateManager *)self systemState];
+  v10 = [systemState2 copyWithReplacementLocationSemanticUserSpecificPlaceType:v4];
+  [(IRSystemStateManager *)self setSystemState:v10];
+
+  systemState3 = [(IRSystemStateManager *)self systemState];
+  v12 = [systemState3 copyWithReplacementLocationSemanticLoiIdentifier:identifierCopy];
+
+  [(IRSystemStateManager *)self setSystemState:v12];
+  systemState4 = [(IRSystemStateManager *)self systemState];
+  LOBYTE(systemState3) = [systemState4 isEqual:v8];
+
+  return systemState3 ^ 1;
 }
 
 - (BOOL)_updateSystemStateWithMediaRoute:(id)route
@@ -830,7 +1032,7 @@ void __53__IRSystemStateManager_provider_didUpdateMediaRoute___block_invoke(uint
 
 void __56__IRSystemStateManager_provider_didUpdateNearbyDevices___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 nearbyDeviceContainer];
   v5 = *(a1 + 32);
@@ -850,17 +1052,15 @@ void __56__IRSystemStateManager_provider_didUpdateNearbyDevices___block_invoke(u
     if (os_log_type_enabled(*MEMORY[0x277D21270], OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v14 = 136315650;
-      v15 = "#system-state-manager, ";
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_DEFAULT, "%s[%@], Updated cached nearby devices: %@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "#system-state-manager, ";
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_DEFAULT, "%s[%@], Updated cached nearby devices: %@", &v13, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)monitor:(id)monitor didUpdateAppInFocus:(id)focus isScreenUnlockEvent:(BOOL)event

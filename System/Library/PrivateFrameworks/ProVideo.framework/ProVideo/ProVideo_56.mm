@@ -1862,19 +1862,21 @@ uint64_t FxIsDebugFlagOn()
   return FxIsDebugFlagOn_result;
 }
 
-void FxDebugLog(NSString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void FxDebugLog(NSString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (FxIsDebugFlagOn())
   {
-    NSLogv(a1, &a9);
+    NSLogv(a1, va);
   }
 }
 
-uint64_t FxDebugAssert(uint64_t a1, NSString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t FxDebugAssert(uint64_t a1, NSString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if ((a1 & 1) == 0 && FxIsDebugFlagOn())
   {
-    NSLogv(a2, &a9);
+    NSLogv(a2, va);
   }
 
   return a1;
@@ -2487,9 +2489,9 @@ uint64_t __gl_meshTessellateInterior(uint64_t a1)
   return result;
 }
 
-uint64_t __gl_meshDiscardExterior(uint64_t a1)
+uint64_t *__gl_meshDiscardExterior(uint64_t a1)
 {
-  v2 = a1 + 80;
+  v2 = (a1 + 80);
   result = *(a1 + 80);
   if (result != v2)
   {
@@ -2691,9 +2693,9 @@ LABEL_19:
       *(a1 + 136) = *(*v22 + 32);
       do
       {
-        if (!v22[21])
+        if (!*(v22 + 21))
         {
-          if (!v22[23])
+          if (!*(v22 + 23))
           {
             __gl_computeInterior_cold_4();
           }
@@ -2815,100 +2817,100 @@ void SweepEvent(uint64_t a1, uint64_t a2)
       v19 = *(v17[1] + 16);
       v20 = **v19;
       v21 = FinishLeftRegions(a1, *v19, 0);
-      v22 = v21[2];
-      if (v22 == v20)
+      v27 = v21[2];
+      if (v27 == v20)
       {
-        v28 = v21;
-        v29 = *v18;
-        v30 = **(v18[1] + 16);
-        v31 = *v30;
-        if (*(*(*v18 + 8) + 32) != *(*(*v30 + 8) + 32))
+        v33 = v21;
+        v34 = *v18;
+        v35 = **(v18[1] + 16);
+        v36 = *v35;
+        if (*(*(*v18 + 8) + 32) != *(*(*v35 + 8) + 32))
         {
-          CheckForIntersect(a1, v18);
+          CheckForIntersect(a1, v18, v22, v23, v24, v25, v26);
         }
 
-        v32 = v29[4];
-        v33 = *(a1 + 136);
-        v34 = *(v33 + 56);
-        if (*(v32 + 56) == v34 && *(v32 + 64) == *(v33 + 64))
+        v37 = v34[4];
+        v38 = *(a1 + 136);
+        v39 = *(v38 + 56);
+        if (*(v37 + 56) == v39 && *(v37 + 64) == *(v38 + 64))
         {
-          if (!__gl_meshSplice(*(v22[1] + 24), v29))
+          if (!__gl_meshSplice(*(v27[1] + 24), v34))
           {
             goto LABEL_55;
           }
 
-          v35 = TopLeftRegion(v18);
-          if (!v35)
+          v40 = TopLeftRegion(v18);
+          if (!v40)
           {
             goto LABEL_55;
           }
 
-          v18 = v35;
-          v36 = *(v35[1] + 16);
-          v22 = **v36;
-          FinishLeftRegions(a1, *v36, v30);
-          v37 = 0;
-          v33 = *(a1 + 136);
-          v34 = *(v33 + 56);
+          v18 = v40;
+          v41 = *(v40[1] + 16);
+          v27 = **v41;
+          FinishLeftRegions(a1, *v41, v35);
+          v42 = 0;
+          v38 = *(a1 + 136);
+          v39 = *(v38 + 56);
         }
 
         else
         {
-          v37 = 1;
+          v42 = 1;
         }
 
-        v46 = *(v31 + 32);
-        v47 = *(v46 + 56);
-        if (v47 == v34 && *(v46 + 64) == *(v33 + 64))
+        v51 = *(v36 + 32);
+        v52 = *(v51 + 56);
+        if (v52 == v39 && *(v51 + 64) == *(v38 + 64))
         {
-          if (!__gl_meshSplice(v28, *(*(v31 + 8) + 24)))
+          if (!__gl_meshSplice(v33, *(*(v36 + 8) + 24)))
           {
             goto LABEL_55;
           }
 
-          v28 = FinishLeftRegions(a1, v30, 0);
+          v33 = FinishLeftRegions(a1, v35, 0);
         }
 
-        else if (v37)
+        else if (v42)
         {
-          v48 = v29[4];
-          v49 = *(v48 + 56);
-          if (v47 < v49 || v47 == v49 && *(v46 + 64) <= *(v48 + 64))
+          v53 = v34[4];
+          v54 = *(v53 + 56);
+          if (v52 < v54 || v52 == v54 && *(v51 + 64) <= *(v53 + 64))
           {
-            v29 = *(*(v31 + 8) + 24);
+            v34 = *(*(v36 + 8) + 24);
           }
 
-          v50 = __gl_meshConnect(*(v28[2] + 8), v29);
-          if (!v50)
+          v55 = __gl_meshConnect(*(v33[2] + 8), v34);
+          if (!v55)
           {
             goto LABEL_55;
           }
 
-          v51 = v50;
-          AddRightEdges(a1, v18, v50, v50[2], v50[2], 0);
-          *(*(v51[1] + 48) + 23) = 1;
+          v56 = v55;
+          AddRightEdges(a1, v18, v55, v55[2], v55[2], 0);
+          *(*(v56[1] + 48) + 23) = 1;
 
-          WalkDirtyRegions(a1, v18);
+          WalkDirtyRegions(a1, v18, v57, v58, v59, v60, v61);
           return;
         }
 
-        v25 = v28[2];
-        v23 = a1;
-        v24 = v18;
-        v26 = v22;
-        v27 = v22;
+        v30 = v33[2];
+        v28 = a1;
+        v29 = v18;
+        v31 = v27;
+        v32 = v27;
       }
 
       else
       {
-        v23 = a1;
-        v24 = v18;
-        v25 = v22;
-        v26 = v20;
-        v27 = v20;
+        v28 = a1;
+        v29 = v18;
+        v30 = v27;
+        v31 = v20;
+        v32 = v20;
       }
 
-      AddRightEdges(v23, v24, v25, v26, v27, 1);
+      AddRightEdges(v28, v29, v30, v31, v32, 1);
       return;
     }
 
@@ -2916,10 +2918,10 @@ void SweepEvent(uint64_t a1, uint64_t a2)
   }
 
   while (v5 != v4);
-  v54[1] = 0;
-  v54[2] = 0;
-  v54[0] = *(v4 + 8);
-  v7 = __gl_dictListSearch(*(a1 + 120), v54);
+  v64[1] = 0;
+  v64[2] = 0;
+  v64[0] = *(v4 + 8);
+  v7 = __gl_dictListSearch(*(a1 + 120), v64);
   v8 = *v7;
   v9 = **v7;
   v10 = **((*v7)[1] + 16);
@@ -2967,26 +2969,26 @@ LABEL_55:
     goto LABEL_57;
   }
 
-  v38 = *(v11 + 8);
-  v39 = *(v38 + 32);
-  v40 = *(v39 + 56);
-  v41 = *(*(v9 + 8) + 32);
-  v42 = *(v41 + 56);
-  v43 = v8;
-  if (v40 >= v42)
+  v43 = *(v11 + 8);
+  v44 = *(v43 + 32);
+  v45 = *(v44 + 56);
+  v46 = *(*(v9 + 8) + 32);
+  v47 = *(v46 + 56);
+  v48 = v8;
+  if (v45 >= v47)
   {
-    if (v40 != v42 || (v43 = v8, *(v39 + 64) > *(v41 + 64)))
+    if (v45 != v47 || (v48 = v8, *(v44 + 64) > *(v46 + 64)))
     {
-      v43 = v10;
+      v48 = v10;
     }
   }
 
-  if (*(v8 + 20) || *(v43 + 23))
+  if (*(v8 + 20) || *(v48 + 23))
   {
-    if (v43 == v8)
+    if (v48 == v8)
     {
-      v45 = __gl_meshConnect(*(*(a2 + 16) + 8), *(v9 + 24));
-      if (!v45)
+      v50 = __gl_meshConnect(*(*(a2 + 16) + 8), *(v9 + 24));
+      if (!v50)
       {
         goto LABEL_55;
       }
@@ -2994,18 +2996,18 @@ LABEL_55:
 
     else
     {
-      v44 = __gl_meshConnect(*(*(v38 + 16) + 8), *(a2 + 16));
-      if (!v44)
+      v49 = __gl_meshConnect(*(*(v43 + 16) + 8), *(a2 + 16));
+      if (!v49)
       {
         goto LABEL_55;
       }
 
-      v45 = v44[1];
+      v50 = v49[1];
     }
 
-    if (*(v43 + 23))
+    if (*(v48 + 23))
     {
-      if (!FixUpperEdge(v43, v45))
+      if (!FixUpperEdge(v48, v50))
       {
         goto LABEL_55;
       }
@@ -3013,10 +3015,10 @@ LABEL_55:
 
     else
     {
-      v52 = AddRegionBelow(a1, v8, v45);
-      v53 = *(*v52 + 56) + *(**(v52[1] + 8) + 16);
-      *(v52 + 4) = v53;
-      *(v52 + 20) = IsWindingInside(a1, v53);
+      v62 = AddRegionBelow(a1, v8, v50);
+      v63 = (*(*v62 + 56) + *(**(v62[1] + 8) + 16));
+      *(v62 + 4) = v63;
+      *(v62 + 20) = IsWindingInside(a1, v63);
     }
 
 LABEL_57:
@@ -3162,7 +3164,7 @@ void *TopLeftRegion(void *a1)
   return v1;
 }
 
-void *FinishLeftRegions(uint64_t a1, void **a2, _BYTE *a3)
+void *FinishLeftRegions(uint64_t a1, void *a2, _BYTE *a3)
 {
   v3 = *a2;
   if (a2 != a3)
@@ -3170,15 +3172,15 @@ void *FinishLeftRegions(uint64_t a1, void **a2, _BYTE *a3)
     v5 = a2;
     do
     {
-      v5[23] = 0;
-      v7 = **(*(v5 + 1) + 16);
+      *(v5 + 23) = 0;
+      v7 = **(v5[1] + 16);
       v8 = *v7;
       if (*(*v7 + 32) != v3[4])
       {
         if (!v7[23])
         {
           v12 = v3[5];
-          *(v12 + 41) = v5[20];
+          *(v12 + 41) = *(v5 + 20);
           *(v12 + 16) = v3;
           DeleteRegion(a1, v5);
           return v3;
@@ -3199,7 +3201,7 @@ LABEL_14:
 
       v10 = *v5;
       v11 = *(*v5 + 40);
-      *(v11 + 41) = v5[20];
+      *(v11 + 41) = *(v5 + 20);
       *(v11 + 16) = v10;
       DeleteRegion(a1, v5);
       v3 = *v7;
@@ -3212,7 +3214,7 @@ LABEL_14:
   return v3;
 }
 
-void AddRightEdges(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, int a6)
+void AddRightEdges(uint64_t a1, _DWORD *a2, void *a3, void *a4, uint64_t a5, int a6)
 {
   do
   {
@@ -3231,37 +3233,37 @@ void AddRightEdges(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, in
   }
 
   while (a3 != a4);
-  v17 = **(*(a2 + 8) + 16);
-  v18 = *(*v17 + 8);
+  v22 = **(*(a2 + 1) + 16);
+  v23 = *(*v22 + 8);
   if (!a5)
   {
-    a5 = *(v18 + 16);
+    a5 = *(v23 + 16);
   }
 
-  if (*(v18 + 32) == *(a5 + 32))
+  if (*(v23 + 32) == *(a5 + 32))
   {
-    v19 = 0;
+    v24 = 0;
     do
     {
-      v20 = a2;
-      v21 = a5;
-      a2 = v17;
-      a5 = v18;
-      if (*(v18 + 16) != v21 && (!__gl_meshSplice(*(*(v18 + 8) + 24), v18) || !__gl_meshSplice(*(*(v21 + 8) + 24), a5)) || (v22 = *(v20 + 16) - *(a5 + 56), *(a2 + 16) = v22, *(a2 + 20) = IsWindingInside(a1, v22), *(v20 + 22) = 1, (v19 & 1) != 0) && CheckForRightSplice(a1, v20) && (*(a5 + 56) += *(v21 + 56), *(*(a5 + 8) + 56) += *(*(v21 + 8) + 56), DeleteRegion(a1, v20), !__gl_meshDelete(v21)))
+      v25 = a2;
+      v26 = a5;
+      a2 = v22;
+      a5 = v23;
+      if (*(v23 + 16) != v26 && (!__gl_meshSplice(*(*(v23 + 8) + 24), v23) || !__gl_meshSplice(*(*(v26 + 8) + 24), a5)) || (v27 = (v25[4] - *(a5 + 56)), a2[4] = v27, *(a2 + 20) = IsWindingInside(a1, v27), *(v25 + 22) = 1, (v24 & 1) != 0) && CheckForRightSplice(a1, v25) && (*(a5 + 56) += *(v26 + 56), *(*(a5 + 8) + 56) += *(*(v26 + 8) + 56), DeleteRegion(a1, v25), !__gl_meshDelete(v26)))
       {
         longjmp((a1 + 3464), 1);
       }
 
-      v17 = **(*(a2 + 8) + 16);
-      v18 = *(*v17 + 8);
-      v19 = 1;
+      v22 = **(*(a2 + 1) + 16);
+      v23 = *(*v22 + 8);
+      v24 = 1;
     }
 
-    while (*(v18 + 32) == *(a5 + 32));
+    while (*(v23 + 32) == *(a5 + 32));
   }
 
   *(a2 + 22) = 1;
-  if (*(a2 + 16) - *(v18 + 56) != v17[4])
+  if (a2[4] - *(v23 + 56) != v22[4])
   {
     AddRightEdges_cold_2();
   }
@@ -3269,7 +3271,7 @@ void AddRightEdges(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, in
   if (a6)
   {
 
-    WalkDirtyRegions(a1, a2);
+    WalkDirtyRegions(a1, a2, v17, v18, v19, v20, v21);
   }
 }
 
@@ -3306,7 +3308,7 @@ void *AddRegionBelow(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-BOOL IsWindingInside(uint64_t a1, unsigned int a2)
+uint64_t IsWindingInside(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 112);
   if (v2 <= 100131)
@@ -3336,7 +3338,7 @@ BOOL IsWindingInside(uint64_t a1, unsigned int a2)
       case 100133:
         return a2 >> 31;
       case 100134:
-        return a2 - 2 < 0xFFFFFFFD;
+        return (a2 - 2) < 0xFFFFFFFD;
       default:
 LABEL_12:
         IsWindingInside_cold_1();
@@ -3344,208 +3346,208 @@ LABEL_12:
   }
 }
 
-void DeleteRegion(uint64_t a1, _BYTE *a2)
+void DeleteRegion(uint64_t a1, uint64_t *a2)
 {
   v3 = *a2;
-  if (a2[23] && *(v3 + 56))
+  if (*(a2 + 23) && *(v3 + 56))
   {
     DeleteRegion_cold_1();
   }
 
   *(v3 + 48) = 0;
-  __gl_dictListDelete(*(a1 + 120), *(a2 + 1));
+  __gl_dictListDelete(*(a1 + 120), a2[1]);
 
   free(a2);
 }
 
-uint64_t CheckForIntersect(uint64_t a1, void *a2)
+uint64_t CheckForIntersect(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v61[4] = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = **(a2[1] + 16);
-  v6 = *v5;
-  v7 = *(*a2 + 32);
-  v8 = *(*v5 + 32);
-  v9 = *(*(*a2 + 8) + 32);
-  v10 = *(*(*v5 + 8) + 32);
-  memset(v58, 0, sizeof(v58));
-  if (*(v10 + 56) == *(v9 + 56) && *(v10 + 64) == *(v9 + 64))
+  v66[4] = *MEMORY[0x277D85DE8];
+  v9 = *a2;
+  v10 = **(a2[1] + 16);
+  v11 = *v10;
+  v12 = *(*a2 + 32);
+  v13 = *(*v10 + 32);
+  v14 = *(*(*a2 + 8) + 32);
+  v15 = *(*(*v10 + 8) + 32);
+  memset(v63, 0, sizeof(v63));
+  if (*(v15 + 56) == *(v14 + 56) && *(v15 + 64) == *(v14 + 64))
   {
     CheckForIntersect_cold_9();
   }
 
-  if (__gl_edgeSign(v9, *(a1 + 136), v7) > 0.0)
+  if (__gl_edgeSign(v14, *(a1 + 136), v12) > 0.0)
   {
     CheckForIntersect_cold_8();
   }
 
-  if (__gl_edgeSign(v10, *(a1 + 136), v8) < 0.0)
+  if (__gl_edgeSign(v15, *(a1 + 136), v13) < 0.0)
   {
     CheckForIntersect_cold_7();
   }
 
-  v11 = *(a1 + 136);
-  if (v7 == v11 || v8 == v11)
+  v16 = *(a1 + 136);
+  if (v12 == v16 || v13 == v16)
   {
     CheckForIntersect_cold_6();
   }
 
-  if (*(a2 + 23) || v5[23])
+  if (*(a2 + 23) || v10[23])
   {
     CheckForIntersect_cold_1();
   }
 
-  if (v7 == v8)
+  if (v12 == v13)
   {
     return 0;
   }
 
-  v12 = *(v7 + 64);
-  if (v12 > *(v9 + 64))
+  v17 = *(v12 + 64);
+  if (v17 > *(v14 + 64))
   {
-    v13 = *(v9 + 64);
+    v18 = *(v14 + 64);
   }
 
   else
   {
-    v13 = *(v7 + 64);
+    v18 = *(v12 + 64);
   }
 
-  v14 = *(v8 + 64);
-  v15 = *(v10 + 64);
-  if (v14 >= v15)
+  v19 = *(v13 + 64);
+  v20 = *(v15 + 64);
+  if (v19 >= v20)
   {
-    v15 = *(v8 + 64);
+    v20 = *(v13 + 64);
   }
 
-  if (v13 > v15)
+  if (v18 > v20)
   {
     return 0;
   }
 
-  v16 = *(v7 + 56);
-  v17 = *(v8 + 56);
-  if (v16 >= v17 && (v12 > v14 || v16 != v17))
+  v21 = *(v12 + 56);
+  v22 = *(v13 + 56);
+  if (v21 >= v22 && (v17 > v19 || v21 != v22))
   {
-    if (__gl_edgeSign(v9, v8, v7) < 0.0)
+    if (__gl_edgeSign(v14, v13, v12) < 0.0)
     {
       return 0;
     }
 
 LABEL_24:
-    __gl_edgeIntersect(v9, v7, v10, v8, v58);
-    v19 = *(v7 + 64);
-    v20 = *(v9 + 64);
-    if (v19 > v20)
+    __gl_edgeIntersect(v14, v12, v15, v13, v63);
+    v24 = *(v12 + 64);
+    v25 = *(v14 + 64);
+    if (v24 > v25)
     {
-      v21 = *(v9 + 64);
+      v26 = *(v14 + 64);
     }
 
     else
     {
-      v21 = *(v7 + 64);
+      v26 = *(v12 + 64);
     }
 
-    v22 = *&v58[4];
-    if (v21 > *&v58[4])
+    v27 = *&v63[4];
+    if (v26 > *&v63[4])
     {
       CheckForIntersect_cold_5();
     }
 
-    v23 = *(v8 + 64);
-    v24 = *(v10 + 64);
-    if (v23 >= v24)
+    v28 = *(v13 + 64);
+    v29 = *(v15 + 64);
+    if (v28 >= v29)
     {
-      v24 = *(v8 + 64);
+      v29 = *(v13 + 64);
     }
 
-    if (*&v58[4] > v24)
+    if (*&v63[4] > v29)
     {
       CheckForIntersect_cold_4();
     }
 
-    v25 = *(v10 + 56);
-    v26 = *(v9 + 56);
-    if (v25 > v26)
+    v30 = *(v15 + 56);
+    v31 = *(v14 + 56);
+    if (v30 > v31)
     {
-      v27 = *(v9 + 56);
+      v32 = *(v14 + 56);
     }
 
     else
     {
-      v27 = *(v10 + 56);
+      v32 = *(v15 + 56);
     }
 
-    v28 = *(&v58[3] + 1);
-    if (v27 > *(&v58[3] + 1))
+    v33 = *(&v63[3] + 1);
+    if (v32 > *(&v63[3] + 1))
     {
       CheckForIntersect_cold_3();
     }
 
-    v29 = *(v8 + 56);
-    v30 = *(v7 + 56);
-    if (v29 < v30)
+    v34 = *(v13 + 56);
+    v35 = *(v12 + 56);
+    if (v34 < v35)
     {
-      v31 = *(v7 + 56);
+      v36 = *(v12 + 56);
     }
 
     else
     {
-      v31 = *(v8 + 56);
+      v36 = *(v13 + 56);
     }
 
-    if (*(&v58[3] + 1) > v31)
+    if (*(&v63[3] + 1) > v36)
     {
       CheckForIntersect_cold_2();
     }
 
-    v32 = *(a1 + 136);
-    v33 = *(v32 + 56);
-    if (*(&v58[3] + 1) >= v33)
+    v37 = *(a1 + 136);
+    v38 = *(v37 + 56);
+    if (*(&v63[3] + 1) >= v38)
     {
-      if (*(&v58[3] + 1) != v33 || (v34 = *(v32 + 64), *&v58[4] > v34))
+      if (*(&v63[3] + 1) != v38 || (v39 = *(v37 + 64), *&v63[4] > v39))
       {
 LABEL_44:
-        v35 = v30;
-        v36 = v7;
-        if (v30 >= v29)
+        v40 = v35;
+        v41 = v12;
+        if (v35 >= v34)
         {
-          v37 = v30 != v29;
-          if (v19 > v23)
+          v42 = v35 != v34;
+          if (v24 > v28)
           {
-            v37 = 1;
+            v42 = 1;
           }
 
-          if (v37)
+          if (v42)
           {
-            v35 = v29;
-          }
-
-          else
-          {
-            v35 = v30;
-          }
-
-          if (v37)
-          {
-            v36 = v8;
+            v40 = v34;
           }
 
           else
           {
-            v36 = v7;
+            v40 = v35;
+          }
+
+          if (v42)
+          {
+            v41 = v13;
+          }
+
+          else
+          {
+            v41 = v12;
           }
         }
 
-        if (v35 >= v28)
+        if (v40 >= v33)
         {
-          if (v35 != v28)
+          if (v40 != v33)
           {
             goto LABEL_58;
           }
 
-          v38 = *(v36 + 64);
-          if (v38 > v22)
+          v43 = *(v41 + 64);
+          if (v43 > v27)
           {
             goto LABEL_58;
           }
@@ -3553,61 +3555,61 @@ LABEL_44:
 
         else
         {
-          v38 = *(v36 + 64);
+          v43 = *(v41 + 64);
         }
 
-        *(&v58[3] + 1) = v35;
-        *&v58[4] = v38;
-        v22 = v38;
-        v28 = v35;
+        *(&v63[3] + 1) = v40;
+        *&v63[4] = v43;
+        v27 = v43;
+        v33 = v40;
 LABEL_58:
-        if (v28 == v30 && v22 == v19 || v28 == v29 && v22 == *(v8 + 64))
+        if (v33 == v35 && v27 == v24 || v33 == v34 && v27 == *(v13 + 64))
         {
           CheckForRightSplice(a1, a2);
           return 0;
         }
 
-        v41 = *(v32 + 56);
-        if (v26 != v41 || v20 != *(v32 + 64))
+        v46 = *(v37 + 56);
+        if (v31 != v46 || v25 != *(v37 + 64))
         {
-          if (__gl_edgeSign(v9, v32, v58) >= 0.0)
+          if (__gl_edgeSign(v14, v37, v63) >= 0.0)
           {
             goto LABEL_77;
           }
 
-          v25 = *(v10 + 56);
-          v32 = *(a1 + 136);
-          v41 = *(v32 + 56);
+          v30 = *(v15 + 56);
+          v37 = *(a1 + 136);
+          v46 = *(v37 + 56);
         }
 
-        if (v25 == v41 && *(v10 + 64) == *(v32 + 64) || __gl_edgeSign(v10, v32, v58) > 0.0)
+        if (v30 == v46 && *(v15 + 64) == *(v37 + 64) || __gl_edgeSign(v15, v37, v63) > 0.0)
         {
-          if (__gl_meshSplitEdge(*(v4 + 8)) && __gl_meshSplitEdge(*(v6 + 8)) && __gl_meshSplice(*(*(v6 + 8) + 24), v4))
+          if (__gl_meshSplitEdge(*(v9 + 8)) && __gl_meshSplitEdge(*(v11 + 8)) && __gl_meshSplice(*(*(v11 + 8) + 24), v9))
           {
-            v42 = *(v4 + 32);
-            *(v42 + 56) = *(&v58[3] + 8);
-            v43 = __gl_pqSortInsert(*(a1 + 128), v42);
-            v44 = *(v4 + 32);
-            *(v44 + 72) = v43;
-            if (v43 != 0x7FFFFFFFFFFFFFFFLL)
+            v47 = *(v9 + 32);
+            *(v47 + 56) = *(&v63[3] + 8);
+            v48 = __gl_pqSortInsert(*(a1 + 128), v47);
+            v49 = *(v9 + 32);
+            *(v49 + 72) = v48;
+            if (v48 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v45 = *(v9 + 24);
-              v61[0] = *(v7 + 24);
-              v61[1] = v45;
-              v46 = *(v10 + 24);
-              v61[2] = *(v8 + 24);
-              v61[3] = v46;
-              *(v44 + 40) = 0;
-              *(v44 + 48) = 0;
-              *(v44 + 32) = 0;
-              VertexWeights(v44, v7, v9, &v59);
-              VertexWeights(v44, v8, v10, &v60);
-              CallCombine(a1, v44, v61, &v59, 1);
-              v39 = 0;
-              v5[22] = 1;
+              v50 = *(v14 + 24);
+              v66[0] = *(v12 + 24);
+              v66[1] = v50;
+              v51 = *(v15 + 24);
+              v66[2] = *(v13 + 24);
+              v66[3] = v51;
+              *(v49 + 40) = 0;
+              *(v49 + 48) = 0;
+              *(v49 + 32) = 0;
+              VertexWeights(v49, v12, v14, &v64);
+              VertexWeights(v49, v13, v15, &v65);
+              CallCombine(a1, v49, v66, &v64, 1);
+              v44 = 0;
+              v10[22] = 1;
               *(a2 + 22) = 1;
               *(**(a2[1] + 8) + 22) = 1;
-              return v39;
+              return v44;
             }
 
             __gl_pqSortDeletePriorityQ(*(a1 + 128));
@@ -3618,115 +3620,115 @@ LABEL_58:
         }
 
 LABEL_77:
-        v47 = *(a1 + 136);
-        if (v10 == v47)
+        v52 = *(a1 + 136);
+        if (v15 == v52)
         {
-          if (!__gl_meshSplitEdge(*(v4 + 8)))
+          if (!__gl_meshSplitEdge(*(v9 + 8)))
           {
             goto LABEL_106;
           }
 
-          if (!__gl_meshSplice(*(v6 + 8), v4))
+          if (!__gl_meshSplice(*(v11 + 8), v9))
           {
             goto LABEL_106;
           }
 
-          v49 = TopLeftRegion(a2);
-          if (!v49)
+          v54 = TopLeftRegion(a2);
+          if (!v54)
           {
             goto LABEL_106;
           }
 
-          v50 = v49;
-          v51 = *(v49[1] + 16);
-          v52 = **v51;
-          FinishLeftRegions(a1, *v51, v5);
-          v53 = *(*(v52 + 8) + 24);
-          v39 = 1;
-          v54 = a1;
-          v55 = v50;
-          v56 = v52;
+          v55 = v54;
+          v56 = *(v54[1] + 16);
+          v57 = **v56;
+          FinishLeftRegions(a1, *v56, v10);
+          v58 = *(*(v57 + 8) + 24);
+          v44 = 1;
+          v59 = a1;
+          v60 = v55;
+          v61 = v57;
         }
 
         else
         {
-          if (v9 != v47)
+          if (v14 != v52)
           {
-            if (__gl_edgeSign(v9, v47, v58) >= 0.0)
+            if (__gl_edgeSign(v14, v52, v63) >= 0.0)
             {
               *(a2 + 22) = 1;
               *(**(a2[1] + 8) + 22) = 1;
-              if (!__gl_meshSplitEdge(*(v4 + 8)))
+              if (!__gl_meshSplitEdge(*(v9 + 8)))
               {
                 goto LABEL_106;
               }
 
-              v48 = *(a1 + 136);
-              *(*(v4 + 32) + 56) = *(v48 + 56);
+              v53 = *(a1 + 136);
+              *(*(v9 + 32) + 56) = *(v53 + 56);
             }
 
             else
             {
-              v48 = *(a1 + 136);
+              v53 = *(a1 + 136);
             }
 
-            if (__gl_edgeSign(v10, v48, v58) > 0.0)
+            if (__gl_edgeSign(v15, v53, v63) > 0.0)
             {
               return 0;
             }
 
-            v5[22] = 1;
+            v10[22] = 1;
             *(a2 + 22) = 1;
-            if (__gl_meshSplitEdge(*(v6 + 8)))
+            if (__gl_meshSplitEdge(*(v11 + 8)))
             {
-              v39 = 0;
-              *(*(v6 + 32) + 56) = *(*(a1 + 136) + 56);
-              return v39;
+              v44 = 0;
+              *(*(v11 + 32) + 56) = *(*(a1 + 136) + 56);
+              return v44;
             }
 
 LABEL_106:
             longjmp((a1 + 3464), 1);
           }
 
-          if (!__gl_meshSplitEdge(*(v6 + 8)) || !__gl_meshSplice(*(v4 + 24), *(*(v6 + 8) + 24)))
+          if (!__gl_meshSplitEdge(*(v11 + 8)) || !__gl_meshSplice(*(v9 + 24), *(*(v11 + 8) + 24)))
           {
             goto LABEL_106;
           }
 
-          v57 = a2;
+          v62 = a2;
           do
           {
-            v57 = **(v57[1] + 8);
+            v62 = **(v62[1] + 8);
           }
 
-          while (*(*(*v57 + 8) + 32) == *(*(*a2 + 8) + 32));
-          v52 = *(*(***(v57[1] + 16) + 8) + 16);
-          *a2 = *(*(v6 + 8) + 24);
-          v53 = FinishLeftRegions(a1, a2, 0)[2];
-          v56 = *(*(v4 + 8) + 16);
-          v39 = 1;
-          v54 = a1;
-          v55 = v57;
+          while (*(*(*v62 + 8) + 32) == *(*(*a2 + 8) + 32));
+          v57 = *(*(***(v62[1] + 16) + 8) + 16);
+          *a2 = *(*(v11 + 8) + 24);
+          v58 = FinishLeftRegions(a1, a2, 0)[2];
+          v61 = *(*(v9 + 8) + 16);
+          v44 = 1;
+          v59 = a1;
+          v60 = v62;
         }
 
-        AddRightEdges(v54, v55, v53, v56, v52, 1);
-        return v39;
+        AddRightEdges(v59, v60, v58, v61, v57, 1);
+        return v44;
       }
     }
 
     else
     {
-      v34 = *(v32 + 64);
+      v39 = *(v37 + 64);
     }
 
-    *(&v58[3] + 1) = *(v32 + 56);
-    *&v58[4] = v34;
-    v22 = v34;
-    v28 = v33;
+    *(&v63[3] + 1) = *(v37 + 56);
+    *&v63[4] = v39;
+    v27 = v39;
+    v33 = v38;
     goto LABEL_44;
   }
 
-  if (__gl_edgeSign(v10, v7, v8) <= 0.0)
+  if (__gl_edgeSign(v15, v12, v13) <= 0.0)
   {
     goto LABEL_24;
   }
@@ -3734,83 +3736,83 @@ LABEL_106:
   return 0;
 }
 
-void WalkDirtyRegions(uint64_t a1, uint64_t *a2)
+void WalkDirtyRegions(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v2 = a2;
-  v4 = **(a2[1] + 16);
+  v7 = a2;
+  v9 = **(a2[1] + 16);
   while (1)
   {
-    if (*(v4 + 22))
+    if (*(v9 + 22))
     {
       do
       {
-        v5 = v4;
-        v4 = **(v4[1] + 16);
+        v10 = v9;
+        v9 = **(v9[1] + 16);
       }
 
-      while (*(v4 + 22));
+      while (*(v9 + 22));
     }
 
     else
     {
-      v5 = v2;
+      v10 = v7;
     }
 
-    if (*(v5 + 22))
+    if (*(v10 + 22))
     {
-      v2 = v5;
-      v5 = v4;
+      v7 = v10;
+      v10 = v9;
       goto LABEL_10;
     }
 
-    v2 = **(v5[1] + 8);
-    if (!v2 || !*(v2 + 22))
+    v7 = **(v10[1] + 8);
+    if (!v7 || !*(v7 + 22))
     {
       break;
     }
 
 LABEL_10:
-    *(v2 + 22) = 0;
-    v6 = *v2;
-    v7 = *v5;
-    v8 = *(*(*v2 + 8) + 32);
-    if (v8 == *(*(*v5 + 8) + 32))
+    *(v7 + 22) = 0;
+    v11 = *v7;
+    v12 = *v10;
+    v13 = *(*(*v7 + 8) + 32);
+    if (v13 == *(*(*v10 + 8) + 32))
     {
       goto LABEL_32;
     }
 
-    v9 = **(v2[1] + 16);
-    v10 = *v9;
-    v11 = *(v8 + 56);
-    v12 = *(*(*v9 + 8) + 32);
-    v13 = *(v12 + 56);
-    if (v11 == v13)
+    v14 = **(v7[1] + 16);
+    v15 = *v14;
+    v16 = *(v13 + 56);
+    v17 = *(*(*v14 + 8) + 32);
+    v18 = *(v17 + 56);
+    if (v16 == v18)
     {
-      v14 = *(v8 + 64);
-      v15 = *(v12 + 64);
-      if (v14 == v15)
+      v19 = *(v13 + 64);
+      v20 = *(v17 + 64);
+      if (v19 == v20)
       {
         WalkDirtyRegions_cold_1();
       }
 
-      if (v11 < v13 || v14 <= v15)
+      if (v16 < v18 || v19 <= v20)
       {
 LABEL_17:
-        if (__gl_edgeSign(*(*(*v2 + 8) + 32), *(*(*v9 + 8) + 32), *(v6 + 32)) < 0.0)
+        if (__gl_edgeSign(*(*(*v7 + 8) + 32), *(*(*v14 + 8) + 32), *(v11 + 32)) < 0.0)
         {
           goto LABEL_32;
         }
 
-        *(v2 + 22) = 1;
-        *(**(v2[1] + 8) + 22) = 1;
-        v17 = __gl_meshSplitEdge(v6);
-        if (!v17)
+        *(v7 + 22) = 1;
+        *(**(v7[1] + 8) + 22) = 1;
+        v22 = __gl_meshSplitEdge(v11);
+        if (!v22)
         {
           goto LABEL_51;
         }
 
-        v18 = v17;
-        if (!__gl_meshSplice(*(v10 + 8), v17))
+        v23 = v22;
+        if (!__gl_meshSplice(*(v15 + 8), v22))
         {
           goto LABEL_51;
         }
@@ -3819,88 +3821,88 @@ LABEL_17:
       }
     }
 
-    else if (v11 < v13)
+    else if (v16 < v18)
     {
       goto LABEL_17;
     }
 
-    if (__gl_edgeSign(*(*(*v9 + 8) + 32), v8, *(v10 + 32)) > 0.0)
+    if (__gl_edgeSign(*(*(*v14 + 8) + 32), v13, *(v15 + 32)) > 0.0)
     {
       goto LABEL_32;
     }
 
-    v9[22] = 1;
-    *(v2 + 22) = 1;
-    v19 = __gl_meshSplitEdge(v10);
-    if (!v19 || (v20 = v19, !__gl_meshSplice(*(v6 + 24), *(v10 + 8))))
+    v14[22] = 1;
+    *(v7 + 22) = 1;
+    v24 = __gl_meshSplitEdge(v15);
+    if (!v24 || (v25 = v24, !__gl_meshSplice(*(v11 + 24), *(v15 + 8))))
     {
 LABEL_51:
       longjmp((a1 + 3464), 1);
     }
 
-    v18 = v20[1];
+    v23 = v25[1];
 LABEL_26:
-    *(v18[5] + 41) = *(v2 + 20);
-    if (*(v5 + 23))
+    *(v23[5] + 41) = *(v7 + 20);
+    if (*(v10 + 23))
     {
-      DeleteRegion(a1, v5);
-      if (!__gl_meshDelete(v7))
+      DeleteRegion(a1, v10);
+      if (!__gl_meshDelete(v12))
       {
         goto LABEL_51;
       }
 
-      v21 = *(v2[1] + 16);
-      v4 = *v21;
-      v7 = **v21;
+      v26 = *(v7[1] + 16);
+      v9 = *v26;
+      v12 = **v26;
       goto LABEL_33;
     }
 
-    if (*(v2 + 23))
+    if (*(v7 + 23))
     {
-      DeleteRegion(a1, v2);
-      if (!__gl_meshDelete(v6))
+      DeleteRegion(a1, v7);
+      if (!__gl_meshDelete(v11))
       {
         goto LABEL_51;
       }
 
-      v22 = *(v5[1] + 8);
-      v2 = *v22;
-      v6 = **v22;
+      v27 = *(v10[1] + 8);
+      v7 = *v27;
+      v11 = **v27;
     }
 
 LABEL_32:
-    v4 = v5;
+    v9 = v10;
 LABEL_33:
-    if (*(v6 + 32) != *(v7 + 32))
+    if (*(v11 + 32) != *(v12 + 32))
     {
-      v23 = *(*(v6 + 8) + 32);
-      v24 = *(*(v7 + 8) + 32);
-      if (v23 == v24 || *(v2 + 23) || *(v4 + 23) || ((v25 = *(a1 + 136), v23 != v25) ? (v26 = v24 == v25) : (v26 = 1), !v26))
+      v28 = *(*(v11 + 8) + 32);
+      v29 = *(*(v12 + 8) + 32);
+      if (v28 == v29 || *(v7 + 23) || *(v9 + 23) || ((v30 = *(a1 + 136), v28 != v30) ? (v31 = v29 == v30) : (v31 = 1), !v31))
       {
-        CheckForRightSplice(a1, v2);
+        CheckForRightSplice(a1, v7);
       }
 
-      else if (CheckForIntersect(a1, v2))
+      else if (CheckForIntersect(a1, v7, a3, a4, a5, a6, a7))
       {
         return;
       }
     }
 
-    if (*(v6 + 32) == *(v7 + 32))
+    if (*(v11 + 32) == *(v12 + 32))
     {
-      v27 = *(v6 + 8);
-      v28 = *(v7 + 8);
-      if (*(v27 + 32) == *(v28 + 32))
+      v32 = *(v11 + 8);
+      v33 = *(v12 + 8);
+      if (*(v32 + 32) == *(v33 + 32))
       {
-        *(v7 + 56) += *(v6 + 56);
-        *(v28 + 56) += *(v27 + 56);
-        DeleteRegion(a1, v2);
-        if (!__gl_meshDelete(v6))
+        *(v12 + 56) += *(v11 + 56);
+        *(v33 + 56) += *(v32 + 56);
+        DeleteRegion(a1, v7);
+        if (!__gl_meshDelete(v11))
         {
           goto LABEL_51;
         }
 
-        v2 = **(v4[1] + 8);
+        v7 = **(v9[1] + 8);
       }
     }
   }
@@ -4618,7 +4620,7 @@ void *__gl_meshConnect(void *a1, void *a2)
 void __gl_meshZapFace(uint64_t *a1)
 {
   v2 = a1[2];
-  v3 = v2[3];
+  v3 = *(v2 + 24);
   do
   {
     v4 = v3[3];
@@ -4753,7 +4755,7 @@ double __gl_meshNewMesh()
 
 void __gl_meshDeleteMesh(void **a1)
 {
-  v3 = (a1 + 10);
+  v3 = a1 + 10;
   v2 = a1[10];
   if (v2 != v3)
   {
@@ -5019,9 +5021,9 @@ double *FloatDown(double *result, uint64_t a2)
     v8 = 2 * a2;
     if (2 * a2 < v5)
     {
-      v9 = *(v3 + 16 * *(*&v2 + 8 * (v8 | 1)));
+      v9 = *(v3 + 16 * *(v2 + 8 * (v8 | 1)));
       v10 = *(v9 + 56);
-      v11 = *(v3 + 16 * *(*&v2 + 16 * a2));
+      v11 = *(v3 + 16 * *(v2 + 16 * a2));
       v12 = *(v11 + 56);
       if (v10 < v12 || v10 == v12 && *(v9 + 64) <= *(v11 + 64))
       {
@@ -5039,39 +5041,39 @@ double *FloatDown(double *result, uint64_t a2)
       break;
     }
 
-    v13 = *(*&v2 + 8 * v8);
+    v13 = *(v2 + 8 * v8);
     v14 = *(*v7 + 56);
     v15 = (v3 + 16 * v13);
     result = *v15;
-    v16 = (*v15)[7];
+    v16 = *(*v15 + 56);
     if (v14 < v16 || v14 == v16 && *(*v7 + 64) <= result[8])
     {
       break;
     }
 
-    *(*&v2 + 8 * a2) = v13;
+    *(v2 + 8 * a2) = v13;
     v15[1] = a2;
     a2 = v8;
   }
 
-  *(*&v2 + 8 * a2) = v4;
+  *(v2 + 8 * a2) = v4;
   v7[1] = a2;
   return result;
 }
 
-uint64_t __gl_pqHeapInsert(uint64_t a1, uint64_t a2)
+uint64_t __gl_pqHeapInsert(uint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 24);
-  v5 = *(a1 + 16) + 1;
-  *(a1 + 16) = v5;
+  v4 = a1[3];
+  v5 = a1[2] + 1;
+  a1[2] = v5;
   if (v4 >= 2 * v5)
   {
     goto LABEL_4;
   }
 
   v6 = *a1;
-  v7 = *(a1 + 8);
-  *(a1 + 24) = 2 * v4;
+  v7 = a1[1];
+  a1[3] = 2 * v4;
   v8 = malloc_type_realloc(v6, (16 * v4) | 8, 0x100004000313F17uLL);
   *a1 = v8;
   if (!v8)
@@ -5080,21 +5082,21 @@ uint64_t __gl_pqHeapInsert(uint64_t a1, uint64_t a2)
     return 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v9 = malloc_type_realloc(*(a1 + 8), 16 * *(a1 + 24) + 16, 0x1080040FC6463CFuLL);
-  *(a1 + 8) = v9;
+  v9 = malloc_type_realloc(a1[1], 16 * a1[3] + 16, 0x1080040FC6463CFuLL);
+  a1[1] = v9;
   if (!v9)
   {
-    *(a1 + 8) = v7;
+    a1[1] = v7;
     return 0x7FFFFFFFFFFFFFFFLL;
   }
 
 LABEL_4:
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 8);
+  v10 = a1[4];
+  v11 = a1[1];
   v12 = v5;
   if (v10)
   {
-    *(a1 + 32) = *(v11 + 16 * v10 + 8);
+    a1[4] = *(v11 + 16 * v10 + 8);
     v12 = v10;
   }
 
@@ -5102,7 +5104,7 @@ LABEL_4:
   v13 = (v11 + 16 * v12);
   *v13 = a2;
   v13[1] = v5;
-  if (*(a1 + 40))
+  if (*(a1 + 10))
   {
     FloatUp(a1, v5);
   }
@@ -5179,20 +5181,20 @@ uint64_t __gl_pqHeapExtractMin(double *a1)
   return v5;
 }
 
-void *__gl_pqHeapDelete(void *result, uint64_t a2)
+double *__gl_pqHeapDelete(double *result, uint64_t a2)
 {
-  if (a2 < 1 || (v3 = result, result[3] < a2) || (v4 = result[1], v5 = (v4 + 16 * a2), !*v5))
+  if (a2 < 1 || (v3 = result, *(result + 3) < a2) || (v4 = *(result + 1), v5 = (v4 + 16 * a2), !*v5))
   {
     __gl_pqHeapDelete_cold_1();
   }
 
   v6 = *result;
   v7 = v5[1];
-  v8 = result[2];
+  v8 = *(result + 2);
   v9 = *(*result + 8 * v8);
   *(*result + 8 * v7) = v9;
   *(v4 + 16 * v9 + 8) = v7;
-  result[2] = v8 - 1;
+  *(result + 2) = v8 - 1;
   if (v7 < v8)
   {
     if (v7 < 2 || (v10 = *(v4 + 16 * *(*&v6 + ((4 * v7) & 0xFFFFFFFFFFFFFFF8))), v11 = *(v10 + 56), v12 = *(v4 + 16 * v9), v13 = *(v12 + 56), v11 < v13) || v11 == v13 && *(v10 + 64) <= *(v12 + 64))
@@ -5206,10 +5208,10 @@ void *__gl_pqHeapDelete(void *result, uint64_t a2)
     }
   }
 
-  v14 = v3[4];
+  v14 = *(v3 + 4);
   *v5 = 0;
   v5[1] = v14;
-  v3[4] = a2;
+  *(v3 + 4) = a2;
   return result;
 }
 
@@ -5629,24 +5631,24 @@ uint64_t __gl_pqSortMinimum(void *a1)
   return result;
 }
 
-void *__gl_pqSortDelete(void *result, uint64_t a2)
+double *__gl_pqSortDelete(double *result, uint64_t a2)
 {
   if (a2 < 0)
   {
     v3 = ~a2;
-    if (result[4] <= ~a2 || (v4 = result[1], !*(v4 + 8 * v3)))
+    if (*(result + 4) <= ~a2 || (v4 = *(result + 1), !*(v4 + 8 * v3)))
     {
       __gl_pqSortDelete_cold_1();
     }
 
     *(v4 + 8 * v3) = 0;
-    v5 = result[3];
+    v5 = *(result + 3);
     v7 = __OFSUB__(v5, 1);
     v6 = v5 - 1 < 0;
     v8 = v5 - 1;
     if (v6 == v7)
     {
-      v9 = result[2];
+      v9 = *(result + 2);
       do
       {
         if (**(v9 + 8 * v8))
@@ -5654,7 +5656,7 @@ void *__gl_pqSortDelete(void *result, uint64_t a2)
           break;
         }
 
-        result[3] = v8;
+        *(result + 3) = v8;
         v10 = v8-- + 1;
       }
 
@@ -6059,7 +6061,7 @@ void GotoState(uint64_t a1, unsigned int a2)
 
         if (*a1 != 2)
         {
-          GotoState(a1, 2);
+          GotoState(a1, 2u);
         }
 
         v2 = 1;
@@ -6564,7 +6566,7 @@ void gluTessBeginContour(GLUtesselator *tess)
 {
   if (*tess != 1)
   {
-    GotoState(tess, 1);
+    GotoState(tess, 1u);
   }
 
   *tess = 2;
@@ -6954,21 +6956,21 @@ uint64_t __gl_renderBoundary(uint64_t result, uint64_t a2)
 
 uint64_t __gl_renderCache(uint64_t a1)
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 212);
   if (v1 >= 3)
   {
     v3 = *(a1 + 40);
-    v24[0] = *(a1 + 32);
-    v24[1] = v3;
+    v24.f64[0] = *(a1 + 32);
+    v24.f64[1] = v3;
     v4 = *(a1 + 48);
-    v24[2] = v4;
-    if (v24[0] == 0.0 && v3 == 0.0 && v4 == 0.0)
+    v25 = v4;
+    if (v24.f64[0] == 0.0 && v3 == 0.0 && v4 == 0.0)
     {
-      ComputeNormal(a1, v24, 0);
+      ComputeNormal(a1, &v24, 0);
     }
 
-    v5 = ComputeNormal(a1, v24, 1);
+    v5 = ComputeNormal(a1, &v24, 1);
     if (v5 == 2)
     {
       return 0;
@@ -7117,14 +7119,14 @@ LABEL_15:
   return 1;
 }
 
-uint64_t ComputeNormal(uint64_t a1, double *a2, int a3)
+uint64_t ComputeNormal(uint64_t a1, float64x2_t *a2, int a3)
 {
   v3 = *(a1 + 212);
   if (!a3)
   {
-    *a2 = 0.0;
-    a2[1] = 0.0;
-    a2[2] = 0.0;
+    a2->f64[0] = 0.0;
+    a2->f64[1] = 0.0;
+    a2[1].f64[0] = 0.0;
   }
 
   if (v3 >= 3)
@@ -7135,7 +7137,7 @@ uint64_t ComputeNormal(uint64_t a1, double *a2, int a3)
     v7 = *(a1 + 248) - *(a1 + 216);
     v8 = vsubq_f64(*(a1 + 256), *(a1 + 224));
     v9 = *a2;
-    v10 = a2[2];
+    v10 = a2[1].f64[0];
     while (1)
     {
       v11 = v8;
@@ -7191,7 +7193,7 @@ uint64_t ComputeNormal(uint64_t a1, double *a2, int a3)
           v10 = v16 + v10;
         }
 
-        a2[2] = v10;
+        a2[1].f64[0] = v10;
       }
 
       v6 += 32;
@@ -7397,12 +7399,12 @@ LABEL_13:
     }
 
     *a2 = v8 + v4 - 1;
-    v9 = result + 2;
+    v9 = (result + 2);
   }
 
   else
   {
-    v9 = v5 + 1;
+    v9 = (v5 + 1);
   }
 
   result = *v9;
@@ -7610,10 +7612,10 @@ ProGL::Private *PGLInit(ProGL::Private *result)
   return result;
 }
 
-void PGLCleanup(ProGL::Private *a1)
+void PGLCleanup(ProGL::Private *result)
 {
   {
-    v2 = ProGL::Private::cleanUpLazyTexture(a1);
+    v2 = ProGL::Private::cleanUpLazyTexture(result);
     v3 = ProGL::Private::cleanUpTexturePool(v2);
     v4 = ProGL::Private::cleanUpTextureHandle(v3);
     v5 = ProGL::Private::cleanUpProgram(v4);
@@ -7621,7 +7623,7 @@ void PGLCleanup(ProGL::Private *a1)
     v8 = ProGL::Private::cleanUpAuxiliaryContexts(v7);
     v9 = ProGL::Private::cleanUpContextInfo(v8);
     v10 = ProGL::Private::cleanUpPerThreadContext(v9);
-    v12 = OZChannelBase::setRangeName(v10, v11);
+    OZChannelBase::setRangeName(v10, v11);
     v13 = ProGL::Private::cleanUpShareGroup(v12);
 
     ProGL::Private::cleanUpContextSharing(v13);
@@ -7653,33 +7655,34 @@ BOOL ProGL::SharedPerThreadAuxiliaryMap::Key::operator<(uint64_t a1, uint64_t a2
   return *(a1 + 16) < *(a2 + 16);
 }
 
-void ProGL::SharedPerThreadAuxiliaryMap::get(ProGL::SharedPerThreadAuxiliaryMap *this@<X0>, os_unfair_lock_s **a2@<X1>, int a3@<W2>, ProGL::ContextHandle *a4@<X8>)
+void ProGL::SharedPerThreadAuxiliaryMap::get(os_unfair_lock_s *this@<X0>, os_unfair_lock_s **a2@<X1>, uint64_t a3@<X2>, ProGL::ContextHandle *a4@<X8>)
 {
+  v4 = a3;
   PCSpinLock::lock(this);
-  ProGL::Private::AuxiliaryContextMap<ProGL::SharedPerThreadAuxiliaryMap::Key>::get(this + 1, a2, a3, a4);
+  ProGL::Private::AuxiliaryContextMap<ProGL::SharedPerThreadAuxiliaryMap::Key>::get(&this[2], a2, v4, a4);
   if (this)
   {
     PCSpinLock::unlock(this);
   }
 }
 
-void sub_25FE4A698(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4A698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
 
-void ProGL::Private::AuxiliaryContextMap<ProGL::SharedPerThreadAuxiliaryMap::Key>::get(uint64_t *a1@<X0>, os_unfair_lock_s **a2@<X1>, int a3@<W2>, ProGL::ContextHandle *a4@<X8>)
+void ProGL::Private::AuxiliaryContextMap<ProGL::SharedPerThreadAuxiliaryMap::Key>::get(uint64_t **a1@<X0>, os_unfair_lock_s **a2@<X1>, int a3@<W2>, ProGL::ContextHandle *a4@<X8>)
 {
   v11 = pthread_self();
   ProGL::ContextHandle::getShareGroup(a2, &v12);
   v13 = a3;
   v10 = 0;
-  PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::findValue(*a1, &v11, &v10, a4);
+  PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::findValue(*a1, &v10, a4, &v11);
   if ((v10 & 1) == 0)
   {
-    ProGL::makeEAGLContext(a2, v8, v9);
+    ProGL::makeEAGLContext(v9, a2, v8);
     ProGL::ContextHandle::operator=(a4, v9);
     ProGL::ContextHandle::~ContextHandle(v9);
     ProGL::ContextHandle::setVirtualScreen(a4);
@@ -7810,22 +7813,22 @@ uint64_t PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandl
   return a1;
 }
 
-void *PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::findValue@<X0>(void *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X2>, void *a4@<X8>)
+uint64_t *PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::findValue@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X2>, void *a3@<X8>, uint64_t a4@<X1>)
 {
-  result = std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::find<ProGL::SharedPerThreadAuxiliaryMap::Key>((a1 + 3), a2);
+  result = std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::find<ProGL::SharedPerThreadAuxiliaryMap::Key>((a1 + 3), a4);
   v10 = result;
   if (a1 + 4 == result)
   {
+    *a2 = 0;
     *a3 = 0;
-    *a4 = 0;
-    a4[1] = 0;
+    a3[1] = 0;
   }
 
   else
   {
     v8 = result[8];
-    *a4 = result[7];
-    a4[1] = v8;
+    *a3 = result[7];
+    a3[1] = v8;
     if (v8)
     {
       atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
@@ -7835,7 +7838,7 @@ void *PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,P
     a1[9] = v9;
     result[10] = v9;
     result = PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::bubble(a1 + 6, &v10);
-    *a3 = 1;
+    *a2 = 1;
   }
 
   return result;
@@ -7881,16 +7884,16 @@ uint64_t std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,P
   return v5;
 }
 
-void PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::addValue(uint64_t a1, uint64_t a2, uint64_t *a3, unint64_t a4)
+void PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::addValue(void *a1, uint64_t a2, uint64_t *a3, unint64_t a4)
 {
-  if (*(a1 + 88) >= a4 || *(a1 + 104))
+  if (a1[11] >= a4 || a1[13])
   {
-    v8 = std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::find<ProGL::SharedPerThreadAuxiliaryMap::Key>(a1 + 24, a2);
+    v8 = std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::find<ProGL::SharedPerThreadAuxiliaryMap::Key>((a1 + 3), a2);
     v34 = v8;
-    if (a1 + 32 == v8)
+    if (a1 + 4 == v8)
     {
-      v16 = *(a1 + 72) + 1;
-      *(a1 + 72) = v16;
+      v16 = a1[9] + 1;
+      a1[9] = v16;
       v18 = *a3;
       v17 = a3[1];
       v31[0] = *a3;
@@ -7915,30 +7918,30 @@ void PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PC
 
       v27 = v32;
       v28 = v33;
-      v29 = std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::__emplace_unique_key_args<ProGL::SharedPerThreadAuxiliaryMap::Key,std::pair<ProGL::SharedPerThreadAuxiliaryMap::Key const,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>(a1 + 24, &v23);
+      v29 = std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::__emplace_unique_key_args<ProGL::SharedPerThreadAuxiliaryMap::Key,std::pair<ProGL::SharedPerThreadAuxiliaryMap::Key const,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>(a1 + 3, &v23, &v23);
       v30 = v19;
       ProGL::ContextHandle::~ContextHandle(v26);
-      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::add(a1 + 48, &v29);
-      v20 = *(a1 + 80) + a4;
-      *(a1 + 80) = v20;
-      if (!*(a1 + 104))
+      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::add((a1 + 6), &v29);
+      v20 = a1[10] + a4;
+      a1[10] = v20;
+      if (!a1[13])
       {
-        while (v20 > *(a1 + 88) || *(a1 + 40) > *(a1 + 96))
+        while (v20 > a1[11] || a1[5] > a1[12])
         {
-          v22 = *(a1 + 48);
-          if (v22 == *(a1 + 56))
+          v22 = a1[6];
+          if (v22 == a1[7])
           {
             break;
           }
 
           v23 = *v22;
-          PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::remove((a1 + 48), &v23);
+          PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::remove(a1 + 6, &v23);
           v21 = v23;
-          *(a1 + 80) -= v23[9];
-          std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer((a1 + 24), v21);
+          a1[10] -= v23[9];
+          std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(a1 + 3, v21);
           ProGL::ContextHandle::~ContextHandle((v21 + 7));
           operator delete(v21);
-          v20 = *(a1 + 80);
+          v20 = a1[10];
         }
       }
 
@@ -7948,36 +7951,36 @@ void PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PC
     else
     {
       v9 = v8;
-      ProGL::ContextHandle::operator=((v8 + 56), a3);
-      v10 = *(a1 + 72) + 1;
-      *(a1 + 72) = v10;
-      *(v9 + 80) = v10;
-      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::bubble((a1 + 48), &v34);
+      ProGL::ContextHandle::operator=(v8 + 7, a3);
+      v10 = a1[9] + 1;
+      a1[9] = v10;
+      v9[10] = v10;
+      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::bubble(a1 + 6, &v34);
       v11 = v34;
-      v12 = a4 - *(v34 + 72);
+      v12 = a4 - v34[9];
       if (v12)
       {
-        v13 = v12 + *(a1 + 80);
-        *(a1 + 80) = v13;
-        *(v11 + 72) = a4;
-        if (!*(a1 + 104))
+        v13 = v12 + a1[10];
+        a1[10] = v13;
+        v11[9] = a4;
+        if (!a1[13])
         {
-          while (v13 > *(a1 + 88) || *(a1 + 40) > *(a1 + 96))
+          while (v13 > a1[11] || a1[5] > a1[12])
           {
-            v15 = *(a1 + 48);
-            if (v15 == *(a1 + 56))
+            v15 = a1[6];
+            if (v15 == a1[7])
             {
               break;
             }
 
             v23 = *v15;
-            PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::remove((a1 + 48), &v23);
+            PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCacheImpl<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>,PCCFRef<vImageConverter *>,PCNoLock,std::less<std::tuple<PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat,PCCFRef<CGColorSpace *>,PCColorUtil::AlphaFormat>>>::Data>,void *> *,long>>>::remove(a1 + 6, &v23);
             v14 = v23;
-            *(a1 + 80) -= v23[9];
-            std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer((a1 + 24), v14);
+            a1[10] -= v23[9];
+            std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(a1 + 3, v14);
             ProGL::ContextHandle::~ContextHandle((v14 + 7));
             operator delete(v14);
-            v13 = *(a1 + 80);
+            v13 = a1[10];
           }
         }
       }
@@ -7985,22 +7988,22 @@ void PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PC
   }
 }
 
-void sub_25FE4AEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FE4AEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   ProGL::ContextHandle::~ContextHandle(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::__emplace_unique_key_args<ProGL::SharedPerThreadAuxiliaryMap::Key,std::pair<ProGL::SharedPerThreadAuxiliaryMap::Key const,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>(uint64_t a1, uint64_t a2)
+void *std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::__emplace_unique_key_args<ProGL::SharedPerThreadAuxiliaryMap::Key,std::pair<ProGL::SharedPerThreadAuxiliaryMap::Key const,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::__find_equal<ProGL::SharedPerThreadAuxiliaryMap::Key>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::__find_equal<ProGL::SharedPerThreadAuxiliaryMap::Key>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::__construct_node<std::pair<ProGL::SharedPerThreadAuxiliaryMap::Key const,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::__map_value_compare<ProGL::SharedPerThreadAuxiliaryMap::Key,std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>,true>,std::allocator<std::__value_type<ProGL::SharedPerThreadAuxiliaryMap::Key,PCCacheImpl<ProGL::SharedPerThreadAuxiliaryMap::Key,ProGL::ContextHandle,PCNoLock,std::less<ProGL::SharedPerThreadAuxiliaryMap::Key>>::Data>>>::__find_equal<ProGL::SharedPerThreadAuxiliaryMap::Key>(uint64_t a1, void *a2, uint64_t a3)
@@ -8096,7 +8099,7 @@ void *ProGL::ShareGroup::findGroup@<X0>(void *this@<X0>, void *a2@<X8>)
   return this;
 }
 
-uint64_t (*ProGL::ShareGroup::operator void (ProGL::ShareGroup::*)(void)(void *a1))(ProGL::ShareGroup *__hidden this)
+void (*ProGL::ShareGroup::operator void (ProGL::ShareGroup::*)(void)(void *a1))(ProGL::ShareGroup *this)
 {
   if (*a1)
   {
@@ -8139,7 +8142,7 @@ BOOL ProGL::operator>(void *a1, void *a2)
   return !v2;
 }
 
-void ProGL::masterShareGroup(void *a1@<X8>)
+void ProGL::masterShareGroup(void *a2@<X8>)
 {
   {
     v2 = PGLMasterEAGLContext();
@@ -8183,15 +8186,15 @@ void ProGL::masterShareGroup(void *a1@<X8>)
   }
 }
 
-void sub_25FE4B3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+void sub_25FE4B3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a23);
-  if (a9 < 0)
+  va_start(va, a28);
+  if (SHIBYTE(a14) < 0)
   {
-    operator delete(__p);
+    operator delete(a12);
   }
 
-  std::ostringstream::~ostringstream(&a10, MEMORY[0x277D82828]);
+  std::ostringstream::~ostringstream(&a15, MEMORY[0x277D82828]);
   MEMORY[0x2666E9E10](va);
   _Unwind_Resume(a1);
 }
@@ -8490,14 +8493,12 @@ void ProGL::Private::TextureParameters::setMaxAnisotropy(GLfloat *this, ProGL::G
   }
 }
 
-ProGL::Private::TextureImpl **ProGL::Private::deleteTextures(ProGL::Private::TextureImpl **this, ProGL::Private::TextureImpl **a2, ProGL::Private::TextureImpl **a3)
+void ProGL::Private::deleteTextures(ProGL::Private::TextureImpl **this, ProGL::Private::TextureImpl **a2, ProGL::Private::TextureImpl **a3)
 {
   if (this != a2)
   {
     operator new();
   }
-
-  return this;
 }
 
 void sub_25FE4BA20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8543,7 +8544,7 @@ void anonymous namespace::DeleteTextureInst::execute(_anonymous_namespace_::Dele
   v2 = *(this + 2);
   if (v2 - v1 == 8)
   {
-    ProGL::Private::TextureImpl::getContext(*v1, v17);
+    ProGL::Private::TextureImpl::getContext(v17, *v1);
     v3 = HGPixelBufferObj::format(*v1);
     ProGL::getDeletionContext(v17, v3, &v16);
     ProGL::ContextHandle::~ContextHandle(v17);
@@ -8553,17 +8554,17 @@ void anonymous namespace::DeleteTextureInst::execute(_anonymous_namespace_::Dele
     v4 = *v1;
     if (*v1)
     {
-      v5 = *(v4 + 256);
+      v5 = v4[32];
       if (v5)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v5);
       }
 
-      PCCFRef<CGColorSpace *>::~PCCFRef((v4 + 208));
-      std::__tree<std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>>>::destroy(v4 + 176, *(v4 + 184));
-      ProGL::ContextHandle::~ContextHandle((v4 + 24));
-      PCSpinLock::~PCSpinLock((v4 + 16));
-      v6 = *(v4 + 8);
+      PCCFRef<CGColorSpace *>::~PCCFRef(v4 + 26);
+      std::__tree<std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>>>::destroy((v4 + 22), v4[23]);
+      ProGL::ContextHandle::~ContextHandle((v4 + 3));
+      PCSpinLock::~PCSpinLock(v4 + 4);
+      v6 = v4[1];
       if (v6)
       {
         std::__shared_weak_count::__release_weak(v6);
@@ -8585,7 +8586,7 @@ void anonymous namespace::DeleteTextureInst::execute(_anonymous_namespace_::Dele
       v7 = v1;
       do
       {
-        ProGL::Private::TextureImpl::getContext(*v7, textures);
+        ProGL::Private::TextureImpl::getContext(textures, *v7);
         v8 = HGPixelBufferObj::format(*v7);
         ProGL::getDeletionContext(textures, v8, v17);
         ProGL::ContextHandle::~ContextHandle(textures);
@@ -8648,17 +8649,17 @@ LABEL_22:
         v12 = *v1;
         if (*v1)
         {
-          v13 = *(v12 + 256);
+          v13 = v12[32];
           if (v13)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v13);
           }
 
-          PCCFRef<CGColorSpace *>::~PCCFRef((v12 + 208));
-          std::__tree<std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>>>::destroy(v12 + 176, *(v12 + 184));
-          ProGL::ContextHandle::~ContextHandle((v12 + 24));
-          PCSpinLock::~PCSpinLock((v12 + 16));
-          v14 = *(v12 + 8);
+          PCCFRef<CGColorSpace *>::~PCCFRef(v12 + 26);
+          std::__tree<std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<OZFontFace>>>>::destroy((v12 + 22), v12[23]);
+          ProGL::ContextHandle::~ContextHandle((v12 + 3));
+          PCSpinLock::~PCSpinLock(v12 + 4);
+          v14 = v12[1];
           if (v14)
           {
             std::__shared_weak_count::__release_weak(v14);
@@ -8694,10 +8695,10 @@ void std::vector<unsigned int>::reserve(std::vector<unsigned int> *this, std::ve
   }
 }
 
-BOOL anonymous namespace::SameShareGroup::operator()(uint64_t *a1, HGPixelBufferObj *a2)
+BOOL anonymous namespace::SameShareGroup::operator()(ProGL::Private::TextureImpl **a1, ProGL::Private::TextureImpl *a2)
 {
-  ProGL::Private::TextureImpl::getContext(*a1, v9);
-  ProGL::Private::TextureImpl::getContext(a2, v8);
+  ProGL::Private::TextureImpl::getContext(v9, *a1);
+  ProGL::Private::TextureImpl::getContext(v8, a2);
   if (ProGL::areContextsShared(v9, v8, v4))
   {
     v5 = HGPixelBufferObj::format(*a1);
@@ -8714,9 +8715,9 @@ BOOL anonymous namespace::SameShareGroup::operator()(uint64_t *a1, HGPixelBuffer
   return v6;
 }
 
-void sub_25FE4BFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FE4BFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ProGL::ContextHandle::~ContextHandle(va);
   _Unwind_Resume(a1);
 }
@@ -8846,7 +8847,7 @@ uint64_t ProGL::Private::cleanUpTextureHandle(ProGL::Private *this)
   return result;
 }
 
-void (*ProGL::TextureHandle::operator void (ProGL::TextureHandle::*)(void)(void (**a1)(_anonymous_namespace_ **this)))(_anonymous_namespace_ **this)
+HGGLBlendingInfo *ProGL::TextureHandle::operator void (ProGL::TextureHandle::*)(void)(HGGLBlendingInfo **a1)
 {
   result = *a1;
   if (result)
@@ -8877,9 +8878,9 @@ void ProGL::TextureHandle::detach(_anonymous_namespace_ **this)
   }
 }
 
-void sub_25FE4C598(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4C598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -8895,12 +8896,12 @@ HGGLBlendingInfo *ProGL::TextureHandle::getName(HGGLBlendingInfo **this)
   return result;
 }
 
-uint64_t ProGL::TextureHandle::getContext@<X0>(ProGL::TextureHandle *this@<X0>, void *a2@<X8>)
+ProGL::Private::TextureImpl *ProGL::TextureHandle::getContext@<X0>(ProGL::Private::TextureImpl **this@<X0>, uint64_t *a2@<X8>)
 {
   result = *this;
   if (result)
   {
-    return ProGL::Private::TextureImpl::getContext(result, a2);
+    return ProGL::Private::TextureImpl::getContext(a2, result);
   }
 
   *a2 = 0;
@@ -8920,9 +8921,9 @@ void ProGL::TextureHandle::setPooled(OZChannelBase **this, char a2)
   }
 }
 
-void sub_25FE4C634(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4C634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -8999,7 +9000,7 @@ uint64_t anonymous namespace::removeTexture(_anonymous_namespace_ *this, ProGL::
   if (result)
   {
     AlphaOperation = HGGLBlendingInfo::GetAlphaOperation(this);
-    ProGL::Private::TextureImpl::getContext(this, &v6);
+    ProGL::Private::TextureImpl::getContext(&v6, this);
     ProGL::ContextHandle::getShareGroup(&v6, &v8);
     v9 = AlphaOperation;
     ProGL::ShareGroup::ShareGroup(&v10, &v8);
@@ -9014,9 +9015,9 @@ uint64_t anonymous namespace::removeTexture(_anonymous_namespace_ *this, ProGL::
   return result;
 }
 
-void sub_25FE4C754(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4C754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCMutex>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -9029,9 +9030,9 @@ void ProGL::TextureHandle::bind(OZChannelBase **this, ProGL::GL *a2, GLenum a3)
   PCSpinLock::unlock(Serializer);
 }
 
-void sub_25FE4C7E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4C7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -9044,9 +9045,9 @@ void ProGL::TextureHandle::unbind(OZChannelBase **this, ProGL::GL *a2)
   PCSpinLock::unlock(Serializer);
 }
 
-void sub_25FE4C854(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4C854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -9066,9 +9067,9 @@ uint64_t ProGL::TextureHandle::isBound(ProGL::Private::TextureImpl **this)
   return isBound;
 }
 
-void sub_25FE4C8CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4C8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -9081,9 +9082,9 @@ void ProGL::TextureHandle::texParameter(OZChannelBase **this, ProGL::GL *a2, sig
   PCSpinLock::unlock(Serializer);
 }
 
-void sub_25FE4C958(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4C958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -9096,9 +9097,9 @@ void ProGL::TextureHandle::texImage2D(OZChannelBase **this, ProGL::GL *a2, GLenu
   PCSpinLock::unlock(Serializer);
 }
 
-void sub_25FE4CA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE4CA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -9119,10 +9120,10 @@ void sub_25FE4CB84(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t anonymous namespace::addTexture(_anonymous_namespace_ *this, ProGL::Private::TextureImpl *a2)
+void *anonymous namespace::addTexture(_anonymous_namespace_ *this, ProGL::Private::TextureImpl *a2)
 {
   AlphaOperation = HGGLBlendingInfo::GetAlphaOperation(this);
-  ProGL::Private::TextureImpl::getContext(this, &v7);
+  ProGL::Private::TextureImpl::getContext(&v7, this);
   ProGL::ContextHandle::getShareGroup(&v7, &v9);
   v11 = AlphaOperation;
   ProGL::ShareGroup::ShareGroup(&v12, &v9);
@@ -9131,7 +9132,7 @@ uint64_t anonymous namespace::addTexture(_anonymous_namespace_ *this, ProGL::Pri
   LODWORD(v7) = v11;
   ProGL::ShareGroup::ShareGroup(v8, &v12);
   v8[1] = this;
-  result = std::__tree<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::__map_value_compare<std::pair<unsigned int,ProGL::ShareGroup>,std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::less<std::pair<unsigned int,ProGL::ShareGroup>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>>>::__emplace_unique_key_args<std::pair<unsigned int,ProGL::ShareGroup>,std::pair<std::pair<unsigned int,ProGL::ShareGroup> const,ProGL::Private::TextureImpl *>>(v5, &v7);
+  result = std::__tree<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::__map_value_compare<std::pair<unsigned int,ProGL::ShareGroup>,std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::less<std::pair<unsigned int,ProGL::ShareGroup>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>>>::__emplace_unique_key_args<std::pair<unsigned int,ProGL::ShareGroup>,std::pair<std::pair<unsigned int,ProGL::ShareGroup> const,ProGL::Private::TextureImpl *>>(v5, &v7, &v7);
   if (v4)
   {
     return PCMutex::unlock(v4);
@@ -9140,14 +9141,14 @@ uint64_t anonymous namespace::addTexture(_anonymous_namespace_ *this, ProGL::Pri
   return result;
 }
 
-void sub_25FE4CC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FE4CC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCLockSentry<PCMutex>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
 
-void ProGL::findTextureInPool(ProGL *this@<X0>, void *a2@<X8>)
+void ProGL::findTextureInPool(ProGL *this@<X0>, _anonymous_namespace_ **a3@<X8>)
 {
   v4 = *this;
   v5 = *(this + 1);
@@ -9218,8 +9219,8 @@ void ProGL::findTextureInPool(ProGL *this@<X0>, void *a2@<X8>)
     {
     }
 
-    *a2 = 0;
-    a2[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
     if (v14)
     {
       PCMutex::unlock(v14);
@@ -9228,22 +9229,22 @@ void ProGL::findTextureInPool(ProGL *this@<X0>, void *a2@<X8>)
 
   else
   {
-    *a2 = 0;
-    a2[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
   }
 
   ProGL::ContextHandle::~ContextHandle(&v19);
 }
 
-void sub_25FE4D028(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_25FE4D028(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  if (a3)
+  v8 = va_arg(va1, void);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   PCLockSentry<PCMutex>::~PCLockSentry(va);
@@ -9289,51 +9290,51 @@ uint64_t std::multimap<ProGL::TextureDescription,ProGL::Private::TextureImpl *,a
   return v5;
 }
 
-void ProGL::createTextureFromPool(ProGL *this@<X0>, ProGL::GL *a2@<X1>, HGGLBlendingInfo **a3@<X8>)
+void ProGL::createTextureFromPool(ProGL *this@<X0>, ProGL::GL *a2@<X1>, void *a3@<X8>)
 {
-  v7 = *(a2 + 1);
-  v27 = *a2;
-  v28 = v7;
-  if (v7)
+  v6 = *(a2 + 1);
+  v25 = *a2;
+  v26 = v6;
+  if (v6)
   {
-    atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v8 = ProGL::ContextHandle::operator void (ProGL::ContextHandle::*)(void)const(&v27);
-  if (v9)
+  v7 = ProGL::ContextHandle::operator void (ProGL::ContextHandle::*)(void)const(&v25);
+  if (v8)
   {
-    v10 = (v9 & 1 | v8) == 0;
-  }
-
-  else
-  {
-    v10 = 1;
-  }
-
-  v11 = v10;
-  if (v8 || (v11 & 1) == 0)
-  {
-    ProGL::ContextHandle::~ContextHandle(&v27);
+    v9 = (v8 & 1 | v7) == 0;
   }
 
   else
   {
-    ProGL::GL::getPGLContextHandle(this, v30);
-    v13 = ProGL::ContextHandle::operator void (ProGL::ContextHandle::*)(void)const(v30);
-    if (v12)
+    v9 = 1;
+  }
+
+  v10 = v9;
+  if (v7 || (v10 & 1) == 0)
+  {
+    ProGL::ContextHandle::~ContextHandle(&v25);
+  }
+
+  else
+  {
+    ProGL::GL::getPGLContextHandle(this, v28);
+    v12 = ProGL::ContextHandle::operator void (ProGL::ContextHandle::*)(void)const(v28);
+    if (v11)
     {
-      v14 = (v12 & 1 | v13) == 0;
+      v13 = (v11 & 1 | v12) == 0;
     }
 
     else
     {
-      v14 = 1;
+      v13 = 1;
     }
 
-    v15 = v14;
-    ProGL::ContextHandle::~ContextHandle(v30);
-    ProGL::ContextHandle::~ContextHandle(&v27);
-    if (!v13 && v15)
+    v14 = v13;
+    ProGL::ContextHandle::~ContextHandle(v28);
+    ProGL::ContextHandle::~ContextHandle(&v25);
+    if (!v12 && v14)
     {
       *a3 = 0;
       a3[1] = 0;
@@ -9343,84 +9344,84 @@ void ProGL::createTextureFromPool(ProGL *this@<X0>, ProGL::GL *a2@<X1>, HGGLBlen
 
   *a3 = 0;
   a3[1] = 0;
-  v16 = *(a2 + 1);
-  v27 = *a2;
-  v28 = v16;
-  if (v16)
+  v15 = *(a2 + 1);
+  v25 = *a2;
+  v26 = v15;
+  if (v15)
   {
-    atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v18 = ProGL::ContextHandle::operator void (ProGL::ContextHandle::*)(void)const(&v27);
-  if (v17)
+  v17 = ProGL::ContextHandle::operator void (ProGL::ContextHandle::*)(void)const(&v25);
+  if (v16)
   {
-    v19 = (v17 & 1 | v18) == 0;
+    v18 = (v16 & 1 | v17) == 0;
   }
 
   else
   {
-    v19 = 1;
+    v18 = 1;
   }
 
-  v20 = v19;
-  ProGL::ContextHandle::~ContextHandle(&v27);
-  if (!v18 && v20)
+  v19 = v18;
+  ProGL::ContextHandle::~ContextHandle(&v25);
+  if (!v17 && v19)
   {
-    v21 = *(a2 + 1);
-    v27 = *a2;
-    v28 = v21;
-    if (v21)
+    v20 = *(a2 + 1);
+    v25 = *a2;
+    v26 = v20;
+    if (v20)
     {
-      atomic_fetch_add_explicit(v21 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v29[0] = *(a2 + 1);
-    *(v29 + 12) = *(a2 + 28);
-    ProGL::GL::getPGLContextHandle(this, v30);
-    ProGL::ContextHandle::operator=(&v27, v30);
-    LODWORD(v29[0]) = ProGL::ContextHandle::getVirtualScreen(&v27);
-    ProGL::ContextHandle::~ContextHandle(v30);
-    ProGL::findTextureInPool(&v27, v30);
-    v23 = v30[0];
-    v22 = v30[1];
-    *a3 = v30[0];
-    a3[1] = v22;
-    ProGL::ContextHandle::~ContextHandle(&v27);
-    if (!v23)
+    v27[0] = *(a2 + 1);
+    *(v27 + 12) = *(a2 + 28);
+    ProGL::GL::getPGLContextHandle(this, v28);
+    ProGL::ContextHandle::operator=(&v25, v28);
+    LODWORD(v27[0]) = ProGL::ContextHandle::getVirtualScreen(&v25);
+    ProGL::ContextHandle::~ContextHandle(v28);
+    ProGL::findTextureInPool(&v25, v28);
+    v22 = v28[0];
+    v21 = v28[1];
+    *a3 = v28[0];
+    a3[1] = v21;
+    ProGL::ContextHandle::~ContextHandle(&v25);
+    if (!v22)
     {
       goto LABEL_34;
     }
 
 LABEL_36:
-    if (HGGLBlendingInfo::GetAlphaOperation(v23))
+    if (HGGLBlendingInfo::GetAlphaOperation(v22))
     {
-      v25 = ProGL::TextureHandle::detach;
+      v23 = ProGL::TextureHandle::detach;
     }
 
     else
     {
-      v25 = 0;
+      v23 = 0;
     }
 
     goto LABEL_39;
   }
 
-  ProGL::findTextureInPool(a2, &v27);
-  v23 = v27;
-  v26 = v28;
-  *a3 = v27;
-  a3[1] = v26;
-  if (v23)
+  ProGL::findTextureInPool(a2, &v25);
+  v22 = v25;
+  v24 = v26;
+  *a3 = v25;
+  a3[1] = v24;
+  if (v22)
   {
     goto LABEL_36;
   }
 
 LABEL_34:
-  v25 = 0;
+  v23 = 0;
 LABEL_39:
-  if (!v25)
+  if (!v23)
   {
-    ProGL::createTexture(this, v24);
+    ProGL::createTexture();
   }
 }
 
@@ -9673,10 +9674,10 @@ CGColorSpace **ProGL::TextureHandle::getColorSpace@<X0>(CGColorSpace **this@<X0>
   v3 = *this;
   if (*this)
   {
-    v4 = *(v3 + 26);
+    v4 = *(v3 + 208);
     if (v4)
     {
-      PCCFRefTraits<CGColorSpace *>::retain(*(v3 + 26));
+      PCCFRefTraits<CGColorSpace *>::retain(*(v3 + 208));
     }
 
     *a2 = v4;
@@ -9702,8 +9703,7 @@ __n128 ProGL::TextureHandle::setTextureCoords(uint64_t *a1, uint64_t a2)
 
 __n128 ProGL::TextureHandle::getTextureCoords@<Q0>(ProGL::TextureHandle *this@<X0>, __n128 *a2@<X8>)
 {
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   __asm { FMOV            V0.2D, #-1.0 }
 
   a2[1] = result;

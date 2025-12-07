@@ -8,6 +8,8 @@
 - (id)specifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariExtensionsProfileSettingsController
@@ -41,6 +43,38 @@
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = SafariExtensionsProfileSettingsController;
+  [(SafariExtensionsProfileSettingsController *)&v7 viewWillAppear:appear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 addObserver:self selector:"_reload" name:WBSExtensionEnabledStateDidChangeNotification object:0];
+  [v4 addObserver:self selector:"_reload" name:WBSCloudExtensionStateDidChangeNotification object:0];
+  [v4 addObserver:self selector:"_reload" name:WBSManagedExtensionsStateDidChangeNotification object:0];
+  _webExtensionsController = [(SafariExtensionsProfileSettingsController *)self _webExtensionsController];
+  [_webExtensionsController addObserver:self];
+
+  _contentBlockerManager = [(SafariExtensionsProfileSettingsController *)self _contentBlockerManager];
+  [_contentBlockerManager addObserver:self];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = SafariExtensionsProfileSettingsController;
+  [(SafariExtensionsProfileSettingsController *)&v7 viewDidDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:WBSExtensionEnabledStateDidChangeNotification object:0];
+  [v4 removeObserver:self name:WBSCloudExtensionStateDidChangeNotification object:0];
+  [v4 removeObserver:self name:WBSManagedExtensionsStateDidChangeNotification object:0];
+  _webExtensionsController = [(SafariExtensionsProfileSettingsController *)self _webExtensionsController];
+  [_webExtensionsController removeObserver:self];
+
+  _contentBlockerManager = [(SafariExtensionsProfileSettingsController *)self _contentBlockerManager];
+  [_contentBlockerManager removeObserver:self];
 }
 
 - (id)_webExtensionsController
@@ -225,29 +259,10 @@ id __68__SafariExtensionsProfileSettingsController__contentBlockerWrappers__bloc
           v52 = v20;
           [_webExtensionsController _isExtensionBlockedByBlocklist:extension completionHandler:v51];
 
-          if ([v13 isContentBlocker])
+          if (([v13 isContentBlocker] & 1) != 0 || (objc_msgSend(v13, "extension"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(_webExtensionsController, "webExtensionForExtension:", v21), v22 = objc_claimAutoreleasedReturnValue(), v21, !v22) || (objc_msgSend(v22, "preferencesIcon"), v23 = objc_claimAutoreleasedReturnValue(), +[ISImageDescriptor imageDescriptorNamed:](ISImageDescriptor, "imageDescriptorNamed:", v40), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "size"), +[WBSImageUtilities resizedImage:withSize:](WBSImageUtilities, "resizedImage:withSize:", v23), v25 = objc_claimAutoreleasedReturnValue(), v24, v23, v22, !v25))
           {
-            goto LABEL_18;
-          }
-
-          extension2 = [v13 extension];
-          v22 = [_webExtensionsController webExtensionForExtension:extension2];
-
-          if (!v22)
-          {
-            goto LABEL_18;
-          }
-
-          preferencesIcon = [v22 preferencesIcon];
-          v24 = [ISImageDescriptor imageDescriptorNamed:v40];
-          [v24 size];
-          v25 = [WBSImageUtilities resizedImage:preferencesIcon withSize:?];
-
-          if (!v25)
-          {
-LABEL_18:
-            extension3 = [v13 extension];
-            _plugIn = [extension3 _plugIn];
+            extension2 = [v13 extension];
+            _plugIn = [extension2 _plugIn];
             uuid = [_plugIn uuid];
             v29 = [LSPlugInKitProxy pluginKitProxyForUUID:uuid];
 

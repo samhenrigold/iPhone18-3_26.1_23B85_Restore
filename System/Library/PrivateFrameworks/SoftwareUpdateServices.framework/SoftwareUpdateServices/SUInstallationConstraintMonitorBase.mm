@@ -1,11 +1,9 @@
 @interface SUInstallationConstraintMonitorBase
-- (BOOL)isSatisfied;
 - (SUDownload)download;
 - (SUInstallOptions)installOptions;
 - (SUInstallationConstraintMonitorDelegate)delegate;
 - (id)initOnQueue:(id)queue withDownload:(id)download andInstallOptions:(id)options;
 - (id)initOnQueue:(id)queue withRepresentedInstallationConstraints:(unint64_t)constraints andDownload:(id)download andInstallOptions:(id)options;
-- (unint64_t)representedConstraints;
 - (unint64_t)unsatisfiedConstraints;
 - (unint64_t)unsatisfiedConstraintsWithIgnorableConstraints:(unint64_t)constraints;
 - (void)setDelegate:(id)delegate;
@@ -44,7 +42,6 @@
 
 - (SUDownload)download
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   download = self->_download;
 
@@ -53,23 +50,14 @@
 
 - (SUInstallOptions)installOptions
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   installOptions = self->_installOptions;
 
   return installOptions;
 }
 
-- (unint64_t)representedConstraints
-{
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  return self->_representedConstraints;
-}
-
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
 
   return [(SUInstallationConstraintMonitorBase *)self representedConstraints];
@@ -77,7 +65,6 @@
 
 - (SUInstallationConstraintMonitorDelegate)delegate
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   WeakRetained = objc_loadWeakRetained(&self->_queue_delegate);
 
@@ -87,23 +74,15 @@
 - (void)setDelegate:(id)delegate
 {
   obj = delegate;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   WeakRetained = objc_loadWeakRetained(&self->_queue_delegate);
 
-  v6 = obj;
+  v5 = obj;
   if (WeakRetained != obj)
   {
     objc_storeWeak(&self->_queue_delegate, obj);
-    v6 = obj;
+    v5 = obj;
   }
-}
-
-- (BOOL)isSatisfied
-{
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  return [(SUInstallationConstraintMonitorBase *)self unsatisfiedConstraints]== 0;
 }
 
 - (unint64_t)unsatisfiedConstraintsWithIgnorableConstraints:(unint64_t)constraints

@@ -145,7 +145,7 @@
 
         file3 = [(MBCKRestoreFileEngine *)v26 file];
         fileID3 = [file3 fileID];
-        _MBLog();
+        _MBLog(@"E ", "Error getting restore file state for file %@: %@", fileID3, v32);
       }
     }
 
@@ -166,39 +166,37 @@
     {
       file = [(MBCKRestoreFileEngine *)self file];
       *buf = 138412546;
-      v16 = file;
-      v17 = 2112;
-      v18 = errorCopy;
+      v15 = file;
+      v16 = 2112;
+      v17 = errorCopy;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Non retryable restore error for %@: %@. Setting state to non-retryable failure.", buf, 0x16u);
 
       file2 = [(MBCKRestoreFileEngine *)self file];
-      v13 = errorCopy;
-      _MBLog();
+      _MBLog(@"E ", "Non retryable restore error for %@: %@. Setting state to non-retryable failure.", file2, errorCopy);
     }
 
     [(MBCKRestoreFileEngine *)self setRestoreState:12];
     cache = [(MBCKEngine *)self cache];
     restoreState = [(MBCKRestoreFileEngine *)self restoreState];
     file3 = [(MBCKRestoreFileEngine *)self file];
-    v10 = [cache setRestoreState:restoreState forFile:file3];
+    v11 = [cache setRestoreState:restoreState forFile:file3];
 
-    if (v10)
+    if (v11)
     {
-      v11 = MBGetDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = MBGetDefaultLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v10;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to set state in cache transaction: %@", buf, 0xCu);
-        file2 = v10;
-        _MBLog();
+        v15 = v11;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to set state in cache transaction: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to set state in cache transaction: %@", v11);
       }
     }
   }
 
-  v14.receiver = self;
-  v14.super_class = MBCKRestoreFileEngine;
-  [(MBCKEngine *)&v14 cleanUpAfterError:errorCopy, file2, v13];
+  v13.receiver = self;
+  v13.super_class = MBCKRestoreFileEngine;
+  [(MBCKEngine *)&v13 cleanUpAfterError:errorCopy];
 }
 
 - (void)setDestinationPath:(id)path
@@ -210,7 +208,7 @@
     *buf = 138412290;
     v8 = pathCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "File will restore to overridden destination %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "File will restore to overridden destination %@", pathCopy);
   }
 
   destinationPath = self->_destinationPath;
@@ -235,13 +233,13 @@
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Restore failed: %@ (%@)", buf, 0x16u);
 
       file2 = [(MBCKRestoreFileEngine *)self file];
-      _MBLog();
+      _MBLog(@"E ", "Restore failed: %@ (%@)", engineError, file2);
     }
 
     [(MBCKRestoreFileEngine *)self cleanUpAfterError:engineError];
     if (error)
     {
-      v9 = engineError;
+      v10 = engineError;
       *error = engineError;
     }
   }
@@ -251,10 +249,10 @@
 
 - (void)_handleStateTransition
 {
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   restoreState = [(MBCKRestoreFileEngine *)self restoreState];
   if (restoreState <= 9)
   {
@@ -262,38 +260,38 @@
     {
       if (restoreState == 1)
       {
-        v7 = MBGetDefaultLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = MBGetDefaultLog();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = v7;
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v9 = v8;
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             file = [(MBCKRestoreFileEngine *)self file];
             *buf = 138412290;
-            v37 = file;
-            _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Restoring %@", buf, 0xCu);
+            v38 = file;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Restoring %@", buf, 0xCu);
           }
 
           file2 = [(MBCKRestoreFileEngine *)self file];
-          _MBLog();
+          _MBLog(@"Df", "Restoring %@", file2);
         }
 
-        v31[0] = _NSConcreteStackBlock;
-        v31[1] = 3221225472;
-        v31[2] = sub_1000FFDD8;
-        v31[3] = &unk_1003BC400;
-        v31[4] = self;
-        [(MBCKEngine *)self performRetryablePhase:v31];
+        v32[0] = _NSConcreteStackBlock;
+        v32[1] = 3221225472;
+        v32[2] = sub_1000FFDD8;
+        v32[3] = &unk_1003BC400;
+        v32[4] = self;
+        [(MBCKEngine *)self performRetryablePhase:v32];
       }
 
       else if (restoreState == 2)
       {
-        v30[0] = _NSConcreteStackBlock;
-        v30[1] = 3221225472;
-        v30[2] = sub_1000FFDE4;
-        v30[3] = &unk_1003BC400;
-        v30[4] = self;
-        [(MBCKEngine *)self performRetryablePhase:v30];
+        v31[0] = _NSConcreteStackBlock;
+        v31[1] = 3221225472;
+        v31[2] = sub_1000FFDE4;
+        v31[3] = &unk_1003BC400;
+        v31[4] = self;
+        [(MBCKEngine *)self performRetryablePhase:v31];
       }
     }
 
@@ -302,34 +300,34 @@
       switch(restoreState)
       {
         case 3:
-          v29[0] = _NSConcreteStackBlock;
-          v29[1] = 3221225472;
-          v29[2] = sub_1000FFDF0;
-          v29[3] = &unk_1003BEA40;
-          v29[4] = self;
-          v29[5] = &v32;
-          [(MBCKEngine *)self performRetryablePhase:v29];
+          v30[0] = _NSConcreteStackBlock;
+          v30[1] = 3221225472;
+          v30[2] = sub_1000FFDF0;
+          v30[3] = &unk_1003BEA40;
+          v30[4] = self;
+          v30[5] = &v33;
+          [(MBCKEngine *)self performRetryablePhase:v30];
           break;
         case 6:
+          v29[0] = _NSConcreteStackBlock;
+          v29[1] = 3221225472;
+          v29[2] = sub_1000FFF54;
+          v29[3] = &unk_1003BC400;
+          v29[4] = self;
+          [(MBCKEngine *)self performRetryablePhase:v29];
+          break;
+        case 9:
           v28[0] = _NSConcreteStackBlock;
           v28[1] = 3221225472;
-          v28[2] = sub_1000FFF54;
+          v28[2] = sub_1000FFF60;
           v28[3] = &unk_1003BC400;
           v28[4] = self;
           [(MBCKEngine *)self performRetryablePhase:v28];
           break;
-        case 9:
-          v27[0] = _NSConcreteStackBlock;
-          v27[1] = 3221225472;
-          v27[2] = sub_1000FFF60;
-          v27[3] = &unk_1003BC400;
-          v27[4] = self;
-          [(MBCKEngine *)self performRetryablePhase:v27];
-          break;
       }
     }
 
-    goto LABEL_39;
+    goto LABEL_40;
   }
 
   if (restoreState > 11)
@@ -342,23 +340,23 @@
       domainName = [file3 domainName];
       file4 = [(MBCKRestoreFileEngine *)self file];
       fileID = [file4 fileID];
-      v15 = [MBError errorWithCode:202 format:@"File is in non-retryable failed state:%lu, domain:%@, fileID:%@", restoreState2, domainName, fileID];
-      [(MBCKEngine *)self setEngineError:v15];
+      v17 = [MBError errorWithCode:202 format:@"File is in non-retryable failed state:%lu, domain:%@, fileID:%@", restoreState2, domainName, fileID];
+      [(MBCKEngine *)self setEngineError:v17];
 
-      goto LABEL_39;
+      goto LABEL_40;
     }
 
     if (restoreState != 13)
     {
       if (restoreState != 14)
       {
-        goto LABEL_39;
+        goto LABEL_40;
       }
 
       v4 = MBGetDefaultLog();
       if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_38;
+        goto LABEL_39;
       }
 
       v4 = v4;
@@ -366,11 +364,13 @@
       {
         destinationPath = [(MBCKRestoreFileEngine *)self destinationPath];
         *buf = 138412290;
-        v37 = destinationPath;
+        v38 = destinationPath;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "File handled by restore plan %@", buf, 0xCu);
       }
 
-      goto LABEL_37;
+      destinationPath2 = [(MBCKRestoreFileEngine *)self destinationPath];
+      _MBLog(@"Df", "File handled by restore plan %@", destinationPath2);
+      goto LABEL_38;
     }
 
     v4 = MBGetDefaultLog();
@@ -379,21 +379,20 @@
       v4 = v4;
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        destinationPath2 = [(MBCKRestoreFileEngine *)self destinationPath];
+        destinationPath3 = [(MBCKRestoreFileEngine *)self destinationPath];
         *buf = 138412290;
-        v37 = destinationPath2;
+        v38 = destinationPath3;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "File skipped %@", buf, 0xCu);
       }
 
-LABEL_37:
+      destinationPath2 = [(MBCKRestoreFileEngine *)self destinationPath];
+      _MBLog(@"Df", "File skipped %@", destinationPath2);
+LABEL_38:
 
-      file2 = [(MBCKRestoreFileEngine *)self destinationPath];
-      _MBLog();
-
-      goto LABEL_38;
+      goto LABEL_39;
     }
 
-    goto LABEL_38;
+    goto LABEL_39;
   }
 
   if (restoreState != 10)
@@ -404,20 +403,22 @@ LABEL_37:
       v4 = v4;
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        destinationPath3 = [(MBCKRestoreFileEngine *)self destinationPath];
+        destinationPath4 = [(MBCKRestoreFileEngine *)self destinationPath];
         *buf = 138412290;
-        v37 = destinationPath3;
+        v38 = destinationPath4;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "File restored to %@", buf, 0xCu);
       }
 
-      goto LABEL_37;
+      destinationPath2 = [(MBCKRestoreFileEngine *)self destinationPath];
+      _MBLog(@"Df", "File restored to %@", destinationPath2);
+      goto LABEL_38;
     }
 
-LABEL_38:
+LABEL_39:
 
     [(MBCKEngine *)self setIsFinished:1];
     [(MBCKEngine *)self setEngineError:0];
-    goto LABEL_39;
+    goto LABEL_40;
   }
 
   if (![(MBCKRestoreFileEngine *)self shouldSetProtectionClass])
@@ -425,13 +426,13 @@ LABEL_38:
     [(MBCKEngine *)self setIsFinished:1];
   }
 
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_1000FFF6C;
-  v26[3] = &unk_1003BC400;
-  v26[4] = self;
-  [(MBCKEngine *)self performRetryablePhase:v26];
-LABEL_39:
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1000FFF6C;
+  v27[3] = &unk_1003BC400;
+  v27[4] = self;
+  [(MBCKEngine *)self performRetryablePhase:v27];
+LABEL_40:
   if ([(MBCKEngine *)self isFinished])
   {
     progressModel = [(MBCKEngine *)self progressModel];
@@ -440,17 +441,17 @@ LABEL_39:
 
   else
   {
-    if (v33[3])
+    if (v34[3])
     {
-      v18 = 13;
+      v20 = 13;
     }
 
     else
     {
-      v18 = [(MBCKRestoreFileEngine *)self restoreState]+ 1;
+      v20 = [(MBCKRestoreFileEngine *)self restoreState]+ 1;
     }
 
-    [(MBCKRestoreFileEngine *)self setRestoreState:v18];
+    [(MBCKRestoreFileEngine *)self setRestoreState:v20];
   }
 
   if ([(MBCKRestoreFileEngine *)self restoreState]!= 3)
@@ -461,22 +462,22 @@ LABEL_39:
     cache = [(MBCKEngine *)self cache];
     restoreState3 = [(MBCKRestoreFileEngine *)self restoreState];
     file5 = [(MBCKRestoreFileEngine *)self file];
-    v23 = [cache setRestoreState:restoreState3 forFile:file5];
+    v25 = [cache setRestoreState:restoreState3 forFile:file5];
 
-    if (v23)
+    if (v25)
     {
-      v24 = MBGetDefaultLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = MBGetDefaultLog();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v37 = v23;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to set state in cache transaction: %@", buf, 0xCu);
-        _MBLog();
+        v38 = v25;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to set state in cache transaction: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to set state in cache transaction: %@", v25);
       }
     }
   }
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v33, 8);
 }
 
 - (void)makeStateTransition
@@ -496,34 +497,34 @@ LABEL_39:
   {
     file = [(MBCKRestoreFileEngine *)self file];
     *buf = 138412290;
-    v40 = file;
+    v41 = file;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Setting up for restore of file %@", buf, 0xCu);
 
     file2 = [(MBCKRestoreFileEngine *)self file];
-    _MBLog();
+    _MBLog(@"Db", "Setting up for restore of file %@", file2);
   }
 
-  v36.receiver = self;
-  v36.super_class = MBCKRestoreFileEngine;
-  if ([(MBCKEngine *)&v36 setUpWithError:error])
+  v37.receiver = self;
+  v37.super_class = MBCKRestoreFileEngine;
+  if ([(MBCKEngine *)&v37 setUpWithError:error])
   {
     cache = [(MBCKEngine *)self cache];
     restoreType = [(MBCKRestoreFileEngine *)self restoreType];
     file3 = [(MBCKRestoreFileEngine *)self file];
-    v10 = [cache setRestoreType:restoreType forFile:file3];
+    v11 = [cache setRestoreType:restoreType forFile:file3];
 
     file4 = [(MBCKRestoreFileEngine *)self file];
     absolutePath = [file4 absolutePath];
 
     if (absolutePath)
     {
-      file12 = +[NSFileManager defaultManager];
+      file13 = +[NSFileManager defaultManager];
       destinationPath = [(MBCKRestoreFileEngine *)self destinationPath];
       stringByDeletingLastPathComponent = [destinationPath stringByDeletingLastPathComponent];
 
-      if ([file12 fileExistsAtPath:stringByDeletingLastPathComponent])
+      if ([file13 fileExistsAtPath:stringByDeletingLastPathComponent])
       {
-        v16 = 1;
+        v17 = 1;
 LABEL_23:
 
         goto LABEL_24;
@@ -535,24 +536,24 @@ LABEL_23:
       {
         file6 = [(MBCKRestoreFileEngine *)self file];
         groupID = [file6 groupID];
-        v23 = MBMobileUID();
+        v25 = MBMobileUID();
 
-        if (groupID == v23)
+        if (groupID == v25)
         {
 LABEL_19:
-          v37[0] = NSFileOwnerAccountID;
+          v38[0] = NSFileOwnerAccountID;
           file7 = [(MBCKRestoreFileEngine *)self file];
-          v27 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [file7 userID]);
-          v38[0] = v27;
-          v37[1] = NSFileGroupOwnerAccountID;
+          v30 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [file7 userID]);
+          v39[0] = v30;
+          v38[1] = NSFileGroupOwnerAccountID;
           file8 = [(MBCKRestoreFileEngine *)self file];
-          v29 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [file8 groupID]);
-          v38[1] = v29;
-          v30 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
+          v32 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [file8 groupID]);
+          v39[1] = v32;
+          v33 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
 
-          v31 = [file12 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v30 error:error];
-          v16 = v31;
-          if (error && (v31 & 1) == 0)
+          v34 = [file13 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v33 error:error];
+          v17 = v34;
+          if (error && (v34 & 1) == 0)
           {
             destinationPath2 = [(MBCKRestoreFileEngine *)self destinationPath];
             *error = [MBError errorWithCode:100 path:stringByDeletingLastPathComponent format:@"Error creating parent path for file %@", destinationPath2];
@@ -566,41 +567,41 @@ LABEL_19:
       {
       }
 
-      v24 = MBGetDefaultLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v26 = MBGetDefaultLog();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         file9 = [(MBCKRestoreFileEngine *)self file];
         *buf = 138412290;
-        v40 = file9;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Creating parent directory (possibly skipped tld) for %@", buf, 0xCu);
+        v41 = file9;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Creating parent directory (possibly skipped tld) for %@", buf, 0xCu);
 
-        file2 = [(MBCKRestoreFileEngine *)self file];
-        _MBLog();
+        file10 = [(MBCKRestoreFileEngine *)self file];
+        _MBLog(@"I ", "Creating parent directory (possibly skipped tld) for %@", file10);
       }
 
       goto LABEL_19;
     }
 
-    v17 = MBGetDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = MBGetDefaultLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      file10 = [(MBCKRestoreFileEngine *)self file];
-      *buf = 138412290;
-      v40 = file10;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Can't restore a file without an absolute path: %@", buf, 0xCu);
-
       file11 = [(MBCKRestoreFileEngine *)self file];
-      _MBLog();
+      *buf = 138412290;
+      v41 = file11;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Can't restore a file without an absolute path: %@", buf, 0xCu);
+
+      file12 = [(MBCKRestoreFileEngine *)self file];
+      _MBLog(@"E ", "Can't restore a file without an absolute path: %@", file12);
     }
 
     if (error)
     {
-      file12 = [(MBCKRestoreFileEngine *)self file];
-      [MBError errorWithCode:205 format:@"File does not have an absolute path: %@", file12];
-      *error = v16 = 0;
+      file13 = [(MBCKRestoreFileEngine *)self file];
+      [MBError errorWithCode:205 format:@"File does not have an absolute path: %@", file13];
+      *error = v17 = 0;
 LABEL_24:
 
-      return v16;
+      return v17;
     }
   }
 
@@ -632,7 +633,7 @@ LABEL_24:
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Downloading file %@", &buf, 0xCu);
 
     file3 = [(MBCKRestoreFileEngine *)self file];
-    _MBLog();
+    _MBLog(@"I ", "Downloading file %@", file3);
   }
 
   *&buf = 0;
@@ -641,23 +642,23 @@ LABEL_24:
   v22 = sub_10010073C;
   v23 = sub_10010074C;
   v24 = 0;
-  v11 = dispatch_semaphore_create(0);
+  v12 = dispatch_semaphore_create(0);
   file4 = [(MBCKRestoreFileEngine *)self file];
   v17[0] = _NSConcreteStackBlock;
   v17[1] = 3221225472;
   v17[2] = sub_100100754;
   v17[3] = &unk_1003BC160;
   p_buf = &buf;
-  v13 = v11;
-  v18 = v13;
+  v14 = v12;
+  v18 = v14;
   [file4 downloadContentsWithOperationTracker:ckOperationTracker completion:v17];
 
-  dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
-  v14 = *(*(&buf + 1) + 40);
-  v7 = v14 == 0;
-  if (error && v14)
+  dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
+  v15 = *(*(&buf + 1) + 40);
+  v7 = v15 == 0;
+  if (error && v15)
   {
-    *error = v14;
+    *error = v15;
   }
 
   _Block_object_dispose(&buf, 8);
@@ -675,7 +676,7 @@ LABEL_24:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Restoring asset for file %@", buf, 0xCu);
 
     file2 = [(MBCKRestoreFileEngine *)self file];
-    _MBLog();
+    _MBLog(@"Db", "Restoring asset for file %@", file2);
   }
 
   ckOperationTracker = [(MBCKEngine *)self ckOperationTracker];
@@ -684,15 +685,15 @@ LABEL_24:
     __assert_rtn("[MBCKRestoreFileEngine restoreAssetWithError:]", "MBCKRestoreFileEngine.m", 326, "tracker");
   }
 
-  v8 = ckOperationTracker;
+  v9 = ckOperationTracker;
   file3 = [(MBCKRestoreFileEngine *)self file];
   destinationPath = [(MBCKRestoreFileEngine *)self destinationPath];
   restoreLogger = [(MBCKRestoreFileEngine *)self restoreLogger];
   cache = [(MBCKEngine *)self cache];
   device = [(MBCKEngine *)self device];
-  v14 = [file3 restoreAssetWithOperationTracker:v8 destination:destinationPath logger:restoreLogger cache:cache device:device error:error];
+  v15 = [file3 restoreAssetWithOperationTracker:v9 destination:destinationPath logger:restoreLogger cache:cache device:device error:error];
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)setExtendedAttributesWithError:(id *)error
@@ -706,14 +707,14 @@ LABEL_24:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Setting extended attributes for file %@", buf, 0xCu);
 
     file2 = [(MBCKRestoreFileEngine *)self file];
-    _MBLog();
+    _MBLog(@"Db", "Setting extended attributes for file %@", file2);
   }
 
   file3 = [(MBCKRestoreFileEngine *)self file];
   destinationPath = [(MBCKRestoreFileEngine *)self destinationPath];
-  v9 = [file3 restoreExtendedAttributesToDestination:destinationPath withError:error];
+  v10 = [file3 restoreExtendedAttributesToDestination:destinationPath withError:error];
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)setAttributesWithError:(id *)error
@@ -782,7 +783,7 @@ LABEL_24:
             *buf = 138412290;
             v45 = v14;
             _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Unable to read %@ and determine if Info.plist modification is necessary", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "Unable to read %@ and determine if Info.plist modification is necessary", v14);
           }
 
           goto LABEL_49;
@@ -878,7 +879,7 @@ LABEL_36:
                 {
                   *buf = 0;
                   _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Info.plist modification is necessary because 'CFBundleIconName' key exists while 'CFBundleIconFiles' items also exist under 'CFBundleIcons~ipad'", buf, 2u);
-                  _MBLog();
+                  _MBLog(@"I ", "Info.plist modification is necessary because 'CFBundleIconName' key exists while 'CFBundleIconFiles' items also exist under 'CFBundleIcons~ipad'");
                 }
 
                 v31 = [v16 objectForKeyedSubscript:@"CFBundleIcons~ipad"];
@@ -911,7 +912,7 @@ LABEL_47:
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Info.plist modification is necessary because 'CFBundleIconName' key exists while 'CFBundleIconFiles' items also exist under 'CFBundleIcons'", buf, 2u);
-            _MBLog();
+            _MBLog(@"I ", "Info.plist modification is necessary because 'CFBundleIconName' key exists while 'CFBundleIconFiles' items also exist under 'CFBundleIcons'");
           }
 
           allKeys = [v16 objectForKeyedSubscript:@"CFBundleIcons"];
@@ -944,7 +945,7 @@ LABEL_41:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Unable to locate App Placeholder Info.plist", buf, 2u);
-    _MBLog();
+    _MBLog(@"E ", "Unable to locate App Placeholder Info.plist");
   }
 
 LABEL_50:
@@ -972,63 +973,63 @@ LABEL_50:
 
       file2 = [(MBCKRestoreFileEngine *)self file];
       relativePath2 = [file2 relativePath];
-      _MBLog();
+      _MBLog(@"I ", "Placeholder: unzipped %@", relativePath2);
     }
 
-    v14 = objc_opt_class();
+    v15 = objc_opt_class();
     stringByDeletingLastPathComponent2 = [destinationPath stringByDeletingLastPathComponent];
-    [v14 _removeBundleIconNameKeyFrom:stringByDeletingLastPathComponent2];
+    [v15 _removeBundleIconNameKeyFrom:stringByDeletingLastPathComponent2];
 
     stringByDeletingLastPathComponent3 = [destinationPath stringByDeletingLastPathComponent];
-    v17 = MBMobileUID();
     v18 = MBMobileUID();
-    v19 = stringByDeletingLastPathComponent3;
-    v20 = MBGetDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v19 = MBMobileUID();
+    v20 = stringByDeletingLastPathComponent3;
+    v21 = MBGetDefaultLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v36 = v19;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Restoring ownership at %@", buf, 0xCu);
-      _MBLog();
+      v36 = v20;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Restoring ownership at %@", buf, 0xCu);
+      _MBLog(@"Db", "Restoring ownership at %@", v20);
     }
 
-    v21 = lchown([v19 fileSystemRepresentation], v17, v18);
-    v22 = v8;
-    if (v21)
+    v22 = lchown([v20 fileSystemRepresentation], v18, v19);
+    v23 = v8;
+    if (v22)
     {
-      v22 = [MBError posixErrorWithCode:102 path:v19 format:@"lchown error"];
-      v23 = v22;
+      v23 = [MBError posixErrorWithCode:102 path:v20 format:@"lchown error"];
+      v24 = v23;
     }
 
-    v24 = v22;
-    if (v21)
+    v25 = v23;
+    if (v22)
     {
-      v25 = MBGetDefaultLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = MBGetDefaultLog();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         v36 = destinationPath;
         v37 = 2112;
-        v38 = v24;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Placeholder: Unable to restore as mobile:mobile: %@ %@", buf, 0x16u);
-        _MBLog();
+        v38 = v25;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Placeholder: Unable to restore as mobile:mobile: %@ %@", buf, 0x16u);
+        _MBLog(@"E ", "Placeholder: Unable to restore as mobile:mobile: %@ %@", destinationPath, v25);
       }
 
       if (error)
       {
-        v8 = v24;
+        v8 = v25;
         goto LABEL_16;
       }
 
-      v30 = 0;
+      v32 = 0;
     }
 
     else
     {
-      v30 = 1;
+      v32 = 1;
     }
 
-    v8 = v24;
+    v8 = v25;
     goto LABEL_21;
   }
 
@@ -1044,22 +1045,22 @@ LABEL_50:
 
     file4 = [(MBCKRestoreFileEngine *)self file];
     relativePath4 = [file4 relativePath];
-    _MBLog();
+    _MBLog(@"E ", "Placeholder: Unable to unzip %@ %@", relativePath4, v8);
   }
 
   if (!error)
   {
-    v30 = 0;
+    v32 = 0;
     goto LABEL_21;
   }
 
 LABEL_16:
-  v29 = v8;
-  v30 = 0;
+  v31 = v8;
+  v32 = 0;
   *error = v8;
 LABEL_21:
 
-  return v30;
+  return v32;
 }
 
 - (BOOL)setProtectionClassWithError:(id *)error
@@ -1096,12 +1097,12 @@ LABEL_21:
           file3 = [(MBCKRestoreFileEngine *)self file];
           absolutePath = [file3 absolutePath];
           *buf = 138412290;
-          v36[0] = absolutePath;
+          v35[0] = absolutePath;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Placeholder: left in place at %@", buf, 0xCu);
 
           file4 = [(MBCKRestoreFileEngine *)self file];
           absolutePath2 = [file4 absolutePath];
-          _MBLog();
+          _MBLog(@"I ", "Placeholder: left in place at %@", absolutePath2);
         }
 
 LABEL_18:
@@ -1109,10 +1110,10 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v22 = [containerID stringByAppendingPathExtension:@"zip"];
-      v23 = [relativePath isEqualToString:v22];
+      v23 = [containerID stringByAppendingPathExtension:@"zip"];
+      v24 = [relativePath isEqualToString:v23];
 
-      if (v23)
+      if (v24)
       {
         v10 = [(MBCKRestoreFileEngine *)self _restoreLegacyZippedAppPlaceholderWithError:error];
 LABEL_19:
@@ -1127,26 +1128,25 @@ LABEL_20:
       file5 = [(MBCKRestoreFileEngine *)self file];
       protectionClass = [file5 protectionClass];
 
-      v26 = MBGetDefaultLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v27 = MBGetDefaultLog();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         file6 = [(MBCKRestoreFileEngine *)self file];
         *buf = 67109378;
-        LODWORD(v36[0]) = protectionClass;
-        WORD2(v36[0]) = 2112;
-        *(v36 + 6) = file6;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Setting protection class %d for file at %@", buf, 0x12u);
+        LODWORD(v35[0]) = protectionClass;
+        WORD2(v35[0]) = 2112;
+        *(v35 + 6) = file6;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Setting protection class %d for file at %@", buf, 0x12u);
 
-        [(MBCKRestoreFileEngine *)self file];
-        v34 = v32 = protectionClass;
-        _MBLog();
+        file7 = [(MBCKRestoreFileEngine *)self file];
+        _MBLog(@"I ", "Setting protection class %d for file at %@", protectionClass, file7);
       }
 
-      v28 = self->_restoreType == 1;
-      relativePath = [(MBCKRestoreFileEngine *)self file:v32];
+      v30 = self->_restoreType == 1;
+      relativePath = [(MBCKRestoreFileEngine *)self file];
       containerID = [(MBCKRestoreFileEngine *)self destinationPath];
       restoreLogger = [(MBCKRestoreFileEngine *)self restoreLogger];
-      v10 = [MBRestorableOperation restore:relativePath protectionClassToDestination:containerID unspecifiedDirectoryProtectionClass:(4 * v28) logger:restoreLogger error:error];
+      v10 = [MBRestorableOperation restore:relativePath protectionClassToDestination:containerID unspecifiedDirectoryProtectionClass:(4 * v30) logger:restoreLogger error:error];
 
       goto LABEL_19;
     }
@@ -1158,13 +1158,13 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    file7 = [(MBCKRestoreFileEngine *)self file];
+    file8 = [(MBCKRestoreFileEngine *)self file];
     *buf = 138412290;
-    v36[0] = file7;
+    v35[0] = file8;
     _os_log_impl(&_mh_execute_header, relativePath, OS_LOG_TYPE_DEBUG, "Skipped setting protection class for file %@", buf, 0xCu);
 
     containerID = [(MBCKRestoreFileEngine *)self file];
-    _MBLog();
+    _MBLog(@"Db", "Skipped setting protection class for file %@", containerID);
     goto LABEL_18;
   }
 

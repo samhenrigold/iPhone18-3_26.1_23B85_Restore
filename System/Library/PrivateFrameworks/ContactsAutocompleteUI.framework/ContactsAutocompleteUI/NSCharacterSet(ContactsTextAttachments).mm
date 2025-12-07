@@ -11,9 +11,9 @@
     +[NSCharacterSet(ContactsTextAttachments) _cn_textAttachmentCharacterSet];
   }
 
-  v1 = _cn_textAttachmentCharacterSet_cn_once_object_1;
+  v2 = _cn_textAttachmentCharacterSet_cn_once_object_1;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -109,9 +109,9 @@
 
 - (NTKUtilityComplicationView)initWithFrame:(CGRect)frame
 {
-  v24.receiver = self;
-  v24.super_class = NTKUtilityComplicationView;
-  v3 = [(NTKUtilityComplicationView *)&v24 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v25.receiver = self;
+  v25.super_class = NTKUtilityComplicationView;
+  v3 = [(NTKUtilityComplicationView *)&v25 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = +[(CLKRenderingContext *)NTKFaceViewRenderingContext];
@@ -125,8 +125,8 @@
     v3->_foregroundImageAlpha = 0.7;
 
     device4 = [(NTKUtilityComplicationView *)v3 device];
-    ___LayoutConstants_block_invoke_70(device4, v22);
-    v3->_minimumWidth = v23;
+    ___LayoutConstants_block_invoke_70(device4, v23);
+    v3->_minimumWidth = v24;
 
     v3->_maxSize = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
     _standardFont = [(NTKUtilityComplicationView *)v3 _standardFont];
@@ -141,14 +141,14 @@
     foregroundColor = v3->_foregroundColor;
     v3->_foregroundColor = whiteColor;
 
-    v15 = NTKUtilityComplicationPlatterColor();
+    v16 = NTKUtilityComplicationPlatterColor(v15);
     platterColor = v3->_platterColor;
-    v3->_platterColor = v15;
+    v3->_platterColor = v16;
 
     v3->_fontWeight = *MEMORY[0x277D74418];
     device5 = [(NTKUtilityComplicationView *)v3 device];
-    ___LayoutConstants_block_invoke_70(device5, v21);
-    v3->_fontSize = v21[0];
+    ___LayoutConstants_block_invoke_70(device5, v22);
+    v3->_fontSize = v22[0];
 
     _newHighlightView = [(NTKUtilityComplicationView *)v3 _newHighlightView];
     highlightView = v3->_highlightView;
@@ -454,7 +454,7 @@ void __38__NTKUtilityComplicationView_setFont___block_invoke(uint64_t a1, void *
 
     else
     {
-      ___LayoutConstants_block_invoke_70(device, &v9);
+      ___LayoutConstants_block_invoke_70(device, v9);
       v8 = &v10;
     }
 

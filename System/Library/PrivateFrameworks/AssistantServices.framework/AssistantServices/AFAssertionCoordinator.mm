@@ -34,85 +34,83 @@
 
 - (unint64_t)numberOfActiveAssertions
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = atomic_load(&self->_numberOfActiveAssertions);
   if ((v2 & 0x8000000000000000) != 0)
   {
     v3 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[AFAssertionCoordinator numberOfActiveAssertions]";
-      v8 = 2048;
-      v9 = v2;
-      _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s numberOfActiveAssertions is %lld", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[AFAssertionCoordinator numberOfActiveAssertions]";
+      v7 = 2048;
+      v8 = v2;
+      _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s numberOfActiveAssertions is %lld", &v5, 0x16u);
     }
 
-    v2 = 0;
+    return 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (unint64_t)numberOfPendingAndActiveAssertions
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = atomic_load(&self->_numberOfAssertions);
   if ((v2 & 0x8000000000000000) != 0)
   {
     v3 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[AFAssertionCoordinator numberOfPendingAndActiveAssertions]";
-      v8 = 2048;
-      v9 = v2;
-      _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s numberOfPendingAndActiveAssertions is %lld", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[AFAssertionCoordinator numberOfPendingAndActiveAssertions]";
+      v7 = 2048;
+      v8 = v2;
+      _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s numberOfPendingAndActiveAssertions is %lld", &v5, 0x16u);
     }
 
-    v2 = 0;
+    return 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)_invalidate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v21 = "[AFAssertionCoordinator _invalidate]";
+    v20 = "[AFAssertionCoordinator _invalidate]";
     _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   allKeys = [(NSMutableDictionary *)self->_assertionsByUUID allKeys];
   v5 = [allKeys copy];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ Invalidated", self];
         v12 = [AFError errorWithCode:42 description:v11];
         [(AFAssertionCoordinator *)self _deactivateAndRemoveAssertionWithUUID:v10 context:0 error:v12 options:0];
@@ -121,37 +119,35 @@
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deactivateAndRemoveAssertionWithUUID:(id)d context:(id)context error:(id)error options:(unint64_t)options
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dCopy = d;
   contextCopy = context;
   errorCopy = error;
   v13 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
   {
-    v26 = v13;
-    v27 = AFAssertionRelinquishmentOptionsGetNames(options);
-    v28 = 136316162;
-    v29 = "[AFAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
-    v30 = 2112;
-    v31 = dCopy;
-    v32 = 2112;
-    v33 = contextCopy;
-    v34 = 2112;
-    v35 = errorCopy;
-    v36 = 2112;
-    v37 = v27;
-    _os_log_debug_impl(&dword_1912FE000, v26, OS_LOG_TYPE_DEBUG, "%s assertionUUID = %@, context = %@, error = %@, options = %@", &v28, 0x34u);
+    v25 = v13;
+    v26 = AFAssertionRelinquishmentOptionsGetNames(options);
+    v27 = 136316162;
+    v28 = "[AFAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
+    v29 = 2112;
+    v30 = dCopy;
+    v31 = 2112;
+    v32 = contextCopy;
+    v33 = 2112;
+    v34 = errorCopy;
+    v35 = 2112;
+    v36 = v26;
+    _os_log_debug_impl(&dword_1912FE000, v25, OS_LOG_TYPE_DEBUG, "%s assertionUUID = %@, context = %@, error = %@, options = %@", &v27, 0x34u);
 
     if (!dCopy)
     {
@@ -173,11 +169,11 @@
       v16 = AFSiriLogContextUtility;
       if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
       {
-        v28 = 136315394;
-        v29 = "[AFAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
-        v30 = 2112;
-        v31 = v14;
-        _os_log_debug_impl(&dword_1912FE000, v16, OS_LOG_TYPE_DEBUG, "%s Skipped deactivating %@ because it is active and requested inactive only.", &v28, 0x16u);
+        v27 = 136315394;
+        v28 = "[AFAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
+        v29 = 2112;
+        v30 = v14;
+        _os_log_debug_impl(&dword_1912FE000, v16, OS_LOG_TYPE_DEBUG, "%s Skipped deactivating %@ because it is active and requested inactive only.", &v27, 0x16u);
       }
     }
 
@@ -192,13 +188,13 @@
         v19 = AFSiriLogContextUtility;
         if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
         {
-          v28 = 136315650;
-          v29 = "[AFAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
-          v30 = 2048;
-          v31 = v17;
-          v32 = 2048;
-          v33 = v18;
-          _os_log_debug_impl(&dword_1912FE000, v19, OS_LOG_TYPE_DEBUG, "%s numberOfActiveAssertions: %llu -> %llu", &v28, 0x20u);
+          v27 = 136315650;
+          v28 = "[AFAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
+          v29 = 2048;
+          v30 = v17;
+          v31 = 2048;
+          v32 = v18;
+          _os_log_debug_impl(&dword_1912FE000, v19, OS_LOG_TYPE_DEBUG, "%s numberOfActiveAssertions: %llu -> %llu", &v27, 0x20u);
         }
 
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -212,13 +208,13 @@
       v23 = AFSiriLogContextUtility;
       if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
       {
-        v28 = 136315650;
-        v29 = "[AFAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
-        v30 = 2048;
-        v31 = v21;
-        v32 = 2048;
-        v33 = v22;
-        _os_log_debug_impl(&dword_1912FE000, v23, OS_LOG_TYPE_DEBUG, "%s numberOfAssertions: %llu -> %llu", &v28, 0x20u);
+        v27 = 136315650;
+        v28 = "[AFAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
+        v29 = 2048;
+        v30 = v21;
+        v31 = 2048;
+        v32 = v22;
+        _os_log_debug_impl(&dword_1912FE000, v23, OS_LOG_TYPE_DEBUG, "%s numberOfAssertions: %llu -> %llu", &v27, 0x20u);
       }
 
       v24 = objc_loadWeakRetained(&self->_delegate);
@@ -227,12 +223,11 @@
   }
 
 LABEL_16:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_activateAssertionWithUUID:(id)d
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
@@ -270,7 +265,7 @@ LABEL_16:
         *&buf[12] = 2048;
         *&buf[14] = v7;
         *&buf[22] = 2048;
-        v36 = *&v8;
+        v35 = *&v8;
         _os_log_debug_impl(&dword_1912FE000, v9, OS_LOG_TYPE_DEBUG, "%s numberOfActiveAssertions: %llu -> %llu", buf, 0x20u);
       }
 
@@ -285,15 +280,15 @@ LABEL_16:
       if (v14 > 0.0)
       {
         objc_initWeak(&location, self);
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke;
-        v30[3] = &unk_1E7342318;
-        objc_copyWeak(&v33, &location);
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke;
+        v29[3] = &unk_1E7342318;
+        objc_copyWeak(&v32, &location);
         v15 = v6;
-        v31 = v15;
-        v32 = dCopy;
-        v16 = MEMORY[0x193AFB7B0](v30);
+        v30 = v15;
+        v31 = dCopy;
+        v16 = MEMORY[0x193AFB7B0](v29);
         context2 = [v15 context];
         effectiveDate = [context2 effectiveDate];
 
@@ -307,45 +302,43 @@ LABEL_16:
           *&buf[12] = 2112;
           *&buf[14] = v15;
           *&buf[22] = 2048;
-          v36 = v14 + v20;
+          v35 = v14 + v20;
           _os_log_debug_impl(&dword_1912FE000, v21, OS_LOG_TYPE_DEBUG, "%s Deactivating %@ in %f seconds...", buf, 0x20u);
         }
 
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v36 = COERCE_DOUBLE(__Block_byref_object_copy_);
-        v37 = __Block_byref_object_dispose_;
-        v38 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
+        v35 = COERCE_DOUBLE(__Block_byref_object_copy_);
+        v36 = __Block_byref_object_dispose_;
+        v37 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
         v22 = *(*&buf[8] + 40);
         v23 = AFDispatchTimeGetFromDateAndOffset(effectiveDate, v14);
         dispatch_source_set_timer(v22, v23, 0xFFFFFFFFFFFFFFFFLL, 0);
         v24 = *(*&buf[8] + 40);
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_113;
-        v27[3] = &unk_1E73491D0;
-        v28 = v16;
-        v29 = buf;
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_113;
+        v26[3] = &unk_1E73491D0;
+        v27 = v16;
+        v28 = buf;
         v25 = v16;
-        dispatch_source_set_event_handler(v24, v27);
+        dispatch_source_set_event_handler(v24, v26);
         dispatch_resume(*(*&buf[8] + 40));
 
         _Block_object_dispose(buf, 8);
-        objc_destroyWeak(&v33);
+        objc_destroyWeak(&v32);
         objc_destroyWeak(&location);
       }
     }
   }
 
 LABEL_12:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -353,18 +346,16 @@ void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke(uint
     v5 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[AFAssertionCoordinator _activateAssertionWithUUID:]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s Deactivating %@ now...", &v8, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = 136315394;
+      v8 = "[AFAssertionCoordinator _activateAssertionWithUUID:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s Deactivating %@ now...", &v7, 0x16u);
     }
 
     [WeakRetained _deactivateAndRemoveAssertionWithUUID:*(a1 + 40) context:v3 error:0 options:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_113(uint64_t a1)
@@ -392,7 +383,7 @@ void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_2(ui
 
 - (void)_addAssertion:(id)assertion
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   v5 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
@@ -434,7 +425,7 @@ void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_2(ui
         *&buf[12] = 2112;
         *&buf[14] = assertionCopy;
         *&buf[22] = 2048;
-        v40 = *&v15;
+        v39 = *&v15;
         _os_log_error_impl(&dword_1912FE000, v29, OS_LOG_TYPE_ERROR, "%s %@ expired %f seconds ago.", buf, 0x20u);
       }
 
@@ -456,7 +447,7 @@ void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_2(ui
         *&buf[12] = 2048;
         *&buf[14] = v17;
         *&buf[22] = 2048;
-        v40 = v18;
+        v39 = v18;
         _os_log_debug_impl(&dword_1912FE000, v19, OS_LOG_TYPE_DEBUG, "%s numberOfAssertions: %llu -> %llu", buf, 0x20u);
       }
 
@@ -465,16 +456,16 @@ void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_2(ui
       [WeakRetained assertionCoordinator:self didAddAssertion:assertionCopy isFirstAssertion:v20];
 
       objc_initWeak(&location, self);
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __40__AFAssertionCoordinator__addAssertion___block_invoke;
-      v34[3] = &unk_1E7347500;
-      objc_copyWeak(&v37, &location);
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __40__AFAssertionCoordinator__addAssertion___block_invoke;
+      v33[3] = &unk_1E7347500;
+      objc_copyWeak(&v36, &location);
       v22 = assertionCopy;
-      v35 = v22;
+      v34 = v22;
       v12 = uuid;
-      v36 = v12;
-      v23 = MEMORY[0x193AFB7B0](v34);
+      v35 = v12;
+      v23 = MEMORY[0x193AFB7B0](v33);
       v24 = v23;
       if (v14 <= 0.0)
       {
@@ -491,33 +482,33 @@ void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_2(ui
           *&buf[12] = 2112;
           *&buf[14] = v22;
           *&buf[22] = 2048;
-          v40 = *&v14;
+          v39 = *&v14;
           _os_log_debug_impl(&dword_1912FE000, v25, OS_LOG_TYPE_DEBUG, "%s Activating %@ in %f seconds...", buf, 0x20u);
         }
 
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v40 = __Block_byref_object_copy_;
-        v41 = __Block_byref_object_dispose_;
-        v42 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
+        v39 = __Block_byref_object_copy_;
+        v40 = __Block_byref_object_dispose_;
+        v41 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
         v26 = *(*&buf[8] + 40);
         v27 = AFDispatchTimeGetFromDateAndOffset(effectiveDate, 0.0);
         dispatch_source_set_timer(v26, v27, 0xFFFFFFFFFFFFFFFFLL, 0);
         v28 = *(*&buf[8] + 40);
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __40__AFAssertionCoordinator__addAssertion___block_invoke_111;
-        v31[3] = &unk_1E73491D0;
-        v32 = v24;
-        v33 = buf;
-        dispatch_source_set_event_handler(v28, v31);
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __40__AFAssertionCoordinator__addAssertion___block_invoke_111;
+        v30[3] = &unk_1E73491D0;
+        v31 = v24;
+        v32 = buf;
+        dispatch_source_set_event_handler(v28, v30);
         dispatch_resume(*(*&buf[8] + 40));
 
         _Block_object_dispose(buf, 8);
       }
 
-      objc_destroyWeak(&v37);
+      objc_destroyWeak(&v36);
       objc_destroyWeak(&location);
     }
   }
@@ -532,7 +523,7 @@ void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_2(ui
       *&buf[12] = 2112;
       *&buf[14] = assertionCopy;
       *&buf[22] = 2048;
-      v40 = *&v10;
+      v39 = *&v10;
       _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s %@ contains invalid expiration duration %f.", buf, 0x20u);
     }
 
@@ -541,30 +532,27 @@ void __53__AFAssertionCoordinator__activateAssertionWithUUID___block_invoke_2(ui
   }
 
 LABEL_22:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __40__AFAssertionCoordinator__addAssertion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
     v3 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *(a1 + 32);
-      v6 = 136315394;
-      v7 = "[AFAssertionCoordinator _addAssertion:]_block_invoke";
-      v8 = 2112;
-      v9 = v5;
-      _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Activating %@ now...", &v6, 0x16u);
+      v4 = *(a1 + 32);
+      v5 = 136315394;
+      v6 = "[AFAssertionCoordinator _addAssertion:]_block_invoke";
+      v7 = 2112;
+      v8 = v4;
+      _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Activating %@ now...", &v5, 0x16u);
     }
 
     [WeakRetained _activateAssertionWithUUID:*(a1 + 40)];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __40__AFAssertionCoordinator__addAssertion___block_invoke_111(uint64_t a1)
@@ -582,13 +570,13 @@ void __40__AFAssertionCoordinator__addAssertion___block_invoke_111(uint64_t a1)
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "[AFAssertionCoordinator invalidate]";
-    v9 = 2112;
+    v7 = "[AFAssertionCoordinator invalidate]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
@@ -600,7 +588,6 @@ void __40__AFAssertionCoordinator__addAssertion___block_invoke_111(uint64_t a1)
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)barrier:(id)barrier
@@ -759,16 +746,16 @@ void __70__AFAssertionCoordinator_getPendingAndActiveAssertionsWithCompletion___
 
 - (void)relinquishAsertionsPassingTest:(id)test error:(id)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   testCopy = test;
   errorCopy = error;
   v8 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[AFAssertionCoordinator relinquishAsertionsPassingTest:error:]";
-    v16 = 2112;
-    v17 = errorCopy;
+    v14 = "[AFAssertionCoordinator relinquishAsertionsPassingTest:error:]";
+    v15 = 2112;
+    v16 = errorCopy;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s error = %@", buf, 0x16u);
   }
 
@@ -780,61 +767,57 @@ void __70__AFAssertionCoordinator_getPendingAndActiveAssertionsWithCompletion___
     block[2] = __63__AFAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke;
     block[3] = &unk_1E73496E8;
     block[4] = self;
-    v13 = testCopy;
-    v12 = errorCopy;
+    v12 = testCopy;
+    v11 = errorCopy;
     dispatch_async(queue, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __63__AFAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v3 = *(*(a1 + 32) + 32);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __63__AFAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke_2;
-  v17[3] = &unk_1E73422C8;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __63__AFAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke_2;
+  v16[3] = &unk_1E73422C8;
   v4 = *(a1 + 48);
   v5 = *(a1 + 32);
-  v19 = v4;
-  v17[4] = v5;
+  v18 = v4;
+  v16[4] = v5;
   v6 = v2;
-  v18 = v6;
-  [v3 enumerateKeysAndObjectsUsingBlock:v17];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v17 = v6;
+  [v3 enumerateKeysAndObjectsUsingBlock:v16];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(a1 + 32) _deactivateAndRemoveAssertionWithUUID:*(*(&v13 + 1) + 8 * v11++) context:0 error:*(a1 + 40) options:{0, v13}];
+        [*(a1 + 32) _deactivateAndRemoveAssertionWithUUID:*(*(&v12 + 1) + 8 * v11++) context:0 error:*(a1 + 40) options:{0, v12}];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __63__AFAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -853,16 +836,16 @@ void __63__AFAssertionCoordinator_relinquishAsertionsPassingTest_error___block_i
 
 - (void)relinquishAsertionsPassingTest:(id)test context:(id)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   testCopy = test;
   contextCopy = context;
   v8 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[AFAssertionCoordinator relinquishAsertionsPassingTest:context:]";
-    v16 = 2112;
-    v17 = contextCopy;
+    v14 = "[AFAssertionCoordinator relinquishAsertionsPassingTest:context:]";
+    v15 = 2112;
+    v16 = contextCopy;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
@@ -874,61 +857,57 @@ void __63__AFAssertionCoordinator_relinquishAsertionsPassingTest_error___block_i
     block[2] = __65__AFAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke;
     block[3] = &unk_1E73496E8;
     block[4] = self;
-    v13 = testCopy;
-    v12 = contextCopy;
+    v12 = testCopy;
+    v11 = contextCopy;
     dispatch_async(queue, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __65__AFAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v3 = *(*(a1 + 32) + 32);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __65__AFAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke_2;
-  v17[3] = &unk_1E73422C8;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __65__AFAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke_2;
+  v16[3] = &unk_1E73422C8;
   v4 = *(a1 + 48);
   v5 = *(a1 + 32);
-  v19 = v4;
-  v17[4] = v5;
+  v18 = v4;
+  v16[4] = v5;
   v6 = v2;
-  v18 = v6;
-  [v3 enumerateKeysAndObjectsUsingBlock:v17];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v17 = v6;
+  [v3 enumerateKeysAndObjectsUsingBlock:v16];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(a1 + 32) _deactivateAndRemoveAssertionWithUUID:*(*(&v13 + 1) + 8 * v11++) context:*(a1 + 40) error:0 options:{0, v13}];
+        [*(a1 + 32) _deactivateAndRemoveAssertionWithUUID:*(*(&v12 + 1) + 8 * v11++) context:*(a1 + 40) error:0 options:{0, v12}];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __65__AFAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -947,7 +926,7 @@ void __65__AFAssertionCoordinator_relinquishAsertionsPassingTest_context___block
 
 - (void)relinquishAssertionWithUUID:(id)d error:(id)error options:(unint64_t)options
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   errorCopy = error;
   v10 = AFSiriLogContextUtility;
@@ -956,35 +935,33 @@ void __65__AFAssertionCoordinator_relinquishAsertionsPassingTest_context___block
     v11 = v10;
     v12 = AFAssertionRelinquishmentOptionsGetNames(options);
     *buf = 136315906;
-    v22 = "[AFAssertionCoordinator relinquishAssertionWithUUID:error:options:]";
-    v23 = 2112;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = errorCopy;
-    v27 = 2112;
-    v28 = v12;
+    v21 = "[AFAssertionCoordinator relinquishAssertionWithUUID:error:options:]";
+    v22 = 2112;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = errorCopy;
+    v26 = 2112;
+    v27 = v12;
     _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s assertionUUID = %@, error = %@, options = %@", buf, 0x2Au);
   }
 
   queue = self->_queue;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __68__AFAssertionCoordinator_relinquishAssertionWithUUID_error_options___block_invoke;
-  v17[3] = &unk_1E73464F0;
-  v17[4] = self;
-  v18 = dCopy;
-  v19 = errorCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __68__AFAssertionCoordinator_relinquishAssertionWithUUID_error_options___block_invoke;
+  v16[3] = &unk_1E73464F0;
+  v16[4] = self;
+  v17 = dCopy;
+  v18 = errorCopy;
   optionsCopy = options;
   v14 = errorCopy;
   v15 = dCopy;
-  dispatch_async(queue, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v16);
 }
 
 - (void)relinquishAssertionWithUUID:(id)d context:(id)context options:(unint64_t)options
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   contextCopy = context;
   v10 = AFSiriLogContextUtility;
@@ -993,72 +970,68 @@ void __65__AFAssertionCoordinator_relinquishAsertionsPassingTest_context___block
     v11 = v10;
     v12 = AFAssertionRelinquishmentOptionsGetNames(options);
     *buf = 136315906;
-    v22 = "[AFAssertionCoordinator relinquishAssertionWithUUID:context:options:]";
-    v23 = 2112;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = contextCopy;
-    v27 = 2112;
-    v28 = v12;
+    v21 = "[AFAssertionCoordinator relinquishAssertionWithUUID:context:options:]";
+    v22 = 2112;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = contextCopy;
+    v26 = 2112;
+    v27 = v12;
     _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s assertionUUID = %@, context = %@, options = %@", buf, 0x2Au);
   }
 
   queue = self->_queue;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __70__AFAssertionCoordinator_relinquishAssertionWithUUID_context_options___block_invoke;
-  v17[3] = &unk_1E73464F0;
-  v17[4] = self;
-  v18 = dCopy;
-  v19 = contextCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __70__AFAssertionCoordinator_relinquishAssertionWithUUID_context_options___block_invoke;
+  v16[3] = &unk_1E73464F0;
+  v16[4] = self;
+  v17 = dCopy;
+  v18 = contextCopy;
   optionsCopy = options;
   v14 = contextCopy;
   v15 = dCopy;
-  dispatch_async(queue, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v16);
 }
 
 - (id)acquireRelinquishableAssertionWithContext:(id)context relinquishmentHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   v8 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v28 = "[AFAssertionCoordinator acquireRelinquishableAssertionWithContext:relinquishmentHandler:]";
-    v29 = 2112;
-    v30 = contextCopy;
+    v27 = "[AFAssertionCoordinator acquireRelinquishableAssertionWithContext:relinquishmentHandler:]";
+    v28 = 2112;
+    v29 = contextCopy;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   atomic_fetch_add(&self->_numberOfAssertions, 1uLL);
   v9 = [_AFAssertionImpl alloc];
   v10 = objc_alloc_init(MEMORY[0x1E696AFB0]);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __90__AFAssertionCoordinator_acquireRelinquishableAssertionWithContext_relinquishmentHandler___block_invoke;
-  v25[3] = &unk_1E73422A0;
-  v25[4] = self;
-  v26 = handlerCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __90__AFAssertionCoordinator_acquireRelinquishableAssertionWithContext_relinquishmentHandler___block_invoke;
+  v24[3] = &unk_1E73422A0;
+  v24[4] = self;
+  v25 = handlerCopy;
   v11 = handlerCopy;
-  v12 = [(_AFAssertionImpl *)v9 initWithUUID:v10 context:contextCopy relinquishmentHandler:v25];
+  v12 = [(_AFAssertionImpl *)v9 initWithUUID:v10 context:contextCopy relinquishmentHandler:v24];
 
   queue = self->_queue;
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __90__AFAssertionCoordinator_acquireRelinquishableAssertionWithContext_relinquishmentHandler___block_invoke_2;
-  v22 = &unk_1E7349860;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __90__AFAssertionCoordinator_acquireRelinquishableAssertionWithContext_relinquishmentHandler___block_invoke_2;
+  v21 = &unk_1E7349860;
   selfCopy = self;
-  v24 = v12;
+  v23 = v12;
   v14 = v12;
-  dispatch_async(queue, &v19);
+  dispatch_async(queue, &v18);
   v15 = [_AFAssertionProxy alloc];
-  selfCopy = [(_AFAssertionProxy *)v15 initWithImpl:v14 coordinator:self, v19, v20, v21, v22, selfCopy];
-
-  v17 = *MEMORY[0x1E69E9840];
+  selfCopy = [(_AFAssertionProxy *)v15 initWithImpl:v14 coordinator:self, v18, v19, v20, v21, selfCopy];
 
   return selfCopy;
 }
@@ -1077,33 +1050,32 @@ uint64_t __90__AFAssertionCoordinator_acquireRelinquishableAssertionWithContext_
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "[AFAssertionCoordinator dealloc]";
-    v8 = 2112;
+    v6 = "[AFAssertionCoordinator dealloc]";
+    v7 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
   [(AFAssertionCoordinator *)self _invalidate];
-  v5.receiver = self;
-  v5.super_class = AFAssertionCoordinator;
-  [(AFAssertionCoordinator *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = AFAssertionCoordinator;
+  [(AFAssertionCoordinator *)&v4 dealloc];
 }
 
 - (AFAssertionCoordinator)initWithIdentifier:(id)identifier queue:(id)queue delegate:(id)delegate
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queueCopy = queue;
   delegateCopy = delegate;
-  v21.receiver = self;
-  v21.super_class = AFAssertionCoordinator;
-  v11 = [(AFAssertionCoordinator *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = AFAssertionCoordinator;
+  v11 = [(AFAssertionCoordinator *)&v20 init];
   if (v11)
   {
     v12 = [identifierCopy copy];
@@ -1124,14 +1096,13 @@ uint64_t __90__AFAssertionCoordinator_acquireRelinquishableAssertionWithContext_
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[AFAssertionCoordinator initWithIdentifier:queue:delegate:]";
-      v24 = 2112;
-      v25 = v11;
+      v22 = "[AFAssertionCoordinator initWithIdentifier:queue:delegate:]";
+      v23 = 2112;
+      v24 = v11;
       _os_log_impl(&dword_1912FE000, v18, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -9,18 +9,17 @@
 
 - (void)main
 {
-  addToLibraryBehavior = self->_addToLibraryBehavior;
-  v4 = ICCloudClientGetStringForAddToLibraryBehavior();
-  v5 = [NSString stringWithFormat:@"CloudSetFavoriteSongAddToLibraryBehaviorOperation - (add to library behavior = %@)", v4];
-  v6 = [[MSVXPCTransaction alloc] initWithName:v5];
-  [v6 beginTransaction];
+  v3 = ICCloudClientGetStringForAddToLibraryBehavior();
+  v4 = [NSString stringWithFormat:@"CloudSetFavoriteSongAddToLibraryBehaviorOperation - (add to library behavior = %@)", v3];
+  v5 = [[MSVXPCTransaction alloc] initWithName:v4];
+  [v5 beginTransaction];
   musicLibrary = [(CloudLibraryOperation *)self musicLibrary];
   clientIdentity = [(CloudLibraryOperation *)self clientIdentity];
   [musicLibrary setClientIdentity:clientIdentity];
 
-  v9 = self->_addToLibraryBehavior;
+  addToLibraryBehavior = self->_addToLibraryBehavior;
   musicLibrary2 = [(CloudLibraryOperation *)self musicLibrary];
-  [musicLibrary2 icd_setSagaCloudFavoriteSongAddToLibraryBehavior:v9];
+  [musicLibrary2 icd_setSagaCloudFavoriteSongAddToLibraryBehavior:addToLibraryBehavior];
 
   musicLibrary3 = [(CloudLibraryOperation *)self musicLibrary];
   LODWORD(musicLibrary2) = [musicLibrary3 sagaOnDiskDatabaseRevision];
@@ -36,35 +35,35 @@
   }
 
   connection = [(CloudLibraryOperation *)self connection];
-  v13 = +[ICSetFavoriteSongAddToLibraryBehaviorRequest requestWithDatabaseID:databaseRevision:addToLibraryBehavior:](ICSetFavoriteSongAddToLibraryBehaviorRequest, "requestWithDatabaseID:databaseRevision:addToLibraryBehavior:", [connection databaseID], musicLibrary2, LOBYTE(self->_addToLibraryBehavior));
-  [v13 setVerificationInteractionLevel:2];
-  v14 = dispatch_semaphore_create(0);
-  v15 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v12 = +[ICSetFavoriteSongAddToLibraryBehaviorRequest requestWithDatabaseID:databaseRevision:addToLibraryBehavior:](ICSetFavoriteSongAddToLibraryBehaviorRequest, "requestWithDatabaseID:databaseRevision:addToLibraryBehavior:", [connection databaseID], musicLibrary2, LOBYTE(self->_addToLibraryBehavior));
+  [v12 setVerificationInteractionLevel:2];
+  v13 = dispatch_semaphore_create(0);
+  v14 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v25 = v13;
-    v26 = 2114;
-    v27 = v4;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Sending request %p to set add to library behavior to %{public}@", buf, 0x16u);
+    v24 = v12;
+    v25 = 2114;
+    v26 = v3;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Sending request %p to set add to library behavior to %{public}@", buf, 0x16u);
   }
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000EA08C;
-  v20[3] = &unk_1001DF440;
-  v21 = v13;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000EA08C;
+  v19[3] = &unk_1001DF440;
+  v20 = v12;
   selfCopy = self;
-  v23 = v14;
-  v16 = v14;
-  v17 = v13;
-  [connection sendRequest:v17 withResponseHandler:v20];
-  dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
+  v22 = v13;
+  v15 = v13;
+  v16 = v12;
+  [connection sendRequest:v16 withResponseHandler:v19];
+  dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
   musicLibrary4 = [(CloudLibraryOperation *)self musicLibrary];
-  v19 = MSVTCCIdentityForCurrentProcess();
-  [musicLibrary4 setClientIdentity:v19];
+  v18 = MSVTCCIdentityForCurrentProcess();
+  [musicLibrary4 setClientIdentity:v18];
 
-  [v6 endTransaction];
+  [v5 endTransaction];
 }
 
 - (void)encodeWithCoder:(id)coder

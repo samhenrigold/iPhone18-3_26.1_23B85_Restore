@@ -11,7 +11,7 @@
 
 - (DADiscoveryConfiguration)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(DADiscoveryConfiguration *)self init];
   if (v5)
@@ -38,7 +38,7 @@
     objc_opt_class();
     NSDecodeObjectIfPresent();
 
-    v30 = 0;
+    v29 = 0;
     objc_opt_class();
     NSDecodeNSArrayOfClassIfPresent();
     v11 = v10;
@@ -143,13 +143,12 @@
     [DADiscoveryConfiguration initWithCoder:coderCopy];
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = coderCopy;
   existingDeviceIdentifier = self->_existingDeviceIdentifier;
@@ -190,34 +189,34 @@
 
   v12 = self->_bluetoothServices;
   v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v12, "count")}];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v14 = v12;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v42;
+    v17 = *v41;
     do
     {
       v18 = 0;
       do
       {
-        if (*v42 != v17)
+        if (*v41 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        data = [*(*(&v41 + 1) + 8 * v18) data];
+        data = [*(*(&v40 + 1) + 8 * v18) data];
         [v13 addObject:data];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v16);
@@ -362,13 +361,11 @@
   {
     [v5 encodeObject:wifiAwareVendorNameMatch forKey:@"wFVim"];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   uTF8String = [(NSString *)self->_existingDeviceIdentifier UTF8String];
   if (uTF8String)
@@ -392,50 +389,49 @@
     xpc_dictionary_set_uuid(v10, "btID", uuid);
   }
 
-  bluetoothCompanyIdentifiers = self->_bluetoothCompanyIdentifiers;
   CUXPCEncodeNSArrayOfNSNumber();
   bluetoothCompanyPayload = self->_bluetoothCompanyPayload;
   if (bluetoothCompanyPayload)
   {
-    v13 = bluetoothCompanyPayload;
-    v14 = v7;
-    v15 = bluetoothCompanyPayload;
-    bytes = [(NSData *)v15 bytes];
+    v12 = bluetoothCompanyPayload;
+    v13 = v7;
+    v14 = bluetoothCompanyPayload;
+    bytes = [(NSData *)v14 bytes];
     if (bytes)
     {
-      v17 = bytes;
+      v16 = bytes;
     }
 
     else
     {
-      v17 = "";
+      v16 = "";
     }
 
-    v18 = [(NSData *)v15 length];
+    v17 = [(NSData *)v14 length];
 
-    xpc_dictionary_set_data(v14, "btCP", v17, v18);
+    xpc_dictionary_set_data(v13, "btCP", v16, v17);
   }
 
   bluetoothCompanyPayloadMask = self->_bluetoothCompanyPayloadMask;
   if (bluetoothCompanyPayloadMask)
   {
-    v20 = bluetoothCompanyPayloadMask;
-    v21 = v7;
-    v22 = bluetoothCompanyPayloadMask;
-    bytes2 = [(NSData *)v22 bytes];
+    v19 = bluetoothCompanyPayloadMask;
+    v20 = v7;
+    v21 = bluetoothCompanyPayloadMask;
+    bytes2 = [(NSData *)v21 bytes];
     if (bytes2)
     {
-      v24 = bytes2;
+      v23 = bytes2;
     }
 
     else
     {
-      v24 = "";
+      v23 = "";
     }
 
-    v25 = [(NSData *)v22 length];
+    v24 = [(NSData *)v21 length];
 
-    xpc_dictionary_set_data(v21, "btCM", v24, v25);
+    xpc_dictionary_set_data(v20, "btCM", v23, v24);
   }
 
   bluetoothRange = self->_bluetoothRange;
@@ -448,45 +444,45 @@
   bluetoothServicePayload = self->_bluetoothServicePayload;
   if (bluetoothServicePayload)
   {
-    v28 = bluetoothServicePayload;
-    v29 = v7;
-    v30 = bluetoothServicePayload;
-    bytes3 = [(NSData *)v30 bytes];
+    v27 = bluetoothServicePayload;
+    v28 = v7;
+    v29 = bluetoothServicePayload;
+    bytes3 = [(NSData *)v29 bytes];
     if (bytes3)
     {
-      v32 = bytes3;
+      v31 = bytes3;
     }
 
     else
     {
-      v32 = "";
+      v31 = "";
     }
 
-    v33 = [(NSData *)v30 length];
+    v32 = [(NSData *)v29 length];
 
-    xpc_dictionary_set_data(v29, "btSP", v32, v33);
+    xpc_dictionary_set_data(v28, "btSP", v31, v32);
   }
 
   bluetoothServicePayloadMask = self->_bluetoothServicePayloadMask;
   if (bluetoothServicePayloadMask)
   {
-    v35 = bluetoothServicePayloadMask;
-    v36 = v7;
-    v37 = bluetoothServicePayloadMask;
-    bytes4 = [(NSData *)v37 bytes];
+    v34 = bluetoothServicePayloadMask;
+    v35 = v7;
+    v36 = bluetoothServicePayloadMask;
+    bytes4 = [(NSData *)v36 bytes];
     if (bytes4)
     {
-      v39 = bytes4;
+      v38 = bytes4;
     }
 
     else
     {
-      v39 = "";
+      v38 = "";
     }
 
-    v40 = [(NSData *)v37 length];
+    v39 = [(NSData *)v36 length];
 
-    xpc_dictionary_set_data(v36, "btSM", v39, v40);
+    xpc_dictionary_set_data(v35, "btSM", v38, v39);
   }
 
   bluetoothNameSubstringCompareOptions = self->_bluetoothNameSubstringCompareOptions;
@@ -496,128 +492,121 @@
   }
 
   bluetoothNameSubstring = self->_bluetoothNameSubstring;
-  v43 = v7;
+  v42 = v7;
   uTF8String3 = [(NSString *)bluetoothNameSubstring UTF8String];
   if (uTF8String3)
   {
-    xpc_dictionary_set_string(v43, "btNS", uTF8String3);
+    xpc_dictionary_set_string(v42, "btNS", uTF8String3);
   }
 
   if (self->_allowsBluetoothPairing)
   {
-    xpc_dictionary_set_BOOL(v43, "btAP", 1);
+    xpc_dictionary_set_BOOL(v42, "btAP", 1);
   }
 
   bonjourServiceName = self->_bonjourServiceName;
-  v46 = v43;
+  v45 = v42;
   uTF8String4 = [(NSString *)bonjourServiceName UTF8String];
   if (uTF8String4)
   {
-    xpc_dictionary_set_string(v46, "bjSn", uTF8String4);
+    xpc_dictionary_set_string(v45, "bjSn", uTF8String4);
   }
 
-  bonjourServiceTypes = self->_bonjourServiceTypes;
   CUXPCEncodeNSArrayOfNSString();
   bonjourTXTRecordData = self->_bonjourTXTRecordData;
   if (bonjourTXTRecordData)
   {
+    v48 = bonjourTXTRecordData;
+    v49 = v45;
     v50 = bonjourTXTRecordData;
-    v51 = v46;
-    v52 = bonjourTXTRecordData;
-    bytes5 = [(NSData *)v52 bytes];
+    bytes5 = [(NSData *)v50 bytes];
     if (bytes5)
     {
-      v54 = bytes5;
+      v52 = bytes5;
     }
 
     else
     {
-      v54 = "";
+      v52 = "";
     }
 
-    v55 = [(NSData *)v52 length];
+    v53 = [(NSData *)v50 length];
 
-    xpc_dictionary_set_data(v51, "txRD", v54, v55);
+    xpc_dictionary_set_data(v49, "txRD", v52, v53);
   }
 
   bundleID = self->_bundleID;
-  v57 = v46;
+  v55 = v45;
   uTF8String5 = [(NSString *)bundleID UTF8String];
   if (uTF8String5)
   {
-    xpc_dictionary_set_string(v57, "bndI", uTF8String5);
+    xpc_dictionary_set_string(v55, "bndI", uTF8String5);
   }
 
   flags = self->_flags;
   if (flags)
   {
-    xpc_dictionary_set_uint64(v57, "dsFs", flags);
+    xpc_dictionary_set_uint64(v55, "dsFs", flags);
   }
 
   networkHotspotSSID = self->_networkHotspotSSID;
-  v61 = v57;
+  v59 = v55;
   uTF8String6 = [(NSString *)networkHotspotSSID UTF8String];
   if (uTF8String6)
   {
-    xpc_dictionary_set_string(v61, "neHsd", uTF8String6);
+    xpc_dictionary_set_string(v59, "neHsd", uTF8String6);
   }
 
-  hotspotSSIDs = self->_hotspotSSIDs;
   CUXPCEncodeNSArrayOfNSString();
-  hotspotSSIDPrefixes = self->_hotspotSSIDPrefixes;
   CUXPCEncodeNSArrayOfNSString();
   displayName = self->_displayName;
-  v66 = v61;
+  v62 = v59;
   uTF8String7 = [(NSString *)displayName UTF8String];
   if (uTF8String7)
   {
-    xpc_dictionary_set_string(v66, "name", uTF8String7);
+    xpc_dictionary_set_string(v62, "name", uTF8String7);
   }
 
   if (self->_allowsRename)
   {
-    xpc_dictionary_set_BOOL(v66, "alRn", 1);
+    xpc_dictionary_set_BOOL(v62, "alRn", 1);
   }
 
   identifier = [(UTType *)self->_iconType identifier];
-  v69 = v66;
+  v65 = v62;
   uTF8String8 = [identifier UTF8String];
   if (uTF8String8)
   {
-    xpc_dictionary_set_string(v69, "dvPT", uTF8String8);
+    xpc_dictionary_set_string(v65, "dvPT", uTF8String8);
   }
 
   if (self->_presenceOnly)
   {
-    xpc_dictionary_set_BOOL(v69, "prOn", 1);
+    xpc_dictionary_set_BOOL(v65, "prOn", 1);
   }
 
   wifiAwarePairingID = self->_wifiAwarePairingID;
   if (wifiAwarePairingID)
   {
-    xpc_dictionary_set_uint64(v69, "wFPi", wifiAwarePairingID);
+    xpc_dictionary_set_uint64(v65, "wFPi", wifiAwarePairingID);
   }
 
   wifiAwareServiceName = self->_wifiAwareServiceName;
-  v73 = v69;
+  v69 = v65;
   uTF8String9 = [(NSString *)wifiAwareServiceName UTF8String];
   if (uTF8String9)
   {
-    xpc_dictionary_set_string(v73, "wFSn", uTF8String9);
+    xpc_dictionary_set_string(v69, "wFSn", uTF8String9);
   }
 
-  wifiAwareModelNameMatch = self->_wifiAwareModelNameMatch;
   CUXPCEncodeObject();
   wifiAwareServiceType = self->_wifiAwareServiceType;
   if (wifiAwareServiceType)
   {
-    xpc_dictionary_set_uint64(v73, "wFSt", wifiAwareServiceType);
+    xpc_dictionary_set_uint64(v69, "wFSt", wifiAwareServiceType);
   }
 
-  wifiAwareVendorNameMatch = self->_wifiAwareVendorNameMatch;
   CUXPCEncodeObject();
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -718,303 +707,346 @@
 
 - (id)description
 {
+  v128 = 8;
   existingDeviceIdentifier = self->_existingDeviceIdentifier;
   if (existingDeviceIdentifier)
   {
+    v127 = 0;
     v4 = existingDeviceIdentifier;
-    v74 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v5 = 0;
+    v5 = CUPrintNSObjectOneLine();
+    CUAppendF(&v127, &v128, "dvID %@", v5);
+    v6 = v127;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   associationIdentifier = self->_associationIdentifier;
   if (associationIdentifier)
   {
-    v7 = associationIdentifier;
-    v75 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v8 = v5;
+    v126 = v6;
+    v8 = associationIdentifier;
+    v9 = CUPrintNSObjectOneLine();
+    CUAppendF(&v126, &v128, "asID %@", v9);
+    v10 = v126;
 
-    v5 = v8;
+    v6 = v10;
   }
 
   bluetoothIdentifier = self->_bluetoothIdentifier;
   if (bluetoothIdentifier)
   {
-    v10 = bluetoothIdentifier;
-    v76 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v11 = v5;
+    v125 = v6;
+    v12 = bluetoothIdentifier;
+    v13 = CUPrintNSObjectOneLine();
+    CUAppendF(&v125, &v128, "btID %@", v13);
+    v14 = v125;
 
-    v5 = v11;
+    v6 = v14;
   }
 
   bluetoothCompanyIdentifiers = self->_bluetoothCompanyIdentifiers;
   if (bluetoothCompanyIdentifiers)
   {
-    v13 = bluetoothCompanyIdentifiers;
-    v77 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v14 = v5;
+    v124 = v6;
+    v16 = bluetoothCompanyIdentifiers;
+    v17 = CUPrintNSObjectOneLine();
+    CUAppendF(&v124, &v128, "btCI %@", v17);
+    v18 = v124;
 
-    v5 = v14;
+    v6 = v18;
   }
 
   bluetoothCompanyPayload = self->_bluetoothCompanyPayload;
   if (bluetoothCompanyPayload)
   {
-    v16 = bluetoothCompanyPayload;
-    v78 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v17 = v5;
+    v123 = v6;
+    v20 = bluetoothCompanyPayload;
+    v21 = CUPrintNSObjectOneLine();
+    CUAppendF(&v123, &v128, "btCP %@", v21);
+    v22 = v123;
 
-    v5 = v17;
+    v6 = v22;
   }
 
   bluetoothCompanyPayloadMask = self->_bluetoothCompanyPayloadMask;
   if (bluetoothCompanyPayloadMask)
   {
-    v19 = bluetoothCompanyPayloadMask;
-    v79 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v20 = v5;
+    v122 = v6;
+    v24 = bluetoothCompanyPayloadMask;
+    v25 = CUPrintNSObjectOneLine();
+    CUAppendF(&v122, &v128, "btCM %@", v25);
+    v26 = v122;
 
-    v5 = v20;
+    v6 = v26;
   }
 
-  if (self->_bluetoothRange)
+  bluetoothRange = self->_bluetoothRange;
+  if (bluetoothRange)
   {
-    CUAppendF();
-    v21 = v5;
+    if (bluetoothRange == 10)
+    {
+      v28 = @"Immediate";
+    }
 
-    v5 = v21;
+    else
+    {
+      v28 = @"?";
+    }
+
+    v121 = v6;
+    CUAppendF(&v121, &v128, "btRg %@", v28);
+    v29 = v121;
+
+    v6 = v29;
   }
 
   bluetoothServices = self->_bluetoothServices;
   if (bluetoothServices)
   {
-    v23 = bluetoothServices;
-    v80 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v24 = v5;
+    v120 = v6;
+    v31 = bluetoothServices;
+    v32 = CUPrintNSObjectOneLine();
+    CUAppendF(&v120, &v128, "btSv %@", v32);
+    v33 = v120;
 
-    v5 = v24;
+    v6 = v33;
   }
 
   bluetoothServicePayload = self->_bluetoothServicePayload;
   if (bluetoothServicePayload)
   {
-    v26 = bluetoothServicePayload;
-    v81 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v27 = v5;
+    v119 = v6;
+    v35 = bluetoothServicePayload;
+    v36 = CUPrintNSObjectOneLine();
+    CUAppendF(&v119, &v128, "btSP %@", v36);
+    v37 = v119;
 
-    v5 = v27;
+    v6 = v37;
   }
 
   bluetoothServicePayloadMask = self->_bluetoothServicePayloadMask;
   if (bluetoothServicePayloadMask)
   {
-    v29 = bluetoothServicePayloadMask;
-    v82 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v30 = v5;
+    v118 = v6;
+    v39 = bluetoothServicePayloadMask;
+    v40 = CUPrintNSObjectOneLine();
+    CUAppendF(&v118, &v128, "btSM %@", v40);
+    v41 = v118;
 
-    v5 = v30;
+    v6 = v41;
   }
 
-  if (self->_bluetoothNameSubstringCompareOptions)
+  bluetoothNameSubstringCompareOptions = self->_bluetoothNameSubstringCompareOptions;
+  if (bluetoothNameSubstringCompareOptions)
   {
-    CUAppendF();
-    v31 = v5;
+    v117 = v6;
+    CUAppendF(&v117, &v128, "btNC %lu", bluetoothNameSubstringCompareOptions);
+    v43 = v117;
 
-    v5 = v31;
+    v6 = v43;
   }
 
   bluetoothNameSubstring = self->_bluetoothNameSubstring;
   if (bluetoothNameSubstring)
   {
-    v33 = bluetoothNameSubstring;
-    v83 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v34 = v5;
+    v116 = v6;
+    v45 = bluetoothNameSubstring;
+    v46 = CUPrintNSObjectOneLine();
+    CUAppendF(&v116, &v128, "btNS %@", v46);
+    v47 = v116;
 
-    v5 = v34;
+    v6 = v47;
   }
 
   if (self->_allowsBluetoothPairing)
   {
-    CUAppendF();
-    v35 = v5;
+    v115 = v6;
+    CUAppendF(&v115, &v128, "btAP");
+    v48 = v115;
 
-    v5 = v35;
+    v6 = v48;
   }
 
   bonjourServiceName = self->_bonjourServiceName;
   if (bonjourServiceName)
   {
-    v37 = bonjourServiceName;
-    v84 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v38 = v5;
+    v114 = v6;
+    v50 = bonjourServiceName;
+    v51 = CUPrintNSObjectOneLine();
+    CUAppendF(&v114, &v128, "bjSn %@", v51);
+    v52 = v114;
 
-    v5 = v38;
+    v6 = v52;
   }
 
   bonjourServiceTypes = self->_bonjourServiceTypes;
   if (bonjourServiceTypes)
   {
-    v40 = bonjourServiceTypes;
-    v85 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v41 = v5;
+    v113 = v6;
+    v54 = bonjourServiceTypes;
+    v55 = CUPrintNSObjectOneLine();
+    CUAppendF(&v113, &v128, "bjSv %@", v55);
+    v56 = v113;
 
-    v5 = v41;
+    v6 = v56;
   }
 
   bonjourTXTRecordData = self->_bonjourTXTRecordData;
   if (bonjourTXTRecordData)
   {
-    v43 = bonjourTXTRecordData;
-    v86 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v44 = v5;
+    v112 = v6;
+    v58 = bonjourTXTRecordData;
+    v59 = CUPrintNSObjectOneLine();
+    CUAppendF(&v112, &v128, "bjTx %@", v59);
+    v60 = v112;
 
-    v5 = v44;
+    v6 = v60;
   }
 
   bundleID = self->_bundleID;
   if (bundleID)
   {
-    v87 = bundleID;
-    CUAppendF();
-    v46 = v5;
+    v111 = v6;
+    v62 = bundleID;
+    CUAppendF(&v111, &v128, "%@", v62);
+    v63 = v111;
 
-    v5 = v46;
+    v6 = v63;
   }
 
   if (self->_flags)
   {
-    v88 = CUPrintFlags64();
-    CUAppendF();
-    v47 = v5;
+    v110 = v6;
+    v64 = CUPrintFlags64();
+    CUAppendF(&v110, &v128, "flags %@", v64);
+    v65 = v110;
 
-    v5 = v47;
+    v6 = v65;
   }
 
   networkHotspotSSID = self->_networkHotspotSSID;
   if (networkHotspotSSID)
   {
-    v49 = networkHotspotSSID;
-    v89 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v50 = v5;
+    v109 = v6;
+    v67 = networkHotspotSSID;
+    v68 = CUPrintNSObjectOneLine();
+    CUAppendF(&v109, &v128, "neHsd %@", v68);
+    v69 = v109;
 
-    v5 = v50;
+    v6 = v69;
   }
 
   hotspotSSIDs = self->_hotspotSSIDs;
   if (hotspotSSIDs)
   {
-    v52 = hotspotSSIDs;
-    v90 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v53 = v5;
+    v108 = v6;
+    v71 = hotspotSSIDs;
+    v72 = CUPrintNSObjectOneLine();
+    CUAppendF(&v108, &v128, "hSds %@", v72);
+    v73 = v108;
 
-    v5 = v53;
+    v6 = v73;
   }
 
   hotspotSSIDPrefixes = self->_hotspotSSIDPrefixes;
   if (hotspotSSIDPrefixes)
   {
-    v55 = hotspotSSIDPrefixes;
-    v91 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v56 = v5;
+    v107 = v6;
+    v75 = hotspotSSIDPrefixes;
+    v76 = CUPrintNSObjectOneLine();
+    CUAppendF(&v107, &v128, "hSPs %@", v76);
+    v77 = v107;
 
-    v5 = v56;
+    v6 = v77;
   }
 
   iconType = self->_iconType;
   if (iconType)
   {
-    v58 = iconType;
-    v92 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v59 = v5;
+    v106 = v6;
+    v79 = iconType;
+    v80 = CUPrintNSObjectOneLine();
+    CUAppendF(&v106, &v128, "icon %@", v80);
+    v81 = v106;
 
-    v5 = v59;
+    v6 = v81;
   }
 
   if (self->_presenceOnly)
   {
-    CUAppendF();
-    v60 = v5;
+    v105 = v6;
+    CUAppendF(&v105, &v128, "presence");
+    v82 = v105;
 
-    v5 = v60;
+    v6 = v82;
   }
 
-  if (self->_wifiAwarePairingID)
+  wifiAwarePairingID = self->_wifiAwarePairingID;
+  if (wifiAwarePairingID)
   {
-    CUAppendF();
-    v61 = v5;
+    v104 = v6;
+    CUAppendF(&v104, &v128, "WF-ID %llu", wifiAwarePairingID);
+    v84 = v104;
 
-    v5 = v61;
+    v6 = v84;
   }
 
   wifiAwareServiceName = self->_wifiAwareServiceName;
   if (wifiAwareServiceName)
   {
-    v63 = self->_wifiAwareServiceName;
-    v64 = wifiAwareServiceName;
-    CUAppendF();
-    v65 = v5;
+    v103 = v6;
+    v86 = self->_wifiAwareServiceName;
+    v87 = wifiAwareServiceName;
+    CUAppendF(&v103, &v128, "WF-Sn %@", v86);
+    v88 = v103;
 
-    v5 = v65;
+    v6 = v88;
   }
 
-  if (self->_wifiAwareServiceType)
+  wifiAwareServiceType = self->_wifiAwareServiceType;
+  if (wifiAwareServiceType)
   {
-    CUAppendF();
-    v66 = v5;
+    v102 = v6;
+    CUAppendF(&v102, &v128, "ty %lu", wifiAwareServiceType);
+    v90 = v102;
 
-    v5 = v66;
+    v6 = v90;
   }
 
   wifiAwareModelNameMatch = self->_wifiAwareModelNameMatch;
   if (wifiAwareModelNameMatch)
   {
-    v93 = wifiAwareModelNameMatch;
-    CUAppendF();
-    v68 = v5;
+    v101 = v6;
+    v92 = wifiAwareModelNameMatch;
+    CUAppendF(&v101, &v128, "Mnm %@", v92);
+    v93 = v101;
 
-    v5 = v68;
+    v6 = v93;
   }
 
   wifiAwareVendorNameMatch = self->_wifiAwareVendorNameMatch;
   if (wifiAwareVendorNameMatch)
   {
-    v94 = wifiAwareVendorNameMatch;
-    CUAppendF();
-    v70 = v5;
+    v100 = v6;
+    v95 = wifiAwareVendorNameMatch;
+    CUAppendF(&v100, &v128, "Vidm %@", v95);
+    v96 = v100;
 
-    v5 = v70;
+    v6 = v96;
   }
 
-  v71 = @"none";
-  if (v5)
+  v97 = @"none";
+  if (v6)
   {
-    v71 = v5;
+    v97 = v6;
   }
 
-  v72 = v71;
+  v98 = v97;
 
-  return v72;
+  return v98;
 }
 
 - (DADiscoveryConfiguration)initWithXPCObject:(id)object error:(id *)error
@@ -1028,11 +1060,11 @@
       goto LABEL_39;
     }
 
-    v23 = objc_opt_class();
-    v21 = OUTLINED_FUNCTION_8();
+    v33 = objc_opt_class();
+    v31 = OUTLINED_FUNCTION_8();
 LABEL_38:
-    DAErrorF(v21, v22, v8, v9, v10, v11, v12, v13, v23);
-    *error = v19 = 0;
+    DAErrorF(v31, v32, v33);
+    *error = v29 = 0;
     goto LABEL_33;
   }
 
@@ -1043,8 +1075,8 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v22 = "XPC non-dict";
-    v21 = 350004;
+    v32 = "XPC non-dict";
+    v31 = 350004;
     goto LABEL_38;
   }
 
@@ -1079,23 +1111,23 @@ LABEL_38:
     goto LABEL_39;
   }
 
-  v14 = CUXPCDecodeSInt64RangedEx();
-  if (v14 == 6)
+  v8 = CUXPCDecodeSInt64RangedEx();
+  if (v8 == 6)
   {
     v7->_bluetoothRange = 0;
     goto LABEL_11;
   }
 
-  if (v14 == 5)
+  if (v8 == 5)
   {
 LABEL_39:
-    v19 = 0;
+    v29 = 0;
     goto LABEL_33;
   }
 
 LABEL_11:
-  v15 = OUTLINED_FUNCTION_1();
-  if (!DAXPCDecodeNSArrayOfCBUUID(v15, v16, v17, v18))
+  v9 = OUTLINED_FUNCTION_1();
+  if (!DAXPCDecodeNSArrayOfCBUUID(v9, v10, v11, v12))
   {
     goto LABEL_39;
   }
@@ -1107,12 +1139,13 @@ LABEL_11:
   }
 
   OUTLINED_FUNCTION_1();
-  if (!CUXPCDecodeNSData())
+  v13 = CUXPCDecodeNSData();
+  if (!v13)
   {
     goto LABEL_39;
   }
 
-  if (OUTLINED_FUNCTION_0() == 6)
+  if (OUTLINED_FUNCTION_0(v13, "btNC", v14, v15, v16) == 6)
   {
     v7->_bluetoothNameSubstringCompareOptions = 0;
   }
@@ -1156,8 +1189,8 @@ LABEL_11:
   OUTLINED_FUNCTION_1();
   CUXPCDecodeNSString();
   OUTLINED_FUNCTION_1();
-  CUXPCDecodeBool();
-  if (OUTLINED_FUNCTION_0() == 6)
+  v17 = CUXPCDecodeBool();
+  if (OUTLINED_FUNCTION_0(v17, "dsFs", v18, v19, v20) == 6)
   {
     v7->_flags = 0;
   }
@@ -1178,16 +1211,17 @@ LABEL_11:
 
   CUXPCDecodeNSString();
   OUTLINED_FUNCTION_1();
-  if (CUXPCDecodeBool())
+  v21 = CUXPCDecodeBool();
+  if (v21)
   {
-    if (OUTLINED_FUNCTION_0() == 6)
+    if (OUTLINED_FUNCTION_0(v21, "wFPi", v22, v23, v24) == 6)
     {
       v7->_wifiAwarePairingID = 0;
     }
 
     OUTLINED_FUNCTION_1();
-    CUXPCDecodeNSString();
-    if (OUTLINED_FUNCTION_0() == 6)
+    v25 = CUXPCDecodeNSString();
+    if (OUTLINED_FUNCTION_0(v25, "wFSt", v26, v27, v28) == 6)
     {
       v7->_wifiAwareServiceType = 0;
     }
@@ -1198,24 +1232,24 @@ LABEL_11:
     objc_opt_class();
     OUTLINED_FUNCTION_9();
     CUXPCDecodeObject();
-    v19 = v7;
+    v29 = v7;
   }
 
   else
   {
-    v19 = 0;
+    v29 = 0;
   }
 
 LABEL_33:
-  return v19;
+  return v29;
 }
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v10 = objc_opt_class();
+  v4 = objc_opt_class();
   v2 = OUTLINED_FUNCTION_8();
-  v11 = DAErrorF(v2, v3, v4, v5, v6, v7, v8, v9, v10);
-  [a1 failWithError:v11];
+  v5 = DAErrorF(v2, v3, v4);
+  [a1 failWithError:v5];
 }
 
 @end

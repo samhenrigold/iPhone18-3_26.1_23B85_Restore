@@ -78,45 +78,45 @@
 
 - (void)validateParsedCalendar:(id)calendar
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = [calendarCopy components];
-  v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v4 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v4)
   {
     v5 = v4;
-    v23 = calendarCopy;
+    v22 = calendarCopy;
     v6 = 0;
     v7 = 0;
     v8 = 0;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
-          v29 = 0;
-          v12 = [v11 validate:&v29];
-          v13 = v29;
+          v28 = 0;
+          v12 = [v11 validate:&v28];
+          v13 = v28;
           if ((v12 & 1) == 0)
           {
             [ICSLogger logAtLevel:3 forTokenizer:0 message:@"Invalid component, discarding: %@\n%@", v13, v11];
             if (!v8)
             {
               v8 = objc_alloc_init(MEMORY[0x277CCAB58]);
-              parsingErrors = [v23 parsingErrors];
+              parsingErrors = [v22 parsingErrors];
               v15 = [parsingErrors mutableCopy];
 
               v7 = v15;
@@ -130,47 +130,47 @@
         ++v6;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v5 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v5);
 
     if (!v8)
     {
-      calendarCopy = v23;
+      calendarCopy = v22;
       goto LABEL_27;
     }
 
-    calendarCopy = v23;
-    components = [v23 components];
+    calendarCopy = v22;
+    components = [v22 components];
     v17 = [components mutableCopy];
 
     [v17 removeObjectsAtIndexes:v8];
     obj = v17;
-    [v23 setComponents:v17];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    [v22 setComponents:v17];
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v7 = v7;
-    v18 = [v7 countByEnumeratingWithState:&v25 objects:v34 count:16];
+    v18 = [v7 countByEnumeratingWithState:&v24 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v23 addParsingError:*(*(&v25 + 1) + 8 * j)];
+          [v22 addParsingError:*(*(&v24 + 1) + 8 * j)];
         }
 
-        v19 = [v7 countByEnumeratingWithState:&v25 objects:v34 count:16];
+        v19 = [v7 countByEnumeratingWithState:&v24 objects:v33 count:16];
       }
 
       while (v19);
@@ -184,7 +184,6 @@
   }
 
 LABEL_27:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (ICSDocument)initWithCalendar:(id)calendar

@@ -624,8 +624,8 @@ char *mlir::getRankPromotionShapeForANE@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
 
         v33 = *a4;
         *v33 = xmmword_257374260;
-        *(v33 + 1) = unk_257374270;
-        v33[4] = 1;
+        v33[1] = unk_257374270;
+        *(v33 + 4) = 1;
         goto LABEL_60;
       }
 
@@ -735,7 +735,7 @@ LABEL_60:
 
       v31 = *a4;
       *v31 = xmmword_257374240;
-      *(v31 + 1) = unk_257374250;
+      v31[1] = unk_257374250;
       v32 = 4;
       goto LABEL_61;
     }
@@ -819,7 +819,7 @@ LABEL_61:
   return result;
 }
 
-void *mlir::getRankPromotionTypeForANE(uint64_t a1, uint64_t a2)
+void *mlir::getRankPromotionTypeForANE(void *a1, uint64_t a2)
 {
   v89[5] = *MEMORY[0x277D85DE8];
   v77 = a1;
@@ -1199,13 +1199,13 @@ void *mlir::getMostDefinedTypeForANE(uint64_t a1, uint64_t a2)
   return mlir::getRankPromotionTypeForANE(MostDefinedTypeForCPU, v3);
 }
 
-double mlir::anec::getAllDims@<D0>(uint64_t a1@<X8>)
+double mlir::anec::getAllDims@<D0>(uint64_t *__return_ptr a1@<X8>)
 {
-  *a1 = a1 + 16;
-  *(a1 + 32) = 4;
-  *(a1 + 16) = xmmword_25737428C;
+  *a1 = (a1 + 2);
+  *(a1 + 8) = 4;
+  *(a1 + 1) = xmmword_25737428C;
   *&result = 0x500000005;
-  *(a1 + 8) = 0x500000005;
+  a1[1] = 0x500000005;
   return result;
 }
 
@@ -1707,7 +1707,7 @@ uint64_t llvm::dyn_cast_if_present<mlir::AffineConstantExpr,mlir::AffineExpr>(ui
   return v4;
 }
 
-uint64_t mlir::Diagnostic::append<char const(&)[14],long long &,char const(&)[27],long long,char const(&)[3],long long,char const(&)[2]>(uint64_t a1, char *__s, uint64_t *a3, char *a4, uint64_t *a5, char *a6, uint64_t *a7, char *a8)
+uint64_t mlir::Diagnostic::append<char const(&)[14],long long &,char const(&)[27],long long,char const(&)[3],long long,char const(&)[2]>(uint64_t a1, char *__s, char **a3, char *a4, char **a5, char *a6, char **a7, char *a8)
 {
   v16 = strlen(__s);
   v17 = a1;
@@ -1757,7 +1757,7 @@ uint64_t mlir::Diagnostic::append<char const(&)[14],long long &,char const(&)[27
   return mlir::Diagnostic::append<char const(&)[27],long long,char const(&)[3],long long,char const(&)[2]>(v17, a4, a5, a6, a7, a8);
 }
 
-uint64_t mlir::Diagnostic::append<char const(&)[27],long long,char const(&)[3],long long,char const(&)[2]>(uint64_t a1, char *__s, uint64_t *a3, char *a4, uint64_t *a5, char *a6)
+uint64_t mlir::Diagnostic::append<char const(&)[27],long long,char const(&)[3],long long,char const(&)[2]>(uint64_t a1, char *__s, char **a3, char *a4, char **a5, char *a6)
 {
   v12 = strlen(__s);
   v13 = a1;
@@ -1807,7 +1807,7 @@ uint64_t mlir::Diagnostic::append<char const(&)[27],long long,char const(&)[3],l
   return mlir::Diagnostic::append<char const(&)[3],long long,char const(&)[2]>(v13, a4, a5, a6);
 }
 
-uint64_t mlir::Diagnostic::append<char const(&)[3],long long,char const(&)[2]>(uint64_t a1, char *__s, uint64_t *a3, char *a4)
+uint64_t mlir::Diagnostic::append<char const(&)[3],long long,char const(&)[2]>(uint64_t a1, char *__s, char **a3, char *a4)
 {
   v8 = strlen(__s);
   v9 = *(a1 + 16);
@@ -1833,7 +1833,7 @@ uint64_t mlir::Diagnostic::append<char const(&)[3],long long,char const(&)[2]>(u
   return mlir::Diagnostic::append<long long,char const(&)[2]>(a1, a3, a4);
 }
 
-uint64_t mlir::Diagnostic::append<long long,char const(&)[2]>(uint64_t a1, uint64_t *a2, char *__s)
+uint64_t mlir::Diagnostic::append<long long,char const(&)[2]>(uint64_t a1, char **a2, char *__s)
 {
   v4 = *(a1 + 16);
   v5 = *a2;
@@ -1878,7 +1878,7 @@ uint64_t mlir::Diagnostic::append<long long,char const(&)[2]>(uint64_t a1, uint6
   return a1;
 }
 
-uint64_t **llvm::SmallSet<long long,4u,std::less<long long>>::insertImpl<long long const&>@<X0>(uint64_t **result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void *llvm::SmallSet<long long,4u,std::less<long long>>::insertImpl<long long const&>@<X0>(void *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = result;
   if (result[8])
@@ -2024,7 +2024,7 @@ LABEL_19:
       v10[v11] = v12;
       v17 = *(result + 2) + 1;
       *(result + 2) = v17;
-      v8 = &(*result)[v17 - 1];
+      v8 = (*result + 8 * v17 - 8);
       v15 = 1;
     }
 
@@ -2466,7 +2466,7 @@ LABEL_9:
 
 LABEL_14:
         *v17 = v14;
-        v17[1] = v17 + 3;
+        v17[1] = (v17 + 3);
         v17[2] = 0xC00000000;
         if (*(v4 + 4))
         {
@@ -2475,7 +2475,7 @@ LABEL_14:
 
         ++*(a1 + 8);
         v19 = v4[1];
-        if (v19 != (v4 + 3))
+        if (v19 != v4 + 3)
         {
           free(v19);
         }
@@ -2976,7 +2976,7 @@ uint64_t mlir::mps::isCompatibleWithDenseStorage(uint64_t a1)
   return result;
 }
 
-void *mlir::mps::MPSDialect::materializeConstant(uint64_t a1, mlir::OpBuilder *a2, void *a3, uint64_t a4, uint64_t a5)
+char *mlir::mps::MPSDialect::materializeConstant(uint64_t a1, mlir::OpBuilder *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v10 = a4;
   result = llvm::DefaultDoCastIfPossible<mlir::ElementsAttr,mlir::Attribute,llvm::CastInfo<mlir::ElementsAttr,mlir::Attribute,void>>::doCastIfPossible(a3);
@@ -2994,7 +2994,7 @@ uint64_t mlir::mps::createBlobHandle@<X0>(mlir::mps *this@<X0>, mlir::MLIRContex
 {
   v28 = *MEMORY[0x277D85DE8];
   Manager = mlir::mps::MPSResourceBlobManagerInterface::getManager(this, a2);
-  mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob(Manager, a2, a3, &v22);
+  mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob(&v22, Manager, a2, a3);
   v15 = v22;
   v16 = v23;
   v19 = v26;
@@ -3017,7 +3017,7 @@ uint64_t mlir::mps::createBlobHandle@<X0>(mlir::mps *this@<X0>, mlir::MLIRContex
 
   v20 = v27;
   v21 = 1;
-  result = mlir::mps::MPSResourceBlobManagerInterface::insert(Manager, "tmp", 3, &v15, a4);
+  result = mlir::mps::MPSResourceBlobManagerInterface::insert(Manager, "tmp", 3uLL, &v15, a4);
   if (v21 == 1 && v19 >= 8)
   {
     v9 = (v19 & 2) != 0 ? &v17 : v17;
@@ -3414,7 +3414,7 @@ uint64_t mlir::mps::MPSBufferTensorAttr::getMutableRawData(mlir::mps::MPSBufferT
   return v1 + v2;
 }
 
-uint64_t mlir::mps::getBufferTensorAttrWithKey(void *a1, const void *a2, uint64_t a3, unsigned int *a4, const unsigned __int8 *a5)
+void *mlir::mps::getBufferTensorAttrWithKey(void *a1, const void *a2, uint64_t a3, unsigned int *a4, unint64_t a5)
 {
   v78 = *MEMORY[0x277D85DE8];
   v56 = a1;
@@ -3459,7 +3459,7 @@ uint64_t mlir::mps::getBufferTensorAttrWithKey(void *a1, const void *a2, uint64_
 
   else
   {
-    mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob(Manager, ElementsAttrStorageSize, TypeAlignmentSize, &v72);
+    mlir::mps::MPSResourceBlobManagerInterface::allocateBufferTensorBlob(&v72, Manager, ElementsAttrStorageSize, TypeAlignmentSize);
     v65 = v72;
     v66 = v73;
     v69 = v76;
@@ -3701,7 +3701,7 @@ void mlir::mps::MPSDialect::convertUnregisteredOperation(mlir::OpBuilder *a1@<X1
       v30[0] = mlir::Operation::getAttrDictionary(a3);
       v16 = mlir::DictionaryAttr::getValue(v30);
       mlir::Operation::setAttrs(v15, v16, v17);
-      v18 = *(v15 + 36);
+      v18 = *(v15 + 9);
       v19 = v15 - 16;
       if (!v18)
       {
@@ -6990,13 +6990,14 @@ LABEL_5:
   return v4;
 }
 
-uint64_t mlir::mps::anonymous namespace::inferElementWiseBinaryComparisonOpReturnTypes(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
+BOOL mlir::mps::anonymous namespace::inferElementWiseBinaryComparisonOpReturnTypes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v23[2] = *MEMORY[0x277D85DE8];
   v23[0] = a3;
   v23[1] = a4;
   if (a4 == 2)
   {
+    v7 = a2;
     v21 = (*(mlir::ValueRange::dereference_iterator(v23, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     v20 = (*(mlir::ValueRange::dereference_iterator(v23, 1) + 8) & 0xFFFFFFFFFFFFFFF8);
     BroadcastedType = mlir::OpTrait::util::getBroadcastedType(v21, v20, 0);
@@ -7005,14 +7006,14 @@ uint64_t mlir::mps::anonymous namespace::inferElementWiseBinaryComparisonOpRetur
     {
       v9 = BroadcastedType;
       Context = mlir::Type::getContext(&v21);
-      v11 = mlir::IntegerType::get(Context, 1, 0);
+      v11 = mlir::IntegerType::get(Context, 1u, 0);
       v12 = *(*v9 + 136);
       if (v12 == &mlir::detail::TypeIDResolver<mlir::UnrankedTensorType,void>::id)
       {
         v16 = mlir::UnrankedTensorType::get(v11);
         if (!v16)
         {
-          return mlir::emitOptionalError<char const(&)[17],mlir::Type>(a1, a2, "unexpected type ", &v19);
+          return mlir::emitOptionalError<char const(&)[17],mlir::Type>(a1, v7, "unexpected type ", &v19);
         }
       }
 
@@ -7020,7 +7021,7 @@ uint64_t mlir::mps::anonymous namespace::inferElementWiseBinaryComparisonOpRetur
       {
         if (v12 != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
         {
-          return mlir::emitOptionalError<char const(&)[17],mlir::Type>(a1, a2, "unexpected type ", &v19);
+          return mlir::emitOptionalError<char const(&)[17],mlir::Type>(a1, v7, "unexpected type ", &v19);
         }
 
         v22 = v9;
@@ -7029,7 +7030,7 @@ uint64_t mlir::mps::anonymous namespace::inferElementWiseBinaryComparisonOpRetur
         v16 = mlir::RankedTensorType::get(Shape, v15, v13, 0);
         if (!v16)
         {
-          return mlir::emitOptionalError<char const(&)[17],mlir::Type>(a1, a2, "unexpected type ", &v19);
+          return mlir::emitOptionalError<char const(&)[17],mlir::Type>(a1, v7, "unexpected type ", &v19);
         }
       }
 
@@ -7046,7 +7047,7 @@ uint64_t mlir::mps::anonymous namespace::inferElementWiseBinaryComparisonOpRetur
 
     else
     {
-      return mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[6],mlir::Type &,char const(&)[30]>(a1, a2, "input types ", &v21, " and ", &v20, " are not broadcast compatible");
+      return mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[6],mlir::Type &,char const(&)[30]>(a1, v7, "input types ", &v21, " and ", &v20, " are not broadcast compatible");
     }
   }
 
@@ -7340,7 +7341,7 @@ void mlir::mps::UnrealizedFoldOp::downgradeToVersion(mlir::Operation **a1@<X0>, 
     v20[1] = v19;
     v22 = 263;
     v21 = v16;
-    mlir::OpState::emitOpError(a1, &v21, v25);
+    mlir::OpState::emitOpError(v25, a1, &v21);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v25[0])
@@ -7446,7 +7447,7 @@ void mlir::mps::CallOp::downgradeToVersion(mlir::Operation **a1@<X0>, uint64_t a
     v20[1] = v19;
     v22 = 263;
     v21 = v16;
-    mlir::OpState::emitOpError(a1, &v21, v25);
+    mlir::OpState::emitOpError(v25, a1, &v21);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v25[0])
@@ -7552,7 +7553,7 @@ void mlir::mps::StridedSliceUpdateOp::downgradeToVersion(mlir::Operation **a1@<X
     v20[1] = v19;
     v22 = 263;
     v21 = v16;
-    mlir::OpState::emitOpError(a1, &v21, v25);
+    mlir::OpState::emitOpError(v25, a1, &v21);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v25[0])
@@ -7658,7 +7659,7 @@ void mlir::mps::VariableFromTensorOp::downgradeToVersion(mlir::Operation **a1@<X
     v20[1] = v19;
     v22 = 263;
     v21 = v16;
-    mlir::OpState::emitOpError(a1, &v21, v25);
+    mlir::OpState::emitOpError(v25, a1, &v21);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v25[0])
@@ -7764,7 +7765,7 @@ void mlir::mps::AssignVariableOp::downgradeToVersion(mlir::Operation **a1@<X0>, 
     v20[1] = v19;
     v22 = 263;
     v21 = v16;
-    mlir::OpState::emitOpError(a1, &v21, v25);
+    mlir::OpState::emitOpError(v25, a1, &v21);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v25[0])
@@ -7870,7 +7871,7 @@ void mlir::mps::ReadVariableOp::downgradeToVersion(mlir::Operation **a1@<X0>, ui
     v20[1] = v19;
     v22 = 263;
     v21 = v16;
-    mlir::OpState::emitOpError(a1, &v21, v25);
+    mlir::OpState::emitOpError(v25, a1, &v21);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v25[0])
@@ -7939,22 +7940,22 @@ void mlir::mps::ReadVariableOp::downgradeToVersion(mlir::Operation **a1@<X0>, ui
   }
 }
 
-void *mlir::mps::ReciprocalSquareRootOp::downgradeToVersion@<X0>(void *result@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+char *mlir::mps::ReciprocalSquareRootOp::downgradeToVersion@<X0>(char *result@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v34 = *MEMORY[0x277D85DE8];
   v6 = *result;
   v7 = *(a3 + 8);
   if (!v7 || v7 == 1 && *(a3 + 12) <= 1u)
   {
-    v8 = v6[3];
-    Context = mlir::Attribute::getContext((v6 + 3));
+    v8 = *(v6 + 3);
+    Context = mlir::Attribute::getContext((v6 + 24));
     v26 = 261;
     v25[0] = "mps.reverse_square_root";
     v25[1] = 23;
     v11 = mlir::StringAttr::get(Context, v25, v10);
-    if ((*(v6 + 46) & 0x80) != 0)
+    if (v6[46] < 0)
     {
-      v12 = v6[9];
+      v12 = *(v6 + 9);
       v13 = *(v6 + 17);
     }
 
@@ -7966,7 +7967,7 @@ void *mlir::mps::ReciprocalSquareRootOp::downgradeToVersion@<X0>(void *result@<X
 
     mlir::ValueRange::ValueRange(v31, v12, v13);
     v14 = *(v6 + 9);
-    v15 = (v6 - 2);
+    v15 = (v6 - 16);
     if (!v14)
     {
       v15 = 0;
@@ -7974,7 +7975,7 @@ void *mlir::mps::ReciprocalSquareRootOp::downgradeToVersion@<X0>(void *result@<X
 
     v32 = v15;
     v33 = v14;
-    mlir::ResultRange::getTypes(&v32, &AttrDictionary);
+    mlir::ResultRange::getTypes(&AttrDictionary, &v32);
     NextResultAtOffset = AttrDictionary;
     v17 = v28;
     v18 = v29;
@@ -7995,7 +7996,7 @@ void *mlir::mps::ReciprocalSquareRootOp::downgradeToVersion@<X0>(void *result@<X
   }
 
   v23 = *(v6 + 9);
-  v24 = v6 - 2;
+  v24 = v6 - 16;
   if (!v23)
   {
     v24 = 0;
@@ -8007,13 +8008,14 @@ void *mlir::mps::ReciprocalSquareRootOp::downgradeToVersion@<X0>(void *result@<X
   return result;
 }
 
-uint64_t mlir::mps::anonymous namespace::inferElementWiseTernaryMathOpReturnTypes(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
+BOOL mlir::mps::anonymous namespace::inferElementWiseTernaryMathOpReturnTypes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v16[2] = *MEMORY[0x277D85DE8];
   v16[0] = a3;
   v16[1] = a4;
   if (a4 == 3)
   {
+    v7 = a2;
     v15 = (*(mlir::ValueRange::dereference_iterator(v16, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     v14 = (*(mlir::ValueRange::dereference_iterator(v16, 1) + 8) & 0xFFFFFFFFFFFFFFF8);
     v8 = (*(mlir::ValueRange::dereference_iterator(v16, 2) + 8) & 0xFFFFFFFFFFFFFFF8);
@@ -8037,13 +8039,13 @@ uint64_t mlir::mps::anonymous namespace::inferElementWiseTernaryMathOpReturnType
 
       else
       {
-        return mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[3],mlir::Type &,char const(&)[7],mlir::Type &,char const(&)[30]>(a1, a2, "input types ", &v15, " , ", &v14, " and ", &v13, " are not broadcast compatible");
+        return mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[3],mlir::Type &,char const(&)[7],mlir::Type &,char const(&)[30]>(a1, v7, "input types ", &v15, " , ", &v14, " and ", &v13, " are not broadcast compatible");
       }
     }
 
     else
     {
-      return mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[6],mlir::Type &,char const(&)[30]>(a1, a2, "input types ", &v15, " and ", &v14, " are not broadcast compatible");
+      return mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[6],mlir::Type &,char const(&)[30]>(a1, v7, "input types ", &v15, " and ", &v14, " are not broadcast compatible");
     }
   }
 
@@ -8177,8 +8179,9 @@ LABEL_5:
   return v4;
 }
 
-uint64_t mlir::mps::SelectOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::mps::SelectOp::inferReturnTypes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v11 = a3;
   v22[2] = *MEMORY[0x277D85DE8];
   v22[0] = a4;
   v22[1] = a5;
@@ -8205,7 +8208,7 @@ uint64_t mlir::mps::SelectOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3
 
     else
     {
-      return mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[3],mlir::Type &,char const(&)[7],mlir::Type &,char const(&)[30]>(a2, a3, "input types ", &v21, ", ", &v20, ", and ", &v19, " are not broadcast compatible");
+      return mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[3],mlir::Type &,char const(&)[7],mlir::Type &,char const(&)[30]>(a2, v11, "input types ", &v21, ", ", &v20, ", and ", &v19, " are not broadcast compatible");
     }
   }
 
@@ -8357,7 +8360,7 @@ BOOL mlir::mps::SelectOp::verify(mlir::Operation **this)
 
     v40[0] = "input types ";
     v41 = 259;
-    mlir::OpState::emitOpError(this, v40, v45);
+    mlir::OpState::emitOpError(v45, this, v40);
     if (v45[0])
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v43, v3 & 0xFFFFFFFFFFFFFFF8);
@@ -8556,7 +8559,7 @@ LABEL_55:
   {
     v40[0] = "condition operand must be a 1-bit integer tensor or match the value element type, but got ";
     v41 = 259;
-    mlir::OpState::emitOpError(this, v40, v45);
+    mlir::OpState::emitOpError(v45, this, v40);
     if (v45[0])
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v43, v3 & 0xFFFFFFFFFFFFFFF8);
@@ -8642,7 +8645,7 @@ LABEL_55:
   return v7;
 }
 
-uint64_t mlir::mps::anonymous namespace::verifyTensorBufferAttr(void (*a1)(void *__return_ptr, uint64_t), uint64_t a2, void *a3, uint64_t a4, uint64_t a5, char a6)
+BOOL mlir::mps::anonymous namespace::verifyTensorBufferAttr(void (*a1)(void *__return_ptr, uint64_t), uint64_t a2, void *a3, uint64_t a4, uint64_t a5, char a6)
 {
   v86 = *MEMORY[0x277D85DE8];
   v72 = a3;
@@ -9162,12 +9165,12 @@ uint64_t mlir::mps::MPSBufferTensorAttr::getRawData(mlir::mps::MPSBufferTensorAt
   return v2 + v1;
 }
 
-__n128 mlir::mps::MPSBufferTensorAttr::getHandle@<Q0>(__n128 **this@<X0>, __n128 *a2@<X8>)
+__n128 mlir::mps::MPSBufferTensorAttr::getHandle@<Q0>(__n128 *__return_ptr a1@<X8>, __n128 **this@<X0>)
 {
   v2 = *this;
   result = (*this)[1];
-  *a2 = result;
-  a2[1].n128_u64[0] = v2[2].n128_u64[0];
+  *a1 = result;
+  a1[1].n128_u64[0] = *(v2 + 32);
   return result;
 }
 
@@ -9417,7 +9420,7 @@ BOOL mlir::mps::ConstantOp::verify(mlir::Operation **this)
 LABEL_15:
     v95[0] = "failed: property must contain a valid ElementsAttr";
     v96 = 259;
-    mlir::OpState::emitOpError(this, v95, &v102);
+    mlir::OpState::emitOpError(&v102, this, v95);
     v15 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v102);
     if (v102)
     {
@@ -9550,7 +9553,7 @@ LABEL_46:
     {
       v102 = this;
       v15 = 0;
-      if ((v40 & 1) == 0)
+      if (!v40)
       {
         return v15;
       }
@@ -9644,7 +9647,7 @@ LABEL_82:
 LABEL_92:
           v95[0] = "invalid shape: constant value ";
           v96 = 259;
-          mlir::OpState::emitOpError(this, v95, &v102);
+          mlir::OpState::emitOpError(&v102, this, v95);
           if (v102)
           {
             mlir::DiagnosticArgument::DiagnosticArgument(&v100, v94[0]);
@@ -9757,7 +9760,7 @@ LABEL_104:
           }
         }
 
-        else if (*(*v102 + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id && *(*v77 + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+        else if (*(*v102 + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id && *(*v77 + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
         {
           v99 = v102;
           *&v100 = mlir::ComplexType::getElementType(&v99);
@@ -9774,7 +9777,7 @@ LABEL_104:
 
         v95[0] = "invalid element type: constant value ";
         v96 = 259;
-        mlir::OpState::emitOpError(this, v95, &v102);
+        mlir::OpState::emitOpError(&v102, this, v95);
         if (v102)
         {
           mlir::DiagnosticArgument::DiagnosticArgument(&v100, v94[0]);
@@ -9918,7 +9921,7 @@ LABEL_136:
 
   v95[0] = "failed: property contained an non shaped-type attribute";
   v96 = 259;
-  mlir::OpState::emitOpError(this, v95, &v102);
+  mlir::OpState::emitOpError(&v102, this, v95);
   v15 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v102);
   if (v102)
   {

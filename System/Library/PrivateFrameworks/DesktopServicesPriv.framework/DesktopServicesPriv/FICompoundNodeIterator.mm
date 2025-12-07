@@ -1,5 +1,6 @@
 @interface FICompoundNodeIterator
 - (BOOL)fullyPopulated;
+- (FICompoundNodeIterator)initWithNodes:(id)nodes options:(unsigned int)options;
 - (id).cxx_construct;
 - (id)first;
 - (id)next;
@@ -82,6 +83,94 @@ LABEL_4:
   }
 
   return first;
+}
+
+- (FICompoundNodeIterator)initWithNodes:(id)nodes options:(unsigned int)options
+{
+  v4 = *&options;
+  nodesCopy = nodes;
+  v21.receiver = self;
+  v21.super_class = FICompoundNodeIterator;
+  v7 = [(FICompoundNodeIterator *)&v21 init];
+  IDContainerIteratorAdaptor<NSSet<FINode *>>::NSForwardIterator<NSSet<FINode *>>::NSForwardIterator(&obj, nodesCopy);
+  IDContainerIteratorAdaptor<NSSet<FINode *>>::IDContainerIteratorAdaptor(v22, -1, nodesCopy);
+  p_subIterators = &v7->_subIterators;
+  while (obj != v22[0] || v28 != v22[16])
+  {
+    v9 = *(v24[1] + 8 * v27);
+    v10 = [v9 iteratorWithOptions:v4];
+    var0 = v7->_subIterators.var0;
+    var1 = v7->_subIterators.var1;
+    if (var0 >= var1)
+    {
+      v14 = (var0 - p_subIterators->__begin_) >> 3;
+      if ((v14 + 1) >> 61)
+      {
+        std::vector<std::pair<TNodePtr,TNodePtr>>::__throw_length_error[abi:ne200100]();
+      }
+
+      v15 = var1 - p_subIterators->__begin_;
+      v16 = v15 >> 2;
+      if (v15 >> 2 <= (v14 + 1))
+      {
+        v16 = v14 + 1;
+      }
+
+      if (v15 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v17 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v17 = v16;
+      }
+
+      v33 = &v7->_subIterators;
+      if (v17)
+      {
+        std::allocator<TNodePtr>::allocate_at_least[abi:ne200100](&v7->_subIterators, v17);
+      }
+
+      v29 = 0;
+      v30 = (8 * v14);
+      v32 = 0;
+      *v30 = v10;
+      v31 = 8 * v14 + 8;
+      std::vector<NSURL * {__strong}>::__swap_out_circular_buffer(&v7->_subIterators, &v29);
+      v13 = v7->_subIterators.var0;
+      std::__split_buffer<TNodePtr>::~__split_buffer(&v29);
+    }
+
+    else
+    {
+      *var0 = v10;
+      v13 = (var0 + 1);
+      v7->_subIterators.var0 = v13;
+    }
+
+    v7->_subIterators.var0 = v13;
+
+    v18 = v27;
+    if (v27 >= v26 - 1)
+    {
+      v19 = [obj countByEnumeratingWithState:v24 objects:v25 count:4];
+      v18 = -1;
+      v26 = v19;
+      v27 = -1;
+    }
+
+    if (v25[4] != *v24[2])
+    {
+      objc_enumerationMutation(obj);
+      v18 = v27;
+    }
+
+    v27 = v18 + 1;
+    ++v28;
+  }
+
+  return v7;
 }
 
 - (id)next

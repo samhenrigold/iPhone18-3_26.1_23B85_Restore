@@ -36,9 +36,9 @@
     +[CSSuggestion(MailUI) mui_emptySuggestion];
   }
 
-  v1 = mui_emptySuggestion_emptySuggestion;
+  v2 = mui_emptySuggestion_emptySuggestion;
 
-  return v1;
+  return v2;
 }
 
 + (id)mui_spotlightSuggestionForEmailAddress:()MailUI scope:currentSuggestion:
@@ -191,13 +191,17 @@
 + (void)mui_spotlightSuggestionFromSerializedRepresentation:()MailUI .cold.1(void *a1)
 {
   v1 = [a1 ef_publicDescription];
-  OUTLINED_FUNCTION_0(&dword_214A5E000, v2, v3, "Could not decode data as CSSuggestion. Error: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_214A5E000, v2, v3, "Could not decode data as CSSuggestion. Error: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)mui_serializedSpotlightSuggestionRepresentation
 {
   ef_publicDescription = [self ef_publicDescription];
-  OUTLINED_FUNCTION_0(&dword_214A5E000, v2, v3, "Failed to encode data from CSSuggestion. Error: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = ef_publicDescription;
+  OUTLINED_FUNCTION_0(&dword_214A5E000, v2, v3, "Failed to encode data from CSSuggestion. Error: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

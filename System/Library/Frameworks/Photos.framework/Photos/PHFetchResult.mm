@@ -2192,9 +2192,12 @@ void *__32__PHFetchResult_thumbnailAssets__block_invoke(void *a1)
   result = a1[4];
   if (!result[9])
   {
-    *(a1[4] + 72) = [result _createFetchedPropertyObjectsWithClass:a1[6] fetchedObjectIDs:a1[5]];
+    v3 = [result _createFetchedPropertyObjectsWithClass:a1[6] fetchedObjectIDs:a1[5]];
+    v4 = a1[4];
+    v5 = *(v4 + 72);
+    *(v4 + 72) = v3;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v3, v5);
   }
 
   return result;

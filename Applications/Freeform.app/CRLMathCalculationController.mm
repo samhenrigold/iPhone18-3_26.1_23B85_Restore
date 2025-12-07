@@ -135,7 +135,7 @@
 {
   v8 = &type metadata for CRLPencilAndPaperFeatureFlags;
   v9 = sub_10067BFD0();
-  v7[0] = 0;
+  LOBYTE(v7[0]) = 0;
   v0 = isFeatureEnabled(_:)();
   sub_100005070(v7);
   if ((v0 & 1) == 0)
@@ -145,7 +145,7 @@
 
   v8 = &type metadata for CRLFeatureFlags;
   v9 = sub_100004D60();
-  v7[0] = 15;
+  LOBYTE(v7[0]) = 15;
   v1 = isFeatureEnabled(_:)();
   sub_100005070(v7);
   if ((v1 & 1) == 0)

@@ -99,24 +99,22 @@
 
 + (id)publicKeyFromCertificate:(id)certificate
 {
-  v11[9] = *MEMORY[0x277D85DE8];
-  v10 = &unk_284BB9138;
+  v10[9] = *MEMORY[0x277D85DE8];
+  v9 = &unk_284BB9138;
   certificateCopy = certificate;
   v4 = certificateCopy;
-  sub_238DB6950(&v9, [certificateCopy bytes], objc_msgSend(certificateCopy, "length"));
+  sub_238DB6950(&v8, [certificateCopy bytes], objc_msgSend(certificateCopy, "length"));
 
-  v8 = v9;
-  if (sub_2393FA970(&v8, &v10))
+  v7 = v8;
+  if (sub_2393FA970(&v7, &v9))
   {
     v5 = 0;
   }
 
   else
   {
-    v5 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:65];
+    v5 = [MEMORY[0x277CBEA90] dataWithBytes:v10 length:65];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

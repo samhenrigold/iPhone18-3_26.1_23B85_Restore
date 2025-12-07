@@ -16,11 +16,11 @@ void __38___UITextFieldEditingToken_endEditing__block_invoke(uint64_t a1, void *
   [v4 enumerateAttribute:@"_UILastStoredDefaultTextAttributesName" inRange:0 options:v3 usingBlock:{0x100000, v5}];
 }
 
-uint64_t __38___UITextFieldEditingToken_endEditing__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__38___UITextFieldEditingToken_endEditing__block_invoke_2(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) setAttributes:a2 range:{a3, a4}];
+    return [result[4] setAttributes:a2 range:{a3, a4}];
   }
 
   return result;

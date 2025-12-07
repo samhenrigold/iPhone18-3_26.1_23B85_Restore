@@ -51,7 +51,7 @@ uint64_t __41__ICQAppCloudStorageCache_sharedInstance__block_invoke()
   appCopy = app;
   storageCopy = storage;
   os_unfair_lock_lock(&self->_cacheLock);
-  v10 = [(NSMutableDictionary *)self->_hashMap objectForKeyedSubscript:dCopy];
+  v10 = objc_msgSend_objectForKeyedSubscript_(self->_hashMap);
 
   if (!v10)
   {
@@ -59,7 +59,7 @@ uint64_t __41__ICQAppCloudStorageCache_sharedInstance__block_invoke()
     [(NSMutableDictionary *)self->_hashMap setObject:v11 forKeyedSubscript:dCopy];
   }
 
-  v12 = [(NSMutableDictionary *)self->_hashMap objectForKeyedSubscript:dCopy];
+  v12 = objc_msgSend_objectForKeyedSubscript_(self->_hashMap);
   [v12 setObject:storageCopy forKeyedSubscript:appCopy];
 
   os_unfair_lock_unlock(&self->_cacheLock);
@@ -70,9 +70,9 @@ uint64_t __41__ICQAppCloudStorageCache_sharedInstance__block_invoke()
   dCopy = d;
   appCopy = app;
   os_unfair_lock_lock(&self->_cacheLock);
-  v8 = [(NSMutableDictionary *)self->_hashMap objectForKeyedSubscript:dCopy];
+  v8 = objc_msgSend_objectForKeyedSubscript_(self->_hashMap);
 
-  v9 = [v8 objectForKeyedSubscript:appCopy];
+  v9 = objc_msgSend_objectForKeyedSubscript_(v8);
 
   os_unfair_lock_unlock(&self->_cacheLock);
 

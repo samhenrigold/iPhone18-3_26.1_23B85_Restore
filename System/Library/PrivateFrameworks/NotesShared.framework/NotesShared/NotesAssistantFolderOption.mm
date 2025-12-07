@@ -181,7 +181,7 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   title = [(NotesAssistantFolderOption *)self title];
-  v6 = [v3 stringWithFormat:@"<%@: %p>(title: \"%@\"", v4, self, title];
+  v6 = [v3 stringWithFormat:@"<%@: %p>(title: %@", v4, self, title];
 
   return v6;
 }

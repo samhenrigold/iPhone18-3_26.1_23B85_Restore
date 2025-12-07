@@ -10,7 +10,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   localResponseTimer = [(HMDCameraRecordingLoadBalancingAttempt *)self localResponseTimer];
 
@@ -28,9 +28,9 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        v13 = 138543362;
-        v14 = v10;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Timed out waiting for load balancing message response", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v10;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Timed out waiting for load balancing message response", &v12, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -38,8 +38,6 @@
       (completion)[2](completion, v11);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithMessage:(id)message messageDispatcher:(id)dispatcher completion:(id)completion
@@ -121,7 +119,7 @@ void __88__HMDCameraRecordingLoadBalancingAttempt_startWithMessage_messageDispat
   if (v9)
   {
     objc_storeStrong(&v9->_localResponseTimer, timer);
-    v11 = [identifierCopy copy];
+    v11 = objc_msgSend_copy(identifierCopy);
     logIdentifier = v10->_logIdentifier;
     v10->_logIdentifier = v11;
   }
@@ -153,12 +151,11 @@ void __88__HMDCameraRecordingLoadBalancingAttempt_startWithMessage_messageDispat
 
 uint64_t __53__HMDCameraRecordingLoadBalancingAttempt_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_68893;
-  logCategory__hmf_once_v2_68893 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_68893;
+  logCategory__hmf_once_v2_68893 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

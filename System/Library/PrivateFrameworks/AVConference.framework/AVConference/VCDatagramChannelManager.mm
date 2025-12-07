@@ -461,7 +461,7 @@ LABEL_9:
   else
   {
 
-    return VCDatagramChannelIDS_Token(channel);
+    return VCDatagramChannelIDS_Token(channel, v4);
   }
 }
 
@@ -578,7 +578,7 @@ LABEL_9:
           }
 
           v10 = *(*(&v27 + 1) + 8 * i);
-          v11 = [(NSMutableDictionary *)self->_datagramChannels objectForKeyedSubscript:v10, v23, *buf, *&buf[16], v25];
+          v11 = [(NSMutableDictionary *)self->_datagramChannels objectForKeyedSubscript:v10, v23, *buf, *&buf[8], v25];
           if (v11)
           {
             v12 = v11;

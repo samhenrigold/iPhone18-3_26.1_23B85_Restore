@@ -1,392 +1,13 @@
-void sub_25A3CA5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
-{
-  mlx::core::ContiguousIterator::~ContiguousIterator((v38 - 176));
-  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a38);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::anonymous namespace::copy_general_general<float,signed char>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
-{
-  v110 = *MEMORY[0x277D85DE8];
-  if (a8[16] == 1)
-  {
-    v11 = *(*a8 + 152);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v12 = (*(*a1 + 152) + 4 * a6);
-  v13 = (*(*a2 + 152) + a7);
-  if (a9[16] == 1)
-  {
-    v14 = *(*a9 + 152);
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  if (*a3 == *(a3 + 8))
-  {
-    *v13 = *v12;
-  }
-
-  else
-  {
-    v15 = *(*a1 + 48);
-    v101 = 0;
-    v102 = 0;
-    v103 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v101, *a4, a4[1], (a4[1] - *a4) >> 3);
-    v104 = 0;
-    v105 = 0;
-    v106 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v104, *a5, a5[1], (a5[1] - *a5) >> 3);
-    v90 = 0;
-    v91 = 0;
-    v92 = 0;
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v90, &v101, &v107, 2uLL);
-    mlx::core::collapse_contiguous_dims(a3, &v90, 0x7FFFFFFFuLL, &v97);
-    v100 = &v90;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v100);
-    for (i = 0; i != -48; i -= 24)
-    {
-      v17 = *(&v104 + i);
-      if (v17)
-      {
-        *(&v105 + i) = v17;
-        operator delete(v17);
-      }
-    }
-
-    v18 = v97;
-    v19 = (v98 - v97) >> 2;
-    if (v19 > 2)
-    {
-      if (v11)
-      {
-        v12 += *v11;
-      }
-
-      if (v14)
-      {
-        v13 += *v14;
-      }
-
-      v23 = v19 - 3;
-      mlx::core::ContiguousIterator::ContiguousIterator(&v101, &v97, v99, v19 - 3);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v90, &v97, v99 + 3, v19 - 3);
-      v24 = v98 - 3;
-      v25 = 1;
-      do
-      {
-        v26 = *v24++;
-        v25 *= v26;
-      }
-
-      while (v24 != v98);
-      if (v15)
-      {
-        v27 = 0;
-        v28 = v19 - 2;
-        v29 = v19 - 1;
-        v30 = v99;
-        do
-        {
-          v31 = *(v97 + v23);
-          if (v31 >= 1)
-          {
-            v32 = 0;
-            v33 = *(v30[3] + 8 * v23);
-            v34 = &v13[v90];
-            v35 = &v12[v101];
-            v36 = 4 * *(*v30 + 8 * v23);
-            do
-            {
-              v37 = *(v97 + v28);
-              if (v37 >= 1)
-              {
-                v38 = 0;
-                v39 = *(v30[3] + 8 * v28);
-                v40 = 4 * *(*v30 + 8 * v28);
-                v41 = v35;
-                v42 = v34;
-                do
-                {
-                  v43 = *(v97 + v29);
-                  if (v43 >= 1)
-                  {
-                    v44 = 0;
-                    v45 = 0;
-                    v46 = *(v30[3] + 8 * v29);
-                    v47 = 4 * *(*v30 + 8 * v29);
-                    do
-                    {
-                      v42[v44] = *(v41 + v45);
-                      v45 += v47;
-                      v44 += v46;
-                      --v43;
-                    }
-
-                    while (v43);
-                  }
-
-                  v42 += v39;
-                  ++v38;
-                  v41 = (v41 + v40);
-                }
-
-                while (v38 != v37);
-              }
-
-              v34 += v33;
-              ++v32;
-              v35 = (v35 + v36);
-            }
-
-            while (v32 != v31);
-          }
-
-          v48 = v103 - v102;
-          v49 = (v103 - v102) >> 2;
-          if (v49)
-          {
-            v50 = v108;
-            v51 = ((v48 << 30) - 0x100000000) >> 32;
-            v52 = v108 + 4 * v51;
-            v53 = *v52;
-            v54 = v102 + 4 * v51;
-            v55 = v105;
-            v56 = v101;
-            if (v49 >= 2 && v53 == *v54 - 1)
-            {
-              v59 = (v48 >> 2) & 0x7FFFFFFF;
-              v58 = v59 - 1;
-              v60 = 4 * v59;
-              v61 = v102 - 8;
-              do
-              {
-                v62 = v58;
-                *v52 = 0;
-                v56 = (v56 - v55[v51] * (*v54 - 1));
-                v101 = v56;
-                --v58;
-                v52 = &v50[v60 - 8];
-                v53 = *v52;
-                v50 -= 4;
-                if (v62 < 2)
-                {
-                  break;
-                }
-
-                v54 = &v61[v60];
-                v63 = *&v61[4 * v59] - 1;
-                v61 -= 4;
-                v51 = v58;
-              }
-
-              while (v53 == v63);
-              v52 = &v50[4 * v59 - 4];
-            }
-
-            else
-            {
-              v58 = ((v48 << 30) - 0x100000000) >> 32;
-            }
-
-            *v52 = v53 + 1;
-            v101 = (v56 + v55[v58]);
-          }
-
-          v64 = v92 - v91;
-          v65 = (v92 - v91) >> 2;
-          if (v65)
-          {
-            v66 = __p;
-            v67 = ((v64 << 30) - 0x100000000) >> 32;
-            v68 = __p + 4 * v67;
-            v69 = *v68;
-            v70 = v93;
-            v71 = v90;
-            if (v65 >= 2 && (v72 = v91 + 4 * v67, v69 == *v72 - 1))
-            {
-              v73 = (v64 >> 2) & 0x7FFFFFFF;
-              v74 = v73 - 1;
-              v75 = 4 * v73;
-              v76 = v91 - 8;
-              do
-              {
-                v77 = v74;
-                *v68 = 0;
-                v71 -= v70[v67] * (*v72 - 1);
-                v90 = v71;
-                --v74;
-                v68 = &v66[v75 - 8];
-                v69 = *v68;
-                v66 -= 4;
-                if (v77 < 2)
-                {
-                  break;
-                }
-
-                v72 = &v76[v75];
-                v78 = *&v76[4 * v73] - 1;
-                v76 -= 4;
-                v67 = v74;
-              }
-
-              while (v69 == v78);
-              v68 = &v66[4 * v73 - 4];
-            }
-
-            else
-            {
-              v74 = ((v64 << 30) - 0x100000000) >> 32;
-            }
-
-            *v68 = v69 + 1;
-            v90 = v70[v74] + v71;
-          }
-
-          v27 += v25;
-        }
-
-        while (v27 < v15);
-      }
-
-      if (__p)
-      {
-        v96 = __p;
-        operator delete(__p);
-      }
-
-      if (v93)
-      {
-        v94 = v93;
-        operator delete(v93);
-      }
-
-      if (v91)
-      {
-        v92 = v91;
-        operator delete(v91);
-      }
-
-      if (v108)
-      {
-        v109 = v108;
-        operator delete(v108);
-      }
-
-      if (v105)
-      {
-        v106 = v105;
-        operator delete(v105);
-      }
-
-      if (v102)
-      {
-        v103 = v102;
-        operator delete(v102);
-      }
-    }
-
-    else
-    {
-      if (v11)
-      {
-        v12 += *v11;
-      }
-
-      if (v14)
-      {
-        v13 += *v14;
-      }
-
-      if (v19 == 2)
-      {
-        v79 = *v97;
-        if (*v97 >= 1)
-        {
-          v80 = 0;
-          v81 = v99;
-          v82 = *v99[3];
-          v83 = 4 * **v99;
-          do
-          {
-            v84 = v18[1];
-            if (v84 >= 1)
-            {
-              v85 = *(v81[3] + 8);
-              v86 = 4 * *(*v81 + 8);
-              v87 = v12;
-              v88 = v13;
-              do
-              {
-                *v88 = *v87;
-                v88 += v85;
-                v87 = (v87 + v86);
-                --v84;
-              }
-
-              while (v84);
-            }
-
-            v13 += v82;
-            ++v80;
-            v12 = (v12 + v83);
-          }
-
-          while (v80 != v79);
-        }
-      }
-
-      else if (v19 == 1)
-      {
-        v20 = *v97;
-        if (*v97 >= 1)
-        {
-          v21 = *v99[3];
-          v22 = 4 * **v99;
-          do
-          {
-            *v13 = *v12;
-            v13 += v21;
-            v12 = (v12 + v22);
-            --v20;
-          }
-
-          while (v20);
-        }
-      }
-    }
-
-    v101 = &v99;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v101);
-    if (v97)
-    {
-      v98 = v97;
-      operator delete(v97);
-    }
-  }
-
-  v89 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25A3CAC4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
+void sub_25A3CAC4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
 {
   mlx::core::ContiguousIterator::~ContiguousIterator(&__p);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a20);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<float,short>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<float,short>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -409,39 +30,39 @@ void mlx::core::anonymous namespace::copy_general_general<float,short>(uint64_t 
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_83;
+    return;
   }
 
-  v112 = *(*a1 + 48);
+  v111 = *(*a1 + 48);
+  v127 = 0;
   v128 = 0;
   v129 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v127, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v130 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a4, a4[1], (a4[1] - *a4) >> 3);
   v131 = 0;
   v132 = 0;
-  v133 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v130, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v116 = 0;
   v117 = 0;
   v118 = 0;
-  v119 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v117, &v128, &v134, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v117, 0x7FFFFFFFuLL, &v124);
-  v127 = &v117;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v116, &v127, &v133, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v116, 0x7FFFFFFFuLL, &v123);
+  v126 = &v116;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v131 + i);
+    v16 = *(&v130 + i);
     if (v16)
     {
-      *(&v132 + i) = v16;
+      *(&v131 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v125 - v124) >> 2;
+  v17 = (v124 - v123) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -455,118 +76,117 @@ void mlx::core::anonymous namespace::copy_general_general<float,short>(uint64_t 
     }
 
     v21 = v17 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v128, &v124, v126, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v124, v126 + 3, v17 - 3);
-    v22 = v125 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v127, &v123, v125, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v116, &v123, v125 + 3, v17 - 3);
+    v22 = v124 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v125);
-    if (!v112)
+    while (v22 != v124);
+    if (!v111)
     {
-      v81 = v122;
-      if (v122)
+      v81 = v121;
+      if (v121)
       {
 LABEL_62:
-        v123 = v81;
+        v122 = v81;
         operator delete(v81);
       }
 
 LABEL_63:
-      if (v120)
+      if (v119)
       {
-        v121 = v120;
-        operator delete(v120);
+        v120 = v119;
+        operator delete(v119);
       }
 
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v135)
+      if (v134)
       {
-        v136 = v135;
-        operator delete(v135);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      if (v132)
+      if (v131)
       {
-        v133 = v132;
-        operator delete(v132);
+        v132 = v131;
+        operator delete(v131);
       }
 
-      if (v129)
+      if (v128)
       {
-        v130 = v129;
-        operator delete(v129);
+        v129 = v128;
+        operator delete(v128);
       }
 
       goto LABEL_81;
     }
 
-    v106 = v12;
-    v107 = v13;
+    v105 = v12;
+    v106 = v13;
     v25 = 0;
-    v26 = v128;
-    v27 = v132;
-    v28 = v124;
-    v29 = *v126;
-    v30 = v126[3];
-    v105 = v17 - 2;
+    v26 = v127;
+    v27 = v131;
+    v28 = v123;
+    v29 = *v125;
+    v30 = v125[3];
+    v104 = v17 - 2;
     v31 = v17 - 1;
-    v32 = (((v130 - v129) << 30) - 0x100000000) >> 32;
-    v100 = v135;
-    v114 = &v135[4 * v32];
-    v104 = v32;
-    v102 = &v129[4 * v32];
-    v33 = ((v130 - v129) >> 2) & 0x7FFFFFFF;
-    v99 = v33 - 1;
-    v34 = v117;
-    v35 = v120;
-    v36 = (((v119 - v118) << 30) - 0x100000000) >> 32;
-    __p = v122;
-    v113 = &v122[4 * v36];
-    v37 = ((v119 - v118) >> 2) & 0x7FFFFFFF;
-    v98 = v37 - 1;
-    v110 = v23;
-    v111 = (v130 - v129) >> 2;
+    v32 = (((v129 - v128) << 30) - 0x100000000) >> 32;
+    v99 = v134;
+    v113 = &v134[4 * v32];
+    v103 = v32;
+    v101 = &v128[4 * v32];
+    v33 = ((v129 - v128) >> 2) & 0x7FFFFFFF;
+    v98 = v33 - 1;
+    v34 = v116;
+    v35 = v119;
+    v36 = (((v118 - v117) << 30) - 0x100000000) >> 32;
+    __p = v121;
+    v112 = &v121[4 * v36];
+    v37 = ((v118 - v117) >> 2) & 0x7FFFFFFF;
+    v97 = v37 - 1;
+    v109 = v23;
+    v110 = (v129 - v128) >> 2;
     v38 = 4 * v33;
     v39 = 4 * v37;
-    v96 = v118 - 8;
-    v97 = v129 - 8;
-    v103 = v36;
-    v115 = v17 - 3;
-    v108 = v118 + 4 * v36;
-    v109 = (v119 - v118) >> 2;
+    v95 = v117 - 8;
+    v96 = v128 - 8;
+    v102 = v36;
+    v114 = v17 - 3;
+    v107 = v117 + 4 * v36;
+    v108 = (v118 - v117) >> 2;
     while (1)
     {
-      v116 = v25;
-      v40 = *&v28[4 * v21];
+      v115 = v25;
+      v40 = v28[v21];
       if (v40 >= 1)
       {
         v41 = 0;
-        v42 = *&v28[4 * v105];
-        v43 = &v107[v34];
-        v44 = 4 * *(v29 + 8 * v115);
-        v45 = 4 * *(v29 + 8 * v105);
-        v46 = 2 * *(v30 + 8 * v115);
-        v47 = 2 * *(v30 + 8 * v105);
-        v48 = &v106[v26];
+        v42 = v28[v104];
+        v43 = &v106[v34];
+        v44 = 4 * v29[v114];
+        v45 = 4 * v29[v104];
+        v46 = 2 * v30[v114];
+        v47 = 2 * v30[v104];
+        v48 = &v105[v26];
         do
         {
           if (v42 >= 1)
           {
             v49 = 0;
-            v50 = *&v28[4 * v31];
-            v51 = 4 * *(v29 + 8 * v31);
-            v52 = 2 * *(v30 + 8 * v31);
+            v50 = v28[v31];
+            v51 = 4 * v29[v31];
+            v52 = 2 * v30[v31];
             v53 = v43;
             v54 = v48;
             do
@@ -603,23 +223,23 @@ LABEL_63:
         while (v41 != v40);
       }
 
-      if (v111)
+      if (v110)
       {
         break;
       }
 
-      v21 = v115;
-      v66 = v116;
-      v67 = v108;
-      v59 = v109;
-      if (v109)
+      v21 = v114;
+      v66 = v115;
+      v67 = v107;
+      v59 = v108;
+      if (v108)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
-      v25 = v66 + v110;
-      if (v25 >= v112)
+      v25 = v66 + v109;
+      if (v25 >= v111)
       {
         v81 = __p;
         if (__p)
@@ -631,24 +251,24 @@ LABEL_60:
       }
     }
 
-    v58 = *v114;
-    v21 = v115;
-    v59 = v109;
-    if (v111 >= 2 && (v60 = v102, v58 == *v102 - 1))
+    v58 = *v113;
+    v21 = v114;
+    v59 = v108;
+    if (v110 >= 2 && (v60 = v101, v58 == *v101 - 1))
     {
-      v62 = v99;
-      v61 = v100;
-      v63 = v97;
-      v64 = v114;
-      v65 = v104;
-      v66 = v116;
-      v67 = v108;
+      v62 = v98;
+      v61 = v99;
+      v63 = v96;
+      v64 = v113;
+      v65 = v103;
+      v66 = v115;
+      v67 = v107;
       do
       {
         v68 = v62;
         *v64 = 0;
         v26 = (v26 - v27[v65] * (*v60 - 1));
-        v128 = v26;
+        v127 = v26;
         --v62;
         v64 = &v61[v38 - 8];
         v58 = *v64;
@@ -670,36 +290,36 @@ LABEL_60:
 
     else
     {
-      v62 = v104;
-      v70 = v114;
-      v66 = v116;
-      v67 = v108;
+      v62 = v103;
+      v70 = v113;
+      v66 = v115;
+      v67 = v107;
     }
 
     *v70 = v58 + 1;
     v26 = (v26 + v27[v62]);
-    v128 = v26;
-    if (!v109)
+    v127 = v26;
+    if (!v108)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v71 = *v113;
+    v71 = *v112;
     if (v59 >= 2 && v71 == *v67 - 1)
     {
       v72 = __p;
-      v73 = v96;
-      v74 = v98;
+      v73 = v95;
+      v74 = v97;
       v75 = v67;
-      v76 = v113;
-      v77 = v103;
+      v76 = v112;
+      v77 = v102;
       do
       {
         v78 = v74;
         *v76 = 0;
         v34 -= v35[v77] * (*v75 - 1);
-        v117 = v34;
+        v116 = v34;
         --v74;
         v76 = &v72[v39 - 8];
         v71 = *v76;
@@ -721,13 +341,13 @@ LABEL_52:
 
     else
     {
-      v74 = v103;
-      v80 = v113;
+      v74 = v102;
+      v80 = v112;
     }
 
     *v80 = v71 + 1;
     v34 += v35[v74];
-    v117 = v34;
+    v116 = v34;
     goto LABEL_60;
   }
 
@@ -743,16 +363,16 @@ LABEL_52:
 
   if (v17 == 2)
   {
-    v82 = *v124;
-    if (*v124 >= 1)
+    v82 = *v123;
+    if (*v123 >= 1)
     {
       v83 = 0;
-      v84 = v126[3];
+      v84 = v125[3];
       v85 = *v84;
       v86 = v84[1];
-      v87 = 4 * **v126;
-      v88 = 4 * *(*v126 + 8);
-      v89 = *(v124 + 1);
+      v87 = 4 * **v125;
+      v88 = 4 * (*v125)[1];
+      v89 = *(v123 + 1);
       v90 = 2 * v85;
       v91 = 2 * v86;
       do
@@ -784,11 +404,11 @@ LABEL_52:
 
   else if (v17 == 1)
   {
-    v18 = *v124;
-    if (*v124 >= 1)
+    v18 = *v123;
+    if (*v123 >= 1)
     {
-      v19 = *v126[3];
-      v20 = 4 * **v126;
+      v19 = *v125[3];
+      v20 = 4 * **v125;
       do
       {
         *v13 = *v12;
@@ -802,16 +422,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v128 = &v126;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
-  if (v124)
+  v127 = &v125;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  if (v123)
   {
-    v125 = v124;
-    operator delete(v124);
+    v124 = v123;
+    operator delete(v123);
   }
-
-LABEL_83:
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3CB3B4(_Unwind_Exception *a1)
@@ -821,9 +438,9 @@ void sub_25A3CB3B4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<float,int>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<float,int>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -846,40 +463,40 @@ void mlx::core::anonymous namespace::copy_general_general<float,int>(uint64_t a1
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_83;
+    return;
   }
 
-  v110 = *(*a1 + 48);
+  v109 = *(*a1 + 48);
+  v125 = 0;
   v126 = 0;
   v127 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v125, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v128 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v126, *a4, a4[1], (a4[1] - *a4) >> 3);
   v129 = 0;
   v130 = 0;
-  v131 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v129, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v115, &v126, &v132, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v115, 0x7FFFFFFFuLL, &v122);
-  v125 = &v115;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v114, &v125, &v131, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v114, 0x7FFFFFFFuLL, &v121);
+  v124 = &v114;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v124);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v129 + i);
+    v16 = *(&v128 + i);
     if (v16)
     {
-      *(&v130 + i) = v16;
+      *(&v129 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = v122;
-  v18 = (v123 - v122) >> 2;
+  v17 = v121;
+  v18 = (v122 - v121) >> 2;
   if (v18 > 2)
   {
     if (v11)
@@ -893,117 +510,116 @@ void mlx::core::anonymous namespace::copy_general_general<float,int>(uint64_t a1
     }
 
     v22 = v18 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v126, &v122, v124, v18 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v115, &v122, v124 + 3, v18 - 3);
-    v23 = v123 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v121, v123, v18 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v114, &v121, v123 + 3, v18 - 3);
+    v23 = v122 - 3;
     v24 = 1;
     do
     {
-      v25 = *v23;
-      v23 += 4;
+      v25 = *v23++;
       v24 *= v25;
     }
 
-    while (v23 != v123);
-    if (!v110)
+    while (v23 != v122);
+    if (!v109)
     {
-      v82 = v120;
-      if (v120)
+      v82 = v119;
+      if (v119)
       {
 LABEL_62:
-        v121 = v82;
+        v120 = v82;
         operator delete(v82);
       }
 
 LABEL_63:
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v116)
+      if (v115)
       {
-        v117 = v116;
-        operator delete(v116);
+        v116 = v115;
+        operator delete(v115);
       }
 
-      if (v133)
+      if (v132)
       {
-        v134 = v133;
-        operator delete(v133);
+        v133 = v132;
+        operator delete(v132);
       }
 
-      if (v130)
+      if (v129)
       {
-        v131 = v130;
-        operator delete(v130);
+        v130 = v129;
+        operator delete(v129);
       }
 
-      if (v127)
+      if (v126)
       {
-        v128 = v127;
-        operator delete(v127);
+        v127 = v126;
+        operator delete(v126);
       }
 
       goto LABEL_81;
     }
 
-    v104 = v12;
-    v105 = v13;
+    v103 = v12;
+    v104 = v13;
     v26 = 0;
-    v27 = v126;
-    v28 = v130;
-    v29 = v122;
-    v30 = *v124;
-    v31 = v124[3];
+    v27 = v125;
+    v28 = v129;
+    v29 = v121;
+    v30 = *v123;
+    v31 = v123[3];
     v32 = v18 - 2;
     v33 = v18 - 1;
-    v34 = (((v128 - v127) << 30) - 0x100000000) >> 32;
-    v99 = v133;
-    v112 = &v133[4 * v34];
-    v103 = v34;
-    v101 = &v127[4 * v34];
-    v35 = ((v128 - v127) >> 2) & 0x7FFFFFFF;
-    v98 = v35 - 1;
-    v36 = v115;
-    v37 = v118;
-    v38 = (((v117 - v116) << 30) - 0x100000000) >> 32;
-    __p = v120;
-    v111 = &v120[4 * v38];
-    v39 = ((v117 - v116) >> 2) & 0x7FFFFFFF;
-    v97 = v39 - 1;
-    v108 = v24;
-    v109 = (v128 - v127) >> 2;
+    v34 = (((v127 - v126) << 30) - 0x100000000) >> 32;
+    v98 = v132;
+    v111 = &v132[4 * v34];
+    v102 = v34;
+    v100 = &v126[4 * v34];
+    v35 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
+    v97 = v35 - 1;
+    v36 = v114;
+    v37 = v117;
+    v38 = (((v116 - v115) << 30) - 0x100000000) >> 32;
+    __p = v119;
+    v110 = &v119[4 * v38];
+    v39 = ((v116 - v115) >> 2) & 0x7FFFFFFF;
+    v96 = v39 - 1;
+    v107 = v24;
+    v108 = (v127 - v126) >> 2;
     v40 = 4 * v35;
     v41 = 4 * v39;
-    v95 = v116 - 8;
-    v96 = v127 - 8;
-    v102 = v38;
-    v113 = v18 - 3;
-    v106 = v116 + 4 * v38;
-    v107 = (v117 - v116) >> 2;
+    v94 = v115 - 8;
+    v95 = v126 - 8;
+    v101 = v38;
+    v112 = v18 - 3;
+    v105 = v115 + 4 * v38;
+    v106 = (v116 - v115) >> 2;
     while (1)
     {
-      v114 = v26;
+      v113 = v26;
       v42 = v29[v22];
       if (v42 >= 1)
       {
         v43 = 0;
-        v44 = &v105[v36];
-        v45 = &v104[v27];
-        v46 = 4 * *(v30 + 8 * v113);
-        v47 = 4 * *(v30 + 8 * v32);
-        v48 = 4 * *(v31 + 8 * v113);
-        v49 = 4 * *(v31 + 8 * v32);
+        v44 = &v104[v36];
+        v45 = &v103[v27];
+        v46 = 4 * v30[v112];
+        v47 = 4 * v30[v32];
+        v48 = 4 * v31[v112];
+        v49 = 4 * v31[v32];
         do
         {
           v50 = v29[v32];
           if (v50 >= 1)
           {
             v51 = 0;
-            v52 = 4 * *(v30 + 8 * v33);
-            v53 = 4 * *(v31 + 8 * v33);
+            v52 = 4 * v30[v33];
+            v53 = 4 * v31[v33];
             v54 = v44;
             v55 = v45;
             do
@@ -1040,23 +656,23 @@ LABEL_63:
         while (v43 != v42);
       }
 
-      if (v109)
+      if (v108)
       {
         break;
       }
 
-      v22 = v113;
-      v67 = v114;
-      v68 = v106;
-      v60 = v107;
-      if (v107)
+      v22 = v112;
+      v67 = v113;
+      v68 = v105;
+      v60 = v106;
+      if (v106)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
-      v26 = v67 + v108;
-      if (v26 >= v110)
+      v26 = v67 + v107;
+      if (v26 >= v109)
       {
         v82 = __p;
         if (__p)
@@ -1068,24 +684,24 @@ LABEL_60:
       }
     }
 
-    v59 = *v112;
-    v22 = v113;
-    v60 = v107;
-    if (v109 >= 2 && (v61 = v101, v59 == *v101 - 1))
+    v59 = *v111;
+    v22 = v112;
+    v60 = v106;
+    if (v108 >= 2 && (v61 = v100, v59 == *v100 - 1))
     {
-      v62 = v98;
-      v63 = v99;
-      v64 = v96;
-      v65 = v112;
-      v66 = v103;
-      v67 = v114;
-      v68 = v106;
+      v62 = v97;
+      v63 = v98;
+      v64 = v95;
+      v65 = v111;
+      v66 = v102;
+      v67 = v113;
+      v68 = v105;
       do
       {
         v69 = v62;
         *v65 = 0;
         v27 = (v27 - v28[v66] * (*v61 - 1));
-        v126 = v27;
+        v125 = v27;
         --v62;
         v65 = &v63[v40 - 8];
         v59 = *v65;
@@ -1107,36 +723,36 @@ LABEL_60:
 
     else
     {
-      v62 = v103;
-      v71 = v112;
-      v67 = v114;
-      v68 = v106;
+      v62 = v102;
+      v71 = v111;
+      v67 = v113;
+      v68 = v105;
     }
 
     *v71 = v59 + 1;
     v27 = (v27 + v28[v62]);
-    v126 = v27;
-    if (!v107)
+    v125 = v27;
+    if (!v106)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v72 = *v111;
+    v72 = *v110;
     if (v60 >= 2 && v72 == *v68 - 1)
     {
       v73 = __p;
-      v74 = v95;
-      v75 = v97;
+      v74 = v94;
+      v75 = v96;
       v76 = v68;
-      v77 = v111;
-      v78 = v102;
+      v77 = v110;
+      v78 = v101;
       do
       {
         v79 = v75;
         *v77 = 0;
         v36 -= v37[v78] * (*v76 - 1);
-        v115 = v36;
+        v114 = v36;
         --v75;
         v77 = &v73[v41 - 8];
         v72 = *v77;
@@ -1158,13 +774,13 @@ LABEL_52:
 
     else
     {
-      v75 = v102;
-      v81 = v111;
+      v75 = v101;
+      v81 = v110;
     }
 
     *v81 = v72 + 1;
     v36 += v37[v75];
-    v115 = v36;
+    v114 = v36;
     goto LABEL_60;
   }
 
@@ -1180,13 +796,13 @@ LABEL_52:
 
   if (v18 == 2)
   {
-    v83 = *v122;
-    if (*v122 >= 1)
+    v83 = *v121;
+    if (*v121 >= 1)
     {
       v84 = 0;
-      v85 = v124[3];
-      v86 = 4 * **v124;
-      v87 = 4 * *(*v124 + 8);
+      v85 = v123[3];
+      v86 = 4 * **v123;
+      v87 = 4 * (*v123)[1];
       v88 = v85[1];
       v89 = 4 * *v85;
       v90 = 4 * v88;
@@ -1219,11 +835,11 @@ LABEL_52:
 
   else if (v18 == 1)
   {
-    v19 = *v122;
-    if (*v122 >= 1)
+    v19 = *v121;
+    if (*v121 >= 1)
     {
-      v20 = *v124[3];
-      v21 = 4 * **v124;
+      v20 = *v123[3];
+      v21 = 4 * **v123;
       do
       {
         *v13 = *v12;
@@ -1237,16 +853,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v126 = &v124;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
-  if (v122)
+  v125 = &v123;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  if (v121)
   {
-    v123 = v122;
-    operator delete(v122);
+    v122 = v121;
+    operator delete(v121);
   }
-
-LABEL_83:
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3CBB0C(_Unwind_Exception *a1)
@@ -1256,9 +869,9 @@ void sub_25A3CBB0C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -1281,39 +894,39 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_82;
+    return;
   }
 
-  v101 = *(*a1 + 48);
+  v100 = *(*a1 + 48);
+  v117 = 0;
   v118 = 0;
   v119 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v117, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v120 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v118, *a4, a4[1], (a4[1] - *a4) >> 3);
   v121 = 0;
   v122 = 0;
-  v123 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v121, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v120, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v106 = 0;
   v107 = 0;
   v108 = 0;
-  v109 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v107, &v118, &v124, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v107, 0x7FFFFFFFuLL, &v114);
-  v117 = &v107;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v117);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v106, &v117, &v123, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v106, 0x7FFFFFFFuLL, &v113);
+  v116 = &v106;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v116);
   for (i = 0; i != -6; i -= 3)
   {
-    v16 = *(&v121 + i * 8);
+    v16 = *(&v120 + i * 8);
     if (v16)
     {
-      (&v122)[i] = v16;
+      (&v121)[i] = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v115 - v114) >> 2;
+  v17 = (v114 - v113) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -1327,9 +940,9 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
     }
 
     v21 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v118, &v114, v116, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v107, &v114, v116 + 3, v17 - 3);
-    v22 = v115 - 3;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v113, v115, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v106, &v113, v115 + 3, v17 - 3);
+    v22 = v114 - 3;
     v23 = 1;
     do
     {
@@ -1337,55 +950,55 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
       v23 *= v24;
     }
 
-    while (v22 != v115);
-    if (v101)
+    while (v22 != v114);
+    if (v100)
     {
-      v98 = v13;
+      v97 = v13;
       v25 = 0;
-      v105 = (v120 - v119) >> 2;
-      v26 = v114;
-      v27 = *v116;
-      v28 = v116[3];
+      v104 = (v119 - v118) >> 2;
+      v26 = v113;
+      v27 = *v115;
+      v28 = v115[3];
       v29 = v17 - 2;
       v30 = v17 - 1;
-      v31 = (((v120 - v119) << 30) - 0x100000000) >> 32;
-      v32 = v122;
-      v93 = v125;
-      v96 = v31;
-      v97 = &v119[4 * v31];
-      v103 = &v125[4 * v31];
-      v104 = (v109 - v108) >> 2;
-      v33 = v110;
-      __p = v112;
-      v95 = (((v109 - v108) << 30) - 0x100000000) >> 32;
-      v102 = &v112[4 * v95];
-      v34 = 4 * (v105 & 0x7FFFFFFF);
-      v92 = v119 - 8;
-      v35 = 4 * (v104 & 0x7FFFFFFF);
-      v91 = v108 - 8;
-      v99 = v108 + 4 * v95;
-      v100 = v23;
+      v31 = (((v119 - v118) << 30) - 0x100000000) >> 32;
+      v32 = v121;
+      v92 = v124;
+      v95 = v31;
+      v96 = &v118[4 * v31];
+      v102 = &v124[4 * v31];
+      v103 = (v108 - v107) >> 2;
+      v33 = v109;
+      __p = v111;
+      v94 = (((v108 - v107) << 30) - 0x100000000) >> 32;
+      v101 = &v111[4 * v94];
+      v34 = 4 * (v104 & 0x7FFFFFFF);
+      v91 = v118 - 8;
+      v35 = 4 * (v103 & 0x7FFFFFFF);
+      v90 = v107 - 8;
+      v98 = v107 + 4 * v94;
+      v99 = v23;
       do
       {
-        v106 = v25;
+        v105 = v25;
         v36 = v21;
         v37 = v26[v21];
         if (v37 >= 1)
         {
           v38 = 0;
-          v39 = &v98[v107];
-          v40 = &v12[v118];
+          v39 = &v97[v106];
+          v40 = &v12[v117];
           v41 = v26[v29];
-          v42 = 4 * *(v27 + 8 * v21);
-          v43 = 8 * *(v28 + 8 * v21);
+          v42 = 4 * v27[v21];
+          v43 = 8 * v28[v21];
           do
           {
             if (v41 >= 1)
             {
               v44 = 0;
               v45 = v26[v30];
-              v46 = 4 * *(v27 + 8 * v29);
-              v47 = 8 * *(v28 + 8 * v29);
+              v46 = 4 * v27[v29];
+              v47 = 8 * v28[v29];
               v48 = v39;
               v49 = v40;
               do
@@ -1394,8 +1007,8 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
                 {
                   v50 = 0;
                   v51 = 0;
-                  v52 = 4 * *(v27 + 8 * v30);
-                  v53 = 8 * *(v28 + 8 * v30);
+                  v52 = 4 * v27[v30];
+                  v53 = 8 * v28[v30];
                   v54 = v45;
                   do
                   {
@@ -1425,24 +1038,24 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
         }
 
         v21 = v36;
-        if (v105)
+        if (v104)
         {
-          v55 = *v103;
-          v56 = v118;
-          v57 = v97;
-          if (v105 >= 2 && v55 == *v97 - 1)
+          v55 = *v102;
+          v56 = v117;
+          v57 = v96;
+          if (v104 >= 2 && v55 == *v96 - 1)
           {
-            v59 = (v105 & 0x7FFFFFFF) - 1;
-            v58 = v93;
-            v60 = v92;
-            v61 = v103;
-            v62 = v96;
+            v59 = (v104 & 0x7FFFFFFF) - 1;
+            v58 = v92;
+            v60 = v91;
+            v61 = v102;
+            v62 = v95;
             do
             {
               v63 = v59;
               *v61 = 0;
               v56 = (v56 - v32[v62] * (*v57 - 1));
-              v118 = v56;
+              v117 = v56;
               --v59;
               v61 = &v58[v34 - 8];
               v55 = *v61;
@@ -1453,7 +1066,7 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
               }
 
               v57 = &v60[v34];
-              v64 = *&v60[4 * (v105 & 0x7FFFFFFF)] - 1;
+              v64 = *&v60[4 * (v104 & 0x7FFFFFFF)] - 1;
               v60 -= 4;
               v62 = v59;
             }
@@ -1464,32 +1077,32 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
 
           else
           {
-            v59 = v96;
-            v65 = v103;
+            v59 = v95;
+            v65 = v102;
           }
 
           *v65 = v55 + 1;
-          v118 = (v56 + v32[v59]);
+          v117 = (v56 + v32[v59]);
         }
 
-        if (v104)
+        if (v103)
         {
-          v66 = *v102;
-          v67 = v107;
-          if (v104 >= 2 && v66 == *v99 - 1)
+          v66 = *v101;
+          v67 = v106;
+          if (v103 >= 2 && v66 == *v98 - 1)
           {
             v68 = __p;
-            v69 = v95;
-            v70 = v91;
-            v71 = (v104 & 0x7FFFFFFF) - 1;
-            v72 = v99;
-            v73 = v102;
+            v69 = v94;
+            v70 = v90;
+            v71 = (v103 & 0x7FFFFFFF) - 1;
+            v72 = v98;
+            v73 = v101;
             do
             {
               v74 = v71;
               *v73 = 0;
               v67 -= v33[v69] * (*v72 - 1);
-              v107 = v67;
+              v106 = v67;
               --v71;
               v73 = &v68[v35 - 8];
               v66 = *v73;
@@ -1500,7 +1113,7 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
               }
 
               v72 = &v70[v35];
-              v75 = *&v70[4 * (v104 & 0x7FFFFFFF)] - 1;
+              v75 = *&v70[4 * (v103 & 0x7FFFFFFF)] - 1;
               v70 -= 4;
               v69 = v71;
             }
@@ -1511,18 +1124,18 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
 
           else
           {
-            v71 = v95;
-            v76 = v102;
+            v71 = v94;
+            v76 = v101;
           }
 
           *v76 = v66 + 1;
-          v107 = v33[v71] + v67;
+          v106 = v33[v71] + v67;
         }
 
-        v25 = v106 + v100;
+        v25 = v105 + v99;
       }
 
-      while (v106 + v100 < v101);
+      while (v105 + v99 < v100);
       v77 = __p;
       if (!__p)
       {
@@ -1532,44 +1145,44 @@ void mlx::core::anonymous namespace::copy_general_general<float,long long>(uint6
 
     else
     {
-      v77 = v112;
-      if (!v112)
+      v77 = v111;
+      if (!v111)
       {
         goto LABEL_62;
       }
     }
 
-    v113 = v77;
+    v112 = v77;
     operator delete(v77);
 LABEL_62:
-    if (v110)
+    if (v109)
     {
-      v111 = v110;
-      operator delete(v110);
+      v110 = v109;
+      operator delete(v109);
     }
 
-    if (v108)
+    if (v107)
     {
-      v109 = v108;
-      operator delete(v108);
+      v108 = v107;
+      operator delete(v107);
     }
 
-    if (v125)
+    if (v124)
     {
-      v126 = v125;
-      operator delete(v125);
+      v125 = v124;
+      operator delete(v124);
     }
 
-    if (v122)
+    if (v121)
     {
-      v123 = v122;
-      operator delete(v122);
+      v122 = v121;
+      operator delete(v121);
     }
 
-    if (v119)
+    if (v118)
     {
-      v120 = v119;
-      operator delete(v119);
+      v119 = v118;
+      operator delete(v118);
     }
 
     goto LABEL_80;
@@ -1587,20 +1200,20 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v78 = *v114;
-    if (*v114 >= 1)
+    v78 = *v113;
+    if (*v113 >= 1)
     {
       v79 = 0;
-      v80 = *v116;
-      v81 = v116[3];
-      v82 = *(v114 + 1);
-      v83 = 4 * **v116;
+      v80 = *v115;
+      v81 = v115[3];
+      v82 = *(v113 + 1);
+      v83 = 4 * **v115;
       v84 = 8 * *v81;
       do
       {
         if (v82 >= 1)
         {
-          v85 = 4 * *(v80 + 8);
+          v85 = 4 * v80[1];
           v86 = 8 * v81[1];
           v87 = v13;
           v88 = v12;
@@ -1627,11 +1240,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v114;
-    if (*v114 >= 1)
+    v18 = *v113;
+    if (*v113 >= 1)
     {
-      v19 = *v116[3];
-      v20 = 4 * **v116;
+      v19 = *v115[3];
+      v20 = 4 * **v115;
       do
       {
         *v13 = *v12;
@@ -1645,28 +1258,26 @@ LABEL_62:
   }
 
 LABEL_80:
-  v118 = &v116;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v118);
-  if (v114)
+  v117 = &v115;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v117);
+  if (v113)
   {
-    v115 = v114;
-    operator delete(v114);
+    v114 = v113;
+    operator delete(v113);
   }
-
-LABEL_82:
-  v90 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A3CC254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_25A3CC254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator((v38 - 176));
-  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a38);
+  va_start(va, a37);
+  mlx::core::ContiguousIterator::~ContiguousIterator((v37 - 176));
+  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<float,half>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<float,half>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -1689,42 +1300,42 @@ void mlx::core::anonymous namespace::copy_general_general<float,half>(uint64_t a
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     _S0 = *v12;
     __asm { FCVT            H0, S0 }
 
     *v13 = _S0;
-    goto LABEL_85;
+    return;
   }
 
-  v121 = *(*a1 + 48);
+  v120 = *(*a1 + 48);
+  v135 = 0;
   v136 = 0;
   v137 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v135, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v138 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v136, *a4, a4[1], (a4[1] - *a4) >> 3);
   v139 = 0;
   v140 = 0;
-  v141 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v139, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v138, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v124 = 0;
   v125 = 0;
   v126 = 0;
-  v127 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v125, &v136, &v142, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v125, 0x7FFFFFFFuLL, &v132);
-  v135 = &v125;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v135);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v124, &v135, &v141, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v124, 0x7FFFFFFFuLL, &v131);
+  v134 = &v124;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v134);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v139 + i);
+    v16 = *(&v138 + i);
     if (v16)
     {
-      *(&v140 + i) = v16;
+      *(&v139 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v133 - v132) >> 2;
+  v17 = (v132 - v131) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -1738,118 +1349,117 @@ void mlx::core::anonymous namespace::copy_general_general<float,half>(uint64_t a
     }
 
     v27 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v136, &v132, v134, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v132, v134 + 3, v17 - 3);
-    v28 = v133 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v135, &v131, v133, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v124, &v131, v133 + 3, v17 - 3);
+    v28 = v132 - 3;
     v29 = 1;
     do
     {
-      v30 = *v28;
-      v28 += 4;
+      v30 = *v28++;
       v29 *= v30;
     }
 
-    while (v28 != v133);
-    if (!v121)
+    while (v28 != v132);
+    if (!v120)
     {
-      v89 = v130;
-      if (v130)
+      v89 = v129;
+      if (v129)
       {
 LABEL_64:
-        v131 = v89;
+        v130 = v89;
         operator delete(v89);
       }
 
 LABEL_65:
-      if (v128)
+      if (v127)
       {
-        v129 = v128;
-        operator delete(v128);
+        v128 = v127;
+        operator delete(v127);
       }
 
-      if (v126)
+      if (v125)
       {
-        v127 = v126;
-        operator delete(v126);
+        v126 = v125;
+        operator delete(v125);
       }
 
-      if (v143)
+      if (v142)
       {
-        v144 = v143;
-        operator delete(v143);
+        v143 = v142;
+        operator delete(v142);
       }
 
-      if (v140)
+      if (v139)
       {
-        v141 = v140;
-        operator delete(v140);
+        v140 = v139;
+        operator delete(v139);
       }
 
-      if (v137)
+      if (v136)
       {
-        v138 = v137;
-        operator delete(v137);
+        v137 = v136;
+        operator delete(v136);
       }
 
       goto LABEL_83;
     }
 
-    v115 = v12;
-    v116 = v13;
+    v114 = v12;
+    v115 = v13;
     v31 = 0;
-    v32 = v136;
-    v33 = v140;
-    v34 = v132;
-    v35 = *v134;
-    v36 = v134[3];
-    v114 = v17 - 2;
+    v32 = v135;
+    v33 = v139;
+    v34 = v131;
+    v35 = *v133;
+    v36 = v133[3];
+    v113 = v17 - 2;
     v37 = v17 - 1;
-    v38 = (((v138 - v137) << 30) - 0x100000000) >> 32;
-    v109 = v143;
-    v113 = v38;
-    v111 = &v137[4 * v38];
-    v39 = ((v138 - v137) >> 2) & 0x7FFFFFFF;
-    v108 = v39 - 1;
-    v40 = v125;
-    v41 = v128;
-    v42 = (((v127 - v126) << 30) - 0x100000000) >> 32;
-    __p = v130;
-    v122 = &v130[4 * v42];
-    v123 = &v143[4 * v38];
-    v43 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
-    v119 = v29;
-    v120 = (v138 - v137) >> 2;
+    v38 = (((v137 - v136) << 30) - 0x100000000) >> 32;
+    v108 = v142;
+    v112 = v38;
+    v110 = &v136[4 * v38];
+    v39 = ((v137 - v136) >> 2) & 0x7FFFFFFF;
+    v107 = v39 - 1;
+    v40 = v124;
+    v41 = v127;
+    v42 = (((v126 - v125) << 30) - 0x100000000) >> 32;
+    __p = v129;
+    v121 = &v129[4 * v42];
+    v122 = &v142[4 * v38];
+    v43 = ((v126 - v125) >> 2) & 0x7FFFFFFF;
+    v118 = v29;
+    v119 = (v137 - v136) >> 2;
     v44 = 4 * v39;
-    v106 = v137 - 8;
-    v107 = v43 - 1;
+    v105 = v136 - 8;
+    v106 = v43 - 1;
     v45 = 4 * v43;
-    v105 = v126 - 8;
-    v112 = v42;
-    v117 = v126 + 4 * v42;
-    v118 = (v127 - v126) >> 2;
+    v104 = v125 - 8;
+    v111 = v42;
+    v116 = v125 + 4 * v42;
+    v117 = (v126 - v125) >> 2;
     while (1)
     {
-      v124 = v31;
+      v123 = v31;
       v46 = v27;
-      v47 = *&v34[4 * v27];
+      v47 = v34[v27];
       if (v47 >= 1)
       {
         v48 = 0;
-        v49 = *&v34[4 * v114];
-        v50 = &v116[v40];
-        v51 = 4 * *(v35 + 8 * v27);
-        v52 = 4 * *(v35 + 8 * v114);
-        v53 = 2 * *(v36 + 8 * v27);
-        v54 = 2 * *(v36 + 8 * v114);
-        v55 = &v115[v32];
+        v49 = v34[v113];
+        v50 = &v115[v40];
+        v51 = 4 * v35[v27];
+        v52 = 4 * v35[v113];
+        v53 = 2 * v36[v27];
+        v54 = 2 * v36[v113];
+        v55 = &v114[v32];
         do
         {
           if (v49 >= 1)
           {
             v56 = 0;
-            v57 = *&v34[4 * v37];
-            v58 = 4 * *(v35 + 8 * v37);
-            v59 = 2 * *(v36 + 8 * v37);
+            v57 = v34[v37];
+            v58 = 4 * v35[v37];
+            v59 = 2 * v36[v37];
             v60 = v50;
             v61 = v55;
             do
@@ -1889,13 +1499,13 @@ LABEL_65:
         while (v48 != v47);
       }
 
-      if (!v120)
+      if (!v119)
       {
         v27 = v46;
-        v69 = v124;
-        v75 = v117;
-        v67 = v118;
-        if (v118)
+        v69 = v123;
+        v75 = v116;
+        v67 = v117;
+        if (v117)
         {
           goto LABEL_54;
         }
@@ -1903,37 +1513,37 @@ LABEL_65:
         goto LABEL_62;
       }
 
-      v66 = *v123;
+      v66 = *v122;
       v27 = v46;
-      v67 = v118;
-      if (v120 < 2)
+      v67 = v117;
+      if (v119 < 2)
       {
         break;
       }
 
-      v68 = v111;
-      v69 = v124;
-      if (v66 != *v111 - 1)
+      v68 = v110;
+      v69 = v123;
+      if (v66 != *v110 - 1)
       {
-        v71 = v113;
-        v78 = v123;
+        v71 = v112;
+        v78 = v122;
 LABEL_52:
-        v75 = v117;
+        v75 = v116;
         goto LABEL_53;
       }
 
-      v71 = v108;
-      v70 = v109;
-      v72 = v106;
-      v73 = v123;
-      v74 = v113;
-      v75 = v117;
+      v71 = v107;
+      v70 = v108;
+      v72 = v105;
+      v73 = v122;
+      v74 = v112;
+      v75 = v116;
       do
       {
         v76 = v71;
         *v73 = 0;
         v32 = (v32 - v33[v74] * (*v68 - 1));
-        v136 = v32;
+        v135 = v32;
         --v71;
         v73 = &v70[v44 - 8];
         v66 = *v73;
@@ -1954,25 +1564,25 @@ LABEL_52:
 LABEL_53:
       *v78 = v66 + 1;
       v32 = (v32 + v33[v71]);
-      v136 = v32;
-      if (v118)
+      v135 = v32;
+      if (v117)
       {
 LABEL_54:
-        v79 = *v122;
+        v79 = *v121;
         if (v67 >= 2 && v79 == *v75 - 1)
         {
           v80 = __p;
-          v81 = v105;
-          v82 = v107;
+          v81 = v104;
+          v82 = v106;
           v83 = v75;
-          v84 = v122;
-          v85 = v112;
+          v84 = v121;
+          v85 = v111;
           do
           {
             v86 = v82;
             *v84 = 0;
             v40 -= v41[v85] * (*v83 - 1);
-            v125 = v40;
+            v124 = v40;
             --v82;
             v84 = &v80[v45 - 8];
             v79 = *v84;
@@ -1994,18 +1604,18 @@ LABEL_54:
 
         else
         {
-          v82 = v112;
-          v88 = v122;
+          v82 = v111;
+          v88 = v121;
         }
 
         *v88 = v79 + 1;
         v40 += v41[v82];
-        v125 = v40;
+        v124 = v40;
       }
 
 LABEL_62:
-      v31 = v69 + v119;
-      if (v31 >= v121)
+      v31 = v69 + v118;
+      if (v31 >= v120)
       {
         v89 = __p;
         if (__p)
@@ -2017,9 +1627,9 @@ LABEL_62:
       }
     }
 
-    v71 = v113;
-    v78 = v123;
-    v69 = v124;
+    v71 = v112;
+    v78 = v122;
+    v69 = v123;
     goto LABEL_52;
   }
 
@@ -2035,16 +1645,16 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v90 = *v132;
-    if (*v132 >= 1)
+    v90 = *v131;
+    if (*v131 >= 1)
     {
       v91 = 0;
-      v92 = v134[3];
+      v92 = v133[3];
       v93 = *v92;
       v94 = v92[1];
-      v95 = 4 * **v134;
-      v96 = 4 * *(*v134 + 8);
-      v97 = *(v132 + 1);
+      v95 = 4 * **v133;
+      v96 = 4 * (*v133)[1];
+      v97 = *(v131 + 1);
       v98 = 2 * v93;
       v99 = 2 * v94;
       do
@@ -2079,11 +1689,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v132;
-    if (*v132 >= 1)
+    v18 = *v131;
+    if (*v131 >= 1)
     {
-      v19 = *v134[3];
-      v20 = 4 * **v134;
+      v19 = *v133[3];
+      v20 = 4 * **v133;
       do
       {
         _S0 = *v12;
@@ -2100,16 +1710,13 @@ LABEL_62:
   }
 
 LABEL_83:
-  v136 = &v134;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v136);
-  if (v132)
+  v135 = &v133;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v135);
+  if (v131)
   {
-    v133 = v132;
-    operator delete(v132);
+    v132 = v131;
+    operator delete(v131);
   }
-
-LABEL_85:
-  v104 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3CC9BC(_Unwind_Exception *a1)
@@ -2119,9 +1726,9 @@ void sub_25A3CC9BC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<float,float>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<float,float>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -2144,39 +1751,39 @@ void mlx::core::anonymous namespace::copy_general_general<float,float>(uint64_t 
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_85;
+    return;
   }
 
-  v113 = *(*a1 + 48);
+  v112 = *(*a1 + 48);
+  v127 = 0;
   v128 = 0;
   v129 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v127, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v130 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a4, a4[1], (a4[1] - *a4) >> 3);
   v131 = 0;
   v132 = 0;
-  v133 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v130, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v116 = 0;
   v117 = 0;
   v118 = 0;
-  v119 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v117, &v128, &v134, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v117, 0x7FFFFFFFuLL, &v124);
-  v127 = &v117;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v116, &v127, &v133, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v116, 0x7FFFFFFFuLL, &v123);
+  v126 = &v116;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v131 + i);
+    v16 = *(&v130 + i);
     if (v16)
     {
-      *(&v132 + i) = v16;
+      *(&v131 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v125 - v124) >> 2;
+  v17 = (v124 - v123) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -2190,118 +1797,117 @@ void mlx::core::anonymous namespace::copy_general_general<float,float>(uint64_t 
     }
 
     v21 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v128, &v124, v126, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v124, v126 + 3, v17 - 3);
-    v22 = v125 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v127, &v123, v125, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v116, &v123, v125 + 3, v17 - 3);
+    v22 = v124 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v125);
-    if (!v113)
+    while (v22 != v124);
+    if (!v112)
     {
-      v82 = v122;
-      if (v122)
+      v82 = v121;
+      if (v121)
       {
 LABEL_64:
-        v123 = v82;
+        v122 = v82;
         operator delete(v82);
       }
 
 LABEL_65:
-      if (v120)
+      if (v119)
       {
-        v121 = v120;
-        operator delete(v120);
+        v120 = v119;
+        operator delete(v119);
       }
 
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v135)
+      if (v134)
       {
-        v136 = v135;
-        operator delete(v135);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      if (v132)
+      if (v131)
       {
-        v133 = v132;
-        operator delete(v132);
+        v132 = v131;
+        operator delete(v131);
       }
 
-      if (v129)
+      if (v128)
       {
-        v130 = v129;
-        operator delete(v129);
+        v129 = v128;
+        operator delete(v128);
       }
 
       goto LABEL_83;
     }
 
-    v107 = v12;
-    v108 = v13;
+    v106 = v12;
+    v107 = v13;
     v25 = 0;
-    v26 = v128;
-    v27 = v132;
-    v28 = v124;
-    v29 = *v126;
-    v30 = v126[3];
-    v106 = v17 - 2;
+    v26 = v127;
+    v27 = v131;
+    v28 = v123;
+    v29 = *v125;
+    v30 = v125[3];
+    v105 = v17 - 2;
     v31 = v17 - 1;
-    v32 = (((v130 - v129) << 30) - 0x100000000) >> 32;
-    v101 = v135;
-    v105 = v32;
-    v103 = &v129[4 * v32];
-    v33 = ((v130 - v129) >> 2) & 0x7FFFFFFF;
-    v100 = v33 - 1;
-    v34 = v117;
-    v35 = v120;
-    v36 = (((v119 - v118) << 30) - 0x100000000) >> 32;
-    __p = v122;
-    v114 = &v122[4 * v36];
-    v115 = &v135[4 * v32];
-    v37 = ((v119 - v118) >> 2) & 0x7FFFFFFF;
-    v111 = v23;
-    v112 = (v130 - v129) >> 2;
+    v32 = (((v129 - v128) << 30) - 0x100000000) >> 32;
+    v100 = v134;
+    v104 = v32;
+    v102 = &v128[4 * v32];
+    v33 = ((v129 - v128) >> 2) & 0x7FFFFFFF;
+    v99 = v33 - 1;
+    v34 = v116;
+    v35 = v119;
+    v36 = (((v118 - v117) << 30) - 0x100000000) >> 32;
+    __p = v121;
+    v113 = &v121[4 * v36];
+    v114 = &v134[4 * v32];
+    v37 = ((v118 - v117) >> 2) & 0x7FFFFFFF;
+    v110 = v23;
+    v111 = (v129 - v128) >> 2;
     v38 = 4 * v33;
-    v98 = v129 - 8;
-    v99 = v37 - 1;
+    v97 = v128 - 8;
+    v98 = v37 - 1;
     v39 = 4 * v37;
-    v97 = v118 - 8;
-    v104 = v36;
-    v109 = v118 + 4 * v36;
-    v110 = (v119 - v118) >> 2;
+    v96 = v117 - 8;
+    v103 = v36;
+    v108 = v117 + 4 * v36;
+    v109 = (v118 - v117) >> 2;
     while (1)
     {
-      v116 = v25;
+      v115 = v25;
       v40 = v21;
-      v41 = *&v28[4 * v21];
+      v41 = v28[v21];
       if (v41 >= 1)
       {
         v42 = 0;
-        v43 = *&v28[4 * v106];
-        v44 = &v108[v34];
-        v45 = 4 * *(v29 + 8 * v21);
-        v46 = 4 * *(v29 + 8 * v106);
-        v47 = 4 * *(v30 + 8 * v21);
-        v48 = 4 * *(v30 + 8 * v106);
-        v49 = &v107[v26];
+        v43 = v28[v105];
+        v44 = &v107[v34];
+        v45 = 4 * v29[v21];
+        v46 = 4 * v29[v105];
+        v47 = 4 * v30[v21];
+        v48 = 4 * v30[v105];
+        v49 = &v106[v26];
         do
         {
           if (v43 >= 1)
           {
             v50 = 0;
-            v51 = *&v28[4 * v31];
-            v52 = 4 * *(v29 + 8 * v31);
-            v53 = 4 * *(v30 + 8 * v31);
+            v51 = v28[v31];
+            v52 = 4 * v29[v31];
+            v53 = 4 * v30[v31];
             v54 = v44;
             v55 = v49;
             do
@@ -2338,13 +1944,13 @@ LABEL_65:
         while (v42 != v41);
       }
 
-      if (!v112)
+      if (!v111)
       {
         v21 = v40;
-        v62 = v116;
-        v68 = v109;
-        v60 = v110;
-        if (v110)
+        v62 = v115;
+        v68 = v108;
+        v60 = v109;
+        if (v109)
         {
           goto LABEL_54;
         }
@@ -2352,37 +1958,37 @@ LABEL_65:
         goto LABEL_62;
       }
 
-      v59 = *v115;
+      v59 = *v114;
       v21 = v40;
-      v60 = v110;
-      if (v112 < 2)
+      v60 = v109;
+      if (v111 < 2)
       {
         break;
       }
 
-      v61 = v103;
-      v62 = v116;
-      if (v59 != *v103 - 1)
+      v61 = v102;
+      v62 = v115;
+      if (v59 != *v102 - 1)
       {
-        v64 = v105;
-        v71 = v115;
+        v64 = v104;
+        v71 = v114;
 LABEL_52:
-        v68 = v109;
+        v68 = v108;
         goto LABEL_53;
       }
 
-      v64 = v100;
-      v63 = v101;
-      v65 = v98;
-      v66 = v115;
-      v67 = v105;
-      v68 = v109;
+      v64 = v99;
+      v63 = v100;
+      v65 = v97;
+      v66 = v114;
+      v67 = v104;
+      v68 = v108;
       do
       {
         v69 = v64;
         *v66 = 0;
         v26 = (v26 - v27[v67] * (*v61 - 1));
-        v128 = v26;
+        v127 = v26;
         --v64;
         v66 = &v63[v38 - 8];
         v59 = *v66;
@@ -2403,25 +2009,25 @@ LABEL_52:
 LABEL_53:
       *v71 = v59 + 1;
       v26 = (v26 + v27[v64]);
-      v128 = v26;
-      if (v110)
+      v127 = v26;
+      if (v109)
       {
 LABEL_54:
-        v72 = *v114;
+        v72 = *v113;
         if (v60 >= 2 && v72 == *v68 - 1)
         {
           v73 = __p;
-          v74 = v97;
-          v75 = v99;
+          v74 = v96;
+          v75 = v98;
           v76 = v68;
-          v77 = v114;
-          v78 = v104;
+          v77 = v113;
+          v78 = v103;
           do
           {
             v79 = v75;
             *v77 = 0;
             v34 -= v35[v78] * (*v76 - 1);
-            v117 = v34;
+            v116 = v34;
             --v75;
             v77 = &v73[v39 - 8];
             v72 = *v77;
@@ -2443,18 +2049,18 @@ LABEL_54:
 
         else
         {
-          v75 = v104;
-          v81 = v114;
+          v75 = v103;
+          v81 = v113;
         }
 
         *v81 = v72 + 1;
         v34 += v35[v75];
-        v117 = v34;
+        v116 = v34;
       }
 
 LABEL_62:
-      v25 = v62 + v111;
-      if (v25 >= v113)
+      v25 = v62 + v110;
+      if (v25 >= v112)
       {
         v82 = __p;
         if (__p)
@@ -2466,9 +2072,9 @@ LABEL_62:
       }
     }
 
-    v64 = v105;
-    v71 = v115;
-    v62 = v116;
+    v64 = v104;
+    v71 = v114;
+    v62 = v115;
     goto LABEL_52;
   }
 
@@ -2484,16 +2090,16 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v83 = *v124;
-    if (*v124 >= 1)
+    v83 = *v123;
+    if (*v123 >= 1)
     {
       v84 = 0;
-      v85 = v126[3];
+      v85 = v125[3];
       v86 = *v85;
       v87 = v85[1];
-      v88 = 4 * **v126;
-      v89 = 4 * *(*v126 + 8);
-      v90 = *(v124 + 1);
+      v88 = 4 * **v125;
+      v89 = 4 * (*v125)[1];
+      v90 = *(v123 + 1);
       v91 = 4 * v86;
       v92 = 4 * v87;
       do
@@ -2525,11 +2131,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v124;
-    if (*v124 >= 1)
+    v18 = *v123;
+    if (*v123 >= 1)
     {
-      v19 = *v126[3];
-      v20 = 4 * **v126;
+      v19 = *v125[3];
+      v20 = 4 * **v125;
       do
       {
         *v13 = *v12;
@@ -2543,16 +2149,13 @@ LABEL_62:
   }
 
 LABEL_83:
-  v128 = &v126;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
-  if (v124)
+  v127 = &v125;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  if (v123)
   {
-    v125 = v124;
-    operator delete(v124);
+    v124 = v123;
+    operator delete(v123);
   }
-
-LABEL_85:
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3CD114(_Unwind_Exception *a1)
@@ -2562,9 +2165,9 @@ void sub_25A3CD114(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<float,double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<float,double>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -2587,39 +2190,39 @@ void mlx::core::anonymous namespace::copy_general_general<float,double>(uint64_t
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_85;
+    return;
   }
 
-  v113 = *(*a1 + 48);
+  v112 = *(*a1 + 48);
+  v127 = 0;
   v128 = 0;
   v129 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v127, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v130 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a4, a4[1], (a4[1] - *a4) >> 3);
   v131 = 0;
   v132 = 0;
-  v133 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v130, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v116 = 0;
   v117 = 0;
   v118 = 0;
-  v119 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v117, &v128, &v134, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v117, 0x7FFFFFFFuLL, &v124);
-  v127 = &v117;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v116, &v127, &v133, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v116, 0x7FFFFFFFuLL, &v123);
+  v126 = &v116;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v131 + i);
+    v16 = *(&v130 + i);
     if (v16)
     {
-      *(&v132 + i) = v16;
+      *(&v131 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v125 - v124) >> 2;
+  v17 = (v124 - v123) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -2633,118 +2236,117 @@ void mlx::core::anonymous namespace::copy_general_general<float,double>(uint64_t
     }
 
     v21 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v128, &v124, v126, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v124, v126 + 3, v17 - 3);
-    v22 = v125 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v127, &v123, v125, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v116, &v123, v125 + 3, v17 - 3);
+    v22 = v124 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v125);
-    if (!v113)
+    while (v22 != v124);
+    if (!v112)
     {
-      v82 = v122;
-      if (v122)
+      v82 = v121;
+      if (v121)
       {
 LABEL_64:
-        v123 = v82;
+        v122 = v82;
         operator delete(v82);
       }
 
 LABEL_65:
-      if (v120)
+      if (v119)
       {
-        v121 = v120;
-        operator delete(v120);
+        v120 = v119;
+        operator delete(v119);
       }
 
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v135)
+      if (v134)
       {
-        v136 = v135;
-        operator delete(v135);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      if (v132)
+      if (v131)
       {
-        v133 = v132;
-        operator delete(v132);
+        v132 = v131;
+        operator delete(v131);
       }
 
-      if (v129)
+      if (v128)
       {
-        v130 = v129;
-        operator delete(v129);
+        v129 = v128;
+        operator delete(v128);
       }
 
       goto LABEL_83;
     }
 
-    v107 = v12;
-    v108 = v13;
+    v106 = v12;
+    v107 = v13;
     v25 = 0;
-    v26 = v128;
-    v27 = v132;
-    v28 = v124;
-    v29 = *v126;
-    v30 = v126[3];
-    v106 = v17 - 2;
+    v26 = v127;
+    v27 = v131;
+    v28 = v123;
+    v29 = *v125;
+    v30 = v125[3];
+    v105 = v17 - 2;
     v31 = v17 - 1;
-    v32 = (((v130 - v129) << 30) - 0x100000000) >> 32;
-    v101 = v135;
-    v105 = v32;
-    v103 = &v129[4 * v32];
-    v33 = ((v130 - v129) >> 2) & 0x7FFFFFFF;
-    v100 = v33 - 1;
-    v34 = v117;
-    v35 = v120;
-    v36 = (((v119 - v118) << 30) - 0x100000000) >> 32;
-    __p = v122;
-    v114 = &v122[4 * v36];
-    v115 = &v135[4 * v32];
-    v37 = ((v119 - v118) >> 2) & 0x7FFFFFFF;
-    v111 = v23;
-    v112 = (v130 - v129) >> 2;
+    v32 = (((v129 - v128) << 30) - 0x100000000) >> 32;
+    v100 = v134;
+    v104 = v32;
+    v102 = &v128[4 * v32];
+    v33 = ((v129 - v128) >> 2) & 0x7FFFFFFF;
+    v99 = v33 - 1;
+    v34 = v116;
+    v35 = v119;
+    v36 = (((v118 - v117) << 30) - 0x100000000) >> 32;
+    __p = v121;
+    v113 = &v121[4 * v36];
+    v114 = &v134[4 * v32];
+    v37 = ((v118 - v117) >> 2) & 0x7FFFFFFF;
+    v110 = v23;
+    v111 = (v129 - v128) >> 2;
     v38 = 4 * v33;
-    v98 = v129 - 8;
-    v99 = v37 - 1;
+    v97 = v128 - 8;
+    v98 = v37 - 1;
     v39 = 4 * v37;
-    v97 = v118 - 8;
-    v104 = v36;
-    v109 = v118 + 4 * v36;
-    v110 = (v119 - v118) >> 2;
+    v96 = v117 - 8;
+    v103 = v36;
+    v108 = v117 + 4 * v36;
+    v109 = (v118 - v117) >> 2;
     while (1)
     {
-      v116 = v25;
+      v115 = v25;
       v40 = v21;
-      v41 = *&v28[4 * v21];
+      v41 = v28[v21];
       if (v41 >= 1)
       {
         v42 = 0;
-        v43 = *&v28[4 * v106];
-        v44 = &v108[v34];
-        v45 = 4 * *(v29 + 8 * v21);
-        v46 = 4 * *(v29 + 8 * v106);
-        v47 = 8 * *(v30 + 8 * v21);
-        v48 = 8 * *(v30 + 8 * v106);
-        v49 = &v107[v26];
+        v43 = v28[v105];
+        v44 = &v107[v34];
+        v45 = 4 * v29[v21];
+        v46 = 4 * v29[v105];
+        v47 = 8 * v30[v21];
+        v48 = 8 * v30[v105];
+        v49 = &v106[v26];
         do
         {
           if (v43 >= 1)
           {
             v50 = 0;
-            v51 = *&v28[4 * v31];
-            v52 = 4 * *(v29 + 8 * v31);
-            v53 = 8 * *(v30 + 8 * v31);
+            v51 = v28[v31];
+            v52 = 4 * v29[v31];
+            v53 = 8 * v30[v31];
             v54 = v44;
             v55 = v49;
             do
@@ -2781,13 +2383,13 @@ LABEL_65:
         while (v42 != v41);
       }
 
-      if (!v112)
+      if (!v111)
       {
         v21 = v40;
-        v62 = v116;
-        v68 = v109;
-        v60 = v110;
-        if (v110)
+        v62 = v115;
+        v68 = v108;
+        v60 = v109;
+        if (v109)
         {
           goto LABEL_54;
         }
@@ -2795,37 +2397,37 @@ LABEL_65:
         goto LABEL_62;
       }
 
-      v59 = *v115;
+      v59 = *v114;
       v21 = v40;
-      v60 = v110;
-      if (v112 < 2)
+      v60 = v109;
+      if (v111 < 2)
       {
         break;
       }
 
-      v61 = v103;
-      v62 = v116;
-      if (v59 != *v103 - 1)
+      v61 = v102;
+      v62 = v115;
+      if (v59 != *v102 - 1)
       {
-        v64 = v105;
-        v71 = v115;
+        v64 = v104;
+        v71 = v114;
 LABEL_52:
-        v68 = v109;
+        v68 = v108;
         goto LABEL_53;
       }
 
-      v64 = v100;
-      v63 = v101;
-      v65 = v98;
-      v66 = v115;
-      v67 = v105;
-      v68 = v109;
+      v64 = v99;
+      v63 = v100;
+      v65 = v97;
+      v66 = v114;
+      v67 = v104;
+      v68 = v108;
       do
       {
         v69 = v64;
         *v66 = 0;
         v26 = (v26 - v27[v67] * (*v61 - 1));
-        v128 = v26;
+        v127 = v26;
         --v64;
         v66 = &v63[v38 - 8];
         v59 = *v66;
@@ -2846,25 +2448,25 @@ LABEL_52:
 LABEL_53:
       *v71 = v59 + 1;
       v26 = (v26 + v27[v64]);
-      v128 = v26;
-      if (v110)
+      v127 = v26;
+      if (v109)
       {
 LABEL_54:
-        v72 = *v114;
+        v72 = *v113;
         if (v60 >= 2 && v72 == *v68 - 1)
         {
           v73 = __p;
-          v74 = v97;
-          v75 = v99;
+          v74 = v96;
+          v75 = v98;
           v76 = v68;
-          v77 = v114;
-          v78 = v104;
+          v77 = v113;
+          v78 = v103;
           do
           {
             v79 = v75;
             *v77 = 0;
             v34 -= v35[v78] * (*v76 - 1);
-            v117 = v34;
+            v116 = v34;
             --v75;
             v77 = &v73[v39 - 8];
             v72 = *v77;
@@ -2886,18 +2488,18 @@ LABEL_54:
 
         else
         {
-          v75 = v104;
-          v81 = v114;
+          v75 = v103;
+          v81 = v113;
         }
 
         *v81 = v72 + 1;
         v34 += v35[v75];
-        v117 = v34;
+        v116 = v34;
       }
 
 LABEL_62:
-      v25 = v62 + v111;
-      if (v25 >= v113)
+      v25 = v62 + v110;
+      if (v25 >= v112)
       {
         v82 = __p;
         if (__p)
@@ -2909,9 +2511,9 @@ LABEL_62:
       }
     }
 
-    v64 = v105;
-    v71 = v115;
-    v62 = v116;
+    v64 = v104;
+    v71 = v114;
+    v62 = v115;
     goto LABEL_52;
   }
 
@@ -2927,16 +2529,16 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v83 = *v124;
-    if (*v124 >= 1)
+    v83 = *v123;
+    if (*v123 >= 1)
     {
       v84 = 0;
-      v85 = v126[3];
+      v85 = v125[3];
       v86 = *v85;
       v87 = v85[1];
-      v88 = 4 * **v126;
-      v89 = 4 * *(*v126 + 8);
-      v90 = *(v124 + 1);
+      v88 = 4 * **v125;
+      v89 = 4 * (*v125)[1];
+      v90 = *(v123 + 1);
       v91 = 8 * v86;
       v92 = 8 * v87;
       do
@@ -2968,11 +2570,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v124;
-    if (*v124 >= 1)
+    v18 = *v123;
+    if (*v123 >= 1)
     {
-      v19 = *v126[3];
-      v20 = 4 * **v126;
+      v19 = *v125[3];
+      v20 = 4 * **v125;
       do
       {
         *v13 = *v12;
@@ -2986,16 +2588,13 @@ LABEL_62:
   }
 
 LABEL_83:
-  v128 = &v126;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
-  if (v124)
+  v127 = &v125;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  if (v123)
   {
-    v125 = v124;
-    operator delete(v124);
+    v124 = v123;
+    operator delete(v123);
   }
-
-LABEL_85:
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3CD87C(_Unwind_Exception *a1)
@@ -3083,9 +2682,9 @@ uint64_t mlx::core::anonymous namespace::copy_vector<float,mlx::core::_MLX_BFloa
   return result;
 }
 
-void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::_MLX_BFloat16>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::_MLX_BFloat16>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -3108,39 +2707,39 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::_MLX_
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = (*v12 + (HIWORD(*v12) & 1u) + 0x7FFF) >> 16;
-    goto LABEL_83;
+    return;
   }
 
-  v110 = *(*a1 + 48);
+  v109 = *(*a1 + 48);
+  v125 = 0;
   v126 = 0;
   v127 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v125, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v128 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v126, *a4, a4[1], (a4[1] - *a4) >> 3);
   v129 = 0;
   v130 = 0;
-  v131 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v129, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v115, &v126, &v132, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v115, 0x7FFFFFFFuLL, &v122);
-  v125 = &v115;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v114, &v125, &v131, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v114, 0x7FFFFFFFuLL, &v121);
+  v124 = &v114;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v124);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v129 + i);
+    v16 = *(&v128 + i);
     if (v16)
     {
-      *(&v130 + i) = v16;
+      *(&v129 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v123 - v122) >> 2;
+  v17 = (v122 - v121) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -3154,117 +2753,116 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::_MLX_
     }
 
     v21 = v17 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v126, &v122, v124, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v115, &v122, v124 + 3, v17 - 3);
-    v22 = v123 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v121, v123, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v114, &v121, v123 + 3, v17 - 3);
+    v22 = v122 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v123);
-    if (!v110)
+    while (v22 != v122);
+    if (!v109)
     {
-      v80 = v120;
-      if (v120)
+      v80 = v119;
+      if (v119)
       {
 LABEL_62:
-        v121 = v80;
+        v120 = v80;
         operator delete(v80);
       }
 
 LABEL_63:
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v116)
+      if (v115)
       {
-        v117 = v116;
-        operator delete(v116);
+        v116 = v115;
+        operator delete(v115);
       }
 
-      if (v133)
+      if (v132)
       {
-        v134 = v133;
-        operator delete(v133);
+        v133 = v132;
+        operator delete(v132);
       }
 
-      if (v130)
+      if (v129)
       {
-        v131 = v130;
-        operator delete(v130);
+        v130 = v129;
+        operator delete(v129);
       }
 
-      if (v127)
+      if (v126)
       {
-        v128 = v127;
-        operator delete(v127);
+        v127 = v126;
+        operator delete(v126);
       }
 
       goto LABEL_81;
     }
 
-    v104 = v12;
-    v105 = v13;
+    v103 = v12;
+    v104 = v13;
     v25 = 0;
-    v26 = v126;
-    v27 = v122;
-    v28 = *v124;
-    v29 = v124[3];
-    v102 = v17 - 2;
+    v26 = v125;
+    v27 = v121;
+    v28 = *v123;
+    v29 = v123[3];
+    v101 = v17 - 2;
     v30 = v17 - 1;
-    v31 = (((v128 - v127) << 30) - 0x100000000) >> 32;
-    v97 = v133;
-    v101 = v31;
-    v99 = &v127[4 * v31];
-    v32 = ((v128 - v127) >> 2) & 0x7FFFFFFF;
-    v96 = v32 - 1;
-    v33 = v115;
-    v34 = (((v117 - v116) << 30) - 0x100000000) >> 32;
-    __p = v120;
-    v111 = &v120[4 * v34];
-    v112 = &v133[4 * v31];
-    v35 = ((v117 - v116) >> 2) & 0x7FFFFFFF;
-    v109 = (v128 - v127) >> 2;
+    v31 = (((v127 - v126) << 30) - 0x100000000) >> 32;
+    v96 = v132;
+    v100 = v31;
+    v98 = &v126[4 * v31];
+    v32 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
+    v95 = v32 - 1;
+    v33 = v114;
+    v34 = (((v116 - v115) << 30) - 0x100000000) >> 32;
+    __p = v119;
+    v110 = &v119[4 * v34];
+    v111 = &v132[4 * v31];
+    v35 = ((v116 - v115) >> 2) & 0x7FFFFFFF;
+    v108 = (v127 - v126) >> 2;
     v36 = 4 * v32;
-    v94 = v127 - 8;
-    v95 = v35 - 1;
+    v93 = v126 - 8;
+    v94 = v35 - 1;
     v37 = 4 * v35;
-    v93 = v116 - 8;
-    v100 = v34;
-    v113 = v17 - 3;
-    v103 = v130;
-    v107 = (v117 - v116) >> 2;
-    v108 = v118;
-    v106 = v116 + 4 * v34;
+    v92 = v115 - 8;
+    v99 = v34;
+    v112 = v17 - 3;
+    v102 = v129;
+    v106 = (v116 - v115) >> 2;
+    v107 = v117;
+    v105 = v115 + 4 * v34;
     while (1)
     {
-      v114 = v25;
-      v38 = *&v27[4 * v21];
+      v113 = v25;
+      v38 = v27[v21];
       if (v38 >= 1)
       {
         v39 = 0;
-        v40 = *&v27[4 * v102];
-        v41 = &v105[v33];
-        v42 = 4 * *(v28 + 8 * v113);
-        v43 = 4 * *(v28 + 8 * v102);
-        v44 = 2 * *(v29 + 8 * v113);
-        v45 = 2 * *(v29 + 8 * v102);
-        v46 = &v104[v26];
+        v40 = v27[v101];
+        v41 = &v104[v33];
+        v42 = 4 * v28[v112];
+        v43 = 4 * v28[v101];
+        v44 = 2 * v29[v112];
+        v45 = 2 * v29[v101];
+        v46 = &v103[v26];
         do
         {
           if (v40 >= 1)
           {
             v47 = 0;
-            v48 = *&v27[4 * v30];
-            v49 = 4 * *(v28 + 8 * v30);
-            v50 = 2 * *(v29 + 8 * v30);
+            v48 = v27[v30];
+            v49 = 4 * v28[v30];
+            v50 = 2 * v29[v30];
             v51 = v41;
             v52 = v46;
             do
@@ -3301,24 +2899,24 @@ LABEL_63:
         while (v39 != v38);
       }
 
-      if (v109)
+      if (v108)
       {
         break;
       }
 
-      v21 = v113;
-      v64 = v114;
-      v57 = v107;
-      v65 = v108;
-      v66 = v106;
-      if (v107)
+      v21 = v112;
+      v64 = v113;
+      v57 = v106;
+      v65 = v107;
+      v66 = v105;
+      if (v106)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
       v25 = v64 + v23;
-      if (v25 >= v110)
+      if (v25 >= v109)
       {
         v80 = __p;
         if (__p)
@@ -3330,26 +2928,26 @@ LABEL_60:
       }
     }
 
-    v56 = *v112;
-    v21 = v113;
-    v57 = v107;
-    if (v109 >= 2 && v56 == *v99 - 1)
+    v56 = *v111;
+    v21 = v112;
+    v57 = v106;
+    if (v108 >= 2 && v56 == *v98 - 1)
     {
-      v59 = v96;
-      v58 = v97;
-      v60 = v94;
-      v61 = v99;
-      v62 = v112;
-      v63 = v101;
-      v64 = v114;
-      v65 = v108;
-      v66 = v106;
+      v59 = v95;
+      v58 = v96;
+      v60 = v93;
+      v61 = v98;
+      v62 = v111;
+      v63 = v100;
+      v64 = v113;
+      v65 = v107;
+      v66 = v105;
       do
       {
         v67 = v59;
         *v62 = 0;
-        v26 = (v26 - v103[v63] * (*v61 - 1));
-        v126 = v26;
+        v26 = (v26 - v102[v63] * (*v61 - 1));
+        v125 = v26;
         --v59;
         v62 = &v58[v36 - 8];
         v56 = *v62;
@@ -3371,37 +2969,37 @@ LABEL_60:
 
     else
     {
-      v59 = v101;
-      v69 = v112;
-      v64 = v114;
-      v65 = v108;
-      v66 = v106;
+      v59 = v100;
+      v69 = v111;
+      v64 = v113;
+      v65 = v107;
+      v66 = v105;
     }
 
     *v69 = v56 + 1;
-    v26 = (v26 + v103[v59]);
-    v126 = v26;
-    if (!v107)
+    v26 = (v26 + v102[v59]);
+    v125 = v26;
+    if (!v106)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v70 = *v111;
+    v70 = *v110;
     if (v57 >= 2 && v70 == *v66 - 1)
     {
       v71 = __p;
-      v72 = v93;
-      v73 = v95;
+      v72 = v92;
+      v73 = v94;
       v74 = v66;
-      v75 = v111;
-      v76 = v100;
+      v75 = v110;
+      v76 = v99;
       do
       {
         v77 = v73;
         *v75 = 0;
         v33 -= v65[v76] * (*v74 - 1);
-        v115 = v33;
+        v114 = v33;
         --v73;
         v75 = &v71[v37 - 8];
         v70 = *v75;
@@ -3423,13 +3021,13 @@ LABEL_52:
 
     else
     {
-      v73 = v100;
-      v79 = v111;
+      v73 = v99;
+      v79 = v110;
     }
 
     *v79 = v70 + 1;
     v33 += v65[v73];
-    v115 = v33;
+    v114 = v33;
     goto LABEL_60;
   }
 
@@ -3445,16 +3043,16 @@ LABEL_52:
 
   if (v17 == 2)
   {
-    v81 = *v122;
-    if (*v122 >= 1)
+    v81 = *v121;
+    if (*v121 >= 1)
     {
       v82 = 0;
-      v83 = v124[3];
+      v83 = v123[3];
       v84 = *v83;
       v85 = v83[1];
-      v86 = 4 * **v124;
-      v87 = 4 * *(*v124 + 8);
-      v88 = *(v122 + 1);
+      v86 = 4 * **v123;
+      v87 = 4 * (*v123)[1];
+      v88 = *(v121 + 1);
       do
       {
         if (v88 >= 1)
@@ -3484,11 +3082,11 @@ LABEL_52:
 
   else if (v17 == 1)
   {
-    v18 = *v122;
-    if (*v122 >= 1)
+    v18 = *v121;
+    if (*v121 >= 1)
     {
-      v19 = 4 * **v124;
-      v20 = 2 * *v124[3];
+      v19 = 4 * **v123;
+      v20 = 2 * *v123[3];
       do
       {
         *v13 = (*v12 + (HIWORD(*v12) & 1u) + 0x7FFF) >> 16;
@@ -3502,16 +3100,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v126 = &v124;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
-  if (v122)
+  v125 = &v123;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  if (v121)
   {
-    v123 = v122;
-    operator delete(v122);
+    v122 = v121;
+    operator delete(v121);
   }
-
-LABEL_83:
-  v92 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3CE244(_Unwind_Exception *a1)
@@ -3521,9 +3116,9 @@ void sub_25A3CE244(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::complex64_t>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::complex64_t>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -3546,7 +3141,7 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
   }
@@ -3554,33 +3149,33 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
   else
   {
     v15 = *(*a1 + 48);
+    v103 = 0;
     v104 = 0;
     v105 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v103, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
     v106 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v104, *a4, a4[1], (a4[1] - *a4) >> 3);
     v107 = 0;
     v108 = 0;
-    v109 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v107, *a5, a5[1], (a5[1] - *a5) >> 3);
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v106, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+    v92 = 0;
     v93 = 0;
     v94 = 0;
-    v95 = 0;
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v93, &v104, &v110, 2uLL);
-    mlx::core::collapse_contiguous_dims(a3, &v93, 0x7FFFFFFFuLL, &v100);
-    v103 = &v93;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v103);
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v92, &v103, &v109, 2uLL);
+    mlx::core::collapse_contiguous_dims(a3, &v92, 0x7FFFFFFFuLL, &v99);
+    v102 = &v92;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v102);
     for (i = 0; i != -48; i -= 24)
     {
-      v17 = *(&v107 + i);
+      v17 = *(&v106 + i);
       if (v17)
       {
-        *(&v108 + i) = v17;
+        *(&v107 + i) = v17;
         operator delete(v17);
       }
     }
 
-    v18 = v100;
-    v19 = (v101 - v100) >> 2;
+    v18 = v99;
+    v19 = (v100 - v99) >> 2;
     if (v19 > 2)
     {
       if (v11)
@@ -3594,9 +3189,9 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
       }
 
       v24 = v19 - 3;
-      mlx::core::ContiguousIterator::ContiguousIterator(&v104, &v100, v102, v19 - 3);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v93, &v100, v102 + 3, v19 - 3);
-      v25 = v101 - 3;
+      mlx::core::ContiguousIterator::ContiguousIterator(&v103, &v99, v101, v19 - 3);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v92, &v99, v101 + 3, v19 - 3);
+      v25 = v100 - 3;
       v26 = 1;
       do
       {
@@ -3604,7 +3199,7 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
         v26 *= v27;
       }
 
-      while (v25 != v101);
+      while (v25 != v100);
       if (v15)
       {
         v28 = 0;
@@ -3613,33 +3208,33 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
         v31 = v13 + 4;
         do
         {
-          v32 = *(v100 + v24);
+          v32 = *(v99 + v24);
           if (v32 >= 1)
           {
             v33 = 0;
-            v34 = v102;
-            v35 = &v12[v104];
-            v36 = 4 * *(*v102 + 8 * v24);
-            v37 = &v31[8 * v93];
-            v38 = 8 * *(v102[3] + 8 * v24);
+            v34 = v101;
+            v35 = &v12[v103];
+            v36 = 4 * (*v101)[v24];
+            v37 = &v31[8 * v92];
+            v38 = 8 * v101[3][v24];
             do
             {
-              v39 = *(v100 + v29);
+              v39 = *(v99 + v29);
               if (v39 >= 1)
               {
                 v40 = 0;
-                v41 = 4 * *(*v34 + 8 * v29);
-                v42 = 8 * *(v34[3] + 8 * v29);
+                v41 = 4 * (*v34)[v29];
+                v42 = 8 * v34[3][v29];
                 v43 = v37;
                 v44 = v35;
                 do
                 {
-                  v45 = *(v100 + v30);
+                  v45 = *(v99 + v30);
                   if (v45 >= 1)
                   {
                     v46 = 0;
-                    v47 = 4 * *(*v34 + 8 * v30);
-                    v48 = 8 * *(v34[3] + 8 * v30);
+                    v47 = 4 * (*v34)[v30];
+                    v48 = 8 * v34[3][v30];
                     v49 = v43;
                     do
                     {
@@ -3668,29 +3263,29 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
             while (v33 != v32);
           }
 
-          v50 = v106 - v105;
-          v51 = (v106 - v105) >> 2;
+          v50 = v105 - v104;
+          v51 = (v105 - v104) >> 2;
           if (v51)
           {
-            v52 = v111;
+            v52 = v110;
             v53 = ((v50 << 30) - 0x100000000) >> 32;
-            v54 = v111 + 4 * v53;
+            v54 = v110 + 4 * v53;
             v55 = *v54;
-            v56 = v105 + 4 * v53;
-            v57 = v108;
-            v58 = v104;
+            v56 = v104 + 4 * v53;
+            v57 = v107;
+            v58 = v103;
             if (v51 >= 2 && v55 == *v56 - 1)
             {
               v61 = (v50 >> 2) & 0x7FFFFFFF;
               v60 = v61 - 1;
               v62 = 4 * v61;
-              v63 = v105 - 8;
+              v63 = v104 - 8;
               do
               {
                 v64 = v60;
                 *v54 = 0;
                 v58 = (v58 - v57[v53] * (*v56 - 1));
-                v104 = v58;
+                v103 = v58;
                 --v60;
                 v54 = &v52[v62 - 8];
                 v55 = *v54;
@@ -3716,31 +3311,31 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
             }
 
             *v54 = v55 + 1;
-            v104 = (v58 + v57[v60]);
+            v103 = (v58 + v57[v60]);
           }
 
-          v66 = v95 - v94;
-          v67 = (v95 - v94) >> 2;
+          v66 = v94 - v93;
+          v67 = (v94 - v93) >> 2;
           if (v67)
           {
             v68 = __p;
             v69 = ((v66 << 30) - 0x100000000) >> 32;
             v70 = __p + 4 * v69;
             v71 = *v70;
-            v72 = v96;
-            v73 = v93;
-            if (v67 >= 2 && (v74 = v94 + 4 * v69, v71 == *v74 - 1))
+            v72 = v95;
+            v73 = v92;
+            if (v67 >= 2 && (v74 = v93 + 4 * v69, v71 == *v74 - 1))
             {
               v75 = (v66 >> 2) & 0x7FFFFFFF;
               v76 = v75 - 1;
               v77 = 4 * v75;
-              v78 = v94 - 8;
+              v78 = v93 - 8;
               do
               {
                 v79 = v76;
                 *v70 = 0;
                 v73 -= v72[v69] * (*v74 - 1);
-                v93 = v73;
+                v92 = v73;
                 --v76;
                 v70 = &v68[v77 - 8];
                 v71 = *v70;
@@ -3766,7 +3361,7 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
             }
 
             *v70 = v71 + 1;
-            v93 = v72[v76] + v73;
+            v92 = v72[v76] + v73;
           }
 
           v28 += v26;
@@ -3777,38 +3372,38 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
 
       if (__p)
       {
-        v99 = __p;
+        v98 = __p;
         operator delete(__p);
       }
 
-      if (v96)
+      if (v95)
       {
-        v97 = v96;
-        operator delete(v96);
+        v96 = v95;
+        operator delete(v95);
       }
 
-      if (v94)
+      if (v93)
       {
-        v95 = v94;
-        operator delete(v94);
+        v94 = v93;
+        operator delete(v93);
       }
 
-      if (v111)
+      if (v110)
       {
-        v112 = v111;
-        operator delete(v111);
+        v111 = v110;
+        operator delete(v110);
       }
 
-      if (v108)
+      if (v107)
       {
-        v109 = v108;
-        operator delete(v108);
+        v108 = v107;
+        operator delete(v107);
       }
 
-      if (v105)
+      if (v104)
       {
-        v106 = v105;
-        operator delete(v105);
+        v105 = v104;
+        operator delete(v104);
       }
     }
 
@@ -3826,21 +3421,21 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
 
       if (v19 == 2)
       {
-        v81 = *v100;
-        if (*v100 >= 1)
+        v81 = *v99;
+        if (*v99 >= 1)
         {
           v82 = 0;
-          v83 = v102;
-          v84 = 4 * **v102;
+          v83 = v101;
+          v84 = 4 * **v101;
           v85 = v13 + 4;
-          v86 = 8 * *v102[3];
+          v86 = 8 * *v101[3];
           do
           {
             v87 = v18[1];
             if (v87 >= 1)
             {
-              v88 = 4 * *(*v83 + 8);
-              v89 = 8 * *(v83[3] + 8);
+              v88 = 4 * (*v83)[1];
+              v89 = 8 * v83[3][1];
               v90 = v85;
               v91 = v12;
               do
@@ -3865,12 +3460,12 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
 
       else if (v19 == 1)
       {
-        v20 = *v100;
-        if (*v100 >= 1)
+        v20 = *v99;
+        if (*v99 >= 1)
         {
-          v21 = 4 * **v102;
+          v21 = 4 * **v101;
           v22 = v13 + 4;
-          v23 = 8 * *v102[3];
+          v23 = 8 * *v101[3];
           do
           {
             *(v22 - 4) = *v12;
@@ -3884,28 +3479,26 @@ void mlx::core::anonymous namespace::copy_general_general<float,mlx::core::compl
       }
     }
 
-    v104 = &v102;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v104);
-    if (v100)
+    v103 = &v101;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v103);
+    if (v99)
     {
-      v101 = v100;
-      operator delete(v100);
+      v100 = v99;
+      operator delete(v99);
     }
   }
-
-  v92 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A3CE8F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
+void sub_25A3CE8F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
 {
   mlx::core::ContiguousIterator::~ContiguousIterator(&__p);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a20);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,BOOL>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,BOOL>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -3928,39 +3521,39 @@ void mlx::core::anonymous namespace::copy_general_general<double,BOOL>(uint64_t 
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12 != 0.0;
-    goto LABEL_83;
+    return;
   }
 
-  v110 = *(*a1 + 48);
+  v109 = *(*a1 + 48);
+  v125 = 0;
   v126 = 0;
   v127 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v125, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v128 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v126, *a4, a4[1], (a4[1] - *a4) >> 3);
   v129 = 0;
   v130 = 0;
-  v131 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v129, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v115, &v126, &v132, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v115, 0x7FFFFFFFuLL, &v122);
-  v125 = &v115;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v114, &v125, &v131, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v114, 0x7FFFFFFFuLL, &v121);
+  v124 = &v114;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v124);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v129 + i);
+    v16 = *(&v128 + i);
     if (v16)
     {
-      *(&v130 + i) = v16;
+      *(&v129 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v123 - v122) >> 2;
+  v17 = (v122 - v121) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -3974,118 +3567,117 @@ void mlx::core::anonymous namespace::copy_general_general<double,BOOL>(uint64_t 
     }
 
     v21 = v17 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v126, &v122, v124, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v115, &v122, v124 + 3, v17 - 3);
-    v22 = v123 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v121, v123, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v114, &v121, v123 + 3, v17 - 3);
+    v22 = v122 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v123);
-    if (!v110)
+    while (v22 != v122);
+    if (!v109)
     {
-      v81 = v120;
-      if (v120)
+      v81 = v119;
+      if (v119)
       {
 LABEL_62:
-        v121 = v81;
+        v120 = v81;
         operator delete(v81);
       }
 
 LABEL_63:
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v116)
+      if (v115)
       {
-        v117 = v116;
-        operator delete(v116);
+        v116 = v115;
+        operator delete(v115);
       }
 
-      if (v133)
+      if (v132)
       {
-        v134 = v133;
-        operator delete(v133);
+        v133 = v132;
+        operator delete(v132);
       }
 
-      if (v130)
+      if (v129)
       {
-        v131 = v130;
-        operator delete(v130);
+        v130 = v129;
+        operator delete(v129);
       }
 
-      if (v127)
+      if (v126)
       {
-        v128 = v127;
-        operator delete(v127);
+        v127 = v126;
+        operator delete(v126);
       }
 
       goto LABEL_81;
     }
 
-    v104 = v12;
-    v105 = v13;
+    v103 = v12;
+    v104 = v13;
     v25 = 0;
-    v26 = v126;
-    v27 = v130;
-    v28 = v122;
-    v29 = *v124;
-    v30 = v124[3];
-    v103 = v17 - 2;
+    v26 = v125;
+    v27 = v129;
+    v28 = v121;
+    v29 = *v123;
+    v30 = v123[3];
+    v102 = v17 - 2;
     v31 = v17 - 1;
-    v32 = (((v128 - v127) << 30) - 0x100000000) >> 32;
-    v98 = v133;
-    v112 = &v133[4 * v32];
-    v102 = v32;
-    v100 = &v127[4 * v32];
-    v33 = ((v128 - v127) >> 2) & 0x7FFFFFFF;
-    v97 = v33 - 1;
-    v34 = v115;
-    v35 = v118;
-    v36 = (((v117 - v116) << 30) - 0x100000000) >> 32;
-    __p = v120;
-    v111 = &v120[4 * v36];
-    v37 = ((v117 - v116) >> 2) & 0x7FFFFFFF;
-    v96 = v37 - 1;
-    v108 = v23;
-    v109 = (v128 - v127) >> 2;
+    v32 = (((v127 - v126) << 30) - 0x100000000) >> 32;
+    v97 = v132;
+    v111 = &v132[4 * v32];
+    v101 = v32;
+    v99 = &v126[4 * v32];
+    v33 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
+    v96 = v33 - 1;
+    v34 = v114;
+    v35 = v117;
+    v36 = (((v116 - v115) << 30) - 0x100000000) >> 32;
+    __p = v119;
+    v110 = &v119[4 * v36];
+    v37 = ((v116 - v115) >> 2) & 0x7FFFFFFF;
+    v95 = v37 - 1;
+    v107 = v23;
+    v108 = (v127 - v126) >> 2;
     v38 = 4 * v33;
     v39 = 4 * v37;
-    v94 = v116 - 8;
-    v95 = v127 - 8;
-    v101 = v36;
-    v113 = v17 - 3;
-    v106 = v116 + 4 * v36;
-    v107 = (v117 - v116) >> 2;
+    v93 = v115 - 8;
+    v94 = v126 - 8;
+    v100 = v36;
+    v112 = v17 - 3;
+    v105 = v115 + 4 * v36;
+    v106 = (v116 - v115) >> 2;
     while (1)
     {
-      v114 = v25;
-      v40 = *&v28[4 * v21];
+      v113 = v25;
+      v40 = v28[v21];
       if (v40 >= 1)
       {
         v41 = 0;
-        v42 = *(v30 + 8 * v113);
-        v43 = &v105[v34];
-        v44 = &v104[v26];
-        v45 = *(v30 + 8 * v103);
-        v46 = *&v28[4 * v103];
-        v47 = 8 * *(v29 + 8 * v113);
-        v48 = 8 * *(v29 + 8 * v103);
+        v42 = v30[v112];
+        v43 = &v104[v34];
+        v44 = &v103[v26];
+        v45 = v30[v102];
+        v46 = v28[v102];
+        v47 = 8 * v29[v112];
+        v48 = 8 * v29[v102];
         do
         {
           if (v46 >= 1)
           {
             v49 = 0;
-            v50 = *(v30 + 8 * v31);
-            v51 = *&v28[4 * v31];
-            v52 = 8 * *(v29 + 8 * v31);
+            v50 = v30[v31];
+            v51 = v28[v31];
+            v52 = 8 * v29[v31];
             v53 = v44;
             v54 = v43;
             do
@@ -4122,23 +3714,23 @@ LABEL_63:
         while (v41 != v40);
       }
 
-      if (v109)
+      if (v108)
       {
         break;
       }
 
-      v21 = v113;
-      v66 = v114;
-      v67 = v106;
-      v59 = v107;
-      if (v107)
+      v21 = v112;
+      v66 = v113;
+      v67 = v105;
+      v59 = v106;
+      if (v106)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
-      v25 = v66 + v108;
-      if (v25 >= v110)
+      v25 = v66 + v107;
+      if (v25 >= v109)
       {
         v81 = __p;
         if (__p)
@@ -4150,24 +3742,24 @@ LABEL_60:
       }
     }
 
-    v58 = *v112;
-    v21 = v113;
-    v59 = v107;
-    if (v109 >= 2 && (v60 = v100, v58 == *v100 - 1))
+    v58 = *v111;
+    v21 = v112;
+    v59 = v106;
+    if (v108 >= 2 && (v60 = v99, v58 == *v99 - 1))
     {
-      v62 = v97;
-      v61 = v98;
-      v63 = v95;
-      v64 = v112;
-      v65 = v102;
-      v66 = v114;
-      v67 = v106;
+      v62 = v96;
+      v61 = v97;
+      v63 = v94;
+      v64 = v111;
+      v65 = v101;
+      v66 = v113;
+      v67 = v105;
       do
       {
         v68 = v62;
         *v64 = 0;
         v26 = (v26 - v27[v65] * (*v60 - 1));
-        v126 = v26;
+        v125 = v26;
         --v62;
         v64 = &v61[v38 - 8];
         v58 = *v64;
@@ -4189,36 +3781,36 @@ LABEL_60:
 
     else
     {
-      v62 = v102;
-      v70 = v112;
-      v66 = v114;
-      v67 = v106;
+      v62 = v101;
+      v70 = v111;
+      v66 = v113;
+      v67 = v105;
     }
 
     *v70 = v58 + 1;
     v26 = (v26 + v27[v62]);
-    v126 = v26;
-    if (!v107)
+    v125 = v26;
+    if (!v106)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v71 = *v111;
+    v71 = *v110;
     if (v59 >= 2 && v71 == *v67 - 1)
     {
       v72 = __p;
-      v73 = v94;
-      v74 = v96;
+      v73 = v93;
+      v74 = v95;
       v75 = v67;
-      v76 = v111;
-      v77 = v101;
+      v76 = v110;
+      v77 = v100;
       do
       {
         v78 = v74;
         *v76 = 0;
         v34 -= v35[v77] * (*v75 - 1);
-        v115 = v34;
+        v114 = v34;
         --v74;
         v76 = &v72[v39 - 8];
         v71 = *v76;
@@ -4240,13 +3832,13 @@ LABEL_52:
 
     else
     {
-      v74 = v101;
-      v80 = v111;
+      v74 = v100;
+      v80 = v110;
     }
 
     *v80 = v71 + 1;
     v34 += v35[v74];
-    v115 = v34;
+    v114 = v34;
     goto LABEL_60;
   }
 
@@ -4262,16 +3854,16 @@ LABEL_52:
 
   if (v17 == 2)
   {
-    v82 = *v122;
-    if (*v122 >= 1)
+    v82 = *v121;
+    if (*v121 >= 1)
     {
       v83 = 0;
-      v84 = v124[3];
+      v84 = v123[3];
       v85 = *v84;
       v86 = v84[1];
-      v87 = *(v122 + 1);
-      v88 = 8 * **v124;
-      v89 = 8 * *(*v124 + 8);
+      v87 = *(v121 + 1);
+      v88 = 8 * **v123;
+      v89 = 8 * (*v123)[1];
       do
       {
         if (v87 >= 1)
@@ -4301,11 +3893,11 @@ LABEL_52:
 
   else if (v17 == 1)
   {
-    v18 = *v122;
-    if (*v122 >= 1)
+    v18 = *v121;
+    if (*v121 >= 1)
     {
-      v19 = *v124[3];
-      v20 = 8 * **v124;
+      v19 = *v123[3];
+      v20 = 8 * **v123;
       do
       {
         *v13 = *v12 != 0.0;
@@ -4319,16 +3911,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v126 = &v124;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
-  if (v122)
+  v125 = &v123;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  if (v121)
   {
-    v123 = v122;
-    operator delete(v122);
+    v122 = v121;
+    operator delete(v121);
   }
-
-LABEL_83:
-  v93 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3CF054(_Unwind_Exception *a1)
@@ -4338,9 +3927,9 @@ void sub_25A3CF054(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -4363,7 +3952,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
   }
@@ -4371,33 +3960,33 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
   else
   {
     v15 = *(*a1 + 48);
+    v100 = 0;
     v101 = 0;
     v102 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v100, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
     v103 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v101, *a4, a4[1], (a4[1] - *a4) >> 3);
     v104 = 0;
     v105 = 0;
-    v106 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v104, *a5, a5[1], (a5[1] - *a5) >> 3);
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v103, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+    v89 = 0;
     v90 = 0;
     v91 = 0;
-    v92 = 0;
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v90, &v101, &v107, 2uLL);
-    mlx::core::collapse_contiguous_dims(a3, &v90, 0x7FFFFFFFuLL, &v97);
-    v100 = &v90;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v100);
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v89, &v100, &v106, 2uLL);
+    mlx::core::collapse_contiguous_dims(a3, &v89, 0x7FFFFFFFuLL, &v96);
+    v99 = &v89;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v99);
     for (i = 0; i != -48; i -= 24)
     {
-      v17 = *(&v104 + i);
+      v17 = *(&v103 + i);
       if (v17)
       {
-        *(&v105 + i) = v17;
+        *(&v104 + i) = v17;
         operator delete(v17);
       }
     }
 
-    v18 = v97;
-    v19 = (v98 - v97) >> 2;
+    v18 = v96;
+    v19 = (v97 - v96) >> 2;
     if (v19 > 2)
     {
       if (v11)
@@ -4411,9 +4000,9 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
       }
 
       v23 = v19 - 3;
-      mlx::core::ContiguousIterator::ContiguousIterator(&v101, &v97, v99, v19 - 3);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v90, &v97, v99 + 3, v19 - 3);
-      v24 = v98 - 3;
+      mlx::core::ContiguousIterator::ContiguousIterator(&v100, &v96, v98, v19 - 3);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v89, &v96, v98 + 3, v19 - 3);
+      v24 = v97 - 3;
       v25 = 1;
       do
       {
@@ -4421,42 +4010,42 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
         v25 *= v26;
       }
 
-      while (v24 != v98);
+      while (v24 != v97);
       if (v15)
       {
         v27 = 0;
         v28 = v19 - 2;
         v29 = v19 - 1;
-        v30 = v99;
+        v30 = v98;
         do
         {
-          v31 = *(v97 + v23);
+          v31 = *(v96 + v23);
           if (v31 >= 1)
           {
             v32 = 0;
-            v33 = *(v30[3] + 8 * v23);
-            v34 = &v13[v90];
-            v35 = &v12[v101];
-            v36 = 8 * *(*v30 + 8 * v23);
+            v33 = v30[3][v23];
+            v34 = &v13[v89];
+            v35 = &v12[v100];
+            v36 = 8 * (*v30)[v23];
             do
             {
-              v37 = *(v97 + v28);
+              v37 = *(v96 + v28);
               if (v37 >= 1)
               {
                 v38 = 0;
-                v39 = *(v30[3] + 8 * v28);
-                v40 = 8 * *(*v30 + 8 * v28);
+                v39 = v30[3][v28];
+                v40 = 8 * (*v30)[v28];
                 v41 = v35;
                 v42 = v34;
                 do
                 {
-                  v43 = *(v97 + v29);
+                  v43 = *(v96 + v29);
                   if (v43 >= 1)
                   {
                     v44 = 0;
                     v45 = 0;
-                    v46 = *(v30[3] + 8 * v29);
-                    v47 = 8 * *(*v30 + 8 * v29);
+                    v46 = v30[3][v29];
+                    v47 = 8 * (*v30)[v29];
                     do
                     {
                       v42[v44] = *(v41 + v45);
@@ -4484,29 +4073,29 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
             while (v32 != v31);
           }
 
-          v48 = v103 - v102;
-          v49 = (v103 - v102) >> 2;
+          v48 = v102 - v101;
+          v49 = (v102 - v101) >> 2;
           if (v49)
           {
-            v50 = v108;
+            v50 = v107;
             v51 = ((v48 << 30) - 0x100000000) >> 32;
-            v52 = v108 + 4 * v51;
+            v52 = v107 + 4 * v51;
             v53 = *v52;
-            v54 = v102 + 4 * v51;
-            v55 = v105;
-            v56 = v101;
+            v54 = v101 + 4 * v51;
+            v55 = v104;
+            v56 = v100;
             if (v49 >= 2 && v53 == *v54 - 1)
             {
               v59 = (v48 >> 2) & 0x7FFFFFFF;
               v58 = v59 - 1;
               v60 = 4 * v59;
-              v61 = v102 - 8;
+              v61 = v101 - 8;
               do
               {
                 v62 = v58;
                 *v52 = 0;
                 v56 = (v56 - v55[v51] * (*v54 - 1));
-                v101 = v56;
+                v100 = v56;
                 --v58;
                 v52 = &v50[v60 - 8];
                 v53 = *v52;
@@ -4532,31 +4121,31 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
             }
 
             *v52 = v53 + 1;
-            v101 = (v56 + v55[v58]);
+            v100 = (v56 + v55[v58]);
           }
 
-          v64 = v92 - v91;
-          v65 = (v92 - v91) >> 2;
+          v64 = v91 - v90;
+          v65 = (v91 - v90) >> 2;
           if (v65)
           {
             v66 = __p;
             v67 = ((v64 << 30) - 0x100000000) >> 32;
             v68 = __p + 4 * v67;
             v69 = *v68;
-            v70 = v93;
-            v71 = v90;
-            if (v65 >= 2 && (v72 = v91 + 4 * v67, v69 == *v72 - 1))
+            v70 = v92;
+            v71 = v89;
+            if (v65 >= 2 && (v72 = v90 + 4 * v67, v69 == *v72 - 1))
             {
               v73 = (v64 >> 2) & 0x7FFFFFFF;
               v74 = v73 - 1;
               v75 = 4 * v73;
-              v76 = v91 - 8;
+              v76 = v90 - 8;
               do
               {
                 v77 = v74;
                 *v68 = 0;
                 v71 -= v70[v67] * (*v72 - 1);
-                v90 = v71;
+                v89 = v71;
                 --v74;
                 v68 = &v66[v75 - 8];
                 v69 = *v68;
@@ -4582,7 +4171,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
             }
 
             *v68 = v69 + 1;
-            v90 = v70[v74] + v71;
+            v89 = v70[v74] + v71;
           }
 
           v27 += v25;
@@ -4593,38 +4182,38 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
 
       if (__p)
       {
-        v96 = __p;
+        v95 = __p;
         operator delete(__p);
       }
 
-      if (v93)
+      if (v92)
       {
-        v94 = v93;
-        operator delete(v93);
+        v93 = v92;
+        operator delete(v92);
       }
 
-      if (v91)
+      if (v90)
       {
-        v92 = v91;
-        operator delete(v91);
+        v91 = v90;
+        operator delete(v90);
       }
 
-      if (v108)
+      if (v107)
       {
-        v109 = v108;
-        operator delete(v108);
+        v108 = v107;
+        operator delete(v107);
       }
 
-      if (v105)
+      if (v104)
       {
-        v106 = v105;
-        operator delete(v105);
+        v105 = v104;
+        operator delete(v104);
       }
 
-      if (v102)
+      if (v101)
       {
-        v103 = v102;
-        operator delete(v102);
+        v102 = v101;
+        operator delete(v101);
       }
     }
 
@@ -4642,20 +4231,20 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
 
       if (v19 == 2)
       {
-        v79 = *v97;
-        if (*v97 >= 1)
+        v79 = *v96;
+        if (*v96 >= 1)
         {
           v80 = 0;
-          v81 = v99;
-          v82 = *v99[3];
-          v83 = 8 * **v99;
+          v81 = v98;
+          v82 = *v98[3];
+          v83 = 8 * **v98;
           do
           {
             v84 = v18[1];
             if (v84 >= 1)
             {
-              v85 = *(v81[3] + 8);
-              v86 = 8 * *(*v81 + 8);
+              v85 = v81[3][1];
+              v86 = 8 * (*v81)[1];
               v87 = v12;
               v88 = v13;
               do
@@ -4680,11 +4269,11 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
 
       else if (v19 == 1)
       {
-        v20 = *v97;
-        if (*v97 >= 1)
+        v20 = *v96;
+        if (*v96 >= 1)
         {
-          v21 = *v99[3];
-          v22 = 8 * **v99;
+          v21 = *v98[3];
+          v22 = 8 * **v98;
           do
           {
             *v13 = *v12;
@@ -4698,19 +4287,17 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned char>(
       }
     }
 
-    v101 = &v99;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v101);
-    if (v97)
+    v100 = &v98;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v100);
+    if (v96)
     {
-      v98 = v97;
-      operator delete(v97);
+      v97 = v96;
+      operator delete(v96);
     }
   }
-
-  v89 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A3CF6F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
+void sub_25A3CF6F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
 {
   mlx::core::ContiguousIterator::~ContiguousIterator(&__p);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a20);
@@ -4774,9 +4361,9 @@ uint64_t mlx::core::anonymous namespace::copy_single<double,unsigned short>(uint
   return result;
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,unsigned short>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,unsigned short>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -4799,39 +4386,39 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned short>
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_83;
+    return;
   }
 
-  v112 = *(*a1 + 48);
+  v111 = *(*a1 + 48);
+  v127 = 0;
   v128 = 0;
   v129 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v127, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v130 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a4, a4[1], (a4[1] - *a4) >> 3);
   v131 = 0;
   v132 = 0;
-  v133 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v130, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v116 = 0;
   v117 = 0;
   v118 = 0;
-  v119 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v117, &v128, &v134, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v117, 0x7FFFFFFFuLL, &v124);
-  v127 = &v117;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v116, &v127, &v133, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v116, 0x7FFFFFFFuLL, &v123);
+  v126 = &v116;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v131 + i);
+    v16 = *(&v130 + i);
     if (v16)
     {
-      *(&v132 + i) = v16;
+      *(&v131 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v125 - v124) >> 2;
+  v17 = (v124 - v123) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -4845,118 +4432,117 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned short>
     }
 
     v21 = v17 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v128, &v124, v126, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v124, v126 + 3, v17 - 3);
-    v22 = v125 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v127, &v123, v125, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v116, &v123, v125 + 3, v17 - 3);
+    v22 = v124 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v125);
-    if (!v112)
+    while (v22 != v124);
+    if (!v111)
     {
-      v81 = v122;
-      if (v122)
+      v81 = v121;
+      if (v121)
       {
 LABEL_62:
-        v123 = v81;
+        v122 = v81;
         operator delete(v81);
       }
 
 LABEL_63:
-      if (v120)
+      if (v119)
       {
-        v121 = v120;
-        operator delete(v120);
+        v120 = v119;
+        operator delete(v119);
       }
 
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v135)
+      if (v134)
       {
-        v136 = v135;
-        operator delete(v135);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      if (v132)
+      if (v131)
       {
-        v133 = v132;
-        operator delete(v132);
+        v132 = v131;
+        operator delete(v131);
       }
 
-      if (v129)
+      if (v128)
       {
-        v130 = v129;
-        operator delete(v129);
+        v129 = v128;
+        operator delete(v128);
       }
 
       goto LABEL_81;
     }
 
-    v106 = v12;
-    v107 = v13;
+    v105 = v12;
+    v106 = v13;
     v25 = 0;
-    v26 = v128;
-    v27 = v132;
-    v28 = v124;
-    v29 = *v126;
-    v30 = v126[3];
-    v105 = v17 - 2;
+    v26 = v127;
+    v27 = v131;
+    v28 = v123;
+    v29 = *v125;
+    v30 = v125[3];
+    v104 = v17 - 2;
     v31 = v17 - 1;
-    v32 = (((v130 - v129) << 30) - 0x100000000) >> 32;
-    v100 = v135;
-    v114 = &v135[4 * v32];
-    v104 = v32;
-    v102 = &v129[4 * v32];
-    v33 = ((v130 - v129) >> 2) & 0x7FFFFFFF;
-    v99 = v33 - 1;
-    v34 = v117;
-    v35 = v120;
-    v36 = (((v119 - v118) << 30) - 0x100000000) >> 32;
-    __p = v122;
-    v113 = &v122[4 * v36];
-    v37 = ((v119 - v118) >> 2) & 0x7FFFFFFF;
-    v98 = v37 - 1;
-    v110 = v23;
-    v111 = (v130 - v129) >> 2;
+    v32 = (((v129 - v128) << 30) - 0x100000000) >> 32;
+    v99 = v134;
+    v113 = &v134[4 * v32];
+    v103 = v32;
+    v101 = &v128[4 * v32];
+    v33 = ((v129 - v128) >> 2) & 0x7FFFFFFF;
+    v98 = v33 - 1;
+    v34 = v116;
+    v35 = v119;
+    v36 = (((v118 - v117) << 30) - 0x100000000) >> 32;
+    __p = v121;
+    v112 = &v121[4 * v36];
+    v37 = ((v118 - v117) >> 2) & 0x7FFFFFFF;
+    v97 = v37 - 1;
+    v109 = v23;
+    v110 = (v129 - v128) >> 2;
     v38 = 4 * v33;
     v39 = 4 * v37;
-    v96 = v118 - 8;
-    v97 = v129 - 8;
-    v103 = v36;
-    v115 = v17 - 3;
-    v108 = v118 + 4 * v36;
-    v109 = (v119 - v118) >> 2;
+    v95 = v117 - 8;
+    v96 = v128 - 8;
+    v102 = v36;
+    v114 = v17 - 3;
+    v107 = v117 + 4 * v36;
+    v108 = (v118 - v117) >> 2;
     while (1)
     {
-      v116 = v25;
-      v40 = *&v28[4 * v21];
+      v115 = v25;
+      v40 = v28[v21];
       if (v40 >= 1)
       {
         v41 = 0;
-        v42 = *&v28[4 * v105];
-        v43 = &v107[v34];
-        v44 = 8 * *(v29 + 8 * v115);
-        v45 = 8 * *(v29 + 8 * v105);
-        v46 = 2 * *(v30 + 8 * v115);
-        v47 = 2 * *(v30 + 8 * v105);
-        v48 = &v106[v26];
+        v42 = v28[v104];
+        v43 = &v106[v34];
+        v44 = 8 * v29[v114];
+        v45 = 8 * v29[v104];
+        v46 = 2 * v30[v114];
+        v47 = 2 * v30[v104];
+        v48 = &v105[v26];
         do
         {
           if (v42 >= 1)
           {
             v49 = 0;
-            v50 = *&v28[4 * v31];
-            v51 = 8 * *(v29 + 8 * v31);
-            v52 = 2 * *(v30 + 8 * v31);
+            v50 = v28[v31];
+            v51 = 8 * v29[v31];
+            v52 = 2 * v30[v31];
             v53 = v43;
             v54 = v48;
             do
@@ -4993,23 +4579,23 @@ LABEL_63:
         while (v41 != v40);
       }
 
-      if (v111)
+      if (v110)
       {
         break;
       }
 
-      v21 = v115;
-      v66 = v116;
-      v67 = v108;
-      v59 = v109;
-      if (v109)
+      v21 = v114;
+      v66 = v115;
+      v67 = v107;
+      v59 = v108;
+      if (v108)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
-      v25 = v66 + v110;
-      if (v25 >= v112)
+      v25 = v66 + v109;
+      if (v25 >= v111)
       {
         v81 = __p;
         if (__p)
@@ -5021,24 +4607,24 @@ LABEL_60:
       }
     }
 
-    v58 = *v114;
-    v21 = v115;
-    v59 = v109;
-    if (v111 >= 2 && (v60 = v102, v58 == *v102 - 1))
+    v58 = *v113;
+    v21 = v114;
+    v59 = v108;
+    if (v110 >= 2 && (v60 = v101, v58 == *v101 - 1))
     {
-      v62 = v99;
-      v61 = v100;
-      v63 = v97;
-      v64 = v114;
-      v65 = v104;
-      v66 = v116;
-      v67 = v108;
+      v62 = v98;
+      v61 = v99;
+      v63 = v96;
+      v64 = v113;
+      v65 = v103;
+      v66 = v115;
+      v67 = v107;
       do
       {
         v68 = v62;
         *v64 = 0;
         v26 = (v26 - v27[v65] * (*v60 - 1));
-        v128 = v26;
+        v127 = v26;
         --v62;
         v64 = &v61[v38 - 8];
         v58 = *v64;
@@ -5060,36 +4646,36 @@ LABEL_60:
 
     else
     {
-      v62 = v104;
-      v70 = v114;
-      v66 = v116;
-      v67 = v108;
+      v62 = v103;
+      v70 = v113;
+      v66 = v115;
+      v67 = v107;
     }
 
     *v70 = v58 + 1;
     v26 = (v26 + v27[v62]);
-    v128 = v26;
-    if (!v109)
+    v127 = v26;
+    if (!v108)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v71 = *v113;
+    v71 = *v112;
     if (v59 >= 2 && v71 == *v67 - 1)
     {
       v72 = __p;
-      v73 = v96;
-      v74 = v98;
+      v73 = v95;
+      v74 = v97;
       v75 = v67;
-      v76 = v113;
-      v77 = v103;
+      v76 = v112;
+      v77 = v102;
       do
       {
         v78 = v74;
         *v76 = 0;
         v34 -= v35[v77] * (*v75 - 1);
-        v117 = v34;
+        v116 = v34;
         --v74;
         v76 = &v72[v39 - 8];
         v71 = *v76;
@@ -5111,13 +4697,13 @@ LABEL_52:
 
     else
     {
-      v74 = v103;
-      v80 = v113;
+      v74 = v102;
+      v80 = v112;
     }
 
     *v80 = v71 + 1;
     v34 += v35[v74];
-    v117 = v34;
+    v116 = v34;
     goto LABEL_60;
   }
 
@@ -5133,16 +4719,16 @@ LABEL_52:
 
   if (v17 == 2)
   {
-    v82 = *v124;
-    if (*v124 >= 1)
+    v82 = *v123;
+    if (*v123 >= 1)
     {
       v83 = 0;
-      v84 = v126[3];
+      v84 = v125[3];
       v85 = *v84;
       v86 = v84[1];
-      v87 = 8 * **v126;
-      v88 = 8 * *(*v126 + 8);
-      v89 = *(v124 + 1);
+      v87 = 8 * **v125;
+      v88 = 8 * (*v125)[1];
+      v89 = *(v123 + 1);
       v90 = 2 * v85;
       v91 = 2 * v86;
       do
@@ -5174,11 +4760,11 @@ LABEL_52:
 
   else if (v17 == 1)
   {
-    v18 = *v124;
-    if (*v124 >= 1)
+    v18 = *v123;
+    if (*v123 >= 1)
     {
-      v19 = *v126[3];
-      v20 = 8 * **v126;
+      v19 = *v125[3];
+      v20 = 8 * **v125;
       do
       {
         *v13 = *v12;
@@ -5192,16 +4778,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v128 = &v126;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
-  if (v124)
+  v127 = &v125;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  if (v123)
   {
-    v125 = v124;
-    operator delete(v124);
+    v124 = v123;
+    operator delete(v123);
   }
-
-LABEL_83:
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3CFF98(_Unwind_Exception *a1)
@@ -5211,9 +4794,9 @@ void sub_25A3CFF98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,unsigned int>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,unsigned int>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -5236,40 +4819,40 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned int>(u
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_83;
+    return;
   }
 
-  v110 = *(*a1 + 48);
+  v109 = *(*a1 + 48);
+  v125 = 0;
   v126 = 0;
   v127 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v125, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v128 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v126, *a4, a4[1], (a4[1] - *a4) >> 3);
   v129 = 0;
   v130 = 0;
-  v131 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v129, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v115, &v126, &v132, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v115, 0x7FFFFFFFuLL, &v122);
-  v125 = &v115;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v114, &v125, &v131, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v114, 0x7FFFFFFFuLL, &v121);
+  v124 = &v114;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v124);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v129 + i);
+    v16 = *(&v128 + i);
     if (v16)
     {
-      *(&v130 + i) = v16;
+      *(&v129 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = v122;
-  v18 = (v123 - v122) >> 2;
+  v17 = v121;
+  v18 = (v122 - v121) >> 2;
   if (v18 > 2)
   {
     if (v11)
@@ -5283,117 +4866,116 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned int>(u
     }
 
     v22 = v18 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v126, &v122, v124, v18 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v115, &v122, v124 + 3, v18 - 3);
-    v23 = v123 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v121, v123, v18 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v114, &v121, v123 + 3, v18 - 3);
+    v23 = v122 - 3;
     v24 = 1;
     do
     {
-      v25 = *v23;
-      v23 += 4;
+      v25 = *v23++;
       v24 *= v25;
     }
 
-    while (v23 != v123);
-    if (!v110)
+    while (v23 != v122);
+    if (!v109)
     {
-      v82 = v120;
-      if (v120)
+      v82 = v119;
+      if (v119)
       {
 LABEL_62:
-        v121 = v82;
+        v120 = v82;
         operator delete(v82);
       }
 
 LABEL_63:
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v116)
+      if (v115)
       {
-        v117 = v116;
-        operator delete(v116);
+        v116 = v115;
+        operator delete(v115);
       }
 
-      if (v133)
+      if (v132)
       {
-        v134 = v133;
-        operator delete(v133);
+        v133 = v132;
+        operator delete(v132);
       }
 
-      if (v130)
+      if (v129)
       {
-        v131 = v130;
-        operator delete(v130);
+        v130 = v129;
+        operator delete(v129);
       }
 
-      if (v127)
+      if (v126)
       {
-        v128 = v127;
-        operator delete(v127);
+        v127 = v126;
+        operator delete(v126);
       }
 
       goto LABEL_81;
     }
 
-    v104 = v12;
-    v105 = v13;
+    v103 = v12;
+    v104 = v13;
     v26 = 0;
-    v27 = v126;
-    v28 = v130;
-    v29 = v122;
-    v30 = *v124;
-    v31 = v124[3];
+    v27 = v125;
+    v28 = v129;
+    v29 = v121;
+    v30 = *v123;
+    v31 = v123[3];
     v32 = v18 - 2;
     v33 = v18 - 1;
-    v34 = (((v128 - v127) << 30) - 0x100000000) >> 32;
-    v99 = v133;
-    v112 = &v133[4 * v34];
-    v103 = v34;
-    v101 = &v127[4 * v34];
-    v35 = ((v128 - v127) >> 2) & 0x7FFFFFFF;
-    v98 = v35 - 1;
-    v36 = v115;
-    v37 = v118;
-    v38 = (((v117 - v116) << 30) - 0x100000000) >> 32;
-    __p = v120;
-    v111 = &v120[4 * v38];
-    v39 = ((v117 - v116) >> 2) & 0x7FFFFFFF;
-    v97 = v39 - 1;
-    v108 = v24;
-    v109 = (v128 - v127) >> 2;
+    v34 = (((v127 - v126) << 30) - 0x100000000) >> 32;
+    v98 = v132;
+    v111 = &v132[4 * v34];
+    v102 = v34;
+    v100 = &v126[4 * v34];
+    v35 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
+    v97 = v35 - 1;
+    v36 = v114;
+    v37 = v117;
+    v38 = (((v116 - v115) << 30) - 0x100000000) >> 32;
+    __p = v119;
+    v110 = &v119[4 * v38];
+    v39 = ((v116 - v115) >> 2) & 0x7FFFFFFF;
+    v96 = v39 - 1;
+    v107 = v24;
+    v108 = (v127 - v126) >> 2;
     v40 = 4 * v35;
     v41 = 4 * v39;
-    v95 = v116 - 8;
-    v96 = v127 - 8;
-    v102 = v38;
-    v113 = v18 - 3;
-    v106 = v116 + 4 * v38;
-    v107 = (v117 - v116) >> 2;
+    v94 = v115 - 8;
+    v95 = v126 - 8;
+    v101 = v38;
+    v112 = v18 - 3;
+    v105 = v115 + 4 * v38;
+    v106 = (v116 - v115) >> 2;
     while (1)
     {
-      v114 = v26;
+      v113 = v26;
       v42 = v29[v22];
       if (v42 >= 1)
       {
         v43 = 0;
-        v44 = &v105[v36];
-        v45 = &v104[v27];
-        v46 = 8 * *(v30 + 8 * v113);
-        v47 = 8 * *(v30 + 8 * v32);
-        v48 = 4 * *(v31 + 8 * v113);
-        v49 = 4 * *(v31 + 8 * v32);
+        v44 = &v104[v36];
+        v45 = &v103[v27];
+        v46 = 8 * v30[v112];
+        v47 = 8 * v30[v32];
+        v48 = 4 * v31[v112];
+        v49 = 4 * v31[v32];
         do
         {
           v50 = v29[v32];
           if (v50 >= 1)
           {
             v51 = 0;
-            v52 = 8 * *(v30 + 8 * v33);
-            v53 = 4 * *(v31 + 8 * v33);
+            v52 = 8 * v30[v33];
+            v53 = 4 * v31[v33];
             v54 = v44;
             v55 = v45;
             do
@@ -5430,23 +5012,23 @@ LABEL_63:
         while (v43 != v42);
       }
 
-      if (v109)
+      if (v108)
       {
         break;
       }
 
-      v22 = v113;
-      v67 = v114;
-      v68 = v106;
-      v60 = v107;
-      if (v107)
+      v22 = v112;
+      v67 = v113;
+      v68 = v105;
+      v60 = v106;
+      if (v106)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
-      v26 = v67 + v108;
-      if (v26 >= v110)
+      v26 = v67 + v107;
+      if (v26 >= v109)
       {
         v82 = __p;
         if (__p)
@@ -5458,24 +5040,24 @@ LABEL_60:
       }
     }
 
-    v59 = *v112;
-    v22 = v113;
-    v60 = v107;
-    if (v109 >= 2 && (v61 = v101, v59 == *v101 - 1))
+    v59 = *v111;
+    v22 = v112;
+    v60 = v106;
+    if (v108 >= 2 && (v61 = v100, v59 == *v100 - 1))
     {
-      v62 = v98;
-      v63 = v99;
-      v64 = v96;
-      v65 = v112;
-      v66 = v103;
-      v67 = v114;
-      v68 = v106;
+      v62 = v97;
+      v63 = v98;
+      v64 = v95;
+      v65 = v111;
+      v66 = v102;
+      v67 = v113;
+      v68 = v105;
       do
       {
         v69 = v62;
         *v65 = 0;
         v27 = (v27 - v28[v66] * (*v61 - 1));
-        v126 = v27;
+        v125 = v27;
         --v62;
         v65 = &v63[v40 - 8];
         v59 = *v65;
@@ -5497,36 +5079,36 @@ LABEL_60:
 
     else
     {
-      v62 = v103;
-      v71 = v112;
-      v67 = v114;
-      v68 = v106;
+      v62 = v102;
+      v71 = v111;
+      v67 = v113;
+      v68 = v105;
     }
 
     *v71 = v59 + 1;
     v27 = (v27 + v28[v62]);
-    v126 = v27;
-    if (!v107)
+    v125 = v27;
+    if (!v106)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v72 = *v111;
+    v72 = *v110;
     if (v60 >= 2 && v72 == *v68 - 1)
     {
       v73 = __p;
-      v74 = v95;
-      v75 = v97;
+      v74 = v94;
+      v75 = v96;
       v76 = v68;
-      v77 = v111;
-      v78 = v102;
+      v77 = v110;
+      v78 = v101;
       do
       {
         v79 = v75;
         *v77 = 0;
         v36 -= v37[v78] * (*v76 - 1);
-        v115 = v36;
+        v114 = v36;
         --v75;
         v77 = &v73[v41 - 8];
         v72 = *v77;
@@ -5548,13 +5130,13 @@ LABEL_52:
 
     else
     {
-      v75 = v102;
-      v81 = v111;
+      v75 = v101;
+      v81 = v110;
     }
 
     *v81 = v72 + 1;
     v36 += v37[v75];
-    v115 = v36;
+    v114 = v36;
     goto LABEL_60;
   }
 
@@ -5570,13 +5152,13 @@ LABEL_52:
 
   if (v18 == 2)
   {
-    v83 = *v122;
-    if (*v122 >= 1)
+    v83 = *v121;
+    if (*v121 >= 1)
     {
       v84 = 0;
-      v85 = v124[3];
-      v86 = 8 * **v124;
-      v87 = 8 * *(*v124 + 8);
+      v85 = v123[3];
+      v86 = 8 * **v123;
+      v87 = 8 * (*v123)[1];
       v88 = v85[1];
       v89 = 4 * *v85;
       v90 = 4 * v88;
@@ -5609,11 +5191,11 @@ LABEL_52:
 
   else if (v18 == 1)
   {
-    v19 = *v122;
-    if (*v122 >= 1)
+    v19 = *v121;
+    if (*v121 >= 1)
     {
-      v20 = *v124[3];
-      v21 = 8 * **v124;
+      v20 = *v123[3];
+      v21 = 8 * **v123;
       do
       {
         *v13 = *v12;
@@ -5627,16 +5209,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v126 = &v124;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
-  if (v122)
+  v125 = &v123;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  if (v121)
   {
-    v123 = v122;
-    operator delete(v122);
+    v122 = v121;
+    operator delete(v121);
   }
-
-LABEL_83:
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3D06F0(_Unwind_Exception *a1)
@@ -5646,9 +5225,9 @@ void sub_25A3D06F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,unsigned long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,unsigned long long>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -5671,39 +5250,39 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_82;
+    return;
   }
 
-  v101 = *(*a1 + 48);
+  v100 = *(*a1 + 48);
+  v117 = 0;
   v118 = 0;
   v119 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v117, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v120 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v118, *a4, a4[1], (a4[1] - *a4) >> 3);
   v121 = 0;
   v122 = 0;
-  v123 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v121, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v120, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v106 = 0;
   v107 = 0;
   v108 = 0;
-  v109 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v107, &v118, &v124, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v107, 0x7FFFFFFFuLL, &v114);
-  v117 = &v107;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v117);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v106, &v117, &v123, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v106, 0x7FFFFFFFuLL, &v113);
+  v116 = &v106;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v116);
   for (i = 0; i != -6; i -= 3)
   {
-    v16 = *(&v121 + i * 8);
+    v16 = *(&v120 + i * 8);
     if (v16)
     {
-      (&v122)[i] = v16;
+      (&v121)[i] = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v115 - v114) >> 2;
+  v17 = (v114 - v113) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -5717,9 +5296,9 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
     }
 
     v21 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v118, &v114, v116, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v107, &v114, v116 + 3, v17 - 3);
-    v22 = v115 - 3;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v113, v115, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v106, &v113, v115 + 3, v17 - 3);
+    v22 = v114 - 3;
     v23 = 1;
     do
     {
@@ -5727,55 +5306,55 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
       v23 *= v24;
     }
 
-    while (v22 != v115);
-    if (v101)
+    while (v22 != v114);
+    if (v100)
     {
-      v98 = v13;
+      v97 = v13;
       v25 = 0;
-      v105 = (v120 - v119) >> 2;
-      v26 = v114;
-      v27 = *v116;
-      v28 = v116[3];
+      v104 = (v119 - v118) >> 2;
+      v26 = v113;
+      v27 = *v115;
+      v28 = v115[3];
       v29 = v17 - 2;
       v30 = v17 - 1;
-      v31 = (((v120 - v119) << 30) - 0x100000000) >> 32;
-      v32 = v122;
-      v93 = v125;
-      v96 = v31;
-      v97 = &v119[4 * v31];
-      v103 = &v125[4 * v31];
-      v104 = (v109 - v108) >> 2;
-      v33 = v110;
-      __p = v112;
-      v95 = (((v109 - v108) << 30) - 0x100000000) >> 32;
-      v102 = &v112[4 * v95];
-      v34 = 4 * (v105 & 0x7FFFFFFF);
-      v92 = v119 - 8;
-      v35 = 4 * (v104 & 0x7FFFFFFF);
-      v91 = v108 - 8;
-      v99 = v108 + 4 * v95;
-      v100 = v23;
+      v31 = (((v119 - v118) << 30) - 0x100000000) >> 32;
+      v32 = v121;
+      v92 = v124;
+      v95 = v31;
+      v96 = &v118[4 * v31];
+      v102 = &v124[4 * v31];
+      v103 = (v108 - v107) >> 2;
+      v33 = v109;
+      __p = v111;
+      v94 = (((v108 - v107) << 30) - 0x100000000) >> 32;
+      v101 = &v111[4 * v94];
+      v34 = 4 * (v104 & 0x7FFFFFFF);
+      v91 = v118 - 8;
+      v35 = 4 * (v103 & 0x7FFFFFFF);
+      v90 = v107 - 8;
+      v98 = v107 + 4 * v94;
+      v99 = v23;
       do
       {
-        v106 = v25;
+        v105 = v25;
         v36 = v21;
         v37 = v26[v21];
         if (v37 >= 1)
         {
           v38 = 0;
-          v39 = &v98[v107];
-          v40 = &v12[v118];
+          v39 = &v97[v106];
+          v40 = &v12[v117];
           v41 = v26[v29];
-          v42 = 8 * *(v27 + 8 * v21);
-          v43 = 8 * *(v28 + 8 * v21);
+          v42 = 8 * v27[v21];
+          v43 = 8 * v28[v21];
           do
           {
             if (v41 >= 1)
             {
               v44 = 0;
               v45 = v26[v30];
-              v46 = 8 * *(v27 + 8 * v29);
-              v47 = 8 * *(v28 + 8 * v29);
+              v46 = 8 * v27[v29];
+              v47 = 8 * v28[v29];
               v48 = v39;
               v49 = v40;
               do
@@ -5784,8 +5363,8 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
                 {
                   v50 = 0;
                   v51 = 0;
-                  v52 = 8 * *(v27 + 8 * v30);
-                  v53 = 8 * *(v28 + 8 * v30);
+                  v52 = 8 * v27[v30];
+                  v53 = 8 * v28[v30];
                   v54 = v45;
                   do
                   {
@@ -5815,24 +5394,24 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
         }
 
         v21 = v36;
-        if (v105)
+        if (v104)
         {
-          v55 = *v103;
-          v56 = v118;
-          v57 = v97;
-          if (v105 >= 2 && v55 == *v97 - 1)
+          v55 = *v102;
+          v56 = v117;
+          v57 = v96;
+          if (v104 >= 2 && v55 == *v96 - 1)
           {
-            v59 = (v105 & 0x7FFFFFFF) - 1;
-            v58 = v93;
-            v60 = v92;
-            v61 = v103;
-            v62 = v96;
+            v59 = (v104 & 0x7FFFFFFF) - 1;
+            v58 = v92;
+            v60 = v91;
+            v61 = v102;
+            v62 = v95;
             do
             {
               v63 = v59;
               *v61 = 0;
               v56 = (v56 - v32[v62] * (*v57 - 1));
-              v118 = v56;
+              v117 = v56;
               --v59;
               v61 = &v58[v34 - 8];
               v55 = *v61;
@@ -5843,7 +5422,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
               }
 
               v57 = &v60[v34];
-              v64 = *&v60[4 * (v105 & 0x7FFFFFFF)] - 1;
+              v64 = *&v60[4 * (v104 & 0x7FFFFFFF)] - 1;
               v60 -= 4;
               v62 = v59;
             }
@@ -5854,32 +5433,32 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
 
           else
           {
-            v59 = v96;
-            v65 = v103;
+            v59 = v95;
+            v65 = v102;
           }
 
           *v65 = v55 + 1;
-          v118 = (v56 + v32[v59]);
+          v117 = (v56 + v32[v59]);
         }
 
-        if (v104)
+        if (v103)
         {
-          v66 = *v102;
-          v67 = v107;
-          if (v104 >= 2 && v66 == *v99 - 1)
+          v66 = *v101;
+          v67 = v106;
+          if (v103 >= 2 && v66 == *v98 - 1)
           {
             v68 = __p;
-            v69 = v95;
-            v70 = v91;
-            v71 = (v104 & 0x7FFFFFFF) - 1;
-            v72 = v99;
-            v73 = v102;
+            v69 = v94;
+            v70 = v90;
+            v71 = (v103 & 0x7FFFFFFF) - 1;
+            v72 = v98;
+            v73 = v101;
             do
             {
               v74 = v71;
               *v73 = 0;
               v67 -= v33[v69] * (*v72 - 1);
-              v107 = v67;
+              v106 = v67;
               --v71;
               v73 = &v68[v35 - 8];
               v66 = *v73;
@@ -5890,7 +5469,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
               }
 
               v72 = &v70[v35];
-              v75 = *&v70[4 * (v104 & 0x7FFFFFFF)] - 1;
+              v75 = *&v70[4 * (v103 & 0x7FFFFFFF)] - 1;
               v70 -= 4;
               v69 = v71;
             }
@@ -5901,18 +5480,18 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
 
           else
           {
-            v71 = v95;
-            v76 = v102;
+            v71 = v94;
+            v76 = v101;
           }
 
           *v76 = v66 + 1;
-          v107 = v33[v71] + v67;
+          v106 = v33[v71] + v67;
         }
 
-        v25 = v106 + v100;
+        v25 = v105 + v99;
       }
 
-      while (v106 + v100 < v101);
+      while (v105 + v99 < v100);
       v77 = __p;
       if (!__p)
       {
@@ -5922,44 +5501,44 @@ void mlx::core::anonymous namespace::copy_general_general<double,unsigned long l
 
     else
     {
-      v77 = v112;
-      if (!v112)
+      v77 = v111;
+      if (!v111)
       {
         goto LABEL_62;
       }
     }
 
-    v113 = v77;
+    v112 = v77;
     operator delete(v77);
 LABEL_62:
-    if (v110)
+    if (v109)
     {
-      v111 = v110;
-      operator delete(v110);
+      v110 = v109;
+      operator delete(v109);
     }
 
-    if (v108)
+    if (v107)
     {
-      v109 = v108;
-      operator delete(v108);
+      v108 = v107;
+      operator delete(v107);
     }
 
-    if (v125)
+    if (v124)
     {
-      v126 = v125;
-      operator delete(v125);
+      v125 = v124;
+      operator delete(v124);
     }
 
-    if (v122)
+    if (v121)
     {
-      v123 = v122;
-      operator delete(v122);
+      v122 = v121;
+      operator delete(v121);
     }
 
-    if (v119)
+    if (v118)
     {
-      v120 = v119;
-      operator delete(v119);
+      v119 = v118;
+      operator delete(v118);
     }
 
     goto LABEL_80;
@@ -5977,20 +5556,20 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v78 = *v114;
-    if (*v114 >= 1)
+    v78 = *v113;
+    if (*v113 >= 1)
     {
       v79 = 0;
-      v80 = *v116;
-      v81 = v116[3];
-      v82 = *(v114 + 1);
-      v83 = 8 * **v116;
+      v80 = *v115;
+      v81 = v115[3];
+      v82 = *(v113 + 1);
+      v83 = 8 * **v115;
       v84 = 8 * *v81;
       do
       {
         if (v82 >= 1)
         {
-          v85 = 8 * *(v80 + 8);
+          v85 = 8 * v80[1];
           v86 = 8 * v81[1];
           v87 = v13;
           v88 = v12;
@@ -6017,11 +5596,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v114;
-    if (*v114 >= 1)
+    v18 = *v113;
+    if (*v113 >= 1)
     {
-      v19 = *v116[3];
-      v20 = 8 * **v116;
+      v19 = *v115[3];
+      v20 = 8 * **v115;
       do
       {
         *v13 = *v12;
@@ -6035,28 +5614,26 @@ LABEL_62:
   }
 
 LABEL_80:
-  v118 = &v116;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v118);
-  if (v114)
+  v117 = &v115;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v117);
+  if (v113)
   {
-    v115 = v114;
-    operator delete(v114);
+    v114 = v113;
+    operator delete(v113);
   }
-
-LABEL_82:
-  v90 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A3D0E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_25A3D0E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator((v38 - 176));
-  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a38);
+  va_start(va, a37);
+  mlx::core::ContiguousIterator::~ContiguousIterator((v37 - 176));
+  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,signed char>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,signed char>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -6079,7 +5656,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
   }
@@ -6087,33 +5664,33 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
   else
   {
     v15 = *(*a1 + 48);
+    v100 = 0;
     v101 = 0;
     v102 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v100, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
     v103 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v101, *a4, a4[1], (a4[1] - *a4) >> 3);
     v104 = 0;
     v105 = 0;
-    v106 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v104, *a5, a5[1], (a5[1] - *a5) >> 3);
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v103, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+    v89 = 0;
     v90 = 0;
     v91 = 0;
-    v92 = 0;
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v90, &v101, &v107, 2uLL);
-    mlx::core::collapse_contiguous_dims(a3, &v90, 0x7FFFFFFFuLL, &v97);
-    v100 = &v90;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v100);
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v89, &v100, &v106, 2uLL);
+    mlx::core::collapse_contiguous_dims(a3, &v89, 0x7FFFFFFFuLL, &v96);
+    v99 = &v89;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v99);
     for (i = 0; i != -48; i -= 24)
     {
-      v17 = *(&v104 + i);
+      v17 = *(&v103 + i);
       if (v17)
       {
-        *(&v105 + i) = v17;
+        *(&v104 + i) = v17;
         operator delete(v17);
       }
     }
 
-    v18 = v97;
-    v19 = (v98 - v97) >> 2;
+    v18 = v96;
+    v19 = (v97 - v96) >> 2;
     if (v19 > 2)
     {
       if (v11)
@@ -6127,9 +5704,9 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
       }
 
       v23 = v19 - 3;
-      mlx::core::ContiguousIterator::ContiguousIterator(&v101, &v97, v99, v19 - 3);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v90, &v97, v99 + 3, v19 - 3);
-      v24 = v98 - 3;
+      mlx::core::ContiguousIterator::ContiguousIterator(&v100, &v96, v98, v19 - 3);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v89, &v96, v98 + 3, v19 - 3);
+      v24 = v97 - 3;
       v25 = 1;
       do
       {
@@ -6137,42 +5714,42 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
         v25 *= v26;
       }
 
-      while (v24 != v98);
+      while (v24 != v97);
       if (v15)
       {
         v27 = 0;
         v28 = v19 - 2;
         v29 = v19 - 1;
-        v30 = v99;
+        v30 = v98;
         do
         {
-          v31 = *(v97 + v23);
+          v31 = *(v96 + v23);
           if (v31 >= 1)
           {
             v32 = 0;
-            v33 = *(v30[3] + 8 * v23);
-            v34 = &v13[v90];
-            v35 = &v12[v101];
-            v36 = 8 * *(*v30 + 8 * v23);
+            v33 = v30[3][v23];
+            v34 = &v13[v89];
+            v35 = &v12[v100];
+            v36 = 8 * (*v30)[v23];
             do
             {
-              v37 = *(v97 + v28);
+              v37 = *(v96 + v28);
               if (v37 >= 1)
               {
                 v38 = 0;
-                v39 = *(v30[3] + 8 * v28);
-                v40 = 8 * *(*v30 + 8 * v28);
+                v39 = v30[3][v28];
+                v40 = 8 * (*v30)[v28];
                 v41 = v35;
                 v42 = v34;
                 do
                 {
-                  v43 = *(v97 + v29);
+                  v43 = *(v96 + v29);
                   if (v43 >= 1)
                   {
                     v44 = 0;
                     v45 = 0;
-                    v46 = *(v30[3] + 8 * v29);
-                    v47 = 8 * *(*v30 + 8 * v29);
+                    v46 = v30[3][v29];
+                    v47 = 8 * (*v30)[v29];
                     do
                     {
                       v42[v44] = *(v41 + v45);
@@ -6200,29 +5777,29 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
             while (v32 != v31);
           }
 
-          v48 = v103 - v102;
-          v49 = (v103 - v102) >> 2;
+          v48 = v102 - v101;
+          v49 = (v102 - v101) >> 2;
           if (v49)
           {
-            v50 = v108;
+            v50 = v107;
             v51 = ((v48 << 30) - 0x100000000) >> 32;
-            v52 = v108 + 4 * v51;
+            v52 = v107 + 4 * v51;
             v53 = *v52;
-            v54 = v102 + 4 * v51;
-            v55 = v105;
-            v56 = v101;
+            v54 = v101 + 4 * v51;
+            v55 = v104;
+            v56 = v100;
             if (v49 >= 2 && v53 == *v54 - 1)
             {
               v59 = (v48 >> 2) & 0x7FFFFFFF;
               v58 = v59 - 1;
               v60 = 4 * v59;
-              v61 = v102 - 8;
+              v61 = v101 - 8;
               do
               {
                 v62 = v58;
                 *v52 = 0;
                 v56 = (v56 - v55[v51] * (*v54 - 1));
-                v101 = v56;
+                v100 = v56;
                 --v58;
                 v52 = &v50[v60 - 8];
                 v53 = *v52;
@@ -6248,31 +5825,31 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
             }
 
             *v52 = v53 + 1;
-            v101 = (v56 + v55[v58]);
+            v100 = (v56 + v55[v58]);
           }
 
-          v64 = v92 - v91;
-          v65 = (v92 - v91) >> 2;
+          v64 = v91 - v90;
+          v65 = (v91 - v90) >> 2;
           if (v65)
           {
             v66 = __p;
             v67 = ((v64 << 30) - 0x100000000) >> 32;
             v68 = __p + 4 * v67;
             v69 = *v68;
-            v70 = v93;
-            v71 = v90;
-            if (v65 >= 2 && (v72 = v91 + 4 * v67, v69 == *v72 - 1))
+            v70 = v92;
+            v71 = v89;
+            if (v65 >= 2 && (v72 = v90 + 4 * v67, v69 == *v72 - 1))
             {
               v73 = (v64 >> 2) & 0x7FFFFFFF;
               v74 = v73 - 1;
               v75 = 4 * v73;
-              v76 = v91 - 8;
+              v76 = v90 - 8;
               do
               {
                 v77 = v74;
                 *v68 = 0;
                 v71 -= v70[v67] * (*v72 - 1);
-                v90 = v71;
+                v89 = v71;
                 --v74;
                 v68 = &v66[v75 - 8];
                 v69 = *v68;
@@ -6298,7 +5875,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
             }
 
             *v68 = v69 + 1;
-            v90 = v70[v74] + v71;
+            v89 = v70[v74] + v71;
           }
 
           v27 += v25;
@@ -6309,38 +5886,38 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
 
       if (__p)
       {
-        v96 = __p;
+        v95 = __p;
         operator delete(__p);
       }
 
-      if (v93)
+      if (v92)
       {
-        v94 = v93;
-        operator delete(v93);
+        v93 = v92;
+        operator delete(v92);
       }
 
-      if (v91)
+      if (v90)
       {
-        v92 = v91;
-        operator delete(v91);
+        v91 = v90;
+        operator delete(v90);
       }
 
-      if (v108)
+      if (v107)
       {
-        v109 = v108;
-        operator delete(v108);
+        v108 = v107;
+        operator delete(v107);
       }
 
-      if (v105)
+      if (v104)
       {
-        v106 = v105;
-        operator delete(v105);
+        v105 = v104;
+        operator delete(v104);
       }
 
-      if (v102)
+      if (v101)
       {
-        v103 = v102;
-        operator delete(v102);
+        v102 = v101;
+        operator delete(v101);
       }
     }
 
@@ -6358,20 +5935,20 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
 
       if (v19 == 2)
       {
-        v79 = *v97;
-        if (*v97 >= 1)
+        v79 = *v96;
+        if (*v96 >= 1)
         {
           v80 = 0;
-          v81 = v99;
-          v82 = *v99[3];
-          v83 = 8 * **v99;
+          v81 = v98;
+          v82 = *v98[3];
+          v83 = 8 * **v98;
           do
           {
             v84 = v18[1];
             if (v84 >= 1)
             {
-              v85 = *(v81[3] + 8);
-              v86 = 8 * *(*v81 + 8);
+              v85 = v81[3][1];
+              v86 = 8 * (*v81)[1];
               v87 = v12;
               v88 = v13;
               do
@@ -6396,11 +5973,11 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
 
       else if (v19 == 1)
       {
-        v20 = *v97;
-        if (*v97 >= 1)
+        v20 = *v96;
+        if (*v96 >= 1)
         {
-          v21 = *v99[3];
-          v22 = 8 * **v99;
+          v21 = *v98[3];
+          v22 = 8 * **v98;
           do
           {
             *v13 = *v12;
@@ -6414,28 +5991,26 @@ void mlx::core::anonymous namespace::copy_general_general<double,signed char>(ui
       }
     }
 
-    v101 = &v99;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v101);
-    if (v97)
+    v100 = &v98;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v100);
+    if (v96)
     {
-      v98 = v97;
-      operator delete(v97);
+      v97 = v96;
+      operator delete(v96);
     }
   }
-
-  v89 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A3D14D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
+void sub_25A3D14D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
 {
   mlx::core::ContiguousIterator::~ContiguousIterator(&__p);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a20);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,short>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,short>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -6458,39 +6033,39 @@ void mlx::core::anonymous namespace::copy_general_general<double,short>(uint64_t
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_83;
+    return;
   }
 
-  v112 = *(*a1 + 48);
+  v111 = *(*a1 + 48);
+  v127 = 0;
   v128 = 0;
   v129 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v127, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v130 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a4, a4[1], (a4[1] - *a4) >> 3);
   v131 = 0;
   v132 = 0;
-  v133 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v130, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v116 = 0;
   v117 = 0;
   v118 = 0;
-  v119 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v117, &v128, &v134, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v117, 0x7FFFFFFFuLL, &v124);
-  v127 = &v117;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v116, &v127, &v133, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v116, 0x7FFFFFFFuLL, &v123);
+  v126 = &v116;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v131 + i);
+    v16 = *(&v130 + i);
     if (v16)
     {
-      *(&v132 + i) = v16;
+      *(&v131 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v125 - v124) >> 2;
+  v17 = (v124 - v123) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -6504,118 +6079,117 @@ void mlx::core::anonymous namespace::copy_general_general<double,short>(uint64_t
     }
 
     v21 = v17 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v128, &v124, v126, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v124, v126 + 3, v17 - 3);
-    v22 = v125 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v127, &v123, v125, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v116, &v123, v125 + 3, v17 - 3);
+    v22 = v124 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v125);
-    if (!v112)
+    while (v22 != v124);
+    if (!v111)
     {
-      v81 = v122;
-      if (v122)
+      v81 = v121;
+      if (v121)
       {
 LABEL_62:
-        v123 = v81;
+        v122 = v81;
         operator delete(v81);
       }
 
 LABEL_63:
-      if (v120)
+      if (v119)
       {
-        v121 = v120;
-        operator delete(v120);
+        v120 = v119;
+        operator delete(v119);
       }
 
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v135)
+      if (v134)
       {
-        v136 = v135;
-        operator delete(v135);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      if (v132)
+      if (v131)
       {
-        v133 = v132;
-        operator delete(v132);
+        v132 = v131;
+        operator delete(v131);
       }
 
-      if (v129)
+      if (v128)
       {
-        v130 = v129;
-        operator delete(v129);
+        v129 = v128;
+        operator delete(v128);
       }
 
       goto LABEL_81;
     }
 
-    v106 = v12;
-    v107 = v13;
+    v105 = v12;
+    v106 = v13;
     v25 = 0;
-    v26 = v128;
-    v27 = v132;
-    v28 = v124;
-    v29 = *v126;
-    v30 = v126[3];
-    v105 = v17 - 2;
+    v26 = v127;
+    v27 = v131;
+    v28 = v123;
+    v29 = *v125;
+    v30 = v125[3];
+    v104 = v17 - 2;
     v31 = v17 - 1;
-    v32 = (((v130 - v129) << 30) - 0x100000000) >> 32;
-    v100 = v135;
-    v114 = &v135[4 * v32];
-    v104 = v32;
-    v102 = &v129[4 * v32];
-    v33 = ((v130 - v129) >> 2) & 0x7FFFFFFF;
-    v99 = v33 - 1;
-    v34 = v117;
-    v35 = v120;
-    v36 = (((v119 - v118) << 30) - 0x100000000) >> 32;
-    __p = v122;
-    v113 = &v122[4 * v36];
-    v37 = ((v119 - v118) >> 2) & 0x7FFFFFFF;
-    v98 = v37 - 1;
-    v110 = v23;
-    v111 = (v130 - v129) >> 2;
+    v32 = (((v129 - v128) << 30) - 0x100000000) >> 32;
+    v99 = v134;
+    v113 = &v134[4 * v32];
+    v103 = v32;
+    v101 = &v128[4 * v32];
+    v33 = ((v129 - v128) >> 2) & 0x7FFFFFFF;
+    v98 = v33 - 1;
+    v34 = v116;
+    v35 = v119;
+    v36 = (((v118 - v117) << 30) - 0x100000000) >> 32;
+    __p = v121;
+    v112 = &v121[4 * v36];
+    v37 = ((v118 - v117) >> 2) & 0x7FFFFFFF;
+    v97 = v37 - 1;
+    v109 = v23;
+    v110 = (v129 - v128) >> 2;
     v38 = 4 * v33;
     v39 = 4 * v37;
-    v96 = v118 - 8;
-    v97 = v129 - 8;
-    v103 = v36;
-    v115 = v17 - 3;
-    v108 = v118 + 4 * v36;
-    v109 = (v119 - v118) >> 2;
+    v95 = v117 - 8;
+    v96 = v128 - 8;
+    v102 = v36;
+    v114 = v17 - 3;
+    v107 = v117 + 4 * v36;
+    v108 = (v118 - v117) >> 2;
     while (1)
     {
-      v116 = v25;
-      v40 = *&v28[4 * v21];
+      v115 = v25;
+      v40 = v28[v21];
       if (v40 >= 1)
       {
         v41 = 0;
-        v42 = *&v28[4 * v105];
-        v43 = &v107[v34];
-        v44 = 8 * *(v29 + 8 * v115);
-        v45 = 8 * *(v29 + 8 * v105);
-        v46 = 2 * *(v30 + 8 * v115);
-        v47 = 2 * *(v30 + 8 * v105);
-        v48 = &v106[v26];
+        v42 = v28[v104];
+        v43 = &v106[v34];
+        v44 = 8 * v29[v114];
+        v45 = 8 * v29[v104];
+        v46 = 2 * v30[v114];
+        v47 = 2 * v30[v104];
+        v48 = &v105[v26];
         do
         {
           if (v42 >= 1)
           {
             v49 = 0;
-            v50 = *&v28[4 * v31];
-            v51 = 8 * *(v29 + 8 * v31);
-            v52 = 2 * *(v30 + 8 * v31);
+            v50 = v28[v31];
+            v51 = 8 * v29[v31];
+            v52 = 2 * v30[v31];
             v53 = v43;
             v54 = v48;
             do
@@ -6652,23 +6226,23 @@ LABEL_63:
         while (v41 != v40);
       }
 
-      if (v111)
+      if (v110)
       {
         break;
       }
 
-      v21 = v115;
-      v66 = v116;
-      v67 = v108;
-      v59 = v109;
-      if (v109)
+      v21 = v114;
+      v66 = v115;
+      v67 = v107;
+      v59 = v108;
+      if (v108)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
-      v25 = v66 + v110;
-      if (v25 >= v112)
+      v25 = v66 + v109;
+      if (v25 >= v111)
       {
         v81 = __p;
         if (__p)
@@ -6680,24 +6254,24 @@ LABEL_60:
       }
     }
 
-    v58 = *v114;
-    v21 = v115;
-    v59 = v109;
-    if (v111 >= 2 && (v60 = v102, v58 == *v102 - 1))
+    v58 = *v113;
+    v21 = v114;
+    v59 = v108;
+    if (v110 >= 2 && (v60 = v101, v58 == *v101 - 1))
     {
-      v62 = v99;
-      v61 = v100;
-      v63 = v97;
-      v64 = v114;
-      v65 = v104;
-      v66 = v116;
-      v67 = v108;
+      v62 = v98;
+      v61 = v99;
+      v63 = v96;
+      v64 = v113;
+      v65 = v103;
+      v66 = v115;
+      v67 = v107;
       do
       {
         v68 = v62;
         *v64 = 0;
         v26 = (v26 - v27[v65] * (*v60 - 1));
-        v128 = v26;
+        v127 = v26;
         --v62;
         v64 = &v61[v38 - 8];
         v58 = *v64;
@@ -6719,36 +6293,36 @@ LABEL_60:
 
     else
     {
-      v62 = v104;
-      v70 = v114;
-      v66 = v116;
-      v67 = v108;
+      v62 = v103;
+      v70 = v113;
+      v66 = v115;
+      v67 = v107;
     }
 
     *v70 = v58 + 1;
     v26 = (v26 + v27[v62]);
-    v128 = v26;
-    if (!v109)
+    v127 = v26;
+    if (!v108)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v71 = *v113;
+    v71 = *v112;
     if (v59 >= 2 && v71 == *v67 - 1)
     {
       v72 = __p;
-      v73 = v96;
-      v74 = v98;
+      v73 = v95;
+      v74 = v97;
       v75 = v67;
-      v76 = v113;
-      v77 = v103;
+      v76 = v112;
+      v77 = v102;
       do
       {
         v78 = v74;
         *v76 = 0;
         v34 -= v35[v77] * (*v75 - 1);
-        v117 = v34;
+        v116 = v34;
         --v74;
         v76 = &v72[v39 - 8];
         v71 = *v76;
@@ -6770,13 +6344,13 @@ LABEL_52:
 
     else
     {
-      v74 = v103;
-      v80 = v113;
+      v74 = v102;
+      v80 = v112;
     }
 
     *v80 = v71 + 1;
     v34 += v35[v74];
-    v117 = v34;
+    v116 = v34;
     goto LABEL_60;
   }
 
@@ -6792,16 +6366,16 @@ LABEL_52:
 
   if (v17 == 2)
   {
-    v82 = *v124;
-    if (*v124 >= 1)
+    v82 = *v123;
+    if (*v123 >= 1)
     {
       v83 = 0;
-      v84 = v126[3];
+      v84 = v125[3];
       v85 = *v84;
       v86 = v84[1];
-      v87 = 8 * **v126;
-      v88 = 8 * *(*v126 + 8);
-      v89 = *(v124 + 1);
+      v87 = 8 * **v125;
+      v88 = 8 * (*v125)[1];
+      v89 = *(v123 + 1);
       v90 = 2 * v85;
       v91 = 2 * v86;
       do
@@ -6833,11 +6407,11 @@ LABEL_52:
 
   else if (v17 == 1)
   {
-    v18 = *v124;
-    if (*v124 >= 1)
+    v18 = *v123;
+    if (*v123 >= 1)
     {
-      v19 = *v126[3];
-      v20 = 8 * **v126;
+      v19 = *v125[3];
+      v20 = 8 * **v125;
       do
       {
         *v13 = *v12;
@@ -6851,16 +6425,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v128 = &v126;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
-  if (v124)
+  v127 = &v125;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  if (v123)
   {
-    v125 = v124;
-    operator delete(v124);
+    v124 = v123;
+    operator delete(v123);
   }
-
-LABEL_83:
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3D1C3C(_Unwind_Exception *a1)
@@ -6870,9 +6441,9 @@ void sub_25A3D1C3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,int>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,int>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -6895,40 +6466,40 @@ void mlx::core::anonymous namespace::copy_general_general<double,int>(uint64_t a
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_83;
+    return;
   }
 
-  v110 = *(*a1 + 48);
+  v109 = *(*a1 + 48);
+  v125 = 0;
   v126 = 0;
   v127 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v125, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v128 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v126, *a4, a4[1], (a4[1] - *a4) >> 3);
   v129 = 0;
   v130 = 0;
-  v131 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v129, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v115, &v126, &v132, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v115, 0x7FFFFFFFuLL, &v122);
-  v125 = &v115;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v114, &v125, &v131, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v114, 0x7FFFFFFFuLL, &v121);
+  v124 = &v114;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v124);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v129 + i);
+    v16 = *(&v128 + i);
     if (v16)
     {
-      *(&v130 + i) = v16;
+      *(&v129 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = v122;
-  v18 = (v123 - v122) >> 2;
+  v17 = v121;
+  v18 = (v122 - v121) >> 2;
   if (v18 > 2)
   {
     if (v11)
@@ -6942,117 +6513,116 @@ void mlx::core::anonymous namespace::copy_general_general<double,int>(uint64_t a
     }
 
     v22 = v18 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v126, &v122, v124, v18 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v115, &v122, v124 + 3, v18 - 3);
-    v23 = v123 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v121, v123, v18 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v114, &v121, v123 + 3, v18 - 3);
+    v23 = v122 - 3;
     v24 = 1;
     do
     {
-      v25 = *v23;
-      v23 += 4;
+      v25 = *v23++;
       v24 *= v25;
     }
 
-    while (v23 != v123);
-    if (!v110)
+    while (v23 != v122);
+    if (!v109)
     {
-      v82 = v120;
-      if (v120)
+      v82 = v119;
+      if (v119)
       {
 LABEL_62:
-        v121 = v82;
+        v120 = v82;
         operator delete(v82);
       }
 
 LABEL_63:
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v116)
+      if (v115)
       {
-        v117 = v116;
-        operator delete(v116);
+        v116 = v115;
+        operator delete(v115);
       }
 
-      if (v133)
+      if (v132)
       {
-        v134 = v133;
-        operator delete(v133);
+        v133 = v132;
+        operator delete(v132);
       }
 
-      if (v130)
+      if (v129)
       {
-        v131 = v130;
-        operator delete(v130);
+        v130 = v129;
+        operator delete(v129);
       }
 
-      if (v127)
+      if (v126)
       {
-        v128 = v127;
-        operator delete(v127);
+        v127 = v126;
+        operator delete(v126);
       }
 
       goto LABEL_81;
     }
 
-    v104 = v12;
-    v105 = v13;
+    v103 = v12;
+    v104 = v13;
     v26 = 0;
-    v27 = v126;
-    v28 = v130;
-    v29 = v122;
-    v30 = *v124;
-    v31 = v124[3];
+    v27 = v125;
+    v28 = v129;
+    v29 = v121;
+    v30 = *v123;
+    v31 = v123[3];
     v32 = v18 - 2;
     v33 = v18 - 1;
-    v34 = (((v128 - v127) << 30) - 0x100000000) >> 32;
-    v99 = v133;
-    v112 = &v133[4 * v34];
-    v103 = v34;
-    v101 = &v127[4 * v34];
-    v35 = ((v128 - v127) >> 2) & 0x7FFFFFFF;
-    v98 = v35 - 1;
-    v36 = v115;
-    v37 = v118;
-    v38 = (((v117 - v116) << 30) - 0x100000000) >> 32;
-    __p = v120;
-    v111 = &v120[4 * v38];
-    v39 = ((v117 - v116) >> 2) & 0x7FFFFFFF;
-    v97 = v39 - 1;
-    v108 = v24;
-    v109 = (v128 - v127) >> 2;
+    v34 = (((v127 - v126) << 30) - 0x100000000) >> 32;
+    v98 = v132;
+    v111 = &v132[4 * v34];
+    v102 = v34;
+    v100 = &v126[4 * v34];
+    v35 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
+    v97 = v35 - 1;
+    v36 = v114;
+    v37 = v117;
+    v38 = (((v116 - v115) << 30) - 0x100000000) >> 32;
+    __p = v119;
+    v110 = &v119[4 * v38];
+    v39 = ((v116 - v115) >> 2) & 0x7FFFFFFF;
+    v96 = v39 - 1;
+    v107 = v24;
+    v108 = (v127 - v126) >> 2;
     v40 = 4 * v35;
     v41 = 4 * v39;
-    v95 = v116 - 8;
-    v96 = v127 - 8;
-    v102 = v38;
-    v113 = v18 - 3;
-    v106 = v116 + 4 * v38;
-    v107 = (v117 - v116) >> 2;
+    v94 = v115 - 8;
+    v95 = v126 - 8;
+    v101 = v38;
+    v112 = v18 - 3;
+    v105 = v115 + 4 * v38;
+    v106 = (v116 - v115) >> 2;
     while (1)
     {
-      v114 = v26;
+      v113 = v26;
       v42 = v29[v22];
       if (v42 >= 1)
       {
         v43 = 0;
-        v44 = &v105[v36];
-        v45 = &v104[v27];
-        v46 = 8 * *(v30 + 8 * v113);
-        v47 = 8 * *(v30 + 8 * v32);
-        v48 = 4 * *(v31 + 8 * v113);
-        v49 = 4 * *(v31 + 8 * v32);
+        v44 = &v104[v36];
+        v45 = &v103[v27];
+        v46 = 8 * v30[v112];
+        v47 = 8 * v30[v32];
+        v48 = 4 * v31[v112];
+        v49 = 4 * v31[v32];
         do
         {
           v50 = v29[v32];
           if (v50 >= 1)
           {
             v51 = 0;
-            v52 = 8 * *(v30 + 8 * v33);
-            v53 = 4 * *(v31 + 8 * v33);
+            v52 = 8 * v30[v33];
+            v53 = 4 * v31[v33];
             v54 = v44;
             v55 = v45;
             do
@@ -7089,23 +6659,23 @@ LABEL_63:
         while (v43 != v42);
       }
 
-      if (v109)
+      if (v108)
       {
         break;
       }
 
-      v22 = v113;
-      v67 = v114;
-      v68 = v106;
-      v60 = v107;
-      if (v107)
+      v22 = v112;
+      v67 = v113;
+      v68 = v105;
+      v60 = v106;
+      if (v106)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
-      v26 = v67 + v108;
-      if (v26 >= v110)
+      v26 = v67 + v107;
+      if (v26 >= v109)
       {
         v82 = __p;
         if (__p)
@@ -7117,24 +6687,24 @@ LABEL_60:
       }
     }
 
-    v59 = *v112;
-    v22 = v113;
-    v60 = v107;
-    if (v109 >= 2 && (v61 = v101, v59 == *v101 - 1))
+    v59 = *v111;
+    v22 = v112;
+    v60 = v106;
+    if (v108 >= 2 && (v61 = v100, v59 == *v100 - 1))
     {
-      v62 = v98;
-      v63 = v99;
-      v64 = v96;
-      v65 = v112;
-      v66 = v103;
-      v67 = v114;
-      v68 = v106;
+      v62 = v97;
+      v63 = v98;
+      v64 = v95;
+      v65 = v111;
+      v66 = v102;
+      v67 = v113;
+      v68 = v105;
       do
       {
         v69 = v62;
         *v65 = 0;
         v27 = (v27 - v28[v66] * (*v61 - 1));
-        v126 = v27;
+        v125 = v27;
         --v62;
         v65 = &v63[v40 - 8];
         v59 = *v65;
@@ -7156,36 +6726,36 @@ LABEL_60:
 
     else
     {
-      v62 = v103;
-      v71 = v112;
-      v67 = v114;
-      v68 = v106;
+      v62 = v102;
+      v71 = v111;
+      v67 = v113;
+      v68 = v105;
     }
 
     *v71 = v59 + 1;
     v27 = (v27 + v28[v62]);
-    v126 = v27;
-    if (!v107)
+    v125 = v27;
+    if (!v106)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v72 = *v111;
+    v72 = *v110;
     if (v60 >= 2 && v72 == *v68 - 1)
     {
       v73 = __p;
-      v74 = v95;
-      v75 = v97;
+      v74 = v94;
+      v75 = v96;
       v76 = v68;
-      v77 = v111;
-      v78 = v102;
+      v77 = v110;
+      v78 = v101;
       do
       {
         v79 = v75;
         *v77 = 0;
         v36 -= v37[v78] * (*v76 - 1);
-        v115 = v36;
+        v114 = v36;
         --v75;
         v77 = &v73[v41 - 8];
         v72 = *v77;
@@ -7207,13 +6777,13 @@ LABEL_52:
 
     else
     {
-      v75 = v102;
-      v81 = v111;
+      v75 = v101;
+      v81 = v110;
     }
 
     *v81 = v72 + 1;
     v36 += v37[v75];
-    v115 = v36;
+    v114 = v36;
     goto LABEL_60;
   }
 
@@ -7229,13 +6799,13 @@ LABEL_52:
 
   if (v18 == 2)
   {
-    v83 = *v122;
-    if (*v122 >= 1)
+    v83 = *v121;
+    if (*v121 >= 1)
     {
       v84 = 0;
-      v85 = v124[3];
-      v86 = 8 * **v124;
-      v87 = 8 * *(*v124 + 8);
+      v85 = v123[3];
+      v86 = 8 * **v123;
+      v87 = 8 * (*v123)[1];
       v88 = v85[1];
       v89 = 4 * *v85;
       v90 = 4 * v88;
@@ -7268,11 +6838,11 @@ LABEL_52:
 
   else if (v18 == 1)
   {
-    v19 = *v122;
-    if (*v122 >= 1)
+    v19 = *v121;
+    if (*v121 >= 1)
     {
-      v20 = *v124[3];
-      v21 = 8 * **v124;
+      v20 = *v123[3];
+      v21 = 8 * **v123;
       do
       {
         *v13 = *v12;
@@ -7286,16 +6856,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v126 = &v124;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
-  if (v122)
+  v125 = &v123;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  if (v121)
   {
-    v123 = v122;
-    operator delete(v122);
+    v122 = v121;
+    operator delete(v121);
   }
-
-LABEL_83:
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3D2394(_Unwind_Exception *a1)
@@ -7305,9 +6872,9 @@ void sub_25A3D2394(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -7330,39 +6897,39 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_82;
+    return;
   }
 
-  v101 = *(*a1 + 48);
+  v100 = *(*a1 + 48);
+  v117 = 0;
   v118 = 0;
   v119 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v117, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v120 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v118, *a4, a4[1], (a4[1] - *a4) >> 3);
   v121 = 0;
   v122 = 0;
-  v123 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v121, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v120, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v106 = 0;
   v107 = 0;
   v108 = 0;
-  v109 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v107, &v118, &v124, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v107, 0x7FFFFFFFuLL, &v114);
-  v117 = &v107;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v117);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v106, &v117, &v123, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v106, 0x7FFFFFFFuLL, &v113);
+  v116 = &v106;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v116);
   for (i = 0; i != -6; i -= 3)
   {
-    v16 = *(&v121 + i * 8);
+    v16 = *(&v120 + i * 8);
     if (v16)
     {
-      (&v122)[i] = v16;
+      (&v121)[i] = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v115 - v114) >> 2;
+  v17 = (v114 - v113) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -7376,9 +6943,9 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
     }
 
     v21 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v118, &v114, v116, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v107, &v114, v116 + 3, v17 - 3);
-    v22 = v115 - 3;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v113, v115, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v106, &v113, v115 + 3, v17 - 3);
+    v22 = v114 - 3;
     v23 = 1;
     do
     {
@@ -7386,55 +6953,55 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
       v23 *= v24;
     }
 
-    while (v22 != v115);
-    if (v101)
+    while (v22 != v114);
+    if (v100)
     {
-      v98 = v13;
+      v97 = v13;
       v25 = 0;
-      v105 = (v120 - v119) >> 2;
-      v26 = v114;
-      v27 = *v116;
-      v28 = v116[3];
+      v104 = (v119 - v118) >> 2;
+      v26 = v113;
+      v27 = *v115;
+      v28 = v115[3];
       v29 = v17 - 2;
       v30 = v17 - 1;
-      v31 = (((v120 - v119) << 30) - 0x100000000) >> 32;
-      v32 = v122;
-      v93 = v125;
-      v96 = v31;
-      v97 = &v119[4 * v31];
-      v103 = &v125[4 * v31];
-      v104 = (v109 - v108) >> 2;
-      v33 = v110;
-      __p = v112;
-      v95 = (((v109 - v108) << 30) - 0x100000000) >> 32;
-      v102 = &v112[4 * v95];
-      v34 = 4 * (v105 & 0x7FFFFFFF);
-      v92 = v119 - 8;
-      v35 = 4 * (v104 & 0x7FFFFFFF);
-      v91 = v108 - 8;
-      v99 = v108 + 4 * v95;
-      v100 = v23;
+      v31 = (((v119 - v118) << 30) - 0x100000000) >> 32;
+      v32 = v121;
+      v92 = v124;
+      v95 = v31;
+      v96 = &v118[4 * v31];
+      v102 = &v124[4 * v31];
+      v103 = (v108 - v107) >> 2;
+      v33 = v109;
+      __p = v111;
+      v94 = (((v108 - v107) << 30) - 0x100000000) >> 32;
+      v101 = &v111[4 * v94];
+      v34 = 4 * (v104 & 0x7FFFFFFF);
+      v91 = v118 - 8;
+      v35 = 4 * (v103 & 0x7FFFFFFF);
+      v90 = v107 - 8;
+      v98 = v107 + 4 * v94;
+      v99 = v23;
       do
       {
-        v106 = v25;
+        v105 = v25;
         v36 = v21;
         v37 = v26[v21];
         if (v37 >= 1)
         {
           v38 = 0;
-          v39 = &v98[v107];
-          v40 = &v12[v118];
+          v39 = &v97[v106];
+          v40 = &v12[v117];
           v41 = v26[v29];
-          v42 = 8 * *(v27 + 8 * v21);
-          v43 = 8 * *(v28 + 8 * v21);
+          v42 = 8 * v27[v21];
+          v43 = 8 * v28[v21];
           do
           {
             if (v41 >= 1)
             {
               v44 = 0;
               v45 = v26[v30];
-              v46 = 8 * *(v27 + 8 * v29);
-              v47 = 8 * *(v28 + 8 * v29);
+              v46 = 8 * v27[v29];
+              v47 = 8 * v28[v29];
               v48 = v39;
               v49 = v40;
               do
@@ -7443,8 +7010,8 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
                 {
                   v50 = 0;
                   v51 = 0;
-                  v52 = 8 * *(v27 + 8 * v30);
-                  v53 = 8 * *(v28 + 8 * v30);
+                  v52 = 8 * v27[v30];
+                  v53 = 8 * v28[v30];
                   v54 = v45;
                   do
                   {
@@ -7474,24 +7041,24 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
         }
 
         v21 = v36;
-        if (v105)
+        if (v104)
         {
-          v55 = *v103;
-          v56 = v118;
-          v57 = v97;
-          if (v105 >= 2 && v55 == *v97 - 1)
+          v55 = *v102;
+          v56 = v117;
+          v57 = v96;
+          if (v104 >= 2 && v55 == *v96 - 1)
           {
-            v59 = (v105 & 0x7FFFFFFF) - 1;
-            v58 = v93;
-            v60 = v92;
-            v61 = v103;
-            v62 = v96;
+            v59 = (v104 & 0x7FFFFFFF) - 1;
+            v58 = v92;
+            v60 = v91;
+            v61 = v102;
+            v62 = v95;
             do
             {
               v63 = v59;
               *v61 = 0;
               v56 = (v56 - v32[v62] * (*v57 - 1));
-              v118 = v56;
+              v117 = v56;
               --v59;
               v61 = &v58[v34 - 8];
               v55 = *v61;
@@ -7502,7 +7069,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
               }
 
               v57 = &v60[v34];
-              v64 = *&v60[4 * (v105 & 0x7FFFFFFF)] - 1;
+              v64 = *&v60[4 * (v104 & 0x7FFFFFFF)] - 1;
               v60 -= 4;
               v62 = v59;
             }
@@ -7513,32 +7080,32 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
 
           else
           {
-            v59 = v96;
-            v65 = v103;
+            v59 = v95;
+            v65 = v102;
           }
 
           *v65 = v55 + 1;
-          v118 = (v56 + v32[v59]);
+          v117 = (v56 + v32[v59]);
         }
 
-        if (v104)
+        if (v103)
         {
-          v66 = *v102;
-          v67 = v107;
-          if (v104 >= 2 && v66 == *v99 - 1)
+          v66 = *v101;
+          v67 = v106;
+          if (v103 >= 2 && v66 == *v98 - 1)
           {
             v68 = __p;
-            v69 = v95;
-            v70 = v91;
-            v71 = (v104 & 0x7FFFFFFF) - 1;
-            v72 = v99;
-            v73 = v102;
+            v69 = v94;
+            v70 = v90;
+            v71 = (v103 & 0x7FFFFFFF) - 1;
+            v72 = v98;
+            v73 = v101;
             do
             {
               v74 = v71;
               *v73 = 0;
               v67 -= v33[v69] * (*v72 - 1);
-              v107 = v67;
+              v106 = v67;
               --v71;
               v73 = &v68[v35 - 8];
               v66 = *v73;
@@ -7549,7 +7116,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
               }
 
               v72 = &v70[v35];
-              v75 = *&v70[4 * (v104 & 0x7FFFFFFF)] - 1;
+              v75 = *&v70[4 * (v103 & 0x7FFFFFFF)] - 1;
               v70 -= 4;
               v69 = v71;
             }
@@ -7560,18 +7127,18 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
 
           else
           {
-            v71 = v95;
-            v76 = v102;
+            v71 = v94;
+            v76 = v101;
           }
 
           *v76 = v66 + 1;
-          v107 = v33[v71] + v67;
+          v106 = v33[v71] + v67;
         }
 
-        v25 = v106 + v100;
+        v25 = v105 + v99;
       }
 
-      while (v106 + v100 < v101);
+      while (v105 + v99 < v100);
       v77 = __p;
       if (!__p)
       {
@@ -7581,44 +7148,44 @@ void mlx::core::anonymous namespace::copy_general_general<double,long long>(uint
 
     else
     {
-      v77 = v112;
-      if (!v112)
+      v77 = v111;
+      if (!v111)
       {
         goto LABEL_62;
       }
     }
 
-    v113 = v77;
+    v112 = v77;
     operator delete(v77);
 LABEL_62:
-    if (v110)
+    if (v109)
     {
-      v111 = v110;
-      operator delete(v110);
+      v110 = v109;
+      operator delete(v109);
     }
 
-    if (v108)
+    if (v107)
     {
-      v109 = v108;
-      operator delete(v108);
+      v108 = v107;
+      operator delete(v107);
     }
 
-    if (v125)
+    if (v124)
     {
-      v126 = v125;
-      operator delete(v125);
+      v125 = v124;
+      operator delete(v124);
     }
 
-    if (v122)
+    if (v121)
     {
-      v123 = v122;
-      operator delete(v122);
+      v122 = v121;
+      operator delete(v121);
     }
 
-    if (v119)
+    if (v118)
     {
-      v120 = v119;
-      operator delete(v119);
+      v119 = v118;
+      operator delete(v118);
     }
 
     goto LABEL_80;
@@ -7636,20 +7203,20 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v78 = *v114;
-    if (*v114 >= 1)
+    v78 = *v113;
+    if (*v113 >= 1)
     {
       v79 = 0;
-      v80 = *v116;
-      v81 = v116[3];
-      v82 = *(v114 + 1);
-      v83 = 8 * **v116;
+      v80 = *v115;
+      v81 = v115[3];
+      v82 = *(v113 + 1);
+      v83 = 8 * **v115;
       v84 = 8 * *v81;
       do
       {
         if (v82 >= 1)
         {
-          v85 = 8 * *(v80 + 8);
+          v85 = 8 * v80[1];
           v86 = 8 * v81[1];
           v87 = v13;
           v88 = v12;
@@ -7676,11 +7243,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v114;
-    if (*v114 >= 1)
+    v18 = *v113;
+    if (*v113 >= 1)
     {
-      v19 = *v116[3];
-      v20 = 8 * **v116;
+      v19 = *v115[3];
+      v20 = 8 * **v115;
       do
       {
         *v13 = *v12;
@@ -7694,28 +7261,26 @@ LABEL_62:
   }
 
 LABEL_80:
-  v118 = &v116;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v118);
-  if (v114)
+  v117 = &v115;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v117);
+  if (v113)
   {
-    v115 = v114;
-    operator delete(v114);
+    v114 = v113;
+    operator delete(v113);
   }
-
-LABEL_82:
-  v90 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A3D2ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_25A3D2ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator((v38 - 176));
-  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a38);
+  va_start(va, a37);
+  mlx::core::ContiguousIterator::~ContiguousIterator((v37 - 176));
+  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,half>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,half>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -7738,42 +7303,42 @@ void mlx::core::anonymous namespace::copy_general_general<double,half>(uint64_t 
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     _D0 = *v12;
     __asm { FCVT            H0, D0 }
 
     *v13 = _D0;
-    goto LABEL_85;
+    return;
   }
 
-  v121 = *(*a1 + 48);
+  v120 = *(*a1 + 48);
+  v135 = 0;
   v136 = 0;
   v137 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v135, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v138 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v136, *a4, a4[1], (a4[1] - *a4) >> 3);
   v139 = 0;
   v140 = 0;
-  v141 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v139, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v138, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v124 = 0;
   v125 = 0;
   v126 = 0;
-  v127 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v125, &v136, &v142, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v125, 0x7FFFFFFFuLL, &v132);
-  v135 = &v125;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v135);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v124, &v135, &v141, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v124, 0x7FFFFFFFuLL, &v131);
+  v134 = &v124;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v134);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v139 + i);
+    v16 = *(&v138 + i);
     if (v16)
     {
-      *(&v140 + i) = v16;
+      *(&v139 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v133 - v132) >> 2;
+  v17 = (v132 - v131) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -7787,118 +7352,117 @@ void mlx::core::anonymous namespace::copy_general_general<double,half>(uint64_t 
     }
 
     v27 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v136, &v132, v134, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v132, v134 + 3, v17 - 3);
-    v28 = v133 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v135, &v131, v133, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v124, &v131, v133 + 3, v17 - 3);
+    v28 = v132 - 3;
     v29 = 1;
     do
     {
-      v30 = *v28;
-      v28 += 4;
+      v30 = *v28++;
       v29 *= v30;
     }
 
-    while (v28 != v133);
-    if (!v121)
+    while (v28 != v132);
+    if (!v120)
     {
-      v89 = v130;
-      if (v130)
+      v89 = v129;
+      if (v129)
       {
 LABEL_64:
-        v131 = v89;
+        v130 = v89;
         operator delete(v89);
       }
 
 LABEL_65:
-      if (v128)
+      if (v127)
       {
-        v129 = v128;
-        operator delete(v128);
+        v128 = v127;
+        operator delete(v127);
       }
 
-      if (v126)
+      if (v125)
       {
-        v127 = v126;
-        operator delete(v126);
+        v126 = v125;
+        operator delete(v125);
       }
 
-      if (v143)
+      if (v142)
       {
-        v144 = v143;
-        operator delete(v143);
+        v143 = v142;
+        operator delete(v142);
       }
 
-      if (v140)
+      if (v139)
       {
-        v141 = v140;
-        operator delete(v140);
+        v140 = v139;
+        operator delete(v139);
       }
 
-      if (v137)
+      if (v136)
       {
-        v138 = v137;
-        operator delete(v137);
+        v137 = v136;
+        operator delete(v136);
       }
 
       goto LABEL_83;
     }
 
-    v115 = v12;
-    v116 = v13;
+    v114 = v12;
+    v115 = v13;
     v31 = 0;
-    v32 = v136;
-    v33 = v140;
-    v34 = v132;
-    v35 = *v134;
-    v36 = v134[3];
-    v114 = v17 - 2;
+    v32 = v135;
+    v33 = v139;
+    v34 = v131;
+    v35 = *v133;
+    v36 = v133[3];
+    v113 = v17 - 2;
     v37 = v17 - 1;
-    v38 = (((v138 - v137) << 30) - 0x100000000) >> 32;
-    v109 = v143;
-    v113 = v38;
-    v111 = &v137[4 * v38];
-    v39 = ((v138 - v137) >> 2) & 0x7FFFFFFF;
-    v108 = v39 - 1;
-    v40 = v125;
-    v41 = v128;
-    v42 = (((v127 - v126) << 30) - 0x100000000) >> 32;
-    __p = v130;
-    v122 = &v130[4 * v42];
-    v123 = &v143[4 * v38];
-    v43 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
-    v119 = v29;
-    v120 = (v138 - v137) >> 2;
+    v38 = (((v137 - v136) << 30) - 0x100000000) >> 32;
+    v108 = v142;
+    v112 = v38;
+    v110 = &v136[4 * v38];
+    v39 = ((v137 - v136) >> 2) & 0x7FFFFFFF;
+    v107 = v39 - 1;
+    v40 = v124;
+    v41 = v127;
+    v42 = (((v126 - v125) << 30) - 0x100000000) >> 32;
+    __p = v129;
+    v121 = &v129[4 * v42];
+    v122 = &v142[4 * v38];
+    v43 = ((v126 - v125) >> 2) & 0x7FFFFFFF;
+    v118 = v29;
+    v119 = (v137 - v136) >> 2;
     v44 = 4 * v39;
-    v106 = v137 - 8;
-    v107 = v43 - 1;
+    v105 = v136 - 8;
+    v106 = v43 - 1;
     v45 = 4 * v43;
-    v105 = v126 - 8;
-    v112 = v42;
-    v117 = v126 + 4 * v42;
-    v118 = (v127 - v126) >> 2;
+    v104 = v125 - 8;
+    v111 = v42;
+    v116 = v125 + 4 * v42;
+    v117 = (v126 - v125) >> 2;
     while (1)
     {
-      v124 = v31;
+      v123 = v31;
       v46 = v27;
-      v47 = *&v34[4 * v27];
+      v47 = v34[v27];
       if (v47 >= 1)
       {
         v48 = 0;
-        v49 = *&v34[4 * v114];
-        v50 = &v116[v40];
-        v51 = 8 * *(v35 + 8 * v27);
-        v52 = 8 * *(v35 + 8 * v114);
-        v53 = 2 * *(v36 + 8 * v27);
-        v54 = 2 * *(v36 + 8 * v114);
-        v55 = &v115[v32];
+        v49 = v34[v113];
+        v50 = &v115[v40];
+        v51 = 8 * v35[v27];
+        v52 = 8 * v35[v113];
+        v53 = 2 * v36[v27];
+        v54 = 2 * v36[v113];
+        v55 = &v114[v32];
         do
         {
           if (v49 >= 1)
           {
             v56 = 0;
-            v57 = *&v34[4 * v37];
-            v58 = 8 * *(v35 + 8 * v37);
-            v59 = 2 * *(v36 + 8 * v37);
+            v57 = v34[v37];
+            v58 = 8 * v35[v37];
+            v59 = 2 * v36[v37];
             v60 = v50;
             v61 = v55;
             do
@@ -7938,13 +7502,13 @@ LABEL_65:
         while (v48 != v47);
       }
 
-      if (!v120)
+      if (!v119)
       {
         v27 = v46;
-        v69 = v124;
-        v75 = v117;
-        v67 = v118;
-        if (v118)
+        v69 = v123;
+        v75 = v116;
+        v67 = v117;
+        if (v117)
         {
           goto LABEL_54;
         }
@@ -7952,37 +7516,37 @@ LABEL_65:
         goto LABEL_62;
       }
 
-      v66 = *v123;
+      v66 = *v122;
       v27 = v46;
-      v67 = v118;
-      if (v120 < 2)
+      v67 = v117;
+      if (v119 < 2)
       {
         break;
       }
 
-      v68 = v111;
-      v69 = v124;
-      if (v66 != *v111 - 1)
+      v68 = v110;
+      v69 = v123;
+      if (v66 != *v110 - 1)
       {
-        v71 = v113;
-        v78 = v123;
+        v71 = v112;
+        v78 = v122;
 LABEL_52:
-        v75 = v117;
+        v75 = v116;
         goto LABEL_53;
       }
 
-      v71 = v108;
-      v70 = v109;
-      v72 = v106;
-      v73 = v123;
-      v74 = v113;
-      v75 = v117;
+      v71 = v107;
+      v70 = v108;
+      v72 = v105;
+      v73 = v122;
+      v74 = v112;
+      v75 = v116;
       do
       {
         v76 = v71;
         *v73 = 0;
         v32 = (v32 - v33[v74] * (*v68 - 1));
-        v136 = v32;
+        v135 = v32;
         --v71;
         v73 = &v70[v44 - 8];
         v66 = *v73;
@@ -8003,25 +7567,25 @@ LABEL_52:
 LABEL_53:
       *v78 = v66 + 1;
       v32 = (v32 + v33[v71]);
-      v136 = v32;
-      if (v118)
+      v135 = v32;
+      if (v117)
       {
 LABEL_54:
-        v79 = *v122;
+        v79 = *v121;
         if (v67 >= 2 && v79 == *v75 - 1)
         {
           v80 = __p;
-          v81 = v105;
-          v82 = v107;
+          v81 = v104;
+          v82 = v106;
           v83 = v75;
-          v84 = v122;
-          v85 = v112;
+          v84 = v121;
+          v85 = v111;
           do
           {
             v86 = v82;
             *v84 = 0;
             v40 -= v41[v85] * (*v83 - 1);
-            v125 = v40;
+            v124 = v40;
             --v82;
             v84 = &v80[v45 - 8];
             v79 = *v84;
@@ -8043,18 +7607,18 @@ LABEL_54:
 
         else
         {
-          v82 = v112;
-          v88 = v122;
+          v82 = v111;
+          v88 = v121;
         }
 
         *v88 = v79 + 1;
         v40 += v41[v82];
-        v125 = v40;
+        v124 = v40;
       }
 
 LABEL_62:
-      v31 = v69 + v119;
-      if (v31 >= v121)
+      v31 = v69 + v118;
+      if (v31 >= v120)
       {
         v89 = __p;
         if (__p)
@@ -8066,9 +7630,9 @@ LABEL_62:
       }
     }
 
-    v71 = v113;
-    v78 = v123;
-    v69 = v124;
+    v71 = v112;
+    v78 = v122;
+    v69 = v123;
     goto LABEL_52;
   }
 
@@ -8084,16 +7648,16 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v90 = *v132;
-    if (*v132 >= 1)
+    v90 = *v131;
+    if (*v131 >= 1)
     {
       v91 = 0;
-      v92 = v134[3];
+      v92 = v133[3];
       v93 = *v92;
       v94 = v92[1];
-      v95 = 8 * **v134;
-      v96 = 8 * *(*v134 + 8);
-      v97 = *(v132 + 1);
+      v95 = 8 * **v133;
+      v96 = 8 * (*v133)[1];
+      v97 = *(v131 + 1);
       v98 = 2 * v93;
       v99 = 2 * v94;
       do
@@ -8128,11 +7692,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v132;
-    if (*v132 >= 1)
+    v18 = *v131;
+    if (*v131 >= 1)
     {
-      v19 = *v134[3];
-      v20 = 8 * **v134;
+      v19 = *v133[3];
+      v20 = 8 * **v133;
       do
       {
         _D0 = *v12;
@@ -8149,16 +7713,13 @@ LABEL_62:
   }
 
 LABEL_83:
-  v136 = &v134;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v136);
-  if (v132)
+  v135 = &v133;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v135);
+  if (v131)
   {
-    v133 = v132;
-    operator delete(v132);
+    v132 = v131;
+    operator delete(v131);
   }
-
-LABEL_85:
-  v104 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3D3244(_Unwind_Exception *a1)
@@ -8168,9 +7729,9 @@ void sub_25A3D3244(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,float>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,float>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v141 = *MEMORY[0x277D85DE8];
+  v140 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -8193,40 +7754,40 @@ void mlx::core::anonymous namespace::copy_general_general<double,float>(uint64_t
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     v22 = *v12;
     *v13 = v22;
-    goto LABEL_85;
+    return;
   }
 
-  v117 = *(*a1 + 48);
+  v116 = *(*a1 + 48);
+  v131 = 0;
   v132 = 0;
   v133 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v134 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v132, *a4, a4[1], (a4[1] - *a4) >> 3);
   v135 = 0;
   v136 = 0;
-  v137 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v135, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v134, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v120 = 0;
   v121 = 0;
   v122 = 0;
-  v123 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v121, &v132, &v138, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v121, 0x7FFFFFFFuLL, &v128);
-  v131 = &v121;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v131);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v120, &v131, &v137, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v120, 0x7FFFFFFFuLL, &v127);
+  v130 = &v120;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v130);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v135 + i);
+    v16 = *(&v134 + i);
     if (v16)
     {
-      *(&v136 + i) = v16;
+      *(&v135 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v129 - v128) >> 2;
+  v17 = (v128 - v127) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -8240,118 +7801,117 @@ void mlx::core::anonymous namespace::copy_general_general<double,float>(uint64_t
     }
 
     v23 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v132, &v128, v130, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v121, &v128, v130 + 3, v17 - 3);
-    v24 = v129 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v131, &v127, v129, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v120, &v127, v129 + 3, v17 - 3);
+    v24 = v128 - 3;
     v25 = 1;
     do
     {
-      v26 = *v24;
-      v24 += 4;
+      v26 = *v24++;
       v25 *= v26;
     }
 
-    while (v24 != v129);
-    if (!v117)
+    while (v24 != v128);
+    if (!v116)
     {
-      v85 = v126;
-      if (v126)
+      v85 = v125;
+      if (v125)
       {
 LABEL_64:
-        v127 = v85;
+        v126 = v85;
         operator delete(v85);
       }
 
 LABEL_65:
-      if (v124)
+      if (v123)
       {
-        v125 = v124;
-        operator delete(v124);
+        v124 = v123;
+        operator delete(v123);
       }
 
-      if (v122)
+      if (v121)
       {
-        v123 = v122;
-        operator delete(v122);
+        v122 = v121;
+        operator delete(v121);
       }
 
-      if (v139)
+      if (v138)
       {
-        v140 = v139;
-        operator delete(v139);
+        v139 = v138;
+        operator delete(v138);
       }
 
-      if (v136)
+      if (v135)
       {
-        v137 = v136;
-        operator delete(v136);
+        v136 = v135;
+        operator delete(v135);
       }
 
-      if (v133)
+      if (v132)
       {
-        v134 = v133;
-        operator delete(v133);
+        v133 = v132;
+        operator delete(v132);
       }
 
       goto LABEL_83;
     }
 
-    v111 = v12;
-    v112 = v13;
+    v110 = v12;
+    v111 = v13;
     v27 = 0;
-    v28 = v132;
-    v29 = v136;
-    v30 = v128;
-    v31 = *v130;
-    v32 = v130[3];
-    v110 = v17 - 2;
+    v28 = v131;
+    v29 = v135;
+    v30 = v127;
+    v31 = *v129;
+    v32 = v129[3];
+    v109 = v17 - 2;
     v33 = v17 - 1;
-    v34 = (((v134 - v133) << 30) - 0x100000000) >> 32;
-    v105 = v139;
-    v109 = v34;
-    v107 = &v133[4 * v34];
-    v35 = ((v134 - v133) >> 2) & 0x7FFFFFFF;
-    v104 = v35 - 1;
-    v36 = v121;
-    v37 = v124;
-    v38 = (((v123 - v122) << 30) - 0x100000000) >> 32;
-    __p = v126;
-    v118 = &v126[4 * v38];
-    v119 = &v139[4 * v34];
-    v39 = ((v123 - v122) >> 2) & 0x7FFFFFFF;
-    v115 = v25;
-    v116 = (v134 - v133) >> 2;
+    v34 = (((v133 - v132) << 30) - 0x100000000) >> 32;
+    v104 = v138;
+    v108 = v34;
+    v106 = &v132[4 * v34];
+    v35 = ((v133 - v132) >> 2) & 0x7FFFFFFF;
+    v103 = v35 - 1;
+    v36 = v120;
+    v37 = v123;
+    v38 = (((v122 - v121) << 30) - 0x100000000) >> 32;
+    __p = v125;
+    v117 = &v125[4 * v38];
+    v118 = &v138[4 * v34];
+    v39 = ((v122 - v121) >> 2) & 0x7FFFFFFF;
+    v114 = v25;
+    v115 = (v133 - v132) >> 2;
     v40 = 4 * v35;
-    v102 = v133 - 8;
-    v103 = v39 - 1;
+    v101 = v132 - 8;
+    v102 = v39 - 1;
     v41 = 4 * v39;
-    v101 = v122 - 8;
-    v108 = v38;
-    v113 = v122 + 4 * v38;
-    v114 = (v123 - v122) >> 2;
+    v100 = v121 - 8;
+    v107 = v38;
+    v112 = v121 + 4 * v38;
+    v113 = (v122 - v121) >> 2;
     while (1)
     {
-      v120 = v27;
+      v119 = v27;
       v42 = v23;
-      v43 = *&v30[4 * v23];
+      v43 = v30[v23];
       if (v43 >= 1)
       {
         v44 = 0;
-        v45 = *&v30[4 * v110];
-        v46 = &v112[v36];
-        v47 = 8 * *(v31 + 8 * v23);
-        v48 = 8 * *(v31 + 8 * v110);
-        v49 = 4 * *(v32 + 8 * v23);
-        v50 = 4 * *(v32 + 8 * v110);
-        v51 = &v111[v28];
+        v45 = v30[v109];
+        v46 = &v111[v36];
+        v47 = 8 * v31[v23];
+        v48 = 8 * v31[v109];
+        v49 = 4 * v32[v23];
+        v50 = 4 * v32[v109];
+        v51 = &v110[v28];
         do
         {
           if (v45 >= 1)
           {
             v52 = 0;
-            v53 = *&v30[4 * v33];
-            v54 = 8 * *(v31 + 8 * v33);
-            v55 = 4 * *(v32 + 8 * v33);
+            v53 = v30[v33];
+            v54 = 8 * v31[v33];
+            v55 = 4 * v32[v33];
             v56 = v46;
             v57 = v51;
             do
@@ -8389,13 +7949,13 @@ LABEL_65:
         while (v44 != v43);
       }
 
-      if (!v116)
+      if (!v115)
       {
         v23 = v42;
-        v65 = v120;
-        v71 = v113;
-        v63 = v114;
-        if (v114)
+        v65 = v119;
+        v71 = v112;
+        v63 = v113;
+        if (v113)
         {
           goto LABEL_54;
         }
@@ -8403,37 +7963,37 @@ LABEL_65:
         goto LABEL_62;
       }
 
-      v62 = *v119;
+      v62 = *v118;
       v23 = v42;
-      v63 = v114;
-      if (v116 < 2)
+      v63 = v113;
+      if (v115 < 2)
       {
         break;
       }
 
-      v64 = v107;
-      v65 = v120;
-      if (v62 != *v107 - 1)
+      v64 = v106;
+      v65 = v119;
+      if (v62 != *v106 - 1)
       {
-        v67 = v109;
-        v74 = v119;
+        v67 = v108;
+        v74 = v118;
 LABEL_52:
-        v71 = v113;
+        v71 = v112;
         goto LABEL_53;
       }
 
-      v67 = v104;
-      v66 = v105;
-      v68 = v102;
-      v69 = v119;
-      v70 = v109;
-      v71 = v113;
+      v67 = v103;
+      v66 = v104;
+      v68 = v101;
+      v69 = v118;
+      v70 = v108;
+      v71 = v112;
       do
       {
         v72 = v67;
         *v69 = 0;
         v28 = (v28 - v29[v70] * (*v64 - 1));
-        v132 = v28;
+        v131 = v28;
         --v67;
         v69 = &v66[v40 - 8];
         v62 = *v69;
@@ -8454,25 +8014,25 @@ LABEL_52:
 LABEL_53:
       *v74 = v62 + 1;
       v28 = (v28 + v29[v67]);
-      v132 = v28;
-      if (v114)
+      v131 = v28;
+      if (v113)
       {
 LABEL_54:
-        v75 = *v118;
+        v75 = *v117;
         if (v63 >= 2 && v75 == *v71 - 1)
         {
           v76 = __p;
-          v77 = v101;
-          v78 = v103;
+          v77 = v100;
+          v78 = v102;
           v79 = v71;
-          v80 = v118;
-          v81 = v108;
+          v80 = v117;
+          v81 = v107;
           do
           {
             v82 = v78;
             *v80 = 0;
             v36 -= v37[v81] * (*v79 - 1);
-            v121 = v36;
+            v120 = v36;
             --v78;
             v80 = &v76[v41 - 8];
             v75 = *v80;
@@ -8494,18 +8054,18 @@ LABEL_54:
 
         else
         {
-          v78 = v108;
-          v84 = v118;
+          v78 = v107;
+          v84 = v117;
         }
 
         *v84 = v75 + 1;
         v36 += v37[v78];
-        v121 = v36;
+        v120 = v36;
       }
 
 LABEL_62:
-      v27 = v65 + v115;
-      if (v27 >= v117)
+      v27 = v65 + v114;
+      if (v27 >= v116)
       {
         v85 = __p;
         if (__p)
@@ -8517,9 +8077,9 @@ LABEL_62:
       }
     }
 
-    v67 = v109;
-    v74 = v119;
-    v65 = v120;
+    v67 = v108;
+    v74 = v118;
+    v65 = v119;
     goto LABEL_52;
   }
 
@@ -8535,16 +8095,16 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v86 = *v128;
-    if (*v128 >= 1)
+    v86 = *v127;
+    if (*v127 >= 1)
     {
       v87 = 0;
-      v88 = v130[3];
+      v88 = v129[3];
       v89 = *v88;
       v90 = v88[1];
-      v91 = 8 * **v130;
-      v92 = 8 * *(*v130 + 8);
-      v93 = *(v128 + 1);
+      v91 = 8 * **v129;
+      v92 = 8 * (*v129)[1];
+      v93 = *(v127 + 1);
       v94 = 4 * v89;
       v95 = 4 * v90;
       do
@@ -8577,11 +8137,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v128;
-    if (*v128 >= 1)
+    v18 = *v127;
+    if (*v127 >= 1)
     {
-      v19 = *v130[3];
-      v20 = 8 * **v130;
+      v19 = *v129[3];
+      v20 = 8 * **v129;
       do
       {
         v21 = *v12;
@@ -8596,16 +8156,13 @@ LABEL_62:
   }
 
 LABEL_83:
-  v132 = &v130;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v132);
-  if (v128)
+  v131 = &v129;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v131);
+  if (v127)
   {
-    v129 = v128;
-    operator delete(v128);
+    v128 = v127;
+    operator delete(v127);
   }
-
-LABEL_85:
-  v100 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3D39AC(_Unwind_Exception *a1)
@@ -8615,9 +8172,9 @@ void sub_25A3D39AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,double>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -8640,39 +8197,39 @@ void mlx::core::anonymous namespace::copy_general_general<double,double>(uint64_
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     *v13 = *v12;
-    goto LABEL_85;
+    return;
   }
 
-  v113 = *(*a1 + 48);
+  v112 = *(*a1 + 48);
+  v127 = 0;
   v128 = 0;
   v129 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v127, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v130 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a4, a4[1], (a4[1] - *a4) >> 3);
   v131 = 0;
   v132 = 0;
-  v133 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v131, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v130, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v116 = 0;
   v117 = 0;
   v118 = 0;
-  v119 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v117, &v128, &v134, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v117, 0x7FFFFFFFuLL, &v124);
-  v127 = &v117;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v116, &v127, &v133, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v116, 0x7FFFFFFFuLL, &v123);
+  v126 = &v116;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v126);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v131 + i);
+    v16 = *(&v130 + i);
     if (v16)
     {
-      *(&v132 + i) = v16;
+      *(&v131 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v125 - v124) >> 2;
+  v17 = (v124 - v123) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -8686,118 +8243,117 @@ void mlx::core::anonymous namespace::copy_general_general<double,double>(uint64_
     }
 
     v21 = (v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v128, &v124, v126, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v117, &v124, v126 + 3, v17 - 3);
-    v22 = v125 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v127, &v123, v125, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v116, &v123, v125 + 3, v17 - 3);
+    v22 = v124 - 3;
     v23 = 1;
     do
     {
-      v24 = *v22;
-      v22 += 4;
+      v24 = *v22++;
       v23 *= v24;
     }
 
-    while (v22 != v125);
-    if (!v113)
+    while (v22 != v124);
+    if (!v112)
     {
-      v82 = v122;
-      if (v122)
+      v82 = v121;
+      if (v121)
       {
 LABEL_64:
-        v123 = v82;
+        v122 = v82;
         operator delete(v82);
       }
 
 LABEL_65:
-      if (v120)
+      if (v119)
       {
-        v121 = v120;
-        operator delete(v120);
+        v120 = v119;
+        operator delete(v119);
       }
 
-      if (v118)
+      if (v117)
       {
-        v119 = v118;
-        operator delete(v118);
+        v118 = v117;
+        operator delete(v117);
       }
 
-      if (v135)
+      if (v134)
       {
-        v136 = v135;
-        operator delete(v135);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      if (v132)
+      if (v131)
       {
-        v133 = v132;
-        operator delete(v132);
+        v132 = v131;
+        operator delete(v131);
       }
 
-      if (v129)
+      if (v128)
       {
-        v130 = v129;
-        operator delete(v129);
+        v129 = v128;
+        operator delete(v128);
       }
 
       goto LABEL_83;
     }
 
-    v107 = v12;
-    v108 = v13;
+    v106 = v12;
+    v107 = v13;
     v25 = 0;
-    v26 = v128;
-    v27 = v132;
-    v28 = v124;
-    v29 = *v126;
-    v30 = v126[3];
-    v106 = v17 - 2;
+    v26 = v127;
+    v27 = v131;
+    v28 = v123;
+    v29 = *v125;
+    v30 = v125[3];
+    v105 = v17 - 2;
     v31 = v17 - 1;
-    v32 = (((v130 - v129) << 30) - 0x100000000) >> 32;
-    v101 = v135;
-    v105 = v32;
-    v103 = &v129[4 * v32];
-    v33 = ((v130 - v129) >> 2) & 0x7FFFFFFF;
-    v100 = v33 - 1;
-    v34 = v117;
-    v35 = v120;
-    v36 = (((v119 - v118) << 30) - 0x100000000) >> 32;
-    __p = v122;
-    v114 = &v122[4 * v36];
-    v115 = &v135[4 * v32];
-    v37 = ((v119 - v118) >> 2) & 0x7FFFFFFF;
-    v111 = v23;
-    v112 = (v130 - v129) >> 2;
+    v32 = (((v129 - v128) << 30) - 0x100000000) >> 32;
+    v100 = v134;
+    v104 = v32;
+    v102 = &v128[4 * v32];
+    v33 = ((v129 - v128) >> 2) & 0x7FFFFFFF;
+    v99 = v33 - 1;
+    v34 = v116;
+    v35 = v119;
+    v36 = (((v118 - v117) << 30) - 0x100000000) >> 32;
+    __p = v121;
+    v113 = &v121[4 * v36];
+    v114 = &v134[4 * v32];
+    v37 = ((v118 - v117) >> 2) & 0x7FFFFFFF;
+    v110 = v23;
+    v111 = (v129 - v128) >> 2;
     v38 = 4 * v33;
-    v98 = v129 - 8;
-    v99 = v37 - 1;
+    v97 = v128 - 8;
+    v98 = v37 - 1;
     v39 = 4 * v37;
-    v97 = v118 - 8;
-    v104 = v36;
-    v109 = v118 + 4 * v36;
-    v110 = (v119 - v118) >> 2;
+    v96 = v117 - 8;
+    v103 = v36;
+    v108 = v117 + 4 * v36;
+    v109 = (v118 - v117) >> 2;
     while (1)
     {
-      v116 = v25;
+      v115 = v25;
       v40 = v21;
-      v41 = *&v28[4 * v21];
+      v41 = v28[v21];
       if (v41 >= 1)
       {
         v42 = 0;
-        v43 = *&v28[4 * v106];
-        v44 = &v108[v34];
-        v45 = 8 * *(v29 + 8 * v21);
-        v46 = 8 * *(v29 + 8 * v106);
-        v47 = 8 * *(v30 + 8 * v21);
-        v48 = 8 * *(v30 + 8 * v106);
-        v49 = &v107[v26];
+        v43 = v28[v105];
+        v44 = &v107[v34];
+        v45 = 8 * v29[v21];
+        v46 = 8 * v29[v105];
+        v47 = 8 * v30[v21];
+        v48 = 8 * v30[v105];
+        v49 = &v106[v26];
         do
         {
           if (v43 >= 1)
           {
             v50 = 0;
-            v51 = *&v28[4 * v31];
-            v52 = 8 * *(v29 + 8 * v31);
-            v53 = 8 * *(v30 + 8 * v31);
+            v51 = v28[v31];
+            v52 = 8 * v29[v31];
+            v53 = 8 * v30[v31];
             v54 = v44;
             v55 = v49;
             do
@@ -8834,13 +8390,13 @@ LABEL_65:
         while (v42 != v41);
       }
 
-      if (!v112)
+      if (!v111)
       {
         v21 = v40;
-        v62 = v116;
-        v68 = v109;
-        v60 = v110;
-        if (v110)
+        v62 = v115;
+        v68 = v108;
+        v60 = v109;
+        if (v109)
         {
           goto LABEL_54;
         }
@@ -8848,37 +8404,37 @@ LABEL_65:
         goto LABEL_62;
       }
 
-      v59 = *v115;
+      v59 = *v114;
       v21 = v40;
-      v60 = v110;
-      if (v112 < 2)
+      v60 = v109;
+      if (v111 < 2)
       {
         break;
       }
 
-      v61 = v103;
-      v62 = v116;
-      if (v59 != *v103 - 1)
+      v61 = v102;
+      v62 = v115;
+      if (v59 != *v102 - 1)
       {
-        v64 = v105;
-        v71 = v115;
+        v64 = v104;
+        v71 = v114;
 LABEL_52:
-        v68 = v109;
+        v68 = v108;
         goto LABEL_53;
       }
 
-      v64 = v100;
-      v63 = v101;
-      v65 = v98;
-      v66 = v115;
-      v67 = v105;
-      v68 = v109;
+      v64 = v99;
+      v63 = v100;
+      v65 = v97;
+      v66 = v114;
+      v67 = v104;
+      v68 = v108;
       do
       {
         v69 = v64;
         *v66 = 0;
         v26 = (v26 - v27[v67] * (*v61 - 1));
-        v128 = v26;
+        v127 = v26;
         --v64;
         v66 = &v63[v38 - 8];
         v59 = *v66;
@@ -8899,25 +8455,25 @@ LABEL_52:
 LABEL_53:
       *v71 = v59 + 1;
       v26 = (v26 + v27[v64]);
-      v128 = v26;
-      if (v110)
+      v127 = v26;
+      if (v109)
       {
 LABEL_54:
-        v72 = *v114;
+        v72 = *v113;
         if (v60 >= 2 && v72 == *v68 - 1)
         {
           v73 = __p;
-          v74 = v97;
-          v75 = v99;
+          v74 = v96;
+          v75 = v98;
           v76 = v68;
-          v77 = v114;
-          v78 = v104;
+          v77 = v113;
+          v78 = v103;
           do
           {
             v79 = v75;
             *v77 = 0;
             v34 -= v35[v78] * (*v76 - 1);
-            v117 = v34;
+            v116 = v34;
             --v75;
             v77 = &v73[v39 - 8];
             v72 = *v77;
@@ -8939,18 +8495,18 @@ LABEL_54:
 
         else
         {
-          v75 = v104;
-          v81 = v114;
+          v75 = v103;
+          v81 = v113;
         }
 
         *v81 = v72 + 1;
         v34 += v35[v75];
-        v117 = v34;
+        v116 = v34;
       }
 
 LABEL_62:
-      v25 = v62 + v111;
-      if (v25 >= v113)
+      v25 = v62 + v110;
+      if (v25 >= v112)
       {
         v82 = __p;
         if (__p)
@@ -8962,9 +8518,9 @@ LABEL_62:
       }
     }
 
-    v64 = v105;
-    v71 = v115;
-    v62 = v116;
+    v64 = v104;
+    v71 = v114;
+    v62 = v115;
     goto LABEL_52;
   }
 
@@ -8980,16 +8536,16 @@ LABEL_62:
 
   if (v17 == 2)
   {
-    v83 = *v124;
-    if (*v124 >= 1)
+    v83 = *v123;
+    if (*v123 >= 1)
     {
       v84 = 0;
-      v85 = v126[3];
+      v85 = v125[3];
       v86 = *v85;
       v87 = v85[1];
-      v88 = 8 * **v126;
-      v89 = 8 * *(*v126 + 8);
-      v90 = *(v124 + 1);
+      v88 = 8 * **v125;
+      v89 = 8 * (*v125)[1];
+      v90 = *(v123 + 1);
       v91 = 8 * v86;
       v92 = 8 * v87;
       do
@@ -9021,11 +8577,11 @@ LABEL_62:
 
   else if (v17 == 1)
   {
-    v18 = *v124;
-    if (*v124 >= 1)
+    v18 = *v123;
+    if (*v123 >= 1)
     {
-      v19 = *v126[3];
-      v20 = 8 * **v126;
+      v19 = *v125[3];
+      v20 = 8 * **v125;
       do
       {
         *v13 = *v12;
@@ -9039,16 +8595,13 @@ LABEL_62:
   }
 
 LABEL_83:
-  v128 = &v126;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
-  if (v124)
+  v127 = &v125;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v127);
+  if (v123)
   {
-    v125 = v124;
-    operator delete(v124);
+    v124 = v123;
+    operator delete(v123);
   }
-
-LABEL_85:
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3D4104(_Unwind_Exception *a1)
@@ -9138,9 +8691,9 @@ uint64_t mlx::core::anonymous namespace::copy_vector<double,mlx::core::_MLX_BFlo
   return result;
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::_MLX_BFloat16>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::_MLX_BFloat16>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v139 = *MEMORY[0x277D85DE8];
+  v138 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -9163,40 +8716,40 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::_MLX
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     v22 = *v12;
     *v13 = (LODWORD(v22) + (HIWORD(LODWORD(v22)) & 1u) + 0x7FFF) >> 16;
-    goto LABEL_83;
+    return;
   }
 
-  v114 = *(*a1 + 48);
+  v113 = *(*a1 + 48);
+  v129 = 0;
   v130 = 0;
   v131 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v129, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v132 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v130, *a4, a4[1], (a4[1] - *a4) >> 3);
   v133 = 0;
   v134 = 0;
-  v135 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v133, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v132, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v118 = 0;
   v119 = 0;
   v120 = 0;
-  v121 = 0;
-  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v119, &v130, &v136, 2uLL);
-  mlx::core::collapse_contiguous_dims(a3, &v119, 0x7FFFFFFFuLL, &v126);
-  v129 = &v119;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v129);
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v118, &v129, &v135, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v118, 0x7FFFFFFFuLL, &v125);
+  v128 = &v118;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v128);
   for (i = 0; i != -48; i -= 24)
   {
-    v16 = *(&v133 + i);
+    v16 = *(&v132 + i);
     if (v16)
     {
-      *(&v134 + i) = v16;
+      *(&v133 + i) = v16;
       operator delete(v16);
     }
   }
 
-  v17 = (v127 - v126) >> 2;
+  v17 = (v126 - v125) >> 2;
   if (v17 > 2)
   {
     if (v11)
@@ -9210,117 +8763,116 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::_MLX
     }
 
     v23 = v17 - 3;
-    mlx::core::ContiguousIterator::ContiguousIterator(&v130, &v126, v128, v17 - 3);
-    mlx::core::ContiguousIterator::ContiguousIterator(&v119, &v126, v128 + 3, v17 - 3);
-    v24 = v127 - 12;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v129, &v125, v127, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v118, &v125, v127 + 3, v17 - 3);
+    v24 = v126 - 3;
     v25 = 1;
     do
     {
-      v26 = *v24;
-      v24 += 4;
+      v26 = *v24++;
       v25 *= v26;
     }
 
-    while (v24 != v127);
-    if (!v114)
+    while (v24 != v126);
+    if (!v113)
     {
-      v83 = v124;
-      if (v124)
+      v83 = v123;
+      if (v123)
       {
 LABEL_62:
-        v125 = v83;
+        v124 = v83;
         operator delete(v83);
       }
 
 LABEL_63:
-      if (v122)
+      if (v121)
       {
-        v123 = v122;
-        operator delete(v122);
+        v122 = v121;
+        operator delete(v121);
       }
 
-      if (v120)
+      if (v119)
       {
-        v121 = v120;
-        operator delete(v120);
+        v120 = v119;
+        operator delete(v119);
       }
 
-      if (v137)
+      if (v136)
       {
-        v138 = v137;
-        operator delete(v137);
+        v137 = v136;
+        operator delete(v136);
       }
 
-      if (v134)
+      if (v133)
       {
-        v135 = v134;
-        operator delete(v134);
+        v134 = v133;
+        operator delete(v133);
       }
 
-      if (v131)
+      if (v130)
       {
-        v132 = v131;
-        operator delete(v131);
+        v131 = v130;
+        operator delete(v130);
       }
 
       goto LABEL_81;
     }
 
-    v108 = v12;
-    v109 = v13;
+    v107 = v12;
+    v108 = v13;
     v27 = 0;
-    v28 = v130;
-    v29 = v126;
-    v30 = *v128;
-    v31 = v128[3];
-    v106 = v17 - 2;
+    v28 = v129;
+    v29 = v125;
+    v30 = *v127;
+    v31 = v127[3];
+    v105 = v17 - 2;
     v32 = v17 - 1;
-    v33 = (((v132 - v131) << 30) - 0x100000000) >> 32;
-    v101 = v137;
-    v105 = v33;
-    v103 = &v131[4 * v33];
-    v34 = ((v132 - v131) >> 2) & 0x7FFFFFFF;
-    v100 = v34 - 1;
-    v35 = v119;
-    v36 = (((v121 - v120) << 30) - 0x100000000) >> 32;
-    __p = v124;
-    v115 = &v124[4 * v36];
-    v116 = &v137[4 * v33];
-    v37 = ((v121 - v120) >> 2) & 0x7FFFFFFF;
-    v113 = (v132 - v131) >> 2;
+    v33 = (((v131 - v130) << 30) - 0x100000000) >> 32;
+    v100 = v136;
+    v104 = v33;
+    v102 = &v130[4 * v33];
+    v34 = ((v131 - v130) >> 2) & 0x7FFFFFFF;
+    v99 = v34 - 1;
+    v35 = v118;
+    v36 = (((v120 - v119) << 30) - 0x100000000) >> 32;
+    __p = v123;
+    v114 = &v123[4 * v36];
+    v115 = &v136[4 * v33];
+    v37 = ((v120 - v119) >> 2) & 0x7FFFFFFF;
+    v112 = (v131 - v130) >> 2;
     v38 = 4 * v34;
-    v98 = v131 - 8;
-    v99 = v37 - 1;
+    v97 = v130 - 8;
+    v98 = v37 - 1;
     v39 = 4 * v37;
-    v97 = v120 - 8;
-    v104 = v36;
-    v117 = v17 - 3;
-    v107 = v134;
-    v111 = (v121 - v120) >> 2;
-    v112 = v122;
-    v110 = v120 + 4 * v36;
+    v96 = v119 - 8;
+    v103 = v36;
+    v116 = v17 - 3;
+    v106 = v133;
+    v110 = (v120 - v119) >> 2;
+    v111 = v121;
+    v109 = v119 + 4 * v36;
     while (1)
     {
-      v118 = v27;
-      v40 = *&v29[4 * v23];
+      v117 = v27;
+      v40 = v29[v23];
       if (v40 >= 1)
       {
         v41 = 0;
-        v42 = *&v29[4 * v106];
-        v43 = &v109[v35];
-        v44 = 8 * *(v30 + 8 * v117);
-        v45 = 8 * *(v30 + 8 * v106);
-        v46 = 2 * *(v31 + 8 * v117);
-        v47 = 2 * *(v31 + 8 * v106);
-        v48 = &v108[v28];
+        v42 = v29[v105];
+        v43 = &v108[v35];
+        v44 = 8 * v30[v116];
+        v45 = 8 * v30[v105];
+        v46 = 2 * v31[v116];
+        v47 = 2 * v31[v105];
+        v48 = &v107[v28];
         do
         {
           if (v42 >= 1)
           {
             v49 = 0;
-            v50 = *&v29[4 * v32];
-            v51 = 8 * *(v30 + 8 * v32);
-            v52 = 2 * *(v31 + 8 * v32);
+            v50 = v29[v32];
+            v51 = 8 * v30[v32];
+            v52 = 2 * v31[v32];
             v53 = v43;
             v54 = v48;
             do
@@ -9358,24 +8910,24 @@ LABEL_63:
         while (v41 != v40);
       }
 
-      if (v113)
+      if (v112)
       {
         break;
       }
 
-      v23 = v117;
-      v67 = v118;
-      v60 = v111;
-      v68 = v112;
-      v69 = v110;
-      if (v111)
+      v23 = v116;
+      v67 = v117;
+      v60 = v110;
+      v68 = v111;
+      v69 = v109;
+      if (v110)
       {
         goto LABEL_52;
       }
 
 LABEL_60:
       v27 = v67 + v25;
-      if (v27 >= v114)
+      if (v27 >= v113)
       {
         v83 = __p;
         if (__p)
@@ -9387,26 +8939,26 @@ LABEL_60:
       }
     }
 
-    v59 = *v116;
-    v23 = v117;
-    v60 = v111;
-    if (v113 >= 2 && v59 == *v103 - 1)
+    v59 = *v115;
+    v23 = v116;
+    v60 = v110;
+    if (v112 >= 2 && v59 == *v102 - 1)
     {
-      v62 = v100;
-      v61 = v101;
-      v63 = v98;
-      v64 = v103;
-      v65 = v116;
-      v66 = v105;
-      v67 = v118;
-      v68 = v112;
-      v69 = v110;
+      v62 = v99;
+      v61 = v100;
+      v63 = v97;
+      v64 = v102;
+      v65 = v115;
+      v66 = v104;
+      v67 = v117;
+      v68 = v111;
+      v69 = v109;
       do
       {
         v70 = v62;
         *v65 = 0;
-        v28 = (v28 - v107[v66] * (*v64 - 1));
-        v130 = v28;
+        v28 = (v28 - v106[v66] * (*v64 - 1));
+        v129 = v28;
         --v62;
         v65 = &v61[v38 - 8];
         v59 = *v65;
@@ -9428,37 +8980,37 @@ LABEL_60:
 
     else
     {
-      v62 = v105;
-      v72 = v116;
-      v67 = v118;
-      v68 = v112;
-      v69 = v110;
+      v62 = v104;
+      v72 = v115;
+      v67 = v117;
+      v68 = v111;
+      v69 = v109;
     }
 
     *v72 = v59 + 1;
-    v28 = (v28 + v107[v62]);
-    v130 = v28;
-    if (!v111)
+    v28 = (v28 + v106[v62]);
+    v129 = v28;
+    if (!v110)
     {
       goto LABEL_60;
     }
 
 LABEL_52:
-    v73 = *v115;
+    v73 = *v114;
     if (v60 >= 2 && v73 == *v69 - 1)
     {
       v74 = __p;
-      v75 = v97;
-      v76 = v99;
+      v75 = v96;
+      v76 = v98;
       v77 = v69;
-      v78 = v115;
-      v79 = v104;
+      v78 = v114;
+      v79 = v103;
       do
       {
         v80 = v76;
         *v78 = 0;
         v35 -= v68[v79] * (*v77 - 1);
-        v119 = v35;
+        v118 = v35;
         --v76;
         v78 = &v74[v39 - 8];
         v73 = *v78;
@@ -9480,13 +9032,13 @@ LABEL_52:
 
     else
     {
-      v76 = v104;
-      v82 = v115;
+      v76 = v103;
+      v82 = v114;
     }
 
     *v82 = v73 + 1;
     v35 += v68[v76];
-    v119 = v35;
+    v118 = v35;
     goto LABEL_60;
   }
 
@@ -9502,16 +9054,16 @@ LABEL_52:
 
   if (v17 == 2)
   {
-    v84 = *v126;
-    if (*v126 >= 1)
+    v84 = *v125;
+    if (*v125 >= 1)
     {
       v85 = 0;
-      v86 = v128[3];
+      v86 = v127[3];
       v87 = *v86;
       v88 = v86[1];
-      v89 = 8 * **v128;
-      v90 = 8 * *(*v128 + 8);
-      v91 = *(v126 + 1);
+      v89 = 8 * **v127;
+      v90 = 8 * (*v127)[1];
+      v91 = *(v125 + 1);
       do
       {
         if (v91 >= 1)
@@ -9542,11 +9094,11 @@ LABEL_52:
 
   else if (v17 == 1)
   {
-    v18 = *v126;
-    if (*v126 >= 1)
+    v18 = *v125;
+    if (*v125 >= 1)
     {
-      v19 = 8 * **v128;
-      v20 = 2 * *v128[3];
+      v19 = 8 * **v127;
+      v20 = 2 * *v127[3];
       do
       {
         v21 = *v12;
@@ -9561,16 +9113,13 @@ LABEL_52:
   }
 
 LABEL_81:
-  v130 = &v128;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v130);
-  if (v126)
+  v129 = &v127;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v129);
+  if (v125)
   {
-    v127 = v126;
-    operator delete(v126);
+    v126 = v125;
+    operator delete(v125);
   }
-
-LABEL_83:
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A3D4AFC(_Unwind_Exception *a1)
@@ -9580,9 +9129,9 @@ void sub_25A3D4AFC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::complex64_t>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::complex64_t>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   if (a8[16] == 1)
   {
     v11 = *(*a8 + 152);
@@ -9605,7 +9154,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
     v14 = 0;
   }
 
-  if (*a3 == *(a3 + 8))
+  if (*a3 == a3[1])
   {
     v25 = *v12;
     *v13 = v25;
@@ -9615,33 +9164,33 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
   else
   {
     v15 = *(*a1 + 48);
+    v107 = 0;
     v108 = 0;
     v109 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v107, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
     v110 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v108, *a4, a4[1], (a4[1] - *a4) >> 3);
     v111 = 0;
     v112 = 0;
-    v113 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v111, *a5, a5[1], (a5[1] - *a5) >> 3);
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v110, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+    v96 = 0;
     v97 = 0;
     v98 = 0;
-    v99 = 0;
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v97, &v108, &v114, 2uLL);
-    mlx::core::collapse_contiguous_dims(a3, &v97, 0x7FFFFFFFuLL, &v104);
-    v107 = &v97;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v107);
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v96, &v107, &v113, 2uLL);
+    mlx::core::collapse_contiguous_dims(a3, &v96, 0x7FFFFFFFuLL, &v103);
+    v106 = &v96;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v106);
     for (i = 0; i != -48; i -= 24)
     {
-      v17 = *(&v111 + i);
+      v17 = *(&v110 + i);
       if (v17)
       {
-        *(&v112 + i) = v17;
+        *(&v111 + i) = v17;
         operator delete(v17);
       }
     }
 
-    v18 = v104;
-    v19 = (v105 - v104) >> 2;
+    v18 = v103;
+    v19 = (v104 - v103) >> 2;
     if (v19 > 2)
     {
       if (v11)
@@ -9655,9 +9204,9 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
       }
 
       v26 = v19 - 3;
-      mlx::core::ContiguousIterator::ContiguousIterator(&v108, &v104, v106, v19 - 3);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v97, &v104, v106 + 3, v19 - 3);
-      v27 = v105 - 3;
+      mlx::core::ContiguousIterator::ContiguousIterator(&v107, &v103, v105, v19 - 3);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v96, &v103, v105 + 3, v19 - 3);
+      v27 = v104 - 3;
       v28 = 1;
       do
       {
@@ -9665,7 +9214,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
         v28 *= v29;
       }
 
-      while (v27 != v105);
+      while (v27 != v104);
       if (v15)
       {
         v30 = 0;
@@ -9674,33 +9223,33 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
         v33 = v13 + 4;
         do
         {
-          v34 = *(v104 + v26);
+          v34 = *(v103 + v26);
           if (v34 >= 1)
           {
             v35 = 0;
-            v36 = v106;
-            v37 = &v12[v108];
-            v38 = 8 * *(*v106 + 8 * v26);
-            v39 = (v33 + 8 * v97);
-            v40 = 8 * *(v106[3] + 8 * v26);
+            v36 = v105;
+            v37 = &v12[v107];
+            v38 = 8 * (*v105)[v26];
+            v39 = (v33 + 8 * v96);
+            v40 = 8 * v105[3][v26];
             do
             {
-              v41 = *(v104 + v31);
+              v41 = *(v103 + v31);
               if (v41 >= 1)
               {
                 v42 = 0;
-                v43 = 8 * *(*v36 + 8 * v31);
-                v44 = 8 * *(v36[3] + 8 * v31);
+                v43 = 8 * (*v36)[v31];
+                v44 = 8 * v36[3][v31];
                 v45 = v39;
                 v46 = v37;
                 do
                 {
-                  v47 = *(v104 + v32);
+                  v47 = *(v103 + v32);
                   if (v47 >= 1)
                   {
                     v48 = 0;
-                    v49 = 8 * *(*v36 + 8 * v32);
-                    v50 = 8 * *(v36[3] + 8 * v32);
+                    v49 = 8 * (*v36)[v32];
+                    v50 = 8 * v36[3][v32];
                     v51 = v45;
                     do
                     {
@@ -9731,29 +9280,29 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
             while (v35 != v34);
           }
 
-          v53 = v110 - v109;
-          v54 = (v110 - v109) >> 2;
+          v53 = v109 - v108;
+          v54 = (v109 - v108) >> 2;
           if (v54)
           {
-            v55 = v115;
+            v55 = v114;
             v56 = ((v53 << 30) - 0x100000000) >> 32;
-            v57 = v115 + 4 * v56;
+            v57 = v114 + 4 * v56;
             v58 = *v57;
-            v59 = v109 + 4 * v56;
-            v60 = v112;
-            v61 = v108;
+            v59 = v108 + 4 * v56;
+            v60 = v111;
+            v61 = v107;
             if (v54 >= 2 && v58 == *v59 - 1)
             {
               v64 = (v53 >> 2) & 0x7FFFFFFF;
               v63 = v64 - 1;
               v65 = 4 * v64;
-              v66 = v109 - 8;
+              v66 = v108 - 8;
               do
               {
                 v67 = v63;
                 *v57 = 0;
                 v61 = (v61 - v60[v56] * (*v59 - 1));
-                v108 = v61;
+                v107 = v61;
                 --v63;
                 v57 = &v55[v65 - 8];
                 v58 = *v57;
@@ -9779,31 +9328,31 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
             }
 
             *v57 = v58 + 1;
-            v108 = (v61 + v60[v63]);
+            v107 = (v61 + v60[v63]);
           }
 
-          v69 = v99 - v98;
-          v70 = (v99 - v98) >> 2;
+          v69 = v98 - v97;
+          v70 = (v98 - v97) >> 2;
           if (v70)
           {
             v71 = __p;
             v72 = ((v69 << 30) - 0x100000000) >> 32;
             v73 = __p + 4 * v72;
             v74 = *v73;
-            v75 = v100;
-            v76 = v97;
-            if (v70 >= 2 && (v77 = v98 + 4 * v72, v74 == *v77 - 1))
+            v75 = v99;
+            v76 = v96;
+            if (v70 >= 2 && (v77 = v97 + 4 * v72, v74 == *v77 - 1))
             {
               v78 = (v69 >> 2) & 0x7FFFFFFF;
               v79 = v78 - 1;
               v80 = 4 * v78;
-              v81 = v98 - 8;
+              v81 = v97 - 8;
               do
               {
                 v82 = v79;
                 *v73 = 0;
                 v76 -= v75[v72] * (*v77 - 1);
-                v97 = v76;
+                v96 = v76;
                 --v79;
                 v73 = &v71[v80 - 8];
                 v74 = *v73;
@@ -9829,7 +9378,7 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
             }
 
             *v73 = v74 + 1;
-            v97 = v75[v79] + v76;
+            v96 = v75[v79] + v76;
           }
 
           v30 += v28;
@@ -9840,38 +9389,38 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
 
       if (__p)
       {
-        v103 = __p;
+        v102 = __p;
         operator delete(__p);
       }
 
-      if (v100)
+      if (v99)
       {
-        v101 = v100;
-        operator delete(v100);
+        v100 = v99;
+        operator delete(v99);
       }
 
-      if (v98)
+      if (v97)
       {
-        v99 = v98;
-        operator delete(v98);
+        v98 = v97;
+        operator delete(v97);
       }
 
-      if (v115)
+      if (v114)
       {
-        v116 = v115;
-        operator delete(v115);
+        v115 = v114;
+        operator delete(v114);
       }
 
-      if (v112)
+      if (v111)
       {
-        v113 = v112;
-        operator delete(v112);
+        v112 = v111;
+        operator delete(v111);
       }
 
-      if (v109)
+      if (v108)
       {
-        v110 = v109;
-        operator delete(v109);
+        v109 = v108;
+        operator delete(v108);
       }
     }
 
@@ -9889,21 +9438,21 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
 
       if (v19 == 2)
       {
-        v84 = *v104;
-        if (*v104 >= 1)
+        v84 = *v103;
+        if (*v103 >= 1)
         {
           v85 = 0;
-          v86 = v106;
-          v87 = 8 * **v106;
+          v86 = v105;
+          v87 = 8 * **v105;
           v88 = (v13 + 4);
-          v89 = 8 * *v106[3];
+          v89 = 8 * *v105[3];
           do
           {
             v90 = v18[1];
             if (v90 >= 1)
             {
-              v91 = 8 * *(*v86 + 8);
-              v92 = 8 * *(v86[3] + 8);
+              v91 = 8 * (*v86)[1];
+              v92 = 8 * v86[3][1];
               v93 = v88;
               v94 = v12;
               do
@@ -9930,12 +9479,12 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
 
       else if (v19 == 1)
       {
-        v20 = *v104;
-        if (*v104 >= 1)
+        v20 = *v103;
+        if (*v103 >= 1)
         {
-          v21 = 8 * **v106;
+          v21 = 8 * **v105;
           v22 = (v13 + 4);
-          v23 = 8 * *v106[3];
+          v23 = 8 * *v105[3];
           do
           {
             v24 = *v12;
@@ -9951,14 +9500,443 @@ void mlx::core::anonymous namespace::copy_general_general<double,mlx::core::comp
       }
     }
 
-    v108 = &v106;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v108);
-    if (v104)
+    v107 = &v105;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v107);
+    if (v103)
     {
-      v105 = v104;
-      operator delete(v104);
+      v104 = v103;
+      operator delete(v103);
+    }
+  }
+}
+
+void sub_25A3D51CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+{
+  mlx::core::ContiguousIterator::~ContiguousIterator(&__p);
+  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a19);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::anonymous namespace::copy_general_general<mlx::core::_MLX_BFloat16,BOOL>(uint64_t a1, uint64_t a2, int **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8, _BYTE *a9)
+{
+  v134 = *MEMORY[0x277D85DE8];
+  if (a8[16] == 1)
+  {
+    v11 = *(*a8 + 152);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = (*(*a1 + 152) + 2 * a6);
+  v13 = (*(*a2 + 152) + a7);
+  if (a9[16] == 1)
+  {
+    v14 = *(*a9 + 152);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if (*a3 == a3[1])
+  {
+    *v13 = (*v12 & 0x7FFF) != 0;
+    return;
+  }
+
+  v109 = *(*a1 + 48);
+  v125 = 0;
+  v126 = 0;
+  v127 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v125, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
+  v128 = 0;
+  v129 = 0;
+  v130 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v128, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
+  v114 = 0;
+  v115 = 0;
+  v116 = 0;
+  std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v114, &v125, &v131, 2uLL);
+  mlx::core::collapse_contiguous_dims(a3, &v114, 0x7FFFFFFFuLL, &v121);
+  v124 = &v114;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v124);
+  for (i = 0; i != -48; i -= 24)
+  {
+    v16 = *(&v128 + i);
+    if (v16)
+    {
+      *(&v129 + i) = v16;
+      operator delete(v16);
     }
   }
 
-  v96 = *MEMORY[0x277D85DE8];
+  v17 = (v122 - v121) >> 2;
+  if (v17 > 2)
+  {
+    if (v11)
+    {
+      v12 += *v11;
+    }
+
+    if (v14)
+    {
+      v13 += *v14;
+    }
+
+    v21 = v17 - 3;
+    mlx::core::ContiguousIterator::ContiguousIterator(&v125, &v121, v123, v17 - 3);
+    mlx::core::ContiguousIterator::ContiguousIterator(&v114, &v121, v123 + 3, v17 - 3);
+    v22 = v122 - 3;
+    v23 = 1;
+    do
+    {
+      v24 = *v22++;
+      v23 *= v24;
+    }
+
+    while (v22 != v122);
+    if (!v109)
+    {
+      v81 = v119;
+      if (v119)
+      {
+LABEL_62:
+        v120 = v81;
+        operator delete(v81);
+      }
+
+LABEL_63:
+      if (v117)
+      {
+        v118 = v117;
+        operator delete(v117);
+      }
+
+      if (v115)
+      {
+        v116 = v115;
+        operator delete(v115);
+      }
+
+      if (v132)
+      {
+        v133 = v132;
+        operator delete(v132);
+      }
+
+      if (v129)
+      {
+        v130 = v129;
+        operator delete(v129);
+      }
+
+      if (v126)
+      {
+        v127 = v126;
+        operator delete(v126);
+      }
+
+      goto LABEL_81;
+    }
+
+    v103 = v12;
+    v104 = v13;
+    v25 = 0;
+    v26 = v125;
+    v27 = v129;
+    v28 = v121;
+    v29 = *v123;
+    v30 = v123[3];
+    v102 = v17 - 2;
+    v31 = v17 - 1;
+    v32 = (((v127 - v126) << 30) - 0x100000000) >> 32;
+    v97 = v132;
+    v111 = &v132[4 * v32];
+    v101 = v32;
+    v99 = &v126[4 * v32];
+    v33 = ((v127 - v126) >> 2) & 0x7FFFFFFF;
+    v96 = v33 - 1;
+    v34 = v114;
+    v35 = v117;
+    v36 = (((v116 - v115) << 30) - 0x100000000) >> 32;
+    __p = v119;
+    v110 = &v119[4 * v36];
+    v37 = ((v116 - v115) >> 2) & 0x7FFFFFFF;
+    v95 = v37 - 1;
+    v107 = v23;
+    v108 = (v127 - v126) >> 2;
+    v38 = 4 * v33;
+    v39 = 4 * v37;
+    v93 = v115 - 8;
+    v94 = v126 - 8;
+    v100 = v36;
+    v112 = v17 - 3;
+    v105 = v115 + 4 * v36;
+    v106 = (v116 - v115) >> 2;
+    while (1)
+    {
+      v113 = v25;
+      v40 = v28[v21];
+      if (v40 >= 1)
+      {
+        v41 = 0;
+        v42 = v30[v112];
+        v43 = &v104[v34];
+        v44 = &v103[v26];
+        v45 = v30[v102];
+        v46 = v28[v102];
+        v47 = 2 * v29[v112];
+        v48 = 2 * v29[v102];
+        do
+        {
+          if (v46 >= 1)
+          {
+            v49 = 0;
+            v50 = v30[v31];
+            v51 = v28[v31];
+            v52 = 2 * v29[v31];
+            v53 = v44;
+            v54 = v43;
+            do
+            {
+              if (v51 >= 1)
+              {
+                v55 = 0;
+                v56 = 0;
+                v57 = v51;
+                do
+                {
+                  v54[v55] = (*(v53 + v56) & 0x7FFF) != 0;
+                  v56 += v52;
+                  v55 += v50;
+                  --v57;
+                }
+
+                while (v57);
+              }
+
+              v54 += v45;
+              ++v49;
+              v53 = (v53 + v48);
+            }
+
+            while (v49 != v46);
+          }
+
+          v43 += v42;
+          ++v41;
+          v44 = (v44 + v47);
+        }
+
+        while (v41 != v40);
+      }
+
+      if (v108)
+      {
+        break;
+      }
+
+      v21 = v112;
+      v66 = v113;
+      v67 = v105;
+      v59 = v106;
+      if (v106)
+      {
+        goto LABEL_52;
+      }
+
+LABEL_60:
+      v25 = v66 + v107;
+      if (v25 >= v109)
+      {
+        v81 = __p;
+        if (__p)
+        {
+          goto LABEL_62;
+        }
+
+        goto LABEL_63;
+      }
+    }
+
+    v58 = *v111;
+    v21 = v112;
+    v59 = v106;
+    if (v108 >= 2 && (v60 = v99, v58 == *v99 - 1))
+    {
+      v62 = v96;
+      v61 = v97;
+      v63 = v94;
+      v64 = v111;
+      v65 = v101;
+      v66 = v113;
+      v67 = v105;
+      do
+      {
+        v68 = v62;
+        *v64 = 0;
+        v26 = (v26 - v27[v65] * (*v60 - 1));
+        v125 = v26;
+        --v62;
+        v64 = &v61[v38 - 8];
+        v58 = *v64;
+        v61 -= 4;
+        if (v68 < 2)
+        {
+          break;
+        }
+
+        v60 = &v63[v38];
+        v69 = *&v63[v38] - 1;
+        v63 -= 4;
+        v65 = v62;
+      }
+
+      while (v58 == v69);
+      v70 = &v61[v38 - 4];
+    }
+
+    else
+    {
+      v62 = v101;
+      v70 = v111;
+      v66 = v113;
+      v67 = v105;
+    }
+
+    *v70 = v58 + 1;
+    v26 = (v26 + v27[v62]);
+    v125 = v26;
+    if (!v106)
+    {
+      goto LABEL_60;
+    }
+
+LABEL_52:
+    v71 = *v110;
+    if (v59 >= 2 && v71 == *v67 - 1)
+    {
+      v72 = __p;
+      v73 = v93;
+      v74 = v95;
+      v75 = v67;
+      v76 = v110;
+      v77 = v100;
+      do
+      {
+        v78 = v74;
+        *v76 = 0;
+        v34 -= v35[v77] * (*v75 - 1);
+        v114 = v34;
+        --v74;
+        v76 = &v72[v39 - 8];
+        v71 = *v76;
+        v72 -= 4;
+        if (v78 < 2)
+        {
+          break;
+        }
+
+        v75 = &v73[v39];
+        v79 = *&v73[v39] - 1;
+        v73 -= 4;
+        v77 = v74;
+      }
+
+      while (v71 == v79);
+      v80 = &v72[v39 - 4];
+    }
+
+    else
+    {
+      v74 = v100;
+      v80 = v110;
+    }
+
+    *v80 = v71 + 1;
+    v34 += v35[v74];
+    v114 = v34;
+    goto LABEL_60;
+  }
+
+  if (v11)
+  {
+    v12 += *v11;
+  }
+
+  if (v14)
+  {
+    v13 += *v14;
+  }
+
+  if (v17 == 2)
+  {
+    v82 = *v121;
+    if (*v121 >= 1)
+    {
+      v83 = 0;
+      v84 = v123[3];
+      v85 = *v84;
+      v86 = v84[1];
+      v87 = *(v121 + 1);
+      v88 = 2 * **v123;
+      v89 = 2 * (*v123)[1];
+      do
+      {
+        if (v87 >= 1)
+        {
+          v90 = v12;
+          v91 = v87;
+          v92 = v13;
+          do
+          {
+            *v92 = (*v90 & 0x7FFF) != 0;
+            v92 += v86;
+            v90 = (v90 + v89);
+            --v91;
+          }
+
+          while (v91);
+        }
+
+        v13 += v85;
+        ++v83;
+        v12 = (v12 + v88);
+      }
+
+      while (v83 != v82);
+    }
+  }
+
+  else if (v17 == 1)
+  {
+    v18 = *v121;
+    if (*v121 >= 1)
+    {
+      v19 = *v123[3];
+      v20 = 2 * **v123;
+      do
+      {
+        *v13 = (*v12 & 0x7FFF) != 0;
+        v13 += v19;
+        v12 = (v12 + v20);
+        --v18;
+      }
+
+      while (v18);
+    }
+  }
+
+LABEL_81:
+  v125 = &v123;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v125);
+  if (v121)
+  {
+    v122 = v121;
+    operator delete(v121);
+  }
 }

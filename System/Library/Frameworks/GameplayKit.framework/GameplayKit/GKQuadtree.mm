@@ -3,6 +3,7 @@
 - (BOOL)removeElement:(id)data withNode:(GKQuadtreeNode *)node;
 - (GKQuadtree)initWithBoundingQuad:(GKQuad)quad minimumCellSize:(float)minCellSize;
 - (GKQuadtreeNode)addElement:(id)element withPoint:(vector_float2)point;
+- (GKQuadtreeNode)addElement:(id)element withQuad:(GKQuad)quad;
 - (NSArray)elementsAtPoint:(vector_float2)point;
 - (NSArray)elementsInQuad:(GKQuad)quad;
 - (void)dealloc;
@@ -48,7 +49,14 @@
 
 - (GKQuadtreeNode)addElement:(id)element withPoint:(vector_float2)point
 {
-  v4 = *(GKCQuadTreeNode<NSObject>::addPoint(*(self->_cQuadTree + 1), element, *&point) + 112);
+  v4 = *(GKCQuadTreeNode<NSObject>::addPoint(*(self->_cQuadTree + 1), element, point) + 112);
+
+  return v4;
+}
+
+- (GKQuadtreeNode)addElement:(id)element withQuad:(GKQuad)quad
+{
+  v4 = *(GKCQuadTreeNode<NSObject>::addQuad(*(self->_cQuadTree + 1), element, quad, 0) + 112);
 
   return v4;
 }
@@ -56,21 +64,21 @@
 - (NSArray)elementsAtPoint:(vector_float2)point
 {
   __p = 0;
+  v22 = 0;
   v23 = 0;
-  v24 = 0;
   array = [MEMORY[0x277CBEB18] array];
   v6 = *(self->_cQuadTree + 1);
   while (1)
   {
-    v7 = (v6 + 40);
+    v7 = &v6[5];
     v8 = vld1_dup_f32(v7);
-    v9 = vcgt_f32(vmul_f32(*(v6 + 24), 0x3F0000003F000000), v8);
+    v9 = vcgt_f32(vmul_f32(v6[3], 0x3F0000003F000000), v8);
     if ((v9.i32[0] & v9.i32[1] & 1) == 0)
     {
       break;
     }
 
-    v10 = vcgt_f32(*(v6 + 32), point);
+    v10 = vcgt_f32(v6[4], point);
     if (v10.i8[4])
     {
       v11 = 80;
@@ -103,43 +111,42 @@
     }
   }
 
-  v13 = *(v6 + 88);
-  v14 = *(v6 + 96);
-  v15 = *(v6 + 88);
-  if (v14 != v15)
+  v13 = v6[12];
+  v14 = v6[11];
+  if (v13 != v14)
   {
-    std::vector<NSObject * {__strong}>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NSObject * const {__strong}*>,NSObject * const {__strong}*>(&__p, 0, v15, v14, v14 - v15);
-    v16 = __p;
-    if (__p != v23)
+    std::vector<NSObject * {__strong}>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NSObject * const {__strong}*>,NSObject * const {__strong}*>(&__p, 0, v14, v13, v13 - v14);
+    v15 = __p;
+    if (__p != v22)
     {
       do
       {
-        [array addObject:*v16++];
+        [array addObject:*v15++];
       }
 
-      while (v16 != v23);
+      while (v15 != v22);
     }
   }
 
 LABEL_16:
-  v17 = __p;
+  v16 = __p;
   if (__p)
   {
-    v18 = v23;
-    v19 = __p;
-    if (v23 != __p)
+    v17 = v22;
+    v18 = __p;
+    if (v22 != __p)
     {
       do
       {
-        v20 = *--v18;
+        v19 = *--v17;
       }
 
-      while (v18 != v17);
-      v19 = __p;
+      while (v17 != v16);
+      v18 = __p;
     }
 
-    v23 = v17;
-    operator delete(v19);
+    v22 = v16;
+    operator delete(v18);
   }
 
   return array;

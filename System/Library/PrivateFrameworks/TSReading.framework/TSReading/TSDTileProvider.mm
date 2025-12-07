@@ -110,7 +110,7 @@ void __143__TSDTileProvider_provideContentsInRect_contentsScale_forTile_atLocati
   x = rect.origin.x;
   if (self)
   {
-    [(TSDTileProvider *)self visibleTileRect];
+    objc_msgSend_visibleTileRect(self, a2);
     v18 = *(&v29 + 1);
     v17 = v30;
     v19 = v29;

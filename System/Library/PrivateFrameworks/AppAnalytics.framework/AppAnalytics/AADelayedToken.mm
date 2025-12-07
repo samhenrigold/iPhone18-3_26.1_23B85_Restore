@@ -11,7 +11,6 @@
   {
     *(&self->super.isa + OBJC_IVAR___AADelayedToken_sealed) = 1;
     v3 = *(&self->super.isa + OBJC_IVAR___AADelayedToken_block);
-    v4 = *&self->block[OBJC_IVAR___AADelayedToken_block];
     selfCopy = self;
     v3();
   }

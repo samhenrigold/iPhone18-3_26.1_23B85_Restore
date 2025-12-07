@@ -53,12 +53,12 @@
   administratorCopy = administrator;
   gatewayCopy = gateway;
   accountCopy = account;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   userCopy = user;
   featuresCopy = features;
-  v28.receiver = self;
-  v28.super_class = HMDRemoteKeyedArchiver;
-  v16 = [(HMDRemoteKeyedArchiver *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = HMDRemoteKeyedArchiver;
+  v16 = [(HMDRemoteKeyedArchiver *)&v27 init];
   if (!v16)
   {
     goto LABEL_12;
@@ -70,9 +70,9 @@
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v19;
-    v31 = 2112;
-    v32 = userCopy;
+    v29 = v19;
+    v30 = 2112;
+    v31 = userCopy;
     _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Encoding for user : %@", buf, 0x16u);
   }
 
@@ -137,7 +137,6 @@ LABEL_9:
   [(HMDRemoteKeyedArchiver *)v16 setClassName:v25 forClass:objc_opt_class()];
 
 LABEL_12:
-  v26 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

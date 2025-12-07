@@ -14,7 +14,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   destination = self->_destination;
   v6 = *(fromCopy + 2);
@@ -46,35 +46,33 @@
     [(HMMediaGroupProtoMediaParticipantData *)self setDestinationController:?];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = *(fromCopy + 1);
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(HMMediaGroupProtoMediaParticipantData *)self addBackupGroups:*(*(&v15 + 1) + 8 * i), v15];
+        [(HMMediaGroupProtoMediaParticipantData *)self addBackupGroups:*(*(&v14 + 1) + 8 * i), v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -111,7 +109,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(HMMediaGroupProtoMediaDestination *)self->_destination copyWithZone:zone];
   v7 = v5[2];
@@ -121,40 +119,39 @@
   v9 = v5[3];
   v5[3] = v8;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = self->_backupGroups;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       v14 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v18 + 1) + 8 * v14) copyWithZone:{zone, v18}];
+        v15 = [*(*(&v17 + 1) + 8 * v14) copyWithZone:{zone, v17}];
         [v5 addBackupGroups:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -189,7 +186,7 @@
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_destination)
   {
@@ -201,39 +198,36 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_backupGroups;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteDataField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation

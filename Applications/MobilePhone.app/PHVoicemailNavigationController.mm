@@ -69,7 +69,7 @@ void __51__PHVoicemailNavigationController__telephonyClient__block_invoke(id a1)
 {
   if (__PHVoicemailNavigationControllerCachedBadgeIsCurrent == 1)
   {
-    v2 = PHDefaultLog();
+    v2 = PHDefaultLog(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -82,35 +82,35 @@ void __51__PHVoicemailNavigationController__telephonyClient__block_invoke(id a1)
     v4 = objc_opt_new();
     uUIDString = [v4 UUIDString];
 
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v14 = uUIDString;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ fetching fresh value on queue with QOS_CLASS_UTILITY", buf, 0xCu);
+      v15 = uUIDString;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ fetching fresh value on queue with QOS_CLASS_UTILITY", buf, 0xCu);
     }
 
-    v7 = dispatch_get_global_queue(17, 0);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = __40__PHVoicemailNavigationController_badge__block_invoke;
-    v10[3] = &unk_1002852B8;
-    v11 = uUIDString;
+    v8 = dispatch_get_global_queue(17, 0);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = __40__PHVoicemailNavigationController_badge__block_invoke;
+    v11[3] = &unk_1002852B8;
+    v12 = uUIDString;
     selfCopy = self;
     v2 = uUIDString;
-    dispatch_async(v7, v10);
+    dispatch_async(v8, v11);
   }
 
-  v9 = *(&__PHVoicemailNavigationControllerCachedBadge + 1);
-  v8 = __PHVoicemailNavigationControllerCachedBadge;
-  result.var1 = v9;
-  result.var0 = v8;
+  v10 = *(&__PHVoicemailNavigationControllerCachedBadge + 1);
+  v9 = __PHVoicemailNavigationControllerCachedBadge;
+  result.var1 = v10;
+  result.var0 = v9;
   return result;
 }
 
 void __40__PHVoicemailNavigationController_badge__block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -119,134 +119,137 @@ void __40__PHVoicemailNavigationController_badge__block_invoke(uint64_t a1)
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ running on QOS_CLASS_UTILITY", &buf, 0xCu);
   }
 
-  v38 = __PHVoicemailNavigationControllerCachedBadge;
+  v43 = __PHVoicemailNavigationControllerCachedBadge;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v44 = 0x3010000000;
-  v45 = "";
-  v46 = PhoneBadgeKnownZero;
+  v49 = 0x3010000000;
+  v50 = "";
+  v51 = PhoneBadgeKnownZero;
   v4 = +[(PHApplicationServices *)MPApplicationServices];
   v5 = [v4 accountManager];
 
-  v6 = PHDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PHDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    *v39 = 138543362;
-    v40 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ Retrieved accountManager", v39, 0xCu);
+    v8 = *(a1 + 32);
+    *v44 = 138543362;
+    v45 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ Retrieved accountManager", v44, 0xCu);
   }
 
-  v8 = [v5 isAnyAccountSubscribed];
-  v9 = PHDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = [v5 isAnyAccountSubscribed];
+  v10 = v9;
+  v11 = PHDefaultLog(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = @"NO";
-    v11 = *(a1 + 32);
-    if (v8)
+    v12 = @"NO";
+    v13 = *(a1 + 32);
+    if (v10)
     {
-      v10 = @"YES";
+      v12 = @"YES";
     }
 
-    *v39 = 138543618;
-    v40 = v11;
-    v41 = 2114;
-    v42 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ isSubscribed: %{public}@", v39, 0x16u);
+    *v44 = 138543618;
+    v45 = v13;
+    v46 = 2114;
+    v47 = v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ isSubscribed: %{public}@", v44, 0x16u);
   }
 
-  v12 = +[(PHApplicationServices *)MPApplicationServices];
-  v13 = [v12 voicemailController];
-  v14 = [v13 audioMessagesPassingTest:&__block_literal_global_118];
-  v15 = [v14 count];
-  *(*(&buf + 1) + 40) = v15;
+  v14 = +[(PHApplicationServices *)MPApplicationServices];
+  v15 = [v14 voicemailController];
+  v16 = [v15 audioMessagesPassingTest:&__block_literal_global_118];
+  v17 = [v16 count];
+  *(*(&buf + 1) + 40) = v17;
 
-  v16 = PHDefaultLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v19 = PHDefaultLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(a1 + 32);
-    v18 = [NSNumber numberWithUnsignedLongLong:*(*(&buf + 1) + 40)];
-    *v39 = 138543618;
-    v40 = v17;
-    v41 = 2114;
-    v42 = v18;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ badgeCount: %{public}@", v39, 0x16u);
+    v20 = *(a1 + 32);
+    v21 = [NSNumber numberWithUnsignedLongLong:*(*(&buf + 1) + 40)];
+    *v44 = 138543618;
+    v45 = v20;
+    v46 = 2114;
+    v47 = v21;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ badgeCount: %{public}@", v44, 0x16u);
   }
 
-  if (v8)
+  if (v10)
   {
-    if (([v5 isOnline] & 1) == 0)
+    v23 = [v5 isOnline];
+    if ((v23 & 1) == 0)
     {
-      v19 = PHDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v24 = PHDefaultLog(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = *(a1 + 32);
-        *v39 = 138543362;
-        v40 = v20;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ accountManager is offline", v39, 0xCu);
+        v25 = *(a1 + 32);
+        *v44 = 138543362;
+        v45 = v25;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ accountManager is offline", v44, 0xCu);
       }
 
-      if ([v5 isMessageWaiting])
+      v23 = [v5 isMessageWaiting];
+      if (v23)
       {
-        v21 = PHDefaultLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v26 = PHDefaultLog(v23);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = *(a1 + 32);
-          *v39 = 138543362;
-          v40 = v22;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ message is waiting, setting unknown badge", v39, 0xCu);
+          v27 = *(a1 + 32);
+          *v44 = 138543362;
+          v45 = v27;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ message is waiting, setting unknown badge", v44, 0xCu);
         }
 
         *(*(&buf + 1) + 32) = 0;
       }
     }
 
-    v23 = PHDefaultLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v28 = PHDefaultLog(v23);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(a1 + 32);
-      *v39 = 138543362;
-      v40 = v24;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ dispatching to main queue", v39, 0xCu);
+      v29 = *(a1 + 32);
+      *v44 = 138543362;
+      v45 = v29;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ dispatching to main queue", v44, 0xCu);
     }
 
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __40__PHVoicemailNavigationController_badge__block_invoke_120;
     block[3] = &unk_1002860B8;
-    v35[1] = &buf;
-    v25 = v35;
-    v35[0] = *(a1 + 32);
-    v36 = v38;
-    v37 = *(a1 + 40);
+    v40[1] = &buf;
+    v30 = v40;
+    v40[0] = *(a1 + 32);
+    v41 = v43;
+    v42 = *(a1 + 40);
     dispatch_sync(&_dispatch_main_q, block);
   }
 
   else
   {
-    v26 = PHDefaultLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v31 = PHDefaultLog(v22);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = *(a1 + 32);
-      *v39 = 138543362;
-      v40 = v27;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ getSubscriptionInfo from telephony client", v39, 0xCu);
+      v32 = *(a1 + 32);
+      *v44 = 138543362;
+      v45 = v32;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ getSubscriptionInfo from telephony client", v44, 0xCu);
     }
 
-    v28 = [*(a1 + 40) _telephonyClient];
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = __40__PHVoicemailNavigationController_badge__block_invoke_121;
-    v31[3] = &unk_100286108;
-    v29 = *(a1 + 32);
-    v30 = *(a1 + 40);
-    v32[0] = v29;
-    v32[1] = &buf;
-    v32[2] = v30;
-    v33 = v38;
-    [v28 getSubscriptionInfo:v31];
+    v33 = [*(a1 + 40) _telephonyClient];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = __40__PHVoicemailNavigationController_badge__block_invoke_121;
+    v36[3] = &unk_100286108;
+    v34 = *(a1 + 32);
+    v35 = *(a1 + 40);
+    v37[0] = v34;
+    v37[1] = &buf;
+    v37[2] = v35;
+    v38 = v43;
+    [v33 getSubscriptionInfo:v36];
 
-    v25 = v32;
+    v30 = v37;
   }
 
   _Block_object_dispose(&buf, 8);
@@ -260,34 +263,34 @@ BOOL __40__PHVoicemailNavigationController_badge__block_invoke_115(id a1, MPMess
   return v3;
 }
 
-void __40__PHVoicemailNavigationController_badge__block_invoke_120(uint64_t a1)
+void __40__PHVoicemailNavigationController_badge__block_invoke_120(void *a1)
 {
-  v2 = *(*(a1 + 40) + 8);
+  v2 = *(a1[5] + 8);
   v3 = *(v2 + 32);
   if ((v3 & 1) == 0)
   {
-    v4 = PHDefaultLog();
+    v4 = PHDefaultLog(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v5 = a1[4];
       v10 = 138543362;
       v11 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ badge is unknown, setting badge to PhoneBadgeKnownZero", &v10, 0xCu);
     }
 
-    *(*(*(a1 + 40) + 8) + 32) = *PhoneBadgeKnownZero;
-    v2 = *(*(a1 + 40) + 8);
+    *(*(a1[5] + 8) + 32) = PhoneBadgeKnownZero;
+    v2 = *(a1[5] + 8);
     v3 = *(v2 + 32);
   }
 
   __PHVoicemailNavigationControllerCachedBadgeIsCurrent = 1;
   __PHVoicemailNavigationControllerCachedBadge = *(v2 + 32);
-  if (v3 != *(a1 + 48) || *(v2 + 40) != *(a1 + 56))
+  if (v3 != *(a1 + 48) || *(v2 + 40) != a1[7])
   {
-    v6 = PHDefaultLog();
+    v6 = PHDefaultLog(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v7 = a1[4];
       v8 = PhoneStringForBadgeValue();
       v9 = PhoneStringForBadgeValue();
       v10 = 138543874;
@@ -299,7 +302,7 @@ void __40__PHVoicemailNavigationController_badge__block_invoke_120(uint64_t a1)
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ badge is being updated with %{public}@ from %{public}@", &v10, 0x20u);
     }
 
-    PhoneBadgeChanged(*(a1 + 64));
+    PhoneBadgeChanged(a1[8]);
   }
 }
 
@@ -307,10 +310,11 @@ void __40__PHVoicemailNavigationController_badge__block_invoke_121(uint64_t a1, 
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __40__PHVoicemailNavigationController_badge__block_invoke_121_cold_1();
     }
@@ -318,74 +322,75 @@ void __40__PHVoicemailNavigationController_badge__block_invoke_121(uint64_t a1, 
 
   else
   {
-    v20 = 0;
-    v7 = dispatch_group_create();
-    v31 = 0u;
-    v32 = 0u;
+    v22 = 0;
+    v8 = dispatch_group_create();
     v33 = 0u;
     v34 = 0u;
-    v21 = v5;
-    v8 = [v5 subscriptionsInUse];
-    v9 = [v8 countByEnumeratingWithState:&v31 objects:v37 count:16];
-    if (v9)
+    v35 = 0u;
+    v36 = 0u;
+    v23 = v5;
+    v9 = [v5 subscriptionsInUse];
+    v10 = [v9 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v32;
+      v11 = v10;
+      v12 = *v34;
       do
       {
-        for (i = 0; i != v10; i = i + 1)
+        for (i = 0; i != v11; i = i + 1)
         {
-          if (*v32 != v11)
+          if (*v34 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v31 + 1) + 8 * i);
-          if (([v13 isSimHidden] & 1) == 0)
+          v14 = *(*(&v33 + 1) + 8 * i);
+          v15 = [v14 isSimHidden];
+          if ((v15 & 1) == 0)
           {
-            v14 = PHDefaultLog();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v16 = PHDefaultLog(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
-              v15 = *(a1 + 32);
+              v17 = *(a1 + 32);
               *buf = 138543362;
-              v36 = v15;
-              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ Starting dispatch groups for subscription contexts.", buf, 0xCu);
+              v38 = v17;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "+[VoicemailNavigationController badge] %{public}@ Starting dispatch groups for subscription contexts.", buf, 0xCu);
             }
 
-            dispatch_group_enter(v7);
-            v16 = [*(a1 + 48) _telephonyClient];
-            v27[0] = _NSConcreteStackBlock;
-            v27[1] = 3221225472;
-            v27[2] = __40__PHVoicemailNavigationController_badge__block_invoke_122;
-            v27[3] = &unk_1002860E0;
-            v28 = *(a1 + 32);
-            v17 = v7;
-            v18 = *(a1 + 40);
-            v29 = v17;
-            v30 = v18;
-            [v16 getVoicemailInfo:v13 completion:v27];
+            dispatch_group_enter(v8);
+            v18 = [*(a1 + 48) _telephonyClient];
+            v29[0] = _NSConcreteStackBlock;
+            v29[1] = 3221225472;
+            v29[2] = __40__PHVoicemailNavigationController_badge__block_invoke_122;
+            v29[3] = &unk_1002860E0;
+            v30 = *(a1 + 32);
+            v19 = v8;
+            v20 = *(a1 + 40);
+            v31 = v19;
+            v32 = v20;
+            [v18 getVoicemailInfo:v14 completion:v29];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v33 objects:v39 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __40__PHVoicemailNavigationController_badge__block_invoke_124;
     block[3] = &unk_1002860B8;
-    v25 = *(a1 + 56);
-    v22 = *(a1 + 32);
-    v19 = v22;
-    v24 = v22;
-    v26 = *(a1 + 48);
-    dispatch_group_notify(v7, &_dispatch_main_q, block);
+    v27 = *(a1 + 56);
+    v24 = *(a1 + 32);
+    v21 = v24;
+    v26 = v24;
+    v28 = *(a1 + 48);
+    dispatch_group_notify(v8, &_dispatch_main_q, block);
 
-    v6 = v20;
-    v5 = v21;
+    v7 = v22;
+    v5 = v23;
   }
 }
 
@@ -393,7 +398,7 @@ void __40__PHVoicemailNavigationController_badge__block_invoke_122(uint64_t a1, 
 {
   v8 = a3;
   v9 = a5;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   v11 = v10;
   if (v9)
   {
@@ -446,7 +451,7 @@ __n128 __40__PHVoicemailNavigationController_badge__block_invoke_124(uint64_t a1
   __PHVoicemailNavigationControllerCachedBadge = result;
   if (v2[2].n128_u8[0] != *(a1 + 48) || v2[2].n128_u64[1] != *(a1 + 56))
   {
-    v4 = PHDefaultLog();
+    v4 = PHDefaultLog(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
@@ -466,7 +471,7 @@ __n128 __40__PHVoicemailNavigationController_badge__block_invoke_124(uint64_t a1
 
   if ((__PHVoicemailNavigationControllerCachedBadge & 1) == 0)
   {
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(a1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
@@ -567,19 +572,19 @@ void __67__PHVoicemailNavigationController_popToRootViewControllerAnimated___blo
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v8.receiver = self;
-  v8.super_class = PHVoicemailNavigationController;
-  [(PHVoicemailNavigationController *)&v8 viewDidAppear:appear];
-  v4 = PHDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v9.receiver = self;
+  v9.super_class = PHVoicemailNavigationController;
+  v4 = [(PHVoicemailNavigationController *)&v9 viewDidAppear:appear];
+  v5 = PHDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "VoicemailNavigationController viewDidAppear:", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "VoicemailNavigationController viewDidAppear:", v8, 2u);
   }
 
-  v5 = createPHPhoneTabBarControllerTabViewDidAppearNotificationInfo(5, self);
-  v6 = +[NSNotificationCenter defaultCenter];
-  [v6 postNotificationName:@"PHPhoneTabBarControllerTabViewDidAppearNotification" object:v5];
+  v6 = createPHPhoneTabBarControllerTabViewDidAppearNotificationInfo(5, self);
+  v7 = +[NSNotificationCenter defaultCenter];
+  [v7 postNotificationName:@"PHPhoneTabBarControllerTabViewDidAppearNotification" object:v6];
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -721,16 +726,17 @@ id __53__PHVoicemailNavigationController_playMessageWithID___block_invoke_2(uint
 
     else
     {
-      if ([*(a1 + 32) folder] != 2)
+      v8 = [*(a1 + 32) folder];
+      if (v8 != 2)
       {
 LABEL_10:
-        v9 = PHDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = PHDefaultLog(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = *(a1 + 32);
-          v11 = 138412290;
-          v12 = v10;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Attempting to play message %@", &v11, 0xCu);
+          v11 = *(a1 + 32);
+          v12 = 138412290;
+          v13 = v11;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attempting to play message %@", &v12, 0xCu);
         }
 
         return [*(a1 + 40) showViewController:*(*(*(a1 + 56) + 8) + 40) playingMessage:*(a1 + 32)];
@@ -740,19 +746,19 @@ LABEL_10:
       v4 = [*(a1 + 40) trashViewController];
     }
 
-    v8 = v4;
+    v9 = v4;
     [v3 addObject:v4];
 
     goto LABEL_10;
   }
 
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 48);
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Could not find message from ID %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Could not find message from ID %@", &v12, 0xCu);
   }
 
   return [*(a1 + 40) setQueuedMessage:*(a1 + 48)];
@@ -770,14 +776,14 @@ LABEL_10:
 
     if ((callScreeningEnabled & 1) == 0)
     {
-      v9 = PHDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        [(PHVoicemailNavigationController *)lCopy handleURL:v9];
+        [(PHVoicemailNavigationController *)lCopy handleURL:v10];
       }
     }
 
-    v10 = [[MPMessageID alloc] initWithUuid:voicemailMessageUUID];
+    v11 = [[MPMessageID alloc] initWithUuid:voicemailMessageUUID];
   }
 
   else
@@ -786,35 +792,35 @@ LABEL_10:
     {
 LABEL_15:
       inboxViewController = [(PHVoicemailNavigationController *)self inboxViewController];
-      v16 = inboxViewController;
-      v15 = [NSArray arrayWithObjects:&v16 count:1];
-      [(PHVoicemailNavigationController *)self showViewController:v15 playingMessage:0];
+      v18 = inboxViewController;
+      v17 = [NSArray arrayWithObjects:&v18 count:1];
+      [(PHVoicemailNavigationController *)self showViewController:v17 playingMessage:0];
 
       goto LABEL_16;
     }
 
-    v11 = objc_opt_new();
-    callScreeningEnabled2 = [v11 callScreeningEnabled];
+    v12 = objc_opt_new();
+    callScreeningEnabled2 = [v12 callScreeningEnabled];
 
     if (callScreeningEnabled2)
     {
-      v13 = PHDefaultLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v15 = PHDefaultLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        [(PHVoicemailNavigationController *)lCopy handleURL:v13];
+        [(PHVoicemailNavigationController *)lCopy handleURL:v15];
       }
     }
 
-    v10 = [[MPMessageID alloc] initWithValue:voicemailRecordID];
+    v11 = [[MPMessageID alloc] initWithValue:voicemailRecordID];
   }
 
-  inboxViewController = v10;
-  if (!v10)
+  inboxViewController = v11;
+  if (!v11)
   {
     goto LABEL_15;
   }
 
-  [(PHVoicemailNavigationController *)self playMessageWithID:v10];
+  [(PHVoicemailNavigationController *)self playMessageWithID:v11];
 LABEL_16:
 }
 
@@ -984,38 +990,39 @@ void __59__PHVoicemailNavigationController_addNotificationObservers__block_invok
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHVoicemailNavigationController - handling account manager updates %@", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHVoicemailNavigationController - handling account manager updates %@", &v13, 0xCu);
     }
 
-    v6 = +[MPVoicemailAccountManagerUpdate accounts];
-    v7 = [v3 contains:v6];
+    v7 = +[MPVoicemailAccountManagerUpdate accounts];
+    v8 = [v3 contains:v7];
 
-    if (v7)
+    if (v8)
     {
-      [WeakRetained _handleVoicemailManagerAccountsDidChange];
+      [v5 _handleVoicemailManagerAccountsDidChange];
     }
 
-    v8 = +[MPVoicemailAccountManagerUpdate storageUsage];
-    v9 = [v3 contains:v8];
+    v9 = +[MPVoicemailAccountManagerUpdate storageUsage];
+    v10 = [v3 contains:v9];
 
-    if (v9)
+    if (v10)
     {
-      [WeakRetained _handleStorageUsageChanged];
+      [v5 _handleStorageUsageChanged];
     }
 
-    v10 = +[MPVoicemailAccountManagerUpdate subscriptionStatus];
-    v11 = [v3 contains:v10];
+    v11 = +[MPVoicemailAccountManagerUpdate subscriptionStatus];
+    v12 = [v3 contains:v11];
 
-    if (v11)
+    if (v12)
     {
-      [WeakRetained _handleVoicemailSubscriptionStatusChanged];
+      [v5 _handleVoicemailSubscriptionStatusChanged];
     }
   }
 }
@@ -1036,7 +1043,7 @@ void __59__PHVoicemailNavigationController_addNotificationObservers__block_invok
 
 void __72__PHVoicemailNavigationController__handleVoicemailsChangedNotification___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1059,7 +1066,7 @@ void __72__PHVoicemailNavigationController__handleVoicemailsChangedNotification_
 
 id __76__PHVoicemailNavigationController__handleVoicemailSubscriptionStatusChanged__block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1081,7 +1088,7 @@ id __76__PHVoicemailNavigationController__handleVoicemailSubscriptionStatusChang
 
 id __61__PHVoicemailNavigationController__handleOnlineStateChanged___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1102,7 +1109,7 @@ id __61__PHVoicemailNavigationController__handleOnlineStateChanged___block_invok
 
 id __69__PHVoicemailNavigationController__handleMessageWaitingStateChanged___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1160,7 +1167,7 @@ void __77__PHVoicemailNavigationController__handlePhoneActivationChangedNotifica
 
 id __76__PHVoicemailNavigationController__handleCTIndicatorsVoicemailNotification___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1172,7 +1179,7 @@ id __76__PHVoicemailNavigationController__handleCTIndicatorsVoicemailNotificatio
 
 id __75__PHVoicemailNavigationController__handleVoicemailManagerAccountsDidChange__block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;

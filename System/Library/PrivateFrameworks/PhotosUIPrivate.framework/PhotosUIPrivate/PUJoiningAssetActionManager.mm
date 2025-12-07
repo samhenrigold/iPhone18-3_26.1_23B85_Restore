@@ -600,7 +600,7 @@ LABEL_3:
 
 void __72__PUJoiningAssetActionManager__actionManagerForAssetsByAssetCollection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = [*(a1 + 32) _actionManagerForAssets:?];
+  v6 = [*(a1 + 32) _actionManagerForAssets:a3];
   v7 = *(*(a1 + 40) + 8);
   v10 = *(v7 + 40);
   v8 = (v7 + 40);

@@ -58,7 +58,7 @@
 
 - (void)observableAtIndex:(unint64_t)index didCompleteForObserver:(id)observer
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   array = [MEMORY[0x1E695DF70] array];
   selfCopy = self;
@@ -87,30 +87,30 @@
   v15 = [(NSArray *)selfCopy->_results count];
   objc_sync_exit(selfCopy);
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v16 = array;
-  v17 = [v16 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v17)
   {
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       v19 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        [observerCopy observerDidReceiveResult:{*(*(&v21 + 1) + 8 * v19++), v21}];
+        [observerCopy observerDidReceiveResult:{*(*(&v20 + 1) + 8 * v19++), v20}];
       }
 
       while (v17 != v19);
-      v17 = [v16 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v17);
@@ -120,8 +120,6 @@
   {
     [observerCopy observerDidComplete];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

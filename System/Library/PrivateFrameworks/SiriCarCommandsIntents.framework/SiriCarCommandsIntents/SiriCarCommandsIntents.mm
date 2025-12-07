@@ -40,11 +40,11 @@ uint64_t sub_26682F404()
   return sub_266834B08();
 }
 
-uint64_t sub_26682F478()
+uint64_t sub_26682F478(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_266834AE8();
-  MEMORY[0x26D5DDDC0](v1);
+  MEMORY[0x26D5DDDC0](v2);
   return sub_266834B08();
 }
 
@@ -292,7 +292,7 @@ unint64_t IntentTrunkStatus.init(rawValue:)(unint64_t result)
   return result;
 }
 
-uint64_t *sub_2668302D0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+unint64_t *sub_2668302D0@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = *result;
   v3 = *result > 2;

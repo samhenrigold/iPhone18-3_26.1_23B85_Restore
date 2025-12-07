@@ -51,16 +51,12 @@
 - (int64_t)hash
 {
   Hasher.init()();
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC14CopresenceCore24GroupActivityAssociation_associationID);
-  v4 = *&self->associationID[OBJC_IVAR____TtC14CopresenceCore24GroupActivityAssociation_associationID];
   selfCopy = self;
   String.hash(into:)();
-  v6 = *(&selfCopy->super.isa + OBJC_IVAR____TtC14CopresenceCore24GroupActivityAssociation_sceneID);
-  v7 = *&selfCopy->associationID[OBJC_IVAR____TtC14CopresenceCore24GroupActivityAssociation_sceneID];
   String.hash(into:)();
-  v8 = Hasher.finalize()();
+  v4 = Hasher.finalize()();
 
-  return v8;
+  return v4;
 }
 
 - (_TtC14CopresenceCore24GroupActivityAssociation)init

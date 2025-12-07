@@ -33,7 +33,6 @@ uint64_t MTFEPOSResolver::VisitCommand(uint64_t this, MTFECommand *a2)
 
 uint64_t MTFEPOSResolver::VisitHomograph(MTFEPOSResolver *this, MTFESpeechElement *a2)
 {
-  v4 = *(this + 10);
   result = SLWordTagSet::find((&a2[1].var0 + 4));
   if ((result & 1) == 0)
   {
@@ -60,10 +59,10 @@ void sub_257B21D14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_257B223C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257B223C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MTWrappedPhraseProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1285,7 +1284,6 @@ void *MTFEFirstPhoneme(MTFESpeechElement *a1)
   }
 
   while (a1);
-  v3 = *v2->var0;
 }
 
 void *MTFELastPhoneme(MTFESpeechElement *a1)
@@ -1297,7 +1295,6 @@ void *MTFELastPhoneme(MTFESpeechElement *a1)
   }
 
   while (a1);
-  v3 = *v2->var0;
 }
 
 void MTFEHomograph::~MTFEHomograph(MTFEHomograph *this)
@@ -1822,7 +1819,7 @@ void MTFEFrameFiller::InitControls(int64x2_t *this)
     this[17].i64[1] = v3;
     this[5].i8[1] = 2;
     ++this[9].i16[0];
-    MEOWVectorBase::Append(this[7].i64);
+    MEOWVectorBase::Append(&this[7]);
     *(this[7].i64[0] + 8 * this[8].i64[0] - 8) = v3;
     MTFECommands::Visit(this[13].i64[1] + 112, this);
     v2 = this[15].i64[0];
@@ -2027,20 +2024,20 @@ LABEL_28:
   return this;
 }
 
-uint64_t MTFEFrameFiller::InterpolatePitch(MTFEFrameFiller *this)
+uint64_t MTFEFrameFiller::InterpolatePitch(MTBEParam **this)
 {
-  if (!*(this + 6))
+  if (!this[6])
   {
     MTFEFrameFiller::ProcessPitchEvents(this);
   }
 
-  v2 = *(this + 2);
+  v2 = this[2];
   if (*(v2 + 48))
   {
     if (*(this + 513) == 1)
     {
-      v3 = *(v2 + 190) << 16;
-      *(this + 50) = v3;
+      v3 = *(v2 + 95) << 16;
+      this[50] = v3;
       *(this + 513) = 0;
 LABEL_24:
       *(this + 511) = 0;
@@ -2049,18 +2046,18 @@ LABEL_24:
 
     if (*(this + 511))
     {
-      v7 = *(this + 51);
+      v7 = this[51];
       if (v7 < 1)
       {
         if ((v7 & 0x8000000000000000) == 0)
         {
-          v3 = *(v2 + 190) << 16;
+          v3 = *(v2 + 95) << 16;
           goto LABEL_23;
         }
 
-        v3 = *(this + 50) + v7;
-        *(this + 50) = v3;
-        v8 = *(v2 + 190);
+        v3 = this[50] + v7;
+        this[50] = v3;
+        v8 = *(v2 + 95);
         if (v8 <= v3 >> 16)
         {
           goto LABEL_25;
@@ -2069,13 +2066,13 @@ LABEL_24:
 LABEL_11:
         v3 = v8 << 16;
 LABEL_23:
-        *(this + 50) = v3;
+        this[50] = v3;
         goto LABEL_24;
       }
 
-      v3 = *(this + 50) + v7;
-      *(this + 50) = v3;
-      v8 = *(v2 + 190);
+      v3 = this[50] + v7;
+      this[50] = v3;
+      v8 = *(v2 + 95);
       if (v8 <= v3 >> 16)
       {
         goto LABEL_11;
@@ -2084,29 +2081,29 @@ LABEL_23:
 
     else
     {
-      v3 = *(this + 50);
+      v3 = this[50];
     }
 
 LABEL_25:
     v13 = v3 >> 16;
     v14 = *(this + 98) + *(this + 116);
-    *(this + 49) = *&v14 & 0xFFFFFFLL;
+    this[49] = (*&v14 & 0xFFFFFFLL);
     v15 = MTFEFrameFiller::sSineWave[BYTE2(v14)] - 128;
-    v16 = 456;
-    if ((*(*(this + 30) + 72) & 0x10) == 0)
+    v16 = 57;
+    if ((*(this[30] + 18) & 0x10) == 0)
     {
-      v16 = 448;
+      v16 = 56;
     }
 
-    result = v13 + ((*(this + v16) * v15) >> 16);
+    result = v13 + ((LODWORD(this[v16]) * v15) >> 16);
     goto LABEL_28;
   }
 
-  v4 = *(this + 6);
+  v4 = this[6];
   if (v4)
   {
     v5 = *v4;
-    *(this + 6) = v4 + 1;
+    this[6] = (v4 + 1);
     result = MTBEParam::HzToPitch(v2, (v5 + 0.5));
   }
 
@@ -2116,31 +2113,31 @@ LABEL_25:
   }
 
   *(this + 190) = result;
-  if (*(this + 6))
+  if (this[6])
   {
     goto LABEL_29;
   }
 
   v9 = *(this + 98) + *(this + 116);
-  *(this + 49) = *&v9 & 0xFFFFFFLL;
+  this[49] = (*&v9 & 0xFFFFFFLL);
   v10 = MTFEFrameFiller::sSineWave[BYTE2(v9)] - 128;
-  if (MTBEParam::GetUsePostDurMod(*(this + 2)))
+  if (MTBEParam::GetUsePostDurMod(this[2]))
   {
-    DurModFakeRate = MTBEParam::GetDurModFakeRate(*(this + 2));
+    DurModFakeRate = MTBEParam::GetDurModFakeRate(this[2]);
   }
 
   else
   {
-    DurModFakeRate = *(*(this + 27) + 178);
+    DurModFakeRate = *(this[27] + 89);
   }
 
-  v12 = 456;
+  v12 = 57;
   if (DurModFakeRate > 99)
   {
-    v12 = 448;
+    v12 = 56;
   }
 
-  result = *(this + 190) + ((*(this + v12) * v10) >> 16);
+  result = *(this + 190) + ((LODWORD(this[v12]) * v10) >> 16);
 LABEL_28:
   *(this + 190) = result;
 LABEL_29:
@@ -2339,17 +2336,6 @@ uint64_t MTFEFrameFiller::SaveFrame(uint64_t result, uint64_t a2)
 
     else
     {
-      v33 = *(a2 + 22);
-      v34 = *(a2 + 24);
-      v35 = *(a2 + 26);
-      v36 = *(a2 + 28);
-      v37 = *(a2 + 30);
-      v38 = *(a2 + 32);
-      v39 = *(a2 + 48);
-      v42 = *(a2 + 18);
-      v43 = *(a2 + 20);
-      v40 = *(a2 + 14);
-      v41 = *(a2 + 16);
       return printf("%2d %2d %4d %4d %4d %4d %2d %2d %2d %2d %2d %4d %2d %4d %4d %4d %2d %2ld\n", *(a2 + 4), *(a2 + 6), v32, *(a2 + 8), *(a2 + 10), *(a2 + 12));
     }
   }
@@ -2481,8 +2467,7 @@ int64x2_t MTFEFrameFiller::FillPhonTargets(int64x2_t *this)
   {
     this[18].i16[1] = 0;
     this[18].i8[4] = 0;
-    this[20].i64[0] = 0;
-    this[20].i64[1] = 0;
+    this[20] = 0uLL;
     if (this[9].i8[6] == 1)
     {
       this[9].i8[6] = 0;
@@ -2826,7 +2811,7 @@ uint64_t MTFEFrameFiller::GetTarget(MTFEFrameFiller *this, MTFEPhoneme *a2)
 
         else
         {
-          v15 = &MTFEFrameFiller::sRankBkwd + v6;
+          v15 = &MTFEFrameFiller::sRankBkwd[v6];
         }
 
         v16 = *v15;
@@ -3027,11 +3012,11 @@ float MTFEFrameFiller::GetDiphthongs(MTFEFrameFiller *this, int a2)
   return result;
 }
 
-_DWORD *MTFEFrameFiller::HeadRules(_DWORD *this)
+MTFEFrameFiller *MTFEFrameFiller::HeadRules(MTFEFrameFiller *this)
 {
   v1 = this;
-  v2 = this[316];
-  v3 = &this[12 * v2];
+  v2 = *(this + 316);
+  v3 = this + 48 * v2;
   v4 = MTFEFrameFiller::sControlType[v2];
   if (v4 > 2)
   {
@@ -3146,7 +3131,7 @@ _DWORD *MTFEFrameFiller::HeadRules(_DWORD *this)
         v31 = 3407888;
       }
 
-      this[94] = v31;
+      *(this + 94) = v31;
       goto LABEL_131;
     }
 
@@ -3176,7 +3161,7 @@ _DWORD *MTFEFrameFiller::HeadRules(_DWORD *this)
     else
     {
       *(this + 188) = 9;
-      if ((this[76] & 0x80) == 0)
+      if ((*(this + 304) & 0x80) == 0)
       {
         if (*(this + 288) != 34)
         {
@@ -3217,7 +3202,7 @@ LABEL_57:
         }
 
         v25 = *(v1 + 38);
-        if ((v25 & 0x1004) == 0x1000 && !v1[316])
+        if ((v25 & 0x1004) == 0x1000 && !*(v1 + 316))
         {
           *(v1 + 189) += 100;
         }
@@ -3230,7 +3215,7 @@ LABEL_57:
             v27 = *(v1 + 173);
           }
 
-          else if (v1[316])
+          else if (*(v1 + 316))
           {
             v27 = 6;
           }
@@ -3248,7 +3233,7 @@ LABEL_57:
           goto LABEL_126;
         }
 
-        v32 = v1[316];
+        v32 = *(v1 + 316);
         if (v32)
         {
           v33 = *(v1 + 173);
@@ -3299,7 +3284,7 @@ LABEL_126:
             goto LABEL_131;
           }
 
-          v15 = ((v1[90] * v39) >> 16) + 1;
+          v15 = ((*(v1 + 90) * v39) >> 16) + 1;
 LABEL_130:
           *(v1 + 188) = v15;
           goto LABEL_131;
@@ -3351,7 +3336,7 @@ LABEL_125:
     }
 
     v5 = *(this + 37);
-    if ((this[76] & 0x40) == 0)
+    if ((*(this + 304) & 0x40) == 0)
     {
       if ((v5 & 0x40) == 0)
       {
@@ -3417,7 +3402,7 @@ LABEL_46:
 
   *(this + 188) = 10;
 LABEL_48:
-  if ((this[76] & 0x40) == 0)
+  if ((*(this + 304) & 0x40) == 0)
   {
     goto LABEL_95;
   }
@@ -3474,11 +3459,11 @@ LABEL_131:
   return this;
 }
 
-_DWORD *MTFEFrameFiller::TailRules(_DWORD *this)
+MTFEFrameFiller *MTFEFrameFiller::TailRules(MTFEFrameFiller *this)
 {
   v1 = this;
-  v2 = this[316];
-  v3 = &this[12 * v2 + 136];
+  v2 = *(this + 316);
+  v3 = this + 48 * v2 + 544;
   v4 = MTFEFrameFiller::sControlType[v2];
   if (v4 <= 2)
   {
@@ -3486,7 +3471,7 @@ _DWORD *MTFEFrameFiller::TailRules(_DWORD *this)
     {
       if (v4 != 1)
       {
-        if (v4 == 2 && (this[78] & 0x40) != 0 && (this[74] & 0x40) == 0)
+        if (v4 == 2 && (*(this + 312) & 0x40) != 0 && (*(this + 296) & 0x40) == 0)
         {
           *(this + 189) = *(*(this + 5) + 34);
           LOWORD(v2) = 16;
@@ -3533,12 +3518,12 @@ LABEL_133:
       *(this + 189) = *(v3 + v22) + 200;
       *(this + 188) = 10;
 LABEL_72:
-      if ((this[78] & 0x40) == 0)
+      if ((*(this + 312) & 0x40) == 0)
       {
         goto LABEL_86;
       }
 
-      v23 = HIWORD(this[12 * v2 + 142]);
+      v23 = *(this + 24 * v2 + 285);
       *(this + 189) = v23;
       if (v2 == 3)
       {
@@ -3574,8 +3559,8 @@ LABEL_86:
       *(this + 188) = 9;
       if ((v14 & 0x80) != 0)
       {
-        *(this + 189) = (*(this + 189) + SHIWORD(this[12 * v2 + 142])) >> 1;
-        if ((this[78] & 0x80) != 0)
+        *(this + 189) = (*(this + 189) + *(this + 24 * v2 + 285)) >> 1;
+        if ((*(this + 312) & 0x80) != 0)
         {
           v26 = 8;
         }
@@ -3588,14 +3573,14 @@ LABEL_86:
         goto LABEL_91;
       }
 
-      if ((this[78] & 0x80) == 0)
+      if ((*(this + 312) & 0x80) == 0)
       {
         if (*(this + 293) != 34)
         {
           goto LABEL_96;
         }
 
-        v15 = (*(this + 189) + SHIWORD(this[12 * v2 + 142])) >> 1;
+        v15 = (*(this + 189) + *(this + 24 * v2 + 285)) >> 1;
         goto LABEL_95;
       }
 
@@ -3649,7 +3634,7 @@ LABEL_96:
     v14 = *(v1 + 37);
     if ((v14 & 0x400) != 0)
     {
-      v32 = v1[316];
+      v32 = *(v1 + 316);
       v33 = v32 ? 6 : 4;
       *(v1 + 188) = v33;
       if ((v14 & 0x1000) != 0)
@@ -3664,7 +3649,7 @@ LABEL_96:
 
     if ((v14 & 0x40) != 0)
     {
-      v34 = v1[316];
+      v34 = *(v1 + 316);
       if (v34)
       {
         v35 = *(v1 + 173);
@@ -3729,7 +3714,7 @@ LABEL_115:
       v2 = *(v1 + 188);
       if (v2 >= 1)
       {
-        LODWORD(v2) = ((v1[92] * v2) >> 16) + 1;
+        LODWORD(v2) = ((*(v1 + 92) * v2) >> 16) + 1;
         goto LABEL_133;
       }
     }
@@ -3742,10 +3727,10 @@ LABEL_115:
     goto LABEL_134;
   }
 
-  v5 = SHIWORD(this[12 * v2 + 141]);
+  v5 = *(this + 24 * v2 + 283);
   v6 = v5 - 10;
   v7 = *(this + 189);
-  if (v7 < (HIWORD(this[12 * v2 + 141]) - 10))
+  if (v7 < (*(this + 24 * v2 + 283) - 10))
   {
     v7 = v6;
     *(this + 189) = v6;
@@ -3768,7 +3753,7 @@ LABEL_115:
       {
         if ((v27 & 4) != 0)
         {
-          *(this + 189) = HIWORD(this[12 * v2 + 142]) - 3;
+          *(this + 189) = *(this + 24 * v2 + 285) - 3;
           LOWORD(v2) = 9;
         }
 
@@ -3783,7 +3768,7 @@ LABEL_115:
   }
 
   v12 = *(this + 37);
-  if ((v12 & 4) != 0 && (this[78] & 0x40) != 0)
+  if ((v12 & 4) != 0 && (*(this + 312) & 0x40) != 0)
   {
     *(this + 188) = 0;
   }
@@ -3803,7 +3788,7 @@ LABEL_115:
     *(this + 188) = v13;
   }
 
-  v17 = HIWORD(this[12 * v2 + 142]);
+  v17 = *(this + 24 * v2 + 285);
   v18 = v17 - 10;
   if ((v12 & 0x200) != 0)
   {
@@ -3846,12 +3831,12 @@ LABEL_115:
     v20 = *(this + 288);
     if (v20 <= 0x2C && ((1 << v20) & 0x154000000000) != 0 && (*(this + 39) & 0x404) == 4)
     {
-      this[94] = 3407880;
+      *(this + 94) = 3407880;
     }
 
     if ((v12 & 1) != 0 && !v19)
     {
-      this[94] = 3407898;
+      *(this + 94) = 3407898;
     }
   }
 
@@ -4177,9 +4162,9 @@ uint64_t MTFEFrameFiller::AdjustColoredTarget(MTFEFrameFiller *this, MTFEPhoneme
   }
 }
 
-_DWORD *MTFEFrameFiller::GetLocus(_DWORD *this, MTFEPhoneme *a2, MTFEPhoneme *a3, int a4)
+MTFEFrameFiller *MTFEFrameFiller::GetLocus(MTFEFrameFiller *this, MTFEPhoneme *a2, MTFEPhoneme *a3, int a4)
 {
-  v4 = this[316];
+  v4 = *(this + 316);
   if (v4 <= 2)
   {
     var9 = a2->var9;
@@ -4192,12 +4177,12 @@ _DWORD *MTFEFrameFiller::GetLocus(_DWORD *this, MTFEPhoneme *a2, MTFEPhoneme *a3
 
     else
     {
-      v8 = &MTFEFrameFiller::sRankBkwd;
+      v8 = MTFEFrameFiller::sRankBkwd;
     }
 
     if (a4)
     {
-      v6 = &MTFEFrameFiller::sRankBkwd;
+      v6 = MTFEFrameFiller::sRankBkwd;
     }
 
     v9 = v6[v7];
@@ -4608,7 +4593,7 @@ LABEL_23:
   return this;
 }
 
-uint64_t MTFEFrameFiller::LogToLin(MTFEFrameFiller *this, int a2)
+uint64_t MTFEFrameFiller::LogToLin(MTFEFrameFiller *this, unsigned int a2)
 {
   if (a2 >= 0x3F)
   {
@@ -4621,7 +4606,7 @@ uint64_t MTFEFrameFiller::LogToLin(MTFEFrameFiller *this, int a2)
   }
 
   v3 = v2 >> 1;
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     v3 = 0;
   }
@@ -4655,8 +4640,8 @@ _WORD *MTFEFrameFiller::VisitCommand(_WORD *this, MTFECommand *a2)
           return this;
         }
 
-        v10 = *(this + 2);
-        if ((v10[24] & 1) == 0)
+        v8 = *(this + 2);
+        if ((v8[24] & 1) == 0)
         {
           if (*(this + 6))
           {
@@ -4665,7 +4650,7 @@ _WORD *MTFEFrameFiller::VisitCommand(_WORD *this, MTFECommand *a2)
         }
 
         var9 = a2->var9 + MTBEParam::GetModulation(*(this + 2));
-        this = v10;
+        this = v8;
       }
 
       return MTBEParam::SetModulation(this, var9);
@@ -4675,13 +4660,13 @@ _WORD *MTFEFrameFiller::VisitCommand(_WORD *this, MTFECommand *a2)
     {
       if (var8 == 1885495666)
       {
-        v8 = *(this + 2);
-        if ((*(v8 + 48) & 1) == 0 && *(this + 6))
+        v6 = *(this + 2);
+        if ((*(v6 + 48) & 1) == 0 && *(this + 6))
         {
           return this;
         }
 
-        v9 = (12 * MTBEParam::GetPitch(*(this + 2)) + (SLODWORD(a2->var9) >> 8) + 8025);
+        v7 = (12 * MTBEParam::GetPitch(*(this + 2)) + (SLODWORD(a2->var9) >> 8) + 8025);
       }
 
       else
@@ -4691,8 +4676,8 @@ _WORD *MTFEFrameFiller::VisitCommand(_WORD *this, MTFECommand *a2)
           return this;
         }
 
-        v8 = *(this + 2);
-        if ((*(v8 + 48) & 1) == 0)
+        v6 = *(this + 2);
+        if ((*(v6 + 48) & 1) == 0)
         {
           if (*(this + 6))
           {
@@ -4700,12 +4685,12 @@ _WORD *MTFEFrameFiller::VisitCommand(_WORD *this, MTFECommand *a2)
           }
         }
 
-        v9 = a2->var9 >> 8;
+        v7 = a2->var9 >> 8;
       }
 
-      v14 = MTBEParam::MidiToPitch(v8, v9);
+      v11 = MTBEParam::MidiToPitch(v6, v7);
 
-      return MTBEParam::SetPitch(v8, v14);
+      return MTBEParam::SetPitch(v6, v11);
     }
   }
 
@@ -4716,20 +4701,18 @@ _WORD *MTFEFrameFiller::VisitCommand(_WORD *this, MTFECommand *a2)
       switch(var8)
       {
         case 1987013741:
-          v15 = *(this + 2);
+          v12 = *(this + 2);
           Volume = a2->var9;
           break;
         case 1987013746:
-          v24 = *(this + 2);
-          Volume = a2->var9 + MTBEParam::GetVolume(v24);
-          v15 = v24;
+          v21 = *(this + 2);
+          Volume = a2->var9 + MTBEParam::GetVolume(v21);
+          v12 = v21;
           break;
         case 2003792484:
-          v5 = a2->var9 >> 8;
-          v6 = *(**(this + 11) + 56);
-          v7 = a2->var9;
+          v5 = *(**(this + 11) + 56);
 
-          return v6();
+          return v5();
         default:
           return this;
       }
@@ -4748,34 +4731,33 @@ _WORD *MTFEFrameFiller::VisitCommand(_WORD *this, MTFECommand *a2)
 
       if (a2->var9 == 1)
       {
-        v17 = *(v3 + 2);
+        v14 = *(v3 + 2);
         Rate = MTBEParam::GetRate(this);
-        MTBEParam::SetRate(v17, Rate);
-        v19 = *(v3 + 2);
+        MTBEParam::SetRate(v14, Rate);
+        v16 = *(v3 + 2);
         Pitch = MTBEParam::GetPitch(*(v3 + 3));
-        MTBEParam::SetPitch(v19, Pitch);
-        v21 = *(v3 + 2);
+        MTBEParam::SetPitch(v16, Pitch);
+        v18 = *(v3 + 2);
         Modulation = MTBEParam::GetModulation(*(v3 + 3));
-        MTBEParam::SetModulation(v21, Modulation);
-        v23 = *(v3 + 2);
+        MTBEParam::SetModulation(v18, Modulation);
+        v20 = *(v3 + 2);
         Volume = MTBEParam::GetVolume(*(v3 + 3));
-        v15 = v23;
+        v12 = v20;
 LABEL_43:
 
-        return MTBEParam::SetVolume(v15, Volume);
+        return MTBEParam::SetVolume(v12, Volume);
       }
 
-      v25 = *(v3 + 5);
+      v22 = *(v3 + 5);
 
-      return MTBEParam::ResetVoice(this, v25);
+      return MTBEParam::ResetVoice(this, v22);
     }
 
     else if (var8 == 1937337955)
     {
-      var9_low = LODWORD(a2->var9);
-      v13 = *(**(this + 11) + 40);
+      v10 = *(**(this + 11) + 40);
 
-      return v13();
+      return v10();
     }
   }
 
@@ -4817,7 +4799,7 @@ uint64_t MTFEFrameFiller::NextClonedWord(MTFEFrameFiller *this)
   return v1;
 }
 
-uint64_t MTPFExpandCompounds::VisitPhoneme(uint64_t this, MTFEPhoneme *a2)
+MTFETrackingVisitor *MTPFExpandCompounds::VisitPhoneme(MTFETrackingVisitor *this, MTFEPhoneme *a2)
 {
   v3 = this;
   var9 = a2->var9;
@@ -4827,7 +4809,7 @@ uint64_t MTPFExpandCompounds::VisitPhoneme(uint64_t this, MTFEPhoneme *a2)
     {
       if (var9 == 19)
       {
-        v7 = 31;
+        v6 = 31;
       }
 
       else
@@ -4837,7 +4819,7 @@ uint64_t MTPFExpandCompounds::VisitPhoneme(uint64_t this, MTFEPhoneme *a2)
           return this;
         }
 
-        v7 = 13;
+        v6 = 13;
       }
     }
 
@@ -4846,14 +4828,13 @@ uint64_t MTPFExpandCompounds::VisitPhoneme(uint64_t this, MTFEPhoneme *a2)
       switch(var9)
       {
         case 28:
-          v7 = 11;
+          v6 = 11;
           break;
         case 29:
-          v7 = 25;
+          v6 = 25;
           break;
         case 56:
           v5 = *(a2->var0 + 2);
-          v6 = a2->var0 + 2;
 
           return v5(a2);
         default:
@@ -4862,22 +4843,22 @@ uint64_t MTPFExpandCompounds::VisitPhoneme(uint64_t this, MTFEPhoneme *a2)
     }
 
 LABEL_22:
-    a2->var9 = v7;
+    a2->var9 = v6;
     operator new();
   }
 
   MTFETrackingVisitor::PrePhoneme(this, a2);
   if (var9 == 53)
   {
-    ++*(v3 + 24);
-    v7 = 49;
+    ++*(v3 + 12);
+    v6 = 49;
     goto LABEL_22;
   }
 
   if (var9 == 52)
   {
-    ++*(v3 + 24);
-    v7 = 48;
+    ++*(v3 + 12);
+    v6 = 48;
     goto LABEL_22;
   }
 
@@ -4907,19 +4888,19 @@ void MTFESyllablify::Pass1::VisitWord(MTFESyllablify::Pass1 *this, MTFESpeechEle
   operator new();
 }
 
-void MTFESyllablify::Pass1::VisitPhoneme(MTFESyllablify::Pass1 *this, MTFEPhoneme *a2)
+void MTFESyllablify::Pass1::VisitPhoneme(MTFESyllablify::Pass1 *this, MTFEPhoneme *a2, unsigned __int8 a3)
 {
   if (*(MEMORY[0x277D65568] + 4 * a2->var9))
   {
-    v3 = MTFESyllablify::Pass1::MarkSyllable(this, a2);
+    v4 = MTFESyllablify::Pass1::MarkSyllable(this, a2);
   }
 
   else
   {
-    v3 = MTFESyllablify::Pass1::PlaceStressInConsonant(this, a2);
+    v4 = MTFESyllablify::Pass1::PlaceStressInConsonant(this, a2, a3);
   }
 
-  MTFESyllablify::Pass1::MarkBoundary(v3, a2);
+  MTFESyllablify::Pass1::MarkBoundary(v4, a2);
 }
 
 uint64_t MTFESyllablify::Pass1::MarkSyllable(uint64_t this, MTFEPhoneme *a2)
@@ -4979,22 +4960,22 @@ LABEL_7:
   return this;
 }
 
-uint64_t MTFESyllablify::Pass1::PlaceStressInConsonant(uint64_t this, MTFEPhoneme *a2)
+uint64_t MTFESyllablify::Pass1::PlaceStressInConsonant(uint64_t this, MTFEPhoneme *a2, unsigned __int8 a3)
 {
-  v3 = this;
-  v4 = 0;
-  v5 = 1;
-  v6 = MEMORY[0x277D65568];
-  v7 = a2;
+  v4 = this;
+  v5 = 0;
+  v6 = 1;
+  v7 = MEMORY[0x277D65568];
+  v8 = a2;
   while (1)
   {
-    v7 = v7->var6;
-    if (!v7)
+    v8 = v8->var6;
+    if (!v8)
     {
       return this;
     }
 
-    var15 = v7->var15;
+    var15 = v8->var15;
     if ((var15 & 0x100F0000) != 0)
     {
       return this;
@@ -5005,23 +4986,23 @@ uint64_t MTFESyllablify::Pass1::PlaceStressInConsonant(uint64_t this, MTFEPhonem
       break;
     }
 
-    var9 = v7->var9;
-    if (*(v6 + 4 * var9))
+    var9 = v8->var9;
+    if (*(v7 + 4 * var9))
     {
       return this;
     }
 
-    if ((*(v3 + 9) & 1) == 0)
+    if ((*(v4 + 9) & 1) == 0)
     {
-      if (v5 == 2)
+      if (v6 == 2)
       {
         if (a2->var9 != 42)
         {
           return this;
         }
 
-        this = MTFESyllablify::CheckConsonantPair(v4->var9, var9);
-        v5 = 3;
+        this = MTFESyllablify::CheckConsonantPair(v5->var9, var9);
+        v6 = 3;
         if ((this & 1) == 0)
         {
           return this;
@@ -5030,19 +5011,19 @@ uint64_t MTFESyllablify::Pass1::PlaceStressInConsonant(uint64_t this, MTFEPhonem
 
       else
       {
-        if (v5 != 1)
+        if (v6 != 1)
         {
           return this;
         }
 
         this = a2->var9;
-        v5 = 2;
-        v4 = v7;
+        v6 = 2;
+        v5 = v8;
         if (this != 42)
         {
           this = MTFESyllablify::CheckConsonantPair(this, var9);
-          v5 = 2;
-          v4 = v7;
+          v6 = 2;
+          v5 = v8;
           if ((this & 1) == 0)
           {
             return this;
@@ -5052,22 +5033,22 @@ uint64_t MTFESyllablify::Pass1::PlaceStressInConsonant(uint64_t this, MTFEPhonem
     }
   }
 
-  if (v5 != 2 || (*(v3 + 9) & 1) != 0 || (this = MTFESyllablify::CheckConsonantPair(a2->var9, v4->var9), this))
+  if (v6 != 2 || (*(v4 + 9) & 1) != 0 || (this = MTFESyllablify::CheckConsonantPair(a2->var9, v5->var9), this))
   {
     if ((var15 & 0x400) != 0)
     {
-      if (*(v3 + 8))
+      if (*(v4 + 8))
       {
-        v10 = 2048;
+        v11 = 2048;
       }
 
       else
       {
-        v10 = 1024;
+        v11 = 1024;
       }
 
-      a2->var15 |= v10;
-      var15 = v7->var15;
+      a2->var15 |= v11;
+      var15 = v8->var15;
       if ((var15 & 0x800) == 0)
       {
 LABEL_20:
@@ -5085,18 +5066,18 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    if (*(v3 + 8))
+    if (*(v4 + 8))
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v11 = 2048;
+      v12 = 2048;
     }
 
-    a2->var15 |= v11;
-    if ((v7->var15 & 0x1000) != 0)
+    a2->var15 |= v12;
+    if ((v8->var15 & 0x1000) != 0)
     {
 LABEL_21:
       a2->var15 |= 0x1000u;
@@ -5747,7 +5728,6 @@ uint64_t MTFEFillPitchBuffer::VisitSentence(MTFEFillPitchBuffer *this, MTFESpeec
   *(this + 16) = 0;
   MTFESpeechElement::VisitChildren(a2, this);
   v3 = *(this + 3);
-  v4 = *(this + 1);
 
   return MTBEParam::StartNewPitchClause(v3);
 }
@@ -6103,7 +6083,7 @@ MTFESpeechElement *MTFEModDuration::VisitIntonationalPhrase(MTFEModDuration *thi
   return result;
 }
 
-void MTFEModDuration::VisitWord(MTFEModDuration *this, MTFESpeechElement *a2)
+void MTFEModDuration::VisitWord(MTFEModDuration *this, MTFESpeechElement *a2, uint64_t a3, BOOL a4)
 {
   if (kMTFEDebugSingingDuration)
   {
@@ -6111,7 +6091,7 @@ void MTFEModDuration::VisitWord(MTFEModDuration *this, MTFESpeechElement *a2)
     kMTFEDebugSingingDuration = 0;
   }
 
-  v4 = MEMORY[0x277D85DF8];
+  v6 = MEMORY[0x277D85DF8];
   if (byte_27F8F0958 == 1)
   {
     fprintf(*MEMORY[0x277D85DF8], "Word %s tempo %d\n", &a2[3].var5, *(&a2[3].var2 + 1));
@@ -6121,35 +6101,35 @@ void MTFEModDuration::VisitWord(MTFEModDuration *this, MTFESpeechElement *a2)
   var0 = a2[1].var0;
   *(this + 75) = var0 & 1;
   *(this + 29) = 0;
-  v6 = *&a2[3].var2;
+  v8 = *&a2[3].var2;
   if (*&a2[3].var2)
   {
-    v7 = *(this + 1);
-    if (v7[6].i8[0] == 1)
+    v9 = *(this + 1);
+    if (v9[6].i8[0] == 1)
     {
-      MTBEParam::SetTempo(v7, v6);
+      MTBEParam::SetTempo(v9, v8);
     }
 
     else
     {
-      MTBEParam::SetRate(v7, v6);
+      MTBEParam::SetRate(v9, v8);
     }
 
     *(this + 25) = *&a2[3].var2;
     LOBYTE(var0) = *(this + 75);
   }
 
-  v8 = 1.0;
+  v10 = 1.0;
   if (var0)
   {
-    v9 = *(this + 24);
-    if (v9 > 1.0)
+    v11 = *(this + 24);
+    if (v11 > 1.0)
     {
-      v8 = v9 / *(this + 25);
+      v10 = v11 / *(this + 25);
     }
   }
 
-  *(this + 23) = v8;
+  *(this + 23) = v10;
   if (*(this + 7))
   {
     *(this + 108) = 0x42C8000000000000;
@@ -6167,7 +6147,7 @@ void MTFEModDuration::VisitWord(MTFEModDuration *this, MTFESpeechElement *a2)
 
   if (byte_27F8F0958 == 1)
   {
-    fprintf(*v4, "  Duration %d ms, stretch %f, min dur %f\n", 5 * *(this + 29), *(this + 27), *(this + 28));
+    fprintf(*v6, "  Duration %d ms, stretch %f, min dur %f\n", 5 * *(this + 29), *(this + 27), *(this + 28));
   }
 }
 
@@ -6283,7 +6263,7 @@ float MTFEModDuration::VisitCommand(MTFEModDuration *this, MTFECommand *a2)
   return result;
 }
 
-void MTFEModDuration::VisitPhoneme(MTFEModDuration *this, MTFEPhoneme *a2)
+void MTFEModDuration::VisitPhoneme(uint64_t this, MTFEPhoneme *a2)
 {
   if (!a2->var7)
   {
@@ -6296,7 +6276,7 @@ void MTFEModDuration::VisitPhoneme(MTFEModDuration *this, MTFEPhoneme *a2)
   v6 = *(MEMORY[0x277D65568] + 4 * a2->var9);
   if (*(this + 75) == 1)
   {
-    v7 = *(this + 23);
+    v7 = *(this + 92);
 LABEL_8:
     var13 = v7 * a2->var13;
     goto LABEL_10;
@@ -6304,7 +6284,7 @@ LABEL_8:
 
   if (a2->var9 && (*(this + 70) & 1) != 0)
   {
-    v7 = *(*(this + 1) + 44);
+    v7 = *(*(this + 8) + 44);
     goto LABEL_8;
   }
 
@@ -6323,7 +6303,7 @@ LABEL_10:
   }
 
   a2->var13 = v10;
-  v11 = *(this + 1);
+  v11 = *(this + 8);
   if (*(v11 + 50) != 1)
   {
     if (*(v11 + 49) == 1)
@@ -6336,17 +6316,17 @@ LABEL_10:
       if ((var15 & 0x80000) != 0)
       {
         v31 = *(v11 + 258);
-        if (*(this + 33) < v31)
+        if (*(this + 66) < v31)
         {
-          *(this + 33) = v31;
+          *(this + 66) = v31;
         }
       }
 
       else
       {
-        v12 = *(this + 2);
+        v12 = *(this + 16);
         v13 = *(v11 + 212);
-        *(this + 34) = *(v12 + 2 * v13 + 351) & 0xF;
+        *(this + 68) = *(v12 + 2 * v13 + 351) & 0xF;
         if (*(v12 + 348) > (v13 + 1))
         {
           v14 = v13 + 1;
@@ -6369,7 +6349,7 @@ LABEL_10:
       }
 
       v15 = (a2->var12 & 0xF00) == 0;
-      *(this + 34) = HIBYTE(a2->var12) & 0xF;
+      *(this + 68) = HIBYTE(a2->var12) & 0xF;
       if (v15 && (var15 & 0x80000) == 0)
       {
         goto LABEL_52;
@@ -6409,14 +6389,14 @@ LABEL_10:
       if (!var6)
       {
 LABEL_39:
-        v18 = *(this + 5);
-        v19 = *(this + 6);
+        v18 = *(this + 40);
+        v19 = *(this + 48);
         v20 = *v18;
         v21 = *(v11 + 240);
         v22 = v18 - v21;
         v24 = v18[1];
         v23 = v18 + 1;
-        v25 = (bswap32(v24) - bswap32(v20)) / 0x38 - *(this + 32);
+        v25 = (bswap32(v24) - bswap32(v20)) / 0x38 - *(this + 64);
         if (BYTE2(v17[1].var0))
         {
           v26 = -10;
@@ -6428,7 +6408,7 @@ LABEL_39:
         }
 
         v27 = (v26 + v25);
-        v28 = *(this + 3);
+        v28 = *(this + 24);
         v29 = *(v28 + 64) + v27;
         if (v29 < 4.0)
         {
@@ -6436,7 +6416,7 @@ LABEL_39:
         }
 
         *(v28 + 64) = v29;
-        *(this + 32) = 0;
+        *(this + 64) = 0;
         v30 = (v21 + 4);
         if (!v19)
         {
@@ -6448,7 +6428,7 @@ LABEL_39:
           v30 = v23;
         }
 
-        *(this + 5) = v30;
+        *(this + 40) = v30;
         goto LABEL_52;
       }
 
@@ -6463,20 +6443,20 @@ LABEL_39:
 LABEL_52:
   if (v6)
   {
-    *(this + 3) = a2;
+    *(this + 24) = a2;
   }
 
-  *(this + 32) += v10;
+  *(this + 64) += v10;
   v32 = a2->var13;
-  *(this + 22) = v32 + *(this + 22);
+  *(this + 88) = v32 + *(this + 88);
   *(this + 116) = vadd_s32(*(this + 116), vdup_n_s32(v32));
   v33 = a2->var13;
-  if (v33 >= *(this + 28))
+  if (v33 >= *(this + 112))
   {
-    v33 = *(this + 28);
+    v33 = *(this + 112);
   }
 
-  *(this + 28) = v33;
+  *(this + 112) = v33;
 }
 
 float MTFEModDuration::OldDurationModel(MTFEModDuration *this, MTFEPhoneme *a2)
@@ -7086,14 +7066,14 @@ void MTFEMarkStress::VisitSentence(MTFEMarkStress *this, MTFESpeechElement *a2)
   MTFESpeechElement::VisitChildren(a2, this);
   *&a2[1].var2 = *(this + 80);
 
-  MTFEMarkStress::CheckPitchChange(this, 0);
+  MTFEMarkStress::CheckPitchChange(this, 0, v6, v7);
 }
 
-void MTFEMarkStress::CheckPitchChange(MTFEMarkStress *this, MTFEWord *a2)
+void MTFEMarkStress::CheckPitchChange(uint64_t this, MTFEWord *a2, uint64_t a3, BOOL a4)
 {
   if (*(this + 128) == 1)
   {
-    if (*(this + 15))
+    if (*(this + 120))
     {
       if (kMTFEPitchDWIM)
       {
@@ -7103,23 +7083,23 @@ void MTFEMarkStress::CheckPitchChange(MTFEMarkStress *this, MTFEWord *a2)
 
       if (byte_27F8F0978 == 1)
       {
-        *(*(this + 15) + 56) |= 0x800u;
+        *(*(this + 120) + 56) |= 0x800u;
       }
     }
 
-    *(this + 15) = a2;
+    *(this + 120) = a2;
     *(this + 128) = 0;
   }
 
   else if (a2 && (a2->var8 & 0x40) == 0)
   {
-    *(this + 15) = 0;
+    *(this + 120) = 0;
   }
 }
 
-void MTFEMarkStress::VisitIntonationalPhrase(MTFEMarkStress *this, MTFEIntonationalPhrase *a2)
+void MTFEMarkStress::VisitIntonationalPhrase(MTFEMarkStress *this, MTFESpeechElement *a2)
 {
-  a2->var19 = 0;
+  BYTE6(a2[2].var6) = 0;
   *(this + 5) = 0;
   *(this + 17) = a2;
   *(this + 10) = 0;
@@ -7131,7 +7111,7 @@ void MTFEMarkStress::VisitIntonationalPhrase(MTFEMarkStress *this, MTFEIntonatio
   *(this + 21) = 0;
   *(this + 22) = 0;
   *(this + 183) = 0;
-  *(this + 191) = a2->var28 != 0;
+  *(this + 191) = a2[3].var6 != 0;
   operator new();
 }
 
@@ -7207,13 +7187,13 @@ MTFESpeechElement *MTFEMarkStress::VisitWord(MTFEMarkStress *this, MTFEWord *a2)
   *(this + 13) = a2;
   MTFECommands::Visit(&a2->var18, this);
   a2->var22 = *(this + 80);
-  v4 = *(this + 153);
+  v6 = *(this + 153);
   if (*(this + 191) == 1)
   {
     a2->var23 = *(*(this + 2) + 20);
   }
 
-  MTFEMarkStress::CheckPitchChange(this, a2);
+  MTFEMarkStress::CheckPitchChange(this, a2, v4, v5);
   if (*(this + 158) == 1)
   {
     a2->var11 = 3;
@@ -7227,48 +7207,48 @@ MTFESpeechElement *MTFEMarkStress::VisitWord(MTFEMarkStress *this, MTFEWord *a2)
   var11 = a2->var11;
   if ((var11 - 1) >= 2)
   {
-    v9 = var11 == 3 || *(*(this + 17) + 156) == 0;
-    v10 = !v9;
-    if (a2->var11 && !v10)
+    v11 = var11 == 3 || *(*(this + 17) + 156) == 0;
+    v12 = !v11;
+    if (a2->var11 && !v12)
     {
-      v11 = *(this + 18);
-      if (*(v11 + 16) != a2)
+      v13 = *(this + 18);
+      if (*(v13 + 16) != a2)
       {
-        *(v11 + 80) = var11;
+        *(v13 + 80) = var11;
         if (a2->var15 != 31)
         {
           operator new();
         }
       }
 
-      if (var11 >= 0xB && var11 != 16 && v11 != *(*(v11 + 32) + 16))
+      if (var11 >= 0xB && var11 != 16 && v13 != *(*(v13 + 32) + 16))
       {
         operator new();
       }
 
-      v15 = vdupq_n_s64(0x1F00000uLL);
-      v15.i64[0] = var11 << 20;
-      *(this + 168) = vorrq_s8(*(this + 168), v15);
+      v16 = vdupq_n_s64(0x1F00000uLL);
+      v16.i64[0] = var11 << 20;
+      *(this + 168) = vorrq_s8(*(this + 168), v16);
     }
   }
 
   *(this + 8) = 0;
-  v6 = (this + 64);
+  v8 = (this + 64);
   *(this + 152) = 0;
-  v7 = 1;
+  v9 = 1;
   *(this + 157) = 1;
   *(this + 14) = a2;
   *(this + 11) = 0;
   *(this + 9) = 0;
   if ((*(this + 153) & 1) == 0 && ((1 << a2->var15) & 0xA5273) == 0)
   {
-    v7 = SLWordTagSet::find(&a2->var17);
+    v9 = SLWordTagSet::find(&a2->var17);
   }
 
-  *(this + 153) = v7;
+  *(this + 153) = v9;
   var10 = a2->var10;
   *(this + 154) = var10 == 1;
-  if (v4)
+  if (v6)
   {
     *(this + 155) = 0;
   }
@@ -7290,7 +7270,6 @@ MTFESpeechElement *MTFEMarkStress::VisitWord(MTFEMarkStress *this, MTFEWord *a2)
     a2->var8 |= 0x20000u;
   }
 
-  v13 = *(this + 154);
   if (*(this + 153))
   {
     if ((*(this + 154) & 1) == 0)
@@ -7305,10 +7284,10 @@ MTFESpeechElement *MTFEMarkStress::VisitWord(MTFEMarkStress *this, MTFEWord *a2)
     goto LABEL_40;
   }
 
-  v14 = *v6;
-  if (*v6 || (v14 = *(this + 9)) != 0 || (v14 = *(this + 11)) != 0)
+  v15 = *v8;
+  if (*v8 || (v15 = *(this + 9)) != 0 || (v15 = *(this + 11)) != 0)
   {
-    *(v14 + 72) = *(v14 + 72) & 0xFFFFE3FF | 0x1000;
+    *(v15 + 72) = *(v15 + 72) & 0xFFFFE3FF | 0x1000;
     ++*(this + 41);
   }
 
@@ -7421,10 +7400,10 @@ LABEL_42:
         {
           v16 = (this + 168);
           v15 = *(this + 21);
-          v19 = *(this + 153);
+          v18 = *(this + 153);
           *(this + 11) = 0;
           *(this + 21) = v15 | 0x10000;
-          if (v19)
+          if (v18)
           {
 LABEL_43:
             *v16 = v15 | 0x12000;
@@ -7454,7 +7433,6 @@ LABEL_43:
 
 LABEL_44:
         v17 = *(a2->var0 + 2);
-        v18 = a2->var0 + 2;
 
         v17(a2);
         break;
@@ -7482,9 +7460,9 @@ LABEL_44:
   }
 }
 
-uint64_t MTFEMarkStress::VisitCommand(uint64_t this, MTFECommand *a2)
+MTFESpeechElement *MTFEMarkStress::VisitCommand(MTFESpeechElement *this, MTFECommand *a2, uint64_t a3, BOOL a4)
 {
-  v3 = this;
+  v5 = this;
   var8 = a2->var8;
   if (var8 <= 1918989425)
   {
@@ -7492,30 +7470,30 @@ uint64_t MTFEMarkStress::VisitCommand(uint64_t this, MTFECommand *a2)
     {
       if ((var8 - 1885495666) < 2)
       {
-        *(this + 128) = 1;
+        LOBYTE(this[2].var3) = 1;
         return this;
       }
 
       if (var8 == 1918989413)
       {
-        if (*(this + 191) == 1)
+        if (HIBYTE(this[3].var3) == 1)
         {
-          v12 = *(this + 16);
-          v13 = SWORD1(a2->var9);
+          var3 = this->var3;
+          v15 = SWORD1(a2->var9);
 LABEL_24:
-          MTBEParam::SetTempo(v12, v13);
+          MTBEParam::SetTempo(var3, v15);
           goto LABEL_51;
         }
 
-        v10 = *(&a2->var9 + 2);
+        v12 = *(&a2->var9 + 2);
 LABEL_42:
-        if (v10 <= 40)
+        if (v12 <= 40)
         {
-          LOWORD(v10) = 40;
+          LOWORD(v12) = 40;
         }
 
 LABEL_44:
-        *(this + 160) = v10;
+        LOWORD(this[2].var7) = v12;
         goto LABEL_51;
       }
 
@@ -7529,10 +7507,10 @@ LABEL_44:
         return this;
       }
 
-      *(this + 186) = a2->var9 & 0xF00 | BYTE2(LODWORD(a2->var9));
-      v9 = *(this + 8);
-      *(*(this + 16) + 48) = 1;
-      LOWORD(v10) = *(v9 + 90);
+      WORD1(this[3].var3) = a2->var9 & 0xF00 | BYTE2(LODWORD(a2->var9));
+      v11 = *&this->var1;
+      LOBYTE(this->var3->var7) = 1;
+      LOWORD(v12) = *(v11 + 90);
       goto LABEL_44;
     }
 
@@ -7543,12 +7521,12 @@ LABEL_44:
   {
     if (var8 == 1936485987)
     {
-      v14 = *(this + 104);
-      if (v14)
+      var7 = this[1].var7;
+      if (var7)
       {
-        v15 = *(v14 + 48);
-        v16 = *(v14 + 63) > 2u || v15 == 0;
-        if (!v16 && (*(v15 + 56) & 0x40) == 0)
+        v17 = var7->var7;
+        v18 = HIBYTE(var7[1].var0) > 2u || v17 == 0;
+        if (!v18 && (v17[1].var0 & 0x40) == 0)
         {
           if (kMTFESilencePhrase)
           {
@@ -7565,7 +7543,6 @@ LABEL_44:
 
       if (a2->var9 >= 1)
       {
-        v17 = *(v3 + 112);
         operator new();
       }
 
@@ -7580,76 +7557,76 @@ LABEL_44:
       }
 
       var9 = a2->var9;
-      v6 = vcvts_n_f32_u64(var9 & 0xFFFFFF, 0x10uLL);
-      v7 = var9 >> 24;
-      if ((v7 - 1) < 3)
+      v8 = vcvts_n_f32_u64(var9 & 0xFFFFFF, 0x10uLL);
+      v9 = var9 >> 24;
+      if ((v9 - 1) < 3)
       {
-        v18 = *(this + 144);
-        *(v18 + 81) = v7;
-        *(v18 + 84) = v6;
-        *(this + 158) = 1;
+        var5 = this[2].var5;
+        BYTE1(var5[1].var4) = v9;
+        *(&var5[1].var4 + 1) = v8;
+        BYTE6(this[2].var6) = 1;
       }
 
       else
       {
-        if ((v7 - 5) < 2)
+        if ((v9 - 5) < 2)
         {
-          v8 = *(this + 136);
-          *(v8 + 157) = v7;
-          *(v8 + 200) = v6;
+          var4 = this[2].var4;
+          BYTE5(var4[2].var6) = v9;
+          *&var4[3].var5 = v8;
           goto LABEL_51;
         }
 
-        if (v7 != 4)
+        if (v9 != 4)
         {
-          *(this + 153) = 1;
+          BYTE1(this[2].var6) = 1;
           return this;
         }
       }
 
-      *(*(this + 136) + 156) = 1;
+      BYTE4(this[2].var4[2].var6) = 1;
     }
 
 LABEL_51:
-    v19 = *(a2->var0 + 2);
+    v20 = *(a2->var0 + 2);
 
-    return v19(a2);
+    return v20(a2);
   }
 
   if (var8 == 1918989426)
   {
-    if (*(this + 191) == 1)
+    if (HIBYTE(this[3].var3) == 1)
     {
-      v12 = *(this + 16);
-      v13 = (v12[10] + WORD1(a2->var9));
+      var3 = this->var3;
+      v15 = (WORD2(var3->var3) + WORD1(a2->var9));
       goto LABEL_24;
     }
 
-    v10 = (*(this + 160) + WORD1(a2->var9));
+    v12 = (LOWORD(this[2].var7) + WORD1(a2->var9));
     goto LABEL_42;
   }
 
   if (var8 == 1920165236)
   {
-    if (*(*(this + 16) + 48) == 1)
+    if (LOBYTE(this->var3->var7) == 1)
     {
-      v11 = *(*(this + 8) + 90);
+      v13 = *(*&this->var1 + 90);
     }
 
     else
     {
-      this = *(this + 24);
+      this = this->var4;
       if (this && a2->var9 == 1)
       {
         this = MTBEParam::GetRate(this);
-        *(v3 + 160) = this;
+        LOWORD(v5[2].var7) = this;
         return this;
       }
 
-      v11 = *(*(v3 + 8) + 6);
+      v13 = *(*&v5->var1 + 6);
     }
 
-    *(v3 + 160) = v11;
+    LOWORD(v5[2].var7) = v13;
   }
 
   return this;
@@ -9801,4 +9778,13 @@ float MTBEParam::SetUsePostDurMod(float32x2_t *this, int a2)
   this[162].i16[2] = v3;
   this[162].i16[1] = v2;
   return MTBEParam::InitRateParams(this);
+}
+
+float MT3FInsertPlosiveRelease::VisitSentence(MT3FInsertPlosiveRelease *this, MTFESpeechElement *a2)
+{
+  *(this + 8) = 0;
+  MTFESpeechElement::VisitChildren(a2, this);
+  result = *(this + 8) + *(&a2[1].var0 + 1);
+  *(&a2[1].var0 + 1) = result;
+  return result;
 }

@@ -143,29 +143,27 @@ LABEL_5:
 
 - (void)addDailyGoalTypePreviouslyMet:(int64_t)met activitySummaryIndex:(int64_t)index
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (![FCGoalCompletionStore isDailyGoalTypeMet:"isDailyGoalTypeMet:activitySummaryIndex:" activitySummaryIndex:?])
   {
     _HKInitializeLogging();
     v7 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134218240;
+      v8 = 134218240;
       metCopy = met;
-      v11 = 2048;
+      v10 = 2048;
       indexCopy = index;
-      _os_log_impl(&dword_24B55B000, v7, OS_LOG_TYPE_DEFAULT, "Goal type %ld was previously met for activitySummaryIndex: %lld", &v9, 0x16u);
+      _os_log_impl(&dword_24B55B000, v7, OS_LOG_TYPE_DEFAULT, "Goal type %ld was previously met for activitySummaryIndex: %lld", &v8, 0x16u);
     }
 
     [(FCGoalCompletionStore *)self addGoalTypeToDailyGoalTypesMet:met activitySummaryIndex:index];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addGoalTypeToNotify:(int64_t)notify activitySummaryIndex:(int64_t)index
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   goalTypesToNotifyByActivitySummaryIndex = [(FCGoalCompletionStore *)self goalTypesToNotifyByActivitySummaryIndex];
   v8 = goalTypesToNotifyByActivitySummaryIndex;
   v9 = MEMORY[0x277CBEC10];
@@ -192,10 +190,10 @@ LABEL_5:
   v18 = [v16 arrayByAddingObject:v17];
 
   v19 = [MEMORY[0x277CCABB0] numberWithLongLong:index];
-  v29 = v19;
+  v28 = v19;
   v20 = [MEMORY[0x277CBEB98] setWithArray:v18];
-  v30[0] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v29[0] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
 
   v22 = [v10 hk_dictionaryByAddingEntriesFromDictionary:v21];
 
@@ -204,14 +202,12 @@ LABEL_5:
   v23 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 134218242;
+    v24 = 134218242;
     notifyCopy = notify;
-    v27 = 2112;
-    v28 = v22;
-    _os_log_impl(&dword_24B55B000, v23, OS_LOG_TYPE_DEFAULT, "Added goal type to be notified: %ld, %@", &v25, 0x16u);
+    v26 = 2112;
+    v27 = v22;
+    _os_log_impl(&dword_24B55B000, v23, OS_LOG_TYPE_DEFAULT, "Added goal type to be notified: %ld, %@", &v24, 0x16u);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeGoalTypesToNotify:(id)notify activitySummaryIndex:(int64_t)index
@@ -258,12 +254,12 @@ LABEL_5:
 
 - (void)_setGoalTypesMet:(unint64_t)met forActivitySummaryIndex:(int64_t)index
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v7 = [MEMORY[0x277CCABB0] numberWithLongLong:index];
-  v17 = v7;
+  v16 = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:met];
-  v18[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
   _goalCompletionByActivitySummaryIndex = [(FCGoalCompletionStore *)self _goalCompletionByActivitySummaryIndex];
   v11 = _goalCompletionByActivitySummaryIndex;
@@ -279,8 +275,6 @@ LABEL_5:
 
   v15 = [(FCGoalCompletionStore *)self _trimOldGoalCompletions:v14 index:index];
   [(FCGoalCompletionStore *)self _setGoalCompletionByActivitySummaryIndex:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_goalTypesMetForActivitySummaryIndex:(int64_t)index
@@ -366,20 +360,20 @@ void __55__FCGoalCompletionStore__trimOldGoalCompletions_index___block_invoke(ui
 
 - (id)_goalCompletionByActivitySummaryIndex
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_unfairLock);
   _userDefaultsDomain = [(FCGoalCompletionStore *)self _userDefaultsDomain];
   v4 = [_userDefaultsDomain dataForKey:@"dailyGoalCompletionData" error:0];
   os_unfair_lock_unlock(&self->_unfairLock);
   v5 = MEMORY[0x277CBEB98];
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = objc_opt_class();
+  v16[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   v7 = [v5 setWithArray:v6];
 
-  v14 = 0;
-  v8 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v7 fromData:v4 error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v7 fromData:v4 error:&v13];
+  v9 = v13;
   if (v9)
   {
     _HKInitializeLogging();
@@ -387,7 +381,7 @@ void __55__FCGoalCompletionStore__trimOldGoalCompletions_index___block_invoke(ui
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_24B55B000, v10, OS_LOG_TYPE_DEFAULT, "Unable to obtain the goal types met for activity summary index: %@", buf, 0xCu);
     }
 
@@ -399,17 +393,15 @@ void __55__FCGoalCompletionStore__trimOldGoalCompletions_index___block_invoke(ui
     v11 = v8;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)_setGoalCompletionByActivitySummaryIndex:(id)index
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:index requiringSecureCoding:1 error:&v12];
-  v5 = v12;
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:index requiringSecureCoding:1 error:&v11];
+  v5 = v11;
   if (v5)
   {
     v6 = v5;
@@ -418,7 +410,7 @@ void __55__FCGoalCompletionStore__trimOldGoalCompletions_index___block_invoke(ui
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_24B55B000, v7, OS_LOG_TYPE_DEFAULT, "Unable to set the goals type met: %@", buf, 0xCu);
     }
   }
@@ -427,9 +419,9 @@ void __55__FCGoalCompletionStore__trimOldGoalCompletions_index___block_invoke(ui
   {
     os_unfair_lock_lock(&self->_unfairLock);
     _userDefaultsDomain = [(FCGoalCompletionStore *)self _userDefaultsDomain];
-    v11 = 0;
-    [_userDefaultsDomain setData:v4 forKey:@"dailyGoalCompletionData" error:&v11];
-    v6 = v11;
+    v10 = 0;
+    [_userDefaultsDomain setData:v4 forKey:@"dailyGoalCompletionData" error:&v10];
+    v6 = v10;
     if (v6)
     {
       _HKInitializeLogging();
@@ -437,15 +429,13 @@ void __55__FCGoalCompletionStore__trimOldGoalCompletions_index___block_invoke(ui
       if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v14 = v6;
+        v13 = v6;
         _os_log_impl(&dword_24B55B000, v9, OS_LOG_TYPE_DEFAULT, "Unable to store the goal types met for activity summary index: %@", buf, 0xCu);
       }
     }
 
     os_unfair_lock_unlock(&self->_unfairLock);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_userDefaultsDomain

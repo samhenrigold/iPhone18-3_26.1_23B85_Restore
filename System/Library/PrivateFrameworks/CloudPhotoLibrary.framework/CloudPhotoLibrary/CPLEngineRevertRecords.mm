@@ -19,38 +19,38 @@
 
 - (BOOL)deleteRecordsToRevertFromBatch:(id)batch error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   context = objc_autoreleasePoolPush();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v7 = batchCopy;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
     errorCopy = error;
     v10 = 0;
-    v11 = *v26;
+    v11 = *v25;
     while (2)
     {
       v12 = 0;
       v13 = v10;
       do
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * v12);
+        v14 = *(*(&v24 + 1) + 8 * v12);
         platformObject = [(CPLEngineStorage *)self platformObject];
         scopedIdentifier = [v14 scopedIdentifier];
-        v24 = v13;
-        v17 = [platformObject deleteRecordsToRevertWithLocalScopedIdentifier:scopedIdentifier error:&v24];
-        v10 = v24;
+        v23 = v13;
+        v17 = [platformObject deleteRecordsToRevertWithLocalScopedIdentifier:scopedIdentifier error:&v23];
+        v10 = v23;
 
         if (!v17)
         {
@@ -76,7 +76,7 @@
       }
 
       while (v9 != v12);
-      v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v9)
       {
         continue;
@@ -95,42 +95,41 @@
   v19 = 1;
 LABEL_15:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (id)nextBatchOfRecordsToRevert
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   engineStore = [(CPLEngineStorage *)self engineStore];
   transactionClientCacheView = [engineStore transactionClientCacheView];
 
-  v33 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v32 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   platformObject = [(CPLEngineStorage *)self platformObject];
   revertedPlaceholderRecordsEnumerator = [platformObject revertedPlaceholderRecordsEnumerator];
 
   obj = revertedPlaceholderRecordsEnumerator;
-  v6 = [revertedPlaceholderRecordsEnumerator countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v6 = [revertedPlaceholderRecordsEnumerator countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v32 = *v35;
+    v31 = *v34;
     v9 = transactionClientCacheView;
     while (1)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v35 != v32)
+        if (*v34 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * i);
+        v11 = *(*(&v33 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         scopedIdentifier = [v11 scopedIdentifier];
         v14 = [v9 recordViewWithScopedIdentifier:scopedIdentifier];
@@ -167,7 +166,7 @@ LABEL_9:
             {
               synthesizedRecord2 = relatedScopedIdentifier;
               relatedScopedIdentifier2 = [synthesizedRecord relatedScopedIdentifier];
-              if ([v33 containsObject:relatedScopedIdentifier2])
+              if ([v32 containsObject:relatedScopedIdentifier2])
               {
               }
 
@@ -199,7 +198,7 @@ LABEL_9:
 
 LABEL_21:
         scopedIdentifier3 = [synthesizedRecord scopedIdentifier];
-        [v33 addObject:scopedIdentifier3];
+        [v32 addObject:scopedIdentifier3];
 
         [(CPLChangeBatch *)v8 addRecord:synthesizedRecord];
         v26 = [(CPLChangeBatch *)v8 count];
@@ -211,7 +210,7 @@ LABEL_21:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (!v7)
       {
         goto LABEL_26;
@@ -224,7 +223,6 @@ LABEL_21:
 LABEL_26:
 
   v27 = v8;
-  v28 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

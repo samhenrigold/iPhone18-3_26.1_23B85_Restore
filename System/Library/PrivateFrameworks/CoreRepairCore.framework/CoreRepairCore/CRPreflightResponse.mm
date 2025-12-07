@@ -7,11 +7,11 @@
 
 - (CRPreflightResponse)initWithDictionary:(id)dictionary
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v75.receiver = self;
-  v75.super_class = CRPreflightResponse;
-  v6 = [(CRPreflightResponse *)&v75 init];
+  v74.receiver = self;
+  v74.super_class = CRPreflightResponse;
+  v6 = [(CRPreflightResponse *)&v74 init];
   v7 = v6;
   if (v6)
   {
@@ -106,37 +106,37 @@
 
     if (v36)
     {
-      v67 = dictionaryCopy;
+      v66 = dictionaryCopy;
       v37 = [dictionaryCopy objectForKeyedSubscript:@"Challenges"];
       v38 = handleForCategory(0);
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v78 = v37;
+        v77 = v37;
         _os_log_impl(&dword_1CEDC5000, v38, OS_LOG_TYPE_DEFAULT, "Challenges: %@", buf, 0xCu);
       }
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
       v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       obj = v37;
-      v39 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+      v39 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
       if (v39)
       {
         v40 = v39;
-        v41 = *v72;
-        v68 = v7;
+        v41 = *v71;
+        v67 = v7;
         do
         {
           for (i = 0; i != v40; ++i)
           {
-            if (*v72 != v41)
+            if (*v71 != v41)
             {
               objc_enumerationMutation(obj);
             }
 
-            v43 = *(*(&v71 + 1) + 8 * i);
+            v43 = *(*(&v70 + 1) + 8 * i);
             v44 = [v43 objectForKeyedSubscript:@"Type"];
             v45 = [v43 objectForKeyedSubscript:@"Identifier"];
             v46 = v45;
@@ -158,9 +158,9 @@
               {
                 v49 = objc_opt_new();
                 v50 = [v43 objectForKeyedSubscript:@"nonce"];
-                [v49 setObject:v44 forKeyedSubscript:@"key"];
-                [v49 setObject:v46 forKeyedSubscript:@"identifier"];
-                [v49 setObject:v50 forKeyedSubscript:@"nonce"];
+                objc_msgSend_setObject_forKeyedSubscript_(v49);
+                objc_msgSend_setObject_forKeyedSubscript_(v49);
+                objc_msgSend_setObject_forKeyedSubscript_(v49);
                 [(NSMutableArray *)v7->_componentChallenges addObject:v49];
               }
 
@@ -188,22 +188,22 @@
                       v60 = objc_opt_new();
                       v61 = [v55 objectForKeyedSubscript:@"activation"];
                       v62 = [v61 objectForKeyedSubscript:@"status"];
-                      v69 = v61;
+                      v68 = v61;
                       v63 = [v61 objectForKeyedSubscript:@"activationToken"];
-                      [v60 setObject:v44 forKeyedSubscript:@"key"];
-                      [v60 setObject:v46 forKeyedSubscript:@"identifier"];
+                      objc_msgSend_setObject_forKeyedSubscript_(v60);
+                      objc_msgSend_setObject_forKeyedSubscript_(v60);
                       if (v63)
                       {
-                        [v60 setObject:v63 forKeyedSubscript:@"activationToken"];
+                        objc_msgSend_setObject_forKeyedSubscript_(v60);
                       }
 
                       if (v62 && [v62 isEqual:@"NOCHALLENGE"])
                       {
-                        [v60 setObject:&stru_1F4BC1BE0 forKeyedSubscript:@"activationToken"];
+                        objc_msgSend_setObject_forKeyedSubscript_(v60);
                       }
 
-                      v7 = v68;
-                      [(NSMutableArray *)v68->_activationChallenges addObject:v60];
+                      v7 = v67;
+                      [(NSMutableArray *)v67->_activationChallenges addObject:v60];
                     }
                   }
                 }
@@ -211,20 +211,19 @@
             }
           }
 
-          v40 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+          v40 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
         }
 
         while (v40);
       }
 
-      dictionaryCopy = v67;
+      dictionaryCopy = v66;
     }
   }
 
   v64 = v7;
 LABEL_49:
 
-  v65 = *MEMORY[0x1E69E9840];
   return v64;
 }
 

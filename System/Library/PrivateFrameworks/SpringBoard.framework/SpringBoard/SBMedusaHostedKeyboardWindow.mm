@@ -313,7 +313,7 @@ void __56__SBMedusaHostedKeyboardWindow_addWindowLevelAssertion___block_invoke(u
   _debugName = [(SBMedusaHostedKeyboardWindow *)self _debugName];
   v5 = [v3 appendObject:_debugName withName:0 skipIfNil:1];
 
-  [(SBMedusaHostedKeyboardWindow *)self frame];
+  objc_msgSend_frame(self);
   v10 = _SBWindowFrameDescription(v6, v7, v8, v9);
   v11 = [v3 appendObject:v10 withName:@"frame"];
 

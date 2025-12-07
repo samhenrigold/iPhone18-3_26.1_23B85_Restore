@@ -520,38 +520,37 @@ uint64_t __59__WOWorkoutQueryServer__fetch_ofType_state_withCompletion___block_i
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v21 = a3;
-  v20[1] = a1;
-  v6 = [*(a1 + 56) propertyForUUID];
-  v3 = *(a1 + 32);
-  v20[0] = [HDSQLiteComparisonPredicate predicateWithProperty:"predicateWithProperty:equalToValue:" equalToValue:?];
+  v20 = a3;
+  v19[1] = a1;
+  v5 = [*(a1 + 56) propertyForUUID];
+  v19[0] = [HDSQLiteComparisonPredicate predicateWithProperty:"predicateWithProperty:equalToValue:" equalToValue:?];
 
-  v19 = [*(a1 + 40) _statePredicateForClass:*(a1 + 56) state:*(a1 + 64)];
-  v18 = [HDSQLitePredicate compoundPredicateWithPredicate:v20[0] otherPredicate:v19];
-  v11 = *(a1 + 56);
-  v13 = [v11 allProperties];
-  v9 = v18;
-  v10 = *(a1 + 72);
-  v12 = [*(*(a1 + 40) + 16) database];
-  v8 = v21;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = __59__WOWorkoutQueryServer__fetch_ofType_state_withCompletion___block_invoke_2;
-  v15[3] = &unk_206C8;
-  v17[2] = *(a1 + 56);
-  v17[3] = *(a1 + 80);
-  v16 = *(a1 + 40);
-  v17[0] = location[0];
-  v17[1] = *(a1 + 48);
-  v14 = [v11 enumerateProperties:v13 withPredicate:v9 orderingTerms:0 groupBy:0 limit:v10 healthDatabase:v12 error:v8 enumerationHandler:v15];
-  objc_storeStrong(v17, 0);
-  objc_storeStrong(&v16, 0);
+  v18 = [*(a1 + 40) _statePredicateForClass:*(a1 + 56) state:*(a1 + 64)];
+  v17 = [HDSQLitePredicate compoundPredicateWithPredicate:v19[0] otherPredicate:v18];
+  v10 = *(a1 + 56);
+  v12 = [v10 allProperties];
+  v8 = v17;
+  v9 = *(a1 + 72);
+  v11 = [*(*(a1 + 40) + 16) database];
+  v7 = v20;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = __59__WOWorkoutQueryServer__fetch_ofType_state_withCompletion___block_invoke_2;
+  v14[3] = &unk_206C8;
+  v16[2] = *(a1 + 56);
+  v16[3] = *(a1 + 80);
+  v15 = *(a1 + 40);
+  v16[0] = location[0];
+  v16[1] = *(a1 + 48);
+  v13 = [v10 enumerateProperties:v12 withPredicate:v8 orderingTerms:0 groupBy:0 limit:v9 healthDatabase:v11 error:v7 enumerationHandler:v14];
+  objc_storeStrong(v16, 0);
+  objc_storeStrong(&v15, 0);
 
+  objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
-  objc_storeStrong(&v19, 0);
-  objc_storeStrong(v20, 0);
+  objc_storeStrong(v19, 0);
   objc_storeStrong(location, 0);
-  return v14;
+  return v13;
 }
 
 uint64_t __59__WOWorkoutQueryServer__fetch_ofType_state_withCompletion___block_invoke_2(uint64_t a1, uint64_t a2, id obj, void *a4, void *a5)
@@ -1319,62 +1318,61 @@ void __82__WOWorkoutQueryServer_remote_fetchManagedConfigurationsByProviderWithC
 
 void __82__WOWorkoutQueryServer_remote_fetchManagedConfigurationsByProviderWithCompletion___block_invoke_3(void *a1)
 {
-  v17[2] = a1;
-  v17[1] = a1;
+  v16[2] = a1;
+  v16[1] = a1;
   if (*(*(a1[5] + 8) + 40))
   {
-    v1 = *(*(a1[5] + 8) + 40);
     (*(a1[4] + 16))();
   }
 
-  v17[0] = objc_opt_new();
+  v16[0] = objc_opt_new();
   memset(__b, 0, sizeof(__b));
   obj = *(*(a1[6] + 8) + 40);
-  v11 = [obj countByEnumeratingWithState:__b objects:v18 count:16];
-  if (v11)
+  v10 = [obj countByEnumeratingWithState:__b objects:v17 count:16];
+  if (v10)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
+    v6 = *__b[2];
+    v7 = 0;
+    v8 = v10;
     while (1)
     {
-      v6 = v8;
-      if (*__b[2] != v7)
+      v5 = v7;
+      if (*__b[2] != v6)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(__b[1] + 8 * v8);
-      v5 = [v16 keyedStrings];
-      v14 = [v5 objectForKeyedSubscript:WOColumnManagedSourceIdentifierKey];
+      v15 = *(__b[1] + 8 * v7);
+      v4 = [v15 keyedStrings];
+      v13 = [v4 objectForKeyedSubscript:WOColumnManagedSourceIdentifierKey];
 
-      if ([v14 length])
+      if ([v13 length])
       {
-        location = [*(*(a1[7] + 8) + 40) objectForKeyedSubscript:v14];
+        location = [*(*(a1[7] + 8) + 40) objectForKeyedSubscript:v13];
         if (location)
         {
-          v4 = [v17[0] objectForKeyedSubscript:location];
+          v3 = [v16[0] objectForKeyedSubscript:location];
 
-          if (!v4)
+          if (!v3)
           {
-            v3 = objc_opt_new();
-            [v17[0] setObject:? forKeyedSubscript:?];
+            v2 = objc_opt_new();
+            [v16[0] setObject:? forKeyedSubscript:?];
           }
 
-          v2 = [v17[0] objectForKeyedSubscript:location];
-          [v2 addObject:v16];
+          v1 = [v16[0] objectForKeyedSubscript:location];
+          [v1 addObject:v15];
         }
 
         objc_storeStrong(&location, 0);
       }
 
-      objc_storeStrong(&v14, 0);
-      ++v8;
-      if (v6 + 1 >= v9)
+      objc_storeStrong(&v13, 0);
+      ++v7;
+      if (v5 + 1 >= v8)
       {
-        v8 = 0;
-        v9 = [obj countByEnumeratingWithState:__b objects:v18 count:16];
-        if (!v9)
+        v7 = 0;
+        v8 = [obj countByEnumeratingWithState:__b objects:v17 count:16];
+        if (!v8)
         {
           break;
         }
@@ -1383,7 +1381,7 @@ void __82__WOWorkoutQueryServer_remote_fetchManagedConfigurationsByProviderWithC
   }
 
   (*(a1[4] + 16))();
-  objc_storeStrong(v17, 0);
+  objc_storeStrong(v16, 0);
 }
 
 - (void)remote_addManagedConfigurations:(id)configurations withCompletion:(id)completion
@@ -1573,37 +1571,36 @@ uint64_t __74__WOWorkoutQueryServer__fetchProviderWithSourceIdentifier_withCompl
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v21 = a3;
-  v20[1] = a1;
-  v6 = [*(a1 + 56) propertyForProviderIdentifier];
-  v3 = *(a1 + 32);
-  v20[0] = [HDSQLiteComparisonPredicate predicateWithProperty:"predicateWithProperty:equalToValue:" equalToValue:?];
+  v20 = a3;
+  v19[1] = a1;
+  v5 = [*(a1 + 56) propertyForProviderIdentifier];
+  v19[0] = [HDSQLiteComparisonPredicate predicateWithProperty:"predicateWithProperty:equalToValue:" equalToValue:?];
 
-  v19 = [*(a1 + 40) _statePredicateForClass:*(a1 + 56) state:0];
-  v18 = [HDSQLitePredicate compoundPredicateWithPredicate:v20[0] otherPredicate:v19];
-  v11 = *(a1 + 56);
-  v13 = [v11 allProperties];
-  v9 = v18;
-  v10 = *(a1 + 64);
-  v12 = [*(*(a1 + 40) + 16) database];
-  v8 = v21;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = __74__WOWorkoutQueryServer__fetchProviderWithSourceIdentifier_withCompletion___block_invoke_2;
-  v15[3] = &unk_20AD0;
-  v17[2] = *(a1 + 56);
-  v16 = *(a1 + 40);
-  v17[0] = location[0];
-  v17[1] = *(a1 + 48);
-  v14 = [v11 enumerateProperties:v13 withPredicate:v9 orderingTerms:0 groupBy:0 limit:v10 healthDatabase:v12 error:v8 enumerationHandler:v15];
-  objc_storeStrong(v17, 0);
-  objc_storeStrong(&v16, 0);
+  v18 = [*(a1 + 40) _statePredicateForClass:*(a1 + 56) state:0];
+  v17 = [HDSQLitePredicate compoundPredicateWithPredicate:v19[0] otherPredicate:v18];
+  v10 = *(a1 + 56);
+  v12 = [v10 allProperties];
+  v8 = v17;
+  v9 = *(a1 + 64);
+  v11 = [*(*(a1 + 40) + 16) database];
+  v7 = v20;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = __74__WOWorkoutQueryServer__fetchProviderWithSourceIdentifier_withCompletion___block_invoke_2;
+  v14[3] = &unk_20AD0;
+  v16[2] = *(a1 + 56);
+  v15 = *(a1 + 40);
+  v16[0] = location[0];
+  v16[1] = *(a1 + 48);
+  v13 = [v10 enumerateProperties:v12 withPredicate:v8 orderingTerms:0 groupBy:0 limit:v9 healthDatabase:v11 error:v7 enumerationHandler:v14];
+  objc_storeStrong(v16, 0);
+  objc_storeStrong(&v15, 0);
 
+  objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
-  objc_storeStrong(&v19, 0);
-  objc_storeStrong(v20, 0);
+  objc_storeStrong(v19, 0);
   objc_storeStrong(location, 0);
-  return v14;
+  return v13;
 }
 
 uint64_t __74__WOWorkoutQueryServer__fetchProviderWithSourceIdentifier_withCompletion___block_invoke_2(uint64_t a1, uint64_t a2, id obj, void *a4, void *a5)
@@ -1745,16 +1742,14 @@ void __54__WOWorkoutQueryServer__delete_ofType_withCompletion___block_invoke(voi
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v9 = 0;
-  objc_storeStrong(&v9, a3);
+  v7 = 0;
+  objc_storeStrong(&v7, a3);
   if (location[0])
   {
-    v5 = a1[4];
-    v11 = location[0];
-    v6 = [NSArray arrayWithObjects:&v11 count:1];
-    v3 = a1[6];
-    v4 = a1[5];
-    [v5 _deleteConfigurations:? ofType:? withCompletion:?];
+    v3 = a1[4];
+    v9 = location[0];
+    v4 = [NSArray arrayWithObjects:&v9 count:1];
+    [v3 _deleteConfigurations:? ofType:? withCompletion:?];
   }
 
   else
@@ -1762,7 +1757,7 @@ void __54__WOWorkoutQueryServer__delete_ofType_withCompletion___block_invoke(voi
     (*(a1[5] + 16))();
   }
 
-  objc_storeStrong(&v9, 0);
+  objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
 }
 

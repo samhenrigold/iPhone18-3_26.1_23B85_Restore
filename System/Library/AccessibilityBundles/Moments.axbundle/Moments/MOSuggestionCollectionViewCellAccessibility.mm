@@ -58,12 +58,12 @@
 
 - (id)accessibilityCustomActions
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v3 = [(MOSuggestionCollectionViewCellAccessibility *)self safeSwiftValueForKey:@"assetGridView"];
   v4 = [v3 safeSwiftValueForKey:@"gridCollectionView"];
-  v30.receiver = self;
-  v30.super_class = MOSuggestionCollectionViewCellAccessibility;
-  accessibilityCustomActions = [(MOSuggestionCollectionViewCellAccessibility *)&v30 accessibilityCustomActions];
+  v29.receiver = self;
+  v29.super_class = MOSuggestionCollectionViewCellAccessibility;
+  accessibilityCustomActions = [(MOSuggestionCollectionViewCellAccessibility *)&v29 accessibilityCustomActions];
   array = [accessibilityCustomActions mutableCopy];
 
   if (!array)
@@ -71,36 +71,36 @@
     array = [MEMORY[0x29EDB8DE8] array];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   visibleCells = [v4 visibleCells];
-  v8 = [visibleCells countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v8 = [visibleCells countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        accessibilityCustomActions2 = [*(*(&v26 + 1) + 8 * i) accessibilityCustomActions];
+        accessibilityCustomActions2 = [*(*(&v25 + 1) + 8 * i) accessibilityCustomActions];
         [array addObjectsFromArray:accessibilityCustomActions2];
       }
 
-      v9 = [visibleCells countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v9 = [visibleCells countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v9);
   }
 
-  v25 = 0;
+  v24 = 0;
   objc_opt_class();
   v13 = [(MOSuggestionCollectionViewCellAccessibility *)self safeSwiftValueForKey:@"journalButton"];
   v14 = __UIAccessibilityCastAsClass();
@@ -109,17 +109,15 @@
   {
     v15 = objc_alloc(MEMORY[0x29EDC78E0]);
     v16 = accessibilityJurassicLocalizedString(@"suggestion.write.about.this");
-    v20 = MEMORY[0x29EDCA5F8];
-    v21 = 3221225472;
-    v22 = __73__MOSuggestionCollectionViewCellAccessibility_accessibilityCustomActions__block_invoke;
-    v23 = &unk_29F2DBBE0;
-    v24 = v14;
-    v17 = [v15 initWithName:v16 actionHandler:&v20];
+    v19 = MEMORY[0x29EDCA5F8];
+    v20 = 3221225472;
+    v21 = __73__MOSuggestionCollectionViewCellAccessibility_accessibilityCustomActions__block_invoke;
+    v22 = &unk_29F2DBBE0;
+    v23 = v14;
+    v17 = [v15 initWithName:v16 actionHandler:&v19];
 
-    [array addObject:{v17, v20, v21, v22, v23}];
+    [array addObject:{v17, v19, v20, v21, v22}];
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return array;
 }

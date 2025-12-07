@@ -101,7 +101,7 @@
 
 - (id)queryPidStatistics
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_perProcessService)
   {
     v3 = objc_opt_new();
@@ -113,9 +113,9 @@
       v5 = v4;
       do
       {
-        memset(v14, 0, sizeof(v14));
-        MEMORY[0x24C1C24F0](v5, v14);
-        if (*&v14[0] == 0x58424D656C707041 && *(&v14[0] + 1) == 0x65696C4372657355 && *(v14 + 11) == 0x746E65696C4372)
+        memset(v13, 0, sizeof(v13));
+        MEMORY[0x24C1C24F0](v5, v13);
+        if (*&v13[0] == 0x58424D656C707041 && *(&v13[0] + 1) == 0x65696C4372657355 && *(v13 + 11) == 0x746E65696C4372)
         {
           properties = 0;
           v8 = IORegistryEntryCreateCFProperties(v5, &properties, 0, 0);
@@ -149,8 +149,6 @@
     [MEMORY[0x277CBEAD8] raise:@"DTGraphicsServiceException" format:@"Per process statics not found"];
     v3 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -283,30 +281,27 @@ LABEL_19:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)availableStatistics
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   if (!self->_availableGlobalStatistics)
   {
     [(DTGraphicsService *)self queryCards];
     [(NSMutableArray *)self->_availableGlobalStatistics addObject:@"CoreAnimationFramesPerSecond"];
     availableGlobalStatistics = self->_availableGlobalStatistics;
-    v10[0] = @"global";
-    v10[1] = @"process";
+    v9[0] = @"global";
+    v9[1] = @"process";
     availableProcessStatistics = self->_availableProcessStatistics;
-    v11[0] = availableGlobalStatistics;
-    v11[1] = availableProcessStatistics;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v10[0] = availableGlobalStatistics;
+    v10[1] = availableProcessStatistics;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
     availableStatistics = self->_availableStatistics;
     self->_availableStatistics = v5;
   }
 
   v7 = self->_availableStatistics;
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

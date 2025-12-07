@@ -96,7 +96,7 @@
 + (id)_carSystemSecondaryColor;
 + (id)_carSystemTertiaryColor;
 + (id)_colorWithRed:(double)red green:(double)green blue:(double)blue alpha:(double)alpha boost:(double)boost;
-+ (id)_composedColorFromSourceColor:(void *)color destinationColor:(void *)destinationColor tintColor:(void *)tintColor alpha:;
++ (id)_composedColorFromSourceColor:(void *)color destinationColor:(void *)destinationColor tintColor:(double)tintColor alpha:;
 + (id)_controlForegroundColor;
 + (id)_controlHighlightColor;
 + (id)_controlShadowColor;
@@ -265,21 +265,21 @@
 + (id)_appKeyColorOrDefaultTint
 {
   objc_opt_self();
-  v0 = +[UIColor _appKeyColor];
-  v1 = v0;
-  if (v0)
+  v1 = +[UIColor _appKeyColor];
+  v2 = v1;
+  if (v1)
   {
-    v2 = v0;
+    v3 = v1;
   }
 
   else
   {
-    v2 = +[UIColor systemBlueColor];
+    v3 = +[UIColor systemBlueColor];
   }
 
-  v3 = v2;
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 + (id)_appKeyColor
@@ -290,9 +290,9 @@
     dispatch_once(&qword_1ED49B5B0, &__block_literal_global_1367_0);
   }
 
-  v0 = qword_1ED49B5A8;
+  v1 = qword_1ED49B5A8;
 
-  return v0;
+  return v1;
 }
 
 + (UIColor)systemBlueColor
@@ -4833,15 +4833,15 @@ LABEL_9:
   return v8;
 }
 
-+ (id)_composedColorFromSourceColor:(void *)color destinationColor:(void *)destinationColor tintColor:(void *)tintColor alpha:
++ (id)_composedColorFromSourceColor:(void *)color destinationColor:(void *)destinationColor tintColor:(double)tintColor alpha:
 {
+  v8 = a2;
   colorCopy = color;
   destinationColorCopy = destinationColor;
-  tintColorCopy = tintColor;
   objc_opt_self();
-  if (!destinationColorCopy)
+  if (!colorCopy)
   {
-    destinationColorCopy = +[UIColor whiteColor];
+    colorCopy = +[UIColor whiteColor];
   }
 
   v26 = 0.0;
@@ -4852,24 +4852,24 @@ LABEL_9:
   v23 = 0.0;
   v20 = 0.0;
   v21 = 0.0;
-  [colorCopy getRed:&v27 green:&v26 blue:&v25 alpha:&v24];
-  [destinationColorCopy getRed:&v23 green:&v22 blue:&v21 alpha:&v20];
+  [v8 getRed:&v27 green:&v26 blue:&v25 alpha:&v24];
+  [colorCopy getRed:&v23 green:&v22 blue:&v21 alpha:&v20];
   v11 = v27 * v20 + v23 * (1.0 - v24);
   v12 = v20 * v26 + (1.0 - v24) * v22;
   v13 = v20 * v25 + (1.0 - v24) * v21;
-  if (tintColorCopy)
+  if (destinationColorCopy)
   {
     v18 = 0.0;
     v19 = 0.0;
     v16 = 0.0;
     v17 = 0.0;
-    [tintColorCopy getRed:&v19 green:&v18 blue:&v17 alpha:&v16];
+    [destinationColorCopy getRed:&v19 green:&v18 blue:&v17 alpha:&v16];
     v11 = v19 + v11 * (1.0 - v16);
     v12 = v18 + v12 * (1.0 - v16);
     v13 = v17 + v13 * (1.0 - v16);
   }
 
-  v14 = [UIColor colorWithRed:v11 green:v12 blue:v13 alpha:self];
+  v14 = [UIColor colorWithRed:v11 green:v12 blue:v13 alpha:tintColor];
 
   return v14;
 }
@@ -5150,9 +5150,19 @@ LABEL_6:
     dispatch_once(&qword_1ED49BF20, &__block_literal_global_2257);
   }
 
-  v8 = _UICreateBoostedRGBColor();
+  if (exposure >= 1.0)
+  {
+    exposureCopy = exposure;
+  }
 
-  return v8;
+  else
+  {
+    exposureCopy = 1.0;
+  }
+
+  v14 = _UICreateBoostedRGBColor(qword_1ED49BF18, red, green, blue, alpha, exposureCopy);
+
+  return v14;
 }
 
 + (UIColor)colorWithRed:(double)red green:(double)green blue:(double)blue alpha:(double)alpha linearExposure:(double)exposure
@@ -5162,7 +5172,19 @@ LABEL_6:
     dispatch_once(&qword_1ED49BF20, &__block_literal_global_2257);
   }
 
-  return _UICreateBoostedRGBColor();
+  if (exposure >= 1.0)
+  {
+    exposureCopy = exposure;
+  }
+
+  else
+  {
+    exposureCopy = 1.0;
+  }
+
+  v13 = qword_1ED49BF18;
+
+  return _UICreateBoostedRGBColor(v13, red, green, blue, alpha, exposureCopy);
 }
 
 - (UIColor)initWithRed:(double)red green:(double)green blue:(double)blue alpha:(double)alpha exposure:(double)exposure
@@ -5198,9 +5220,9 @@ LABEL_6:
     dispatch_once(&qword_1ED49BF20, &__block_literal_global_2257);
   }
 
-  v8 = _UICreateBoostedRGBColor();
+  v13 = _UICreateBoostedRGBColor(qword_1ED49BF18, red, green, blue, alpha, boost);
 
-  return v8;
+  return v13;
 }
 
 + (id)_colorWithRed:(double)red green:(double)green blue:(double)blue alpha:(double)alpha boost:(double)boost
@@ -5210,7 +5232,9 @@ LABEL_6:
     dispatch_once(&qword_1ED49BF20, &__block_literal_global_2257);
   }
 
-  return _UICreateBoostedRGBColor();
+  v12 = qword_1ED49BF18;
+
+  return _UICreateBoostedRGBColor(v12, red, green, blue, alpha, boost);
 }
 
 - (id)colorByApplyingContentHeadroom:(double)headroom
@@ -6190,7 +6214,7 @@ void __41__UIColor_infoTextOverPinStripeTextColor__block_invoke()
 
   if (percentage < 0.00000011920929)
   {
-    LOBYTE(self) = [(UIColor *)self isEqual:colorCopy];
+    LOBYTE(self) = objc_msgSend_isEqual_(self);
     goto LABEL_43;
   }
 
@@ -6505,7 +6529,7 @@ LABEL_27:
   v53 = 0.0;
   [(UIColor *)self getRed:&v55 green:&v54 blue:&v53 alpha:&v52];
   selfCopy2 = self;
-  if (!filterCopy || ([filterCopy isEqualToString:*MEMORY[0x1E6979CC0]] & 1) != 0 || objc_msgSend(filterCopy, "isEqualToString:", *MEMORY[0x1E6979D40]))
+  if (!filterCopy || (objc_msgSend_isEqualToString_(filterCopy) & 1) != 0 || objc_msgSend_isEqualToString_(filterCopy))
   {
     v8 = 1.0;
     v9 = 1.0 - v56;
@@ -6522,7 +6546,7 @@ LABEL_27:
     goto LABEL_9;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E6979CA8]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v15 = v56;
     v16 = 1.0 - v56;
@@ -6542,7 +6566,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E6979D18]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v21 = v56;
     v22 = 1.0 - v56;
@@ -6556,7 +6580,7 @@ LABEL_18:
     goto LABEL_27;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E6979CD0]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v25 = (v59 + v59) * v55;
     if (v55 >= 0.5)
@@ -6584,7 +6608,7 @@ LABEL_18:
     goto LABEL_27;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E69798C0]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v29 = v59;
     v15 = v56;
@@ -6612,7 +6636,7 @@ LABEL_18:
     goto LABEL_15;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E6979C30]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v31 = v59;
     v15 = v56;
@@ -6640,7 +6664,7 @@ LABEL_18:
     goto LABEL_15;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E6979860]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v33 = 1.0;
     v34 = 1.0;
@@ -6669,7 +6693,7 @@ LABEL_18:
     goto LABEL_27;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E6979850]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v38 = v55 * v52;
     v39 = 0.0;
@@ -6701,7 +6725,7 @@ LABEL_18:
     goto LABEL_9;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E6979CF8]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v21 = v56;
     v22 = 1.0 - v56;
@@ -6712,7 +6736,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if ([filterCopy isEqualToString:*MEMORY[0x1E6979CE8]])
+  if (objc_msgSend_isEqualToString_(filterCopy))
   {
     v47 = v56;
     v48 = v52;
@@ -8793,7 +8817,7 @@ void __60__UIColor__InProgressSPI___tvInterfaceStyleDarkContentColor__block_invo
 - (id)loadDataWithTypeIdentifier:(id)identifier forItemProviderCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  if ([identifier isEqualToString:@"com.apple.uikit.color"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:0];
     handlerCopy[2](handlerCopy, v7, 0);

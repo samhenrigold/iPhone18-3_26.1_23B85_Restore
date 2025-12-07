@@ -102,7 +102,7 @@ void __28__HLPURLSessionManager_init__block_invoke(uint64_t a1)
   v4 = [v2 mutableCopy];
   [*(a1 + 32) setUncoalesceTaskMap:v4];
 
-  if (+[HLPCommonDefines isInternalBuild]&& PingPongClientLibraryCore_1())
+  if (+[HLPCommonDefines isInternalBuild]&& PingPongClientLibraryCore_1(0))
   {
     v9 = 0;
     v10 = &v9;
@@ -276,7 +276,7 @@ LABEL_6:
 
 - (id)newURLSessionItemWithRequest:(id)request identifier:(id)identifier networkDelegate:(id)delegate completionHandler:(id)handler
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   identifierCopy = identifier;
   delegateCopy = delegate;
@@ -286,40 +286,19 @@ LABEL_6:
   v15 = v14;
   if (v14 && (identifierCopy || ([v14 lastPathComponent], (identifierCopy = objc_claimAutoreleasedReturnValue()) != 0)))
   {
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x3032000000;
-    v43 = __Block_byref_object_copy__4;
-    v44 = __Block_byref_object_dispose__4;
-    v45 = 0;
-    if (delegateCopy)
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3032000000;
+    v42 = __Block_byref_object_copy__4;
+    v43 = __Block_byref_object_dispose__4;
+    v44 = 0;
+    if (delegateCopy || !self->_coalesceRequests || (v16 = self->_sessionTaskQueue, block[0] = MEMORY[0x277D85DD0], block[1] = 3221225472, block[2] = __98__HLPURLSessionManager_newURLSessionItemWithRequest_identifier_networkDelegate_completionHandler___block_invoke, block[3] = &unk_279707758, v38 = &v39, block[4] = self, v37 = v15, dispatch_sync(v16, block), v37, !v40[5]))
     {
-      goto LABEL_7;
-    }
-
-    if (!self->_coalesceRequests)
-    {
-      goto LABEL_7;
-    }
-
-    sessionTaskQueue = self->_sessionTaskQueue;
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __98__HLPURLSessionManager_newURLSessionItemWithRequest_identifier_networkDelegate_completionHandler___block_invoke;
-    block[3] = &unk_279707758;
-    v39 = &v40;
-    block[4] = self;
-    v38 = v15;
-    dispatch_sync(sessionTaskQueue, block);
-
-    if (!v41[5])
-    {
-LABEL_7:
       v17 = HLPLogForCategory(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v47 = requestCopy;
+        v46 = requestCopy;
         _os_log_impl(&dword_2522BC000, v17, OS_LOG_TYPE_DEFAULT, "Fetching: %@", buf, 0xCu);
       }
 
@@ -327,8 +306,8 @@ LABEL_7:
       v19 = [uRLSession dataTaskWithRequest:v13];
 
       v20 = [[HLPURLSessionTask alloc] initWithSessionTask:v19 identifier:identifierCopy];
-      v21 = v41[5];
-      v41[5] = v20;
+      v21 = v40[5];
+      v40[5] = v20;
 
       WeakRetained = delegateCopy;
       if (!delegateCopy)
@@ -336,7 +315,7 @@ LABEL_7:
         WeakRetained = objc_loadWeakRetained(&self->_defaultSessionDelegate);
       }
 
-      [v41[5] setNetworkDelegate:WeakRetained];
+      [v40[5] setNetworkDelegate:WeakRetained];
       if (delegateCopy)
       {
         v23 = [HLPURLSessionTask delegateRespondsWithDelegate:delegateCopy];
@@ -348,24 +327,24 @@ LABEL_7:
         v23 = *&self->_defaultSessionDelegateResponds.willCacheResponse | (*&self->_defaultSessionDelegateResponds.didCompleteWithError << 32);
       }
 
-      [v41[5] setDelegateResponds:v23 & 0xFFFFFFFFFFFFLL];
-      v25 = self->_sessionTaskQueue;
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __98__HLPURLSessionManager_newURLSessionItemWithRequest_identifier_networkDelegate_completionHandler___block_invoke_24;
-      v31[3] = &unk_279707780;
-      v32 = delegateCopy;
+      [v40[5] setDelegateResponds:v23 & 0xFFFFFFFFFFFFLL];
+      sessionTaskQueue = self->_sessionTaskQueue;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __98__HLPURLSessionManager_newURLSessionItemWithRequest_identifier_networkDelegate_completionHandler___block_invoke_24;
+      v30[3] = &unk_279707780;
+      v31 = delegateCopy;
       selfCopy = self;
-      v35 = v19;
-      v36 = &v40;
-      v34 = v15;
+      v34 = v19;
+      v35 = &v39;
+      v33 = v15;
       v26 = v19;
-      dispatch_sync(v25, v31);
+      dispatch_sync(sessionTaskQueue, v30);
     }
 
     v27 = [HLPURLSessionItem alloc];
-    v24 = [(HLPURLSessionItem *)v27 initWithSessionTask:v41[5] completionHandler:handlerCopy];
-    _Block_object_dispose(&v40, 8);
+    v24 = [(HLPURLSessionItem *)v27 initWithSessionTask:v40[5] completionHandler:handlerCopy];
+    _Block_object_dispose(&v39, 8);
   }
 
   else
@@ -373,7 +352,6 @@ LABEL_7:
     v24 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

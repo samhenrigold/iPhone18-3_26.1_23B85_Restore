@@ -173,7 +173,7 @@ LABEL_11:
 
 - (void)layoutSubviews
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_thumbnailView);
   pDFView = [WeakRetained PDFView];
   document = [pDFView document];
@@ -183,10 +183,10 @@ LABEL_11:
   v8 = [(NSMutableArray *)self->_icons count];
   [MEMORY[0x1E6979518] begin];
   [MEMORY[0x1E6979518] setDisableActions:1];
-  v89 = WeakRetained;
+  v83 = WeakRetained;
   [WeakRetained thumbnailSize];
-  v93 = v10;
-  v94 = v9;
+  v87 = v10;
+  v88 = v9;
   v11 = _iconsLayoutIconCount - v8;
   if (_iconsLayoutIconCount != v8)
   {
@@ -221,7 +221,7 @@ LABEL_11:
 
       else
       {
-        v14 = [[PDFPageIconLayer alloc] initWithSize:v94, v93];
+        v14 = [[PDFPageIconLayer alloc] initWithSize:v88, v87];
         layer = [(PDFIconsView *)self layer];
         [layer addSublayer:v14];
 
@@ -245,43 +245,43 @@ LABEL_11:
   v27 = v19 + v26;
   v29 = v21 - (v24 + v28);
   v31 = v23 - (v26 + v30);
-  v101.origin.x = v17 + v24;
-  v101.origin.y = v27;
-  v101.size.width = v29;
-  v101.size.height = v31;
-  MidX = CGRectGetMidX(v101);
-  v102.origin.x = v25;
-  v102.origin.y = v27;
-  v102.size.width = v29;
-  v102.size.height = v31;
-  MidY = CGRectGetMidY(v102);
+  v95.origin.x = v17 + v24;
+  v95.origin.y = v27;
+  v95.size.width = v29;
+  v95.size.height = v31;
+  MidX = CGRectGetMidX(v95);
+  v96.origin.x = v25;
+  v96.origin.y = v27;
+  v96.size.width = v29;
+  v96.size.height = v31;
+  MidY = CGRectGetMidY(v96);
   [(PDFIconsView *)self _iconsLayoutSize];
   if (v7 >= 1)
   {
     v36 = 0;
-    v91 = v94 + 2.0;
-    v92 = MidX - v34 * 0.5 + 1.0;
-    v90 = MidY - v35 * 0.5 + 1.0;
+    v85 = v88 + 2.0;
+    v86 = MidX - v34 * 0.5 + 1.0;
+    v84 = MidY - v35 * 0.5 + 1.0;
     do
     {
       if (layoutMode)
       {
-        v37 = v90;
+        v37 = v84;
       }
 
       else
       {
-        v37 = v90 + v36 * (v93 + 2.0);
+        v37 = v84 + v36 * (v87 + 2.0);
       }
 
       if (layoutMode)
       {
-        v38 = v92 + v36 * v91;
+        v38 = v86 + v36 * v85;
       }
 
       else
       {
-        v38 = v92;
+        v38 = v86;
       }
 
       pageCount = [document pageCount];
@@ -319,24 +319,22 @@ LABEL_11:
 
       v45 = [document pageAtIndex:v44];
       [v45 boundsForBox:1];
-      v50 = PDFRectFromCGRect(v46, v47, v48, v49);
-      v52 = PDFRectRotate([v45 rotation], v50, v51);
+      PDFRectFromCGRect();
+      v48 = PDFRectRotate([v45 rotation], v46, v47);
+      v50 = v49;
+      v52 = v51;
       v54 = v53;
-      v56 = v55;
-      v58 = v57;
-      v59.n128_u64[0] = 0;
-      v60.n128_u64[0] = 0;
-      v61 = PDFRectMake(v59, v60, v94, v93);
-      v65 = PDFScaleRectToRect(v52, v54, v56, v58, v61, v62, v63, v64);
-      v66 = PDFRectScale(v52, v54, v56, v58, v65);
-      v68 = v67;
-      v70 = v69;
-      v71 = [(NSMutableArray *)self->_icons objectAtIndex:v36, v66];
-      v103.size.width = v68;
-      v103.size.height = v70;
-      v103.origin.x = v38 - (v68 - v94) * 0.5;
-      [v71 setFrame:{COERCE_DOUBLE(CGRectIntegral(v103)), v37 - (v70 - v93) * 0.5, v68, v70}];
-      [v71 updateAsPageIndex:v44 forDocument:document];
+      PDFRectMake();
+      v59 = PDFScaleRectToRect(v48, v50, v52, v54, v55, v56, v57, v58);
+      v60 = PDFRectScale(v48, v50, v52, v54, v59);
+      v62 = v61;
+      v64 = v63;
+      v65 = [(NSMutableArray *)self->_icons objectAtIndex:v36, v60];
+      v97.size.width = v62;
+      v97.size.height = v64;
+      v97.origin.x = v38 - (v62 - v88) * 0.5;
+      [v65 setFrame:{COERCE_DOUBLE(CGRectIntegral(v97)), v37 - (v64 - v87) * 0.5, v62, v64}];
+      [v65 updateAsPageIndex:v44 forDocument:document];
 
       ++v36;
     }
@@ -346,59 +344,59 @@ LABEL_11:
 
   [MEMORY[0x1E6979518] commit];
   currentPage = [pDFView currentPage];
-  v73 = [document indexForPage:currentPage];
+  v67 = [document indexForPage:currentPage];
 
-  [(PDFIconsView *)self _updateScrubberForPageIndex:v73 goToPage:1];
+  [(PDFIconsView *)self _updateScrubberForPageIndex:v67 goToPage:1];
   x = *MEMORY[0x1E695F050];
   y = *(MEMORY[0x1E695F050] + 8);
   width = *(MEMORY[0x1E695F050] + 16);
   height = *(MEMORY[0x1E695F050] + 24);
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
-  v96 = 0u;
-  v78 = self->_icons;
-  v79 = [(NSMutableArray *)v78 countByEnumeratingWithState:&v95 objects:v99 count:16];
-  if (v79)
+  v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v72 = self->_icons;
+  v73 = [(NSMutableArray *)v72 countByEnumeratingWithState:&v89 objects:v93 count:16];
+  if (v73)
   {
-    v80 = v79;
-    v81 = *v96;
+    v74 = v73;
+    v75 = *v90;
     do
     {
-      for (i = 0; i != v80; ++i)
+      for (i = 0; i != v74; ++i)
       {
-        if (*v96 != v81)
+        if (*v90 != v75)
         {
-          objc_enumerationMutation(v78);
+          objc_enumerationMutation(v72);
         }
 
-        [*(*(&v95 + 1) + 8 * i) frame];
-        v106.origin.x = v83;
-        v106.origin.y = v84;
-        v106.size.width = v85;
-        v106.size.height = v86;
-        v104.origin.x = x;
-        v104.origin.y = y;
-        v104.size.width = width;
-        v104.size.height = height;
-        v105 = CGRectUnion(v104, v106);
-        x = v105.origin.x;
-        y = v105.origin.y;
-        width = v105.size.width;
-        height = v105.size.height;
+        [*(*(&v89 + 1) + 8 * i) frame];
+        v100.origin.x = v77;
+        v100.origin.y = v78;
+        v100.size.width = v79;
+        v100.size.height = v80;
+        v98.origin.x = x;
+        v98.origin.y = y;
+        v98.size.width = width;
+        v98.size.height = height;
+        v99 = CGRectUnion(v98, v100);
+        x = v99.origin.x;
+        y = v99.origin.y;
+        width = v99.size.width;
+        height = v99.size.height;
       }
 
-      v80 = [(NSMutableArray *)v78 countByEnumeratingWithState:&v95 objects:v99 count:16];
+      v74 = [(NSMutableArray *)v72 countByEnumeratingWithState:&v89 objects:v93 count:16];
     }
 
-    while (v80);
+    while (v74);
   }
 
-  v107.origin.x = x;
-  v107.origin.y = y;
-  v107.size.width = width;
-  v107.size.height = height;
-  if (!CGRectEqualToRect(self->_contentRect, v107))
+  v101.origin.x = x;
+  v101.origin.y = y;
+  v101.size.width = width;
+  v101.size.height = height;
+  if (!CGRectEqualToRect(self->_contentRect, v101))
   {
     self->_contentRect.origin.x = x;
     self->_contentRect.origin.y = y;

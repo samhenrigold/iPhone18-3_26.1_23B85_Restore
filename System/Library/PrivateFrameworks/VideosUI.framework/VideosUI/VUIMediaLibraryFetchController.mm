@@ -112,7 +112,7 @@ void __39__VUIMediaLibraryFetchController_pause__block_invoke(uint64_t a1, void 
   if (!v4)
   {
 LABEL_7:
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(v4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [v3 logName];
@@ -132,7 +132,7 @@ LABEL_7:
       goto LABEL_13;
     }
 
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [v3 logName];
@@ -142,13 +142,12 @@ LABEL_7:
     }
 
     [*(a1 + 32) _cancelFetch];
-    [*(a1 + 32) _moveToPausedState];
+    v4 = [*(a1 + 32) _moveToPausedState];
     goto LABEL_7;
   }
 
   v9 = [v3 pauseCount] + 1;
-  [v3 setPauseCount:v9];
-  v10 = VUIDefaultLogObject();
+  v10 = VUIDefaultLogObject([v3 setPauseCount:v9]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [v3 logName];
@@ -170,7 +169,7 @@ void __40__VUIMediaLibraryFetchController_resume__block_invoke(uint64_t a1, void
   switch(v3)
   {
     case 0:
-      v6 = VUIDefaultLogObject();
+      v6 = VUIDefaultLogObject(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v9 = [v2 logName];
@@ -184,7 +183,7 @@ LABEL_15:
 
       break;
     case 1:
-      v6 = VUIDefaultLogObject();
+      v6 = VUIDefaultLogObject(1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v9 = [v2 logName];
@@ -202,7 +201,7 @@ LABEL_12:
       v4 = [v2 pauseCount];
       if (!v4)
       {
-        v6 = VUIDefaultLogObject();
+        v6 = VUIDefaultLogObject(0);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           __40__VUIMediaLibraryFetchController_resume__block_invoke_cold_1(v2, v6);
@@ -212,8 +211,7 @@ LABEL_12:
       }
 
       v5 = v4 - 1;
-      [v2 setPauseCount:v4 - 1];
-      v6 = VUIDefaultLogObject();
+      v6 = VUIDefaultLogObject([v2 setPauseCount:v4 - 1]);
       v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
       if (v5)
       {
@@ -320,7 +318,7 @@ void __103__VUIMediaLibraryFetchController_beginFetchWithMediaLibraryRevision_co
 uint64_t __103__VUIMediaLibraryFetchController_beginFetchWithMediaLibraryRevision_completionHandler_completionQueue___block_invoke_2(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) logName];
@@ -341,7 +339,7 @@ void __103__VUIMediaLibraryFetchController_beginFetchWithMediaLibraryRevision_co
   {
     if (v4 == 1)
     {
-      v5 = VUIDefaultLogObject();
+      v5 = VUIDefaultLogObject(1);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v7 = [v3 logName];
@@ -355,7 +353,7 @@ void __103__VUIMediaLibraryFetchController_beginFetchWithMediaLibraryRevision_co
 
     if (v4 == 2)
     {
-      v5 = VUIDefaultLogObject();
+      v5 = VUIDefaultLogObject(2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = [v3 logName];
@@ -372,7 +370,7 @@ LABEL_9:
 
   else
   {
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [v3 logName];
@@ -449,7 +447,7 @@ LABEL_6:
 - (void)_cancelFetch
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     logName = [(VUIMediaLibraryFetchController *)self logName];
@@ -465,19 +463,20 @@ LABEL_6:
 
 - (void)_startFetchIfNeededWithMediaLibraryRevision:(unint64_t)revision completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = [(VUIMediaLibraryFetchController *)self _shouldFetchForMediaLibraryRevision:revision];
-  v8 = VUIDefaultLogObject();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (v7)
+  v8 = v7;
+  v9 = VUIDefaultLogObject(v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    if (v9)
+    if (v10)
     {
       logName = [(VUIMediaLibraryFetchController *)self logName];
-      v12 = 138412290;
-      v13 = logName;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "[%@] - Starting fetch", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = logName;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "[%@] - Starting fetch", &v13, 0xCu);
     }
 
     [(VUIMediaLibraryFetchController *)self _startFetchWithCompletionHandler:handlerCopy];
@@ -486,12 +485,12 @@ LABEL_6:
 
   else
   {
-    if (v9)
+    if (v10)
     {
       logName2 = [(VUIMediaLibraryFetchController *)self logName];
-      v12 = 138412290;
-      v13 = logName2;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "[%@] - New fetch not required as the library contents have not changed", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = logName2;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "[%@] - New fetch not required as the library contents have not changed", &v13, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 2, 0);
@@ -561,21 +560,21 @@ void __76__VUIMediaLibraryFetchController__enqueueFetchWithReason_completionHand
 
 void __81__VUIMediaLibraryFetchController__fetchOperationCompleted_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 fetchOperation];
 
-  v6 = VUIDefaultLogObject();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = VUIDefaultLogObject(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v4 == v5)
   {
-    if (v7)
+    if (v8)
     {
-      v10 = [v3 logName];
-      v11 = 138412290;
-      v12 = v10;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "[%@] - Fetch completed. Will process results and move to ready state", &v11, 0xCu);
+      v11 = [v3 logName];
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "[%@] - Fetch completed. Will process results and move to ready state", &v12, 0xCu);
     }
 
     [v3 _didCompleteFetchOperation:*(a1 + 32)];
@@ -585,15 +584,15 @@ void __81__VUIMediaLibraryFetchController__fetchOperationCompleted_withCompletio
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      v8 = [v3 logName];
-      v9 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v3, "state")}];
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "[%@] - Fetch completed but was cancelled. Will not process results but will remain in current state (%@) and call completion handler", &v11, 0x16u);
+      v9 = [v3 logName];
+      v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v3, "state")}];
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "[%@] - Fetch completed but was cancelled. Will not process results but will remain in current state (%@) and call completion handler", &v12, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();

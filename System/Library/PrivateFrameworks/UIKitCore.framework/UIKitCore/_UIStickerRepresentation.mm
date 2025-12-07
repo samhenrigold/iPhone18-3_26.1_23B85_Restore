@@ -77,9 +77,9 @@
 {
   type = [(_UIStickerRepresentation *)self type];
   identifier = [*MEMORY[0x1E6982E00] identifier];
-  v5 = [type isEqualToString:identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(type);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = objc_alloc(MEMORY[0x1E695F658]);
     data = [(_UIStickerRepresentation *)self data];

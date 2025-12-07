@@ -14,23 +14,23 @@
 
 - (HDSPChargingReminderStateMachine)initWithIdentifier:(id)identifier persistence:(id)persistence delegate:(id)delegate infoProvider:(id)provider currentDateProvider:(id)dateProvider
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   v12 = MEMORY[0x277CBEB98];
   dateProviderCopy = dateProvider;
   providerCopy = provider;
   delegateCopy = delegate;
   persistenceCopy = persistence;
   identifierCopy = identifier;
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v35[2] = objc_opt_class();
-  v35[3] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
+  v34[0] = objc_opt_class();
+  v34[1] = objc_opt_class();
+  v34[2] = objc_opt_class();
+  v34[3] = objc_opt_class();
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
   v19 = [v12 setWithArray:v18];
 
-  v34.receiver = self;
-  v34.super_class = HDSPChargingReminderStateMachine;
-  v20 = [(HKSPPersistentStateMachine *)&v34 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
+  v33.receiver = self;
+  v33.super_class = HDSPChargingReminderStateMachine;
+  v20 = [(HKSPPersistentStateMachine *)&v33 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
 
   if (v20)
   {
@@ -62,21 +62,19 @@
     v31 = v20;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)allStates
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   waitingState = self->_waitingState;
-  v7[0] = self->_monitoringState;
-  v7[1] = waitingState;
+  v6[0] = self->_monitoringState;
+  v6[1] = waitingState;
   notifiedState = self->_notifiedState;
-  v7[2] = self->_disabledState;
-  v7[3] = notifiedState;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = self->_disabledState;
+  v6[3] = notifiedState;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
 
   return v4;
 }

@@ -12,18 +12,18 @@
 
 - (id)_dictionaryRepresentation
 {
-  v25[7] = *MEMORY[0x1E69E9840];
+  v24[7] = *MEMORY[0x1E69E9840];
   name = self->_name;
-  v23 = name;
-  v24[0] = @"name";
+  v22 = name;
+  v23[0] = @"name";
   if (!name)
   {
     name = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = name;
-  v25[0] = name;
-  v24[1] = @"qualifier";
+  v21 = name;
+  v24[0] = name;
+  v23[1] = @"qualifier";
   qualifier = self->_qualifier;
   null = qualifier;
   if (!qualifier)
@@ -31,9 +31,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v25[1] = null;
-  v24[2] = @"type";
+  v20 = null;
+  v24[1] = null;
+  v23[2] = @"type";
   type = self->_type;
   null2 = type;
   if (!type)
@@ -41,9 +41,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null2;
-  v25[2] = null2;
-  v24[3] = @"dateComponentsRange";
+  v19 = null2;
+  v24[2] = null2;
+  v23[3] = @"dateComponentsRange";
   dateComponentsRange = self->_dateComponentsRange;
   null3 = dateComponentsRange;
   if (!dateComponentsRange)
@@ -51,9 +51,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null3;
-  v25[3] = null3;
-  v24[4] = @"person";
+  v18 = null3;
+  v24[3] = null3;
+  v23[4] = @"person";
   person = self->_person;
   null4 = person;
   if (!person)
@@ -61,8 +61,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[4] = null4;
-  v24[5] = @"value";
+  v24[4] = null4;
+  v23[5] = @"value";
   value = self->_value;
   null5 = value;
   if (!value)
@@ -70,8 +70,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[5] = null5;
-  v24[6] = @"quantity";
+  v24[5] = null5;
+  v23[6] = @"quantity";
   quantity = self->_quantity;
   null6 = quantity;
   if (!quantity)
@@ -79,8 +79,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[6] = null6;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
+  v24[6] = null6;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:7];
   if (quantity)
   {
     if (value)
@@ -151,11 +151,9 @@ LABEL_20:
 LABEL_31:
 
 LABEL_21:
-  if (!v23)
+  if (!v22)
   {
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

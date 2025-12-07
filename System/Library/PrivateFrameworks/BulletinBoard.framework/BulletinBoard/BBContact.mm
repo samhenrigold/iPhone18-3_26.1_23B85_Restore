@@ -1,6 +1,7 @@
 @interface BBContact
 + (BBContact)contactWithHandle:(id)handle handleType:(int64_t)type serviceName:(id)name displayName:(id)displayName cnContactIdentifier:(id)identifier cnContactFullname:(id)fullname cnContactIdentifierSuggested:(BOOL)suggested;
 + (BBContact)contactWithHandle:(id)handle handleType:(int64_t)type serviceName:(id)name displayName:(id)displayName customIdentifier:(id)identifier cnContactIdentifier:(id)contactIdentifier cnContactFullname:(id)fullname cnContactIdentifierSuggested:(BOOL)self0;
++ (BBContact)contactWithHandle:(id)handle handleType:(int64_t)type serviceName:(id)name displayName:(id)displayName displayNameSuggested:(BOOL)suggested customIdentifier:(id)identifier cnContactIdentifier:(id)contactIdentifier cnContactFullname:(id)self0 cnContactIdentifierSuggested:(BOOL)self1;
 - (BBContact)initWithCoder:(id)coder;
 - (BOOL)isEqual:(id)equal;
 - (id)_initWithHandle:(id)handle handleType:(int64_t)type serviceName:(id)name displayName:(id)displayName displayNameSuggested:(BOOL)suggested customIdentifier:(id)identifier cnContactIdentifier:(id)contactIdentifier cnContactFullname:(id)self0 cnContactIdentifierSuggested:(BOOL)self1;
@@ -35,6 +36,21 @@
   v22 = [[BBContact alloc] _initWithHandle:handleCopy handleType:type serviceName:nameCopy displayName:displayNameCopy displayNameSuggested:0 customIdentifier:identifierCopy cnContactIdentifier:contactIdentifierCopy cnContactFullname:fullnameCopy cnContactIdentifierSuggested:v24];
 
   return v22;
+}
+
++ (BBContact)contactWithHandle:(id)handle handleType:(int64_t)type serviceName:(id)name displayName:(id)displayName displayNameSuggested:(BOOL)suggested customIdentifier:(id)identifier cnContactIdentifier:(id)contactIdentifier cnContactFullname:(id)self0 cnContactIdentifierSuggested:(BOOL)self1
+{
+  suggestedCopy = suggested;
+  fullnameCopy = fullname;
+  contactIdentifierCopy = contactIdentifier;
+  identifierCopy = identifier;
+  displayNameCopy = displayName;
+  nameCopy = name;
+  handleCopy = handle;
+  LOBYTE(v25) = identifierSuggested;
+  v23 = [[BBContact alloc] _initWithHandle:handleCopy handleType:type serviceName:nameCopy displayName:displayNameCopy displayNameSuggested:suggestedCopy customIdentifier:identifierCopy cnContactIdentifier:contactIdentifierCopy cnContactFullname:fullnameCopy cnContactIdentifierSuggested:v25];
+
+  return v23;
 }
 
 - (id)_initWithHandle:(id)handle handleType:(int64_t)type serviceName:(id)name displayName:(id)displayName displayNameSuggested:(BOOL)suggested customIdentifier:(id)identifier cnContactIdentifier:(id)contactIdentifier cnContactFullname:(id)self0 cnContactIdentifierSuggested:(BOOL)self1
@@ -116,11 +132,10 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  handle = self->_handle;
   handle = [v5 handle];
-  LODWORD(handle) = BSEqualStrings();
+  v8 = BSEqualStrings();
 
-  if (!handle)
+  if (!v8)
   {
     goto LABEL_14;
   }
@@ -131,20 +146,18 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  serviceName = self->_serviceName;
   serviceName = [v6 serviceName];
-  LODWORD(serviceName) = BSEqualStrings();
+  v11 = BSEqualStrings();
 
-  if (!serviceName)
+  if (!v11)
   {
     goto LABEL_14;
   }
 
-  displayName = self->_displayName;
   displayName = [v6 displayName];
-  LODWORD(displayName) = BSEqualStrings();
+  v13 = BSEqualStrings();
 
-  if (!displayName)
+  if (!v13)
   {
     goto LABEL_14;
   }
@@ -155,29 +168,26 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  customIdentifier = self->_customIdentifier;
   customIdentifier = [v6 customIdentifier];
-  LODWORD(customIdentifier) = BSEqualStrings();
+  v16 = BSEqualStrings();
 
-  if (!customIdentifier)
+  if (!v16)
   {
     goto LABEL_14;
   }
 
-  cnContactIdentifier = self->_cnContactIdentifier;
   cnContactIdentifier = [v6 cnContactIdentifier];
-  LODWORD(cnContactIdentifier) = BSEqualStrings();
+  v18 = BSEqualStrings();
 
-  if (!cnContactIdentifier)
+  if (!v18)
   {
     goto LABEL_14;
   }
 
-  cnContactFullname = self->_cnContactFullname;
   cnContactFullname = [v6 cnContactFullname];
-  LODWORD(cnContactFullname) = BSEqualStrings();
+  v20 = BSEqualStrings();
 
-  if (!cnContactFullname)
+  if (!v20)
   {
     goto LABEL_14;
   }

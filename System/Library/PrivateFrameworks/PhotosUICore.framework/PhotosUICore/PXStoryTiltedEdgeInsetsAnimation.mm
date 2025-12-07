@@ -74,8 +74,8 @@
 
 - (void)updateCurrentValueWithProgress:(double)progress
 {
-  [(PXStoryTiltedEdgeInsetsAnimation *)self sourceEdgeInsets];
-  [(PXStoryTiltedEdgeInsetsAnimation *)self targetEdgeInsets];
+  objc_msgSend_sourceEdgeInsets(self, a2);
+  objc_msgSend_targetEdgeInsets(self);
   PXFloatByLinearlyInterpolatingFloats();
 }
 

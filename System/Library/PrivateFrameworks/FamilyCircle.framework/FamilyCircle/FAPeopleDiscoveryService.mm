@@ -58,75 +58,69 @@ uint64_t __42__FAPeopleDiscoveryService_sharedInstance__block_invoke()
 
 void __32__FAPeopleDiscoveryService_init__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1B70B0000, v3, OS_LOG_TYPE_DEFAULT, "Found new person: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1B70B0000, v3, OS_LOG_TYPE_DEFAULT, "Found new person: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FAPeopleDiscoveryService_init__block_invoke_6(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1B70B0000, v3, OS_LOG_TYPE_DEFAULT, "Lost person: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1B70B0000, v3, OS_LOG_TYPE_DEFAULT, "Lost person: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FAPeopleDiscoveryService_init__block_invoke_9(uint64_t a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a3];
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_1B70B0000, v5, OS_LOG_TYPE_DEFAULT, "Changed person: %@, changes: %@", &v8, 0x16u);
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __32__FAPeopleDiscoveryService_init__block_invoke_14()
-{
-  v0 = _FALogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *v1 = 0;
-    _os_log_impl(&dword_1B70B0000, v0, OS_LOG_TYPE_DEFAULT, "People discovery session invalidated", v1, 2u);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_1B70B0000, v5, OS_LOG_TYPE_DEFAULT, "Changed person: %@, changes: %@", &v7, 0x16u);
   }
 }
 
-void __32__FAPeopleDiscoveryService_init__block_invoke_17()
+void __32__FAPeopleDiscoveryService_init__block_invoke_14(uint64_t a1)
 {
-  v0 = _FALogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _FALogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B70B0000, v0, OS_LOG_TYPE_DEFAULT, "People discovery session interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1B70B0000, v1, OS_LOG_TYPE_DEFAULT, "People discovery session invalidated", v2, 2u);
+  }
+}
+
+void __32__FAPeopleDiscoveryService_init__block_invoke_17(uint64_t a1)
+{
+  v1 = _FALogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    *v2 = 0;
+    _os_log_impl(&dword_1B70B0000, v1, OS_LOG_TYPE_DEFAULT, "People discovery session interrupted", v2, 2u);
   }
 }
 
 - (void)dealloc
 {
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -141,39 +135,37 @@ void __32__FAPeopleDiscoveryService_init__block_invoke_17()
 
 void __52__FAPeopleDiscoveryService_startMonitoringProximity__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
     if (v4)
     {
-      v9 = 138412290;
-      v10 = v2;
+      v8 = 138412290;
+      v9 = v2;
       v5 = "Error activating people discovery: %@";
       v6 = v3;
       v7 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, v7);
+      _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
     }
   }
 
   else if (v4)
   {
-    LOWORD(v9) = 0;
+    LOWORD(v8) = 0;
     v5 = "Activated people discovery";
     v6 = v3;
     v7 = 2;
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopMonitoringProximity
 {
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -204,41 +196,41 @@ LABEL_6:
 
 void __43__FAPeopleDiscoveryService_getNearbyPeople__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 8) discoveredPeople];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v16 + 1) + 8 * i) contactID];
+        v7 = [*(*(&v15 + 1) + 8 * i) contactID];
         if (v7)
         {
           [*(a1 + 40) addObject:v7];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v4);
   }
 
   v8 = [v2 count];
-  v9 = _FALogSystem();
+  v9 = _FALogSystem(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (v8)
   {
@@ -246,9 +238,9 @@ void __43__FAPeopleDiscoveryService_getNearbyPeople__block_invoke(uint64_t a1)
     {
       v11 = *(a1 + 40);
       *buf = 138412546;
-      v21 = v2;
-      v22 = 2112;
-      v23 = v11;
+      v20 = v2;
+      v21 = 2112;
+      v22 = v11;
       v12 = "Found nearby people: %@, nearbyContactIDs: %@";
       v13 = v9;
       v14 = 22;
@@ -265,8 +257,6 @@ LABEL_15:
     v14 = 2;
     goto LABEL_15;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

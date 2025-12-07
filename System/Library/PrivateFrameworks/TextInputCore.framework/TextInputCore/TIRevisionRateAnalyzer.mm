@@ -13,28 +13,28 @@
 
 - (id)getInputModeForSession:(id)session
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   userActionHistory = [session userActionHistory];
-  v4 = [userActionHistory countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [userActionHistory countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     inputMode = &stru_283FDFAF8;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(userActionHistory);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (![v9 actionType])
         {
           keyboardState = [v9 keyboardState];
@@ -44,7 +44,7 @@
         }
       }
 
-      v5 = [userActionHistory countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [userActionHistory countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -61,14 +61,12 @@
 
 LABEL_12:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return inputMode;
 }
 
 - (void)summarizeWithEventDictionary:(id)dictionary withSession:(id)session
 {
-  v63[3] = *MEMORY[0x277D85DE8];
+  v62[3] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   sessionCopy = session;
   hasEmojiInput = [(TIRevisionRateAnalyzer *)self hasEmojiInput];
@@ -83,7 +81,7 @@ LABEL_12:
   revisionRateAnalysisSummary3 = [(TIRevisionRateAnalyzer *)self revisionRateAnalysisSummary];
   [revisionRateAnalysisSummary3 setHasCursorMovement:hasCursorMovement];
 
-  v54 = sessionCopy;
+  v53 = sessionCopy;
   v14 = [(TIRevisionRateAnalyzer *)self getInputModeForSession:sessionCopy];
   revisionRateAnalysisSummary4 = [(TIRevisionRateAnalyzer *)self revisionRateAnalysisSummary];
   [revisionRateAnalysisSummary4 setInputMode:v14];
@@ -101,38 +99,38 @@ LABEL_12:
   [revisionRateAnalysisSummary8 setRevisedAutocorrectionCount:0];
 
   v20 = MEMORY[0x277CBEB98];
-  v63[0] = @"Tapped";
-  v63[1] = @"Candidate Bar";
-  v63[2] = @"TappedWithBackspace";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:3];
+  v62[0] = @"Tapped";
+  v62[1] = @"Candidate Bar";
+  v62[2] = @"TappedWithBackspace";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:3];
   v22 = [v20 setWithArray:v21];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v23 = dictionaryCopy;
   selfCopy = self;
   obj = v23;
-  v25 = [v23 countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v25 = [v23 countByEnumeratingWithState:&v57 objects:v61 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v59;
+    v27 = *v58;
     v28 = @"enteredModality";
-    v57 = selfCopy;
+    v56 = selfCopy;
     do
     {
       v29 = 0;
-      v55 = v26;
+      v54 = v26;
       do
       {
-        if (*v59 != v27)
+        if (*v58 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v58 + 1) + 8 * v29);
+        v30 = *(*(&v57 + 1) + 8 * v29);
         v31 = [v30 objectForKey:v28];
         if ([v22 containsObject:v31])
         {
@@ -157,29 +155,29 @@ LABEL_12:
             revisionRateAnalysisSummary12 = [(TIRevisionRateAnalyzer *)selfCopy revisionRateAnalysisSummary];
             [revisionRateAnalysisSummary12 setAutocorrectedCount:autocorrectedCount + 1];
 
-            selfCopy = v57;
+            selfCopy = v56;
           }
 
           v22 = v34;
           v27 = v33;
           v28 = v32;
-          v26 = v55;
+          v26 = v54;
           if (v39)
           {
             revisionRateAnalysisSummary13 = [(TIRevisionRateAnalyzer *)selfCopy revisionRateAnalysisSummary];
             revisedCount = [revisionRateAnalysisSummary13 revisedCount];
-            revisionRateAnalysisSummary14 = [(TIRevisionRateAnalyzer *)v57 revisionRateAnalysisSummary];
+            revisionRateAnalysisSummary14 = [(TIRevisionRateAnalyzer *)v56 revisionRateAnalysisSummary];
             v48 = revisedCount + 1;
-            selfCopy = v57;
+            selfCopy = v56;
             [revisionRateAnalysisSummary14 setRevisedCount:v48];
 
             if (v41)
             {
-              revisionRateAnalysisSummary15 = [(TIRevisionRateAnalyzer *)v57 revisionRateAnalysisSummary];
+              revisionRateAnalysisSummary15 = [(TIRevisionRateAnalyzer *)v56 revisionRateAnalysisSummary];
               revisedAutocorrectionCount = [revisionRateAnalysisSummary15 revisedAutocorrectionCount];
-              revisionRateAnalysisSummary16 = [(TIRevisionRateAnalyzer *)v57 revisionRateAnalysisSummary];
+              revisionRateAnalysisSummary16 = [(TIRevisionRateAnalyzer *)v56 revisionRateAnalysisSummary];
               v52 = revisedAutocorrectionCount + 1;
-              selfCopy = v57;
+              selfCopy = v56;
               [revisionRateAnalysisSummary16 setRevisedAutocorrectionCount:v52];
             }
           }
@@ -189,13 +187,11 @@ LABEL_12:
       }
 
       while (v26 != v29);
-      v26 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v26 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
     }
 
     while (v26);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getSessionFields
@@ -227,128 +223,126 @@ LABEL_12:
 
 void __42__TIRevisionRateAnalyzer__createEventSpec__block_invoke()
 {
-  v64[8] = *MEMORY[0x277D85DE8];
-  v64[0] = @"OriginalText";
-  v64[1] = @"Tapped";
-  v64[2] = @"Pathed";
-  v64[3] = @"Candidate Bar";
-  v64[4] = @"TappedWithBackspace";
-  v64[5] = @"Deleted";
-  v64[6] = @"RevisionBubble";
-  v64[7] = @"InlineCompletion";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:8];
-  v63[0] = @"Lower";
-  v63[1] = @"Title";
-  v63[2] = @"Upper";
-  v63[3] = @"Mixed";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
-  v62[0] = @"None";
-  v62[1] = @"Short";
-  v62[2] = @"Medium";
-  v62[3] = @"Long";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
+  v63[8] = *MEMORY[0x277D85DE8];
+  v63[0] = @"OriginalText";
+  v63[1] = @"Tapped";
+  v63[2] = @"Pathed";
+  v63[3] = @"Candidate Bar";
+  v63[4] = @"TappedWithBackspace";
+  v63[5] = @"Deleted";
+  v63[6] = @"RevisionBubble";
+  v63[7] = @"InlineCompletion";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:8];
+  v62[0] = @"Lower";
+  v62[1] = @"Title";
+  v62[2] = @"Upper";
+  v62[3] = @"Mixed";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
+  v61[0] = @"None";
+  v61[1] = @"Short";
+  v61[2] = @"Medium";
+  v61[3] = @"Long";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:4];
   v3 = TIFeatureUsageAllowedValues();
-  v30 = TITypingSpeedAllowedValues();
-  v53 = v0;
-  v60 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"enteredModality" allowedValues:v0];
-  v61[0] = v60;
-  v59 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"enteredSource" allowedValues:0];
-  v61[1] = v59;
-  v58 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"enteredCapitalization" allowedValues:v1];
-  v61[2] = v58;
-  v57 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"enteredDiacritics"];
-  v61[3] = v57;
-  v56 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"enteredApostrophe"];
-  v61[4] = v56;
-  v55 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"enteredWordLength" minValue:&unk_28400BD60 maxValue:&unk_28400BD78 significantDigits:0];
-  v61[5] = v55;
-  v54 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"correctedSource" allowedValues:0];
-  v61[6] = v54;
-  v50 = v1;
-  v52 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"correctedCapitalization" allowedValues:v1];
-  v61[7] = v52;
-  v51 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"correctedDiacritics"];
-  v61[8] = v51;
-  v49 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"correctedApostrophe"];
-  v61[9] = v49;
-  v47 = v2;
-  v48 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"correctedEditDistance" allowedValues:v2];
-  v61[10] = v48;
-  v46 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"correctedWordLength" minValue:&unk_28400BD60 maxValue:&unk_28400BD78 significantDigits:0];
-  v61[11] = v46;
-  v45 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"correctedHasLeftHandContext"];
-  v61[12] = v45;
-  v44 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"correctedOperationType" allowedValues:0];
-  v61[13] = v44;
-  v43 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"revisedModality" allowedValues:v0];
-  v61[14] = v43;
-  v42 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"revisedSource" allowedValues:0];
-  v61[15] = v42;
-  v41 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"revisedCapitalization" allowedValues:v1];
-  v61[16] = v41;
-  v40 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"revisedDiacritics"];
-  v61[17] = v40;
-  v39 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"revisedApostrophe"];
-  v61[18] = v39;
-  v38 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"revisedEditDistance" allowedValues:v2];
-  v61[19] = v38;
-  v37 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"revisedWordLength" minValue:&unk_28400BD60 maxValue:&unk_28400BD78 significantDigits:0];
-  v61[20] = v37;
-  v36 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"revisedWordRevisionCount" minValue:&unk_28400BD60 maxValue:&unk_28400BD78 significantDigits:0];
-  v61[21] = v36;
-  v35 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"textTraitAutocorrectionEnabled"];
-  v61[22] = v35;
-  v34 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardType];
-  v61[23] = v34;
-  v33 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardLayout];
-  v61[24] = v33;
-  v31 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardLanguage];
-  v61[25] = v31;
-  v29 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardRegion];
-  v61[26] = v29;
-  v28 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardVariant];
-  v61[27] = v28;
-  v27 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardSecondaryLanguage];
-  v61[28] = v27;
-  v26 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardSecondaryRegion];
-  v61[29] = v26;
+  v29 = TITypingSpeedAllowedValues();
+  v52 = v0;
+  v59 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"enteredModality" allowedValues:v0];
+  v60[0] = v59;
+  v58 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"enteredSource" allowedValues:0];
+  v60[1] = v58;
+  v57 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"enteredCapitalization" allowedValues:v1];
+  v60[2] = v57;
+  v56 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"enteredDiacritics"];
+  v60[3] = v56;
+  v55 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"enteredApostrophe"];
+  v60[4] = v55;
+  v54 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"enteredWordLength" minValue:&unk_28400BD60 maxValue:&unk_28400BD78 significantDigits:0];
+  v60[5] = v54;
+  v53 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"correctedSource" allowedValues:0];
+  v60[6] = v53;
+  v49 = v1;
+  v51 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"correctedCapitalization" allowedValues:v1];
+  v60[7] = v51;
+  v50 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"correctedDiacritics"];
+  v60[8] = v50;
+  v48 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"correctedApostrophe"];
+  v60[9] = v48;
+  v46 = v2;
+  v47 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"correctedEditDistance" allowedValues:v2];
+  v60[10] = v47;
+  v45 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"correctedWordLength" minValue:&unk_28400BD60 maxValue:&unk_28400BD78 significantDigits:0];
+  v60[11] = v45;
+  v44 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"correctedHasLeftHandContext"];
+  v60[12] = v44;
+  v43 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"correctedOperationType" allowedValues:0];
+  v60[13] = v43;
+  v42 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"revisedModality" allowedValues:v0];
+  v60[14] = v42;
+  v41 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"revisedSource" allowedValues:0];
+  v60[15] = v41;
+  v40 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"revisedCapitalization" allowedValues:v1];
+  v60[16] = v40;
+  v39 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"revisedDiacritics"];
+  v60[17] = v39;
+  v38 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"revisedApostrophe"];
+  v60[18] = v38;
+  v37 = [MEMORY[0x277D6F308] stringFieldSpecWithName:@"revisedEditDistance" allowedValues:v2];
+  v60[19] = v37;
+  v36 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"revisedWordLength" minValue:&unk_28400BD60 maxValue:&unk_28400BD78 significantDigits:0];
+  v60[20] = v36;
+  v35 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"revisedWordRevisionCount" minValue:&unk_28400BD60 maxValue:&unk_28400BD78 significantDigits:0];
+  v60[21] = v35;
+  v34 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"textTraitAutocorrectionEnabled"];
+  v60[22] = v34;
+  v33 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardType];
+  v60[23] = v33;
+  v32 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardLayout];
+  v60[24] = v32;
+  v30 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardLanguage];
+  v60[25] = v30;
+  v28 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardRegion];
+  v60[26] = v28;
+  v27 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardVariant];
+  v60[27] = v27;
+  v26 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardSecondaryLanguage];
+  v60[28] = v26;
+  v25 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardSecondaryRegion];
+  v60[29] = v25;
   v4 = MEMORY[0x277D6F308];
   v5 = kFeatureStringTypingEngine;
-  v25 = TITypingEngineAllowedValues();
-  v24 = [v4 stringFieldSpecWithName:v5 allowedValues:v25];
-  v61[30] = v24;
+  v24 = TITypingEngineAllowedValues();
+  v23 = [v4 stringFieldSpecWithName:v5 allowedValues:v24];
+  v60[30] = v23;
   v6 = MEMORY[0x277D6F308];
   v7 = kFeatureStringAssetAvailabilityStatus;
-  v23 = TIAssetAvailabilityStatusAllowedValues();
-  v22 = [v6 stringFieldSpecWithName:v7 allowedValues:v23];
-  v61[31] = v22;
+  v22 = TIAssetAvailabilityStatusAllowedValues();
+  v21 = [v6 stringFieldSpecWithName:v7 allowedValues:v22];
+  v60[31] = v21;
   v8 = v3;
   v9 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureKeyboardUsage allowedValues:v3];
-  v61[32] = v9;
-  v32 = v3;
+  v60[32] = v9;
+  v31 = v3;
   v10 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureContinuousPathUsage allowedValues:v3];
-  v61[33] = v10;
+  v60[33] = v10;
   v11 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureCandidateBarUsage allowedValues:v3];
-  v61[34] = v11;
+  v60[34] = v11;
   v12 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureAutocorrectionUsage allowedValues:v8];
-  v61[35] = v12;
+  v60[35] = v12;
   v13 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureMultilingualUsage allowedValues:v8];
-  v61[36] = v13;
-  v14 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringTypingSpeed allowedValues:v30];
-  v61[37] = v14;
+  v60[36] = v13;
+  v14 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringTypingSpeed allowedValues:v29];
+  v60[37] = v14;
   v15 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasCursorMovement"];
-  v61[38] = v15;
+  v60[38] = v15;
   v16 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasEmojiInput"];
-  v61[39] = v16;
+  v60[39] = v16;
   v17 = [MEMORY[0x277D6F308] integerFieldSpecWithName:kFeatureStringSessionAlignmentConfidence minValue:&unk_28400BD60 maxValue:&unk_28400BD90 significantDigits:0];
-  v61[40] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:41];
+  v60[40] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:41];
 
   v19 = [MEMORY[0x277D6F300] eventSpecWithName:@"revisionRate" inputModeRequired:0 fieldSpecs:v18];
   v20 = _createEventSpec___eventSpec;
   _createEventSpec___eventSpec = v19;
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerAnalyticsEventSpecWithAnalyticsService
@@ -360,11 +354,11 @@ void __42__TIRevisionRateAnalyzer__createEventSpec__block_invoke()
 
 - (void)_dispatchEventPayloads:(id)payloads analyticsService:(id)service typingSession:(id)session
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   payloadsCopy = payloads;
   serviceCopy = service;
   sessionCopy = session;
-  v21 = serviceCopy;
+  v20 = serviceCopy;
   if (serviceCopy)
   {
     mEMORY[0x277D6F318] = serviceCopy;
@@ -376,38 +370,36 @@ void __42__TIRevisionRateAnalyzer__createEventSpec__block_invoke()
   }
 
   v11 = mEMORY[0x277D6F318];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v12 = payloadsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * i);
+        v17 = *(*(&v21 + 1) + 8 * i);
         sessionParams = [sessionCopy sessionParams];
         testingParameters = [sessionParams testingParameters];
         [v11 dispatchEventWithName:@"revisionRate" payload:v17 testingParameters:testingParameters allowSparsePayload:1];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (TIRevisionRateAnalyzer)init
@@ -429,7 +421,7 @@ void __42__TIRevisionRateAnalyzer__createEventSpec__block_invoke()
 
 - (BOOL)analyzeSession:(id)session alignedSession:(id)alignedSession withConfidence:(unint64_t)confidence
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   if (confidence)
   {
@@ -460,9 +452,9 @@ void __42__TIRevisionRateAnalyzer__createEventSpec__block_invoke()
       v16 = IXADefaultLogFacility();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s No revision metric payloads could be generated from the keyboard typing session.", "-[TIRevisionRateAnalyzer analyzeSession:alignedSession:withConfidence:]"];
+        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s No revision metric payloads could be generated from the keyboard typing session.", "-[TIRevisionRateAnalyzer analyzeSession:alignedSession:withConfidence:]"];
         *buf = 138412290;
-        v21 = v19;
+        v20 = v18;
         _os_log_debug_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -475,12 +467,11 @@ void __42__TIRevisionRateAnalyzer__createEventSpec__block_invoke()
   {
     getSessionFields = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Typing session confidence is set to 'none' and will not be analyzed by the autocorrection revision rate analyzer.", "-[TIRevisionRateAnalyzer analyzeSession:alignedSession:withConfidence:]"];
     *buf = 138412290;
-    v21 = getSessionFields;
+    v20 = getSessionFields;
     _os_log_debug_impl(&dword_22CA55000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
 LABEL_10:
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return confidence != 0;
 }
 

@@ -20,7 +20,7 @@
 {
   pathCopy = path;
   toPathCopy = toPath;
-  v7 = UnsafePointer();
+  v7 = UnsafePointer(toPathCopy);
   bundlePath = [v7 bundlePath];
   stringByStandardizingPath = [bundlePath stringByStandardizingPath];
 

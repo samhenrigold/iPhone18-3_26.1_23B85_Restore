@@ -132,7 +132,7 @@
   v8 = MEMORY[0x1E695DF90];
   v39[0] = @"timestamp";
   v9 = MEMORY[0x1E696AD98];
-  [(VCPProtoLivePhotoKeyFrameResult *)self timestamp];
+  objc_msgSend_timestamp(self);
   v36 = [v9 numberWithDouble:?];
   v40[0] = v36;
   v39[1] = @"frameQualityScore";

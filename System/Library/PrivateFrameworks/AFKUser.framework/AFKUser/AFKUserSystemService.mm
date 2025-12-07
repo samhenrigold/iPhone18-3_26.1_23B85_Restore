@@ -1,4 +1,5 @@
 @interface AFKUserSystemService
++ (id)withService:(unsigned int)service;
 - (AFKUserSystemService)initWithService:(unsigned int)service;
 - (BOOL)setMatchedServiceProperties:(id)properties proprties:(id)proprties error:(id *)error;
 - (id)copyMatchedServiceProperties:(id)properties key:(id)key error:(id *)error;
@@ -7,6 +8,13 @@
 @end
 
 @implementation AFKUserSystemService
+
++ (id)withService:(unsigned int)service
+{
+  v3 = [[AFKUserSystemService alloc] initWithService:*&service];
+
+  return v3;
+}
 
 - (AFKUserSystemService)initWithService:(unsigned int)service
 {
@@ -47,70 +55,70 @@ LABEL_4:
 
 - (id)registry:(id *)registry
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   service = self->_service;
-  v51 = @"EnsureReportDelivery";
-  v52[0] = &unk_284F113A8;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+  v50 = @"EnsureReportDelivery";
+  v51[0] = &unk_284F113A8;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
   v7 = [AFKEndpointInterface withService:service properties:v6];
 
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__0;
-  v48 = __Block_byref_object_dispose__0;
-  v49 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__0;
+  v47 = __Block_byref_object_dispose__0;
+  v48 = 0;
   v8 = dispatch_semaphore_create(0);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__0;
-  v42 = __Block_byref_object_dispose__0;
-  v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
   v37 = 0;
-  v9 = dispatch_queue_create("afkregistry", 0);
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x3032000000;
-  v32[3] = __Block_byref_object_copy__0;
-  v32[4] = __Block_byref_object_dispose__0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__0;
+  v41 = __Block_byref_object_dispose__0;
+  v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  v9 = dispatch_queue_create("afkregistry", 0);
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x3032000000;
+  v31[3] = __Block_byref_object_copy__0;
+  v31[4] = __Block_byref_object_dispose__0;
+  v32 = 0;
   [v7 setDispatchQueue:v9];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __33__AFKUserSystemService_registry___block_invoke;
-  v29[3] = &unk_278BBE910;
-  v31 = &v34;
-  v10 = v8;
-  v30 = v10;
-  [v7 setResponseHandler:v29];
   v28[0] = MEMORY[0x277D85DD0];
   v28[1] = 3221225472;
-  v28[2] = __33__AFKUserSystemService_registry___block_invoke_2;
-  v28[3] = &unk_278BBE938;
-  v28[4] = self;
-  v28[5] = v32;
-  v28[6] = &v38;
-  [v7 setReportHandler:v28];
+  v28[2] = __33__AFKUserSystemService_registry___block_invoke;
+  v28[3] = &unk_278BBE910;
+  v30 = &v33;
+  v10 = v8;
+  v29 = v10;
+  [v7 setResponseHandler:v28];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __33__AFKUserSystemService_registry___block_invoke_2;
+  v27[3] = &unk_278BBE938;
+  v27[4] = self;
+  v27[5] = v31;
+  v27[6] = &v37;
+  [v7 setReportHandler:v27];
   [v7 activate:0];
-  v27 = 0;
-  LODWORD(v24) = 0;
-  v11 = [v7 enqueueCommand:129 timestamp:mach_continuous_time() inputBuffer:0 inputBufferSize:0 outputPayloadSize:16 context:&v27 options:v24];
-  *(v35 + 6) = v11;
+  v26 = 0;
+  LODWORD(v23) = 0;
+  v11 = [v7 enqueueCommand:129 timestamp:mach_continuous_time() inputBuffer:0 inputBufferSize:0 outputPayloadSize:16 context:&v26 options:v23];
+  *(v34 + 6) = v11;
   if (!v11)
   {
     v12 = dispatch_time(0, 10000000000);
     if (dispatch_semaphore_wait(v10, v12))
     {
-      *(v35 + 6) = -536870186;
+      *(v34 + 6) = -536870186;
     }
   }
 
   [v7 cancel];
-  if (*(v35 + 6))
+  if (*(v34 + 6))
   {
     if (registry)
     {
@@ -126,18 +134,18 @@ LABEL_4:
     v15 = *MEMORY[0x277CBECE8];
     while (1)
     {
-      v16 = [v39[5] count];
-      v17 = v39[5];
+      v16 = [v38[5] count];
+      v17 = v38[5];
       if (v14 >= v16)
       {
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __33__AFKUserSystemService_registry___block_invoke_10;
-        v25[3] = &unk_278BBE9B0;
-        v25[4] = &v44;
-        v25[5] = &v38;
-        [v17 enumerateObjectsUsingBlock:v25];
-        v13 = v45[5];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __33__AFKUserSystemService_registry___block_invoke_10;
+        v24[3] = &unk_278BBE9B0;
+        v24[4] = &v43;
+        v24[5] = &v37;
+        [v17 enumerateObjectsUsingBlock:v24];
+        v13 = v44[5];
         goto LABEL_16;
       }
 
@@ -150,49 +158,48 @@ LABEL_4:
         break;
       }
 
-      [v39[5] setObject:v20 atIndexedSubscript:v14];
+      [v38[5] setObject:v20 atIndexedSubscript:v14];
 
       ++v14;
     }
 
-    v21 = _AFKUserLog();
+    v21 = _AFKUserLog(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(AFKUserSystemService *)&errorString registry:v50, [(AFKUserSystemService *)self regID], v21];
+      [(AFKUserSystemService *)&errorString registry:v49, [(AFKUserSystemService *)self regID], v21];
     }
   }
 
   v13 = 0;
 LABEL_16:
 
-  _Block_object_dispose(v32, 8);
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(v31, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
 
-  _Block_object_dispose(&v44, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v43, 8);
 
   return v13;
 }
 
 void __33__AFKUserSystemService_registry___block_invoke_2(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v11 = _AFKUserLog();
+  v29 = *MEMORY[0x277D85DE8];
+  v11 = _AFKUserLog(a1);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v19 = [*(a1 + 32) regID];
-    v20 = 134219008;
-    v21 = v19;
-    v22 = 1024;
-    v23 = a3;
-    v24 = 2048;
-    v25 = a4;
-    v26 = 2048;
-    v27 = a5;
-    v28 = 2048;
-    v29 = a6;
-    _os_log_debug_impl(&dword_23C487000, v11, OS_LOG_TYPE_DEBUG, "0x%llx: packetType:0x%x timestamp:%lld inputBuffer:%p inputBufferSize:%zu", &v20, 0x30u);
+    v18 = [*(a1 + 32) regID];
+    v19 = 134219008;
+    v20 = v18;
+    v21 = 1024;
+    v22 = a3;
+    v23 = 2048;
+    v24 = a4;
+    v25 = 2048;
+    v26 = a5;
+    v27 = 2048;
+    v28 = a6;
+    _os_log_debug_impl(&dword_23C487000, v11, OS_LOG_TYPE_DEBUG, "0x%llx: packetType:0x%x timestamp:%lld inputBuffer:%p inputBufferSize:%zu", &v19, 0x30u);
   }
 
   if (a3 == 130)
@@ -221,8 +228,6 @@ void __33__AFKUserSystemService_registry___block_invoke_2(uint64_t a1, uint64_t 
       *(v16 + 40) = 0;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __33__AFKUserSystemService_registry___block_invoke_10(uint64_t a1, void *a2)
@@ -282,14 +287,14 @@ void __33__AFKUserSystemService_registry___block_invoke_3(uint64_t a1, void *a2,
 
 - (BOOL)setMatchedServiceProperties:(id)properties proprties:(id)proprties error:(id *)error
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   proprtiesCopy = proprties;
-  v27[0] = @"properties";
-  v27[1] = @"service-matching";
-  v28[0] = proprtiesCopy;
-  v28[1] = propertiesCopy;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+  v26[0] = @"properties";
+  v26[1] = @"service-matching";
+  v27[0] = proprtiesCopy;
+  v27[1] = propertiesCopy;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
   v11 = IOCFSerialize(v10, 1uLL);
   if (v11)
   {
@@ -298,23 +303,23 @@ void __33__AFKUserSystemService_registry___block_invoke_3(uint64_t a1, void *a2,
     v13 = dispatch_queue_create("setMatchedServiceProperties", 0);
     v14 = dispatch_semaphore_create(0);
     [v12 setDispatchQueue:v13];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error___block_invoke;
-    v25[3] = &unk_278BBE9D8;
-    v25[4] = self;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error___block_invoke;
+    v24[3] = &unk_278BBE9D8;
+    v24[4] = self;
     v15 = v14;
-    v26 = v15;
-    [v12 setResponseHandler:v25];
+    v25 = v15;
+    [v12 setResponseHandler:v24];
     [v12 activate:0];
-    LODWORD(v23) = 0;
-    [v12 enqueueCommand:215 timestamp:mach_continuous_time() inputBuffer:-[__CFData bytes](v11 inputBufferSize:"bytes") outputPayloadSize:-[__CFData length](v11 context:"length") options:{0, 0, v23}];
+    LODWORD(v22) = 0;
+    [v12 enqueueCommand:215 timestamp:mach_continuous_time() inputBuffer:-[__CFData bytes](v11 inputBufferSize:"bytes") outputPayloadSize:-[__CFData length](v11 context:"length") options:{0, 0, v22}];
     v16 = dispatch_time(0, 10000000000);
     v17 = dispatch_semaphore_wait(v15, v16);
     v18 = v17 == 0;
     if (v17)
     {
-      v19 = _AFKUserLog();
+      v19 = _AFKUserLog(v17);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [AFKUserSystemService setMatchedServiceProperties:? proprties:? error:?];
@@ -331,7 +336,7 @@ void __33__AFKUserSystemService_registry___block_invoke_3(uint64_t a1, void *a2,
 
   else
   {
-    v20 = _AFKUserLog();
+    v20 = _AFKUserLog(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [AFKUserSystemService setMatchedServiceProperties:? proprties:? error:?];
@@ -349,15 +354,14 @@ void __33__AFKUserSystemService_registry___block_invoke_3(uint64_t a1, void *a2,
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-intptr_t __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+intptr_t __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    v5 = _AFKUserLog();
+    v5 = _AFKUserLog(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error___block_invoke_cold_1(a1);
@@ -407,10 +411,11 @@ intptr_t __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error_
     LODWORD(v24) = 0;
     [v12 enqueueCommand:214 timestamp:v16 inputBuffer:-[__CFData bytes](v11 inputBufferSize:"bytes") outputPayloadSize:-[__CFData length](v11 context:"length") options:{0, 0, v24}];
     v18 = dispatch_time(0, 10000000000);
-    if (dispatch_semaphore_wait(v15, v18))
+    v19 = dispatch_semaphore_wait(v15, v18);
+    if (v19)
     {
-      v19 = _AFKUserLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = _AFKUserLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [AFKUserSystemService copyMatchedServiceProperties:keyCopy key:v36 error:[(AFKUserSystemService *)self regID]];
       }
@@ -419,13 +424,13 @@ intptr_t __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error_
     }
 
     [v12 cancel];
-    v20 = v31[5];
+    v21 = v31[5];
   }
 
   else
   {
-    v21 = _AFKUserLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _AFKUserLog(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [AFKUserSystemService copyMatchedServiceProperties:v10 key:v36 error:[(AFKUserSystemService *)self regID]];
     }
@@ -433,27 +438,28 @@ intptr_t __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error_
     if (error)
     {
       [MEMORY[0x277CCA9B8] errorWithDomain:@"AFKUser" code:-536870206 userInfo:0];
-      *error = v20 = 0;
+      *error = v21 = 0;
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
   }
 
   _Block_object_dispose(&v30, 8);
-  v22 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v21;
 }
 
-void __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, int a4, uint64_t a5, const char *a6, size_t a7)
+void __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6, size_t a7)
 {
+  v9 = a4;
   v11 = a2;
-  if (a4)
+  v12 = v11;
+  if (v9)
   {
-    v12 = _AFKUserLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _AFKUserLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_invoke_cold_1(a1);
     }
@@ -462,18 +468,19 @@ void __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_i
   if (a6 && a7)
   {
     errorString = 0;
-    v13 = IOCFUnserializeWithSize(a6, a7, *MEMORY[0x277CBECE8], 0, &errorString);
-    v14 = *(*(a1 + 48) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v14 = IOCFUnserializeWithSize(a6, a7, *MEMORY[0x277CBECE8], 0, &errorString);
+    v15 = *(*(a1 + 48) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v14;
 
     if (!*(*(*(a1 + 48) + 8) + 40))
     {
-      **(a1 + 56) = [MEMORY[0x277CCA9B8] errorWithDomain:@"AFKUser" code:-536870206 userInfo:0];
-      v16 = _AFKUserLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"AFKUser" code:-536870206 userInfo:0];
+      **(a1 + 56) = v17;
+      v18 = _AFKUserLog(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_invoke_cold_2(a1, &errorString);
+        __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_invoke_cold_2(a1);
       }
     }
 
@@ -488,32 +495,26 @@ void __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_i
 
 - (void)initWithService:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = _AFKUserLog();
+  v2 = _AFKUserLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [a1 regID];
     OUTLINED_FUNCTION_1_1();
     OUTLINED_FUNCTION_0_0();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = _AFKUserLog();
+  v2 = _AFKUserLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [a1 regID];
     OUTLINED_FUNCTION_2_1();
     OUTLINED_FUNCTION_0_0();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registry:(uint64_t)a3 .cold.1(uint64_t *a1, uint64_t a2, uint64_t a3, NSObject *a4)
@@ -528,53 +529,42 @@ void __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_i
 
 - (void)setMatchedServiceProperties:(void *)a1 proprties:error:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 regID];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMatchedServiceProperties:(void *)a1 proprties:error:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 regID];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__AFKUserSystemService_setMatchedServiceProperties_proprties_error___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) regID];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) regID];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_invoke_cold_2(uint64_t a1, uint64_t *a2)
+void __63__AFKUserSystemService_copyMatchedServiceProperties_key_error___block_invoke_cold_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) regID];
-  v3 = *a2;
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 @end

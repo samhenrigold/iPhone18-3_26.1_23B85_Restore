@@ -57,32 +57,32 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v12 = [typeCopy substringToIndex:1];
+    v13 = [typeCopy substringToIndex:1];
     subTypes = [v6 subTypes];
-    v14 = [subTypes count];
-    if (v14 - 1 < 0)
+    v15 = [subTypes count];
+    if (v15 - 1 < 0)
     {
 LABEL_12:
     }
 
     else
     {
-      v15 = v14;
+      v16 = v15;
       while (1)
       {
-        v16 = [subTypes objectAtIndex:--v15];
-        if ([v16 hasPrefix:v12])
+        v17 = [subTypes objectAtIndex:--v16];
+        if ([v17 hasPrefix:v13])
         {
           break;
         }
 
-        if (v15 <= 0)
+        if (v16 <= 0)
         {
           goto LABEL_12;
         }
       }
 
-      v8 = [v6 capabilityForSubType:v16];
+      v8 = [v6 capabilityForSubType:v17];
 
       if (v8)
       {
@@ -91,8 +91,8 @@ LABEL_12:
     }
 
     v9 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:1 description:@"Unhandled ANE subtype" userInfo:0];
-    v17 = _LTOSLogAssets();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _LTOSLogAssets(v9, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       +[_LTDANEService capabilityForSubType:error:];
       if (error)
@@ -104,7 +104,7 @@ LABEL_12:
     else if (error)
     {
 LABEL_15:
-      v18 = v9;
+      v20 = v9;
       v8 = 0;
       *error = v9;
       goto LABEL_22;
@@ -115,8 +115,8 @@ LABEL_15:
   }
 
   v9 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:1 description:@"Unhandled ANE subtype" userInfo:0];
-  v10 = _LTOSLogAssets();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = _LTOSLogAssets(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     +[_LTDANEService capabilityForSubType:error:];
     if (error)
@@ -135,28 +135,12 @@ LABEL_19:
   }
 
 LABEL_7:
-  v11 = v9;
+  v12 = v9;
   v8 = 0;
   *error = v9;
 LABEL_23:
 
   return v8;
-}
-
-+ (void)capabilityForSubType:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_232E53000, v0, v1, "Unhandled ANE subtype, assuming none for %{public}@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)capabilityForSubType:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_232E53000, v0, v1, "Invalid ANE subtype, assuming none for %{public}@: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -3,9 +3,14 @@
 - (NUFeedTitleView)initWithFrame:(CGRect)frame;
 - (NUFeedTitleViewDelegate)delegate;
 - (NUTitleViewStyler)styler;
+- (id)titleViewUpdateForFeedTitleViewUpdate:(id)update force:(BOOL)force;
 - (unint64_t)titleViewAnimationForAnimation:(unint64_t)animation;
+- (void)applyFeedTitleViewUpdate:(id)update animation:(unint64_t)animation force:(BOOL)force;
 - (void)applyTitleViewUpdate:(id)update animation:(unint64_t)animation;
 - (void)layoutSubviews;
+- (void)popApplyFeedTitleViewUpdateWithAnimation:(unint64_t)animation force:(BOOL)force;
+- (void)pushApplyFeedTitleViewUpdate:(id)update animation:(unint64_t)animation force:(BOOL)force;
+- (void)relayoutWithAnimation:(BOOL)animation;
 - (void)setStyler:(id)styler;
 - (void)titleViewDidTapOnTitleView:(id)view;
 @end
@@ -49,6 +54,45 @@
   return v3;
 }
 
+- (void)applyFeedTitleViewUpdate:(id)update animation:(unint64_t)animation force:(BOOL)force
+{
+  v7 = [(NUFeedTitleView *)self titleViewUpdateForFeedTitleViewUpdate:update force:force];
+  [(NUFeedTitleView *)self applyTitleViewUpdate:v7 animation:animation];
+}
+
+- (void)pushApplyFeedTitleViewUpdate:(id)update animation:(unint64_t)animation force:(BOOL)force
+{
+  forceCopy = force;
+  updateCopy = update;
+  lastQueuedTitleViewUpdate = [(NUFeedTitleView *)self lastQueuedTitleViewUpdate];
+
+  if (lastQueuedTitleViewUpdate)
+  {
+    titleViewUpdateStack = [(NUFeedTitleView *)self titleViewUpdateStack];
+    lastQueuedTitleViewUpdate2 = [(NUFeedTitleView *)self lastQueuedTitleViewUpdate];
+    [titleViewUpdateStack addObject:lastQueuedTitleViewUpdate2];
+  }
+
+  v11 = [(NUFeedTitleView *)self titleViewUpdateForFeedTitleViewUpdate:updateCopy force:forceCopy];
+  [(NUFeedTitleView *)self applyTitleViewUpdate:v11 animation:animation];
+}
+
+- (void)popApplyFeedTitleViewUpdateWithAnimation:(unint64_t)animation force:(BOOL)force
+{
+  forceCopy = force;
+  titleViewUpdateStack = [(NUFeedTitleView *)self titleViewUpdateStack];
+  v8 = [titleViewUpdateStack count];
+
+  if (v8)
+  {
+    titleViewUpdateStack2 = [(NUFeedTitleView *)self titleViewUpdateStack];
+    fc_popLastObject = [titleViewUpdateStack2 fc_popLastObject];
+
+    [fc_popLastObject setCancelPendingUpdates:forceCopy];
+    [(NUFeedTitleView *)self applyTitleViewUpdate:fc_popLastObject animation:animation];
+  }
+}
+
 - (void)setStyler:(id)styler
 {
   stylerCopy = styler;
@@ -64,6 +108,13 @@
   styler = [titleView styler];
 
   return styler;
+}
+
+- (void)relayoutWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  titleView = [(NUFeedTitleView *)self titleView];
+  [titleView relayoutWithAnimation:animationCopy];
 }
 
 - (void)titleViewDidTapOnTitleView:(id)view
@@ -96,6 +147,19 @@
     titleView = [(NUFeedTitleView *)self titleView];
     [titleView applyTitleViewUpdate:updateCopy animation:{-[NUFeedTitleView titleViewAnimationForAnimation:](self, "titleViewAnimationForAnimation:", animation)}];
   }
+}
+
+- (id)titleViewUpdateForFeedTitleViewUpdate:(id)update force:(BOOL)force
+{
+  forceCopy = force;
+  updateCopy = update;
+  v7 = [updateCopy convertToTitleViewUpdateWithCompact:{-[NUFeedTitleView useCompactTitleViewUpdates](self, "useCompactTitleViewUpdates")}];
+  [v7 setCancelPendingUpdates:forceCopy];
+  accessibilityTitle = [updateCopy accessibilityTitle];
+
+  [v7 setAccessibilityTitle:accessibilityTitle];
+
+  return v7;
 }
 
 - (unint64_t)titleViewAnimationForAnimation:(unint64_t)animation

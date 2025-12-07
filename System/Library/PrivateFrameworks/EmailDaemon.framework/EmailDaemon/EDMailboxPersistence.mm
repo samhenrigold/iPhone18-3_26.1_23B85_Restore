@@ -136,43 +136,41 @@ void __27__EDMailboxPersistence_log__block_invoke(uint64_t a1)
 
 - (void)mailboxListInvalidated
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_changeObserversByIdentifierLock);
   changeObserversByIdentifier = [(EDMailboxPersistence *)self changeObserversByIdentifier];
   allValues = [changeObserversByIdentifier allValues];
 
   os_unfair_lock_unlock(&self->_changeObserversByIdentifierLock);
   allMailboxes = [(EDMailboxPersistence *)self allMailboxes];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) mailboxListChanged:{allMailboxes, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) mailboxListChanged:{allMailboxes, v10}];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)allMailboxesWithCompletionHandler:(id)handler
@@ -297,12 +295,12 @@ id __51__EDMailboxPersistence_userCreatedMailboxObjectIDs__block_invoke(uint64_t
 
 - (void)serverCountsForMailboxScope:(id)scope block:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v20 = 0;
-  v7 = [scope allMailboxObjectIDsWithMailboxTypeResolver:self forExclusion:&v20];
+  v19 = 0;
+  v7 = [scope allMailboxObjectIDsWithMailboxTypeResolver:self forExclusion:&v19];
   v8 = v7;
-  if (v20 == 1)
+  if (v19 == 1)
   {
     allMailboxObjectIDs = [(EDMailboxPersistence *)self allMailboxObjectIDs];
     v10 = [allMailboxObjectIDs mutableCopy];
@@ -315,34 +313,32 @@ id __51__EDMailboxPersistence_userCreatedMailboxObjectIDs__block_invoke(uint64_t
     v10 = v7;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        (*(blockCopy + 2))(blockCopy, *(*(&v16 + 1) + 8 * i), 0, 0, 0);
+        (*(blockCopy + 2))(blockCopy, *(*(&v15 + 1) + 8 * i), 0, 0, 0);
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mailboxURLIsGmailLabel:(id)label
@@ -398,7 +394,7 @@ void __60__EDMailboxPersistence__startReportingPersistenceStatistics__block_invo
 
 - (void)_reportPersistenceStatistics:(id)statistics
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
   currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
   isInternal = [currentDevice isInternal];
@@ -409,9 +405,9 @@ void __60__EDMailboxPersistence__startReportingPersistenceStatistics__block_invo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = [statisticsCopy debugDescription];
-      v17 = 138412290;
-      v18 = v8;
-      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "Collected mailbox persistence statistics.\n%@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v8;
+      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "Collected mailbox persistence statistics.\n%@", &v16, 0xCu);
     }
   }
 
@@ -429,34 +425,33 @@ void __60__EDMailboxPersistence__startReportingPersistenceStatistics__block_invo
   [(EDMailboxPersistence *)self _sendCoreAnalyticsForMessagesPerInbox:messagesPerInbox accountTypePerAccount:accountTypePerAccount3 accountPerInbox:accountPerInbox];
 
   -[EDMailboxPersistence _sendCoreAnalyticsForLargestMailbox:messageCountInSecondLargestMailbox:](self, "_sendCoreAnalyticsForLargestMailbox:messageCountInSecondLargestMailbox:", [statisticsCopy messagesInLargestMailbox], objc_msgSend(statisticsCopy, "messagesInSecondLargestMailbox"));
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendCoreAnalyticsForMailboxesPerAccount:(id)account accountTypePerAccount:(id)perAccount
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   perAccountCopy = perAccount;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = accountCopy;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v10);
+        v11 = *(*(&v19 + 1) + 8 * v10);
         v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
         v13 = MEMORY[0x1E696AD98];
         v14 = MEMORY[0x1E699B858];
@@ -472,13 +467,11 @@ void __60__EDMailboxPersistence__startReportingPersistenceStatistics__block_invo
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendCoreAnalyticsForLargestMailbox:(int64_t)mailbox messageCountInSecondLargestMailbox:(int64_t)largestMailbox
@@ -495,30 +488,30 @@ void __60__EDMailboxPersistence__startReportingPersistenceStatistics__block_invo
 
 - (void)_sendCoreAnalyticsForMessagesPerInbox:(id)inbox accountTypePerAccount:(id)account accountPerInbox:(id)perInbox
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   inboxCopy = inbox;
   accountCopy = account;
   perInboxCopy = perInbox;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v9 = inboxCopy;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
-    v11 = *v25;
+    v11 = *v24;
     do
     {
       v12 = 0;
       do
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * v12);
+        v13 = *(*(&v23 + 1) + 8 * v12);
         v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
         v15 = MEMORY[0x1E696AD98];
         v16 = MEMORY[0x1E699B858];
@@ -535,40 +528,38 @@ void __60__EDMailboxPersistence__startReportingPersistenceStatistics__block_invo
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v10);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendCoreAnalyticsForMessagesPerAccount:(id)account accountTypePerAccount:(id)perAccount
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   perAccountCopy = perAccount;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = accountCopy;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v10);
+        v11 = *(*(&v19 + 1) + 8 * v10);
         v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
         v13 = MEMORY[0x1E696AD98];
         v14 = MEMORY[0x1E699B858];
@@ -584,13 +575,11 @@ void __60__EDMailboxPersistence__startReportingPersistenceStatistics__block_invo
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendEventToCoreAnalytics:(id)analytics withEventDictionary:(id)dictionary

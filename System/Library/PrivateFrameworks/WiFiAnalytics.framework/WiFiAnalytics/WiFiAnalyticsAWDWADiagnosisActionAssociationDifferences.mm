@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventTypeAsString:(int)string;
 - (int)StringAsEventType:(id)type;
 - (int)eventType;
 - (unint64_t)hash;
@@ -121,6 +122,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)eventTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E830F4C8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEventType:(id)type
@@ -336,7 +352,6 @@ LABEL_10:
   has = self->_has;
   if (has < 0)
   {
-    newBSSID = self->_newBSSID;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -356,7 +371,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  changedChannel = self->_changedChannel;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -371,7 +385,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  changedDNSPrimary = self->_changedDNSPrimary;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -386,7 +399,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  changedDNSSecondary = self->_changedDNSSecondary;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -401,7 +413,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  changedMAC = self->_changedMAC;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -416,7 +427,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -431,12 +441,10 @@ LABEL_8:
   }
 
 LABEL_19:
-  eventType = self->_eventType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_9:
-    additionalInfo = self->_additionalInfo;
     PBDataWriterWriteUint32Field();
   }
 
@@ -686,7 +694,6 @@ LABEL_9:
       goto LABEL_56;
     }
 
-    v6 = *(equalCopy + 28);
     if (self->_newBSSID)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -713,7 +720,6 @@ LABEL_9:
       goto LABEL_56;
     }
 
-    v7 = *(equalCopy + 24);
     if (self->_changedChannel)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -740,7 +746,6 @@ LABEL_9:
       goto LABEL_56;
     }
 
-    v8 = *(equalCopy + 25);
     if (self->_changedDNSPrimary)
     {
       if ((*(equalCopy + 25) & 1) == 0)
@@ -767,7 +772,6 @@ LABEL_9:
       goto LABEL_56;
     }
 
-    v9 = *(equalCopy + 26);
     if (self->_changedDNSSecondary)
     {
       if ((*(equalCopy + 26) & 1) == 0)
@@ -795,7 +799,7 @@ LABEL_9:
     }
 
 LABEL_56:
-    v11 = 0;
+    v6 = 0;
     goto LABEL_57;
   }
 
@@ -804,7 +808,6 @@ LABEL_56:
     goto LABEL_56;
   }
 
-  v10 = *(equalCopy + 27);
   if (self->_changedMAC)
   {
     if ((*(equalCopy + 27) & 1) == 0)
@@ -845,7 +848,7 @@ LABEL_12:
     goto LABEL_56;
   }
 
-  v11 = (*(equalCopy + 32) & 2) == 0;
+  v6 = (*(equalCopy + 32) & 2) == 0;
   if ((*&has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_additionalInfo != *(equalCopy + 4))
@@ -853,12 +856,12 @@ LABEL_12:
       goto LABEL_56;
     }
 
-    v11 = 1;
+    v6 = 1;
   }
 
 LABEL_57:
 
-  return v11;
+  return v6;
 }
 
 - (unint64_t)hash

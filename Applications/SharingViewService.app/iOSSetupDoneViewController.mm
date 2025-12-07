@@ -9,53 +9,52 @@
 
 - (void)handleReportBugButton:(id)button
 {
-  v23[0] = @"Classification";
-  v23[1] = @"ComponentID";
-  v24[0] = @"Serious Bug";
-  v24[1] = @"768684";
-  v23[2] = @"ComponentName";
-  v23[3] = @"ComponentVersion";
-  v24[2] = @"Proximity Setup";
-  v24[3] = @"all";
-  v23[4] = @"ExtensionIdentifiers";
-  v23[5] = @"Keywords";
-  v24[4] = @"com.apple.DiagnosticExtensions.Bluetooth";
-  v24[5] = @"758122";
-  v24[6] = @"I Didn't Try";
-  v23[6] = @"Reproducibility";
-  v23[7] = @"Title";
-  v17 = *(&self->_doneButton + 1);
-  v3 = NSPrintF();
-  v24[7] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:8, v17];
+  v22[0] = @"Classification";
+  v22[1] = @"ComponentID";
+  v23[0] = @"Serious Bug";
+  v23[1] = @"768684";
+  v22[2] = @"ComponentName";
+  v22[3] = @"ComponentVersion";
+  v23[2] = @"Proximity Setup";
+  v23[3] = @"all";
+  v22[4] = @"ExtensionIdentifiers";
+  v22[5] = @"Keywords";
+  v23[4] = @"com.apple.DiagnosticExtensions.Bluetooth";
+  v23[5] = @"758122";
+  v23[6] = @"I Didn't Try";
+  v22[6] = @"Reproducibility";
+  v22[7] = @"Title";
+  v3 = NSPrintF("OOBE: Proximity Setup Failed: %{error}", a2, button, *(&self->_doneButton + 1));
+  v23[7] = v3;
+  v4 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:8];
 
   v5 = +[NSMutableArray array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [v6 objectForKeyedSubscript:v11];
         v13 = [NSURLQueryItem queryItemWithName:v11 value:v12];
         [v5 addObject:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -69,7 +68,7 @@
 
   if (dword_1001BE6C8 <= 50 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupDoneViewController handleReportBugButton:]", 50, "Report Bug\n");
   }
 }
 
@@ -78,7 +77,7 @@
   buttonCopy = button;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupDoneViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super.super._mainController dismiss:5];
@@ -89,7 +88,7 @@
   disappearCopy = disappear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupDoneViewController viewDidDisappear:]", 30, "Done ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -102,12 +101,12 @@
   appearCopy = appear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupDoneViewController viewWillAppear:]", 30, "Done ViewWillAppear\n");
   }
 
-  v30.receiver = self;
-  v30.super_class = iOSSetupDoneViewController;
-  [(SVSBaseViewController *)&v30 viewWillAppear:appearCopy];
+  v29.receiver = self;
+  v29.super_class = iOSSetupDoneViewController;
+  [(SVSBaseViewController *)&v29 viewWillAppear:appearCopy];
   if (*(&self->_doneButton + 1))
   {
     v5 = NSErrorToOSStatus();
@@ -116,9 +115,8 @@
 
     if (IsAppleInternalBuild())
     {
-      v29 = *(&self->_doneButton + 1);
-      v14 = NSPrintF();
-      [*(&self->_titleLabel + 1) setText:{v14, v29}];
+      v14 = NSPrintF("%{error}", *(&self->_doneButton + 1));
+      [*(&self->_titleLabel + 1) setText:v14];
     }
 
     else

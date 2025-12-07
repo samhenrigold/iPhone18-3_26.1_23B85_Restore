@@ -96,7 +96,7 @@
 
 void __59__FCNetworkBehaviorMonitor_initWithOptions_cacheDirectory___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E69B6EB0]);
   [v2 setSessionID:0];
   v3 = +[FCNetworkReachability sharedNetworkReachability];
@@ -152,31 +152,31 @@ void __59__FCNetworkBehaviorMonitor_initWithOptions_cacheDirectory___block_invok
     if ([*(*(a1 + 32) + 16) count])
     {
       v25 = [MEMORY[0x1E696AD50] indexSet];
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v26 = *(*(a1 + 32) + 32);
-      v27 = [v26 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v38;
+        v29 = *v37;
         do
         {
           v30 = 0;
           do
           {
-            if (*v38 != v29)
+            if (*v37 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            [v25 addIndex:{objc_msgSend(*(*(&v37 + 1) + 8 * v30++), "sessionID")}];
+            [v25 addIndex:{objc_msgSend(*(*(&v36 + 1) + 8 * v30++), "sessionID")}];
           }
 
           while (v28 != v30);
-          v28 = [v26 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v36 objects:v40 count:16];
         }
 
         while (v28);
@@ -186,17 +186,15 @@ void __59__FCNetworkBehaviorMonitor_initWithOptions_cacheDirectory___block_invok
       [v25 addIndex:{objc_msgSend(v31, "sessionID")}];
 
       v32 = *(*(a1 + 32) + 16);
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __59__FCNetworkBehaviorMonitor_initWithOptions_cacheDirectory___block_invoke_2;
-      v35[3] = &unk_1E7C3AE90;
-      v36 = v25;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __59__FCNetworkBehaviorMonitor_initWithOptions_cacheDirectory___block_invoke_2;
+      v34[3] = &unk_1E7C3AE90;
+      v35 = v25;
       v33 = v25;
-      [v32 fc_removeObjectsPassingTest:v35];
+      [v32 fc_removeObjectsPassingTest:v34];
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)populateTelemetry:(id)telemetry withNetworkEventsFromDate:(id)date toDate:(id)toDate
@@ -327,7 +325,7 @@ uint64_t __41__FCNetworkBehaviorMonitor_networkEvents__block_invoke_2(uint64_t a
 
 - (void)logNetworkEvent:(id)event
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = eventCopy;
   if (!self)
@@ -379,7 +377,7 @@ LABEL_12:
   error5 = [v5 error];
   if (error5)
   {
-    v13 = error5;
+    v12 = error5;
     error6 = [v5 error];
     fc_isRecoverableNetworkError = [error6 fc_isRecoverableNetworkError];
 
@@ -397,80 +395,78 @@ LABEL_12:
 
   error7 = [v5 error];
 
-  v18 = FCNetworkLog;
+  v17 = FCNetworkLog;
   if (error7)
   {
     if (os_log_type_enabled(FCNetworkLog, OS_LOG_TYPE_ERROR))
     {
-      v25 = v18;
-      v26 = [v5 description];
+      v24 = v17;
+      v25 = [v5 description];
       *buf = 138543362;
-      v31 = v26;
-      _os_log_error_impl(&dword_1B63EF000, v25, OS_LOG_TYPE_ERROR, "logged network event: %{public}@. This log is being duplicated as an default-level log.", buf, 0xCu);
+      v30 = v25;
+      _os_log_error_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_ERROR, "logged network event: %{public}@. This log is being duplicated as an default-level log.", buf, 0xCu);
 
-      v18 = FCNetworkLog;
+      v17 = FCNetworkLog;
     }
 
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_28;
     }
 
-    v19 = v18;
-    v20 = [v5 description];
+    v18 = v17;
+    v19 = [v5 description];
     *buf = 138543362;
-    v31 = v20;
-    v21 = "logged network event: %{public}@. This log is being duplicated as an error-level log.";
+    v30 = v19;
+    v20 = "logged network event: %{public}@. This log is being duplicated as an error-level log.";
   }
 
   else
   {
     if (os_log_type_enabled(FCNetworkLog, OS_LOG_TYPE_DEBUG))
     {
-      v19 = v18;
-      v20 = [v5 debugDescription];
+      v18 = v17;
+      v19 = [v5 debugDescription];
       *buf = 138543362;
-      v31 = v20;
-      _os_log_debug_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEBUG, "logged network event: %{public}@", buf, 0xCu);
+      v30 = v19;
+      _os_log_debug_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEBUG, "logged network event: %{public}@", buf, 0xCu);
       goto LABEL_27;
     }
 
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_28;
     }
 
-    v19 = v18;
-    v20 = [v5 description];
+    v18 = v17;
+    v19 = [v5 description];
     *buf = 138543362;
-    v31 = v20;
-    v21 = "logged network event: %{public}@";
+    v30 = v19;
+    v20 = "logged network event: %{public}@";
   }
 
-  _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
+  _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, v20, buf, 0xCu);
 LABEL_27:
 
 LABEL_28:
   if ((self->_options & 6) != 0)
   {
     accessQueue = self->_accessQueue;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __44__FCNetworkBehaviorMonitor_logNetworkEvent___block_invoke_2;
-    v27[3] = &unk_1E7C36C58;
-    v28 = v5;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __44__FCNetworkBehaviorMonitor_logNetworkEvent___block_invoke_2;
+    v26[3] = &unk_1E7C36C58;
+    v27 = v5;
     selfCopy = self;
-    dispatch_async(accessQueue, v27);
+    dispatch_async(accessQueue, v26);
   }
 
 LABEL_6:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __44__FCNetworkBehaviorMonitor_logNetworkEvent___block_invoke_2(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) startTime];
   v3 = v2;
   [*(a1 + 32) dnsDuration];
@@ -639,7 +635,7 @@ LABEL_12:
     }
 
 LABEL_57:
-    [*(v40 + 32) addObject:{v23, v48}];
+    [*(v40 + 32) addObject:{v23, v47}];
     v40 = *(a1 + 40);
     if ((*(v40 + 64) & 8) == 0)
     {
@@ -649,32 +645,32 @@ LABEL_57:
     goto LABEL_47;
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  v43 = *(v40 + 56);
-  v44 = [v43 countByEnumeratingWithState:&v48 objects:v52 count:16];
-  if (v44)
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v42 = *(v40 + 56);
+  v43 = [v42 countByEnumeratingWithState:&v47 objects:v51 count:16];
+  if (v43)
   {
-    v45 = v44;
-    v46 = *v49;
+    v44 = v43;
+    v45 = *v48;
     do
     {
-      for (i = 0; i != v45; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v49 != v46)
+        if (*v48 != v45)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v42);
         }
 
-        [*(*(&v48 + 1) + 8 * i) networkEventMonitor:*(a1 + 40) loggedEvent:v23 inSession:{v39, v48}];
+        [*(*(&v47 + 1) + 8 * i) networkEventMonitor:*(a1 + 40) loggedEvent:v23 inSession:{v39, v47}];
       }
 
-      v45 = [v43 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
   v40 = *(a1 + 40);
@@ -692,8 +688,6 @@ LABEL_47:
   }
 
 LABEL_48:
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer
@@ -723,36 +717,36 @@ uint64_t __52__FCNetworkBehaviorMonitor__respondingPOPFromEvent___block_invoke()
 
 void __67__FCNetworkBehaviorMonitor__visitEventGroupsFromDate_toDate_block___block_invoke(void *a1)
 {
-  v52 = *MEMORY[0x1E69E9840];
-  v33 = [*(a1[4] + 16) fc_dictionaryWithKeyBlock:&__block_literal_global_52];
+  v51 = *MEMORY[0x1E69E9840];
+  v32 = [*(a1[4] + 16) fc_dictionaryWithKeyBlock:&__block_literal_global_52];
   obj = [MEMORY[0x1E695DF90] dictionary];
-  v38 = [MEMORY[0x1E695DF90] dictionary];
-  v41 = [MEMORY[0x1E695DF90] dictionary];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
+  v37 = [MEMORY[0x1E695DF90] dictionary];
+  v40 = [MEMORY[0x1E695DF90] dictionary];
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v2 = *(a1[4] + 32);
-  v3 = [v2 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v47;
+    v5 = *v46;
     v6 = off_1E7C34000;
-    v34 = *v47;
-    v36 = v2;
+    v33 = *v46;
+    v35 = v2;
     do
     {
       v7 = 0;
       do
       {
-        if (*v47 != v5)
+        if (*v46 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v46 + 1) + 8 * v7);
-        if ((!a1[6] || [*(*(&v46 + 1) + 8 * v7) startTime] >= a1[6]) && (!a1[7] || objc_msgSend(v8, "startTime") < a1[7]))
+        v8 = *(*(&v45 + 1) + 8 * v7);
+        if ((!a1[6] || [*(*(&v45 + 1) + 8 * v7) startTime] >= a1[6]) && (!a1[7] || objc_msgSend(v8, "startTime") < a1[7]))
         {
           v9 = objc_alloc_init(v6[303]);
           v10 = [v8 type];
@@ -774,7 +768,7 @@ void __67__FCNetworkBehaviorMonitor__visitEventGroupsFromDate_toDate_block___blo
           if (!v12)
           {
             v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v8, "sessionID")}];
-            v14 = [v33 objectForKeyedSubscript:v13];
+            v14 = [v32 objectForKeyedSubscript:v13];
 
             v15 = v6;
             v16 = objc_alloc_init(MEMORY[0x1E69B7010]);
@@ -785,16 +779,16 @@ void __67__FCNetworkBehaviorMonitor__visitEventGroupsFromDate_toDate_block___blo
             [v16 setWifiReachabilityStatus:{objc_msgSend(v14, "wifiReachable")}];
             [v16 setCellularRadioAccessTechnology:{objc_msgSend(v14, "cellularRadioAccessTechnology")}];
             [obj setObject:v16 forKeyedSubscript:v9];
-            [v38 setObject:v14 forKeyedSubscript:v9];
+            [v37 setObject:v14 forKeyedSubscript:v9];
             v18 = [MEMORY[0x1E695DF70] array];
-            [v41 setObject:v18 forKeyedSubscript:v9];
+            [v40 setObject:v18 forKeyedSubscript:v9];
 
-            v2 = v36;
+            v2 = v35;
             v6 = v15;
-            v5 = v34;
+            v5 = v33;
           }
 
-          v19 = [v41 objectForKeyedSubscript:v9];
+          v19 = [v40 objectForKeyedSubscript:v9];
           [v19 addObject:v8];
         }
 
@@ -802,35 +796,35 @@ void __67__FCNetworkBehaviorMonitor__visitEventGroupsFromDate_toDate_block___blo
       }
 
       while (v4 != v7);
-      v20 = [v2 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v20 = [v2 countByEnumeratingWithState:&v45 objects:v50 count:16];
       v4 = v20;
     }
 
     while (v20);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obja = obj;
-  v37 = [obja countByEnumeratingWithState:&v42 objects:v50 count:16];
-  if (v37)
+  v36 = [obja countByEnumeratingWithState:&v41 objects:v49 count:16];
+  if (v36)
   {
-    v35 = *v43;
+    v34 = *v42;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v43 != v35)
+        if (*v42 != v34)
         {
           objc_enumerationMutation(obja);
         }
 
-        v22 = *(*(&v42 + 1) + 8 * i);
+        v22 = *(*(&v41 + 1) + 8 * i);
         v23 = [obja objectForKeyedSubscript:v22];
-        v24 = [v38 objectForKeyedSubscript:v22];
-        v25 = [v41 objectForKeyedSubscript:v22];
+        v24 = [v37 objectForKeyedSubscript:v22];
+        v25 = [v40 objectForKeyedSubscript:v22];
         v26 = [v25 fc_arrayOfObjectsPassingTest:&__block_literal_global_56_1];
         v27 = [v25 fc_arrayOfObjectsFailingTest:&__block_literal_global_56_1];
         v28 = [v26 fc_arrayByTransformingWithBlock:&__block_literal_global_59];
@@ -844,13 +838,11 @@ void __67__FCNetworkBehaviorMonitor__visitEventGroupsFromDate_toDate_block___blo
         (*(a1[5] + 16))();
       }
 
-      v37 = [obja countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v36 = [obja countByEnumeratingWithState:&v41 objects:v49 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__FCNetworkBehaviorMonitor__visitEventGroupsFromDate_toDate_block___block_invoke_2(uint64_t a1, void *a2)

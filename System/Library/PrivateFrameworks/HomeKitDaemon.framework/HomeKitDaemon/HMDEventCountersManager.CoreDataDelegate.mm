@@ -25,7 +25,6 @@
 
 - (void)saveForManager:(id)manager
 {
-  v3 = *(self + 3);
 
   sub_22A4DBFBC();
 }

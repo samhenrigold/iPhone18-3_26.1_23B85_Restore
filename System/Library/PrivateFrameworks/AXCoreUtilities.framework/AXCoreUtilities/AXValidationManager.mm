@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (AXValidationManager)init;
 - (BOOL)_client:(id)_client validateClass:(id)class hasClassMethod:(id)method withFullSignature:(const char *)signature argList:(char *)list;
+- (BOOL)_client:(id)_client validateClass:(id)class hasMethod:(id)method methodType:(int)type;
 - (BOOL)_client:(id)_client validateClass:(id)class hasMethod:(id)method methodType:(int)type returnType:(id)returnType arguments:(id)arguments;
 - (BOOL)_client:(id)_client validateClass:(id)class hasSwiftField:(id)field withTypeString:(const char *)string isAnyClass:(BOOL)anyClass;
 - (BOOL)_client:(id)_client validateStruct:(id)struct hasSwiftField:(id)field withTypeString:(const char *)string isAnyClass:(BOOL)class;
@@ -29,6 +30,8 @@
 - (void)_generateWarningsForPrefixedMethodNames:(id)names client:(id)client methodType:(int)type methodName:(id)name className:(id)className;
 - (void)_generateWarningsOnSafeCategoryClass:(Class)class;
 - (void)_iterateMethodsOfType:(int)type onClass:(Class)Class block:(id)block;
+- (void)_printConsoleReport:(BOOL)report isDelayed:(BOOL)delayed;
+- (void)_printEncodedConsoleReportForValidationRunner:(BOOL)runner isDelayed:(BOOL)delayed;
 - (void)_resetState;
 - (void)installSafeCategories:(id)categories afterDelay:(double)delay validationTargetName:(id)name overrideProcessName:(id)processName;
 - (void)performValidations:(id)validations withPreValidationHandler:(id)handler postValidationHandler:(id)validationHandler safeCategoryInstallationHandler:(id)installationHandler;
@@ -76,18 +79,19 @@ uint64_t __37__AXValidationManager_sharedInstance__block_invoke()
 
 - (AXValidationManager)init
 {
-  v5.receiver = self;
-  v5.super_class = AXValidationManager;
-  v2 = [(AXValidationManager *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = AXValidationManager;
+  v2 = [(AXValidationManager *)&v7 init];
   if (v2)
   {
     AXSetValidationErrorLoggingFunction();
     AXSetUIAXReportSenderErrorLoggerFunction();
-    if (_AXSReportValidationErrors())
+    v3 = _AXSReportValidationErrors();
+    if (v3)
     {
-      AXLoadAccessibilityDebuggerIfNeeded();
-      v3 = [NSClassFromString(&cfstr_Adtarget.isa) safeValueForKey:@"target"];
-      [(AXValidationManager *)v2 setValidationReportingServices:v3];
+      AXLoadAccessibilityDebuggerIfNeeded(v3, v4);
+      v5 = [NSClassFromString(&cfstr_Adtarget.isa) safeValueForKey:@"target"];
+      [(AXValidationManager *)v2 setValidationReportingServices:v5];
     }
   }
 
@@ -103,7 +107,7 @@ uint64_t __37__AXValidationManager_sharedInstance__block_invoke()
   if ([(AXValidationManager *)self installSafeCategoriesOffMainThread])
   {
     v14 = +[AXAccessQueue backgroundAccessQueue];
-    v15 = AXLogValidations();
+    v15 = AXLogValidations(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -151,87 +155,84 @@ uint64_t __121__AXValidationManager_performValidations_withPreValidationHandler_
 
   if (!v4)
   {
-    v5 = MEMORY[0x1E696AEC0];
-    v6 = AXProcessGetName();
-    v7 = [v5 stringWithFormat:@"%@ (generic symbols)", v6];
-    [*(a1 + 32) setValidationTargetName:v7];
+    v6 = MEMORY[0x1E696AEC0];
+    v7 = AXProcessGetName(v5);
+    v8 = [v6 stringWithFormat:@"%@ (generic symbols)", v7];
+    [*(a1 + 32) setValidationTargetName:v8];
   }
 
   if (v3)
   {
-    v8 = AXLogLoading();
-    if (os_signpost_enabled(v8))
+    v9 = AXLogLoading(v5);
+    if (os_signpost_enabled(v9))
     {
-      v9 = [*(a1 + 32) validationTargetName];
+      v10 = [*(a1 + 32) validationTargetName];
       *buf = 138412290;
-      v23 = v9;
-      _os_signpost_emit_with_name_impl(&dword_19159B000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Validations", "Target=%@", buf, 0xCu);
+      v23 = v10;
+      _os_signpost_emit_with_name_impl(&dword_19159B000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Validations", "Target=%@", buf, 0xCu);
     }
 
-    v10 = *(a1 + 48);
-    if (v10)
+    v11 = *(a1 + 48);
+    if (v11)
     {
-      (*(v10 + 16))(v10, *(a1 + 32));
+      v11 = (*(v11 + 16))(v11, *(a1 + 32));
     }
 
-    v11 = AXLogLoading();
-    if (os_signpost_enabled(v11))
+    v12 = AXLogLoading(v11);
+    if (os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19159B000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Validations", &unk_19167EAFE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19159B000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Validations", &unk_19167EAFE, buf, 2u);
     }
 
-    v12 = *(a1 + 56);
-    if (v12)
+    v13 = *(a1 + 56);
+    if (v13)
     {
-      (*(v12 + 16))(v12, *(a1 + 32), [*(a1 + 32) numberOfValidationErrors]);
+      v5 = (*(v13 + 16))(v13, *(a1 + 32), [*(a1 + 32) numberOfValidationErrors]);
     }
   }
 
   if (*(a1 + 64))
   {
-    v13 = AXLogLoading();
-    if (os_signpost_enabled(v13))
+    v14 = AXLogLoading(v5);
+    if (os_signpost_enabled(v14))
     {
-      v14 = [*(a1 + 32) validationTargetName];
+      v15 = [*(a1 + 32) validationTargetName];
       *buf = 138412290;
-      v23 = v14;
-      _os_signpost_emit_with_name_impl(&dword_19159B000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "InstallSafeCategories", "Target=%@", buf, 0xCu);
+      v23 = v15;
+      _os_signpost_emit_with_name_impl(&dword_19159B000, v14, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "InstallSafeCategories", "Target=%@", buf, 0xCu);
     }
 
-    v15 = *(a1 + 32);
-    (*(*(a1 + 64) + 16))();
-    v16 = AXLogLoading();
-    if (os_signpost_enabled(v16))
+    v16 = (*(*(a1 + 64) + 16))();
+    v17 = AXLogLoading(v16);
+    if (os_signpost_enabled(v17))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19159B000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "InstallSafeCategories", &unk_19167EAFE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19159B000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "InstallSafeCategories", &unk_19167EAFE, buf, 2u);
     }
   }
 
-  v17 = *(a1 + 32);
+  v18 = *(a1 + 32);
   if (v3)
   {
-    v18 = [*(a1 + 32) numberOfValidationErrors];
-    v17 = *(a1 + 32);
-    if (!v18 && v17[10] == 1 && (v17[11] & 1) == 0 && *(a1 + 64))
+    v19 = [*(a1 + 32) numberOfValidationErrors];
+    v18 = *(a1 + 32);
+    if (!v19 && v18[10] == 1 && (v18[11] & 1) == 0 && *(a1 + 64))
     {
-      v19 = [*(a1 + 32) overrideProcessName];
-      [v17 sendValidationSuccessForProcessName:v19];
+      v20 = [*(a1 + 32) overrideProcessName];
+      [v18 sendValidationSuccessForProcessName:v20];
 
-      v17 = *(a1 + 32);
+      v18 = *(a1 + 32);
     }
 
-    if (v17[8] == 1)
+    if (v18[8] == 1)
     {
-      [v17 _printConsoleReport:*(a1 + 64) != 0 isDelayed:0];
-      v17 = *(a1 + 32);
+      [v18 _printConsoleReport:*(a1 + 64) != 0 isDelayed:0];
+      v18 = *(a1 + 32);
     }
   }
 
-  result = [v17 _clearState];
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v18 _clearState];
 }
 
 - (void)installSafeCategories:(id)categories afterDelay:(double)delay validationTargetName:(id)name overrideProcessName:(id)processName
@@ -256,63 +257,60 @@ uint64_t __121__AXValidationManager_performValidations_withPreValidationHandler_
 
 uint64_t __97__AXValidationManager_installSafeCategories_afterDelay_validationTargetName_overrideProcessName___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _resetState];
-  [*(a1 + 32) setOverrideProcessName:*(a1 + 40)];
+  v2 = [*(a1 + 32) setOverrideProcessName:*(a1 + 40)];
   if (*(a1 + 48))
   {
-    [*(a1 + 32) setValidationTargetName:?];
+    v3 = [*(a1 + 32) setValidationTargetName:?];
   }
 
   else
   {
-    v2 = MEMORY[0x1E696AEC0];
-    v3 = AXProcessGetName();
-    v4 = [v2 stringWithFormat:@"%@ (generic symbols)", v3];
-    [*(a1 + 32) setValidationTargetName:v4];
+    v4 = MEMORY[0x1E696AEC0];
+    v5 = AXProcessGetName(v2);
+    v6 = [v4 stringWithFormat:@"%@ (generic symbols)", v5];
+    [*(a1 + 32) setValidationTargetName:v6];
   }
 
-  v5 = AXLogLoading();
-  if (os_signpost_enabled(v5))
+  v7 = AXLogLoading(v3);
+  if (os_signpost_enabled(v7))
   {
-    v6 = [*(a1 + 32) validationTargetName];
+    v8 = [*(a1 + 32) validationTargetName];
     *buf = 138412290;
-    v13 = v6;
-    _os_signpost_emit_with_name_impl(&dword_19159B000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "InstallSafeCategories", "Target=%@", buf, 0xCu);
+    v14 = v8;
+    _os_signpost_emit_with_name_impl(&dword_19159B000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "InstallSafeCategories", "Target=%@", buf, 0xCu);
   }
 
-  v7 = *(a1 + 32);
-  (*(*(a1 + 56) + 16))();
-  v8 = AXLogLoading();
-  if (os_signpost_enabled(v8))
+  v9 = (*(*(a1 + 56) + 16))();
+  v10 = AXLogLoading(v9);
+  if (os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19159B000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "InstallSafeCategories", &unk_19167EAFE, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19159B000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "InstallSafeCategories", &unk_19167EAFE, buf, 2u);
   }
 
   [*(a1 + 32) setNumberOfCategories:{objc_msgSend(*(a1 + 32), "numberOfCategories") + 1}];
-  v9 = *(a1 + 32);
-  if (v9[8] == 1)
+  v11 = *(a1 + 32);
+  if (v11[8] == 1)
   {
-    [v9 _printConsoleReport:1 isDelayed:1];
-    v9 = *(a1 + 32);
+    [v11 _printConsoleReport:1 isDelayed:1];
+    v11 = *(a1 + 32);
   }
 
-  result = [v9 _clearState];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v11 _clearState];
 }
 
 - (void)_resetState
 {
-  [(AXValidationManager *)self setShouldPerformValidationChecks:AXPerformValidationChecks()];
+  [(AXValidationManager *)self setShouldPerformValidationChecks:AXPerformValidationChecks(self, a2)];
   [(AXValidationManager *)self setNumberOfValidationErrors:0];
   [(AXValidationManager *)self setNumberOfValidationWarnings:0];
   [(AXValidationManager *)self setValidationTargetName:0];
   [(AXValidationManager *)self setForceDoNotReport:0];
   [(AXValidationManager *)self setDebugBuild:0];
-  [(AXValidationManager *)self setNumberOfValidations:0];
-  [(AXValidationManager *)self setShouldLogToConsole:AXShouldLogValidationErrors()];
+  v3 = [(AXValidationManager *)self setNumberOfValidations:0];
+  [(AXValidationManager *)self setShouldLogToConsole:AXShouldLogValidationErrors(v3, v4)];
   [(AXValidationManager *)self setShouldCrashOnError:AXShouldCrashOnValidationErrors()];
   [(AXValidationManager *)self setShouldReportToServer:AXShouldReportValidationErrors()];
   array = [MEMORY[0x1E695DF70] array];
@@ -327,6 +325,267 @@ uint64_t __97__AXValidationManager_installSafeCategories_afterDelay_validationTa
   [(AXValidationManager *)self setConsoleErrorMessages:0];
 
   [(AXValidationManager *)self setConsoleWarningMessages:0];
+}
+
+- (void)_printEncodedConsoleReportForValidationRunner:(BOOL)runner isDelayed:(BOOL)delayed
+{
+  v31 = *MEMORY[0x1E69E9840];
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AXValidationManager numberOfValidations](self, "numberOfValidations")}];
+  [dictionary setObject:v6 forKeyedSubscript:@"validationCount"];
+
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AXValidationManager numberOfCategories](self, "numberOfCategories")}];
+  [dictionary setObject:v7 forKeyedSubscript:@"safeCategoryCount"];
+
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AXValidationManager numberOfValidationErrors](self, "numberOfValidationErrors")}];
+  [dictionary setObject:v8 forKeyedSubscript:@"validationErrorCount"];
+
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AXValidationManager numberOfValidationErrors](self, "numberOfValidationErrors")}];
+  [dictionary setObject:v9 forKeyedSubscript:@"validationWarningCount"];
+
+  validationTargetName = [(AXValidationManager *)self validationTargetName];
+  v11 = [validationTargetName length];
+
+  if (v11)
+  {
+    validationTargetName2 = [(AXValidationManager *)self validationTargetName];
+    [dictionary setObject:validationTargetName2 forKeyedSubscript:@"validationTarget"];
+  }
+
+  v14 = AXProcessGetName(v12);
+  if ([v14 length])
+  {
+    [dictionary setObject:v14 forKeyedSubscript:@"validationProcess"];
+  }
+
+  overrideProcessName = [(AXValidationManager *)self overrideProcessName];
+  if ([overrideProcessName length])
+  {
+    [dictionary setObject:overrideProcessName forKeyedSubscript:@"validationOverrideProcess"];
+  }
+
+  if ([(AXValidationManager *)self numberOfValidationErrors]|| [(AXValidationManager *)self numberOfValidationWarnings])
+  {
+    v16 = 0;
+    v17 = @"failed";
+  }
+
+  else
+  {
+    v16 = 1;
+    v17 = @"success";
+  }
+
+  [dictionary setObject:v17 forKeyedSubscript:@"validationResult"];
+  consoleErrorMessages = [(AXValidationManager *)self consoleErrorMessages];
+  v19 = [consoleErrorMessages count];
+
+  if (v19)
+  {
+    consoleErrorMessages2 = [(AXValidationManager *)self consoleErrorMessages];
+    [dictionary setObject:consoleErrorMessages2 forKeyedSubscript:@"validationErrors"];
+  }
+
+  consoleWarningMessages = [(AXValidationManager *)self consoleWarningMessages];
+  v22 = [consoleWarningMessages count];
+
+  if (v22)
+  {
+    consoleWarningMessages2 = [(AXValidationManager *)self consoleWarningMessages];
+    [dictionary setObject:consoleWarningMessages2 forKeyedSubscript:@"validationWarnings"];
+  }
+
+  v24 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:8 error:0];
+  v25 = v24;
+  if (v24)
+  {
+    v26 = [v24 base64EncodedStringWithOptions:0];
+    v27 = AXLogValidationRunner(v26);
+    v28 = v27;
+    if (v16)
+    {
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        v29 = 138412290;
+        v30 = v26;
+        _os_log_impl(&dword_19159B000, v28, OS_LOG_TYPE_DEFAULT, "%@", &v29, 0xCu);
+      }
+    }
+
+    else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      [AXValidationManager _printEncodedConsoleReportForValidationRunner:isDelayed:];
+    }
+  }
+}
+
+- (void)_printConsoleReport:(BOOL)report isDelayed:(BOOL)delayed
+{
+  delayedCopy = delayed;
+  reportCopy = report;
+  v53 = *MEMORY[0x1E69E9840];
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2050000000;
+  v7 = getAXSettingsClass_softClass_3;
+  v46 = getAXSettingsClass_softClass_3;
+  if (!getAXSettingsClass_softClass_3)
+  {
+    *&buf = MEMORY[0x1E69E9820];
+    *(&buf + 1) = 3221225472;
+    v50 = __getAXSettingsClass_block_invoke_3;
+    v51 = &unk_1E735AD40;
+    v52 = &v43;
+    __getAXSettingsClass_block_invoke_3(&buf);
+    v7 = v44[3];
+  }
+
+  v8 = v7;
+  _Block_object_dispose(&v43, 8);
+  sharedInstance = [v7 sharedInstance];
+  isAXValidationRunnerCollectingValidations = [sharedInstance isAXValidationRunnerCollectingValidations];
+
+  if (isAXValidationRunnerCollectingValidations)
+  {
+    [(AXValidationManager *)self _printEncodedConsoleReportForValidationRunner:reportCopy isDelayed:delayedCopy];
+  }
+
+  else
+  {
+    string = [MEMORY[0x1E696AD60] string];
+    v12 = string;
+    if (delayedCopy)
+    {
+      [string appendString:@"(DELAYED) "];
+    }
+
+    if ([(AXValidationManager *)self isDebugBuild])
+    {
+      [v12 appendString:@"(Build as DEBUG) "];
+    }
+
+    if (reportCopy)
+    {
+      v13 = MEMORY[0x1E696AEC0];
+      numberOfValidations = [(AXValidationManager *)self numberOfValidations];
+      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AXValidationManager numberOfCategories](self, "numberOfCategories")}];
+      v16 = [v13 stringWithFormat:@"validating (%d) items and installing (%@) AX Safe Categories on ", numberOfValidations, v15];
+      [v12 appendString:v16];
+    }
+
+    else
+    {
+      [v12 appendString:@"validating "];
+    }
+
+    validationTargetName = [(AXValidationManager *)self validationTargetName];
+    [v12 appendString:validationTargetName];
+
+    v19 = AXProcessGetName(v18);
+    [v12 appendFormat:@", In process: %@", v19];
+
+    if ([(AXValidationManager *)self numberOfValidationErrors])
+    {
+      v20 = [MEMORY[0x1E696AD60] stringWithString:@"\n********************************************************************\n"];
+      [v20 appendFormat:@"* AX: Failed %@. %lu errors:\n", v12, -[AXValidationManager numberOfValidationErrors](self, "numberOfValidationErrors")];
+      v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      consoleErrorMessages = [(AXValidationManager *)self consoleErrorMessages];
+      v22 = [consoleErrorMessages countByEnumeratingWithState:&v39 objects:v48 count:16];
+      if (v22)
+      {
+        v23 = *v40;
+        do
+        {
+          v24 = 0;
+          do
+          {
+            if (*v40 != v23)
+            {
+              objc_enumerationMutation(consoleErrorMessages);
+            }
+
+            [v20 appendFormat:@"*\t%@\n", *(*(&v39 + 1) + 8 * v24++)];
+          }
+
+          while (v22 != v24);
+          v22 = [consoleErrorMessages countByEnumeratingWithState:&v39 objects:v48 count:16];
+        }
+
+        while (v22);
+      }
+
+      v25 = AXLogValidations([v20 appendString:@"********************************************************************\n"]);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        [AXValidationManager _printConsoleReport:isDelayed:];
+      }
+    }
+
+    else
+    {
+      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"****************** Finished %@. Success! *****************", v12];
+      v25 = AXLogValidations(v20);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(buf) = 138543362;
+        *(&buf + 4) = v20;
+        _os_log_impl(&dword_19159B000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@", &buf, 0xCu);
+      }
+    }
+
+    if ([(AXValidationManager *)self numberOfValidationWarnings])
+    {
+      v26 = [MEMORY[0x1E696AD60] stringWithString:@"\n********************************************************************\n"];
+      numberOfValidationWarnings = [(AXValidationManager *)self numberOfValidationWarnings];
+      numberOfValidationWarnings2 = [(AXValidationManager *)self numberOfValidationWarnings];
+      v29 = "s";
+      if (numberOfValidationWarnings2 == 1)
+      {
+        v29 = "";
+      }
+
+      [v26 appendFormat:@"* AX: %lu warning%s generated while %@:\n", numberOfValidationWarnings, v29, v12];
+      v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      consoleWarningMessages = [(AXValidationManager *)self consoleWarningMessages];
+      v31 = [consoleWarningMessages countByEnumeratingWithState:&v35 objects:v47 count:16];
+      if (v31)
+      {
+        v32 = *v36;
+        do
+        {
+          v33 = 0;
+          do
+          {
+            if (*v36 != v32)
+            {
+              objc_enumerationMutation(consoleWarningMessages);
+            }
+
+            [v26 appendFormat:@"* %@\n", *(*(&v35 + 1) + 8 * v33++)];
+          }
+
+          while (v31 != v33);
+          v31 = [consoleWarningMessages countByEnumeratingWithState:&v35 objects:v47 count:16];
+        }
+
+        while (v31);
+      }
+
+      v34 = AXLogValidations([v26 appendString:@"********************************************************************\n"]);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(buf) = 138543362;
+        *(&buf + 4) = v26;
+        _os_log_impl(&dword_19159B000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@", &buf, 0xCu);
+      }
+    }
+  }
 }
 
 - (BOOL)client:(id)client validateClass:(id)class
@@ -442,7 +701,7 @@ LABEL_12:
 
 - (BOOL)client:(id)client validateSwiftStruct:(id)struct hasSize:(int64_t)size
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   structCopy = struct;
   [(AXValidationManager *)self setNumberOfValidations:[(AXValidationManager *)self numberOfValidations]+ 1];
@@ -462,34 +721,34 @@ LABEL_12:
     [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
     v12 = MEMORY[0x1E696AD60];
     v13 = [MEMORY[0x1E696AD98] numberWithInteger:size];
-    v24 = clientCopy;
+    v23 = clientCopy;
     v14 = [v12 stringWithFormat:@"%@: Swift enum %@ doesn't match size: %@", clientCopy, structCopy, v13];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v15 = array;
-    v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v26;
+      v18 = *v25;
       do
       {
         v19 = 0;
         do
         {
-          if (*v26 != v18)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          [v14 appendFormat:@" %@", *(*(&v25 + 1) + 8 * v19++)];
+          [v14 appendFormat:@" %@", *(*(&v24 + 1) + 8 * v19++)];
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v17);
@@ -507,14 +766,13 @@ LABEL_12:
       [(AXValidationManager *)self sendValidateExceptionForClass:structCopy errorMessage:v14 overrideProcessName:overrideProcessName];
     }
 
-    clientCopy = v24;
+    clientCopy = v23;
     if (self->_shouldCrashOnError)
     {
       abort();
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v11 == 0;
 }
 
@@ -685,10 +943,10 @@ LABEL_8:
   else
   {
     v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
-    if ((_AXSwiftValidateClassHasFieldWithTypeString() & 1) == 0)
+    if ((_AXSwiftValidateClassHasFieldWithTypeString(v18, fieldCopy, v22) & 1) == 0)
     {
       v23 = MEMORY[0x1E696AEC0];
-      v24 = _AXSwiftValidateClassGetFieldTypeString();
+      v24 = _AXSwiftValidateClassGetFieldTypeString(v18, fieldCopy);
       v25 = [v23 stringWithFormat:@"Swift field doesn't match: (%@) expected: (%@)", v22, v24];
       [array addObject:v25];
     }
@@ -702,7 +960,7 @@ LABEL_8:
 
 - (BOOL)_client:(id)_client validateType:(id)type hasSwiftField:(id)field handleSwiftValidationProblems:(id)problems
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   _clientCopy = _client;
   typeCopy = type;
   fieldCopy = field;
@@ -712,32 +970,32 @@ LABEL_8:
   if (v14)
   {
     [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
-    v25 = _clientCopy;
-    v26 = typeCopy;
+    v24 = _clientCopy;
+    v25 = typeCopy;
     typeCopy = [MEMORY[0x1E696AD60] stringWithFormat:@"%@: Swift field: (%@) on type: %@.", _clientCopy, fieldCopy, typeCopy];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v16 = problemsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [typeCopy appendFormat:@" %@", *(*(&v27 + 1) + 8 * i)];
+          [typeCopy appendFormat:@" %@", *(*(&v26 + 1) + 8 * i)];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v18);
@@ -749,11 +1007,11 @@ LABEL_8:
       [consoleErrorMessages addObject:typeCopy];
     }
 
-    typeCopy = v26;
+    typeCopy = v25;
     if (self->_shouldReportToServer && !self->_forceDoNotReport)
     {
       overrideProcessName = [(AXValidationManager *)self overrideProcessName];
-      [(AXValidationManager *)self sendValidateExceptionForClass:v26 hasInstanceVariable:fieldCopy errorMessage:typeCopy overrideProcessName:overrideProcessName];
+      [(AXValidationManager *)self sendValidateExceptionForClass:v25 hasInstanceVariable:fieldCopy errorMessage:typeCopy overrideProcessName:overrideProcessName];
     }
 
     if (self->_shouldCrashOnError)
@@ -761,10 +1019,9 @@ LABEL_8:
       abort();
     }
 
-    _clientCopy = v25;
+    _clientCopy = v24;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v14 == 0;
 }
 
@@ -864,6 +1121,72 @@ LABEL_33:
   return v21;
 }
 
+- (BOOL)_client:(id)_client validateClass:(id)class hasMethod:(id)method methodType:(int)type
+{
+  v6 = *&type;
+  _clientCopy = _client;
+  classCopy = class;
+  methodCopy = method;
+  v13 = _AXClassFromStringWithFallback(classCopy);
+  v14 = [methodCopy stringByReplacingOccurrencesOfString:@" " withString:&stru_1F0579798];
+
+  v15 = NSSelectorFromString(v14);
+  if (v6)
+  {
+    InstanceMethod = class_getInstanceMethod(v13, v15);
+  }
+
+  else
+  {
+    InstanceMethod = class_getClassMethod(v13, v15);
+  }
+
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __66__AXValidationManager__client_validateClass_hasMethod_methodType___block_invoke;
+  v23[3] = &unk_1E735BDE8;
+  v23[4] = &v24;
+  v23[5] = InstanceMethod;
+  [(AXValidationManager *)self _iterateMethodsOfType:v6 onClass:v13 block:v23];
+  [(AXValidationManager *)self setNumberOfValidations:[(AXValidationManager *)self numberOfValidations]+ 1];
+  v17 = *(v25 + 24);
+  if ((v17 & 1) == 0)
+  {
+    [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
+    v18 = @"Instance";
+    if (!v6)
+    {
+      v18 = @"Class";
+    }
+
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@ %@ method not present: %@", _clientCopy, classCopy, v18, v14];
+    if (self->_shouldLogToConsole)
+    {
+      consoleErrorMessages = [(AXValidationManager *)self consoleErrorMessages];
+      [consoleErrorMessages addObject:v19];
+    }
+
+    if (self->_shouldReportToServer && !self->_forceDoNotReport)
+    {
+      overrideProcessName = [(AXValidationManager *)self overrideProcessName];
+      [(AXValidationManager *)self sendValidateExceptionForClass:classCopy hasInstanceMethod:v14 errorMessage:v19 overrideProcessName:overrideProcessName];
+    }
+
+    if (self->_shouldCrashOnError)
+    {
+      abort();
+    }
+  }
+
+  _Block_object_dispose(&v24, 8);
+
+  return v17;
+}
+
 uint64_t __66__AXValidationManager__client_validateClass_hasMethod_methodType___block_invoke(uint64_t result, uint64_t a2)
 {
   if (*(result + 40) == a2)
@@ -876,7 +1199,7 @@ uint64_t __66__AXValidationManager__client_validateClass_hasMethod_methodType___
 
 - (BOOL)_client:(id)_client validateClass:(id)class hasMethod:(id)method methodType:(int)type returnType:(id)returnType arguments:(id)arguments
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   _clientCopy = _client;
   classCopy = class;
   returnTypeCopy = returnType;
@@ -899,18 +1222,18 @@ uint64_t __66__AXValidationManager__client_validateClass_hasMethod_methodType___
   }
 
   v20 = InstanceMethod;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
-  v56 = 0;
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __87__AXValidationManager__client_validateClass_hasMethod_methodType_returnType_arguments___block_invoke;
-  v52[3] = &unk_1E735BDE8;
-  v52[4] = &v53;
-  v52[5] = InstanceMethod;
-  [(AXValidationManager *)self _iterateMethodsOfType:type onClass:v17 block:v52];
-  if (v54[3])
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __87__AXValidationManager__client_validateClass_hasMethod_methodType_returnType_arguments___block_invoke;
+  v51[3] = &unk_1E735BDE8;
+  v51[4] = &v52;
+  v51[5] = InstanceMethod;
+  [(AXValidationManager *)self _iterateMethodsOfType:type onClass:v17 block:v51];
+  if (v53[3])
   {
     v21 = method_copyReturnType(v20);
     if (v21)
@@ -940,13 +1263,13 @@ uint64_t __66__AXValidationManager__client_validateClass_hasMethod_methodType___
       [array addObject:v28];
     }
 
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __87__AXValidationManager__client_validateClass_hasMethod_methodType_returnType_arguments___block_invoke_2;
-    v49[3] = &unk_1E735BE10;
-    v51 = v20;
-    v50 = array;
-    [argumentsCopy enumerateObjectsUsingBlock:v49];
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __87__AXValidationManager__client_validateClass_hasMethod_methodType_returnType_arguments___block_invoke_2;
+    v48[3] = &unk_1E735BE10;
+    v50 = v20;
+    v49 = array;
+    [argumentsCopy enumerateObjectsUsingBlock:v48];
   }
 
   else
@@ -966,28 +1289,28 @@ uint64_t __66__AXValidationManager__client_validateClass_hasMethod_methodType___
     }
 
     classCopy = [MEMORY[0x1E696AD60] stringWithFormat:@"%@: %@ method: (%@) on class: %@.", _clientCopy, v30, aSelectorName, classCopy];
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v32 = array;
-    v33 = [v32 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    v33 = [v32 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (v33)
     {
-      v34 = *v46;
+      v34 = *v45;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v46 != v34)
+          if (*v45 != v34)
           {
             objc_enumerationMutation(v32);
           }
 
-          [classCopy appendFormat:@" %@", *(*(&v45 + 1) + 8 * i)];
+          [classCopy appendFormat:@" %@", *(*(&v44 + 1) + 8 * i)];
         }
 
-        v33 = [v32 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v44 objects:v56 count:16];
       }
 
       while (v33);
@@ -1019,9 +1342,8 @@ uint64_t __66__AXValidationManager__client_validateClass_hasMethod_methodType___
     }
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
 
-  v38 = *MEMORY[0x1E69E9840];
   return v29 == 0;
 }
 
@@ -1491,7 +1813,7 @@ void __91__AXValidationManager_client_validateClass_hasProperty_customGetter_cus
 
 - (void)_generateWarningsForPrefixedMethodNames:(id)names client:(id)client methodType:(int)type methodName:(id)name className:(id)className
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   clientCopy = client;
   nameCopy = name;
@@ -1506,35 +1828,35 @@ void __91__AXValidationManager_client_validateClass_hasProperty_customGetter_cus
       v17 = @"Class";
     }
 
-    v27 = classNameCopy;
-    v28 = nameCopy;
-    v29 = clientCopy;
+    v26 = classNameCopy;
+    v27 = nameCopy;
+    v28 = clientCopy;
     classNameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@ method: (%@) on class: %@ has the following more specific variants:", clientCopy, v17, nameCopy, classNameCopy];
     [array addObject:?];
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v18 = namesCopy;
-    v19 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v31;
+      v21 = *v30;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v31 != v21)
+          if (*v30 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\t%@", *(*(&v30 + 1) + 8 * i)];
+          v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\t%@", *(*(&v29 + 1) + 8 * i)];
           [array addObject:v23];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v20);
@@ -1546,12 +1868,10 @@ void __91__AXValidationManager_client_validateClass_hasProperty_customGetter_cus
       [consoleWarningMessages addObjectsFromArray:array];
     }
 
-    nameCopy = v28;
-    clientCopy = v29;
-    classNameCopy = v27;
+    nameCopy = v27;
+    clientCopy = v28;
+    classNameCopy = v26;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_generateWarningsOnSafeCategoryClass:(Class)class
@@ -1653,38 +1973,38 @@ void __106__AXValidationManager__generateWarningsForMethodType_onClass_superclas
 - (BOOL)installSafeCategory:(id)category canInteractWithTargetClass:(BOOL)class
 {
   classCopy = class;
-  v56 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   v7 = objc_autoreleasePoolPush();
   v8 = NSClassFromString(categoryCopy);
-  [(AXValidationManager *)self setNumberOfValidations:[(AXValidationManager *)self numberOfValidations]+ 1];
+  v9 = [(AXValidationManager *)self setNumberOfValidations:[(AXValidationManager *)self numberOfValidations]+ 1];
   if (!v8)
   {
-    v21 = AXLogValidations();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v24 = AXLogValidations(v9);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [AXValidationManager installSafeCategory:canInteractWithTargetClass:];
     }
 
     [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
     categoryCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"AX Safe Category class not found: %@", categoryCopy];
-    v49 = 0;
+    v51 = 0;
     bundlePath4 = 0;
     bundlePath3 = 0;
-    v9 = 0;
-    LOBYTE(v23) = 0;
+    v10 = 0;
+    LOBYTE(v26) = 0;
     goto LABEL_35;
   }
 
   if (!classCopy || (objc_opt_respondsToSelector() & 1) == 0)
   {
-    v17 = categoryCopy;
-    v18 = v7;
-    v19 = 0;
+    v20 = categoryCopy;
+    v21 = v7;
+    v22 = 0;
     bundlePath3 = 0;
     bundlePath4 = 0;
-    v49 = 0;
-    v9 = 0;
+    v51 = 0;
+    v10 = 0;
 LABEL_28:
     if (objc_opt_respondsToSelector())
     {
@@ -1700,156 +2020,158 @@ LABEL_28:
     if (categoryCopy)
     {
       [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
-      LOBYTE(v23) = 0;
+      LOBYTE(v26) = 0;
     }
 
     else
     {
-      LOBYTE(v23) = 1;
+      LOBYTE(v26) = 1;
     }
 
-    v7 = v18;
-    categoryCopy = v17;
+    v7 = v21;
+    categoryCopy = v20;
     goto LABEL_35;
   }
 
-  v9 = [(objc_class *)v8 performSelector:sel_safeCategoryTargetClassName];
-  bundlePath3 = NSClassFromString(v9);
+  v10 = [(objc_class *)v8 performSelector:sel_safeCategoryTargetClassName];
+  bundlePath3 = NSClassFromString(v10);
   if (!bundlePath3)
   {
-    v17 = categoryCopy;
-    v18 = v7;
-    v19 = 0;
+    v20 = categoryCopy;
+    v21 = v7;
+    v22 = 0;
 LABEL_27:
     bundlePath4 = 0;
-    v49 = 0;
+    v51 = 0;
     goto LABEL_28;
   }
 
-  if (![(AXValidationManager *)self shouldPerformValidationChecks])
+  shouldPerformValidationChecks = [(AXValidationManager *)self shouldPerformValidationChecks];
+  if (!shouldPerformValidationChecks)
   {
-    v17 = categoryCopy;
-    v18 = v7;
+    v20 = categoryCopy;
+    v21 = v7;
 LABEL_26:
-    v19 = 0;
+    v22 = 0;
     bundlePath3 = 0;
     goto LABEL_27;
   }
 
-  v11 = AXLogLoading();
-  if (os_signpost_enabled(v11))
+  v13 = AXLogLoading(shouldPerformValidationChecks);
+  if (os_signpost_enabled(v13))
   {
-    v12 = MEMORY[0x1E696AEC0];
+    v14 = MEMORY[0x1E696AEC0];
     NSStringFromClass(bundlePath3);
-    v14 = v13 = v7;
-    v15 = [v12 stringWithFormat:@"Class=%@", v14];
+    v16 = v15 = v7;
+    v17 = [v14 stringWithFormat:@"Class=%@", v16];
     *buf = 138412290;
-    v51 = v15;
-    _os_signpost_emit_with_name_impl(&dword_19159B000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Validations", "Target=%@", buf, 0xCu);
+    v53 = v17;
+    _os_signpost_emit_with_name_impl(&dword_19159B000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Validations", "Target=%@", buf, 0xCu);
 
-    v7 = v13;
+    v7 = v15;
   }
 
-  v48 = [(objc_class *)v8 performSelector:sel__installSafeCategoryValidationMethod];
-  if (!v48)
+  v18 = [(objc_class *)v8 performSelector:sel__installSafeCategoryValidationMethod];
+  v50 = v18;
+  if (!v18)
   {
     if (objc_opt_respondsToSelector())
     {
-      v16 = [(objc_class *)bundlePath3 axTrampolineForClass:bundlePath3];
-      [v16 _accessibilityPerformValidations:self];
+      v19 = [(objc_class *)bundlePath3 axTrampolineForClass:bundlePath3];
+      [v19 _accessibilityPerformValidations:self];
     }
 
     else
     {
-      [(objc_class *)bundlePath3 _accessibilityPerformValidations:self];
+      v18 = [(objc_class *)bundlePath3 _accessibilityPerformValidations:self];
     }
   }
 
-  v24 = AXLogLoading();
-  if (os_signpost_enabled(v24))
+  v27 = AXLogLoading(v18);
+  if (os_signpost_enabled(v27))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19159B000, v24, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Validations", &unk_19167EAFE, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19159B000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Validations", &unk_19167EAFE, buf, 2u);
   }
 
-  v25 = [MEMORY[0x1E696AAE8] bundleForClass:v8];
-  bundlePath = [v25 bundlePath];
-  v27 = [bundlePath hasSuffix:@"axbundle"];
+  v28 = [MEMORY[0x1E696AAE8] bundleForClass:v8];
+  bundlePath = [v28 bundlePath];
+  v30 = [bundlePath hasSuffix:@"axbundle"];
 
-  if ((v27 & 1) == 0)
+  if ((v30 & 1) == 0)
   {
-    v38 = v25;
-    v17 = categoryCopy;
-    v18 = v7;
+    v41 = v28;
+    v20 = categoryCopy;
+    v21 = v7;
 
     goto LABEL_26;
   }
 
-  v28 = [MEMORY[0x1E696AAE8] bundleForClass:bundlePath3];
-  v29 = +[AXCodeLoader defaultLoader];
-  v30 = [v29 codeItemForBundle:v28];
+  v31 = [MEMORY[0x1E696AAE8] bundleForClass:bundlePath3];
+  v32 = +[AXCodeLoader defaultLoader];
+  v33 = [v32 codeItemForBundle:v31];
 
-  v47 = v30;
-  associatedAccessibilityCodeItem = [v30 associatedAccessibilityCodeItem];
-  v45 = associatedAccessibilityCodeItem;
-  v46 = v28;
+  v49 = v33;
+  associatedAccessibilityCodeItem = [v33 associatedAccessibilityCodeItem];
+  v47 = associatedAccessibilityCodeItem;
+  v48 = v31;
   if (associatedAccessibilityCodeItem)
   {
-    v32 = associatedAccessibilityCodeItem;
-    v44 = v7;
-    bundlePath2 = [v25 bundlePath];
-    path = [v32 path];
+    v35 = associatedAccessibilityCodeItem;
+    v46 = v7;
+    bundlePath2 = [v28 bundlePath];
+    path = [v35 path];
     stringByDeletingLastPathComponent = [path stringByDeletingLastPathComponent];
-    LOBYTE(v32) = [bundlePath2 isEqualToString:stringByDeletingLastPathComponent];
+    LOBYTE(v35) = [bundlePath2 isEqualToString:stringByDeletingLastPathComponent];
 
-    if ((v32 & 1) != 0 || ([v47 name], v36 = objc_claimAutoreleasedReturnValue(), v37 = -[NSString hasSuffix:](categoryCopy, "hasSuffix:", v36), v36, v37))
+    if ((v35 & 1) != 0 || ([v49 name], v39 = objc_claimAutoreleasedReturnValue(), v40 = -[NSString hasSuffix:](categoryCopy, "hasSuffix:", v39), v39, v40))
     {
-      v49 = 0;
+      v51 = 0;
       bundlePath4 = 0;
       bundlePath3 = 0;
       categoryCopy = 0;
-      v23 = 1;
+      v26 = 1;
     }
 
     else
     {
-      bundlePath3 = [v25 bundlePath];
-      bundlePath4 = [v28 bundlePath];
-      v43 = AXLogValidations();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      bundlePath3 = [v28 bundlePath];
+      bundlePath4 = [v31 bundlePath];
+      v45 = AXLogValidations(bundlePath4);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v51 = categoryCopy;
-        v52 = 2112;
-        v53 = v25;
+        v53 = categoryCopy;
         v54 = 2112;
         v55 = v28;
-        _os_log_error_impl(&dword_19159B000, v43, OS_LOG_TYPE_ERROR, "AX Safe category class:%@ in wrong AX bundle '%@' should be with '%@'!", buf, 0x20u);
+        v56 = 2112;
+        v57 = v31;
+        _os_log_error_impl(&dword_19159B000, v45, OS_LOG_TYPE_ERROR, "AX Safe category class:%@ in wrong AX bundle '%@' should be with '%@'!", buf, 0x20u);
       }
 
       [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
-      categoryCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"AX Safe category class:%@ in wrong AX bundle '%@' should be with '%@'", categoryCopy, v25, v28];
-      v23 = 0;
-      v49 = 1;
+      categoryCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"AX Safe category class:%@ in wrong AX bundle '%@' should be with '%@'", categoryCopy, v28, v31];
+      v26 = 0;
+      v51 = 1;
     }
 
-    v7 = v44;
+    v7 = v46;
   }
 
   else
   {
-    v49 = 0;
+    v51 = 0;
     bundlePath4 = 0;
     bundlePath3 = 0;
     categoryCopy = 0;
-    v23 = 1;
+    v26 = 1;
   }
 
-  if (v23)
+  if (v26)
   {
-    v17 = categoryCopy;
-    v18 = v7;
-    v19 = categoryCopy;
+    v20 = categoryCopy;
+    v21 = v7;
+    v22 = categoryCopy;
     goto LABEL_28;
   }
 
@@ -1859,19 +2181,19 @@ LABEL_35:
     [(AXValidationManager *)self _generateWarningsOnSafeCategoryClass:v8];
   }
 
-  if (!v23)
+  if (!v26)
   {
     if (self->_shouldReportToServer && !self->_forceDoNotReport)
     {
       overrideProcessName = [(AXValidationManager *)self overrideProcessName];
-      if (v49)
+      if (v51)
       {
         [(AXValidationManager *)self sendExceptionForSafeCategoryOnWrongTarget:categoryCopy targetBundle:bundlePath3 expectedBundle:bundlePath4 overrideProcessName:overrideProcessName];
       }
 
       else
       {
-        [(AXValidationManager *)self sendExceptionForInstallingSafeCategory:categoryCopy onTarget:v9 overrideProcessName:overrideProcessName];
+        [(AXValidationManager *)self sendExceptionForInstallingSafeCategory:categoryCopy onTarget:v10 overrideProcessName:overrideProcessName];
       }
     }
 
@@ -1883,22 +2205,21 @@ LABEL_35:
   }
 
   objc_autoreleasePoolPop(v7);
-  v41 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v26;
 }
 
 - (BOOL)installSwiftDynamicReplacementUnit:(id)unit inBundle:(id)bundle withPrecondition:(id)precondition
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   unitCopy = unit;
   bundleCopy = bundle;
   preconditionCopy = precondition;
   v11 = objc_autoreleasePoolPush();
-  [(AXValidationManager *)self setNumberOfValidations:[(AXValidationManager *)self numberOfValidations]+ 1];
+  v12 = [(AXValidationManager *)self setNumberOfValidations:[(AXValidationManager *)self numberOfValidations]+ 1];
   if (!bundleCopy)
   {
-    v19 = AXLogValidations();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = AXLogValidations(v12);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [AXValidationManager installSwiftDynamicReplacementUnit:inBundle:withPrecondition:];
     }
@@ -1910,82 +2231,83 @@ LABEL_35:
 
   if (![unitCopy length])
   {
-    v20 = AXLogValidations();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v23 = AXLogValidations(0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [AXValidationManager installSwiftDynamicReplacementUnit:v20 inBundle:? withPrecondition:?];
+      [AXValidationManager installSwiftDynamicReplacementUnit:v23 inBundle:? withPrecondition:?];
     }
 
     [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = @"AX Swift dynamic replacement name empty";
+    v24 = MEMORY[0x1E696AEC0];
+    v25 = @"AX Swift dynamic replacement name empty";
     goto LABEL_16;
   }
 
-  if ((preconditionCopy[2](preconditionCopy) & 1) == 0)
+  v13 = preconditionCopy[2](preconditionCopy);
+  if ((v13 & 1) == 0)
   {
-    v23 = AXLogValidations();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v26 = AXLogValidations(v13);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [AXValidationManager installSwiftDynamicReplacementUnit:inBundle:withPrecondition:];
     }
 
     [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
-    v21 = MEMORY[0x1E696AEC0];
-    v32 = unitCopy;
-    v22 = @"AX Swift dynamic replacement %@ installation's condition not met";
+    v24 = MEMORY[0x1E696AEC0];
+    v34 = unitCopy;
+    v25 = @"AX Swift dynamic replacement %@ installation's condition not met";
 LABEL_16:
-    [v21 stringWithFormat:v22, v32];
-    v17 = LABEL_17:;
+    [v24 stringWithFormat:v25, v34];
+    v20 = LABEL_17:;
     goto LABEL_18;
   }
 
   builtInPlugInsPath = [bundleCopy builtInPlugInsPath];
-  v13 = [unitCopy stringByAppendingPathExtension:@"axbundlefile"];
-  v14 = [builtInPlugInsPath stringByAppendingPathComponent:v13];
+  v15 = [unitCopy stringByAppendingPathExtension:@"axbundlefile"];
+  v16 = [builtInPlugInsPath stringByAppendingPathComponent:v15];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v16 = [defaultManager fileExistsAtPath:v14 isDirectory:0];
+  v18 = [defaultManager fileExistsAtPath:v16 isDirectory:0];
 
-  if (v16)
+  if (v18)
   {
-    if (dlopen([v14 UTF8String], 1))
+    if (dlopen([v16 UTF8String], 1))
     {
 
-      v17 = 0;
-      v18 = 1;
+      v20 = 0;
+      v21 = 1;
       goto LABEL_24;
     }
 
-    v30 = dlerror();
-    v31 = AXLogValidations();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v32 = dlerror();
+    v33 = AXLogValidations(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v36 = unitCopy;
-      v37 = 2112;
-      v38 = bundleCopy;
-      v39 = 2080;
-      v40 = v30;
-      _os_log_error_impl(&dword_19159B000, v31, OS_LOG_TYPE_ERROR, "AX Swift dynamic replacement %@ from bundle %@ not successfully installed: %s", buf, 0x20u);
+      v38 = unitCopy;
+      v39 = 2112;
+      v40 = bundleCopy;
+      v41 = 2080;
+      v42 = v32;
+      _os_log_error_impl(&dword_19159B000, v33, OS_LOG_TYPE_ERROR, "AX Swift dynamic replacement %@ from bundle %@ not successfully installed: %s", buf, 0x20u);
     }
 
     [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"AX Swift dynamic replacement %@ from bundle %@ not successfully installed: %s", unitCopy, bundleCopy, v30];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"AX Swift dynamic replacement %@ from bundle %@ not successfully installed: %s", unitCopy, bundleCopy, v32];
   }
 
   else
   {
-    v29 = AXLogValidations();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v31 = AXLogValidations(v19);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       [AXValidationManager installSwiftDynamicReplacementUnit:inBundle:withPrecondition:];
     }
 
     [(AXValidationManager *)self setNumberOfValidationErrors:[(AXValidationManager *)self numberOfValidationErrors]+ 1];
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"AX Swift dynamic replacement file not found at path %@", v14, v33, v34];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"AX Swift dynamic replacement file not found at path %@", v16, v35, v36];
   }
-  v17 = ;
+  v20 = ;
 
 LABEL_18:
   if (self->_shouldReportToServer && !self->_forceDoNotReport)
@@ -1998,15 +2320,14 @@ LABEL_18:
   if (self->_shouldLogToConsole)
   {
     consoleErrorMessages = [(AXValidationManager *)self consoleErrorMessages];
-    [consoleErrorMessages addObject:v17];
+    [consoleErrorMessages addObject:v20];
   }
 
-  v18 = 0;
+  v21 = 0;
 LABEL_24:
 
   objc_autoreleasePoolPop(v11);
-  v27 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v21;
 }
 
 - (void)sendExceptionForInstallingSafeCategory:(id)category onTarget:(id)target overrideProcessName:(id)name
@@ -2023,7 +2344,7 @@ LABEL_24:
 
   else
   {
-    v12 = AXProcessGetName();
+    v12 = AXProcessGetName(validationReportingServices);
     [v11 sendExceptionForInstallingSafeCategory:categoryCopy onTarget:targetCopy overrideProcessName:v12];
   }
 }
@@ -2043,7 +2364,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendExceptionForSafeCategoryOnWrongTarget:targetCopy targetBundle:bundleCopy expectedBundle:expectedBundleCopy overrideProcessName:v15];
   }
 }
@@ -2054,15 +2375,16 @@ LABEL_24:
   targetCopy = target;
   keyCopy = key;
   validationReportingServices = [(AXValidationManager *)self validationReportingServices];
-  v11 = nameCopy;
+  v15 = validationReportingServices;
+  v12 = nameCopy;
   if (!nameCopy)
   {
-    v11 = AXProcessGetName();
+    v12 = AXProcessGetName(validationReportingServices);
   }
 
   callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-  v13 = [callStackSymbols componentsJoinedByString:@"\n"];
-  [validationReportingServices sendExceptionForSafeValueKey:keyCopy onTarget:targetCopy overrideProcessName:v11 backtrace:v13];
+  v14 = [callStackSymbols componentsJoinedByString:@"\n"];
+  [v15 sendExceptionForSafeValueKey:keyCopy onTarget:targetCopy overrideProcessName:v12 backtrace:v14];
 
   if (!nameCopy)
   {
@@ -2083,7 +2405,7 @@ LABEL_24:
 
   else
   {
-    v12 = AXProcessGetName();
+    v12 = AXProcessGetName(validationReportingServices);
     [v11 sendExceptionForSafeIVarKey:keyCopy onTarget:targetCopy overrideProcessName:v12];
   }
 }
@@ -2101,7 +2423,7 @@ LABEL_24:
 
   else
   {
-    v9 = AXProcessGetName();
+    v9 = AXProcessGetName(validationReportingServices);
     [v8 sendExceptionForSafeBlock:blockCopy overrideProcessName:v9];
   }
 }
@@ -2120,7 +2442,7 @@ LABEL_24:
 
   else
   {
-    v12 = AXProcessGetName();
+    v12 = AXProcessGetName(validationReportingServices);
     [v11 sendGenericReport:reportCopy withTag:tagCopy overrideProcessName:v12];
   }
 }
@@ -2139,7 +2461,7 @@ LABEL_24:
 
   else
   {
-    v12 = AXProcessGetName();
+    v12 = AXProcessGetName(validationReportingServices);
     [v11 sendValidateExceptionForClass:classCopy errorMessage:messageCopy overrideProcessName:v12];
   }
 }
@@ -2159,7 +2481,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForClass:classCopy isKindOfClass:ofClassCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2179,7 +2501,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForClass:classCopy conformsToProtocol:protocolCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2199,7 +2521,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForClass:classCopy hasInstanceVariable:variableCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2219,7 +2541,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForClass:classCopy hasInstanceMethod:methodCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2239,7 +2561,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForClass:classCopy hasClassMethod:methodCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2259,7 +2581,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForClass:classCopy hasProperty:propertyCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2279,7 +2601,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForProtocol:protocolCopy conformsToProtocol:toProtocolCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2299,7 +2621,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForProtocol:protocolCopy hasMethod:methodCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2319,7 +2641,7 @@ LABEL_24:
 
   else
   {
-    v15 = AXProcessGetName();
+    v15 = AXProcessGetName(validationReportingServices);
     [v14 sendValidateExceptionForProtocol:protocolCopy hasProperty:propertyCopy errorMessage:messageCopy overrideProcessName:v15];
   }
 }
@@ -2337,7 +2659,7 @@ LABEL_24:
 
   else
   {
-    v9 = AXProcessGetName();
+    v9 = AXProcessGetName(validationReportingServices);
     [v8 sendFailedAssertionWithErrorMessage:messageCopy overrideProcessName:v9];
   }
 }
@@ -2356,7 +2678,7 @@ LABEL_24:
 
   else
   {
-    v12 = AXProcessGetName();
+    v12 = AXProcessGetName(validationReportingServices);
     [v11 sendFailedTestCase:caseCopy withTag:tagCopy overrideProcessName:v12];
   }
 }
@@ -2373,59 +2695,18 @@ LABEL_24:
 
   else
   {
-    v6 = AXProcessGetName();
+    v6 = AXProcessGetName(validationReportingServices);
     [v5 sendValidationSuccessForProcessName:v6];
   }
 }
 
-- (void)_printEncodedConsoleReportForValidationRunner:isDelayed:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_3(&dword_19159B000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_printConsoleReport:isDelayed:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_3(&dword_19159B000, v0, v1, "%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)installSafeCategory:canInteractWithTargetClass:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_3(&dword_19159B000, v0, v1, "AX Safe category class '%@' was not found!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)installSwiftDynamicReplacementUnit:inBundle:withPrecondition:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_3(&dword_19159B000, v0, v1, "AX Swift dynamic replacement %@ installation's precondition not met", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)installSwiftDynamicReplacementUnit:inBundle:withPrecondition:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_19159B000, v1, OS_LOG_TYPE_ERROR, "AX Swift dynamic replacement %@ not found in bundle %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)installSwiftDynamicReplacementUnit:inBundle:withPrecondition:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_3(&dword_19159B000, v0, v1, "AX Container bundle was not found when installing Swift dynamic replacement unit %@!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_19159B000, v1, OS_LOG_TYPE_ERROR, "AX Swift dynamic replacement %@ not found in bundle %@", v2, 0x16u);
 }
 
 @end

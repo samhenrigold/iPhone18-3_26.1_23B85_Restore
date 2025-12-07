@@ -18,9 +18,8 @@
 
   else
   {
-    v3 = *&self->parent[OBJC_IVAR____TtCV20ColorPickerUIServiceP33_DBD1622CFBB2996DAF9D1081F3537E2A14EyeDropperView11Coordinator_parent];
-    type metadata accessor for ColorPickerState();
-    sub_10000C094(&qword_100076250, type metadata accessor for ColorPickerState);
+    type metadata accessor for ColorPickerState(0);
+    sub_10000C094(&qword_100076250, type metadata accessor for ColorPickerState, &unk_1000516E8);
     selfCopy = self;
     EnvironmentObject.error()();
     __break(1u);

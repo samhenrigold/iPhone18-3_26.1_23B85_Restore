@@ -12,13 +12,19 @@
   v4 = _Block_copy(handler);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
+    v5 = swift_allocObject();
+    *(v5 + 16) = v4;
     v4 = sub_1000049B8;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
   sub_100003570(v4);
-  sub_1000028D0(v4);
+  sub_1000028D0(v4, v5);
 }
 
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion
@@ -40,7 +46,7 @@
   actionCopy = action;
   selfCopy = self;
   sub_100001364(item, action, v8, v9);
-  sub_1000028D0(v8);
+  sub_1000028D0(v8, v9);
 }
 
 - (_TtC20CSFFollowUpExtension20CSFFollowUpExtension)initWithNibName:(id)name bundle:(id)bundle

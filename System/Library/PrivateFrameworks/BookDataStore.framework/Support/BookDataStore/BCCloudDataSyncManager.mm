@@ -225,30 +225,30 @@
 - (void)_fromBatch:(id)batch getRecordsToSave:(id *)save recordIDsToDelete:(id *)delete buildingMap:(id *)map
 {
   batchCopy = batch;
-  v36 = +[NSMutableArray array];
-  v35 = +[NSMutableArray array];
+  v39 = +[NSMutableArray array];
+  v38 = +[NSMutableArray array];
   v8 = +[NSMutableDictionary dictionary];
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v9 = batchCopy;
-  v10 = [v9 countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v38;
+    v12 = *v41;
     do
     {
       v13 = 0;
       do
       {
-        if (*v38 != v12)
+        if (*v41 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * v13);
+        v14 = *(*(&v40 + 1) + 8 * v13);
         if ([v14 deletedFlag])
         {
           systemFields = [v14 systemFields];
@@ -260,13 +260,13 @@
 
             if (v18)
             {
-              recordID3 = sub_100002660();
+              recordID3 = sub_100002660(v19);
               if (os_log_type_enabled(recordID3, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v42 = v14;
-                v20 = recordID3;
-                v21 = "BCCloudDataSyncManager: cloudDataMap already contans an entry for deleting %@";
+                v45 = v14;
+                v21 = recordID3;
+                v22 = "BCCloudDataSyncManager: cloudDataMap already contans an entry for deleting %@";
                 goto LABEL_22;
               }
             }
@@ -277,7 +277,7 @@
               [v8 setObject:v14 forKeyedSubscript:recordID2];
 
               recordID3 = [configuredRecordFromAttributes recordID];
-              [v35 addObject:recordID3];
+              [v38 addObject:recordID3];
             }
 
 LABEL_24:
@@ -285,18 +285,18 @@ LABEL_24:
             goto LABEL_25;
           }
 
-          recordID3 = sub_100002660();
+          recordID3 = sub_100002660(0);
           if (!os_log_type_enabled(recordID3, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_24;
           }
 
           *buf = 138412290;
-          v42 = v14;
-          v20 = recordID3;
-          v21 = "BCCloudDataSyncManager: Unable to retrieve systemFields from %@";
+          v45 = v14;
+          v21 = recordID3;
+          v22 = "BCCloudDataSyncManager: Unable to retrieve systemFields from %@";
 LABEL_22:
-          _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, v21, buf, 0xCu);
+          _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, v22, buf, 0xCu);
           goto LABEL_24;
         }
 
@@ -327,68 +327,68 @@ LABEL_19:
               goto LABEL_25;
             }
 
-            recordID3 = sub_100002660();
+            recordID3 = sub_100002660(v30);
             if (!os_log_type_enabled(recordID3, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_24;
             }
 
             *buf = 138412290;
-            v42 = v14;
-            v20 = recordID3;
-            v21 = "BCCloudDataSyncManager: Unable to configure CKRecord to save from %@";
+            v45 = v14;
+            v21 = recordID3;
+            v22 = "BCCloudDataSyncManager: Unable to configure CKRecord to save from %@";
             goto LABEL_22;
           }
         }
 
         recordID4 = [configuredRecordFromAttributes recordID];
-        v25 = [v8 objectForKey:recordID4];
+        v26 = [v8 objectForKey:recordID4];
 
-        if (v25)
+        if (v26)
         {
-          recordID3 = sub_100002660();
+          recordID3 = sub_100002660(v27);
           if (!os_log_type_enabled(recordID3, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_24;
           }
 
           *buf = 138412290;
-          v42 = v14;
-          v20 = recordID3;
-          v21 = "BCCloudDataSyncManager: cloudDataMap already contans an entry for saving %@";
+          v45 = v14;
+          v21 = recordID3;
+          v22 = "BCCloudDataSyncManager: cloudDataMap already contans an entry for saving %@";
           goto LABEL_22;
         }
 
         recordID5 = [configuredRecordFromAttributes recordID];
         [v8 setObject:v14 forKeyedSubscript:recordID5];
 
-        [v36 addObject:configuredRecordFromAttributes];
+        [v39 addObject:configuredRecordFromAttributes];
 LABEL_25:
 
         v13 = v13 + 1;
       }
 
       while (v11 != v13);
-      v30 = [v9 countByEnumeratingWithState:&v37 objects:v43 count:16];
-      v11 = v30;
+      v33 = [v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v11 = v33;
     }
 
-    while (v30);
+    while (v33);
   }
 
   if (save)
   {
-    *save = v36;
+    *save = v39;
   }
 
   if (delete)
   {
-    *delete = v35;
+    *delete = v38;
   }
 
   if (map)
   {
-    v31 = v8;
+    v34 = v8;
     *map = v8;
   }
 }
@@ -534,20 +534,20 @@ LABEL_14:
     database = [privateCloudDatabaseController database];
     v8 = dispatch_group_create();
     dispatch_group_enter(v8);
-    v30 = [(BCCloudDataSyncManager *)self _batchFromCloudData:dataCopy];
-    v9 = [v30 count];
-    v27 = v9 < [dataCopy count];
+    v31 = [(BCCloudDataSyncManager *)self _batchFromCloudData:dataCopy];
+    v9 = [v31 count];
+    v28 = v9 < [dataCopy count];
     v10 = +[NSMutableArray array];
     v11 = +[NSMutableArray array];
     v12 = +[NSMutableDictionary dictionary];
-    v38 = v10;
-    v39 = v11;
-    v37 = v12;
-    [(BCCloudDataSyncManager *)self _fromBatch:v30 getRecordsToSave:&v39 recordIDsToDelete:&v38 buildingMap:&v37];
-    v13 = v39;
+    v39 = v10;
+    v40 = v11;
+    v38 = v12;
+    [(BCCloudDataSyncManager *)self _fromBatch:v31 getRecordsToSave:&v40 recordIDsToDelete:&v39 buildingMap:&v38];
+    v13 = v40;
 
-    v14 = v38;
-    v29 = v37;
+    v14 = v39;
+    v30 = v38;
 
     v15 = [v13 count];
     v16 = &v15[[v14 count]];
@@ -559,20 +559,20 @@ LABEL_14:
       [v17 setConfiguration:v18];
 
       [v17 setSavePolicy:0];
-      v19 = [(BCCloudDataSyncManager *)self _modifyRecordsCompletionBlockWithDispatchGroup:v8 cloudDataMap:v29 recordCount:v16 operation:v17];
+      v19 = [(BCCloudDataSyncManager *)self _modifyRecordsCompletionBlockWithDispatchGroup:v8 cloudDataMap:v30 recordCount:v16 operation:v17];
       [v17 setModifyRecordsCompletionBlock:v19];
 
-      v20 = sub_100002660();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_100002660(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         delegate = [(BCCloudDataSyncManager *)self delegate];
         entityName = [delegate entityName];
         operationID = [v17 operationID];
         *buf = 138543618;
-        v41 = entityName;
-        v42 = 2114;
-        v43 = operationID;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Adding CKModifyRecordsOperation to database for: %{public}@.  Operation ID: %{public}@", buf, 0x16u);
+        v42 = entityName;
+        v43 = 2114;
+        v44 = operationID;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Adding CKModifyRecordsOperation to database for: %{public}@.  Operation ID: %{public}@", buf, 0x16u);
       }
 
       [database addOperation:v17];
@@ -584,25 +584,25 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = sub_100055460;
     block[3] = &unk_100241470;
-    objc_copyWeak(&v35, buf);
-    v36 = v27;
+    objc_copyWeak(&v36, buf);
+    v37 = v28;
     block[4] = self;
-    v34 = completionCopy;
+    v35 = completionCopy;
     dispatch_group_notify(v8, syncQueue, block);
 
     dispatch_group_leave(v8);
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v36);
     objc_destroyWeak(buf);
   }
 
   else
   {
     [(BCCloudDataSyncManager *)self setProcessingCloudData:0];
-    v25 = objc_retainBlock(completionCopy);
-    v26 = v25;
-    if (v25)
+    v26 = objc_retainBlock(completionCopy);
+    v27 = v26;
+    if (v26)
     {
-      (*(v25 + 2))(v25);
+      (*(v26 + 2))(v26);
     }
   }
 }

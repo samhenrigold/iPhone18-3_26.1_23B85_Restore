@@ -51,9 +51,9 @@
   {
     objc_storeWeak(&v5->_iconListView, viewCopy);
     layout = [viewCopy layout];
-    [layout iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassDefault"];
+    objc_msgSend_iconImageInfoForGridSizeClass_(layout);
     v9 = v8;
-    [layout iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassSmall"];
+    objc_msgSend_iconImageInfoForGridSizeClass_(layout);
     v11 = v10;
     v6->_collapseHeight = v9;
     [viewCopy iconSpacing];
@@ -124,7 +124,7 @@
   v31 = 0.0;
   [containerView convertPoint:iconListView toView:{0.0, self->_carouselInsets.top}];
   v33 = v32;
-  [containerView bounds];
+  objc_msgSend_bounds(containerView);
   [containerView convertPoint:iconListView toView:{0.0, v34 - self->_carouselInsets.bottom}];
   v36 = v35;
   if (v20 >= v33)
@@ -236,7 +236,7 @@ LABEL_35:
   if ([iconListView alignsIconsOnPixelBoundaries])
   {
     layout2 = [iconListView layout];
-    [layout2 iconImageInfo];
+    objc_msgSend_iconImageInfo(layout2);
 
     BSFloatRoundForScale();
     v20 = v55;
@@ -282,20 +282,18 @@ LABEL_43:
 
 - (CGRect)unadjustedBoundsForIconCoordinate:(SBIconCoordinate)coordinate
 {
-  row = coordinate.row;
-  column = coordinate.column;
   iconListView = [(SBHTodayIconListLayoutDelegate *)self iconListView];
   layoutMetrics = [iconListView layoutMetrics];
-  [(SBHTodayIconListLayoutDelegate *)self layoutAttributesForIconCoordinate:column metrics:row adjustedForRevealProgress:layoutMetrics, 0];
+  objc_msgSend_layoutAttributesForIconCoordinate_metrics_adjustedForRevealProgress_(self);
 
+  v6 = v10;
+  v7 = v11;
   v8 = v12;
   v9 = v13;
-  v10 = v14;
-  v11 = v15;
-  result.size.height = v11;
-  result.size.width = v10;
-  result.origin.y = v9;
-  result.origin.x = v8;
+  result.size.height = v9;
+  result.size.width = v8;
+  result.origin.y = v7;
+  result.origin.x = v6;
   return result;
 }
 
@@ -583,11 +581,11 @@ void __63__SBHTodayIconListLayoutDelegate_setVisuallyRevealed_animated___block_i
   metricsCopy = metrics;
   if ([(SBHTodayIconListLayoutDelegate *)self isCarouselLayout])
   {
-    [(SBHTodayIconListLayoutDelegate *)self layoutAttributesForIconCoordinate:column metrics:row adjustedForRevealProgress:metricsCopy, 1, 0, 0, 0];
+    objc_msgSend_layoutAttributesForIconCoordinate_metrics_adjustedForRevealProgress_(self, 0, 0, 0);
     v14 = [viewCopy iconAtCoordinate:column metrics:{row, metricsCopy}];
     layout = [viewCopy layout];
     gridSizeClass = [v14 gridSizeClass];
-    [layout iconImageInfoForGridSizeClass:gridSizeClass];
+    objc_msgSend_iconImageInfoForGridSizeClass_(layout);
     v18 = v17;
 
     y = 0.0 * 0.5 + 0.0 - v18 * 0.5;
@@ -603,7 +601,7 @@ void __63__SBHTodayIconListLayoutDelegate_setVisuallyRevealed_animated___block_i
 - (CGPoint)iconListView:(id)view centerForIconCoordinate:(SBIconCoordinate)coordinate metrics:(id)metrics proposedCenter:(CGPoint)center
 {
   x = center.x;
-  [(SBHTodayIconListLayoutDelegate *)self layoutAttributesForIconCoordinate:coordinate.column metrics:coordinate.row adjustedForRevealProgress:metrics, 1, 0, 0, 0];
+  objc_msgSend_layoutAttributesForIconCoordinate_metrics_adjustedForRevealProgress_(self, a2, coordinate.column, coordinate.row, metrics, 1, 0, 0, 0);
   v7 = 0.0 * 0.5 + 0.0;
   v8 = x;
   result.y = v7;
@@ -701,7 +699,7 @@ LABEL_13:
     v20 = v19;
     layout = [viewCopy layout];
     gridSizeClass = [lastObject gridSizeClass];
-    [layout iconImageInfoForGridSizeClass:gridSizeClass];
+    objc_msgSend_iconImageInfoForGridSizeClass_(layout);
     v24 = v23;
   }
 
@@ -726,41 +724,40 @@ LABEL_13:
   iconViewCopy = iconView;
   layoutMetrics = [viewCopy layoutMetrics];
   icon = [iconViewCopy icon];
-  v10 = [viewCopy coordinateForIcon:icon];
-  v12 = v11;
+  [viewCopy coordinateForIcon:icon];
 
   sx = 0.0;
-  v26 = 0u;
-  v27 = 0u;
-  v25 = 0u;
-  [(SBHTodayIconListLayoutDelegate *)self layoutAttributesForIconCoordinate:v10 metrics:v12 adjustedForRevealProgress:layoutMetrics, 1];
+  v23 = 0u;
+  v24 = 0u;
+  v22 = 0u;
+  objc_msgSend_layoutAttributesForIconCoordinate_metrics_adjustedForRevealProgress_(self);
   if (([iconViewCopy allIconElementsButLabelHidden] & 1) == 0)
   {
-    [iconViewCopy setIconImageAndAccessoryAlpha:*(&v27 + 1)];
+    [iconViewCopy setIconImageAndAccessoryAlpha:*(&v24 + 1)];
   }
 
   [iconViewCopy setIconImageSizeMatchesBoundsSize:1];
-  [iconViewCopy setBounds:{v25, v26}];
+  [iconViewCopy setBounds:{v22, v23}];
   [iconViewCopy setUserInteractionEnabled:BSFloatGreaterThanFloat()];
-  memset(&v24, 0, sizeof(v24));
-  CGAffineTransformMakeScale(&v24, sx, sx);
+  memset(&v21, 0, sizeof(v21));
+  CGAffineTransformMakeScale(&v21, sx, sx);
   [iconViewCopy center];
-  v14 = v13;
-  [viewCopy bounds];
-  v22 = v24;
-  CGAffineTransformTranslate(&v23, &v22, (1.0 - sx) * (v15 * 0.5 - v14), 0.0);
-  v24 = v23;
-  [iconViewCopy setTransform:&v23];
+  v11 = v10;
+  objc_msgSend_bounds(viewCopy);
+  v19 = v21;
+  CGAffineTransformTranslate(&v20, &v19, (1.0 - sx) * (v12 * 0.5 - v11), 0.0);
+  v21 = v20;
+  [iconViewCopy setTransform:&v20];
   customIconImageViewController = [iconViewCopy customIconImageViewController];
   if (customIconImageViewController && (objc_opt_respondsToSelector() & 1) != 0)
   {
     containerView = [(SBHTodayIconListLayoutDelegate *)self containerView];
-    [iconViewCopy bounds];
+    objc_msgSend_bounds(iconViewCopy);
     UIRectGetCenter();
     [iconViewCopy convertPoint:containerView toView:?];
-    v19 = v18;
-    [containerView bounds];
-    [customIconImageViewController setImageViewAlignment:v19 < self->_carouselInsets.top + v20 + (v21 - (self->_carouselInsets.top + self->_carouselInsets.bottom)) * 0.5];
+    v16 = v15;
+    objc_msgSend_bounds(containerView);
+    [customIconImageViewController setImageViewAlignment:v16 < self->_carouselInsets.top + v17 + (v18 - (self->_carouselInsets.top + self->_carouselInsets.bottom)) * 0.5];
   }
 
   [iconViewCopy layoutIfNeeded];
@@ -800,7 +797,7 @@ LABEL_13:
     v62 = __Block_byref_object_dispose__20;
     v63 = 0;
     containerView = [(SBHTodayIconListLayoutDelegate *)self containerView];
-    [containerView bounds];
+    objc_msgSend_bounds(containerView);
     top = self->_carouselInsets.top;
     left = self->_carouselInsets.left;
     v9 = v8 + left;
@@ -926,7 +923,7 @@ LABEL_17:
 void __78__SBHTodayIconListLayoutDelegate__reorderSubviewsForCarouselLayoutInListView___block_invoke(uint64_t a1, void *a2)
 {
   v17 = a2;
-  [v17 bounds];
+  objc_msgSend_bounds(v17);
   [v17 convertRect:*(a1 + 32) toView:?];
   x = v19.origin.x;
   y = v19.origin.y;
@@ -1042,7 +1039,7 @@ void __67__SBHTodayIconListLayoutDelegate__layoutFocusGuideViewsInListView___blo
     v9 = *(a1 + 40);
     v10 = [v20 icon];
     v11 = [v10 gridSizeClass];
-    [v9 iconImageInfoForGridSizeClass:v11];
+    objc_msgSend_iconImageInfoForGridSizeClass_(v9);
     v13 = v12;
     v15 = v14;
 
@@ -1093,7 +1090,7 @@ void __67__SBHTodayIconListLayoutDelegate__layoutFocusGuideViewsInListView___blo
       {
         if (v25 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          [layout iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassDefault"];
+          objc_msgSend_iconImageInfoForGridSizeClass_(layout);
           v23 = v23 + v15 + v31;
         }
       }
@@ -1102,7 +1099,7 @@ void __67__SBHTodayIconListLayoutDelegate__layoutFocusGuideViewsInListView___blo
       {
         v27 = [listModel iconAtIndex:v25];
         gridSizeClass = [v27 gridSizeClass];
-        [layout iconImageInfoForGridSizeClass:gridSizeClass];
+        objc_msgSend_iconImageInfoForGridSizeClass_(layout);
         v30 = v29;
 
         v23 = v23 + v15 + v30;

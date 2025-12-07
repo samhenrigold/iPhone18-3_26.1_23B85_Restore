@@ -43,25 +43,28 @@
 
 void __34__SFB389NFCPromptSession_activate__block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) _ensureXPCStarted];
-  v2 = *(a1 + 32);
-  if ((*(v2 + 8) & 1) == 0)
+  v2 = [*(a1 + 32) _ensureXPCStarted];
+  v5 = *(a1 + 32);
+  if ((*(v5 + 8) & 1) == 0)
   {
-    *(v2 + 8) = 1;
-    if (gLogCategory_SFB389NFCPromptSession <= 30 && (gLogCategory_SFB389NFCPromptSession != -1 || _LogCategory_Initialize()))
+    *(v5 + 8) = 1;
+    if (gLogCategory_SFB389NFCPromptSession <= 30)
     {
-      __34__SFB389NFCPromptSession_activate__block_invoke_cold_1();
+      if (gLogCategory_SFB389NFCPromptSession != -1 || (v2 = _LogCategory_Initialize(), v2))
+      {
+        __34__SFB389NFCPromptSession_activate__block_invoke_cold_1(v2, v3, v4);
+      }
     }
 
-    v3 = [*(a1 + 32) _getRemoteObjectProxy];
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 16);
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __34__SFB389NFCPromptSession_activate__block_invoke_2;
-    v6[3] = &unk_1E788CC68;
-    v6[4] = v4;
-    [v3 b389NFCPromptDidRequestPresentationWithConfiguration:v5 responseHandler:v6];
+    v6 = [*(a1 + 32) _getRemoteObjectProxy];
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 16);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __34__SFB389NFCPromptSession_activate__block_invoke_2;
+    v9[3] = &unk_1E788CC68;
+    v9[4] = v7;
+    [v6 b389NFCPromptDidRequestPresentationWithConfiguration:v8 responseHandler:v9];
   }
 }
 
@@ -70,7 +73,7 @@ void __34__SFB389NFCPromptSession_activate__block_invoke_2(uint64_t a1, void *a2
   v10 = a2;
   if (gLogCategory_SFB389NFCPromptSession <= 30 && (gLogCategory_SFB389NFCPromptSession != -1 || _LogCategory_Initialize()))
   {
-    __34__SFB389NFCPromptSession_activate__block_invoke_2_cold_1(a3);
+    __34__SFB389NFCPromptSession_activate__block_invoke_2_cold_1(a3, a4);
   }
 
   v7 = _Block_copy(*(*(a1 + 32) + 40));
@@ -110,9 +113,12 @@ void __36__SFB389NFCPromptSession_invalidate__block_invoke(uint64_t a1)
     v5 = [*(a1 + 32) _getRemoteObjectProxy];
     [v5 dismissCurrentB389NFCPrompt];
 
-    if (gLogCategory_SFB389NFCPromptSession <= 30 && (gLogCategory_SFB389NFCPromptSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFB389NFCPromptSession <= 30)
     {
-      __36__SFB389NFCPromptSession_invalidate__block_invoke_cold_1();
+      if (gLogCategory_SFB389NFCPromptSession != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        __36__SFB389NFCPromptSession_invalidate__block_invoke_cold_1(v6, v7, v8);
+      }
     }
   }
 }
@@ -147,7 +153,7 @@ void __47__SFB389NFCPromptSession__getRemoteObjectProxy__block_invoke(uint64_t a
   v6 = a2;
   if (gLogCategory_SFB389NFCPromptSession <= 90 && (gLogCategory_SFB389NFCPromptSession != -1 || _LogCategory_Initialize()))
   {
-    __47__SFB389NFCPromptSession__getRemoteObjectProxy__block_invoke_cold_1();
+    __47__SFB389NFCPromptSession__getRemoteObjectProxy__block_invoke_cold_1(v6);
   }
 
   v3 = _Block_copy(*(*(a1 + 32) + 40));
@@ -192,28 +198,36 @@ void __47__SFB389NFCPromptSession__getRemoteObjectProxy__block_invoke(uint64_t a
   }
 }
 
-uint64_t __43__SFB389NFCPromptSession__ensureXPCStarted__block_invoke(uint64_t a1)
+uint64_t __43__SFB389NFCPromptSession__ensureXPCStarted__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFB389NFCPromptSession <= 90 && (gLogCategory_SFB389NFCPromptSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFB389NFCPromptSession <= 90)
   {
-    __43__SFB389NFCPromptSession__ensureXPCStarted__block_invoke_cold_1();
+    if (gLogCategory_SFB389NFCPromptSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __43__SFB389NFCPromptSession__ensureXPCStarted__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 invalidate];
+  return [v4 invalidate];
 }
 
-uint64_t __43__SFB389NFCPromptSession__ensureXPCStarted__block_invoke_2(uint64_t a1)
+uint64_t __43__SFB389NFCPromptSession__ensureXPCStarted__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFB389NFCPromptSession <= 90 && (gLogCategory_SFB389NFCPromptSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFB389NFCPromptSession <= 90)
   {
-    __43__SFB389NFCPromptSession__ensureXPCStarted__block_invoke_2_cold_1();
+    if (gLogCategory_SFB389NFCPromptSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __43__SFB389NFCPromptSession__ensureXPCStarted__block_invoke_2_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 invalidate];
+  return [v4 invalidate];
 }
 
 - (void)updateCardConfiguration:(id)configuration
@@ -241,14 +255,19 @@ void __50__SFB389NFCPromptSession_updateCardConfiguration___block_invoke(uint64_
   }
 }
 
-uint64_t __34__SFB389NFCPromptSession_activate__block_invoke_2_cold_1(uint64_t a1)
+uint64_t __34__SFB389NFCPromptSession_activate__block_invoke_2_cold_1(uint64_t a1, double a2)
 {
-  if ((a1 - 1) <= 3)
+  if ((a1 - 1) > 3)
   {
-    v1 = off_1E788CC88[a1 - 1];
+    v4 = @"?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E788CC88[a1 - 1];
+  }
+
+  return LogPrintF(&gLogCategory_SFB389NFCPromptSession, "[SFB389NFCPromptSession activate]_block_invoke_2", 30, "NFC Presentation responseHandler action: '%@', duration %f\n", v4, *&a2, v2, v3);
 }
 
 @end

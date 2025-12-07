@@ -265,23 +265,23 @@ uint64_t __38__HMFNetworkDiagnosticPing__sendPing___block_invoke_2(uint64_t a1, 
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = HMFGetOSLogHandle(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v7 = HMFGetLogIdentifier(v5);
+    v8 = HMFGetLogIdentifier(v5);
     v13 = 138543618;
-    v14 = v7;
+    v14 = v8;
     v15 = 2114;
     v16 = v3;
-    _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to configure with error: %{public}@", &v13, 0x16u);
+    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to configure with error: %{public}@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = v3;
-  v9 = v8;
-  if (v8)
+  v9 = v3;
+  v10 = v9;
+  if (v9)
   {
-    v10 = v8;
+    v11 = v9;
   }
 
   else
@@ -290,7 +290,6 @@ uint64_t __38__HMFNetworkDiagnosticPing__sendPing___block_invoke_2(uint64_t a1, 
     objc_claimAutoreleasedReturnValue();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 2;
 }
 
@@ -575,22 +574,22 @@ LABEL_39:
     {
       v9 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v11 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = HMFGetOSLogHandle(selfCopy, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v12 = HMFGetLogIdentifier(selfCopy);
+        v13 = HMFGetLogIdentifier(selfCopy);
         device = [(HMFNetworkDiagnostic *)selfCopy device];
         shortDescription = [device shortDescription];
         LODWORD(v20.version) = 138543618;
-        *(&v20.version + 4) = v12;
+        *(&v20.version + 4) = v13;
         WORD2(v20.info) = 2114;
         *(&v20.info + 6) = shortDescription;
-        _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_ERROR, "%{public}@No valid address for device: %{public}@", &v20, 0x16u);
+        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_ERROR, "%{public}@No valid address for device: %{public}@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
-      v15 = MEMORY[0x277CCA9B8];
-      v16 = 4;
+      v16 = MEMORY[0x277CCA9B8];
+      v17 = 4;
       goto LABEL_15;
     }
   }
@@ -624,14 +623,13 @@ LABEL_39:
     goto LABEL_16;
   }
 
-  v15 = MEMORY[0x277CCA9B8];
-  v16 = 15;
+  v16 = MEMORY[0x277CCA9B8];
+  v17 = 15;
 LABEL_15:
-  v17 = [v15 hmfErrorWithCode:v16];
-  v8 = [HMFFuture futureWithError:v17];
+  v18 = [v16 hmfErrorWithCode:v17];
+  v8 = [HMFFuture futureWithError:v18];
 
 LABEL_16:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -665,22 +663,21 @@ uint64_t __38__HMFNetworkDiagnosticPing__sendData___block_invoke_2(uint64_t a1, 
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = HMFGetOSLogHandle(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v7 = HMFGetLogIdentifier(v5);
-    v8 = [*(a1 + 32) addressIPV4];
+    v8 = HMFGetLogIdentifier(v5);
+    v9 = [*(a1 + 32) addressIPV4];
     v11 = 138543874;
-    v12 = v7;
+    v12 = v8;
     v13 = 2114;
-    v14 = v8;
+    v14 = v9;
     v15 = 2114;
     v16 = v3;
-    _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to send data via address: %{public}@ with error: %{public}@", &v11, 0x20u);
+    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to send data via address: %{public}@ with error: %{public}@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -702,13 +699,13 @@ uint64_t __38__HMFNetworkDiagnosticPing__sendData___block_invoke_48(uint64_t a1)
 
 - (id)_sendData:(id)data address:(id)address
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   addressCopy = address;
   v8 = addressCopy;
   if (!addressCopy)
   {
-    v56 = +[HMFFuture futureWithNoValue];
+    v58 = +[HMFFuture futureWithNoValue];
     goto LABEL_42;
   }
 
@@ -721,8 +718,8 @@ uint64_t __38__HMFNetworkDiagnosticPing__sendData___block_invoke_48(uint64_t a1)
     }
 
 LABEL_29:
-    v57 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:4];
-    v56 = [HMFFuture futureWithError:v57];
+    v59 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:4];
+    v58 = [HMFFuture futureWithError:v59];
 
     goto LABEL_42;
   }
@@ -734,7 +731,7 @@ LABEL_29:
   }
 
 LABEL_4:
-  v68 = socket_ipv4;
+  v69 = socket_ipv4;
   addressFamily = [v8 addressFamily];
   if (addressFamily == 1)
   {
@@ -746,15 +743,15 @@ LABEL_4:
     v11 = -128;
   }
 
-  v70 = [v8 dataUsingEncoding:1];
+  v71 = [v8 dataUsingEncoding:1];
   identifier = [(HMFNetworkDiagnosticPing *)self identifier];
   sequenceNumber = [(HMFNetworkDiagnosticPing *)self sequenceNumber];
-  v69 = dataCopy;
+  v70 = dataCopy;
   v14 = dataCopy;
   v15 = v14;
   if ([v14 length] <= 0x37)
   {
-    LODWORD(v67) = v11;
+    LODWORD(v68) = v11;
     v16 = [MEMORY[0x277CBEB28] dataWithCapacity:56];
     v17 = v16;
     if (v14)
@@ -765,13 +762,13 @@ LABEL_4:
     v18 = [v14 length];
     v19 = 56 - v18;
     MEMORY[0x28223BE20](v18, v20);
-    v22 = &v65 - v21;
+    v22 = &v66 - v21;
     RandomBytes();
     v23 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:v19];
     [v17 appendData:v23];
 
     v15 = [v17 copy];
-    LOBYTE(v11) = v67;
+    LOBYTE(v11) = v68;
   }
 
   v24 = [MEMORY[0x277CBEB28] dataWithLength:{objc_msgSend(v15, "length") + 8}];
@@ -829,132 +826,130 @@ LABEL_19:
   v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v14 encoding:4];
   v32 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v34 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+  v35 = HMFGetOSLogHandle(selfCopy, v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
-    v35 = HMFGetLogIdentifier(selfCopy);
-    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "length")}];
+    v36 = HMFGetLogIdentifier(selfCopy);
+    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "length")}];
     device = [(HMFNetworkDiagnostic *)selfCopy device];
     shortDescription = [device shortDescription];
     *buf = 138544130;
-    v72 = v35;
-    v73 = 2112;
-    v74 = v36;
-    v75 = 2112;
-    v76 = v31;
-    v77 = 2114;
-    v78 = shortDescription;
-    _os_log_impl(&dword_22ADEC000, v34, OS_LOG_TYPE_DEBUG, "%{public}@Sending data (%@: %@) to device: %{public}@", buf, 0x2Au);
+    v73 = v36;
+    v74 = 2112;
+    v75 = v37;
+    v76 = 2112;
+    v77 = v31;
+    v78 = 2114;
+    v79 = shortDescription;
+    _os_log_impl(&dword_22ADEC000, v35, OS_LOG_TYPE_DEBUG, "%{public}@Sending data (%@: %@) to device: %{public}@", buf, 0x2Au);
   }
 
-  v67 = v31;
+  v68 = v31;
 
   objc_autoreleasePoolPop(v32);
   [(HMFNetworkDiagnosticPing *)selfCopy setReadPromise:0];
   date = [MEMORY[0x277CBEAA8] date];
   [(HMFNetworkDiagnosticPing *)selfCopy setPingStartDate:date];
 
-  LODWORD(date) = CFSocketGetNative(v68);
+  LODWORD(date) = CFSocketGetNative(v69);
   bytes2 = [v25 bytes];
-  v41 = [v25 length];
-  v42 = sendto(date, bytes2, v41, 0, [v70 bytes], objc_msgSend(v70, "length"));
-  v43 = [v25 length];
-  if (v42 == -1)
+  v42 = [v25 length];
+  v43 = sendto(date, bytes2, v42, 0, [v71 bytes], objc_msgSend(v71, "length"));
+  v44 = [v25 length];
+  if (v43 == -1)
   {
-    v44 = 6;
+    v45 = 6;
   }
 
   else
   {
-    v44 = 15;
+    v45 = 15;
   }
 
-  v45 = [MEMORY[0x277CBEAA8] now];
+  v46 = [MEMORY[0x277CBEAA8] now];
   pingStartDate = [(HMFNetworkDiagnosticPing *)selfCopy pingStartDate];
-  [v45 timeIntervalSinceDate:pingStartDate];
-  v48 = v47;
+  [v46 timeIntervalSinceDate:pingStartDate];
+  v49 = v48;
 
-  v49 = objc_autoreleasePoolPush();
-  v50 = selfCopy;
-  v51 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+  v50 = objc_autoreleasePoolPush();
+  v51 = selfCopy;
+  v53 = HMFGetOSLogHandle(v51, v52);
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
   {
-    v65 = v49;
-    v66 = v44;
-    v68 = HMFGetLogIdentifier(v50);
-    v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "length")}];
-    device2 = [(HMFNetworkDiagnostic *)v50 device];
+    v66 = v50;
+    v67 = v45;
+    v69 = HMFGetLogIdentifier(v51);
+    v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "length")}];
+    device2 = [(HMFNetworkDiagnostic *)v51 device];
     shortDescription2 = [device2 shortDescription];
-    if (v42 == v43)
+    if (v43 == v44)
     {
-      v55 = 0;
+      v57 = 0;
     }
 
     else
     {
-      v55 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:v66];
+      v57 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:v67];
     }
 
     *buf = 138544386;
-    v72 = v68;
-    v73 = 2112;
-    v74 = v52;
-    v75 = 2114;
-    v76 = shortDescription2;
-    v77 = 2114;
-    v78 = v55;
-    v79 = 2048;
-    v80 = v48;
-    _os_log_impl(&dword_22ADEC000, v51, OS_LOG_TYPE_INFO, "%{public}@Sent data (%@) to device: %{public}@ with error: %{public}@. Duration: %.3fs", buf, 0x34u);
-    if (v42 != v43)
+    v73 = v69;
+    v74 = 2112;
+    v75 = v54;
+    v76 = 2114;
+    v77 = shortDescription2;
+    v78 = 2114;
+    v79 = v57;
+    v80 = 2048;
+    v81 = v49;
+    _os_log_impl(&dword_22ADEC000, v53, OS_LOG_TYPE_INFO, "%{public}@Sent data (%@) to device: %{public}@ with error: %{public}@. Duration: %.3fs", buf, 0x34u);
+    if (v43 != v44)
     {
     }
 
-    v49 = v65;
-    v44 = v66;
+    v50 = v66;
+    v45 = v67;
   }
 
-  objc_autoreleasePoolPop(v49);
-  sequenceNumber2 = [(HMFNetworkDiagnosticPing *)v50 sequenceNumber];
-  v59 = sequenceNumber2 + 1;
-  v60 = (sequenceNumber2 + 1);
-  [(HMFNetworkDiagnosticPing *)v50 setSequenceNumber:v60];
-  if (v60 != v59)
+  objc_autoreleasePoolPop(v50);
+  sequenceNumber2 = [(HMFNetworkDiagnosticPing *)v51 sequenceNumber];
+  v61 = sequenceNumber2 + 1;
+  v62 = (sequenceNumber2 + 1);
+  [(HMFNetworkDiagnosticPing *)v51 setSequenceNumber:v62];
+  if (v62 != v61)
   {
-    [(HMFNetworkDiagnosticPing *)v50 setSequenceNumber:0];
+    [(HMFNetworkDiagnosticPing *)v51 setSequenceNumber:0];
   }
 
-  if (v42 == v43)
+  if (v43 == v44)
   {
-    v61 = [HMFFuture futureWithPromise:&v50->_readPromise];
-    [v61 timeout:1.0];
+    v63 = [HMFFuture futureWithPromise:&v51->_readPromise];
+    [v63 timeout:1.0];
   }
 
   else
   {
-    v61 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:v44];
-    [HMFFuture futureWithError:v61];
+    v63 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:v45];
+    [HMFFuture futureWithError:v63];
   }
-  v56 = ;
-  v62 = v67;
+  v58 = ;
+  v64 = v68;
 
-  dataCopy = v69;
+  dataCopy = v70;
 LABEL_42:
 
-  v63 = *MEMORY[0x277D85DE8];
-
-  return v56;
+  return v58;
 }
 
 - (void)_readDataFromSocket:(__CFSocket *)socket
 {
   v3 = MEMORY[0x28223BE20](self, a2);
-  v51 = *MEMORY[0x277D85DE8];
-  *&v49.sa_len = 0;
-  *&v49.sa_data[6] = 0;
-  v40 = 16;
+  v52 = *MEMORY[0x277D85DE8];
+  *&v50.sa_len = 0;
+  *&v50.sa_data[6] = 0;
+  v41 = 16;
   Native = CFSocketGetNative(v4);
-  v6 = recvfrom(Native, v50, 0xFFFFuLL, 0, &v49, &v40);
+  v6 = recvfrom(Native, v51, 0xFFFFuLL, 0, &v50, &v41);
   if ((v6 & 0x8000000000000000) == 0)
   {
     v7 = v6;
@@ -963,8 +958,8 @@ LABEL_42:
     [v8 timeIntervalSinceDate:pingStartDate];
     v11 = v10;
 
-    v12 = [MEMORY[0x277CBEB28] dataWithBytes:v50 length:v7];
-    v13 = [[HMFNetAddress alloc] initWithSocketAddress:&v49];
+    v12 = [MEMORY[0x277CBEB28] dataWithBytes:v51 length:v7];
+    v13 = [[HMFNetAddress alloc] initWithSocketAddress:&v50];
     if ([(HMFNetAddress *)v13 addressFamily]== 1)
     {
       identifier = [v3 identifier];
@@ -975,47 +970,47 @@ LABEL_42:
         goto LABEL_36;
       }
 
-      v33 = ([v15 mutableBytes] + v17);
-      if (*v33 || *(v33 + 1))
+      v35 = ([v15 mutableBytes] + v17);
+      if (*v35 || *(v35 + 1))
       {
         goto LABEL_36;
       }
 
-      v34 = v33[1];
-      v33[1] = 0;
-      v35 = [v15 length] - v17;
-      if (v35 < 2)
+      v36 = v35[1];
+      v35[1] = 0;
+      v37 = [v15 length] - v17;
+      if (v37 < 2)
       {
-        v36 = 0;
-        v37 = v33;
+        v38 = 0;
+        v39 = v35;
       }
 
       else
       {
-        v36 = 0;
-        v37 = v33;
+        v38 = 0;
+        v39 = v35;
         do
         {
-          v38 = *v37++;
-          v36 += v38;
-          v35 -= 2;
+          v40 = *v39++;
+          v38 += v40;
+          v37 -= 2;
         }
 
-        while (v35 > 1);
+        while (v37 > 1);
       }
 
-      if (v35)
+      if (v37)
       {
-        v36 += *v37;
+        v38 += *v39;
       }
 
-      v33[1] = v34;
-      if ((v34 ^ (HIWORD(v36) + v36 + (((v36 >> 16) + v36) >> 16))) != 0xFFFF || identifier != bswap32(v33[2]) >> 16)
+      v35[1] = v36;
+      if ((v36 ^ (HIWORD(v38) + v38 + (((v38 >> 16) + v38) >> 16))) != 0xFFFF || identifier != bswap32(v35[2]) >> 16)
       {
         goto LABEL_36;
       }
 
-      v24 = 28;
+      v25 = 28;
     }
 
     else
@@ -1024,76 +1019,74 @@ LABEL_42:
       {
 LABEL_37:
 
-        goto LABEL_38;
+        return;
       }
 
       identifier2 = [v3 identifier];
       v15 = v12;
-      if ([v15 length] < 8 || (v23 = objc_msgSend(v15, "bytes"), *v23 != 129) || v23[1] || identifier2 != bswap32(*(v23 + 2)) >> 16)
+      if ([v15 length] < 8 || (v24 = objc_msgSend(v15, "bytes"), *v24 != 129) || v24[1] || identifier2 != bswap32(*(v24 + 2)) >> 16)
       {
 LABEL_36:
 
         goto LABEL_37;
       }
 
-      v24 = 8;
+      v25 = 8;
     }
 
-    [v12 replaceBytesInRange:0 withBytes:v24 length:{0, 0}];
+    [v12 replaceBytesInRange:0 withBytes:v25 length:{0, 0}];
 
     v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v12 encoding:4];
-    v25 = objc_autoreleasePoolPush();
-    v26 = v3;
-    v27 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v26 = objc_autoreleasePoolPush();
+    v27 = v3;
+    v29 = HMFGetOSLogHandle(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      v28 = HMFGetLogIdentifier(v26);
-      v29 = v15;
+      v30 = HMFGetLogIdentifier(v27);
+      v31 = v15;
       if (!v15)
       {
-        v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "length")}];
+        v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "length")}];
       }
 
-      device = [v26 device];
+      device = [v27 device];
       shortDescription = [device shortDescription];
       *buf = 138544130;
-      v42 = v28;
-      v43 = 2112;
-      v44 = v29;
-      v45 = 2114;
-      v46 = shortDescription;
-      v47 = 2048;
-      v48 = v11;
-      _os_log_impl(&dword_22ADEC000, v27, OS_LOG_TYPE_INFO, "%{public}@Receive data (%@) from device: %{public}@. Duration: %.3fs", buf, 0x2Au);
+      v43 = v30;
+      v44 = 2112;
+      v45 = v31;
+      v46 = 2114;
+      v47 = shortDescription;
+      v48 = 2048;
+      v49 = v11;
+      _os_log_impl(&dword_22ADEC000, v29, OS_LOG_TYPE_INFO, "%{public}@Receive data (%@) from device: %{public}@. Duration: %.3fs", buf, 0x2Au);
 
       if (!v15)
       {
       }
     }
 
-    objc_autoreleasePoolPop(v25);
-    [v26 setRunDuration:v11];
-    readPromise = [v26 readPromise];
+    objc_autoreleasePoolPop(v26);
+    [v27 setRunDuration:v11];
+    readPromise = [v27 readPromise];
     [readPromise fulfillWithNoValue];
 
-    [v26 setReadPromise:0];
+    [v27 setReadPromise:0];
     goto LABEL_36;
   }
 
   v18 = objc_autoreleasePoolPush();
   v19 = v3;
-  v20 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v21 = HMFGetOSLogHandle(v19, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v21 = HMFGetLogIdentifier(v19);
+    v22 = HMFGetLogIdentifier(v19);
     *buf = 138543362;
-    v42 = v21;
-    _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_ERROR, "%{public}@Receive invalid data", buf, 0xCu);
+    v43 = v22;
+    _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_ERROR, "%{public}@Receive invalid data", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
-LABEL_38:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 @end

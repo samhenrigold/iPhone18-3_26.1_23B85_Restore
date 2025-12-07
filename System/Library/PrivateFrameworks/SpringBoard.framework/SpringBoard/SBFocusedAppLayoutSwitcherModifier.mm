@@ -63,7 +63,7 @@
       v32 = 2;
 LABEL_29:
       v36 = [(SBUpdateLayoutSwitcherEventResponse *)v30 initWithOptions:v31 updateMode:v32, *&v40];
-      v37 = SBAppendSwitcherModifierResponse(v36, v5);
+      v37 = SBAppendSwitcherModifierResponse();
 
       v5 = v37;
       goto LABEL_30;
@@ -228,7 +228,7 @@ LABEL_28:
     }
 
     v34 = [[SBScrollToAppLayoutSwitcherEventResponse alloc] initWithAppLayout:self->_focusedAppLayout alignment:v33 animated:1];
-    v35 = SBAppendSwitcherModifierResponse(v34, v5);
+    v35 = SBAppendSwitcherModifierResponse();
 
     v5 = v35;
     goto LABEL_28;
@@ -286,7 +286,7 @@ BOOL __72__SBFocusedAppLayoutSwitcherModifier_handleUpdateFocusedAppLayoutEvent_
   {
     [(SBChainableModifier *)self setState:1];
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }

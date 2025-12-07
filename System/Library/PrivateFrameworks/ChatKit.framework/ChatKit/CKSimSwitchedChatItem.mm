@@ -48,7 +48,7 @@
 
   v10 = objc_alloc(MEMORY[0x1E696AD40]);
   v11 = MEMORY[0x1E696AEC0];
-  v12 = CKFrameworkBundle();
+  v12 = CKFrameworkBundle(v10);
   v13 = [v12 localizedStringForKey:@"NUMBER_CHANGED" value:&stru_1F04268F8 table:@"ChatKit"];
   v14 = [v11 stringWithFormat:v13, _stripFZIDPrefix];
 

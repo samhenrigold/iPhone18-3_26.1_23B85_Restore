@@ -52,13 +52,13 @@
 {
   if (self)
   {
-    [(NSProgressValues *)self overallFraction];
+    objc_msgSend_overallFraction(self, a2);
   }
 
   return 0.0;
 }
 
-uint64_t __36__NSProgressValues_decodableClasses__block_invoke()
+void *__36__NSProgressValues_decodableClasses__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();

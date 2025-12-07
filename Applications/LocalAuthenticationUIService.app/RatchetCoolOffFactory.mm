@@ -14,18 +14,18 @@
 
 + (id)makeViewControllerWith:(id)with delegate:(id)delegate
 {
-  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for RatchetCoolOffContentViewModel(0);
   swift_unknownObjectRetain_n();
-  v5 = RatchetCoolOffContentViewModel.__allocating_init(with:delegate:)(v4);
+  v6 = RatchetCoolOffContentViewModel.__allocating_init(with:delegate:)(v5, delegate);
   type metadata accessor for RatchetCoolOffContentViewController();
-  v6 = lazy protocol witness table accessor for type RatchetCoolOffContentViewModel and conformance RatchetCoolOffContentViewModel();
-  v7 = v5;
-  v8 = RatchetCoolOffContentViewController.__allocating_init(viewModel:)(v7, v6);
+  v7 = lazy protocol witness table accessor for type RatchetCoolOffContentViewModel and conformance RatchetCoolOffContentViewModel();
+  v8 = v6;
+  v9 = RatchetCoolOffContentViewController.__allocating_init(viewModel:)(v8, v7);
 
   swift_unknownObjectRelease();
 
-  return v8;
+  return v9;
 }
 
 @end

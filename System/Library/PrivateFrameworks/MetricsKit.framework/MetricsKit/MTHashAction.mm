@@ -68,16 +68,16 @@ LABEL_8:
 
   if (v13)
   {
-    v15 = MEMORY[0x277CCACA8];
+    v16 = MEMORY[0x277CCACA8];
     value = [v13 value];
-    idCopy = [v15 stringWithFormat:@"%@\n%@\n%@", ofCopy, value, idCopy];
+    idCopy = [v16 stringWithFormat:@"%@\n%@\n%@", ofCopy, value, idCopy];
 
     mt_SHA1Base62String = [idCopy mt_SHA1Base62String];
   }
 
   else
   {
-    idCopy = MTMetricsKitOSLog();
+    idCopy = MTMetricsKitOSLog(v15);
     if (os_log_type_enabled(idCopy, OS_LOG_TYPE_ERROR))
     {
       scheme2 = [(MTHashAction *)self scheme];
@@ -88,8 +88,6 @@ LABEL_8:
 
     mt_SHA1Base62String = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return mt_SHA1Base62String;
 }

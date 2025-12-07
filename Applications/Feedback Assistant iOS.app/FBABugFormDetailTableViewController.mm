@@ -21,7 +21,10 @@
 - (void)updateChoices;
 - (void)updateSearchBar;
 - (void)updateSearchResultsForSearchController:(id)controller;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation FBABugFormDetailTableViewController
@@ -54,6 +57,42 @@
   [tableView7 _setHeaderAndFooterViewsFloat:0];
 
   [(FBABugFormDetailTableViewController *)self updateSearchBar];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = FBABugFormDetailTableViewController;
+  [(FBABugFormDetailTableViewController *)&v6 viewWillAppear:appear];
+  [(FBABugFormDetailTableViewController *)self recordCheckboxAnswers];
+  if (self->_answer)
+  {
+    getPathToScrollTo = [(FBABugFormDetailTableViewController *)self getPathToScrollTo];
+    if (getPathToScrollTo)
+    {
+      tableView = [(FBABugFormDetailTableViewController *)self tableView];
+      [tableView scrollToRowAtIndexPath:getPathToScrollTo atScrollPosition:2 animated:0];
+    }
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = FBABugFormDetailTableViewController;
+  [(FBABugFormDetailTableViewController *)&v4 viewDidAppear:appear];
+  [(FBABugFormDetailTableViewController *)self becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = FBABugFormDetailTableViewController;
+  [(FBABugFormDetailTableViewController *)&v6 viewWillDisappear:disappear];
+  [(FBABugFormDetailTableViewController *)self updateCheckboxDelegateIfNeeded];
+  delegate = [(FBABugFormDetailTableViewController *)self delegate];
+  question = [(FBABugFormDetailTableViewController *)self question];
+  [delegate editorDidDismissForQuestion:question];
 }
 
 - (void)dealloc

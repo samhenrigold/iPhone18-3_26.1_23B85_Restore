@@ -145,47 +145,46 @@
 
 - (_NSFaultingMutableSet)initWithSource:(id)source destinations:(id)destinations forRelationship:(id)relationship inContext:(id)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   context = [(_NSFaultingMutableSet *)self initWithSource:source forRelationship:relationship asFault:0, context];
   if (context)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v8 = [destinations countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v8 = [destinations countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(destinations);
           }
 
-          CFSetAddValue(context->_realSet, *(*(&v14 + 1) + 8 * v11++));
+          CFSetAddValue(context->_realSet, *(*(&v13 + 1) + 8 * v11++));
         }
 
         while (v9 != v11);
-        v9 = [destinations countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [destinations countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return context;
 }
 
 - (void)willReadWithContents:(id)contents
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   if (*&self->_flags)
   {
@@ -202,28 +201,28 @@
     ptr = realSet;
     if (contents)
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
-      v10 = [contents countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v10 = [contents countByEnumeratingWithState:&v27 objects:v36 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v29;
+        v12 = *v28;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v29 != v12)
+            if (*v28 != v12)
             {
               objc_enumerationMutation(contents);
             }
 
-            CFSetAddValue(self->_realSet, *(*(&v28 + 1) + 8 * i));
+            CFSetAddValue(self->_realSet, *(*(&v27 + 1) + 8 * i));
           }
 
-          v11 = [contents countByEnumeratingWithState:&v28 objects:v37 count:16];
+          v11 = [contents countByEnumeratingWithState:&v27 objects:v36 count:16];
         }
 
         while (v11);
@@ -232,7 +231,7 @@
 
     else
     {
-      v26 = v5;
+      v25 = v5;
       source = self->_source;
       if (source)
       {
@@ -247,36 +246,36 @@
       v16 = [(NSFaultHandler *)v15 retainedFulfillAggregateFaultForObject:v9 andRelationship:managedObjectContext withContext:?];
       if ([v16 count])
       {
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
-        v17 = [v16 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v17 = [v16 countByEnumeratingWithState:&v31 objects:v37 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v33;
+          v19 = *v32;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v33 != v19)
+              if (*v32 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = [NSManagedObjectContext _retainedObjectWithID:managedObjectContext optionalHandler:*(*(&v32 + 1) + 8 * j) withInlineStorage:0];
+              v21 = [NSManagedObjectContext _retainedObjectWithID:managedObjectContext optionalHandler:*(*(&v31 + 1) + 8 * j) withInlineStorage:0];
               CFSetAddValue(self->_realSet, v21);
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v32 objects:v38 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v31 objects:v37 count:16];
           }
 
           while (v18);
         }
       }
 
-      v5 = v26;
+      v5 = v25;
     }
 
     if (ptr)
@@ -298,11 +297,10 @@
 
     flags = self->_flags;
     self->_flags = (flags & 0xFFFFFFFE);
-    [(NSManagedObject *)self->_source _commitPhotoshoperyForRelationshipAtIndex:self newValue:?];
+    [(NSManagedObject *)&self->_source->super.isa _commitPhotoshoperyForRelationshipAtIndex:self newValue:?];
   }
 
   objc_autoreleasePoolPop(v5);
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)turnIntoFault
@@ -329,7 +327,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (_PF_Threading_Debugging_level)
   {
     _PFAssertSafeMultiThreadedAccess_impl([(NSManagedObject *)self->_source managedObjectContext], a2);
@@ -348,7 +346,7 @@
     }
 
     *(v11 + 3) = *(v11 + 3) & 0xFFFFFFFD | (2 * ((*&self->_flags >> 1) & 1));
-    goto LABEL_19;
+    return v11;
   }
 
   Count = CFSetGetCount(self->_realSet);
@@ -372,7 +370,7 @@
     callBacks.hash = 0;
     callBacks.copyDescription = v7;
     v9 = (8 * v8 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v10 = (&v18 - v9);
+    v10 = (&v16 - v9);
     if (Count > 0x200)
     {
       v10 = NSAllocateScannedUncollectable();
@@ -380,7 +378,7 @@
 
     else
     {
-      bzero(&v18 - v9, 8 * Count);
+      bzero(&v16 - v9, 8 * Count);
     }
 
     CFSetGetValues(self->_realSet, v10);
@@ -390,13 +388,10 @@
       NSZoneFree(0, v10);
     }
 
-LABEL_19:
-    v17 = *MEMORY[0x1E69E9840];
     return v11;
   }
 
   v14 = NSSet_EmptySet;
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -418,12 +413,12 @@ LABEL_19:
   source = self->_source;
   if (*&flags)
   {
-    v8 = [v5 stringWithFormat:@"Relationship '%@' fault on managed object (%p) %@", name, self->_source, source, v12];
+    v8 = objc_msgSend_stringWithFormat_(v5, name, self->_source, source);
   }
 
   else
   {
-    v8 = [v5 stringWithFormat:@"Relationship '%@' on managed object (%p) %@ with objects %@", name, source, source, objc_msgSend(self->_realSet, "description")];
+    v8 = objc_msgSend_stringWithFormat_(v5, name, source, source, [self->_realSet description]);
   }
 
   v9 = v8;
@@ -442,12 +437,12 @@ LABEL_19:
   source = self->_source;
   if (*&flags)
   {
-    v10 = [v7 stringWithFormat:@"Relationship '%@' fault on managed object (%p) %@", name, self->_source, source, v14];
+    v10 = objc_msgSend_stringWithFormat_(v7, name, self->_source, source);
   }
 
   else
   {
-    v10 = [v7 stringWithFormat:@"Relationship '%@' on managed object (%p) %@ with objects %@", name, source, source, objc_msgSend(self->_realSet, "descriptionWithLocale:", locale)];
+    v10 = objc_msgSend_stringWithFormat_(v7, name, source, source, [self->_realSet descriptionWithLocale:locale]);
   }
 
   v11 = v10;
@@ -770,7 +765,7 @@ LABEL_9:
 
 - (void)addObjectsFromArray:(id)array
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [(_NSFaultingMutableSet *)self willRead];
   if (*&self->_flags)
   {
@@ -806,35 +801,33 @@ LABEL_9:
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v5 = [array countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v5 = [array countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(array);
           }
 
-          CFSetAddValue(self->_realSet, *(*(&v14 + 1) + 8 * i));
+          CFSetAddValue(self->_realSet, *(*(&v13 + 1) + 8 * i));
         }
 
-        v6 = [array countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v6 = [array countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v6);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)intersectSet:(id)set
@@ -900,7 +893,7 @@ LABEL_9:
   [(_NSFaultingMutableSet *)self willRead];
   realSet = self->_realSet;
 
-  return [realSet valueForKey:key];
+  return objc_msgSend_valueForKey_(realSet);
 }
 
 - (id)valueForKeyPath:(id)path

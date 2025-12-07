@@ -66,14 +66,15 @@
   v6 = (self + OBJC_IVAR___CPUIEnhancedSectionHeaderView_buttonAction);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  _sxRi_zRi0_zlyytIsegr_SgWOy(v4);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  _sxRi_zRi0_zlyytIsegr_SgWOy(v4, v5);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v8);
   [(CPUIEnhancedSectionHeaderView *)selfCopy setNeedsUpdateConfiguration];
 
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v4);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v4, v5);
 }
 
 - (BOOL)enabled

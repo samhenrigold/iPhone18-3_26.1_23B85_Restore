@@ -7,30 +7,30 @@
 
 - (JEDeresVersionTreatmentAction)initWithField:(id)field configuration:(id)configuration
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v14.receiver = self;
-  v14.super_class = JEDeresVersionTreatmentAction;
-  v7 = [(JETreatmentAction *)&v14 initWithField:field configuration:configurationCopy];
+  v15.receiver = self;
+  v15.super_class = JEDeresVersionTreatmentAction;
+  v7 = [(JETreatmentAction *)&v15 initWithField:field configuration:configurationCopy];
   if (v7)
   {
     v8 = [configurationCopy objectForKeyedSubscript:@"precision"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) && [v8 length])
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass) && (isKindOfClass = [v8 length]) != 0)
     {
       integerValue = [v8 integerValue];
     }
 
     else
     {
-      v10 = JEMetricsOSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = JEMetricsOSLog(isKindOfClass);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138412290;
-        v16 = v12;
-        _os_log_impl(&dword_1AB012000, v10, OS_LOG_TYPE_ERROR, "JetEngine: Deres version precision is unsupported %@", buf, 0xCu);
+        v17 = v13;
+        _os_log_impl(&dword_1AB012000, v11, OS_LOG_TYPE_ERROR, "JetEngine: Deres version precision is unsupported %@", buf, 0xCu);
       }
 
       integerValue = -1;

@@ -193,7 +193,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    entryType = self->_entryType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -213,12 +212,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  abIdentifier = self->_abIdentifier;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    property = self->_property;
     PBDataWriterWriteInt32Field();
   }
 
@@ -258,62 +255,60 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v7 = self->_dictionaryKeys;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v8)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_dictionaryKeys;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v26;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v10)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v13 = self->_dictionaryValues;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v14)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_dictionaryValues;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v22;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v15; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v22 != v16)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 }
 
@@ -554,7 +549,6 @@ LABEL_5:
     goto LABEL_35;
   }
 
-  v5 = *(equalCopy + 104);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 104) & 2) == 0 || self->_entryType != *(equalCopy + 12))
@@ -566,7 +560,7 @@ LABEL_5:
   else if ((*(equalCopy + 104) & 2) != 0)
   {
 LABEL_35:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_36;
   }
 
@@ -668,17 +662,17 @@ LABEL_35:
   dictionaryValues = self->_dictionaryValues;
   if (dictionaryValues | *(equalCopy + 5))
   {
-    v15 = [(NSMutableArray *)dictionaryValues isEqual:?];
+    v14 = [(NSMutableArray *)dictionaryValues isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_36:
 
-  return v15;
+  return v14;
 }
 
 - (unint64_t)hash

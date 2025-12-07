@@ -9,7 +9,7 @@
 
 + (Class)layerClass
 {
-  sub_188A34624(0, &qword_1EA92E868);
+  sub_188A34624(0, &qword_1EA92E868, 0x1E6979368);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -29,7 +29,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_188FB331C();
+  sub_188FB331C(selfCopy);
 }
 
 - (_TtC5UIKit15_UICloudChamber)initWithFrame:(CGRect)frame

@@ -2,20 +2,53 @@
 - (BOOL)isImplicitlyNested;
 - (NSArray)groupings;
 - (NSString)sourceURL;
+- (RWIProtocolCSSRule)initWithSelectorList:(id)list sourceLine:(int)line origin:(int64_t)origin style:(id)style;
 - (RWIProtocolCSSRuleId)ruleId;
 - (RWIProtocolCSSSelectorList)selectorList;
 - (RWIProtocolCSSStyle)style;
 - (int)sourceLine;
 - (int64_t)origin;
 - (void)setGroupings:(id)groupings;
+- (void)setIsImplicitlyNested:(BOOL)nested;
 - (void)setOrigin:(int64_t)origin;
 - (void)setRuleId:(id)id;
 - (void)setSelectorList:(id)list;
+- (void)setSourceLine:(int)line;
 - (void)setSourceURL:(id)l;
 - (void)setStyle:(id)style;
 @end
 
 @implementation RWIProtocolCSSRule
+
+- (RWIProtocolCSSRule)initWithSelectorList:(id)list sourceLine:(int)line origin:(int64_t)origin style:(id)style
+{
+  v8 = *&line;
+  listCopy = list;
+  styleCopy = style;
+  v15.receiver = self;
+  v15.super_class = RWIProtocolCSSRule;
+  v12 = [(RWIProtocolJSONObject *)&v15 init];
+  if (v12)
+  {
+    if (!listCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"selectorList"}];
+    }
+
+    if (!styleCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"style"}];
+    }
+
+    [(RWIProtocolCSSRule *)v12 setSelectorList:listCopy];
+    [(RWIProtocolCSSRule *)v12 setSourceLine:v8];
+    [(RWIProtocolCSSRule *)v12 setOrigin:origin];
+    [(RWIProtocolCSSRule *)v12 setStyle:styleCopy];
+    v13 = v12;
+  }
+
+  return v12;
+}
 
 - (void)setRuleId:(id)id
 {
@@ -35,7 +68,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolCSSRule;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"ruleId"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -97,7 +130,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolCSSRule;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"selectorList"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -155,6 +188,13 @@
   v2 = [(RWIProtocolJSONObject *)&v4 stringForKey:@"sourceURL"];
 
   return v2;
+}
+
+- (void)setSourceLine:(int)line
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolCSSRule;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&line forKey:@"sourceLine"];
 }
 
 - (int)sourceLine
@@ -250,7 +290,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolCSSRule;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"style"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -296,27 +336,27 @@ LABEL_8:
 
 - (void)setGroupings:(id)groupings
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = groupings;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -327,18 +367,18 @@ LABEL_8:
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolCSSRule;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"groupings"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolCSSRule;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"groupings"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -351,8 +391,6 @@ LABEL_8:
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)groupings
@@ -363,6 +401,13 @@ LABEL_8:
   v2 = Inspector::toObjCArray<RWIProtocolCSSGrouping>(&v5);
   [(RWIProtocolCSSPseudoIdMatches *)v2 matches];
   return v2;
+}
+
+- (void)setIsImplicitlyNested:(BOOL)nested
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolCSSRule;
+  [(RWIProtocolJSONObject *)&v3 setBool:nested forKey:@"isImplicitlyNested"];
 }
 
 - (BOOL)isImplicitlyNested

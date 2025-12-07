@@ -25,9 +25,11 @@
 
 uint64_t __35__WLKAppLibraryCore_sharedInstance__block_invoke()
 {
-  sharedInstance___singleInstance = objc_alloc_init(WLKAppLibraryCore);
+  v0 = objc_alloc_init(WLKAppLibraryCore);
+  v1 = sharedInstance___singleInstance;
+  sharedInstance___singleInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKAppLibraryCore)init
@@ -93,60 +95,61 @@ uint64_t __35__WLKAppLibraryCore_sharedInstance__block_invoke()
 - (void)fetchApplications:(id)applications
 {
   applicationsCopy = applications;
-  if ((WLKIsDaemon() & 1) != 0 || WLKIsRunningTest())
+  v5 = WLKIsDaemon();
+  if ((v5 & 1) != 0 || (v5 = WLKIsRunningTest(), v5))
   {
-    v5 = WLKStartupSignpostLogObject();
-    v6 = os_signpost_id_generate(v5);
+    v6 = WLKStartupSignpostLogObject(v5);
+    v7 = os_signpost_id_generate(v6);
 
-    v7 = WLKStartupSignpostLogObject();
-    v8 = v7;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+    v9 = WLKStartupSignpostLogObject(v8);
+    v10 = v9;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_272A0F000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "LibraryCore.fetchApplicationsInProcess", &unk_272A8884E, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_272A0F000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "LibraryCore.fetchApplicationsInProcess", &unk_272A8884E, buf, 2u);
     }
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __39__WLKAppLibraryCore_fetchApplications___block_invoke;
-    v22[3] = &unk_279E5EED8;
-    v9 = v23;
-    v23[0] = applicationsCopy;
-    v23[1] = v6;
-    v10 = applicationsCopy;
-    [(WLKAppLibraryCore *)self _fetchApplicationsInProcess:v22];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __39__WLKAppLibraryCore_fetchApplications___block_invoke;
+    v24[3] = &unk_279E5EED8;
+    v11 = v25;
+    v25[0] = applicationsCopy;
+    v25[1] = v7;
+    v12 = applicationsCopy;
+    [(WLKAppLibraryCore *)self _fetchApplicationsInProcess:v24];
   }
 
   else
   {
     _connection = [(WLKAppLibraryCore *)self _connection];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __39__WLKAppLibraryCore_fetchApplications___block_invoke_5;
-    v20[3] = &unk_279E5EB38;
-    v9 = &v21;
-    v12 = applicationsCopy;
-    v21 = v12;
-    v13 = [_connection remoteObjectProxyWithErrorHandler:v20];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __39__WLKAppLibraryCore_fetchApplications___block_invoke_5;
+    v22[3] = &unk_279E5EB38;
+    v11 = &v23;
+    v14 = applicationsCopy;
+    v23 = v14;
+    v15 = [_connection remoteObjectProxyWithErrorHandler:v22];
 
     date = [MEMORY[0x277CBEAA8] date];
     NSLog(&cfstr_Wlkapplibraryc_0.isa);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __39__WLKAppLibraryCore_fetchApplications___block_invoke_2;
-    v17[3] = &unk_279E5EF00;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __39__WLKAppLibraryCore_fetchApplications___block_invoke_2;
+    v19[3] = &unk_279E5EF00;
+    v20 = date;
+    v21 = v14;
+    v17 = v14;
     v18 = date;
-    v19 = v12;
-    v15 = v12;
-    v16 = date;
-    [v13 fetchApplications:v17];
+    [v15 fetchApplications:v19];
   }
 }
 
 void __39__WLKAppLibraryCore_fetchApplications___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WLKStartupSignpostLogObject();
+  v4 = WLKStartupSignpostLogObject(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -188,28 +191,28 @@ void __39__WLKAppLibraryCore_fetchApplications___block_invoke_2(uint64_t a1, voi
 
 - (BOOL)containsAppOfInterest:(id)interest
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   interestCopy = interest;
-  v5 = [interestCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [interestCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v18 != v7)
+      if (*v17 != v7)
       {
         objc_enumerationMutation(interestCopy);
       }
 
-      v9 = *(*(&v17 + 1) + 8 * v8);
-      v10 = [v9 entitlementValueForKey:@"com.apple.smoot.subscriptionservice" ofClass:{objc_opt_class(), v17}];
+      v9 = *(*(&v16 + 1) + 8 * v8);
+      v10 = [v9 entitlementValueForKey:@"com.apple.smoot.subscriptionservice" ofClass:{objc_opt_class(), v16}];
 
       _otherBundlesOfInterest = [(WLKAppLibraryCore *)self _otherBundlesOfInterest];
       bundleIdentifier = [v9 bundleIdentifier];
@@ -223,7 +226,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [interestCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [interestCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -240,7 +243,6 @@ LABEL_10:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -307,202 +309,181 @@ void __44__WLKAppLibraryCore__otherBundlesOfInterest__block_invoke(uint64_t a1)
 
 void __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke(uint64_t a1)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v55 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = [MEMORY[0x277CBEAA8] date];
-  v5 = WLKStartupSignpostLogObject();
+  v5 = WLKStartupSignpostLogObject(v4);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = WLKStartupSignpostLogObject();
-  v8 = v7;
-  v9 = v6 - 1;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = WLKStartupSignpostLogObject(v7);
+  v9 = v8;
+  v10 = v6 - 1;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "LibraryCore.fetchApplicationsInProcess.filter", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "LibraryCore.fetchApplicationsInProcess.filter", &unk_272A8884E, buf, 2u);
   }
 
-  v10 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
-  v75[0] = MEMORY[0x277D85DD0];
-  v75[1] = 3221225472;
-  v75[2] = __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_29;
-  v75[3] = &unk_279E5EF48;
-  v75[4] = *(a1 + 32);
-  [v10 setFilter:v75];
-  v11 = [MEMORY[0x277CBEAA8] date];
-  [v11 timeIntervalSinceDate:v4];
-  NSLog(&cfstr_Wlkapplibraryc_2.isa, v12);
+  v11 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
+  v80[0] = MEMORY[0x277D85DD0];
+  v80[1] = 3221225472;
+  v80[2] = __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_29;
+  v80[3] = &unk_279E5EF48;
+  v80[4] = *(a1 + 32);
+  [v11 setFilter:v80];
+  v12 = [MEMORY[0x277CBEAA8] date];
+  [v12 timeIntervalSinceDate:v4];
+  NSLog(&cfstr_Wlkapplibraryc_2.isa, v13);
 
-  v13 = WLKStartupSignpostLogObject();
-  v14 = v13;
-  if (v9 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v14, OS_SIGNPOST_INTERVAL_END, v6, "LibraryCore.fetchApplicationsInProcess.filter", &unk_272A8884E, buf, 2u);
-  }
-
-  v15 = WLKStartupSignpostLogObject();
+  v15 = WLKStartupSignpostLogObject(v14);
   v16 = v15;
-  if (v9 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v6, "LibraryCore.fetchApplicationsInProcess.checkAppRecords", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v16, OS_SIGNPOST_INTERVAL_END, v6, "LibraryCore.fetchApplicationsInProcess.filter", &unk_272A8884E, buf, 2u);
   }
 
-  v54 = v3;
-  v55 = v6 - 1;
-  v52 = v6;
-  v53 = v4;
-  v57 = a1;
-
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v17 = v10;
-  v18 = [v17 countByEnumeratingWithState:&v71 objects:v77 count:16];
-  v56 = v17;
-  if (v18)
+  v18 = WLKStartupSignpostLogObject(v17);
+  v19 = v18;
+  if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    v19 = v18;
-    LODWORD(v20) = 0;
-    v21 = *v72;
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v6, "LibraryCore.fetchApplicationsInProcess.checkAppRecords", &unk_272A8884E, buf, 2u);
+  }
+
+  v59 = v3;
+  v60 = v6 - 1;
+  v57 = v6;
+  v58 = v4;
+  v62 = a1;
+
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v20 = v11;
+  v21 = [v20 countByEnumeratingWithState:&v76 objects:v82 count:16];
+  v61 = v20;
+  if (v21)
+  {
+    v22 = v21;
+    LODWORD(v23) = 0;
+    v24 = *v77;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v72 != v21)
+        if (*v77 != v24)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v20);
         }
 
-        v23 = *(*(&v71 + 1) + 8 * i);
-        v24 = objc_autoreleasePoolPush();
-        v25 = WLKAppProxyForLSApplicationRecord(v23);
-        v26 = [v25 isEntitled];
-        v27 = v2;
-        if (v26)
+        v26 = *(*(&v76 + 1) + 8 * i);
+        v27 = objc_autoreleasePoolPush();
+        v28 = WLKAppProxyForLSApplicationRecord(v26);
+        v29 = [v28 isEntitled];
+        v30 = v2;
+        if (v29 & 1) != 0 || (v31 = [v28 isTVApp], v30 = v2, (v31) || (objc_msgSend(*(v62 + 32), "_nonConformingBundleList"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "bundleIdentifier"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v32, "containsObject:", v33), v33, v32, v20 = v61, v30 = v63, v34))
         {
-          goto LABEL_18;
+          [v30 addObject:v28];
         }
 
-        v28 = [v25 isTVApp];
-        v27 = v2;
-        if (v28)
-        {
-          goto LABEL_18;
-        }
-
-        v29 = [*(v57 + 32) _nonConformingBundleList];
-        v30 = [v25 bundleIdentifier];
-        v31 = [v29 containsObject:v30];
-
-        v17 = v56;
-        v27 = v58;
-        if (v31)
-        {
-LABEL_18:
-          [v27 addObject:v25];
-        }
-
-        objc_autoreleasePoolPop(v24);
+        objc_autoreleasePoolPop(v27);
       }
 
-      v20 = (v20 + v19);
-      v19 = [v17 countByEnumeratingWithState:&v71 objects:v77 count:16];
+      v23 = (v23 + v22);
+      v22 = [v20 countByEnumeratingWithState:&v76 objects:v82 count:16];
     }
 
-    while (v19);
+    while (v22);
   }
 
   else
   {
-    v20 = 0;
+    v23 = 0;
   }
 
-  v32 = [MEMORY[0x277CBEAA8] date];
-  [v32 timeIntervalSinceDate:v53];
-  NSLog(&cfstr_Wlkapplibraryc_3.isa, v33, v20);
+  v35 = [MEMORY[0x277CBEAA8] date];
+  [v35 timeIntervalSinceDate:v58];
+  NSLog(&cfstr_Wlkapplibraryc_3.isa, v36, v23);
 
-  v34 = WLKStartupSignpostLogObject();
-  v35 = v34;
-  if (v55 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+  v38 = WLKStartupSignpostLogObject(v37);
+  v39 = v38;
+  if (v60 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v35, OS_SIGNPOST_INTERVAL_END, v52, "LibraryCore.fetchApplicationsInProcess.checkAppRecords", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v39, OS_SIGNPOST_INTERVAL_END, v57, "LibraryCore.fetchApplicationsInProcess.checkAppRecords", &unk_272A8884E, buf, 2u);
   }
 
-  v36 = WLKStartupSignpostLogObject();
-  v37 = v36;
-  if (v55 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v52, "LibraryCore.fetchApplicationsInProcess.InstalledAppBundles", &unk_272A8884E, buf, 2u);
-  }
-
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_37;
-  v67[3] = &unk_279E5EF70;
-  v38 = v49;
-  v68 = v38;
-  v39 = v51;
-  v69 = v39;
-  v40 = v50;
-  v70 = v40;
-  [v2 enumerateObjectsUsingBlock:v67];
-  v41 = WLKStartupSignpostLogObject();
+  v41 = WLKStartupSignpostLogObject(v40);
   v42 = v41;
-  if (v55 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+  if (v60 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v42, OS_SIGNPOST_INTERVAL_END, v52, "LibraryCore.fetchApplicationsInProcess.InstalledAppBundles", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v42, OS_SIGNPOST_INTERVAL_BEGIN, v57, "LibraryCore.fetchApplicationsInProcess.InstalledAppBundles", &unk_272A8884E, buf, 2u);
   }
 
-  v43 = objc_alloc_init(MEMORY[0x277CCAB58]);
-  if ([v39 count])
+  v72[0] = MEMORY[0x277D85DD0];
+  v72[1] = 3221225472;
+  v72[2] = __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_37;
+  v72[3] = &unk_279E5EF70;
+  v43 = v54;
+  v73 = v43;
+  v44 = v56;
+  v74 = v44;
+  v45 = v55;
+  v75 = v45;
+  v46 = WLKStartupSignpostLogObject([v2 enumerateObjectsUsingBlock:v72]);
+  v47 = v46;
+  if (v60 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
   {
-    v44 = WLKStartupSignpostLogObject();
-    v45 = v44;
-    if (v55 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v47, OS_SIGNPOST_INTERVAL_END, v57, "LibraryCore.fetchApplicationsInProcess.InstalledAppBundles", &unk_272A8884E, buf, 2u);
+  }
+
+  v48 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v49 = [v44 count];
+  if (v49)
+  {
+    v50 = WLKStartupSignpostLogObject(v49);
+    v51 = v50;
+    if (v60 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_272A0F000, v45, OS_SIGNPOST_INTERVAL_BEGIN, v52, "LibraryCore.fetchApplicationsInProcess.ActiveSubscription", &unk_272A8884E, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_272A0F000, v51, OS_SIGNPOST_INTERVAL_BEGIN, v57, "LibraryCore.fetchApplicationsInProcess.ActiveSubscription", &unk_272A8884E, buf, 2u);
     }
 
-    v46 = *(*(v57 + 32) + 24);
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_40;
-    v59[3] = &unk_279E5EF98;
-    v66 = v52;
-    v60 = v39;
-    v61 = v43;
-    v62 = v54;
-    v63 = v38;
-    v65 = *(v57 + 40);
-    v64 = v58;
-    [v46 getActiveSubscriptionServicesMatchingBundleIdentifiers:v40 domainIdentifiers:MEMORY[0x277CBEBF8] maximumExpirationLimit:v59 completionHandler:31104000.0];
+    v52 = *(*(v62 + 32) + 24);
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_40;
+    v64[3] = &unk_279E5EF98;
+    v71 = v57;
+    v65 = v44;
+    v66 = v48;
+    v67 = v59;
+    v68 = v43;
+    v70 = *(v62 + 40);
+    v69 = v63;
+    [v52 getActiveSubscriptionServicesMatchingBundleIdentifiers:v45 domainIdentifiers:MEMORY[0x277CBEBF8] maximumExpirationLimit:v64 completionHandler:31104000.0];
 
-    v47 = v60;
+    v53 = v65;
     goto LABEL_39;
   }
 
   NSLog(&cfstr_Wlkapplibraryc_5.isa);
-  _configureDemoBundles(v39, v54, v38);
-  if (*(v57 + 40))
+  _configureDemoBundles(v44, v59, v43);
+  if (*(v62 + 40))
   {
-    v47 = (*(fetchedApplicationsCompletion + 2))(fetchedApplicationsCompletion, v39, v54, v38, v58);
-    (*(*(v57 + 40) + 16))();
+    v53 = (*(fetchedApplicationsCompletion + 2))(fetchedApplicationsCompletion, v44, v59, v43, v63);
+    (*(*(v62 + 40) + 16))();
 LABEL_39:
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_29(uint64_t a1, void *a2)
@@ -542,10 +523,10 @@ void __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_37(uint6
 
 void __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_40(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v33 = a2;
+  v41 = *MEMORY[0x277D85DE8];
+  v34 = a2;
   v5 = a3;
-  v6 = WLKStartupSignpostLogObject();
+  v6 = WLKStartupSignpostLogObject(v5);
   v7 = v6;
   v8 = *(a1 + 80);
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
@@ -554,13 +535,13 @@ void __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_40(uint6
     _os_signpost_emit_with_name_impl(&dword_272A0F000, v7, OS_SIGNPOST_INTERVAL_END, v8, "LibraryCore.fetchApplicationsInProcess.ActiveSubscription", &unk_272A8884E, buf, 2u);
   }
 
-  v9 = WLKStartupSignpostLogObject();
-  v10 = v9;
-  v11 = *(a1 + 80);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = WLKStartupSignpostLogObject(v9);
+  v11 = v10;
+  v12 = *(a1 + 80);
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "LibraryCore.fetchApplicationsInProcess.SubscribedAppBundle", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v12, "LibraryCore.fetchApplicationsInProcess.SubscribedAppBundle", &unk_272A8884E, buf, 2u);
   }
 
   if (v5)
@@ -568,87 +549,85 @@ void __49__WLKAppLibraryCore__fetchApplicationsInProcess___block_invoke_40(uint6
     NSLog(&cfstr_Wlkapplibraryc_4.isa, v5);
   }
 
-  v32 = v5;
-  v36 = 0u;
+  v33 = v5;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v12 = [v33 allKeys];
-  v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v13)
+  v36 = 0u;
+  v13 = [v34 allKeys];
+  v14 = [v13 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v35;
+    v15 = v14;
+    v16 = *v36;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v35 != v15)
+        if (*v36 != v16)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v34 + 1) + 8 * i);
+        v18 = *(*(&v35 + 1) + 8 * i);
         if ([*(a1 + 32) count])
         {
-          v18 = 0;
+          v19 = 0;
           while (1)
           {
-            v19 = [*(a1 + 32) objectAtIndexedSubscript:v18];
-            v20 = [v19 bundleIdentifier];
-            v21 = [v20 isEqualToString:v17];
+            v20 = [*(a1 + 32) objectAtIndexedSubscript:v19];
+            v21 = [v20 bundleIdentifier];
+            v22 = [v21 isEqualToString:v18];
 
-            if (v21)
+            if (v22)
             {
               break;
             }
 
-            if (++v18 >= [*(a1 + 32) count])
+            if (++v19 >= [*(a1 + 32) count])
             {
               goto LABEL_20;
             }
           }
 
-          [*(a1 + 40) addIndex:v18];
-          v22 = [v19 dictionaryRepresentation];
-          v23 = [v22 mutableCopy];
+          [*(a1 + 40) addIndex:v19];
+          v23 = [v20 dictionaryRepresentation];
+          v24 = [v23 mutableCopy];
 
-          v24 = [v33 objectForKeyedSubscript:v17];
-          v25 = [v24 objectForKeyedSubscript:@"type"];
+          v25 = [v34 objectForKeyedSubscript:v18];
+          v26 = [v25 objectForKeyedSubscript:@"type"];
 
-          [v23 setObject:v25 forKeyedSubscript:@"WLKAppProxy.subscriptionInfo"];
-          v26 = [[WLKAppProxy alloc] initWithDictionary:v23];
-          [*(a1 + 48) addObject:v26];
+          [v24 setObject:v26 forKeyedSubscript:@"WLKAppProxy.subscriptionInfo"];
+          v27 = [[WLKAppProxy alloc] initWithDictionary:v24];
+          [*(a1 + 48) addObject:v27];
         }
 
 LABEL_20:
         ;
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
-  v27 = WLKStartupSignpostLogObject();
-  v28 = v27;
-  v29 = *(a1 + 80);
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+  v29 = WLKStartupSignpostLogObject(v28);
+  v30 = v29;
+  v31 = *(a1 + 80);
+  if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v28, OS_SIGNPOST_INTERVAL_END, v29, "LibraryCore.fetchApplicationsInProcess.SubscribedAppBundle", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v30, OS_SIGNPOST_INTERVAL_END, v31, "LibraryCore.fetchApplicationsInProcess.SubscribedAppBundle", &unk_272A8884E, buf, 2u);
   }
 
   [*(a1 + 32) removeObjectsAtIndexes:*(a1 + 40)];
   _configureDemoBundles(*(a1 + 32), *(a1 + 48), *(a1 + 56));
   if (*(a1 + 72))
   {
-    v30 = (*(fetchedApplicationsCompletion + 2))(fetchedApplicationsCompletion, *(a1 + 32), *(a1 + 48), *(a1 + 56), *(a1 + 64));
+    v32 = (*(fetchedApplicationsCompletion + 2))(fetchedApplicationsCompletion, *(a1 + 32), *(a1 + 48), *(a1 + 56), *(a1 + 64));
     (*(*(a1 + 72) + 16))();
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __32__WLKAppLibraryCore__connection__block_invoke_2(uint64_t a1)

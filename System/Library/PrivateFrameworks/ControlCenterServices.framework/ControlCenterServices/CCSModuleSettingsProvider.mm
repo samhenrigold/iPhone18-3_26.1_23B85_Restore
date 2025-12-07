@@ -148,10 +148,7 @@ uint64_t __33__CCSModuleSettingsProvider_init__block_invoke(uint64_t a1)
 
 uint64_t __58__CCSModuleSettingsProvider_orderedFixedModuleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 40) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -180,10 +177,7 @@ uint64_t __58__CCSModuleSettingsProvider_orderedFixedModuleIdentifiers__block_in
 
 uint64_t __64__CCSModuleSettingsProvider_orderedUserEnabledModuleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -212,10 +206,7 @@ uint64_t __64__CCSModuleSettingsProvider_orderedUserEnabledModuleIdentifiers__bl
 
 uint64_t __69__CCSModuleSettingsProvider_orderedUserEnabledFixedModuleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 56) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 56) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -244,10 +235,7 @@ uint64_t __69__CCSModuleSettingsProvider_orderedUserEnabledFixedModuleIdentifier
 
 uint64_t __58__CCSModuleSettingsProvider_userDisabledModuleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 64) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 64) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -334,33 +322,31 @@ uint64_t __58__CCSModuleSettingsProvider_userDisabledModuleIdentifiers__block_in
 
 void __80__CCSModuleSettingsProvider_setAndSaveOrderedUserEnabledFixedModuleIdentifiers___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 56);
   if ((BSEqualObjects() & 1) == 0)
   {
-    v16 = [MEMORY[0x277CBEB98] setWithArray:*(*(a1 + 32) + 56)];
-    v4 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 40)];
-    v5 = [v16 mutableCopy];
-    [v5 minusSet:v4];
-    v6 = [v4 mutableCopy];
-    [v6 minusSet:v16];
-    v7 = [*(*(a1 + 32) + 64) mutableCopy];
-    v8 = [v6 allObjects];
-    [v7 removeObjectsInArray:v8];
+    v14 = [MEMORY[0x277CBEB98] setWithArray:*(*(a1 + 32) + 56)];
+    v2 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 40)];
+    v3 = [v14 mutableCopy];
+    [v3 minusSet:v2];
+    v4 = [v2 mutableCopy];
+    [v4 minusSet:v14];
+    v5 = [*(*(a1 + 32) + 64) mutableCopy];
+    v6 = [v4 allObjects];
+    [v5 removeObjectsInArray:v6];
 
-    v9 = [v5 allObjects];
-    [v7 addObjectsFromArray:v9];
+    v7 = [v3 allObjects];
+    [v5 addObjectsFromArray:v7];
 
-    [v7 sortUsingSelector:sel_caseInsensitiveCompare_];
-    v10 = [*(a1 + 40) copy];
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 56);
-    *(v11 + 56) = v10;
+    [v5 sortUsingSelector:sel_caseInsensitiveCompare_];
+    v8 = [*(a1 + 40) copy];
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 56);
+    *(v9 + 56) = v8;
 
-    v13 = [v7 copy];
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 64);
-    *(v14 + 64) = v13;
+    v11 = [v5 copy];
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 64);
+    *(v12 + 64) = v11;
 
     [*(a1 + 32) _queue_stopMonitoringConfigurationUpdates];
     [*(a1 + 32) _queue_saveSettings];
@@ -536,7 +522,7 @@ void *__54__CCSModuleSettingsProvider__readSettingsWithVersion___block_invoke_3(
 
 + (void)_writeOrderedIdentifiers:(id)identifiers userEnabledFixedIdentifiers:(id)fixedIdentifiers userDisabledIdentifiers:(id)disabledIdentifiers
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   fixedIdentifiersCopy = fixedIdentifiers;
   disabledIdentifiersCopy = disabledIdentifiers;
@@ -548,9 +534,9 @@ void *__54__CCSModuleSettingsProvider__readSettingsWithVersion___block_invoke_3(
   if ((v13 & 1) == 0)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v24 = 0;
-    v15 = [defaultManager2 createDirectoryAtURL:_configurationDirectoryURL withIntermediateDirectories:1 attributes:0 error:&v24];
-    v16 = v24;
+    v23 = 0;
+    v15 = [defaultManager2 createDirectoryAtURL:_configurationDirectoryURL withIntermediateDirectories:1 attributes:0 error:&v23];
+    v16 = v23;
 
     if ((v15 & 1) == 0 && os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_ERROR))
     {
@@ -559,30 +545,28 @@ void *__54__CCSModuleSettingsProvider__readSettingsWithVersion___block_invoke_3(
   }
 
   _configurationFileURL = [objc_opt_class() _configurationFileURL];
-  v25[0] = @"version";
-  v25[1] = @"module-identifiers";
-  v26[0] = &unk_2857A45A0;
-  v26[1] = identifiersCopy;
-  v25[2] = @"userenabled-fixed-module-identifiers";
-  v25[3] = @"disabled-module-identifiers";
-  v26[2] = fixedIdentifiersCopy;
-  v26[3] = disabledIdentifiersCopy;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+  v24[0] = @"version";
+  v24[1] = @"module-identifiers";
+  v25[0] = &unk_2857A45A0;
+  v25[1] = identifiersCopy;
+  v24[2] = @"userenabled-fixed-module-identifiers";
+  v24[3] = @"disabled-module-identifiers";
+  v25[2] = fixedIdentifiersCopy;
+  v25[3] = disabledIdentifiersCopy;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
   v19 = [MEMORY[0x277CCAC58] dataWithPropertyList:v18 format:100 options:0 error:0];
-  v23 = 0;
-  v20 = [v19 writeToURL:_configurationFileURL options:268435457 error:&v23];
-  v21 = v23;
+  v22 = 0;
+  v20 = [v19 writeToURL:_configurationFileURL options:268435457 error:&v22];
+  v21 = v22;
   if ((v20 & 1) == 0 && os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_ERROR))
   {
     +[CCSModuleSettingsProvider _writeOrderedIdentifiers:userEnabledFixedIdentifiers:userDisabledIdentifiers:];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)legacyModuleMigration:(BOOL *)migration versionNumber:(unint64_t)number
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_userDisabledModuleIdentifiers containsObject:@"com.apple.control-center.CarModeModule"])
   {
     v7 = [(NSArray *)self->_userDisabledModuleIdentifiers mutableCopy];
@@ -629,8 +613,8 @@ void *__54__CCSModuleSettingsProvider__readSettingsWithVersion___block_invoke_3(
     v16 = CCSLogModuleSettings;
     if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v40) = 0;
-      _os_log_impl(&dword_24427F000, v16, OS_LOG_TYPE_DEFAULT, "Migrating home module from user enabled to enabled and fixed module", &v40, 2u);
+      LOWORD(v39) = 0;
+      _os_log_impl(&dword_24427F000, v16, OS_LOG_TYPE_DEFAULT, "Migrating home module from user enabled to enabled and fixed module", &v39, 2u);
     }
 
     v17 = [(NSArray *)self->_orderedUserEnabledModuleIdentifiers mutableCopy];
@@ -665,9 +649,9 @@ void *__54__CCSModuleSettingsProvider__readSettingsWithVersion___block_invoke_3(
     v24 = CCSLogModuleSettings;
     if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = 134217984;
+      v39 = 134217984;
       numberCopy = number;
-      _os_log_impl(&dword_24427F000, v24, OS_LOG_TYPE_DEFAULT, "Migrating mute module out of user-disabled list from settings with version: %lu", &v40, 0xCu);
+      _os_log_impl(&dword_24427F000, v24, OS_LOG_TYPE_DEFAULT, "Migrating mute module out of user-disabled list from settings with version: %lu", &v39, 0xCu);
     }
 
     v25 = [(NSArray *)self->_userDisabledModuleIdentifiers mutableCopy];
@@ -737,8 +721,6 @@ void *__54__CCSModuleSettingsProvider__readSettingsWithVersion___block_invoke_3(
 
     *migration = 1;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_loadSettings
@@ -931,7 +913,7 @@ void __71__CCSModuleSettingsProvider__queue_startMonitoringConfigurationUpdates_
 
 void __55__CCSModuleSettingsProvider__defaultEnabledModuleOrder__block_invoke(uint64_t a1)
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CF0CA8] sharedInstance];
   v3 = [v2 deviceClass];
 
@@ -943,90 +925,86 @@ void __55__CCSModuleSettingsProvider__defaultEnabledModuleOrder__block_invoke(ui
     {
       if (v5)
       {
-        v14[0] = @"fixed";
-        v14[1] = @"user-enabled-fixed";
-        v15[0] = &unk_2857A4678;
-        v15[1] = MEMORY[0x277CBEBF8];
-        v14[2] = @"user-enabled";
-        v15[2] = &unk_2857A4690;
+        v13[0] = @"fixed";
+        v13[1] = @"user-enabled-fixed";
+        v14[0] = &unk_2857A4678;
+        v14[1] = MEMORY[0x277CBEBF8];
+        v13[2] = @"user-enabled";
+        v14[2] = &unk_2857A4690;
         v6 = MEMORY[0x277CBEAC0];
-        v7 = v15;
-        v8 = v14;
+        v7 = v14;
+        v8 = v13;
       }
 
       else
       {
-        v12[0] = @"fixed";
-        v12[1] = @"user-enabled-fixed";
-        v13[0] = &unk_2857A46A8;
-        v13[1] = MEMORY[0x277CBEBF8];
-        v12[2] = @"user-enabled";
-        v13[2] = &unk_2857A46C0;
+        v11[0] = @"fixed";
+        v11[1] = @"user-enabled-fixed";
+        v12[0] = &unk_2857A46A8;
+        v12[1] = MEMORY[0x277CBEBF8];
+        v11[2] = @"user-enabled";
+        v12[2] = &unk_2857A46C0;
         v6 = MEMORY[0x277CBEAC0];
-        v7 = v13;
-        v8 = v12;
+        v7 = v12;
+        v8 = v11;
       }
     }
 
     else
     {
-      v16[0] = @"fixed";
-      v16[1] = @"user-enabled-fixed";
-      v17[0] = &unk_2857A4648;
-      v17[1] = MEMORY[0x277CBEBF8];
-      v16[2] = @"user-enabled";
-      v17[2] = &unk_2857A4660;
+      v15[0] = @"fixed";
+      v15[1] = @"user-enabled-fixed";
+      v16[0] = &unk_2857A4648;
+      v16[1] = MEMORY[0x277CBEBF8];
+      v15[2] = @"user-enabled";
+      v16[2] = &unk_2857A4660;
       v6 = MEMORY[0x277CBEAC0];
-      v7 = v17;
-      v8 = v16;
+      v7 = v16;
+      v8 = v15;
     }
   }
 
   else if (MGGetBoolAnswer())
   {
-    v18[0] = @"fixed";
-    v18[1] = @"user-enabled-fixed";
-    v19[0] = &unk_2857A4618;
-    v19[1] = MEMORY[0x277CBEBF8];
-    v18[2] = @"user-enabled";
-    v19[2] = &unk_2857A4630;
+    v17[0] = @"fixed";
+    v17[1] = @"user-enabled-fixed";
+    v18[0] = &unk_2857A4618;
+    v18[1] = MEMORY[0x277CBEBF8];
+    v17[2] = @"user-enabled";
+    v18[2] = &unk_2857A4630;
     v6 = MEMORY[0x277CBEAC0];
-    v7 = v19;
-    v8 = v18;
+    v7 = v18;
+    v8 = v17;
   }
 
   else
   {
-    v20[0] = @"fixed";
-    v20[1] = @"user-enabled-fixed";
-    v21[0] = &unk_2857A45E8;
-    v21[1] = MEMORY[0x277CBEBF8];
-    v20[2] = @"user-enabled";
-    v21[2] = &unk_2857A4600;
+    v19[0] = @"fixed";
+    v19[1] = @"user-enabled-fixed";
+    v20[0] = &unk_2857A45E8;
+    v20[1] = MEMORY[0x277CBEBF8];
+    v19[2] = @"user-enabled";
+    v20[2] = &unk_2857A4600;
     v6 = MEMORY[0x277CBEAC0];
-    v7 = v21;
-    v8 = v20;
+    v7 = v20;
+    v8 = v19;
   }
 
   v9 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:3];
   v10 = _defaultEnabledModuleOrder_moduleOrderDict;
   _defaultEnabledModuleOrder_moduleOrderDict = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_configurationDirectoryURL
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEBC0];
   v3 = BSCurrentUserDirectory();
-  v8[0] = v3;
-  v8[1] = @"Library";
-  v8[2] = @"ControlCenter";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[0] = v3;
+  v7[1] = @"Library";
+  v7[2] = @"ControlCenter";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   v5 = [v2 fileURLWithPathComponents:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1065,46 +1043,31 @@ void __55__CCSModuleSettingsProvider__defaultEnabledModuleOrder__block_invoke(ui
 
 + (void)_readSettingsWithVersion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_readSettingsWithVersion:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_readSettingsWithVersion:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24427F000, a2, OS_LOG_TYPE_ERROR, "Could not load configuration file (NSInputStream is nil) at %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24427F000, a2, OS_LOG_TYPE_ERROR, "Could not load configuration file (NSInputStream is nil) at %{public}@", &v2, 0xCu);
 }
 
 + (void)_writeOrderedIdentifiers:userEnabledFixedIdentifiers:userDisabledIdentifiers:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_writeOrderedIdentifiers:userEnabledFixedIdentifiers:userDisabledIdentifiers:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

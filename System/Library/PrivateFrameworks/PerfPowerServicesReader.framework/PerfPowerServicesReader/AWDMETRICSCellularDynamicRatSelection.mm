@@ -2,7 +2,9 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)destRatAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)sourceRatAsString:(int)string;
 - (int)StringAsDestRat:(id)rat;
 - (int)StringAsSourceRat:(id)rat;
 - (int)destRat;
@@ -50,6 +52,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFBF | v3;
+}
+
+- (id)sourceRatAsString:(int)string
+{
+  if (string >= 0xE)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A108C0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSourceRat:(id)rat
@@ -159,6 +176,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFF7 | v3;
+}
+
+- (id)destRatAsString:(int)string
+{
+  if (string >= 0xE)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A108C0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDestRat:(id)rat
@@ -539,7 +571,6 @@ LABEL_12:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -559,7 +590,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sourceRat = self->_sourceRat;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -574,7 +604,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  destRat = self->_destRat;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -589,7 +618,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  dlTputObservedBeforeSwitch = self->_dlTputObservedBeforeSwitch;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -604,7 +632,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  dlTputObservedAfterSwitch = self->_dlTputObservedAfterSwitch;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -619,7 +646,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  bwObservedBeforeSwitch = self->_bwObservedBeforeSwitch;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -634,7 +660,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  bwObservedAfterSwitch = self->_bwObservedAfterSwitch;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -649,7 +674,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  ulTputObservedBeforeSwitch = self->_ulTputObservedBeforeSwitch;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -664,12 +688,10 @@ LABEL_10:
   }
 
 LABEL_23:
-  ulTputObservedAfterSwitch = self->_ulTputObservedAfterSwitch;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_11:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

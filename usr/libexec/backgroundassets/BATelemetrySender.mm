@@ -48,27 +48,27 @@
   v7 = [v6 valueForKey:@"BundleIdentifier"];
   if (os_variant_has_internal_diagnostics())
   {
-    AnalyticsSendEvent();
-    v8 = sub_1000104FC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = AnalyticsSendEvent();
+    v9 = sub_1000104FC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
-      v13 = eventName;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BATelemetrySender: sent %@ event, payload: %@", &v12, 0x16u);
+      v13 = 138412546;
+      v14 = eventName;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BATelemetrySender: sent %@ event, payload: %@", &v13, 0x16u);
     }
   }
 
   else
   {
-    v9 = +[NSDate date];
-    v10 = [BATelemetrySender shouldReportBundleIDInTelemetry:v7 date:v9 deviceIdentifier:&unk_100089BF0];
+    v10 = +[NSDate date];
+    v11 = [BATelemetrySender shouldReportBundleIDInTelemetry:v7 date:v10 deviceIdentifier:&unk_100089BF0];
 
-    if ((v10 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      v11 = +[NSNull null];
-      [v6 setObject:v11 forKey:@"BundleIdentifier"];
+      v12 = +[NSNull null];
+      [v6 setObject:v12 forKey:@"BundleIdentifier"];
     }
 
     AnalyticsSendEvent();

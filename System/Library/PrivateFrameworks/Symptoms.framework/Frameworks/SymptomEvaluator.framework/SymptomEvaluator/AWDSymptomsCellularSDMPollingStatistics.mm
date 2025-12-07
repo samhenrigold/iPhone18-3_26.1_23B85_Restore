@@ -131,7 +131,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -151,12 +150,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  durationSeconds = self->_durationSeconds;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    pollIntervalVersion = self->_pollIntervalVersion;
     PBDataWriterWriteUint32Field();
   }
 
@@ -167,15 +164,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (p_pollingIntervalCounts->count)
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        v9 = p_pollingIntervalCounts->list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v7;
       }
 
-      while (v8 < p_pollingIntervalCounts->count);
+      while (v7 < p_pollingIntervalCounts->count);
     }
 
     PBDataWriterRecallMark();
@@ -289,7 +285,6 @@ LABEL_5:
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 52);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_timestamp != *(equalCopy + 5))

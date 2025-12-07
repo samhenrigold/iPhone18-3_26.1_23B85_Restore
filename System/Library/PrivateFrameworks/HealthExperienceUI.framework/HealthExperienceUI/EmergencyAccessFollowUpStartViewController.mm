@@ -12,7 +12,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for EmergencyAccessFollowUpStartViewController();
+  v3.super_class = type metadata accessor for EmergencyAccessFollowUpStartViewController(0);
   v2 = v3.receiver;
   [(OBBaseWelcomeController *)&v3 viewDidLoad];
   sub_1BA188268(*&v2[OBJC_IVAR____TtC18HealthExperienceUI42EmergencyAccessFollowUpStartViewController_animationView]);
@@ -23,7 +23,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for EmergencyAccessFollowUpStartViewController();
+  v7.super_class = type metadata accessor for EmergencyAccessFollowUpStartViewController(0);
   v4 = v7.receiver;
   [(OBBaseWelcomeController *)&v7 viewDidAppear:appearCopy];
   navigationController = [v4 navigationController];
@@ -40,7 +40,7 @@
 {
   disappearCopy = disappear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for EmergencyAccessFollowUpStartViewController();
+  v8.super_class = type metadata accessor for EmergencyAccessFollowUpStartViewController(0);
   v4 = v8.receiver;
   v5 = [(OBBaseWelcomeController *)&v8 viewDidDisappear:disappearCopy];
   (*((*MEMORY[0x1E69E7D40] & **&v4[OBJC_IVAR____TtC18HealthExperienceUI42EmergencyAccessFollowUpStartViewController_animationView]) + 0x148))(v5);
@@ -60,7 +60,7 @@
   swift_unknownObjectRelease();
   sub_1BA188700();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI42EmergencyAccessFollowUpStartViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

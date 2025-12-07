@@ -54,7 +54,7 @@ void __24__VSAccountMonitor_init__block_invoke(uint64_t a1, void *a2, void *a3)
   v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;
@@ -75,7 +75,7 @@ void __24__VSAccountMonitor_init__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v8 = *MEMORY[0x277D85DE8];
   addedCopy = added;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(addedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -90,7 +90,7 @@ void __24__VSAccountMonitor_init__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v8 = *MEMORY[0x277D85DE8];
   modifiedCopy = modified;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(modifiedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -105,7 +105,7 @@ void __24__VSAccountMonitor_init__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v8 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(removedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -120,7 +120,7 @@ void __24__VSAccountMonitor_init__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v8 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;

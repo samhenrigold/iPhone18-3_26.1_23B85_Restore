@@ -5,10 +5,10 @@
 - (BOOL)showsFullScreenControl;
 - (CGAffineTransform)transformForProminentPlayButton;
 - (UIEdgeInsets)legibleContentInsetsAvoidingControlsUI;
+- (id)_loadPlaybackControlsViewIfNeeded;
 - (id)displayModeControlsLayoutItem;
 - (id)transportControlsLayoutItem;
 - (id)volumeControlsLayoutItem;
-- (uint64_t)_loadPlaybackControlsViewIfNeeded;
 - (void)_loadControlsViewIfNeeded;
 - (void)_updateLegibleContentInsetsWithControlsVisibility:(BOOL)visibility;
 - (void)_updatePrefersFullWidthTransportBarStateIfNeeded;
@@ -197,30 +197,30 @@ LABEL_14:
 LABEL_15:
 }
 
-- (uint64_t)_loadPlaybackControlsViewIfNeeded
+- (id)_loadPlaybackControlsViewIfNeeded
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 1248))
+    if (!result[156])
     {
       v2 = [AVCatalystGlassPlaybackControlsView alloc];
-      [*(v1 + 1176) bounds];
-      v3 = [(AVCatalystGlassPlaybackControlsView *)v2 initWithFrame:*(v1 + 1192) styleSheet:?];
-      v4 = *(v1 + 1248);
-      *(v1 + 1248) = v3;
+      [v1[147] bounds];
+      v3 = [(AVCatalystGlassPlaybackControlsView *)v2 initWithFrame:v1[149] styleSheet:?];
+      v4 = v1[156];
+      v1[156] = v3;
 
-      [*(v1 + 1248) setOverrideLayoutMarginsWhenEmbeddedInline:*(v1 + 1240)];
-      routePickerView = [*(v1 + 1248) routePickerView];
+      [v1[156] setOverrideLayoutMarginsWhenEmbeddedInline:v1[155]];
+      routePickerView = [v1[156] routePickerView];
       routingConfiguration = [v1 routingConfiguration];
       [routePickerView setRoutingConfiguration:routingConfiguration];
 
       playbackControlsController = [v1 playbackControlsController];
-      [playbackControlsController playbackControlsViewDidLoad:*(v1 + 1248)];
+      [playbackControlsController playbackControlsViewDidLoad:v1[156]];
 
-      [*(v1 + 1176) setActivePlaybackControlsView:*(v1 + 1248)];
-      v8 = *(v1 + 1256);
-      *(v1 + 1256) = 0;
+      [v1[147] setActivePlaybackControlsView:v1[156]];
+      v8 = v1[157];
+      v1[157] = 0;
 
       return [v1 _updatePrefersFullWidthTransportBarStateIfNeeded];
     }
@@ -331,7 +331,7 @@ LABEL_15:
 
 - (id)volumeControlsLayoutItem
 {
-  [(AVCatalystGlassControlsViewController *)self _loadPlaybackControlsViewIfNeeded];
+  [(AVCatalystGlassControlsViewController *)&self->super.super.super.super.super.isa _loadPlaybackControlsViewIfNeeded];
   playbackControlsView = self->_playbackControlsView;
 
   return [(AVCatalystGlassPlaybackControlsView *)playbackControlsView volumeControls];
@@ -349,7 +349,7 @@ LABEL_15:
 
 - (id)transportControlsLayoutItem
 {
-  [(AVCatalystGlassControlsViewController *)self _loadPlaybackControlsViewIfNeeded];
+  [(AVCatalystGlassControlsViewController *)&self->super.super.super.super.super.isa _loadPlaybackControlsViewIfNeeded];
   playbackControlsView = self->_playbackControlsView;
 
   return [(AVCatalystGlassPlaybackControlsView *)playbackControlsView transportControlsView];
@@ -393,7 +393,7 @@ LABEL_15:
 
 - (id)displayModeControlsLayoutItem
 {
-  [(AVCatalystGlassControlsViewController *)self _loadPlaybackControlsViewIfNeeded];
+  [(AVCatalystGlassControlsViewController *)&self->super.super.super.super.super.isa _loadPlaybackControlsViewIfNeeded];
   playbackControlsView = self->_playbackControlsView;
 
   return [(AVCatalystGlassPlaybackControlsView *)playbackControlsView screenModeControls];

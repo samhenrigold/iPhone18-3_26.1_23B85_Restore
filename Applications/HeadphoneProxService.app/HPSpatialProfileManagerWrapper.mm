@@ -1,6 +1,7 @@
 @interface HPSpatialProfileManagerWrapper
 + (BOOL)isProxCardEnrollmentSupportedForDevice:(id)device;
 + (id)profileEnrollmentViewController;
++ (void)setProxCardShowed:(BOOL)showed forDevice:(id)device;
 @end
 
 @implementation HPSpatialProfileManagerWrapper
@@ -19,6 +20,14 @@
   v2 = off_10011C418();
 
   return [(objc_class *)v2 profileEnrollmentViewController];
+}
+
++ (void)setProxCardShowed:(BOOL)showed forDevice:(id)device
+{
+  showedCopy = showed;
+  v5 = off_10011C418;
+  deviceCopy = device;
+  [(objc_class *)v5() setProxCardShowed:showedCopy forDevice:deviceCopy];
 }
 
 @end

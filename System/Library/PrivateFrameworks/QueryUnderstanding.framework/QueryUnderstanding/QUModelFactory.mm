@@ -81,7 +81,7 @@ uint64_t __32__QUModelFactory_sharedInstance__block_invoke()
 
 - (id)getModelForLocale:(id)locale withTimeoutMS:(unsigned int)s
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   unsupportedLocaleIdentifiers = self->_unsupportedLocaleIdentifiers;
   localeIdentifier = [localeCopy localeIdentifier];
@@ -120,7 +120,7 @@ uint64_t __32__QUModelFactory_sharedInstance__block_invoke()
       {
         localeIdentifier4 = [localeCopy localeIdentifier];
         *buf = 138412290;
-        v34 = *&localeIdentifier4;
+        v33 = *&localeIdentifier4;
         _os_log_impl(&dword_2615A2000, v18, OS_LOG_TYPE_INFO, "[QPNLU] QU creating new model for %@", buf, 0xCu);
       }
 
@@ -137,12 +137,12 @@ uint64_t __32__QUModelFactory_sharedInstance__block_invoke()
 
       self->_state = 1;
       v25 = self->_quModel;
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __50__QUModelFactory_getModelForLocale_withTimeoutMS___block_invoke;
-      v32[3] = &unk_279ADA820;
-      v32[4] = self;
-      [(QUUnderstandingModel *)v25 loadWithCompletionHandler:v32];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __50__QUModelFactory_getModelForLocale_withTimeoutMS___block_invoke;
+      v31[3] = &unk_279ADA820;
+      v31[4] = self;
+      [(QUUnderstandingModel *)v25 loadWithCompletionHandler:v31];
     }
 
     state = self->_state;
@@ -152,7 +152,7 @@ uint64_t __32__QUModelFactory_sharedInstance__block_invoke()
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v34 = s / 1000.0;
+        v33 = s / 1000.0;
         _os_log_impl(&dword_2615A2000, v27, OS_LOG_TYPE_DEFAULT, "[QPNLU] Waiting for model load with timeout (%f)", buf, 0xCu);
       }
 
@@ -187,14 +187,12 @@ uint64_t __32__QUModelFactory_sharedInstance__block_invoke()
     [(NSCondition *)self->_condition unlock];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __50__QUModelFactory_getModelForLocale_withTimeoutMS___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = *(*(a1 + 32) + 8);
   v8 = a2;
@@ -212,14 +210,14 @@ LABEL_5:
       goto LABEL_14;
     }
 
-    LODWORD(v26) = 138412290;
-    *(&v26 + 4) = v6;
+    LODWORD(v23) = 138412290;
+    *(&v23 + 4) = v6;
     v12 = "[QPNLU] QU model changed before load complete error: %@";
     v13 = v11;
     v14 = OS_LOG_TYPE_INFO;
     v15 = 12;
 LABEL_4:
-    _os_log_impl(&dword_2615A2000, v13, v14, v12, &v26, v15);
+    _os_log_impl(&dword_2615A2000, v13, v14, v12, &v23, v15);
     goto LABEL_5;
   }
 
@@ -228,8 +226,8 @@ LABEL_4:
     v16 = [objc_opt_class() log];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_2615A2000, v16, OS_LOG_TYPE_DEFAULT, "[QPNLU] Waking threads blocked on load", &v26, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_2615A2000, v16, OS_LOG_TYPE_DEFAULT, "[QPNLU] Waking threads blocked on load", &v23, 2u);
     }
 
     [*(*(a1 + 32) + 8) broadcast];
@@ -239,14 +237,13 @@ LABEL_4:
   if (!v6)
   {
     *(v17 + 16) = 3;
-    v25 = *(a1 + 32);
     v11 = [objc_opt_class() log];
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_5;
     }
 
-    LOWORD(v26) = 0;
+    LOWORD(v23) = 0;
     v12 = "[QPNLU] QU model loaded";
     v13 = v11;
     v14 = OS_LOG_TYPE_DEFAULT;
@@ -255,28 +252,25 @@ LABEL_4:
   }
 
   objc_storeStrong((v17 + 56), a3);
-  v18 = *(a1 + 32);
-  v19 = [objc_opt_class() log];
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v18 = [objc_opt_class() log];
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    LODWORD(v26) = 138412290;
-    *(&v26 + 4) = v6;
-    _os_log_impl(&dword_2615A2000, v19, OS_LOG_TYPE_ERROR, "[QPNLU] QU model load failed error: %@", &v26, 0xCu);
+    LODWORD(v23) = 138412290;
+    *(&v23 + 4) = v6;
+    _os_log_impl(&dword_2615A2000, v18, OS_LOG_TYPE_ERROR, "[QPNLU] QU model load failed error: %@", &v23, 0xCu);
   }
 
-  v20 = *(a1 + 32);
-  v21 = *(v20 + 24);
-  *(v20 + 24) = 0;
+  v19 = *(a1 + 32);
+  v20 = *(v19 + 24);
+  *(v19 + 24) = 0;
 
-  v22 = *(a1 + 32);
-  v23 = *(v22 + 40);
-  *(v22 + 40) = 0;
+  v21 = *(a1 + 32);
+  v22 = *(v21 + 40);
+  *(v21 + 40) = 0;
 
   *(*(a1 + 32) + 16) = 0;
 LABEL_14:
   [*(*(a1 + 32) + 8) unlock];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseModel

@@ -26,44 +26,44 @@
 
 - (BOOL)isValidRow:(id)row
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   rowCopy = row;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  obj = objc_msgSend_features(self, v5, v6);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v29, v33, 16);
-  if (v8)
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  obj = [(APOdmlTrainingRow *)self features];
+  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v5)
   {
-    v10 = v8;
-    v28 = *v30;
+    v6 = v5;
+    v17 = *v19;
     while (2)
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v28)
+        if (*v19 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
-        v13 = objc_msgSend_rangeBoundaryForFeature_upperBound_(rowCopy, v9, v12, 0);
-        v15 = objc_msgSend_rangeBoundaryForFeature_upperBound_(rowCopy, v14, v12, 1);
-        v17 = objc_msgSend_sentinelValuesForFeature_(rowCopy, v16, v12);
-        v20 = objc_msgSend_features(self, v18, v19);
-        v22 = objc_msgSend_objectForKey_(v20, v21, v12);
-        LODWORD(v12) = objc_msgSend_isValidFeature_featureName_min_max_sentinelValues_(self, v23, v22, v12, v13, v15, v17);
+        v8 = *(*(&v18 + 1) + 8 * i);
+        v9 = [rowCopy rangeBoundaryForFeature:v8 upperBound:0];
+        v10 = [rowCopy rangeBoundaryForFeature:v8 upperBound:1];
+        v11 = [rowCopy sentinelValuesForFeature:v8];
+        features = [(APOdmlTrainingRow *)self features];
+        v13 = [features objectForKey:v8];
+        LODWORD(v8) = [(APOdmlTrainingRow *)self isValidFeature:v13 featureName:v8 min:v9 max:v10 sentinelValues:v11];
 
-        if (!v12)
+        if (!v8)
         {
-          v24 = 0;
+          v14 = 0;
           goto LABEL_11;
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v29, v33, 16);
-      if (v10)
+      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (v6)
       {
         continue;
       }
@@ -72,126 +72,125 @@
     }
   }
 
-  v24 = 1;
+  v14 = 1;
 LABEL_11:
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v14;
 }
 
 - (BOOL)isValidFeature:(id)feature featureName:(id)name min:(id)min max:(id)max sentinelValues:(id)values
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   nameCopy = name;
   minCopy = min;
   maxCopy = max;
   valuesCopy = values;
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v67 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v17 = featureCopy;
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v64, v69, 16);
-  if (!v19)
+  v18 = [v17 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  if (!v18)
   {
-    LOBYTE(v25) = 1;
+    LOBYTE(v22) = 1;
     goto LABEL_24;
   }
 
-  v22 = v19;
+  v19 = v18;
   selfCopy = self;
-  v58 = nameCopy;
-  v23 = *v65;
-  v59 = maxCopy;
-  v55 = *v65;
+  v45 = nameCopy;
+  v20 = *v52;
+  v46 = maxCopy;
+  v42 = *v52;
   while (2)
   {
-    v24 = 0;
-    v56 = v22;
+    v21 = 0;
+    v43 = v19;
     do
     {
-      if (*v65 != v23)
+      if (*v52 != v20)
       {
         objc_enumerationMutation(v17);
       }
 
-      v25 = *(*(&v64 + 1) + 8 * v24);
-      if (!v25)
+      v22 = *(*(&v51 + 1) + 8 * v21);
+      if (!v22)
       {
-        nameCopy = v58;
-        objc_msgSend_reportError_name_value_(selfCopy, v20, 8044, v58, 0);
+        nameCopy = v45;
+        [(APOdmlTrainingRow *)selfCopy reportError:8044 name:v45 value:0];
         goto LABEL_24;
       }
 
       if (minCopy)
       {
-        objc_msgSend_floatValue(*(*(&v64 + 1) + 8 * v24), v20, v21);
-        v27 = v26;
-        objc_msgSend_floatValue(minCopy, v28, v29);
-        if (v27 < v30)
+        [*(*(&v51 + 1) + 8 * v21) floatValue];
+        v24 = v23;
+        [minCopy floatValue];
+        if (v24 < v25)
         {
-          v54 = &kAPODMLDESPluginFeatureMinExceeded;
+          v41 = &kAPODMLDESPluginFeatureMinExceeded;
 LABEL_28:
-          nameCopy = v58;
-          objc_msgSend_reportError_name_value_(selfCopy, v20, *v54, v58, v25);
-          LOBYTE(v25) = 0;
+          nameCopy = v45;
+          [(APOdmlTrainingRow *)selfCopy reportError:*v41 name:v45 value:v22];
+          LOBYTE(v22) = 0;
           goto LABEL_24;
         }
       }
 
       if (maxCopy)
       {
-        objc_msgSend_floatValue(v25, v20, v21);
-        v32 = v31;
-        objc_msgSend_floatValue(maxCopy, v33, v34);
-        if (v32 > v35)
+        [v22 floatValue];
+        v27 = v26;
+        [maxCopy floatValue];
+        if (v27 > v28)
         {
-          v54 = &kAPODMLDESPluginFeatureMaxExceeded;
+          v41 = &kAPODMLDESPluginFeatureMaxExceeded;
           goto LABEL_28;
         }
       }
 
-      v36 = minCopy;
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
-      v61 = 0u;
-      v37 = valuesCopy;
-      v38 = valuesCopy;
-      v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v60, v68, 16);
-      if (v40)
+      v29 = minCopy;
+      v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v30 = valuesCopy;
+      v31 = valuesCopy;
+      v32 = [v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      if (v32)
       {
-        v43 = v40;
-        v44 = *v61;
+        v33 = v32;
+        v34 = *v48;
         while (2)
         {
-          for (i = 0; i != v43; ++i)
+          for (i = 0; i != v33; ++i)
           {
-            if (*v61 != v44)
+            if (*v48 != v34)
             {
-              objc_enumerationMutation(v38);
+              objc_enumerationMutation(v31);
             }
 
-            v46 = *(*(&v60 + 1) + 8 * i);
-            objc_msgSend_floatValue(v25, v41, v42);
-            v48 = v47;
-            objc_msgSend_floatValue(v46, v49, v50);
-            if (v48 == v51)
+            v36 = *(*(&v47 + 1) + 8 * i);
+            [v22 floatValue];
+            v38 = v37;
+            [v36 floatValue];
+            if (v38 == v39)
             {
-              nameCopy = v58;
-              objc_msgSend_reportError_name_value_(selfCopy, v41, 8044, v58, v25);
+              nameCopy = v45;
+              [(APOdmlTrainingRow *)selfCopy reportError:8044 name:v45 value:v22];
 
-              LOBYTE(v25) = 0;
-              minCopy = v36;
-              maxCopy = v59;
-              valuesCopy = v37;
+              LOBYTE(v22) = 0;
+              minCopy = v29;
+              maxCopy = v46;
+              valuesCopy = v30;
               goto LABEL_24;
             }
           }
 
-          v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v41, &v60, v68, 16);
-          if (v43)
+          v33 = [v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
+          if (v33)
           {
             continue;
           }
@@ -200,18 +199,18 @@ LABEL_28:
         }
       }
 
-      ++v24;
-      v23 = v55;
-      minCopy = v36;
-      maxCopy = v59;
-      valuesCopy = v37;
+      ++v21;
+      v20 = v42;
+      minCopy = v29;
+      maxCopy = v46;
+      valuesCopy = v30;
     }
 
-    while (v24 != v56);
-    v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v64, v69, 16);
-    LOBYTE(v25) = 1;
-    nameCopy = v58;
-    if (v22)
+    while (v21 != v43);
+    v19 = [v17 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    LOBYTE(v22) = 1;
+    nameCopy = v45;
+    if (v19)
     {
       continue;
     }
@@ -221,8 +220,7 @@ LABEL_28:
 
 LABEL_24:
 
-  v52 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v22;
 }
 
 - (void)reportError:(int64_t)error name:(id)name value:(id)value
@@ -230,54 +228,52 @@ LABEL_24:
   v7 = MEMORY[0x277CCA9B8];
   valueCopy = value;
   nameCopy = name;
-  v20 = objc_msgSend_errorWithDomain_code_userInfo_(v7, v10, @"APODMLDESPluginErrorDomain", error, 0);
-  v13 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v11, v12);
-  objc_msgSend_setValue_forKey_(v13, v14, nameCopy, @"featureName");
+  v12 = [v7 errorWithDomain:@"APODMLDESPluginErrorDomain" code:error userInfo:0];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  [dictionary setValue:nameCopy forKey:@"featureName"];
 
-  objc_msgSend_setValue_forKey_(v13, v15, valueCopy, @"featureValue");
-  v18 = objc_msgSend_copy(v13, v16, v17);
-  objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsModelTraining, v19, v20, v18);
+  [dictionary setValue:valueCopy forKey:@"featureValue"];
+  v11 = [dictionary copy];
+  [APOdmlAnalyticsModelTraining sendEvent:v12 additionalDetails:v11];
 }
 
 - (NSSet)featureNames
 {
-  v3 = MEMORY[0x277CBEB98];
-  v4 = objc_msgSend_features(self, a2, v2);
-  v7 = objc_msgSend_allKeys(v4, v5, v6);
-  v9 = objc_msgSend_setWithArray_(v3, v8, v7);
+  v2 = MEMORY[0x277CBEB98];
+  features = [(APOdmlTrainingRow *)self features];
+  allKeys = [features allKeys];
+  v5 = [v2 setWithArray:allKeys];
 
-  return v9;
+  return v5;
 }
 
 - (id)featureValueForName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v7 = objc_msgSend_features(self, v5, v6);
-  v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, nameCopy);
+  features = [(APOdmlTrainingRow *)self features];
+  v6 = [features objectForKeyedSubscript:nameCopy];
 
-  v12 = objc_msgSend_twoDimensionalMultiarrayFromArray_(MEMORY[0x277CBFF48], v10, v9);
-  if (v12)
+  v7 = [MEMORY[0x277CBFF48] twoDimensionalMultiarrayFromArray:v6];
+  if (v7)
   {
-    v13 = objc_msgSend_featureValueWithMultiArray_(MEMORY[0x277CBFEF8], v11, v12);
+    v8 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v7];
   }
 
   else
   {
-    v14 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v9 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = nameCopy;
-      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "Failed to initialize feature value for %@", &v17, 0xCu);
+      v11 = 138412290;
+      v12 = nameCopy;
+      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "Failed to initialize feature value for %@", &v11, 0xCu);
     }
 
-    v13 = 0;
+    v8 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v8;
 }
 
 @end

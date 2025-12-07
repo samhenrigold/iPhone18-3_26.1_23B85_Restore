@@ -142,7 +142,7 @@
 
 - (void)headersBySigningDataXPC:(id)c serverTimestamp:(id)timestamp topic:(id)topic completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   cCopy = c;
   timestampCopy = timestamp;
   topicCopy = topic;
@@ -154,29 +154,27 @@
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v27 = topicCopy;
-    v28 = 2112;
-    v29 = timestampCopy;
-    v30 = 2112;
-    v31 = cCopy;
+    v26 = topicCopy;
+    v27 = 2112;
+    v28 = timestampCopy;
+    v29 = 2112;
+    v30 = cCopy;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "XPCing BAA sign {topic: %@, serverTimestamp: %@, data: %@}", buf, 0x20u);
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = sub_195A9EA08;
-  v21[3] = &unk_1E7441678;
-  v22 = topicCopy;
-  v23 = cCopy;
-  v24 = timestampCopy;
-  v25 = completionCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_195A9EA08;
+  v20[3] = &unk_1E7441678;
+  v21 = topicCopy;
+  v22 = cCopy;
+  v23 = timestampCopy;
+  v24 = completionCopy;
   v16 = timestampCopy;
   v17 = cCopy;
   v18 = completionCopy;
   v19 = topicCopy;
-  [IDSXPCDaemonController performDaemonControllerTask:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [IDSXPCDaemonController performDaemonControllerTask:v20];
 }
 
 - (void)headersBySigningDataNoXPC:(id)c serverTimestamp:(id)timestamp completion:(id)completion
@@ -233,7 +231,7 @@
 
 - (void)purgeBAACertNoXPCWithCompletion:(id)completion
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (qword_1EAEDC118 != -1)
   {
@@ -252,19 +250,19 @@
 
   if (off_1EAEDC110 && qword_1EAEDC128 && qword_1EAEDC138)
   {
-    v11[0] = qword_1EAEDC128;
-    v11[1] = qword_1EAEDC138;
-    v12[0] = @"com.apple.IDS";
-    v12[1] = MEMORY[0x1E695E118];
-    registration = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v10[0] = qword_1EAEDC128;
+    v10[1] = qword_1EAEDC138;
+    v11[0] = @"com.apple.IDS";
+    v11[1] = MEMORY[0x1E695E118];
+    registration = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
     v6 = off_1EAEDC110;
     baaQueue = [(IDSBAASigner *)self baaQueue];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_195A9F700;
-    v9[3] = &unk_1E74416F0;
-    v10 = completionCopy;
-    v6(baaQueue, registration, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_195A9F700;
+    v8[3] = &unk_1E74416F0;
+    v9 = completionCopy;
+    v6(baaQueue, registration, v8);
   }
 
   else
@@ -280,35 +278,33 @@
       sub_195B33EB4();
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchBAAIdentityIfNeededWithCompletion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   queue = [(IDSBAASigner *)self queue];
   dispatch_assert_queue_V2(queue);
 
   if ([(IDSBAASigner *)self isDeviceIdentitySupported])
   {
-    v39[0] = 0;
-    v39[1] = v39;
-    v39[2] = 0x2020000000;
-    v39[3] = 0;
-    v37[0] = 0;
-    v37[1] = v37;
-    v37[2] = 0x3032000000;
-    v37[3] = sub_195A00784;
-    v37[4] = sub_195A03D68;
-    v38 = 0;
-    v35[0] = 0;
-    v35[1] = v35;
-    v35[2] = 0x3032000000;
-    v35[3] = sub_195A00784;
-    v35[4] = sub_195A03D68;
-    v36 = 0;
+    v38[0] = 0;
+    v38[1] = v38;
+    v38[2] = 0x2020000000;
+    v38[3] = 0;
+    v36[0] = 0;
+    v36[1] = v36;
+    v36[2] = 0x3032000000;
+    v36[3] = sub_195A00784;
+    v36[4] = sub_195A03D68;
+    v37 = 0;
+    v34[0] = 0;
+    v34[1] = v34;
+    v34[2] = 0x3032000000;
+    v34[3] = sub_195A00784;
+    v34[4] = sub_195A03D68;
+    v35 = 0;
     baaCertTTLInMinutesFromServerBag = [(IDSBAASigner *)self baaCertTTLInMinutesFromServerBag];
     v7 = baaCertTTLInMinutesFromServerBag;
     v8 = &unk_1F0A29CC0;
@@ -318,28 +314,28 @@
     }
 
     v9 = v8;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = sub_195A9FBC0;
-    v29[3] = &unk_1E7441768;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = sub_195A9FBC0;
+    v28[3] = &unk_1E7441768;
     v10 = v9;
-    v30 = v10;
+    v29 = v10;
     selfCopy = self;
-    v32 = v39;
-    v33 = v37;
-    v34 = v35;
-    v11 = MEMORY[0x19A8BBEF0](v29);
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = sub_195AA04D8;
-    v23 = &unk_1E74417B8;
+    v31 = v38;
+    v32 = v36;
+    v33 = v34;
+    v11 = MEMORY[0x19A8BBEF0](v28);
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = sub_195AA04D8;
+    v22 = &unk_1E74417B8;
     selfCopy2 = self;
-    v26 = v39;
-    v27 = v37;
-    v28 = v35;
-    v25 = completionCopy;
-    v12 = MEMORY[0x19A8BBEF0](&v20);
-    v13 = [(IDSBAASigner *)self baaFetchTimeoutFromServerBag:v20];
+    v25 = v38;
+    v26 = v36;
+    v27 = v34;
+    v24 = completionCopy;
+    v12 = MEMORY[0x19A8BBEF0](&v19);
+    v13 = [(IDSBAASigner *)self baaFetchTimeoutFromServerBag:v19];
     v14 = v13;
     if (v13)
     {
@@ -356,17 +352,17 @@
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v41 = v16;
+      v40 = v16;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Starting device identity fetch task with timeout {timeoutInSeconds: %f}", buf, 0xCu);
     }
 
     dispatch_time(0, (v16 * 1000000000.0));
     im_dispatch_async_with_timeout();
 
-    _Block_object_dispose(v35, 8);
-    _Block_object_dispose(v37, 8);
+    _Block_object_dispose(v34, 8);
+    _Block_object_dispose(v36, 8);
 
-    _Block_object_dispose(v39, 8);
+    _Block_object_dispose(v38, 8);
   }
 
   else
@@ -374,13 +370,11 @@
     v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSBAASignerErrorDomain" code:8 userInfo:0];
     (*(completionCopy + 2))(completionCopy, 0, 0, v17);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signData:(id)data withKey:(__SecKey *)key completion:(id)completion
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
   if (!key)
@@ -409,11 +403,11 @@ LABEL_5:
 
   if (sha256Digest)
   {
+    v62 = 0;
     v63 = 0;
-    v64 = 0;
-    v16 = [(IDSBAASigner *)self legacySignData:dataCopy withKey:key signingTimestamp:&v64 error:&v63];
-    v17 = v64;
-    sha256Digest = v63;
+    v16 = [(IDSBAASigner *)self legacySignData:dataCopy withKey:key signingTimestamp:&v63 error:&v62];
+    v17 = v63;
+    sha256Digest = v62;
   }
 
   else
@@ -431,8 +425,8 @@ LABEL_5:
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "BAA signer adding iCloud BAA headers!", buf, 2u);
     }
 
-    v62 = 0;
-    v19 = [(IDSBAASigner *)self alternateICloudSigningPayloadForData:dataCopy currentTimestampInMs:&v62];
+    v61 = 0;
+    v19 = [(IDSBAASigner *)self alternateICloudSigningPayloadForData:dataCopy currentTimestampInMs:&v61];
     requestBody = [dataCopy requestBody];
 
     v21 = v19;
@@ -441,29 +435,29 @@ LABEL_5:
       v21 = [(IDSBAASigner *)self icloudSigningPayloadForData:dataCopy withAltPayload:v19];
     }
 
-    v44 = v21;
+    v43 = v21;
     registration2 = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v66 = v21;
+      v65 = v21;
       _os_log_impl(&dword_1959FF000, registration2, OS_LOG_TYPE_DEFAULT, "BAA signer payload %@", buf, 0xCu);
     }
 
     v23 = [v19 dataUsingEncoding:4];
     [v23 SHA256Data];
-    v24 = v39 = v19;
+    v24 = v38 = v19;
 
     v25 = [v21 dataUsingEncoding:4];
     sHA256Data = [v25 SHA256Data];
 
     v27 = v24;
-    v61 = 0;
-    v43 = [(IDSBAASigner *)self icloudSignData:sHA256Data withKey:key error:&v61];
-    v42 = v61;
     v60 = 0;
-    v41 = [(IDSBAASigner *)self icloudSignData:v24 withKey:key error:&v60];
-    v40 = v60;
+    v42 = [(IDSBAASigner *)self icloudSignData:sHA256Data withKey:key error:&v60];
+    v41 = v60;
+    v59 = 0;
+    v40 = [(IDSBAASigner *)self icloudSignData:v24 withKey:key error:&v59];
+    v39 = v59;
     if ([(IDSBAASigner *)self isVirtualMachine])
     {
       baaQueue = [(IDSBAASigner *)self baaQueue];
@@ -471,24 +465,24 @@ LABEL_5:
       block[1] = 3221225472;
       block[2] = sub_195AA0CB8;
       block[3] = &unk_1E7441828;
-      v46 = sHA256Data;
-      v47 = v24;
+      v45 = sHA256Data;
+      v46 = v24;
       selfCopy = self;
-      v58 = completionCopy;
-      v49 = v16;
-      v50 = v17;
-      v51 = sha256Digest;
-      v59 = v62;
-      v52 = v44;
-      v53 = v39;
-      v54 = v43;
+      v57 = completionCopy;
+      v48 = v16;
+      v49 = v17;
+      v50 = sha256Digest;
+      v58 = v61;
+      v51 = v43;
+      v52 = v38;
+      v53 = v42;
+      v54 = v40;
       v55 = v41;
-      v56 = v42;
-      v57 = v40;
+      v56 = v39;
       dispatch_async(baaQueue, block);
 
-      stringValue = v46;
-      v30 = v39;
+      stringValue = v45;
+      v30 = v38;
     }
 
     else
@@ -496,11 +490,11 @@ LABEL_5:
       v32 = [IDSBAASigningResult alloc];
       v33 = sHA256Data;
       v34 = v27;
-      v35 = v62;
+      v35 = v61;
       stringValue = [&unk_1F0A29990 stringValue];
       v36 = v32;
-      v30 = v39;
-      v37 = [(IDSBAASigningResult *)v36 initWithResultData:v16 timestamp:v17 error:sha256Digest currentTimestampInMs:v35 icloudDigest:v44 icloudAltDigest:v39 icloudResultData:v43 icloudAltResultData:v41 icloudError:v42 icloudAltError:v40 baaCertSource:stringValue];
+      v30 = v38;
+      v37 = [(IDSBAASigningResult *)v36 initWithResultData:v16 timestamp:v17 error:sha256Digest currentTimestampInMs:v35 icloudDigest:v43 icloudAltDigest:v38 icloudResultData:v42 icloudAltResultData:v40 icloudError:v41 icloudAltError:v39 baaCertSource:stringValue];
       completionCopy[2](completionCopy, v37);
 
       v27 = v34;
@@ -515,7 +509,6 @@ LABEL_5:
   }
 
 LABEL_23:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (id)legacySignData:(id)data withKey:(__SecKey *)key signingTimestamp:(id *)timestamp error:(id *)error
@@ -722,7 +715,7 @@ LABEL_4:
 
 - (id)headersBySigningData:(id)data baaSigningResult:(id)result baaCert:(id)cert intermediateRootCert:(id)rootCert
 {
-  v71[2] = *MEMORY[0x1E69E9840];
+  v70[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   resultCopy = result;
   certCopy = cert;
@@ -734,7 +727,7 @@ LABEL_4:
 
   if (sha256Digest)
   {
-    v69 = certCopy;
+    v68 = certCopy;
     v17 = rootCertCopy;
     v18 = dataCopy;
     sha256Digest2 = [dataCopy sha256Digest];
@@ -792,12 +785,12 @@ LABEL_4:
       }
     }
 
-    certCopy = v69;
+    certCopy = v68;
   }
 
   if (_os_feature_enabled_impl() && [dataCopy includeIcloudBAAHeaders])
   {
-    v70 = v15;
+    v69 = v15;
     icloudBAAVersion = [(IDSBAASigner *)self icloudBAAVersion];
     stringValue = [icloudBAAVersion stringValue];
 
@@ -813,9 +806,9 @@ LABEL_4:
 
     if (certCopy && rootCertCopy)
     {
-      v71[0] = certCopy;
-      v71[1] = rootCertCopy;
-      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:2];
+      v70[0] = certCopy;
+      v70[1] = rootCertCopy;
+      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:2];
       v33 = IDSPEMFormatCertificates();
 
       if (v33)
@@ -1017,10 +1010,8 @@ LABEL_4:
       }
     }
 
-    v15 = v70;
+    v15 = v69;
   }
-
-  v67 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1058,9 +1049,9 @@ LABEL_4:
 
 - (id)errorStringForNSError:(id)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v23 = errorCopy;
+  v22 = errorCopy;
   if (errorCopy)
   {
     v5 = errorCopy;
@@ -1071,29 +1062,29 @@ LABEL_4:
       v8 = underlyingErrors;
       do
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         obj = v8;
-        v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v9)
         {
           v10 = v9;
           v8 = 0;
-          v11 = *v26;
+          v11 = *v25;
           do
           {
             v12 = 0;
             v13 = v6;
             do
             {
-              if (*v26 != v11)
+              if (*v25 != v11)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v14 = *(*(&v25 + 1) + 8 * v12);
+              v14 = *(*(&v24 + 1) + 8 * v12);
               v15 = MEMORY[0x1E696AEC0];
               v16 = [(IDSBAASigner *)self errorStringForNSErrorWithoutUnderlyingError:v14];
               v17 = [v15 stringWithFormat:@", %@", v16];
@@ -1118,7 +1109,7 @@ LABEL_4:
             }
 
             while (v10 != v12);
-            v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+            v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
           }
 
           while (v10);
@@ -1138,8 +1129,6 @@ LABEL_4:
   {
     v6 = &stru_1F09E7B80;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

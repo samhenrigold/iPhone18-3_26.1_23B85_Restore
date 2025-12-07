@@ -10,19 +10,19 @@
 
 + (id)componentNamesForConceptWithIdentifier:(id)identifier ontologyTransaction:(id)transaction error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   transactionCopy = transaction;
   v10 = *MEMORY[0x277D10398];
-  v23 = 0;
-  v24 = v10;
-  v11 = [self _conceptIdentifiersFollowingFormOfRelationshipForNodeWithIdentifier:identifierCopy ontologyTransaction:transactionCopy conceptIdentifierOut:&v23 deletedFormOfRelationshipVersionOut:&v24 error:error];
-  v12 = v23;
+  v22 = 0;
+  v23 = v10;
+  v11 = [self _conceptIdentifiersFollowingFormOfRelationshipForNodeWithIdentifier:identifierCopy ontologyTransaction:transactionCopy conceptIdentifierOut:&v22 deletedFormOfRelationshipVersionOut:&v23 error:error];
+  v12 = v22;
   v13 = 0;
   if (v11)
   {
-    v22 = v10;
-    v14 = [self _conceptIdentifiersFollowingMultipleComponentRelationshipsForNodeWithIdentifier:identifierCopy ontologyTransaction:transactionCopy maximumComponentDeletedRelationshipVersionOut:&v22 error:error];
+    v21 = v10;
+    v14 = [self _conceptIdentifiersFollowingMultipleComponentRelationshipsForNodeWithIdentifier:identifierCopy ontologyTransaction:transactionCopy maximumComponentDeletedRelationshipVersionOut:&v21 error:error];
     v15 = v14;
     if (!v14)
     {
@@ -32,11 +32,11 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v16 = v24;
+    v16 = v23;
     if (v12)
     {
-      v25[0] = v12;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v24[0] = v12;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     }
 
     else
@@ -54,7 +54,7 @@ LABEL_13:
 LABEL_9:
     if (v16 == v10)
     {
-      v19 = v22;
+      v19 = v21;
     }
 
     else
@@ -68,8 +68,6 @@ LABEL_9:
   }
 
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -165,32 +163,32 @@ uint64_t __187__HDOntologyComponentNameProvider__conceptIdentifiersFollowingMult
 
 + (id)_componentNamesFromClinicalProductIdentifiers:(id)identifiers deletedRelationshipVersion:(int64_t)version ontologyTransaction:(id)transaction error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   transactionCopy = transaction;
   if (identifiersCopy)
   {
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v13 = identifiersCopy;
-    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [self _componentNamesFromClinicalProductConceptWithIdentifier:*(*(&v23 + 1) + 8 * i) ontologyTransaction:transactionCopy error:{error, v23}];
+          v18 = [self _componentNamesFromClinicalProductConceptWithIdentifier:*(*(&v22 + 1) + 8 * i) ontologyTransaction:transactionCopy error:{error, v22}];
           if (!v18)
           {
 
@@ -202,7 +200,7 @@ uint64_t __187__HDOntologyComponentNameProvider__conceptIdentifiersFollowingMult
           [v12 addObjectsFromArray:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v15)
         {
           continue;
@@ -225,8 +223,6 @@ LABEL_12:
   {
     v20 = [MEMORY[0x277D107D0] nullLocalizedOntologyPreferredNamesWithVersion:version withUserDomainConceptPropertyType:160022];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

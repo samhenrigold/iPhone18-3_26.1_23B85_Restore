@@ -14,7 +14,7 @@
   v5 = [(HDIDSDestination *)&v9 init];
   if (v5)
   {
-    v6 = [blockCopy copy];
+    v6 = objc_msgSend_copy(blockCopy);
     deviceFilterBlock = v5->_deviceFilterBlock;
     v5->_deviceFilterBlock = v6;
   }
@@ -47,20 +47,18 @@ uint64_t __47__HDIDSDestination_initWithAllowedDeviceTypes___block_invoke(uint64
 
 + (id)validHealthSoftwareDeviceTypes
 {
-  v11[4] = *MEMORY[0x277D85DE8];
+  v10[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:2];
-  v11[0] = v3;
+  v10[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:4];
-  v11[1] = v4;
+  v10[1] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:1];
-  v11[2] = v5;
+  v10[2] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:6];
-  v11[3] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
+  v10[3] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
   v8 = [v2 setWithArray:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

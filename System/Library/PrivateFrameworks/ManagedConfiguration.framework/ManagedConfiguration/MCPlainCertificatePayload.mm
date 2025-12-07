@@ -13,25 +13,24 @@
 
 + (id)typeStrings
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.security.root";
-  v5[1] = @"com.apple.security.pkcs12";
-  v5[2] = @"com.apple.security.pkcs1";
-  v5[3] = @"com.apple.security.pem";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.security.root";
+  v4[1] = @"com.apple.security.pkcs12";
+  v4[2] = @"com.apple.security.pkcs1";
+  v4[3] = @"com.apple.security.pem";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
 
   return v2;
 }
 
 - (MCPlainCertificatePayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v36.receiver = self;
-  v36.super_class = MCPlainCertificatePayload;
-  v10 = [(MCCertificatePayload *)&v36 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v35.receiver = self;
+  v35.super_class = MCPlainCertificatePayload;
+  v10 = [(MCCertificatePayload *)&v35 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_19;
@@ -39,9 +38,9 @@
 
   if (![profileCopy isStub])
   {
-    v35 = 0;
-    v11 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v35];
-    v12 = v35;
+    v34 = 0;
+    v11 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v34];
+    v12 = v34;
     certificateData = v10->_certificateData;
     v10->_certificateData = v11;
 
@@ -56,9 +55,9 @@
         goto LABEL_9;
       }
 
-      v34 = 0;
-      v16 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Password" errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v34];
-      v12 = v34;
+      v33 = 0;
+      v16 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Password" errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v33];
+      v12 = v33;
       password = v10->_password;
       v10->_password = v16;
 
@@ -78,9 +77,9 @@
     }
   }
 
-  v33 = 0;
-  v18 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadCertificateFileName" errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v33];
-  v12 = v33;
+  v32 = 0;
+  v18 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadCertificateFileName" errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v32];
+  v12 = v32;
   certificateFileName = v10->_certificateFileName;
   v10->_certificateFileName = v18;
 
@@ -93,9 +92,9 @@ LABEL_9:
       v21 = v20;
       friendlyName = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v38 = friendlyName;
-      v39 = 2114;
-      v40 = dictionaryCopy;
+      v37 = friendlyName;
+      v38 = 2114;
+      v39 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
     }
   }
@@ -118,9 +117,9 @@ LABEL_9:
       v29 = v28;
       mCVerboseDescription = [v24 MCVerboseDescription];
       *buf = 138543618;
-      v38 = v28;
-      v39 = 2114;
-      v40 = mCVerboseDescription;
+      v37 = v28;
+      v38 = 2114;
+      v39 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v27, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -128,7 +127,6 @@ LABEL_9:
   }
 
 LABEL_19:
-  v31 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -214,65 +212,59 @@ LABEL_19:
 
 - (__SecCertificate)copyCertificate
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = MCPlainCertificatePayload;
-  result = [(MCCertificatePayload *)&v11 copyCertificate];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = MCPlainCertificatePayload;
+  result = [(MCCertificatePayload *)&v10 copyCertificate];
   certificateRef = result;
-  if (result)
+  if (!result)
   {
-    goto LABEL_8;
-  }
-
-  if (!self->_certificateData)
-  {
-    goto LABEL_7;
-  }
-
-  dataEncoding = self->_dataEncoding;
-  if (dataEncoding != 1)
-  {
-    if (!dataEncoding)
+    if (!self->_certificateData)
     {
-      result = [MCCrypto copyCertificateRefFromPKCS1Data:?];
-      if (!result)
+      return 0;
+    }
+
+    dataEncoding = self->_dataEncoding;
+    if (dataEncoding != 1)
+    {
+      if (!dataEncoding)
       {
-        result = [MCCrypto copyCertificateRefFromPEMData:self->_certificateData];
+        result = [MCCrypto copyCertificateRefFromPKCS1Data:?];
+        if (!result)
+        {
+          return [MCCrypto copyCertificateRefFromPEMData:self->_certificateData];
+        }
+
+        return result;
       }
 
-      goto LABEL_8;
+      return 0;
     }
 
-LABEL_7:
-    result = 0;
-    goto LABEL_8;
+    result = [(NSString *)self->_password length];
+    if (result)
+    {
+      items = 0;
+      password = self->_password;
+      v12 = *MEMORY[0x1E697B0B0];
+      v13[0] = password;
+      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      if (!SecPKCS12Import(self->_certificateData, v6, &items) && CFArrayGetCount(items) == 1)
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(items, 0);
+        Value = CFDictionaryGetValue(ValueAtIndex, *MEMORY[0x1E697B0B8]);
+        SecIdentityCopyCertificate(Value, &certificateRef);
+      }
+
+      if (items)
+      {
+        CFRelease(items);
+      }
+
+      return certificateRef;
+    }
   }
 
-  result = [(NSString *)self->_password length];
-  if (result)
-  {
-    items = 0;
-    password = self->_password;
-    v13 = *MEMORY[0x1E697B0B0];
-    v14[0] = password;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-    if (!SecPKCS12Import(self->_certificateData, v7, &items) && CFArrayGetCount(items) == 1)
-    {
-      ValueAtIndex = CFArrayGetValueAtIndex(items, 0);
-      Value = CFDictionaryGetValue(ValueAtIndex, *MEMORY[0x1E697B0B8]);
-      SecIdentityCopyCertificate(Value, &certificateRef);
-    }
-
-    if (items)
-    {
-      CFRelease(items);
-    }
-
-    result = certificateRef;
-  }
-
-LABEL_8:
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 

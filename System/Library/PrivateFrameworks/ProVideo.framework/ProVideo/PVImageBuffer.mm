@@ -192,7 +192,7 @@
 
   if (v8)
   {
-    [(PVCGImageBufferImpl *)v8 cvPixelBufferWithColorSpace:v5];
+    objc_msgSend_cvPixelBufferWithColorSpace_(v8);
   }
 
   else
@@ -241,7 +241,7 @@
 
   if (v8)
   {
-    [(PVCVPixelBufferImageBufferImpl *)v8 cvPixelBufferWithColorSpace:v5];
+    objc_msgSend_cvPixelBufferWithColorSpace_(v8);
   }
 
   else
@@ -362,7 +362,7 @@
   v14 = 0;
   HGSynchronizable::Lock(lock);
   imageBufferImpl = self->_imageBufferImpl;
-  if (imageBufferImpl && ([(PVImageBufferImpl *)imageBufferImpl cvPixelBufferWithColorSpace:spaceCopy], v12))
+  if (imageBufferImpl && (objc_msgSend_cvPixelBufferWithColorSpace_(imageBufferImpl), v12))
   {
     if ([(PVImageBufferImpl *)self->_imageBufferImpl cvPixelBufferRequiresCopy])
     {
@@ -403,7 +403,7 @@
   imageBufferImpl = self->_imageBufferImpl;
   if (imageBufferImpl)
   {
-    [(PVImageBufferImpl *)imageBufferImpl hgBitmapWithColorSpace:v10];
+    objc_msgSend_hgBitmapWithColorSpace_(imageBufferImpl);
   }
 
   else

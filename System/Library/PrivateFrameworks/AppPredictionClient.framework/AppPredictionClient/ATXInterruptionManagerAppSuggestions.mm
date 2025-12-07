@@ -74,33 +74,33 @@
   v8 = objc_opt_class();
   v9 = [v7 initWithObjects:{v8, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v6);
-  v10 = __atxlog_handle_notification_management();
-  v11 = [v5 robustDecodeObjectOfClasses:v9 forKey:@"codingKeyForRecommendedApps" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.ATXInterruptionManagerAppSuggestions" errorCode:-1 logHandle:v10];
+  v11 = __atxlog_handle_notification_management(v10);
+  v12 = [v5 robustDecodeObjectOfClasses:v9 forKey:@"codingKeyForRecommendedApps" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.ATXInterruptionManagerAppSuggestions" errorCode:-1 logHandle:v11];
 
   error = [coderCopy error];
 
-  v13 = 0;
+  v14 = 0;
   if (!error)
   {
-    v14 = MEMORY[0x1E69C5D78];
-    v15 = objc_autoreleasePoolPush();
-    v16 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v17 = objc_opt_class();
-    v18 = [v16 initWithObjects:{v17, objc_opt_class(), 0}];
-    objc_autoreleasePoolPop(v15);
-    v19 = __atxlog_handle_notification_management();
-    v20 = [v14 robustDecodeObjectOfClasses:v18 forKey:@"codingKeyForCandidateApps" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.ATXInterruptionManagerAppSuggestions" errorCode:-1 logHandle:v19];
+    v15 = MEMORY[0x1E69C5D78];
+    v16 = objc_autoreleasePoolPush();
+    v17 = objc_alloc(MEMORY[0x1E695DFD8]);
+    v18 = objc_opt_class();
+    v19 = [v17 initWithObjects:{v18, objc_opt_class(), 0}];
+    objc_autoreleasePoolPop(v16);
+    v21 = __atxlog_handle_notification_management(v20);
+    v22 = [v15 robustDecodeObjectOfClasses:v19 forKey:@"codingKeyForCandidateApps" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.ATXInterruptionManagerAppSuggestions" errorCode:-1 logHandle:v21];
 
     error2 = [coderCopy error];
 
-    v13 = 0;
+    v14 = 0;
     if (!error2)
     {
-      v13 = [[ATXInterruptionManagerAppSuggestions alloc] initWithRecommendedApps:v11 candidateApps:v20];
+      v14 = [[ATXInterruptionManagerAppSuggestions alloc] initWithRecommendedApps:v12 candidateApps:v22];
     }
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

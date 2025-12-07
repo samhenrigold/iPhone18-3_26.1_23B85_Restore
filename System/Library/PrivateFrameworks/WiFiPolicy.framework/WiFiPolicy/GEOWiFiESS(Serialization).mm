@@ -73,7 +73,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(self, "isMoving")}];
   [dictionary setObject:v3 forKey:@"moving"];
@@ -131,30 +131,30 @@
   if (accessPoints)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     accessPoints2 = [self accessPoints];
-    v23 = [accessPoints2 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v23 = [accessPoints2 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v36;
+      v25 = *v35;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v36 != v25)
+          if (*v35 != v25)
           {
             objc_enumerationMutation(accessPoints2);
           }
 
-          dictionaryRepresentation = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v24 = [accessPoints2 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v24 = [accessPoints2 countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v24);
@@ -179,8 +179,6 @@
 
   v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "type")}];
   [dictionary setObject:v32 forKey:@"type"];
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -353,7 +351,6 @@
 
 - (id)popularityScore
 {
-  v16 = *MEMORY[0x277D85DE8];
   qualities = [self qualities];
 
   if (!qualities)
@@ -379,17 +376,17 @@
     v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(qualities4);
           }
 
-          v11 = *(v14 + 8 * i);
+          v11 = *(v13 + 8 * i);
           if ([v11 type] == 1)
           {
             v8 = +[TBPopularityScore popularityScoreWithValue:](TBPopularityScore, "popularityScoreWithValue:", [v11 score]);
@@ -417,14 +414,11 @@ LABEL_19:
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)qualityScore
 {
-  v16 = *MEMORY[0x277D85DE8];
   qualities = [self qualities];
 
   if (!qualities)
@@ -450,17 +444,17 @@ LABEL_19:
     v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(qualities4);
           }
 
-          v11 = *(v14 + 8 * i);
+          v11 = *(v13 + 8 * i);
           if ([v11 type] == 2)
           {
             v8 = +[TBQualityScore qualityScoreWithValue:](TBQualityScore, "qualityScoreWithValue:", [v11 score]);
@@ -487,8 +481,6 @@ LABEL_15:
 LABEL_19:
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

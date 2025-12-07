@@ -340,7 +340,7 @@ void __128__SBCrossfadeIconZoomAnimator__performAnimationToFraction_withCentralA
 - (double)_appSnapshotCornerRadiusForFraction:(double)fraction
 {
   targetIconView = [(SBScaleIconZoomAnimator *)self targetIconView];
-  [targetIconView iconImageInfo];
+  objc_msgSend_iconImageInfo(targetIconView);
   v6 = (1.0 - fraction) * v5;
 
   return v6;

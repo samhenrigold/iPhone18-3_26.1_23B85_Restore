@@ -9,6 +9,9 @@
 - (NSString)alwaysShowOverlayType;
 - (VCSettingsObjC)init;
 - (id)bestSupportedLocaleFor:(id)for;
+- (id)engineForLocale:(id)locale;
+- (void)setAlwaysShowOverlayType:(id)type;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setPreferredLocale:(id)locale;
 @end
 
@@ -43,6 +46,23 @@
   return _AXSCommandAndControlEnabled() != 0;
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (qword_280893DC8 == -1)
+  {
+  }
+
+  else
+  {
+    enabledCopy2 = enabled;
+    swift_once();
+    enabledCopy = enabledCopy2;
+  }
+
+  MEMORY[0x2821EFF28](enabledCopy);
+}
+
 - (NSArray)supportedLocales
 {
   if (qword_280893DC8 != -1)
@@ -64,34 +84,62 @@
 {
   v4 = sub_2723FE344();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (for)
   {
-    v9 = sub_2723FE5B4();
-    v11 = v10;
+    v8 = sub_2723FE5B4();
+    v10 = v9;
   }
 
   else
   {
-    v9 = 0;
-    v11 = 0;
+    v8 = 0;
+    v10 = 0;
   }
 
   if (qword_280893DC8 != -1)
   {
-    v14 = v9;
+    v13 = v8;
     swift_once();
-    v9 = v14;
+    v8 = v13;
   }
 
-  VCSettings.bestSupportedLocale(for:)(v9, v11, v8);
+  VCSettings.bestSupportedLocale(for:)(v8, v10, v7);
 
-  v12 = sub_2723FE304();
-  (*(v5 + 8))(v8, v4);
+  v11 = sub_2723FE304();
+  (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v11;
+}
+
+- (id)engineForLocale:(id)locale
+{
+  v3 = sub_2723FE5B4();
+  v5 = v4;
+  if (qword_280893DC8 != -1)
+  {
+    v10 = v3;
+    swift_once();
+    v3 = v10;
+  }
+
+  v6 = v5;
+  VCSettings.engine(forLocale:)(*&v3);
+
+  if (v11 == 2)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v8 = sub_2723FE574();
+
+    v7 = v8;
+  }
+
+  return v7;
 }
 
 - (void)setPreferredLocale:(id)locale
@@ -116,47 +164,45 @@
 {
   v2 = sub_2723FE344();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_280893DC8 != -1)
   {
     swift_once();
   }
 
-  v7 = sub_2723EC124();
-  VCSettings.bestSupportedLocale(for:)(v7, v8, v6);
+  v6 = sub_2723EC124();
+  VCSettings.bestSupportedLocale(for:)(v6, v7, v5);
 
-  v9 = sub_2723FE304();
-  (*(v3 + 8))(v6, v2);
+  v8 = sub_2723FE304();
+  (*(v3 + 8))(v5, v2);
 
-  return v9;
+  return v8;
 }
 
 + (id)voiceControlLocaleIdentifierFromString:(id)string
 {
   v3 = sub_2723FE2D4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2723FE5B4();
-  (*(v4 + 104))(v7, *MEMORY[0x277CC9668], v3);
-  v8 = sub_2723FE2C4();
-  v10 = v9;
-  (*(v4 + 8))(v7, v3);
-  v13[4] = v8;
-  v13[5] = v10;
-  v13[2] = 45;
-  v13[3] = 0xE100000000000000;
-  v13[0] = 95;
-  v13[1] = 0xE100000000000000;
+  (*(v4 + 104))(v6, *MEMORY[0x277CC9668], v3);
+  v7 = sub_2723FE2C4();
+  v9 = v8;
+  (*(v4 + 8))(v6, v3);
+  v12[4] = v7;
+  v12[5] = v9;
+  v12[2] = 45;
+  v12[3] = 0xE100000000000000;
+  v12[0] = 95;
+  v12[1] = 0xE100000000000000;
   sub_2723CD24C();
   sub_2723FE984();
 
-  v11 = sub_2723FE574();
+  v10 = sub_2723FE574();
 
-  return v11;
+  return v10;
 }
 
 - (NSString)alwaysShowOverlayType
@@ -165,6 +211,29 @@
   v2 = sub_2723FE574();
 
   return v2;
+}
+
+- (void)setAlwaysShowOverlayType:(id)type
+{
+  v3 = sub_2723FE5B4();
+  if (qword_280893DC8 != -1)
+  {
+    v6 = v3;
+    v7 = v4;
+    swift_once();
+    v4 = v7;
+    v3 = v6;
+  }
+
+  VCOverlayType.init(rawValue:)(*&v3);
+  v5 = v9;
+  if (v9 == 9)
+  {
+    v5 = 0;
+  }
+
+  v8 = v5;
+  VCSettings.alwaysShowOverlayType.setter(&v8);
 }
 
 - (BOOL)showUserHints

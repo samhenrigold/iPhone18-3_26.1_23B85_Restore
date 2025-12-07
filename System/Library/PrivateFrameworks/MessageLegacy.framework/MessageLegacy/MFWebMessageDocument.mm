@@ -2,6 +2,7 @@
 - (MFWebMessageDocument)init;
 - (MFWebMessageDocument)initWithMimeBody:(id)body;
 - (MFWebMessageDocument)initWithMimePart:(id)part;
+- (MFWebMessageDocument)initWithMimePart:(id)part htmlData:(id)data encoding:(unsigned int)encoding;
 - (id)_initWithMimePart:(id)part htmlData:(id)data;
 - (id)attachmentForURL:(id)l;
 - (id)attachmentsInDocument;
@@ -77,6 +78,19 @@
   bodyData = [part bodyData];
 
   return [(MFWebMessageDocument *)self _initWithMimePart:part htmlData:bodyData];
+}
+
+- (MFWebMessageDocument)initWithMimePart:(id)part htmlData:(id)data encoding:(unsigned int)encoding
+{
+  v5 = *&encoding;
+  v6 = [(MFWebMessageDocument *)self _initWithMimePart:part htmlData:data];
+  v7 = v6;
+  if (v6)
+  {
+    [(MFWebMessageDocument *)v6 setPreferredEncoding:v5];
+  }
+
+  return v7;
 }
 
 - (void)dealloc
@@ -193,58 +207,53 @@ LABEL_20:
 
 - (id)attachmentsInDocument
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(MFWebMessageDocument *)self mimePartForURL:0];
   [(MFLock *)self->_lock lock];
   allKeys = [(NSMutableDictionary *)self->_partsByURL allKeys];
   [(MFLock *)self->_lock unlock];
-  if ([allKeys count])
+  if (![allKeys count])
   {
-    v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v5 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v5)
+    return 0;
+  }
+
+  v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    do
     {
-      v6 = v5;
-      v7 = *v14;
+      v8 = 0;
       do
       {
-        v8 = 0;
-        do
+        if (*v13 != v7)
         {
-          if (*v14 != v7)
-          {
-            objc_enumerationMutation(allKeys);
-          }
-
-          v9 = [(MFWebMessageDocument *)self attachmentForURL:*(*(&v13 + 1) + 8 * v8)];
-          if (v9)
-          {
-            [v4 addObject:v9];
-          }
-
-          ++v8;
+          objc_enumerationMutation(allKeys);
         }
 
-        while (v6 != v8);
-        v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [(MFWebMessageDocument *)self attachmentForURL:*(*(&v12 + 1) + 8 * v8)];
+        if (v9)
+        {
+          [v4 addObject:v9];
+        }
+
+        ++v8;
       }
 
-      while (v6);
+      while (v6 != v8);
+      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    v10 = v4;
+    while (v6);
   }
 
-  else
-  {
-    v4 = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = v4;
   return v4;
 }
 

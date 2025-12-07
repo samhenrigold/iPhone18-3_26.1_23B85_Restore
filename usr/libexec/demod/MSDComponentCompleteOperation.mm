@@ -7,7 +7,7 @@
 - (void)execute
 {
   v3 = +[MSDProgressUpdater sharedInstance];
-  v68 = +[MSDHelperAgent sharedInstance];
+  v69 = +[MSDHelperAgent sharedInstance];
   v4 = objc_alloc_init(NSMutableSet);
   component = [(MSDOperation *)self component];
   finishedOperationContexts = [component finishedOperationContexts];
@@ -23,8 +23,8 @@
   component4 = [(MSDOperation *)self component];
   result = [component4 result];
 
-  v67 = finishedOperationContexts;
-  v65 = firstObject;
+  v68 = finishedOperationContexts;
+  v66 = firstObject;
   if (!result)
   {
     v16 = firstObject;
@@ -41,31 +41,31 @@
     }
 
     selfCopy3 = self;
-    v64 = v3;
+    v65 = v3;
     v18 = objc_alloc_init(NSMutableSet);
-    v79 = 0u;
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
+    v83 = 0u;
     v31 = finishedOperationContexts;
-    v32 = [v31 countByEnumeratingWithState:&v79 objects:v87 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v80 objects:v88 count:16];
     if (v32)
     {
       v33 = v32;
-      v62 = result;
-      v34 = *v80;
+      v63 = result;
+      v34 = *v81;
       obj = v31;
       do
       {
         v35 = 0;
         do
         {
-          if (*v80 != v34)
+          if (*v81 != v34)
           {
             objc_enumerationMutation(obj);
           }
 
-          v36 = *(*(&v79 + 1) + 8 * v35);
+          v36 = *(*(&v80 + 1) + 8 * v35);
           secondaryStagingRootPath = [v36 secondaryStagingRootPath];
           if (secondaryStagingRootPath && ![v36 skipped])
           {
@@ -76,15 +76,15 @@
             {
               secondaryStagingRootPath2 = [v36 secondaryStagingRootPath];
               stashedStagingRootPath = [v36 stashedStagingRootPath];
-              v43 = [v68 moveStagingToFinal:secondaryStagingRootPath2 finalPath:stashedStagingRootPath];
+              v43 = [v69 moveStagingToFinal:secondaryStagingRootPath2 finalPath:stashedStagingRootPath];
 
               if ((v43 & 1) == 0)
               {
                 sub_1000D7D34(obj, v18);
                 v16 = 0;
                 self = selfCopy3;
-                v3 = v64;
-                finishedOperationContexts = v67;
+                v3 = v65;
+                finishedOperationContexts = v68;
                 goto LABEL_61;
               }
             }
@@ -102,7 +102,7 @@
 
         while (v33 != v35);
         v31 = obj;
-        v44 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
+        v44 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
         v33 = v44;
       }
 
@@ -112,37 +112,37 @@
 LABEL_42:
     v14 = 0;
     v15 = 1;
-    finishedOperationContexts = v67;
+    finishedOperationContexts = v68;
     goto LABEL_43;
   }
 
-  v62 = result;
+  v63 = result;
   selfCopy3 = self;
-  v64 = v3;
+  v65 = v3;
   v18 = objc_alloc_init(NSMutableSet);
-  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
+  v79 = 0u;
   v19 = finishedOperationContexts;
-  v20 = [v19 countByEnumeratingWithState:&v75 objects:v86 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v76 objects:v87 count:16];
   if (!v20)
   {
     goto LABEL_24;
   }
 
   v21 = v20;
-  v22 = *v76;
+  v22 = *v77;
   do
   {
     for (i = 0; i != v21; i = i + 1)
     {
-      if (*v76 != v22)
+      if (*v77 != v22)
       {
         objc_enumerationMutation(v19);
       }
 
-      v24 = *(*(&v75 + 1) + 8 * i);
+      v24 = *(*(&v76 + 1) + 8 * i);
       if (([v24 uninstallOperation] & 1) == 0)
       {
         secondaryStagingRootPath3 = [v24 secondaryStagingRootPath];
@@ -169,7 +169,7 @@ LABEL_21:
       }
     }
 
-    v21 = [v19 countByEnumeratingWithState:&v75 objects:v86 count:16];
+    v21 = [v19 countByEnumeratingWithState:&v76 objects:v87 count:16];
   }
 
   while (v21);
@@ -181,9 +181,9 @@ LABEL_24:
   }
 
   allObjects = [v18 allObjects];
-  v30 = [v68 moveStagingsToFinal:allObjects finalPath:@"/private/var/.backup"];
+  v30 = [v69 moveStagingsToFinal:allObjects finalPath:@"/private/var/.backup"];
 
-  finishedOperationContexts = v67;
+  finishedOperationContexts = v68;
   if (v30)
   {
     v14 = 0;
@@ -194,15 +194,15 @@ LABEL_24:
   sub_1000D7CC0(v18);
   v16 = 0;
   self = selfCopy3;
-  v3 = v64;
+  v3 = v65;
 LABEL_61:
-  result = v62;
+  result = v63;
 LABEL_6:
   selfCopy3 = self;
-  v64 = v3;
-  v74 = v16;
-  sub_1000C1424(&v74, 3727744768, @"An error has occurred.");
-  v14 = v74;
+  v65 = v3;
+  v75 = v16;
+  sub_1000C1424(&v75, 3727744768, @"An error has occurred.");
+  v14 = v75;
 
   if ([v14 code] != 3727741184 && objc_msgSend(v14, "code") != 3727741185)
   {
@@ -215,26 +215,26 @@ LABEL_6:
   v15 = 0;
 LABEL_43:
 
-  v72 = 0u;
   v73 = 0u;
-  v70 = 0u;
+  v74 = 0u;
   v71 = 0u;
+  v72 = 0u;
   v45 = finishedOperationContexts;
-  v46 = [v45 countByEnumeratingWithState:&v70 objects:v85 count:16];
+  v46 = [v45 countByEnumeratingWithState:&v71 objects:v86 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v71;
+    v48 = *v72;
     do
     {
       for (j = 0; j != v47; j = j + 1)
       {
-        if (*v71 != v48)
+        if (*v72 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        v50 = *(*(&v70 + 1) + 8 * j);
+        v50 = *(*(&v71 + 1) + 8 * j);
         stagingRootPath = [v50 stagingRootPath];
         [v4 addObject:stagingRootPath];
 
@@ -258,17 +258,17 @@ LABEL_43:
         }
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v70 objects:v85 count:16];
+      v47 = [v45 countByEnumeratingWithState:&v71 objects:v86 count:16];
     }
 
     while (v47);
   }
 
   allObjects2 = [v4 allObjects];
-  [v68 removeWorkDirectories:allObjects2];
+  [v69 removeWorkDirectories:allObjects2];
 
   self = selfCopy3;
-  v3 = v64;
+  v3 = v65;
 LABEL_56:
   bundleInProgress = [v3 bundleInProgress];
   [bundleInProgress updateComponentProgress:name withResult:v15 withAdditionalInfo:&__NSDictionary0__struct];
@@ -276,18 +276,18 @@ LABEL_56:
   bundleInProgress2 = [v3 bundleInProgress];
   getPercentageProgress = [bundleInProgress2 getPercentageProgress];
 
-  v60 = sub_100063A54();
-  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+  v61 = sub_100063A54(v60);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v84 = getPercentageProgress;
-    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "New update progress: %ld", buf, 0xCu);
+    v85 = getPercentageProgress;
+    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "New update progress: %ld", buf, 0xCu);
   }
 
   if ((v11 & 1) == 0)
   {
-    v61 = +[MSDDemoUpdateStatusHub sharedInstance];
-    [v61 demoUpdateProgress:getPercentageProgress];
+    v62 = +[MSDDemoUpdateStatusHub sharedInstance];
+    [v62 demoUpdateProgress:getPercentageProgress];
   }
 
   [(MSDOperation *)self setResult:v15];

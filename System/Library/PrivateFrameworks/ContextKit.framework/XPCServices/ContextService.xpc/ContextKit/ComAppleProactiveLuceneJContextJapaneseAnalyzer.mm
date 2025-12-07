@@ -7,7 +7,7 @@
 - (id)createComponentsWithNSString:(id)string
 {
   v3 = [ComAppleProactiveLuceneJContextJapaneseAnalyzer_CRFJapaneseTokenizer alloc];
-  ComAppleProactiveLuceneCRFTokenizer_init(v3);
+  ComAppleProactiveLuceneCRFTokenizer_init(&v3->super.super.super.super.super.isa);
   JreStrongAssign(&v3->super.localeIdentifier_, @"ja");
   v4 = new_OrgApacheLuceneAnalysisAnalyzer_TokenStreamComponents_initWithOrgApacheLuceneAnalysisTokenizer_(v3);
 

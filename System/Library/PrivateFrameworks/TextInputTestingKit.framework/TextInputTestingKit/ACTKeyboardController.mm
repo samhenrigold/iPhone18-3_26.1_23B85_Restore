@@ -627,13 +627,13 @@ LABEL_7:
   _Block_object_dispose(&v20, 8);
 }
 
-uint64_t __61__ACTKeyboardController_generateCandidatesWithKeyboardState___block_invoke(uint64_t result, uint64_t a2)
+id *__61__ACTKeyboardController_generateCandidatesWithKeyboardState___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    result = [*(result + 32) setCandidateResultSet:a2];
-    *(*(*(v2 + 40) + 8) + 24) = 1;
+    result = [result[4] setCandidateResultSet:a2];
+    *(*(v2[5] + 1) + 24) = 1;
   }
 
   return result;

@@ -117,7 +117,7 @@
     [(CIVector *)v25 Z];
     v37 = v36;
     [(CIImage *)self->inputImage extent];
-    if (CGRectIsInfinite(v82) || (*&v74.var0 = vdupq_n_s64(0x7FF0000000000000uLL), v74.var2 = 0.0, v74.var3 = 0.0, Rectangle::Union(&v74, &v78, &v72), *&v74.var0 = v72, *&v74.var2 = v73, Rectangle::Union(&v74, &v77, &v72), *&v74.var0 = v72, *&v74.var2 = v73, Rectangle::Union(&v74, &v75, &v72), *&v74.var0 = v72, *&v74.var2 = v73, Rectangle::Union(&v74, &v76, &v72), *&v74.var0 = v72, *&v74.var2 = v73, Rectangle::integralize(&v74, 0.0001, &v72), v39 = vceqq_f64(v73, vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL)), v38 = vmvnq_s8(vuzp1q_s32(vceqq_f64(v72, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), v39)), (vmaxv_u16(vmovn_s32(v38)) & 1) == 0))
+    if (CGRectIsInfinite(v82) || (*&v74.var0 = vdupq_n_s64(0x7FF0000000000000uLL), v74.var2 = 0.0, v74.var3 = 0.0, Rectangle::Union(&v72, &v74, &v78), *&v74.var0 = v72, *&v74.var2 = v73, Rectangle::Union(&v72, &v74, &v77), *&v74.var0 = v72, *&v74.var2 = v73, Rectangle::Union(&v72, &v74, &v75), *&v74.var0 = v72, *&v74.var2 = v73, Rectangle::Union(&v72, &v74, &v76), *&v74.var0 = v72, *&v74.var2 = v73, Rectangle::integralize(&v72, &v74, 0.0001), v39 = vceqq_f64(v73, vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL)), v38 = vmvnq_s8(vuzp1q_s32(vceqq_f64(v72, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), v39)), (vmaxv_u16(vmovn_s32(v38)) & 1) == 0))
     {
       v40 = *(MEMORY[0x1E695F040] + 8);
       v41 = *(MEMORY[0x1E695F040] + 24);
@@ -180,11 +180,11 @@ void __47__CIPerspectiveTransformWithExtent_outputImage__block_invoke(uint64_t a
 
   else
   {
-    v55.origin.x = a2;
-    v55.origin.y = a3;
-    v55.size.width = a4;
-    v55.size.height = a5;
-    IsNull = CGRectIsNull(v55);
+    v56.origin.x = a2;
+    v56.origin.y = a3;
+    v56.size.width = a4;
+    v56.size.height = a5;
+    IsNull = CGRectIsNull(v56);
     v12 = 0.0;
     if (IsNull)
     {
@@ -222,7 +222,7 @@ void __47__CIPerspectiveTransformWithExtent_outputImage__block_invoke(uint64_t a
   v50 = *(a1 + 32);
   v51 = *(a1 + 64);
   v15 = *(a1 + 80);
-  *&v54.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
+  *&v55.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
   v16 = v11 + v13;
   v17 = fmin(v13, v11 + v13);
   v18 = v12 + v10;
@@ -235,15 +235,16 @@ void __47__CIPerspectiveTransformWithExtent_outputImage__block_invoke(uint64_t a
   v44 = _Q2;
   v25 = _Q2;
   v25.f32[1] = v19;
-  v54.var2 = 0.0;
-  v54.var3 = 0.0;
+  v55.var2 = 0.0;
+  v55.var3 = 0.0;
   v26 = vmulq_f32(v50, v25);
   v27 = vmulq_f32(v49, v25);
   v28 = vmulq_f32(v51, v25);
   v28.f32[0] = 1.0 / fmax((v28.f32[2] + vaddv_f32(*v28.f32)), 0.000001);
   v52 = vadd_f32(v15, vmul_n_f32(vadd_f32(vzip1_s32(*&vextq_s8(v26, v26, 8uLL), *&vextq_s8(v27, v27, 8uLL)), vadd_f32(vzip1_s32(*v26.i8, *v27.i8), vzip2_s32(*v26.i8, *v27.i8))), v28.f32[0]));
-  Rectangle::Union(&v54, &v52, &v53);
-  v54 = v53;
+  Rectangle::Union(&v53, &v55, &v52);
+  *&v55.var0 = v53;
+  *&v55.var2 = v54;
   v29 = fmax(v10, v18);
   v45 = v29;
   v30 = v44;
@@ -254,12 +255,13 @@ void __47__CIPerspectiveTransformWithExtent_outputImage__block_invoke(uint64_t a
   v33 = vmulq_f32(v51, v30);
   v33.f32[0] = 1.0 / fmax((v33.f32[2] + vaddv_f32(*v33.f32)), 0.000001);
   v52 = vadd_f32(v15, vmul_n_f32(*v31.i8, v33.f32[0]));
-  Rectangle::Union(&v54, &v52, &v53);
+  Rectangle::Union(&v53, &v55, &v52);
   v34 = fmax(v13, v16);
   v35 = v47;
   v35.f32[0] = v34;
   v48 = v35;
-  v54 = v53;
+  *&v55.var0 = v53;
+  *&v55.var2 = v54;
   v36 = v35;
   v36.f32[1] = v46;
   v37 = vmulq_f32(v50, v36);
@@ -267,8 +269,9 @@ void __47__CIPerspectiveTransformWithExtent_outputImage__block_invoke(uint64_t a
   v39 = vmulq_f32(v51, v36);
   v39.f32[0] = 1.0 / fmax((v39.f32[2] + vaddv_f32(*v39.f32)), 0.000001);
   v52 = vadd_f32(v15, vmul_n_f32(vadd_f32(vzip1_s32(*&vextq_s8(v37, v37, 8uLL), *&vextq_s8(v38, v38, 8uLL)), vadd_f32(vzip1_s32(*v37.i8, *v38.i8), vzip2_s32(*v37.i8, *v38.i8))), v39.f32[0]));
-  Rectangle::Union(&v54, &v52, &v53);
-  v54 = v53;
+  Rectangle::Union(&v53, &v55, &v52);
+  *&v55.var0 = v53;
+  *&v55.var2 = v54;
   v40 = v48;
   v40.f32[1] = v45;
   v41 = vmulq_f32(v50, v40);
@@ -277,7 +280,7 @@ void __47__CIPerspectiveTransformWithExtent_outputImage__block_invoke(uint64_t a
   v43 = vmulq_f32(v51, v40);
   v43.f32[0] = 1.0 / fmax((v43.f32[2] + vaddv_f32(*v43.f32)), 0.000001);
   v52 = vadd_f32(v15, vmul_n_f32(*v41.i8, v43.f32[0]));
-  Rectangle::Union(&v54, &v52, &v53);
+  Rectangle::Union(&v53, &v55, &v52);
 }
 
 @end

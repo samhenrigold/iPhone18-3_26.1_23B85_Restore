@@ -26,22 +26,26 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__SFDeviceOperationCNJSetup_activate__block_invoke(uint64_t a1)
+uint64_t __37__SFDeviceOperationCNJSetup_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceOperationCNJ <= 30 && (gLogCategory_SFDeviceOperationCNJ != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceOperationCNJ <= 30)
   {
-    __37__SFDeviceOperationCNJSetup_activate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceOperationCNJ != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __37__SFDeviceOperationCNJSetup_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 48) = mach_absolute_time();
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 80);
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __37__SFDeviceOperationCNJSetup_activate__block_invoke_2;
-  v5[3] = &unk_1E788B548;
-  v5[4] = v2;
-  return [v3 sendRequestID:@"_cnj" options:0 request:MEMORY[0x1E695E0F8] responseHandler:v5];
+  *(*(v3 + 32) + 48) = mach_absolute_time();
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 80);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __37__SFDeviceOperationCNJSetup_activate__block_invoke_2;
+  v7[3] = &unk_1E788B548;
+  v7[4] = v4;
+  return [v5 sendRequestID:@"_cnj" options:0 request:MEMORY[0x1E695E0F8] responseHandler:v7];
 }
 
 void __37__SFDeviceOperationCNJSetup_activate__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -86,7 +90,7 @@ LABEL_7:
 
 - (void)_startClient
 {
-  v3 = objc_alloc_init(getSKDeviceClass());
+  v3 = objc_alloc_init(getSKDeviceClass(self, a2));
   peerDevice = [(SFSession *)self->_sfSession peerDevice];
   identifier = [peerDevice identifier];
   uUIDString = [identifier UUIDString];
@@ -121,7 +125,7 @@ LABEL_7:
 
   else
   {
-    v10 = NSErrorWithOSStatusF();
+    v10 = NSErrorWithOSStatusF(4294960534, "Failed to create pre-shared secret from session");
     [(SFDeviceOperationCNJSetup *)self _complete:v10];
   }
 
@@ -143,7 +147,7 @@ void __41__SFDeviceOperationCNJSetup__startClient__block_invoke_2(uint64_t a1, v
   v6 = a2;
   if (gLogCategory_SFDeviceOperationCNJ <= 30 && (gLogCategory_SFDeviceOperationCNJ != -1 || _LogCategory_Initialize()))
   {
-    __41__SFDeviceOperationCNJSetup__startClient__block_invoke_2_cold_1();
+    __41__SFDeviceOperationCNJSetup__startClient__block_invoke_2_cold_1(v6);
   }
 
   v3 = [v6 eventType];
@@ -173,7 +177,7 @@ LABEL_9:
 - (void)showWebSheet
 {
   v1 = _Block_copy(*(self + 104));
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFDeviceOperationCNJ, "[SFDeviceOperationCNJSetup showWebSheet]", 90, "Ignoring call to %s (promptForConfirmationHandler: %p)", "[SFDeviceOperationCNJSetup showWebSheet]", v1);
 }
 
 - (void)invalidate
@@ -187,20 +191,24 @@ LABEL_9:
   dispatch_async(dispatchQueue, block);
 }
 
-void __39__SFDeviceOperationCNJSetup_invalidate__block_invoke(uint64_t a1)
+void __39__SFDeviceOperationCNJSetup_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceOperationCNJ <= 30 && (gLogCategory_SFDeviceOperationCNJ != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceOperationCNJ <= 30)
   {
-    __39__SFDeviceOperationCNJSetup_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceOperationCNJ != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __39__SFDeviceOperationCNJSetup_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 56) = 1;
-  [*(a1 + 32) handleDismissal];
-  [*(*(a1 + 32) + 80) deregisterRequestID:@"_cnjExtIO"];
-  [*(*(a1 + 32) + 8) invalidate];
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 8);
-  *(v2 + 8) = 0;
+  *(*(v3 + 32) + 56) = 1;
+  [*(v3 + 32) handleDismissal];
+  [*(*(v3 + 32) + 80) deregisterRequestID:@"_cnjExtIO"];
+  [*(*(v3 + 32) + 8) invalidate];
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 8);
+  *(v4 + 8) = 0;
 }
 
 - (void)_handleCaptiveNetworkPresentEvent:(id)event
@@ -224,52 +232,45 @@ void __39__SFDeviceOperationCNJSetup_invalidate__block_invoke(uint64_t a1)
   _completeCopy = _complete;
   if (!self->_invalidateCalled && self->_completionHandler)
   {
-    v10 = _completeCopy;
+    v9 = _completeCopy;
     mach_absolute_time();
-    startTicks = self->_startTicks;
     UpTicksToSecondsF();
-    self->_metricTotalSeconds = v6;
-    if (v10)
+    v6 = v9;
+    self->_metricTotalSeconds = metricTotalSeconds;
+    if (!v9)
     {
-      if (gLogCategory_SFDeviceOperationCNJ <= 60)
+      if (gLogCategory_SFDeviceOperationCNJ <= 30 && (gLogCategory_SFDeviceOperationCNJ != -1 || _LogCategory_Initialize()))
       {
-        if (gLogCategory_SFDeviceOperationCNJ == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_13;
-          }
-
-          metricTotalSeconds = self->_metricTotalSeconds;
-        }
-
-        goto LABEL_9;
+        LogPrintF(&gLogCategory_SFDeviceOperationCNJ, "[SFDeviceOperationCNJSetup _complete:]", 30, "Succeeded: %f seconds\n");
       }
+
+      goto LABEL_13;
     }
 
-    else if (gLogCategory_SFDeviceOperationCNJ <= 30)
+    if (gLogCategory_SFDeviceOperationCNJ <= 60)
     {
       if (gLogCategory_SFDeviceOperationCNJ == -1)
       {
-        if (!_LogCategory_Initialize())
+        v7 = _LogCategory_Initialize();
+        v6 = v9;
+        if (!v7)
         {
           goto LABEL_13;
         }
 
-        v9 = self->_metricTotalSeconds;
+        metricTotalSeconds = self->_metricTotalSeconds;
       }
 
-LABEL_9:
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceOperationCNJ, "[SFDeviceOperationCNJSetup _complete:]", 60, "### Failed: %f seconds, %{error}\n", *&metricTotalSeconds, v6);
     }
 
 LABEL_13:
-    (*(self->_completionHandler + 2))(self->_completionHandler, v10);
+    (*(self->_completionHandler + 2))();
     completionHandler = self->_completionHandler;
     self->_completionHandler = 0;
 
     [(SFDeviceOperationCNJSetup *)self invalidate];
-    _completeCopy = v10;
+    _completeCopy = v9;
   }
 }
 
@@ -314,7 +315,7 @@ LABEL_13:
 
   else
   {
-    v14 = NSErrorWithOSStatusF();
+    v14 = NSErrorWithOSStatusF(301031, "_presentingViewController not set or no longer visible");
     [(SFDeviceOperationCNJSetup *)self _complete:v14];
   }
 }
@@ -341,7 +342,7 @@ LABEL_13:
   {
     if (gLogCategory_SFDeviceOperationCNJ <= 50 && (gLogCategory_SFDeviceOperationCNJ != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceOperationCNJSetup _handleCompletedEventWithError:];
+      [SFDeviceOperationCNJSetup _handleCompletedEventWithError:errorCopy];
     }
 
     [(SFDeviceOperationCNJSetup *)self _complete:errorCopy];
@@ -369,34 +370,41 @@ LABEL_13:
 {
   if (self->_isShowingWebSheet)
   {
+    selfCopy = self;
     self->_isShowingWebSheet = 0;
-    if (gLogCategory_SFDeviceOperationCNJ <= 30 && (gLogCategory_SFDeviceOperationCNJ != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationCNJ <= 30)
     {
-      [SFDeviceOperationCNJSetup handleDismissal];
+      if (gLogCategory_SFDeviceOperationCNJ != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFDeviceOperationCNJSetup *)self handleDismissal];
+      }
     }
 
-    presentedViewController = [(UIViewController *)self->_presentingViewController presentedViewController];
+    presentedViewController = [(UIViewController *)selfCopy->_presentingViewController presentedViewController];
     [presentedViewController dismissViewControllerAnimated:1 completion:0];
 
-    if (self->_webSheetResult)
+    if (selfCopy->_webSheetResult)
     {
-      if (gLogCategory_SFDeviceOperationCNJ <= 30 && (gLogCategory_SFDeviceOperationCNJ != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationCNJ <= 30)
       {
-        [SFDeviceOperationCNJSetup handleDismissal];
+        if (gLogCategory_SFDeviceOperationCNJ != -1 || (v5 = _LogCategory_Initialize(), v5))
+        {
+          [(SFDeviceOperationCNJSetup *)v5 handleDismissal];
+        }
       }
 
-      if (!self->_promptForConfirmationHandler || self->_isSetup)
+      if (!selfCopy->_promptForConfirmationHandler || selfCopy->_isSetup)
       {
-        v5 = NSErrorWithOSStatusF();
-        [(SFDeviceOperationCNJSetup *)self _complete:v5];
+        v9 = NSErrorWithOSStatusF(301031, "User canceled captive login");
+        [(SFDeviceOperationCNJSetup *)selfCopy _complete:v9];
       }
     }
 
     else
     {
-      captivePathError = self->_captivePathError;
+      captivePathError = selfCopy->_captivePathError;
 
-      [(SFDeviceOperationCNJSetup *)self _complete:captivePathError];
+      [(SFDeviceOperationCNJSetup *)selfCopy _complete:captivePathError];
     }
   }
 }
@@ -405,7 +413,7 @@ LABEL_13:
 {
   if (gLogCategory_SFDeviceOperationCNJ <= 30 && (gLogCategory_SFDeviceOperationCNJ != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceOperationCNJSetup handleCompleteNotificationWithRedirectURLtype:result:];
+    [SFDeviceOperationCNJSetup handleCompleteNotificationWithRedirectURLtype:result result:?];
   }
 
   self->_webSheetResult = result;

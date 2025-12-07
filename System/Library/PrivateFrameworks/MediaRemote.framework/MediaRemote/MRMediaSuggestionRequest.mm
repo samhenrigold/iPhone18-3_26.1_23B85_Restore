@@ -4,7 +4,7 @@
 - (MRMediaSuggestionRequest)initWithBlock:(id)block;
 - (NSString)description;
 - (id)copyWithZone:(_NSZone *)zone;
-- (uint64_t)_bundleIdentifierIsSystemMediaApplication:(uint64_t)IsSystemPodcastApplication;
+- (uint64_t)_bundleIdentifierIsSystemMediaApplication:(uint64_t)application;
 - (uint64_t)_intentIsValidSuggestion:(void *)suggestion sourceBundleID:;
 - (void)_artworkForIntent:(void *)intent completion:;
 - (void)performWithCompletion:(id)completion;
@@ -123,11 +123,11 @@ void __50__MRMediaSuggestionRequest_performWithCompletion___block_invoke(uint64_
 
 - (void)performWithPreferences:(id)preferences options:(id)options completion:(id)completion
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   preferencesCopy = preferences;
   optionsCopy = options;
   completionCopy = completion;
-  v47 = preferencesCopy;
+  v46 = preferencesCopy;
   snapshot = [(MRMediaSuggestionPreferences *)preferencesCopy snapshot];
   v8 = _MRLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -137,92 +137,92 @@ void __50__MRMediaSuggestionRequest_performWithCompletion___block_invoke(uint64_
     *&buf[12] = 2112;
     *&buf[14] = snapshot;
     *&buf[22] = 2112;
-    v90 = optionsCopy;
+    v89 = optionsCopy;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRMediaSuggestionRequest] Performing preference-respecting request %{public}@ with preferences %@, options: %@.", buf, 0x20u);
   }
 
   date = [MEMORY[0x1E695DF00] date];
-  v53 = objc_opt_new();
+  v52 = objc_opt_new();
   v9 = objc_opt_new();
   globalDisplayPreferencesForContexts = [(MRMediaSuggestionPreferences *)snapshot globalDisplayPreferencesForContexts];
   contexts = [optionsCopy contexts];
   v11 = contexts;
   if (contexts)
   {
-    v50 = contexts;
+    v49 = contexts;
   }
 
   else
   {
-    v50 = +[MRMediaSuggestionPreferences allContexts];
+    v49 = +[MRMediaSuggestionPreferences allContexts];
   }
 
   if (snapshot)
   {
-    v85[0] = MEMORY[0x1E69E9820];
-    v85[1] = 3221225472;
-    v85[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke;
-    v85[3] = &unk_1E769CA28;
-    v86 = globalDisplayPreferencesForContexts;
-    v12 = [v50 msv_filter:v85];
+    v84[0] = MEMORY[0x1E69E9820];
+    v84[1] = 3221225472;
+    v84[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke;
+    v84[3] = &unk_1E769CA28;
+    v85 = globalDisplayPreferencesForContexts;
+    v12 = [v49 msv_filter:v84];
   }
 
   else
   {
-    v88 = @"HomeScreen";
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
+    v87 = @"HomeScreen";
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
   }
 
   disabledBundlesForContexts = [(MRMediaSuggestionPreferences *)snapshot disabledBundlesForContexts];
   v14 = disabledBundlesForContexts;
   if (disabledBundlesForContexts)
   {
-    v52 = disabledBundlesForContexts;
+    v51 = disabledBundlesForContexts;
   }
 
   else
   {
     v15 = MEMORY[0x1E695DF90];
     v16 = objc_opt_new();
-    v52 = [v15 dictionaryWithObject:v16 forKey:@"HomeScreen"];
+    v51 = [v15 dictionaryWithObject:v16 forKey:@"HomeScreen"];
   }
 
   bundlesDisabledInAllContexts = [(MRMediaSuggestionPreferences *)snapshot bundlesDisabledInAllContexts];
   v18 = bundlesDisabledInAllContexts;
   if (bundlesDisabledInAllContexts)
   {
-    v57 = bundlesDisabledInAllContexts;
+    v56 = bundlesDisabledInAllContexts;
   }
 
   else
   {
-    v57 = objc_opt_new();
+    v56 = objc_opt_new();
   }
 
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
   v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   v19 = v12;
-  v20 = [v19 countByEnumeratingWithState:&v81 objects:v87 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v80 objects:v86 count:16];
   if (v20)
   {
-    v21 = *v82;
+    v21 = *v81;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v82 != v21)
+        if (*v81 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v81 + 1) + 8 * i);
+        v23 = *(*(&v80 + 1) + 8 * i);
         v24 = objc_opt_new();
         [v9 setObject:v24 forKeyedSubscript:v23];
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v81 objects:v87 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v80 objects:v86 count:16];
     }
 
     while (v20);
@@ -240,18 +240,18 @@ void __50__MRMediaSuggestionRequest_performWithCompletion___block_invoke(uint64_
   {
     v27 = MEMORY[0x1E695DFD8];
     bundleIdentifiers2 = [optionsCopy bundleIdentifiers];
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_2;
-    v79[3] = &unk_1E769CA28;
-    v80 = v57;
-    v29 = [bundleIdentifiers2 msv_filter:v79];
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_2;
+    v78[3] = &unk_1E769CA28;
+    v79 = v56;
+    v29 = [bundleIdentifiers2 msv_filter:v78];
     v30 = [v27 setWithArray:v29];
 
     if (![v30 count])
     {
       completionCopy[2](completionCopy, v9, 0);
-      v44 = v80;
+      v44 = v79;
       goto LABEL_28;
     }
   }
@@ -260,58 +260,57 @@ void __50__MRMediaSuggestionRequest_performWithCompletion___block_invoke(uint64_
   v32 = [v31 App];
   intent = [v32 Intent];
 
-  v48 = [objc_alloc(getBMPublisherOptionsClass()) initWithStartDate:0 endDate:0 maxEvents:0 lastN:0 reversed:1];
+  v47 = [objc_alloc(getBMPublisherOptionsClass()) initWithStartDate:0 endDate:0 maxEvents:0 lastN:0 reversed:1];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v90 = 0;
+  v89 = 0;
   v33 = [v19 count];
   maxResults = [(MRMediaSuggestionRequest *)self maxResults];
-  v46 = v31;
+  v45 = v31;
   INPlayMediaIntentClass = getINPlayMediaIntentClass();
   v36 = NSStringFromClass(INPlayMediaIntentClass);
   v37 = dispatch_group_create();
-  v38 = [intent publisherWithOptions:v48];
-  v75[0] = MEMORY[0x1E69E9820];
-  v75[1] = 3221225472;
-  v75[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_3;
-  v75[3] = &unk_1E769CA50;
+  v38 = [intent publisherWithOptions:v47];
+  v74[0] = MEMORY[0x1E69E9820];
+  v74[1] = 3221225472;
+  v74[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_3;
+  v74[3] = &unk_1E769CA50;
   v39 = v36;
-  v76 = v39;
+  v75 = v39;
   v30 = v30;
-  v77 = v30;
-  v78 = v57;
-  v40 = [v38 filterWithIsIncluded:v75];
+  v76 = v30;
+  v77 = v56;
+  v40 = [v38 filterWithIsIncluded:v74];
   v41 = maxResults * v33;
-  v69[0] = MEMORY[0x1E69E9820];
-  v69[1] = 3221225472;
-  v69[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_4;
-  v69[3] = &unk_1E769CA78;
-  v70 = v37;
+  v68[0] = MEMORY[0x1E69E9820];
+  v68[1] = 3221225472;
+  v68[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_4;
+  v68[3] = &unk_1E769CA78;
+  v69 = v37;
   selfCopy = self;
-  v72 = date;
-  v74 = completionCopy;
-  v73 = v9;
-  v60[0] = MEMORY[0x1E69E9820];
-  v60[1] = 3221225472;
-  v60[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_93;
-  v60[3] = &unk_1E769CAA0;
-  v61 = v53;
+  v71 = date;
+  v73 = completionCopy;
+  v72 = v9;
+  v59[0] = MEMORY[0x1E69E9820];
+  v59[1] = 3221225472;
+  v59[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_93;
+  v59[3] = &unk_1E769CAA0;
+  v60 = v52;
   selfCopy2 = self;
-  v42 = v70;
-  v63 = v42;
-  v64 = v19;
-  v65 = v52;
-  v66 = v73;
-  v67 = buf;
-  v68 = v41;
-  v43 = [v40 sinkWithCompletion:v69 shouldContinue:v60];
+  v42 = v69;
+  v62 = v42;
+  v63 = v19;
+  v64 = v51;
+  v65 = v72;
+  v66 = buf;
+  v67 = v41;
+  v43 = [v40 sinkWithCompletion:v68 shouldContinue:v59];
 
-  v44 = v46;
+  v44 = v45;
   _Block_object_dispose(buf, 8);
 
 LABEL_28:
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -322,51 +321,24 @@ uint64_t __70__MRMediaSuggestionRequest_performWithPreferences_options_completio
   return v3;
 }
 
-uint64_t __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_3(uint64_t a1, void *a2)
+BOOL __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 eventBody];
   v5 = [v4 intentClass];
-  v6 = [v5 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  if (!v6)
+  v14 = 0;
+  if (isEqualToString)
   {
-    goto LABEL_6;
-  }
-
-  v7 = *(a1 + 40);
-  if (v7)
-  {
-    v8 = [v3 eventBody];
-    v9 = [v8 bundleID];
-    v10 = [v7 containsObject:v9];
-
-    if (!v10)
+    v7 = *(a1 + 40);
+    if (!v7 || ([v3 eventBody], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "bundleID"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v7, "containsObject:", v9), v9, v8, v10))
     {
-      goto LABEL_6;
+      if (![*(a1 + 48) count] || (v11 = *(a1 + 48), objc_msgSend(v3, "eventBody"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "bundleID"), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(v11) = objc_msgSend(v11, "containsObject:", v13), v13, v12, (v11 & 1) == 0))
+      {
+        v14 = 1;
+      }
     }
-  }
-
-  if (![*(a1 + 48) count])
-  {
-    goto LABEL_7;
-  }
-
-  v11 = *(a1 + 48);
-  v12 = [v3 eventBody];
-  v13 = [v12 bundleID];
-  LOBYTE(v11) = [v11 containsObject:v13];
-
-  if (v11)
-  {
-LABEL_6:
-    v14 = 0;
-  }
-
-  else
-  {
-LABEL_7:
-    v14 = 1;
   }
 
   return v14;
@@ -394,37 +366,34 @@ void __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___
 
 uint64_t __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_5(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = _MRLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = [MEMORY[0x1E695DF00] date];
     [v4 timeIntervalSinceDate:a1[5]];
-    v9 = 138543618;
-    v10 = v3;
-    v11 = 2048;
-    v12 = v5;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRMediaSuggestionRequest] Request %{public}@ finished in %lf seconds.", &v9, 0x16u);
+    v7 = 138543618;
+    v8 = v3;
+    v9 = 2048;
+    v10 = v5;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRMediaSuggestionRequest] Request %{public}@ finished in %lf seconds.", &v7, 0x16u);
   }
 
-  v6 = a1[6];
-  result = (*(a1[7] + 16))();
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 BOOL __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_93(uint64_t a1, void *a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [v3 eventBody];
   v6 = [v5 interaction];
 
-  v60 = 0;
-  v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:getINInteractionClass() fromData:v6 error:&v60];
-  v8 = v60;
+  v59 = 0;
+  v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:getINInteractionClass() fromData:v6 error:&v59];
+  v8 = v59;
   if (!v8)
   {
     v10 = [v7 intent];
@@ -441,18 +410,18 @@ BOOL __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___
     v14 = [(MRMediaSuggestion *)v13 identifier];
     if ([v12 containsObject:v14])
     {
-      v50 = v13;
+      v49 = v13;
     }
 
     else
     {
-      v18 = *(a1 + 40);
-      v19 = [v3 eventBody];
-      [v19 bundleID];
-      v20 = obja = v14;
-      LODWORD(v18) = [(MRMediaSuggestionRequest *)v18 _intentIsValidSuggestion:v11 sourceBundleID:v20];
+      v17 = *(a1 + 40);
+      v18 = [v3 eventBody];
+      [v18 bundleID];
+      v19 = obja = v14;
+      LODWORD(v17) = [(MRMediaSuggestionRequest *)v17 _intentIsValidSuggestion:v11 sourceBundleID:v19];
 
-      if (!v18)
+      if (!v17)
       {
 LABEL_27:
 
@@ -461,98 +430,98 @@ LABEL_27:
         goto LABEL_8;
       }
 
-      v21 = [MRMediaSuggestion alloc];
-      v22 = [v7 identifier];
-      v23 = [(MRMediaSuggestion *)v21 initWithIntent:v11 playbackIdentifier:v22];
+      v20 = [MRMediaSuggestion alloc];
+      v21 = [v7 identifier];
+      v22 = [(MRMediaSuggestion *)v20 initWithIntent:v11 playbackIdentifier:v21];
 
-      v24 = [v3 eventBody];
-      v25 = [v24 bundleID];
-      v50 = v23;
-      [(MRMediaSuggestion *)v23 setBundleID:v25];
+      v23 = [v3 eventBody];
+      v24 = [v23 bundleID];
+      v49 = v22;
+      [(MRMediaSuggestion *)v22 setBundleID:v24];
 
       if ([*(a1 + 40) includeArtwork])
       {
-        v26 = [v11 mediaContainer];
-        v27 = [v26 artwork];
+        v25 = [v11 mediaContainer];
+        v26 = [v25 artwork];
 
-        if (v27)
+        if (v26)
         {
           dispatch_group_enter(*(a1 + 48));
-          v44 = *(a1 + 40);
-          v57[0] = MEMORY[0x1E69E9820];
-          v57[1] = 3221225472;
-          v57[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_2_96;
-          v57[3] = &unk_1E769C220;
-          v58 = v23;
-          v59 = *(a1 + 48);
-          [(MRMediaSuggestionRequest *)v44 _artworkForIntent:v11 completion:v57];
+          v43 = *(a1 + 40);
+          v56[0] = MEMORY[0x1E69E9820];
+          v56[1] = 3221225472;
+          v56[2] = __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_2_96;
+          v56[3] = &unk_1E769C220;
+          v57 = v22;
+          v58 = *(a1 + 48);
+          [(MRMediaSuggestionRequest *)v43 _artworkForIntent:v11 completion:v56];
         }
       }
 
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       obj = *(a1 + 56);
-      v28 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
-      if (v28)
+      v27 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+      if (v27)
       {
-        v29 = v28;
-        v48 = v3;
-        v49 = v11;
-        v45 = v7;
-        v46 = v6;
-        v47 = v4;
-        v30 = *v54;
-        v31 = v50;
+        v28 = v27;
+        v47 = v3;
+        v48 = v11;
+        v44 = v7;
+        v45 = v6;
+        v46 = v4;
+        v29 = *v53;
+        v30 = v49;
         do
         {
-          for (i = 0; i != v29; ++i)
+          for (i = 0; i != v28; ++i)
           {
-            if (*v54 != v30)
+            if (*v53 != v29)
             {
               objc_enumerationMutation(obj);
             }
 
-            v33 = *(*(&v53 + 1) + 8 * i);
-            v34 = [*(a1 + 64) objectForKeyedSubscript:v33];
-            v35 = [(MRMediaSuggestion *)v31 bundleID];
-            if ([v34 containsObject:v35])
+            v32 = *(*(&v52 + 1) + 8 * i);
+            v33 = [*(a1 + 64) objectForKeyedSubscript:v32];
+            v34 = [(MRMediaSuggestion *)v30 bundleID];
+            if ([v33 containsObject:v34])
             {
             }
 
             else
             {
-              v36 = [*(a1 + 72) objectForKeyedSubscript:v33];
-              v37 = [v36 count];
-              v38 = [*(a1 + 40) maxResults];
+              v35 = [*(a1 + 72) objectForKeyedSubscript:v32];
+              v36 = [v35 count];
+              v37 = [*(a1 + 40) maxResults];
 
-              v39 = v37 >= v38;
-              v31 = v50;
-              if (!v39)
+              v38 = v36 >= v37;
+              v30 = v49;
+              if (!v38)
               {
-                v40 = *(a1 + 32);
-                v41 = [v49 mediaContainer];
-                v42 = [v41 identifier];
-                [v40 addObject:v42];
+                v39 = *(a1 + 32);
+                v40 = [v48 mediaContainer];
+                v41 = [v40 identifier];
+                [v39 addObject:v41];
 
-                v43 = [*(a1 + 72) objectForKeyedSubscript:v33];
-                [v43 addObject:v50];
+                v42 = [*(a1 + 72) objectForKeyedSubscript:v32];
+                [v42 addObject:v49];
 
                 ++*(*(*(a1 + 80) + 8) + 24);
               }
             }
           }
 
-          v29 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
+          v28 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
         }
 
-        while (v29);
-        v4 = v47;
-        v3 = v48;
-        v7 = v45;
-        v6 = v46;
-        v11 = v49;
+        while (v28);
+        v4 = v46;
+        v3 = v47;
+        v7 = v44;
+        v6 = v45;
+        v11 = v48;
       }
 
       v14 = obj;
@@ -568,7 +537,6 @@ LABEL_7:
   v15 = 1;
 LABEL_8:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -712,10 +680,9 @@ void __69__MRMediaSuggestionRequest_performWithPlaybackIdentifier_completion___b
   else
   {
     v2 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:1 description:@"No suggestion found for playback identifier"];
-    v3 = *(*(*(a1 + 40) + 8) + 40);
   }
 
-  v4 = v2;
+  v3 = v2;
   (*(*(a1 + 32) + 16))();
 }
 
@@ -724,9 +691,9 @@ uint64_t __69__MRMediaSuggestionRequest_performWithPlaybackIdentifier_completion
   v3 = a2;
   v4 = [v3 eventBody];
   v5 = [v4 itemID];
-  v6 = [v5 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = [v3 eventBody];
     v8 = [v7 interaction];
@@ -756,7 +723,7 @@ uint64_t __69__MRMediaSuggestionRequest_performWithPlaybackIdentifier_completion
     }
   }
 
-  return v6 ^ 1u;
+  return isEqualToString ^ 1u;
 }
 
 void __57__MRMediaSuggestionRequest__artworkForIntent_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -837,36 +804,35 @@ void __57__MRMediaSuggestionRequest__artworkForIntent_completion___block_invoke(
   }
 }
 
-- (uint64_t)_bundleIdentifierIsSystemMediaApplication:(uint64_t)IsSystemPodcastApplication
+- (uint64_t)_bundleIdentifierIsSystemMediaApplication:(uint64_t)application
 {
   v3 = a2;
   v4 = v3;
-  if (IsSystemPodcastApplication)
+  if (application)
   {
     if (MRMediaRemoteApplicationIsSystemMediaApplication(v3))
     {
-      IsSystemPodcastApplication = 1;
+      application = 1;
     }
 
     else
     {
-      IsSystemPodcastApplication = MRMediaRemoteApplicationIsSystemPodcastApplication(v4);
+      application = MRMediaRemoteApplicationIsSystemPodcastApplication(v4);
     }
   }
 
-  return IsSystemPodcastApplication;
+  return application;
 }
 
 void __70__MRMediaSuggestionRequest_performWithPreferences_options_completion___block_invoke_2_96_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "[MRMediaSuggestionRequest] %@ failed to retrieve artwork with error %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "[MRMediaSuggestionRequest] %@ failed to retrieve artwork with error %@", &v4, 0x16u);
 }
 
 @end

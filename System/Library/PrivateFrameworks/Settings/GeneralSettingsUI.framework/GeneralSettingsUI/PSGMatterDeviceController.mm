@@ -147,29 +147,29 @@
 
   if (!pairingManager)
   {
-    v6 = objc_alloc(MEMORY[0x277CD5588]);
+    v7 = objc_alloc(MEMORY[0x277CD5588]);
     pairing = [(PSGMatterDeviceController *)self pairing];
-    v8 = [v6 initWithSystemCommissionerPairing:pairing];
-    [(PSGMatterDeviceController *)self setPairingManager:v8];
+    v9 = [v7 initWithSystemCommissionerPairing:pairing];
+    [(PSGMatterDeviceController *)self setPairingManager:v9];
   }
 
-  v9 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _PSGLoggingFacility(v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
     v21 = "[PSGMatterDeviceController reloadServicesWithCompletion:]";
-    _os_log_impl(&dword_21CF20000, v9, OS_LOG_TYPE_DEFAULT, "%s: querying for pairings.", buf, 0xCu);
+    _os_log_impl(&dword_21CF20000, v10, OS_LOG_TYPE_DEFAULT, "%s: querying for pairings.", buf, 0xCu);
   }
 
   [(PSEditableListController *)self setEditingButtonHidden:1 animated:0];
-  v10 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
-  v11 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v10];
-  v19 = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v11 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
+  v12 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v11];
+  v19 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   navigationItem = [(PSGMatterDeviceController *)self navigationItem];
-  [navigationItem setRightBarButtonItems:v12];
+  [navigationItem setRightBarButtonItems:v13];
 
-  [v10 startAnimating];
+  [v11 startAnimating];
   pairingManager2 = [(PSGMatterDeviceController *)self pairingManager];
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
@@ -177,10 +177,8 @@
   v17[3] = &unk_2783254F0;
   v17[4] = self;
   v18 = completionCopy;
-  v15 = completionCopy;
+  v16 = completionCopy;
   [pairingManager2 fetchPairingsWithCompletionHandler:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -188,70 +186,76 @@ void __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke
   v48 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _PSGLoggingFacility(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke_cold_1();
     }
   }
 
-  v29 = v5;
-  v7 = objc_opt_new();
+  v29 = v6;
+  v8 = objc_opt_new();
   if (+[PSGMatterDeviceController shouldShowTestSpecifiers])
   {
-    v8 = +[PSGMatterDeviceController testSpecifiers];
-    [v7 addObjectsFromArray:v8];
+    v9 = +[PSGMatterDeviceController testSpecifiers];
+    [v8 addObjectsFromArray:v9];
   }
 
-  v30 = v7;
+  v30 = v8;
   v41 = 0u;
   v42 = 0u;
   v39 = 0u;
   v40 = 0u;
   obj = v4;
-  v9 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
-  if (v9)
+  v10 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+  if (v10)
   {
-    v10 = v9;
+    v11 = v10;
     v33 = *v40;
-    v11 = *MEMORY[0x277CD5560];
+    v12 = *MEMORY[0x277CD5560];
     do
     {
-      for (i = 0; i != v10; ++i)
+      v13 = 0;
+      do
       {
         if (*v40 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v39 + 1) + 8 * i);
-        v14 = _PSGLoggingFacility();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v14 = *(*(&v39 + 1) + 8 * v13);
+        v15 = _PSGLoggingFacility(v10);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
           v44 = "[PSGMatterDeviceController reloadServicesWithCompletion:]_block_invoke";
           v45 = 2112;
-          v46 = v13;
-          _os_log_impl(&dword_21CF20000, v14, OS_LOG_TYPE_DEFAULT, "%s: found device pairing %@", buf, 0x16u);
+          v46 = v14;
+          _os_log_impl(&dword_21CF20000, v15, OS_LOG_TYPE_DEFAULT, "%s: found device pairing %@", buf, 0x16u);
         }
 
-        v15 = [v13 fabric];
-        v16 = [v15 ecosystem];
-        v17 = [v16 vendor];
-        v18 = [v17 identifier];
-        v19 = [v18 integerValue];
-        v20 = [v11 integerValue];
+        v16 = [v14 fabric];
+        v17 = [v16 ecosystem];
+        v18 = [v17 vendor];
+        v19 = [v18 identifier];
+        v20 = [v19 integerValue];
+        v21 = [v12 integerValue];
 
-        if (v19 != v20)
+        if (v20 != v21)
         {
-          v21 = [PSGMatterDeviceController serviceSpecifierWithPairing:v13 target:*(a1 + 32)];
-          [v30 addObject:v21];
+          v22 = [PSGMatterDeviceController serviceSpecifierWithPairing:v14 target:*(a1 + 32)];
+          [v30 addObject:v22];
         }
+
+        ++v13;
       }
 
+      while (v11 != v13);
       v10 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v11 = v10;
     }
 
     while (v10);
@@ -259,32 +263,30 @@ void __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke
 
   if ([v30 count])
   {
-    v22 = MEMORY[0x277D3FAD8];
-    v23 = PSG_LocalizedStringForMatter(@"CONNECTED_SERVICES");
-    v24 = [v22 groupSpecifierWithID:@"CONNECTED_SERVICES" name:v23];
+    v23 = MEMORY[0x277D3FAD8];
+    v24 = PSG_LocalizedStringForMatter(@"CONNECTED_SERVICES");
+    v25 = [v23 groupSpecifierWithID:@"CONNECTED_SERVICES" name:v24];
 
-    [v30 insertObject:v24 atIndex:0];
+    [v30 insertObject:v25 atIndex:0];
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke_42;
   block[3] = &unk_278325548;
-  v25 = *(a1 + 32);
-  v26 = *(a1 + 40);
+  v26 = *(a1 + 32);
+  v27 = *(a1 + 40);
   v35 = v30;
-  v36 = v25;
+  v36 = v26;
   v38 = v29 != 0;
-  v37 = v26;
-  v27 = v30;
+  v37 = v27;
+  v28 = v30;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke_42(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) copy];
   v3 = [*(a1 + 40) serviceSpecifiers];
   v4 = *(a1 + 40);
@@ -306,29 +308,29 @@ void __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke
     [*(a1 + 40) reloadSpecifier:v6];
     v8 = [v2 count];
     v9 = [v3 count];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = v3;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(a1 + 40) removeSpecifier:*(*(&v20 + 1) + 8 * i) animated:{0, v20}];
+          [*(a1 + 40) removeSpecifier:*(*(&v19 + 1) + 8 * i) animated:{0, v19}];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -338,7 +340,7 @@ void __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke
     v4 = *(a1 + 40);
   }
 
-  [v4 setServiceSpecifiers:{v2, v20}];
+  [v4 setServiceSpecifiers:{v2, v19}];
   v15 = [*(a1 + 40) navigationItem];
   [v15 setRightBarButtonItems:0];
 
@@ -351,8 +353,6 @@ void __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke
   {
     (*(v18 + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
@@ -462,44 +462,43 @@ LABEL_7:
 
 void __47__PSGMatterDeviceController_showDeleteService___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"PSGDevicePairingKey"];
   if (v2)
   {
     v3 = [*(a1 + 40) pairingManager];
     v4 = [v2 uuid];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __47__PSGMatterDeviceController_showDeleteService___block_invoke_70;
-    v7[3] = &unk_278325518;
-    v7[4] = *(a1 + 40);
-    [v3 removePairingWithUUID:v4 completionHandler:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __47__PSGMatterDeviceController_showDeleteService___block_invoke_70;
+    v6[3] = &unk_278325518;
+    v6[4] = *(a1 + 40);
+    [v3 removePairingWithUUID:v4 completionHandler:v6];
   }
 
   else
   {
-    v3 = _PSGLoggingFacility();
+    v3 = _PSGLoggingFacility(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [*(a1 + 32) name];
       *buf = 136315394;
-      v9 = "[PSGMatterDeviceController showDeleteService:]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
+      v8 = "[PSGMatterDeviceController showDeleteService:]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
       _os_log_impl(&dword_21CF20000, v3, OS_LOG_TYPE_DEFAULT, "%s: not deleting device because it has no pairing.: %@", buf, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __47__PSGMatterDeviceController_showDeleteService___block_invoke_70(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PSGLoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __47__PSGMatterDeviceController_showDeleteService___block_invoke_70_cold_1();
     }
@@ -551,28 +550,26 @@ void __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke(ui
 
   if (v3)
   {
-    v4 = objc_opt_new();
-    v5 = [v3 uuid];
+    v5 = objc_opt_new();
+    v6 = [v3 uuid];
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
     v7[2] = __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_87;
     v7[3] = &unk_278325518;
     v7[4] = *(a1 + 32);
-    [v4 removePairingWithUUID:v5 completionHandler:v7];
+    [v5 removePairingWithUUID:v6 completionHandler:v7];
   }
 
   else
   {
-    v4 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _PSGLoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v9 = "[PSGMatterDeviceController showDeleteFromMatterLocker]_block_invoke";
-      _os_log_impl(&dword_21CF20000, v4, OS_LOG_TYPE_DEFAULT, "%s: not deleting device because it has no pairing.", buf, 0xCu);
+      _os_log_impl(&dword_21CF20000, v5, OS_LOG_TYPE_DEFAULT, "%s: not deleting device because it has no pairing.", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_87(uint64_t a1, void *a2)
@@ -589,44 +586,43 @@ void __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_87
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-void __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_2(uint64_t a1)
+void __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _PSGLoggingFacility(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_2_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_2_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v10 = [*(a1 + 40) navigationController];
-  v11 = [v10 popViewControllerAnimated:1];
+  v11 = [*(a1 + 40) navigationController];
+  v12 = [v11 popViewControllerAnimated:1];
 }
 
 void __58__PSGMatterDeviceController_reloadServicesWithCompletion___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_21CF20000, v0, v1, "%s: error when fetching pairings: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_21CF20000, v0, v1, "%s: error when fetching pairings: %@", v2, v3, v4, v5, v6);
 }
 
 void __47__PSGMatterDeviceController_showDeleteService___block_invoke_70_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_21CF20000, v0, v1, "%s: error when deleting pairing: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_21CF20000, v0, v1, "%s: error when deleting pairing: %@", v2, v3, v4, v5, v6);
 }
 
-void __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_2_cold_1(uint64_t *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __55__PSGMatterDeviceController_showDeleteFromMatterLocker__block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = *a1;
-  OUTLINED_FUNCTION_1(&dword_21CF20000, a2, a3, "%s: error when deleting pairing: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 136315394;
+  *&v8[4] = "[PSGMatterDeviceController showDeleteFromMatterLocker]_block_invoke_2";
+  *&v8[12] = 2112;
+  *&v8[14] = *a1;
+  OUTLINED_FUNCTION_1(&dword_21CF20000, a2, a3, "%s: error when deleting pairing: %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

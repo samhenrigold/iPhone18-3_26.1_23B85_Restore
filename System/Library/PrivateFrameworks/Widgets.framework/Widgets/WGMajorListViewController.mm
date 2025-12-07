@@ -739,7 +739,7 @@ void __39__WGMajorListViewController_extraViews__block_invoke(uint64_t a1, uint6
         v24 = contentView;
         if (contentView)
         {
-          [contentView transform];
+          objc_msgSend_transform(contentView);
         }
 
         v7 = BSFloatLessThanFloat();

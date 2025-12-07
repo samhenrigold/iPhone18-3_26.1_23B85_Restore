@@ -1,5 +1,6 @@
 @interface AMPMusicCatalogContent
 - (BOOL)isEqual:(id)equal;
+- (id)contentTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -190,7 +191,6 @@ LABEL_6:
     goto LABEL_27;
   }
 
-  v5 = *(equalCopy + 48);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 48) & 8) == 0 || self->_contentType != *(equalCopy + 10))
@@ -251,7 +251,7 @@ LABEL_6:
     }
 
 LABEL_27:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_28;
   }
 
@@ -260,7 +260,6 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  v9 = *(equalCopy + 44);
   if (self->_isExplicit)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -278,17 +277,17 @@ LABEL_24:
   contentFeatures = self->_contentFeatures;
   if (contentFeatures | *(equalCopy + 4))
   {
-    v7 = [(NSMutableArray *)contentFeatures isEqual:?];
+    v6 = [(NSMutableArray *)contentFeatures isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_28:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -479,7 +478,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    contentType = self->_contentType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -499,7 +497,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  adamId = self->_adamId;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -514,7 +511,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  canonicalId = self->_canonicalId;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -529,43 +525,40 @@ LABEL_5:
   }
 
 LABEL_18:
-  releaseDate = self->_releaseDate;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    isExplicit = self->_isExplicit;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_7:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v7 = self->_contentFeatures;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_contentFeatures;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v18;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 }
 
@@ -784,6 +777,21 @@ LABEL_11:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)contentTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1001DDE50[string];
   }
 
   return v4;

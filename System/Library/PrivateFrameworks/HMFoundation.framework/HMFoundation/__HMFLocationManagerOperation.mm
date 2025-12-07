@@ -160,18 +160,18 @@
       {
         v15 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v17 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v18 = HMFGetOSLogHandle(selfCopy, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          v18 = HMFGetLogIdentifier(selfCopy);
+          v19 = HMFGetLogIdentifier(selfCopy);
           *buf = 138543362;
-          v26 = v18;
-          _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Marking as ready", buf, 0xCu);
+          v26 = v19;
+          _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Marking as ready", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v15);
-        v19 = NSStringFromSelector(sel_isReady);
-        [(__HMFLocationManagerOperation *)selfCopy willChangeValueForKey:v19];
+        v20 = NSStringFromSelector(sel_isReady);
+        [(__HMFLocationManagerOperation *)selfCopy willChangeValueForKey:v20];
 
         os_unfair_lock_lock_with_options();
         selfCopy->_ready = 1;
@@ -180,8 +180,8 @@
         selfCopy->_manager = internal;
 
         os_unfair_lock_unlock(&selfCopy->_lock);
-        v22 = NSStringFromSelector(sel_isReady);
-        [(__HMFLocationManagerOperation *)selfCopy didChangeValueForKey:v22];
+        v23 = NSStringFromSelector(sel_isReady);
+        [(__HMFLocationManagerOperation *)selfCopy didChangeValueForKey:v23];
       }
     }
 
@@ -196,8 +196,6 @@
     v24.super_class = __HMFLocationManagerOperation;
     [(__HMFLocationManagerOperation *)&v24 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory

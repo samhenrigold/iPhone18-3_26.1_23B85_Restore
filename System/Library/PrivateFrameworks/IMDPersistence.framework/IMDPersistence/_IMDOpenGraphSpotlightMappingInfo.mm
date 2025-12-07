@@ -16,40 +16,40 @@
     sub_1B7CFA8B8();
   }
 
-  v6 = objc_msgSend_objectForKeyedSubscript_(qword_1EBA54250, v4, typeCopy);
+  v7 = objc_msgSend_objectForKeyedSubscript_(qword_1EBA54250, v4, typeCopy, v5);
 
-  return v6;
+  return v7;
 }
 
 + (id)infoForLinkMetadata:(id)metadata
 {
   metadataCopy = metadata;
-  v7 = objc_msgSend_itemType(metadataCopy, v5, v6);
+  v8 = objc_msgSend_itemType(metadataCopy, v5, v6, v7);
 
-  if (v7)
+  if (v8)
   {
-    v10 = objc_msgSend_itemType(metadataCopy, v8, v9);
-    v12 = objc_msgSend_infoForOGType_(self, v11, v10);
+    v12 = objc_msgSend_itemType(metadataCopy, v9, v10, v11);
+    v15 = objc_msgSend_infoForOGType_(self, v13, v12, v14);
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
-  return v12;
+  return v15;
 }
 
 - (_IMDOpenGraphSpotlightMappingInfo)initWithOGType:(id)type indexer:(id)indexer
 {
   indexerCopy = indexer;
   typeCopy = type;
-  v10 = objc_msgSend_prefix(indexerCopy, v8, v9);
-  v13 = objc_msgSend_linkType(indexerCopy, v11, v12);
-  v16 = objc_msgSend_linkSubtype(indexerCopy, v14, v15);
+  v11 = objc_msgSend_prefix(indexerCopy, v8, v9, v10);
+  v15 = objc_msgSend_linkType(indexerCopy, v12, v13, v14);
+  v19 = objc_msgSend_linkSubtype(indexerCopy, v16, v17, v18);
 
-  v18 = objc_msgSend_initWithOGType_prefix_linkType_linkSubType_(self, v17, typeCopy, v10, v13, v16);
-  return v18;
+  v21 = objc_msgSend_initWithOGType_prefix_linkType_linkSubType_(self, v20, typeCopy, v11, v15, v19);
+  return v21;
 }
 
 - (_IMDOpenGraphSpotlightMappingInfo)initWithOGType:(id)type prefix:(id)prefix linkType:(id)linkType linkSubType:(id)subType

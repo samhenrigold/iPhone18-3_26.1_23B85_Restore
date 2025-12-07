@@ -14,7 +14,7 @@
   {
     v5 = v4;
     v6 = swift_allocObject();
-    *(v6 + 16) = v5;
+    v6[2] = v5;
     v7 = sub_1BD166E88;
   }
 
@@ -26,7 +26,7 @@
 
   selfCopy = self;
   sub_1BD7B2DD8(v7, v6);
-  sub_1BD0D4744(v7);
+  sub_1BD0D4744(v7, v6, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)fulfillRemotePaymentRequestPromise:(id)promise completion:(id)completion
@@ -35,7 +35,7 @@
   if (v6)
   {
     v7 = swift_allocObject();
-    *(v7 + 16) = v6;
+    v7[2] = v6;
     v6 = sub_1BD1B6B00;
   }
 
@@ -47,7 +47,7 @@
   promiseCopy = promise;
   selfCopy = self;
   sub_1BD7B30A0(promise, v6, v7);
-  sub_1BD0D4744(v6);
+  sub_1BD0D4744(v6, v7, v9, v10, v11, v12, v13, v14);
 }
 
 - (void)rejectRemotePaymentRequestPromiseWithFailure:(unint64_t)failure

@@ -239,52 +239,51 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, l);
-  v16 = 0;
-  objc_storeStrong(&v16, completion);
-  v15 = _ACUILogSystem();
-  v14 = OS_LOG_TYPE_DEBUG;
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v15 = 0;
+  objc_storeStrong(&v15, completion);
+  v14 = _ACUILogSystem();
+  v13 = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    sub_1920(v20, "[ACUISettingsController handleURL:withCompletion:]", 229, location[0]);
-    _os_log_debug_impl(&dword_0, v15, v14, "%s (%d) Handling URL load for resources %@", v20, 0x1Cu);
+    sub_1920(v19, "[ACUISettingsController handleURL:withCompletion:]", 229, location[0]);
+    _os_log_debug_impl(&dword_0, v14, v13, "%s (%d) Handling URL load for resources %@", v19, 0x1Cu);
   }
 
-  objc_storeStrong(&v15, 0);
+  objc_storeStrong(&v14, 0);
   selfCopy->_isInHandleURL = 1;
-  v13.receiver = selfCopy;
-  v13.super_class = ACUISettingsController;
-  [(ACUISettingsController *)&v13 handleURL:location[0] withCompletion:&stru_C328];
+  v12.receiver = selfCopy;
+  v12.super_class = ACUISettingsController;
+  [(ACUISettingsController *)&v12 handleURL:location[0] withCompletion:&stru_C328];
   selfCopy->_isInHandleURL = 0;
   if (selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL)
   {
-    viewControllerPushedByControllerLoadActionDuringHandleURL = selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = [location[0] objectForKey:@"path"];
-      pathComponents = [v12 pathComponents];
-      v11 = [NSMutableArray arrayWithArray:?];
+      v11 = [location[0] objectForKey:@"path"];
+      pathComponents = [v11 pathComponents];
+      v10 = [NSMutableArray arrayWithArray:?];
 
-      if ([v11 count])
+      if ([v10 count])
       {
-        [v11 removeObjectAtIndex:0];
-        v4 = [NSString pathWithComponents:v11];
-        v5 = v12;
-        v12 = v4;
+        [v10 removeObjectAtIndex:0];
+        v4 = [NSString pathWithComponents:v10];
+        v5 = v11;
+        v11 = v4;
 
-        v10 = [NSMutableDictionary dictionaryWithDictionary:location[0]];
-        [(NSMutableDictionary *)v10 setObject:v12 forKey:@"path"];
-        [(PSViewController *)selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL handleURL:v10 withCompletion:v16];
-        objc_storeStrong(&v10, 0);
+        v9 = [NSMutableDictionary dictionaryWithDictionary:location[0]];
+        [(NSMutableDictionary *)v9 setObject:v11 forKey:@"path"];
+        [(PSViewController *)selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL handleURL:v9 withCompletion:v15];
+        objc_storeStrong(&v9, 0);
       }
 
-      else if (v16)
+      else if (v15)
       {
-        (*(v16 + 2))();
+        (*(v15 + 2))();
       }
 
+      objc_storeStrong(&v10, 0);
       objc_storeStrong(&v11, 0);
-      objc_storeStrong(&v12, 0);
     }
 
     objc_storeStrong(&selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL, 0);
@@ -295,18 +294,18 @@
     oslog = _ACUILogSystem();
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      sub_1920(v19, "[ACUISettingsController handleURL:withCompletion:]", 256, location[0]);
-      _os_log_error_impl(&dword_0, oslog, OS_LOG_TYPE_ERROR, "%s (%d) No subview to display matching dictionary %@", v19, 0x1Cu);
+      sub_1920(v18, "[ACUISettingsController handleURL:withCompletion:]", 256, location[0]);
+      _os_log_error_impl(&dword_0, oslog, OS_LOG_TYPE_ERROR, "%s (%d) No subview to display matching dictionary %@", v18, 0x1Cu);
     }
 
     objc_storeStrong(&oslog, 0);
-    if (v16)
+    if (v15)
     {
-      (*(v16 + 2))();
+      (*(v15 + 2))();
     }
   }
 
-  objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
 }
 

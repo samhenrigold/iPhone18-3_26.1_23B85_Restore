@@ -2,6 +2,7 @@
 - (BOOL)isContainedInPrefix:(id)prefix;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)matchesPrefix:(const in6_addr *)prefix plen:(unsigned __int8)plen;
+- (NRBabelPrefix)initWithPrefix:(const in6_addr *)prefix plen:(unsigned __int8)plen;
 - (id)description;
 - (id)descriptionWithoutPlen;
 - (in6_addr)prefixInner;
@@ -48,7 +49,7 @@
         dispatch_once(&qword_100229100, &stru_1001FB6C8);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002290F8, 17, "internal error plen %u > 128", plen);
     }
 
     plen = 128;
@@ -176,7 +177,7 @@ LABEL_14:
         dispatch_once(&qword_100229100, &stru_1001FB6C8);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002290F8, 17, "attempted to compare prefixes with plen %u > 128", plenCopy);
     }
 
     plenCopy = 128;
@@ -208,11 +209,103 @@ LABEL_14:
         dispatch_once(&qword_100229100, &stru_1001FB6C8);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002290F8, 17, "Invalid plenLastBits %u plenBytes %u", v7 & 7, v8);
     }
   }
 
   return 1;
+}
+
+- (NRBabelPrefix)initWithPrefix:(const in6_addr *)prefix plen:(unsigned __int8)plen
+{
+  plenCopy = plen;
+  if (plen < 0x81u)
+  {
+    goto LABEL_8;
+  }
+
+  LODWORD(v7) = plen;
+  plenCopy = &qword_100229000;
+  if (qword_100229100 != -1)
+  {
+    goto LABEL_26;
+  }
+
+  while (1)
+  {
+    if (_NRLogIsLevelEnabled())
+    {
+      if (*(plenCopy + 256) != -1)
+      {
+        dispatch_once(&qword_100229100, &stru_1001FB6C8);
+      }
+
+      _NRLogWithArgs(qword_1002290F8, 17, "attempted to create prefix with plen %u > 128", v7);
+    }
+
+    plenCopy = 128;
+LABEL_8:
+    if (!prefix->__u6_addr32[0] && !prefix->__u6_addr32[1] && plenCopy <= 0x5F && prefix->__u6_addr32[2] == -65536)
+    {
+      if (qword_100229100 != -1)
+      {
+        dispatch_once(&qword_100229100, &stru_1001FB6C8);
+      }
+
+      if (_NRLogIsLevelEnabled())
+      {
+        if (qword_100229100 != -1)
+        {
+          dispatch_once(&qword_100229100, &stru_1001FB6C8);
+        }
+
+        _NRLogWithArgs(qword_1002290F8, 17, "attempted to create v4 prefix with plen %u < 96", plenCopy);
+      }
+
+      if (plenCopy >= 0x21)
+      {
+        plenCopy = 128;
+      }
+
+      else
+      {
+        plenCopy = (plenCopy + 96);
+      }
+    }
+
+    v15.receiver = self;
+    v15.super_class = NRBabelPrefix;
+    result = [(NRBabelPrefix *)&v15 init];
+    if (result)
+    {
+      break;
+    }
+
+    v9 = sub_1000CB9A8();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    v7 = "[NRBabelPrefix initWithPrefix:plen:]";
+    if (IsLevelEnabled)
+    {
+      v11 = sub_1000CB9A8();
+      _NRLogWithArgs(v11, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBabelPrefix initWithPrefix:plen:]"", 558);
+    }
+
+    prefix = _os_log_pack_size();
+    self = (&v14 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0));
+    v12 = __error();
+    v13 = _os_log_pack_fill(self, prefix, *v12, &_mh_execute_header, "%{public}s [super init] failed");
+    *v13 = 136446210;
+    *(v13 + 4) = "[NRBabelPrefix initWithPrefix:plen:]";
+    sub_1000CB9A8();
+    _NRLogAbortWithPack();
+LABEL_26:
+    dispatch_once(&qword_100229100, &stru_1001FB6C8);
+  }
+
+  result->_prefixInner = *prefix;
+  result->_plen = plenCopy;
+  return result;
 }
 
 @end

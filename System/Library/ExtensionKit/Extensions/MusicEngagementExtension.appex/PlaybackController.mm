@@ -48,7 +48,7 @@
 
 - (void)engine:(id)engine didFailToPlayFirstItem:(id)item withError:(id)error
 {
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   v8 = swift_allocObject();
   v8[2] = error;
   v8[3] = self;
@@ -67,7 +67,7 @@
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();
   *(v10 + 16) = v9;
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   v11 = swift_allocObject();
   v11[2] = reason;
   v11[3] = self;

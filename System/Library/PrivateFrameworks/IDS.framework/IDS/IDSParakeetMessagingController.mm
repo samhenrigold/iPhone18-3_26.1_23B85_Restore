@@ -4,7 +4,9 @@
 - (IDSParakeetMessagingControllerDelegate)delegate;
 - (void)_noteAckTimerFiredForIdentifier:(id)identifier;
 - (void)_noteAckedMessageWithMessageIdentifier:(id)identifier;
+- (void)_noteCanceledFetchForIdentifier:(id)identifier success:(BOOL)success error:(id)error;
 - (void)_noteReceivedStopResponseForIdentifier:(id)identifier success:(BOOL)success error:(id)error;
+- (void)_noteSentFetchForIdentifier:(id)identifier success:(BOOL)success error:(id)error;
 - (void)_noteSentStopForIdentifier:(id)identifier success:(BOOL)success error:(id)error;
 - (void)cancelParakeetSessionStopWithUUID:(id)d completion:(id)completion;
 - (void)controller:(id)controller receivedIncomingMessageData:(id)data context:(id)context;
@@ -270,9 +272,156 @@ LABEL_13:
 LABEL_14:
 }
 
+- (void)_noteSentFetchForIdentifier:(id)identifier success:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  v37 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  errorCopy = error;
+  stopStateMachineByIdentifier = [(IDSParakeetMessagingController *)self stopStateMachineByIdentifier];
+  v11 = [stopStateMachineByIdentifier objectForKeyedSubscript:identifierCopy];
+
+  if (!v11)
+  {
+    iDSServerMessaging = [MEMORY[0x1E69A5270] IDSServerMessaging];
+    if (os_log_type_enabled(iDSServerMessaging, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B41060();
+    }
+
+    goto LABEL_9;
+  }
+
+  if ([v11 state] != 2)
+  {
+    iDSServerMessaging = [MEMORY[0x1E69A5270] IDSServerMessaging];
+    if (os_log_type_enabled(iDSServerMessaging, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B40FAC(identifierCopy, v11);
+    }
+
+LABEL_9:
+
+    goto LABEL_20;
+  }
+
+  incomingMessagesWithoutAcks = [(IDSParakeetMessagingController *)self incomingMessagesWithoutAcks];
+  v13 = [incomingMessagesWithoutAcks count] == 0;
+
+  iDSServerMessaging2 = [MEMORY[0x1E69A5270] IDSServerMessaging];
+  v15 = os_log_type_enabled(iDSServerMessaging2, OS_LOG_TYPE_DEFAULT);
+  if (v13)
+  {
+    if (v15)
+    {
+      v21 = @"NO";
+      *buf = 138412802;
+      if (successCopy)
+      {
+        v21 = @"YES";
+      }
+
+      v32 = v21;
+      v33 = 2112;
+      v34 = errorCopy;
+      v35 = 2112;
+      v36 = identifierCopy;
+      _os_log_impl(&dword_1959FF000, iDSServerMessaging2, OS_LOG_TYPE_DEFAULT, "Calling stop completion {success: %@, error: %@, identifier: %@}", buf, 0x20u);
+    }
+
+    [v11 setState:5];
+    messageHandler = [v11 messageHandler];
+
+    if (messageHandler)
+    {
+      messageHandler2 = [v11 messageHandler];
+      (messageHandler2)[2](messageHandler2, successCopy, errorCopy);
+    }
+
+    stopStateMachineByIdentifier2 = [(IDSParakeetMessagingController *)self stopStateMachineByIdentifier];
+    [stopStateMachineByIdentifier2 removeObjectForKey:identifierCopy];
+  }
+
+  else
+  {
+    if (v15)
+    {
+      incomingMessagesWithoutAcks2 = [(IDSParakeetMessagingController *)self incomingMessagesWithoutAcks];
+      *buf = 138412546;
+      v32 = identifierCopy;
+      v33 = 2112;
+      v34 = incomingMessagesWithoutAcks2;
+      _os_log_impl(&dword_1959FF000, iDSServerMessaging2, OS_LOG_TYPE_DEFAULT, "_noteSentFetch - messages have been delivered, waiting for acks {identifier: %@, incomingMessagesWithoutAcks: %@}", buf, 0x16u);
+    }
+
+    [v11 setState:4];
+    objc_initWeak(buf, self);
+    v17 = objc_alloc(MEMORY[0x1E69A60C0]);
+    queue = [(IDSParakeetMessagingController *)self queue];
+    v25 = MEMORY[0x1E69E9820];
+    v26 = 3221225472;
+    v27 = sub_195B0AD60;
+    v28 = &unk_1E7443000;
+    objc_copyWeak(&v30, buf);
+    v29 = identifierCopy;
+    v19 = [v17 initWithQueue:queue interval:300 repeats:0 handlerBlock:&v25];
+    [v11 setFinalAckTimer:{v19, v25, v26, v27, v28}];
+
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(buf);
+  }
+
+LABEL_20:
+}
+
+- (void)_noteCanceledFetchForIdentifier:(id)identifier success:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  identifierCopy = identifier;
+  errorCopy = error;
+  stopStateMachineByIdentifier = [(IDSParakeetMessagingController *)self stopStateMachineByIdentifier];
+  v11 = [stopStateMachineByIdentifier objectForKeyedSubscript:identifierCopy];
+
+  if (v11)
+  {
+    if ([v11 state] == 3)
+    {
+      [v11 setState:5];
+      messageHandler = [v11 messageHandler];
+
+      if (messageHandler)
+      {
+        messageHandler2 = [v11 messageHandler];
+        (messageHandler2)[2](messageHandler2, successCopy, errorCopy);
+      }
+
+      stopStateMachineByIdentifier2 = [(IDSParakeetMessagingController *)self stopStateMachineByIdentifier];
+      [stopStateMachineByIdentifier2 removeObjectForKey:identifierCopy];
+    }
+
+    else
+    {
+      stopStateMachineByIdentifier2 = [MEMORY[0x1E69A5270] IDSServerMessaging];
+      if (os_log_type_enabled(stopStateMachineByIdentifier2, OS_LOG_TYPE_ERROR))
+      {
+        sub_195B410C8();
+      }
+    }
+  }
+
+  else
+  {
+    stopStateMachineByIdentifier2 = [MEMORY[0x1E69A5270] IDSServerMessaging];
+    if (os_log_type_enabled(stopStateMachineByIdentifier2, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B41174();
+    }
+  }
+}
+
 - (void)_noteAckedMessageWithMessageIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -293,29 +442,29 @@ LABEL_14:
 
     else
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       stopStateMachineByIdentifier = [(IDSParakeetMessagingController *)self stopStateMachineByIdentifier];
       iDSServerMessaging = [stopStateMachineByIdentifier copy];
 
-      v10 = [iDSServerMessaging countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v10 = [iDSServerMessaging countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v10)
       {
         v11 = v10;
-        v24 = identifierCopy;
-        v12 = *v26;
+        v23 = identifierCopy;
+        v12 = *v25;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v26 != v12)
+            if (*v25 != v12)
             {
               objc_enumerationMutation(iDSServerMessaging);
             }
 
-            v14 = *(*(&v25 + 1) + 8 * i);
+            v14 = *(*(&v24 + 1) + 8 * i);
             stopStateMachineByIdentifier2 = [(IDSParakeetMessagingController *)self stopStateMachineByIdentifier];
             v16 = [stopStateMachineByIdentifier2 objectForKeyedSubscript:v14];
 
@@ -327,7 +476,7 @@ LABEL_14:
               if (v19)
               {
                 *buf = 138412290;
-                v30 = v14;
+                v29 = v14;
                 _os_log_error_impl(&dword_1959FF000, iDSServerMessaging2, OS_LOG_TYPE_ERROR, "_noteAckedMessage - all messages have been acked, completing {identifier: %@}", buf, 0xCu);
               }
 
@@ -348,18 +497,18 @@ LABEL_14:
             {
               v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v16, "state")}];
               *buf = 138412546;
-              v30 = v14;
-              v31 = 2112;
-              v32 = v22;
+              v29 = v14;
+              v30 = 2112;
+              v31 = v22;
               _os_log_error_impl(&dword_1959FF000, iDSServerMessaging2, OS_LOG_TYPE_ERROR, "_noteSentCancel - state machine not in expected state {identifier: %@, stateMachine.state: %@}", buf, 0x16u);
             }
           }
 
-          v11 = [iDSServerMessaging countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v11 = [iDSServerMessaging countByEnumeratingWithState:&v24 objects:v32 count:16];
         }
 
         while (v11);
-        identifierCopy = v24;
+        identifierCopy = v23;
       }
     }
   }
@@ -372,13 +521,11 @@ LABEL_14:
       sub_195B41268(iDSServerMessaging);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopParakeetSessionWithUUID:(id)d completion:(id)completion
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   uUIDString = [dCopy UUIDString];
@@ -386,9 +533,9 @@ LABEL_14:
   [(IDSServerMessagingOptions *)v9 setTimeout:&unk_1F0A29CD0];
   [(IDSServerMessagingOptions *)v9 setCommand:&unk_1F0A29C78];
   [(IDSServerMessagingOptions *)v9 setCancelOnClientCrash:MEMORY[0x1E695E118]];
-  v28 = @"pmt";
-  v29[0] = &unk_1F0A29C90;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v27 = @"pmt";
+  v28[0] = &unk_1F0A29C90;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   [(IDSServerMessagingOptions *)v9 setAdditionalTopLevelFields:v10];
 
   v11 = objc_alloc_init(IDSParakeetMessagingStopStateMachine);
@@ -403,35 +550,33 @@ LABEL_14:
   {
     *buf = 138412802;
     selfCopy = self;
-    v24 = 2112;
-    v25 = uUIDString;
-    v26 = 2112;
-    v27 = v9;
+    v23 = 2112;
+    v24 = uUIDString;
+    v25 = 2112;
+    v26 = v9;
     _os_log_impl(&dword_1959FF000, iDSServerMessaging, OS_LOG_TYPE_DEFAULT, "Client triggered stop parakeet session { self: %@, guid: %@, options: %@}", buf, 0x20u);
   }
 
   objc_initWeak(buf, self);
   iPServerMessagingController = [(IDSParakeetMessagingController *)self IPServerMessagingController];
-  v21 = uUIDString;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_195B0B53C;
-  v18[3] = &unk_1E7443028;
-  objc_copyWeak(&v20, buf);
+  v20 = uUIDString;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_195B0B53C;
+  v17[3] = &unk_1E7443028;
+  objc_copyWeak(&v19, buf);
   v15 = uUIDString;
-  v19 = v15;
-  [iPServerMessagingController sendMessageData:0 withOptions:v9 identifier:&v21 completion:v18];
-  v16 = v21;
+  v18 = v15;
+  [iPServerMessagingController sendMessageData:0 withOptions:v9 identifier:&v20 completion:v17];
+  v16 = v20;
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(buf);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelParakeetSessionStopWithUUID:(id)d completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   uUIDString = [dCopy UUIDString];
@@ -447,27 +592,25 @@ LABEL_14:
   {
     *buf = 138412546;
     selfCopy = self;
-    v21 = 2112;
-    v22 = dCopy;
+    v20 = 2112;
+    v21 = dCopy;
     _os_log_impl(&dword_1959FF000, iDSServerMessaging, OS_LOG_TYPE_DEFAULT, "Client triggered cancel of stopped parakeet session { self: %@, guid: %@ }", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   iPServerMessagingController = [(IDSParakeetMessagingController *)self IPServerMessagingController];
   uUIDString2 = [dCopy UUIDString];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_195B0B8A0;
-  v16[3] = &unk_1E7443050;
-  objc_copyWeak(&v18, buf);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_195B0B8A0;
+  v15[3] = &unk_1E7443050;
+  objc_copyWeak(&v17, buf);
   v14 = dCopy;
-  v17 = v14;
-  [iPServerMessagingController cancelMessageWithIdentifier:uUIDString2 completion:v16];
+  v16 = v14;
+  [iPServerMessagingController cancelMessageWithIdentifier:uUIDString2 completion:v15];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendCertifiedDeliveryReceipt:(id)receipt
@@ -510,17 +653,17 @@ LABEL_8:
 
 - (void)controller:(id)controller receivedIncomingMessageData:(id)data context:(id)context
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   contextCopy = context;
   iDSServerMessaging = [MEMORY[0x1E69A5270] IDSServerMessaging];
   if (os_log_type_enabled(iDSServerMessaging, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 134218242;
+    v22 = 134218242;
     selfCopy = self;
-    v25 = 2112;
-    v26 = contextCopy;
-    _os_log_impl(&dword_1959FF000, iDSServerMessaging, OS_LOG_TYPE_DEFAULT, "Parakeet client received incoming data { self: %p, context: %@ }", &v23, 0x16u);
+    v24 = 2112;
+    v25 = contextCopy;
+    _os_log_impl(&dword_1959FF000, iDSServerMessaging, OS_LOG_TYPE_DEFAULT, "Parakeet client received incoming data { self: %p, context: %@ }", &v22, 0x16u);
   }
 
   command = [(IDSParakeetMessagingController *)contextCopy command];
@@ -559,11 +702,11 @@ LABEL_8:
     {
       if (os_log_type_enabled(iDSServerMessaging2, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412546;
+        v22 = 138412546;
         selfCopy = contextCopy;
-        v25 = 2048;
-        v26 = identifier;
-        _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "Forwarding server message to delegate { context: %@, delegate: %p }", &v23, 0x16u);
+        v24 = 2048;
+        v25 = identifier;
+        _os_log_impl(&dword_1959FF000, v21, OS_LOG_TYPE_DEFAULT, "Forwarding server message to delegate { context: %@, delegate: %p }", &v22, 0x16u);
       }
 
       [(IDSParakeetMessagingController *)identifier controller:self receivedIncomingMessageData:dataCopy context:contextCopy];
@@ -577,8 +720,6 @@ LABEL_8:
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (IDSParakeetMessagingControllerDelegate)delegate

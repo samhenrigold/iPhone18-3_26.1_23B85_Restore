@@ -1,6 +1,7 @@
 @interface IMDMessageServicesAgentController
 + (id)sharedInstance;
 - (_IMDChatRecordStruct)copyBestChatWithGuid:(id)guid message:(_IMDMessageRecordStruct *)message;
+- (id)_routingDictionaryForService:(id)service extraFlags:(unint64_t)flags updateProperties:(BOOL)properties;
 - (void)_chooseRouteForMessage:(id)message downgradableServices:(id)services error:(unsigned int)error handler:(id)handler;
 - (void)checkExpireStateForMessage:(id)message handler:(id)handler;
 - (void)checkExpireStateWithHandler:(id)handler;
@@ -22,6 +23,22 @@
   }
 
   return qword_100014CA8;
+}
+
+- (id)_routingDictionaryForService:(id)service extraFlags:(unint64_t)flags updateProperties:(BOOL)properties
+{
+  propertiesCopy = properties;
+  result = [service length];
+  if (result)
+  {
+    v9 = IMDMessageServicesServiceKey;
+    v10 = [NSNumber numberWithUnsignedLongLong:flags];
+    v11 = IMDMessageServicesFlagsKey;
+    v12 = [NSNumber numberWithBool:propertiesCopy];
+    return [NSDictionary dictionaryWithObjectsAndKeys:service, v9, v10, v11, v12, IMDMessageServicesUpdateDowngradePropertiesKey, 0];
+  }
+
+  return result;
 }
 
 - (_IMDChatRecordStruct)copyBestChatWithGuid:(id)guid message:(_IMDMessageRecordStruct *)message
@@ -535,7 +552,7 @@ LABEL_17:
     while (v5);
     if (v6 >= 1)
     {
-      sub_1000048EC();
+      sub_1000048EC(v6);
     }
   }
 

@@ -87,23 +87,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUISearchFieldTableView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v11.receiver = self;
-  v11.super_class = SKUISearchFieldTableView;
-  [(SKUISearchFieldTableView *)&v11 layoutSubviews];
-  [(SKUISearchFieldTableView *)self bounds];
-  [(SKUITrendingSearchPageView *)self->_pageView setFrame:0.0, 0.0];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISearchFieldTableView layoutSubviews]";
 }
 
 - (void)_reloadData
@@ -200,6 +185,24 @@ void __39__SKUISearchFieldTableView__reloadData__block_invoke(uint64_t a1, void 
   WeakRetained = objc_loadWeakRetained(&self->_trendingSearchDelegate);
 
   return WeakRetained;
+}
+
+- (void)setTrendingSearchProvider:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISearchFieldTableView setTrendingSearchProvider:]";
+}
+
+- (void)setTrendingSearchDelegate:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISearchFieldTableView setTrendingSearchDelegate:]";
+}
+
+- (void)setTrendingSearchesVisible:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISearchFieldTableView setTrendingSearchesVisible:]";
 }
 
 @end

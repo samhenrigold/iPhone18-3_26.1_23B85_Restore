@@ -113,7 +113,7 @@ WBSPasswordPatternMatch *__66__WBSPasswordEvaluationCacheEntry_passwordEvaluatio
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DF90];
   dictionaryRepresentation = [(WBSPasswordEvaluation *)self->_evaluation dictionaryRepresentation];
   v4 = [v2 dictionaryWithDictionary:dictionaryRepresentation];
@@ -122,13 +122,11 @@ WBSPasswordPatternMatch *__66__WBSPasswordEvaluationCacheEntry_passwordEvaluatio
   v5 = [v4 objectForKeyedSubscript:@"patternMatches"];
   v6 = [v5 safari_mapObjectsUsingBlock:&__block_literal_global_11];
   [v4 setObject:v6 forKeyedSubscript:@"patternMatches"];
-  v10[0] = @"evaluation";
-  v10[1] = @"versionNumber";
-  v11[0] = v4;
-  v11[1] = &unk_1F308EC28;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = @"evaluation";
+  v9[1] = @"versionNumber";
+  v10[0] = v4;
+  v10[1] = &unk_1F308EC28;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }

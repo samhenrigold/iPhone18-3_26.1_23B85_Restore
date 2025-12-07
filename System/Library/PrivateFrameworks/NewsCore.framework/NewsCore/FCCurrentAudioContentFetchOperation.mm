@@ -54,7 +54,7 @@
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     LOBYTE(v2) = 1;
@@ -65,22 +65,21 @@
     v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
     if (v2)
     {
-      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current magazine content fetch operation requires a context"];
-      v6 = 136315906;
-      v7 = "[FCCurrentAudioContentFetchOperation validateOperation]";
-      v8 = 2080;
-      v9 = "FCCurrentAudioContentFetchOperation.m";
-      v10 = 1024;
-      v11 = 73;
-      v12 = 2114;
-      v13 = v4;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+      v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current magazine content fetch operation requires a context"];
+      v5 = 136315906;
+      v6 = "[FCCurrentAudioContentFetchOperation validateOperation]";
+      v7 = 2080;
+      v8 = "FCCurrentAudioContentFetchOperation.m";
+      v9 = 1024;
+      v10 = 73;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
 
       LOBYTE(v2) = 0;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -151,7 +150,7 @@ uint64_t __55__FCCurrentAudioContentFetchOperation_performOperation__block_invok
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -193,13 +192,13 @@ LABEL_6:
         featuredHeadlines = v12->_featuredHeadlines;
 LABEL_9:
         v15 = featuredHeadlines;
-        v25 = 138543874;
-        v26 = shortOperationDescription;
-        v27 = 2048;
-        v28 = v11;
-        v29 = 2048;
-        v30 = [(NSArray *)v15 count];
-        _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ finished with %lu recent headlines, %lu featured headlines", &v25, 0x20u);
+        v24 = 138543874;
+        v25 = shortOperationDescription;
+        v26 = 2048;
+        v27 = v11;
+        v28 = 2048;
+        v29 = [(NSArray *)v15 count];
+        _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ finished with %lu recent headlines, %lu featured headlines", &v24, 0x20u);
 
         goto LABEL_10;
       }
@@ -258,8 +257,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_promiseConfiguration
@@ -293,7 +290,7 @@ LABEL_18:
 
 void __72__FCCurrentAudioContentFetchOperation__promiseContentWithConfiguration___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(FCRecordChainFetchOperation);
@@ -311,57 +308,55 @@ void __72__FCCurrentAudioContentFetchOperation__promiseContentWithConfiguration_
 
   [(FCRecordChainFetchOperation *)v7 setContext:v10];
   v11 = [*(a1 + 40) audioConfigRecordID];
-  v40[0] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+  v39[0] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
   [(FCRecordChainFetchOperation *)v8 setTopLevelRecordIDs:v12];
 
-  v38[0] = @"AudioConfig";
-  v37[0] = @"latestAudioArticleListID";
-  v37[1] = @"featuredAudioArticleListID";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
-  v39[0] = v13;
-  v38[1] = @"ArticleList";
-  v36 = @"articleIDs";
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
-  v39[1] = v14;
-  v38[2] = @"Article";
-  v35[0] = @"sourceChannelTagID";
-  v35[1] = @"parentIssueID";
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
-  v39[2] = v15;
-  v39[3] = MEMORY[0x1E695E0F0];
-  v38[3] = @"Tag";
-  v38[4] = @"Issue";
-  v39[4] = MEMORY[0x1E695E0F0];
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:5];
+  v37[0] = @"AudioConfig";
+  v36[0] = @"latestAudioArticleListID";
+  v36[1] = @"featuredAudioArticleListID";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+  v38[0] = v13;
+  v37[1] = @"ArticleList";
+  v35 = @"articleIDs";
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+  v38[1] = v14;
+  v37[2] = @"Article";
+  v34[0] = @"sourceChannelTagID";
+  v34[1] = @"parentIssueID";
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+  v38[2] = v15;
+  v38[3] = MEMORY[0x1E695E0F0];
+  v37[3] = @"Tag";
+  v37[4] = @"Issue";
+  v38[4] = MEMORY[0x1E695E0F0];
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:5];
   [(FCRecordChainFetchOperation *)v8 setLinkKeysByRecordType:v16];
 
-  v33 = @"AudioConfig";
+  v32 = @"AudioConfig";
   v17 = [FCCachePolicy cachePolicyWithSoftMaxAge:3600.0];
-  v34 = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+  v33 = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
   [(FCRecordChainFetchOperation *)v8 setCachePoliciesByRecordType:v18];
 
   v19 = +[FCEdgeCacheHint edgeCacheHintForAudioContent];
   [(FCRecordChainFetchOperation *)v8 setEdgeCacheHint:v19];
 
-  v25 = MEMORY[0x1E69E9820];
-  v26 = 3221225472;
-  v27 = __72__FCCurrentAudioContentFetchOperation__promiseContentWithConfiguration___block_invoke_2;
-  v28 = &unk_1E7C3B718;
-  v31 = v6;
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __72__FCCurrentAudioContentFetchOperation__promiseContentWithConfiguration___block_invoke_2;
+  v27 = &unk_1E7C3B718;
+  v30 = v6;
   v20 = *(a1 + 40);
   v21 = *(a1 + 32);
-  v29 = v20;
-  v30 = v21;
-  v32 = v5;
+  v28 = v20;
+  v29 = v21;
+  v31 = v5;
   v22 = v5;
   v23 = v6;
-  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:&v25];
-  [*(a1 + 32) associateChildOperation:{v8, v25, v26, v27, v28}];
+  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:&v24];
+  [*(a1 + 32) associateChildOperation:{v8, v24, v25, v26, v27}];
   [(FCOperation *)v8 start];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __72__FCCurrentAudioContentFetchOperation__promiseContentWithConfiguration___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -488,45 +483,45 @@ void __83__FCCurrentAudioContentFetchOperation__promisePlaceholderContentWithCon
 
 void __83__FCCurrentAudioContentFetchOperation__promisePlaceholderContentWithConfiguration___block_invoke_2(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 status])
   {
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __83__FCCurrentAudioContentFetchOperation__promisePlaceholderContentWithConfiguration___block_invoke_3;
-    v26 = &unk_1E7C37778;
-    v28 = *(a1 + 40);
-    v27 = v3;
-    v4 = [v27 error];
-    v28[2](v28, v4);
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = __83__FCCurrentAudioContentFetchOperation__promisePlaceholderContentWithConfiguration___block_invoke_3;
+    v25 = &unk_1E7C37778;
+    v27 = *(a1 + 40);
+    v26 = v3;
+    v4 = [v26 error];
+    v27[2](v27, v4);
 
-    v5 = v28;
+    v5 = v27;
   }
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v6 = [v3 fetchedObject];
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         v10 = 0;
         do
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * v10);
+          v11 = *(*(&v18 + 1) + 8 * v10);
           v12 = [*(a1 + 32) paidBundleConfig];
           v13 = arc4random_uniform([v12 audioSuggestionsMaxAge]);
 
@@ -538,7 +533,7 @@ void __83__FCCurrentAudioContentFetchOperation__promisePlaceholderContentWithCon
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v28 count:16];
       }
 
       while (v8);
@@ -550,8 +545,6 @@ void __83__FCCurrentAudioContentFetchOperation__promisePlaceholderContentWithCon
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __83__FCCurrentAudioContentFetchOperation__promisePlaceholderContentWithConfiguration___block_invoke_3(uint64_t a1)

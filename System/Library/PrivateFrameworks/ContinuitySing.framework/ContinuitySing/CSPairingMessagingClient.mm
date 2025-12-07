@@ -130,14 +130,14 @@ void __35__CSPairingMessagingClient_dealloc__block_invoke(uint64_t a1)
 
     if (localDevice)
     {
-      v9 = ContinuitySingLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = ContinuitySingLog(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 136315394;
-        v19 = "[CSPairingMessagingClient _activateWithCompletion:]";
-        v20 = 2112;
+        v19 = 136315394;
+        v20 = "[CSPairingMessagingClient _activateWithCompletion:]";
+        v21 = 2112;
         selfCopy2 = self;
-        _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: %@ Already active", &v18, 0x16u);
+        _os_log_impl(&dword_2441FB000, v10, OS_LOG_TYPE_DEFAULT, "%s: %@ Already active", &v19, 0x16u);
       }
 
       [(CSPairingMessagingClient *)self _serviceActivationHandlersWithError:0];
@@ -149,70 +149,70 @@ void __35__CSPairingMessagingClient_dealloc__block_invoke(uint64_t a1)
 
   if (activationState)
   {
-    v10 = ContinuitySingLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = ContinuitySingLog(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_activationState];
+      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_activationState];
       localDevice2 = [(RPCompanionLinkClient *)self->_rpClient localDevice];
-      v18 = 136315906;
-      v19 = "[CSPairingMessagingClient _activateWithCompletion:]";
-      v20 = 2112;
+      v19 = 136315906;
+      v20 = "[CSPairingMessagingClient _activateWithCompletion:]";
+      v21 = 2112;
       selfCopy2 = self;
-      v22 = 2112;
-      v23 = v11;
-      v24 = 2112;
-      v25 = localDevice2;
-      _os_log_impl(&dword_2441FB000, v10, OS_LOG_TYPE_DEFAULT, "%s: %@ Nothing to do currently for activation request with state %@ and local device %@", &v18, 0x2Au);
+      v23 = 2112;
+      v24 = v12;
+      v25 = 2112;
+      v26 = localDevice2;
+      _os_log_impl(&dword_2441FB000, v11, OS_LOG_TYPE_DEFAULT, "%s: %@ Nothing to do currently for activation request with state %@ and local device %@", &v19, 0x2Au);
     }
   }
 
   else
   {
     self->_activationState = 1;
-    v13 = objc_alloc_init(MEMORY[0x277D44160]);
+    v14 = objc_alloc_init(MEMORY[0x277D44160]);
     rpClient = self->_rpClient;
-    self->_rpClient = v13;
+    self->_rpClient = v14;
 
     [(RPCompanionLinkClient *)self->_rpClient setControlFlags:[(RPCompanionLinkClient *)self->_rpClient controlFlags]| 0x18000000240CLL];
     [(RPCompanionLinkClient *)self->_rpClient setFlags:[(RPCompanionLinkClient *)self->_rpClient flags]| 1];
     [(RPCompanionLinkClient *)self->_rpClient setDispatchQueue:self->_internalQueue];
-    v15 = self->_rpClient;
-    v34 = *MEMORY[0x277D44260];
-    v35 = MEMORY[0x277CBEC38];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-    [(RPCompanionLinkClient *)v15 registerRequestID:@"com.apple.CSPingRequestID" options:v16 handler:&__block_literal_global_12];
+    v16 = self->_rpClient;
+    v35 = *MEMORY[0x277D44260];
+    v36 = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    [(RPCompanionLinkClient *)v16 registerRequestID:@"com.apple.CSPingRequestID" options:v17 handler:&__block_literal_global_12];
 
-    objc_initWeak(&v18, self);
-    v17 = self->_rpClient;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_17;
-    v32[3] = &unk_278E0BC30;
-    objc_copyWeak(&v33, &v18);
-    [(RPCompanionLinkClient *)v17 activateWithCompletion:v32];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_19;
-    v30[3] = &unk_278E0AF60;
-    objc_copyWeak(&v31, &v18);
-    [(RPCompanionLinkClient *)self->_rpClient setLocalDeviceUpdatedHandler:v30];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_2;
-    v28[3] = &unk_278E0AF60;
-    objc_copyWeak(&v29, &v18);
-    [(RPCompanionLinkClient *)self->_rpClient setDeviceFoundHandler:v28];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_3;
-    v26[3] = &unk_278E0BC58;
-    objc_copyWeak(&v27, &v18);
-    [(RPCompanionLinkClient *)self->_rpClient setDeviceChangedHandler:v26];
-    objc_destroyWeak(&v27);
-    objc_destroyWeak(&v29);
-    objc_destroyWeak(&v31);
-    objc_destroyWeak(&v33);
-    objc_destroyWeak(&v18);
+    objc_initWeak(&v19, self);
+    v18 = self->_rpClient;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_17;
+    v33[3] = &unk_278E0BC30;
+    objc_copyWeak(&v34, &v19);
+    [(RPCompanionLinkClient *)v18 activateWithCompletion:v33];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_19;
+    v31[3] = &unk_278E0AF60;
+    objc_copyWeak(&v32, &v19);
+    [(RPCompanionLinkClient *)self->_rpClient setLocalDeviceUpdatedHandler:v31];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_2;
+    v29[3] = &unk_278E0AF60;
+    objc_copyWeak(&v30, &v19);
+    [(RPCompanionLinkClient *)self->_rpClient setDeviceFoundHandler:v29];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_3;
+    v27[3] = &unk_278E0BC58;
+    objc_copyWeak(&v28, &v19);
+    [(RPCompanionLinkClient *)self->_rpClient setDeviceChangedHandler:v27];
+    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v19);
   }
 
 LABEL_12:
@@ -222,7 +222,7 @@ void __52__CSPairingMessagingClient__activateWithCompletion___block_invoke(uint6
 {
   v5 = a3;
   v6 = a4;
-  v7 = ContinuitySingLog();
+  v7 = ContinuitySingLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -253,7 +253,7 @@ void __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_17(ui
     WeakRetained[5] = (2 * (v3 == 0));
     if (v3 || ([WeakRetained[2] localDevice], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
     {
-      v7 = ContinuitySingLog();
+      v7 = ContinuitySingLog(WeakRetained);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = 136315650;
@@ -326,35 +326,34 @@ void __52__CSPairingMessagingClient__activateWithCompletion___block_invoke_3(uin
 
 void __64__CSPairingMessagingClient__serviceActivationHandlersWithError___block_invoke(uint64_t a1)
 {
-  v11 = 0u;
-  v12 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v8 count:16];
-  if (v3)
+  v7 = 0u;
+  v8 = 0u;
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v6 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v10;
+    v3 = v2;
+    v4 = *v8;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v8 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        (*(*(*(&v9 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v7 + 1) + 8 * v5++) + 16))();
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v8 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v7 objects:v6 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
 }
 
@@ -371,7 +370,7 @@ void __64__CSPairingMessagingClient__serviceActivationHandlersWithError___block_
 
 void __38__CSPairingMessagingClient_invalidate__block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
@@ -535,7 +534,7 @@ LABEL_11:
 
   else
   {
-    v16 = ContinuitySingLog();
+    v16 = ContinuitySingLog(0);
     v17 = v16;
     if (attempts < 2)
     {
@@ -588,7 +587,7 @@ LABEL_11:
 void __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_password_attempts_completion___block_invoke_23(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(WeakRetained);
   v4 = v3;
   if (WeakRetained)
   {
@@ -611,7 +610,7 @@ void __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_passwo
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_password_attempts_completion___block_invoke_23_cold_1(a1);
+      __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_password_attempts_completion___block_invoke_23_cold_1();
     }
 
     v6 = *(a1 + 48);
@@ -641,35 +640,35 @@ void __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_passwo
     v15 = 1;
   }
 
-  v16 = ContinuitySingLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = ContinuitySingLog(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = [MEMORY[0x277CCABB0] numberWithBool:v11 == 0];
-    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(neededCopy, "statusFlags")}];
-    v22 = 136315906;
-    v23 = "[CSPairingMessagingClient _pairWithDeviceIfNeeded:password:completion:]";
-    v24 = 2112;
-    v25 = neededCopy;
+    v18 = [MEMORY[0x277CCABB0] numberWithBool:v11 == 0];
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(neededCopy, "statusFlags")}];
+    v24 = 136315906;
+    v25 = "[CSPairingMessagingClient _pairWithDeviceIfNeeded:password:completion:]";
     v26 = 2112;
-    v27 = v17;
+    v27 = neededCopy;
     v28 = 2112;
     v29 = v18;
-    _os_log_impl(&dword_2441FB000, v16, OS_LOG_TYPE_DEFAULT, "%s: Device %@ needs to pair? %@; status: %@", &v22, 0x2Au);
+    v30 = 2112;
+    v31 = v19;
+    _os_log_impl(&dword_2441FB000, v17, OS_LOG_TYPE_DEFAULT, "%s: Device %@ needs to pair? %@; status: %@", &v24, 0x2Au);
   }
 
-  v19 = ContinuitySingLog();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+  v21 = ContinuitySingLog(v20);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
   if (v11)
   {
     if (v15)
     {
-      if (v20)
+      if (v22)
       {
-        v22 = 136315394;
-        v23 = "[CSPairingMessagingClient _pairWithDeviceIfNeeded:password:completion:]";
-        v24 = 2112;
-        v25 = neededCopy;
-        _os_log_impl(&dword_2441FB000, v19, OS_LOG_TYPE_DEFAULT, "%s: Need to ping device for info %@", &v22, 0x16u);
+        v24 = 136315394;
+        v25 = "[CSPairingMessagingClient _pairWithDeviceIfNeeded:password:completion:]";
+        v26 = 2112;
+        v27 = neededCopy;
+        _os_log_impl(&dword_2441FB000, v21, OS_LOG_TYPE_DEFAULT, "%s: Need to ping device for info %@", &v24, 0x16u);
       }
 
       [(CSPairingMessagingClient *)self _sendPingToDevice:neededCopy completion:completionCopy];
@@ -677,29 +676,29 @@ void __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_passwo
 
     else
     {
-      if (v20)
+      if (v22)
       {
-        v22 = 136315394;
-        v23 = "[CSPairingMessagingClient _pairWithDeviceIfNeeded:password:completion:]";
-        v24 = 2112;
-        v25 = neededCopy;
-        _os_log_impl(&dword_2441FB000, v19, OS_LOG_TYPE_DEFAULT, "%s: Device already paired %@", &v22, 0x16u);
+        v24 = 136315394;
+        v25 = "[CSPairingMessagingClient _pairWithDeviceIfNeeded:password:completion:]";
+        v26 = 2112;
+        v27 = neededCopy;
+        _os_log_impl(&dword_2441FB000, v21, OS_LOG_TYPE_DEFAULT, "%s: Device already paired %@", &v24, 0x16u);
       }
 
-      v21 = [[CSPairingDevice alloc] initWithRPCompanionLinkDevice:neededCopy];
-      completionCopy[2](completionCopy, v21, 0);
+      v23 = [[CSPairingDevice alloc] initWithRPCompanionLinkDevice:neededCopy];
+      completionCopy[2](completionCopy, v23, 0);
     }
   }
 
   else
   {
-    if (v20)
+    if (v22)
     {
-      v22 = 136315394;
-      v23 = "[CSPairingMessagingClient _pairWithDeviceIfNeeded:password:completion:]";
-      v24 = 2112;
-      v25 = neededCopy;
-      _os_log_impl(&dword_2441FB000, v19, OS_LOG_TYPE_DEFAULT, "%s: Requesting to pair with %@", &v22, 0x16u);
+      v24 = 136315394;
+      v25 = "[CSPairingMessagingClient _pairWithDeviceIfNeeded:password:completion:]";
+      v26 = 2112;
+      v27 = neededCopy;
+      _os_log_impl(&dword_2441FB000, v21, OS_LOG_TYPE_DEFAULT, "%s: Requesting to pair with %@", &v24, 0x16u);
     }
 
     [(CSPairingMessagingClient *)self _pairWithDevice:neededCopy password:passwordCopy completion:completionCopy];
@@ -714,144 +713,144 @@ void __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_passwo
   dispatch_assert_queue_V2(self->_internalQueue);
   if (!passwordCopy)
   {
-    v19 = ContinuitySingLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = ContinuitySingLog(v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [CSPairingMessagingClient _pairWithDevice:password:completion:];
     }
 
-    v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v17 = CSPairingErrorDomain;
-    v18 = 4;
+    v17 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v18 = CSPairingErrorDomain;
+    v19 = 4;
     goto LABEL_9;
   }
 
   p_pairingClient = &self->_pairingClient;
   pairingClient = self->_pairingClient;
-  v13 = ContinuitySingLog();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  v14 = ContinuitySingLog(v11);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (pairingClient)
   {
-    if (v14)
+    if (v15)
     {
       destinationDevice = [(RPCompanionLinkClient *)*p_pairingClient destinationDevice];
       *buf = 136315394;
       *&buf[4] = "[CSPairingMessagingClient _pairWithDevice:password:completion:]";
       *&buf[12] = 2112;
       *&buf[14] = destinationDevice;
-      _os_log_impl(&dword_2441FB000, v13, OS_LOG_TYPE_DEFAULT, "%s: Pairing in progress with %@", buf, 0x16u);
+      _os_log_impl(&dword_2441FB000, v14, OS_LOG_TYPE_DEFAULT, "%s: Pairing in progress with %@", buf, 0x16u);
     }
 
-    v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v17 = CSPairingErrorDomain;
-    v18 = 0;
+    v17 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v18 = CSPairingErrorDomain;
+    v19 = 0;
 LABEL_9:
-    v20 = [v16 initWithDomain:v17 code:v18 userInfo:0];
-    completionCopy[2](completionCopy, 0, v20);
+    v21 = [v17 initWithDomain:v18 code:v19 userInfo:0];
+    completionCopy[2](completionCopy, 0, v21);
 
     goto LABEL_13;
   }
 
-  if (v14)
+  if (v15)
   {
     *buf = 136315394;
     *&buf[4] = "[CSPairingMessagingClient _pairWithDevice:password:completion:]";
     *&buf[12] = 2112;
     *&buf[14] = deviceCopy;
-    _os_log_impl(&dword_2441FB000, v13, OS_LOG_TYPE_DEFAULT, "%s: Pair with %@", buf, 0x16u);
+    _os_log_impl(&dword_2441FB000, v14, OS_LOG_TYPE_DEFAULT, "%s: Pair with %@", buf, 0x16u);
   }
 
   objc_initWeak(location, self);
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v69 = 0;
-  v21 = self->_callbackQueue;
+  v70 = 0;
+  v22 = self->_callbackQueue;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke;
   aBlock[3] = &unk_278E0BCD0;
-  v41 = v21;
-  v64 = v41;
-  v66 = buf;
-  objc_copyWeak(&v67, location);
-  v65 = completionCopy;
-  v22 = _Block_copy(aBlock);
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_3;
-  v60[3] = &unk_278E0BCF8;
-  v23 = deviceCopy;
-  v61 = v23;
-  v24 = v22;
+  v42 = v22;
+  v65 = v42;
+  v67 = buf;
+  objc_copyWeak(&v68, location);
+  v66 = completionCopy;
+  v23 = _Block_copy(aBlock);
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_3;
+  v61[3] = &unk_278E0BCF8;
+  v24 = deviceCopy;
   v62 = v24;
-  v25 = _Block_copy(v60);
-  v26 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_internalQueue);
+  v25 = v23;
+  v63 = v25;
+  v26 = _Block_copy(v61);
+  v27 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_internalQueue);
   pairingTimer = self->_pairingTimer;
-  self->_pairingTimer = v26;
+  self->_pairingTimer = v27;
 
-  v28 = self->_pairingTimer;
-  v29 = dispatch_time(0, 15000000000);
-  dispatch_source_set_timer(v28, v29, 0xFFFFFFFFFFFFFFFFLL, 0);
-  v30 = self->_pairingTimer;
+  v29 = self->_pairingTimer;
+  v30 = dispatch_time(0, 15000000000);
+  dispatch_source_set_timer(v29, v30, 0xFFFFFFFFFFFFFFFFLL, 0);
+  v31 = self->_pairingTimer;
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_27;
   handler[3] = &unk_278E0BD20;
-  v31 = v23;
-  v56 = v31;
-  objc_copyWeak(&v59, location);
-  v32 = v25;
+  v32 = v24;
   v57 = v32;
-  v33 = v24;
+  objc_copyWeak(&v60, location);
+  v33 = v26;
   v58 = v33;
-  dispatch_source_set_event_handler(v30, handler);
+  v34 = v25;
+  v59 = v34;
+  dispatch_source_set_event_handler(v31, handler);
   dispatch_resume(self->_pairingTimer);
-  v34 = objc_alloc_init(MEMORY[0x277D44160]);
-  [v34 setDispatchQueue:self->_internalQueue];
-  [v34 setDestinationDevice:v31];
-  [v34 setServiceType:@"com.apple.ContinuitySingPairing"];
-  [v34 setFlags:1];
-  [v34 setControlFlags:{-[RPCompanionLinkClient controlFlags](self->_rpClient, "controlFlags")}];
-  [v34 setPasswordType:7];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_31;
-  v51[3] = &unk_278E0BD48;
-  objc_copyWeak(&v54, location);
-  v35 = v33;
-  v53 = v35;
-  v52 = passwordCopy;
-  [v34 setPromptForPasswordHandler:v51];
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_33;
-  v48[3] = &unk_278E0BD70;
-  v36 = v35;
-  v50 = v36;
-  v37 = v31;
-  v49 = v37;
-  [v34 setAuthCompletionHandler:v48];
-  objc_storeStrong(p_pairingClient, v34);
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_34;
-  v42[3] = &unk_278E0BDC0;
-  objc_copyWeak(&v47, location);
-  v38 = v36;
-  v45 = v38;
-  v39 = v32;
+  v35 = objc_alloc_init(MEMORY[0x277D44160]);
+  [v35 setDispatchQueue:self->_internalQueue];
+  [v35 setDestinationDevice:v32];
+  [v35 setServiceType:@"com.apple.ContinuitySingPairing"];
+  [v35 setFlags:1];
+  [v35 setControlFlags:{-[RPCompanionLinkClient controlFlags](self->_rpClient, "controlFlags")}];
+  [v35 setPasswordType:7];
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_31;
+  v52[3] = &unk_278E0BD48;
+  objc_copyWeak(&v55, location);
+  v36 = v34;
+  v54 = v36;
+  v53 = passwordCopy;
+  [v35 setPromptForPasswordHandler:v52];
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_33;
+  v49[3] = &unk_278E0BD70;
+  v37 = v36;
+  v51 = v37;
+  v38 = v32;
+  v50 = v38;
+  [v35 setAuthCompletionHandler:v49];
+  objc_storeStrong(p_pairingClient, v35);
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_34;
+  v43[3] = &unk_278E0BDC0;
+  objc_copyWeak(&v48, location);
+  v39 = v37;
   v46 = v39;
-  v40 = v34;
-  v43 = v40;
-  v44 = v37;
-  [v40 activateWithCompletion:v42];
+  v40 = v33;
+  v47 = v40;
+  v41 = v35;
+  v44 = v41;
+  v45 = v38;
+  [v41 activateWithCompletion:v43];
 
-  objc_destroyWeak(&v47);
-  objc_destroyWeak(&v54);
+  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v55);
 
-  objc_destroyWeak(&v59);
-  objc_destroyWeak(&v67);
+  objc_destroyWeak(&v60);
+  objc_destroyWeak(&v68);
 
   _Block_object_dispose(buf, 8);
   objc_destroyWeak(location);
@@ -892,8 +891,6 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
       [WeakRetained _endPairingClient];
     }
 
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 }
@@ -912,37 +909,38 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
     v9 = [(CSPairingDevice *)v4 mediaRouteIdentifier];
     v10 = [v8 isEqualToString:v9];
 
-    v11 = [(CSPairingDevice *)v3 statusFlags]& 0x500008A000;
-    v12 = ContinuitySingLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = [(CSPairingDevice *)v3 statusFlags];
+    v12 = v11 & 0x500008A000;
+    v13 = ContinuitySingLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
-      v14 = [MEMORY[0x277CCABB0] numberWithBool:v11 != 0];
-      v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(*(a1 + 32), "statusFlags")}];
-      v18 = 136315906;
-      v19 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke_3";
-      v20 = 2112;
-      v21 = v13;
+      v14 = *(a1 + 32);
+      v15 = [MEMORY[0x277CCABB0] numberWithBool:v12 != 0];
+      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(*(a1 + 32), "statusFlags")}];
+      v20 = 136315906;
+      v21 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke_3";
       v22 = 2112;
       v23 = v14;
       v24 = 2112;
       v25 = v15;
-      _os_log_impl(&dword_2441FB000, v12, OS_LOG_TYPE_DEFAULT, "%s: Found waiting for pairing device %@; paired: %@, status: %@", &v18, 0x2Au);
+      v26 = 2112;
+      v27 = v16;
+      _os_log_impl(&dword_2441FB000, v13, OS_LOG_TYPE_DEFAULT, "%s: Found waiting for pairing device %@; paired: %@, status: %@", &v20, 0x2Au);
     }
 
     if (!(v10 & 1 | ((v7 & 1) == 0)))
     {
-      v16 = ContinuitySingLog();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-      if (v11)
+      v18 = ContinuitySingLog(v17);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+      if (v12)
       {
-        if (v17)
+        if (v19)
         {
-          v18 = 136315394;
-          v19 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke";
-          v20 = 2112;
-          v21 = v4;
-          _os_log_impl(&dword_2441FB000, v16, OS_LOG_TYPE_DEFAULT, "%s: New paired device found: %@", &v18, 0x16u);
+          v20 = 136315394;
+          v21 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke";
+          v22 = 2112;
+          v23 = v4;
+          _os_log_impl(&dword_2441FB000, v18, OS_LOG_TYPE_DEFAULT, "%s: New paired device found: %@", &v20, 0x16u);
         }
 
         (*(*(a1 + 40) + 16))();
@@ -950,13 +948,13 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
 
       else
       {
-        if (v17)
+        if (v19)
         {
-          v18 = 136315394;
-          v19 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke";
-          v20 = 2112;
-          v21 = v3;
-          _os_log_impl(&dword_2441FB000, v16, OS_LOG_TYPE_DEFAULT, "%s: Device found, but missing paired flag, waiting for fully paired device: %@", &v18, 0x16u);
+          v20 = 136315394;
+          v21 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke";
+          v22 = 2112;
+          v23 = v3;
+          _os_log_impl(&dword_2441FB000, v18, OS_LOG_TYPE_DEFAULT, "%s: Device found, but missing paired flag, waiting for fully paired device: %@", &v20, 0x16u);
         }
       }
     }
@@ -965,10 +963,10 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
 
 void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_27(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_27_cold_1(a1);
+    __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_27_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -989,56 +987,57 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
 void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_31(uint64_t a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v5 = WeakRetained;
   if ((a2 & 0x10000) != 0)
   {
-    v8 = ContinuitySingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ContinuitySingLog(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_31_cold_1(v8);
+      __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_31_cold_1(v9);
     }
 
-    v9 = *(a1 + 40);
-    v10 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v11 = CSPairingErrorDomain;
-    v12 = 4;
+    v10 = *(a1 + 40);
+    v11 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v12 = CSPairingErrorDomain;
+    v13 = 4;
     goto LABEL_12;
   }
 
-  v5 = ContinuitySingLog();
-  v6 = v5;
-  if (!WeakRetained)
+  v6 = ContinuitySingLog(WeakRetained);
+  v7 = v6;
+  if (!v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_31_cold_2(v6);
+      __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_31_cold_2(v7);
     }
 
-    v9 = *(a1 + 40);
-    v10 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v11 = CSPairingErrorDomain;
-    v12 = 0;
+    v10 = *(a1 + 40);
+    v11 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v12 = CSPairingErrorDomain;
+    v13 = 0;
 LABEL_12:
-    v7 = [v10 initWithDomain:v11 code:v12 userInfo:0];
-    (*(v9 + 16))(v9, 0, v7);
+    v8 = [v11 initWithDomain:v12 code:v13 userInfo:0];
+    (*(v10 + 16))(v10, 0, v8);
     goto LABEL_13;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke";
-    _os_log_impl(&dword_2441FB000, v6, OS_LOG_TYPE_DEFAULT, "%s: Enter password to pair", &v13, 0xCu);
+    v14 = 136315138;
+    v15 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke";
+    _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, "%s: Enter password to pair", &v14, 0xCu);
   }
 
-  v7 = [WeakRetained pairingClient];
-  [v7 tryPassword:*(a1 + 32)];
+  v8 = [v5 pairingClient];
+  [v8 tryPassword:*(a1 + 32)];
 LABEL_13:
 }
 
 void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_33(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -1071,8 +1070,8 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
   v5 = WeakRetained;
   if (v3 || !WeakRetained)
   {
-    v11 = ContinuitySingLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = ContinuitySingLog(WeakRetained);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_34_cold_1();
     }
@@ -1086,7 +1085,7 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
     aBlock[1] = 3221225472;
     aBlock[2] = __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_35;
     aBlock[3] = &unk_278E0BD98;
-    v17 = *(a1 + 56);
+    v18 = *(a1 + 56);
     v6 = _Block_copy(aBlock);
     v7 = v5[9];
     v5[9] = v6;
@@ -1095,14 +1094,14 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
     v8 = [*(a1 + 40) mediaRouteIdentifier];
     v9 = [v5 deviceForMediaRouteIdentifier:v8];
 
-    v10 = ContinuitySingLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = ContinuitySingLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315394;
-      v13 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_2441FB000, v10, OS_LOG_TYPE_DEFAULT, "%s: Pairing completed with rpDevice %@", &v12, 0x16u);
+      v13 = 136315394;
+      v14 = "[CSPairingMessagingClient _pairWithDevice:password:completion:]_block_invoke";
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_2441FB000, v11, OS_LOG_TYPE_DEFAULT, "%s: Pairing completed with rpDevice %@", &v13, 0x16u);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -1112,7 +1111,7 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
 void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_35(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;
@@ -1189,7 +1188,7 @@ uint64_t __57__CSPairingMessagingClient__sendPingToDevice_completion___block_inv
 void __57__CSPairingMessagingClient__sendPingToDevice_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -1237,10 +1236,11 @@ void __57__CSPairingMessagingClient__sendPingToDevice_completion___block_invoke_
 {
   v6 = a3;
   v7 = a4;
+  v8 = v7;
   if (v7)
   {
-    v8 = ContinuitySingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ContinuitySingLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __57__CSPairingMessagingClient__sendPingToDevice_completion___block_invoke_37_cold_1();
     }
@@ -1251,37 +1251,36 @@ void __57__CSPairingMessagingClient__sendPingToDevice_completion___block_invoke_
 
   else
   {
-    v9 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442C0]];
-    v10 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442D0]];
-    v11 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442E0]];
-    v12 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442A8]];
-    v13 = *MEMORY[0x277D442E8];
-    v14 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442E8]];
-    if (v14)
+    v10 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442C0]];
+    v11 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442D0]];
+    v12 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442E0]];
+    v13 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442A8]];
+    v14 = *MEMORY[0x277D442E8];
+    v15 = [v6 objectForKeyedSubscript:*MEMORY[0x277D442E8]];
+    if (v15)
     {
-      v15 = [v6 objectForKeyedSubscript:v13];
-      v16 = [v15 unsignedIntValue];
+      v16 = [v6 objectForKeyedSubscript:v14];
+      v17 = [v16 unsignedIntValue];
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    v17 = objc_alloc_init(CSPairingDevice);
-    [(CSPairingDevice *)v17 setName:v9];
-    [(CSPairingDevice *)v17 setIdsDeviceIdentifier:v10];
-    [(CSPairingDevice *)v17 setSessionPairingIdentifier:v11];
-    [(CSPairingDevice *)v17 setPeerVerifiedIdentifier:v12];
-    [(CSPairingDevice *)v17 setStatusFlags:v16];
-    v18 = ContinuitySingLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v18 = objc_alloc_init(CSPairingDevice);
+    [(CSPairingDevice *)v18 setName:v10];
+    [(CSPairingDevice *)v18 setIdsDeviceIdentifier:v11];
+    [(CSPairingDevice *)v18 setSessionPairingIdentifier:v12];
+    [(CSPairingDevice *)v18 setPeerVerifiedIdentifier:v13];
+    v19 = ContinuitySingLog([(CSPairingDevice *)v18 setStatusFlags:v17]);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315394;
-      v20 = "[CSPairingMessagingClient _sendPingToDevice:completion:]_block_invoke";
-      v21 = 2112;
-      v22 = v17;
-      _os_log_impl(&dword_2441FB000, v18, OS_LOG_TYPE_DEFAULT, "%s: Received ack from: %@", &v19, 0x16u);
+      v20 = 136315394;
+      v21 = "[CSPairingMessagingClient _sendPingToDevice:completion:]_block_invoke";
+      v22 = 2112;
+      v23 = v18;
+      _os_log_impl(&dword_2441FB000, v19, OS_LOG_TYPE_DEFAULT, "%s: Received ack from: %@", &v20, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1311,60 +1310,61 @@ void __57__CSPairingMessagingClient__sendPingToDevice_completion___block_invoke_
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_internalQueue);
   v10 = [(CSPairingMessagingClient *)self deviceForRemoteDisplayIdentifier:identiferCopy];
+  v11 = v10;
   if (v10)
   {
     if (self->_pendingGroupSessionTokenCompletionHandlers)
     {
-      v11 = ContinuitySingLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = ContinuitySingLog(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v39 = "[CSPairingMessagingClient _requestGroupSessionTokenFromIdentifer:attempts:completion:]";
-        _os_log_impl(&dword_2441FB000, v11, OS_LOG_TYPE_DEFAULT, "%s: Pending request in progress, add to pending completions", buf, 0xCu);
+        v40 = "[CSPairingMessagingClient _requestGroupSessionTokenFromIdentifer:attempts:completion:]";
+        _os_log_impl(&dword_2441FB000, v12, OS_LOG_TYPE_DEFAULT, "%s: Pending request in progress, add to pending completions", buf, 0xCu);
       }
 
       pendingGroupSessionTokenCompletionHandlers = self->_pendingGroupSessionTokenCompletionHandlers;
-      v13 = _Block_copy(completionCopy);
-      [(NSMutableArray *)pendingGroupSessionTokenCompletionHandlers addObject:v13];
+      v14 = _Block_copy(completionCopy);
+      [(NSMutableArray *)pendingGroupSessionTokenCompletionHandlers addObject:v14];
 
       goto LABEL_15;
     }
 
     array = [MEMORY[0x277CBEB18] array];
-    v19 = self->_pendingGroupSessionTokenCompletionHandlers;
+    v20 = self->_pendingGroupSessionTokenCompletionHandlers;
     self->_pendingGroupSessionTokenCompletionHandlers = array;
 
     if (completionCopy)
     {
-      v20 = self->_pendingGroupSessionTokenCompletionHandlers;
-      v21 = _Block_copy(completionCopy);
-      [(NSMutableArray *)v20 addObject:v21];
+      v21 = self->_pendingGroupSessionTokenCompletionHandlers;
+      v22 = _Block_copy(completionCopy);
+      [(NSMutableArray *)v21 addObject:v22];
     }
 
-    v22 = objc_alloc_init(MEMORY[0x277D44160]);
-    [v22 setDestinationDevice:v10];
-    [v22 setControlFlags:{-[RPCompanionLinkClient controlFlags](self->_rpClient, "controlFlags")}];
-    [v22 setFlags:{-[RPCompanionLinkClient flags](self->_rpClient, "flags")}];
+    v23 = objc_alloc_init(MEMORY[0x277D44160]);
+    [v23 setDestinationDevice:v11];
+    [v23 setControlFlags:{-[RPCompanionLinkClient controlFlags](self->_rpClient, "controlFlags")}];
+    [v23 setFlags:{-[RPCompanionLinkClient flags](self->_rpClient, "flags")}];
     objc_initWeak(buf, self);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_39;
     aBlock[3] = &unk_278E0BE88;
-    objc_copyWeak(&v33, buf);
-    v23 = _Block_copy(aBlock);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_2;
-    v27[3] = &unk_278E0BEB0;
-    v28 = identiferCopy;
-    v24 = v22;
-    v29 = v24;
+    objc_copyWeak(&v34, buf);
+    v24 = _Block_copy(aBlock);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_2;
+    v28[3] = &unk_278E0BEB0;
+    v29 = identiferCopy;
     v25 = v23;
-    v31 = v25;
-    v30 = v10;
-    [v24 activateWithCompletion:v27];
+    v30 = v25;
+    v26 = v24;
+    v32 = v26;
+    v31 = v11;
+    [v25 activateWithCompletion:v28];
 
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v34);
     objc_destroyWeak(buf);
 LABEL_14:
 
@@ -1373,41 +1373,41 @@ LABEL_14:
 
   if (attempts < 2)
   {
-    v26 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v24 = [v26 initWithDomain:CSPairingErrorDomain code:3 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v24);
+    v27 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v25 = [v27 initWithDomain:CSPairingErrorDomain code:3 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v25);
     goto LABEL_14;
   }
 
-  v14 = (attempts - 1);
-  v15 = ContinuitySingLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = (attempts - 1);
+  v16 = ContinuitySingLog(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v39 = "[CSPairingMessagingClient _requestGroupSessionTokenFromIdentifer:attempts:completion:]";
-    v40 = 2112;
-    v41 = identiferCopy;
-    v42 = 2048;
-    v43 = 0x4000000000000000;
-    v44 = 2048;
-    v45 = v14;
-    _os_log_impl(&dword_2441FB000, v15, OS_LOG_TYPE_DEFAULT, "%s: Device with remoteDisplayIdentifier %@ not found. Waiting %fs and trying again %zu more times", buf, 0x2Au);
+    v40 = "[CSPairingMessagingClient _requestGroupSessionTokenFromIdentifer:attempts:completion:]";
+    v41 = 2112;
+    v42 = identiferCopy;
+    v43 = 2048;
+    v44 = 0x4000000000000000;
+    v45 = 2048;
+    v46 = v15;
+    _os_log_impl(&dword_2441FB000, v16, OS_LOG_TYPE_DEFAULT, "%s: Device with remoteDisplayIdentifier %@ not found. Waiting %fs and trying again %zu more times", buf, 0x2Au);
   }
 
   objc_initWeak(buf, self);
-  v16 = dispatch_time(0, 2000000000);
+  v17 = dispatch_time(0, 2000000000);
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke;
   block[3] = &unk_278E0BE60;
-  objc_copyWeak(v37, buf);
-  v35 = identiferCopy;
-  v37[1] = v14;
-  v36 = completionCopy;
-  dispatch_after(v16, internalQueue, block);
+  objc_copyWeak(v38, buf);
+  v36 = identiferCopy;
+  v38[1] = v15;
+  v37 = completionCopy;
+  dispatch_after(v17, internalQueue, block);
 
-  objc_destroyWeak(v37);
+  objc_destroyWeak(v38);
   objc_destroyWeak(buf);
 LABEL_15:
 }
@@ -1415,7 +1415,7 @@ LABEL_15:
 void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(WeakRetained);
   v4 = v3;
   if (WeakRetained)
   {
@@ -1438,7 +1438,7 @@ void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attem
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_cold_1(a1);
+      __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_cold_1();
     }
 
     v6 = *(a1 + 40);
@@ -1463,13 +1463,13 @@ void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attem
 void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_2_cold_1(a1);
+      __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_2_cold_1();
     }
 
     [*(a1 + 40) invalidate];
@@ -1509,10 +1509,11 @@ void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attem
 {
   v6 = a2;
   v7 = a4;
+  v8 = v7;
   if (v7)
   {
-    v8 = ContinuitySingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ContinuitySingLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_42_cold_1();
     }
@@ -1523,21 +1524,21 @@ void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attem
 
   else
   {
-    v9 = [[CSGroupSessionTokenResponse alloc] initWithMessage:v6];
-    v10 = ContinuitySingLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = [[CSGroupSessionTokenResponse alloc] initWithMessage:v6];
+    v11 = ContinuitySingLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [(CSGroupSessionTokenResponse *)v9 urlString];
-      v14 = 136315394;
-      v15 = "[CSPairingMessagingClient _requestGroupSessionTokenFromIdentifer:attempts:completion:]_block_invoke";
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_2441FB000, v10, OS_LOG_TYPE_DEFAULT, "%s: Received group session token: %@", &v14, 0x16u);
+      v12 = [(CSGroupSessionTokenResponse *)v10 urlString];
+      v15 = 136315394;
+      v16 = "[CSPairingMessagingClient _requestGroupSessionTokenFromIdentifer:attempts:completion:]_block_invoke";
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_2441FB000, v11, OS_LOG_TYPE_DEFAULT, "%s: Received group session token: %@", &v15, 0x16u);
     }
 
-    v12 = *(a1 + 40);
-    v13 = [(CSGroupSessionTokenResponse *)v9 urlString];
-    (*(v12 + 16))(v12, v13, 0);
+    v13 = *(a1 + 40);
+    v14 = [(CSGroupSessionTokenResponse *)v10 urlString];
+    (*(v13 + 16))(v13, v14, 0);
   }
 }
 
@@ -1579,36 +1580,34 @@ void __76__CSPairingMessagingClient__completePendingGroupSessionTokenRequests_er
 
 void __76__CSPairingMessagingClient__completePendingGroupSessionTokenRequests_error___block_invoke_2(uint64_t a1)
 {
-  v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v9 count:16];
-  if (v3)
+  v7 = 0u;
+  v8 = 0u;
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v6 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v11;
+    v3 = v2;
+    v4 = *v8;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v8 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        v8 = *(a1 + 48);
-        (*(*(*(&v10 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v7 + 1) + 8 * v5++) + 16))();
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v9 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v7 objects:v6 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
 }
 
@@ -1625,7 +1624,7 @@ void __76__CSPairingMessagingClient__completePendingGroupSessionTokenRequests_er
 
 uint64_t __45__CSPairingMessagingClient__endPairingClient__block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -1644,18 +1643,32 @@ uint64_t __45__CSPairingMessagingClient__endPairingClient__block_invoke(uint64_t
   return [*(a1 + 32) setPendingPairingNearbyDeviceUpdateBlock:0];
 }
 
-void __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_password_attempts_completion___block_invoke_23_cold_1(uint64_t a1)
+- (void)_pairWithMediaRouteIdentifierIfNeeded:password:attempts:completion:.cold.1()
 {
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_2441FB000, v2, v3, "%s: self deallocated when retrying to pair with mediaRouteIdentifier %@", v4, v5, v6, v7, 2u);
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Could not find device with mediaRouteIdentifier %@", v2, v3, v4, v5, v6);
 }
 
-void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_27_cold_1(uint64_t a1)
+void __95__CSPairingMessagingClient__pairWithMediaRouteIdentifierIfNeeded_password_attempts_completion___block_invoke_23_cold_1()
 {
-  v1 = *(a1 + 32);
+  v6 = 136315394;
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_2441FB000, v2, v3, "%s: Pairing timed out for %@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: self deallocated when retrying to pair with mediaRouteIdentifier %@", v2, v3, v4, v5, v6);
+}
+
+- (void)_pairWithDevice:password:completion:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Need a pairing code to pair with %@", v2, v3, v4, v5, v6);
+}
+
+void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_27_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Pairing timed out for %@", v2, v3, v4, v5, v6);
 }
 
 void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_31_cold_1(os_log_t log)
@@ -1672,21 +1685,55 @@ void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_
   _os_log_error_impl(&dword_2441FB000, log, OS_LOG_TYPE_ERROR, "%s: Pairing ended unexpectedly", &v1, 0xCu);
 }
 
-void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_cold_1(uint64_t a1)
+void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_33_cold_1()
 {
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_2441FB000, v2, v3, "%s: self deallocated when retrying to request session from remoteDisplayIdentifier %@", v4, v5, v6, v7, 2u);
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Authentication ended with error: %@", v2, v3, v4, v5, v6);
 }
 
-void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_2_cold_1(uint64_t a1)
+void __64__CSPairingMessagingClient__pairWithDevice_password_completion___block_invoke_34_cold_1()
 {
-  v1 = *(a1 + 32);
-  v5[0] = 136315650;
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Pairing ended with error: %@", v2, v3, v4, v5, v6);
+}
+
+void __57__CSPairingMessagingClient__sendPingToDevice_completion___block_invoke_3_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Error activating client to ping: %@", v2, v3, v4, v5, v6);
+}
+
+void __57__CSPairingMessagingClient__sendPingToDevice_completion___block_invoke_37_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Error sending ping to client: %@", v2, v3, v4, v5, v6);
+}
+
+void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_cold_1()
+{
+  v6 = 136315394;
   OUTLINED_FUNCTION_3();
-  v6 = v2;
-  v7 = v3;
-  _os_log_error_impl(&dword_2441FB000, v4, OS_LOG_TYPE_ERROR, "%s: Error activating client to %@ to request group session token: %@", v5, 0x20u);
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: self deallocated when retrying to request session from remoteDisplayIdentifier %@", v2, v3, v4, v5, v6);
+}
+
+void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_2_cold_1()
+{
+  v3[0] = 136315650;
+  OUTLINED_FUNCTION_3();
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_2441FB000, v2, OS_LOG_TYPE_ERROR, "%s: Error activating client to %@ to request group session token: %@", v3, 0x20u);
+}
+
+void __87__CSPairingMessagingClient__requestGroupSessionTokenFromIdentifer_attempts_completion___block_invoke_42_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Error requesting group session info: %@", v2, v3, v4, v5, v6);
 }
 
 @end

@@ -1,9 +1,19 @@
 @interface IOUserNotificationOption
++ (id)optionWithTitle:(id)title selected:(BOOL)selected;
 - (IOUserNotificationOption)initWithTitle:(id)title selected:(BOOL)selected;
 - (id)description;
 @end
 
 @implementation IOUserNotificationOption
+
++ (id)optionWithTitle:(id)title selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  titleCopy = title;
+  v7 = [[self alloc] initWithTitle:titleCopy selected:selectedCopy];
+
+  return v7;
+}
 
 - (IOUserNotificationOption)initWithTitle:(id)title selected:(BOOL)selected
 {

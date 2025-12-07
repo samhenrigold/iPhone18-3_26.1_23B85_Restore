@@ -25,13 +25,12 @@
 
   if (![(BRCClientPrivilegesDescriptor *)self isNonAppSandboxed])
   {
-    v5 = *MEMORY[0x277D6C230];
-    [(BRCClientPrivilegesDescriptor *)self auditToken];
+    objc_msgSend_auditToken(self);
     if (!TCCAccessCheckAuditToken())
     {
-      v10 = brc_bread_crumbs();
-      v11 = brc_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = brc_bread_crumbs();
+      v10 = brc_default_log();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [BRCClientPrivilegesDescriptor _computeCloudEnabledStatusWithoutLogOutStatus];
       }
@@ -47,13 +46,13 @@
   {
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
     applicationIdentifier2 = [(BRCClientPrivilegesDescriptor *)self applicationIdentifier];
-    v9 = [mEMORY[0x277D262A0] isCloudSyncAllowed:applicationIdentifier2];
+    v8 = [mEMORY[0x277D262A0] isCloudSyncAllowed:applicationIdentifier2];
 
-    if ((v9 & 1) == 0)
+    if ((v8 & 1) == 0)
     {
-      v10 = brc_bread_crumbs();
-      v11 = brc_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = brc_bread_crumbs();
+      v10 = brc_default_log();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [BRCClientPrivilegesDescriptor _computeCloudEnabledStatusWithoutLogOutStatus];
       }
